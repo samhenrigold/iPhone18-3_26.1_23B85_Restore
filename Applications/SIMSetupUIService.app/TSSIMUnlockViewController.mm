@@ -23,6 +23,7 @@
 - (void)simStatusDidChange:(id)change status:(id)status;
 - (void)unlockDetailViewController:(id)controller didCompleteWithResult:(int64_t)result;
 - (void)unlockListViewControllerDidComplete:(id)complete;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -76,6 +77,14 @@
   }
 
   [(TSScreenLockObserver *)self->_screenLockObserver registerForLockNotifications];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = TSSIMUnlockViewController;
+  [(TSSIMUnlockViewController *)&v4 viewDidAppear:appear];
+  dispatch_group_leave(self->_subscriptionInfoAndDidAppearGroup);
 }
 
 - (unint64_t)supportedInterfaceOrientations
@@ -143,30 +152,30 @@
   [_remoteViewControllerProxy setAllowsAlertStacking:1];
   userInfo = [contextCopy userInfo];
 
-  v10 = sub_10000C1BC();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = sub_10000C1BC(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 138412546;
-    v14 = userInfo;
-    v15 = 2080;
-    v16 = "[TSSIMUnlockViewController configureWithContext:completion:]";
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "User info: %@ @%s", &v13, 0x16u);
+    v14 = 138412546;
+    v15 = userInfo;
+    v16 = 2080;
+    v17 = "[TSSIMUnlockViewController configureWithContext:completion:]";
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "User info: %@ @%s", &v14, 0x16u);
   }
 
   if (userInfo)
   {
-    v11 = [userInfo objectForKey:kCTSubscriberUnlockPromptReasonKey];
-    v12 = [userInfo objectForKey:kCTSubscriberSuppressUnlockCancellationKey];
+    v12 = [userInfo objectForKey:kCTSubscriberUnlockPromptReasonKey];
+    v13 = [userInfo objectForKey:kCTSubscriberSuppressUnlockCancellationKey];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      self->_userSelectedSlot = [v11 integerValue];
+      self->_userSelectedSlot = [v12 integerValue];
     }
 
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      self->_suppressCancellation = [v12 BOOLValue];
+      self->_suppressCancellation = [v13 BOOLValue];
     }
   }
 
@@ -223,7 +232,7 @@
 
 - (void)unlockListViewControllerDidComplete:(id)complete
 {
-  v4 = sub_10000C1BC();
+  v4 = sub_10000C1BC(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 136315138;
@@ -237,7 +246,7 @@
 - (void)unlockDetailViewController:(id)controller didCompleteWithResult:(int64_t)result
 {
   controllerCopy = controller;
-  v7 = sub_10000C1BC();
+  v7 = sub_10000C1BC(controllerCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218242;
@@ -277,7 +286,7 @@ LABEL_7:
 {
   changeCopy = change;
   statusCopy = status;
-  v8 = sub_10000C1BC();
+  v8 = sub_10000C1BC(statusCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     [changeCopy slotID];
@@ -299,7 +308,7 @@ LABEL_7:
   uuid = [changeCopy uuid];
   if ([(TSSIMUnlockViewController *)self _indexForSubscriptionContextWithUUID:uuid]== 0x7FFFFFFFFFFFFFFFLL)
   {
-    v6 = sub_10000C1BC();
+    v6 = sub_10000C1BC(0x7FFFFFFFFFFFFFFFLL);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_10000EF08(v6, v7, v8, v9, v10, v11, v12, v13);
@@ -311,29 +320,30 @@ LABEL_7:
     v6 = [[CTBundle alloc] initWithBundleType:1];
     v14 = [(CoreTelephonyClient *)self->_telephonyClient copyCarrierBundleValue:changeCopy key:@"CarrierName" bundleType:v6 error:0];
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
       objc_initWeak(&location, self);
       block[0] = _NSConcreteStackBlock;
       block[1] = 3221225472;
       block[2] = sub_100004744;
       block[3] = &unk_10001C7C8;
-      objc_copyWeak(&v27, &location);
-      v24 = uuid;
-      v25 = v14;
-      v26 = changeCopy;
+      objc_copyWeak(&v28, &location);
+      v25 = uuid;
+      v26 = v14;
+      v27 = changeCopy;
       dispatch_async(&_dispatch_main_q, block);
 
-      objc_destroyWeak(&v27);
+      objc_destroyWeak(&v28);
       objc_destroyWeak(&location);
     }
 
     else
     {
-      v15 = sub_10000C1BC();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v16 = sub_10000C1BC(isKindOfClass);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        sub_10000EE90(v15, v16, v17, v18, v19, v20, v21, v22);
+        sub_10000EE90(v16, v17, v18, v19, v20, v21, v22, v23);
       }
     }
   }
@@ -345,7 +355,7 @@ LABEL_7:
   uuid = [changedCopy uuid];
   if ([(TSSIMUnlockViewController *)self _indexForSubscriptionContextWithUUID:uuid]== 0x7FFFFFFFFFFFFFFFLL)
   {
-    v6 = sub_10000C1BC();
+    v6 = sub_10000C1BC(0x7FFFFFFFFFFFFFFFLL);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_10000EFF8(v6, v7, v8, v9, v10, v11, v12, v13);
@@ -375,7 +385,7 @@ LABEL_7:
 
     else
     {
-      v15 = sub_10000C1BC();
+      v15 = sub_10000C1BC(0);
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         sub_10000EF80(v15, v16, v17, v18, v19, v20, v21, v22);
@@ -388,7 +398,7 @@ LABEL_7:
 {
   if (update)
   {
-    v4 = sub_10000C1BC();
+    v4 = sub_10000C1BC(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = 136315138;
@@ -404,7 +414,7 @@ LABEL_7:
 {
   contextCopy = context;
   statusCopy = status;
-  v8 = sub_10000C1BC();
+  v8 = sub_10000C1BC(statusCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     sub_10000F070(contextCopy, statusCopy, v8);
@@ -453,7 +463,7 @@ LABEL_7:
 {
   contextCopy = context;
   actionCopy = action;
-  v8 = sub_10000C1BC();
+  v8 = sub_10000C1BC(actionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v14 = 138412546;
@@ -570,22 +580,23 @@ LABEL_21:
 - (void)_presentUnlockViewController
 {
   dispatch_assert_queue_V2(&_dispatch_main_q);
-  v3 = sub_10000C1BC();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = sub_10000C1BC(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 136315138;
-    v14 = "[TSSIMUnlockViewController _presentUnlockViewController]";
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, " @%s", &v13, 0xCu);
+    v15 = 136315138;
+    v16 = "[TSSIMUnlockViewController _presentUnlockViewController]";
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, " @%s", &v15, 0xCu);
   }
 
-  if (SBSGetScreenLockStatus())
+  v5 = SBSGetScreenLockStatus();
+  if (v5)
   {
-    v4 = sub_10000C1BC();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_10000C1BC(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 136315138;
-      v14 = "[TSSIMUnlockViewController _presentUnlockViewController]";
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "coversheet active, not initializing @%s", &v13, 0xCu);
+      v15 = 136315138;
+      v16 = "[TSSIMUnlockViewController _presentUnlockViewController]";
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "coversheet active, not initializing @%s", &v15, 0xCu);
     }
 
     [(TSSIMUnlockViewController *)self _deactivate];
@@ -599,21 +610,21 @@ LABEL_21:
     return;
   }
 
-  v6 = [(NSMutableArray *)self->_subscriptionContexts count];
-  v7 = sub_10000C1BC();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = [(NSMutableArray *)self->_subscriptionContexts count];
+  v9 = sub_10000C1BC(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 134218242;
-    v14 = v6;
-    v15 = 2080;
-    v16 = "[TSSIMUnlockViewController _presentUnlockViewController]";
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Number of subscription contexts %lu @%s", &v13, 0x16u);
+    v15 = 134218242;
+    v16 = v8;
+    v17 = 2080;
+    v18 = "[TSSIMUnlockViewController _presentUnlockViewController]";
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Number of subscription contexts %lu @%s", &v15, 0x16u);
   }
 
-  if (v6 > 1 || +[TSUtilities inBuddy])
+  if (v8 > 1 || +[TSUtilities inBuddy])
   {
-    v8 = [[TSSIMUnlockListViewController alloc] initWithSubscriptionContexts:self->_subscriptionContexts subscriptionActions:self->_subscriptionActions suppressCancellation:self->_suppressCancellation delegate:self];
-    if (v8)
+    v10 = [[TSSIMUnlockListViewController alloc] initWithSubscriptionContexts:self->_subscriptionContexts subscriptionActions:self->_subscriptionActions suppressCancellation:self->_suppressCancellation delegate:self];
+    if (v10)
     {
       goto LABEL_13;
     }
@@ -623,40 +634,40 @@ LABEL_19:
     return;
   }
 
-  if (v6 != 1)
+  if (v8 != 1)
   {
     goto LABEL_19;
   }
 
   firstObject = [(NSMutableArray *)self->_subscriptionContexts firstObject];
   uuid = [firstObject uuid];
-  v12 = [(NSMutableDictionary *)self->_subscriptionActions objectForKeyedSubscript:uuid];
-  v8 = [[TSSIMUnlockDetailViewController alloc] initWithSubscriptionContext:firstObject subscriptionAction:v12 suppressCancellation:self->_suppressCancellation delegate:self];
+  v14 = [(NSMutableDictionary *)self->_subscriptionActions objectForKeyedSubscript:uuid];
+  v10 = [[TSSIMUnlockDetailViewController alloc] initWithSubscriptionContext:firstObject subscriptionAction:v14 suppressCancellation:self->_suppressCancellation delegate:self];
 
-  if (!v8)
+  if (!v10)
   {
     goto LABEL_19;
   }
 
 LABEL_13:
-  v9 = [[UINavigationController alloc] initWithRootViewController:v8];
-  [v9 setModalPresentationStyle:0];
+  v11 = [[UINavigationController alloc] initWithRootViewController:v10];
+  [v11 setModalPresentationStyle:0];
   if (+[SSServiceUtilities isPad])
   {
-    [v9 setPreferredContentSize:{320.0, 480.0}];
+    [v11 setPreferredContentSize:{320.0, 480.0}];
   }
 
   else
   {
-    [v9 setModalTransitionStyle:0];
+    [v11 setModalTransitionStyle:0];
   }
 
-  [(TSSIMUnlockViewController *)self presentViewController:v9 animated:1 completion:0];
+  [(TSSIMUnlockViewController *)self presentViewController:v11 animated:1 completion:0];
 }
 
 - (void)_dismissUnlockViewControllerAndDeactivate
 {
-  v3 = sub_10000C1BC();
+  v3 = sub_10000C1BC(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
@@ -675,7 +686,7 @@ LABEL_13:
 
 - (void)_deactivate
 {
-  v3 = sub_10000C1BC();
+  v3 = sub_10000C1BC(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_10000F124(v3);

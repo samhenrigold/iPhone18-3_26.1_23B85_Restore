@@ -3,6 +3,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)domainAsString:(int)string;
+- (id)sourceAsString:(int)string;
 - (int)StringAsDomain:(id)domain;
 - (int)StringAsSource:(id)source;
 - (int)domain;
@@ -176,7 +178,6 @@ LABEL_19:
     goto LABEL_19;
   }
 
-  v7 = *(equalCopy + 20);
   if (self->_isFirstDonation)
   {
     if ((*(equalCopy + 20) & 1) == 0)
@@ -320,7 +321,6 @@ LABEL_6:
   has = self->_has;
   if (has)
   {
-    domain = self->_domain;
     PBDataWriterWriteInt32Field();
     has = self->_has;
     if ((has & 4) == 0)
@@ -340,7 +340,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  source = self->_source;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -355,12 +354,10 @@ LABEL_4:
   }
 
 LABEL_11:
-  isFirstDonation = self->_isFirstDonation;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 2) != 0)
   {
 LABEL_5:
-    interval = self->_interval;
     PBDataWriterWriteUint32Field();
   }
 
@@ -602,6 +599,21 @@ LABEL_6:
   return v4;
 }
 
+- (id)sourceAsString:(int)string
+{
+  if (string >= 0x19)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278977758[string];
+  }
+
+  return v4;
+}
+
 - (void)setHasSource:(BOOL)source
 {
   if (source)
@@ -676,6 +688,21 @@ LABEL_6:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)domainAsString:(int)string
+{
+  if (string >= 8)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278977718[string];
   }
 
   return v4;

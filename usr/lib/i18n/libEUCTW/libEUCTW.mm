@@ -45,11 +45,11 @@ uint64_t _citrus_EUCTW_stdenc_mbtocs(uint64_t a1, unsigned int *a2, int *a3, cha
   return v12;
 }
 
-uint64_t _citrus_EUCTW_stdenc_cstomb(uint64_t a1, _BYTE *a2, unint64_t a3, int a4, unsigned int a5, uint64_t a6, uint64_t *a7)
+uint64_t _citrus_EUCTW_stdenc_cstomb(uint64_t a1, _BYTE *a2, unint64_t a3, int a4, uint64_t a5, uint64_t a6, uint64_t *a7)
 {
   if (a4 == -1)
   {
-    a5 = 0;
+    LODWORD(a5) = 0;
     return _citrus_EUCTW_wcrtomb_priv(a2, a3, a5, a7);
   }
 
@@ -60,7 +60,7 @@ uint64_t _citrus_EUCTW_stdenc_cstomb(uint64_t a1, _BYTE *a2, unint64_t a3, int a
       return 22;
     }
 
-    a5 |= a4 << 24;
+    LODWORD(a5) = a5 | (a4 << 24);
     return _citrus_EUCTW_wcrtomb_priv(a2, a3, a5, a7);
   }
 
@@ -72,7 +72,7 @@ uint64_t _citrus_EUCTW_stdenc_cstomb(uint64_t a1, _BYTE *a2, unint64_t a3, int a
   return 22;
 }
 
-uint64_t _citrus_EUCTW_stdenc_mbtowc(uint64_t a1, int *a2, char **a3, uint64_t a4, int *a5, uint64_t *a6, uint64_t a7)
+uint64_t _citrus_EUCTW_stdenc_mbtowc(uint64_t a1, unsigned int *a2, char **a3, uint64_t a4, int *a5, uint64_t *a6, uint64_t a7)
 {
   v9 = _citrus_EUCTW_mbrtowc_priv(a2, a3, a4, a5, a6);
   v10 = v9;
@@ -165,7 +165,7 @@ uint64_t _citrus_EUCTW_mbrtowc_priv(int *a1, char **a2, uint64_t a3, int *a4, ui
     v7 = *a4;
   }
 
-  v11 = (a4 + 1);
+  v11 = a4 + 1;
   if (*(a4 + 4) == 142)
   {
     v12 = 2;
@@ -187,7 +187,7 @@ uint64_t _citrus_EUCTW_mbrtowc_priv(int *a1, char **a2, uint64_t a3, int *a4, ui
     while (a3)
     {
       v14 = *v5++;
-      v11[v7] = v14;
+      *(v11 + v7) = v14;
       v7 = *a4 + 1;
       *a4 = v7;
       --a3;

@@ -9,11 +9,11 @@
 - (uint64_t)tsu_indexAtPosition:()TSUAdditions;
 - (uint64_t)tsu_initWithIndices:()TSUAdditions count:;
 - (uint64_t)tsu_intersectsIndexesInIndexSet:()TSUAdditions;
-- (uint64_t)tsu_isSingleContiguousRange;
 - (uint64_t)tsu_leadingRangeInRange:()TSUAdditions;
 - (uint64_t)tsu_localizedDescription;
 - (uint64_t)tsu_positionOfIndex:()TSUAdditions;
 - (uint64_t)tsu_trailingRangeInRange:()TSUAdditions;
+- (void)tsu_isSingleContiguousRange;
 @end
 
 @implementation NSIndexSet(TSUAdditions)
@@ -54,14 +54,14 @@
   return v5;
 }
 
-- (uint64_t)tsu_isSingleContiguousRange
+- (void)tsu_isSingleContiguousRange
 {
   result = [self count];
   if (result)
   {
     lastIndex = [self lastIndex];
     v4 = lastIndex - [self firstIndex] + 1;
-    return v4 == [self count];
+    return (v4 == [self count]);
   }
 
   return result;

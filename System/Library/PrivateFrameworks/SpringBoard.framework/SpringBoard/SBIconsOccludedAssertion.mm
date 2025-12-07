@@ -33,7 +33,7 @@
 {
   if (!self->_invalidated)
   {
-    v3 = SBLogIcon();
+    v3 = SBLogIcon(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       [SBIconsOccludedAssertion dealloc];

@@ -47,7 +47,7 @@
   startColorName = self->_startColorName;
   if (startColorName)
   {
-    if (self->_endColorName && [(NSString *)startColorName isEqualToString:?])
+    if (self->_endColorName && objc_msgSend_isEqualToString_(startColorName, a2))
     {
       flatColorName = self->_startColorName;
 LABEL_6:
@@ -395,7 +395,7 @@ LABEL_7:
   else
   {
     objc_opt_class();
-    v11 = (objc_opt_isKindOfClass() & 1) != 0 && self->_horizontal == equalCopy->_horizontal && (gradientName = self->_gradientName, (gradientName == 0) != (equalCopy->_gradientName != 0)) && (!gradientName || [(NSString *)gradientName isEqualToString:?]) && (flatColorName = self->_flatColorName, (flatColorName == 0) != (equalCopy->_flatColorName != 0)) && (!flatColorName || [(NSString *)flatColorName isEqualToString:?]) && (startColorName = self->_startColorName, (startColorName == 0) != (equalCopy->_startColorName != 0)) && (!startColorName || [(NSString *)startColorName isEqualToString:?]) && (endColorName = self->_endColorName, (endColorName == 0) != (equalCopy->_endColorName != 0)) && (!endColorName || [(NSString *)endColorName isEqualToString:?]) && (colors = self->_colors, (colors == 0) != (equalCopy->_colors != 0)) && (!colors || [(NSArray *)colors isEqualToArray:?]) && ((middleLocations = self->_middleLocations) == 0 || [(NSArray *)middleLocations isEqualToArray:equalCopy->_middleLocations]) && self->_opacity == equalCopy->_opacity;
+    v11 = (objc_opt_isKindOfClass() & 1) != 0 && self->_horizontal == equalCopy->_horizontal && (gradientName = self->_gradientName, (gradientName == 0) != (equalCopy->_gradientName != 0)) && (!gradientName || objc_msgSend_isEqualToString_(gradientName)) && (flatColorName = self->_flatColorName, (flatColorName == 0) != (equalCopy->_flatColorName != 0)) && (!flatColorName || objc_msgSend_isEqualToString_(flatColorName)) && (startColorName = self->_startColorName, (startColorName == 0) != (equalCopy->_startColorName != 0)) && (!startColorName || objc_msgSend_isEqualToString_(startColorName)) && (endColorName = self->_endColorName, (endColorName == 0) != (equalCopy->_endColorName != 0)) && (!endColorName || objc_msgSend_isEqualToString_(endColorName)) && (colors = self->_colors, (colors == 0) != (equalCopy->_colors != 0)) && (!colors || [(NSArray *)colors isEqualToArray:?]) && ((middleLocations = self->_middleLocations) == 0 || [(NSArray *)middleLocations isEqualToArray:equalCopy->_middleLocations]) && self->_opacity == equalCopy->_opacity;
   }
 
   return v11;

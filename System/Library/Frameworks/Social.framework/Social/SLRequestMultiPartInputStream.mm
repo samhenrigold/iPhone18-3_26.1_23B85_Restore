@@ -29,61 +29,60 @@
 {
   self->_bytesReadInState = 0;
   uniqueIdentifier = [(SLRequestMultiPart *)self->_multiPart uniqueIdentifier];
+  _SLLog(v2, 6, @"MultipartStream %@ transitioning from state %d", v5, v6, v7, v8, v9, uniqueIdentifier);
+
   currentState = self->_currentState;
-  _SLLog(v2, 6, @"MultipartStream %@ transitioning from state %d");
-
-  v4 = self->_currentState;
-  if (v4 > 1)
+  if (currentState > 1)
   {
-    if (v4 == 2)
+    if (currentState == 2)
     {
-      v10 = [(SLRequestMultiPart *)self->_multiPart payloadEpilogue:uniqueIdentifier];
+      payloadEpilogue = [(SLRequestMultiPart *)self->_multiPart payloadEpilogue];
       srcData = self->_srcData;
-      self->_srcData = v10;
+      self->_srcData = payloadEpilogue;
 
-      v7 = 3;
+      v13 = 3;
       goto LABEL_11;
     }
 
-    if (v4 == 3)
+    if (currentState == 3)
     {
-      v7 = 4;
+      v13 = 4;
       goto LABEL_11;
     }
 
 LABEL_8:
-    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D930] format:{@"MultipartInputStream in unexpected state", uniqueIdentifier, currentState}];
+    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D930] format:@"MultipartInputStream in unexpected state"];
     goto LABEL_12;
   }
 
-  if (!v4)
+  if (!currentState)
   {
-    v8 = [(SLRequestMultiPart *)self->_multiPart payloadPreamble:uniqueIdentifier];
-    v9 = self->_srcData;
-    self->_srcData = v8;
+    payloadPreamble = [(SLRequestMultiPart *)self->_multiPart payloadPreamble];
+    v15 = self->_srcData;
+    self->_srcData = payloadPreamble;
 
-    uniqueIdentifier = [objc_alloc(MEMORY[0x1E696AEC0]) initWithData:self->_srcData encoding:4];
-    _SLLog(v2, 6, @"Preamble for stream %@");
+    v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithData:self->_srcData encoding:4];
+    _SLLog(v2, 6, @"Preamble for stream %@", v17, v18, v19, v20, v21, v16);
 
-    v7 = 1;
+    v13 = 1;
     goto LABEL_11;
   }
 
-  if (v4 != 1)
+  if (currentState != 1)
   {
     goto LABEL_8;
   }
 
-  v5 = [(SLRequestMultiPart *)self->_multiPart payload:uniqueIdentifier];
-  v6 = self->_srcData;
-  self->_srcData = v5;
+  payload = [(SLRequestMultiPart *)self->_multiPart payload];
+  v12 = self->_srcData;
+  self->_srcData = payload;
 
-  v7 = 2;
+  v13 = 2;
 LABEL_11:
-  self->_currentState = v7;
+  self->_currentState = v13;
 LABEL_12:
   uniqueIdentifier2 = [(SLRequestMultiPart *)self->_multiPart uniqueIdentifier];
-  _SLLog(v2, 6, @"MultipartStream %@ transitioned to state %d");
+  _SLLog(v2, 6, @"MultipartStream %@ transitioned to state %d", v24, v25, v26, v27, v28, uniqueIdentifier2);
 }
 
 - (unint64_t)readStateSourceData:(id)data toBuffer:(char *)buffer offset:(unint64_t)offset maxLength:(unint64_t)length
@@ -104,10 +103,10 @@ LABEL_12:
 
   [dataCopy getBytes:buffer range:{bytesReadInState, length}];
   uniqueIdentifier = [(SLRequestMultiPart *)self->_multiPart uniqueIdentifier];
-  v17.location = self->_bytesReadInState;
-  v17.length = length;
-  v16 = NSStringFromRange(v17);
-  _SLLog(v6, 6, @"MultipartStream %@ read %u bytes in range %@ in state %d");
+  v22.location = self->_bytesReadInState;
+  v22.length = length;
+  v21 = NSStringFromRange(v22);
+  _SLLog(v6, 6, @"MultipartStream %@ read %u bytes in range %@ in state %d", v15, v16, v17, v18, v19, uniqueIdentifier);
 
   return length;
 }

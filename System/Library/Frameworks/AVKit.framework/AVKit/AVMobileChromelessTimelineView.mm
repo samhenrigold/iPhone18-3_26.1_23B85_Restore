@@ -5,9 +5,9 @@
 - (BOOL)pointInside:(CGPoint)inside withEvent:(id)event;
 - (CGSize)intrinsicContentSize;
 - (double)_labelIntrinsicContentSize;
+- (id)_updateSliderEnabledStateIfNeeded;
 - (uint64_t)_commonInit;
 - (uint64_t)_timelineScaleFactor;
-- (uint64_t)_updateSliderEnabledStateIfNeeded;
 - (void)_setUpShadowAppearance;
 - (void)_updateFonts;
 - (void)_updateLabelsTextColorIfNeeded;
@@ -663,7 +663,7 @@ LABEL_80:
   [(AVMobileChromelessTimelineView *)&v16 didMoveToWindow];
   if (self)
   {
-    if (self->_slider || (!self->_overrideFluidSliderPreference ? (v3 = off_1E7205B20) : (v3 = off_1E7205B18), v4 = objc_alloc_init(*v3), slider = self->_slider, self->_slider = v4, slider, [(AVMobileChromelessSlider *)self->_slider setAutoresizingMask:0], [(AVMobileChromelessSlider *)self->_slider setBarHeight:7.5], [(AVMobileChromelessSlider *)self->_slider setSemanticContentAttribute:3], [(UIView *)self->_slider setAvkit_extendedDynamicRangeGain:self->_sliderExtendedDynamicRangeGain], [(AVMobileChromelessTimelineView *)self _updateSliderEnabledStateIfNeeded], [(AVMobileChromelessTimelineView *)self addSubview:self->_slider], self->_slider))
+    if (self->_slider || (!self->_overrideFluidSliderPreference ? (v3 = off_1E7205B20) : (v3 = off_1E7205B18), v4 = objc_alloc_init(*v3), slider = self->_slider, self->_slider = v4, slider, [(AVMobileChromelessSlider *)self->_slider setAutoresizingMask:0], [(AVMobileChromelessSlider *)self->_slider setBarHeight:7.5], [(AVMobileChromelessSlider *)self->_slider setSemanticContentAttribute:3], [(UIView *)self->_slider setAvkit_extendedDynamicRangeGain:self->_sliderExtendedDynamicRangeGain], [(AVMobileChromelessTimelineView *)&self->super.super.super.super.isa _updateSliderEnabledStateIfNeeded], [(AVMobileChromelessTimelineView *)self addSubview:self->_slider], self->_slider))
     {
       if (!self->_trailingLabel)
       {
@@ -772,16 +772,16 @@ LABEL_80:
   }
 }
 
-- (uint64_t)_updateSliderEnabledStateIfNeeded
+- (id)_updateSliderEnabledStateIfNeeded
 {
   if (result)
   {
     v1 = result;
     v2 = *(result + 524);
-    result = [*(result + 600) isEnabled];
+    result = [result[75] isEnabled];
     if (v2 != result)
     {
-      v3 = *(v1 + 600);
+      v3 = v1[75];
       v4 = *(v1 + 524);
 
       return [v3 setEnabled:v4];
@@ -918,7 +918,7 @@ uint64_t __62__AVMobileChromelessTimelineView_prepareForDeemphasisIfNeeded__bloc
   if (self->_enabled != enabled)
   {
     self->_enabled = enabled;
-    [(AVMobileChromelessTimelineView *)self _updateSliderEnabledStateIfNeeded];
+    [(AVMobileChromelessTimelineView *)&self->super.super.super.super.isa _updateSliderEnabledStateIfNeeded];
   }
 }
 

@@ -46,7 +46,7 @@
 
 id __50__AMSUIEngagementRemoteViewTask_presentEngagement__block_invoke(uint64_t a1, void *a2)
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   v4 = [MEMORY[0x1E698C968] sharedConfig];
   if (!v4)
   {
@@ -56,51 +56,49 @@ id __50__AMSUIEngagementRemoteViewTask_presentEngagement__block_invoke(uint64_t 
   v5 = [v4 OSLogObject];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = *(a1 + 32);
-    v7 = objc_opt_class();
-    v8 = [*(a1 + 32) request];
-    v9 = [v8 logKey];
-    v10 = [*(a1 + 32) request];
+    v6 = objc_opt_class();
+    v7 = [*(a1 + 32) request];
+    v8 = [v7 logKey];
+    v9 = [*(a1 + 32) request];
     *buf = 138543874;
-    v50 = v7;
-    v51 = 2114;
-    v52 = v9;
-    v53 = 2114;
-    v54 = v10;
+    v46 = v6;
+    v47 = 2114;
+    v48 = v8;
+    v49 = 2114;
+    v50 = v9;
     _os_log_impl(&dword_1BB036000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Presenting system engagement request. Request: %{public}@", buf, 0x20u);
   }
 
-  v11 = [*(a1 + 32) bag];
+  v10 = [*(a1 + 32) bag];
 
-  if (v11)
+  if (v10)
   {
-    v12 = [*(a1 + 32) _snapshotBagDataPromise];
-    v48 = 0;
-    v11 = [v12 resultWithError:&v48];
-    v13 = v48;
+    v11 = [*(a1 + 32) _snapshotBagDataPromise];
+    v44 = 0;
+    v10 = [v11 resultWithError:&v44];
+    v12 = v44;
 
-    if (v13)
+    if (v12)
     {
-      v14 = [MEMORY[0x1E698C968] sharedConfig];
-      if (!v14)
+      v13 = [MEMORY[0x1E698C968] sharedConfig];
+      if (!v13)
       {
-        v14 = [MEMORY[0x1E698C968] sharedConfig];
+        v13 = [MEMORY[0x1E698C968] sharedConfig];
       }
 
-      v15 = [v14 OSLogObject];
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v14 = [v13 OSLogObject];
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        v16 = *(a1 + 32);
-        v17 = objc_opt_class();
-        v18 = [*(a1 + 32) request];
-        v19 = [v18 logKey];
+        v15 = objc_opt_class();
+        v16 = [*(a1 + 32) request];
+        v17 = [v16 logKey];
         *buf = 138543874;
-        v50 = v17;
-        v51 = 2114;
-        v52 = v19;
-        v53 = 2114;
-        v54 = v13;
-        _os_log_impl(&dword_1BB036000, v15, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to snapshot bag. Error: %{public}@", buf, 0x20u);
+        v46 = v15;
+        v47 = 2114;
+        v48 = v17;
+        v49 = 2114;
+        v50 = v12;
+        _os_log_impl(&dword_1BB036000, v14, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to snapshot bag. Error: %{public}@", buf, 0x20u);
       }
     }
   }
@@ -110,15 +108,15 @@ id __50__AMSUIEngagementRemoteViewTask_presentEngagement__block_invoke(uint64_t 
   aBlock[2] = __50__AMSUIEngagementRemoteViewTask_presentEngagement__block_invoke_4;
   aBlock[3] = &unk_1E7F24AB0;
   aBlock[4] = *(a1 + 32);
-  v20 = v11;
-  v47 = v20;
-  v21 = _Block_copy(aBlock);
-  v45 = 0;
-  v22 = [MEMORY[0x1E696ABD0] extensionWithIdentifier:@"com.apple.AppleMediaServicesUI.EngagementViewExtension" error:&v45];
-  v23 = v45;
-  if (v23)
+  v18 = v10;
+  v43 = v18;
+  v19 = _Block_copy(aBlock);
+  v41 = 0;
+  v20 = [MEMORY[0x1E696ABD0] extensionWithIdentifier:@"com.apple.AppleMediaServicesUI.EngagementViewExtension" error:&v41];
+  v21 = v41;
+  if (v21)
   {
-    [*(a1 + 32) setError:v23];
+    [*(a1 + 32) setError:v21];
     [*(a1 + 32) _unblock];
   }
 
@@ -128,53 +126,52 @@ id __50__AMSUIEngagementRemoteViewTask_presentEngagement__block_invoke(uint64_t 
     block[1] = 3221225472;
     block[2] = __50__AMSUIEngagementRemoteViewTask_presentEngagement__block_invoke_4;
     block[3] = &unk_1E7F245E0;
-    v43 = v22;
-    v44 = v21;
+    v39 = v20;
+    v40 = v19;
     dispatch_async(MEMORY[0x1E69E96A0], block);
   }
 
-  v24 = [*(a1 + 32) dispatchGroup];
-  dispatch_group_enter(v24);
+  v22 = [*(a1 + 32) dispatchGroup];
+  dispatch_group_enter(v22);
 
-  v25 = [*(a1 + 32) dispatchGroup];
-  dispatch_group_wait(v25, 0xFFFFFFFFFFFFFFFFLL);
+  v23 = [*(a1 + 32) dispatchGroup];
+  dispatch_group_wait(v23, 0xFFFFFFFFFFFFFFFFLL);
 
-  v26 = [MEMORY[0x1E698C968] sharedConfig];
-  if (!v26)
+  v24 = [MEMORY[0x1E698C968] sharedConfig];
+  if (!v24)
   {
-    v26 = [MEMORY[0x1E698C968] sharedConfig];
+    v24 = [MEMORY[0x1E698C968] sharedConfig];
   }
 
-  v27 = [v26 OSLogObject];
-  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+  v25 = [v24 OSLogObject];
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
   {
-    v28 = *(a1 + 32);
-    v29 = objc_opt_class();
-    v30 = [*(a1 + 32) request];
-    [v30 logKey];
-    v40 = a2;
-    v31 = v41 = v20;
+    v26 = objc_opt_class();
+    v27 = [*(a1 + 32) request];
+    [v27 logKey];
+    v36 = a2;
+    v28 = v37 = v18;
     [*(a1 + 32) result];
-    v32 = v39 = v21;
+    v29 = v35 = v19;
     [*(a1 + 32) error];
-    v33 = v23;
-    v35 = v34 = v22;
+    v30 = v21;
+    v32 = v31 = v20;
     *buf = 138544130;
+    v46 = v26;
+    v47 = 2114;
+    v48 = v28;
+    v49 = 2114;
     v50 = v29;
     v51 = 2114;
-    v52 = v31;
-    v53 = 2114;
-    v54 = v32;
-    v55 = 2114;
-    v56 = v35;
-    _os_log_impl(&dword_1BB036000, v27, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Engagement task finished. Result: %{public}@, error: %{public}@", buf, 0x2Au);
+    v52 = v32;
+    _os_log_impl(&dword_1BB036000, v25, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Engagement task finished. Result: %{public}@, error: %{public}@", buf, 0x2Au);
 
-    v22 = v34;
-    v23 = v33;
+    v20 = v31;
+    v21 = v30;
 
-    v21 = v39;
-    a2 = v40;
-    v20 = v41;
+    v19 = v35;
+    a2 = v36;
+    v18 = v37;
   }
 
   [*(a1 + 32) setDispatchGroup:0];
@@ -183,11 +180,9 @@ id __50__AMSUIEngagementRemoteViewTask_presentEngagement__block_invoke(uint64_t 
     *a2 = [*(a1 + 32) error];
   }
 
-  v36 = [*(a1 + 32) result];
+  v33 = [*(a1 + 32) result];
 
-  v37 = *MEMORY[0x1E69E9840];
-
-  return v36;
+  return v33;
 }
 
 void __50__AMSUIEngagementRemoteViewTask_presentEngagement__block_invoke_4(uint64_t a1, void *a2, void *a3)
@@ -270,13 +265,13 @@ void __50__AMSUIEngagementRemoteViewTask_presentEngagement__block_invoke_2(uint6
   }
 }
 
-uint64_t __50__AMSUIEngagementRemoteViewTask_presentEngagement__block_invoke_3(uint64_t result, uint64_t a2)
+id *__50__AMSUIEngagementRemoteViewTask_presentEngagement__block_invoke_3(id *result, uint64_t a2)
 {
   if (a2)
   {
     v2 = result;
-    [*(result + 32) setError:a2];
-    v3 = *(v2 + 32);
+    [result[4] setError:a2];
+    v3 = v2[4];
 
     return [v3 _unblock];
   }
@@ -298,7 +293,7 @@ void __50__AMSUIEngagementRemoteViewTask_presentEngagement__block_invoke_4(uint6
 
 - (void)engagementTaskDidFinishWithResult:(id)result error:(id)error completion:(id)completion
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   resultCopy = result;
   errorCopy = error;
   v10 = MEMORY[0x1E698C968];
@@ -315,15 +310,15 @@ void __50__AMSUIEngagementRemoteViewTask_presentEngagement__block_invoke_4(uint6
     v14 = objc_opt_class();
     request = [(AMSUIEngagementRemoteViewTask *)self request];
     logKey = [request logKey];
-    v24 = 138544130;
-    v25 = v14;
-    v26 = 2114;
-    v27 = logKey;
-    v28 = 2114;
-    v29 = resultCopy;
-    v30 = 2114;
-    v31 = errorCopy;
-    _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] remote engagement task finished. Result: %{public}@, error: %{public}@", &v24, 0x2Au);
+    v23 = 138544130;
+    v24 = v14;
+    v25 = 2114;
+    v26 = logKey;
+    v27 = 2114;
+    v28 = resultCopy;
+    v29 = 2114;
+    v30 = errorCopy;
+    _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] remote engagement task finished. Result: %{public}@, error: %{public}@", &v23, 0x2Au);
   }
 
   [(AMSUIEngagementRemoteViewTask *)self setResult:resultCopy];
@@ -343,11 +338,11 @@ void __50__AMSUIEngagementRemoteViewTask_presentEngagement__block_invoke_4(uint6
     v20 = objc_opt_class();
     request2 = [(AMSUIEngagementRemoteViewTask *)self request];
     logKey2 = [request2 logKey];
-    v24 = 138543618;
-    v25 = v20;
-    v26 = 2114;
-    v27 = logKey2;
-    _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] remote engagement task finished. Cleaning up vc references", &v24, 0x16u);
+    v23 = 138543618;
+    v24 = v20;
+    v25 = 2114;
+    v26 = logKey2;
+    _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] remote engagement task finished. Cleaning up vc references", &v23, 0x16u);
   }
 
   [(AMSUIEngagementRemoteViewTask *)self setPresentedViewController:0];
@@ -355,14 +350,13 @@ void __50__AMSUIEngagementRemoteViewTask_presentEngagement__block_invoke_4(uint6
   completionCopy[2](completionCopy);
 
   [(AMSUIEngagementRemoteViewTask *)self _unblock];
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)preferredContentSizeDidChange:(CGSize)change
 {
   height = change.height;
   width = change.width;
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedConfig];
   if (!mEMORY[0x1E698C968])
   {
@@ -375,22 +369,20 @@ void __50__AMSUIEngagementRemoteViewTask_presentEngagement__block_invoke_4(uint6
     v8 = objc_opt_class();
     request = [(AMSUIEngagementRemoteViewTask *)self request];
     logKey = [request logKey];
-    v21.width = width;
-    v21.height = height;
-    v11 = AMSStringFromSize(v21);
-    v14 = 138543874;
-    v15 = v8;
-    v16 = 2114;
-    v17 = logKey;
-    v18 = 2114;
-    v19 = v11;
-    _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Preferred content size did change. Size: %{public}@", &v14, 0x20u);
+    v20.width = width;
+    v20.height = height;
+    v11 = AMSStringFromSize(v20);
+    v13 = 138543874;
+    v14 = v8;
+    v15 = 2114;
+    v16 = logKey;
+    v17 = 2114;
+    v18 = v11;
+    _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Preferred content size did change. Size: %{public}@", &v13, 0x20u);
   }
 
   presentedViewController = [(AMSUIEngagementRemoteViewTask *)self presentedViewController];
   [presentedViewController setPreferredContentSize:{width, height}];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_snapshotBagDataPromise
@@ -445,7 +437,7 @@ void __50__AMSUIEngagementRemoteViewTask_presentEngagement__block_invoke_4(uint6
 void __56__AMSUIEngagementRemoteViewTask__presentViewController___block_invoke(uint64_t a1)
 {
   v1 = a1;
-  v15 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) viewController];
   v3 = [v2 ams_frontmostController];
 
@@ -469,32 +461,29 @@ void __56__AMSUIEngagementRemoteViewTask__presentViewController___block_invoke(u
     {
       v6 = AMSLogKey();
       v7 = MEMORY[0x1E696AEC0];
-      v8 = *(v1 + 32);
-      v9 = objc_opt_class();
-      v10 = v9;
+      v8 = objc_opt_class();
+      v9 = v8;
       if (v6)
       {
         v1 = AMSLogKey();
-        [v7 stringWithFormat:@"%@: [%@] ", v10, v1];
+        [v7 stringWithFormat:@"%@: [%@] ", v9, v1];
       }
 
       else
       {
-        [v7 stringWithFormat:@"%@: ", v9];
+        [v7 stringWithFormat:@"%@: ", v8];
       }
-      v11 = ;
+      v10 = ;
       *buf = 138543362;
-      v14 = v11;
+      v12 = v10;
       _os_log_impl(&dword_1BB036000, v5, OS_LOG_TYPE_ERROR, "%{public}@: Presenting view controller is nil!", buf, 0xCu);
       if (v6)
       {
 
-        v11 = v1;
+        v10 = v1;
       }
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (CGSize)preferredContentSize

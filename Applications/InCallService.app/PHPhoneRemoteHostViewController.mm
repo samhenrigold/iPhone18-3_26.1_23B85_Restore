@@ -26,7 +26,7 @@
 
   else
   {
-    v7 = sub_100004F84();
+    v7 = sub_100004F84(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;

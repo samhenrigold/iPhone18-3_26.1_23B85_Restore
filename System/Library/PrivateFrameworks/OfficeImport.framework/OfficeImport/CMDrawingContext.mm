@@ -87,7 +87,7 @@
     v9 = 0u;
     v10 = 0u;
     v8 = 0u;
-    result = [(CGAffineTransform *)result transformStruct];
+    result = objc_msgSend_transformStruct(result, a3);
     v5 = v8;
     v6 = v9;
     v7 = v10;
@@ -381,7 +381,7 @@ LABEL_30:
   currentTransform = self->_currentTransform;
   if (currentTransform)
   {
-    [(NSAffineTransform *)currentTransform transformStruct];
+    objc_msgSend_transformStruct(currentTransform, a2);
   }
 
   return sqrt(0.0 * 0.0 + 0.0 * 0.0);
@@ -677,7 +677,7 @@ LABEL_30:
   v12 = 0u;
   if (transformCopy)
   {
-    [transformCopy transformStruct];
+    objc_msgSend_transformStruct(transformCopy);
     v9 = v13;
     v10 = v12;
     v6 = *(&v14 + 1);

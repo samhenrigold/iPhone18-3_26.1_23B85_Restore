@@ -72,18 +72,4 @@
   return v3;
 }
 
-- (uint64_t)newSampleBufferSatisfyingRequirement:withPropagationSampleBuffer:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)newSampleBufferSatisfyingRequirement:withPropagationSampleBuffer:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
 @end

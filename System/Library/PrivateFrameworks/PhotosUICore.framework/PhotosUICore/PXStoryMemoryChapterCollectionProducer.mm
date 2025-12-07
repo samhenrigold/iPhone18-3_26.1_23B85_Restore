@@ -15,12 +15,13 @@
   memoryCopy = memory;
   swift_unknownObjectRetain();
   swift_unknownObjectRetain();
-  Result_pSo0pM0_pSAySo7NSErrorCSgGSgtFZ_0 = _sSo38PXStoryMemoryChapterCollectionProducerC12PhotosUICoreE07chapterD0013forGenerativeB06assets8keyAsset5errorSo0acD0_pSgSo8PHMemoryC_So09PXDisplayM11FetchResult_pSo0pM0_pSAySo7NSErrorCSgGSgtFZ_0(memoryCopy, assets, asset, error);
+  _sSo38PXStoryMemoryChapterCollectionProducerC12PhotosUICoreE07chapterD0013forGenerativeB06assets8keyAsset5errorSo0acD0_pSgSo8PHMemoryC_So09PXDisplayM11FetchResult_pSo0pM0_pSAySo7NSErrorCSgGSgtFZ_0(memoryCopy, assets, asset, error);
+  v11 = v10;
 
   swift_unknownObjectRelease();
   swift_unknownObjectRelease();
 
-  return Result_pSo0pM0_pSAySo7NSErrorCSgGSgtFZ_0;
+  return v11;
 }
 
 - (void)workQueue_saveEditTransaction:(id)transaction completionHandler:(id)handler

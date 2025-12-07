@@ -109,325 +109,322 @@
 
 - (id)documentResourceInfoForDigestString:(id)string locator:(id)locator
 {
-  v187 = *MEMORY[0x277D85DE8];
+  v180 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   locatorCopy = locator;
-  v8 = 0x277CBE000uLL;
   objc_opt_class();
-  v10 = objc_msgSend_objectForKeyedSubscript_(self->_metadataDictionary, v9, @"Locators");
-  v11 = TSUDynamicCast();
+  v9 = objc_msgSend_objectForKeyedSubscript_(self->_metadataDictionary, v8, @"Locators");
+  v10 = TSUDynamicCast();
 
-  if (!v11)
+  if (!v10)
   {
-    v18 = MEMORY[0x277D81150];
-    v19 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "[TSPDocumentResourceRegistry documentResourceInfoForDigestString:locator:]");
-    v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v20, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPDocumentResourceRegistry.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v18, v22, v19, v21, 92, 0, "Invalid digest to locator dictionary");
+    v17 = MEMORY[0x277D81150];
+    v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "[TSPDocumentResourceRegistry documentResourceInfoForDigestString:locator:]");
+    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPDocumentResourceRegistry.m");
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v17, v21, v18, v20, 92, 0, "Invalid digest to locator dictionary");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v23, v24);
-    v25 = 0;
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v22, v23);
+    v24 = 0;
     goto LABEL_83;
   }
 
-  v14 = stringCopy;
-  if (v14)
+  v13 = stringCopy;
+  if (v13)
   {
-    v15 = objc_msgSend_objectForKeyedSubscript_(v11, v13, v14);
+    v14 = objc_msgSend_objectForKeyedSubscript_(v10, v12, v13);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v17 = v15;
+      v16 = v14;
     }
 
     else
     {
-      if (v15)
+      if (v14)
       {
-        v26 = MEMORY[0x277D81150];
-        v27 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v16, "[TSPDocumentResourceRegistry documentResourceInfoForDigestString:locator:]");
-        v29 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v28, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPDocumentResourceRegistry.m");
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v26, v30, v27, v29, 107, 0, "Invalid locator value for digest string %{public}@: Locator must be a string", v14);
+        v25 = MEMORY[0x277D81150];
+        v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v15, "[TSPDocumentResourceRegistry documentResourceInfoForDigestString:locator:]");
+        v28 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v27, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPDocumentResourceRegistry.m");
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v25, v29, v26, v28, 107, 0, "Invalid locator value for digest string %{public}@: Locator must be a string", v13);
 
-        v8 = 0x277CBE000;
-        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v31, v32);
+        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v30, v31);
       }
 
-      v17 = 0;
+      v16 = 0;
     }
 
     if (!locatorCopy)
     {
 LABEL_27:
-      v25 = 0;
-      if (!v17 || !v14)
+      v24 = 0;
+      if (!v16 || !v13)
       {
         goto LABEL_82;
       }
 
-      v71 = *(v8 + 2752);
       objc_opt_class();
-      v73 = objc_msgSend_objectForKeyedSubscript_(self->_metadataDictionary, v72, @"Properties");
-      v74 = TSUDynamicCast();
+      v67 = objc_msgSend_objectForKeyedSubscript_(self->_metadataDictionary, v66, @"Properties");
+      v68 = TSUDynamicCast();
 
-      if (!v74)
+      if (!v68)
       {
-        v84 = MEMORY[0x277D81150];
-        v85 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v75, "[TSPDocumentResourceRegistry documentResourceInfoForDigestString:locator:]");
-        v87 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v86, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPDocumentResourceRegistry.m");
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v84, v88, v85, v87, 151, 0, "Invalid digest to properties dictionary");
+        v78 = MEMORY[0x277D81150];
+        v79 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v69, "[TSPDocumentResourceRegistry documentResourceInfoForDigestString:locator:]");
+        v81 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v80, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPDocumentResourceRegistry.m");
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v78, v82, v79, v81, 151, 0, "Invalid digest to properties dictionary");
 
-        v74 = 0;
-        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v89, v90);
-        v25 = 0;
+        v68 = 0;
+        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v83, v84);
+        v24 = 0;
 LABEL_81:
 
         goto LABEL_82;
       }
 
-      v76 = *MEMORY[0x277CBF3A8];
-      v77 = *(MEMORY[0x277CBF3A8] + 8);
-      v78 = objc_msgSend_objectForKeyedSubscript_(v74, v75, v14);
+      v70 = *MEMORY[0x277CBF3A8];
+      v71 = *(MEMORY[0x277CBF3A8] + 8);
+      v72 = objc_msgSend_objectForKeyedSubscript_(v68, v69, v13);
       objc_opt_class();
-      v173 = v17;
-      v174 = v78;
-      v180 = locatorCopy;
+      v166 = v16;
+      v167 = v72;
+      v173 = locatorCopy;
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        if (v78)
+        if (v72)
         {
-          v91 = v14;
-          v92 = MEMORY[0x277D81150];
-          v93 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v79, "[TSPDocumentResourceRegistry documentResourceInfoForDigestString:locator:]");
-          v95 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v94, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPDocumentResourceRegistry.m");
-          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v92, v96, v93, v95, 213, 0, "Invalid properties value for digest string %{public}@: Properties must be an array", v91);
+          v85 = v13;
+          v86 = MEMORY[0x277D81150];
+          v87 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v73, "[TSPDocumentResourceRegistry documentResourceInfoForDigestString:locator:]");
+          v89 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v88, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPDocumentResourceRegistry.m");
+          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v86, v90, v87, v89, 213, 0, "Invalid properties value for digest string %{public}@: Properties must be an array", v85);
 
-          v14 = v91;
-          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v97, v98);
-          v99 = 0;
-          v78 = 0;
+          v13 = v85;
+          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v91, v92);
+          v93 = 0;
+          v72 = 0;
           goto LABEL_79;
         }
 
-        v181 = v14;
-        v127 = 0;
-        v99 = 0;
-        v100 = 0;
+        v174 = v13;
+        v121 = 0;
+        v93 = 0;
+        v94 = 0;
 LABEL_76:
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v154 = [TSPDocumentResourceInfo alloc];
-          v14 = v181;
-          v25 = objc_msgSend_initWithDigestString_locator_fileExtension_fileSize_tags_pixelSize_fallbackColor_(v154, v155, v181, v17, v78, v100, v99, v127, v76, v77);
+          v148 = [TSPDocumentResourceInfo alloc];
+          v13 = v174;
+          v24 = objc_msgSend_initWithDigestString_locator_fileExtension_fileSize_tags_pixelSize_fallbackColor_(v148, v149, v174, v16, v72, v94, v93, v121, v70, v71);
 
 LABEL_80:
-          locatorCopy = v180;
+          locatorCopy = v173;
           goto LABEL_81;
         }
 
-        v156 = MEMORY[0x277D81150];
-        v157 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v153, "[TSPDocumentResourceRegistry documentResourceInfoForDigestString:locator:]");
-        objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v158, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPDocumentResourceRegistry.m");
-        v160 = v159 = v78;
-        v14 = v181;
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v156, v161, v157, v160, 218, 0, "Invalid file extension for digest string %{public}@: File extension must be a string", v181);
+        v150 = MEMORY[0x277D81150];
+        v151 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v147, "[TSPDocumentResourceRegistry documentResourceInfoForDigestString:locator:]");
+        objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v152, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPDocumentResourceRegistry.m");
+        v154 = v153 = v72;
+        v13 = v174;
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v150, v155, v151, v154, 218, 0, "Invalid file extension for digest string %{public}@: File extension must be a string", v174);
 
-        v78 = v159;
-        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v162, v163);
+        v72 = v153;
+        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v156, v157);
 
 LABEL_79:
-        v25 = 0;
-        v17 = v173;
+        v24 = 0;
+        v16 = v166;
         goto LABEL_80;
       }
 
-      v82 = objc_msgSend_count(v78, v79, v80);
-      v172 = v82;
-      if (v82)
+      v76 = objc_msgSend_count(v72, v73, v74);
+      v165 = v76;
+      if (v76)
       {
-        v171 = objc_msgSend_objectAtIndexedSubscript_(v78, v81, 0);
-        if (v82 != 1)
+        v164 = objc_msgSend_objectAtIndexedSubscript_(v72, v75, 0);
+        if (v76 != 1)
         {
           objc_opt_class();
-          v129 = objc_msgSend_objectAtIndexedSubscript_(v78, v128, 1);
-          v130 = TSUDynamicCast();
+          v123 = objc_msgSend_objectAtIndexedSubscript_(v72, v122, 1);
+          v124 = TSUDynamicCast();
 
-          if (v130)
+          if (v124)
           {
-            v100 = objc_msgSend_unsignedLongLongValue(v130, v131, v132);
+            v94 = objc_msgSend_unsignedLongLongValue(v124, v125, v126);
           }
 
           else
           {
-            v100 = 0;
+            v94 = 0;
           }
 
-          v82 = v172;
-          if (v172 < 3)
+          v76 = v165;
+          if (v165 < 3)
           {
-            v83 = 0;
-            v101 = objc_msgSend_conformsToProtocol_(0, v166, &unk_2885F09F8);
+            v77 = 0;
+            v95 = objc_msgSend_conformsToProtocol_(0, v159, &unk_2885F09F8);
           }
 
           else
           {
-            v83 = objc_msgSend_objectAtIndexedSubscript_(v78, v166, 2);
-            v101 = objc_msgSend_conformsToProtocol_(v83, v167, &unk_2885F09F8);
+            v77 = objc_msgSend_objectAtIndexedSubscript_(v72, v159, 2);
+            v95 = objc_msgSend_conformsToProtocol_(v77, v160, &unk_2885F09F8);
           }
 
           goto LABEL_39;
         }
 
-        v83 = 0;
+        v77 = 0;
       }
 
       else
       {
-        v83 = 0;
-        v171 = 0;
+        v77 = 0;
+        v164 = 0;
       }
 
-      v100 = 0;
-      v101 = objc_msgSend_conformsToProtocol_(0, v81, &unk_2885F09F8);
+      v94 = 0;
+      v95 = objc_msgSend_conformsToProtocol_(0, v75, &unk_2885F09F8);
 LABEL_39:
-      v181 = v14;
-      v170 = v83;
-      if (v101)
+      v174 = v13;
+      v163 = v77;
+      if (v95)
       {
-        v168 = v100;
-        v176 = stringCopy;
-        v178 = v11;
-        v184 = 0u;
-        v185 = 0u;
-        v182 = 0u;
-        v183 = 0u;
-        v103 = v83;
-        v105 = objc_msgSend_countByEnumeratingWithState_objects_count_(v103, v104, &v182, v186, 16);
-        if (v105)
+        v161 = v94;
+        v169 = stringCopy;
+        v171 = v10;
+        v177 = 0u;
+        v178 = 0u;
+        v175 = 0u;
+        v176 = 0u;
+        v97 = v77;
+        v99 = objc_msgSend_countByEnumeratingWithState_objects_count_(v97, v98, &v175, v179, 16);
+        if (v99)
         {
-          v106 = v105;
-          v99 = 0;
-          v107 = *v183;
+          v100 = v99;
+          v93 = 0;
+          v101 = *v176;
           do
           {
-            for (i = 0; i != v106; ++i)
+            for (i = 0; i != v100; ++i)
             {
-              if (*v183 != v107)
+              if (*v176 != v101)
               {
-                objc_enumerationMutation(v103);
+                objc_enumerationMutation(v97);
               }
 
-              v109 = *(*(&v182 + 1) + 8 * i);
+              v103 = *(*(&v175 + 1) + 8 * i);
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                if (v99)
+                if (v93)
                 {
-                  objc_msgSend_addObject_(v99, v110, v109);
+                  objc_msgSend_addObject_(v93, v104, v103);
                 }
 
                 else
                 {
-                  v99 = objc_msgSend_setWithObject_(MEMORY[0x277CBEB58], v110, v109);
+                  v93 = objc_msgSend_setWithObject_(MEMORY[0x277CBEB58], v104, v103);
                 }
               }
 
-              else if (v109)
+              else if (v103)
               {
-                v111 = MEMORY[0x277D81150];
-                v112 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v110, "[TSPDocumentResourceRegistry documentResourceInfoForDigestString:locator:]");
-                v114 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v113, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPDocumentResourceRegistry.m");
-                objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v111, v115, v112, v114, 188, 0, "Invalid tag value for digest string %{public}@: Tag must be a string", v181);
+                v105 = MEMORY[0x277D81150];
+                v106 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v104, "[TSPDocumentResourceRegistry documentResourceInfoForDigestString:locator:]");
+                v108 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v107, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPDocumentResourceRegistry.m");
+                objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v105, v109, v106, v108, 188, 0, "Invalid tag value for digest string %{public}@: Tag must be a string", v174);
 
-                objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v116, v117);
+                objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v110, v111);
               }
             }
 
-            v106 = objc_msgSend_countByEnumeratingWithState_objects_count_(v103, v110, &v182, v186, 16);
+            v100 = objc_msgSend_countByEnumeratingWithState_objects_count_(v97, v104, &v175, v179, 16);
           }
 
-          while (v106);
+          while (v100);
         }
 
         else
         {
-          v99 = 0;
+          v93 = 0;
         }
 
-        stringCopy = v176;
-        v11 = v178;
-        v100 = v168;
-        v78 = v174;
-        v82 = v172;
-        v83 = v170;
+        stringCopy = v169;
+        v10 = v171;
+        v94 = v161;
+        v72 = v167;
+        v76 = v165;
+        v77 = v163;
       }
 
       else
       {
-        if (v83)
+        if (v77)
         {
-          v118 = MEMORY[0x277D81150];
-          v119 = v83;
-          v120 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v102, "[TSPDocumentResourceRegistry documentResourceInfoForDigestString:locator:]");
-          v122 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v121, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPDocumentResourceRegistry.m");
-          v123 = v118;
-          v82 = v172;
-          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v123, v124, v120, v122, 192, 0, "Invalid tags value for digest string %{public}@: Tags must be an enumerable", v181);
+          v112 = MEMORY[0x277D81150];
+          v113 = v77;
+          v114 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v96, "[TSPDocumentResourceRegistry documentResourceInfoForDigestString:locator:]");
+          v116 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v115, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPDocumentResourceRegistry.m");
+          v117 = v112;
+          v76 = v165;
+          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v117, v118, v114, v116, 192, 0, "Invalid tags value for digest string %{public}@: Tags must be an enumerable", v174);
 
-          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v125, v126);
-          v83 = v119;
+          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v119, v120);
+          v77 = v113;
         }
 
-        v99 = 0;
+        v93 = 0;
       }
 
-      if (v82 < 4)
+      if (v76 < 4)
       {
-        v127 = 0;
-        v78 = v171;
+        v121 = 0;
+        v72 = v164;
       }
 
       else
       {
         objc_opt_class();
-        v134 = objc_msgSend_objectAtIndexedSubscript_(v78, v133, 3);
-        v135 = TSUDynamicCast();
+        v128 = objc_msgSend_objectAtIndexedSubscript_(v72, v127, 3);
+        v129 = TSUDynamicCast();
 
-        if (v135 && objc_msgSend_count(v135, v136, v137) == 2)
+        if (v129 && objc_msgSend_count(v129, v130, v131) == 2)
         {
-          v169 = v100;
-          v138 = v74;
+          v162 = v94;
+          v132 = v68;
           objc_opt_class();
-          v140 = objc_msgSend_objectAtIndexedSubscript_(v135, v139, 0);
-          v141 = TSUDynamicCast();
+          v134 = objc_msgSend_objectAtIndexedSubscript_(v129, v133, 0);
+          v135 = TSUDynamicCast();
 
           objc_opt_class();
-          v143 = objc_msgSend_objectAtIndexedSubscript_(v135, v142, 1);
-          v144 = TSUDynamicCast();
+          v137 = objc_msgSend_objectAtIndexedSubscript_(v129, v136, 1);
+          v138 = TSUDynamicCast();
 
-          if (v141 && v144)
+          if (v135 && v138)
           {
-            v76 = objc_msgSend_intValue(v141, v145, v146);
-            v77 = objc_msgSend_intValue(v144, v147, v148);
+            v70 = objc_msgSend_intValue(v135, v139, v140);
+            v71 = objc_msgSend_intValue(v138, v141, v142);
           }
 
-          v74 = v138;
-          v78 = v174;
-          v100 = v169;
+          v68 = v132;
+          v72 = v167;
+          v94 = v162;
         }
 
-        if (v172 == 4 || (objc_opt_class(), objc_msgSend_objectAtIndexedSubscript_(v78, v149, 4), v150 = objc_claimAutoreleasedReturnValue(), TSUDynamicCast(), v151 = objc_claimAutoreleasedReturnValue(), v150, !v151))
+        if (v165 == 4 || (objc_opt_class(), objc_msgSend_objectAtIndexedSubscript_(v72, v143, 4), v144 = objc_claimAutoreleasedReturnValue(), TSUDynamicCast(), v145 = objc_claimAutoreleasedReturnValue(), v144, !v145))
         {
-          v127 = 0;
+          v121 = 0;
         }
 
         else
         {
-          v127 = objc_msgSend_colorWithHexString_(MEMORY[0x277D81180], v152, v151);
+          v121 = objc_msgSend_colorWithHexString_(MEMORY[0x277D81180], v146, v145);
         }
 
-        v83 = v170;
-        v78 = v171;
+        v77 = v163;
+        v72 = v164;
       }
 
       goto LABEL_76;
@@ -436,113 +433,106 @@ LABEL_39:
 
   else
   {
-    v17 = 0;
+    v16 = 0;
     if (!locatorCopy)
     {
       goto LABEL_27;
     }
   }
 
-  if (v17)
+  if (v16)
   {
     goto LABEL_27;
   }
 
-  v33 = *(v8 + 2752);
   objc_opt_class();
-  v35 = objc_msgSend_objectForKeyedSubscript_(self->_metadataDictionary, v34, @"Digest");
-  v25 = TSUDynamicCast();
+  v33 = objc_msgSend_objectForKeyedSubscript_(self->_metadataDictionary, v32, @"Digest");
+  v24 = TSUDynamicCast();
 
-  if (v25)
+  if (v24)
   {
-    v175 = stringCopy;
-    v177 = v11;
-    v179 = locatorCopy;
-    v38 = objc_msgSend_lowercaseString(locatorCopy, v36, v37);
-    v40 = objc_msgSend_objectForKeyedSubscript_(v25, v39, v38);
+    v168 = stringCopy;
+    v170 = v10;
+    v172 = locatorCopy;
+    v36 = objc_msgSend_lowercaseString(locatorCopy, v34, v35);
+    v38 = objc_msgSend_objectForKeyedSubscript_(v24, v37, v36);
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      if (v40)
+      if (v38)
       {
-        v54 = v14;
-        v55 = MEMORY[0x277D81150];
-        v56 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v41, "[TSPDocumentResourceRegistry documentResourceInfoForDigestString:locator:]");
-        objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v57, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPDocumentResourceRegistry.m");
-        v59 = v58 = v8;
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v55, v60, v56, v59, 143, 0, "Invalid digest value for locator %{public}@: Digest must be a string", locatorCopy);
+        v52 = MEMORY[0x277D81150];
+        v53 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v39, "[TSPDocumentResourceRegistry documentResourceInfoForDigestString:locator:]");
+        v55 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v54, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPDocumentResourceRegistry.m");
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v52, v56, v53, v55, 143, 0, "Invalid digest value for locator %{public}@: Digest must be a string", locatorCopy);
 
-        v8 = v58;
-        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v61, v62);
-        v42 = v54;
-        v17 = 0;
+        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v57, v58);
+        v40 = v13;
+        v16 = 0;
       }
 
       else
       {
-        v17 = 0;
-        v42 = v14;
+        v16 = 0;
+        v40 = v13;
       }
 
       goto LABEL_26;
     }
 
-    v42 = v40;
+    v40 = v38;
 
-    v44 = objc_msgSend_objectForKeyedSubscript_(v177, v43, v42);
+    v42 = objc_msgSend_objectForKeyedSubscript_(v170, v41, v40);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v46 = v44;
-      if (v46)
+      v44 = v42;
+      if (v44)
       {
 LABEL_24:
 
-        locatorCopy = v179;
-        v17 = v46;
+        locatorCopy = v172;
+        v16 = v44;
 LABEL_26:
 
-        v14 = v42;
-        stringCopy = v175;
-        v11 = v177;
+        v13 = v40;
+        stringCopy = v168;
+        v10 = v170;
         goto LABEL_27;
       }
     }
 
-    else if (v44)
+    else if (v42)
     {
-      v63 = MEMORY[0x277D81150];
-      objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v45, "[TSPDocumentResourceRegistry documentResourceInfoForDigestString:locator:]");
-      v65 = v64 = v8;
-      v67 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v66, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPDocumentResourceRegistry.m");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v63, v68, v65, v67, 135, 0, "Invalid locator value for digest string %{public}@: Locator must be a string", v42);
+      v59 = MEMORY[0x277D81150];
+      v60 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v43, "[TSPDocumentResourceRegistry documentResourceInfoForDigestString:locator:]");
+      v62 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v61, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPDocumentResourceRegistry.m");
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v59, v63, v60, v62, 135, 0, "Invalid locator value for digest string %{public}@: Locator must be a string", v40);
 
-      v8 = v64;
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v69, v70);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v64, v65);
     }
 
-    v46 = v38;
+    v44 = v36;
     goto LABEL_24;
   }
 
-  v47 = MEMORY[0x277D81150];
-  v48 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v36, "[TSPDocumentResourceRegistry documentResourceInfoForDigestString:locator:]");
-  v50 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v49, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPDocumentResourceRegistry.m");
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v47, v51, v48, v50, 117, 0, "Invalid locator to digest dictionary");
+  v45 = MEMORY[0x277D81150];
+  v46 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v34, "[TSPDocumentResourceRegistry documentResourceInfoForDigestString:locator:]");
+  v48 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v47, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPDocumentResourceRegistry.m");
+  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v45, v49, v46, v48, 117, 0, "Invalid locator to digest dictionary");
 
-  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v52, v53);
-  v17 = 0;
+  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v50, v51);
+  v16 = 0;
 LABEL_82:
 
 LABEL_83:
-  v164 = *MEMORY[0x277D85DE8];
 
-  return v25;
+  return v24;
 }
 
 - (id)documentResourceInfosForTags:(id)tags
 {
-  v122 = *MEMORY[0x277D85DE8];
+  v120 = *MEMORY[0x277D85DE8];
   tagsCopy = tags;
   if (objc_msgSend_count(tagsCopy, v5, v6))
   {
@@ -554,292 +544,289 @@ LABEL_83:
     v11 = v9;
     if (v9)
     {
-      v117 = 0u;
-      v118 = 0u;
       v115 = 0u;
       v116 = 0u;
-      v94 = tagsCopy;
+      v113 = 0u;
+      v114 = 0u;
+      v92 = tagsCopy;
       v12 = tagsCopy;
-      v98 = v9;
-      v102 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v13, &v115, v121, 16);
+      v96 = v9;
+      v100 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v13, &v113, v119, 16);
       v15 = 0;
-      if (v102)
+      if (v100)
       {
         v16 = 0x277CBE000uLL;
-        v101 = *v116;
-        v95 = v12;
+        v99 = *v114;
+        v93 = v12;
         do
         {
-          for (i = 0; i != v102; ++i)
+          for (i = 0; i != v100; ++i)
           {
-            if (*v116 != v101)
+            if (*v114 != v99)
             {
               objc_enumerationMutation(v12);
             }
 
-            v18 = *(*(&v115 + 1) + 8 * i);
+            v18 = *(*(&v113 + 1) + 8 * i);
             v19 = objc_msgSend_objectForKeyedSubscript_(v11, v14, v18);
-            v20 = *(v16 + 2656);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v23 = objc_msgSend_lastObject(v19, v21, v22);
-              if (objc_msgSend_conformsToProtocol_(v23, v24, &unk_2885F09F8))
+              v22 = objc_msgSend_lastObject(v19, v20, v21);
+              if (objc_msgSend_conformsToProtocol_(v22, v23, &unk_2885F09F8))
               {
                 obj = v19;
-                v97 = i;
-                v113 = 0u;
-                v114 = 0u;
+                v95 = i;
                 v111 = 0u;
                 v112 = 0u;
-                v99 = v23;
-                v26 = v23;
-                v28 = objc_msgSend_countByEnumeratingWithState_objects_count_(v26, v27, &v111, v120, 16);
-                if (v28)
+                v109 = 0u;
+                v110 = 0u;
+                v97 = v22;
+                v25 = v22;
+                v27 = objc_msgSend_countByEnumeratingWithState_objects_count_(v25, v26, &v109, v118, 16);
+                if (v27)
                 {
-                  v29 = v28;
-                  v30 = *v112;
+                  v28 = v27;
+                  v29 = *v110;
                   do
                   {
-                    for (j = 0; j != v29; ++j)
+                    for (j = 0; j != v28; ++j)
                     {
-                      if (*v112 != v30)
+                      if (*v110 != v29)
                       {
-                        objc_enumerationMutation(v26);
+                        objc_enumerationMutation(v25);
                       }
 
-                      v32 = *(*(&v111 + 1) + 8 * j);
+                      v31 = *(*(&v109 + 1) + 8 * j);
                       objc_opt_class();
                       if (objc_opt_isKindOfClass())
                       {
                         if (v15)
                         {
-                          objc_msgSend_addObject_(v15, v33, v32);
+                          objc_msgSend_addObject_(v15, v32, v31);
                         }
 
                         else
                         {
-                          v15 = objc_msgSend_setWithObject_(MEMORY[0x277CBEB58], v33, v32);
+                          v15 = objc_msgSend_setWithObject_(MEMORY[0x277CBEB58], v32, v31);
                         }
                       }
 
-                      else if (v32)
+                      else if (v31)
                       {
-                        v34 = MEMORY[0x277D81150];
-                        v35 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v33, "[TSPDocumentResourceRegistry documentResourceInfosForTags:]");
-                        v37 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v36, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPDocumentResourceRegistry.m");
-                        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v34, v38, v35, v37, 259, 0, "Invalid locator value for tag %{public}@: Locator must be a string", v18);
+                        v33 = MEMORY[0x277D81150];
+                        v34 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v32, "[TSPDocumentResourceRegistry documentResourceInfosForTags:]");
+                        v36 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v35, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPDocumentResourceRegistry.m");
+                        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v33, v37, v34, v36, 259, 0, "Invalid locator value for tag %{public}@: Locator must be a string", v18);
 
-                        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v39, v40);
+                        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v38, v39);
                       }
                     }
 
-                    v29 = objc_msgSend_countByEnumeratingWithState_objects_count_(v26, v33, &v111, v120, 16);
+                    v28 = objc_msgSend_countByEnumeratingWithState_objects_count_(v25, v32, &v109, v118, 16);
                   }
 
-                  while (v29);
+                  while (v28);
                 }
 
-                i = v97;
-                v11 = v98;
-                v12 = v95;
+                i = v95;
+                v11 = v96;
+                v12 = v93;
                 v16 = 0x277CBE000;
                 v19 = obj;
-                v23 = v99;
+                v22 = v97;
               }
 
-              else if (v23)
+              else if (v22)
               {
-                v100 = v23;
-                v52 = v11;
-                v53 = i;
-                v54 = MEMORY[0x277D81150];
-                objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v25, "[TSPDocumentResourceRegistry documentResourceInfosForTags:]");
-                v55 = objc = v19;
-                objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v56, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPDocumentResourceRegistry.m");
-                v58 = v57 = v12;
-                v59 = v54;
-                i = v53;
-                v11 = v52;
-                v23 = v100;
-                objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v59, v60, v55, v58, 263, 0, "Invalid locators value for tag %{public}@: Locators must be an array", v18);
+                v98 = v22;
+                v51 = v11;
+                v52 = i;
+                v53 = MEMORY[0x277D81150];
+                objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v24, "[TSPDocumentResourceRegistry documentResourceInfosForTags:]");
+                v54 = objc = v19;
+                objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v55, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPDocumentResourceRegistry.m");
+                v57 = v56 = v12;
+                v58 = v53;
+                i = v52;
+                v11 = v51;
+                v22 = v98;
+                objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v58, v59, v54, v57, 263, 0, "Invalid locators value for tag %{public}@: Locators must be an array", v18);
 
-                v12 = v57;
+                v12 = v56;
                 v16 = 0x277CBE000;
 
                 v19 = objc;
-                objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v61, v62);
+                objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v60, v61);
               }
             }
 
             else if (v19)
             {
-              v41 = i;
-              v42 = MEMORY[0x277D81150];
-              objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v21, "[TSPDocumentResourceRegistry documentResourceInfosForTags:]");
-              v43 = objb = v19;
-              objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v44, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPDocumentResourceRegistry.m");
-              v45 = v16;
-              v47 = v46 = v12;
-              v48 = v42;
-              i = v41;
-              v11 = v98;
-              objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v48, v49, v43, v47, 266, 0, "Invalid properties value for tag %{public}@: Properties must be an array", v18);
+              v40 = i;
+              v41 = MEMORY[0x277D81150];
+              objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v20, "[TSPDocumentResourceRegistry documentResourceInfosForTags:]");
+              v42 = objb = v19;
+              objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v43, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPDocumentResourceRegistry.m");
+              v44 = v16;
+              v46 = v45 = v12;
+              v47 = v41;
+              i = v40;
+              v11 = v96;
+              objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v47, v48, v42, v46, 266, 0, "Invalid properties value for tag %{public}@: Properties must be an array", v18);
 
-              v12 = v46;
-              v16 = v45;
+              v12 = v45;
+              v16 = v44;
 
               v19 = objb;
-              objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v50, v51);
+              objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v49, v50);
             }
           }
 
-          v102 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v14, &v115, v121, 16);
+          v100 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v14, &v113, v119, 16);
         }
 
-        while (v102);
+        while (v100);
       }
 
-      v109 = 0u;
-      v110 = 0u;
       v107 = 0u;
       v108 = 0u;
+      v105 = 0u;
+      v106 = 0u;
       obja = v15;
-      v64 = objc_msgSend_countByEnumeratingWithState_objects_count_(obja, v63, &v107, v119, 16);
-      if (v64)
+      v63 = objc_msgSend_countByEnumeratingWithState_objects_count_(obja, v62, &v105, v117, 16);
+      if (v63)
       {
-        v66 = v64;
-        v67 = 0;
-        v68 = *v108;
-        v69 = selfCopy;
+        v65 = v63;
+        v66 = 0;
+        v67 = *v106;
+        v68 = selfCopy;
         do
         {
-          for (k = 0; k != v66; ++k)
+          for (k = 0; k != v65; ++k)
           {
-            if (*v108 != v68)
+            if (*v106 != v67)
             {
               objc_enumerationMutation(obja);
             }
 
-            v71 = *(*(&v107 + 1) + 8 * k);
-            v73 = objc_msgSend_documentResourceInfoForDigestString_locator_(v69, v65, 0, v71);
-            if (v73)
+            v70 = *(*(&v105 + 1) + 8 * k);
+            v72 = objc_msgSend_documentResourceInfoForDigestString_locator_(v68, v64, 0, v70);
+            if (v72)
             {
-              if (v67)
+              if (v66)
               {
-                objc_msgSend_addObject_(v67, v72, v73);
+                objc_msgSend_addObject_(v66, v71, v72);
               }
 
               else
               {
-                v67 = objc_msgSend_setWithObject_(MEMORY[0x277CBEB58], v72, v73);
+                v66 = objc_msgSend_setWithObject_(MEMORY[0x277CBEB58], v71, v72);
               }
             }
 
             else
             {
-              v74 = MEMORY[0x277D81150];
-              v75 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v72, "[TSPDocumentResourceRegistry documentResourceInfosForTags:]");
-              v77 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v76, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPDocumentResourceRegistry.m");
-              v78 = v74;
-              v69 = selfCopy;
-              objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v78, v79, v75, v77, 281, 0, "Invalid locator %{public}@", v71);
+              v73 = MEMORY[0x277D81150];
+              v74 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v71, "[TSPDocumentResourceRegistry documentResourceInfosForTags:]");
+              v76 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v75, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPDocumentResourceRegistry.m");
+              v77 = v73;
+              v68 = selfCopy;
+              objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v77, v78, v74, v76, 281, 0, "Invalid locator %{public}@", v70);
 
-              objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v80, v81);
+              objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v79, v80);
             }
           }
 
-          v66 = objc_msgSend_countByEnumeratingWithState_objects_count_(obja, v65, &v107, v119, 16);
+          v65 = objc_msgSend_countByEnumeratingWithState_objects_count_(obja, v64, &v105, v117, 16);
         }
 
-        while (v66);
+        while (v65);
       }
 
       else
       {
-        v67 = 0;
+        v66 = 0;
       }
 
-      v82 = objc_msgSend_copy(v67, v90, v91);
-      tagsCopy = v94;
-      v11 = v98;
+      v81 = objc_msgSend_copy(v66, v89, v90);
+      tagsCopy = v92;
+      v11 = v96;
     }
 
     else
     {
-      v83 = MEMORY[0x277D81150];
-      v84 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "[TSPDocumentResourceRegistry documentResourceInfosForTags:]");
-      v86 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v85, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPDocumentResourceRegistry.m");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v83, v87, v84, v86, 238, 0, "Invalid tag to properties dictionary");
+      v82 = MEMORY[0x277D81150];
+      v83 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "[TSPDocumentResourceRegistry documentResourceInfosForTags:]");
+      v85 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v84, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPDocumentResourceRegistry.m");
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v82, v86, v83, v85, 238, 0, "Invalid tag to properties dictionary");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v88, v89);
-      v82 = 0;
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v87, v88);
+      v81 = 0;
     }
   }
 
   else
   {
-    v82 = 0;
+    v81 = 0;
   }
 
-  v92 = *MEMORY[0x277D85DE8];
-
-  return v82;
+  return v81;
 }
 
 - (id)localStrategyProviderForDocumentResourceInfos:(id)infos
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   infosCopy = infos;
   v7 = objc_msgSend_count(infosCopy, v5, v6);
   if (v7)
   {
-    v44 = objc_msgSend_dictionaryWithCapacity_(MEMORY[0x277CBEB38], v8, v7);
+    v43 = objc_msgSend_dictionaryWithCapacity_(MEMORY[0x277CBEB38], v8, v7);
     v10 = objc_msgSend_objectForKeyedSubscript_(self->_metadataDictionary, v9, @"Tags");
+    v51 = 0u;
     v52 = 0u;
     v53 = 0u;
     v54 = 0u;
-    v55 = 0u;
-    v41 = infosCopy;
+    v40 = infosCopy;
     obj = infosCopy;
-    v45 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v11, &v52, v57, 16);
-    if (v45)
+    v44 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v11, &v51, v56, 16);
+    if (v44)
     {
-      v43 = *v53;
+      v42 = *v52;
       do
       {
         v14 = 0;
         do
         {
-          if (*v53 != v43)
+          if (*v52 != v42)
           {
             objc_enumerationMutation(obj);
           }
 
-          v15 = *(*(&v52 + 1) + 8 * v14);
+          v15 = *(*(&v51 + 1) + 8 * v14);
+          v47 = 0u;
           v48 = 0u;
           v49 = 0u;
           v50 = 0u;
-          v51 = 0u;
-          v46 = v15;
+          v45 = v15;
           v16 = objc_msgSend_tags(v15, v12, v13);
-          v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v17, &v48, v56, 16);
-          v47 = v14;
+          v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v17, &v47, v55, 16);
+          v46 = v14;
           if (v18)
           {
             v19 = v18;
             v20 = 0;
-            v21 = *v49;
+            v21 = *v48;
 LABEL_9:
             v22 = 0;
             while (1)
             {
-              if (*v49 != v21)
+              if (*v48 != v21)
               {
                 objc_enumerationMutation(v16);
               }
 
-              v23 = *(*(&v48 + 1) + 8 * v22);
+              v23 = *(*(&v47 + 1) + 8 * v22);
               objc_opt_class();
               v25 = objc_msgSend_objectForKeyedSubscript_(v10, v24, v23);
               v28 = objc_msgSend_firstObject(v25, v26, v27);
@@ -853,7 +840,7 @@ LABEL_9:
 
               if (v19 == ++v22)
               {
-                v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v32, &v48, v56, 16);
+                v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v32, &v47, v55, 16);
                 if (v19)
                 {
                   goto LABEL_9;
@@ -870,28 +857,26 @@ LABEL_9:
           }
 
           v34 = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], v33, v20);
-          objc_msgSend_setObject_forKeyedSubscript_(v44, v35, v34, v46);
+          objc_msgSend_setObject_forKeyedSubscript_(v43, v35, v34, v45);
 
-          v14 = v47 + 1;
+          v14 = v46 + 1;
         }
 
-        while (v47 + 1 != v45);
-        v45 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v12, &v52, v57, 16);
+        while (v46 + 1 != v44);
+        v44 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v12, &v51, v56, 16);
       }
 
-      while (v45);
+      while (v44);
     }
 
-    v38 = objc_msgSend_copy(v44, v36, v37);
-    infosCopy = v41;
+    v38 = objc_msgSend_copy(v43, v36, v37);
+    infosCopy = v40;
   }
 
   else
   {
     v38 = 0;
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 
   return v38;
 }

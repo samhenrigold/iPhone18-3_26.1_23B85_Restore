@@ -818,7 +818,7 @@
     {
       v13 = @"selector";
       v14 = v6;
-      v9 = [NSDictionary dictionaryWithObjects:&v14 forKeys:&v13 count:1];
+      v9 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
       v10 = [NSException exceptionWithName:@"GKNoSuchServiceException" reason:@"Attempted to dispatch a selector which is not recognized by any service" userInfo:v9];
       v11 = v10;
 

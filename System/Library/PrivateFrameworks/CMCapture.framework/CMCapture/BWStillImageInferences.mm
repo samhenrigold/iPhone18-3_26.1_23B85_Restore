@@ -115,9 +115,9 @@
   if (v7)
   {
     cf = 0;
-    v14 = *&pts->var0;
+    v15 = *&pts->var0;
     var3 = pts->var3;
-    v8 = BWSampleBufferCreateFromPixelBuffer(v7, &v14, &cf, &target);
+    v8 = BWSampleBufferCreateFromPixelBuffer(v7, &v15, &cf, &target);
     if (cf)
     {
       CFRelease(cf);
@@ -132,14 +132,14 @@
         CMSetAttachment(target, *off_1E798A3C8, v9, 1u);
       }
 
-      v10 = BWMetadataAttachmentKeyForAttachedMediaKey(key);
-      if (v10)
+      v11 = BWMetadataAttachmentKeyForAttachedMediaKey(key, v10);
+      if (v11)
       {
-        v11 = v10;
-        v12 = [(NSDictionary *)[(BWStillImageInferences *)self inferenceAttachedMediaMetadata] objectForKeyedSubscript:key];
-        if (v12)
+        v12 = v11;
+        v13 = [(NSDictionary *)[(BWStillImageInferences *)self inferenceAttachedMediaMetadata] objectForKeyedSubscript:key];
+        if (v13)
         {
-          CMSetAttachment(target, v11, v12, 1u);
+          CMSetAttachment(target, v12, v13, 1u);
         }
       }
     }

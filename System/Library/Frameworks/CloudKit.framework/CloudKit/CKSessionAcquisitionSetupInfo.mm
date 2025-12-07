@@ -42,7 +42,7 @@
   v17 = NSStringFromSelector(sel_ckPreviousSessionInvalidationContext);
   objc_msgSend_encodeObject_forKey_(coderCopy, v18, v16, v17);
 
-  if (__sTestOverridesAvailable[0] == 1)
+  if (__sTestOverridesAvailable == 1)
   {
     v21 = objc_msgSend_testDeviceReferenceProtocol(self, v19, v20);
     v22 = NSStringFromSelector(sel_testDeviceReferenceProtocol);
@@ -76,7 +76,7 @@
     ckPreviousSessionInvalidationContext = v5->_ckPreviousSessionInvalidationContext;
     v5->_ckPreviousSessionInvalidationContext = v19;
 
-    if (__sTestOverridesAvailable[0] == 1)
+    if (__sTestOverridesAvailable == 1)
     {
       v21 = sub_188518A68();
       v22 = NSStringFromSelector(sel_testDeviceReferenceProtocol);

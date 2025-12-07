@@ -17,9 +17,9 @@
     +[NSData(ISCompositorResourceValidationToken) _is_invalidToken];
   }
 
-  v1 = _is_invalidToken_invalidToken;
+  v2 = _is_invalidToken_invalidToken;
 
-  return v1;
+  return v2;
 }
 
 + (id)_is_staleToken
@@ -29,9 +29,9 @@
     +[NSData(ISCompositorResourceValidationToken) _is_staleToken];
   }
 
-  v1 = _is_staleToken_staleToken;
+  v2 = _is_staleToken_staleToken;
 
-  return v1;
+  return v2;
 }
 
 + (id)_is_validToken
@@ -41,9 +41,9 @@
     +[NSData(ISCompositorResourceValidationToken) _is_validToken];
   }
 
-  v1 = _is_validToken_validToken;
+  v2 = _is_validToken_validToken;
 
-  return v1;
+  return v2;
 }
 
 - (id)_is_getSequenceNumber:()ISCompositorResourceValidationToken andUUID:

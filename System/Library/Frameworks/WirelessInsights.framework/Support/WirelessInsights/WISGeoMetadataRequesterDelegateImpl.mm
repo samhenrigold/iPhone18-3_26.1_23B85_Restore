@@ -45,33 +45,29 @@
 
 - (void)onReceivedResultsCallback:(function<void (NSArray<NSData *> *)
 {
-  selfCopy = self;
-  sub_100032B20(&v7, a3);
-  fObj = self->fQueue.fObj.fObj;
+  self;
+  sub_100032B20(&v4, a3);
   operator new();
 }
 
 - (void)onFailedWithErrorCallback:(function<void (NSError *)
 {
-  selfCopy = self;
-  sub_100032DBC(&v7, a3);
-  fObj = self->fQueue.fObj.fObj;
+  self;
+  sub_100032DBC(&v4, a3);
   operator new();
 }
 
 - (void)onResultsDidNotChangeCallback:(function<void)(GEOGeographicMetadataType
 {
-  selfCopy = self;
-  sub_100033058(&v7, a3);
-  fObj = self->fQueue.fObj.fObj;
+  self;
+  sub_100033058(&v4, a3);
   operator new();
 }
 
 - (void)onSkippedLocationCallback:(function<void)(GEOGeographicMetadataType
 {
-  selfCopy = self;
-  sub_100033058(&v7, a3);
-  fObj = self->fQueue.fObj.fObj;
+  self;
+  sub_100033058(&v4, a3);
   operator new();
 }
 
@@ -82,7 +78,6 @@
   selfCopy = self;
   v10 = callbackCopy;
   v11 = locationCopy;
-  fObj = self->fQueue.fObj.fObj;
   operator new();
 }
 
@@ -93,7 +88,6 @@
   selfCopy = self;
   v10 = callbackCopy;
   v11 = locationCopy;
-  fObj = self->fQueue.fObj.fObj;
   operator new();
 }
 
@@ -102,7 +96,6 @@
   locationCopy = location;
   selfCopy = self;
   v7 = locationCopy;
-  fObj = self->fQueue.fObj.fObj;
   operator new();
 }
 
@@ -111,7 +104,6 @@
   locationCopy = location;
   selfCopy = self;
   v7 = locationCopy;
-  fObj = self->fQueue.fObj.fObj;
   operator new();
 }
 

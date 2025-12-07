@@ -35,7 +35,7 @@
 - (void)removeResource:(id)resource
 {
   resourceCopy = resource;
-  v5 = fskit_std_log();
+  v5 = fskit_std_log(resourceCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [FSResourceManager removeResource:resourceCopy];
@@ -72,12 +72,13 @@ void __36__FSResourceManager_removeTaskUUID___block_invoke(uint64_t a1, void *a2
   v8 = a3;
   v10 = *(a1 + 32);
   v9 = (a1 + 32);
-  if ([v8 containsObject:v10])
+  v11 = [v8 containsObject:v10];
+  if (v11)
   {
-    v11 = fskit_std_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v12 = fskit_std_log(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
-      __36__FSResourceManager_removeTaskUUID___block_invoke_cold_1(v7, v9, v11);
+      __36__FSResourceManager_removeTaskUUID___block_invoke_cold_1(v7, v9, v12);
     }
 
     [v8 removeObject:*v9];
@@ -89,7 +90,7 @@ void __36__FSResourceManager_removeTaskUUID___block_invoke(uint64_t a1, void *a2
 {
   resourceCopy = resource;
   v5 = [(NSMutableDictionary *)self->_resources objectForKey:resourceCopy];
-  v6 = fskit_std_log();
+  v6 = fskit_std_log(v5);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG);
   if (v5)
   {
@@ -111,7 +112,7 @@ void __36__FSResourceManager_removeTaskUUID___block_invoke(uint64_t a1, void *a2
 {
   stateCopy = state;
   v5 = [(NSMutableDictionary *)self->_resources objectForKey:stateCopy];
-  v6 = fskit_std_log();
+  v6 = fskit_std_log(v5);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG);
   if (v5)
   {
@@ -146,7 +147,7 @@ void __36__FSResourceManager_removeTaskUUID___block_invoke(uint64_t a1, void *a2
 - (void)addResource:(id)resource
 {
   resourceCopy = resource;
-  v5 = fskit_std_log();
+  v5 = fskit_std_log(resourceCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [FSResourceManager addResource:resourceCopy];
@@ -158,7 +159,7 @@ void __36__FSResourceManager_removeTaskUUID___block_invoke(uint64_t a1, void *a2
 
   if (v8)
   {
-    getResourceID2 = fskit_std_log();
+    getResourceID2 = fskit_std_log(v9);
     if (os_log_type_enabled(getResourceID2, OS_LOG_TYPE_DEBUG))
     {
       [FSResourceManager addResource:resourceCopy];
@@ -167,9 +168,9 @@ void __36__FSResourceManager_removeTaskUUID___block_invoke(uint64_t a1, void *a2
 
   else
   {
-    v10 = self->_resources;
+    v11 = self->_resources;
     getResourceID2 = [resourceCopy getResourceID];
-    [(NSMutableDictionary *)v10 setObject:resourceCopy forKey:getResourceID2];
+    [(NSMutableDictionary *)v11 setObject:resourceCopy forKey:getResourceID2];
   }
 }
 
@@ -177,7 +178,7 @@ void __36__FSResourceManager_removeTaskUUID___block_invoke(uint64_t a1, void *a2
 {
   resourceCopy = resource;
   getResourceID = [resourceCopy getResourceID];
-  v6 = fskit_std_log();
+  v6 = fskit_std_log(getResourceID);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG);
   if (getResourceID)
   {
@@ -190,7 +191,7 @@ void __36__FSResourceManager_removeTaskUUID___block_invoke(uint64_t a1, void *a2
     getResourceID2 = [resourceCopy getResourceID];
     [(NSMutableDictionary *)resources setObject:resourceCopy forKey:getResourceID2];
 
-    v6 = fskit_std_log();
+    v6 = fskit_std_log(v10);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       [FSResourceManager updateResource:resourceCopy];
@@ -207,7 +208,7 @@ void __36__FSResourceManager_removeTaskUUID___block_invoke(uint64_t a1, void *a2
 {
   dCopy = d;
   resourceCopy = resource;
-  v8 = fskit_std_log();
+  v8 = fskit_std_log(resourceCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [FSResourceManager addTaskUUID:resourceCopy resource:?];
@@ -243,123 +244,99 @@ void __36__FSResourceManager_removeTaskUUID___block_invoke(uint64_t a1, void *a2
 
 - (void)removeResource:(void *)a1 .cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 getResourceID];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_5_0();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __36__FSResourceManager_removeTaskUUID___block_invoke_cold_1(uint64_t a1, uint64_t *a2, os_log_t log)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = *a2;
-  v5 = 136315650;
-  v6 = "[FSResourceManager removeTaskUUID:]_block_invoke";
-  v7 = 2112;
-  v8 = a1;
-  v9 = 2112;
-  v10 = v3;
-  _os_log_debug_impl(&dword_24A929000, log, OS_LOG_TYPE_DEBUG, "%s:found:%@:%@", &v5, 0x20u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 136315650;
+  v5 = "[FSResourceManager removeTaskUUID:]_block_invoke";
+  v6 = 2112;
+  v7 = a1;
+  v8 = 2112;
+  v9 = v3;
+  _os_log_debug_impl(&dword_24A929000, log, OS_LOG_TYPE_DEBUG, "%s:found:%@:%@", &v4, 0x20u);
 }
 
 - (void)getResource:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_24A929000, v0, v1, "%s:found:%@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_1(&dword_24A929000, v0, v1, "%s:found:%@", v2, v3, v4, v5, v6);
 }
 
 - (void)getResource:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_24A929000, v0, v1, "%s:not_found:%@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_1(&dword_24A929000, v0, v1, "%s:not_found:%@", v2, v3, v4, v5, v6);
 }
 
 - (void)getResourceState:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_24A929000, v0, v1, "%s:found:%@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_1(&dword_24A929000, v0, v1, "%s:found:%@", v2, v3, v4, v5, v6);
 }
 
 - (void)getResourceState:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_24A929000, v0, v1, "%s:not_found:%@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_1(&dword_24A929000, v0, v1, "%s:not_found:%@", v2, v3, v4, v5, v6);
 }
 
 - (void)addResource:(void *)a1 .cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 getResourceID];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_5_0();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addResource:(void *)a1 .cold.2(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 getResourceID];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_5_0();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateResource:(void *)a1 .cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 getResourceID];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_5_0();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateResource:(void *)a1 .cold.2(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 getResourceID];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_5_0();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateResource:(os_log_t)log .cold.3(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[FSResourceManager updateResource:]";
-  _os_log_debug_impl(&dword_24A929000, log, OS_LOG_TYPE_DEBUG, "%s:error: resourceID is nil", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[FSResourceManager updateResource:]";
+  _os_log_debug_impl(&dword_24A929000, log, OS_LOG_TYPE_DEBUG, "%s:error: resourceID is nil", &v1, 0xCu);
 }
 
 - (void)addTaskUUID:(void *)a1 resource:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 getResourceID];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_5_0();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x20u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

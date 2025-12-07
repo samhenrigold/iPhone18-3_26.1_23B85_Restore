@@ -1,7 +1,6 @@
 @interface UIView(VideosUICore)
 + (id)_timingFuctionWithOptions:()VideosUICore;
 - (double)vui_layoutSubviews:()VideosUICore computationOnly:;
-- (uint64_t)setVuiAlpha:()VideosUICore;
 - (uint64_t)setVuiContentMode:()VideosUICore;
 - (uint64_t)vui_addSubview:()VideosUICore oldView:;
 - (uint64_t)vui_insertSubview:()VideosUICore aboveSubview:oldView:;
@@ -10,6 +9,7 @@
 - (unint64_t)vuiContentMode;
 - (unint64_t)vuiOverrideUserInterfaceStyle;
 - (unint64_t)vuiUserInterfaceStyle;
+- (void)setVuiAlpha:()VideosUICore;
 - (void)vui_performAsCurrentTraitCollection:()VideosUICore;
 - (void)vui_registerForTraitChanges:()VideosUICore withHandler:;
 - (void)vui_removeFromSuperView;
@@ -17,7 +17,7 @@
 
 @implementation UIView(VideosUICore)
 
-- (uint64_t)setVuiAlpha:()VideosUICore
+- (void)setVuiAlpha:()VideosUICore
 {
   result = [self vuiAlpha];
   if (v5 != a2)

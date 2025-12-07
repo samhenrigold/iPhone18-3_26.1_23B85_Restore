@@ -184,7 +184,7 @@ uint64_t __53__PLImportSessionJournalEntryPayload_modelProperties__block_invoke(
   keyCopy = key;
   builderCopy = builder;
   valueCopy = value;
-  if ([keyCopy isEqualToString:@"assets"])
+  if (objc_msgSend_isEqualToString_(keyCopy))
   {
     v11 = [(PLManagedObjectJournalEntryPayload *)self setForUUIDEncodedData:valueCopy];
 

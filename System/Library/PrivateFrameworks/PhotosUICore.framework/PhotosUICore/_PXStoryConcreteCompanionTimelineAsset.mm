@@ -59,7 +59,7 @@
   clip = [(_PXStoryConcreteCompanionTimelineAsset *)self clip];
   if (clip)
   {
-    [clip info];
+    objc_msgSend_info(clip);
   }
 
   else
@@ -67,10 +67,10 @@
     bzero(v5, 0x300uLL);
   }
 
-  v8 = *&v5[600];
-  v9 = v6;
-  v10 = v7;
-  PXStoryCompanionRectFromPXStoryContentsRect();
+  v8[0] = *&v5[600];
+  v8[1] = v6;
+  v8[2] = v7;
+  PXStoryCompanionRectFromPXStoryContentsRect(v8);
 }
 
 - ($AD15B6C785738E514ABCC493A298F7F8)initialContentsRect
@@ -78,7 +78,7 @@
   clip = [(_PXStoryConcreteCompanionTimelineAsset *)self clip];
   if (clip)
   {
-    [clip info];
+    objc_msgSend_info(clip);
   }
 
   else
@@ -86,10 +86,10 @@
     bzero(v5, 0x300uLL);
   }
 
-  v8 = *&v5[552];
-  v9 = v6;
-  v10 = v7;
-  PXStoryCompanionRectFromPXStoryContentsRect();
+  v8[0] = *&v5[552];
+  v8[1] = v6;
+  v8[2] = v7;
+  PXStoryCompanionRectFromPXStoryContentsRect(v8);
 }
 
 - ($E59C7DEBCD57E98EE3F0104B12BEB13C)videoTimeRange
@@ -98,7 +98,7 @@
   v5 = clip;
   if (clip)
   {
-    [clip videoTimeRange];
+    objc_msgSend_videoTimeRange(clip);
   }
 
   else
@@ -124,7 +124,7 @@
   }
 
   v3 = clip;
-  [clip info];
+  objc_msgSend_info(clip);
   v4 = v6;
 
   if ((v4 - 1) >= 5)

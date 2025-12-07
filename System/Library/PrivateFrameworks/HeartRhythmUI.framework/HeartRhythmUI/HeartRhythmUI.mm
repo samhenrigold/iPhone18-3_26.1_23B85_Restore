@@ -12,9 +12,9 @@ void sub_2521EDB28(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_2521EE49C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_2521EE49C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -54,7 +54,7 @@ void AppStoreDaemonLibrary()
   v0 = v1[0];
   if (!AppStoreDaemonLibraryCore_frameworkLibrary)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
@@ -65,7 +65,7 @@ LABEL_7:
   }
 }
 
-uint64_t __AppStoreDaemonLibraryCore_block_invoke()
+uint64_t __AppStoreDaemonLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   AppStoreDaemonLibraryCore_frameworkLibrary = result;
@@ -84,23 +84,23 @@ Class __getASDInstallAppsClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = __getASDInstallAppsClass_block_invoke_cold_1();
-    return [UIImage(HeartRhythmUI) hrui_screenWidthImageWithName:v3];
+    __getASDInstallAppsClass_block_invoke_cold_1();
+    return [(UIImage(HeartRhythmUI) *)v3 hrui_screenWidthImageWithName:v4, v5];
   }
 
   return result;
 }
 
-void sub_2521EED24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2521EED24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2521EEF80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_2521EEF80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -119,13 +119,13 @@ void OUTLINED_FUNCTION_1(void *a1, uint64_t a2, os_log_t log, const char *a4, ..
   _os_log_error_impl(a1, log, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-uint64_t OUTLINED_FUNCTION_0_0()
+uint64_t OUTLINED_FUNCTION_0_0(uint64_t a1)
 {
 
   return NSRequestConcreteImplementation();
 }
 
-uint64_t OUTLINED_FUNCTION_1_0()
+uint64_t OUTLINED_FUNCTION_1_0(uint64_t a1, uint64_t a2)
 {
 
   return objc_opt_class();
@@ -137,10 +137,11 @@ id OUTLINED_FUNCTION_0_1(id a1)
   return a1;
 }
 
-void OUTLINED_FUNCTION_1_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 id OUTLINED_FUNCTION_0_2(id a1)
@@ -156,19 +157,19 @@ void sub_2522133F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-id HRHeartRhythmUIFrameworkBundle()
+id HRHeartRhythmUIFrameworkBundle(uint64_t a1)
 {
   if (HRHeartRhythmUIFrameworkBundle_onceToken != -1)
   {
     HRHeartRhythmUIFrameworkBundle_cold_1();
   }
 
-  v1 = HRHeartRhythmUIFrameworkBundle_heartRhythmUIFrameworkBundle;
+  v2 = HRHeartRhythmUIFrameworkBundle_heartRhythmUIFrameworkBundle;
 
-  return v1;
+  return v2;
 }
 
-uint64_t __HRHeartRhythmUIFrameworkBundle_block_invoke()
+uint64_t __HRHeartRhythmUIFrameworkBundle_block_invoke(uint64_t a1, uint64_t a2)
 {
   HRHeartRhythmUIFrameworkBundle_heartRhythmUIFrameworkBundle = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
 
@@ -178,7 +179,7 @@ uint64_t __HRHeartRhythmUIFrameworkBundle_block_invoke()
 id HRUIECGLocalizedString(void *a1)
 {
   v1 = a1;
-  v2 = HRHeartRhythmUIFrameworkBundle();
+  v2 = HRHeartRhythmUIFrameworkBundle(v1);
   v3 = [v2 localizedStringForKey:v1 value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Cinnamon"];
 
   v4 = HKConditionallyRedactedHeartRhythmString();

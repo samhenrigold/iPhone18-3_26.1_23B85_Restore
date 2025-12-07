@@ -121,7 +121,7 @@ void __58__HKSPObserverSet_addObserver_callbackScheduler_wasFirst___block_invoke
   [(HKSPObserverSet *)self _withLock:v10];
 }
 
-uint64_t __42__HKSPObserverSet_removeObserver_wasLast___block_invoke(uint64_t a1)
+void *__42__HKSPObserverSet_removeObserver_wasLast___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 24) removeObjectForKey:*(a1 + 40)];
   if (*(a1 + 48))
@@ -165,42 +165,42 @@ uint64_t __47__HKSPObserverSet_enumerateObserversWithBlock___block_invoke(uint64
 
 - (id)enumerateObserversWithFutureBlock:(id)block
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   blockCopy = block;
-  v29 = 0;
-  v30 = &v29;
-  v31 = 0x3032000000;
-  v32 = __Block_byref_object_copy_;
-  v33 = __Block_byref_object_dispose_;
-  v34 = 0;
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __53__HKSPObserverSet_enumerateObserversWithFutureBlock___block_invoke;
-  v28[3] = &unk_279C741E0;
-  v28[4] = self;
-  v28[5] = &v29;
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x3032000000;
+  v31 = __Block_byref_object_copy_;
+  v32 = __Block_byref_object_dispose_;
+  v33 = 0;
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __53__HKSPObserverSet_enumerateObserversWithFutureBlock___block_invoke;
+  v27[3] = &unk_279C741E0;
+  v27[4] = self;
+  v27[5] = &v28;
   selfCopy = self;
-  [(HKSPObserverSet *)self _withLock:v28];
+  [(HKSPObserverSet *)self _withLock:v27];
   v5 = objc_opt_new();
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
-  v6 = v30[5];
-  v7 = [v6 countByEnumeratingWithState:&v24 objects:v35 count:16];
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  v6 = v29[5];
+  v7 = [v6 countByEnumeratingWithState:&v23 objects:v34 count:16];
   if (v7)
   {
-    v8 = *v25;
+    v8 = *v24;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v25 != v8)
+        if (*v24 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v24 + 1) + 8 * i);
+        v10 = *(*(&v23 + 1) + 8 * i);
         observer = [v10 observer];
 
         if (observer)
@@ -215,20 +215,20 @@ uint64_t __47__HKSPObserverSet_enumerateObserversWithBlock___block_invoke(uint64
           v14 = callbackScheduler;
 
           v15 = objc_opt_new();
-          v21[0] = MEMORY[0x277D85DD0];
-          v21[1] = 3221225472;
-          v21[2] = __53__HKSPObserverSet_enumerateObserversWithFutureBlock___block_invoke_2;
-          v21[3] = &unk_279C74208;
-          v23 = blockCopy;
-          v21[4] = v10;
+          v20[0] = MEMORY[0x277D85DD0];
+          v20[1] = 3221225472;
+          v20[2] = __53__HKSPObserverSet_enumerateObserversWithFutureBlock___block_invoke_2;
+          v20[3] = &unk_279C74208;
+          v22 = blockCopy;
+          v20[4] = v10;
           v16 = v15;
-          v22 = v16;
-          [(NAScheduler *)v14 performBlock:v21];
+          v21 = v16;
+          [(NAScheduler *)v14 performBlock:v20];
           [v5 addObject:v16];
         }
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v24 objects:v35 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v23 objects:v34 count:16];
     }
 
     while (v7);
@@ -236,8 +236,7 @@ uint64_t __47__HKSPObserverSet_enumerateObserversWithBlock___block_invoke(uint64
 
   v17 = [MEMORY[0x277D2C900] combineAllFutures:v5];
 
-  _Block_object_dispose(&v29, 8);
-  v18 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v28, 8);
 
   return v17;
 }
@@ -313,7 +312,7 @@ void __36__HKSPObserverSet_containsObserver___block_invoke(void *a1)
   return v2;
 }
 
-uint64_t __24__HKSPObserverSet_count__block_invoke(uint64_t a1)
+void *__24__HKSPObserverSet_count__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 24) count];
   *(*(*(a1 + 40) + 8) + 24) = result;

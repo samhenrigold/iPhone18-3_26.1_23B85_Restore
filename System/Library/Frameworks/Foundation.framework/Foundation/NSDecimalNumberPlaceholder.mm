@@ -58,7 +58,8 @@
 - (NSDecimalNumberPlaceholder)initWithMantissa:(unint64_t)mantissa exponent:(signed __int16)exponent isNegative:(BOOL)negative
 {
   v12 = *MEMORY[0x1E69E9840];
-  *&v11[4] = 0uLL;
+  *&v11[4] = 0;
+  *&v11[12] = 0;
   v5 = 0;
   if (mantissa)
   {
@@ -100,7 +101,8 @@
   v28 = *MEMORY[0x1E69E9840];
   if (([coder allowsKeyedCoding] & 1) == 0)
   {
-    *&v27[4] = 0uLL;
+    *&v27[4] = 0;
+    *&v27[12] = 0;
     v23 = 0;
     v24 = 0;
     v22 = 0;

@@ -1,7 +1,7 @@
-void sub_240540DCC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_240540DCC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = AFBBufRef;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -34,7 +34,7 @@ uint64_t apple::aiml::flatbuffers2::FlatBufferBuilder::PushElement<BOOL>(uint64_
   return (*(a1 + 32) - v4 + *(a1 + 40));
 }
 
-uint64_t apple::aiml::flatbuffers2::FlatBufferBuilder::EndVector(apple::aiml::flatbuffers2::FlatBufferBuilder *this, int a2)
+uint64_t apple::aiml::flatbuffers2::FlatBufferBuilder::EndVector(apple::aiml::flatbuffers2::FlatBufferBuilder *this, uint64_t a2)
 {
   if ((*(this + 70) & 1) == 0)
   {
@@ -142,20 +142,17 @@ uint64_t apple::aiml::flatbuffers2::FlatBufferBuilder::CreateString(apple::aiml:
   return (*(this + 8) - *(this + 12) + *(this + 10));
 }
 
-void *std::vector<apple::aiml::flatbuffers2::Offset<apple::aiml::flatbuffers2::String>>::reserve(void *result, unint64_t a2)
+void std::vector<apple::aiml::flatbuffers2::Offset<apple::aiml::flatbuffers2::String>>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 2)
+  if (a2 > (a1[2] - *a1) >> 2)
   {
     if (!(a2 >> 62))
     {
-      v2 = result[1] - *result;
-      std::__allocate_at_least[abi:ne200100]<std::allocator<apple::aiml::flatbuffers2::Offset<apple::aiml::flatbuffers2::String>>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<apple::aiml::flatbuffers2::Offset<apple::aiml::flatbuffers2::String>>>(a1, a2);
     }
 
     std::vector<apple::aiml::flatbuffers2::Offset<apple::aiml::flatbuffers2::String>>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void apple::aiml::flatbuffers2::vector_downward::~vector_downward(apple::aiml::flatbuffers2::vector_downward *this)
@@ -166,7 +163,6 @@ void apple::aiml::flatbuffers2::vector_downward::~vector_downward(apple::aiml::f
     v3 = *this;
     if (*this)
     {
-      v4 = *(this + 4);
       (*(*v3 + 24))(v3);
     }
 
@@ -393,7 +389,7 @@ uint64_t apple::aiml::flatbuffers2::FlatBufferBuilder::ReferTo(apple::aiml::flat
     apple::aiml::flatbuffers2::FlatBufferBuilder::ReferTo();
   }
 
-  return v6 + 4;
+  return (v6 + 4);
 }
 
 void std::__throw_length_error[abi:ne200100](const char *a1)
@@ -434,7 +430,7 @@ void *apple::aiml::flatbuffers2::objc_apple::PageAlignedMemmove::PageAlignedMemm
   return this;
 }
 
-void apple::aiml::flatbuffers2::objc_apple::PageAlignedMemmove::sync(apple::aiml::flatbuffers2::objc_apple::PageAlignedMemmove *this, unsigned __int8 **a2, unint64_t *a3)
+void apple::aiml::flatbuffers2::objc_apple::PageAlignedMemmove::sync(uint64_t this, unsigned __int8 **a2, unint64_t *a3)
 {
   if (*a2 && *a2 % *MEMORY[0x277D85FA0])
   {
@@ -496,7 +492,7 @@ uint64_t apple::aiml::flatbuffers2::objc_apple::PageAlignedMemmove::memmove_down
     v18 = *v10;
     do
     {
-      v19 = (__dst + v8);
+      v19 = __dst + v8;
       if ((__dst + v8) % v18)
       {
         apple::aiml::flatbuffers2::objc_apple::PageAlignedMemmove::memmove_down();
@@ -527,8 +523,8 @@ uint64_t apple::aiml::flatbuffers2::objc_apple::PageAlignedMemmove::memmove_down
       v22 = v26;
       if (!v26)
       {
-        v26 = (__dst + v8);
-        v22 = (__dst + v8);
+        v26 = __dst + v8;
+        v22 = __dst + v8;
       }
 
       v18 = *v10;
@@ -541,7 +537,7 @@ uint64_t apple::aiml::flatbuffers2::objc_apple::PageAlignedMemmove::memmove_down
           apple::aiml::flatbuffers2::objc_apple::PageAlignedMemmove::memmove_down();
         }
 
-        if (&v22[v23] < &v19[v21])
+        if (v22 + v23 < v19 + v21)
         {
           apple::aiml::flatbuffers2::objc_apple::PageAlignedMemmove::memmove_down();
         }
@@ -851,7 +847,7 @@ void sub_240552024(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -865,13 +861,13 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -910,9 +906,9 @@ uint64_t apple::aiml::flatbuffers2::objc_apple::MappedFileAllocator::deallocate(
   return this;
 }
 
-unint64_t apple::aiml::flatbuffers2::objc_apple::MappedFileAllocator::reallocate_downward(apple::aiml::flatbuffers2::objc_apple::MappedFileAllocator *this, unsigned __int8 *a2, uint64_t a3, unint64_t a4, unint64_t a5, unint64_t a6)
+uint64_t apple::aiml::flatbuffers2::objc_apple::MappedFileAllocator::reallocate_downward(apple::aiml::flatbuffers2::objc_apple::MappedFileAllocator *this, unsigned __int8 *a2, unint64_t a3, unint64_t a4, unint64_t a5, unint64_t a6)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (*(this + 80) == 1)
   {
     apple::aiml::flatbuffers2::objc_apple::MappedFileAllocator::reallocate_downward();
@@ -940,9 +936,9 @@ unint64_t apple::aiml::flatbuffers2::objc_apple::MappedFileAllocator::reallocate
   if (*(this + 4) != __PAIR128__(a3, a2))
   {
     snprintf(__str, 0x200uLL, "Mismatched region reallocation (exp %p, act %p)", *(this + 8), a2);
-    v18 = __cxa_allocate_exception(0x20uLL);
-    std::string::basic_string[abi:ne200100]<0>(&v20, __str);
-    apple::aiml::flatbuffers2::objc_apple::AllocatorException::AllocatorException(v18, &v20);
+    v17 = __cxa_allocate_exception(0x20uLL);
+    std::string::basic_string[abi:ne200100]<0>(v19, __str);
+    apple::aiml::flatbuffers2::objc_apple::AllocatorException::AllocatorException(v17, v19);
   }
 
   v13 = *(this + 7);
@@ -962,7 +958,6 @@ unint64_t apple::aiml::flatbuffers2::objc_apple::MappedFileAllocator::reallocate
 
   *(this + 8) = v15;
   *(this + 9) = a4;
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -989,28 +984,28 @@ LABEL_6:
 
 char *apple::aiml::flatbuffers2::objc_apple::MappedFileAllocator::increase_map_size(apple::aiml::flatbuffers2::objc_apple::MappedFileAllocator *this, unint64_t a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v4 = *(this + 6);
   if (v4 != -1)
   {
     if (msync(*(this + 6), *(this + 7), 16))
     {
-      v16 = *__error();
-      v17 = strerror(v16);
-      snprintf(__str, 0x200uLL, "Unable to sync memory to disk: %s (%d)", v17, v16);
+      v15 = *__error();
+      v16 = strerror(v15);
+      snprintf(__str, 0x200uLL, "Unable to sync memory to disk: %s (%d)", v16, v15);
       exception = __cxa_allocate_exception(0x20uLL);
-      std::string::basic_string[abi:ne200100]<0>(&v22, __str);
-      apple::aiml::flatbuffers2::objc_apple::AllocatorException::AllocatorException(exception, &v22);
+      std::string::basic_string[abi:ne200100]<0>(v21, __str);
+      apple::aiml::flatbuffers2::objc_apple::AllocatorException::AllocatorException(exception, v21);
     }
 
     if (munmap(*(this + 6), *(this + 7)))
     {
-      v19 = *__error();
-      v20 = strerror(v19);
-      snprintf(__str, 0x200uLL, "Unable to release memory mapping: %s (%d)", v20, v19);
-      v21 = __cxa_allocate_exception(0x20uLL);
-      std::string::basic_string[abi:ne200100]<0>(&v22, __str);
-      apple::aiml::flatbuffers2::objc_apple::AllocatorException::AllocatorException(v21, &v22);
+      v18 = *__error();
+      v19 = strerror(v18);
+      snprintf(__str, 0x200uLL, "Unable to release memory mapping: %s (%d)", v19, v18);
+      v20 = __cxa_allocate_exception(0x20uLL);
+      std::string::basic_string[abi:ne200100]<0>(v21, __str);
+      apple::aiml::flatbuffers2::objc_apple::AllocatorException::AllocatorException(v20, v21);
     }
   }
 
@@ -1024,24 +1019,24 @@ char *apple::aiml::flatbuffers2::objc_apple::MappedFileAllocator::increase_map_s
   *(this + 7) = v6;
   if (ftruncate(*(this + 10), v6))
   {
-    v10 = *__error();
-    v11 = strerror(v10);
-    snprintf(__str, 0x200uLL, "Unable to extend file: %s (%d)", v11, v10);
-    v12 = __cxa_allocate_exception(0x20uLL);
-    std::string::basic_string[abi:ne200100]<0>(&v22, __str);
-    apple::aiml::flatbuffers2::objc_apple::AllocatorException::AllocatorException(v12, &v22);
+    v9 = *__error();
+    v10 = strerror(v9);
+    snprintf(__str, 0x200uLL, "Unable to extend file: %s (%d)", v10, v9);
+    v11 = __cxa_allocate_exception(0x20uLL);
+    std::string::basic_string[abi:ne200100]<0>(v21, __str);
+    apple::aiml::flatbuffers2::objc_apple::AllocatorException::AllocatorException(v11, v21);
   }
 
   result = mmap(0, *(this + 7), 3, 1, *(this + 10), 0);
   *(this + 6) = result;
   if (result == -1)
   {
-    v13 = *__error();
-    v14 = strerror(v13);
-    snprintf(__str, 0x200uLL, "Unable to map file: %s (%d)", v14, v13);
-    v15 = __cxa_allocate_exception(0x20uLL);
-    std::string::basic_string[abi:ne200100]<0>(&v22, __str);
-    apple::aiml::flatbuffers2::objc_apple::AllocatorException::AllocatorException(v15, &v22);
+    v12 = *__error();
+    v13 = strerror(v12);
+    snprintf(__str, 0x200uLL, "Unable to map file: %s (%d)", v13, v12);
+    v14 = __cxa_allocate_exception(0x20uLL);
+    std::string::basic_string[abi:ne200100]<0>(v21, __str);
+    apple::aiml::flatbuffers2::objc_apple::AllocatorException::AllocatorException(v14, v21);
   }
 
   v8 = *(this + 8);
@@ -1050,7 +1045,6 @@ char *apple::aiml::flatbuffers2::objc_apple::MappedFileAllocator::increase_map_s
     *(this + 8) = &result[v8 - v4];
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return result;
 }
 

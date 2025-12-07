@@ -1,6 +1,7 @@
 @interface CallHangUpSettingConfig
 + (BOOL)enabled;
 + (id)localizationFooterKey;
++ (void)setEnabled:(BOOL)enabled;
 @end
 
 @implementation CallHangUpSettingConfig
@@ -27,6 +28,19 @@
   canUseVoiceTriggerDuringPhoneCall = [mEMORY[0x277D7A8D0] canUseVoiceTriggerDuringPhoneCall];
 
   return canUseVoiceTriggerDuringPhoneCall;
+}
+
++ (void)setEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  if (enabled)
+  {
+    v4 = objc_alloc_init(AssistantSettingsSignalEmitter);
+    [(AssistantSettingsSignalEmitter *)v4 emitCallHangUpEnabledSignal];
+  }
+
+  mEMORY[0x277D7A8D0] = [MEMORY[0x277D7A8D0] sharedPreferences];
+  [mEMORY[0x277D7A8D0] setCanUseVoiceTriggerDuringPhoneCall:enabledCopy];
 }
 
 @end

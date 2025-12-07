@@ -8,21 +8,21 @@
 
 - (_MLCCPUGramMatrix)initWithDevice:(id)device scale:(float)scale
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   v7 = [MEMORY[0x277CBEBF8] mutableCopy];
-  v22 = 0;
-  memset(v21, 0, sizeof(v21));
-  *v21 = scale;
-  v8 = [MEMORY[0x277CBEA90] dataWithBytes:v21 length:360];
+  v21 = 0;
   memset(v20, 0, sizeof(v20));
+  *v20 = scale;
+  v8 = [MEMORY[0x277CBEA90] dataWithBytes:v20 length:360];
   memset(v19, 0, sizeof(v19));
-  v9 = [MEMORY[0x277CBEA90] dataWithBytes:v20 length:176];
-  v10 = [MEMORY[0x277CBEA90] dataWithBytes:v19 length:176];
-  v24[0] = v9;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
-  v23 = v10;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v23 count:1];
+  memset(v18, 0, sizeof(v18));
+  v9 = [MEMORY[0x277CBEA90] dataWithBytes:v19 length:176];
+  v10 = [MEMORY[0x277CBEA90] dataWithBytes:v18 length:176];
+  v23[0] = v9;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
+  v22 = v10;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v22 count:1];
   v13 = [MLCCPUDeviceOps deviceOpsWithType:19 params:v8 inDeltaData:v11 outDeltaData:v12 weightsDeltaData:0 biasDeltaData:0 weightsMomentumData:0 biasMomentumData:0];
 
   if (v13)
@@ -31,11 +31,10 @@
   }
 
   v14 = [v7 copy];
-  v18.receiver = self;
-  v18.super_class = _MLCCPUGramMatrix;
-  v15 = [(_MLCCPULayer *)&v18 initWithDevice:deviceCopy deviceOps:v14];
+  v17.receiver = self;
+  v17.super_class = _MLCCPUGramMatrix;
+  v15 = [(_MLCCPULayer *)&v17 initWithDevice:deviceCopy deviceOps:v14];
 
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -203,31 +202,27 @@ LABEL_19:
 
 + (void)compileWithDevice:(NSObject *)a3 deviceOps:sourceTensors:resultTensor:.cold.1(const char *a1, void *a2, NSObject *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = NSStringFromSelector(a1);
   v6 = [a2 descriptor];
-  v8 = 138412546;
-  v9 = v5;
-  v10 = 1024;
-  v11 = [v6 dataType];
-  _os_log_error_impl(&dword_238C1D000, a3, OS_LOG_TYPE_ERROR, "%@: Unsupported result data type (%d)", &v8, 0x12u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 138412546;
+  v8 = v5;
+  v9 = 1024;
+  v10 = [v6 dataType];
+  _os_log_error_impl(&dword_238C1D000, a3, OS_LOG_TYPE_ERROR, "%@: Unsupported result data type (%d)", &v7, 0x12u);
 }
 
 + (void)compileWithDevice:(NSObject *)a3 deviceOps:sourceTensors:resultTensor:.cold.2(const char *a1, void *a2, NSObject *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = NSStringFromSelector(a1);
   v6 = [a2 objectAtIndexedSubscript:0];
   v7 = [v6 descriptor];
-  v9 = 138412546;
-  v10 = v5;
-  v11 = 1024;
-  v12 = [v7 dataType];
-  _os_log_error_impl(&dword_238C1D000, a3, OS_LOG_TYPE_ERROR, "%@: Unsupported sources data type (%d)", &v9, 0x12u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v8 = 138412546;
+  v9 = v5;
+  v10 = 1024;
+  v11 = [v7 dataType];
+  _os_log_error_impl(&dword_238C1D000, a3, OS_LOG_TYPE_ERROR, "%@: Unsupported sources data type (%d)", &v8, 0x12u);
 }
 
 @end

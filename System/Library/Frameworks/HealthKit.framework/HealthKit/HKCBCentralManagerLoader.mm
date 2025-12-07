@@ -7,19 +7,18 @@ void __61___HKCBCentralManagerLoader_getCentralManagerWithCompletion___block_inv
 {
   if ([*(*(a1 + 32) + 8) state] == 5)
   {
-    v2 = *(*(a1 + 32) + 8);
-    v3 = *(*(a1 + 40) + 16);
+    v2 = *(*(a1 + 40) + 16);
 
-    v3();
+    v2();
   }
 
   else
   {
-    v4 = *(a1 + 40);
-    v5 = *(*(a1 + 32) + 24);
-    v7 = [v4 copy];
-    v6 = _Block_copy(v7);
-    [v5 addObject:v6];
+    v3 = *(a1 + 40);
+    v4 = *(*(a1 + 32) + 24);
+    v6 = [v3 copy];
+    v5 = _Block_copy(v6);
+    [v4 addObject:v5];
   }
 }
 

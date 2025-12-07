@@ -6,6 +6,7 @@
 - (void)assetAvailablityUpdateForAccessory:(id)accessory assetID:(id)d;
 - (void)firmwareStagingComplete:(id)complete assetID:(id)d withStatus:(unint64_t)status;
 - (void)firmwareStagingProgress:(id)progress assetID:(id)d bytesSent:(unint64_t)sent bytesTotal:(unint64_t)total;
+- (void)firmwareUpdateResult:(id)result vendorSpecificStatus:(unsigned int)status error:(id)error;
 - (void)stagedFirmwareApplicationComplete:(id)complete withStatus:(unint64_t)status;
 @end
 
@@ -18,9 +19,40 @@
   return WeakRetained;
 }
 
+- (void)firmwareUpdateResult:(id)result vendorSpecificStatus:(unsigned int)status error:(id)error
+{
+  v6 = *&status;
+  v18 = *MEMORY[0x277D85DE8];
+  resultCopy = result;
+  errorCopy = error;
+  accessoryFirmwareUpdateManager = [(HMDDefaultUARPControllerDelegate *)self accessoryFirmwareUpdateManager];
+  v11 = [accessoryFirmwareUpdateManager sessionForUARPAccessory:resultCopy];
+
+  if (v11)
+  {
+    [v11 firmwareUpdateResult:resultCopy vendorSpecificStatus:v6 error:errorCopy];
+  }
+
+  else
+  {
+    v12 = objc_autoreleasePoolPush();
+    selfCopy = self;
+    v14 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    {
+      v15 = HMFGetLogIdentifier();
+      v16 = 138543362;
+      v17 = v15;
+      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@firmwareUpdateResult: No session exists", &v16, 0xCu);
+    }
+
+    objc_autoreleasePoolPop(v12);
+  }
+}
+
 - (BOOL)sendMessageToAccessory:(id)accessory uarpMsg:(id)msg error:(id *)error
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   msgCopy = msg;
   if (error)
@@ -60,20 +92,19 @@
         v19 = 0;
       }
 
-      v22 = 138543874;
-      v23 = v17;
-      v24 = 2112;
-      v25 = accessoryCopy;
-      v26 = 2112;
-      v27 = v19;
-      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@sendMessageToAccessory: failed for %@ with error %@", &v22, 0x20u);
+      v21 = 138543874;
+      v22 = v17;
+      v23 = 2112;
+      v24 = accessoryCopy;
+      v25 = 2112;
+      v26 = v19;
+      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@sendMessageToAccessory: failed for %@ with error %@", &v21, 0x20u);
     }
 
     objc_autoreleasePoolPop(v14);
     v13 = 0;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -99,7 +130,7 @@
 
 void __81__HMDDefaultUARPControllerDelegate_stagedFirmwareApplicationComplete_withStatus___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = objc_autoreleasePoolPush();
   v4 = WeakRetained;
@@ -109,22 +140,21 @@ void __81__HMDDefaultUARPControllerDelegate_stagedFirmwareApplicationComplete_wi
     v6 = HMFGetLogIdentifier();
     v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(a1 + 48)];
     v8 = *(a1 + 32);
-    v10 = 138543874;
-    v11 = v6;
-    v12 = 2112;
-    v13 = v7;
-    v14 = 2112;
-    v15 = v8;
-    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@firmware UARP apply request completed with status %@ for accessory %@", &v10, 0x20u);
+    v9 = 138543874;
+    v10 = v6;
+    v11 = 2112;
+    v12 = v7;
+    v13 = 2112;
+    v14 = v8;
+    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@firmware UARP apply request completed with status %@ for accessory %@", &v9, 0x20u);
   }
 
   objc_autoreleasePoolPop(v3);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)firmwareStagingComplete:(id)complete assetID:(id)d withStatus:(unint64_t)status
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   completeCopy = complete;
   dCopy = d;
   accessoryFirmwareUpdateManager = [(HMDDefaultUARPControllerDelegate *)self accessoryFirmwareUpdateManager];
@@ -143,20 +173,18 @@ void __81__HMDDefaultUARPControllerDelegate_stagedFirmwareApplicationComplete_wi
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       v16 = HMFGetLogIdentifier();
-      v18 = 138543362;
-      v19 = v16;
-      _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@firmwareUpdateComplete: No session exists for accessory", &v18, 0xCu);
+      v17 = 138543362;
+      v18 = v16;
+      _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@firmwareUpdateComplete: No session exists for accessory", &v17, 0xCu);
     }
 
     objc_autoreleasePoolPop(v13);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)firmwareStagingProgress:(id)progress assetID:(id)d bytesSent:(unint64_t)sent bytesTotal:(unint64_t)total
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   progressCopy = progress;
   dCopy = d;
   accessoryFirmwareUpdateManager = [(HMDDefaultUARPControllerDelegate *)self accessoryFirmwareUpdateManager];
@@ -175,22 +203,20 @@ void __81__HMDDefaultUARPControllerDelegate_stagedFirmwareApplicationComplete_wi
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       v18 = HMFGetLogIdentifier();
-      v20 = 138543618;
-      v21 = v18;
-      v22 = 2112;
-      v23 = progressCopy;
-      _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_ERROR, "%{public}@firmwareStagingProgress: No session exists for accessory %@", &v20, 0x16u);
+      v19 = 138543618;
+      v20 = v18;
+      v21 = 2112;
+      v22 = progressCopy;
+      _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_ERROR, "%{public}@firmwareStagingProgress: No session exists for accessory %@", &v19, 0x16u);
     }
 
     objc_autoreleasePoolPop(v15);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)assetAvailablityUpdateForAccessory:(id)accessory assetID:(id)d
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   dCopy = d;
   v8 = objc_autoreleasePoolPush();
@@ -290,13 +316,13 @@ LABEL_24:
         *buf = *MEMORY[0x277D0F960];
       }
 
-      v37 = *buf;
+      v36 = *buf;
       *buf = 138543874;
       *&buf[4] = v25;
       *&buf[12] = 1040;
       *&buf[14] = 16;
       *&buf[18] = 2096;
-      *&buf[20] = &v37;
+      *&buf[20] = &v36;
       v29 = "%{public}@No more retries for HAPAccessory %{uuid_t}.16P";
       v30 = v24;
       v31 = 28;
@@ -339,8 +365,6 @@ LABEL_24:
 
   objc_autoreleasePoolPop(v14);
 LABEL_26:
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDDefaultUARPControllerDelegate)initWithAccessoryFirmwareUpdateManager:(id)manager
@@ -372,10 +396,9 @@ LABEL_26:
 
 void __47__HMDDefaultUARPControllerDelegate_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v1_32469;
-  logCategory__hmf_once_v1_32469 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v1_32469;
+  logCategory__hmf_once_v1_32469 = v0;
 }
 
 @end

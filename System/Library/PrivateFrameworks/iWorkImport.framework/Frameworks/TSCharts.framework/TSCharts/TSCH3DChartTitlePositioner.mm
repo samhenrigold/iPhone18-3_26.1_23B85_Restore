@@ -137,7 +137,7 @@
   if (*&v3 == -1.0 && *&v4 == -1.0)
   {
     selfCopy = self;
-    self = objc_msgSend_sizeOfLabelsForInfo_onlyHeight_(TSCHChartCategoryAxis, a2, v3, v4, v5, self->_info, 0);
+    self = objc_msgSend_sizeOfLabelsForInfo_onlyHeight_(TSCHChartCategoryAxis, v3, v4, v5, a2, self->_info, 0);
     *&v3 = v9;
     LODWORD(v4) = v10;
     selfCopy->_cachedCategoryAxisLabelsSize.var0.var0 = v9;
@@ -158,7 +158,7 @@
   if (*&v3 == -1.0 && *&v4 == -1.0)
   {
     selfCopy = self;
-    self = objc_msgSend_sizeOfLabelsForInfo_onlyHeight_(TSCHChartValueAxis, a2, v3, v4, v5, self->_info, 0);
+    self = objc_msgSend_sizeOfLabelsForInfo_onlyHeight_(TSCHChartValueAxis, v3, v4, v5, a2, self->_info, 0);
     *&v3 = v9;
     LODWORD(v4) = v10;
     selfCopy->_cachedValueAxisLabelsSize.var0.var0 = v9;
@@ -179,7 +179,7 @@
   if (*&v3 == -1.0 && *&v4 == -1.0)
   {
     selfCopy = self;
-    self = objc_msgSend_sizeOfSeriesLabelsForInfo_onlyHeight_(TSCHChartCategoryAxis, a2, v3, v4, v5, self->_info, 0);
+    self = objc_msgSend_sizeOfSeriesLabelsForInfo_onlyHeight_(TSCHChartCategoryAxis, v3, v4, v5, a2, self->_info, 0);
     *&v3 = v9;
     LODWORD(v4) = v10;
     selfCopy->_cachedSeriesLabelsSize.var0.var0 = v9;

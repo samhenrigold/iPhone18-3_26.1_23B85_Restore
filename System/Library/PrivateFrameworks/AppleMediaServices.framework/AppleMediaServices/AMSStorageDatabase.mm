@@ -691,7 +691,7 @@ BOOL __36__AMSStorageDatabase_sizeWithError___block_invoke(uint64_t a1)
   return *(*(*(a1 + 40) + 8) + 40) != 0;
 }
 
-void __36__AMSStorageDatabase_sizeWithError___block_invoke_2(uint64_t a1, void *a2, void *a3)
+void __36__AMSStorageDatabase_sizeWithError___block_invoke_2(void *a1, void *a2, void *a3)
 {
   v16 = *MEMORY[0x1E69E9840];
   v6 = a3;
@@ -713,7 +713,7 @@ void __36__AMSStorageDatabase_sizeWithError___block_invoke_2(uint64_t a1, void *
       _os_log_impl(&dword_192869000, v8, OS_LOG_TYPE_ERROR, "%{public}@: Failed to query data in AMSStorage database. %{public}@", buf, 0x16u);
     }
 
-    objc_storeStrong((*(*(a1 + 40) + 8) + 40), a3);
+    objc_storeStrong((*(a1[5] + 8) + 40), a3);
   }
 
   else
@@ -722,13 +722,13 @@ void __36__AMSStorageDatabase_sizeWithError___block_invoke_2(uint64_t a1, void *
     v9[1] = 3221225472;
     v9[2] = __36__AMSStorageDatabase_sizeWithError___block_invoke_60;
     v9[3] = &unk_1E73BC450;
-    v10 = *(a1 + 32);
-    v11 = *(a1 + 48);
+    v10 = *(a1 + 2);
+    v11 = a1[6];
     [a2 enumerateRowsUsingBlock:v9];
   }
 }
 
-void __36__AMSStorageDatabase_sizeWithError___block_invoke_60(uint64_t a1, void *a2, void *a3)
+void __36__AMSStorageDatabase_sizeWithError___block_invoke_60(void *a1, void *a2, void *a3)
 {
   v16 = *MEMORY[0x1E69E9840];
   v6 = a3;
@@ -750,13 +750,13 @@ void __36__AMSStorageDatabase_sizeWithError___block_invoke_60(uint64_t a1, void 
       _os_log_impl(&dword_192869000, v8, OS_LOG_TYPE_ERROR, "%{public}@: Failed to query data in AMSStorage database. %{public}@", &v12, 0x16u);
     }
 
-    objc_storeStrong((*(*(a1 + 40) + 8) + 40), a3);
+    objc_storeStrong((*(a1[5] + 8) + 40), a3);
   }
 
   else
   {
     v9 = [a2 stringForColumnIndex:0];
-    v10 = *(*(a1 + 48) + 8);
+    v10 = *(a1[6] + 8);
     v11 = *(v10 + 40);
     *(v10 + 40) = v9;
   }
@@ -861,7 +861,7 @@ void __49__AMSStorageDatabase_allKeysForDomain_withError___block_invoke_2(void *
   }
 }
 
-void __49__AMSStorageDatabase_allKeysForDomain_withError___block_invoke_65(uint64_t a1, void *a2, void *a3)
+void __49__AMSStorageDatabase_allKeysForDomain_withError___block_invoke_65(void *a1, void *a2, void *a3)
 {
   v14 = *MEMORY[0x1E69E9840];
   v6 = a3;
@@ -883,13 +883,13 @@ void __49__AMSStorageDatabase_allKeysForDomain_withError___block_invoke_65(uint6
       _os_log_impl(&dword_192869000, v8, OS_LOG_TYPE_ERROR, "%{public}@: Failed to query data in AMSStorage database. %{public}@", &v10, 0x16u);
     }
 
-    objc_storeStrong((*(*(a1 + 40) + 8) + 40), a3);
+    objc_storeStrong((*(a1[5] + 8) + 40), a3);
   }
 
   else
   {
     v9 = [a2 stringForColumnIndex:0];
-    [*(*(*(a1 + 48) + 8) + 40) addObject:v9];
+    [*(*(a1[6] + 8) + 40) addObject:v9];
   }
 }
 
@@ -981,7 +981,7 @@ BOOL __44__AMSStorageDatabase_allKeyValuesWithError___block_invoke(uint64_t a1)
   return *(*(*(a1 + 40) + 8) + 40) != 0;
 }
 
-void __44__AMSStorageDatabase_allKeyValuesWithError___block_invoke_2(uint64_t a1, void *a2, void *a3)
+void __44__AMSStorageDatabase_allKeyValuesWithError___block_invoke_2(void *a1, void *a2, void *a3)
 {
   v16 = *MEMORY[0x1E69E9840];
   v6 = a3;
@@ -1003,7 +1003,7 @@ void __44__AMSStorageDatabase_allKeyValuesWithError___block_invoke_2(uint64_t a1
       _os_log_impl(&dword_192869000, v8, OS_LOG_TYPE_ERROR, "%{public}@: Failed to query data in AMSStorage database. %{public}@", buf, 0x16u);
     }
 
-    objc_storeStrong((*(*(a1 + 40) + 8) + 40), a3);
+    objc_storeStrong((*(a1[5] + 8) + 40), a3);
   }
 
   else
@@ -1012,13 +1012,13 @@ void __44__AMSStorageDatabase_allKeyValuesWithError___block_invoke_2(uint64_t a1
     v9[1] = 3221225472;
     v9[2] = __44__AMSStorageDatabase_allKeyValuesWithError___block_invoke_69;
     v9[3] = &unk_1E73BC450;
-    v10 = *(a1 + 32);
-    v11 = *(a1 + 48);
+    v10 = *(a1 + 2);
+    v11 = a1[6];
     [a2 enumerateRowsUsingBlock:v9];
   }
 }
 
-void __44__AMSStorageDatabase_allKeyValuesWithError___block_invoke_69(uint64_t a1, void *a2, void *a3)
+void __44__AMSStorageDatabase_allKeyValuesWithError___block_invoke_69(void *a1, void *a2, void *a3)
 {
   v14 = *MEMORY[0x1E69E9840];
   v6 = a3;
@@ -1040,13 +1040,13 @@ void __44__AMSStorageDatabase_allKeyValuesWithError___block_invoke_69(uint64_t a
       _os_log_impl(&dword_192869000, v8, OS_LOG_TYPE_ERROR, "%{public}@: Failed to query data in AMSStorage database. %{public}@", &v10, 0x16u);
     }
 
-    objc_storeStrong((*(*(a1 + 40) + 8) + 40), a3);
+    objc_storeStrong((*(a1[5] + 8) + 40), a3);
   }
 
   else
   {
     v9 = [a2 stringForColumnIndex:0];
-    [*(*(*(a1 + 48) + 8) + 40) addObject:v9];
+    [*(*(a1[6] + 8) + 40) addObject:v9];
   }
 }
 
@@ -1309,7 +1309,7 @@ BOOL __56__AMSStorageDatabase__allKeysPrefixedByDomainWithError___block_invoke(u
   return *(*(*(a1 + 40) + 8) + 40) != 0;
 }
 
-void __56__AMSStorageDatabase__allKeysPrefixedByDomainWithError___block_invoke_2(uint64_t a1, void *a2, void *a3)
+void __56__AMSStorageDatabase__allKeysPrefixedByDomainWithError___block_invoke_2(void *a1, void *a2, void *a3)
 {
   v16 = *MEMORY[0x1E69E9840];
   v6 = a3;
@@ -1331,7 +1331,7 @@ void __56__AMSStorageDatabase__allKeysPrefixedByDomainWithError___block_invoke_2
       _os_log_impl(&dword_192869000, v8, OS_LOG_TYPE_ERROR, "%{public}@: Failed to query data in AMSStorage database. %{public}@", buf, 0x16u);
     }
 
-    objc_storeStrong((*(*(a1 + 40) + 8) + 40), a3);
+    objc_storeStrong((*(a1[5] + 8) + 40), a3);
   }
 
   else
@@ -1340,13 +1340,13 @@ void __56__AMSStorageDatabase__allKeysPrefixedByDomainWithError___block_invoke_2
     v9[1] = 3221225472;
     v9[2] = __56__AMSStorageDatabase__allKeysPrefixedByDomainWithError___block_invoke_77;
     v9[3] = &unk_1E73BC450;
-    v10 = *(a1 + 32);
-    v11 = *(a1 + 48);
+    v10 = *(a1 + 2);
+    v11 = a1[6];
     [a2 enumerateRowsUsingBlock:v9];
   }
 }
 
-void __56__AMSStorageDatabase__allKeysPrefixedByDomainWithError___block_invoke_77(uint64_t a1, void *a2, void *a3)
+void __56__AMSStorageDatabase__allKeysPrefixedByDomainWithError___block_invoke_77(void *a1, void *a2, void *a3)
 {
   v14 = *MEMORY[0x1E69E9840];
   v6 = a3;
@@ -1368,13 +1368,13 @@ void __56__AMSStorageDatabase__allKeysPrefixedByDomainWithError___block_invoke_7
       _os_log_impl(&dword_192869000, v8, OS_LOG_TYPE_ERROR, "%{public}@: Failed to query data in AMSStorage database. %{public}@", &v10, 0x16u);
     }
 
-    objc_storeStrong((*(*(a1 + 40) + 8) + 40), a3);
+    objc_storeStrong((*(a1[5] + 8) + 40), a3);
   }
 
   else
   {
     v9 = [a2 stringForColumnIndex:0];
-    [*(*(*(a1 + 48) + 8) + 40) addObject:v9];
+    [*(*(a1[6] + 8) + 40) addObject:v9];
   }
 }
 

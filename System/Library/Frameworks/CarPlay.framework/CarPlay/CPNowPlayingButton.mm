@@ -6,6 +6,7 @@
 - (void)encodeWithCoder:(id)coder;
 - (void)handlePrimaryAction;
 - (void)setEnabled:(BOOL)enabled;
+- (void)setSelected:(BOOL)selected;
 @end
 
 @implementation CPNowPlayingButton
@@ -84,16 +85,31 @@
   }
 }
 
+- (void)setSelected:(BOOL)selected
+{
+  if (self->_selected != selected)
+  {
+    v3 = selected;
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      self->_selected = v3;
+      delegate = [(CPNowPlayingButton *)self delegate];
+      [delegate control:self setSelected:v3];
+    }
+  }
+}
+
 - (void)handlePrimaryAction
 {
   v9 = *MEMORY[0x277D85DE8];
   handler = [(CPNowPlayingButton *)self handler];
 
-  v4 = CarPlayFrameworkGeneralLogging();
-  handler2 = v4;
+  v5 = CarPlayFrameworkGeneralLogging(v4);
+  handler2 = v5;
   if (handler)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       v7 = 138412290;
       selfCopy = self;
@@ -104,12 +120,10 @@
     (*(handler2 + 16))(handler2, self);
   }
 
-  else if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     [(CPMapButton *)self handlePrimaryAction];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (CPControlDelegate)delegate

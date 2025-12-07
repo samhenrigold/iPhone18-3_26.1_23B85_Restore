@@ -44,8 +44,9 @@
 
 - (void)viewDidAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_B3DE8(appear);
+  sub_B3DE8(appearCopy, selfCopy);
 }
 
 - (void)dismissViewControllerWithTransition:(int)transition completion:(id)completion
@@ -66,7 +67,7 @@
 
   selfCopy = self;
   sub_B409C(v4, v6, v7);
-  sub_F704(v6);
+  sub_F704(v6, v7);
 }
 
 - (_TtC18ASMessagesProvider33PresentationContextViewController)initWithNibName:(id)name bundle:(id)bundle

@@ -16,7 +16,7 @@
   v5[3] = &unk_278DA72D0;
   v5[4] = self;
   v3 = v5;
-  v4 = CATGetCatalystQueue();
+  v4 = CATGetCatalystQueue(v3);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __CATPerformBlock_block_invoke_9;
@@ -37,7 +37,7 @@ void __38__CATSharingSemaphoreOperation_cancel__block_invoke(uint64_t a1)
 
 - (void)signal
 {
-  v3 = CATGetCatalystQueue();
+  v3 = CATGetCatalystQueue(self);
   CATAssertIsQueue(v3);
 
   if ([(CATOperation *)self isExecuting])

@@ -18,6 +18,8 @@
 + (id)smcThermalInstantNotificationWithOperator:(id)operator withBlock:(id)block;
 + (id)wakeEntryNotificationWithOperator:(id)operator withBlock:(id)block;
 + (id)wakeEntryNotificationWithWorkQueue:(id)queue withBlock:(id)block;
+- (PLEntryNotificationOperatorComposition)initWithOperator:(id)operator forEntryKey:(id)key forUpdateOrInsert:(signed __int16)insert withBlock:(id)block;
+- (PLEntryNotificationOperatorComposition)initWithOperator:(id)operator forEntryKey:(id)key forUpdateOrInsert:(signed __int16)insert withFilter:(id)filter withBlock:(id)block;
 - (PLEntryNotificationOperatorComposition)initWithWorkQueue:(id)queue forEntryKey:(id)key forUpdateOrInsert:(signed __int16)insert withBlock:(id)block;
 - (PLEntryNotificationOperatorComposition)initWithWorkQueue:(id)queue forEntryKey:(id)key forUpdateOrInsert:(signed __int16)insert withFilter:(id)filter withBlock:(id)block;
 - (id)initNotificationTimerWithWorkQueue:(id)queue withBlock:(id)block;
@@ -31,24 +33,24 @@
 {
   keyCopy = key;
   operatorCopy = operator;
-  v30 = 0;
-  v31 = &v30;
-  v32 = 0x3032000000;
-  v33 = __Block_byref_object_copy__12;
-  v34 = __Block_byref_object_dispose__12;
-  v35 = 0;
+  v31 = 0;
+  v32 = &v31;
+  v33 = 0x3032000000;
+  v34 = __Block_byref_object_copy__12;
+  v35 = __Block_byref_object_dispose__12;
+  v36 = 0;
   context = objc_autoreleasePoolPush();
   v11 = dispatch_semaphore_create(1);
   dispatch_semaphore_wait(v11, 0xFFFFFFFFFFFFFFFFLL);
   v12 = [PLEntryNotificationOperatorComposition alloc];
-  v27[0] = MEMORY[0x1E69E9820];
-  v27[1] = 3221225472;
-  v27[2] = __96__PLEntryNotificationOperatorComposition_requestEntryForEntryKey_forOperator_withTimeout_error___block_invoke;
-  v27[3] = &unk_1E851A4F0;
-  v29 = &v30;
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3221225472;
+  v28[2] = __96__PLEntryNotificationOperatorComposition_requestEntryForEntryKey_forOperator_withTimeout_error___block_invoke;
+  v28[3] = &unk_1E851A4F0;
+  v30 = &v31;
   v13 = v11;
-  v28 = v13;
-  v14 = [(PLEntryNotificationOperatorComposition *)v12 initWithOperator:operatorCopy forEntryKey:keyCopy withBlock:v27];
+  v29 = v13;
+  v14 = [(PLEntryNotificationOperatorComposition *)v12 initWithOperator:operatorCopy forEntryKey:keyCopy withBlock:v28];
   [(PLEntryNotificationOperatorComposition *)v14 requestEntry];
   v15 = dispatch_time(0, (timeout * 1000000000.0));
   v16 = dispatch_semaphore_wait(v13, v15);
@@ -63,8 +65,8 @@
       v20 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"+[PLEntryNotificationOperatorComposition requestEntryForEntryKey:forOperator:withTimeout:error:]"];
       [PLCoreStorage logMessage:keyCopy fromFile:lastPathComponent fromFunction:v20 fromLineNumber:55];
 
-      v21 = PLLogCommon();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+      v22 = PLLogCommon(v21);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
       {
         [(PLSubmissionFileSP *)keyCopy copyAndPrepareLog];
       }
@@ -81,15 +83,15 @@
   objc_autoreleasePoolPop(context);
   if (error && v16)
   {
-    v22 = v16;
+    v23 = v16;
     *error = v16;
   }
 
-  v23 = v31[5];
+  v24 = v32[5];
 
-  _Block_object_dispose(&v30, 8);
+  _Block_object_dispose(&v31, 8);
 
-  return v23;
+  return v24;
 }
 
 intptr_t __96__PLEntryNotificationOperatorComposition_requestEntryForEntryKey_forOperator_withTimeout_error___block_invoke(uint64_t a1, void *a2)
@@ -142,183 +144,169 @@ intptr_t __96__PLEntryNotificationOperatorComposition_requestEntryForEntryKey_fo
 
 + (id)wakeEntryNotificationWithWorkQueue:(id)queue withBlock:(id)block
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   blockCopy = block;
   queueCopy = queue;
   v7 = [PLEntryNotificationOperatorComposition alloc];
-  v13 = &unk_1F5405F28;
-  v14 = &unk_1F5405F40;
-  v15 = @"State";
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
-  v16[0] = v8;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+  v12 = &unk_1F5405F28;
+  v13 = &unk_1F5405F40;
+  v14 = @"State";
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
+  v15[0] = v8;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
   v10 = [(PLEntryNotificationOperatorComposition *)v7 initWithWorkQueue:queueCopy forEntryKey:@"PLSleepWakeAgent_EventForward_PowerState" forUpdateOrInsert:1 withFilter:v9 withBlock:blockCopy];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 + (id)displayOnNotificationWithOperator:(id)operator withBlock:(id)block
 {
-  v19[2] = *MEMORY[0x1E69E9840];
+  v18[2] = *MEMORY[0x1E69E9840];
   blockCopy = block;
   operatorCopy = operator;
   v7 = [PLEntryNotificationOperatorComposition alloc];
-  v16 = &unk_1F5405F28;
-  v17 = @"Backlight";
-  v18[0] = @"Block";
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
-  v18[1] = @"Active";
-  v19[0] = v8;
-  v14 = &unk_1F5405F28;
-  v15 = &unk_1F5405F58;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
-  v19[1] = v9;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:2];
+  v15 = &unk_1F5405F28;
+  v16 = @"Backlight";
+  v17[0] = @"Block";
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+  v17[1] = @"Active";
+  v18[0] = v8;
+  v13 = &unk_1F5405F28;
+  v14 = &unk_1F5405F58;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
+  v18[1] = v9;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:2];
   v11 = [(PLEntryNotificationOperatorComposition *)v7 initWithOperator:operatorCopy forEntryKey:@"PLDisplayAgent_EventPoint_Display" withFilter:v10 withBlock:blockCopy];
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
 
 + (id)displayOffNotificationWithOperator:(id)operator withBlock:(id)block
 {
-  v19[2] = *MEMORY[0x1E69E9840];
+  v18[2] = *MEMORY[0x1E69E9840];
   blockCopy = block;
   operatorCopy = operator;
   v7 = [PLEntryNotificationOperatorComposition alloc];
-  v16 = &unk_1F5405F28;
-  v17 = @"Backlight";
-  v18[0] = @"Block";
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
-  v18[1] = @"Active";
-  v19[0] = v8;
-  v14 = &unk_1F5405F28;
-  v15 = &unk_1F5405F70;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
-  v19[1] = v9;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:2];
+  v15 = &unk_1F5405F28;
+  v16 = @"Backlight";
+  v17[0] = @"Block";
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+  v17[1] = @"Active";
+  v18[0] = v8;
+  v13 = &unk_1F5405F28;
+  v14 = &unk_1F5405F70;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
+  v18[1] = v9;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:2];
   v11 = [(PLEntryNotificationOperatorComposition *)v7 initWithOperator:operatorCopy forEntryKey:@"PLDisplayAgent_EventPoint_Display" withFilter:v10 withBlock:blockCopy];
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
 
 + (id)displayAODNotificationWithOperator:(id)operator withBlock:(id)block
 {
-  v19[2] = *MEMORY[0x1E69E9840];
+  v18[2] = *MEMORY[0x1E69E9840];
   blockCopy = block;
   operatorCopy = operator;
   v7 = [PLEntryNotificationOperatorComposition alloc];
-  v16 = &unk_1F5405F28;
-  v17 = @"Backlight";
-  v18[0] = @"Block";
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
-  v18[1] = @"Active";
-  v19[0] = v8;
-  v14 = &unk_1F5405F28;
-  v15 = &unk_1F5405F88;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
-  v19[1] = v9;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:2];
+  v15 = &unk_1F5405F28;
+  v16 = @"Backlight";
+  v17[0] = @"Block";
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+  v17[1] = @"Active";
+  v18[0] = v8;
+  v13 = &unk_1F5405F28;
+  v14 = &unk_1F5405F88;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
+  v18[1] = v9;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:2];
   v11 = [(PLEntryNotificationOperatorComposition *)v7 initWithOperator:operatorCopy forEntryKey:@"PLDisplayAgent_EventPoint_Display" withFilter:v10 withBlock:blockCopy];
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
 
 + (id)displayOnOrAODNotificationWithOperator:(id)operator withBlock:(id)block
 {
-  v19[2] = *MEMORY[0x1E69E9840];
+  v18[2] = *MEMORY[0x1E69E9840];
   blockCopy = block;
   operatorCopy = operator;
   v7 = [PLEntryNotificationOperatorComposition alloc];
-  v16 = &unk_1F5405F28;
-  v17 = @"Backlight";
-  v18[0] = @"Block";
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
-  v18[1] = @"Active";
-  v19[0] = v8;
-  v14 = &unk_1F5405FA0;
-  v15 = &unk_1F5405F70;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
-  v19[1] = v9;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:2];
+  v15 = &unk_1F5405F28;
+  v16 = @"Backlight";
+  v17[0] = @"Block";
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+  v17[1] = @"Active";
+  v18[0] = v8;
+  v13 = &unk_1F5405FA0;
+  v14 = &unk_1F5405F70;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
+  v18[1] = v9;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:2];
   v11 = [(PLEntryNotificationOperatorComposition *)v7 initWithOperator:operatorCopy forEntryKey:@"PLDisplayAgent_EventPoint_Display" withFilter:v10 withBlock:blockCopy];
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
 
 + (id)displayOffOrAODNotificationWithOperator:(id)operator withBlock:(id)block
 {
-  v19[2] = *MEMORY[0x1E69E9840];
+  v18[2] = *MEMORY[0x1E69E9840];
   blockCopy = block;
   operatorCopy = operator;
   v7 = [PLEntryNotificationOperatorComposition alloc];
-  v16 = &unk_1F5405F28;
-  v17 = @"Backlight";
-  v18[0] = @"Block";
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
-  v18[1] = @"Active";
-  v19[0] = v8;
-  v14 = &unk_1F5405FA0;
-  v15 = &unk_1F5405F58;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
-  v19[1] = v9;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:2];
+  v15 = &unk_1F5405F28;
+  v16 = @"Backlight";
+  v17[0] = @"Block";
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+  v17[1] = @"Active";
+  v18[0] = v8;
+  v13 = &unk_1F5405FA0;
+  v14 = &unk_1F5405F58;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
+  v18[1] = v9;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:2];
   v11 = [(PLEntryNotificationOperatorComposition *)v7 initWithOperator:operatorCopy forEntryKey:@"PLDisplayAgent_EventPoint_Display" withFilter:v10 withBlock:blockCopy];
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
 
 + (id)displayStateChangeNotificationWithOperator:(id)operator withBlock:(id)block
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   blockCopy = block;
   operatorCopy = operator;
   v7 = [PLEntryNotificationOperatorComposition alloc];
-  v13 = &unk_1F5405F28;
-  v14 = @"Backlight";
-  v15 = @"Block";
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
-  v16[0] = v8;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+  v12 = &unk_1F5405F28;
+  v13 = @"Backlight";
+  v14 = @"Block";
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
+  v15[0] = v8;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
   v10 = [(PLEntryNotificationOperatorComposition *)v7 initWithOperator:operatorCopy forEntryKey:@"PLDisplayAgent_EventPoint_Display" withFilter:v9 withBlock:blockCopy];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 + (id)significantBatteryChangeNotificationWithOperator:(id)operator withBlock:(id)block
 {
-  v20[1] = *MEMORY[0x1E69E9840];
+  v19[1] = *MEMORY[0x1E69E9840];
   blockCopy = block;
   operatorCopy = operator;
   v8 = +[PLUtilities hasBattery];
   v9 = [PLEntryNotificationOperatorComposition alloc];
   if (v8)
   {
-    v19 = @"Level";
-    v18[0] = &unk_1F540A3B0;
-    v17[0] = &unk_1F5405F40;
-    v17[1] = &unk_1F5405FB8;
+    v18 = @"Level";
+    v17[0] = &unk_1F540A3B0;
+    v16[0] = &unk_1F5405F40;
+    v16[1] = &unk_1F5405FB8;
     getSBCMaxTimeInterval = [self getSBCMaxTimeInterval];
-    v18[1] = getSBCMaxTimeInterval;
-    v17[2] = &unk_1F5405FD0;
+    v17[1] = getSBCMaxTimeInterval;
+    v16[2] = &unk_1F5405FD0;
     getSBCMinTimeInterval = [self getSBCMinTimeInterval];
-    v18[2] = getSBCMinTimeInterval;
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:3];
-    v20[0] = v12;
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+    v17[2] = getSBCMinTimeInterval;
+    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:3];
+    v19[0] = v12;
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
     v14 = [(PLEntryNotificationOperatorComposition *)v9 initWithOperator:operatorCopy forEntryKey:@"PLBatteryAgent_EventBackward_Battery" withFilter:v13 withBlock:blockCopy];
   }
 
@@ -329,32 +317,30 @@ intptr_t __96__PLEntryNotificationOperatorComposition_requestEntryForEntryKey_fo
     v14 = [(PLEntryNotificationOperatorComposition *)v9 initNotificationTimerWithWorkQueue:getSBCMaxTimeInterval withBlock:blockCopy];
   }
 
-  v15 = *MEMORY[0x1E69E9840];
-
   return v14;
 }
 
 + (id)significantBatteryChangeNotificationWithOperator:(id)operator withMaxIntervalInSecs:(double)secs withBlock:(id)block
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   blockCopy = block;
   operatorCopy = operator;
   v10 = +[PLUtilities hasBattery];
   v11 = [PLEntryNotificationOperatorComposition alloc];
   if (v10)
   {
-    v21 = @"Level";
-    v20[0] = &unk_1F540A3B0;
-    v19[0] = &unk_1F5405F40;
-    v19[1] = &unk_1F5405FB8;
+    v20 = @"Level";
+    v19[0] = &unk_1F540A3B0;
+    v18[0] = &unk_1F5405F40;
+    v18[1] = &unk_1F5405FB8;
     workQueue = [MEMORY[0x1E696AD98] numberWithDouble:secs];
-    v20[1] = workQueue;
-    v19[2] = &unk_1F5405FD0;
+    v19[1] = workQueue;
+    v18[2] = &unk_1F5405FD0;
     getSBCMinTimeInterval = [self getSBCMinTimeInterval];
-    v20[2] = getSBCMinTimeInterval;
-    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:3];
-    v22[0] = v14;
-    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+    v19[2] = getSBCMinTimeInterval;
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:3];
+    v21[0] = v14;
+    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
     v16 = [(PLEntryNotificationOperatorComposition *)v11 initWithOperator:operatorCopy forEntryKey:@"PLBatteryAgent_EventBackward_Battery" withFilter:v15 withBlock:blockCopy];
   }
 
@@ -364,8 +350,6 @@ intptr_t __96__PLEntryNotificationOperatorComposition_requestEntryForEntryKey_fo
 
     v16 = [(PLEntryNotificationOperatorComposition *)v11 initNotificationTimerWithWorkQueue:workQueue withMaxInterval:blockCopy withBlock:secs];
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
@@ -391,7 +375,7 @@ intptr_t __96__PLEntryNotificationOperatorComposition_requestEntryForEntryKey_fo
   return v4;
 }
 
-uint64_t __63__PLEntryNotificationOperatorComposition_getSBCMinTimeInterval__block_invoke(uint64_t a1)
+void *__63__PLEntryNotificationOperatorComposition_getSBCMinTimeInterval__block_invoke(uint64_t a1)
 {
   result = [PLDefaults doubleForKey:*(a1 + 32) ifNotSet:*(a1 + 40)];
   getSBCMinTimeInterval_objectForKey = v2;
@@ -419,7 +403,7 @@ uint64_t __63__PLEntryNotificationOperatorComposition_getSBCMinTimeInterval__blo
   return v4;
 }
 
-uint64_t __63__PLEntryNotificationOperatorComposition_getSBCMaxTimeInterval__block_invoke(uint64_t a1)
+void *__63__PLEntryNotificationOperatorComposition_getSBCMaxTimeInterval__block_invoke(uint64_t a1)
 {
   result = [PLDefaults doubleForKey:*(a1 + 32) ifNotSet:*(a1 + 40)];
   getSBCMaxTimeInterval_objectForKey = v2;
@@ -437,43 +421,39 @@ uint64_t __63__PLEntryNotificationOperatorComposition_getSBCMaxTimeInterval__blo
 
 + (id)canSleepEntryNotificationWithWorkQueue:(id)queue withBlock:(id)block
 {
-  v19[2] = *MEMORY[0x1E69E9840];
+  v18[2] = *MEMORY[0x1E69E9840];
   blockCopy = block;
   queueCopy = queue;
   v7 = [PLEntryNotificationOperatorComposition alloc];
-  v16 = &unk_1F5405F28;
-  v17 = &unk_1F5405FE8;
-  v18[0] = @"State";
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
-  v18[1] = @"Event";
-  v19[0] = v8;
-  v14 = &unk_1F5405F28;
   v15 = &unk_1F5405F28;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
-  v19[1] = v9;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:2];
+  v16 = &unk_1F5405FE8;
+  v17[0] = @"State";
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+  v17[1] = @"Event";
+  v18[0] = v8;
+  v13 = &unk_1F5405F28;
+  v14 = &unk_1F5405F28;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
+  v18[1] = v9;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:2];
   v11 = [(PLEntryNotificationOperatorComposition *)v7 initWithWorkQueue:queueCopy forEntryKey:@"PLSleepWakeAgent_EventForward_PowerState" forUpdateOrInsert:1 withFilter:v10 withBlock:blockCopy];
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
 
 + (id)sleepEntryNotificationWithOperator:(id)operator withBlock:(id)block
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   blockCopy = block;
   operatorCopy = operator;
   v7 = [PLEntryNotificationOperatorComposition alloc];
-  v13 = &unk_1F5405F28;
-  v14 = &unk_1F5405FE8;
-  v15 = @"State";
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
-  v16[0] = v8;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+  v12 = &unk_1F5405F28;
+  v13 = &unk_1F5405FE8;
+  v14 = @"State";
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
+  v15[0] = v8;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
   v10 = [(PLEntryNotificationOperatorComposition *)v7 initWithOperator:operatorCopy forEntryKey:@"PLSleepWakeAgent_EventForward_PowerState" withFilter:v9 withBlock:blockCopy];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -504,9 +484,32 @@ uint64_t __63__PLEntryNotificationOperatorComposition_getSBCMaxTimeInterval__blo
   return v16;
 }
 
+- (PLEntryNotificationOperatorComposition)initWithOperator:(id)operator forEntryKey:(id)key forUpdateOrInsert:(signed __int16)insert withBlock:(id)block
+{
+  insertCopy = insert;
+  blockCopy = block;
+  keyCopy = key;
+  workQueue = [operator workQueue];
+  v13 = [(PLEntryNotificationOperatorComposition *)self initWithWorkQueue:workQueue forEntryKey:keyCopy forUpdateOrInsert:insertCopy withBlock:blockCopy];
+
+  return v13;
+}
+
+- (PLEntryNotificationOperatorComposition)initWithOperator:(id)operator forEntryKey:(id)key forUpdateOrInsert:(signed __int16)insert withFilter:(id)filter withBlock:(id)block
+{
+  insertCopy = insert;
+  blockCopy = block;
+  filterCopy = filter;
+  keyCopy = key;
+  workQueue = [operator workQueue];
+  v16 = [(PLEntryNotificationOperatorComposition *)self initWithWorkQueue:workQueue forEntryKey:keyCopy forUpdateOrInsert:insertCopy withFilter:filterCopy withBlock:blockCopy];
+
+  return v16;
+}
+
 - (PLEntryNotificationOperatorComposition)initWithWorkQueue:(id)queue forEntryKey:(id)key forUpdateOrInsert:(signed __int16)insert withFilter:(id)filter withBlock:(id)block
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   insertCopy = insert;
   queueCopy = queue;
   keyCopy = key;
@@ -528,52 +531,51 @@ uint64_t __63__PLEntryNotificationOperatorComposition_getSBCMaxTimeInterval__blo
     [v16 addObject:v20];
   }
 
-  v39.receiver = self;
-  v39.super_class = PLEntryNotificationOperatorComposition;
-  v21 = [(PLNSNotificationOperatorComposition *)&v39 initWithWorkQueue:queueCopy forNotifications:v16 withBlock:blockCopy];
+  v38.receiver = self;
+  v38.super_class = PLEntryNotificationOperatorComposition;
+  v21 = [(PLNSNotificationOperatorComposition *)&v38 initWithWorkQueue:queueCopy forNotifications:v16 withBlock:blockCopy];
   if (v21)
   {
-    v31 = v18;
-    v32 = v17;
-    v33 = blockCopy;
-    v34 = queueCopy;
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
+    v30 = v18;
+    v31 = v17;
+    v32 = blockCopy;
+    v33 = queueCopy;
     v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
     v22 = v17;
-    v23 = [v22 countByEnumeratingWithState:&v35 objects:v40 count:16];
+    v23 = [v22 countByEnumeratingWithState:&v34 objects:v39 count:16];
     if (v23)
     {
       v24 = v23;
-      v25 = *v36;
+      v25 = *v35;
       do
       {
         for (i = 0; i != v24; ++i)
         {
-          if (*v36 != v25)
+          if (*v35 != v25)
           {
             objc_enumerationMutation(v22);
           }
 
-          v27 = *(*(&v35 + 1) + 8 * i);
+          v27 = *(*(&v34 + 1) + 8 * i);
           defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
           [defaultCenter postNotificationName:v27 object:0 userInfo:filterCopy];
         }
 
-        v24 = [v22 countByEnumeratingWithState:&v35 objects:v40 count:16];
+        v24 = [v22 countByEnumeratingWithState:&v34 objects:v39 count:16];
       }
 
       while (v24);
     }
 
-    queueCopy = v34;
-    v17 = v32;
-    blockCopy = v33;
-    v18 = v31;
+    queueCopy = v33;
+    v17 = v31;
+    blockCopy = v32;
+    v18 = v30;
   }
 
-  v29 = *MEMORY[0x1E69E9840];
   return v21;
 }
 

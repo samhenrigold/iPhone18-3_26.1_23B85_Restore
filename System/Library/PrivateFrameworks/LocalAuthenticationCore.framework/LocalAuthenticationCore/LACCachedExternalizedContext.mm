@@ -13,20 +13,21 @@
 
 - (NSData)externalizedContext
 {
-  v7 = 0;
-  v2 = [(LACCachedExternalizedContext *)self externalizedContextWithError:&v7];
-  v3 = v7;
+  v8 = 0;
+  v2 = [(LACCachedExternalizedContext *)self externalizedContextWithError:&v8];
+  v3 = v8;
+  v4 = v3;
   if (v2)
   {
-    v4 = v2;
+    v5 = v2;
   }
 
   else
   {
-    v5 = LACLogContext();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = LACLogContext(v3);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      [(LACCachedExternalizedContext *)v3 externalizedContext];
+      [(LACCachedExternalizedContext *)v4 externalizedContext];
     }
   }
 
@@ -204,7 +205,7 @@ void __61__LACCachedExternalizedContext_externalizedContextWithError___block_inv
       v5 = objc_opt_new();
     }
 
-    v6 = self->_cachedExternalizedContext;
+    cachedExternalizedContext = self->_cachedExternalizedContext;
   }
 
   else
@@ -214,7 +215,7 @@ void __61__LACCachedExternalizedContext_externalizedContextWithError___block_inv
 
   self->_cachedExternalizedContext = v5;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v5, cachedExternalizedContext);
 }
 
 - (LACContextExternalizationObserving)externalizationObserver
@@ -226,11 +227,10 @@ void __61__LACCachedExternalizedContext_externalizedContextWithError___block_inv
 
 - (void)externalizedContext
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
   selfCopy = self;
-  _os_log_error_impl(&dword_1B0233000, a2, OS_LOG_TYPE_ERROR, "Failed to get externalized context: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1B0233000, a2, OS_LOG_TYPE_ERROR, "Failed to get externalized context: %{public}@", &v2, 0xCu);
 }
 
 @end

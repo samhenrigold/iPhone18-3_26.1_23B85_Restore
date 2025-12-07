@@ -32,7 +32,7 @@
   equalCopy = equal;
   if (self == equalCopy)
   {
-    v23 = 1;
+    v19 = 1;
   }
 
   else
@@ -41,11 +41,9 @@
     if (objc_opt_isKindOfClass())
     {
       v5 = equalCopy;
-      contactDisplayName = self->_contactDisplayName;
       contactDisplayName = [(_ASAccountSharingGroupMemberData *)v5 contactDisplayName];
       if (WBSIsEqual())
       {
-        shortContactDisplayName = self->_shortContactDisplayName;
         shortContactDisplayName = [(_ASAccountSharingGroupMemberData *)v5 shortContactDisplayName];
         if (WBSIsEqual())
         {
@@ -61,58 +59,56 @@
               avatarImageForGroupMemberCell = [(_ASAccountSharingGroupMemberData *)v5 avatarImageForGroupMemberCell];
               if ([(UIImage *)avatarImageForGroupMemberCell isEqual:avatarImageForGroupMemberCell]&& (groupPermissionLevel = self->_groupPermissionLevel, groupPermissionLevel == [(_ASAccountSharingGroupMemberData *)v5 groupPermissionLevel]) && (isMeParticipant = self->_isMeParticipant, isMeParticipant == [(_ASAccountSharingGroupMemberData *)v5 isMeParticipant]) && (inviteStatus = self->_inviteStatus, inviteStatus == [(_ASAccountSharingGroupMemberData *)v5 inviteStatus]))
               {
-                contact = self->_contact;
                 contact = [(_ASAccountSharingGroupMemberData *)v5 contact];
                 if (WBSIsEqual())
                 {
-                  participantID = self->_participantID;
                   participantID = [(_ASAccountSharingGroupMemberData *)v5 participantID];
-                  v23 = WBSIsEqual();
+                  v19 = WBSIsEqual();
                 }
 
                 else
                 {
-                  v23 = 0;
+                  v19 = 0;
                 }
               }
 
               else
               {
-                v23 = 0;
+                v19 = 0;
               }
             }
 
             else
             {
-              v23 = 0;
+              v19 = 0;
             }
           }
 
           else
           {
-            v23 = 0;
+            v19 = 0;
           }
         }
 
         else
         {
-          v23 = 0;
+          v19 = 0;
         }
       }
 
       else
       {
-        v23 = 0;
+        v19 = 0;
       }
     }
 
     else
     {
-      v23 = 0;
+      v19 = 0;
     }
   }
 
-  return v23;
+  return v19;
 }
 
 - (unint64_t)hash

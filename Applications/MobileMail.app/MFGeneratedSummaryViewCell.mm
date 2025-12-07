@@ -28,24 +28,24 @@
 {
   swift_unknownObjectRetain();
   _objc_retain(self);
-  GeneratedSummaryViewCell.delegate.setter();
+  GeneratedSummaryViewCell.delegate.setter(delegate);
   _objc_release(self);
 }
 
 - (ConversationCellViewModel)viewModel
 {
-  _objc_retain(self);
-  v4 = GeneratedSummaryViewCell.viewModel.getter();
+  v2 = _objc_retain(self);
+  v6 = GeneratedSummaryViewCell.viewModel.getter(v2, v3);
   _objc_release(self);
 
-  return v4;
+  return v6;
 }
 
 - (void)setViewModel:(id)model
 {
   _objc_retain(model);
   _objc_retain(self);
-  GeneratedSummaryViewCell.viewModel.setter(model);
+  GeneratedSummaryViewCell.viewModel.setter(model, v4);
   _objc_release(self);
 }
 
@@ -103,7 +103,7 @@
 {
   _objc_retain(manager);
   _objc_retain(self);
-  v7 = GeneratedSummaryViewCell.presentingViewController(for:)();
+  v7 = GeneratedSummaryViewCell.presentingViewController(for:)(manager);
   _objc_release(self);
   _objc_release(manager);
 

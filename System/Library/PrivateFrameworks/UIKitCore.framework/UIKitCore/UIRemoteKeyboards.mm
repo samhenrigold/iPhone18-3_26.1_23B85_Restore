@@ -3,11 +3,11 @@
 
 @implementation UIRemoteKeyboards
 
-void __43___UIRemoteKeyboards_sharedRemoteKeyboards__block_invoke()
+void __43___UIRemoteKeyboards_sharedRemoteKeyboards__block_invoke(uint64_t a1)
 {
-  v0 = objc_opt_new();
-  v1 = qword_1ED499748;
-  qword_1ED499748 = v0;
+  v1 = objc_opt_new();
+  v2 = qword_1ED499748;
+  qword_1ED499748 = v1;
 }
 
 void __33___UIRemoteKeyboards_serviceName__block_invoke()
@@ -87,13 +87,13 @@ void __61___UIRemoteKeyboards__isWritingToolsHandlingKeyboardTracking__block_inv
   }
 }
 
-uint64_t __40___UIRemoteKeyboards_isOnScreenRotating__block_invoke(uint64_t result, void *a2)
+void *__40___UIRemoteKeyboards_isOnScreenRotating__block_invoke(void *result, void *a2)
 {
-  if ((*(*(*(result + 32) + 8) + 24) & 1) == 0)
+  if ((*(*(result[4] + 8) + 24) & 1) == 0)
   {
     v2 = result;
     result = [a2 isOnScreenRotating];
-    *(*(*(v2 + 32) + 8) + 24) |= result;
+    *(*(v2[4] + 8) + 24) |= result;
   }
 
   return result;
@@ -205,7 +205,7 @@ uint64_t __62___UIRemoteKeyboards_queue_activeProcessResignWithCompletion___bloc
   {
     v4 = [*(a1 + 32) currentState];
     v5 = [v4 sourceBundleIdentifier];
-    *(*(a1 + 32) + 196) = [v5 isEqualToString:@"com.apple.siri"];
+    *(*(a1 + 32) + 196) = objc_msgSend_isEqualToString_(v5);
 
     [*(a1 + 32) applicationDidBecomeActive:0 forceSignalToProxy:1];
     *(*(a1 + 32) + 196) = 0;
@@ -351,9 +351,9 @@ void __94___UIRemoteKeyboards_didHandleKeyboardChange_shouldConsiderSnapshotting
     }
 
     v11 = [*(a1 + 40) sourceSceneIdentityString];
-    v12 = [v11 isEqual:v8];
+    isEqual = objc_msgSend_isEqual_(v11);
 
-    if (v12)
+    if (isEqual)
     {
       *(*(*(a1 + 56) + 8) + 24) = 1;
     }
@@ -439,7 +439,7 @@ void __94___UIRemoteKeyboards_didHandleKeyboardChange_shouldConsiderSnapshotting
   }
 
   v8 = [*(a1 + 32) sourceSceneIdentityString];
-  if ([v8 isEqualToString:v7])
+  if (objc_msgSend_isEqualToString_(v8))
   {
   }
 
@@ -450,9 +450,9 @@ void __94___UIRemoteKeyboards_didHandleKeyboardChange_shouldConsiderSnapshotting
     v11 = [v10 screen];
     v12 = [v11 displayConfiguration];
     v13 = [v12 _nameForDisplayType];
-    v14 = [v9 isEqualToString:v13];
+    isEqualToString = objc_msgSend_isEqualToString_(v9);
 
-    if (v14)
+    if (isEqualToString)
     {
       v15 = @"remote-keyboards";
 LABEL_10:
@@ -497,7 +497,7 @@ void __94___UIRemoteKeyboards_didHandleKeyboardChange_shouldConsiderSnapshotting
   {
     v10 = v9;
     v11 = [*(a1 + 32) sourceSceneIdentityString];
-    if ([v11 isEqualToString:v8])
+    if (objc_msgSend_isEqualToString_(v11))
     {
 
       goto LABEL_29;
@@ -513,10 +513,10 @@ void __94___UIRemoteKeyboards_didHandleKeyboardChange_shouldConsiderSnapshotting
       v16 = [v15 screen];
       v17 = [v16 displayConfiguration];
       v18 = [v17 _nameForDisplayType];
-      v29 = [v14 isEqualToString:v18];
+      isEqualToString = objc_msgSend_isEqualToString_(v14);
 
       v8 = v30;
-      if (!v29)
+      if (!isEqualToString)
       {
         goto LABEL_29;
       }
@@ -543,7 +543,7 @@ void __94___UIRemoteKeyboards_didHandleKeyboardChange_shouldConsiderSnapshotting
       if (!_UIApplicationIsFirstPartyStickers() || (+[UIKeyboard activeKeyboard](UIKeyboard, "activeKeyboard"), v25 = objc_claimAutoreleasedReturnValue(), [v25 window], v26 = objc_claimAutoreleasedReturnValue(), v26, v25, !v26))
       {
         v27 = _UIMainBundleIdentifier();
-        if ([v27 isEqualToString:@"com.apple.siri"])
+        if (objc_msgSend_isEqualToString_(v27))
         {
           v28 = [*(a1 + 32) keyboardOnScreen];
 
@@ -590,7 +590,7 @@ void __94___UIRemoteKeyboards_didHandleKeyboardChange_shouldConsiderSnapshotting
 LABEL_29:
 }
 
-uint64_t __94___UIRemoteKeyboards_didHandleKeyboardChange_shouldConsiderSnapshottingKeyboard_isLocalEvent___block_invoke_3_471(uint64_t a1)
+void *__94___UIRemoteKeyboards_didHandleKeyboardChange_shouldConsiderSnapshottingKeyboard_isLocalEvent___block_invoke_3_471(uint64_t a1)
 {
   v2 = _UIArbiterClientLog();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
@@ -668,11 +668,11 @@ void __55___UIRemoteKeyboards_queue_keyboardChanged_onComplete___block_invoke(ui
             v10 = v9;
             v11 = [v8 sceneIdentityString];
             v12 = [*(a1 + 40) sourceSceneIdentityString];
-            v13 = [v11 isEqual:v12];
+            isEqual = objc_msgSend_isEqual_(v11);
 
-            if (v13)
+            if (isEqual)
             {
-              v14 = 1;
+              isEqualToString = 1;
               goto LABEL_15;
             }
           }
@@ -688,7 +688,7 @@ void __55___UIRemoteKeyboards_queue_keyboardChanged_onComplete___block_invoke(ui
       }
     }
 
-    v14 = 0;
+    isEqualToString = 0;
 LABEL_15:
   }
 
@@ -696,16 +696,16 @@ LABEL_15:
   {
     v15 = [*(a1 + 40) sourceBundleIdentifier];
     v16 = _UIMainBundleIdentifier();
-    if ([v15 isEqualToString:v16])
+    if (objc_msgSend_isEqualToString_(v15))
     {
-      v14 = 1;
+      isEqualToString = 1;
     }
 
     else
     {
       v17 = [*(a1 + 40) hostBundleIdentifier];
       v18 = _UIMainBundleIdentifier();
-      v14 = [v17 isEqualToString:v18];
+      isEqualToString = objc_msgSend_isEqualToString_(v17);
     }
   }
 
@@ -736,7 +736,7 @@ LABEL_15:
   if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
   {
     v27 = "N";
-    if (v14)
+    if (isEqualToString)
     {
       v27 = "Y";
     }
@@ -758,11 +758,11 @@ LABEL_15:
   }
 
   v31 = _UIMainBundleIdentifier();
-  v32 = [v31 isEqualToString:@"com.apple.Spotlight"];
+  v32 = objc_msgSend_isEqualToString_(v31);
   if (v32)
   {
     v33 = [*(a1 + 40) hostBundleIdentifier];
-    if (([v33 isEqualToString:@"com.apple.Spotlight"] & 1) == 0 && (v30 == 0) != objc_msgSend(*(a1 + 40), "isOneness"))
+    if ((objc_msgSend_isEqualToString_(v33) & 1) == 0 && (v30 == 0) != [*(a1 + 40) isOneness])
     {
 
       goto LABEL_52;
@@ -773,21 +773,21 @@ LABEL_15:
 
   v53 = v32;
   v34 = _UIMainBundleIdentifier();
-  if (([v34 isEqualToString:@"com.apple.CoreAuthUI"] & 1) == 0 && !objc_msgSend(v34, "isEqualToString:", @"com.apple.LocalAuthenticationUIService"))
+  if ((objc_msgSend_isEqualToString_(v34) & 1) == 0 && !objc_msgSend_isEqualToString_(v34))
   {
     v35 = 0;
     goto LABEL_42;
   }
 
   i = [*(a1 + 40) hostBundleIdentifier];
-  if ([i isEqualToString:@"com.apple.CoreAuthUI"])
+  if (objc_msgSend_isEqualToString_(i))
   {
 
     v35 = 1;
     goto LABEL_42;
   }
 
-  v36 = [i isEqualToString:@"com.apple.LocalAuthenticationUIService"];
+  v36 = objc_msgSend_isEqualToString_(i);
 
   v35 = 1;
   v37 = 1;
@@ -796,13 +796,13 @@ LABEL_15:
 LABEL_42:
     v50 = v35;
     v51 = v28;
-    v52 = v14;
+    v52 = isEqualToString;
     v38 = _UIMainBundleIdentifier();
-    v39 = [v38 isEqualToString:@"com.apple.WebSheet"];
+    v39 = objc_msgSend_isEqualToString_(v38);
     if (v39)
     {
       v40 = [*(a1 + 40) hostBundleIdentifier];
-      if (![v40 isEqualToString:@"com.apple.WebSheet"])
+      if (!objc_msgSend_isEqualToString_(v40))
       {
         v37 = 1;
         goto LABEL_57;
@@ -813,10 +813,10 @@ LABEL_42:
 
     v41 = v31;
     v42 = _UIMainBundleIdentifier();
-    if ([v42 isEqualToString:@"com.apple.siri"])
+    if (objc_msgSend_isEqualToString_(v42))
     {
       v43 = [*(a1 + 40) hostBundleIdentifier];
-      v37 = [v43 isEqualToString:@"com.apple.siri"] ^ 1;
+      v37 = objc_msgSend_isEqualToString_(v43) ^ 1;
 
       v31 = v41;
       v40 = v48;
@@ -825,7 +825,7 @@ LABEL_42:
 LABEL_57:
 
         v28 = v51;
-        v14 = v52;
+        isEqualToString = v52;
         if (v50)
         {
           goto LABEL_58;
@@ -862,7 +862,7 @@ LABEL_51:
     }
 
     v28 = v51;
-    v14 = v52;
+    isEqualToString = v52;
     if (v50)
     {
       goto LABEL_58;
@@ -894,7 +894,7 @@ LABEL_60:
 
     else
     {
-      v46 = [*(a1 + 32) didHandleKeyboardChange:*(a1 + 40) shouldConsiderSnapshottingKeyboard:objc_msgSend(*(a1 + 40) isLocalEvent:{"shouldTakeSnapshot", v48), v14}];
+      v46 = [*(a1 + 32) didHandleKeyboardChange:*(a1 + 40) shouldConsiderSnapshottingKeyboard:objc_msgSend(*(a1 + 40) isLocalEvent:{"shouldTakeSnapshot", v48), isEqualToString}];
       v47 = *(a1 + 48);
       if (!v47)
       {
@@ -1645,9 +1645,9 @@ void __44___UIRemoteKeyboards_applicationDidSuspend___block_invoke_645(uint64_t 
 void __44___UIRemoteKeyboards_applicationDidSuspend___block_invoke_2(uint64_t a1)
 {
   v2 = _UIMainBundleIdentifier();
-  v3 = [v2 isEqualToString:@"com.apple.Spotlight"];
+  isEqualToString = objc_msgSend_isEqualToString_(v2);
 
-  if ((v3 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     [*(a1 + 32) reloadForSnapshotting];
   }
@@ -1664,9 +1664,9 @@ void __44___UIRemoteKeyboards_applicationWillResume___block_invoke(uint64_t a1)
 {
   v27 = *MEMORY[0x1E69E9840];
   v2 = _UIMainBundleIdentifier();
-  v3 = [v2 isEqualToString:@"com.apple.Spotlight"];
+  isEqualToString = objc_msgSend_isEqualToString_(v2);
 
-  if ((v3 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     [*(a1 + 32) reloadForSnapshotting];
   }
@@ -2060,9 +2060,9 @@ uint64_t __73___UIRemoteKeyboards_queue_keyboardTransition_event_withInfo_onComp
   return result;
 }
 
-void __64___UIRemoteKeyboards_setStickerPrewarmingViewControllerEnabled___block_invoke(uint64_t a1, double a2)
+void __64___UIRemoteKeyboards_setStickerPrewarmingViewControllerEnabled___block_invoke(uint64_t a1, uint64_t a2, double a3)
 {
-  gotLoadHelper_x8__OBJC_CLASS___STKPrewarmingViewController(a2);
+  gotLoadHelper_x8__OBJC_CLASS___STKPrewarmingViewController(a3);
   objc_opt_class();
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;

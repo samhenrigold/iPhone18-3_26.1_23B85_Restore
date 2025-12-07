@@ -292,11 +292,10 @@ LABEL_12:
 
 - (void)accessibilityLabel
 {
-  v5 = *MEMORY[0x29EDCA608];
-  v3 = 138412290;
+  v4 = *MEMORY[0x29EDCA608];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_29BF3C000, a2, OS_LOG_TYPE_ERROR, "Unhandled asset name for media control button: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x29EDCA608];
+  _os_log_error_impl(&dword_29BF3C000, a2, OS_LOG_TYPE_ERROR, "Unhandled asset name for media control button: %@", &v2, 0xCu);
 }
 
 @end

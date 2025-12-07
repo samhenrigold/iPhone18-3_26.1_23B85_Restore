@@ -80,83 +80,80 @@
 
 - (void)_serverWillInvalidate
 {
-  if (self)
+  if (result)
   {
     v1[0] = MEMORY[0x1E69E9820];
     v1[1] = 3221225472;
     v1[2] = __37__RBSAssertion__serverWillInvalidate__block_invoke;
     v1[3] = &unk_1E7276440;
-    v1[4] = self;
+    v1[4] = result;
     [RBSWorkloop performCallout:v1];
   }
 }
 
 void __37__RBSAssertion__serverWillInvalidate__block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 32);
+  v18 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock_with_options();
-  v3 = *(a1 + 32);
-  if (*(v3 + 48) == 1)
+  v2 = *(a1 + 32);
+  if (*(v2 + 48) == 1)
   {
-    v4 = [*(v3 + 8) allObjects];
-    v5 = MEMORY[0x193AD5470](*(*(a1 + 32) + 24));
-    v6 = *(a1 + 32);
-    v7 = *(v6 + 24);
-    *(v6 + 24) = 0;
+    v3 = [*(v2 + 8) allObjects];
+    v4 = MEMORY[0x193AD5470](*(*(a1 + 32) + 24));
+    v5 = *(a1 + 32);
+    v6 = *(v5 + 24);
+    *(v5 + 24) = 0;
 
-    v3 = *(a1 + 32);
+    v2 = *(a1 + 32);
   }
 
   else
   {
+    v3 = 0;
     v4 = 0;
-    v5 = 0;
   }
 
-  os_unfair_lock_unlock((v3 + 56));
-  v17 = 0u;
-  v18 = 0u;
+  os_unfair_lock_unlock((v2 + 56));
   v15 = 0u;
   v16 = 0u;
-  v8 = v4;
-  v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
-  if (v9)
+  v13 = 0u;
+  v14 = 0u;
+  v7 = v3;
+  v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  if (v8)
   {
-    v10 = v9;
-    v11 = *v16;
+    v9 = v8;
+    v10 = *v14;
     do
     {
-      v12 = 0;
+      v11 = 0;
       do
       {
-        if (*v16 != v11)
+        if (*v14 != v10)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(v7);
         }
 
-        v13 = *(*(&v15 + 1) + 8 * v12);
+        v12 = *(*(&v13 + 1) + 8 * v11);
         if (objc_opt_respondsToSelector())
         {
-          [v13 assertionWillInvalidate:{*(a1 + 32), v15}];
+          [v12 assertionWillInvalidate:{*(a1 + 32), v13}];
         }
 
-        ++v12;
+        ++v11;
       }
 
-      while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      while (v9 != v11);
+      v9 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
-    while (v10);
+    while (v9);
   }
 
-  if (v5)
+  if (v4)
   {
-    v5[2](v5, *(a1 + 32));
+    v4[2](v4, *(a1 + 32));
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (NSArray)attributes
@@ -213,11 +210,11 @@ LABEL_3:
   state = self->_state;
   if (state == 2)
   {
-    v15 = MEMORY[0x1E696ABC0];
+    v16 = MEMORY[0x1E696ABC0];
     v28 = *MEMORY[0x1E696A588];
     v29 = @"Assertion has already been invalidated";
     observers = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
-    v6 = [v15 errorWithDomain:@"RBSAssertionErrorDomain" code:1 userInfo:observers];
+    v6 = [v16 errorWithDomain:@"RBSAssertionErrorDomain" code:1 userInfo:observers];
 LABEL_13:
 
 LABEL_14:
@@ -227,7 +224,7 @@ LABEL_14:
     warningHandler = self->_warningHandler;
     self->_warningHandler = 0;
 
-    v12 = 0;
+    v13 = 0;
     observers = self->_observers;
     self->_observers = 0;
     goto LABEL_15;
@@ -236,7 +233,7 @@ LABEL_14:
   v6 = 0;
   if (state == 1)
   {
-    v12 = 1;
+    v13 = 1;
     goto LABEL_16;
   }
 
@@ -251,15 +248,15 @@ LABEL_14:
   if (!target)
   {
     self->_state = 2;
-    v16 = MEMORY[0x1E696ABC0];
+    v17 = MEMORY[0x1E696ABC0];
     v32 = *MEMORY[0x1E696A588];
     v33[0] = @"Missing assertion target";
-    v17 = MEMORY[0x1E695DF20];
-    v18 = v33;
-    v19 = &v32;
+    v18 = MEMORY[0x1E695DF20];
+    v19 = v33;
+    v20 = &v32;
 LABEL_12:
-    v20 = [v17 dictionaryWithObjects:v18 forKeys:v19 count:1];
-    v6 = [v16 errorWithDomain:@"RBSAssertionErrorDomain" code:2 userInfo:v20];
+    v21 = [v18 dictionaryWithObjects:v19 forKeys:v20 count:1];
+    v6 = [v17 errorWithDomain:@"RBSAssertionErrorDomain" code:2 userInfo:v21];
 
     goto LABEL_13;
   }
@@ -269,22 +266,23 @@ LABEL_12:
   if (!explanation)
   {
     self->_state = 2;
-    v16 = MEMORY[0x1E696ABC0];
+    v17 = MEMORY[0x1E696ABC0];
     v30 = *MEMORY[0x1E696A588];
     v31 = @"Missing assertion explanation";
-    v17 = MEMORY[0x1E695DF20];
-    v18 = &v31;
-    v19 = &v30;
+    v18 = MEMORY[0x1E695DF20];
+    v19 = &v31;
+    v20 = &v30;
     goto LABEL_12;
   }
 
   service = self->_service;
   v27 = 0;
   v11 = [(RBSServiceLocalProtocol *)service acquireAssertion:self error:&v27];
-  v6 = v27;
+  v12 = v27;
+  v6 = v12;
   if (!v11)
   {
-    v26 = rbs_assertion_log();
+    v26 = rbs_assertion_log(v12);
     if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
       [(RBSAssertion *)v6 acquireWithError:v26];
@@ -294,12 +292,12 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  v12 = 1;
+  v13 = 1;
   self->_state = 1;
   os_unfair_lock_lock(&self->_dataLock);
-  v13 = [observers copyWithIdentifier:v11];
+  v14 = [observers copyWithIdentifier:v11];
   descriptor = self->_descriptor;
-  self->_descriptor = v13;
+  self->_descriptor = v14;
 
   os_unfair_lock_unlock(&self->_dataLock);
 LABEL_15:
@@ -308,12 +306,11 @@ LABEL_16:
   os_unfair_lock_unlock(&self->_lock);
   if (error)
   {
-    v23 = v6;
+    v24 = v6;
     *error = v6;
   }
 
-  v24 = *MEMORY[0x1E69E9840];
-  return v12;
+  return v13;
 }
 
 - (void)acquireWithInvalidationHandler:(id)handler
@@ -331,33 +328,32 @@ LABEL_16:
 
 void __47__RBSAssertion_acquireWithInvalidationHandler___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   os_unfair_lock_lock_with_options();
-  v3 = [*(a1 + 40) copy];
-  v4 = *(a1 + 32);
-  v5 = *(v4 + 16);
-  *(v4 + 16) = v3;
+  v2 = [*(a1 + 40) copy];
+  v3 = *(a1 + 32);
+  v4 = *(v3 + 16);
+  *(v3 + 16) = v2;
 
   os_unfair_lock_unlock((*(a1 + 32) + 56));
-  v6 = *(a1 + 32);
-  v15 = 0;
-  v7 = [v6 acquireWithError:&v15];
-  v8 = v15;
-  if ((v7 & 1) == 0)
+  v5 = *(a1 + 32);
+  v14 = 0;
+  v6 = [v5 acquireWithError:&v14];
+  v7 = v14;
+  if ((v6 & 1) == 0)
   {
-    v9 = *(a1 + 40);
-    if (v9)
+    v8 = *(a1 + 40);
+    if (v8)
     {
-      v12[0] = MEMORY[0x1E69E9820];
-      v12[1] = 3221225472;
-      v12[2] = __47__RBSAssertion_acquireWithInvalidationHandler___block_invoke_2;
-      v12[3] = &unk_1E72763C8;
-      v10 = v9;
-      v11 = *(a1 + 32);
-      v14 = v10;
-      v12[4] = v11;
-      v13 = v8;
-      [RBSWorkloop performCallout:v12];
+      v11[0] = MEMORY[0x1E69E9820];
+      v11[1] = 3221225472;
+      v11[2] = __47__RBSAssertion_acquireWithInvalidationHandler___block_invoke_2;
+      v11[3] = &unk_1E72763C8;
+      v9 = v8;
+      v10 = *(a1 + 32);
+      v13 = v9;
+      v11[4] = v10;
+      v12 = v7;
+      [RBSWorkloop performCallout:v11];
     }
   }
 }
@@ -447,28 +443,28 @@ void __47__RBSAssertion_acquireWithInvalidationHandler___block_invoke(uint64_t a
 
 - (void)setExpirationWarningHandler:(id)handler
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   os_unfair_lock_lock_with_options();
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   attributes = [(RBSAssertion *)self attributes];
-  v7 = [attributes countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v7 = [attributes countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v7)
   {
-    v8 = *v18;
+    v8 = *v17;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(attributes);
         }
 
-        v10 = *(*(&v17 + 1) + 8 * i);
+        v10 = *(*(&v16 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -481,7 +477,7 @@ void __47__RBSAssertion_acquireWithInvalidationHandler___block_invoke(uint64_t a
         }
       }
 
-      v7 = [attributes countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [attributes countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v7)
       {
         continue;
@@ -510,7 +506,6 @@ LABEL_12:
   self->_warningHandler = v12;
 
   os_unfair_lock_unlock(&self->_lock);
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (id)debugDescription
@@ -610,66 +605,63 @@ LABEL_12:
 
 void __43__RBSAssertion__serverInvalidateWithError___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 32);
+  v21 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock_with_options();
-  v3 = MEMORY[0x193AD5470](*(*(a1 + 32) + 16));
-  v4 = [*(*(a1 + 32) + 8) allObjects];
-  v5 = *(a1 + 32);
-  v6 = *(v5 + 16);
-  *(v5 + 16) = 0;
+  v2 = MEMORY[0x193AD5470](*(*(a1 + 32) + 16));
+  v3 = [*(*(a1 + 32) + 8) allObjects];
+  v4 = *(a1 + 32);
+  v5 = *(v4 + 16);
+  *(v4 + 16) = 0;
 
-  v7 = *(a1 + 32);
-  v8 = *(v7 + 24);
-  *(v7 + 24) = 0;
+  v6 = *(a1 + 32);
+  v7 = *(v6 + 24);
+  *(v6 + 24) = 0;
 
-  v9 = *(a1 + 32);
-  v10 = *(v9 + 8);
-  *(v9 + 8) = 0;
+  v8 = *(a1 + 32);
+  v9 = *(v8 + 8);
+  *(v8 + 8) = 0;
 
   os_unfair_lock_unlock((*(a1 + 32) + 56));
-  v20 = 0u;
-  v21 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v11 = v4;
-  v12 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
-  if (v12)
+  v16 = 0u;
+  v17 = 0u;
+  v10 = v3;
+  v11 = [v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  if (v11)
   {
-    v13 = v12;
-    v14 = *v19;
+    v12 = v11;
+    v13 = *v17;
     do
     {
-      v15 = 0;
+      v14 = 0;
       do
       {
-        if (*v19 != v14)
+        if (*v17 != v13)
         {
-          objc_enumerationMutation(v11);
+          objc_enumerationMutation(v10);
         }
 
-        v16 = *(*(&v18 + 1) + 8 * v15);
+        v15 = *(*(&v16 + 1) + 8 * v14);
         if (objc_opt_respondsToSelector())
         {
-          [v16 assertion:*(a1 + 32) didInvalidateWithError:{*(a1 + 40), v18}];
+          [v15 assertion:*(a1 + 32) didInvalidateWithError:{*(a1 + 40), v16}];
         }
 
-        ++v15;
+        ++v14;
       }
 
-      while (v13 != v15);
-      v13 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      while (v12 != v14);
+      v12 = [v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
-    while (v13);
+    while (v12);
   }
 
-  if (v3)
+  if (v2)
   {
-    v3[2](v3, *(a1 + 32), *(a1 + 40));
+    v2[2](v2, *(a1 + 32), *(a1 + 40));
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_clientInvalidateWithError:(uint64_t)error
@@ -751,11 +743,10 @@ void __43__RBSAssertion__serverInvalidateWithError___block_invoke(uint64_t a1)
 
 - (void)acquireWithError:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_18E8AD000, a2, OS_LOG_TYPE_ERROR, "Error acquiring assertion: <%{public}@>", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_18E8AD000, a2, OS_LOG_TYPE_ERROR, "Error acquiring assertion: <%{public}@>", &v2, 0xCu);
 }
 
 - (void)addObserver:.cold.1()

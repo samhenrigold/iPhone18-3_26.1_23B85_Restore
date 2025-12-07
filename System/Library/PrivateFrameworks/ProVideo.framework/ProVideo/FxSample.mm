@@ -31,7 +31,7 @@
 
 - (void)dealloc
 {
-  FxDebugAssert(self->_priv != 0, &cfstr_PrivNull.isa, v2, v3, v4, v5, v6, v7, v13.receiver);
+  FxDebugAssert(self->_priv != 0, &cfstr_PrivNull.isa, v2, v3, v4, v5, v6, v7);
   priv = self->_priv;
   if (priv)
   {
@@ -139,7 +139,7 @@
 - (BOOL)isPredetermined
 {
   stream = [(FxSample *)self stream];
-  FxDebugAssert(stream != 0, &cfstr_StreamIsNullIn.isa, v4, v5, v6, v7, v8, v9, v12);
+  FxDebugAssert(stream != 0, &cfstr_StreamIsNullIn.isa, v4, v5, v6, v7, v8, v9);
   provider = [stream provider];
 
   return [provider isSamplePredetermined:self];
@@ -178,7 +178,7 @@
 - (id)requiredSamples
 {
   v3 = [(FxSample *)self stream]!= 0;
-  FxDebugAssert(v3, &cfstr_StreamIsNullIn.isa, v4, v5, v6, v7, v8, v9, v13);
+  FxDebugAssert(v3, &cfstr_StreamIsNullIn.isa, v4, v5, v6, v7, v8, v9);
   v10 = objc_opt_class();
   v11 = [MEMORY[0x277CBEA60] arrayWithObject:self];
 
@@ -188,7 +188,7 @@
 - (id)evaluateWithOptions:(id)options
 {
   stream = [(FxSample *)self stream];
-  FxDebugAssert(stream != 0, &cfstr_StreamIsNullIn_0.isa, v6, v7, v8, v9, v10, v11, v53);
+  FxDebugAssert(stream != 0, &cfstr_StreamIsNullIn_0.isa, v6, v7, v8, v9, v10, v11);
   provider = [stream provider];
   context = [(FxSample *)self context];
   if (context)
@@ -200,7 +200,7 @@
       options = [v14 options];
       v18 = [-[FxSample regionOfInterest](self "regionOfInterest")];
       isInfinite = [v18 isInfinite];
-      if (!FxDebugAssert(isInfinite ^ 1u, &cfstr_CannotRenderAn.isa, v20, v21, v22, v23, v24, v25, v54))
+      if (!FxDebugAssert(isInfinite ^ 1u, &cfstr_CannotRenderAn.isa, v20, v21, v22, v23, v24, v25))
       {
         return 0;
       }
@@ -259,11 +259,11 @@
               {
                 cgImage = [v43 cgImage];
                 cgContext = [v14 cgContext];
-                v57.origin.x = v39;
-                v57.origin.y = v40;
-                v57.size.width = v41;
-                v57.size.height = v42;
-                CGContextDrawImage(cgContext, v57, cgImage);
+                v54.origin.x = v39;
+                v54.origin.y = v40;
+                v54.size.width = v41;
+                v54.size.height = v42;
+                CGContextDrawImage(cgContext, v54, cgImage);
                 v37 = v14;
               }
 
@@ -376,7 +376,7 @@
           {
             if ([provider isContextTypeSupported:1 bySample:self])
             {
-              FxDebugLog(&cfstr_UnsupportedFxc_15.isa, v46, v47, v48, v49, v50, v51, v52, v55);
+              FxDebugLog(&cfstr_UnsupportedFxc_15.isa, v46, v47, v48, v49, v50, v51, v52);
             }
 
             if ([provider isContextTypeSupported:2 bySample:self])
@@ -426,7 +426,7 @@
 
             v38 = @"Unsupported FxContext conversion: CGImage to CIImage";
 LABEL_74:
-            FxDebugLog(&v38->isa, v26, v27, v28, v29, v30, v31, v32, v55);
+            FxDebugLog(&v38->isa, v26, v27, v28, v29, v30, v31, v32);
             return 0;
           }
 

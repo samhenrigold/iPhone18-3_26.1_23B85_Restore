@@ -163,37 +163,37 @@ LABEL_26:
 
 - (id)serializeWithError:(id *)error
 {
-  v58 = *MEMORY[0x277D85DE8];
-  v56 = 0u;
-  v57 = 0u;
-  v54 = 0u;
+  v57 = *MEMORY[0x277D85DE8];
   v55 = 0u;
-  v52 = 0u;
+  v56 = 0u;
   v53 = 0u;
-  v50 = 0u;
+  v54 = 0u;
   v51 = 0u;
-  v48 = 0u;
+  v52 = 0u;
   v49 = 0u;
-  v46 = 0u;
+  v50 = 0u;
   v47 = 0u;
-  v44 = 0u;
+  v48 = 0u;
   v45 = 0u;
-  v42 = 0u;
+  v46 = 0u;
   v43 = 0u;
-  v40 = 0u;
+  v44 = 0u;
   v41 = 0u;
-  v38 = 0u;
+  v42 = 0u;
   v39 = 0u;
+  v40 = 0u;
   v37 = 0u;
+  v38 = 0u;
+  v36 = 0u;
   TLV8BufferInit();
   type = [(HAPReaderKey *)self type];
 
   if (type)
   {
     type2 = [(HAPReaderKey *)self type];
-    v36 = 0;
-    v7 = [type2 serializeWithError:&v36];
-    v8 = v36;
+    v35 = 0;
+    v7 = [type2 serializeWithError:&v35];
+    v8 = v35;
 
     if (v8)
     {
@@ -225,9 +225,9 @@ LABEL_27:
   if (v10)
   {
     v11 = [(HAPReaderKey *)self key];
-    v35 = 0;
-    v7 = [v11 serializeWithError:&v35];
-    v8 = v35;
+    v34 = 0;
+    v7 = [v11 serializeWithError:&v34];
+    v8 = v34;
 
     if (!v8)
     {
@@ -260,9 +260,9 @@ LABEL_13:
   if (keyIdentifier)
   {
     keyIdentifier2 = [(HAPReaderKey *)self keyIdentifier];
-    v34 = 0;
-    v7 = [keyIdentifier2 serializeWithError:&v34];
-    v8 = v34;
+    v33 = 0;
+    v7 = [keyIdentifier2 serializeWithError:&v33];
+    v8 = v33;
 
     if (!v8)
     {
@@ -312,9 +312,9 @@ LABEL_22:
   if (readerIdentifier)
   {
     readerIdentifier2 = [(HAPReaderKey *)self readerIdentifier];
-    v33 = 0;
-    v7 = [readerIdentifier2 serializeWithError:&v33];
-    v8 = v33;
+    v32 = 0;
+    v7 = [readerIdentifier2 serializeWithError:&v32];
+    v8 = v32;
 
     if (v8)
     {
@@ -322,44 +322,44 @@ LABEL_22:
     }
 
     bytes3 = [v7 bytes];
-    v28 = bytes3 + [v7 length];
+    v27 = bytes3 + [v7 length];
     do
     {
-      if ((v28 - bytes3) >= 255)
+      if ((v27 - bytes3) >= 255)
       {
-        v29 = 255;
+        v28 = 255;
       }
 
       else
       {
-        v29 = v28 - bytes3;
+        v28 = v27 - bytes3;
       }
 
-      v30 = TLV8BufferAppend();
-      if (v30)
+      v29 = TLV8BufferAppend();
+      if (v29)
       {
-        v31 = 0;
-      }
-
-      else
-      {
-        v31 = v29;
-      }
-
-      bytes3 += v31;
-      if (v30)
-      {
-        v32 = 1;
+        v30 = 0;
       }
 
       else
       {
-        v32 = bytes3 >= v28;
+        v30 = v28;
+      }
+
+      bytes3 += v30;
+      if (v29)
+      {
+        v31 = 1;
+      }
+
+      else
+      {
+        v31 = bytes3 >= v27;
       }
     }
 
-    while (!v32);
-    v9 = v30;
+    while (!v31);
+    v9 = v29;
 
     if (v9)
     {
@@ -367,12 +367,10 @@ LABEL_22:
     }
   }
 
-  v24 = [MEMORY[0x277CBEA90] dataWithBytes:v37 length:?];
+  v24 = [MEMORY[0x277CBEA90] dataWithBytes:v36 length:?];
   v8 = 0;
 LABEL_31:
   TLV8BufferFree();
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v24;
 }

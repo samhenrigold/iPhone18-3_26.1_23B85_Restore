@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)triggerCauseAsString:(int)string;
 - (int)StringAsTriggerCause:(id)cause;
 - (int)triggerCause;
 - (unint64_t)hash;
@@ -41,6 +42,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)triggerCauseAsString:(int)string
+{
+  if (string >= 0xC)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1003188E8 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsTriggerCause:(id)cause
@@ -198,12 +214,11 @@ LABEL_5:
 {
   toCopy = to;
   has = self->_has;
-  v9 = toCopy;
+  v6 = toCopy;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 4) == 0)
     {
@@ -222,15 +237,13 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  triggerCause = self->_triggerCause;
   PBDataWriterWriteInt32Field();
-  toCopy = v9;
+  toCopy = v6;
   if ((*&self->_has & 2) != 0)
   {
 LABEL_4:
-    subsId = self->_subsId;
     PBDataWriterWriteUint32Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_5:

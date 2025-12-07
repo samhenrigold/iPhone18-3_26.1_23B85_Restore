@@ -379,7 +379,7 @@
 
     *(self + 62) = CGContextRetain(context);
     layer = [(MDDisplayLayer *)self layer];
-    [layer bounds];
+    objc_msgSend_bounds(layer);
     v9 = v8;
     v11 = v10;
 
@@ -587,7 +587,7 @@ LABEL_24:
     v10 = *(self + 33);
     if (!v10 || *(v10 + 20) != v7 || *(v10 + 21) != v23)
     {
-      _ZNSt3__115allocate_sharedB8nn200100IN3ggl12SamplerStateENS_9allocatorIS2_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_();
+      _ZNSt3__115allocate_sharedB8nn200100IN3ggl12SamplerStateENS_9allocatorIS2_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_(&v24);
     }
 
     v11 = *(self + 34);

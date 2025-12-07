@@ -459,7 +459,7 @@
   return v6 & 1;
 }
 
-uint64_t __51__SBIconViewAccessibility__accessibilityIsInFolder__block_invoke(uint64_t a1)
+void *__51__SBIconViewAccessibility__accessibilityIsInFolder__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) containsIcon:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -599,7 +599,7 @@ void __57__SBIconViewAccessibility__accessibilityCanReceiveIcons___block_invoke_
   }
 }
 
-uint64_t __57__SBIconViewAccessibility__accessibilityCanReceiveIcons___block_invoke_3(uint64_t a1)
+void *__57__SBIconViewAccessibility__accessibilityCanReceiveIcons___block_invoke_3(uint64_t a1)
 {
   result = [*(a1 + 32) canReceiveGrabbedIcon:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -960,73 +960,74 @@ LABEL_20:
         goto LABEL_23;
       }
 
-      if (AXProcessIsSpringBoard())
+      IsSpringBoard = AXProcessIsSpringBoard();
+      if (IsSpringBoard)
       {
-        v19 = AXSBHIconManagerFromSharedIconController();
-        if ([v19 safeBoolForKey:@"hasOpenFolder"])
+        v21 = AXSBHIconManagerFromSharedIconController(IsSpringBoard, v20);
+        if ([v21 safeBoolForKey:@"hasOpenFolder"])
         {
-          v20 = [v19 safeValueForKey:@"openedFolder"];
-          v30 = 0;
-          v31 = &v30;
-          v32 = 0x2020000000;
-          LOBYTE(v33) = 0;
-          v36 = MEMORY[0x29EDCA5F8];
-          v37 = 3221225472;
-          v38 = __49__SBIconViewAccessibility_isAccessibilityElement__block_invoke;
-          v39 = &unk_29F300310;
-          v42 = &v30;
-          v21 = v20;
-          v40 = v21;
+          v22 = [v21 safeValueForKey:@"openedFolder"];
+          v32 = 0;
+          v33 = &v32;
+          v34 = 0x2020000000;
+          LOBYTE(v35) = 0;
+          v38 = MEMORY[0x29EDCA5F8];
+          v39 = 3221225472;
+          v40 = __49__SBIconViewAccessibility_isAccessibilityElement__block_invoke;
+          v41 = &unk_29F300310;
+          v44 = &v32;
+          v23 = v22;
+          v42 = v23;
           selfCopy = self;
           AXPerformSafeBlock();
-          v9 = *(v31 + 24);
+          v9 = *(v33 + 24);
 
-          _Block_object_dispose(&v30, 8);
+          _Block_object_dispose(&v32, 8);
         }
 
         else
         {
-          v22 = [v19 safeValueForKey:@"currentRootIconList"];
-          v23 = [v22 safeValueForKey:@"model"];
+          v24 = [v21 safeValueForKey:@"currentRootIconList"];
+          v25 = [v24 safeValueForKey:@"model"];
 
-          v30 = 0;
-          v31 = &v30;
-          v32 = 0x3032000000;
-          v33 = __Block_byref_object_copy__8;
-          v34 = __Block_byref_object_dispose__8;
-          v35 = 0;
-          v29 = v23;
+          v32 = 0;
+          v33 = &v32;
+          v34 = 0x3032000000;
+          v35 = __Block_byref_object_copy__8;
+          v36 = __Block_byref_object_dispose__8;
+          v37 = 0;
+          v31 = v25;
           AXPerformSafeBlock();
-          v24 = v31[5];
+          v26 = v33[5];
 
-          _Block_object_dispose(&v30, 8);
-          v30 = 0;
-          v31 = &v30;
-          v32 = 0x2020000000;
-          LOBYTE(v33) = 0;
-          v21 = v29;
-          v25 = v24;
+          _Block_object_dispose(&v32, 8);
+          v32 = 0;
+          v33 = &v32;
+          v34 = 0x2020000000;
+          LOBYTE(v35) = 0;
+          v23 = v31;
+          v27 = v26;
           AXPerformSafeBlock();
-          v26 = *(v31 + 24);
+          v28 = *(v33 + 24);
 
-          _Block_object_dispose(&v30, 8);
-          if (v26)
+          _Block_object_dispose(&v32, 8);
+          if (v28)
           {
             v9 = 1;
           }
 
           else
           {
-            v30 = 0;
-            v31 = &v30;
-            v32 = 0x2020000000;
-            LOBYTE(v33) = 0;
-            v27 = v21;
-            v28 = v25;
+            v32 = 0;
+            v33 = &v32;
+            v34 = 0x2020000000;
+            LOBYTE(v35) = 0;
+            v29 = v23;
+            v30 = v27;
             AXPerformSafeBlock();
-            v9 = *(v31 + 24);
+            v9 = *(v33 + 24);
 
-            _Block_object_dispose(&v30, 8);
+            _Block_object_dispose(&v32, 8);
           }
         }
 
@@ -1075,7 +1076,7 @@ void __49__SBIconViewAccessibility_isAccessibilityElement__block_invoke_2(uint64
   *(v5 + 40) = v4;
 }
 
-uint64_t __49__SBIconViewAccessibility_isAccessibilityElement__block_invoke_3(uint64_t a1)
+void *__49__SBIconViewAccessibility_isAccessibilityElement__block_invoke_3(uint64_t a1)
 {
   result = [*(a1 + 32) directlyContainsIcon:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -1439,7 +1440,7 @@ LABEL_9:
 - (id)_accessibilityScrollStatus
 {
   v101 = *MEMORY[0x29EDCA608];
-  v49 = AXSBHIconManagerFromSharedIconController();
+  v49 = AXSBHIconManagerFromSharedIconController(self, a2);
   v48 = [(SBIconViewAccessibility *)self safeValueForKey:@"icon"];
   v96 = 0;
   v97 = &v96;
@@ -1684,7 +1685,7 @@ void __53__SBIconViewAccessibility__accessibilityScrollStatus__block_invoke_2(ui
   *(*(*(a1 + 56) + 8) + 24) = [v2 gridCellIndexForIcon:v3 gridCellInfo:*(a1 + 48)];
 }
 
-uint64_t __53__SBIconViewAccessibility__accessibilityScrollStatus__block_invoke_3(uint64_t a1)
+void *__53__SBIconViewAccessibility__accessibilityScrollStatus__block_invoke_3(uint64_t a1)
 {
   result = [*(a1 + 32) coordinateForGridCellIndex:*(*(*(a1 + 48) + 8) + 24)];
   v3 = *(*(a1 + 40) + 8);
@@ -1693,14 +1694,14 @@ uint64_t __53__SBIconViewAccessibility__accessibilityScrollStatus__block_invoke_
   return result;
 }
 
-uint64_t __53__SBIconViewAccessibility__accessibilityScrollStatus__block_invoke_4(uint64_t a1)
+void *__53__SBIconViewAccessibility__accessibilityScrollStatus__block_invoke_4(uint64_t a1)
 {
   result = [*(a1 + 32) gridSizeForGridSizeClass:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 32) = result;
   return result;
 }
 
-uint64_t __53__SBIconViewAccessibility__accessibilityScrollStatus__block_invoke_5(uint64_t a1)
+void *__53__SBIconViewAccessibility__accessibilityScrollStatus__block_invoke_5(uint64_t a1)
 {
   result = [*(a1 + 32) indexForIcon:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -1929,7 +1930,7 @@ void __55__SBIconViewAccessibility__accessibilityResizeControl___block_invoke(ui
 
 - (BOOL)_accessibilityCanPerformEscapeAction
 {
-  v2 = AXSBHIconManagerFromSharedIconController();
+  v2 = AXSBHIconManagerFromSharedIconController(self, a2);
   v3 = [v2 safeBoolForKey:@"hasOpenFolder"];
 
   return v3;
@@ -2250,19 +2251,19 @@ LABEL_29:
 
     if (_axIsIconDragging)
     {
-      v7 = AXSBHIconManagerFromSharedIconController();
-      v8 = [v7 safeBoolForKey:@"hasOpenFolder"];
+      v9 = AXSBHIconManagerFromSharedIconController(v7, v8);
+      v10 = [v9 safeBoolForKey:@"hasOpenFolder"];
 
-      if (v8)
+      if (v10)
       {
-        v9 = objc_alloc(MEMORY[0x29EDC78E0]);
-        v10 = accessibilityLocalizedString(@"move.app.out.of.folder.short");
-        v11 = [v9 initWithName:v10 target:v4 selector:sel__accessibilityCloseOpenFolder];
-
+        v11 = objc_alloc(MEMORY[0x29EDC78E0]);
         v12 = accessibilityLocalizedString(@"move.app.out.of.folder.short");
-        [v11 _setShortName:v12];
+        v13 = [v11 initWithName:v12 target:v4 selector:sel__accessibilityCloseOpenFolder];
 
-        [actionCopy addObject:v11];
+        v14 = accessibilityLocalizedString(@"move.app.out.of.folder.short");
+        [v13 _setShortName:v14];
+
+        [actionCopy addObject:v13];
       }
     }
   }
@@ -2271,10 +2272,11 @@ LABEL_29:
 - (void)_accessibilityAddTodayViewAction:(id)action
 {
   actionCopy = action;
-  if (AXProcessIsSpringBoard())
+  IsSpringBoard = AXProcessIsSpringBoard();
+  if (IsSpringBoard)
   {
-    v4 = AXSBHIconManagerFromSharedIconController();
-    if (([v4 safeBoolForKey:@"isEditing"] & 1) == 0)
+    v6 = AXSBHIconManagerFromSharedIconController(IsSpringBoard, v5);
+    if (([v6 safeBoolForKey:@"isEditing"] & 1) == 0)
     {
       server = [MEMORY[0x29EDBDFA8] server];
       if (![server isShowingHomescreen])
@@ -2284,20 +2286,20 @@ LABEL_8:
         goto LABEL_9;
       }
 
-      v6 = AXSBIconControllerSharedInstance();
-      if ([v6 _axIsShowingHomeScreenTodayView])
+      v8 = AXSBIconControllerSharedInstance();
+      if ([v8 _axIsShowingHomeScreenTodayView])
       {
 
         goto LABEL_8;
       }
 
-      v7 = [v4 safeBoolForKey:@"hasOpenFolder"];
+      v9 = [v6 safeBoolForKey:@"hasOpenFolder"];
 
-      if ((v7 & 1) == 0)
+      if ((v9 & 1) == 0)
       {
-        v8 = objc_alloc(MEMORY[0x29EDC78E0]);
-        v9 = accessibilityLocalizedString(@"today.visible.key");
-        server = [v8 initWithName:v9 target:self selector:sel__accessibilityShowTodayView];
+        v10 = objc_alloc(MEMORY[0x29EDC78E0]);
+        v11 = accessibilityLocalizedString(@"today.visible.key");
+        server = [v10 initWithName:v11 target:self selector:sel__accessibilityShowTodayView];
 
         [server setIgnoreWhenVoiceOverTouches:1];
         [actionCopy addObject:server];
@@ -2312,10 +2314,11 @@ LABEL_9:
 - (void)_accessibilityAddAppLibraryViewAction:(id)action
 {
   actionCopy = action;
-  if (AXProcessIsSpringBoard())
+  IsSpringBoard = AXProcessIsSpringBoard();
+  if (IsSpringBoard)
   {
-    v4 = AXSBHIconManagerFromSharedIconController();
-    if (([v4 safeBoolForKey:@"isEditing"] & 1) == 0)
+    v6 = AXSBHIconManagerFromSharedIconController(IsSpringBoard, v5);
+    if (([v6 safeBoolForKey:@"isEditing"] & 1) == 0)
     {
       server = [MEMORY[0x29EDBDFA8] server];
       if (![server isShowingHomescreen])
@@ -2325,20 +2328,20 @@ LABEL_8:
         goto LABEL_9;
       }
 
-      v6 = AXSBIconControllerSharedInstance();
-      if ([v6 _axIsShowingAppLibrary])
+      v8 = AXSBIconControllerSharedInstance();
+      if ([v8 _axIsShowingAppLibrary])
       {
 
         goto LABEL_8;
       }
 
-      v7 = [v4 safeBoolForKey:@"hasOpenFolder"];
+      v9 = [v6 safeBoolForKey:@"hasOpenFolder"];
 
-      if ((v7 & 1) == 0)
+      if ((v9 & 1) == 0)
       {
-        v8 = objc_alloc(MEMORY[0x29EDC78E0]);
-        v9 = accessibilityLocalizedString(@"app.library");
-        server = [v8 initWithName:v9 target:self selector:sel__accessibilityShowAppLibrary];
+        v10 = objc_alloc(MEMORY[0x29EDC78E0]);
+        v11 = accessibilityLocalizedString(@"app.library");
+        server = [v10 initWithName:v11 target:self selector:sel__accessibilityShowAppLibrary];
 
         [server setIgnoreWhenVoiceOverTouches:1];
         [actionCopy addObject:server];
@@ -2599,14 +2602,14 @@ void __56__SBIconViewAccessibility__accessibilityEditAmbientIcon__block_invoke_2
   [v4 requestUnlockForViewController:v5 withRequest:v2 completion:v6];
 }
 
-uint64_t __56__SBIconViewAccessibility__accessibilityEditAmbientIcon__block_invoke_3(uint64_t a1, int a2)
+uint64_t __56__SBIconViewAccessibility__accessibilityEditAmbientIcon__block_invoke_3(uint64_t result, int a2)
 {
   if (a2)
   {
     return AXPerformSafeBlock();
   }
 
-  return result;
+  return v2;
 }
 
 uint64_t __56__SBIconViewAccessibility__accessibilityEditAmbientIcon__block_invoke_5(uint64_t a1, void *a2)
@@ -2632,17 +2635,18 @@ uint64_t __56__SBIconViewAccessibility__accessibilityEditAmbientIcon__block_invo
 void __57__SBIconViewAccessibility__accessibilityToggleJigglyMode__block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) _axIsIconEditing];
-  if ([*(a1 + 32) _axIsInControlCenter])
+  v3 = [*(a1 + 32) _axIsInControlCenter];
+  if (v3)
   {
-    v4 = [*(a1 + 32) safeValueForKey:@"_delegate"];
-    v3 = v4;
+    v6 = [*(a1 + 32) safeValueForKey:@"_delegate"];
+    v5 = v6;
     AXPerformSafeBlock();
   }
 
   else
   {
-    v3 = AXSBHIconManagerFromSharedIconController();
-    [v3 setEditing:v2 ^ 1u];
+    v5 = AXSBHIconManagerFromSharedIconController(v3, v4);
+    [v5 setEditing:v2 ^ 1u];
   }
 
   if (!(v2 & 1 | (([*(a1 + 32) _accessibilityIsWidgetIconView] & 1) == 0)))
@@ -3127,14 +3131,14 @@ void __60__SBIconViewAccessibility_accessibilityDropPointDescriptors__block_invo
   *(v5 + 40) = v4;
 }
 
-uint64_t __60__SBIconViewAccessibility_accessibilityDropPointDescriptors__block_invoke_2(uint64_t a1)
+void *__60__SBIconViewAccessibility_accessibilityDropPointDescriptors__block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) bestGridCellIndexForInsertingIcon:*(a1 + 40) maintainingPositionBeforeIcon:*(a1 + 48) ignoringPlaceholders:0 gridCellInfoOptions:0 mutationOptions:0];
   *(*(*(a1 + 56) + 8) + 24) = result;
   return result;
 }
 
-uint64_t __60__SBIconViewAccessibility_accessibilityDropPointDescriptors__block_invoke_3(uint64_t a1)
+void *__60__SBIconViewAccessibility_accessibilityDropPointDescriptors__block_invoke_3(uint64_t a1)
 {
   result = [*(a1 + 32) bestGridCellIndexForInsertingIcon:*(a1 + 40) maintainingPositionAfterIcon:*(a1 + 48) ignoringPlaceholders:0 gridCellInfoOptions:0 mutationOptions:0];
   *(*(*(a1 + 56) + 8) + 24) = result;
@@ -3155,23 +3159,22 @@ uint64_t __60__SBIconViewAccessibility_accessibilityDropPointDescriptors__block_
   return MEMORY[0x2A1C71028]();
 }
 
-uint64_t __60__SBIconViewAccessibility_accessibilityDropPointDescriptors__block_invoke_6(uint64_t a1)
+void __60__SBIconViewAccessibility_accessibilityDropPointDescriptors__block_invoke_6(uint64_t a1)
 {
-  v11 = 0u;
-  v12 = 0u;
-  v9 = 0u;
   v10 = 0u;
-  v7 = 0u;
+  v11 = 0u;
   v8 = 0u;
-  memset(v6, 0, sizeof(v6));
-  [*(a1 + 32) _getDragRegionRects:v6 forIconView:*(a1 + 40)];
-  MinX = CGRectGetMinX(v6[2]);
+  v9 = 0u;
+  v6 = 0u;
+  v7 = 0u;
+  memset(v5, 0, sizeof(v5));
+  [*(a1 + 32) _getDragRegionRects:v5 forIconView:*(a1 + 40)];
+  MinX = CGRectGetMinX(v5[2]);
   [*(a1 + 40) frame];
-  result = AX_CGRectGetCenter();
-  v4 = *(*(a1 + 48) + 8);
-  *(v4 + 32) = MinX;
-  *(v4 + 40) = v5;
-  return result;
+  AX_CGRectGetCenter();
+  v3 = *(*(a1 + 48) + 8);
+  *(v3 + 32) = MinX;
+  *(v3 + 40) = v4;
 }
 
 uint64_t __60__SBIconViewAccessibility_accessibilityDropPointDescriptors__block_invoke_7(uint64_t a1)
@@ -3188,21 +3191,20 @@ uint64_t __60__SBIconViewAccessibility_accessibilityDropPointDescriptors__block_
   return MEMORY[0x2A1C71028]();
 }
 
-uint64_t __60__SBIconViewAccessibility_accessibilityDropPointDescriptors__block_invoke_9(uint64_t a1)
+void __60__SBIconViewAccessibility_accessibilityDropPointDescriptors__block_invoke_9(uint64_t a1)
 {
-  v9 = 0u;
-  v10 = 0u;
-  v7 = 0u;
   v8 = 0u;
-  memset(v6, 0, sizeof(v6));
-  [*(a1 + 32) _getDragRegionRects:v6 forIconView:*(a1 + 40)];
-  MinX = CGRectGetMinX(v6[3]);
+  v9 = 0u;
+  v6 = 0u;
+  v7 = 0u;
+  memset(v5, 0, sizeof(v5));
+  [*(a1 + 32) _getDragRegionRects:v5 forIconView:*(a1 + 40)];
+  MinX = CGRectGetMinX(v5[3]);
   [*(a1 + 40) frame];
-  result = AX_CGRectGetCenter();
-  v4 = *(*(a1 + 48) + 8);
-  *(v4 + 32) = MinX;
-  *(v4 + 40) = v5;
-  return result;
+  AX_CGRectGetCenter();
+  v3 = *(*(a1 + 48) + 8);
+  *(v3 + 32) = MinX;
+  *(v3 + 40) = v4;
 }
 
 - (id)_axDropPointLabel:(BOOL)label
@@ -3692,17 +3694,18 @@ void __78__SBIconViewAccessibility__accessibilityBeginDragAtPoint_endpoint_compl
 
 - (id)_axIconManager
 {
-  if ([(SBIconViewAccessibility *)self _axIsInControlCenter])
+  _axIsInControlCenter = [(SBIconViewAccessibility *)self _axIsInControlCenter];
+  if (_axIsInControlCenter)
   {
-    v2 = 0;
+    v4 = 0;
   }
 
   else
   {
-    v2 = AXSBHIconManagerFromSharedIconController();
+    v4 = AXSBHIconManagerFromSharedIconController(_axIsInControlCenter, v3);
   }
 
-  return v2;
+  return v4;
 }
 
 - (id)_axFolderController
@@ -3734,23 +3737,24 @@ LABEL_7:
 
 - (BOOL)_axIconManagerHasOpenFolder
 {
-  if ([(SBIconViewAccessibility *)self _axIsInControlCenter])
+  _axIsInControlCenter = [(SBIconViewAccessibility *)self _axIsInControlCenter];
+  if (_axIsInControlCenter)
   {
     _axFolderController = [(SBIconViewAccessibility *)self _axFolderController];
-    v4 = _axFolderController;
-    v5 = @"isOpen";
+    v6 = _axFolderController;
+    v7 = @"isOpen";
   }
 
   else
   {
-    _axFolderController = AXSBHIconManagerFromSharedIconController();
-    v4 = _axFolderController;
-    v5 = @"hasOpenFolder";
+    _axFolderController = AXSBHIconManagerFromSharedIconController(_axIsInControlCenter, v4);
+    v6 = _axFolderController;
+    v7 = @"hasOpenFolder";
   }
 
-  v6 = [_axFolderController safeBoolForKey:v5];
+  v8 = [_axFolderController safeBoolForKey:v7];
 
-  return v6;
+  return v8;
 }
 
 - (id)_axRootList

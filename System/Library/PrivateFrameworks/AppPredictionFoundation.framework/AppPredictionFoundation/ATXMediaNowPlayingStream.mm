@@ -1,5 +1,6 @@
 @interface ATXMediaNowPlayingStream
 - (BOOL)_shouldPairStartEvent:(id)event withEndEvent:(id)endEvent;
+- (id)_publisherWithStartDate:(id)date endDate:(id)endDate shouldReverse:(BOOL)reverse;
 - (id)getATXMediaNowPlayingEventFromBiomeEvent:(id)event;
 - (int64_t)atxPlaybackStateFromBMPlaybackState:(int)state;
 - (void)enumerateEventsFromStartDate:(id)date endDate:(id)endDate filterBlock:(id)block ascending:(BOOL)ascending block:(id)a7;
@@ -49,10 +50,10 @@ void __93__ATXMediaNowPlayingStream_enumerateEventsFromStartDate_endDate_filterB
 
   if (v3)
   {
-    v4 = __atxlog_handle_default();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = __atxlog_handle_default(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __93__ATXMediaNowPlayingStream_enumerateEventsFromStartDate_endDate_filterBlock_ascending_block___block_invoke_cold_1(v2, v4);
+      __93__ATXMediaNowPlayingStream_enumerateEventsFromStartDate_endDate_filterBlock_ascending_block___block_invoke_cold_1(v2, v5);
     }
   }
 }
@@ -209,6 +210,40 @@ LABEL_24:
   }
 }
 
+- (id)_publisherWithStartDate:(id)date endDate:(id)endDate shouldReverse:(BOOL)reverse
+{
+  reverseCopy = reverse;
+  endDateCopy = endDate;
+  dateCopy = date;
+  v9 = BiomeLibrary();
+  media = [v9 Media];
+  nowPlaying = [media NowPlaying];
+  v12 = nowPlaying;
+  if (reverseCopy)
+  {
+    v13 = endDateCopy;
+  }
+
+  else
+  {
+    v13 = dateCopy;
+  }
+
+  if (reverseCopy)
+  {
+    v14 = dateCopy;
+  }
+
+  else
+  {
+    v14 = endDateCopy;
+  }
+
+  v15 = [nowPlaying atx_publisherWithStartDate:v13 endDate:v14 maxEvents:0 lastN:0 reversed:reverseCopy];
+
+  return v15;
+}
+
 - (id)getATXMediaNowPlayingEventFromBiomeEvent:(id)event
 {
   eventCopy = event;
@@ -232,13 +267,11 @@ LABEL_24:
 
 void __93__ATXMediaNowPlayingStream_enumerateEventsFromStartDate_endDate_filterBlock_ascending_block___block_invoke_cold_1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 error];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_226368000, a2, OS_LOG_TYPE_ERROR, "ATXMediaNowPlayingStream: Can't read Media.NowPlaying stream with error: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_226368000, a2, OS_LOG_TYPE_ERROR, "ATXMediaNowPlayingStream: Can't read Media.NowPlaying stream with error: %@", &v4, 0xCu);
 }
 
 @end

@@ -246,7 +246,7 @@ LABEL_9:
   }
 
   v4 = off_279D478C0[rulerUnits];
-  v5 = TSKBundle();
+  v5 = TSKBundle(self, a2);
 
   return [v5 localizedStringForKey:v4 value:&stru_287D36338 table:@"TSKit"];
 }
@@ -255,33 +255,35 @@ LABEL_9:
 {
   if (units == 3)
   {
-    v6 = -[TSKPicaFormatter initWithPicaSeparator:]([TSKPicaFormatter alloc], "initWithPicaSeparator:", [TSKBundle() localizedStringForKey:@"p" value:&stru_287D36338 table:@"TSKit"]);
+    v6 = [TSKPicaFormatter alloc];
+    v8 = -[TSKPicaFormatter initWithPicaSeparator:](v6, "initWithPicaSeparator:", [TSKBundle(v6 v7)]);
     goto LABEL_22;
   }
 
   lenientCopy = lenient;
   if (places < 1)
   {
-    v11 = [objc_alloc(MEMORY[0x277CCACA8]) initWithString:@"0"];
+    v14 = [objc_alloc(MEMORY[0x277CCACA8]) initWithString:@"0"];
+    v13 = v14;
   }
 
   else if (zeros)
   {
-    v10 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%%.%df", *&places];
-    v11 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:v10, 0];
+    v12 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%%.%df", *&places];
+    v13 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:v12, 0];
   }
 
   else
   {
-    v11 = [objc_alloc(MEMORY[0x277CCAB68]) initWithString:@"0."];
-    v12 = places + 1;
+    v13 = [objc_alloc(MEMORY[0x277CCAB68]) initWithString:@"0."];
+    v16 = places + 1;
     do
     {
-      [v11 appendString:@"#"];
-      --v12;
+      v14 = [v13 appendString:@"#"];
+      --v16;
     }
 
-    while (v12 > 1);
+    while (v16 > 1);
   }
 
   if (units <= 1)
@@ -293,62 +295,62 @@ LABEL_9:
         goto LABEL_25;
       }
 
-      v14 = [TSKBundle() localizedStringForKey:@"0 cm" value:&stru_287D36338 table:@"TSKit"];
-      v15 = TSKBundle();
-      v16 = @"%@ cm";
+      v18 = [TSKBundle(v14 v15)];
+      v20 = TSKBundle(v18, v19);
+      v21 = @"%@ cm";
     }
 
     else
     {
-      v14 = [TSKBundle() localizedStringForKey:@"0 in" value:&stru_287D36338 table:@"TSKit"];
-      v15 = TSKBundle();
-      v16 = @"%@ in";
+      v18 = [TSKBundle(v14 v15)];
+      v20 = TSKBundle(v18, v24);
+      v21 = @"%@ in";
     }
 
 LABEL_20:
-    v13 = [v15 localizedStringForKey:v16 value:&stru_287D36338 table:@"TSKit"];
+    v17 = [v20 localizedStringForKey:v21 value:&stru_287D36338 table:@"TSKit"];
     goto LABEL_21;
   }
 
   if (units == 2)
   {
-    v14 = [TSKBundle() localizedStringForKey:@"0 pt" value:&stru_287D36338 table:@"TSKit"];
-    v15 = TSKBundle();
-    v16 = @"%@ pt";
+    v18 = [TSKBundle(v14 v15)];
+    v20 = TSKBundle(v18, v22);
+    v21 = @"%@ pt";
     goto LABEL_20;
   }
 
   if (units == 4)
   {
-    v14 = [TSKBundle() localizedStringForKey:@"0 px" value:&stru_287D36338 table:@"TSKit"];
-    v15 = TSKBundle();
-    v16 = @"%@ px";
+    v18 = [TSKBundle(v14 v15)];
+    v20 = TSKBundle(v18, v23);
+    v21 = @"%@ px";
     goto LABEL_20;
   }
 
   if (units != 5)
   {
 LABEL_25:
-    v14 = &stru_287D36338;
-    v13 = &stru_287D36338;
+    v18 = &stru_287D36338;
+    v17 = &stru_287D36338;
     goto LABEL_21;
   }
 
-  v13 = @"%@";
-  v14 = @"0";
+  v17 = @"%@";
+  v18 = @"0";
 LABEL_21:
-  v17 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:v13, v11];
-  v6 = objc_alloc_init(MEMORY[0x277CCABB8]);
-  [(TSKPicaFormatter *)v6 setPositiveFormat:v17];
-  -[TSKPicaFormatter setNegativeFormat:](v6, "setNegativeFormat:", [@"-" stringByAppendingString:v17]);
-  [(TSKPicaFormatter *)v6 setZeroSymbol:v14];
+  v25 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:v17, v13];
+  v8 = objc_alloc_init(MEMORY[0x277CCABB8]);
+  [(TSKPicaFormatter *)v8 setPositiveFormat:v25];
+  -[TSKPicaFormatter setNegativeFormat:](v8, "setNegativeFormat:", [@"-" stringByAppendingString:v25]);
+  [(TSKPicaFormatter *)v8 setZeroSymbol:v18];
   currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
-  -[TSKPicaFormatter setDecimalSeparator:](v6, "setDecimalSeparator:", [currentLocale objectForKey:*MEMORY[0x277CBE6A8]]);
-  [(TSKPicaFormatter *)v6 setLenient:lenientCopy];
+  -[TSKPicaFormatter setDecimalSeparator:](v8, "setDecimalSeparator:", [currentLocale objectForKey:*MEMORY[0x277CBE6A8]]);
+  [(TSKPicaFormatter *)v8 setLenient:lenientCopy];
 
 LABEL_22:
 
-  return v6;
+  return v8;
 }
 
 @end

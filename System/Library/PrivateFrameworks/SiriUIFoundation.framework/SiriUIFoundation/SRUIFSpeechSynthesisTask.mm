@@ -54,7 +54,7 @@
 
 - (void)executeCompletion
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   objc_initWeak(&location, self);
   if (self->_completion)
   {
@@ -69,18 +69,16 @@
         v7 = objc_loadWeakRetained(&location);
         identifier = [v7 identifier];
         *buf = 136315906;
-        v15 = "[SRUIFSpeechSynthesisTask executeCompletion]";
-        v16 = 2112;
-        v17 = v5;
-        v18 = 2112;
-        v19 = synthesisError;
-        v20 = 2112;
-        v21 = identifier;
+        v12 = "[SRUIFSpeechSynthesisTask executeCompletion]";
+        v13 = 2112;
+        v14 = v5;
+        v15 = 2112;
+        v16 = synthesisError;
+        v17 = 2112;
+        v18 = identifier;
         _os_log_impl(&dword_26951F000, v4, OS_LOG_TYPE_DEFAULT, "%s #tts [Post] Completion Result: %@ Error: %@, Task: %@", buf, 0x2Au);
       }
 
-      v9 = v3[12];
-      v10 = v3[13];
       (*(self->_completion + 2))();
       completion = self->_completion;
       self->_completion = 0;
@@ -88,7 +86,6 @@
   }
 
   objc_destroyWeak(&location);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateSynthesisEligibility
@@ -133,7 +130,7 @@
 
 - (SRUIFSpeechSynthesisTask)initWithText:(id)text audioData:(id)data identifier:(id)identifier sessionId:(id)id preferredVoice:(id)voice language:(id)language gender:(id)gender voicePromptStyle:(id)self0 provisional:(BOOL)self1 eligibleAfterDuration:(double)self2 delayed:(BOOL)self3 preparation:(id)self4 completion:(id)self5 analyticsContext:(id)self6 speakableContextInfo:(id)self7 canUseServerTTS:(BOOL)self8 eligibilityChangedQueue:(id)self9
 {
-  v89 = *MEMORY[0x277D85DE8];
+  v88 = *MEMORY[0x277D85DE8];
   textCopy = text;
   dataCopy = data;
   identifierCopy = identifier;
@@ -148,9 +145,9 @@
   contextCopy = context;
   infoCopy = info;
   queueCopy = queue;
-  v80.receiver = self;
-  v80.super_class = SRUIFSpeechSynthesisTask;
-  v30 = [(SRUIFSpeechSynthesisTask *)&v80 init];
+  v79.receiver = self;
+  v79.super_class = SRUIFSpeechSynthesisTask;
+  v30 = [(SRUIFSpeechSynthesisTask *)&v79 init];
   if (v30)
   {
     v31 = [textCopy copy];
@@ -231,13 +228,13 @@
       v56 = _Block_copy(preparationCopy);
       v57 = v30->_identifier;
       *buf = 136315906;
-      v82 = "[SRUIFSpeechSynthesisTask initWithText:audioData:identifier:sessionId:preferredVoice:language:gender:voicePromptStyle:provisional:eligibleAfterDuration:delayed:preparation:completion:analyticsContext:speakableContextInfo:canUseServerTTS:eligibilityChangedQueue:]";
-      v83 = 2112;
-      v84 = v56;
-      v85 = 2048;
+      v81 = "[SRUIFSpeechSynthesisTask initWithText:audioData:identifier:sessionId:preferredVoice:language:gender:voicePromptStyle:provisional:eligibleAfterDuration:delayed:preparation:completion:analyticsContext:speakableContextInfo:canUseServerTTS:eligibilityChangedQueue:]";
+      v82 = 2112;
+      v83 = v56;
+      v84 = 2048;
       durationCopy = duration;
-      v87 = 2112;
-      v88 = v57;
+      v86 = 2112;
+      v87 = v57;
       _os_log_impl(&dword_26951F000, v55, OS_LOG_TYPE_DEFAULT, "%s #tts [Pre] Preparation: %@, Eligibility delay: %f - %@", buf, 0x2Au);
     }
 
@@ -250,20 +247,20 @@
         v59 = v58;
         v60 = objc_loadWeakRetained(&location);
         *buf = 136315394;
-        v82 = "[SRUIFSpeechSynthesisTask initWithText:audioData:identifier:sessionId:preferredVoice:language:gender:voicePromptStyle:provisional:eligibleAfterDuration:delayed:preparation:completion:analyticsContext:speakableContextInfo:canUseServerTTS:eligibilityChangedQueue:]";
-        v83 = 2112;
-        v84 = v60;
+        v81 = "[SRUIFSpeechSynthesisTask initWithText:audioData:identifier:sessionId:preferredVoice:language:gender:voicePromptStyle:provisional:eligibleAfterDuration:delayed:preparation:completion:analyticsContext:speakableContextInfo:canUseServerTTS:eligibilityChangedQueue:]";
+        v82 = 2112;
+        v83 = v60;
         _os_log_impl(&dword_26951F000, v59, OS_LOG_TYPE_DEFAULT, "%s #tts [Pre] Executing preparation block for %@", buf, 0x16u);
       }
 
-      v76[0] = MEMORY[0x277D85DD0];
-      v76[1] = 3221225472;
-      v76[2] = __263__SRUIFSpeechSynthesisTask_initWithText_audioData_identifier_sessionId_preferredVoice_language_gender_voicePromptStyle_provisional_eligibleAfterDuration_delayed_preparation_completion_analyticsContext_speakableContextInfo_canUseServerTTS_eligibilityChangedQueue___block_invoke;
-      v76[3] = &unk_279C62AB0;
-      v77 = queueCopy;
-      objc_copyWeak(&v78, &location);
-      (*(preparationCopy + 2))(preparationCopy, v76);
-      objc_destroyWeak(&v78);
+      v75[0] = MEMORY[0x277D85DD0];
+      v75[1] = 3221225472;
+      v75[2] = __263__SRUIFSpeechSynthesisTask_initWithText_audioData_identifier_sessionId_preferredVoice_language_gender_voicePromptStyle_provisional_eligibleAfterDuration_delayed_preparation_completion_analyticsContext_speakableContextInfo_canUseServerTTS_eligibilityChangedQueue___block_invoke;
+      v75[3] = &unk_279C62AB0;
+      v76 = queueCopy;
+      objc_copyWeak(&v77, &location);
+      (*(preparationCopy + 2))(preparationCopy, v75);
+      objc_destroyWeak(&v77);
     }
 
     if (duration > 0.0)
@@ -273,15 +270,14 @@
       block[1] = 3221225472;
       block[2] = __263__SRUIFSpeechSynthesisTask_initWithText_audioData_identifier_sessionId_preferredVoice_language_gender_voicePromptStyle_provisional_eligibleAfterDuration_delayed_preparation_completion_analyticsContext_speakableContextInfo_canUseServerTTS_eligibilityChangedQueue___block_invoke_2;
       block[3] = &unk_279C61870;
-      objc_copyWeak(&v75, &location);
+      objc_copyWeak(&v74, &location);
       dispatch_after(v61, queueCopy, block);
-      objc_destroyWeak(&v75);
+      objc_destroyWeak(&v74);
     }
 
     objc_destroyWeak(&location);
   }
 
-  v62 = *MEMORY[0x277D85DE8];
   return v30;
 }
 
@@ -304,18 +300,18 @@ void __263__SRUIFSpeechSynthesisTask_initWithText_audioData_identifier_sessionId
 
 void __263__SRUIFSpeechSynthesisTask_initWithText_audioData_identifier_sessionId_preferredVoice_language_gender_voicePromptStyle_provisional_eligibleAfterDuration_delayed_preparation_completion_analyticsContext_speakableContextInfo_canUseServerTTS_eligibilityChangedQueue___block_invoke_2(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
     v3 = *MEMORY[0x277CEF098];
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 136315394;
-      v12 = "[SRUIFSpeechSynthesisTask initWithText:audioData:identifier:sessionId:preferredVoice:language:gender:voicePromptStyle:provisional:eligibleAfterDuration:delayed:preparation:completion:analyticsContext:speakableContextInfo:canUseServerTTS:eligibilityChangedQueue:]_block_invoke_2";
-      v13 = 2112;
-      v14 = WeakRetained;
-      _os_log_impl(&dword_26951F000, v3, OS_LOG_TYPE_DEFAULT, "%s #tts [Pre] Preparation complete for %@", &v11, 0x16u);
+      v10 = 136315394;
+      v11 = "[SRUIFSpeechSynthesisTask initWithText:audioData:identifier:sessionId:preferredVoice:language:gender:voicePromptStyle:provisional:eligibleAfterDuration:delayed:preparation:completion:analyticsContext:speakableContextInfo:canUseServerTTS:eligibilityChangedQueue:]_block_invoke_2";
+      v12 = 2112;
+      v13 = WeakRetained;
+      _os_log_impl(&dword_26951F000, v3, OS_LOG_TYPE_DEFAULT, "%s #tts [Pre] Preparation complete for %@", &v10, 0x16u);
     }
 
     v4 = objc_loadWeakRetained((a1 + 40));
@@ -341,8 +337,6 @@ void __263__SRUIFSpeechSynthesisTask_initWithText_audioData_identifier_sessionId
 
     [v7 setCanUseServerTTS:v9 & 1];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setDelayed:(BOOL)delayed
@@ -359,7 +353,7 @@ void __263__SRUIFSpeechSynthesisTask_initWithText_audioData_identifier_sessionId
 
 - (void)_setEligibleForProcessing:(BOOL)processing
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (self->_eligibleForProcessing != processing)
   {
     self->_eligibleForProcessing = processing;
@@ -368,21 +362,19 @@ void __263__SRUIFSpeechSynthesisTask_initWithText_audioData_identifier_sessionId
       v4 = *MEMORY[0x277CEF098];
       if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
       {
-        v6 = 136315394;
-        v7 = "[SRUIFSpeechSynthesisTask _setEligibleForProcessing:]";
-        v8 = 2112;
+        v5 = 136315394;
+        v6 = "[SRUIFSpeechSynthesisTask _setEligibleForProcessing:]";
+        v7 = 2112;
         selfCopy = self;
-        _os_log_impl(&dword_26951F000, v4, OS_LOG_TYPE_DEFAULT, "%s #tts [Pre] Processing eligibility updated %@", &v6, 0x16u);
+        _os_log_impl(&dword_26951F000, v4, OS_LOG_TYPE_DEFAULT, "%s #tts [Pre] Processing eligibility updated %@", &v5, 0x16u);
       }
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setEligibleForSynthesis:(BOOL)synthesis
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (self->_eligibleForSynthesis != synthesis)
   {
     self->_eligibleForSynthesis = synthesis;
@@ -391,16 +383,14 @@ void __263__SRUIFSpeechSynthesisTask_initWithText_audioData_identifier_sessionId
       v4 = *MEMORY[0x277CEF098];
       if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
       {
-        v6 = 136315394;
-        v7 = "[SRUIFSpeechSynthesisTask _setEligibleForSynthesis:]";
-        v8 = 2112;
+        v5 = 136315394;
+        v6 = "[SRUIFSpeechSynthesisTask _setEligibleForSynthesis:]";
+        v7 = 2112;
         selfCopy = self;
-        _os_log_impl(&dword_26951F000, v4, OS_LOG_TYPE_DEFAULT, "%s #tts [Pre] Synthesis eligibility updated %@", &v6, 0x16u);
+        _os_log_impl(&dword_26951F000, v4, OS_LOG_TYPE_DEFAULT, "%s #tts [Pre] Synthesis eligibility updated %@", &v5, 0x16u);
       }
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

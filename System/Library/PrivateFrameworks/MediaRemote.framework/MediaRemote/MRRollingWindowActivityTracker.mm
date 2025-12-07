@@ -105,25 +105,23 @@
 void __67__MRRollingWindowActivityTracker_startActivityTrackingWithContext___block_invoke(uint64_t a1)
 {
   v8 = *MEMORY[0x1E69E9840];
-  [*(a1 + 32) setMostRecentContext:*(a1 + 40)];
+  v2 = [*(a1 + 32) setMostRecentContext:*(a1 + 40)];
   if ((*(*(a1 + 32) + 8) & 1) == 0)
   {
-    v2 = MRLogCategoryDiscoveryOversize();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+    v3 = MRLogCategoryDiscoveryOversize(v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      v3 = *(a1 + 32);
+      v4 = *(a1 + 32);
       v6 = 138412290;
-      v7 = v3;
-      _os_log_impl(&dword_1A2860000, v2, OS_LOG_TYPE_DEBUG, "[MRActivityTracker] Start: %@ ", &v6, 0xCu);
+      v7 = v4;
+      _os_log_impl(&dword_1A2860000, v3, OS_LOG_TYPE_DEBUG, "[MRActivityTracker] Start: %@ ", &v6, 0xCu);
     }
 
     *(*(a1 + 32) + 8) = 1;
-    v4 = [MEMORY[0x1E695DF00] date];
-    [*(a1 + 32) setEnabledSince:v4];
+    v5 = [MEMORY[0x1E695DF00] date];
+    [*(a1 + 32) setEnabledSince:v5];
     [*(a1 + 32) _onQueue_scheduleThresholdTimer];
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stopActivityTracking
@@ -137,45 +135,44 @@ void __67__MRRollingWindowActivityTracker_startActivityTrackingWithContext___blo
   dispatch_async(queue, block);
 }
 
-uint64_t __54__MRRollingWindowActivityTracker_stopActivityTracking__block_invoke(uint64_t result)
+void *__54__MRRollingWindowActivityTracker_stopActivityTracking__block_invoke(void *result)
 {
-  v15 = *MEMORY[0x1E69E9840];
-  if (*(*(result + 32) + 8) == 1)
+  v14 = *MEMORY[0x1E69E9840];
+  if (*(result[4] + 8) == 1)
   {
     v1 = result;
-    v2 = MRLogCategoryDiscoveryOversize();
+    v2 = MRLogCategoryDiscoveryOversize(result);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
     {
-      v3 = *(v1 + 32);
+      v3 = v1[4];
       *buf = 138412290;
-      v14 = v3;
+      v13 = v3;
       _os_log_impl(&dword_1A2860000, v2, OS_LOG_TYPE_DEBUG, "[MRActivityTracker] Stop: %@ ", buf, 0xCu);
     }
 
-    *(*(v1 + 32) + 8) = 0;
-    v4 = [*(v1 + 32) enabledSince];
+    *(v1[4] + 8) = 0;
+    v4 = [v1[4] enabledSince];
 
     if (v4)
     {
       v5 = [MEMORY[0x1E695DF00] date];
-      v6 = [*(v1 + 32) enabledPeriods];
-      v7 = [*(v1 + 32) enabledSince];
-      v11[1] = @"end";
-      v12[0] = v7;
-      v12[1] = v5;
-      v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
+      v6 = [v1[4] enabledPeriods];
+      v7 = [v1[4] enabledSince];
+      v10[1] = @"end";
+      v11[0] = v7;
+      v11[1] = v5;
+      v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
       [v6 addObject:v8];
 
-      [*(v1 + 32) setEnabledSince:0];
+      [v1[4] setEnabledSince:0];
     }
 
-    v9 = [*(v1 + 32) thresholdTimer];
+    v9 = [v1[4] thresholdTimer];
     [v9 invalidate];
 
-    result = [*(v1 + 32) setThresholdTimer:0];
+    return [v1[4] setThresholdTimer:0];
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -199,7 +196,7 @@ uint64_t __54__MRRollingWindowActivityTracker_stopActivityTracking__block_invoke
   return v4;
 }
 
-uint64_t __51__MRRollingWindowActivityTracker_timeSpentInWindow__block_invoke(uint64_t a1)
+void *__51__MRRollingWindowActivityTracker_timeSpentInWindow__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _onQueue_timeSpentInWindow];
   *(*(*(a1 + 40) + 8) + 24) = v3;
@@ -208,36 +205,36 @@ uint64_t __51__MRRollingWindowActivityTracker_timeSpentInWindow__block_invoke(ui
 
 - (double)_onQueue_timeSpentInWindow
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   queue = [(MRRollingWindowActivityTracker *)self queue];
   dispatch_assert_queue_V2(queue);
 
   date = [MEMORY[0x1E695DF00] date];
   [(MRRollingWindowActivityTracker *)self windowDuration];
-  v29 = date;
+  v28 = date;
   v6 = [date dateByAddingTimeInterval:-v5];
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   selfCopy = self;
   obj = [(MRRollingWindowActivityTracker *)self enabledPeriods];
-  v7 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+  v7 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v32;
+    v9 = *v31;
     v10 = 0.0;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v32 != v9)
+        if (*v31 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v31 + 1) + 8 * i);
+        v12 = *(*(&v30 + 1) + 8 * i);
         v13 = [v12 objectForKeyedSubscript:@"start"];
         v14 = [v12 objectForKeyedSubscript:@"end"];
         v15 = v14;
@@ -254,9 +251,9 @@ uint64_t __51__MRRollingWindowActivityTracker_timeSpentInWindow__block_invoke(ui
           }
 
           v17 = v16;
-          if ([v15 compare:v29] == 1)
+          if ([v15 compare:v28] == 1)
           {
-            v18 = v29;
+            v18 = v28;
           }
 
           else
@@ -271,7 +268,7 @@ uint64_t __51__MRRollingWindowActivityTracker_timeSpentInWindow__block_invoke(ui
         }
       }
 
-      v8 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v8 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
     }
 
     while (v8);
@@ -301,12 +298,11 @@ uint64_t __51__MRRollingWindowActivityTracker_timeSpentInWindow__block_invoke(ui
 
       v24 = enabledSince3;
 
-      [v29 timeIntervalSinceDate:v24];
+      [v28 timeIntervalSinceDate:v24];
       v10 = v10 + v25;
     }
   }
 
-  v26 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -330,7 +326,7 @@ uint64_t __51__MRRollingWindowActivityTracker_timeSpentInWindow__block_invoke(ui
   return v4;
 }
 
-uint64_t __61__MRRollingWindowActivityTracker_timeRemainingUntilThreshold__block_invoke(uint64_t a1)
+void *__61__MRRollingWindowActivityTracker_timeRemainingUntilThreshold__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _onQueue_timeRemainingUntilThreshold];
   *(*(*(a1 + 40) + 8) + 24) = v3;
@@ -429,7 +425,7 @@ uint64_t __61__MRRollingWindowActivityTracker_timeRemainingUntilThreshold__block
 
 - (void)_onQueue_thresholdReached
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   queue = [(MRRollingWindowActivityTracker *)self queue];
   dispatch_assert_queue_V2(queue);
 
@@ -439,16 +435,15 @@ uint64_t __61__MRRollingWindowActivityTracker_timeRemainingUntilThreshold__block
   date = [MEMORY[0x1E695DF00] date];
   [(MRRollingWindowActivityTracker *)self setEnabledSince:date];
 
-  [(MRRollingWindowActivityTracker *)self _onQueue_scheduleThresholdTimer];
-  v6 = MRLogCategoryDiscoveryOversize();
+  v6 = MRLogCategoryDiscoveryOversize([(MRRollingWindowActivityTracker *)self _onQueue_scheduleThresholdTimer]);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     mostRecentContext = self->_mostRecentContext;
-    v10 = 138412546;
+    v9 = 138412546;
     selfCopy = self;
-    v12 = 2112;
-    v13 = mostRecentContext;
-    _os_log_impl(&dword_1A2860000, v6, OS_LOG_TYPE_DEFAULT, "[MRActivityTracker] Treshold Reached: %@ with context %@", &v10, 0x16u);
+    v11 = 2112;
+    v12 = mostRecentContext;
+    _os_log_impl(&dword_1A2860000, v6, OS_LOG_TYPE_DEFAULT, "[MRActivityTracker] Treshold Reached: %@ with context %@", &v9, 0x16u);
   }
 
   handler = [(MRRollingWindowActivityTracker *)self handler];
@@ -456,8 +451,6 @@ uint64_t __61__MRRollingWindowActivityTracker_timeRemainingUntilThreshold__block
   {
     dispatch_async(MEMORY[0x1E69E96A0], handler);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 @end

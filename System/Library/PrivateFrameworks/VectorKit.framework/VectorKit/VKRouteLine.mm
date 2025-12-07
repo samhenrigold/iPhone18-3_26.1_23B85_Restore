@@ -371,7 +371,7 @@ void __45__VKRouteLine__updateBounds_boundsInflation___block_invoke(void *a1, fl
     v19 = v18;
     if (v18)
     {
-      [v18 bounds];
+      objc_msgSend_bounds(v18);
       v20 = v34;
     }
 
@@ -384,7 +384,7 @@ void __45__VKRouteLine__updateBounds_boundsInflation___block_invoke(void *a1, fl
     v22 = v21;
     if (v21)
     {
-      [v21 bounds];
+      objc_msgSend_bounds(v21);
       v23 = v33;
     }
 
@@ -397,7 +397,7 @@ void __45__VKRouteLine__updateBounds_boundsInflation___block_invoke(void *a1, fl
     v25 = v24;
     if (v24)
     {
-      [v24 bounds];
+      objc_msgSend_bounds(v24);
       v26 = v32;
     }
 
@@ -999,7 +999,7 @@ LABEL_21:
   v77 = gm::lerp<gm::Matrix<float,3,1>,float>(v32->f32[0], v32->f32[1], v32[1].f32[0], v28->f32[0], v28->f32[1], v28[1].f32[0], v34);
   v78 = v35;
   v76 = v36;
-  [(VKRouteLine *)self maneuverTransform];
+  objc_msgSend_maneuverTransform(self);
   __asm { FMOV            V1.2S, #1.0 }
 
   _D1.f32[0] = v76;
@@ -1066,7 +1066,7 @@ LABEL_21:
     _os_log_impl(&dword_1B2754000, v47, OS_LOG_TYPE_INFO, "[RouteSnapping] Segment matched: point0 routeIndexAndOffset: (%d, %f), position: (%f, %f, %f) | point1 routeIndexAndOffset: (%d, %f) position: (%f %f %f) |  offset %f | routeCoordinate: (%d, %f) | localResult (%f, %f, %f) | worldResultCoordinate (%{private}f, %{private}f, %{private}f)\n", &buf, 0xB4u);
   }
 
-  [(VKRouteLine *)self maneuverTransform];
+  objc_msgSend_maneuverTransform(self);
   *v62.f32 = *v32;
   v62.i32[2] = v32[1].i32[0];
   v62.i32[3] = 1.0;
@@ -1076,7 +1076,7 @@ LABEL_21:
   v64 = gm::operator*<double,4,4,1>(&buf, &v79);
   v66 = v65;
   v68 = v67;
-  [(VKRouteLine *)self maneuverTransform];
+  objc_msgSend_maneuverTransform(self);
   *v69.f32 = *v28;
   v69.i32[2] = v28[1].i32[0];
   v69.i32[3] = 1.0;
@@ -2351,7 +2351,7 @@ void __179__VKRouteLine_buildRouteLine_matchToRoads_shouldGenerateSnapPath_viewU
           v60 = v59;
           if (v59)
           {
-            [v59 bounds];
+            objc_msgSend_bounds(v59);
             v61 = *(&v241 + 1);
             v62 = *&v241;
             v64 = *(&v242 + 1);
@@ -2390,7 +2390,7 @@ void __179__VKRouteLine_buildRouteLine_matchToRoads_shouldGenerateSnapPath_viewU
           v200 = v199;
           if (v199)
           {
-            [v199 bounds];
+            objc_msgSend_bounds(v199);
             v201 = *(&v241 + 1);
             v202 = *&v241;
             v204 = *(&v242 + 1);
@@ -2753,7 +2753,7 @@ LABEL_61:
     v96 = v95;
     if (v95)
     {
-      [v95 bounds];
+      objc_msgSend_bounds(v95);
       v97 = *&v242;
     }
 
@@ -2775,7 +2775,7 @@ LABEL_61:
     v103 = v102;
     if (v102)
     {
-      [v102 bounds];
+      objc_msgSend_bounds(v102);
       v104 = *&v239;
     }
 
@@ -2791,7 +2791,7 @@ LABEL_61:
     v106 = v105;
     if (v105)
     {
-      [v105 bounds];
+      objc_msgSend_bounds(v105);
       v107 = *(&v237 + 1);
     }
 

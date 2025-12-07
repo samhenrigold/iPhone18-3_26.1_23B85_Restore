@@ -9,49 +9,49 @@
 
 - (NSURL)inputURL
 {
-  v3 = (*(*(sub_5210(&qword_166F0, &qword_C6C0) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
-  v5 = &v14 - v4;
-  v6 = OBJC_IVAR___DSDeepLinkSpecifier_inputURL;
+  v3 = sub_5210(&qword_166F0, &qword_C6C0);
+  __chkstk_darwin(v3 - 8, v4);
+  v6 = &v15 - v5;
+  v7 = OBJC_IVAR___DSDeepLinkSpecifier_inputURL;
   swift_beginAccess();
-  sub_5650(self + v6, v5);
-  v7 = sub_8808();
-  v8 = *(v7 - 8);
-  v9 = (*(v8 + 48))(v5, 1, v7);
-  v10 = 0;
-  if (v9 != 1)
+  sub_5650(self + v7, v6);
+  v8 = sub_8808();
+  v9 = *(v8 - 8);
+  v10 = (*(v9 + 48))(v6, 1, v8);
+  v11 = 0;
+  if (v10 != 1)
   {
-    sub_87E8(v9);
-    v12 = v11;
-    (*(v8 + 8))(v5, v7);
-    v10 = v12;
+    sub_87E8(v10);
+    v13 = v12;
+    (*(v9 + 8))(v6, v8);
+    v11 = v13;
   }
 
-  return v10;
+  return v11;
 }
 
 - (void)setInputURL:(id)l
 {
-  v5 = (*(*(sub_5210(&qword_166F0, &qword_C6C0) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
-  v7 = &v12 - v6;
+  v5 = sub_5210(&qword_166F0, &qword_C6C0);
+  __chkstk_darwin(v5 - 8, v6);
+  v8 = &v13 - v7;
   if (l)
   {
     sub_87F8();
-    v8 = sub_8808();
-    (*(*(v8 - 8) + 56))(v7, 0, 1, v8);
+    v9 = sub_8808();
+    (*(*(v9 - 8) + 56))(v8, 0, 1, v9);
   }
 
   else
   {
-    v9 = sub_8808();
-    (*(*(v9 - 8) + 56))(v7, 1, 1, v9);
+    v10 = sub_8808();
+    (*(*(v10 - 8) + 56))(v8, 1, 1, v10);
   }
 
-  v10 = OBJC_IVAR___DSDeepLinkSpecifier_inputURL;
+  v11 = OBJC_IVAR___DSDeepLinkSpecifier_inputURL;
   swift_beginAccess();
   selfCopy = self;
-  sub_5860(v7, self + v10);
+  sub_5860(v8, self + v11);
   swift_endAccess();
 }
 

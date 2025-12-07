@@ -1,3 +1,66 @@
+const void **MIL::IROpset::TryGetOperatorDescriptionSharedPtr@<X0>(MIL::IROpset *this@<X0>, const MIL::IROperation *a2@<X1>, void *a3@<X8>)
+{
+  v4 = *(this + 1);
+  v5 = (*(*a2 + 56))(a2);
+
+  return MIL::IROpsetImpl::TryGetOperatorSharedPtr(v4, v5, a3);
+}
+
+const void **MIL::IROpset::GetNamedOperatorMap(MIL::IROpset *this)
+{
+  v1 = *(this + 1);
+  MIL::IROpsetImpl::AlignData(v1);
+  return v1;
+}
+
+void MIL::IROpset::IROpset(MIL::IROpset *this)
+{
+  *(this + 1) = 0;
+  *this = &unk_2829DED88;
+  v7 = 0u;
+  v8 = 0u;
+  v9 = 1065353216;
+  v4 = 0u;
+  v5 = 0u;
+  v6 = 1065353216;
+  v1 = 0u;
+  v2 = 0u;
+  v3 = 1065353216;
+  std::make_unique[abi:ne200100]<MIL::IROpsetImpl,std::unordered_map<std::string,std::shared_ptr<MIL::IROperator const>> &,std::unordered_map<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>> &,std::unordered_map<std::string,std::string> &,0>();
+}
+
+void sub_217FA4D98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+{
+  va_start(va1, a5);
+  va_start(va, a5);
+  v8 = va_arg(va1, void);
+  v10 = va_arg(va1, void);
+  v11 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
+  v13 = va_arg(va1, void);
+  v14 = va_arg(va1, void);
+  std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::~__hash_table(va);
+  std::__hash_table<std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>>>::~__hash_table(va1);
+  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::~__hash_table(v6 - 64);
+  std::unique_ptr<MIL::IROpsetImpl>::reset[abi:ne200100](v5, 0);
+  _Unwind_Resume(a1);
+}
+
+void sub_217FA4E80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va1, a13);
+  va_start(va, a13);
+  v16 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  std::__hash_table<std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>>>::~__hash_table(va);
+  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::~__hash_table(va1);
+  MEMORY[0x21CEAFEA0](v13, v14);
+  _Unwind_Resume(a1);
+}
+
 void MIL::IROpset::IROpset(void *a1, uint64_t a2)
 {
   *a1 = &unk_2829DED88;
@@ -18,7 +81,7 @@ void MIL::IROpset::IROpset(void *a1, uint64_t a2)
 
     v3 = (*(**(v2 + 5) + 16))(*(v2 + 5));
     std::pair<std::string,std::string>::pair[abi:ne200100]<true,0>(&v15, v3, v2 + 1);
-    std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::pair<std::string,std::string>>(v18, &v15.__r_.__value_.__l.__data_);
+    std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::pair<std::string,std::string>>(v18, &v15, &v15);
     v5 = v4;
     if (v17 < 0)
     {
@@ -79,72 +142,74 @@ void sub_217FA50E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void MIL::IROpset::IROpset(void *a1)
+void MIL::IROpset::IROpset(void *a1, uint64_t a2, uint64_t a3)
 {
   a1[1] = 0;
   *a1 = &unk_2829DED88;
-  v1 = 0u;
-  v2 = 0u;
-  v3 = 1065353216;
+  v3 = 0u;
+  v4 = 0u;
+  v5 = 1065353216;
   std::make_unique[abi:ne200100]<MIL::IROpsetImpl,std::unordered_map<std::string,std::shared_ptr<MIL::IROperator const>> &,std::unordered_map<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>> &,std::unordered_map<std::string,std::string> &,0>();
 }
 
+void sub_217FA5224(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  *a1 = &unk_2829DED88;
-  a1[1] = 0;
-  std::make_unique[abi:ne200100]<MIL::IROpsetImpl,std::unordered_map<std::string,std::shared_ptr<MIL::IROperator const>> &,std::unordered_map<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>> &,std::unordered_map<std::string,std::string> &,0>();
-}
-
-void sub_217FA5224(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
-{
-  va_start(va, a3);
+  va_start(va, a5);
   std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::~__hash_table(va);
-  std::unique_ptr<MIL::IROpsetImpl>::reset[abi:ne200100](v3, 0);
+  std::unique_ptr<MIL::IROpsetImpl>::reset[abi:ne200100](v5, 0);
   _Unwind_Resume(a1);
 }
 
-void sub_217FA5484(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30)
+void MIL::IROpset::IROpset(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::~__hash_table(&a30);
-  std::__hash_table<std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>>>::~__hash_table(v31 - 128);
-  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::~__hash_table(v31 - 88);
+  *a1 = &unk_2829DED88;
+  a1[1] = 0;
+  std::make_unique[abi:ne200100]<MIL::IROpsetImpl,std::unordered_map<std::string,std::shared_ptr<MIL::IROperator const>> &,std::unordered_map<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>> &,std::unordered_map<std::string,std::string> &,0>();
+}
+
+void sub_217FA5484(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, ...)
+{
+  va_start(va, a29);
+  std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::~__hash_table(va);
+  std::__hash_table<std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>>>::~__hash_table(v30 - 128);
+  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::~__hash_table(v30 - 88);
   std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::~__hash_table(&a15);
   std::__hash_table<std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>>>::~__hash_table(&a20);
   std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::~__hash_table(&a25);
-  MEMORY[0x21CEAFEA0](v30, 0x10B3C40E7C412B7);
+  MEMORY[0x21CEAFEA0](v29, 0x10B3C40E7C412B7);
   std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::~__hash_table(&a10);
   _Unwind_Resume(a1);
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>>>::__emplace_unique_key_args<std::string,std::string&,std::shared_ptr<MIL::IROperator const>>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>>>::__emplace_unique_key_args<std::string,std::string&,std::shared_ptr<MIL::IROperator const>>(void *a1, uint64_t *a2, uint64_t a3, uint64_t a4)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v6 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v7 = v6;
+  v8 = a1[1];
+  if (!*&v8)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v9 = vcnt_s8(v8);
+  v9.i16[0] = vaddlv_u8(v9);
+  v10 = v9.u32[0];
+  if (v9.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v11 = v6;
+    if (v6 >= *&v8)
     {
-      v9 = v4 % *&v6;
+      v11 = v6 % *&v8;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v11 = (*&v8 - 1) & v6;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v12 = *(*a1 + 8 * v11);
+  if (!v12 || (v13 = *v12) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>>>::__construct_node_hash<std::string&,std::shared_ptr<MIL::IROperator const>>();
@@ -152,49 +217,49 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v14 = v13[1];
+    if (v14 == v7)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v10 > 1)
     {
-      if (v12 >= *&v6)
+      if (v14 >= *&v8)
       {
-        v12 %= *&v6;
+        v14 %= *&v8;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v14 &= *&v8 - 1;
     }
 
-    if (v12 != v9)
+    if (v14 != v11)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v13 = *v13;
+    if (!v13)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v13 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v13;
 }
 
-void sub_217FA57A0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_217FA57A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -219,35 +284,35 @@ std::string *std::pair<std::string const,std::shared_ptr<MIL::IROperator const>>
   return this;
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::string&,std::string&>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::string&,std::string&>(void *a1, uint64_t *a2, uint64_t a3, uint64_t a4)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v6 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v7 = v6;
+  v8 = a1[1];
+  if (!*&v8)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v9 = vcnt_s8(v8);
+  v9.i16[0] = vaddlv_u8(v9);
+  v10 = v9.u32[0];
+  if (v9.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v11 = v6;
+    if (v6 >= *&v8)
     {
-      v9 = v4 % *&v6;
+      v11 = v6 % *&v8;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v11 = (*&v8 - 1) & v6;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v12 = *(*a1 + 8 * v11);
+  if (!v12 || (v13 = *v12) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__construct_node_hash<std::string&,std::string&>();
@@ -255,54 +320,54 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v14 = v13[1];
+    if (v14 == v7)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v10 > 1)
     {
-      if (v12 >= *&v6)
+      if (v14 >= *&v8)
       {
-        v12 %= *&v6;
+        v14 %= *&v8;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v14 &= *&v8 - 1;
     }
 
-    if (v12 != v9)
+    if (v14 != v11)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v13 = *v13;
+    if (!v13)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v13 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v13;
 }
 
-void sub_217FA5AF0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_217FA5AF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
+char **std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](char **a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -373,35 +438,35 @@ void std::__destroy_at[abi:ne200100]<std::pair<std::string const,std::string>,0>
   }
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>>>::__emplace_unique_key_args<std::string,std::string const&,std::unique_ptr<MIL::IROperator>>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>>>::__emplace_unique_key_args<std::string,std::string const&,std::unique_ptr<MIL::IROperator>>(void *a1, uint64_t *a2, uint64_t a3, uint64_t a4)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v6 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v7 = v6;
+  v8 = a1[1];
+  if (!*&v8)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v9 = vcnt_s8(v8);
+  v9.i16[0] = vaddlv_u8(v9);
+  v10 = v9.u32[0];
+  if (v9.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v11 = v6;
+    if (v6 >= *&v8)
     {
-      v9 = v4 % *&v6;
+      v11 = v6 % *&v8;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v11 = (*&v8 - 1) & v6;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v12 = *(*a1 + 8 * v11);
+  if (!v12 || (v13 = *v12) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>>>::__construct_node_hash<std::string const&,std::unique_ptr<MIL::IROperator>>();
@@ -409,49 +474,49 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v14 = v13[1];
+    if (v14 == v7)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v10 > 1)
     {
-      if (v12 >= *&v6)
+      if (v14 >= *&v8)
       {
-        v12 %= *&v6;
+        v14 %= *&v8;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v14 &= *&v8 - 1;
     }
 
-    if (v12 != v9)
+    if (v14 != v11)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v13 = *v13;
+    if (!v13)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v13 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v13;
 }
 
-void sub_217FA5F1C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_217FA5F1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -484,18 +549,18 @@ void sub_217FA601C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *std::shared_ptr<MIL::IROperator const>::shared_ptr[abi:ne200100]<MIL::IROperator,std::default_delete<MIL::IROperator>,0>(uint64_t *result, uint64_t *a2)
+uint64_t *std::shared_ptr<MIL::IROperator const>::shared_ptr[abi:ne200100]<MIL::IROperator,std::default_delete<MIL::IROperator>,0>(uint64_t *a1, uint64_t *a2)
 {
   v2 = *a2;
-  *result = *a2;
+  *a1 = *a2;
   if (v2)
   {
     operator new();
   }
 
-  result[1] = 0;
+  a1[1] = 0;
   *a2 = 0;
-  return result;
+  return a1;
 }
 
 void std::__shared_ptr_pointer<MIL::IROperator  *>::~__shared_ptr_pointer(std::__shared_weak_count *a1)
@@ -528,35 +593,35 @@ uint64_t std::__shared_ptr_pointer<MIL::IROperator  *>::__get_deleter(uint64_t a
   }
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v7 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v8 = v7;
+  v9 = a1[1];
+  if (!*&v9)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v10 = vcnt_s8(v9);
+  v10.i16[0] = vaddlv_u8(v10);
+  v11 = v10.u32[0];
+  if (v10.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v12 = v7;
+    if (v7 >= *&v9)
     {
-      v9 = v4 % *&v6;
+      v12 = v7 % *&v9;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v12 = (*&v9 - 1) & v7;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v13 = *(*a1 + 8 * v12);
+  if (!v13 || (v14 = *v13) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>>>::__construct_node_hash<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
@@ -564,49 +629,49 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v15 = v14[1];
+    if (v15 == v8)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v11 > 1)
     {
-      if (v12 >= *&v6)
+      if (v15 >= *&v9)
       {
-        v12 %= *&v6;
+        v15 %= *&v9;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v15 &= *&v9 - 1;
     }
 
-    if (v12 != v9)
+    if (v15 != v12)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v14 = *v14;
+    if (!v14)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v14 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v14;
 }
 
-void sub_217FA63C4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_217FA63C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -628,7 +693,7 @@ const void **MIL::IROpsetImpl::AlignData(const void **this)
         }
 
         (*(*v3 + 48))(&v4);
-        std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>>>::__emplace_unique_key_args<std::string,std::string const&,std::unique_ptr<MIL::IROperator>>(v1, i + 2);
+        std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>>>::__emplace_unique_key_args<std::string,std::string const&,std::unique_ptr<MIL::IROperator>>(v1, i + 2, (i + 2), &v4);
         this = v4;
         v4 = 0;
         if (this)
@@ -662,41 +727,41 @@ uint64_t std::unordered_map<std::string,std::string>::unordered_map(uint64_t a1,
   std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__rehash<true>(a1, *(a2 + 8));
   for (i = *(a2 + 16); i; i = *i)
   {
-    std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::string> const&>(a1, i + 2);
+    std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::string> const&>(a1, i + 2, (i + 2));
   }
 
   return a1;
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::string> const&>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::string> const&>(void *a1, uint64_t *a2, uint64_t a3)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__construct_node_hash<std::pair<std::string const,std::string> const&>();
@@ -704,49 +769,49 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v12 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
-void sub_217FA6834(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_217FA6834(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -940,41 +1005,41 @@ uint64_t std::unordered_map<std::string,std::shared_ptr<MIL::IROperator const>>:
   std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__rehash<true>(a1, *(a2 + 8));
   for (i = *(a2 + 16); i; i = *i)
   {
-    std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::shared_ptr<MIL::IROperator const>> const&>(a1, i + 2);
+    std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::shared_ptr<MIL::IROperator const>> const&>(a1, i + 2, (i + 2));
   }
 
   return a1;
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::shared_ptr<MIL::IROperator const>> const&>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::shared_ptr<MIL::IROperator const>> const&>(void *a1, uint64_t *a2, uint64_t a3)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>>>::__construct_node_hash<std::pair<std::string const,std::shared_ptr<MIL::IROperator const>> const&>();
@@ -982,49 +1047,49 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v12 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
-void sub_217FA6EEC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_217FA6EEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -1037,41 +1102,41 @@ uint64_t std::unordered_map<std::string,std::function<std::unique_ptr<MIL::IROpe
   std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__rehash<true>(a1, *(a2 + 8));
   for (i = *(a2 + 16); i; i = *i)
   {
-    std::__hash_table<std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::function<std::unique_ptr<MIL::IROperator> ()(void)>> const&>(a1, i + 2);
+    std::__hash_table<std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::function<std::unique_ptr<MIL::IROperator> ()(void)>> const&>(a1, i + 2, (i + 2));
   }
 
   return a1;
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::function<std::unique_ptr<MIL::IROperator> ()(void)>> const&>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::function<std::unique_ptr<MIL::IROperator> ()(void)>> const&>(void *a1, uint64_t *a2, uint64_t a3)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>>>::__construct_node_hash<std::pair<std::string const,std::function<std::unique_ptr<MIL::IROperator> ()(void)>> const&>();
@@ -1079,49 +1144,49 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v12 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
-void sub_217FA723C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_217FA723C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -1229,35 +1294,35 @@ uint64_t MIL::IROpsetImpl::IROpsetImpl(uint64_t a1, uint64_t *a2, uint64_t *a3, 
   return a1;
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::pair<std::string,std::string>>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::pair<std::string,std::string>>(void *a1, uint64_t *a2, uint64_t a3)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     operator new();
@@ -1265,49 +1330,49 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v12 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
-void sub_217FA7704(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_217FA7704(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -1357,7 +1422,7 @@ void sub_217FA786C(void *a1)
   JUMPOUT(0x217FA7864);
 }
 
-uint64_t MIL::StringToIRPixelFormatType(const void **a1)
+uint64_t MIL::StringToIRPixelFormatType(uint64_t *a1)
 {
   v91 = *MEMORY[0x277D85DE8];
   std::string::basic_string[abi:ne200100]<0>(&v11, "FMT_OneComponent8");
@@ -1440,7 +1505,7 @@ uint64_t MIL::StringToIRPixelFormatType(const void **a1)
   v88 = 91;
   std::string::basic_string[abi:ne200100]<0>(v89, "FMT_MultiSlice_Lossless_OneComponent16Half");
   v90 = 100;
-  std::unordered_map<std::string,MIL::IRPixelFormatType>::unordered_map(v10, &v11.__r_.__value_.__l.__data_, 40);
+  std::unordered_map<std::string,MIL::IRPixelFormatType>::unordered_map(v10, &v11, 40);
   v2 = 160;
   do
   {
@@ -1475,7 +1540,7 @@ uint64_t MIL::StringToIRPixelFormatType(const void **a1)
   return v4;
 }
 
-void sub_217FA7E74(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *__p, uint64_t a21, int a22, __int16 a23, char a24, char a25)
+void sub_217FA7E74(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *__p, uint64_t a21, int a22, __int16 a23, char a24, char a25)
 {
   if (a25 < 0)
   {
@@ -1502,7 +1567,7 @@ LABEL_8:
   goto LABEL_8;
 }
 
-_BYTE *MIL::IRPixelFormatTypeToString@<X0>(unsigned int a1@<W0>, _BYTE *a2@<X8>)
+void *MIL::IRPixelFormatTypeToString@<X0>(unsigned int a1@<W0>, void *a2@<X8>)
 {
   v3 = "FMT_OneComponent8";
   switch(a1)
@@ -1707,7 +1772,7 @@ uint64_t MIL::GetNumPlanesForFormat(int a1)
   return result;
 }
 
-uint64_t MIL::GetChannelDimForFormat(int a1, unsigned int a2)
+uint64_t MIL::GetChannelDimForFormat(unsigned int a1, unsigned int a2)
 {
   result = MIL::SupportsMultiSlice(a1);
   if (result)
@@ -1720,18 +1785,18 @@ LABEL_15:
 
   switch(a1)
   {
-    case 1:
-    case 2:
-    case 3:
-    case 15:
-    case 17:
-    case 41:
-    case 42:
-    case 43:
-    case 44:
-    case 45:
-    case 91:
-    case 100:
+    case 1u:
+    case 2u:
+    case 3u:
+    case 0xFu:
+    case 0x11u:
+    case 0x29u:
+    case 0x2Au:
+    case 0x2Bu:
+    case 0x2Cu:
+    case 0x2Du:
+    case 0x5Bu:
+    case 0x64u:
       if (a2)
       {
         v17 = __cxa_allocate_exception(0x10uLL);
@@ -1786,9 +1851,9 @@ LABEL_15:
       }
 
       return 1;
-    case 4:
-    case 5:
-    case 6:
+    case 4u:
+    case 5u:
+    case 6u:
       if (a2)
       {
         v39 = __cxa_allocate_exception(0x10uLL);
@@ -1843,18 +1908,18 @@ LABEL_15:
       }
 
       return 2;
-    case 11:
-    case 12:
-    case 13:
-    case 14:
-    case 51:
-    case 52:
-    case 53:
-    case 54:
-    case 55:
-    case 56:
-    case 57:
-    case 58:
+    case 0xBu:
+    case 0xCu:
+    case 0xDu:
+    case 0xEu:
+    case 0x33u:
+    case 0x34u:
+    case 0x35u:
+    case 0x36u:
+    case 0x37u:
+    case 0x38u:
+    case 0x39u:
+    case 0x3Au:
       if (a2)
       {
         v6 = __cxa_allocate_exception(0x10uLL);
@@ -1909,23 +1974,23 @@ LABEL_15:
       }
 
       return 4;
-    case 20:
-    case 40:
+    case 0x14u:
+    case 0x28u:
       exception = __cxa_allocate_exception(0x10uLL);
       std::invalid_argument::invalid_argument[abi:ne200100](exception, "Unsupported pixel format type.");
       goto LABEL_15;
-    case 21:
-    case 22:
-    case 23:
-    case 24:
-    case 25:
-    case 26:
-    case 27:
-    case 28:
-    case 29:
-    case 70:
-    case 71:
-    case 90:
+    case 0x15u:
+    case 0x16u:
+    case 0x17u:
+    case 0x18u:
+    case 0x19u:
+    case 0x1Au:
+    case 0x1Bu:
+    case 0x1Cu:
+    case 0x1Du:
+    case 0x46u:
+    case 0x47u:
+    case 0x5Au:
       if (a2 >= 2)
       {
         v28 = __cxa_allocate_exception(0x10uLL);
@@ -2035,7 +2100,7 @@ LABEL_14:
   goto LABEL_14;
 }
 
-uint64_t std::unordered_map<std::string,MIL::IRPixelFormatType>::unordered_map(uint64_t a1, const void **a2, uint64_t a3)
+uint64_t std::unordered_map<std::string,MIL::IRPixelFormatType>::unordered_map(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   *a1 = 0u;
   *(a1 + 16) = 0u;
@@ -2045,7 +2110,7 @@ uint64_t std::unordered_map<std::string,MIL::IRPixelFormatType>::unordered_map(u
     v5 = 32 * a3;
     do
     {
-      std::__hash_table<std::__hash_value_type<std::string,MIL::IRPixelFormatType>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRPixelFormatType>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRPixelFormatType>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRPixelFormatType>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,MIL::IRPixelFormatType> const&>(a1, a2);
+      std::__hash_table<std::__hash_value_type<std::string,MIL::IRPixelFormatType>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRPixelFormatType>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRPixelFormatType>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRPixelFormatType>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,MIL::IRPixelFormatType> const&>(a1, a2, a2);
       a2 += 4;
       v5 -= 32;
     }
@@ -2056,35 +2121,35 @@ uint64_t std::unordered_map<std::string,MIL::IRPixelFormatType>::unordered_map(u
   return a1;
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,MIL::IRPixelFormatType>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRPixelFormatType>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRPixelFormatType>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRPixelFormatType>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,MIL::IRPixelFormatType> const&>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,MIL::IRPixelFormatType>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRPixelFormatType>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRPixelFormatType>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRPixelFormatType>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,MIL::IRPixelFormatType> const&>(void *a1, uint64_t *a2, uint64_t a3)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,MIL::IRPixelFormatType>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRPixelFormatType>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRPixelFormatType>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRPixelFormatType>>>::__construct_node_hash<std::pair<std::string const,MIL::IRPixelFormatType> const&>();
@@ -2092,44 +2157,44 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v12 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
 void sub_217FA9004(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **__p, uint64_t a11)
@@ -2159,8 +2224,7 @@ void MIL::IRProgram::~IRProgram(MIL::IRProgram *this)
 void *MIL::IRProgram::IRProgram(void *a1, __int128 *a2, uint64_t *a3)
 {
   v5 = *a2;
-  *a2 = 0;
-  *(a2 + 1) = 0;
+  *a2 = 0uLL;
   MIL::IRObject::IRObject(a1, &v5, a3);
   if (*(&v5 + 1))
   {
@@ -2173,17 +2237,15 @@ void *MIL::IRProgram::IRProgram(void *a1, __int128 *a2, uint64_t *a3)
   return a1;
 }
 
-void MIL::IRProgram::Make(__int128 *a1, __int128 *a2)
+void MIL::IRProgram::Make(__int128 *a1, __int128 *a2, uint64_t a3)
 {
-  v6 = *a1;
-  *a1 = 0;
-  *(a1 + 1) = 0;
-  v5 = *a2;
-  *a2 = 0;
-  *(a2 + 1) = 0;
-  v2 = 0u;
+  v7 = *a1;
+  *a1 = 0uLL;
+  v6 = *a2;
+  *a2 = 0uLL;
   v3 = 0u;
-  v4 = 1065353216;
+  v4 = 0u;
+  v5 = 1065353216;
   MIL::IRProgram::Make();
 }
 
@@ -2216,7 +2278,7 @@ void sub_217FA9350(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     std::__shared_weak_count::__release_shared[abi:ne200100](a12);
   }
 
-  MEMORY[0x21CEAFEA0](v12, v13);
+  MEMORY[0x21CEAFEA0](v12, v13, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
@@ -2232,21 +2294,21 @@ _anonymous_namespace_::IRProgramImpl **std::unique_ptr<anonymous namespace::IRPr
   return a1;
 }
 
-uint64_t MIL::IRProgram::GetFunction(uint64_t a1)
+uint64_t MIL::IRProgram::GetFunction(uint64_t a1, uint64_t a2)
 {
   result = (*(*a1 + 56))(a1);
   if (!result)
   {
     exception = __cxa_allocate_exception(0x10uLL);
     std::operator+<char>();
-    v3 = std::string::append(&v5, "' does not exist.");
-    v4 = *&v3->__r_.__value_.__l.__data_;
-    v6.__r_.__value_.__r.__words[2] = v3->__r_.__value_.__r.__words[2];
-    *&v6.__r_.__value_.__l.__data_ = v4;
-    v3->__r_.__value_.__l.__size_ = 0;
-    v3->__r_.__value_.__r.__words[2] = 0;
-    v3->__r_.__value_.__r.__words[0] = 0;
-    std::logic_error::logic_error(exception, &v6);
+    v4 = std::string::append(&v6, "' does not exist.");
+    v5 = *&v4->__r_.__value_.__l.__data_;
+    v7.__r_.__value_.__r.__words[2] = v4->__r_.__value_.__r.__words[2];
+    *&v7.__r_.__value_.__l.__data_ = v5;
+    v4->__r_.__value_.__l.__size_ = 0;
+    v4->__r_.__value_.__r.__words[2] = 0;
+    v4->__r_.__value_.__r.__words[0] = 0;
+    std::logic_error::logic_error(exception, &v7);
     exception->__vftable = (MEMORY[0x277D828E8] + 16);
     __cxa_throw(exception, off_278235F78, MEMORY[0x277D825F8]);
   }
@@ -2365,9 +2427,9 @@ uint64_t anonymous namespace::IRProgramImpl::SetFunctions(uint64_t a1, uint64_t 
   return std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v3);
 }
 
-void sub_217FA97C8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_217FA97C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -2433,7 +2495,7 @@ uint64_t anonymous namespace::IRProgramImpl::GetContextSharedPtr@<X0>(uint64_t t
   return this;
 }
 
-const void *anonymous namespace::IRProgramImpl::TryGetFunction(uint64_t a1, const void **a2)
+const void *anonymous namespace::IRProgramImpl::TryGetFunction(uint64_t a1, uint64_t *a2)
 {
   v2 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>((a1 + 176), a2);
   if (!v2)
@@ -2452,7 +2514,7 @@ const void *anonymous namespace::IRProgramImpl::TryGetFunction(uint64_t a1, cons
   return v4;
 }
 
-const void **anonymous namespace::IRProgramImpl::TryGetFunctionSharedPtr@<X0>(uint64_t a1@<X0>, const void **a2@<X1>, void *a3@<X8>)
+const void **anonymous namespace::IRProgramImpl::TryGetFunctionSharedPtr@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, void *a3@<X8>)
 {
   result = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>((a1 + 176), a2);
   if (result)
@@ -2479,34 +2541,35 @@ void anonymous namespace::IRProgramImpl::WithFunctions(MIL::IRObject *a1)
 {
   MIL::IRObject::GetLocationPtr(a1);
   Attributes = MIL::IRObject::GetAttributes(a1);
-  std::unordered_map<std::string,std::shared_ptr<MIL::IRValue const>>::unordered_map(&v3, Attributes);
+  std::unordered_map<std::string,std::shared_ptr<MIL::IRValue const>>::unordered_map(&v5, Attributes);
 }
 
 void anonymous namespace::IRProgramImpl::WithRenames(MIL::IRObject *this)
 {
-  memset(v6, 0, sizeof(v6));
-  v7 = 1065353216;
+  memset(v7, 0, sizeof(v7));
+  v8 = 1065353216;
   for (i = *(this + 24); i; i = *i)
   {
-    (*(*i[5] + 224))(v5);
-    std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRFunction>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRFunction>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRFunction>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRFunction>>>>::__emplace_unique_key_args<std::string,std::string const&,std::unique_ptr<MIL::IRFunction>>(v6, i + 2);
-    v3 = v5[0];
-    v5[0] = 0;
-    if (v3)
+    (*(*i[5] + 224))(v6);
+    std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRFunction>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRFunction>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRFunction>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRFunction>>>>::__emplace_unique_key_args<std::string,std::string const&,std::unique_ptr<MIL::IRFunction>>(v7, i + 2, (i + 2), v6);
+    v4 = v6[0];
+    v6[0] = 0;
+    if (v4)
     {
-      (*(*v3 + 8))(v3);
+      (*(*v4 + 8))(v4);
     }
   }
 
   MIL::IRObject::GetLocationPtr(this);
   Attributes = MIL::IRObject::GetAttributes(this);
-  std::unordered_map<std::string,std::shared_ptr<MIL::IRValue const>>::unordered_map(v5, Attributes);
+  std::unordered_map<std::string,std::shared_ptr<MIL::IRValue const>>::unordered_map(v6, Attributes);
 }
 
-void sub_217FA9BC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
+void sub_217FA9BC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
 {
+  va_start(va, a14);
   std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::~__hash_table(&a9);
-  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::~__hash_table(&a15);
+  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
 
@@ -2534,14 +2597,14 @@ uint64_t anonymous namespace::IRProgramImpl::GetMinimumRequiredSyntaxVersion(_an
   return v3;
 }
 
-void sub_217FA9D50(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_217FA9D50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<BOOL ()(MIL::IRBlock const&)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void anonymous namespace::IRProgramImpl::BuildScopeCache(_anonymous_namespace_::IRProgramImpl *this)
+void anonymous namespace::IRProgramImpl::BuildScopeCache()
 {
   v4 = 0u;
   v5 = 0u;
@@ -2552,7 +2615,7 @@ void anonymous namespace::IRProgramImpl::BuildScopeCache(_anonymous_namespace_::
   MIL::IRMutableScope::Make();
 }
 
-void sub_217FA9DF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
+void sub_217FA9DF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15)
 {
   std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::~__hash_table(&a9);
   std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(&a15);
@@ -2601,39 +2664,39 @@ void sub_217FAA09C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     std::__shared_weak_count::__release_shared[abi:ne200100](a12);
   }
 
-  MEMORY[0x21CEAFEA0](v13, v12);
+  MEMORY[0x21CEAFEA0](v13, v12, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRFunction>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRFunction>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRFunction>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRFunction>>>>::__emplace_unique_key_args<std::string,std::string const&,std::unique_ptr<MIL::IRFunction>>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRFunction>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRFunction>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRFunction>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRFunction>>>>::__emplace_unique_key_args<std::string,std::string const&,std::unique_ptr<MIL::IRFunction>>(void *a1, uint64_t *a2, uint64_t a3, uint64_t a4)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v6 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v7 = v6;
+  v8 = a1[1];
+  if (!*&v8)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v9 = vcnt_s8(v8);
+  v9.i16[0] = vaddlv_u8(v9);
+  v10 = v9.u32[0];
+  if (v9.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v11 = v6;
+    if (v6 >= *&v8)
     {
-      v9 = v4 % *&v6;
+      v11 = v6 % *&v8;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v11 = (*&v8 - 1) & v6;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v12 = *(*a1 + 8 * v11);
+  if (!v12 || (v13 = *v12) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRFunction>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRFunction>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRFunction>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRFunction>>>>::__construct_node_hash<std::string const&,std::unique_ptr<MIL::IRFunction>>();
@@ -2641,49 +2704,49 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v14 = v13[1];
+    if (v14 == v7)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v10 > 1)
     {
-      if (v12 >= *&v6)
+      if (v14 >= *&v8)
       {
-        v12 %= *&v6;
+        v14 %= *&v8;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v14 &= *&v8 - 1;
     }
 
-    if (v12 != v9)
+    if (v14 != v11)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v13 = *v13;
+    if (!v13)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v13 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v13;
 }
 
-void sub_217FAA31C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_217FAA31C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -2996,7 +3059,7 @@ void MIL::IRCachedScope::InvalidateAndCall(uint64_t a1, uint64_t a2)
 
 uint64_t MIL::IRCachedScope::GetParent(MIL::IRCachedScope *this)
 {
-  MIL::IRCachedScope::GetScope(this, &v3);
+  MIL::IRCachedScope::GetScope(&v3, this);
   v1 = (*(*v3 + 72))(v3);
   if (v4)
   {
@@ -3016,7 +3079,7 @@ void sub_217FAACB4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void MIL::IRCachedScope::GetScope(MIL::IRCachedScope *this@<X0>, void *a2@<X8>)
+void MIL::IRCachedScope::GetScope(uint64_t *__return_ptr a1@<X8>, MIL::IRCachedScope *this@<X0>)
 {
   v4 = atomic_load(this + 88);
   if (v4)
@@ -3027,8 +3090,8 @@ void MIL::IRCachedScope::GetScope(MIL::IRCachedScope *this@<X0>, void *a2@<X8>)
     {
 LABEL_8:
       v10 = *(this + 2);
-      *a2 = v5;
-      a2[1] = v10;
+      *a1 = v5;
+      a1[1] = v10;
       if (v10)
       {
         atomic_fetch_add_explicit((v10 + 8), 1uLL, memory_order_relaxed);
@@ -3079,8 +3142,8 @@ LABEL_8:
   }
 
   v12 = *(this + 2);
-  *a2 = *(this + 1);
-  a2[1] = v12;
+  *a1 = *(this + 1);
+  a1[1] = v12;
   if (v12)
   {
     atomic_fetch_add_explicit((v12 + 8), 1uLL, memory_order_relaxed);
@@ -3102,7 +3165,7 @@ void sub_217FAAE98(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t MIL::IRCachedScope::GetType(MIL::IRCachedScope *a1, uint64_t a2, uint64_t a3)
 {
-  MIL::IRCachedScope::GetScope(a1, &v7);
+  MIL::IRCachedScope::GetScope(&v7, a1);
   v5 = (*(*v7 + 16))(v7, a2, a3);
   if (v8)
   {
@@ -3124,7 +3187,7 @@ void sub_217FAAF74(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t MIL::IRCachedScope::TryGetType(MIL::IRCachedScope *a1, uint64_t a2, uint64_t a3)
 {
-  MIL::IRCachedScope::GetScope(a1, &v7);
+  MIL::IRCachedScope::GetScope(&v7, a1);
   v5 = (*(*v7 + 24))(v7, a2, a3);
   if (v8)
   {
@@ -3146,7 +3209,7 @@ void sub_217FAB004(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t MIL::IRCachedScope::GetTypes(MIL::IRCachedScope *this)
 {
-  MIL::IRCachedScope::GetScope(this, &v3);
+  MIL::IRCachedScope::GetScope(&v3, this);
   v1 = (*(*v3 + 32))(v3);
   if (v4)
   {
@@ -3168,7 +3231,7 @@ void sub_217FAB084(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t MIL::IRCachedScope::GetValue(MIL::IRCachedScope *a1, uint64_t a2, uint64_t a3)
 {
-  MIL::IRCachedScope::GetScope(a1, &v7);
+  MIL::IRCachedScope::GetScope(&v7, a1);
   v5 = (*(*v7 + 40))(v7, a2, a3);
   if (v8)
   {
@@ -3190,7 +3253,7 @@ void sub_217FAB114(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t MIL::IRCachedScope::TryGetValue(MIL::IRCachedScope *a1, uint64_t a2, uint64_t a3)
 {
-  MIL::IRCachedScope::GetScope(a1, &v7);
+  MIL::IRCachedScope::GetScope(&v7, a1);
   v5 = (*(*v7 + 48))(v7, a2, a3);
   if (v8)
   {
@@ -3212,7 +3275,7 @@ void sub_217FAB1A4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void MIL::IRCachedScope::TryGetValueSharedPtr(MIL::IRCachedScope *a1, uint64_t a2, uint64_t a3)
 {
-  MIL::IRCachedScope::GetScope(a1, &v6);
+  MIL::IRCachedScope::GetScope(&v6, a1);
   (*(*v6 + 56))(v6, a2, a3);
   v5 = v7;
   if (v7)
@@ -3234,7 +3297,7 @@ void sub_217FAB25C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t MIL::IRCachedScope::GetValues(MIL::IRCachedScope *this)
 {
-  MIL::IRCachedScope::GetScope(this, &v3);
+  MIL::IRCachedScope::GetScope(&v3, this);
   v1 = (*(*v3 + 64))(v3);
   if (v4)
   {
@@ -3286,14 +3349,18 @@ void MIL::IRMutableScope::Make()
   operator new();
 }
 
-MIL::IRValueQueryable **std::unique_ptr<anonymous namespace::IRScopeImpl>::~unique_ptr[abi:ne200100](MIL::IRValueQueryable **a1)
+{
+  operator new();
+}
+
+void ***std::unique_ptr<anonymous namespace::IRScopeImpl>::~unique_ptr[abi:ne200100](void ***a1)
 {
   v2 = *a1;
   *a1 = 0;
   if (v2)
   {
-    std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::~__hash_table(v2 + 56);
-    std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(v2 + 16);
+    std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::~__hash_table((v2 + 7));
+    std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(v2 + 2);
     MIL::IRValueQueryable::~IRValueQueryable(v2);
     MEMORY[0x21CEAFEA0]();
   }
@@ -3301,34 +3368,34 @@ MIL::IRValueQueryable **std::unique_ptr<anonymous namespace::IRScopeImpl>::~uniq
   return a1;
 }
 
-void anonymous namespace::IRScopeImpl::~IRScopeImpl(_anonymous_namespace_::IRScopeImpl *this)
+void anonymous namespace::IRScopeImpl::~IRScopeImpl(void **this)
 {
-  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::~__hash_table(this + 56);
-  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(this + 16);
+  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::~__hash_table((this + 7));
+  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(this + 2);
 
   MIL::IRValueQueryable::~IRValueQueryable(this);
 }
 
 {
-  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::~__hash_table(this + 56);
-  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(this + 16);
+  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::~__hash_table((this + 7));
+  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(this + 2);
   MIL::IRValueQueryable::~IRValueQueryable(this);
 
   JUMPOUT(0x21CEAFEA0);
 }
 
-uint64_t *std::shared_ptr<MIL::IRScope const>::shared_ptr[abi:ne200100]<MIL::IRScope const,std::default_delete<MIL::IRScope const>,0>(uint64_t *result, uint64_t *a2)
+uint64_t *std::shared_ptr<MIL::IRScope const>::shared_ptr[abi:ne200100]<MIL::IRScope const,std::default_delete<MIL::IRScope const>,0>(uint64_t *a1, uint64_t *a2)
 {
   v2 = *a2;
-  *result = *a2;
+  *a1 = *a2;
   if (v2)
   {
     operator new();
   }
 
-  result[1] = 0;
+  a1[1] = 0;
   *a2 = 0;
-  return result;
+  return a1;
 }
 
 void std::__shared_ptr_pointer<MIL::IRScope const *>::~__shared_ptr_pointer(std::__shared_weak_count *a1)
@@ -3361,28 +3428,28 @@ uint64_t std::__shared_ptr_pointer<MIL::IRScope const *>::__get_deleter(uint64_t
   }
 }
 
-void *anonymous namespace::IRScopeImpl::IRScopeImpl(void *a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
+MIL::IRValueQueryable *anonymous namespace::IRScopeImpl::IRScopeImpl(MIL::IRValueQueryable *a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
   v8 = MIL::IRValueQueryable::IRValueQueryable(a1);
   *v8 = &unk_2829DF4C0;
   v8[1] = a2;
   std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__hash_table((v8 + 2), a3);
-  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__hash_table((a1 + 7), a4);
+  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__hash_table(a1 + 56, a4);
   return a1;
 }
 
-uint64_t anonymous namespace::IRScopeImpl::GetType(uint64_t a1, const void **a2, char a3)
+const void *anonymous namespace::IRScopeImpl::GetType(uint64_t a1, uint64_t *a2, char a3)
 {
   if (!result)
   {
-    exception = __cxa_allocate_exception(0x20uLL);
-    MIL::UnknownLocation::Make(exception);
+    __cxa_allocate_exception(0x20uLL);
+    MIL::UnknownLocation::Make();
   }
 
   return result;
 }
 
-void sub_217FAB920(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22)
+void sub_217FAB920(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22)
 {
   if (a21 < 0)
   {
@@ -3402,7 +3469,7 @@ void sub_217FAB920(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
   if (a22)
   {
-    (*(*a22 + 8))(a22);
+    (*(*a22 + 8))(a22, a2, a3, a4, a5, a6, a7, a8);
     if ((v23 & 1) == 0)
     {
       goto LABEL_12;
@@ -3419,7 +3486,7 @@ LABEL_12:
   goto LABEL_12;
 }
 
-uint64_t anonymous namespace::IRScopeImpl::TryGetType(uint64_t a1, const void **a2, char a3)
+const void *anonymous namespace::IRScopeImpl::TryGetType(uint64_t a1, uint64_t *a2, char a3)
 {
   v5 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>((a1 + 16), a2);
   if (v5)
@@ -3449,18 +3516,18 @@ uint64_t anonymous namespace::IRScopeImpl::TryGetType(uint64_t a1, const void **
   return result;
 }
 
-uint64_t anonymous namespace::IRScopeImpl::GetValue(uint64_t a1, const void **a2, char a3)
+uint64_t anonymous namespace::IRScopeImpl::GetValue(uint64_t a1, uint64_t *a2, char a3)
 {
   if (!result)
   {
-    exception = __cxa_allocate_exception(0x20uLL);
-    MIL::UnknownLocation::Make(exception);
+    __cxa_allocate_exception(0x20uLL);
+    MIL::UnknownLocation::Make();
   }
 
   return result;
 }
 
-void sub_217FABB98(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22)
+void sub_217FABB98(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22)
 {
   if (a21 < 0)
   {
@@ -3480,7 +3547,7 @@ void sub_217FABB98(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
   if (a22)
   {
-    (*(*a22 + 8))(a22);
+    (*(*a22 + 8))(a22, a2, a3, a4, a5, a6, a7, a8);
     if ((v23 & 1) == 0)
     {
       goto LABEL_12;
@@ -3497,7 +3564,7 @@ LABEL_12:
   goto LABEL_12;
 }
 
-uint64_t anonymous namespace::IRScopeImpl::TryGetValue(uint64_t a1, const void **a2, char a3)
+uint64_t anonymous namespace::IRScopeImpl::TryGetValue(uint64_t a1, uint64_t *a2, char a3)
 {
   v3 = v5;
   if (v6)
@@ -3508,7 +3575,7 @@ uint64_t anonymous namespace::IRScopeImpl::TryGetValue(uint64_t a1, const void *
   return v3;
 }
 
-const void **anonymous namespace::IRScopeImpl::TryGetValueSharedPtr@<X0>(uint64_t a1@<X0>, const void **a2@<X1>, char a3@<W2>, void *a4@<X8>)
+const void **anonymous namespace::IRScopeImpl::TryGetValueSharedPtr@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, char a3@<W2>, void *a4@<X8>)
 {
   result = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>((a1 + 56), a2);
   if (result)
@@ -3543,22 +3610,22 @@ LABEL_10:
   return v9();
 }
 
-BOOL anonymous namespace::IRScopeImpl::SetType(uint64_t a1, const void **a2, const void *a3, char a4)
+BOOL anonymous namespace::IRScopeImpl::SetType(uint64_t a1, uint64_t *a2, const void *a3, char a4)
 {
   v8 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>((a1 + 16), a2);
   if (v8 && (a4 & 1) == 0)
   {
-    exception = __cxa_allocate_exception(0x20uLL);
-    MIL::UnknownLocation::Make(exception);
+    __cxa_allocate_exception(0x20uLL);
+    MIL::UnknownLocation::Make();
   }
 
   v9 = v8 == 0;
-  v12.__r_.__value_.__r.__words[0] = a2;
-  std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 16), a2)[5] = a3;
+  v11.__r_.__value_.__r.__words[0] = a2;
+  std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 16), a2, &std::piecewise_construct, &v11, &v12)[5] = a3;
   return v9;
 }
 
-void sub_217FABEB8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22)
+void sub_217FABEB8(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22)
 {
   if (a21 < 0)
   {
@@ -3578,7 +3645,7 @@ void sub_217FABEB8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
   if (a22)
   {
-    (*(*a22 + 8))(a22);
+    (*(*a22 + 8))(a22, a2, a3, a4, a5, a6, a7, a8);
     if ((v23 & 1) == 0)
     {
       goto LABEL_12;
@@ -3595,17 +3662,17 @@ LABEL_12:
   goto LABEL_12;
 }
 
-BOOL anonymous namespace::IRScopeImpl::SetValue(uint64_t a1, const void **a2, __int128 *a3, char a4)
+BOOL anonymous namespace::IRScopeImpl::SetValue(uint64_t a1, uint64_t *a2, __int128 *a3, char a4)
 {
   v8 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>((a1 + 56), a2);
   if (v8 && (a4 & 1) == 0)
   {
-    exception = __cxa_allocate_exception(0x20uLL);
-    MIL::UnknownLocation::Make(exception);
+    __cxa_allocate_exception(0x20uLL);
+    MIL::UnknownLocation::Make();
   }
 
-  v14.__r_.__value_.__r.__words[0] = a2;
-  v9 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 56), a2);
+  v13.__r_.__value_.__r.__words[0] = a2;
+  v9 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 56), a2, &std::piecewise_construct, &v13, &v14);
   v10 = *a3;
   *a3 = 0;
   *(a3 + 1) = 0;
@@ -3619,7 +3686,7 @@ BOOL anonymous namespace::IRScopeImpl::SetValue(uint64_t a1, const void **a2, __
   return v8 == 0;
 }
 
-void sub_217FAC0EC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, std::__shared_weak_count *a24)
+void sub_217FAC0EC(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, std::__shared_weak_count *a24)
 {
   if (a21 < 0)
   {
@@ -3638,7 +3705,7 @@ void sub_217FAC0EC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
   if (a22)
   {
-    (*(*a22 + 8))(a22);
+    (*(*a22 + 8))(a22, a2, a3, a4, a5, a6, a7, a8);
     if ((v25 & 1) == 0)
     {
       goto LABEL_12;
@@ -3655,112 +3722,112 @@ LABEL_12:
   goto LABEL_12;
 }
 
-void anonymous namespace::IRScopeImpl::WithRenames(uint64_t a1, const void ***a2)
+void anonymous namespace::IRScopeImpl::WithRenames(uint64_t a1, uint64_t **a2)
 {
-  std::unordered_map<std::string,MIL::IRValueType const*>::unordered_map(v16, a1 + 16);
-  v4 = *a2;
-  v5 = a2[1];
-  if (*a2 != v5)
+  std::unordered_map<std::string,MIL::IRValueType const*>::unordered_map(v17, a1 + 16);
+  v5 = *a2;
+  v6 = a2[1];
+  if (*a2 != v6)
   {
     do
     {
-      v6 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>(v16, v4);
-      if (v6)
+      v7 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>(v17, v5);
+      if (v7)
       {
-        v7 = v6[5];
-        v15[0] = v4 + 3;
-        std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v16, v4 + 3)[5] = v7;
-        std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::__erase_unique<std::string>(v16, v4);
+        v8 = v7[5];
+        v16[0] = v5 + 3;
+        std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v17, v5 + 3, &std::piecewise_construct, v16, &v19)[5] = v8;
+        std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::__erase_unique<std::string>(v17, v5);
       }
 
-      v4 += 6;
+      v5 += 6;
     }
 
-    while (v4 != v5);
+    while (v5 != v6);
   }
 
-  std::unordered_map<std::string,std::shared_ptr<MIL::IRValue const>>::unordered_map(v15, a1 + 56);
-  v8 = *a2;
-  v9 = a2[1];
-  if (*a2 != v9)
+  std::unordered_map<std::string,std::shared_ptr<MIL::IRValue const>>::unordered_map(v16, a1 + 56);
+  v9 = *a2;
+  v10 = a2[1];
+  if (*a2 != v10)
   {
     do
     {
-      v10 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>(v15, v8);
-      if (v10)
+      v11 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>(v16, v9);
+      if (v11)
       {
-        v16[6] = v8 + 3;
-        v11 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v15, v8 + 3);
-        v13 = v10[5];
-        v12 = v10[6];
-        if (v12)
+        v19 = v9 + 3;
+        v12 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v16, v9 + 3, &std::piecewise_construct, &v19, &v18);
+        v14 = v11[5];
+        v13 = v11[6];
+        if (v13)
         {
-          atomic_fetch_add_explicit(v12 + 1, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(v13 + 1, 1uLL, memory_order_relaxed);
         }
 
-        v14 = v11[6];
-        v11[5] = v13;
-        v11[6] = v12;
-        if (v14)
+        v15 = v12[6];
+        v12[5] = v14;
+        v12[6] = v13;
+        if (v15)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v14);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v15);
         }
 
-        std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__erase_unique<std::string>(v15, v8);
+        std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__erase_unique<std::string>(v16, v9);
       }
 
-      v8 += 6;
+      v9 += 6;
     }
 
-    while (v8 != v9);
+    while (v9 != v10);
   }
 
   operator new();
 }
 
-void sub_217FAC370(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14)
+void sub_217FAC370(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14)
 {
   std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::~__hash_table(&a9);
   std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(&a14);
   _Unwind_Resume(a1);
 }
 
-const void **anonymous namespace::IRScopeImpl::RemoveTypeAndValue(uint64_t a1, const void **a2)
+const void **anonymous namespace::IRScopeImpl::RemoveTypeAndValue(uint64_t a1, uint64_t *a2)
 {
   std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::__erase_unique<std::string>((a1 + 16), a2);
 
   return std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__erase_unique<std::string>((a1 + 56), a2);
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v7 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v8 = v7;
+  v9 = a1[1];
+  if (!*&v9)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v10 = vcnt_s8(v9);
+  v10.i16[0] = vaddlv_u8(v10);
+  v11 = v10.u32[0];
+  if (v10.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v12 = v7;
+    if (v7 >= *&v9)
     {
-      v9 = v4 % *&v6;
+      v12 = v7 % *&v9;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v12 = (*&v9 - 1) & v7;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v13 = *(*a1 + 8 * v12);
+  if (!v13 || (v14 = *v13) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::__construct_node_hash<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
@@ -3768,44 +3835,44 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v15 = v14[1];
+    if (v15 == v8)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v11 > 1)
     {
-      if (v12 >= *&v6)
+      if (v15 >= *&v9)
       {
-        v12 %= *&v6;
+        v15 %= *&v9;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v15 &= *&v9 - 1;
     }
 
-    if (v12 != v9)
+    if (v15 != v12)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v14 = *v14;
+    if (!v14)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v14 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v14;
 }
 
 void sub_217FAC66C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **__p, uint64_t a11)
@@ -3833,41 +3900,41 @@ uint64_t std::unordered_map<std::string,MIL::IRValueType const*>::unordered_map(
   std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__rehash<true>(a1, *(a2 + 8));
   for (i = *(a2 + 16); i; i = *i)
   {
-    std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,MIL::IRValueType const*> const&>(a1, i + 2);
+    std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,MIL::IRValueType const*> const&>(a1, i + 2, (i + 2));
   }
 
   return a1;
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,MIL::IRValueType const*> const&>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,MIL::IRValueType const*> const&>(void *a1, uint64_t *a2, uint64_t a3)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::__construct_node_hash<std::pair<std::string const,MIL::IRValueType const*> const&>();
@@ -3875,44 +3942,44 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v12 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
 void sub_217FACA04(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **__p, uint64_t a11)
@@ -3932,7 +3999,7 @@ void sub_217FACACC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::__erase_unique<std::string>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::__erase_unique<std::string>(void *a1, uint64_t *a2)
 {
   result = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>(a1, a2);
   if (result)
@@ -3970,8 +4037,8 @@ uint64_t std::__shared_ptr_pointer<anonymous namespace::IRScopeImpl  *>::__on_ze
   v1 = *(result + 24);
   if (v1)
   {
-    std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::~__hash_table(v1 + 56);
-    std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(v1 + 16);
+    std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::~__hash_table((v1 + 7));
+    std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(v1 + 2);
     MIL::IRValueQueryable::~IRValueQueryable(v1);
 
     JUMPOUT(0x21CEAFEA0);
@@ -4493,7 +4560,7 @@ void MIL::IRValue::GetScalar<std::string>(const void *a1@<X0>, std::string *a2@<
   }
 }
 
-uint64_t *anonymous namespace::TryGetDataViewHelper<BOOL>@<X0>(uint64_t *result@<X0>, uint64_t a2@<X8>)
+void *anonymous namespace::TryGetDataViewHelper<BOOL>@<X0>(void *result@<X0>, uint64_t a2@<X8>)
 {
   {
     result = MIL::IRValueContiguousData<unsigned char>::GetView(result[2]);
@@ -4654,7 +4721,7 @@ LABEL_18:
   *(a2 + 16) = v6;
 }
 
-uint64_t anonymous namespace::TryGetDataViewHelper<unsigned short>@<X0>(uint64_t *lpsrc@<X0>, uint64_t a2@<X8>)
+void *anonymous namespace::TryGetDataViewHelper<unsigned short>@<X0>(void *lpsrc@<X0>, uint64_t a2@<X8>)
 {
   {
     result = MIL::IRValueContiguousData<unsigned short>::GetView(v4[2]);
@@ -4709,7 +4776,7 @@ uint64_t anonymous namespace::TryGetDataViewHelper<unsigned short>@<X0>(uint64_t
   return result;
 }
 
-uint64_t *anonymous namespace::TryGetDataViewHelper<unsigned int>@<X0>(uint64_t *result@<X0>, uint64_t a2@<X8>)
+void *anonymous namespace::TryGetDataViewHelper<unsigned int>@<X0>(void *result@<X0>, uint64_t a2@<X8>)
 {
   {
     result = MIL::IRValueContiguousData<unsigned int>::GetView(result[2]);
@@ -4738,7 +4805,7 @@ uint64_t *anonymous namespace::TryGetDataViewHelper<unsigned int>@<X0>(uint64_t 
   return result;
 }
 
-uint64_t *anonymous namespace::TryGetDataViewHelper<unsigned long long>@<X0>(uint64_t *result@<X0>, uint64_t a2@<X8>)
+void *anonymous namespace::TryGetDataViewHelper<unsigned long long>@<X0>(void *result@<X0>, uint64_t a2@<X8>)
 {
   {
     result = MIL::IRValueContiguousData<unsigned long long>::GetView(result[2]);
@@ -4767,7 +4834,7 @@ uint64_t *anonymous namespace::TryGetDataViewHelper<unsigned long long>@<X0>(uin
   return result;
 }
 
-uint64_t *anonymous namespace::TryGetDataViewHelper<signed char>@<X0>(uint64_t *result@<X0>, uint64_t a2@<X8>)
+void *anonymous namespace::TryGetDataViewHelper<signed char>@<X0>(void *result@<X0>, uint64_t a2@<X8>)
 {
   {
     result = MIL::IRValueContiguousData<signed char>::GetView(result[2]);
@@ -4796,7 +4863,7 @@ uint64_t *anonymous namespace::TryGetDataViewHelper<signed char>@<X0>(uint64_t *
   return result;
 }
 
-uint64_t *anonymous namespace::TryGetDataViewHelper<short>@<X0>(uint64_t *result@<X0>, uint64_t a2@<X8>)
+void *anonymous namespace::TryGetDataViewHelper<short>@<X0>(void *result@<X0>, uint64_t a2@<X8>)
 {
   {
     result = MIL::IRValueContiguousData<short>::GetView(result[2]);
@@ -4825,7 +4892,7 @@ uint64_t *anonymous namespace::TryGetDataViewHelper<short>@<X0>(uint64_t *result
   return result;
 }
 
-uint64_t *anonymous namespace::TryGetDataViewHelper<int>@<X0>(uint64_t *result@<X0>, uint64_t a2@<X8>)
+void *anonymous namespace::TryGetDataViewHelper<int>@<X0>(void *result@<X0>, uint64_t a2@<X8>)
 {
   {
     result = MIL::IRValueContiguousData<int>::GetView(result[2]);
@@ -4854,7 +4921,7 @@ uint64_t *anonymous namespace::TryGetDataViewHelper<int>@<X0>(uint64_t *result@<
   return result;
 }
 
-uint64_t *anonymous namespace::TryGetDataViewHelper<long long>@<X0>(uint64_t *result@<X0>, uint64_t a2@<X8>)
+void *anonymous namespace::TryGetDataViewHelper<long long>@<X0>(void *result@<X0>, uint64_t a2@<X8>)
 {
   {
     result = MIL::IRValueContiguousData<long long>::GetView(result[2]);
@@ -4883,7 +4950,7 @@ uint64_t *anonymous namespace::TryGetDataViewHelper<long long>@<X0>(uint64_t *re
   return result;
 }
 
-uint64_t *anonymous namespace::TryGetDataViewHelper<MIL::Fp8E5M2>@<X0>(uint64_t *result@<X0>, uint64_t a2@<X8>)
+void *anonymous namespace::TryGetDataViewHelper<MIL::Fp8E5M2>@<X0>(void *result@<X0>, uint64_t a2@<X8>)
 {
   {
     result = MIL::IRValueContiguousData<MIL::Fp8E5M2>::GetView(result[2]);
@@ -4912,7 +4979,7 @@ uint64_t *anonymous namespace::TryGetDataViewHelper<MIL::Fp8E5M2>@<X0>(uint64_t 
   return result;
 }
 
-uint64_t *anonymous namespace::TryGetDataViewHelper<MIL::Fp8E4M3FN>@<X0>(uint64_t *result@<X0>, uint64_t a2@<X8>)
+void *anonymous namespace::TryGetDataViewHelper<MIL::Fp8E4M3FN>@<X0>(void *result@<X0>, uint64_t a2@<X8>)
 {
   {
     result = MIL::IRValueContiguousData<MIL::Fp8E4M3FN>::GetView(result[2]);
@@ -4941,7 +5008,7 @@ uint64_t *anonymous namespace::TryGetDataViewHelper<MIL::Fp8E4M3FN>@<X0>(uint64_
   return result;
 }
 
-uint64_t *anonymous namespace::TryGetDataViewHelper<MIL::Bf16>@<X0>(uint64_t *result@<X0>, uint64_t a2@<X8>)
+void *anonymous namespace::TryGetDataViewHelper<MIL::Bf16>@<X0>(void *result@<X0>, uint64_t a2@<X8>)
 {
   {
     result = MIL::IRValueContiguousData<MIL::Bf16>::GetView(result[2]);
@@ -4970,7 +5037,7 @@ uint64_t *anonymous namespace::TryGetDataViewHelper<MIL::Bf16>@<X0>(uint64_t *re
   return result;
 }
 
-uint64_t *anonymous namespace::TryGetDataViewHelper<MIL::Fp16>@<X0>(uint64_t *result@<X0>, uint64_t a2@<X8>)
+void *anonymous namespace::TryGetDataViewHelper<MIL::Fp16>@<X0>(void *result@<X0>, uint64_t a2@<X8>)
 {
   {
     result = MIL::IRValueContiguousData<MIL::Fp16>::GetView(result[2]);
@@ -4999,7 +5066,7 @@ uint64_t *anonymous namespace::TryGetDataViewHelper<MIL::Fp16>@<X0>(uint64_t *re
   return result;
 }
 
-uint64_t *anonymous namespace::TryGetDataViewHelper<float>@<X0>(uint64_t *result@<X0>, uint64_t a2@<X8>)
+void *anonymous namespace::TryGetDataViewHelper<float>@<X0>(void *result@<X0>, uint64_t a2@<X8>)
 {
   {
     result = MIL::IRValueContiguousData<float>::GetView(result[2]);
@@ -5028,7 +5095,7 @@ uint64_t *anonymous namespace::TryGetDataViewHelper<float>@<X0>(uint64_t *result
   return result;
 }
 
-uint64_t *anonymous namespace::TryGetDataViewHelper<double>@<X0>(uint64_t *result@<X0>, uint64_t a2@<X8>)
+void *anonymous namespace::TryGetDataViewHelper<double>@<X0>(void *result@<X0>, uint64_t a2@<X8>)
 {
   {
     result = MIL::IRValueContiguousData<double>::GetView(result[2]);
@@ -5057,7 +5124,7 @@ uint64_t *anonymous namespace::TryGetDataViewHelper<double>@<X0>(uint64_t *resul
   return result;
 }
 
-uint64_t *anonymous namespace::TryGetDataViewHelper<std::string>@<X0>(uint64_t *result@<X0>, uint64_t a2@<X8>)
+void *anonymous namespace::TryGetDataViewHelper<std::string>@<X0>(void *result@<X0>, uint64_t a2@<X8>)
 {
   {
     result = MIL::IRValueContiguousData<std::string>::GetView(result[2]);
@@ -5086,7 +5153,7 @@ uint64_t *anonymous namespace::TryGetDataViewHelper<std::string>@<X0>(uint64_t *
   return result;
 }
 
-void anonymous namespace::TryGetDataViewHelper<MIL::Int4>(const void *a1@<X0>, uint64_t a2@<X8>)
+void anonymous namespace::TryGetDataViewHelper<MIL::Int4>(void *result@<X0>, uint64_t a2@<X8>)
 {
   {
     MIL::IRTypedTensorValue<MIL::Int4>::GetValues(v3);
@@ -5103,7 +5170,7 @@ void anonymous namespace::TryGetDataViewHelper<MIL::Int4>(const void *a1@<X0>, u
   }
 }
 
-void anonymous namespace::TryGetDataViewHelper<MIL::UInt6>(const void *a1@<X0>, uint64_t a2@<X8>)
+void anonymous namespace::TryGetDataViewHelper<MIL::UInt6>(void *result@<X0>, uint64_t a2@<X8>)
 {
   {
     MIL::IRTypedTensorValue<MIL::UInt6>::GetValues(v3);
@@ -5120,7 +5187,7 @@ void anonymous namespace::TryGetDataViewHelper<MIL::UInt6>(const void *a1@<X0>, 
   }
 }
 
-void anonymous namespace::TryGetDataViewHelper<MIL::UInt4>(const void *a1@<X0>, uint64_t a2@<X8>)
+void anonymous namespace::TryGetDataViewHelper<MIL::UInt4>(void *result@<X0>, uint64_t a2@<X8>)
 {
   {
     MIL::IRTypedTensorValue<MIL::UInt4>::GetValues(v3);
@@ -5137,7 +5204,7 @@ void anonymous namespace::TryGetDataViewHelper<MIL::UInt4>(const void *a1@<X0>, 
   }
 }
 
-void anonymous namespace::TryGetDataViewHelper<MIL::UInt3>(const void *a1@<X0>, uint64_t a2@<X8>)
+void anonymous namespace::TryGetDataViewHelper<MIL::UInt3>(void *result@<X0>, uint64_t a2@<X8>)
 {
   {
     MIL::IRTypedTensorValue<MIL::UInt3>::GetValues(v3);
@@ -5154,7 +5221,7 @@ void anonymous namespace::TryGetDataViewHelper<MIL::UInt3>(const void *a1@<X0>, 
   }
 }
 
-void anonymous namespace::TryGetDataViewHelper<MIL::UInt2>(const void *a1@<X0>, uint64_t a2@<X8>)
+void anonymous namespace::TryGetDataViewHelper<MIL::UInt2>(void *result@<X0>, uint64_t a2@<X8>)
 {
   {
     MIL::IRTypedTensorValue<MIL::UInt2>::GetValues(v3);
@@ -5171,7 +5238,7 @@ void anonymous namespace::TryGetDataViewHelper<MIL::UInt2>(const void *a1@<X0>, 
   }
 }
 
-void anonymous namespace::TryGetDataViewHelper<MIL::UInt1>(const void *a1@<X0>, uint64_t a2@<X8>)
+void anonymous namespace::TryGetDataViewHelper<MIL::UInt1>(void *result@<X0>, uint64_t a2@<X8>)
 {
   {
     MIL::IRTypedTensorValue<MIL::UInt1>::GetValues(v3);
@@ -5188,7 +5255,7 @@ void anonymous namespace::TryGetDataViewHelper<MIL::UInt1>(const void *a1@<X0>, 
   }
 }
 
-uint64_t MIL::IRTensorValue::GetDataView<BOOL>(uint64_t *a1)
+uint64_t MIL::IRTensorValue::GetDataView<BOOL>(void *a1)
 {
   if ((v4[0] & 1) == 0)
   {
@@ -5212,7 +5279,7 @@ uint64_t MIL::IRTensorValue::GetDataView<unsigned char>(void *a1)
   return v5;
 }
 
-uint64_t MIL::IRTensorValue::GetDataView<unsigned short>(uint64_t *a1)
+uint64_t MIL::IRTensorValue::GetDataView<unsigned short>(void *a1)
 {
   if ((v4[0] & 1) == 0)
   {
@@ -5224,7 +5291,7 @@ uint64_t MIL::IRTensorValue::GetDataView<unsigned short>(uint64_t *a1)
   return v5;
 }
 
-uint64_t MIL::IRTensorValue::GetDataView<unsigned int>(uint64_t *a1)
+uint64_t MIL::IRTensorValue::GetDataView<unsigned int>(void *a1)
 {
   if ((v4[0] & 1) == 0)
   {
@@ -5236,7 +5303,7 @@ uint64_t MIL::IRTensorValue::GetDataView<unsigned int>(uint64_t *a1)
   return v5;
 }
 
-uint64_t MIL::IRTensorValue::GetDataView<unsigned long long>(uint64_t *a1)
+uint64_t MIL::IRTensorValue::GetDataView<unsigned long long>(void *a1)
 {
   if ((v4[0] & 1) == 0)
   {
@@ -5248,7 +5315,7 @@ uint64_t MIL::IRTensorValue::GetDataView<unsigned long long>(uint64_t *a1)
   return v5;
 }
 
-uint64_t MIL::IRTensorValue::GetDataView<signed char>(uint64_t *a1)
+uint64_t MIL::IRTensorValue::GetDataView<signed char>(void *a1)
 {
   if ((v4[0] & 1) == 0)
   {
@@ -5260,7 +5327,7 @@ uint64_t MIL::IRTensorValue::GetDataView<signed char>(uint64_t *a1)
   return v5;
 }
 
-uint64_t MIL::IRTensorValue::GetDataView<short>(uint64_t *a1)
+uint64_t MIL::IRTensorValue::GetDataView<short>(void *a1)
 {
   if ((v4[0] & 1) == 0)
   {
@@ -5272,7 +5339,7 @@ uint64_t MIL::IRTensorValue::GetDataView<short>(uint64_t *a1)
   return v5;
 }
 
-uint64_t MIL::IRTensorValue::GetDataView<int>(uint64_t *a1)
+uint64_t MIL::IRTensorValue::GetDataView<int>(void *a1)
 {
   if ((v4[0] & 1) == 0)
   {
@@ -5284,7 +5351,7 @@ uint64_t MIL::IRTensorValue::GetDataView<int>(uint64_t *a1)
   return v5;
 }
 
-uint64_t MIL::IRTensorValue::GetDataView<long long>(uint64_t *a1)
+uint64_t MIL::IRTensorValue::GetDataView<long long>(void *a1)
 {
   if ((v4[0] & 1) == 0)
   {
@@ -5296,7 +5363,7 @@ uint64_t MIL::IRTensorValue::GetDataView<long long>(uint64_t *a1)
   return v5;
 }
 
-uint64_t MIL::IRTensorValue::GetDataView<MIL::Fp8E5M2>(uint64_t *a1)
+uint64_t MIL::IRTensorValue::GetDataView<MIL::Fp8E5M2>(void *a1)
 {
   if ((v4[0] & 1) == 0)
   {
@@ -5308,7 +5375,7 @@ uint64_t MIL::IRTensorValue::GetDataView<MIL::Fp8E5M2>(uint64_t *a1)
   return v5;
 }
 
-uint64_t MIL::IRTensorValue::GetDataView<MIL::Fp8E4M3FN>(uint64_t *a1)
+uint64_t MIL::IRTensorValue::GetDataView<MIL::Fp8E4M3FN>(void *a1)
 {
   if ((v4[0] & 1) == 0)
   {
@@ -5320,7 +5387,7 @@ uint64_t MIL::IRTensorValue::GetDataView<MIL::Fp8E4M3FN>(uint64_t *a1)
   return v5;
 }
 
-uint64_t MIL::IRTensorValue::GetDataView<MIL::Bf16>(uint64_t *a1)
+uint64_t MIL::IRTensorValue::GetDataView<MIL::Bf16>(void *a1)
 {
   if ((v4[0] & 1) == 0)
   {
@@ -5332,7 +5399,7 @@ uint64_t MIL::IRTensorValue::GetDataView<MIL::Bf16>(uint64_t *a1)
   return v5;
 }
 
-uint64_t MIL::IRTensorValue::GetDataView<MIL::Fp16>(uint64_t *a1)
+uint64_t MIL::IRTensorValue::GetDataView<MIL::Fp16>(void *a1)
 {
   if ((v4[0] & 1) == 0)
   {
@@ -5344,7 +5411,7 @@ uint64_t MIL::IRTensorValue::GetDataView<MIL::Fp16>(uint64_t *a1)
   return v5;
 }
 
-uint64_t MIL::IRTensorValue::GetDataView<float>(uint64_t *a1)
+uint64_t MIL::IRTensorValue::GetDataView<float>(void *a1)
 {
   if ((v4[0] & 1) == 0)
   {
@@ -5356,7 +5423,7 @@ uint64_t MIL::IRTensorValue::GetDataView<float>(uint64_t *a1)
   return v5;
 }
 
-uint64_t MIL::IRTensorValue::GetDataView<double>(uint64_t *a1)
+uint64_t MIL::IRTensorValue::GetDataView<double>(void *a1)
 {
   if ((v4[0] & 1) == 0)
   {
@@ -5368,7 +5435,7 @@ uint64_t MIL::IRTensorValue::GetDataView<double>(uint64_t *a1)
   return v5;
 }
 
-uint64_t MIL::IRTensorValue::GetDataView<std::string>(uint64_t *a1)
+uint64_t MIL::IRTensorValue::GetDataView<std::string>(void *a1)
 {
   if ((v4[0] & 1) == 0)
   {
@@ -5380,7 +5447,7 @@ uint64_t MIL::IRTensorValue::GetDataView<std::string>(uint64_t *a1)
   return v5;
 }
 
-uint64_t MIL::IRTensorValue::GetDataView<MIL::Int4>(const void *a1)
+uint64_t MIL::IRTensorValue::GetDataView<MIL::Int4>(void *a1)
 {
   if ((v4[0] & 1) == 0)
   {
@@ -5392,7 +5459,7 @@ uint64_t MIL::IRTensorValue::GetDataView<MIL::Int4>(const void *a1)
   return v5;
 }
 
-uint64_t MIL::IRTensorValue::GetDataView<MIL::UInt6>(const void *a1)
+uint64_t MIL::IRTensorValue::GetDataView<MIL::UInt6>(void *a1)
 {
   if ((v4[0] & 1) == 0)
   {
@@ -5404,7 +5471,7 @@ uint64_t MIL::IRTensorValue::GetDataView<MIL::UInt6>(const void *a1)
   return v5;
 }
 
-uint64_t MIL::IRTensorValue::GetDataView<MIL::UInt4>(const void *a1)
+uint64_t MIL::IRTensorValue::GetDataView<MIL::UInt4>(void *a1)
 {
   if ((v4[0] & 1) == 0)
   {
@@ -5416,7 +5483,7 @@ uint64_t MIL::IRTensorValue::GetDataView<MIL::UInt4>(const void *a1)
   return v5;
 }
 
-uint64_t MIL::IRTensorValue::GetDataView<MIL::UInt3>(const void *a1)
+uint64_t MIL::IRTensorValue::GetDataView<MIL::UInt3>(void *a1)
 {
   if ((v4[0] & 1) == 0)
   {
@@ -5428,7 +5495,7 @@ uint64_t MIL::IRTensorValue::GetDataView<MIL::UInt3>(const void *a1)
   return v5;
 }
 
-uint64_t MIL::IRTensorValue::GetDataView<MIL::UInt2>(const void *a1)
+uint64_t MIL::IRTensorValue::GetDataView<MIL::UInt2>(void *a1)
 {
   if ((v4[0] & 1) == 0)
   {
@@ -5440,7 +5507,7 @@ uint64_t MIL::IRTensorValue::GetDataView<MIL::UInt2>(const void *a1)
   return v5;
 }
 
-uint64_t MIL::IRTensorValue::GetDataView<MIL::UInt1>(const void *a1)
+uint64_t MIL::IRTensorValue::GetDataView<MIL::UInt1>(void *a1)
 {
   if ((v4[0] & 1) == 0)
   {
@@ -5883,23 +5950,6 @@ void MIL::IRTypedTensorValue<BOOL>::~IRTypedTensorValue(uint64_t a1)
   JUMPOUT(0x21CEAFEA0);
 }
 
-void MIL::IRTypedTensorValue<BOOL>::IRTypedTensorValue()
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
 void sub_217FB00E8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
@@ -5956,6 +6006,15 @@ void sub_217FB0304(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   }
 
   _Unwind_Resume(exception_object);
+}
+
+void MIL::IRTypedTensorValue<BOOL>::IRTypedTensorValue(void *a1, uint64_t a2, uint64_t a3)
+{
+  operator new();
+}
+
+{
+  operator new();
 }
 
 void sub_217FB03EC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
@@ -6263,23 +6322,6 @@ void MIL::IRTypedTensorValue<std::string>::~IRTypedTensorValue(uint64_t a1)
   JUMPOUT(0x21CEAFEA0);
 }
 
-void MIL::IRTypedTensorValue<std::string>::IRTypedTensorValue()
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
 void sub_217FB0CD0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
@@ -6336,6 +6378,15 @@ void sub_217FB0EEC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   }
 
   _Unwind_Resume(exception_object);
+}
+
+void MIL::IRTypedTensorValue<std::string>::IRTypedTensorValue(void *a1, uint64_t a2, uint64_t a3)
+{
+  operator new();
+}
+
+{
+  operator new();
 }
 
 void sub_217FB0FD4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
@@ -6605,7 +6656,7 @@ unint64_t MIL::IRTypedTensorValue<std::string>::GetHash(uint64_t a1)
     {
       v10 = std::__string_hash<char>::operator()[abi:ne200100](&v12, v8);
       MIL::Util::HashCombine(&v13, v10);
-      v8 += 24;
+      v8 += 3;
       v9 -= 24;
     }
 
@@ -6728,23 +6779,6 @@ void MIL::IRTypedTensorValue<MIL::Bf16>::~IRTypedTensorValue(uint64_t a1)
   JUMPOUT(0x21CEAFEA0);
 }
 
-void MIL::IRTypedTensorValue<MIL::Bf16>::IRTypedTensorValue()
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
 void sub_217FB1A34(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
@@ -6801,6 +6835,15 @@ void sub_217FB1C50(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   }
 
   _Unwind_Resume(exception_object);
+}
+
+void MIL::IRTypedTensorValue<MIL::Bf16>::IRTypedTensorValue(void *a1, uint64_t a2, uint64_t a3)
+{
+  operator new();
+}
+
+{
+  operator new();
 }
 
 void sub_217FB1D38(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
@@ -7108,23 +7151,6 @@ void MIL::IRTypedTensorValue<MIL::Fp16>::~IRTypedTensorValue(uint64_t a1)
   JUMPOUT(0x21CEAFEA0);
 }
 
-void MIL::IRTypedTensorValue<MIL::Fp16>::IRTypedTensorValue()
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
 void sub_217FB2608(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
@@ -7181,6 +7207,15 @@ void sub_217FB2824(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   }
 
   _Unwind_Resume(exception_object);
+}
+
+void MIL::IRTypedTensorValue<MIL::Fp16>::IRTypedTensorValue(void *a1, uint64_t a2, uint64_t a3)
+{
+  operator new();
+}
+
+{
+  operator new();
 }
 
 void sub_217FB290C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
@@ -7488,23 +7523,6 @@ void MIL::IRTypedTensorValue<MIL::Fp8E5M2>::~IRTypedTensorValue(uint64_t a1)
   JUMPOUT(0x21CEAFEA0);
 }
 
-void MIL::IRTypedTensorValue<MIL::Fp8E5M2>::IRTypedTensorValue()
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
 void sub_217FB31DC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
@@ -7561,6 +7579,15 @@ void sub_217FB33F8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   }
 
   _Unwind_Resume(exception_object);
+}
+
+void MIL::IRTypedTensorValue<MIL::Fp8E5M2>::IRTypedTensorValue(void *a1, uint64_t a2, uint64_t a3)
+{
+  operator new();
+}
+
+{
+  operator new();
 }
 
 void sub_217FB34E0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
@@ -7869,23 +7896,6 @@ void MIL::IRTypedTensorValue<MIL::Fp8E4M3FN>::~IRTypedTensorValue(uint64_t a1)
   JUMPOUT(0x21CEAFEA0);
 }
 
-void MIL::IRTypedTensorValue<MIL::Fp8E4M3FN>::IRTypedTensorValue()
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
 void sub_217FB3E40(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
@@ -7942,6 +7952,15 @@ void sub_217FB405C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   }
 
   _Unwind_Resume(exception_object);
+}
+
+void MIL::IRTypedTensorValue<MIL::Fp8E4M3FN>::IRTypedTensorValue(void *a1, uint64_t a2, uint64_t a3)
+{
+  operator new();
+}
+
+{
+  operator new();
 }
 
 void sub_217FB4144(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
@@ -8250,23 +8269,6 @@ void MIL::IRTypedTensorValue<float>::~IRTypedTensorValue(uint64_t a1)
   JUMPOUT(0x21CEAFEA0);
 }
 
-void MIL::IRTypedTensorValue<float>::IRTypedTensorValue()
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
 void sub_217FB4AA4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
@@ -8323,6 +8325,15 @@ void sub_217FB4CC0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   }
 
   _Unwind_Resume(exception_object);
+}
+
+void MIL::IRTypedTensorValue<float>::IRTypedTensorValue(void *a1, uint64_t a2, uint64_t a3)
+{
+  operator new();
+}
+
+{
+  operator new();
 }
 
 void sub_217FB4DA8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
@@ -8641,23 +8652,6 @@ void MIL::IRTypedTensorValue<double>::~IRTypedTensorValue(uint64_t a1)
   JUMPOUT(0x21CEAFEA0);
 }
 
-void MIL::IRTypedTensorValue<double>::IRTypedTensorValue()
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
 void sub_217FB5684(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
@@ -8714,6 +8708,15 @@ void sub_217FB58A0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   }
 
   _Unwind_Resume(exception_object);
+}
+
+void MIL::IRTypedTensorValue<double>::IRTypedTensorValue(void *a1, uint64_t a2, uint64_t a3)
+{
+  operator new();
+}
+
+{
+  operator new();
 }
 
 void sub_217FB5988(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
@@ -9021,23 +9024,6 @@ void MIL::IRTypedTensorValue<MIL::Int4>::~IRTypedTensorValue(uint64_t a1)
   JUMPOUT(0x21CEAFEA0);
 }
 
-void MIL::IRTypedTensorValue<MIL::Int4>::IRTypedTensorValue()
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
 void sub_217FB6210(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
@@ -9094,6 +9080,15 @@ void sub_217FB642C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   }
 
   _Unwind_Resume(exception_object);
+}
+
+void MIL::IRTypedTensorValue<MIL::Int4>::IRTypedTensorValue(void *a1, uint64_t a2, uint64_t a3)
+{
+  operator new();
+}
+
+{
+  operator new();
 }
 
 void sub_217FB6514(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
@@ -9292,23 +9287,6 @@ void MIL::IRTypedTensorValue<signed char>::~IRTypedTensorValue(uint64_t a1)
   JUMPOUT(0x21CEAFEA0);
 }
 
-void MIL::IRTypedTensorValue<signed char>::IRTypedTensorValue()
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
 void sub_217FB6C50(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
@@ -9365,6 +9343,15 @@ void sub_217FB6E6C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   }
 
   _Unwind_Resume(exception_object);
+}
+
+void MIL::IRTypedTensorValue<signed char>::IRTypedTensorValue(void *a1, uint64_t a2, uint64_t a3)
+{
+  operator new();
+}
+
+{
+  operator new();
 }
 
 void sub_217FB6F54(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
@@ -9672,23 +9659,6 @@ void MIL::IRTypedTensorValue<short>::~IRTypedTensorValue(uint64_t a1)
   JUMPOUT(0x21CEAFEA0);
 }
 
-void MIL::IRTypedTensorValue<short>::IRTypedTensorValue()
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
 void sub_217FB7830(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
@@ -9745,6 +9715,15 @@ void sub_217FB7A4C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   }
 
   _Unwind_Resume(exception_object);
+}
+
+void MIL::IRTypedTensorValue<short>::IRTypedTensorValue(void *a1, uint64_t a2, uint64_t a3)
+{
+  operator new();
+}
+
+{
+  operator new();
 }
 
 void sub_217FB7B34(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
@@ -9894,4 +9873,14 @@ LABEL_27:
 
   while (v21 == v22);
   return v20 >= v7;
+}
+
+void sub_217FB7E48(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
+{
+  if (a17 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
 }

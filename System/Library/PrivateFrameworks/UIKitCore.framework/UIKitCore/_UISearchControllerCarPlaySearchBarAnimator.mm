@@ -430,7 +430,7 @@
     v7 = view;
     if (view)
     {
-      [view transform];
+      objc_msgSend_transform(view);
     }
 
     else

@@ -32,7 +32,7 @@ void __48___UICoreMediaOverridePIDManager_sharedInstance__block_invoke()
 
 void __76___UICoreMediaOverridePIDManager_acquireOverrideAssertionWithPID_forReason___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v2 = *(a1 + 32);
   if (WeakRetained)
@@ -40,28 +40,28 @@ void __76___UICoreMediaOverridePIDManager_acquireOverrideAssertionWithPID_forRea
     BSDispatchQueueAssertMain();
     if (!v2)
     {
-      v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"token"];
+      v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"token"];
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v4 = NSStringFromSelector(sel_invalidateAssertionToken_);
-        v5 = objc_opt_class();
-        v6 = NSStringFromClass(v5);
+        v5 = NSStringFromSelector(sel_invalidateAssertionToken_);
+        v6 = objc_opt_class();
+        v7 = NSStringFromClass(v6);
         *buf = 138544642;
-        v13 = v4;
-        v14 = 2114;
-        v15 = v6;
-        v16 = 2048;
-        v17 = WeakRetained;
-        v18 = 2114;
-        v19 = @"_UICoreMediaOverridePIDManager.m";
-        v20 = 1024;
-        v21 = 68;
-        v22 = 2114;
-        v23 = v3;
+        v14 = v5;
+        v15 = 2114;
+        v16 = v7;
+        v17 = 2048;
+        v18 = WeakRetained;
+        v19 = 2114;
+        v20 = @"_UICoreMediaOverridePIDManager.m";
+        v21 = 1024;
+        v22 = 68;
+        v23 = 2114;
+        v24 = v4;
         _os_log_error_impl(&dword_188A29000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      [v3 UTF8String];
+      [v4 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x189621658);
@@ -69,28 +69,28 @@ void __76___UICoreMediaOverridePIDManager_acquireOverrideAssertionWithPID_forRea
 
     if (([WeakRetained[2] containsObject:v2] & 1) == 0)
     {
-      v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Can not invalidate assertion token %@ that is not being tracked", v2];
+      v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Can not invalidate assertion token %@ that is not being tracked", v2];
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v8 = NSStringFromSelector(sel_invalidateAssertionToken_);
-        v9 = objc_opt_class();
-        v10 = NSStringFromClass(v9);
+        v9 = NSStringFromSelector(sel_invalidateAssertionToken_);
+        v10 = objc_opt_class();
+        v11 = NSStringFromClass(v10);
         *buf = 138544642;
-        v13 = v8;
-        v14 = 2114;
-        v15 = v10;
-        v16 = 2048;
-        v17 = WeakRetained;
-        v18 = 2114;
-        v19 = @"_UICoreMediaOverridePIDManager.m";
-        v20 = 1024;
-        v21 = 69;
-        v22 = 2114;
-        v23 = v7;
+        v14 = v9;
+        v15 = 2114;
+        v16 = v11;
+        v17 = 2048;
+        v18 = WeakRetained;
+        v19 = 2114;
+        v20 = @"_UICoreMediaOverridePIDManager.m";
+        v21 = 1024;
+        v22 = 69;
+        v23 = 2114;
+        v24 = v8;
         _os_log_error_impl(&dword_188A29000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      [v7 UTF8String];
+      [v8 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x18962174CLL);

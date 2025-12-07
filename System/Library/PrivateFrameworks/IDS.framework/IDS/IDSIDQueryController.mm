@@ -200,75 +200,72 @@
 
 - (void)addListenerID:(id)d forService:(id)service
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   dCopy = d;
   serviceCopy = service;
   v8 = +[IDSLogging IDQuery];
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v17 = dCopy;
-    v18 = 2112;
-    v19 = serviceCopy;
+    v16 = dCopy;
+    v17 = 2112;
+    v18 = serviceCopy;
     _os_log_impl(&dword_1959FF000, v8, OS_LOG_TYPE_DEFAULT, "Adding listener ID: %@   for service: %@", buf, 0x16u);
   }
 
   queueController = self->_queueController;
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = sub_195B10418;
-  v13[3] = &unk_1E743E620;
-  v13[4] = self;
-  v14 = dCopy;
-  v15 = serviceCopy;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = sub_195B10418;
+  v12[3] = &unk_1E743E620;
+  v12[4] = self;
+  v13 = dCopy;
+  v14 = serviceCopy;
   v10 = serviceCopy;
   v11 = dCopy;
-  [(IDSInternalQueueController *)queueController performBlock:v13 waitUntilDone:1];
-
-  v12 = *MEMORY[0x1E69E9840];
+  [(IDSInternalQueueController *)queueController performBlock:v12 waitUntilDone:1];
 }
 
 - (BOOL)removeListenerID:(id)d forService:(id)service
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   dCopy = d;
   serviceCopy = service;
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x2020000000;
-  v22 = 0;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x2020000000;
+  v21 = 0;
   v8 = +[IDSLogging IDQuery];
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v24 = dCopy;
-    v25 = 2112;
-    v26 = serviceCopy;
+    v23 = dCopy;
+    v24 = 2112;
+    v25 = serviceCopy;
     _os_log_impl(&dword_1959FF000, v8, OS_LOG_TYPE_DEFAULT, "Removing listener ID: %@   for service: %@", buf, 0x16u);
   }
 
   queueController = self->_queueController;
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = sub_195B105E8;
-  v15[3] = &unk_1E743F648;
-  v18 = &v19;
-  v15[4] = self;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = sub_195B105E8;
+  v14[3] = &unk_1E743F648;
+  v17 = &v18;
+  v14[4] = self;
   v10 = dCopy;
-  v16 = v10;
+  v15 = v10;
   v11 = serviceCopy;
-  v17 = v11;
-  [(IDSInternalQueueController *)queueController performBlock:v15 waitUntilDone:1];
-  v12 = *(v20 + 24);
+  v16 = v11;
+  [(IDSInternalQueueController *)queueController performBlock:v14 waitUntilDone:1];
+  v12 = *(v19 + 24);
 
-  _Block_object_dispose(&v19, 8);
-  v13 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v18, 8);
   return v12 & 1;
 }
 
 - (BOOL)refreshIDStatusForDestinations:(id)destinations service:(id)service preferredFromID:(id)d listenerID:(id)iD queue:(id)queue completionBlock:(id)block
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   destinationsCopy = destinations;
   serviceCopy = service;
   dCopy = d;
@@ -284,7 +281,7 @@
     *&buf[12] = 2112;
     *&buf[14] = serviceCopy;
     *&buf[22] = 2112;
-    v37 = iDCopy;
+    v36 = iDCopy;
     _os_log_impl(&dword_1959FF000, v20, OS_LOG_TYPE_DEFAULT, "Client ID status to refresh ID status for destinations %@  on service: %@   from listenerID: %@", buf, 0x20u);
   }
 
@@ -307,21 +304,21 @@
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
-    LOBYTE(v37) = 0;
+    LOBYTE(v36) = 0;
     queueController = self->_queueController;
-    v28[0] = MEMORY[0x1E69E9820];
-    v28[1] = 3221225472;
-    v28[2] = sub_195B10940;
-    v28[3] = &unk_1E7443210;
-    v35 = buf;
-    v28[4] = self;
-    v29 = destinationsCopy;
-    v30 = serviceCopy;
-    v31 = dCopy;
-    v32 = iDCopy;
-    v33 = queueCopy;
-    v34 = blockCopy;
-    [(IDSInternalQueueController *)queueController performBlock:v28 waitUntilDone:1];
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = sub_195B10940;
+    v27[3] = &unk_1E7443210;
+    v34 = buf;
+    v27[4] = self;
+    v28 = destinationsCopy;
+    v29 = serviceCopy;
+    v30 = dCopy;
+    v31 = iDCopy;
+    v32 = queueCopy;
+    v33 = blockCopy;
+    [(IDSInternalQueueController *)queueController performBlock:v27 waitUntilDone:1];
     v25 = *(*&buf[8] + 24);
 
     _Block_object_dispose(buf, 8);
@@ -332,13 +329,12 @@
     v25 = 0;
   }
 
-  v26 = *MEMORY[0x1E69E9840];
   return v25 & 1;
 }
 
 - (BOOL)forceRefreshIDStatusForDestinations:(id)destinations service:(id)service preferredFromID:(id)d listenerID:(id)iD queue:(id)queue completionBlock:(id)block
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   destinationsCopy = destinations;
   serviceCopy = service;
   dCopy = d;
@@ -354,7 +350,7 @@
     *&buf[12] = 2112;
     *&buf[14] = serviceCopy;
     *&buf[22] = 2112;
-    v37 = iDCopy;
+    v36 = iDCopy;
     _os_log_impl(&dword_1959FF000, v20, OS_LOG_TYPE_DEFAULT, "Client ID status to force refresh ID status for destinations %@  on service: %@   from listenerID: %@", buf, 0x20u);
   }
 
@@ -377,21 +373,21 @@
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
-    LOBYTE(v37) = 0;
+    LOBYTE(v36) = 0;
     queueController = self->_queueController;
-    v28[0] = MEMORY[0x1E69E9820];
-    v28[1] = 3221225472;
-    v28[2] = sub_195B10DD0;
-    v28[3] = &unk_1E7443210;
-    v35 = buf;
-    v28[4] = self;
-    v29 = destinationsCopy;
-    v30 = serviceCopy;
-    v31 = dCopy;
-    v32 = iDCopy;
-    v33 = queueCopy;
-    v34 = blockCopy;
-    [(IDSInternalQueueController *)queueController performBlock:v28 waitUntilDone:1];
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = sub_195B10DD0;
+    v27[3] = &unk_1E7443210;
+    v34 = buf;
+    v27[4] = self;
+    v28 = destinationsCopy;
+    v29 = serviceCopy;
+    v30 = dCopy;
+    v31 = iDCopy;
+    v32 = queueCopy;
+    v33 = blockCopy;
+    [(IDSInternalQueueController *)queueController performBlock:v27 waitUntilDone:1];
     v25 = *(*&buf[8] + 24);
 
     _Block_object_dispose(buf, 8);
@@ -402,13 +398,12 @@
     v25 = 0;
   }
 
-  v26 = *MEMORY[0x1E69E9840];
   return v25 & 1;
 }
 
 - (BOOL)refreshIDStatusForDestinations:(id)destinations service:(id)service preferredFromID:(id)d listenerID:(id)iD queue:(id)queue errorCompletionBlock:(id)block
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   destinationsCopy = destinations;
   serviceCopy = service;
   dCopy = d;
@@ -424,7 +419,7 @@
     *&buf[12] = 2112;
     *&buf[14] = serviceCopy;
     *&buf[22] = 2112;
-    v37 = iDCopy;
+    v36 = iDCopy;
     _os_log_impl(&dword_1959FF000, v20, OS_LOG_TYPE_DEFAULT, "Client ID status to refresh ID status for destinations %@  on service: %@   from listenerID: %@", buf, 0x20u);
   }
 
@@ -447,21 +442,21 @@
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
-    LOBYTE(v37) = 0;
+    LOBYTE(v36) = 0;
     queueController = self->_queueController;
-    v28[0] = MEMORY[0x1E69E9820];
-    v28[1] = 3221225472;
-    v28[2] = sub_195B11260;
-    v28[3] = &unk_1E7443210;
-    v35 = buf;
-    v28[4] = self;
-    v29 = destinationsCopy;
-    v30 = serviceCopy;
-    v31 = dCopy;
-    v32 = iDCopy;
-    v33 = queueCopy;
-    v34 = blockCopy;
-    [(IDSInternalQueueController *)queueController performBlock:v28 waitUntilDone:1];
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = sub_195B11260;
+    v27[3] = &unk_1E7443210;
+    v34 = buf;
+    v27[4] = self;
+    v28 = destinationsCopy;
+    v29 = serviceCopy;
+    v30 = dCopy;
+    v31 = iDCopy;
+    v32 = queueCopy;
+    v33 = blockCopy;
+    [(IDSInternalQueueController *)queueController performBlock:v27 waitUntilDone:1];
     v25 = *(*&buf[8] + 24);
 
     _Block_object_dispose(buf, 8);
@@ -472,13 +467,12 @@
     v25 = 0;
   }
 
-  v26 = *MEMORY[0x1E69E9840];
   return v25 & 1;
 }
 
 - (BOOL)refreshIDStatusForDestination:(id)destination service:(id)service preferredFromID:(id)d listenerID:(id)iD queue:(id)queue completionBlock:(id)block
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   destinationCopy = destination;
   serviceCopy = service;
   dCopy = d;
@@ -494,7 +488,7 @@
     *&buf[12] = 2112;
     *&buf[14] = serviceCopy;
     *&buf[22] = 2112;
-    v35 = iDCopy;
+    v34 = iDCopy;
     _os_log_impl(&dword_1959FF000, v20, OS_LOG_TYPE_DEFAULT, "Client ID status to refresh ID status for destination %@  on service: %@   from listenerID: %@", buf, 0x20u);
   }
 
@@ -503,21 +497,21 @@
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
-    LOBYTE(v35) = 0;
+    LOBYTE(v34) = 0;
     queueController = self->_queueController;
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = sub_195B11558;
-    v26[3] = &unk_1E7443210;
-    v33 = buf;
-    v26[4] = self;
-    v27 = destinationCopy;
-    v28 = serviceCopy;
-    v29 = dCopy;
-    v30 = iDCopy;
-    v31 = queueCopy;
-    v32 = blockCopy;
-    [(IDSInternalQueueController *)queueController performBlock:v26 waitUntilDone:1];
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = sub_195B11558;
+    v25[3] = &unk_1E7443210;
+    v32 = buf;
+    v25[4] = self;
+    v26 = destinationCopy;
+    v27 = serviceCopy;
+    v28 = dCopy;
+    v29 = iDCopy;
+    v30 = queueCopy;
+    v31 = blockCopy;
+    [(IDSInternalQueueController *)queueController performBlock:v25 waitUntilDone:1];
     v23 = *(*&buf[8] + 24);
 
     _Block_object_dispose(buf, 8);
@@ -528,13 +522,12 @@
     v23 = 0;
   }
 
-  v24 = *MEMORY[0x1E69E9840];
   return v23 & 1;
 }
 
 - (BOOL)requiredIDStatusForDestinations:(id)destinations service:(id)service preferredFromID:(id)d listenerID:(id)iD queue:(id)queue completionBlock:(id)block
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   destinationsCopy = destinations;
   serviceCopy = service;
   dCopy = d;
@@ -550,7 +543,7 @@
     *&buf[12] = 2112;
     *&buf[14] = serviceCopy;
     *&buf[22] = 2112;
-    v37 = iDCopy;
+    v36 = iDCopy;
     _os_log_impl(&dword_1959FF000, v20, OS_LOG_TYPE_DEFAULT, "Client ID status for required ID status for destinations %@  on service: %@   from listenerID: %@", buf, 0x20u);
   }
 
@@ -573,21 +566,21 @@
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
-    LOBYTE(v37) = 0;
+    LOBYTE(v36) = 0;
     queueController = self->_queueController;
-    v28[0] = MEMORY[0x1E69E9820];
-    v28[1] = 3221225472;
-    v28[2] = sub_195B118B8;
-    v28[3] = &unk_1E7443210;
-    v35 = buf;
-    v28[4] = self;
-    v29 = destinationsCopy;
-    v30 = serviceCopy;
-    v31 = dCopy;
-    v32 = iDCopy;
-    v33 = queueCopy;
-    v34 = blockCopy;
-    [(IDSInternalQueueController *)queueController performBlock:v28 waitUntilDone:1];
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = sub_195B118B8;
+    v27[3] = &unk_1E7443210;
+    v34 = buf;
+    v27[4] = self;
+    v28 = destinationsCopy;
+    v29 = serviceCopy;
+    v30 = dCopy;
+    v31 = iDCopy;
+    v32 = queueCopy;
+    v33 = blockCopy;
+    [(IDSInternalQueueController *)queueController performBlock:v27 waitUntilDone:1];
     v25 = *(*&buf[8] + 24);
 
     _Block_object_dispose(buf, 8);
@@ -598,13 +591,12 @@
     v25 = 0;
   }
 
-  v26 = *MEMORY[0x1E69E9840];
   return v25 & 1;
 }
 
 - (BOOL)requiredIDStatusForDestination:(id)destination service:(id)service preferredFromID:(id)d listenerID:(id)iD queue:(id)queue completionBlock:(id)block
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   destinationCopy = destination;
   serviceCopy = service;
   dCopy = d;
@@ -620,7 +612,7 @@
     *&buf[12] = 2112;
     *&buf[14] = serviceCopy;
     *&buf[22] = 2112;
-    v35 = iDCopy;
+    v34 = iDCopy;
     _os_log_impl(&dword_1959FF000, v20, OS_LOG_TYPE_DEFAULT, "Client ID status for required ID status for destination %@  on service: %@   from listenerID: %@", buf, 0x20u);
   }
 
@@ -629,21 +621,21 @@
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
-    LOBYTE(v35) = 0;
+    LOBYTE(v34) = 0;
     queueController = self->_queueController;
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = sub_195B11CCC;
-    v26[3] = &unk_1E7443210;
-    v33 = buf;
-    v26[4] = self;
-    v27 = destinationCopy;
-    v28 = serviceCopy;
-    v29 = dCopy;
-    v30 = iDCopy;
-    v31 = queueCopy;
-    v32 = blockCopy;
-    [(IDSInternalQueueController *)queueController performBlock:v26 waitUntilDone:1];
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = sub_195B11CCC;
+    v25[3] = &unk_1E7443210;
+    v32 = buf;
+    v25[4] = self;
+    v26 = destinationCopy;
+    v27 = serviceCopy;
+    v28 = dCopy;
+    v29 = iDCopy;
+    v30 = queueCopy;
+    v31 = blockCopy;
+    [(IDSInternalQueueController *)queueController performBlock:v25 waitUntilDone:1];
     v23 = *(*&buf[8] + 24);
 
     _Block_object_dispose(buf, 8);
@@ -654,7 +646,6 @@
     v23 = 0;
   }
 
-  v24 = *MEMORY[0x1E69E9840];
   return v23 & 1;
 }
 
@@ -744,7 +735,7 @@
 
 - (BOOL)idInfoForDestinations:(id)destinations service:(id)service preferredFromID:(id)d infoTypes:(unint64_t)types options:(id)options listenerID:(id)iD queue:(id)queue completionBlock:(id)self0
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   destinationsCopy = destinations;
   serviceCopy = service;
   dCopy = d;
@@ -761,8 +752,8 @@
     *&buf[12] = 2112;
     *&buf[14] = serviceCopy;
     *&buf[22] = 2112;
-    v40 = iDCopy;
-    v41 = 2048;
+    v39 = iDCopy;
+    v40 = 2048;
     typesCopy = types;
     _os_log_impl(&dword_1959FF000, v22, OS_LOG_TYPE_DEFAULT, "Client ID Info Request for destinations %@ on service: %@ from listenerID: %@ with infoTypes: %llu", buf, 0x2Au);
   }
@@ -772,23 +763,23 @@
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
-    LOBYTE(v40) = 0;
+    LOBYTE(v39) = 0;
     queueController = self->_queueController;
-    v29[0] = MEMORY[0x1E69E9820];
-    v29[1] = 3221225472;
-    v29[2] = sub_195B1257C;
-    v29[3] = &unk_1E7443260;
-    v37 = buf;
-    v29[4] = self;
-    v30 = destinationsCopy;
-    v31 = serviceCopy;
-    v32 = dCopy;
+    v28[0] = MEMORY[0x1E69E9820];
+    v28[1] = 3221225472;
+    v28[2] = sub_195B1257C;
+    v28[3] = &unk_1E7443260;
+    v36 = buf;
+    v28[4] = self;
+    v29 = destinationsCopy;
+    v30 = serviceCopy;
+    v31 = dCopy;
     typesCopy2 = types;
-    v33 = optionsCopy;
-    v34 = iDCopy;
-    v35 = queueCopy;
-    v36 = blockCopy;
-    [(IDSInternalQueueController *)queueController performBlock:v29 waitUntilDone:1];
+    v32 = optionsCopy;
+    v33 = iDCopy;
+    v34 = queueCopy;
+    v35 = blockCopy;
+    [(IDSInternalQueueController *)queueController performBlock:v28 waitUntilDone:1];
     v25 = *(*&buf[8] + 24);
 
     _Block_object_dispose(buf, 8);
@@ -799,7 +790,6 @@
     v25 = 0;
   }
 
-  v26 = *MEMORY[0x1E69E9840];
   return v25 & 1;
 }
 
@@ -865,7 +855,7 @@
 
 - (BOOL)_warmupQueryCacheForService:(id)service
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   serviceCopy = service;
   v5 = +[IDSLogging IDQuery];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -879,17 +869,17 @@
   {
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v14 = 0x2020000000;
-    v15 = 0;
+    v13 = 0x2020000000;
+    v14 = 0;
     queueController = self->_queueController;
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = sub_195B12A24;
-    v10[3] = &unk_1E743EA08;
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = sub_195B12A24;
+    v9[3] = &unk_1E743EA08;
     p_buf = &buf;
-    v10[4] = self;
-    v11 = serviceCopy;
-    [(IDSInternalQueueController *)queueController performBlock:v10 waitUntilDone:1];
+    v9[4] = self;
+    v10 = serviceCopy;
+    [(IDSInternalQueueController *)queueController performBlock:v9 waitUntilDone:1];
     v7 = *(*(&buf + 1) + 24);
 
     _Block_object_dispose(&buf, 8);
@@ -900,13 +890,12 @@
     v7 = 0;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7 & 1;
 }
 
 - (BOOL)_flushQueryCacheForService:(id)service
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   serviceCopy = service;
   v5 = +[IDSLogging IDQuery];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -920,17 +909,17 @@
   {
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v14 = 0x2020000000;
-    v15 = 0;
+    v13 = 0x2020000000;
+    v14 = 0;
     queueController = self->_queueController;
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = sub_195B12BF0;
-    v10[3] = &unk_1E743EA08;
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = sub_195B12BF0;
+    v9[3] = &unk_1E743EA08;
     p_buf = &buf;
-    v10[4] = self;
-    v11 = serviceCopy;
-    [(IDSInternalQueueController *)queueController performBlock:v10 waitUntilDone:1];
+    v9[4] = self;
+    v10 = serviceCopy;
+    [(IDSInternalQueueController *)queueController performBlock:v9 waitUntilDone:1];
     v7 = *(*(&buf + 1) + 24);
 
     _Block_object_dispose(&buf, 8);
@@ -941,7 +930,6 @@
     v7 = 0;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7 & 1;
 }
 
@@ -976,7 +964,7 @@
 
 - (int64_t)_refreshIDStatusForDestination:(id)destination service:(id)service preferredFromID:(id)d listenerID:(id)iD
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   destinationCopy = destination;
   serviceCopy = service;
   dCopy = d;
@@ -990,50 +978,49 @@
     *&buf[12] = 2112;
     *&buf[14] = serviceCopy;
     *&buf[22] = 2112;
-    v40 = iDCopy;
+    v39 = iDCopy;
     _os_log_impl(&dword_1959FF000, v14, OS_LOG_TYPE_DEFAULT, "** BLOCKING Client ID status to refresh ID status for destination %@  on service: %@   from listenerID: %@", buf, 0x20u);
   }
 
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x2020000000;
-  v40 = 0;
+  v39 = 0;
   v16 = objc_alloc_init(MEMORY[0x1E695DF00]);
   queueController = self->_queueController;
-  v27 = MEMORY[0x1E69E9820];
-  v28 = 3221225472;
-  v29 = sub_195B13044;
-  v30 = &unk_1E74432B0;
+  v26 = MEMORY[0x1E69E9820];
+  v27 = 3221225472;
+  v28 = sub_195B13044;
+  v29 = &unk_1E74432B0;
   selfCopy = self;
   v18 = destinationCopy;
-  v32 = v18;
+  v31 = v18;
   v19 = serviceCopy;
-  v33 = v19;
+  v32 = v19;
   v20 = dCopy;
-  v34 = v20;
+  v33 = v20;
   v21 = iDCopy;
-  v35 = v21;
-  v36 = buf;
-  [(IDSInternalQueueController *)queueController performBlock:&v27 waitUntilDone:1];
-  v22 = [IDSLogging IDQuery:v27];
+  v34 = v21;
+  v35 = buf;
+  [(IDSInternalQueueController *)queueController performBlock:&v26 waitUntilDone:1];
+  v22 = [IDSLogging IDQuery:v26];
   if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
     [v16 timeIntervalSinceNow];
-    *v37 = 134217984;
-    v38 = fabs(v23);
-    _os_log_impl(&dword_1959FF000, v22, OS_LOG_TYPE_DEFAULT, "  => Done: %f", v37, 0xCu);
+    *v36 = 134217984;
+    v37 = fabs(v23);
+    _os_log_impl(&dword_1959FF000, v22, OS_LOG_TYPE_DEFAULT, "  => Done: %f", v36, 0xCu);
   }
 
   v24 = *(*&buf[8] + 24);
   _Block_object_dispose(buf, 8);
 
-  v25 = *MEMORY[0x1E69E9840];
   return v24;
 }
 
 - (id)_refreshIDStatusForDestinations:(id)destinations service:(id)service preferredFromID:(id)d listenerID:(id)iD
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   destinationsCopy = destinations;
   serviceCopy = service;
   dCopy = d;
@@ -1047,46 +1034,44 @@
     *&buf[12] = 2112;
     *&buf[14] = serviceCopy;
     *&buf[22] = 2112;
-    v40 = iDCopy;
+    v39 = iDCopy;
     _os_log_impl(&dword_1959FF000, v14, OS_LOG_TYPE_DEFAULT, "** BLOCKING Client ID status to refresh ID status for destinations %@  on service: %@   from listenerID: %@", buf, 0x20u);
   }
 
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v40 = sub_195A00824;
-  v41 = sub_195A03DB8;
-  v42 = 0;
+  v39 = sub_195A00824;
+  v40 = sub_195A03DB8;
+  v41 = 0;
   v16 = objc_alloc_init(MEMORY[0x1E695DF00]);
   queueController = self->_queueController;
-  v27 = MEMORY[0x1E69E9820];
-  v28 = 3221225472;
-  v29 = sub_195B134B0;
-  v30 = &unk_1E74432B0;
+  v26 = MEMORY[0x1E69E9820];
+  v27 = 3221225472;
+  v28 = sub_195B134B0;
+  v29 = &unk_1E74432B0;
   selfCopy = self;
   v18 = destinationsCopy;
-  v32 = v18;
+  v31 = v18;
   v19 = serviceCopy;
-  v33 = v19;
+  v32 = v19;
   v20 = dCopy;
-  v34 = v20;
+  v33 = v20;
   v21 = iDCopy;
-  v35 = v21;
-  v36 = buf;
-  [(IDSInternalQueueController *)queueController performBlock:&v27 waitUntilDone:1];
-  v22 = [IDSLogging IDQuery:v27];
+  v34 = v21;
+  v35 = buf;
+  [(IDSInternalQueueController *)queueController performBlock:&v26 waitUntilDone:1];
+  v22 = [IDSLogging IDQuery:v26];
   if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
     [v16 timeIntervalSinceNow];
-    *v37 = 134217984;
-    v38 = fabs(v23);
-    _os_log_impl(&dword_1959FF000, v22, OS_LOG_TYPE_DEFAULT, "  => Done: %f", v37, 0xCu);
+    *v36 = 134217984;
+    v37 = fabs(v23);
+    _os_log_impl(&dword_1959FF000, v22, OS_LOG_TYPE_DEFAULT, "  => Done: %f", v36, 0xCu);
   }
 
   v24 = *(*&buf[8] + 40);
   _Block_object_dispose(buf, 8);
-
-  v25 = *MEMORY[0x1E69E9840];
 
   return v24;
 }
@@ -1094,7 +1079,7 @@
 - (int64_t)_currentIDStatusForDestination:(id)destination service:(id)service preferredFromID:(id)d respectExpiry:(BOOL)expiry listenerID:(id)iD
 {
   expiryCopy = expiry;
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   destinationCopy = destination;
   serviceCopy = service;
   dCopy = d;
@@ -1114,54 +1099,53 @@
     *&buf[12] = 2112;
     *&buf[14] = serviceCopy;
     *&buf[22] = 2112;
-    v40 = v18;
-    v41 = 2112;
-    v42 = iDCopy;
+    v39 = v18;
+    v40 = 2112;
+    v41 = iDCopy;
     _os_log_impl(&dword_1959FF000, v16, OS_LOG_TYPE_DEFAULT, "** BLOCKING Client ID status cache request for destination %@  on service: %@ respectExpiry: %@   from listenerID: %@", buf, 0x2Au);
   }
 
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x2020000000;
-  v40 = 0;
+  v39 = 0;
   v19 = objc_alloc_init(MEMORY[0x1E695DF00]);
   queueController = self->_queueController;
-  v30[0] = MEMORY[0x1E69E9820];
-  v30[1] = 3221225472;
-  v30[2] = sub_195B138B8;
-  v30[3] = &unk_1E7443328;
-  v30[4] = self;
+  v29[0] = MEMORY[0x1E69E9820];
+  v29[1] = 3221225472;
+  v29[2] = sub_195B138B8;
+  v29[3] = &unk_1E7443328;
+  v29[4] = self;
   v21 = destinationCopy;
-  v31 = v21;
+  v30 = v21;
   v22 = serviceCopy;
-  v32 = v22;
+  v31 = v22;
   v23 = dCopy;
-  v33 = v23;
-  v36 = expiryCopy;
+  v32 = v23;
+  v35 = expiryCopy;
   v24 = iDCopy;
-  v34 = v24;
-  v35 = buf;
-  [(IDSInternalQueueController *)queueController performBlock:v30 waitUntilDone:1];
+  v33 = v24;
+  v34 = buf;
+  [(IDSInternalQueueController *)queueController performBlock:v29 waitUntilDone:1];
   v25 = +[IDSLogging IDQuery];
   if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
   {
     [v19 timeIntervalSinceNow];
-    *v37 = 134217984;
-    v38 = fabs(v26);
-    _os_log_impl(&dword_1959FF000, v25, OS_LOG_TYPE_DEFAULT, "  => Done: %f", v37, 0xCu);
+    *v36 = 134217984;
+    v37 = fabs(v26);
+    _os_log_impl(&dword_1959FF000, v25, OS_LOG_TYPE_DEFAULT, "  => Done: %f", v36, 0xCu);
   }
 
   v27 = *(*&buf[8] + 24);
   _Block_object_dispose(buf, 8);
 
-  v28 = *MEMORY[0x1E69E9840];
   return v27;
 }
 
 - (id)_currentIDStatusForDestinations:(id)destinations service:(id)service preferredFromID:(id)d respectExpiry:(BOOL)expiry listenerID:(id)iD
 {
   expiryCopy = expiry;
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   destinationsCopy = destinations;
   serviceCopy = service;
   dCopy = d;
@@ -1181,56 +1165,54 @@
     *&buf[12] = 2112;
     *&buf[14] = serviceCopy;
     *&buf[22] = 2112;
-    v40 = v18;
-    LOWORD(v41) = 2112;
-    *(&v41 + 2) = iDCopy;
+    v39 = v18;
+    LOWORD(v40) = 2112;
+    *(&v40 + 2) = iDCopy;
     _os_log_impl(&dword_1959FF000, v16, OS_LOG_TYPE_DEFAULT, "** BLOCKING Client ID status cache request for destinations %@  on service: %@ respectExpiry: %@   from listenerID: %@", buf, 0x2Au);
   }
 
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v40 = sub_195A00824;
-  *&v41 = sub_195A03DB8;
-  *(&v41 + 1) = 0;
+  v39 = sub_195A00824;
+  *&v40 = sub_195A03DB8;
+  *(&v40 + 1) = 0;
   v19 = objc_alloc_init(MEMORY[0x1E695DF00]);
   queueController = self->_queueController;
-  v30[0] = MEMORY[0x1E69E9820];
-  v30[1] = 3221225472;
-  v30[2] = sub_195B13D44;
-  v30[3] = &unk_1E7443328;
-  v30[4] = self;
+  v29[0] = MEMORY[0x1E69E9820];
+  v29[1] = 3221225472;
+  v29[2] = sub_195B13D44;
+  v29[3] = &unk_1E7443328;
+  v29[4] = self;
   v21 = destinationsCopy;
-  v31 = v21;
+  v30 = v21;
   v22 = serviceCopy;
-  v32 = v22;
+  v31 = v22;
   v23 = dCopy;
-  v33 = v23;
-  v36 = expiryCopy;
+  v32 = v23;
+  v35 = expiryCopy;
   v24 = iDCopy;
-  v34 = v24;
-  v35 = buf;
-  [(IDSInternalQueueController *)queueController performBlock:v30 waitUntilDone:1];
+  v33 = v24;
+  v34 = buf;
+  [(IDSInternalQueueController *)queueController performBlock:v29 waitUntilDone:1];
   v25 = +[IDSLogging IDQuery];
   if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
   {
     [v19 timeIntervalSinceNow];
-    *v37 = 134217984;
-    v38 = fabs(v26);
-    _os_log_impl(&dword_1959FF000, v25, OS_LOG_TYPE_DEFAULT, "  => Done: %f", v37, 0xCu);
+    *v36 = 134217984;
+    v37 = fabs(v26);
+    _os_log_impl(&dword_1959FF000, v25, OS_LOG_TYPE_DEFAULT, "  => Done: %f", v36, 0xCu);
   }
 
   v27 = *(*&buf[8] + 40);
   _Block_object_dispose(buf, 8);
-
-  v28 = *MEMORY[0x1E69E9840];
 
   return v27;
 }
 
 - (BOOL)currentRemoteDevicesForDestinations:(id)destinations service:(id)service preferredFromID:(id)d listenerID:(id)iD queue:(id)queue completionBlock:(id)block
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   destinationsCopy = destinations;
   serviceCopy = service;
   dCopy = d;
@@ -1246,7 +1228,7 @@
     *&buf[12] = 2112;
     *&buf[14] = serviceCopy;
     *&buf[22] = 2112;
-    v35 = iDCopy;
+    v34 = iDCopy;
     _os_log_impl(&dword_1959FF000, v20, OS_LOG_TYPE_DEFAULT, "Client Remote Device Request for destinations %@  on service: %@   from listenerID: %@", buf, 0x20u);
   }
 
@@ -1255,21 +1237,21 @@
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
-    LOBYTE(v35) = 0;
+    LOBYTE(v34) = 0;
     queueController = self->_queueController;
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = sub_195B1407C;
-    v26[3] = &unk_1E7443210;
-    v33 = buf;
-    v26[4] = self;
-    v27 = destinationsCopy;
-    v28 = serviceCopy;
-    v29 = dCopy;
-    v30 = iDCopy;
-    v31 = queueCopy;
-    v32 = blockCopy;
-    [(IDSInternalQueueController *)queueController performBlock:v26 waitUntilDone:1];
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = sub_195B1407C;
+    v25[3] = &unk_1E7443210;
+    v32 = buf;
+    v25[4] = self;
+    v26 = destinationsCopy;
+    v27 = serviceCopy;
+    v28 = dCopy;
+    v29 = iDCopy;
+    v30 = queueCopy;
+    v31 = blockCopy;
+    [(IDSInternalQueueController *)queueController performBlock:v25 waitUntilDone:1];
     v23 = *(*&buf[8] + 24);
 
     _Block_object_dispose(buf, 8);
@@ -1280,13 +1262,12 @@
     v23 = 0;
   }
 
-  v24 = *MEMORY[0x1E69E9840];
   return v23 & 1;
 }
 
 - (BOOL)currentRemoteDevicesForDestinations:(id)destinations service:(id)service preferredFromID:(id)d listenerID:(id)iD queue:(id)queue completionBlockWithError:(id)error
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   destinationsCopy = destinations;
   serviceCopy = service;
   dCopy = d;
@@ -1302,7 +1283,7 @@
     *&buf[12] = 2112;
     *&buf[14] = serviceCopy;
     *&buf[22] = 2112;
-    v35 = iDCopy;
+    v34 = iDCopy;
     _os_log_impl(&dword_1959FF000, v20, OS_LOG_TYPE_DEFAULT, "Client Remote Device Request for destinations %@  on service: %@   from listenerID: %@", buf, 0x20u);
   }
 
@@ -1311,21 +1292,21 @@
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
-    LOBYTE(v35) = 0;
+    LOBYTE(v34) = 0;
     queueController = self->_queueController;
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = sub_195B14364;
-    v26[3] = &unk_1E7443210;
-    v33 = buf;
-    v26[4] = self;
-    v27 = destinationsCopy;
-    v28 = serviceCopy;
-    v29 = dCopy;
-    v30 = iDCopy;
-    v31 = queueCopy;
-    v32 = errorCopy;
-    [(IDSInternalQueueController *)queueController performBlock:v26 waitUntilDone:1];
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = sub_195B14364;
+    v25[3] = &unk_1E7443210;
+    v32 = buf;
+    v25[4] = self;
+    v26 = destinationsCopy;
+    v27 = serviceCopy;
+    v28 = dCopy;
+    v29 = iDCopy;
+    v30 = queueCopy;
+    v31 = errorCopy;
+    [(IDSInternalQueueController *)queueController performBlock:v25 waitUntilDone:1];
     v23 = *(*&buf[8] + 24);
 
     _Block_object_dispose(buf, 8);
@@ -1336,13 +1317,12 @@
     v23 = 0;
   }
 
-  v24 = *MEMORY[0x1E69E9840];
   return v23 & 1;
 }
 
 - (id)_currentCachedRemoteDevicesForDestinations:(id)destinations service:(id)service preferredFromID:(id)d listenerID:(id)iD
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   destinationsCopy = destinations;
   serviceCopy = service;
   dCopy = d;
@@ -1356,7 +1336,7 @@
     *&buf[12] = 2112;
     *&buf[14] = serviceCopy;
     *&buf[22] = 2112;
-    v27 = iDCopy;
+    v26 = iDCopy;
     _os_log_impl(&dword_1959FF000, v14, OS_LOG_TYPE_DEFAULT, "** BLOCKING  Client Remote Device Request for destinations %@  on service: %@   from listenerID: %@", buf, 0x20u);
   }
 
@@ -1365,21 +1345,21 @@
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v27 = sub_195A00824;
-    v28 = sub_195A03DB8;
-    v29 = 0;
+    v26 = sub_195A00824;
+    v27 = sub_195A03DB8;
+    v28 = 0;
     queueController = self->_queueController;
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = sub_195B1463C;
-    v20[3] = &unk_1E74432B0;
-    v20[4] = self;
-    v21 = destinationsCopy;
-    v22 = serviceCopy;
-    v23 = dCopy;
-    v24 = iDCopy;
-    v25 = buf;
-    [(IDSInternalQueueController *)queueController performBlock:v20 waitUntilDone:1];
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = sub_195B1463C;
+    v19[3] = &unk_1E74432B0;
+    v19[4] = self;
+    v20 = destinationsCopy;
+    v21 = serviceCopy;
+    v22 = dCopy;
+    v23 = iDCopy;
+    v24 = buf;
+    [(IDSInternalQueueController *)queueController performBlock:v19 waitUntilDone:1];
     v17 = *(*&buf[8] + 40);
 
     _Block_object_dispose(buf, 8);
@@ -1389,8 +1369,6 @@
   {
     v17 = 0;
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
@@ -1411,7 +1389,7 @@
 
 - (BOOL)requestIDStatusForDestinations:(id)destinations service:(id)service preferredFromID:(id)d listenerID:(id)iD queue:(id)queue completionBlock:(id)block
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   destinationsCopy = destinations;
   serviceCopy = service;
   iDCopy = iD;
@@ -1422,23 +1400,22 @@
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
     v21 = IDSLoggableDescriptionForHandlesOnService();
-    v25 = 138412802;
-    v26 = v21;
-    v27 = 2112;
-    v28 = serviceCopy;
-    v29 = 2112;
-    v30 = iDCopy;
-    _os_log_impl(&dword_1959FF000, v20, OS_LOG_TYPE_DEFAULT, "Client ID status request for destinations %@  on service: %@   from listenerID: %@", &v25, 0x20u);
+    v24 = 138412802;
+    v25 = v21;
+    v26 = 2112;
+    v27 = serviceCopy;
+    v28 = 2112;
+    v29 = iDCopy;
+    _os_log_impl(&dword_1959FF000, v20, OS_LOG_TYPE_DEFAULT, "Client ID status request for destinations %@  on service: %@   from listenerID: %@", &v24, 0x20u);
   }
 
   v22 = [(IDSIDQueryController *)self refreshIDStatusForDestinations:destinationsCopy service:serviceCopy preferredFromID:dCopy listenerID:iDCopy queue:queueCopy completionBlock:blockCopy];
-  v23 = *MEMORY[0x1E69E9840];
   return v22;
 }
 
 - (BOOL)requestIDStatusForDestination:(id)destination service:(id)service preferredFromID:(id)d listenerID:(id)iD queue:(id)queue completionBlock:(id)block
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   destinationCopy = destination;
   serviceCopy = service;
   iDCopy = iD;
@@ -1449,51 +1426,50 @@
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
     v21 = IDSLoggableDescriptionForHandleOnService();
-    v25 = 138412802;
-    v26 = v21;
-    v27 = 2112;
-    v28 = serviceCopy;
-    v29 = 2112;
-    v30 = iDCopy;
-    _os_log_impl(&dword_1959FF000, v20, OS_LOG_TYPE_DEFAULT, "Client ID status request for destination %@  on service: %@   from listenerID: %@", &v25, 0x20u);
+    v24 = 138412802;
+    v25 = v21;
+    v26 = 2112;
+    v27 = serviceCopy;
+    v28 = 2112;
+    v29 = iDCopy;
+    _os_log_impl(&dword_1959FF000, v20, OS_LOG_TYPE_DEFAULT, "Client ID status request for destination %@  on service: %@   from listenerID: %@", &v24, 0x20u);
   }
 
   v22 = [(IDSIDQueryController *)self refreshIDStatusForDestination:destinationCopy service:serviceCopy preferredFromID:dCopy listenerID:iDCopy queue:queueCopy completionBlock:blockCopy];
-  v23 = *MEMORY[0x1E69E9840];
   return v22;
 }
 
 - (void)ktPeerVerificationResultsUpdated:(id)updated forService:(id)service
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   updatedCopy = updated;
   serviceCopy = service;
   v8 = MEMORY[0x1E696ACD0];
   v9 = MEMORY[0x1E695DFD8];
   v10 = objc_opt_class();
   v11 = objc_opt_class();
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x2050000000;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x2050000000;
   v12 = qword_1ED5DDEF8;
-  v28 = qword_1ED5DDEF8;
+  v27 = qword_1ED5DDEF8;
   if (!qword_1ED5DDEF8)
   {
     *&buf = MEMORY[0x1E69E9820];
     *(&buf + 1) = 3221225472;
-    v30 = sub_195B14E88;
-    v31 = &unk_1E743E648;
-    v32 = &v25;
+    v29 = sub_195B14E88;
+    v30 = &unk_1E743E648;
+    v31 = &v24;
     sub_195B14E88(&buf);
-    v12 = v26[3];
+    v12 = v25[3];
   }
 
   v13 = v12;
-  _Block_object_dispose(&v25, 8);
+  _Block_object_dispose(&v24, 8);
   v14 = [v9 setWithObjects:{v10, v11, v12, 0}];
-  v24 = 0;
-  v15 = [v8 unarchivedObjectOfClasses:v14 fromData:updatedCopy error:&v24];
-  v16 = v24;
+  v23 = 0;
+  v15 = [v8 unarchivedObjectOfClasses:v14 fromData:updatedCopy error:&v23];
+  v16 = v23;
 
   v17 = +[IDSLogging IDQuery];
   v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
@@ -1517,17 +1493,15 @@
     }
 
     queueController = self->_queueController;
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = sub_195B14E30;
-    v21[3] = &unk_1E743E620;
-    v21[4] = self;
-    v22 = serviceCopy;
-    v23 = v15;
-    [(IDSInternalQueueController *)queueController performBlock:v21 waitUntilDone:0];
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = sub_195B14E30;
+    v20[3] = &unk_1E743E620;
+    v20[4] = self;
+    v21 = serviceCopy;
+    v22 = v15;
+    [(IDSInternalQueueController *)queueController performBlock:v20 waitUntilDone:0];
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 @end

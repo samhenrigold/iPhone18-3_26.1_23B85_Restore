@@ -10,18 +10,18 @@
 
 + (id)errorWithCode:(int64_t)code
 {
-  v5 = sub_100001434(code);
-  v6 = sub_100001818(code);
+  v5 = sub_100001434(code, a2);
+  v7 = sub_100001818(code, v6);
 
-  return [self errorWithCode:code description:v5 recoverySuggestion:v6];
+  return [self errorWithCode:code description:v5 recoverySuggestion:v7];
 }
 
 + (id)errorWithCode:(int64_t)code underlyingError:(id)error
 {
-  v7 = sub_100001434(code);
-  v8 = sub_100001818(code);
+  v7 = sub_100001434(code, a2);
+  v9 = sub_100001818(code, v8);
 
-  return [self errorWithCode:code description:v7 recoverySuggestion:v8 underlyingError:error];
+  return [self errorWithCode:code description:v7 recoverySuggestion:v9 underlyingError:error];
 }
 
 + (id)errorWithCode:(int64_t)code description:(id)description recoverySuggestion:(id)suggestion underlyingError:(id)error

@@ -24,7 +24,7 @@
 
 + (id)tagNameWithGdTag:(int64_t)tag
 {
-  static PersonEntityTaggingService.tagName(gdTag:)(tag);
+  static PersonEntityTaggingService.tagName(gdTag:)();
   v3 = sub_1ABF23BD4();
 
   return v3;

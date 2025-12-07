@@ -25,7 +25,7 @@
 
 - (BOOL)markTemplateAvailable:(id)available error:(id *)error
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   availableCopy = available;
   if ([(ACHBackCompatRemoteAchievementAvailabilityKeyWriter *)self creatorDevice]== 1)
   {
@@ -46,9 +46,9 @@
     else
     {
       v11 = MEMORY[0x277CCA9B8];
-      v18 = *MEMORY[0x277CCA450];
-      v19[0] = @"Unable to mark template as available because its unique name is nil.";
-      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+      v17 = *MEMORY[0x277CCA450];
+      v18[0] = @"Unable to mark template as available because its unique name is nil.";
+      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
       v13 = [v11 errorWithDomain:@"com.apple.Achievements.BackCompatRemoteAvailability" code:101 userInfo:v12];
 
       v14 = v13;
@@ -70,7 +70,6 @@
     }
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v7;
 }
 

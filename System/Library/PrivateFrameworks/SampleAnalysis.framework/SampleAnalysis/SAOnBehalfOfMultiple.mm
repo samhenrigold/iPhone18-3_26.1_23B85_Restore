@@ -23,30 +23,30 @@
 
 - (id)displayStringWithPids:(_DWORD *)pids
 {
-  v80 = *MEMORY[0x1E69E9840];
+  v79 = *MEMORY[0x1E69E9840];
   if (pids[2])
   {
     pidsCopy = pids;
     context = objc_autoreleasePoolPush();
     v5 = [objc_getProperty(pidsCopy v4];
     v6 = objc_alloc(MEMORY[0x1E695DF70]);
-    v62 = [v6 initWithCapacity:{objc_msgSend(objc_getProperty(pidsCopy, v7, 16, 1), "count")}];
+    v61 = [v6 initWithCapacity:{objc_msgSend(objc_getProperty(pidsCopy, v7, 16, 1), "count")}];
+    v69 = 0u;
     v70 = 0u;
     v71 = 0u;
     v72 = 0u;
-    v73 = 0u;
     obj = v5;
-    v65 = [obj countByEnumeratingWithState:&v70 objects:v78 count:16];
-    if (v65)
+    v64 = [obj countByEnumeratingWithState:&v69 objects:v77 count:16];
+    if (v64)
     {
-      v63 = pidsCopy;
-      v64 = *v71;
+      v62 = pidsCopy;
+      v63 = *v70;
       do
       {
         v9 = 0;
         do
         {
-          if (*v71 != v64)
+          if (*v70 != v63)
           {
             objc_enumerationMutation(obj);
           }
@@ -55,31 +55,31 @@
           if (v10)
           {
             v12 = v10;
-            v66 = v9;
+            v65 = v9;
             [objc_getProperty(v10 v11];
             v13 = self = v12;
             v14 = objc_alloc(MEMORY[0x1E695DF70]);
-            v69 = [v14 initWithCapacity:{objc_msgSend(objc_getProperty(self, v15, 32, 1), "count")}];
+            v68 = [v14 initWithCapacity:{objc_msgSend(objc_getProperty(self, v15, 32, 1), "count")}];
+            v73 = 0u;
             v74 = 0u;
             v75 = 0u;
             v76 = 0u;
-            v77 = 0u;
             v16 = v13;
             v17 = self;
-            v68 = v16;
-            v18 = [v16 countByEnumeratingWithState:&v74 objects:v79 count:16];
+            v67 = v16;
+            v18 = [v16 countByEnumeratingWithState:&v73 objects:v78 count:16];
             if (v18)
             {
               v20 = v18;
-              v21 = *v75;
+              v21 = *v74;
               do
               {
                 v22 = 0;
                 do
                 {
-                  if (*v75 != v21)
+                  if (*v74 != v21)
                   {
-                    objc_enumerationMutation(v68);
+                    objc_enumerationMutation(v67);
                   }
 
                   v23 = [objc_getProperty(v17 v19];
@@ -129,7 +129,7 @@
 
                     if (v34)
                     {
-                      [v69 addObject:v34];
+                      [v68 addObject:v34];
                     }
                   }
 
@@ -142,7 +142,7 @@
                 }
 
                 while (v20 != v22);
-                v39 = [v68 countByEnumeratingWithState:&v74 objects:v79 count:16];
+                v39 = [v67 countByEnumeratingWithState:&v73 objects:v78 count:16];
                 v20 = v39;
               }
 
@@ -167,8 +167,8 @@
               v45 = objc_getProperty(v17, v41, 16, 1);
               [objc_getProperty(v17 v46];
               v48 = v47 = v17;
-              v49 = v69;
-              v50 = [v69 componentsJoinedByString:{@", "}];
+              v49 = v68;
+              v50 = [v68 componentsJoinedByString:{@", "}];
               v51 = [v42 initWithFormat:@"%u sample%s %@ [%@] (%@)", v43, v44, v45, v48, v50];
             }
 
@@ -187,19 +187,19 @@
               }
 
               v50 = objc_getProperty(v17, v52, 16, 1);
-              v49 = v69;
-              [v69 componentsJoinedByString:{@", "}];
+              v49 = v68;
+              [v68 componentsJoinedByString:{@", "}];
               v48 = v47 = v17;
               v51 = [v53 initWithFormat:@"%u sample%s %@ (%@)", v54, v55, v50, v48];
             }
 
-            pidsCopy = v63;
+            pidsCopy = v62;
             if (v51)
             {
-              [v62 addObject:v51];
+              [v61 addObject:v51];
             }
 
-            v9 = v66;
+            v9 = v65;
           }
 
           else
@@ -210,15 +210,15 @@
           ++v9;
         }
 
-        while (v9 != v65);
-        v56 = [obj countByEnumeratingWithState:&v70 objects:v78 count:16];
-        v65 = v56;
+        while (v9 != v64);
+        v56 = [obj countByEnumeratingWithState:&v69 objects:v77 count:16];
+        v64 = v56;
       }
 
       while (v56);
     }
 
-    v57 = [v62 componentsJoinedByString:{@", "}];
+    v57 = [v61 componentsJoinedByString:{@", "}];
 
     objc_autoreleasePoolPop(context);
   }
@@ -227,8 +227,6 @@
   {
     v57 = 0;
   }
-
-  v58 = *MEMORY[0x1E69E9840];
 
   return v57;
 }

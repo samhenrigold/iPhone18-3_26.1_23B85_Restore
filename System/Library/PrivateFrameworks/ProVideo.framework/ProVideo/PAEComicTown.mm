@@ -112,7 +112,7 @@ LABEL_9:
 
   if (input)
   {
-    [input heliumRef];
+    objc_msgSend_heliumRef(input);
   }
 
   else
@@ -136,7 +136,7 @@ LABEL_9:
   v14 = [input dod];
   v17 = HGRectMake4i(v14 + 1, HIDWORD(v14) + 1, v15 - 1, v16 - 1);
   (*(*v13 + 96))(v13, 8, v17, SHIDWORD(v17), v18, v19);
-  [(PAESharedDefaultBase *)self getScaleForImage:input];
+  objc_msgSend_getScaleForImage_(self);
   v20 = v24;
   v21 = v25;
   (*(*v13 + 96))(v13, 9, v20, v21, 0.0, 0.0);

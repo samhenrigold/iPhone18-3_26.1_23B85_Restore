@@ -1,15 +1,48 @@
 @interface DenoiseRemixStage
 + (int)prewarmShaders:(id)shaders tuningParameters:(id)parameters plistEntryName:(id)name;
 + (void)prewarmOneShader:(id)shader entryToParse:(id)parse denoisingOptions:(DenoiseRemixStageOptions *)options;
+- (BOOL)dumpIntermediateData:(id)data counter:(int)counter;
 - (BOOL)dumpParamsToFile:(id)file;
 - (BOOL)loadParamsFromFile:(id)file;
 - (DenoiseRemixStage)initWithContext:(id)context options:(const DenoiseRemixStageOptions *)options numPyrLevels:(int)levels;
+- (int)run:(id)run skinMask:(id)mask skyMask:(id)skyMask maskExtent:(CGRect)extent;
 - (int)runShader:(const void *)shader shader:(id)a4 desc:(id)desc uniforms:(id)uniforms uniforms2:(id)uniforms2 uniforms3:(id)uniforms3;
 - (int)setResourcesWithOutputPyramid:(id)pyramid noiseMapPyramid:(id)mapPyramid sharpeningPyramid:(id)sharpeningPyramid localGainMapTex:(id)tex;
 - (int)setUniforms:(AmbnrConfiguration *)uniforms;
 @end
 
 @implementation DenoiseRemixStage
+
+- (BOOL)dumpIntermediateData:(id)data counter:(int)counter
+{
+  v4 = *&counter;
+  dataCopy = data;
+  if (self->_pyr->levels < 1)
+  {
+    LOBYTE(v10) = 1;
+  }
+
+  else
+  {
+    v9 = 0;
+    v10 = 1;
+    do
+    {
+      v11 = objc_msgSend_stringWithFormat_(MEMORY[0x29EDBA0F8], v6, @"denoiseremix_%d_pyr_%d.420f", v7, v4, v9);
+      v14 = objc_msgSend_stringByAppendingPathComponent_(dataCopy, v12, v11, v13);
+
+      v15 = v14;
+      v19 = objc_msgSend_UTF8String(v15, v16, v17, v18);
+      v10 &= MEMORY[0x29C252D60](v19, self->_pyr->pixelBuffer[v9]);
+
+      ++v9;
+    }
+
+    while (v9 < self->_pyr->levels);
+  }
+
+  return v10;
+}
 
 - (BOOL)dumpParamsToFile:(id)file
 {
@@ -712,6 +745,550 @@ LABEL_18:
   }
 
   return v75;
+}
+
+- (int)run:(id)run skinMask:(id)mask skyMask:(id)skyMask maskExtent:(CGRect)extent
+{
+  height = extent.size.height;
+  width = extent.size.width;
+  x = extent.origin.x;
+  v315 = *&extent.origin.y;
+  runCopy = run;
+  obj = mask;
+  maskCopy = mask;
+  skyMaskCopy = skyMask;
+  skyMaskCopy2 = skyMask;
+  v326[0] = 0;
+  v324 = 0u;
+  v325 = 0u;
+  v322 = 0u;
+  v323 = 0u;
+  v321 = 0u;
+  memset(location, 0, sizeof(location));
+  levels = self->_pyr->levels;
+  v16 = objc_msgSend_allocator(self->_metal, v13, v14, v15);
+  v20 = objc_msgSend_newTextureDescriptor(v16, v17, v18, v19);
+
+  v290 = skyMaskCopy2;
+  if (!v20)
+  {
+    sub_2958CEBD8(v319);
+    v97 = 0;
+    v286 = v319[0];
+    goto LABEL_88;
+  }
+
+  v24 = objc_msgSend_desc(v20, v21, v22, v23);
+  objc_msgSend_setUsage_(v24, v25, 7, v26);
+
+  v293 = v20;
+  v30 = objc_msgSend_desc(v20, v27, v28, v29);
+  objc_msgSend_setPixelFormat_(v30, v31, 30, v32);
+
+  pyr = self->_pyr;
+  if (*(runCopy + 2) != pyr->levels)
+  {
+    sub_2958CE3D0(v319);
+LABEL_111:
+    v97 = 0;
+    v286 = v319[0];
+    goto LABEL_87;
+  }
+
+  if (maskCopy && skyMaskCopy2)
+  {
+    v37 = objc_msgSend_width(maskCopy, v33, v34, v35);
+    if (v37 != objc_msgSend_width(skyMaskCopy2, v38, v39, v40))
+    {
+      sub_2958CE46C(v319);
+      goto LABEL_111;
+    }
+
+    v44 = objc_msgSend_height(maskCopy, v41, v42, v43);
+    if (v44 != objc_msgSend_height(skyMaskCopy2, v45, v46, v47))
+    {
+      sub_2958CE508(v319);
+      goto LABEL_111;
+    }
+
+    pyr = self->_pyr;
+  }
+
+  if (!pyr->textureY[0])
+  {
+    sub_2958CEB3C(v319);
+    goto LABEL_111;
+  }
+
+  v48 = objc_msgSend_contents(self->_roiTxUniform, v33, v34, v35);
+  v306 = objc_msgSend_width(runCopy[42], v49, v50, v51);
+  v52.f64[0] = width;
+  v52.f64[1] = height;
+  v311 = vcvt_hight_f32_f64(vcvt_f32_f64(v52), v52);
+  v56 = objc_msgSend_height(runCopy[42], v53, v54, v55);
+  v58.f64[0] = x;
+  v57.i64[1] = *(&v315 + 1);
+  *&v58.f64[1] = v315;
+  *v57.f32 = vcvt_f32_f64(v58);
+  v57.i64[0] = vnegq_f32(v57).u64[0];
+  v57.f32[2] = v306;
+  v57.f32[3] = v56;
+  *v48 = vdivq_f32(v57, v311);
+  v62 = objc_msgSend_sharedInstance(DenoiseRemixStageShared, v59, v60, v61);
+  v63 = *(&self->_pyr->textureUV[20] + levels + 7);
+  v65 = objc_msgSend_getShaders_lumaFP16_chromaFP16_options_(v62, v64, self->_metal, v63, v63, &self->_options);
+
+  v69 = objc_msgSend_renderPassDescriptor(MEMORY[0x29EDBB5F8], v66, v67, v68);
+  if (!v69)
+  {
+    sub_2958CEA88(v65, v319);
+    goto LABEL_111;
+  }
+
+  v73 = v69;
+  v74 = self->_pyr->textureY[levels + 19];
+  v75 = objc_msgSend_colorAttachments(v69, v70, v71, v72);
+  objc_msgSend_objectAtIndexedSubscript_(v75, v76, 0, v77);
+  v78 = v299 = (levels - 1);
+  objc_msgSend_setTexture_(v78, v79, v74, v80);
+
+  v81 = v299;
+  v85 = objc_msgSend_colorAttachments(v73, v82, v83, v84);
+  v88 = objc_msgSend_objectAtIndexedSubscript_(v85, v86, 0, v87);
+  objc_msgSend_setLoadAction_(v88, v89, 0, v90);
+
+  objc_storeStrong(location, runCopy[v299 + 42]);
+  v91 = location[2];
+  *&location[1] = 0u;
+
+  objc_storeStrong(&location[3], runCopy[v299 + 62]);
+  v92 = *(&v321 + 1);
+  v321 = 0u;
+
+  v93 = v322;
+  *&v322 = 0;
+
+  objc_storeStrong(&v323, self->_localGainMapTex);
+  objc_storeStrong(&v323 + 1, obj);
+  objc_storeStrong(v326, skyMaskCopy);
+  v94 = 0;
+  if (self->_options.enableNoiseMap)
+  {
+    v94 = self->_noiseMapPyramid->textureY[v299];
+  }
+
+  objc_storeStrong(&v324, v94);
+  v289 = maskCopy;
+  if (self->_options.enableNoiseMap)
+  {
+    v95 = self->_noiseMapPyramid->textureUV[v299];
+  }
+
+  else
+  {
+    v95 = 0;
+  }
+
+  objc_storeStrong(&v324 + 1, v95);
+  v96 = v325;
+  *&v325 = 0;
+
+  v97 = *(v65 + 8);
+  objc_msgSend_runShader_shader_desc_uniforms_uniforms2_uniforms3_(self, v98, location, v97, v73, self->_uniforms[v299], 0, self->_roiTxUniform);
+
+  if (levels < 1)
+  {
+    v286 = 0;
+    goto LABEL_86;
+  }
+
+  v102 = runCopy;
+  v103 = 0;
+  v104 = 0;
+  v291 = v102 + 1;
+  v302 = v97;
+  v303 = levels - 2;
+  v105 = (levels - 1);
+  v301 = v299 + 1;
+  v294 = &self->_uniforms[v299];
+  v292 = vdupq_n_s64(0x10uLL);
+  v304 = levels - 2;
+  v305 = (levels - 1);
+  v298 = &v102[v303];
+  v295 = v102;
+  v300 = &v102[v299];
+  v316 = v105 * 8;
+  while (1)
+  {
+    v106 = self->_pyr->levels;
+    v309 = v81 + v104;
+    if (v81 + v104 >= v106)
+    {
+      sub_2958CE5A4();
+    }
+
+    v107 = v304 + v104;
+    v108 = v105 * 8 + v103;
+    if (v105 * 8 + v103 && v107 < 0)
+    {
+      sub_2958CE5D0();
+    }
+
+    v109 = objc_msgSend_sharedInstance(DenoiseRemixStageShared, v99, v100, v101);
+    v111 = v109;
+    v112 = self->_options.enableLowVarSharpening || self->_pyr->isFP16[v81 + v104];
+    metal = self->_metal;
+    if (v108)
+    {
+      objc_msgSend_getShaders_lumaFP16_chromaFP16_options_(v109, v110, metal, v112, self->_pyr->isFP16[v304 + v104], &self->_options);
+    }
+
+    else
+    {
+      objc_msgSend_getShaders_lumaFP16_chromaFP16_options_(v109, v110, metal, v112, 1, &self->_options);
+    }
+    v312 = ;
+
+    v314 = objc_msgSend_renderPassDescriptor(MEMORY[0x29EDBB5F8], v114, v115, v116);
+    if (!v314)
+    {
+      sub_2958CE9EC(v319);
+LABEL_92:
+      v286 = v319[0];
+      goto LABEL_100;
+    }
+
+    if (!v107 && (FigMetalIsValid() & 1) == 0)
+    {
+      v120 = objc_msgSend_width(v291[42], v117, v118, v119);
+      v124 = objc_msgSend_desc(v293, v121, v122, v123);
+      objc_msgSend_setWidth_(v124, v125, v120, v126);
+
+      v130 = objc_msgSend_height(v291[42], v127, v128, v129);
+      v134 = objc_msgSend_desc(v293, v131, v132, v133);
+      objc_msgSend_setHeight_(v134, v135, v130, v136);
+
+      v140 = self->_pyr->isFP16[0] ? 65 : 30;
+      v141 = objc_msgSend_desc(v293, v137, v138, v139);
+      objc_msgSend_setPixelFormat_(v141, v142, v140, v143);
+
+      objc_msgSend_setLabel_(v293, v144, 0, v145);
+      v149 = objc_msgSend_allocator(self->_metal, v146, v147, v148);
+      v105 = v299;
+      v152 = objc_msgSend_newTextureWithDescriptor_(v149, v150, v293, v151);
+      v153 = self->_pyr;
+      v154 = v153->textureUV[0];
+      v153->textureUV[0] = v152;
+
+      if (!self->_pyr->textureUV[0])
+      {
+        sub_2958CE5FC(v319);
+        goto LABEL_92;
+      }
+    }
+
+    if (self->_options.enableLowVarSharpening && (FigMetalIsValid() & 1) == 0)
+    {
+      v155 = objc_msgSend_width(v300[v103 / 8 + 42], v117, v118, v119);
+      v159 = objc_msgSend_desc(v293, v156, v157, v158);
+      objc_msgSend_setWidth_(v159, v160, v155, v161);
+
+      v165 = objc_msgSend_height(v300[v103 / 8 + 42], v162, v163, v164);
+      v169 = objc_msgSend_desc(v293, v166, v167, v168);
+      objc_msgSend_setHeight_(v169, v170, v165, v171);
+
+      v175 = objc_msgSend_desc(v293, v172, v173, v174);
+      objc_msgSend_setPixelFormat_(v175, v176, 25, v177);
+
+      objc_msgSend_setLabel_(v293, v178, 0, v179);
+      v183 = objc_msgSend_allocator(self->_metal, v180, v181, v182);
+      v105 = v299;
+      v186 = objc_msgSend_newTextureWithDescriptor_(v183, v184, v293, v185);
+      v187 = self->_sharpeningPyramid->textureY + v316;
+      v188 = *&v187[v103];
+      *&v187[v103] = v186;
+
+      if (!*(self->_sharpeningPyramid->textureY + v316 + v103))
+      {
+        sub_2958CE698(v319);
+        goto LABEL_92;
+      }
+    }
+
+    v189 = 8;
+    if (self->_options.enableLowVarSharpening)
+    {
+      v189 = 24;
+    }
+
+    v190 = (*(&self->super.isa + v189) + 336);
+    v307 = v108;
+    if (v108)
+    {
+      v191 = v190[v105 + v103 / 8];
+      v192 = v314;
+      v193 = objc_msgSend_colorAttachments(v314, v117, v118, v119);
+      v196 = objc_msgSend_objectAtIndexedSubscript_(v193, v194, 0, v195);
+      objc_msgSend_setTexture_(v196, v197, v191, v198);
+
+      v202 = objc_msgSend_colorAttachments(v314, v199, v200, v201);
+      v205 = objc_msgSend_objectAtIndexedSubscript_(v202, v203, 0, v204);
+      objc_msgSend_setLoadAction_(v205, v206, 0, v207);
+
+      v190 = (&self->_pyr->textureUV[v303] + v103);
+      v208 = 1;
+    }
+
+    else
+    {
+      v208 = 0;
+      v192 = v314;
+    }
+
+    v209 = (v106 - 1);
+    v210 = *v190;
+    v211 = objc_msgSend_colorAttachments(v192, v117, v118, v119);
+    v214 = objc_msgSend_objectAtIndexedSubscript_(v211, v212, v208, v213);
+    objc_msgSend_setTexture_(v214, v215, v210, v216);
+
+    v220 = objc_msgSend_colorAttachments(v192, v217, v218, v219);
+    v223 = objc_msgSend_objectAtIndexedSubscript_(v220, v221, v208, v222);
+    objc_msgSend_setLoadAction_(v223, v224, 0, v225);
+
+    objc_storeStrong(location, v300[v103 / 8 + 42]);
+    if (v309 == v209)
+    {
+      v226 = location[1];
+      location[1] = 0;
+
+      v227 = 0;
+    }
+
+    else
+    {
+      objc_storeStrong(&location[1], *(&self->_pyr->textureY[1] + v316 + v103));
+      v227 = v300[v103 / 8 + 43];
+    }
+
+    v81 = v299;
+    objc_storeStrong(&location[2], v227);
+    v228 = &v298[v103 / 8 + 62];
+    if (!v307)
+    {
+      v228 = v295 + 62;
+    }
+
+    objc_storeStrong(&location[3], *v228);
+    if (v307)
+    {
+      objc_storeStrong(&v321, *(&self->_pyr->textureUV[v303 + 1] + v103));
+      v229 = v298[v103 / 8 + 63];
+    }
+
+    else
+    {
+      v230 = v321;
+      *&v321 = 0;
+
+      v229 = 0;
+    }
+
+    objc_storeStrong(&v321 + 1, v229);
+    v231 = v322;
+    *&v322 = 0;
+
+    objc_storeStrong(&v323, self->_localGainMapTex);
+    objc_storeStrong(&v323 + 1, obj);
+    objc_storeStrong(v326, skyMaskCopy);
+    v232 = 0;
+    if (self->_options.enableNoiseMap)
+    {
+      v232 = *(self->_noiseMapPyramid->textureY + v316 + v103);
+    }
+
+    objc_storeStrong(&v324, v232);
+    v233 = 0;
+    if (v307 && self->_options.enableNoiseMap)
+    {
+      v233 = *(&self->_noiseMapPyramid->textureUV[v303] + v103);
+    }
+
+    objc_storeStrong(&v324 + 1, v233);
+    v234 = 8;
+    if (self->_options.enableLowVarSharpening)
+    {
+      v234 = 24;
+    }
+
+    objc_storeStrong(&v325, *(*(&self->super.isa + v234) + v316 + v103 + 336));
+    if (self->_options.enableLowVarSharpening)
+    {
+      v235 = *(self->_pyr->textureY + v316 + v103);
+    }
+
+    else
+    {
+      v235 = 0;
+    }
+
+    v236 = v314;
+    objc_storeStrong(&v325 + 1, v235);
+    if (location[0] == v325)
+    {
+      sub_2958CE950(v319);
+      v286 = v319[0];
+      v97 = v302;
+      goto LABEL_102;
+    }
+
+    if (v309 == v209)
+    {
+      v237 = v312[2];
+
+      uniforms = &v294[v103 / 8];
+      v240 = v294[v103 / 8];
+      if (!v307)
+      {
+        v241 = 0;
+LABEL_66:
+        v97 = v237;
+        objc_msgSend_runShader_shader_desc_uniforms_uniforms2_uniforms3_(self, v238, location, v237, v314, v240, v241, self->_roiTxUniform);
+        goto LABEL_67;
+      }
+
+LABEL_65:
+      v241 = *(&self->_uniforms[v303] + v103);
+      goto LABEL_66;
+    }
+
+    if (v307)
+    {
+      v237 = v312[3];
+
+      v240 = v294[v103 / 8];
+      uniforms = &self->_uniforms[v305];
+      goto LABEL_65;
+    }
+
+    v284 = 4;
+    if (self->_options.enableBandZeroDenoising)
+    {
+      v284 = 5;
+    }
+
+    v97 = v312[v284];
+
+    uniforms = self->_uniforms;
+    objc_msgSend_runShader_shader_desc_uniforms_uniforms2_uniforms3_(self, v285, location, v97, v314, self->_uniforms[0], 0, self->_roiTxUniform);
+LABEL_67:
+    v302 = v97;
+    if (!self->_options.enableLowVarSharpening)
+    {
+      v257 = v312;
+      goto LABEL_73;
+    }
+
+    v242 = *(&v325 + 1);
+    v246 = objc_msgSend_width(v242, v243, v244, v245);
+    v250 = objc_msgSend_height(v242, v247, v248, v249);
+    if (v325 == *(&v325 + 1))
+    {
+      sub_2958CE8A4(v242, v319);
+      v286 = v319[0];
+      goto LABEL_101;
+    }
+
+    v254 = v250;
+    v255 = objc_msgSend_sharedInstance(DenoiseRemixStageShared, v251, v252, v253);
+    v257 = objc_msgSend_getShaders_lumaFP16_chromaFP16_options_(v255, v256, self->_metal, self->_pyr->isFP16[v299 + v104], 1, &self->_options);
+
+    v261 = objc_msgSend_commandQueue(self->_metal, v258, v259, v260);
+    v265 = objc_msgSend_commandBuffer(v261, v262, v263, v264);
+
+    if (!v265)
+    {
+      break;
+    }
+
+    v269 = objc_msgSend_computeCommandEncoder(v265, v266, v267, v268);
+    v272 = v269;
+    if (!v269)
+    {
+      sub_2958CE734(0, v265, v242, v319);
+      goto LABEL_99;
+    }
+
+    objc_msgSend_setComputePipelineState_(v269, v270, v257[6], v271);
+    objc_msgSend_setTextures_withRange_(v272, v273, location, 0, 15);
+    objc_msgSend_setBuffer_offset_atIndex_(v272, v274, *uniforms, 0, 0);
+    objc_msgSend_setBuffer_offset_atIndex_(v272, v275, self->_roiTxUniform, 0, 2);
+    objc_msgSend_setImageblockWidth_height_(v272, v276, 16, 16);
+    v319[0] = ((v246 >> 1) + 13) / 0xEuLL;
+    v319[1] = ((v254 >> 1) + 13) / 0xEuLL;
+    v319[2] = 1;
+    v317 = v292;
+    v318 = 1;
+    objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v272, v277, v319, &v317);
+    objc_msgSend_endEncoding(v272, v278, v279, v280);
+    objc_msgSend_commit(v265, v281, v282, v283);
+    FigMetalDecRef();
+
+    v81 = v299;
+    v236 = v314;
+LABEL_73:
+    if (v301 + v104 < self->_pyr->levels)
+    {
+      FigMetalDecRef();
+    }
+
+    v105 = v299;
+    if (v307 && v304 + v104 + 1 < self->_pyr->levels)
+    {
+      FigMetalDecRef();
+    }
+
+    if (self->_options.enableNoiseMap)
+    {
+      FigMetalDecRef();
+      FigMetalDecRef();
+    }
+
+    --v305;
+    --v104;
+    v103 -= 8;
+    if (v301 + v104 <= 0)
+    {
+      v286 = 0;
+      runCopy = v295;
+      maskCopy = v289;
+      v20 = v293;
+      v97 = v302;
+      goto LABEL_88;
+    }
+  }
+
+  sub_2958CE7F8(v242, v319);
+LABEL_99:
+  v286 = v319[0];
+  v312 = v257;
+LABEL_100:
+  v97 = v302;
+LABEL_101:
+  v236 = v314;
+LABEL_102:
+
+  runCopy = v295;
+LABEL_86:
+  maskCopy = v289;
+LABEL_87:
+  v20 = v293;
+LABEL_88:
+
+  for (i = 14; i != -1; --i)
+  {
+  }
+
+  return v286;
 }
 
 @end

@@ -15,13 +15,13 @@
 
 - (void)initWithEmail:(void *)email
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (email)
   {
-    v12.receiver = email;
-    v12.super_class = BCSBusinessEmailItemIdentifier;
-    email = objc_msgSendSuper2(&v12, sel_init);
+    v11.receiver = email;
+    v11.super_class = BCSBusinessEmailItemIdentifier;
+    email = objc_msgSendSuper2(&v11, sel_init);
     if (email)
     {
       lowercaseString = [v3 lowercaseString];
@@ -31,28 +31,27 @@
       v6 = [email _truncatedHashForString:email[3]];
       email[6] = v6;
       v7 = [MEMORY[0x277CCABB0] numberWithLongLong:v6];
-      v13[0] = v7;
-      v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+      v12[0] = v7;
+      v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
       v9 = email[7];
       email[7] = v8;
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return email;
 }
 
 - (void)initWithEmail:(void *)email fullDomain:(void *)domain topLevelDomain:
 {
-  v27[1] = *MEMORY[0x277D85DE8];
+  v26[1] = *MEMORY[0x277D85DE8];
   v7 = a2;
   emailCopy = email;
   domainCopy = domain;
   if (self)
   {
-    v26.receiver = self;
-    v26.super_class = BCSBusinessEmailItemIdentifier;
-    self = objc_msgSendSuper2(&v26, sel_init);
+    v25.receiver = self;
+    v25.super_class = BCSBusinessEmailItemIdentifier;
+    self = objc_msgSendSuper2(&v25, sel_init);
     if (self)
     {
       lowercaseString = [v7 lowercaseString];
@@ -71,8 +70,8 @@
       self[6] = v16;
       v17 = MEMORY[0x277CBEB18];
       v18 = [MEMORY[0x277CCABB0] numberWithLongLong:v16];
-      v27[0] = v18;
-      v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:1];
+      v26[0] = v18;
+      v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:1];
       v20 = [v17 arrayWithArray:v19];
 
       if (emailCopy)
@@ -92,7 +91,6 @@
     }
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return self;
 }
 
@@ -124,56 +122,34 @@
 {
   identifyingCopy = identifying;
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  v17 = 0;
+  if (objc_opt_isKindOfClass())
   {
-    goto LABEL_10;
-  }
-
-  type = [identifyingCopy type];
-  if (type != [(BCSBusinessEmailItemIdentifier *)self type])
-  {
-    goto LABEL_10;
-  }
-
-  itemIdentifier = [identifyingCopy itemIdentifier];
-  itemIdentifier2 = [(BCSBusinessEmailItemIdentifier *)self itemIdentifier];
-  v8 = [itemIdentifier isEqual:itemIdentifier2];
-
-  if (!v8)
-  {
-    goto LABEL_10;
-  }
-
-  if (![identifyingCopy conformsToProtocol:&unk_285466448])
-  {
-    goto LABEL_10;
-  }
-
-  truncatedHashes = [(BCSBusinessEmailItemIdentifier *)self truncatedHashes];
-
-  if (truncatedHashes)
-  {
-    truncatedHashes2 = [(BCSBusinessEmailItemIdentifier *)self truncatedHashes];
-    truncatedHashes3 = [identifyingCopy truncatedHashes];
-    v12 = [truncatedHashes2 isEqualToArray:truncatedHashes3];
-
-    if (!v12)
+    type = [identifyingCopy type];
+    if (type == [(BCSBusinessEmailItemIdentifier *)self type])
     {
-      goto LABEL_10;
+      itemIdentifier = [identifyingCopy itemIdentifier];
+      itemIdentifier2 = [(BCSBusinessEmailItemIdentifier *)self itemIdentifier];
+      v8 = [itemIdentifier isEqual:itemIdentifier2];
+
+      if (v8)
+      {
+        if ([identifyingCopy conformsToProtocol:&unk_285466448])
+        {
+          truncatedHashes = [(BCSBusinessEmailItemIdentifier *)self truncatedHashes];
+
+          if (!truncatedHashes || (-[BCSBusinessEmailItemIdentifier truncatedHashes](self, "truncatedHashes"), v10 = objc_claimAutoreleasedReturnValue(), [identifyingCopy truncatedHashes], v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v10, "isEqualToArray:", v11), v11, v10, v12))
+          {
+            truncatedHashes2 = [identifyingCopy truncatedHashes];
+
+            if (!truncatedHashes2 || ([identifyingCopy truncatedHashes], v14 = objc_claimAutoreleasedReturnValue(), -[BCSBusinessEmailItemIdentifier truncatedHashes](self, "truncatedHashes"), v15 = objc_claimAutoreleasedReturnValue(), v16 = objc_msgSend(v14, "isEqualToArray:", v15), v15, v14, v16))
+            {
+              v17 = 1;
+            }
+          }
+        }
+      }
     }
-  }
-
-  truncatedHashes4 = [identifyingCopy truncatedHashes];
-
-  if (!truncatedHashes4 || ([identifyingCopy truncatedHashes], v14 = objc_claimAutoreleasedReturnValue(), -[BCSBusinessEmailItemIdentifier truncatedHashes](self, "truncatedHashes"), v15 = objc_claimAutoreleasedReturnValue(), v16 = objc_msgSend(v14, "isEqualToArray:", v15), v15, v14, v16))
-  {
-    v17 = 1;
-  }
-
-  else
-  {
-LABEL_10:
-    v17 = 0;
   }
 
   return v17;

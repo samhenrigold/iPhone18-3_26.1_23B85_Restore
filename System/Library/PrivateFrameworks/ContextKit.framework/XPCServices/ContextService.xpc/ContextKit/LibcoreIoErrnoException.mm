@@ -10,7 +10,7 @@
 
 - (LibcoreIoErrnoException)initWithNSString:(id)string withInt:(int)int
 {
-  JavaLangException_init(self, a2);
+  JavaLangException_init(self);
   JreStrongAssign(&self->errno__, string);
   *(&self->super.super.rawFrameCount + 1) = int;
   return self;
@@ -28,7 +28,6 @@
 {
   if (!LibcoreIoOsConstants_errnoNameWithInt_(*(&self->super.super.rawFrameCount + 1)))
   {
-    v18 = *(&self->super.super.rawFrameCount + 1);
     JreStrcat("$I", v3, v4, v5, v6, v7, v8, v9, @"errno ");
   }
 

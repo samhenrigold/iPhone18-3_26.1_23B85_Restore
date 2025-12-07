@@ -46,7 +46,7 @@
 
 - (id)description
 {
-  if (DDS_LOG_REDACTED())
+  if (DDS_LOG_REDACTED(self))
   {
     v3 = MEMORY[0x1E696AEC0];
     filters = [(DDSAttributeFilter *)self filters];
@@ -299,25 +299,24 @@ void __44__DDSAttributeFilter_doesContainAttributes___block_invoke(uint64_t a1, 
     v6 = v5;
     if (v12)
     {
-      v14 = DefaultLog();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v15 = DefaultLog(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        [(DDSAttributeFilter *)sel_filters initWithCoder:v14];
+        [(DDSAttributeFilter *)sel_filters initWithCoder:v15];
       }
 
       v6 = 0;
     }
   }
 
-  v15 = v6;
+  v16 = v6;
 
-  v16 = *MEMORY[0x1E69E9840];
-  return v15;
+  return v16;
 }
 
 - (id)dumpDescription
 {
-  if (DDS_IS_INTERNAL_INSTALL())
+  if (DDS_IS_INTERNAL_INSTALL(self, a2))
   {
     v3 = MEMORY[0x1E696AEC0];
     filters = [(DDSAttributeFilter *)self filters];
@@ -409,65 +408,59 @@ void __44__DDSAttributeFilter_doesContainAttributes___block_invoke(uint64_t a1, 
 
 void __37__DDSAttributeFilter_hashDictionary___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v5 = *(a1 + 40);
-  v6 = *(*(*(a1 + 32) + 8) + 24);
-  v7 = a3;
-  v8 = a2;
-  v9 = [objc_opt_class() hashObject:v8];
+  v5 = *(*(*(a1 + 32) + 8) + 24);
+  v6 = a3;
+  v7 = a2;
+  v8 = [objc_opt_class() hashObject:v7];
 
-  v10 = *(a1 + 40);
-  v11 = [objc_opt_class() hashObject:v7];
-
-  *(*(*(a1 + 32) + 8) + 24) = v9 * v6 * v11;
+  v9 = [objc_opt_class() hashObject:v6];
+  *(*(*(a1 + 32) + 8) + 24) = v8 * v5 * v9;
 }
 
 + (unint64_t)hashSet:(id)set
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = 77239;
   setCopy = set;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v5 = [setCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [setCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       v8 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(setCopy);
         }
 
-        v3 *= [objc_opt_class() hashObject:*(*(&v11 + 1) + 8 * v8++)];
+        v3 *= [objc_opt_class() hashObject:*(*(&v10 + 1) + 8 * v8++)];
       }
 
       while (v6 != v8);
-      v6 = [setCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [setCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
 - (void)initWithCoder:(const char *)a1 .cold.1(const char *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = NSStringFromSelector(a1);
-  v5 = 138543362;
-  v6 = v3;
-  _os_log_error_impl(&dword_1DF7C6000, a2, OS_LOG_TYPE_ERROR, "Error decoding object for key %{public}@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138543362;
+  v5 = v3;
+  _os_log_error_impl(&dword_1DF7C6000, a2, OS_LOG_TYPE_ERROR, "Error decoding object for key %{public}@", &v4, 0xCu);
 }
 
 @end

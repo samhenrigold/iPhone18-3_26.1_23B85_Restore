@@ -198,8 +198,8 @@ LABEL_49:
             }
 
 LABEL_48:
-            v27 = +[UIView _defaultInteractionTintColorForIdiom:](UIView, "_defaultInteractionTintColorForIdiom:", [superview _userInterfaceIdiom]);
-            if (v27 == +[UIView _defaultInteractionTintColorForIdiom:](UIView, "_defaultInteractionTintColorForIdiom:", [view _userInterfaceIdiom]))
+            v25 = +[UIView _defaultInteractionTintColorForIdiom:](UIView, "_defaultInteractionTintColorForIdiom:", [superview _userInterfaceIdiom]);
+            if (v25 == +[UIView _defaultInteractionTintColorForIdiom:](UIView, "_defaultInteractionTintColorForIdiom:", [view _userInterfaceIdiom]))
             {
               return 0;
             }
@@ -210,41 +210,41 @@ LABEL_48:
 LABEL_60:
           if (window)
           {
-            v28 = (*(window + 12) >> 36) & 3;
-            if (!v28)
+            v26 = (*(window + 12) >> 36) & 3;
+            if (!v26)
             {
-              v28 = 2 * (*(window + 108) != 0);
+              v26 = 2 * (*(window + 108) != 0);
             }
           }
 
           else
           {
-            v28 = 0;
+            v26 = 0;
           }
 
-          v29 = (*(window + 96) >> 36) & 3;
-          if (!v29)
+          v27 = (*(window + 96) >> 36) & 3;
+          if (!v27)
           {
-            v29 = 2 * (*(window + 216) != 0);
+            v27 = 2 * (*(window + 216) != 0);
           }
 
-          v30 = v28 == v29;
-          if (v28 == v29)
+          v28 = v26 == v27;
+          if (v26 == v27)
           {
-            v31 = v17;
+            v29 = v17;
           }
 
           else
           {
-            v31 = 0;
+            v29 = 0;
           }
 
-          if (v30)
+          if (v28)
           {
             v20 = 1;
           }
 
-          if ((v31 & 1) == 0)
+          if ((v29 & 1) == 0)
           {
             goto LABEL_50;
           }
@@ -266,8 +266,7 @@ LABEL_24:
       if ((v14 & 1) == 0 && view && (*(subview + 12) & 0x200000000000) != 0 && (*(view + 101) & 0x20) != 0 || [view _definesTintColor])
       {
         _normalInheritedTintColor = [superview _normalInheritedTintColor];
-        _normalInheritedTintColor2 = [view _normalInheritedTintColor];
-        if (_normalInheritedTintColor == _normalInheritedTintColor2 && ([_normalInheritedTintColor isEqual:_normalInheritedTintColor2] & 1) != 0)
+        if (_normalInheritedTintColor == [view _normalInheritedTintColor] && (objc_msgSend_isEqual_(_normalInheritedTintColor) & 1) != 0)
         {
           v17 = 1;
           goto LABEL_51;
@@ -310,9 +309,8 @@ LABEL_38:
           goto LABEL_40;
         }
 
-        _normalInheritedTintColor3 = [window _normalInheritedTintColor];
-        _normalInheritedTintColor4 = [window _normalInheritedTintColor];
-        if (_normalInheritedTintColor3 == _normalInheritedTintColor4 && ![_normalInheritedTintColor3 isEqual:_normalInheritedTintColor4])
+        _normalInheritedTintColor2 = [window _normalInheritedTintColor];
+        if (_normalInheritedTintColor2 == [window _normalInheritedTintColor] && !objc_msgSend_isEqual_(_normalInheritedTintColor2))
         {
 LABEL_51:
           v20 = 2;

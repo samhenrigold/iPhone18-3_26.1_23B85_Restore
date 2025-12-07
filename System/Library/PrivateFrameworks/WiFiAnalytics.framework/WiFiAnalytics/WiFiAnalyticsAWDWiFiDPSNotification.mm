@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)symptomAsString:(int)string;
 - (int)StringAsSymptom:(id)symptom;
 - (int)symptom;
 - (unint64_t)hash;
@@ -48,6 +49,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFFF7 | v3;
+}
+
+- (id)symptomAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E830EF30[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsSymptom:(id)symptom
@@ -388,7 +404,6 @@ LABEL_12:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 8) == 0)
@@ -408,7 +423,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  symptom = self->_symptom;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -423,7 +437,6 @@ LABEL_4:
   }
 
 LABEL_17:
-  problemAC = self->_problemAC;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x100) == 0)
@@ -438,7 +451,6 @@ LABEL_5:
   }
 
 LABEL_18:
-  facetimeCallInProgress = self->_facetimeCallInProgress;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 2) == 0)
@@ -453,7 +465,6 @@ LABEL_6:
   }
 
 LABEL_19:
-  cca = self->_cca;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -468,7 +479,6 @@ LABEL_7:
   }
 
 LABEL_20:
-  txBETrId = self->_txBETrId;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -483,7 +493,6 @@ LABEL_8:
   }
 
 LABEL_21:
-  txBKTrId = self->_txBKTrId;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -498,7 +507,6 @@ LABEL_9:
   }
 
 LABEL_22:
-  txVITrId = self->_txVITrId;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -513,12 +521,10 @@ LABEL_10:
   }
 
 LABEL_23:
-  txVOTrId = self->_txVOTrId;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x200) != 0)
   {
 LABEL_11:
-    isNANEnabled = self->_isNANEnabled;
     PBDataWriterWriteBOOLField();
   }
 
@@ -868,7 +874,6 @@ LABEL_11:
       goto LABEL_53;
     }
 
-    v7 = *(equalCopy + 44);
     if (self->_facetimeCallInProgress)
     {
       if ((*(equalCopy + 44) & 1) == 0)
@@ -970,19 +975,19 @@ LABEL_11:
         goto LABEL_53;
       }
 
-      v8 = 1;
+      v7 = 1;
       goto LABEL_54;
     }
 
 LABEL_53:
-    v8 = 0;
+    v7 = 0;
     goto LABEL_54;
   }
 
-  v8 = (v6 & 0x200) == 0;
+  v7 = (v6 & 0x200) == 0;
 LABEL_54:
 
-  return v8;
+  return v7;
 }
 
 - (unint64_t)hash

@@ -171,7 +171,7 @@
             v14 = MEMORY[0x1E696B098];
             if (v10)
             {
-              [v10 baseTransform];
+              objc_msgSend_baseTransform(v10);
             }
 
             else

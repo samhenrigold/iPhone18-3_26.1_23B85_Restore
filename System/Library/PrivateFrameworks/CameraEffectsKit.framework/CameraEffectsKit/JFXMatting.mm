@@ -131,34 +131,34 @@ LABEL_14:
   return isCVASegMattingSPIWorking_working;
 }
 
-void __39__JFXMatting_isCVASegMattingSPIWorking__block_invoke()
+void __39__JFXMatting_isCVASegMattingSPIWorking__block_invoke(uint64_t a1)
 {
   +[JFXRGBDMatte mattingDepthInputSize];
-  v1 = v0;
-  v3 = v2;
+  v2 = v1;
+  v4 = v3;
   pixelBufferOut = 0;
   sampleBufferOut = 0;
   formatDescriptionOut = 0;
-  v12 = 0;
-  memset(&v10, 0, sizeof(v10));
-  CMTimeMake(&v10.duration, 1, 30);
-  v10.presentationTimeStamp = **&MEMORY[0x277CC08F0];
-  v10.decodeTimeStamp = **&MEMORY[0x277CC0898];
-  v4 = *MEMORY[0x277CBECE8];
+  v13 = 0;
+  memset(&v11, 0, sizeof(v11));
+  CMTimeMake(&v11.duration, 1, 30);
+  v11.presentationTimeStamp = **&MEMORY[0x277CC08F0];
+  v11.decodeTimeStamp = **&MEMORY[0x277CC0898];
+  v5 = *MEMORY[0x277CBECE8];
   CVPixelBufferCreate(*MEMORY[0x277CBECE8], 0x500uLL, 0x2D0uLL, 0x34323076u, 0, &pixelBufferOut);
-  CMVideoFormatDescriptionCreateForImageBuffer(v4, pixelBufferOut, &formatDescriptionOut);
-  CMSampleBufferCreateReadyWithImageBuffer(v4, pixelBufferOut, formatDescriptionOut, &v10, &sampleBufferOut);
-  CVPixelBufferCreate(v4, v1, v3, 0x66646570u, 0, &v12);
-  v5 = [objc_opt_class() depthDataForCVPixelBuffer:v12];
-  CVPixelBufferRelease(v12);
+  CMVideoFormatDescriptionCreateForImageBuffer(v5, pixelBufferOut, &formatDescriptionOut);
+  CMSampleBufferCreateReadyWithImageBuffer(v5, pixelBufferOut, formatDescriptionOut, &v11, &sampleBufferOut);
+  CVPixelBufferCreate(v5, v2, v4, 0x66646570u, 0, &v13);
+  v6 = [objc_opt_class() depthDataForCVPixelBuffer:v13];
+  CVPixelBufferRelease(v13);
   CVPixelBufferRelease(pixelBufferOut);
-  v6 = objc_alloc(MEMORY[0x277D415D8]);
-  v7 = [v6 initWithSampleBuffer:sampleBufferOut];
-  v8 = [objc_alloc(MEMORY[0x277D41608]) initWithColorBuffer:v7 depthData:v5 metadata:0];
-  if (v8)
+  v7 = objc_alloc(MEMORY[0x277D415D8]);
+  v8 = [v7 initWithSampleBuffer:sampleBufferOut];
+  v9 = [objc_alloc(MEMORY[0x277D41608]) initWithColorBuffer:v8 depthData:v6 metadata:0];
+  if (v9)
   {
-    v9 = [[JFXCVASegMatting alloc] initForFrameSet:v8];
-    isCVASegMattingSPIWorking_working = [v9 ready];
+    v10 = [[JFXCVASegMatting alloc] initForFrameSet:v9];
+    isCVASegMattingSPIWorking_working = [v10 ready];
   }
 
   if (formatDescriptionOut)

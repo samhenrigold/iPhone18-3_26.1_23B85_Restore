@@ -149,15 +149,15 @@ void __68__NMSMusicCatalogRecommendationsUpdater_endAutomaticContentUpdating__bl
 - (void)_handlePrivacyAcknowledgementDidChangeForIdentifier:(id)identifier isPrivacyAcknowledgementRequired:(BOOL)required
 {
   requiredCopy = required;
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v7 = NMLogForCategory(5);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v12 = identifierCopy;
-    v13 = 2048;
-    v14 = requiredCopy;
+    v11 = identifierCopy;
+    v12 = 2048;
+    v13 = requiredCopy;
     _os_log_impl(&dword_25B27B000, v7, OS_LOG_TYPE_DEFAULT, "[Recommendation] (Music) (Catalog) Received privacy acknowledgement did change for %@, isPrivacyAcknowledgementRequired: %ld.", buf, 0x16u);
   }
 
@@ -168,8 +168,6 @@ void __68__NMSMusicCatalogRecommendationsUpdater_endAutomaticContentUpdating__bl
   block[3] = &unk_27993DD20;
   block[4] = self;
   dispatch_async(queue, block);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_scheduleNextUpdateIfNeeded
@@ -287,22 +285,22 @@ void __68__NMSMusicCatalogRecommendationsUpdater__scheduleNextUpdateIfNeeded__bl
 
 - (void)_scheduleNextUpdateWithBag:(id)bag
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   bagCopy = bag;
   dispatch_assert_queue_V2(self->_queue);
   v5 = [objc_alloc(MEMORY[0x277CCA8B8]) initWithIdentifier:@"com.apple.NanoMusicSync.NMSMusicCatalogRecommendationsUpdater"];
-  v40 = 0uLL;
-  v41 = 0;
+  v39 = 0uLL;
+  v40 = 0;
   v6 = objc_opt_class();
   if (v6)
   {
-    [v6 _configurationWithBag:bagCopy];
+    objc_msgSend__configurationWithBag_(v6);
   }
 
   else
   {
-    v40 = 0uLL;
-    v41 = 0;
+    v39 = 0uLL;
+    v40 = 0;
   }
 
   v7 = +[NMSyncDefaults sharedDefaults];
@@ -311,8 +309,8 @@ void __68__NMSMusicCatalogRecommendationsUpdater__scheduleNextUpdateIfNeeded__bl
   if (catalogRecommendationsLastUpdateDate)
   {
     v9 = objc_opt_class();
-    *buf = v40;
-    *&buf[16] = v41;
+    *buf = v39;
+    *&buf[16] = v40;
     [v9 _nextUpdateDelayAfterDate:catalogRecommendationsLastUpdateDate configuration:buf];
     v11 = v10;
     v12 = v10 > 0.0;
@@ -327,7 +325,7 @@ void __68__NMSMusicCatalogRecommendationsUpdater__scheduleNextUpdateIfNeeded__bl
         _os_log_impl(&dword_25B27B000, v13, OS_LOG_TYPE_DEFAULT, "[Recommendation] (Music) (Catalog) Last updated date is %@, will schedule next update for later.", buf, 0xCu);
       }
 
-      [v5 setInterval:(86400 * v40)];
+      [v5 setInterval:(86400 * v39)];
       [v5 setDelay:v11];
       [v5 setTolerance:1800.0];
     }
@@ -384,7 +382,7 @@ void __68__NMSMusicCatalogRecommendationsUpdater__scheduleNextUpdateIfNeeded__bl
     [v5 delay];
     [v5 setDelay:v24 + v23 * 60.0];
 
-    [v5 setInterval:(86400 * v40)];
+    [v5 setInterval:(86400 * v39)];
     [v5 setTolerance:60.0];
   }
 
@@ -404,29 +402,27 @@ void __68__NMSMusicCatalogRecommendationsUpdater__scheduleNextUpdateIfNeeded__bl
     *&buf[12] = 2048;
     *&buf[14] = v29;
     *&buf[22] = 2048;
-    v43 = v31 / 60.0;
-    v44 = 2048;
-    v45 = v32;
+    v42 = v31 / 60.0;
+    v43 = 2048;
+    v44 = v32;
     _os_log_impl(&dword_25B27B000, v25, OS_LOG_TYPE_DEFAULT, "[Recommendation] (Music) (Catalog) Scheduling next update for %@ (in %f seconds) +/-%f minutes, interval: %f.", buf, 0x2Au);
   }
 
   objc_initWeak(buf, self);
-  v37[0] = MEMORY[0x277D85DD0];
-  v37[1] = 3221225472;
-  v37[2] = __68__NMSMusicCatalogRecommendationsUpdater__scheduleNextUpdateWithBag___block_invoke;
-  v37[3] = &unk_27993EDF0;
-  objc_copyWeak(&v39, buf);
+  v36[0] = MEMORY[0x277D85DD0];
+  v36[1] = 3221225472;
+  v36[2] = __68__NMSMusicCatalogRecommendationsUpdater__scheduleNextUpdateWithBag___block_invoke;
+  v36[3] = &unk_27993EDF0;
+  objc_copyWeak(&v38, buf);
   v33 = v5;
-  v38 = v33;
-  [(NSBackgroundActivityScheduler *)v33 scheduleWithBlock:v37];
+  v37 = v33;
+  [(NSBackgroundActivityScheduler *)v33 scheduleWithBlock:v36];
   updateScheduler = self->_updateScheduler;
   self->_updateScheduler = v33;
   v35 = v33;
 
-  objc_destroyWeak(&v39);
+  objc_destroyWeak(&v38);
   objc_destroyWeak(buf);
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 void __68__NMSMusicCatalogRecommendationsUpdater__scheduleNextUpdateWithBag___block_invoke(uint64_t a1, void *a2)
@@ -455,7 +451,7 @@ void __68__NMSMusicCatalogRecommendationsUpdater__scheduleNextUpdateWithBag___bl
 
 + ($76119E9FC4E615FCD2412858B276E5B9)_configurationWithBag:(SEL)bag
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v5 = a4;
   v6 = v5;
   *&retstr->var0 = xmmword_25B2CED60;
@@ -467,11 +463,11 @@ void __68__NMSMusicCatalogRecommendationsUpdater__scheduleNextUpdateWithBag___bl
     v9 = NMLogForCategory(5);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v26 = 138412546;
-      v27 = v7;
-      v28 = 2112;
-      v29 = v8;
-      _os_log_impl(&dword_25B27B000, v9, OS_LOG_TYPE_DEFAULT, "[Recommendation] (Music) (Catalog) Next update window from bag is: %@ - %@", &v26, 0x16u);
+      v25 = 138412546;
+      v26 = v7;
+      v27 = 2112;
+      v28 = v8;
+      _os_log_impl(&dword_25B27B000, v9, OS_LOG_TYPE_DEFAULT, "[Recommendation] (Music) (Catalog) Next update window from bag is: %@ - %@", &v25, 0x16u);
     }
 
     objc_opt_class();
@@ -502,11 +498,11 @@ void __68__NMSMusicCatalogRecommendationsUpdater__scheduleNextUpdateWithBag___bl
     v18 = NMLogForCategory(5);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      v26 = 138412546;
-      v27 = v16;
-      v28 = 2112;
-      v29 = v17;
-      _os_log_impl(&dword_25B27B000, v18, OS_LOG_TYPE_DEFAULT, "[Recommendation] (Music) (Catalog) (DebugOverrides) Update window from defaults is: %@ - %@", &v26, 0x16u);
+      v25 = 138412546;
+      v26 = v16;
+      v27 = 2112;
+      v28 = v17;
+      _os_log_impl(&dword_25B27B000, v18, OS_LOG_TYPE_DEFAULT, "[Recommendation] (Music) (Catalog) (DebugOverrides) Update window from defaults is: %@ - %@", &v25, 0x16u);
     }
 
     intValue4 = [v16 intValue];
@@ -520,16 +516,15 @@ void __68__NMSMusicCatalogRecommendationsUpdater__scheduleNextUpdateWithBag___bl
       v23 = NMLogForCategory(5);
       if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
-        v26 = 138412290;
-        v27 = v22;
-        _os_log_impl(&dword_25B27B000, v23, OS_LOG_TYPE_DEFAULT, "[Recommendation] (Music) (Catalog) (DebugOverrides) Update interval from defaults is: %@ days.", &v26, 0xCu);
+        v25 = 138412290;
+        v26 = v22;
+        _os_log_impl(&dword_25B27B000, v23, OS_LOG_TYPE_DEFAULT, "[Recommendation] (Music) (Catalog) (DebugOverrides) Update interval from defaults is: %@ days.", &v25, 0xCu);
       }
 
       retstr->var0 = [v22 integerValue];
     }
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -664,7 +659,7 @@ void __91__NMSMusicCatalogRecommendationsUpdater__performNextUpdateWithScheduler
 
 - (void)_performNextUpdateWithScheduler:(id)scheduler urlBag:(id)bag completionHandler:(id)handler
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   schedulerCopy = scheduler;
   bagCopy = bag;
   handlerCopy = handler;
@@ -714,7 +709,7 @@ LABEL_8:
     if (v19)
     {
       *buf = 134217984;
-      v26 = v16;
+      v25 = v16;
       _os_log_impl(&dword_25B27B000, v13, OS_LOG_TYPE_DEFAULT, "[Recommendation] (Music) (Catalog) App is considered content dormant for staleness interval: %f, won't perform next update.", buf, 0xCu);
     }
 
@@ -729,24 +724,22 @@ LABEL_8:
 
   objc_initWeak(buf, self);
   v20 = objc_alloc_init(NMSMusicRecommendationsRequest);
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __98__NMSMusicCatalogRecommendationsUpdater__performNextUpdateWithScheduler_urlBag_completionHandler___block_invoke;
-  v22[3] = &unk_27993EE40;
-  objc_copyWeak(&v24, buf);
-  v23 = handlerCopy;
-  [(NMSMusicRecommendationsRequest *)v20 performWithResponseHandler:v22];
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __98__NMSMusicCatalogRecommendationsUpdater__performNextUpdateWithScheduler_urlBag_completionHandler___block_invoke;
+  v21[3] = &unk_27993EE40;
+  objc_copyWeak(&v23, buf);
+  v22 = handlerCopy;
+  [(NMSMusicRecommendationsRequest *)v20 performWithResponseHandler:v21];
 
-  objc_destroyWeak(&v24);
+  objc_destroyWeak(&v23);
   objc_destroyWeak(buf);
 LABEL_16:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __98__NMSMusicCatalogRecommendationsUpdater__performNextUpdateWithScheduler_urlBag_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = NMLogForCategory(5);
@@ -762,7 +755,7 @@ void __98__NMSMusicCatalogRecommendationsUpdater__performNextUpdateWithScheduler
   else if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v19 = v5;
+    v18 = v5;
     _os_log_impl(&dword_25B27B000, v8, OS_LOG_TYPE_DEFAULT, "[Recommendation] (Music) (Catalog) Finished performing catalog recommendations request: %@", buf, 0xCu);
   }
 
@@ -771,23 +764,21 @@ void __98__NMSMusicCatalogRecommendationsUpdater__performNextUpdateWithScheduler
   if (WeakRetained)
   {
     v11 = WeakRetained[1];
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __98__NMSMusicCatalogRecommendationsUpdater__performNextUpdateWithScheduler_urlBag_completionHandler___block_invoke_69;
-    v13[3] = &unk_27993E978;
-    v14 = v6;
-    v15 = v10;
-    v16 = v5;
-    v17 = *(a1 + 32);
-    dispatch_async(v11, v13);
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __98__NMSMusicCatalogRecommendationsUpdater__performNextUpdateWithScheduler_urlBag_completionHandler___block_invoke_69;
+    v12[3] = &unk_27993E978;
+    v13 = v6;
+    v14 = v10;
+    v15 = v5;
+    v16 = *(a1 + 32);
+    dispatch_async(v11, v12);
   }
 
   else
   {
     (*(*(a1 + 32) + 16))();
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __98__NMSMusicCatalogRecommendationsUpdater__performNextUpdateWithScheduler_urlBag_completionHandler___block_invoke_69(void *a1)
@@ -823,7 +814,7 @@ uint64_t __98__NMSMusicCatalogRecommendationsUpdater__performNextUpdateWithSched
 
 + (double)_stalenessIntervalWithBag:(id)bag
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   bagCopy = bag;
   v4 = bagCopy;
   if (bagCopy)
@@ -832,9 +823,9 @@ uint64_t __98__NMSMusicCatalogRecommendationsUpdater__performNextUpdateWithSched
     v6 = NMLogForCategory(5);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 138412290;
-      v18 = v5;
-      _os_log_impl(&dword_25B27B000, v6, OS_LOG_TYPE_DEFAULT, "[Recommendation] (Music) (Catalog) Update staleness period from bag is: %@ days", &v17, 0xCu);
+      v16 = 138412290;
+      v17 = v5;
+      _os_log_impl(&dword_25B27B000, v6, OS_LOG_TYPE_DEFAULT, "[Recommendation] (Music) (Catalog) Update staleness period from bag is: %@ days", &v16, 0xCu);
     }
 
     objc_opt_class();
@@ -870,15 +861,14 @@ uint64_t __98__NMSMusicCatalogRecommendationsUpdater__performNextUpdateWithSched
     v14 = NMLogForCategory(5);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 138412290;
-      v18 = v11;
-      _os_log_impl(&dword_25B27B000, v14, OS_LOG_TYPE_DEFAULT, "[Recommendation] (Music) (Catalog) (DebugOverrides) Update staleness period from defaults is: %@ minutes", &v17, 0xCu);
+      v16 = 138412290;
+      v17 = v11;
+      _os_log_impl(&dword_25B27B000, v14, OS_LOG_TYPE_DEFAULT, "[Recommendation] (Music) (Catalog) (DebugOverrides) Update staleness period from defaults is: %@ minutes", &v16, 0xCu);
     }
 
     v8 = v13 * 60.0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -899,30 +889,6 @@ uint64_t __98__NMSMusicCatalogRecommendationsUpdater__performNextUpdateWithSched
     v5 = +[NMSyncDefaults sharedDefaults];
     [v5 setCatalogRecommendationsLastUpdateDate:0];
   }
-}
-
-void __68__NMSMusicCatalogRecommendationsUpdater__scheduleNextUpdateIfNeeded__block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __91__NMSMusicCatalogRecommendationsUpdater__performNextUpdateWithScheduler_completionHandler___block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __98__NMSMusicCatalogRecommendationsUpdater__performNextUpdateWithScheduler_urlBag_completionHandler___block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

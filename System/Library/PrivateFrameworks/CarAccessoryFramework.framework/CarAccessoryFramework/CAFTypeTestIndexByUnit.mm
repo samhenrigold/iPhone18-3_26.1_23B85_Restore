@@ -10,7 +10,9 @@
 - (id)name;
 - (int)testInt32;
 - (unsigned)distanceUnitRawValue;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
+- (void)setTestInt32:(int)int32;
 - (void)unregisterObserver:(id)observer;
 @end
 
@@ -161,6 +163,13 @@
   return int32Value;
 }
 
+- (void)setTestInt32:(int)int32
+{
+  v3 = *&int32;
+  testInt32Characteristic = [(CAFTypeTestIndexByUnit *)self testInt32Characteristic];
+  [testInt32Characteristic setInt32Value:v3];
+}
+
 - (CAFInt32Range)testInt32Range
 {
   testInt32Characteristic = [(CAFTypeTestIndexByUnit *)self testInt32Characteristic];
@@ -175,6 +184,56 @@
   v3 = testInt32Characteristic != 0;
 
   return v3;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x0000000046000004"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    distanceUnitRawValueCharacteristic = [(CAFTypeTestIndexByUnit *)self distanceUnitRawValueCharacteristic];
+    uniqueIdentifier2 = [distanceUnitRawValueCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      [observers typeTestIndexByUnitService:self didUpdateDistanceUnitRawValue:{-[CAFTypeTestIndexByUnit distanceUnitRawValue](self, "distanceUnitRawValue")}];
+LABEL_8:
+
+      goto LABEL_9;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers = [updateCopy characteristicType];
+  if (![observers isEqual:@"0x00000000FF000008"])
+  {
+    goto LABEL_8;
+  }
+
+  uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+  testInt32Characteristic = [(CAFTypeTestIndexByUnit *)self testInt32Characteristic];
+  uniqueIdentifier4 = [testInt32Characteristic uniqueIdentifier];
+  v16 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+  if (v16)
+  {
+    observers = [(CAFService *)self observers];
+    [observers typeTestIndexByUnitService:self didUpdateTestInt32:{-[CAFTypeTestIndexByUnit testInt32](self, "testInt32")}];
+    goto LABEL_8;
+  }
+
+LABEL_9:
+  v17.receiver = self;
+  v17.super_class = CAFTypeTestIndexByUnit;
+  [(CAFService *)&v17 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForDistanceUnit

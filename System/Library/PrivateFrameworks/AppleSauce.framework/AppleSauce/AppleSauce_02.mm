@@ -1,3 +1,152 @@
+void sub_240F36CF8(_Unwind_Exception *a1)
+{
+  *v1 = 0;
+  sub_240F36F08(v3, v2);
+  _Unwind_Resume(a1);
+}
+
+uint64_t *sub_240F36D14(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+{
+  *a4 = 0;
+  a4[1] = 0;
+  a4[2] = a2;
+  *a3 = a4;
+  v5 = **a1;
+  if (v5)
+  {
+    *a1 = v5;
+    a4 = *a3;
+  }
+
+  result = sub_240F36D6C(a1[1], a4);
+  a1[2] = (a1[2] + 1);
+  return result;
+}
+
+uint64_t *sub_240F36D6C(uint64_t *result, uint64_t *a2)
+{
+  *(a2 + 24) = a2 == result;
+  if (a2 != result)
+  {
+    do
+    {
+      v2 = a2[2];
+      if (*(v2 + 24))
+      {
+        break;
+      }
+
+      v3 = *(v2 + 16);
+      v4 = *v3;
+      if (*v3 == v2)
+      {
+        v8 = v3[1];
+        if (!v8 || (v9 = *(v8 + 24), v7 = (v8 + 24), v9 == 1))
+        {
+          if (*v2 == a2)
+          {
+            v11 = a2[2];
+          }
+
+          else
+          {
+            v11 = *(v2 + 8);
+            v12 = *v11;
+            *(v2 + 8) = *v11;
+            v13 = v2;
+            if (v12)
+            {
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
+              v13 = *v3;
+            }
+
+            *(v11 + 16) = v3;
+            v3[v13 != v2] = v11;
+            *v11 = v2;
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
+            v4 = *v3;
+          }
+
+          *(v11 + 24) = 1;
+          *(v3 + 24) = 0;
+          v18 = *(v4 + 8);
+          *v3 = v18;
+          if (v18)
+          {
+            *(v18 + 16) = v3;
+          }
+
+          v19 = v3[2];
+          *(v4 + 16) = v19;
+          v19[*v19 != v3] = v4;
+          *(v4 + 8) = v3;
+          v3[2] = v4;
+          return result;
+        }
+      }
+
+      else
+      {
+        if (!v4 || (v6 = *(v4 + 24), v5 = (v4 + 24), v6 == 1))
+        {
+          v10 = *v2;
+          if (*v2 == a2)
+          {
+            v14 = v10[1];
+            *v2 = v14;
+            if (v14)
+            {
+              *(v14 + 16) = v2;
+              v3 = *(v2 + 16);
+            }
+
+            v10[2] = v3;
+            v3[*v3 != v2] = v10;
+            v10[1] = v2;
+            *(v2 + 16) = v10;
+            v3 = v10[2];
+          }
+
+          else
+          {
+            v10 = a2[2];
+          }
+
+          *(v10 + 24) = 1;
+          *(v3 + 24) = 0;
+          v15 = v3[1];
+          v16 = *v15;
+          v3[1] = *v15;
+          if (v16)
+          {
+            *(v16 + 16) = v3;
+          }
+
+          v17 = v3[2];
+          v15[2] = v17;
+          v17[*v17 != v3] = v15;
+          *v15 = v3;
+          v3[2] = v15;
+          return result;
+        }
+
+        v7 = v5;
+      }
+
+      *(v2 + 24) = 1;
+      a2 = v3;
+      *(v3 + 24) = v3 == result;
+      *v7 = 1;
+    }
+
+    while (v3 != result);
+  }
+
+  return result;
+}
+
 void sub_240F36F08(uint64_t a1, char *__p)
 {
   if (*(a1 + 8) == 1)
@@ -77,8 +226,8 @@ void sub_240F3705C(uint64_t a1, void *a2)
       applier.__r_.__value_.__r.__words[0] = MEMORY[0x277D85DD0];
       applier.__r_.__value_.__l.__size_ = 0x40000000;
       applier.__r_.__value_.__r.__words[2] = sub_240F37A98;
-      v50 = &unk_278CBCB78;
-      v51 = a1;
+      v48 = &unk_278CBCB78;
+      v49 = a1;
       xpc_dictionary_apply(a2, &applier);
       v5 = *a1;
       --*(a1 + 8);
@@ -218,22 +367,20 @@ LABEL_31:
   {
     if (v4 == MEMORY[0x277D86448])
     {
-      v37 = xpc_BOOL_get_value(a2);
-      v38 = *a1;
-      if (v37)
+      if (xpc_BOOL_get_value(a2))
       {
-        v39 = "true";
+        v37 = "true";
       }
 
       else
       {
-        v39 = "false";
+        v37 = "false";
       }
 
-      v40 = *a1;
+      v38 = *a1;
 LABEL_83:
 
-      std::string::append(v40, v39);
+      std::string::append(v38, v37);
       return;
     }
 
@@ -278,29 +425,29 @@ LABEL_83:
             object = xpc_null_create();
           }
 
-          v45 = *a1;
+          v43 = *a1;
           sub_240F379D8(&object, &applier);
           if ((applier.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v46 = &applier;
+            v44 = &applier;
           }
 
           else
           {
-            v46 = applier.__r_.__value_.__r.__words[0];
+            v44 = applier.__r_.__value_.__r.__words[0];
           }
 
           if ((applier.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v47 = HIBYTE(applier.__r_.__value_.__r.__words[2]);
+            v45 = HIBYTE(applier.__r_.__value_.__r.__words[2]);
           }
 
           else
           {
-            v47 = applier.__r_.__value_.__l.__size_;
+            v45 = applier.__r_.__value_.__l.__size_;
           }
 
-          std::string::append(v45, v46, v47);
+          std::string::append(v43, v44, v45);
           if (SHIBYTE(applier.__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(applier.__r_.__value_.__l.__data_);
@@ -312,35 +459,35 @@ LABEL_83:
         return;
       }
 
-      v40 = *a1;
-      v39 = "null";
+      v38 = *a1;
+      v37 = "null";
       goto LABEL_83;
     }
 
-    v41 = xpc_uint64_get_value(a2);
-    v42 = *a1;
-    std::to_string(&applier, v41);
+    v39 = xpc_uint64_get_value(a2);
+    v40 = *a1;
+    std::to_string(&applier, v39);
     if ((applier.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v43 = &applier;
+      v41 = &applier;
     }
 
     else
     {
-      v43 = applier.__r_.__value_.__r.__words[0];
+      v41 = applier.__r_.__value_.__r.__words[0];
     }
 
     if ((applier.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v44 = HIBYTE(applier.__r_.__value_.__r.__words[2]);
+      v42 = HIBYTE(applier.__r_.__value_.__r.__words[2]);
     }
 
     else
     {
-      v44 = applier.__r_.__value_.__l.__size_;
+      v42 = applier.__r_.__value_.__l.__size_;
     }
 
-    std::string::append(v42, v43, v44);
+    std::string::append(v40, v41, v42);
     if (SHIBYTE(applier.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(applier.__r_.__value_.__l.__data_);
@@ -528,24 +675,20 @@ void sub_240F37824(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 std::string *sub_240F37840(std::string **a1, xpc_object_t xdate)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v6 = xpc_date_get_value(xdate) / 0x3B9ACA00uLL;
-  localtime_r(&v6, &v5);
-  strftime(__s, 0x1EuLL, "%F %T %Z", &v5);
-  result = std::string::append(*a1, __s);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  v7 = *MEMORY[0x277D85DE8];
+  v5 = xpc_date_get_value(xdate) / 0x3B9ACA00uLL;
+  localtime_r(&v5, &v4);
+  strftime(__s, 0x1EuLL, "%F %T %Z", &v4);
+  return std::string::append(*a1, __s);
 }
 
 std::string *sub_240F378EC(std::string **a1, xpc_object_t xuuid)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  memset(v6, 0, sizeof(v6));
+  v6 = *MEMORY[0x277D85DE8];
+  memset(v5, 0, sizeof(v5));
   bytes = xpc_uuid_get_bytes(xuuid);
-  uuid_unparse_lower(bytes, v6);
-  result = std::string::append(*a1, v6);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  uuid_unparse_lower(bytes, v5);
+  return std::string::append(*a1, v5);
 }
 
 void sub_240F37968(std::string **a1, xpc_object_t xdict)
@@ -558,7 +701,7 @@ void sub_240F37968(std::string **a1, xpc_object_t xdict)
   std::string::push_back(v4, 41);
 }
 
-void sub_240F379D8(void *a1@<X0>, _BYTE *a2@<X8>)
+void sub_240F379D8(void *a1@<X0>, void *a2@<X8>)
 {
   v3 = MEMORY[0x245CD4AB0](*a1);
   v4 = strlen(v3);
@@ -573,18 +716,18 @@ void sub_240F379D8(void *a1@<X0>, _BYTE *a2@<X8>)
     operator new();
   }
 
-  a2[23] = v4;
+  *(a2 + 23) = v4;
   if (v4)
   {
     memcpy(a2, v3, v4);
   }
 
-  a2[v5] = 0;
+  *(a2 + v5) = 0;
 
   free(v3);
 }
 
-uint64_t sub_240F37A98(uint64_t a1, const std::string::value_type *a2, uint64_t a3)
+uint64_t sub_240F37A98(uint64_t a1, const std::string::value_type *a2, void *a3)
 {
   v5 = *(a1 + 32);
   std::string::push_back(*v5, 10);
@@ -597,53 +740,27 @@ uint64_t sub_240F37A98(uint64_t a1, const std::string::value_type *a2, uint64_t 
   return 1;
 }
 
-BOOL applesauce::xpc::dyn_cast_or_default(xpc_object_t *a1, uint64_t a2)
-{
-  v4 = MEMORY[0x245CD4B50](*a1);
-  v5 = *a1;
-  if (v4 == MEMORY[0x277D86448])
-  {
-    return v5 == MEMORY[0x277D863E8];
-  }
-
-  v6 = MEMORY[0x245CD4B50](v5);
-  v7 = *a1;
-  if (v6 == MEMORY[0x277D86498])
-  {
-    value = xpc_int64_get_value(v7);
-    return value != 0;
-  }
-
-  if (MEMORY[0x245CD4B50](v7) == MEMORY[0x277D864C8])
-  {
-    value = xpc_uint64_get_value(*a1);
-    return value != 0;
-  }
-
-  return a2;
-}
-
-char *applesauce::xpc::dyn_cast_or_default@<X0>(xpc_object_t *a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
+uint64_t *applesauce::xpc::dyn_cast_or_default@<X0>(xpc_object_t *a1@<X0>, uint64_t a2@<X8>, uint64_t a3@<X1>)
 {
   v6 = MEMORY[0x245CD4B50](*a1);
   v7 = MEMORY[0x277D86458];
-  *(a3 + 8) = 0;
-  *(a3 + 16) = 0;
-  *a3 = 0;
+  *(a2 + 8) = 0;
+  *(a2 + 16) = 0;
+  *a2 = 0;
   if (v6 == v7)
   {
     bytes_ptr = xpc_data_get_bytes_ptr(*a1);
     length = xpc_data_get_length(*a1);
-    return sub_240F37E08(a3, *a3, bytes_ptr, &bytes_ptr[length], length);
+    return sub_240F37E08(a2, *a2, bytes_ptr, &bytes_ptr[length], length);
   }
 
   else
   {
-    v8 = *a2;
-    v9 = a2[1];
-    v10 = v9 - *a2;
+    v8 = *a3;
+    v9 = *(a3 + 8);
+    v10 = v9 - *a3;
 
-    return sub_240F38030(a3, v8, v9, v10);
+    return sub_240F38030(a2, v8, v9, v10);
   }
 }
 
@@ -659,7 +776,7 @@ void sub_240F37C74(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *applesauce::xpc::dyn_cast_or_default@<X0>(xpc_object_t *a1@<X0>, const char *a2@<X1>, _BYTE *a3@<X8>)
+size_t applesauce::xpc::dyn_cast_or_default@<X0>(xpc_object_t *a1@<X0>, const char *a2@<X1>, void *a3@<X8>)
 {
   if (MEMORY[0x245CD4B50](*a1) == MEMORY[0x277D864C0])
   {
@@ -683,13 +800,13 @@ _BYTE *applesauce::xpc::dyn_cast_or_default@<X0>(xpc_object_t *a1@<X0>, const ch
       operator new();
     }
 
-    a3[23] = result;
+    *(a3 + 23) = result;
     if (result)
     {
       result = memcpy(a3, a2, result);
     }
 
-    v7[a3] = 0;
+    *(a3 + v7) = 0;
   }
 
   return result;
@@ -717,13 +834,13 @@ char *sub_240F37E08(uint64_t a1, char *__dst, _BYTE *__src, char *a4, int64_t a5
 
   v10 = *(a1 + 8);
   v9 = *(a1 + 16);
-  if (v9 - v10 >= a5)
+  if ((v9 - v10) >= a5)
   {
     v16 = v10 - __dst;
-    if (v10 - __dst >= a5)
+    if ((v10 - __dst) >= a5)
     {
       v21 = &__dst[a5];
-      v22 = &v10[-a5];
+      v22 = (v10 - a5);
       v23 = *(a1 + 8);
       if (v10 >= a5)
       {
@@ -758,7 +875,7 @@ char *sub_240F37E08(uint64_t a1, char *__dst, _BYTE *__src, char *a4, int64_t a5
 
       else
       {
-        v18 = &a4[__dst] - __src;
+        v18 = (&a4[__dst] - __src);
         v19 = *(a1 + 8);
         do
         {
@@ -776,9 +893,9 @@ char *sub_240F37E08(uint64_t a1, char *__dst, _BYTE *__src, char *a4, int64_t a5
       }
 
       v32 = &__dst[a5];
-      v33 = (v18 - a5);
+      v33 = &v18[-a5];
       v34 = v18;
-      if (v18 - a5 < v10)
+      if (&v18[-a5] < v10)
       {
         do
         {
@@ -805,7 +922,7 @@ char *sub_240F37E08(uint64_t a1, char *__dst, _BYTE *__src, char *a4, int64_t a5
   }
 
   v11 = *a1;
-  v12 = &v10[a5 - *a1];
+  v12 = v10 - *a1 + a5;
   if (v12 < 0)
   {
     sub_240F1B5A8();
@@ -852,7 +969,7 @@ char *sub_240F37E08(uint64_t a1, char *__dst, _BYTE *__src, char *a4, int64_t a5
   return v13;
 }
 
-uint64_t sub_240F38030(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *sub_240F38030(uint64_t *result, const void *a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
@@ -874,7 +991,7 @@ void sub_240F38090(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_240F380AC(uint64_t a1, uint64_t a2)
+void sub_240F380AC(uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -984,21 +1101,15 @@ LABEL_9:
   xpc_release(v7);
 }
 
-uint64_t applesauce::xpc::auto_reply::create_from_dict@<X0>(void *a1@<X0>, void *a2@<X1>, void *a3@<X8>)
+void applesauce::xpc::auto_reply::create_from_dict(std::__shared_weak_count_vtbl **a1@<X0>, uint64_t *a2@<X1>, void *a3@<X8>)
 {
-  result = MEMORY[0x245CD4B50](*a1);
-  if (result == MEMORY[0x277D86468])
+  if (MEMORY[0x245CD4B50](*a1) == MEMORY[0x277D86468] && MEMORY[0x245CD4B50](*a2) == MEMORY[0x277D86450])
   {
-    result = MEMORY[0x245CD4B50](*a2);
-    if (result == MEMORY[0x277D86450])
-    {
-      operator new();
-    }
+    operator new();
   }
 
   *a3 = 0;
   a3[1] = 0;
-  return result;
 }
 
 void sub_240F38420(std::__shared_weak_count *a1)
@@ -1024,13 +1135,13 @@ void sub_240F38474(uint64_t a1)
 
 void sub_240F38528(void *a1)
 {
-  if (__cxa_guard_acquire(&qword_27E51D5E0))
+  if (__cxa_guard_acquire(byte_27E51D5E0))
   {
     qword_281504260 = 0;
     *algn_281504268 = 0;
     qword_281504270 = 0;
     __cxa_atexit(MEMORY[0x277D82640], &qword_281504260, &dword_240F18000);
-    __cxa_guard_release(&qword_27E51D5E0);
+    __cxa_guard_release(byte_27E51D5E0);
   }
 
   *a1 = &qword_281504260;

@@ -82,32 +82,32 @@
 
 - (id)accessibilityValue
 {
-  v31 = *MEMORY[0x29EDCA608];
+  v30 = *MEMORY[0x29EDCA608];
   _accessibilityOverlayView = [(VideosUI_LockupCollectionViewCellAccessibility *)self _accessibilityOverlayView];
   _accessibilityStackingPosterView = [(VideosUI_LockupCollectionViewCellAccessibility *)self _accessibilityStackingPosterView];
   v5 = [(VideosUI_LockupCollectionViewCellAccessibility *)self _axLabelFromComponentsOfStackingPosterView:_accessibilityStackingPosterView overlayView:_accessibilityOverlayView];
 
   orderedSet = [MEMORY[0x29EDB8E10] orderedSet];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   specialCharacters = [objc_opt_class() specialCharacters];
-  v8 = [specialCharacters countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v8 = [specialCharacters countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v27;
+    v10 = *v26;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v27 != v10)
+        if (*v26 != v10)
         {
           objc_enumerationMutation(specialCharacters);
         }
 
-        v12 = *(*(&v26 + 1) + 8 * i);
+        v12 = *(*(&v25 + 1) + 8 * i);
         if ([v5 containsString:v12])
         {
           specialCharacters2 = [objc_opt_class() specialCharacters];
@@ -118,7 +118,7 @@
         }
       }
 
-      v9 = [specialCharacters countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v9 = [specialCharacters countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v9);
@@ -127,7 +127,7 @@
   accessibilityValue = [_accessibilityOverlayView accessibilityValue];
   if ([accessibilityValue length])
   {
-    v25 = 0;
+    v24 = 0;
     objc_opt_class();
     v17 = [(VideosUI_LockupCollectionViewCellAccessibility *)self safeValueForKey:@"vuiCollectionViewCellInteractor"];
     v18 = __UIAccessibilityCastAsClass();
@@ -153,12 +153,10 @@
 
   else
   {
-    v24.receiver = self;
-    v24.super_class = VideosUI_LockupCollectionViewCellAccessibility;
-    accessibilityValue2 = [(VideosUI_LockupCollectionViewCellAccessibility *)&v24 accessibilityValue];
+    v23.receiver = self;
+    v23.super_class = VideosUI_LockupCollectionViewCellAccessibility;
+    accessibilityValue2 = [(VideosUI_LockupCollectionViewCellAccessibility *)&v23 accessibilityValue];
   }
-
-  v22 = *MEMORY[0x29EDCA608];
 
   return accessibilityValue2;
 }
@@ -234,7 +232,7 @@
 
 - (id)_axLabelFromComponentsOfStackingPosterView:(id)view overlayView:(id)overlayView
 {
-  v49 = *MEMORY[0x29EDCA608];
+  v48 = *MEMORY[0x29EDCA608];
   viewCopy = view;
   overlayViewCopy = overlayView;
   orderedSet = [MEMORY[0x29EDB8E10] orderedSet];
@@ -257,26 +255,26 @@
   }
 
   [viewCopy safeArrayForKey:@"components"];
+  v43 = 0u;
   v44 = 0u;
   v45 = 0u;
-  v46 = 0u;
-  v12 = v47 = 0u;
-  v13 = [v12 countByEnumeratingWithState:&v44 objects:v48 count:16];
+  v12 = v46 = 0u;
+  v13 = [v12 countByEnumeratingWithState:&v43 objects:v47 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v45;
+    v15 = *v44;
     do
     {
       for (i = 0; i != v14; ++i)
       {
         v17 = accessibilityLabel2;
-        if (*v45 != v15)
+        if (*v44 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        accessibilityLabel2 = [*(*(&v44 + 1) + 8 * i) accessibilityLabel];
+        accessibilityLabel2 = [*(*(&v43 + 1) + 8 * i) accessibilityLabel];
 
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) != 0 && [accessibilityLabel2 length])
@@ -285,7 +283,7 @@
         }
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v44 objects:v48 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v43 objects:v47 count:16];
     }
 
     while (v14);
@@ -377,45 +375,43 @@
   array = [orderedSet array];
   v40 = [array componentsJoinedByString:{@", "}];
 
-  v41 = *MEMORY[0x29EDCA608];
-
   return v40;
 }
 
 - (id)_axAttributedLabelFromComponentsOfStackingPosterView:(id)view overlayView:(id)overlayView
 {
-  v30 = *MEMORY[0x29EDCA608];
+  v29 = *MEMORY[0x29EDCA608];
   overlayViewCopy = overlayView;
   v7 = [(VideosUI_LockupCollectionViewCellAccessibility *)self _axLabelFromComponentsOfStackingPosterView:view overlayView:overlayViewCopy];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   specialCharacters = [objc_opt_class() specialCharacters];
-  v9 = [specialCharacters countByEnumeratingWithState:&v23 objects:v29 count:16];
+  v9 = [specialCharacters countByEnumeratingWithState:&v22 objects:v28 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v24;
+    v11 = *v23;
     do
     {
       v12 = 0;
       v13 = v7;
       do
       {
-        if (*v24 != v11)
+        if (*v23 != v11)
         {
           objc_enumerationMutation(specialCharacters);
         }
 
-        v7 = [v13 stringByReplacingOccurrencesOfString:*(*(&v23 + 1) + 8 * v12) withString:&stru_2A23A0858];
+        v7 = [v13 stringByReplacingOccurrencesOfString:*(*(&v22 + 1) + 8 * v12) withString:&stru_2A23A0858];
 
         ++v12;
         v13 = v7;
       }
 
       while (v10 != v12);
-      v10 = [specialCharacters countByEnumeratingWithState:&v23 objects:v29 count:16];
+      v10 = [specialCharacters countByEnumeratingWithState:&v22 objects:v28 count:16];
     }
 
     while (v10);
@@ -429,13 +425,11 @@
   {
     v17 = [v7 rangeOfString:accessibilityLabel];
     v19 = v18;
-    v27 = *MEMORY[0x29EDC7F38];
-    v28 = MEMORY[0x29EDB8EB0];
-    v20 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
+    v26 = *MEMORY[0x29EDC7F38];
+    v27 = MEMORY[0x29EDB8EB0];
+    v20 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
     [v14 addAttributes:v20 range:{v17, v19}];
   }
-
-  v21 = *MEMORY[0x29EDCA608];
 
   return v14;
 }

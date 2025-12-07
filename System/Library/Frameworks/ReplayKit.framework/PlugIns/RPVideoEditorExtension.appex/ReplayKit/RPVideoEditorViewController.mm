@@ -27,6 +27,7 @@
 - (void)movieScrubber:(id)scrubber requestThumbnailImageForTimestamp:(id)timestamp;
 - (void)movieScrubber:(id)scrubber valueDidChange:(double)change;
 - (void)movieScrubberDidBeginEditing:(id)editing;
+- (void)movieScrubberDidBeginScrubbing:(id)scrubbing withHandle:(int)handle;
 - (void)movieScrubberDidCancelEditing:(id)editing;
 - (void)movieScrubberDidEndScrubbing:(id)scrubbing withHandle:(int)handle;
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context;
@@ -41,7 +42,10 @@
 - (void)showUI;
 - (void)trimVideo;
 - (void)undoAction;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLayoutSubviews;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator;
 @end
 
@@ -754,7 +758,7 @@ LABEL_10:
       v17 = currentItem3;
       if (currentItem3)
       {
-        [currentItem3 duration];
+        objc_msgSend_duration(currentItem3);
 
         if ((v22 & 0x1D) == 1)
         {
@@ -848,6 +852,37 @@ LABEL_15:
   [(RPVideoEditorViewController *)self setUiHidden:1];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  [(RPVideoEditorViewController *)self becomeFirstResponder];
+  v5.receiver = self;
+  v5.super_class = RPVideoEditorViewController;
+  [(RPVideoEditorViewController *)&v5 viewWillAppear:appearCopy];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v6.receiver = self;
+  v6.super_class = RPVideoEditorViewController;
+  [(RPVideoEditorViewController *)&v6 viewDidAppear:appear];
+  [(RPVideoEditorViewController *)self getPlayerDuration];
+  if (__RPLogLevel <= 1)
+  {
+    v5 = v4;
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136446722;
+      v8 = "[RPVideoEditorViewController viewDidAppear:]";
+      v9 = 1024;
+      v10 = 515;
+      v11 = 2048;
+      v12 = v5;
+      _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d Start video duration: %lf", buf, 0x1Cu);
+    }
+  }
+}
+
 - (void)viewDidLayoutSubviews
 {
   v10.receiver = self;
@@ -861,6 +896,15 @@ LABEL_15:
   v8 = v7;
   avPlayerLayer = [(RPVideoEditorViewController *)self avPlayerLayer];
   [avPlayerLayer setFrame:{0.0, 0.0, v5, v8}];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  [(RPVideoEditorViewController *)self resignFirstResponder];
+  v5.receiver = self;
+  v5.super_class = RPVideoEditorViewController;
+  [(RPVideoEditorViewController *)&v5 viewWillDisappear:disappearCopy];
 }
 
 - (void)dealloc
@@ -997,7 +1041,7 @@ LABEL_15:
     v9 = avPlayer2;
     if (avPlayer2)
     {
-      [avPlayer2 currentTime];
+      objc_msgSend_currentTime(avPlayer2);
       v10 = v42;
     }
 
@@ -1019,7 +1063,7 @@ LABEL_15:
     v14 = avPlayer3;
     if (avPlayer3)
     {
-      [avPlayer3 currentTime];
+      objc_msgSend_currentTime(avPlayer3);
       v15 = v39;
     }
 
@@ -1284,7 +1328,7 @@ LABEL_15:
   v19 = avPlayer;
   if (avPlayer)
   {
-    [avPlayer currentTime];
+    objc_msgSend_currentTime(avPlayer);
     LODWORD(avPlayer) = v35;
   }
 
@@ -1304,7 +1348,7 @@ LABEL_15:
   v23 = avPlayer2;
   if (avPlayer2)
   {
-    [avPlayer2 currentTime];
+    objc_msgSend_currentTime(avPlayer2);
     LODWORD(avPlayer2) = v31;
   }
 
@@ -1534,12 +1578,19 @@ LABEL_15:
   v8 = avPlayer2;
   if (avPlayer2)
   {
-    [avPlayer2 currentTime];
+    objc_msgSend_currentTime(avPlayer2);
     LODWORD(avPlayer2) = v9;
   }
 
   CMTimeMakeWithSeconds(&v10, change, avPlayer2);
   [avPlayer seekToTime:&v10];
+}
+
+- (void)movieScrubberDidBeginScrubbing:(id)scrubbing withHandle:(int)handle
+{
+  [(RPVideoEditorViewController *)self setScrubbing:1, *&handle];
+
+  [(RPVideoEditorViewController *)self pauseAction];
 }
 
 - (void)movieScrubberDidEndScrubbing:(id)scrubbing withHandle:(int)handle
@@ -1553,7 +1604,7 @@ LABEL_15:
   v10 = avPlayer2;
   if (avPlayer2)
   {
-    [avPlayer2 currentTime];
+    objc_msgSend_currentTime(avPlayer2);
     LODWORD(avPlayer2) = v11;
   }
 
@@ -1668,7 +1719,7 @@ LABEL_10:
     {
       v21 = v9;
       v22 = v8;
-      [v7 preferredTransform];
+      objc_msgSend_preferredTransform(v7);
 
       v11 = v24;
       v10 = v23;
@@ -1798,7 +1849,7 @@ LABEL_5:
 
   v17 = v8;
   v18 = v7;
-  [v6 preferredTransform];
+  objc_msgSend_preferredTransform(v6);
 
   v10 = v21;
   v9 = v20;
@@ -1832,7 +1883,7 @@ LABEL_6:
     v8 = currentItem2;
     if (currentItem2)
     {
-      [currentItem2 duration];
+      objc_msgSend_duration(currentItem2);
     }
 
     else

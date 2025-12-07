@@ -2,6 +2,7 @@
 - (BOOL)enable_server_side_endpoint;
 - (FTMutableSetEndpointerState)init;
 - (id)copyWithZone:(_NSZone *)zone;
+- (void)setEnable_server_side_endpoint:(BOOL)enable_server_side_endpoint;
 @end
 
 @implementation FTMutableSetEndpointerState
@@ -37,6 +38,12 @@
   bOOLValue = [v2 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setEnable_server_side_endpoint:(BOOL)enable_server_side_endpoint
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithBool:enable_server_side_endpoint];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 @end

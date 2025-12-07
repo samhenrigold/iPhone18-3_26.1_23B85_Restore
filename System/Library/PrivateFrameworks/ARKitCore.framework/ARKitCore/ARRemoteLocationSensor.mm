@@ -53,7 +53,7 @@ void __44__ARRemoteLocationSensor_configureForReplay__block_invoke(uint64_t a1, 
 {
   v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = _ARLogSensor_11();
+  v4 = _ARLogSensor_11(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = objc_opt_class();
@@ -102,7 +102,7 @@ void __41__ARRemoteLocationSensor_currentLocation__block_invoke(uint64_t a1, voi
 {
   v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = _ARLogSensor_11();
+  v4 = _ARLogSensor_11(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = objc_opt_class();
@@ -138,7 +138,7 @@ void __71__ARRemoteLocationSensor_lookupAltitudeAtCoordinate_completionHandler__
 {
   v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = _ARLogSensor_11();
+  v4 = _ARLogSensor_11(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = objc_opt_class();
@@ -171,7 +171,7 @@ void __47__ARRemoteLocationSensor_updateARSessionState___block_invoke(uint64_t a
 {
   v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = _ARLogSensor_11();
+  v4 = _ARLogSensor_11(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = objc_opt_class();
@@ -206,7 +206,7 @@ void __64__ARRemoteLocationSensor_updateEstimationFromVIOPose_imageData___block_
 {
   v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = _ARLogSensor_11();
+  v4 = _ARLogSensor_11(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = objc_opt_class();

@@ -102,7 +102,7 @@
   }
 
   v12 = objc_alloc_init(MEMORY[0x1E696EC58]);
-  v13 = CKFrameworkBundle();
+  v13 = CKFrameworkBundle(v12);
   v14 = [v13 localizedStringForKey:@"ADD_WORKOUT" value:&stru_1F04268F8 table:@"ChatKit"];
   [v12 setName:v14];
 

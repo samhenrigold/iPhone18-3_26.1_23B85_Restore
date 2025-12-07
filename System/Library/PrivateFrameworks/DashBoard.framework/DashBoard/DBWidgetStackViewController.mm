@@ -253,7 +253,7 @@ void __49__DBWidgetStackViewController__reloadConstraints__block_invoke(uint64_t
   return v3;
 }
 
-uint64_t __43__DBWidgetStackViewController_visibleCount__block_invoke(uint64_t a1, void *a2)
+void *__43__DBWidgetStackViewController_visibleCount__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 isHidden];
   if ((result & 1) == 0)
@@ -752,33 +752,37 @@ void __42__DBWidgetStackViewController_viewDidLoad__block_invoke(uint64_t a1, vo
 
 uint64_t __49__DBWidgetStackViewController__reloadConstraints__block_invoke_2(uint64_t a1, void *a2)
 {
-  v16 = a2;
-  if (([v16 isHidden] & 1) == 0 && *(a1 + 32) != v16)
+  v18 = a2;
+  v3 = [v18 isHidden];
+  v4 = v18;
+  if ((v3 & 1) == 0 && *(a1 + 32) != v18)
   {
-    v3 = [v16 view];
-    v4 = [v3 heightAnchor];
-    v5 = [*(a1 + 32) view];
+    v5 = [v18 view];
     v6 = [v5 heightAnchor];
-    v7 = [v4 constraintEqualToAnchor:v6 multiplier:1.0];
+    v7 = [*(a1 + 32) view];
+    v8 = [v7 heightAnchor];
+    v9 = [v6 constraintEqualToAnchor:v8 multiplier:1.0];
 
-    LODWORD(v8) = 1144750080;
-    [v7 setPriority:v8];
-    [*(a1 + 40) addObject:v7];
-    [v16 minimumHeight];
-    if (v9 > 0.0)
+    LODWORD(v10) = 1144750080;
+    [v9 setPriority:v10];
+    [*(a1 + 40) addObject:v9];
+    [v18 minimumHeight];
+    if (v11 > 0.0)
     {
-      v10 = v9;
-      v11 = [v16 view];
-      v12 = [v11 heightAnchor];
-      v13 = [v12 constraintGreaterThanOrEqualToConstant:v10];
+      v12 = v11;
+      v13 = [v18 view];
+      v14 = [v13 heightAnchor];
+      v15 = [v14 constraintGreaterThanOrEqualToConstant:v12];
 
-      LODWORD(v14) = 1148846080;
-      [v13 setPriority:v14];
-      [*(a1 + 40) addObject:v13];
+      LODWORD(v16) = 1148846080;
+      [v15 setPriority:v16];
+      [*(a1 + 40) addObject:v15];
     }
+
+    v4 = v18;
   }
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v3, v4);
 }
 
 - (void)_setAnchorPoint:(CGPoint)point forView:(id)view
@@ -803,14 +807,14 @@ uint64_t __49__DBWidgetStackViewController__reloadConstraints__block_invoke_2(ui
 
   if (viewCopy)
   {
-    [viewCopy transform];
+    objc_msgSend_transform(viewCopy);
     v15 = v44;
     v16 = v45;
     v17 = v46;
     v18 = v47;
     v19 = v48;
     v20 = v49;
-    [viewCopy transform];
+    objc_msgSend_transform(viewCopy);
     v22 = v44;
     v21 = v45;
     v24 = v46;

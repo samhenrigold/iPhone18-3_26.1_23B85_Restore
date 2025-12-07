@@ -223,7 +223,7 @@ BOOL __41__SBFPagedScrollView__updateVisiblePages__block_invoke(uint64_t a1, voi
 
 - ($33B86EF7FE50CF4F9754CC1CC7D02E21)currentScrollInterval
 {
-  [(BSUIScrollView *)self currentScrollContext];
+  objc_msgSend_currentScrollContext(self, a3);
   v5 = *(MEMORY[0x1E698E5E0] + 16);
   retstr->var0 = *MEMORY[0x1E698E5E0];
   retstr->var1 = v5;

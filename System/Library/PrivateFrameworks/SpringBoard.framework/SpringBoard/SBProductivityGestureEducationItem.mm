@@ -37,60 +37,60 @@
 
 - (BOOL)isValidWithActivationForType:(int64_t)type
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   if (!self->_displayDate)
   {
 LABEL_4:
     date = [MEMORY[0x277CBEAA8] date];
     activationHistoryMap = self->_activationHistoryMap;
-    v10 = [MEMORY[0x277CCABB0] numberWithInteger:type];
-    v11 = [(NSMutableDictionary *)activationHistoryMap objectForKeyedSubscript:v10];
+    v11 = [MEMORY[0x277CCABB0] numberWithInteger:type];
+    v12 = [(NSMutableDictionary *)activationHistoryMap objectForKeyedSubscript:v11];
 
     self->_lastActivatedEducationType = type;
-    if (!v11)
+    if (!v12)
     {
-      v11 = objc_alloc_init(SBProductivityGestureEducationActivationHistory);
-      v12 = self->_activationHistoryMap;
-      v13 = [MEMORY[0x277CCABB0] numberWithInteger:type];
-      [(NSMutableDictionary *)v12 setObject:v11 forKeyedSubscript:v13];
+      v12 = objc_alloc_init(SBProductivityGestureEducationActivationHistory);
+      v13 = self->_activationHistoryMap;
+      v14 = [MEMORY[0x277CCABB0] numberWithInteger:type];
+      [(NSMutableDictionary *)v13 setObject:v12 forKeyedSubscript:v14];
     }
 
-    date2 = [(SBProductivityGestureEducationActivationHistory *)v11 date];
+    date2 = [(SBProductivityGestureEducationActivationHistory *)v12 date];
     if (date2)
     {
       [date timeIntervalSinceDate:date2];
-      v16 = v15;
-      [(SBProductivityGestureEducationItem *)self _policyInterval];
-      if (v16 < v17)
+      v17 = v16;
+      _policyInterval = [(SBProductivityGestureEducationItem *)self _policyInterval];
+      if (v17 < v19)
       {
-        v18 = [(SBProductivityGestureEducationActivationHistory *)v11 count]+ 1;
-        v19 = v11;
+        v20 = [(SBProductivityGestureEducationActivationHistory *)v12 count]+ 1;
+        v21 = v12;
 LABEL_13:
-        [(SBProductivityGestureEducationActivationHistory *)v19 setCount:v18];
-        v23 = [(SBProductivityGestureEducationActivationHistory *)v11 count];
-        v24 = v23 >= [(SBProductivityGestureEducationItem *)self _policyCount];
+        [(SBProductivityGestureEducationActivationHistory *)v21 setCount:v20];
+        v25 = [(SBProductivityGestureEducationActivationHistory *)v12 count];
+        v26 = v25 >= [(SBProductivityGestureEducationItem *)self _policyCount];
 
         goto LABEL_17;
       }
 
-      v20 = SBLogSystemGesture();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+      v22 = SBLogSystemGesture(_policyInterval);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
       {
-        v21 = _SBFLoggingMethodProem();
+        v23 = _SBFLoggingMethodProem();
         [(SBProductivityGestureEducationItem *)self _policyInterval];
-        v27 = 138543874;
-        v28 = v21;
-        v29 = 2048;
-        v30 = v22;
+        v29 = 138543874;
+        v30 = v23;
         v31 = 2048;
+        v32 = v24;
+        v33 = 2048;
         typeCopy2 = type;
-        _os_log_impl(&dword_21ED4E000, v20, OS_LOG_TYPE_INFO, "%{public}@ subsequent gesture activation happened past the require policy time of %f seconds for type %ld", &v27, 0x20u);
+        _os_log_impl(&dword_21ED4E000, v22, OS_LOG_TYPE_INFO, "%{public}@ subsequent gesture activation happened past the require policy time of %f seconds for type %ld", &v29, 0x20u);
       }
     }
 
-    [(SBProductivityGestureEducationActivationHistory *)v11 setDate:date];
-    v19 = v11;
-    v18 = 1;
+    [(SBProductivityGestureEducationActivationHistory *)v12 setDate:date];
+    v21 = v12;
+    v20 = 1;
     goto LABEL_13;
   }
 
@@ -106,23 +106,23 @@ LABEL_13:
     goto LABEL_4;
   }
 
-  v11 = SBLogSystemGesture();
-  if (os_log_type_enabled(&v11->super, OS_LOG_TYPE_INFO))
+  v12 = SBLogSystemGesture(v9);
+  if (os_log_type_enabled(&v12->super, OS_LOG_TYPE_INFO))
   {
-    v25 = _SBFLoggingMethodProem();
-    v27 = 138543874;
-    v28 = v25;
-    v29 = 2048;
-    v30 = 1;
+    v27 = _SBFLoggingMethodProem();
+    v29 = 138543874;
+    v30 = v27;
     v31 = 2048;
+    v32 = 1;
+    v33 = 2048;
     typeCopy2 = type;
-    _os_log_impl(&dword_21ED4E000, &v11->super, OS_LOG_TYPE_INFO, "%{public}@ gated by the %ld day per education pill type %ld", &v27, 0x20u);
+    _os_log_impl(&dword_21ED4E000, &v12->super, OS_LOG_TYPE_INFO, "%{public}@ gated by the %ld day per education pill type %ld", &v29, 0x20u);
   }
 
-  v24 = 0;
+  v26 = 0;
 LABEL_17:
 
-  return v24;
+  return v26;
 }
 
 - (id)copyWithZone:(_NSZone *)zone

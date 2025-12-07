@@ -103,40 +103,36 @@ uint64_t __43__CNTimeProfilingSchedulerDecorator_os_log__block_invoke()
 
 void __50__CNTimeProfilingSchedulerDecorator_performBlock___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) scheduler];
   [v2 timestamp];
   v4 = v3;
 
-  v5 = *(a1 + 32);
-  v6 = [objc_opt_class() os_log];
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v5 = [objc_opt_class() os_log];
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    __50__CNTimeProfilingSchedulerDecorator_performBlock___block_invoke_cold_1(a1);
+    __50__CNTimeProfilingSchedulerDecorator_performBlock___block_invoke_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
-  v7 = [*(a1 + 32) scheduler];
-  [v7 timestamp];
-  v9 = v8;
+  v6 = [*(a1 + 32) scheduler];
+  [v6 timestamp];
+  v8 = v7;
 
-  v10 = *(a1 + 32);
-  v11 = [objc_opt_class() os_log];
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  v9 = [objc_opt_class() os_log];
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    v13 = *(a1 + 48);
-    v14 = [CNTimeIntervalFormatter stringForTimeInterval:v9 - v4];
-    v15 = [CNTimeIntervalFormatter stringForTimeInterval:v9 - *(a1 + 56)];
-    v16 = 134218498;
-    v17 = v13;
-    v18 = 2114;
-    v19 = v14;
-    v20 = 2114;
-    v21 = v15;
-    _os_log_debug_impl(&dword_1859F0000, v11, OS_LOG_TYPE_DEBUG, "Completing block %lu %{public}@ after activating, %{public}@ after scheduling", &v16, 0x20u);
+    v10 = *(a1 + 48);
+    v11 = [CNTimeIntervalFormatter stringForTimeInterval:v8 - v4];
+    v12 = [CNTimeIntervalFormatter stringForTimeInterval:v8 - *(a1 + 56)];
+    v13 = 134218498;
+    v14 = v10;
+    v15 = 2114;
+    v16 = v11;
+    v17 = 2114;
+    v18 = v12;
+    _os_log_debug_impl(&dword_1859F0000, v9, OS_LOG_TYPE_DEBUG, "Completing block %lu %{public}@ after activating, %{public}@ after scheduling", &v13, 0x20u);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)performBlock:(id)block qualityOfService:(unint64_t)service
@@ -168,40 +164,36 @@ void __50__CNTimeProfilingSchedulerDecorator_performBlock___block_invoke(uint64_
 
 void __67__CNTimeProfilingSchedulerDecorator_performBlock_qualityOfService___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) scheduler];
   [v2 timestamp];
   v4 = v3;
 
-  v5 = *(a1 + 32);
-  v6 = [objc_opt_class() os_log];
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v5 = [objc_opt_class() os_log];
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    __50__CNTimeProfilingSchedulerDecorator_performBlock___block_invoke_cold_1(a1);
+    __50__CNTimeProfilingSchedulerDecorator_performBlock___block_invoke_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
-  v7 = [*(a1 + 32) scheduler];
-  [v7 timestamp];
-  v9 = v8;
+  v6 = [*(a1 + 32) scheduler];
+  [v6 timestamp];
+  v8 = v7;
 
-  v10 = *(a1 + 32);
-  v11 = [objc_opt_class() os_log];
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  v9 = [objc_opt_class() os_log];
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    v13 = *(a1 + 48);
-    v14 = [CNTimeIntervalFormatter stringForTimeInterval:v9 - v4];
-    v15 = [CNTimeIntervalFormatter stringForTimeInterval:v9 - *(a1 + 56)];
-    v16 = 134218498;
-    v17 = v13;
-    v18 = 2114;
-    v19 = v14;
-    v20 = 2114;
-    v21 = v15;
-    _os_log_debug_impl(&dword_1859F0000, v11, OS_LOG_TYPE_DEBUG, "Completing block %lu %{public}@ after activating, %{public}@ after scheduling", &v16, 0x20u);
+    v10 = *(a1 + 48);
+    v11 = [CNTimeIntervalFormatter stringForTimeInterval:v8 - v4];
+    v12 = [CNTimeIntervalFormatter stringForTimeInterval:v8 - *(a1 + 56)];
+    v13 = 134218498;
+    v14 = v10;
+    v15 = 2114;
+    v16 = v11;
+    v17 = 2114;
+    v18 = v12;
+    _os_log_debug_impl(&dword_1859F0000, v9, OS_LOG_TYPE_DEBUG, "Completing block %lu %{public}@ after activating, %{public}@ after scheduling", &v13, 0x20u);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)performCancelableBlock:(id)block
@@ -235,42 +227,38 @@ void __67__CNTimeProfilingSchedulerDecorator_performBlock_qualityOfService___blo
 
 void __60__CNTimeProfilingSchedulerDecorator_performCancelableBlock___block_invoke(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
   v4 = a2;
   v5 = [v3 scheduler];
   [v5 timestamp];
   v7 = v6;
 
-  v8 = *(a1 + 32);
-  v9 = [objc_opt_class() os_log];
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  v8 = [objc_opt_class() os_log];
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    __50__CNTimeProfilingSchedulerDecorator_performBlock___block_invoke_cold_1(a1);
+    __50__CNTimeProfilingSchedulerDecorator_performBlock___block_invoke_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
-  v10 = [*(a1 + 32) scheduler];
-  [v10 timestamp];
-  v12 = v11;
+  v9 = [*(a1 + 32) scheduler];
+  [v9 timestamp];
+  v11 = v10;
 
-  v13 = *(a1 + 32);
-  v14 = [objc_opt_class() os_log];
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+  v12 = [objc_opt_class() os_log];
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
-    v16 = *(a1 + 48);
-    v17 = [CNTimeIntervalFormatter stringForTimeInterval:v12 - v7];
-    v18 = [CNTimeIntervalFormatter stringForTimeInterval:v12 - *(a1 + 56)];
-    v19 = 134218498;
-    v20 = v16;
-    v21 = 2114;
-    v22 = v17;
-    v23 = 2114;
-    v24 = v18;
-    _os_log_debug_impl(&dword_1859F0000, v14, OS_LOG_TYPE_DEBUG, "Completing block %lu %{public}@ after activating, %{public}@ after scheduling", &v19, 0x20u);
+    v13 = *(a1 + 48);
+    v14 = [CNTimeIntervalFormatter stringForTimeInterval:v11 - v7];
+    v15 = [CNTimeIntervalFormatter stringForTimeInterval:v11 - *(a1 + 56)];
+    v16 = 134218498;
+    v17 = v13;
+    v18 = 2114;
+    v19 = v14;
+    v20 = 2114;
+    v21 = v15;
+    _os_log_debug_impl(&dword_1859F0000, v12, OS_LOG_TYPE_DEBUG, "Completing block %lu %{public}@ after activating, %{public}@ after scheduling", &v16, 0x20u);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (id)performCancelableBlock:(id)block qualityOfService:(unint64_t)service
@@ -304,42 +292,38 @@ void __60__CNTimeProfilingSchedulerDecorator_performCancelableBlock___block_invo
 
 void __77__CNTimeProfilingSchedulerDecorator_performCancelableBlock_qualityOfService___block_invoke(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
   v4 = a2;
   v5 = [v3 scheduler];
   [v5 timestamp];
   v7 = v6;
 
-  v8 = *(a1 + 32);
-  v9 = [objc_opt_class() os_log];
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  v8 = [objc_opt_class() os_log];
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    __50__CNTimeProfilingSchedulerDecorator_performBlock___block_invoke_cold_1(a1);
+    __50__CNTimeProfilingSchedulerDecorator_performBlock___block_invoke_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
-  v10 = [*(a1 + 32) scheduler];
-  [v10 timestamp];
-  v12 = v11;
+  v9 = [*(a1 + 32) scheduler];
+  [v9 timestamp];
+  v11 = v10;
 
-  v13 = *(a1 + 32);
-  v14 = [objc_opt_class() os_log];
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+  v12 = [objc_opt_class() os_log];
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
-    v16 = *(a1 + 48);
-    v17 = [CNTimeIntervalFormatter stringForTimeInterval:v12 - v7];
-    v18 = [CNTimeIntervalFormatter stringForTimeInterval:v12 - *(a1 + 56)];
-    v19 = 134218498;
-    v20 = v16;
-    v21 = 2114;
-    v22 = v17;
-    v23 = 2114;
-    v24 = v18;
-    _os_log_debug_impl(&dword_1859F0000, v14, OS_LOG_TYPE_DEBUG, "Completing block %lu %{public}@ after activating, %{public}@ after scheduling", &v19, 0x20u);
+    v13 = *(a1 + 48);
+    v14 = [CNTimeIntervalFormatter stringForTimeInterval:v11 - v7];
+    v15 = [CNTimeIntervalFormatter stringForTimeInterval:v11 - *(a1 + 56)];
+    v16 = 134218498;
+    v17 = v13;
+    v18 = 2114;
+    v19 = v14;
+    v20 = 2114;
+    v21 = v15;
+    _os_log_debug_impl(&dword_1859F0000, v12, OS_LOG_TYPE_DEBUG, "Completing block %lu %{public}@ after activating, %{public}@ after scheduling", &v16, 0x20u);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (id)afterDelay:(double)delay performBlock:(id)block
@@ -373,40 +357,36 @@ void __77__CNTimeProfilingSchedulerDecorator_performCancelableBlock_qualityOfSer
 
 void __61__CNTimeProfilingSchedulerDecorator_afterDelay_performBlock___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) scheduler];
   [v2 timestamp];
   v4 = v3;
 
-  v5 = *(a1 + 32);
-  v6 = [objc_opt_class() os_log];
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v5 = [objc_opt_class() os_log];
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    __50__CNTimeProfilingSchedulerDecorator_performBlock___block_invoke_cold_1(a1);
+    __50__CNTimeProfilingSchedulerDecorator_performBlock___block_invoke_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
-  v7 = [*(a1 + 32) scheduler];
-  [v7 timestamp];
-  v9 = v8;
+  v6 = [*(a1 + 32) scheduler];
+  [v6 timestamp];
+  v8 = v7;
 
-  v10 = *(a1 + 32);
-  v11 = [objc_opt_class() os_log];
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  v9 = [objc_opt_class() os_log];
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    v13 = *(a1 + 48);
-    v14 = [CNTimeIntervalFormatter stringForTimeInterval:v9 - v4];
-    v15 = [CNTimeIntervalFormatter stringForTimeInterval:v9 - *(a1 + 56)];
-    v16 = 134218498;
-    v17 = v13;
-    v18 = 2114;
-    v19 = v14;
-    v20 = 2114;
-    v21 = v15;
-    _os_log_debug_impl(&dword_1859F0000, v11, OS_LOG_TYPE_DEBUG, "Completing block %lu %{public}@ after activating, %{public}@ after scheduling", &v16, 0x20u);
+    v10 = *(a1 + 48);
+    v11 = [CNTimeIntervalFormatter stringForTimeInterval:v8 - v4];
+    v12 = [CNTimeIntervalFormatter stringForTimeInterval:v8 - *(a1 + 56)];
+    v13 = 134218498;
+    v14 = v10;
+    v15 = 2114;
+    v16 = v11;
+    v17 = 2114;
+    v18 = v12;
+    _os_log_debug_impl(&dword_1859F0000, v9, OS_LOG_TYPE_DEBUG, "Completing block %lu %{public}@ after activating, %{public}@ after scheduling", &v13, 0x20u);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)afterDelay:(double)delay performBlock:(id)block qualityOfService:(unint64_t)service
@@ -440,40 +420,36 @@ void __61__CNTimeProfilingSchedulerDecorator_afterDelay_performBlock___block_inv
 
 void __78__CNTimeProfilingSchedulerDecorator_afterDelay_performBlock_qualityOfService___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) scheduler];
   [v2 timestamp];
   v4 = v3;
 
-  v5 = *(a1 + 32);
-  v6 = [objc_opt_class() os_log];
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v5 = [objc_opt_class() os_log];
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    __50__CNTimeProfilingSchedulerDecorator_performBlock___block_invoke_cold_1(a1);
+    __50__CNTimeProfilingSchedulerDecorator_performBlock___block_invoke_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
-  v7 = [*(a1 + 32) scheduler];
-  [v7 timestamp];
-  v9 = v8;
+  v6 = [*(a1 + 32) scheduler];
+  [v6 timestamp];
+  v8 = v7;
 
-  v10 = *(a1 + 32);
-  v11 = [objc_opt_class() os_log];
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  v9 = [objc_opt_class() os_log];
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    v13 = *(a1 + 48);
-    v14 = [CNTimeIntervalFormatter stringForTimeInterval:v9 - v4];
-    v15 = [CNTimeIntervalFormatter stringForTimeInterval:v9 - *(a1 + 56)];
-    v16 = 134218498;
-    v17 = v13;
-    v18 = 2114;
-    v19 = v14;
-    v20 = 2114;
-    v21 = v15;
-    _os_log_debug_impl(&dword_1859F0000, v11, OS_LOG_TYPE_DEBUG, "Completing block %lu %{public}@ after activating, %{public}@ after scheduling", &v16, 0x20u);
+    v10 = *(a1 + 48);
+    v11 = [CNTimeIntervalFormatter stringForTimeInterval:v8 - v4];
+    v12 = [CNTimeIntervalFormatter stringForTimeInterval:v8 - *(a1 + 56)];
+    v13 = 134218498;
+    v14 = v10;
+    v15 = 2114;
+    v16 = v11;
+    v17 = 2114;
+    v18 = v12;
+    _os_log_debug_impl(&dword_1859F0000, v9, OS_LOG_TYPE_DEBUG, "Completing block %lu %{public}@ after activating, %{public}@ after scheduling", &v13, 0x20u);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (double)timestamp
@@ -485,23 +461,12 @@ void __78__CNTimeProfilingSchedulerDecorator_afterDelay_performBlock_qualityOfSe
   return v4;
 }
 
-- (void)performBlock:.cold.1()
+void __50__CNTimeProfilingSchedulerDecorator_performBlock___block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_1();
-  OUTLINED_FUNCTION_3_2(&dword_1859F0000, v0, v1, "Scheduling block %lu", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __50__CNTimeProfilingSchedulerDecorator_performBlock___block_invoke_cold_1(uint64_t a1)
-{
-  v1 = *MEMORY[0x1E69E9840];
-  v2 = OUTLINED_FUNCTION_4(a1);
-  v4 = [OUTLINED_FUNCTION_1_4(v2 CNTimeIntervalFormatter];
+  OUTLINED_FUNCTION_4();
+  v0 = [OUTLINED_FUNCTION_1_4(CNTimeIntervalFormatter) stringForTimeInterval:?];
   OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_2_2(&dword_1859F0000, v5, v6, "Activating block %lu %{public}@ after scheduling", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2_2(&dword_1859F0000, v1, v2, "Activating block %lu %{public}@ after scheduling", v3, v4, v5, v6);
 }
 
 @end

@@ -271,18 +271,18 @@ LABEL_12:
   pixelFormat = [metalContext pixelFormat];
   v12 = objc_alloc_init(MTLRenderPipelineColorAttachmentDescriptor);
   [v12 setPixelFormat:pixelFormat];
-  v61 = 0u;
-  v62 = 0u;
-  v59 = 0u;
   v60 = 0u;
-  v57 = 0u;
+  v61 = 0u;
   v58 = 0u;
-  v55 = 0u;
+  v59 = 0u;
   v56 = 0u;
+  v57 = 0u;
+  v54 = 0u;
+  v55 = 0u;
   mAnimationContext = self->super.mAnimationContext;
   if (mAnimationContext)
   {
-    [(KNAnimationContext *)mAnimationContext slideProjectionMatrix];
+    objc_msgSend_slideProjectionMatrix(mAnimationContext);
   }
 
   if ([contextCopy isMotionBlurred])
@@ -305,38 +305,30 @@ LABEL_12:
     v28 = self->_motionBlurMetalEffect;
     if (v28)
     {
-      v46[4] = v59;
-      v46[5] = v60;
-      v46[6] = v61;
-      v46[7] = v62;
-      v46[0] = v55;
-      v46[1] = v56;
-      v46[2] = v57;
-      v46[3] = v58;
-      [(TSDMetalMotionBlurEffect *)v28 adjustTransformForMotionBlurBuffer:v46];
+      objc_msgSend_adjustTransformForMotionBlurBuffer_(v28);
     }
 
     else
     {
-      v53 = 0u;
-      v54 = 0u;
-      v51 = 0u;
       v52 = 0u;
-      v49 = 0u;
+      v53 = 0u;
       v50 = 0u;
-      v47 = 0u;
+      v51 = 0u;
       v48 = 0u;
+      v49 = 0u;
+      v46 = 0u;
+      v47 = 0u;
     }
 
     v29 = lastObject;
+    v58 = v50;
     v59 = v51;
     v60 = v52;
     v61 = v53;
-    v62 = v54;
+    v54 = v46;
     v55 = v47;
     v56 = v48;
     v57 = v49;
-    v58 = v50;
   }
 
   else
@@ -366,10 +358,10 @@ LABEL_12:
   self->_metalShader = v36;
 
   [(KNTransitionTwist *)self createArrays:v29 context:contextCopy device:device];
-  v38 = vcvt_hight_f32_f64(vcvt_f32_f64(v55), v56);
-  v39 = vcvt_hight_f32_f64(vcvt_f32_f64(v57), v58);
-  v40 = vcvt_hight_f32_f64(vcvt_f32_f64(v59), v60);
-  v41 = vcvt_hight_f32_f64(vcvt_f32_f64(v61), v62);
+  v38 = vcvt_hight_f32_f64(vcvt_f32_f64(v54), v55);
+  v39 = vcvt_hight_f32_f64(vcvt_f32_f64(v56), v57);
+  v40 = vcvt_hight_f32_f64(vcvt_f32_f64(v58), v59);
+  v41 = vcvt_hight_f32_f64(vcvt_f32_f64(v60), v61);
   p_positionAttributeIndex = &self[1]._positionAttributeIndex;
   v43 = 3;
   do

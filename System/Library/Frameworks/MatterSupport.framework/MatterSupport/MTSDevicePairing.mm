@@ -14,21 +14,19 @@
 
 - (NSArray)attributeDescriptions
 {
-  v15[3] = *MEMORY[0x277D85DE8];
+  v14[3] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   uuid = [(MTSDevicePairing *)self uuid];
   v5 = [v3 initWithName:@"UUID" value:uuid];
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   nodeID = [(MTSDevicePairing *)self nodeID];
   v8 = [v6 initWithName:@"Node ID" value:nodeID];
-  v15[1] = v8;
+  v14[1] = v8;
   v9 = objc_alloc(MEMORY[0x277D0F778]);
   fabric = [(MTSDevicePairing *)self fabric];
   v11 = [v9 initWithName:@"Fabric" value:fabric];
-  v15[2] = v11;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:3];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v14[2] = v11;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:3];
 
   return v12;
 }
@@ -52,7 +50,7 @@
 
 - (MTSDevicePairing)initWithCoder:(id)coder
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"MTSDP.nodeID"];
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"MTSDP.fabric"];
@@ -75,13 +73,13 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v11 = HMFGetLogIdentifier();
-      v16 = 138543874;
-      v17 = v11;
-      v18 = 2112;
-      v19 = v5;
-      v20 = 2112;
-      v21 = v7;
-      _os_log_impl(&dword_239824000, v10, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from nodeID: %@, fabric: %@", &v16, 0x20u);
+      v15 = 138543874;
+      v16 = v11;
+      v17 = 2112;
+      v18 = v5;
+      v19 = 2112;
+      v20 = v7;
+      _os_log_impl(&dword_239824000, v10, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from nodeID: %@, fabric: %@", &v15, 0x20u);
     }
 
     objc_autoreleasePoolPop(v9);
@@ -94,7 +92,6 @@
     v13 = selfCopy;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 

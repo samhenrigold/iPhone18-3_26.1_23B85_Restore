@@ -12,7 +12,7 @@
 
 - (id)_locationAttributedStringForFont:()MUPlaceTileViewModel
 {
-  v17[2] = *MEMORY[0x1E69E9840];
+  v16[2] = *MEMORY[0x1E69E9840];
   v4 = a3;
   locationName = [self locationName];
   v6 = v4;
@@ -21,13 +21,13 @@
     v7 = objc_alloc(MEMORY[0x1E696AAB0]);
     systemGrayColor = [MEMORY[0x1E69DC888] systemGrayColor];
     v9 = *MEMORY[0x1E69DB650];
-    v16[0] = *MEMORY[0x1E69DB648];
-    v16[1] = v9;
-    v17[0] = v6;
-    v17[1] = systemGrayColor;
+    v15[0] = *MEMORY[0x1E69DB648];
+    v15[1] = v9;
+    v16[0] = v6;
+    v16[1] = systemGrayColor;
     v10 = MEMORY[0x1E695DF20];
     v11 = v6;
-    v12 = [v10 dictionaryWithObjects:v17 forKeys:v16 count:2];
+    v12 = [v10 dictionaryWithObjects:v16 forKeys:v15 count:2];
 
     v13 = [v7 initWithString:locationName attributes:v12];
   }
@@ -36,8 +36,6 @@
   {
     v13 = 0;
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -53,7 +51,7 @@
 
 - (id)_ratingGlyphAttributedStringForFont:()MUPlaceTileViewModel
 {
-  v40[3] = *MEMORY[0x1E69E9840];
+  v39[3] = *MEMORY[0x1E69E9840];
   v4 = a3;
   ratingSummary = [self ratingSummary];
   isAppleRating = [ratingSummary isAppleRating];
@@ -89,38 +87,37 @@
   v21 = [v18 configurationWithFont:v19 scale:1];
   v22 = [v17 _mapsui_resolvedSymbolImageNamed:v20 withConfiguration:v21];
 
-  v36 = [v22 imageWithRenderingMode:2];
+  v35 = [v22 imageWithRenderingMode:2];
 
   v23 = objc_alloc_init(MEMORY[0x1E69DB7F0]);
-  [v23 setImage:v36];
+  [v23 setImage:v35];
   v24 = [MEMORY[0x1E696AAB0] attributedStringWithAttachment:v23];
-  v40[0] = v24;
+  v39[0] = v24;
   v25 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:@" "];
-  v40[1] = v25;
+  v39[1] = v25;
   v26 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:v11];
-  v40[2] = v26;
-  v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:v40 count:3];
+  v39[2] = v26;
+  v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:3];
   [MapsUILayout buildAttributedDisplayStringForComponents:v27 reverseIfRTLLayout:1];
   v29 = v28 = v11;
   v30 = [v29 mutableCopy];
 
   v31 = *MEMORY[0x1E69DB648];
-  v38[0] = *MEMORY[0x1E69DB650];
-  v38[1] = v31;
-  v39[0] = labelColor;
-  v39[1] = v19;
-  v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v39 forKeys:v38 count:2];
+  v37[0] = *MEMORY[0x1E69DB650];
+  v37[1] = v31;
+  v38[0] = labelColor;
+  v38[1] = v19;
+  v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v38 forKeys:v37 count:2];
   [v30 addAttributes:v32 range:{0, objc_msgSend(v30, "length")}];
 
   v33 = [v30 copy];
-  v34 = *MEMORY[0x1E69E9840];
 
   return v33;
 }
 
 - (id)_ratingSummaryAttributedStringForFont:()MUPlaceTileViewModel
 {
-  v33[1] = *MEMORY[0x1E69E9840];
+  v32[1] = *MEMORY[0x1E69E9840];
   v4 = a3;
   ratingSummary = [self ratingSummary];
 
@@ -152,15 +149,15 @@
       [v12 appendAttributedString:v22];
     }
 
-    v32 = *MEMORY[0x1E69DB648];
-    v33[0] = v4;
-    v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:&v32 count:1];
+    v31 = *MEMORY[0x1E69DB648];
+    v32[0] = v4;
+    v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:&v31 count:1];
     v24 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:@" " attributes:v23];
     v25 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:v11 attributes:v23];
-    v31[0] = v14;
-    v31[1] = v24;
-    v31[2] = v25;
-    v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:3];
+    v30[0] = v14;
+    v30[1] = v24;
+    v30[2] = v25;
+    v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:3];
     v27 = [MapsUILayout buildAttributedDisplayStringForComponents:v26 reverseIfRTLLayout:1];
 
     [v12 appendAttributedString:v27];
@@ -172,14 +169,12 @@
     v28 = 0;
   }
 
-  v29 = *MEMORY[0x1E69E9840];
-
   return v28;
 }
 
 - (id)_categoryStringForFont:()MUPlaceTileViewModel
 {
-  v17[2] = *MEMORY[0x1E69E9840];
+  v16[2] = *MEMORY[0x1E69E9840];
   v4 = a3;
   categoryName = [self categoryName];
   v6 = v4;
@@ -188,13 +183,13 @@
     v7 = objc_alloc(MEMORY[0x1E696AAB0]);
     systemGrayColor = [MEMORY[0x1E69DC888] systemGrayColor];
     v9 = *MEMORY[0x1E69DB650];
-    v16[0] = *MEMORY[0x1E69DB648];
-    v16[1] = v9;
-    v17[0] = v6;
-    v17[1] = systemGrayColor;
+    v15[0] = *MEMORY[0x1E69DB648];
+    v15[1] = v9;
+    v16[0] = v6;
+    v16[1] = systemGrayColor;
     v10 = MEMORY[0x1E695DF20];
     v11 = v6;
-    v12 = [v10 dictionaryWithObjects:v17 forKeys:v16 count:2];
+    v12 = [v10 dictionaryWithObjects:v16 forKeys:v15 count:2];
 
     v13 = [v7 initWithString:categoryName attributes:v12];
   }
@@ -204,14 +199,12 @@
     v13 = 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
-
   return v13;
 }
 
 - (id)_businessHoursAttributedStringForFont:()MUPlaceTileViewModel
 {
-  v21[2] = *MEMORY[0x1E69E9840];
+  v20[2] = *MEMORY[0x1E69E9840];
   v4 = a3;
   v5 = objc_alloc(MEMORY[0x1E696F468]);
   businessHours = [self businessHours];
@@ -225,13 +218,13 @@
     v11 = objc_alloc(MEMORY[0x1E696AAB0]);
     systemGrayColor = [MEMORY[0x1E69DC888] systemGrayColor];
     v13 = *MEMORY[0x1E69DB650];
-    v20[0] = *MEMORY[0x1E69DB648];
-    v20[1] = v13;
-    v21[0] = v10;
-    v21[1] = systemGrayColor;
+    v19[0] = *MEMORY[0x1E69DB648];
+    v19[1] = v13;
+    v20[0] = v10;
+    v20[1] = systemGrayColor;
     v14 = MEMORY[0x1E695DF20];
     v15 = v10;
-    v16 = [v14 dictionaryWithObjects:v21 forKeys:v20 count:2];
+    v16 = [v14 dictionaryWithObjects:v20 forKeys:v19 count:2];
 
     v17 = [v11 initWithString:localizedOpenState attributes:v16];
   }
@@ -240,8 +233,6 @@
   {
     v17 = 0;
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }

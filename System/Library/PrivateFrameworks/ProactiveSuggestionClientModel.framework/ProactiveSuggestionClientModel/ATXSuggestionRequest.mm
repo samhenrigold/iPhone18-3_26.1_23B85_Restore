@@ -99,7 +99,7 @@ LABEL_15:
 
 - (BOOL)checkAndReportDecodingFailureIfNeededForid:(id)forid key:(id)key coder:(id)coder errorDomain:(id)domain errorCode:(int64_t)code
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   keyCopy = key;
   coderCopy = coder;
   domainCopy = domain;
@@ -116,11 +116,11 @@ LABEL_15:
     if (([coderCopy containsValueForKey:keyCopy] & 1) == 0)
     {
       v16 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v22 = *MEMORY[0x1E696A578];
-      v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Failed to decode key %@", keyCopy, v22];
-      v23[0] = v17;
+      v21 = *MEMORY[0x1E696A578];
+      v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Failed to decode key %@", keyCopy, v21];
+      v22[0] = v17;
       v14 = 1;
-      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
       v19 = [v16 initWithDomain:domainCopy code:code userInfo:v18];
 
       [coderCopy failWithError:v19];
@@ -131,7 +131,6 @@ LABEL_15:
   v14 = 0;
 LABEL_7:
 
-  v20 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -176,29 +175,30 @@ LABEL_7:
   if (protoCopy)
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v5 = protoCopy;
-      consumerSubTypeString = [v5 consumerSubTypeString];
-      v16 = 0;
-      v7 = [MEMORY[0x1E698B028] consumerSubtypeForString:consumerSubTypeString found:&v16];
-      if (v16 == 1)
+      v6 = protoCopy;
+      consumerSubTypeString = [v6 consumerSubTypeString];
+      v17 = 0;
+      v8 = [MEMORY[0x1E698B028] consumerSubtypeForString:consumerSubTypeString found:&v17];
+      if (v17 == 1)
       {
-        v8 = v7;
+        v9 = v8;
         selfCopy = 0;
-        if (v7 && v7 != 50)
+        if (v8 && v8 != 50)
         {
-          uuidString = [v5 uuidString];
-          originatorId = [v5 originatorId];
-          v12 = 0.5;
-          if ([v5 hasTimeout])
+          uuidString = [v6 uuidString];
+          originatorId = [v6 originatorId];
+          v13 = 0.5;
+          if ([v6 hasTimeout])
           {
-            [v5 timeout];
-            v12 = v13;
+            [v6 timeout];
+            v13 = v14;
           }
 
-          v14 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:uuidString];
-          self = [(ATXSuggestionRequest *)self initWithUUID:v14 originatorId:originatorId consumerSubType:v8 timeout:v12];
+          v15 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:uuidString];
+          self = [(ATXSuggestionRequest *)self initWithUUID:v15 originatorId:originatorId consumerSubType:v9 timeout:v13];
 
           selfCopy = self;
         }
@@ -212,10 +212,10 @@ LABEL_7:
 
     else
     {
-      v5 = __atxlog_handle_default();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+      v6 = __atxlog_handle_default(isKindOfClass);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
       {
-        [(ATXSuggestionRequestResponse *)self initWithProto:v5];
+        [(ATXSuggestionRequestResponse *)self initWithProto:v6];
       }
 
       selfCopy = 0;

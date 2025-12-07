@@ -104,8 +104,8 @@ LABEL_8:
   v93 = 0u;
   v94 = 0u;
   v95 = 0u;
-  children = [(TUIVStack *)self children];
-  v7 = [children countByEnumeratingWithState:&v92 objects:v99 count:16];
+  v6 = objc_msgSend_children(self);
+  v7 = [v6 countByEnumeratingWithState:&v92 objects:v99 count:16];
   if (!v7)
   {
     v79 = 0;
@@ -121,7 +121,7 @@ LABEL_8:
     {
       if (*v93 != v8)
       {
-        objc_enumerationMutation(children);
+        objc_enumerationMutation(v6);
       }
 
       v11 = *(*(&v92 + 1) + 8 * i);
@@ -129,25 +129,25 @@ LABEL_8:
       [v11 setFlexedWidth:?];
       [v11 setFlexedHeight:NAN];
       [v11 setContainingWidth:width];
-      [v11 validateLayout];
-      [v11 computedTransformedSize];
+      objc_msgSend_validateLayout(v11);
+      objc_msgSend_computedTransformedSize(v11);
       v13 = v12;
       computedHeight = [v11 computedHeight];
       v16 = v15;
-      v17 = children;
-      if ((v15 & 0x8000000000000) != 0 || ([v11 box], v18 = objc_claimAutoreleasedReturnValue(), v19 = objc_msgSend(v18, "vcompressed") == 0, v18, !v19))
+      v17 = v6;
+      if ((v15 & 0x8000000000000) != 0 || (objc_msgSend_box(v11), v18 = objc_claimAutoreleasedReturnValue(), v19 = [v18 vcompressed] == 0, v18, !v19))
       {
         if (!v79)
         {
           v79 = +[TUIFlexibleLayoutController newHeightController];
         }
 
-        v20 = [v11 box];
+        v20 = objc_msgSend_box(v11);
         [v79 addLayout:v11 length:computedHeight compressed:{v16, objc_msgSend(v20, "vcompressed")}];
       }
 
       v9 = v9 + v13;
-      children = v17;
+      v6 = v17;
     }
 
     v7 = [v17 countByEnumeratingWithState:&v92 objects:v99 count:16];
@@ -161,16 +161,16 @@ LABEL_8:
     goto LABEL_46;
   }
 
-  [(TUIVStack *)self specifiedHeight];
+  objc_msgSend_specifiedHeight(self);
   if ((v21 & 0x7000000000000uLL) <= 0x2000000000000)
   {
     [(TUIVStack *)self flexedHeight];
   }
 
-  specifiedHeight = [(TUIVStack *)self specifiedHeight];
+  v22 = objc_msgSend_specifiedHeight(self);
   v24 = v23;
-  [(TUIVStack *)self specifiedHeight];
-  if ((v25 & 0x7000000000000uLL) < 0x2000000000001 || ([(TUIVStack *)self specifiedHeight], (v26 & 0x7000000000000) == 0x4000000000000))
+  objc_msgSend_specifiedHeight(self);
+  if ((v25 & 0x7000000000000uLL) < 0x2000000000001 || (objc_msgSend_specifiedHeight(self), (v26 & 0x7000000000000) == 0x4000000000000))
   {
     [(TUIVStack *)self flexedHeight];
     [(TUIVStack *)self flexedHeight];
@@ -184,7 +184,7 @@ LABEL_8:
       if (v27 < 3.40282347e38)
       {
         *&v28 = v27;
-        specifiedHeight = (v28 | 0x7FC0000000000000);
+        v22 = v28 | 0x7FC0000000000000;
 LABEL_26:
         v24 = 2143289344;
         goto LABEL_27;
@@ -193,12 +193,12 @@ LABEL_26:
       v29 = 2139095039;
     }
 
-    specifiedHeight = (v29 & 0xFFFFFFFFFFFFLL | 0x7FC0000000000000);
+    v22 = v29 & 0xFFFFFFFFFFFFLL | 0x7FC0000000000000;
     goto LABEL_26;
   }
 
 LABEL_27:
-  [v79 computeWithMeasured:specifiedHeight desired:{v24, v9}];
+  [v79 computeWithMeasured:v22 desired:{v24, v9}];
   v90 = 0u;
   v91 = 0u;
   v88 = 0u;
@@ -220,7 +220,7 @@ LABEL_27:
         v34 = *(*(&v88 + 1) + 8 * j);
         [v79 adjustedLengthForLayout:v34];
         [v34 setFlexedHeight:?];
-        [v34 validateLayout];
+        objc_msgSend_validateLayout(v34);
       }
 
       v31 = [layouts countByEnumeratingWithState:&v88 objects:v98 count:16];
@@ -233,8 +233,8 @@ LABEL_27:
   v87 = 0u;
   v84 = 0u;
   v85 = 0u;
-  children = [(TUIVStack *)self children];
-  v35 = [children countByEnumeratingWithState:&v84 objects:v97 count:16];
+  v6 = objc_msgSend_children(self);
+  v35 = [v6 countByEnumeratingWithState:&v84 objects:v97 count:16];
   if (v35)
   {
     v36 = *v85;
@@ -245,18 +245,18 @@ LABEL_27:
       {
         if (*v85 != v36)
         {
-          objc_enumerationMutation(children);
+          objc_enumerationMutation(v6);
         }
 
         v38 = *(*(&v84 + 1) + 8 * k);
         if (([v38 hidden] & 1) == 0)
         {
-          [v38 computedTransformedSize];
+          objc_msgSend_computedTransformedSize(v38);
           v9 = v9 + v39;
         }
       }
 
-      v35 = [children countByEnumeratingWithState:&v84 objects:v97 count:16];
+      v35 = [v6 countByEnumeratingWithState:&v84 objects:v97 count:16];
     }
 
     while (v35);
@@ -268,18 +268,18 @@ LABEL_44:
 LABEL_45:
 
 LABEL_46:
-  LODWORD(v40) = [(TUIVStack *)self specifiedHeight];
-  v41 = COERCE_FLOAT([(TUIVStack *)self specifiedHeight]);
-  [(TUIVStack *)self specifiedHeight];
+  LODWORD(v40) = objc_msgSend_specifiedHeight(self);
+  v41 = COERCE_FLOAT(objc_msgSend_specifiedHeight(self, v40));
+  objc_msgSend_specifiedHeight(self);
   LODWORD(v43) = v42;
-  [(TUIVStack *)self specifiedHeight];
+  objc_msgSend_specifiedHeight(self, v43);
   v45 = fmin(v41, v44);
-  LODWORD(v46) = [(TUIVStack *)self specifiedHeight]>> 32;
-  v47 = fmax(v45, COERCE_FLOAT([(TUIVStack *)self specifiedHeight]>> 32));
+  LODWORD(v46) = objc_msgSend_specifiedHeight(self) >> 32;
+  v47 = fmax(v45, COERCE_FLOAT(objc_msgSend_specifiedHeight(self, v46) >> 32));
   [(TUIVStack *)self flexedHeight];
   [(TUIVStack *)self flexedHeight];
   v49 = fmax(v47, v48);
-  [(TUIVStack *)self specifiedHeight];
+  objc_msgSend_specifiedHeight(self);
   if ((v50 & 0x7000000000000) == 0x4000000000000)
   {
     [(TUIVStack *)self flexedHeight];
@@ -304,7 +304,7 @@ LABEL_46:
     if ((isVerticallyAligningChildren & 1) == 0)
     {
       v57 = objc_loadWeakRetained(&self->_layout);
-      v58 = [v57 box];
+      v58 = objc_msgSend_box(v57);
       valign = [v58 valign];
 
       if (valign == (&dword_0 + 1) || valign == (&dword_0 + 3))
@@ -323,8 +323,8 @@ LABEL_46:
   v83 = 0u;
   v80 = 0u;
   v81 = 0u;
-  children2 = [(TUIVStack *)self children];
-  v61 = [children2 countByEnumeratingWithState:&v80 objects:v96 count:16];
+  v60 = objc_msgSend_children(self);
+  v61 = [v60 countByEnumeratingWithState:&v80 objects:v96 count:16];
   if (v61)
   {
     v62 = *v81;
@@ -334,7 +334,7 @@ LABEL_46:
       {
         if (*v81 != v62)
         {
-          objc_enumerationMutation(children2);
+          objc_enumerationMutation(v60);
         }
 
         v64 = *(*(&v80 + 1) + 8 * m);
@@ -343,14 +343,14 @@ LABEL_46:
           v65 = objc_loadWeakRetained(&self->_layout);
           computedLayoutDirection = [v65 computedLayoutDirection];
 
-          v67 = [v64 box];
+          v67 = objc_msgSend_box(v64);
           halign = [v67 halign];
 
           if (halign < 2)
           {
             if (computedLayoutDirection == &dword_0 + 2)
             {
-              [v64 computedTransformedSize];
+              objc_msgSend_computedTransformedSize(v64);
               v72 = v71;
               [v64 computedLeadingEdge];
               v69 = width - v72 + v73;
@@ -387,13 +387,13 @@ LABEL_71:
           }
 
           [v64 setComputedOrigin:{x + v69, y + v53}];
-          [v64 computedTransformedSize];
+          objc_msgSend_computedTransformedSize(v64);
           v53 = v53 + v76;
           continue;
         }
       }
 
-      v61 = [children2 countByEnumeratingWithState:&v80 objects:v96 count:16];
+      v61 = [v60 countByEnumeratingWithState:&v80 objects:v96 count:16];
     }
 
     while (v61);
@@ -412,8 +412,8 @@ LABEL_71:
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  children = [(TUIVStack *)self children];
-  v4 = [children countByEnumeratingWithState:&v21 objects:v28 count:16];
+  v3 = objc_msgSend_children(self, a3, 0);
+  v4 = [v3 countByEnumeratingWithState:&v21 objects:v28 count:16];
   if (v4)
   {
     v5 = *v22;
@@ -423,7 +423,7 @@ LABEL_71:
       {
         if (*v22 != v5)
         {
-          objc_enumerationMutation(children);
+          objc_enumerationMutation(v3);
         }
 
         computedHeight = [*(*(&v21 + 1) + 8 * i) computedHeight];
@@ -485,7 +485,7 @@ LABEL_71:
         v26 = v11;
       }
 
-      v4 = [children countByEnumeratingWithState:&v21 objects:v28 count:16];
+      v4 = [v3 countByEnumeratingWithState:&v21 objects:v28 count:16];
     }
 
     while (v4);

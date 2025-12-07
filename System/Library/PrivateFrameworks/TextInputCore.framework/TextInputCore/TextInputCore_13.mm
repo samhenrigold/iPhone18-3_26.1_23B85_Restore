@@ -1,29 +1,29 @@
-uint64_t *std::__hash_table<std::__hash_value_type<TI::CP::TIPathRecognizerType,KB::CandidateCollection>,std::__unordered_map_hasher<TI::CP::TIPathRecognizerType,std::__hash_value_type<TI::CP::TIPathRecognizerType,KB::CandidateCollection>,std::hash<int>,std::equal_to<TI::CP::TIPathRecognizerType>,true>,std::__unordered_map_equal<TI::CP::TIPathRecognizerType,std::__hash_value_type<TI::CP::TIPathRecognizerType,KB::CandidateCollection>,std::equal_to<TI::CP::TIPathRecognizerType>,std::hash<int>,true>,std::allocator<std::__hash_value_type<TI::CP::TIPathRecognizerType,KB::CandidateCollection>>>::__emplace_unique_key_args<TI::CP::TIPathRecognizerType,std::piecewise_construct_t const&,std::tuple<TI::CP::TIPathRecognizerType&&>,std::tuple<>>(void *a1, int a2)
+uint64_t *std::__hash_table<std::__hash_value_type<TI::CP::TIPathRecognizerType,KB::CandidateCollection>,std::__unordered_map_hasher<TI::CP::TIPathRecognizerType,std::__hash_value_type<TI::CP::TIPathRecognizerType,KB::CandidateCollection>,std::hash<int>,std::equal_to<TI::CP::TIPathRecognizerType>,true>,std::__unordered_map_equal<TI::CP::TIPathRecognizerType,std::__hash_value_type<TI::CP::TIPathRecognizerType,KB::CandidateCollection>,std::equal_to<TI::CP::TIPathRecognizerType>,std::hash<int>,true>,std::allocator<std::__hash_value_type<TI::CP::TIPathRecognizerType,KB::CandidateCollection>>>::__emplace_unique_key_args<TI::CP::TIPathRecognizerType,std::piecewise_construct_t const&,std::tuple<TI::CP::TIPathRecognizerType&&>,std::tuple<>>(void *a1, int a2, _DWORD **a3)
 {
-  v2 = a1[1];
-  if (!v2)
+  v3 = a1[1];
+  if (!v3)
   {
     goto LABEL_18;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (v2 <= a2)
+    v5 = a2;
+    if (v3 <= a2)
     {
-      v4 = a2 % v2;
+      v5 = a2 % v3;
     }
   }
 
   else
   {
-    v4 = (v2 - 1) & a2;
+    v5 = (v3 - 1) & a2;
   }
 
-  v5 = *(*a1 + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v6 = *(*a1 + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
   {
 LABEL_18:
     operator new();
@@ -31,44 +31,44 @@ LABEL_18:
 
   while (1)
   {
-    v7 = v6[1];
-    if (v7 == a2)
+    v8 = v7[1];
+    if (v8 == a2)
     {
       break;
     }
 
-    if (v3.u32[0] > 1uLL)
+    if (v4.u32[0] > 1uLL)
     {
-      if (v7 >= v2)
+      if (v8 >= v3)
       {
-        v7 %= v2;
+        v8 %= v3;
       }
     }
 
     else
     {
-      v7 &= v2 - 1;
+      v8 &= v3 - 1;
     }
 
-    if (v7 != v4)
+    if (v8 != v5)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v7 = *v7;
+    if (!v7)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v6 + 4) != a2)
+  if (*(v7 + 4) != a2)
   {
     goto LABEL_17;
   }
 
-  return v6;
+  return v7;
 }
 
 uint64_t *TI::CP::TIPathRecognizerEnsemble::can_use_preferred_source(TI::CP::TIPathRecognizerEnsemble *this)
@@ -82,7 +82,8 @@ uint64_t *TI::CP::TIPathRecognizerEnsemble::can_use_preferred_source(TI::CP::TIP
     result = 0;
     if (!v5 || !*(*(*v5 + 48))(v5) || *(*(*(**(this + 60) + 48))(*(this + 60)) + 66) != 1 || (*(*(*(**(this + 60) + 48))(*(this + 60)) + 65) & 1) == 0)
     {
-      v6 = std::__hash_table<std::__hash_value_type<TI::CP::TIPathRecognizerType,std::shared_ptr<TI::CP::TIPathRecognizerInterface>>,std::__unordered_map_hasher<TI::CP::TIPathRecognizerType,std::__hash_value_type<TI::CP::TIPathRecognizerType,std::shared_ptr<TI::CP::TIPathRecognizerInterface>>,std::hash<int>,std::equal_to<TI::CP::TIPathRecognizerType>,true>,std::__unordered_map_equal<TI::CP::TIPathRecognizerType,std::__hash_value_type<TI::CP::TIPathRecognizerType,std::shared_ptr<TI::CP::TIPathRecognizerInterface>>,std::equal_to<TI::CP::TIPathRecognizerType>,std::hash<int>,true>,std::allocator<std::__hash_value_type<TI::CP::TIPathRecognizerType,std::shared_ptr<TI::CP::TIPathRecognizerInterface>>>>::__emplace_unique_key_args<TI::CP::TIPathRecognizerType,std::piecewise_construct_t const&,std::tuple<TI::CP::TIPathRecognizerType const&>,std::tuple<>>(v3, *v2);
+      v8 = v2;
+      v6 = std::__hash_table<std::__hash_value_type<TI::CP::TIPathRecognizerType,std::shared_ptr<TI::CP::TIPathRecognizerInterface>>,std::__unordered_map_hasher<TI::CP::TIPathRecognizerType,std::__hash_value_type<TI::CP::TIPathRecognizerType,std::shared_ptr<TI::CP::TIPathRecognizerInterface>>,std::hash<int>,std::equal_to<TI::CP::TIPathRecognizerType>,true>,std::__unordered_map_equal<TI::CP::TIPathRecognizerType,std::__hash_value_type<TI::CP::TIPathRecognizerType,std::shared_ptr<TI::CP::TIPathRecognizerInterface>>,std::equal_to<TI::CP::TIPathRecognizerType>,std::hash<int>,true>,std::allocator<std::__hash_value_type<TI::CP::TIPathRecognizerType,std::shared_ptr<TI::CP::TIPathRecognizerInterface>>>>::__emplace_unique_key_args<TI::CP::TIPathRecognizerType,std::piecewise_construct_t const&,std::tuple<TI::CP::TIPathRecognizerType const&>,std::tuple<>>(v3, *v2, &v8);
       if ((*(*v6[3] + 16))(v6[3]) == 1)
       {
         v7 = atomic_load(this + 632);
@@ -97,32 +98,32 @@ uint64_t *TI::CP::TIPathRecognizerEnsemble::can_use_preferred_source(TI::CP::TIP
   return result;
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<TI::CP::TIPathRecognizerType,std::shared_ptr<TI::CP::TIPathRecognizerInterface>>,std::__unordered_map_hasher<TI::CP::TIPathRecognizerType,std::__hash_value_type<TI::CP::TIPathRecognizerType,std::shared_ptr<TI::CP::TIPathRecognizerInterface>>,std::hash<int>,std::equal_to<TI::CP::TIPathRecognizerType>,true>,std::__unordered_map_equal<TI::CP::TIPathRecognizerType,std::__hash_value_type<TI::CP::TIPathRecognizerType,std::shared_ptr<TI::CP::TIPathRecognizerInterface>>,std::equal_to<TI::CP::TIPathRecognizerType>,std::hash<int>,true>,std::allocator<std::__hash_value_type<TI::CP::TIPathRecognizerType,std::shared_ptr<TI::CP::TIPathRecognizerInterface>>>>::__emplace_unique_key_args<TI::CP::TIPathRecognizerType,std::piecewise_construct_t const&,std::tuple<TI::CP::TIPathRecognizerType const&>,std::tuple<>>(void *a1, int a2)
+uint64_t *std::__hash_table<std::__hash_value_type<TI::CP::TIPathRecognizerType,std::shared_ptr<TI::CP::TIPathRecognizerInterface>>,std::__unordered_map_hasher<TI::CP::TIPathRecognizerType,std::__hash_value_type<TI::CP::TIPathRecognizerType,std::shared_ptr<TI::CP::TIPathRecognizerInterface>>,std::hash<int>,std::equal_to<TI::CP::TIPathRecognizerType>,true>,std::__unordered_map_equal<TI::CP::TIPathRecognizerType,std::__hash_value_type<TI::CP::TIPathRecognizerType,std::shared_ptr<TI::CP::TIPathRecognizerInterface>>,std::equal_to<TI::CP::TIPathRecognizerType>,std::hash<int>,true>,std::allocator<std::__hash_value_type<TI::CP::TIPathRecognizerType,std::shared_ptr<TI::CP::TIPathRecognizerInterface>>>>::__emplace_unique_key_args<TI::CP::TIPathRecognizerType,std::piecewise_construct_t const&,std::tuple<TI::CP::TIPathRecognizerType const&>,std::tuple<>>(void *a1, int a2, _DWORD **a3)
 {
-  v2 = a1[1];
-  if (!v2)
+  v3 = a1[1];
+  if (!v3)
   {
     goto LABEL_18;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (v2 <= a2)
+    v5 = a2;
+    if (v3 <= a2)
     {
-      v4 = a2 % v2;
+      v5 = a2 % v3;
     }
   }
 
   else
   {
-    v4 = (v2 - 1) & a2;
+    v5 = (v3 - 1) & a2;
   }
 
-  v5 = *(*a1 + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v6 = *(*a1 + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
   {
 LABEL_18:
     operator new();
@@ -130,56 +131,56 @@ LABEL_18:
 
   while (1)
   {
-    v7 = v6[1];
-    if (v7 == a2)
+    v8 = v7[1];
+    if (v8 == a2)
     {
       break;
     }
 
-    if (v3.u32[0] > 1uLL)
+    if (v4.u32[0] > 1uLL)
     {
-      if (v7 >= v2)
+      if (v8 >= v3)
       {
-        v7 %= v2;
+        v8 %= v3;
       }
     }
 
     else
     {
-      v7 &= v2 - 1;
+      v8 &= v3 - 1;
     }
 
-    if (v7 != v4)
+    if (v8 != v5)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v7 = *v7;
+    if (!v7)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v6 + 4) != a2)
+  if (*(v7 + 4) != a2)
   {
     goto LABEL_17;
   }
 
-  return v6;
+  return v7;
 }
 
-void *std::__hash_table<std::__hash_value_type<KB::String,KB::Candidate>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,KB::Candidate>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,KB::Candidate>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,KB::Candidate>>>::find<KB::String>(uint64_t a1, unint64_t a2, void *a3)
+void *std::__hash_table<std::__hash_value_type<KB::String,KB::Candidate>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,KB::Candidate>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,KB::Candidate>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,KB::Candidate>>>::find<KB::String>(uint64_t a1, unint64_t a2, const KB::String *a3)
 {
-  if (a3[1])
+  if (*(a3 + 1))
   {
-    v6 = a3[1];
+    v6 = *(a3 + 1);
   }
 
   else
   {
-    v6 = (a3 + 2);
+    v6 = (a3 + 16);
   }
 
   v7 = KB::String::hash(v6, *a3);
@@ -188,113 +189,113 @@ void *std::__hash_table<std::__hash_value_type<KB::String,KB::Candidate>,std::__
     return 0;
   }
 
-  v8 = v7;
-  v9 = vcnt_s8(a2);
-  v9.i16[0] = vaddlv_u8(v9);
-  v10 = v9.u32[0];
-  if (v9.u32[0] > 1uLL)
+  v10 = v7;
+  v11 = vcnt_s8(a2);
+  v11.i16[0] = vaddlv_u8(v11);
+  v12 = v11.u32[0];
+  if (v11.u32[0] > 1uLL)
   {
-    v11 = v7;
+    v13 = v7;
     if (v7 >= a2)
     {
-      v11 = v7 % a2;
+      v13 = v7 % a2;
     }
   }
 
   else
   {
-    v11 = (a2 - 1) & v7;
+    v13 = (a2 - 1) & v7;
   }
 
-  v12 = *(a1 + 8 * v11);
-  if (!v12)
+  v14 = *(a1 + 8 * v13);
+  if (!v14)
   {
     return 0;
   }
 
-  v13 = *v12;
-  if (*v12)
+  v15 = *v14;
+  if (*v14)
   {
     do
     {
-      v14 = v13[1];
-      if (v14 == v8)
+      v16 = v15[1];
+      if (v16 == v10)
       {
-        if (v13 + 2 == a3 || KB::String::equal((v13 + 2), a3, 1))
+        if (v15 + 2 == a3 || KB::String::equal((v15 + 2), a3, 1, v8, v9))
         {
-          return v13;
+          return v15;
         }
       }
 
       else
       {
-        if (v10 > 1)
+        if (v12 > 1)
         {
-          if (v14 >= a2)
+          if (v16 >= a2)
           {
-            v14 %= a2;
+            v16 %= a2;
           }
         }
 
         else
         {
-          v14 &= a2 - 1;
+          v16 &= a2 - 1;
         }
 
-        if (v14 != v11)
+        if (v16 != v13)
         {
           return 0;
         }
       }
 
-      v13 = *v13;
+      v15 = *v15;
     }
 
-    while (v13);
+    while (v15);
   }
 
-  return v13;
+  return v15;
 }
 
-void *std::__hash_table<std::__hash_value_type<KB::String,unsigned int>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,unsigned int>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,unsigned int>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,unsigned int>>>::__emplace_unique_key_args<KB::String,std::piecewise_construct_t const&,std::tuple<KB::String&&>,std::tuple<>>(void *a1, void *a2)
+void *std::__hash_table<std::__hash_value_type<KB::String,unsigned int>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,unsigned int>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,unsigned int>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,unsigned int>>>::__emplace_unique_key_args<KB::String,std::piecewise_construct_t const&,std::tuple<KB::String&&>,std::tuple<>>(void *a1, const KB::String *a2, KB::String **a3)
 {
-  if (a2[1])
+  if (*(a2 + 1))
   {
-    v4 = a2[1];
+    v5 = *(a2 + 1);
   }
 
   else
   {
-    v4 = (a2 + 2);
+    v5 = (a2 + 16);
   }
 
-  v5 = KB::String::hash(v4, *a2);
-  v6 = v5;
-  v7 = a1[1];
-  if (!v7)
+  v6 = KB::String::hash(v5, *a2);
+  v9 = v6;
+  v10 = a1[1];
+  if (!v10)
   {
     goto LABEL_22;
   }
 
-  v8 = vcnt_s8(v7);
-  v8.i16[0] = vaddlv_u8(v8);
-  v9 = v8.u32[0];
-  if (v8.u32[0] > 1uLL)
+  v11 = vcnt_s8(v10);
+  v11.i16[0] = vaddlv_u8(v11);
+  v12 = v11.u32[0];
+  if (v11.u32[0] > 1uLL)
   {
-    v10 = v5;
-    if (v7 <= v5)
+    v13 = v6;
+    if (v10 <= v6)
     {
-      v10 = v5 % v7;
+      v13 = v6 % v10;
     }
   }
 
   else
   {
-    v10 = (v7 - 1) & v5;
+    v13 = (v10 - 1) & v6;
   }
 
-  v11 = *(*a1 + 8 * v10);
-  if (!v11 || (v12 = *v11) == 0)
+  v14 = *(*a1 + 8 * v13);
+  if (!v14 || (v15 = *v14) == 0)
   {
 LABEL_22:
     operator new();
@@ -302,85 +303,85 @@ LABEL_22:
 
   while (1)
   {
-    v13 = v12[1];
-    if (v13 == v6)
+    v16 = v15[1];
+    if (v16 == v9)
     {
       break;
     }
 
-    if (v9 > 1)
+    if (v12 > 1)
     {
-      if (v13 >= v7)
+      if (v16 >= v10)
       {
-        v13 %= v7;
+        v16 %= v10;
       }
     }
 
     else
     {
-      v13 &= v7 - 1;
+      v16 &= v10 - 1;
     }
 
-    if (v13 != v10)
+    if (v16 != v13)
     {
       goto LABEL_22;
     }
 
 LABEL_21:
-    v12 = *v12;
-    if (!v12)
+    v15 = *v15;
+    if (!v15)
     {
       goto LABEL_22;
     }
   }
 
-  if (v12 + 2 != a2 && !KB::String::equal((v12 + 2), a2, 1))
+  if (v15 + 2 != a2 && !KB::String::equal((v15 + 2), a2, 1, v7, v8))
   {
     goto LABEL_21;
   }
 
-  return v12;
+  return v15;
 }
 
-void *std::__hash_table<std::__hash_value_type<KB::String,KB::Candidate>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,KB::Candidate>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,KB::Candidate>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,KB::Candidate>>>::__emplace_unique_key_args<KB::String,std::piecewise_construct_t const&,std::tuple<KB::String&&>,std::tuple<>>(void *a1, void *a2)
+void *std::__hash_table<std::__hash_value_type<KB::String,KB::Candidate>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,KB::Candidate>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,KB::Candidate>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,KB::Candidate>>>::__emplace_unique_key_args<KB::String,std::piecewise_construct_t const&,std::tuple<KB::String&&>,std::tuple<>>(void *a1, const KB::String *a2, KB::String **a3)
 {
-  if (a2[1])
+  if (*(a2 + 1))
   {
-    v4 = a2[1];
+    v5 = *(a2 + 1);
   }
 
   else
   {
-    v4 = (a2 + 2);
+    v5 = (a2 + 16);
   }
 
-  v5 = KB::String::hash(v4, *a2);
-  v6 = v5;
-  v7 = a1[1];
-  if (!v7)
+  v6 = KB::String::hash(v5, *a2);
+  v9 = v6;
+  v10 = a1[1];
+  if (!v10)
   {
     goto LABEL_22;
   }
 
-  v8 = vcnt_s8(v7);
-  v8.i16[0] = vaddlv_u8(v8);
-  v9 = v8.u32[0];
-  if (v8.u32[0] > 1uLL)
+  v11 = vcnt_s8(v10);
+  v11.i16[0] = vaddlv_u8(v11);
+  v12 = v11.u32[0];
+  if (v11.u32[0] > 1uLL)
   {
-    v10 = v5;
-    if (v7 <= v5)
+    v13 = v6;
+    if (v10 <= v6)
     {
-      v10 = v5 % v7;
+      v13 = v6 % v10;
     }
   }
 
   else
   {
-    v10 = (v7 - 1) & v5;
+    v13 = (v10 - 1) & v6;
   }
 
-  v11 = *(*a1 + 8 * v10);
-  if (!v11 || (v12 = *v11) == 0)
+  v14 = *(*a1 + 8 * v13);
+  if (!v14 || (v15 = *v14) == 0)
   {
 LABEL_22:
     operator new();
@@ -388,44 +389,44 @@ LABEL_22:
 
   while (1)
   {
-    v13 = v12[1];
-    if (v13 == v6)
+    v16 = v15[1];
+    if (v16 == v9)
     {
       break;
     }
 
-    if (v9 > 1)
+    if (v12 > 1)
     {
-      if (v13 >= v7)
+      if (v16 >= v10)
       {
-        v13 %= v7;
+        v16 %= v10;
       }
     }
 
     else
     {
-      v13 &= v7 - 1;
+      v16 &= v10 - 1;
     }
 
-    if (v13 != v10)
+    if (v16 != v13)
     {
       goto LABEL_22;
     }
 
 LABEL_21:
-    v12 = *v12;
-    if (!v12)
+    v15 = *v15;
+    if (!v15)
     {
       goto LABEL_22;
     }
   }
 
-  if (v12 + 2 != a2 && !KB::String::equal((v12 + 2), a2, 1))
+  if (v15 + 2 != a2 && !KB::String::equal((v15 + 2), a2, 1, v7, v8))
   {
     goto LABEL_21;
   }
 
-  return v12;
+  return v15;
 }
 
 uint64_t std::__hash_table<std::__hash_value_type<KB::String,KB::Candidate>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,KB::Candidate>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,KB::Candidate>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,KB::Candidate>>>::~__hash_table(uint64_t a1)
@@ -455,103 +456,101 @@ uint64_t std::__hash_table<std::__hash_value_type<KB::String,KB::Candidate>,std:
   return a1;
 }
 
-void TI::CP::TIPathRecognizerEnsemble::dictionary_key_for_candidate(const KB::Candidate *a1@<X1>, uint64_t a2@<X8>)
+void TI::CP::TIPathRecognizerEnsemble::dictionary_key_for_candidate(uint64_t *__return_ptr a1@<X8>, const KB::Candidate *a2@<X1>)
 {
-  v14[2] = *MEMORY[0x277D85DE8];
-  *a2 = 0x100000;
-  *(a2 + 4) = 0;
-  *(a2 + 6) = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
-  if (*a1)
+  v11[2] = *MEMORY[0x277D85DE8];
+  *a1 = 0x100000;
+  *(a1 + 2) = 0;
+  *(a1 + 6) = 0;
+  a1[1] = 0;
+  *(a1 + 16) = 0;
+  if (*a2)
   {
-    v4 = *(a1 + 1);
-    v5 = 240 * *a1;
+    v3 = *(a2 + 1);
+    v4 = 240 * *a2;
     do
     {
-      v6 = *(v4 + 17);
-      KB::Word::capitalized_string(v4, v11);
-      v7 = v13;
-      if (!v13)
+      v5 = *(v3 + 17);
+      KB::Word::capitalized_string(&v9, v3);
+      v6 = v10;
+      if (!v10)
       {
-        v7 = v14;
-      }
-
-      if (v11[0])
-      {
-        v8 = v7;
-      }
-
-      else
-      {
-        v8 = "";
-      }
-
-      KB::String::append_format(a2, "[%u]%s", v6, v8);
-      if (v13)
-      {
-        v9 = v12 == 1;
-      }
-
-      else
-      {
-        v9 = 0;
+        v6 = v11;
       }
 
       if (v9)
       {
-        free(v13);
+        v7 = v6;
       }
 
-      v4 = (v4 + 240);
-      v5 -= 240;
+      else
+      {
+        v7 = "";
+      }
+
+      KB::String::append_format(a1, "[%u]%s", v5, v7);
+      if (v10)
+      {
+        v8 = BYTE6(v9) == 1;
+      }
+
+      else
+      {
+        v8 = 0;
+      }
+
+      if (v8)
+      {
+        free(v10);
+      }
+
+      v3 = (v3 + 240);
+      v4 -= 240;
     }
 
-    while (v5);
+    while (v4);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
-void *std::__hash_table<std::__hash_value_type<KB::String,KB::Candidate>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,KB::Candidate>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,KB::Candidate>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,KB::Candidate>>>::__emplace_unique_key_args<KB::String,std::piecewise_construct_t const&,std::tuple<KB::String const&>,std::tuple<>>(void *a1, void *a2)
+void *std::__hash_table<std::__hash_value_type<KB::String,KB::Candidate>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,KB::Candidate>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,KB::Candidate>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,KB::Candidate>>>::__emplace_unique_key_args<KB::String,std::piecewise_construct_t const&,std::tuple<KB::String const&>,std::tuple<>>(void *a1, const KB::String *a2, const KB::String **a3)
 {
-  if (a2[1])
+  if (*(a2 + 1))
   {
-    v4 = a2[1];
+    v5 = *(a2 + 1);
   }
 
   else
   {
-    v4 = (a2 + 2);
+    v5 = (a2 + 16);
   }
 
-  v5 = KB::String::hash(v4, *a2);
-  v6 = v5;
-  v7 = a1[1];
-  if (!v7)
+  v6 = KB::String::hash(v5, *a2);
+  v9 = v6;
+  v10 = a1[1];
+  if (!v10)
   {
     goto LABEL_22;
   }
 
-  v8 = vcnt_s8(v7);
-  v8.i16[0] = vaddlv_u8(v8);
-  v9 = v8.u32[0];
-  if (v8.u32[0] > 1uLL)
+  v11 = vcnt_s8(v10);
+  v11.i16[0] = vaddlv_u8(v11);
+  v12 = v11.u32[0];
+  if (v11.u32[0] > 1uLL)
   {
-    v10 = v5;
-    if (v7 <= v5)
+    v13 = v6;
+    if (v10 <= v6)
     {
-      v10 = v5 % v7;
+      v13 = v6 % v10;
     }
   }
 
   else
   {
-    v10 = (v7 - 1) & v5;
+    v13 = (v10 - 1) & v6;
   }
 
-  v11 = *(*a1 + 8 * v10);
-  if (!v11 || (v12 = *v11) == 0)
+  v14 = *(*a1 + 8 * v13);
+  if (!v14 || (v15 = *v14) == 0)
   {
 LABEL_22:
     operator new();
@@ -559,85 +558,85 @@ LABEL_22:
 
   while (1)
   {
-    v13 = v12[1];
-    if (v13 == v6)
+    v16 = v15[1];
+    if (v16 == v9)
     {
       break;
     }
 
-    if (v9 > 1)
+    if (v12 > 1)
     {
-      if (v13 >= v7)
+      if (v16 >= v10)
       {
-        v13 %= v7;
+        v16 %= v10;
       }
     }
 
     else
     {
-      v13 &= v7 - 1;
+      v16 &= v10 - 1;
     }
 
-    if (v13 != v10)
+    if (v16 != v13)
     {
       goto LABEL_22;
     }
 
 LABEL_21:
-    v12 = *v12;
-    if (!v12)
+    v15 = *v15;
+    if (!v15)
     {
       goto LABEL_22;
     }
   }
 
-  if (v12 + 2 != a2 && !KB::String::equal((v12 + 2), a2, 1))
+  if (v15 + 2 != a2 && !KB::String::equal((v15 + 2), a2, 1, v7, v8))
   {
     goto LABEL_21;
   }
 
-  return v12;
+  return v15;
 }
 
-void *std::__hash_table<std::__hash_value_type<KB::String,std::unordered_map<TI::CP::TIPathRecognizerType,std::pair<unsigned int,float>>>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,std::unordered_map<TI::CP::TIPathRecognizerType,std::pair<unsigned int,float>>>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,std::unordered_map<TI::CP::TIPathRecognizerType,std::pair<unsigned int,float>>>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,std::unordered_map<TI::CP::TIPathRecognizerType,std::pair<unsigned int,float>>>>>::__emplace_unique_key_args<KB::String,std::piecewise_construct_t const&,std::tuple<KB::String const&>,std::tuple<>>(void *a1, void *a2)
+void *std::__hash_table<std::__hash_value_type<KB::String,std::unordered_map<TI::CP::TIPathRecognizerType,std::pair<unsigned int,float>>>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,std::unordered_map<TI::CP::TIPathRecognizerType,std::pair<unsigned int,float>>>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,std::unordered_map<TI::CP::TIPathRecognizerType,std::pair<unsigned int,float>>>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,std::unordered_map<TI::CP::TIPathRecognizerType,std::pair<unsigned int,float>>>>>::__emplace_unique_key_args<KB::String,std::piecewise_construct_t const&,std::tuple<KB::String const&>,std::tuple<>>(float *a1, const KB::String *a2, const KB::String **a3)
 {
-  if (a2[1])
+  if (*(a2 + 1))
   {
-    v4 = a2[1];
+    v5 = *(a2 + 1);
   }
 
   else
   {
-    v4 = (a2 + 2);
+    v5 = (a2 + 16);
   }
 
-  v5 = KB::String::hash(v4, *a2);
-  v6 = v5;
-  v7 = a1[1];
-  if (!v7)
+  v6 = KB::String::hash(v5, *a2);
+  v9 = v6;
+  v10 = *(a1 + 1);
+  if (!v10)
   {
     goto LABEL_22;
   }
 
-  v8 = vcnt_s8(v7);
-  v8.i16[0] = vaddlv_u8(v8);
-  v9 = v8.u32[0];
-  if (v8.u32[0] > 1uLL)
+  v11 = vcnt_s8(v10);
+  v11.i16[0] = vaddlv_u8(v11);
+  v12 = v11.u32[0];
+  if (v11.u32[0] > 1uLL)
   {
-    v10 = v5;
-    if (v7 <= v5)
+    v13 = v6;
+    if (v10 <= v6)
     {
-      v10 = v5 % v7;
+      v13 = v6 % v10;
     }
   }
 
   else
   {
-    v10 = (v7 - 1) & v5;
+    v13 = (v10 - 1) & v6;
   }
 
-  v11 = *(*a1 + 8 * v10);
-  if (!v11 || (v12 = *v11) == 0)
+  v14 = *(*a1 + 8 * v13);
+  if (!v14 || (v15 = *v14) == 0)
   {
 LABEL_22:
     operator new();
@@ -645,44 +644,44 @@ LABEL_22:
 
   while (1)
   {
-    v13 = v12[1];
-    if (v13 == v6)
+    v16 = v15[1];
+    if (v16 == v9)
     {
       break;
     }
 
-    if (v9 > 1)
+    if (v12 > 1)
     {
-      if (v13 >= v7)
+      if (v16 >= v10)
       {
-        v13 %= v7;
+        v16 %= v10;
       }
     }
 
     else
     {
-      v13 &= v7 - 1;
+      v16 &= v10 - 1;
     }
 
-    if (v13 != v10)
+    if (v16 != v13)
     {
       goto LABEL_22;
     }
 
 LABEL_21:
-    v12 = *v12;
-    if (!v12)
+    v15 = *v15;
+    if (!v15)
     {
       goto LABEL_22;
     }
   }
 
-  if (v12 + 2 != a2 && !KB::String::equal((v12 + 2), a2, 1))
+  if (v15 + 2 != a2 && !KB::String::equal((v15 + 2), a2, 1, v7, v8))
   {
     goto LABEL_21;
   }
 
-  return v12;
+  return v15;
 }
 
 double TI::CP::TIPathRecognizerEnsemble::path_length(TI::CP::TIPathRecognizerEnsemble *this)
@@ -763,13 +762,6 @@ double TI::CP::TIPathRecognizerEnsemble::reset_path(TI::CP::TIPathRecognizerEnse
   *(this + 88) = *MEMORY[0x277CBF348];
   *&result = 0x7FFFFFFFFLL;
   *(this + 10) = 0x7FFFFFFFFLL;
-  return result;
-}
-
-double TI::CP::TIPathRecognizerEnsemble::last_touch(TI::CP::TIPathRecognizerEnsemble *this)
-{
-  result = *(this + 11);
-  v2 = *(this + 12);
   return result;
 }
 
@@ -1004,7 +996,7 @@ const __CFNumber *preference_value_for_key(const __CFString *a1)
 
 uint64_t TI::CP::TIPathRecognizerEnsemble::TIPathRecognizerEnsemble(uint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   *a1 = &unk_283FDBA90;
   *(a1 + 8) = 0;
   *(a1 + 16) = 0u;
@@ -1103,7 +1095,7 @@ uint64_t TI::CP::TIPathRecognizerEnsemble::TIPathRecognizerEnsemble(uint64_t a1,
     v30 = *(a1 + 432);
     filePath[6] = *(a1 + 416);
     filePath[7] = v30;
-    v57 = *(a1 + 448);
+    v55 = *(a1 + 448);
     v31 = *(a1 + 368);
     filePath[2] = *(a1 + 352);
     filePath[3] = v31;
@@ -1111,34 +1103,33 @@ uint64_t TI::CP::TIPathRecognizerEnsemble::TIPathRecognizerEnsemble(uint64_t a1,
     v32 = *(a1 + 336);
     filePath[0] = *(a1 + 320);
     filePath[1] = v32;
-    *v58 = *(a1 + 457);
-    *&v58[15] = *(a1 + 472);
-    v33 = *(a1 + 273);
+    *v56 = *(a1 + 457);
+    *&v56[15] = *(a1 + 472);
     if (*(a1 + 272))
     {
-      v34 = 2;
+      v33 = 2;
     }
 
     else
     {
-      v34 = 1;
+      v33 = 1;
     }
 
-    v35 = *(a1 + 274);
-    v43 = 0x402E000000000000;
-    v44 = __PAIR64__(v35, v34);
+    v34 = *(a1 + 274);
+    v41 = 0x402E000000000000;
+    v42 = __PAIR64__(v34, v33);
     LOBYTE(cf[0]) = 1;
     cf[1] = 0x3FD3333333333333;
-    v46 = 0;
-    v54 = 0;
-    v55 = 0;
-    *v47 = 0u;
+    v44 = 0;
+    v52 = 0;
+    v53 = 0;
+    *v45 = 0u;
+    *v46 = 0u;
+    v47 = 0u;
     *v48 = 0u;
     v49 = 0u;
-    *v50 = 0u;
-    v51 = 0u;
-    v52 = 0u;
-    v53 = 0;
+    v50 = 0u;
+    v51 = 0;
     operator new();
   }
 
@@ -1148,44 +1139,43 @@ uint64_t TI::CP::TIPathRecognizerEnsemble::TIPathRecognizerEnsemble(uint64_t a1,
     cf[0] = @"shapestore.db";
     if (*(a1 + 284) || (KB::String::compute_length((a1 + 280)), *(a1 + 284)))
     {
-      v36 = *MEMORY[0x277CBECE8];
+      v35 = *MEMORY[0x277CBECE8];
       KB::cf_string_impl<KB::String>(filePath, (a1 + 280));
-      v37 = *&filePath[0];
-      v44 = CFURLCreateWithFileSystemPath(v36, *&filePath[0], kCFURLPOSIXPathStyle, 1u);
-      if (v37)
+      v36 = *&filePath[0];
+      v42 = CFURLCreateWithFileSystemPath(v35, *&filePath[0], kCFURLPOSIXPathStyle, 1u);
+      if (v36)
       {
-        CFRelease(v37);
+        CFRelease(v36);
       }
     }
 
     else
     {
-      v38 = *MEMORY[0x277CBECE8];
-      v39 = TI_KB_USER_DIRECTORY();
-      v44 = CFURLCreateWithFileSystemPath(v38, v39, kCFURLPOSIXPathStyle, 1u);
+      v37 = *MEMORY[0x277CBECE8];
+      v38 = TI_KB_USER_DIRECTORY();
+      v42 = CFURLCreateWithFileSystemPath(v37, v38, kCFURLPOSIXPathStyle, 1u);
     }
 
-    LODWORD(v43) = *(a1 + 312);
+    LODWORD(v41) = *(a1 + 312);
     KB::retain_ptr<__CFDictionary const*>::operator=(cf, @"shapestore.db");
     operator new();
   }
 
-  v40 = preference_value_for_key(v27);
-  *(a1 + 600) = v40;
-  if (v40 == 0x7FFFFFFF)
+  v39 = preference_value_for_key(v27);
+  *(a1 + 600) = v39;
+  if (v39 == 0x7FFFFFFF)
   {
-    v40 = *(a1 + 212) + 1;
-    *(a1 + 600) = v40;
+    v39 = *(a1 + 212) + 1;
+    *(a1 + 600) = v39;
   }
 
-  if (v40 < 0)
+  if (v39 < 0)
   {
     *(a1 + 600) = 0;
   }
 
   TI::CP::TIPathRecognizerEnsemble::load_ml_source_if_needed(a1);
   TI::CP::TIPathRecognizerEnsemble::normalize_weights(a1);
-  v41 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
@@ -1205,10 +1195,10 @@ void std::__shared_ptr_emplace<TI::CP::Search>::~__shared_ptr_emplace(std::__sha
   JUMPOUT(0x2318BE270);
 }
 
-uint64_t TI::CP::TIPathRecognizerEnsemble::update_ml_supports_language_layout_if_needed(uint64_t result, uint64_t a2, const KB::String *a3)
+_BYTE *TI::CP::TIPathRecognizerEnsemble::update_ml_supports_language_layout_if_needed(_BYTE *result, uint64_t a2, const KB::String *a3)
 {
-  v3 = (result + 632);
-  if (*(result + 216) != 1)
+  v3 = result + 632;
+  if (result[216] != 1)
   {
     goto LABEL_5;
   }
@@ -1216,8 +1206,8 @@ uint64_t TI::CP::TIPathRecognizerEnsemble::update_ml_supports_language_layout_if
   v4 = atomic_load(v3);
   if ((v4 & 1) == 0)
   {
-    v5 = (result + 633);
-    v6 = atomic_load((result + 633));
+    v5 = result + 633;
+    v6 = atomic_load(result + 633);
     if ((v6 & 1) == 0)
     {
       result = TI::TIInputRecognizer::is_language_and_layout_supported(a2, a3);
@@ -1308,52 +1298,51 @@ float TI::Favonius::CMGeometryParameters::kb_mm_to_points(TI::Favonius::CMGeomet
 
 uint64_t TI::Favonius::CMGeometryParameters::CMGeometryParameters(uint64_t a1, TI::Favonius::KeyboardLayout **a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v4 = *a2;
   v5 = *(*a2 + 50);
   v7 = v5 > 0xB || v5 > ((*(*a2 + 2) - *(*a2 + 1)) >> 3) >> 1;
   *a1 = v7;
   *(a1 + 1) = TI::Favonius::KeyboardLayout::is_indic_alphabetic(v4);
   v8 = *a2;
-  KB::String::String(v19, "Zhuyin-Grid");
-  v9 = KB::String::equal((v8 + 208), v19, 1);
-  if (v20 && v19[6] == 1)
+  KB::String::String(v20, "Zhuyin-Grid");
+  v11 = KB::String::equal((v8 + 208), v20, 1, v9, v10);
+  if (v21 && v20[6] == 1)
   {
-    free(v20);
+    free(v21);
   }
 
-  *(a1 + 2) = v9;
-  v10 = TI::Favonius::KeyboardLayout::median_key_half_width(*a2) / 15.0;
-  v11.i32[0] = 1.0;
-  if (v10 >= 1.0)
+  *(a1 + 2) = v11;
+  v12 = TI::Favonius::KeyboardLayout::median_key_half_width(*a2) / 15.0;
+  v13.i32[0] = 1.0;
+  if (v12 >= 1.0)
   {
-    *v11.i32 = v10;
-    if (v10 > 4.0)
+    *v13.i32 = v12;
+    if (v12 > 4.0)
     {
-      v11.i32[0] = 4.0;
+      v13.i32[0] = 4.0;
     }
   }
 
-  v18 = v11;
-  v12 = s_interface_idiom_is_pad;
-  v13 = powf(*v11.i32, 0.66);
-  v14 = vcltzq_s32(vshlq_n_s32(vmovl_u16(vdup_n_s16(v12)), 0x1FuLL));
-  v15 = v18;
-  *&v15.i32[1] = v13;
-  *(a1 + 4) = vmulq_f32(vzip1q_s32(v15, vdupq_lane_s32(*v15.i8, 1)), vbslq_s8(v14, xmmword_22CC88BD0, xmmword_22CC88BC0));
-  *(a1 + 20) = vmulq_n_f32(vbslq_s8(v14, xmmword_22CC88BF0, xmmword_22CC88BE0), v13);
-  v16 = *MEMORY[0x277D85DE8];
+  v19 = v13;
+  v14 = s_interface_idiom_is_pad;
+  v15 = powf(*v13.i32, 0.66);
+  v16 = vcltzq_s32(vshlq_n_s32(vmovl_u16(vdup_n_s16(v14)), 0x1FuLL));
+  v17 = v19;
+  *&v17.i32[1] = v15;
+  *(a1 + 4) = vmulq_f32(vzip1q_s32(v17, vdupq_lane_s32(*v17.i8, 1)), vbslq_s8(v16, xmmword_22CC88BD0, xmmword_22CC88BC0));
+  *(a1 + 20) = vmulq_n_f32(vbslq_s8(v16, xmmword_22CC88BF0, xmmword_22CC88BE0), v15);
   return a1;
 }
 
 BOOL TI::Favonius::KeyboardLayout::is_indic_alphabetic(TI::Favonius::KeyboardLayout *this)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  KB::String::String(v5, (this + 208));
-  isAlphabeticLayout = TI::IndicUtils::isAlphabeticLayout(v5);
-  if (v6)
+  v6 = *MEMORY[0x277D85DE8];
+  KB::String::String(v4, (this + 208));
+  isAlphabeticLayout = TI::IndicUtils::isAlphabeticLayout(v4);
+  if (v5)
   {
-    v2 = v5[6] == 1;
+    v2 = v4[6] == 1;
   }
 
   else
@@ -1363,10 +1352,9 @@ BOOL TI::Favonius::KeyboardLayout::is_indic_alphabetic(TI::Favonius::KeyboardLay
 
   if (v2)
   {
-    free(v6);
+    free(v5);
   }
 
-  v3 = *MEMORY[0x277D85DE8];
   return isAlphabeticLayout;
 }
 
@@ -1599,149 +1587,148 @@ TI::Favonius::SearchNodeSource **TI::Favonius::SearchNodeSourceQueue::next_searc
   v5 = a3 + 3;
   while (1)
   {
-    v6 = *a3;
-    v7 = a3[1];
+    v6 = a3[1];
     result = *a3;
-    if (*a3 == v7)
+    if (*a3 == v6)
     {
       break;
     }
 
-    v9 = *result;
+    v8 = *result;
     if (*(*result + 6) < a2 || (*(*result + 6) & 0x7FFFFFFFu) >= 0x7F800000)
     {
       break;
     }
 
-    v11 = (v7 - result) >> 3;
-    if (v11 >= 2)
+    v10 = (v6 - result) >> 3;
+    if (v10 >= 2)
     {
-      v12 = 0;
-      v13 = *a3;
+      v11 = 0;
+      v12 = *a3;
       do
       {
-        v14 = v13;
-        v13 += v12 + 1;
-        v15 = 2 * v12;
-        v12 = (2 * v12) | 1;
-        v16 = v15 + 2;
-        if (v16 < v11 && *(*v13 + 6) < *(v13[1] + 6))
+        v13 = v12;
+        v12 += v11 + 1;
+        v14 = 2 * v11;
+        v11 = (2 * v11) | 1;
+        v15 = v14 + 2;
+        if (v15 < v10 && *(*v12 + 6) < *(v12[1] + 6))
         {
-          ++v13;
-          v12 = v16;
+          ++v12;
+          v11 = v15;
         }
 
-        *v14 = *v13;
+        *v13 = *v12;
       }
 
-      while (v12 <= ((v11 - 2) >> 1));
-      v17 = (v7 - 2);
-      if (v17 == v13)
+      while (v11 <= ((v10 - 2) >> 1));
+      v16 = (v6 - 2);
+      if (v16 == v12)
       {
-        *v13 = v9;
+        *v12 = v8;
       }
 
       else
       {
-        *v13 = *v17;
-        *v17 = v9;
-        std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,TI::Favonius::SearchNodeSourceQueue::BoundComparator &,std::__wrap_iter<TI::Favonius::SearchNodeSource **>>(result, (v13 + 1), v13 + 1 - result);
+        *v12 = *v16;
+        *v16 = v8;
+        std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,TI::Favonius::SearchNodeSourceQueue::BoundComparator &,std::__wrap_iter<TI::Favonius::SearchNodeSource **>>(result, (v12 + 1), v12 + 1 - result);
       }
     }
 
     a3[1] -= 2;
-    (*(*v9 + 32))(v31, v9);
-    v18 = v31[0];
-    if (v31[0])
+    (*(*v8 + 32))(v30, v8);
+    v17 = v30[0];
+    if (v30[0])
     {
-      v19 = 0;
+      v18 = 0;
     }
 
     else
     {
-      (*(*v9 + 40))(v31, v9);
-      v19 = v31[0];
-      if (!v31[0])
+      (*(*v8 + 40))(v30, v8);
+      v18 = v30[0];
+      if (!v30[0])
       {
-        (*(*v9 + 48))(v9);
+        (*(*v8 + 48))(v8);
       }
     }
 
-    if ((*(v9 + 6) & 0x7FFFFFFFu) < 0x7F800000 || (result = (*(*v9 + 16))(v9), result))
+    if ((v8[6] & 0x7FFFFFFFu) < 0x7F800000 || (result = (*(*v8 + 16))(v8), result))
     {
-      result = TI::Favonius::SearchNodeSourceQueue::push_heap(a3, v9);
+      result = TI::Favonius::SearchNodeSourceQueue::push_heap(a3, v8);
     }
 
-    if (v19)
+    if (v18)
     {
-      result = TI::Favonius::SearchNodeSourceQueue::push_heap(a3, v19);
-      v20 = a3[4];
-      v21 = a3[5];
-      if (v20 >= v21)
+      result = TI::Favonius::SearchNodeSourceQueue::push_heap(a3, v18);
+      v19 = a3[4];
+      v20 = a3[5];
+      if (v19 >= v20)
       {
-        v23 = *v5;
-        v24 = (v20 - *v5) >> 3;
-        v25 = v24 + 1;
-        if ((v24 + 1) >> 61)
+        v22 = *v5;
+        v23 = (v19 - *v5) >> 3;
+        v24 = v23 + 1;
+        if ((v23 + 1) >> 61)
         {
           std::vector<unsigned long>::__throw_length_error[abi:nn200100]();
         }
 
-        v26 = v21 - v23;
-        if (v26 >> 2 > v25)
+        v25 = v20 - v22;
+        if (v25 >> 2 > v24)
         {
-          v25 = v26 >> 2;
+          v24 = v25 >> 2;
         }
 
-        if (v26 >= 0x7FFFFFFFFFFFFFF8)
+        if (v25 >= 0x7FFFFFFFFFFFFFF8)
         {
-          v27 = 0x1FFFFFFFFFFFFFFFLL;
+          v26 = 0x1FFFFFFFFFFFFFFFLL;
         }
 
         else
         {
-          v27 = v25;
+          v26 = v24;
         }
 
-        v31[4] = v5;
-        if (v27)
+        v30[4] = v5;
+        if (v26)
         {
-          std::__allocate_at_least[abi:nn200100]<std::allocator<language_modeling::v1::CompletionStem>>(v27);
+          std::__allocate_at_least[abi:nn200100]<std::allocator<language_modeling::v1::CompletionStem>>(v26);
         }
 
-        *(8 * v24) = v19;
-        v22 = 8 * v24 + 8;
-        std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<WTF::RefPtr<TI::Favonius::SearchNodeSource>>,WTF::RefPtr<TI::Favonius::SearchNodeSource>*>(v23, v20, 0);
-        v28 = a3[3];
+        *(8 * v23) = v18;
+        v21 = (8 * v23 + 8);
+        std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<WTF::RefPtr<TI::Favonius::SearchNodeSource>>,WTF::RefPtr<TI::Favonius::SearchNodeSource>*>(v22, v19, 0);
+        v27 = a3[3];
         a3[3] = 0;
-        a3[4] = v22;
-        v29 = a3[5];
+        a3[4] = v21;
+        v28 = a3[5];
         a3[5] = 0;
-        v31[2] = v28;
-        v31[3] = v29;
-        v31[0] = v28;
-        v31[1] = v28;
-        result = std::__split_buffer<WTF::RefPtr<TI::Favonius::SearchNodeSource>>::~__split_buffer(v31);
+        v30[2] = v27;
+        v30[3] = v28;
+        v30[0] = v27;
+        v30[1] = v27;
+        result = std::__split_buffer<WTF::RefPtr<TI::Favonius::SearchNodeSource>>::~__split_buffer(v30);
       }
 
       else
       {
-        *v20 = v19;
-        v22 = (v20 + 8);
+        *v19 = v18;
+        v21 = v19 + 2;
       }
 
-      a3[4] = v22;
+      a3[4] = v21;
     }
 
-    if (v18)
+    if (v17)
     {
       goto LABEL_39;
     }
   }
 
-  v18 = 0;
+  v17 = 0;
 LABEL_39:
-  *this = v18;
+  *this = v17;
   return result;
 }
 
@@ -1866,10 +1853,10 @@ unsigned int *TI::Favonius::SearchNodeGeometryExtensions::branch_at_current_boun
       WTF::RefCounted<TI::Favonius::KeyMatch>::deref(v8);
     }
 
-    *(v4 + 40) = v7;
+    *(v4 + 5) = v7;
     TI::Favonius::SearchNodeGeometryExtensions::set_bound_on_score(v4);
-    v9 = *(v4 + 32);
-    v10 = *(v4 + 16);
+    v9 = *(v4 + 4);
+    v10 = *(v4 + 2);
     v13 = v10;
     if (v10)
     {
@@ -1882,7 +1869,7 @@ unsigned int *TI::Favonius::SearchNodeGeometryExtensions::branch_at_current_boun
       atomic_fetch_add(v6, 1u);
     }
 
-    (*(*v4 + 56))(v4, v9, &v13, &v12, *(v4 + 64));
+    (*(*v4 + 56))(v4, v9, &v13, &v12, *(v4 + 16));
     if (v12)
     {
       WTF::RefCounted<TI::Favonius::KeyMatch>::deref(v12);
@@ -2117,7 +2104,7 @@ LABEL_2:
   {
     v7 = v10;
     v11 = v121;
-    v12 = v121 - v7;
+    v12 = (v121 - v7) >> 3;
     v13 = v12 - 2;
     if (v12 <= 2)
     {
@@ -2140,16 +2127,16 @@ LABEL_116:
 
           else
           {
-            *v7 = v7[1];
-            v7[1] = v67;
+            *v7 = *(v7 + 8);
+            *(v7 + 8) = v67;
             result = (*(*a3 + 16))();
             if (!result)
             {
               return result;
             }
 
-            v67 = v7[1];
-            v7[1] = *v8;
+            v67 = *(v7 + 8);
+            *(v7 + 8) = *v8;
           }
 
           *v8 = v67;
@@ -2161,8 +2148,8 @@ LABEL_116:
           return result;
         }
 
-        v114 = v7[1];
-        v7[1] = *v8;
+        v114 = *(v7 + 8);
+        *(v7 + 8) = *v8;
         *v8 = v114;
 LABEL_189:
         result = (*(*a3 + 16))();
@@ -2174,17 +2161,17 @@ LABEL_189:
         return result;
       case 4:
 
-        return std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,BOOL({block_pointer}&)(WTF::RefPtr<TI::Favonius::TypingHypothesis> const&,WTF::RefPtr<TI::Favonius::TypingHypothesis> const&),WTF::RefPtr<TI::Favonius::TypingHypothesis>*,0>(v7, v7 + 1, v7 + 2, v8, a3);
+        return std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,BOOL({block_pointer}&)(WTF::RefPtr<TI::Favonius::TypingHypothesis> const&,WTF::RefPtr<TI::Favonius::TypingHypothesis> const&),WTF::RefPtr<TI::Favonius::TypingHypothesis>*,0>(v7, (v7 + 8), (v7 + 16), v8, a3);
       case 5:
-        std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,BOOL({block_pointer}&)(WTF::RefPtr<TI::Favonius::TypingHypothesis> const&,WTF::RefPtr<TI::Favonius::TypingHypothesis> const&),WTF::RefPtr<TI::Favonius::TypingHypothesis>*,0>(v7, v7 + 1, v7 + 2, v7 + 3, a3);
+        std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,BOOL({block_pointer}&)(WTF::RefPtr<TI::Favonius::TypingHypothesis> const&,WTF::RefPtr<TI::Favonius::TypingHypothesis> const&),WTF::RefPtr<TI::Favonius::TypingHypothesis>*,0>(v7, (v7 + 8), (v7 + 16), (v7 + 24), a3);
         result = (*(*a3 + 16))();
         if (!result)
         {
           return result;
         }
 
-        v66 = v7[3];
-        v7[3] = *v8;
+        v66 = *(v7 + 24);
+        *(v7 + 24) = *v8;
         *v8 = v66;
         result = (*(*a3 + 16))();
         if (!result)
@@ -2192,21 +2179,21 @@ LABEL_189:
           return result;
         }
 
-        *(v7 + 1) = vextq_s8(*(v7 + 1), *(v7 + 1), 8uLL);
+        *(v7 + 16) = vextq_s8(*(v7 + 16), *(v7 + 16), 8uLL);
         result = (*(*a3 + 16))();
         if (!result)
         {
           return result;
         }
 
-        *(v7 + 1) = vextq_s8(*(v7 + 1), *(v7 + 1), 8uLL);
+        *(v7 + 8) = vextq_s8(*(v7 + 8), *(v7 + 8), 8uLL);
         goto LABEL_189;
     }
 
 LABEL_10:
     if (v12 <= 23)
     {
-      v69 = v7 + 1;
+      v69 = (v7 + 8);
       v71 = v7 == v121 || v69 == v121;
       if (a5)
       {
@@ -2283,7 +2270,7 @@ LABEL_138:
             {
               v118 = *v7;
               *v7 = 0;
-              v7[1] = v118;
+              *(v7 + 8) = v118;
               if (v116)
               {
                 WTF::RefCounted<TI::Favonius::KeyMatch>::deref(v116);
@@ -2294,7 +2281,8 @@ LABEL_138:
                 break;
               }
 
-              v116 = *v7--;
+              v116 = *v7;
+              v7 -= 8;
             }
 
             result = *v7;
@@ -2328,14 +2316,14 @@ LABEL_138:
           if (v80 >= v81)
           {
             v83 = (2 * v81) | 1;
-            v84 = &v7[v83];
+            v84 = (v7 + 8 * v83);
             if (2 * v81 + 2 < v12 && (*(*a3 + 16))())
             {
               ++v84;
               v83 = 2 * v82 + 2;
             }
 
-            v85 = &v7[v82];
+            v85 = (v7 + 8 * v82);
             if (((*(*a3 + 16))() & 1) == 0)
             {
               v86 = *v85;
@@ -2359,7 +2347,7 @@ LABEL_138:
                 }
 
                 v90 = (2 * v83) | 1;
-                v84 = &v7[v90];
+                v84 = (v7 + 8 * v90);
                 v91 = 2 * v83 + 2;
                 if (v91 < v12 && (*(*a3 + 16))())
                 {
@@ -2453,13 +2441,13 @@ LABEL_138:
               result = WTF::RefCounted<TI::Favonius::KeyMatch>::deref(result);
             }
 
-            v105 = v97 + 1 - v7;
+            v105 = (v97 - v7 + 8) >> 3;
             v106 = v105 < 2;
             v107 = v105 - 2;
             if (!v106)
             {
               v108 = v107 >> 1;
-              v109 = &v7[v107 >> 1];
+              v109 = (v7 + 8 * (v107 >> 1));
               result = (*(*a3 + 16))();
               if (result)
               {
@@ -2484,7 +2472,7 @@ LABEL_138:
                   }
 
                   v108 = (v108 - 1) >> 1;
-                  v109 = &v7[v108];
+                  v109 = (v7 + 8 * v108);
                   v97 = v111;
                 }
 
@@ -2509,7 +2497,7 @@ LABEL_138:
       return result;
     }
 
-    v14 = &v7[v12 >> 1];
+    v14 = (v7 + 8 * (v12 >> 1));
     v15 = *(*a3 + 16);
     if (v12 >= 0x81)
     {
@@ -2553,14 +2541,14 @@ LABEL_27:
       v28 = (*(*a3 + 16))();
       if (v27)
       {
-        v29 = v7[1];
+        v29 = *(v7 + 8);
         if (v28)
         {
-          v7[1] = *v9;
+          *(v7 + 8) = *v9;
           goto LABEL_39;
         }
 
-        v7[1] = *v26;
+        *(v7 + 8) = *v26;
         *v26 = v29;
         if ((*(*a3 + 16))())
         {
@@ -2578,8 +2566,8 @@ LABEL_39:
         *v9 = v30;
         if ((*(*a3 + 16))())
         {
-          v31 = v7[1];
-          v7[1] = *v26;
+          v31 = *(v7 + 8);
+          *(v7 + 8) = *v26;
           *v26 = v31;
         }
       }
@@ -2588,15 +2576,15 @@ LABEL_39:
       v33 = (*(*a3 + 16))();
       if (v32)
       {
-        v34 = v7[2];
+        v34 = *(v7 + 16);
         if (v33)
         {
           v35 = v119;
-          v7[2] = *v119;
+          *(v7 + 16) = *v119;
           goto LABEL_48;
         }
 
-        v7[2] = v14[1];
+        *(v7 + 16) = v14[1];
         v14[1] = v34;
         if ((*(*a3 + 16))())
         {
@@ -2615,8 +2603,8 @@ LABEL_48:
         *v119 = v36;
         if ((*(*a3 + 16))())
         {
-          v37 = v7[2];
-          v7[2] = v14[1];
+          v37 = *(v7 + 16);
+          *(v7 + 16) = v14[1];
           v14[1] = v37;
         }
       }
@@ -2856,7 +2844,7 @@ LABEL_84:
 
       else
       {
-        v58 = v7 + 1;
+        v58 = (v7 + 8);
         do
         {
           v10 = v58;
@@ -3102,8 +3090,8 @@ LABEL_16:
       {
         v25 = a1 + i;
         v26 = *(a1 + i + 16);
-        *(v25 + 16) = 0;
-        *(v25 + 24) = v26;
+        *(v25 + 2) = 0;
+        *(v25 + 3) = v26;
         if (v22)
         {
           WTF::RefCounted<TI::Favonius::KeyMatch>::deref(v22);
@@ -3120,7 +3108,7 @@ LABEL_16:
           break;
         }
 
-        v22 = *(v25 + 16);
+        v22 = *(v25 + 2);
       }
 
       v27 = (a1 + i + 16);
@@ -3407,13 +3395,13 @@ void std::__shared_ptr_emplace<KB::InputManagerSpecializationTransliteration>::~
   JUMPOUT(0x2318BE270);
 }
 
-void TI::Favonius::SearchNodeLanguageExtensions::decrease_bound_on_score(TI::Favonius::SearchNodeLanguageExtensions *this)
+void TI::Favonius::SearchNodeLanguageExtensions::decrease_bound_on_score(uint64_t this)
 {
   if ((*(this + 52) & 1) == 0)
   {
-    TI::Favonius::SearchNode::get_language_extensions(*(this + 4), this + 7);
+    TI::Favonius::SearchNode::get_language_extensions(*(this + 32), (this + 56));
     *(this + 52) = 1;
-    v3 = *(this + 7);
+    v3 = *(this + 56);
     v4 = 126 - 2 * __clz(v3);
     if (v3)
     {
@@ -3425,7 +3413,7 @@ void TI::Favonius::SearchNodeLanguageExtensions::decrease_bound_on_score(TI::Fav
       v5 = 0;
     }
 
-    std::__introsort<std::_ClassicAlgPolicy,TI::Favonius::SearchNodeLanguageExtensions::LetterExtensionComparator &,WTF::RefPtr<TI::Favonius::TypingHypothesis> *,false>(*(this + 8), (*(this + 8) + 8 * v3), v5, 1);
+    std::__introsort<std::_ClassicAlgPolicy,TI::Favonius::SearchNodeLanguageExtensions::LetterExtensionComparator &,WTF::RefPtr<TI::Favonius::TypingHypothesis> *,false>(*(this + 64), (*(this + 64) + 8 * v3), v5, 1);
 
     TI::Favonius::SearchNodeLanguageExtensions::set_bound_on_score(this);
   }
@@ -3637,7 +3625,7 @@ LABEL_1:
 
         while (v96 <= ((v9 - 2) >> 1));
         v109 = a2 - 1;
-        if (v98 != (a2 - 1))
+        if (v98 != a2 - 1)
         {
           break;
         }
@@ -3702,7 +3690,7 @@ LABEL_163:
         }
       }
 
-      v116 = ((v98 + 1) - a1) >> 3;
+      v116 = v98 + 1 - a1;
       v117 = v116 < 2;
       v118 = v116 - 2;
       if (v117)
@@ -4232,7 +4220,7 @@ void TI::Favonius::SearchNodeLanguageExtensions::set_bound_on_score(TI::Favonius
   *(this + 6) = v7;
 }
 
-TI::Favonius::SearchNodeLanguageExtensions *TI::Favonius::SearchNodeLanguageExtensions::branch_at_current_bound@<X0>(TI::Favonius::SearchNodeLanguageExtensions *this@<X0>, void *a2@<X8>)
+unsigned int *TI::Favonius::SearchNodeLanguageExtensions::branch_at_current_bound@<X0>(unsigned int *this@<X0>, uint64_t *a2@<X8>)
 {
   v3 = *(this + 7);
   if (v3)
@@ -4251,7 +4239,6 @@ TI::Favonius::SearchNodeLanguageExtensions *TI::Favonius::SearchNodeLanguageExte
     WTF::VectorDestructor<true,WTF::RefPtr<TI::Favonius::TypingHypothesis>>::destruct((v5 + 8 * (v3 - 1)), (v5 + 8 * v3));
     *(v4 + 7) = v7;
     TI::Favonius::SearchNodeLanguageExtensions::set_bound_on_score(v4);
-    v8 = *(v4 + 4);
     operator new();
   }
 
@@ -4568,7 +4555,7 @@ unsigned int *TI::Favonius::SearchNodeTransposition::compute_geometry_model_data
   return result;
 }
 
-uint64_t TI::Favonius::SearchNodeTransposition::compute_language_model_data(uint64_t a1, uint64_t a2)
+atomic_uint *TI::Favonius::SearchNodeTransposition::compute_language_model_data(uint64_t a1, uint64_t a2)
 {
   v2 = *(*(a1 + 232) + 8);
   v4 = v2;
@@ -4600,7 +4587,7 @@ BOOL TI::Favonius::SearchNodeTransposition::clone_discarding_second_touch_with_p
 {
   v4 = (this + 88);
   v5 = (*(*(**(a2 + 7) + 16))(*(a2 + 7)) + 8);
-  if (v4 == v5 || (result = KB::String::equal(v4, v5, 1)))
+  if (v4 == v5 || (result = KB::String::equal(v4, v5, 1, v6, v7)))
   {
     operator new();
   }
@@ -4680,7 +4667,7 @@ float TI::Favonius::SearchNodeTransposition::decrease_bound_on_score(TI::Favoniu
   return TI::Favonius::SearchNodeTransposition::set_bound_on_score(this);
 }
 
-void *TI::Favonius::SearchNodeTransposition::branch_at_current_bound@<X0>(TI::Favonius::SearchNodeTransposition *this@<X0>, void *a2@<X8>)
+void *TI::Favonius::SearchNodeTransposition::branch_at_current_bound@<X0>(TI::Favonius::SearchNodeTransposition *this@<X0>, TI::Favonius::SearchNodeTransposition **a2@<X8>)
 {
   if (*(this + 32))
   {
@@ -4708,7 +4695,7 @@ uint64_t TI::Favonius::SearchNodeTransposition::node_at_current_bound@<X0>(uint6
   return this;
 }
 
-atomic_uint *TI::Favonius::SearchNodeTransposition::clone_substituting_touch@<X0>(uint64_t a1@<X0>, void *a2@<X1>, void *a3@<X8>)
+atomic_uint *TI::Favonius::SearchNodeTransposition::clone_substituting_touch@<X0>(uint64_t a1@<X0>, unsigned int **a2@<X1>, void *a3@<X8>)
 {
   result = (*(**a2 + 72))(*a2, *(*(*(a1 + 48) + 8) + 62));
   if (result)
@@ -4812,13 +4799,6 @@ unsigned int *TI::Favonius::SearchNodeSkippingTouch::compute_geometry_model_data
   }
 
   return result;
-}
-
-void TI::Favonius::SearchNodeSkippingTouch::clone_with_parent(TI::Favonius::SearchNodeSkippingTouch *this, TI::Favonius::SearchNode *a2)
-{
-  v2 = *(a2 + 7);
-  (*(**(this + 7) + 208))(&v3);
-  operator new();
 }
 
 uint64_t TI::Favonius::SearchNodeSkippingTouch::SearchNodeSkippingTouch(uint64_t a1, uint64_t a2, unsigned int **a3, float a4)
@@ -4979,14 +4959,12 @@ uint64_t std::pair<TIInlineCompletion,unsigned long>::pair[abi:nn200100](uint64_
   v4 = *a2;
   *(a1 + 16) = *(a2 + 2);
   *a1 = v4;
-  *(a2 + 1) = 0;
-  *(a2 + 2) = 0;
+  *(a2 + 8) = 0uLL;
   *a2 = 0;
   v5 = *(a2 + 24);
   *(a1 + 40) = *(a2 + 5);
   *(a1 + 24) = v5;
-  *(a2 + 4) = 0;
-  *(a2 + 5) = 0;
+  a2[2] = 0uLL;
   *(a2 + 3) = 0;
   v6 = *(a2 + 6);
   v7 = *(a2 + 14);
@@ -5109,7 +5087,7 @@ unsigned int *TI::Favonius::SearchNodeInsertingKey::compute_geometry_model_data(
   return result;
 }
 
-uint64_t TI::Favonius::SearchNodeInsertingKey::compute_language_model_data(uint64_t a1, uint64_t a2)
+atomic_uint *TI::Favonius::SearchNodeInsertingKey::compute_language_model_data(uint64_t a1, uint64_t a2)
 {
   *(a1 + 240) = 0;
   v2 = *(*(a1 + 48) + 8);
@@ -5139,14 +5117,13 @@ uint64_t *TI::Favonius::SearchNodeInsertingKey::append_local_keys_for_debugging(
   return TI::Favonius::SearchNode::append_local_keys_for_debugging(this, a2);
 }
 
-void TI::Favonius::SearchNodeInsertingKey::clone_with_parent(TI::Favonius::SearchNodeInsertingKey *this, TI::Favonius::SearchNode *a2)
+void TI::Favonius::SearchNodeInsertingKey::clone_with_parent(TI::Favonius::SearchNodeInsertingKey *this, atomic_uint **a2)
 {
-  if (*(a2 + 4) || (*(*(*(**(this + 28) + 16))(*(this + 28)) + 60) & 0x20) == 0)
+  if (a2[4] || (*(*(*(**(this + 28) + 16))(*(this + 28)) + 60) & 0x20) == 0)
   {
-    v4 = *(a2 + 7);
     (*(**(this + 28) + 208))(&v10);
     v5 = v10;
-    v6 = *(a2 + 16);
+    v6 = a2[16];
     if (v6)
     {
       atomic_fetch_add(v6 + 2, 1u);
@@ -5181,7 +5158,7 @@ void TI::Favonius::SearchNodeInsertingKey::clone_with_parent(TI::Favonius::Searc
     operator new();
   }
 
-  TI::Favonius::SearchNode::clone_with_parent(this, a2);
+  TI::Favonius::SearchNode::clone_with_parent();
 }
 
 uint64_t TI::Favonius::SearchNodeInsertingKey::SearchNodeInsertingKey(uint64_t a1, uint64_t a2, unsigned int **a3, uint64_t a4, uint64_t a5, uint64_t *a6, unsigned int **a7, void *a8, float a9, float a10)
@@ -5261,15 +5238,14 @@ float TI::Favonius::SearchNodeInsertingKey::decrease_bound_on_score(TI::Favonius
   return result;
 }
 
-atomic_uint *TI::Favonius::SearchNodeInsertingKey::clone_substituting_touch@<X0>(uint64_t a1@<X0>, void *a2@<X1>, void *a3@<X8>)
+atomic_uint *TI::Favonius::SearchNodeInsertingKey::clone_substituting_touch@<X0>(uint64_t a1@<X0>, unsigned int **a2@<X1>, uint64_t *a3@<X8>)
 {
   result = (*(**a2 + 72))(*a2, *(*(*(a1 + 48) + 8) + 62));
   if (result)
   {
     atomic_fetch_add(result, 1u);
-    v6 = *(a1 + 152);
-    v7 = (*(**(a1 + 224) + 24))(*(a1 + 224));
-    logf(v7);
+    v6 = (*(**(a1 + 224) + 24))(*(a1 + 224));
+    logf(v6);
     operator new();
   }
 
@@ -5361,7 +5337,7 @@ void *TIFitAffineMLLMatrix::TIFitAffineMLLMatrix(void *a1, uint64_t a2, uint64_t
   *a1 = a3;
   a1[1] = a2;
   a1[4] = 0;
-  v16[0] = 0;
+  v16 = 0;
   v7 = a3 * a2;
   if (a3 * a2)
   {
@@ -5380,15 +5356,15 @@ void *TIFitAffineMLLMatrix::TIFitAffineMLLMatrix(void *a1, uint64_t a2, uint64_t
     do
     {
       v12 = *a4++;
-      v13 = v12;
+      v13 = *&v12;
       if (v12 != 0.0)
       {
-        v16[1] = v16;
-        *(std::__tree<std::__value_type<unsigned long,double>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,double>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,double>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(v6, v10) + 5) = v13;
-        v10 = v16[0];
+        v17 = &v16;
+        std::__tree<std::__value_type<unsigned long,double>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,double>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,double>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(v6, v10, &v17)[5] = v13;
+        v10 = v16;
       }
 
-      v16[0] = ++v10;
+      v16 = ++v10;
       if (v10 == v7)
       {
         break;
@@ -5404,10 +5380,10 @@ void *TIFitAffineMLLMatrix::TIFitAffineMLLMatrix(void *a1, uint64_t a2, uint64_t
   return a1;
 }
 
-void *std::__tree<std::__value_type<unsigned long,double>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,double>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,double>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(uint64_t a1, unint64_t a2)
+uint64_t *std::__tree<std::__value_type<unsigned long,double>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,double>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,double>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(uint64_t **a1, unint64_t a2, uint64_t **a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = a1[1];
+  if (!v3)
   {
 LABEL_7:
     operator new();
@@ -5417,27 +5393,27 @@ LABEL_7:
   {
     while (1)
     {
-      v3 = v2;
-      v4 = v2[4];
-      if (v4 <= a2)
+      v4 = v3;
+      v5 = v3[4];
+      if (v5 <= a2)
       {
         break;
       }
 
-      v2 = *v3;
-      if (!*v3)
+      v3 = *v4;
+      if (!*v4)
       {
         goto LABEL_7;
       }
     }
 
-    if (v4 >= a2)
+    if (v5 >= a2)
     {
-      return v3;
+      return v4;
     }
 
-    v2 = v3[1];
-    if (!v2)
+    v3 = v4[1];
+    if (!v3)
     {
       goto LABEL_7;
     }
@@ -5448,8 +5424,7 @@ __n128 TIFitAffineMLLMatrix::TIFitAffineMLLMatrix(__n128 *a1, __n128 *a2)
 {
   result = *a2;
   *a1 = *a2;
-  a1[2].n128_u64[0] = 0;
-  a1[1].n128_u64[1] = 0;
+  *(&a1[1] + 8) = 0uLL;
   a1[1].n128_u64[0] = &a1[1].n128_u64[1];
   return result;
 }
@@ -5457,8 +5432,7 @@ __n128 TIFitAffineMLLMatrix::TIFitAffineMLLMatrix(__n128 *a1, __n128 *a2)
 {
   result = *a2;
   *a1 = *a2;
-  a1[2].n128_u64[0] = 0;
-  a1[1].n128_u64[1] = 0;
+  *(&a1[1] + 8) = 0uLL;
   a1[1].n128_u64[0] = &a1[1].n128_u64[1];
   return result;
 }
@@ -5480,7 +5454,7 @@ void TIFitAffineMLLMatrix::TIFitAffineMLLMatrix(TIFitAffineMLLMatrix *this, cons
   std::map<unsigned long,double>::insert[abi:nn200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<unsigned long,double>,std::__tree_node<std::__value_type<unsigned long,double>,void *> *,long>>>(this + 2, *(a2 + 2), a2 + 3);
 }
 
-void *std::map<unsigned long,double>::insert[abi:nn200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<unsigned long,double>,std::__tree_node<std::__value_type<unsigned long,double>,void *> *,long>>>(void *result, void *a2, void *a3)
+uint64_t **std::map<unsigned long,double>::insert[abi:nn200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<unsigned long,double>,std::__tree_node<std::__value_type<unsigned long,double>,void *> *,long>>>(uint64_t **result, void *a2, void *a3)
 {
   if (a2 != a3)
   {
@@ -5488,20 +5462,20 @@ void *std::map<unsigned long,double>::insert[abi:nn200100]<std::__map_const_iter
     do
     {
       v4 = result[1];
-      v5 = result + 1;
-      if (*result == result + 1)
+      v5 = (result + 1);
+      if (*result == (result + 1))
       {
         goto LABEL_9;
       }
 
       v6 = result[1];
-      v7 = result + 1;
+      v7 = (result + 1);
       if (v4)
       {
         do
         {
           v5 = v6;
-          v6 = v6[1];
+          v6 = *(v6 + 8);
         }
 
         while (v6);
@@ -5530,22 +5504,22 @@ LABEL_9:
 
         else
         {
-          v10 = result + 1;
+          v10 = (result + 1);
         }
       }
 
       else
       {
-        v10 = result + 1;
+        v10 = (result + 1);
         if (v4)
         {
-          v10 = result + 1;
+          v10 = (result + 1);
           while (1)
           {
             while (1)
             {
               v13 = v4;
-              v14 = v4[4];
+              v14 = *(v4 + 32);
               if (v9 >= v14)
               {
                 break;
@@ -5613,7 +5587,7 @@ LABEL_13:
   return result;
 }
 
-void *TIFitAffineMLLMatrix::operator=@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+uint64_t **TIFitAffineMLLMatrix::operator=@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   *a1 = *a2;
   if (a1 == a2)
@@ -5775,13 +5749,13 @@ LABEL_35:
   return std::map<unsigned long,double>::insert[abi:nn200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<unsigned long,double>,std::__tree_node<std::__value_type<unsigned long,double>,void *> *,long>>>((a3 + 16), v22, (a1 + 24));
 }
 
-char *TIFitAffineMLLMatrix::identity@<X0>(char *this@<X0>, char **a2@<X8>)
+char *TIFitAffineMLLMatrix::identity@<X0>(char *this@<X0>, TIFitAffineMLLMatrix *a2@<X8>)
 {
   *a2 = this;
-  a2[1] = this;
-  a2[4] = 0;
-  a2[3] = 0;
-  a2[2] = (a2 + 3);
+  *(a2 + 1) = this;
+  *(a2 + 4) = 0;
+  *(a2 + 3) = 0;
+  *(a2 + 2) = a2 + 24;
   if (this)
   {
     v3 = this;
@@ -5812,7 +5786,7 @@ char *TIFitAffineMLLMatrix::valueAt(TIFitAffineMLLMatrix *this, unint64_t a2, un
     v3 = -1;
   }
 
-  v14[0] = v3;
+  v14 = v3;
   v5 = this + 24;
   v4 = *(this + 3);
   if (!v4)
@@ -5838,8 +5812,8 @@ char *TIFitAffineMLLMatrix::valueAt(TIFitAffineMLLMatrix *this, unint64_t a2, un
   if (v6 == v5 || v3 < *(v6 + 4))
   {
 LABEL_14:
-    v14[1] = v14;
-    std::__tree<std::__value_type<unsigned long,double>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,double>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,double>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(this + 16, v3)[5] = 0;
+    v15 = &v14;
+    std::__tree<std::__value_type<unsigned long,double>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,double>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,double>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(this + 2, v3, &v15)[5] = 0;
     v10 = *v5;
     if (!*v5)
     {
@@ -5850,8 +5824,8 @@ LABEL_14:
     do
     {
       v11 = *(v10 + 4);
-      v8 = v11 >= v14[0];
-      v12 = v11 < v14[0];
+      v8 = v11 >= v14;
+      v12 = v11 < v14;
       if (v8)
       {
         v6 = v10;
@@ -5861,7 +5835,7 @@ LABEL_14:
     }
 
     while (v10);
-    if (v6 == v5 || v14[0] < *(v6 + 4))
+    if (v6 == v5 || v14 < *(v6 + 4))
     {
 LABEL_22:
       v6 = v5;
@@ -5871,27 +5845,27 @@ LABEL_22:
   return v6 + 40;
 }
 
-char *TIFitAffineMLLMatrix::diag@<X0>(char *this@<X0>, unint64_t *a2@<X8>)
+char *TIFitAffineMLLMatrix::diag@<X0>(char *this@<X0>, TIFitAffineMLLMatrix *a2@<X8>)
 {
-  v4 = *this;
+  v3 = *this;
   *a2 = *this;
-  a2[1] = v4;
-  a2[4] = 0;
-  a2[3] = 0;
-  a2[2] = (a2 + 3);
-  if (v4)
+  *(a2 + 1) = v3;
+  *(a2 + 4) = 0;
+  *(a2 + 3) = 0;
+  *(a2 + 2) = a2 + 24;
+  if (v3)
   {
-    v5 = this;
-    v6 = 0;
+    v4 = this;
+    v5 = 0;
     do
     {
-      v7 = TIFitAffineMLLMatrix::valueAt(v5, 0, v6);
-      this = TIFitAffineMLLMatrix::valueAt(a2, v6, v6);
-      *this = v7;
-      ++v6;
+      v6 = TIFitAffineMLLMatrix::valueAt(v4, 0, v5);
+      this = TIFitAffineMLLMatrix::valueAt(a2, v5, v5);
+      *this = v6;
+      ++v5;
     }
 
-    while (v6 < *a2);
+    while (v5 < *a2);
   }
 
   return this;
@@ -6019,7 +5993,7 @@ void TIFitAffineMLLMatrix::clear(TIFitAffineMLLMatrix *this)
   *(v1 - 1) = v1;
 }
 
-void TIFitAffineMLLMatrix::values(TIFitAffineMLLMatrix *this@<X0>, void *a2@<X8>)
+void TIFitAffineMLLMatrix::values(TIFitAffineMLLMatrix *this@<X0>, double **a2@<X8>)
 {
   *a2 = 0;
   a2[1] = 0;
@@ -6038,16 +6012,16 @@ void TIFitAffineMLLMatrix::values(TIFitAffineMLLMatrix *this@<X0>, void *a2@<X8>
   }
 }
 
-void TIFitAffineMLLMatrix::setValues(void *a1, double *a2, uint64_t a3)
+void TIFitAffineMLLMatrix::setValues(uint64_t a1, double *a2, uint64_t a3)
 {
-  v6 = a1 + 3;
-  std::__tree<std::__value_type<float,int>,std::__map_value_compare<float,std::__value_type<float,int>,std::less<float>,true>,std::allocator<std::__value_type<float,int>>>::destroy(a1[3]);
-  a1[2] = v6;
-  v7 = (a1 + 2);
-  a1[4] = 0;
+  v6 = (a1 + 24);
+  std::__tree<std::__value_type<float,int>,std::__map_value_compare<float,std::__value_type<float,int>,std::less<float>,true>,std::allocator<std::__value_type<float,int>>>::destroy(*(a1 + 24));
+  *(a1 + 16) = v6;
+  v7 = (a1 + 16);
+  *(a1 + 32) = 0;
   *v6 = 0;
-  v15[0] = 0;
-  v8 = *a1 * a1[1];
+  v15 = 0;
+  v8 = *a1 * *(a1 + 8);
   if (v8)
   {
     v9 = a3 == 0;
@@ -6065,15 +6039,15 @@ void TIFitAffineMLLMatrix::setValues(void *a1, double *a2, uint64_t a3)
     do
     {
       v12 = *a2++;
-      v13 = v12;
+      v13 = *&v12;
       if (v12 != 0.0)
       {
-        v15[1] = v15;
-        *(std::__tree<std::__value_type<unsigned long,double>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,double>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,double>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(v7, v10) + 5) = v13;
-        v10 = v15[0];
+        v16 = &v15;
+        std::__tree<std::__value_type<unsigned long,double>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,double>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,double>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(v7, v10, &v16)[5] = v13;
+        v10 = v15;
       }
 
-      v15[0] = ++v10;
+      v15 = ++v10;
       if (v10 == v8)
       {
         break;
@@ -6087,14 +6061,14 @@ void TIFitAffineMLLMatrix::setValues(void *a1, double *a2, uint64_t a3)
   }
 }
 
-void TIFitAffineMLLMatrix::setDiagValues(unint64_t *a1, uint64_t a2, uint64_t a3)
+void TIFitAffineMLLMatrix::setDiagValues(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = a1 + 3;
-  std::__tree<std::__value_type<float,int>,std::__map_value_compare<float,std::__value_type<float,int>,std::less<float>,true>,std::allocator<std::__value_type<float,int>>>::destroy(a1[3]);
-  a1[2] = v6;
+  v6 = (a1 + 24);
+  std::__tree<std::__value_type<float,int>,std::__map_value_compare<float,std::__value_type<float,int>,std::less<float>,true>,std::allocator<std::__value_type<float,int>>>::destroy(*(a1 + 24));
+  *(a1 + 16) = v6;
   *v6 = 0;
-  a1[4] = 0;
-  v7 = a1[1];
+  *(a1 + 32) = 0;
+  v7 = *(a1 + 8);
   if (v7)
   {
     v8 = a3 == 0;
@@ -6120,7 +6094,7 @@ void TIFitAffineMLLMatrix::setDiagValues(unint64_t *a1, uint64_t a2, uint64_t a3
           v13 = -1;
         }
 
-        else if (a1[1] > v9)
+        else if (*(a1 + 8) > v9)
         {
           v13 = v9 + v9 * *a1;
         }
@@ -6130,9 +6104,9 @@ void TIFitAffineMLLMatrix::setDiagValues(unint64_t *a1, uint64_t a2, uint64_t a3
           v13 = -1;
         }
 
-        v15[0] = v13;
-        v15[1] = v15;
-        *(std::__tree<std::__value_type<unsigned long,double>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,double>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,double>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>((a1 + 2), v13) + 5) = v12;
+        v15 = v13;
+        v16 = &v15;
+        *(std::__tree<std::__value_type<unsigned long,double>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,double>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,double>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>((a1 + 16), v13, &v16) + 5) = v12;
       }
 
       if (v10 == v9)
@@ -6162,14 +6136,14 @@ unint64_t TIFitAffineMLLMatrix::keyFromIndexes(TIFitAffineMLLMatrix *this, unint
   }
 }
 
-void TIFitAffineMLLMatrix::setDiagValues(void *a1, uint64_t *a2)
+void TIFitAffineMLLMatrix::setDiagValues(uint64_t a1, uint64_t *a2)
 {
-  v4 = a1 + 3;
-  std::__tree<std::__value_type<float,int>,std::__map_value_compare<float,std::__value_type<float,int>,std::less<float>,true>,std::allocator<std::__value_type<float,int>>>::destroy(a1[3]);
-  a1[2] = v4;
+  v4 = (a1 + 24);
+  std::__tree<std::__value_type<float,int>,std::__map_value_compare<float,std::__value_type<float,int>,std::less<float>,true>,std::allocator<std::__value_type<float,int>>>::destroy(*(a1 + 24));
+  *(a1 + 16) = v4;
   *v4 = 0;
-  a1[4] = 0;
-  v5 = a1[1];
+  *(a1 + 32) = 0;
+  v5 = *(a1 + 8);
   v6 = *a2;
   v7 = a2[1];
   if (v5)
@@ -6199,7 +6173,7 @@ void TIFitAffineMLLMatrix::setDiagValues(void *a1, uint64_t *a2)
 
         else
         {
-          v13 = a1[1] > v12;
+          v13 = *(a1 + 8) > v12;
           v14 = v12 + v12 * *a1;
           if (v13)
           {
@@ -6212,9 +6186,9 @@ void TIFitAffineMLLMatrix::setDiagValues(void *a1, uint64_t *a2)
           }
         }
 
-        v16[0] = v15;
-        v16[1] = v16;
-        *(std::__tree<std::__value_type<unsigned long,double>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,double>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,double>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>((a1 + 2), v15) + 5) = v11;
+        v16 = v15;
+        v17 = &v16;
+        *(std::__tree<std::__value_type<unsigned long,double>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,double>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,double>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>((a1 + 16), v15, &v17) + 5) = v11;
       }
 
       if (v5 == v10)
@@ -6231,15 +6205,15 @@ void TIFitAffineMLLMatrix::setDiagValues(void *a1, uint64_t *a2)
   }
 }
 
-double *TIFitAffineMLLMatrix::addRow@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, TIFitAffineMLLMatrix *a4@<X8>)
+double *TIFitAffineMLLMatrix::addRow@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t **a4@<X8>)
 {
   *a4 = *a1;
-  *(a4 + 3) = 0;
-  *(a4 + 4) = 0;
-  *(a4 + 2) = a4 + 24;
+  a4[3] = 0;
+  a4[4] = 0;
+  a4[2] = (a4 + 3);
   v8 = a1[1];
   result = std::map<unsigned long,double>::insert[abi:nn200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<unsigned long,double>,std::__tree_node<std::__value_type<unsigned long,double>,void *> *,long>>>(a4 + 2, a1[2], a1 + 3);
-  ++*(a4 + 1);
+  a4[1] = (a4[1] + 1);
   v10 = *a1;
   if (*a1 && a3)
   {
@@ -6406,20 +6380,23 @@ uint64_t std::__function::__value_func<void ()(unsigned long,double const&)>::~_
   return a1;
 }
 
-uint64_t std::__function::__func<TIFitAffineMLLMatrix::do_for_each_valid_element(std::function<void ()(unsigned long,unsigned long,double const&)>)::$_0,std::allocator<TIFitAffineMLLMatrix::do_for_each_valid_element(std::function<void ()(unsigned long,unsigned long,double const&)>)::$_0>,void ()(unsigned long,double const&)>::operator()(uint64_t a1, void *a2, uint64_t a3)
+void std::__function::__func<TIFitAffineMLLMatrix::do_for_each_valid_element(std::function<void ()(unsigned long,unsigned long,double const&)>)::$_0,std::allocator<TIFitAffineMLLMatrix::do_for_each_valid_element(std::function<void ()(unsigned long,unsigned long,double const&)>)::$_0>,void ()(unsigned long,double const&)>::operator()(uint64_t a1, void *a2, uint64_t a3)
 {
   v3 = **(a1 + 8);
   v4 = *a2 / v3;
-  v8 = *a2 % v3;
-  v9 = v4;
+  v7 = *a2 % v3;
+  v8 = v4;
   v5 = *(a1 + 40);
   if (v5)
   {
-    return (*(*v5 + 48))(v5, &v9, &v8, a3);
+    (*(*v5 + 48))(v5, &v8, &v7, a3);
   }
 
-  v7 = std::__throw_bad_function_call[abi:nn200100]();
-  return std::__function::__func<TIFitAffineMLLMatrix::do_for_each_valid_element(std::function<void ()(unsigned long,unsigned long,double const&)>)::$_0,std::allocator<TIFitAffineMLLMatrix::do_for_each_valid_element(std::function<void ()(unsigned long,unsigned long,double const&)>)::$_0>,void ()(unsigned long,double const&)>::destroy_deallocate(v7);
+  else
+  {
+    v6 = std::__throw_bad_function_call[abi:nn200100]();
+    std::__function::__func<TIFitAffineMLLMatrix::do_for_each_valid_element(std::function<void ()(unsigned long,unsigned long,double const&)>)::$_0,std::allocator<TIFitAffineMLLMatrix::do_for_each_valid_element(std::function<void ()(unsigned long,unsigned long,double const&)>)::$_0>,void ()(unsigned long,double const&)>::destroy_deallocate(v6);
+  }
 }
 
 void std::__function::__func<TIFitAffineMLLMatrix::do_for_each_valid_element(std::function<void ()(unsigned long,unsigned long,double const&)>)::$_0,std::allocator<TIFitAffineMLLMatrix::do_for_each_valid_element(std::function<void ()(unsigned long,unsigned long,double const&)>)::$_0>,void ()(unsigned long,double const&)>::destroy_deallocate(void *a1)
@@ -6571,15 +6548,15 @@ LABEL_12:
   return v7 != v4;
 }
 
-void TIFitAffineMLLMatrix::operator+(__int128 *a1@<X0>, uint64_t a2@<X1>, TIFitAffineMLLMatrix *a3@<X8>)
+void TIFitAffineMLLMatrix::operator+(__int128 *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   v4 = *a1;
-  *(a3 + 3) = 0;
-  *(a3 + 2) = a3 + 24;
+  *(a3 + 24) = 0;
+  *(a3 + 16) = a3 + 24;
   *a3 = v4;
-  *(a3 + 4) = 0;
+  *(a3 + 32) = 0;
   v5 = *(a1 + 2);
-  v6 = a1 + 3;
+  v6 = a1 + 24;
   v7 = *(a2 + 16);
   v8 = (a2 + 24);
   while (v5 != v6)
@@ -6589,7 +6566,8 @@ void TIFitAffineMLLMatrix::operator+(__int128 *a1@<X0>, uint64_t a2@<X1>, TIFitA
     {
 LABEL_18:
       v17 = *(v5 + 5);
-      std::__tree<std::__value_type<unsigned long,double>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,double>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,double>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(a3 + 16, v9)[5] = v17;
+      v23 = (v5 + 32);
+      std::__tree<std::__value_type<unsigned long,double>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,double>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,double>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>((a3 + 16), v9, &v23)[5] = v17;
       v18 = *(v5 + 1);
       if (v18)
       {
@@ -6616,11 +6594,12 @@ LABEL_18:
 
     else
     {
-      v10 = *(v7 + 4);
+      v10 = v7[4];
       if (v9 == v10)
       {
-        v11 = v5[5] + v7[5];
-        *(std::__tree<std::__value_type<unsigned long,double>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,double>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,double>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(a3 + 16, v9) + 5) = v11;
+        v11 = *(v5 + 5) + *(v7 + 5);
+        v23 = (v5 + 32);
+        *(std::__tree<std::__value_type<unsigned long,double>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,double>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,double>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>((a3 + 16), v9, &v23) + 5) = v11;
         v12 = *(v5 + 1);
         if (v12)
         {
@@ -6645,7 +6624,7 @@ LABEL_18:
           while (!v14);
         }
 
-        v15 = *(v7 + 1);
+        v15 = v7[1];
         if (v15)
         {
           do
@@ -6662,7 +6641,7 @@ LABEL_18:
           do
           {
             v16 = v7;
-            v7 = *(v7 + 2);
+            v7 = v7[2];
           }
 
           while (*v7 != v16);
@@ -6679,9 +6658,10 @@ LABEL_18:
         }
 
 LABEL_23:
-        v20 = *(v7 + 5);
-        std::__tree<std::__value_type<unsigned long,double>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,double>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,double>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(a3 + 16, v10)[5] = v20;
-        v21 = *(v7 + 1);
+        v20 = v7[5];
+        v23 = v7 + 4;
+        std::__tree<std::__value_type<unsigned long,double>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,double>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,double>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>((a3 + 16), v10, &v23)[5] = v20;
+        v21 = v7[1];
         if (v21)
         {
           do
@@ -6698,7 +6678,7 @@ LABEL_23:
           do
           {
             v22 = v7;
-            v7 = *(v7 + 2);
+            v7 = v7[2];
           }
 
           while (*v7 != v22);
@@ -6709,7 +6689,7 @@ LABEL_23:
 
   if (v7 != v8)
   {
-    v10 = *(v7 + 4);
+    v10 = v7[4];
     goto LABEL_23;
   }
 
@@ -6718,18 +6698,18 @@ LABEL_23:
 
 void TIFitAffineMLLMatrix::removeDefaults(TIFitAffineMLLMatrix *this)
 {
-  v20[4] = *MEMORY[0x277D85DE8];
+  v19[4] = *MEMORY[0x277D85DE8];
+  v16 = 0;
   v17 = 0;
   v18 = 0;
-  v19 = 0;
-  v20[0] = &unk_283FDC490;
-  v20[1] = &v17;
-  v20[3] = v20;
-  TIFitAffineMLLMatrix::do_for_each_valid_element(this, v20);
-  std::__function::__value_func<void ()(unsigned long,double const&)>::~__value_func[abi:nn200100](v20);
-  v2 = v17;
-  v3 = v18;
-  if (v17 != v18)
+  v19[0] = &unk_283FDC490;
+  v19[1] = &v16;
+  v19[3] = v19;
+  TIFitAffineMLLMatrix::do_for_each_valid_element(this, v19);
+  std::__function::__value_func<void ()(unsigned long,double const&)>::~__value_func[abi:nn200100](v19);
+  v2 = v16;
+  v3 = v17;
+  if (v16 != v17)
   {
     v4 = (this + 24);
     do
@@ -6796,16 +6776,14 @@ void TIFitAffineMLLMatrix::removeDefaults(TIFitAffineMLLMatrix *this)
     }
 
     while (v2 != v3);
-    v2 = v17;
+    v2 = v16;
   }
 
   if (v2)
   {
-    v18 = v2;
+    v17 = v2;
     operator delete(v2);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void std::__function::__func<TIFitAffineMLLMatrix::removeDefaults(void)::$_0,std::allocator<TIFitAffineMLLMatrix::removeDefaults(void)::$_0>,void ()(unsigned long,double const&)>::operator()(uint64_t a1, uint64_t *a2, double *a3)
@@ -6881,9 +6859,9 @@ uint64_t std::__function::__func<TIFitAffineMLLMatrix::removeDefaults(void)::$_0
 
 void TIFitAffineMLLMatrix::operator+=(TIFitAffineMLLMatrix *this, uint64_t a2)
 {
-  v3 = this + 16;
+  v3 = (this + 16);
   v4 = *(this + 2);
-  v5 = (this + 24);
+  v5 = this + 24;
   v6 = *(a2 + 16);
   v7 = (a2 + 24);
   while (v4 != v5)
@@ -6893,7 +6871,8 @@ void TIFitAffineMLLMatrix::operator+=(TIFitAffineMLLMatrix *this, uint64_t a2)
     {
 LABEL_18:
       v16 = *(v4 + 5);
-      std::__tree<std::__value_type<unsigned long,double>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,double>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,double>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(v3, v8)[5] = v16;
+      v22 = (v4 + 32);
+      std::__tree<std::__value_type<unsigned long,double>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,double>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,double>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(v3, v8, &v22)[5] = v16;
       v17 = *(v4 + 1);
       if (v17)
       {
@@ -6920,11 +6899,12 @@ LABEL_18:
 
     else
     {
-      v9 = *(v6 + 4);
+      v9 = v6[4];
       if (v8 == v9)
       {
-        v10 = v4[5] + v6[5];
-        *(std::__tree<std::__value_type<unsigned long,double>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,double>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,double>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(v3, v8) + 5) = v10;
+        v10 = *(v4 + 5) + *(v6 + 5);
+        v22 = (v4 + 32);
+        *(std::__tree<std::__value_type<unsigned long,double>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,double>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,double>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(v3, v8, &v22) + 5) = v10;
         v11 = *(v4 + 1);
         if (v11)
         {
@@ -6949,7 +6929,7 @@ LABEL_18:
           while (!v13);
         }
 
-        v14 = *(v6 + 1);
+        v14 = v6[1];
         if (v14)
         {
           do
@@ -6966,7 +6946,7 @@ LABEL_18:
           do
           {
             v15 = v6;
-            v6 = *(v6 + 2);
+            v6 = v6[2];
           }
 
           while (*v6 != v15);
@@ -6983,9 +6963,10 @@ LABEL_18:
         }
 
 LABEL_23:
-        v19 = *(v6 + 5);
-        std::__tree<std::__value_type<unsigned long,double>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,double>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,double>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(v3, v9)[5] = v19;
-        v20 = *(v6 + 1);
+        v19 = v6[5];
+        v22 = v6 + 4;
+        std::__tree<std::__value_type<unsigned long,double>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,double>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,double>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(v3, v9, &v22)[5] = v19;
+        v20 = v6[1];
         if (v20)
         {
           do
@@ -7002,7 +6983,7 @@ LABEL_23:
           do
           {
             v21 = v6;
-            v6 = *(v6 + 2);
+            v6 = v6[2];
           }
 
           while (*v6 != v21);
@@ -7013,22 +6994,22 @@ LABEL_23:
 
   if (v6 != v7)
   {
-    v9 = *(v6 + 4);
+    v9 = v6[4];
     goto LABEL_23;
   }
 
   TIFitAffineMLLMatrix::removeDefaults(this);
 }
 
-void TIFitAffineMLLMatrix::operator-(__int128 *a1@<X0>, uint64_t a2@<X1>, TIFitAffineMLLMatrix *a3@<X8>)
+void TIFitAffineMLLMatrix::operator-(__int128 *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   v4 = *a1;
-  *(a3 + 3) = 0;
-  *(a3 + 2) = a3 + 24;
+  *(a3 + 24) = 0;
+  *(a3 + 16) = a3 + 24;
   *a3 = v4;
-  *(a3 + 4) = 0;
+  *(a3 + 32) = 0;
   v5 = *(a1 + 2);
-  v6 = a1 + 3;
+  v6 = a1 + 24;
   v7 = *(a2 + 16);
   v8 = (a2 + 24);
   while (v5 != v6)
@@ -7038,7 +7019,8 @@ void TIFitAffineMLLMatrix::operator-(__int128 *a1@<X0>, uint64_t a2@<X1>, TIFitA
     {
 LABEL_18:
       v17 = *(v5 + 5);
-      std::__tree<std::__value_type<unsigned long,double>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,double>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,double>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(a3 + 16, v9)[5] = v17;
+      v23 = (v5 + 32);
+      std::__tree<std::__value_type<unsigned long,double>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,double>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,double>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>((a3 + 16), v9, &v23)[5] = v17;
       v18 = *(v5 + 1);
       if (v18)
       {
@@ -7065,11 +7047,12 @@ LABEL_18:
 
     else
     {
-      v10 = *(v7 + 4);
+      v10 = v7[4];
       if (v9 == v10)
       {
-        v11 = v5[5] - v7[5];
-        *(std::__tree<std::__value_type<unsigned long,double>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,double>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,double>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(a3 + 16, v9) + 5) = v11;
+        v11 = *(v5 + 5) - *(v7 + 5);
+        v23 = (v5 + 32);
+        *(std::__tree<std::__value_type<unsigned long,double>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,double>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,double>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>((a3 + 16), v9, &v23) + 5) = v11;
         v12 = *(v5 + 1);
         if (v12)
         {
@@ -7094,7 +7077,7 @@ LABEL_18:
           while (!v14);
         }
 
-        v15 = *(v7 + 1);
+        v15 = v7[1];
         if (v15)
         {
           do
@@ -7111,7 +7094,7 @@ LABEL_18:
           do
           {
             v16 = v7;
-            v7 = *(v7 + 2);
+            v7 = v7[2];
           }
 
           while (*v7 != v16);
@@ -7128,9 +7111,10 @@ LABEL_18:
         }
 
 LABEL_23:
-        v20 = *(v7 + 5);
-        std::__tree<std::__value_type<unsigned long,double>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,double>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,double>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(a3 + 16, v10)[5] = v20;
-        v21 = *(v7 + 1);
+        v20 = v7[5];
+        v23 = v7 + 4;
+        std::__tree<std::__value_type<unsigned long,double>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,double>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,double>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>((a3 + 16), v10, &v23)[5] = v20;
+        v21 = v7[1];
         if (v21)
         {
           do
@@ -7147,7 +7131,7 @@ LABEL_23:
           do
           {
             v22 = v7;
-            v7 = *(v7 + 2);
+            v7 = v7[2];
           }
 
           while (*v7 != v22);
@@ -7158,7 +7142,7 @@ LABEL_23:
 
   if (v7 != v8)
   {
-    v10 = *(v7 + 4);
+    v10 = v7[4];
     goto LABEL_23;
   }
 
@@ -7206,14 +7190,14 @@ void TIFitAffineMLLMatrix::operator*=(TIFitAffineMLLMatrix *this, double a2)
   TIFitAffineMLLMatrix::removeDefaults(this);
 }
 
-void TIFitAffineMLLMatrix::operator*(_OWORD *a1@<X0>, uint64_t a2@<X8>, double a3@<D0>)
+void TIFitAffineMLLMatrix::operator*(_OWORD *a1@<X0>, TIFitAffineMLLMatrix *a2@<X8>, double a3@<D0>)
 {
   v4[4] = *MEMORY[0x277D85DE8];
   v3 = a3;
   *a2 = *a1;
-  *(a2 + 32) = 0;
-  *(a2 + 24) = 0;
-  *(a2 + 16) = a2 + 24;
+  *(a2 + 4) = 0;
+  *(a2 + 3) = 0;
+  *(a2 + 2) = a2 + 24;
   v4[0] = &unk_283FDC298;
   v4[1] = a2;
   v4[2] = &v3;
@@ -7283,14 +7267,14 @@ void TIFitAffineMLLMatrix::operator*(TIFitAffineMLLMatrix *this@<X0>, TIFitAffin
   TIFitAffineMLLMatrix::removeDefaults(a3);
 }
 
-void TIFitAffineMLLMatrix::operator/(_OWORD *a1@<X0>, uint64_t a2@<X8>, double a3@<D0>)
+void TIFitAffineMLLMatrix::operator/(_OWORD *a1@<X0>, TIFitAffineMLLMatrix *a2@<X8>, double a3@<D0>)
 {
   v4[4] = *MEMORY[0x277D85DE8];
   v3 = a3;
   *a2 = *a1;
-  *(a2 + 32) = 0;
-  *(a2 + 24) = 0;
-  *(a2 + 16) = a2 + 24;
+  *(a2 + 4) = 0;
+  *(a2 + 3) = 0;
+  *(a2 + 2) = a2 + 24;
   v4[0] = &unk_283FDC2E0;
   v4[1] = a2;
   v4[2] = &v3;
@@ -7316,22 +7300,22 @@ __n128 std::__function::__func<TIFitAffineMLLMatrix::operator/(double)::$_0,std:
 
 void TIFitAffineMLLMatrix::operator/(TIFitAffineMLLMatrix *this@<X1>, TIFitAffineMLLMatrix *a2@<X0>, TIFitAffineMLLMatrix *a3@<X8>)
 {
-  TIFitAffineMLLMatrix::inverse(this, v5);
+  TIFitAffineMLLMatrix::inverse(v5, this);
   TIFitAffineMLLMatrix::operator*(a2, v5, a3);
   std::__tree<std::__value_type<float,int>,std::__map_value_compare<float,std::__value_type<float,int>,std::less<float>,true>,std::allocator<std::__value_type<float,int>>>::destroy(v6);
 }
 
-void TIFitAffineMLLMatrix::inverse(TIFitAffineMLLMatrix *this@<X0>, TIFitAffineMLLMatrix *a2@<X8>)
+void TIFitAffineMLLMatrix::inverse(TIFitAffineMLLMatrix *__return_ptr a1@<X8>, TIFitAffineMLLMatrix *this@<X0>)
 {
   v4 = *(this + 1);
-  *a2 = v4;
-  *(a2 + 1) = v4;
-  *(a2 + 4) = 0;
-  *(a2 + 3) = 0;
-  *(a2 + 2) = a2 + 24;
+  *a1 = v4;
+  *(a1 + 1) = v4;
+  *(a1 + 4) = 0;
+  *(a1 + 3) = 0;
+  *(a1 + 2) = a1 + 24;
   TIFitAffineMLLMatrix::determinant(this);
   v6 = v5;
-  TIFitAffineMLLMatrix::coFactor(this, v12);
+  TIFitAffineMLLMatrix::coFactor(v12, this);
   v7 = *(this + 1);
   if (v7)
   {
@@ -7345,7 +7329,7 @@ void TIFitAffineMLLMatrix::inverse(TIFitAffineMLLMatrix *this@<X0>, TIFitAffineM
         do
         {
           v11 = *TIFitAffineMLLMatrix::valueAt(v12, v8, v10) / v6;
-          *TIFitAffineMLLMatrix::valueAt(a2, v10++, v8) = v11;
+          *TIFitAffineMLLMatrix::valueAt(a1, v10++, v8) = v11;
           v9 = *this;
         }
 
@@ -7359,7 +7343,7 @@ void TIFitAffineMLLMatrix::inverse(TIFitAffineMLLMatrix *this@<X0>, TIFitAffineM
     while (v8 < v7);
   }
 
-  TIFitAffineMLLMatrix::removeDefaults(a2);
+  TIFitAffineMLLMatrix::removeDefaults(a1);
   std::__tree<std::__value_type<float,int>,std::__map_value_compare<float,std::__value_type<float,int>,std::less<float>,true>,std::allocator<std::__value_type<float,int>>>::destroy(v13);
 }
 
@@ -7468,13 +7452,13 @@ LABEL_23:
   }
 }
 
-void TIFitAffineMLLMatrix::coFactor(TIFitAffineMLLMatrix *this@<X0>, TIFitAffineMLLMatrix *a2@<X8>)
+void TIFitAffineMLLMatrix::coFactor(TIFitAffineMLLMatrix *__return_ptr a1@<X8>, TIFitAffineMLLMatrix *this@<X0>)
 {
-  v2 = a2;
-  *a2 = *this;
-  *(a2 + 4) = 0;
-  *(a2 + 3) = 0;
-  *(a2 + 2) = a2 + 24;
+  v2 = a1;
+  *a1 = *this;
+  *(a1 + 4) = 0;
+  *(a1 + 3) = 0;
+  *(a1 + 2) = a1 + 24;
   v3 = *(this + 1);
   if (v3)
   {
@@ -7690,7 +7674,7 @@ void std::vector<TIFitAffineMLLMatrix>::__destroy_vector::operator()[abi:nn20010
     {
       do
       {
-        v6 = v4 - 40;
+        v6 = v4 - 5;
         std::__tree<std::__value_type<float,int>,std::__map_value_compare<float,std::__value_type<float,int>,std::less<float>,true>,std::allocator<std::__value_type<float,int>>>::destroy(*(v4 - 2));
         v4 = v6;
       }
@@ -7705,7 +7689,7 @@ void std::vector<TIFitAffineMLLMatrix>::__destroy_vector::operator()[abi:nn20010
   }
 }
 
-void std::vector<TIFitAffineMLLMatrix>::push_back[abi:nn200100](uint64_t *a1, uint64_t a2)
+void std::vector<TIFitAffineMLLMatrix>::push_back[abi:nn200100](void **a1, uint64_t a2)
 {
   v4 = a1[1];
   v3 = a1[2];
@@ -7753,19 +7737,19 @@ void std::vector<TIFitAffineMLLMatrix>::push_back[abi:nn200100](uint64_t *a1, ui
     v5 = 40 * v6 + 40;
     v12 = *a1;
     v11 = a1[1];
-    v13 = 40 * v6 + *a1 - v11;
+    v13 = *a1 + 40 * v6 - v11;
     if (v11 != *a1)
     {
       v14 = v12 + 24;
       v15 = *a1;
-      v16 = 40 * v6 + *a1 - v11;
+      v16 = *a1 + 40 * v6 - v11;
       do
       {
         *v16 = *v15;
         *(v16 + 32) = 0;
         *(v16 + 24) = 0;
         *(v16 + 16) = v16 + 24;
-        std::map<unsigned long,double>::insert[abi:nn200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<unsigned long,double>,std::__tree_node<std::__value_type<unsigned long,double>,void *> *,long>>>((v16 + 16), *(v15 + 16), v14);
+        std::map<unsigned long,double>::insert[abi:nn200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<unsigned long,double>,std::__tree_node<std::__value_type<unsigned long,double>,void *> *,long>>>((v16 + 16), *(v15 + 2), v14);
         v15 += 40;
         v14 += 5;
         v16 += 40;
@@ -7806,10 +7790,10 @@ void std::vector<TIFitAffineMLLMatrix>::push_back[abi:nn200100](uint64_t *a1, ui
 
 unint64_t *TIFitAffineMLLMatrix::submatrix@<X0>(unint64_t *result@<X0>, unint64_t *a2@<X1>, unint64_t *a3@<X2>, void *a4@<X8>)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = *a2;
   v6 = a2[1];
-  v16 = *a2;
+  v15 = *a2;
   if (v6 == -1)
   {
     v7 = result[1];
@@ -7822,8 +7806,8 @@ unint64_t *TIFitAffineMLLMatrix::submatrix@<X0>(unint64_t *result@<X0>, unint64_
 
   v8 = *a3;
   v9 = a3[1];
-  v14 = *a3;
-  v15 = v7 - 1;
+  v13 = *a3;
+  v14 = v7 - 1;
   if (v9 == -1)
   {
     v10 = *result;
@@ -7834,7 +7818,7 @@ unint64_t *TIFitAffineMLLMatrix::submatrix@<X0>(unint64_t *result@<X0>, unint64_
     v10 = v9 + v8;
   }
 
-  v13 = v10 - 1;
+  v12 = v10 - 1;
   *a4 = v10 - v8;
   a4[1] = v7 - v5;
   a4[4] = 0;
@@ -7845,7 +7829,6 @@ unint64_t *TIFitAffineMLLMatrix::submatrix@<X0>(unint64_t *result@<X0>, unint64_
     operator new();
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -7887,8 +7870,7 @@ void TIFitAffineMLLMatrix::transform(int8x16_t *this@<X0>, int8x16_t *a2@<X8>)
 {
   v2[4] = *MEMORY[0x277D85DE8];
   *a2 = vextq_s8(*this, *this, 8uLL);
-  a2[2].i64[0] = 0;
-  a2[1].i64[1] = 0;
+  *(&a2[1] + 8) = 0uLL;
   a2[1].i64[0] = &a2[1].i64[1];
   v2[0] = &unk_283FDC3B8;
   v2[1] = a2;
@@ -7914,61 +7896,61 @@ uint64_t std::__function::__func<TIFitAffineMLLMatrix::transform(void)::$_0,std:
 
 void TIFitAffineMLLMatrix::cholesky(TIFitAffineMLLMatrix *this@<X0>, uint64_t a2@<X8>)
 {
-  v45[4] = *MEMORY[0x277D85DE8];
-  v42 = *this;
-  v44[0] = 0;
-  v44[1] = 0;
-  v43 = v44;
-  std::map<unsigned long,double>::insert[abi:nn200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<unsigned long,double>,std::__tree_node<std::__value_type<unsigned long,double>,void *> *,long>>>(&v43, *(this + 2), this + 3);
+  v44[4] = *MEMORY[0x277D85DE8];
+  v41 = *this;
+  v43[0] = 0;
+  v43[1] = 0;
+  v42 = v43;
+  std::map<unsigned long,double>::insert[abi:nn200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<unsigned long,double>,std::__tree_node<std::__value_type<unsigned long,double>,void *> *,long>>>(&v42, *(this + 2), this + 3);
   if (!*(this + 1))
   {
     v18 = 0;
     v10 = *this;
 LABEL_16:
-    v40[0] = 1;
-    v40[1] = v18;
-    v41[0] = 0;
-    v41[1] = 0;
-    v40[2] = v41;
-    v38[0] = 1;
-    v38[1] = v18;
-    v39[0] = 0;
-    v39[1] = 0;
-    v38[2] = v39;
+    v39[0] = 1;
+    v39[1] = v18;
+    v40[0] = 0;
+    v40[1] = 0;
+    v39[2] = v40;
+    v37[0] = 1;
+    v37[1] = v18;
+    v38[0] = 0;
+    v38[1] = 0;
+    v37[2] = v38;
     if (v10)
     {
       v19 = 0;
       do
       {
-        if (*TIFitAffineMLLMatrix::valueAt(&v42, v19, v19) == 0.0)
+        if (*TIFitAffineMLLMatrix::valueAt(&v41, v19, v19) == 0.0)
         {
           goto LABEL_35;
         }
 
-        v20 = *TIFitAffineMLLMatrix::valueAt(v40, v19, 0);
-        *TIFitAffineMLLMatrix::valueAt(v38, v19, 0) = v20;
+        v20 = *TIFitAffineMLLMatrix::valueAt(v39, v19, 0);
+        *TIFitAffineMLLMatrix::valueAt(v37, v19, 0) = v20;
         if (v19)
         {
           for (i = 0; i != v19; ++i)
           {
-            v22 = *TIFitAffineMLLMatrix::valueAt(v38, i, 0);
-            v23 = *TIFitAffineMLLMatrix::valueAt(&v42, i, v19);
-            v24 = TIFitAffineMLLMatrix::valueAt(v38, v19, 0);
+            v22 = *TIFitAffineMLLMatrix::valueAt(v37, i, 0);
+            v23 = *TIFitAffineMLLMatrix::valueAt(&v41, i, v19);
+            v24 = TIFitAffineMLLMatrix::valueAt(v37, v19, 0);
             *v24 = *v24 - v22 * v23;
           }
 
-          v25 = TIFitAffineMLLMatrix::valueAt(&v42, v19, v19);
+          v25 = TIFitAffineMLLMatrix::valueAt(&v41, v19, v19);
           v26 = v19;
         }
 
         else
         {
-          v25 = TIFitAffineMLLMatrix::valueAt(&v42, 0, 0);
+          v25 = TIFitAffineMLLMatrix::valueAt(&v41, 0, 0);
           v26 = 0;
         }
 
         v27 = *v25;
-        v28 = TIFitAffineMLLMatrix::valueAt(v38, v26, 0);
+        v28 = TIFitAffineMLLMatrix::valueAt(v37, v26, 0);
         *v28 = *v28 / v27;
         ++v19;
       }
@@ -7991,24 +7973,24 @@ LABEL_29:
         while (1)
         {
           v30 = v18 - 1;
-          if (*TIFitAffineMLLMatrix::valueAt(&v42, v18 - 1, v29) == 0.0)
+          if (*TIFitAffineMLLMatrix::valueAt(&v41, v18 - 1, v29) == 0.0)
           {
             break;
           }
 
-          v31 = *TIFitAffineMLLMatrix::valueAt(v40, v18 - 1, 0);
-          *TIFitAffineMLLMatrix::valueAt(v38, v18 - 1, 0) = v31;
+          v31 = *TIFitAffineMLLMatrix::valueAt(v39, v18 - 1, 0);
+          *TIFitAffineMLLMatrix::valueAt(v37, v18 - 1, 0) = v31;
           while (v18 < *(this + 1))
           {
-            v32 = *TIFitAffineMLLMatrix::valueAt(v38, v18, 0);
-            v33 = *TIFitAffineMLLMatrix::valueAt(&v42, v18, v29);
-            v34 = TIFitAffineMLLMatrix::valueAt(v38, v30, 0);
+            v32 = *TIFitAffineMLLMatrix::valueAt(v37, v18, 0);
+            v33 = *TIFitAffineMLLMatrix::valueAt(&v41, v18, v29);
+            v34 = TIFitAffineMLLMatrix::valueAt(v37, v30, 0);
             *v34 = *v34 - v32 * v33;
             ++v18;
           }
 
-          v35 = *TIFitAffineMLLMatrix::valueAt(&v42, v30, v29);
-          v36 = TIFitAffineMLLMatrix::valueAt(v38, v30, 0);
+          v35 = *TIFitAffineMLLMatrix::valueAt(&v41, v30, v29);
+          v36 = TIFitAffineMLLMatrix::valueAt(v37, v30, 0);
           *v36 = *v36 / v35;
           if (!v30)
           {
@@ -8024,29 +8006,29 @@ LABEL_35:
         *(a2 + 32) = 0;
         *(a2 + 24) = 0;
         *(a2 + 16) = a2 + 24;
-        std::__tree<std::__value_type<float,int>,std::__map_value_compare<float,std::__value_type<float,int>,std::less<float>,true>,std::allocator<std::__value_type<float,int>>>::destroy(v39[0]);
-        std::__tree<std::__value_type<float,int>,std::__map_value_compare<float,std::__value_type<float,int>,std::less<float>,true>,std::allocator<std::__value_type<float,int>>>::destroy(v41[0]);
+        std::__tree<std::__value_type<float,int>,std::__map_value_compare<float,std::__value_type<float,int>,std::less<float>,true>,std::allocator<std::__value_type<float,int>>>::destroy(v38[0]);
+        std::__tree<std::__value_type<float,int>,std::__map_value_compare<float,std::__value_type<float,int>,std::less<float>,true>,std::allocator<std::__value_type<float,int>>>::destroy(v40[0]);
         goto LABEL_37;
       }
     }
 
 LABEL_36:
-    v45[0] = &unk_283FDC400;
-    v45[1] = &v42;
-    v45[3] = v45;
-    TIFitAffineMLLMatrix::do_for_each_valid_element(&v42, v45);
+    v44[0] = &unk_283FDC400;
+    v44[1] = &v41;
+    v44[3] = v44;
+    TIFitAffineMLLMatrix::do_for_each_valid_element(&v41, v44);
   }
 
   v4 = 0;
   while (1)
   {
     v5 = v4;
-    v6 = *TIFitAffineMLLMatrix::valueAt(&v42, v4, v4);
+    v6 = *TIFitAffineMLLMatrix::valueAt(&v41, v4, v4);
     if (v4)
     {
       for (j = 0; j != v4; ++j)
       {
-        v8 = TIFitAffineMLLMatrix::valueAt(&v42, v4, j);
+        v8 = TIFitAffineMLLMatrix::valueAt(&v41, v4, j);
         v6 = v6 - *v8 * *v8;
       }
     }
@@ -8057,7 +8039,7 @@ LABEL_36:
     }
 
     v9 = sqrt(v6);
-    *TIFitAffineMLLMatrix::valueAt(&v42, v4, v4) = v9;
+    *TIFitAffineMLLMatrix::valueAt(&v41, v4, v4) = v9;
     ++v4;
     v10 = *this;
     if (v5 + 1 < *this)
@@ -8071,9 +8053,9 @@ LABEL_36:
         {
           do
           {
-            v14 = *TIFitAffineMLLMatrix::valueAt(&v42, v13, v11);
-            v15 = *TIFitAffineMLLMatrix::valueAt(&v42, v13, v5);
-            v16 = TIFitAffineMLLMatrix::valueAt(&v42, v5, v11);
+            v14 = *TIFitAffineMLLMatrix::valueAt(&v41, v13, v11);
+            v15 = *TIFitAffineMLLMatrix::valueAt(&v41, v13, v5);
+            v16 = TIFitAffineMLLMatrix::valueAt(&v41, v5, v11);
             *v16 = *v16 - v14 * v15;
             ++v13;
           }
@@ -8082,9 +8064,9 @@ LABEL_36:
           v13 = v5;
         }
 
-        v17 = v12 * *TIFitAffineMLLMatrix::valueAt(&v42, v13, v11);
-        *TIFitAffineMLLMatrix::valueAt(&v42, v13, v11) = v17;
-        *TIFitAffineMLLMatrix::valueAt(&v42, v11++, v13) = v17;
+        v17 = v12 * *TIFitAffineMLLMatrix::valueAt(&v41, v13, v11);
+        *TIFitAffineMLLMatrix::valueAt(&v41, v13, v11) = v17;
+        *TIFitAffineMLLMatrix::valueAt(&v41, v11++, v13) = v17;
         v10 = *this;
       }
 
@@ -8103,8 +8085,7 @@ LABEL_36:
   *(a2 + 24) = 0;
   *(a2 + 16) = a2 + 24;
 LABEL_37:
-  std::__tree<std::__value_type<float,int>,std::__map_value_compare<float,std::__value_type<float,int>,std::less<float>,true>,std::allocator<std::__value_type<float,int>>>::destroy(v44[0]);
-  v37 = *MEMORY[0x277D85DE8];
+  std::__tree<std::__value_type<float,int>,std::__map_value_compare<float,std::__value_type<float,int>,std::less<float>,true>,std::allocator<std::__value_type<float,int>>>::destroy(v43[0]);
 }
 
 char *std::__function::__func<TIFitAffineMLLMatrix::cholesky(void)::$_0,std::allocator<TIFitAffineMLLMatrix::cholesky(void)::$_0>,void ()(unsigned long,unsigned long,double const&)>::operator()(char *result, unint64_t *a2, unint64_t *a3)
@@ -8170,7 +8151,7 @@ char *TIFitAffineMLLMatrix::sumCols@<X0>(char *this@<X0>, TIFitAffineMLLMatrix *
   *(a2 + 4) = 0;
   *(a2 + 3) = 0;
   *(a2 + 2) = a2 + 24;
-  if (v3 != 0.0)
+  if (v3)
   {
     v4 = this;
     v5 = 0;
@@ -8193,7 +8174,7 @@ char *TIFitAffineMLLMatrix::sumCols@<X0>(char *this@<X0>, TIFitAffineMLLMatrix *
       ++v5;
     }
 
-    while (*&v3 > v5);
+    while (v3 > v5);
   }
 
   return this;
@@ -8214,7 +8195,7 @@ char *TIFitAffineMLLMatrix::sumRows@<X0>(char *this@<X0>, TIFitAffineMLLMatrix *
     v6 = *this;
     do
     {
-      if (v6 != 0.0)
+      if (v6)
       {
         v7 = 0;
         do
@@ -8227,7 +8208,7 @@ char *TIFitAffineMLLMatrix::sumRows@<X0>(char *this@<X0>, TIFitAffineMLLMatrix *
         }
 
         while (*v4 > v7);
-        v3 = v4[1];
+        v3 = *(v4 + 1);
       }
 
       ++v5;
@@ -8294,7 +8275,6 @@ id getSTKStickerUsageManagerClass()
 
 Class __getSTKStickerUsageManagerClass_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
   if (!StickersLibraryCore_frameworkLibrary)
   {
     StickersLibraryCore_frameworkLibrary = _sl_dlopen();
@@ -8303,96 +8283,92 @@ Class __getSTKStickerUsageManagerClass_block_invoke(uint64_t a1)
   result = objc_getClass("STKStickerUsageManager");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getSTKStickerUsageManagerClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __StickersLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   StickersLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t FlagsForCandidate()
+uint64_t FlagsForCandidate(uint64_t a1)
 {
   IsExtensionCandidate = MecabraCandidateIsExtensionCandidate();
   IsEmojiCandidate = MecabraCandidateIsEmojiCandidate();
   if (IsExtensionCandidate)
   {
-    v2 = 3;
+    v3 = 3;
   }
 
   else
   {
-    v2 = 2;
+    v3 = 2;
   }
 
   if (IsEmojiCandidate)
   {
-    v3 = v2;
+    v4 = v3;
   }
 
   else
   {
-    v3 = IsExtensionCandidate != 0;
+    v4 = IsExtensionCandidate != 0;
   }
 
   if (MecabraCandidateIsUserWordCandidate())
   {
-    v3 |= 4u;
+    v4 |= 4u;
   }
 
   if (MecabraCandidateIsAutocorrectionCandidate())
   {
-    v3 |= 8u;
+    v4 |= 8u;
   }
 
   if (MecabraCandidateIsOTAWordlistCandidate())
   {
-    v3 |= 0x10u;
+    v4 |= 0x10u;
   }
 
   if (MecabraCandidateIsRegionalCandidate())
   {
-    v3 |= 0x20u;
+    v4 |= 0x20u;
   }
 
-  v4 = v3 | 0x80;
+  v5 = v4 | 0x80;
   if (MecabraCandidateIsBilingualCandidate())
   {
-    v3 |= 0x80u;
+    v4 |= 0x80u;
   }
 
   if (MecabraCandidateGetKind() != 83)
   {
-    v4 = v3;
+    v5 = v4;
   }
 
   IsExtensionForCandidateBar = MecabraCandidateIsExtensionForCandidateBar();
   if (MecabraCandidateIsPartialCandidate() | IsExtensionForCandidateBar)
   {
-    v6 = v4 | 0x200;
+    v7 = v5 | 0x200;
   }
 
   else
   {
-    v6 = v4;
+    v7 = v5;
   }
 
-  v7 = (MecabraCandidateGetWubixingType() << 9) & 0x400;
-  v8 = v7 & 0xFFFFF7FF | (((MecabraCandidateGetWubixingType() >> 2) & 1) << 11) | v6;
+  v8 = (MecabraCandidateGetWubixingType() << 9) & 0x400;
+  v9 = v8 & 0xFFFFF7FF | (((MecabraCandidateGetWubixingType() >> 2) & 1) << 11) | v7;
   IsSinglePhraseCandidate = MecabraCandidateIsSinglePhraseCandidate();
-  v10 = v8 | 0x1000;
+  v11 = v9 | 0x1000;
   if (!IsSinglePhraseCandidate)
   {
-    return v8;
+    return v9;
   }
 
-  return v10;
+  return v11;
 }
 
 id _sbsOverrideLog()
@@ -8418,54 +8394,50 @@ uint64_t ___sbsOverrideLog_block_invoke()
 
 id TITypingSpeedAllowedValues()
 {
-  v3[7] = *MEMORY[0x277D85DE8];
-  v3[0] = kFeatureStringTypingSpeedInsufficientData;
-  v3[1] = kFeatureStringTypingSpeedVerySlow;
-  v3[2] = kFeatureStringTypingSpeedSlow;
-  v3[3] = kFeatureStringTypingSpeedMedium;
-  v3[4] = kFeatureStringTypingSpeedFast;
-  v3[5] = kFeatureStringTypingSpeedVeryFast;
-  v3[6] = kFeatureStringTypingSpeedUnusual;
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:7];
-  v1 = *MEMORY[0x277D85DE8];
+  v2[7] = *MEMORY[0x277D85DE8];
+  v2[0] = kFeatureStringTypingSpeedInsufficientData;
+  v2[1] = kFeatureStringTypingSpeedVerySlow;
+  v2[2] = kFeatureStringTypingSpeedSlow;
+  v2[3] = kFeatureStringTypingSpeedMedium;
+  v2[4] = kFeatureStringTypingSpeedFast;
+  v2[5] = kFeatureStringTypingSpeedVeryFast;
+  v2[6] = kFeatureStringTypingSpeedUnusual;
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:7];
 
   return v0;
 }
 
 id TITypingEngineAllowedValues()
 {
-  v6[6] = *MEMORY[0x277D85DE8];
+  v5[6] = *MEMORY[0x277D85DE8];
   v0 = *MEMORY[0x277D6F7F0];
-  v6[0] = *MEMORY[0x277D6F810];
-  v6[1] = v0;
+  v5[0] = *MEMORY[0x277D6F810];
+  v5[1] = v0;
   v1 = *MEMORY[0x277D6F7F8];
-  v6[2] = *MEMORY[0x277D6F7E8];
-  v6[3] = v1;
+  v5[2] = *MEMORY[0x277D6F7E8];
+  v5[3] = v1;
   v2 = *MEMORY[0x277D6F808];
-  v6[4] = *MEMORY[0x277D6F800];
-  v6[5] = v2;
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:6];
-  v4 = *MEMORY[0x277D85DE8];
+  v5[4] = *MEMORY[0x277D6F800];
+  v5[5] = v2;
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:6];
 
   return v3;
 }
 
 id TIAssetAvailabilityStatusAllowedValues()
 {
-  v3[2] = *MEMORY[0x277D85DE8];
-  v3[0] = @"Unavailable";
-  v3[1] = @"Installed";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:2];
-  v1 = *MEMORY[0x277D85DE8];
+  v2[2] = *MEMORY[0x277D85DE8];
+  v2[0] = @"Unavailable";
+  v2[1] = @"Installed";
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:2];
 
   return v0;
 }
 
-Class __getMCProfileConnectionClass_block_invoke_15003(uint64_t a1)
+void __getMCProfileConnectionClass_block_invoke_15003(uint64_t a1)
 {
   ManagedConfigurationLibrary_15006();
-  result = objc_getClass("MCProfileConnection");
-  *(*(*(a1 + 32) + 8) + 24) = result;
+  *(*(*(a1 + 32) + 8) + 24) = objc_getClass("MCProfileConnection");
   if (*(*(*(a1 + 32) + 8) + 24))
   {
     getMCProfileConnectionClass_softClass_15002 = *(*(*(a1 + 32) + 8) + 24);
@@ -8473,59 +8445,51 @@ Class __getMCProfileConnectionClass_block_invoke_15003(uint64_t a1)
 
   else
   {
-    v3 = abort_report_np();
-    return __50__TIUserDictionaryServer_loadPhraseShortcutPairs___block_invoke(v3);
+    v2 = abort_report_np("Unable to find class %s", "MCProfileConnection");
+    __50__TIUserDictionaryServer_loadPhraseShortcutPairs___block_invoke(v2, v3, v4);
   }
-
-  return result;
 }
 
 uint64_t ManagedConfigurationLibrary_15006()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 0;
+  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 0;
   if (!ManagedConfigurationLibraryCore_frameworkLibrary_15009)
   {
-    v4[1] = MEMORY[0x277D85DD0];
-    v4[2] = 3221225472;
-    v4[3] = __ManagedConfigurationLibraryCore_block_invoke_15010;
-    v4[4] = &__block_descriptor_40_e5_v8__0l;
-    v4[5] = v4;
-    v5 = xmmword_278732130;
-    v6 = 0;
+    v3[1] = MEMORY[0x277D85DD0];
+    v3[2] = 3221225472;
+    v3[3] = __ManagedConfigurationLibraryCore_block_invoke_15010;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_278732130;
+    v5 = 0;
     ManagedConfigurationLibraryCore_frameworkLibrary_15009 = _sl_dlopen();
-    v1 = v4[0];
+    v1 = v3[0];
     v0 = ManagedConfigurationLibraryCore_frameworkLibrary_15009;
     if (ManagedConfigurationLibraryCore_frameworkLibrary_15009)
     {
-      if (!v4[0])
+      if (!v3[0])
       {
-        goto LABEL_5;
+        return v0;
       }
     }
 
     else
     {
-      v1 = abort_report_np();
+      v1 = abort_report_np("%s", v3[0]);
     }
 
     free(v1);
-    goto LABEL_5;
+    return v0;
   }
 
-  v0 = ManagedConfigurationLibraryCore_frameworkLibrary_15009;
-LABEL_5:
-  v2 = *MEMORY[0x277D85DE8];
-  return v0;
+  return ManagedConfigurationLibraryCore_frameworkLibrary_15009;
 }
 
 uint64_t __ManagedConfigurationLibraryCore_block_invoke_15010(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   ManagedConfigurationLibraryCore_frameworkLibrary_15009 = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -8540,20 +8504,20 @@ void *__getMCKeyboardSettingsChangedNotificationSymbolLoc_block_invoke(uint64_t 
 
 id getKSTextReplacementDidChangeNotification()
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
+  v7 = 0;
+  v8 = &v7;
+  v9 = 0x2020000000;
   v0 = getKSTextReplacementDidChangeNotificationSymbolLoc_ptr;
-  v8 = getKSTextReplacementDidChangeNotificationSymbolLoc_ptr;
+  v10 = getKSTextReplacementDidChangeNotificationSymbolLoc_ptr;
   if (!getKSTextReplacementDidChangeNotificationSymbolLoc_ptr)
   {
     v1 = KeyboardServicesLibrary_15017();
-    v6[3] = dlsym(v1, "KSTextReplacementDidChangeNotification");
-    getKSTextReplacementDidChangeNotificationSymbolLoc_ptr = v6[3];
-    v0 = v6[3];
+    v8[3] = dlsym(v1, "KSTextReplacementDidChangeNotification");
+    getKSTextReplacementDidChangeNotificationSymbolLoc_ptr = v8[3];
+    v0 = v8[3];
   }
 
-  _Block_object_dispose(&v5, 8);
+  _Block_object_dispose(&v7, 8);
   if (v0)
   {
     v2 = *v0;
@@ -8563,9 +8527,9 @@ id getKSTextReplacementDidChangeNotification()
 
   else
   {
-    dlerror();
-    v4 = abort_report_np();
-    return ShortcutsDidChange(v4);
+    v4 = dlerror();
+    v5 = abort_report_np("%s", v4);
+    return ShortcutsDidChange(v5, v6);
   }
 }
 
@@ -8580,67 +8544,64 @@ void *__getKSTextReplacementDidChangeNotificationSymbolLoc_block_invoke(uint64_t
 
 uint64_t KeyboardServicesLibrary_15017()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 0;
+  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 0;
   if (!KeyboardServicesLibraryCore_frameworkLibrary_15019)
   {
-    v4[1] = MEMORY[0x277D85DD0];
-    v4[2] = 3221225472;
-    v4[3] = __KeyboardServicesLibraryCore_block_invoke_15020;
-    v4[4] = &__block_descriptor_40_e5_v8__0l;
-    v4[5] = v4;
-    v5 = xmmword_278732118;
-    v6 = 0;
+    v3[1] = MEMORY[0x277D85DD0];
+    v3[2] = 3221225472;
+    v3[3] = __KeyboardServicesLibraryCore_block_invoke_15020;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_278732118;
+    v5 = 0;
     KeyboardServicesLibraryCore_frameworkLibrary_15019 = _sl_dlopen();
-    v1 = v4[0];
+    v1 = v3[0];
     v0 = KeyboardServicesLibraryCore_frameworkLibrary_15019;
     if (KeyboardServicesLibraryCore_frameworkLibrary_15019)
     {
-      if (!v4[0])
+      if (!v3[0])
       {
-        goto LABEL_5;
+        return v0;
       }
     }
 
     else
     {
-      v1 = abort_report_np();
+      v1 = abort_report_np("%s", v3[0]);
     }
 
     free(v1);
-    goto LABEL_5;
+    return v0;
   }
 
-  v0 = KeyboardServicesLibraryCore_frameworkLibrary_15019;
-LABEL_5:
-  v2 = *MEMORY[0x277D85DE8];
-  return v0;
+  return KeyboardServicesLibraryCore_frameworkLibrary_15019;
 }
 
 uint64_t __KeyboardServicesLibraryCore_block_invoke_15020(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   KeyboardServicesLibraryCore_frameworkLibrary_15019 = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t TI::Favonius::SearchNodeGeometryExtensionsInsertingKey::create_extension@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X2>, uint64_t a3@<X3>, void *a4@<X8>)
+unsigned int *TI::Favonius::SearchNodeGeometryExtensionsInsertingKey::create_extension@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, unsigned int **a3@<X2>, uint64_t *a4@<X3>, uint64_t *a5@<X8>, float a6@<S0>)
 {
-  v8 = *(a1 + 88);
-  result = (*(**(a1 + 80) + 16))(*(a1 + 80));
-  if ((*(*result + 60) & 0x20) == 0 || (*(*(*a3 + 8) + 60) & 0x20) == 0)
+  v12 = *(a1 + 80);
+  v13 = *(a1 + 88);
+  result = (*(*v12 + 16))(v12);
+  v15 = *a4;
+  if ((*(*result + 60) & 0x20) == 0 || (*(*(v15 + 8) + 60) & 0x20) == 0)
   {
-    v10 = *a2;
-    *a2 = 0;
+    v16 = *a3;
     *a3 = 0;
-    v11 = *(a1 + 96);
-    TI::Favonius::SearchNodeInsertingKey::create();
+    v17 = v15;
+    v18 = v16;
+    *a4 = 0;
+    TI::Favonius::SearchNodeInsertingKey::create(a5, a2, &v18, v12, v13, &v17, a6, *(a1 + 96));
   }
 
-  *a4 = 0;
+  *a5 = 0;
   return result;
 }
 
@@ -8686,25 +8647,25 @@ void TI::Favonius::SearchNodeGeometryExtensionsInsertingKey::~SearchNodeGeometry
   TI::Favonius::SearchNodeGeometryExtensions::~SearchNodeGeometryExtensions(this);
 }
 
-void TI::Favonius::SearchNodeGeometryExtensionsInsertingKey::create(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
+void TI::Favonius::SearchNodeGeometryExtensionsInsertingKey::create(uint64_t *a1, uint64_t a2, unsigned int **a3, atomic_uint *a4, float a5)
 {
-  v6 = *(a2 + 128);
-  v7 = *(*(*a4 + 16))(a4);
-  v9 = v7;
-  if (v7)
+  v7 = *(a2 + 128);
+  v8 = *(*(*a4 + 16))(a4);
+  v10 = v8;
+  if (v8)
   {
-    atomic_fetch_add(v7, 1u);
+    atomic_fetch_add(v8, 1u);
   }
 
-  (*(*v6 + 72))(&v10, v6, &v9, *a3);
-  v10 = 0;
-  if (v9)
+  (*(*v7 + 72))(&v11, v7, &v10, *a3);
+  v11 = 0;
+  if (v10)
   {
-    WTF::RefCounted<TI::Favonius::Key>::deref(v9);
+    WTF::RefCounted<TI::Favonius::Key>::deref(v10);
   }
 
-  v8 = (*(*a4 + 24))(a4);
-  logf(v8);
+  v9 = (*(*a4 + 24))(a4);
+  logf(v9);
   (*(**a3 + 32))();
   operator new();
 }
@@ -8933,16 +8894,16 @@ void TI::ConfidenceModel::compute_confidence2(TI::ConfidenceModel *this, Candida
   var0 = a2->var0.var0;
   if ((0x1CAC083126E978D5 * ((a2->var0.var1 - a2->var0.var0) >> 3)) > 1)
   {
-    v3 = 1.0 - expf(*(var0 + 437) - *(var0 + 187));
-    v4 = v3 * 0.1 + (1.0 - expf(*(var0 + 436) - *(var0 + 186))) * 0.9;
+    expf(*(var0 + 437) - *(var0 + 187));
+    expf(*(var0 + 436) - *(var0 + 186));
   }
 }
 
-double TI::ConfidenceModel::compute_confidence1(TI::ConfidenceModel *this, KB::CandidateCollection *a2, unsigned int a3)
+double TI::ConfidenceModel::compute_confidence1(TI::ConfidenceModel *this, KB::CandidateCollection *a2, int a3)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v4 = 652835029 * ((*(a2 + 1) - *a2) >> 3);
-  v37 = 0;
+  v36 = 0;
   if (v4 >= a3)
   {
     v5 = a3;
@@ -8954,20 +8915,20 @@ double TI::ConfidenceModel::compute_confidence1(TI::ConfidenceModel *this, KB::C
   }
 
   v6 = 0uLL;
-  *v34 = 0u;
+  *v33 = 0u;
+  memset(v34, 0, sizeof(v34));
   memset(v35, 0, sizeof(v35));
-  memset(v36, 0, sizeof(v36));
   if (v5)
   {
     v8 = 0;
     do
     {
-      std::vector<KB::Candidate>::push_back[abi:nn200100](v34, (*a2 + v8));
+      std::vector<KB::Candidate>::push_back[abi:nn200100](v33, (*a2 + v8));
       v8 += 1000;
     }
 
     while (1000 * v5 != v8);
-    v6 = *v34;
+    v6 = *v33;
   }
 
   v9 = 126 - 2 * __clz(0x1CAC083126E978D5 * ((*(&v6 + 1) - v6) >> 3));
@@ -8982,7 +8943,7 @@ double TI::ConfidenceModel::compute_confidence1(TI::ConfidenceModel *this, KB::C
   }
 
   std::__introsort<std::_ClassicAlgPolicy,KB::CandidateCollection::sort(void)::$_0 &,KB::Candidate *,false>(v6, *(&v6 + 1), v10, 1);
-  v11 = 0x1CAC083126E978D5 * ((v34[1] - v34[0]) >> 3);
+  v11 = 0x1CAC083126E978D5 * ((v33[1] - v33[0]) >> 3);
   if (v11)
   {
     if (v11 == 1)
@@ -8992,25 +8953,25 @@ double TI::ConfidenceModel::compute_confidence1(TI::ConfidenceModel *this, KB::C
 
     else
     {
-      memset(v32, 0, sizeof(v32));
-      v33 = 1065353216;
-      std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__rehash<true>(v32, a3);
-      v41 = xmmword_22CC8A9D0;
-      v42 = 0x3FF0000000000000;
+      memset(v31, 0, sizeof(v31));
+      v32 = 1065353216;
+      std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__rehash<true>(v31, a3);
+      v40 = xmmword_22CC8A9D0;
+      v41 = 0x3FF0000000000000;
       if (a3 == 2)
       {
-        *&v41 = 0x3FF0000000000000;
+        *&v40 = 0x3FF0000000000000;
       }
 
-      v13 = v34[0];
-      v14 = *(v34[0] + 186);
-      KB::Candidate::capitalized_string(v34[0], &v39);
-      v38 = &v39;
-      v15 = std::__hash_table<std::__hash_value_type<KB::String,KB::Candidate>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,KB::Candidate>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,KB::Candidate>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,KB::Candidate>>>::__emplace_unique_key_args<KB::String,std::piecewise_construct_t const&,std::tuple<KB::String&&>,std::tuple<>>(v32, &v39);
-      KB::Candidate::operator=((v15 + 6), v13);
-      if (v40 && BYTE6(v39) == 1)
+      v13 = v33[0];
+      v14 = *(v33[0] + 186);
+      KB::Candidate::capitalized_string(&v38, v33[0]);
+      v37 = &v38;
+      v15 = std::__hash_table<std::__hash_value_type<KB::String,KB::Candidate>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,KB::Candidate>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,KB::Candidate>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,KB::Candidate>>>::__emplace_unique_key_args<KB::String,std::piecewise_construct_t const&,std::tuple<KB::String&&>,std::tuple<>>(v31, &v38, &v37);
+      KB::Candidate::operator=(v15 + 6, v13);
+      if (v39 && BYTE6(v38) == 1)
       {
-        free(v40);
+        free(v39);
       }
 
       v16 = 0.0;
@@ -9023,13 +8984,13 @@ double TI::ConfidenceModel::compute_confidence1(TI::ConfidenceModel *this, KB::C
         v21 = 1000;
         do
         {
-          v22 = v34[0];
-          KB::Candidate::capitalized_string((v34[0] + v21), &v39);
-          v23 = std::__hash_table<std::__hash_value_type<KB::String,KB::Candidate>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,KB::Candidate>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,KB::Candidate>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,KB::Candidate>>>::find<KB::String>(*&v32[0], *(&v32[0] + 1), &v39);
+          v22 = v33[0];
+          KB::Candidate::capitalized_string(&v38, (v33[0] + v21));
+          v23 = std::__hash_table<std::__hash_value_type<KB::String,KB::Candidate>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,KB::Candidate>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,KB::Candidate>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,KB::Candidate>>>::find<KB::String>(*&v31[0], *(&v31[0] + 1), &v38);
           v25 = v19 > 0.0 && v23 == 0;
-          if (v40)
+          if (v39)
           {
-            v26 = BYTE6(v39) == 1;
+            v26 = BYTE6(v38) == 1;
           }
 
           else
@@ -9039,7 +9000,7 @@ double TI::ConfidenceModel::compute_confidence1(TI::ConfidenceModel *this, KB::C
 
           if (v26)
           {
-            free(v40);
+            free(v39);
           }
 
           if (v25)
@@ -9050,14 +9011,14 @@ double TI::ConfidenceModel::compute_confidence1(TI::ConfidenceModel *this, KB::C
               v18 = 2;
             }
 
-            v28 = *(&v41 + v18);
-            KB::Candidate::capitalized_string((v22 + v21), &v39);
-            v38 = &v39;
-            v29 = std::__hash_table<std::__hash_value_type<KB::String,KB::Candidate>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,KB::Candidate>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,KB::Candidate>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,KB::Candidate>>>::__emplace_unique_key_args<KB::String,std::piecewise_construct_t const&,std::tuple<KB::String&&>,std::tuple<>>(v32, &v39);
-            KB::Candidate::operator=((v29 + 6), v22 + v21);
-            if (v40 && BYTE6(v39) == 1)
+            v28 = *(&v40 + v18);
+            KB::Candidate::capitalized_string(&v38, (v22 + v21));
+            v37 = &v38;
+            v29 = std::__hash_table<std::__hash_value_type<KB::String,KB::Candidate>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,KB::Candidate>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,KB::Candidate>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,KB::Candidate>>>::__emplace_unique_key_args<KB::String,std::piecewise_construct_t const&,std::tuple<KB::String&&>,std::tuple<>>(v31, &v38, &v37);
+            KB::Candidate::operator=(v29 + 6, (v22 + v21));
+            if (v39 && BYTE6(v38) == 1)
             {
-              free(v40);
+              free(v39);
             }
 
             v16 = v16 + (1.0 - v27 / v19) * v28;
@@ -9083,7 +9044,7 @@ double TI::ConfidenceModel::compute_confidence1(TI::ConfidenceModel *this, KB::C
         v12 = v16 / v17;
       }
 
-      std::__hash_table<std::__hash_value_type<KB::String,KB::Candidate>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,KB::Candidate>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,KB::Candidate>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,KB::Candidate>>>::~__hash_table(v32);
+      std::__hash_table<std::__hash_value_type<KB::String,KB::Candidate>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,KB::Candidate>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,KB::Candidate>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,KB::Candidate>>>::~__hash_table(v31);
     }
   }
 
@@ -9092,15 +9053,14 @@ double TI::ConfidenceModel::compute_confidence1(TI::ConfidenceModel *this, KB::C
     v12 = 0.0;
   }
 
-  *&v32[0] = &v36[1] + 8;
-  std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](v32);
-  *&v32[0] = v36;
-  std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](v32);
-  *&v32[0] = v35 + 8;
-  std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](v32);
-  *&v32[0] = v34;
-  std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](v32);
-  v30 = *MEMORY[0x277D85DE8];
+  *&v31[0] = &v35[1] + 8;
+  std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](v31);
+  *&v31[0] = v35;
+  std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](v31);
+  *&v31[0] = v34 + 8;
+  std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](v31);
+  *&v31[0] = v33;
+  std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](v31);
   return v12;
 }
 
@@ -9108,7 +9068,7 @@ void TI::ConfidenceModel::update_confidence_for_candidates(TI::ConfidenceModel *
 {
   v4 = *(this + 3);
   v5 = *(this + 1);
-  v6 = KB::CandidateCollection::contains_secondary_language_candidates(a2, &v10, 3u);
+  v6 = KB::CandidateCollection::contains_secondary_language_candidates(a2, &v10, 3);
   if (v6)
   {
     v4 = *(this + 4);
@@ -9155,18 +9115,18 @@ void TI::ConfidenceModel::update_confidence_for_candidates(TI::ConfidenceModel *
   }
 }
 
-void TI::Favonius::SearchNodeLanguageThenGeometryExtensions::decrease_bound_on_score(TI::Favonius::SearchNodeLanguageThenGeometryExtensions *this)
+void TI::Favonius::SearchNodeLanguageThenGeometryExtensions::decrease_bound_on_score(uint64_t this)
 {
   if ((*(this + 72) & 1) == 0)
   {
-    TI::Favonius::SearchNode::get_language_extensions(*(this + 4), this + 6);
+    TI::Favonius::SearchNode::get_language_extensions(*(this + 32), (this + 48));
     *(this + 72) = 1;
     if (*(this + 73) == 1)
     {
-      v2 = *(*(this + 4) + 56);
+      v2 = *(*(this + 32) + 56);
       if ((*(*v2 + 64))(v2))
       {
-        if ((*(*(this + 4) + 120) & 0x20) == 0)
+        if ((*(*(this + 32) + 120) & 0x20) == 0)
         {
           v3 = (*(*v2 + 8))(v2);
           v4 = (*(*v3 + 16))(v3);
@@ -9180,7 +9140,7 @@ void TI::Favonius::SearchNodeLanguageThenGeometryExtensions::decrease_bound_on_s
       }
     }
 
-    v5 = *(this + 6);
+    v5 = *(this + 48);
     v6 = 126 - 2 * __clz(v5);
     if (v5)
     {
@@ -9192,7 +9152,7 @@ void TI::Favonius::SearchNodeLanguageThenGeometryExtensions::decrease_bound_on_s
       v7 = 0;
     }
 
-    std::__introsort<std::_ClassicAlgPolicy,TI::Favonius::SearchNodeLanguageExtensions::LetterExtensionComparator &,WTF::RefPtr<TI::Favonius::TypingHypothesis> *,false>(*(this + 7), (*(this + 7) + 8 * v5), v7, 1);
+    std::__introsort<std::_ClassicAlgPolicy,TI::Favonius::SearchNodeLanguageExtensions::LetterExtensionComparator &,WTF::RefPtr<TI::Favonius::TypingHypothesis> *,false>(*(this + 56), (*(this + 56) + 8 * v5), v7, 1);
     TI::Favonius::SearchNodeLanguageThenGeometryExtensions::set_bound_on_score(this);
   }
 }
@@ -9225,35 +9185,34 @@ void TI::Favonius::SearchNodeLanguageThenGeometryExtensions::set_bound_on_score(
   *(this + 6) = v7;
 }
 
-uint64_t TI::Favonius::SearchNodeLanguageThenGeometryExtensions::branch_at_current_bound@<X0>(uint64_t this@<X0>, void *a2@<X8>)
+unsigned int *TI::Favonius::SearchNodeLanguageThenGeometryExtensions::branch_at_current_bound@<X0>(unsigned int *this@<X0>, uint64_t *a2@<X8>)
 {
-  v3 = *(this + 48);
+  v3 = *(this + 6);
   if (v3)
   {
     v4 = this;
-    v5 = *(this + 56);
+    v5 = *(this + 7);
     v6 = *(v5 + 8 * v3 - 8);
     if (v6)
     {
-      atomic_fetch_add((v6 + 8), 1u);
-      v3 = *(this + 48);
-      v5 = *(this + 56);
+      atomic_fetch_add(v6 + 2, 1u);
+      v3 = *(this + 6);
+      v5 = *(this + 7);
     }
 
     v7 = v3 - 1;
     WTF::VectorDestructor<true,WTF::RefPtr<TI::Favonius::TypingHypothesis>>::destruct((v5 + 8 * (v3 - 1)), (v5 + 8 * v3));
-    *(v4 + 48) = v7;
+    *(v4 + 6) = v7;
     TI::Favonius::SearchNodeLanguageThenGeometryExtensions::set_bound_on_score(v4);
-    v8 = *(v4 + 32);
-    v9 = *(v4 + 16);
-    v11 = v9;
+    v8 = *(v4 + 4);
+    v9 = *(v4 + 2);
+    v10 = v9;
     if (v9)
     {
       atomic_fetch_add((v9 + 8), 1u);
     }
 
-    v10 = *(v4 + 40);
-    TI::Favonius::SearchNodeGeometryExtensionsInsertingKey::create(a2, v8, &v11, v6);
+    TI::Favonius::SearchNodeGeometryExtensionsInsertingKey::create(a2, v8, &v10, v6, *(v4 + 10));
   }
 
   *a2 = 0;
@@ -9288,49 +9247,50 @@ void TI::Favonius::SearchNodeLanguageThenGeometryExtensions::~SearchNodeLanguage
   TI::Favonius::SearchNodeSource::~SearchNodeSource(this);
 }
 
-void TI::Favonius::DictionaryHypothesis::_words(uint64_t a1, uint64_t a2, int a3, char a4, char a5)
+void TI::Favonius::DictionaryHypothesis::_words(uint64_t a1, KB::Word **a2, uint64_t a3, char a4, char a5)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v5 = a3;
+  v37 = *MEMORY[0x277D85DE8];
   if (KB::SetOnlySearchSupplementalLexiconForScope::s_shouldOnlySearchSupplementalLexicon == 1)
   {
+    v28 = 0;
     v29 = 0;
     v30 = 0;
-    v31 = 0;
     v8 = *(*(a1 + 72) + 40);
-    v35 = v8;
+    v34 = v8;
     if (v8)
     {
       CFRetain(v8);
-      v35 = v8;
-      TI::Favonius::DictionaryHypothesis::merge_dynamic_words(a1, &v29, &v35, 5, 0, a3);
+      v34 = v8;
+      TI::Favonius::DictionaryHypothesis::merge_dynamic_words(a1, &v28, &v34, 5, 0, v5, 0);
       CFRelease(v8);
     }
 
     else
     {
-      TI::Favonius::DictionaryHypothesis::merge_dynamic_words(a1, &v29, &v35, 5, 0, a3);
+      TI::Favonius::DictionaryHypothesis::merge_dynamic_words(a1, &v28, &v34, 5, 0, a3, 0);
     }
 
-    std::vector<KB::Word>::__insert_with_size[abi:nn200100]<std::__wrap_iter<KB::Word*>,std::__wrap_iter<KB::Word*>>(a2, *(a2 + 8), v29, v30, 0xEEEEEEEEEEEEEEEFLL * ((v30 - v29) >> 4));
-    v36 = &v29;
+    std::vector<KB::Word>::__insert_with_size[abi:nn200100]<std::__wrap_iter<KB::Word*>,std::__wrap_iter<KB::Word*>>(a2, a2[1], v28, v29, 0xEEEEEEEEEEEEEEEFLL * ((v29 - v28) >> 4));
+    v35 = &v28;
   }
 
   else
   {
-    v29 = 0;
-    v30 = &v29;
-    v31 = 0x4002000000;
-    v32 = __Block_byref_object_copy__15581;
-    v33 = __Block_byref_object_dispose__15582;
-    memset(v34, 0, sizeof(v34));
-    KB::StaticDictionaryCursor::derive_words((a1 + 16), v34, *(*(a1 + 8) + 8));
+    v28 = 0;
+    v29 = &v28;
+    v30 = 0x4002000000;
+    v31 = __Block_byref_object_copy__15581;
+    v32 = __Block_byref_object_dispose__15582;
+    memset(v33, 0, sizeof(v33));
+    KB::StaticDictionaryCursor::derive_words((a1 + 16), v33, *(*(a1 + 8) + 8));
     KB::DictionaryCursors::probability_of_static_trie_given_termination((a1 + 16), *(a1 + 8));
-    v12 = v30;
-    v13 = v30[5];
-    if (v30[6] != v13)
+    v12 = v29;
+    v13 = v29[5];
+    if (v29[6] != v13)
     {
       v14 = v11;
-      v25 = a5;
+      v24 = a5;
       v15 = 0;
       v16 = 1;
       do
@@ -9341,11 +9301,11 @@ void TI::Favonius::DictionaryHypothesis::_words(uint64_t a1, uint64_t a2, int a3
         if (*(v18 + 4) && (*(v17 + 135) & 0x10) != 0)
         {
           v19 = *(v17 + 17);
-          KB::DictionaryContainer::affix_sentinel(v18, v19, 1, &v36);
-          v20 = v36;
-          if (v37 && BYTE6(v36) == 1)
+          KB::DictionaryContainer::affix_sentinel(&v35, v18, v19, 1);
+          v20 = v35;
+          if (v36 && BYTE6(v35) == 1)
           {
-            free(v37);
+            free(v36);
           }
 
           if (v20)
@@ -9359,52 +9319,51 @@ void TI::Favonius::DictionaryHypothesis::_words(uint64_t a1, uint64_t a2, int a3
                 v22 = (v17 + 4);
               }
 
-              KB::String::String(&v36, v22 + v20, (v21 - v20));
-              KB::String::operator=(v17, &v36);
-              if (v37 && BYTE6(v36) == 1)
+              KB::String::String(&v35, v22 + v20, (v21 - v20));
+              KB::String::operator=(v17, &v35);
+              if (v36 && BYTE6(v35) == 1)
               {
-                free(v37);
+                free(v36);
               }
             }
           }
         }
 
         v15 = v16;
-        v12 = v30;
-        v13 = v30[5];
+        v12 = v29;
+        v13 = v29[5];
       }
 
-      while (0xEEEEEEEEEEEEEEEFLL * ((v30[6] - v13) >> 4) > v16++);
-      a5 = v25;
+      while (0xEEEEEEEEEEEEEEEFLL * ((v29[6] - v13) >> 4) > v16++);
+      a5 = v24;
     }
 
     if (a4)
     {
-      v26[0] = MEMORY[0x277D85DD0];
-      v26[1] = 0x40000000;
-      v26[2] = ___ZNK2TI8Favonius20DictionaryHypothesis6_wordsERNSt3__16vectorIN2KB4WordENS2_9allocatorIS5_EEEEbbb_block_invoke;
-      v26[3] = &unk_278732198;
-      v26[4] = &v29;
-      v26[5] = a1;
-      v27 = a3;
-      v28 = a5;
-      (*(**(a1 + 72) + 40))(*(a1 + 72), v26);
-      v12 = v30;
+      v25[0] = MEMORY[0x277D85DD0];
+      v25[1] = 0x40000000;
+      v25[2] = ___ZNK2TI8Favonius20DictionaryHypothesis6_wordsERNSt3__16vectorIN2KB4WordENS2_9allocatorIS5_EEEEbbb_block_invoke;
+      v25[3] = &unk_278732198;
+      v25[4] = &v28;
+      v25[5] = a1;
+      v26 = v5;
+      v27 = a5;
+      (*(**(a1 + 72) + 40))(*(a1 + 72), v25);
+      v12 = v29;
     }
 
-    std::vector<KB::Word>::__insert_with_size[abi:nn200100]<std::__wrap_iter<KB::Word*>,std::__wrap_iter<KB::Word*>>(a2, *(a2 + 8), v12[5], v12[6], 0xEEEEEEEEEEEEEEEFLL * ((v12[6] - v12[5]) >> 4));
-    _Block_object_dispose(&v29, 8);
-    v36 = v34;
+    std::vector<KB::Word>::__insert_with_size[abi:nn200100]<std::__wrap_iter<KB::Word*>,std::__wrap_iter<KB::Word*>>(a2, a2[1], v12[5], v12[6], 0xEEEEEEEEEEEEEEEFLL * ((v12[6] - v12[5]) >> 4));
+    _Block_object_dispose(&v28, 8);
+    v35 = v33;
   }
 
-  std::vector<KB::Word>::__destroy_vector::operator()[abi:nn200100](&v36);
-  v24 = *MEMORY[0x277D85DE8];
+  std::vector<KB::Word>::__destroy_vector::operator()[abi:nn200100](&v35);
 }
 
-void TI::Favonius::DictionaryHypothesis::merge_dynamic_words(TI::Favonius::DictionaryHypothesis *a1, uint64_t a2, uint64_t *a3, int a4, uint64_t a5, int a6)
+void TI::Favonius::DictionaryHypothesis::merge_dynamic_words(TI::Favonius::DictionaryHypothesis *a1, KB::Word **a2, void *a3, int a4, uint64_t a5, int a6, int a7)
 {
-  v118 = *MEMORY[0x277D85DE8];
-  if (a4 != 5 || (+[TITransientLexiconManager sharedInstance](TITransientLexiconManager, "sharedInstance"), v10 = objc_claimAutoreleasedReturnValue(), v11 = [v10 isSupplementalLexiconSearchEnabled], v10, v11))
+  v121 = *MEMORY[0x277D85DE8];
+  if (a4 != 5 || (+[TITransientLexiconManager sharedInstance](TITransientLexiconManager, "sharedInstance"), v11 = objc_claimAutoreleasedReturnValue(), v12 = [v11 isSupplementalLexiconSearchEnabled], v11, v12))
   {
     if (*a3)
     {
@@ -9415,32 +9374,31 @@ void TI::Favonius::DictionaryHypothesis::merge_dynamic_words(TI::Favonius::Dicti
         {
           if (a4 > 2)
           {
-            v13 = 0;
+            v14 = 0;
           }
 
           else
           {
-            v13 = *((*(**(*(a1 + 1) + 24) + 48))(*(*(a1 + 1) + 24), a5) + 160);
-            v14 = *a3;
+            v14 = *((*(**(*(a1 + 1) + 24) + 48))(*(*(a1 + 1) + 24), a5) + 160);
           }
 
-          v98 = 0;
-          v99 = &v98;
-          v100 = 0x4002000000;
-          v101 = __Block_byref_object_copy__4;
-          v102 = __Block_byref_object_dispose__5;
-          memset(v103, 0, sizeof(v103));
+          v102 = 0;
+          v103 = &v102;
+          v104 = 0x4002000000;
+          v105 = __Block_byref_object_copy__4;
+          v106 = __Block_byref_object_dispose__5;
+          memset(v107, 0, sizeof(v107));
           LXCursorEnumerateEntries();
-          v97 = *(*(*(a1 + 1) + 40) + 160);
+          v101 = *(*(*(a1 + 1) + 40) + 160);
           if (a4 <= 3)
           {
             if ((a4 - 1) < 3)
             {
-              v15 = v99;
+              v15 = v103;
               TI::Favonius::DictionaryHypothesis::partial_probability_per_dynamic_usage(a1);
-              v108 = 0;
-              v109 = 0;
-              v110 = 0;
+              v112 = 0;
+              v113 = 0;
+              v114 = 0;
               v16 = v15[5];
               v17 = v15[6];
               v18 = v17 - v16;
@@ -9448,15 +9406,15 @@ void TI::Favonius::DictionaryHypothesis::merge_dynamic_words(TI::Favonius::Dicti
               {
                 if ((v18 >> 3) < 0x111111111111112)
                 {
-                  __n[4] = &v108;
+                  __n[4] = &v112;
                   std::__allocate_at_least[abi:nn200100]<std::allocator<KB::Word>>(v18 >> 3);
                 }
 
                 std::vector<unsigned long>::__throw_length_error[abi:nn200100]();
               }
 
-              std::vector<KB::Word>::__insert_with_size[abi:nn200100]<std::__wrap_iter<KB::Word*>,std::__wrap_iter<KB::Word*>>(a2, *(a2 + 8), v108, v109, 0xEEEEEEEEEEEEEEEFLL * ((v109 - v108) >> 4));
-              __n[0] = &v108;
+              std::vector<KB::Word>::__insert_with_size[abi:nn200100]<std::__wrap_iter<KB::Word*>,std::__wrap_iter<KB::Word*>>(a2, a2[1], v112, v113, 0xEEEEEEEEEEEEEEEFLL * ((v113 - v112) >> 4));
+              __n[0] = &v112;
               std::vector<KB::Word>::__destroy_vector::operator()[abi:nn200100](__n);
               goto LABEL_15;
             }
@@ -9466,246 +9424,244 @@ void TI::Favonius::DictionaryHypothesis::merge_dynamic_words(TI::Favonius::Dicti
               goto LABEL_15;
             }
 
-            v37 = v99;
-            v38 = TI::Favonius::DictionaryHypothesis::partial_probability_per_dynamic_usage(a1);
-            v39 = *a2;
-            v40 = 0.0;
-            while (v39 != *(a2 + 8))
+            v35 = v103;
+            v36 = TI::Favonius::DictionaryHypothesis::partial_probability_per_dynamic_usage(a1);
+            v37 = *a2;
+            v38 = 0.0;
+            while (v37 != a2[1])
             {
-              if ((*(v39 + 106) & 4) != 0 && v13 == *(v39 + 136))
+              if ((*(v37 + 106) & 4) != 0 && v14 == *(v37 + 136))
               {
-                v40 = v40 + *(v39 + 48);
+                v38 = v38 + *(v37 + 48);
               }
 
-              v39 += 240;
+              v37 += 240;
             }
 
-            v60 = v40 == 0.0;
-            v61 = v37[5];
-            v62 = v37[6];
-            if (v62 != v61)
+            v61 = v38 == 0.0;
+            v62 = v35[5];
+            v63 = v35[6];
+            if (v63 != v62)
             {
-              v63 = 0;
               v64 = 1;
               do
               {
-                v65 = *(v61 + 8 * v63);
-                v60 |= LXEntryGetUsageCount() > 5;
-                v63 = v64;
-                v61 = v37[5];
-                v62 = v37[6];
+                v61 |= LXEntryGetUsageCount() > 5;
+                v65 = v64;
+                v62 = v35[5];
+                v63 = v35[6];
                 ++v64;
               }
 
-              while (v63 < (v62 - v61) >> 3);
+              while (v65 < (v63 - v62) >> 3);
             }
 
-            if (v62 == v61)
+            if (v63 == v62)
             {
               goto LABEL_15;
             }
 
             v66 = 0;
             v67 = 0;
-            v94 = v37;
+            v98 = v35;
             while (1)
             {
-              v96 = v67;
-              v68 = *(v61 + 8 * v66);
+              v100 = v67;
+              v68 = *(v62 + 8 * v66);
               UsageCount = LXEntryGetUsageCount();
-              KB::Word::Word(__n, v68, v13);
-              KB::Word::capitalized_string(__n, v111);
-              v71 = *a2;
-              v72 = *(a2 + 8);
-              if (*a2 != v72)
+              KB::Word::Word(__n, v68, v14);
+              KB::Word::capitalized_string(&v115, __n);
+              v73 = *a2;
+              v74 = a2[1];
+              if (*a2 != v74)
               {
-                v73 = *(a2 + 8);
+                v75 = a2[1];
                 while (1)
                 {
-                  if ((*(v71 + 106) & 4) != 0 && (v13 == -2 || v13 == *(v71 + 136)) && KB::String::equal(v71, v111, 0))
+                  if ((*(v73 + 106) & 4) != 0 && (v14 == -2 || v14 == *(v73 + 34)) && KB::String::equal(v73, &v115, 0, v71, v72))
                   {
-                    KB::Word::capitalized_string(v71, &v104);
-                    v74 = KB::String::equal(&v104, v111, 1);
-                    if (v105 && BYTE6(v104) == 1)
+                    KB::Word::capitalized_string(&v108, v73);
+                    v78 = KB::String::equal(&v108, &v115, 1, v76, v77);
+                    if (v109 && BYTE6(v108) == 1)
                     {
-                      free(v105);
+                      free(v109);
                     }
 
-                    if (v74)
+                    if (v78)
                     {
-                      v75 = *(a2 + 8);
+                      v79 = a2[1];
                       goto LABEL_115;
                     }
 
-                    if (!*(v71 + 120))
+                    if (!*(v73 + 30))
                     {
-                      v73 = v71;
+                      v75 = v73;
                     }
                   }
 
-                  v71 += 240;
-                  v75 = *(a2 + 8);
-                  if (v71 == v75)
+                  v73 = (v73 + 240);
+                  v79 = a2[1];
+                  if (v73 == v79)
                   {
                     goto LABEL_114;
                   }
                 }
               }
 
-              v75 = *(a2 + 8);
-              v73 = v75;
+              v79 = a2[1];
+              v75 = v79;
 LABEL_114:
-              v71 = v72;
+              v73 = v74;
 LABEL_115:
-              v76 = v38 * UsageCount;
-              if (v71 == v75)
+              v80 = v36 * UsageCount;
+              if (v73 == v79)
               {
-                v77 = v73;
+                v81 = v75;
               }
 
               else
               {
-                v77 = v71;
+                v81 = v73;
               }
 
-              if (v75 != v77)
+              if (v79 != v81)
               {
-                v78 = 0.0;
-                if (KB::string_has_only_uppercase_characters(v111, v70))
+                v82 = 0.0;
+                if (KB::string_has_only_uppercase_characters(&v115, v70))
                 {
                   goto LABEL_159;
                 }
 
-                v79 = *(v77 + 104);
-                if ((v79 & 0x84) == 0 || v71 != v75)
+                v83 = *(v81 + 26);
+                if ((v83 & 0x84) == 0 || v73 != v79)
                 {
-                  if ((v79 & 0x80) != 0)
+                  if ((v83 & 0x80) != 0)
                   {
-                    v81 = 2;
+                    v85 = 2;
                   }
 
                   else
                   {
-                    v81 = 1;
+                    v85 = 1;
                   }
 
-                  if (v60)
+                  if (v61)
                   {
-                    *(v77 + 48) = v76 + *(v77 + 48);
+                    *(v81 + 12) = v80 + *(v81 + 12);
                   }
 
                   else
                   {
-                    v90 = *a2;
-                    v91 = *(a2 + 8);
-                    while (v90 != v91)
+                    v94 = *a2;
+                    v95 = a2[1];
+                    while (v94 != v95)
                     {
-                      if ((*(v90 + 106) & 4) != 0 && v13 == *(v90 + 136))
+                      if ((*(v94 + 106) & 4) != 0 && v14 == *(v94 + 136))
                       {
-                        *(v90 + 48) = *(v90 + 48) + (v76 * (*(v90 + 48) / v40));
+                        *(v94 + 48) = *(v94 + 48) + (v80 * (*(v94 + 48) / v38));
                       }
 
-                      v90 += 240;
+                      v94 += 240;
                     }
                   }
 
-                  if (v71 == v75)
+                  if (v73 == v79)
                   {
-                    TI::Favonius::DictionaryHypothesis::word_from_dynamic_entry(&v104, v68, 0, v13, v97, 0.0);
-                    std::vector<KB::Word>::push_back[abi:nn200100](a2, &v104);
-                    KB::Word::~Word(&v104);
+                    TI::Favonius::DictionaryHypothesis::word_from_dynamic_entry(&v108, v68, 0, v14, v101, 0.0);
+                    std::vector<KB::Word>::push_back[abi:nn200100](a2, &v108);
+                    KB::Word::~Word(&v108);
                   }
 
                   else
                   {
-                    *(v77 + 124) = UsageCount;
-                    *(v77 + 128) = LXEntryGetPenaltyCount();
+                    *(v81 + 31) = UsageCount;
+                    *(v81 + 32) = LXEntryGetPenaltyCount();
                     MetaFlags = LXEntryGetMetaFlags();
-                    v83 = *(v77 + 104);
-                    v84 = v83 & 0xFBFFFFFF | (((MetaFlags >> 26) & 1) << 26);
-                    *(v77 + 104) = v84;
-                    if (!*(v77 + 140))
+                    v87 = *(v81 + 26);
+                    v88 = v87 & 0xFBFFFFFF | (((MetaFlags >> 26) & 1) << 26);
+                    *(v81 + 26) = v88;
+                    if (!*(v81 + 35))
                     {
-                      *(v77 + 136) = v117;
+                      *(v81 + 17) = v120;
                     }
 
-                    if (UsageCount > v81 && (v83 & 0x2000) == 0)
+                    if (UsageCount > v85 && (v87 & 0x2000) == 0)
                     {
-                      *(v77 + 104) = v84 | 0x2000;
+                      *(v81 + 26) = v88 | 0x2000;
                     }
                   }
 
 LABEL_158:
-                  v78 = v76;
+                  v82 = v80;
                   goto LABEL_159;
                 }
               }
 
-              if (v40 != 0.0)
+              if (v38 != 0.0)
               {
-                if (!(v60 & 1 | (LXEntryGetUsageCount() > 2)))
+                if (!(v61 & 1 | (LXEntryGetUsageCount() > 2)))
                 {
                   goto LABEL_144;
                 }
 
-                v85 = LXEntryCopyStoredString();
-                KB::utf8_string(v85, &v104);
-                has_word_medial_punctuation = KB::string_has_word_medial_punctuation(&v104, v86);
-                if (v105 && BYTE6(v104) == 1)
+                v89 = LXEntryCopyStoredString();
+                KB::utf8_string(&v108, v89);
+                has_word_medial_punctuation = KB::string_has_word_medial_punctuation(&v108, v90);
+                if (v109 && BYTE6(v108) == 1)
                 {
-                  free(v105);
+                  free(v109);
                 }
 
-                if (v85)
+                if (v89)
                 {
-                  CFRelease(v85);
+                  CFRelease(v89);
                 }
 
                 if (has_word_medial_punctuation)
                 {
 LABEL_144:
-                  v88 = *a2;
-                  v89 = *(a2 + 8);
-                  while (v88 != v89)
+                  v92 = *a2;
+                  v93 = a2[1];
+                  while (v92 != v93)
                   {
-                    if ((*(v88 + 106) & 4) != 0 && v13 == *(v88 + 136))
+                    if ((*(v92 + 106) & 4) != 0 && v14 == *(v92 + 136))
                     {
-                      *(v88 + 48) = *(v88 + 48) + (v76 * (*(v88 + 48) / v40));
+                      *(v92 + 48) = *(v92 + 48) + (v80 * (*(v92 + 48) / v38));
                     }
 
-                    v88 += 240;
+                    v92 += 240;
                   }
 
                   goto LABEL_158;
                 }
               }
 
-              TI::Favonius::DictionaryHypothesis::word_from_dynamic_entry(&v104, v68, 0, v13, v97, v76);
-              std::vector<KB::Word>::push_back[abi:nn200100](a2, &v104);
-              KB::Word::~Word(&v104);
-              v78 = 0.0;
+              TI::Favonius::DictionaryHypothesis::word_from_dynamic_entry(&v108, v68, 0, v14, v101, v80);
+              std::vector<KB::Word>::push_back[abi:nn200100](a2, &v108);
+              KB::Word::~Word(&v108);
+              v82 = 0.0;
 LABEL_159:
-              if (v113)
+              if (v116)
               {
-                v92 = v112 == 1;
+                v96 = BYTE6(v115) == 1;
               }
 
               else
               {
-                v92 = 0;
+                v96 = 0;
               }
 
-              if (v92)
+              if (v96)
               {
-                free(v113);
+                free(v116);
               }
 
               KB::Word::~Word(__n);
-              v40 = v40 + v78;
-              v66 = (v96 + 1);
-              v61 = v94[5];
-              v67 = v96 + 1;
-              if (v66 >= (v94[6] - v61) >> 3)
+              v38 = v38 + v82;
+              v66 = (v100 + 1);
+              v62 = v98[5];
+              v67 = v100 + 1;
+              if (v66 >= (v98[6] - v62) >> 3)
               {
                 goto LABEL_15;
               }
@@ -9716,197 +9672,195 @@ LABEL_159:
           {
             if (a4 == 5)
             {
-              v20 = v99;
-              v21 = TI::Favonius::DictionaryHypothesis::partial_probability_per_dynamic_usage(a1);
-              v22 = v20[5];
-              v23 = v20[6];
-              if (v22 != v23)
+              v19 = v103;
+              v20 = TI::Favonius::DictionaryHypothesis::partial_probability_per_dynamic_usage(a1);
+              v21 = v19[5];
+              v22 = v19[6];
+              if (v21 != v22)
               {
-                v24 = v21;
+                v23 = v20;
                 do
                 {
-                  v25 = *v22;
-                  if (*v22)
+                  v24 = *v21;
+                  if (*v21)
                   {
-                    v26 = *v22;
-                    v27 = LXEntryGetUsageCount();
-                    TI::Favonius::DictionaryHypothesis::word_from_dynamic_entry(__n, v25, 5, v13, v97, v24 * v27);
-                    v29 = *a2;
-                    v30 = *(a2 + 8);
-                    if (*a2 != v30)
+                    v25 = LXEntryGetUsageCount();
+                    TI::Favonius::DictionaryHypothesis::word_from_dynamic_entry(__n, v24, 5, v14, v101, v23 * v25);
+                    v27 = *a2;
+                    v28 = a2[1];
+                    if (*a2 != v28)
                     {
-                      v31 = (v29 + 440);
-                      while (KB::CollatorWrapper::sortkey_compare_strings((*(*(a1 + 1) + 8) + 72), v29, __n, v28))
+                      v29 = (v27 + 440);
+                      while (KB::CollatorWrapper::sortkey_compare_strings((*(*(a1 + 1) + 8) + 72), v27, __n, v26))
                       {
-                        v29 += 240;
-                        v31 += 30;
-                        if (v29 == v30)
+                        v27 += 240;
+                        v29 += 30;
+                        if (v27 == v28)
                         {
-                          v29 = v30;
+                          v27 = v28;
                           goto LABEL_33;
                         }
                       }
 
-                      if (v29 != v30)
+                      if (v27 != v28)
                       {
-                        v32 = (v29 + 240);
-                        while (v32 != v30)
+                        v30 = (v27 + 240);
+                        while (v30 != v28)
                         {
-                          if (KB::CollatorWrapper::sortkey_compare_strings((*(*(a1 + 1) + 8) + 72), (v31 - 25), __n, v28))
+                          if (KB::CollatorWrapper::sortkey_compare_strings((*(*(a1 + 1) + 8) + 72), (v29 - 25), __n, v26))
                           {
-                            KB::String::operator=(v29, (v31 - 25));
-                            KB::ByteString::operator=((v29 + 32), v31 - 84);
-                            v33 = *(v31 - 19);
-                            *(v29 + 56) = *(v31 - 36);
-                            *(v29 + 48) = v33;
-                            KB::String::operator=(v29 + 64, (v31 - 17));
-                            v34 = *(v31 - 13);
-                            v35 = *(v31 - 11);
-                            v36 = *(v31 - 7);
-                            *(v29 + 128) = *(v31 - 9);
-                            *(v29 + 144) = v36;
-                            *(v29 + 96) = v34;
-                            *(v29 + 112) = v35;
-                            KB::String::operator=(v29 + 160, (v31 - 5));
-                            *(v29 + 192) = *(v31 - 8);
-                            std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__move_assign(v29 + 200, v31);
-                            v29 += 240;
+                            KB::String::operator=(v27, (v29 - 25));
+                            KB::ByteString::operator=((v27 + 32), v29 - 84);
+                            v31 = *(v29 - 19);
+                            *(v27 + 56) = *(v29 - 36);
+                            *(v27 + 48) = v31;
+                            KB::String::operator=(v27 + 64, (v29 - 17));
+                            v32 = *(v29 - 13);
+                            v33 = *(v29 - 11);
+                            v34 = *(v29 - 7);
+                            *(v27 + 128) = *(v29 - 9);
+                            *(v27 + 144) = v34;
+                            *(v27 + 96) = v32;
+                            *(v27 + 112) = v33;
+                            KB::String::operator=(v27 + 160, (v29 - 5));
+                            *(v27 + 192) = *(v29 - 8);
+                            std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__move_assign(v27 + 200, v29);
+                            v27 += 240;
                           }
 
-                          v32 = v31 + 5;
-                          v31 += 30;
+                          v30 = (v29 + 5);
+                          v29 += 30;
                         }
                       }
                     }
 
 LABEL_33:
-                    std::vector<KB::Word>::erase(a2, v29, *(a2 + 8));
+                    std::vector<KB::Word>::erase(a2, v27, a2[1]);
                     std::vector<KB::Word>::push_back[abi:nn200100](a2, __n);
                     KB::Word::~Word(__n);
                   }
 
-                  ++v22;
+                  ++v21;
                 }
 
-                while (v22 != v23);
+                while (v21 != v22);
               }
             }
 
             goto LABEL_15;
           }
 
-          v41 = v99;
-          v42 = TI::Favonius::DictionaryHypothesis::partial_probability_per_dynamic_usage(a1);
-          v43 = v41[5];
-          v44 = v41[6];
-          if (v43 == v44)
+          v39 = v103;
+          v40 = TI::Favonius::DictionaryHypothesis::partial_probability_per_dynamic_usage(a1);
+          v41 = v39[5];
+          v42 = v39[6];
+          if (v41 == v42)
           {
 LABEL_15:
-            _Block_object_dispose(&v98, 8);
-            __n[0] = v103;
+            _Block_object_dispose(&v102, 8);
+            __n[0] = v107;
             std::vector<KB::retain_ptr<__CFString const*>>::__destroy_vector::operator()[abi:nn200100](__n);
-            goto LABEL_16;
+            return;
           }
 
-          v45 = v42;
+          v43 = v40;
           while (1)
           {
-            v46 = *v43;
-            if (*v43)
+            v44 = *v41;
+            if (*v41)
             {
               break;
             }
 
 LABEL_92:
-            if (++v43 == v44)
+            if (++v41 == v42)
             {
               goto LABEL_15;
             }
           }
 
-          v47 = *v43;
-          v48 = v45 * LXEntryGetUsageCount();
-          TI::Favonius::DictionaryHypothesis::word_from_dynamic_entry(__n, v46, 4, v13, v97, v48);
-          v49 = _os_feature_enabled_impl();
-          v51 = *a2;
-          v50 = *(a2 + 8);
-          if (v49)
+          v45 = v43 * LXEntryGetUsageCount();
+          TI::Favonius::DictionaryHypothesis::word_from_dynamic_entry(__n, v44, 4, v14, v101, v45);
+          v46 = _os_feature_enabled_impl();
+          v50 = *a2;
+          v49 = a2[1];
+          if (v46)
           {
-            while (v51 != v50)
+            while (v50 != v49)
             {
-              if (KB::String::equal(v51, __n, 0))
+              if (KB::String::equal(v50, __n, 0, v47, v48))
               {
                 goto LABEL_91;
               }
 
-              v51 += 240;
+              v50 += 240;
             }
 
             goto LABEL_90;
           }
 
-          if (v51 == v50)
+          if (v50 == v49)
           {
-            v52 = 0;
+            v51 = 0;
             goto LABEL_73;
           }
 
-          v52 = 0;
+          v51 = 0;
           while (1)
           {
-            KB::Word::capitalized_string(v51, &v104);
-            KB::Word::capitalized_string(__n, v111);
-            v53 = *(v51 + 104);
-            if ((v53 & 0x40000) != 0 || (((v53 & 0x2000000) == 0) & v52) == 0)
+            KB::Word::capitalized_string(&v108, v50);
+            KB::Word::capitalized_string(&v115, __n);
+            v52 = *(v50 + 104);
+            if ((v52 & 0x40000) != 0 || (((v52 & 0x2000000) == 0) & v51) == 0)
             {
-              KB::Word::capitalized_string(v51, &v108);
-              KB::Word::capitalized_string(__n, v106);
-              v54 = KB::String::equal(&v108, v106, 1);
-              if (v107 && v106[6] == 1)
+              KB::Word::capitalized_string(&v112, v50);
+              KB::Word::capitalized_string(&v110, __n);
+              v55 = KB::String::equal(&v112, &v110, 1, v53, v54);
+              if (v111 && BYTE6(v110) == 1)
               {
-                free(v107);
+                free(v111);
               }
 
-              if (v109 && BYTE6(v108) == 1)
+              if (v113 && BYTE6(v112) == 1)
               {
-                free(v109);
+                free(v113);
               }
 
-              if (!v54)
+              if (!v55)
               {
                 goto LABEL_63;
               }
 
-              *(v51 + 48) = v48 + *(v51 + 48);
-              *(v51 + 124) += v116;
-              *(v51 + 104) = *(v51 + 104) & 0xFFFFDFFF | ((v116 != 0) << 13);
+              *(v50 + 48) = v45 + *(v50 + 48);
+              *(v50 + 124) += v119;
+              *(v50 + 104) = *(v50 + 104) & 0xFFFFDFFF | ((v119 != 0) << 13);
             }
 
-            v52 = 1;
+            v51 = 1;
 LABEL_63:
-            if (v113 && v112 == 1)
+            if (v116 && BYTE6(v115) == 1)
             {
-              free(v113);
+              free(v116);
             }
 
-            if (v105 && BYTE6(v104) == 1)
+            if (v109 && BYTE6(v108) == 1)
             {
-              free(v105);
+              free(v109);
             }
 
-            v51 += 240;
-            if (v51 == v50)
+            v50 += 240;
+            if (v50 == v49)
             {
-              if (v52)
+              if (v51)
               {
                 goto LABEL_89;
               }
 
 LABEL_73:
-              if (!a6 || !v115)
+              if (!a6 || !v118)
               {
 LABEL_89:
-                if (v52)
+                if (v51)
                 {
 LABEL_91:
                   KB::Word::~Word(__n);
@@ -9918,54 +9872,54 @@ LABEL_90:
                 goto LABEL_91;
               }
 
-              v56 = *a2;
-              v55 = *(a2 + 8);
+              v57 = *a2;
+              v56 = a2[1];
               while (2)
               {
-                if (v56 == v55)
+                if (v57 == v56)
                 {
                   goto LABEL_89;
                 }
 
-                v57 = *(v56 + 104);
-                if ((v57 & 0x40000) != 0 || (((v57 & 0x2000000) == 0) & v52) == 0)
+                v58 = *(v57 + 104);
+                if ((v58 & 0x40000) != 0 || (((v58 & 0x2000000) == 0) & v51) == 0)
                 {
-                  if (!KB::String::equal(v56, __n, 0))
+                  if (!KB::String::equal(v57, __n, 0, v47, v48))
                   {
                     goto LABEL_88;
                   }
 
-                  v58 = *(v56 + 104);
-                  if ((v58 & 0x84) != 0 || *(v56 + 120))
+                  v59 = *(v57 + 104);
+                  if ((v59 & 0x84) != 0 || *(v57 + 120))
                   {
-                    v59 = BYTE4(__n[0]);
+                    v60 = BYTE4(__n[0]);
                     if (!WORD2(__n[0]))
                     {
                       KB::String::compute_length(__n);
-                      v59 = BYTE4(__n[0]);
+                      v60 = BYTE4(__n[0]);
                     }
 
-                    if (((-1 << v59) | v115) == 0xFFFFFFFF)
+                    if (((-1 << v60) | v118) == 0xFFFFFFFF)
                     {
-                      v58 = *(v56 + 104);
+                      v59 = *(v57 + 104);
                       goto LABEL_86;
                     }
 
 LABEL_88:
-                    v56 += 240;
+                    v57 += 240;
                     continue;
                   }
 
 LABEL_86:
-                  *(v56 + 48) = v48 + *(v56 + 48);
-                  *(v56 + 124) += v116;
-                  *(v56 + 104) = v58 & 0xFFFFDFFF | ((v116 != 0) << 13);
+                  *(v57 + 48) = v45 + *(v57 + 48);
+                  *(v57 + 124) += v119;
+                  *(v57 + 104) = v59 & 0xFFFFDFFF | ((v119 != 0) << 13);
                 }
 
                 break;
               }
 
-              v52 = 1;
+              v51 = 1;
               goto LABEL_88;
             }
           }
@@ -9973,7 +9927,4 @@ LABEL_86:
       }
     }
   }
-
-LABEL_16:
-  v19 = *MEMORY[0x277D85DE8];
 }

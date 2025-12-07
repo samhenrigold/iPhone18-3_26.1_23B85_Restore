@@ -771,7 +771,7 @@ LABEL_13:
     }
 
     v9 = -[SBSceneResizeGestureSwitcherModifier _responseForGestureUpdateWithPause:gestureIsEnding:](self, "_responseForGestureUpdateWithPause:gestureIsEnding:", 0, [eventCopy phase] == 3);
-    v10 = SBAppendSwitcherModifierResponse(v9, 0);
+    v10 = SBAppendSwitcherModifierResponse();
 
     v11 = (self->_timerGenCount + 1);
     self->_timerGenCount = v11;
@@ -788,7 +788,7 @@ LABEL_13:
     objc_copyWeak(v20, &location);
     v20[1] = v11;
     v16 = [(SBTimerEventSwitcherEventResponse *)v15 initWithDelay:v19 validator:@"kSBLiveSceneResizeTimerReason" reason:v14];
-    v17 = SBAppendSwitcherModifierResponse(v16, v10);
+    v17 = SBAppendSwitcherModifierResponse();
 
     objc_destroyWeak(v20);
     objc_destroyWeak(&location);
@@ -840,10 +840,10 @@ BOOL __76__SBSceneResizeGestureSwitcherModifier__handleGestureEventChangedWithEv
   if (eventCopy)
   {
     v7 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:64 updateMode:2];
-    v8 = SBAppendSwitcherModifierResponse(v7, v5);
+    v8 = SBAppendSwitcherModifierResponse();
 
     v9 = [(SBSceneResizeGestureSwitcherModifier *)self _responseForGestureUpdateWithPause:1 gestureIsEnding:0];
-    v5 = SBAppendSwitcherModifierResponse(v9, v8);
+    v5 = SBAppendSwitcherModifierResponse();
   }
 
   return v5;
@@ -1210,7 +1210,7 @@ LABEL_5:
     }
 
     v24 = [[SBPerformTransitionSwitcherEventResponse alloc] initWithTransitionRequest:v19 gestureInitiated:1];
-    v25 = SBAppendSwitcherModifierResponse(v24, 0);
+    v25 = SBAppendSwitcherModifierResponse();
 
     if (endingCopy)
     {
@@ -1225,7 +1225,7 @@ LABEL_5:
   {
 LABEL_8:
     v26 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:30 updateMode:3];
-    v27 = SBAppendSwitcherModifierResponse(v26, v25);
+    v27 = SBAppendSwitcherModifierResponse();
 
     v25 = v27;
   }

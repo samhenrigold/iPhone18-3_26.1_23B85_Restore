@@ -7285,7 +7285,7 @@ uint64_t vt_Copy_RGhA_p420ITU2020(uint64_t a1, uint64_t a2, uint64_t *a3, void *
     v38 = *a3;
     v39 = *a3 + *a4 * v11;
     v40 = 8 * v12;
-    v41 = (v39 + 8 * v12);
+    v41 = v39 + 8 * v12;
     v42 = (v41 + *a4);
     v239 = *a4 & 0x7FFFFFFFFFFFFFFFLL;
     v238 = (v33 >> 1) & 0x7FFFFFFFFFFFFFFELL;
@@ -7813,7 +7813,7 @@ uint64_t vt_Copy_RGhA_p420ITU2020(uint64_t a1, uint64_t a2, uint64_t *a3, void *
         while (v245 != v95);
       }
 
-      v41 = &v243[v239];
+      v41 = v243 + 2 * v239;
       v42 = &v242[v239];
       v36 += 4 * v238;
       ++v27;
@@ -7891,7 +7891,7 @@ uint64_t vt_Copy_RGhA_p420ITU709(uint64_t a1, uint64_t a2, uint64_t *a3, void *a
     v38 = *a3;
     v39 = *a3 + *a4 * v11;
     v40 = 8 * v12;
-    v41 = (v39 + 8 * v12);
+    v41 = v39 + 8 * v12;
     v42 = (v41 + *a4);
     v239 = *a4 & 0x7FFFFFFFFFFFFFFFLL;
     v238 = (v33 >> 1) & 0x7FFFFFFFFFFFFFFELL;
@@ -8419,7 +8419,7 @@ uint64_t vt_Copy_RGhA_p420ITU709(uint64_t a1, uint64_t a2, uint64_t *a3, void *a
         while (v245 != v95);
       }
 
-      v41 = &v243[v239];
+      v41 = v243 + 2 * v239;
       v42 = &v242[v239];
       v36 += 4 * v238;
       ++v27;
@@ -8497,7 +8497,7 @@ uint64_t vt_Copy_RGhA_p420ITU601(uint64_t a1, uint64_t a2, uint64_t *a3, void *a
     v38 = *a3;
     v39 = *a3 + *a4 * v11;
     v40 = 8 * v12;
-    v41 = (v39 + 8 * v12);
+    v41 = v39 + 8 * v12;
     v42 = (v41 + *a4);
     v239 = *a4 & 0x7FFFFFFFFFFFFFFFLL;
     v238 = (v33 >> 1) & 0x7FFFFFFFFFFFFFFELL;
@@ -9025,7 +9025,7 @@ uint64_t vt_Copy_RGhA_p420ITU601(uint64_t a1, uint64_t a2, uint64_t *a3, void *a
         while (v245 != v95);
       }
 
-      v41 = &v243[v239];
+      v41 = v243 + 2 * v239;
       v42 = &v242[v239];
       v36 += 4 * v238;
       ++v27;
@@ -9098,7 +9098,7 @@ uint64_t vt_Copy_RGhA_pf20ITU2020(uint64_t a1, uint64_t a2, uint64_t *a3, uint64
     v36 = *a4;
     v37 = *a3 + *a4 * v11;
     v38 = 8 * v12;
-    v39 = (v37 + 8 * v12);
+    v39 = v37 + 8 * v12;
     v40 = (v39 + *a4);
     v235 = v36 & 0x7FFFFFFFFFFFFFFFLL;
     v234 = (*a8 >> 1) & 0x7FFFFFFFFFFFFFFELL;
@@ -9624,7 +9624,7 @@ uint64_t vt_Copy_RGhA_pf20ITU2020(uint64_t a1, uint64_t a2, uint64_t *a3, uint64
         while (v241 != v93);
       }
 
-      v39 = &v239[v235];
+      v39 = v239 + 2 * v235;
       v40 = &v238[v235];
       v33 += 4 * v234;
       ++v26;
@@ -9697,7 +9697,7 @@ uint64_t vt_Copy_RGhA_pf20ITU709(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_
     v36 = *a4;
     v37 = *a3 + *a4 * v11;
     v38 = 8 * v12;
-    v39 = (v37 + 8 * v12);
+    v39 = v37 + 8 * v12;
     v40 = (v39 + *a4);
     v235 = v36 & 0x7FFFFFFFFFFFFFFFLL;
     v234 = (*a8 >> 1) & 0x7FFFFFFFFFFFFFFELL;
@@ -10223,7 +10223,7 @@ uint64_t vt_Copy_RGhA_pf20ITU709(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_
         while (v241 != v93);
       }
 
-      v39 = &v239[v235];
+      v39 = v239 + 2 * v235;
       v40 = &v238[v235];
       v33 += 4 * v234;
       ++v26;

@@ -334,7 +334,7 @@ uint64_t __38__TSSTheme_registerPresetSourceClass___block_invoke(uint64_t a1, ui
   return v3;
 }
 
-uint64_t __27__TSSTheme_childEnumerator__block_invoke(uint64_t a1, uint64_t a2, void *a3)
+void *__27__TSSTheme_childEnumerator__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   result = [a3 count];
   if (result)
@@ -356,15 +356,16 @@ uint64_t __27__TSSTheme_childEnumerator__block_invoke(uint64_t a1, uint64_t a2, 
 {
   objc_opt_class();
   v5 = TSUClassAndProtocolCast();
-  if (v5)
-  {
-    return [MEMORY[0x277CCACA8] stringWithFormat:@"%@-%lu", String(objc_msgSend(v5, "presetKind", &unk_287E2B800)), -[TSSTheme indexOfPreset:](self, "indexOfPreset:", v5)];
-  }
-
-  else
+  v6 = MEMORY[0x277CCACA8];
+  if (!v5)
   {
     return [MEMORY[0x277CCACA8] stringWithFormat:@"?%s-%p?", object_getClassName(child), child];
   }
+
+  v7 = v5;
+  [v5 presetKind];
+  String();
+  return [v6 stringWithFormat:@"%@-%lu", v8, -[TSSTheme indexOfPreset:](self, "indexOfPreset:", v7)];
 }
 
 + (id)presetBootstrapOrder
@@ -441,7 +442,7 @@ uint64_t __27__TSSTheme_childEnumerator__block_invoke(uint64_t a1, uint64_t a2, 
   [(TSKDocumentModelEnumerator *)v3 enumerateReferencedStylesUsingBlock:v4];
 }
 
-uint64_t __43__TSSTheme_checkThemeStylesheetConsistency__block_invoke(uint64_t a1, void *a2)
+void *__43__TSSTheme_checkThemeStylesheetConsistency__block_invoke(uint64_t a1, void *a2)
 {
   if (![objc_msgSend(*(a1 + 32) "stylesheet")] || (v4 = objc_msgSend(a2, "stylesheet"), result = objc_msgSend(*(a1 + 32), "stylesheet"), v4 != result))
   {

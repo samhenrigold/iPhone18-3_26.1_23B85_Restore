@@ -49,9 +49,7 @@ uint64_t __45__PowerUIBrightnessController_sharedInstance__block_invoke()
 
 - (void)start
 {
-  v3 = objc_opt_new();
-  bClient = self->_bClient;
-  self->_bClient = v3;
+  self->_bClient = objc_opt_new();
 
   MEMORY[0x2821F96F8]();
 }
@@ -67,15 +65,15 @@ uint64_t __45__PowerUIBrightnessController_sharedInstance__block_invoke()
   dispatch_sync(queue, block);
 }
 
-uint64_t __46__PowerUIBrightnessController_resetMitigation__block_invoke(uint64_t result)
+void *__46__PowerUIBrightnessController_resetMitigation__block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = result[4];
   if (*(v1 + 8) == 1)
   {
     v2 = result;
     [*(v1 + 32) setProperty:&unk_282D4F060 forKey:@"EcoModeFactorUpdate"];
-    result = [*(*(v2 + 32) + 32) setProperty:MEMORY[0x277CBEC28] forKey:@"EcoMode"];
-    v1 = *(v2 + 32);
+    result = [*(v2[4] + 32) setProperty:MEMORY[0x277CBEC28] forKey:@"EcoMode"];
+    v1 = v2[4];
   }
 
   *(v1 + 8) = 0;
@@ -95,7 +93,7 @@ uint64_t __46__PowerUIBrightnessController_resetMitigation__block_invoke(uint64_
 
 void __47__PowerUIBrightnessController_engageMitigation__block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 32) copyPropertyForKey:@"DisplayBrightness"];
   v3 = [v2 objectForKeyedSubscript:@"Brightness"];
 
@@ -127,8 +125,8 @@ void __47__PowerUIBrightnessController_engageMitigation__block_invoke(uint64_t a
       goto LABEL_12;
     }
 
-    v15 = 138412290;
-    v16 = &unk_282D4F070;
+    v14 = 138412290;
+    v15 = &unk_282D4F070;
     v8 = "Success: Setting brightness reduction factor to %@";
   }
 
@@ -139,12 +137,12 @@ void __47__PowerUIBrightnessController_engageMitigation__block_invoke(uint64_t a
       goto LABEL_12;
     }
 
-    v15 = 138412290;
-    v16 = &unk_282D4F070;
+    v14 = 138412290;
+    v15 = &unk_282D4F070;
     v8 = "Failed: Setting brightness reduction factor to %@";
   }
 
-  _os_log_impl(&dword_21B766000, v6, OS_LOG_TYPE_DEFAULT, v8, &v15, 0xCu);
+  _os_log_impl(&dword_21B766000, v6, OS_LOG_TYPE_DEFAULT, v8, &v14, 0xCu);
 LABEL_12:
 
   v10 = MEMORY[0x277CBEC38];
@@ -155,25 +153,23 @@ LABEL_12:
   {
     if (v12)
     {
-      v15 = 138412290;
-      v16 = v10;
+      v14 = 138412290;
+      v15 = v10;
       v13 = "Success: Setting EcodMode to %@";
 LABEL_17:
-      _os_log_impl(&dword_21B766000, v9, OS_LOG_TYPE_DEFAULT, v13, &v15, 0xCu);
+      _os_log_impl(&dword_21B766000, v9, OS_LOG_TYPE_DEFAULT, v13, &v14, 0xCu);
     }
   }
 
   else if (v12)
   {
-    v15 = 138412290;
-    v16 = v10;
+    v14 = 138412290;
+    v15 = v10;
     v13 = "Failed: Setting EcodMode to %@";
     goto LABEL_17;
   }
 
 LABEL_18:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 @end

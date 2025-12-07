@@ -21,8 +21,8 @@
 
 - (void)updateLayoutWithProgress:(double)progress
 {
-  _objc_retain(self);
-  sub_1002D5628(progress);
+  v3 = _objc_retain(self);
+  sub_1002D5628(progress, v3, v4);
   _objc_release(self);
 }
 
@@ -35,18 +35,18 @@
 
 - (double)calculateMinimumHeight
 {
-  _objc_retain(self);
-  v4 = sub_1002D7244();
+  v2 = _objc_retain(self);
+  v6 = sub_1002D7244(v2, v3);
   _objc_release(self);
-  return v4;
+  return v6;
 }
 
 - (double)calculateMaximumHeight
 {
-  _objc_retain(self);
-  v4 = sub_1002D73B4();
+  v2 = _objc_retain(self);
+  v6 = sub_1002D73B4(v2, v3);
   _objc_release(self);
-  return v4;
+  return v6;
 }
 
 - (void)setupViews

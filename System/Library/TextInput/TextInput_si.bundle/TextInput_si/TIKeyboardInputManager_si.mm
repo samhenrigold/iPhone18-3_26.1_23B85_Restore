@@ -1,4 +1,5 @@
 @interface TIKeyboardInputManager_si
+- (id)addInput:(id)input flags:(unsigned int)flags point:(CGPoint)point firstDelete:(unint64_t *)delete;
 - (unsigned)composedCharacterWithInputCharacter:(unsigned __int16)character;
 - (void)deleteFromInputWithContext:(id)context;
 - (void)syncToKeyboardState:(id)state from:(id)from afterContextChange:(BOOL)change;
@@ -16,6 +17,60 @@
   {
     [(TIKeyboardInputManager_si *)self setLastTypedChar:0];
   }
+}
+
+- (id)addInput:(id)input flags:(unsigned int)flags point:(CGPoint)point firstDelete:(unint64_t *)delete
+{
+  y = point.y;
+  x = point.x;
+  v9 = *&flags;
+  v22 = *MEMORY[0x29EDCA608];
+  inputCopy = input;
+  if ([inputCopy length] == 1)
+  {
+    v12 = [inputCopy characterAtIndex:0];
+  }
+
+  else
+  {
+    v12 = 0;
+  }
+
+  v13 = [(TIKeyboardInputManager_si *)self composedCharacterWithInputCharacter:v12];
+  v20 = v13;
+  if (v13)
+  {
+    v14 = v13;
+    *delete = 1;
+    TIInputManager::delete_from_input(*(&self->super.super.super.isa + *MEMORY[0x29EDC7290]));
+    MEMORY[0x29EDA4B90](v21, v14);
+    TIInputManager::add_input();
+    KB::String::~String(v21);
+    if (v14 == 3548)
+    {
+      v15 = 3548;
+    }
+
+    else
+    {
+      v15 = 0;
+    }
+
+    [(TIKeyboardInputManager_si *)self setLastTypedChar:v15];
+    v16 = [MEMORY[0x29EDBA0F8] stringWithCharacters:&v20 length:1];
+  }
+
+  else
+  {
+    [(TIKeyboardInputManager_si *)self setLastTypedChar:v12];
+    v19.receiver = self;
+    v19.super_class = TIKeyboardInputManager_si;
+    v16 = [(TIKeyboardInputManager_si *)&v19 addInput:inputCopy flags:v9 point:delete firstDelete:x, y];
+  }
+
+  v17 = v16;
+
+  return v17;
 }
 
 - (unsigned)composedCharacterWithInputCharacter:(unsigned __int16)character

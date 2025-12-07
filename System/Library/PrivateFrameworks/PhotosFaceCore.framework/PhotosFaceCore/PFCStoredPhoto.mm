@@ -29,9 +29,9 @@
 - (PFCStoredPhoto)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v27.receiver = self;
-  v27.super_class = PFCStoredPhoto;
-  v5 = [(PFCStoredPhoto *)&v27 init];
+  v25.receiver = self;
+  v25.super_class = PFCStoredPhoto;
+  v5 = [(PFCStoredPhoto *)&v25 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"localIdentifier"];
@@ -74,11 +74,9 @@
     accessibilityDescription = v5->_accessibilityDescription;
     v5->_accessibilityDescription = v22;
 
-    v24 = v5->_layouts;
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v25 = v5->_layouts;
       [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E696A4C8] format:{@"Array validation failed: putative array is a %@", objc_opt_class()}];
     }
 

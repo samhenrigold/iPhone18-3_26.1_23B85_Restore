@@ -26,11 +26,11 @@
   configurationCopy = configuration;
   swift_unknownObjectRetain();
   selfCopy = self;
-  v10 = specialized ContextMenuBridge.contextMenuInteraction(_:configuration:highlightPreviewForItemWithIdentifier:)(interactionCopy);
+  v11 = specialized ContextMenuBridge.contextMenuInteraction(_:configuration:highlightPreviewForItemWithIdentifier:)(interactionCopy, identifier);
 
   swift_unknownObjectRelease();
 
-  return v10;
+  return v11;
 }
 
 - (id)contextMenuInteraction:(id)interaction configuration:(id)configuration dismissalPreviewForItemWithIdentifier:(id)identifier

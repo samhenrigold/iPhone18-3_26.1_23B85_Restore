@@ -3,9 +3,16 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (int)value;
 - (void)setName:(id)name;
+- (void)setValue:(int)value;
 @end
 
 @implementation QSSMutableRequestStatsResponse_Int32Stat
+
+- (void)setValue:(int)value
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:*&value];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
 
 - (int)value
 {

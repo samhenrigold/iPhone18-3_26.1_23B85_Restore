@@ -8,12 +8,10 @@
 
 - (ASORateLimiter)initWithRequestsPerSecond:(double)second timeWindow:(double)window
 {
-  v7 = objc_allocWithZone(type metadata accessor for RateLimiter());
-  sub_10000F970(v7, second, window);
+  v6 = objc_allocWithZone(type metadata accessor for RateLimiter(0));
+  v7 = sub_10000F970(v6, second, window);
   v9 = v8;
-  swift_getObjectType();
-  v10 = *((swift_isaMask & self->super.isa) + 0x30);
-  v11 = *((swift_isaMask & self->super.isa) + 0x34);
+  swift_getObjectType(v7);
   swift_deallocPartialClassInstance();
   return v9;
 }

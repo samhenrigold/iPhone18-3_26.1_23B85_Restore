@@ -5,6 +5,7 @@
 - (BOOL)isProcessing;
 - (BOOL)outboxContainsMessageFromAccount:(id)account;
 - (EMOutgoingMessageRepository)initWithRemoteConnection:(id)connection;
+- (id)deliverMessage:(id)message usingMailDrop:(BOOL)drop isCancelable:(BOOL)cancelable;
 - (id)removeSendLaterDateFromMessage:(id)message draftsMailboxObjectID:(id)d;
 - (id)saveDraftMessage:(id)message mailboxObjectID:(id)d previousDraftObjectID:(id)iD;
 - (id)saveSendLaterMessage:(id)message sendLaterDate:(id)date;
@@ -70,40 +71,38 @@
 
 - (void)updateObserversForPendingMessagesChange
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   pendingMessages = [(EMOutgoingMessageRepository *)self pendingMessages];
   unsignedIntegerValue = [pendingMessages unsignedIntegerValue];
 
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   observers = [(EMOutgoingMessageRepository *)self observers];
-  v6 = [observers countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v6 = [observers countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v6)
   {
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(observers);
         }
 
-        [*(*(&v10 + 1) + 8 * v8++) numberOfPendingMessagesChanged:unsignedIntegerValue];
+        [*(*(&v9 + 1) + 8 * v8++) numberOfPendingMessagesChanged:unsignedIntegerValue];
       }
 
       while (v6 != v8);
-      v6 = [observers countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [observers countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 + (OS_os_log)log
@@ -229,7 +228,7 @@ void __56__EMOutgoingMessageRepository_initWithRemoteConnection___block_invoke_2
 
 - (id)saveDraftMessage:(id)message mailboxObjectID:(id)d previousDraftObjectID:(id)iD
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   dCopy = d;
   iDCopy = iD;
@@ -239,55 +238,51 @@ void __56__EMOutgoingMessageRepository_initWithRemoteConnection___block_invoke_2
   if (signpostID - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
     *buf = 138412290;
-    v25 = iDCopy;
+    v24 = iDCopy;
     _os_signpost_emit_with_name_impl(&dword_1C6655000, v12, OS_SIGNPOST_INTERVAL_BEGIN, signpostID, "EMAIL DELIVERY", "Begin Saving Draft %@", buf, 0xCu);
   }
 
   connection = [(EMOutgoingMessageRepository *)self connection];
   reattemptingRemoteObjectProxy = [connection reattemptingRemoteObjectProxy];
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __86__EMOutgoingMessageRepository_saveDraftMessage_mailboxObjectID_previousDraftObjectID___block_invoke;
-  v21[3] = &unk_1E826F088;
-  v21[4] = self;
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __86__EMOutgoingMessageRepository_saveDraftMessage_mailboxObjectID_previousDraftObjectID___block_invoke;
+  v20[3] = &unk_1E826F088;
+  v20[4] = self;
   v16 = promise;
-  v22 = v16;
+  v21 = v16;
   v17 = iDCopy;
-  v23 = v17;
-  [reattemptingRemoteObjectProxy saveDraftMessage:messageCopy mailboxID:dCopy previousDraftObjectID:v17 completion:v21];
+  v22 = v17;
+  [reattemptingRemoteObjectProxy saveDraftMessage:messageCopy mailboxID:dCopy previousDraftObjectID:v17 completion:v20];
 
   future = [v16 future];
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return future;
 }
 
 void __86__EMOutgoingMessageRepository_saveDraftMessage_mailboxObjectID_previousDraftObjectID___block_invoke(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [*(a1 + 32) scheduler];
-  v10 = MEMORY[0x1E69E9820];
-  v11 = 3221225472;
-  v12 = __86__EMOutgoingMessageRepository_saveDraftMessage_mailboxObjectID_previousDraftObjectID___block_invoke_2;
-  v13 = &unk_1E826C148;
-  v14 = *(a1 + 40);
+  v9 = MEMORY[0x1E69E9820];
+  v10 = 3221225472;
+  v11 = __86__EMOutgoingMessageRepository_saveDraftMessage_mailboxObjectID_previousDraftObjectID___block_invoke_2;
+  v12 = &unk_1E826C148;
+  v13 = *(a1 + 40);
   v5 = v3;
-  v15 = v5;
-  [v4 performBlock:&v10];
+  v14 = v5;
+  [v4 performBlock:&v9];
 
-  v6 = [EMOutgoingMessageRepository signpostLog:v10];
+  v6 = [EMOutgoingMessageRepository signpostLog:v9];
   v7 = [*(a1 + 32) signpostID];
   if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
   {
     v8 = *(a1 + 48);
     *buf = 138412290;
-    v17 = v8;
+    v16 = v8;
     _os_signpost_emit_with_name_impl(&dword_1C6655000, v6, OS_SIGNPOST_INTERVAL_END, v7, "EMAIL DELIVERY", "End Saving Draft %@", buf, 0xCu);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (id)saveSendLaterMessage:(id)message sendLaterDate:(id)date
@@ -481,7 +476,7 @@ void __72__EMOutgoingMessageRepository_scheduleAlarmForSendLaterDate_completion_
 
 - (void)deleteDraftsInMailbox:(id)mailbox documentID:(id)d previousDraftObjectID:(id)iD
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   mailboxCopy = mailbox;
   dCopy = d;
   iDCopy = iD;
@@ -506,7 +501,7 @@ void __72__EMOutgoingMessageRepository_scheduleAlarmForSendLaterDate_completion_
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v21 = v12;
+    v20 = v12;
     _os_log_impl(&dword_1C6655000, v14, OS_LOG_TYPE_DEFAULT, "Begin Deleting Drafts In Mailbox %@", buf, 0xCu);
   }
 
@@ -518,11 +513,44 @@ void __72__EMOutgoingMessageRepository_scheduleAlarmForSendLaterDate_completion_
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v21 = v12;
+    v20 = v12;
     _os_log_impl(&dword_1C6655000, v17, OS_LOG_TYPE_DEFAULT, "End Deleting Drafts In Mailbox %@", buf, 0xCu);
   }
+}
 
-  v18 = *MEMORY[0x1E69E9840];
+- (id)deliverMessage:(id)message usingMailDrop:(BOOL)drop isCancelable:(BOOL)cancelable
+{
+  cancelableCopy = cancelable;
+  dropCopy = drop;
+  v24 = *MEMORY[0x1E69E9840];
+  messageCopy = message;
+  promise = [MEMORY[0x1E699B868] promise];
+  v10 = +[EMOutgoingMessageRepository signpostLog];
+  signpostID = [(EMOutgoingMessageRepository *)self signpostID];
+  if (signpostID - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+  {
+    originalMessageID = [messageCopy originalMessageID];
+    *buf = 138412290;
+    v23 = originalMessageID;
+    _os_signpost_emit_with_name_impl(&dword_1C6655000, v10, OS_SIGNPOST_INTERVAL_BEGIN, signpostID, "EMAIL DELIVERY", "Begin Message Delivery %@", buf, 0xCu);
+  }
+
+  connection = [(EMOutgoingMessageRepository *)self connection];
+  reattemptingRemoteObjectProxy = [connection reattemptingRemoteObjectProxy];
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __73__EMOutgoingMessageRepository_deliverMessage_usingMailDrop_isCancelable___block_invoke;
+  v19[3] = &unk_1E826F0D8;
+  v19[4] = self;
+  v15 = messageCopy;
+  v20 = v15;
+  v16 = promise;
+  v21 = v16;
+  [reattemptingRemoteObjectProxy deliverMessage:v15 usingMailDrop:dropCopy isCancelable:cancelableCopy completion:v19];
+
+  future = [v16 future];
+
+  return future;
 }
 
 void __73__EMOutgoingMessageRepository_deliverMessage_usingMailDrop_isCancelable___block_invoke(uint64_t a1, void *a2)
@@ -544,20 +572,18 @@ void __73__EMOutgoingMessageRepository_deliverMessage_usingMailDrop_isCancelable
 
 uint64_t __73__EMOutgoingMessageRepository_deliverMessage_usingMailDrop_isCancelable___block_invoke_2(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = +[EMOutgoingMessageRepository signpostLog];
   v3 = [*(a1 + 32) signpostID];
   if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v2))
   {
     v4 = [*(a1 + 40) originalMessageID];
-    v7 = 138412290;
-    v8 = v4;
-    _os_signpost_emit_with_name_impl(&dword_1C6655000, v2, OS_SIGNPOST_INTERVAL_END, v3, "EMAIL DELIVERY", "End Message Delivery %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v4;
+    _os_signpost_emit_with_name_impl(&dword_1C6655000, v2, OS_SIGNPOST_INTERVAL_END, v3, "EMAIL DELIVERY", "End Message Delivery %@", &v6, 0xCu);
   }
 
-  result = [*(a1 + 48) finishWithResult:*(a1 + 56)];
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 48) finishWithResult:*(a1 + 56)];
 }
 
 - (void)cancelLastDelayedMessage:(id)message
@@ -585,54 +611,52 @@ uint64_t __73__EMOutgoingMessageRepository_deliverMessage_usingMailDrop_isCancel
 
 uint64_t __56__EMOutgoingMessageRepository_cancelLastDelayedMessage___block_invoke(uint64_t a1, int a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v4 = +[EMOutgoingMessageRepository signpostLog];
   v5 = [*(a1 + 32) signpostID];
   if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
-    v8[0] = 67109120;
-    v8[1] = a2;
-    _os_signpost_emit_with_name_impl(&dword_1C6655000, v4, OS_SIGNPOST_INTERVAL_END, v5, "UNDO SEND", "End Cancelling Last Pending Message (success:%{BOOL}d)", v8, 8u);
+    v7[0] = 67109120;
+    v7[1] = a2;
+    _os_signpost_emit_with_name_impl(&dword_1C6655000, v4, OS_SIGNPOST_INTERVAL_END, v5, "UNDO SEND", "End Cancelling Last Pending Message (success:%{BOOL}d)", v7, 8u);
   }
 
-  result = (*(*(a1 + 40) + 16))();
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 40) + 16))();
 }
 
 - (BOOL)outboxContainsMessageFromAccount:(id)account
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   accountCopy = account;
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x2020000000;
-  v26 = 0;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x2020000000;
+  v25 = 0;
   v5 = +[EMOutgoingMessageRepository signpostLog];
   signpostID = [(EMOutgoingMessageRepository *)self signpostID];
   if (signpostID - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
   {
     ef_publicDescription = [accountCopy ef_publicDescription];
     *buf = 138412290;
-    v28 = ef_publicDescription;
+    v27 = ef_publicDescription;
     _os_signpost_emit_with_name_impl(&dword_1C6655000, v5, OS_SIGNPOST_INTERVAL_BEGIN, signpostID, "EMAIL DELIVERY", "Begin Outbox Query For Account %@", buf, 0xCu);
   }
 
   connection = [(EMOutgoingMessageRepository *)self connection];
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __64__EMOutgoingMessageRepository_outboxContainsMessageFromAccount___block_invoke;
-  v21[3] = &unk_1E826D7A0;
-  v9 = accountCopy;
-  v22 = v9;
-  v10 = [connection synchronousRemoteObjectProxyWithErrorHandler:v21];
-  objectID = [v9 objectID];
   v20[0] = MEMORY[0x1E69E9820];
   v20[1] = 3221225472;
-  v20[2] = __64__EMOutgoingMessageRepository_outboxContainsMessageFromAccount___block_invoke_150;
-  v20[3] = &unk_1E826F100;
-  v20[4] = &v23;
-  [v10 outboxContainsMessageFromAccountObjectID:objectID completion:v20];
+  v20[2] = __64__EMOutgoingMessageRepository_outboxContainsMessageFromAccount___block_invoke;
+  v20[3] = &unk_1E826D7A0;
+  v9 = accountCopy;
+  v21 = v9;
+  v10 = [connection synchronousRemoteObjectProxyWithErrorHandler:v20];
+  objectID = [v9 objectID];
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __64__EMOutgoingMessageRepository_outboxContainsMessageFromAccount___block_invoke_150;
+  v19[3] = &unk_1E826F100;
+  v19[4] = &v22;
+  [v10 outboxContainsMessageFromAccountObjectID:objectID completion:v19];
 
   v12 = +[EMOutgoingMessageRepository signpostLog];
   signpostID2 = [(EMOutgoingMessageRepository *)self signpostID];
@@ -640,7 +664,7 @@ uint64_t __56__EMOutgoingMessageRepository_cancelLastDelayedMessage___block_invo
   {
     ef_publicDescription2 = [v9 ef_publicDescription];
     v15 = ef_publicDescription2;
-    if (*(v24 + 24))
+    if (*(v23 + 24))
     {
       v16 = @"YES";
     }
@@ -651,30 +675,27 @@ uint64_t __56__EMOutgoingMessageRepository_cancelLastDelayedMessage___block_invo
     }
 
     *buf = 138412546;
-    v28 = ef_publicDescription2;
-    v29 = 2112;
-    v30 = v16;
+    v27 = ef_publicDescription2;
+    v28 = 2112;
+    v29 = v16;
     _os_signpost_emit_with_name_impl(&dword_1C6655000, v12, OS_SIGNPOST_INTERVAL_END, signpostID2, "EMAIL DELIVERY", "End Outbox Query For Account %@: Contains Messages : %@", buf, 0x16u);
   }
 
-  v17 = *(v24 + 24);
-  _Block_object_dispose(&v23, 8);
+  v17 = *(v23 + 24);
+  _Block_object_dispose(&v22, 8);
 
-  v18 = *MEMORY[0x1E69E9840];
   return v17 & 1;
 }
 
 void __64__EMOutgoingMessageRepository_outboxContainsMessageFromAccount___block_invoke(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = +[EMOutgoingMessageRepository log];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     v3 = [*(a1 + 32) ef_publicDescription];
-    __64__EMOutgoingMessageRepository_outboxContainsMessageFromAccount___block_invoke_cold_1(v3, v5, v2);
+    __64__EMOutgoingMessageRepository_outboxContainsMessageFromAccount___block_invoke_cold_1(v3, v4, v2);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)suspendDeliveryQueue
@@ -750,23 +771,23 @@ void __43__EMOutgoingMessageRepository_isProcessing__block_invoke()
 
 - (unint64_t)numberOfPendingMessages
 {
-  v29 = *MEMORY[0x1E69E9840];
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x3032000000;
-  v24 = __Block_byref_object_copy__9;
-  v25 = __Block_byref_object_dispose__9;
-  v26 = 0;
+  v28 = *MEMORY[0x1E69E9840];
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = __Block_byref_object_copy__9;
+  v24 = __Block_byref_object_dispose__9;
+  v25 = 0;
   scheduler = [(EMOutgoingMessageRepository *)self scheduler];
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __54__EMOutgoingMessageRepository_numberOfPendingMessages__block_invoke;
-  v20[3] = &unk_1E826F128;
-  v20[4] = self;
-  v20[5] = &v21;
-  [scheduler performSyncBlock:v20];
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __54__EMOutgoingMessageRepository_numberOfPendingMessages__block_invoke;
+  v19[3] = &unk_1E826F128;
+  v19[4] = self;
+  v19[5] = &v20;
+  [scheduler performSyncBlock:v19];
 
-  v4 = v22[5];
+  v4 = v21[5];
   if (v4)
   {
     unsignedIntValue = [v4 unsignedIntValue];
@@ -774,10 +795,10 @@ void __43__EMOutgoingMessageRepository_isProcessing__block_invoke()
 
   else
   {
-    v16 = 0;
-    v17 = &v16;
-    v18 = 0x2020000000;
-    v19 = 0;
+    v15 = 0;
+    v16 = &v15;
+    v17 = 0x2020000000;
+    v18 = 0;
     v6 = +[EMOutgoingMessageRepository signpostLog];
     signpostID = [(EMOutgoingMessageRepository *)self signpostID];
     if (signpostID - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
@@ -788,30 +809,29 @@ void __43__EMOutgoingMessageRepository_isProcessing__block_invoke()
 
     connection = [(EMOutgoingMessageRepository *)self connection];
     v9 = [connection synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_160_0];
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __54__EMOutgoingMessageRepository_numberOfPendingMessages__block_invoke_161;
-    v15[3] = &unk_1E826F150;
-    v15[4] = &v16;
-    [v9 numberOfPendingMessagesWithCompletion:v15];
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __54__EMOutgoingMessageRepository_numberOfPendingMessages__block_invoke_161;
+    v14[3] = &unk_1E826F150;
+    v14[4] = &v15;
+    [v9 numberOfPendingMessagesWithCompletion:v14];
 
     v10 = +[EMOutgoingMessageRepository signpostLog];
     signpostID2 = [(EMOutgoingMessageRepository *)self signpostID];
     if (signpostID2 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
     {
-      v12 = v17[3];
+      v12 = v16[3];
       *buf = 134217984;
-      v28 = v12;
+      v27 = v12;
       _os_signpost_emit_with_name_impl(&dword_1C6655000, v10, OS_SIGNPOST_INTERVAL_END, signpostID2, "EMAIL DELIVERY", "End Query For Number of Pending Messages with result %lu", buf, 0xCu);
     }
 
-    unsignedIntValue = v17[3];
-    _Block_object_dispose(&v16, 8);
+    unsignedIntValue = v16[3];
+    _Block_object_dispose(&v15, 8);
   }
 
-  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(&v20, 8);
 
-  v13 = *MEMORY[0x1E69E9840];
   return unsignedIntValue;
 }
 
@@ -891,7 +911,7 @@ void __62__EMOutgoingMessageRepository_numberOfPendingMessagesChanged___block_in
   [scheduler performBlock:v6];
 }
 
-uint64_t __59__EMOutgoingMessageRepository_hasDelayedMessagesDidChange___block_invoke(uint64_t a1)
+void *__59__EMOutgoingMessageRepository_hasDelayedMessagesDidChange___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) hasDelayedMessages];
   if (*(a1 + 40) != result)
@@ -960,38 +980,36 @@ void __71__EMOutgoingMessageRepository_removeOutgoingMessageRepositoryObserver__
 
 - (void)updateObserversForHasDelayedMessagesDidChange
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   hasDelayedMessages = [(EMOutgoingMessageRepository *)self hasDelayedMessages];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   observers = [(EMOutgoingMessageRepository *)self observers];
-  v5 = [observers countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v5 = [observers countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v5)
   {
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(observers);
         }
 
-        [*(*(&v9 + 1) + 8 * v7++) hasDelayedMessagesDidChange:hasDelayedMessages];
+        [*(*(&v8 + 1) + 8 * v7++) hasDelayedMessagesDidChange:hasDelayedMessages];
       }
 
       while (v5 != v7);
-      v5 = [observers countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [observers countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __64__EMOutgoingMessageRepository_outboxContainsMessageFromAccount___block_invoke_cold_1(void *a1, uint8_t *buf, os_log_t log)

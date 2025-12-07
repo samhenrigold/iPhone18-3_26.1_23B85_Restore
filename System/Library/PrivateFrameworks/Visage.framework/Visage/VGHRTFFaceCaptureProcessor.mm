@@ -7,11 +7,11 @@
 
 - (VGHRTFFaceCaptureProcessor)initWithDebugDataPath:(id)path
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   pathCopy = path;
-  v15.receiver = self;
-  v15.super_class = VGHRTFFaceCaptureProcessor;
-  v5 = [(VGHRTFFaceCaptureProcessor *)&v15 init];
+  v14.receiver = self;
+  v14.super_class = VGHRTFFaceCaptureProcessor;
+  v5 = [(VGHRTFFaceCaptureProcessor *)&v14 init];
   if (v5)
   {
     v6 = objc_opt_new();
@@ -27,34 +27,33 @@
 
     if (v5->_capturer)
     {
-      vg::hrtf::Rectify::create(v10);
+      vg::hrtf::Rectify::create();
     }
 
-    v11 = __VGLogSharedInstance();
+    v11 = __VGLogSharedInstance(v10);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v14) = 0;
-      _os_log_impl(&dword_270F06000, v11, OS_LOG_TYPE_ERROR, " Failed to initialize VGFaceCapture ", &v14, 2u);
+      LOWORD(v13) = 0;
+      _os_log_impl(&dword_270F06000, v11, OS_LOG_TYPE_ERROR, " Failed to initialize VGFaceCapture ", &v13, 2u);
     }
   }
 
   else
   {
-    v6 = __VGLogSharedInstance();
+    v6 = __VGLogSharedInstance(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v14) = 0;
-      _os_log_impl(&dword_270F06000, v6, OS_LOG_TYPE_ERROR, " Failed to initialize VGHRTFCaptureProcessor ", &v14, 2u);
+      LOWORD(v13) = 0;
+      _os_log_impl(&dword_270F06000, v6, OS_LOG_TYPE_ERROR, " Failed to initialize VGHRTFCaptureProcessor ", &v13, 2u);
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (id)processCaptureData:(id)data faceData:(id)faceData
 {
-  v90 = *MEMORY[0x277D85DE8];
+  v92 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   faceDataCopy = faceData;
   initEmpty = [[VGHRTFFaceCaptureUpdateData alloc] initEmpty];
@@ -65,83 +64,83 @@
   [initEmpty setPoseStatusList:v10];
 
   [initEmpty setTrackedData:0];
-  [initEmpty setResult:self->_resultsCache];
+  v11 = [initEmpty setResult:self->_resultsCache];
   if (faceDataCopy)
   {
     ptr = self->_rectify.__ptr_;
     colorBuffer = [dataCopy colorBuffer];
     depthBuffer = [dataCopy depthBuffer];
     [dataCopy colorIntrinsics];
-    v69 = v15;
-    v71 = v14;
-    v68 = v16;
+    v71 = v16;
+    v73 = v15;
+    v70 = v17;
     depthCalibrationData = [dataCopy depthCalibrationData];
-    v92.columns[1] = v69;
-    v92.columns[0] = v71;
-    v92.columns[2] = v68;
-    vg::hrtf::Rectify::process(ptr, colorBuffer, depthBuffer, v92, depthCalibrationData, v81);
+    v94.columns[1] = v71;
+    v94.columns[0] = v73;
+    v94.columns[2] = v70;
+    vg::hrtf::Rectify::process(v83, ptr, colorBuffer, depthBuffer, v94, depthCalibrationData);
 
-    if (v89)
+    if (v91)
     {
-      v18 = __VGLogSharedInstance();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+      v20 = __VGLogSharedInstance(v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
       {
         LOWORD(buf.value) = 0;
-        _os_log_impl(&dword_270F06000, v18, OS_LOG_TYPE_DEBUG, " Rectified face images. ", &buf, 2u);
+        _os_log_impl(&dword_270F06000, v20, OS_LOG_TYPE_DEBUG, " Rectified face images. ", &buf, 2u);
       }
 
-      v19 = objc_opt_new();
-      if ((v89 & 1) == 0)
+      v21 = objc_opt_new();
+      if ((v91 & 1) == 0)
       {
         std::__throw_bad_optional_access[abi:ne200100]();
       }
 
-      CVPixelBufferFromIOSurface = createCVPixelBufferFromIOSurface(v85);
-      v80[0] = MEMORY[0x277D85DD0];
-      v80[1] = 3221225472;
-      v80[2] = __58__VGHRTFFaceCaptureProcessor_processCaptureData_faceData___block_invoke;
-      v80[3] = &__block_descriptor_40_e5_v8__0l;
-      v80[4] = CVPixelBufferFromIOSurface;
-      v70 = MEMORY[0x2743B9AA0](v80);
-      [v19 setDepth:CVPixelBufferFromIOSurface];
-      if ((v89 & 1) == 0)
+      CVPixelBufferFromIOSurface = createCVPixelBufferFromIOSurface(v87);
+      v82[0] = MEMORY[0x277D85DD0];
+      v82[1] = 3221225472;
+      v82[2] = __58__VGHRTFFaceCaptureProcessor_processCaptureData_faceData___block_invoke;
+      v82[3] = &__block_descriptor_40_e5_v8__0l;
+      v82[4] = CVPixelBufferFromIOSurface;
+      v72 = MEMORY[0x2743B9AA0](v82);
+      [v21 setDepth:CVPixelBufferFromIOSurface];
+      if ((v91 & 1) == 0)
       {
         std::__throw_bad_optional_access[abi:ne200100]();
       }
 
-      [v19 setDepthIntrinsics:{v86, v87, v88}];
-      if ((v89 & 1) == 0)
+      [v21 setDepthIntrinsics:{v88, v89, v90}];
+      if ((v91 & 1) == 0)
       {
         std::__throw_bad_optional_access[abi:ne200100]();
       }
 
-      v21 = createCVPixelBufferFromIOSurface(*v81);
-      v79[0] = MEMORY[0x277D85DD0];
-      v79[1] = 3221225472;
-      v79[2] = __58__VGHRTFFaceCaptureProcessor_processCaptureData_faceData___block_invoke_2;
-      v79[3] = &__block_descriptor_40_e5_v8__0l;
-      v79[4] = v21;
-      v72 = MEMORY[0x2743B9AA0](v79);
-      [v19 setYuvRectified:v21];
-      if ((v89 & 1) == 0)
+      v23 = createCVPixelBufferFromIOSurface(*v83);
+      v81[0] = MEMORY[0x277D85DD0];
+      v81[1] = 3221225472;
+      v81[2] = __58__VGHRTFFaceCaptureProcessor_processCaptureData_faceData___block_invoke_2;
+      v81[3] = &__block_descriptor_40_e5_v8__0l;
+      v81[4] = v23;
+      v74 = MEMORY[0x2743B9AA0](v81);
+      [v21 setYuvRectified:v23];
+      if ((v91 & 1) == 0)
       {
         std::__throw_bad_optional_access[abi:ne200100]();
       }
 
-      [v19 setVideoIntrinsics:{v82, v83, v84}];
+      [v21 setVideoIntrinsics:{v84, v85, v86}];
       yawAngle = [faceDataCopy yawAngle];
       if (yawAngle)
       {
         yawAngle2 = [faceDataCopy yawAngle];
         [yawAngle2 floatValue];
-        v25 = v24;
+        v27 = v26;
 
-        v26 = v25;
+        v28 = v27;
       }
 
       else
       {
-        v26 = 0.0;
+        v28 = 0.0;
       }
 
       rollAngle = [faceDataCopy rollAngle];
@@ -149,69 +148,70 @@
       {
         rollAngle2 = [faceDataCopy rollAngle];
         [rollAngle2 floatValue];
-        v34 = v33;
+        v36 = v35;
 
-        v35 = v34;
+        v37 = v36;
       }
 
       else
       {
-        v35 = 0.0;
+        v37 = 0.0;
       }
 
-      v36 = [VGFaceMetadata alloc];
+      v38 = [VGFaceMetadata alloc];
       trackedId = [faceDataCopy trackedId];
       [faceDataCopy boundingBox];
-      v39 = v38;
       v41 = v40;
       v43 = v42;
       v45 = v44;
+      v47 = v46;
       colorBuffer2 = [dataCopy colorBuffer];
       width = [colorBuffer2 width];
       colorBuffer3 = [dataCopy colorBuffer];
       height = [colorBuffer3 height];
-      v50 = [(VGFaceMetadata *)v36 initWithFaceId:trackedId bounds:v39 / width yawAngle:v41 / height rollAngle:v43 / width, v45 / height, v26, v35];
-      [v19 setFace:v50];
+      v52 = [(VGFaceMetadata *)v38 initWithFaceId:trackedId bounds:v41 / width yawAngle:v43 / height rollAngle:v45 / width, v47 / height, v28, v37];
+      [v21 setFace:v52];
 
-      [dataCopy timestamp];
-      CMTimeMakeWithSeconds(&v78, v51, 1000000);
-      buf = v78;
-      [v19 setTimestamp:&buf];
-      v52 = self->_semaphore;
-      v73[0] = MEMORY[0x277D85DD0];
-      v73[1] = 3221225472;
-      v73[2] = __58__VGHRTFFaceCaptureProcessor_processCaptureData_faceData___block_invoke_3;
-      v73[3] = &unk_279E28DC0;
-      v53 = v52;
-      v74 = v53;
+      objc_msgSend_timestamp(dataCopy);
+      CMTimeMakeWithSeconds(&v80, v53, 1000000);
+      buf = v80;
+      [v21 setTimestamp:&buf];
+      v54 = self->_semaphore;
+      v75[0] = MEMORY[0x277D85DD0];
+      v75[1] = 3221225472;
+      v75[2] = __58__VGHRTFFaceCaptureProcessor_processCaptureData_faceData___block_invoke_3;
+      v75[3] = &unk_279E28DC0;
+      v55 = v54;
+      v76 = v55;
       selfCopy = self;
-      v54 = initEmpty;
-      v76 = v54;
-      v55 = MEMORY[0x2743B9AA0](v73);
-      if ([(VGFaceCapture *)self->_capturer processWithCaptureData:v19 callback:v55])
+      v56 = initEmpty;
+      v78 = v56;
+      v57 = MEMORY[0x2743B9AA0](v75);
+      v58 = [(VGFaceCapture *)self->_capturer processWithCaptureData:v21 callback:v57];
+      if (v58)
       {
-        dispatch_semaphore_wait(v53, 0xFFFFFFFFFFFFFFFFLL);
-        [v54 progress];
-        self->_progress = v56;
-        self->_captureState = [v54 progressType];
-        v57 = objc_alloc(MEMORY[0x277CBEA60]);
-        poseStatusList = [v54 poseStatusList];
-        v59 = [v57 initWithArray:poseStatusList copyItems:1];
+        dispatch_semaphore_wait(v55, 0xFFFFFFFFFFFFFFFFLL);
+        [v56 progress];
+        self->_progress = v59;
+        self->_captureState = [v56 progressType];
+        v60 = objc_alloc(MEMORY[0x277CBEA60]);
+        poseStatusList = [v56 poseStatusList];
+        v62 = [v60 initWithArray:poseStatusList copyItems:1];
         poseStatus = self->_poseStatus;
-        self->_poseStatus = v59;
+        self->_poseStatus = v62;
 
-        IOSurface = CVPixelBufferGetIOSurface([v19 yuvRectified]);
-        trackedData = [v54 trackedData];
+        IOSurface = CVPixelBufferGetIOSurface([v21 yuvRectified]);
+        trackedData = [v56 trackedData];
         [trackedData setRectifiedColorBuffer:IOSurface];
 
-        v63 = CVPixelBufferGetIOSurface([v19 depth]);
-        trackedData2 = [v54 trackedData];
-        [trackedData2 setRectifiedDepthBuffer:v63];
+        v66 = CVPixelBufferGetIOSurface([v21 depth]);
+        trackedData2 = [v56 trackedData];
+        [trackedData2 setRectifiedDepthBuffer:v66];
       }
 
       else
       {
-        trackedData2 = __VGLogSharedInstance();
+        trackedData2 = __VGLogSharedInstance(v58);
         if (os_log_type_enabled(trackedData2, OS_LOG_TYPE_ERROR))
         {
           LOWORD(buf.value) = 0;
@@ -219,42 +219,40 @@
         }
       }
 
-      v65 = v54;
-      v72[2](v72);
+      v68 = v56;
+      v74[2](v74);
 
-      v70[2](v70);
+      v72[2](v72);
     }
 
     else
     {
-      v29 = __VGLogSharedInstance();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      v31 = __VGLogSharedInstance(v19);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
         LOWORD(buf.value) = 0;
-        _os_log_impl(&dword_270F06000, v29, OS_LOG_TYPE_ERROR, " Failed to rectify face images. ", &buf, 2u);
+        _os_log_impl(&dword_270F06000, v31, OS_LOG_TYPE_ERROR, " Failed to rectify face images. ", &buf, 2u);
       }
 
-      v30 = initEmpty;
+      v32 = initEmpty;
     }
 
-    if (v89 == 1)
+    if (v91 == 1)
     {
     }
   }
 
   else
   {
-    v27 = __VGLogSharedInstance();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v29 = __VGLogSharedInstance(v11);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
-      *v81 = 0;
-      _os_log_impl(&dword_270F06000, v27, OS_LOG_TYPE_ERROR, " Face not found. ", v81, 2u);
+      *v83 = 0;
+      _os_log_impl(&dword_270F06000, v29, OS_LOG_TYPE_ERROR, " Face not found. ", v83, 2u);
     }
 
-    v28 = initEmpty;
+    v30 = initEmpty;
   }
-
-  v66 = *MEMORY[0x277D85DE8];
 
   return initEmpty;
 }
@@ -262,17 +260,17 @@
 void __58__VGHRTFFaceCaptureProcessor_processCaptureData_faceData___block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
   memptr[2] = *MEMORY[0x277D85DE8];
-  v71 = a2;
-  v70 = a3;
-  v87[0] = MEMORY[0x277D85DD0];
-  v87[1] = 3221225472;
-  v87[2] = __58__VGHRTFFaceCaptureProcessor_processCaptureData_faceData___block_invoke_4;
-  v87[3] = &unk_279E28D98;
-  v72 = a1;
-  v88 = *(a1 + 32);
-  v69 = MEMORY[0x2743B9AA0](v87);
-  LODWORD(a3) = [v71 failed];
-  v5 = [v71 completed];
+  v70 = a2;
+  v69 = a3;
+  v86[0] = MEMORY[0x277D85DD0];
+  v86[1] = 3221225472;
+  v86[2] = __58__VGHRTFFaceCaptureProcessor_processCaptureData_faceData___block_invoke_4;
+  v86[3] = &unk_279E28D98;
+  v71 = a1;
+  v87 = *(a1 + 32);
+  v68 = MEMORY[0x2743B9AA0](v86);
+  LODWORD(a3) = [v70 failed];
+  v5 = [v70 completed];
   if (a3)
   {
     v6 = 3;
@@ -285,30 +283,30 @@ void __58__VGHRTFFaceCaptureProcessor_processCaptureData_faceData___block_invoke
 
   if (v5)
   {
-    if (v70)
+    if (v69)
     {
-      v79 = v70;
-      v78 = [v79 count];
-      v77 = objc_opt_new();
-      if (v78)
+      v78 = v69;
+      v77 = [v78 count];
+      v76 = objc_opt_new();
+      if (v77)
       {
         v7 = 0;
-        v76 = *MEMORY[0x277CECED8];
-        v75 = *MEMORY[0x277CECEB8];
-        v74 = *MEMORY[0x277CECE78];
-        v73 = *MEMORY[0x277CECE80];
+        v75 = *MEMORY[0x277CECED8];
+        v74 = *MEMORY[0x277CECEB8];
+        v73 = *MEMORY[0x277CECE78];
+        v72 = *MEMORY[0x277CECE80];
         do
         {
-          v85 = [v79 objectAtIndexedSubscript:v7];
+          v84 = [v78 objectAtIndexedSubscript:v7];
           v8 = [[VGHRTFFaceFrameData alloc] initEmpty];
-          v9 = [v85 captureData];
+          v9 = [v84 captureData];
           v10 = [v9 faceTrackingResult];
-          v83 = [v10 objectForKey:v76];
+          v82 = [v10 objectForKey:v75];
 
-          v80 = [v83 objectAtIndex:0];
-          v81 = [v80 objectForKey:v75];
-          v82 = [v81 objectForKey:v74];
-          v11 = [v82 objectForKey:v73];
+          v79 = [v82 objectAtIndex:0];
+          v80 = [v79 objectForKey:v74];
+          v81 = [v80 objectForKey:v73];
+          v11 = [v81 objectForKey:v72];
           v12 = [v11 length];
           v13 = v11;
           v14 = [v11 bytes];
@@ -433,42 +431,42 @@ void __58__VGHRTFFaceCaptureProcessor_processCaptureData_faceData___block_invoke
             while (v22);
           }
 
-          v43 = [v85 captureData];
+          v43 = [v84 captureData];
           [v8 setRgbImage:{CVPixelBufferGetIOSurface(objc_msgSend(v43, "rgbRectified"))}];
 
-          v44 = [v85 captureData];
+          v44 = [v84 captureData];
           [v8 setDepthImage:{CVPixelBufferGetIOSurface(objc_msgSend(v44, "depth"))}];
 
-          v45 = [v85 captureData];
+          v45 = [v84 captureData];
           [v45 depthIntrinsics];
           [v8 setDepthIntrinsics:{v46, v47, v48}];
 
           [v8 setLandmarks:v36];
-          [v77 addObject:v8];
+          [v76 addObject:v8];
 
           free(v26);
           ++v7;
         }
 
-        while (v7 != v78);
+        while (v7 != v77);
       }
 
-      v49 = *(v72 + 40);
+      v49 = *(v71 + 40);
       v50 = *(v49 + 56);
-      *(v49 + 56) = v77;
+      *(v49 + 56) = v76;
     }
 
     v6 = 4;
   }
 
   v51 = [[VGHRTFFaceCaptureProcessedData alloc] initEmpty];
-  v52 = [v71 rejectionState];
+  v52 = objc_msgSend_rejectionState(v70);
   if ([v52 reason] == 1)
   {
     goto LABEL_51;
   }
 
-  v53 = [v71 rejectionState];
+  v53 = objc_msgSend_rejectionState(v70);
   if ([v53 reason] == 5)
   {
 LABEL_50:
@@ -477,7 +475,7 @@ LABEL_51:
     goto LABEL_52;
   }
 
-  v54 = [v71 rejectionState];
+  v54 = objc_msgSend_rejectionState(v70);
   if ([v54 reason] == 2)
   {
 LABEL_49:
@@ -485,7 +483,7 @@ LABEL_49:
     goto LABEL_50;
   }
 
-  v55 = [v71 rejectionState];
+  v55 = objc_msgSend_rejectionState(v70);
   if ([v55 reason] == 3)
   {
 LABEL_48:
@@ -493,7 +491,7 @@ LABEL_48:
     goto LABEL_49;
   }
 
-  v56 = [v71 rejectionState];
+  v56 = objc_msgSend_rejectionState(v70);
   if ([v56 reason] == 4)
   {
 LABEL_47:
@@ -501,7 +499,7 @@ LABEL_47:
     goto LABEL_48;
   }
 
-  v57 = [v71 rejectionState];
+  v57 = objc_msgSend_rejectionState(v70);
   if ([v57 reason] == 33)
   {
 LABEL_46:
@@ -509,7 +507,7 @@ LABEL_46:
     goto LABEL_47;
   }
 
-  v58 = [v71 rejectionState];
+  v58 = objc_msgSend_rejectionState(v70);
   if ([v58 reason] == 36)
   {
 LABEL_45:
@@ -517,27 +515,27 @@ LABEL_45:
     goto LABEL_46;
   }
 
-  v86 = [v71 rejectionState];
-  if ([v86 reason] == 35)
+  v85 = objc_msgSend_rejectionState(v70);
+  if ([v85 reason] == 35)
   {
 
     goto LABEL_45;
   }
 
-  v64 = [v71 rejectionState];
-  v84 = [v64 reason] == 36;
+  v63 = objc_msgSend_rejectionState(v70);
+  v83 = [v63 reason] == 36;
 
-  if (!v84)
+  if (!v83)
   {
-    v65 = MEMORY[0x277CCABB0];
-    [v71 yawAngle];
-    v66 = [v65 numberWithFloat:?];
-    [v51 setYawAngle:v66];
+    v64 = MEMORY[0x277CCABB0];
+    [v70 yawAngle];
+    v65 = [v64 numberWithFloat:?];
+    [v51 setYawAngle:v65];
 
-    v67 = MEMORY[0x277CCABB0];
-    [v71 pitchAngle];
-    v68 = [v67 numberWithFloat:?];
-    [v51 setPitchAngle:v68];
+    v66 = MEMORY[0x277CCABB0];
+    [v70 pitchAngle];
+    v67 = [v66 numberWithFloat:?];
+    [v51 setPitchAngle:v67];
 
     goto LABEL_53;
   }
@@ -546,22 +544,21 @@ LABEL_52:
   [v51 setYawAngle:0];
   [v51 setPitchAngle:0];
 LABEL_53:
-  [*(v72 + 48) setProgressType:v6];
-  [v71 progress];
-  [*(v72 + 48) setProgress:?];
-  v59 = v71;
+  [*(v71 + 48) setProgressType:v6];
+  [v70 progress];
+  [*(v71 + 48) setProgress:?];
+  v59 = v70;
   v60 = detail::getFacePoseList(v59, 0);
   memptr[0] = v60;
   v61 = detail::getFacePoseList(v59, 1);
   memptr[1] = v61;
   v62 = [MEMORY[0x277CBEA60] arrayWithObjects:memptr count:2];
 
-  [*(v72 + 48) setPoseStatusList:v62];
-  [*(v72 + 48) setTrackedData:v51];
-  [*(v72 + 48) setResult:*(*(v72 + 40) + 56)];
+  [*(v71 + 48) setPoseStatusList:v62];
+  [*(v71 + 48) setTrackedData:v51];
+  [*(v71 + 48) setResult:*(*(v71 + 40) + 56)];
 
-  v69[2](v69);
-  v63 = *MEMORY[0x277D85DE8];
+  v68[2](v68);
 }
 
 @end

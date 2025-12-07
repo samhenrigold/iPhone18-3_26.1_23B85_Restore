@@ -395,7 +395,7 @@ LABEL_19:
     name2 = [systemTimeZone name];
     v6 = [v16 _ui_canonicalTimeZoneNameForTimeZoneName:name2];
 
-    if (v6 && ([systemTimeZone name], v18 = objc_claimAutoreleasedReturnValue(), v19 = -[NSObject isEqual:](v6, "isEqual:", v18), v18, (v19 & 1) == 0))
+    if (v6 && ([systemTimeZone name], v18 = objc_claimAutoreleasedReturnValue(), isEqual = objc_msgSend_isEqual_(v6), v18, (isEqual & 1) == 0))
     {
       name7 = [MEMORY[0x1E695DFE8] timeZoneWithName:v6];
       if (name7)

@@ -31,14 +31,14 @@
 
 + (id)defaultContentDescriptor
 {
-  v2 = [MEMORY[0x277CBEAD8] exceptionWithName:@"Not implemented" reason:@"Please use PLKLegibilityForegroundContentDescriptor / PLKLegibilityBackgroundContentDescriptor" userInfo:0];
+  v2 = [MEMORY[0x277CBEAD8] exceptionWithName:? reason:? userInfo:?];
   objc_exception_throw(v2);
 }
 
 + (id)contentDescriptorForColor:(id)color
 {
   colorCopy = color;
-  v5 = [[self alloc] initWithContentColor:colorCopy];
+  v5 = [[self alloc] initWithContentColor:?];
 
   return v5;
 }
@@ -59,11 +59,11 @@
 - (unint64_t)hash
 {
   builder = [MEMORY[0x277CF0C40] builder];
-  v4 = [builder appendObject:self->_compositingFilter];
-  v5 = [builder appendObject:self->_contentColor];
-  v6 = [builder hash];
+  v3 = [builder appendObject:?];
+  v4 = [builder appendObject:?];
+  v5 = [builder hash];
 
-  return v6;
+  return v5;
 }
 
 - (id)filtersForContextType:(int64_t)type options:(int64_t)options
@@ -77,9 +77,9 @@
     {
       v8 = MEMORY[0x277CD9EA0];
       contentColor2 = [(PLKLegibilityContentDescriptor *)self contentColor];
-      v10 = [v8 plk_multiplyColor:contentColor2];
+      v10 = [v8 plk_multiplyColor:?];
 
-      [v6 addObject:v10];
+      [v6 addObject:?];
     }
   }
 
@@ -110,7 +110,7 @@
       {
         contentColor = [(PLKLegibilityContentDescriptor *)v7 contentColor];
         contentColor2 = [(PLKLegibilityContentDescriptor *)self contentColor];
-        v13 = [contentColor isEqual:contentColor2];
+        v13 = [contentColor isEqual:?];
       }
 
       else
@@ -131,17 +131,17 @@
 - (void)configureCALayer:(id)layer forContentRenderedWithContextType:(int64_t)type options:(int64_t)options
 {
   layerCopy = layer;
-  allowsGroupBlending = [(PLKLegibilityContentDescriptor *)self allowsGroupBlending];
-  allowsGroupOpacity = [(PLKLegibilityContentDescriptor *)self allowsGroupOpacity];
-  v11 = [(PLKLegibilityContentDescriptor *)self filtersForContextType:type options:options];
+  [(PLKLegibilityContentDescriptor *)self allowsGroupBlending];
+  [(PLKLegibilityContentDescriptor *)self allowsGroupOpacity];
+  v7 = [PLKLegibilityContentDescriptor filtersForContextType:"filtersForContextType:options:" options:?];
   compositingFilter = [(PLKLegibilityContentDescriptor *)self compositingFilter];
-  v13 = layerCopy;
-  if (v13)
+  v9 = layerCopy;
+  if (v9)
   {
-    [v13 setFilters:v11];
-    [v13 setCompositingFilter:compositingFilter];
-    [v13 setAllowsGroupBlending:allowsGroupBlending];
-    [v13 setAllowsGroupOpacity:allowsGroupOpacity];
+    [v9 setFilters:?];
+    [v9 setCompositingFilter:?];
+    [v9 setAllowsGroupBlending:?];
+    [v9 setAllowsGroupOpacity:?];
   }
 }
 
@@ -155,7 +155,7 @@
 
 - (id)descriptionWithMultilinePrefix:(id)prefix
 {
-  v3 = [(PLKLegibilityContentDescriptor *)self descriptionBuilderWithMultilinePrefix:prefix];
+  v3 = [(PLKLegibilityContentDescriptor *)self descriptionBuilderWithMultilinePrefix:?];
   build = [v3 build];
 
   return build;
@@ -163,11 +163,13 @@
 
 - (id)descriptionBuilderWithMultilinePrefix:(id)prefix
 {
-  v4 = [MEMORY[0x277CF0C00] builderWithObject:self];
-  v5 = [v4 appendObject:self->_contentColor withName:@"_contentColor" skipIfNil:1];
-  v6 = [v4 appendObject:self->_compositingFilter withName:@"compositingFilter" skipIfNil:1];
-  v7 = [v4 appendBool:-[PLKLegibilityContentDescriptor allowsGroupBlending](self withName:{"allowsGroupBlending"), @"allowsGroupBlending"}];
-  v8 = [v4 appendBool:-[PLKLegibilityContentDescriptor allowsGroupOpacity](self withName:{"allowsGroupOpacity"), @"allowsGroupOpacity"}];
+  v4 = [MEMORY[0x277CF0C00] builderWithObject:?];
+  v5 = [v4 appendObject:? withName:? skipIfNil:?];
+  v6 = [v4 appendObject:? withName:? skipIfNil:?];
+  [(PLKLegibilityContentDescriptor *)self allowsGroupBlending];
+  v7 = [v4 appendBool:? withName:?];
+  [(PLKLegibilityContentDescriptor *)self allowsGroupOpacity];
+  v8 = [v4 appendBool:? withName:?];
 
   return v4;
 }

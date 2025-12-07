@@ -27,18 +27,17 @@
 
 - (id)routeLookupIDs
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x3032000000;
-  v8 = __Block_byref_object_copy__15833;
-  v9 = __Block_byref_object_dispose__15834;
-  v10 = 0;
-  routeLookupLock = self->_routeLookupLock;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x3032000000;
+  v7 = __Block_byref_object_copy__15833;
+  v8 = __Block_byref_object_dispose__15834;
+  v9 = 0;
   geo_isolate_sync();
-  v3 = v6[5];
-  _Block_object_dispose(&v5, 8);
+  v2 = v5[5];
+  _Block_object_dispose(&v4, 8);
 
-  return v3;
+  return v2;
 }
 
 void __37__MNNavigationDetails_routeLookupIDs__block_invoke(uint64_t a1)
@@ -52,7 +51,7 @@ void __37__MNNavigationDetails_routeLookupIDs__block_invoke(uint64_t a1)
 
 - (NSArray)alternateRoutes
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   if ([(NSArray *)self->_alternateRoutes count])
   {
     v3 = [MEMORY[0x1E695DF70] arrayWithCapacity:{-[NSArray count](self->_alternateRoutes, "count")}];
@@ -63,30 +62,30 @@ void __37__MNNavigationDetails_routeLookupIDs__block_invoke(uint64_t a1)
     v3 = 0;
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v4 = self->_alternateRoutes;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v22 objects:v36 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v21 objects:v35 count:16];
   if (v5)
   {
     v7 = v5;
     v8 = 0x1E696A000uLL;
-    v9 = *v23;
+    v9 = *v22;
     *&v6 = 136316162;
-    v21 = v6;
+    v20 = v6;
     do
     {
       v10 = 0;
       do
       {
-        if (*v23 != v9)
+        if (*v22 != v9)
         {
           objc_enumerationMutation(v4);
         }
 
-        v11 = *(*(&v22 + 1) + 8 * v10);
+        v11 = *(*(&v21 + 1) + 8 * v10);
         route = [v11 route];
 
         if (!route)
@@ -96,16 +95,16 @@ void __37__MNNavigationDetails_routeLookupIDs__block_invoke(uint64_t a1)
           v17 = GEOFindOrCreateLog();
           if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
           {
-            *buf = v21;
-            v27 = "[MNNavigationDetails alternateRoutes]";
-            v28 = 2080;
-            v29 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationDetails.m";
-            v30 = 1024;
-            v31 = 466;
-            v32 = 2080;
-            v33 = "alternateRouteInfo.route != nil";
-            v34 = 2112;
-            v35 = v16;
+            *buf = v20;
+            v26 = "[MNNavigationDetails alternateRoutes]";
+            v27 = 2080;
+            v28 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationDetails.m";
+            v29 = 1024;
+            v30 = 466;
+            v31 = 2080;
+            v32 = "alternateRouteInfo.route != nil";
+            v33 = 2112;
+            v34 = v16;
             _os_log_impl(&dword_1D311E000, v17, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", buf, 0x30u);
           }
 
@@ -124,14 +123,12 @@ void __37__MNNavigationDetails_routeLookupIDs__block_invoke(uint64_t a1)
       }
 
       while (v7 != v10);
-      v18 = [(NSArray *)v4 countByEnumeratingWithState:&v22 objects:v36 count:16];
+      v18 = [(NSArray *)v4 countByEnumeratingWithState:&v21 objects:v35 count:16];
       v7 = v18;
     }
 
     while (v18);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -205,30 +202,29 @@ void __37__MNNavigationDetails_routeLookupIDs__block_invoke(uint64_t a1)
 {
   routeIDLookup = [(MNNavigationDetails *)self routeIDLookup];
   [routeIDLookup removeAllObjects];
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3032000000;
-  v18 = __Block_byref_object_copy__15833;
-  v19 = __Block_byref_object_dispose__15834;
-  v20 = 0;
-  routeLookupLock = self->_routeLookupLock;
-  v9 = MEMORY[0x1E69E9820];
-  v10 = 3221225472;
-  v11 = __43__MNNavigationDetails__updateRouteIDLookup__block_invoke;
-  v12 = &unk_1E8430960;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = __Block_byref_object_copy__15833;
+  v18 = __Block_byref_object_dispose__15834;
+  v19 = 0;
+  v8 = MEMORY[0x1E69E9820];
+  v9 = 3221225472;
+  v10 = __43__MNNavigationDetails__updateRouteIDLookup__block_invoke;
+  v11 = &unk_1E8430960;
   selfCopy = self;
-  v14 = &v15;
+  v13 = &v14;
   geo_isolate_sync();
-  v5 = v16[5];
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = __43__MNNavigationDetails__updateRouteIDLookup__block_invoke_2;
-  v7[3] = &unk_1E842FDA8;
-  v6 = routeIDLookup;
-  v8 = v6;
-  [v5 enumerateKeysAndObjectsUsingBlock:v7];
+  v4 = v15[5];
+  v6[0] = MEMORY[0x1E69E9820];
+  v6[1] = 3221225472;
+  v6[2] = __43__MNNavigationDetails__updateRouteIDLookup__block_invoke_2;
+  v6[3] = &unk_1E842FDA8;
+  v5 = routeIDLookup;
+  v7 = v5;
+  [v4 enumerateKeysAndObjectsUsingBlock:v6];
 
-  _Block_object_dispose(&v15, 8);
+  _Block_object_dispose(&v14, 8);
 }
 
 void __43__MNNavigationDetails__updateRouteIDLookup__block_invoke(uint64_t a1)
@@ -242,7 +238,7 @@ void __43__MNNavigationDetails__updateRouteIDLookup__block_invoke(uint64_t a1)
 
 void __43__MNNavigationDetails__updateRouteIDLookup__block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a2;
   if (v5 && a3)
   {
@@ -256,17 +252,15 @@ void __43__MNNavigationDetails__updateRouteIDLookup__block_invoke_2(uint64_t a1,
     v7 = GEOFindOrCreateLog();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v9 = 136315650;
-      v10 = "[MNNavigationDetails _updateRouteIDLookup]_block_invoke_2";
-      v11 = 2080;
-      v12 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationDetails.m";
-      v13 = 1024;
-      v14 = 742;
-      _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: Hit an unreachable code path", &v9, 0x1Cu);
+      v8 = 136315650;
+      v9 = "[MNNavigationDetails _updateRouteIDLookup]_block_invoke_2";
+      v10 = 2080;
+      v11 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationDetails.m";
+      v12 = 1024;
+      v13 = 742;
+      _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: Hit an unreachable code path", &v8, 0x1Cu);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)markAnnouncementSpoken:(id)spoken
@@ -311,21 +305,19 @@ void __43__MNNavigationDetails__updateRouteIDLookup__block_invoke_2(uint64_t a1,
 
 - (id)routeInfoForID:(id)d
 {
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x3032000000;
+  v9 = __Block_byref_object_copy__15833;
+  v10 = __Block_byref_object_dispose__15834;
+  v11 = 0;
   dCopy = d;
-  v9 = 0;
-  v10 = &v9;
-  v11 = 0x3032000000;
-  v12 = __Block_byref_object_copy__15833;
-  v13 = __Block_byref_object_dispose__15834;
-  v14 = 0;
-  routeLookupLock = self->_routeLookupLock;
-  v8 = dCopy;
   geo_isolate_sync();
-  v6 = v10[5];
+  v3 = v7[5];
 
-  _Block_object_dispose(&v9, 8);
+  _Block_object_dispose(&v6, 8);
 
-  return v6;
+  return v3;
 }
 
 void __38__MNNavigationDetails_routeInfoForID___block_invoke(uint64_t a1)
@@ -339,7 +331,7 @@ void __38__MNNavigationDetails_routeInfoForID___block_invoke(uint64_t a1)
 
 - (void)updateETATrafficForRoute:(id)route
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   routeCopy = route;
   routeID = [routeCopy routeID];
   v6 = [(MNNavigationDetails *)self routeInfoForID:routeID];
@@ -362,62 +354,59 @@ void __38__MNNavigationDetails_routeInfoForID___block_invoke(uint64_t a1)
     mutableData = GEOFindOrCreateLog();
     if (os_log_type_enabled(mutableData, OS_LOG_TYPE_ERROR))
     {
-      v13 = 136316162;
-      v14 = "[MNNavigationDetails updateETATrafficForRoute:]";
-      v15 = 2080;
-      v16 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationDetails.m";
-      v17 = 1024;
-      v18 = 683;
-      v19 = 2080;
-      v20 = "existingRoute != nil";
-      v21 = 2112;
-      v22 = route;
-      _os_log_impl(&dword_1D311E000, mutableData, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", &v13, 0x30u);
+      v12 = 136316162;
+      v13 = "[MNNavigationDetails updateETATrafficForRoute:]";
+      v14 = 2080;
+      v15 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationDetails.m";
+      v16 = 1024;
+      v17 = 683;
+      v18 = 2080;
+      v19 = "existingRoute != nil";
+      v20 = 2112;
+      v21 = route;
+      _os_log_impl(&dword_1D311E000, mutableData, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", &v12, 0x30u);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setAlternateRoutes:(id)routes
 {
-  v100 = *MEMORY[0x1E69E9840];
+  v92 = *MEMORY[0x1E69E9840];
   routesCopy = routes;
   v5 = MNGetMNNavigationDetailsLog();
   v6 = os_signpost_id_generate(v5);
   v7 = v5;
   v8 = v7;
   spid = v6;
-  v47 = v6 - 1;
+  v40 = v6 - 1;
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
   {
     *buf = 0;
     _os_signpost_emit_with_name_impl(&dword_1D311E000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v6, "SetAlternateRoute", "", buf, 2u);
   }
 
-  v46 = v8;
+  v39 = v8;
 
   *buf = 0;
-  v84 = buf;
-  v85 = 0x3032000000;
-  v86 = __Block_byref_object_copy__15833;
-  v87 = __Block_byref_object_dispose__15834;
-  v88 = 0;
-  routeLookupLock = self->_routeLookupLock;
-  v77 = MEMORY[0x1E69E9820];
-  v78 = 3221225472;
-  v79 = __42__MNNavigationDetails_setAlternateRoutes___block_invoke;
-  v80 = &unk_1E8430960;
+  v76 = buf;
+  v77 = 0x3032000000;
+  v78 = __Block_byref_object_copy__15833;
+  v79 = __Block_byref_object_dispose__15834;
+  v80 = 0;
+  v69 = MEMORY[0x1E69E9820];
+  v70 = 3221225472;
+  v71 = __42__MNNavigationDetails_setAlternateRoutes___block_invoke;
+  v72 = &unk_1E8430960;
   selfCopy = self;
-  v82 = buf;
+  v74 = buf;
   geo_isolate_sync();
   routeID = [(MNActiveRouteInfo *)self->_currentRoute routeID];
 
   if (routeID)
   {
-    v11 = *(v84 + 5);
+    v10 = *(v76 + 5);
     routeID2 = [(MNActiveRouteInfo *)self->_currentRoute routeID];
-    [v11 removeObject:routeID2];
+    [v10 removeObject:routeID2];
   }
 
   else
@@ -425,203 +414,196 @@ void __38__MNNavigationDetails_routeInfoForID___block_invoke(uint64_t a1)
     routeID2 = GEOFindOrCreateLog();
     if (os_log_type_enabled(routeID2, OS_LOG_TYPE_ERROR))
     {
-      *v96 = 136315650;
-      *&v96[4] = "[MNNavigationDetails setAlternateRoutes:]";
-      *&v96[12] = 2080;
-      *&v96[14] = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationDetails.m";
-      *&v96[22] = 1024;
-      LODWORD(v97) = 617;
-      _os_log_impl(&dword_1D311E000, routeID2, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: Hit an unreachable code path", v96, 0x1Cu);
+      *v88 = 136315650;
+      *&v88[4] = "[MNNavigationDetails setAlternateRoutes:]";
+      *&v88[12] = 2080;
+      *&v88[14] = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationDetails.m";
+      *&v88[22] = 1024;
+      LODWORD(v89) = 617;
+      _os_log_impl(&dword_1D311E000, routeID2, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: Hit an unreachable code path", v88, 0x1Cu);
     }
   }
 
-  v13 = [MEMORY[0x1E695DFA8] set];
+  v12 = [MEMORY[0x1E695DFA8] set];
   array = [MEMORY[0x1E695DF70] array];
-  v75 = 0u;
-  v76 = 0u;
-  v73 = 0u;
-  v74 = 0u;
+  v67 = 0u;
+  v68 = 0u;
+  v65 = 0u;
+  v66 = 0u;
   obj = routesCopy;
-  v15 = [obj countByEnumeratingWithState:&v73 objects:v99 count:16];
-  if (v15)
+  v14 = [obj countByEnumeratingWithState:&v65 objects:v91 count:16];
+  if (v14)
   {
-    v17 = *v74;
-    *&v16 = 136316162;
-    v44 = v16;
+    v16 = *v66;
+    *&v15 = 136316162;
+    v37 = v15;
     do
     {
-      v18 = 0;
+      v17 = 0;
       do
       {
-        if (*v74 != v17)
+        if (*v66 != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v19 = *(*(&v73 + 1) + 8 * v18);
-        routeID3 = [v19 routeID];
-        v21 = routeID3 == 0;
+        v18 = *(*(&v65 + 1) + 8 * v17);
+        routeID3 = [v18 routeID];
+        v20 = routeID3 == 0;
 
-        if (v21)
+        if (v20)
         {
-          routeID4 = [v19 routeID];
-          v27 = routeID4 == 0;
+          routeID4 = [v18 routeID];
+          v25 = routeID4 == 0;
 
-          if (v27)
+          if (v25)
           {
-            v31 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Alternate route ID is nil"];
-            v32 = GEOFindOrCreateLog();
-            if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+            v28 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Alternate route ID is nil"];
+            v29 = GEOFindOrCreateLog();
+            if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
             {
-              *v96 = v44;
-              *&v96[4] = "[MNNavigationDetails setAlternateRoutes:]";
-              *&v96[12] = 2080;
-              *&v96[14] = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationDetails.m";
-              *&v96[22] = 1024;
-              LODWORD(v97) = 624;
-              WORD2(v97) = 2080;
-              *(&v97 + 6) = "alternateRoute.routeID";
-              HIWORD(v97) = 2112;
-              v98 = v31;
-              _os_log_impl(&dword_1D311E000, v32, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", v96, 0x30u);
+              *v88 = v37;
+              *&v88[4] = "[MNNavigationDetails setAlternateRoutes:]";
+              *&v88[12] = 2080;
+              *&v88[14] = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationDetails.m";
+              *&v88[22] = 1024;
+              LODWORD(v89) = 624;
+              WORD2(v89) = 2080;
+              *(&v89 + 6) = "alternateRoute.routeID";
+              HIWORD(v89) = 2112;
+              v90 = v28;
+              _os_log_impl(&dword_1D311E000, v29, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", v88, 0x30u);
             }
           }
 
-          v28 = GEOFindOrCreateLog();
-          if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+          v26 = GEOFindOrCreateLog();
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
           {
-            *v96 = 0;
-            _os_log_impl(&dword_1D311E000, v28, OS_LOG_TYPE_ERROR, "Alternate route ID is nil. This probably means a route failed to load from disk.", v96, 2u);
+            *v88 = 0;
+            _os_log_impl(&dword_1D311E000, v26, OS_LOG_TYPE_ERROR, "Alternate route ID is nil. This probably means a route failed to load from disk.", v88, 2u);
           }
         }
 
         else
         {
-          routeID5 = [v19 routeID];
-          [v13 addObject:routeID5];
+          routeID5 = [v18 routeID];
+          [v12 addObject:routeID5];
 
-          *v96 = 0;
-          *&v96[8] = v96;
-          *&v96[16] = 0x3032000000;
-          *&v97 = __Block_byref_object_copy__15833;
-          *(&v97 + 1) = __Block_byref_object_dispose__15834;
-          v98 = 0;
-          v23 = self->_routeLookupLock;
-          v66 = MEMORY[0x1E69E9820];
-          v67 = 3221225472;
-          v68 = __42__MNNavigationDetails_setAlternateRoutes___block_invoke_176;
-          v69 = &unk_1E842FD80;
-          v71 = v19;
-          v72 = v96;
+          *v88 = 0;
+          *&v88[8] = v88;
+          *&v88[16] = 0x3032000000;
+          *&v89 = __Block_byref_object_copy__15833;
+          *(&v89 + 1) = __Block_byref_object_dispose__15834;
+          v90 = 0;
+          v58 = MEMORY[0x1E69E9820];
+          v59 = 3221225472;
+          v60 = __42__MNNavigationDetails_setAlternateRoutes___block_invoke_176;
+          v61 = &unk_1E842FD80;
+          v63 = v18;
+          v64 = v88;
           selfCopy2 = self;
           geo_isolate_sync();
-          if (*(*&v96[8] + 40))
+          if (*(*&v88[8] + 40))
           {
-            displayETAInfo = [v19 displayETAInfo];
-            [*(*&v96[8] + 40) setDisplayETAInfo:displayETAInfo];
+            displayETAInfo = [v18 displayETAInfo];
+            [*(*&v88[8] + 40) setDisplayETAInfo:displayETAInfo];
 
-            remainingDistanceInfo = [v19 remainingDistanceInfo];
-            [*(*&v96[8] + 40) setRemainingDistanceInfo:remainingDistanceInfo];
+            remainingDistanceInfo = [v18 remainingDistanceInfo];
+            [*(*&v88[8] + 40) setRemainingDistanceInfo:remainingDistanceInfo];
           }
 
           else
           {
-            objc_storeStrong((*&v96[8] + 40), v19);
-            if (v19)
+            objc_storeStrong((*&v88[8] + 40), v18);
+            if (v18)
             {
-              v29 = self->_routeLookupLock;
-              v60 = MEMORY[0x1E69E9820];
-              v61 = 3221225472;
-              v62 = __42__MNNavigationDetails_setAlternateRoutes___block_invoke_2;
-              v63 = &unk_1E8430D50;
+              v52 = MEMORY[0x1E69E9820];
+              v53 = 3221225472;
+              v54 = __42__MNNavigationDetails_setAlternateRoutes___block_invoke_2;
+              v55 = &unk_1E8430D50;
               selfCopy3 = self;
-              v65 = v19;
+              v57 = v18;
               geo_isolate_sync();
             }
 
             else
             {
-              v30 = GEOFindOrCreateLog();
-              if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+              v27 = GEOFindOrCreateLog();
+              if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
               {
-                *v90 = 136315650;
-                v91 = "[MNNavigationDetails setAlternateRoutes:]";
-                v92 = 2080;
-                v93 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationDetails.m";
-                v94 = 1024;
-                v95 = 645;
-                _os_log_impl(&dword_1D311E000, v30, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: Hit an unreachable code path", v90, 0x1Cu);
+                *v82 = 136315650;
+                v83 = "[MNNavigationDetails setAlternateRoutes:]";
+                v84 = 2080;
+                v85 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationDetails.m";
+                v86 = 1024;
+                v87 = 645;
+                _os_log_impl(&dword_1D311E000, v27, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: Hit an unreachable code path", v82, 0x1Cu);
               }
             }
           }
 
-          [array addObject:*(*&v96[8] + 40)];
-          _Block_object_dispose(v96, 8);
+          [array addObject:*(*&v88[8] + 40)];
+          _Block_object_dispose(v88, 8);
         }
 
-        ++v18;
+        ++v17;
       }
 
-      while (v15 != v18);
-      v33 = [obj countByEnumeratingWithState:&v73 objects:v99 count:16];
-      v15 = v33;
+      while (v14 != v17);
+      v30 = [obj countByEnumeratingWithState:&v65 objects:v91 count:16];
+      v14 = v30;
     }
 
-    while (v33);
+    while (v30);
   }
 
-  [*(v84 + 5) minusSet:v13];
-  v34 = self->_routeLookupLock;
-  v54 = MEMORY[0x1E69E9820];
-  v55 = 3221225472;
-  v56 = __42__MNNavigationDetails_setAlternateRoutes___block_invoke_177;
-  v57 = &unk_1E8430960;
+  [*(v76 + 5) minusSet:v12];
+  v46 = MEMORY[0x1E69E9820];
+  v47 = 3221225472;
+  v48 = __42__MNNavigationDetails_setAlternateRoutes___block_invoke_177;
+  v49 = &unk_1E8430960;
   selfCopy4 = self;
-  v59 = buf;
+  v51 = buf;
   geo_isolate_sync();
   objc_storeStrong(&self->_alternateRoutes, array);
-  v53 = 0u;
-  v51 = 0u;
-  v52 = 0u;
-  v50 = 0u;
-  v35 = self->_alternateRoutes;
-  v36 = [(NSArray *)v35 countByEnumeratingWithState:&v50 objects:v89 count:16];
-  if (v36)
+  v45 = 0u;
+  v43 = 0u;
+  v44 = 0u;
+  v42 = 0u;
+  v31 = self->_alternateRoutes;
+  v32 = [(NSArray *)v31 countByEnumeratingWithState:&v42 objects:v81 count:16];
+  if (v32)
   {
-    v37 = *v51;
+    v33 = *v43;
     do
     {
-      for (i = 0; i != v36; ++i)
+      for (i = 0; i != v32; ++i)
       {
-        if (*v51 != v37)
+        if (*v43 != v33)
         {
-          objc_enumerationMutation(v35);
+          objc_enumerationMutation(v31);
         }
 
-        v39 = self->_routeLookupLock;
-        v49 = *(*(&v50 + 1) + 8 * i);
         geo_isolate_sync();
       }
 
-      v36 = [(NSArray *)v35 countByEnumeratingWithState:&v50 objects:v89 count:16];
+      v32 = [(NSArray *)v31 countByEnumeratingWithState:&v42 objects:v81 count:16];
     }
 
-    while (v36);
+    while (v32);
   }
 
-  v40 = self->_routeLookupLock;
   geo_isolate_sync();
   [(MNNavigationDetails *)self _updateRouteIDLookup];
-  v41 = v46;
-  v42 = v41;
-  if (v47 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v41))
+  v35 = v39;
+  v36 = v35;
+  if (v40 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v35))
   {
-    *v96 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1D311E000, v42, OS_SIGNPOST_INTERVAL_END, spid, "SetAlternateRoute", "", v96, 2u);
+    *v88 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1D311E000, v36, OS_SIGNPOST_INTERVAL_END, spid, "SetAlternateRoute", "", v88, 2u);
   }
 
   _Block_object_dispose(buf, 8);
-  v43 = *MEMORY[0x1E69E9840];
 }
 
 void __42__MNNavigationDetails_setAlternateRoutes___block_invoke(uint64_t a1)
@@ -662,7 +644,7 @@ void __42__MNNavigationDetails_setAlternateRoutes___block_invoke_177(uint64_t a1
 
 void __42__MNNavigationDetails_setAlternateRoutes___block_invoke_2_178(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) routeLookup];
   v3 = [*(a1 + 40) routeID];
   v4 = [v2 objectForKeyedSubscript:v3];
@@ -670,67 +652,63 @@ void __42__MNNavigationDetails_setAlternateRoutes___block_invoke_2_178(uint64_t 
 
   if (v4 != v5)
   {
-    v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unexpected alternate route in lookup"];
-    v8 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unexpected alternate route in lookup"];
+    v7 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v9 = 136316162;
-      v10 = "[MNNavigationDetails setAlternateRoutes:]_block_invoke_2";
-      v11 = 2080;
-      v12 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationDetails.m";
-      v13 = 1024;
-      v14 = 661;
-      v15 = 2080;
-      v16 = "self.routeLookup[alternateRoute.routeID] == alternateRoute";
-      v17 = 2112;
-      v18 = v7;
-      _os_log_impl(&dword_1D311E000, v8, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", &v9, 0x30u);
+      v8 = 136316162;
+      v9 = "[MNNavigationDetails setAlternateRoutes:]_block_invoke_2";
+      v10 = 2080;
+      v11 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationDetails.m";
+      v12 = 1024;
+      v13 = 661;
+      v14 = 2080;
+      v15 = "self.routeLookup[alternateRoute.routeID] == alternateRoute";
+      v16 = 2112;
+      v17 = v6;
+      _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", &v8, 0x30u);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __42__MNNavigationDetails_setAlternateRoutes___block_invoke_183(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) routeLookup];
   v3 = [v2 count];
   v4 = [*(*(a1 + 32) + 88) count] + 1;
 
   if (v3 != v4)
   {
-    v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unexpected number of routes in lookup"];
-    v7 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unexpected number of routes in lookup"];
+    v6 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v8 = 136316162;
-      v9 = "[MNNavigationDetails setAlternateRoutes:]_block_invoke";
-      v10 = 2080;
-      v11 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationDetails.m";
-      v12 = 1024;
-      v13 = 666;
-      v14 = 2080;
-      v15 = "self.routeLookup.count == (_alternateRoutes.count + 1)";
-      v16 = 2112;
-      v17 = v6;
-      _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", &v8, 0x30u);
+      v7 = 136316162;
+      v8 = "[MNNavigationDetails setAlternateRoutes:]_block_invoke";
+      v9 = 2080;
+      v10 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationDetails.m";
+      v11 = 1024;
+      v12 = 666;
+      v13 = 2080;
+      v14 = "self.routeLookup.count == (_alternateRoutes.count + 1)";
+      v15 = 2112;
+      v16 = v5;
+      _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", &v7, 0x30u);
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setCurrentRoute:(id)route withAlternateRoutes:(id)routes
 {
-  v116 = *MEMORY[0x1E69E9840];
+  v112 = *MEMORY[0x1E69E9840];
   routeCopy = route;
   routesCopy = routes;
   v7 = MNGetMNNavigationDetailsLog();
   v8 = os_signpost_id_generate(v7);
   v9 = v7;
   v10 = v9;
-  v80 = v8 - 1;
+  v76 = v8 - 1;
   if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
   {
     *buf = 0;
@@ -738,30 +716,30 @@ void __42__MNNavigationDetails_setAlternateRoutes___block_invoke_183(uint64_t a1
   }
 
   spid = v8;
-  v79 = v10;
+  v75 = v10;
 
-  v102 = 0u;
-  v103 = 0u;
-  v100 = 0u;
-  v101 = 0u;
+  v98 = 0u;
+  v99 = 0u;
+  v96 = 0u;
+  v97 = 0u;
   selfCopy = self;
   v11 = self->_alternateRoutes;
-  v12 = [(NSArray *)v11 countByEnumeratingWithState:&v100 objects:v115 count:16];
+  v12 = [(NSArray *)v11 countByEnumeratingWithState:&v96 objects:v111 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v101;
+    v14 = *v97;
     while (2)
     {
       v15 = 0;
       do
       {
-        if (*v101 != v14)
+        if (*v97 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v100 + 1) + 8 * v15);
+        v16 = *(*(&v96 + 1) + 8 * v15);
         routeID = [v16 routeID];
 
         if (!routeID)
@@ -771,15 +749,15 @@ void __42__MNNavigationDetails_setAlternateRoutes___block_invoke_183(uint64_t a1
           if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
           {
             *buf = 136316162;
-            v106 = "[MNNavigationDetails setCurrentRoute:withAlternateRoutes:]";
+            v102 = "[MNNavigationDetails setCurrentRoute:withAlternateRoutes:]";
+            v103 = 2080;
+            v104 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationDetails.m";
+            v105 = 1024;
+            v106 = 532;
             v107 = 2080;
-            v108 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationDetails.m";
-            v109 = 1024;
-            v110 = 532;
-            v111 = 2080;
-            v112 = "alternateRoute.routeID";
-            v113 = 2112;
-            v114 = v22;
+            v108 = "alternateRoute.routeID";
+            v109 = 2112;
+            v110 = v22;
             _os_log_impl(&dword_1D311E000, v23, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", buf, 0x30u);
           }
         }
@@ -806,28 +784,28 @@ void __42__MNNavigationDetails_setAlternateRoutes___block_invoke_183(uint64_t a1
           [v25 setRemainingDistanceInfo:remainingDistanceInfo];
 
           v28 = v25;
-          v87 = 0u;
-          v88 = 0u;
-          v85 = 0u;
-          v86 = 0u;
+          v83 = 0u;
+          v84 = 0u;
+          v81 = 0u;
+          v82 = 0u;
           v29 = routesCopy;
-          v30 = [v29 countByEnumeratingWithState:&v85 objects:v104 count:16];
+          v30 = [v29 countByEnumeratingWithState:&v81 objects:v100 count:16];
           v31 = selfCopy;
-          v78 = v28;
+          v74 = v28;
           if (v30)
           {
             v32 = v30;
-            v33 = *v86;
+            v33 = *v82;
             while (2)
             {
               for (i = 0; i != v32; ++i)
               {
-                if (*v86 != v33)
+                if (*v82 != v33)
                 {
                   objc_enumerationMutation(v29);
                 }
 
-                v35 = *(*(&v85 + 1) + 8 * i);
+                v35 = *(*(&v81 + 1) + 8 * i);
                 routeID4 = [(MNActiveRouteInfo *)selfCopy->_currentRoute routeID];
                 routeID5 = [v35 routeID];
                 v38 = [routeID4 isEqual:routeID5];
@@ -839,7 +817,7 @@ void __42__MNNavigationDetails_setAlternateRoutes___block_invoke_183(uint64_t a1
                 }
               }
 
-              v32 = [v29 countByEnumeratingWithState:&v85 objects:v104 count:16];
+              v32 = [v29 countByEnumeratingWithState:&v81 objects:v100 count:16];
               if (v32)
               {
                 continue;
@@ -849,7 +827,6 @@ void __42__MNNavigationDetails_setAlternateRoutes___block_invoke_183(uint64_t a1
             }
           }
 
-          routeLookupLock = selfCopy->_routeLookupLock;
           geo_isolate_sync();
 LABEL_38:
           routeCopy = v28;
@@ -861,7 +838,7 @@ LABEL_38:
       }
 
       while (v13 != v15);
-      v24 = [(NSArray *)v11 countByEnumeratingWithState:&v100 objects:v115 count:16];
+      v24 = [(NSArray *)v11 countByEnumeratingWithState:&v96 objects:v111 count:16];
       v13 = v24;
       if (v24)
       {
@@ -878,39 +855,37 @@ LABEL_28:
 
   if (routeID6)
   {
-    v41 = selfCopy->_routeLookupLock;
-    v95 = MEMORY[0x1E69E9820];
-    v96 = 3221225472;
-    v97 = __59__MNNavigationDetails_setCurrentRoute_withAlternateRoutes___block_invoke;
-    v98 = &unk_1E8430ED8;
-    v99 = selfCopy;
+    v91 = MEMORY[0x1E69E9820];
+    v92 = 3221225472;
+    v93 = __59__MNNavigationDetails_setCurrentRoute_withAlternateRoutes___block_invoke;
+    v94 = &unk_1E8430ED8;
+    v95 = selfCopy;
     geo_isolate_sync();
   }
 
-  if (routeCopy && ([(MNActiveRouteInfo *)routeCopy routeID], v42 = objc_claimAutoreleasedReturnValue(), v42, v42))
+  if (routeCopy && ([(MNActiveRouteInfo *)routeCopy routeID], v40 = objc_claimAutoreleasedReturnValue(), v40, v40))
   {
-    v43 = selfCopy->_routeLookupLock;
-    v89 = MEMORY[0x1E69E9820];
-    v90 = 3221225472;
-    v91 = __59__MNNavigationDetails_setCurrentRoute_withAlternateRoutes___block_invoke_2;
-    v92 = &unk_1E8430D50;
-    v93 = selfCopy;
+    v85 = MEMORY[0x1E69E9820];
+    v86 = 3221225472;
+    v87 = __59__MNNavigationDetails_setCurrentRoute_withAlternateRoutes___block_invoke_2;
+    v88 = &unk_1E8430D50;
+    v89 = selfCopy;
     routeCopy = routeCopy;
-    v94 = routeCopy;
+    v90 = routeCopy;
     geo_isolate_sync();
   }
 
   else
   {
-    v44 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+    v41 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_1D311E000, v44, OS_LOG_TYPE_ERROR, "New route is nil or new route ID is nil! Try re-installing navd.", buf, 2u);
+      _os_log_impl(&dword_1D311E000, v41, OS_LOG_TYPE_ERROR, "New route is nil or new route ID is nil! Try re-installing navd.", buf, 2u);
     }
   }
 
-  v78 = 0;
+  v74 = 0;
 LABEL_39:
   p_currentRoute = &v31->_currentRoute;
   if (v31->_currentRoute != routeCopy)
@@ -920,50 +895,50 @@ LABEL_39:
 
     route = [(MNActiveRouteInfo *)v31->_currentRoute route];
     waypoints = [route waypoints];
-    v49 = [waypoints count];
+    v46 = [waypoints count];
     route2 = [(MNActiveRouteInfo *)routeCopy route];
     waypoints2 = [route2 waypoints];
-    v52 = [waypoints2 count];
+    v49 = [waypoints2 count];
 
-    if (v49 == v52)
+    if (v46 == v49)
     {
       route3 = [*p_currentRoute route];
       waypoints3 = [route3 waypoints];
-      v55 = [waypoints3 count];
+      v52 = [waypoints3 count];
 
-      if (v55 >= 2)
+      if (v52 >= 2)
       {
-        v56 = 1;
-        v82 = &v31->_currentRoute;
-        v83 = routeCopy;
+        v53 = 1;
+        v78 = &v31->_currentRoute;
+        v79 = routeCopy;
         do
         {
           route4 = [*p_currentRoute route];
           waypoints4 = [route4 waypoints];
-          v59 = [waypoints4 objectAtIndexedSubscript:v56];
-          uniqueWaypointID = [v59 uniqueWaypointID];
+          v56 = [waypoints4 objectAtIndexedSubscript:v53];
+          uniqueWaypointID = [v56 uniqueWaypointID];
           route5 = [(MNActiveRouteInfo *)routeCopy route];
           waypoints5 = [route5 waypoints];
-          v63 = [waypoints5 objectAtIndexedSubscript:v56];
-          uniqueWaypointID2 = [v63 uniqueWaypointID];
-          v65 = [uniqueWaypointID isEqualToData:uniqueWaypointID2];
+          v60 = [waypoints5 objectAtIndexedSubscript:v53];
+          uniqueWaypointID2 = [v60 uniqueWaypointID];
+          v62 = [uniqueWaypointID isEqualToData:uniqueWaypointID2];
 
           v31 = selfCopy;
-          if ((v65 & 1) == 0)
+          if ((v62 & 1) == 0)
           {
             selfCopy->_isApproachingWaypoint = 0;
           }
 
-          ++v56;
-          p_currentRoute = v82;
-          route6 = [*v82 route];
+          ++v53;
+          p_currentRoute = v78;
+          route6 = [*v78 route];
           waypoints6 = [route6 waypoints];
-          v68 = [waypoints6 count];
+          v65 = [waypoints6 count];
 
-          routeCopy = v83;
+          routeCopy = v79;
         }
 
-        while (v56 < v68);
+        while (v53 < v65);
       }
     }
   }
@@ -985,15 +960,13 @@ LABEL_39:
 
   [(MNNavigationDetails *)v31 _updateRouteIDLookup];
   [(MNNavigationDetails *)v31 setAlternateRoutes:routesCopy];
-  v74 = v79;
-  v75 = v74;
-  if (v80 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v74))
+  v71 = v75;
+  v72 = v71;
+  if (v76 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v71))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1D311E000, v75, OS_SIGNPOST_INTERVAL_END, spid, "SetCurrentRoute", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1D311E000, v72, OS_SIGNPOST_INTERVAL_END, spid, "SetCurrentRoute", "", buf, 2u);
   }
-
-  v76 = *MEMORY[0x1E69E9840];
 }
 
 void __59__MNNavigationDetails_setCurrentRoute_withAlternateRoutes___block_invoke(uint64_t a1)
@@ -1020,7 +993,7 @@ void __59__MNNavigationDetails_setCurrentRoute_withAlternateRoutes___block_invok
 
 - (void)setPreviewRoutes:(id)routes withSelectedRouteIndex:(unint64_t)index
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   routesCopy = routes;
   routesCopy2 = routes;
   v5 = MNGetMNNavigationDetailsLog();
@@ -1034,32 +1007,32 @@ void __59__MNNavigationDetails_setCurrentRoute_withAlternateRoutes___block_invok
   }
 
   spid = v6;
-  v34 = v8;
+  v33 = v8;
 
   self->_navigationType = 1;
   v9 = [MEMORY[0x1E695DFA8] set];
+  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
   selfCopy = self;
   p_previewRoutes = &self->_previewRoutes;
   v10 = self->_previewRoutes;
-  v11 = [(NSArray *)v10 countByEnumeratingWithState:&v41 objects:v56 count:16];
+  v11 = [(NSArray *)v10 countByEnumeratingWithState:&v40 objects:v55 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v42;
+    v13 = *v41;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v42 != v13)
+        if (*v41 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        routeID = [*(*(&v41 + 1) + 8 * i) routeID];
+        routeID = [*(*(&v40 + 1) + 8 * i) routeID];
         if (routeID)
         {
           [v9 addObject:routeID];
@@ -1072,47 +1045,47 @@ void __59__MNNavigationDetails_setCurrentRoute_withAlternateRoutes___block_invok
           if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
           {
             *buf = 136316162;
-            v47 = "[MNNavigationDetails setPreviewRoutes:withSelectedRouteIndex:]";
-            v48 = 2080;
-            v49 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationDetails.m";
-            v50 = 1024;
-            v51 = 501;
-            v52 = 2080;
-            v53 = "routeID";
-            v54 = 2112;
-            v55 = v16;
+            v46 = "[MNNavigationDetails setPreviewRoutes:withSelectedRouteIndex:]";
+            v47 = 2080;
+            v48 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationDetails.m";
+            v49 = 1024;
+            v50 = 501;
+            v51 = 2080;
+            v52 = "routeID";
+            v53 = 2112;
+            v54 = v16;
             _os_log_impl(&dword_1D311E000, v17, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", buf, 0x30u);
           }
         }
       }
 
-      v12 = [(NSArray *)v10 countByEnumeratingWithState:&v41 objects:v56 count:16];
+      v12 = [(NSArray *)v10 countByEnumeratingWithState:&v40 objects:v55 count:16];
     }
 
     while (v12);
   }
 
   v18 = [MEMORY[0x1E695DFA8] set];
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
   v19 = routesCopy2;
-  v20 = [v19 countByEnumeratingWithState:&v37 objects:v45 count:16];
+  v20 = [v19 countByEnumeratingWithState:&v36 objects:v44 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v38;
+    v22 = *v37;
     do
     {
       for (j = 0; j != v21; ++j)
       {
-        if (*v38 != v22)
+        if (*v37 != v22)
         {
           objc_enumerationMutation(v19);
         }
 
-        routeID2 = [*(*(&v37 + 1) + 8 * j) routeID];
+        routeID2 = [*(*(&v36 + 1) + 8 * j) routeID];
         if (routeID2)
         {
           [v18 addObject:routeID2];
@@ -1125,21 +1098,21 @@ void __59__MNNavigationDetails_setCurrentRoute_withAlternateRoutes___block_invok
           if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
           {
             *buf = 136316162;
-            v47 = "[MNNavigationDetails setPreviewRoutes:withSelectedRouteIndex:]";
-            v48 = 2080;
-            v49 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationDetails.m";
-            v50 = 1024;
-            v51 = 511;
-            v52 = 2080;
-            v53 = "routeID";
-            v54 = 2112;
-            v55 = v25;
+            v46 = "[MNNavigationDetails setPreviewRoutes:withSelectedRouteIndex:]";
+            v47 = 2080;
+            v48 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationDetails.m";
+            v49 = 1024;
+            v50 = 511;
+            v51 = 2080;
+            v52 = "routeID";
+            v53 = 2112;
+            v54 = v25;
             _os_log_impl(&dword_1D311E000, v26, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", buf, 0x30u);
           }
         }
       }
 
-      v21 = [v19 countByEnumeratingWithState:&v37 objects:v45 count:16];
+      v21 = [v19 countByEnumeratingWithState:&v36 objects:v44 count:16];
     }
 
     while (v21);
@@ -1151,15 +1124,13 @@ void __59__MNNavigationDetails_setCurrentRoute_withAlternateRoutes___block_invok
   }
 
   selfCopy->_selectedPreviewRouteIndex = index;
-  v27 = v34;
+  v27 = v33;
   v28 = v27;
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v27))
   {
     *buf = 0;
     _os_signpost_emit_with_name_impl(&dword_1D311E000, v28, OS_SIGNPOST_INTERVAL_END, spid, "SetPreviewRoutes", "", buf, 2u);
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)segmentIndex
@@ -1179,7 +1150,7 @@ void __59__MNNavigationDetails_setCurrentRoute_withAlternateRoutes___block_invok
 
 - (NSArray)previewRoutes
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   if ([(NSArray *)self->_previewRoutes count])
   {
     v3 = [MEMORY[0x1E695DF70] arrayWithCapacity:{-[NSArray count](self->_previewRoutes, "count")}];
@@ -1190,30 +1161,30 @@ void __59__MNNavigationDetails_setCurrentRoute_withAlternateRoutes___block_invok
     v3 = 0;
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v4 = self->_previewRoutes;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v22 objects:v36 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v21 objects:v35 count:16];
   if (v5)
   {
     v7 = v5;
     v8 = 0x1E696A000uLL;
-    v9 = *v23;
+    v9 = *v22;
     *&v6 = 136316162;
-    v21 = v6;
+    v20 = v6;
     do
     {
       v10 = 0;
       do
       {
-        if (*v23 != v9)
+        if (*v22 != v9)
         {
           objc_enumerationMutation(v4);
         }
 
-        v11 = *(*(&v22 + 1) + 8 * v10);
+        v11 = *(*(&v21 + 1) + 8 * v10);
         route = [v11 route];
 
         if (!route)
@@ -1223,16 +1194,16 @@ void __59__MNNavigationDetails_setCurrentRoute_withAlternateRoutes___block_invok
           v17 = GEOFindOrCreateLog();
           if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
           {
-            *buf = v21;
-            v27 = "[MNNavigationDetails previewRoutes]";
-            v28 = 2080;
-            v29 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationDetails.m";
-            v30 = 1024;
-            v31 = 454;
-            v32 = 2080;
-            v33 = "previewRouteInfo.route != nil";
-            v34 = 2112;
-            v35 = v16;
+            *buf = v20;
+            v26 = "[MNNavigationDetails previewRoutes]";
+            v27 = 2080;
+            v28 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationDetails.m";
+            v29 = 1024;
+            v30 = 454;
+            v31 = 2080;
+            v32 = "previewRouteInfo.route != nil";
+            v33 = 2112;
+            v34 = v16;
             _os_log_impl(&dword_1D311E000, v17, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", buf, 0x30u);
           }
 
@@ -1251,21 +1222,19 @@ void __59__MNNavigationDetails_setCurrentRoute_withAlternateRoutes___block_invok
       }
 
       while (v7 != v10);
-      v18 = [(NSArray *)v4 countByEnumeratingWithState:&v22 objects:v36 count:16];
+      v18 = [(NSArray *)v4 countByEnumeratingWithState:&v21 objects:v35 count:16];
       v7 = v18;
     }
 
     while (v18);
   }
 
-  v19 = *MEMORY[0x1E69E9840];
-
   return v3;
 }
 
 - (void)setLocation:(id)location
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   locationCopy = location;
   routeID = [(MNLocation *)locationCopy routeID];
   if (routeID)
@@ -1284,17 +1253,17 @@ void __59__MNNavigationDetails_setCurrentRoute_withAlternateRoutes___block_invok
         v12 = GEOFindOrCreateLog();
         if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
         {
-          v20 = 136316162;
-          v21 = "[MNNavigationDetails setLocation:]";
-          v22 = 2080;
-          v23 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationDetails.m";
-          v24 = 1024;
-          v25 = 419;
-          v26 = 2080;
-          v27 = "routeInfo != nil && routeInfo.route != nil";
-          v28 = 2112;
-          v29 = v11;
-          _os_log_impl(&dword_1D311E000, v12, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", &v20, 0x30u);
+          v19 = 136316162;
+          v20 = "[MNNavigationDetails setLocation:]";
+          v21 = 2080;
+          v22 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationDetails.m";
+          v23 = 1024;
+          v24 = 419;
+          v25 = 2080;
+          v26 = "routeInfo != nil && routeInfo.route != nil";
+          v27 = 2112;
+          v28 = v11;
+          _os_log_impl(&dword_1D311E000, v12, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", &v19, 0x30u);
         }
       }
 
@@ -1330,13 +1299,11 @@ LABEL_13:
 LABEL_14:
   location = self->_location;
   self->_location = locationCopy;
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleTrafficIncidentAlertUpdate:(id)update
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   updateCopy = update;
   trafficIncidentAlert = [updateCopy trafficIncidentAlert];
   v6 = trafficIncidentAlert;
@@ -1346,11 +1313,11 @@ LABEL_14:
     if (os_log_type_enabled(alertID6, OS_LOG_TYPE_FAULT))
     {
       alertID = [v6 alertID];
-      v28 = 134218240;
-      v29 = v6;
-      v30 = 2048;
-      v31 = alertID;
-      _os_log_impl(&dword_1D311E000, alertID6, OS_LOG_TYPE_FAULT, "Received an alert callback with no valid alert (%p) or ID (%p).", &v28, 0x16u);
+      v27 = 134218240;
+      v28 = v6;
+      v29 = 2048;
+      v30 = alertID;
+      _os_log_impl(&dword_1D311E000, alertID6, OS_LOG_TYPE_FAULT, "Received an alert callback with no valid alert (%p) or ID (%p).", &v27, 0x16u);
     }
 
     goto LABEL_11;
@@ -1361,48 +1328,48 @@ LABEL_14:
   {
     trafficIncidentAlerts = self->_trafficIncidentAlerts;
     alertID2 = [v6 alertID];
-    v17 = [(NSMutableDictionary *)trafficIncidentAlerts objectForKeyedSubscript:alertID2];
+    v16 = [(NSMutableDictionary *)trafficIncidentAlerts objectForKeyedSubscript:alertID2];
 
-    if (!v17)
+    if (!v16)
     {
-      v18 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
+      v17 = GEOFindOrCreateLog();
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
       {
-        LOWORD(v28) = 0;
-        _os_log_impl(&dword_1D311E000, v18, OS_LOG_TYPE_FAULT, "Attempting to remove a traffic incident alert that does not exist or was already removed.", &v28, 2u);
+        LOWORD(v27) = 0;
+        _os_log_impl(&dword_1D311E000, v17, OS_LOG_TYPE_FAULT, "Attempting to remove a traffic incident alert that does not exist or was already removed.", &v27, 2u);
       }
     }
 
-    v19 = self->_trafficIncidentAlerts;
+    v18 = self->_trafficIncidentAlerts;
     alertID3 = [v6 alertID];
-    [(NSMutableDictionary *)v19 removeObjectForKey:alertID3];
+    [(NSMutableDictionary *)v18 removeObjectForKey:alertID3];
 
     if (![(NSMutableDictionary *)self->_trafficIncidentAlerts count])
     {
-      v21 = self->_trafficIncidentAlerts;
+      v20 = self->_trafficIncidentAlerts;
       self->_trafficIncidentAlerts = 0;
     }
   }
 
   else if (updateType == 1)
   {
-    v22 = self->_trafficIncidentAlerts;
+    v21 = self->_trafficIncidentAlerts;
     alertID4 = [v6 alertID];
-    v24 = [(NSMutableDictionary *)v22 objectForKeyedSubscript:alertID4];
+    v23 = [(NSMutableDictionary *)v21 objectForKeyedSubscript:alertID4];
 
-    if (!v24)
+    if (!v23)
     {
-      v25 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
+      v24 = GEOFindOrCreateLog();
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
       {
-        LOWORD(v28) = 0;
-        _os_log_impl(&dword_1D311E000, v25, OS_LOG_TYPE_FAULT, "Attempting to update a traffic incident alert that does not exist. Creating a new alert.", &v28, 2u);
+        LOWORD(v27) = 0;
+        _os_log_impl(&dword_1D311E000, v24, OS_LOG_TYPE_FAULT, "Attempting to update a traffic incident alert that does not exist. Creating a new alert.", &v27, 2u);
       }
     }
 
-    v26 = self->_trafficIncidentAlerts;
+    v25 = self->_trafficIncidentAlerts;
     alertID5 = [v6 alertID];
-    [(NSMutableDictionary *)v26 setObject:v6 forKeyedSubscript:alertID5];
+    [(NSMutableDictionary *)v25 setObject:v6 forKeyedSubscript:alertID5];
   }
 
   else if (!updateType)
@@ -1421,8 +1388,6 @@ LABEL_14:
     [(NSMutableDictionary *)v9 setObject:v6 forKeyedSubscript:alertID6];
 LABEL_11:
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateWithNavigationServiceCallbackParameters:(id)parameters
@@ -1546,7 +1511,7 @@ LABEL_23:
 
 - (void)copySerializableValuesFrom:(id)from
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   v5 = fromCopy;
   if (fromCopy)
@@ -1620,25 +1585,23 @@ LABEL_23:
 
   else
   {
-    v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Attempting to copy nil navigation details"];
-    v20 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Attempting to copy nil navigation details"];
+    v19 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v21 = 136316162;
-      v22 = "[MNNavigationDetails copySerializableValuesFrom:]";
-      v23 = 2080;
-      v24 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationDetails.m";
-      v25 = 1024;
-      v26 = 240;
-      v27 = 2080;
-      v28 = "other";
-      v29 = 2112;
-      v30 = v19;
-      _os_log_impl(&dword_1D311E000, v20, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", &v21, 0x30u);
+      v20 = 136316162;
+      v21 = "[MNNavigationDetails copySerializableValuesFrom:]";
+      v22 = 2080;
+      v23 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationDetails.m";
+      v24 = 1024;
+      v25 = 240;
+      v26 = 2080;
+      v27 = "other";
+      v28 = 2112;
+      v29 = v18;
+      _os_log_impl(&dword_1D311E000, v19, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", &v20, 0x30u);
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)encodeWithCoder:(id)coder

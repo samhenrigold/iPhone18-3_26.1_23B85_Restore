@@ -48,48 +48,48 @@
 
   if (_TRLogEnabled == 1)
   {
-    v22 = TRLogHandle();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    v23 = TRLogHandle(v22);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
       *v32 = 0;
-      _os_log_impl(&dword_26F2A2000, v22, OS_LOG_TYPE_DEFAULT, "TRTermsAndConditionsManager loadProxiedTerms", v32, 2u);
+      _os_log_impl(&dword_26F2A2000, v23, OS_LOG_TYPE_DEFAULT, "TRTermsAndConditionsManager loadProxiedTerms", v32, 2u);
     }
   }
 
-  v23 = [objc_alloc(getAAUIProxiedTermsRemoteUIClass()) initWithAuthResults:self->_authResult proxiedDevice:termsCopy anisetteDataProvider:providerCopy appProvidedContext:contextCopy termsEntries:v21];
+  v24 = [objc_alloc(getAAUIProxiedTermsRemoteUIClass()) initWithAuthResults:self->_authResult proxiedDevice:termsCopy anisetteDataProvider:providerCopy appProvidedContext:contextCopy termsEntries:v21];
 
   proxiedTermsRemoteUI = self->_proxiedTermsRemoteUI;
-  self->_proxiedTermsRemoteUI = v23;
+  self->_proxiedTermsRemoteUI = v24;
 
   [(AAUIProxiedTermsRemoteUI *)self->_proxiedTermsRemoteUI setDelegate:self];
   proxiedDevice = self->_proxiedDevice;
   self->_proxiedDevice = termsCopy;
-  v26 = termsCopy;
+  v27 = termsCopy;
 
-  v27 = MEMORY[0x27438C490](actionCopy);
+  v28 = MEMORY[0x27438C490](actionCopy);
   acceptAction = self->_acceptAction;
-  self->_acceptAction = v27;
+  self->_acceptAction = v28;
 
-  v29 = MEMORY[0x27438C490](declineActionCopy);
+  v30 = MEMORY[0x27438C490](declineActionCopy);
   declineAction = self->_declineAction;
-  self->_declineAction = v29;
+  self->_declineAction = v30;
 
   [(TRTermsAndConditionsManager *)self presentProxiedTermsRemoteUI];
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setAcceptedTermsInfo:(id)info
 {
   v10 = *MEMORY[0x277D85DE8];
   infoCopy = info;
-  if ([(NSDictionary *)infoCopy count]&& _TRLogEnabled == 1)
+  v5 = [(NSDictionary *)infoCopy count];
+  if (v5 && _TRLogEnabled == 1)
   {
-    v5 = TRLogHandle();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = TRLogHandle(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v8 = 138412290;
       v9 = infoCopy;
-      _os_log_impl(&dword_26F2A2000, v5, OS_LOG_TYPE_DEFAULT, "TRTermsAndConditionsManager Terms Info not empty %@", &v8, 0xCu);
+      _os_log_impl(&dword_26F2A2000, v6, OS_LOG_TYPE_DEFAULT, "TRTermsAndConditionsManager Terms Info not empty %@", &v8, 0xCu);
     }
   }
 
@@ -100,15 +100,13 @@
   {
     [(TRTermsAndConditionsManager *)self handleAccept];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleAccept
 {
   if (_TRLogEnabled == 1)
   {
-    v3 = TRLogHandle();
+    v3 = TRLogHandle(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -117,11 +115,11 @@
 
     if (self->_didAccept && _TRLogEnabled == 1)
     {
-      v4 = TRLogHandle();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      v5 = TRLogHandle(v4);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
-        *v8 = 0;
-        _os_log_impl(&dword_26F2A2000, v4, OS_LOG_TYPE_DEFAULT, "TRTermsAndConditionsManager handleAccept entered multiple times", v8, 2u);
+        *v9 = 0;
+        _os_log_impl(&dword_26F2A2000, v5, OS_LOG_TYPE_DEFAULT, "TRTermsAndConditionsManager handleAccept entered multiple times", v9, 2u);
       }
     }
   }
@@ -135,49 +133,50 @@
 
   else if (_TRLogEnabled == 1)
   {
-    v6 = TRLogHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = TRLogHandle(0);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_26F2A2000, v6, OS_LOG_TYPE_DEFAULT, "TRTermsAndConditionsManager acceptedTerms undefined", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_26F2A2000, v7, OS_LOG_TYPE_DEFAULT, "TRTermsAndConditionsManager acceptedTerms undefined", v8, 2u);
     }
   }
 }
 
 - (void)presentProxiedTermsRemoteUI
 {
+  selfCopy = self;
   presentingViewController = self->_presentingViewController;
-  if (presentingViewController && (proxiedTermsRemoteUI = self->_proxiedTermsRemoteUI) != 0)
+  if (presentingViewController && (self = self->_proxiedTermsRemoteUI) != 0)
   {
     if (_TRLogEnabled == 1)
     {
-      v5 = TRLogHandle();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v4 = TRLogHandle(self);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_26F2A2000, v5, OS_LOG_TYPE_DEFAULT, "TRTermsAndConditionsManager Presenting Terms", buf, 2u);
+        _os_log_impl(&dword_26F2A2000, v4, OS_LOG_TYPE_DEFAULT, "TRTermsAndConditionsManager Presenting Terms", buf, 2u);
       }
 
-      presentingViewController = self->_presentingViewController;
-      proxiedTermsRemoteUI = self->_proxiedTermsRemoteUI;
+      presentingViewController = selfCopy->_presentingViewController;
+      self = selfCopy->_proxiedTermsRemoteUI;
     }
 
-    [(AAUIProxiedTermsRemoteUI *)proxiedTermsRemoteUI presentFromViewController:presentingViewController modal:1];
+    [(TRTermsAndConditionsManager *)self presentFromViewController:presentingViewController modal:1];
   }
 
   else if (_TRLogEnabled == 1)
   {
-    v6 = TRLogHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v5 = TRLogHandle(self);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *v12 = 0;
-      _os_log_impl(&dword_26F2A2000, v6, OS_LOG_TYPE_DEFAULT, "TRTermsAndConditionsManager Could not present", v12, 2u);
+      _os_log_impl(&dword_26F2A2000, v5, OS_LOG_TYPE_DEFAULT, "TRTermsAndConditionsManager Could not present", v12, 2u);
     }
 
     v7 = _TRLogEnabled;
-    if (!self->_presentingViewController && _TRLogEnabled == 1)
+    if (!selfCopy->_presentingViewController && _TRLogEnabled == 1)
     {
-      v8 = TRLogHandle();
+      v8 = TRLogHandle(v6);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *v11 = 0;
@@ -187,9 +186,9 @@
       v7 = _TRLogEnabled;
     }
 
-    if (!self->_proxiedTermsRemoteUI && v7 == 1)
+    if (!selfCopy->_proxiedTermsRemoteUI && v7 == 1)
     {
-      v9 = TRLogHandle();
+      v9 = TRLogHandle(v6);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *v10 = 0;
@@ -203,7 +202,7 @@
 {
   if (_TRLogEnabled == 1)
   {
-    v3 = TRLogHandle();
+    v3 = TRLogHandle(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -219,7 +218,7 @@
 
   else if (_TRLogEnabled == 1)
   {
-    v5 = TRLogHandle();
+    v5 = TRLogHandle(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *v6 = 0;
@@ -233,20 +232,21 @@
   successCopy = success;
   v12 = *MEMORY[0x277D85DE8];
   iCopy = i;
+  v7 = iCopy;
   if (_TRLogEnabled == 1)
   {
-    v7 = TRLogHandle();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = TRLogHandle(iCopy);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = "no";
+      v9 = "no";
       if (successCopy)
       {
-        v8 = "yes";
+        v9 = "yes";
       }
 
       v10 = 136315138;
-      v11 = v8;
-      _os_log_impl(&dword_26F2A2000, v7, OS_LOG_TYPE_DEFAULT, "TRTermsAndConditionsManager didFinishWithSuccess %s", &v10, 0xCu);
+      v11 = v9;
+      _os_log_impl(&dword_26F2A2000, v8, OS_LOG_TYPE_DEFAULT, "TRTermsAndConditionsManager didFinishWithSuccess %s", &v10, 0xCu);
     }
   }
 
@@ -259,28 +259,25 @@
   {
     [(TRTermsAndConditionsManager *)self handleDecline];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)genericTermsRemoteUI:(id)i acceptedTermsInfo:(id)info
 {
   v10 = *MEMORY[0x277D85DE8];
   infoCopy = info;
+  v6 = infoCopy;
   if (_TRLogEnabled == 1)
   {
-    v6 = TRLogHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = TRLogHandle(infoCopy);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = 138412290;
-      v9 = infoCopy;
-      _os_log_impl(&dword_26F2A2000, v6, OS_LOG_TYPE_DEFAULT, "TRTermsAndConditionsManager acceptedTermsInfo %@", &v8, 0xCu);
+      v9 = v6;
+      _os_log_impl(&dword_26F2A2000, v7, OS_LOG_TYPE_DEFAULT, "TRTermsAndConditionsManager acceptedTermsInfo %@", &v8, 0xCu);
     }
   }
 
-  [(TRTermsAndConditionsManager *)self setAcceptedTermsInfo:infoCopy];
-
-  v7 = *MEMORY[0x277D85DE8];
+  [(TRTermsAndConditionsManager *)self setAcceptedTermsInfo:v6];
 }
 
 @end

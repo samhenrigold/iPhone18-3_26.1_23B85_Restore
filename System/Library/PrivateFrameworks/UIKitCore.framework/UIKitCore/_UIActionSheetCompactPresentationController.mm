@@ -177,7 +177,7 @@
   window = [containerView window];
   screen = [window screen];
 
-  [(_UIActionSheetCompactPresentationController *)self _currentLayoutGeometry];
+  objc_msgSend__currentLayoutGeometry(self);
   containerView2 = [(UIPresentationController *)self containerView];
   coordinateSpace = [screen coordinateSpace];
   v8 = UIActionSheetPresentationControllerCurrentKeyboardFrame(screen);
@@ -209,14 +209,14 @@
   dimmingView = [(_UIActionSheetCompactPresentationController *)self dimmingView];
   containerView2 = [(UIPresentationController *)self containerView];
   coordinateSpace = [screen coordinateSpace];
-  [(_UIActionSheetCompactPresentationController *)self _currentLayoutGeometry];
+  objc_msgSend__currentLayoutGeometry(self);
   v12 = UIActionSheetPresentationControllerCurrentKeyboardFrame(screen);
   UIActionSheetPresentationControllerLayoutViews(presentedView, backdropView, dismissActionView, dimmingView, containerView2, coordinateSpace, v16, v12, v13, v14, v15);
 }
 
 - (void)_applyVisualAffordancesToViews
 {
-  [(_UIActionSheetCompactPresentationController *)self _currentLayoutGeometry];
+  objc_msgSend__currentLayoutGeometry(self, a2);
   dimmingView = [(_UIActionSheetCompactPresentationController *)self dimmingView];
   v4 = dimmingView;
   v5 = 0.0;
@@ -230,7 +230,7 @@
 
 - (CGSize)preferredContentSize
 {
-  [(_UIActionSheetCompactPresentationController *)self _currentLayoutGeometry];
+  objc_msgSend__currentLayoutGeometry(self, a2);
   v2 = v4;
   v3 = v5;
   result.height = v3;
@@ -437,7 +437,7 @@
   window = [containerView2 window];
   screen = [window screen];
   coordinateSpace = [screen coordinateSpace];
-  [(_UIActionSheetCompactPresentationController *)self _currentLayoutGeometry];
+  objc_msgSend__currentLayoutGeometry(self);
   UIActionSheetPresentationControllerAdjustForKeyboardNotification(presentedView, backdropView, dismissActionView, dimmingView, containerView, coordinateSpace, v25, curve, v12, v11, v10, v9, x, y, width, height, duration);
 }
 

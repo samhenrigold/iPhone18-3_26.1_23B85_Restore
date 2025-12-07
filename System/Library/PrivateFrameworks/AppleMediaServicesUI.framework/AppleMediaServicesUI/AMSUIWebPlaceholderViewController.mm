@@ -8,10 +8,14 @@
 - (void)_replacePrimaryViewWithView:(id)view animated:(BOOL)animated;
 - (void)_replacePrimaryViewWithViewController:(id)controller animated:(BOOL)animated;
 - (void)_startReappearTransitionTimerAnimated:(BOOL)animated;
+- (void)_transitionToLoadingAnimated:(BOOL)animated;
 - (void)_transitionToSnapshot;
 - (void)awaitSnapshotWithCompletion:(id)completion;
 - (void)dealloc;
 - (void)loadView;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
+- (void)viewWillAppear:(BOOL)appear;
 - (void)viewWillLayoutSubviews;
 - (void)willPresentPageModel:(id)model appearance:(id)appearance;
 @end
@@ -159,6 +163,102 @@ void __73__AMSUIWebPlaceholderViewController_initWithSnapshot_context_appearance
   }
 }
 
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v21 = *MEMORY[0x1E69E9840];
+  v16.receiver = self;
+  v16.super_class = AMSUIWebPlaceholderViewController;
+  [(AMSUIWebPlaceholderViewController *)&v16 viewDidDisappear:disappear];
+  [(AMSUIWebPlaceholderViewController *)self setIsVisible:0];
+  loadingController = [(AMSUIWebPlaceholderViewController *)self loadingController];
+  [loadingController removeMessage];
+
+  context = [(AMSUIWebPlaceholderViewController *)self context];
+  reducedMemoryMode = [context reducedMemoryMode];
+
+  if (reducedMemoryMode)
+  {
+    mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedWebUIConfig];
+    if (!mEMORY[0x1E698C968])
+    {
+      mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedConfig];
+    }
+
+    oSLogObject = [mEMORY[0x1E698C968] OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    {
+      v9 = objc_opt_class();
+      context2 = [(AMSUIWebPlaceholderViewController *)self context];
+      logKey = [context2 logKey];
+      *buf = 138543618;
+      v18 = v9;
+      v19 = 2114;
+      v20 = logKey;
+      _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_INFO, "%{public}@: [%{public}@] Reduce memory mode enabled, cleaning up snapshot", buf, 0x16u);
+    }
+
+    removeSnapshot = [(AMSUIWebPlaceholderViewController *)self removeSnapshot];
+    if (removeSnapshot)
+    {
+      context3 = [(AMSUIWebPlaceholderViewController *)self context];
+      snapshotCache = [context3 snapshotCache];
+      snapshotID = [(AMSUIWebPlaceholderViewController *)self snapshotID];
+      [snapshotCache setObject:removeSnapshot forKey:snapshotID];
+    }
+  }
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v15.receiver = self;
+  v15.super_class = AMSUIWebPlaceholderViewController;
+  [(AMSUIWebPlaceholderViewController *)&v15 viewWillAppear:appear];
+  [(AMSUIWebPlaceholderViewController *)self _applyAppearance];
+  context = [(AMSUIWebPlaceholderViewController *)self context];
+  reducedMemoryMode = [context reducedMemoryMode];
+
+  if (reducedMemoryMode)
+  {
+    context2 = [(AMSUIWebPlaceholderViewController *)self context];
+    snapshotCache = [context2 snapshotCache];
+    snapshotID = [(AMSUIWebPlaceholderViewController *)self snapshotID];
+    v9 = [snapshotCache objectForKey:snapshotID];
+
+    if (v9)
+    {
+      snapshotView = [(AMSUIWebPlaceholderViewController *)self snapshotView];
+      [snapshotView updateSnapshot:v9];
+    }
+  }
+
+  snapshotView2 = [(AMSUIWebPlaceholderViewController *)self snapshotView];
+  if (snapshotView2)
+  {
+    visibleView = [(AMSUIWebPlaceholderViewController *)self visibleView];
+    snapshotView3 = [(AMSUIWebPlaceholderViewController *)self snapshotView];
+    v14 = visibleView == snapshotView3;
+  }
+
+  else
+  {
+    v14 = 0;
+  }
+
+  if (![(AMSUIWebPlaceholderViewController *)self hasAppeared]&& !v14)
+  {
+    [(AMSUIWebPlaceholderViewController *)self _startReappearTransitionTimerAnimated:[(AMSUIWebPlaceholderViewController *)self animateFadeIn]];
+  }
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = AMSUIWebPlaceholderViewController;
+  [(AMSUIWebPlaceholderViewController *)&v4 viewDidAppear:appear];
+  [(AMSUIWebPlaceholderViewController *)self setIsVisible:1];
+  [(AMSUIWebPlaceholderViewController *)self setHasAppeared:1];
+}
+
 - (void)viewWillLayoutSubviews
 {
   v13.receiver = self;
@@ -184,7 +284,7 @@ void __73__AMSUIWebPlaceholderViewController_initWithSnapshot_context_appearance
 
 - (void)willPresentPageModel:(id)model appearance:(id)appearance
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   modelCopy = model;
   appearanceCopy = appearance;
   v8 = modelCopy;
@@ -220,17 +320,15 @@ void __73__AMSUIWebPlaceholderViewController_initWithSnapshot_context_appearance
       v12 = objc_opt_class();
       context = [(AMSUIWebPlaceholderViewController *)self context];
       logKey = [context logKey];
-      v16 = 138543874;
-      v17 = v12;
-      v18 = 2114;
-      v19 = logKey;
-      v20 = 2114;
-      v21 = v8;
-      _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Invalid loading page model: %{public}@", &v16, 0x20u);
+      v15 = 138543874;
+      v16 = v12;
+      v17 = 2114;
+      v18 = logKey;
+      v19 = 2114;
+      v20 = v8;
+      _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Invalid loading page model: %{public}@", &v15, 0x20u);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_applyAppearance
@@ -389,6 +487,13 @@ void __55__AMSUIWebPlaceholderViewController__animateTransition__block_invoke(ui
 {
   v1 = [*(a1 + 32) visibleView];
   [v1 setAlpha:1.0];
+}
+
+- (void)_transitionToLoadingAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  loadingController = [(AMSUIWebPlaceholderViewController *)self loadingController];
+  [(AMSUIWebPlaceholderViewController *)self _replacePrimaryViewWithViewController:loadingController animated:animatedCopy];
 }
 
 - (void)_transitionToSnapshot

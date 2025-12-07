@@ -6,30 +6,30 @@
 
 + (id)formatFromTokens:(id)tokens
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   tokensCopy = tokens;
   v4 = objc_alloc_init(MEMORY[0x277CCAB68]);
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v5 = tokensCopy;
-  v6 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v6)
   {
     v7 = v6;
     LOBYTE(hasSpaceAfter) = 0;
-    v9 = *v19;
+    v9 = *v18;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v18 + 1) + 8 * i);
+        v11 = *(*(&v17 + 1) + 8 * i);
         if ([v4 length] && ((hasSpaceAfter & 1) != 0 || objc_msgSend(v11, "hasSpaceBefore")))
         {
           [v4 appendString:@" "];
@@ -47,7 +47,7 @@
         [v4 appendString:stringValue];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v7);
@@ -61,8 +61,6 @@
   else
   {
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

@@ -7,6 +7,7 @@
 - (id)newImporter;
 - (id)queryFilterPercentEscaped;
 - (int64_t)localDatabaseRevision;
+- (unsigned)_serverDatabaseRevision:(unsigned int)revision;
 - (void)cancel;
 - (void)handleSuccess:(int64_t)success;
 - (void)main;
@@ -84,8 +85,8 @@
       {
         *buf = 138543618;
         selfCopy8 = self;
-        v46 = 1024;
-        LODWORD(v47) = localDatabaseRevision;
+        v44 = 1024;
+        LODWORD(v45) = localDatabaseRevision;
         _os_log_impl(&_mh_execute_header, logCategory2, OS_LOG_TYPE_DEFAULT, "%{public}@ - On-disk database revision: %u", buf, 0x12u);
       }
 
@@ -108,80 +109,78 @@
         logCategory3 = [objc_opt_class() logCategory];
         if (os_log_type_enabled(logCategory3, OS_LOG_TYPE_DEFAULT))
         {
-          v18 = self->_importer;
-          v19 = objc_opt_class();
-          v20 = self->_importer;
+          v18 = objc_opt_class();
+          v19 = self->_importer;
           *buf = 138543874;
           selfCopy8 = self;
-          v46 = 2114;
+          v44 = 2114;
+          v45 = v18;
+          v46 = 2048;
           v47 = v19;
-          v48 = 2048;
-          v49 = v20;
-          v21 = v19;
+          v20 = v18;
           _os_log_impl(&_mh_execute_header, logCategory3, OS_LOG_TYPE_DEFAULT, "%{public}@ - Importer: <%{public}@ %p>", buf, 0x20u);
         }
 
-        v40 = 0;
-        v41 = &v40;
-        v42 = 0x2020000000;
-        v43 = 0;
-        v22 = dispatch_semaphore_create(0);
+        v38 = 0;
+        v39 = &v38;
+        v40 = 0x2020000000;
+        v41 = 0;
+        v21 = dispatch_semaphore_create(0);
         [ICDPowerEventLogger logEvent:self->_powerEventBeginName payload:self->_powerEventPayload];
-        v23 = self->_importer;
+        v22 = self->_importer;
         clientIdentity = [(CloudLibraryOperation *)self clientIdentity];
-        v37[0] = _NSConcreteStackBlock;
-        v37[1] = 3221225472;
-        v37[2] = sub_100100D4C;
-        v37[3] = &unk_1001DEE20;
-        v39 = &v40;
-        v37[4] = self;
-        v25 = v22;
-        v38 = v25;
-        [(JaliscoImporter *)v23 importTracksUpToRevision:v5 clientIdentity:clientIdentity withCompletionHandler:v37];
+        v35[0] = _NSConcreteStackBlock;
+        v35[1] = 3221225472;
+        v35[2] = sub_100100D4C;
+        v35[3] = &unk_1001DEE20;
+        v37 = &v38;
+        v35[4] = self;
+        v24 = v21;
+        v36 = v24;
+        [(JaliscoImporter *)v22 importTracksUpToRevision:v5 clientIdentity:clientIdentity withCompletionHandler:v35];
 
-        dispatch_semaphore_wait(v25, 0xFFFFFFFFFFFFFFFFLL);
+        dispatch_semaphore_wait(v24, 0xFFFFFFFFFFFFFFFFLL);
         [ICDPowerEventLogger logEvent:self->_powerEventEndName payload:self->_powerEventPayload];
-        v26 = +[NSProcessInfo processInfo];
-        [v26 systemUptime];
-        v28 = v27;
+        v25 = +[NSProcessInfo processInfo];
+        [v25 systemUptime];
+        v27 = v26;
 
         logCategory4 = [objc_opt_class() logCategory];
         if (os_log_type_enabled(logCategory4, OS_LOG_TYPE_DEFAULT))
         {
+          v29 = objc_opt_class();
           v30 = self->_importer;
-          v31 = objc_opt_class();
-          v32 = self->_importer;
           *buf = 138544130;
           selfCopy8 = self;
-          v46 = 2114;
-          v47 = v31;
+          v44 = 2114;
+          v45 = v29;
+          v46 = 2048;
+          v47 = v30;
           v48 = 2048;
-          v49 = v32;
-          v50 = 2048;
-          v51 = v28 - v16;
-          v33 = v31;
+          v49 = v27 - v16;
+          v31 = v29;
           _os_log_impl(&_mh_execute_header, logCategory4, OS_LOG_TYPE_DEFAULT, "%{public}@ - <%{public}@ %p> required: %gs to process", buf, 0x2Au);
         }
 
         if (([(JaliscoUpdateOperation *)self isCancelled]& 1) != 0)
         {
-          v34 = 4;
+          v32 = 4;
         }
 
-        else if (*(v41 + 24) == 1)
+        else if (*(v39 + 24) == 1)
         {
           [(JaliscoUpdateOperation *)self handleSuccess:v5];
-          v34 = 1;
+          v32 = 1;
         }
 
         else
         {
-          v34 = 2;
+          v32 = 2;
         }
 
-        [(CloudLibraryOperation *)self setStatus:v34];
+        [(CloudLibraryOperation *)self setStatus:v32];
 
-        _Block_object_dispose(&v40, 8);
+        _Block_object_dispose(&v38, 8);
       }
 
       else
@@ -197,7 +196,7 @@
         [(CloudLibraryOperation *)self setStatus:1];
       }
 
-      v36 = self->_importer;
+      v34 = self->_importer;
       self->_importer = 0;
 
       goto LABEL_10;
@@ -225,12 +224,73 @@ LABEL_10:
     error2 = [(CloudLibraryOperation *)self error];
     *buf = 138543618;
     selfCopy8 = self;
-    v46 = 2114;
-    v47 = error2;
+    v44 = 2114;
+    v45 = error2;
     _os_log_impl(&_mh_execute_header, logCategory6, OS_LOG_TYPE_ERROR, "%{public}@ - Received error when doing an update request: %{public}@", buf, 0x16u);
   }
 
   [(CloudLibraryOperation *)self setStatus:2];
+}
+
+- (unsigned)_serverDatabaseRevision:(unsigned int)revision
+{
+  v3 = *&revision;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x2020000000;
+  v22 = 0;
+  v5 = objc_autoreleasePoolPush();
+  v6 = [ICUpdateRequest requestWithDatabaseRevision:v3];
+  [v6 setReason:self->_reason];
+  queryFilterPercentEscaped = [(JaliscoUpdateOperation *)self queryFilterPercentEscaped];
+  logCategory = [objc_opt_class() logCategory];
+  if (os_log_type_enabled(logCategory, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138543618;
+    selfCopy2 = self;
+    v25 = 2114;
+    v26 = queryFilterPercentEscaped;
+    _os_log_impl(&_mh_execute_header, logCategory, OS_LOG_TYPE_DEFAULT, "%{public}@ - Query Filter: %{public}@", buf, 0x16u);
+  }
+
+  if ([queryFilterPercentEscaped length])
+  {
+    [v6 setValue:queryFilterPercentEscaped forArgument:@"query"];
+  }
+
+  if ([(JaliscoUpdateOperation *)self includeHiddenItems])
+  {
+    [v6 setValue:@"1" forArgument:@"includeHiddenItems"];
+  }
+
+  v9 = dispatch_semaphore_create(0);
+  connection = [(CloudLibraryOperation *)self connection];
+  v16[0] = _NSConcreteStackBlock;
+  v16[1] = 3221225472;
+  v16[2] = sub_100101090;
+  v16[3] = &unk_1001DE368;
+  v18 = &v19;
+  v16[4] = self;
+  v11 = v9;
+  v17 = v11;
+  [connection sendRequest:v6 withResponseHandler:v16];
+
+  dispatch_semaphore_wait(v11, 0xFFFFFFFFFFFFFFFFLL);
+  objc_autoreleasePoolPop(v5);
+  logCategory2 = [objc_opt_class() logCategory];
+  if (os_log_type_enabled(logCategory2, OS_LOG_TYPE_DEFAULT))
+  {
+    v13 = *(v20 + 6);
+    *buf = 138543618;
+    selfCopy2 = self;
+    v25 = 1024;
+    LODWORD(v26) = v13;
+    _os_log_impl(&_mh_execute_header, logCategory2, OS_LOG_TYPE_DEFAULT, "%{public}@ - Server database revision: %u", buf, 0x12u);
+  }
+
+  v14 = *(v20 + 6);
+  _Block_object_dispose(&v19, 8);
+  return v14;
 }
 
 - (void)handleSuccess:(int64_t)success

@@ -195,7 +195,7 @@
 {
   if (buffer)
   {
-    return objc_msgSend_resourceIDForBuffer_(self->_resourceProvider, a2, buffer, v3);
+    return objc_msgSend_resourceIDForBuffer_(self->_resourceProvider, a2, buffer);
   }
 
   else
@@ -209,7 +209,7 @@
   if ((byte_1EB658740 & 1) == 0)
   {
     byte_1EB658740 = 1;
-    v3 = sub_1AF0D5194();
+    v3 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDEC850();
@@ -222,7 +222,7 @@
   if ((byte_1EB658741 & 1) == 0)
   {
     byte_1EB658741 = 1;
-    v3 = sub_1AF0D5194();
+    v3 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDEC884();
@@ -235,7 +235,7 @@
   if ((byte_1EB658742 & 1) == 0)
   {
     byte_1EB658742 = 1;
-    v3 = sub_1AF0D5194();
+    v3 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDEC8B8();
@@ -250,7 +250,7 @@
   if ((byte_1EB658743 & 1) == 0)
   {
     byte_1EB658743 = 1;
-    v3 = sub_1AF0D5194();
+    v3 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDEC8EC();
@@ -265,7 +265,7 @@
   if ((byte_1EB658744 & 1) == 0)
   {
     byte_1EB658744 = 1;
-    v2 = sub_1AF0D5194();
+    v2 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDEC920();
@@ -280,7 +280,7 @@
   if ((byte_1EB658745 & 1) == 0)
   {
     byte_1EB658745 = 1;
-    v3 = sub_1AF0D5194();
+    v3 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDEC954();
@@ -293,7 +293,7 @@
   if ((byte_1EB658746 & 1) == 0)
   {
     byte_1EB658746 = 1;
-    v2 = sub_1AF0D5194();
+    v2 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDEC988();
@@ -308,7 +308,7 @@
   if ((byte_1EB658747 & 1) == 0)
   {
     byte_1EB658747 = 1;
-    v2 = sub_1AF0D5194();
+    v2 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDEC9BC();
@@ -323,7 +323,7 @@
   if ((byte_1EB658748 & 1) == 0)
   {
     byte_1EB658748 = 1;
-    v3 = sub_1AF0D5194();
+    v3 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDEC9F0();
@@ -336,7 +336,7 @@
   if ((byte_1EB658749 & 1) == 0)
   {
     byte_1EB658749 = 1;
-    v2 = sub_1AF0D5194();
+    v2 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDECA24();
@@ -349,7 +349,7 @@
   if ((byte_1EB65874A & 1) == 0)
   {
     byte_1EB65874A = 1;
-    v3 = sub_1AF0D5194();
+    v3 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDECA58();
@@ -363,7 +363,7 @@
   typeCopy = type;
   countCopy = count;
   primitivesCopy = primitives;
-  v12 = objc_msgSend__resourceIDForBuffer_(self, a2, buffer, count);
+  v12 = objc_msgSend__resourceIDForBuffer_(self, a2, buffer);
   sub_1AF22DE78(self->_builder, primitivesCopy, countCopy, typeCopy, v12, offsetCopy, 0, 1, 0);
 }
 
@@ -374,7 +374,7 @@
   typeCopy = type;
   countCopy = count;
   primitivesCopy = primitives;
-  v14 = objc_msgSend__resourceIDForBuffer_(self, a2, buffer, count);
+  v14 = objc_msgSend__resourceIDForBuffer_(self, a2, buffer);
   sub_1AF22DE78(self->_builder, primitivesCopy, countCopy, typeCopy, v14, offsetCopy, 0, instanceCountCopy, 0);
 }
 
@@ -385,7 +385,7 @@
   typeCopy = type;
   countCopy = count;
   primitivesCopy = primitives;
-  v16 = objc_msgSend__resourceIDForBuffer_(self, a2, buffer, count);
+  v16 = objc_msgSend__resourceIDForBuffer_(self, a2, buffer);
   builder = self->_builder;
 
   sub_1AF22DE78(builder, primitivesCopy, countCopy, typeCopy, v16, offsetCopy, vertex, instanceCountCopy, instance);
@@ -397,18 +397,18 @@
   offsetCopy = offset;
   typeCopy = type;
   primitivesCopy = primitives;
-  v14 = objc_msgSend__resourceIDForBuffer_(self, a2, indirectBuffer, type);
-  v17 = objc_msgSend__resourceIDForBuffer_(self, v15, buffer, v16);
+  v14 = objc_msgSend__resourceIDForBuffer_(self, a2, indirectBuffer);
+  v16 = objc_msgSend__resourceIDForBuffer_(self, v15, buffer);
   builder = self->_builder;
 
-  sub_1AF22DF18(builder, primitivesCopy, typeCopy, v17, offsetCopy, v14, bufferOffsetCopy);
+  sub_1AF22DF18(builder, primitivesCopy, typeCopy, v16, offsetCopy, v14, bufferOffsetCopy);
 }
 
 - (void)drawPrimitives:(unint64_t)primitives indirectBuffer:(id)buffer indirectBufferOffset:(unint64_t)offset
 {
   offsetCopy = offset;
   primitivesCopy = primitives;
-  v8 = objc_msgSend__resourceIDForBuffer_(self, a2, buffer, buffer);
+  v8 = objc_msgSend__resourceIDForBuffer_(self, a2, buffer);
   builder = self->_builder;
 
   sub_1AF22DED4(builder, primitivesCopy, v8, offsetCopy);
@@ -419,7 +419,7 @@
   if ((byte_1EB65874B & 1) == 0)
   {
     byte_1EB65874B = 1;
-    v5 = sub_1AF0D5194();
+    v5 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDECA8C();
@@ -432,7 +432,7 @@
   if ((byte_1EB65874C & 1) == 0)
   {
     byte_1EB65874C = 1;
-    v9 = sub_1AF0D5194();
+    v9 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDECAC0();
@@ -445,7 +445,7 @@
   if ((byte_1EB65874D & 1) == 0)
   {
     byte_1EB65874D = 1;
-    v11 = sub_1AF0D5194();
+    v11 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDECAF4();
@@ -458,7 +458,7 @@
   if ((byte_1EB65874E & 1) == 0)
   {
     byte_1EB65874E = 1;
-    v5 = sub_1AF0D5194();
+    v5 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDECB28();
@@ -471,7 +471,7 @@
   if ((byte_1EB65874F & 1) == 0)
   {
     byte_1EB65874F = 1;
-    v6 = sub_1AF0D5194();
+    v6 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDECB5C();
@@ -484,7 +484,7 @@
   if ((byte_1EB658750 & 1) == 0)
   {
     byte_1EB658750 = 1;
-    v5 = sub_1AF0D5194();
+    v5 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDECB90();
@@ -497,7 +497,7 @@
   if ((byte_1EB658751 & 1) == 0)
   {
     byte_1EB658751 = 1;
-    v7 = sub_1AF0D5194();
+    v7 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDECBC4();
@@ -510,7 +510,7 @@
   if ((byte_1EB658752 & 1) == 0)
   {
     byte_1EB658752 = 1;
-    v9 = sub_1AF0D5194();
+    v9 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDECBF8();
@@ -523,7 +523,7 @@
   if ((byte_1EB658753 & 1) == 0)
   {
     byte_1EB658753 = 1;
-    v6 = sub_1AF0D5194();
+    v6 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDECC2C();
@@ -536,7 +536,7 @@
   if ((byte_1EB658754 & 1) == 0)
   {
     byte_1EB658754 = 1;
-    v4 = sub_1AF0D5194();
+    v4 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDECC60();
@@ -549,7 +549,7 @@
   if ((byte_1EB658755 & 1) == 0)
   {
     byte_1EB658755 = 1;
-    v4 = sub_1AF0D5194();
+    v4 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDECC94();
@@ -562,7 +562,7 @@
   if ((byte_1EB658756 & 1) == 0)
   {
     byte_1EB658756 = 1;
-    v5 = sub_1AF0D5194();
+    v5 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDECCC8();
@@ -572,10 +572,10 @@
 
 - (void)setDepthStencilState:(id)state
 {
-  v6 = objc_msgSend_descForDepthStencilState_(self->_resourceProvider, a2, state, v3);
+  v5 = objc_msgSend_descForDepthStencilState_(self->_resourceProvider, a2, state);
   builder = self->_builder;
 
-  sub_1AF22D9BC(builder, v6, v5);
+  sub_1AF22D9BC(builder, v5, v4);
 }
 
 - (void)setDepthStoreAction:(unint64_t)action
@@ -583,7 +583,7 @@
   if ((byte_1EB658757 & 1) == 0)
   {
     byte_1EB658757 = 1;
-    v3 = sub_1AF0D5194();
+    v3 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDECCFC();
@@ -596,7 +596,7 @@
   if ((byte_1EB658758 & 1) == 0)
   {
     byte_1EB658758 = 1;
-    v3 = sub_1AF0D5194();
+    v3 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDECD30();
@@ -606,10 +606,10 @@
 
 - (void)setRenderPipelineState:(id)state
 {
-  v5 = objc_msgSend_resourceIDForRenderPipelineState_(self->_resourceProvider, a2, state, v3);
+  v4 = objc_msgSend_resourceIDForRenderPipelineState_(self->_resourceProvider, a2, state);
   builder = self->_builder;
 
-  sub_1AF22DE04(builder, v5);
+  sub_1AF22DE04(builder, v4);
 }
 
 - (void)setScissorRect:(id *)rect
@@ -617,7 +617,7 @@
   if ((byte_1EB658759 & 1) == 0)
   {
     byte_1EB658759 = 1;
-    v3 = sub_1AF0D5194();
+    v3 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDECD64();
@@ -630,7 +630,7 @@
   if ((byte_1EB65875A & 1) == 0)
   {
     byte_1EB65875A = 1;
-    v4 = sub_1AF0D5194();
+    v4 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDECD98();
@@ -643,7 +643,7 @@
   if ((byte_1EB65875B & 1) == 0)
   {
     byte_1EB65875B = 1;
-    v3 = sub_1AF0D5194();
+    v3 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDECDCC();
@@ -656,7 +656,7 @@
   if ((byte_1EB65875C & 1) == 0)
   {
     byte_1EB65875C = 1;
-    v3 = sub_1AF0D5194();
+    v3 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDECE00();
@@ -669,7 +669,7 @@
   if ((byte_1EB65875D & 1) == 0)
   {
     byte_1EB65875D = 1;
-    v3 = sub_1AF0D5194();
+    v3 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDECE34();
@@ -686,18 +686,18 @@
   v12 = objc_msgSend_builtinForBufferSlice_(resourceProvider, v11, v10, v11);
   if (v12)
   {
-    v15 = v12;
+    v14 = v12;
     builder = self->_builder;
 
-    sub_1AF22DB5C(builder, 2u, indexCopy, v15);
+    sub_1AF22DB5C(builder, 2u, indexCopy, v14);
   }
 
   else
   {
-    v17 = objc_msgSend_resourceIDForBuffer_(self->_resourceProvider, v13, buffer, v14);
-    v18 = self->_builder;
+    v16 = objc_msgSend_resourceIDForBuffer_(self->_resourceProvider, v13, buffer);
+    v17 = self->_builder;
 
-    sub_1AF22DB14(v18, 2u, indexCopy, v17, offsetCopy);
+    sub_1AF22DB14(v17, 2u, indexCopy, v16, offsetCopy);
   }
 }
 
@@ -706,7 +706,7 @@
   if ((byte_1EB65875E & 1) == 0)
   {
     byte_1EB65875E = 1;
-    v4 = sub_1AF0D5194();
+    v4 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDECE68();
@@ -736,7 +736,7 @@
 - (void)setFragmentSamplerState:(id)state atIndex:(unint64_t)index
 {
   indexCopy = index;
-  v6 = objc_msgSend_descForSamplerState_(self->_resourceProvider, a2, state, index);
+  v6 = objc_msgSend_descForSamplerState_(self->_resourceProvider, a2, state);
   builder = self->_builder;
 
   sub_1AF22DAD4(builder, 2u, indexCopy, v6);
@@ -747,7 +747,7 @@
   if ((byte_1EB65875F & 1) == 0)
   {
     byte_1EB65875F = 1;
-    v6 = sub_1AF0D5194();
+    v6 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDECE9C();
@@ -760,7 +760,7 @@
   if ((byte_1EB658760 & 1) == 0)
   {
     byte_1EB658760 = 1;
-    v6 = sub_1AF0D5194();
+    v6 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDECED0();
@@ -773,7 +773,7 @@
   if ((byte_1EB658761 & 1) == 0)
   {
     byte_1EB658761 = 1;
-    v4 = sub_1AF0D5194();
+    v4 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDECED0();
@@ -784,21 +784,21 @@
 - (void)setFragmentTexture:(id)texture atIndex:(unint64_t)index
 {
   indexCopy = index;
-  v7 = objc_msgSend_builtinForTexture_(self->_resourceProvider, a2, texture, index);
+  v7 = objc_msgSend_builtinForTexture_(self->_resourceProvider, a2, texture);
   if (v7)
   {
-    v10 = v7;
+    v9 = v7;
     builder = self->_builder;
 
-    sub_1AF22DA94(builder, 2u, indexCopy, v10);
+    sub_1AF22DA94(builder, 2u, indexCopy, v9);
   }
 
   else
   {
-    v12 = objc_msgSend_resourceIDForTexture_(self->_resourceProvider, v8, texture, v9);
-    v13 = self->_builder;
+    v11 = objc_msgSend_resourceIDForTexture_(self->_resourceProvider, v8, texture);
+    v12 = self->_builder;
 
-    sub_1AF22DA54(v13, 2, indexCopy, v12);
+    sub_1AF22DA54(v12, 2, indexCopy, v11);
   }
 }
 
@@ -824,7 +824,7 @@
   if ((byte_1EB658762 & 1) == 0)
   {
     byte_1EB658762 = 1;
-    v6 = sub_1AF0D5194();
+    v6 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDECF04();
@@ -837,7 +837,7 @@
   if ((byte_1EB658763 & 1) == 0)
   {
     byte_1EB658763 = 1;
-    v4 = sub_1AF0D5194();
+    v4 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDECF38();
@@ -854,18 +854,18 @@
   v12 = objc_msgSend_builtinForBufferSlice_(resourceProvider, v11, v10, v11);
   if (v12)
   {
-    v15 = v12;
+    v14 = v12;
     builder = self->_builder;
 
-    sub_1AF22DB5C(builder, 1u, indexCopy, v15);
+    sub_1AF22DB5C(builder, 1u, indexCopy, v14);
   }
 
   else
   {
-    v17 = objc_msgSend_resourceIDForBuffer_(self->_resourceProvider, v13, buffer, v14);
-    v18 = self->_builder;
+    v16 = objc_msgSend_resourceIDForBuffer_(self->_resourceProvider, v13, buffer);
+    v17 = self->_builder;
 
-    sub_1AF22DB14(v18, 1u, indexCopy, v17, offsetCopy);
+    sub_1AF22DB14(v17, 1u, indexCopy, v16, offsetCopy);
   }
 }
 
@@ -874,7 +874,7 @@
   if ((byte_1EB658764 & 1) == 0)
   {
     byte_1EB658764 = 1;
-    v4 = sub_1AF0D5194();
+    v4 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDECF6C();
@@ -906,7 +906,7 @@
   if ((byte_1EB658765 & 1) == 0)
   {
     byte_1EB658765 = 1;
-    v6 = sub_1AF0D5194();
+    v6 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDECFA0();
@@ -919,7 +919,7 @@
   if ((byte_1EB658766 & 1) == 0)
   {
     byte_1EB658766 = 1;
-    v6 = sub_1AF0D5194();
+    v6 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDECFD4();
@@ -932,7 +932,7 @@
   if ((byte_1EB658767 & 1) == 0)
   {
     byte_1EB658767 = 1;
-    v5 = sub_1AF0D5194();
+    v5 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDECF6C();
@@ -945,7 +945,7 @@
   if ((byte_1EB658768 & 1) == 0)
   {
     byte_1EB658768 = 1;
-    v6 = sub_1AF0D5194();
+    v6 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDED008();
@@ -956,7 +956,7 @@
 - (void)setVertexSamplerState:(id)state atIndex:(unint64_t)index
 {
   indexCopy = index;
-  v6 = objc_msgSend_descForSamplerState_(self->_resourceProvider, a2, state, index);
+  v6 = objc_msgSend_descForSamplerState_(self->_resourceProvider, a2, state);
   builder = self->_builder;
 
   sub_1AF22DAD4(builder, 1u, indexCopy, v6);
@@ -967,7 +967,7 @@
   if ((byte_1EB658769 & 1) == 0)
   {
     byte_1EB658769 = 1;
-    v6 = sub_1AF0D5194();
+    v6 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDED03C();
@@ -980,7 +980,7 @@
   if ((byte_1EB65876A & 1) == 0)
   {
     byte_1EB65876A = 1;
-    v6 = sub_1AF0D5194();
+    v6 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDED070();
@@ -993,7 +993,7 @@
   if ((byte_1EB65876B & 1) == 0)
   {
     byte_1EB65876B = 1;
-    v4 = sub_1AF0D5194();
+    v4 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDED0A4();
@@ -1004,21 +1004,21 @@
 - (void)setVertexTexture:(id)texture atIndex:(unint64_t)index
 {
   indexCopy = index;
-  v7 = objc_msgSend_builtinForTexture_(self->_resourceProvider, a2, texture, index);
+  v7 = objc_msgSend_builtinForTexture_(self->_resourceProvider, a2, texture);
   if (v7)
   {
-    v10 = v7;
+    v9 = v7;
     builder = self->_builder;
 
-    sub_1AF22DA94(builder, 1u, indexCopy, v10);
+    sub_1AF22DA94(builder, 1u, indexCopy, v9);
   }
 
   else
   {
-    v12 = objc_msgSend_resourceIDForTexture_(self->_resourceProvider, v8, texture, v9);
-    v13 = self->_builder;
+    v11 = objc_msgSend_resourceIDForTexture_(self->_resourceProvider, v8, texture);
+    v12 = self->_builder;
 
-    sub_1AF22DA54(v13, 1, indexCopy, v12);
+    sub_1AF22DA54(v12, 1, indexCopy, v11);
   }
 }
 
@@ -1044,7 +1044,7 @@
   if ((byte_1EB65876C & 1) == 0)
   {
     byte_1EB65876C = 1;
-    v3 = sub_1AF0D5194();
+    v3 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDED0D8();
@@ -1057,7 +1057,7 @@
   if ((byte_1EB65876D & 1) == 0)
   {
     byte_1EB65876D = 1;
-    v4 = sub_1AF0D5194();
+    v4 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDED10C();
@@ -1070,7 +1070,7 @@
   if ((byte_1EB65876E & 1) == 0)
   {
     byte_1EB65876E = 1;
-    v4 = sub_1AF0D5194();
+    v4 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDED140();
@@ -1083,7 +1083,7 @@
   if ((byte_1EB65876F & 1) == 0)
   {
     byte_1EB65876F = 1;
-    v5 = sub_1AF0D5194();
+    v5 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDED174();
@@ -1114,7 +1114,7 @@
   if ((byte_1EB658770 & 1) == 0)
   {
     byte_1EB658770 = 1;
-    v3 = sub_1AF0D5194();
+    v3 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDED1A8();
@@ -1127,7 +1127,7 @@
   if ((byte_1EB658771 & 1) == 0)
   {
     byte_1EB658771 = 1;
-    v5 = sub_1AF0D5194();
+    v5 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDED1DC();
@@ -1140,7 +1140,7 @@
   if ((byte_1EB658772 & 1) == 0)
   {
     byte_1EB658772 = 1;
-    v4 = sub_1AF0D5194();
+    v4 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDED1DC();
@@ -1153,7 +1153,7 @@
   if ((byte_1EB658773 & 1) == 0)
   {
     byte_1EB658773 = 1;
-    v6 = sub_1AF0D5194();
+    v6 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDED210();
@@ -1166,7 +1166,7 @@
   if ((byte_1EB658774 & 1) == 0)
   {
     byte_1EB658774 = 1;
-    v5 = sub_1AF0D5194();
+    v5 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDED244();
@@ -1179,7 +1179,7 @@
   if ((byte_1EB658775 & 1) == 0)
   {
     byte_1EB658775 = 1;
-    v5 = sub_1AF0D5194();
+    v5 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDED278();
@@ -1192,7 +1192,7 @@
   if ((byte_1EB658776 & 1) == 0)
   {
     byte_1EB658776 = 1;
-    v4 = sub_1AF0D5194();
+    v4 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDED2AC();
@@ -1205,7 +1205,7 @@
   if ((byte_1EB658777 & 1) == 0)
   {
     byte_1EB658777 = 1;
-    v4 = sub_1AF0D5194();
+    v4 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDED2E0();
@@ -1218,7 +1218,7 @@
   if ((byte_1EB658778 & 1) == 0)
   {
     byte_1EB658778 = 1;
-    v4 = sub_1AF0D5194();
+    v4 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDED314();
@@ -1231,7 +1231,7 @@
   if ((byte_1EB658779 & 1) == 0)
   {
     byte_1EB658779 = 1;
-    v4 = sub_1AF0D5194();
+    v4 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDED348();
@@ -1244,7 +1244,7 @@
   if ((byte_1EB65877A & 1) == 0)
   {
     byte_1EB65877A = 1;
-    v4 = sub_1AF0D5194();
+    v4 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDED37C();
@@ -1257,7 +1257,7 @@
   if ((byte_1EB65877B & 1) == 0)
   {
     byte_1EB65877B = 1;
-    v5 = sub_1AF0D5194();
+    v5 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDED3B0();
@@ -1270,7 +1270,7 @@
   if ((byte_1EB65877C & 1) == 0)
   {
     byte_1EB65877C = 1;
-    v4 = sub_1AF0D5194();
+    v4 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDED3E4();
@@ -1283,7 +1283,7 @@
   if ((byte_1EB65877D & 1) == 0)
   {
     byte_1EB65877D = 1;
-    v5 = sub_1AF0D5194();
+    v5 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDED418();
@@ -1296,7 +1296,7 @@
   if ((byte_1EB65877E & 1) == 0)
   {
     byte_1EB65877E = 1;
-    v5 = sub_1AF0D5194();
+    v5 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDED44C();
@@ -1309,7 +1309,7 @@
   if ((byte_1EB65877F & 1) == 0)
   {
     byte_1EB65877F = 1;
-    v4 = sub_1AF0D5194();
+    v4 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDED480();
@@ -1322,7 +1322,7 @@
   if ((byte_1EB658780 & 1) == 0)
   {
     byte_1EB658780 = 1;
-    v6 = sub_1AF0D5194();
+    v6 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDED4B4();
@@ -1335,7 +1335,7 @@
   if ((byte_1EB658781 & 1) == 0)
   {
     byte_1EB658781 = 1;
-    v6 = sub_1AF0D5194();
+    v6 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDED4E8();
@@ -1348,7 +1348,7 @@
   if ((byte_1EB658782 & 1) == 0)
   {
     byte_1EB658782 = 1;
-    v4 = sub_1AF0D5194();
+    v4 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDED51C();
@@ -1361,7 +1361,7 @@
   if ((byte_1EB658783 & 1) == 0)
   {
     byte_1EB658783 = 1;
-    v4 = sub_1AF0D5194();
+    v4 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDED550();
@@ -1374,7 +1374,7 @@
   if ((byte_1EB658784 & 1) == 0)
   {
     byte_1EB658784 = 1;
-    v4 = sub_1AF0D5194();
+    v4 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDED584();
@@ -1387,7 +1387,7 @@
   if ((byte_1EB658785 & 1) == 0)
   {
     byte_1EB658785 = 1;
-    v5 = sub_1AF0D5194();
+    v5 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDED5B8();
@@ -1400,7 +1400,7 @@
   if ((byte_1EB658786 & 1) == 0)
   {
     byte_1EB658786 = 1;
-    v4 = sub_1AF0D5194();
+    v4 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDED5EC();
@@ -1413,7 +1413,7 @@
   if ((byte_1EB658787 & 1) == 0)
   {
     byte_1EB658787 = 1;
-    v5 = sub_1AF0D5194();
+    v5 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDED620();
@@ -1426,7 +1426,7 @@
   if ((byte_1EB658788 & 1) == 0)
   {
     byte_1EB658788 = 1;
-    v5 = sub_1AF0D5194();
+    v5 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDED654();
@@ -1439,7 +1439,7 @@
   if ((byte_1EB658789 & 1) == 0)
   {
     byte_1EB658789 = 1;
-    v4 = sub_1AF0D5194();
+    v4 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDED688();
@@ -1452,7 +1452,7 @@
   if ((byte_1EB65878A & 1) == 0)
   {
     byte_1EB65878A = 1;
-    v6 = sub_1AF0D5194();
+    v6 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDED6BC();
@@ -1465,7 +1465,7 @@
   if ((byte_1EB65878B & 1) == 0)
   {
     byte_1EB65878B = 1;
-    v6 = sub_1AF0D5194();
+    v6 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDED6F0();
@@ -1478,7 +1478,7 @@
   if ((byte_1EB65878C & 1) == 0)
   {
     byte_1EB65878C = 1;
-    v4 = sub_1AF0D5194();
+    v4 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDED6F0();
@@ -1491,7 +1491,7 @@
   if ((byte_1EB65878D & 1) == 0)
   {
     byte_1EB65878D = 1;
-    v4 = sub_1AF0D5194();
+    v4 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDED724();
@@ -1504,7 +1504,7 @@
   if ((byte_1EB65878E & 1) == 0)
   {
     byte_1EB65878E = 1;
-    v4 = sub_1AF0D5194();
+    v4 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDED758();
@@ -1517,7 +1517,7 @@
   if ((byte_1EB65878F & 1) == 0)
   {
     byte_1EB65878F = 1;
-    v4 = sub_1AF0D5194();
+    v4 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDED78C();
@@ -1530,7 +1530,7 @@
   if ((byte_1EB658790 & 1) == 0)
   {
     byte_1EB658790 = 1;
-    v5 = sub_1AF0D5194();
+    v5 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDED7C0();
@@ -1543,7 +1543,7 @@
   if ((byte_1EB658791 & 1) == 0)
   {
     byte_1EB658791 = 1;
-    v3 = sub_1AF0D5194();
+    v3 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDED7F4();
@@ -1556,7 +1556,7 @@
   if ((byte_1EB658792 & 1) == 0)
   {
     byte_1EB658792 = 1;
-    v5 = sub_1AF0D5194();
+    v5 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDED828();
@@ -1569,7 +1569,7 @@
   if ((byte_1EB658793 & 1) == 0)
   {
     byte_1EB658793 = 1;
-    v4 = sub_1AF0D5194();
+    v4 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDED85C();
@@ -1582,7 +1582,7 @@
   if ((byte_1EB658794 & 1) == 0)
   {
     byte_1EB658794 = 1;
-    v5 = sub_1AF0D5194();
+    v5 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDED890();
@@ -1595,7 +1595,7 @@
   if ((byte_1EB658795 & 1) == 0)
   {
     byte_1EB658795 = 1;
-    v4 = sub_1AF0D5194();
+    v4 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDED8C4();
@@ -1608,7 +1608,7 @@
   if ((byte_1EB658796 & 1) == 0)
   {
     byte_1EB658796 = 1;
-    v5 = sub_1AF0D5194();
+    v5 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDED8F8();
@@ -1621,7 +1621,7 @@
   if ((byte_1EB658797 & 1) == 0)
   {
     byte_1EB658797 = 1;
-    v5 = sub_1AF0D5194();
+    v5 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDED92C();
@@ -1634,7 +1634,7 @@
   if ((byte_1EB658798 & 1) == 0)
   {
     byte_1EB658798 = 1;
-    v4 = sub_1AF0D5194();
+    v4 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDED960();
@@ -1647,7 +1647,7 @@
   if ((byte_1EB658799 & 1) == 0)
   {
     byte_1EB658799 = 1;
-    v4 = sub_1AF0D5194();
+    v4 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDED994();
@@ -1660,7 +1660,7 @@
   if ((byte_1EB65879A & 1) == 0)
   {
     byte_1EB65879A = 1;
-    v4 = sub_1AF0D5194();
+    v4 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDED9C8();
@@ -1673,7 +1673,7 @@
   if ((byte_1EB65879B & 1) == 0)
   {
     byte_1EB65879B = 1;
-    v6 = sub_1AF0D5194();
+    v6 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDED9FC();
@@ -1686,7 +1686,7 @@
   if ((byte_1EB65879C & 1) == 0)
   {
     byte_1EB65879C = 1;
-    v6 = sub_1AF0D5194();
+    v6 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDEDA30();
@@ -1699,7 +1699,7 @@
   if ((byte_1EB65879D & 1) == 0)
   {
     byte_1EB65879D = 1;
-    v4 = sub_1AF0D5194();
+    v4 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDEDA64();
@@ -1712,7 +1712,7 @@
   if ((byte_1EB65879E & 1) == 0)
   {
     byte_1EB65879E = 1;
-    v4 = sub_1AF0D5194();
+    v4 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDEDA98();
@@ -1725,7 +1725,7 @@
   if ((byte_1EB65879F & 1) == 0)
   {
     byte_1EB65879F = 1;
-    v4 = sub_1AF0D5194();
+    v4 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDEDACC();
@@ -1738,7 +1738,7 @@
   if ((byte_1EB6587A0 & 1) == 0)
   {
     byte_1EB6587A0 = 1;
-    v4 = sub_1AF0D5194();
+    v4 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDEDB00();
@@ -1751,7 +1751,7 @@
   if ((byte_1EB6587A1 & 1) == 0)
   {
     byte_1EB6587A1 = 1;
-    v4 = sub_1AF0D5194();
+    v4 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDEDB34();
@@ -1764,7 +1764,7 @@
   if ((byte_1EB6587A2 & 1) == 0)
   {
     byte_1EB6587A2 = 1;
-    v4 = sub_1AF0D5194();
+    v4 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDEDB68();
@@ -1777,7 +1777,7 @@
   if ((byte_1EB6587A3 & 1) == 0)
   {
     byte_1EB6587A3 = 1;
-    v4 = sub_1AF0D5194();
+    v4 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDEDB9C();
@@ -1790,7 +1790,7 @@
   if ((byte_1EB6587A4 & 1) == 0)
   {
     byte_1EB6587A4 = 1;
-    v4 = sub_1AF0D5194();
+    v4 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDEDBD0();
@@ -1803,7 +1803,7 @@
   if ((byte_1EB6587A5 & 1) == 0)
   {
     byte_1EB6587A5 = 1;
-    v4 = sub_1AF0D5194();
+    v4 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDEDC04();
@@ -1816,7 +1816,7 @@
   if ((byte_1EB6587A6 & 1) == 0)
   {
     byte_1EB6587A6 = 1;
-    v4 = sub_1AF0D5194();
+    v4 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDEDC38();
@@ -1829,7 +1829,7 @@
   if ((byte_1EB6587A7 & 1) == 0)
   {
     byte_1EB6587A7 = 1;
-    v4 = sub_1AF0D5194();
+    v4 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDEDC6C();
@@ -1842,7 +1842,7 @@
   if ((byte_1EB6587A8 & 1) == 0)
   {
     byte_1EB6587A8 = 1;
-    v2 = sub_1AF0D5194();
+    v2 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDEDCA0();
@@ -1855,7 +1855,7 @@
   if ((byte_1EB6587A9 & 1) == 0)
   {
     byte_1EB6587A9 = 1;
-    v4 = sub_1AF0D5194();
+    v4 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDEDCD4();
@@ -1868,7 +1868,7 @@
   if ((byte_1EB6587AA & 1) == 0)
   {
     byte_1EB6587AA = 1;
-    v3 = sub_1AF0D5194();
+    v3 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDEDD08();
@@ -1881,7 +1881,7 @@
   if ((byte_1EB6587AB & 1) == 0)
   {
     byte_1EB6587AB = 1;
-    v4 = sub_1AF0D5194();
+    v4 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDEDD3C();
@@ -1894,7 +1894,7 @@
   if ((byte_1EB6587AC & 1) == 0)
   {
     byte_1EB6587AC = 1;
-    v4 = sub_1AF0D5194();
+    v4 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDEDD70();
@@ -1907,7 +1907,7 @@
   if ((byte_1EB6587AD & 1) == 0)
   {
     byte_1EB6587AD = 1;
-    v5 = sub_1AF0D5194();
+    v5 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDEDDA4();
@@ -1920,7 +1920,7 @@
   if ((byte_1EB6587AE & 1) == 0)
   {
     byte_1EB6587AE = 1;
-    v4 = sub_1AF0D5194();
+    v4 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDEDDD8();
@@ -1933,7 +1933,7 @@
   if ((byte_1EB6587AF & 1) == 0)
   {
     byte_1EB6587AF = 1;
-    v3 = sub_1AF0D5194();
+    v3 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDEDE0C();
@@ -1946,7 +1946,7 @@
   if ((byte_1EB6587B0 & 1) == 0)
   {
     byte_1EB6587B0 = 1;
-    v2 = sub_1AF0D5194();
+    v2 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDEDE40();
@@ -1961,7 +1961,7 @@
   if ((byte_1EB6587B1 & 1) == 0)
   {
     byte_1EB6587B1 = 1;
-    v3 = sub_1AF0D5194();
+    v3 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDEDE74();
@@ -1974,7 +1974,7 @@
   if ((byte_1EB6587B2 & 1) == 0)
   {
     byte_1EB6587B2 = 1;
-    v2 = sub_1AF0D5194();
+    v2 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDEDEA8();
@@ -1989,7 +1989,7 @@
   if ((byte_1EB6587B3 & 1) == 0)
   {
     byte_1EB6587B3 = 1;
-    v2 = sub_1AF0D5194();
+    v2 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDEDEDC();

@@ -36,17 +36,15 @@
 
 - (NSDictionary)dictionaryValue
 {
-  v10[2] = *MEMORY[0x277D85DE8];
-  v9[0] = @"MessageMetadata";
+  v9[2] = *MEMORY[0x277D85DE8];
+  v8[0] = @"MessageMetadata";
   metadata = [(CATIDSMessagePayload *)self metadata];
   dictionaryValue = [metadata dictionaryValue];
-  v9[1] = @"MessageContent";
-  v10[0] = dictionaryValue;
+  v8[1] = @"MessageContent";
+  v9[0] = dictionaryValue;
   messageContent = [(CATIDSMessagePayload *)self messageContent];
-  v10[1] = messageContent;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[1] = messageContent;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
 
   return v6;
 }

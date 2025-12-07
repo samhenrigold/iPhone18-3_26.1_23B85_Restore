@@ -66,15 +66,15 @@
 
 - (SFPeopleSuggestion)initWithIdentifier:(id)identifier displayName:(id)name transportBundleIdentifier:(id)bundleIdentifier contact:(id)contact deviceModelIdentifier:(id)modelIdentifier
 {
-  v31[1] = *MEMORY[0x1E69E9840];
+  v30[1] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   nameCopy = name;
   bundleIdentifierCopy = bundleIdentifier;
   contactCopy = contact;
   modelIdentifierCopy = modelIdentifier;
-  v30.receiver = self;
-  v30.super_class = SFPeopleSuggestion;
-  v17 = [(SFPeopleSuggestion *)&v30 init];
+  v29.receiver = self;
+  v29.super_class = SFPeopleSuggestion;
+  v17 = [(SFPeopleSuggestion *)&v29 init];
   if (v17)
   {
     v18 = [identifierCopy copy];
@@ -95,8 +95,8 @@
 
     if (contactCopy)
     {
-      v31[0] = contactCopy;
-      v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:1];
+      v30[0] = contactCopy;
+      v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:1];
     }
 
     else
@@ -110,7 +110,6 @@
     v17->_isPlaceholder = 0;
   }
 
-  v28 = *MEMORY[0x1E69E9840];
   return v17;
 }
 

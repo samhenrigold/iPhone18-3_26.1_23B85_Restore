@@ -32,15 +32,15 @@ uint64_t __65___UIInteractivePageControlVisualProvider_setPreciseTouchedPage___b
   return [UIView _modifyAnimationsWithPreferredFrameRateRange:1048628 updateReason:v2 animations:*&v5.minimum, *&v5.maximum, *&v5.preferred];
 }
 
-uint64_t __68___UIInteractivePageControlVisualProvider_setPage_interactionState___block_invoke(uint64_t a1)
+id __68___UIInteractivePageControlVisualProvider_setPage_interactionState___block_invoke(id *a1)
 {
-  result = [*(*(a1 + 32) + 8) currentPage];
-  if (result == *(a1 + 40))
+  result = [*(a1[4] + 1) currentPage];
+  if (result == a1[5])
   {
-    result = [*(a1 + 32) interactionState];
-    if (result == *(a1 + 48))
+    result = [a1[4] interactionState];
+    if (result == a1[6])
     {
-      v3 = *(a1 + 32);
+      v3 = a1[4];
 
       return [v3 setInteractionState:0];
     }

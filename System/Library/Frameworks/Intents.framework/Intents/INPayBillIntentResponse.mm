@@ -27,25 +27,25 @@
 
 - (id)_dictionaryRepresentation
 {
-  v23[6] = *MEMORY[0x1E69E9840];
-  v22[0] = @"code";
+  v22[6] = *MEMORY[0x1E69E9840];
+  v21[0] = @"code";
   code = [(INPayBillIntentResponse *)self code];
-  v21 = code;
+  v20 = code;
   if (code < 8)
   {
     null = off_1E7281010[code];
-    v20 = null;
+    v19 = null;
   }
 
   else
   {
     null = [MEMORY[0x1E695DFB0] null];
-    v20 = 0;
+    v19 = 0;
   }
 
-  v19 = null;
-  v23[0] = null;
-  v22[1] = @"fromAccount";
+  v18 = null;
+  v22[0] = null;
+  v21[1] = @"fromAccount";
   fromAccount = [(INPayBillIntentResponse *)self fromAccount];
   v6 = fromAccount;
   if (!fromAccount)
@@ -53,9 +53,9 @@
     fromAccount = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18 = fromAccount;
-  v23[1] = fromAccount;
-  v22[2] = @"billDetails";
+  v17 = fromAccount;
+  v22[1] = fromAccount;
+  v21[2] = @"billDetails";
   billDetails = [(INPayBillIntentResponse *)self billDetails];
   null2 = billDetails;
   if (!billDetails)
@@ -63,8 +63,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23[2] = null2;
-  v22[3] = @"transactionAmount";
+  v22[2] = null2;
+  v21[3] = @"transactionAmount";
   transactionAmount = [(INPayBillIntentResponse *)self transactionAmount];
   null3 = transactionAmount;
   if (!transactionAmount)
@@ -72,8 +72,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23[3] = null3;
-  v22[4] = @"transactionScheduledDate";
+  v22[3] = null3;
+  v21[4] = @"transactionScheduledDate";
   transactionScheduledDate = [(INPayBillIntentResponse *)self transactionScheduledDate];
   null4 = transactionScheduledDate;
   if (!transactionScheduledDate)
@@ -81,8 +81,8 @@
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23[4] = null4;
-  v22[5] = @"transactionNote";
+  v22[4] = null4;
+  v21[5] = @"transactionNote";
   transactionNote = [(INPayBillIntentResponse *)self transactionNote];
   null5 = transactionNote;
   if (!transactionNote)
@@ -90,8 +90,8 @@
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23[5] = null5;
-  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:6];
+  v22[5] = null5;
+  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:6];
   if (!transactionNote)
   {
   }
@@ -112,11 +112,9 @@
   {
   }
 
-  if (v21 >= 8)
+  if (v20 >= 8)
   {
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
@@ -325,7 +323,7 @@
 
 - (INPayBillIntentResponse)initWithCode:(INPayBillIntentResponseCode)code userActivity:(NSUserActivity *)userActivity
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v6 = userActivity;
   v7 = INSiriLogContextIntents;
   if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
@@ -343,21 +341,20 @@
 
     v10 = v9;
     *buf = 136315906;
-    v16 = "[INPayBillIntentResponse initWithCode:userActivity:]";
-    v17 = 2048;
-    v18 = code;
-    v19 = 2112;
-    v20 = v10;
-    v21 = 2112;
-    v22 = v6;
+    v15 = "[INPayBillIntentResponse initWithCode:userActivity:]";
+    v16 = 2048;
+    v17 = code;
+    v18 = 2112;
+    v19 = v10;
+    v20 = 2112;
+    v21 = v6;
     _os_log_impl(&dword_18E991000, v8, OS_LOG_TYPE_INFO, "%s code = %zd (%@), userActivity = %@", buf, 0x2Au);
   }
 
-  v14.receiver = self;
-  v14.super_class = INPayBillIntentResponse;
-  v11 = [(INIntentResponse *)&v14 _initWithCode:code userActivity:v6];
+  v13.receiver = self;
+  v13.super_class = INPayBillIntentResponse;
+  v11 = [(INIntentResponse *)&v13 _initWithCode:code userActivity:v6];
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

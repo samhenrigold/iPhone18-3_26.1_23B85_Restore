@@ -43,7 +43,7 @@
     v25 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v14 = sub_10023A7AC();
+    v14 = sub_10023A7AC(WatchSettingsManager);
     v15 = [v14 countByEnumeratingWithState:&v22 objects:v29 count:16];
     if (v15)
     {

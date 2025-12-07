@@ -10,24 +10,23 @@
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = SLLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(SLLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v7 = "[SLUresMitigator dealloc]";
+    v6 = "[SLUresMitigator dealloc]";
     _os_log_impl(&dword_26754E000, v3, OS_LOG_TYPE_DEFAULT, "%s ", buf, 0xCu);
   }
 
-  v5.receiver = self;
-  v5.super_class = SLUresMitigator;
-  [(SLUresMitigator *)&v5 dealloc];
-  v4 = *MEMORY[0x277D85DE8];
+  v4.receiver = self;
+  v4.super_class = SLUresMitigator;
+  [(SLUresMitigator *)&v4 dealloc];
 }
 
 - (id)_processInputFeats:(id)feats
 {
-  v91 = *MEMORY[0x277D85DE8];
+  v90 = *MEMORY[0x277D85DE8];
   featsCopy = feats;
   speechPackage = [featsCopy speechPackage];
 
@@ -48,22 +47,22 @@
   {
     dictionary = [MEMORY[0x277CBEB38] dictionary];
     inputOpsMap = self->_inputOpsMap;
-    v77[0] = MEMORY[0x277D85DD0];
-    v77[1] = 3221225472;
-    v77[2] = __38__SLUresMitigator__processInputFeats___block_invoke;
-    v77[3] = &unk_279C0EBC0;
+    v76[0] = MEMORY[0x277D85DD0];
+    v76[1] = 3221225472;
+    v76[2] = __38__SLUresMitigator__processInputFeats___block_invoke;
+    v76[3] = &unk_279C0EBC0;
     v11 = v7;
-    v78 = v11;
+    v77 = v11;
     v12 = featsCopy;
-    v79 = v12;
-    v52 = dictionary;
-    v80 = v52;
-    [(NSDictionary *)inputOpsMap enumerateKeysAndObjectsUsingBlock:v77];
+    v78 = v12;
+    v51 = dictionary;
+    v79 = v51;
+    [(NSDictionary *)inputOpsMap enumerateKeysAndObjectsUsingBlock:v76];
     uresModel = self->_uresModel;
-    v76 = 0;
-    v14 = [(CSFModelComputeBackend *)uresModel predictOutputWithInputs:v52 errOut:&v76];
-    v15 = v76;
-    v51 = v15;
+    v75 = 0;
+    v14 = [(CSFModelComputeBackend *)uresModel predictOutputWithInputs:v51 errOut:&v75];
+    v15 = v75;
+    v50 = v15;
     if (!v14 || v15)
     {
       v43 = MEMORY[0x277CCACA8];
@@ -73,11 +72,11 @@
       v46 = SLLogContextFacilityCoreSpeech;
       if (os_log_type_enabled(SLLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
       {
-        *v89 = 136315394;
-        *&v89[4] = "[SLUresMitigator _processInputFeats:]";
-        *&v89[12] = 2114;
-        *&v89[14] = v45;
-        _os_log_error_impl(&dword_26754E000, v46, OS_LOG_TYPE_ERROR, "%s %{public}@", v89, 0x16u);
+        *v88 = 136315394;
+        *&v88[4] = "[SLUresMitigator _processInputFeats:]";
+        *&v88[12] = 2114;
+        *&v88[14] = v45;
+        _os_log_error_impl(&dword_26754E000, v46, OS_LOG_TYPE_ERROR, "%s %{public}@", v88, 0x16u);
       }
 
       v41 = 0;
@@ -85,60 +84,60 @@
 
     else
     {
-      *v89 = 0;
-      *&v89[8] = v89;
-      *&v89[16] = 0x2020000000;
-      v90 = 0;
-      v72 = 0;
-      v73 = &v72;
-      v74 = 0x2020000000;
-      v75 = 0;
-      v68 = 0;
-      v69 = &v68;
-      v70 = 0x2020000000;
-      v71 = -1082130432;
-      v64 = 0;
-      v65 = &v64;
-      v66 = 0x2020000000;
-      v67 = -1082130432;
-      v60 = 0;
-      v61 = &v60;
-      v62 = 0x2020000000;
+      *v88 = 0;
+      *&v88[8] = v88;
+      *&v88[16] = 0x2020000000;
+      v89 = 0;
+      v71 = 0;
+      v72 = &v71;
+      v73 = 0x2020000000;
+      v74 = 0;
+      v67 = 0;
+      v68 = &v67;
+      v69 = 0x2020000000;
+      v70 = -1082130432;
       v63 = 0;
+      v64 = &v63;
+      v65 = 0x2020000000;
+      v66 = -1082130432;
+      v59 = 0;
+      v60 = &v59;
+      v61 = 0x2020000000;
+      v62 = 0;
       outputMap = self->_outputMap;
-      v53[0] = MEMORY[0x277D85DD0];
-      v53[1] = 3221225472;
-      v53[2] = __38__SLUresMitigator__processInputFeats___block_invoke_359;
-      v53[3] = &unk_279C0EBE8;
-      v54 = v14;
-      v55 = v89;
-      v56 = &v60;
-      v57 = &v72;
-      v58 = &v68;
-      v59 = &v64;
-      [(NSDictionary *)outputMap enumerateKeysAndObjectsUsingBlock:v53];
+      v52[0] = MEMORY[0x277D85DD0];
+      v52[1] = 3221225472;
+      v52[2] = __38__SLUresMitigator__processInputFeats___block_invoke_359;
+      v52[3] = &unk_279C0EBE8;
+      v53 = v14;
+      v54 = v88;
+      v55 = &v59;
+      v56 = &v71;
+      v57 = &v67;
+      v58 = &v63;
+      [(NSDictionary *)outputMap enumerateKeysAndObjectsUsingBlock:v52];
       thresholdMap = self->_thresholdMap;
       inputOrigin2 = [v12 inputOrigin];
-      v50 = [(NSMutableDictionary *)thresholdMap objectForKeyedSubscript:inputOrigin2];
+      v49 = [(NSMutableDictionary *)thresholdMap objectForKeyedSubscript:inputOrigin2];
 
-      if (v50)
+      if (v49)
       {
-        [v50 floatValue];
+        [v49 floatValue];
         v20 = v19;
-        v69[6] = v19;
-        *(v73 + 24) = *(*&v89[8] + 24) < v19;
+        v68[6] = v19;
+        *(v72 + 24) = *(*&v88[8] + 24) < v19;
         v21 = SLLogContextFacilityCoreSpeech;
         if (os_log_type_enabled(SLLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315394;
-          v86 = "[SLUresMitigator _processInputFeats:]";
-          v87 = 2048;
-          v88 = v20;
+          v85 = "[SLUresMitigator _processInputFeats:]";
+          v86 = 2048;
+          v87 = v20;
           _os_log_impl(&dword_26754E000, v21, OS_LOG_TYPE_DEFAULT, "%s Using software configured threshold: %.3f", buf, 0x16u);
         }
       }
 
-      if (*(v73 + 24))
+      if (*(v72 + 24))
       {
         v22 = @"requestMitigated";
       }
@@ -148,53 +147,53 @@
         v22 = @"requestNotMitigated";
       }
 
-      v49 = v22;
-      v83[0] = @"score";
-      LODWORD(v23) = *(*&v89[8] + 24);
+      v48 = v22;
+      v82[0] = @"score";
+      LODWORD(v23) = *(*&v88[8] + 24);
       v24 = [MEMORY[0x277CCABB0] numberWithFloat:v23];
-      v84[0] = v24;
-      v84[1] = v49;
-      v83[1] = @"decision";
-      v83[2] = @"decisionValue";
-      v25 = [MEMORY[0x277CCABB0] numberWithDouble:v61[3]];
-      v84[2] = v25;
-      v83[3] = @"threshold";
-      *&v26 = v69[6];
+      v83[0] = v24;
+      v83[1] = v48;
+      v82[1] = @"decision";
+      v82[2] = @"decisionValue";
+      v25 = [MEMORY[0x277CCABB0] numberWithDouble:v60[3]];
+      v83[2] = v25;
+      v82[3] = @"threshold";
+      *&v26 = v68[6];
       v27 = [MEMORY[0x277CCABB0] numberWithFloat:v26];
-      v84[3] = v27;
-      v83[4] = @"speakerIDthreshold";
-      LODWORD(v28) = *(v65 + 6);
+      v83[3] = v27;
+      v82[4] = @"speakerIDthreshold";
+      LODWORD(v28) = *(v64 + 6);
       v29 = [MEMORY[0x277CCABB0] numberWithFloat:v28];
-      v83[5] = @"assetVersion";
+      v82[5] = @"assetVersion";
       version = self->_version;
-      v84[4] = v29;
-      v84[5] = version;
-      v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v84 forKeys:v83 count:6];
+      v83[4] = v29;
+      v83[5] = version;
+      v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v83 forKeys:v82 count:6];
 
-      v81[0] = @"numAsrRecords";
+      v80[0] = @"numAsrRecords";
       v32 = MEMORY[0x277CCABB0];
       latticePathMaxScores = [v11 latticePathMaxScores];
       v34 = [v32 numberWithUnsignedInteger:{objc_msgSend(latticePathMaxScores, "count")}];
-      v82[0] = v34;
-      v81[1] = @"numTokensTopPath";
+      v81[0] = v34;
+      v80[1] = @"numTokensTopPath";
       v35 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v11, "topLatticePathTokenCount")}];
-      v82[1] = v35;
-      v81[2] = @"trailingSilenceDuration";
+      v81[1] = v35;
+      v80[2] = @"trailingSilenceDuration";
       v36 = MEMORY[0x277CCABB0];
       [v11 trailingSilence];
       v37 = [v36 numberWithFloat:?];
-      v82[2] = v37;
-      v38 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v82 forKeys:v81 count:3];
+      v81[2] = v37;
+      v38 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v81 forKeys:v80 count:3];
 
       v39 = [SLUresMitigatorResult alloc];
-      LODWORD(v40) = *(*&v89[8] + 24);
-      v41 = [(SLUresMitigatorResult *)v39 initWithScore:*(v73 + 24) decision:v31 decisionLevel:v38 detailedResults:v40 extractedFeats:v61[3]];
+      LODWORD(v40) = *(*&v88[8] + 24);
+      v41 = [(SLUresMitigatorResult *)v39 initWithScore:*(v72 + 24) decision:v31 decisionLevel:v38 detailedResults:v40 extractedFeats:v60[3]];
 
-      _Block_object_dispose(&v60, 8);
-      _Block_object_dispose(&v64, 8);
-      _Block_object_dispose(&v68, 8);
-      _Block_object_dispose(&v72, 8);
-      _Block_object_dispose(v89, 8);
+      _Block_object_dispose(&v59, 8);
+      _Block_object_dispose(&v63, 8);
+      _Block_object_dispose(&v67, 8);
+      _Block_object_dispose(&v71, 8);
+      _Block_object_dispose(v88, 8);
     }
   }
 
@@ -203,24 +202,22 @@
     v42 = SLLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(SLLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
-      *v89 = 136315394;
-      *&v89[4] = "[SLUresMitigator _processInputFeats:]";
-      *&v89[12] = 2114;
-      *&v89[14] = @"Missing input origin";
-      _os_log_error_impl(&dword_26754E000, v42, OS_LOG_TYPE_ERROR, "%s %{public}@", v89, 0x16u);
+      *v88 = 136315394;
+      *&v88[4] = "[SLUresMitigator _processInputFeats:]";
+      *&v88[12] = 2114;
+      *&v88[14] = @"Missing input origin";
+      _os_log_error_impl(&dword_26754E000, v42, OS_LOG_TYPE_ERROR, "%s %{public}@", v88, 0x16u);
     }
 
     v41 = 0;
   }
-
-  v47 = *MEMORY[0x277D85DE8];
 
   return v41;
 }
 
 void __38__SLUresMitigator__processInputFeats___block_invoke(id *a1, void *a2, void *a3)
 {
-  v69[1] = *MEMORY[0x277D85DE8];
+  v68[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if ([v5 isEqualToString:@"numAsrRecords"])
@@ -228,9 +225,9 @@ void __38__SLUresMitigator__processInputFeats___block_invoke(id *a1, void *a2, v
     v7 = MEMORY[0x277CCABB0];
     v8 = [a1[4] latticePathMaxScores];
     v9 = [v7 numberWithUnsignedInteger:{objc_msgSend(v8, "count")}];
-    v69[0] = v9;
+    v68[0] = v9;
     v10 = MEMORY[0x277CBEA60];
-    v11 = v69;
+    v11 = v68;
 LABEL_3:
     v12 = [v10 arrayWithObjects:v11 count:1];
 
@@ -265,240 +262,240 @@ LABEL_4:
       if ([v5 isEqualToString:@"topPathNumTokens"])
       {
         v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(a1[4], "topLatticePathTokenCount")}];
-        v68 = v8;
-        v27 = MEMORY[0x277CBEA60];
-        v28 = &v68;
+        v67 = v8;
+        v26 = MEMORY[0x277CBEA60];
+        v27 = &v67;
       }
 
       else
       {
         if ([v5 isEqualToString:@"acousticFTMScore"])
         {
-          v29 = MEMORY[0x277CCABB0];
+          v28 = MEMORY[0x277CCABB0];
           v8 = [a1[5] acousticFTMScores];
           [v8 floatValue];
-          v9 = [v29 numberWithFloat:?];
-          v67 = v9;
+          v9 = [v28 numberWithFloat:?];
+          v66 = v9;
           v10 = MEMORY[0x277CBEA60];
-          v11 = &v67;
+          v11 = &v66;
           goto LABEL_3;
         }
 
         if ([v5 isEqualToString:@"lrnnScores"])
         {
           v8 = [a1[5] lrnnScore];
-          v66 = v8;
-          v27 = MEMORY[0x277CBEA60];
-          v28 = &v66;
+          v65 = v8;
+          v26 = MEMORY[0x277CBEA60];
+          v27 = &v65;
         }
 
         else if ([v5 isEqualToString:@"lrnnThreshold"])
         {
           v8 = [a1[5] lrnnThreshold];
-          v65 = v8;
-          v27 = MEMORY[0x277CBEA60];
-          v28 = &v65;
+          v64 = v8;
+          v26 = MEMORY[0x277CBEA60];
+          v27 = &v64;
         }
 
         else if ([v5 isEqualToString:@"snr"])
         {
-          v30 = MEMORY[0x277CCABB0];
+          v29 = MEMORY[0x277CCABB0];
           [a1[4] snr];
-          v8 = [v30 numberWithFloat:?];
-          v64 = v8;
-          v27 = MEMORY[0x277CBEA60];
-          v28 = &v64;
+          v8 = [v29 numberWithFloat:?];
+          v63 = v8;
+          v26 = MEMORY[0x277CBEA60];
+          v27 = &v63;
         }
 
         else if ([v5 isEqualToString:@"trailingSilence"])
         {
-          v31 = MEMORY[0x277CCABB0];
+          v30 = MEMORY[0x277CCABB0];
           [a1[4] trailingSilence];
-          v8 = [v31 numberWithFloat:?];
-          v63 = v8;
-          v27 = MEMORY[0x277CBEA60];
-          v28 = &v63;
+          v8 = [v30 numberWithFloat:?];
+          v62 = v8;
+          v26 = MEMORY[0x277CBEA60];
+          v27 = &v62;
         }
 
         else if ([v5 isEqualToString:@"inputOrigin"])
         {
           v8 = [a1[5] inputOrigin];
-          v62 = v8;
-          v27 = MEMORY[0x277CBEA60];
-          v28 = &v62;
+          v61 = v8;
+          v26 = MEMORY[0x277CBEA60];
+          v27 = &v61;
         }
 
         else if ([v5 isEqualToString:@"timeFromPrevQuery"])
         {
-          v32 = MEMORY[0x277CCABB0];
+          v31 = MEMORY[0x277CCABB0];
           [a1[5] timeSinceLastQuery];
-          v8 = [v32 numberWithDouble:?];
-          v61 = v8;
-          v27 = MEMORY[0x277CBEA60];
-          v28 = &v61;
+          v8 = [v31 numberWithDouble:?];
+          v60 = v8;
+          v26 = MEMORY[0x277CBEA60];
+          v27 = &v60;
         }
 
         else if ([v5 isEqualToString:@"speakerIdScore"])
         {
           v8 = [a1[5] speakerIDScore];
-          v60 = v8;
-          v27 = MEMORY[0x277CBEA60];
-          v28 = &v60;
+          v59 = v8;
+          v26 = MEMORY[0x277CBEA60];
+          v27 = &v59;
         }
 
         else if ([v5 isEqualToString:@"airpodsConnectedState"])
         {
           v8 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(a1[5], "isAirpodsConnected")}];
-          v59 = v8;
-          v27 = MEMORY[0x277CBEA60];
-          v28 = &v59;
+          v58 = v8;
+          v26 = MEMORY[0x277CBEA60];
+          v27 = &v58;
         }
 
         else if ([v5 isEqualToString:@"boronActivityScore"])
         {
           v8 = [a1[5] boronScore];
-          v58 = v8;
-          v27 = MEMORY[0x277CBEA60];
-          v28 = &v58;
+          v57 = v8;
+          v26 = MEMORY[0x277CBEA60];
+          v27 = &v57;
         }
 
         else if ([v5 isEqualToString:@"acousticSpeechActivityScore"])
         {
           v8 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(a1[5], "didDetectSpeechActivity")}];
-          v57 = v8;
-          v27 = MEMORY[0x277CBEA60];
-          v28 = &v57;
+          v56 = v8;
+          v26 = MEMORY[0x277CBEA60];
+          v27 = &v56;
         }
 
         else if ([v5 isEqualToString:@"attSiriPrevOutputState"])
         {
           v8 = [a1[5] prevStageOutput];
-          v56 = v8;
-          v27 = MEMORY[0x277CBEA60];
-          v28 = &v56;
+          v55 = v8;
+          v26 = MEMORY[0x277CBEA60];
+          v27 = &v55;
         }
 
         else if ([v5 isEqualToString:@"multiModalDecisionStage"])
         {
           v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(a1[5], "decisionStage")}];
-          v55 = v8;
-          v27 = MEMORY[0x277CBEA60];
-          v28 = &v55;
+          v54 = v8;
+          v26 = MEMORY[0x277CBEA60];
+          v27 = &v54;
         }
 
         else if ([v5 isEqualToString:@"eosLikelihood"])
         {
           v8 = [a1[5] eosLikelihood];
-          v54 = v8;
-          v27 = MEMORY[0x277CBEA60];
-          v28 = &v54;
+          v53 = v8;
+          v26 = MEMORY[0x277CBEA60];
+          v27 = &v53;
         }
 
         else if ([v5 isEqualToString:@"visualGazeScore"])
         {
           v8 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(a1[5], "didDetectGazeAtOrb")}];
-          v53 = v8;
-          v27 = MEMORY[0x277CBEA60];
-          v28 = &v53;
+          v52 = v8;
+          v26 = MEMORY[0x277CBEA60];
+          v27 = &v52;
         }
 
         else if ([v5 isEqualToString:@"visualAttentionScore"])
         {
           v8 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(a1[5], "didDetectAttention")}];
-          v52 = v8;
-          v27 = MEMORY[0x277CBEA60];
-          v28 = &v52;
+          v51 = v8;
+          v26 = MEMORY[0x277CBEA60];
+          v27 = &v51;
         }
 
         else if ([v5 isEqualToString:@"visualSpeechActivityScore"])
         {
           v8 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(a1[5], "didDetectVisualActivity")}];
-          v51 = v8;
-          v27 = MEMORY[0x277CBEA60];
-          v28 = &v51;
+          v50 = v8;
+          v26 = MEMORY[0x277CBEA60];
+          v27 = &v50;
         }
 
         else if ([v5 isEqualToString:@"nldaScore"])
         {
           v8 = [a1[5] nldaScore];
-          v50 = v8;
-          v27 = MEMORY[0x277CBEA60];
-          v28 = &v50;
+          v49 = v8;
+          v26 = MEMORY[0x277CBEA60];
+          v27 = &v49;
         }
 
         else if ([v5 isEqualToString:@"confidenceScoreASR"])
         {
           v8 = [a1[5] confidenceScore];
-          v49 = v8;
-          v27 = MEMORY[0x277CBEA60];
-          v28 = &v49;
+          v48 = v8;
+          v26 = MEMORY[0x277CBEA60];
+          v27 = &v48;
         }
 
         else if ([v5 isEqualToString:@"checkerScore"])
         {
           v8 = [a1[5] checkerScore];
-          v48 = v8;
-          v27 = MEMORY[0x277CBEA60];
-          v28 = &v48;
+          v47 = v8;
+          v26 = MEMORY[0x277CBEA60];
+          v27 = &v47;
         }
 
         else if ([v5 isEqualToString:@"phsScore"])
         {
           v8 = [a1[5] phsScore];
-          v47 = v8;
-          v27 = MEMORY[0x277CBEA60];
-          v28 = &v47;
+          v46 = v8;
+          v26 = MEMORY[0x277CBEA60];
+          v27 = &v46;
         }
 
         else if ([v5 isEqualToString:@"embeddingScore"])
         {
           v8 = [a1[5] embeddingScore];
-          v46 = v8;
-          v27 = MEMORY[0x277CBEA60];
-          v28 = &v46;
+          v45 = v8;
+          v26 = MEMORY[0x277CBEA60];
+          v27 = &v45;
         }
 
         else if ([v5 isEqualToString:@"externalLrnnScale"])
         {
           v8 = [a1[5] externalLrnnScale];
-          v45 = v8;
-          v27 = MEMORY[0x277CBEA60];
-          v28 = &v45;
+          v44 = v8;
+          v26 = MEMORY[0x277CBEA60];
+          v27 = &v44;
         }
 
         else if ([v5 isEqualToString:@"externalLrnnOffset"])
         {
           v8 = [a1[5] externalLrnnOffset];
-          v44 = v8;
-          v27 = MEMORY[0x277CBEA60];
-          v28 = &v44;
+          v43 = v8;
+          v26 = MEMORY[0x277CBEA60];
+          v27 = &v43;
         }
 
         else if ([v5 isEqualToString:@"conversationalNldaScore"])
         {
           v8 = [a1[5] conversationalNldaScore];
-          v43 = v8;
-          v27 = MEMORY[0x277CBEA60];
-          v28 = &v43;
+          v42 = v8;
+          v26 = MEMORY[0x277CBEA60];
+          v27 = &v42;
         }
 
         else
         {
           if (![v5 isEqualToString:@"conversational"])
           {
-            v41 = &unk_2878A77B8;
-            v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v41 count:1];
+            v40 = &unk_2878A77B8;
+            v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v40 count:1];
             goto LABEL_15;
           }
 
           v8 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(a1[5], "isConversational")}];
-          v42 = v8;
-          v27 = MEMORY[0x277CBEA60];
-          v28 = &v42;
+          v41 = v8;
+          v26 = MEMORY[0x277CBEA60];
+          v27 = &v41;
         }
       }
 
-      v12 = [v27 arrayWithObjects:v28 count:1];
+      v12 = [v26 arrayWithObjects:v27 count:1];
       goto LABEL_4;
     }
 
@@ -517,11 +514,11 @@ LABEL_16:
     v17 = v16;
     v18 = [v12 firstObject];
     *buf = 136315650;
-    v36 = "[SLUresMitigator _processInputFeats:]_block_invoke";
-    v37 = 2114;
-    v38 = v14;
-    v39 = 2114;
-    v40 = v18;
+    v35 = "[SLUresMitigator _processInputFeats:]_block_invoke";
+    v36 = 2114;
+    v37 = v14;
+    v38 = 2114;
+    v39 = v18;
     _os_log_impl(&dword_26754E000, v17, OS_LOG_TYPE_DEFAULT, "%s AttFeature: %{public}@ --> %{public}@", buf, 0x20u);
   }
 
@@ -529,11 +526,11 @@ LABEL_16:
   {
     v19 = [MEMORY[0x277D01790] propertyWithShape:v15 dataType:1];
     v20 = objc_alloc(MEMORY[0x277D01750]);
-    v34 = v12;
-    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v34 count:1];
-    v33 = 0;
-    v22 = [v20 initWithInputArray:v21 name:v14 properties:v19 errOut:&v33];
-    v23 = v33;
+    v33 = v12;
+    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v33 count:1];
+    v32 = 0;
+    v22 = [v20 initWithInputArray:v21 name:v14 properties:v19 errOut:&v32];
+    v23 = v32;
 
     if (!v22 || v23)
     {
@@ -541,11 +538,11 @@ LABEL_16:
       if (os_log_type_enabled(SLLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315650;
-        v36 = "[SLUresMitigator _processInputFeats:]_block_invoke";
-        v37 = 2112;
-        v38 = v23;
-        v39 = 2114;
-        v40 = v14;
+        v35 = "[SLUresMitigator _processInputFeats:]_block_invoke";
+        v36 = 2112;
+        v37 = v23;
+        v38 = 2114;
+        v39 = v14;
         _os_log_error_impl(&dword_26754E000, v25, OS_LOG_TYPE_ERROR, "%s Failed to convert array to MLMultiArray with error: %@, not using feature %{public}@ for inference", buf, 0x20u);
       }
     }
@@ -562,19 +559,17 @@ LABEL_16:
     if (os_log_type_enabled(SLLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v36 = "[SLUresMitigator _processInputFeats:]_block_invoke";
-      v37 = 2114;
-      v38 = v14;
+      v35 = "[SLUresMitigator _processInputFeats:]_block_invoke";
+      v36 = 2114;
+      v37 = v14;
       _os_log_error_impl(&dword_26754E000, v24, OS_LOG_TYPE_ERROR, "%s Value for feature: %{public}@ isn't set, abort model run", buf, 0x16u);
     }
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __38__SLUresMitigator__processInputFeats___block_invoke_359(uint64_t a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = [a3 valueForKey:@"name"];
   v7 = [*(a1 + 32) objectForKeyedSubscript:v6];
@@ -603,7 +598,7 @@ void __38__SLUresMitigator__processInputFeats___block_invoke_359(uint64_t a1, vo
       if ([v5 isEqualToString:@"mitigatorDecision"])
       {
         [v11 doubleValue];
-        *(*(*(a1 + 48) + 8) + 24) = v17;
+        *(*(*(a1 + 48) + 8) + 24) = v16;
         if (*(*(*(a1 + 48) + 8) + 24) < 2.22044605e-16)
         {
           *(*(*(a1 + 56) + 8) + 24) = 1;
@@ -639,21 +634,19 @@ LABEL_7:
   v15 = SLLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(SLLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = 136315394;
-    v19 = "[SLUresMitigator _processInputFeats:]_block_invoke";
-    v20 = 2048;
-    v21 = v9;
-    _os_log_impl(&dword_26754E000, v15, OS_LOG_TYPE_DEFAULT, "%s Invalid output shape: %lu", &v18, 0x16u);
+    v17 = 136315394;
+    v18 = "[SLUresMitigator _processInputFeats:]_block_invoke";
+    v19 = 2048;
+    v20 = v9;
+    _os_log_impl(&dword_26754E000, v15, OS_LOG_TYPE_DEFAULT, "%s Invalid output shape: %lu", &v17, 0x16u);
   }
 
 LABEL_10:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_createInputOriginThresholdMap:(id)map
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   mapCopy = map;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   thresholdMap = self->_thresholdMap;
@@ -661,30 +654,28 @@ LABEL_10:
 
   if (mapCopy)
   {
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __50__SLUresMitigator__createInputOriginThresholdMap___block_invoke;
-    v10[3] = &unk_279C0EB98;
-    v10[4] = self;
-    [mapCopy enumerateKeysAndObjectsUsingBlock:v10];
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __50__SLUresMitigator__createInputOriginThresholdMap___block_invoke;
+    v9[3] = &unk_279C0EB98;
+    v9[4] = self;
+    [mapCopy enumerateKeysAndObjectsUsingBlock:v9];
     v7 = SLLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(SLLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
       v8 = self->_thresholdMap;
       *buf = 136315394;
-      v12 = "[SLUresMitigator _createInputOriginThresholdMap:]";
-      v13 = 2114;
-      v14 = v8;
+      v11 = "[SLUresMitigator _createInputOriginThresholdMap:]";
+      v12 = 2114;
+      v13 = v8;
       _os_log_impl(&dword_26754E000, v7, OS_LOG_TYPE_DEFAULT, "%s Threshold map: %{public}@", buf, 0x16u);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __50__SLUresMitigator__createInputOriginThresholdMap___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [v6 objectForKeyedSubscript:@"threshold"];
@@ -700,15 +691,13 @@ void __50__SLUresMitigator__createInputOriginThresholdMap___block_invoke(uint64_
     v9 = SLLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(SLLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
-      v11 = 136315394;
-      v12 = "[SLUresMitigator _createInputOriginThresholdMap:]_block_invoke";
-      v13 = 2114;
-      v14 = v5;
-      _os_log_error_impl(&dword_26754E000, v9, OS_LOG_TYPE_ERROR, "%s Invalid config for %{public}@", &v11, 0x16u);
+      v10 = 136315394;
+      v11 = "[SLUresMitigator _createInputOriginThresholdMap:]_block_invoke";
+      v12 = 2114;
+      v13 = v5;
+      _os_log_error_impl(&dword_26754E000, v9, OS_LOG_TYPE_ERROR, "%s Invalid config for %{public}@", &v10, 0x16u);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processInputFeats:(id)feats completion:(id)completion
@@ -744,12 +733,12 @@ void __50__SLUresMitigator__createInputOriginThresholdMap___block_invoke(uint64_
 
 - (SLUresMitigator)initWithConfig:(id)config bnnsIrPath:(id)path error:(id *)error
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   configCopy = config;
   pathCopy = path;
-  v51.receiver = self;
-  v51.super_class = SLUresMitigator;
-  v10 = [(SLUresMitigator *)&v51 init];
+  v50.receiver = self;
+  v50.super_class = SLUresMitigator;
+  v10 = [(SLUresMitigator *)&v50 init];
   if (!v10)
   {
 LABEL_25:
@@ -773,9 +762,9 @@ LABEL_25:
     _os_signpost_emit_with_name_impl(&dword_26754E000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v12, "UresMitigator_Create", &unk_2675B2B36, buf, 2u);
   }
 
-  v50 = 0;
-  v16 = [[SLUresMitigatorConfigDecoder alloc] initWithConfigFile:configCopy errOut:&v50];
-  v17 = v50;
+  v49 = 0;
+  v16 = [[SLUresMitigatorConfigDecoder alloc] initWithConfigFile:configCopy errOut:&v49];
+  v17 = v49;
   if (v17)
   {
     v18 = v17;
@@ -783,9 +772,9 @@ LABEL_25:
     if (os_log_type_enabled(SLLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v55 = "[SLUresMitigator initWithConfig:bnnsIrPath:error:]";
-      v56 = 2112;
-      v57 = v18;
+      v54 = "[SLUresMitigator initWithConfig:bnnsIrPath:error:]";
+      v55 = 2112;
+      v56 = v18;
       _os_log_error_impl(&dword_26754E000, v19, OS_LOG_TYPE_ERROR, "%s SLUresMitigator config init with error: %@", buf, 0x16u);
     }
 
@@ -801,9 +790,9 @@ LABEL_25:
   }
 
   getBnnsIrWeightFile = [(SLUresMitigatorConfigDecoder *)v16 getBnnsIrWeightFile];
-  v49 = 0;
+  v48 = 0;
   v23 = [MEMORY[0x277D01768] provideComputeBackendWithModelFile:getModelFile separateWeight:? error:?];
-  v24 = v49;
+  v24 = v48;
   uresModel = v10->_uresModel;
   v10->_uresModel = v23;
 
@@ -840,34 +829,34 @@ LABEL_21:
     }
   }
 
-  v45 = v12;
-  v46 = getModelFile;
+  v44 = v12;
+  v45 = getModelFile;
   v27 = MEMORY[0x277CCACA8];
   localizedDescription = [v24 localizedDescription];
   v29 = [v27 stringWithFormat:@"Unable to create model with error %@", localizedDescription];
 
   v30 = MEMORY[0x277CCA9B8];
-  v52 = @"reason";
-  v53 = v29;
-  v47 = v29;
-  v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v53 forKeys:&v52 count:1];
+  v51 = @"reason";
+  v52 = v29;
+  v46 = v29;
+  v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v52 forKeys:&v51 count:1];
   v26 = [v30 errorWithDomain:@"com.apple.sl" code:106 userInfo:v31];
 
   v32 = SLLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(SLLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v55 = "[SLUresMitigator initWithConfig:bnnsIrPath:error:]";
-    v56 = 2114;
-    v57 = v29;
+    v54 = "[SLUresMitigator initWithConfig:bnnsIrPath:error:]";
+    v55 = 2114;
+    v56 = v29;
     _os_log_error_impl(&dword_26754E000, v32, OS_LOG_TYPE_ERROR, "%s %{public}@", buf, 0x16u);
   }
 
-  getModelFile = v46;
+  getModelFile = v45;
   if (!error)
   {
 
-    v12 = v45;
+    v12 = v44;
     goto LABEL_21;
   }
 
@@ -878,7 +867,6 @@ LABEL_11:
   v20 = 0;
 LABEL_26:
 
-  v43 = *MEMORY[0x277D85DE8];
   return v20;
 }
 

@@ -62,7 +62,7 @@ LABEL_13:
       goto LABEL_36;
     }
 
-    if ((a9 - 3) >= 2)
+    if (a9 - 3 >= 2)
     {
       if (a9 != 2)
       {

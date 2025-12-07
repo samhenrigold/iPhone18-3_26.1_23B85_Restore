@@ -26,78 +26,76 @@
 
 - (void)startMonitoringWithReason:(id)reason
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   reasonCopy = reason;
   dispatch_assert_queue_V2(self->_workQueue);
-  if ([(LACTimer *)self->_timer isRunning])
+  isRunning = [(LACTimer *)self->_timer isRunning];
+  if (isRunning)
   {
-    v5 = LACLogDTOTimers();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = LACLogDTOTimers(isRunning);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      [(LACDTOLocationMonitor *)self startMonitoringWithReason:v5];
+      [(LACDTOLocationMonitor *)self startMonitoringWithReason:v6];
     }
   }
 
   else
   {
-    v6 = objc_alloc_init(LACTimer);
+    v7 = objc_alloc_init(LACTimer);
     timer = self->_timer;
-    self->_timer = v6;
+    self->_timer = v7;
 
-    v8 = LACLogDTOTimers();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v10 = LACLogDTOTimers(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543874;
       selfCopy = self;
-      v17 = 2048;
-      v18 = 0x4024000000000000;
-      v19 = 2114;
-      v20 = reasonCopy;
-      _os_log_impl(&dword_1B0233000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ starting monitor with an interval of %.2f secs with reason: %{public}@", buf, 0x20u);
+      v18 = 2048;
+      v19 = 0x4024000000000000;
+      v20 = 2114;
+      v21 = reasonCopy;
+      _os_log_impl(&dword_1B0233000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ starting monitor with an interval of %.2f secs with reason: %{public}@", buf, 0x20u);
     }
 
     objc_initWeak(buf, self);
     p_workQueue = &self->_workQueue;
     workQueue = self->_workQueue;
-    v10 = p_workQueue[1];
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __51__LACDTOLocationMonitor_startMonitoringWithReason___block_invoke;
-    v13[3] = &unk_1E7A95380;
-    objc_copyWeak(&v14, buf);
-    [(OS_dispatch_queue *)v10 dispatchAfter:workQueue inQueue:1 repeat:v13 block:10.0];
-    objc_destroyWeak(&v14);
+    v12 = p_workQueue[1];
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __51__LACDTOLocationMonitor_startMonitoringWithReason___block_invoke;
+    v14[3] = &unk_1E7A95380;
+    objc_copyWeak(&v15, buf);
+    [(OS_dispatch_queue *)v12 dispatchAfter:workQueue inQueue:1 repeat:v14 block:10.0];
+    objc_destroyWeak(&v15);
     objc_destroyWeak(buf);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __51__LACDTOLocationMonitor_startMonitoringWithReason___block_invoke(uint64_t a1)
 {
   v10 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v3 = WeakRetained;
   if (WeakRetained)
   {
-    v3 = LACLogDTOTimers();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = LACLogDTOTimers(WeakRetained);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v9 = WeakRetained;
-      _os_log_impl(&dword_1B0233000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ performing scheduled query", buf, 0xCu);
+      v9 = v3;
+      _os_log_impl(&dword_1B0233000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ performing scheduled query", buf, 0xCu);
     }
 
-    v4 = WeakRetained[1];
+    v5 = v3[1];
     v6[0] = MEMORY[0x1E69E9820];
     v6[1] = 3221225472;
     v6[2] = __51__LACDTOLocationMonitor_startMonitoringWithReason___block_invoke_1;
     v6[3] = &unk_1E7A97C50;
     objc_copyWeak(&v7, (a1 + 32));
-    [v4 checkIsInFamiliarLocationWithCompletion:v6];
+    [v5 checkIsInFamiliarLocationWithCompletion:v6];
     objc_destroyWeak(&v7);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __51__LACDTOLocationMonitor_startMonitoringWithReason___block_invoke_1(uint64_t a1, void *a2)
@@ -117,21 +115,19 @@ void __51__LACDTOLocationMonitor_startMonitoringWithReason___block_invoke_1(uint
   v12 = *MEMORY[0x1E69E9840];
   reasonCopy = reason;
   dispatch_assert_queue_V2(self->_workQueue);
-  v5 = LACLogDTOTimers();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = LACLogDTOTimers(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 138543618;
     selfCopy = self;
     v10 = 2114;
     v11 = reasonCopy;
-    _os_log_impl(&dword_1B0233000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ stopping monitor with reason: %{public}@", &v8, 0x16u);
+    _os_log_impl(&dword_1B0233000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ stopping monitor with reason: %{public}@", &v8, 0x16u);
   }
 
   [(LACTimer *)self->_timer cancel];
   timer = self->_timer;
   self->_timer = 0;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (LACDTOLocationMonitorDelegate)delegate
@@ -143,11 +139,10 @@ void __51__LACDTOLocationMonitor_startMonitoringWithReason___block_invoke_1(uint
 
 - (void)startMonitoringWithReason:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1B0233000, a2, OS_LOG_TYPE_DEBUG, "%{public}@ ignoring redundant request to start", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1B0233000, a2, OS_LOG_TYPE_DEBUG, "%{public}@ ignoring redundant request to start", &v2, 0xCu);
 }
 
 @end

@@ -18,7 +18,7 @@
 - (PKPeerPaymentIdentityManagementSectionController)initWithDelegate:(id)delegate
 {
   delegateCopy = delegate;
-  sub_1BD978264();
+  sub_1BD978264(delegateCopy);
   v5 = v4;
 
   return v5;
@@ -42,11 +42,11 @@
 - (void)preflight:(id)preflight
 {
   v4 = _Block_copy(preflight);
-  swift_getKeyPath();
+  KeyPath = swift_getKeyPath();
   sub_1BD38EA34();
   selfCopy = self;
   sub_1BE04B584();
-
+  KeyPath, v7, v8, v9, v10, v11, v12, v13;
   v4[2](v4);
 
   _Block_release(v4);
@@ -55,11 +55,12 @@
 - (NSArray)sectionIdentifiers
 {
   selfCopy = self;
-  PeerPaymentIdentityManagementSectionController.sectionIdentifiers.getter();
+  v3 = PeerPaymentIdentityManagementSectionController.sectionIdentifiers.getter();
 
-  v3 = sub_1BE052724();
+  v4 = sub_1BE052724();
+  v3, v5, v6, v7, v8, v9, v10, v11;
 
-  return v3;
+  return v4;
 }
 
 - (int64_t)tableView:(id)view numberOfRowsInSectionIdentifier:(id)identifier
@@ -84,35 +85,37 @@
 {
   v7 = sub_1BE04B414();
   v8 = *(v7 - 8);
-  MEMORY[0x1EEE9AC00](v7, v9);
-  v11 = &v16 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v7);
+  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1BE04B3D4();
   viewCopy = view;
   selfCopy = self;
-  v14 = _s9PassKitUI46PeerPaymentIdentityManagementSectionControllerC9tableView_12cellForRowAt17sectionIdentifierSo07UITableK4CellCSgSo0rK0C_10Foundation9IndexPathVSStF_0(viewCopy);
+  v13 = _s9PassKitUI46PeerPaymentIdentityManagementSectionControllerC9tableView_12cellForRowAt17sectionIdentifierSo07UITableK4CellCSgSo0rK0C_10Foundation9IndexPathVSStF_0(viewCopy);
 
-  (*(v8 + 8))(v11, v7);
+  (*(v8 + 8))(v10, v7);
 
-  return v14;
+  return v13;
 }
 
 - (id)titleForHeaderInSectionIdentifier:(id)identifier
 {
   v3 = sub_1BE04BD74();
   v4 = *(v3 - 8);
-  v6 = MEMORY[0x1EEE9AC00](v3, v5);
-  v8 = &v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v4 + 104))(v8, *MEMORY[0x1E69B8050], v3, v6);
+  v5 = MEMORY[0x1EEE9AC00](v3);
+  v7 = &v20 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v4 + 104))(v7, *MEMORY[0x1E69B8050], v3, v5);
   result = PKPassKitBundle();
   if (result)
   {
-    v10 = result;
+    v9 = result;
     sub_1BE04B6F4();
+    v11 = v10;
 
-    (*(v4 + 8))(v8, v3);
-    v11 = sub_1BE052404();
+    (*(v4 + 8))(v7, v3);
+    v12 = sub_1BE052404();
+    v11, v13, v14, v15, v16, v17, v18, v19;
 
-    return v11;
+    return v12;
   }
 
   else
@@ -127,19 +130,21 @@
 {
   v3 = sub_1BE04BD74();
   v4 = *(v3 - 8);
-  v6 = MEMORY[0x1EEE9AC00](v3, v5);
-  v8 = &v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v4 + 104))(v8, *MEMORY[0x1E69B8050], v3, v6);
+  v5 = MEMORY[0x1EEE9AC00](v3);
+  v7 = &v20 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v4 + 104))(v7, *MEMORY[0x1E69B8050], v3, v5);
   result = PKPassKitBundle();
   if (result)
   {
-    v10 = result;
+    v9 = result;
     sub_1BE04B6F4();
+    v11 = v10;
 
-    (*(v4 + 8))(v8, v3);
-    v11 = sub_1BE052404();
+    (*(v4 + 8))(v7, v3);
+    v12 = sub_1BE052404();
+    v11, v13, v14, v15, v16, v17, v18, v19;
 
-    return v11;
+    return v12;
   }
 
   else
@@ -154,14 +159,14 @@
 {
   v7 = sub_1BE04B414();
   v8 = *(v7 - 8);
-  MEMORY[0x1EEE9AC00](v7, v9);
-  v11 = &v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v7);
+  v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1BE04B3D4();
   viewCopy = view;
   selfCopy = self;
   _s9PassKitUI46PeerPaymentIdentityManagementSectionControllerC9tableView_14didSelectRowAt17sectionIdentifierySo07UITableK0C_10Foundation9IndexPathVSStF_0(viewCopy);
 
-  (*(v8 + 8))(v11, v7);
+  (*(v8 + 8))(v10, v7);
 }
 
 - (void)peerPaymentIdentityManager:(id)manager didUpdateProfileAppearanceData:(id)data
@@ -169,14 +174,14 @@
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v12 = Strong;
+    v20 = Strong;
     managerCopy = manager;
     dataCopy = data;
     selfCopy = self;
-    PeerPaymentIdentityManagementSectionController.sectionIdentifiers.getter();
-    v11 = sub_1BE052724();
-
-    [v12 reloadSections_];
+    v11 = PeerPaymentIdentityManagementSectionController.sectionIdentifiers.getter();
+    v12 = sub_1BE052724();
+    v11, v13, v14, v15, v16, v17, v18, v19;
+    [v20 reloadSections_];
   }
 }
 

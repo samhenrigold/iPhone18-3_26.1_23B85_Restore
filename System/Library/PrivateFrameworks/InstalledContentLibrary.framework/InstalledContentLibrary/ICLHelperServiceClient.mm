@@ -30,7 +30,7 @@
   return v2;
 }
 
-uint64_t __40__ICLHelperServiceClient_sharedInstance__block_invoke()
+uint64_t __40__ICLHelperServiceClient_sharedInstance__block_invoke(uint64_t a1)
 {
   sharedInstance_sharedInstance_0 = objc_alloc_init(objc_opt_class());
 

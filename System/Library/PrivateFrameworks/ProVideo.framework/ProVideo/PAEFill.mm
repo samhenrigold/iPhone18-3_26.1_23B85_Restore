@@ -26,7 +26,7 @@
   return [PAEFill properties]::sPropertiesDict;
 }
 
-uint64_t __21__PAEFill_properties__block_invoke()
+void *__21__PAEFill_properties__block_invoke()
 {
   v0 = objc_alloc(MEMORY[0x277CBEAC0]);
   v1 = [MEMORY[0x277CCABB0] numberWithBool:1];
@@ -153,8 +153,8 @@ uint64_t __21__PAEFill_properties__block_invoke()
     return 0;
   }
 
-  v79 = 0;
-  [v9 getIntValue:&v79 fromParm:1 atFxTime:info->var0.var1];
+  v78 = 0;
+  [v9 getIntValue:&v78 fromParm:1 atFxTime:info->var0.var1];
   v16 = [(PAESharedDefaultBase *)self getRenderMode:info->var0.var1];
   [v9 mixAmountAtTime:info->var0.var1];
   if (!v16)
@@ -170,139 +170,139 @@ uint64_t __21__PAEFill_properties__block_invoke()
 
   if (input)
   {
-    [input heliumRef];
+    objc_msgSend_heliumRef(input);
   }
 
   else
   {
-    v78 = 0;
+    v77 = 0;
   }
 
-  if (v79)
+  if (v78)
   {
-    v75 = 1.0;
-    v72 = 0x3FF0000000000000;
-    v69 = 1.0;
-    v66 = 1.0;
+    v74 = 1.0;
+    v71 = 0x3FF0000000000000;
+    v68 = 1.0;
+    v65 = 1.0;
+    v66 = 0u;
     v67 = 0u;
-    v68 = 0u;
+    v69 = 0u;
     v70 = 0u;
-    v71 = 0u;
+    v72 = 0u;
     v73 = 0u;
-    v74 = 0u;
-    [v11 inversePixelTransform];
+    objc_msgSend_inversePixelTransform(v11);
     for (i = 0; i != 16; i += 4)
     {
-      v21 = (&v66 + i * 8);
-      v22 = *&v65[i + 2];
-      *v21 = *&v65[i];
+      v21 = (&v65 + i * 8);
+      v22 = *&v64[i + 2];
+      *v21 = *&v64[i];
       v21[1] = v22;
     }
 
-    v23 = HGRectMake4i(0, 0, 0x400u, 1u);
+    v23 = HGRectMake4i(0, 0, 1024, 1);
     v25 = v24;
     v26 = HGObject::operator new(0x80uLL);
-    *&v27 = HGBitmap::HGBitmap(v26, v23, v25, 24).n128_u64[0];
-    v64 = 0.0;
-    v65[0] = 0.0;
+    HGBitmap::HGBitmap(v26, v23, v25, 24);
+    v63 = 0.0;
+    v64[0] = 0.0;
+    v75 = 0.0;
     v76 = 0.0;
-    v77 = 0.0;
-    v63 = 0;
-    [v10 getGradientSamples:*(v26 + 10) numSamples:1024 depth:1 fromParm:3 atFxTime:{info->var0.var1, v27}];
-    [v10 getGradientStartEnd:v65 startY:&v77 endX:&v76 endY:&v64 type:&v63 fromParm:3 atFxTime:info->var0.var1];
+    v62 = 0;
+    [v10 getGradientSamples:*(v26 + 10) numSamples:1024 depth:1 fromParm:3 atFxTime:info->var0.var1];
+    [v10 getGradientStartEnd:v64 startY:&v76 endX:&v75 endY:&v63 type:&v62 fromParm:3 atFxTime:info->var0.var1];
     [output pixelAspect];
-    v29 = v28;
+    v28 = v27;
+    v29 = v75;
     v30 = v76;
-    v31 = v77;
-    v32 = v64;
-    v33 = v65[0];
-    v34 = HGObject::operator new(0x210uLL);
-    HGGradient::HGGradient(v34);
-    if (v63)
+    v31 = v63;
+    v32 = v64[0];
+    v33 = HGObject::operator new(0x210uLL);
+    HGGradient::HGGradient(v33);
+    if (v62)
     {
-      HGGradient::SetGradientMode(v34, 1);
-      v35 = sqrt(v29 * (v30 - v33) * (v29 * (v30 - v33)) + (v32 - v31) * (v32 - v31));
-      (*(*v34 + 96))(v34, 2, fabsf(v35), 0.0, 0.0, 0.0);
+      HGGradient::SetGradientMode(v33, 1);
+      v34 = sqrt(v28 * (v29 - v32) * (v28 * (v29 - v32)) + (v31 - v30) * (v31 - v30));
+      (*(*v33 + 96))(v33, 2, fabsf(v34), 0.0, 0.0, 0.0);
     }
 
     else
     {
-      HGGradient::SetGradientMode(v34, 0);
-      v41 = v76;
-      v42 = v64;
-      (*(*v34 + 96))(v34, 2, v41, v42, 0.0, 0.0);
+      HGGradient::SetGradientMode(v33, 0);
+      v40 = v75;
+      v41 = v63;
+      (*(*v33 + 96))(v33, 2, v40, v41, 0.0, 0.0);
     }
 
-    v43 = v29;
-    (*(*v34 + 96))(v34, 0, v43, 1.0, 1.0, 1.0);
-    v44 = v65[0];
-    v45 = v77;
-    (*(*v34 + 96))(v34, 1, v44, v45, 0.0, 0.0);
-    v46 = v66;
+    v42 = v28;
+    (*(*v33 + 96))(v33, 0, v42, 1.0, 1.0, 1.0);
+    v43 = v64[0];
+    v44 = v76;
+    (*(*v33 + 96))(v33, 1, v43, v44, 0.0, 0.0);
+    v45 = v65;
+    v46 = *&v66;
     v47 = *&v67;
-    v48 = *&v68;
-    (*(*v34 + 96))(v34, 3, v46, v47, 0.0, v48);
-    v49 = *(&v68 + 1);
-    v50 = v69;
-    v51 = *(&v70 + 1);
-    (*(*v34 + 96))(v34, 4, v49, v50, 0.0, v51);
-    v52 = *(&v73 + 1);
-    v53 = *&v74;
-    v54 = v75;
-    (*(*v34 + 96))(v34, 5, v52, v53, 0.0, v54);
-    v55 = 0;
-    v56 = *(v26 + 10);
-    for (j = (v56 + 1); ; j += 4)
+    (*(*v33 + 96))(v33, 3, v45, v46, 0.0, v47);
+    v48 = *(&v67 + 1);
+    v49 = v68;
+    v50 = *(&v69 + 1);
+    (*(*v33 + 96))(v33, 4, v48, v49, 0.0, v50);
+    v51 = *(&v72 + 1);
+    v52 = *&v73;
+    v53 = v74;
+    (*(*v33 + 96))(v33, 5, v51, v52, 0.0, v53);
+    v54 = 0;
+    v55 = *(v26 + 10);
+    for (j = (v55 + 1); ; j += 4)
     {
-      v58 = (v56 + 4 * v55);
-      v59 = *v58;
-      v60 = 3;
-      v61 = j;
+      v57 = (v55 + 4 * v54);
+      v58 = *v57;
+      v59 = 3;
+      v60 = j;
       do
       {
-        *(v61 - 1) = *v61;
-        ++v61;
-        --v60;
+        *(v60 - 1) = *v60;
+        ++v60;
+        --v59;
       }
 
-      while (v60);
-      v58[3] = v59;
-      if (++v55 == 1024)
+      while (v59);
+      v57[3] = v58;
+      if (++v54 == 1024)
       {
-        v62 = HGObject::operator new(0x1F0uLL);
-        HGBitmapLoader::HGBitmapLoader(v62, v26);
-        (*(*v34 + 120))(v34, 0, v62);
-        (*(*v34 + 16))(v34);
+        v61 = HGObject::operator new(0x1F0uLL);
+        HGBitmapLoader::HGBitmapLoader(v61, v26);
+        (*(*v33 + 120))(v33, 0, v61);
+        (*(*v33 + 16))(v33);
         FxApplyGradientBlendRequest();
       }
     }
   }
 
-  v66 = 0.0;
-  v65[0] = 0.0;
-  v77 = 0.0;
-  [v9 getRedValue:&v66 greenValue:v65 blueValue:&v77 fromParm:2 atFxTime:info->var0.var1];
-  *&v36 = COERCE_DOUBLE(HGObject::operator new(0x1A0uLL));
-  HgcFillColor::HgcFillColor(v36);
-  (*(*v36 + 120))(v36, 0, v78);
-  v37 = v66;
-  v38 = v65[0];
-  v39 = v77;
-  (*(*v36 + 96))(v36, 0, v37, v38, v39, 0.0);
-  v40 = v18;
-  (*(*v36 + 96))(v36, 1, v40, 0.0, 0.0, 0.0);
-  v76 = *&v36;
-  (*(*v36 + 16))(v36);
-  [output setHeliumRef:&v76];
-  if (v76 != 0.0)
+  v65 = 0.0;
+  v64[0] = 0.0;
+  v76 = 0.0;
+  [v9 getRedValue:&v65 greenValue:v64 blueValue:&v76 fromParm:2 atFxTime:info->var0.var1];
+  *&v35 = COERCE_DOUBLE(HGObject::operator new(0x1A0uLL));
+  HgcFillColor::HgcFillColor(v35);
+  (*(*v35 + 120))(v35, 0, v77);
+  v36 = v65;
+  v37 = v64[0];
+  v38 = v76;
+  (*(*v35 + 96))(v35, 0, v36, v37, v38, 0.0);
+  v39 = v18;
+  (*(*v35 + 96))(v35, 1, v39, 0.0, 0.0, 0.0);
+  v75 = *&v35;
+  (*(*v35 + 16))(v35);
+  [output setHeliumRef:&v75];
+  if (v75 != 0.0)
   {
-    (*(**&v76 + 24))(COERCE_DOUBLE(*&v76));
+    (*(**&v75 + 24))(COERCE_DOUBLE(*&v75));
   }
 
-  (*(*v36 + 24))(v36);
-  if (v78)
+  (*(*v35 + 24))(v35);
+  if (v77)
   {
-    (*(*v78 + 24))(v78);
+    (*(*v77 + 24))(v77);
   }
 
   return 1;

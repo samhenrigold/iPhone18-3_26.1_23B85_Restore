@@ -30,20 +30,18 @@
 
   if (verboseLoggingEnabled)
   {
-    v8 = BDSCloudKitDevelopmentLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = BDSCloudKitDevelopmentLog(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       entityName = [(BCCloudKitTransaction *)self entityName];
       v12 = 138412290;
       v13 = entityName;
-      _os_log_impl(&dword_1E45E0000, v8, OS_LOG_TYPE_DEFAULT, "\\Transaction - Signaling Sync Manager for  %@\\"", &v12, 0xCu);
+      _os_log_impl(&dword_1E45E0000, v9, OS_LOG_TYPE_DEFAULT, "\\Transaction - Signaling Sync Manager for  %@\", &v12, 0xCu);
     }
   }
 
   syncManager = [(BCCloudKitSyncToCKTransaction *)self syncManager];
   [syncManager startSyncToCKWithCompletion:completionCopy];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 @end

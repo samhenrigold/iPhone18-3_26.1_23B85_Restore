@@ -41,9 +41,11 @@
 
 uint64_t __61__ICMusicSubscriptionStatusController_sharedStatusController__block_invoke()
 {
-  sharedStatusController_sSharedStatusController = objc_alloc_init(ICMusicSubscriptionStatusController);
+  v0 = objc_alloc_init(ICMusicSubscriptionStatusController);
+  v1 = sharedStatusController_sSharedStatusController;
+  sharedStatusController_sSharedStatusController = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (ICMusicSubscriptionStatusController)init
@@ -131,9 +133,12 @@ uint64_t __43__ICMusicSubscriptionStatusController_init__block_invoke(uint64_t a
   v4 = *(v3 + 72);
   *(v3 + 72) = v2;
 
-  *(*(a1 + 32) + 80) = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v5 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v6 = *(a1 + 32);
+  v7 = *(v6 + 80);
+  *(v6 + 80) = v5;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v5, v7);
 }
 
 + (ICMusicSubscriptionStatusController)sharedStatusController

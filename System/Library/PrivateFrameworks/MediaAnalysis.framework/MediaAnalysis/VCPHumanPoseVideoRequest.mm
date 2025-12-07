@@ -291,7 +291,7 @@ LABEL_32:
 {
   v83 = *MEMORY[0x1E69E9840];
   personCopy = person;
-  if ((atomic_load_explicit(&qword_1ED942820, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED942820, memory_order_acquire) & 1) == 0)
   {
     selfCopy = self;
     v71 = personCopy;
@@ -946,12 +946,12 @@ LABEL_22:
 
 - (void)computeActionScoreForPerson:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  if (__cxa_guard_acquire(&qword_1ED942820))
+  if (__cxa_guard_acquire(byte_1ED942820))
   {
     *&v2 = *(a1 + 32) * 0.7;
     _MergedGlobals_1 = v2;
 
-    __cxa_guard_release(&qword_1ED942820);
+    __cxa_guard_release(byte_1ED942820);
   }
 }
 

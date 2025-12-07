@@ -24,10 +24,10 @@
   v16 = [UIEditMenuConfiguration configurationWithIdentifier:identifier sourcePoint:*MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8)];
 
   [v16 setPreferredArrowDirection:{-[_UIOEditMenuPresentationConfiguration preferredArrowDirection](v11, "preferredArrowDirection")}];
-  menu = [(_UIOEditMenuPresentationConfiguration *)v11 menu];
+  v17 = objc_msgSend_menu(v11);
   v18.receiver = self;
   v18.super_class = _UIEditMenuOverlayUIServerPresentation;
-  [(_UIEditMenuContentPresentation *)&v18 displayMenu:menu configuration:v16];
+  [(_UIEditMenuContentPresentation *)&v18 displayMenu:v17 configuration:v16];
 }
 
 - (id)configureContainerViewWithConfiguration:(id)configuration

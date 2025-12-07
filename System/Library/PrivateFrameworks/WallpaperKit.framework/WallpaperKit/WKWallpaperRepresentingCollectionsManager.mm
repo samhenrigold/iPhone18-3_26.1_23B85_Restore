@@ -36,16 +36,16 @@
 
 - (void)_loadCollections
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = WKLogForCategory(4uLL);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = objc_opt_class();
     v5 = NSStringFromClass(v4);
     *buf = 138543618;
-    v10 = v5;
-    v11 = 2082;
-    v12 = "[WKWallpaperRepresentingCollectionsManager _loadCollections]";
+    v9 = v5;
+    v10 = 2082;
+    v11 = "[WKWallpaperRepresentingCollectionsManager _loadCollections]";
     _os_log_impl(&dword_1E4A23000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: %{public}s start.", buf, 0x16u);
   }
 
@@ -57,27 +57,22 @@
   v6 = _Block_copy(aBlock);
   [(WKWallpaperRepresentingCollectionsManager *)self _loadSystemWallpaperCollections];
   v6[2](v6);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __61__WKWallpaperRepresentingCollectionsManager__loadCollections__block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v2 = WKLogForCategory(4uLL);
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v8 = *MEMORY[0x1E69E9840];
+  v1 = WKLogForCategory(4uLL);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
-    v7 = 138543618;
-    v8 = v5;
-    v9 = 2082;
-    v10 = "[WKWallpaperRepresentingCollectionsManager _loadCollections]_block_invoke";
-    _os_log_impl(&dword_1E4A23000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@: %{public}s complete.", &v7, 0x16u);
+    v2 = objc_opt_class();
+    v3 = NSStringFromClass(v2);
+    v4 = 138543618;
+    v5 = v3;
+    v6 = 2082;
+    v7 = "[WKWallpaperRepresentingCollectionsManager _loadCollections]_block_invoke";
+    _os_log_impl(&dword_1E4A23000, v1, OS_LOG_TYPE_DEFAULT, "%{public}@: %{public}s complete.", &v4, 0x16u);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_loadSystemWallpaperCollections
@@ -104,36 +99,36 @@ void __61__WKWallpaperRepresentingCollectionsManager__loadCollections__block_inv
     _os_log_impl(&dword_1E4A23000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: Resolving default wallpaper collections for device name '%{public}@'", buf, 0x16u);
   }
 
-  v6 = WKWallpapersBaseURL();
-  v91 = [v6 URLByAppendingPathComponent:@"Collections"];
+  v7 = WKWallpapersBaseURL(v6);
+  v91 = [v7 URLByAppendingPathComponent:@"Collections"];
 
-  v7 = MEMORY[0x1E696AEC0];
+  v8 = MEMORY[0x1E696AEC0];
   lowercaseString = [v90 lowercaseString];
-  v9 = [v7 stringWithFormat:@"Collections~%@.plist", lowercaseString];
-  v92 = [v91 URLByAppendingPathComponent:v9];
+  v10 = [v8 stringWithFormat:@"Collections~%@.plist", lowercaseString];
+  v92 = [v91 URLByAppendingPathComponent:v10];
 
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   path = [v92 path];
-  LOBYTE(v9) = [defaultManager fileExistsAtPath:path];
+  LOBYTE(v10) = [defaultManager fileExistsAtPath:path];
 
-  if ((v9 & 1) == 0)
+  if ((v10 & 1) == 0)
   {
-    v12 = [v91 URLByAppendingPathComponent:@"Collections.plist"];
+    v13 = [v91 URLByAppendingPathComponent:@"Collections.plist"];
 
-    v92 = v12;
+    v92 = v13;
   }
 
-  v13 = WKLogForCategory(4uLL);
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v14 = WKLogForCategory(4uLL);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = objc_opt_class();
-    v15 = NSStringFromClass(v14);
+    v15 = objc_opt_class();
+    v16 = NSStringFromClass(v15);
     path2 = [v92 path];
     *buf = 138543618;
-    v114 = v15;
+    v114 = v16;
     v115 = 2114;
     v116 = path2;
-    _os_log_impl(&dword_1E4A23000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@: Resolved to default wallpaper collections file at path '%{public}@'", buf, 0x16u);
+    _os_log_impl(&dword_1E4A23000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@: Resolved to default wallpaper collections file at path '%{public}@'", buf, 0x16u);
   }
 
   v87 = [MEMORY[0x1E695DF20] dictionaryWithContentsOfURL:v92];
@@ -147,11 +142,11 @@ void __61__WKWallpaperRepresentingCollectionsManager__loadCollections__block_inv
     log = WKLogForCategory(4uLL);
     if (os_log_type_enabled(log, OS_LOG_TYPE_ERROR))
     {
-      v18 = objc_opt_class();
-      v19 = NSStringFromClass(v18);
+      v19 = objc_opt_class();
+      v20 = NSStringFromClass(v19);
       path3 = [v91 path];
       *buf = 138543874;
-      v114 = v19;
+      v114 = v20;
       v115 = 2114;
       v116 = path3;
       v117 = 2114;
@@ -167,43 +162,43 @@ void __61__WKWallpaperRepresentingCollectionsManager__loadCollections__block_inv
   v108 = 0u;
   v105 = 0u;
   v106 = 0u;
-  v21 = v88;
-  v22 = [v21 countByEnumeratingWithState:&v105 objects:v112 count:16];
-  if (v22)
+  v22 = v88;
+  v23 = [v22 countByEnumeratingWithState:&v105 objects:v112 count:16];
+  if (v23)
   {
-    v23 = *v106;
+    v24 = *v106;
     do
     {
-      for (i = 0; i != v22; ++i)
+      for (i = 0; i != v23; ++i)
       {
-        if (*v106 != v23)
+        if (*v106 != v24)
         {
-          objc_enumerationMutation(v21);
+          objc_enumerationMutation(v22);
         }
 
-        v25 = *(*(&v105 + 1) + 8 * i);
-        path4 = [v25 path];
+        v26 = *(*(&v105 + 1) + 8 * i);
+        path4 = [v26 path];
         lowercaseString2 = [(WKWallpaperRepresentingCollection *)path4 lowercaseString];
         if (![lowercaseString2 hasSuffix:@"wallpapercollection"])
         {
           goto LABEL_23;
         }
 
-        v28 = [WKWallpaperRepresentingCollection shouldLoadWallpaperCollectionAtURL:v25];
+        v29 = [WKWallpaperRepresentingCollection shouldLoadWallpaperCollectionAtURL:v26];
 
-        if (!v28)
+        if (!v29)
         {
           continue;
         }
 
-        v29 = [WKWallpaperRepresentingCollection alloc];
+        v30 = [WKWallpaperRepresentingCollection alloc];
         _downloadManager = [(WKWallpaperRepresentingCollectionsManager *)self _downloadManager];
-        path4 = [(WKWallpaperRepresentingCollection *)v29 initWithURL:v25 downloadManager:_downloadManager];
+        path4 = [(WKWallpaperRepresentingCollection *)v30 initWithURL:v26 downloadManager:_downloadManager];
 
         if (path4)
         {
-          v31 = WKLogForCategory(4uLL);
-          if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+          v32 = WKLogForCategory(4uLL);
+          if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
           {
             identifier = [(WKWallpaperRepresentingCollection *)path4 identifier];
             uUIDString = [identifier UUIDString];
@@ -214,7 +209,7 @@ void __61__WKWallpaperRepresentingCollectionsManager__loadCollections__block_inv
             v116 = uUIDString;
             v117 = 2114;
             v118 = displayName;
-            _os_log_impl(&dword_1E4A23000, v31, OS_LOG_TYPE_DEFAULT, "%s: Loaded wallpaper collection (identifier: '%{public}@', displayName: '%{public}@').", buf, 0x20u);
+            _os_log_impl(&dword_1E4A23000, v32, OS_LOG_TYPE_DEFAULT, "%s: Loaded wallpaper collection (identifier: '%{public}@', displayName: '%{public}@').", buf, 0x20u);
           }
 
           lowercaseString2 = [(WKWallpaperRepresentingCollection *)path4 identifier];
@@ -225,26 +220,26 @@ LABEL_23:
         }
       }
 
-      v22 = [v21 countByEnumeratingWithState:&v105 objects:v112 count:16];
+      v23 = [v22 countByEnumeratingWithState:&v105 objects:v112 count:16];
     }
 
-    while (v22);
+    while (v23);
   }
 
-  v36 = WKAppleInternalWallpapersBaseURL();
-  v86 = [v36 URLByAppendingPathComponent:@"Collections"];
+  v37 = WKAppleInternalWallpapersBaseURL();
+  v86 = [v37 URLByAppendingPathComponent:@"Collections"];
 
   currentDevice = [MEMORY[0x1E69DC938] currentDevice];
   if ([currentDevice sf_isInternalInstall])
   {
-    v37 = WKAppleInternalWallpapersBaseURL();
-    if (v37)
+    v38 = WKAppleInternalWallpapersBaseURL();
+    if (v38)
     {
       defaultManager3 = [MEMORY[0x1E696AC08] defaultManager];
       path5 = [v86 path];
-      v40 = [defaultManager3 fileExistsAtPath:path5];
+      v41 = [defaultManager3 fileExistsAtPath:path5];
 
-      if (!v40)
+      if (!v41)
       {
         v89 = 0;
         goto LABEL_35;
@@ -257,19 +252,19 @@ LABEL_23:
 
       if (v89)
       {
-        v42 = WKLogForCategory(4uLL);
-        if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+        v43 = WKLogForCategory(4uLL);
+        if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
         {
-          v43 = objc_opt_class();
-          v44 = NSStringFromClass(v43);
+          v44 = objc_opt_class();
+          v45 = NSStringFromClass(v44);
           path6 = [v86 path];
           *buf = 138543874;
-          v114 = v44;
+          v114 = v45;
           v115 = 2114;
           v116 = path6;
           v117 = 2114;
           v118 = v89;
-          _os_log_error_impl(&dword_1E4A23000, v42, OS_LOG_TYPE_ERROR, "%{public}@: Unable to load internal contents of directory at path '%{public}@'. Error '%{public}@'.", buf, 0x20u);
+          _os_log_error_impl(&dword_1E4A23000, v43, OS_LOG_TYPE_ERROR, "%{public}@: Unable to load internal contents of directory at path '%{public}@'. Error '%{public}@'.", buf, 0x20u);
         }
 
 LABEL_72:
@@ -281,8 +276,8 @@ LABEL_72:
       v103 = 0u;
       v100 = 0u;
       v101 = 0u;
-      v42 = currentDevice;
-      v72 = [v42 countByEnumeratingWithState:&v100 objects:v111 count:16];
+      v43 = currentDevice;
+      v72 = [v43 countByEnumeratingWithState:&v100 objects:v111 count:16];
       if (!v72)
       {
         goto LABEL_72;
@@ -295,7 +290,7 @@ LABEL_59:
       {
         if (*v101 != v73)
         {
-          objc_enumerationMutation(v42);
+          objc_enumerationMutation(v43);
         }
 
         v75 = *(*(&v100 + 1) + 8 * v74);
@@ -316,7 +311,7 @@ LABEL_59:
 LABEL_70:
         if (v72 == ++v74)
         {
-          v72 = [v42 countByEnumeratingWithState:&v100 objects:v111 count:16];
+          v72 = [v43 countByEnumeratingWithState:&v100 objects:v111 count:16];
           if (!v72)
           {
             goto LABEL_72;
@@ -363,76 +358,75 @@ LABEL_34:
 
 LABEL_35:
   objc_opt_class();
-  v46 = [v87 objectForKeyedSubscript:@"order"];
+  v47 = [v87 objectForKeyedSubscript:@"order"];
   if (objc_opt_isKindOfClass())
   {
-    v47 = v46;
+    v48 = v47;
   }
 
   else
   {
-    v47 = 0;
+    v48 = 0;
   }
 
-  v48 = v47;
+  v49 = v48;
 
-  if (!v48)
+  if (!v49)
   {
-    v49 = MEMORY[0x1E695DF30];
-    v50 = MEMORY[0x1E696AEC0];
-    v51 = objc_opt_class();
-    v52 = NSStringFromClass(v51);
-    path8 = [v92 path];
-    v54 = objc_claimAutoreleasedReturnValue();
-    v55 = [v49 exceptionWithName:*MEMORY[0x1E695D940] reason:v54 userInfo:0];
+    v50 = MEMORY[0x1E695DF30];
+    v51 = MEMORY[0x1E696AEC0];
+    v52 = objc_opt_class();
+    v53 = NSStringFromClass(v52);
+    v55 = path8 = [v92 path];
+    v56 = [v50 exceptionWithName:*MEMORY[0x1E695D940] reason:v55 userInfo:0];
 
-    [v55 raise];
+    [v56 raise];
   }
 
   v98 = 0u;
   v99 = 0u;
   v96 = 0u;
   v97 = 0u;
-  v56 = v48;
-  v57 = [v56 countByEnumeratingWithState:&v96 objects:v110 count:16];
-  if (v57)
+  v57 = v49;
+  v58 = [v57 countByEnumeratingWithState:&v96 objects:v110 count:16];
+  if (v58)
   {
-    v58 = *v97;
+    v59 = *v97;
     do
     {
-      for (j = 0; j != v57; ++j)
+      for (j = 0; j != v58; ++j)
       {
-        if (*v97 != v58)
+        if (*v97 != v59)
         {
-          objc_enumerationMutation(v56);
+          objc_enumerationMutation(v57);
         }
 
-        v60 = *(*(&v96 + 1) + 8 * j);
-        v61 = [log objectForKeyedSubscript:v60];
-        v62 = v61;
-        if (v61 && [v61 numberOfWallpapers] >= 1)
+        v61 = *(*(&v96 + 1) + 8 * j);
+        v62 = [log objectForKeyedSubscript:v61];
+        v63 = v62;
+        if (v62 && [v62 numberOfWallpapers] >= 1)
         {
-          v63 = WKLogForCategory(4uLL);
-          if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
+          v64 = WKLogForCategory(4uLL);
+          if (os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT))
           {
-            identifier3 = [v62 identifier];
+            identifier3 = [v63 identifier];
             uUIDString5 = [identifier3 UUIDString];
-            displayName3 = [v62 displayName];
+            displayName3 = [v63 displayName];
             *buf = 136315650;
             v114 = "[WKWallpaperRepresentingCollectionsManager _loadSystemWallpaperCollections]";
             v115 = 2114;
             v116 = uUIDString5;
             v117 = 2114;
             v118 = displayName3;
-            _os_log_impl(&dword_1E4A23000, v63, OS_LOG_TYPE_DEFAULT, "%s: Adding wallpaper collection (identifier: '%{public}@', displayName: '%{public}@').", buf, 0x20u);
+            _os_log_impl(&dword_1E4A23000, v64, OS_LOG_TYPE_DEFAULT, "%s: Adding wallpaper collection (identifier: '%{public}@', displayName: '%{public}@').", buf, 0x20u);
           }
 
           _wallpaperCollections = [(WKWallpaperRepresentingCollectionsManager *)self _wallpaperCollections];
-          [_wallpaperCollections na_safeAddObject:v62];
+          [_wallpaperCollections na_safeAddObject:v63];
 
           _wallpaperCollectionLookupTable = [(WKWallpaperRepresentingCollectionsManager *)self _wallpaperCollectionLookupTable];
-          identifier4 = [v62 identifier];
-          [_wallpaperCollectionLookupTable setObject:v62 forKey:identifier4];
+          identifier4 = [v63 identifier];
+          [_wallpaperCollectionLookupTable setObject:v63 forKey:identifier4];
         }
 
         else
@@ -440,11 +434,11 @@ LABEL_35:
           _wallpaperCollectionLookupTable = WKLogForCategory(4uLL);
           if (os_log_type_enabled(_wallpaperCollectionLookupTable, OS_LOG_TYPE_DEFAULT))
           {
-            displayName4 = [v62 displayName];
+            displayName4 = [v63 displayName];
             *buf = 136315650;
             v114 = "[WKWallpaperRepresentingCollectionsManager _loadSystemWallpaperCollections]";
             v115 = 2114;
-            v116 = v60;
+            v116 = v61;
             v117 = 2114;
             v118 = displayName4;
             _os_log_impl(&dword_1E4A23000, _wallpaperCollectionLookupTable, OS_LOG_TYPE_DEFAULT, "%s: Skipping empty wallpaper collection (identifier: '%{public}@', displayName: '%{public}@').", buf, 0x20u);
@@ -452,29 +446,26 @@ LABEL_35:
         }
       }
 
-      v57 = [v56 countByEnumeratingWithState:&v96 objects:v110 count:16];
+      v58 = [v57 countByEnumeratingWithState:&v96 objects:v110 count:16];
     }
 
-    while (v57);
+    while (v58);
   }
 
 LABEL_55:
   __76__WKWallpaperRepresentingCollectionsManager__loadSystemWallpaperCollections__block_invoke();
-  v71 = *MEMORY[0x1E69E9840];
 }
 
 void __76__WKWallpaperRepresentingCollectionsManager__loadSystemWallpaperCollections__block_invoke()
 {
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
   v0 = WKLogForCategory(4uLL);
   if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
   {
-    v2 = 136446210;
-    v3 = "[WKWallpaperRepresentingCollectionsManager _loadSystemWallpaperCollections]_block_invoke";
-    _os_log_impl(&dword_1E4A23000, v0, OS_LOG_TYPE_DEFAULT, "%{public}s: complete.", &v2, 0xCu);
+    v1 = 136446210;
+    v2 = "[WKWallpaperRepresentingCollectionsManager _loadSystemWallpaperCollections]_block_invoke";
+    _os_log_impl(&dword_1E4A23000, v0, OS_LOG_TYPE_DEFAULT, "%{public}s: complete.", &v1, 0xCu);
   }
-
-  v1 = *MEMORY[0x1E69E9840];
 }
 
 + (WKWallpaperRepresentingCollectionsManager)defaultManager

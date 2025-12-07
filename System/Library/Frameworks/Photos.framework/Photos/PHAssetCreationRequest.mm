@@ -1183,7 +1183,7 @@ LABEL_24:
   v58 = 0;
   if (requestCopy)
   {
-    [requestCopy duplicateStillSourceTime];
+    objc_msgSend_duplicateStillSourceTime(requestCopy);
   }
 
   v12 = [[PHPhotoLibrary alloc] initWithPLPhotoLibrary:libraryCopy type:self->_duplicateAssetPhotoLibraryType];
@@ -1443,11 +1443,11 @@ LABEL_15:
     v51 = [MEMORY[0x1E6987E28] assetWithURL:privateFileURL];
     v21 = [MEMORY[0x1E6987E68] assetImageGeneratorWithAsset:?];
     v58 = *MEMORY[0x1E6960CC0];
-    *v52 = v58;
+    v52 = v58;
     v59 = *(MEMORY[0x1E6960CC0] + 16);
     v22 = v59;
     [v21 setRequestedTimeToleranceBefore:&v58];
-    v58 = *v52;
+    v58 = v52;
     v59 = v22;
     [v21 setRequestedTimeToleranceAfter:&v58];
     [v21 setAppliesPreferredTrackTransform:1];
@@ -1700,7 +1700,7 @@ LABEL_24:
 LABEL_35:
 }
 
-uint64_t __186__PHAssetCreationRequest_duplicatedAssetResourcesFromAsset_stillSourceTime_flattenLivePhotoIntoStillPhoto_duplicateAsOriginal_duplicateWithAdjustmentsBakedIn_duplicatePhotoAsData_error___block_invoke_3(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__186__PHAssetCreationRequest_duplicatedAssetResourcesFromAsset_stillSourceTime_flattenLivePhotoIntoStillPhoto_duplicateAsOriginal_duplicateWithAdjustmentsBakedIn_duplicatePhotoAsData_error___block_invoke_3(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 type];
   if (result == 9)
@@ -3970,7 +3970,7 @@ LABEL_172:
                       v345 = clientAuthorization3;
                       if (clientAuthorization3)
                       {
-                        [clientAuthorization3 clientAuditToken];
+                        objc_msgSend_clientAuditToken(clientAuthorization3);
                       }
 
                       else
@@ -4897,7 +4897,7 @@ LABEL_23:
   orientation = [assetCopy orientation];
   if (assetCopy)
   {
-    [assetCopy photoIrisVideoDuration];
+    objc_msgSend_photoIrisVideoDuration(assetCopy);
   }
 
   else
@@ -5967,16 +5967,16 @@ LABEL_27:
   return v28;
 }
 
-id __105__PHAssetCreationRequest__writeDataToDisk_imageUTIType_primaryImageProperties_mainFileURL_thumbnailData___block_invoke(uint64_t a1)
+id __105__PHAssetCreationRequest__writeDataToDisk_imageUTIType_primaryImageProperties_mainFileURL_thumbnailData___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = 0;
+  v3 = 0;
   if (PFFigGetImageSourceImageIndexForContainerItemID())
   {
-    v3 = CGImageSourceCopyPropertiesAtIndex(*(a1 + 48), 0, 0);
-    v2 = [*(a1 + 40) _filteredImagePropertiesByConditionallyRemovingLivePhotoIdentifiersFromSourceImageProperties:v3];
+    v4 = CGImageSourceCopyPropertiesAtIndex(*(a1 + 48), 0, 0);
+    v3 = [*(a1 + 40) _filteredImagePropertiesByConditionallyRemovingLivePhotoIdentifiersFromSourceImageProperties:v4];
   }
 
-  return v2;
+  return v3;
 }
 
 - (BOOL)_accessWritableURLForUUID:(id)d imageUTI:(id)i originalFilename:(id)filename photoLibrary:(id)library withHandler:(id)handler
@@ -7017,10 +7017,10 @@ LABEL_29:
             v72 = 0;
             if (v47)
             {
-              [(_PHAssetCreationRequestValidator *)v47 validatedVideoDuration];
+              objc_msgSend_validatedVideoDuration(v47);
               v69 = 0uLL;
               v70 = 0;
-              [(_PHAssetCreationRequestValidator *)v47 validatedImageDisplayTime];
+              objc_msgSend_validatedImageDisplayTime(v47);
             }
 
             else
@@ -8507,7 +8507,7 @@ LABEL_17:
   v8 = mediaAnalysisProperties2;
   if (mediaAnalysisProperties2)
   {
-    [mediaAnalysisProperties2 bestKeyFrameTime];
+    objc_msgSend_bestKeyFrameTime(mediaAnalysisProperties2);
   }
 
   else
@@ -8522,7 +8522,7 @@ LABEL_17:
   v10 = mediaAnalysisProperties3;
   if (mediaAnalysisProperties3)
   {
-    [mediaAnalysisProperties3 bestVideoTimeRange];
+    objc_msgSend_bestVideoTimeRange(mediaAnalysisProperties3);
   }
 
   else
@@ -8538,7 +8538,7 @@ LABEL_17:
   v12 = mediaAnalysisProperties4;
   if (mediaAnalysisProperties4)
   {
-    [mediaAnalysisProperties4 animatedStickerTimeRange];
+    objc_msgSend_animatedStickerTimeRange(mediaAnalysisProperties4);
   }
 
   else
@@ -9385,7 +9385,7 @@ LABEL_9:
 
   if (optionsCopy)
   {
-    [optionsCopy stillSourceTime];
+    objc_msgSend_stillSourceTime(optionsCopy);
   }
 
   else
@@ -10041,9 +10041,9 @@ LABEL_52:
 
   if (bundleCopy)
   {
-    [bundleCopy imageDisplayTime];
+    objc_msgSend_imageDisplayTime(bundleCopy);
     [creationRequestForAsset setImageDisplayTime:&v14];
-    [bundleCopy originalVideoDuration];
+    objc_msgSend_originalVideoDuration(bundleCopy);
   }
 
   else

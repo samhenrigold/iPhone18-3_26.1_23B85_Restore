@@ -24,7 +24,7 @@
 
 + (id)getTtsServerEndpointByCluster:(id)cluster withServiceType:(id)type
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   clusterCopy = cluster;
   typeCopy = type;
   v5 = SFSSGetLogObject();
@@ -40,53 +40,53 @@
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v49 = __Block_byref_object_copy__493;
-  v50 = __Block_byref_object_dispose__494;
-  v51 = 0;
+  v48 = __Block_byref_object_copy__493;
+  v49 = __Block_byref_object_dispose__494;
+  v50 = 0;
   v6 = dispatch_semaphore_create(0);
-  v37 = objc_alloc_init(MEMORY[0x277CCAB70]);
+  v36 = objc_alloc_init(MEMORY[0x277CCAB70]);
   v7 = MEMORY[0x277CBEBC0];
   typeCopy = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"https://tts-service-tts-tts-proxy-server-dev.usmsc04.app.apple.com/proxy/get_all_tts_service?cluster=%@&service=%@", clusterCopy, typeCopy];
   v9 = [v7 URLWithString:typeCopy];
-  [v37 setURL:v9];
+  [v36 setURL:v9];
 
-  [v37 setHTTPMethod:@"GET"];
+  [v36 setHTTPMethod:@"GET"];
   v10 = MEMORY[0x277CCAD30];
   defaultSessionConfiguration = [MEMORY[0x277CCAD38] defaultSessionConfiguration];
-  v34 = [v10 sessionWithConfiguration:defaultSessionConfiguration];
+  v33 = [v10 sessionWithConfiguration:defaultSessionConfiguration];
 
-  v42[0] = MEMORY[0x277D85DD0];
-  v42[1] = 3221225472;
-  v42[2] = __84__SFSpeechSynthesisServerVoiceConfig_getTtsServerEndpointByCluster_withServiceType___block_invoke;
-  v42[3] = &unk_279C4C298;
-  v44 = buf;
+  v41[0] = MEMORY[0x277D85DD0];
+  v41[1] = 3221225472;
+  v41[2] = __84__SFSpeechSynthesisServerVoiceConfig_getTtsServerEndpointByCluster_withServiceType___block_invoke;
+  v41[3] = &unk_279C4C298;
+  v43 = buf;
   dsema = v6;
-  v43 = dsema;
-  v12 = [v34 dataTaskWithRequest:v37 completionHandler:v42];
+  v42 = dsema;
+  v12 = [v33 dataTaskWithRequest:v36 completionHandler:v41];
   [v12 resume];
 
   dispatch_semaphore_wait(dsema, 0xFFFFFFFFFFFFFFFFLL);
   if (*(*&buf[8] + 40))
   {
-    v40 = 0u;
-    v41 = 0u;
-    v38 = 0u;
     v39 = 0u;
+    v40 = 0u;
+    v37 = 0u;
+    v38 = 0u;
     v13 = *(*&buf[8] + 40);
-    v14 = [v13 countByEnumeratingWithState:&v38 objects:v47 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v37 objects:v46 count:16];
     if (v14)
     {
-      v15 = *v39;
+      v15 = *v38;
       while (2)
       {
         for (i = 0; i != v14; i = i + 1)
         {
-          if (*v39 != v15)
+          if (*v38 != v15)
           {
             objc_enumerationMutation(v13);
           }
 
-          v17 = *(*(&v38 + 1) + 8 * i);
+          v17 = *(*(&v37 + 1) + 8 * i);
           v18 = [*(*&buf[8] + 40) objectForKey:v17];
           objc_opt_class();
           isKindOfClass = objc_opt_isKindOfClass();
@@ -102,9 +102,9 @@
             v24 = SFSSGetLogObject();
             if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
             {
-              *v45 = 138412290;
-              v46 = v23;
-              _os_log_impl(&dword_269079000, v24, OS_LOG_TYPE_INFO, "Selected endpoint=%@", v45, 0xCu);
+              *v44 = 138412290;
+              v45 = v23;
+              _os_log_impl(&dword_269079000, v24, OS_LOG_TYPE_INFO, "Selected endpoint=%@", v44, 0xCu);
             }
 
             v25 = [v23 componentsSeparatedByString:@":"];
@@ -118,9 +118,9 @@
               v30 = SFSSGetLogObject();
               if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
               {
-                *v45 = 138412290;
-                v46 = v29;
-                _os_log_impl(&dword_269079000, v30, OS_LOG_TYPE_INFO, "Selected URL=%@", v45, 0xCu);
+                *v44 = 138412290;
+                v45 = v29;
+                _os_log_impl(&dword_269079000, v30, OS_LOG_TYPE_INFO, "Selected URL=%@", v44, 0xCu);
               }
 
               v14 = v29;
@@ -130,7 +130,7 @@
           }
         }
 
-        v14 = [v13 countByEnumeratingWithState:&v38 objects:v47 count:16];
+        v14 = [v13 countByEnumeratingWithState:&v37 objects:v46 count:16];
         if (v14)
         {
           continue;
@@ -149,14 +149,13 @@ LABEL_21:
   }
 
   _Block_object_dispose(buf, 8);
-  v31 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
 
 void __84__SFSpeechSynthesisServerVoiceConfig_getTtsServerEndpointByCluster_withServiceType___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v6 = a4;
   if (v6)
   {
@@ -164,16 +163,16 @@ void __84__SFSpeechSynthesisServerVoiceConfig_getTtsServerEndpointByCluster_with
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v19 = v6;
+      v18 = v6;
       _os_log_error_impl(&dword_269079000, v7, OS_LOG_TYPE_ERROR, "Error: %@", buf, 0xCu);
     }
   }
 
   else
   {
-    v17 = 0;
-    v8 = [MEMORY[0x277CCAAA0] JSONObjectWithData:a2 options:0 error:&v17];
-    v7 = v17;
+    v16 = 0;
+    v8 = [MEMORY[0x277CCAAA0] JSONObjectWithData:a2 options:0 error:&v16];
+    v7 = v16;
     v9 = *(*(a1 + 40) + 8);
     v10 = *(v9 + 40);
     *(v9 + 40) = v8;
@@ -183,7 +182,7 @@ void __84__SFSpeechSynthesisServerVoiceConfig_getTtsServerEndpointByCluster_with
     {
       v12 = *(*(*(a1 + 40) + 8) + 40);
       *buf = 138412290;
-      v19 = v12;
+      v18 = v12;
       _os_log_impl(&dword_269079000, v11, OS_LOG_TYPE_INFO, "jsonResponse: %@", buf, 0xCu);
     }
 
@@ -193,7 +192,7 @@ void __84__SFSpeechSynthesisServerVoiceConfig_getTtsServerEndpointByCluster_with
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v19 = v7;
+        v18 = v7;
         _os_log_error_impl(&dword_269079000, v13, OS_LOG_TYPE_ERROR, "jsonError: %@", buf, 0xCu);
       }
 
@@ -204,7 +203,6 @@ void __84__SFSpeechSynthesisServerVoiceConfig_getTtsServerEndpointByCluster_with
   }
 
   dispatch_semaphore_signal(*(a1 + 32));
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 @end

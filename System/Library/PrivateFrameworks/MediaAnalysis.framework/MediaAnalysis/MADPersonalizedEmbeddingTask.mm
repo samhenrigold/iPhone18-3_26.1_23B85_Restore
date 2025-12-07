@@ -17,7 +17,7 @@
 
 + (BOOL)prewarmRequest:(id)request error:(id *)error
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   if ([requestCopy isMemberOfClass:objc_opt_class()])
   {
@@ -28,30 +28,30 @@
       v8 = +[VCPMADResourceManager sharedManager];
       v9 = [v8 activateResource:v7];
 
-      v10 = VCPSignPostLog();
-      v11 = os_signpost_id_generate(v10);
+      v11 = VCPSignPostLog(v10);
+      v12 = os_signpost_id_generate(v11);
 
-      v12 = VCPSignPostLog();
-      v13 = v12;
-      if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
+      v14 = VCPSignPostLog(v13);
+      v15 = v14;
+      if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v11, "CSUTextEncoder_loadResources", "", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v15, OS_SIGNPOST_INTERVAL_BEGIN, v12, "CSUTextEncoder_loadResources", "", buf, 2u);
       }
 
       textEncoder = [v7 textEncoder];
-      v28 = 0;
-      v15 = [textEncoder loadResources:&v28];
-      v16 = v28;
+      v31 = 0;
+      v17 = [textEncoder loadResources:&v31];
+      v18 = v31;
 
-      if (v15)
+      if (v17)
       {
-        v17 = VCPSignPostLog();
-        v18 = v17;
-        if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
+        v20 = VCPSignPostLog(v19);
+        v21 = v20;
+        if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
         {
           *buf = 0;
-          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v18, OS_SIGNPOST_INTERVAL_END, v11, "CSUTextEncoder_loadResources", "", buf, 2u);
+          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v21, OS_SIGNPOST_INTERVAL_END, v12, "CSUTextEncoder_loadResources", "", buf, 2u);
         }
 
         [v9 reset];
@@ -61,20 +61,20 @@
       {
         if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
-          v23 = [v16 description];
+          v26 = [v18 description];
           *buf = 138412290;
-          v36 = v23;
+          v39 = v26;
           _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to pre-warm text encoder (%@)", buf, 0xCu);
         }
 
         if (error)
         {
-          v24 = MEMORY[0x1E696ABC0];
-          v29 = *MEMORY[0x1E696A578];
-          v25 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to pre-warm text encoder"];
-          v30 = v25;
-          v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
-          *error = [v24 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v26];
+          v27 = MEMORY[0x1E696ABC0];
+          v32 = *MEMORY[0x1E696A578];
+          v28 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to pre-warm text encoder"];
+          v33 = v28;
+          v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
+          *error = [v27 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v29];
         }
       }
     }
@@ -84,23 +84,23 @@
       if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
         *buf = 67109120;
-        LODWORD(v36) = [v6 revision];
+        LODWORD(v39) = [v6 revision];
         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Invalid personalized embedding revision specified (%d)", buf, 8u);
       }
 
       if (!error)
       {
-        v15 = 0;
+        v17 = 0;
         goto LABEL_28;
       }
 
-      v22 = MEMORY[0x1E696ABC0];
-      v31 = *MEMORY[0x1E696A578];
-      v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid personalized embedding revision specified"];
-      v32 = v16;
-      v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
-      [v22 errorWithDomain:*MEMORY[0x1E696A768] code:-50 userInfo:v9];
-      *error = v15 = 0;
+      v25 = MEMORY[0x1E696ABC0];
+      v34 = *MEMORY[0x1E696A578];
+      v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid personalized embedding revision specified"];
+      v35 = v18;
+      v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
+      [v25 errorWithDomain:*MEMORY[0x1E696A768] code:-50 userInfo:v9];
+      *error = v17 = 0;
     }
 
 LABEL_28:
@@ -109,29 +109,29 @@ LABEL_28:
 
   if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v19 = objc_opt_class();
-    v20 = NSStringFromClass(v19);
+    v22 = objc_opt_class();
+    v23 = NSStringFromClass(v22);
     *buf = 138412290;
-    v36 = v20;
+    v39 = v23;
     _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Pre-warming attempted for invalid request (%@)", buf, 0xCu);
   }
 
   if (error)
   {
-    v21 = MEMORY[0x1E696ABC0];
-    v33 = *MEMORY[0x1E696A578];
+    v24 = MEMORY[0x1E696ABC0];
+    v36 = *MEMORY[0x1E696A578];
     v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Pre-warming attempted for invalid request"];
-    v34 = v6;
-    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
-    [v21 errorWithDomain:*MEMORY[0x1E696A768] code:-50 userInfo:v7];
-    *error = v15 = 0;
+    v37 = v6;
+    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
+    [v24 errorWithDomain:*MEMORY[0x1E696A768] code:-50 userInfo:v7];
+    *error = v17 = 0;
     goto LABEL_28;
   }
 
-  v15 = 0;
+  v17 = 0;
 LABEL_29:
 
-  return v15;
+  return v17;
 }
 
 - (int64_t)revision
@@ -144,42 +144,42 @@ LABEL_29:
 
 - (id)gallery
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   gallery = self->_gallery;
   if (!gallery)
   {
     vcp_defaultPhotoLibrary = [MEMORY[0x1E69789B0] vcp_defaultPhotoLibrary];
     vcp_visionCacheStorageDirectoryURL = [vcp_defaultPhotoLibrary vcp_visionCacheStorageDirectoryURL];
-    v6 = VCPSignPostLog();
+    v6 = VCPSignPostLog(vcp_visionCacheStorageDirectoryURL);
     v7 = os_signpost_id_generate(v6);
 
-    v8 = VCPSignPostLog();
-    v9 = v8;
-    if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
+    v9 = VCPSignPostLog(v8);
+    v10 = v9;
+    if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v7, "VUWGallery_initWithPath", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v10, OS_SIGNPOST_INTERVAL_BEGIN, v7, "VUWGallery_initWithPath", "", buf, 2u);
     }
 
-    v17 = 0;
-    v10 = [objc_alloc(MEMORY[0x1E69E0678]) initWithClient:0 path:vcp_visionCacheStorageDirectoryURL error:&v17];
-    v11 = v17;
-    v12 = self->_gallery;
-    self->_gallery = v10;
+    v19 = 0;
+    v11 = [objc_alloc(MEMORY[0x1E69E0678]) initWithClient:0 path:vcp_visionCacheStorageDirectoryURL error:&v19];
+    v12 = v19;
+    v13 = self->_gallery;
+    self->_gallery = v11;
 
-    v13 = VCPSignPostLog();
-    v14 = v13;
-    if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+    v15 = VCPSignPostLog(v14);
+    v16 = v15;
+    if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v14, OS_SIGNPOST_INTERVAL_END, v7, "VUWGallery_initWithPath", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v16, OS_SIGNPOST_INTERVAL_END, v7, "VUWGallery_initWithPath", "", buf, 2u);
     }
 
     if (!self->_gallery && MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v15 = [v11 description];
+      v17 = [v12 description];
       *buf = 138412290;
-      v19 = v15;
+      v21 = v17;
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to load VU Gallery (%@)", buf, 0xCu);
     }
 
@@ -641,38 +641,38 @@ LABEL_83:
 
 - (int)processPixelBuffer:(__CVBuffer *)buffer imageEmbedding:(id *)embedding
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   imageEmbeddingVersion = [(MADPersonalizedEmbeddingTask *)self imageEmbeddingVersion];
   if (imageEmbeddingVersion)
   {
     v8 = imageEmbeddingVersion;
     v9 = [VCPMADImageEmbeddingResource sharedResourceForRevision:imageEmbeddingVersion];
     v10 = +[VCPMADResourceManager sharedManager];
-    v33 = [v10 activateResource:v9];
+    v36 = [v10 activateResource:v9];
 
     imageBackbone = [v9 imageBackbone];
 
     if (imageBackbone)
     {
-      v12 = VCPSignPostLog();
-      v13 = os_signpost_id_generate(v12);
+      v13 = VCPSignPostLog(v12);
+      v14 = os_signpost_id_generate(v13);
 
-      v14 = VCPSignPostLog();
-      v15 = v14;
-      if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
+      v16 = VCPSignPostLog(v15);
+      v17 = v16;
+      if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
       {
         signpostPayload = [(MADMultiModalProcessingSubtask *)self signpostPayload];
         *buf = 138412290;
-        v37 = signpostPayload;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v15, OS_SIGNPOST_INTERVAL_BEGIN, v13, "VCPMADImageEmbeddingTask_requestEmbedding", "%@", buf, 0xCu);
+        v40 = signpostPayload;
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v17, OS_SIGNPOST_INTERVAL_BEGIN, v14, "VCPMADImageEmbeddingTask_requestEmbedding", "%@", buf, 0xCu);
       }
 
       imageBackbone2 = [v9 imageBackbone];
-      v34 = 0;
-      v18 = [imageBackbone2 analyzePixelBuffer:buffer flags:0 results:&v34 cancel:&__block_literal_global_76];
-      v19 = v34;
+      v37 = 0;
+      v20 = [imageBackbone2 analyzePixelBuffer:buffer flags:0 results:&v37 cancel:&__block_literal_global_76];
+      v21 = v37;
 
-      if (v18)
+      if (v20)
       {
         if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
@@ -683,36 +683,36 @@ LABEL_83:
 
       else
       {
-        v20 = VCPSignPostLog();
-        v21 = v20;
-        if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
+        v23 = VCPSignPostLog(v22);
+        v24 = v23;
+        if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v23))
         {
           signpostPayload2 = [(MADMultiModalProcessingSubtask *)self signpostPayload];
           *buf = 138412290;
-          v37 = signpostPayload2;
-          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v21, OS_SIGNPOST_INTERVAL_END, v13, "VCPMADImageEmbeddingTask_requestEmbedding", "%@", buf, 0xCu);
+          v40 = signpostPayload2;
+          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v24, OS_SIGNPOST_INTERVAL_END, v14, "VCPMADImageEmbeddingTask_requestEmbedding", "%@", buf, 0xCu);
         }
 
-        v23 = [v19 objectForKeyedSubscript:@"ImageEmbeddingResults"];
-        if ([v23 count])
+        v26 = [v21 objectForKeyedSubscript:@"ImageEmbeddingResults"];
+        if ([v26 count])
         {
-          v24 = [v23 objectAtIndexedSubscript:0];
-          v25 = [v24 objectForKeyedSubscript:@"attributes"];
-          v26 = [v25 objectForKeyedSubscript:@"embeddings"];
+          v27 = [v26 objectAtIndexedSubscript:0];
+          v28 = [v27 objectForKeyedSubscript:@"attributes"];
+          v29 = [v28 objectForKeyedSubscript:@"embeddings"];
 
-          if (v26)
+          if (v29)
           {
-            v27 = objc_alloc(MEMORY[0x1E69AE300]);
-            v35[0] = &unk_1F49BE320;
-            v28 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v26, "length") >> 1}];
-            v35[1] = v28;
-            v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:2];
-            v30 = [v27 initWithVersion:v8 data:v26 type:1 shape:v29];
-            v31 = *embedding;
-            *embedding = v30;
+            v30 = objc_alloc(MEMORY[0x1E69AE300]);
+            v38[0] = &unk_1F49BE320;
+            v31 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v29, "length") >> 1}];
+            v38[1] = v31;
+            v32 = [MEMORY[0x1E695DEC8] arrayWithObjects:v38 count:2];
+            v33 = [v30 initWithVersion:v8 data:v29 type:1 shape:v32];
+            v34 = *embedding;
+            *embedding = v33;
 
-            [v33 reset];
-            v18 = 0;
+            [v36 reset];
+            v20 = 0;
           }
 
           else
@@ -723,7 +723,7 @@ LABEL_83:
               _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Image encoding produced no embedding", buf, 2u);
             }
 
-            v18 = -18;
+            v20 = -18;
           }
         }
 
@@ -735,7 +735,7 @@ LABEL_83:
             _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Image encoding produced no embedding", buf, 2u);
           }
 
-          v18 = -18;
+          v20 = -18;
         }
       }
     }
@@ -748,7 +748,7 @@ LABEL_83:
         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to load image encoder", buf, 2u);
       }
 
-      v18 = -18;
+      v20 = -18;
     }
   }
 
@@ -763,7 +763,7 @@ LABEL_83:
     return -18;
   }
 
-  return v18;
+  return v20;
 }
 
 - (int)processSystemSearchOutput:(id)output resource:(id)resource embeddingResult:(id *)result
@@ -919,55 +919,55 @@ LABEL_34:
 
 - (int)processInput:(id)input resource:(id)resource result:(id *)result
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   inputCopy = input;
   resourceCopy = resource;
-  v38 = 0x7FFFFFFFFFFFFFFFLL;
-  v39 = 0;
+  v41 = 0x7FFFFFFFFFFFFFFFLL;
+  v42 = 0;
   array = [MEMORY[0x1E695DF70] array];
   segments = [inputCopy segments];
-  v12 = [(MADPersonalizedEmbeddingTask *)self processSegments:segments resource:resourceCopy keyImageSegment:&v39 personalizationIndex:&v38 textEncoderInputs:array];
+  v12 = [(MADPersonalizedEmbeddingTask *)self processSegments:segments resource:resourceCopy keyImageSegment:&v42 personalizationIndex:&v41 textEncoderInputs:array];
 
   if (!v12)
   {
     v13 = +[VCPMADResourceManager sharedManager];
     v14 = [v13 activateResource:resourceCopy];
 
-    v15 = VCPSignPostLog();
-    v16 = os_signpost_id_generate(v15);
+    v16 = VCPSignPostLog(v15);
+    v17 = os_signpost_id_generate(v16);
 
-    v17 = VCPSignPostLog();
-    v18 = v17;
-    if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
+    v19 = VCPSignPostLog(v18);
+    v20 = v19;
+    if (v17 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
     {
       signpostPayload = [(MADMultiModalProcessingSubtask *)self signpostPayload];
       *buf = 138412290;
       *&buf[4] = signpostPayload;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v18, OS_SIGNPOST_INTERVAL_BEGIN, v16, "CSUTextEncoder_runOnInput", "%@", buf, 0xCu);
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v20, OS_SIGNPOST_INTERVAL_BEGIN, v17, "CSUTextEncoder_runOnInput", "%@", buf, 0xCu);
     }
 
     textEncoder = [resourceCopy textEncoder];
-    v37 = 0;
-    [textEncoder runOnInput:array error:&v37];
-    v21 = v37;
+    v40 = 0;
+    [textEncoder runOnInput:array error:&v40];
+    v23 = v40;
 
-    v22 = VCPSignPostLog();
-    v23 = v22;
-    if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v22))
+    v25 = VCPSignPostLog(v24);
+    v26 = v25;
+    if (v17 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v25))
     {
       signpostPayload2 = [(MADMultiModalProcessingSubtask *)self signpostPayload];
       *buf = 138412290;
       *&buf[4] = signpostPayload2;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v23, OS_SIGNPOST_INTERVAL_END, v16, "CSUTextEncoder_runOnInput", "%@", buf, 0xCu);
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v26, OS_SIGNPOST_INTERVAL_END, v17, "CSUTextEncoder_runOnInput", "%@", buf, 0xCu);
     }
 
-    if (v21)
+    if (v23)
     {
       if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v25 = [v21 description];
+        v28 = [v23 description];
         *buf = 138412290;
-        *&buf[4] = v25;
+        *&buf[4] = v28;
         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to generate text embedding (%@)", buf, 0xCu);
       }
 
@@ -989,26 +989,26 @@ LABEL_34:
       }
 
       *buf = 0;
-      v35 = 0;
-      v36 = 0;
+      v38 = 0;
+      v39 = 0;
       revision = [(MADPersonalizedEmbeddingTask *)self revision];
       if (revision <= 9 && ((1 << revision) & 0x216) != 0)
       {
-        v30 = [(MADPersonalizedEmbeddingTask *)self processSystemSearchOutput:inferenceOutputs resource:resourceCopy embeddingResult:buf];
+        v33 = [(MADPersonalizedEmbeddingTask *)self processSystemSearchOutput:inferenceOutputs resource:resourceCopy embeddingResult:buf];
       }
 
       else
       {
-        v30 = [(MADPersonalizedEmbeddingTask *)self processGenerativePlaygroundsOutput:inferenceOutputs resource:resourceCopy imageSegment:v39 personalizationIndex:v38 embeddingResult:buf hiddenLayerResult:&v36 pooledEmbeddingResult:&v35];
+        v33 = [(MADPersonalizedEmbeddingTask *)self processGenerativePlaygroundsOutput:inferenceOutputs resource:resourceCopy imageSegment:v42 personalizationIndex:v41 embeddingResult:buf hiddenLayerResult:&v39 pooledEmbeddingResult:&v38];
       }
 
-      v12 = v30;
-      if (!v30)
+      v12 = v33;
+      if (!v33)
       {
-        v31 = objc_alloc(MEMORY[0x1E69AE390]);
-        v32 = [v31 initWithEmbedding:*buf hiddenLayer:v36 pooledEmbedding:v35 personalized:0];
-        v33 = *result;
-        *result = v32;
+        v34 = objc_alloc(MEMORY[0x1E69AE390]);
+        v35 = [v34 initWithEmbedding:*buf hiddenLayer:v39 pooledEmbedding:v38 personalized:0];
+        v36 = *result;
+        *result = v35;
 
         v12 = 0;
       }
@@ -1020,24 +1020,29 @@ LABEL_34:
 
 - (int)run
 {
-  v46 = *MEMORY[0x1E69E9840];
-  if (MediaAnalysisLogLevel() >= 5 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+  v49 = *MEMORY[0x1E69E9840];
+  v3 = MediaAnalysisLogLevel();
+  if (v3 >= 5)
   {
-    *buf = 0;
-    _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "MADPersonalizedEmbeddingTask running...", buf, 2u);
+    v3 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT);
+    if (v3)
+    {
+      *buf = 0;
+      _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "MADPersonalizedEmbeddingTask running...", buf, 2u);
+    }
   }
 
-  v3 = VCPSignPostLog();
-  v4 = os_signpost_id_generate(v3);
+  v4 = VCPSignPostLog(v3);
+  v5 = os_signpost_id_generate(v4);
 
-  v5 = VCPSignPostLog();
-  v6 = v5;
-  if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
+  v7 = VCPSignPostLog(v6);
+  v8 = v7;
+  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
   {
     signpostPayload = [(MADMultiModalProcessingSubtask *)self signpostPayload];
     *buf = 138412290;
     *&buf[4] = signpostPayload;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v4, "MADPersonalizedEmbeddingTask_run", "%@", buf, 0xCu);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v5, "MADPersonalizedEmbeddingTask_run", "%@", buf, 0xCu);
   }
 
   revision = [(MADPersonalizedEmbeddingTask *)self revision];
@@ -1047,42 +1052,42 @@ LABEL_34:
     if (request3)
     {
       array = [MEMORY[0x1E695DF70] array];
-      v36 = 0u;
+      v39 = 0u;
+      v40 = 0u;
       v37 = 0u;
-      v34 = 0u;
-      v35 = 0u;
+      v38 = 0u;
       inputs = [(MADMultiModalProcessingSubtask *)self inputs];
-      v15 = [inputs countByEnumeratingWithState:&v34 objects:v40 count:16];
-      if (v15)
+      v17 = [inputs countByEnumeratingWithState:&v37 objects:v43 count:16];
+      if (v17)
       {
-        v16 = *v35;
+        v18 = *v38;
         while (2)
         {
-          for (i = 0; i != v15; ++i)
+          for (i = 0; i != v17; ++i)
           {
-            if (*v35 != v16)
+            if (*v38 != v18)
             {
               objc_enumerationMutation(inputs);
             }
 
-            v18 = *(*(&v34 + 1) + 8 * i);
+            v20 = *(*(&v37 + 1) + 8 * i);
             *buf = 0;
-            if ([(MADPersonalizedEmbeddingTask *)self processInput:v18 resource:request3 result:buf])
+            if ([(MADPersonalizedEmbeddingTask *)self processInput:v20 resource:request3 result:buf])
             {
               if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
               {
-                *v33 = 0;
-                _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Embedding generation failed", v33, 2u);
+                *v36 = 0;
+                _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Embedding generation failed", v36, 2u);
               }
 
               request = [(MADMultiModalProcessingSubtask *)self request];
-              v24 = MEMORY[0x1E696ABC0];
-              v38 = *MEMORY[0x1E696A578];
-              v25 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Embedding generation failed"];
-              v39 = v25;
-              v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
-              v27 = [v24 errorWithDomain:*MEMORY[0x1E696A768] code:-50 userInfo:v26];
-              [request setError:v27];
+              v27 = MEMORY[0x1E696ABC0];
+              v41 = *MEMORY[0x1E696A578];
+              v28 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Embedding generation failed"];
+              v42 = v28;
+              v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
+              v30 = [v27 errorWithDomain:*MEMORY[0x1E696A768] code:-50 userInfo:v29];
+              [request setError:v30];
 
               goto LABEL_35;
             }
@@ -1090,8 +1095,8 @@ LABEL_34:
             [array addObject:*buf];
           }
 
-          v15 = [inputs countByEnumeratingWithState:&v34 objects:v40 count:16];
-          if (v15)
+          v17 = [inputs countByEnumeratingWithState:&v37 objects:v43 count:16];
+          if (v17)
           {
             continue;
           }
@@ -1103,14 +1108,14 @@ LABEL_34:
       request2 = [(MADMultiModalProcessingSubtask *)self request];
       [request2 setResults:array];
 
-      v20 = VCPSignPostLog();
-      v21 = v20;
-      if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
+      v23 = VCPSignPostLog(v22);
+      v24 = v23;
+      if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v23))
       {
         signpostPayload2 = [(MADMultiModalProcessingSubtask *)self signpostPayload];
         *buf = 138412290;
         *&buf[4] = signpostPayload2;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v21, OS_SIGNPOST_INTERVAL_END, v4, "MADPersonalizedEmbeddingTask_run", "%@", buf, 0xCu);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v24, OS_SIGNPOST_INTERVAL_END, v5, "MADPersonalizedEmbeddingTask_run", "%@", buf, 0xCu);
       }
 
       if (MediaAnalysisLogLevel() >= 5 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
@@ -1130,13 +1135,13 @@ LABEL_34:
       }
 
       array = [(MADMultiModalProcessingSubtask *)self request];
-      v28 = MEMORY[0x1E696ABC0];
-      v41 = *MEMORY[0x1E696A578];
-      v29 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid personalized embedding type specified"];
-      v42 = v29;
-      v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
-      v31 = [v28 errorWithDomain:*MEMORY[0x1E696A768] code:-50 userInfo:v30];
-      [array setError:v31];
+      v31 = MEMORY[0x1E696ABC0];
+      v44 = *MEMORY[0x1E696A578];
+      v32 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid personalized embedding type specified"];
+      v45 = v32;
+      v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v45 forKeys:&v44 count:1];
+      v34 = [v31 errorWithDomain:*MEMORY[0x1E696A768] code:-50 userInfo:v33];
+      [array setError:v34];
     }
   }
 
@@ -1150,13 +1155,13 @@ LABEL_34:
     }
 
     request3 = [(MADMultiModalProcessingSubtask *)self request];
-    v10 = MEMORY[0x1E696ABC0];
-    v43 = *MEMORY[0x1E696A578];
+    v12 = MEMORY[0x1E696ABC0];
+    v46 = *MEMORY[0x1E696A578];
     array = [MEMORY[0x1E696AEC0] stringWithFormat:@"Revision is no longer supported (%d)", revision];
-    v44 = array;
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v44 forKeys:&v43 count:1];
-    v13 = [v10 errorWithDomain:*MEMORY[0x1E696A768] code:-50 userInfo:v12];
-    [request3 setError:v13];
+    v47 = array;
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v47 forKeys:&v46 count:1];
+    v15 = [v12 errorWithDomain:*MEMORY[0x1E696A768] code:-50 userInfo:v14];
+    [request3 setError:v15];
   }
 
 LABEL_35:

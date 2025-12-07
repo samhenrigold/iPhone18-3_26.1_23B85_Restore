@@ -41,115 +41,114 @@
 
 - (void)loadUpgradeControllerForPass:(id)pass
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   passCopy = pass;
   uniqueID = [passCopy uniqueID];
-  if ([passCopy npkIsPrecursorPass])
+  npkIsPrecursorPass = [passCopy npkIsPrecursorPass];
+  if (npkIsPrecursorPass)
   {
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v41 = 0x3032000000;
-    v42 = __Block_byref_object_copy__15;
-    v43 = __Block_byref_object_dispose__15;
-    v44 = 0;
+    v43 = 0x3032000000;
+    v44 = __Block_byref_object_copy__15;
+    v45 = __Block_byref_object_dispose__15;
+    v46 = 0;
     objc_initWeak(&location, self);
     internalQueue = self->_internalQueue;
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __71__NPKPrecursorPassUpgradeRequestsManager_loadUpgradeControllerForPass___block_invoke_58;
     block[3] = &unk_279948C68;
-    objc_copyWeak(&v33, &location);
+    objc_copyWeak(&v35, &location);
     p_buf = &buf;
-    v7 = uniqueID;
-    v31 = v7;
+    v8 = uniqueID;
+    v33 = v8;
     dispatch_sync(internalQueue, block);
     aBlock[0] = MEMORY[0x277D85DD0];
     aBlock[1] = 3221225472;
     aBlock[2] = __71__NPKPrecursorPassUpgradeRequestsManager_loadUpgradeControllerForPass___block_invoke_2;
     aBlock[3] = &unk_279948CE0;
-    objc_copyWeak(&v29, &location);
-    v8 = v7;
-    v28 = v8;
-    v9 = _Block_copy(aBlock);
-    v10 = v9;
+    objc_copyWeak(&v31, &location);
+    v9 = v8;
+    v30 = v9;
+    v10 = _Block_copy(aBlock);
+    v11 = v10;
     if (*(*(&buf + 1) + 40))
     {
-      (*(v9 + 2))(v9);
+      (*(v10 + 2))(v10);
     }
 
     else
     {
-      v15 = pk_General_log();
-      v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
+      v17 = pk_General_log(v10);
+      v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
 
-      if (v16)
+      if (v18)
       {
-        v17 = pk_General_log();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+        v20 = pk_General_log(v19);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
         {
-          *v38 = 138412290;
-          v39 = v8;
-          _os_log_impl(&dword_25B300000, v17, OS_LOG_TYPE_DEFAULT, "Notice: NPKPrecursorPassUpgradeRequestsManager: Creating upgradeController for pass: %@", v38, 0xCu);
+          *v40 = 138412290;
+          v41 = v9;
+          _os_log_impl(&dword_25B300000, v20, OS_LOG_TYPE_DEFAULT, "Notice: NPKPrecursorPassUpgradeRequestsManager: Creating upgradeController for pass: %@", v40, 0xCu);
         }
       }
 
-      v18 = [[NPKPrecursorPassUpgradeRequestController alloc] initWithPass:passCopy];
-      v19 = *(*(&buf + 1) + 40);
-      *(*(&buf + 1) + 40) = v18;
+      v21 = [[NPKPrecursorPassUpgradeRequestController alloc] initWithPass:passCopy];
+      v22 = *(*(&buf + 1) + 40);
+      *(*(&buf + 1) + 40) = v21;
 
       [*(*(&buf + 1) + 40) setDelegate:self];
-      v20 = self->_internalQueue;
-      v22[0] = MEMORY[0x277D85DD0];
-      v22[1] = 3221225472;
-      v22[2] = __71__NPKPrecursorPassUpgradeRequestsManager_loadUpgradeControllerForPass___block_invoke_62;
-      v22[3] = &unk_279948D08;
-      objc_copyWeak(&v26, &location);
-      v25 = &buf;
-      v23 = passCopy;
-      v24 = v8;
-      dispatch_barrier_async(v20, v22);
-      v10[2](v10, *(*(&buf + 1) + 40));
+      v23 = self->_internalQueue;
+      v24[0] = MEMORY[0x277D85DD0];
+      v24[1] = 3221225472;
+      v24[2] = __71__NPKPrecursorPassUpgradeRequestsManager_loadUpgradeControllerForPass___block_invoke_62;
+      v24[3] = &unk_279948D08;
+      objc_copyWeak(&v28, &location);
+      v27 = &buf;
+      v25 = passCopy;
+      v26 = v9;
+      dispatch_barrier_async(v23, v24);
+      v11[2](v11, *(*(&buf + 1) + 40));
 
-      objc_destroyWeak(&v26);
+      objc_destroyWeak(&v28);
     }
 
-    objc_destroyWeak(&v29);
-    objc_destroyWeak(&v33);
+    objc_destroyWeak(&v31);
+    objc_destroyWeak(&v35);
     objc_destroyWeak(&location);
     _Block_object_dispose(&buf, 8);
   }
 
   else
   {
-    v11 = pk_General_log();
-    v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+    v12 = pk_General_log(npkIsPrecursorPass);
+    v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
 
-    if (v12)
+    if (v13)
     {
-      v13 = pk_General_log();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v15 = pk_General_log(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         LODWORD(buf) = 138412290;
         *(&buf + 4) = uniqueID;
-        _os_log_impl(&dword_25B300000, v13, OS_LOG_TYPE_DEFAULT, "Notice: NPKPrecursorPassUpgradeRequestsManager: Unable to load data; pass (%@) is not a precursor pass.", &buf, 0xCu);
+        _os_log_impl(&dword_25B300000, v15, OS_LOG_TYPE_DEFAULT, "Notice: NPKPrecursorPassUpgradeRequestsManager: Unable to load data; pass (%@) is not a precursor pass.", &buf, 0xCu);
       }
     }
 
     objc_initWeak(&buf, self);
-    v14 = self->_internalQueue;
-    v35[0] = MEMORY[0x277D85DD0];
-    v35[1] = 3221225472;
-    v35[2] = __71__NPKPrecursorPassUpgradeRequestsManager_loadUpgradeControllerForPass___block_invoke;
-    v35[3] = &unk_279945240;
-    objc_copyWeak(&v37, &buf);
-    v36 = uniqueID;
-    dispatch_async(v14, v35);
+    v16 = self->_internalQueue;
+    v37[0] = MEMORY[0x277D85DD0];
+    v37[1] = 3221225472;
+    v37[2] = __71__NPKPrecursorPassUpgradeRequestsManager_loadUpgradeControllerForPass___block_invoke;
+    v37[3] = &unk_279945240;
+    objc_copyWeak(&v39, &buf);
+    v38 = uniqueID;
+    dispatch_async(v16, v37);
 
-    objc_destroyWeak(&v37);
+    objc_destroyWeak(&v39);
     objc_destroyWeak(&buf);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __71__NPKPrecursorPassUpgradeRequestsManager_loadUpgradeControllerForPass___block_invoke(uint64_t a1)
@@ -210,27 +209,25 @@ void __71__NPKPrecursorPassUpgradeRequestsManager_loadUpgradeControllerForPass__
 {
   v13 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
-  v3 = pk_General_log();
+  v3 = pk_General_log(WeakRetained);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
   if (v4)
   {
-    v5 = pk_General_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = pk_General_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(*(*(a1 + 48) + 8) + 40);
-      v7 = [*(a1 + 32) uniqueID];
+      v7 = *(*(*(a1 + 48) + 8) + 40);
+      v8 = [*(a1 + 32) uniqueID];
       v9 = 138412546;
-      v10 = v6;
+      v10 = v7;
       v11 = 2112;
-      v12 = v7;
-      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: NPKPrecursorPassUpgradeRequestsManager: Created upgradeController (%@) for pass: %@", &v9, 0x16u);
+      v12 = v8;
+      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: NPKPrecursorPassUpgradeRequestsManager: Created upgradeController (%@) for pass: %@", &v9, 0x16u);
     }
   }
 
   [WeakRetained[4] setObject:*(*(*(a1 + 48) + 8) + 40) forKeyedSubscript:*(a1 + 40)];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidateUpgradeControllerForPassWithUniqueID:(id)d
@@ -379,26 +376,24 @@ void __112__NPKPrecursorPassUpgradeRequestsManager_notifyObserversDidChangeUpgra
 
 - (void)_queue_invalidateUpgradeControllerForPassWithUniqueID:(id)d
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   dCopy = d;
   dispatch_assert_queue_V2(self->_internalQueue);
-  v5 = pk_General_log();
-  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+  v6 = pk_General_log(v5);
+  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
 
-  if (v6)
+  if (v7)
   {
-    v7 = pk_General_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v9 = pk_General_log(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138412290;
-      v10 = dCopy;
-      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: NPKPrecursorPassUpgradeRequestsManager: Invalidating upgradeController for pass: %@", &v9, 0xCu);
+      v10 = 138412290;
+      v11 = dCopy;
+      _os_log_impl(&dword_25B300000, v9, OS_LOG_TYPE_DEFAULT, "Notice: NPKPrecursorPassUpgradeRequestsManager: Invalidating upgradeController for pass: %@", &v10, 0xCu);
     }
   }
 
   [(NSMutableDictionary *)self->_upgradeControllerMap removeObjectForKey:dCopy];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_addObserver:(id)observer

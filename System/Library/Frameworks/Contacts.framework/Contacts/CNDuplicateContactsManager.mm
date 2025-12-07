@@ -21,7 +21,7 @@
 
 + (void)duplicatesCountsWithCompletionHandler:(id)handler
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAECE3B0);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAECE3B0, &qword_19567BD78);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v13 - v6;
   v8 = _Block_copy(handler);
@@ -48,7 +48,7 @@
   selfCopy = self;
   sub_1956328A8();
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAECDF80);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAECDF80, &unk_19567BF60);
   v3 = sub_19565D3EC();
 
   return v3;

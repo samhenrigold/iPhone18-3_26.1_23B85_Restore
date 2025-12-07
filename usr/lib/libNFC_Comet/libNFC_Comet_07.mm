@@ -1,1570 +1,8 @@
-uint64_t sub_297EADD24(uint64_t a1, uint64_t a2, uint64_t a3, _DWORD *a4, int *a5)
-{
-  v10 = 0;
-  v11 = a1;
-  sub_297E4E1B4(0, &v11, 4u, 5u, "phLibNfc_SM_TrigNfccAssertionTrans");
-  sub_297E4F0E8(v11, &v10);
-  if (!a4 || !v10)
-  {
-    v8 = "phLibNfc_SM_TrigNfccAssertionTrans: Invalid input parameters";
-LABEL_7:
-    v7 = 1;
-    sub_297E4E0B0(0, &v11, 4u, 1u, v8);
-    goto LABEL_8;
-  }
-
-  if (*a4 > 2u)
-  {
-    v8 = "phLibNfc_SM_TrigNfccAssertionTrans:Invalid Assertion type";
-    goto LABEL_7;
-  }
-
-  v7 = sub_297F091DC(*(v10 + 3088), *a4, a5, sub_297EFC328, v10);
-LABEL_8:
-  sub_297E4DFAC(0, &v11, 4u, 5u, "phLibNfc_SM_TrigNfccAssertionTrans");
-  return v7;
-}
-
-uint64_t sub_297EADE04(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int *a4, uint64_t a5)
-{
-  v31 = 0;
-  v32 = a1;
-  sub_297E4E1B4(0, &v32, 4u, 5u, "phLibNfc_SM_GetClrAssertRegsTrans");
-  sub_297E4F0E8(v32, &v31);
-  if (!a4 || !v31)
-  {
-    goto LABEL_7;
-  }
-
-  v8 = *a4;
-  if (!a5)
-  {
-    if (!v8)
-    {
-      v9 = 0;
-      goto LABEL_11;
-    }
-
-LABEL_7:
-    v10 = "phLibNfc_SM_GetClrAssertRegsTrans: Invalid input parameters";
-    goto LABEL_8;
-  }
-
-  v9 = v8 == 1;
-  if (v8 > 1)
-  {
-    v10 = "phLibNfc_SM_GetClrAssertRegsTrans:Invalid Assertion Config type";
-LABEL_8:
-    v11 = 1;
-    sub_297E4E0B0(0, &v32, 4u, 1u, v10);
-    goto LABEL_9;
-  }
-
-LABEL_11:
-  v13 = *(v31 + 9792);
-  Memory_Typed = phOsalNfc_GetMemory_Typed();
-  if (Memory_Typed)
-  {
-    v15 = Memory_Typed;
-    v16 = *(v31 + 9792);
-    phOsalNfc_SetMemory();
-    v17 = v31;
-    *(v31 + 16) = v8;
-    *(v17 + 24) = v15;
-    *(v17 + 8) = a5;
-    if (v9)
-    {
-      *(v17 + 2960) = &qword_2A1A910C8;
-      *(v17 + 2952) = 0;
-      *(v17 + 2954) = 0;
-      v18 = qword_2A1A910C8;
-      if (qword_2A1A910C8)
-      {
-        v18 = 0;
-        v19 = off_2A1A910D8;
-        do
-        {
-          ++v18;
-          v20 = *v19;
-          v19 += 2;
-        }
-
-        while (v20);
-      }
-
-      *(v17 + 2953) = v18;
-      v11 = sub_297E5588C(v17, a3, 0);
-      if (v11 != 13)
-      {
-        v21 = *(v31 + 9792);
-        phOsalNfc_FreeMemory();
-        *(v31 + 24) = 0;
-      }
-    }
-
-    else
-    {
-      *(v15 + 4) |= 0x1000u;
-      *(v15 + 580) |= 0x20000u;
-      *(v15 + 945) = 4;
-      v22 = *(v17 + 9792);
-      phOsalNfc_SetMemory();
-      *(v15 + 580) |= 0x40000u;
-      v23 = v31;
-      if (*(v31 + 2984))
-      {
-        v24 = 64;
-      }
-
-      else if (*(v31 + 2986) == 1)
-      {
-        v24 = 96;
-      }
-
-      else if (*(v31 + 2994) == 1)
-      {
-        v24 = 48;
-      }
-
-      else
-      {
-        v24 = 80;
-      }
-
-      *(v15 + 1042) = v24;
-      v25 = *(v23 + 9792);
-      phOsalNfc_SetMemory();
-      v26 = v31;
-      if (*(v31 + 2984) == 1)
-      {
-        v27 = 20;
-      }
-
-      else
-      {
-        v27 = 24;
-      }
-
-      if (*(v31 + 2986) == 1)
-      {
-        v27 += 4;
-      }
-
-      if (*(v31 + 2994) == 1)
-      {
-        v27 -= 8;
-      }
-
-      *(v15 + 580) |= 0x80000u;
-      *(v15 + 1071) = v27;
-      v28 = *(v26 + 9792);
-      phOsalNfc_SetMemory();
-      *(v15 + 580) |= 0x100000u;
-      *(v15 + 1116) = 44;
-      v29 = *(v31 + 9792);
-      phOsalNfc_SetMemory();
-      v11 = sub_297E64020(*(v31 + 3088), v15, sub_297EFCEBC, v31);
-      if (v11 != 13)
-      {
-        v30 = *(v31 + 9792);
-        phOsalNfc_FreeMemory();
-      }
-    }
-  }
-
-  else
-  {
-    sub_297E4E0B0(0, &v32, 4u, 1u, "phLibNfc_SM_GetClrAssertRegsTrans: INSUFFICIENT_RESOURCE");
-    v11 = 12;
-  }
-
-LABEL_9:
-  sub_297E4DFAC(0, &v32, 4u, 5u, "phLibNfc_SM_GetClrAssertRegsTrans");
-  return v11;
-}
-
-uint64_t sub_297EAE118(uint64_t a1, uint64_t a2, uint64_t a3, _DWORD *a4)
-{
-  v11 = 0;
-  v12 = a1;
-  sub_297E4E1B4(0, &v12, 4u, 5u, "phLibNfc_SM_ConfigLogTrans");
-  sub_297E4F0E8(v12, &v11);
-  v5 = 1;
-  if (a4)
-  {
-    v6 = v11;
-    if (v11)
-    {
-      *(v11 + 104) = *a4;
-      *(v6 + 2960) = off_2A1A93700;
-      *(v6 + 2952) = 0;
-      *(v6 + 2954) = 0;
-      v7 = off_2A1A93700[0];
-      if (off_2A1A93700[0])
-      {
-        v7 = 0;
-        v8 = off_2A1A93710;
-        do
-        {
-          ++v7;
-          v9 = *v8;
-          v8 += 2;
-        }
-
-        while (v9);
-      }
-
-      *(v6 + 2953) = v7;
-      v5 = sub_297E5588C(v6, 0, 0);
-    }
-  }
-
-  sub_297E4DFAC(0, &v12, 4u, 5u, "phLibNfc_SM_ConfigLogTrans");
-  return v5;
-}
-
-uint64_t sub_297EAE1E8(uint64_t a1, uint64_t a2, uint64_t a3, _DWORD *a4)
-{
-  v11 = 0;
-  v12 = a1;
-  sub_297E4E1B4(0, &v12, 4u, 5u, "phLibNfc_SM_ConfigAssertionLogTrans");
-  sub_297E4F0E8(v12, &v11);
-  if (a4 && (v5 = v11) != 0)
-  {
-    *(v11 + 32) = *a4;
-    *(v5 + 2960) = off_2A1A93AC0;
-    *(v5 + 2952) = 0;
-    *(v5 + 2954) = 0;
-    v6 = off_2A1A93AC0[0];
-    if (off_2A1A93AC0[0])
-    {
-      v6 = 0;
-      v7 = &qword_2A1A93AD0;
-      do
-      {
-        ++v6;
-        v8 = *v7;
-        v7 += 2;
-      }
-
-      while (v8);
-    }
-
-    *(v5 + 2953) = v6;
-    v9 = sub_297E5588C(v5, 0, 0);
-  }
-
-  else
-  {
-    v9 = 1;
-    sub_297E4E0B0(0, &v12, 4u, 1u, "phLibNfc_SM_ConfigAssertionLogTrans: Failed");
-  }
-
-  sub_297E4DFAC(0, &v12, 4u, 5u, "phLibNfc_SM_ConfigAssertionLogTrans");
-  return v9;
-}
-
-uint64_t sub_297EAE2D8(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v9 = 0;
-  v10 = a1;
-  sub_297E4E1B4(0, &v10, 4u, 5u, "phLibNfc_SM_ValidateEepromTrans");
-  sub_297E4F0E8(v10, &v9);
-  v4 = v9;
-  if (v9)
-  {
-    *(v9 + 3273) = 0;
-    *(v4 + 2960) = off_2A1A935C0;
-    *(v4 + 2952) = 0;
-    *(v4 + 2954) = 0;
-    v5 = off_2A1A935C0[0];
-    if (off_2A1A935C0[0])
-    {
-      v5 = 0;
-      v6 = off_2A1A935D0;
-      do
-      {
-        ++v5;
-        v7 = *v6;
-        v6 += 2;
-      }
-
-      while (v7);
-    }
-
-    *(v4 + 2953) = v5;
-    a3 = sub_297E5588C(v4, 0, 0);
-  }
-
-  sub_297E4DFAC(0, &v10, 4u, 5u, "phLibNfc_SM_ValidateEepromTrans");
-  return a3;
-}
-
-uint64_t sub_297EAE3A0(uint64_t a1)
-{
-  v8 = 0;
-  v9 = a1;
-  sub_297E4E1B4(0, &v9, 4u, 5u, "phLibNfc_SM_GetEraseCounterTrans");
-  sub_297E4F0E8(v9, &v8);
-  if (v8)
-  {
-    if (*(v8 + 2992) == 1 || *(v8 + 2994) == 1)
-    {
-      v1 = *(v8 + 9792);
-      phOsalNfc_SetMemory();
-      v2 = v8;
-      *(v8 + 2960) = off_2A1A93800;
-      v2[2952] = 0;
-      v2[2954] = 0;
-      v3 = off_2A1A93800[0];
-      if (off_2A1A93800[0])
-      {
-        v3 = 0;
-        v4 = off_2A1A93810;
-        do
-        {
-          ++v3;
-          v5 = *v4;
-          v4 += 2;
-        }
-
-        while (v5);
-      }
-
-      v2[2953] = v3;
-      v6 = sub_297E5588C(v2, 0, 0);
-    }
-
-    else
-    {
-      sub_297E4E0B0(0, &v9, 4u, 1u, "phLibNfc_SM_GetEraseCounterTrans: Get Erase counter info not supported on this platform");
-      v6 = 51;
-    }
-  }
-
-  else
-  {
-    v6 = 1;
-    sub_297E4E0B0(0, &v9, 4u, 1u, "phLibNfc_SM_GetEraseCounterTrans: Invalid context");
-  }
-
-  sub_297E4DFAC(0, &v9, 4u, 5u, "phLibNfc_SM_GetEraseCounterTrans");
-  return v6;
-}
-
-uint64_t sub_297EAE4D8(uint64_t a1)
-{
-  v7 = 0;
-  v8 = a1;
-  sub_297E4E1B4(0, &v8, 4u, 5u, "phLibNfc_SM_GetSmbLogTrans");
-  sub_297E4F0E8(v8, &v7);
-  v1 = v7;
-  if (v7)
-  {
-    if (*(v7 + 2985) == 1 || *(v7 + 2986) == 1 || *(v7 + 2992) == 1)
-    {
-      *(v7 + 2960) = &qword_2A1A938A0;
-      v1[2952] = 0;
-      v1[2954] = 0;
-      v2 = qword_2A1A938A0;
-      if (qword_2A1A938A0)
-      {
-        v2 = 0;
-        v3 = &qword_2A1A938B0;
-        do
-        {
-          ++v2;
-          v4 = *v3;
-          v3 += 2;
-        }
-
-        while (v4);
-      }
-
-      v1[2953] = v2;
-      v5 = sub_297E5588C(v1, 0, 0);
-    }
-
-    else
-    {
-      sub_297E4E0B0(0, &v8, 4u, 1u, "phLibNfc_SM_GetSmbLogTrans: SMB Logging feature not supported on this platform");
-      v5 = 51;
-    }
-  }
-
-  else
-  {
-    v5 = 1;
-    sub_297E4E0B0(0, &v8, 4u, 1u, "phLibNfc_SM_GetSmbLogTrans: Failed");
-  }
-
-  sub_297E4DFAC(0, &v8, 4u, 5u, "phLibNfc_SM_GetSmbLogTrans");
-  return v5;
-}
-
-uint64_t sub_297EAE600(uint64_t a1, int a2)
-{
-  v11 = 0;
-  v12 = a1;
-  sub_297E4E1B4(0, &v12, 4u, 5u, "phLibNfc_SM_GetProhibitTimerStatusTrans");
-  sub_297E4F0E8(v12, &v11);
-  v3 = v11;
-  if (v11)
-  {
-    if (*(v11 + 2985) == 1 || *(v11 + 2986) == 1 || *(v11 + 2992) == 1)
-    {
-      if (a2 == 60)
-      {
-        *(v11 + 2960) = &qword_2A1A937B0;
-        v3[2952] = 0;
-        v3[2954] = 0;
-        v4 = qword_2A1A937B0;
-        if (qword_2A1A937B0)
-        {
-          v4 = 0;
-          v5 = &qword_2A1A937C0;
-          do
-          {
-            ++v4;
-            v6 = *v5;
-            v5 += 2;
-          }
-
-          while (v6);
-        }
-      }
-
-      else
-      {
-        *(v11 + 2960) = &qword_2A1A937D0;
-        v3[2952] = 0;
-        v3[2954] = 0;
-        v4 = qword_2A1A937D0;
-        if (qword_2A1A937D0)
-        {
-          v4 = 0;
-          v8 = off_2A1A937E0;
-          do
-          {
-            ++v4;
-            v9 = *v8;
-            v8 += 2;
-          }
-
-          while (v9);
-        }
-      }
-
-      v3[2953] = v4;
-      v7 = sub_297E5588C(v3, 0, 0);
-    }
-
-    else
-    {
-      sub_297E4E0B0(0, &v12, 4u, 1u, "phLibNfc_SM_GetProhibitTimerStatusTrans: Get prohibit timer status not supported on this platform");
-      v7 = 51;
-    }
-  }
-
-  else
-  {
-    v7 = 1;
-    sub_297E4E0B0(0, &v12, 4u, 1u, "phLibNfc_SM_GetProhibitTimerStatusTrans: Invalid context");
-  }
-
-  sub_297E4DFAC(0, &v12, 4u, 5u, "phLibNfc_SM_GetProhibitTimerStatusTrans");
-  return v7;
-}
-
-uint64_t sub_297EAE76C(uint64_t a1)
-{
-  v7 = 0;
-  v8 = a1;
-  sub_297E4E1B4(0, &v8, 4u, 5u, "phLibNfc_SM_GetLpcdCountTrans");
-  sub_297E4F0E8(v8, &v7);
-  v1 = v7;
-  if (v7)
-  {
-    if (*(v7 + 2985) == 1 || *(v7 + 2986) == 1 || *(v7 + 2992) == 1)
-    {
-      *(v7 + 2960) = &qword_2A1A939A0;
-      v1[2952] = 0;
-      v1[2954] = 0;
-      v2 = qword_2A1A939A0;
-      if (qword_2A1A939A0)
-      {
-        v2 = 0;
-        v3 = &qword_2A1A939B0;
-        do
-        {
-          ++v2;
-          v4 = *v3;
-          v3 += 2;
-        }
-
-        while (v4);
-      }
-
-      v1[2953] = v2;
-      v5 = sub_297E5588C(v1, 0, 0);
-    }
-
-    else
-    {
-      sub_297E4E0B0(0, &v8, 4u, 1u, "phLibNfc_SM_GetLpcdCountTrans: Get Lpcd False counter feature not supported on this platform");
-      v5 = 51;
-    }
-  }
-
-  else
-  {
-    v5 = 1;
-    sub_297E4E0B0(0, &v8, 4u, 1u, "phLibNfc_SM_GetLpcdCountTrans: Failed");
-  }
-
-  sub_297E4DFAC(0, &v8, 4u, 5u, "phLibNfc_SM_GetLpcdCountTrans");
-  return v5;
-}
-
-uint64_t sub_297EAE894(uint64_t a1)
-{
-  v7 = 0;
-  v8 = a1;
-  sub_297E4E1B4(0, &v8, 4u, 5u, "phLibNfc_SM_GetVasCodeTrans");
-  sub_297E4F0E8(v8, &v7);
-  v1 = v7;
-  if (v7)
-  {
-    if (*(v7 + 2985) == 1 || *(v7 + 2986) == 1 || *(v7 + 2992) == 1)
-    {
-      *(v7 + 2960) = &qword_2A1A939C0;
-      v1[2952] = 0;
-      v1[2954] = 0;
-      v2 = qword_2A1A939C0;
-      if (qword_2A1A939C0)
-      {
-        v2 = 0;
-        v3 = &qword_2A1A939D0;
-        do
-        {
-          ++v2;
-          v4 = *v3;
-          v3 += 2;
-        }
-
-        while (v4);
-      }
-
-      v1[2953] = v2;
-      v5 = sub_297E5588C(v1, 0, 0);
-    }
-
-    else
-    {
-      sub_297E4E0B0(0, &v8, 4u, 1u, "phLibNfc_SM_GetVasCodeTrans: Feature not supported on this platform");
-      v5 = 51;
-    }
-  }
-
-  else
-  {
-    v5 = 1;
-    sub_297E4E0B0(0, &v8, 4u, 1u, "phLibNfc_SM_GetVasCodeTrans: Failed");
-  }
-
-  sub_297E4DFAC(0, &v8, 4u, 5u, "phLibNfc_SM_GetVasCodeTrans");
-  return v5;
-}
-
-uint64_t sub_297EAE9BC(uint64_t a1)
-{
-  v7 = 0;
-  v8 = a1;
-  sub_297E4E1B4(0, &v8, 4u, 5u, "phLibNfc_SM_GetSuicaSysCodeTrans");
-  sub_297E4F0E8(v8, &v7);
-  v1 = v7;
-  if (v7)
-  {
-    if (*(v7 + 2985) == 1 || *(v7 + 2986) == 1 || *(v7 + 2984) == 1 || *(v7 + 2992) == 1)
-    {
-      *(v7 + 2960) = &qword_2A1A93A00;
-      v1[2952] = 0;
-      v1[2954] = 0;
-      v2 = qword_2A1A93A00;
-      if (qword_2A1A93A00)
-      {
-        v2 = 0;
-        v3 = &qword_2A1A93A10;
-        do
-        {
-          ++v2;
-          v4 = *v3;
-          v3 += 2;
-        }
-
-        while (v4);
-      }
-
-      v1[2953] = v2;
-      v5 = sub_297E5588C(v1, 0, 0);
-    }
-
-    else
-    {
-      sub_297E4E0B0(0, &v8, 4u, 1u, "phLibNfc_SM_GetSuicaSysCodeTrans: Feature not supported on this platform");
-      v5 = 51;
-    }
-  }
-
-  else
-  {
-    v5 = 1;
-    sub_297E4E0B0(0, &v8, 4u, 1u, "phLibNfc_SM_GetSuicaSysCodeTrans: Failed");
-  }
-
-  sub_297E4DFAC(0, &v8, 4u, 5u, "phLibNfc_SM_GetSuicaSysCodeTrans");
-  return v5;
-}
-
-uint64_t sub_297EAEAF0(uint64_t a1)
-{
-  v7 = 0;
-  v8 = a1;
-  sub_297E4E1B4(0, &v8, 4u, 5u, "phLibNfc_SM_GetMultiTagInfoTrans");
-  sub_297E4F0E8(v8, &v7);
-  v1 = v7;
-  if (v7)
-  {
-    if (*(v7 + 2987) == 1 || *(v7 + 2992) == 1)
-    {
-      *(v7 + 2960) = &qword_2A1A93A60;
-      v1[2952] = 0;
-      v1[2954] = 0;
-      v2 = qword_2A1A93A60;
-      if (qword_2A1A93A60)
-      {
-        v2 = 0;
-        v3 = &qword_2A1A93A70;
-        do
-        {
-          ++v2;
-          v4 = *v3;
-          v3 += 2;
-        }
-
-        while (v4);
-      }
-
-      v1[2953] = v2;
-      v5 = sub_297E5588C(v1, 0, 0);
-    }
-
-    else
-    {
-      sub_297E4E0B0(0, &v8, 4u, 1u, "phLibNfc_SM_GetMultiTagInfoTrans: Feature not supported on this platform");
-      v5 = 51;
-    }
-  }
-
-  else
-  {
-    v5 = 1;
-    sub_297E4E0B0(0, &v8, 4u, 1u, "phLibNfc_SM_GetMultiTagInfoTrans: Failed");
-  }
-
-  sub_297E4DFAC(0, &v8, 4u, 5u, "phLibNfc_SM_GetMultiTagInfoTrans");
-  return v5;
-}
-
-uint64_t sub_297EAEC0C(uint64_t a1)
-{
-  v7 = 0;
-  v8 = a1;
-  sub_297E4E1B4(0, &v8, 4u, 5u, "phLibNfc_SM_GetSwioVoltageTrans");
-  sub_297E4F0E8(v8, &v7);
-  v1 = v7;
-  if (v7)
-  {
-    if (*(v7 + 2986) == 1 || *(v7 + 2987) == 1 || *(v7 + 2992) == 1)
-    {
-      *(v7 + 2960) = &qword_2A1A93850;
-      v1[2952] = 0;
-      v1[2954] = 0;
-      v2 = qword_2A1A93850;
-      if (qword_2A1A93850)
-      {
-        v2 = 0;
-        v3 = off_2A1A93860;
-        do
-        {
-          ++v2;
-          v4 = *v3;
-          v3 += 2;
-        }
-
-        while (v4);
-      }
-
-      v1[2953] = v2;
-      v5 = sub_297E5588C(v1, 0, 0);
-    }
-
-    else
-    {
-      sub_297E4E0B0(0, &v8, 4u, 1u, "phLibNfc_SM_GetSwioVoltageTrans: Read SWIO pad voltage not supported on this platform");
-      v5 = 51;
-    }
-  }
-
-  else
-  {
-    v5 = 1;
-    sub_297E4E0B0(0, &v8, 4u, 1u, "phLibNfc_SM_GetSwioVoltageTrans: Failed");
-  }
-
-  sub_297E4DFAC(0, &v8, 4u, 5u, "phLibNfc_SM_GetSwioVoltageTrans");
-  return v5;
-}
-
-uint64_t sub_297EAED34(uint64_t a1)
-{
-  v7 = 0;
-  v8 = a1;
-  sub_297E4E1B4(0, &v8, 4u, 5u, "phLibNfc_SM_GetTrimVerTrans");
-  sub_297E4F0E8(v8, &v7);
-  v1 = v7;
-  if (v7)
-  {
-    if (*(v7 + 2992) == 1)
-    {
-      *(v7 + 2960) = &qword_2A1A93880;
-      v1[2952] = 0;
-      v1[2954] = 0;
-      v2 = qword_2A1A93880;
-      if (qword_2A1A93880)
-      {
-        v2 = 0;
-        v3 = &qword_2A1A93890;
-        do
-        {
-          ++v2;
-          v4 = *v3;
-          v3 += 2;
-        }
-
-        while (v4);
-      }
-
-      v1[2953] = v2;
-      v5 = sub_297E5588C(v1, 0, 0);
-    }
-
-    else
-    {
-      sub_297E4E0B0(0, &v8, 4u, 1u, "phLibNfc_SM_GetTrimVerTrans: Get Trim Version not supported on this platform");
-      v5 = 51;
-    }
-  }
-
-  else
-  {
-    v5 = 1;
-    sub_297E4E0B0(0, &v8, 4u, 1u, "phLibNfc_SM_GetTrimVerTrans: Failed");
-  }
-
-  sub_297E4DFAC(0, &v8, 4u, 5u, "phLibNfc_SM_GetTrimVerTrans");
-  return v5;
-}
-
-uint64_t sub_297EAEE44(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v12 = 0;
-  v13 = a1;
-  sub_297E4E1B4(0, &v13, 4u, 5u, "phLibNfc_SM_GetGenericDebugLogTrans");
-  sub_297E4F0E8(v13, &v12);
-  v4 = v12;
-  if (v12)
-  {
-    v5 = *(v12 + 5608);
-    if ((v5 - 12) >= 2)
-    {
-      if (v5 != 5)
-      {
-        a3 = 1;
-        goto LABEL_15;
-      }
-
-      *(v12 + 2960) = &qword_2A1A938E0;
-      v4[2952] = 0;
-      v4[2954] = 0;
-      v6 = qword_2A1A938E0;
-      if (qword_2A1A938E0)
-      {
-        v6 = 0;
-        v9 = &qword_2A1A938F0;
-        do
-        {
-          ++v6;
-          v10 = *v9;
-          v9 += 2;
-        }
-
-        while (v10);
-      }
-    }
-
-    else
-    {
-      *(v12 + 2960) = &qword_2A1A93B00;
-      v4[2952] = 0;
-      v4[2954] = 0;
-      v6 = qword_2A1A93B00;
-      if (qword_2A1A93B00)
-      {
-        v6 = 0;
-        v7 = &qword_2A1A93B10;
-        do
-        {
-          ++v6;
-          v8 = *v7;
-          v7 += 2;
-        }
-
-        while (v8);
-      }
-    }
-
-    v4[2953] = v6;
-    if (!a3)
-    {
-      a3 = sub_297E5588C(v4, 0, 0);
-    }
-  }
-
-  else
-  {
-    a3 = 1;
-    sub_297E4E0B0(0, &v13, 4u, 1u, "phLibNfc_SM_GetGenericDebugLogTrans: Failed");
-  }
-
-LABEL_15:
-  sub_297E4DFAC(0, &v13, 4u, 5u, "phLibNfc_SM_GetGenericDebugLogTrans");
-  return a3;
-}
-
-uint64_t sub_297EAEF84(uint64_t a1)
-{
-  v8 = 0;
-  v9 = a1;
-  sub_297E4E1B4(0, &v9, 4u, 5u, "phLibNfc_SM_SetSmbNfccParamsTrans");
-  sub_297E4F0E8(v9, &v8);
-  v1 = v8;
-  if (v8)
-  {
-    v2 = *(v8 + 2985) == 1 && *(v8 + 3028) > 2u;
-    if (v2 || *(v8 + 2986) == 1 || *(v8 + 2992) == 1)
-    {
-      *(v8 + 2960) = &qword_2A1A938C0;
-      v1[2952] = 0;
-      v1[2954] = 0;
-      v3 = qword_2A1A938C0;
-      if (qword_2A1A938C0)
-      {
-        v3 = 0;
-        v4 = &qword_2A1A938D0;
-        do
-        {
-          ++v3;
-          v5 = *v4;
-          v4 += 2;
-        }
-
-        while (v5);
-      }
-
-      v1[2953] = v3;
-      v6 = sub_297E5588C(v1, 0, 0);
-    }
-
-    else
-    {
-      sub_297E4E0B0(0, &v9, 4u, 1u, "phLibNfc_SM_SetSmbNfccParamsTrans: Feature not supported on this platform");
-      v6 = 51;
-    }
-  }
-
-  else
-  {
-    v6 = 1;
-    sub_297E4E0B0(0, &v9, 4u, 1u, "phLibNfc_SM_SetSmbNfccParamsTrans: Failed");
-  }
-
-  sub_297E4DFAC(0, &v9, 4u, 5u, "phLibNfc_SM_SetSmbNfccParamsTrans");
-  return v6;
-}
-
-uint64_t sub_297EAF0B4(uint64_t a1)
-{
-  v8 = 0;
-  v9 = a1;
-  sub_297E4E1B4(0, &v9, 4u, 5u, "phLibNfc_SM_SetHLMParamsTrans");
-  sub_297E4F0E8(v9, &v8);
-  v1 = v8;
-  if (v8)
-  {
-    if (*(v8 + 2985) == 1 || *(v8 + 2986) == 1 || *(v8 + 2992) == 1)
-    {
-      v2 = *(v8 + 5472) & 0x1E | 1;
-      if ((*(v8 + 5472) & 0x1F) == 0)
-      {
-        v2 = 0;
-      }
-
-      *(v8 + 5472) = v2;
-      *(v1 + 2960) = off_2A1A93900;
-      *(v1 + 2952) = 0;
-      *(v1 + 2954) = 0;
-      v3 = off_2A1A93900[0];
-      if (off_2A1A93900[0])
-      {
-        v3 = 0;
-        v4 = &qword_2A1A93910;
-        do
-        {
-          ++v3;
-          v5 = *v4;
-          v4 += 2;
-        }
-
-        while (v5);
-      }
-
-      *(v1 + 2953) = v3;
-      v6 = sub_297E5588C(v1, 0, 0);
-    }
-
-    else
-    {
-      sub_297E4E0B0(0, &v9, 4u, 1u, "phLibNfc_SM_SetHLMParamsTrans: Feature not supported on this platform");
-      v6 = 51;
-    }
-  }
-
-  else
-  {
-    v6 = 1;
-    sub_297E4E0B0(0, &v9, 4u, 1u, "phLibNfc_SM_SetHLMParamsTrans: Failed");
-  }
-
-  sub_297E4DFAC(0, &v9, 4u, 5u, "phLibNfc_SM_SetHLMParamsTrans");
-  return v6;
-}
-
-uint64_t sub_297EAF1EC(uint64_t a1)
-{
-  v7 = 0;
-  v8 = a1;
-  sub_297E4E1B4(0, &v8, 4u, 5u, "phLibNfc_SM_TrigRfOnNtfTrans");
-  sub_297E4F0E8(v8, &v7);
-  v1 = v7;
-  if (v7)
-  {
-    *(v7 + 2960) = &qword_2A1A936E0;
-    v1[2952] = 0;
-    v1[2954] = 0;
-    v2 = qword_2A1A936E0;
-    if (qword_2A1A936E0)
-    {
-      v2 = 0;
-      v3 = &qword_2A1A936F0;
-      do
-      {
-        ++v2;
-        v4 = *v3;
-        v3 += 2;
-      }
-
-      while (v4);
-    }
-
-    v1[2953] = v2;
-    v5 = sub_297E5588C(v1, 0, 0);
-  }
-
-  else
-  {
-    sub_297E4E0B0(0, &v8, 4u, 1u, "phLibNfc_SM_TrigRfOnNtfTrans: Failed");
-    v5 = 255;
-  }
-
-  sub_297E4DFAC(0, &v8, 4u, 5u, "phLibNfc_SM_TrigRfOnNtfTrans");
-  return v5;
-}
-
-uint64_t sub_297EAF2CC(uint64_t a1)
-{
-  v8 = 0;
-  v9 = a1;
-  sub_297E4E1B4(0, &v9, 4u, 5u, "phLibNfc_SM_SetVasCodeTrans");
-  sub_297E4F0E8(v9, &v8);
-  v1 = v8;
-  if (!v8)
-  {
-    v6 = "phLibNfc_SM_SetVasCodeTrans: Failed";
-    v5 = 1;
-LABEL_40:
-    sub_297E4E0B0(v1, &v9, 4u, 1u, v6);
-    goto LABEL_41;
-  }
-
-  if (v8[5474] >= 0x14u && v8[5496] >= 0x14u && v8[5518] >= 0x14u && v8[5540] >= 0x14u && v8[5562] >= 0x14u && v8[5584] > 0x13u)
-  {
-    v6 = "phLibNfc_SM_SetVasCodeTrans: Invalid Params";
-    v5 = 1;
-    LODWORD(v1) = 0;
-    goto LABEL_40;
-  }
-
-  if (v8[2985] == 1 || v8[2986] == 1 || v8[2992] == 1)
-  {
-    if (v8[5472] >= 2u)
-    {
-      v8[5472] = 0;
-    }
-
-    if (*(v1 + 5494) >= 2u)
-    {
-      *(v1 + 5494) = 0;
-    }
-
-    if (*(v1 + 5516) >= 2u)
-    {
-      *(v1 + 5516) = 0;
-    }
-
-    if (*(v1 + 5538) >= 2u)
-    {
-      *(v1 + 5538) = 0;
-    }
-
-    if (*(v1 + 5560) >= 2u)
-    {
-      *(v1 + 5560) = 0;
-    }
-
-    if (*(v1 + 5582) >= 2u)
-    {
-      *(v1 + 5582) = 0;
-    }
-
-    if (*(v1 + 5473) >= 2u)
-    {
-      *(v1 + 5473) = 0;
-    }
-
-    if (*(v1 + 5495) >= 2u)
-    {
-      *(v1 + 5495) = 0;
-    }
-
-    if (*(v1 + 5517) >= 2u)
-    {
-      *(v1 + 5517) = 0;
-    }
-
-    if (*(v1 + 5539) >= 2u)
-    {
-      *(v1 + 5539) = 0;
-    }
-
-    if (*(v1 + 5561) >= 2u)
-    {
-      *(v1 + 5561) = 0;
-    }
-
-    if (*(v1 + 5583) >= 2u)
-    {
-      *(v1 + 5583) = 0;
-    }
-
-    *(v1 + 2960) = &qword_2A1A93980;
-    *(v1 + 2952) = 0;
-    *(v1 + 2954) = 0;
-    v2 = qword_2A1A93980;
-    if (qword_2A1A93980)
-    {
-      v2 = 0;
-      v3 = &qword_2A1A93990;
-      do
-      {
-        ++v2;
-        v4 = *v3;
-        v3 += 2;
-      }
-
-      while (v4);
-    }
-
-    *(v1 + 2953) = v2;
-    v5 = sub_297E5588C(v1, 0, 0);
-  }
-
-  else
-  {
-    sub_297E4E0B0(0, &v9, 4u, 1u, "phLibNfc_SM_SetVasCodeTrans: Feature not supported on this platform");
-    v5 = 51;
-  }
-
-LABEL_41:
-  sub_297E4DFAC(0, &v9, 4u, 5u, "phLibNfc_SM_SetVasCodeTrans");
-  return v5;
-}
-
-uint64_t sub_297EAF518(uint64_t a1)
-{
-  v7 = 0;
-  v8 = a1;
-  sub_297E4E1B4(0, &v8, 4u, 5u, "phLibNfc_SM_SetSuicaEntrySysCodeTrans");
-  sub_297E4F0E8(v8, &v7);
-  v1 = v7;
-  if (v7)
-  {
-    if (*(v7 + 5472) >= 2u && *(v7 + 5473) > 1u)
-    {
-      v5 = 1;
-      sub_297E4E0B0(0, &v8, 4u, 1u, "phLibNfc_SM_SetSuicaEntrySysCodeTrans: Invalid Params");
-    }
-
-    else if (*(v7 + 2985) == 1 || *(v7 + 2986) == 1 || *(v7 + 2984) == 1 || *(v7 + 2992) == 1)
-    {
-      *(v7 + 2960) = &qword_2A1A939E0;
-      v1[2952] = 0;
-      v1[2954] = 0;
-      v2 = qword_2A1A939E0;
-      if (qword_2A1A939E0)
-      {
-        v2 = 0;
-        v3 = &qword_2A1A939F0;
-        do
-        {
-          ++v2;
-          v4 = *v3;
-          v3 += 2;
-        }
-
-        while (v4);
-      }
-
-      v1[2953] = v2;
-      v5 = sub_297E5588C(v1, 0, 0);
-    }
-
-    else
-    {
-      sub_297E4E0B0(0, &v8, 4u, 1u, "phLibNfc_SM_SetSuicaEntrySysCodeTrans: Feature not supported on this platform");
-      v5 = 51;
-    }
-  }
-
-  else
-  {
-    sub_297E4E0B0(0, &v8, 4u, 1u, "phLibNfc_SM_SetSuicaEntrySysCodeTrans: Failed");
-    v5 = 255;
-  }
-
-  sub_297E4DFAC(0, &v8, 4u, 5u, "phLibNfc_SM_SetSuicaEntrySysCodeTrans");
-  return v5;
-}
-
-uint64_t sub_297EAF68C(uint64_t a1)
-{
-  v20 = 0;
-  v21 = a1;
-  sub_297E4E1B4(0, &v21, 4u, 5u, "phLibNfc_SM_SetChipScopeCfgTrans");
-  sub_297E4F0E8(v21, &v20);
-  v1 = v20;
-  if (!v20)
-  {
-    sub_297E4E0B0(0, &v21, 4u, 1u, "phLibNfc_SM_SetChipScopeCfgTrans: Failed");
-    v14 = 255;
-    goto LABEL_30;
-  }
-
-  if (*(v20 + 2985) != 1 && *(v20 + 2986) != 1 && *(v20 + 2992) != 1 || *(v20 + 3196) != 2)
-  {
-    sub_297E4E0B0(0, &v21, 4u, 1u, "phLibNfc_SM_SetChipScopeCfgTrans: Feature not supported on this platform");
-    v14 = 51;
-    goto LABEL_30;
-  }
-
-  v2 = *(v20 + 5472);
-  switch(v2)
-  {
-    case 0:
-      *(v20 + 6076) &= ~1u;
-      *(v1 + 2960) = off_2A1A93A20;
-      *(v1 + 2952) = 0;
-      *(v1 + 2954) = 0;
-      v11 = off_2A1A93A20[0];
-      if (off_2A1A93A20[0])
-      {
-        v11 = 0;
-        v17 = &qword_2A1A93A30;
-        do
-        {
-          ++v11;
-          v18 = *v17;
-          v17 += 2;
-        }
-
-        while (v18);
-      }
-
-      goto LABEL_29;
-    case 1:
-      *(v20 + 6076) |= 1u;
-      *(v1 + 2960) = off_2A1A93A20;
-      *(v1 + 2952) = 0;
-      *(v1 + 2954) = 0;
-      v11 = off_2A1A93A20[0];
-      if (off_2A1A93A20[0])
-      {
-        v11 = 0;
-        v15 = &qword_2A1A93A30;
-        do
-        {
-          ++v11;
-          v16 = *v15;
-          v15 += 2;
-        }
-
-        while (v16);
-      }
-
-LABEL_29:
-      *(v1 + 2953) = v11;
-      v14 = sub_297E5588C(v1, 0, 0);
-      goto LABEL_30;
-    case 2:
-      v3 = *(v20 + 5480);
-      if (v3)
-      {
-        if (*v3 && *(v3 + 8))
-        {
-          if (*(v20 + 6056))
-          {
-            v4 = *(v20 + 9792);
-            phOsalNfc_FreeMemory();
-            v1 = v20;
-            *(v20 + 6056) = 0;
-            v3 = *(v1 + 5480);
-          }
-
-          *(v1 + 6064) = 0;
-          *(v1 + 6064) = *(v3 + 8);
-          v5 = *(v1 + 9792);
-          Memory_Typed = phOsalNfc_GetMemory_Typed();
-          v7 = v20;
-          *(v20 + 6056) = Memory_Typed;
-          if (!Memory_Typed)
-          {
-            v14 = 12;
-            goto LABEL_30;
-          }
-
-          *(v7 + 6076) = 2;
-          v8 = *(v7 + 9792);
-          v9 = **(v7 + 5480);
-          v10 = *(v7 + 6064);
-          phOsalNfc_MemCopy();
-          v1 = v20;
-          *(v20 + 2960) = off_2A1A93A20;
-          *(v1 + 2952) = 0;
-          *(v1 + 2954) = 0;
-          v11 = off_2A1A93A20[0];
-          if (off_2A1A93A20[0])
-          {
-            v11 = 0;
-            v12 = &qword_2A1A93A30;
-            do
-            {
-              ++v11;
-              v13 = *v12;
-              v12 += 2;
-            }
-
-            while (v13);
-          }
-
-          goto LABEL_29;
-        }
-      }
-
-      break;
-  }
-
-  v14 = 1;
-  sub_297E4E0B0(0, &v21, 4u, 1u, "phLibNfc_SM_SetChipScopeCfgTrans: Invalid Params");
-LABEL_30:
-  sub_297E4DFAC(0, &v21, 4u, 5u, "phLibNfc_SM_SetChipScopeCfgTrans");
-  return v14;
-}
-
-uint64_t sub_297EAF90C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _DWORD *a5)
-{
-  v13 = 0;
-  v14 = a1;
-  sub_297E4E1B4(0, &v14, 4u, 5u, "phLibNfc_SM_RawCtrlMsgTrnscvTrans");
-  sub_297E4F0E8(v14, &v13);
-  v7 = v13;
-  if (v13)
-  {
-    *(v13 + 6072) = *a5;
-    *(v7 + 2960) = off_2A1A93A40;
-    *(v7 + 2952) = 0;
-    *(v7 + 2954) = 0;
-    v8 = off_2A1A93A40[0];
-    if (off_2A1A93A40[0])
-    {
-      v8 = 0;
-      v9 = &qword_2A1A93A50;
-      do
-      {
-        ++v8;
-        v10 = *v9;
-        v9 += 2;
-      }
-
-      while (v10);
-    }
-
-    *(v7 + 2953) = v8;
-    v11 = sub_297E5588C(v7, 0, a4);
-  }
-
-  else
-  {
-    sub_297E4E0B0(0, &v14, 4u, 1u, "phLibNfc_SM_RawCtrlMsgTrnscvTrans: Failed");
-    v11 = 255;
-  }
-
-  sub_297E4DFAC(0, &v14, 4u, 5u, "phLibNfc_SM_RawCtrlMsgTrnscvTrans");
-  return v11;
-}
-
-uint64_t sub_297EAF9F8(uint64_t a1)
-{
-  v7 = 0;
-  v8 = a1;
-  sub_297E4E1B4(0, &v8, 4u, 5u, "phLibNfc_SM_SetMultiTagCfgTrans");
-  sub_297E4F0E8(v8, &v7);
-  v1 = v7;
-  if (v7)
-  {
-    if (*(v7 + 2987) == 1 || *(v7 + 2992) == 1)
-    {
-      *(v7 + 2960) = &qword_2A1A93730;
-      v1[2952] = 0;
-      v1[2954] = 0;
-      v2 = qword_2A1A93730;
-      if (qword_2A1A93730)
-      {
-        v2 = 0;
-        v3 = &qword_2A1A93740;
-        do
-        {
-          ++v2;
-          v4 = *v3;
-          v3 += 2;
-        }
-
-        while (v4);
-      }
-
-      v1[2953] = v2;
-      v5 = sub_297E5588C(v1, 0, 0);
-    }
-
-    else
-    {
-      sub_297E4E0B0(0, &v8, 4u, 1u, "phLibNfc_SM_SetMultiTagCfgTrans: Feature not supported on this platform");
-      v5 = 51;
-    }
-  }
-
-  else
-  {
-    v5 = 1;
-    sub_297E4E0B0(0, &v8, 4u, 1u, "phLibNfc_SM_SetMultiTagCfgTrans: Failed");
-  }
-
-  sub_297E4DFAC(0, &v8, 4u, 5u, "phLibNfc_SM_SetMultiTagCfgTrans");
-  return v5;
-}
-
-uint64_t sub_297EAFB14(uint64_t a1)
-{
-  v7 = 0;
-  v8 = a1;
-  sub_297E4E1B4(0, &v8, 4u, 5u, "phLibNfc_SM_ClearMultiTagInfoTrans");
-  sub_297E4F0E8(v8, &v7);
-  v1 = v7;
-  if (v7)
-  {
-    if (*(v7 + 2987) == 1 || *(v7 + 2992) == 1)
-    {
-      *(v7 + 2960) = &qword_2A1A93A80;
-      v1[2952] = 0;
-      v1[2954] = 0;
-      v2 = qword_2A1A93A80;
-      if (qword_2A1A93A80)
-      {
-        v2 = 0;
-        v3 = &qword_2A1A93A90;
-        do
-        {
-          ++v2;
-          v4 = *v3;
-          v3 += 2;
-        }
-
-        while (v4);
-      }
-
-      v1[2953] = v2;
-      v5 = sub_297E5588C(v1, 0, 0);
-    }
-
-    else
-    {
-      sub_297E4E0B0(0, &v8, 4u, 1u, "phLibNfc_SM_ClearMultiTagInfoTrans: Feature not supported on this platform");
-      v5 = 51;
-    }
-  }
-
-  else
-  {
-    v5 = 1;
-    sub_297E4E0B0(0, &v8, 4u, 1u, "phLibNfc_SM_ClearMultiTagInfoTrans: Failed");
-  }
-
-  sub_297E4DFAC(0, &v8, 4u, 5u, "phLibNfc_SM_ClearMultiTagInfoTrans");
-  return v5;
-}
-
-uint64_t sub_297EAFC30(uint64_t a1)
-{
-  v8 = 0;
-  v9 = a1;
-  sub_297E4E1B4(0, &v9, 4u, 5u, "phLibNfc_SM_SetCWRFCfgTrans");
-  sub_297E4F0E8(v9, &v8);
-  v1 = v8;
-  if (v8)
-  {
-    if (*(v8 + 2985) == 1 || *(v8 + 2986) == 1 || *(v8 + 2992) == 1)
-    {
-      v2 = *(v8 + 5472);
-      if (v2 > 1 || v2 == 1 && *(v8 + 5476) - 1 >= 2)
-      {
-        v6 = 1;
-        sub_297E4E0B0(0, &v9, 4u, 1u, "phLibNfc_SM_SetCWRFCfgTrans: Invalid Params");
-      }
-
-      else
-      {
-        *(v8 + 2960) = &qword_2A1A93AA0;
-        v1[2952] = 0;
-        v1[2954] = 0;
-        v3 = qword_2A1A93AA0;
-        if (qword_2A1A93AA0)
-        {
-          v3 = 0;
-          v4 = &qword_2A1A93AB0;
-          do
-          {
-            ++v3;
-            v5 = *v4;
-            v4 += 2;
-          }
-
-          while (v5);
-        }
-
-        v1[2953] = v3;
-        v6 = sub_297E5588C(v1, 0, 0);
-      }
-    }
-
-    else
-    {
-      sub_297E4E0B0(0, &v9, 4u, 1u, "phLibNfc_SM_SetCWRFCfgTrans: Feature not supported on this platform");
-      v6 = 51;
-    }
-  }
-
-  else
-  {
-    sub_297E4E0B0(0, &v9, 4u, 1u, "phLibNfc_SM_SetCWRFCfgTrans: Failed");
-    v6 = 255;
-  }
-
-  sub_297E4DFAC(0, &v9, 4u, 5u, "phLibNfc_SM_SetCWRFCfgTrans");
-  return v6;
-}
-
-uint64_t sub_297EAFDA0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v12 = 0;
-  v13 = a1;
-  v11 = 0;
-  sub_297E4E1B4(0, &v13, 4u, 5u, "phLibNfc_SM_IoctlSetRfConfigTrans");
-  sub_297E4F0E8(v13, &v12);
-  if (a4 && v12)
-  {
-    v5 = sub_297E5DAA0(v13, *a4, *(a4 + 8), &v11, 1);
-    if (!v5 && v11)
-    {
-      v6 = v12;
-      *(v12 + 3568) = v11;
-      *(v6 + 3576) = *a4;
-      *(v6 + 2960) = gphLibNfc_IoctlSetRfConfig;
-      *(v6 + 2952) = 0;
-      *(v6 + 2954) = 0;
-      v7 = gphLibNfc_IoctlSetRfConfig[0];
-      if (gphLibNfc_IoctlSetRfConfig[0])
-      {
-        v7 = 0;
-        v8 = off_2A1A90988;
-        do
-        {
-          ++v7;
-          v9 = *v8;
-          v8 += 2;
-        }
-
-        while (v9);
-      }
-
-      *(v6 + 2953) = v7;
-      v5 = sub_297E5588C(v6, 0, 0);
-    }
-  }
-
-  else
-  {
-    v5 = 1;
-    sub_297E4E0B0(0, &v13, 4u, 1u, "phLibNfc_SM_IoctlSetRfConfigTrans: Failed");
-  }
-
-  sub_297E4DFAC(0, &v13, 4u, 5u, "phLibNfc_SM_IoctlSetRfConfigTrans");
-  return v5;
-}
-
 uint64_t sub_297EAFEC4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
   v13 = 0;
   v14 = a1;
-  sub_297E4E1B4(0, &v14, 4u, 5u, "phLibNfc_SM_IoctlGetRfPropConfigTrans");
+  sub_297E4E1B4(0, &v14, 4, 5u, "phLibNfc_SM_IoctlGetRfPropConfigTrans");
   sub_297E4F0E8(v14, &v13);
   if (a4 && a5 && (v7 = v13) != 0)
   {
@@ -1601,10 +39,10 @@ uint64_t sub_297EAFEC4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void 
   else
   {
     v11 = 1;
-    sub_297E4E0B0(0, &v14, 4u, 1u, "phLibNfc_SM_IoctlGetRfPropConfigTrans: Failed");
+    sub_297E4E0B0(0, &v14, 4, 1u, "phLibNfc_SM_IoctlGetRfPropConfigTrans: Failed");
   }
 
-  sub_297E4DFAC(0, &v14, 4u, 5u, "phLibNfc_SM_IoctlGetRfPropConfigTrans");
+  sub_297E4DFAC(0, &v14, 4, 5u, "phLibNfc_SM_IoctlGetRfPropConfigTrans");
   return v11;
 }
 
@@ -1612,7 +50,7 @@ uint64_t sub_297EAFFE4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void 
 {
   v13 = 0;
   v14 = a1;
-  sub_297E4E1B4(0, &v14, 4u, 5u, "phLibNfc_SM_IoctlGetRfPropRegsTrans");
+  sub_297E4E1B4(0, &v14, 4, 5u, "phLibNfc_SM_IoctlGetRfPropRegsTrans");
   sub_297E4F0E8(v14, &v13);
   if (a4 && a5 && (v7 = v13) != 0)
   {
@@ -1644,10 +82,10 @@ uint64_t sub_297EAFFE4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void 
   else
   {
     v11 = 1;
-    sub_297E4E0B0(0, &v14, 4u, 1u, "phLibNfc_SM_IoctlGetRfPropRegsTrans: Failed");
+    sub_297E4E0B0(0, &v14, 4, 1u, "phLibNfc_SM_IoctlGetRfPropRegsTrans: Failed");
   }
 
-  sub_297E4DFAC(0, &v14, 4u, 5u, "phLibNfc_SM_IoctlGetRfPropRegsTrans");
+  sub_297E4DFAC(0, &v14, 4, 5u, "phLibNfc_SM_IoctlGetRfPropRegsTrans");
   return v11;
 }
 
@@ -1656,7 +94,7 @@ uint64_t sub_297EB00EC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   v16 = 0;
   v17 = a1;
   v15 = 0;
-  sub_297E4E1B4(0, &v17, 4u, 5u, "phLibNfc_SM_IoctlGetSpmiGpioTrans");
+  sub_297E4E1B4(0, &v17, 4, 5u, "phLibNfc_SM_IoctlGetSpmiGpioTrans");
   sub_297E5D114(v17, &v15);
   if (v15)
   {
@@ -1667,7 +105,7 @@ uint64_t sub_297EB00EC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
     if (!v6 || ((v7 = v16, *v6) ? (v8 = v16 == 0) : (v8 = 1), v8))
     {
       v9 = 1;
-      sub_297E4E0B0(0, &v17, 4u, 1u, "phLibNfc_SM_IoctlGetSpmiGpioTrans: Failed");
+      sub_297E4E0B0(0, &v17, 4, 1u, "phLibNfc_SM_IoctlGetSpmiGpioTrans: Failed");
     }
 
     else
@@ -1703,11 +141,11 @@ uint64_t sub_297EB00EC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 
   else
   {
-    sub_297E4E0B0(0, &v17, 4u, 1u, "phLibNfc_SM_IoctlGetSpmiGpioTrans: Invalid IOCTL Context");
+    sub_297E4E0B0(0, &v17, 4, 1u, "phLibNfc_SM_IoctlGetSpmiGpioTrans: Invalid IOCTL Context");
     v9 = 255;
   }
 
-  sub_297E4DFAC(0, &v17, 4u, 5u, "phLibNfc_SM_IoctlGetSpmiGpioTrans");
+  sub_297E4DFAC(0, &v17, 4, 5u, "phLibNfc_SM_IoctlGetSpmiGpioTrans");
   return v9;
 }
 
@@ -1716,7 +154,7 @@ uint64_t sub_297EB024C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
   v12 = 0;
   v13 = a1;
   v11 = 0;
-  sub_297E4E1B4(0, &v13, 4u, 5u, "phLibNfc_SM_IoctlConfigDebugModeTrans");
+  sub_297E4E1B4(0, &v13, 4, 5u, "phLibNfc_SM_IoctlConfigDebugModeTrans");
   sub_297E4F0E8(v13, &v12);
   sub_297E5D114(v13, &v11);
   v6 = 1;
@@ -1730,7 +168,7 @@ uint64_t sub_297EB024C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
         v10 = *(v7 + 1);
         if (v10 < 0x7D0)
         {
-          sub_297E4E0B0(0, &v13, 4u, 1u, "phLibNfc_SM_IoctlConfigDebugModeTrans: Invalid timeout value");
+          sub_297E4E0B0(0, &v13, 4, 1u, "phLibNfc_SM_IoctlConfigDebugModeTrans: Invalid timeout value");
           a3 = 147;
         }
 
@@ -1743,7 +181,7 @@ uint64_t sub_297EB024C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
       else
       {
         a3 = 1;
-        sub_297E4E0B0(0, &v13, 4u, 1u, "phLibNfc_SM_IoctlConfigDebugModeTrans: Failed to update SeTransceive Modified Timeout details ");
+        sub_297E4E0B0(0, &v13, 4, 1u, "phLibNfc_SM_IoctlConfigDebugModeTrans: Failed to update SeTransceive Modified Timeout details ");
       }
     }
 
@@ -1753,213 +191,202 @@ uint64_t sub_297EB024C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
     v6 = a3;
   }
 
-  sub_297E4DFAC(0, &v13, 4u, 5u, "phLibNfc_SM_IoctlConfigDebugModeTrans");
+  sub_297E4DFAC(0, &v13, 4, 5u, "phLibNfc_SM_IoctlConfigDebugModeTrans");
   return v6;
 }
 
-uint64_t sub_297EB0378(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+uint64_t sub_297EB0378(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v17 = a1;
-  v16 = 0;
-  v14 = 0;
-  v15 = 0;
-  sub_297E4E1B4(0, &v17, 4u, 5u, "phLibNfc_SM_IoctlExpModeSWaitTimerOffTrans");
-  sub_297E5D114(v17, &v14);
-  if (v14)
+  v13 = a1;
+  v12 = 0;
+  v10 = 0;
+  v11 = 0;
+  sub_297E4E1B4(0, &v13, 4, 5u, "phLibNfc_SM_IoctlExpModeSWaitTimerOffTrans");
+  sub_297E5D114(v13, &v10);
+  if (v10)
   {
-    sub_297E4F0E8(v17, &v15);
-    if (a4 && (v5 = v15) != 0)
+    sub_297E4F0E8(v13, &v11);
+    if (a4 && v11)
     {
-      v6 = v14;
-      *(v14 + 216) = -608;
-      v7 = 1;
-      *(v6 + 218) = 1;
-      v8 = *(v5 + 9792);
-      v9 = *a4;
-      v10 = *(a4 + 2);
+      v5 = v10;
+      *(v10 + 216) = -608;
+      v6 = 1;
+      *(v5 + 218) = 1;
       phOsalNfc_MemCopy();
-      if (v16 <= 0x9F6u)
+      if (v12 <= 0x9F6u)
       {
-        v12 = v14;
-        v11 = v15;
-        *(v14 + 219) = v16 / 0xAu;
-        v7 = sub_297E7EDD4(v11, v12 + 216, 4u, 5);
+        v8 = v10;
+        v7 = v11;
+        *(v10 + 219) = v12 / 0xAu;
+        v6 = sub_297E7EDD4(v7, v8 + 216, 4u, 5);
       }
     }
 
     else
     {
-      v7 = 1;
-      sub_297E4E0B0(0, &v17, 4u, 1u, "phLibNfc_SM_IoctlExpModeSWaitTimerOffTrans: Failed");
+      v6 = 1;
+      sub_297E4E0B0(0, &v13, 4, 1u, "phLibNfc_SM_IoctlExpModeSWaitTimerOffTrans: Failed");
     }
   }
 
   else
   {
-    sub_297E4E0B0(0, &v17, 4u, 1u, "phLibNfc_SM_IoctlExpModeSWaitTimerOffTrans: Invalid IOCTL Context");
-    v7 = 255;
+    sub_297E4E0B0(0, &v13, 4, 1u, "phLibNfc_SM_IoctlExpModeSWaitTimerOffTrans: Invalid IOCTL Context");
+    v6 = 255;
   }
 
-  sub_297E4DFAC(0, &v17, 4u, 5u, "phLibNfc_SM_IoctlExpModeSWaitTimerOffTrans");
-  return v7;
+  sub_297E4DFAC(0, &v13, 4, 5u, "phLibNfc_SM_IoctlExpModeSWaitTimerOffTrans");
+  return v6;
 }
 
-uint64_t sub_297EB04BC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+uint64_t sub_297EB04BC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v17 = a1;
-  v16 = 0;
-  v14 = 0;
-  v15 = 0;
-  sub_297E4E1B4(0, &v17, 4u, 5u, "phLibNfc_SM_IoctlVasExpWaitTimerOffTrans");
-  sub_297E5D114(v17, &v14);
-  if (v14)
+  v13 = a1;
+  v12 = 0;
+  v10 = 0;
+  v11 = 0;
+  sub_297E4E1B4(0, &v13, 4, 5u, "phLibNfc_SM_IoctlVasExpWaitTimerOffTrans");
+  sub_297E5D114(v13, &v10);
+  if (v10)
   {
-    sub_297E4F0E8(v17, &v15);
-    if (a4 && (v5 = v15) != 0)
+    sub_297E4F0E8(v13, &v11);
+    if (a4 && v11)
     {
-      v6 = v14;
-      *(v14 + 216) = -19808;
-      v7 = 1;
-      *(v6 + 218) = 1;
-      v8 = *(v5 + 9792);
-      v9 = *a4;
-      v10 = *(a4 + 2);
+      v5 = v10;
+      *(v10 + 216) = -19808;
+      v6 = 1;
+      *(v5 + 218) = 1;
       phOsalNfc_MemCopy();
-      if (v16 <= 0x384u)
+      if (v12 <= 0x384u)
       {
-        v12 = v14;
-        v11 = v15;
-        *(v14 + 219) = v16 / 0xAu;
-        v7 = sub_297E7EDD4(v11, v12 + 216, 4u, 5);
+        v8 = v10;
+        v7 = v11;
+        *(v10 + 219) = v12 / 0xAu;
+        v6 = sub_297E7EDD4(v7, v8 + 216, 4u, 5);
       }
     }
 
     else
     {
-      v7 = 1;
-      sub_297E4E0B0(0, &v17, 4u, 1u, "phLibNfc_SM_IoctlVasExpWaitTimerOffTrans: Failed");
+      v6 = 1;
+      sub_297E4E0B0(0, &v13, 4, 1u, "phLibNfc_SM_IoctlVasExpWaitTimerOffTrans: Failed");
     }
   }
 
   else
   {
-    sub_297E4E0B0(0, &v17, 4u, 1u, "phLibNfc_SM_IoctlVasExpWaitTimerOffTrans: Invalid IOCTL Context");
-    v7 = 255;
+    sub_297E4E0B0(0, &v13, 4, 1u, "phLibNfc_SM_IoctlVasExpWaitTimerOffTrans: Invalid IOCTL Context");
+    v6 = 255;
   }
 
-  sub_297E4DFAC(0, &v17, 4u, 5u, "phLibNfc_SM_IoctlVasExpWaitTimerOffTrans");
-  return v7;
+  sub_297E4DFAC(0, &v13, 4, 5u, "phLibNfc_SM_IoctlVasExpWaitTimerOffTrans");
+  return v6;
 }
 
-uint64_t sub_297EB0600(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+uint64_t sub_297EB0600(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v17 = a1;
-  v16 = 0;
-  v14 = 0;
-  v15 = 0;
-  sub_297E4E1B4(0, &v17, 4u, 5u, "phLibNfc_SM_IoctlGenAWaitTimerOffTrans");
-  sub_297E5D114(v17, &v14);
-  if (v14)
+  v13 = a1;
+  v12 = 0;
+  v10 = 0;
+  v11 = 0;
+  sub_297E4E1B4(0, &v13, 4, 5u, "phLibNfc_SM_IoctlGenAWaitTimerOffTrans");
+  sub_297E5D114(v13, &v10);
+  if (v10)
   {
-    sub_297E4F0E8(v17, &v15);
-    if (a4 && (v5 = v15) != 0)
+    sub_297E4F0E8(v13, &v11);
+    if (a4 && v11)
     {
-      v6 = v14;
-      *(v14 + 216) = -16992;
-      v7 = 1;
-      *(v6 + 218) = 1;
-      v8 = *(v5 + 9792);
-      v9 = *a4;
-      v10 = *(a4 + 2);
+      v5 = v10;
+      *(v10 + 216) = -16992;
+      v6 = 1;
+      *(v5 + 218) = 1;
       phOsalNfc_MemCopy();
-      if (v16 <= 0x384u)
+      if (v12 <= 0x384u)
       {
-        v12 = v14;
-        v11 = v15;
-        *(v14 + 219) = v16 / 0xAu;
-        v7 = sub_297E7EDD4(v11, v12 + 216, 4u, 5);
+        v8 = v10;
+        v7 = v11;
+        *(v10 + 219) = v12 / 0xAu;
+        v6 = sub_297E7EDD4(v7, v8 + 216, 4u, 5);
       }
     }
 
     else
     {
-      v7 = 1;
-      sub_297E4E0B0(0, &v17, 4u, 1u, "phLibNfc_SM_IoctlGenAWaitTimerOffTrans: Failed");
+      v6 = 1;
+      sub_297E4E0B0(0, &v13, 4, 1u, "phLibNfc_SM_IoctlGenAWaitTimerOffTrans: Failed");
     }
   }
 
   else
   {
-    sub_297E4E0B0(0, &v17, 4u, 1u, "phLibNfc_SM_IoctlGenAWaitTimerOffTrans: Invalid IOCTL Context");
-    v7 = 255;
+    sub_297E4E0B0(0, &v13, 4, 1u, "phLibNfc_SM_IoctlGenAWaitTimerOffTrans: Invalid IOCTL Context");
+    v6 = 255;
   }
 
-  sub_297E4DFAC(0, &v17, 4u, 5u, "phLibNfc_SM_IoctlGenAWaitTimerOffTrans");
-  return v7;
+  sub_297E4DFAC(0, &v13, 4, 5u, "phLibNfc_SM_IoctlGenAWaitTimerOffTrans");
+  return v6;
 }
 
 uint64_t sub_297EB0744(uint64_t a1, uint64_t a2, uint64_t a3, _DWORD *a4)
 {
-  v17 = a1;
-  v16 = 0;
-  v14 = 0;
-  v15 = 0;
-  sub_297E4E1B4(0, &v17, 4u, 5u, "phLibNfc_SM_IoctlSwioPadVolNtfTimerTrans");
-  sub_297E5D114(v17, &v14);
-  if (v14)
+  v14 = a1;
+  v13 = 0;
+  v11 = 0;
+  v12 = 0;
+  sub_297E4E1B4(0, &v14, 4, 5u, "phLibNfc_SM_IoctlSwioPadVolNtfTimerTrans");
+  sub_297E5D114(v14, &v11);
+  if (v11)
   {
-    sub_297E4F0E8(v17, &v15);
-    if (a4 && (v5 = v15) != 0)
+    sub_297E4F0E8(v14, &v12);
+    if (a4 && v12)
     {
-      *(v15 + 5449) = 0;
-      v6 = v14;
-      *(v14 + 216) = 5537;
-      v7 = 1;
-      *(v6 + 218) = 1;
-      v8 = *(v5 + 9792);
-      v9 = *a4;
+      *(v12 + 5449) = 0;
+      v5 = v11;
+      *(v11 + 216) = 5537;
+      v6 = 1;
+      *(v5 + 218) = 1;
       phOsalNfc_MemCopy();
-      if (!v16 || v16 - 4001 >= 0xFFFFF253)
+      if (!v13 || v13 - 4001 >= 0xFFFFF253)
       {
-        v10 = 42949673 * v16;
-        v12 = v14;
-        v11 = v15;
-        *(v14 + 219) = v16 / 0x64u;
-        if (*(v11 + 2993) == 1 && a4[2] == 3 && *(*a4 + 2) == 1)
+        v7 = 42949673 * v13;
+        v9 = v11;
+        v8 = v12;
+        *(v11 + 219) = v13 / 0x64u;
+        if (*(v8 + 2993) == 1 && a4[2] == 3 && *(*a4 + 2) == 1)
         {
-          *(v12 + 219) = BYTE4(v10) | 0x40;
+          *(v9 + 219) = BYTE4(v7) | 0x40;
         }
 
-        v7 = sub_297E7EDD4(v11, v12 + 216, 4u, 5);
-        if (v7 == 13)
+        v6 = sub_297E7EDD4(v8, v9 + 216, 4u, 5);
+        if (v6 == 13)
         {
-          *(v15 + 5449) = 1;
+          *(v12 + 5449) = 1;
         }
       }
     }
 
     else
     {
-      v7 = 1;
-      sub_297E4E0B0(0, &v17, 4u, 1u, "phLibNfc_SM_IoctlSwioPadVolNtfTimerTrans: Failed");
+      v6 = 1;
+      sub_297E4E0B0(0, &v14, 4, 1u, "phLibNfc_SM_IoctlSwioPadVolNtfTimerTrans: Failed");
     }
   }
 
   else
   {
-    sub_297E4E0B0(0, &v17, 4u, 1u, "phLibNfc_SM_IoctlSwioPadVolNtfTimerTrans: Invalid IOCTL Context");
-    v7 = 255;
+    sub_297E4E0B0(0, &v14, 4, 1u, "phLibNfc_SM_IoctlSwioPadVolNtfTimerTrans: Invalid IOCTL Context");
+    v6 = 255;
   }
 
-  sub_297E4DFAC(0, &v17, 4u, 5u, "phLibNfc_SM_IoctlSwioPadVolNtfTimerTrans");
-  return v7;
+  sub_297E4DFAC(0, &v14, 4, 5u, "phLibNfc_SM_IoctlSwioPadVolNtfTimerTrans");
+  return v6;
 }
 
 uint64_t sub_297EB08E4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v11 = 0;
   v12 = a1;
-  sub_297E4E1B4(0, &v12, 4u, 5u, "phLibNfc_SM_IoctlSetRfCalDataSignedTrans");
+  sub_297E4E1B4(0, &v12, 4, 5u, "phLibNfc_SM_IoctlSetRfCalDataSignedTrans");
   sub_297E4F0E8(v12, &v11);
   if (a4 && (v5 = v11) != 0)
   {
@@ -1988,10 +415,10 @@ uint64_t sub_297EB08E4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   else
   {
     v9 = 1;
-    sub_297E4E0B0(0, &v12, 4u, 1u, "phLibNfc_SM_IoctlSetRfCalDataSignedTrans: Failed");
+    sub_297E4E0B0(0, &v12, 4, 1u, "phLibNfc_SM_IoctlSetRfCalDataSignedTrans: Failed");
   }
 
-  sub_297E4DFAC(0, &v12, 4u, 5u, "phLibNfc_SM_IoctlSetRfCalDataSignedTrans");
+  sub_297E4DFAC(0, &v12, 4, 5u, "phLibNfc_SM_IoctlSetRfCalDataSignedTrans");
   return v9;
 }
 
@@ -1999,7 +426,7 @@ uint64_t sub_297EB09CC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v11 = 0;
   v12 = a1;
-  sub_297E4E1B4(0, &v12, 4u, 5u, "phLibNfc_SM_IoctlGetRfCalDataSignedTrans");
+  sub_297E4E1B4(0, &v12, 4, 5u, "phLibNfc_SM_IoctlGetRfCalDataSignedTrans");
   sub_297E4F0E8(v12, &v11);
   if (a4 && (v5 = v11) != 0)
   {
@@ -2028,10 +455,10 @@ uint64_t sub_297EB09CC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   else
   {
     v9 = 1;
-    sub_297E4E0B0(0, &v12, 4u, 1u, "phLibNfc_SM_IoctlGetRfCalDataSignedTrans: Failed");
+    sub_297E4E0B0(0, &v12, 4, 1u, "phLibNfc_SM_IoctlGetRfCalDataSignedTrans: Failed");
   }
 
-  sub_297E4DFAC(0, &v12, 4u, 5u, "phLibNfc_SM_IoctlGetRfCalDataSignedTrans");
+  sub_297E4DFAC(0, &v12, 4, 5u, "phLibNfc_SM_IoctlGetRfCalDataSignedTrans");
   return v9;
 }
 
@@ -2040,7 +467,7 @@ uint64_t sub_297EB0AB4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   v16 = a1;
   v15 = 0;
   v14 = 0;
-  sub_297E4E1B4(0, &v16, 4u, 5u, "phLibNfc_SM_IoctlIoctlSetRfConfigSignedTrans");
+  sub_297E4E1B4(0, &v16, 4, 5u, "phLibNfc_SM_IoctlIoctlSetRfConfigSignedTrans");
   sub_297E4F0E8(v16, &v14);
   v5 = 1;
   v6 = "phLibNfc_SM_IoctlIoctlSetRfConfigSignedTrans: Failed";
@@ -2093,10 +520,10 @@ uint64_t sub_297EB0AB4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
     *v12 = 0u;
     v6 = "phLibNfc_SM_IoctlIoctlSetRfConfigSignedTrans Failed!!!";
 LABEL_10:
-    sub_297E4E0B0(0, &v16, 4u, 1u, v6);
+    sub_297E4E0B0(0, &v16, 4, 1u, v6);
   }
 
-  sub_297E4DFAC(0, &v16, 4u, 5u, "phLibNfc_SM_IoctlIoctlSetRfConfigSignedTrans");
+  sub_297E4DFAC(0, &v16, 4, 5u, "phLibNfc_SM_IoctlIoctlSetRfConfigSignedTrans");
   return v5;
 }
 
@@ -2105,7 +532,7 @@ uint64_t sub_297EB0C04(uint64_t a1, uint64_t a2, uint64_t a3, char **a4)
   v13 = 0;
   v14 = a1;
   v12 = 0;
-  sub_297E4E1B4(0, &v14, 4u, 5u, "phLibNfc_SM_IoctlSysPwrTraceConfigTrans");
+  sub_297E4E1B4(0, &v14, 4, 5u, "phLibNfc_SM_IoctlSysPwrTraceConfigTrans");
   sub_297E4F0E8(v14, &v13);
   sub_297E5D114(v14, &v12);
   if (!a4 || (v5 = v13) == 0 || (v6 = v12) == 0)
@@ -2113,7 +540,7 @@ uint64_t sub_297EB0C04(uint64_t a1, uint64_t a2, uint64_t a3, char **a4)
     v10 = "phLibNfc_SM_IoctlSyPwrTraceConfigTrans: Failed";
 LABEL_14:
     v9 = 1;
-    sub_297E4E0B0(0, &v14, 4u, 1u, v10);
+    sub_297E4E0B0(0, &v14, 4, 1u, v10);
     goto LABEL_15;
   }
 
@@ -2145,7 +572,7 @@ LABEL_14:
   }
 
 LABEL_15:
-  sub_297E4DFAC(0, &v14, 4u, 5u, "phLibNfc_SM_IoctlSysPwrTraceConfigTrans");
+  sub_297E4DFAC(0, &v14, 4, 5u, "phLibNfc_SM_IoctlSysPwrTraceConfigTrans");
   return v9;
 }
 
@@ -2154,7 +581,7 @@ uint64_t sub_297EB0D60(uint64_t a1, uint64_t a2, uint64_t a3, unsigned __int8 **
   v12 = 0;
   v13 = a1;
   v11 = 0;
-  sub_297E4E1B4(0, &v13, 4u, 5u, "phLibNfc_SM_IoctlCrcChkConfigTrans");
+  sub_297E4E1B4(0, &v13, 4, 5u, "phLibNfc_SM_IoctlCrcChkConfigTrans");
   sub_297E4F0E8(v13, &v11);
   sub_297E5D114(v13, &v12);
   if (!a4 || (v5 = v11) == 0 || (v6 = v12) == 0)
@@ -2162,7 +589,7 @@ uint64_t sub_297EB0D60(uint64_t a1, uint64_t a2, uint64_t a3, unsigned __int8 **
     v9 = "phLibNfc_SM_IoctlCrcChkConfigTrans: Failed";
 LABEL_10:
     v8 = 1;
-    sub_297E4E0B0(0, &v13, 4u, 1u, v9);
+    sub_297E4E0B0(0, &v13, 4, 1u, v9);
     goto LABEL_11;
   }
 
@@ -2186,11 +613,11 @@ LABEL_10:
 
   else
   {
-    sub_297E50DB0(0, &v13, 4u, 1u, "phLibNfc_SM_IoctlCrcChkConfigTrans returned with status Rxd=");
+    sub_297E50DB0(0, &v13, 4, 1u, "phLibNfc_SM_IoctlCrcChkConfigTrans returned with status Rxd=");
   }
 
 LABEL_11:
-  sub_297E4DFAC(0, &v13, 4u, 5u, "phLibNfc_SM_IoctlCrcChkConfigTrans");
+  sub_297E4DFAC(0, &v13, 4, 5u, "phLibNfc_SM_IoctlCrcChkConfigTrans");
   return v8;
 }
 
@@ -2199,7 +626,7 @@ uint64_t sub_297EB0EB4(uint64_t a1)
   v8 = 0;
   v9 = a1;
   v7 = 0;
-  sub_297E4E1B4(0, &v9, 4u, 5u, "phLibNfc_SM_IoctlEnableDtaModeTrans");
+  sub_297E4E1B4(0, &v9, 4, 5u, "phLibNfc_SM_IoctlEnableDtaModeTrans");
   sub_297E4F0E8(v9, &v8);
   sub_297E5D114(v9, &v7);
   if (v8)
@@ -2223,7 +650,7 @@ uint64_t sub_297EB0EB4(uint64_t a1)
     v2 = v3;
     if (v3)
     {
-      sub_297E4E0B0(0, &v9, 4u, 2u, "phLibNfc_SM_IoctlEnableDtaModeTrans: Failed to update NCI DTA flag");
+      sub_297E4E0B0(0, &v9, 4, 2u, "phLibNfc_SM_IoctlEnableDtaModeTrans: Failed to update NCI DTA flag");
     }
 
     else
@@ -2238,7 +665,7 @@ uint64_t sub_297EB0EB4(uint64_t a1)
     *v5 = 0;
   }
 
-  sub_297E4DFAC(0, &v9, 4u, 5u, "phLibNfc_SM_IoctlEnableDtaModeTrans");
+  sub_297E4DFAC(0, &v9, 4, 5u, "phLibNfc_SM_IoctlEnableDtaModeTrans");
   return v2;
 }
 
@@ -2247,7 +674,7 @@ uint64_t sub_297EB0F9C(uint64_t a1)
   v8 = 0;
   v9 = a1;
   v7 = 0;
-  sub_297E4E1B4(0, &v9, 4u, 5u, "phLibNfc_SM_IoctlDisableDtaModeTrans");
+  sub_297E4E1B4(0, &v9, 4, 5u, "phLibNfc_SM_IoctlDisableDtaModeTrans");
   sub_297E4F0E8(v9, &v8);
   sub_297E5D114(v9, &v7);
   if (v8)
@@ -2271,7 +698,7 @@ uint64_t sub_297EB0F9C(uint64_t a1)
     v2 = v3;
     if (v3)
     {
-      sub_297E4E0B0(0, &v9, 4u, 2u, "phLibNfc_SM_IoctlDisableDtaModeTrans: Failed to update NCI DTA flag");
+      sub_297E4E0B0(0, &v9, 4, 2u, "phLibNfc_SM_IoctlDisableDtaModeTrans: Failed to update NCI DTA flag");
     }
 
     else
@@ -2287,7 +714,7 @@ uint64_t sub_297EB0F9C(uint64_t a1)
     *v5 = 0;
   }
 
-  sub_297E4DFAC(0, &v9, 4u, 5u, "phLibNfc_SM_IoctlDisableDtaModeTrans");
+  sub_297E4DFAC(0, &v9, 4, 5u, "phLibNfc_SM_IoctlDisableDtaModeTrans");
   return v2;
 }
 
@@ -2295,7 +722,7 @@ uint64_t sub_297EB108C(uint64_t a1, int a2, uint64_t a3, _DWORD *a4, uint64_t a5
 {
   v11 = 0;
   v12 = a1;
-  sub_297E4E1B4(0, &v12, 4u, 5u, "phLibNfc_SM_EnableDisableMultiTagTrans");
+  sub_297E4E1B4(0, &v12, 4, 5u, "phLibNfc_SM_EnableDisableMultiTagTrans");
   sub_297E4F0E8(v12, &v11);
   v9 = sub_297E54988(v11, a2, a3, a4, a5);
   if (!v9)
@@ -2303,7 +730,7 @@ uint64_t sub_297EB108C(uint64_t a1, int a2, uint64_t a3, _DWORD *a4, uint64_t a5
     v9 = sub_297EE6ACC(v11);
   }
 
-  sub_297E4DFAC(0, &v12, 4u, 5u, "phLibNfc_SM_EnableDisableMultiTagTrans");
+  sub_297E4DFAC(0, &v12, 4, 5u, "phLibNfc_SM_EnableDisableMultiTagTrans");
   return v9;
 }
 
@@ -2311,7 +738,7 @@ uint64_t sub_297EB1140(uint64_t a1, int a2, uint64_t a3, _DWORD *a4, uint64_t a5
 {
   v15 = 0;
   v16 = a1;
-  sub_297E4E1B4(0, &v16, 4u, 5u, "phLibNfc_SM_ConfigInitDiscoveryStopTrans");
+  sub_297E4E1B4(0, &v16, 4, 5u, "phLibNfc_SM_ConfigInitDiscoveryStopTrans");
   sub_297E4F0E8(v16, &v15);
   if (v15)
   {
@@ -2356,12 +783,12 @@ uint64_t sub_297EB1140(uint64_t a1, int a2, uint64_t a3, _DWORD *a4, uint64_t a5
       else
       {
         a3 = 1;
-        sub_297E4E0B0(1, v15 + 9792, 4u, 1u, "phLibNfc_SM_ConfigInitDiscoveryStopTrans: Invalid Input Parameter passed");
+        sub_297E4E0B0(1, v15 + 9792, 4, 1u, "phLibNfc_SM_ConfigInitDiscoveryStopTrans: Invalid Input Parameter passed");
       }
     }
   }
 
-  sub_297E4DFAC(0, &v16, 4u, 5u, "phLibNfc_SM_ConfigInitDiscoveryStopTrans");
+  sub_297E4DFAC(0, &v16, 4, 5u, "phLibNfc_SM_ConfigInitDiscoveryStopTrans");
   return a3;
 }
 
@@ -2369,7 +796,7 @@ uint64_t sub_297EB1284(uint64_t a1, int a2, uint64_t a3, uint64_t a4, _BYTE *a5)
 {
   v13 = 0;
   v14 = a1;
-  sub_297E4E1B4(0, &v14, 4u, 5u, "phLibNfc_SM_DeactivateTrans");
+  sub_297E4E1B4(0, &v14, 4, 5u, "phLibNfc_SM_DeactivateTrans");
   sub_297E4F0E8(v14, &v13);
   v8 = v13;
   if (v13)
@@ -2382,8 +809,8 @@ uint64_t sub_297EB1284(uint64_t a1, int a2, uint64_t a3, uint64_t a4, _BYTE *a5)
       {
         *(v13 + 560) = v13 + 440;
         *(v8 + 572) = 0;
-        sub_297E4E1B4(2, v8, 4u, 5u, "phLibNfc_FindSetModeTransEvent");
-        sub_297E4DFAC(2, v8, 4u, 5u, "phLibNfc_FindSetModeTransEvent");
+        sub_297E4E1B4(2, v8, 4, 5u, "phLibNfc_FindSetModeTransEvent");
+        sub_297E4DFAC(2, v8, 4, 5u, "phLibNfc_FindSetModeTransEvent");
         sub_297E4F450(*(v13 + 9784), 140, a3, 0, 0);
         v8 = v13;
         *(v13 + 745) = 0;
@@ -2403,7 +830,7 @@ uint64_t sub_297EB1284(uint64_t a1, int a2, uint64_t a3, uint64_t a4, _BYTE *a5)
 
     if (*(v8 + 6200))
     {
-      sub_297E4D930(1, v8 + 9792, 4u, 15, "phLibNfc_SM_DeactivateTrans");
+      sub_297E4D930(1, v8 + 9792, 4, 15, "phLibNfc_SM_DeactivateTrans");
       (*(v13 + 6200))(*(v13 + 9784), *(v13 + 6208), 0, 0, a3);
       v8 = v13;
       v10 = 0uLL;
@@ -2427,7 +854,7 @@ uint64_t sub_297EB1284(uint64_t a1, int a2, uint64_t a3, uint64_t a4, _BYTE *a5)
         a3 = 0;
       }
 
-      sub_297E4D930(1, v13 + 9792, 4u, 130, "phLibNfc_SM_DeactivateTrans");
+      sub_297E4D930(1, v13 + 9792, 4, 130, "phLibNfc_SM_DeactivateTrans");
       (*(v13 + 6264))(*(v13 + 9784), *(v13 + 6272), 0, a3);
       v8 = v13;
       v10 = 0uLL;
@@ -2436,7 +863,7 @@ uint64_t sub_297EB1284(uint64_t a1, int a2, uint64_t a3, uint64_t a4, _BYTE *a5)
 
     else if (*(v8 + 6472))
     {
-      sub_297E4D930(1, v8 + 9792, 4u, 22, "phLibNfc_SM_DeactivateTrans");
+      sub_297E4D930(1, v8 + 9792, 4, 22, "phLibNfc_SM_DeactivateTrans");
       (*(v13 + 6472))(*(v13 + 9784), *(v13 + 6480), a3);
       v8 = v13;
       v10 = 0uLL;
@@ -2445,7 +872,7 @@ uint64_t sub_297EB1284(uint64_t a1, int a2, uint64_t a3, uint64_t a4, _BYTE *a5)
 
     else if (*(v8 + 6312))
     {
-      sub_297E4D930(1, v8 + 9792, 4u, 23, "phLibNfc_SM_DeactivateTrans");
+      sub_297E4D930(1, v8 + 9792, 4, 23, "phLibNfc_SM_DeactivateTrans");
       (*(v13 + 6312))(*(v13 + 9784), *(v13 + 6320), 0, 0, a3);
       v8 = v13;
       v10 = 0uLL;
@@ -2454,7 +881,7 @@ uint64_t sub_297EB1284(uint64_t a1, int a2, uint64_t a3, uint64_t a4, _BYTE *a5)
 
     else if (*(v8 + 6408))
     {
-      sub_297E4D930(1, v8 + 9792, 4u, 24, "phLibNfc_SM_DeactivateTrans");
+      sub_297E4D930(1, v8 + 9792, 4, 24, "phLibNfc_SM_DeactivateTrans");
       (*(v13 + 6408))(*(v13 + 9784), *(v13 + 6416), a3);
       v8 = v13;
       v10 = 0uLL;
@@ -2463,7 +890,7 @@ uint64_t sub_297EB1284(uint64_t a1, int a2, uint64_t a3, uint64_t a4, _BYTE *a5)
 
     else if (*(v8 + 6424))
     {
-      sub_297E4D930(1, v8 + 9792, 4u, 25, "phLibNfc_SM_DeactivateTrans");
+      sub_297E4D930(1, v8 + 9792, 4, 25, "phLibNfc_SM_DeactivateTrans");
       (*(v13 + 6424))(*(v13 + 9784), *(v13 + 6432), a3);
       v8 = v13;
       v10 = 0uLL;
@@ -2472,7 +899,7 @@ uint64_t sub_297EB1284(uint64_t a1, int a2, uint64_t a3, uint64_t a4, _BYTE *a5)
 
     else if (*(v8 + 6824))
     {
-      sub_297E4D930(1, v8 + 9792, 4u, 26, "phLibNfc_SM_DeactivateTrans");
+      sub_297E4D930(1, v8 + 9792, 4, 26, "phLibNfc_SM_DeactivateTrans");
       (*(v13 + 6824))(*(v13 + 9784), *(v13 + 6832), a3);
       v8 = v13;
       v10 = 0uLL;
@@ -2482,7 +909,7 @@ uint64_t sub_297EB1284(uint64_t a1, int a2, uint64_t a3, uint64_t a4, _BYTE *a5)
     else if (*(v8 + 6440))
     {
       *(v8 + 9796) = 0;
-      sub_297E4D930(1, v8 + 9792, 4u, 27, "phLibNfc_SM_DeactivateTrans");
+      sub_297E4D930(1, v8 + 9792, 4, 27, "phLibNfc_SM_DeactivateTrans");
       (*(v13 + 6440))(*(v13 + 9784), *(v13 + 6448), a3);
       v8 = v13;
       v10 = 0uLL;
@@ -2496,7 +923,7 @@ uint64_t sub_297EB1284(uint64_t a1, int a2, uint64_t a3, uint64_t a4, _BYTE *a5)
         goto LABEL_39;
       }
 
-      sub_297E4D930(1, v8 + 9792, 4u, 114, "phLibNfc_SM_DeactivateTrans");
+      sub_297E4D930(1, v8 + 9792, 4, 114, "phLibNfc_SM_DeactivateTrans");
       (*(v13 + 6296))(*(v13 + 9784), *(v13 + 6304), 0);
       v8 = v13;
       v10 = 0uLL;
@@ -2505,7 +932,7 @@ uint64_t sub_297EB1284(uint64_t a1, int a2, uint64_t a3, uint64_t a4, _BYTE *a5)
 
     else if (*(v8 + 6216))
     {
-      sub_297E4D930(1, v8 + 9792, 4u, 16, "phLibNfc_SM_DeactivateTrans");
+      sub_297E4D930(1, v8 + 9792, 4, 16, "phLibNfc_SM_DeactivateTrans");
       (*(v13 + 6216))(*(v13 + 9784), *(v13 + 6224), 0, 0, a3);
       v8 = v13;
       v10 = 0uLL;
@@ -2518,8 +945,8 @@ uint64_t sub_297EB1284(uint64_t a1, int a2, uint64_t a3, uint64_t a4, _BYTE *a5)
       {
         if (a5 && *(v8 + 6280) && !*a5)
         {
-          sub_297E4E0B0(0, &v14, 4u, 4u, "Invoking pClientNtfRegRespCB with rf deactivated status");
-          sub_297E54734(0, &v14, 4u, 4u, "phLibNfc_SM_DeactivateTrans :RemDevNtfCB[De-Activated status]");
+          sub_297E4E0B0(0, &v14, 4, 4u, "Invoking pClientNtfRegRespCB with rf deactivated status");
+          sub_297E54734(0, &v14, 4, 4u, "phLibNfc_SM_DeactivateTrans :RemDevNtfCB[De-Activated status]");
           (*(v13 + 6280))(*(v13 + 9784), *(v13 + 6288), 0, 0, a3);
           v8 = v13;
         }
@@ -2532,7 +959,7 @@ uint64_t sub_297EB1284(uint64_t a1, int a2, uint64_t a3, uint64_t a4, _BYTE *a5)
         goto LABEL_39;
       }
 
-      sub_297E4D930(1, v8 + 9792, 4u, 17, "phLibNfc_SM_DeactivateTrans");
+      sub_297E4D930(1, v8 + 9792, 4, 17, "phLibNfc_SM_DeactivateTrans");
       (*(v13 + 6232))(*(v13 + 9784), *(v13 + 6240), 0, 0, a3);
       v8 = v13;
       v10 = 0uLL;
@@ -2545,82 +972,69 @@ LABEL_39:
     goto LABEL_40;
   }
 
-  sub_297E4E0B0(0, &v14, 4u, 1u, "phLibNfc_SM_DeactivateTrans: Invalid LIBNFC context!!");
+  sub_297E4E0B0(0, &v14, 4, 1u, "phLibNfc_SM_DeactivateTrans: Invalid LIBNFC context!!");
 LABEL_40:
-  sub_297E4DFAC(0, &v14, 4u, 5u, "phLibNfc_SM_DeactivateTrans");
+  sub_297E4DFAC(0, &v14, 4, 5u, "phLibNfc_SM_DeactivateTrans");
   return 0;
 }
 
 uint64_t sub_297EB1880(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unsigned __int8 *a5)
 {
-  v11 = a1;
-  sub_297E4E1B4(0, &v11, 4u, 5u, "phLibNfc_SM_IoctlSetSpmiGpioTrans");
+  v8 = a1;
+  sub_297E4E1B4(0, &v8, 4, 5u, "phLibNfc_SM_IoctlSetSpmiGpioTrans");
   v6 = 1;
-  if (a5 && v11)
+  if (a5 && v8)
   {
-    v7 = *a5;
-    if (v7 <= 9)
-    {
-      v8 = dword_297F132C8[v7];
-      v9 = qword_297F132F0[v7];
-    }
-
     v6 = phTmlNfc_IoCtl();
   }
 
-  sub_297E4DFAC(0, &v11, 4u, 5u, "phLibNfc_SM_IoctlSetSpmiGpioTrans");
+  sub_297E4DFAC(0, &v8, 4, 5u, "phLibNfc_SM_IoctlSetSpmiGpioTrans");
   return v6;
 }
 
 uint64_t sub_297EB1930(uint64_t a1)
 {
-  v8 = a1;
-  sub_297E4E1B4(0, &v8, 4u, 5u, "phLibNfc_SM_IoctlTrigVgpioDbgLogCfgTrans");
-  if (v8)
+  v6 = a1;
+  sub_297E4E1B4(0, &v6, 4, 5u, "phLibNfc_SM_IoctlTrigVgpioDbgLogCfgTrans");
+  if (v6)
   {
     v1 = 0;
     v2 = 1;
-    while (1)
+    do
     {
       v3 = v2;
-      v4 = &unk_2A18BDDC0 + 112 * v1;
-      if (*v4 == v8)
+      if (*(&unk_2A18BDDC0 + 14 * v1) == v6)
       {
         break;
       }
 
       v2 = 0;
       v1 = 1;
-      if ((v3 & 1) == 0)
-      {
-        goto LABEL_8;
-      }
     }
 
-    v6 = *(v4 + 2);
-LABEL_8:
-    v5 = phTmlNfc_IoCtl();
-    if (!v5)
+    while ((v3 & 1) != 0);
+    v4 = phTmlNfc_IoCtl();
+    if (!v4)
     {
       phOsalNfc_Delay();
-      v5 = phTmlNfc_IoCtl();
+      v4 = phTmlNfc_IoCtl();
     }
   }
 
   else
   {
-    v5 = 1;
+    v4 = 1;
   }
 
-  sub_297E4DFAC(0, &v8, 4u, 5u, "phLibNfc_SM_IoctlTrigVgpioDbgLogCfgTrans");
-  return v5;
+  sub_297E4DFAC(0, &v6, 4, 5u, "phLibNfc_SM_IoctlTrigVgpioDbgLogCfgTrans");
+  return v4;
 }
 
 uint64_t sub_297EB1A18(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v8 = 0;
   v9 = a1;
-  sub_297E4E1B4(0, &v9, 4u, 5u, "phLibNfc_SM_GetSpmiErrorRegsTrans");
+  sub_297E4E1B4(0, &v9, 4, 5u, "phLibNfc_SM_GetSpmiErrorRegsTrans");
   sub_297E5D114(v9, &v8);
   if (v8)
   {
@@ -2647,7 +1061,7 @@ uint64_t sub_297EB1A18(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
     v6 = 1;
   }
 
-  sub_297E4DFAC(0, &v9, 4u, 5u, "phLibNfc_SM_GetSpmiErrorRegsTrans");
+  sub_297E4DFAC(0, &v9, 4, 5u, "phLibNfc_SM_GetSpmiErrorRegsTrans");
   return v6;
 }
 
@@ -2655,7 +1069,7 @@ uint64_t sub_297EB1AE4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
 {
   v8 = 0;
   v9 = a1;
-  sub_297E4E1B4(0, &v9, 4u, 5u, "phLibNfc_SM_ClearSpmiErrorRegsTrans");
+  sub_297E4E1B4(0, &v9, 4, 5u, "phLibNfc_SM_ClearSpmiErrorRegsTrans");
   sub_297E5D114(v9, &v8);
   if (v8)
   {
@@ -2682,50 +1096,15 @@ uint64_t sub_297EB1AE4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
     v6 = 1;
   }
 
-  sub_297E4DFAC(0, &v9, 4u, 5u, "phLibNfc_SM_ClearSpmiErrorRegsTrans");
+  sub_297E4DFAC(0, &v9, 4, 5u, "phLibNfc_SM_ClearSpmiErrorRegsTrans");
   return v6;
 }
 
 uint64_t sub_297EB1BB0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v10 = 0;
-  v11 = a1;
-  sub_297E4E1B4(0, &v11, 4u, 5u, "phLibNfc_SM_GetSpmiCfgRegsTrans");
-  sub_297E5D114(v11, &v10);
-  SpmiDrvConfigRegs = 1;
-  if (a5)
-  {
-    if (v10)
-    {
-      v7 = v11 == 0;
-    }
-
-    else
-    {
-      v7 = 1;
-    }
-
-    if (!v7 && v11 == *(v10 + 8))
-    {
-      SpmiDrvConfigRegs = sub_297EBE8B0(v11);
-      if (!SpmiDrvConfigRegs)
-      {
-        v8 = *(v10 + 8);
-        SpmiDrvConfigRegs = phTmlNfc_SetGetSpmiDrvConfigRegs();
-        sub_297E5AA54(v11, 20);
-      }
-    }
-  }
-
-  sub_297E4DFAC(0, &v11, 4u, 5u, "phLibNfc_SM_GetSpmiCfgRegsTrans");
-  return SpmiDrvConfigRegs;
-}
-
-uint64_t sub_297EB1C78(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
-{
   v9 = 0;
   v10 = a1;
-  sub_297E4E1B4(0, &v10, 4u, 5u, "phLibNfc_SM_SetSpmiCfgRegsTrans");
+  sub_297E4E1B4(0, &v10, 4, 5u, "phLibNfc_SM_GetSpmiCfgRegsTrans");
   sub_297E5D114(v10, &v9);
   SpmiDrvConfigRegs = 1;
   if (a5)
@@ -2751,7 +1130,41 @@ uint64_t sub_297EB1C78(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
     }
   }
 
-  sub_297E4DFAC(0, &v10, 4u, 5u, "phLibNfc_SM_SetSpmiCfgRegsTrans");
+  sub_297E4DFAC(0, &v10, 4, 5u, "phLibNfc_SM_GetSpmiCfgRegsTrans");
+  return SpmiDrvConfigRegs;
+}
+
+uint64_t sub_297EB1C78(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v9 = 0;
+  v10 = a1;
+  sub_297E4E1B4(0, &v10, 4, 5u, "phLibNfc_SM_SetSpmiCfgRegsTrans");
+  sub_297E5D114(v10, &v9);
+  SpmiDrvConfigRegs = 1;
+  if (a5)
+  {
+    if (v9)
+    {
+      v7 = v10 == 0;
+    }
+
+    else
+    {
+      v7 = 1;
+    }
+
+    if (!v7 && v10 == *(v9 + 8))
+    {
+      SpmiDrvConfigRegs = sub_297EBE8B0(v10);
+      if (!SpmiDrvConfigRegs)
+      {
+        SpmiDrvConfigRegs = phTmlNfc_SetGetSpmiDrvConfigRegs();
+        sub_297E5AA54(v10, 20);
+      }
+    }
+  }
+
+  sub_297E4DFAC(0, &v10, 4, 5u, "phLibNfc_SM_SetSpmiCfgRegsTrans");
   return SpmiDrvConfigRegs;
 }
 
@@ -2759,7 +1172,7 @@ uint64_t sub_297EB1D3C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
 {
   v15 = 0;
   v16 = a1;
-  sub_297E4E1B4(0, &v16, 4u, 5u, "phLibNfc_SM_IoctlLoopbackTrans");
+  sub_297E4E1B4(0, &v16, 4, 5u, "phLibNfc_SM_IoctlLoopbackTrans");
   sub_297E4F0E8(v16, &v15);
   if (a4 && a5 && (v8 = *a5) != 0 && *a4 && (v9 = v15) != 0)
   {
@@ -2813,10 +1226,10 @@ uint64_t sub_297EB1D3C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   else
   {
     a3 = 1;
-    sub_297E4E0B0(0, &v16, 4u, 1u, "phLibNfc_SM_IoctlLoopbackTrans: Failed");
+    sub_297E4E0B0(0, &v16, 4, 1u, "phLibNfc_SM_IoctlLoopbackTrans: Failed");
   }
 
-  sub_297E4DFAC(0, &v16, 4u, 5u, "phLibNfc_SM_IoctlLoopbackTrans");
+  sub_297E4DFAC(0, &v16, 4, 5u, "phLibNfc_SM_IoctlLoopbackTrans");
   return a3;
 }
 
@@ -2824,7 +1237,7 @@ uint64_t sub_297EB1E98(uint64_t a1)
 {
   v3 = 0;
   v4 = a1;
-  sub_297E4E1B4(0, &v4, 4u, 5u, "phLibNfc_SM_IoctlSwp1TestTrans");
+  sub_297E4E1B4(0, &v4, 4, 5u, "phLibNfc_SM_IoctlSwp1TestTrans");
   sub_297E4F0E8(v4, &v3);
   if (v3)
   {
@@ -2834,10 +1247,10 @@ uint64_t sub_297EB1E98(uint64_t a1)
   else
   {
     v1 = 1;
-    sub_297E4E0B0(0, &v4, 4u, 1u, "IoctlSwp1TestTrans: Failed");
+    sub_297E4E0B0(0, &v4, 4, 1u, "IoctlSwp1TestTrans: Failed");
   }
 
-  sub_297E4DFAC(0, &v4, 4u, 5u, "phLibNfc_SM_IoctlSwp1TestTrans");
+  sub_297E4DFAC(0, &v4, 4, 5u, "phLibNfc_SM_IoctlSwp1TestTrans");
   return v1;
 }
 
@@ -2845,7 +1258,7 @@ uint64_t sub_297EB1F54(uint64_t a1)
 {
   v3 = 0;
   v4 = a1;
-  sub_297E4E1B4(0, &v4, 4u, 5u, "phLibNfc_SM_IoctlSwp2TestTrans");
+  sub_297E4E1B4(0, &v4, 4, 5u, "phLibNfc_SM_IoctlSwp2TestTrans");
   sub_297E4F0E8(v4, &v3);
   if (v3)
   {
@@ -2855,10 +1268,10 @@ uint64_t sub_297EB1F54(uint64_t a1)
   else
   {
     v1 = 1;
-    sub_297E4E0B0(0, &v4, 4u, 1u, "IoctlSwp2TestTrans: Failed");
+    sub_297E4E0B0(0, &v4, 4, 1u, "IoctlSwp2TestTrans: Failed");
   }
 
-  sub_297E4DFAC(0, &v4, 4u, 5u, "phLibNfc_SM_IoctlSwp2TestTrans");
+  sub_297E4DFAC(0, &v4, 4, 5u, "phLibNfc_SM_IoctlSwp2TestTrans");
   return v1;
 }
 
@@ -2866,7 +1279,7 @@ uint64_t sub_297EB2010(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v7 = 0;
   v8 = a1;
-  sub_297E4E1B4(0, &v8, 4u, 5u, "phLibNfc_SM_IoctlPrbsTestTrans");
+  sub_297E4E1B4(0, &v8, 4, 5u, "phLibNfc_SM_IoctlPrbsTestTrans");
   sub_297E4F0E8(v8, &v7);
   if (a4 && v7 && *a4 && *(a4 + 8) == 6)
   {
@@ -2876,10 +1289,10 @@ uint64_t sub_297EB2010(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   else
   {
     v5 = 1;
-    sub_297E4E0B0(0, &v8, 4u, 1u, "phLibNfc_SM_IoctlPrbsTestTrans: Failed");
+    sub_297E4E0B0(0, &v8, 4, 1u, "phLibNfc_SM_IoctlPrbsTestTrans: Failed");
   }
 
-  sub_297E4DFAC(0, &v8, 4u, 5u, "phLibNfc_SM_IoctlPrbsTestTrans");
+  sub_297E4DFAC(0, &v8, 4, 5u, "phLibNfc_SM_IoctlPrbsTestTrans");
   return v5;
 }
 
@@ -2887,7 +1300,7 @@ uint64_t sub_297EB20E8(uint64_t a1, uint64_t a2, uint64_t a3, _DWORD *a4)
 {
   v18 = 0;
   v19 = a1;
-  sub_297E4E1B4(0, &v19, 4u, 5u, "phLibNfc_SM_CfgTestModeOffTrans");
+  sub_297E4E1B4(0, &v19, 4, 5u, "phLibNfc_SM_CfgTestModeOffTrans");
   sub_297E4F0E8(v19, &v18);
   v5 = 1;
   if (a4)
@@ -2972,7 +1385,7 @@ uint64_t sub_297EB20E8(uint64_t a1, uint64_t a2, uint64_t a3, _DWORD *a4)
     }
   }
 
-  sub_297E4DFAC(0, &v19, 4u, 5u, "phLibNfc_SM_CfgTestModeOffTrans");
+  sub_297E4DFAC(0, &v19, 4, 5u, "phLibNfc_SM_CfgTestModeOffTrans");
   return v5;
 }
 
@@ -2981,7 +1394,7 @@ uint64_t sub_297EB2260(uint64_t a1, int a2, uint64_t a3, uint64_t a4)
   v27 = 0;
   v28 = a1;
   v26 = 0;
-  sub_297E4E1B4(0, &v28, 4u, 5u, "phLibNfc_SM_Main_TestModeTransComplete");
+  sub_297E4E1B4(0, &v28, 4, 5u, "phLibNfc_SM_Main_TestModeTransComplete");
   sub_297E4F0E8(v28, &v27);
   sub_297E5D114(v28, &v26);
   if (a3)
@@ -3026,8 +1439,8 @@ LABEL_26:
           *(v27 + 855) = 0u;
           if (v23)
           {
-            sub_297E50EBC(0, &v28, 4u, 4u, "phLibNfc_SM_Main_TestModeTransComplete:Invoking callback, wStatus = ");
-            sub_297E4D930(1, (v27 + 1224), 4u, 67, "phLibNfc_SM_Main_TestModeTransComplete");
+            sub_297E50EBC(0, &v28, 4, 4u, "phLibNfc_SM_Main_TestModeTransComplete:Invoking callback, wStatus = ");
+            sub_297E4D930(1, (v27 + 1224), 4, 67, "phLibNfc_SM_Main_TestModeTransComplete");
             v23(v27[1223], v24, a4, a3);
           }
         }
@@ -3044,7 +1457,7 @@ LABEL_26:
       goto LABEL_34;
     }
 
-    sub_297E50EBC(0, &v28, 4u, 4u, "phLibNfc_Mgt_SetNfccParams:Invoking callback, wStatus = ");
+    sub_297E50EBC(0, &v28, 4, 4u, "phLibNfc_Mgt_SetNfccParams:Invoking callback, wStatus = ");
     v11 = (v27 + 1224);
     v12 = 132;
     goto LABEL_32;
@@ -3086,8 +1499,8 @@ LABEL_26:
       v27 = 0;
       if (v9)
       {
-        sub_297E4E0B0(0, &v28, 4u, 4u, "ConfigTestModeCb:Invoking callback function, with status NFCSTATUS_SUCCESS");
-        sub_297E4D930(0, &v28, 4u, 33, "phLibNfc_SM_Main_TestModeTransComplete");
+        sub_297E4E0B0(0, &v28, 4, 4u, "ConfigTestModeCb:Invoking callback function, with status NFCSTATUS_SUCCESS");
+        sub_297E4D930(0, &v28, 4, 33, "phLibNfc_SM_Main_TestModeTransComplete");
         v20 = v28;
         v21 = v15;
         v22 = 0;
@@ -3102,8 +1515,8 @@ LABEL_33:
       *(v27 + 849) = 0u;
       if (v13)
       {
-        sub_297E50EBC(0, &v28, 4u, 4u, "phLibNfc_SM_eAntennaSelfTest:Invoking callback, wStatus = ");
-        sub_297E4D930(1, (v27 + 1224), 4u, 42, "phLibNfc_SM_Main_TestModeTransComplete");
+        sub_297E50EBC(0, &v28, 4, 4u, "phLibNfc_SM_eAntennaSelfTest:Invoking callback, wStatus = ");
+        sub_297E4D930(1, (v27 + 1224), 4, 42, "phLibNfc_SM_Main_TestModeTransComplete");
         v13(v27[1223], v14, v27 + 6044, a3);
       }
 
@@ -3117,11 +1530,11 @@ LABEL_33:
         break;
       }
 
-      sub_297E50EBC(0, &v28, 4u, 4u, "phLibNfc_TriggerRfFieldOnNtf:Invoking callback, wStatus = ");
+      sub_297E50EBC(0, &v28, 4, 4u, "phLibNfc_TriggerRfFieldOnNtf:Invoking callback, wStatus = ");
       v11 = (v27 + 1224);
       v12 = 48;
 LABEL_32:
-      sub_297E4D930(1, v11, 4u, v12, "phLibNfc_SM_Main_TestModeTransComplete");
+      sub_297E4D930(1, v11, 4, v12, "phLibNfc_SM_Main_TestModeTransComplete");
       v20 = v28;
       v21 = v10;
       v22 = a3;
@@ -3131,7 +1544,7 @@ LABEL_32:
   }
 
 LABEL_34:
-  sub_297E4DFAC(0, &v28, 4u, 5u, "phLibNfc_SM_Main_TestModeTransComplete");
+  sub_297E4DFAC(0, &v28, 4, 5u, "phLibNfc_SM_Main_TestModeTransComplete");
   return a3;
 }
 
@@ -3139,7 +1552,7 @@ uint64_t sub_297EB2630(uint64_t a1, int a2, uint64_t a3, int *a4, uint64_t a5)
 {
   v11 = 0;
   v12 = a1;
-  sub_297E4E1B4(0, &v12, 4u, 5u, "phLibNfc_SM_ConfigReDiscoveryTrans");
+  sub_297E4E1B4(0, &v12, 4, 5u, "phLibNfc_SM_ConfigReDiscoveryTrans");
   sub_297E4F0E8(v12, &v11);
   v9 = sub_297E54988(v11, a2, a3, a4, a5);
   if (!v9)
@@ -3147,7 +1560,7 @@ uint64_t sub_297EB2630(uint64_t a1, int a2, uint64_t a3, int *a4, uint64_t a5)
     v9 = sub_297EE6B84(v11, a4, a5);
   }
 
-  sub_297E4DFAC(0, &v12, 4u, 5u, "phLibNfc_SM_ConfigReDiscoveryTrans");
+  sub_297E4DFAC(0, &v12, 4, 5u, "phLibNfc_SM_ConfigReDiscoveryTrans");
   return v9;
 }
 
@@ -3155,14 +1568,14 @@ uint64_t sub_297EB26EC(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v10 = 0;
   v11 = a1;
-  sub_297E4E1B4(0, &v11, 4u, 5u, "phLibNfc_SM_PiccActivatedTrans");
+  sub_297E4E1B4(0, &v11, 4, 5u, "phLibNfc_SM_PiccActivatedTrans");
   sub_297E4F0E8(v11, &v10);
   if (v10 && *(v10 + 6280))
   {
     v4 = *(v10 + 856);
     if (v4 && *v4 >= 2u && *(v10 + 1470) == 1)
     {
-      sub_297E54734(0, &v11, 4u, 4u, "phLibNfc_SM_PiccActivatedTrans :RemDevNtfCB[Unknown Tag Protocol]");
+      sub_297E54734(0, &v11, 4, 4u, "phLibNfc_SM_PiccActivatedTrans :RemDevNtfCB[Unknown Tag Protocol]");
       v5 = v10;
       *(v10 + 762) = 0;
       a3 = 119;
@@ -3172,7 +1585,7 @@ uint64_t sub_297EB26EC(uint64_t a1, uint64_t a2, uint64_t a3)
     else
     {
       *(v10 + 1471) = 0;
-      sub_297E54734(0, &v11, 4u, 4u, "phLibNfc_SM_PiccActivatedTrans :Received ACTIVATED NTF");
+      sub_297E54734(0, &v11, 4, 4u, "phLibNfc_SM_PiccActivatedTrans :Received ACTIVATED NTF");
       if (!sub_297EE5DF4(v10))
       {
         v6 = *(v10 + 6280);
@@ -3192,7 +1605,7 @@ uint64_t sub_297EB26EC(uint64_t a1, uint64_t a2, uint64_t a3)
     }
   }
 
-  sub_297E4DFAC(0, &v11, 4u, 5u, "phLibNfc_SM_PiccActivatedTrans");
+  sub_297E4DFAC(0, &v11, 4, 5u, "phLibNfc_SM_PiccActivatedTrans");
   return a3;
 }
 
@@ -3200,7 +1613,7 @@ uint64_t sub_297EB2850(uint64_t a1)
 {
   v3 = 0;
   v4 = a1;
-  sub_297E4E1B4(0, &v4, 4u, 5u, "phLibNfc_SM_PcdActivatedTrans");
+  sub_297E4E1B4(0, &v4, 4, 5u, "phLibNfc_SM_PcdActivatedTrans");
   sub_297E4F0E8(v4, &v3);
   if (v3)
   {
@@ -3212,7 +1625,7 @@ uint64_t sub_297EB2850(uint64_t a1)
     v1 = 1;
   }
 
-  sub_297E4DFAC(0, &v4, 4u, 5u, "phLibNfc_SM_PcdActivatedTrans");
+  sub_297E4DFAC(0, &v4, 4, 5u, "phLibNfc_SM_PcdActivatedTrans");
   return v1;
 }
 
@@ -3220,7 +1633,7 @@ uint64_t sub_297EB28EC(uint64_t a1, int a2, uint64_t a3, _DWORD *a4, uint64_t a5
 {
   v15 = 0;
   v16 = a1;
-  sub_297E4E1B4(0, &v16, 4u, 5u, "phLibNfc_SM_EMVCoTagRemDetTrans");
+  sub_297E4E1B4(0, &v16, 4, 5u, "phLibNfc_SM_EMVCoTagRemDetTrans");
   sub_297E4F0E8(v16, &v15);
   if (v15)
   {
@@ -3256,7 +1669,7 @@ uint64_t sub_297EB28EC(uint64_t a1, int a2, uint64_t a3, _DWORD *a4, uint64_t a5
     v9 = 255;
   }
 
-  sub_297E4DFAC(0, &v16, 4u, 5u, "phLibNfc_SM_EMVCoTagRemDetTrans");
+  sub_297E4DFAC(0, &v16, 4, 5u, "phLibNfc_SM_EMVCoTagRemDetTrans");
   return v9;
 }
 
@@ -3267,7 +1680,7 @@ uint64_t sub_297EB29E8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   v17 = 1;
   v15 = 0;
   v16 = 0;
-  sub_297E4E1B4(0, &v19, 4u, 5u, "phLibNfc_SM_ConnectTrans");
+  sub_297E4E1B4(0, &v19, 4, 5u, "phLibNfc_SM_ConnectTrans");
   sub_297E4F0E8(v19, &v18);
   if (v18)
   {
@@ -3276,7 +1689,7 @@ uint64_t sub_297EB29E8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
     {
       v5 = "Mapping of LibNfc RemoteDev Handle to NCI RemoteDev Handle Failed";
 LABEL_7:
-      sub_297E4E0B0(0, &v19, 4u, 1u, v5);
+      sub_297E4E0B0(0, &v19, 4, 1u, v5);
       v6 = 149;
       goto LABEL_8;
     }
@@ -3290,7 +1703,7 @@ LABEL_7:
     v8 = *(v18 + 1504);
     if (v16 != v8 && v8 != 0)
     {
-      sub_297E4E0B0(0, &v19, 4u, 1u, "Connected Handle is not same as passed handle");
+      sub_297E4E0B0(0, &v19, 4, 1u, "Connected Handle is not same as passed handle");
       v6 = 255;
       goto LABEL_8;
     }
@@ -3317,7 +1730,7 @@ LABEL_27:
         }
       }
 
-      else if ((!*(v12 + 4) && *(v12 + 3) == 1 || *(v13 + 1471) == 1) && *(v13 + 1470) == 1)
+      else if ((!*(v12 + 16) && *(v12 + 12) == 1 || *(v13 + 1471) == 1) && *(v13 + 1470) == 1)
       {
         sub_297ECE0E4(v13, 0, v12);
         v6 = 0;
@@ -3330,7 +1743,7 @@ LABEL_37:
       goto LABEL_8;
     }
 
-    v10 = *(v16 + 4);
+    v10 = *(v16 + 16);
     if (v10 > 127)
     {
       if (v10 == 128 || v10 == 129)
@@ -3361,9 +1774,9 @@ LABEL_26:
   }
 
   v6 = 1;
-  sub_297E4E0B0(0, &v19, 4u, 1u, "phLibNfc_SM_ConnectTrans: Invalid Param");
+  sub_297E4E0B0(0, &v19, 4, 1u, "phLibNfc_SM_ConnectTrans: Invalid Param");
 LABEL_8:
-  sub_297E4DFAC(0, &v19, 4u, 5u, "phLibNfc_SM_ConnectTrans");
+  sub_297E4DFAC(0, &v19, 4, 5u, "phLibNfc_SM_ConnectTrans");
   return v6;
 }
 
@@ -3371,19 +1784,19 @@ uint64_t sub_297EB2C28(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _BYTE
 {
   v9 = 0;
   v10 = a1;
-  sub_297E4E1B4(0, &v10, 4u, 5u, "phLibNfc_SM_DeactivateNtfTrans");
+  sub_297E4E1B4(0, &v10, 4, 5u, "phLibNfc_SM_DeactivateNtfTrans");
   sub_297E4F0E8(v10, &v9);
   v7 = v9;
   if (a5 && v9 && *(v9 + 6280) && !*a5)
   {
-    sub_297E4E0B0(0, &v10, 4u, 4u, "Invoking pClientNtfRegRespCB with rf deactivated status");
-    sub_297E54734(0, &v10, 4u, 4u, "phLibNfc_SM_DeactivateNtfTrans :RemDevNtfCB[De-Activate Ntf]");
+    sub_297E4E0B0(0, &v10, 4, 4u, "Invoking pClientNtfRegRespCB with rf deactivated status");
+    sub_297E54734(0, &v10, 4, 4u, "phLibNfc_SM_DeactivateNtfTrans :RemDevNtfCB[De-Activate Ntf]");
     (*(v9 + 6280))(*(v9 + 9784), *(v9 + 6288), 0, 0, a3);
     v7 = v9;
   }
 
   sub_297ECF904(v7);
-  sub_297E4DFAC(0, &v10, 4u, 5u, "phLibNfc_SM_DeactivateNtfTrans");
+  sub_297E4DFAC(0, &v10, 4, 5u, "phLibNfc_SM_DeactivateNtfTrans");
   return 0;
 }
 
@@ -3392,7 +1805,7 @@ uint64_t sub_297EB2D1C(uint64_t a1, int a2, uint64_t a3, uint64_t a4)
   v19 = 0;
   v20 = a1;
   v18 = 0;
-  sub_297E4E1B4(0, &v20, 4u, 5u, "phLibNfc_SM_Main_PollDiscoveredTransComplete");
+  sub_297E4E1B4(0, &v20, 4, 5u, "phLibNfc_SM_Main_PollDiscoveredTransComplete");
   sub_297E4F0E8(v20, &v19);
   sub_297E5D114(v20, &v18);
   if (a3)
@@ -3429,8 +1842,8 @@ uint64_t sub_297EB2D1C(uint64_t a1, int a2, uint64_t a3, uint64_t a4)
           *(v19 + 855) = 0u;
           if (v9)
           {
-            sub_297E50EBC(0, &v20, 4u, 4u, "phLibNfc_SM_Main_PollDiscoveredTransComplete:Invoking callback, wStatus = ");
-            sub_297E4D930(1, (v19 + 1224), 4u, 67, "phLibNfc_SM_Main_PollDiscoveredTransComplete");
+            sub_297E50EBC(0, &v20, 4, 4u, "phLibNfc_SM_Main_PollDiscoveredTransComplete:Invoking callback, wStatus = ");
+            sub_297E4D930(1, (v19 + 1224), 4, 67, "phLibNfc_SM_Main_PollDiscoveredTransComplete");
             v9(v19[1223], v10, a4, a3);
           }
         }
@@ -3474,7 +1887,7 @@ LABEL_22:
       goto LABEL_35;
     }
 
-    sub_297E50EBC(0, &v20, 4u, 4u, "phLibNfc_Mgt_SetNfccParams:Invoking callback, wStatus = ");
+    sub_297E50EBC(0, &v20, 4, 4u, "phLibNfc_Mgt_SetNfccParams:Invoking callback, wStatus = ");
     v13 = v19 + 1224;
     v14 = 132;
     goto LABEL_34;
@@ -3502,11 +1915,11 @@ LABEL_22:
         goto LABEL_35;
       }
 
-      sub_297E50EBC(0, &v20, 4u, 4u, "phLibNfc_SM_Main_PollDiscoveredTransComplete:Invoking callback, wStatus = ");
+      sub_297E50EBC(0, &v20, 4, 4u, "phLibNfc_SM_Main_PollDiscoveredTransComplete:Invoking callback, wStatus = ");
       v13 = v19 + 1224;
       v14 = 136;
 LABEL_34:
-      sub_297E4D930(1, v13, 4u, v14, "phLibNfc_SM_Main_PollDiscoveredTransComplete");
+      sub_297E4D930(1, v13, 4, v14, "phLibNfc_SM_Main_PollDiscoveredTransComplete");
       v11(v19[1223], v12, a3);
       goto LABEL_35;
     }
@@ -3531,13 +1944,13 @@ LABEL_18:
   *(v19 + 775) = 0u;
   if (v15 && *(v7 + 1471) != 1)
   {
-    sub_297E4E0B0(0, &v20, 4u, 4u, "Invoking upper layer callback");
-    sub_297E4D930(1, (v19 + 1224), 4u, 15, "phLibNfc_SM_Main_PollDiscoveredTransComplete");
+    sub_297E4E0B0(0, &v20, 4, 4u, "Invoking upper layer callback");
+    sub_297E4D930(1, (v19 + 1224), 4, 15, "phLibNfc_SM_Main_PollDiscoveredTransComplete");
     v15(v19[1223], v16, a4, a4, a3);
   }
 
 LABEL_35:
-  sub_297E4DFAC(0, &v20, 4u, 5u, "phLibNfc_SM_Main_PollDiscoveredTransComplete");
+  sub_297E4DFAC(0, &v20, 4, 5u, "phLibNfc_SM_Main_PollDiscoveredTransComplete");
   return a3;
 }
 
@@ -3547,7 +1960,7 @@ uint64_t sub_297EB3088(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   v20 = a1;
   v17 = 0;
   v18 = 0;
-  sub_297E4E1B4(0, &v20, 4u, 5u, "phLibNfc_SM_GetTagTypeTrans");
+  sub_297E4E1B4(0, &v20, 4, 5u, "phLibNfc_SM_GetTagTypeTrans");
   sub_297E4F0E8(v20, &v19);
   v7 = 1;
   if (a5)
@@ -3557,8 +1970,8 @@ uint64_t sub_297EB3088(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
       v8 = v19;
       if (v19)
       {
-        *(v19 + 2816) = a5;
-        *(v8 + 2824) = *(a5 + 8);
+        v19[352] = a5;
+        v8[353] = *(a5 + 8);
         v17 = a4;
         v9 = sub_297ECD484(v8, &v17, &v18, 1);
         if (!v9)
@@ -3574,8 +1987,8 @@ uint64_t sub_297EB3088(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
             }
 
             v12 = v19;
-            **(v19 + 2816) = v10;
-            *(v12 + 2960) = off_2A1A929E0;
+            *v19[352] = v10;
+            v12[370] = off_2A1A929E0;
             *(v12 + 2952) = 0;
             *(v12 + 2954) = 0;
             v13 = off_2A1A929E0[0];
@@ -3604,7 +2017,7 @@ uint64_t sub_297EB3088(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   }
 
 LABEL_16:
-  sub_297E4DFAC(0, &v20, 4u, 5u, "phLibNfc_SM_GetTagTypeTrans");
+  sub_297E4DFAC(0, &v20, 4, 5u, "phLibNfc_SM_GetTagTypeTrans");
   return v7;
 }
 
@@ -3614,7 +2027,7 @@ uint64_t sub_297EB31BC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   v13 = a1;
   v10 = 0;
   v11 = 0;
-  sub_297E4E1B4(0, &v13, 4u, 5u, "phLibNfc_SM_RemDevTransceiveTrans");
+  sub_297E4E1B4(0, &v13, 4, 5u, "phLibNfc_SM_RemDevTransceiveTrans");
   sub_297E4F0E8(v13, &v12);
   v7 = 1;
   if (a5 && a4 && v12)
@@ -3633,7 +2046,7 @@ uint64_t sub_297EB31BC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
     v7 = v8;
   }
 
-  sub_297E4DFAC(0, &v13, 4u, 5u, "phLibNfc_SM_RemDevTransceiveTrans");
+  sub_297E4DFAC(0, &v13, 4, 5u, "phLibNfc_SM_RemDevTransceiveTrans");
   return v7;
 }
 
@@ -3641,7 +2054,7 @@ uint64_t sub_297EB328C(uint64_t a1, uint64_t a2, uint64_t a3, int *a4, uint64_t 
 {
   v11 = 0;
   v12 = a1;
-  sub_297E4E1B4(0, &v12, 4u, 5u, "phLibNfc_SM_DisConnectStopTrans");
+  sub_297E4E1B4(0, &v12, 4, 5u, "phLibNfc_SM_DisConnectStopTrans");
   sub_297E4F0E8(v12, &v11);
   if (v11)
   {
@@ -3657,7 +2070,7 @@ uint64_t sub_297EB328C(uint64_t a1, uint64_t a2, uint64_t a3, int *a4, uint64_t 
     v9 = 255;
   }
 
-  sub_297E4DFAC(0, &v12, 4u, 5u, "phLibNfc_SM_DisConnectStopTrans");
+  sub_297E4DFAC(0, &v12, 4, 5u, "phLibNfc_SM_DisConnectStopTrans");
   return v9;
 }
 
@@ -3665,7 +2078,7 @@ uint64_t sub_297EB3354(uint64_t a1, uint64_t a2, uint64_t a3, int *a4, uint64_t 
 {
   v11 = 0;
   v12 = a1;
-  sub_297E4E1B4(0, &v12, 4u, 5u, "phLibNfc_SM_DisConnectReStartTrans");
+  sub_297E4E1B4(0, &v12, 4, 5u, "phLibNfc_SM_DisConnectReStartTrans");
   sub_297E4F0E8(v12, &v11);
   if (v11)
   {
@@ -3681,7 +2094,7 @@ uint64_t sub_297EB3354(uint64_t a1, uint64_t a2, uint64_t a3, int *a4, uint64_t 
     v9 = 255;
   }
 
-  sub_297E4DFAC(0, &v12, 4u, 5u, "phLibNfc_SM_DisConnectReStartTrans");
+  sub_297E4DFAC(0, &v12, 4, 5u, "phLibNfc_SM_DisConnectReStartTrans");
   return v9;
 }
 
@@ -3689,7 +2102,7 @@ uint64_t sub_297EB341C(uint64_t a1)
 {
   v7 = 0;
   v8 = a1;
-  sub_297E4E1B4(0, &v8, 4u, 5u, "phLibNfc_SM_DisConnectSleepTrans");
+  sub_297E4E1B4(0, &v8, 4, 5u, "phLibNfc_SM_DisConnectSleepTrans");
   sub_297E4F0E8(v8, &v7);
   v1 = v7;
   if (v7)
@@ -3721,7 +2134,7 @@ uint64_t sub_297EB341C(uint64_t a1)
     v5 = 255;
   }
 
-  sub_297E4DFAC(0, &v8, 4u, 5u, "phLibNfc_SM_DisConnectSleepTrans");
+  sub_297E4DFAC(0, &v8, 4, 5u, "phLibNfc_SM_DisConnectSleepTrans");
   return v5;
 }
 
@@ -3729,7 +2142,7 @@ uint64_t sub_297EB34E4(uint64_t a1, int a2)
 {
   v11 = 0;
   v12 = a1;
-  sub_297E4E1B4(0, &v12, 4u, 5u, "phLibNfc_SM_DisConnectTagRemDetTrans");
+  sub_297E4E1B4(0, &v12, 4, 5u, "phLibNfc_SM_DisConnectTagRemDetTrans");
   sub_297E4F0E8(v12, &v11);
   v3 = v11;
   if (v11)
@@ -3785,7 +2198,7 @@ uint64_t sub_297EB34E4(uint64_t a1, int a2)
     v7 = 255;
   }
 
-  sub_297E4DFAC(0, &v12, 4u, 5u, "phLibNfc_SM_DisConnectTagRemDetTrans");
+  sub_297E4DFAC(0, &v12, 4, 5u, "phLibNfc_SM_DisConnectTagRemDetTrans");
   return v7;
 }
 
@@ -3793,7 +2206,7 @@ uint64_t sub_297EB35F0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v7 = 0;
   v8 = a1;
-  sub_297E4E1B4(0, &v8, 4u, 5u, "phLibNfc_SM_CheckPresenceTrans");
+  sub_297E4E1B4(0, &v8, 4, 5u, "phLibNfc_SM_CheckPresenceTrans");
   sub_297E4F0E8(v8, &v7);
   v5 = 1;
   if (a4 && v7)
@@ -3801,7 +2214,7 @@ uint64_t sub_297EB35F0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
     v5 = sub_297ECFEBC(v7, a4);
   }
 
-  sub_297E4DFAC(0, &v8, 4u, 5u, "phLibNfc_SM_CheckPresenceTrans");
+  sub_297E4DFAC(0, &v8, 4, 5u, "phLibNfc_SM_CheckPresenceTrans");
   return v5;
 }
 
@@ -3812,7 +2225,7 @@ uint64_t sub_297EB3684(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _BYTE
   v14 = a4;
   v15 = 0;
   v13 = 0;
-  sub_297E4E1B4(0, &v17, 4u, 5u, "phLibNfc_SM_CheckNdefTrans");
+  sub_297E4E1B4(0, &v17, 4, 5u, "phLibNfc_SM_CheckNdefTrans");
   sub_297E4F0E8(v17, &v16);
   v7 = 149;
   if (a5)
@@ -3956,7 +2369,7 @@ LABEL_21:
                 goto LABEL_9;
               }
 
-              sub_297E4E0B0(0, &v17, 4u, 2u, "phLibNfc_SM_CheckNdefTrans: Unable to Retrieve NDEF context");
+              sub_297E4E0B0(0, &v17, 4, 2u, "phLibNfc_SM_CheckNdefTrans: Unable to Retrieve NDEF context");
 LABEL_28:
               v7 = 255;
             }
@@ -3967,17 +2380,17 @@ LABEL_28:
   }
 
 LABEL_11:
-  sub_297E4E1B4(0, &v17, 4u, 5u, "phLibNfc_SM_CheckNdefTrans");
+  sub_297E4E1B4(0, &v17, 4, 5u, "phLibNfc_SM_CheckNdefTrans");
   return v7;
 }
 
-uint64_t sub_297EB396C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t sub_297EB396C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
   v23 = 0;
   v24 = a1;
   v21 = 0;
   v22 = a4;
-  sub_297E4E1B4(0, &v24, 4u, 5u, "phLibNfc_SM_ReadNdefTrans");
+  sub_297E4E1B4(0, &v24, 4, 5u, "phLibNfc_SM_ReadNdefTrans");
   sub_297E4F0E8(v24, &v23);
   v7 = 1;
   if (!a5)
@@ -3996,7 +2409,7 @@ uint64_t sub_297EB396C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
     goto LABEL_28;
   }
 
-  if (!*(v23 + 1504))
+  if (!v23[188])
   {
     v7 = 148;
     goto LABEL_28;
@@ -4012,19 +2425,19 @@ LABEL_27:
 
   if (v9 == 1 && *(v23 + 6905) == 1)
   {
-    sub_297E4E0B0(0, &v24, 4u, 2u, "phLibNfc_Ndef_Read not allowed as Current Ndef message size exceeds Max Tag Ndef message size");
+    sub_297E4E0B0(0, &v24, 4, 2u, "phLibNfc_Ndef_Read not allowed as Current Ndef message size exceeds Max Tag Ndef message size");
     goto LABEL_27;
   }
 
   if (*(v23 + 6904))
   {
-    if (v9 == 1 && !*(v23 + 6860))
+    if (v9 == 1 && !*(v23 + 1715))
     {
-      v11 = *(v23 + 6872);
+      v11 = v23[859];
       if (v11 && *(v11 + 242) == 1 || !sub_297E8DBC8(v23, a4))
       {
         v7 = 0;
-        *(a5 + 8) = 0;
+        *(a5 + 2) = 0;
         goto LABEL_28;
       }
 
@@ -4040,9 +2453,9 @@ LABEL_27:
         if (!v7)
         {
           v12 = v23;
-          **(v23 + 880) = 1;
-          *(v12 + 6920) = 1;
-          *(v12 + 6888) = a5;
+          *v23[110] = 1;
+          *(v12 + 1730) = 1;
+          v12[861] = a5;
           v13 = *(v22 + 4);
           if (v13 <= 15)
           {
@@ -4064,11 +2477,11 @@ LABEL_27:
             switch(v13)
             {
               case 23:
-                v15 = sub_297E97FD0(v24, *a5, (a5 + 8), *(v12 + 6856), sub_297ECB664, v12);
+                v15 = sub_297E97FD0(v24, *a5, a5 + 2, *(v12 + 6856), sub_297ECB664, v12);
                 break;
               case 22:
                 v19 = *a5;
-                v18 = (a5 + 8);
+                v18 = a5 + 1;
                 v17 = v19;
                 v20 = *(v12 + 6856);
                 if (*(v22 + 19) == 17)
@@ -4083,7 +2496,7 @@ LABEL_27:
 
                 break;
               case 21:
-                v15 = sub_297EBF88C(v24, *a5, (a5 + 8), *(v12 + 6856), sub_297ECB664, v12);
+                v15 = sub_297EBF88C(v24, *a5, a5 + 2, *(v12 + 6856), sub_297ECB664, v12);
                 break;
               default:
                 goto LABEL_28;
@@ -4106,14 +2519,14 @@ LABEL_41:
               if (!v16)
               {
 LABEL_55:
-                v15 = sub_297ED11B8(v24, *a5, (a5 + 8), *(v12 + 6856), sub_297ECB664, v12);
+                v15 = sub_297ED11B8(v24, *a5, a5 + 2, *(v12 + 6856), sub_297ECB664, v12);
                 goto LABEL_36;
               }
 
               if (v16 == 1)
               {
 LABEL_48:
-                v15 = sub_297ED7FE4(v24, *a5, (a5 + 8), *(v12 + 6856), sub_297ECB664, v12);
+                v15 = sub_297ED7FE4(v24, *a5, a5 + 2, *(v12 + 6856), sub_297ECB664, v12);
                 goto LABEL_36;
               }
             }
@@ -4135,7 +2548,7 @@ LABEL_48:
           if (v13 == 17 || v13 == 19)
           {
 LABEL_35:
-            v15 = sub_297E738B4(v24, *a5, (a5 + 8), *(v12 + 6856), sub_297ECB664, v12);
+            v15 = sub_297E738B4(v24, *a5, a5 + 2, *(v12 + 6856), sub_297ECB664, v12);
 LABEL_36:
             v7 = v15;
           }
@@ -4150,18 +2563,18 @@ LABEL_36:
   }
 
 LABEL_28:
-  sub_297E4DFAC(0, &v24, 4u, 5u, "phLibNfc_SM_ReadNdefTrans");
+  sub_297E4DFAC(0, &v24, 4, 5u, "phLibNfc_SM_ReadNdefTrans");
   return v7;
 }
 
-uint64_t sub_297EB3CE4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t sub_297EB3CE4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
   v19 = 0;
   v20 = a1;
   v17 = a4;
   v18 = 0;
   v16 = 0;
-  sub_297E4E1B4(0, &v20, 4u, 5u, "phLibNfc_SM_WriteNdefTrans");
+  sub_297E4E1B4(0, &v20, 4, 5u, "phLibNfc_SM_WriteNdefTrans");
   sub_297E4F0E8(v20, &v19);
   sub_297E57170(v20, &v18);
   v7 = 1;
@@ -4170,7 +2583,7 @@ uint64_t sub_297EB3CE4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
     goto LABEL_27;
   }
 
-  if (!*(v19 + 1504))
+  if (!v19[188])
   {
     v7 = 148;
     goto LABEL_27;
@@ -4194,7 +2607,7 @@ uint64_t sub_297EB3CE4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
     goto LABEL_27;
   }
 
-  if (*(a5 + 8) > *(v19 + 6900))
+  if (*(a5 + 2) > *(v19 + 1725))
   {
     v7 = 31;
     goto LABEL_27;
@@ -4223,12 +2636,12 @@ uint64_t sub_297EB3CE4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   }
 
   v9 = v19;
-  *(v19 + 6888) = a5;
-  v10 = *(a5 + 8);
-  *(v9 + 6864) = v10;
-  *(v9 + 6920) = 2;
-  **(v9 + 880) = 1;
-  *(v9 + 6896) = v10;
+  v19[861] = a5;
+  v10 = *(a5 + 2);
+  *(v9 + 1716) = v10;
+  *(v9 + 1730) = 2;
+  *v9[110] = 1;
+  *(v9 + 1724) = v10;
   v11 = *(v17 + 4);
   if (v11 <= 15)
   {
@@ -4251,14 +2664,14 @@ LABEL_40:
         if (!v14)
         {
 LABEL_54:
-          v13 = sub_297ED1528(v20, *a5, (v9 + 6896), 1u, sub_297ECB7F4, v9);
+          v13 = sub_297ED1528(v20, *a5, v9 + 1724, 1u, sub_297ECB7F4, v9);
           goto LABEL_33;
         }
 
         if (v14 == 1)
         {
 LABEL_47:
-          v13 = sub_297ED8828(v20, *a5, (v9 + 6896), 1, sub_297ECB7F4, v9);
+          v13 = sub_297ED8828(v20, *a5, v9 + 1724, 1, sub_297ECB7F4, v9);
           goto LABEL_33;
         }
       }
@@ -4285,23 +2698,23 @@ LABEL_47:
     switch(v11)
     {
       case 23:
-        v13 = sub_297E982D8(v20, *a5, (v9 + 6896), 1, sub_297ECB7F4, v9);
+        v13 = sub_297E982D8(v20, *a5, v9 + 1724, 1, sub_297ECB7F4, v9);
         break;
       case 22:
         v15 = *a5;
         if (*(v17 + 19) == 17)
         {
-          v13 = sub_297EE2334(v20, v15, (v9 + 6896), 1, sub_297ECB7F4, v9);
+          v13 = sub_297EE2334(v20, v15, v9 + 1724, 1, sub_297ECB7F4, v9);
         }
 
         else
         {
-          v13 = sub_297F0B8E0(v20, v15, (v9 + 6896), 1, sub_297ECB7F4, v9);
+          v13 = sub_297F0B8E0(v20, v15, v9 + 1724, 1, sub_297ECB7F4, v9);
         }
 
         break;
       case 21:
-        v13 = sub_297EC0BA4(v20, *a5, (v9 + 6896), 1u, sub_297ECB7F4, v9);
+        v13 = sub_297EC0BA4(v20, *a5, v9 + 6896, 1u, sub_297ECB7F4, v9);
         break;
       default:
         goto LABEL_34;
@@ -4320,19 +2733,19 @@ LABEL_33:
   if (v11 == 17 || v11 == 19)
   {
 LABEL_32:
-    *(v18 + 220) = *(v9 + 6868);
-    v13 = sub_297E73FB0(v20, *a5, (v9 + 6896), 1, sub_297ECB7F4, v9);
+    *(v18 + 220) = *(v9 + 1717);
+    v13 = sub_297E73FB0(v20, *a5, v9 + 1724, 1, sub_297ECB7F4, v9);
     goto LABEL_33;
   }
 
 LABEL_34:
-  if (!*(a5 + 8))
+  if (!*(a5 + 2))
   {
-    *(v19 + 6896) = 3;
+    *(v19 + 1724) = 3;
   }
 
 LABEL_27:
-  sub_297E4DFAC(0, &v20, 4u, 5u, "phLibNfc_SM_WriteNdefTrans");
+  sub_297E4DFAC(0, &v20, 4, 5u, "phLibNfc_SM_WriteNdefTrans");
   return v7;
 }
 
@@ -4344,12 +2757,12 @@ uint64_t sub_297EB406C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   v17 = a4;
   v15 = 0;
   v14 = 0;
-  sub_297E4E1B4(0, &v19, 4u, 5u, "phLibNfc_SM_FormatNdefTrans");
+  sub_297E4E1B4(0, &v19, 4, 5u, "phLibNfc_SM_FormatNdefTrans");
   sub_297E4F0E8(v19, &v18);
   v7 = 1;
   if (a5 && a4 && v18)
   {
-    if (*(v18 + 1504))
+    if (v18[188])
     {
       if (*(v18 + 6904) == 1)
       {
@@ -4363,11 +2776,11 @@ uint64_t sub_297EB406C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
         {
           v8 = v17;
           v9 = v18;
-          *(v18 + 6920) = 3;
-          *(v9 + 6880) = 252;
-          sub_297EA0F28(*(v9 + 6912), *(v9 + 6952), v8, *(v9 + 6944), *(*(v9 + 6872) + 184), (v9 + 6880));
-          sub_297EA101C(*(v18 + 6912), 0, sub_297ECB2F4, v18);
-          sub_297EA101C(*(v18 + 6912), 1u, sub_297ECB2F4, v18);
+          *(v18 + 1730) = 3;
+          *(v9 + 3440) = 252;
+          sub_297EA0F28(v9[864], v9[869], v8, v9[868], *(v9[859] + 184), v9 + 3440);
+          sub_297EA101C(v18[864], 0, sub_297ECB2F4, v18);
+          sub_297EA101C(v18[864], 1u, sub_297ECB2F4, v18);
           v10 = *(a5 + 8);
           if (v10)
           {
@@ -4382,7 +2795,7 @@ uint64_t sub_297EB406C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
             while (v10 > v11);
           }
 
-          v7 = sub_297EA10B8(*(v18 + 6912), &v14);
+          v7 = sub_297EA10B8(v18[864], &v14);
         }
       }
     }
@@ -4393,42 +2806,42 @@ uint64_t sub_297EB406C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
     }
   }
 
-  sub_297E4DFAC(0, &v19, 4u, 5u, "phLibNfc_SM_FormatNdefTrans");
+  sub_297E4DFAC(0, &v19, 4, 5u, "phLibNfc_SM_FormatNdefTrans");
   return v7;
 }
 
-uint64_t sub_297EB4218(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5)
+uint64_t sub_297EB4218(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v20 = 0;
-  v21 = a1;
-  v18 = a4;
-  v19 = 0;
+  v18 = 0;
+  v19 = a1;
+  v16 = a4;
   v17 = 0;
-  sub_297E4E1B4(0, &v21, 4u, 5u, "phLibNfc_SM_ReadOnlyTrans");
-  sub_297E4F0E8(v21, &v20);
-  sub_297E57170(v21, &v19);
+  v15 = 0;
+  sub_297E4E1B4(0, &v19, 4, 5u, "phLibNfc_SM_ReadOnlyTrans");
+  sub_297E4F0E8(v19, &v18);
+  sub_297E57170(v19, &v17);
   v7 = 255;
-  if (!a4 || !v20)
+  if (!a4 || !v18)
   {
     goto LABEL_7;
   }
 
-  if (*(v20 + 6904) == 2)
+  if (*(v18 + 6904) == 2)
   {
     v7 = 147;
     goto LABEL_7;
   }
 
-  if (!*(v20 + 6904))
+  if (!*(v18 + 6904))
   {
     v7 = 152;
     goto LABEL_7;
   }
 
-  if (v19)
+  if (v17)
   {
-    v9 = *(v19 + 545);
-    v10 = *(v20 + 9796);
+    v9 = *(v17 + 545);
+    v10 = *(v18 + 9796);
     if (v9 == 2)
     {
       if (v10 == 1)
@@ -4449,14 +2862,14 @@ uint64_t sub_297EB4218(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   }
 
   v7 = 149;
-  if (sub_297ECD484(v20, &v18, &v17, 1) || !v17 || sub_297E8CCB4(v20, v17))
+  if (sub_297ECD484(v18, &v16, &v15, 1) || !v15 || sub_297E8CCB4(v18, v15))
   {
     goto LABEL_7;
   }
 
-  v11 = v20;
-  *(v20 + 6920) = 4;
-  v12 = *(v18 + 4);
+  v11 = v18;
+  *(v18 + 1730) = 4;
+  v12 = *(v16 + 4);
   v7 = 51;
   if (v12 <= 15)
   {
@@ -4470,7 +2883,7 @@ uint64_t sub_297EB4218(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
       goto LABEL_31;
     }
 
-    v13 = sub_297E746B0(v21, sub_297ECB1A4, v11);
+    v13 = sub_297E746B0(v19, sub_297ECB1A4, v11);
 LABEL_27:
     v7 = v13;
     goto LABEL_7;
@@ -4480,21 +2893,21 @@ LABEL_27:
   {
     if (v12 == 22)
     {
-      v16 = *(v18 + 19);
-      if ((v16 & 0xF0) != 0x10)
+      v14 = *(v16 + 19);
+      if ((v14 & 0xF0) != 0x10)
       {
         v7 = 255;
         goto LABEL_7;
       }
 
-      if (v16 == 17)
+      if (v14 == 17)
       {
-        v13 = sub_297EE1F1C(v21, sub_297ECB1A4, v11);
+        v13 = sub_297EE1F1C(v19, sub_297ECB1A4, v11);
       }
 
       else
       {
-        v13 = sub_297F0B6C4(v21, sub_297ECB1A4, v11);
+        v13 = sub_297F0B6C4(v19, sub_297ECB1A4, v11);
       }
     }
 
@@ -4505,7 +2918,7 @@ LABEL_27:
         goto LABEL_7;
       }
 
-      v13 = sub_297E9855C(v21, sub_297ECB1A4, v11);
+      v13 = sub_297E9855C(v19, sub_297ECB1A4, v11);
     }
 
     goto LABEL_27;
@@ -4518,7 +2931,7 @@ LABEL_27:
       goto LABEL_7;
     }
 
-    v13 = sub_297EC0E24(v21, sub_297ECB1A4, v11);
+    v13 = sub_297EC0E24(v19, sub_297ECB1A4, v11);
     goto LABEL_27;
   }
 
@@ -4528,24 +2941,22 @@ LABEL_31:
     goto LABEL_7;
   }
 
-  if (v12 == 12 || !*(v18 + 68))
+  if (v12 == 12 || !*(v16 + 68))
   {
-    v13 = sub_297ED2A48(v21, sub_297ECB1A4, v11);
+    v13 = sub_297ED2A48(v19, sub_297ECB1A4, v11);
     goto LABEL_27;
   }
 
   v7 = 1;
-  if (a5 && v19 && *a5 && *(a5 + 2) == 6)
+  if (a5 && v17 && *a5 && *(a5 + 8) == 6)
   {
-    v14 = *(v11 + 9792);
-    v15 = *a5;
     phOsalNfc_MemCopy();
-    v13 = sub_297EDD10C(v21, sub_297ECB1A4, v20);
+    v13 = sub_297EDD10C(v19, sub_297ECB1A4, v18);
     goto LABEL_27;
   }
 
 LABEL_7:
-  sub_297E4E1B4(0, &v21, 4u, 5u, "phLibNfc_SM_ReadOnlyTrans");
+  sub_297E4E1B4(0, &v19, 4, 5u, "phLibNfc_SM_ReadOnlyTrans");
   return v7;
 }
 
@@ -4553,18 +2964,18 @@ uint64_t sub_297EB44EC(uint64_t a1)
 {
   v10 = 0;
   v11 = a1;
-  sub_297E4E1B4(0, &v11, 4u, 5u, "phLibNfc_SM_ISO15693_HdrConfigTrans");
+  sub_297E4E1B4(0, &v11, 4, 5u, "phLibNfc_SM_ISO15693_HdrConfigTrans");
   sub_297E4F0E8(v11, &v10);
   if (!v10 || (v1 = *(v10 + 1400)) == 0)
   {
     v5 = 1;
-    sub_297E4E0B0(0, &v11, 4u, 1u, "phLibNfc_SM_ISO15693_HdrConfigTrans: Failed");
+    sub_297E4E0B0(0, &v11, 4, 1u, "phLibNfc_SM_ISO15693_HdrConfigTrans: Failed");
     goto LABEL_11;
   }
 
   if (*(v10 + 2986) != 1 && *(v10 + 2992) != 1 || *(v1 + 4) != 23)
   {
-    sub_297E4E0B0(0, &v11, 4u, 1u, "phLibNfc_SM_ISO15693_HdrConfigTrans: Feature not supported on this platform or tag");
+    sub_297E4E0B0(0, &v11, 4, 1u, "phLibNfc_SM_ISO15693_HdrConfigTrans: Feature not supported on this platform or tag");
     v5 = 51;
     goto LABEL_11;
   }
@@ -4577,7 +2988,7 @@ uint64_t sub_297EB44EC(uint64_t a1)
     *v4 = 0;
     v4[1] = 0;
 LABEL_8:
-    sub_297E4E0B0(0, &v11, 4u, 1u, "Target not connected");
+    sub_297E4E0B0(0, &v11, 4, 1u, "Target not connected");
     v5 = 148;
     goto LABEL_11;
   }
@@ -4608,30 +3019,30 @@ LABEL_8:
   v3[2953] = v7;
   v5 = sub_297E5588C(v3, 0, 0);
 LABEL_11:
-  sub_297E4DFAC(0, &v11, 4u, 5u, "phLibNfc_SM_ISO15693_HdrConfigTrans");
+  sub_297E4DFAC(0, &v11, 4, 5u, "phLibNfc_SM_ISO15693_HdrConfigTrans");
   return v5;
 }
 
 uint64_t sub_297EB466C(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v32 = 0;
-  v33 = a1;
-  v31 = 0;
-  sub_297E4E1B4(0, &v33, 4u, 5u, "phLibNfc_SM_Main_PollActiveTransComplete");
-  sub_297E4F0E8(v33, &v32);
-  sub_297E5D114(v33, &v31);
+  v30 = 0;
+  v31 = a1;
+  v29 = 0;
+  sub_297E4E1B4(0, &v31, 4, 5u, "phLibNfc_SM_Main_PollActiveTransComplete");
+  sub_297E4F0E8(v31, &v30);
+  sub_297E5D114(v31, &v29);
   if (a3)
   {
-    sub_297E96818(v33, a3);
+    sub_297E96818(v31, a3);
   }
 
   else
   {
-    sub_297E5D398(v33, 0);
+    sub_297E5D398(v31, 0);
   }
 
-  v9 = v32;
-  if (!v32)
+  v9 = v30;
+  if (!v30)
   {
     v10 = 1;
     goto LABEL_47;
@@ -4645,35 +3056,35 @@ uint64_t sub_297EB466C(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a
       case 17:
         goto LABEL_12;
       case 18:
-        v19 = v32[777];
-        v27 = v32[778];
-        *(v32 + 777) = 0u;
+        v19 = v30[777];
+        v25 = v30[778];
+        *(v30 + 777) = 0u;
         if (!v19)
         {
           goto LABEL_46;
         }
 
-        sub_297E50EBC(0, &v33, 4u, 4u, "Get Tag Type:Invoking callback function, wStatus = ");
-        sub_297E4D930(1, (v32 + 1224), 4u, 16, "phLibNfc_SM_Main_PollActiveTransComplete");
-        v23 = v32[1223];
-        v25 = v32[352];
+        sub_297E50EBC(0, &v31, 4, 4u, "Get Tag Type:Invoking callback function, wStatus = ");
+        sub_297E4D930(1, (v30 + 1224), 4, 16, "phLibNfc_SM_Main_PollActiveTransComplete");
+        v21 = v30[1223];
+        v23 = v30[352];
         goto LABEL_35;
       case 19:
-        v19 = v32[779];
-        v27 = v32[780];
-        *(v32 + 779) = 0u;
+        v19 = v30[779];
+        v25 = v30[780];
+        *(v30 + 779) = 0u;
         if (!v19)
         {
           goto LABEL_46;
         }
 
-        sub_297E50EBC(0, &v33, 4u, 4u, "phLibNfc_SM_Main_PollActiveTransComplete:phLibNfc_SM_eRemDevTransceive:Invoking callback function, wStatus = ");
-        sub_297E4D930(1, (v32 + 1224), 4u, 17, "phLibNfc_SM_Main_PollActiveTransComplete");
-        v23 = v32[1223];
-        v25 = v32 + 325;
+        sub_297E50EBC(0, &v31, 4, 4u, "phLibNfc_SM_Main_PollActiveTransComplete:phLibNfc_SM_eRemDevTransceive:Invoking callback function, wStatus = ");
+        sub_297E4D930(1, (v30 + 1224), 4, 17, "phLibNfc_SM_Main_PollActiveTransComplete");
+        v21 = v30[1223];
+        v23 = v30 + 325;
 LABEL_35:
-        v26 = v27;
-        v24 = a4;
+        v24 = v25;
+        v22 = a4;
         goto LABEL_36;
       case 20:
       case 21:
@@ -4681,20 +3092,20 @@ LABEL_35:
         goto LABEL_14;
       case 22:
       case 23:
-        v17 = v32[783];
-        v18 = v32[784];
-        *(v32 + 783) = 0u;
+        v17 = v30[783];
+        v18 = v30[784];
+        *(v30 + 783) = 0u;
         if (v17)
         {
-          sub_297E4D930(1, (v9 + 1224), 4u, 130, "phLibNfc_SM_Main_PollActiveTransComplete");
-          v17(v32[1223], v18, 0, a3);
+          sub_297E4D930(1, (v9 + 1224), 4, 130, "phLibNfc_SM_Main_PollActiveTransComplete");
+          v17(v30[1223], v18, 0, a3);
         }
 
         goto LABEL_46;
       case 25:
-        v13 = v32[809];
-        v14 = v32[810];
-        *(v32 + 809) = 0u;
+        v13 = v30[809];
+        v14 = v30[810];
+        *(v30 + 809) = 0u;
         if (!v13)
         {
           goto LABEL_46;
@@ -4704,10 +3115,9 @@ LABEL_35:
         v16 = 22;
         goto LABEL_45;
       case 26:
-        v19 = v32[789];
-        v20 = v32[790];
-        *(v32 + 789) = 0u;
-        v21 = *(v9 + 2448);
+        v19 = v30[789];
+        v20 = v30[790];
+        *(v30 + 789) = 0u;
         phOsalNfc_SetMemory();
         if (!v19)
         {
@@ -4716,60 +3126,59 @@ LABEL_35:
 
         if (a4)
         {
-          v22 = *(v32 + 2448);
           phOsalNfc_MemCopy();
         }
 
-        sub_297E4E0B0(0, &v33, 4u, 4u, "Invoking upper layer callback");
-        sub_297E4D930(1, (v32 + 1224), 4u, 23, "phLibNfc_SM_Main_PollActiveTransComplete");
-        v23 = v32[1223];
-        v24 = 0;
-        v25 = 0;
-        v26 = v20;
+        sub_297E4E0B0(0, &v31, 4, 4u, "Invoking upper layer callback");
+        sub_297E4D930(1, (v30 + 1224), 4, 23, "phLibNfc_SM_Main_PollActiveTransComplete");
+        v21 = v30[1223];
+        v22 = 0;
+        v23 = 0;
+        v24 = v20;
 LABEL_36:
-        v19(v23, v26, v24, v25, a3);
+        v19(v21, v24, v22, v23, a3);
         goto LABEL_46;
       case 27:
-        v13 = v32[801];
-        v14 = v32[802];
-        *(v32 + 801) = 0u;
+        v13 = v30[801];
+        v14 = v30[802];
+        *(v30 + 801) = 0u;
         if (!v13)
         {
           goto LABEL_46;
         }
 
-        sub_297E4E0B0(0, &v33, 4u, 4u, "Invoking upper layer callback");
-        v15 = v32 + 1224;
+        sub_297E4E0B0(0, &v31, 4, 4u, "Invoking upper layer callback");
+        v15 = v30 + 1224;
         v16 = 24;
         goto LABEL_45;
       case 28:
-        v13 = v32[803];
-        v14 = v32[804];
-        *(v32 + 803) = 0u;
+        v13 = v30[803];
+        v14 = v30[804];
+        *(v30 + 803) = 0u;
         if (!v13)
         {
           goto LABEL_46;
         }
 
-        sub_297E4E0B0(0, &v33, 4u, 4u, "Invoking upper layer callback");
-        v15 = v32 + 1224;
+        sub_297E4E0B0(0, &v31, 4, 4u, "Invoking upper layer callback");
+        v15 = v30 + 1224;
         v16 = 25;
         goto LABEL_45;
       case 29:
-        v13 = v32[853];
-        v14 = v32[854];
-        *(v32 + 853) = 0u;
+        v13 = v30[853];
+        v14 = v30[854];
+        *(v30 + 853) = 0u;
         if (!v13)
         {
           goto LABEL_46;
         }
 
-        sub_297E4E0B0(0, &v33, 4u, 4u, "Invoking upper layer callback");
-        v15 = v32 + 1224;
+        sub_297E4E0B0(0, &v31, 4, 4u, "Invoking upper layer callback");
+        v15 = v30 + 1224;
         v16 = 26;
         goto LABEL_45;
       case 30:
-        *(v32 + 9796) = 0;
+        *(v30 + 9796) = 0;
         v13 = v9[805];
         v14 = v9[806];
         *(v9 + 805) = 0u;
@@ -4778,8 +3187,8 @@ LABEL_36:
           goto LABEL_46;
         }
 
-        sub_297E4E0B0(0, &v33, 4u, 4u, "Invoking upper layer callback");
-        v15 = v32 + 1224;
+        sub_297E4E0B0(0, &v31, 4, 4u, "Invoking upper layer callback");
+        v15 = v30 + 1224;
         v16 = 27;
         goto LABEL_45;
       case 31:
@@ -4837,48 +3246,48 @@ LABEL_36:
       case 64:
       case 65:
       case 66:
-        sub_297EFD244(v32, a4, a3);
+        sub_297EFD244(v30, a4, a3);
         goto LABEL_46;
       case 61:
-        v13 = v32[851];
-        v14 = v32[852];
-        *(v32 + 851) = 0u;
+        v13 = v30[851];
+        v14 = v30[852];
+        *(v30 + 851) = 0u;
         if (!v13)
         {
           goto LABEL_46;
         }
 
-        sub_297E50EBC(0, &v33, 4u, 4u, "phLibNfc_SM_Main_PollActiveTransComplete:Invoking callback, wStatus = ");
-        v15 = v32 + 1224;
+        sub_297E50EBC(0, &v31, 4, 4u, "phLibNfc_SM_Main_PollActiveTransComplete:Invoking callback, wStatus = ");
+        v15 = v30 + 1224;
         v16 = 136;
         goto LABEL_45;
       case 68:
       case 74:
       case 75:
-        v13 = v32[847];
-        v14 = v32[848];
-        *(v32 + 847) = 0u;
+        v13 = v30[847];
+        v14 = v30[848];
+        *(v30 + 847) = 0u;
         if (!v13)
         {
           goto LABEL_46;
         }
 
-        sub_297E50EBC(0, &v33, 4u, 4u, "phLibNfc_Mgt_SetNfccParams:Invoking callback, wStatus = ");
-        v15 = v32 + 1224;
+        sub_297E50EBC(0, &v31, 4, 4u, "phLibNfc_Mgt_SetNfccParams:Invoking callback, wStatus = ");
+        v15 = v30 + 1224;
         v16 = 132;
 LABEL_45:
-        sub_297E4D930(1, v15, 4u, v16, "phLibNfc_SM_Main_PollActiveTransComplete");
-        v13(v32[1223], v14, a3);
+        sub_297E4D930(1, v15, 4, v16, "phLibNfc_SM_Main_PollActiveTransComplete");
+        v13(v30[1223], v14, a3);
         goto LABEL_46;
       case 72:
-        v28 = v32[855];
-        v29 = v32[856];
-        *(v32 + 855) = 0u;
-        if (v28)
+        v26 = v30[855];
+        v27 = v30[856];
+        *(v30 + 855) = 0u;
+        if (v26)
         {
-          sub_297E50EBC(0, &v33, 4u, 4u, "phLibNfc_SM_Main_PollActiveTransComplete:Invoking callback, wStatus = ");
-          sub_297E4D930(1, (v32 + 1224), 4u, 67, "phLibNfc_SM_Main_PollActiveTransComplete");
-          v28(v32[1223], v29, a4, a3);
+          sub_297E50EBC(0, &v31, 4, 4u, "phLibNfc_SM_Main_PollActiveTransComplete:Invoking callback, wStatus = ");
+          sub_297E4D930(1, (v30 + 1224), 4, 67, "phLibNfc_SM_Main_PollActiveTransComplete");
+          v26(v30[1223], v27, a4, a3);
         }
 
         goto LABEL_46;
@@ -4899,7 +3308,7 @@ LABEL_45:
   if ((a2 - 109) < 2)
   {
 LABEL_14:
-    sub_297E5D1EC(v32, a3);
+    sub_297E5D1EC(v30, a3);
 LABEL_46:
     v10 = a3;
     goto LABEL_47;
@@ -4908,28 +3317,28 @@ LABEL_46:
   if (a2 == 107)
   {
 LABEL_20:
-    sub_297E5FC6C(v31, a4, a3);
+    sub_297E5FC6C(v29, a4, a3);
     goto LABEL_46;
   }
 
   if (a2 == 127)
   {
 LABEL_12:
-    v11 = v32[775];
-    v12 = v32[776];
-    *(v32 + 775) = 0u;
+    v11 = v30[775];
+    v12 = v30[776];
+    *(v30 + 775) = 0u;
     if (v11)
     {
-      sub_297E4E0B0(0, &v33, 4u, 4u, "Invoking upper layer callback");
-      sub_297E4D930(1, (v32 + 1224), 4u, 15, "phLibNfc_SM_Main_PollActiveTransComplete");
-      v11(v32[1223], v12, a4, a5, a3);
+      sub_297E4E0B0(0, &v31, 4, 4u, "Invoking upper layer callback");
+      sub_297E4D930(1, (v30 + 1224), 4, 15, "phLibNfc_SM_Main_PollActiveTransComplete");
+      v11(v30[1223], v12, a4, a5, a3);
     }
 
     goto LABEL_46;
   }
 
 LABEL_47:
-  sub_297E4DFAC(0, &v33, 4u, 5u, "phLibNfc_SM_Main_PollActiveTransComplete");
+  sub_297E4DFAC(0, &v31, 4, 5u, "phLibNfc_SM_Main_PollActiveTransComplete");
   return v10;
 }
 
@@ -4938,7 +3347,7 @@ uint64_t sub_297EB4D44(uint64_t a1, int a2, uint64_t a3, uint64_t a4)
   v19 = 0;
   v20 = a1;
   v18 = 0;
-  sub_297E4E1B4(0, &v20, 4u, 5u, "phLibNfc_SM_Main_ListenActiveTransComplete");
+  sub_297E4E1B4(0, &v20, 4, 5u, "phLibNfc_SM_Main_ListenActiveTransComplete");
   sub_297E4F0E8(v20, &v19);
   sub_297E5D114(v20, &v18);
   if (a3)
@@ -4986,8 +3395,8 @@ uint64_t sub_297EB4D44(uint64_t a1, int a2, uint64_t a3, uint64_t a4)
           if (v14)
           {
             v15 = v19[840];
-            sub_297E4E0B0(0, &v20, 4u, 4u, "Invoking upper layer callback");
-            sub_297E54734(0, &v20, 4u, 4u, "phLibNfc_SM_Main_ListenActiveTransComplete :CEHostNtfCb [Hce Activated Ntf]");
+            sub_297E4E0B0(0, &v20, 4, 4u, "Invoking upper layer callback");
+            sub_297E54734(0, &v20, 4, 4u, "phLibNfc_SM_Main_ListenActiveTransComplete :CEHostNtfCb [Hce Activated Ntf]");
             v14(v19[1223], v15, v19 + 109, *(v19 + 762), a3);
           }
         }
@@ -5007,8 +3416,8 @@ uint64_t sub_297EB4D44(uint64_t a1, int a2, uint64_t a3, uint64_t a4)
         *(v19 + 855) = 0u;
         if (v16)
         {
-          sub_297E50EBC(0, &v20, 4u, 4u, "phLibNfc_SM_Main_ListenActiveTransComplete:Invoking callback, wStatus = ");
-          sub_297E4D930(1, (v19 + 1224), 4u, 67, "phLibNfc_SM_Main_ListenActiveTransComplete");
+          sub_297E50EBC(0, &v20, 4, 4u, "phLibNfc_SM_Main_ListenActiveTransComplete:Invoking callback, wStatus = ");
+          sub_297E4D930(1, (v19 + 1224), 4, 67, "phLibNfc_SM_Main_ListenActiveTransComplete");
           v16(v19[1223], v17, a4, a3);
         }
 
@@ -5031,11 +3440,11 @@ LABEL_18:
       goto LABEL_19;
     }
 
-    sub_297E50EBC(0, &v20, 4u, 4u, "phLibNfc_Mgt_SetNfccParams:Invoking callback, wStatus = ");
+    sub_297E50EBC(0, &v20, 4, 4u, "phLibNfc_Mgt_SetNfccParams:Invoking callback, wStatus = ");
     v12 = v19 + 1224;
     v13 = 132;
 LABEL_32:
-    sub_297E4D930(1, v12, 4u, v13, "phLibNfc_SM_Main_ListenActiveTransComplete");
+    sub_297E4D930(1, v12, 4, v13, "phLibNfc_SM_Main_ListenActiveTransComplete");
     v10(v19[1223], v11, a3);
     goto LABEL_18;
   }
@@ -5067,7 +3476,7 @@ LABEL_17:
       goto LABEL_18;
     }
 
-    sub_297E50EBC(0, &v20, 4u, 4u, "phLibNfc_SM_Main_ListenActiveTransComplete:Invoking callback, wStatus = ");
+    sub_297E50EBC(0, &v20, 4, 4u, "phLibNfc_SM_Main_ListenActiveTransComplete:Invoking callback, wStatus = ");
     v12 = v19 + 1224;
     v13 = 136;
     goto LABEL_32;
@@ -5079,7 +3488,7 @@ LABEL_17:
   }
 
 LABEL_19:
-  sub_297E4DFAC(0, &v20, 4u, 5u, "phLibNfc_SM_Main_ListenActiveTransComplete");
+  sub_297E4DFAC(0, &v20, 4, 5u, "phLibNfc_SM_Main_ListenActiveTransComplete");
   return v7;
 }
 
@@ -5089,7 +3498,7 @@ uint64_t sub_297EB5088(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   v12 = a1;
   v9 = 0;
   v10 = a4;
-  sub_297E4E1B4(0, &v12, 4u, 5u, "phLibNfc_SM_RemDevReceiveTrans");
+  sub_297E4E1B4(0, &v12, 4, 5u, "phLibNfc_SM_RemDevReceiveTrans");
   sub_297E4F0E8(v12, &v9);
   v5 = 1;
   if (a4)
@@ -5119,7 +3528,7 @@ uint64_t sub_297EB5088(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
     }
   }
 
-  sub_297E4DFAC(0, &v12, 4u, 5u, "phLibNfc_SM_RemDevReceiveTrans");
+  sub_297E4DFAC(0, &v12, 4, 5u, "phLibNfc_SM_RemDevReceiveTrans");
   return v5;
 }
 
@@ -5128,7 +3537,7 @@ uint64_t sub_297EB516C(uint64_t a1, int a2, uint64_t a3, uint64_t a4)
   v19 = 0;
   v20 = a1;
   v18 = 0;
-  sub_297E4E1B4(0, &v20, 4u, 5u, "phLibNfc_SM_Main_ListenReceiveTransComplete");
+  sub_297E4E1B4(0, &v20, 4, 5u, "phLibNfc_SM_Main_ListenReceiveTransComplete");
   sub_297E4F0E8(v20, &v19);
   sub_297E5D114(v20, &v18);
   if (a3)
@@ -5162,7 +3571,7 @@ uint64_t sub_297EB516C(uint64_t a1, int a2, uint64_t a3, uint64_t a4)
           goto LABEL_27;
         }
 
-        sub_297E50EBC(0, &v20, 4u, 4u, "phLibNfc_SM_Main_ListenReceiveTransComplete:Invoking callback, wStatus = ");
+        sub_297E50EBC(0, &v20, 4, 4u, "phLibNfc_SM_Main_ListenReceiveTransComplete:Invoking callback, wStatus = ");
         v16 = v19 + 1224;
         v17 = 136;
         goto LABEL_34;
@@ -5189,11 +3598,11 @@ uint64_t sub_297EB516C(uint64_t a1, int a2, uint64_t a3, uint64_t a4)
         goto LABEL_27;
       }
 
-      sub_297E4E0B0(0, &v20, 4u, 4u, "Invoking upper layer callback");
+      sub_297E4E0B0(0, &v20, 4, 4u, "Invoking upper layer callback");
       v11 = v19 + 1224;
       v12 = 30;
 LABEL_22:
-      sub_297E4D930(1, v11, 4u, v12, "phLibNfc_SM_Main_ListenReceiveTransComplete");
+      sub_297E4D930(1, v11, 4, v12, "phLibNfc_SM_Main_ListenReceiveTransComplete");
       v9(v19[1223], v10, a4, a3);
       goto LABEL_27;
     }
@@ -5249,11 +3658,11 @@ LABEL_30:
       goto LABEL_27;
     }
 
-    sub_297E50EBC(0, &v20, 4u, 4u, "phLibNfc_Mgt_SetNfccParams:Invoking callback, wStatus = ");
+    sub_297E50EBC(0, &v20, 4, 4u, "phLibNfc_Mgt_SetNfccParams:Invoking callback, wStatus = ");
     v16 = v19 + 1224;
     v17 = 132;
 LABEL_34:
-    sub_297E4D930(1, v16, 4u, v17, "phLibNfc_SM_Main_ListenReceiveTransComplete");
+    sub_297E4D930(1, v16, 4, v17, "phLibNfc_SM_Main_ListenReceiveTransComplete");
     v14(v19[1223], v15, a3);
     goto LABEL_27;
   }
@@ -5268,14 +3677,14 @@ LABEL_34:
       goto LABEL_27;
     }
 
-    sub_297E50EBC(0, &v20, 4u, 4u, "phLibNfc_SM_Main_ListenReceiveTransComplete:Invoking callback, wStatus = ");
+    sub_297E50EBC(0, &v20, 4, 4u, "phLibNfc_SM_Main_ListenReceiveTransComplete:Invoking callback, wStatus = ");
     v11 = v19 + 1224;
     v12 = 67;
     goto LABEL_22;
   }
 
 LABEL_28:
-  sub_297E4DFAC(0, &v20, 4u, 5u, "phLibNfc_SM_Main_ListenReceiveTransComplete");
+  sub_297E4DFAC(0, &v20, 4, 5u, "phLibNfc_SM_Main_ListenReceiveTransComplete");
   return v7;
 }
 
@@ -5285,7 +3694,7 @@ uint64_t sub_297EB54A4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   v16 = a1;
   v13 = a4;
   v14 = 0;
-  sub_297E4E1B4(0, &v16, 4u, 5u, "phLibNfc_SM_RemDevSendTrans");
+  sub_297E4E1B4(0, &v16, 4, 5u, "phLibNfc_SM_RemDevSendTrans");
   sub_297E4F0E8(v16, &v15);
   v7 = 1;
   if (a5)
@@ -5326,7 +3735,7 @@ uint64_t sub_297EB54A4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
     }
   }
 
-  sub_297E4DFAC(0, &v16, 4u, 5u, "phLibNfc_SM_RemDevSendTrans");
+  sub_297E4DFAC(0, &v16, 4, 5u, "phLibNfc_SM_RemDevSendTrans");
   return v7;
 }
 
@@ -5335,7 +3744,7 @@ uint64_t sub_297EB55A4(uint64_t a1, int a2, uint64_t a3, uint64_t a4)
   v17 = 0;
   v18 = a1;
   v16 = 0;
-  sub_297E4E1B4(0, &v18, 4u, 5u, "phLibNfc_SM_Main_ListenSendTransComplete");
+  sub_297E4E1B4(0, &v18, 4, 5u, "phLibNfc_SM_Main_ListenSendTransComplete");
   sub_297E4F0E8(v18, &v17);
   sub_297E5D114(v18, &v16);
   if (a3)
@@ -5368,7 +3777,7 @@ uint64_t sub_297EB55A4(uint64_t a1, int a2, uint64_t a3, uint64_t a4)
           goto LABEL_25;
         }
 
-        sub_297E50EBC(0, &v18, 4u, 4u, "phLibNfc_SM_Main_ListenSendTransComplete:Invoking callback, wStatus = ");
+        sub_297E50EBC(0, &v18, 4, 4u, "phLibNfc_SM_Main_ListenSendTransComplete:Invoking callback, wStatus = ");
         v11 = v17 + 1224;
         v12 = 136;
         goto LABEL_32;
@@ -5392,11 +3801,11 @@ uint64_t sub_297EB55A4(uint64_t a1, int a2, uint64_t a3, uint64_t a4)
           goto LABEL_25;
         }
 
-        sub_297E4E0B0(0, &v18, 4u, 4u, "Invoking upper layer callback");
+        sub_297E4E0B0(0, &v18, 4, 4u, "Invoking upper layer callback");
         v11 = v17 + 1224;
         v12 = 31;
 LABEL_32:
-        sub_297E4D930(1, v11, 4u, v12, "phLibNfc_SM_Main_ListenSendTransComplete");
+        sub_297E4D930(1, v11, 4, v12, "phLibNfc_SM_Main_ListenSendTransComplete");
         v9(v17[1223], v10, a3);
         goto LABEL_25;
       }
@@ -5455,7 +3864,7 @@ LABEL_28:
       goto LABEL_25;
     }
 
-    sub_297E50EBC(0, &v18, 4u, 4u, "phLibNfc_Mgt_SetNfccParams:Invoking callback, wStatus = ");
+    sub_297E50EBC(0, &v18, 4, 4u, "phLibNfc_Mgt_SetNfccParams:Invoking callback, wStatus = ");
     v11 = v17 + 1224;
     v12 = 132;
     goto LABEL_32;
@@ -5468,8 +3877,8 @@ LABEL_28:
     *(v17 + 855) = 0u;
     if (v13)
     {
-      sub_297E50EBC(0, &v18, 4u, 4u, "phLibNfc_SM_Main_ListenSendTransComplete:Invoking callback, wStatus = ");
-      sub_297E4D930(1, (v17 + 1224), 4u, 67, "phLibNfc_SM_Main_ListenSendTransComplete");
+      sub_297E50EBC(0, &v18, 4, 4u, "phLibNfc_SM_Main_ListenSendTransComplete:Invoking callback, wStatus = ");
+      sub_297E4D930(1, (v17 + 1224), 4, 67, "phLibNfc_SM_Main_ListenSendTransComplete");
       v13(v17[1223], v14, a4, a3);
     }
 
@@ -5477,7 +3886,7 @@ LABEL_28:
   }
 
 LABEL_26:
-  sub_297E4DFAC(0, &v18, 4u, 5u, "phLibNfc_SM_Main_ListenSendTransComplete");
+  sub_297E4DFAC(0, &v18, 4, 5u, "phLibNfc_SM_Main_ListenSendTransComplete");
   return v7;
 }
 
@@ -5486,7 +3895,7 @@ uint64_t sub_297EB58D4(uint64_t a1, int a2, uint64_t a3, uint64_t a4)
   v17 = 0;
   v18 = a1;
   v16 = 0;
-  sub_297E4E1B4(0, &v18, 4u, 5u, "phLibNfc_SM_Main_ListenSleepTransComplete");
+  sub_297E4E1B4(0, &v18, 4, 5u, "phLibNfc_SM_Main_ListenSleepTransComplete");
   sub_297E4F0E8(v18, &v17);
   sub_297E5D114(v18, &v16);
   if (a3)
@@ -5519,7 +3928,7 @@ uint64_t sub_297EB58D4(uint64_t a1, int a2, uint64_t a3, uint64_t a4)
           goto LABEL_28;
         }
 
-        sub_297E50EBC(0, &v18, 4u, 4u, "phLibNfc_SM_Main_ListenSleepTransComplete:Invoking callback, wStatus = ");
+        sub_297E50EBC(0, &v18, 4, 4u, "phLibNfc_SM_Main_ListenSleepTransComplete:Invoking callback, wStatus = ");
         v13 = v17 + 1224;
         v14 = 136;
         goto LABEL_27;
@@ -5580,11 +3989,11 @@ LABEL_23:
       goto LABEL_28;
     }
 
-    sub_297E50EBC(0, &v18, 4u, 4u, "phLibNfc_Mgt_SetNfccParams:Invoking callback, wStatus = ");
+    sub_297E50EBC(0, &v18, 4, 4u, "phLibNfc_Mgt_SetNfccParams:Invoking callback, wStatus = ");
     v13 = v17 + 1224;
     v14 = 132;
 LABEL_27:
-    sub_297E4D930(1, v13, 4u, v14, "phLibNfc_SM_Main_ListenSleepTransComplete");
+    sub_297E4D930(1, v13, 4, v14, "phLibNfc_SM_Main_ListenSleepTransComplete");
     v11(v17[1223], v12, a3);
     goto LABEL_28;
   }
@@ -5596,8 +4005,8 @@ LABEL_27:
     *(v17 + 855) = 0u;
     if (v9)
     {
-      sub_297E50EBC(0, &v18, 4u, 4u, "phLibNfc_SM_Main_ListenSleepTransComplete:Invoking callback, wStatus = ");
-      sub_297E4D930(1, (v17 + 1224), 4u, 67, "phLibNfc_SM_Main_ListenSleepTransComplete");
+      sub_297E50EBC(0, &v18, 4, 4u, "phLibNfc_SM_Main_ListenSleepTransComplete:Invoking callback, wStatus = ");
+      sub_297E4D930(1, (v17 + 1224), 4, 67, "phLibNfc_SM_Main_ListenSleepTransComplete");
       v9(v17[1223], v10, a4, a3);
     }
 
@@ -5605,7 +4014,7 @@ LABEL_27:
   }
 
 LABEL_29:
-  sub_297E4DFAC(0, &v18, 4u, 5u, "phLibNfc_SM_Main_ListenSleepTransComplete");
+  sub_297E4DFAC(0, &v18, 4, 5u, "phLibNfc_SM_Main_ListenSleepTransComplete");
   return v7;
 }
 
@@ -5613,7 +4022,7 @@ uint64_t sub_297EB5BA0(uint64_t a1, int a2, uint64_t a3)
 {
   v9 = 0;
   v10 = a1;
-  sub_297E4E1B4(0, &v10, 4u, 5u, "phLibNfc_SM_Main_ShutdownTransComplete");
+  sub_297E4E1B4(0, &v10, 4, 5u, "phLibNfc_SM_Main_ShutdownTransComplete");
   sub_297E4F0E8(v10, &v9);
   v5 = v9;
   if (v9)
@@ -5643,8 +4052,8 @@ uint64_t sub_297EB5BA0(uint64_t a1, int a2, uint64_t a3)
         v9 = 0;
         if (v6)
         {
-          sub_297E50EBC(0, &v10, 4u, 4u, "ShutdownCb:Invoking callback function, wStatus = ");
-          sub_297E4D930(0, &v10, 4u, 116, "phLibNfc_SM_Main_ShutdownTransComplete");
+          sub_297E50EBC(0, &v10, 4, 4u, "ShutdownCb:Invoking callback function, wStatus = ");
+          sub_297E4D930(0, &v10, 4, 116, "phLibNfc_SM_Main_ShutdownTransComplete");
           v6(v10, v7, a3);
         }
 
@@ -5655,7 +4064,7 @@ uint64_t sub_297EB5BA0(uint64_t a1, int a2, uint64_t a3)
     }
   }
 
-  sub_297E4DFAC(0, &v10, 4u, 5u, "phLibNfc_SM_Main_ShutdownTransComplete");
+  sub_297E4DFAC(0, &v10, 4, 5u, "phLibNfc_SM_Main_ShutdownTransComplete");
   return a3;
 }
 
@@ -5663,7 +4072,7 @@ uint64_t sub_297EB5CE4(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v6 = 0;
   v7 = a1;
-  sub_297E4E1B4(0, &v7, 4u, 5u, "phLibNfc_SM_SE_eSEInitTrans");
+  sub_297E4E1B4(0, &v7, 4, 5u, "phLibNfc_SM_SE_eSEInitTrans");
   sub_297E4F0E8(v7, &v6);
   if (!v6)
   {
@@ -5675,7 +4084,7 @@ uint64_t sub_297EB5CE4(uint64_t a1, uint64_t a2, uint64_t a3)
   {
     if (v4 == 2)
     {
-      sub_297EE196C(*(v6 + 9784), 1, 5);
+      sub_297EE196C(*(v6 + 9784), 1u, 5);
       a3 = 214;
       goto LABEL_6;
     }
@@ -5685,7 +4094,7 @@ LABEL_5:
   }
 
 LABEL_6:
-  sub_297E4DFAC(0, &v7, 4u, 5u, "phLibNfc_SM_SE_eSEInitTrans");
+  sub_297E4DFAC(0, &v7, 4, 5u, "phLibNfc_SM_SE_eSEInitTrans");
   return a3;
 }
 
@@ -5693,7 +4102,7 @@ uint64_t sub_297EB5D90(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v6 = 0;
   v7 = a1;
-  sub_297E4E1B4(0, &v7, 4u, 5u, "phLibNfc_SM_SE_eUiccInitTrans");
+  sub_297E4E1B4(0, &v7, 4, 5u, "phLibNfc_SM_SE_eUiccInitTrans");
   sub_297E4F0E8(v7, &v6);
   if (!v6)
   {
@@ -5705,7 +4114,7 @@ uint64_t sub_297EB5D90(uint64_t a1, uint64_t a2, uint64_t a3)
   {
     if (v4 == 2)
     {
-      sub_297EE196C(*(v6 + 9784), 2, 5);
+      sub_297EE196C(*(v6 + 9784), 2u, 5);
       a3 = 214;
       goto LABEL_6;
     }
@@ -5715,7 +4124,7 @@ LABEL_5:
   }
 
 LABEL_6:
-  sub_297E4DFAC(0, &v7, 4u, 5u, "phLibNfc_SM_SE_eUiccInitTrans");
+  sub_297E4DFAC(0, &v7, 4, 5u, "phLibNfc_SM_SE_eUiccInitTrans");
   return a3;
 }
 
@@ -5723,7 +4132,7 @@ uint64_t sub_297EB5E3C(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v6 = 0;
   v7 = a1;
-  sub_297E4E1B4(0, &v7, 4u, 5u, "phLibNfc_SM_SE_eSE2InitTrans");
+  sub_297E4E1B4(0, &v7, 4, 5u, "phLibNfc_SM_SE_eSE2InitTrans");
   sub_297E4F0E8(v7, &v6);
   if (!v6)
   {
@@ -5735,7 +4144,7 @@ uint64_t sub_297EB5E3C(uint64_t a1, uint64_t a2, uint64_t a3)
   {
     if (v4 == 2)
     {
-      sub_297EE196C(*(v6 + 9784), 3, 5);
+      sub_297EE196C(*(v6 + 9784), 3u, 5);
       a3 = 214;
       goto LABEL_6;
     }
@@ -5745,7 +4154,7 @@ LABEL_5:
   }
 
 LABEL_6:
-  sub_297E4DFAC(0, &v7, 4u, 5u, "phLibNfc_SM_SE_eSE2InitTrans");
+  sub_297E4DFAC(0, &v7, 4, 5u, "phLibNfc_SM_SE_eSE2InitTrans");
   return a3;
 }
 
@@ -5753,7 +4162,7 @@ uint64_t sub_297EB5EE8(uint64_t a1)
 {
   v7 = 0;
   v8 = a1;
-  sub_297E4E1B4(0, &v8, 4u, 5u, "phLibNfc_SM_SE_eModeSetRemovedToOffTrans");
+  sub_297E4E1B4(0, &v8, 4, 5u, "phLibNfc_SM_SE_eModeSetRemovedToOffTrans");
   sub_297E4F0E8(v8, &v7);
   v1 = v7;
   if (v7)
@@ -5787,7 +4196,7 @@ uint64_t sub_297EB5EE8(uint64_t a1)
     v5 = 255;
   }
 
-  sub_297E4DFAC(0, &v8, 4u, 5u, "phLibNfc_SM_SE_eModeSetRemovedToOffTrans");
+  sub_297E4DFAC(0, &v8, 4, 5u, "phLibNfc_SM_SE_eModeSetRemovedToOffTrans");
   return v5;
 }
 
@@ -5795,7 +4204,7 @@ uint64_t sub_297EB5FB8(uint64_t a1, int a2)
 {
   v13 = 0;
   v14 = a1;
-  sub_297E4E1B4(0, &v14, 4u, 5u, "phLibNfc_SM_SE_eModeSetOffToVirtualTrans");
+  sub_297E4E1B4(0, &v14, 4, 5u, "phLibNfc_SM_SE_eModeSetOffToVirtualTrans");
   sub_297E4F0E8(v14, &v13);
   v3 = v13;
   if (v13)
@@ -5903,7 +4312,7 @@ LABEL_27:
 
   v7 = 255;
 LABEL_32:
-  sub_297E4DFAC(0, &v14, 4u, 5u, "phLibNfc_SM_SE_eModeSetOffToVirtualTrans");
+  sub_297E4DFAC(0, &v14, 4, 5u, "phLibNfc_SM_SE_eModeSetOffToVirtualTrans");
   return v7;
 }
 
@@ -5911,7 +4320,7 @@ uint64_t sub_297EB61C0(uint64_t a1, int a2)
 {
   v9 = 0;
   v10 = a1;
-  sub_297E4E1B4(0, &v10, 4u, 5u, "phLibNfc_SM_SE_eModeSetOffToApduTrans");
+  sub_297E4E1B4(0, &v10, 4, 5u, "phLibNfc_SM_SE_eModeSetOffToApduTrans");
   sub_297E4F0E8(v10, &v9);
   v3 = v9;
   if (!v9)
@@ -5961,7 +4370,7 @@ LABEL_9:
   *(v3 + 2953) = v4;
   v7 = sub_297E5588C(v3, 0, 0);
 LABEL_15:
-  sub_297E4DFAC(0, &v10, 4u, 5u, "phLibNfc_SM_SE_eModeSetOffToApduTrans");
+  sub_297E4DFAC(0, &v10, 4, 5u, "phLibNfc_SM_SE_eModeSetOffToApduTrans");
   return v7;
 }
 
@@ -5971,7 +4380,7 @@ uint64_t sub_297EB62E4(uint64_t a1, int a2, uint64_t a3)
   v21 = a1;
   v18 = 0;
   v19 = 0;
-  sub_297E4E1B4(0, &v21, 4u, 5u, "phLibNfc_SM_SE_TransComplete");
+  sub_297E4E1B4(0, &v21, 4, 5u, "phLibNfc_SM_SE_TransComplete");
   sub_297E4F0E8(v21, &v20);
   if (a3)
   {
@@ -6013,7 +4422,7 @@ LABEL_20:
     *(v5 + 568) = 3;
     if (v10)
     {
-      sub_297E4D930(1, v5 + 9792, 4u, 134, "phLibNfc_SM_SE_TransComplete");
+      sub_297E4D930(1, v5 + 9792, 4, 134, "phLibNfc_SM_SE_TransComplete");
       v10(*(v20 + 9784), v11, **(v20 + 560), *(v20 + 576), a3);
     }
 
@@ -6037,9 +4446,9 @@ LABEL_20:
 
       if (v6)
       {
-        sub_297E4D930(1, v9 + 9792, 4u, 126, "phLibNfc_SM_SE_TransComplete");
+        sub_297E4D930(1, v9 + 9792, 4, 126, "phLibNfc_SM_SE_TransComplete");
         v6(*(v20 + 9784), v7, *(v20 + 600), a3);
-        sub_297E4E0B0(0, &v21, 4u, 4u, "phLibNfc_eSE_GetAtrProc: App layer Callback Invoked");
+        sub_297E4E0B0(0, &v21, 4, 4u, "phLibNfc_eSE_GetAtrProc: App layer Callback Invoked");
         v9 = v20;
       }
 
@@ -6065,11 +4474,11 @@ LABEL_22:
 
       if (v12)
       {
-        sub_297E4D930(1, v20 + 9792, 4u, 124, "phLibNfc_SM_SE_TransComplete");
+        sub_297E4D930(1, v20 + 9792, 4, 124, "phLibNfc_SM_SE_TransComplete");
         v12(*(v20 + 9784), v13, 0, v20 + 624, *(v20 + 644), a3);
         v14 = "phLibNfc_HciDataSendProc:APP Callback Invoked";
 LABEL_33:
-        sub_297E4E0B0(0, &v21, 4u, 4u, v14);
+        sub_297E4E0B0(0, &v21, 4, 4u, v14);
         *(v20 + 6392) = 0u;
         goto LABEL_34;
       }
@@ -6091,14 +4500,14 @@ LABEL_33:
   {
     v18 = v20 + 680;
     LODWORD(v19) = 16;
-    sub_297E4D930(1, v20 + 9792, 4u, 125, "phLibNfc_SM_SE_TransComplete");
+    sub_297E4D930(1, v20 + 9792, 4, 125, "phLibNfc_SM_SE_TransComplete");
     v15(*(v20 + 9784), v16, 0, &v18, a3);
     v14 = "phLibNfc_SM_SE_TransComplete:APP Callback Invoked";
     goto LABEL_33;
   }
 
 LABEL_34:
-  sub_297E4DFAC(0, &v21, 4u, 5u, "phLibNfc_SM_SE_TransComplete");
+  sub_297E4DFAC(0, &v21, 4, 5u, "phLibNfc_SM_SE_TransComplete");
   return a3;
 }
 
@@ -6106,7 +4515,7 @@ uint64_t sub_297EB6664(uint64_t a1, int a2)
 {
   v9 = 0;
   v10 = a1;
-  sub_297E4E1B4(0, &v10, 4u, 5u, "phLibNfc_SM_SE_eModeSetOffToOffTrans");
+  sub_297E4E1B4(0, &v10, 4, 5u, "phLibNfc_SM_SE_eModeSetOffToOffTrans");
   sub_297E4F0E8(v10, &v9);
   v3 = v9;
   if (v9)
@@ -6152,7 +4561,7 @@ uint64_t sub_297EB6664(uint64_t a1, int a2)
     v4 = 255;
   }
 
-  sub_297E4DFAC(0, &v10, 4u, 5u, "phLibNfc_SM_SE_eModeSetOffToOffTrans");
+  sub_297E4DFAC(0, &v10, 4, 5u, "phLibNfc_SM_SE_eModeSetOffToOffTrans");
   return v4;
 }
 
@@ -6160,7 +4569,7 @@ uint64_t sub_297EB6750(uint64_t a1)
 {
   v7 = 0;
   v8 = a1;
-  sub_297E4E1B4(0, &v8, 4u, 5u, "phLibNfc_SM_SE_eModeSetOffToPwrOffTrans");
+  sub_297E4E1B4(0, &v8, 4, 5u, "phLibNfc_SM_SE_eModeSetOffToPwrOffTrans");
   sub_297E4F0E8(v8, &v7);
   v1 = v7;
   if (v7)
@@ -6194,7 +4603,7 @@ uint64_t sub_297EB6750(uint64_t a1)
     v5 = 255;
   }
 
-  sub_297E4DFAC(0, &v8, 4u, 5u, "phLibNfc_SM_SE_eModeSetOffToPwrOffTrans");
+  sub_297E4DFAC(0, &v8, 4, 5u, "phLibNfc_SM_SE_eModeSetOffToPwrOffTrans");
   return v5;
 }
 
@@ -6202,7 +4611,7 @@ uint64_t sub_297EB6820(uint64_t a1, int a2)
 {
   v9 = 0;
   v10 = a1;
-  sub_297E4E1B4(0, &v10, 4u, 5u, "phLibNfc_SM_SE_eModeSetVirtualToVirtualTrans");
+  sub_297E4E1B4(0, &v10, 4, 5u, "phLibNfc_SM_SE_eModeSetVirtualToVirtualTrans");
   sub_297E4F0E8(v10, &v9);
   v3 = v9;
   if (v9)
@@ -6243,7 +4652,7 @@ uint64_t sub_297EB6820(uint64_t a1, int a2)
     v4 = 255;
   }
 
-  sub_297E4DFAC(0, &v10, 4u, 5u, "phLibNfc_SM_SE_eModeSetVirtualToVirtualTrans");
+  sub_297E4DFAC(0, &v10, 4, 5u, "phLibNfc_SM_SE_eModeSetVirtualToVirtualTrans");
   return v4;
 }
 
@@ -6251,7 +4660,7 @@ uint64_t sub_297EB6908(uint64_t a1, int a2)
 {
   v11 = 0;
   v12 = a1;
-  sub_297E4E1B4(0, &v12, 4u, 5u, "phLibNfc_SM_SE_eModeSetVirtualToOffTrans");
+  sub_297E4E1B4(0, &v12, 4, 5u, "phLibNfc_SM_SE_eModeSetVirtualToOffTrans");
   sub_297E4F0E8(v12, &v11);
   if (!v11)
   {
@@ -6330,7 +4739,7 @@ LABEL_19:
   *(v6 + 2953) = v7;
   v5 = sub_297E5588C(v6, 0, 0);
 LABEL_23:
-  sub_297E4DFAC(0, &v12, 4u, 5u, "phLibNfc_SM_SE_eModeSetVirtualToOffTrans");
+  sub_297E4DFAC(0, &v12, 4, 5u, "phLibNfc_SM_SE_eModeSetVirtualToOffTrans");
   return v5;
 }
 
@@ -6338,7 +4747,7 @@ uint64_t sub_297EB6A94(uint64_t a1)
 {
   v7 = 0;
   v8 = a1;
-  sub_297E4E1B4(0, &v8, 4u, 5u, "phLibNfc_SM_SE_eModeSetVirtualToPwrOffTrans");
+  sub_297E4E1B4(0, &v8, 4, 5u, "phLibNfc_SM_SE_eModeSetVirtualToPwrOffTrans");
   sub_297E4F0E8(v8, &v7);
   v1 = v7;
   if (v7)
@@ -6372,7 +4781,7 @@ uint64_t sub_297EB6A94(uint64_t a1)
     v5 = 255;
   }
 
-  sub_297E4DFAC(0, &v8, 4u, 5u, "phLibNfc_SM_SE_eModeSetVirtualToPwrOffTrans");
+  sub_297E4DFAC(0, &v8, 4, 5u, "phLibNfc_SM_SE_eModeSetVirtualToPwrOffTrans");
   return v5;
 }
 
@@ -6380,7 +4789,7 @@ uint64_t sub_297EB6B64(uint64_t a1, int a2)
 {
   v10 = 0;
   v11 = a1;
-  sub_297E4E1B4(0, &v11, 4u, 5u, "phLibNfc_SM_SE_eModeSetVirtualToApduTrans");
+  sub_297E4E1B4(0, &v11, 4, 5u, "phLibNfc_SM_SE_eModeSetVirtualToApduTrans");
   sub_297E4F0E8(v11, &v10);
   v3 = v10;
   if (!v10)
@@ -6440,7 +4849,7 @@ uint64_t sub_297EB6B64(uint64_t a1, int a2)
   *(v3 + 2953) = v6;
   v4 = sub_297E5588C(v3, 0, 0);
 LABEL_15:
-  sub_297E4DFAC(0, &v11, 4u, 5u, "phLibNfc_SM_SE_eModeSetVirtualToApduTrans");
+  sub_297E4DFAC(0, &v11, 4, 5u, "phLibNfc_SM_SE_eModeSetVirtualToApduTrans");
   return v4;
 }
 
@@ -6448,7 +4857,7 @@ uint64_t sub_297EB6CAC(uint64_t a1, uint64_t a2, uint64_t a3, _OWORD *a4)
 {
   v11 = 0;
   v12 = a1;
-  sub_297E4E1B4(0, &v12, 4u, 5u, "phLibNfc_SM_SE_eSETransceiveTrans");
+  sub_297E4E1B4(0, &v12, 4, 5u, "phLibNfc_SM_SE_eSETransceiveTrans");
   sub_297E4F0E8(v12, &v11);
   v5 = 255;
   if (a4 && v11)
@@ -6457,7 +4866,7 @@ uint64_t sub_297EB6CAC(uint64_t a1, uint64_t a2, uint64_t a3, _OWORD *a4)
     if (v6)
     {
       v5 = v6;
-      sub_297E4E0B0(0, &v12, 4u, 2u, "phLibNfc_eSE_Transceive: Stack BUSY");
+      sub_297E4E0B0(0, &v12, 4, 2u, "phLibNfc_eSE_Transceive: Stack BUSY");
     }
 
     else
@@ -6472,7 +4881,7 @@ uint64_t sub_297EB6CAC(uint64_t a1, uint64_t a2, uint64_t a3, _OWORD *a4)
     }
   }
 
-  sub_297E4DFAC(0, &v12, 4u, 5u, "phLibNfc_SM_SE_eSETransceiveTrans");
+  sub_297E4DFAC(0, &v12, 4, 5u, "phLibNfc_SM_SE_eSETransceiveTrans");
   return v5;
 }
 
@@ -6480,7 +4889,7 @@ uint64_t sub_297EB6D80(uint64_t a1, int a2)
 {
   v9 = 0;
   v10 = a1;
-  sub_297E4E1B4(0, &v10, 4u, 5u, "phLibNfc_SM_SE_eModeSetApduToApduTrans");
+  sub_297E4E1B4(0, &v10, 4, 5u, "phLibNfc_SM_SE_eModeSetApduToApduTrans");
   sub_297E4F0E8(v10, &v9);
   v3 = v9;
   if (v9)
@@ -6528,7 +4937,7 @@ uint64_t sub_297EB6D80(uint64_t a1, int a2)
     v4 = 255;
   }
 
-  sub_297E4DFAC(0, &v10, 4u, 5u, "phLibNfc_SM_SE_eModeSetApduToApduTrans");
+  sub_297E4DFAC(0, &v10, 4, 5u, "phLibNfc_SM_SE_eModeSetApduToApduTrans");
   return v4;
 }
 
@@ -6536,7 +4945,7 @@ uint64_t sub_297EB6E74(uint64_t a1, int a2)
 {
   v10 = 0;
   v11 = a1;
-  sub_297E4E1B4(0, &v11, 4u, 5u, "phLibNfc_SM_SE_eModeSetApduToOffTrans");
+  sub_297E4E1B4(0, &v11, 4, 5u, "phLibNfc_SM_SE_eModeSetApduToOffTrans");
   sub_297E4F0E8(v11, &v10);
   if (v10)
   {
@@ -6594,7 +5003,7 @@ uint64_t sub_297EB6E74(uint64_t a1, int a2)
     v8 = 255;
   }
 
-  sub_297E4DFAC(0, &v11, 4u, 5u, "phLibNfc_SM_SE_eModeSetApduToOffTrans");
+  sub_297E4DFAC(0, &v11, 4, 5u, "phLibNfc_SM_SE_eModeSetApduToOffTrans");
   return v8;
 }
 
@@ -6602,7 +5011,7 @@ uint64_t sub_297EB6FA4(uint64_t a1)
 {
   v7 = 0;
   v8 = a1;
-  sub_297E4E1B4(0, &v8, 4u, 5u, "phLibNfc_SM_SE_eModeSetApduToPwrOffTrans");
+  sub_297E4E1B4(0, &v8, 4, 5u, "phLibNfc_SM_SE_eModeSetApduToPwrOffTrans");
   sub_297E4F0E8(v8, &v7);
   v1 = v7;
   if (v7)
@@ -6636,7 +5045,7 @@ uint64_t sub_297EB6FA4(uint64_t a1)
     v5 = 255;
   }
 
-  sub_297E4DFAC(0, &v8, 4u, 5u, "phLibNfc_SM_SE_eModeSetApduToPwrOffTrans");
+  sub_297E4DFAC(0, &v8, 4, 5u, "phLibNfc_SM_SE_eModeSetApduToPwrOffTrans");
   return v5;
 }
 
@@ -6644,7 +5053,7 @@ uint64_t sub_297EB7074(uint64_t a1, int a2)
 {
   v10 = 0;
   v11 = a1;
-  sub_297E4E1B4(0, &v11, 4u, 5u, "phLibNfc_SM_SE_eModeSetApduToVirtualTrans");
+  sub_297E4E1B4(0, &v11, 4, 5u, "phLibNfc_SM_SE_eModeSetApduToVirtualTrans");
   sub_297E4F0E8(v11, &v10);
   v3 = v10;
   if (!v10)
@@ -6704,15 +5113,15 @@ LABEL_7:
   *(v3 + 2953) = v6;
   v4 = sub_297E5588C(v3, 0, 0);
 LABEL_15:
-  sub_297E4DFAC(0, &v11, 4u, 5u, "phLibNfc_SM_SE_eModeSetApduToVirtualTrans");
+  sub_297E4DFAC(0, &v11, 4, 5u, "phLibNfc_SM_SE_eModeSetApduToVirtualTrans");
   return v4;
 }
 
-uint64_t sub_297EB71B4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t sub_297EB71B4(uint64_t a1, uint64_t a2, uint64_t a3, unsigned __int8 *a4)
 {
   v11 = 0;
   v12 = a1;
-  sub_297E4E1B4(0, &v12, 4u, 5u, "phLibNfc_SM_SE_eSERawTransceiveTrans");
+  sub_297E4E1B4(0, &v12, 4, 5u, "phLibNfc_SM_SE_eSERawTransceiveTrans");
   sub_297E4F0E8(v12, &v11);
   v5 = 255;
   if (a4 && v11)
@@ -6721,7 +5130,7 @@ uint64_t sub_297EB71B4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
     if (v6)
     {
       v5 = v6;
-      sub_297E4E0B0(0, &v12, 4u, 2u, "phLibNfc_eSE_Transceive: Stack BUSY");
+      sub_297E4E0B0(0, &v12, 4, 2u, "phLibNfc_eSE_Transceive: Stack BUSY");
     }
 
     else
@@ -6730,8 +5139,8 @@ uint64_t sub_297EB71B4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
       if (!v5)
       {
         v7 = v11;
-        v9 = *(a4 + 16);
-        v8 = *(a4 + 32);
+        v9 = *(a4 + 1);
+        v8 = *(a4 + 2);
         *(v11 + 41) = *a4;
         *(v7 + 42) = v9;
         *(v7 + 43) = v8;
@@ -6740,7 +5149,7 @@ uint64_t sub_297EB71B4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
     }
   }
 
-  sub_297E4DFAC(0, &v12, 4u, 5u, "phLibNfc_SM_SE_eSERawTransceiveTrans");
+  sub_297E4DFAC(0, &v12, 4, 5u, "phLibNfc_SM_SE_eSERawTransceiveTrans");
   return v5;
 }
 
@@ -6748,7 +5157,7 @@ uint64_t sub_297EB729C(uint64_t a1)
 {
   v8 = 0;
   v9 = a1;
-  sub_297E4E1B4(0, &v9, 4u, 5u, "phLibNfc_SM_SE_eSEGetAtrTrans");
+  sub_297E4E1B4(0, &v9, 4, 5u, "phLibNfc_SM_SE_eSEGetAtrTrans");
   sub_297E4F0E8(v9, &v8);
   if (!v8)
   {
@@ -6777,16 +5186,16 @@ uint64_t sub_297EB729C(uint64_t a1)
       }
     }
 
-    sub_297E4E0B0(0, &v9, 4u, 1u, "phLibNfc_SM_SE_eSEGetAtrTrans:Failed, Pipe Info not Available");
+    sub_297E4E0B0(0, &v9, 4, 1u, "phLibNfc_SM_SE_eSEGetAtrTrans:Failed, Pipe Info not Available");
 LABEL_9:
     v3 = 255;
     goto LABEL_10;
   }
 
   v3 = v2;
-  sub_297E4E0B0(0, &v9, 4u, 2u, "phLibNfc_SM_SE_eSEGetAtrTrans: Stack BUSY");
+  sub_297E4E0B0(0, &v9, 4, 2u, "phLibNfc_SM_SE_eSEGetAtrTrans: Stack BUSY");
 LABEL_10:
-  sub_297E4DFAC(0, &v9, 4u, 5u, "phLibNfc_SM_SE_eSEGetAtrTrans");
+  sub_297E4DFAC(0, &v9, 4, 5u, "phLibNfc_SM_SE_eSEGetAtrTrans");
   return v3;
 }
 
@@ -6794,7 +5203,7 @@ uint64_t sub_297EB73AC(uint64_t a1)
 {
   v7 = 0;
   v8 = a1;
-  sub_297E4E1B4(0, &v8, 4u, 5u, "phLibNfc_SM_SE_eModeSetPwrOffToPwrOffTrans");
+  sub_297E4E1B4(0, &v8, 4, 5u, "phLibNfc_SM_SE_eModeSetPwrOffToPwrOffTrans");
   sub_297E4F0E8(v8, &v7);
   v1 = v7;
   if (v7)
@@ -6835,7 +5244,7 @@ uint64_t sub_297EB73AC(uint64_t a1)
     v2 = 255;
   }
 
-  sub_297E4DFAC(0, &v8, 4u, 5u, "phLibNfc_SM_SE_eModeSetPwrOffToPwrOffTrans");
+  sub_297E4DFAC(0, &v8, 4, 5u, "phLibNfc_SM_SE_eModeSetPwrOffToPwrOffTrans");
   return v2;
 }
 
@@ -6843,7 +5252,7 @@ uint64_t sub_297EB7488(uint64_t a1)
 {
   v7 = 0;
   v8 = a1;
-  sub_297E4E1B4(0, &v8, 4u, 5u, "phLibNfc_SM_SE_eModeSetPwrOffToVirtualTrans");
+  sub_297E4E1B4(0, &v8, 4, 5u, "phLibNfc_SM_SE_eModeSetPwrOffToVirtualTrans");
   sub_297E4F0E8(v8, &v7);
   v1 = v7;
   if (v7)
@@ -6877,7 +5286,7 @@ uint64_t sub_297EB7488(uint64_t a1)
     v5 = 255;
   }
 
-  sub_297E4DFAC(0, &v8, 4u, 5u, "phLibNfc_SM_SE_eModeSetPwrOffToVirtualTrans");
+  sub_297E4DFAC(0, &v8, 4, 5u, "phLibNfc_SM_SE_eModeSetPwrOffToVirtualTrans");
   return v5;
 }
 
@@ -6885,7 +5294,7 @@ uint64_t sub_297EB7558(uint64_t a1)
 {
   v7 = 0;
   v8 = a1;
-  sub_297E4E1B4(0, &v8, 4u, 5u, "phLibNfc_SM_SE_eModeSetPwrOffToApduTrans");
+  sub_297E4E1B4(0, &v8, 4, 5u, "phLibNfc_SM_SE_eModeSetPwrOffToApduTrans");
   sub_297E4F0E8(v8, &v7);
   v1 = v7;
   if (v7)
@@ -6919,26 +5328,26 @@ uint64_t sub_297EB7558(uint64_t a1)
     v5 = 255;
   }
 
-  sub_297E4DFAC(0, &v8, 4u, 5u, "phLibNfc_SM_SE_eModeSetPwrOffToApduTrans");
+  sub_297E4DFAC(0, &v8, 4, 5u, "phLibNfc_SM_SE_eModeSetPwrOffToApduTrans");
   return v5;
 }
 
 uint64_t sub_297EB7628(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v33 = a1;
-  v32 = 0;
-  v31 = 8;
-  v29 = 0;
-  v30 = 0;
+  v32 = a1;
+  v31 = 0;
+  v30 = 8;
   v28 = 0;
-  sub_297E4E1B4(0, &v33, 4u, 5u, "phLibNfc_SM_Dnld_eUserFwDnldTrans");
+  v29 = 0;
+  v27 = 0;
+  sub_297E4E1B4(0, &v32, 4, 5u, "phLibNfc_SM_Dnld_eUserFwDnldTrans");
   v6 = 0;
   v7 = 1;
   while (1)
   {
     v8 = v7;
     v9 = &unk_2A18BDDC0 + 112 * v6;
-    if (*v9 == v33)
+    if (*v9 == v32)
     {
       break;
     }
@@ -6954,20 +5363,20 @@ uint64_t sub_297EB7628(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 
   v10 = *(v9 + 2);
 LABEL_6:
-  sub_297E5F164(v33, &v31);
-  sub_297E5D114(v33, &v32);
-  sub_297E67EB0(v33, &v28);
+  sub_297E5F164(v32, &v30);
+  sub_297E5D114(v32, &v31);
+  sub_297E67EB0(v32, &v27);
   phOsalNfc_SetMemory();
-  if (!v32 || !*(v32 + 16))
+  if (!v31 || !*(v31 + 16))
   {
     a3 = 1;
-    sub_297E4E0B0(0, &v33, 4u, 1u, "phLibNfc_SM_Dnld_eUserFwDnldTrans: Invalid parameter");
+    sub_297E4E0B0(0, &v32, 4, 1u, "phLibNfc_SM_Dnld_eUserFwDnldTrans: Invalid parameter");
     goto LABEL_18;
   }
 
-  if (!v28)
+  if (!v27)
   {
-    if (*(v32 + 192) != 1)
+    if (*(v31 + 192) != 1)
     {
       a3 = phTmlNfc_IoCtl();
       v11 = a3 == 0;
@@ -6983,7 +5392,7 @@ LABEL_6:
     else
     {
       a3 = phTmlNfc_IoCtl();
-      sub_297E96914(0, &v33, 4u, 3u, "phLibNfc_SM_Dnld_eUserFwDnldTrans: SPMI Reset Client Retry Status =");
+      sub_297E96914(0, &v32, 4, 3u, "phLibNfc_SM_Dnld_eUserFwDnldTrans: SPMI Reset Client Retry Status =");
       if (!a3)
       {
         phOsalNfc_Delay();
@@ -6997,13 +5406,13 @@ LABEL_6:
 LABEL_10:
   if (a3 != 179 && a3)
   {
-    sub_297E4E0B0(0, &v33, 4u, 1u, "phLibNfc_SM_Dnld_eUserFwDnldTrans: Failed");
+    sub_297E4E0B0(0, &v32, 4, 1u, "phLibNfc_SM_Dnld_eUserFwDnldTrans: Failed");
     a3 = 255;
     goto LABEL_18;
   }
 
 LABEL_12:
-  if ((v31 & 0xFFFFFFFD) != 4)
+  if ((v30 & 0xFFFFFFFD) != 4)
   {
     a3 = phTmlNfc_ConfigHsuBaudRate();
     goto LABEL_23;
@@ -7021,33 +5430,33 @@ LABEL_23:
   }
 
   v12 = phTmlNfc_IoCtl();
-  if (v12 == 179 && (sub_297E96914(0, &v33, 4u, 3u, "phLibNfc_SM_Dnld_eUserFwDnldTrans: Assert Wakeup Status="), sub_297E4E0B0(0, &v33, 4u, 4u, "phLibNfc_SM_Dnld_eUserFwDnldTrans: NFCSTATUS_SPMI_NACK1"), phOsalNfc_Delay(), v12 = phTmlNfc_IoCtl(), v12 == 179))
+  if (v12 == 179 && (sub_297E96914(0, &v32, 4, 3u, "phLibNfc_SM_Dnld_eUserFwDnldTrans: Assert Wakeup Status="), sub_297E4E0B0(0, &v32, 4, 4u, "phLibNfc_SM_Dnld_eUserFwDnldTrans: NFCSTATUS_SPMI_NACK1"), phOsalNfc_Delay(), v12 = phTmlNfc_IoCtl(), v12 == 179))
   {
-    sub_297E96914(0, &v33, 4u, 3u, "phLibNfc_SM_Dnld_eUserFwDnldTrans: Assert Wakeup Status=");
-    sub_297E4E0B0(0, &v33, 4u, 4u, "phLibNfc_SM_Dnld_eUserFwDnldTrans: NFCSTATUS_SPMI_NACK2");
-    sub_297E4E0B0(0, &v33, 4u, 4u, "phLibNfc_SM_Dnld_eUserFwDnldTrans: Update Client-ID to Secondary Client                                ID(0x0B)");
+    sub_297E96914(0, &v32, 4, 3u, "phLibNfc_SM_Dnld_eUserFwDnldTrans: Assert Wakeup Status=");
+    sub_297E4E0B0(0, &v32, 4, 4u, "phLibNfc_SM_Dnld_eUserFwDnldTrans: NFCSTATUS_SPMI_NACK2");
+    sub_297E4E0B0(0, &v32, 4, 4u, "phLibNfc_SM_Dnld_eUserFwDnldTrans: Update Client-ID to Secondary Client                                ID(0x0B)");
     LODWORD(a3) = phTmlNfc_ConfigureSpmi();
   }
 
   else
   {
     LODWORD(a3) = v12;
-    sub_297E96914(0, &v33, 4u, 3u, "phLibNfc_SM_Dnld_eUserFwDnldTrans: Assert Wakeup Status=");
+    sub_297E96914(0, &v32, 4, 3u, "phLibNfc_SM_Dnld_eUserFwDnldTrans: Assert Wakeup Status=");
   }
 
   if (a3)
   {
     a3 = 255;
 LABEL_31:
-    sub_297E50EBC(0, &v33, 4u, 1u, "phLibNfc_SM_Dnld_eUserFwDnldTrans: TML HSU Baud rate failed, Status");
+    sub_297E50EBC(0, &v32, 4, 1u, "phLibNfc_SM_Dnld_eUserFwDnldTrans: TML HSU Baud rate failed, Status");
 LABEL_60:
-    v27 = !v11;
+    v26 = !v11;
     if (a3 == 13)
     {
-      v27 = 1;
+      v26 = 1;
     }
 
-    if ((v27 & 1) == 0)
+    if ((v26 & 1) == 0)
     {
       phTmlNfc_IoCtl();
     }
@@ -7056,26 +5465,26 @@ LABEL_60:
   }
 
 LABEL_32:
-  *(v32 + 120) = 2;
-  sub_297ED0A64(v33, v31);
-  v15 = v32;
-  *(v32 + 92) = 0;
+  *(v31 + 120) = 2;
+  sub_297ED0A64(v32, v30);
+  v15 = v31;
+  *(v31 + 92) = 0;
   *(v15 + 88) = 16711680;
   *(v15 + 94) = 0;
   *(v15 + 102) = 0;
   *(v15 + 100) = 0;
   *(v15 + 836) = 0;
-  v16 = sub_297E85E24(v33);
+  v16 = sub_297E85E24(v32);
   if (v16)
   {
     LODWORD(a3) = v16;
   }
 
-  sub_297E4F0E8(v33, &v30);
-  sub_297E67F6C(v33, &v29);
-  if (v29)
+  sub_297E4F0E8(v32, &v29);
+  sub_297E67F6C(v32, &v28);
+  if (v28)
   {
-    v17 = v30 == 0;
+    v17 = v29 == 0;
   }
 
   else
@@ -7090,46 +5499,45 @@ LABEL_32:
 
   if (a3 != 179 && a3)
   {
-    sub_297E4E0B0(0, &v33, 4u, 1u, "phLibNfc_SM_IoctlFwDnldTrans: Failed");
+    sub_297E4E0B0(0, &v32, 4, 1u, "phLibNfc_SM_IoctlFwDnldTrans: Failed");
     a3 = 255;
 LABEL_53:
-    if (v30)
+    if (v29)
     {
-      if (!*(v30 + 6078) && !*(v30 + 6081) && !*(v30 + 6082) && !*(v30 + 6079))
+      if (!*(v29 + 6078) && !*(v29 + 6081) && !*(v29 + 6082) && !*(v29 + 6079))
       {
-        sub_297E7EB8C(v33);
-        *(v32 + 91) = 0;
-        v26 = *(v30 + 9792);
+        sub_297E7EB8C(v32);
+        *(v31 + 91) = 0;
         phOsalNfc_FreeMemory();
-        v30 = 0;
-        sub_297E9F3BC(v33, 0);
+        v29 = 0;
+        sub_297E9F3BC(v32, 0);
       }
     }
 
     else
     {
-      sub_297E7EB8C(v33);
+      sub_297E7EB8C(v32);
     }
 
     goto LABEL_60;
   }
 
-  sub_297E4E0B0(0, &v33, 4u, 4u, "Firmware Load Library SUCCESS, Now initiating Firmware Download Sequence!!!");
-  v18 = v32;
-  *(v32 + 168) = 0;
+  sub_297E4E0B0(0, &v32, 4, 4u, "Firmware Load Library SUCCESS, Now initiating Firmware Download Sequence!!!");
+  v18 = v31;
+  *(v31 + 168) = 0;
   *(v18 + 184) = a4;
   if (a3 == 179 && *(v18 + 192) == 1)
   {
-    v19 = v29;
-    *(v30 + 3216) = sub_297E89A5C;
+    v19 = v28;
+    *(v29 + 3216) = sub_297E89A5C;
     v20 = sub_297E8B3F8(*(v19 + 48));
   }
 
   else
   {
-    v21 = v30;
-    v22 = (v30 + 4096);
-    *(v30 + 2960) = off_2A1A92B40;
+    v21 = v29;
+    v22 = (v29 + 4096);
+    *(v29 + 2960) = off_2A1A92B40;
     v21[2952] = 0;
     v21[2954] = 0;
     v23 = off_2A1A92B40[0];
@@ -7155,7 +5563,7 @@ LABEL_53:
 
     else
     {
-      v20 = sub_297E8B0F8(v21);
+      v20 = sub_297E8B0F8(v21, sub_297E8AFEC);
     }
   }
 
@@ -7166,214 +5574,208 @@ LABEL_53:
   }
 
 LABEL_18:
-  sub_297E4DFAC(0, &v33, 4u, 5u, "phLibNfc_SM_Dnld_eUserFwDnldTrans");
+  sub_297E4DFAC(0, &v32, 4, 5u, "phLibNfc_SM_Dnld_eUserFwDnldTrans");
   return a3;
 }
 
 uint64_t sub_297EB7BAC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v31 = a1;
-  v29 = 0;
-  v30 = 0;
-  v28 = 8;
-  v26 = 0;
+  v29 = a1;
   v27 = 0;
-  sub_297E4E1B4(0, &v31, 4u, 5u, "phLibNfc_SM_Dnld_eUserGetDieIdTrans");
-  sub_297E5D114(v31, &v30);
-  sub_297E5F164(v31, &v28);
+  v28 = 0;
+  v26 = 8;
+  v24 = 0;
+  v25 = 0;
+  sub_297E4E1B4(0, &v29, 4, 5u, "phLibNfc_SM_Dnld_eUserGetDieIdTrans");
+  sub_297E5D114(v29, &v28);
+  sub_297E5F164(v29, &v26);
   v6 = 0;
   v7 = 1;
-  while (1)
+  do
   {
     v8 = v7;
-    v9 = &unk_2A18BDDC0 + 112 * v6;
-    if (*v9 == v31)
+    if (*(&unk_2A18BDDC0 + 14 * v6) == v29)
     {
       break;
     }
 
     v7 = 0;
     v6 = 1;
-    if ((v8 & 1) == 0)
-    {
-      goto LABEL_6;
-    }
   }
 
-  v10 = *(v9 + 2);
-LABEL_6:
-  sub_297E67EB0(v31, &v26);
+  while ((v8 & 1) != 0);
+  sub_297E67EB0(v29, &v24);
   phOsalNfc_SetMemory();
-  if (!a4 || !v30)
+  if (!a4 || !v28)
   {
     a3 = 1;
-    sub_297E4E0B0(0, &v31, 4u, 1u, "phLibNfc_SM_IoctlGetDieIdTrans: Invalid parameter");
-    goto LABEL_53;
+    sub_297E4E0B0(0, &v29, 4, 1u, "phLibNfc_SM_IoctlGetDieIdTrans: Invalid parameter");
+    goto LABEL_51;
   }
 
-  if (!v26)
+  if (!v24)
   {
-    if (*(v30 + 192) != 1)
+    if (*(v28 + 192) != 1)
     {
       a3 = phTmlNfc_IoCtl();
-      v11 = a3 == 0;
-      goto LABEL_10;
+      v9 = a3 == 0;
+      goto LABEL_8;
     }
 
-    v20 = phTmlNfc_IoCtl();
-    if (v20)
+    v18 = phTmlNfc_IoCtl();
+    if (v18)
     {
-      a3 = v20;
+      a3 = v18;
     }
 
     else
     {
       a3 = phTmlNfc_IoCtl();
-      sub_297E96914(0, &v31, 4u, 3u, "phLibNfc_SM_Dnld_eUserGetDieIdTrans: SPMI Reset Client Retry Status =");
+      sub_297E96914(0, &v29, 4, 3u, "phLibNfc_SM_Dnld_eUserGetDieIdTrans: SPMI Reset Client Retry Status =");
       if (!a3)
       {
         phOsalNfc_Delay();
-        v11 = 0;
-        goto LABEL_12;
+        v9 = 0;
+        goto LABEL_10;
       }
     }
   }
 
-  v11 = 0;
-LABEL_10:
+  v9 = 0;
+LABEL_8:
   if (a3 != 179 && a3)
   {
-    sub_297E4E0B0(0, &v31, 4u, 1u, "phLibNfc_SM_IoctlGetDieIdTrans: Failed");
+    sub_297E4E0B0(0, &v29, 4, 1u, "phLibNfc_SM_IoctlGetDieIdTrans: Failed");
     a3 = 255;
-    goto LABEL_53;
+    goto LABEL_51;
   }
 
-LABEL_12:
-  if ((v28 & 0xFFFFFFFD) != 4)
+LABEL_10:
+  if ((v26 & 0xFFFFFFFD) != 4)
   {
     a3 = phTmlNfc_ConfigHsuBaudRate();
   }
 
   if (a3 != 179 && a3)
   {
-    sub_297E50EBC(0, &v31, 4u, 1u, "phLibNfc_SM_Dnld_eUserGetDieIdTrans: TML Config Baudrate failed status");
-LABEL_49:
-    v24 = !v11;
+    sub_297E50EBC(0, &v29, 4, 1u, "phLibNfc_SM_Dnld_eUserGetDieIdTrans: TML Config Baudrate failed status");
+LABEL_47:
+    v22 = !v9;
     if (a3 == 13)
     {
-      v24 = 1;
+      v22 = 1;
     }
 
-    if ((v24 & 1) == 0)
+    if ((v22 & 1) == 0)
     {
       phTmlNfc_IoCtl();
     }
 
-    goto LABEL_53;
+    goto LABEL_51;
   }
 
-  sub_297ED0A64(v31, v28);
-  v12 = v30;
-  *(v30 + 91) = 0;
-  *(v12 + 88) = 0;
-  *(v12 + 836) = 0;
-  *(v12 + 94) = 0;
-  *(v12 + 64) = 0;
+  sub_297ED0A64(v29, v26);
+  v10 = v28;
+  *(v28 + 91) = 0;
+  *(v10 + 88) = 0;
+  *(v10 + 836) = 0;
+  *(v10 + 94) = 0;
+  *(v10 + 64) = 0;
   phOsalNfc_SetMemory();
-  v13 = sub_297E85E24(v31);
-  if (v13)
+  v11 = sub_297E85E24(v29);
+  if (v11)
   {
-    LODWORD(a3) = v13;
+    LODWORD(a3) = v11;
   }
 
-  sub_297E4F0E8(v31, &v29);
-  sub_297E67F6C(v31, &v27);
-  v14 = v29;
-  v15 = v27;
-  if (v27)
+  sub_297E4F0E8(v29, &v27);
+  sub_297E67F6C(v29, &v25);
+  v12 = v27;
+  v13 = v25;
+  if (v25)
   {
-    v16 = v29 == 0;
-  }
-
-  else
-  {
-    v16 = 1;
-  }
-
-  if (v16)
-  {
-    v17 = 255;
+    v14 = v27 == 0;
   }
 
   else
   {
-    v17 = a3;
+    v14 = 1;
   }
 
-  if (v17 != 179 && v17)
+  if (v14)
   {
-    sub_297E4E0B0(0, &v31, 4u, 1u, "phLibNfc_SM_IoctlGetDieIdTrans: Failed");
+    v15 = 255;
+  }
+
+  else
+  {
+    v15 = a3;
+  }
+
+  if (v15 != 179 && v15)
+  {
+    sub_297E4E0B0(0, &v29, 4, 1u, "phLibNfc_SM_IoctlGetDieIdTrans: Failed");
     a3 = 255;
-    goto LABEL_49;
+    goto LABEL_47;
   }
 
-  v18 = v30;
-  *(v30 + 64) = v30 + 40;
-  if (v17 == 179 && *(v18 + 192) == 1)
+  v16 = v28;
+  *(v28 + 64) = v28 + 40;
+  if (v15 == 179 && *(v16 + 192) == 1)
   {
-    *(v14 + 3216) = sub_297E89C8C;
-    v19 = sub_297E8B3F8(*(v15 + 48));
+    *(v12 + 3216) = sub_297E89C8C;
+    v17 = sub_297E8B3F8(*(v13 + 48));
   }
 
   else
   {
-    *(v14 + 2960) = &qword_2A1A92C90;
-    *(v14 + 2952) = 0;
-    *(v14 + 2954) = 0;
-    v21 = qword_2A1A92C90;
+    *(v12 + 2960) = &qword_2A1A92C90;
+    *(v12 + 2952) = 0;
+    *(v12 + 2954) = 0;
+    v19 = qword_2A1A92C90;
     if (qword_2A1A92C90)
     {
-      v21 = 0;
-      v22 = off_2A1A92CA0;
+      v19 = 0;
+      v20 = off_2A1A92CA0;
       do
       {
-        ++v21;
-        v23 = *v22;
-        v22 += 2;
+        ++v19;
+        v21 = *v20;
+        v20 += 2;
       }
 
-      while (v23);
+      while (v21);
     }
 
-    *(v14 + 2953) = v21;
-    if (*(v14 + 6078) || *(v14 + 6081) || *(v14 + 6079) != 1 && *(v14 + 6082) != 1)
+    *(v12 + 2953) = v19;
+    if (*(v12 + 6078) || *(v12 + 6081) || *(v12 + 6079) != 1 && *(v12 + 6082) != 1)
     {
-      v19 = sub_297E5588C(v14, 0, 0);
+      v17 = sub_297E5588C(v12, 0, 0);
     }
 
     else
     {
-      v19 = sub_297E8B0F8(v14);
+      v17 = sub_297E8B0F8(v12, sub_297E8AFEC);
     }
   }
 
-  a3 = v19;
-  if (v19 != 13)
+  a3 = v17;
+  if (v17 != 13)
   {
-    if (!v29[6078] && !v29[6081] && !v29[6082] && !v29[6079])
+    if (!v27[6078] && !v27[6081] && !v27[6082] && !v27[6079])
     {
-      sub_297E7EB8C(v31);
-      *(v30 + 91) = 0;
+      sub_297E7EB8C(v29);
+      *(v28 + 91) = 0;
       phOsalNfc_FreeMemory();
-      v29 = 0;
-      sub_297E9F3BC(v31, 0);
+      v27 = 0;
+      sub_297E9F3BC(v29, 0);
     }
 
-    goto LABEL_49;
+    goto LABEL_47;
   }
 
-LABEL_53:
-  sub_297E4DFAC(0, &v31, 4u, 5u, "phLibNfc_SM_Dnld_eUserGetDieIdTrans");
+LABEL_51:
+  sub_297E4DFAC(0, &v29, 4, 5u, "phLibNfc_SM_Dnld_eUserGetDieIdTrans");
   return a3;
 }
 
@@ -7385,7 +5787,7 @@ uint64_t sub_297EB7FDC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   v29 = 0;
   v27 = 0;
   v26 = 8;
-  sub_297E4E1B4(0, &v31, 4u, 5u, "phLibNfc_SM_GetFwVersionTrans");
+  sub_297E4E1B4(0, &v31, 4, 5u, "phLibNfc_SM_GetFwVersionTrans");
   sub_297E5D114(v31, &v28);
   sub_297E5F164(v31, &v26);
   v5 = 0;
@@ -7417,7 +5819,7 @@ LABEL_6:
   if (!a4 || !v28)
   {
     v13 = 1;
-    sub_297E4E0B0(0, &v31, 4u, 1u, "phLibNfc_SM_GetFwVersionTrans Invalid parameter");
+    sub_297E4E0B0(0, &v31, 4, 1u, "phLibNfc_SM_GetFwVersionTrans Invalid parameter");
     goto LABEL_62;
   }
 
@@ -7450,7 +5852,7 @@ LABEL_6:
       else
       {
         v10 = phTmlNfc_IoCtl();
-        sub_297E96914(0, &v31, 4u, 3u, "phLibNfc_SM_GetFwVersionTrans: SPMI Reset Client Retry Status =");
+        sub_297E96914(0, &v31, 4, 3u, "phLibNfc_SM_GetFwVersionTrans: SPMI Reset Client Retry Status =");
         if (!v10)
         {
           phOsalNfc_Delay();
@@ -7465,29 +5867,29 @@ LABEL_6:
 LABEL_13:
   if (v10 != 179 && v10)
   {
-    sub_297E4E0B0(0, &v31, 4u, 1u, "phLibNfc_SM_GetFwVersionTrans: Failed");
+    sub_297E4E0B0(0, &v31, 4, 1u, "phLibNfc_SM_GetFwVersionTrans: Failed");
     v13 = 255;
     goto LABEL_62;
   }
 
 LABEL_15:
-  sub_297E4E0B0(0, &v31, 4u, 4u, "phLibNfc_SM_GetFwVersionTrans: NFCSTATUS_SPMI_NACK1");
+  sub_297E4E0B0(0, &v31, 4, 4u, "phLibNfc_SM_GetFwVersionTrans: NFCSTATUS_SPMI_NACK1");
   if ((v26 & 0xFFFFFFFD) == 4)
   {
     if (v9 == 1)
     {
       v12 = phTmlNfc_IoCtl();
-      if (v12 == 179 && (sub_297E96914(0, &v31, 4u, 3u, "phLibNfc_SM_GetFwVersionTrans: Assert Wakeup Status="), sub_297E4E0B0(0, &v31, 4u, 4u, "phLibNfc_SM_GetFwVersionTrans: NFCSTATUS_SPMI_NACK2"), sub_297E4E0B0(0, &v31, 4u, 4u, "phLibNfc_SM_GetFwVersionTrans: Update Client-ID to Secondary Client ID(0x0B)"), phOsalNfc_Delay(), v12 = phTmlNfc_IoCtl(), v12 == 179))
+      if (v12 == 179 && (sub_297E96914(0, &v31, 4, 3u, "phLibNfc_SM_GetFwVersionTrans: Assert Wakeup Status="), sub_297E4E0B0(0, &v31, 4, 4u, "phLibNfc_SM_GetFwVersionTrans: NFCSTATUS_SPMI_NACK2"), sub_297E4E0B0(0, &v31, 4, 4u, "phLibNfc_SM_GetFwVersionTrans: Update Client-ID to Secondary Client ID(0x0B)"), phOsalNfc_Delay(), v12 = phTmlNfc_IoCtl(), v12 == 179))
       {
-        sub_297E96914(0, &v31, 4u, 3u, "phLibNfc_SM_GetFwVersionTrans: Assert Wakeup Status=");
-        sub_297E4E0B0(0, &v31, 4u, 4u, "phLibNfc_SM_GetFwVersionTrans: NFCSTATUS_SPMI_NACK2");
+        sub_297E96914(0, &v31, 4, 3u, "phLibNfc_SM_GetFwVersionTrans: Assert Wakeup Status=");
+        sub_297E4E0B0(0, &v31, 4, 4u, "phLibNfc_SM_GetFwVersionTrans: NFCSTATUS_SPMI_NACK2");
         v10 = phTmlNfc_ConfigureSpmi();
       }
 
       else
       {
         v10 = v12;
-        sub_297E96914(0, &v31, 4u, 3u, "phLibNfc_SM_GetFwVersionTrans: Assert Wakeup Status=");
+        sub_297E96914(0, &v31, 4, 3u, "phLibNfc_SM_GetFwVersionTrans: Assert Wakeup Status=");
       }
 
       if (v10)
@@ -7548,7 +5950,7 @@ LABEL_32:
 
     if (v20 != 179)
     {
-      sub_297E4E0B0(0, &v31, 4u, 1u, "phLibNfc_SM_GetFwVersionTrans: Failed");
+      sub_297E4E0B0(0, &v31, 4, 1u, "phLibNfc_SM_GetFwVersionTrans: Failed");
       v13 = 255;
 LABEL_53:
       if (v30)
@@ -7606,7 +6008,7 @@ LABEL_44:
 
       else
       {
-        v21 = sub_297E8B0F8(v17);
+        v21 = sub_297E8B0F8(v17, sub_297E8AFEC);
       }
     }
 
@@ -7620,7 +6022,7 @@ LABEL_44:
   }
 
 LABEL_31:
-  sub_297E50EBC(0, &v31, 4u, 1u, "GetFwVersionTrans- Set Default Baud Rate FAILED, Status");
+  sub_297E50EBC(0, &v31, 4, 1u, "GetFwVersionTrans- Set Default Baud Rate FAILED, Status");
   v13 = 255;
 LABEL_60:
   if (v11)
@@ -7629,7 +6031,7 @@ LABEL_60:
   }
 
 LABEL_62:
-  sub_297E4DFAC(0, &v31, 4u, 5u, "phLibNfc_SM_GetFwVersionTrans");
+  sub_297E4DFAC(0, &v31, 4, 5u, "phLibNfc_SM_GetFwVersionTrans");
   return v13;
 }
 
@@ -7641,7 +6043,7 @@ uint64_t sub_297EB8564(uint64_t a1, uint64_t a2, int a3)
   Memory_Typed = 0;
   v26 = 0;
   v25 = 8;
-  sub_297E4E1B4(0, &v30, 4u, 5u, "phLibNfc_SM_GetMemDumpTrans");
+  sub_297E4E1B4(0, &v30, 4, 5u, "phLibNfc_SM_GetMemDumpTrans");
   sub_297E5D114(v30, &v27);
   sub_297E4F0E8(v30, &Memory_Typed);
   sub_297E5F164(v30, &v25);
@@ -7670,7 +6072,7 @@ uint64_t sub_297EB8564(uint64_t a1, uint64_t a2, int a3)
 LABEL_6:
   if (!v27)
   {
-    sub_297E4E0B0(0, &v30, 4u, 1u, "phLibNfc_SM_GetMemDumpTrans: Invalid IOCTL context");
+    sub_297E4E0B0(0, &v30, 4, 1u, "phLibNfc_SM_GetMemDumpTrans: Invalid IOCTL context");
     goto LABEL_13;
   }
 
@@ -7684,7 +6086,7 @@ LABEL_6:
   {
     v9 = "GetMemDumpTrans:Set Default Baud Rate FAILED, Status";
 LABEL_11:
-    sub_297E50EBC(0, &v30, 4u, 1u, v9);
+    sub_297E50EBC(0, &v30, 4, 1u, v9);
 LABEL_13:
     v10 = 255;
     goto LABEL_14;
@@ -7708,7 +6110,7 @@ LABEL_13:
     else
     {
       v10 = phTmlNfc_IoCtl();
-      sub_297E96914(0, &v30, 4u, 3u, "phLibNfc_SM_GetMemDumpTrans: SPMI Reset Client Retry Status =");
+      sub_297E96914(0, &v30, 4, 3u, "phLibNfc_SM_GetMemDumpTrans: SPMI Reset Client Retry Status =");
       if (!v10)
       {
         phOsalNfc_Delay();
@@ -7739,15 +6141,15 @@ LABEL_17:
     Memory_Typed = phOsalNfc_GetMemory_Typed();
     if (Memory_Typed)
     {
-      sub_297E966F4(0, &v30, 4u, 4u, "####phLibNfc_SM_GetMemDumpTrans: DriverHandle");
-      sub_297E966F4(0, &v30, 4u, 4u, "####LIBNFC context");
+      sub_297E966F4(0, &v30, 4, 4u, "####phLibNfc_SM_GetMemDumpTrans: DriverHandle");
+      sub_297E966F4(0, &v30, 4, 4u, "####LIBNFC context");
       phOsalNfc_SetMemory();
       sub_297E9F3BC(v30, Memory_Typed);
     }
 
     else
     {
-      sub_297E4E0B0(0, &v30, 4u, 1u, "Failed to allocate memory, Insufficient Resources");
+      sub_297E4E0B0(0, &v30, 4, 1u, "Failed to allocate memory, Insufficient Resources");
       v10 = 12;
     }
 
@@ -7783,7 +6185,7 @@ LABEL_56:
   sub_297E67F6C(v30, &v29);
   if (v29 && !v26 && sub_297F0E83C(*(v29 + 48)) != 13)
   {
-    sub_297E4E0B0(0, &v30, 4u, 1u, "phLibNfc_VerifyCtxt : Initial TML read request failed!!");
+    sub_297E4E0B0(0, &v30, 4, 1u, "phLibNfc_VerifyCtxt : Initial TML read request failed!!");
     v10 = 255;
   }
 
@@ -7830,7 +6232,7 @@ LABEL_56:
 
           else
           {
-            v19 = sub_297E8B0F8(v20);
+            v19 = sub_297E8B0F8(v20, sub_297E8AFEC);
           }
         }
 
@@ -7851,229 +6253,223 @@ LABEL_56:
       sub_297E9F3BC(v30, 0);
     }
 
-    sub_297E4E0B0(0, &v30, 4u, 1u, "phLibNfc_SM_GetMemDumpTrans failed");
+    sub_297E4E0B0(0, &v30, 4, 1u, "phLibNfc_SM_GetMemDumpTrans failed");
     goto LABEL_56;
   }
 
 LABEL_14:
-  sub_297E4DFAC(0, &v30, 4u, 5u, "phLibNfc_SM_GetMemDumpTrans");
+  sub_297E4DFAC(0, &v30, 4, 5u, "phLibNfc_SM_GetMemDumpTrans");
   return v10;
 }
 
 uint64_t sub_297EB8A68(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v30 = a1;
-  v28 = 0;
-  v29 = 0;
-  v27 = 8;
-  v25 = 0;
+  v28 = a1;
   v26 = 0;
-  sub_297E4E1B4(0, &v30, 4u, 5u, "phLibNfc_SM_IoctlGetDnldIntgInfoTrans");
-  if (!v30)
+  v27 = 0;
+  v25 = 8;
+  v23 = 0;
+  v24 = 0;
+  sub_297E4E1B4(0, &v28, 4, 5u, "phLibNfc_SM_IoctlGetDnldIntgInfoTrans");
+  if (!v28)
   {
     a3 = 1;
-    sub_297E4E0B0(0, &v30, 4u, 1u, "phLibNfc_SM_IoctlGetDnldIntgInfoTrans: Invalid parameter");
-    goto LABEL_55;
+    sub_297E4E0B0(0, &v28, 4, 1u, "phLibNfc_SM_IoctlGetDnldIntgInfoTrans: Invalid parameter");
+    goto LABEL_54;
   }
 
-  sub_297E5D114(v30, &v28);
-  sub_297E5F164(v30, &v27);
+  sub_297E5D114(v28, &v26);
+  sub_297E5F164(v28, &v25);
   v4 = 0;
   v5 = 1;
-  while (1)
+  do
   {
     v6 = v5;
-    v7 = &unk_2A18BDDC0 + 112 * v4;
-    if (*v7 == v30)
+    if (*(&unk_2A18BDDC0 + 14 * v4) == v28)
     {
       break;
     }
 
     v5 = 0;
     v4 = 1;
-    if ((v6 & 1) == 0)
-    {
-      goto LABEL_8;
-    }
   }
 
-  v8 = *(v7 + 2);
-LABEL_8:
-  sub_297E67EB0(v30, &v25);
+  while ((v6 & 1) != 0);
+  sub_297E67EB0(v28, &v23);
   phOsalNfc_SetMemory();
-  if (!v28)
+  if (!v26)
   {
-    v18 = "phLibNfc_SM_IoctlGetDnldIntgInfoTrans: Invalid IOCTL context";
-LABEL_35:
-    sub_297E4E0B0(0, &v30, 4u, 1u, v18);
+    v16 = "phLibNfc_SM_IoctlGetDnldIntgInfoTrans: Invalid IOCTL context";
+LABEL_34:
+    sub_297E4E0B0(0, &v28, 4, 1u, v16);
     a3 = 255;
-    goto LABEL_55;
+    goto LABEL_54;
   }
 
-  if (!v25)
+  if (!v23)
   {
-    if (*(v28 + 192) != 1)
+    if (*(v26 + 192) != 1)
     {
       a3 = phTmlNfc_IoCtl();
-      v9 = a3 == 0;
-      goto LABEL_11;
+      v7 = a3 == 0;
+      goto LABEL_10;
     }
 
-    v19 = phTmlNfc_IoCtl();
-    if (v19)
+    v17 = phTmlNfc_IoCtl();
+    if (v17)
     {
-      a3 = v19;
+      a3 = v17;
     }
 
     else
     {
       a3 = phTmlNfc_IoCtl();
-      sub_297E96914(0, &v30, 4u, 3u, "phLibNfc_SM_IoctlGetDnldIntgInfoTrans: SPMI Reset Client Retry Status =");
+      sub_297E96914(0, &v28, 4, 3u, "phLibNfc_SM_IoctlGetDnldIntgInfoTrans: SPMI Reset Client Retry Status =");
       if (!a3)
       {
         phOsalNfc_Delay();
-        v9 = 0;
-        goto LABEL_13;
+        v7 = 0;
+        goto LABEL_12;
       }
     }
   }
 
-  v9 = 0;
-LABEL_11:
+  v7 = 0;
+LABEL_10:
   if (a3 != 179 && a3)
   {
-    v18 = "phLibNfc_SM_IoctlGetDnldIntgInfoTrans: Failed";
-    goto LABEL_35;
+    v16 = "phLibNfc_SM_IoctlGetDnldIntgInfoTrans: Failed";
+    goto LABEL_34;
   }
 
-LABEL_13:
-  if ((v27 & 0xFFFFFFFD) != 4)
+LABEL_12:
+  if ((v25 & 0xFFFFFFFD) != 4)
   {
     a3 = phTmlNfc_ConfigHsuBaudRate();
   }
 
   if (a3 != 179 && a3)
   {
-    sub_297E50EBC(0, &v30, 4u, 1u, "phLibNfc_SM_IoctlGetDnldIntgInfoTrans : TML Config Baudrate failed status");
-LABEL_51:
-    v23 = !v9;
+    sub_297E50EBC(0, &v28, 4, 1u, "phLibNfc_SM_IoctlGetDnldIntgInfoTrans : TML Config Baudrate failed status");
+LABEL_50:
+    v21 = !v7;
     if (a3 == 13)
     {
-      v23 = 1;
+      v21 = 1;
     }
 
-    if ((v23 & 1) == 0)
+    if ((v21 & 1) == 0)
     {
       phTmlNfc_IoCtl();
     }
 
-    goto LABEL_55;
+    goto LABEL_54;
   }
 
-  sub_297ED0A64(v30, v27);
-  v10 = v28;
-  *(v28 + 91) = 0;
-  *(v10 + 836) = 0;
-  *(v10 + 88) = 0;
-  *(v10 + 94) = 0;
-  *(v10 + 169) = 0;
-  *(v10 + 172) = 0;
-  *(v10 + 64) = 0;
+  sub_297ED0A64(v28, v25);
+  v8 = v26;
+  *(v26 + 91) = 0;
+  *(v8 + 836) = 0;
+  *(v8 + 88) = 0;
+  *(v8 + 94) = 0;
+  *(v8 + 169) = 0;
+  *(v8 + 172) = 0;
+  *(v8 + 64) = 0;
   phOsalNfc_SetMemory();
-  v11 = sub_297E85E24(v30);
-  if (v11)
+  v9 = sub_297E85E24(v28);
+  if (v9)
   {
-    LODWORD(a3) = v11;
+    LODWORD(a3) = v9;
   }
 
-  sub_297E4F0E8(v30, &v29);
-  sub_297E67F6C(v30, &v26);
-  v12 = v29;
-  v13 = v26;
-  if (v26)
+  sub_297E4F0E8(v28, &v27);
+  sub_297E67F6C(v28, &v24);
+  v10 = v27;
+  v11 = v24;
+  if (v24)
   {
-    v14 = v29 == 0;
-  }
-
-  else
-  {
-    v14 = 1;
-  }
-
-  if (v14)
-  {
-    v15 = 255;
+    v12 = v27 == 0;
   }
 
   else
   {
-    v15 = a3;
+    v12 = 1;
   }
 
-  if (v15 != 179 && v15)
+  if (v12)
   {
-    sub_297E4E0B0(0, &v30, 4u, 1u, "phLibNfc_SM_IoctlGetDnldIntgInfoTrans: Failed");
+    v13 = 255;
+  }
+
+  else
+  {
+    v13 = a3;
+  }
+
+  if (v13 != 179 && v13)
+  {
+    sub_297E4E0B0(0, &v28, 4, 1u, "phLibNfc_SM_IoctlGetDnldIntgInfoTrans: Failed");
     a3 = 255;
-    goto LABEL_51;
+    goto LABEL_50;
   }
 
-  v16 = v28;
-  *(v28 + 64) = v28 + 40;
-  if (v15 == 179 && *(v16 + 192) == 1)
+  v14 = v26;
+  *(v26 + 64) = v26 + 40;
+  if (v13 == 179 && *(v14 + 192) == 1)
   {
-    *(v12 + 3216) = sub_297E89EBC;
-    v17 = sub_297E8B3F8(*(v13 + 48));
+    *(v10 + 3216) = sub_297E89EBC;
+    v15 = sub_297E8B3F8(*(v11 + 48));
   }
 
   else
   {
-    *(v12 + 2960) = &qword_2A1A92CE0;
-    *(v12 + 2952) = 0;
-    *(v12 + 2954) = 0;
-    v20 = qword_2A1A92CE0;
+    *(v10 + 2960) = &qword_2A1A92CE0;
+    *(v10 + 2952) = 0;
+    *(v10 + 2954) = 0;
+    v18 = qword_2A1A92CE0;
     if (qword_2A1A92CE0)
     {
-      v20 = 0;
-      v21 = off_2A1A92CF0;
+      v18 = 0;
+      v19 = off_2A1A92CF0;
       do
       {
-        ++v20;
-        v22 = *v21;
-        v21 += 2;
+        ++v18;
+        v20 = *v19;
+        v19 += 2;
       }
 
-      while (v22);
+      while (v20);
     }
 
-    *(v12 + 2953) = v20;
-    if (*(v12 + 6078) || *(v12 + 6081) || *(v12 + 6079) != 1 && *(v12 + 6082) != 1)
+    *(v10 + 2953) = v18;
+    if (*(v10 + 6078) || *(v10 + 6081) || *(v10 + 6079) != 1 && *(v10 + 6082) != 1)
     {
-      v17 = sub_297E5588C(v12, 0, 0);
+      v15 = sub_297E5588C(v10, 0, 0);
     }
 
     else
     {
-      v17 = sub_297E8B0F8(v12);
+      v15 = sub_297E8B0F8(v10, sub_297E8AFEC);
     }
   }
 
-  a3 = v17;
-  if (v17 != 13)
+  a3 = v15;
+  if (v15 != 13)
   {
-    if (!v29[6078] && !v29[6081] && !v29[6082] && !v29[6079])
+    if (!v27[6078] && !v27[6081] && !v27[6082] && !v27[6079])
     {
-      sub_297E7EB8C(v30);
-      *(v28 + 91) = 0;
+      sub_297E7EB8C(v28);
+      *(v26 + 91) = 0;
       phOsalNfc_FreeMemory();
-      sub_297E9F3BC(v30, 0);
-      v29 = 0;
+      sub_297E9F3BC(v28, 0);
+      v27 = 0;
     }
 
-    goto LABEL_51;
+    goto LABEL_50;
   }
 
-LABEL_55:
-  sub_297E4DFAC(0, &v30, 4u, 5u, "phLibNfc_SM_IoctlGetDnldIntgInfoTrans");
+LABEL_54:
+  sub_297E4DFAC(0, &v28, 4, 5u, "phLibNfc_SM_IoctlGetDnldIntgInfoTrans");
   return a3;
 }
 
@@ -8082,12 +6478,12 @@ uint64_t sub_297EB8EA4(uint64_t a1, int a2, uint64_t a3, uint64_t a4)
   v12 = 0;
   v13 = a1;
   v11 = 0;
-  sub_297E4E1B4(0, &v13, 4u, 5u, "phLibNfc_SM_Dnld_TransComplete");
+  sub_297E4E1B4(0, &v13, 4, 5u, "phLibNfc_SM_Dnld_TransComplete");
   sub_297E4F0E8(v13, &v11);
   sub_297E5D114(v13, &v12);
   if (!v12)
   {
-    sub_297E4E0B0(0, &v13, 4u, 1u, "phLibNfc_SM_Dnld_TransComplete: Invalid IOCTL/LIBNFC context");
+    sub_297E4E0B0(0, &v13, 4, 1u, "phLibNfc_SM_Dnld_TransComplete: Invalid IOCTL/LIBNFC context");
     a3 = 255;
     goto LABEL_15;
   }
@@ -8141,36 +6537,35 @@ LABEL_14:
   *v8 = 0;
   if (v9)
   {
-    sub_297E50EBC(0, &v13, 4u, 4u, "Get Memory Dump:Invoking callback function, wStatus = ");
-    sub_297E4D930(0, &v13, 4u, 10, "phLibNfc_SM_Dnld_TransComplete");
+    sub_297E50EBC(0, &v13, 4, 4u, "Get Memory Dump:Invoking callback function, wStatus = ");
+    sub_297E4D930(0, &v13, 4, 10, "phLibNfc_SM_Dnld_TransComplete");
     v9(v12[1], v10, a4, a3);
   }
 
 LABEL_15:
-  sub_297E4DFAC(0, &v13, 4u, 5u, "phLibNfc_SM_Dnld_TransComplete");
+  sub_297E4DFAC(0, &v13, 4, 5u, "phLibNfc_SM_Dnld_TransComplete");
   return a3;
 }
 
 uint64_t sub_297EB904C(uint64_t a1, uint64_t a2, int a3, int *a4, _DWORD *a5)
 {
-  v38 = 0;
-  v39 = a1;
-  v37 = 0;
-  v36 = 8;
-  v34 = 0;
   v35 = 0;
-  sub_297E4E1B4(0, &v39, 4u, 5u, "phLibNfc_SM_Dnld_eSE_PwrSmbCfgTrans");
-  sub_297E5F164(v39, &v36);
-  sub_297E5D114(v39, &v35);
-  sub_297E4F0E8(v39, &v38);
-  sub_297E67F6C(v39, &v37);
+  v36 = a1;
+  v34 = 0;
+  v33 = 8;
+  v31 = 0;
+  v32 = 0;
+  sub_297E4E1B4(0, &v36, 4, 5u, "phLibNfc_SM_Dnld_eSE_PwrSmbCfgTrans");
+  sub_297E5F164(v36, &v33);
+  sub_297E5D114(v36, &v32);
+  sub_297E4F0E8(v36, &v35);
+  sub_297E67F6C(v36, &v34);
   v8 = 0;
   v9 = 1;
   while (1)
   {
     v10 = v9;
-    v11 = &unk_2A18BDDC0 + 112 * v8;
-    if (*v11 == v39)
+    if (*(&unk_2A18BDDC0 + 14 * v8) == v36)
     {
       break;
     }
@@ -8188,39 +6583,38 @@ uint64_t sub_297EB904C(uint64_t a1, uint64_t a2, int a3, int *a4, _DWORD *a5)
     }
   }
 
-  v12 = *(v11 + 2);
   if (!a5)
   {
 LABEL_17:
-    sub_297E4E0B0(0, &v39, 4u, 1u, "phLibNfc_SM_Dnld_eSE_PwrSmbCfgTrans: Failed");
-    v14 = 255;
+    sub_297E4E0B0(0, &v36, 4, 1u, "phLibNfc_SM_Dnld_eSE_PwrSmbCfgTrans: Failed");
+    v12 = 255;
     goto LABEL_70;
   }
 
 LABEL_7:
-  if (!a4 || !v39)
+  if (!a4 || !v36)
   {
     goto LABEL_17;
   }
 
-  if (!v38 && v35)
+  if (!v35 && v32)
   {
     phTmlNfc_ReadAbort();
     phTmlNfc_FlushTxRxBuffers();
-    if (sub_297E56AFC(v39) == 1)
+    if (sub_297E56AFC(v36) == 1)
     {
       phTmlNfc_WriteAbort();
-      sub_297E5A3A8(v39, 0);
+      sub_297E5A3A8(v36, 0);
     }
 
     phOsalNfc_SetMemory();
-    if (*(v35 + 192) == 1)
+    if (*(v32 + 192) == 1)
     {
-      v13 = phTmlNfc_IoCtl();
-      if (!v13)
+      v11 = phTmlNfc_IoCtl();
+      if (!v11)
       {
         a3 = phTmlNfc_IoCtl();
-        sub_297E96914(0, &v39, 4u, 3u, "phLibNfc_SM_Dnld_eSE_PwrSmbCfgTrans: SPMI Reset Client Retry Status =");
+        sub_297E96914(0, &v36, 4, 3u, "phLibNfc_SM_Dnld_eSE_PwrSmbCfgTrans: SPMI Reset Client Retry Status =");
         if (!a3)
         {
           phOsalNfc_Delay();
@@ -8232,83 +6626,83 @@ LABEL_7:
 
     else
     {
-      v13 = phTmlNfc_IoCtl();
+      v11 = phTmlNfc_IoCtl();
     }
 
-    a3 = v13;
+    a3 = v11;
 LABEL_20:
-    if ((v36 & 0xFFFFFFFD) != 4)
+    if ((v33 & 0xFFFFFFFD) != 4)
     {
       a3 = phTmlNfc_ConfigHsuBaudRate();
     }
 
     if (a3 == 179 || !a3)
     {
-      sub_297ED0A64(v39, v36);
-      *(v35 + 91) = 0;
-      v15 = sub_297E85E24(v39);
-      sub_297E4F0E8(v39, &v38);
-      if (v15)
+      sub_297ED0A64(v36, v33);
+      *(v32 + 91) = 0;
+      v13 = sub_297E85E24(v36);
+      sub_297E4F0E8(v36, &v35);
+      if (v13)
       {
-        a3 = v15;
+        a3 = v13;
       }
     }
   }
 
-  v16 = a3 == 179 || a3 == 0;
-  v17 = "phLibNfc_SM_Dnld_eSE_PwrSmbCfgTrans: Failed";
-  if (v16 && v38 && v35)
+  v14 = a3 == 179 || a3 == 0;
+  v15 = "phLibNfc_SM_Dnld_eSE_PwrSmbCfgTrans: Failed";
+  if (v14 && v35 && v32)
   {
-    sub_297E67EB0(v39, &v34);
-    v18 = v34;
-    if (v34)
+    sub_297E67EB0(v36, &v31);
+    v16 = v31;
+    if (v31)
     {
-      v19 = v37;
+      v17 = v34;
     }
 
     else
     {
-      v20 = sub_297F101A8(v39);
-      if (v20)
+      v18 = sub_297F101A8(v36);
+      if (v18)
       {
-        v21 = v20;
-        sub_297E4E0B0(0, &v39, 4u, 1u, "phLibNfc_SM_Dnld_eSE_PwrSmbCfgTrans: Failed to initialize DNLD eSE core context ");
-        a3 = v21;
+        v19 = v18;
+        sub_297E4E0B0(0, &v36, 4, 1u, "phLibNfc_SM_Dnld_eSE_PwrSmbCfgTrans: Failed to initialize DNLD eSE core context ");
+        a3 = v19;
       }
 
-      sub_297E4F0E8(v39, &v38);
-      sub_297E67F6C(v39, &v37);
-      sub_297E67EB0(v39, &v34);
-      v19 = v37;
-      v18 = v34;
-      if (v34)
+      sub_297E4F0E8(v36, &v35);
+      sub_297E67F6C(v36, &v34);
+      sub_297E67EB0(v36, &v31);
+      v17 = v34;
+      v16 = v31;
+      if (v31)
       {
-        v22 = v37 == 0;
+        v20 = v34 == 0;
       }
 
       else
       {
-        v22 = 1;
+        v20 = 1;
       }
 
-      if (v22 || v38 == 0)
+      if (v20 || v35 == 0)
       {
         a3 = 255;
       }
     }
 
-    v24 = a3 == 179 || a3 == 0;
-    v17 = "phLibNfc_SM_Dnld_eSE_PwrSmbCfgTrans: Failed";
-    if (v24 && v18 && v19)
+    v22 = a3 == 179 || a3 == 0;
+    v15 = "phLibNfc_SM_Dnld_eSE_PwrSmbCfgTrans: Failed";
+    if (v22 && v16 && v17)
     {
       if (*a5 == 2)
       {
-        v28 = *a4;
-        *(v18 + 20) = *a4;
-        if (v28 == 1)
+        v26 = *a4;
+        *(v16 + 20) = *a4;
+        if (v26 == 1)
         {
-          *(v18 + 24) = 4178177;
-          *(v18 + 28) = 0;
+          *(v16 + 24) = 4178177;
+          *(v16 + 28) = 0;
         }
 
         else
@@ -8318,26 +6712,26 @@ LABEL_20:
 
         if (a3 == 179)
         {
-          v32 = v35;
-          v33 = v38;
-          if (*(v35 + 192) == 1)
+          v29 = v32;
+          v30 = v35;
+          if (*(v32 + 192) == 1)
           {
-            *(v38 + 3216) = phDnldNfc_eSESmbCfgVenResetTimeoutCb;
-            v27 = *(v37 + 48);
+            *(v35 + 3216) = phDnldNfc_eSESmbCfgVenResetTimeoutCb;
+            v25 = *(v34 + 48);
             goto LABEL_77;
           }
         }
 
         else
         {
-          v33 = v38;
-          v32 = v35;
+          v30 = v35;
+          v29 = v32;
         }
 
-        v31 = phLibNfc_DnldEseSmbCfgSeq(v33, v32);
+        v28 = phLibNfc_DnldEseSmbCfgSeq(v30, v29);
 LABEL_80:
-        v14 = v31;
-        if (v31 == 13)
+        v12 = v28;
+        if (v28 == 13)
         {
           goto LABEL_70;
         }
@@ -8347,96 +6741,95 @@ LABEL_80:
 
       if (*a5 == 1)
       {
-        *(v18 + 18) = *a4;
+        *(v16 + 18) = *a4;
         if (a3 == 179)
         {
-          v25 = v35;
-          v26 = v38;
-          if (*(v35 + 192) == 1)
+          v23 = v32;
+          v24 = v35;
+          if (*(v32 + 192) == 1)
           {
-            *(v38 + 3216) = phDnldNfc_eSEPwrCfgVenResetTimeoutCb;
-            v27 = *(v19 + 48);
+            *(v35 + 3216) = phDnldNfc_eSEPwrCfgVenResetTimeoutCb;
+            v25 = *(v17 + 48);
 LABEL_77:
-            v31 = sub_297E8B3F8(v27);
+            v28 = sub_297E8B3F8(v25);
             goto LABEL_80;
           }
         }
 
         else
         {
-          v26 = v38;
-          v25 = v35;
+          v24 = v35;
+          v23 = v32;
         }
 
-        v31 = phLibNfc_DnldEsePwrCfgSeq(v26, v25);
+        v28 = phLibNfc_DnldEsePwrCfgSeq(v24, v23);
         goto LABEL_80;
       }
 
-      v17 = "phLibNfc_SM_Dnld_eSE_PwrSmbCfgTrans: Invalid config type param";
+      v15 = "phLibNfc_SM_Dnld_eSE_PwrSmbCfgTrans: Invalid config type param";
     }
   }
 
-  sub_297E4E0B0(0, &v39, 4u, 1u, v17);
-  v14 = 255;
+  sub_297E4E0B0(0, &v36, 4, 1u, v15);
+  v12 = 255;
 LABEL_61:
-  if (v38)
+  if (v35)
   {
-    if (!*(v38 + 6078) && !*(v38 + 6081) && !*(v38 + 6082) && !*(v38 + 6079))
+    if (!*(v35 + 6078) && !*(v35 + 6081) && !*(v35 + 6082) && !*(v35 + 6079))
     {
-      sub_297E7EB8C(v39);
-      if (v35)
+      sub_297E7EB8C(v36);
+      if (v32)
       {
-        *(v35 + 91) = 0;
+        *(v32 + 91) = 0;
       }
 
-      v29 = *(v38 + 9792);
       phOsalNfc_FreeMemory();
-      v38 = 0;
-      sub_297E9F3BC(v39, 0);
+      v35 = 0;
+      sub_297E9F3BC(v36, 0);
     }
   }
 
   else
   {
-    sub_297E7EB8C(v39);
+    sub_297E7EB8C(v36);
   }
 
 LABEL_70:
-  sub_297E4DFAC(0, &v39, 4u, 5u, "phLibNfc_SM_Dnld_eSE_PwrSmbCfgTrans");
-  return v14;
+  sub_297E4DFAC(0, &v36, 4, 5u, "phLibNfc_SM_Dnld_eSE_PwrSmbCfgTrans");
+  return v12;
 }
 
 uint64_t sub_297EB94F8(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v14 = 0;
-  v15 = a1;
   v12 = 0;
-  v13 = 0;
-  sub_297E4E1B4(0, &v15, 4u, 5u, "phLibNfc_SM_Dnld_eSE_CfgTransCmplt");
-  sub_297E4F0E8(v15, &v12);
-  sub_297E67EB0(v15, &v14);
-  sub_297E5D114(v15, &v13);
+  v13 = a1;
+  v10 = 0;
+  v11 = 0;
+  sub_297E4E1B4(0, &v13, 4, 5u, "phLibNfc_SM_Dnld_eSE_CfgTransCmplt");
+  sub_297E4F0E8(v13, &v10);
+  sub_297E67EB0(v13, &v12);
+  sub_297E5D114(v13, &v11);
   if (a3)
   {
-    sub_297E96818(v15, a3);
+    sub_297E96818(v13, a3);
   }
 
   else
   {
-    sub_297E5D398(v15, 0);
+    sub_297E5D398(v13, 0);
   }
 
-  v4 = v14;
-  if (v14)
+  v4 = v12;
+  if (v12)
   {
-    v5 = v14[87];
-    v6 = v14[88];
-    *(v14 + 87) = 0u;
+    v5 = v12[87];
+    v6 = v12[88];
+    *(v12 + 87) = 0u;
     if (v5)
     {
-      sub_297E4D930(0, &v15, 4u, 84, "phLibNfc_SM_Dnld_eSE_CfgTransCmplt");
-      v5(*v14, v6, a3);
-      v4 = v14;
+      sub_297E4D930(0, &v13, 4, 84, "phLibNfc_SM_Dnld_eSE_CfgTransCmplt");
+      v5(*v12, v6, a3);
+      v4 = v12;
     }
   }
 
@@ -8445,43 +6838,41 @@ uint64_t sub_297EB94F8(uint64_t a1, uint64_t a2, uint64_t a3)
     a3 = 1;
   }
 
-  if (v12)
+  if (v10)
   {
     if (v4)
     {
-      if (v13)
+      if (v11)
       {
-        v7 = v12 + 4096;
-        *(v12 + 6079) = 0;
+        v7 = v10 + 512;
+        *(v10 + 6079) = 0;
         if (*(v7 + 1982) != 1)
         {
           v8 = 0;
           *(v4 + 85) = 0u;
           do
           {
-            sub_297F10718(v14, v8);
-            v14[v8++ + 19] = 0;
+            sub_297F10718(v12, v8);
+            v12[v8++ + 19] = 0;
           }
 
           while (v8 != 8);
-          if (!*v13 && !*(v12 + 6081))
+          if (!*v11 && !*(v10 + 6081))
           {
-            *(v13 + 116) = 0;
-            v9 = *v14;
+            *(v11 + 116) = 0;
             phTmlNfc_ReadAbort();
-            v10 = *v14;
             phTmlNfc_FlushTxRxBuffers();
-            sub_297F12CB0(v14);
-            sub_297EA7418(v12);
-            sub_297E7EB8C(v15);
-            if (*(v13 + 91) == 1)
+            sub_297F12CB0(v12);
+            sub_297EA7418(v10);
+            sub_297E7EB8C(v13);
+            if (*(v11 + 91) == 1)
             {
-              *(v13 + 91) = 0;
-              if (v12)
+              *(v11 + 91) = 0;
+              if (v10)
               {
-                sub_297EA9F80(v12);
-                v12 = 0;
-                sub_297E9F3BC(v15, 0);
+                sub_297EA9F80(v10);
+                v10 = 0;
+                sub_297E9F3BC(v13, 0);
               }
             }
           }
@@ -8490,7 +6881,7 @@ uint64_t sub_297EB94F8(uint64_t a1, uint64_t a2, uint64_t a3)
     }
   }
 
-  sub_297E4DFAC(0, &v15, 4u, 5u, "phLibNfc_SM_Dnld_eSE_CfgTransCmplt");
+  sub_297E4DFAC(0, &v13, 4, 5u, "phLibNfc_SM_Dnld_eSE_CfgTransCmplt");
   return a3;
 }
 
@@ -8498,7 +6889,7 @@ uint64_t sub_297EB96EC(uint64_t a1)
 {
   v3 = 0;
   v4 = a1;
-  sub_297E4E1B4(0, &v4, 4u, 5u, "phLibNfc_SM_Dnld_eSE_GetSmbTrans");
+  sub_297E4E1B4(0, &v4, 4, 5u, "phLibNfc_SM_Dnld_eSE_GetSmbTrans");
   sub_297E4F0E8(v4, &v3);
   if (v3)
   {
@@ -8510,7 +6901,7 @@ uint64_t sub_297EB96EC(uint64_t a1)
     SmbCmd = 255;
   }
 
-  sub_297E4DFAC(0, &v4, 4u, 5u, "phLibNfc_SM_Dnld_eSE_GetSmbTrans");
+  sub_297E4DFAC(0, &v4, 4, 5u, "phLibNfc_SM_Dnld_eSE_GetSmbTrans");
   return SmbCmd;
 }
 
@@ -8518,7 +6909,7 @@ uint64_t sub_297EB9780(uint64_t a1)
 {
   v7 = 0;
   v8 = a1;
-  sub_297E4E1B4(0, &v8, 4u, 5u, "phLibNfc_SM_Dnld_RecoveryTrans");
+  sub_297E4E1B4(0, &v8, 4, 5u, "phLibNfc_SM_Dnld_RecoveryTrans");
   sub_297E4F0E8(v8, &v7);
   v1 = v7;
   if (v7)
@@ -8550,48 +6941,48 @@ uint64_t sub_297EB9780(uint64_t a1)
     v5 = 1;
   }
 
-  sub_297E4DFAC(0, &v8, 4u, 5u, "phLibNfc_SM_Dnld_RecoveryTrans");
+  sub_297E4DFAC(0, &v8, 4, 5u, "phLibNfc_SM_Dnld_RecoveryTrans");
   return v5;
 }
 
 uint64_t sub_297EB9848(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v17 = 0;
-  v18 = a1;
-  v15 = 0;
-  v16 = 0;
-  sub_297E4E1B4(0, &v18, 4u, 5u, "phLibNfc_SM_Dnld_eSE_TrnscvTransCmplt");
-  sub_297E4F0E8(v18, &v15);
-  sub_297E67EB0(v18, &v17);
-  sub_297E5D114(v18, &v16);
+  v13 = 0;
+  v14 = a1;
+  v11 = 0;
+  v12 = 0;
+  sub_297E4E1B4(0, &v14, 4, 5u, "phLibNfc_SM_Dnld_eSE_TrnscvTransCmplt");
+  sub_297E4F0E8(v14, &v11);
+  sub_297E67EB0(v14, &v13);
+  sub_297E5D114(v14, &v12);
   if (a3)
   {
-    sub_297E96818(v18, a3);
+    sub_297E96818(v14, a3);
   }
 
   else
   {
-    sub_297E5D398(v18, 0);
+    sub_297E5D398(v14, 0);
   }
 
-  if (v15)
+  if (v11)
   {
-    v4 = v17;
-    if (v17)
+    v4 = v13;
+    if (v13)
     {
-      if (v16)
+      if (v12)
       {
-        v5 = v17[81];
-        v6 = v17[82];
-        *(v17 + 81) = 0u;
+        v5 = *(v13 + 648);
+        v6 = *(v13 + 656);
+        *(v13 + 648) = 0u;
         if (a3 == 214)
         {
           v7 = 0;
           *(v4 + 680) = 0uLL;
           do
           {
-            sub_297F10718(v17, v7);
-            v17[v7++ + 19] = 0;
+            sub_297F10718(v13, v7);
+            *(v13 + 8 * v7++ + 152) = 0;
           }
 
           while (v7 != 8);
@@ -8599,49 +6990,45 @@ uint64_t sub_297EB9848(uint64_t a1, uint64_t a2, uint64_t a3)
 
         if (v5)
         {
-          v5(*v17, v6, v17[1], (v17 + 8), *(v16 + 820), a3);
-          sub_297E4E0B0(0, &v18, 4u, 4u, "phLibNfc_SM_Dnld_eSE_TrnscvTransCmplt:APP Callback Invoked");
-          v8 = v17;
-          *(v17 + 83) = 0u;
-          v9 = *(v8 + 1368);
+          v5(*v13, v6, *(v13 + 8), v13 + 64, *(v12 + 820), a3);
+          sub_297E4E0B0(0, &v14, 4, 4u, "phLibNfc_SM_Dnld_eSE_TrnscvTransCmplt:APP Callback Invoked");
+          *(v13 + 664) = 0u;
           phOsalNfc_SetMemory();
           if (a3 == 217)
           {
             for (i = 0; i != 8; ++i)
             {
-              sub_297F10718(v17, i);
-              v17[i + 19] = 0;
+              sub_297F10718(v13, i);
+              *(v13 + 8 * i + 152) = 0;
             }
           }
 
           if (a3 == 214)
           {
-            v11 = 0;
-            *(v17 + 85) = 0u;
+            v9 = 0;
+            *(v13 + 680) = 0u;
             do
             {
-              sub_297F10718(v17, v11);
-              v17[v11++ + 19] = 0;
+              sub_297F10718(v13, v9);
+              *(v13 + 8 * v9++ + 152) = 0;
             }
 
-            while (v11 != 8);
-            if (!*v16 && !*(v15 + 6081))
+            while (v9 != 8);
+            if (!*v12 && !*(v11 + 6081))
             {
-              v12 = *v17;
               phTmlNfc_ReadAbort();
-              v13 = *v17;
               phTmlNfc_FlushTxRxBuffers();
-              sub_297F12CB0(v17);
-              sub_297EA7418(v15);
-              sub_297E7EB8C(v18);
-              if (*(v16 + 91) == 1)
+              sub_297F12CB0(v13);
+              sub_297EA7418(v11);
+              sub_297E7EB8C(v14);
+              if (*(v12 + 91) == 1)
               {
-                *(v16 + 91) = 0;
-                if (v15)
+                *(v12 + 91) = 0;
+                if (v11)
                 {
-                  sub_297EA9F80(v15);
-                  v15 = 0;
-                  sub_297E9F3BC(v18, 0);
+                  sub_297EA9F80(v11);
+                  v11 = 0;
+                  sub_297E9F3BC(v14, 0);
                 }
               }
             }
@@ -8651,7 +7038,7 @@ uint64_t sub_297EB9848(uint64_t a1, uint64_t a2, uint64_t a3)
     }
   }
 
-  sub_297E4DFAC(0, &v18, 4u, 5u, "phLibNfc_SM_Dnld_eSE_TrnscvTransCmplt");
+  sub_297E4DFAC(0, &v14, 4, 5u, "phLibNfc_SM_Dnld_eSE_TrnscvTransCmplt");
   return a3;
 }
 
@@ -8659,7 +7046,7 @@ uint64_t sub_297EB9AAC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v8 = 0;
   v9 = a1;
-  sub_297E4E1B4(0, &v9, 4u, 5u, "phLibNfc_SM_Dnld_eSE_TrnscvTrans");
+  sub_297E4E1B4(0, &v9, 4, 5u, "phLibNfc_SM_Dnld_eSE_TrnscvTrans");
   sub_297E4F0E8(v9, &v8);
   v6 = 255;
   if (a4 && v8)
@@ -8667,41 +7054,41 @@ uint64_t sub_297EB9AAC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
     v6 = sub_297E87F60(v8, a3, a4);
   }
 
-  sub_297E4DFAC(0, &v9, 4u, 5u, "phLibNfc_SM_Dnld_eSE_TrnscvTrans");
+  sub_297E4DFAC(0, &v9, 4, 5u, "phLibNfc_SM_Dnld_eSE_TrnscvTrans");
   return v6;
 }
 
 uint64_t sub_297EB9B4C(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v14 = 0;
-  v15 = a1;
   v12 = 0;
-  v13 = 0;
-  sub_297E4E1B4(0, &v15, 4u, 5u, "phLibNfc_SM_Dnld_eSE_SmbCfgTransCmplt");
-  sub_297E4F0E8(v15, &v12);
-  sub_297E67EB0(v15, &v14);
-  sub_297E5D114(v15, &v13);
+  v13 = a1;
+  v10 = 0;
+  v11 = 0;
+  sub_297E4E1B4(0, &v13, 4, 5u, "phLibNfc_SM_Dnld_eSE_SmbCfgTransCmplt");
+  sub_297E4F0E8(v13, &v10);
+  sub_297E67EB0(v13, &v12);
+  sub_297E5D114(v13, &v11);
   if (a3)
   {
-    sub_297E96818(v15, a3);
+    sub_297E96818(v13, a3);
   }
 
   else
   {
-    sub_297E5D398(v15, 0);
+    sub_297E5D398(v13, 0);
   }
 
-  v4 = v14;
-  if (v14)
+  v4 = v12;
+  if (v12)
   {
-    v5 = v14[89];
-    v6 = v14[90];
-    *(v14 + 89) = 0u;
+    v5 = v12[89];
+    v6 = v12[90];
+    *(v12 + 89) = 0u;
     if (v5)
     {
       v5(*v4, v6, a3);
-      sub_297E4E0B0(0, &v15, 4u, 4u, "phLibNfc_SM_Dnld_eSE_SmbCfgTransCmplt:APP Callback Invoked");
-      v4 = v14;
+      sub_297E4E0B0(0, &v13, 4, 4u, "phLibNfc_SM_Dnld_eSE_SmbCfgTransCmplt:APP Callback Invoked");
+      v4 = v12;
     }
   }
 
@@ -8710,33 +7097,31 @@ uint64_t sub_297EB9B4C(uint64_t a1, uint64_t a2, uint64_t a3)
     a3 = 1;
   }
 
-  if (v12)
+  if (v10)
   {
     if (v4)
     {
-      v7 = v13;
-      if (v13)
+      v7 = v11;
+      if (v11)
       {
-        v8 = v12 + 4096;
-        *(v12 + 6082) = 0;
+        v8 = v10 + 512;
+        *(v10 + 6082) = 0;
         if (*(v8 + 1985) != 1 && !*v7 && !*(v8 + 1982))
         {
           *(v7 + 116) = 0;
-          v9 = *v4;
           phTmlNfc_ReadAbort();
-          v10 = *v14;
           phTmlNfc_FlushTxRxBuffers();
-          sub_297F12CB0(v14);
-          sub_297EA7418(v12);
-          sub_297E7EB8C(v15);
-          if (*(v13 + 91) == 1)
+          sub_297F12CB0(v12);
+          sub_297EA7418(v10);
+          sub_297E7EB8C(v13);
+          if (*(v11 + 91) == 1)
           {
-            *(v13 + 91) = 0;
-            if (v12)
+            *(v11 + 91) = 0;
+            if (v10)
             {
-              sub_297EA9F80(v12);
-              v12 = 0;
-              sub_297E9F3BC(v15, 0);
+              sub_297EA9F80(v10);
+              v10 = 0;
+              sub_297E9F3BC(v13, 0);
             }
           }
         }
@@ -8744,7 +7129,7 @@ uint64_t sub_297EB9B4C(uint64_t a1, uint64_t a2, uint64_t a3)
     }
   }
 
-  sub_297E4DFAC(0, &v15, 4u, 5u, "phLibNfc_SM_Dnld_eSE_SmbCfgTransCmplt");
+  sub_297E4DFAC(0, &v13, 4, 5u, "phLibNfc_SM_Dnld_eSE_SmbCfgTransCmplt");
   return a3;
 }
 
@@ -8753,7 +7138,7 @@ uint64_t sub_297EB9CE4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   v11 = 0;
   v12 = a1;
   v10 = 0;
-  sub_297E4E1B4(0, &v12, 4u, 5u, "phLibNfc_SM_Dnld_eSE_GetSmbTransCmplt");
+  sub_297E4E1B4(0, &v12, 4, 5u, "phLibNfc_SM_Dnld_eSE_GetSmbTransCmplt");
   sub_297E4F0E8(v12, &v10);
   sub_297E67EB0(v12, &v11);
   if (a3)
@@ -8778,18 +7163,18 @@ uint64_t sub_297EB9CE4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
       if (v7)
       {
         v7(*v6, v8, a4, a3);
-        sub_297E4E0B0(0, &v12, 4u, 4u, "phLibNfc_SM_Dnld_eSE_GetSmbTransCmplt:host Callback Invoked");
+        sub_297E4E0B0(0, &v12, 4, 4u, "phLibNfc_SM_Dnld_eSE_GetSmbTransCmplt:host Callback Invoked");
       }
     }
   }
 
-  sub_297E4DFAC(0, &v12, 4u, 5u, "phLibNfc_SM_Dnld_eSE_GetSmbTransCmplt");
+  sub_297E4DFAC(0, &v12, 4, 5u, "phLibNfc_SM_Dnld_eSE_GetSmbTransCmplt");
   return a3;
 }
 
 uint64_t sub_297EB9DE4(uint64_t a1)
 {
-  sub_297E4E1B4(2, a1, 4u, 5u, "phLibNfc_SM_SE_Initialize");
+  sub_297E4E1B4(2, a1, 4, 5u, "phLibNfc_SM_SE_Initialize");
   if (a1)
   {
     for (i = 0; i != 4; ++i)
@@ -8798,18 +7183,18 @@ uint64_t sub_297EB9DE4(uint64_t a1)
     }
   }
 
-  sub_297E4DFAC(2, a1, 4u, 5u, "phLibNfc_SM_SE_Initialize");
+  sub_297E4DFAC(2, a1, 4, 5u, "phLibNfc_SM_SE_Initialize");
   return 0;
 }
 
 uint64_t sub_297EB9E80(uint64_t a1, unsigned int a2)
 {
   v3 = a1;
-  v16 = 0;
-  sub_297E4E1B4(2, a1, 4u, 5u, "phLibNfc_NfccResetNtf_CB");
+  v13 = 0;
+  sub_297E4E1B4(2, a1, 4, 5u, "phLibNfc_NfccResetNtf_CB");
   if (v3)
   {
-    v16 = *(v3 + 9784);
+    v13 = *(v3 + 9784);
     v4 = *(v3 + 6104);
     if ((a2 & 0xFFFE) == 0x88)
     {
@@ -8828,7 +7213,7 @@ uint64_t sub_297EB9E80(uint64_t a1, unsigned int a2)
       v7 = *(v3 + 6576);
       if (*(v3 + 356) == 161)
       {
-        sub_297E54734(0, &v16, 4u, 4u, "NfccResetNtf_CB :pGenericNtfCb[RESET NTF PROHIBIT TEMPERATURE]");
+        sub_297E54734(0, &v13, 4, 4u, "NfccResetNtf_CB :pGenericNtfCb[RESET NTF PROHIBIT TEMPERATURE]");
         v8 = *(v3 + 9784);
         v9 = v7;
         v10 = 209;
@@ -8837,7 +7222,7 @@ uint64_t sub_297EB9E80(uint64_t a1, unsigned int a2)
 
       else
       {
-        sub_297E54734(0, &v16, 4u, 4u, "NfccResetNtf_CB :pGenericNtfCb[RESET NTF]");
+        sub_297E54734(0, &v13, 4, 4u, "NfccResetNtf_CB :pGenericNtfCb[RESET NTF]");
         v8 = *(v3 + 9784);
         v11 = v3 + 112;
         v9 = v7;
@@ -8853,52 +7238,48 @@ uint64_t sub_297EB9E80(uint64_t a1, unsigned int a2)
       sub_297EA7418(v3);
       sub_297F080D4(*(v3 + 3088), 2, 0, 0);
       *(v3 + 3088) = 0;
-      v12 = *(v3 + 3000);
       phTmlNfc_ReadAbort();
-      v13 = *(v3 + 3000);
       phTmlNfc_FlushTxRxBuffers();
-      v14 = *(v3 + 3000);
       phTmlNfc_WriteAbort();
       sub_297E5A3A8(*(v3 + 3000), 0);
       *(v3 + 2960) = 0;
       sub_297EA9F80(v3);
-      sub_297E9F3BC(v16, 0);
+      sub_297E9F3BC(v13, 0);
       v3 = 0;
     }
   }
 
-  return sub_297E4DFAC(2, v3, 4u, 5u, "phLibNfc_NfccResetNtf_CB");
+  return sub_297E4DFAC(2, v3, 4, 5u, "phLibNfc_NfccResetNtf_CB");
 }
 
 uint64_t sub_297EB9FF8(uint64_t a1)
 {
+  v4 = 0u;
   v5 = 0u;
-  v6 = 0u;
-  sub_297E4E1B4(2, a1, 3u, 5u, "phNciNfc_ModeSet");
+  sub_297E4E1B4(2, a1, 3, 5u, "phNciNfc_ModeSet");
   if (a1)
   {
     *(a1 + 6480) = 0;
-    v2 = *(a1 + 6524);
     phOsalNfc_SetMemory();
-    *&v5 = 0x200000001;
-    DWORD2(v5) = 1;
-    *&v6 = *(a1 + 896);
-    DWORD2(v6) = *(a1 + 904);
-    v3 = sub_297E57BA8(a1 + 936, &v5, a1 + 3800, 2000, sub_297EBA944, a1);
+    *&v4 = 0x200000001;
+    DWORD2(v4) = 1;
+    *&v5 = *(a1 + 896);
+    DWORD2(v5) = *(a1 + 904);
+    v2 = sub_297E57BA8(a1 + 936, &v4, a1 + 3800, 2000, sub_297EBA944, a1);
   }
 
   else
   {
-    v3 = 255;
+    v2 = 255;
   }
 
-  sub_297E4DFAC(2, a1, 3u, 5u, "phNciNfc_ModeSet");
-  return v3;
+  sub_297E4DFAC(2, a1, 3, 5u, "phNciNfc_ModeSet");
+  return v2;
 }
 
 uint64_t sub_297EBA0DC(uint64_t a1, uint64_t a2)
 {
-  sub_297E4E1B4(2, a1, 3u, 5u, "phNciNfc_ProcessModeSetRsp");
+  sub_297E4E1B4(2, a1, 3, 5u, "phNciNfc_ProcessModeSetRsp");
   if (!a2)
   {
     if (!a1)
@@ -8922,16 +7303,16 @@ uint64_t sub_297EBA0DC(uint64_t a1, uint64_t a2)
 
     if (!v5)
     {
-      sub_297E4E0B0(1, a1 + 6524, 3u, 4u, "NFCEE Mode Set process Success");
+      sub_297E4E0B0(1, a1 + 6524, 3, 4u, "NFCEE Mode Set process Success");
       v6 = *(a1 + 3992);
       if (v6)
       {
         if (*(v6 + 1) == 1 && !*(a1 + 3988))
         {
-          sub_297E4E0B0(1, a1 + 6524, 3u, 4u, "Updating closed logical connection channel info");
+          sub_297E4E0B0(1, a1 + 6524, 3, 4u, "Updating closed logical connection channel info");
           if (sub_297E8BC94(a1, a1 + 4008))
           {
-            sub_297E4E0B0(1, a1 + 6524, 3u, 1u, "Failed to update closed connection info");
+            sub_297E4E0B0(1, a1 + 6524, 3, 1u, "Failed to update closed connection info");
           }
         }
       }
@@ -8947,18 +7328,17 @@ LABEL_12:
   }
 
 LABEL_13:
-  sub_297E4DFAC(2, a1, 3u, 5u, "phNciNfc_ProcessModeSetRsp");
+  sub_297E4DFAC(2, a1, 3, 5u, "phNciNfc_ProcessModeSetRsp");
   return a2;
 }
 
 uint64_t sub_297EBA200(uint64_t a1, uint64_t a2)
 {
-  sub_297E4E1B4(2, a1, 3u, 5u, "phNciNfc_CompleteModeSetSequence");
+  sub_297E4E1B4(2, a1, 3, 5u, "phNciNfc_CompleteModeSetSequence");
   if (a1)
   {
     if (*(a1 + 896))
     {
-      v4 = *(a1 + 6524);
       phOsalNfc_FreeMemory();
       *(a1 + 896) = 0;
       *(a1 + 904) = 0;
@@ -8966,59 +7346,49 @@ uint64_t sub_297EBA200(uint64_t a1, uint64_t a2)
 
     if (a2)
     {
-      sub_297E4E0B0(1, a1 + 6524, 3u, 4u, "phNciNfc_CompleteModeSetSequence: Set Mode failed!!");
+      sub_297E4E0B0(1, a1 + 6524, 3, 4u, "phNciNfc_CompleteModeSetSequence: Set Mode failed!!");
     }
 
     else
     {
-      v5 = *(a1 + 3992);
-      if (!v5 || *(a1 + 3988) == 1 && *(v5 + 1) == 1)
+      v4 = *(a1 + 3992);
+      if (!v4 || *(a1 + 3988) == 1 && *(v4 + 1) == 1)
       {
         a2 = 0;
       }
 
       else
       {
-        v6 = *(a1 + 4704);
-        if (v6 && v6 != 0xFFFFFFFFFFFFLL)
+        v5 = *(a1 + 4704);
+        if (v5 && v5 != 0xFFFFFFFFFFFFLL)
         {
-          v7 = *(a1 + 6524);
           phOsalNfc_Timer_Stop();
-          v8 = *(a1 + 6524);
-          v9 = *(a1 + 4704);
           phOsalNfc_Timer_Delete();
           *(a1 + 4704) = 0xFFFFFFFFFFFFLL;
         }
 
-        v10 = *(a1 + 6524);
-        v11 = phOsalNfc_Timer_Create();
-        *(a1 + 4704) = v11;
-        if (v11 != 0xFFFFFFFFFFFFLL && v11)
+        v6 = phOsalNfc_Timer_Create();
+        *(a1 + 4704) = v6;
+        if (v6 != 0xFFFFFFFFFFFFLL && v6)
         {
-          sub_297E4E0B0(1, a1 + 6524, 3u, 4u, "Set Mode Notification Timer Created Successfully");
-          v12 = *(a1 + 6524);
-          v13 = *(a1 + 4704);
+          sub_297E4E0B0(1, a1 + 6524, 3, 4u, "Set Mode Notification Timer Created Successfully");
           a2 = phOsalNfc_Timer_Start();
           if (!a2)
           {
-            sub_297E687D8(1, a1 + 6524, *(a1 + 4704), 3u, 4u, "phNciNfc_CompleteModeSetSequence");
-            sub_297E4E0B0(1, a1 + 6524, 3u, 4u, "Set Mode ntf timer started\n");
+            sub_297E687D8(1, a1 + 6524, *(a1 + 4704), 3, 4u, "phNciNfc_CompleteModeSetSequence");
+            sub_297E4E0B0(1, a1 + 6524, 3, 4u, "Set Mode ntf timer started\n");
             goto LABEL_19;
           }
 
-          v14 = *(a1 + 6524);
-          v15 = *(a1 + 4704);
           phOsalNfc_Timer_Stop();
-          v16 = *(a1 + 6524);
-          v17 = *(a1 + 4704);
           phOsalNfc_Timer_Delete();
           *(a1 + 4704) = 0xFFFFFFFFFFFFLL;
-          sub_297E4E0B0(1, a1 + 6524, 3u, 1u, "Set Mode ntf timer start FAILED\n\n");
+          sub_297E4E0B0(1, a1 + 6524, 3, 1u, "Set Mode ntf timer start FAILED\n\n");
         }
 
         else
         {
-          sub_297E4E0B0(1, a1 + 6524, 3u, 1u, "Set Mode Notification Timer Create failed!!");
+          sub_297E4E0B0(1, a1 + 6524, 3, 1u, "Set Mode Notification Timer Create failed!!");
           a2 = 12;
         }
       }
@@ -9029,38 +7399,37 @@ uint64_t sub_297EBA200(uint64_t a1, uint64_t a2)
   }
 
 LABEL_19:
-  sub_297E4DFAC(2, a1, 3u, 5u, "phNciNfc_CompleteModeSetSequence");
+  sub_297E4DFAC(2, a1, 3, 5u, "phNciNfc_CompleteModeSetSequence");
   return a2;
 }
 
 uint64_t sub_297EBA42C(uint64_t a1)
 {
+  v4 = 0u;
   v5 = 0u;
-  v6 = 0u;
-  sub_297E4E1B4(2, a1, 3u, 5u, "phNciNfc_NfceeDiscover");
+  sub_297E4E1B4(2, a1, 3, 5u, "phNciNfc_NfceeDiscover");
   if (a1)
   {
-    v2 = *(a1 + 6524);
     phOsalNfc_SetMemory();
-    *&v5 = 0x200000001;
-    DWORD2(v5) = 0;
-    *&v6 = *(a1 + 896);
-    DWORD2(v6) = *(a1 + 904);
-    v3 = sub_297E57BA8(a1 + 936, &v5, a1 + 3800, 2000, sub_297EBA944, a1);
+    *&v4 = 0x200000001;
+    DWORD2(v4) = 0;
+    *&v5 = *(a1 + 896);
+    DWORD2(v5) = *(a1 + 904);
+    v2 = sub_297E57BA8(a1 + 936, &v4, a1 + 3800, 2000, sub_297EBA944, a1);
   }
 
   else
   {
-    v3 = 255;
+    v2 = 255;
   }
 
-  sub_297E4DFAC(2, a1, 3u, 5u, "phNciNfc_NfceeDiscover");
-  return v3;
+  sub_297E4DFAC(2, a1, 3, 5u, "phNciNfc_NfceeDiscover");
+  return v2;
 }
 
 uint64_t sub_297EBA504(uint64_t a1, uint64_t a2)
 {
-  sub_297E4E1B4(2, a1, 3u, 5u, "phNciNfc_ProcessNfceeDiscoverRsp");
+  sub_297E4E1B4(2, a1, 3, 5u, "phNciNfc_ProcessNfceeDiscoverRsp");
   if (a1 && !a2)
   {
     v4 = *(a1 + 3800);
@@ -9084,24 +7453,24 @@ LABEL_8:
 
     else
     {
-      sub_297E4E0B0(1, a1 + 6524, 3u, 4u, "NFCEE Discovery process Started");
+      sub_297E4E0B0(1, a1 + 6524, 3, 4u, "NFCEE Discovery process Started");
       *(a1 + 3985) = *(*(a1 + 3800) + 1);
       *(a1 + 4000) = *(a1 + 4528);
-      sub_297E50DB0(1, a1 + 6524, 3u, 4u, "Number of NFCEE Connected with NFCC");
+      sub_297E50DB0(1, a1 + 6524, 3, 4u, "Number of NFCEE Connected with NFCC");
       a2 = 0;
     }
   }
 
 LABEL_9:
-  sub_297E4DFAC(2, a1, 3u, 5u, "phNciNfc_ProcessNfceeDiscoverRsp");
+  sub_297E4DFAC(2, a1, 3, 5u, "phNciNfc_ProcessNfceeDiscoverRsp");
   return a2;
 }
 
 uint64_t sub_297EBA5F8(uint64_t a1, uint64_t a2)
 {
+  v6 = 0;
   v7 = 0;
-  v8 = 0;
-  sub_297E4E1B4(2, a1, 3u, 5u, "phNciNfc_CompleteNfceeDiscoverSequence");
+  sub_297E4E1B4(2, a1, 3, 5u, "phNciNfc_CompleteNfceeDiscoverSequence");
   if (a1)
   {
     if (!*(a1 + 3800))
@@ -9111,7 +7480,6 @@ uint64_t sub_297EBA5F8(uint64_t a1, uint64_t a2)
 
     if (*(a1 + 896))
     {
-      v4 = *(a1 + 6524);
       phOsalNfc_FreeMemory();
       *(a1 + 896) = 0;
       *(a1 + 904) = 0;
@@ -9124,28 +7492,28 @@ uint64_t sub_297EBA5F8(uint64_t a1, uint64_t a2)
 
     if (*(a1 + 4528) == 1)
     {
-      sub_297E4E0B0(1, a1 + 6524, 3u, 4u, "Registering for Nfcee Discover Notification");
-      BYTE5(v8) = 2;
-      LODWORD(v8) = 0;
-      v7 = 0x200000003;
-      a2 = sub_297E59AEC(a1 + 936, &v7, sub_297EBAB70, a1);
+      sub_297E4E0B0(1, a1 + 6524, 3, 4u, "Registering for Nfcee Discover Notification");
+      BYTE5(v7) = 2;
+      LODWORD(v7) = 0;
+      v6 = 0x200000003;
+      a2 = sub_297E59AEC(a1 + 936, &v6, sub_297EBAB70, a1);
       if (a2)
       {
-        v5 = "phNciNfc_CompleteNfceeDiscoverSequence:Registering for Nfcee Discover Notification Failed";
+        v4 = "phNciNfc_CompleteNfceeDiscoverSequence:Registering for Nfcee Discover Notification Failed";
 LABEL_12:
-        sub_297E4E0B0(1, a1 + 6524, 3u, 4u, v5);
+        sub_297E4E0B0(1, a1 + 6524, 3, 4u, v4);
       }
     }
 
     else
     {
-      sub_297E4E0B0(1, a1 + 6524, 3u, 4u, "phNciNfc_CompleteNfceeDiscoverSequence:De-Registering for Nfcee Discover Notification");
-      LODWORD(v8) = 0;
-      v7 = 0x200000003;
-      a2 = sub_297F00C28(a1 + 936, &v7, sub_297EBAB70);
+      sub_297E4E0B0(1, a1 + 6524, 3, 4u, "phNciNfc_CompleteNfceeDiscoverSequence:De-Registering for Nfcee Discover Notification");
+      LODWORD(v7) = 0;
+      v6 = 0x200000003;
+      a2 = sub_297F00C28(a1 + 936, &v6, sub_297EBAB70);
       if (a2)
       {
-        v5 = "phNciNfc_CompleteNfceeDiscoverSequence:De-Registering for Nfcee Discover Notification Failed";
+        v4 = "phNciNfc_CompleteNfceeDiscoverSequence:De-Registering for Nfcee Discover Notification Failed";
         goto LABEL_12;
       }
     }
@@ -9157,62 +7525,61 @@ LABEL_13:
 
   a2 = 255;
 LABEL_14:
-  sub_297E4DFAC(2, a1, 3u, 5u, "phNciNfc_CompleteNfceeDiscoverSequence");
+  sub_297E4DFAC(2, a1, 3, 5u, "phNciNfc_CompleteNfceeDiscoverSequence");
   return a2;
 }
 
 uint64_t sub_297EBA794(uint64_t a1)
 {
+  v4 = 0u;
   v5 = 0u;
-  v6 = 0u;
-  sub_297E4E1B4(2, a1, 3u, 5u, "phNciNfc_SvddOnCtrlCmd");
+  sub_297E4E1B4(2, a1, 3, 5u, "phNciNfc_SvddOnCtrlCmd");
   if (a1)
   {
-    v2 = *(a1 + 6524);
     phOsalNfc_SetMemory();
-    *&v5 = 0xF00000001;
-    DWORD2(v5) = 41;
-    *&v6 = *(a1 + 896);
-    DWORD2(v6) = *(a1 + 904);
-    v3 = sub_297E57BA8(a1 + 936, &v5, a1 + 3800, 2000, sub_297EBA944, a1);
+    *&v4 = 0xF00000001;
+    DWORD2(v4) = 41;
+    *&v5 = *(a1 + 896);
+    DWORD2(v5) = *(a1 + 904);
+    v2 = sub_297E57BA8(a1 + 936, &v4, a1 + 3800, 2000, sub_297EBA944, a1);
   }
 
   else
   {
-    v3 = 255;
+    v2 = 255;
   }
 
-  sub_297E4DFAC(2, a1, 3u, 5u, "phNciNfc_SvddOnCtrlCmd");
-  return v3;
+  sub_297E4DFAC(2, a1, 3, 5u, "phNciNfc_SvddOnCtrlCmd");
+  return v2;
 }
 
 uint64_t sub_297EBA870(uint64_t a1, uint64_t a2)
 {
-  sub_297E4E1B4(2, a1, 3u, 5u, "phNciNfc_SvddOnCtrlRsp");
+  sub_297E4E1B4(2, a1, 3, 5u, "phNciNfc_SvddOnCtrlRsp");
   if (a1 && !a2)
   {
     v4 = *(a1 + 3800);
     if (v4 && !*v4 && *(a1 + 3808) == 1)
     {
-      sub_297E4E0B0(1, a1 + 6524, 3u, 4u, "Svdd On Control Successful");
+      sub_297E4E0B0(1, a1 + 6524, 3, 4u, "Svdd On Control Successful");
       a2 = 0;
     }
 
     else
     {
-      sub_297E4E0B0(1, a1 + 6524, 3u, 1u, "Svdd On Control  failed!");
+      sub_297E4E0B0(1, a1 + 6524, 3, 1u, "Svdd On Control  failed!");
       *(a1 + 3808) = 0;
       a2 = 255;
     }
   }
 
-  sub_297E4DFAC(2, a1, 3u, 5u, "phNciNfc_SvddOnCtrlRsp");
+  sub_297E4DFAC(2, a1, 3, 5u, "phNciNfc_SvddOnCtrlRsp");
   return a2;
 }
 
 uint64_t sub_297EBA944(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  sub_297E4E1B4(2, a1, 3u, 5u, "phNciNfc_NfceeDiscoverSequence");
+  sub_297E4E1B4(2, a1, 3, 5u, "phNciNfc_NfceeDiscoverSequence");
   if (a1 && a2)
   {
     *(a1 + 3800) = *(a2 + 8);
@@ -9220,14 +7587,14 @@ uint64_t sub_297EBA944(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 
   v6 = sub_297E5783C(a1, a3);
-  sub_297E4DFAC(2, a1, 3u, 5u, "phNciNfc_NfceeDiscoverSequence");
+  sub_297E4DFAC(2, a1, 3, 5u, "phNciNfc_NfceeDiscoverSequence");
   return v6;
 }
 
 uint64_t sub_297EBA9D8(uint64_t a1, uint64_t a2)
 {
-  sub_297E687D8(2, a2, a1, 3u, 4u, "phNciNfc_NfceeMgmtSetModeTimeOutHandler");
-  sub_297E4E1B4(2, a2, 3u, 5u, "phNciNfc_NfceeMgmtSetModeTimeOutHandler");
+  sub_297E687D8(2, a2, a1, 3, 4u, "phNciNfc_NfceeMgmtSetModeTimeOutHandler");
+  sub_297E4E1B4(2, a2, 3, 5u, "phNciNfc_NfceeMgmtSetModeTimeOutHandler");
   if (!a2)
   {
     goto LABEL_6;
@@ -9250,73 +7617,70 @@ uint64_t sub_297EBA9D8(uint64_t a1, uint64_t a2)
   while (v5 != a2);
   if (v5 == a2)
   {
-    sub_297E4E0B0(1, a2 + 6524, 3u, 4u, "#######Set Mode notification TIMEOUT########\n");
+    sub_297E4E0B0(1, a2 + 6524, 3, 4u, "#######Set Mode notification TIMEOUT########\n");
     v7 = *(a2 + 4704);
     if (v7 && v7 != 0xFFFFFFFFFFFFLL)
     {
-      v8 = *(a2 + 6524);
       phOsalNfc_Timer_Stop();
-      v9 = *(a2 + 6524);
-      v10 = *(a2 + 4704);
       phOsalNfc_Timer_Delete();
       *(a2 + 4704) = 0xFFFFFFFFFFFFLL;
     }
 
     if (*(a2 + 4835) == 1 || *(a2 + 4834) == 1)
     {
-      v11 = 47;
+      v8 = 47;
     }
 
     else
     {
-      v11 = 47;
+      v8 = 47;
       if (*(a2 + 4833) != 1)
       {
         if (*(a2 + 4828) == 1)
         {
-          v11 = 47;
+          v8 = 47;
         }
 
         else
         {
-          v11 = 0;
+          v8 = 0;
         }
       }
     }
 
-    v12 = *(a2 + 816);
-    if (v12)
+    v9 = *(a2 + 816);
+    if (v9)
     {
-      v13 = *(a2 + 824);
+      v10 = *(a2 + 824);
       *(a2 + 816) = 0;
       *(a2 + 824) = 0;
-      v12(v13, v11, 0);
+      v9(v10, v8, 0);
     }
   }
 
   else
   {
 LABEL_6:
-    sub_297E4E0B0(2, a2, 3u, 1u, "Nci context null (phNciNfc_NfceeMgmtSetModeTimeOutHandler)\n");
+    sub_297E4E0B0(2, a2, 3, 1u, "Nci context null (phNciNfc_NfceeMgmtSetModeTimeOutHandler)\n");
   }
 
-  return sub_297E4DFAC(2, a2, 3u, 5u, "phNciNfc_NfceeMgmtSetModeTimeOutHandler");
+  return sub_297E4DFAC(2, a2, 3, 5u, "phNciNfc_NfceeMgmtSetModeTimeOutHandler");
 }
 
 uint64_t sub_297EBAB70(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v45 = 0;
-  v43 = 0u;
-  v44 = 0u;
+  v43 = 0;
   v41 = 0u;
   v42 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v36 = 0;
-  v37 = 0;
-  v38 = 0;
+  v37 = 0u;
+  v38 = 0u;
+  v34 = 0;
   v35 = 0;
-  sub_297E4E1B4(2, a1, 3u, 5u, "phNciNfc_NfceeDiscNtfHandler");
+  v36 = 0;
+  v33 = 0;
+  sub_297E4E1B4(2, a1, 3, 5u, "phNciNfc_NfceeDiscNtfHandler");
   if (a3)
   {
     goto LABEL_44;
@@ -9348,7 +7712,7 @@ LABEL_9:
       goto LABEL_34;
     }
 
-    v12 = sub_297E5B838(a1, (a1 + 3984), v9, &v35, 1u);
+    v12 = sub_297E5B838(a1, (a1 + 3984), v9, &v33, 1u);
     a3 = v12;
     v13 = v12 == 255;
     v8 = v11 == 2;
@@ -9356,23 +7720,23 @@ LABEL_9:
     {
       if (v12 == 255)
       {
-        a3 = sub_297E5B838(a1, (a1 + 3984), *v6, &v35, 0);
-        v14 = v35;
+        a3 = sub_297E5B838(a1, (a1 + 3984), *v6, &v33, 0);
+        v14 = v33;
         if (!a3)
         {
-          *(a1 + 104 * v35 + 4008) = -1;
+          *(a1 + 104 * v33 + 4008) = -1;
         }
       }
 
       else
       {
-        v14 = v35;
+        v14 = v33;
       }
 
-      LOBYTE(v36) = 0;
-      BYTE1(v36) = *v6;
-      v37 = a1 + 104 * v14 + 4008;
-      sub_297EBB250(a1, v37, v6[(v6[2] + 3)], &v6[(v6[2] + 4)]);
+      LOBYTE(v34) = 0;
+      BYTE1(v34) = *v6;
+      v35 = a1 + 104 * v14 + 4008;
+      sub_297EBB250(a1, v35, v6[(v6[2] + 3)], &v6[(v6[2] + 4)]);
       v10 = 0;
     }
 
@@ -9380,14 +7744,14 @@ LABEL_9:
     {
       if (v12 == 255)
       {
-        v15 = sub_297E5B838(a1, (a1 + 3984), *v6, &v35, 0);
+        v15 = sub_297E5B838(a1, (a1 + 3984), *v6, &v33, 0);
         if (v15)
         {
           a3 = v15;
           goto LABEL_9;
         }
 
-        *(a1 + 104 * v35 + 4008) = -1;
+        *(a1 + 104 * v33 + 4008) = -1;
         v13 = 1;
         goto LABEL_26;
       }
@@ -9409,8 +7773,8 @@ LABEL_27:
     }
 
     v16 = a1 + 4008;
-    v17 = v35;
-    v18 = (a1 + 4008 + 104 * v35);
+    v17 = v33;
+    v18 = (a1 + 4008 + 104 * v33);
     *v18 = -1;
     v18[1] = *v6;
     if (v6[1])
@@ -9425,36 +7789,34 @@ LABEL_27:
     }
 
     *(v16 + 104 * v17 + 4) = v19;
-    HIBYTE(v35) = 2;
-    if (!sub_297EBB4E4(a1, v18, v6, &v35 + 1))
+    HIBYTE(v33) = 2;
+    if (!sub_297EBB4E4(a1, v18, v6, &v33 + 1))
     {
-      if (!(v7 + ~HIBYTE(v35)))
+      if (!(v7 + ~HIBYTE(v33)))
       {
         goto LABEL_49;
       }
 
-      v29 = &v6[HIBYTE(v35)];
-      a3 = sub_297EC2C48(a1, (v29 + 1), (v7 + ~HIBYTE(v35)));
+      v29 = &v6[HIBYTE(v33)];
+      a3 = sub_297EC2C48(a1, (v29 + 1), (v7 + ~HIBYTE(v33)));
       if (a3)
       {
         goto LABEL_33;
       }
 
-      v30 = v16 + 104 * v35;
+      v30 = v16 + 104 * v33;
       *(v30 + 14) = *v29;
       *(v30 + 16) = 0;
-      v31 = *(a1 + 6524);
       Memory_Typed = phOsalNfc_GetMemory_Typed();
-      *(v16 + 104 * v35 + 16) = Memory_Typed;
+      *(v16 + 104 * v33 + 16) = Memory_Typed;
       if (!Memory_Typed)
       {
         a3 = 255;
         goto LABEL_33;
       }
 
-      v33 = *(a1 + 6524);
       phOsalNfc_MemCopy();
-      if (!sub_297EBB250(a1, v16 + 104 * v35, *v29, *(v16 + 104 * v35 + 16)))
+      if (!sub_297EBB250(a1, v16 + 104 * v33, *v29, *(v16 + 104 * v33 + 16)))
       {
 LABEL_49:
         if (v13)
@@ -9470,67 +7832,67 @@ LABEL_49:
 
     a3 = 1;
 LABEL_33:
-    *(v16 + 104 * v35 + 1) = 0;
+    *(v16 + 104 * v33 + 1) = 0;
   }
 
 LABEL_34:
   v20 = a1 + 4008;
-  v21 = a1 + 4008 + 104 * v35;
+  v21 = a1 + 4008 + 104 * v33;
   v22 = *v6;
   if (*(v21 + 1) == v22)
   {
     v23 = *(v21 + 80);
-    v43 = *(v21 + 64);
-    v44 = v23;
-    v45 = *(v21 + 96);
+    v41 = *(v21 + 64);
+    v42 = v23;
+    v43 = *(v21 + 96);
     v24 = *(v21 + 16);
-    v39 = *v21;
-    v40 = v24;
+    v37 = *v21;
+    v38 = v24;
     v25 = *(v21 + 48);
-    v41 = *(v21 + 32);
-    v42 = v25;
+    v39 = *(v21 + 32);
+    v40 = v25;
   }
 
   else if (v6[1] == 2)
   {
-    v34 = 2;
-    BYTE1(v39) = v22;
-    DWORD1(v39) = 2;
-    a3 = sub_297EBB4E4(a1, &v39, v6, &v34);
-    BYTE14(v39) = v6[v34];
-    v26 = v20 + 104 * v35;
+    v32 = 2;
+    BYTE1(v37) = v22;
+    DWORD1(v37) = 2;
+    a3 = sub_297EBB4E4(a1, &v37, v6, &v32);
+    BYTE14(v37) = v6[v32];
+    v26 = v20 + 104 * v33;
     *v26 = -1;
-    *(v26 + 1) = v6[HIBYTE(v35)];
+    *(v26 + 1) = v6[HIBYTE(v33)];
     *(v26 + 4) = 2;
   }
 
-  sub_297E9337C(a1, &v39);
+  sub_297E9337C(a1, &v37);
   if (!a3)
   {
     if (!v8)
     {
-      LOBYTE(v36) = v10;
-      BYTE1(v36) = *(v20 + 104 * v35 + 1);
-      v37 = v20 + 104 * v35;
+      LOBYTE(v34) = v10;
+      BYTE1(v34) = *(v20 + 104 * v33 + 1);
+      v35 = v20 + 104 * v33;
     }
 
     v27 = *(a1 + 232);
     if (v27)
     {
-      v27(*(a1 + 224), 1, &v36, 0);
+      v27(*(a1 + 224), 1, &v34, 0);
     }
 
     a3 = 0;
   }
 
 LABEL_44:
-  sub_297E4DFAC(2, a1, 3u, 5u, "phNciNfc_NfceeDiscNtfHandler");
+  sub_297E4DFAC(2, a1, 3, 5u, "phNciNfc_NfceeDiscNtfHandler");
   return a3;
 }
 
 uint64_t sub_297EBAFC4(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  sub_297E4E1B4(2, a1, 3u, 5u, "phNciNfc_NfceeModeSetSequence");
+  sub_297E4E1B4(2, a1, 3, 5u, "phNciNfc_NfceeModeSetSequence");
   if (a1 && a2)
   {
     *(a1 + 3808) = *(a2 + 16);
@@ -9538,7 +7900,7 @@ uint64_t sub_297EBAFC4(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 
   v6 = sub_297E5783C(a1, a3);
-  sub_297E4DFAC(2, a1, 3u, 5u, "phNciNfc_NfceeModeSetSequence");
+  sub_297E4DFAC(2, a1, 3, 5u, "phNciNfc_NfceeModeSetSequence");
   return v6;
 }
 
@@ -9546,7 +7908,7 @@ uint64_t sub_297EBB058(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v11 = 0;
   v10 = 255;
-  sub_297E4E1B4(2, a1, 3u, 5u, "phNciNfc_Nfcee_Connect");
+  sub_297E4E1B4(2, a1, 3, 5u, "phNciNfc_Nfcee_Connect");
   v8 = 0;
   if (a2 && a3)
   {
@@ -9561,13 +7923,13 @@ uint64_t sub_297EBB058(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
     v8 = sub_297E8B5FC(a1, &v10, sub_297EBB148, a1);
   }
 
-  sub_297E4DFAC(2, a1, 3u, 5u, "phNciNfc_Nfcee_Connect");
+  sub_297E4DFAC(2, a1, 3, 5u, "phNciNfc_Nfcee_Connect");
   return v8;
 }
 
 uint64_t sub_297EBB148(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  sub_297E4E1B4(2, a1, 3u, 5u, "phNciNfc_NfceeConnCb");
+  sub_297E4E1B4(2, a1, 3, 5u, "phNciNfc_NfceeConnCb");
   if (a1)
   {
     if (!a3)
@@ -9576,11 +7938,11 @@ uint64_t sub_297EBB148(uint64_t a1, uint64_t a2, uint64_t a3)
       a3 = sub_297E8B9D0(a1, 3, *(v5 + 1), v5);
       if (!a3)
       {
-        sub_297E50DB0(1, a1 + 6524, 3u, 4u, "NFCEE connection created for id = ");
+        sub_297E50DB0(1, a1 + 6524, 3, 4u, "NFCEE connection created for id = ");
         a3 = sub_297E8BB50(a1, v5, &v7);
         if (a3)
         {
-          sub_297E4E0B0(1, a1 + 6524, 3u, 4u, "phNciNfc_NfceeConnCb:Retrieving logical connection id for secure element failed");
+          sub_297E4E0B0(1, a1 + 6524, 3, 4u, "phNciNfc_NfceeConnCb:Retrieving logical connection id for secure element failed");
         }
       }
     }
@@ -9593,13 +7955,13 @@ uint64_t sub_297EBB148(uint64_t a1, uint64_t a2, uint64_t a3)
     a3 = 49;
   }
 
-  sub_297E4DFAC(2, a1, 3u, 5u, "phNciNfc_NfceeConnCb");
+  sub_297E4DFAC(2, a1, 3, 5u, "phNciNfc_NfceeConnCb");
   return a3;
 }
 
 uint64_t sub_297EBB250(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t a4)
 {
-  sub_297E4E1B4(2, a1, 3u, 5u, "phNciNfc_StoreTlvInfo");
+  sub_297E4E1B4(2, a1, 3, 5u, "phNciNfc_StoreTlvInfo");
   if (a3)
   {
     LOWORD(v7) = 1;
@@ -9687,7 +8049,7 @@ uint64_t sub_297EBB250(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t a4)
                 v26 = "StoreTlvInfo: Received NFCEE removed Ntf with un-known reason code";
               }
 
-              sub_297E4E0B0(2, a1, 3u, 1u, v26);
+              sub_297E4E0B0(2, a1, 3, 1u, v26);
               v7 = 0;
               v8 = a2;
             }
@@ -9702,7 +8064,7 @@ uint64_t sub_297EBB250(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t a4)
 
           else
           {
-            sub_297E4E0B0(2, a1, 3u, 1u, "StoreTlvInfo: Received NFCEE removed Ntf with INVALID type");
+            sub_297E4E0B0(2, a1, 3, 1u, "StoreTlvInfo: Received NFCEE removed Ntf with INVALID type");
             v8 = a2;
             v7 = 0;
             *(a2 + 24) = 0;
@@ -9752,14 +8114,14 @@ LABEL_39:
     LOWORD(v7) = 0;
   }
 
-  sub_297E4DFAC(2, a1, 3u, 5u, "phNciNfc_StoreTlvInfo");
+  sub_297E4DFAC(2, a1, 3, 5u, "phNciNfc_StoreTlvInfo");
   return v7;
 }
 
 uint64_t sub_297EBB4E4(uint64_t a1, uint64_t a2, uint64_t a3, unsigned __int8 *a4)
 {
   v8 = *a4;
-  sub_297E4E1B4(2, a1, 3u, 5u, "phNciNfc_StoreNfceeProtocols");
+  sub_297E4E1B4(2, a1, 3, 5u, "phNciNfc_StoreNfceeProtocols");
   v9 = *(a3 + v8);
   if (v9 > 5)
   {
@@ -9776,13 +8138,13 @@ uint64_t sub_297EBB4E4(uint64_t a1, uint64_t a2, uint64_t a3, unsigned __int8 *a
       while (1)
       {
         v12 = *(a3 + v10);
-        sub_297E4E1B4(2, a1, 3u, 5u, "phNciNfc_VerifyNfceeProtocol");
+        sub_297E4E1B4(2, a1, 3, 5u, "phNciNfc_VerifyNfceeProtocol");
         if (v12 >= 4 && v12 != 128)
         {
           break;
         }
 
-        sub_297E4DFAC(2, a1, 3u, 5u, "phNciNfc_VerifyNfceeProtocol");
+        sub_297E4DFAC(2, a1, 3, 5u, "phNciNfc_VerifyNfceeProtocol");
         *(a2 + 9 + v11++) = *(a3 + v10++);
         if (v11 >= *(a2 + 8))
         {
@@ -9790,7 +8152,7 @@ uint64_t sub_297EBB4E4(uint64_t a1, uint64_t a2, uint64_t a3, unsigned __int8 *a
         }
       }
 
-      sub_297E4DFAC(2, a1, 3u, 5u, "phNciNfc_VerifyNfceeProtocol");
+      sub_297E4DFAC(2, a1, 3, 5u, "phNciNfc_VerifyNfceeProtocol");
       v13 = 1;
     }
 
@@ -9803,6 +8165,1700 @@ LABEL_7:
     *a4 = v10;
   }
 
-  sub_297E4DFAC(2, a1, 3u, 5u, "phNciNfc_StoreNfceeProtocols");
+  sub_297E4DFAC(2, a1, 3, 5u, "phNciNfc_StoreNfceeProtocols");
   return v13;
+}
+
+uint64_t sub_297EBB630(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v16 = *MEMORY[0x29EDCA608];
+  memset(v13, 0, sizeof(v13));
+  v15 = 0;
+  memset(v14, 0, sizeof(v14));
+  v12 = 0;
+  sub_297E4E1B4(2, a1, 3, 5u, "phNciNfc_NfceeActionNtfHandler");
+  if (!a1)
+  {
+    a3 = 49;
+    goto LABEL_28;
+  }
+
+  if (!a2 || (v6 = *(a2 + 8)) == 0)
+  {
+    a3 = 1;
+    goto LABEL_28;
+  }
+
+  v7 = *(a2 + 16);
+  if (v7 < 3)
+  {
+    if (!a3)
+    {
+      goto LABEL_20;
+    }
+
+LABEL_26:
+    phOsalNfc_SetMemory();
+    goto LABEL_27;
+  }
+
+  LOBYTE(v14[0]) = *v6;
+  v8 = v6[1];
+  DWORD1(v14[0]) = v8;
+  a3 = 1;
+  if (v8 <= 1)
+  {
+    if (!v8)
+    {
+LABEL_18:
+      BYTE8(v14[0]) = v6[2];
+      phOsalNfc_MemCopy();
+      v9 = BYTE8(v14[0]) + 3;
+      goto LABEL_19;
+    }
+
+    if (v6[2] != 1 || sub_297E5C390(a1, v6[3]))
+    {
+      goto LABEL_26;
+    }
+  }
+
+  else
+  {
+    if (v8 != 2)
+    {
+      if (v8 != 32 && v8 != 16)
+      {
+        goto LABEL_26;
+      }
+
+      goto LABEL_18;
+    }
+
+    if (v6[2] != 1 || sub_297E6DCDC(a1, v6[3]))
+    {
+      goto LABEL_26;
+    }
+  }
+
+  BYTE8(v14[0]) = v6[2];
+  HIDWORD(v14[0]) = v6[3];
+  v9 = 4;
+LABEL_19:
+  if (v7 != v9)
+  {
+    goto LABEL_26;
+  }
+
+LABEL_20:
+  a3 = sub_297E5B838(a1, (a1 + 3984), *v6, &v12, 1u);
+  if (a3)
+  {
+LABEL_27:
+    v13[0] = v14;
+    goto LABEL_28;
+  }
+
+  v15 = a1 + 104 * v12 + 4008;
+  v13[0] = v14;
+  v10 = *(a1 + 232);
+  if (v10)
+  {
+    v10(*(a1 + 224), 3, v13, 0);
+  }
+
+  a3 = 0;
+LABEL_28:
+  sub_297E4DFAC(2, a1, 3, 5u, "phNciNfc_NfceeActionNtfHandler");
+  return a3;
+}
+
+uint64_t sub_297EBB888(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v31 = *MEMORY[0x29EDCA608];
+  v27 = 0;
+  v28 = 0;
+  v29 = 0;
+  sub_297E4E1B4(2, a1, 3, 5u, "phNciNfc_NfceeDiscReqNtfHandler");
+  if (!a1)
+  {
+    a3 = 49;
+    goto LABEL_56;
+  }
+
+  if (!a2)
+  {
+    goto LABEL_16;
+  }
+
+  v6 = *(a2 + 8);
+  v7 = *(a2 + 16);
+  sub_297E92264(a1, v6);
+  if (v7 == 5 * *v6 + 1)
+  {
+    v30[0] = 0;
+    sub_297E4E1B4(2, a1, 3, 5u, "phNciNfc_NfceeVerifyTlvParams");
+    v8 = *v6;
+    if (!*v6)
+    {
+      sub_297E4DFAC(2, a1, 3, 5u, "phNciNfc_NfceeVerifyTlvParams");
+LABEL_20:
+      v28 = v30;
+      sub_297E4E1B4(2, a1, 3, 5u, "phNciNfc_NfceeStoreTlv");
+      if (v7 < 6)
+      {
+        a3 = 255;
+      }
+
+      else
+      {
+        LOBYTE(v27) = *v6;
+        v15 = v27;
+        if (v27)
+        {
+          v16 = 0;
+          v17 = 1;
+          v18 = v30;
+          do
+          {
+            if (v17 >= 0xFEu)
+            {
+              v19 = v17;
+            }
+
+            else
+            {
+              v19 = v17 + 1;
+            }
+
+            if (v17 >= 0xFEu)
+            {
+              LOBYTE(v17) = 0;
+            }
+
+            *v18 = v6[v17];
+            if (v19 >= 0xFEu)
+            {
+              v20 = v19;
+            }
+
+            else
+            {
+              v20 = v19 + 1;
+            }
+
+            if (v20 >= 0xFEu)
+            {
+              v21 = v20;
+            }
+
+            else
+            {
+              v21 = v20 + 1;
+            }
+
+            if (v20 >= 0xFEu)
+            {
+              LOBYTE(v20) = 0;
+            }
+
+            v18[1] = v6[v20];
+            if (v21 >= 0xFEu)
+            {
+              v22 = v21;
+            }
+
+            else
+            {
+              v22 = v21 + 1;
+            }
+
+            if (v21 >= 0xFEu)
+            {
+              v23 = 0;
+            }
+
+            else
+            {
+              v23 = v21;
+            }
+
+            *(v18 + 1) = v6[v23];
+            if (v22 >= 0xFEu)
+            {
+              v17 = v22;
+            }
+
+            else
+            {
+              v17 = v22 + 1;
+            }
+
+            if (v22 >= 0xFEu)
+            {
+              v24 = 0;
+            }
+
+            else
+            {
+              v24 = v22;
+            }
+
+            *(v18 + 2) = v6[v24];
+            ++v16;
+            v18 += 12;
+          }
+
+          while (v16 < v15);
+        }
+
+        a3 = 0;
+      }
+
+      sub_297E4DFAC(2, a1, 3, 5u, "phNciNfc_NfceeStoreTlv");
+      if (v7 >= 6)
+      {
+        v25 = *(a1 + 232);
+        if (v25)
+        {
+          v25(*(a1 + 224), 2, &v27, 0);
+          a3 = 0;
+        }
+      }
+
+      goto LABEL_56;
+    }
+
+    v9 = 0;
+    v10 = 1;
+    while (v6[v10] <= 1u && v6[(v10 + 1)] == 3)
+    {
+      v11 = &v6[(v10 + 2)];
+      v12 = sub_297E5B838(a1, (a1 + 3984), *v11, v30, 1u);
+      if (v12)
+      {
+        a3 = v12;
+        goto LABEL_55;
+      }
+
+      if (sub_297E6DCDC(a1, v11[1]))
+      {
+        break;
+      }
+
+      v13 = sub_297E5C390(a1, v11[2]);
+      v14 = v13;
+      if (v13)
+      {
+        v10 += 2;
+      }
+
+      else
+      {
+        v10 += 5;
+      }
+
+      if (++v9 >= v8 || v13)
+      {
+        sub_297E4DFAC(2, a1, 3, 5u, "phNciNfc_NfceeVerifyTlvParams");
+        if (!v14)
+        {
+          goto LABEL_20;
+        }
+
+LABEL_16:
+        a3 = 1;
+        goto LABEL_56;
+      }
+    }
+
+    a3 = 1;
+LABEL_55:
+    sub_297E4DFAC(2, a1, 3, 5u, "phNciNfc_NfceeVerifyTlvParams");
+  }
+
+LABEL_56:
+  sub_297E4DFAC(2, a1, 3, 5u, "phNciNfc_NfceeDiscReqNtfHandler");
+  return a3;
+}
+
+uint64_t sub_297EBBBC4(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  sub_297E4E1B4(2, a1, 3, 5u, "phNciNfc_RfRapduSentNtfHandler");
+  if (!a1)
+  {
+    v6 = "phNciNfc_RfRapduSentNtfHandler:Cannot process RAPDU Sent Error Ntf - Invalid input parameters";
+    v7 = 2;
+    v8 = 0;
+LABEL_6:
+    sub_297E4E0B0(v7, v8, 3, 1u, v6);
+    goto LABEL_7;
+  }
+
+  v5 = *(a1 + 232);
+  if (!v5)
+  {
+    v6 = "phNciNfc_RfRapduSentNtfHandler:Upper Layer CallBack Not Registered";
+    v8 = a1 + 6524;
+    v7 = 1;
+    goto LABEL_6;
+  }
+
+  v5(*(a1 + 224), 15, a1 + 4008, 0);
+LABEL_7:
+  sub_297E4DFAC(2, a1, 3, 5u, "phNciNfc_RfRapduSentNtfHandler");
+  return a3;
+}
+
+uint64_t sub_297EBBC7C(uint64_t a1, unsigned __int8 *a2, unsigned int a3)
+{
+  memset(v14, 0, sizeof(v14));
+  v13 = 0;
+  sub_297E4E1B4(2, a1, 3, 5u, "phNciNfc_NfceeProcessRfActvtdNtf");
+  v6 = 1;
+  if (a1)
+  {
+    if (a2)
+    {
+      if (a3 >= 2 && !a2[1])
+      {
+        v6 = sub_297E5B838(a1, (a1 + 3984), *a2, &v13, 1u);
+        if (!v6)
+        {
+          Memory_Typed = phOsalNfc_GetMemory_Typed();
+          if (Memory_Typed)
+          {
+            v8 = Memory_Typed;
+            phOsalNfc_SetMemory();
+            *(v8 + 8) = *a2;
+            *(v8 + 12) = a2[1];
+            *v8 = 1;
+            v9 = sub_297E780F0(a1, (a1 + 72), v8, 1);
+            if (v9)
+            {
+              v6 = v9;
+              phOsalNfc_FreeMemory();
+              goto LABEL_12;
+            }
+
+            v10 = a1 + 104 * v13;
+            *(v10 + 4008) = *(v10 + 4009);
+            v14[0] = v10 + 4008;
+            v11 = *(a1 + 232);
+            if (v11)
+            {
+              v11(*(a1 + 224), 5, v14, 0);
+            }
+          }
+
+          v6 = 0;
+        }
+      }
+    }
+  }
+
+LABEL_12:
+  sub_297E4DFAC(2, a1, 3, 5u, "phNciNfc_NfceeProcessRfActvtdNtf");
+  return v6;
+}
+
+uint64_t sub_297EBBDF0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v7 = a3;
+  sub_297E4E1B4(2, a1, 3, 5u, "phNciNfc_eSeSvddOnCtrl");
+  if (a1)
+  {
+    if (a2 && v7)
+    {
+      Memory_Typed = phOsalNfc_GetMemory_Typed();
+      *(a1 + 896) = Memory_Typed;
+      if (Memory_Typed)
+      {
+        phOsalNfc_MemCopy();
+        *(a1 + 904) = v7;
+        *(a1 + 3776) = off_2A1A92858;
+        *(a1 + 3976) = 0;
+        *(a1 + 3977) = sub_297E577AC(a1, off_2A1A92858);
+        v11 = sub_297E5E830(a1, 0, 0);
+        if (v11 == 13)
+        {
+          *(a1 + 3424) = a4;
+          *(a1 + 3752) = a5;
+        }
+
+        else
+        {
+          sub_297E4E0B0(1, a1 + 6524, 3, 1u, "Svdd On Control Sequence failed!");
+          phOsalNfc_FreeMemory();
+          *(a1 + 896) = 0;
+          *(a1 + 904) = 0;
+        }
+      }
+
+      else
+      {
+        sub_297E4E0B0(1, a1 + 6524, 3, 1u, "phNciNfc_eSeSvddOnCtrl, Memory allocation failed!");
+        v11 = 12;
+      }
+    }
+
+    else
+    {
+      v11 = 1;
+      sub_297E4E0B0(1, a1 + 6524, 3, 1u, "Invalid parameters");
+    }
+  }
+
+  else
+  {
+    sub_297E4E0B0(2, 0, 3, 1u, "Stack not initialized");
+    v11 = 49;
+  }
+
+  sub_297E4DFAC(2, a1, 3, 5u, "phNciNfc_eSeSvddOnCtrl");
+  return v11;
+}
+
+uint64_t sub_297EBBF98(uint64_t a1)
+{
+  sub_297E4E1B4(2, a1, 3, 5u, "phNciNfc_StopResponseTimer");
+  if (!a1)
+  {
+    goto LABEL_6;
+  }
+
+  v2 = 0;
+  v3 = 0;
+  do
+  {
+    v4 = *(&unk_2A18BDDC0 + 14 * v3 + 4);
+    if (v2)
+    {
+      break;
+    }
+
+    v2 = 1;
+    v3 = 1;
+  }
+
+  while (v4 != a1);
+  if (v4 == a1)
+  {
+    v7 = *(a1 + 1920);
+    v5 = 255;
+    if (v7 && v7 != 0xFFFFFFFFFFFFLL)
+    {
+      phOsalNfc_Timer_Stop();
+      *(a1 + 6512) = 0;
+      *(a1 + 1928) = 0;
+      v5 = 0;
+      if (*(a1 + 3396))
+      {
+        v8 = &gphNfc_DebugInfo_Sec;
+      }
+
+      else
+      {
+        v8 = &gphNfc_DebugInfo_Prim;
+      }
+
+      v8[1] &= ~0x10u;
+    }
+  }
+
+  else
+  {
+LABEL_6:
+    sub_297E4E0B0(2, a1, 3, 1u, "Stack not initialized (phNciNfc_StopResponseTimer)\n");
+    v5 = 49;
+  }
+
+  sub_297E4DFAC(2, a1, 3, 5u, "phNciNfc_StopResponseTimer");
+  return v5;
+}
+
+uint64_t sub_297EBC0B0(uint64_t a1)
+{
+  sub_297E4E1B4(2, a1, 3, 5u, "phNciNfc_ClearSetModeNtfWaitTimer");
+  if (!a1)
+  {
+    goto LABEL_6;
+  }
+
+  v2 = 0;
+  v3 = 0;
+  do
+  {
+    v4 = *(&unk_2A18BDDC0 + 14 * v3 + 4);
+    if (v2)
+    {
+      break;
+    }
+
+    v2 = 1;
+    v3 = 1;
+  }
+
+  while (v4 != a1);
+  if (v4 == a1)
+  {
+    v7 = *(a1 + 4704);
+    v5 = 255;
+    if (v7 && v7 != 0xFFFFFFFFFFFFLL)
+    {
+      phOsalNfc_Timer_Stop();
+      phOsalNfc_Timer_Delete();
+      v5 = 0;
+      *(a1 + 4704) = 0xFFFFFFFFFFFFLL;
+    }
+  }
+
+  else
+  {
+LABEL_6:
+    sub_297E4E0B0(2, a1, 3, 1u, "Stack not initialized (phNciNfc_ClearSetModeNtfWaitTimer)\n");
+    v5 = 49;
+  }
+
+  sub_297E4DFAC(2, a1, 3, 5u, "phNciNfc_ClearSetModeNtfWaitTimer");
+  return v5;
+}
+
+uint64_t sub_297EBC1A8(uint64_t a1)
+{
+  v28 = 0u;
+  v29 = 0u;
+  sub_297E4E1B4(2, a1, 3, 5u, "phNciNfc_SendMfReq");
+  if (!a1)
+  {
+    sub_297E4E0B0(2, 0, 3, 4u, " Invalid Context Param..");
+    v7 = 1;
+    goto LABEL_60;
+  }
+
+  v2 = *(a1 + 4552);
+  if (!v2)
+  {
+    sub_297E4E0B0(1, a1 + 6524, 3, 4u, " Invalid Device..");
+    v7 = 6;
+    goto LABEL_60;
+  }
+
+  if (!*(a1 + 4584))
+  {
+    v7 = 1;
+    sub_297E4E0B0(1, a1 + 6524, 3, 4u, " Invalid Length..");
+    goto LABEL_60;
+  }
+
+  if (*(v2 + 12) == 128)
+  {
+    v3 = *(a1 + 4560);
+    if (v3 <= 1)
+    {
+      if (v3)
+      {
+        if (v3 != 1)
+        {
+          goto LABEL_30;
+        }
+
+        v8 = *(a1 + 4564);
+        sub_297E4E1B4(2, a1, 3, 5u, "phNciNfc_MfCreateWriteHdr");
+        v9 = *(a1 + 4552);
+        if (v9)
+        {
+          if ((v8 - 16) > 0xFFFFFFF1 || *(v9 + 4) != 8)
+          {
+            phOsalNfc_SetMemory();
+            sub_297E4E0B0(1, a1 + 6524, 3, 4u, " Creating Write Request Header ..");
+            *(a1 + 4672) = 49;
+            *(a1 + 4676) = 1;
+            *(a1 + 4677) = v8;
+            *(a1 + 4678) = -1;
+            v6 = "phNciNfc_MfCreateWriteHdr";
+            goto LABEL_42;
+          }
+
+          v10 = " Invalid Block Address ..";
+          v11 = a1 + 6524;
+        }
+
+        else
+        {
+          v10 = " Invalid Device..";
+          v11 = a1 + 6524;
+        }
+
+        sub_297E4E0B0(1, v11, 3, 4u, v10);
+        v18 = "phNciNfc_MfCreateWriteHdr";
+      }
+
+      else
+      {
+        sub_297E4E1B4(2, a1, 3, 5u, "phNciNfc_MfCreateXchgDataHdr");
+        if (*(a1 + 4552))
+        {
+          phOsalNfc_SetMemory();
+          sub_297E4E0B0(1, a1 + 6524, 3, 4u, " Creating XchgData Request Header ..");
+          *(a1 + 4672) = 16;
+          *(a1 + 4676) = -256;
+          *(a1 + 4678) = -1;
+          v6 = "phNciNfc_MfCreateXchgDataHdr";
+          goto LABEL_42;
+        }
+
+        sub_297E4E0B0(1, a1 + 6524, 3, 4u, " Invalid Device..");
+        v18 = "phNciNfc_MfCreateXchgDataHdr";
+      }
+    }
+
+    else
+    {
+      switch(v3)
+      {
+        case 2:
+          v12 = *(a1 + 4564);
+          v13 = *(a1 + 4565);
+          sub_297E4E1B4(2, a1, 3, 5u, "phNciNfc_MfCreateReadHdr");
+          v14 = *(a1 + 4552);
+          if (v14)
+          {
+            if (v12 < 0x10 || *(v14 + 4) != 8)
+            {
+              phOsalNfc_SetMemory();
+              *(a1 + 4584) = 0;
+              sub_297E4E0B0(1, a1 + 6524, 3, 4u, " Creating Read Request Header ..");
+              *(a1 + 4672) = 50;
+              *(a1 + 4676) = 2;
+              *(a1 + 4677) = v12;
+              *(a1 + 4678) = v13;
+              v6 = "phNciNfc_MfCreateReadHdr";
+              goto LABEL_42;
+            }
+
+            v15 = " Invalid Block Address ..";
+            v16 = a1 + 6524;
+          }
+
+          else
+          {
+            v15 = " Invalid Device..";
+            v16 = a1 + 6524;
+          }
+
+          sub_297E4E0B0(1, v16, 3, 4u, v15);
+          v18 = "phNciNfc_MfCreateReadHdr";
+          break;
+        case 3:
+          v17 = *(a1 + 4564);
+          sub_297E4E1B4(2, a1, 3, 5u, "phNciNfc_MfCreateSectorSelCmdHdr");
+          if (*(a1 + 4552))
+          {
+            phOsalNfc_SetMemory();
+            *(a1 + 4584) = 0;
+            sub_297E4E0B0(1, a1 + 6524, 3, 4u, " Creating Write Request Header ..");
+            *(a1 + 4672) = 51;
+            *(a1 + 4676) = 1;
+            *(a1 + 4677) = v17;
+            *(a1 + 4678) = -1;
+            v6 = "phNciNfc_MfCreateSectorSelCmdHdr";
+LABEL_42:
+            sub_297E4DFAC(2, a1, 3, 5u, v6);
+            goto LABEL_43;
+          }
+
+          sub_297E4E0B0(1, a1 + 6524, 3, 4u, " Invalid Device..");
+          v18 = "phNciNfc_MfCreateSectorSelCmdHdr";
+          break;
+        case 4:
+          v4 = *(a1 + 4564);
+          sub_297E4E1B4(2, a1, 3, 5u, "phNciNfc_MfCreateAuthCmdHdr");
+          if (*(a1 + 4552))
+          {
+            *(a1 + 4584) = 0;
+            phOsalNfc_SetMemory();
+            sub_297E4E0B0(1, a1 + 6524, 3, 4u, " Creating Write Request Header ..");
+            *(a1 + 4672) = 64;
+            *(a1 + 4676) = 2;
+            *(a1 + 4677) = v4;
+            v5 = *(*(a1 + 4576) + 2);
+            *(a1 + 4678) = v5;
+            if ((v5 & 0x10) != 0)
+            {
+              *(a1 + 4676) = 3;
+              phOsalNfc_MemCopy();
+            }
+
+            v6 = "phNciNfc_MfCreateAuthCmdHdr";
+            goto LABEL_42;
+          }
+
+          sub_297E4E0B0(1, a1 + 6524, 3, 4u, " Invalid Device..");
+          v18 = "phNciNfc_MfCreateAuthCmdHdr";
+          break;
+        default:
+LABEL_30:
+          sub_297E4E0B0(1, a1 + 6524, 3, 4u, " Invalid Transceive Type received ..");
+LABEL_39:
+          v19 = " Request Payload Header Creation Failed ..";
+          v20 = a1 + 6524;
+LABEL_58:
+          sub_297E4E0B0(1, v20, 3, 4u, v19);
+          v25 = " Extension Payload Packet creation Failed..";
+          v26 = a1 + 6524;
+          goto LABEL_59;
+      }
+    }
+
+    sub_297E4DFAC(2, a1, 3, 5u, v18);
+    goto LABEL_39;
+  }
+
+LABEL_43:
+  sub_297E4E0B0(1, a1 + 6524, 3, 4u, " Creating Request Payload (Header + Data)..");
+  if (*(v2 + 12) == 128)
+  {
+    v21 = *(a1 + 4676);
+    if (*(a1 + 4560) == 4 && v21 == 3)
+    {
+      v22 = 9;
+    }
+
+    else
+    {
+      v22 = v21 + 1;
+    }
+  }
+
+  else
+  {
+    v22 = 0;
+  }
+
+  v23 = *(a1 + 4584);
+  *(a1 + 4648) = 0;
+  *(a1 + 4640) = 0;
+  Memory_Typed = phOsalNfc_GetMemory_Typed();
+  *(a1 + 4640) = Memory_Typed;
+  if (!Memory_Typed)
+  {
+    v19 = " Payload MemAlloc for Send request Failed..";
+    v20 = a1 + 6524;
+    goto LABEL_58;
+  }
+
+  *(a1 + 4648) = v23 + v22;
+  phOsalNfc_SetMemory();
+  if (*(v2 + 12) == 128)
+  {
+    **(a1 + 4640) = *(a1 + 4672);
+    if (*(a1 + 4676))
+    {
+      phOsalNfc_MemCopy();
+    }
+  }
+
+  if (v23)
+  {
+    phOsalNfc_MemCopy();
+  }
+
+  sub_297E4E0B0(1, a1 + 6524, 3, 4u, " Payload (Header + Data) created successfully..");
+  phOsalNfc_SetMemory();
+  LODWORD(v28) = 0;
+  if (sub_297E8BB50(a1, v2, (&v28 | 0xC)))
+  {
+    phOsalNfc_FreeMemory();
+    *(a1 + 4640) = 0;
+    *(a1 + 4648) = 0;
+    v25 = " Couldn't Get ConnId..";
+    v26 = a1 + 6524;
+LABEL_59:
+    sub_297E4E0B0(1, v26, 3, 4u, v25);
+    v7 = 255;
+    goto LABEL_60;
+  }
+
+  *&v29 = *(a1 + 4640);
+  DWORD2(v29) = *(a1 + 4648);
+  if (sub_297E57BA8(a1 + 936, &v28, a1 + 3800, *(a1 + 4566), sub_297EFF2DC, a1) == 13)
+  {
+    v7 = 13;
+  }
+
+  else
+  {
+    phOsalNfc_FreeMemory();
+    *(a1 + 4640) = 0;
+    *(a1 + 4648) = 0;
+    v7 = 255;
+  }
+
+  *(a1 + 4566) = 0;
+LABEL_60:
+  sub_297E4DFAC(2, a1, 3, 5u, "phNciNfc_SendMfReq");
+  return v7;
+}
+
+uint64_t sub_297EBC964(uint64_t a1, int a2)
+{
+  sub_297E4E1B4(2, a1, 3, 5u, "phNciNfc_RecvMfResp");
+  if (!a1)
+  {
+    v26 = 1;
+    sub_297E4E0B0(2, 0, 3, 4u, " Invalid Context Param..");
+    goto LABEL_86;
+  }
+
+  if (a2 || (v4 = *(a1 + 3808)) == 0 || (v5 = *(a1 + 3800)) == 0)
+  {
+    v9 = 255;
+    v26 = 255;
+    v11 = " Mf Data Receive Failed..";
+    goto LABEL_15;
+  }
+
+  v6 = *(a1 + 4552);
+  if (!v6 || *(v6 + 12) != 128)
+  {
+    v12 = *(a1 + 4600);
+    v13 = v4 - 1;
+    v14 = v5[v4 - 1];
+    if (v14 > 0xB0)
+    {
+      switch(v14)
+      {
+        case 0xB1u:
+          v26 = 183;
+          v15 = " Mf XchgData,PH_NCINFC_STATUS_RF_PROTOCOL_ERROR Detected by NFCC during Data Exchange ";
+          goto LABEL_38;
+        case 0xB2u:
+          v26 = 178;
+          v15 = " Mf XchgData,PH_NCINFC_STATUS_RF_TIMEOUT_ERROR Detected by NFCC during Data Exchange ";
+          goto LABEL_38;
+        case 0xB3u:
+          v26 = 184;
+          v15 = " Mf XchgData,PH_NCINFC_STATUS_RF_UNEXPECTED_DAT Detected by NFCC during Data Exchange ";
+          goto LABEL_38;
+      }
+    }
+
+    else
+    {
+      if (!v5[v4 - 1])
+      {
+        v26 = 0;
+        sub_297E4E0B0(1, a1 + 6524, 3, 4u, " Mf XchgData Request is Successful!! ..");
+        if (v13 <= v12)
+        {
+          phOsalNfc_MemCopy();
+          *(a1 + 4600) = v13;
+        }
+
+        else
+        {
+          v26 = 8;
+          sub_297E4E0B0(1, a1 + 6524, 3, 4u, " Mf XchgData,More Data available than requested  ..");
+        }
+
+        goto LABEL_39;
+      }
+
+      if (v14 == 2)
+      {
+        v26 = 181;
+        v15 = " Mf XchgData,PH_NCINFC_STATUS_RF_FRAME_CORRUPTED Detected by NFCC during Data Exchange ";
+        goto LABEL_38;
+      }
+
+      if (v14 == 176)
+      {
+        v26 = 182;
+        v15 = " Mf XchgData,PH_NCINFC_STATUS_RF_TRANSMISSION_ERROR Detected by NFCC during Data Exchange ";
+LABEL_38:
+        sub_297E4E0B0(1, a1 + 6524, 3, 2u, v15);
+LABEL_39:
+        sub_297EFF5D8(a1, &v26);
+        v9 = v26;
+        goto LABEL_84;
+      }
+    }
+
+    v26 = 185;
+    sub_297E96818(*(a1 + 6528), v14);
+    sub_297E4E0B0(1, a1 + 6524, 3, 2u, " Mf XchgData,Unknown RF related error Detected by NFCC during Data Exchange ");
+    if (v4 <= v12)
+    {
+      phOsalNfc_MemCopy();
+      *(a1 + 4600) = v4;
+    }
+
+    goto LABEL_39;
+  }
+
+  v7 = *v5;
+  if (v7 <= 0x31)
+  {
+    if (v7 != 16)
+    {
+      if (v7 == 49)
+      {
+        if (*(a1 + 4672) == 49)
+        {
+          v16 = v5[1];
+          *(a1 + 4677) = v16;
+          if (v16)
+          {
+            v9 = 255;
+            v26 = 255;
+            v10 = " Mf WriteN Request Failed ..";
+            goto LABEL_68;
+          }
+
+          v26 = 0;
+          v22 = " Mf WriteN Request is Successful!! ..";
+          goto LABEL_63;
+        }
+
+LABEL_46:
+        v9 = 255;
+        v26 = 255;
+        v10 = " Unexpected Mf Write Response Received ..";
+        goto LABEL_68;
+      }
+
+LABEL_52:
+      v9 = 255;
+      v26 = 255;
+      v10 = "phNciNfc_RecvMfResp:Unknown Response ID Received ..";
+      goto LABEL_68;
+    }
+
+    if (*(a1 + 4672) != 16)
+    {
+      v9 = 255;
+      v26 = 255;
+      v10 = " Unexpected Mf XchgData Response Received ..";
+      goto LABEL_68;
+    }
+
+    v19 = v5[v4 - 1];
+    *(a1 + 4677) = v19;
+    if (v19 == 178)
+    {
+      if (*(v6 + 16) == 128)
+      {
+        v9 = 178;
+        v26 = 178;
+        v10 = " Mf XchgData Request Failed RF Time out..";
+        goto LABEL_68;
+      }
+    }
+
+    else if (!v19)
+    {
+      v26 = 0;
+      sub_297E4E0B0(1, a1 + 6524, 3, 4u, " Mf XchgData Request is Successful!! ..");
+      v20 = *(a1 + 3808) - 2;
+      if (v20 > *(a1 + 4600))
+      {
+        goto LABEL_59;
+      }
+
+      goto LABEL_88;
+    }
+
+    v9 = 255;
+    v26 = 255;
+    v10 = " Mf XchgData Request Failed ..";
+    goto LABEL_68;
+  }
+
+  if (v7 == 50)
+  {
+    if (*(a1 + 4672) != 50)
+    {
+      v9 = 255;
+      v26 = 255;
+      v10 = " Unexpected Mf Read Response Received ..";
+      goto LABEL_68;
+    }
+
+    v17 = v5[1];
+    *(a1 + 4677) = v17;
+    if (v17)
+    {
+      v9 = 255;
+      v26 = 255;
+      v10 = " Mf ReadN Request Failed ..";
+      goto LABEL_68;
+    }
+
+    v26 = 0;
+    sub_297E4E0B0(1, a1 + 6524, 3, 4u, " Mf ReadN Request is Successful!! ..");
+    v9 = 0;
+    if ((*(a1 + 3808) - 2) > *(a1 + 4600))
+    {
+      goto LABEL_70;
+    }
+
+    phOsalNfc_MemCopy();
+LABEL_64:
+    v9 = 0;
+    goto LABEL_70;
+  }
+
+  if (v7 != 51)
+  {
+    if (v7 == 64)
+    {
+      if (*(a1 + 4672) == 64)
+      {
+        v8 = v5[1];
+        *(a1 + 4677) = v8;
+        if (v8)
+        {
+          v9 = 255;
+          v26 = 255;
+          v10 = " Mf Auth Fail ..";
+LABEL_68:
+          v21 = a1 + 6524;
+          goto LABEL_69;
+        }
+
+        v26 = 0;
+        v22 = " Mf Auth Pass ..";
+LABEL_63:
+        sub_297E4E0B0(1, a1 + 6524, 3, 4u, v22);
+        goto LABEL_64;
+      }
+
+      goto LABEL_46;
+    }
+
+    goto LABEL_52;
+  }
+
+  if (*(a1 + 4672) != 51)
+  {
+    goto LABEL_46;
+  }
+
+  v18 = v5[1];
+  *(a1 + 4677) = v18;
+  if (v18)
+  {
+    v9 = 255;
+    v26 = 255;
+    v10 = " Mf WriteN Request Failed ..";
+LABEL_60:
+    v21 = a1 + 6524;
+LABEL_69:
+    sub_297E4E0B0(1, v21, 3, 4u, v10);
+    goto LABEL_70;
+  }
+
+  v26 = 0;
+  sub_297E4E0B0(1, a1 + 6524, 3, 4u, " Mf Sector select Request is Successful!! ..");
+  v20 = *(a1 + 3808) - 2;
+  if (v20 > *(a1 + 4600))
+  {
+LABEL_59:
+    v9 = 8;
+    v26 = 8;
+    v10 = " Mf XchgData,More Data available than requested  ..";
+    goto LABEL_60;
+  }
+
+LABEL_88:
+  phOsalNfc_MemCopy();
+  v9 = 0;
+  *(a1 + 4600) = v20;
+LABEL_70:
+  v23 = *(a1 + 4677);
+  if (v23 > 0xB0)
+  {
+    if (v23 == 177)
+    {
+      v9 = 183;
+      v26 = 183;
+      v24 = "PH_NCINFC_STATUS_RF_PROTOCOL_ERROR Detected by NFCC during Data Exchange ";
+      goto LABEL_83;
+    }
+
+    if (v23 != 178)
+    {
+      if (v23 == 179)
+      {
+        v9 = 184;
+        v26 = 184;
+        v24 = "PH_NCINFC_STATUS_RF_UNEXPECTED_DAT Detected by NFCC during Data Exchange ";
+        goto LABEL_83;
+      }
+
+      goto LABEL_80;
+    }
+
+    v9 = 178;
+    v26 = 178;
+    v11 = "PH_NCINFC_STATUS_RF_TIMEOUT_ERROR Detected by NFCC during Data Exchange ";
+LABEL_15:
+    sub_297E4E0B0(1, a1 + 6524, 3, 4u, v11);
+    goto LABEL_84;
+  }
+
+  if (!*(a1 + 4677))
+  {
+    goto LABEL_84;
+  }
+
+  if (v23 == 2)
+  {
+    v9 = 181;
+    v26 = 181;
+    v24 = "PH_NCINFC_STATUS_RF_FRAME_CORRUPTED Detected by NFCC during Data Exchange ";
+    goto LABEL_83;
+  }
+
+  if (v23 == 176)
+  {
+    v9 = 182;
+    v26 = 182;
+    v24 = "PH_NCINFC_STATUS_RF_TRANSMISSION_ERROR Detected by NFCC during Data Exchange ";
+    goto LABEL_83;
+  }
+
+LABEL_80:
+  if (v7 == 64)
+  {
+    goto LABEL_84;
+  }
+
+  v9 = 185;
+  v26 = 185;
+  sub_297E96818(*(a1 + 6528), v23);
+  v24 = "Unknown RF related error Detected by NFCC during Data Exchange ";
+LABEL_83:
+  sub_297E4E0B0(1, a1 + 6524, 3, 2u, v24);
+LABEL_84:
+  *(a1 + 4632) = v9;
+  if (*(a1 + 4640))
+  {
+    *(a1 + 4648) = 0;
+    sub_297E4E0B0(1, a1 + 6524, 3, 4u, " Freeing Send Request Payload Buffer..");
+    phOsalNfc_FreeMemory();
+    *(a1 + 4640) = 0;
+  }
+
+LABEL_86:
+  sub_297E4DFAC(2, a1, 3, 5u, "phNciNfc_RecvMfResp");
+  return v26;
+}
+
+uint64_t sub_297EBD044(uint64_t a1)
+{
+  sub_297E4E1B4(3, a1, 3, 5u, "phNciNfc_CoreInitRecverStateMachine");
+  if (a1)
+  {
+    v2 = 0;
+    *(a1 + 2264) = off_2A1A92878;
+    *(a1 + 2272) = &unk_2A13A5CA0;
+    *(a1 + 2280) = &unk_2A1A92898;
+    *(a1 + 2256) = 0x500000000;
+    v3 = *(a1 + 984);
+    if (v3)
+    {
+      if (v3 != 0xFFFFFFFFFFFFLL)
+      {
+        v2 = phOsalNfc_Timer_Delete();
+        if (v2)
+        {
+          sub_297E4E0B0(1, a1 + 2460, 3, 1u, "phNciNfc_CoreInitRecverStateMachine:Response Timer Delete failed");
+        }
+      }
+    }
+
+    *(a1 + 984) = 0xFFFFFFFFFFFFLL;
+    v4 = phOsalNfc_Timer_Create();
+    if (v4 != 0xFFFFFFFFFFFFLL && (v5 = v4) != 0)
+    {
+      sub_297E4E0B0(1, a1 + 2460, 3, 4u, "Response Timer Created Successfully");
+      *(a1 + 984) = v5;
+      *(a1 + 992) = 0;
+      if (!v2)
+      {
+        sub_297E4E0B0(3, a1, 3, 4u, "phNciNfc_CoreInitRecverStateMachine: SUCCESS");
+        goto LABEL_12;
+      }
+    }
+
+    else
+    {
+      sub_297E4E0B0(1, a1 + 2460, 3, 1u, "Response Timer Create failed");
+      v2 = 12;
+    }
+  }
+
+  else
+  {
+    v2 = 1;
+  }
+
+  sub_297E4E0B0(3, a1, 3, 1u, "phNciNfc_CoreInitRecverStateMachine: FAILED");
+LABEL_12:
+  sub_297E4DFAC(3, a1, 3, 5u, "phNciNfc_CoreInitRecverStateMachine");
+  return v2;
+}
+
+uint64_t sub_297EBD1D0(uint64_t a1)
+{
+  sub_297E4E1B4(3, a1, 3, 5u, "phNciNfc_CoreReleaseRecverStateMachine");
+  if (a1)
+  {
+    v2 = *(a1 + 984);
+    if (v2)
+    {
+      v3 = v2 == 0xFFFFFFFFFFFFLL;
+    }
+
+    else
+    {
+      v3 = 1;
+    }
+
+    if (v3)
+    {
+      v4 = 0;
+    }
+
+    else
+    {
+      phOsalNfc_Timer_Delete();
+      v4 = 0;
+      *(a1 + 984) = 0xFFFFFFFFFFFFLL;
+      *(a1 + 992) = 0;
+    }
+  }
+
+  else
+  {
+    v4 = 1;
+  }
+
+  sub_297E4DFAC(3, a1, 3, 5u, "phNciNfc_CoreReleaseRecverStateMachine");
+  return v4;
+}
+
+uint64_t sub_297EBD270(uint64_t a1)
+{
+  v10 = 0;
+  sub_297E4E1B4(3, a1, 3, 5u, "phNciNfc_CoreRecvChkExptdPktType");
+  if (!a1)
+  {
+    goto LABEL_6;
+  }
+
+  v2 = 0;
+  v3 = 0;
+  do
+  {
+    v4 = *(&unk_2A18BDDC0 + 14 * v3 + 5);
+    if (v2)
+    {
+      break;
+    }
+
+    v2 = 1;
+    v3 = 1;
+  }
+
+  while (v4 != a1);
+  if (v4 == a1)
+  {
+    sub_297E4E0B0(1, a1 + 2460, 3, 4u, "Connector - Check Expected Packet Type");
+    v6 = sub_297ED5B58(a1, &v10);
+    v7 = v10;
+    if (v6)
+    {
+      v8 = 1;
+    }
+
+    else
+    {
+      v8 = v10 > 2u;
+    }
+
+    v5 = v8;
+    if (v5)
+    {
+      v7 = -1;
+    }
+
+    *(a1 + 952) = v7;
+  }
+
+  else
+  {
+LABEL_6:
+    v5 = 255;
+  }
+
+  sub_297E4DFAC(3, a1, 3, 5u, "phNciNfc_CoreRecvChkExptdPktType");
+  return v5;
+}
+
+uint64_t sub_297EBD364(uint64_t a1)
+{
+  v7 = 0;
+  sub_297E4E1B4(3, a1, 3, 5u, "phNciNfc_CoreRecvChkNewEntry");
+  if (a1)
+  {
+    sub_297E4E0B0(1, a1 + 2460, 3, 4u, "Connector - Check New Entry");
+    v2 = sub_297ED5C84(a1, &v7);
+    v3 = v7;
+    if (v2)
+    {
+      v4 = 1;
+    }
+
+    else
+    {
+      v4 = v7 > 2u;
+    }
+
+    v5 = v4;
+    if (v5)
+    {
+      v3 = 0;
+    }
+
+    *(a1 + 952) = v3;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  sub_297E4DFAC(3, a1, 3, 5u, "phNciNfc_CoreRecvChkNewEntry");
+  return v5;
+}
+
+uint64_t sub_297EBD420(uint64_t *a1)
+{
+  sub_297E4E1B4(3, a1, 3, 5u, "phNciNfc_StateRecv2Recv");
+  if (!a1)
+  {
+    goto LABEL_21;
+  }
+
+  v2 = 0;
+  v3 = 0;
+  do
+  {
+    v4 = *(&unk_2A18BDDC0 + 14 * v3 + 5);
+    if (v2)
+    {
+      break;
+    }
+
+    v2 = 1;
+    v3 = 1;
+  }
+
+  while (v4 != a1);
+  if (v4 != a1 || *(a1 + 992) != 1)
+  {
+    goto LABEL_21;
+  }
+
+  v5 = 0;
+  v6 = *(a1 + 242);
+  if (v6 != *(a1 + 228))
+  {
+    goto LABEL_22;
+  }
+
+  v7 = *a1;
+  if (!*a1)
+  {
+    goto LABEL_22;
+  }
+
+  v8 = *(v7 + 4800);
+  if (!v8)
+  {
+    goto LABEL_21;
+  }
+
+  v5 = 0;
+  v9 = *v8;
+  v11 = v9 == sub_297EE81B0 || v9 == sub_297EAADF8;
+  if (v6 || !v11)
+  {
+    goto LABEL_22;
+  }
+
+  if (*(a1 + 980) != *(a1 + 924))
+  {
+LABEL_21:
+    v5 = 0;
+    goto LABEL_22;
+  }
+
+  phOsalNfc_Timer_Stop();
+  *(v7 + 6512) = 0;
+  v5 = phOsalNfc_Timer_Start();
+  if (v5)
+  {
+    *(a1 + 992) = 0;
+    sub_297E4E0B0(1, a1 + 2460, 3, 1u, "Response Timer ReStart failed!!!");
+  }
+
+  else
+  {
+    v13 = &gphNfc_DebugInfo_Sec;
+    if (!*(a1 + 615))
+    {
+      v13 = &gphNfc_DebugInfo_Prim;
+    }
+
+    v13[1] &= ~0x10u;
+    sub_297E4E0B0(1, a1 + 2460, 3, 4u, "Response timer re-started");
+    *(a1 + 992) = 1;
+  }
+
+LABEL_22:
+  sub_297E4DFAC(3, a1, 3, 5u, "phNciNfc_StateRecv2Recv");
+  return v5;
+}
+
+uint64_t sub_297EBD5EC(uint64_t a1, uint64_t a2)
+{
+  v16 = 0;
+  sub_297E4E1B4(3, a2, 3, 5u, "phNciNfc_RspTimeOutCb");
+  if (a2)
+  {
+    v3 = 0;
+    v4 = 0;
+    do
+    {
+      v5 = *(&unk_2A18BDDC0 + 14 * v4 + 5);
+      if (v3)
+      {
+        break;
+      }
+
+      v3 = 1;
+      v4 = 1;
+    }
+
+    while (v5 != a2);
+    if (v5 == a2)
+    {
+      v7 = *a2;
+      if (*a2)
+      {
+        v8 = 0;
+        v9 = 0;
+        do
+        {
+          v10 = *(&unk_2A18BDDC0 + 14 * v9 + 4);
+          if (v8)
+          {
+            break;
+          }
+
+          v8 = 1;
+          v9 = 1;
+        }
+
+        while (v10 != v7);
+        if (v10 == v7)
+        {
+          if (!*(v7 + 6512))
+          {
+            phOsalNfc_Timer_Stop();
+            if (!phOsalNfc_Timer_Start())
+            {
+              sub_297E4E0B0(1, a2 + 2460, 3, 4u, "Response timer re-started with extended time");
+              *(v7 + 6512) = 1;
+              return sub_297E4DFAC(3, a2, 3, 5u, "phNciNfc_RspTimeOutCb");
+            }
+
+            sub_297E4E0B0(1, a2 + 2460, 3, 1u, "Response Timer extended time ReStart failed!!!");
+          }
+
+          *(v7 + 6512) = 0;
+          *(a2 + 992) = 0;
+          v11 = *(a2 + 968);
+          if (v11)
+          {
+            if (v11 != 2)
+            {
+              v14 = 1;
+              sub_297E4E0B0(1, a2 + 2460, 3, 1u, "Timer expired - Should never enter here");
+              sub_297E96818(*(a2 + 632), 1);
+              v13 = 0;
+              goto LABEL_22;
+            }
+
+            v12 = "phNciNfc_RspTimeOutCb: Timer expired before response is received!";
+          }
+
+          else
+          {
+            v12 = "phNciNfc_RspTimeOutCb: Timer expired before data is received!";
+          }
+
+          v13 = 1;
+          sub_297E4E0B0(1, a2 + 2460, 3, 1u, v12);
+          sub_297E8CBD4(v7, 0);
+          v14 = 44;
+          sub_297E96818(*(a2 + 632), 44);
+          phTmlNfc_ReadAbort();
+          phTmlNfc_FlushTxRxBuffers();
+          *(a2 + 2432) = 0;
+          *(a2 + 2440) = 0;
+          sub_297E54838(a2);
+          if (sub_297E4EE00(a2, 0, 3) != 13)
+          {
+            sub_297E4E0B0(1, a2 + 2460, 3, 1u, "phNciNfc_RspTimeOutCb: Tml Read request failed!");
+          }
+
+LABEL_22:
+          if (*(v7 + 6616) != 1)
+          {
+            if (sub_297E5A99C(*(v7 + 6528), &v16))
+            {
+              sub_297E4E0B0(1, a2 + 2460, 3, 1u, "phNciNfc_CoreRecvManager4-Failed to retrieve bIgnoreWkUpRet");
+LABEL_25:
+              v14 = 255;
+              sub_297E96818(*(a2 + 632), 255);
+              goto LABEL_26;
+            }
+
+            if (sub_297E5AA54(*(a2 + 632), 20))
+            {
+              if (v16 != 1)
+              {
+                sub_297E4E0B0(1, a2 + 2460, 3, 1u, "phNciNfc_CoreRecvManager4-Fialed to De-Assert Wake Up Line");
+                if ((v13 & 1) == 0)
+                {
+                  goto LABEL_25;
+                }
+              }
+            }
+          }
+
+LABEL_26:
+          if (*(a2 + 2460))
+          {
+            v15 = &gphNfc_DebugInfo_Sec;
+          }
+
+          else
+          {
+            v15 = &gphNfc_DebugInfo_Prim;
+          }
+
+          v15[1] |= 0x10u;
+          *(a2 + 2288) = v14;
+          sub_297E51240(a2, 2u);
+        }
+      }
+    }
+  }
+
+  return sub_297E4DFAC(3, a2, 3, 5u, "phNciNfc_RspTimeOutCb");
+}
+
+uint64_t sub_297EBD910(uint64_t *a1)
+{
+  sub_297E4E1B4(3, a1, 3, 5u, "phNciNfc_StateIdle2Recv");
+  if (!a1)
+  {
+    goto LABEL_21;
+  }
+
+  v2 = 0;
+  v3 = 0;
+  do
+  {
+    v4 = *(&unk_2A18BDDC0 + 14 * v3 + 5);
+    if (v2)
+    {
+      break;
+    }
+
+    v2 = 1;
+    v3 = 1;
+  }
+
+  while (v4 != a1);
+  if (v4 != a1 || *(a1 + 992) != 1)
+  {
+    goto LABEL_21;
+  }
+
+  v5 = 0;
+  v6 = *(a1 + 242);
+  if (v6 != *(a1 + 228))
+  {
+    goto LABEL_22;
+  }
+
+  v7 = *a1;
+  if (!*a1)
+  {
+    goto LABEL_22;
+  }
+
+  v8 = *(v7 + 4800);
+  if (!v8)
+  {
+    goto LABEL_21;
+  }
+
+  v5 = 0;
+  v9 = *v8;
+  v11 = v9 == sub_297EE81B0 || v9 == sub_297EAADF8;
+  if (v6 || !v11)
+  {
+    goto LABEL_22;
+  }
+
+  if (*(a1 + 980) != *(a1 + 924))
+  {
+LABEL_21:
+    v5 = 0;
+    goto LABEL_22;
+  }
+
+  phOsalNfc_Timer_Stop();
+  *(v7 + 6512) = 0;
+  v5 = phOsalNfc_Timer_Start();
+  if (v5)
+  {
+    *(a1 + 992) = 0;
+    sub_297E4E0B0(1, a1 + 2460, 3, 1u, "Response Timer ReStart failed!!!");
+  }
+
+  else
+  {
+    v13 = &gphNfc_DebugInfo_Sec;
+    if (!*(a1 + 615))
+    {
+      v13 = &gphNfc_DebugInfo_Prim;
+    }
+
+    v13[1] &= ~0x10u;
+    sub_297E4E0B0(1, a1 + 2460, 3, 4u, "Response timer re-started");
+    *(a1 + 992) = 1;
+  }
+
+LABEL_22:
+  sub_297E4DFAC(3, a1, 3, 5u, "phNciNfc_StateIdle2Recv");
+  return v5;
 }

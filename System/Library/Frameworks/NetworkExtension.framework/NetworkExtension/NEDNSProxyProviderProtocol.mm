@@ -4,10 +4,35 @@
 - (NEDNSProxyProviderProtocol)initWithCoder:(id)coder;
 - (NEDNSProxyProviderProtocol)initWithPluginType:(id)type;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 - (void)encodeWithCoder:(id)coder;
 @end
 
 @implementation NEDNSProxyProviderProtocol
+
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v7 = objc_alloc(MEMORY[0x1E696AD60]);
+  v15.receiver = self;
+  v15.super_class = NEDNSProxyProviderProtocol;
+  v8 = [(NEVPNProtocol *)&v15 descriptionWithIndent:v5 options:options];
+  v9 = [v7 initWithString:v8];
+
+  pluginType = [(NEDNSProxyProviderProtocol *)self pluginType];
+  [v9 appendPrettyObject:pluginType withName:@"pluginType" andIndent:v5 options:options & 0xFFFFFFFFFFFFFFF7];
+
+  providerConfiguration = [(NEDNSProxyProviderProtocol *)self providerConfiguration];
+  [v9 appendPrettyObject:providerConfiguration withName:@"providerConfiguration" andIndent:v5 options:options | 8];
+
+  providerBundleIdentifier = [(NEDNSProxyProviderProtocol *)self providerBundleIdentifier];
+  [v9 appendPrettyObject:providerBundleIdentifier withName:@"providerBundleIdentifier" andIndent:v5 options:options | 8];
+
+  designatedRequirement = [(NEDNSProxyProviderProtocol *)self designatedRequirement];
+  [v9 appendPrettyObject:designatedRequirement withName:@"designatedRequirement" andIndent:v5 options:options | 8];
+
+  return v9;
+}
 
 - (BOOL)checkValidityAndCollectErrors:(id)errors
 {

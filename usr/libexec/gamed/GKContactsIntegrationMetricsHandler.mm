@@ -32,12 +32,12 @@
 
 - (void)recordContactInfoMatchCount:(unint64_t)count
 {
-  v7[0] = GKMetricsEventType;
-  v7[1] = @"contactInfoMatchCount";
-  v8[0] = @"contactsIntegration";
+  v7 = GKMetricsEventType;
+  v8 = @"contactInfoMatchCount";
+  v9 = @"contactsIntegration";
   v4 = [NSNumber numberWithUnsignedInteger:count];
-  v8[1] = v4;
-  v5 = [NSDictionary dictionaryWithObjects:v8 forKeys:v7 count:2];
+  v10 = v4;
+  v5 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
 
   ampController = [(GKContactsIntegrationMetricsHandler *)self ampController];
   [ampController reportPerformanceEventWithHostAppBundleId:GKDaemonIdentifier metricsFields:v5];
@@ -48,15 +48,15 @@
   resultsCopy = results;
   if ([resultsCopy count])
   {
-    v21[0] = GKMetricsEventType;
-    v21[1] = @"contactContainsFriendHandle";
-    v22[0] = @"contactsIntegration";
-    v22[1] = &__kCFBooleanFalse;
-    v21[2] = @"contactContainsNonFriendHandle";
-    v21[3] = @"contactContainsUnknownHandle";
-    v22[2] = &__kCFBooleanFalse;
-    v22[3] = &__kCFBooleanFalse;
-    v5 = [NSDictionary dictionaryWithObjects:v22 forKeys:v21 count:4];
+    v21 = GKMetricsEventType;
+    v22 = @"contactContainsFriendHandle";
+    v25 = @"contactsIntegration";
+    v26 = &__kCFBooleanFalse;
+    v23 = @"contactContainsNonFriendHandle";
+    v24 = @"contactContainsUnknownHandle";
+    v27 = &__kCFBooleanFalse;
+    v28 = &__kCFBooleanFalse;
+    v5 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
     v6 = [v5 mutableCopy];
 
     v18 = 0u;

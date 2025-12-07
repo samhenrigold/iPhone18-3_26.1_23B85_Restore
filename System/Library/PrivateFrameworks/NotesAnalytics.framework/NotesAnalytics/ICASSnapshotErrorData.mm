@@ -24,8 +24,8 @@
 
 - (id)toDict
 {
-  v13[2] = *MEMORY[0x277D85DE8];
-  v12[0] = @"errorDomain";
+  v12[2] = *MEMORY[0x277D85DE8];
+  v11[0] = @"errorDomain";
   errorDomain = [(ICASSnapshotErrorData *)self errorDomain];
   if (errorDomain)
   {
@@ -38,8 +38,8 @@
   }
 
   v5 = errorDomain2;
-  v12[1] = @"errorCode";
-  v13[0] = errorDomain2;
+  v11[1] = @"errorCode";
+  v12[0] = errorDomain2;
   errorCode = [(ICASSnapshotErrorData *)self errorCode];
   if (errorCode)
   {
@@ -52,10 +52,8 @@
   }
 
   v8 = errorCode2;
-  v13[1] = errorCode2;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v12[1] = errorCode2;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
 
   return v9;
 }

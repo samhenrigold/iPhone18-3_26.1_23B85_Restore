@@ -384,50 +384,46 @@ LABEL_58:
 
 - (void)addUser:toClass:.cold.1()
 {
-  v13 = [MEMORY[0x277CCA890] currentHandler];
+  v15 = [MEMORY[0x277CCA890] currentHandler];
   v1 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[CRKClassKitClassPropertyApplicator addUser:toClass:]"];
   v2 = objc_opt_class();
-  NSStringFromClass(v2);
-  objc_claimAutoreleasedReturnValue();
-  v3 = OUTLINED_FUNCTION_1_1();
-  v4 = NSStringFromClass(v3);
-  [OUTLINED_FUNCTION_0_2(v4 v5];
+  v3 = NSStringFromClass(v2);
+  v5 = OUTLINED_FUNCTION_1_1(v3, v4);
+  v6 = NSStringFromClass(v5);
+  [OUTLINED_FUNCTION_0_2(v6 v7];
 }
 
 - (void)removeUser:fromClass:.cold.1()
 {
-  v13 = [MEMORY[0x277CCA890] currentHandler];
+  v15 = [MEMORY[0x277CCA890] currentHandler];
   v1 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[CRKClassKitClassPropertyApplicator removeUser:fromClass:]"];
   v2 = objc_opt_class();
-  NSStringFromClass(v2);
-  objc_claimAutoreleasedReturnValue();
-  v3 = OUTLINED_FUNCTION_1_1();
-  v4 = NSStringFromClass(v3);
-  [OUTLINED_FUNCTION_0_2(v4 v5];
+  v3 = NSStringFromClass(v2);
+  v5 = OUTLINED_FUNCTION_1_1(v3, v4);
+  v6 = NSStringFromClass(v5);
+  [OUTLINED_FUNCTION_0_2(v6 v7];
 }
 
 - (void)addTrustedUser:toClass:.cold.1()
 {
-  v13 = [MEMORY[0x277CCA890] currentHandler];
+  v15 = [MEMORY[0x277CCA890] currentHandler];
   v1 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[CRKClassKitClassPropertyApplicator addTrustedUser:toClass:]"];
   v2 = objc_opt_class();
-  NSStringFromClass(v2);
-  objc_claimAutoreleasedReturnValue();
-  v3 = OUTLINED_FUNCTION_1_1();
-  v4 = NSStringFromClass(v3);
-  [OUTLINED_FUNCTION_0_2(v4 v5];
+  v3 = NSStringFromClass(v2);
+  v5 = OUTLINED_FUNCTION_1_1(v3, v4);
+  v6 = NSStringFromClass(v5);
+  [OUTLINED_FUNCTION_0_2(v6 v7];
 }
 
 - (void)removeTrustedUser:fromClass:.cold.1()
 {
-  v13 = [MEMORY[0x277CCA890] currentHandler];
+  v15 = [MEMORY[0x277CCA890] currentHandler];
   v1 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[CRKClassKitClassPropertyApplicator removeTrustedUser:fromClass:]"];
   v2 = objc_opt_class();
-  NSStringFromClass(v2);
-  objc_claimAutoreleasedReturnValue();
-  v3 = OUTLINED_FUNCTION_1_1();
-  v4 = NSStringFromClass(v3);
-  [OUTLINED_FUNCTION_0_2(v4 v5];
+  v3 = NSStringFromClass(v2);
+  v5 = OUTLINED_FUNCTION_1_1(v3, v4);
+  v6 = NSStringFromClass(v5);
+  [OUTLINED_FUNCTION_0_2(v6 v7];
 }
 
 @end

@@ -6,7 +6,7 @@
 
 - (id)_authOptionsWithLocalizedReason:(void *)reason presentationContext:
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   reasonCopy = reason;
   if (self)
@@ -19,9 +19,9 @@
       v9 = v5;
     }
 
-    v14 = v7;
-    v15[0] = v9;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+    v13 = v7;
+    v14[0] = v9;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
     self = [v10 mutableCopy];
 
     if (reasonCopy)
@@ -30,8 +30,6 @@
       [self setObject:reasonCopy forKeyedSubscript:v11];
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return self;
 }

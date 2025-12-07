@@ -28,16 +28,16 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v18.receiver = self;
-  v18.super_class = TSCEColonTractFormulaNode;
-  v4 = [(TSCEColonTractFormulaNode *)&v18 copy];
-  v9 = objc_msgSend_copy(self->_relativeTractRef, v5, v6, v7, v8);
-  v10 = v4[6];
-  v4[6] = v9;
+  v16.receiver = self;
+  v16.super_class = TSCEColonTractFormulaNode;
+  v4 = [(TSCEColonTractFormulaNode *)&v16 copy];
+  v8 = objc_msgSend_copy(self->_relativeTractRef, v5, v6, v7);
+  v9 = v4[6];
+  v4[6] = v8;
 
-  v15 = objc_msgSend_copy(self->_undoTractList, v11, v12, v13, v14);
-  v16 = v4[7];
-  v4[7] = v15;
+  v13 = objc_msgSend_copy(self->_undoTractList, v10, v11, v12);
+  v14 = v4[7];
+  v4[7] = v13;
 
   *(v4 + 64) = self->_refFlags._flags;
   *(v4 + 65) = self->_colonTractFlags._flags;
@@ -47,11 +47,11 @@
 - (void)appendToNodeArray:(TSCEASTNodeArray *)array hostCellRef:(const TSCECellRef *)ref symbolTable:(void *)table calcEngine:(id)engine
 {
   TSCEASTColonTractElement::appendColonTractElement(array, self->_relativeTractRef, self->_undoTractList, ref);
-  v16 = objc_msgSend_whitespaceBefore(self, v8, v9, v10, v11);
-  TSCEASTWhitespaceElement::appendWhitespaceElement(array, 31, v16);
+  v14 = objc_msgSend_whitespaceBefore(self, v8, v9, v10);
+  TSCEASTWhitespaceElement::appendWhitespaceElement(array, 31, v14);
 
-  v17 = objc_msgSend_whitespaceAfter(self, v12, v13, v14, v15);
-  TSCEASTWhitespaceElement::appendWhitespaceElement(array, 32, v17);
+  v15 = objc_msgSend_whitespaceAfter(self, v11, v12, v13);
+  TSCEASTWhitespaceElement::appendWhitespaceElement(array, 32, v15);
 }
 
 - (id).cxx_construct

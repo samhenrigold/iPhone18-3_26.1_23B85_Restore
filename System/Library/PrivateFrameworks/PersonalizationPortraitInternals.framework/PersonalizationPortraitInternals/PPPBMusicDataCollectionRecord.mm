@@ -402,7 +402,6 @@ LABEL_34:
   toCopy = to;
   if ((*&self->_has & 0x10) != 0)
   {
-    type = self->_type;
     PBDataWriterWriteInt32Field();
   }
 
@@ -414,14 +413,12 @@ LABEL_34:
   has = self->_has;
   if ((has & 2) != 0)
   {
-    secondsFromUnixEpoch = self->_secondsFromUnixEpoch;
     PBDataWriterWriteDoubleField();
     has = self->_has;
   }
 
   if (has)
   {
-    quantizedScore = self->_quantizedScore;
     PBDataWriterWriteDoubleField();
   }
 
@@ -435,17 +432,15 @@ LABEL_34:
     PBDataWriterWriteStringField();
   }
 
-  v8 = self->_has;
-  if ((v8 & 8) != 0)
+  v5 = self->_has;
+  if ((v5 & 8) != 0)
   {
-    mediaType = self->_mediaType;
     PBDataWriterWriteInt32Field();
-    v8 = self->_has;
+    v5 = self->_has;
   }
 
-  if ((v8 & 4) != 0)
+  if ((v5 & 4) != 0)
   {
-    algorithm = self->_algorithm;
     PBDataWriterWriteInt32Field();
   }
 }

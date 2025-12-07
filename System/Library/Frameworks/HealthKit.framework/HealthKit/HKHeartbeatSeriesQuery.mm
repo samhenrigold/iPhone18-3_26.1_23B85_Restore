@@ -155,7 +155,7 @@ void __50__HKHeartbeatSeriesQuery_client_deliverHeartbeats__block_invoke_2(uint6
 - (void)_enumerateHeartbeatData:(id)data final:(BOOL)final handler:(id)handler
 {
   finalCopy = final;
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   handlerCopy = handler;
   v10 = [dataCopy length];
@@ -172,17 +172,15 @@ void __50__HKHeartbeatSeriesQuery_client_deliverHeartbeats__block_invoke_2(uint6
         break;
       }
 
-      [dataCopy getBytes:&v18 range:{v13, 16}];
-      v15.n128_u64[0] = v18;
+      [dataCopy getBytes:&v17 range:{v13, 16}];
+      v15.n128_u64[0] = v17;
       v16 = !--v14 && finalCopy;
-      handlerCopy[2](handlerCopy, self, v19 != 0, v16, 0, v15);
+      handlerCopy[2](handlerCopy, self, v18 != 0, v16, 0, v15);
       v13 += 16;
     }
 
     while (v14);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)queue_deliverError:(id)error

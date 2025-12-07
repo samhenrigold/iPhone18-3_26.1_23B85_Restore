@@ -47,7 +47,7 @@
 
 - (__CFString)triSaveURLToString
 {
-  v23[2] = *MEMORY[0x277D85DE8];
+  v22[2] = *MEMORY[0x277D85DE8];
   if ([self isFileURL])
   {
     relativePath = [self relativePath];
@@ -83,15 +83,15 @@
         {
         }
 
-        v17 = MEMORY[0x277CCACA8];
+        v16 = MEMORY[0x277CCACA8];
         baseURL4 = [self baseURL];
         triSaveURLToString = [baseURL4 triSaveURLToString];
-        v23[0] = triSaveURLToString;
-        v23[1] = absoluteString;
-        v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
-        v21 = [v17 pathWithComponents:v20];
+        v22[0] = triSaveURLToString;
+        v22[1] = absoluteString;
+        v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
+        v20 = [v16 pathWithComponents:v19];
 
-        absoluteString = v21;
+        absoluteString = v20;
       }
     }
   }
@@ -115,8 +115,6 @@ LABEL_11:
 
     absoluteString = v14;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return absoluteString;
 }
@@ -150,34 +148,12 @@ LABEL_11:
 
 - (id)triPathAsOwner:()TRI
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   relativePath = [self relativePath];
-  if (([self triIsContainerURL] & 1) == 0)
+  if (([self triIsContainerURL] & 1) != 0 && (objc_msgSend(self, "host"), (v6 = objc_claimAutoreleasedReturnValue()) != 0) && (v7 = v6, objc_msgSend(self, "port"), v8 = objc_claimAutoreleasedReturnValue(), v8, v7, v8) && (objc_msgSend(self, "port"), v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v9, "integerValue"), v9, v10))
   {
-    goto LABEL_11;
-  }
-
-  host = [self host];
-  if (!host)
-  {
-    goto LABEL_11;
-  }
-
-  v7 = host;
-  port = [self port];
-
-  if (!port)
-  {
-    goto LABEL_11;
-  }
-
-  port2 = [self port];
-  integerValue = [port2 integerValue];
-
-  if (integerValue)
-  {
-    host2 = [self host];
-    v12 = [TRIAppContainer containerWithIdentifier:host2 type:integerValue];
+    host = [self host];
+    v12 = [TRIAppContainer containerWithIdentifier:host type:v10];
 
     if ([relativePath length] >= 2 && objc_msgSend(relativePath, "isAbsolutePath"))
     {
@@ -197,30 +173,30 @@ LABEL_11:
       {
         [v12 containerURL];
       }
-      v17 = ;
-      path = [v17 path];
+      v16 = ;
+      path = [v16 path];
 
       if (path)
       {
-        v19 = MEMORY[0x277CCACA8];
-        path2 = [v17 path];
-        v24[0] = path2;
-        v24[1] = relativePath;
-        v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
-        v22 = [v19 pathWithComponents:v21];
+        v18 = MEMORY[0x277CCACA8];
+        path2 = [v16 path];
+        v23[0] = path2;
+        v23[1] = relativePath;
+        v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
+        v21 = [v18 pathWithComponents:v20];
 
-        relativePath = v22;
+        relativePath = v21;
         v14 = relativePath;
       }
 
       else
       {
-        v23 = TRILogCategory_ClientFramework();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+        v22 = TRILogCategory_ClientFramework();
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
           selfCopy = self;
-          _os_log_error_impl(&dword_22EA6B000, v23, OS_LOG_TYPE_ERROR, "triPathAsOwner: unable to resolve containerDir for URL: %@", buf, 0xCu);
+          _os_log_error_impl(&dword_22EA6B000, v22, OS_LOG_TYPE_ERROR, "triPathAsOwner: unable to resolve containerDir for URL: %@", buf, 0xCu);
         }
 
         v14 = 0;
@@ -235,12 +211,9 @@ LABEL_11:
 
   else
   {
-LABEL_11:
     relativePath = relativePath;
     v14 = relativePath;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -268,7 +241,7 @@ LABEL_11:
 
 - (id)triURLByResolvingSymlinksInPathIncludingPrivate
 {
-  v25[2] = *MEMORY[0x277D85DE8];
+  v24[2] = *MEMORY[0x277D85DE8];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   uRLByResolvingSymlinksInPath = [self URLByResolvingSymlinksInPath];
   v6 = uRLByResolvingSymlinksInPath;
@@ -289,10 +262,10 @@ LABEL_11:
       v10 = [pathComponents subarrayWithRange:{2, objc_msgSend(pathComponents, "count") - 2}];
       v11 = MEMORY[0x277CBEBC0];
       v12 = [pathComponents objectAtIndexedSubscript:0];
-      v25[0] = v12;
+      v24[0] = v12;
       v13 = [pathComponents objectAtIndexedSubscript:1];
-      v25[1] = v13;
-      v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
+      v24[1] = v13;
+      v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
       v15 = [v11 fileURLWithPathComponents:v14];
 
       path = [v15 path];
@@ -302,8 +275,8 @@ LABEL_11:
         [currentHandler handleFailureInMethod:a2 object:self file:@"NSURL+TRI.m" lineNumber:132 description:{@"Invalid parameter not satisfying: %@", @"level1Path"}];
       }
 
-      v24 = 0;
-      v17 = [defaultManager destinationOfSymbolicLinkAtPath:path error:&v24];
+      v23 = 0;
+      v17 = [defaultManager destinationOfSymbolicLinkAtPath:path error:&v23];
       if (v17)
       {
         v18 = [&unk_28436FB58 mutableCopy];
@@ -331,7 +304,6 @@ LABEL_11:
 LABEL_13:
 
 LABEL_14:
-  v21 = *MEMORY[0x277D85DE8];
 
   return v20;
 }

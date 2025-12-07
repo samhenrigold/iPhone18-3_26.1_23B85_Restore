@@ -33,7 +33,6 @@
 
 uint64_t __40__LLCallDirectoryManager_sharedInstance__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   sharedInstance_sharedInstance = objc_alloc_init(objc_opt_class());
 
   return MEMORY[0x2821F96F8]();
@@ -99,13 +98,13 @@ uint64_t __40__LLCallDirectoryManager_sharedInstance__block_invoke(uint64_t a1)
 
 void __43__LLCallDirectoryManager_defaultConnection__block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = ILDefaultLog();
+  v2 = ILDefaultLog(WeakRetained);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v8 = WeakRetained;
+    v7 = WeakRetained;
     _os_log_impl(&dword_238A41000, v2, OS_LOG_TYPE_DEFAULT, "Default connection interrupted for call directory manager %@", buf, 0xCu);
   }
 
@@ -121,19 +120,17 @@ void __43__LLCallDirectoryManager_defaultConnection__block_invoke(uint64_t a1)
     block[4] = WeakRetained;
     dispatch_async(v4, block);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __43__LLCallDirectoryManager_defaultConnection__block_invoke_2(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = ILDefaultLog();
+  v2 = ILDefaultLog(WeakRetained);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v8 = WeakRetained;
+    v7 = WeakRetained;
     _os_log_impl(&dword_238A41000, v2, OS_LOG_TYPE_DEFAULT, "Default connection invalidated for call directory manager %@", buf, 0xCu);
   }
 
@@ -149,8 +146,6 @@ void __43__LLCallDirectoryManager_defaultConnection__block_invoke_2(uint64_t a1)
     block[4] = WeakRetained;
     dispatch_async(v4, block);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __43__LLCallDirectoryManager_defaultConnection__block_invoke_6(uint64_t a1)
@@ -214,7 +209,7 @@ void __71__LLCallDirectoryManager_resetExtensionWithIdentier_completionHandler__
 void __71__LLCallDirectoryManager_resetExtensionWithIdentier_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = ILDefaultLog();
+  v4 = ILDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __71__LLCallDirectoryManager_resetExtensionWithIdentier_completionHandler___block_invoke_2_cold_1();
@@ -283,7 +278,7 @@ void __101__LLCallDirectoryManager_refreshPIRParametersForLiveLookupExtensionWit
 void __101__LLCallDirectoryManager_refreshPIRParametersForLiveLookupExtensionWithIdentifier_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = ILDefaultLog();
+  v4 = ILDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __71__LLCallDirectoryManager_resetExtensionWithIdentier_completionHandler___block_invoke_2_cold_1();
@@ -352,7 +347,7 @@ void __104__LLCallDirectoryManager_refreshExtensionContextForLiveLookupExtension
 void __104__LLCallDirectoryManager_refreshExtensionContextForLiveLookupExtensionWithIdentifier_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = ILDefaultLog();
+  v4 = ILDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __71__LLCallDirectoryManager_resetExtensionWithIdentier_completionHandler___block_invoke_2_cold_1();
@@ -421,7 +416,7 @@ void __81__LLCallDirectoryManager_getEnabledForExtensionWithIdentifier_completio
 void __81__LLCallDirectoryManager_getEnabledForExtensionWithIdentifier_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = ILDefaultLog();
+  v4 = ILDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __71__LLCallDirectoryManager_resetExtensionWithIdentier_completionHandler___block_invoke_2_cold_1();
@@ -474,7 +469,7 @@ void __60__LLCallDirectoryManager_openSettingsWithCompletionHandler___block_invo
 void __60__LLCallDirectoryManager_openSettingsWithCompletionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = ILDefaultLog();
+  v4 = ILDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __71__LLCallDirectoryManager_resetExtensionWithIdentier_completionHandler___block_invoke_2_cold_1();
@@ -534,7 +529,7 @@ void __82__LLCallDirectoryManager_setEnabled_forExtensionWithIdentifier_completi
 void __82__LLCallDirectoryManager_setEnabled_forExtensionWithIdentifier_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = ILDefaultLog();
+  v4 = ILDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __71__LLCallDirectoryManager_resetExtensionWithIdentier_completionHandler___block_invoke_2_cold_1();
@@ -556,14 +551,6 @@ uint64_t __82__LLCallDirectoryManager_setEnabled_forExtensionWithIdentifier_comp
   }
 
   return result;
-}
-
-void __71__LLCallDirectoryManager_resetExtensionWithIdentier_completionHandler___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_238A41000, v0, v1, "error %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

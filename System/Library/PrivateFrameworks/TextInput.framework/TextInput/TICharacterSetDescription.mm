@@ -9,6 +9,7 @@
 - (id)mutableCopyWithZone:(_NSZone *)zone;
 - (id)newCharacterSetFromDescription;
 - (unint64_t)hash;
+- (void)clearCachedCharacterSet;
 - (void)encodeWithCoder:(id)coder;
 @end
 
@@ -25,6 +26,13 @@
   v8 = [charactersRemovedFromBase hash];
 
   return v8 + 257 * v6;
+}
+
+- (void)clearCachedCharacterSet
+{
+  characterSet = self->_characterSet;
+  self->_characterSet = 0;
+  MEMORY[0x1EEE66BB8](self, characterSet);
 }
 
 - (NSCharacterSet)characterSet
@@ -289,9 +297,11 @@ LABEL_9:
 
 uint64_t __50__TICharacterSetDescription_awakeAfterUsingCoder___block_invoke()
 {
-  awakeAfterUsingCoder____decodedInstances = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v0 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v1 = awakeAfterUsingCoder____decodedInstances;
+  awakeAfterUsingCoder____decodedInstances = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (void)encodeWithCoder:(id)coder

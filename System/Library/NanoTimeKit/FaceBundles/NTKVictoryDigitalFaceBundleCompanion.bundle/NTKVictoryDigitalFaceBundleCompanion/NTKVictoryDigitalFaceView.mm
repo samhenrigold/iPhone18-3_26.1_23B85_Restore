@@ -27,11 +27,13 @@
 - (void)_cleanupAfterEditing;
 - (void)_configureComplicationView:(id)view forSlot:(id)slot;
 - (void)_configureForTransitionFraction:(double)fraction fromEditMode:(int64_t)mode toEditMode:(int64_t)editMode;
+- (void)_endScrubbingAnimated:(BOOL)animated withCompletion:(id)completion;
 - (void)_loadLayoutRules;
 - (void)_loadSnapshotContentViews;
 - (void)_logoTapped;
 - (void)_positionLogoPlatterView;
 - (void)_prepareForEditing;
+- (void)_scrubToDate:(id)date animated:(BOOL)animated;
 - (void)_setupLogoViews;
 - (void)_unloadSnapshotContentViews;
 - (void)layoutSubviews;
@@ -753,7 +755,7 @@ LABEL_8:
     {
       device = [(NTKVictoryDigitalFaceView *)self device];
       sub_4444(device, v7);
-      v3 = v7[0];
+      v3 = *v7;
     }
   }
 
@@ -905,6 +907,29 @@ LABEL_8:
   }
 
   return v15;
+}
+
+- (void)_scrubToDate:(id)date animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v8.receiver = self;
+  v8.super_class = NTKVictoryDigitalFaceView;
+  dateCopy = date;
+  [(NTKVictoryDigitalFaceView *)&v8 _scrubToDate:dateCopy animated:animatedCopy];
+  v7 = [(NTKVictoryDigitalFaceView *)self timeView:v8.receiver];
+  [v7 setOverrideDate:dateCopy duration:0.0];
+}
+
+- (void)_endScrubbingAnimated:(BOOL)animated withCompletion:(id)completion
+{
+  animatedCopy = animated;
+  completionCopy = completion;
+  timeView = [(NTKVictoryDigitalFaceView *)self timeView];
+  [timeView setOverrideDate:0 duration:0.0];
+
+  v8.receiver = self;
+  v8.super_class = NTKVictoryDigitalFaceView;
+  [(NTKVictoryDigitalFaceView *)&v8 _endScrubbingAnimated:animatedCopy withCompletion:completionCopy];
 }
 
 @end

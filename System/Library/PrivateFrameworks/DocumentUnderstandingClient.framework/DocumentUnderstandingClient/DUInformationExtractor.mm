@@ -9,7 +9,7 @@
 
 - (void)requestExtractionOfPersonalIDFromDocument:(id)document completion:(id)completion
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   documentCopy = document;
   completionCopy = completion;
   if (+[_TtC27DocumentUnderstandingClient38DocumentUnderstandingFeatureFlagReader isFoundInUseLLMEnabled])
@@ -31,14 +31,14 @@
     {
       v12 = +[DUXPCClient sharedInstance];
       v13 = getpid();
-      v15[0] = MEMORY[0x277D85DD0];
-      v15[1] = 3221225472;
-      v15[2] = sub_249D1F0F0;
-      v15[3] = &unk_278FB5158;
-      v16 = completionCopy;
-      [v12 requestExtractionOfPersonalIDFromDocument:documentCopy pid:v13 completion:v15];
+      v14[0] = MEMORY[0x277D85DD0];
+      v14[1] = 3221225472;
+      v14[2] = sub_249D1F0F0;
+      v14[3] = &unk_278FB5158;
+      v15 = completionCopy;
+      [v12 requestExtractionOfPersonalIDFromDocument:documentCopy pid:v13 completion:v14];
 
-      v9 = v16;
+      v9 = v15;
     }
   }
 
@@ -51,15 +51,13 @@
     }
 
     v10 = MEMORY[0x277CCA9B8];
-    v18 = *MEMORY[0x277CCA450];
-    v19[0] = @"Extraction feature is not enabled";
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+    v17 = *MEMORY[0x277CCA450];
+    v18[0] = @"Extraction feature is not enabled";
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
     mockAttributes = [v10 errorWithDomain:@"DUInformationExtractorErrorDomain" code:0 userInfo:v11];
 
     (completionCopy)[2](completionCopy, 0, mockAttributes);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)mockAttributes

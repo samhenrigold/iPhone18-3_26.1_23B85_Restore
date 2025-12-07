@@ -574,7 +574,7 @@ LABEL_41:
         v33 = 0u;
         if (rawLocation)
         {
-          [rawLocation clientLocation];
+          objc_msgSend_clientLocation(rawLocation);
         }
 
         *(v39 + 4) = v40;

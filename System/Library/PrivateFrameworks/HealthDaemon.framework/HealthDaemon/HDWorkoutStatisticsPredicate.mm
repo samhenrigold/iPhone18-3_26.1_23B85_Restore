@@ -13,52 +13,50 @@
   quantityType = self->_quantityType;
   v4 = MEMORY[0x277CCACA8];
   column = self->_column;
-  comparisonType = self->_comparisonType;
-  v7 = HDSQLOperatorForComparisonType();
-  v8 = [v4 stringWithFormat:@"<data_type=%@ and %@ %@ %@", quantityType, column, v7, self->_quantity];
+  v6 = HDSQLOperatorForComparisonType();
+  v7 = [v4 stringWithFormat:@"<data_type=%@ and %@ %@ %@", quantityType, column, v6, self->_quantity];
 
-  return v8;
+  return v7;
 }
 
 - (id)SQLForEntityClass:(Class)class
 {
-  comparisonType = self->_comparisonType;
-  v27 = HDSQLOperatorForComparisonType();
-  v6 = [(objc_class *)class isEqual:objc_opt_class()];
-  v7 = MEMORY[0x277CCACA8];
-  if (v6)
+  v26 = HDSQLOperatorForComparisonType();
+  v5 = [(objc_class *)class isEqual:objc_opt_class()];
+  v6 = MEMORY[0x277CCACA8];
+  if (v5)
   {
-    v8 = +[(HDSQLiteSchemaEntity *)HDWorkoutStatisticsEntity];
-    v9 = [(HDSQLiteSchemaEntity *)HDWorkoutActivityEntity disambiguatedSQLForProperty:*MEMORY[0x277D10A40]];
-    v10 = [(HDSQLiteSchemaEntity *)HDWorkoutStatisticsEntity disambiguatedSQLForProperty:0x283BF4B08];
-    v11 = [(HDSQLiteSchemaEntity *)HDWorkoutStatisticsEntity disambiguatedSQLForProperty:0x283BF4B28];
-    v12 = [MEMORY[0x277CCABB0] numberWithInteger:{-[HKQuantityType code](self->_quantityType, "code")}];
+    v7 = +[(HDSQLiteSchemaEntity *)HDWorkoutStatisticsEntity];
+    v8 = [(HDSQLiteSchemaEntity *)HDWorkoutActivityEntity disambiguatedSQLForProperty:*MEMORY[0x277D10A40]];
+    v9 = [(HDSQLiteSchemaEntity *)HDWorkoutStatisticsEntity disambiguatedSQLForProperty:0x283BF4B08];
+    v10 = [(HDSQLiteSchemaEntity *)HDWorkoutStatisticsEntity disambiguatedSQLForProperty:0x283BF4B28];
+    v11 = [MEMORY[0x277CCABB0] numberWithInteger:{-[HKQuantityType code](self->_quantityType, "code")}];
     column = self->_column;
-    v14 = v9;
-    v15 = [v7 stringWithFormat:@"(EXISTS (SELECT 1 FROM %@ WHERE %@=%@ AND %@=%@ AND %@%@?))", v8, v9, v10, v11, v12, column, v27];
+    v13 = v8;
+    v14 = [v6 stringWithFormat:@"(EXISTS (SELECT 1 FROM %@ WHERE %@=%@ AND %@=%@ AND %@%@?))", v7, v8, v9, v10, v11, column, v26];
   }
 
   else
   {
-    v26 = +[(HDSQLiteSchemaEntity *)HDWorkoutActivityEntity];
-    v25 = +[(HDSQLiteSchemaEntity *)HDWorkoutStatisticsEntity];
-    v16 = *MEMORY[0x277D10A40];
-    v24 = [(HDSQLiteSchemaEntity *)HDWorkoutActivityEntity disambiguatedSQLForProperty:*MEMORY[0x277D10A40]];
-    v11 = [(HDSQLiteSchemaEntity *)HDWorkoutStatisticsEntity disambiguatedSQLForProperty:0x283BF4B08];
-    v12 = [-[objc_class entityClassForEnumeration](class "entityClassForEnumeration")];
-    v17 = [(HDSQLiteSchemaEntity *)HDWorkoutActivityEntity disambiguatedSQLForProperty:@"owner_id"];
+    v25 = +[(HDSQLiteSchemaEntity *)HDWorkoutActivityEntity];
+    v24 = +[(HDSQLiteSchemaEntity *)HDWorkoutStatisticsEntity];
+    v15 = *MEMORY[0x277D10A40];
+    v23 = [(HDSQLiteSchemaEntity *)HDWorkoutActivityEntity disambiguatedSQLForProperty:*MEMORY[0x277D10A40]];
+    v10 = [(HDSQLiteSchemaEntity *)HDWorkoutStatisticsEntity disambiguatedSQLForProperty:0x283BF4B08];
+    v11 = [-[objc_class entityClassForEnumeration](class "entityClassForEnumeration")];
+    v16 = [(HDSQLiteSchemaEntity *)HDWorkoutActivityEntity disambiguatedSQLForProperty:@"owner_id"];
     [(HDSQLiteSchemaEntity *)HDWorkoutActivityEntity disambiguatedSQLForProperty:@"is_primary_activity"];
-    v18 = v23 = v7;
-    v19 = [(HDSQLiteSchemaEntity *)HDWorkoutStatisticsEntity disambiguatedSQLForProperty:0x283BF4B28];
-    v20 = [MEMORY[0x277CCABB0] numberWithInteger:{-[HKQuantityType code](self->_quantityType, "code")}];
-    v8 = v26;
-    v21 = self->_column;
-    v10 = v24;
-    v14 = v25;
-    v15 = [v23 stringWithFormat:@"(EXISTS (SELECT 1 FROM %@ INNER JOIN %@ ON %@=%@ WHERE %@=%@ AND %@ AND %@=%@ AND %@%@?))", v26, v25, v24, v11, v12, v17, v18, v19, v20, v21, v27];
+    v17 = v22 = v6;
+    v18 = [(HDSQLiteSchemaEntity *)HDWorkoutStatisticsEntity disambiguatedSQLForProperty:0x283BF4B28];
+    v19 = [MEMORY[0x277CCABB0] numberWithInteger:{-[HKQuantityType code](self->_quantityType, "code")}];
+    v7 = v25;
+    v20 = self->_column;
+    v9 = v23;
+    v13 = v24;
+    v14 = [v22 stringWithFormat:@"(EXISTS (SELECT 1 FROM %@ INNER JOIN %@ ON %@=%@ WHERE %@=%@ AND %@ AND %@=%@ AND %@%@?))", v25, v24, v23, v10, v11, v16, v17, v18, v19, v20, v26];
   }
 
-  return v15;
+  return v14;
 }
 
 - (void)bindToStatement:(sqlite3_stmt *)statement bindingIndex:(int *)index

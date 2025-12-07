@@ -101,46 +101,44 @@ LABEL_18:
 
 - (void)_accessibilityLoadAccessibilityInformation
 {
-  v20 = *MEMORY[0x29EDCA608];
-  v18.receiver = self;
-  v18.super_class = PUAlbumListViewControllerAccessibility;
-  [(PUAlbumListViewControllerAccessibility *)&v18 _accessibilityLoadAccessibilityInformation];
-  v17 = 0;
+  v19 = *MEMORY[0x29EDCA608];
+  v17.receiver = self;
+  v17.super_class = PUAlbumListViewControllerAccessibility;
+  [(PUAlbumListViewControllerAccessibility *)&v17 _accessibilityLoadAccessibilityInformation];
+  v16 = 0;
   objc_opt_class();
   v3 = [(PUAlbumListViewControllerAccessibility *)self safeValueForKey:@"_mainCollectionView"];
   v4 = __UIAccessibilityCastAsClass();
 
   indexPathsForVisibleItems = [v4 indexPathsForVisibleItems];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v6 = [indexPathsForVisibleItems countByEnumeratingWithState:&v13 objects:v19 count:16];
+  v6 = [indexPathsForVisibleItems countByEnumeratingWithState:&v12 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(indexPathsForVisibleItems);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * i);
+        v10 = *(*(&v12 + 1) + 8 * i);
         v11 = [v4 cellForItemAtIndexPath:v10];
         [(PUAlbumListViewControllerAccessibility *)self _axAddCustomContentTypeToCell:v11 inCollectionView:v4 atIndexPath:v10];
       }
 
-      v7 = [indexPathsForVisibleItems countByEnumeratingWithState:&v13 objects:v19 count:16];
+      v7 = [indexPathsForVisibleItems countByEnumeratingWithState:&v12 objects:v18 count:16];
     }
 
     while (v7);
   }
-
-  v12 = *MEMORY[0x29EDCA608];
 }
 
 - (id)collectionView:(id)view cellForItemAtIndexPath:(id)path

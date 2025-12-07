@@ -59,9 +59,11 @@
 
 uint64_t __44__TVInterfaceFactory_sharedInterfaceFactory__block_invoke()
 {
-  sharedInterfaceFactory_sSharedInstance = objc_alloc_init(TVInterfaceFactory);
+  v0 = objc_alloc_init(TVInterfaceFactory);
+  v1 = sharedInterfaceFactory_sSharedInstance;
+  sharedInterfaceFactory_sSharedInstance = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (TVInterfaceFactory)init
@@ -428,7 +430,7 @@ uint64_t __44__TVInterfaceFactory_sharedInterfaceFactory__block_invoke()
 - (id)URLForResource:(id)resource
 {
   resourceCopy = resource;
-  if ((*&self->_extenderFlags & 4) == 0 || (-[TVInterfaceFactory extendedInterfaceCreator](self, "extendedInterfaceCreator"), v5 = objc_claimAutoreleasedReturnValue(), [v5 URLForResource:resourceCopy], v6 = objc_claimAutoreleasedReturnValue(), v5, _TVMLMetricsLogPublicAPIUsage(sel_URLForResource_), !v6))
+  if ((*&self->_extenderFlags & 4) == 0 || (-[TVInterfaceFactory extendedInterfaceCreator](self, "extendedInterfaceCreator"), v5 = objc_claimAutoreleasedReturnValue(), [v5 URLForResource:resourceCopy], v6 = objc_claimAutoreleasedReturnValue(), v5, _TVMLMetricsLogPublicAPIUsage(), !v6))
   {
     v7 = +[TVInterfaceFactory _tvmlResourceMap];
     v8 = [v7 objectForKeyedSubscript:resourceCopy];
@@ -467,7 +469,7 @@ uint64_t __44__TVInterfaceFactory_sharedInterfaceFactory__block_invoke()
 - (id)imageForResource:(id)resource
 {
   resourceCopy = resource;
-  if ((*&self->_extenderFlags & 8) == 0 || (-[TVInterfaceFactory extendedInterfaceCreator](self, "extendedInterfaceCreator"), v5 = objc_claimAutoreleasedReturnValue(), [v5 imageForResource:resourceCopy], v6 = objc_claimAutoreleasedReturnValue(), v5, _TVMLMetricsLogPublicAPIUsage(sel_imageForResource_), !v6))
+  if ((*&self->_extenderFlags & 8) == 0 || (-[TVInterfaceFactory extendedInterfaceCreator](self, "extendedInterfaceCreator"), v5 = objc_claimAutoreleasedReturnValue(), [v5 imageForResource:resourceCopy], v6 = objc_claimAutoreleasedReturnValue(), v5, _TVMLMetricsLogPublicAPIUsage(), !v6))
   {
     v7 = [(TVInterfaceFactory *)self _getImageFromURLorBundle:resourceCopy];
     if (!v7)
@@ -494,7 +496,7 @@ uint64_t __44__TVInterfaceFactory_sharedInterfaceFactory__block_invoke()
   if ((*&self->_extenderFlags & 0x20) != 0)
   {
     playerCopy = player;
-    _TVMLMetricsLogPublicAPIUsage(sel_playerViewControllerForPlayer_);
+    _TVMLMetricsLogPublicAPIUsage();
     extendedInterfaceCreator = [(TVInterfaceFactory *)self extendedInterfaceCreator];
     v3 = [extendedInterfaceCreator playerViewControllerForPlayer:playerCopy];
   }
@@ -611,7 +613,7 @@ LABEL_7:
       elementCopy = [(objc_class *)[TVViewLayout layoutClassForElement:?]element:"layoutWithLayout:element:", layoutCopy, elementCopy];
       [v14 tv_setLayout:elementCopy];
 
-      _TVMLMetricsLogPublicAPIUsage(sel_viewForElement_existingView_);
+      _TVMLMetricsLogPublicAPIUsage();
       if (v14)
       {
         goto LABEL_21;
@@ -791,7 +793,7 @@ LABEL_8:
     tv_associatedViewElement = [elementCopy tv_associatedViewElement];
     v14 = [extendedInterfaceCreator2 viewControllerForElement:tv_associatedViewElement existingViewController:controllerCopy];
 
-    _TVMLMetricsLogPublicAPIUsage(sel_viewControllerForElement_existingViewController_);
+    _TVMLMetricsLogPublicAPIUsage();
     if (!v14)
     {
       goto LABEL_8;
@@ -827,7 +829,7 @@ LABEL_18:
       goto LABEL_7;
     }
 
-    _TVMLMetricsLogPublicAPIUsage(sel_collectionViewCellClassForElement_);
+    _TVMLMetricsLogPublicAPIUsage();
     extendedInterfaceCreator = [(TVInterfaceFactory *)self extendedInterfaceCreator];
     tv_associatedViewElement = [elementCopy tv_associatedViewElement];
     v6 = [extendedInterfaceCreator collectionViewCellClassForElement:tv_associatedViewElement];

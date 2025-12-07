@@ -89,8 +89,8 @@
 {
   v4 = [(HUHomeStatusDetailsItemManager *)self _sectionIdentifierForItem:item];
   cachedRoomNamesByIdentifier = [(HUHomeStatusDetailsItemManager *)self cachedRoomNamesByIdentifier];
-  allKeys = [cachedRoomNamesByIdentifier allKeys];
-  v7 = [allKeys containsObject:v4];
+  v6 = objc_msgSend_allKeys(cachedRoomNamesByIdentifier);
+  v7 = [v6 containsObject:v4];
 
   return v7 ^ 1;
 }

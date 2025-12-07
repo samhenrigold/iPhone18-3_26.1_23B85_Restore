@@ -19,33 +19,32 @@
   typeCopy = type;
   predicateCopy = predicate;
   entitiesCopy = entities;
-  v26.receiver = self;
-  v26.super_class = HDStatisticsCollectionCalculatorDefaultDataSource;
-  v14 = [(HDStatisticsCollectionCalculatorDefaultDataSource *)&v26 init];
+  v25.receiver = self;
+  v25.super_class = HDStatisticsCollectionCalculatorDefaultDataSource;
+  v14 = [(HDStatisticsCollectionCalculatorDefaultDataSource *)&v25 init];
   v15 = v14;
   if (v14)
   {
     objc_storeWeak(&v14->_profile, profileCopy);
-    v16 = [typeCopy copy];
+    v16 = objc_msgSend_copy(typeCopy);
     v17 = *(v15 + 32);
     *(v15 + 32) = v16;
 
-    v18 = [predicateCopy copy];
+    v18 = objc_msgSend_copy(predicateCopy);
     v19 = *(v15 + 40);
     *(v15 + 40) = v18;
 
-    v20 = [entitiesCopy copy];
+    v20 = objc_msgSend_copy(entitiesCopy);
     v21 = *(v15 + 48);
     *(v15 + 48) = v20;
 
     *(v15 + 16) = 1;
-    v22 = *(v15 + 32);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
       underlyingSampleType = [*(v15 + 32) underlyingSampleType];
-      v24 = [MEMORY[0x277CCD830] _quantityTypeWithCode:{objc_msgSend(underlyingSampleType, "code")}];
-      *(v15 + 16) = v24 != 0;
+      v23 = [MEMORY[0x277CCD830] _quantityTypeWithCode:{objc_msgSend(underlyingSampleType, "code")}];
+      *(v15 + 16) = v23 != 0;
     }
 
     [(HDStatisticsCollectionCalculatorDefaultDataSource *)v15 _updateFullPredicate];
@@ -104,7 +103,7 @@
 
 - (void)setRestrictedSourceEntities:(id)entities
 {
-  v4 = [entities copy];
+  v4 = objc_msgSend_copy(entities, a2);
   restrictedSourceEntities = self->_restrictedSourceEntities;
   self->_restrictedSourceEntities = v4;
 
@@ -113,7 +112,7 @@
 
 - (void)setPredicate:(id)predicate
 {
-  v4 = [predicate copy];
+  v4 = objc_msgSend_copy(predicate, a2);
   predicate = self->_predicate;
   self->_predicate = v4;
 
@@ -122,7 +121,7 @@
 
 - (BOOL)collectionCalculator:(id)calculator queryForInterval:(id)interval error:(id *)error sampleHandler:(id)handler mergeHandler:(id)mergeHandler
 {
-  v53[3] = *MEMORY[0x277D85DE8];
+  v52[3] = *MEMORY[0x277D85DE8];
   calculatorCopy = calculator;
   intervalCopy = interval;
   handlerCopy = handler;
@@ -135,18 +134,18 @@
     v16 = [(HKQuantityType *)quantityType _earliestAllowedStartDateForSampleOverlappingDate:startDate];
 
     endDate = [intervalCopy endDate];
-    v18 = HDSampleEntityPredicateForStartDate(3);
+    v18 = HDSampleEntityPredicateForStartDate(3, endDate);
 
     startDate2 = [intervalCopy startDate];
-    v20 = HDSampleEntityPredicateForEndDate(6);
+    v20 = HDSampleEntityPredicateForEndDate(6, startDate2);
 
-    v53[0] = self->_fullPredicate;
-    v53[1] = v18;
-    v53[2] = v20;
-    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v53 count:3];
+    v52[0] = self->_fullPredicate;
+    v52[1] = v18;
+    v52[2] = v20;
+    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v52 count:3];
     if (v16)
     {
-      v22 = HDSampleEntityPredicateForStartDate(6);
+      v22 = HDSampleEntityPredicateForStartDate(6, v16);
       v23 = [v21 arrayByAddingObject:v22];
 
       v21 = v23;
@@ -157,63 +156,62 @@
     v13 = v24;
   }
 
-  v49 = 0;
-  v50 = &v49;
-  v51 = 0x2020000000;
-  v52 = 0;
-  v48[0] = 0;
-  v48[1] = v48;
-  v48[2] = 0x2020000000;
-  v48[3] = 0;
+  v48 = 0;
+  v49 = &v48;
+  v50 = 0x2020000000;
+  v51 = 0;
   v47[0] = 0;
   v47[1] = v47;
   v47[2] = 0x2020000000;
-  v47[3] = -1;
+  v47[3] = 0;
+  v46[0] = 0;
+  v46[1] = v46;
+  v46[2] = 0x2020000000;
+  v46[3] = -1;
   WeakRetained = objc_loadWeakRetained(&self->_profile);
   database = [WeakRetained database];
-  v40[0] = MEMORY[0x277D85DD0];
-  v40[1] = 3221225472;
-  v40[2] = __124__HDStatisticsCollectionCalculatorDefaultDataSource_collectionCalculator_queryForInterval_error_sampleHandler_mergeHandler___block_invoke;
-  v40[3] = &unk_27862EF70;
-  v40[4] = self;
+  v39[0] = MEMORY[0x277D85DD0];
+  v39[1] = 3221225472;
+  v39[2] = __124__HDStatisticsCollectionCalculatorDefaultDataSource_collectionCalculator_queryForInterval_error_sampleHandler_mergeHandler___block_invoke;
+  v39[3] = &unk_27862EF70;
+  v39[4] = self;
   v27 = v13;
-  v41 = v27;
-  v44 = v48;
-  v45 = &v49;
-  v46 = v47;
+  v40 = v27;
+  v43 = v47;
+  v44 = &v48;
+  v45 = v46;
   v28 = mergeHandlerCopy;
-  v42 = v28;
+  v41 = v28;
   v29 = handlerCopy;
-  v43 = v29;
-  v30 = [(HDHealthEntity *)HDSampleEntity performReadTransactionWithHealthDatabase:database error:error block:v40];
+  v42 = v29;
+  v30 = [(HDHealthEntity *)HDSampleEntity performReadTransactionWithHealthDatabase:database error:error block:v39];
 
   if (v30)
   {
     anchor = self->_anchor;
-    if (!anchor || (v32 = v50[3], v32 > [(NSNumber *)anchor longLongValue]))
+    if (!anchor || (v32 = v49[3], v32 > [(NSNumber *)anchor longLongValue]))
     {
-      v33 = [MEMORY[0x277CCABB0] numberWithLongLong:v50[3]];
+      v33 = [MEMORY[0x277CCABB0] numberWithLongLong:v49[3]];
       v34 = self->_anchor;
       self->_anchor = v33;
     }
   }
 
+  _Block_object_dispose(v46, 8);
   _Block_object_dispose(v47, 8);
-  _Block_object_dispose(v48, 8);
-  _Block_object_dispose(&v49, 8);
+  _Block_object_dispose(&v48, 8);
 
-  v35 = *MEMORY[0x277D85DE8];
   return v30;
 }
 
 uint64_t __124__HDStatisticsCollectionCalculatorDefaultDataSource_collectionCalculator_queryForInterval_error_sampleHandler_mergeHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v65[3] = *MEMORY[0x277D85DE8];
+  v64[3] = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 24));
   v6 = [WeakRetained database];
-  v55 = 0;
-  v7 = [(HDHealthEntity *)HDSampleEntity maxRowIDForPredicate:0 healthDatabase:v6 error:&v55];
-  v8 = v55;
+  v54 = 0;
+  v7 = [(HDHealthEntity *)HDSampleEntity maxRowIDForPredicate:0 healthDatabase:v6 error:&v54];
+  v8 = v54;
 
   if (v7)
   {
@@ -243,7 +241,7 @@ uint64_t __124__HDStatisticsCollectionCalculatorDefaultDataSource_collectionCalc
     goto LABEL_22;
   }
 
-  v48 = a3;
+  v47 = a3;
   v10 = *(a1 + 32);
   if (!*(v10 + 64))
   {
@@ -258,7 +256,7 @@ LABEL_9:
     objc_storeStrong((v10 + 64), v7);
   }
 
-  v49 = v7;
+  v48 = v7;
   v12 = objc_loadWeakRetained((*(a1 + 32) + 24));
   v13 = *(a1 + 32);
   v14 = *(a1 + 40);
@@ -266,18 +264,18 @@ LABEL_9:
   v16 = *(v13 + 88);
   v17 = *(v13 + 16);
   v18 = *(v13 + 17);
-  v50[0] = MEMORY[0x277D85DD0];
-  v50[1] = 3221225472;
-  v50[2] = __124__HDStatisticsCollectionCalculatorDefaultDataSource_collectionCalculator_queryForInterval_error_sampleHandler_mergeHandler___block_invoke_2;
-  v50[3] = &unk_27862EF48;
-  v50[4] = v13;
-  v53 = *(a1 + 64);
-  v54 = *(a1 + 80);
-  v51 = *(a1 + 48);
-  v52 = *(a1 + 56);
+  v49[0] = MEMORY[0x277D85DD0];
+  v49[1] = 3221225472;
+  v49[2] = __124__HDStatisticsCollectionCalculatorDefaultDataSource_collectionCalculator_queryForInterval_error_sampleHandler_mergeHandler___block_invoke_2;
+  v49[3] = &unk_27862EF48;
+  v49[4] = v13;
+  v52 = *(a1 + 64);
+  v53 = *(a1 + 80);
+  v50 = *(a1 + 48);
+  v51 = *(a1 + 56);
   v19 = v15;
   v20 = v16;
-  v21 = v50;
+  v21 = v49;
   v22 = v14;
   v23 = v12;
   objc_opt_self();
@@ -293,40 +291,40 @@ LABEL_9:
       v24 = 1;
     }
 
-    v56 = MEMORY[0x277D85DD0];
-    v57 = 3221225472;
-    v58 = __154__HDStatisticsCollectionCalculatorDefaultDataSource__enumerateWithProfile_quantityType_predicate_filter_isQuantityType_includeUnfrozenSeries_error_block___block_invoke;
-    v59 = &unk_27862EF98;
-    v60 = v20;
-    v61 = v21;
-    v25 = [HDQuantitySampleValueEnumerator orderedQuantityValuesBySeriesForPredicate:v22 profile:v23 options:v24 error:v48 handler:&v56];
+    v55 = MEMORY[0x277D85DD0];
+    v56 = 3221225472;
+    v57 = __154__HDStatisticsCollectionCalculatorDefaultDataSource__enumerateWithProfile_quantityType_predicate_filter_isQuantityType_includeUnfrozenSeries_error_block___block_invoke;
+    v58 = &unk_27862EF98;
+    v59 = v20;
+    v60 = v21;
+    v25 = [HDQuantitySampleValueEnumerator orderedQuantityValuesBySeriesForPredicate:v22 profile:v23 options:v24 error:v47 handler:&v55];
 
-    v26 = v60;
+    v26 = v59;
     v27 = v21;
-    v7 = v49;
+    v7 = v48;
   }
 
   else
   {
     v26 = v23;
-    v45 = v21;
-    v43 = v21;
-    v44 = v22;
-    v47 = v19;
+    v44 = v21;
+    v42 = v21;
+    v43 = v22;
+    v46 = v19;
     v29 = v19;
     objc_opt_self();
-    v65[0] = @"data_provenances.source_id";
-    v65[1] = @"start_date";
-    v65[2] = @"end_date";
-    v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v65 count:3];
-    v42 = [v30 indexOfObject:@"data_provenances.source_id"];
-    v41 = [v30 indexOfObject:@"start_date"];
+    v64[0] = @"data_provenances.source_id";
+    v64[1] = @"start_date";
+    v64[2] = @"end_date";
+    v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v64 count:3];
+    v41 = [v30 indexOfObject:@"data_provenances.source_id"];
+    v40 = [v30 indexOfObject:@"start_date"];
     v31 = [v30 indexOfObject:@"end_date"];
     v32 = [v29 dataObjectClass];
 
     v33 = [objc_msgSend(v32 "hd_dataEntityClass")];
     v34 = [v33 syntheticQuantityColumnName];
-    v46 = v23;
+    v45 = v23;
     if (v34)
     {
       v35 = [v30 arrayByAddingObject:v34];
@@ -334,28 +332,27 @@ LABEL_9:
       v30 = v35;
     }
 
-    v7 = v49;
+    v7 = v48;
     v36 = [v26 database];
-    v56 = MEMORY[0x277D85DD0];
-    v57 = 3221225472;
-    v58 = __120__HDStatisticsCollectionCalculatorDefaultDataSource__enumerateSampleTypeWithProfile_quantityType_predicate_error_block___block_invoke;
-    v59 = &unk_27862EFC0;
-    v62 = v41;
-    v63 = v31;
-    v64 = v42;
-    v60 = v34;
-    v61 = v43;
-    v37 = v43;
+    v55 = MEMORY[0x277D85DD0];
+    v56 = 3221225472;
+    v57 = __120__HDStatisticsCollectionCalculatorDefaultDataSource__enumerateSampleTypeWithProfile_quantityType_predicate_error_block___block_invoke;
+    v58 = &unk_27862EFC0;
+    v61 = v40;
+    v62 = v31;
+    v63 = v41;
+    v59 = v34;
+    v60 = v42;
+    v37 = v42;
     v38 = v34;
-    v25 = [v33 enumerateProperties:v30 withPredicate:v44 healthDatabase:v36 error:v48 enumerationHandler:&v56];
+    v25 = [v33 enumerateProperties:v30 withPredicate:v43 healthDatabase:v36 error:v47 enumerationHandler:&v55];
 
-    v19 = v47;
-    v27 = v45;
-    v23 = v46;
+    v19 = v46;
+    v27 = v44;
+    v23 = v45;
   }
 
 LABEL_22:
-  v39 = *MEMORY[0x277D85DE8];
   return v25;
 }
 
@@ -374,7 +371,7 @@ uint64_t __124__HDStatisticsCollectionCalculatorDefaultDataSource_collectionCalc
       v20 = *(v19 + 24);
       if (v20 >= v17)
       {
-        result = (*(v18 + 16))(v18, a10);
+        result = (*(v18 + 16))(v18, a10, a8, a9, a3, a4);
         *(*(a1[7] + 8) + 24) = 0;
         ++*(*(a1[7] + 8) + 24);
         if (!result)
@@ -401,7 +398,7 @@ uint64_t __124__HDStatisticsCollectionCalculatorDefaultDataSource_collectionCalc
   {
     if (v13 != a6)
     {
-      (*(a1[5] + 16))(v13);
+      (*(a1[5] + 16))(v13, a4);
       v23 = *(a1[9] + 8);
     }
 
@@ -435,28 +432,27 @@ uint64_t __154__HDStatisticsCollectionCalculatorDefaultDataSource__enumerateWith
 
 uint64_t __120__HDStatisticsCollectionCalculatorDefaultDataSource__enumerateSampleTypeWithProfile_quantityType_predicate_error_block___block_invoke(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v6 = MEMORY[0x22AAC6C50](a4, a1[6]);
+  v6 = MEMORY[0x22AAC6C50](a4, a1[6], a3);
   v7 = MEMORY[0x22AAC6C50](a4, a1[7]);
-  v8 = a1[8];
   HDSQLiteColumnAsInt64();
   if (a1[4])
   {
     HDSQLiteColumnWithNameAsDouble();
-    v11.n128_u64[0] = v9.n128_u64[0];
+    v10.n128_u64[0] = v8.n128_u64[0];
   }
 
   else
   {
-    v11.n128_u64[0] = 0;
+    v10.n128_u64[0] = 0;
   }
 
-  v14 = *(a1[5] + 16);
-  v9.n128_f64[0] = v6;
-  v10.n128_f64[0] = v7;
-  v12.n128_f64[0] = v6;
-  v13.n128_f64[0] = v7;
+  v13 = *(a1[5] + 16);
+  v8.n128_f64[0] = v6;
+  v9.n128_f64[0] = v7;
+  v11.n128_f64[0] = v6;
+  v12.n128_f64[0] = v7;
 
-  return v14(v9, v10, v11, v12, v13);
+  return v13(v8, v9, v10, v11, v12);
 }
 
 - (BOOL)addValuesForQuantitySamples:(id)samples calculator:(id)calculator includeSeries:(BOOL)series error:(id *)error
@@ -464,19 +460,7 @@ uint64_t __120__HDStatisticsCollectionCalculatorDefaultDataSource__enumerateSamp
   seriesCopy = series;
   samplesCopy = samples;
   calculatorCopy = calculator;
-  if (!seriesCopy)
-  {
-    goto LABEL_4;
-  }
-
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __112__HDStatisticsCollectionCalculatorDefaultDataSource_addValuesForQuantitySamples_calculator_includeSeries_error___block_invoke;
-  v20[3] = &unk_27862EFE8;
-  v20[4] = self;
-  v12 = [samplesCopy hk_firstObjectPassingTest:v20];
-
-  if (v12)
+  if (seriesCopy && (v20[0] = MEMORY[0x277D85DD0], v20[1] = 3221225472, v20[2] = __112__HDStatisticsCollectionCalculatorDefaultDataSource_addValuesForQuantitySamples_calculator_includeSeries_error___block_invoke, v20[3] = &unk_27862EFE8, v20[4] = self, [samplesCopy hk_firstObjectPassingTest:v20], v12 = objc_claimAutoreleasedReturnValue(), v12, v12))
   {
     WeakRetained = objc_loadWeakRetained(&self->_profile);
     database = [WeakRetained database];
@@ -492,7 +476,6 @@ uint64_t __120__HDStatisticsCollectionCalculatorDefaultDataSource__enumerateSamp
 
   else
   {
-LABEL_4:
     v15 = [(HDStatisticsCollectionCalculatorDefaultDataSource *)self _addValuesForQuantitySamples:samplesCopy calculator:calculatorCopy requiresSeriesValues:0 transaction:0 error:error];
   }
 
@@ -545,30 +528,30 @@ BOOL __112__HDStatisticsCollectionCalculatorDefaultDataSource_addValuesForQuanti
 
 uint64_t __132__HDStatisticsCollectionCalculatorDefaultDataSource__addValuesForQuantitySamples_calculator_requiresSeriesValues_transaction_error___block_invoke(uint64_t a1, void *a2)
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   v3 = *(a1 + 32);
-  v4 = [v3 countByEnumeratingWithState:&v29 objects:v50 count:16];
-  v27 = 1;
+  v4 = [v3 countByEnumeratingWithState:&v28 objects:v49 count:16];
+  v26 = 1;
   if (!v4)
   {
     goto LABEL_27;
   }
 
-  v5 = *v30;
+  v5 = *v29;
   while (2)
   {
     for (i = 0; i != v4; ++i)
     {
-      if (*v30 != v5)
+      if (*v29 != v5)
       {
         objc_enumerationMutation(v3);
       }
 
-      v7 = *(*(&v29 + 1) + 8 * i);
+      v7 = *(*(&v28 + 1) + 8 * i);
       v8 = [v7 quantityType];
       v9 = [v8 isEqual:*(*(a1 + 40) + 32)];
 
@@ -600,43 +583,43 @@ uint64_t __132__HDStatisticsCollectionCalculatorDefaultDataSource__addValuesForQ
         goto LABEL_22;
       }
 
-      v44 = 0;
-      v45 = &v44;
-      v46 = 0x3032000000;
-      v47 = __Block_byref_object_copy__201;
-      v48 = __Block_byref_object_dispose__201;
-      v49 = 0;
-      v40 = 0;
-      v41 = &v40;
-      v42 = 0x2020000000;
-      v43 = 1;
-      v39[0] = 0;
-      v39[1] = v39;
-      v39[2] = 0x2020000000;
+      v43 = 0;
+      v44 = &v43;
+      v45 = 0x3032000000;
+      v46 = __Block_byref_object_copy__201;
+      v47 = __Block_byref_object_dispose__201;
+      v48 = 0;
+      v39 = 0;
+      v40 = &v39;
+      v41 = 0x2020000000;
+      v42 = 1;
+      v38[0] = 0;
+      v38[1] = v38;
+      v38[2] = 0x2020000000;
       [v12 _startTimestamp];
-      v39[3] = v17;
+      v38[3] = v17;
       v18 = [v12 UUID];
-      v33[0] = MEMORY[0x277D85DD0];
-      v33[1] = 3221225472;
-      v33[2] = __115__HDStatisticsCollectionCalculatorDefaultDataSource__addValueForQuantitySeriesSample_calculator_transaction_error___block_invoke;
-      v33[3] = &unk_27862F038;
-      v36 = v39;
-      v37 = &v40;
+      v32[0] = MEMORY[0x277D85DD0];
+      v32[1] = 3221225472;
+      v32[2] = __115__HDStatisticsCollectionCalculatorDefaultDataSource__addValueForQuantitySeriesSample_calculator_transaction_error___block_invoke;
+      v32[3] = &unk_27862F038;
+      v35 = v38;
+      v36 = &v39;
       v19 = v13;
-      v34 = v19;
+      v33 = v19;
       v20 = v12;
-      v35 = v20;
-      v38 = &v44;
-      v21 = [HDQuantitySampleSeriesEntity enumerateDataWithIdentifier:v18 transaction:v14 error:a2 handler:v33];
+      v34 = v20;
+      v37 = &v43;
+      v21 = [HDQuantitySampleSeriesEntity enumerateDataWithIdentifier:v18 transaction:v14 error:a2 handler:v32];
 
       if (!v21)
       {
         goto LABEL_20;
       }
 
-      if ((v41[3] & 1) == 0)
+      if ((v40[3] & 1) == 0)
       {
-        v22 = v45[5];
+        v22 = v44[5];
         v23 = v22;
         if (v22)
         {
@@ -660,20 +643,20 @@ LABEL_20:
       v16 = 1;
 LABEL_21:
 
-      _Block_object_dispose(v39, 8);
-      _Block_object_dispose(&v40, 8);
-      _Block_object_dispose(&v44, 8);
+      _Block_object_dispose(v38, 8);
+      _Block_object_dispose(&v39, 8);
+      _Block_object_dispose(&v43, 8);
 
 LABEL_22:
       if ((v16 & 1) == 0)
       {
 LABEL_26:
-        v27 = 0;
+        v26 = 0;
         goto LABEL_27;
       }
     }
 
-    v4 = [v3 countByEnumeratingWithState:&v29 objects:v50 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v28 objects:v49 count:16];
     if (v4)
     {
       continue;
@@ -682,11 +665,10 @@ LABEL_26:
     break;
   }
 
-  v27 = 1;
+  v26 = 1;
 LABEL_27:
 
-  v25 = *MEMORY[0x277D85DE8];
-  return v27;
+  return v26;
 }
 
 + (uint64_t)_addValueForQuantitySample:(void *)sample calculator:(uint64_t)calculator error:

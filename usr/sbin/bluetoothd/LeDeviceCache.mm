@@ -455,7 +455,7 @@ LABEL_28:
   v7 = qword_100BCE900;
   if (os_log_type_enabled(qword_100BCE900, OS_LOG_TYPE_INFO))
   {
-    v8 = sub_100063D0C();
+    v8 = sub_100063D0C(of);
     *buf = 138543618;
     v33 = uuidCopy;
     v34 = 2114;
@@ -469,14 +469,14 @@ LABEL_28:
     v10 = qword_100BCE900;
     if (os_log_type_enabled(qword_100BCE900, OS_LOG_TYPE_ERROR))
     {
-      v11 = sub_100063D0C();
+      v11 = sub_100063D0C(of);
       sub_10082A7F0(v11, v31, v9, v10);
     }
 
     v12 = [(LeDeviceCache *)self tableNameForType:0];
     uUIDString = [uuidCopy UUIDString];
-    v14 = sub_100063D0C();
-    v15 = sub_100063D0C();
+    v14 = sub_100063D0C(of);
+    v15 = sub_100063D0C(of);
     v16 = [NSString stringWithFormat:@"SELECT Uuid FROM %s WHERE Uuid != '%@' AND (Address = '%@' OR ResolvedAddress = '%@')", v12, uUIDString, v14, v15];
 
     ppStmt = 0;
@@ -510,8 +510,8 @@ LABEL_28:
 
     v23 = [(LeDeviceCache *)self tableNameForType:0];
     uUIDString2 = [uuidCopy UUIDString];
-    v25 = sub_100063D0C();
-    v26 = sub_100063D0C();
+    v25 = sub_100063D0C(of);
+    v26 = sub_100063D0C(of);
     v27 = [NSString stringWithFormat:@"DELETE FROM %s WHERE Uuid != '%@' AND (Address = '%@' OR ResolvedAddress = '%@')", v23, uUIDString2, v25, v26];
 
     v28 = self->_pairedDatabase;
@@ -534,8 +534,8 @@ LABEL_28:
   else
   {
     v12 = [(LeDeviceCache *)self tableNameForType:0];
-    uUIDString = sub_100063D0C();
-    v13 = sub_100063D0C();
+    uUIDString = sub_100063D0C(address);
+    v13 = sub_100063D0C(address);
     v11 = [NSString stringWithFormat:@"SELECT * FROM %s WHERE Address = '%@' OR ResolvedAddress = '%@'", v12, uUIDString, v13];
   }
 
@@ -561,8 +561,8 @@ LABEL_28:
 
     else
     {
-      uUIDString2 = sub_100063D0C();
-      v18 = sub_100063D0C();
+      uUIDString2 = sub_100063D0C(address);
+      v18 = sub_100063D0C(address);
       v20 = [NSString stringWithFormat:@"SELECT * FROM %s WHERE Address = '%@' OR ResolvedAddress = '%@'", v16, uUIDString2, v18];
 
       v11 = v20;
@@ -580,7 +580,7 @@ LABEL_16:
     {
       if (os_log_type_enabled(qword_100BCE900, OS_LOG_TYPE_DEFAULT))
       {
-        v22 = sub_100063D0C();
+        v22 = sub_100063D0C(address);
         v23 = [(LeDeviceCache *)self friendlyNameForType:0];
         *buf = 138543874;
         *&buf[4] = deviceCopy;
@@ -597,7 +597,7 @@ LABEL_16:
 
     if (os_log_type_enabled(qword_100BCE900, OS_LOG_TYPE_ERROR))
     {
-      v25 = sub_100063D0C();
+      v25 = sub_100063D0C(address);
       v26 = [(LeDeviceCache *)self friendlyNameForType:0];
       *buf = 138543874;
       *&buf[4] = deviceCopy;
@@ -621,7 +621,7 @@ LABEL_16:
 
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      v27 = sub_100063D0C();
+      v27 = sub_100063D0C(address);
       sub_10082A858(v27, v33);
     }
 
@@ -649,7 +649,7 @@ LABEL_16:
 LABEL_31:
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      sub_100063D0C();
+      sub_100063D0C(address);
       objc_claimAutoreleasedReturnValue();
       sub_10082A8A4();
     }
@@ -740,82 +740,82 @@ LABEL_20:
 
 - (void)readDeviceByAddress:(unint64_t)address
 {
-  v4 = [(LeDeviceCache *)self tableNameForType:0];
-  v5 = sub_100063D0C();
-  v6 = sub_100063D0C();
-  v7 = [NSString stringWithFormat:@"SELECT * FROM %s WHERE Address = '%@' OR ResolvedAddress = '%@'", v4, v5, v6];
+  v5 = [(LeDeviceCache *)self tableNameForType:0];
+  v6 = sub_100063D0C(address);
+  v7 = sub_100063D0C(address);
+  v8 = [NSString stringWithFormat:@"SELECT * FROM %s WHERE Address = '%@' OR ResolvedAddress = '%@'", v5, v6, v7];
 
-  v8 = [(LeDeviceCache *)self readDeviceFromDatabase:self->_pairedDatabase statement:v7];
-  if (!v8)
+  v9 = [(LeDeviceCache *)self readDeviceFromDatabase:self->_pairedDatabase statement:v8];
+  if (!v9)
   {
-    v9 = qword_100BCE900;
+    v10 = qword_100BCE900;
     if (os_log_type_enabled(qword_100BCE900, OS_LOG_TYPE_INFO))
     {
-      v10 = sub_100063D0C();
+      v11 = sub_100063D0C(address);
       *buf = 138543618;
-      v21 = v10;
-      v22 = 2082;
-      v23 = [(LeDeviceCache *)self friendlyNameForType:0];
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Unable to locate device address %{public}@ in '%{public}s' cache", buf, 0x16u);
+      v22 = v11;
+      v23 = 2082;
+      v24 = [(LeDeviceCache *)self friendlyNameForType:0];
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "Unable to locate device address %{public}@ in '%{public}s' cache", buf, 0x16u);
     }
 
     if (self->_otherDatabase)
     {
-      v11 = [(LeDeviceCache *)self tableNameForType:1];
-      v12 = sub_100063D0C();
-      v13 = [NSString stringWithFormat:@"SELECT * FROM %s WHERE Address = '%@'", v11, v12];
+      v12 = [(LeDeviceCache *)self tableNameForType:1];
+      v13 = sub_100063D0C(address);
+      v14 = [NSString stringWithFormat:@"SELECT * FROM %s WHERE Address = '%@'", v12, v13];
 
-      v8 = [(LeDeviceCache *)self readDeviceFromDatabase:self->_otherDatabase statement:v13];
-      if (!v8)
+      v9 = [(LeDeviceCache *)self readDeviceFromDatabase:self->_otherDatabase statement:v14];
+      if (!v9)
       {
-        v14 = qword_100BCE900;
+        v15 = qword_100BCE900;
         if (os_log_type_enabled(qword_100BCE900, OS_LOG_TYPE_INFO))
         {
-          v15 = sub_100063D0C();
-          v16 = [(LeDeviceCache *)self friendlyNameForType:1];
+          v16 = sub_100063D0C(address);
+          v17 = [(LeDeviceCache *)self friendlyNameForType:1];
           *buf = 138543618;
-          v21 = v15;
-          v22 = 2082;
-          v23 = v16;
-          _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "Unable to locate device address %{public}@ in '%{public}s' cache", buf, 0x16u);
+          v22 = v16;
+          v23 = 2082;
+          v24 = v17;
+          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "Unable to locate device address %{public}@ in '%{public}s' cache", buf, 0x16u);
         }
 
-        v8 = 0;
+        v9 = 0;
       }
 
-      v7 = v13;
+      v8 = v14;
     }
 
     else
     {
-      v17 = qword_100BCE900;
+      v18 = qword_100BCE900;
       if (os_log_type_enabled(qword_100BCE900, OS_LOG_TYPE_INFO))
       {
-        v18 = [(LeDeviceCache *)self friendlyNameForType:1];
+        v19 = [(LeDeviceCache *)self friendlyNameForType:1];
         *buf = 136446210;
-        v21 = v18;
-        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "Ignoring read as '%{public}s' cache has not been loaded yet", buf, 0xCu);
+        v22 = v19;
+        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "Ignoring read as '%{public}s' cache has not been loaded yet", buf, 0xCu);
       }
 
-      v8 = 0;
+      v9 = 0;
     }
   }
 
-  return v8;
+  return v9;
 }
 
 - (int)duplicatePairedDevicesForAddress:(unint64_t)address originalUuid:(id)uuid
 {
   uuidCopy = uuid;
-  v12 = 0;
-  v6 = [(LeDeviceCache *)self tableNameForType:0];
+  v13 = 0;
+  v7 = [(LeDeviceCache *)self tableNameForType:0];
   uUIDString = [uuidCopy UUIDString];
-  v8 = sub_100063D0C();
-  v9 = sub_100063D0C();
-  v10 = [NSString stringWithFormat:@"SELECT COUNT() FROM %s WHERE Uuid != '%@' AND (Address = '%@' OR ResolvedAddress = '%@')", v6, uUIDString, v8, v9];
+  v9 = sub_100063D0C(address);
+  v10 = sub_100063D0C(address);
+  v11 = [NSString stringWithFormat:@"SELECT COUNT() FROM %s WHERE Uuid != '%@' AND (Address = '%@' OR ResolvedAddress = '%@')", v7, uUIDString, v9, v10];
 
-  [(LeDeviceCache *)self readIntFromDatabase:self->_pairedDatabase statement:v10 value:&v12];
-  LODWORD(self) = v12;
+  [(LeDeviceCache *)self readIntFromDatabase:self->_pairedDatabase statement:v11 value:&v13];
+  LODWORD(self) = v13;
 
   return self;
 }
@@ -953,7 +953,7 @@ LABEL_20:
 
     sqlite3_bind_int(*(&self->super.isa + v21), 3, *(device + 32));
     v28 = *(&self->super.isa + v21);
-    v29 = sub_100063D0C();
+    v29 = sub_100063D0C(*(device + 2));
     v30 = v29;
     sqlite3_bind_text(v28, 4, [v29 UTF8String], -1, 0xFFFFFFFFFFFFFFFFLL);
 
@@ -961,7 +961,7 @@ LABEL_20:
     v32 = *(device + 3);
     if (v32)
     {
-      v29 = sub_100063D0C();
+      v29 = sub_100063D0C(*(device + 3));
       v33 = v29;
       uTF8String = [v29 UTF8String];
     }
@@ -2096,7 +2096,7 @@ LABEL_89:
         if ([(LeDeviceCache *)self json:v10 hasAnyProperty:v6])
         {
           sub_100007E30(__p, [v11 UTF8String]);
-          sub_10034A52C(retstr, __p);
+          sub_10034A52C(&retstr->var0, __p);
           if (v18 < 0)
           {
             operator delete(__p[0]);
@@ -2119,7 +2119,7 @@ LABEL_89:
         if ([(LeDeviceCache *)self json:v14 hasAnyProperty:v6])
         {
           sub_100007E30(__p, [v15 UTF8String]);
-          sub_10034A52C(retstr, __p);
+          sub_10034A52C(&retstr->var0, __p);
           if (v18 < 0)
           {
             operator delete(__p[0]);
@@ -2153,7 +2153,7 @@ LABEL_89:
         if ([(LeDeviceCache *)self json:v10 hasAllProperties:v6])
         {
           sub_100007E30(__p, [v11 UTF8String]);
-          sub_10034A52C(retstr, __p);
+          sub_10034A52C(&retstr->var0, __p);
           if (v18 < 0)
           {
             operator delete(__p[0]);
@@ -2176,7 +2176,7 @@ LABEL_89:
         if ([(LeDeviceCache *)self json:v14 hasAllProperties:v6])
         {
           sub_100007E30(__p, [v15 UTF8String]);
-          sub_10034A52C(retstr, __p);
+          sub_10034A52C(&retstr->var0, __p);
           if (v18 < 0)
           {
             operator delete(__p[0]);
@@ -2837,8 +2837,7 @@ LABEL_30:
   v5 = [v4 componentsSeparatedByString:@"///901"];
   v6 = [v5 componentsJoinedByString:@"'"];
 
-  v7 = [v6 componentsSeparatedByString:@"///902"];
-  v8 = objc_claimAutoreleasedReturnValue();
+  v8 = v7 = [v6 componentsSeparatedByString:@"///902"];
 
   return v8;
 }
@@ -3023,26 +3022,26 @@ LABEL_35:
 
 - (void)printDatabase:(unint64_t)database
 {
-  v47 = 0;
-  v48 = 0;
-  v45 = 0;
-  v46 = 0;
-  v43 = 0;
-  v44 = 0;
-  v41 = 0;
-  v42 = 0;
-  v39 = 0;
-  v40 = 0;
-  v66[0] = &v48;
-  v66[1] = &v47;
-  v66[2] = &v42;
-  v66[3] = &v46;
-  v66[4] = &v45;
-  v66[5] = &v41;
-  v66[6] = &v40;
-  v66[7] = &v39;
-  v66[8] = &v44;
-  v66[9] = &v43;
+  v65 = 0;
+  v66 = 0;
+  v63 = 0;
+  v64 = 0;
+  v61 = 0;
+  v62 = 0;
+  v59 = 0;
+  v60 = 0;
+  v57 = 0;
+  v58 = 0;
+  v84[0] = &v66;
+  v84[1] = &v65;
+  v84[2] = &v60;
+  v84[3] = &v64;
+  v84[4] = &v63;
+  v84[5] = &v59;
+  v84[6] = &v58;
+  v84[7] = &v57;
+  v84[8] = &v62;
+  v84[9] = &v61;
   v5 = qword_100BCE900;
   if (os_log_type_enabled(qword_100BCE900, OS_LOG_TYPE_DEFAULT))
   {
@@ -3110,134 +3109,168 @@ LABEL_35:
             v16 = [NSNumber numberWithInt:sqlite3_column_int(ppStmt, i)];
           }
 
-          v18 = v66[i];
+          v18 = v84[i];
           v19 = *v18;
           *v18 = v16;
         }
 
-        v65 = 0;
-        v63 = 0u;
-        v64 = 0u;
-        v61 = 0u;
-        v62 = 0u;
-        v59 = 0u;
-        v60 = 0u;
-        v57 = 0u;
-        v58 = 0u;
-        v55 = 0u;
-        v56 = 0u;
-        *v53 = 0u;
-        v54 = 0u;
+        v83 = 0;
+        v81 = 0u;
+        v82 = 0u;
+        v79 = 0u;
+        v80 = 0u;
+        v77 = 0u;
+        v78 = 0u;
+        v75 = 0u;
+        v76 = 0u;
+        v73 = 0u;
+        v74 = 0u;
+        *v71 = 0u;
+        v72 = 0u;
         *buf = 0u;
-        memset(v52, 0, sizeof(v52));
+        memset(v70, 0, sizeof(v70));
         sub_100008760(buf);
-        if (v48)
+        if (v66)
         {
-          strlen([v48 UTF8String]);
-          sub_100007774(buf);
+          uTF8String = [v66 UTF8String];
+          v21 = uTF8String;
+          v22 = strlen(uTF8String);
+          sub_100007774(buf, v21, v22);
         }
 
-        sub_100007774(buf);
-        if ([v46 length])
+        sub_100007774(buf, " → ", 5);
+        if ([v64 length])
         {
-          strlen([v46 UTF8String]);
-          sub_100007774(buf);
-          if ([v45 length])
+          uTF8String2 = [v64 UTF8String];
+          v24 = uTF8String2;
+          v25 = strlen(uTF8String2);
+          sub_100007774(buf, v24, v25);
+          if ([v63 length])
           {
-            if (([v46 isEqualToString:v45] & 1) == 0)
+            if (([v64 isEqualToString:v63] & 1) == 0)
             {
-              v20 = sub_100007774(buf);
-              strlen([v45 UTF8String]);
-              v21 = sub_100007774(v20);
-              sub_100007774(v21);
+              v26 = sub_100007774(buf, " (", 2);
+              uTF8String3 = [v63 UTF8String];
+              v28 = uTF8String3;
+              v29 = strlen(uTF8String3);
+              v30 = sub_100007774(v26, v28, v29);
+              sub_100007774(v30, ")", 1);
             }
           }
         }
 
-        if ([v47 length])
+        if ([v65 length])
         {
-          sub_100007774(buf);
-          if ([v42 intValue] == 2 || objc_msgSend(v42, "intValue") == 1 || objc_msgSend(v42, "intValue") == 4 || objc_msgSend(v42, "intValue") == 3)
+          sub_100007774(buf, ", ", 2);
+          if ([v60 intValue] == 2)
           {
-            sub_100007774(buf);
+            v31 = "GAP";
+            v32 = 3;
+            goto LABEL_34;
           }
 
-          v22 = sub_100007774(buf);
-          v23 = sub_100007774(v22);
-          v24 = sub_10000E92C();
-          uTF8String = "";
-          if ((*(*v24 + 8))(v24))
+          if ([v60 intValue] == 1)
           {
-            uTF8String = [v47 UTF8String];
+            v31 = "Adv.";
+            goto LABEL_31;
           }
 
-          strlen(uTF8String);
-          v26 = sub_100007774(v23);
-          sub_100007774(v26);
+          if ([v60 intValue] == 4)
+          {
+            v31 = "FindMy";
+            v32 = 6;
+            goto LABEL_34;
+          }
+
+          if ([v60 intValue] == 3)
+          {
+            v31 = "User";
+LABEL_31:
+            v32 = 4;
+LABEL_34:
+            sub_100007774(buf, v31, v32);
+          }
+
+          v33 = sub_100007774(buf, "Name: ", 6);
+          v34 = sub_100007774(v33, "", 1);
+          v35 = sub_10000E92C();
+          uTF8String4 = "";
+          if ((*(*v35 + 8))(v35))
+          {
+            uTF8String4 = [v65 UTF8String];
+          }
+
+          v37 = strlen(uTF8String4);
+          v38 = sub_100007774(v34, uTF8String4, v37);
+          sub_100007774(v38, "", 1);
         }
 
-        if ([v41 intValue])
+        if ([v59 intValue])
         {
-          sub_100007774(buf);
-          [v41 intValue];
+          sub_100007774(buf, ", LastSeen: ", 12);
+          [v59 intValue];
           std::ostream::operator<<();
         }
 
-        if ([v40 intValue])
+        if ([v58 intValue])
         {
-          sub_100007774(buf);
-          [v40 intValue];
+          sub_100007774(buf, ", LastConn: ", 12);
+          [v58 intValue];
           std::ostream::operator<<();
         }
 
-        if ([v43 length])
+        if ([v61 length])
         {
-          v27 = sub_100007774(buf);
-          strlen([v43 UTF8String]);
-          sub_100007774(v27);
+          v39 = sub_100007774(buf, ", iCloud: ", 10);
+          uTF8String5 = [v61 UTF8String];
+          v41 = uTF8String5;
+          v42 = strlen(uTF8String5);
+          sub_100007774(v39, v41, v42);
         }
 
-        if ([v39 BOOLValue])
+        if ([v57 BOOLValue])
         {
-          sub_100007774(buf);
+          sub_100007774(buf, ", GATTServiceChangeNotify: enabled", 34);
         }
 
-        if ([v44 length])
+        if ([v62 length])
         {
-          v28 = sub_100007774(buf);
-          v29 = [v44 stringByReplacingOccurrencesOfString:@" withString:{", @", "}];
-          v30 = v29;
-          strlen([v29 UTF8String]);
-          sub_100007774(v28);
+          v43 = sub_100007774(buf, ", Tags: ", 8);
+          v44 = [v62 stringByReplacingOccurrencesOfString:@" withString:{", @", "}];
+          v45 = v44;
+          uTF8String6 = [v44 UTF8String];
+          v47 = uTF8String6;
+          v48 = strlen(uTF8String6);
+          sub_100007774(v43, v47, v48);
         }
 
-        v31 = qword_100BCE900;
+        v49 = qword_100BCE900;
         if (os_log_type_enabled(qword_100BCE900, OS_LOG_TYPE_DEFAULT))
         {
           std::stringbuf::str();
           p_p = &__p;
-          if (v37 < 0)
+          if (v55 < 0)
           {
             p_p = __p;
           }
 
-          *v49 = 136446210;
-          v50 = p_p;
-          _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "statedump: %{public}s", v49, 0xCu);
-          if (v37 < 0)
+          *v67 = 136446210;
+          v68 = p_p;
+          _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_DEFAULT, "statedump: %{public}s", v67, 0xCu);
+          if (v55 < 0)
           {
             operator delete(__p);
           }
         }
 
-        *buf = v35;
-        *&buf[*(v35 - 24)] = v34;
-        if (SHIBYTE(v54) < 0)
+        *buf = v53;
+        *&buf[*(v53 - 24)] = v52;
+        if (SHIBYTE(v72) < 0)
         {
-          operator delete(v53[1]);
+          operator delete(v71[1]);
         }
 
-        std::locale::~locale(v52);
+        std::locale::~locale(v70);
         std::ostream::~ostream();
         std::ios::~ios();
         objc_autoreleasePoolPop(v12);
@@ -3247,11 +3280,11 @@ LABEL_35:
 
   else
   {
-    v33 = qword_100BCE900;
+    v51 = qword_100BCE900;
     if (os_log_type_enabled(qword_100BCE900, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "statedump:    Cache has not been loaded", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v51, OS_LOG_TYPE_DEFAULT, "statedump:    Cache has not been loaded", buf, 2u);
     }
   }
 }

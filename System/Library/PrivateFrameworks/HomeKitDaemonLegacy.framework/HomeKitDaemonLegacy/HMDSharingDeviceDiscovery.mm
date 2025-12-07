@@ -6,6 +6,7 @@
 - (id)deviceLostHandler;
 - (unint64_t)discoveryFlags;
 - (void)dealloc;
+- (void)repairDevice:(id)device flags:(unsigned int)flags completion:(id)completion;
 - (void)setDeviceChangedHandler:(id)handler;
 - (void)setDeviceFoundHandler:(id)handler;
 - (void)setDeviceLostHandler:(id)handler;
@@ -16,6 +17,24 @@
 @end
 
 @implementation HMDSharingDeviceDiscovery
+
+- (void)repairDevice:(id)device flags:(unsigned int)flags completion:(id)completion
+{
+  v5 = *&flags;
+  completionCopy = completion;
+  v8 = MEMORY[0x277D54C30];
+  deviceCopy = device;
+  v10 = objc_alloc_init(v8);
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __59__HMDSharingDeviceDiscovery_repairDevice_flags_completion___block_invoke;
+  v13[3] = &unk_279733F30;
+  v14 = v10;
+  v15 = completionCopy;
+  v11 = v10;
+  v12 = completionCopy;
+  [v11 repairDevice:deviceCopy flags:v5 completion:v13];
+}
 
 uint64_t __59__HMDSharingDeviceDiscovery_repairDevice_flags_completion___block_invoke(uint64_t a1)
 {
@@ -41,7 +60,7 @@ uint64_t __59__HMDSharingDeviceDiscovery_repairDevice_flags_completion___block_i
 
 void __34__HMDSharingDeviceDiscovery_start__block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = objc_autoreleasePoolPush();
   v4 = HMFGetOSLogHandle();
@@ -51,24 +70,24 @@ void __34__HMDSharingDeviceDiscovery_start__block_invoke(uint64_t a1, void *a2)
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       v6 = HMFGetLogIdentifier();
-      v12 = 138543618;
-      v13 = v6;
-      v14 = 2112;
-      v15 = v2;
+      v11 = 138543618;
+      v12 = v6;
+      v13 = 2112;
+      v14 = v2;
       v7 = "%{public}@Failed to activate SFDeviceDiscovery with error %@";
       v8 = v5;
       v9 = OS_LOG_TYPE_ERROR;
       v10 = 22;
 LABEL_6:
-      _os_log_impl(&dword_2531F8000, v8, v9, v7, &v12, v10);
+      _os_log_impl(&dword_2531F8000, v8, v9, v7, &v11, v10);
     }
   }
 
   else if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v6 = HMFGetLogIdentifier();
-    v12 = 138543362;
-    v13 = v6;
+    v11 = 138543362;
+    v12 = v6;
     v7 = "%{public}@Successfully activated SFDeviceDiscovery.";
     v8 = v5;
     v9 = OS_LOG_TYPE_INFO;
@@ -77,7 +96,6 @@ LABEL_6:
   }
 
   objc_autoreleasePoolPop(v3);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setDeviceLostHandler:(id)handler
@@ -127,24 +145,22 @@ LABEL_6:
 
 - (void)setDiscoveryFlags:(unint64_t)flags
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = objc_autoreleasePoolPush();
   v6 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v10 = 138543618;
-    v11 = v7;
-    v12 = 2048;
+    v9 = 138543618;
+    v10 = v7;
+    v11 = 2048;
     flagsCopy = flags;
-    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Setting device discovery flags to %ld", &v10, 0x16u);
+    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Setting device discovery flags to %ld", &v9, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
   deviceDiscovery = [(HMDSharingDeviceDiscovery *)self deviceDiscovery];
   [deviceDiscovery setDiscoveryFlags:flags];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)discoveryFlags

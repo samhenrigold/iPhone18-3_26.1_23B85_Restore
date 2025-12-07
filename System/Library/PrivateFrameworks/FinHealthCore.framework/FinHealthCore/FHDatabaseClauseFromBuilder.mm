@@ -23,16 +23,16 @@
 
 - (id)_init:(id)_init logicalOperator:(id)operator
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   _initCopy = _init;
   operatorCopy = operator;
-  v17.receiver = self;
-  v17.super_class = FHDatabaseClauseFromBuilder;
-  v8 = [(FHDatabaseClauseFromBuilder *)&v17 init];
+  v16.receiver = self;
+  v16.super_class = FHDatabaseClauseFromBuilder;
+  v8 = [(FHDatabaseClauseFromBuilder *)&v16 init];
   if (v8)
   {
-    v18[0] = operatorCopy;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
+    v17[0] = operatorCopy;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
     clauseList = v8->_clauseList;
     v8->_clauseList = v9;
 
@@ -43,7 +43,6 @@
     v8->_clauseList = v13;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -115,29 +114,29 @@ LABEL_12:
 
 - (void)_extractDeepLinkedClauses:(id)clauses clausesAndOperatorsInReversOrder:(id)order
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   clausesCopy = clauses;
   orderCopy = order;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v8 = [clausesCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [clausesCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v16;
+    v10 = *v15;
     do
     {
       v11 = 0;
       do
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(clausesCopy);
         }
 
-        v12 = *(*(&v15 + 1) + 8 * v11);
+        v12 = *(*(&v14 + 1) + 8 * v11);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -154,13 +153,11 @@ LABEL_12:
       }
 
       while (v9 != v11);
-      v9 = [clausesCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [clausesCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v9);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)description

@@ -22,7 +22,7 @@
 
 - (void)donateTipsEventSignalsForRecentCall:(CHRecentCall *)call completion:(id)completion
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   __chkstk_darwin(v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(completion);

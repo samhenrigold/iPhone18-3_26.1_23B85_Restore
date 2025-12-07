@@ -3,6 +3,9 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)establishmentCauseAsString:(int)string;
+- (id)releaseCauseAsString:(int)string;
+- (id)stateAsString:(int)string;
 - (int)StringAsEstablishmentCause:(id)cause;
 - (int)StringAsReleaseCause:(id)cause;
 - (int)StringAsState:(id)state;
@@ -47,6 +50,21 @@
   }
 
   *&self->_has = *&self->_has & 0xF7 | v3;
+}
+
+- (id)stateAsString:(int)string
+{
+  if (string >= 0xB)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27825ADE8[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsState:(id)state
@@ -141,6 +159,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)establishmentCauseAsString:(int)string
+{
+  if (string >= 0x17)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27825AE40[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsEstablishmentCause:(id)cause
@@ -295,6 +328,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)releaseCauseAsString:(int)string
+{
+  if (string >= 0x12)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27825AEF8[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsReleaseCause:(id)cause
@@ -537,7 +585,6 @@ LABEL_7:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 8) == 0)
@@ -557,7 +604,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  state = self->_state;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -572,7 +618,6 @@ LABEL_4:
   }
 
 LABEL_12:
-  establishmentCause = self->_establishmentCause;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -587,12 +632,10 @@ LABEL_5:
   }
 
 LABEL_13:
-  releaseCause = self->_releaseCause;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 0x10) != 0)
   {
 LABEL_6:
-    subsId = self->_subsId;
     PBDataWriterWriteUint32Field();
   }
 

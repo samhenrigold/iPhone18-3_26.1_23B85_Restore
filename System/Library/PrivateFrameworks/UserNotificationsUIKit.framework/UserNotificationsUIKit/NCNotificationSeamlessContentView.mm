@@ -2608,9 +2608,9 @@ CGFloat __81__NCNotificationSeamlessContentView__layoutSubviewInBounds_measuring
   return a2;
 }
 
-uint64_t __81__NCNotificationSeamlessContentView__layoutSubviewInBounds_measuringOnly_traits___block_invoke_6(uint64_t a1, int a2, uint64_t a3, int a4)
+void *__81__NCNotificationSeamlessContentView__layoutSubviewInBounds_measuringOnly_traits___block_invoke_6(uint64_t a1, int a2, uint64_t a3, int a4)
 {
-  result = [*(a1 + 32) _textFrameForBounds:*(a1 + 72) ignoreBadgedIconView:{*(a1 + 80), *(a1 + 88), *(a1 + 96)}];
+  result = [*(a1 + 32) _textFrameForBounds:a3 ignoreBadgedIconView:{*(a1 + 72), *(a1 + 80), *(a1 + 88), *(a1 + 96)}];
   if (*(*(*(a1 + 48) + 8) + 24))
   {
     if (a2)

@@ -3764,11 +3764,11 @@ LABEL_150:
 
 - (SFActionItem)initWithProtobuf:(id)protobuf
 {
-  v82 = *MEMORY[0x1E69E9840];
+  v81 = *MEMORY[0x1E69E9840];
   protobufCopy = protobuf;
-  v80.receiver = self;
-  v80.super_class = SFActionItem;
-  v5 = [(SFActionItem *)&v80 init];
+  v79.receiver = self;
+  v79.super_class = SFActionItem;
+  v5 = [(SFActionItem *)&v79 init];
 
   if (v5)
   {
@@ -3804,33 +3804,33 @@ LABEL_150:
       v11 = 0;
     }
 
-    v78 = 0u;
-    v79 = 0u;
-    v76 = 0u;
     v77 = 0u;
+    v78 = 0u;
+    v75 = 0u;
+    v76 = 0u;
     storeIdentifiers2 = [protobufCopy storeIdentifiers];
-    v13 = [storeIdentifiers2 countByEnumeratingWithState:&v76 objects:v81 count:16];
+    v13 = [storeIdentifiers2 countByEnumeratingWithState:&v75 objects:v80 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v77;
+      v15 = *v76;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v77 != v15)
+          if (*v76 != v15)
           {
             objc_enumerationMutation(storeIdentifiers2);
           }
 
-          v17 = *(*(&v76 + 1) + 8 * i);
+          v17 = *(*(&v75 + 1) + 8 * i);
           if (v17)
           {
             [v11 addObject:v17];
           }
         }
 
-        v14 = [storeIdentifiers2 countByEnumeratingWithState:&v76 objects:v81 count:16];
+        v14 = [storeIdentifiers2 countByEnumeratingWithState:&v75 objects:v80 count:16];
       }
 
       while (v14);
@@ -4054,7 +4054,6 @@ LABEL_150:
     v73 = v5;
   }
 
-  v74 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

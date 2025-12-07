@@ -26,8 +26,8 @@
 
 - (id)toDict
 {
-  v16[3] = *MEMORY[0x277D85DE8];
-  v15[0] = @"collabActivityContextPath";
+  v15[3] = *MEMORY[0x277D85DE8];
+  v14[0] = @"collabActivityContextPath";
   collabActivityContextPath = [(ICASEditorCallOutData *)self collabActivityContextPath];
   if (collabActivityContextPath)
   {
@@ -40,8 +40,8 @@
   }
 
   v5 = collabActivityContextPath2;
-  v16[0] = collabActivityContextPath2;
-  v15[1] = @"startState";
+  v15[0] = collabActivityContextPath2;
+  v14[1] = @"startState";
   startState = [(ICASEditorCallOutData *)self startState];
   if (startState)
   {
@@ -54,8 +54,8 @@
   }
 
   v8 = startState2;
-  v16[1] = startState2;
-  v15[2] = @"endState";
+  v15[1] = startState2;
+  v14[2] = @"endState";
   endState = [(ICASEditorCallOutData *)self endState];
   if (endState)
   {
@@ -68,10 +68,8 @@
   }
 
   v11 = endState2;
-  v16[2] = endState2;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:3];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v15[2] = endState2;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:3];
 
   return v12;
 }

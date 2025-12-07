@@ -16,23 +16,21 @@
 
 - (id)featureValueForName:(id)name
 {
-  if (sub_1D2EE4A68() == 1954047348 && v4 == 0xE400000000000000)
+  if (sub_1D2EE4A68() == 1954047348 && v3 == 0xE400000000000000)
   {
 
 LABEL_5:
-    v6 = *self->text;
-    v7 = *&self->text[8];
 
-    v8 = sub_1D2EE4A38();
+    v5 = sub_1D2EE4A38();
 
     featureValueWithString_ = [objc_opt_self() featureValueWithString_];
 
     goto LABEL_7;
   }
 
-  v5 = sub_1D2EE5288();
+  v4 = sub_1D2EE5288();
 
-  if (v5)
+  if (v4)
   {
     goto LABEL_5;
   }

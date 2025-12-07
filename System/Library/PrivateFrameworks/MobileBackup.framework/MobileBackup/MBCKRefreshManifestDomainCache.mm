@@ -24,18 +24,18 @@
 
   v7 = pathCopy;
   v8 = [pathCopy stringByAppendingPathComponent:@"cloudkit_cache_refresh_temp.db"];
-  v22.receiver = self;
-  v22.super_class = MBCKRefreshManifestDomainCache;
-  v9 = [(MBCKRefreshManifestDomainCache *)&v22 init];
+  v20.receiver = self;
+  v20.super_class = MBCKRefreshManifestDomainCache;
+  v9 = [(MBCKRefreshManifestDomainCache *)&v20 init];
   if (v9)
   {
     v10 = MBGetDefaultLog();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v25 = v8;
+      v23 = v8;
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "=domaincache= Opening: %@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"I ", "=domaincache= Opening: %@", v8);
     }
 
     v11 = [[MBSQLiteDB alloc] initWithPath:v8 readOnly:0 shouldDeleteOnFailureToOpen:1 usePQLBatching:0 schemaCurrentVersion:1 schemaMinDatabaseVersionForUpgrade:0 error:error schemaUpgrades:0];
@@ -44,10 +44,10 @@
 
     if (v9->_database)
     {
-      v23[0] = @"CREATE TEMPORARY TABLE IF NOT EXISTS PendingFileIDToManifestID (referenceID TEXT PRIMARY KEY, manifestID TEXT NOT NULL);";
-      v23[1] = @"CREATE TEMPORARY TABLE IF NOT EXISTS PendingPlaceholderIDToManifestID (referenceID TEXT PRIMARY KEY, manifestID TEXT NOT NULL);";
-      v23[2] = @"CREATE TEMPORARY TABLE IF NOT EXISTS PendingManifestIDToDomainName (manifestID TEXT PRIMARY KEY, domainName TEXT NOT NULL);";
-      v13 = [NSArray arrayWithObjects:v23 count:3];
+      v21[0] = @"CREATE TEMPORARY TABLE IF NOT EXISTS PendingFileIDToManifestID (referenceID TEXT PRIMARY KEY, manifestID TEXT NOT NULL);";
+      v21[1] = @"CREATE TEMPORARY TABLE IF NOT EXISTS PendingPlaceholderIDToManifestID (referenceID TEXT PRIMARY KEY, manifestID TEXT NOT NULL);";
+      v21[2] = @"CREATE TEMPORARY TABLE IF NOT EXISTS PendingManifestIDToDomainName (manifestID TEXT PRIMARY KEY, domainName TEXT NOT NULL);";
+      v13 = [NSArray arrayWithObjects:v21 count:3];
       v14 = [(MBSQLiteDB *)v9->_database executeStatements:v13 error:error];
       v15 = MBGetDefaultLog();
       p_super = v15;
@@ -56,9 +56,9 @@
         if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v25 = v8;
+          v23 = v8;
           _os_log_impl(&_mh_execute_header, p_super, OS_LOG_TYPE_INFO, "=domaincache= Opened: %@", buf, 0xCu);
-          _MBLog();
+          _MBLog(@"I ", "=domaincache= Opened: %@", v8);
         }
 
         goto LABEL_17;
@@ -68,10 +68,9 @@
       {
         v18 = *error;
         *buf = 138412290;
-        v25 = v18;
+        v23 = v18;
         _os_log_impl(&_mh_execute_header, p_super, OS_LOG_TYPE_ERROR, "=domaincache= Failed to create temporary tables: %@", buf, 0xCu);
-        v21 = *error;
-        _MBLog();
+        _MBLog(@"E ", "=domaincache= Failed to create temporary tables: %@", *error);
       }
 
       p_super = &v9->super;
@@ -84,10 +83,9 @@
       {
         v17 = *error;
         *buf = 138412290;
-        v25 = v17;
+        v23 = v17;
         _os_log_impl(&_mh_execute_header, p_super, OS_LOG_TYPE_ERROR, "=domaincache= Failed to initialize: %@", buf, 0xCu);
-        v20 = *error;
-        _MBLog();
+        _MBLog(@"E ", "=domaincache= Failed to initialize: %@", *error);
       }
 
       v13 = v9;
@@ -113,7 +111,7 @@ LABEL_17:
       _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "=domaincache= Database (%@) was not closed before dealloc", buf, 0xCu);
 
       path2 = [(MBSQLiteDB *)self->_database path];
-      _MBLog();
+      _MBLog(@"E ", "=domaincache= Database (%@) was not closed before dealloc", path2);
     }
   }
 
@@ -138,11 +136,11 @@ LABEL_17:
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "=domaincache= Closing: %@", buf, 0xCu);
 
     path2 = [(MBSQLiteDB *)self->_database path];
-    _MBLog();
+    _MBLog(@"I ", "=domaincache= Closing: %@", path2);
   }
 
-  v7 = [(MBSQLiteDB *)self->_database close:close];
-  if (v7)
+  v8 = [(MBSQLiteDB *)self->_database close:close];
+  if (v8)
   {
     path3 = [(MBSQLiteDB *)self->_database path];
     [MBSQLiteFileHandle removeAllSQLiteFilesAtPath:path3];
@@ -151,7 +149,7 @@ LABEL_17:
     self->_database = 0;
   }
 
-  return v7;
+  return v8;
 }
 
 - (BOOL)_addReferences:(id)references forManifest:(id)manifest isPlaceholder:(BOOL)placeholder error:(id *)error
@@ -273,9 +271,9 @@ LABEL_17:
 - (void)dumpContentsToLog
 {
   v3 = [(MBSQLiteDB *)self->_database fetchSQL:@"SELECT referenceID, manifestID FROM PendingFileIDToManifestID"];
-  v16 = 0;
-  [v3 enumerateWithError:&v16 block:&stru_1003BE578];
-  v4 = v16;
+  v14 = 0;
+  [v3 enumerateWithError:&v14 block:&stru_1003BE578];
+  v4 = v14;
 
   if (v4)
   {
@@ -283,17 +281,16 @@ LABEL_17:
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v18 = v4;
+      v16 = v4;
       _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "=domaincache= FileToManifest Error: %@", buf, 0xCu);
-      v12 = v4;
-      _MBLog();
+      _MBLog(@"E ", "=domaincache= FileToManifest Error: %@", v4);
     }
   }
 
-  v6 = [(MBSQLiteDB *)self->_database fetchSQL:@"SELECT referenceID, manifestID FROM PendingPlaceholderIDToManifestID", v12];
-  v15 = v4;
-  [v6 enumerateWithError:&v15 block:&stru_1003BE598];
-  v7 = v15;
+  v6 = [(MBSQLiteDB *)self->_database fetchSQL:@"SELECT referenceID, manifestID FROM PendingPlaceholderIDToManifestID"];
+  v13 = v4;
+  [v6 enumerateWithError:&v13 block:&stru_1003BE598];
+  v7 = v13;
 
   if (v7)
   {
@@ -301,17 +298,16 @@ LABEL_17:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v18 = v7;
+      v16 = v7;
       _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "=domaincache= PlaceholderToManifest Error: %@", buf, 0xCu);
-      v13 = v7;
-      _MBLog();
+      _MBLog(@"E ", "=domaincache= PlaceholderToManifest Error: %@", v7);
     }
   }
 
-  v9 = [(MBSQLiteDB *)self->_database fetchSQL:@"SELECT manifestID, domainName FROM PendingManifestIDToDomainName", v13];
-  v14 = v7;
-  [v9 enumerateWithError:&v14 block:&stru_1003BE5B8];
-  v10 = v14;
+  v9 = [(MBSQLiteDB *)self->_database fetchSQL:@"SELECT manifestID, domainName FROM PendingManifestIDToDomainName"];
+  v12 = v7;
+  [v9 enumerateWithError:&v12 block:&stru_1003BE5B8];
+  v10 = v12;
 
   if (v10)
   {
@@ -319,9 +315,9 @@ LABEL_17:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v18 = v10;
+      v16 = v10;
       _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "=domaincache= ManifestToDomainName Error: %@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "=domaincache= ManifestToDomainName Error: %@", v10);
     }
   }
 }

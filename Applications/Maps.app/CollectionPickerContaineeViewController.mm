@@ -125,7 +125,7 @@
   width = rect.size.width;
   y = rect.origin.y;
   x = rect.origin.x;
-  v16 = sub_1000CE6B8(&unk_10190BA50);
+  v16 = sub_1000CE6B8(&unk_10190BA50, &unk_1011E4800);
   __chkstk_darwin(v16 - 8);
   v18 = &v27 - v17;
   v19 = _Block_copy(completion);

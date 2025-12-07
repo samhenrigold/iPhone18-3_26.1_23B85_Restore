@@ -2345,19 +2345,19 @@ LABEL_15:
 {
   height = size.height;
   width = size.width;
-  v47 = *MEMORY[0x1E69E9840];
-  v32 = -1;
-  v33 = -1;
-  v30 = -1;
-  v31 = -1;
-  v28 = -1;
-  v29 = -1;
+  v40 = *MEMORY[0x1E69E9840];
+  v25 = -1;
   v26 = -1;
-  v27 = -1;
-  [(VCMediaNegotiationBlobV2CameraSettingsU1 *)self aspectRatioPortrait:&v32 aspectRatioLandscape:&v30 orientationMismatchAspectRatioLandscape:&v28 orientationMismatchAspectRatioPortrait:&v26 screenSize:?];
+  v23 = -1;
+  v24 = -1;
+  v21 = -1;
+  v22 = -1;
+  v19 = -1;
+  v20 = -1;
+  [(VCMediaNegotiationBlobV2CameraSettingsU1 *)self aspectRatioPortrait:&v25 aspectRatioLandscape:&v23 orientationMismatchAspectRatioLandscape:&v21 orientationMismatchAspectRatioPortrait:&v19 screenSize:?];
   prefix = [MEMORY[0x1E696AD60] stringWithFormat:@"[%lu] %@", objc_msgSend(-[VCMediaNegotiationBlobV2CameraSettingsU1 data](self, "data"), "length"), prefix];
   rtpSSRC = [(VCMediaNegotiationBlobV2CameraSettingsU1 *)self rtpSSRC];
-  [prefix appendFormat:@"Camera settings (U+1): src=%08x AR=%fx%f, %fx%f XR=%fx%f, %fx%f ", rtpSSRC, v30, v31, v32, v33, v28, v29, v26, v27];
+  [prefix appendFormat:@"Camera settings (U+1): src=%08x AR=%fx%f, %fx%f XR=%fx%f, %fx%f ", rtpSSRC, v23, v24, v25, v26, v21, v22, v19, v20];
   [(VCMediaNegotiationBlobV2CameraSettingsU1 *)self appendFullScreenFeatureString:prefix screenSize:width, height];
   if ([(VCMediaNegotiationBlobV2CameraSettingsU1 *)self hasVideoFrameMetadataSupportedVersion])
   {
@@ -2365,54 +2365,53 @@ LABEL_15:
   }
 
   [VCMediaNegotiationBlobV2SettingsU1 appendCipherSuiteFlags:[(VCMediaNegotiationBlobV2CameraSettingsU1 *)self cipherSuites] toDescription:prefix];
-  uTF8String = [prefix UTF8String];
-  VRLogfilePrintWithTimestamp(file, "%s\n", v13, v14, v15, v16, v17, v18, uTF8String);
+  VRLogfilePrintWithTimestamp(file, "%s\n", [prefix UTF8String]);
   if (VRTraceGetErrorLogLevelForModule() >= 6)
   {
-    v19 = VRTraceErrorLogLevelToCSTR();
-    v20 = *MEMORY[0x1E6986650];
+    v12 = VRTraceErrorLogLevelToCSTR();
+    v13 = *MEMORY[0x1E6986650];
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315906;
-      v40 = v19;
-      v41 = 2080;
-      v42 = "[VCMediaNegotiationBlobV2CameraSettingsU1(Utils) printWithLogFile:prefix:screenSize:]";
-      v43 = 1024;
-      v44 = 229;
-      v45 = 2112;
-      v46 = prefix;
-      _os_log_impl(&dword_1DB56E000, v20, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %@", buf, 0x26u);
+      v33 = v12;
+      v34 = 2080;
+      v35 = "[VCMediaNegotiationBlobV2CameraSettingsU1(Utils) printWithLogFile:prefix:screenSize:]";
+      v36 = 1024;
+      v37 = 229;
+      v38 = 2112;
+      v39 = prefix;
+      _os_log_impl(&dword_1DB56E000, v13, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %@", buf, 0x26u);
     }
   }
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
-  v36 = 0u;
+  v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   payloads = [(VCMediaNegotiationBlobV2CameraSettingsU1 *)self payloads];
-  v22 = [(NSMutableArray *)payloads countByEnumeratingWithState:&v35 objects:v34 count:16];
-  if (v22)
+  v15 = [(NSMutableArray *)payloads countByEnumeratingWithState:&v28 objects:v27 count:16];
+  if (v15)
   {
-    v23 = v22;
-    v24 = *v36;
+    v16 = v15;
+    v17 = *v29;
     do
     {
-      v25 = 0;
+      v18 = 0;
       do
       {
-        if (*v36 != v24)
+        if (*v29 != v17)
         {
           objc_enumerationMutation(payloads);
         }
 
-        [*(*(&v35 + 1) + 8 * v25++) printWithLogFile:file prefix:{objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"%@  ", prefix)}];
+        [*(*(&v28 + 1) + 8 * v18++) printWithLogFile:file prefix:{objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"%@  ", prefix)}];
       }
 
-      while (v23 != v25);
-      v23 = [(NSMutableArray *)payloads countByEnumeratingWithState:&v35 objects:v34 count:16];
+      while (v16 != v18);
+      v16 = [(NSMutableArray *)payloads countByEnumeratingWithState:&v28 objects:v27 count:16];
     }
 
-    while (v23);
+    while (v16);
   }
 }
 
@@ -2554,7 +2553,7 @@ LABEL_9:
         {
           OUTLINED_FUNCTION_11();
           OUTLINED_FUNCTION_0();
-          OUTLINED_FUNCTION_17(&dword_1DB56E000, v15, v16, " [%s] %s:%d Failed to allocate the video rules", v17, v18, v19, v20, v21);
+          OUTLINED_FUNCTION_17(&dword_1DB56E000, v15, v16, " [%s] %s:%d Failed to allocate the video rules", v17, v18, v19, v20);
         }
       }
 

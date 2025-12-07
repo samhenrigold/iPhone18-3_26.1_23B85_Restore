@@ -339,11 +339,11 @@
 
 - (GCHIDDeviceSnapshot)initWithCoder:(id)coder
 {
-  v31[2] = *MEMORY[0x1E69E9840];
-  v30.receiver = self;
-  v30.super_class = GCHIDDeviceSnapshot;
+  v30[2] = *MEMORY[0x1E69E9840];
+  v29.receiver = self;
+  v29.super_class = GCHIDDeviceSnapshot;
   coderCopy = coder;
-  v4 = [(GCHIDDeviceSnapshot *)&v30 init];
+  v4 = [(GCHIDDeviceSnapshot *)&v29 init];
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"Transport"];
   transport = v4->_transport;
   v4->_transport = v5;
@@ -381,16 +381,15 @@
   v4->_maxFeatureReportSize = v21;
 
   v23 = MEMORY[0x1E695DFD8];
-  v31[0] = objc_opt_class();
-  v31[1] = objc_opt_class();
-  v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:2];
+  v30[0] = objc_opt_class();
+  v30[1] = objc_opt_class();
+  v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:2];
   v25 = [v23 setWithArray:v24];
   v26 = [coderCopy decodeObjectOfClasses:v25 forKey:@"elements"];
 
   elements = v4->_elements;
   v4->_elements = v26;
 
-  v28 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -413,10 +412,10 @@
 
 - (id)debugDescription
 {
-  v30 = *MEMORY[0x1E69E9840];
-  v28.receiver = self;
-  v28.super_class = GCHIDDeviceSnapshot;
-  v3 = [(GCHIDDeviceSnapshot *)&v28 debugDescription];
+  v29 = *MEMORY[0x1E69E9840];
+  v27.receiver = self;
+  v27.super_class = GCHIDDeviceSnapshot;
+  v3 = [(GCHIDDeviceSnapshot *)&v27 debugDescription];
   v4 = [v3 mutableCopy];
 
   [v4 appendString:@" {\n"];
@@ -450,38 +449,37 @@
   elements = [(GCHIDDeviceSnapshot *)self elements];
   [v4 appendFormat:@"\t elements (%zu) = {\n", objc_msgSend(elements, "count")];
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   elements2 = [(GCHIDDeviceSnapshot *)self elements];
-  v16 = [elements2 countByEnumeratingWithState:&v24 objects:v29 count:16];
+  v16 = [elements2 countByEnumeratingWithState:&v23 objects:v28 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v25;
+    v18 = *v24;
     do
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v25 != v18)
+        if (*v24 != v18)
         {
           objc_enumerationMutation(elements2);
         }
 
-        v20 = [*(*(&v24 + 1) + 8 * i) debugDescription];
+        v20 = [*(*(&v23 + 1) + 8 * i) debugDescription];
         v21 = [v20 stringByReplacingOccurrencesOfString:@"\n" withString:@"\n\t\t"];
         [v4 appendFormat:@"\t\t %@\n", v21];
       }
 
-      v17 = [elements2 countByEnumeratingWithState:&v24 objects:v29 count:16];
+      v17 = [elements2 countByEnumeratingWithState:&v23 objects:v28 count:16];
     }
 
     while (v17);
   }
 
   [v4 appendFormat:@"\t }\n"];
-  v22 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

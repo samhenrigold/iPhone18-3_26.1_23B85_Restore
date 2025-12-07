@@ -93,7 +93,7 @@
 - (BOOL)appendEntries:(id)entries error:(id *)error
 {
   entriesCopy = entries;
-  if ([entriesCopy count])
+  if (objc_msgSend_count(entriesCopy))
   {
     v9[0] = MEMORY[0x1E69E9820];
     v9[1] = 3221225472;

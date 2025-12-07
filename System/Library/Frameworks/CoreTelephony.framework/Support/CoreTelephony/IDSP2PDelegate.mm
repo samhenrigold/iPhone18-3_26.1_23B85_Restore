@@ -570,7 +570,7 @@ LABEL_32:
 {
   [(NSMutableArray *)[(IDSP2PDelegate *)self fWhitelistedDeviceUuids] addObject:device];
   theDict = 0;
-  DevicePersistentCopyValue(buf, [(IDSP2PDelegate *)self fWhitelistedDevicesKey], 0);
+  DevicePersistentCopyValue([(IDSP2PDelegate *)self fWhitelistedDevicesKey], 0);
   sub_100010180(&theDict, buf);
   sub_10000A1EC(buf);
   v12 = 0;
@@ -622,7 +622,7 @@ LABEL_5:
 {
   v5 = v3;
   theDict = 0;
-  DevicePersistentCopyValue(&v10, [(IDSP2PDelegate *)self fWhitelistedDevicesKey], 0);
+  DevicePersistentCopyValue([(IDSP2PDelegate *)self fWhitelistedDevicesKey], 0);
   sub_100010180(&theDict, &v10);
   sub_10000A1EC(&v10);
   if (theDict && (Value = CFDictionaryGetValue(theDict, info), (v7 = Value) != 0) && (v8 = CFGetTypeID(Value), v8 == CFDictionaryGetTypeID()))
@@ -727,7 +727,7 @@ LABEL_5:
 
       v16 = v14;
       sub_101564890(buf, &v18, &v16);
-      sub_10156071C(self + 104, buf);
+      sub_10156071C(self + 13, buf);
       if (*(aBlock + 4))
       {
         _Block_release(*(aBlock + 4));
@@ -782,17 +782,17 @@ LABEL_5:
       goto LABEL_3;
     }
 
-    v17 = *(self + 11);
-    if (!v17)
+    info = *(self + 11);
+    if (!info)
     {
       goto LABEL_31;
     }
 
-    v18 = (v17 + 32);
-    if (v17[55] < 0)
+    v18 = &info[1];
+    if (SHIBYTE(info[1].data) < 0)
     {
-      v17 = *(v17 + 5);
-      if (!v17)
+      info = info[1].info;
+      if (!info)
       {
         goto LABEL_31;
       }
@@ -800,15 +800,15 @@ LABEL_5:
       v18 = *v18;
     }
 
-    else if (!v17[55])
+    else if (!HIBYTE(info[1].data))
     {
-      v17 = 0;
+      info = 0;
 LABEL_31:
       v20 = 0;
 LABEL_32:
       buf[0] = v20;
       v23 = 0;
-      v24 = v17;
+      v24 = info;
       sub_100005978(buf);
       sub_100005978(&v23);
       if (!v24)
@@ -890,7 +890,7 @@ LABEL_3:
           v23 = v21;
           *(self + 128) = 0;
           sub_101564890(buf, &v25, &v23);
-          sub_10156071C(self + 104, buf);
+          sub_10156071C(self + 13, buf);
           if (buf[1])
           {
             _Block_release(buf[1]);
@@ -940,7 +940,7 @@ LABEL_37:
     v23 = v25;
     v25 = 0;
     sub_100005978(&v25);
-    v17 = v23;
+    info = v23;
     v20 = v24;
     goto LABEL_32;
   }
@@ -1477,7 +1477,7 @@ LABEL_13:
     *buf = v19;
     sub_10021D11C(v13, buf);
     sub_101564890(buf, v13, &ackCopy);
-    sub_10156071C(self + 104, buf);
+    sub_10156071C(self + 13, buf);
     if (*&buf[8])
     {
       _Block_release(*&buf[8]);
@@ -1529,7 +1529,7 @@ LABEL_13:
     *buf = v21;
     sub_10021D11C(v15, buf);
     sub_101564890(buf, v15, &ackCopy);
-    sub_10156071C(self + 104, buf);
+    sub_10156071C(self + 13, buf);
     if (*&buf[8])
     {
       _Block_release(*&buf[8]);
@@ -1666,7 +1666,7 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  [(IDSP2PDelegate *)self invokeAckCallbackFor:identifier withSuccess:successCopy withError:error, *v18, *&v18[16], v19];
+  [(IDSP2PDelegate *)self invokeAckCallbackFor:identifier withSuccess:successCopy withError:error, *v18, *&v18[8], v19];
 }
 
 - (id)uniqueDeviceIdFromIncomingDevId:(id)id

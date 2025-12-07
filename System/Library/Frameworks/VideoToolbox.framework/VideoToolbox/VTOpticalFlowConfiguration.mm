@@ -9,8 +9,9 @@
 
 - (VTOpticalFlowConfiguration)initWithFrameWidth:(int64_t)width frameHeight:(int64_t)height qualityPrioritization:(int64_t)prioritization revision:(int64_t)revision
 {
+  selfCopy = self;
   v26[4] = *MEMORY[0x1E69E9840];
-  if (!loadVEFrameworkOnce())
+  if (!loadVEFrameworkOnce(self, a2))
   {
     NSLog(&cfstr_ProcessorUnsup.isa);
 LABEL_9:
@@ -18,31 +19,31 @@ LABEL_9:
     return 0;
   }
 
-  v20.receiver = self;
+  v20.receiver = selfCopy;
   v20.super_class = VTOpticalFlowConfiguration;
-  self = [(VTOpticalFlowConfiguration *)&v20 init];
-  if (!self)
+  selfCopy = [(VTOpticalFlowConfiguration *)&v20 init];
+  if (!selfCopy)
   {
     NSLog(&cfstr_FailToInitiali.isa);
     goto LABEL_9;
   }
 
   v11 = [objc_alloc(NSClassFromString(&cfstr_Veopticalflowc.isa)) initWithFrameWidth:width frameHeight:height qualityPrioritization:prioritization revision:revision];
-  self->_veConfiguration = v11;
+  selfCopy->_veConfiguration = v11;
   if (!v11)
   {
     NSLog(&cfstr_FailToCreateEf.isa);
     goto LABEL_9;
   }
 
-  self->_frameSupportedPixelFormats = [-[VEOpticalFlowConfiguration framePreferredPixelFormats](v11 "framePreferredPixelFormats")];
-  self->_flowPixelFormat = [(VEOpticalFlowConfiguration *)self->_veConfiguration flowBufferPixelFormat];
-  self->_frameWidth = width;
-  self->_frameHeight = height;
-  self->_qualityPrioritization = prioritization;
-  self->_revision = revision;
+  selfCopy->_frameSupportedPixelFormats = [-[VEOpticalFlowConfiguration framePreferredPixelFormats](v11 "framePreferredPixelFormats")];
+  selfCopy->_flowPixelFormat = [(VEOpticalFlowConfiguration *)selfCopy->_veConfiguration flowBufferPixelFormat];
+  selfCopy->_frameWidth = width;
+  selfCopy->_frameHeight = height;
+  selfCopy->_qualityPrioritization = prioritization;
+  selfCopy->_revision = revision;
   v12 = *MEMORY[0x1E6966130];
-  v26[0] = self->_frameSupportedPixelFormats;
+  v26[0] = selfCopy->_frameSupportedPixelFormats;
   v13 = *MEMORY[0x1E6966208];
   v23[0] = v12;
   v23[1] = v13;
@@ -55,18 +56,18 @@ LABEL_9:
   v17 = MEMORY[0x1E695E0F8];
   v26[2] = v15;
   v26[3] = MEMORY[0x1E695E0F8];
-  self->_sourcePixelBufferAttributes = [objc_msgSend(MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v23 count:{4), "copy"}];
+  selfCopy->_sourcePixelBufferAttributes = [objc_msgSend(MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v23 count:{4), "copy"}];
   v21[0] = v12;
-  v22[0] = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{-[VEOpticalFlowConfiguration flowBufferPixelFormat](self->_veConfiguration, "flowBufferPixelFormat")}];
+  v22[0] = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{-[VEOpticalFlowConfiguration flowBufferPixelFormat](selfCopy->_veConfiguration, "flowBufferPixelFormat")}];
   v21[1] = v13;
-  v22[1] = [MEMORY[0x1E696AD98] numberWithInteger:{-[VEOpticalFlowConfiguration flowBufferWidth](self->_veConfiguration, "flowBufferWidth")}];
+  v22[1] = [MEMORY[0x1E696AD98] numberWithInteger:{-[VEOpticalFlowConfiguration flowBufferWidth](selfCopy->_veConfiguration, "flowBufferWidth")}];
   v21[2] = v14;
-  v18 = [MEMORY[0x1E696AD98] numberWithInteger:{-[VEOpticalFlowConfiguration flowBufferHeight](self->_veConfiguration, "flowBufferHeight")}];
+  v18 = [MEMORY[0x1E696AD98] numberWithInteger:{-[VEOpticalFlowConfiguration flowBufferHeight](selfCopy->_veConfiguration, "flowBufferHeight")}];
   v21[3] = v16;
   v22[2] = v18;
   v22[3] = v17;
-  self->_destinationPixelBufferAttributes = [objc_msgSend(MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:{4), "copy"}];
-  return self;
+  selfCopy->_destinationPixelBufferAttributes = [objc_msgSend(MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:{4), "copy"}];
+  return selfCopy;
 }
 
 - (void)dealloc
@@ -78,7 +79,7 @@ LABEL_9:
 
 + (int64_t)defaultRevision
 {
-  if (loadVEFrameworkOnce())
+  if (loadVEFrameworkOnce(self, a2))
   {
     v2 = NSClassFromString(&cfstr_Veopticalflowc.isa);
 
@@ -94,7 +95,7 @@ LABEL_9:
 
 + (NSIndexSet)supportedRevisions
 {
-  if (loadVEFrameworkOnce())
+  if (loadVEFrameworkOnce(self, a2))
   {
     result = [NSClassFromString(&cfstr_Veopticalflowc.isa) supportedRevisions];
     if (result)

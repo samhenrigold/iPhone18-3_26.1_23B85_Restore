@@ -21,7 +21,7 @@
 
 + (id)drawSecureHeaders:(id)headers secureContents:(id)contents inContexts:(__CFArray *)contexts traits:(id)traits truncationSentinel:(id)sentinel
 {
-  v85 = *MEMORY[0x277D85DE8];
+  v84 = *MEMORY[0x277D85DE8];
   headersCopy = headers;
   contentsCopy = contents;
   traitsCopy = traits;
@@ -124,7 +124,7 @@ LABEL_29:
   v29 = v28;
 LABEL_30:
 
-  v76 = resultCountToSingleCellWidth;
+  v75 = resultCountToSingleCellWidth;
   if (v29 >= 20.0)
   {
     [traitsCopy singleCellHeight];
@@ -138,8 +138,8 @@ LABEL_30:
         CGContextTranslateCTM(ValueAtIndex, 10.0, v35);
       }
 
-      v40 = v29 + -20.0;
-      if ([layoutTraits headerInliningBehavior] == 2 && (objc_msgSend(layoutTraits, "inputTraitsInOnlyLine"), v41 = objc_claimAutoreleasedReturnValue(), v41, v41) && objc_msgSend(selfCopy, "_isAllSingleLineStrings:", contentsCopy))
+      v39 = v29 + -20.0;
+      if ([layoutTraits headerInliningBehavior] == 2 && (objc_msgSend(layoutTraits, "inputTraitsInOnlyLine"), v40 = objc_claimAutoreleasedReturnValue(), v40, v40) && objc_msgSend(selfCopy, "_isAllSingleLineStrings:", contentsCopy))
       {
         shouldForceDoubleLineCandidateForPasswordAutofill = [traitsCopy shouldForceDoubleLineCandidateForPasswordAutofill];
         [traitsCopy setShouldForceDoubleLineCandidateForPasswordAutofill:0];
@@ -149,15 +149,15 @@ LABEL_30:
           [traitsCopy setShouldForceDoubleLineCandidateForCellularAutofill:0];
           if ((shouldForceDoubleLineCandidateForCellularAutofill & 1) == 0)
           {
-            LOBYTE(v74) = 1;
-            v37 = [selfCopy _drawSingleLineSecureHeaders:headersCopy secureContents:contentsCopy layoutTraits:layoutTraits renderTraits:traitsCopy contexts:contexts availableWidth:sentinelCopy truncationSentinel:v40 abortInsteadOfTruncating:v74];
+            LOBYTE(v73) = 1;
+            v37 = [selfCopy _drawSingleLineSecureHeaders:headersCopy secureContents:contentsCopy layoutTraits:layoutTraits renderTraits:traitsCopy contexts:contexts availableWidth:sentinelCopy truncationSentinel:v39 abortInsteadOfTruncating:v73];
             if (v37)
             {
 LABEL_78:
               for (j = 0; CFArrayGetCount(contexts) > j; ++j)
               {
-                v70 = CFArrayGetValueAtIndex(contexts, j);
-                CGContextRestoreGState(v70);
+                v69 = CFArrayGetValueAtIndex(contexts, j);
+                CGContextRestoreGState(v69);
               }
 
               goto LABEL_42;
@@ -165,22 +165,22 @@ LABEL_78:
           }
 
 LABEL_54:
-          v75 = sentinelCopy;
+          v74 = sentinelCopy;
           indexSet = [MEMORY[0x277CCAB58] indexSet];
           indexSet2 = [MEMORY[0x277CCAB58] indexSet];
-          v44 = headersCopy;
+          v43 = headersCopy;
           if (v19)
           {
-            v45 = 0;
-            v46 = -1;
+            v44 = 0;
+            v45 = -1;
             while (1)
             {
-              v47 = [headersCopy objectAtIndexedSubscript:v45];
-              v48 = [v47 length];
+              v46 = [headersCopy objectAtIndexedSubscript:v44];
+              v47 = [v46 length];
 
-              if (v48)
+              if (v47)
               {
-                [indexSet2 addIndex:v45];
+                [indexSet2 addIndex:v44];
                 if (([layoutTraits forceSingleLineLayout] & 1) == 0)
                 {
                   goto LABEL_62;
@@ -189,67 +189,67 @@ LABEL_54:
 
               else if (([layoutTraits forceSingleLineLayout] & 1) == 0)
               {
-                v49 = [contentsCopy objectAtIndexedSubscript:v45];
-                v50 = [v49 containsString:@"\n"];
+                v48 = [contentsCopy objectAtIndexedSubscript:v44];
+                v49 = [v48 containsString:@"\n"];
 
-                if (v50)
+                if (v49)
                 {
                   goto LABEL_62;
                 }
               }
 
-              [indexSet addIndex:v45];
+              [indexSet addIndex:v44];
 LABEL_62:
-              v51 = [contentsCopy objectAtIndexedSubscript:v45];
+              v50 = [contentsCopy objectAtIndexedSubscript:v44];
               hideMyEmailLocalizedText = [traitsCopy hideMyEmailLocalizedText];
-              v53 = [v51 isEqualToString:hideMyEmailLocalizedText];
+              isEqualToString = objc_msgSend_isEqualToString_(v50);
 
-              if (v53)
+              if (isEqualToString)
               {
-                v46 = v45;
+                v45 = v44;
               }
 
-              ++v45;
-              headersCopy = v44;
-              if (v19 == v45)
+              ++v44;
+              headersCopy = v43;
+              if (v19 == v44)
               {
                 goto LABEL_67;
               }
             }
           }
 
-          v46 = -1;
+          v45 = -1;
 LABEL_67:
-          v54 = indexSet;
+          v53 = indexSet;
           if (([layoutTraits forceSingleLineLayout] & 1) == 0 && objc_msgSend(indexSet2, "count"))
           {
             [indexSet removeAllIndexes];
           }
 
-          if ((v46 & 0x8000000000000000) == 0)
+          if ((v45 & 0x8000000000000000) == 0)
           {
-            [indexSet addIndex:v46];
+            [indexSet addIndex:v45];
           }
 
           if ([indexSet count])
           {
-            v55 = [v44 objectsAtIndexes:indexSet];
-            v56 = [contentsCopy objectsAtIndexes:indexSet];
-            v57 = [indexSet count];
-            Mutable = CFArrayCreateMutable(0, v57, MEMORY[0x277CBF128]);
-            v82[0] = MEMORY[0x277D85DD0];
-            v82[1] = 3221225472;
-            v82[2] = __112__TIKeyboardSecureCandidateTextRendering_drawSecureHeaders_secureContents_inContexts_traits_truncationSentinel___block_invoke;
-            v82[3] = &__block_descriptor_48_e12_v24__0Q8_B16l;
-            v82[4] = Mutable;
-            v82[5] = contexts;
-            [indexSet enumerateIndexesUsingBlock:v82];
-            LOBYTE(v74) = 0;
-            v59 = v55;
-            v37 = [selfCopy _drawSingleLineSecureHeaders:v55 secureContents:v56 layoutTraits:layoutTraits renderTraits:traitsCopy contexts:Mutable availableWidth:v75 truncationSentinel:v40 abortInsteadOfTruncating:v74];
-            v60 = Mutable;
-            v54 = indexSet;
-            CFRelease(v60);
+            v54 = [v43 objectsAtIndexes:indexSet];
+            v55 = [contentsCopy objectsAtIndexes:indexSet];
+            v56 = [indexSet count];
+            Mutable = CFArrayCreateMutable(0, v56, MEMORY[0x277CBF128]);
+            v81[0] = MEMORY[0x277D85DD0];
+            v81[1] = 3221225472;
+            v81[2] = __112__TIKeyboardSecureCandidateTextRendering_drawSecureHeaders_secureContents_inContexts_traits_truncationSentinel___block_invoke;
+            v81[3] = &__block_descriptor_48_e12_v24__0Q8_B16l;
+            v81[4] = Mutable;
+            v81[5] = contexts;
+            [indexSet enumerateIndexesUsingBlock:v81];
+            LOBYTE(v73) = 0;
+            v58 = v54;
+            v37 = [selfCopy _drawSingleLineSecureHeaders:v54 secureContents:v55 layoutTraits:layoutTraits renderTraits:traitsCopy contexts:Mutable availableWidth:v74 truncationSentinel:v39 abortInsteadOfTruncating:v73];
+            v59 = Mutable;
+            v53 = indexSet;
+            CFRelease(v59);
           }
 
           else
@@ -257,33 +257,33 @@ LABEL_67:
             v37 = 0;
           }
 
-          v61 = [MEMORY[0x277CCAB58] indexSetWithIndexesInRange:{0, v19}];
-          [v61 removeIndexes:v54];
-          if ([v61 count])
+          v60 = [MEMORY[0x277CCAB58] indexSetWithIndexesInRange:{0, v19}];
+          [v60 removeIndexes:v53];
+          if ([v60 count])
           {
-            v62 = [v61 count];
-            v63 = [v44 objectsAtIndexes:v61];
-            v64 = [contentsCopy objectsAtIndexes:v61];
-            v65 = CFArrayCreateMutable(0, v62, MEMORY[0x277CBF128]);
-            v81[0] = MEMORY[0x277D85DD0];
-            v81[1] = 3221225472;
-            v81[2] = __112__TIKeyboardSecureCandidateTextRendering_drawSecureHeaders_secureContents_inContexts_traits_truncationSentinel___block_invoke_2;
-            v81[3] = &__block_descriptor_48_e12_v24__0Q8_B16l;
-            v81[4] = v65;
-            v81[5] = contexts;
-            [v61 enumerateIndexesUsingBlock:v81];
-            v66 = v63;
-            v67 = [selfCopy _drawTwoLineCellsWithSecureHeaders:v63 secureContents:v64 layoutTraits:layoutTraits renderTraits:traitsCopy contexts:v65 availableWidth:v75 truncationSentinel:v40];
+            v61 = [v60 count];
+            v62 = [v43 objectsAtIndexes:v60];
+            v63 = [contentsCopy objectsAtIndexes:v60];
+            v64 = CFArrayCreateMutable(0, v61, MEMORY[0x277CBF128]);
+            v80[0] = MEMORY[0x277D85DD0];
+            v80[1] = 3221225472;
+            v80[2] = __112__TIKeyboardSecureCandidateTextRendering_drawSecureHeaders_secureContents_inContexts_traits_truncationSentinel___block_invoke_2;
+            v80[3] = &__block_descriptor_48_e12_v24__0Q8_B16l;
+            v80[4] = v64;
+            v80[5] = contexts;
+            [v60 enumerateIndexesUsingBlock:v80];
+            v65 = v62;
+            v66 = [selfCopy _drawTwoLineCellsWithSecureHeaders:v62 secureContents:v63 layoutTraits:layoutTraits renderTraits:traitsCopy contexts:v64 availableWidth:v74 truncationSentinel:v39];
 
-            v68 = v65;
-            v54 = indexSet;
-            CFRelease(v68);
+            v67 = v64;
+            v53 = indexSet;
+            CFRelease(v67);
 
-            v37 = v67;
+            v37 = v66;
           }
 
-          headersCopy = v44;
-          sentinelCopy = v75;
+          headersCopy = v43;
+          sentinelCopy = v74;
           goto LABEL_78;
         }
       }
@@ -308,19 +308,17 @@ LABEL_67:
     v36 = TIOSLogFacility();
     if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
     {
-      v71 = MEMORY[0x277CCACA8];
+      v70 = MEMORY[0x277CCACA8];
       [traitsCopy singleCellHeight];
-      v73 = [v71 stringWithFormat:@"%s TISecureCandidateLogging: failed to draw secure candidate - cell too small, width(%f), height(%f)", "+[TIKeyboardSecureCandidateTextRendering drawSecureHeaders:secureContents:inContexts:traits:truncationSentinel:]", *&v29, v72];
+      v72 = [v70 stringWithFormat:@"%s TISecureCandidateLogging: failed to draw secure candidate - cell too small, width(%f), height(%f)", "+[TIKeyboardSecureCandidateTextRendering drawSecureHeaders:secureContents:inContexts:traits:truncationSentinel:]", *&v29, v71];
       *buf = 138412290;
-      v84 = v73;
+      v83 = v72;
       _os_log_debug_impl(&dword_22CA55000, v36, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
     }
   }
 
   v37 = [selfCopy _arrayOfSecureCandidateAttributes:{objc_msgSend(headersCopy, "count")}];
 LABEL_42:
-
-  v38 = *MEMORY[0x277D85DE8];
 
   return v37;
 }
@@ -343,7 +341,7 @@ void __112__TIKeyboardSecureCandidateTextRendering_drawSecureHeaders_secureConte
 
 + (id)_drawSingleLineSecureHeaders:(id)headers secureContents:(id)contents layoutTraits:(id)traits renderTraits:(id)renderTraits contexts:(__CFArray *)contexts availableWidth:(double)width truncationSentinel:(id)sentinel abortInsteadOfTruncating:(BOOL)self0
 {
-  v140[3] = *MEMORY[0x277D85DE8];
+  v139[3] = *MEMORY[0x277D85DE8];
   headersCopy = headers;
   contentsCopy = contents;
   traitsCopy = traits;
@@ -366,7 +364,7 @@ void __112__TIKeyboardSecureCandidateTextRendering_drawSecureHeaders_secureConte
   inputTraitsInOnlyLine2 = [traitsCopy inputTraitsInOnlyLine];
   maxCellCount = [renderTraitsCopy maxCellCount];
   v24 = [headersCopy count];
-  v119 = traitsCopy;
+  v118 = traitsCopy;
   if (maxCellCount >= 1)
   {
     maxCellCount2 = [renderTraitsCopy maxCellCount];
@@ -376,15 +374,15 @@ void __112__TIKeyboardSecureCandidateTextRendering_drawSecureHeaders_secureConte
     }
   }
 
-  v122 = renderTraitsCopy;
+  v121 = renderTraitsCopy;
   v26 = width + -7.0;
-  v125 = v24;
-  v126 = [self _arrayOfSecureCandidateAttributes:v24];
+  v124 = v24;
+  v125 = [self _arrayOfSecureCandidateAttributes:v24];
   textColor = [v22 textColor];
   color = [self _newCgColorWithTraitsColor:textColor];
 
   textColor2 = [inputTraitsInOnlyLine2 textColor];
-  v127 = [self _newCgColorWithTraitsColor:textColor2];
+  v126 = [self _newCgColorWithTraitsColor:textColor2];
 
   indexSet = [MEMORY[0x277CCAB58] indexSet];
   v30 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(contentsCopy, "count")}];
@@ -425,61 +423,61 @@ void __112__TIKeyboardSecureCandidateTextRendering_drawSecureHeaders_secureConte
     while (v32 < [headersCopy count]);
   }
 
-  v118 = v30;
-  v120 = contentsCopy;
+  v117 = v30;
+  v119 = contentsCopy;
   [v22 maxFontSize];
   v40 = v39;
-  v121 = v22;
+  v120 = v22;
   [v22 minFontSize];
-  v116 = [TISCTextRunRequest textRunRequestWithStrings:headersCopy color:color maxFontSize:!truncating minFontSize:sentinelCopy allowTruncation:0 truncationSentinel:v40 widthGroup:v41];
-  v140[0] = v116;
+  v115 = [TISCTextRunRequest textRunRequestWithStrings:headersCopy color:color maxFontSize:!truncating minFontSize:sentinelCopy allowTruncation:0 truncationSentinel:v40 widthGroup:v41];
+  v139[0] = v115;
   [inputTraitsInOnlyLine2 maxFontSize];
   v43 = v42;
   [inputTraitsInOnlyLine2 minFontSize];
-  v114 = [TISCTextRunRequest textRunRequestWithStrings:v30 color:v127 maxFontSize:!truncating minFontSize:sentinelCopy allowTruncation:0 truncationSentinel:v43 widthGroup:v44];
-  v140[1] = v114;
+  v113 = [TISCTextRunRequest textRunRequestWithStrings:v30 color:v126 maxFontSize:!truncating minFontSize:sentinelCopy allowTruncation:0 truncationSentinel:v43 widthGroup:v44];
+  v139[1] = v113;
   [inputTraitsInOnlyLine2 maxFontSize];
   v46 = v45;
   [inputTraitsInOnlyLine2 minFontSize];
-  v48 = [TISCTextRunRequest textRunRequestWithStrings:v31 color:v127 maxFontSize:!truncating minFontSize:sentinelCopy allowTruncation:1 truncationSentinel:v46 widthGroup:v47];
-  v140[2] = v48;
-  v49 = [MEMORY[0x277CBEA60] arrayWithObjects:v140 count:3];
+  v48 = [TISCTextRunRequest textRunRequestWithStrings:v31 color:v126 maxFontSize:!truncating minFontSize:sentinelCopy allowTruncation:1 truncationSentinel:v46 widthGroup:v47];
+  v139[2] = v48;
+  v49 = [MEMORY[0x277CBEA60] arrayWithObjects:v139 count:3];
   v50 = [MEMORY[0x277CCABB0] numberWithDouble:v26];
-  v139[0] = v50;
+  v138[0] = v50;
   v51 = [MEMORY[0x277CCABB0] numberWithDouble:width];
-  v139[1] = v51;
-  v52 = [MEMORY[0x277CBEA60] arrayWithObjects:v139 count:2];
+  v138[1] = v51;
+  v52 = [MEMORY[0x277CBEA60] arrayWithObjects:v138 count:2];
   v53 = [self requestLayoutForTextRuns:v49 inWidthGroups:v52 steps:10];
 
   CGColorRelease(color);
-  CGColorRelease(v127);
+  CGColorRelease(v126);
   if (![v53 count])
   {
     v108 = v31;
-    v83 = v126;
-    v109 = v126;
+    v83 = v125;
+    v109 = v125;
 
 LABEL_44:
-    v57 = v121;
+    v57 = v120;
     goto LABEL_45;
   }
 
   v54 = [v53 objectAtIndexedSubscript:0];
   v55 = [v53 objectAtIndexedSubscript:1];
-  v117 = v53;
+  v116 = v53;
   v56 = [v53 objectAtIndexedSubscript:2];
-  v57 = v121;
+  v57 = v120;
   if (!truncating || ![headersCopy count])
   {
 LABEL_22:
-    v115 = v31;
-    [v122 singleCellVerticalPadding];
+    v114 = v31;
+    [v121 singleCellVerticalPadding];
     v66 = v65;
-    [v121 yCoordinate];
+    [v120 yCoordinate];
     v68 = v66 - v67;
     [inputTraitsInOnlyLine2 yCoordinate];
     v70 = v66 - v69;
-    [v121 maxFontSize];
+    [v120 maxFontSize];
     v72 = v71;
     [inputTraitsInOnlyLine2 maxFontSize];
     v74 = v72 - v73;
@@ -504,23 +502,23 @@ LABEL_22:
       }
     }
 
-    v82 = v125;
-    v83 = v126;
-    if (v125)
+    v82 = v124;
+    v83 = v125;
+    if (v124)
     {
       v84 = 0;
       v85 = width * 0.5;
-      v129 = *(MEMORY[0x277CBF2C0] + 16);
+      v128 = *(MEMORY[0x277CBF2C0] + 16);
       *colora = *MEMORY[0x277CBF2C0];
-      v128 = *(MEMORY[0x277CBF2C0] + 32);
+      v127 = *(MEMORY[0x277CBF2C0] + 32);
       do
       {
         v86 = [indexSet containsIndex:v84];
         if (v86)
         {
-          v136[0] = v54;
-          v136[1] = v55;
-          v87 = [MEMORY[0x277CBEA60] arrayWithObjects:v136 count:2];
+          v135[0] = v54;
+          v135[1] = v55;
+          v87 = [MEMORY[0x277CBEA60] arrayWithObjects:v135 count:2];
           [self _totalWidthForCell:v84 fromTextRunResponses:v87];
           v89 = v88;
 
@@ -529,8 +527,8 @@ LABEL_22:
 
         else
         {
-          v135 = v56;
-          v91 = [MEMORY[0x277CBEA60] arrayWithObjects:&v135 count:1];
+          v134 = v56;
+          v91 = [MEMORY[0x277CBEA60] arrayWithObjects:&v134 count:1];
           [self _totalWidthForCell:v84 fromTextRunResponses:v91];
           v90 = v92;
         }
@@ -538,10 +536,10 @@ LABEL_22:
         v93 = v85 + v90 * -0.5;
         ValueAtIndex = CFArrayGetValueAtIndex(contexts, v84);
         CGContextSaveGState(ValueAtIndex);
-        *&v134.a = *colora;
-        *&v134.c = v129;
-        *&v134.tx = v128;
-        CGContextSetTextMatrix(ValueAtIndex, &v134);
+        *&v133.a = *colora;
+        *&v133.c = v128;
+        *&v133.tx = v127;
+        CGContextSetTextMatrix(ValueAtIndex, &v133);
         if (v86)
         {
           v95 = CFArrayGetValueAtIndex([v54 ctLines], v84);
@@ -555,8 +553,8 @@ LABEL_22:
 
           v101 = v90 + v93 - v99;
           v102 = v97 == 0;
-          v82 = v125;
-          v83 = v126;
+          v82 = v124;
+          v83 = v125;
           if (v102)
           {
             v103 = v93 + v99 + 7.0;
@@ -603,9 +601,9 @@ LABEL_22:
   v58 = 0;
   while ([indexSet containsIndex:v58])
   {
-    v138[0] = v54;
-    v138[1] = v55;
-    v59 = [MEMORY[0x277CBEA60] arrayWithObjects:v138 count:2];
+    v137[0] = v54;
+    v137[1] = v55;
+    v59 = [MEMORY[0x277CBEA60] arrayWithObjects:v137 count:2];
     [self _totalWidthForCell:v58 fromTextRunResponses:v59];
     v61 = v60;
 
@@ -621,8 +619,8 @@ LABEL_21:
     }
   }
 
-  v137 = v56;
-  v62 = [MEMORY[0x277CBEA60] arrayWithObjects:&v137 count:1];
+  v136 = v56;
+  v62 = [MEMORY[0x277CBEA60] arrayWithObjects:&v136 count:1];
   [self _totalWidthForCell:v58 fromTextRunResponses:v62];
   v64 = v63;
 
@@ -632,32 +630,31 @@ LABEL_21:
   }
 
 LABEL_48:
-  v112 = v31;
-  v83 = v126;
-  v113 = v126;
+  v111 = v31;
+  v83 = v125;
+  v112 = v125;
 
 LABEL_45:
-  v110 = *MEMORY[0x277D85DE8];
 
   return v83;
 }
 
 + (id)_drawTwoLineCellsWithSecureHeaders:(id)headers secureContents:(id)contents layoutTraits:(id)traits renderTraits:(id)renderTraits contexts:(__CFArray *)contexts availableWidth:(double)width truncationSentinel:(id)sentinel
 {
-  v136[1] = *MEMORY[0x277D85DE8];
+  v135[1] = *MEMORY[0x277D85DE8];
   headersCopy = headers;
   contentsCopy = contents;
   traitsCopy = traits;
   renderTraitsCopy = renderTraits;
   sentinelCopy = sentinel;
   v15 = [headersCopy count];
-  v126 = [MEMORY[0x277CBEB18] arrayWithCapacity:v15];
   v125 = [MEMORY[0x277CBEB18] arrayWithCapacity:v15];
-  v16 = [MEMORY[0x277CBEB18] arrayWithCapacity:v15];
   v124 = [MEMORY[0x277CBEB18] arrayWithCapacity:v15];
+  v16 = [MEMORY[0x277CBEB18] arrayWithCapacity:v15];
+  v123 = [MEMORY[0x277CBEB18] arrayWithCapacity:v15];
   indexSet = [MEMORY[0x277CCAB58] indexSet];
-  v112 = v16;
-  v132 = v15;
+  v111 = v16;
+  v131 = v15;
   if (v15)
   {
     v17 = 0;
@@ -668,51 +665,51 @@ LABEL_45:
       if ([v18 length] || (v20 = objc_msgSend(v19, "rangeOfString:", @"\n"), v20 == 0x7FFFFFFFFFFFFFFFLL))
       {
         [indexSet addIndex:v17];
-        [v126 addObject:v18];
-        [v125 addObject:v19];
+        [v125 addObject:v18];
+        [v124 addObject:v19];
         [v16 addObject:&stru_283FDFAF8];
-        [v124 addObject:&stru_283FDFAF8];
+        [v123 addObject:&stru_283FDFAF8];
       }
 
       else
       {
         v22 = v20;
         v23 = v21;
-        [v126 addObject:&stru_283FDFAF8];
         [v125 addObject:&stru_283FDFAF8];
+        [v124 addObject:&stru_283FDFAF8];
         v24 = [v19 substringToIndex:v22];
-        [v112 addObject:v24];
+        [v111 addObject:v24];
 
-        v16 = v112;
+        v16 = v111;
         v25 = [v19 substringFromIndex:v22 + v23];
-        [v124 addObject:v25];
+        [v123 addObject:v25];
       }
 
       ++v17;
     }
 
-    while (v132 != v17);
+    while (v131 != v17);
   }
 
-  v109 = headersCopy;
-  v122 = [self _arrayOfSecureCandidateAttributes:v132];
+  v108 = headersCopy;
+  v121 = [self _arrayOfSecureCandidateAttributes:v131];
   headerTraitsInFirstLine = [traitsCopy headerTraitsInFirstLine];
   textColor = [headerTraitsInFirstLine textColor];
   v28 = [self _newCgColorWithTraitsColor:textColor];
 
   [headerTraitsInFirstLine maxFontSize];
   v30 = v29;
-  v120 = headerTraitsInFirstLine;
+  v119 = headerTraitsInFirstLine;
   [headerTraitsInFirstLine minFontSize];
-  v32 = [TISCTextRunRequest textRunRequestWithStrings:v126 color:v28 maxFontSize:1 minFontSize:sentinelCopy allowTruncation:0 truncationSentinel:v30 widthGroup:v31];
-  v136[0] = v32;
-  v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v136 count:1];
+  v32 = [TISCTextRunRequest textRunRequestWithStrings:v125 color:v28 maxFontSize:1 minFontSize:sentinelCopy allowTruncation:0 truncationSentinel:v30 widthGroup:v31];
+  v135[0] = v32;
+  v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v135 count:1];
   v34 = [MEMORY[0x277CCABB0] numberWithDouble:width];
-  v135 = v34;
-  v35 = [MEMORY[0x277CBEA60] arrayWithObjects:&v135 count:1];
-  v128 = [self requestLayoutForTextRuns:v33 inWidthGroups:v35 steps:10];
+  v134 = v34;
+  v35 = [MEMORY[0x277CBEA60] arrayWithObjects:&v134 count:1];
+  v127 = [self requestLayoutForTextRuns:v33 inWidthGroups:v35 steps:10];
 
-  v119 = [v128 objectAtIndexedSubscript:0];
+  v118 = [v127 objectAtIndexedSubscript:0];
   CGColorRelease(v28);
   inputTraitsInSecondLine = [traitsCopy inputTraitsInSecondLine];
   inputTraitsInFirstAndSecondLines = [traitsCopy inputTraitsInFirstAndSecondLines];
@@ -725,35 +722,35 @@ LABEL_45:
   [inputTraitsInSecondLine maxFontSize];
   v42 = v41;
   [inputTraitsInSecondLine minFontSize];
-  v115 = [TISCTextRunRequest textRunRequestWithStrings:v125 color:color maxFontSize:1 minFontSize:sentinelCopy allowTruncation:1 truncationSentinel:v42 widthGroup:v43];
-  v134[0] = v115;
+  v114 = [TISCTextRunRequest textRunRequestWithStrings:v124 color:color maxFontSize:1 minFontSize:sentinelCopy allowTruncation:1 truncationSentinel:v42 widthGroup:v43];
+  v133[0] = v114;
   [inputTraitsInFirstAndSecondLines maxFontSize];
   v45 = v44;
-  v117 = inputTraitsInFirstAndSecondLines;
+  v116 = inputTraitsInFirstAndSecondLines;
   [inputTraitsInFirstAndSecondLines minFontSize];
-  v47 = [TISCTextRunRequest textRunRequestWithStrings:v112 color:v40 maxFontSize:1 minFontSize:sentinelCopy allowTruncation:0 truncationSentinel:v45 widthGroup:v46];
-  v134[1] = v47;
+  v47 = [TISCTextRunRequest textRunRequestWithStrings:v111 color:v40 maxFontSize:1 minFontSize:sentinelCopy allowTruncation:0 truncationSentinel:v45 widthGroup:v46];
+  v133[1] = v47;
   [inputTraitsInSecondLine maxFontSize];
   v49 = v48;
-  v118 = inputTraitsInSecondLine;
+  v117 = inputTraitsInSecondLine;
   [inputTraitsInSecondLine minFontSize];
-  v51 = [TISCTextRunRequest textRunRequestWithStrings:v124 color:v40 maxFontSize:1 minFontSize:sentinelCopy allowTruncation:1 truncationSentinel:v49 widthGroup:v50];
-  v134[2] = v51;
-  v52 = [MEMORY[0x277CBEA60] arrayWithObjects:v134 count:3];
+  v51 = [TISCTextRunRequest textRunRequestWithStrings:v123 color:v40 maxFontSize:1 minFontSize:sentinelCopy allowTruncation:1 truncationSentinel:v49 widthGroup:v50];
+  v133[2] = v51;
+  v52 = [MEMORY[0x277CBEA60] arrayWithObjects:v133 count:3];
   v53 = [MEMORY[0x277CCABB0] numberWithDouble:width];
-  v133[0] = v53;
+  v132[0] = v53;
   v54 = [MEMORY[0x277CCABB0] numberWithDouble:width];
-  v133[1] = v54;
-  v55 = [MEMORY[0x277CBEA60] arrayWithObjects:v133 count:2];
+  v132[1] = v54;
+  v55 = [MEMORY[0x277CBEA60] arrayWithObjects:v132 count:2];
   v56 = [self requestLayoutForTextRuns:v52 inWidthGroups:v55 steps:10];
 
-  v116 = [v56 objectAtIndexedSubscript:0];
-  v114 = [v56 objectAtIndexedSubscript:1];
-  v108 = v56;
-  v113 = [v56 objectAtIndexedSubscript:2];
+  v115 = [v56 objectAtIndexedSubscript:0];
+  v113 = [v56 objectAtIndexedSubscript:1];
+  v107 = v56;
+  v112 = [v56 objectAtIndexedSubscript:2];
   CGColorRelease(color);
   CGColorRelease(v40);
-  if (v132)
+  if (v131)
   {
     v57 = 0;
     v58 = width * 0.5;
@@ -762,23 +759,23 @@ LABEL_45:
       ValueAtIndex = CFArrayGetValueAtIndex(contexts, v57);
       if ([indexSet containsIndex:v57])
       {
-        v60 = v119;
-        v61 = v116;
-        [v120 yCoordinate];
+        v60 = v118;
+        v61 = v115;
+        [v119 yCoordinate];
         v63 = v62;
-        [v118 yCoordinate];
+        [v117 yCoordinate];
         v65 = v64;
       }
 
       else
       {
-        v60 = v114;
-        v61 = v113;
-        [v117 yCoordinate];
+        v60 = v113;
+        v61 = v112;
+        [v116 yCoordinate];
         v63 = v66;
-        [v117 yCoordinate];
+        [v116 yCoordinate];
         v68 = v67;
-        [v117 baselineOffset];
+        [v116 baselineOffset];
         v65 = v68 + v69;
       }
 
@@ -806,7 +803,7 @@ LABEL_45:
 
         else
         {
-          v83 = [v126 objectAtIndexedSubscript:v57];
+          v83 = [v125 objectAtIndexedSubscript:v57];
           _isNaturallyRTL = [v83 _isNaturallyRTL];
           v85 = v79 - v75;
           if (!_isNaturallyRTL)
@@ -833,7 +830,7 @@ LABEL_45:
 
         else
         {
-          v87 = [v125 objectAtIndexedSubscript:v57];
+          v87 = [v124 objectAtIndexedSubscript:v57];
           _isNaturallyRTL2 = [v87 _isNaturallyRTL];
           v89 = v75 - v79;
           if (!_isNaturallyRTL2)
@@ -869,25 +866,23 @@ LABEL_45:
       }
 
       [v98 widths];
-      v99 = v129 = v61;
+      v99 = v128 = v61;
       v100 = [v99 objectAtIndexedSubscript:v57];
       [v100 floatValue];
       v102 = v101;
-      v103 = [v122 objectAtIndexedSubscript:v57];
+      v103 = [v121 objectAtIndexedSubscript:v57];
       [v103 setSecureCandidateWidth:v102];
 
-      v104 = [v122 objectAtIndexedSubscript:v57];
+      v104 = [v121 objectAtIndexedSubscript:v57];
       [v104 setIsSecureCandidateDoubleLines:1];
 
       ++v57;
     }
 
-    while (v132 != v57);
+    while (v131 != v57);
   }
 
-  v105 = *MEMORY[0x277D85DE8];
-
-  return v122;
+  return v121;
 }
 
 + (id)_arrayOfSecureCandidateAttributes:(unint64_t)attributes
@@ -932,34 +927,34 @@ LABEL_45:
 
 + (BOOL)_isAllSingleLineStrings:(id)strings
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   stringsCopy = strings;
-  v4 = [stringsCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [stringsCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(stringsCopy);
         }
 
-        if ([*(*(&v11 + 1) + 8 * i) containsString:{@"\n", v11}])
+        if ([*(*(&v10 + 1) + 8 * i) containsString:{@"\n", v10}])
         {
           v8 = 0;
           goto LABEL_11;
         }
       }
 
-      v5 = [stringsCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [stringsCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v5)
       {
         continue;
@@ -972,7 +967,6 @@ LABEL_45:
   v8 = 1;
 LABEL_11:
 
-  v9 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -1347,34 +1341,34 @@ double __72__TIKeyboardSecureCandidateTextRendering__defaultLayoutTraitsForTrait
 
 + (double)_totalWidthForCell:(unint64_t)cell fromTextRunResponses:(id)responses
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   responsesCopy = responses;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v6 = [responsesCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [responsesCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     v9 = 0.0;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(responsesCopy);
         }
 
-        widths = [*(*(&v16 + 1) + 8 * i) widths];
+        widths = [*(*(&v15 + 1) + 8 * i) widths];
         v12 = [widths objectAtIndexedSubscript:cell];
         [v12 doubleValue];
         v9 = v9 + v13;
       }
 
-      v7 = [responsesCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [responsesCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);
@@ -1385,37 +1379,36 @@ double __72__TIKeyboardSecureCandidateTextRendering__defaultLayoutTraitsForTrait
     v9 = 0.0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 + (id)requestLayoutForTextRuns:(id)runs inWidthGroups:(id)groups steps:(unint64_t)steps
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   runsCopy = runs;
   groupsCopy = groups;
   if ([runsCopy count])
   {
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
     v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
     v10 = runsCopy;
-    v11 = [v10 countByEnumeratingWithState:&v35 objects:v39 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v34 objects:v38 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v36;
+      v13 = *v35;
       while (2)
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v36 != v13)
+          if (*v35 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          truncationSentinel = [*(*(&v35 + 1) + 8 * i) truncationSentinel];
+          truncationSentinel = [*(*(&v34 + 1) + 8 * i) truncationSentinel];
 
           if (truncationSentinel)
           {
@@ -1424,38 +1417,38 @@ double __72__TIKeyboardSecureCandidateTextRendering__defaultLayoutTraitsForTrait
             v18 = objc_autoreleasePoolPush();
             indexSet = [MEMORY[0x277CCAB58] indexSet];
             v20 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v10, "count")}];
-            v32[0] = MEMORY[0x277D85DD0];
-            v32[1] = 3221225472;
-            v32[2] = __87__TIKeyboardSecureCandidateTextRendering_requestLayoutForTextRuns_inWidthGroups_steps___block_invoke;
-            v32[3] = &unk_27872FD08;
-            v33 = v20;
-            v34 = indexSet;
+            v31[0] = MEMORY[0x277D85DD0];
+            v31[1] = 3221225472;
+            v31[2] = __87__TIKeyboardSecureCandidateTextRendering_requestLayoutForTextRuns_inWidthGroups_steps___block_invoke;
+            v31[3] = &unk_27872FD08;
+            v32 = v20;
+            v33 = indexSet;
             v21 = indexSet;
             v22 = v20;
-            [v10 enumerateObjectsUsingBlock:v32];
+            [v10 enumerateObjectsUsingBlock:v31];
             v23 = [self _requestLayoutForSimplifiedTextRuns:v22 inWidthGroups:groupsCopy steps:steps];
-            v31[0] = 0;
-            v31[1] = v31;
-            v31[2] = 0x2020000000;
-            v31[3] = 0;
-            v27[0] = MEMORY[0x277D85DD0];
-            v27[1] = 3221225472;
-            v27[2] = __87__TIKeyboardSecureCandidateTextRendering_requestLayoutForTextRuns_inWidthGroups_steps___block_invoke_2;
-            v27[3] = &unk_27872FD30;
-            v28 = v23;
-            v30 = v31;
+            v30[0] = 0;
+            v30[1] = v30;
+            v30[2] = 0x2020000000;
+            v30[3] = 0;
+            v26[0] = MEMORY[0x277D85DD0];
+            v26[1] = 3221225472;
+            v26[2] = __87__TIKeyboardSecureCandidateTextRendering_requestLayoutForTextRuns_inWidthGroups_steps___block_invoke_2;
+            v26[3] = &unk_27872FD30;
+            v27 = v23;
+            v29 = v30;
             v16 = array;
-            v29 = v16;
+            v28 = v16;
             v24 = v23;
-            [v21 enumerateIndexesUsingBlock:v27];
+            [v21 enumerateIndexesUsingBlock:v26];
 
-            _Block_object_dispose(v31, 8);
+            _Block_object_dispose(v30, 8);
             objc_autoreleasePoolPop(v18);
             goto LABEL_13;
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v35 objects:v39 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v34 objects:v38 count:16];
         if (v12)
         {
           continue;
@@ -1475,53 +1468,51 @@ double __72__TIKeyboardSecureCandidateTextRendering__defaultLayoutTraitsForTrait
 
 LABEL_13:
 
-  v25 = *MEMORY[0x277D85DE8];
-
   return v16;
 }
 
 void __87__TIKeyboardSecureCandidateTextRendering_requestLayoutForTextRuns_inWidthGroups_steps___block_invoke(uint64_t a1, void *a2)
 {
-  v31 = a1;
-  v40 = *MEMORY[0x277D85DE8];
+  v30 = a1;
+  v39 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = MEMORY[0x277CBEB18];
   v4 = [v2 strings];
-  v34 = [v3 arrayWithCapacity:{objc_msgSend(v4, "count")}];
+  v33 = [v3 arrayWithCapacity:{objc_msgSend(v4, "count")}];
 
   v5 = MEMORY[0x277CBEB18];
   v6 = [v2 strings];
-  v33 = [v5 arrayWithCapacity:{objc_msgSend(v6, "count")}];
+  v32 = [v5 arrayWithCapacity:{objc_msgSend(v6, "count")}];
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   obj = [v2 strings];
-  v7 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
+  v7 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
   if (v7)
   {
     v8 = v7;
     v9 = 0;
-    v10 = *v36;
+    v10 = *v35;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v36 != v10)
+        if (*v35 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v35 + 1) + 8 * i);
+        v12 = *(*(&v34 + 1) + 8 * i);
         v13 = [v2 truncationSentinel];
         if (v13 && (v14 = [v12 rangeOfString:v13], (v16 = v15) != 0))
         {
           v17 = v2;
           v18 = [v12 substringToIndex:v14];
           v19 = [v12 substringFromIndex:v14 + v16];
-          [v34 addObject:v18];
-          [v33 addObject:v19];
+          [v33 addObject:v18];
+          [v32 addObject:v19];
           v9 = v9 || [v19 length] != 0;
 
           v2 = v17;
@@ -1529,12 +1520,12 @@ void __87__TIKeyboardSecureCandidateTextRendering_requestLayoutForTextRuns_inWid
 
         else
         {
-          [v34 addObject:v12];
-          [v33 addObject:&stru_283FDFAF8];
+          [v33 addObject:v12];
+          [v32 addObject:&stru_283FDFAF8];
         }
       }
 
-      v8 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
+      v8 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
     }
 
     while (v8);
@@ -1549,21 +1540,19 @@ void __87__TIKeyboardSecureCandidateTextRendering_requestLayoutForTextRuns_inWid
   [v2 maxFontSize];
   v22 = v21;
   [v2 minFontSize];
-  v24 = +[TISCTextRunRequest textRunRequestWithStrings:color:maxFontSize:minFontSize:allowTruncation:truncationSentinel:widthGroup:](TISCTextRunRequest, "textRunRequestWithStrings:color:maxFontSize:minFontSize:allowTruncation:truncationSentinel:widthGroup:", v34, v20, [v2 allowTruncation], 0, objc_msgSend(v2, "widthGroup"), v22, v23);
-  [*(v31 + 32) addObject:v24];
+  v24 = +[TISCTextRunRequest textRunRequestWithStrings:color:maxFontSize:minFontSize:allowTruncation:truncationSentinel:widthGroup:](TISCTextRunRequest, "textRunRequestWithStrings:color:maxFontSize:minFontSize:allowTruncation:truncationSentinel:widthGroup:", v33, v20, [v2 allowTruncation], 0, objc_msgSend(v2, "widthGroup"), v22, v23);
+  [*(v30 + 32) addObject:v24];
   if (v9)
   {
     v25 = [v2 color];
     [v2 maxFontSize];
     v27 = v26;
     [v2 minFontSize];
-    v29 = +[TISCTextRunRequest textRunRequestWithStrings:color:maxFontSize:minFontSize:allowTruncation:truncationSentinel:widthGroup:](TISCTextRunRequest, "textRunRequestWithStrings:color:maxFontSize:minFontSize:allowTruncation:truncationSentinel:widthGroup:", v33, v25, 0, 0, [v2 widthGroup], v27, v28);
-    [*(v31 + 32) addObject:v29];
+    v29 = +[TISCTextRunRequest textRunRequestWithStrings:color:maxFontSize:minFontSize:allowTruncation:truncationSentinel:widthGroup:](TISCTextRunRequest, "textRunRequestWithStrings:color:maxFontSize:minFontSize:allowTruncation:truncationSentinel:widthGroup:", v32, v25, 0, 0, [v2 widthGroup], v27, v28);
+    [*(v30 + 32) addObject:v29];
   }
 
-  [*(v31 + 40) addIndex:{objc_msgSend(*(v31 + 32), "count", v31)}];
-
-  v30 = *MEMORY[0x277D85DE8];
+  [*(v30 + 40) addIndex:{objc_msgSend(*(v30 + 32), "count", v30)}];
 }
 
 void __87__TIKeyboardSecureCandidateTextRendering_requestLayoutForTextRuns_inWidthGroups_steps___block_invoke_2(uint64_t a1, unint64_t a2, _BYTE *a3)
@@ -1587,14 +1576,14 @@ void __87__TIKeyboardSecureCandidateTextRendering_requestLayoutForTextRuns_inWid
 
 + (id)_requestLayoutForSimplifiedTextRuns:(id)runs inWidthGroups:(id)groups steps:(unint64_t)steps
 {
-  v82[1] = *MEMORY[0x277D85DE8];
+  v81[1] = *MEMORY[0x277D85DE8];
   runsCopy = runs;
   groupsCopy = groups;
   v10 = runsCopy;
   v11 = groupsCopy;
   firstObject = [runsCopy firstObject];
   strings = [firstObject strings];
-  v65 = [strings count];
+  v64 = [strings count];
 
   selfCopy = self;
   if ([self _textRunsHaveFixedFontSize:runsCopy])
@@ -1611,29 +1600,29 @@ void __87__TIKeyboardSecureCandidateTextRendering_requestLayoutForTextRuns_inWid
   aBlock[1] = 3221225472;
   aBlock[2] = __98__TIKeyboardSecureCandidateTextRendering__requestLayoutForSimplifiedTextRuns_inWidthGroups_steps___block_invoke;
   aBlock[3] = &__block_descriptor_40_e14_d32__0d8d16Q24l;
-  v70 = stepsCopy - 1;
+  v69 = stepsCopy - 1;
   aBlock[4] = stepsCopy - 1;
-  v68 = _Block_copy(aBlock);
-  v76 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v10, "count")}];
+  v67 = _Block_copy(aBlock);
+  v75 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v10, "count")}];
   v15 = [v10 count];
   theArray = CFArrayCreateMutable(0, v15, MEMORY[0x277CBF128]);
   v16 = malloc_type_malloc(8 * [v11 count], 0x100004000313F17uLL);
   v17 = v16;
-  v73 = v11;
-  v64 = stepsCopy;
+  v72 = v11;
+  v63 = stepsCopy;
   if (stepsCopy)
   {
-    v75 = 0;
-    v67 = *MEMORY[0x277CC4908];
-    v66 = *MEMORY[0x277CC4840];
-    v74 = v10;
-    v72 = v16;
+    v74 = 0;
+    v66 = *MEMORY[0x277CC4908];
+    v65 = *MEMORY[0x277CC4840];
+    v73 = v10;
+    v71 = v16;
 LABEL_6:
     while (2)
     {
-      [v76 removeAllObjects];
+      [v75 removeAllObjects];
       CFArrayRemoveAllValues(theArray);
-      if (v65)
+      if (v64)
       {
         v18 = 0;
         v19 = 1;
@@ -1657,11 +1646,11 @@ LABEL_6:
 
 LABEL_30:
           ++v18;
-          v17 = v72;
-          v11 = v73;
-          if (v18 == v65)
+          v17 = v71;
+          v11 = v72;
+          if (v18 == v64)
           {
-            if (!(v19 & 1 | (++v75 == v64)))
+            if (!(v19 & 1 | (++v74 == v63)))
             {
               goto LABEL_6;
             }
@@ -1678,7 +1667,7 @@ LABEL_30:
           v24 = [strings2 objectAtIndexedSubscript:v18];
 
           widthGroup = [v22 widthGroup];
-          v26 = [v73 objectAtIndexedSubscript:widthGroup];
+          v26 = [v72 objectAtIndexedSubscript:widthGroup];
           [v26 doubleValue];
           v28 = v27;
 
@@ -1689,28 +1678,28 @@ LABEL_30:
 
           else
           {
-            v81 = v67;
-            v82[0] = @".SFUISymbols-Regular";
-            v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v82 forKeys:&v81 count:1];
+            v80 = v66;
+            v81[0] = @".SFUISymbols-Regular";
+            v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v81 forKeys:&v80 count:1];
             v31 = CTFontDescriptorCreateWithAttributesAndOptions();
 
-            v80 = v31;
-            v32 = [MEMORY[0x277CBEA60] arrayWithObjects:&v80 count:1];
+            v79 = v31;
+            v32 = [MEMORY[0x277CBEA60] arrayWithObjects:&v79 count:1];
 
-            v78 = v66;
-            v79 = v32;
-            v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v79 forKeys:&v78 count:1];
+            v77 = v65;
+            v78 = v32;
+            v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v78 forKeys:&v77 count:1];
             v34 = CTFontDescriptorCreateWithAttributes(v33);
 
             [v22 minFontSize];
             v36 = v35;
             [v22 maxFontSize];
-            v38 = v68[2](v68, v75, v36, v37);
+            v38 = v67[2](v67, v74, v36, v37);
             UIFontForLanguage = CTFontCreateUIFontForLanguage(kCTFontUIFontSystem, v38, 0);
             ValueAtIndex = CTFontCreateCopyWithAttributes(UIFontForLanguage, 0.0, 0, v34);
             CFRelease(v34);
             v40 = UIFontForLanguage;
-            v10 = v74;
+            v10 = v73;
             CFRelease(v40);
             CFArrayAppendValue(theArray, ValueAtIndex);
             CFRelease(ValueAtIndex);
@@ -1735,10 +1724,10 @@ LABEL_30:
             TypographicBounds = 0.0;
           }
 
-          v44 = TypographicBounds + *&v72[widthGroup];
-          *&v72[widthGroup] = v44;
+          v44 = TypographicBounds + *&v71[widthGroup];
+          *&v71[widthGroup] = v44;
           v45 = v44 <= v28;
-          if (v44 > v28 && v75 != v70)
+          if (v44 > v28 && v74 != v69)
           {
             break;
           }
@@ -1746,13 +1735,13 @@ LABEL_30:
           v47 = objc_autoreleasePoolPush();
           if (v18)
           {
-            v48 = [v76 objectAtIndexedSubscript:v21];
+            v48 = [v75 objectAtIndexedSubscript:v21];
           }
 
           else
           {
             v48 = [TISCTextRunResponse textRunResponseWithFont:ValueAtIndex];
-            [v76 addObject:v48];
+            [v75 addObject:v48];
           }
 
           v19 &= v45;
@@ -1764,8 +1753,8 @@ LABEL_30:
 
           objc_autoreleasePoolPop(v47);
           ++v21;
-          v10 = v74;
-          if (v21 >= [v74 count])
+          v10 = v73;
+          if (v21 >= [v73 count])
           {
             goto LABEL_30;
           }
@@ -1773,10 +1762,10 @@ LABEL_30:
 
         CFRelease(v42);
 
-        ++v75;
-        v17 = v72;
-        v11 = v73;
-        if (v75 != v64)
+        ++v74;
+        v17 = v71;
+        v11 = v72;
+        if (v74 != v63)
         {
           continue;
         }
@@ -1789,13 +1778,13 @@ LABEL_30:
 LABEL_34:
   CFRelease(theArray);
   free(v17);
-  v51 = [v76 count];
+  v51 = [v75 count];
   if ([v11 count])
   {
     v52 = 0;
     do
     {
-      v53 = [v11 objectAtIndexedSubscript:{v52, v64}];
+      v53 = [v11 objectAtIndexedSubscript:{v52, v63}];
       [v53 doubleValue];
       v55 = v54;
 
@@ -1810,7 +1799,7 @@ LABEL_34:
           if ([v59 widthGroup] == v52 && v58 < v51)
           {
             [v56 addObject:v59];
-            v61 = [v76 objectAtIndexedSubscript:v58];
+            v61 = [v75 objectAtIndexedSubscript:v58];
             [v57 addObject:v61];
           }
 
@@ -1823,15 +1812,13 @@ LABEL_34:
       [selfCopy _handleEllipsisTruncationForTextRuns:v56 textRunResponses:v57 inAvailableWidth:v55];
 
       ++v52;
-      v11 = v73;
+      v11 = v72;
     }
 
-    while (v52 < [v73 count]);
+    while (v52 < [v72 count]);
   }
 
-  v62 = *MEMORY[0x277D85DE8];
-
-  return v76;
+  return v75;
 }
 
 double __98__TIKeyboardSecureCandidateTextRendering__requestLayoutForSimplifiedTextRuns_inWidthGroups_steps___block_invoke(uint64_t a1, unint64_t a2, double a3, double a4)
@@ -1863,30 +1850,30 @@ void __98__TIKeyboardSecureCandidateTextRendering__requestLayoutForSimplifiedTex
 
 + (void)_handleEllipsisTruncationForTextRuns:(id)runs textRunResponses:(id)responses inAvailableWidth:(double)width
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   runsCopy = runs;
   responsesCopy = responses;
+  v56 = 0u;
   v57 = 0u;
   v58 = 0u;
   v59 = 0u;
-  v60 = 0u;
   v9 = runsCopy;
-  v10 = [v9 countByEnumeratingWithState:&v57 objects:v61 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v56 objects:v60 count:16];
   v11 = v9;
   if (v10)
   {
     v12 = v10;
-    v13 = *v58;
+    v13 = *v57;
     while (2)
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v58 != v13)
+        if (*v57 != v13)
         {
           objc_enumerationMutation(v9);
         }
 
-        if ([*(*(&v57 + 1) + 8 * i) allowTruncation])
+        if ([*(*(&v56 + 1) + 8 * i) allowTruncation])
         {
           selfCopy = self;
 
@@ -1909,16 +1896,16 @@ void __98__TIKeyboardSecureCandidateTextRendering__requestLayoutForSimplifiedTex
             while (v19);
           }
 
-          v50 = v18;
+          v49 = v18;
           if ([v9 count])
           {
             v20 = 0;
-            v47 = v9;
+            v46 = v9;
             do
             {
               v21 = [v9 objectAtIndexedSubscript:v20];
-              v49 = v20;
-              v51 = [responsesCopy objectAtIndexedSubscript:v20];
+              v48 = v20;
+              v50 = [responsesCopy objectAtIndexedSubscript:v20];
               if (v17)
               {
                 for (j = 0; j != v17; ++j)
@@ -1927,7 +1914,7 @@ void __98__TIKeyboardSecureCandidateTextRendering__requestLayoutForSimplifiedTex
                   v24 = [v11 objectAtIndexedSubscript:j];
                   [v24 doubleValue];
                   v26 = v25;
-                  widths = [v51 widths];
+                  widths = [v50 widths];
                   v28 = [widths objectAtIndexedSubscript:j];
                   [v28 doubleValue];
                   v30 = [v23 numberWithDouble:v26 + v29];
@@ -1936,23 +1923,23 @@ void __98__TIKeyboardSecureCandidateTextRendering__requestLayoutForSimplifiedTex
                   if (([v21 allowTruncation] & 1) == 0)
                   {
                     v31 = MEMORY[0x277CCABB0];
-                    v32 = [v50 objectAtIndexedSubscript:j];
+                    v32 = [v49 objectAtIndexedSubscript:j];
                     [v32 doubleValue];
                     v34 = v33;
-                    widths2 = [v51 widths];
+                    widths2 = [v50 widths];
                     v36 = [widths2 objectAtIndexedSubscript:j];
                     [v36 doubleValue];
                     v38 = [v31 numberWithDouble:v34 + v37];
-                    [v50 setObject:v38 atIndexedSubscript:j];
+                    [v49 setObject:v38 atIndexedSubscript:j];
                   }
                 }
               }
 
-              v20 = v49 + 1;
-              v9 = v47;
+              v20 = v48 + 1;
+              v9 = v46;
             }
 
-            while (v49 + 1 < [v47 count]);
+            while (v48 + 1 < [v46 count]);
           }
 
           indexSet = [MEMORY[0x277CCAB58] indexSet];
@@ -1978,22 +1965,22 @@ void __98__TIKeyboardSecureCandidateTextRendering__requestLayoutForSimplifiedTex
 
           if ([indexSet count])
           {
-            v52[0] = MEMORY[0x277D85DD0];
-            v52[1] = 3221225472;
-            v52[2] = __113__TIKeyboardSecureCandidateTextRendering__handleEllipsisTruncationForTextRuns_textRunResponses_inAvailableWidth___block_invoke;
-            v52[3] = &unk_27872FCC0;
-            v53 = v9;
-            v54 = responsesCopy;
-            v55 = v46;
+            v51[0] = MEMORY[0x277D85DD0];
+            v51[1] = 3221225472;
+            v51[2] = __113__TIKeyboardSecureCandidateTextRendering__handleEllipsisTruncationForTextRuns_textRunResponses_inAvailableWidth___block_invoke;
+            v51[3] = &unk_27872FCC0;
+            v52 = v9;
+            v53 = responsesCopy;
+            v54 = v45;
             widthCopy = width;
-            [indexSet enumerateIndexesUsingBlock:v52];
+            [indexSet enumerateIndexesUsingBlock:v51];
           }
 
           goto LABEL_29;
         }
       }
 
-      v12 = [v9 countByEnumeratingWithState:&v57 objects:v61 count:16];
+      v12 = [v9 countByEnumeratingWithState:&v56 objects:v60 count:16];
       if (v12)
       {
         continue;
@@ -2006,8 +1993,6 @@ void __98__TIKeyboardSecureCandidateTextRendering__requestLayoutForSimplifiedTex
   }
 
 LABEL_29:
-
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 void __113__TIKeyboardSecureCandidateTextRendering__handleEllipsisTruncationForTextRuns_textRunResponses_inAvailableWidth___block_invoke(uint64_t a1, uint64_t a2)
@@ -2121,27 +2106,27 @@ void __113__TIKeyboardSecureCandidateTextRendering__handleEllipsisTruncationForT
 
 + (BOOL)_textRunsHaveFixedFontSize:(id)size
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   sizeCopy = size;
-  v4 = [sizeCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v4 = [sizeCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v16;
+    v6 = *v15;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v16 != v6)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(sizeCopy);
         }
 
-        v8 = *(*(&v15 + 1) + 8 * i);
+        v8 = *(*(&v14 + 1) + 8 * i);
         [v8 minFontSize];
         v10 = v9;
         [v8 maxFontSize];
@@ -2152,7 +2137,7 @@ void __113__TIKeyboardSecureCandidateTextRendering__handleEllipsisTruncationForT
         }
       }
 
-      v5 = [sizeCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v5 = [sizeCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v5)
       {
         continue;
@@ -2165,13 +2150,12 @@ void __113__TIKeyboardSecureCandidateTextRendering__handleEllipsisTruncationForT
   v12 = 1;
 LABEL_11:
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 + (id)truncatedWidthsForItemWidths:(id)widths availableWidth:(double)width
 {
-  v41[1] = *MEMORY[0x277D85DE8];
+  v40[1] = *MEMORY[0x277D85DE8];
   widthsCopy = widths;
   if (![widthsCopy count])
   {
@@ -2184,8 +2168,8 @@ LABEL_5:
   if ([widthsCopy count] == 1)
   {
     v6 = [MEMORY[0x277CCABB0] numberWithDouble:width];
-    v41[0] = v6;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:1];
+    v40[0] = v6;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:1];
 
     goto LABEL_6;
   }
@@ -2195,139 +2179,138 @@ LABEL_5:
     v7 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(widthsCopy, "count")}];
     if ([widthsCopy count])
     {
-      v18 = 0;
+      v17 = 0;
       do
       {
         [v7 addObject:&unk_28400C288];
-        ++v18;
+        ++v17;
       }
 
-      while (v18 < [widthsCopy count]);
+      while (v17 < [widthsCopy count]);
     }
 
     goto LABEL_6;
   }
 
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
   v37 = 0u;
-  v11 = widthsCopy;
-  v12 = [v11 countByEnumeratingWithState:&v36 objects:v40 count:16];
-  if (v12)
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
+  v10 = widthsCopy;
+  v11 = [v10 countByEnumeratingWithState:&v35 objects:v39 count:16];
+  if (v11)
   {
-    v13 = v12;
-    v14 = *v37;
-    v15 = 0.0;
+    v12 = v11;
+    v13 = *v36;
+    v14 = 0.0;
     do
     {
-      for (i = 0; i != v13; ++i)
+      for (i = 0; i != v12; ++i)
       {
-        if (*v37 != v14)
+        if (*v36 != v13)
         {
-          objc_enumerationMutation(v11);
+          objc_enumerationMutation(v10);
         }
 
-        [*(*(&v36 + 1) + 8 * i) doubleValue];
-        v15 = v15 + v17;
+        [*(*(&v35 + 1) + 8 * i) doubleValue];
+        v14 = v14 + v16;
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v36 objects:v40 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v35 objects:v39 count:16];
     }
 
-    while (v13);
+    while (v12);
   }
 
   else
   {
-    v15 = 0.0;
+    v14 = 0.0;
   }
 
-  if (v15 <= width)
+  if (v14 <= width)
   {
-    v8 = v11;
+    v8 = v10;
     goto LABEL_5;
   }
 
-  v19 = [v11 mutableCopy];
+  v18 = [v10 mutableCopy];
   while (1)
   {
-    v20 = objc_opt_new();
-    if ([v19 count])
+    v19 = objc_opt_new();
+    if ([v18 count])
     {
-      v21 = 0;
+      v20 = 0;
+      v21 = 0.0;
       v22 = 0.0;
-      v23 = 0.0;
       do
       {
-        v24 = [v19 objectAtIndexedSubscript:v21];
-        [v24 doubleValue];
-        v26 = v25;
+        v23 = [v18 objectAtIndexedSubscript:v20];
+        [v23 doubleValue];
+        v25 = v24;
 
-        if (v26 > v22)
+        if (v25 > v21)
         {
-          [v20 removeAllIndexes];
-          v23 = v22;
-          v22 = v26;
+          [v19 removeAllIndexes];
+          v22 = v21;
+          v21 = v25;
         }
 
-        if (v26 == v22)
+        if (v25 == v21)
         {
-          [v20 addIndex:v21];
+          [v19 addIndex:v20];
         }
 
-        else if (v26 > v23)
+        else if (v25 > v22)
         {
-          v23 = v26;
+          v22 = v25;
         }
 
-        ++v21;
+        ++v20;
       }
 
-      while (v21 < [v19 count]);
+      while (v20 < [v18 count]);
     }
 
     else
     {
-      v23 = 0.0;
       v22 = 0.0;
+      v21 = 0.0;
     }
 
-    v27 = v15 - [v20 count] * (v22 - v23);
-    if (v27 < width)
+    v26 = v14 - [v19 count] * (v21 - v22);
+    if (v26 < width)
     {
       break;
     }
 
-    v30[0] = MEMORY[0x277D85DD0];
-    v30[1] = 3221225472;
-    v30[2] = __86__TIKeyboardSecureCandidateTextRendering_truncatedWidthsForItemWidths_availableWidth___block_invoke_2;
-    v30[3] = &unk_27872FC70;
-    v7 = v19;
-    v31 = v7;
-    v32 = v23;
-    [v20 enumerateIndexesUsingBlock:v30];
+    v29[0] = MEMORY[0x277D85DD0];
+    v29[1] = 3221225472;
+    v29[2] = __86__TIKeyboardSecureCandidateTextRendering_truncatedWidthsForItemWidths_availableWidth___block_invoke_2;
+    v29[3] = &unk_27872FC70;
+    v7 = v18;
+    v30 = v7;
+    v31 = v22;
+    [v19 enumerateIndexesUsingBlock:v29];
 
-    v15 = v27;
-    if (v27 <= width)
+    v14 = v26;
+    if (v26 <= width)
     {
       goto LABEL_6;
     }
   }
 
-  v28 = width - (v15 - [v20 count] * v22);
-  v29 = v28 / [v20 count];
-  v33[0] = MEMORY[0x277D85DD0];
-  v33[1] = 3221225472;
-  v33[2] = __86__TIKeyboardSecureCandidateTextRendering_truncatedWidthsForItemWidths_availableWidth___block_invoke;
-  v33[3] = &unk_27872FC70;
-  v7 = v19;
-  v34 = v7;
-  v35 = v29;
-  [v20 enumerateIndexesUsingBlock:v33];
+  v27 = width - (v14 - [v19 count] * v21);
+  v28 = v27 / [v19 count];
+  v32[0] = MEMORY[0x277D85DD0];
+  v32[1] = 3221225472;
+  v32[2] = __86__TIKeyboardSecureCandidateTextRendering_truncatedWidthsForItemWidths_availableWidth___block_invoke;
+  v32[3] = &unk_27872FC70;
+  v7 = v18;
+  v33 = v7;
+  v34 = v28;
+  [v19 enumerateIndexesUsingBlock:v32];
 
 LABEL_6:
-  v9 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -2356,9 +2339,7 @@ void __86__TIKeyboardSecureCandidateTextRendering_truncatedWidthsForItemWidths_a
   components[1] = green;
   components[2] = blue;
   components[3] = alpha;
-  result = CGColorCreate(_newCgColorWithRed_green_blue_alpha__colorSpace, components);
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return CGColorCreate(_newCgColorWithRed_green_blue_alpha__colorSpace, components);
 }
 
 CGColorSpaceRef __78__TIKeyboardSecureCandidateTextRendering__newCgColorWithRed_green_blue_alpha___block_invoke()

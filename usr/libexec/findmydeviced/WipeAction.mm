@@ -35,16 +35,16 @@
   provider = [(WipeAction *)self provider];
   account = [provider account];
 
-  if (account && ([account authId], v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v9, "isEqualToString:", v6), v9, (v10 & 1) != 0))
+  if (account && ([account authId], v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v10, "isEqualToString:", v6), v10, (v11 & 1) != 0))
   {
-    [account setActivityState:2];
+    v12 = [account setActivityState:2];
     if (v4 == 2)
     {
-      v16 = sub_100002880();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v19 = sub_100002880(v12);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
-        *v17 = 0;
-        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Wiping the device now...", v17, 2u);
+        *v20 = 0;
+        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Wiping the device now...", v20, 2u);
       }
 
       [(WipeAction *)self _wipeNow];
@@ -53,16 +53,16 @@
     else if (v4 == 1)
     {
       authToken = [account authToken];
-      v12 = [authToken length];
+      v14 = [authToken length];
 
-      v13 = sub_100002880();
-      v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
-      if (v12)
+      v16 = sub_100002880(v15);
+      v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
+      if (v14)
       {
-        if (v14)
+        if (v17)
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Sending wipe ack...", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Sending wipe ack...", buf, 2u);
         }
 
         [(WipeAction *)self _sendWipeAck];
@@ -70,10 +70,10 @@
 
       else
       {
-        if (v14)
+        if (v17)
         {
-          *v18 = 0;
-          _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Aborting wipe because ack was pending & no authToken available anymore", v18, 2u);
+          *v21 = 0;
+          _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Aborting wipe because ack was pending & no authToken available anymore", v21, 2u);
         }
 
         [(WipeAction *)self _abortWipe];
@@ -83,11 +83,11 @@
 
   else
   {
-    v15 = sub_100002880();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v18 = sub_100002880(v9);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      *v20 = 0;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Deleting old wipe state since the account info has changed", v20, 2u);
+      *v23 = 0;
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Deleting old wipe state since the account info has changed", v23, 2u);
     }
 
     [FMDPreferencesMgr setWipeState:0];
@@ -97,7 +97,7 @@
 
 - (void)_sendWipeAck
 {
-  v3 = sub_100002880();
+  v3 = sub_100002880(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -114,33 +114,34 @@
   commandCopy = command;
   v7 = [commandCopy objectForKeyedSubscript:@"ackURL"];
   provider = [(WipeAction *)self provider];
+  v9 = provider;
   if (v7)
   {
-    v9 = [NSURL URLWithString:v7];
-    v10 = [[FMDRequestAckWipe alloc] initWithProvider:provider wipeCommand:commandCopy cmdStatusCode:status ackURL:v9];
-    v12[0] = _NSConcreteStackBlock;
-    v12[1] = 3221225472;
-    v12[2] = sub_1001C97D4;
-    v12[3] = &unk_1002D1008;
-    v12[4] = self;
-    [(FMDRequest *)v10 setCompletionHandler:v12];
-    [provider enqueueRequest:v10];
+    v10 = [NSURL URLWithString:v7];
+    v11 = [[FMDRequestAckWipe alloc] initWithProvider:v9 wipeCommand:commandCopy cmdStatusCode:status ackURL:v10];
+    v13[0] = _NSConcreteStackBlock;
+    v13[1] = 3221225472;
+    v13[2] = sub_1001C97D4;
+    v13[3] = &unk_1002D1008;
+    v13[4] = self;
+    [(FMDRequest *)v11 setCompletionHandler:v13];
+    [v9 enqueueRequest:v11];
   }
 
   else
   {
-    v9 = sub_100002880();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_100002880(provider);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      *v11 = 0;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Not acking the wipe command because there is no ack URL", v11, 2u);
+      *v12 = 0;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Not acking the wipe command because there is no ack URL", v12, 2u);
     }
   }
 }
 
 - (void)_abortWipe
 {
-  v3 = sub_100002880();
+  v3 = sub_100002880(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -160,38 +161,39 @@
   v3 = +[FMDPowerMgr sharedInstance];
   [v3 powerAssertionEnableWithReason:@"Wiping" type:@"PreventSystemSleep" timeout:300 appliesOnLidClose:1];
 
-  v4 = sub_100002880();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = sub_100002880(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Initiating Remote Wipe now...", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Initiating Remote Wipe now...", buf, 2u);
   }
 
-  v5 = +[FMDPreferencesMgr wipeInfo];
-  v6 = [v5 objectForKeyedSubscript:@"wipeMode"];
-  if (+[FMDPreferencesMgr simulateWipe](FMDPreferencesMgr, "simulateWipe") || [v6 isEqualToString:@"fake"])
+  v6 = +[FMDPreferencesMgr wipeInfo];
+  v7 = [v6 objectForKeyedSubscript:@"wipeMode"];
+  v8 = +[FMDPreferencesMgr simulateWipe];
+  if ((v8 & 1) != 0 || (v8 = [v7 isEqualToString:@"fake"], v8))
   {
-    v7 = sub_100002880();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_100002880(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Initiating Simulated Remote Wipe now...", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Initiating Simulated Remote Wipe now...", buf, 2u);
     }
 
-    v8 = objc_alloc_init(FMAlert);
-    [v8 setMsgText:@"Simulated Wipe: Your device would have been wiped now."];
-    [v8 setMsgTitle:@"iCloud Remote Wipe"];
-    [v8 setShowMsgInLockScreen:1];
-    [v8 setDismissMsgOnUnlock:0];
-    [v8 setDismissMsgOnLock:0];
-    v10[0] = _NSConcreteStackBlock;
-    v10[1] = 3221225472;
-    v10[2] = sub_1001C9CA8;
-    v10[3] = &unk_1002CD4C8;
-    v10[4] = self;
-    [v8 setDefaultButtonAction:v10];
-    v9 = +[FMAlertManager sharedInstance];
-    [v9 activateAlert:v8];
+    v10 = objc_alloc_init(FMAlert);
+    [v10 setMsgText:@"Simulated Wipe: Your device would have been wiped now."];
+    [v10 setMsgTitle:@"iCloud Remote Wipe"];
+    [v10 setShowMsgInLockScreen:1];
+    [v10 setDismissMsgOnUnlock:0];
+    [v10 setDismissMsgOnLock:0];
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_1001C9CA8;
+    v12[3] = &unk_1002CD4C8;
+    v12[4] = self;
+    [v10 setDefaultButtonAction:v12];
+    v11 = +[FMAlertManager sharedInstance];
+    [v11 activateAlert:v10];
   }
 
   else

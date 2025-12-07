@@ -8,57 +8,55 @@
 
 + (id)requiredDAGServices
 {
-  v25[9] = *MEMORY[0x1E69E9840];
+  v24[9] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E695DFD8];
   v3 = objc_opt_class();
-  v24 = NSStringFromClass(v3);
-  v25[0] = v24;
+  v23 = NSStringFromClass(v3);
+  v24[0] = v23;
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  v25[1] = v5;
+  v24[1] = v5;
   v6 = objc_opt_class();
   v7 = NSStringFromClass(v6);
-  v25[2] = v7;
+  v24[2] = v7;
   v8 = objc_opt_class();
   v9 = NSStringFromClass(v8);
-  v25[3] = v9;
+  v24[3] = v9;
   v10 = objc_opt_class();
   v11 = NSStringFromClass(v10);
-  v25[4] = v11;
+  v24[4] = v11;
   v12 = objc_opt_class();
   v13 = NSStringFromClass(v12);
-  v25[5] = v13;
+  v24[5] = v13;
   v14 = objc_opt_class();
   v15 = NSStringFromClass(v14);
-  v25[6] = v15;
+  v24[6] = v15;
   v16 = objc_opt_class();
   v17 = NSStringFromClass(v16);
-  v25[7] = v17;
+  v24[7] = v17;
   v18 = objc_opt_class();
   v19 = NSStringFromClass(v18);
-  v25[8] = v19;
-  v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:9];
+  v24[8] = v19;
+  v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:9];
   v21 = [v2 setWithArray:v20];
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return v21;
 }
 
 + (id)getUsageForAssetSetName:(int64_t)name withLocale:(id)locale
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (name)
   {
     v5 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      v9 = [MEMORY[0x1E696AD98] numberWithInteger:name];
-      v10 = 136315394;
-      v11 = "+[CDMNLUPreprocessGraph getUsageForAssetSetName:withLocale:]";
-      v12 = 2112;
-      v13 = v9;
-      _os_log_debug_impl(&dword_1DC287000, v5, OS_LOG_TYPE_DEBUG, "%s No usages found for asset set name %@", &v10, 0x16u);
+      v8 = [MEMORY[0x1E696AD98] numberWithInteger:name];
+      v9 = 136315394;
+      v10 = "+[CDMNLUPreprocessGraph getUsageForAssetSetName:withLocale:]";
+      v11 = 2112;
+      v12 = v8;
+      _os_log_debug_impl(&dword_1DC287000, v5, OS_LOG_TYPE_DEBUG, "%s No usages found for asset set name %@", &v9, 0x16u);
     }
 
     v6 = 0;
@@ -68,8 +66,6 @@
   {
     v6 = [CDMAssetsUtils getAssistantUsages:locale];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -383,24 +379,24 @@
 
 void __35__CDMNLUPreprocessGraph_buildGraph__block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v2 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v10 = 136315138;
-    v11 = "[CDMNLUPreprocessGraph buildGraph]_block_invoke";
-    _os_log_debug_impl(&dword_1DC287000, v2, OS_LOG_TYPE_DEBUG, "%s Creating CDMTokenizationProtoRequestCommand for use in CDMTokenizationProtoService", &v10, 0xCu);
+    v9 = 136315138;
+    v10 = "[CDMNLUPreprocessGraph buildGraph]_block_invoke";
+    _os_log_debug_impl(&dword_1DC287000, v2, OS_LOG_TYPE_DEBUG, "%s Creating CDMTokenizationProtoRequestCommand for use in CDMTokenizationProtoService", &v9, 0xCu);
   }
 
   v3 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    v9 = *(*(*(a1 + 48) + 8) + 40);
-    v10 = 136315394;
-    v11 = "[CDMNLUPreprocessGraph buildGraph]_block_invoke";
-    v12 = 2112;
-    v13 = v9;
-    _os_log_debug_impl(&dword_1DC287000, v3, OS_LOG_TYPE_DEBUG, "%s Extracted from NluRequest, utterance: %@", &v10, 0x16u);
+    v8 = *(*(*(a1 + 48) + 8) + 40);
+    v9 = 136315394;
+    v10 = "[CDMNLUPreprocessGraph buildGraph]_block_invoke";
+    v11 = 2112;
+    v12 = v8;
+    _os_log_debug_impl(&dword_1DC287000, v3, OS_LOG_TYPE_DEBUG, "%s Extracted from NluRequest, utterance: %@", &v9, 0x16u);
   }
 
   v4 = [CDMTokenizerProtoService createProtoTokenRequestWithText:*(*(*(a1 + 48) + 8) + 40) locale:*(a1 + 32)];
@@ -408,19 +404,17 @@ void __35__CDMNLUPreprocessGraph_buildGraph__block_invoke(uint64_t a1)
   v6 = *(*(a1 + 56) + 8);
   v7 = *(v6 + 40);
   *(v6 + 40) = v5;
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __35__CDMNLUPreprocessGraph_buildGraph__block_invoke_600(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v2 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v13 = 136315138;
-    v14 = "[CDMNLUPreprocessGraph buildGraph]_block_invoke";
-    _os_log_debug_impl(&dword_1DC287000, v2, OS_LOG_TYPE_DEBUG, "%s Creating CDMSpanMatchRequestCommand for use in CDMSpanMatchService", &v13, 0xCu);
+    v12 = 136315138;
+    v13 = "[CDMNLUPreprocessGraph buildGraph]_block_invoke";
+    _os_log_debug_impl(&dword_1DC287000, v2, OS_LOG_TYPE_DEBUG, "%s Creating CDMSpanMatchRequestCommand for use in CDMSpanMatchService", &v12, 0xCu);
   }
 
   v3 = [*(*(*(a1 + 48) + 8) + 40) response];
@@ -434,19 +428,17 @@ void __35__CDMNLUPreprocessGraph_buildGraph__block_invoke_600(uint64_t a1)
   v10 = *(*(a1 + 56) + 8);
   v11 = *(v10 + 40);
   *(v10 + 40) = v9;
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __35__CDMNLUPreprocessGraph_buildGraph__block_invoke_603(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v2 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v13 = 136315138;
-    v14 = "[CDMNLUPreprocessGraph buildGraph]_block_invoke";
-    _os_log_debug_impl(&dword_1DC287000, v2, OS_LOG_TYPE_DEBUG, "%s Creating CDMSpanMatchRequestCommand for use in CDMSpanMatchService", &v13, 0xCu);
+    v12 = 136315138;
+    v13 = "[CDMNLUPreprocessGraph buildGraph]_block_invoke";
+    _os_log_debug_impl(&dword_1DC287000, v2, OS_LOG_TYPE_DEBUG, "%s Creating CDMSpanMatchRequestCommand for use in CDMSpanMatchService", &v12, 0xCu);
   }
 
   v3 = [*(*(*(a1 + 48) + 8) + 40) response];
@@ -460,19 +452,17 @@ void __35__CDMNLUPreprocessGraph_buildGraph__block_invoke_603(uint64_t a1)
   v10 = *(*(a1 + 56) + 8);
   v11 = *(v10 + 40);
   *(v10 + 40) = v9;
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __35__CDMNLUPreprocessGraph_buildGraph__block_invoke_604(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v2 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v13 = 136315138;
-    v14 = "[CDMNLUPreprocessGraph buildGraph]_block_invoke";
-    _os_log_debug_impl(&dword_1DC287000, v2, OS_LOG_TYPE_DEBUG, "%s Creating CDMSpanMatchRequestCommand for use in CDMSpanMatchService", &v13, 0xCu);
+    v12 = 136315138;
+    v13 = "[CDMNLUPreprocessGraph buildGraph]_block_invoke";
+    _os_log_debug_impl(&dword_1DC287000, v2, OS_LOG_TYPE_DEBUG, "%s Creating CDMSpanMatchRequestCommand for use in CDMSpanMatchService", &v12, 0xCu);
   }
 
   v3 = [*(*(*(a1 + 48) + 8) + 40) response];
@@ -486,19 +476,17 @@ void __35__CDMNLUPreprocessGraph_buildGraph__block_invoke_604(uint64_t a1)
   v10 = *(*(a1 + 56) + 8);
   v11 = *(v10 + 40);
   *(v10 + 40) = v9;
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __35__CDMNLUPreprocessGraph_buildGraph__block_invoke_605(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v2 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v13 = 136315138;
-    v14 = "[CDMNLUPreprocessGraph buildGraph]_block_invoke";
-    _os_log_debug_impl(&dword_1DC287000, v2, OS_LOG_TYPE_DEBUG, "%s Creating CDMSpanMatchRequestCommand for use in CDMSpanMatchService", &v13, 0xCu);
+    v12 = 136315138;
+    v13 = "[CDMNLUPreprocessGraph buildGraph]_block_invoke";
+    _os_log_debug_impl(&dword_1DC287000, v2, OS_LOG_TYPE_DEBUG, "%s Creating CDMSpanMatchRequestCommand for use in CDMSpanMatchService", &v12, 0xCu);
   }
 
   v3 = [*(*(*(a1 + 48) + 8) + 40) response];
@@ -512,29 +500,24 @@ void __35__CDMNLUPreprocessGraph_buildGraph__block_invoke_605(uint64_t a1)
   v10 = *(*(a1 + 56) + 8);
   v11 = *(v10 + 40);
   *(v10 + 40) = v9;
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __35__CDMNLUPreprocessGraph_buildGraph__block_invoke_606(void *a1)
 {
-  v2 = [CDMServiceGraphUtil mergeDateTimeSpans:*(*(a1[5] + 8) + 40) regexSpans:*(*(a1[6] + 8) + 40) siriVocabularySpans:*(*(a1[7] + 8) + 40) vocSpans:*(*(a1[8] + 8) + 40)];
-  v3 = *(a1[4] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[4] + 8) + 40) = [CDMServiceGraphUtil mergeDateTimeSpans:*(*(a1[5] + 8) + 40) regexSpans:*(*(a1[6] + 8) + 40) siriVocabularySpans:*(*(a1[7] + 8) + 40) vocSpans:*(*(a1[8] + 8) + 40)];
 
   return MEMORY[0x1EEE66BB8]();
 }
 
 void __35__CDMNLUPreprocessGraph_buildGraph__block_invoke_2(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v2 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v17 = 136315138;
-    v18 = "[CDMNLUPreprocessGraph buildGraph]_block_invoke_2";
-    _os_log_debug_impl(&dword_1DC287000, v2, OS_LOG_TYPE_DEBUG, "%s Creating CDMEmbeddingProtoRequestCommand for use in CDMEmbeddingProtoService", &v17, 0xCu);
+    v16 = 136315138;
+    v17 = "[CDMNLUPreprocessGraph buildGraph]_block_invoke_2";
+    _os_log_debug_impl(&dword_1DC287000, v2, OS_LOG_TYPE_DEBUG, "%s Creating CDMEmbeddingProtoRequestCommand for use in CDMEmbeddingProtoService", &v16, 0xCu);
   }
 
   v3 = objc_alloc_init(MEMORY[0x1E69D12B0]);
@@ -557,19 +540,17 @@ void __35__CDMNLUPreprocessGraph_buildGraph__block_invoke_2(uint64_t a1)
   v14 = *(*(a1 + 56) + 8);
   v15 = *(v14 + 40);
   *(v14 + 40) = v13;
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __35__CDMNLUPreprocessGraph_buildGraph__block_invoke_610(uint64_t a1)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v2 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v22 = 136315138;
-    v23 = "[CDMNLUPreprocessGraph buildGraph]_block_invoke";
-    _os_log_debug_impl(&dword_1DC287000, v2, OS_LOG_TYPE_DEBUG, "%s Creating CDMContextualSpanMatcherRequestCommand for use in CDMContextualSpanMatcherService", &v22, 0xCu);
+    v21 = 136315138;
+    v22 = "[CDMNLUPreprocessGraph buildGraph]_block_invoke";
+    _os_log_debug_impl(&dword_1DC287000, v2, OS_LOG_TYPE_DEBUG, "%s Creating CDMContextualSpanMatcherRequestCommand for use in CDMContextualSpanMatcherService", &v21, 0xCu);
   }
 
   v3 = [CDMContextualSpanMatcherRequestCommand alloc];
@@ -599,31 +580,29 @@ void __35__CDMNLUPreprocessGraph_buildGraph__block_invoke_610(uint64_t a1)
     {
       v19 = [*(*(*(a1 + 64) + 8) + 40) cmdError];
       v20 = [v19 localizedDescription];
-      v22 = 136315394;
-      v23 = "[CDMNLUPreprocessGraph buildGraph]_block_invoke";
-      v24 = 2112;
-      v25 = v20;
-      _os_log_impl(&dword_1DC287000, v18, OS_LOG_TYPE_INFO, "%s [WARN]: ContextualSpanMatcher prediction failed: %@", &v22, 0x16u);
+      v21 = 136315394;
+      v22 = "[CDMNLUPreprocessGraph buildGraph]_block_invoke";
+      v23 = 2112;
+      v24 = v20;
+      _os_log_impl(&dword_1DC287000, v18, OS_LOG_TYPE_INFO, "%s [WARN]: ContextualSpanMatcher prediction failed: %@", &v21, 0x16u);
     }
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __35__CDMNLUPreprocessGraph_buildGraph__block_invoke_616(uint64_t a1)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v2 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v26 = "[CDMNLUPreprocessGraph buildGraph]_block_invoke";
+    v25 = "[CDMNLUPreprocessGraph buildGraph]_block_invoke";
     _os_log_debug_impl(&dword_1DC287000, v2, OS_LOG_TYPE_DEBUG, "%s Creating CDMMentionDetectorRequestCommand for use in CDMMentionDetectorService", buf, 0xCu);
   }
 
-  v22 = [CDMMentionDetectorRequestCommand alloc];
-  v24 = [*(*(*(a1 + 56) + 8) + 40) response];
-  v23 = [v24 text];
+  v21 = [CDMMentionDetectorRequestCommand alloc];
+  v23 = [*(*(*(a1 + 56) + 8) + 40) response];
+  v22 = [v23 text];
   v3 = [*(*(*(a1 + 56) + 8) + 40) response];
   v4 = [v3 tokenChain];
   v5 = [*(*(*(a1 + 64) + 8) + 40) embeddingTensorOutputs];
@@ -631,8 +610,8 @@ void __35__CDMNLUPreprocessGraph_buildGraph__block_invoke_616(uint64_t a1)
   v7 = [*(a1 + 32) requestId];
   v8 = [v7 nluRequestId];
   v9 = [*(a1 + 32) requestId];
-  v10 = [CDMMentionDetectorServiceUtils buildMDRequestWithUtterance:v23 tokenChain:v4 embedding:v6 nluRequestId:v8 resultCandidateId:&stru_1F5800F50 cdmRequestId:v9];
-  v11 = [(CDMMentionDetectorRequestCommand *)v22 initWithMDRequest:v10 withCurrTurn:0];
+  v10 = [CDMMentionDetectorServiceUtils buildMDRequestWithUtterance:v22 tokenChain:v4 embedding:v6 nluRequestId:v8 resultCandidateId:&stru_1F5800F50 cdmRequestId:v9];
+  v11 = [(CDMMentionDetectorRequestCommand *)v21 initWithMDRequest:v10 withCurrTurn:0];
   v12 = *(*(a1 + 48) + 8);
   v13 = *(v12 + 40);
   *(v12 + 40) = v11;
@@ -652,46 +631,44 @@ void __35__CDMNLUPreprocessGraph_buildGraph__block_invoke_616(uint64_t a1)
       v19 = [*(*(*(a1 + 80) + 8) + 40) cmdError];
       v20 = [v19 localizedDescription];
       *buf = 136315394;
-      v26 = "[CDMNLUPreprocessGraph buildGraph]_block_invoke";
-      v27 = 2112;
-      v28 = v20;
+      v25 = "[CDMNLUPreprocessGraph buildGraph]_block_invoke";
+      v26 = 2112;
+      v27 = v20;
       _os_log_impl(&dword_1DC287000, v18, OS_LOG_TYPE_INFO, "%s [WARN]: Mention Detection prediction failed: %@", buf, 0x16u);
     }
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __35__CDMNLUPreprocessGraph_buildGraph__block_invoke_625(uint64_t a1)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v2 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v33 = "[CDMNLUPreprocessGraph buildGraph]_block_invoke";
+    v32 = "[CDMNLUPreprocessGraph buildGraph]_block_invoke";
     _os_log_debug_impl(&dword_1DC287000, v2, OS_LOG_TYPE_DEBUG, "%s Creating CDMMentionResolverRequestCommand for use in CDMMentionResolverService", buf, 0xCu);
   }
 
   v3 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    v24 = *(*(*(a1 + 48) + 8) + 40);
+    v23 = *(*(*(a1 + 48) + 8) + 40);
     *buf = 136315394;
-    v33 = "[CDMNLUPreprocessGraph buildGraph]_block_invoke";
-    v34 = 2112;
-    v35 = v24;
+    v32 = "[CDMNLUPreprocessGraph buildGraph]_block_invoke";
+    v33 = 2112;
+    v34 = v23;
     _os_log_debug_impl(&dword_1DC287000, v3, OS_LOG_TYPE_DEBUG, "%s CDMMentionDetectorResponseCommand: %@", buf, 0x16u);
   }
 
-  v26 = [*(a1 + 32) currentTurnInput];
-  v25 = [CDMMentionResolverRequestCommand alloc];
-  v31 = [*(*(*(a1 + 64) + 8) + 40) response];
-  v29 = [v31 tokenChain];
-  v28 = [*(*(*(a1 + 48) + 8) + 40) response];
-  v27 = [*(*(*(a1 + 72) + 8) + 40) contextualSpanMatcherResponse];
-  v30 = [*(*(*(a1 + 80) + 8) + 40) embeddingTensorOutputs];
-  v4 = [CDMServiceGraphUtil embeddingsOutput:v30 embeddingConfig:*(*(*(a1 + 88) + 8) + 40) forFactor:@"com.apple.siri.nl.marrs.md"];
+  v25 = [*(a1 + 32) currentTurnInput];
+  v24 = [CDMMentionResolverRequestCommand alloc];
+  v30 = [*(*(*(a1 + 64) + 8) + 40) response];
+  v28 = [v30 tokenChain];
+  v27 = [*(*(*(a1 + 48) + 8) + 40) response];
+  v26 = [*(*(*(a1 + 72) + 8) + 40) contextualSpanMatcherResponse];
+  v29 = [*(*(*(a1 + 80) + 8) + 40) embeddingTensorOutputs];
+  v4 = [CDMServiceGraphUtil embeddingsOutput:v29 embeddingConfig:*(*(*(a1 + 88) + 8) + 40) forFactor:@"com.apple.siri.nl.marrs.md"];
   v5 = [*(*(*(a1 + 64) + 8) + 40) response];
   v6 = [v5 text];
   v7 = [*(a1 + 32) previousTurnInputs];
@@ -699,8 +676,8 @@ void __35__CDMNLUPreprocessGraph_buildGraph__block_invoke_625(uint64_t a1)
   v9 = [*(a1 + 32) requestId];
   v10 = [v9 nluRequestId];
   v11 = [*(a1 + 32) requestId];
-  v12 = [CDMMentionResolverServiceUtils buildMRRequestWithCurTurn:v26 tokenChain:v29 mdResponse:v28 contextualSpanMatcherResponse:v27 embedding:v4 utterance:v6 turnIndex:v8 nluRequestId:v10 resultCandidateId:&stru_1F5800F50 cdmRequestId:v11];
-  v13 = [(CDMMentionResolverRequestCommand *)v25 initWithMRRequest:v12];
+  v12 = [CDMMentionResolverServiceUtils buildMRRequestWithCurTurn:v25 tokenChain:v28 mdResponse:v27 contextualSpanMatcherResponse:v26 embedding:v4 utterance:v6 turnIndex:v8 nluRequestId:v10 resultCandidateId:&stru_1F5800F50 cdmRequestId:v11];
+  v13 = [(CDMMentionResolverRequestCommand *)v24 initWithMRRequest:v12];
   v14 = *(*(a1 + 56) + 8);
   v15 = *(v14 + 40);
   *(v14 + 40) = v13;
@@ -720,25 +697,23 @@ void __35__CDMNLUPreprocessGraph_buildGraph__block_invoke_625(uint64_t a1)
       v21 = [*(*(*(a1 + 96) + 8) + 40) cmdError];
       v22 = [v21 localizedDescription];
       *buf = 136315394;
-      v33 = "[CDMNLUPreprocessGraph buildGraph]_block_invoke";
-      v34 = 2112;
-      v35 = v22;
+      v32 = "[CDMNLUPreprocessGraph buildGraph]_block_invoke";
+      v33 = 2112;
+      v34 = v22;
       _os_log_impl(&dword_1DC287000, v20, OS_LOG_TYPE_INFO, "%s [WARN]: Mention Resolver prediction failed: %@", buf, 0x16u);
     }
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void __35__CDMNLUPreprocessGraph_buildGraph__block_invoke_628(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v11 = 136315138;
-    v12 = "[CDMNLUPreprocessGraph buildGraph]_block_invoke";
-    _os_log_debug_impl(&dword_1DC287000, v2, OS_LOG_TYPE_DEBUG, "%s Final post process step", &v11, 0xCu);
+    v10 = 136315138;
+    v11 = "[CDMNLUPreprocessGraph buildGraph]_block_invoke";
+    _os_log_debug_impl(&dword_1DC287000, v2, OS_LOG_TYPE_DEBUG, "%s Final post process step", &v10, 0xCu);
   }
 
   v3 = objc_alloc_init(MEMORY[0x1E69D1350]);
@@ -757,8 +732,6 @@ void __35__CDMNLUPreprocessGraph_buildGraph__block_invoke_628(uint64_t a1)
   v8 = [[CDMNLUPreprocessResponseCommand alloc] initWithPreprocessingWrapper:v3];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   [WeakRetained setGraphOutput:v8];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 @end

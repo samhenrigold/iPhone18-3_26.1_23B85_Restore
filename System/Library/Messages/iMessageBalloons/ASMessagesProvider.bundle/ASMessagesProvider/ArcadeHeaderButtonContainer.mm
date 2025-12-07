@@ -11,7 +11,7 @@
 - (_TtC18ASMessagesProvider27ArcadeHeaderButtonContainer)initWithCoder:(id)coder
 {
   v3 = OBJC_IVAR____TtC18ASMessagesProvider27ArcadeHeaderButtonContainer_stackView;
-  *(&self->super.super.super.isa + v3) = [objc_allocWithZone(sub_BD88(&qword_963AA0)) initWithFrame:{0.0, 0.0, 0.0, 0.0}];
+  *(&self->super.super.super.isa + v3) = [objc_allocWithZone(sub_BD88(&qword_963AA0 &unk_7A1740))];
   result = sub_76A840();
   __break(1u);
   return result;

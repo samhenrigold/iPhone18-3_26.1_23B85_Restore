@@ -11,53 +11,54 @@ void __56__EARCaesuraSilencePosteriorGenerator__startComputeTask__block_invoke(u
   {
     v3 = mach_absolute_time();
     __p = 0;
-    v29 = 0;
     v30 = 0;
-    v4 = quasar::SilencePosteriorGenerator::estimateSilenceDuration(*(a1 + 40), &__p);
-    v5 = mach_absolute_time();
-    v6 = [EARClientSilenceFeatures alloc];
+    v31 = 0;
+    quasar::SilencePosteriorGenerator::estimateSilenceDuration(*(a1 + 40), &__p);
+    v5 = v4;
+    v6 = mach_absolute_time();
+    v7 = [EARClientSilenceFeatures alloc];
     SilenceFramesCountMs = quasar::SilencePosteriorGenerator::getSilenceFramesCountMs(*(a1 + 40));
     SilenceProbability = quasar::SilencePosteriorGenerator::getSilenceProbability(*(a1 + 40));
     SilenceDurationMs = quasar::SilencePosteriorGenerator::getSilenceDurationMs(*(a1 + 40));
     SilencePosterior = quasar::SilencePosteriorGenerator::getSilencePosterior(*(a1 + 40));
-    v2 += v5 - v3;
-    v11 = [(EARClientSilenceFeatures *)v6 initWithSilenceFramesCountMs:v2 silenceProbability:SilenceFramesCountMs silenceDurationMs:SilenceProbability silencePosterior:SilenceDurationMs processedAudioMs:SilencePosterior inferenceTime:quasar::SilencePosteriorGenerator::getProcessedAudioMs(*(a1 + 40))];
+    v2 += v6 - v3;
+    v12 = [(EARClientSilenceFeatures *)v7 initWithSilenceFramesCountMs:v2 silenceProbability:SilenceFramesCountMs silenceDurationMs:SilenceProbability silencePosterior:SilenceDurationMs processedAudioMs:SilencePosterior inferenceTime:quasar::SilencePosteriorGenerator::getProcessedAudioMs(*(a1 + 40))];
     WeakRetained = objc_loadWeakRetained((a1 + 32));
-    v13 = [WeakRetained delegate];
-    [v13 clientSilenceFeaturesAvailable:v11];
+    v14 = [WeakRetained delegate];
+    [v14 clientSilenceFeaturesAvailable:v12];
 
-    v14 = objc_loadWeakRetained((a1 + 32));
-    v15 = [v14 delegate];
-    v16 = objc_opt_respondsToSelector();
+    v15 = objc_loadWeakRetained((a1 + 32));
+    v16 = [v15 delegate];
+    v17 = objc_opt_respondsToSelector();
 
-    if (v16)
+    if (v17)
     {
-      v17 = objc_loadWeakRetained((a1 + 32));
-      v18 = [v17 delegate];
-      v19 = __p;
-      v20 = v29;
-      *&v21 = quasar::SilencePosteriorGenerator::getProcessedAudioMs(*(a1 + 40));
-      [v18 silenceDurationEstimateAvailable:v19 numEstimates:(v20 - v19) >> 2 clientProcessedAudioMs:v21];
+      v18 = objc_loadWeakRetained((a1 + 32));
+      v19 = [v18 delegate];
+      v20 = __p;
+      v21 = v30;
+      *&v22 = quasar::SilencePosteriorGenerator::getProcessedAudioMs(*(a1 + 40));
+      [v19 silenceDurationEstimateAvailable:v20 numEstimates:(v21 - v20) >> 2 clientProcessedAudioMs:v22];
     }
 
     if (__p)
     {
-      v29 = __p;
+      v30 = __p;
       operator delete(__p);
     }
   }
 
-  while ((v4 & 1) != 0);
-  v22 = objc_loadWeakRetained((a1 + 32));
-  v23 = [v22 delegate];
-  v24 = objc_opt_respondsToSelector();
+  while ((v5 & 1) != 0);
+  v23 = objc_loadWeakRetained((a1 + 32));
+  v24 = [v23 delegate];
+  v25 = objc_opt_respondsToSelector();
 
-  if (v24)
+  if (v25)
   {
-    v25 = objc_loadWeakRetained((a1 + 32));
-    v26 = [v25 delegate];
-    v27 = objc_loadWeakRetained((a1 + 32));
-    [v26 silencePosteriorGeneratorProcessorIsFinished:v27];
+    v26 = objc_loadWeakRetained((a1 + 32));
+    v27 = [v26 delegate];
+    v28 = objc_loadWeakRetained((a1 + 32));
+    [v27 silencePosteriorGeneratorProcessorIsFinished:v28];
   }
 }
 

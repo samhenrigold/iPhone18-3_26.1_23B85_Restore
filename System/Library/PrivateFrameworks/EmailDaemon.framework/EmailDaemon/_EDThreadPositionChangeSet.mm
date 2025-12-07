@@ -36,46 +36,46 @@
 
 - (id)description
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __41___EDThreadPositionChangeSet_description__block_invoke_2;
   aBlock[3] = &unk_1E82560F8;
-  v48 = &__block_literal_global_420;
-  v22 = _Block_copy(aBlock);
-  v41 = 0;
-  v42 = &v41;
-  v43 = 0x3032000000;
-  v44 = __Block_byref_object_copy__33;
-  v45 = __Block_byref_object_dispose__33;
-  v46 = 0;
+  v47 = &__block_literal_global_420;
+  v21 = _Block_copy(aBlock);
+  v40 = 0;
+  v41 = &v40;
+  v42 = 0x3032000000;
+  v43 = __Block_byref_object_copy__33;
+  v44 = __Block_byref_object_dispose__33;
+  v45 = 0;
   objectIDsToAddByBeforeObjectID = [(_EDThreadPositionChangeSet *)self objectIDsToAddByBeforeObjectID];
-  v37[0] = MEMORY[0x1E69E9820];
-  v37[1] = 3221225472;
-  v37[2] = __41___EDThreadPositionChangeSet_description__block_invoke_3;
-  v37[3] = &unk_1E8256120;
-  v4 = v22;
-  v38 = v4;
-  v39 = &__block_literal_global_420;
-  v40 = &v41;
-  [objectIDsToAddByBeforeObjectID enumerateKeysAndObjectsUsingBlock:v37];
+  v36[0] = MEMORY[0x1E69E9820];
+  v36[1] = 3221225472;
+  v36[2] = __41___EDThreadPositionChangeSet_description__block_invoke_3;
+  v36[3] = &unk_1E8256120;
+  v4 = v21;
+  v37 = v4;
+  v38 = &__block_literal_global_420;
+  v39 = &v40;
+  [objectIDsToAddByBeforeObjectID enumerateKeysAndObjectsUsingBlock:v36];
 
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x3032000000;
-  v34 = __Block_byref_object_copy__33;
-  v35 = __Block_byref_object_dispose__33;
-  v36 = 0;
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x3032000000;
+  v33 = __Block_byref_object_copy__33;
+  v34 = __Block_byref_object_dispose__33;
+  v35 = 0;
   objectIDsToMoveByBeforeObjectID = [(_EDThreadPositionChangeSet *)self objectIDsToMoveByBeforeObjectID];
-  v27[0] = MEMORY[0x1E69E9820];
-  v27[1] = 3221225472;
-  v27[2] = __41___EDThreadPositionChangeSet_description__block_invoke_4;
-  v27[3] = &unk_1E8256120;
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __41___EDThreadPositionChangeSet_description__block_invoke_4;
+  v26[3] = &unk_1E8256120;
   v6 = v4;
-  v28 = v6;
-  v29 = &__block_literal_global_420;
-  v30 = &v31;
-  [objectIDsToMoveByBeforeObjectID enumerateKeysAndObjectsUsingBlock:v27];
+  v27 = v6;
+  v28 = &__block_literal_global_420;
+  v29 = &v30;
+  [objectIDsToMoveByBeforeObjectID enumerateKeysAndObjectsUsingBlock:v26];
 
   objectIDsToDelete = [(_EDThreadPositionChangeSet *)self objectIDsToDelete];
   v8 = [objectIDsToDelete count];
@@ -83,28 +83,28 @@
   if (v8)
   {
     v9 = [objc_alloc(MEMORY[0x1E696AD60]) initWithString:@"["];
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     objectIDsToDelete2 = [(_EDThreadPositionChangeSet *)self objectIDsToDelete];
-    v11 = [objectIDsToDelete2 countByEnumeratingWithState:&v23 objects:v49 count:16];
+    v11 = [objectIDsToDelete2 countByEnumeratingWithState:&v22 objects:v48 count:16];
     v12 = v11;
     if (v11)
     {
-      v13 = *v24;
+      v13 = *v23;
       v14 = 1;
       do
       {
         v15 = 0;
         do
         {
-          if (*v24 != v13)
+          if (*v23 != v13)
           {
             objc_enumerationMutation(objectIDsToDelete2);
           }
 
-          v16 = *(*(&v23 + 1) + 8 * v15);
+          v16 = *(*(&v22 + 1) + 8 * v15);
           if ((v14 & 1) == 0)
           {
             v11 = [v9 appendString:{@", "}];
@@ -118,7 +118,7 @@
         }
 
         while (v12 != v15);
-        v11 = [objectIDsToDelete2 countByEnumeratingWithState:&v23 objects:v49 count:16];
+        v11 = [objectIDsToDelete2 countByEnumeratingWithState:&v22 objects:v48 count:16];
         v12 = v11;
         v14 = 0;
       }
@@ -136,19 +136,19 @@
 
   v18 = objc_alloc_init(MEMORY[0x1E696AD60]);
   v19 = v18;
-  if (v42[5])
+  if (v41[5])
   {
-    [v18 appendFormat:@"Add:\n%@", v42[5]];
+    [v18 appendFormat:@"Add:\n%@", v41[5]];
   }
 
-  if (v32[5])
+  if (v31[5])
   {
     if ([v19 length])
     {
       [v19 appendString:@"\n"];
     }
 
-    [v19 appendFormat:@"Move:\n%@", v32[5]];
+    [v19 appendFormat:@"Move:\n%@", v31[5]];
   }
 
   if (v9)
@@ -161,10 +161,8 @@
     [v19 appendFormat:@"Delete:\n%@", v9];
   }
 
-  _Block_object_dispose(&v31, 8);
-  _Block_object_dispose(&v41, 8);
-
-  v20 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v30, 8);
+  _Block_object_dispose(&v40, 8);
 
   return v19;
 }

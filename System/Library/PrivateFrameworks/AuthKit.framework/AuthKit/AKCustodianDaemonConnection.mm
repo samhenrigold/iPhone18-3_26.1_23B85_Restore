@@ -63,7 +63,6 @@
   v2.receiver = selfCopy;
   v2.super_class = AKCustodianDaemonConnection;
   [(AKCustodianDaemonConnection *)&v2 dealloc];
-  *MEMORY[0x1E69E9840];
 }
 
 - (id)remoteObjectProxyWithErrorHandler:(id)handler

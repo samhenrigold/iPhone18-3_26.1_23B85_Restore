@@ -61,7 +61,7 @@
       *buf = 138412290;
       v23 = v4;
       _os_log_impl(&dword_0, v6, OS_LOG_TYPE_ERROR, "=atc-plugin= Failed to retrieve LocalStorage files to restore %@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "=atc-plugin= Failed to retrieve LocalStorage files to restore %@", v4);
     }
 
     v5 = &__NSArray0__struct;
@@ -81,8 +81,7 @@
     {
       *buf = 0;
       _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "=atc-plugin= Finished LocalStorage assets restoring", buf, 2u);
-LABEL_6:
-      _MBLog();
+      _MBLog(@"Df", "=atc-plugin= Finished LocalStorage assets restoring");
     }
   }
 
@@ -90,7 +89,7 @@ LABEL_6:
   {
     *v6 = 0;
     _os_log_impl(&dword_0, v5, OS_LOG_TYPE_ERROR, "=atc-plugin= Did not finish LocalStorage assets transferring", v6, 2u);
-    goto LABEL_6;
+    _MBLog(@"E ", "=atc-plugin= Did not finish LocalStorage assets transferring");
   }
 }
 
@@ -108,58 +107,56 @@ LABEL_6:
       *buf = 138412290;
       v14 = transferCopy;
       _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "=atc-plugin= Successfully restored LocalStorage asset %@", buf, 0xCu);
-LABEL_26:
-      _MBLog();
+      _MBLog(@"Df", "=atc-plugin= Successfully restored LocalStorage asset %@", transferCopy);
     }
+
+    goto LABEL_26;
   }
 
-  else
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 138412546;
-      v14 = transferCopy;
-      v15 = 2112;
-      v16 = errorCopy;
-      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_ERROR, "=atc-plugin= Failed to restore LocalStorage asset %@: %@", buf, 0x16u);
-      _MBLog();
-    }
+    *buf = 138412546;
+    v14 = transferCopy;
+    v15 = 2112;
+    v16 = errorCopy;
+    _os_log_impl(&dword_0, v10, OS_LOG_TYPE_ERROR, "=atc-plugin= Failed to restore LocalStorage asset %@: %@", buf, 0x16u);
+    _MBLog(@"E ", "=atc-plugin= Failed to restore LocalStorage asset %@: %@", transferCopy, errorCopy);
+  }
 
-    domain = [errorCopy domain];
-    if (![domain isEqualToString:@"ATError"] || objc_msgSend(errorCopy, "code") == &dword_4 + 3 || objc_msgSend(errorCopy, "code") == &dword_8 || objc_msgSend(errorCopy, "code") == &dword_C + 2 || objc_msgSend(errorCopy, "code") == &dword_10 || objc_msgSend(errorCopy, "code") == &dword_8 + 1 || objc_msgSend(errorCopy, "code") == &dword_10 + 2 || objc_msgSend(errorCopy, "code") == &dword_4 || objc_msgSend(errorCopy, "code") == &dword_10 + 3 || objc_msgSend(errorCopy, "code") == &dword_14 || objc_msgSend(errorCopy, "code") == &dword_18 + 1 || objc_msgSend(errorCopy, "code") == &dword_18 + 3 || objc_msgSend(errorCopy, "code") == &dword_18 || objc_msgSend(errorCopy, "code") == &dword_1C + 3 || objc_msgSend(errorCopy, "code") == &stru_20 || objc_msgSend(errorCopy, "code") == &stru_20.cmd + 1 || objc_msgSend(errorCopy, "code") == &stru_20.cmd + 2)
-    {
-    }
+  domain = [errorCopy domain];
+  if (![domain isEqualToString:@"ATError"] || objc_msgSend(errorCopy, "code") == &dword_4 + 3 || objc_msgSend(errorCopy, "code") == &dword_8 || objc_msgSend(errorCopy, "code") == &dword_C + 2 || objc_msgSend(errorCopy, "code") == &dword_10 || objc_msgSend(errorCopy, "code") == &dword_8 + 1 || objc_msgSend(errorCopy, "code") == &dword_10 + 2 || objc_msgSend(errorCopy, "code") == &dword_4 || objc_msgSend(errorCopy, "code") == &dword_10 + 3 || objc_msgSend(errorCopy, "code") == &dword_14 || objc_msgSend(errorCopy, "code") == &dword_18 + 1 || objc_msgSend(errorCopy, "code") == &dword_18 + 3 || objc_msgSend(errorCopy, "code") == &dword_18 || objc_msgSend(errorCopy, "code") == &dword_1C + 3 || objc_msgSend(errorCopy, "code") == &stru_20 || objc_msgSend(errorCopy, "code") == &stru_20.cmd + 1 || objc_msgSend(errorCopy, "code") == &stru_20.cmd + 2)
+  {
 
-    else
-    {
-      code = [errorCopy code];
+    goto LABEL_24;
+  }
 
-      if (code != &stru_20.cmd + 3)
-      {
-        v10 = MBGetDefaultLog();
-        if (!os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
-        {
-          goto LABEL_27;
-        }
+  code = [errorCopy code];
 
-        *buf = 138412290;
-        v14 = transferCopy;
-        _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "=atc-plugin= Unrecoverable error. Will not attempt to restore LocalStorage asset %@", buf, 0xCu);
-        goto LABEL_26;
-      }
-    }
-
+  if (code == &stru_20.cmd + 3)
+  {
+LABEL_24:
     v10 = MBGetDefaultLog();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       v14 = transferCopy;
       _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "=atc-plugin= Potentially recoverable error. Will attempt to restore LocalStorage asset %@", buf, 0xCu);
-      goto LABEL_26;
+      _MBLog(@"Df", "=atc-plugin= Potentially recoverable error. Will attempt to restore LocalStorage asset %@", transferCopy);
     }
+
+    goto LABEL_26;
   }
 
-LABEL_27:
+  v10 = MBGetDefaultLog();
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412290;
+    v14 = transferCopy;
+    _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "=atc-plugin= Unrecoverable error. Will not attempt to restore LocalStorage asset %@", buf, 0xCu);
+    _MBLog(@"Df", "=atc-plugin= Unrecoverable error. Will not attempt to restore LocalStorage asset %@", transferCopy);
+  }
+
+LABEL_26:
 }
 
 @end

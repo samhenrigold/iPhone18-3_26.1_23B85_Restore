@@ -81,7 +81,7 @@
 
 - (void)addRecursiveDescriptionWithLevel:(unint64_t)level toString:(id)string
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (level)
   {
     levelCopy = level;
@@ -95,37 +95,35 @@
   }
 
   [string appendFormat:@"%@\n", -[_ECParsedHTMLNode description](self, "description")];
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   childNodes = self->_childNodes;
-  v9 = [(NSMutableArray *)childNodes countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v9 = [(NSMutableArray *)childNodes countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v15;
+    v11 = *v14;
     do
     {
       v12 = 0;
       do
       {
-        if (*v15 != v11)
+        if (*v14 != v11)
         {
           objc_enumerationMutation(childNodes);
         }
 
-        [*(*(&v14 + 1) + 8 * v12++) addRecursiveDescriptionWithLevel:level + 1 toString:string];
+        [*(*(&v13 + 1) + 8 * v12++) addRecursiveDescriptionWithLevel:level + 1 toString:string];
       }
 
       while (v10 != v12);
-      v10 = [(NSMutableArray *)childNodes countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v10 = [(NSMutableArray *)childNodes countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v10);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)recursiveDescription

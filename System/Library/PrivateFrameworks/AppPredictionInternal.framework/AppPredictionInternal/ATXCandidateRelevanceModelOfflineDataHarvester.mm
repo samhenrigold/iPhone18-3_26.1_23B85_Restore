@@ -14,7 +14,7 @@
 
 - (ATXCandidateRelevanceModelOfflineDataHarvester)init
 {
-  v3 = allRelevanceModelConfigs();
+  v3 = allRelevanceModelConfigs(self, a2);
   v4 = [(ATXCandidateRelevanceModelOfflineDataHarvester *)self initWithConfigs:v3];
 
   return v4;
@@ -37,48 +37,46 @@
 
 - (void)harvestData
 {
-  v19 = *MEMORY[0x277D85DE8];
-  v3 = __atxlog_handle_relevance_model();
+  v18 = *MEMORY[0x277D85DE8];
+  v3 = __atxlog_handle_relevance_model(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = objc_opt_class();
     v5 = NSStringFromClass(v4);
     *buf = 138412290;
-    v18 = v5;
+    v17 = v5;
     _os_log_impl(&dword_2263AA000, v3, OS_LOG_TYPE_DEFAULT, "%@ - Beginning data harvesting for all configs.", buf, 0xCu);
   }
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v6 = self->_configs;
-  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [objc_opt_class() harvestDataUsingConfig:{*(*(&v12 + 1) + 8 * v10++), v12}];
+        [objc_opt_class() harvestDataUsingConfig:{*(*(&v11 + 1) + 8 * v10++), v11}];
       }
 
       while (v8 != v10);
-      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 + (void)harvestDataUsingConfig:(id)config
@@ -87,33 +85,34 @@
   configCopy = config;
   [configCopy dataHarvestingSamplingRate];
   v5 = [_ATXAggregateLogger yesWithProbability:v4];
-  v6 = __atxlog_handle_relevance_model();
-  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
-  if (v5)
+  v6 = v5;
+  v7 = __atxlog_handle_relevance_model(v5);
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+  if (v6)
   {
-    if (v7)
+    if (v8)
     {
-      v8 = objc_opt_class();
-      v9 = NSStringFromClass(v8);
+      v9 = objc_opt_class();
+      v10 = NSStringFromClass(v9);
       clientModel = [configCopy clientModel];
       clientModelId = [clientModel clientModelId];
       v18 = 138412546;
-      v19 = v9;
+      v19 = v10;
       v20 = 2112;
       v21 = clientModelId;
-      _os_log_impl(&dword_2263AA000, v6, OS_LOG_TYPE_DEFAULT, "%@ - Harvesting data for config with client model id %@.", &v18, 0x16u);
+      _os_log_impl(&dword_2263AA000, v7, OS_LOG_TYPE_DEFAULT, "%@ - Harvesting data for config with client model id %@.", &v18, 0x16u);
     }
 
-    v6 = [objc_opt_class() metricsForConfig:configCopy];
+    v7 = [objc_opt_class() metricsForConfig:configCopy];
     mEMORY[0x277D41DA8] = [MEMORY[0x277D41DA8] sharedInstance];
-    [mEMORY[0x277D41DA8] logMessage:v6];
+    [mEMORY[0x277D41DA8] logMessage:v7];
     goto LABEL_7;
   }
 
-  if (v7)
+  if (v8)
   {
-    v13 = objc_opt_class();
-    mEMORY[0x277D41DA8] = NSStringFromClass(v13);
+    v14 = objc_opt_class();
+    mEMORY[0x277D41DA8] = NSStringFromClass(v14);
     clientModel2 = [configCopy clientModel];
     clientModelId2 = [clientModel2 clientModelId];
     [configCopy dataHarvestingSamplingRate];
@@ -122,13 +121,11 @@
     v20 = 2112;
     v21 = clientModelId2;
     v22 = 2048;
-    v23 = v16;
-    _os_log_impl(&dword_2263AA000, v6, OS_LOG_TYPE_DEFAULT, "%@ - Not harvesting data for config with client model id %@. We failed to sample a value between 0 and 1 that is less than %f.", &v18, 0x20u);
+    v23 = v17;
+    _os_log_impl(&dword_2263AA000, v7, OS_LOG_TYPE_DEFAULT, "%@ - Not harvesting data for config with client model id %@. We failed to sample a value between 0 and 1 that is less than %f.", &v18, 0x20u);
 
 LABEL_7:
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 + (id)metricsForConfig:(id)config
@@ -423,11 +420,11 @@ void __77__ATXCandidateRelevanceModelOfflineDataHarvester_candidateMetricsFromCo
   [*(a1 + 48) addObject:v3];
 }
 
-void __77__ATXCandidateRelevanceModelOfflineDataHarvester_candidateMetricsFromConfig___block_invoke_2(uint64_t a1, char a2)
+void __77__ATXCandidateRelevanceModelOfflineDataHarvester_candidateMetricsFromConfig___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   if ((a2 & 1) == 0)
   {
-    v3 = __atxlog_handle_relevance_model();
+    v3 = __atxlog_handle_relevance_model(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __77__ATXCandidateRelevanceModelOfflineDataHarvester_candidateMetricsFromConfig___block_invoke_2_cold_1(a1);
@@ -895,11 +892,11 @@ void __72__ATXCandidateRelevanceModelOfflineDataHarvester_modelMetricsForConfig_
   *(*(a1[13] + 8) + 24) = [v13 suggestionExecutableType];
 }
 
-void __72__ATXCandidateRelevanceModelOfflineDataHarvester_modelMetricsForConfig___block_invoke_2(uint64_t a1, char a2)
+void __72__ATXCandidateRelevanceModelOfflineDataHarvester_modelMetricsForConfig___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   if ((a2 & 1) == 0)
   {
-    v3 = __atxlog_handle_relevance_model();
+    v3 = __atxlog_handle_relevance_model(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __77__ATXCandidateRelevanceModelOfflineDataHarvester_candidateMetricsFromConfig___block_invoke_2_cold_1(a1);
@@ -926,16 +923,12 @@ void __72__ATXCandidateRelevanceModelOfflineDataHarvester_modelMetricsForConfig_
 
 void __77__ATXCandidateRelevanceModelOfflineDataHarvester_candidateMetricsFromConfig___block_invoke_2_cold_1(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 40);
-  v3 = objc_opt_class();
-  v4 = NSStringFromClass(v3);
-  v5 = [*(a1 + 32) clientModel];
-  v6 = [v5 clientModelId];
+  v2 = objc_opt_class();
+  v3 = NSStringFromClass(v2);
+  v4 = [*(a1 + 32) clientModel];
+  v5 = [v4 clientModelId];
   OUTLINED_FUNCTION_0_5();
-  OUTLINED_FUNCTION_1_0(&dword_2263AA000, v7, v8, "%@ - Error retrieving most recent verified trained model for %@.", v9, v10, v11, v12, v14);
-
-  v13 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_2263AA000, v6, v7, "%@ - Error retrieving most recent verified trained model for %@.", v8, v9, v10, v11);
 }
 
 @end

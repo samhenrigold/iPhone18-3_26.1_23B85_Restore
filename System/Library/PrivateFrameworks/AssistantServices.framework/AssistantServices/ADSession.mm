@@ -15,6 +15,7 @@
 - (void)_addPendingCommand:(id)command;
 - (void)_cancelSynchronously:(BOOL)synchronously;
 - (void)_clearLimbo;
+- (void)_clearSendBuffer;
 - (void)_informDelegateCannotHandleRequest:(id)request error:(id)error;
 - (void)_informDelegateOfError:(id)error;
 - (void)_informDelegateWillRetryOnError:(id)error;
@@ -132,6 +133,13 @@
   {
     return [(ADSession *)self _shouldSendAssistantData];
   }
+}
+
+- (void)_clearSendBuffer
+{
+  sendBuffer = self->_sendBuffer;
+  self->_sendBuffer = 0;
+  _objc_release_x1(self, sendBuffer);
 }
 
 - (void)_clearLimbo
@@ -900,7 +908,7 @@ LABEL_9:
         [(ADSession *)self _forceFastDormancy];
       }
 
-      [(ADSession *)self _releaseDormancySuspension];
+      [(ADSession *)self _releaseDormancySuspension:*v10];
     }
 
     else

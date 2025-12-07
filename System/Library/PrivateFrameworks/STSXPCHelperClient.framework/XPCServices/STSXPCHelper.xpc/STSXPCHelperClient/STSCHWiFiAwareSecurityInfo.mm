@@ -73,43 +73,7 @@
     cipherSuite = [(STSCHWiFiAwareSecurityInfo *)v6 cipherSuite];
     LODWORD(cipherSuite) = [(NSArray *)cipherSuite isEqualToArray:cipherSuite];
 
-    if (!cipherSuite)
-    {
-      goto LABEL_15;
-    }
-
-    dhInfo = self->_dhInfo;
-    dhInfo = [(STSCHWiFiAwareSecurityInfo *)v6 dhInfo];
-    LODWORD(dhInfo) = [(NSArray *)dhInfo isEqualToArray:dhInfo];
-
-    if (!dhInfo)
-    {
-      goto LABEL_15;
-    }
-
-    v11 = [(NSString *)self->_passphrase length];
-    passphrase = [(STSCHWiFiAwareSecurityInfo *)v6 passphrase];
-    v13 = [passphrase length];
-
-    if (v11 != v13)
-    {
-      goto LABEL_15;
-    }
-
-    passphrase = self->_passphrase;
-    if (passphrase)
-    {
-      passphrase2 = [(STSCHWiFiAwareSecurityInfo *)v6 passphrase];
-      v16 = [(NSString *)passphrase isEqualToString:passphrase2];
-
-      if (!v16)
-      {
-        goto LABEL_15;
-      }
-    }
-
-    datapathPmk = self->_datapathPmk;
-    if (!datapathPmk || ([(STSCHWiFiAwareSecurityInfo *)v6 datapathPmk], v18 = objc_claimAutoreleasedReturnValue(), v19 = [(NSData *)datapathPmk isEqualToData:v18], v18, v19))
+    if (cipherSuite && (dhInfo = self->_dhInfo, -[STSCHWiFiAwareSecurityInfo dhInfo](v6, "dhInfo"), v10 = objc_claimAutoreleasedReturnValue(), LODWORD(dhInfo) = -[NSArray isEqualToArray:](dhInfo, "isEqualToArray:", v10), v10, dhInfo) && (v11 = -[NSString length](self->_passphrase, "length"), -[STSCHWiFiAwareSecurityInfo passphrase](v6, "passphrase"), v12 = objc_claimAutoreleasedReturnValue(), v13 = [v12 length], v12, v11 == v13) && ((passphrase = self->_passphrase) == 0 || (-[STSCHWiFiAwareSecurityInfo passphrase](v6, "passphrase"), v15 = objc_claimAutoreleasedReturnValue(), v16 = -[NSString isEqualToString:](passphrase, "isEqualToString:", v15), v15, v16)) && ((datapathPmk = self->_datapathPmk) == 0 || (-[STSCHWiFiAwareSecurityInfo datapathPmk](v6, "datapathPmk"), v18 = objc_claimAutoreleasedReturnValue(), v19 = -[NSData isEqualToData:](datapathPmk, "isEqualToData:", v18), v18, v19)))
     {
       datapathPmkID = self->_datapathPmkID;
       if (datapathPmkID)
@@ -126,7 +90,6 @@
 
     else
     {
-LABEL_15:
       v22 = 0;
     }
   }

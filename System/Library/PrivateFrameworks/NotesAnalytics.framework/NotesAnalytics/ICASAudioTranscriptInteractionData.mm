@@ -26,8 +26,8 @@
 
 - (id)toDict
 {
-  v16[3] = *MEMORY[0x277D85DE8];
-  v15[0] = @"wasTranscriptViewed";
+  v15[3] = *MEMORY[0x277D85DE8];
+  v14[0] = @"wasTranscriptViewed";
   wasTranscriptViewed = [(ICASAudioTranscriptInteractionData *)self wasTranscriptViewed];
   if (wasTranscriptViewed)
   {
@@ -40,8 +40,8 @@
   }
 
   v5 = wasTranscriptViewed2;
-  v16[0] = wasTranscriptViewed2;
-  v15[1] = @"wasSummaryViewed";
+  v15[0] = wasTranscriptViewed2;
+  v14[1] = @"wasSummaryViewed";
   wasSummaryViewed = [(ICASAudioTranscriptInteractionData *)self wasSummaryViewed];
   if (wasSummaryViewed)
   {
@@ -54,8 +54,8 @@
   }
 
   v8 = wasSummaryViewed2;
-  v16[1] = wasSummaryViewed2;
-  v15[2] = @"transcriptInteractionSummaryArray";
+  v15[1] = wasSummaryViewed2;
+  v14[2] = @"transcriptInteractionSummaryArray";
   transcriptInteractionSummaryArray = [(ICASAudioTranscriptInteractionData *)self transcriptInteractionSummaryArray];
   if (transcriptInteractionSummaryArray)
   {
@@ -68,10 +68,8 @@
   }
 
   v11 = transcriptInteractionSummaryArray2;
-  v16[2] = transcriptInteractionSummaryArray2;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:3];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v15[2] = transcriptInteractionSummaryArray2;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:3];
 
   return v12;
 }

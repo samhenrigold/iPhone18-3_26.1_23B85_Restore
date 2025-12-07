@@ -1,6 +1,6 @@
 @interface ADCameraCalibration
 + (id)cameraCalibrationFromFile:(id)file;
-+ (uint64_t)createIntrinsicsMatrixWithEFL:(double)l principalPointX:(double)x principalPointY:(double)y;
++ (void)createIntrinsicsMatrixWithEFL:(double)l principalPointX:(double)x principalPointY:(double)y;
 + (void)transform:(unint64_t)transform points:with:outPoints:;
 - (ADCameraCalibration)initWithDictionary:(id)dictionary;
 - (ADCameraCalibration)initWithFile:(id)file;
@@ -515,26 +515,26 @@ LABEL_28:
   selfCopy = a11;
   if (selfCopy || (selfCopy = objc_alloc_init(ADNilDistortionModel)) != 0)
   {
-    v38.receiver = self;
-    v38.super_class = ADCameraCalibration;
-    v21 = [(ADCameraCalibration *)&v38 init:*&a2];
-    v22 = v21;
-    if (v21)
+    v33.receiver = self;
+    v33.super_class = ADCameraCalibration;
+    v16 = [(ADCameraCalibration *)&v33 init:*&a2];
+    v17 = v16;
+    if (v16)
     {
-      *v21->_anon_10 = v25;
-      *&v21->_anon_10[16] = v27;
-      *&v21->_anon_10[32] = v29;
-      *v21->_anon_50 = v31;
-      *&v21->_anon_50[16] = v33;
-      *&v21->_anon_50[32] = v35;
-      *&v21->_anon_50[48] = v37;
-      v21->_pixelSize = a9;
-      v21->_referenceDimensions.width = a12;
-      v21->_referenceDimensions.height = a13;
-      objc_storeStrong(&v21->_distortionModel, selfCopy);
+      *v16->_anon_10 = v20;
+      *&v16->_anon_10[16] = v22;
+      *&v16->_anon_10[32] = v24;
+      *v16->_anon_50 = v26;
+      *&v16->_anon_50[16] = v28;
+      *&v16->_anon_50[32] = v30;
+      *&v16->_anon_50[48] = v32;
+      v16->_pixelSize = a9;
+      v16->_referenceDimensions.width = a12;
+      v16->_referenceDimensions.height = a13;
+      objc_storeStrong(&v16->_distortionModel, selfCopy);
     }
 
-    self = v22;
+    self = v17;
 
     selfCopy = self;
   }
@@ -595,12 +595,12 @@ LABEL_28:
   }
 }
 
-+ (uint64_t)createIntrinsicsMatrixWithEFL:(double)l principalPointX:(double)x principalPointY:(double)y
++ (void)createIntrinsicsMatrixWithEFL:(double)l principalPointX:(double)x principalPointY:(double)y
 {
-  LODWORD(a6) = LODWORD(y);
   LODWORD(y) = LODWORD(x);
   LODWORD(x) = LODWORD(l);
-  return [self createIntrinsicsMatrixWithEflX:l eflY:x principalPointX:y principalPointY:a6];
+  LODWORD(l) = LODWORD(a2);
+  return [self createIntrinsicsMatrixWithEflX:a2 eflY:l principalPointX:x principalPointY:y];
 }
 
 - (unint64_t)hash

@@ -20,6 +20,8 @@
 - (void)localPasteboardTypesDidChange:(id)change forGeneration:(unint64_t)generation;
 - (void)receivePasteboardStreamData:(id)data version:(int64_t)version withCompletion:(id)completion;
 - (void)removeLocalPasteboardFromAdvertisers:(id)advertisers;
+- (void)setLocalReflection:(BOOL)reflection;
+- (void)setRemotePasteboardAvalibility:(BOOL)avalibility withDataRequester:(id)requester;
 - (void)setReturnPasteboardDataEarlyWithCompletion:(id)completion;
 - (void)setScreenWatcherPresent:(BOOL)present;
 - (void)showProgressUI:(id)i;
@@ -234,6 +236,13 @@
   return localPasteboardRefection;
 }
 
+- (void)setLocalReflection:(BOOL)reflection
+{
+  reflectionCopy = reflection;
+  v4 = +[UAUserActivityDefaults sharedDefaults];
+  [v4 setLocalPasteboardReflection:reflectionCopy];
+}
+
 - (BOOL)isScreenWatcherPresent
 {
   selfCopy = self;
@@ -287,6 +296,63 @@
     v5[0] = 67109120;
     v5[1] = connection;
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Process %d requested for UC to disable", v5, 8u);
+  }
+}
+
+- (void)setRemotePasteboardAvalibility:(BOOL)avalibility withDataRequester:(id)requester
+{
+  avalibilityCopy = avalibility;
+  requesterCopy = requester;
+  if (![(UASharedPasteboardClientController *)self isScreenWatcherPresent]|| !avalibilityCopy)
+  {
+    selfCopy = self;
+    objc_sync_enter(selfCopy);
+    if (requesterCopy && avalibilityCopy)
+    {
+      v8 = [[UCRemotePasteboardGeneration alloc] initWithRequester:requesterCopy];
+      [(UASharedPasteboardClientController *)selfCopy setRemoteGeneration:v8];
+    }
+
+    else
+    {
+      fetchProgress = [(UASharedPasteboardClientController *)selfCopy fetchProgress];
+
+      if (!fetchProgress)
+      {
+        [(UASharedPasteboardClientController *)selfCopy setRemoteGeneration:0];
+      }
+    }
+
+    v10 = sub_100001A30(@"pasteboard-server");
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    {
+      v11 = @"NO";
+      if (avalibilityCopy)
+      {
+        v11 = @"YES";
+      }
+
+      *buf = 138412290;
+      v17 = v11;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "[PBOARD CONTROLLER] Sending client xpc remote available update: %@", buf, 0xCu);
+    }
+
+    if (avalibilityCopy)
+    {
+      remoteGeneration = [(UASharedPasteboardClientController *)selfCopy remoteGeneration];
+      v15[0] = _NSConcreteStackBlock;
+      v15[1] = 3221225472;
+      v15[2] = sub_10002AAB0;
+      v15[3] = &unk_1000C53E0;
+      v15[4] = selfCopy;
+      [remoteGeneration requestRemoteTypeInfo:v15];
+    }
+
+    clientNotificationConnection = [(UASharedPasteboardClientController *)selfCopy clientNotificationConnection];
+    v14 = [clientNotificationConnection remoteObjectProxyWithErrorHandler:&stru_1000C5420];
+    [v14 remotePasteboardAvailable:avalibilityCopy];
+
+    objc_sync_exit(selfCopy);
   }
 }
 
@@ -400,7 +466,7 @@ LABEL_21:
       v18 = clientConnection;
       if (clientConnection)
       {
-        [clientConnection auditToken];
+        objc_msgSend_auditToken(clientConnection);
       }
 
       else
@@ -1057,25 +1123,25 @@ LABEL_16:
 
   if ((bOOLValue & 1) == 0)
   {
-    v17 = sub_100001A30(@"pasteboard-server");
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = sub_100001A30(@"pasteboard-server");
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      v18 = [UAAuditToken alloc];
+      v19 = [UAAuditToken alloc];
       if (connectionCopy)
       {
-        [connectionCopy auditToken];
+        objc_msgSend_auditToken(connectionCopy);
       }
 
       else
       {
         *buf = 0u;
-        v43 = 0u;
+        v44 = 0u;
       }
 
-      v30 = [(UAAuditToken *)v18 initWithAuditToken:buf];
+      v31 = [(UAAuditToken *)v19 initWithAuditToken:buf];
       *buf = 138412290;
-      *&buf[4] = v30;
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "[PBOARD CONTROLLER] New client connection does not have correct entitlement: %@", buf, 0xCu);
+      *&buf[4] = v31;
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "[PBOARD CONTROLLER] New client connection does not have correct entitlement: %@", buf, 0xCu);
     }
 
     [connectionCopy invalidate];
@@ -1088,64 +1154,62 @@ LABEL_16:
   if (!v11)
   {
     auxlistener = [(UASharedPasteboardClientController *)self auxlistener];
-    v20 = [listenerCopy isEqual:auxlistener];
+    v21 = [listenerCopy isEqual:auxlistener];
 
-    if (v20)
+    if (v21)
     {
-      v21 = sub_100001A30(@"pasteboard-server");
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v22 = sub_100001A30(@"pasteboard-server");
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
         *&buf[4] = connectionCopy;
-        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "[PBOARD CONTROLLER] Received new aux connection: %@", buf, 0xCu);
+        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "[PBOARD CONTROLLER] Received new aux connection: %@", buf, 0xCu);
       }
 
-      [connectionCopy setExportedObject:self];
-      v22 = sub_100040C20();
-      [connectionCopy setExportedInterface:v22];
+      v23 = sub_100040C20([connectionCopy setExportedObject:self]);
+      [connectionCopy setExportedInterface:v23];
 
       [connectionCopy setInterruptionHandler:&stru_1000C56B8];
       objc_initWeak(buf, self);
-      v37[0] = _NSConcreteStackBlock;
-      v37[1] = 3221225472;
-      v37[2] = sub_1000312E4;
-      v37[3] = &unk_1000C4EB8;
-      objc_copyWeak(&v38, buf);
-      [connectionCopy setInvalidationHandler:v37];
+      v38[0] = _NSConcreteStackBlock;
+      v38[1] = 3221225472;
+      v38[2] = sub_1000312E4;
+      v38[3] = &unk_1000C4EB8;
+      objc_copyWeak(&v39, buf);
+      [connectionCopy setInvalidationHandler:v38];
       [connectionCopy resume];
       [(UASharedPasteboardClientController *)self setAuxConnection:connectionCopy];
-      objc_destroyWeak(&v38);
+      objc_destroyWeak(&v39);
       objc_destroyWeak(buf);
       goto LABEL_17;
     }
 
     controlListener = [(UASharedPasteboardClientController *)self controlListener];
-    v24 = [listenerCopy isEqual:controlListener];
+    v25 = [listenerCopy isEqual:controlListener];
 
-    if (v24)
+    if (v25)
     {
-      [connectionCopy setExportedObject:self];
-      v25 = sub_100040CAC();
-      [connectionCopy setExportedInterface:v25];
+      v26 = sub_100040CAC([connectionCopy setExportedObject:self]);
+      [connectionCopy setExportedInterface:v26];
 
       [connectionCopy setInterruptionHandler:&stru_1000C56D8];
       objc_initWeak(buf, self);
       objc_initWeak(&location, connectionCopy);
-      v33[0] = _NSConcreteStackBlock;
-      v33[1] = 3221225472;
-      v33[2] = sub_100031374;
-      v33[3] = &unk_1000C5700;
-      objc_copyWeak(&v34, buf);
-      objc_copyWeak(&v35, &location);
-      [connectionCopy setInvalidationHandler:v33];
+      v34[0] = _NSConcreteStackBlock;
+      v34[1] = 3221225472;
+      v34[2] = sub_100031374;
+      v34[3] = &unk_1000C5700;
+      objc_copyWeak(&v35, buf);
+      objc_copyWeak(&v36, &location);
+      [connectionCopy setInvalidationHandler:v34];
       [connectionCopy resume];
       controlConnections = [(UASharedPasteboardClientController *)self controlConnections];
       objc_sync_enter(controlConnections);
-      v27 = sub_100001A30(@"pasteboard-server");
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+      v28 = sub_100001A30(@"pasteboard-server");
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
       {
-        *v32 = 0;
-        _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "New Controller connection, disabling UC", v32, 2u);
+        *v33 = 0;
+        _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "New Controller connection, disabling UC", v33, 2u);
       }
 
       controlConnections2 = [(UASharedPasteboardClientController *)self controlConnections];
@@ -1153,15 +1217,15 @@ LABEL_16:
 
       objc_sync_exit(controlConnections);
       [(UASharedPasteboardClientController *)self setScreenWatcherPresent:1];
+      objc_destroyWeak(&v36);
       objc_destroyWeak(&v35);
-      objc_destroyWeak(&v34);
       objc_destroyWeak(&location);
       objc_destroyWeak(buf);
       goto LABEL_17;
     }
 
 LABEL_21:
-    v29 = 0;
+    v30 = 0;
     goto LABEL_22;
   }
 
@@ -1173,35 +1237,34 @@ LABEL_21:
     _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "[PBOARD CONTROLLER] Received new client connection: %@", buf, 0xCu);
   }
 
-  v13 = sub_100040A30();
-  [connectionCopy setRemoteObjectInterface:v13];
+  v14 = sub_100040A30(v13);
+  [connectionCopy setRemoteObjectInterface:v14];
 
-  [connectionCopy setExportedObject:self];
-  v14 = sub_100040828();
-  [connectionCopy setExportedInterface:v14];
+  v15 = sub_100040828([connectionCopy setExportedObject:self]);
+  [connectionCopy setExportedInterface:v15];
 
   [connectionCopy setInterruptionHandler:&stru_1000C5670];
   clientConnection = [(UASharedPasteboardClientController *)self clientConnection];
   objc_initWeak(buf, self);
-  v39[0] = _NSConcreteStackBlock;
-  v39[1] = 3221225472;
-  v39[2] = sub_100031190;
-  v39[3] = &unk_1000C5698;
-  objc_copyWeak(&v41, buf);
-  v16 = clientConnection;
-  v40 = v16;
-  [connectionCopy setInvalidationHandler:v39];
+  v40[0] = _NSConcreteStackBlock;
+  v40[1] = 3221225472;
+  v40[2] = sub_100031190;
+  v40[3] = &unk_1000C5698;
+  objc_copyWeak(&v42, buf);
+  v17 = clientConnection;
+  v41 = v17;
+  [connectionCopy setInvalidationHandler:v40];
   [connectionCopy resume];
   [(UASharedPasteboardClientController *)self setClientConnection:connectionCopy];
 
-  objc_destroyWeak(&v41);
+  objc_destroyWeak(&v42);
   objc_destroyWeak(buf);
 
 LABEL_17:
-  v29 = 1;
+  v30 = 1;
 LABEL_22:
 
-  return v29;
+  return v30;
 }
 
 - (void)showProgressUI:(id)i

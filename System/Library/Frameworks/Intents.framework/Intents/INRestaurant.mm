@@ -13,8 +13,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v15[4] = *MEMORY[0x1E69E9840];
-  v14[0] = @"location";
+  v14[4] = *MEMORY[0x1E69E9840];
+  v13[0] = @"location";
   location = self->_location;
   null = location;
   if (!location)
@@ -22,8 +22,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v15[0] = null;
-  v14[1] = @"name";
+  v14[0] = null;
+  v13[1] = @"name";
   name = self->_name;
   null2 = name;
   if (!name)
@@ -31,8 +31,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v15[1] = null2;
-  v14[2] = @"vendorIdentifier";
+  v14[1] = null2;
+  v13[2] = @"vendorIdentifier";
   vendorIdentifier = self->_vendorIdentifier;
   null3 = vendorIdentifier;
   if (!vendorIdentifier)
@@ -40,8 +40,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v15[2] = null3;
-  v14[3] = @"restaurantIdentifier";
+  v14[2] = null3;
+  v13[3] = @"restaurantIdentifier";
   restaurantIdentifier = self->_restaurantIdentifier;
   null4 = restaurantIdentifier;
   if (!restaurantIdentifier)
@@ -49,8 +49,8 @@
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v15[3] = null4;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:4];
+  v14[3] = null4;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:4];
   if (restaurantIdentifier)
   {
     if (vendorIdentifier)
@@ -95,7 +95,6 @@ LABEL_12:
 LABEL_19:
 
 LABEL_13:
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -186,7 +185,7 @@ LABEL_13:
 
 - (INRestaurant)initWithCoder:(id)coder
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [(INRestaurant *)self init];
   if (!v5)
@@ -203,12 +202,12 @@ LABEL_13:
       goto LABEL_17;
     }
 
-    v18 = 136315394;
-    v19 = "[INRestaurant initWithCoder:]";
-    v20 = 2080;
-    v21 = "_location";
+    v17 = 136315394;
+    v18 = "[INRestaurant initWithCoder:]";
+    v19 = 2080;
+    v20 = "_location";
 LABEL_16:
-    _os_log_error_impl(&dword_18E991000, v15, OS_LOG_TYPE_ERROR, "%s Null value for %s", &v18, 0x16u);
+    _os_log_error_impl(&dword_18E991000, v15, OS_LOG_TYPE_ERROR, "%s Null value for %s", &v17, 0x16u);
     goto LABEL_17;
   }
 
@@ -224,10 +223,10 @@ LABEL_16:
       goto LABEL_17;
     }
 
-    v18 = 136315394;
-    v19 = "[INRestaurant initWithCoder:]";
-    v20 = 2080;
-    v21 = "_name";
+    v17 = 136315394;
+    v18 = "[INRestaurant initWithCoder:]";
+    v19 = 2080;
+    v20 = "_name";
     goto LABEL_16;
   }
 
@@ -243,10 +242,10 @@ LABEL_16:
       goto LABEL_17;
     }
 
-    v18 = 136315394;
-    v19 = "[INRestaurant initWithCoder:]";
-    v20 = 2080;
-    v21 = "_vendorIdentifier";
+    v17 = 136315394;
+    v18 = "[INRestaurant initWithCoder:]";
+    v19 = 2080;
+    v20 = "_vendorIdentifier";
     goto LABEL_16;
   }
 
@@ -259,10 +258,10 @@ LABEL_16:
     v15 = INSiriLogContextIntents;
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
     {
-      v18 = 136315394;
-      v19 = "[INRestaurant initWithCoder:]";
-      v20 = 2080;
-      v21 = "_restaurantIdentifier";
+      v17 = 136315394;
+      v18 = "[INRestaurant initWithCoder:]";
+      v19 = 2080;
+      v20 = "_restaurantIdentifier";
       goto LABEL_16;
     }
 
@@ -278,7 +277,6 @@ LABEL_7:
   v14 = v5;
 LABEL_18:
 
-  v16 = *MEMORY[0x1E69E9840];
   return v14;
 }
 

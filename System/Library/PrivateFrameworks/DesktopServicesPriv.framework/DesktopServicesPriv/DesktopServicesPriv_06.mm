@@ -1,445 +1,3 @@
-void sub_1E56E3154(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  std::unique_ptr<std::__hash_node<TRef<TDSNotifier *,TRetainReleasePolicy<TDSNotifier *>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<TRef<TDSNotifier *,TRetainReleasePolicy<TDSNotifier *>>,void *>>>>::~unique_ptr[abi:ne200100](va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t std::unique_ptr<std::__hash_node<TRef<TDSNotifier *,TRetainReleasePolicy<TDSNotifier *>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<TRef<TDSNotifier *,TRetainReleasePolicy<TDSNotifier *>>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
-{
-  v2 = *a1;
-  *a1 = 0;
-  if (v2)
-  {
-    if (*(a1 + 16) == 1)
-    {
-      TRef<TDSNotifier *,TRetainReleasePolicy<TDSNotifier *>>::~TRef(v2 + 2);
-    }
-
-    operator delete(v2);
-  }
-
-  return a1;
-}
-
-void std::__function::__func<void({block_pointer} {__strong})(OpaqueEventQueue *),std::allocator<void({block_pointer} {__strong})(OpaqueEventQueue *)>,void ()(OpaqueEventQueue *)>::~__func(uint64_t a1)
-{
-
-  JUMPOUT(0x1E692CD30);
-}
-
-uint64_t std::__function::__func<void({block_pointer} {__strong})(OpaqueEventQueue *),std::allocator<void({block_pointer} {__strong})(OpaqueEventQueue *)>,void ()(OpaqueEventQueue *)>::__clone(uint64_t a1, void *a2)
-{
-  *a2 = &unk_1F5F3D7F0;
-  result = MEMORY[0x1E692D6D0](*(a1 + 8));
-  a2[1] = result;
-  return result;
-}
-
-void std::__function::__func<void({block_pointer} {__strong})(OpaqueEventQueue *),std::allocator<void({block_pointer} {__strong})(OpaqueEventQueue *)>,void ()(OpaqueEventQueue *)>::destroy(uint64_t a1)
-{
-  v1 = *(a1 + 8);
-  *(a1 + 8) = 0;
-}
-
-uint64_t std::__function::__func<void({block_pointer} {__strong})(OpaqueEventQueue *),std::allocator<void({block_pointer} {__strong})(OpaqueEventQueue *)>,void ()(OpaqueEventQueue *)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-void std::__throw_out_of_range[abi:ne200100](const char *a1)
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::out_of_range::out_of_range[abi:ne200100](exception, a1);
-  __cxa_throw(exception, off_1E877EB48, MEMORY[0x1E69E5280]);
-}
-
-std::logic_error *std::out_of_range::out_of_range[abi:ne200100](std::logic_error *a1, const char *a2)
-{
-  result = std::logic_error::logic_error(a1, a2);
-  result->__vftable = (MEMORY[0x1E69E55B8] + 16);
-  return result;
-}
-
-unint64_t FormatOneDetails<std::string>(const std::string::value_type **a1, std::string *this, uint64_t a3)
-{
-  v3 = a1[1];
-  if (!v3)
-  {
-    v12 = 0;
-    v9 = 1;
-    return v12 | v9;
-  }
-
-  v7 = *a1;
-  v8 = &v3[*a1];
-  v9 = 1;
-  v10 = *a1;
-LABEL_3:
-  v11 = 0;
-  while (*v10 != asc_1E57B78C0[v11])
-  {
-    if (++v11 == 3)
-    {
-      if (++v10 == v8)
-      {
-        v12 = 0;
-        return v12 | v9;
-      }
-
-      goto LABEL_3;
-    }
-  }
-
-  v12 = 0;
-  v9 = 1;
-  if (v10 != v8)
-  {
-    v13 = v10 - v7;
-    if (v10 - v7 != -1)
-    {
-      std::string::append(this, v7, v10 - v7);
-      v14 = a1[1];
-      v15 = v14 >= v13;
-      v16 = &v14[-v13];
-      if (!v15)
-      {
-        goto LABEL_102;
-      }
-
-      *a1 += v13;
-      a1[1] = v16;
-      ParseFormat(a1, &v36);
-      v17 = v37;
-      if (!v37)
-      {
-        v12 = 0;
-        v9 = 2;
-        return v12 | v9;
-      }
-
-      if (v38 <= 4)
-      {
-        if ((v38 - 1) < 3)
-        {
-          goto LABEL_99;
-        }
-
-        if (v38 == 4)
-        {
-          if (v37 <= 0x7FFFFFFFFFFFFFF7)
-          {
-            if (v37 >= 0x17)
-            {
-              operator new();
-            }
-
-            *(&__dst.__r_.__value_.__s + 23) = v37;
-            memmove(&__dst, v36, v37);
-            __dst.__r_.__value_.__s.__data_[v17] = 0;
-            std::string::basic_string[abi:ne200100]<0>(&v35, "??? (hex)");
-            if ((v35.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-            {
-              v23 = &v35;
-            }
-
-            else
-            {
-              v23 = v35.__r_.__value_.__r.__words[0];
-            }
-
-            if ((v35.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-            {
-              size = HIBYTE(v35.__r_.__value_.__r.__words[2]);
-            }
-
-            else
-            {
-              size = v35.__r_.__value_.__l.__size_;
-            }
-
-            goto LABEL_94;
-          }
-
-LABEL_103:
-          std::string::__throw_length_error[abi:ne200100]();
-        }
-
-        goto LABEL_39;
-      }
-
-      if (v38 <= 6)
-      {
-        if (v38 == 5)
-        {
-          if (*(a3 + 23) < 0)
-          {
-            std::string::__init_copy_ctor_external(&__dst, *a3, *(a3 + 8));
-          }
-
-          else
-          {
-            __dst = *a3;
-          }
-
-          RedactForPrivacy(&v36, &__dst, &v35);
-          if ((v35.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-          {
-            v23 = &v35;
-          }
-
-          else
-          {
-            v23 = v35.__r_.__value_.__r.__words[0];
-          }
-
-          if ((v35.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-          {
-            size = HIBYTE(v35.__r_.__value_.__r.__words[2]);
-          }
-
-          else
-          {
-            size = v35.__r_.__value_.__l.__size_;
-          }
-        }
-
-        else
-        {
-          if (*(a3 + 23) < 0)
-          {
-            std::string::__init_copy_ctor_external(&__dst, *a3, *(a3 + 8));
-          }
-
-          else
-          {
-            __dst = *a3;
-          }
-
-          RedactForPrivacy(&v36, &__dst, &v35);
-          if ((v35.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-          {
-            v23 = &v35;
-          }
-
-          else
-          {
-            v23 = v35.__r_.__value_.__r.__words[0];
-          }
-
-          if ((v35.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-          {
-            size = HIBYTE(v35.__r_.__value_.__r.__words[2]);
-          }
-
-          else
-          {
-            size = v35.__r_.__value_.__l.__size_;
-          }
-        }
-
-LABEL_94:
-        std::string::append(this, v23, size);
-        if (SHIBYTE(v35.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v35.__r_.__value_.__l.__data_);
-        }
-
-        if ((SHIBYTE(__dst.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-        {
-LABEL_99:
-          v28 = a1[1];
-          v29 = &v28[-v37];
-          if (v28 >= v37)
-          {
-            v9 = 0;
-            *a1 += v37;
-            a1[1] = v29;
-            v12 = v38 << 32;
-            return v12 | v9;
-          }
-
-LABEL_102:
-          std::__throw_out_of_range[abi:ne200100]("string_view::substr");
-        }
-
-        v27 = __dst.__r_.__value_.__r.__words[0];
-LABEL_98:
-        operator delete(v27);
-        goto LABEL_99;
-      }
-
-      if (v38 == 8)
-      {
-        if (v37 > 0x7FFFFFFFFFFFFFF7)
-        {
-          goto LABEL_103;
-        }
-
-        if (v37 >= 0x17)
-        {
-          operator new();
-        }
-
-        *(&__dst.__r_.__value_.__s + 23) = v37;
-        memmove(&__dst, v36, v37);
-        __dst.__r_.__value_.__s.__data_[v17] = 0;
-        ExtractEmbeddedFormat(&__dst, &v35);
-        if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(__dst.__r_.__value_.__l.__data_);
-        }
-
-        v20 = HIBYTE(v35.__r_.__value_.__r.__words[2]);
-        v21 = &v35;
-        if ((v35.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-        {
-          v20 = v35.__r_.__value_.__l.__size_;
-          v21 = v35.__r_.__value_.__r.__words[0];
-        }
-
-        __p.__r_.__value_.__r.__words[0] = v21;
-        __p.__r_.__value_.__l.__size_ = v20;
-        FormatDetails<std::string>(&__dst, &__p, a3);
-        v22 = v37;
-        if (v37 > 0x7FFFFFFFFFFFFFF7)
-        {
-          std::string::__throw_length_error[abi:ne200100]();
-        }
-
-        if (v37 >= 0x17)
-        {
-          operator new();
-        }
-
-        v32 = v37;
-        if (v37)
-        {
-          memmove(&v31, v36, v37);
-        }
-
-        *(&v31 + v22) = 0;
-        ExtendedFormatAdaptor(&v31, &__dst, &__p);
-        if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-        {
-          p_p = &__p;
-        }
-
-        else
-        {
-          p_p = __p.__r_.__value_.__r.__words[0];
-        }
-
-        if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-        {
-          v26 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
-        }
-
-        else
-        {
-          v26 = __p.__r_.__value_.__l.__size_;
-        }
-
-        std::string::append(this, p_p, v26);
-        if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(__p.__r_.__value_.__l.__data_);
-        }
-
-        if (v32 < 0)
-        {
-          operator delete(v31);
-        }
-
-        if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(__dst.__r_.__value_.__l.__data_);
-        }
-      }
-
-      else
-      {
-        if (v38 != 7)
-        {
-LABEL_39:
-          if (*(a3 + 23) < 0)
-          {
-            std::string::__init_copy_ctor_external(&__dst, *a3, *(a3 + 8));
-          }
-
-          else
-          {
-            __dst = *a3;
-          }
-
-          RedactForPrivacy(&v36, &__dst, &v35);
-          if ((v35.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-          {
-            v23 = &v35;
-          }
-
-          else
-          {
-            v23 = v35.__r_.__value_.__r.__words[0];
-          }
-
-          if ((v35.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-          {
-            size = HIBYTE(v35.__r_.__value_.__r.__words[2]);
-          }
-
-          else
-          {
-            size = v35.__r_.__value_.__l.__size_;
-          }
-
-          goto LABEL_94;
-        }
-
-        DeEscapeFormatFragment(&v36, &v35);
-        if ((v35.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-        {
-          v18 = &v35;
-        }
-
-        else
-        {
-          v18 = v35.__r_.__value_.__r.__words[0];
-        }
-
-        if ((v35.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-        {
-          v19 = HIBYTE(v35.__r_.__value_.__r.__words[2]);
-        }
-
-        else
-        {
-          v19 = v35.__r_.__value_.__l.__size_;
-        }
-
-        std::string::append(this, v18, v19);
-      }
-
-      if ((SHIBYTE(v35.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-      {
-        goto LABEL_99;
-      }
-
-      v27 = v35.__r_.__value_.__r.__words[0];
-      goto LABEL_98;
-    }
-  }
-
-  return v12 | v9;
-}
-
 void sub_1E56E3948(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, uint64_t a27, void *a28, uint64_t a29, int a30, __int16 a31, char a32, char a33)
 {
   if (a20 < 0)
@@ -465,13 +23,13 @@ void sub_1E56E3948(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void FormatDetails<std::string>(__int128 *a1@<X0>, uint64_t a2@<X1>, std::string *a3@<X8>)
+void FormatDetails<std::string>(_OWORD *a1@<X0>, uint64_t a2@<X1>, std::string *a3@<X8>)
 {
   memset(&__p, 0, sizeof(__p));
-  v10 = *a1;
+  *&v10.__r_.__value_.__l.__data_ = *a1;
   do
   {
-    v5 = FormatOneDetails<std::string>(&v10, &__p, a2);
+    v5 = FormatOneDetails<std::string>(&v10.__r_.__value_.__l.__data_, &__p, a2);
     if (v5)
     {
       *(&a3->__r_.__value_.__s + 23) = 0;
@@ -534,17 +92,17 @@ void sub_1E56E3AD4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void FormatDetails<int>(__int128 *a1@<X0>, int *a2@<X1>, std::string *a3@<X8>)
+void FormatDetails<int>(_OWORD *a1@<X0>, std::string *a2@<X8>, int *a3@<X1>)
 {
   memset(&__p, 0, sizeof(__p));
-  v10 = *a1;
+  *&v10.__r_.__value_.__l.__data_ = *a1;
   do
   {
-    v5 = FormatOneDetails<int>(&v10, &__p, a2);
+    v5 = FormatOneDetails<int>(&v10.__r_.__value_.__l.__data_, &__p, a3);
     if (v5)
     {
-      *(&a3->__r_.__value_.__s + 23) = 0;
-      a3->__r_.__value_.__s.__data_[0] = 0;
+      *(&a2->__r_.__value_.__s + 23) = 0;
+      a2->__r_.__value_.__s.__data_[0] = 0;
       goto LABEL_13;
     }
   }
@@ -572,7 +130,7 @@ void FormatDetails<int>(__int128 *a1@<X0>, int *a2@<X1>, std::string *a3@<X8>)
   }
 
   v8 = std::string::insert(&v9, 0, p_p, size);
-  *a3 = *v8;
+  *a2 = *v8;
   v8->__r_.__value_.__l.__size_ = 0;
   v8->__r_.__value_.__r.__words[2] = 0;
   v8->__r_.__value_.__r.__words[0] = 0;
@@ -605,17 +163,17 @@ void sub_1E56E3BE8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 unint64_t FormatOneDetails<int>(const std::string::value_type **a1, std::string *this, int *a3)
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   v3 = a1[1];
   if (!v3)
   {
     v12 = 0;
     v9 = 1;
-    goto LABEL_134;
+    return v12 | v9;
   }
 
   v7 = *a1;
-  v8 = &v3[*a1];
+  v8 = &(*a1)[v3];
   v9 = 1;
   v10 = *a1;
   while (2)
@@ -628,19 +186,19 @@ unint64_t FormatOneDetails<int>(const std::string::value_type **a1, std::string 
         v9 = 1;
         if (v10 == v8)
         {
-          goto LABEL_134;
+          return v12 | v9;
         }
 
         v13 = v10 - v7;
         if (v10 - v7 == -1)
         {
-          goto LABEL_134;
+          return v12 | v9;
         }
 
         std::string::append(this, v7, v10 - v7);
         v14 = a1[1];
         v15 = v14 >= v13;
-        v16 = &v14[-v13];
+        v16 = v14 - v13;
         if (!v15)
         {
           std::__throw_out_of_range[abi:ne200100]("string_view::substr");
@@ -648,23 +206,23 @@ unint64_t FormatOneDetails<int>(const std::string::value_type **a1, std::string 
 
         *a1 += v13;
         a1[1] = v16;
-        ParseFormat(a1, &__src);
+        ParseFormat(&__src, a1);
         v17 = __len;
         if (!__len)
         {
           v12 = 0;
           v9 = 2;
-          goto LABEL_134;
+          return v12 | v9;
         }
 
-        if (v44 > 4)
+        if (v43 > 4)
         {
-          if (v44 <= 6)
+          if (v43 <= 6)
           {
-            if (v44 == 5)
+            if (v43 == 5)
             {
-              std::to_string(&v41, *a3);
-              RedactForPrivacy(&__src, &v41, __str);
+              std::to_string(&v40, *a3);
+              RedactForPrivacy(&__src, &v40, __str);
               if ((__str[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
               {
                 v18 = __str;
@@ -688,8 +246,8 @@ unint64_t FormatOneDetails<int>(const std::string::value_type **a1, std::string 
 
             else
             {
-              std::to_string(&v41, *a3);
-              RedactForPrivacy(&__src, &v41, __str);
+              std::to_string(&v40, *a3);
+              RedactForPrivacy(&__src, &v40, __str);
               if ((__str[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
               {
                 v18 = __str;
@@ -714,7 +272,7 @@ unint64_t FormatOneDetails<int>(const std::string::value_type **a1, std::string 
             goto LABEL_111;
           }
 
-          if (v44 == 8)
+          if (v43 == 8)
           {
             if (__len > 0x7FFFFFFFFFFFFFF7)
             {
@@ -726,13 +284,13 @@ unint64_t FormatOneDetails<int>(const std::string::value_type **a1, std::string 
               operator new();
             }
 
-            *(&v41.__r_.__value_.__s + 23) = __len;
-            memmove(&v41, __src, __len);
-            v41.__r_.__value_.__s.__data_[v17] = 0;
-            ExtractEmbeddedFormat(&v41, __str);
-            if (SHIBYTE(v41.__r_.__value_.__r.__words[2]) < 0)
+            *(&v40.__r_.__value_.__s + 23) = __len;
+            memmove(&v40, __src, __len);
+            v40.__r_.__value_.__s.__data_[v17] = 0;
+            ExtractEmbeddedFormat(__str, &v40);
+            if (SHIBYTE(v40.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(v41.__r_.__value_.__l.__data_);
+              operator delete(v40.__r_.__value_.__l.__data_);
             }
 
             v29 = HIBYTE(__str[0].__r_.__value_.__r.__words[2]);
@@ -745,7 +303,7 @@ unint64_t FormatOneDetails<int>(const std::string::value_type **a1, std::string 
 
             __dst.__r_.__value_.__r.__words[0] = v30;
             __dst.__r_.__value_.__l.__size_ = v29;
-            FormatDetails<int>(&v41, &__dst, a3);
+            FormatDetails<int>(&__dst, &v40);
             v31 = __len;
             if (__len > 0x7FFFFFFFFFFFFFF7)
             {
@@ -757,14 +315,14 @@ unint64_t FormatOneDetails<int>(const std::string::value_type **a1, std::string 
               operator new();
             }
 
-            v39 = __len;
+            v38 = __len;
             if (__len)
             {
               memmove(&__p, __src, __len);
             }
 
             *(&__p + v31) = 0;
-            ExtendedFormatAdaptor(&__p, &v41, &__dst);
+            ExtendedFormatAdaptor(&__p, &v40, &__dst);
             if ((__dst.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
               p_dst = &__dst;
@@ -791,24 +349,24 @@ unint64_t FormatOneDetails<int>(const std::string::value_type **a1, std::string 
               operator delete(__dst.__r_.__value_.__l.__data_);
             }
 
-            if (v39 < 0)
+            if (v38 < 0)
             {
               operator delete(__p);
             }
 
-            if (SHIBYTE(v41.__r_.__value_.__r.__words[2]) < 0)
+            if (SHIBYTE(v40.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(v41.__r_.__value_.__l.__data_);
+              operator delete(v40.__r_.__value_.__l.__data_);
             }
           }
 
           else
           {
-            if (v44 != 7)
+            if (v43 != 7)
             {
 LABEL_58:
-              std::to_string(&v41, *a3);
-              RedactForPrivacy(&__src, &v41, __str);
+              std::to_string(&v40, *a3);
+              RedactForPrivacy(&__src, &v40, __str);
               if ((__str[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
               {
                 v18 = __str;
@@ -836,12 +394,12 @@ LABEL_111:
                 operator delete(__str[0].__r_.__value_.__l.__data_);
               }
 
-              if ((SHIBYTE(v41.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+              if ((SHIBYTE(v40.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
               {
                 goto LABEL_132;
               }
 
-              v28 = v41.__r_.__value_.__r.__words[0];
+              v28 = v40.__r_.__value_.__r.__words[0];
               goto LABEL_131;
             }
 
@@ -873,7 +431,7 @@ LABEL_111:
           {
 LABEL_132:
             v34 = a1[1];
-            v35 = &v34[-__len];
+            v35 = v34 - __len;
             if (v34 < __len)
             {
               std::__throw_out_of_range[abi:ne200100]("string_view::substr");
@@ -882,8 +440,8 @@ LABEL_132:
             v9 = 0;
             *a1 += __len;
             a1[1] = v35;
-            v12 = v44 << 32;
-            goto LABEL_134;
+            v12 = v43 << 32;
+            return v12 | v9;
           }
 
           v28 = __str[0].__r_.__value_.__r.__words[0];
@@ -891,9 +449,9 @@ LABEL_132:
 
         else
         {
-          if (v44 > 2)
+          if (v43 > 2)
           {
-            if (v44 != 3)
+            if (v43 != 3)
             {
               if (__len > 0x7FFFFFFFFFFFFFF7)
               {
@@ -905,10 +463,10 @@ LABEL_132:
                 operator new();
               }
 
-              *(&v41.__r_.__value_.__s + 23) = __len;
-              memmove(&v41, __src, __len);
-              v41.__r_.__value_.__s.__data_[v17] = 0;
-              HexDescriptionPrinterGlue<int,void>::dump(&v41, a3, __str);
+              *(&v40.__r_.__value_.__s + 23) = __len;
+              memmove(&v40, __src, __len);
+              v40.__r_.__value_.__s.__data_[v17] = 0;
+              HexDescriptionPrinterGlue<int,void>::dump(&v40, a3, __str);
               if ((__str[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
               {
                 v18 = __str;
@@ -958,33 +516,33 @@ LABEL_132:
               snprintf(__str, 0x64uLL, __dst.__r_.__value_.__l.__data_, v27);
             }
 
-            std::string::basic_string[abi:ne200100]<0>(&v41, __str);
-            if ((v41.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+            std::string::basic_string[abi:ne200100]<0>(&v40, __str);
+            if ((v40.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v25 = &v41;
+              v25 = &v40;
             }
 
             else
             {
-              v25 = v41.__r_.__value_.__r.__words[0];
+              v25 = v40.__r_.__value_.__r.__words[0];
             }
 
-            if ((v41.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+            if ((v40.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v26 = HIBYTE(v41.__r_.__value_.__r.__words[2]);
+              v26 = HIBYTE(v40.__r_.__value_.__r.__words[2]);
             }
 
             else
             {
-              v26 = v41.__r_.__value_.__l.__size_;
+              v26 = v40.__r_.__value_.__l.__size_;
             }
           }
 
           else
           {
-            if (v44 != 1)
+            if (v43 != 1)
             {
-              if (v44 == 2)
+              if (v43 == 2)
               {
                 if (__len > 0x7FFFFFFFFFFFFFF7)
                 {
@@ -996,9 +554,9 @@ LABEL_132:
                   operator new();
                 }
 
-                *(&v41.__r_.__value_.__s + 23) = __len;
-                memmove(&v41, __src, __len);
-                v41.__r_.__value_.__s.__data_[v17] = 0;
+                *(&v40.__r_.__value_.__s + 23) = __len;
+                memmove(&v40, __src, __len);
+                v40.__r_.__value_.__s.__data_[v17] = 0;
                 std::to_string(__str, *a3);
                 if ((__str[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
                 {
@@ -1052,32 +610,32 @@ LABEL_132:
               snprintf(__str, 0x64uLL, __dst.__r_.__value_.__l.__data_, v22);
             }
 
-            std::string::basic_string[abi:ne200100]<0>(&v41, __str);
-            if ((v41.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+            std::string::basic_string[abi:ne200100]<0>(&v40, __str);
+            if ((v40.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v25 = &v41;
+              v25 = &v40;
             }
 
             else
             {
-              v25 = v41.__r_.__value_.__r.__words[0];
+              v25 = v40.__r_.__value_.__r.__words[0];
             }
 
-            if ((v41.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+            if ((v40.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v26 = HIBYTE(v41.__r_.__value_.__r.__words[2]);
+              v26 = HIBYTE(v40.__r_.__value_.__r.__words[2]);
             }
 
             else
             {
-              v26 = v41.__r_.__value_.__l.__size_;
+              v26 = v40.__r_.__value_.__l.__size_;
             }
           }
 
           std::string::append(this, v25, v26);
-          if (SHIBYTE(v41.__r_.__value_.__r.__words[2]) < 0)
+          if (SHIBYTE(v40.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v41.__r_.__value_.__l.__data_);
+            operator delete(v40.__r_.__value_.__l.__data_);
           }
 
           if ((v23 & 0x80000000) == 0)
@@ -1103,8 +661,6 @@ LABEL_131:
   }
 
   v12 = 0;
-LABEL_134:
-  v36 = *MEMORY[0x1E69E9840];
   return v12 | v9;
 }
 
@@ -1133,9 +689,9 @@ void sub_1E56E4404(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *HexDescriptionPrinterGlue<int,void>::dump@<X0>(uint64_t a1@<X0>, int *a2@<X1>, _BYTE *a3@<X8>)
+void *HexDescriptionPrinterGlue<int,void>::dump@<X0>(uint64_t a1@<X0>, int *a2@<X1>, uint64_t a3@<X8>)
 {
-  v24[19] = *MEMORY[0x1E69E9840];
+  v23[19] = *MEMORY[0x1E69E9840];
   v5 = *(a1 + 23);
   if ((v5 & 0x80u) != 0)
   {
@@ -1145,7 +701,7 @@ _BYTE *HexDescriptionPrinterGlue<int,void>::dump@<X0>(uint64_t a1@<X0>, int *a2@
   if (v5)
   {
     WidenHexFormatStringSpecifierToLongLong(a1, __p);
-    if (v14 >= 0)
+    if (v13 >= 0)
     {
       snprintf(__str, 0x64uLL, __p, *a2);
     }
@@ -1155,36 +711,35 @@ _BYTE *HexDescriptionPrinterGlue<int,void>::dump@<X0>(uint64_t a1@<X0>, int *a2@
       snprintf(__str, 0x64uLL, __p[0], *a2);
     }
 
-    if (v14 < 0)
+    if (v13 < 0)
     {
       operator delete(__p[0]);
     }
 
-    result = std::string::basic_string[abi:ne200100]<0>(a3, __str);
-    goto LABEL_26;
+    return std::string::basic_string[abi:ne200100]<0>(a3, __str);
   }
 
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](__str);
-  *(&v16 + *(v16 - 24) + 8) = *(&v16 + *(v16 - 24) + 8) & 0xFFFFFFB5 | 8;
-  v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v16, "0x", 2);
+  *(&v15 + *(v15 - 24) + 8) = *(&v15 + *(v15 - 24) + 8) & 0xFFFFFFB5 | 8;
+  v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v15, "0x", 2);
   MEMORY[0x1E692CAD0](v7, *a2);
-  if ((v23 & 0x10) != 0)
+  if ((v22 & 0x10) != 0)
   {
-    v9 = v22;
-    if (v22 < v19)
+    v9 = v21;
+    if (v21 < v18)
     {
-      v22 = v19;
-      v9 = v19;
+      v21 = v18;
+      v9 = v18;
     }
 
-    locale = v18[4].__locale_;
+    locale = v17[4].__locale_;
     goto LABEL_17;
   }
 
-  if ((v23 & 8) != 0)
+  if ((v22 & 8) != 0)
   {
-    locale = v18[1].__locale_;
-    v9 = v18[3].__locale_;
+    locale = v17[1].__locale_;
+    v9 = v17[3].__locale_;
 LABEL_17:
     v8 = v9 - locale;
     if ((v9 - locale) >= 0x7FFFFFFFFFFFFFF8)
@@ -1197,7 +752,7 @@ LABEL_17:
       operator new();
     }
 
-    a3[23] = v8;
+    *(a3 + 23) = v8;
     if (v8)
     {
       memmove(a3, locale, v8);
@@ -1207,26 +762,23 @@ LABEL_17:
   }
 
   v8 = 0;
-  a3[23] = 0;
+  *(a3 + 23) = 0;
 LABEL_23:
-  a3[v8] = 0;
+  *(a3 + v8) = 0;
   *__str = *MEMORY[0x1E69E54D8];
   v11 = *(MEMORY[0x1E69E54D8] + 72);
   *&__str[*(*__str - 24)] = *(MEMORY[0x1E69E54D8] + 64);
-  v16 = v11;
-  v17 = MEMORY[0x1E69E5548] + 16;
-  if (v21 < 0)
+  v15 = v11;
+  v16 = MEMORY[0x1E69E5548] + 16;
+  if (v20 < 0)
   {
-    operator delete(v20);
+    operator delete(v19);
   }
 
-  v17 = MEMORY[0x1E69E5538] + 16;
-  std::locale::~locale(v18);
+  v16 = MEMORY[0x1E69E5538] + 16;
+  std::locale::~locale(v17);
   std::iostream::~basic_iostream();
-  result = MEMORY[0x1E692CCA0](v24);
-LABEL_26:
-  v12 = *MEMORY[0x1E69E9840];
-  return result;
+  return MEMORY[0x1E692CCA0](v23);
 }
 
 void sub_1E56E4800(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29)
@@ -1298,14 +850,12 @@ void std::vector<TNodePtr>::resize(void *a1, unint64_t a2)
   }
 }
 
-void *std::vector<TString>::reserve(void *result, unint64_t a2)
+CFTypeRef **std::vector<TString>::reserve(CFTypeRef **result, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 3)
+  if (a2 > result[2] - *result)
   {
     if (!(a2 >> 61))
     {
-      v2 = result[1] - *result;
-      v3 = result;
       std::allocator<TString>::allocate_at_least[abi:ne200100](result, a2);
     }
 
@@ -1315,9 +865,9 @@ void *std::vector<TString>::reserve(void *result, unint64_t a2)
   return result;
 }
 
-void sub_1E56E4AE0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E56E4AE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<TString>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -1328,7 +878,6 @@ void std::vector<int>::reserve(std::vector<int> *this, std::vector<int>::size_ty
   {
     if (!(__n >> 62))
     {
-      v2 = this->__end_ - this->__begin_;
       std::allocator<int>::allocate_at_least[abi:ne200100](this, __n);
     }
 
@@ -1472,9 +1021,9 @@ void std::vector<TNodePtr>::__append(uint64_t a1, unint64_t a2)
   }
 }
 
-void sub_1E56E4E38(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E56E4E38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<TNodePtr>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -1495,7 +1044,7 @@ uint64_t std::tuple<std::vector<TNodePtr>,std::vector<TString>,std::vector<int>>
   return a1;
 }
 
-void std::vector<int>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<int>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 62))
   {
@@ -1765,19 +1314,8 @@ LABEL_156:
     }
 
     --a4;
-    if (a5)
+    if ((a5 & 1) != 0 || (v16 = *(v10 - 1), v15 = *v10, v17 = *a3[1], v18 = *(v17 + 4 * v16), v19 = *(v17 + 4 * v15), v18 < v19) || v18 <= v19 && ((result = TString::StringCompare((*a3[2] + 8 * v16), (*a3[2] + 8 * v15)), result == -1) || !result && (v20 = TNodeFromFINode(*(**a3 + 8 * v16)), result = TNodeFromFINode(*(**a3 + 8 * v15)), v20 < result)))
     {
-      goto LABEL_21;
-    }
-
-    v16 = *(v10 - 1);
-    v15 = *v10;
-    v17 = *a3[1];
-    v18 = *(v17 + 4 * v16);
-    v19 = *(v17 + 4 * v15);
-    if (v18 < v19 || v18 <= v19 && ((result = TString::StringCompare((*a3[2] + 8 * v16), (*a3[2] + 8 * v15)), result == -1) || !result && (v20 = TNodeFromFINode(*(**a3 + 8 * v16)), result = TNodeFromFINode(*(**a3 + 8 * v15)), v20 < result)))
-    {
-LABEL_21:
       v21 = 0;
       v22 = *v10;
       while (1)
@@ -2866,7 +2404,7 @@ LABEL_28:
   }
 }
 
-uint64_t CopyBlob(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t CopyBlob(uint64_t a1, unsigned int *a2, uint64_t a3)
 {
   if (a1 == a2)
   {
@@ -2879,7 +2417,7 @@ uint64_t CopyBlob(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 
   v6 = *(a1 + 4);
-  *(a2 + 4) = v6;
+  a2[1] = v6;
   if (!v6)
   {
     return 0;
@@ -2890,7 +2428,7 @@ uint64_t CopyBlob(uint64_t a1, uint64_t a2, uint64_t a3)
   {
     std::function<void ()(Blob &,unsigned int)>::operator()(a3, a2, v6);
     v7 = *a2;
-    v6 = *(a2 + 4);
+    v6 = a2[1];
   }
 
   if (v6 <= v7)
@@ -2898,7 +2436,7 @@ uint64_t CopyBlob(uint64_t a1, uint64_t a2, uint64_t a3)
     v9 = *(a1 + 8);
     if (v9)
     {
-      v10 = *(a2 + 8);
+      v10 = *(a2 + 1);
       if (v10)
       {
         memcpy(v10, v9, v6);
@@ -4775,7 +4313,7 @@ LABEL_17:
   return result;
 }
 
-uint64_t TPropertyValue::SetAs<TString>(uint64_t a1, TString *a2)
+uint64_t TPropertyValue::SetAs<TString>(uint64_t a1, TString **a2)
 {
   v2 = *(a1 + 16);
   switch(v2)
@@ -4856,7 +4394,7 @@ uint64_t TPropertyValue::SetAs<TString>(uint64_t a1, TString *a2)
 
       if (a1 != a2)
       {
-        TString::SetStringRefAsImmutable(a1, a2->fString.fRef);
+        TString::SetStringRefAsImmutable(a1, *a2);
       }
 
       return 0;
@@ -4866,7 +4404,7 @@ uint64_t TPropertyValue::SetAs<TString>(uint64_t a1, TString *a2)
         goto LABEL_18;
       }
 
-      v4 = RetainCF<__CFString const*>(&a2->fString.fRef);
+      v4 = RetainCF<__CFString const*>(a2);
       if (v4)
       {
         v5 = CFAutorelease(v4);
@@ -5344,7 +4882,7 @@ LABEL_43:
   return result;
 }
 
-uint64_t TPropertyValue::SetAs<TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>>(uint64_t a1, const void **a2)
+uint64_t TPropertyValue::SetAs<TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>>(uint64_t a1, CFTypeRef *a2)
 {
   v2 = *(a1 + 16);
   switch(v2)
@@ -5521,7 +5059,7 @@ LABEL_18:
   }
 }
 
-uint64_t TPropertyValue::SetAs<TRef<__CFNumber const*,TRetainReleasePolicy<__CFNumber const*>>>(uint64_t a1, const void **a2)
+uint64_t TPropertyValue::SetAs<TRef<__CFNumber const*,TRetainReleasePolicy<__CFNumber const*>>>(uint64_t a1, CFTypeRef *a2)
 {
   v2 = *(a1 + 16);
   switch(v2)
@@ -5692,7 +5230,7 @@ LABEL_39:
   }
 }
 
-uint64_t TPropertyValue::SetAs<TRef<__CFData const*,TRetainReleasePolicy<__CFData const*>>>(uint64_t a1, const void **a2)
+uint64_t TPropertyValue::SetAs<TRef<__CFData const*,TRetainReleasePolicy<__CFData const*>>>(uint64_t a1, CFTypeRef *a2)
 {
   v2 = *(a1 + 16);
   switch(v2)
@@ -5863,7 +5401,7 @@ LABEL_17:
   }
 }
 
-uint64_t TPropertyValue::SetAs<TRef<__CFDictionary const*,TRetainReleasePolicy<__CFDictionary const*>>>(uint64_t a1, const void **a2)
+uint64_t TPropertyValue::SetAs<TRef<__CFDictionary const*,TRetainReleasePolicy<__CFDictionary const*>>>(uint64_t a1, id *a2)
 {
   v2 = *(a1 + 16);
   switch(v2)
@@ -6206,7 +5744,7 @@ LABEL_43:
   }
 }
 
-uint64_t TPropertyValue::SetAs<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>>(uint64_t a1, const void **a2)
+uint64_t TPropertyValue::SetAs<TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>>(uint64_t a1, CFTypeRef *a2)
 {
   v2 = *(a1 + 16);
   switch(v2)
@@ -6377,7 +5915,7 @@ LABEL_9:
   }
 }
 
-uint64_t TPropertyValue::SetAs<TRef<__CFArray const*,TRetainReleasePolicy<__CFArray const*>>>(uint64_t a1, const void **a2)
+uint64_t TPropertyValue::SetAs<TRef<__CFArray const*,TRetainReleasePolicy<__CFArray const*>>>(uint64_t a1, CFTypeRef *a2)
 {
   v2 = *(a1 + 16);
   switch(v2)
@@ -6548,7 +6086,7 @@ LABEL_29:
   }
 }
 
-uint64_t TPropertyValue::SetAs<TRef<__CFFileSecurity *,TRetainReleasePolicy<__CFFileSecurity *>>>(uint64_t a1, const void **a2)
+uint64_t TPropertyValue::SetAs<TRef<__CFFileSecurity *,TRetainReleasePolicy<__CFFileSecurity *>>>(uint64_t a1, CFTypeRef *a2)
 {
   v2 = *(a1 + 16);
   switch(v2)
@@ -7493,32 +7031,27 @@ LABEL_52:
 
 uint64_t TPropertyValue::CopyBlob(TPropertyValue *this, const Blob *a2)
 {
-  v5[4] = *MEMORY[0x1E69E9840];
-  if (this->fData.__impl_.__index == 9)
+  v4[4] = *MEMORY[0x1E69E9840];
+  if (this->fData.__impl_.__index != 9)
   {
-    if (this->fData.__impl_.__index != 9)
-    {
-      std::__throw_bad_variant_access[abi:ne200100]();
-    }
-
-    v5[0] = &unk_1F5F3DA10;
-    v5[3] = v5;
-    v2 = CopyBlob(a2, this, v5);
-    std::__function::__value_func<void ()(Blob &,unsigned int)>::~__value_func[abi:ne200100](v5);
+    return 4294959224;
   }
 
-  else
+  if (this->fData.__impl_.__index != 9)
   {
-    v2 = 4294959224;
+    std::__throw_bad_variant_access[abi:ne200100]();
   }
 
-  v3 = *MEMORY[0x1E69E9840];
+  v4[0] = &unk_1F5F3DA10;
+  v4[3] = v4;
+  v2 = CopyBlob(a2, this, v4);
+  std::__function::__value_func<void ()(Blob &,unsigned int)>::~__value_func[abi:ne200100](v4);
   return v2;
 }
 
-void sub_1E56E9664(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E56E9664(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(Blob &,unsigned int)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -7771,8 +7304,8 @@ void PropertyToString(int a1@<W0>, TString *a2@<X8>)
             {
               if (a1 == 1970495843)
               {
-                OSTypeAsString(0x75736163u, &v3);
-                Format<std::string>("prUserAccess (%s)", &v3, &__p);
+                OSTypeAsString(&v3, 0x75736163u);
+                Format<std::string>(&__p, "prUserAccess (%s)", &v3);
                 TString::TString(a2, &__p);
                 if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
                 {
@@ -7782,8 +7315,8 @@ void PropertyToString(int a1@<W0>, TString *a2@<X8>)
 
               else
               {
-                OSTypeAsString(0x75736772u, &v3);
-                Format<std::string>("prUserGroups (%s)", &v3, &__p);
+                OSTypeAsString(&v3, 0x75736772u);
+                Format<std::string>(&__p, "prUserGroups (%s)", &v3);
                 TString::TString(a2, &__p);
                 if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
                 {
@@ -7796,14 +7329,14 @@ void PropertyToString(int a1@<W0>, TString *a2@<X8>)
 
             if (a1 == 1969646708)
             {
-              OSTypeAsString(0x75666C74u, &v3);
-              Format<std::string>("prIsUbiquityFault (%s)", &v3, &__p);
+              OSTypeAsString(&v3, 0x75666C74u);
+              Format<std::string>(&__p, "prIsUbiquityFault (%s)", &v3);
             }
 
             else
             {
-              OSTypeAsString(0x756E6C6Bu, &v3);
-              Format<std::string>("prIsNoUnlink (%s)", &v3, &__p);
+              OSTypeAsString(&v3, 0x756E6C6Bu);
+              Format<std::string>(&__p, "prIsNoUnlink (%s)", &v3);
             }
           }
 
@@ -7813,8 +7346,8 @@ void PropertyToString(int a1@<W0>, TString *a2@<X8>)
             {
               if (a1 == 1969385844)
               {
-                OSTypeAsString(0x75627174u, &v3);
-                Format<std::string>("prUbiquityStatus (%s)", &v3, &__p);
+                OSTypeAsString(&v3, 0x75627174u);
+                Format<std::string>(&__p, "prUbiquityStatus (%s)", &v3);
                 TString::TString(a2, &__p);
                 if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
                 {
@@ -7824,8 +7357,8 @@ void PropertyToString(int a1@<W0>, TString *a2@<X8>)
 
               else
               {
-                OSTypeAsString(0x75627462u, &v3);
-                Format<std::string>("prUbiquityTransferredBytes (%s)", &v3, &__p);
+                OSTypeAsString(&v3, 0x75627462u);
+                Format<std::string>(&__p, "prUbiquityTransferredBytes (%s)", &v3);
                 TString::TString(a2, &__p);
                 if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
                 {
@@ -7838,14 +7371,14 @@ void PropertyToString(int a1@<W0>, TString *a2@<X8>)
 
             if (a1 == 1952740195)
             {
-              OSTypeAsString(0x74647363u, &v3);
-              Format<std::string>("prTagIsDiscovered (%s)", &v3, &__p);
+              OSTypeAsString(&v3, 0x74647363u);
+              Format<std::string>(&__p, "prTagIsDiscovered (%s)", &v3);
             }
 
             else
             {
-              OSTypeAsString(0x74736272u, &v3);
-              Format<std::string>("prTagShowsInSidebar (%s)", &v3, &__p);
+              OSTypeAsString(&v3, 0x74736272u);
+              Format<std::string>(&__p, "prTagShowsInSidebar (%s)", &v3);
             }
           }
         }
@@ -7858,8 +7391,8 @@ void PropertyToString(int a1@<W0>, TString *a2@<X8>)
             {
               if (a1 == 1986359923)
               {
-                OSTypeAsString(0x76657273u, &v3);
-                Format<std::string>("prLongVersion (%s)", &v3, &__p);
+                OSTypeAsString(&v3, 0x76657273u);
+                Format<std::string>(&__p, "prLongVersion (%s)", &v3);
                 TString::TString(a2, &__p);
                 if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
                 {
@@ -7869,8 +7402,8 @@ void PropertyToString(int a1@<W0>, TString *a2@<X8>)
 
               else
               {
-                OSTypeAsString(0x76666D74u, &v3);
-                Format<std::string>("prVolumeFormat (%s)", &v3, &__p);
+                OSTypeAsString(&v3, 0x76666D74u);
+                Format<std::string>(&__p, "prVolumeFormat (%s)", &v3);
                 TString::TString(a2, &__p);
                 if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
                 {
@@ -7883,8 +7416,8 @@ void PropertyToString(int a1@<W0>, TString *a2@<X8>)
 
             if (a1 == 1970563428)
             {
-              OSTypeAsString(0x75746964u, &v3);
-              Format<std::string>("prTypeIdentifier (%s)", &v3, &__p);
+              OSTypeAsString(&v3, 0x75746964u);
+              Format<std::string>(&__p, "prTypeIdentifier (%s)", &v3);
               TString::TString(a2, &__p);
               if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
               {
@@ -7894,8 +7427,8 @@ void PropertyToString(int a1@<W0>, TString *a2@<X8>)
               goto LABEL_349;
             }
 
-            OSTypeAsString(0x75747470u, &v3);
-            Format<std::string>("prUTType (%s)", &v3, &__p);
+            OSTypeAsString(&v3, 0x75747470u);
+            Format<std::string>(&__p, "prUTType (%s)", &v3);
             TString::TString(a2, &__p);
             goto LABEL_346;
           }
@@ -7904,8 +7437,8 @@ void PropertyToString(int a1@<W0>, TString *a2@<X8>)
           {
             if (a1 == 1987273324)
             {
-              OSTypeAsString(0x7673626Cu, &v3);
-              Format<std::string>("prIsVisible (%s)", &v3, &__p);
+              OSTypeAsString(&v3, 0x7673626Cu);
+              Format<std::string>(&__p, "prIsVisible (%s)", &v3);
               TString::TString(a2, &__p);
               if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
               {
@@ -7917,8 +7450,8 @@ void PropertyToString(int a1@<W0>, TString *a2@<X8>)
 
             if (a1 == 1987277938)
             {
-              OSTypeAsString(0x76737472u, &v3);
-              Format<std::string>("prVolumeFormatString (%s)", &v3, &__p);
+              OSTypeAsString(&v3, 0x76737472u);
+              Format<std::string>(&__p, "prVolumeFormatString (%s)", &v3);
               TString::TString(a2, &__p);
               if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
               {
@@ -7928,22 +7461,22 @@ void PropertyToString(int a1@<W0>, TString *a2@<X8>)
               goto LABEL_349;
             }
 
-            OSTypeAsString(0x76756964u, &v3);
-            Format<std::string>("prVolumeUUID (%s)", &v3, &__p);
+            OSTypeAsString(&v3, 0x76756964u);
+            Format<std::string>(&__p, "prVolumeUUID (%s)", &v3);
             TString::TString(a2, &__p);
             goto LABEL_346;
           }
 
           if (a1 == 1986622275)
           {
-            OSTypeAsString(0x76697343u, &v3);
-            Format<std::string>("prIsVisibleContainer (%s)", &v3, &__p);
+            OSTypeAsString(&v3, 0x76697343u);
+            Format<std::string>(&__p, "prIsVisibleContainer (%s)", &v3);
           }
 
           else
           {
-            OSTypeAsString(0x766F6C6Du, &v3);
-            Format<std::string>("prIsVolume (%s)", &v3, &__p);
+            OSTypeAsString(&v3, 0x766F6C6Du);
+            Format<std::string>(&__p, "prIsVolume (%s)", &v3);
           }
         }
 
@@ -7958,8 +7491,8 @@ void PropertyToString(int a1@<W0>, TString *a2@<X8>)
           {
             if (a1 == 1936221804)
             {
-              OSTypeAsString(0x7368666Cu, &v3);
-              Format<std::string>("prIsPublishedFolder (%s)", &v3, &__p);
+              OSTypeAsString(&v3, 0x7368666Cu);
+              Format<std::string>(&__p, "prIsPublishedFolder (%s)", &v3);
               TString::TString(a2, &__p);
               if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
               {
@@ -7969,22 +7502,22 @@ void PropertyToString(int a1@<W0>, TString *a2@<X8>)
               goto LABEL_349;
             }
 
-            OSTypeAsString(0x73687470u, &v3);
-            Format<std::string>("prIsTopLevelSharedItem (%s)", &v3, &__p);
+            OSTypeAsString(&v3, 0x73687470u);
+            Format<std::string>(&__p, "prIsTopLevelSharedItem (%s)", &v3);
             TString::TString(a2, &__p);
             goto LABEL_346;
           }
 
           if (a1 == 1935829347)
           {
-            OSTypeAsString(0x73626963u, &v3);
-            Format<std::string>("prSidebarIconRef (%s)", &v3, &__p);
+            OSTypeAsString(&v3, 0x73626963u);
+            Format<std::string>(&__p, "prSidebarIconRef (%s)", &v3);
           }
 
           else
           {
-            OSTypeAsString(0x73626978u, &v3);
-            Format<std::string>("prSidebarIndex (%s)", &v3, &__p);
+            OSTypeAsString(&v3, 0x73626978u);
+            Format<std::string>(&__p, "prSidebarIndex (%s)", &v3);
           }
         }
 
@@ -7994,8 +7527,8 @@ void PropertyToString(int a1@<W0>, TString *a2@<X8>)
           {
             if (a1 == 1919251315)
             {
-              OSTypeAsString(0x72657373u, &v3);
-              Format<std::string>("prResourceForkLogicalSize (%s)", &v3, &__p);
+              OSTypeAsString(&v3, 0x72657373u);
+              Format<std::string>(&__p, "prResourceForkLogicalSize (%s)", &v3);
               TString::TString(a2, &__p);
               if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
               {
@@ -8005,22 +7538,22 @@ void PropertyToString(int a1@<W0>, TString *a2@<X8>)
               goto LABEL_349;
             }
 
-            OSTypeAsString(0x72727374u, &v3);
-            Format<std::string>("prRegionRestrictions (%s)", &v3, &__p);
+            OSTypeAsString(&v3, 0x72727374u);
+            Format<std::string>(&__p, "prRegionRestrictions (%s)", &v3);
             TString::TString(a2, &__p);
             goto LABEL_346;
           }
 
           if (a1 == 1920167267)
           {
-            OSTypeAsString(0x72736D63u, &v3);
-            Format<std::string>("prIsResumableCopyTarget (%s)", &v3, &__p);
+            OSTypeAsString(&v3, 0x72736D63u);
+            Format<std::string>(&__p, "prIsResumableCopyTarget (%s)", &v3);
           }
 
           else
           {
-            OSTypeAsString(0x72736F70u, &v3);
-            Format<std::string>("prResolveOptions (%s)", &v3, &__p);
+            OSTypeAsString(&v3, 0x72736F70u);
+            Format<std::string>(&__p, "prResolveOptions (%s)", &v3);
           }
         }
 
@@ -8033,8 +7566,8 @@ void PropertyToString(int a1@<W0>, TString *a2@<X8>)
         {
           if (a1 != 1936484460)
           {
-            OSTypeAsString(0x73746772u, &v3);
-            Format<std::string>("prSortingGroup (%s)", &v3, &__p);
+            OSTypeAsString(&v3, 0x73746772u);
+            Format<std::string>(&__p, "prSortingGroup (%s)", &v3);
             TString::TString(a2, &__p);
             if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
             {
@@ -8044,8 +7577,8 @@ void PropertyToString(int a1@<W0>, TString *a2@<X8>)
             goto LABEL_349;
           }
 
-          OSTypeAsString(0x736C686Cu, &v3);
-          Format<std::string>("prSLHighlight (%s)", &v3, &__p);
+          OSTypeAsString(&v3, 0x736C686Cu);
+          Format<std::string>(&__p, "prSLHighlight (%s)", &v3);
           TString::TString(a2, &__p);
         }
 
@@ -8053,8 +7586,8 @@ void PropertyToString(int a1@<W0>, TString *a2@<X8>)
         {
           if (a1 == 1936225906)
           {
-            OSTypeAsString(0x73687672u, &v3);
-            Format<std::string>("prShortVersion (%s)", &v3, &__p);
+            OSTypeAsString(&v3, 0x73687672u);
+            Format<std::string>(&__p, "prShortVersion (%s)", &v3);
             TString::TString(a2, &__p);
             if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
             {
@@ -8064,8 +7597,8 @@ void PropertyToString(int a1@<W0>, TString *a2@<X8>)
             goto LABEL_349;
           }
 
-          OSTypeAsString(0x736C6869u, &v3);
-          Format<std::string>("prSLHighlightID (%s)", &v3, &__p);
+          OSTypeAsString(&v3, 0x736C6869u);
+          Format<std::string>(&__p, "prSLHighlightID (%s)", &v3);
           TString::TString(a2, &__p);
         }
       }
@@ -8076,8 +7609,8 @@ void PropertyToString(int a1@<W0>, TString *a2@<X8>)
         {
           if (a1 == 1937143150)
           {
-            OSTypeAsString(0x7376756Eu, &v3);
-            Format<std::string>("prServerUserName (%s)", &v3, &__p);
+            OSTypeAsString(&v3, 0x7376756Eu);
+            Format<std::string>(&__p, "prServerUserName (%s)", &v3);
             TString::TString(a2, &__p);
             if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
             {
@@ -8087,8 +7620,8 @@ void PropertyToString(int a1@<W0>, TString *a2@<X8>)
 
           else
           {
-            OSTypeAsString(0x73796276u, &v3);
-            Format<std::string>("prSystemBuildVersion (%s)", &v3, &__p);
+            OSTypeAsString(&v3, 0x73796276u);
+            Format<std::string>(&__p, "prSystemBuildVersion (%s)", &v3);
             TString::TString(a2, &__p);
             if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
             {
@@ -8101,8 +7634,8 @@ void PropertyToString(int a1@<W0>, TString *a2@<X8>)
 
         if (a1 == 1937339250)
         {
-          OSTypeAsString(0x73797372u, &v3);
-          Format<std::string>("prIsSystemRestricted (%s)", &v3, &__p);
+          OSTypeAsString(&v3, 0x73797372u);
+          Format<std::string>(&__p, "prIsSystemRestricted (%s)", &v3);
           TString::TString(a2, &__p);
         }
 
@@ -8110,8 +7643,8 @@ void PropertyToString(int a1@<W0>, TString *a2@<X8>)
         {
           if (a1 == 1937340018)
           {
-            OSTypeAsString(0x73797672u, &v3);
-            Format<std::string>("prSystemVersion (%s)", &v3, &__p);
+            OSTypeAsString(&v3, 0x73797672u);
+            Format<std::string>(&__p, "prSystemVersion (%s)", &v3);
             TString::TString(a2, &__p);
             if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
             {
@@ -8121,8 +7654,8 @@ void PropertyToString(int a1@<W0>, TString *a2@<X8>)
             goto LABEL_349;
           }
 
-          OSTypeAsString(0x74636E74u, &v3);
-          Format<std::string>("prTagInstancesCount (%s)", &v3, &__p);
+          OSTypeAsString(&v3, 0x74636E74u);
+          Format<std::string>(&__p, "prTagInstancesCount (%s)", &v3);
           TString::TString(a2, &__p);
         }
       }
@@ -8140,8 +7673,8 @@ void PropertyToString(int a1@<W0>, TString *a2@<X8>)
             {
               if (a1 == 1886540643)
               {
-                OSTypeAsString(0x70725363u, &v3);
-                Format<std::string>("prSecurityRef (%s)", &v3, &__p);
+                OSTypeAsString(&v3, 0x70725363u);
+                Format<std::string>(&__p, "prSecurityRef (%s)", &v3);
                 TString::TString(a2, &__p);
                 if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
                 {
@@ -8151,8 +7684,8 @@ void PropertyToString(int a1@<W0>, TString *a2@<X8>)
 
               else
               {
-                OSTypeAsString(0x70727673u, &v3);
-                Format<std::string>("prPermissions (%s)", &v3, &__p);
+                OSTypeAsString(&v3, 0x70727673u);
+                Format<std::string>(&__p, "prPermissions (%s)", &v3);
                 TString::TString(a2, &__p);
                 if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
                 {
@@ -8163,8 +7696,8 @@ void PropertyToString(int a1@<W0>, TString *a2@<X8>)
 
             else if (a1 == 1885895027)
             {
-              OSTypeAsString(0x70687973u, &v3);
-              Format<std::string>("prPhysicalSize (%s)", &v3, &__p);
+              OSTypeAsString(&v3, 0x70687973u);
+              Format<std::string>(&__p, "prPhysicalSize (%s)", &v3);
               TString::TString(a2, &__p);
               if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
               {
@@ -8174,8 +7707,8 @@ void PropertyToString(int a1@<W0>, TString *a2@<X8>)
 
             else
             {
-              OSTypeAsString(0x706E616Du, &v3);
-              Format<std::string>("prName (%s)", &v3, &__p);
+              OSTypeAsString(&v3, 0x706E616Du);
+              Format<std::string>(&__p, "prName (%s)", &v3);
               TString::TString(a2, &__p);
               if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
               {
@@ -8190,8 +7723,8 @@ void PropertyToString(int a1@<W0>, TString *a2@<X8>)
           {
             if (a1 == 1886613604)
             {
-              OSTypeAsString(0x70737064u, &v3);
-              Format<std::string>("prIsStationery (%s)", &v3, &__p);
+              OSTypeAsString(&v3, 0x70737064u);
+              Format<std::string>(&__p, "prIsStationery (%s)", &v3);
               TString::TString(a2, &__p);
               if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
               {
@@ -8201,8 +7734,8 @@ void PropertyToString(int a1@<W0>, TString *a2@<X8>)
               goto LABEL_349;
             }
 
-            OSTypeAsString(0x7074624Cu, &v3);
-            Format<std::string>("prTrashItemOriginalLocation (%s)", &v3, &__p);
+            OSTypeAsString(&v3, 0x7074624Cu);
+            Format<std::string>(&__p, "prTrashItemOriginalLocation (%s)", &v3);
             TString::TString(a2, &__p);
           }
 
@@ -8212,8 +7745,8 @@ void PropertyToString(int a1@<W0>, TString *a2@<X8>)
             {
               if (a1 == 1919250547)
               {
-                OSTypeAsString(0x72657073u, &v3);
-                Format<std::string>("prResourceForkPhysicalSize (%s)", &v3, &__p);
+                OSTypeAsString(&v3, 0x72657073u);
+                Format<std::string>(&__p, "prResourceForkPhysicalSize (%s)", &v3);
                 TString::TString(a2, &__p);
                 if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
                 {
@@ -8223,8 +7756,8 @@ void PropertyToString(int a1@<W0>, TString *a2@<X8>)
 
               else
               {
-                OSTypeAsString(0x72657370u, &v3);
-                Format<std::string>("prReclaimableSpace (%s)", &v3, &__p);
+                OSTypeAsString(&v3, 0x72657370u);
+                Format<std::string>(&__p, "prReclaimableSpace (%s)", &v3);
                 TString::TString(a2, &__p);
                 if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
                 {
@@ -8235,8 +7768,8 @@ void PropertyToString(int a1@<W0>, TString *a2@<X8>)
               goto LABEL_349;
             }
 
-            OSTypeAsString(0x7074624Eu, &v3);
-            Format<std::string>("prTrashItemOriginalName (%s)", &v3, &__p);
+            OSTypeAsString(&v3, 0x7074624Eu);
+            Format<std::string>(&__p, "prTrashItemOriginalName (%s)", &v3);
             TString::TString(a2, &__p);
           }
 
@@ -8249,8 +7782,8 @@ void PropertyToString(int a1@<W0>, TString *a2@<X8>)
           {
             if (a1 == 1870098034)
             {
-              OSTypeAsString(0x6F776E72u, &v3);
-              Format<std::string>("prOwner (%s)", &v3, &__p);
+              OSTypeAsString(&v3, 0x6F776E72u);
+              Format<std::string>(&__p, "prOwner (%s)", &v3);
               TString::TString(a2, &__p);
               if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
               {
@@ -8260,8 +7793,8 @@ void PropertyToString(int a1@<W0>, TString *a2@<X8>)
 
             else
             {
-              OSTypeAsString(0x70416464u, &v3);
-              Format<std::string>("prDateAdded (%s)", &v3, &__p);
+              OSTypeAsString(&v3, 0x70416464u);
+              Format<std::string>(&__p, "prDateAdded (%s)", &v3);
               TString::TString(a2, &__p);
               if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
               {
@@ -8274,8 +7807,8 @@ void PropertyToString(int a1@<W0>, TString *a2@<X8>)
 
           if (a1 != 1883665005)
           {
-            OSTypeAsString(0x70617468u, &v3);
-            Format<std::string>("prPath (%s)", &v3, &__p);
+            OSTypeAsString(&v3, 0x70617468u);
+            Format<std::string>(&__p, "prPath (%s)", &v3);
             TString::TString(a2, &__p);
             if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
             {
@@ -8285,8 +7818,8 @@ void PropertyToString(int a1@<W0>, TString *a2@<X8>)
             goto LABEL_349;
           }
 
-          OSTypeAsString(0x7046726Du, &v3);
-          Format<std::string>("prIsFullyFormed (%s)", &v3, &__p);
+          OSTypeAsString(&v3, 0x7046726Du);
+          Format<std::string>(&__p, "prIsFullyFormed (%s)", &v3);
           TString::TString(a2, &__p);
           goto LABEL_346;
         }
@@ -8295,27 +7828,27 @@ void PropertyToString(int a1@<W0>, TString *a2@<X8>)
         {
           if (a1 == 1885876563)
           {
-            OSTypeAsString(0x70683153u, &v3);
-            Format<std::string>("prCachedPhysicalSize (%s)", &v3, &__p);
+            OSTypeAsString(&v3, 0x70683153u);
+            Format<std::string>(&__p, "prCachedPhysicalSize (%s)", &v3);
           }
 
           else
           {
-            OSTypeAsString(0x70687953u, &v3);
-            Format<std::string>("prObsoleteCachedPhysicalSize (%s)", &v3, &__p);
+            OSTypeAsString(&v3, 0x70687953u);
+            Format<std::string>(&__p, "prObsoleteCachedPhysicalSize (%s)", &v3);
           }
         }
 
         else if (a1 == 1885626995)
         {
-          OSTypeAsString(0x70646273u, &v3);
-          Format<std::string>("prIsDeviceBusy (%s)", &v3, &__p);
+          OSTypeAsString(&v3, 0x70646273u);
+          Format<std::string>(&__p, "prIsDeviceBusy (%s)", &v3);
         }
 
         else
         {
-          OSTypeAsString(0x7064636Cu, &v3);
-          Format<std::string>("prIsDeviceOperationCancellable (%s)", &v3, &__p);
+          OSTypeAsString(&v3, 0x7064636Cu);
+          Format<std::string>(&__p, "prIsDeviceOperationCancellable (%s)", &v3);
         }
 
         goto LABEL_235;
@@ -8329,8 +7862,8 @@ void PropertyToString(int a1@<W0>, TString *a2@<X8>)
           {
             if (a1 != 1819503973)
             {
-              OSTypeAsString(0x6C756474u, &v3);
-              Format<std::string>("prLastUsedDate (%s)", &v3, &__p);
+              OSTypeAsString(&v3, 0x6C756474u);
+              Format<std::string>(&__p, "prLastUsedDate (%s)", &v3);
               TString::TString(a2, &__p);
               if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
               {
@@ -8340,8 +7873,8 @@ void PropertyToString(int a1@<W0>, TString *a2@<X8>)
               goto LABEL_349;
             }
 
-            OSTypeAsString(0x6C736D65u, &v3);
-            Format<std::string>("prICloudLastChangedByMe (%s)", &v3, &__p);
+            OSTypeAsString(&v3, 0x6C736D65u);
+            Format<std::string>(&__p, "prICloudLastChangedByMe (%s)", &v3);
             TString::TString(a2, &__p);
           }
 
@@ -8349,8 +7882,8 @@ void PropertyToString(int a1@<W0>, TString *a2@<X8>)
           {
             if (a1 == 1819243362)
             {
-              OSTypeAsString(0x6C6F7362u, &v3);
-              Format<std::string>("prLockedInSidebar (%s)", &v3, &__p);
+              OSTypeAsString(&v3, 0x6C6F7362u);
+              Format<std::string>(&__p, "prLockedInSidebar (%s)", &v3);
               TString::TString(a2, &__p);
               if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
               {
@@ -8360,8 +7893,8 @@ void PropertyToString(int a1@<W0>, TString *a2@<X8>)
               goto LABEL_349;
             }
 
-            OSTypeAsString(0x6C736564u, &v3);
-            Format<std::string>("prICloudLastShareEditor (%s)", &v3, &__p);
+            OSTypeAsString(&v3, 0x6C736564u);
+            Format<std::string>(&__p, "prICloudLastShareEditor (%s)", &v3);
             TString::TString(a2, &__p);
           }
 
@@ -8372,8 +7905,8 @@ void PropertyToString(int a1@<W0>, TString *a2@<X8>)
         {
           if (a1 == 1835291497)
           {
-            OSTypeAsString(0x6D645369u, &v3);
-            Format<std::string>("prMDSortIdentifier (%s)", &v3, &__p);
+            OSTypeAsString(&v3, 0x6D645369u);
+            Format<std::string>(&__p, "prMDSortIdentifier (%s)", &v3);
             TString::TString(a2, &__p);
             if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
             {
@@ -8383,22 +7916,22 @@ void PropertyToString(int a1@<W0>, TString *a2@<X8>)
             goto LABEL_349;
           }
 
-          OSTypeAsString(0x6D646174u, &v3);
-          Format<std::string>("prMDAttributes (%s)", &v3, &__p);
+          OSTypeAsString(&v3, 0x6D646174u);
+          Format<std::string>(&__p, "prMDAttributes (%s)", &v3);
           TString::TString(a2, &__p);
           goto LABEL_346;
         }
 
         if (a1 == 1836008516)
         {
-          OSTypeAsString(0x6D6F4444u, &v3);
-          Format<std::string>("prCachedLogicalTimeStamp (%s)", &v3, &__p);
+          OSTypeAsString(&v3, 0x6D6F4444u);
+          Format<std::string>(&__p, "prCachedLogicalTimeStamp (%s)", &v3);
         }
 
         else
         {
-          OSTypeAsString(0x6D6F6444u, &v3);
-          Format<std::string>("prCachedPhysicalTimeStamp (%s)", &v3, &__p);
+          OSTypeAsString(&v3, 0x6D6F6444u);
+          Format<std::string>(&__p, "prCachedPhysicalTimeStamp (%s)", &v3);
         }
 
         goto LABEL_235;
@@ -8410,8 +7943,8 @@ void PropertyToString(int a1@<W0>, TString *a2@<X8>)
         {
           if (a1 == 1853121395)
           {
-            OSTypeAsString(0x6E746373u, &v3);
-            Format<std::string>("prNetworkConnectionState (%s)", &v3, &__p);
+            OSTypeAsString(&v3, 0x6E746373u);
+            Format<std::string>(&__p, "prNetworkConnectionState (%s)", &v3);
             TString::TString(a2, &__p);
             if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
             {
@@ -8421,8 +7954,8 @@ void PropertyToString(int a1@<W0>, TString *a2@<X8>)
 
           else
           {
-            OSTypeAsString(0x6E776374u, &v3);
-            Format<std::string>("prNetworkComment (%s)", &v3, &__p);
+            OSTypeAsString(&v3, 0x6E776374u);
+            Format<std::string>(&__p, "prNetworkComment (%s)", &v3);
             TString::TString(a2, &__p);
             if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
             {
@@ -8433,8 +7966,8 @@ void PropertyToString(int a1@<W0>, TString *a2@<X8>)
 
         else if (a1 == 1836016740)
         {
-          OSTypeAsString(0x6D6F6464u, &v3);
-          Format<std::string>("prModificationDate (%s)", &v3, &__p);
+          OSTypeAsString(&v3, 0x6D6F6464u);
+          Format<std::string>(&__p, "prModificationDate (%s)", &v3);
           TString::TString(a2, &__p);
           if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
           {
@@ -8444,8 +7977,8 @@ void PropertyToString(int a1@<W0>, TString *a2@<X8>)
 
         else
         {
-          OSTypeAsString(0x6D737270u, &v3);
-          Format<std::string>("prIsMountedSharepoint (%s)", &v3, &__p);
+          OSTypeAsString(&v3, 0x6D737270u);
+          Format<std::string>(&__p, "prIsMountedSharepoint (%s)", &v3);
           TString::TString(a2, &__p);
           if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
           {
@@ -8460,8 +7993,8 @@ void PropertyToString(int a1@<W0>, TString *a2@<X8>)
       {
         if (a1 != 1868720740)
         {
-          OSTypeAsString(0x6F6C696Fu, &v3);
-          Format<std::string>("prOldIconOrigin (%s)", &v3, &__p);
+          OSTypeAsString(&v3, 0x6F6C696Fu);
+          Format<std::string>(&__p, "prOldIconOrigin (%s)", &v3);
           TString::TString(a2, &__p);
           if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
           {
@@ -8471,8 +8004,8 @@ void PropertyToString(int a1@<W0>, TString *a2@<X8>)
           goto LABEL_349;
         }
 
-        OSTypeAsString(0x6F626A64u, &v3);
-        Format<std::string>("prObjectIdentifier (%s)", &v3, &__p);
+        OSTypeAsString(&v3, 0x6F626A64u);
+        Format<std::string>(&__p, "prObjectIdentifier (%s)", &v3);
         TString::TString(a2, &__p);
       }
 
@@ -8480,8 +8013,8 @@ void PropertyToString(int a1@<W0>, TString *a2@<X8>)
       {
         if (a1 == 1869377379)
         {
-          OSTypeAsString(0x6F6C6F63u, &v3);
-          Format<std::string>("prOldLocation (%s)", &v3, &__p);
+          OSTypeAsString(&v3, 0x6F6C6F63u);
+          Format<std::string>(&__p, "prOldLocation (%s)", &v3);
           TString::TString(a2, &__p);
           if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
           {
@@ -8493,8 +8026,8 @@ void PropertyToString(int a1@<W0>, TString *a2@<X8>)
 
         if (a1 == 1869379187)
         {
-          OSTypeAsString(0x6F6C7673u, &v3);
-          Format<std::string>("prOldViewStyle (%s)", &v3, &__p);
+          OSTypeAsString(&v3, 0x6F6C7673u);
+          Format<std::string>(&__p, "prOldViewStyle (%s)", &v3);
           TString::TString(a2, &__p);
           if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
           {
@@ -8504,8 +8037,8 @@ void PropertyToString(int a1@<W0>, TString *a2@<X8>)
           goto LABEL_349;
         }
 
-        OSTypeAsString(0x6F726967u, &v3);
-        Format<std::string>("prOriginatorInfo (%s)", &v3, &__p);
+        OSTypeAsString(&v3, 0x6F726967u);
+        Format<std::string>(&__p, "prOriginatorInfo (%s)", &v3);
         TString::TString(a2, &__p);
       }
     }
@@ -8531,8 +8064,8 @@ LABEL_346:
           {
             if (a1 == 1769370466)
             {
-              OSTypeAsString(0x69767362u, &v3);
-              Format<std::string>("prHideInFinderSidebar (%s)", &v3, &__p);
+              OSTypeAsString(&v3, 0x69767362u);
+              Format<std::string>(&__p, "prHideInFinderSidebar (%s)", &v3);
               TString::TString(a2, &__p);
               if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
               {
@@ -8542,8 +8075,8 @@ LABEL_346:
 
             else
             {
-              OSTypeAsString(0x6B696E64u, &v3);
-              Format<std::string>("prKind (%s)", &v3, &__p);
+              OSTypeAsString(&v3, 0x6B696E64u);
+              Format<std::string>(&__p, "prKind (%s)", &v3);
               TString::TString(a2, &__p);
               if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
               {
@@ -8554,8 +8087,8 @@ LABEL_346:
 
           else if (a1 == 1769173099)
           {
-            OSTypeAsString(0x6973706Bu, &v3);
-            Format<std::string>("prIsPackage (%s)", &v3, &__p);
+            OSTypeAsString(&v3, 0x6973706Bu);
+            Format<std::string>(&__p, "prIsPackage (%s)", &v3);
             TString::TString(a2, &__p);
             if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
             {
@@ -8565,8 +8098,8 @@ LABEL_346:
 
           else
           {
-            OSTypeAsString(0x69737373u, &v3);
-            Format<std::string>("prIsScreenShare (%s)", &v3, &__p);
+            OSTypeAsString(&v3, 0x69737373u);
+            Format<std::string>(&__p, "prIsScreenShare (%s)", &v3);
             TString::TString(a2, &__p);
             if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
             {
@@ -8581,8 +8114,8 @@ LABEL_346:
         {
           if (a1 == 1802072172)
           {
-            OSTypeAsString(0x6B69706Cu, &v3);
-            Format<std::string>("prKindWithoutPlatform (%s)", &v3, &__p);
+            OSTypeAsString(&v3, 0x6B69706Cu);
+            Format<std::string>(&__p, "prKindWithoutPlatform (%s)", &v3);
             TString::TString(a2, &__p);
             if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
             {
@@ -8592,8 +8125,8 @@ LABEL_346:
 
           else
           {
-            OSTypeAsString(0x6C61626Cu, &v3);
-            Format<std::string>("prLabel (%s)", &v3, &__p);
+            OSTypeAsString(&v3, 0x6C61626Cu);
+            Format<std::string>(&__p, "prLabel (%s)", &v3);
             TString::TString(a2, &__p);
             if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
             {
@@ -8606,8 +8139,8 @@ LABEL_346:
 
         if (a1 == 1818702163)
         {
-          OSTypeAsString(0x6C673153u, &v3);
-          Format<std::string>("prCachedLogicalSize (%s)", &v3, &__p);
+          OSTypeAsString(&v3, 0x6C673153u);
+          Format<std::string>(&__p, "prCachedLogicalSize (%s)", &v3);
           TString::TString(a2, &__p);
         }
 
@@ -8615,8 +8148,8 @@ LABEL_346:
         {
           if (a1 != 1819240275)
           {
-            OSTypeAsString(0x6C6F6773u, &v3);
-            Format<std::string>("prLogicalSize (%s)", &v3, &__p);
+            OSTypeAsString(&v3, 0x6C6F6773u);
+            Format<std::string>(&__p, "prLogicalSize (%s)", &v3);
             TString::TString(a2, &__p);
             if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
             {
@@ -8626,8 +8159,8 @@ LABEL_346:
             goto LABEL_349;
           }
 
-          OSTypeAsString(0x6C6F6753u, &v3);
-          Format<std::string>("prObsoleteCachedLogicalSize (%s)", &v3, &__p);
+          OSTypeAsString(&v3, 0x6C6F6753u);
+          Format<std::string>(&__p, "prObsoleteCachedLogicalSize (%s)", &v3);
           TString::TString(a2, &__p);
         }
 
@@ -8640,8 +8173,8 @@ LABEL_346:
         {
           if (a1 == 1769170540)
           {
-            OSTypeAsString(0x6973666Cu, &v3);
-            Format<std::string>("prIsFolder (%s)", &v3, &__p);
+            OSTypeAsString(&v3, 0x6973666Cu);
+            Format<std::string>(&__p, "prIsFolder (%s)", &v3);
             TString::TString(a2, &__p);
             if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
             {
@@ -8651,8 +8184,8 @@ LABEL_346:
 
           else
           {
-            OSTypeAsString(0x69736673u, &v3);
-            Format<std::string>("prIsFileShare (%s)", &v3, &__p);
+            OSTypeAsString(&v3, 0x69736673u);
+            Format<std::string>(&__p, "prIsFileShare (%s)", &v3);
             TString::TString(a2, &__p);
             if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
             {
@@ -8663,8 +8196,8 @@ LABEL_346:
 
         else if (a1 == 1769169260)
         {
-          OSTypeAsString(0x6973616Cu, &v3);
-          Format<std::string>("prIsAlias (%s)", &v3, &__p);
+          OSTypeAsString(&v3, 0x6973616Cu);
+          Format<std::string>(&__p, "prIsAlias (%s)", &v3);
           TString::TString(a2, &__p);
           if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
           {
@@ -8674,8 +8207,8 @@ LABEL_346:
 
         else
         {
-          OSTypeAsString(0x69736170u, &v3);
-          Format<std::string>("prIsApplication (%s)", &v3, &__p);
+          OSTypeAsString(&v3, 0x69736170u);
+          Format<std::string>(&__p, "prIsApplication (%s)", &v3);
           TString::TString(a2, &__p);
           if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
           {
@@ -8690,8 +8223,8 @@ LABEL_346:
       {
         if (a1 == 1769171299)
         {
-          OSTypeAsString(0x69736963u, &v3);
-          Format<std::string>("prISIcon (%s)", &v3, &__p);
+          OSTypeAsString(&v3, 0x69736963u);
+          Format<std::string>(&__p, "prISIcon (%s)", &v3);
           TString::TString(a2, &__p);
           if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
           {
@@ -8701,22 +8234,22 @@ LABEL_346:
           goto LABEL_349;
         }
 
-        OSTypeAsString(0x69737067u, &v3);
-        Format<std::string>("prISIconPackage (%s)", &v3, &__p);
+        OSTypeAsString(&v3, 0x69737067u);
+        Format<std::string>(&__p, "prISIconPackage (%s)", &v3);
         TString::TString(a2, &__p);
         goto LABEL_346;
       }
 
       if (a1 == 1769171056)
       {
-        OSTypeAsString(0x69736870u, &v3);
-        Format<std::string>("prICloudSharePerson (%s)", &v3, &__p);
+        OSTypeAsString(&v3, 0x69736870u);
+        Format<std::string>(&__p, "prICloudSharePerson (%s)", &v3);
       }
 
       else
       {
-        OSTypeAsString(0x69736873u, &v3);
-        Format<std::string>("prICloudSharePersonString (%s)", &v3, &__p);
+        OSTypeAsString(&v3, 0x69736873u);
+        Format<std::string>(&__p, "prICloudSharePersonString (%s)", &v3);
       }
 
       goto LABEL_235;
@@ -8730,8 +8263,8 @@ LABEL_346:
         {
           if (a1 != 1718645604)
           {
-            OSTypeAsString(0x66727370u, &v3);
-            Format<std::string>("prFreeSpace (%s)", &v3, &__p);
+            OSTypeAsString(&v3, 0x66727370u);
+            Format<std::string>(&__p, "prFreeSpace (%s)", &v3);
             TString::TString(a2, &__p);
             if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
             {
@@ -8741,8 +8274,8 @@ LABEL_346:
             goto LABEL_349;
           }
 
-          OSTypeAsString(0x66707364u, &v3);
-          Format<std::string>("prIsFileProviderInSidebar (%s)", &v3, &__p);
+          OSTypeAsString(&v3, 0x66707364u);
+          Format<std::string>(&__p, "prIsFileProviderInSidebar (%s)", &v3);
           TString::TString(a2, &__p);
         }
 
@@ -8750,8 +8283,8 @@ LABEL_346:
         {
           if (a1 == 1717793396)
           {
-            OSTypeAsString(0x66637274u, &v3);
-            Format<std::string>("prCreator (%s)", &v3, &__p);
+            OSTypeAsString(&v3, 0x66637274u);
+            Format<std::string>(&__p, "prCreator (%s)", &v3);
             TString::TString(a2, &__p);
             if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
             {
@@ -8761,8 +8294,8 @@ LABEL_346:
             goto LABEL_349;
           }
 
-          OSTypeAsString(0x66706175u, &v3);
-          Format<std::string>("prFPAuthenticated (%s)", &v3, &__p);
+          OSTypeAsString(&v3, 0x66706175u);
+          Format<std::string>(&__p, "prFPAuthenticated (%s)", &v3);
           TString::TString(a2, &__p);
         }
 
@@ -8773,8 +8306,8 @@ LABEL_346:
       {
         if (a1 != 1735287668)
         {
-          OSTypeAsString(0x68657874u, &v3);
-          Format<std::string>("prIsExtensionHidden (%s)", &v3, &__p);
+          OSTypeAsString(&v3, 0x68657874u);
+          Format<std::string>(&__p, "prIsExtensionHidden (%s)", &v3);
           TString::TString(a2, &__p);
           if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
           {
@@ -8784,22 +8317,22 @@ LABEL_346:
           goto LABEL_349;
         }
 
-        OSTypeAsString(0x676E6374u, &v3);
-        Format<std::string>("prGenerationCount (%s)", &v3, &__p);
+        OSTypeAsString(&v3, 0x676E6374u);
+        Format<std::string>(&__p, "prGenerationCount (%s)", &v3);
         TString::TString(a2, &__p);
         goto LABEL_346;
       }
 
       if (a1 == 1718903156)
       {
-        OSTypeAsString(0x66746174u, &v3);
-        Format<std::string>("prFinderTagAndAttrs (%s)", &v3, &__p);
+        OSTypeAsString(&v3, 0x66746174u);
+        Format<std::string>(&__p, "prFinderTagAndAttrs (%s)", &v3);
       }
 
       else
       {
-        OSTypeAsString(0x6674676Cu, &v3);
-        Format<std::string>("prFinderTagAttrsLabel (%s)", &v3, &__p);
+        OSTypeAsString(&v3, 0x6674676Cu);
+        Format<std::string>(&__p, "prFinderTagAttrsLabel (%s)", &v3);
       }
 
       goto LABEL_235;
@@ -8811,8 +8344,8 @@ LABEL_346:
       {
         if (a1 == 1752392562)
         {
-          OSTypeAsString(0x68736372u, &v3);
-          Format<std::string>("prHasScriptingTerminology (%s)", &v3, &__p);
+          OSTypeAsString(&v3, 0x68736372u);
+          Format<std::string>(&__p, "prHasScriptingTerminology (%s)", &v3);
           TString::TString(a2, &__p);
           if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
           {
@@ -8822,22 +8355,22 @@ LABEL_346:
           goto LABEL_349;
         }
 
-        OSTypeAsString(0x68746368u, &v3);
-        Format<std::string>("prAttributeChanged (%s)", &v3, &__p);
+        OSTypeAsString(&v3, 0x68746368u);
+        Format<std::string>(&__p, "prAttributeChanged (%s)", &v3);
         TString::TString(a2, &__p);
         goto LABEL_346;
       }
 
       if (a1 == 1768120688)
       {
-        OSTypeAsString(0x69636170u, &v3);
-        Format<std::string>("prIsiCloudLibraryInSidebar (%s)", &v3, &__p);
+        OSTypeAsString(&v3, 0x69636170u);
+        Format<std::string>(&__p, "prIsiCloudLibraryInSidebar (%s)", &v3);
       }
 
       else
       {
-        OSTypeAsString(0x69636C64u, &v3);
-        Format<std::string>("prIsiCloudInSidebar (%s)", &v3, &__p);
+        OSTypeAsString(&v3, 0x69636C64u);
+        Format<std::string>(&__p, "prIsiCloudInSidebar (%s)", &v3);
       }
 
       goto LABEL_235;
@@ -8847,8 +8380,8 @@ LABEL_346:
     {
       if (a1 == 1768124270)
       {
-        OSTypeAsString(0x69636F6Eu, &v3);
-        Format<std::string>("prIconRef (%s)", &v3, &__p);
+        OSTypeAsString(&v3, 0x69636F6Eu);
+        Format<std::string>(&__p, "prIconRef (%s)", &v3);
         TString::TString(a2, &__p);
         if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
         {
@@ -8858,15 +8391,15 @@ LABEL_346:
         goto LABEL_349;
       }
 
-      OSTypeAsString(0x6966796Du, &v3);
-      Format<std::string>("prIFSymbol (%s)", &v3, &__p);
+      OSTypeAsString(&v3, 0x6966796Du);
+      Format<std::string>(&__p, "prIFSymbol (%s)", &v3);
       TString::TString(a2, &__p);
     }
 
     else if (a1 == 1768386423)
     {
-      OSTypeAsString(0x69676F77u, &v3);
-      Format<std::string>("prIgnoreOwnership (%s)", &v3, &__p);
+      OSTypeAsString(&v3, 0x69676F77u);
+      Format<std::string>(&__p, "prIgnoreOwnership (%s)", &v3);
       TString::TString(a2, &__p);
     }
 
@@ -8874,8 +8407,8 @@ LABEL_346:
     {
       if (a1 == 1768387184)
       {
-        OSTypeAsString(0x69677270u, &v3);
-        Format<std::string>("prItemGroupID (%s)", &v3, &__p);
+        OSTypeAsString(&v3, 0x69677270u);
+        Format<std::string>(&__p, "prItemGroupID (%s)", &v3);
         TString::TString(a2, &__p);
         if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
         {
@@ -8885,8 +8418,8 @@ LABEL_346:
         goto LABEL_349;
       }
 
-      OSTypeAsString(0x696E7072u, &v3);
-      Format<std::string>("prInlineProgress (%s)", &v3, &__p);
+      OSTypeAsString(&v3, 0x696E7072u);
+      Format<std::string>(&__p, "prInlineProgress (%s)", &v3);
       TString::TString(a2, &__p);
     }
 
@@ -8903,8 +8436,8 @@ LABEL_346:
         {
           if (a1 == 1684108403)
           {
-            OSTypeAsString(0x64617473u, &v3);
-            Format<std::string>("prDataForkLogicalSize (%s)", &v3, &__p);
+            OSTypeAsString(&v3, 0x64617473u);
+            Format<std::string>(&__p, "prDataForkLogicalSize (%s)", &v3);
             TString::TString(a2, &__p);
             if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
             {
@@ -8914,8 +8447,8 @@ LABEL_346:
             goto LABEL_349;
           }
 
-          OSTypeAsString(0x64636C64u, &v3);
-          Format<std::string>("prIsDataSeparatedICloudInSidebar (%s)", &v3, &__p);
+          OSTypeAsString(&v3, 0x64636C64u);
+          Format<std::string>(&__p, "prIsDataSeparatedICloudInSidebar (%s)", &v3);
           TString::TString(a2, &__p);
         }
 
@@ -8923,8 +8456,8 @@ LABEL_346:
         {
           if (a1 != 1668638316)
           {
-            OSTypeAsString(0x64617073u, &v3);
-            Format<std::string>("prDataForkPhysicalSize (%s)", &v3, &__p);
+            OSTypeAsString(&v3, 0x64617073u);
+            Format<std::string>(&__p, "prDataForkPhysicalSize (%s)", &v3);
             TString::TString(a2, &__p);
             if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
             {
@@ -8934,8 +8467,8 @@ LABEL_346:
             goto LABEL_349;
           }
 
-          OSTypeAsString(0x6375666Cu, &v3);
-          Format<std::string>("prFolderAdornments (%s)", &v3, &__p);
+          OSTypeAsString(&v3, 0x6375666Cu);
+          Format<std::string>(&__p, "prFolderAdornments (%s)", &v3);
           TString::TString(a2, &__p);
         }
       }
@@ -8946,8 +8479,8 @@ LABEL_346:
         {
           if (a1 == 1668313715)
           {
-            OSTypeAsString(0x63707273u, &v3);
-            Format<std::string>("prCopyrightString (%s)", &v3, &__p);
+            OSTypeAsString(&v3, 0x63707273u);
+            Format<std::string>(&__p, "prCopyrightString (%s)", &v3);
             TString::TString(a2, &__p);
             if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
             {
@@ -8957,8 +8490,8 @@ LABEL_346:
 
           else
           {
-            OSTypeAsString(0x6373616Eu, &v3);
-            Format<std::string>("prCanSetAppNapState (%s)", &v3, &__p);
+            OSTypeAsString(&v3, 0x6373616Eu);
+            Format<std::string>(&__p, "prCanSetAppNapState (%s)", &v3);
             TString::TString(a2, &__p);
             if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
             {
@@ -8971,8 +8504,8 @@ LABEL_346:
 
         if (a1 == 1668506984)
         {
-          OSTypeAsString(0x63736568u, &v3);
-          Format<std::string>("prCanSetExtensionHidden (%s)", &v3, &__p);
+          OSTypeAsString(&v3, 0x63736568u);
+          Format<std::string>(&__p, "prCanSetExtensionHidden (%s)", &v3);
           TString::TString(a2, &__p);
           if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
           {
@@ -8982,8 +8515,8 @@ LABEL_346:
           goto LABEL_349;
         }
 
-        OSTypeAsString(0x63736770u, &v3);
-        Format<std::string>("prCanSetPrefersExternalGPU (%s)", &v3, &__p);
+        OSTypeAsString(&v3, 0x63736770u);
+        Format<std::string>(&__p, "prCanSetPrefersExternalGPU (%s)", &v3);
         TString::TString(a2, &__p);
       }
 
@@ -8996,8 +8529,8 @@ LABEL_346:
       {
         if (a1 == 1684955501)
         {
-          OSTypeAsString(0x646E616Du, &v3);
-          Format<std::string>("prDisplayName (%s)", &v3, &__p);
+          OSTypeAsString(&v3, 0x646E616Du);
+          Format<std::string>(&__p, "prDisplayName (%s)", &v3);
           TString::TString(a2, &__p);
           if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
           {
@@ -9007,8 +8540,8 @@ LABEL_346:
           goto LABEL_349;
         }
 
-        OSTypeAsString(0x64737374u, &v3);
-        Format<std::string>("prDSStoreStatus (%s)", &v3, &__p);
+        OSTypeAsString(&v3, 0x64737374u);
+        Format<std::string>(&__p, "prDSStoreStatus (%s)", &v3);
         TString::TString(a2, &__p);
       }
 
@@ -9016,8 +8549,8 @@ LABEL_346:
       {
         if (a1 == 1685480308)
         {
-          OSTypeAsString(0x64766374u, &v3);
-          Format<std::string>("prDeepVisibleItemCount (%s)", &v3, &__p);
+          OSTypeAsString(&v3, 0x64766374u);
+          Format<std::string>(&__p, "prDeepVisibleItemCount (%s)", &v3);
           TString::TString(a2, &__p);
           if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
           {
@@ -9029,8 +8562,8 @@ LABEL_346:
 
         if (a1 == 1685548132)
         {
-          OSTypeAsString(0x64776C64u, &v3);
-          Format<std::string>("prProviderDownloadedState (%s)", &v3, &__p);
+          OSTypeAsString(&v3, 0x64776C64u);
+          Format<std::string>(&__p, "prProviderDownloadedState (%s)", &v3);
           TString::TString(a2, &__p);
           if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
           {
@@ -9040,8 +8573,8 @@ LABEL_346:
           goto LABEL_349;
         }
 
-        OSTypeAsString(0x65677075u, &v3);
-        Format<std::string>("prPrefersExternalGPU (%s)", &v3, &__p);
+        OSTypeAsString(&v3, 0x65677075u);
+        Format<std::string>(&__p, "prPrefersExternalGPU (%s)", &v3);
         TString::TString(a2, &__p);
       }
 
@@ -9052,8 +8585,8 @@ LABEL_346:
     {
       if (a1 == 1684237940)
       {
-        OSTypeAsString(0x64636E74u, &v3);
-        Format<std::string>("prDeepItemCount (%s)", &v3, &__p);
+        OSTypeAsString(&v3, 0x64636E74u);
+        Format<std::string>(&__p, "prDeepItemCount (%s)", &v3);
         TString::TString(a2, &__p);
         if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
         {
@@ -9063,22 +8596,22 @@ LABEL_346:
         goto LABEL_349;
       }
 
-      OSTypeAsString(0x64656372u, &v3);
-      Format<std::string>("prItemDecorations (%s)", &v3, &__p);
+      OSTypeAsString(&v3, 0x64656372u);
+      Format<std::string>(&__p, "prItemDecorations (%s)", &v3);
       TString::TString(a2, &__p);
       goto LABEL_346;
     }
 
     if (a1 == 1684630627)
     {
-      OSTypeAsString(0x64696C63u, &v3);
-      Format<std::string>("prDesktopIconSpatialLocation (%s)", &v3, &__p);
+      OSTypeAsString(&v3, 0x64696C63u);
+      Format<std::string>(&__p, "prDesktopIconSpatialLocation (%s)", &v3);
     }
 
     else
     {
-      OSTypeAsString(0x646D7079u, &v3);
-      Format<std::string>("prApplicationDeviceManagementPolicy (%s)", &v3, &__p);
+      OSTypeAsString(&v3, 0x646D7079u);
+      Format<std::string>(&__p, "prApplicationDeviceManagementPolicy (%s)", &v3);
     }
 
 LABEL_235:
@@ -9094,8 +8627,8 @@ LABEL_235:
       {
         if (a1 == 1634952036)
         {
-          OSTypeAsString(0x61736364u, &v3);
-          Format<std::string>("prCreationDate (%s)", &v3, &__p);
+          OSTypeAsString(&v3, 0x61736364u);
+          Format<std::string>(&__p, "prCreationDate (%s)", &v3);
           TString::TString(a2, &__p);
           if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
           {
@@ -9105,8 +8638,8 @@ LABEL_235:
 
         else
         {
-          OSTypeAsString(0x61736C6Bu, &v3);
-          Format<std::string>("prIsLocked (%s)", &v3, &__p);
+          OSTypeAsString(&v3, 0x61736C6Bu);
+          Format<std::string>(&__p, "prIsLocked (%s)", &v3);
           TString::TString(a2, &__p);
           if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
           {
@@ -9117,8 +8650,8 @@ LABEL_235:
 
       else if (a1 == 1634758244)
       {
-        OSTypeAsString(0x61706E64u, &v3);
-        Format<std::string>("prAppNapIsDisabled (%s)", &v3, &__p);
+        OSTypeAsString(&v3, 0x61706E64u);
+        Format<std::string>(&__p, "prAppNapIsDisabled (%s)", &v3);
         TString::TString(a2, &__p);
         if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
         {
@@ -9128,8 +8661,8 @@ LABEL_235:
 
       else
       {
-        OSTypeAsString(0x6170706Du, &v3);
-        Format<std::string>("prIsApplicationManaged (%s)", &v3, &__p);
+        OSTypeAsString(&v3, 0x6170706Du);
+        Format<std::string>(&__p, "prIsApplicationManaged (%s)", &v3);
         TString::TString(a2, &__p);
         if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
         {
@@ -9144,8 +8677,8 @@ LABEL_235:
     {
       if (a1 == 1634497639)
       {
-        OSTypeAsString(0x616C7467u, &v3);
-        Format<std::string>("prAliasTargetChanged (%s)", &v3, &__p);
+        OSTypeAsString(&v3, 0x616C7467u);
+        Format<std::string>(&__p, "prAliasTargetChanged (%s)", &v3);
         TString::TString(a2, &__p);
         if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
         {
@@ -9155,8 +8688,8 @@ LABEL_235:
 
       else
       {
-        OSTypeAsString(0x61706374u, &v3);
-        Format<std::string>("prAppCategories (%s)", &v3, &__p);
+        OSTypeAsString(&v3, 0x61706374u);
+        Format<std::string>(&__p, "prAppCategories (%s)", &v3);
         TString::TString(a2, &__p);
         if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
         {
@@ -9169,8 +8702,8 @@ LABEL_235:
 
     if (!a1)
     {
-      OSTypeAsString(0, &v3);
-      Format<std::string>("prNullProperty (%s)", &v3, &__p);
+      OSTypeAsString(&v3, 0);
+      Format<std::string>(&__p, "prNullProperty (%s)", &v3);
       TString::TString(a2, &__p);
       if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
       {
@@ -9180,8 +8713,8 @@ LABEL_235:
       goto LABEL_349;
     }
 
-    OSTypeAsString(0x496C6F63u, &v3);
-    Format<std::string>("prIconSpatialLocation (%s)", &v3, &__p);
+    OSTypeAsString(&v3, 0x496C6F63u);
+    Format<std::string>(&__p, "prIconSpatialLocation (%s)", &v3);
     TString::TString(a2, &__p);
     goto LABEL_346;
   }
@@ -9192,8 +8725,8 @@ LABEL_235:
     {
       if (a1 == 1634956409)
       {
-        OSTypeAsString(0x61737479u, &v3);
-        Format<std::string>("prType (%s)", &v3, &__p);
+        OSTypeAsString(&v3, 0x61737479u);
+        Format<std::string>(&__p, "prType (%s)", &v3);
         TString::TString(a2, &__p);
         if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
         {
@@ -9203,8 +8736,8 @@ LABEL_235:
 
       else
       {
-        OSTypeAsString(0x61756D74u, &v3);
-        Format<std::string>("prIsAboutToUnmount (%s)", &v3, &__p);
+        OSTypeAsString(&v3, 0x61756D74u);
+        Format<std::string>(&__p, "prIsAboutToUnmount (%s)", &v3);
         TString::TString(a2, &__p);
         if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
         {
@@ -9217,8 +8750,8 @@ LABEL_235:
 
     if (a1 != 1635150195)
     {
-      OSTypeAsString(0x63617061u, &v3);
-      Format<std::string>("prCapacity (%s)", &v3, &__p);
+      OSTypeAsString(&v3, 0x63617061u);
+      Format<std::string>(&__p, "prCapacity (%s)", &v3);
       TString::TString(a2, &__p);
       if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
       {
@@ -9228,8 +8761,8 @@ LABEL_235:
       goto LABEL_349;
     }
 
-    OSTypeAsString(0x61766973u, &v3);
-    Format<std::string>("prAnyVisibleChildren (%s)", &v3, &__p);
+    OSTypeAsString(&v3, 0x61766973u);
+    Format<std::string>(&__p, "prAnyVisibleChildren (%s)", &v3);
     TString::TString(a2, &__p);
     goto LABEL_346;
   }
@@ -9238,8 +8771,8 @@ LABEL_235:
   {
     if (a1 != 1667785588)
     {
-      OSTypeAsString(0x6369636Eu, &v3);
-      Format<std::string>("prHasCustomIcon (%s)", &v3, &__p);
+      OSTypeAsString(&v3, 0x6369636Eu);
+      Format<std::string>(&__p, "prHasCustomIcon (%s)", &v3);
       TString::TString(a2, &__p);
       if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
       {
@@ -9249,30 +8782,30 @@ LABEL_235:
       goto LABEL_349;
     }
 
-    OSTypeAsString(0x63686374u, &v3);
-    Format<std::string>("prChildCount (%s)", &v3, &__p);
+    OSTypeAsString(&v3, 0x63686374u);
+    Format<std::string>(&__p, "prChildCount (%s)", &v3);
     TString::TString(a2, &__p);
     goto LABEL_346;
   }
 
   if (a1 == 1668115828)
   {
-    OSTypeAsString(0x636D6D74u, &v3);
-    Format<std::string>("prFinderComment (%s)", &v3, &__p);
+    OSTypeAsString(&v3, 0x636D6D74u);
+    Format<std::string>(&__p, "prFinderComment (%s)", &v3);
     TString::TString(a2, &__p);
     goto LABEL_346;
   }
 
   if (a1 == 1668244340)
   {
-    OSTypeAsString(0x636F6374u, &v3);
-    Format<std::string>("prContact (%s)", &v3, &__p);
+    OSTypeAsString(&v3, 0x636F6374u);
+    Format<std::string>(&__p, "prContact (%s)", &v3);
     TString::TString(a2, &__p);
     goto LABEL_346;
   }
 
-  OSTypeAsString(0x636F6D70u, &v3);
-  Format<std::string>("prIsSystemCompressed (%s)", &v3, &__p);
+  OSTypeAsString(&v3, 0x636F6D70u);
+  Format<std::string>(&__p, "prIsSystemCompressed (%s)", &v3);
   TString::TString(a2, &__p);
   if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
@@ -9303,11 +8836,11 @@ void sub_1E56EBFF8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void Format<std::string>(const char *a1@<X0>, uint64_t a2@<X1>, std::string *a3@<X8>)
+void Format<std::string>(std::string *__return_ptr a1@<X8>, const char *a2@<X0>, uint64_t a3@<X1>, ...)
 {
-  *&v5 = a1;
-  *(&v5 + 1) = strlen(a1);
-  FormatDetails<std::string>(&v5, a2, a3);
+  *&v5 = a2;
+  *(&v5 + 1) = strlen(a2);
+  FormatDetails<std::string>(&v5, a3, a1);
 }
 
 TString *TString::TString(TString *a1, uint64_t a2)
@@ -9374,9 +8907,9 @@ const void **std::__variant_detail::__assignment<std::__variant_detail::__traits
   return TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v4.fString.fRef);
 }
 
-void sub_1E56EC83C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E56EC83C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(va);
   _Unwind_Resume(a1);
 }
@@ -9551,10 +9084,10 @@ uint64_t *_ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm8ELm
   return result;
 }
 
-__n128 _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm9ELm9EEE10__dispatchB8ne200100IOZNS0_12__assignmentINS0_8__traitsIJNS_9monostateEbhsixjd5Point4BlobU8__strongP8NSObject7TString4TRefIPK10__CFString20TRetainReleasePolicyISI_EESF_IPK10__CFNumberSJ_ISO_EESF_IPK8__CFDataSJ_IST_EESF_IPK14__CFDictionarySJ_ISY_EESF_IPK7__CFURLSJ_IS13_EESF_IPK9__CFArraySJ_IS18_EESF_IP16__CFFileSecuritySJ_IS1C_EESF_IP17TReferenceCountedSJ_IS1G_EE8Property18NodeRequestOptions17NodeDSStoreStatus18DSBladeRunnerFlagsEEEE16__generic_assignB8ne200100INS0_17__move_assignmentIS1N_LNS0_6_TraitE1EEEEEvOT_EUlRS1T_OT0_E_JRNS0_6__baseILS1R_1EJS8_bhsixjdS9_SA_SD_SE_SL_SQ_SV_S10_S15_S1A_S1E_S1I_S1J_S1K_S1L_S1M_EEEOS21_EEEDcS1T_DpT0_(uint64_t *a1, __n128 *a2, __n128 *a3)
+__n128 _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm9ELm9EEE10__dispatchB8ne200100IOZNS0_12__assignmentINS0_8__traitsIJNS_9monostateEbhsixjd5Point4BlobU8__strongP8NSObject7TString4TRefIPK10__CFString20TRetainReleasePolicyISI_EESF_IPK10__CFNumberSJ_ISO_EESF_IPK8__CFDataSJ_IST_EESF_IPK14__CFDictionarySJ_ISY_EESF_IPK7__CFURLSJ_IS13_EESF_IPK9__CFArraySJ_IS18_EESF_IP16__CFFileSecuritySJ_IS1C_EESF_IP17TReferenceCountedSJ_IS1G_EE8Property18NodeRequestOptions17NodeDSStoreStatus18DSBladeRunnerFlagsEEEE16__generic_assignB8ne200100INS0_17__move_assignmentIS1N_LNS0_6_TraitE1EEEEEvOT_EUlRS1T_OT0_E_JRNS0_6__baseILS1R_1EJS8_bhsixjdS9_SA_SD_SE_SL_SQ_SV_S10_S15_S1A_S1E_S1I_S1J_S1K_S1L_S1M_EEEOS21_EEEDcS1T_DpT0_(__n128 **a1, __n128 *a2, __n128 *a3)
 {
   v4 = *a1;
-  if (*(*a1 + 16) == 9)
+  if ((*a1)[1].n128_u32[0] == 9)
   {
     result = *a3;
     *a2 = *a3;
@@ -9565,7 +9098,7 @@ __n128 _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm9ELm9EE
     std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,BOOL,unsigned char,short,int,long long,unsigned int,double,Point,Blob,NSObject * {__strong},TString,TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>,TRef<__CFNumber const*,TRetainReleasePolicy<__CFNumber const*>>,TRef<__CFData const*,TRetainReleasePolicy<__CFData const*>>,TRef<__CFDictionary const*,TRetainReleasePolicy<__CFDictionary const*>>,TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,TRef<__CFArray const*,TRetainReleasePolicy<__CFArray const*>>,TRef<__CFFileSecurity *,TRetainReleasePolicy<__CFFileSecurity *>>,TRef<TReferenceCounted *,TRetainReleasePolicy<TReferenceCounted *>>,Property,NodeRequestOptions,NodeDSStoreStatus,DSBladeRunnerFlags>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](*a1);
     result = *a3;
     *v4 = *a3;
-    *(v4 + 16) = 9;
+    v4[1].n128_u32[0] = 9;
   }
 
   return result;
@@ -9812,4 +9345,475 @@ const void **std::__variant_detail::__assignment<std::__variant_detail::__traits
   }
 
   return result;
+}
+
+const void **std::__variant_detail::__assignment<std::__variant_detail::__traits<std::monostate,BOOL,unsigned char,short,int,long long,unsigned int,double,Point,Blob,NSObject * {__strong},TString,TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>,TRef<__CFNumber const*,TRetainReleasePolicy<__CFNumber const*>>,TRef<__CFData const*,TRetainReleasePolicy<__CFData const*>>,TRef<__CFDictionary const*,TRetainReleasePolicy<__CFDictionary const*>>,TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,TRef<__CFArray const*,TRetainReleasePolicy<__CFArray const*>>,TRef<__CFFileSecurity *,TRetainReleasePolicy<__CFFileSecurity *>>,TRef<TReferenceCounted *,TRetainReleasePolicy<TReferenceCounted *>>,Property,NodeRequestOptions,NodeDSStoreStatus,DSBladeRunnerFlags>>::__assign_alt[abi:ne200100]<17ul,TRef<__CFArray const*,TRetainReleasePolicy<__CFArray const*>>,TRef<__CFArray const*,TRetainReleasePolicy<__CFArray const*>>>(uint64_t a1, const void **a2, const void **a3)
+{
+  if (*(a1 + 16) == 17)
+  {
+
+    return TRef<__CFArray const*,TRetainReleasePolicy<__CFArray const*>>::operator=<__CFArray const*,TRetainReleasePolicy<__CFArray const*>>(a2, a3);
+  }
+
+  else
+  {
+    result = std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,BOOL,unsigned char,short,int,long long,unsigned int,double,Point,Blob,NSObject * {__strong},TString,TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>,TRef<__CFNumber const*,TRetainReleasePolicy<__CFNumber const*>>,TRef<__CFData const*,TRetainReleasePolicy<__CFData const*>>,TRef<__CFDictionary const*,TRetainReleasePolicy<__CFDictionary const*>>,TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,TRef<__CFArray const*,TRetainReleasePolicy<__CFArray const*>>,TRef<__CFFileSecurity *,TRetainReleasePolicy<__CFFileSecurity *>>,TRef<TReferenceCounted *,TRetainReleasePolicy<TReferenceCounted *>>,Property,NodeRequestOptions,NodeDSStoreStatus,DSBladeRunnerFlags>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](a1);
+    *a1 = *a3;
+    *a3 = 0;
+    *(a1 + 16) = 17;
+  }
+
+  return result;
+}
+
+const void **TRef<__CFArray const*,TRetainReleasePolicy<__CFArray const*>>::operator=<__CFArray const*,TRetainReleasePolicy<__CFArray const*>>(const void **a1, const void **a2)
+{
+  if (a1 != a2)
+  {
+    v4 = *a1;
+    if (*a1)
+    {
+      CFRelease(v4);
+    }
+
+    *a1 = *a2;
+    *a2 = 0;
+  }
+
+  return a1;
+}
+
+const void **std::__variant_detail::__assignment<std::__variant_detail::__traits<std::monostate,BOOL,unsigned char,short,int,long long,unsigned int,double,Point,Blob,NSObject * {__strong},TString,TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>,TRef<__CFNumber const*,TRetainReleasePolicy<__CFNumber const*>>,TRef<__CFData const*,TRetainReleasePolicy<__CFData const*>>,TRef<__CFDictionary const*,TRetainReleasePolicy<__CFDictionary const*>>,TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,TRef<__CFArray const*,TRetainReleasePolicy<__CFArray const*>>,TRef<__CFFileSecurity *,TRetainReleasePolicy<__CFFileSecurity *>>,TRef<TReferenceCounted *,TRetainReleasePolicy<TReferenceCounted *>>,Property,NodeRequestOptions,NodeDSStoreStatus,DSBladeRunnerFlags>>::__assign_alt[abi:ne200100]<18ul,TRef<__CFFileSecurity *,TRetainReleasePolicy<__CFFileSecurity *>>,TRef<__CFFileSecurity *,TRetainReleasePolicy<__CFFileSecurity *>>>(uint64_t a1, const void **a2, const void **a3)
+{
+  if (*(a1 + 16) == 18)
+  {
+
+    return TRef<__CFFileSecurity *,TRetainReleasePolicy<__CFFileSecurity *>>::operator=<__CFFileSecurity *,TRetainReleasePolicy<__CFFileSecurity *>>(a2, a3);
+  }
+
+  else
+  {
+    result = std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,BOOL,unsigned char,short,int,long long,unsigned int,double,Point,Blob,NSObject * {__strong},TString,TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>,TRef<__CFNumber const*,TRetainReleasePolicy<__CFNumber const*>>,TRef<__CFData const*,TRetainReleasePolicy<__CFData const*>>,TRef<__CFDictionary const*,TRetainReleasePolicy<__CFDictionary const*>>,TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,TRef<__CFArray const*,TRetainReleasePolicy<__CFArray const*>>,TRef<__CFFileSecurity *,TRetainReleasePolicy<__CFFileSecurity *>>,TRef<TReferenceCounted *,TRetainReleasePolicy<TReferenceCounted *>>,Property,NodeRequestOptions,NodeDSStoreStatus,DSBladeRunnerFlags>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](a1);
+    *a1 = *a3;
+    *a3 = 0;
+    *(a1 + 16) = 18;
+  }
+
+  return result;
+}
+
+const void **TRef<__CFFileSecurity *,TRetainReleasePolicy<__CFFileSecurity *>>::operator=<__CFFileSecurity *,TRetainReleasePolicy<__CFFileSecurity *>>(const void **a1, const void **a2)
+{
+  if (a1 != a2)
+  {
+    v4 = *a1;
+    if (*a1)
+    {
+      CFRelease(v4);
+    }
+
+    *a1 = *a2;
+    *a2 = 0;
+  }
+
+  return a1;
+}
+
+TReferenceCounted **std::__variant_detail::__assignment<std::__variant_detail::__traits<std::monostate,BOOL,unsigned char,short,int,long long,unsigned int,double,Point,Blob,NSObject * {__strong},TString,TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>,TRef<__CFNumber const*,TRetainReleasePolicy<__CFNumber const*>>,TRef<__CFData const*,TRetainReleasePolicy<__CFData const*>>,TRef<__CFDictionary const*,TRetainReleasePolicy<__CFDictionary const*>>,TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,TRef<__CFArray const*,TRetainReleasePolicy<__CFArray const*>>,TRef<__CFFileSecurity *,TRetainReleasePolicy<__CFFileSecurity *>>,TRef<TReferenceCounted *,TRetainReleasePolicy<TReferenceCounted *>>,Property,NodeRequestOptions,NodeDSStoreStatus,DSBladeRunnerFlags>>::__assign_alt[abi:ne200100]<19ul,TRef<TReferenceCounted *,TRetainReleasePolicy<TReferenceCounted *>>,TRef<TReferenceCounted *,TRetainReleasePolicy<TReferenceCounted *>>>(uint64_t a1, TReferenceCounted **a2, TReferenceCounted **a3)
+{
+  if (*(a1 + 16) == 19)
+  {
+
+    return TRef<TReferenceCounted *,TRetainReleasePolicy<TReferenceCounted *>>::operator=<TReferenceCounted *,TRetainReleasePolicy<TReferenceCounted *>>(a2, a3);
+  }
+
+  else
+  {
+    result = std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,BOOL,unsigned char,short,int,long long,unsigned int,double,Point,Blob,NSObject * {__strong},TString,TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>,TRef<__CFNumber const*,TRetainReleasePolicy<__CFNumber const*>>,TRef<__CFData const*,TRetainReleasePolicy<__CFData const*>>,TRef<__CFDictionary const*,TRetainReleasePolicy<__CFDictionary const*>>,TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,TRef<__CFArray const*,TRetainReleasePolicy<__CFArray const*>>,TRef<__CFFileSecurity *,TRetainReleasePolicy<__CFFileSecurity *>>,TRef<TReferenceCounted *,TRetainReleasePolicy<TReferenceCounted *>>,Property,NodeRequestOptions,NodeDSStoreStatus,DSBladeRunnerFlags>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](a1);
+    *a1 = *a3;
+    *a3 = 0;
+    *(a1 + 16) = 19;
+  }
+
+  return result;
+}
+
+TReferenceCounted **TRef<TReferenceCounted *,TRetainReleasePolicy<TReferenceCounted *>>::operator=<TReferenceCounted *,TRetainReleasePolicy<TReferenceCounted *>>(TReferenceCounted **a1, TReferenceCounted **a2)
+{
+  if (a1 != a2)
+  {
+    v4 = *a1;
+    if (*a1)
+    {
+      TReferenceCounted::RemovePtrReference(v4);
+    }
+
+    *a1 = *a2;
+    *a2 = 0;
+  }
+
+  return a1;
+}
+
+uint64_t *_ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1ELm1EEE10__dispatchB8ne200100IOZNS0_12__assignmentINS0_8__traitsIJNS_9monostateEbhsixjd5Point4BlobU8__strongP8NSObject7TString4TRefIPK10__CFString20TRetainReleasePolicyISI_EESF_IPK10__CFNumberSJ_ISO_EESF_IPK8__CFDataSJ_IST_EESF_IPK14__CFDictionarySJ_ISY_EESF_IPK7__CFURLSJ_IS13_EESF_IPK9__CFArraySJ_IS18_EESF_IP16__CFFileSecuritySJ_IS1C_EESF_IP17TReferenceCountedSJ_IS1G_EE8Property18NodeRequestOptions17NodeDSStoreStatus18DSBladeRunnerFlagsEEEE16__generic_assignB8ne200100IRKNS0_17__copy_assignmentIS1N_LNS0_6_TraitE1EEEEEvOT_EUlRS1V_OT0_E_JRNS0_6__baseILS1R_1EJS8_bhsixjdS9_SA_SD_SE_SL_SQ_SV_S10_S15_S1A_S1E_S1I_S1J_S1K_S1L_S1M_EEERKS23_EEEDcS1V_DpT0_(uint64_t *result, _BYTE *a2, _BYTE *a3)
+{
+  v4 = *result;
+  if (*(*result + 16) == 1)
+  {
+    *a2 = *a3;
+  }
+
+  else
+  {
+    result = std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,BOOL,unsigned char,short,int,long long,unsigned int,double,Point,Blob,NSObject * {__strong},TString,TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>,TRef<__CFNumber const*,TRetainReleasePolicy<__CFNumber const*>>,TRef<__CFData const*,TRetainReleasePolicy<__CFData const*>>,TRef<__CFDictionary const*,TRetainReleasePolicy<__CFDictionary const*>>,TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,TRef<__CFArray const*,TRetainReleasePolicy<__CFArray const*>>,TRef<__CFFileSecurity *,TRetainReleasePolicy<__CFFileSecurity *>>,TRef<TReferenceCounted *,TRetainReleasePolicy<TReferenceCounted *>>,Property,NodeRequestOptions,NodeDSStoreStatus,DSBladeRunnerFlags>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](*result);
+    *v4 = *a3;
+    *(v4 + 16) = 1;
+  }
+
+  return result;
+}
+
+uint64_t *_ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2ELm2EEE10__dispatchB8ne200100IOZNS0_12__assignmentINS0_8__traitsIJNS_9monostateEbhsixjd5Point4BlobU8__strongP8NSObject7TString4TRefIPK10__CFString20TRetainReleasePolicyISI_EESF_IPK10__CFNumberSJ_ISO_EESF_IPK8__CFDataSJ_IST_EESF_IPK14__CFDictionarySJ_ISY_EESF_IPK7__CFURLSJ_IS13_EESF_IPK9__CFArraySJ_IS18_EESF_IP16__CFFileSecuritySJ_IS1C_EESF_IP17TReferenceCountedSJ_IS1G_EE8Property18NodeRequestOptions17NodeDSStoreStatus18DSBladeRunnerFlagsEEEE16__generic_assignB8ne200100IRKNS0_17__copy_assignmentIS1N_LNS0_6_TraitE1EEEEEvOT_EUlRS1V_OT0_E_JRNS0_6__baseILS1R_1EJS8_bhsixjdS9_SA_SD_SE_SL_SQ_SV_S10_S15_S1A_S1E_S1I_S1J_S1K_S1L_S1M_EEERKS23_EEEDcS1V_DpT0_(uint64_t *result, _BYTE *a2, _BYTE *a3)
+{
+  v4 = *result;
+  if (*(*result + 16) == 2)
+  {
+    *a2 = *a3;
+  }
+
+  else
+  {
+    result = std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,BOOL,unsigned char,short,int,long long,unsigned int,double,Point,Blob,NSObject * {__strong},TString,TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>,TRef<__CFNumber const*,TRetainReleasePolicy<__CFNumber const*>>,TRef<__CFData const*,TRetainReleasePolicy<__CFData const*>>,TRef<__CFDictionary const*,TRetainReleasePolicy<__CFDictionary const*>>,TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,TRef<__CFArray const*,TRetainReleasePolicy<__CFArray const*>>,TRef<__CFFileSecurity *,TRetainReleasePolicy<__CFFileSecurity *>>,TRef<TReferenceCounted *,TRetainReleasePolicy<TReferenceCounted *>>,Property,NodeRequestOptions,NodeDSStoreStatus,DSBladeRunnerFlags>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](*result);
+    *v4 = *a3;
+    *(v4 + 16) = 2;
+  }
+
+  return result;
+}
+
+uint64_t *_ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm3ELm3EEE10__dispatchB8ne200100IOZNS0_12__assignmentINS0_8__traitsIJNS_9monostateEbhsixjd5Point4BlobU8__strongP8NSObject7TString4TRefIPK10__CFString20TRetainReleasePolicyISI_EESF_IPK10__CFNumberSJ_ISO_EESF_IPK8__CFDataSJ_IST_EESF_IPK14__CFDictionarySJ_ISY_EESF_IPK7__CFURLSJ_IS13_EESF_IPK9__CFArraySJ_IS18_EESF_IP16__CFFileSecuritySJ_IS1C_EESF_IP17TReferenceCountedSJ_IS1G_EE8Property18NodeRequestOptions17NodeDSStoreStatus18DSBladeRunnerFlagsEEEE16__generic_assignB8ne200100IRKNS0_17__copy_assignmentIS1N_LNS0_6_TraitE1EEEEEvOT_EUlRS1V_OT0_E_JRNS0_6__baseILS1R_1EJS8_bhsixjdS9_SA_SD_SE_SL_SQ_SV_S10_S15_S1A_S1E_S1I_S1J_S1K_S1L_S1M_EEERKS23_EEEDcS1V_DpT0_(uint64_t *result, _WORD *a2, _WORD *a3)
+{
+  v4 = *result;
+  if (*(*result + 16) == 3)
+  {
+    *a2 = *a3;
+  }
+
+  else
+  {
+    result = std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,BOOL,unsigned char,short,int,long long,unsigned int,double,Point,Blob,NSObject * {__strong},TString,TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>,TRef<__CFNumber const*,TRetainReleasePolicy<__CFNumber const*>>,TRef<__CFData const*,TRetainReleasePolicy<__CFData const*>>,TRef<__CFDictionary const*,TRetainReleasePolicy<__CFDictionary const*>>,TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,TRef<__CFArray const*,TRetainReleasePolicy<__CFArray const*>>,TRef<__CFFileSecurity *,TRetainReleasePolicy<__CFFileSecurity *>>,TRef<TReferenceCounted *,TRetainReleasePolicy<TReferenceCounted *>>,Property,NodeRequestOptions,NodeDSStoreStatus,DSBladeRunnerFlags>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](*result);
+    *v4 = *a3;
+    *(v4 + 16) = 3;
+  }
+
+  return result;
+}
+
+uint64_t *_ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm5ELm5EEE10__dispatchB8ne200100IOZNS0_12__assignmentINS0_8__traitsIJNS_9monostateEbhsixjd5Point4BlobU8__strongP8NSObject7TString4TRefIPK10__CFString20TRetainReleasePolicyISI_EESF_IPK10__CFNumberSJ_ISO_EESF_IPK8__CFDataSJ_IST_EESF_IPK14__CFDictionarySJ_ISY_EESF_IPK7__CFURLSJ_IS13_EESF_IPK9__CFArraySJ_IS18_EESF_IP16__CFFileSecuritySJ_IS1C_EESF_IP17TReferenceCountedSJ_IS1G_EE8Property18NodeRequestOptions17NodeDSStoreStatus18DSBladeRunnerFlagsEEEE16__generic_assignB8ne200100IRKNS0_17__copy_assignmentIS1N_LNS0_6_TraitE1EEEEEvOT_EUlRS1V_OT0_E_JRNS0_6__baseILS1R_1EJS8_bhsixjdS9_SA_SD_SE_SL_SQ_SV_S10_S15_S1A_S1E_S1I_S1J_S1K_S1L_S1M_EEERKS23_EEEDcS1V_DpT0_(uint64_t *result, void *a2, void *a3)
+{
+  v4 = *result;
+  if (*(*result + 16) == 5)
+  {
+    *a2 = *a3;
+  }
+
+  else
+  {
+    result = std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,BOOL,unsigned char,short,int,long long,unsigned int,double,Point,Blob,NSObject * {__strong},TString,TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>,TRef<__CFNumber const*,TRetainReleasePolicy<__CFNumber const*>>,TRef<__CFData const*,TRetainReleasePolicy<__CFData const*>>,TRef<__CFDictionary const*,TRetainReleasePolicy<__CFDictionary const*>>,TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,TRef<__CFArray const*,TRetainReleasePolicy<__CFArray const*>>,TRef<__CFFileSecurity *,TRetainReleasePolicy<__CFFileSecurity *>>,TRef<TReferenceCounted *,TRetainReleasePolicy<TReferenceCounted *>>,Property,NodeRequestOptions,NodeDSStoreStatus,DSBladeRunnerFlags>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](*result);
+    *v4 = *a3;
+    *(v4 + 16) = 5;
+  }
+
+  return result;
+}
+
+uint64_t *_ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm6ELm6EEE10__dispatchB8ne200100IOZNS0_12__assignmentINS0_8__traitsIJNS_9monostateEbhsixjd5Point4BlobU8__strongP8NSObject7TString4TRefIPK10__CFString20TRetainReleasePolicyISI_EESF_IPK10__CFNumberSJ_ISO_EESF_IPK8__CFDataSJ_IST_EESF_IPK14__CFDictionarySJ_ISY_EESF_IPK7__CFURLSJ_IS13_EESF_IPK9__CFArraySJ_IS18_EESF_IP16__CFFileSecuritySJ_IS1C_EESF_IP17TReferenceCountedSJ_IS1G_EE8Property18NodeRequestOptions17NodeDSStoreStatus18DSBladeRunnerFlagsEEEE16__generic_assignB8ne200100IRKNS0_17__copy_assignmentIS1N_LNS0_6_TraitE1EEEEEvOT_EUlRS1V_OT0_E_JRNS0_6__baseILS1R_1EJS8_bhsixjdS9_SA_SD_SE_SL_SQ_SV_S10_S15_S1A_S1E_S1I_S1J_S1K_S1L_S1M_EEERKS23_EEEDcS1V_DpT0_(uint64_t *result, _DWORD *a2, _DWORD *a3)
+{
+  v4 = *result;
+  if (*(*result + 16) == 6)
+  {
+    *a2 = *a3;
+  }
+
+  else
+  {
+    result = std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,BOOL,unsigned char,short,int,long long,unsigned int,double,Point,Blob,NSObject * {__strong},TString,TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>,TRef<__CFNumber const*,TRetainReleasePolicy<__CFNumber const*>>,TRef<__CFData const*,TRetainReleasePolicy<__CFData const*>>,TRef<__CFDictionary const*,TRetainReleasePolicy<__CFDictionary const*>>,TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,TRef<__CFArray const*,TRetainReleasePolicy<__CFArray const*>>,TRef<__CFFileSecurity *,TRetainReleasePolicy<__CFFileSecurity *>>,TRef<TReferenceCounted *,TRetainReleasePolicy<TReferenceCounted *>>,Property,NodeRequestOptions,NodeDSStoreStatus,DSBladeRunnerFlags>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](*result);
+    *v4 = *a3;
+    v4[4] = 6;
+  }
+
+  return result;
+}
+
+double _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm7ELm7EEE10__dispatchB8ne200100IOZNS0_12__assignmentINS0_8__traitsIJNS_9monostateEbhsixjd5Point4BlobU8__strongP8NSObject7TString4TRefIPK10__CFString20TRetainReleasePolicyISI_EESF_IPK10__CFNumberSJ_ISO_EESF_IPK8__CFDataSJ_IST_EESF_IPK14__CFDictionarySJ_ISY_EESF_IPK7__CFURLSJ_IS13_EESF_IPK9__CFArraySJ_IS18_EESF_IP16__CFFileSecuritySJ_IS1C_EESF_IP17TReferenceCountedSJ_IS1G_EE8Property18NodeRequestOptions17NodeDSStoreStatus18DSBladeRunnerFlagsEEEE16__generic_assignB8ne200100IRKNS0_17__copy_assignmentIS1N_LNS0_6_TraitE1EEEEEvOT_EUlRS1V_OT0_E_JRNS0_6__baseILS1R_1EJS8_bhsixjdS9_SA_SD_SE_SL_SQ_SV_S10_S15_S1A_S1E_S1I_S1J_S1K_S1L_S1M_EEERKS23_EEEDcS1V_DpT0_(uint64_t *a1, void *a2, double *a3)
+{
+  v4 = *a1;
+  if (*(*a1 + 16) == 7)
+  {
+    result = *a3;
+    *a2 = *a3;
+  }
+
+  else
+  {
+    std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,BOOL,unsigned char,short,int,long long,unsigned int,double,Point,Blob,NSObject * {__strong},TString,TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>,TRef<__CFNumber const*,TRetainReleasePolicy<__CFNumber const*>>,TRef<__CFData const*,TRetainReleasePolicy<__CFData const*>>,TRef<__CFDictionary const*,TRetainReleasePolicy<__CFDictionary const*>>,TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,TRef<__CFArray const*,TRetainReleasePolicy<__CFArray const*>>,TRef<__CFFileSecurity *,TRetainReleasePolicy<__CFFileSecurity *>>,TRef<TReferenceCounted *,TRetainReleasePolicy<TReferenceCounted *>>,Property,NodeRequestOptions,NodeDSStoreStatus,DSBladeRunnerFlags>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](*a1);
+    result = *a3;
+    *v4 = *a3;
+    *(v4 + 16) = 7;
+  }
+
+  return result;
+}
+
+uint64_t *_ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm8ELm8EEE10__dispatchB8ne200100IOZNS0_12__assignmentINS0_8__traitsIJNS_9monostateEbhsixjd5Point4BlobU8__strongP8NSObject7TString4TRefIPK10__CFString20TRetainReleasePolicyISI_EESF_IPK10__CFNumberSJ_ISO_EESF_IPK8__CFDataSJ_IST_EESF_IPK14__CFDictionarySJ_ISY_EESF_IPK7__CFURLSJ_IS13_EESF_IPK9__CFArraySJ_IS18_EESF_IP16__CFFileSecuritySJ_IS1C_EESF_IP17TReferenceCountedSJ_IS1G_EE8Property18NodeRequestOptions17NodeDSStoreStatus18DSBladeRunnerFlagsEEEE16__generic_assignB8ne200100IRKNS0_17__copy_assignmentIS1N_LNS0_6_TraitE1EEEEEvOT_EUlRS1V_OT0_E_JRNS0_6__baseILS1R_1EJS8_bhsixjdS9_SA_SD_SE_SL_SQ_SV_S10_S15_S1A_S1E_S1I_S1J_S1K_S1L_S1M_EEERKS23_EEEDcS1V_DpT0_(uint64_t *result, _DWORD *a2, _DWORD *a3)
+{
+  v4 = *result;
+  if (*(*result + 16) == 8)
+  {
+    *a2 = *a3;
+  }
+
+  else
+  {
+    result = std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,BOOL,unsigned char,short,int,long long,unsigned int,double,Point,Blob,NSObject * {__strong},TString,TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>,TRef<__CFNumber const*,TRetainReleasePolicy<__CFNumber const*>>,TRef<__CFData const*,TRetainReleasePolicy<__CFData const*>>,TRef<__CFDictionary const*,TRetainReleasePolicy<__CFDictionary const*>>,TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,TRef<__CFArray const*,TRetainReleasePolicy<__CFArray const*>>,TRef<__CFFileSecurity *,TRetainReleasePolicy<__CFFileSecurity *>>,TRef<TReferenceCounted *,TRetainReleasePolicy<TReferenceCounted *>>,Property,NodeRequestOptions,NodeDSStoreStatus,DSBladeRunnerFlags>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](*result);
+    *v4 = *a3;
+    v4[4] = 8;
+  }
+
+  return result;
+}
+
+__n128 _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm9ELm9EEE10__dispatchB8ne200100IOZNS0_12__assignmentINS0_8__traitsIJNS_9monostateEbhsixjd5Point4BlobU8__strongP8NSObject7TString4TRefIPK10__CFString20TRetainReleasePolicyISI_EESF_IPK10__CFNumberSJ_ISO_EESF_IPK8__CFDataSJ_IST_EESF_IPK14__CFDictionarySJ_ISY_EESF_IPK7__CFURLSJ_IS13_EESF_IPK9__CFArraySJ_IS18_EESF_IP16__CFFileSecuritySJ_IS1C_EESF_IP17TReferenceCountedSJ_IS1G_EE8Property18NodeRequestOptions17NodeDSStoreStatus18DSBladeRunnerFlagsEEEE16__generic_assignB8ne200100IRKNS0_17__copy_assignmentIS1N_LNS0_6_TraitE1EEEEEvOT_EUlRS1V_OT0_E_JRNS0_6__baseILS1R_1EJS8_bhsixjdS9_SA_SD_SE_SL_SQ_SV_S10_S15_S1A_S1E_S1I_S1J_S1K_S1L_S1M_EEERKS23_EEEDcS1V_DpT0_(__n128 **a1, __n128 *a2, __n128 *a3)
+{
+  v4 = *a1;
+  if ((*a1)[1].n128_u32[0] == 9)
+  {
+    result = *a3;
+    *a2 = *a3;
+  }
+
+  else
+  {
+    std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,BOOL,unsigned char,short,int,long long,unsigned int,double,Point,Blob,NSObject * {__strong},TString,TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>,TRef<__CFNumber const*,TRetainReleasePolicy<__CFNumber const*>>,TRef<__CFData const*,TRetainReleasePolicy<__CFData const*>>,TRef<__CFDictionary const*,TRetainReleasePolicy<__CFDictionary const*>>,TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,TRef<__CFArray const*,TRetainReleasePolicy<__CFArray const*>>,TRef<__CFFileSecurity *,TRetainReleasePolicy<__CFFileSecurity *>>,TRef<TReferenceCounted *,TRetainReleasePolicy<TReferenceCounted *>>,Property,NodeRequestOptions,NodeDSStoreStatus,DSBladeRunnerFlags>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](*a1);
+    result = *a3;
+    *v4 = *a3;
+    v4[1].n128_u32[0] = 9;
+  }
+
+  return result;
+}
+
+uint64_t *_ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm20ELm20EEE10__dispatchB8ne200100IOZNS0_12__assignmentINS0_8__traitsIJNS_9monostateEbhsixjd5Point4BlobU8__strongP8NSObject7TString4TRefIPK10__CFString20TRetainReleasePolicyISI_EESF_IPK10__CFNumberSJ_ISO_EESF_IPK8__CFDataSJ_IST_EESF_IPK14__CFDictionarySJ_ISY_EESF_IPK7__CFURLSJ_IS13_EESF_IPK9__CFArraySJ_IS18_EESF_IP16__CFFileSecuritySJ_IS1C_EESF_IP17TReferenceCountedSJ_IS1G_EE8Property18NodeRequestOptions17NodeDSStoreStatus18DSBladeRunnerFlagsEEEE16__generic_assignB8ne200100IRKNS0_17__copy_assignmentIS1N_LNS0_6_TraitE1EEEEEvOT_EUlRS1V_OT0_E_JRNS0_6__baseILS1R_1EJS8_bhsixjdS9_SA_SD_SE_SL_SQ_SV_S10_S15_S1A_S1E_S1I_S1J_S1K_S1L_S1M_EEERKS23_EEEDcS1V_DpT0_(uint64_t *result, _DWORD *a2, _DWORD *a3)
+{
+  v4 = *result;
+  if (*(*result + 16) == 20)
+  {
+    *a2 = *a3;
+  }
+
+  else
+  {
+    result = std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,BOOL,unsigned char,short,int,long long,unsigned int,double,Point,Blob,NSObject * {__strong},TString,TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>,TRef<__CFNumber const*,TRetainReleasePolicy<__CFNumber const*>>,TRef<__CFData const*,TRetainReleasePolicy<__CFData const*>>,TRef<__CFDictionary const*,TRetainReleasePolicy<__CFDictionary const*>>,TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,TRef<__CFArray const*,TRetainReleasePolicy<__CFArray const*>>,TRef<__CFFileSecurity *,TRetainReleasePolicy<__CFFileSecurity *>>,TRef<TReferenceCounted *,TRetainReleasePolicy<TReferenceCounted *>>,Property,NodeRequestOptions,NodeDSStoreStatus,DSBladeRunnerFlags>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](*result);
+    *v4 = *a3;
+    v4[4] = 20;
+  }
+
+  return result;
+}
+
+uint64_t *_ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm22ELm22EEE10__dispatchB8ne200100IOZNS0_12__assignmentINS0_8__traitsIJNS_9monostateEbhsixjd5Point4BlobU8__strongP8NSObject7TString4TRefIPK10__CFString20TRetainReleasePolicyISI_EESF_IPK10__CFNumberSJ_ISO_EESF_IPK8__CFDataSJ_IST_EESF_IPK14__CFDictionarySJ_ISY_EESF_IPK7__CFURLSJ_IS13_EESF_IPK9__CFArraySJ_IS18_EESF_IP16__CFFileSecuritySJ_IS1C_EESF_IP17TReferenceCountedSJ_IS1G_EE8Property18NodeRequestOptions17NodeDSStoreStatus18DSBladeRunnerFlagsEEEE16__generic_assignB8ne200100IRKNS0_17__copy_assignmentIS1N_LNS0_6_TraitE1EEEEEvOT_EUlRS1V_OT0_E_JRNS0_6__baseILS1R_1EJS8_bhsixjdS9_SA_SD_SE_SL_SQ_SV_S10_S15_S1A_S1E_S1I_S1J_S1K_S1L_S1M_EEERKS23_EEEDcS1V_DpT0_(uint64_t *result, _DWORD *a2, _DWORD *a3)
+{
+  v4 = *result;
+  if (*(*result + 16) == 22)
+  {
+    *a2 = *a3;
+  }
+
+  else
+  {
+    result = std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,BOOL,unsigned char,short,int,long long,unsigned int,double,Point,Blob,NSObject * {__strong},TString,TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>,TRef<__CFNumber const*,TRetainReleasePolicy<__CFNumber const*>>,TRef<__CFData const*,TRetainReleasePolicy<__CFData const*>>,TRef<__CFDictionary const*,TRetainReleasePolicy<__CFDictionary const*>>,TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,TRef<__CFArray const*,TRetainReleasePolicy<__CFArray const*>>,TRef<__CFFileSecurity *,TRetainReleasePolicy<__CFFileSecurity *>>,TRef<TReferenceCounted *,TRetainReleasePolicy<TReferenceCounted *>>,Property,NodeRequestOptions,NodeDSStoreStatus,DSBladeRunnerFlags>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](*result);
+    *v4 = *a3;
+    v4[4] = 22;
+  }
+
+  return result;
+}
+
+uint64_t *_ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm23ELm23EEE10__dispatchB8ne200100IOZNS0_12__assignmentINS0_8__traitsIJNS_9monostateEbhsixjd5Point4BlobU8__strongP8NSObject7TString4TRefIPK10__CFString20TRetainReleasePolicyISI_EESF_IPK10__CFNumberSJ_ISO_EESF_IPK8__CFDataSJ_IST_EESF_IPK14__CFDictionarySJ_ISY_EESF_IPK7__CFURLSJ_IS13_EESF_IPK9__CFArraySJ_IS18_EESF_IP16__CFFileSecuritySJ_IS1C_EESF_IP17TReferenceCountedSJ_IS1G_EE8Property18NodeRequestOptions17NodeDSStoreStatus18DSBladeRunnerFlagsEEEE16__generic_assignB8ne200100IRKNS0_17__copy_assignmentIS1N_LNS0_6_TraitE1EEEEEvOT_EUlRS1V_OT0_E_JRNS0_6__baseILS1R_1EJS8_bhsixjdS9_SA_SD_SE_SL_SQ_SV_S10_S15_S1A_S1E_S1I_S1J_S1K_S1L_S1M_EEERKS23_EEEDcS1V_DpT0_(uint64_t *result, _DWORD *a2, _DWORD *a3)
+{
+  v4 = *result;
+  if (*(*result + 16) == 23)
+  {
+    *a2 = *a3;
+  }
+
+  else
+  {
+    result = std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,BOOL,unsigned char,short,int,long long,unsigned int,double,Point,Blob,NSObject * {__strong},TString,TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>,TRef<__CFNumber const*,TRetainReleasePolicy<__CFNumber const*>>,TRef<__CFData const*,TRetainReleasePolicy<__CFData const*>>,TRef<__CFDictionary const*,TRetainReleasePolicy<__CFDictionary const*>>,TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,TRef<__CFArray const*,TRetainReleasePolicy<__CFArray const*>>,TRef<__CFFileSecurity *,TRetainReleasePolicy<__CFFileSecurity *>>,TRef<TReferenceCounted *,TRetainReleasePolicy<TReferenceCounted *>>,Property,NodeRequestOptions,NodeDSStoreStatus,DSBladeRunnerFlags>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](*result);
+    *v4 = *a3;
+    v4[4] = 23;
+  }
+
+  return result;
+}
+
+void std::__variant_detail::__assignment<std::__variant_detail::__traits<std::monostate,BOOL,unsigned char,short,int,long long,unsigned int,double,Point,Blob,NSObject * {__strong},TString,TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>,TRef<__CFNumber const*,TRetainReleasePolicy<__CFNumber const*>>,TRef<__CFData const*,TRetainReleasePolicy<__CFData const*>>,TRef<__CFDictionary const*,TRetainReleasePolicy<__CFDictionary const*>>,TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,TRef<__CFArray const*,TRetainReleasePolicy<__CFArray const*>>,TRef<__CFFileSecurity *,TRetainReleasePolicy<__CFFileSecurity *>>,TRef<TReferenceCounted *,TRetainReleasePolicy<TReferenceCounted *>>,Property,NodeRequestOptions,NodeDSStoreStatus,DSBladeRunnerFlags>>::__assign_alt[abi:ne200100]<10ul,NSObject * {__strong},NSObject * const {__strong}&>(uint64_t a1, id *location, id *a3)
+{
+  if (*(a1 + 16) == 10)
+  {
+    v5 = *a3;
+
+    objc_storeStrong(location, v5);
+  }
+
+  else
+  {
+    std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,BOOL,unsigned char,short,int,long long,unsigned int,double,Point,Blob,NSObject * {__strong},TString,TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>,TRef<__CFNumber const*,TRetainReleasePolicy<__CFNumber const*>>,TRef<__CFData const*,TRetainReleasePolicy<__CFData const*>>,TRef<__CFDictionary const*,TRetainReleasePolicy<__CFDictionary const*>>,TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,TRef<__CFArray const*,TRetainReleasePolicy<__CFArray const*>>,TRef<__CFFileSecurity *,TRetainReleasePolicy<__CFFileSecurity *>>,TRef<TReferenceCounted *,TRetainReleasePolicy<TReferenceCounted *>>,Property,NodeRequestOptions,NodeDSStoreStatus,DSBladeRunnerFlags>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](a1);
+    *a1 = *a3;
+    *(a1 + 16) = 10;
+  }
+}
+
+CFTypeRef *std::__variant_detail::__assignment<std::__variant_detail::__traits<std::monostate,BOOL,unsigned char,short,int,long long,unsigned int,double,Point,Blob,NSObject * {__strong},TString,TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>,TRef<__CFNumber const*,TRetainReleasePolicy<__CFNumber const*>>,TRef<__CFData const*,TRetainReleasePolicy<__CFData const*>>,TRef<__CFDictionary const*,TRetainReleasePolicy<__CFDictionary const*>>,TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,TRef<__CFArray const*,TRetainReleasePolicy<__CFArray const*>>,TRef<__CFFileSecurity *,TRetainReleasePolicy<__CFFileSecurity *>>,TRef<TReferenceCounted *,TRetainReleasePolicy<TReferenceCounted *>>,Property,NodeRequestOptions,NodeDSStoreStatus,DSBladeRunnerFlags>>::__assign_alt[abi:ne200100]<12ul,TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>,TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>> const&>(uint64_t a1, CFTypeRef *a2, const void **a3)
+{
+  if (*(a1 + 16) == 12)
+  {
+    v6 = *a3;
+
+    return TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::operator=(a2, v6);
+  }
+
+  else
+  {
+    v8[2] = v3;
+    v8[3] = v4;
+    v8[0] = a1;
+    v8[1] = a3;
+    return std::__variant_detail::__assignment<std::__variant_detail::__traits<std::monostate,BOOL,unsigned char,short,int,long long,unsigned int,double,Point,Blob,NSObject * {__strong},TString,TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>,TRef<__CFNumber const*,TRetainReleasePolicy<__CFNumber const*>>,TRef<__CFData const*,TRetainReleasePolicy<__CFData const*>>,TRef<__CFDictionary const*,TRetainReleasePolicy<__CFDictionary const*>>,TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,TRef<__CFArray const*,TRetainReleasePolicy<__CFArray const*>>,TRef<__CFFileSecurity *,TRetainReleasePolicy<__CFFileSecurity *>>,TRef<TReferenceCounted *,TRetainReleasePolicy<TReferenceCounted *>>,Property,NodeRequestOptions,NodeDSStoreStatus,DSBladeRunnerFlags>>::__assign_alt[abi:ne200100]<12ul,TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>,TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>> const&>(std::__variant_detail::__alt<12ul,TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>> &,TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>> const&)::{unnamed type#1}::operator()(v8);
+  }
+}
+
+const void **std::__variant_detail::__assignment<std::__variant_detail::__traits<std::monostate,BOOL,unsigned char,short,int,long long,unsigned int,double,Point,Blob,NSObject * {__strong},TString,TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>,TRef<__CFNumber const*,TRetainReleasePolicy<__CFNumber const*>>,TRef<__CFData const*,TRetainReleasePolicy<__CFData const*>>,TRef<__CFDictionary const*,TRetainReleasePolicy<__CFDictionary const*>>,TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,TRef<__CFArray const*,TRetainReleasePolicy<__CFArray const*>>,TRef<__CFFileSecurity *,TRetainReleasePolicy<__CFFileSecurity *>>,TRef<TReferenceCounted *,TRetainReleasePolicy<TReferenceCounted *>>,Property,NodeRequestOptions,NodeDSStoreStatus,DSBladeRunnerFlags>>::__assign_alt[abi:ne200100]<12ul,TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>,TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>> const&>(std::__variant_detail::__alt<12ul,TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>> &,TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>> const&)::{unnamed type#1}::operator()(uint64_t *a1)
+{
+  v2 = *a1;
+  v1 = a1[1];
+  v3 = *v1;
+  if (*v1)
+  {
+    CFRetain(*v1);
+  }
+
+  std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,BOOL,unsigned char,short,int,long long,unsigned int,double,Point,Blob,NSObject * {__strong},TString,TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>,TRef<__CFNumber const*,TRetainReleasePolicy<__CFNumber const*>>,TRef<__CFData const*,TRetainReleasePolicy<__CFData const*>>,TRef<__CFDictionary const*,TRetainReleasePolicy<__CFDictionary const*>>,TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,TRef<__CFArray const*,TRetainReleasePolicy<__CFArray const*>>,TRef<__CFFileSecurity *,TRetainReleasePolicy<__CFFileSecurity *>>,TRef<TReferenceCounted *,TRetainReleasePolicy<TReferenceCounted *>>,Property,NodeRequestOptions,NodeDSStoreStatus,DSBladeRunnerFlags>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v2);
+  *v2 = v3;
+  v5 = 0;
+  *(v2 + 16) = 12;
+  return TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v5);
+}
+
+CFTypeRef *std::__variant_detail::__assignment<std::__variant_detail::__traits<std::monostate,BOOL,unsigned char,short,int,long long,unsigned int,double,Point,Blob,NSObject * {__strong},TString,TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>,TRef<__CFNumber const*,TRetainReleasePolicy<__CFNumber const*>>,TRef<__CFData const*,TRetainReleasePolicy<__CFData const*>>,TRef<__CFDictionary const*,TRetainReleasePolicy<__CFDictionary const*>>,TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,TRef<__CFArray const*,TRetainReleasePolicy<__CFArray const*>>,TRef<__CFFileSecurity *,TRetainReleasePolicy<__CFFileSecurity *>>,TRef<TReferenceCounted *,TRetainReleasePolicy<TReferenceCounted *>>,Property,NodeRequestOptions,NodeDSStoreStatus,DSBladeRunnerFlags>>::__assign_alt[abi:ne200100]<13ul,TRef<__CFNumber const*,TRetainReleasePolicy<__CFNumber const*>>,TRef<__CFNumber const*,TRetainReleasePolicy<__CFNumber const*>> const&>(uint64_t a1, CFTypeRef *a2, const void **a3)
+{
+  if (*(a1 + 16) == 13)
+  {
+    v6 = *a3;
+
+    return TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::operator=(a2, v6);
+  }
+
+  else
+  {
+    v8[2] = v3;
+    v8[3] = v4;
+    v8[0] = a1;
+    v8[1] = a3;
+    return std::__variant_detail::__assignment<std::__variant_detail::__traits<std::monostate,BOOL,unsigned char,short,int,long long,unsigned int,double,Point,Blob,NSObject * {__strong},TString,TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>,TRef<__CFNumber const*,TRetainReleasePolicy<__CFNumber const*>>,TRef<__CFData const*,TRetainReleasePolicy<__CFData const*>>,TRef<__CFDictionary const*,TRetainReleasePolicy<__CFDictionary const*>>,TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,TRef<__CFArray const*,TRetainReleasePolicy<__CFArray const*>>,TRef<__CFFileSecurity *,TRetainReleasePolicy<__CFFileSecurity *>>,TRef<TReferenceCounted *,TRetainReleasePolicy<TReferenceCounted *>>,Property,NodeRequestOptions,NodeDSStoreStatus,DSBladeRunnerFlags>>::__assign_alt[abi:ne200100]<13ul,TRef<__CFNumber const*,TRetainReleasePolicy<__CFNumber const*>>,TRef<__CFNumber const*,TRetainReleasePolicy<__CFNumber const*>> const&>(std::__variant_detail::__alt<13ul,TRef<__CFNumber const*,TRetainReleasePolicy<__CFNumber const*>>> &,TRef<__CFNumber const*,TRetainReleasePolicy<__CFNumber const*>> const&)::{unnamed type#1}::operator()(v8);
+  }
+}
+
+const void **std::__variant_detail::__assignment<std::__variant_detail::__traits<std::monostate,BOOL,unsigned char,short,int,long long,unsigned int,double,Point,Blob,NSObject * {__strong},TString,TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>,TRef<__CFNumber const*,TRetainReleasePolicy<__CFNumber const*>>,TRef<__CFData const*,TRetainReleasePolicy<__CFData const*>>,TRef<__CFDictionary const*,TRetainReleasePolicy<__CFDictionary const*>>,TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,TRef<__CFArray const*,TRetainReleasePolicy<__CFArray const*>>,TRef<__CFFileSecurity *,TRetainReleasePolicy<__CFFileSecurity *>>,TRef<TReferenceCounted *,TRetainReleasePolicy<TReferenceCounted *>>,Property,NodeRequestOptions,NodeDSStoreStatus,DSBladeRunnerFlags>>::__assign_alt[abi:ne200100]<13ul,TRef<__CFNumber const*,TRetainReleasePolicy<__CFNumber const*>>,TRef<__CFNumber const*,TRetainReleasePolicy<__CFNumber const*>> const&>(std::__variant_detail::__alt<13ul,TRef<__CFNumber const*,TRetainReleasePolicy<__CFNumber const*>>> &,TRef<__CFNumber const*,TRetainReleasePolicy<__CFNumber const*>> const&)::{unnamed type#1}::operator()(uint64_t *a1)
+{
+  v2 = *a1;
+  v1 = a1[1];
+  v3 = *v1;
+  if (*v1)
+  {
+    CFRetain(*v1);
+  }
+
+  std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,BOOL,unsigned char,short,int,long long,unsigned int,double,Point,Blob,NSObject * {__strong},TString,TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>,TRef<__CFNumber const*,TRetainReleasePolicy<__CFNumber const*>>,TRef<__CFData const*,TRetainReleasePolicy<__CFData const*>>,TRef<__CFDictionary const*,TRetainReleasePolicy<__CFDictionary const*>>,TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,TRef<__CFArray const*,TRetainReleasePolicy<__CFArray const*>>,TRef<__CFFileSecurity *,TRetainReleasePolicy<__CFFileSecurity *>>,TRef<TReferenceCounted *,TRetainReleasePolicy<TReferenceCounted *>>,Property,NodeRequestOptions,NodeDSStoreStatus,DSBladeRunnerFlags>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v2);
+  *v2 = v3;
+  v5 = 0;
+  *(v2 + 16) = 13;
+  return TRef<__CFNumber const*,TRetainReleasePolicy<__CFNumber const*>>::~TRef(&v5);
+}
+
+CFTypeRef *std::__variant_detail::__assignment<std::__variant_detail::__traits<std::monostate,BOOL,unsigned char,short,int,long long,unsigned int,double,Point,Blob,NSObject * {__strong},TString,TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>,TRef<__CFNumber const*,TRetainReleasePolicy<__CFNumber const*>>,TRef<__CFData const*,TRetainReleasePolicy<__CFData const*>>,TRef<__CFDictionary const*,TRetainReleasePolicy<__CFDictionary const*>>,TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,TRef<__CFArray const*,TRetainReleasePolicy<__CFArray const*>>,TRef<__CFFileSecurity *,TRetainReleasePolicy<__CFFileSecurity *>>,TRef<TReferenceCounted *,TRetainReleasePolicy<TReferenceCounted *>>,Property,NodeRequestOptions,NodeDSStoreStatus,DSBladeRunnerFlags>>::__assign_alt[abi:ne200100]<14ul,TRef<__CFData const*,TRetainReleasePolicy<__CFData const*>>,TRef<__CFData const*,TRetainReleasePolicy<__CFData const*>> const&>(uint64_t a1, CFTypeRef *a2, const void **a3)
+{
+  if (*(a1 + 16) == 14)
+  {
+    v6 = *a3;
+
+    return TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::operator=(a2, v6);
+  }
+
+  else
+  {
+    v8[2] = v3;
+    v8[3] = v4;
+    v8[0] = a1;
+    v8[1] = a3;
+    return std::__variant_detail::__assignment<std::__variant_detail::__traits<std::monostate,BOOL,unsigned char,short,int,long long,unsigned int,double,Point,Blob,NSObject * {__strong},TString,TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>,TRef<__CFNumber const*,TRetainReleasePolicy<__CFNumber const*>>,TRef<__CFData const*,TRetainReleasePolicy<__CFData const*>>,TRef<__CFDictionary const*,TRetainReleasePolicy<__CFDictionary const*>>,TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,TRef<__CFArray const*,TRetainReleasePolicy<__CFArray const*>>,TRef<__CFFileSecurity *,TRetainReleasePolicy<__CFFileSecurity *>>,TRef<TReferenceCounted *,TRetainReleasePolicy<TReferenceCounted *>>,Property,NodeRequestOptions,NodeDSStoreStatus,DSBladeRunnerFlags>>::__assign_alt[abi:ne200100]<14ul,TRef<__CFData const*,TRetainReleasePolicy<__CFData const*>>,TRef<__CFData const*,TRetainReleasePolicy<__CFData const*>> const&>(std::__variant_detail::__alt<14ul,TRef<__CFData const*,TRetainReleasePolicy<__CFData const*>>> &,TRef<__CFData const*,TRetainReleasePolicy<__CFData const*>> const&)::{unnamed type#1}::operator()(v8);
+  }
+}
+
+const void **std::__variant_detail::__assignment<std::__variant_detail::__traits<std::monostate,BOOL,unsigned char,short,int,long long,unsigned int,double,Point,Blob,NSObject * {__strong},TString,TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>,TRef<__CFNumber const*,TRetainReleasePolicy<__CFNumber const*>>,TRef<__CFData const*,TRetainReleasePolicy<__CFData const*>>,TRef<__CFDictionary const*,TRetainReleasePolicy<__CFDictionary const*>>,TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,TRef<__CFArray const*,TRetainReleasePolicy<__CFArray const*>>,TRef<__CFFileSecurity *,TRetainReleasePolicy<__CFFileSecurity *>>,TRef<TReferenceCounted *,TRetainReleasePolicy<TReferenceCounted *>>,Property,NodeRequestOptions,NodeDSStoreStatus,DSBladeRunnerFlags>>::__assign_alt[abi:ne200100]<14ul,TRef<__CFData const*,TRetainReleasePolicy<__CFData const*>>,TRef<__CFData const*,TRetainReleasePolicy<__CFData const*>> const&>(std::__variant_detail::__alt<14ul,TRef<__CFData const*,TRetainReleasePolicy<__CFData const*>>> &,TRef<__CFData const*,TRetainReleasePolicy<__CFData const*>> const&)::{unnamed type#1}::operator()(uint64_t *a1)
+{
+  v2 = *a1;
+  v1 = a1[1];
+  v3 = *v1;
+  if (*v1)
+  {
+    CFRetain(*v1);
+  }
+
+  std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,BOOL,unsigned char,short,int,long long,unsigned int,double,Point,Blob,NSObject * {__strong},TString,TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>,TRef<__CFNumber const*,TRetainReleasePolicy<__CFNumber const*>>,TRef<__CFData const*,TRetainReleasePolicy<__CFData const*>>,TRef<__CFDictionary const*,TRetainReleasePolicy<__CFDictionary const*>>,TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,TRef<__CFArray const*,TRetainReleasePolicy<__CFArray const*>>,TRef<__CFFileSecurity *,TRetainReleasePolicy<__CFFileSecurity *>>,TRef<TReferenceCounted *,TRetainReleasePolicy<TReferenceCounted *>>,Property,NodeRequestOptions,NodeDSStoreStatus,DSBladeRunnerFlags>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v2);
+  *v2 = v3;
+  v5 = 0;
+  *(v2 + 16) = 14;
+  return TRef<__CFData const*,TRetainReleasePolicy<__CFData const*>>::~TRef(&v5);
+}
+
+CFTypeRef *std::__variant_detail::__assignment<std::__variant_detail::__traits<std::monostate,BOOL,unsigned char,short,int,long long,unsigned int,double,Point,Blob,NSObject * {__strong},TString,TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>,TRef<__CFNumber const*,TRetainReleasePolicy<__CFNumber const*>>,TRef<__CFData const*,TRetainReleasePolicy<__CFData const*>>,TRef<__CFDictionary const*,TRetainReleasePolicy<__CFDictionary const*>>,TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,TRef<__CFArray const*,TRetainReleasePolicy<__CFArray const*>>,TRef<__CFFileSecurity *,TRetainReleasePolicy<__CFFileSecurity *>>,TRef<TReferenceCounted *,TRetainReleasePolicy<TReferenceCounted *>>,Property,NodeRequestOptions,NodeDSStoreStatus,DSBladeRunnerFlags>>::__assign_alt[abi:ne200100]<15ul,TRef<__CFDictionary const*,TRetainReleasePolicy<__CFDictionary const*>>,TRef<__CFDictionary const*,TRetainReleasePolicy<__CFDictionary const*>> const&>(uint64_t a1, CFTypeRef *a2, const void **a3)
+{
+  if (*(a1 + 16) == 15)
+  {
+    v6 = *a3;
+
+    return TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::operator=(a2, v6);
+  }
+
+  else
+  {
+    v8[2] = v3;
+    v8[3] = v4;
+    v8[0] = a1;
+    v8[1] = a3;
+    return std::__variant_detail::__assignment<std::__variant_detail::__traits<std::monostate,BOOL,unsigned char,short,int,long long,unsigned int,double,Point,Blob,NSObject * {__strong},TString,TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>,TRef<__CFNumber const*,TRetainReleasePolicy<__CFNumber const*>>,TRef<__CFData const*,TRetainReleasePolicy<__CFData const*>>,TRef<__CFDictionary const*,TRetainReleasePolicy<__CFDictionary const*>>,TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,TRef<__CFArray const*,TRetainReleasePolicy<__CFArray const*>>,TRef<__CFFileSecurity *,TRetainReleasePolicy<__CFFileSecurity *>>,TRef<TReferenceCounted *,TRetainReleasePolicy<TReferenceCounted *>>,Property,NodeRequestOptions,NodeDSStoreStatus,DSBladeRunnerFlags>>::__assign_alt[abi:ne200100]<15ul,TRef<__CFDictionary const*,TRetainReleasePolicy<__CFDictionary const*>>,TRef<__CFDictionary const*,TRetainReleasePolicy<__CFDictionary const*>> const&>(std::__variant_detail::__alt<15ul,TRef<__CFDictionary const*,TRetainReleasePolicy<__CFDictionary const*>>> &,TRef<__CFDictionary const*,TRetainReleasePolicy<__CFDictionary const*>> const&)::{unnamed type#1}::operator()(v8);
+  }
+}
+
+const void **std::__variant_detail::__assignment<std::__variant_detail::__traits<std::monostate,BOOL,unsigned char,short,int,long long,unsigned int,double,Point,Blob,NSObject * {__strong},TString,TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>,TRef<__CFNumber const*,TRetainReleasePolicy<__CFNumber const*>>,TRef<__CFData const*,TRetainReleasePolicy<__CFData const*>>,TRef<__CFDictionary const*,TRetainReleasePolicy<__CFDictionary const*>>,TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,TRef<__CFArray const*,TRetainReleasePolicy<__CFArray const*>>,TRef<__CFFileSecurity *,TRetainReleasePolicy<__CFFileSecurity *>>,TRef<TReferenceCounted *,TRetainReleasePolicy<TReferenceCounted *>>,Property,NodeRequestOptions,NodeDSStoreStatus,DSBladeRunnerFlags>>::__assign_alt[abi:ne200100]<15ul,TRef<__CFDictionary const*,TRetainReleasePolicy<__CFDictionary const*>>,TRef<__CFDictionary const*,TRetainReleasePolicy<__CFDictionary const*>> const&>(std::__variant_detail::__alt<15ul,TRef<__CFDictionary const*,TRetainReleasePolicy<__CFDictionary const*>>> &,TRef<__CFDictionary const*,TRetainReleasePolicy<__CFDictionary const*>> const&)::{unnamed type#1}::operator()(uint64_t *a1)
+{
+  v2 = *a1;
+  v1 = a1[1];
+  v3 = *v1;
+  if (*v1)
+  {
+    CFRetain(*v1);
+  }
+
+  std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,BOOL,unsigned char,short,int,long long,unsigned int,double,Point,Blob,NSObject * {__strong},TString,TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>,TRef<__CFNumber const*,TRetainReleasePolicy<__CFNumber const*>>,TRef<__CFData const*,TRetainReleasePolicy<__CFData const*>>,TRef<__CFDictionary const*,TRetainReleasePolicy<__CFDictionary const*>>,TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,TRef<__CFArray const*,TRetainReleasePolicy<__CFArray const*>>,TRef<__CFFileSecurity *,TRetainReleasePolicy<__CFFileSecurity *>>,TRef<TReferenceCounted *,TRetainReleasePolicy<TReferenceCounted *>>,Property,NodeRequestOptions,NodeDSStoreStatus,DSBladeRunnerFlags>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v2);
+  *v2 = v3;
+  v5 = 0;
+  *(v2 + 16) = 15;
+  return TRef<__CFDictionary const*,TRetainReleasePolicy<__CFDictionary const*>>::~TRef(&v5);
 }

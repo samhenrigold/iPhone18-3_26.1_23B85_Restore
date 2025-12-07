@@ -15,11 +15,15 @@
 - (void)emitNavigationEventForListUserWordsController;
 - (void)inlineUserDictionaryDoneEditing;
 - (void)loadView;
+- (void)navigationController:(id)controller willShowViewController:(id)viewController animated:(BOOL)animated;
 - (void)reloadSections;
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated;
 - (void)tableView:(id)view commitEditingStyle:(int64_t)style forRowAtIndexPath:(id)path;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)userWordDidUpdate:(id)update;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 - (void)willPresentSearchController:(id)controller;
 @end
 
@@ -232,6 +236,22 @@ LABEL_22:
   _Block_object_dispose(v5, 8);
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = ListUserWordsController;
+  [(ListUserWordsController *)&v4 viewWillAppear:appear];
+  [(ListUserWordsController *)self reloadSections];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = ListUserWordsController;
+  [(ListUserWordsController *)&v4 viewDidAppear:appear];
+  [(ListUserWordsController *)self emitNavigationEventForListUserWordsController];
+}
+
 - (void)dealloc
 {
   [(TIUserWordsManager *)[(ListUserWordsController *)self dictionaryController] removeObserver:self->_observerToken];
@@ -260,6 +280,16 @@ LABEL_22:
   }
 
   return v4 < v5;
+}
+
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  editingCopy = editing;
+  v7.receiver = self;
+  v7.super_class = ListUserWordsController;
+  [ListUserWordsController setEditing:"setEditing:animated:" animated:?];
+  [(UITableView *)[(ListUserWordsController *)self tableView] setEditing:editingCopy animated:animatedCopy];
 }
 
 - (void)tableView:(id)view commitEditingStyle:(int64_t)style forRowAtIndexPath:(id)path
@@ -430,6 +460,52 @@ LABEL_8:
   navigationController = [(ListUserWordsController *)self navigationController];
 
   [navigationController popViewControllerAnimated:1];
+}
+
+- (void)navigationController:(id)controller willShowViewController:(id)viewController animated:(BOOL)animated
+{
+  if ([(ListUserWordsController *)self searchNavControllerChanges:controller])
+  {
+    v8 = [objc_msgSend(controller "viewControllers")];
+    transitionCoordinator = [controller transitionCoordinator];
+    superview = [(UISearchBar *)[(UISearchController *)self->_searchController searchBar] superview];
+    if (v8 == viewController)
+    {
+      v28 = _NSConcreteStackBlock;
+      v29 = 3221225472;
+      v30 = sub_39F0;
+      v31 = &unk_48EF0;
+      selfCopy = self;
+      v23 = _NSConcreteStackBlock;
+      v24 = 3221225472;
+      v25 = sub_39F8;
+      v26 = &unk_48EF0;
+      selfCopy2 = self;
+      v11 = &v28;
+      v12 = &v23;
+    }
+
+    else
+    {
+      selfCopy3 = self;
+      v18 = _NSConcreteStackBlock;
+      v19 = 3221225472;
+      v20 = sub_3A44;
+      v21 = &unk_48EF0;
+      selfCopy4 = self;
+      v13 = _NSConcreteStackBlock;
+      v14 = 3221225472;
+      v15 = sub_3A4C;
+      v16 = &unk_48EF0;
+      v11 = &v18;
+      v12 = &v13;
+    }
+
+    [transitionCoordinator animateAlongsideTransitionInView:superview animation:v11 completion:{v12, v13, v14, v15, v16, selfCopy3, v18, v19, v20, v21, selfCopy4, v23, v24, v25, v26, selfCopy2, v28, v29, v30, v31, selfCopy}];
+    [controller setNavigationBarHidden:v8 == viewController animated:1];
+  }
+
+  [(ListUserWordsController *)self setSearchNavControllerChanges:[(ListUserWordsController *)self searchNavControllerChanges]+ 1];
 }
 
 - (void)willPresentSearchController:(id)controller

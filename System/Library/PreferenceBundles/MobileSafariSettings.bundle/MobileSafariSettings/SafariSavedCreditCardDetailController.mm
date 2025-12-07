@@ -38,6 +38,7 @@
 - (void)setSpecifier:(id)specifier;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation SafariSavedCreditCardDetailController
@@ -396,6 +397,15 @@ id __45__SafariSavedCreditCardDetailController_init__block_invoke_2(uint64_t a1,
   v12 = v3;
 
   return v12;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  [(SafariSavedCreditCardDetailController *)self _updateRightBarButtonItem];
+  v5.receiver = self;
+  v5.super_class = SafariSavedCreditCardDetailController;
+  [(SafariSavedCreditCardDetailController *)&v5 viewWillAppear:appearCopy];
 }
 
 - (id)_deleteButtonSpecifiers

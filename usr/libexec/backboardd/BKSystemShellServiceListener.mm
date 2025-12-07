@@ -223,13 +223,13 @@ LABEL_18:
 
 - (BOOL)_remoteProcessIsAlreadyConnected:(id)connected
 {
-  auditToken = [connected auditToken];
-  v5 = auditToken;
+  v4 = objc_msgSend_auditToken(connected, a2);
+  v5 = v4;
   v8 = 0u;
   v9 = 0u;
-  if (auditToken)
+  if (v4)
   {
-    [auditToken realToken];
+    objc_msgSend_realToken(v4, v8, v9);
   }
 
   v6 = [(BKSystemShellSentinel *)self->_systemShellSentinel auditTokenRepresentsSystemApp:&v8];

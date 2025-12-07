@@ -1,4 +1,4 @@
-void *sub_100003520(void *a1)
+__CFString *sub_100003520(void *a1)
 {
   v1 = a1;
   v2 = +[NSBundle mainBundle];
@@ -11,7 +11,7 @@ void *sub_100003520(void *a1)
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v5 = sub_100005A30();
+    v5 = sub_100005A30(v4);
     v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v6)
     {
@@ -180,16 +180,16 @@ void sub_1000053D0(uint64_t a1, void *a2)
   [v4 presentWallpaperEditingViewControllerWithImage:v6 wallpaper:v5];
 }
 
-id sub_100005A30()
+id sub_100005A30(uint64_t a1)
 {
   if (qword_1000DAA40 != -1)
   {
     sub_10007F974();
   }
 
-  v1 = qword_1000DAA48;
+  v2 = qword_1000DAA48;
 
-  return v1;
+  return v2;
 }
 
 void sub_100005A74(id a1)
@@ -270,24 +270,13 @@ LABEL_9:
 id sub_100007A9C(uint64_t a1, void *a2)
 {
   v3 = a2;
-  if ([v3 code] != 32)
-  {
-    goto LABEL_4;
-  }
-
-  v4 = +[HFHomeKitDispatcher sharedDispatcher];
-  v5 = [v4 homeManager];
-  v6 = [*(a1 + 32) name];
-  v7 = [v5 hf_homeForName:v6];
-
-  if (v7)
+  if ([v3 code] == 32 && (+[HFHomeKitDispatcher sharedDispatcher](HFHomeKitDispatcher, "sharedDispatcher"), v4 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v4, "homeManager"), v5 = objc_claimAutoreleasedReturnValue(), objc_msgSend(*(a1 + 32), "name"), v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "hf_homeForName:", v6), v7 = objc_claimAutoreleasedReturnValue(), v6, v5, v4, v7))
   {
     v8 = [NAFuture futureWithResult:v7];
   }
 
   else
   {
-LABEL_4:
     v8 = [NAFuture futureWithError:v3];
   }
 
@@ -362,7 +351,7 @@ id sub_100007EBC(uint64_t a1, void *a2)
   return v6;
 }
 
-void *sub_100008E30(void *a1)
+__CFString *sub_100008E30(void *a1)
 {
   v1 = a1;
   v2 = +[NSBundle mainBundle];
@@ -375,7 +364,7 @@ void *sub_100008E30(void *a1)
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v5 = sub_100009738();
+    v5 = sub_100009738(v4);
     v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v6)
     {
@@ -433,16 +422,16 @@ LABEL_10:
   return v13;
 }
 
-id sub_100009738()
+id sub_100009738(uint64_t a1)
 {
   if (qword_1000DAA50 != -1)
   {
     sub_10007FB1C();
   }
 
-  v1 = qword_1000DAA58;
+  v2 = qword_1000DAA58;
 
-  return v1;
+  return v2;
 }
 
 void sub_10000977C(id a1)
@@ -537,61 +526,62 @@ void sub_10000A4E8(uint64_t a1, void *a2)
     v9 = @"HOHomeScreenQuickActionCreateSceneTitle";
     v10 = [v8 localizedStringForKey:@"HOHomeScreenQuickActionCreateSceneTitle" value:@"_" table:@"HOLocalizable"];
 
-    if ([@"_" isEqualToString:v10])
+    v11 = [@"_" isEqualToString:v10];
+    if (v11)
     {
-      v25 = 0u;
       v26 = 0u;
       v27 = 0u;
       v28 = 0u;
-      v11 = sub_10000B2DC();
-      v12 = [v11 countByEnumeratingWithState:&v25 objects:buf count:16];
-      if (v12)
+      v29 = 0u;
+      v12 = sub_10000B2DC(v11);
+      v13 = [v12 countByEnumeratingWithState:&v26 objects:buf count:16];
+      if (v13)
       {
-        v13 = v12;
-        v23 = a1;
-        v24 = v5;
-        v14 = *v26;
+        v14 = v13;
+        v24 = a1;
+        v25 = v5;
+        v15 = *v27;
 LABEL_8:
-        v15 = 0;
+        v16 = 0;
         while (1)
         {
-          if (*v26 != v14)
+          if (*v27 != v15)
           {
-            objc_enumerationMutation(v11);
+            objc_enumerationMutation(v12);
           }
 
-          v16 = *(*(&v25 + 1) + 8 * v15);
-          v17 = +[NSBundle mainBundle];
-          v18 = [v17 localizedStringForKey:@"HOHomeScreenQuickActionCreateSceneTitle" value:@"HOHomeScreenQuickActionCreateSceneTitle" table:v16];
+          v17 = *(*(&v26 + 1) + 8 * v16);
+          v18 = +[NSBundle mainBundle];
+          v19 = [v18 localizedStringForKey:@"HOHomeScreenQuickActionCreateSceneTitle" value:@"HOHomeScreenQuickActionCreateSceneTitle" table:v17];
 
-          if (![(__CFString *)v18 isEqualToString:@"HOHomeScreenQuickActionCreateSceneTitle"])
+          if (![(__CFString *)v19 isEqualToString:@"HOHomeScreenQuickActionCreateSceneTitle"])
           {
             break;
           }
 
-          if (v13 == ++v15)
+          if (v14 == ++v16)
           {
-            v13 = [v11 countByEnumeratingWithState:&v25 objects:buf count:16];
-            if (v13)
+            v14 = [v12 countByEnumeratingWithState:&v26 objects:buf count:16];
+            if (v14)
             {
               goto LABEL_8;
             }
 
-            v18 = @"_";
+            v19 = @"_";
             break;
           }
         }
 
-        a1 = v23;
-        v5 = v24;
+        a1 = v24;
+        v5 = v25;
       }
 
       else
       {
-        v18 = @"_";
+        v19 = @"_";
       }
 
-      v10 = v18;
+      v10 = v19;
     }
 
     if ([@"_" isEqualToString:v10])
@@ -604,20 +594,20 @@ LABEL_8:
       v9 = v10;
     }
 
-    v19 = [UIApplicationShortcutIcon iconWithType:3];
-    v20 = [[UIApplicationShortcutItem alloc] initWithType:@"HOHomeScreenQuickActionCreateSceneType" localizedTitle:v9 localizedSubtitle:0 icon:v19 userInfo:0];
-    [v5 addObject:v20];
+    v20 = [UIApplicationShortcutIcon iconWithType:3];
+    v21 = [[UIApplicationShortcutItem alloc] initWithType:@"HOHomeScreenQuickActionCreateSceneType" localizedTitle:v9 localizedSubtitle:0 icon:v20 userInfo:0];
+    [v5 addObject:v21];
   }
 
-  v21 = [*(a1 + 32) application];
-  [v21 setShortcutItems:v5];
+  v22 = [*(a1 + 32) application];
+  [v22 setShortcutItems:v5];
 
-  v22 = HFLogForCategory();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+  v23 = HFLogForCategory();
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v30 = v5;
-    _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Updated home screen quick actions: %@", buf, 0xCu);
+    v31 = v5;
+    _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Updated home screen quick actions: %@", buf, 0xCu);
   }
 }
 
@@ -667,60 +657,59 @@ void sub_10000AB1C(uint64_t a1)
 
 id sub_10000AF58(id *a1, void *a2)
 {
-  v21[0] = _NSConcreteStackBlock;
-  v21[1] = 3221225472;
-  v21[2] = sub_10000B1B8;
-  v21[3] = &unk_1000C20C0;
-  v4 = (a1 + 4);
-  v22 = a1[4];
-  v5 = [a2 na_firstObjectPassingTest:v21];
-  v6 = v5;
-  if (v5)
+  v20[0] = _NSConcreteStackBlock;
+  v20[1] = 3221225472;
+  v20[2] = sub_10000B1B8;
+  v20[3] = &unk_1000C20C0;
+  v21 = a1[4];
+  v4 = [a2 na_firstObjectPassingTest:v20];
+  v5 = v4;
+  if (v4)
   {
-    v7 = [v5 actionSets];
-    v16 = _NSConcreteStackBlock;
-    v17 = 3221225472;
-    v18 = sub_10000B214;
-    v19 = &unk_1000C20E8;
-    v20 = a1[6];
-    v8 = [v7 na_firstObjectPassingTest:&v16];
+    v6 = [v4 actionSets];
+    v15 = _NSConcreteStackBlock;
+    v16 = 3221225472;
+    v17 = sub_10000B214;
+    v18 = &unk_1000C20E8;
+    v19 = a1[6];
+    v7 = [v6 na_firstObjectPassingTest:&v15];
 
-    if (v8)
+    if (v7)
     {
-      v9 = [v6 hf_characteristicValueManager];
-      v10 = [v9 executeActionSet:v8];
+      v8 = [v5 hf_characteristicValueManager];
+      v9 = [v8 executeActionSet:v7];
 
-      [a1[7] showHomeDashboardCellForActionSet:v8 executeActionSetFuture:v10];
+      [a1[7] showHomeDashboardCellForActionSet:v7 executeActionSetFuture:v9];
     }
 
     else
     {
-      v13 = HFLogForCategory();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v12 = HFLogForCategory();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        sub_10007FC64(a1, a1 + 6);
+        sub_10007FC64();
       }
 
-      v14 = [NSError hf_errorWithCode:30, v16, v17, v18, v19];
-      v10 = [NAFuture futureWithError:v14];
+      v13 = [NSError hf_errorWithCode:30, v15, v16, v17, v18];
+      v9 = [NAFuture futureWithError:v13];
     }
 
-    v12 = v20;
+    v11 = v19;
   }
 
   else
   {
-    v11 = HFLogForCategory();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v10 = HFLogForCategory();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      sub_10007FCD4(a1, v4);
+      sub_10007FCD4();
     }
 
-    v12 = [NSError hf_errorWithCode:30];
-    v10 = [NAFuture futureWithError:v12];
+    v11 = [NSError hf_errorWithCode:30];
+    v9 = [NAFuture futureWithError:v11];
   }
 
-  return v10;
+  return v9;
 }
 
 id sub_10000B1B8(uint64_t a1, void *a2)
@@ -741,16 +730,16 @@ id sub_10000B214(uint64_t a1, void *a2)
   return v5;
 }
 
-id sub_10000B2DC()
+id sub_10000B2DC(uint64_t a1)
 {
   if (qword_1000DAA60 != -1)
   {
     sub_10007FD44();
   }
 
-  v1 = qword_1000DAA68;
+  v2 = qword_1000DAA68;
 
-  return v1;
+  return v2;
 }
 
 void sub_10000B320(id a1)
@@ -766,16 +755,16 @@ void sub_10000B350(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
   _os_log_error_impl(a1, log, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-id sub_10000C210()
+id sub_10000C210(uint64_t a1)
 {
   if (qword_1000DAA70 != -1)
   {
     sub_10007FD58();
   }
 
-  v1 = qword_1000DAA78;
+  v2 = qword_1000DAA78;
 
-  return v1;
+  return v2;
 }
 
 void sub_10000C254(id a1)
@@ -960,7 +949,7 @@ id sub_10000F9E4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   return [v4 handleFailureInFunction:v5 file:a4 lineNumber:54 description:?];
 }
 
-void *sub_100010644(void *a1)
+__CFString *sub_100010644(void *a1)
 {
   v1 = a1;
   v2 = +[NSBundle mainBundle];
@@ -973,7 +962,7 @@ void *sub_100010644(void *a1)
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v5 = sub_1000130D8();
+    v5 = sub_1000130D8(v4);
     v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v6)
     {
@@ -1186,16 +1175,16 @@ void sub_10001270C(uint64_t a1, void *a2)
   [*(a1 + 32) dismissViewControllerAnimated:1 completion:0];
 }
 
-id sub_1000130D8()
+id sub_1000130D8(uint64_t a1)
 {
   if (qword_1000DAA80 != -1)
   {
     sub_10007FDF4();
   }
 
-  v1 = qword_1000DAA88;
+  v2 = qword_1000DAA88;
 
-  return v1;
+  return v2;
 }
 
 void sub_10001311C(id a1)
@@ -1204,7 +1193,7 @@ void sub_10001311C(id a1)
   qword_1000DAA88 = &off_1000CB488;
 }
 
-void *sub_1000134E8(void *a1)
+__CFString *sub_1000134E8(void *a1)
 {
   v1 = a1;
   v2 = +[NSBundle mainBundle];
@@ -1217,7 +1206,7 @@ void *sub_1000134E8(void *a1)
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v5 = sub_100013EC0();
+    v5 = sub_100013EC0(v4);
     v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v6)
     {
@@ -1275,16 +1264,16 @@ LABEL_10:
   return v13;
 }
 
-id sub_100013EC0()
+id sub_100013EC0(uint64_t a1)
 {
   if (qword_1000DAA90 != -1)
   {
     sub_10007FE08();
   }
 
-  v1 = qword_1000DAA98;
+  v2 = qword_1000DAA98;
 
-  return v1;
+  return v2;
 }
 
 void sub_100013F04(id a1)
@@ -1293,16 +1282,16 @@ void sub_100013F04(id a1)
   qword_1000DAA98 = &off_1000CB4A0;
 }
 
-id sub_100014198()
+id sub_100014198(uint64_t a1)
 {
   if (qword_1000DAAA0 != -1)
   {
     sub_10007FE1C();
   }
 
-  v1 = qword_1000DAAA8;
+  v2 = qword_1000DAAA8;
 
-  return v1;
+  return v2;
 }
 
 void sub_1000141DC(id a1)
@@ -1362,16 +1351,16 @@ void sub_100016168(uint64_t a1)
   }
 }
 
-id sub_100016B2C()
+id sub_100016B2C(uint64_t a1)
 {
   if (qword_1000DAAB0 != -1)
   {
     sub_10007FE30();
   }
 
-  v1 = qword_1000DAAB8;
+  v2 = qword_1000DAAB8;
 
-  return v1;
+  return v2;
 }
 
 void sub_100016B70(id a1)
@@ -1396,9 +1385,9 @@ void sub_100016D20(id a1)
   +[HFAccessoryTypeGroup warmUp];
 }
 
-void sub_100017908(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100017908(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1433,12 +1422,13 @@ id sub_100017C78(uint64_t a1, void *a2)
   return [v5 _logNetworkSymptoms];
 }
 
-void sub_100017F34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26)
+void sub_100017F34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
 {
+  va_start(va, a25);
   _Block_object_dispose(&a18, 8);
   _Block_object_dispose(&a22, 8);
-  _Block_object_dispose(&a26, 8);
-  _Block_object_dispose((v26 - 136), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v25 - 136), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1508,9 +1498,9 @@ void sub_100018048(uint64_t a1, void *a2)
   _Block_object_dispose(&v14, 8);
 }
 
-void sub_1000181BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1000181BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1583,20 +1573,20 @@ void sub_10001829C(id a1, HMHome *a2)
   _Block_object_dispose(&v19, 8);
 }
 
-void sub_1000184D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1000184D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va2, a8);
-  va_start(va1, a8);
-  va_start(va, a8);
-  v9 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
+  va_start(va2, a15);
+  va_start(va1, a15);
+  va_start(va, a15);
+  v16 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
   va_copy(va2, va1);
-  v14 = va_arg(va2, void);
-  v16 = va_arg(va2, void);
-  v17 = va_arg(va2, void);
-  v18 = va_arg(va2, void);
+  v21 = va_arg(va2, void);
+  v23 = va_arg(va2, void);
+  v24 = va_arg(va2, void);
+  v25 = va_arg(va2, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Block_object_dispose(va2, 8);
@@ -1724,10 +1714,11 @@ void sub_100018CA4(id a1, HMAccessory *a2)
   }
 }
 
-void sub_100019310(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100019310(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_10001B71C(_Unwind_Exception *a1)
@@ -1862,9 +1853,9 @@ LABEL_20:
   return v25;
 }
 
-void sub_10001BC40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10001BC40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2424,7 +2415,7 @@ LABEL_80:
         v30 = v73;
         if (!v30)
         {
-          sub_10007FD6C();
+          sub_10007FD6C(v72);
         }
       }
 
@@ -2489,7 +2480,7 @@ LABEL_80:
         v30 = v80;
         if (!v30)
         {
-          sub_10007FD6C();
+          sub_10007FD6C(v79);
         }
       }
 
@@ -3757,19 +3748,20 @@ id *sub_100023024(id *result, char a2)
   return result;
 }
 
-void sub_100023068(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100023068(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 id sub_1000230AC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12)
 {
 
-  return [a12 handleFailureInFunction:v12 file:a4 lineNumber:54 description:?];
+  return [a12 handleFailureInFunction:v12 file:a4 lineNumber:54 description:{a6, a7, a8}];
 }
 
-void *sub_100023400(void *a1)
+__CFString *sub_100023400(void *a1)
 {
   v1 = a1;
   v2 = +[NSBundle mainBundle];
@@ -3782,7 +3774,7 @@ void *sub_100023400(void *a1)
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v5 = sub_100023980();
+    v5 = sub_100023980(v4);
     v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v6)
     {
@@ -3840,16 +3832,16 @@ LABEL_10:
   return v13;
 }
 
-id sub_100023980()
+id sub_100023980(uint64_t a1)
 {
   if (qword_1000DAAC0 != -1)
   {
     sub_1000805B0();
   }
 
-  v1 = qword_1000DAAC8;
+  v2 = qword_1000DAAC8;
 
-  return v1;
+  return v2;
 }
 
 void sub_1000239C4(id a1)
@@ -4603,7 +4595,7 @@ void sub_100026B98(uint64_t a1, uint64_t a2, void *a3)
     v7 = HFLogForCategory();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      sub_1000806C4(a1);
+      sub_1000806C4();
     }
 
     [*(a1 + 48) finishWithError:*(a1 + 56)];
@@ -4976,7 +4968,7 @@ id sub_100028A40(uint64_t a1, void *a2)
   {
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      sub_100080964(v3, a1);
+      sub_100080964();
     }
 
     v9 = +[NAFuture futureWithNoResult];
@@ -5704,7 +5696,7 @@ void sub_10002CA48(uint64_t a1, void *a2)
   {
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      sub_100080CB0(a1);
+      sub_100080CB0();
     }
   }
 }
@@ -5746,7 +5738,7 @@ void sub_10002E0FC(uint64_t a1, void *a2)
   [v4 setImage:v3];
 }
 
-void *sub_10002E168(void *a1)
+__CFString *sub_10002E168(void *a1)
 {
   v1 = a1;
   v2 = +[NSBundle mainBundle];
@@ -5759,7 +5751,7 @@ void *sub_10002E168(void *a1)
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v5 = sub_10002EB08();
+    v5 = sub_10002EB08(v4);
     v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v6)
     {
@@ -5817,16 +5809,16 @@ LABEL_10:
   return v13;
 }
 
-id sub_10002EB08()
+id sub_10002EB08(uint64_t a1)
 {
   if (qword_1000DAAD8 != -1)
   {
     sub_100080DE8();
   }
 
-  v1 = qword_1000DAAE0;
+  v2 = qword_1000DAAE0;
 
-  return v1;
+  return v2;
 }
 
 void sub_10002EB4C(id a1)
@@ -5857,7 +5849,7 @@ void sub_10002F1B0(uint64_t a1, void *a2, void *a3)
     v7 = HFLogForCategory();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      sub_100080DFC(a1);
+      sub_100080DFC();
     }
   }
 
@@ -5900,7 +5892,7 @@ void sub_10002F1B0(uint64_t a1, void *a2, void *a3)
   [v19 presentViewController:v12 animated:1 completion:0];
 }
 
-void *sub_10002F47C(void *a1)
+__CFString *sub_10002F47C(void *a1)
 {
   v1 = a1;
   v2 = +[NSBundle mainBundle];
@@ -5913,7 +5905,7 @@ void *sub_10002F47C(void *a1)
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v5 = sub_100030F84();
+    v5 = sub_100030F84(v4);
     v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v6)
     {
@@ -5973,13 +5965,13 @@ LABEL_10:
 
 void sub_10002F770(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  if (v3)
+  v2 = a2;
+  if (v2)
   {
-    v4 = HFLogForCategory();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v3 = HFLogForCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      sub_100080E68(a1);
+      sub_100080E68();
     }
   }
 }
@@ -6012,16 +6004,16 @@ void sub_10003067C(uint64_t a1)
   }
 }
 
-id sub_100030F84()
+id sub_100030F84(uint64_t a1)
 {
   if (qword_1000DAAE8 != -1)
   {
     sub_100080F8C();
   }
 
-  v1 = qword_1000DAAF0;
+  v2 = qword_1000DAAF0;
 
-  return v1;
+  return v2;
 }
 
 void sub_100030FC8(id a1)
@@ -6301,16 +6293,16 @@ id sub_100032FA4(uint64_t a1, void *a2)
   return v7;
 }
 
-id sub_1000335CC()
+id sub_1000335CC(uint64_t a1)
 {
   if (qword_1000DAAF8 != -1)
   {
     sub_100080FA0();
   }
 
-  v1 = qword_1000DAB00;
+  v2 = qword_1000DAB00;
 
-  return v1;
+  return v2;
 }
 
 void sub_100033610(id a1)
@@ -6355,7 +6347,7 @@ BOOL sub_100034800(uint64_t a1, uint64_t a2, void *a3)
   return v5;
 }
 
-void *sub_100035884(void *a1)
+__CFString *sub_100035884(void *a1)
 {
   v1 = a1;
   v2 = +[NSBundle mainBundle];
@@ -6368,7 +6360,7 @@ void *sub_100035884(void *a1)
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v5 = sub_100036F44();
+    v5 = sub_100036F44(v4);
     v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v6)
     {
@@ -6479,16 +6471,16 @@ void sub_1000362F0(uint64_t a1, void *a2)
   [*(a1 + 32) dismissViewControllerAnimated:1 completion:0];
 }
 
-id sub_100036F44()
+id sub_100036F44(uint64_t a1)
 {
   if (qword_1000DAB18 != -1)
   {
     sub_10008104C();
   }
 
-  v1 = qword_1000DAB20;
+  v2 = qword_1000DAB20;
 
-  return v1;
+  return v2;
 }
 
 void sub_100036F88(id a1)
@@ -6497,7 +6489,7 @@ void sub_100036F88(id a1)
   qword_1000DAB20 = &off_1000CB530;
 }
 
-void *sub_1000371C0(void *a1)
+__CFString *sub_1000371C0(void *a1)
 {
   v1 = a1;
   v2 = +[NSBundle mainBundle];
@@ -6510,7 +6502,7 @@ void *sub_1000371C0(void *a1)
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v5 = sub_1000379C0();
+    v5 = sub_1000379C0(v4);
     v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v6)
     {
@@ -6568,16 +6560,16 @@ LABEL_10:
   return v13;
 }
 
-id sub_1000379C0()
+id sub_1000379C0(uint64_t a1)
 {
   if (qword_1000DAB28 != -1)
   {
     sub_100081060();
   }
 
-  v1 = qword_1000DAB30;
+  v2 = qword_1000DAB30;
 
-  return v1;
+  return v2;
 }
 
 void sub_100037A04(id a1)
@@ -6586,16 +6578,16 @@ void sub_100037A04(id a1)
   qword_1000DAB30 = &off_1000CB548;
 }
 
-id sub_100037A20()
+id sub_100037A20(uint64_t a1)
 {
   if (qword_1000DAB38 != -1)
   {
     sub_100081074();
   }
 
-  v1 = qword_1000DAB40;
+  v2 = qword_1000DAB40;
 
-  return v1;
+  return v2;
 }
 
 void sub_100037A64(id a1)
@@ -6648,7 +6640,7 @@ BOOL sub_100038CBC(id a1, HMIncomingHomeInvitation *a2)
   return v3;
 }
 
-void *sub_1000391E8(void *a1)
+__CFString *sub_1000391E8(void *a1)
 {
   v1 = a1;
   v2 = +[NSBundle mainBundle];
@@ -6661,7 +6653,7 @@ void *sub_1000391E8(void *a1)
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v5 = sub_10003D6E0();
+    v5 = sub_10003D6E0(v4);
     v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v6)
     {
@@ -6988,16 +6980,16 @@ void sub_10003D3AC(uint64_t a1, void *a2)
   }
 }
 
-id sub_10003D6E0()
+id sub_10003D6E0(uint64_t a1)
 {
   if (qword_1000DAB48 != -1)
   {
     sub_100081120();
   }
 
-  v1 = qword_1000DAB50;
+  v2 = qword_1000DAB50;
 
-  return v1;
+  return v2;
 }
 
 void sub_10003D724(id a1)
@@ -7006,7 +6998,7 @@ void sub_10003D724(id a1)
   qword_1000DAB50 = &off_1000CB560;
 }
 
-void *sub_10003DB38(void *a1)
+__CFString *sub_10003DB38(void *a1)
 {
   v1 = a1;
   v2 = +[NSBundle mainBundle];
@@ -7019,7 +7011,7 @@ void *sub_10003DB38(void *a1)
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v5 = sub_10003E55C();
+    v5 = sub_10003E55C(v4);
     v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v6)
     {
@@ -7077,16 +7069,16 @@ LABEL_10:
   return v13;
 }
 
-id sub_10003E55C()
+id sub_10003E55C(uint64_t a1)
 {
   if (qword_1000DAB58 != -1)
   {
     sub_1000811AC();
   }
 
-  v1 = qword_1000DAB60;
+  v2 = qword_1000DAB60;
 
-  return v1;
+  return v2;
 }
 
 void sub_10003E5A0(id a1)
@@ -7107,7 +7099,7 @@ void sub_10003F394(uint64_t a1, char a2, void *a3)
   dispatch_async(&_dispatch_main_q, v5);
 }
 
-void *sub_10003FCAC(void *a1)
+__CFString *sub_10003FCAC(void *a1)
 {
   v1 = a1;
   v2 = +[NSBundle mainBundle];
@@ -7120,7 +7112,7 @@ void *sub_10003FCAC(void *a1)
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v5 = sub_1000419C0();
+    v5 = sub_1000419C0(v4);
     v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v6)
     {
@@ -7319,7 +7311,7 @@ void sub_100041508(uint64_t a1, char a2, void *a3)
     v7 = HFLogForCategory();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      sub_10008133C(v5, a1);
+      sub_10008133C();
     }
 
     goto LABEL_7;
@@ -7331,7 +7323,7 @@ void sub_100041508(uint64_t a1, char a2, void *a3)
   {
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      sub_1000813B4(v5, a1);
+      sub_1000813B4();
     }
 
 LABEL_7:
@@ -7359,16 +7351,16 @@ void sub_100041600(id a1)
   }
 }
 
-id sub_1000419C0()
+id sub_1000419C0(uint64_t a1)
 {
   if (qword_1000DAB68 != -1)
   {
     sub_10008142C();
   }
 
-  v1 = qword_1000DAB70;
+  v2 = qword_1000DAB70;
 
-  return v1;
+  return v2;
 }
 
 void sub_100041A04(id a1)
@@ -7377,7 +7369,7 @@ void sub_100041A04(id a1)
   qword_1000DAB70 = &off_1000CB590;
 }
 
-void *sub_100041CEC(void *a1)
+__CFString *sub_100041CEC(void *a1)
 {
   v1 = a1;
   v2 = +[NSBundle mainBundle];
@@ -7390,7 +7382,7 @@ void *sub_100041CEC(void *a1)
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v5 = sub_1000422B4();
+    v5 = sub_1000422B4(v4);
     v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v6)
     {
@@ -7471,16 +7463,16 @@ void sub_1000420A0(id a1, NSError *a2)
   }
 }
 
-id sub_1000422B4()
+id sub_1000422B4(uint64_t a1)
 {
   if (qword_1000DAB78 != -1)
   {
     sub_100081440();
   }
 
-  v1 = qword_1000DAB80;
+  v2 = qword_1000DAB80;
 
-  return v1;
+  return v2;
 }
 
 void sub_1000422F8(id a1)
@@ -7525,16 +7517,16 @@ id sub_100042EE0(uint64_t a1)
   return result;
 }
 
-id sub_100043000()
+id sub_100043000(uint64_t a1)
 {
   if (qword_1000DAB88 != -1)
   {
     sub_1000816F4();
   }
 
-  v1 = qword_1000DAB90;
+  v2 = qword_1000DAB90;
 
-  return v1;
+  return v2;
 }
 
 void sub_100043044(id a1)
@@ -7550,7 +7542,7 @@ void sub_100043070(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
   _os_log_error_impl(a1, log, OS_LOG_TYPE_ERROR, a4, va, 0x20u);
 }
 
-void *sub_100043700(void *a1)
+__CFString *sub_100043700(void *a1)
 {
   v1 = a1;
   v2 = +[NSBundle mainBundle];
@@ -7563,7 +7555,7 @@ void *sub_100043700(void *a1)
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v5 = sub_1000452A4();
+    v5 = sub_1000452A4(v4);
     v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v6)
     {
@@ -7677,15 +7669,14 @@ void sub_100043E6C(uint64_t a1, void *a2, void *a3)
 
 id sub_100043F4C(uint64_t a1)
 {
-  v2 = (a1 + 32);
-  v3 = *(a1 + 32);
-  v4 = HFLogForCategory();
-  v5 = v4;
-  if (v3)
+  v2 = *(a1 + 32);
+  v3 = HFLogForCategory();
+  v4 = v3;
+  if (v2)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      sub_100081810(a1, v2);
+      sub_100081810(a1);
     }
 
     return [*(a1 + 48) _presentErrorAlert];
@@ -7693,15 +7684,15 @@ id sub_100043F4C(uint64_t a1)
 
   else
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = *(a1 + 56);
-      v8 = [*(a1 + 40) hf_prettyDescription];
-      v9 = 138412546;
-      v10 = v7;
-      v11 = 2112;
-      v12 = v8;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Profile: %@ successfully installed on HomePod: %@", &v9, 0x16u);
+      v6 = *(a1 + 56);
+      v7 = [*(a1 + 40) hf_prettyDescription];
+      v8 = 138412546;
+      v9 = v6;
+      v10 = 2112;
+      v11 = v7;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Profile: %@ successfully installed on HomePod: %@", &v8, 0x16u);
     }
 
     return [*(a1 + 48) _presentCompletionAlert];
@@ -7888,16 +7879,16 @@ void sub_100044C08(uint64_t a1, void *a2)
   [*(a1 + 40) addAction:{v6, v7, v8, v9, v10, v11}];
 }
 
-id sub_1000452A4()
+id sub_1000452A4(uint64_t a1)
 {
   if (qword_1000DAB98 != -1)
   {
     sub_100081AA0();
   }
 
-  v1 = qword_1000DABA0;
+  v2 = qword_1000DABA0;
 
-  return v1;
+  return v2;
 }
 
 void sub_1000452E8(id a1)
@@ -7958,7 +7949,7 @@ LABEL_11:
   return v14;
 }
 
-void *sub_100046640(void *a1)
+__CFString *sub_100046640(void *a1)
 {
   v1 = a1;
   v2 = +[NSBundle mainBundle];
@@ -7971,7 +7962,7 @@ void *sub_100046640(void *a1)
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v5 = sub_100046B80();
+    v5 = sub_100046B80(v4);
     v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v6)
     {
@@ -8029,16 +8020,16 @@ LABEL_10:
   return v13;
 }
 
-id sub_100046B80()
+id sub_100046B80(uint64_t a1)
 {
   if (qword_1000DABA8 != -1)
   {
     sub_100081AB4();
   }
 
-  v1 = qword_1000DABB0;
+  v2 = qword_1000DABB0;
 
-  return v1;
+  return v2;
 }
 
 void sub_100046BC4(id a1)
@@ -8103,42 +8094,37 @@ uint64_t sub_100046F50@<X0>(void *a1@<X8>)
   return result;
 }
 
-uint64_t sub_100046FA8@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+uint64_t sub_100046FA8@<X0>(void *a2@<X8>)
 {
-  v3 = *a1;
-  v4 = a1[1];
-  v5 = String._bridgeToObjectiveC()();
+  v3 = String._bridgeToObjectiveC()();
 
-  *a2 = v5;
+  *a2 = v3;
   return result;
 }
 
 uint64_t sub_100046FF0@<X0>(uint64_t *a1@<X8>)
 {
-  v3 = *v1;
   result = static String._unconditionallyBridgeFromObjectiveC(_:)();
   *a1 = result;
-  a1[1] = v5;
+  a1[1] = v3;
   return result;
 }
 
-uint64_t sub_10004701C(uint64_t *a1, uint64_t *a2)
+uint64_t sub_10004701C(void *a1, uint64_t *a2)
 {
-  v2 = *a1;
-  v3 = *a2;
-  v4 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v6 = v5;
-  if (v4 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v6 == v7)
+  v2 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v4 = v3;
+  if (v2 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v4 == v5)
   {
-    v9 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v9 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v7 = _stringCompareWithSmolCheck(_:_:expecting:)();
   }
 
-  return v9 & 1;
+  return v7 & 1;
 }
 
 void *sub_1000470A4@<X0>(void *result@<X0>, uint64_t a2@<X8>)
@@ -8150,13 +8136,13 @@ void *sub_1000470A4@<X0>(void *result@<X0>, uint64_t a2@<X8>)
 
 uint64_t sub_1000470C0(uint64_t a1)
 {
-  v2 = sub_1000471C0(&qword_1000D9830);
-  v3 = sub_1000471C0(&qword_1000D9838);
+  v2 = sub_1000471C0(&qword_1000D9830, &unk_100092FB8);
+  v3 = sub_1000471C0(&qword_1000D9838, &unk_100092F58);
 
   return _SwiftNewtypeWrapper<>._toCustomAnyHashable()(a1, v2, v3, &protocol witness table for String);
 }
 
-uint64_t sub_1000471C0(unint64_t *a1)
+uint64_t sub_1000471C0(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
@@ -8171,29 +8157,26 @@ uint64_t sub_1000471C0(unint64_t *a1)
 
 uint64_t sub_100047238()
 {
-  v1 = *v0;
   static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v2 = String.hashValue.getter();
+  v0 = String.hashValue.getter();
 
-  return v2;
+  return v0;
 }
 
-uint64_t sub_100047274()
+uint64_t sub_100047274(uint64_t a1)
 {
-  v1 = *v0;
   static String._unconditionallyBridgeFromObjectiveC(_:)();
   String.hash(into:)();
 }
 
-Swift::Int sub_1000472C8()
+Swift::Int sub_1000472C8(uint64_t a1)
 {
-  v1 = *v0;
   static String._unconditionallyBridgeFromObjectiveC(_:)();
   Hasher.init(_seed:)();
   String.hash(into:)();
-  v2 = Hasher._finalize()();
+  v1 = Hasher._finalize()();
 
-  return v2;
+  return v1;
 }
 
 __n128 sub_100047354(_OWORD *a1, uint64_t a2)
@@ -8296,12 +8279,12 @@ uint64_t sub_100047400(uint64_t result, int a2, int a3)
   return result;
 }
 
-void sub_10004743C(uint64_t a1, unint64_t *a2)
+void sub_10004743C(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   if (!*a2)
   {
     ForeignTypeMetadata = swift_getForeignTypeMetadata();
-    if (!v4)
+    if (!v5)
     {
       atomic_store(ForeignTypeMetadata, a2);
     }
@@ -8397,14 +8380,15 @@ void sub_1000476D0(void *a1, uint64_t a2)
   _Block_release(v15);
 }
 
-id sub_100047924(void *a1, void *a2, char a3, void *a4)
+id sub_100047924(void *a1, void *a2, uint64_t a3, void *a4)
 {
+  v5 = a3;
   v8 = [a1 itemManager];
   v9 = [v8 home];
 
   if (v9)
   {
-    sub_100070AEC(a3);
+    sub_100070AEC(v5);
     v10 = String._bridgeToObjectiveC()();
 
     [a2 startedTest:v10];
@@ -8432,7 +8416,7 @@ id sub_100047924(void *a1, void *a2, char a3, void *a4)
   }
 }
 
-void sub_100047AB8(void *a1, char a2)
+void sub_100047AB8(void *a1, uint64_t a2)
 {
   sub_100070AEC(a2);
   v3 = String._bridgeToObjectiveC()();
@@ -8482,7 +8466,7 @@ void sub_100047B24(void *a1, uint64_t a2)
   _Block_release(v13);
 }
 
-void sub_100047D44(void *a1, uint64_t a2, char a3, uint64_t a4)
+void sub_100047D44(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v4 = sub_10007739C(a1, a3, a4);
 }
@@ -8716,7 +8700,7 @@ id sub_100048514(void *a1)
   return v1;
 }
 
-void sub_1000485F8(void *a1, uint64_t a2, char a3, uint64_t a4)
+void sub_1000485F8(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   type metadata accessor for ActionSetAccessoryPickerViewController();
   v7 = swift_dynamicCastClass();

@@ -23,103 +23,104 @@
   objc_destroyWeak(&location);
 }
 
-void __44__PTVFXResources_asyncVFXInit_metalContext___block_invoke(uint64_t a1)
+void __44__PTVFXResources_asyncVFXInit_metalContext___block_invoke(void **a1)
 {
-  v118 = *MEMORY[0x277D85DE8];
-  WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v125 = *MEMORY[0x277D85DE8];
+  WeakRetained = objc_loadWeakRetained(a1 + 5);
   v3 = WeakRetained;
   if (WeakRetained && ([WeakRetained initializationCancelled] & 1) == 0)
   {
-    v93 = a1;
-    v99 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v100 = a1;
+    v106 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
     kdebug_trace();
-    v98 = objc_opt_new();
-    [v98 setQosLevel:3];
-    v4 = [*(a1 + 32) device];
-    v5 = [v4 newCommandQueueWithDescriptor:v98];
+    v105 = objc_opt_new();
+    [v105 setQosLevel:3];
+    v4 = objc_msgSend_device(a1[4]);
+    v5 = [v4 newCommandQueueWithDescriptor:v105];
 
-    v92 = v5;
-    v96 = [[PTCommandQueueProxy alloc] initWithInitializerCommandQueue:v5];
-    v97 = [v99 URLForResource:@"default" withExtension:@"metallib"];
+    v99 = v5;
+    v103 = [[PTCommandQueueProxy alloc] initWithInitializerCommandQueue:v5];
+    v104 = [v106 URLForResource:@"default" withExtension:@"metallib"];
     context = objc_autoreleasePoolPush();
-    if ([v3 initializationCancelled])
+    v6 = [v3 initializationCancelled];
+    if (v6)
     {
-      v7 = _PTLogSystem();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+      v8 = _PTLogSystem(v6);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_2243FB000, v7, OS_LOG_TYPE_INFO, "VFX initialization aborted", buf, 2u);
+        _os_log_impl(&dword_2243FB000, v8, OS_LOG_TYPE_INFO, "VFX initialization aborted", buf, 2u);
       }
 
       objc_autoreleasePoolPop(context);
       goto LABEL_51;
     }
 
-    Helper_x8__OBJC_CLASS___VFXRenderer = gotLoadHelper_x8__OBJC_CLASS___VFXRenderer(v6);
-    v10 = [*(v9 + 312) rendererWithCommandQueue:v96 options:{0, Helper_x8__OBJC_CLASS___VFXRenderer}];
-    [v3 setVfxRenderer:v10];
+    Helper_x8__OBJC_CLASS___VFXRenderer = gotLoadHelper_x8__OBJC_CLASS___VFXRenderer(v7);
+    v11 = [*(v10 + 312) rendererWithCommandQueue:v103 options:{0, Helper_x8__OBJC_CLASS___VFXRenderer}];
+    [v3 setVfxRenderer:v11];
 
-    v11 = [v3 vfxRenderer];
-    [v11 setAntialiasingMode:0];
+    v12 = [v3 vfxRenderer];
+    [v12 setAntialiasingMode:0];
 
-    v12 = [v99 URLForResource:@"lighting" withExtension:@"vfx"];
-    Helper_x8__OBJC_CLASS___VFXWorld = gotLoadHelper_x8__OBJC_CLASS___VFXWorld(v13);
-    v16 = *(v15 + 360);
-    v110 = 0;
-    v17 = [v16 worldWithURL:v12 options:0 error:{&v110, Helper_x8__OBJC_CLASS___VFXWorld}];
-    v18 = v110;
-    [v3 setWorld:v17];
+    v13 = [v106 URLForResource:@"lighting" withExtension:@"vfx"];
+    Helper_x8__OBJC_CLASS___VFXWorld = gotLoadHelper_x8__OBJC_CLASS___VFXWorld(v14);
+    v17 = *(v16 + 360);
+    v117 = 0;
+    v18 = [v17 worldWithURL:v13 options:0 error:{&v117, Helper_x8__OBJC_CLASS___VFXWorld}];
+    v19 = v117;
+    [v3 setWorld:v18];
 
-    if (v18 || ([v3 world], v20 = objc_claimAutoreleasedReturnValue(), v21 = v20 == 0, v20, v21))
+    if (v19 || ([v3 world], v22 = objc_claimAutoreleasedReturnValue(), v23 = v22 == 0, v22, v23))
     {
-      v19 = _PTLogSystem();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v21 = _PTLogSystem(v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
-        __44__PTVFXResources_asyncVFXInit_metalContext___block_invoke_cold_4(v12, v18, v19);
+        __44__PTVFXResources_asyncVFXInit_metalContext___block_invoke_cold_4(v13, v19, v21);
       }
 
       objc_autoreleasePoolPop(context);
       goto LABEL_51;
     }
 
-    v22 = [v3 world];
-    v23 = [v3 vfxRenderer];
-    [v23 setWorld:v22];
-
-    v108 = 0u;
-    v109 = 0u;
-    v106 = 0u;
-    v107 = 0u;
     v24 = [v3 world];
-    v25 = [v24 behaviorGraph];
-    v26 = [v25 bindings];
+    v25 = [v3 vfxRenderer];
+    [v25 setWorld:v24];
 
-    v27 = [v26 countByEnumeratingWithState:&v106 objects:v117 count:16];
-    if (v27)
+    v115 = 0u;
+    v116 = 0u;
+    v113 = 0u;
+    v114 = 0u;
+    v26 = [v3 world];
+    v27 = [v26 behaviorGraph];
+    v28 = [v27 bindings];
+
+    v29 = [v28 countByEnumeratingWithState:&v113 objects:v124 count:16];
+    if (v29)
     {
-      v28 = *v107;
+      v30 = *v114;
       while (2)
       {
-        for (i = 0; i != v27; ++i)
+        for (i = 0; i != v29; ++i)
         {
-          if (*v107 != v28)
+          if (*v114 != v30)
           {
-            objc_enumerationMutation(v26);
+            objc_enumerationMutation(v28);
           }
 
-          v30 = *(*(&v106 + 1) + 8 * i);
-          v31 = [v30 name];
-          v32 = [v31 isEqualToString:@"IBLIntensity"];
+          v32 = *(*(&v113 + 1) + 8 * i);
+          v33 = [v32 name];
+          v34 = [v33 isEqualToString:@"IBLIntensity"];
 
-          if (v32)
+          if (v34)
           {
-            [v3 setLightBinding:v30];
+            [v3 setLightBinding:v32];
             goto LABEL_22;
           }
         }
 
-        v27 = [v26 countByEnumeratingWithState:&v106 objects:v117 count:16];
-        if (v27)
+        v29 = [v28 countByEnumeratingWithState:&v113 objects:v124 count:16];
+        if (v29)
         {
           continue;
         }
@@ -130,100 +131,101 @@ void __44__PTVFXResources_asyncVFXInit_metalContext___block_invoke(uint64_t a1)
 
 LABEL_22:
 
-    v33 = [v3 lightBinding];
-    v34 = v33 == 0;
+    v35 = [v3 lightBinding];
+    v36 = v35 == 0;
 
-    if (v34)
+    if (v36)
     {
-      v35 = _PTLogSystem();
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+      v38 = _PTLogSystem(v37);
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
       {
-        __44__PTVFXResources_asyncVFXInit_metalContext___block_invoke_cold_1(v35, v36, v37, v38, v39, v40, v41, v42);
+        __44__PTVFXResources_asyncVFXInit_metalContext___block_invoke_cold_1(v38, v39, v40, v41, v42, v43, v44, v45);
       }
     }
 
-    v43 = [v3 vfxRenderer];
-    v44 = [v43 world];
-    v45 = [v3 vfxRenderer];
-    v46 = [[PTVFXResourcesLogger alloc] initWithName:@"IBLIntensity" index:0xFFFFFFFFLL];
-    v47 = [(PTVFXResourcesLogger *)v46 progressHandler];
-    [v44 prepareForRenderer:v45 progressHandler:v47];
+    v46 = [v3 vfxRenderer];
+    v47 = [v46 world];
+    v48 = [v3 vfxRenderer];
+    v49 = [[PTVFXResourcesLogger alloc] initWithName:@"IBLIntensity" index:0xFFFFFFFFLL];
+    v50 = [(PTVFXResourcesLogger *)v49 progressHandler];
+    [v47 prepareForRenderer:v48 progressHandler:v50];
 
     objc_autoreleasePoolPop(context);
-    v91 = objc_opt_new();
-    v49 = 0;
+    v98 = objc_opt_new();
+    v52 = 0;
     if ([&unk_2837F3928 count])
     {
-      v50 = 0;
-      gotLoadHelper_x8__VFXWorldLoaderOptionMetalLibraryURL(v48);
-      v90 = **(v51 + 392);
-      *&v52 = 138412546;
-      v89 = v52;
+      v53 = 0;
+      gotLoadHelper_x8__VFXWorldLoaderOptionMetalLibraryURL(v51);
+      v97 = **(v54 + 392);
+      *&v55 = 138412546;
+      v96 = v55;
       while (1)
       {
         contexta = objc_autoreleasePoolPush();
-        if ([v3 initializationCancelled])
+        v56 = [v3 initializationCancelled];
+        if (v56)
         {
           break;
         }
 
-        if (v50 == 2)
+        if (v53 == 2)
         {
-          v53 = [v91 lastObject];
-          [v91 addObject:v53];
+          v57 = [v98 lastObject];
+          [v98 addObject:v57];
         }
 
         else
         {
-          v54 = [&unk_2837F3928 objectAtIndexedSubscript:v50];
-          v53 = [v99 URLForResource:v54 withExtension:@"vfx"];
+          v58 = [&unk_2837F3928 objectAtIndexedSubscript:v53];
+          v57 = [v106 URLForResource:v58 withExtension:@"vfx"];
 
-          v115 = v90;
-          v116 = v97;
-          v55 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v116 forKeys:&v115 count:1];
-          v57 = gotLoadHelper_x8__OBJC_CLASS___VFXWorld(v56);
-          v59 = *(v58 + 360);
-          v105 = v49;
-          v60 = [v59 worldWithURL:v53 options:v55 error:{&v105, v57}];
-          v61 = v105;
+          v122 = v97;
+          v123 = v104;
+          v59 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v123 forKeys:&v122 count:1];
+          v61 = gotLoadHelper_x8__OBJC_CLASS___VFXWorld(v60);
+          v63 = *(v62 + 360);
+          v112 = v52;
+          v64 = [v63 worldWithURL:v57 options:v59 error:{&v112, v61}];
+          v65 = v112;
 
-          if (v60)
+          if (v64)
           {
-            v62 = [v3 vfxRenderer];
-            v63 = [PTVFXResourcesLogger alloc];
-            v64 = [&unk_2837F3928 objectAtIndexedSubscript:v50];
-            v65 = [(PTVFXResourcesLogger *)v63 initWithName:v64 index:v50];
-            v66 = [(PTVFXResourcesLogger *)v65 progressHandler];
-            [v60 prepareForRenderer:v62 progressHandler:v66];
+            v67 = [v3 vfxRenderer];
+            v68 = [PTVFXResourcesLogger alloc];
+            v69 = [&unk_2837F3928 objectAtIndexedSubscript:v53];
+            v70 = [(PTVFXResourcesLogger *)v68 initWithName:v69 index:v53];
+            v71 = [(PTVFXResourcesLogger *)v70 progressHandler];
+            [v64 prepareForRenderer:v67 progressHandler:v71];
 
-            [v91 addObject:v60];
+            [v98 addObject:v64];
           }
 
           else
           {
-            v67 = _PTLogSystem();
-            if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
+            v72 = _PTLogSystem(v66);
+            if (os_log_type_enabled(v72, OS_LOG_TYPE_ERROR))
             {
-              *buf = v89;
-              v112 = v53;
-              v113 = 2112;
-              v114 = v61;
-              _os_log_error_impl(&dword_2243FB000, v67, OS_LOG_TYPE_ERROR, "Failed to create world from %@ error %@", buf, 0x16u);
+              *buf = v96;
+              v119 = v57;
+              v120 = 2112;
+              v121 = v65;
+              _os_log_error_impl(&dword_2243FB000, v72, OS_LOG_TYPE_ERROR, "Failed to create world from %@ error %@", buf, 0x16u);
             }
           }
 
-          v49 = v61;
+          v52 = v65;
         }
 
         objc_autoreleasePoolPop(contexta);
-        if (++v50 >= [&unk_2837F3928 count])
+        if (++v53 >= [&unk_2837F3928 count])
         {
           goto LABEL_38;
         }
       }
 
-      v68 = _PTLogSystem();
-      if (!os_log_type_enabled(v68, OS_LOG_TYPE_INFO))
+      v74 = _PTLogSystem(v56);
+      if (!os_log_type_enabled(v74, OS_LOG_TYPE_INFO))
       {
         goto LABEL_50;
       }
@@ -235,58 +237,59 @@ LABEL_22:
     {
 LABEL_38:
       contexta = objc_autoreleasePoolPush();
-      if (![v3 initializationCancelled])
+      v73 = [v3 initializationCancelled];
+      if (!v73)
       {
-        v69 = [v3 world];
-        v70 = [v69 rootNode];
-        v71 = [v70 childNodeWithName:@"Camera" recursively:1];
-        v72 = [v71 camera];
-        [v3 setCamera:v72];
+        v75 = [v3 world];
+        v76 = [v75 rootNode];
+        v77 = [v76 childNodeWithName:@"Camera" recursively:1];
+        v78 = [v77 camera];
+        [v3 setCamera:v78];
 
-        v73 = [v3 camera];
-        LODWORD(v69) = v73 == 0;
+        v79 = [v3 camera];
+        LODWORD(v75) = v79 == 0;
 
-        if (v69)
+        if (v75)
         {
-          v68 = _PTLogSystem();
-          if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
+          v74 = _PTLogSystem(v80);
+          if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
           {
-            __44__PTVFXResources_asyncVFXInit_metalContext___block_invoke_cold_3(v68, v82, v83, v84, v85, v86, v87, v88);
+            __44__PTVFXResources_asyncVFXInit_metalContext___block_invoke_cold_3(v74, v89, v90, v91, v92, v93, v94, v95);
           }
         }
 
         else
         {
-          v68 = [(PTCommandQueueProxy *)v96 commandBuffer];
-          if (!v68)
+          v74 = [(PTCommandQueueProxy *)v103 commandBuffer];
+          if (!v74)
           {
-            v74 = _PTLogSystem();
-            if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
+            v81 = _PTLogSystem(0);
+            if (os_log_type_enabled(v81, OS_LOG_TYPE_ERROR))
             {
-              __44__PTVFXResources_asyncVFXInit_metalContext___block_invoke_cold_2(v74, v75, v76, v77, v78, v79, v80, v81);
+              __44__PTVFXResources_asyncVFXInit_metalContext___block_invoke_cold_2(v81, v82, v83, v84, v85, v86, v87, v88);
             }
           }
 
-          [v68 setLabel:@"PTVFXResources wait for resources", v89];
-          v100[0] = MEMORY[0x277D85DD0];
-          v100[1] = 3221225472;
-          v100[2] = __44__PTVFXResources_asyncVFXInit_metalContext___block_invoke_89;
-          v100[3] = &unk_278523388;
-          objc_copyWeak(&v104, (v93 + 40));
-          v101 = v96;
-          v102 = *(v93 + 32);
-          v103 = v91;
-          [v68 addCompletedHandler:v100];
-          [v68 commit];
+          [v74 setLabel:@"PTVFXResources wait for resources", v96];
+          v107[0] = MEMORY[0x277D85DD0];
+          v107[1] = 3221225472;
+          v107[2] = __44__PTVFXResources_asyncVFXInit_metalContext___block_invoke_89;
+          v107[3] = &unk_278523388;
+          objc_copyWeak(&v111, v100 + 5);
+          v108 = v103;
+          v109 = v100[4];
+          v110 = v98;
+          [v74 addCompletedHandler:v107];
+          [v74 commit];
 
-          objc_destroyWeak(&v104);
+          objc_destroyWeak(&v111);
         }
 
         goto LABEL_50;
       }
 
-      v68 = _PTLogSystem();
-      if (!os_log_type_enabled(v68, OS_LOG_TYPE_INFO))
+      v74 = _PTLogSystem(v73);
+      if (!os_log_type_enabled(v74, OS_LOG_TYPE_INFO))
       {
 LABEL_50:
 
@@ -299,7 +302,7 @@ LABEL_51:
       *buf = 0;
     }
 
-    _os_log_impl(&dword_2243FB000, v68, OS_LOG_TYPE_INFO, "VFX initialization aborted", buf, 2u);
+    _os_log_impl(&dword_2243FB000, v74, OS_LOG_TYPE_INFO, "VFX initialization aborted", buf, 2u);
     goto LABEL_50;
   }
 
@@ -310,7 +313,7 @@ void __44__PTVFXResources_asyncVFXInit_metalContext___block_invoke_89(uint64_t a
 {
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   v3 = WeakRetained;
-  if (WeakRetained && ![WeakRetained initializationCancelled])
+  if (WeakRetained && (WeakRetained = [WeakRetained initializationCancelled], !WeakRetained))
   {
     v5 = *(a1 + 32);
     v6 = [*(a1 + 40) commandQueue];
@@ -324,7 +327,7 @@ void __44__PTVFXResources_asyncVFXInit_metalContext___block_invoke_89(uint64_t a
 
   else
   {
-    v4 = _PTLogSystem();
+    v4 = _PTLogSystem(WeakRetained);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       *v8 = 0;

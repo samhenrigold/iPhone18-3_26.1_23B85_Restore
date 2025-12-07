@@ -15,7 +15,7 @@
 
 - (void)puzzleHistory:(id)history didAddPuzzleItems:(id)items modifiedPuzzleItems:(id)puzzleItems removedPuzzleItems:(id)removedPuzzleItems
 {
-  sub_1D5B5A498(0, &unk_1EC8980E0);
+  sub_1D5B5A498(0, &unk_1EC8980E0, 0x1E69B5508);
   v8 = sub_1D726267C();
   v9 = sub_1D726267C();
   v10 = sub_1D726267C();

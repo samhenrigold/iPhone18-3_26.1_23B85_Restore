@@ -21,6 +21,7 @@
 - (id)optInHistoryDescription;
 - (id)optInOutHistoryJsonArray;
 - (id)optInRecord;
+- (void)cleanupDevices:(id)devices removeAllMarked:(BOOL)marked;
 - (void)deleteMarkedEntries:(id)entries;
 - (void)encodeWithCoder:(id)coder;
 - (void)updateWithAddMutation:(id)mutation error:(id *)error;
@@ -567,36 +568,7 @@ LABEL_15:
   v19.receiver = self;
   v19.super_class = KTAccount;
   v5 = [(KTAccount *)&v19 init];
-  if (!v5)
-  {
-    goto LABEL_9;
-  }
-
-  accountKeyHash = [mutationCopy accountKeyHash];
-  accountKeyHash = v5->_accountKeyHash;
-  v5->_accountKeyHash = accountKeyHash;
-
-  v8 = [[KTDevice alloc] initWithMutation:mutationCopy];
-  v9 = [NSMutableArray arrayWithObject:v8];
-  devices = v5->_devices;
-  v5->_devices = v9;
-
-  v11 = +[NSMutableArray array];
-  optInOutHistory = v5->_optInOutHistory;
-  v5->_optInOutHistory = v11;
-
-  objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
-  {
-    goto LABEL_9;
-  }
-
-  extensions = [mutationCopy extensions];
-  v18 = 0;
-  [(KTAccount *)v5 updateWithExtensions:extensions error:&v18];
-  v14 = v18;
-
-  if (v14)
+  if (v5 && ([mutationCopy accountKeyHash], v6 = objc_claimAutoreleasedReturnValue(), accountKeyHash = v5->_accountKeyHash, v5->_accountKeyHash = v6, accountKeyHash, v8 = -[KTDevice initWithMutation:]([KTDevice alloc], "initWithMutation:", mutationCopy), +[NSMutableArray arrayWithObject:](NSMutableArray, "arrayWithObject:", v8), v9 = objc_claimAutoreleasedReturnValue(), devices = v5->_devices, v5->_devices = v9, devices, v8, +[NSMutableArray array](NSMutableArray, "array"), v11 = objc_claimAutoreleasedReturnValue(), optInOutHistory = v5->_optInOutHistory, v5->_optInOutHistory = v11, optInOutHistory, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && (objc_msgSend(mutationCopy, "extensions"), v13 = objc_claimAutoreleasedReturnValue(), v18 = 0, -[KTAccount updateWithExtensions:error:](v5, "updateWithExtensions:error:", v13, &v18), v14 = v18, v13, v14))
   {
     if (qword_10039C938 != -1)
     {
@@ -616,7 +588,6 @@ LABEL_15:
 
   else
   {
-LABEL_9:
     v16 = v5;
   }
 
@@ -1682,6 +1653,47 @@ LABEL_17:
   v3 = [devices count] == 0;
 
   return v3;
+}
+
+- (void)cleanupDevices:(id)devices removeAllMarked:(BOOL)marked
+{
+  markedCopy = marked;
+  devicesCopy = devices;
+  devices = [(KTAccount *)self devices];
+  v8 = [NSArray arrayWithArray:devices];
+
+  v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v9 = v8;
+  v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  if (v10)
+  {
+    v11 = v10;
+    v12 = *v16;
+    do
+    {
+      for (i = 0; i != v11; i = i + 1)
+      {
+        if (*v16 != v12)
+        {
+          objc_enumerationMutation(v9);
+        }
+
+        v14 = *(*(&v15 + 1) + 8 * i);
+        [v14 cleanupRecords:devicesCopy removeAllMarked:{markedCopy, v15}];
+        if ([v14 shouldRemove])
+        {
+          [(KTAccount *)self removeDevicesObject:v14];
+        }
+      }
+
+      v11 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    }
+
+    while (v11);
+  }
 }
 
 - (void)deleteMarkedEntries:(id)entries

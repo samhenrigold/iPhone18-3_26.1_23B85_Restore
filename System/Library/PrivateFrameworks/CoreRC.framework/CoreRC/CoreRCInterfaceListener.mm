@@ -39,7 +39,7 @@
 {
   if (gLogCategory_CoreRCInterface <= 60 && (gLogCategory_CoreRCInterface != -1 || _LogCategory_Initialize()))
   {
-    [CoreRCInterfaceListener scheduleWithDispatchQueue:a2];
+    [(CoreRCInterfaceListener *)a2 scheduleWithDispatchQueue:?];
   }
 }
 
@@ -47,7 +47,7 @@
 {
   if (gLogCategory_CoreRCInterface <= 60 && (gLogCategory_CoreRCInterface != -1 || _LogCategory_Initialize()))
   {
-    [CoreRCInterfaceListener unscheduleFromDispatchQueue:a2];
+    [(CoreRCInterfaceListener *)a2 unscheduleFromDispatchQueue:?];
   }
 }
 

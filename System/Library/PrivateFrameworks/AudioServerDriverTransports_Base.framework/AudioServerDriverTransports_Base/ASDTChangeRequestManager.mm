@@ -15,11 +15,11 @@
 
 - (ASDTChangeRequestManager)initWithDelegate:(id)delegate
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
-  v22.receiver = self;
-  v22.super_class = ASDTChangeRequestManager;
-  v5 = [(ASDTChangeRequestManager *)&v22 init];
+  v23.receiver = self;
+  v23.super_class = ASDTChangeRequestManager;
+  v5 = [(ASDTChangeRequestManager *)&v23 init];
   v6 = v5;
   if (!v5)
   {
@@ -51,32 +51,32 @@
   [(ASDTChangeRequestManager *)v6 setChangeRequestQueues:v13];
 
   changeRequestLock = [(ASDTChangeRequestManager *)v6 changeRequestLock];
+  v16 = changeRequestLock;
   if (changeRequestLock)
   {
     changeRequestQueues = [(ASDTChangeRequestManager *)v6 changeRequestQueues];
-    v16 = changeRequestQueues == 0;
+    v18 = changeRequestQueues == 0;
 
-    if (!v16)
+    if (!v18)
     {
 
 LABEL_8:
-      v17 = v6;
+      v19 = v6;
       goto LABEL_12;
     }
   }
 
-  v18 = ASDTBaseLogType();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+  v20 = ASDTBaseLogType(changeRequestLock, v15);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
   {
     bundleID3 = [(ASDTChangeRequestManager *)v6 bundleID];
-    [(ASDTChangeRequestManager *)bundleID3 initWithDelegate:buf, v18];
+    [(ASDTChangeRequestManager *)bundleID3 initWithDelegate:buf, v20];
   }
 
-  v17 = 0;
+  v19 = 0;
 LABEL_12:
 
-  v20 = *MEMORY[0x277D85DE8];
-  return v17;
+  return v19;
 }
 
 + (id)forDelegate:(id)delegate
@@ -109,44 +109,44 @@ LABEL_12:
 
 - (BOOL)requestConfigurationChangeForDevice:(id)device withBlock:(id)block
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   blockCopy = block;
   asdtName = [deviceCopy asdtName];
   ++self->_changeIndex;
   v9 = [ASDTChangeRequest withIndex:"withIndex:andBlock:" andBlock:?];
-  v10 = ASDTBaseLogType();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = ASDTBaseLogType(v9, v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     bundleID = [(ASDTChangeRequestManager *)self bundleID];
-    v23 = 138412802;
-    v24 = bundleID;
-    v25 = 1024;
+    v25 = 138412802;
+    v26 = bundleID;
+    v27 = 1024;
     index = [v9 index];
-    v27 = 2112;
-    v28 = asdtName;
-    _os_log_impl(&dword_241659000, v10, OS_LOG_TYPE_DEFAULT, "%@: Requesting config change %u for device: %@", &v23, 0x1Cu);
+    v29 = 2112;
+    v30 = asdtName;
+    _os_log_impl(&dword_241659000, v11, OS_LOG_TYPE_DEFAULT, "%@: Requesting config change %u for device: %@", &v25, 0x1Cu);
   }
 
   changeRequestLock = [(ASDTChangeRequestManager *)self changeRequestLock];
   [changeRequestLock lock];
 
-  v13 = [(ASDTChangeRequestManager *)self queueForObject:deviceCopy withName:asdtName];
-  v14 = v13;
-  if (v13)
+  v14 = [(ASDTChangeRequestManager *)self queueForObject:deviceCopy withName:asdtName];
+  v15 = v14;
+  if (v14)
   {
-    v15 = [v13 addChangeRequest:v9];
+    v16 = [v14 addChangeRequest:v9];
     changeRequestLock2 = [(ASDTChangeRequestManager *)self changeRequestLock];
     [changeRequestLock2 unlock];
 
-    if (!v15)
+    if (!v16)
     {
-      v18 = 1;
+      v19 = 1;
       goto LABEL_11;
     }
 
     delegate = [(ASDTChangeRequestManager *)self delegate];
-    v18 = [delegate requestConfigurationChange:v14];
+    v19 = [delegate requestConfigurationChange:v15];
   }
 
   else
@@ -154,19 +154,18 @@ LABEL_12:
     changeRequestLock3 = [(ASDTChangeRequestManager *)self changeRequestLock];
     [changeRequestLock3 unlock];
 
-    delegate = ASDTBaseLogType();
+    delegate = ASDTBaseLogType(v21, v22);
     if (os_log_type_enabled(delegate, OS_LOG_TYPE_ERROR))
     {
       bundleID2 = [(ASDTChangeRequestManager *)self bundleID];
-      [(ASDTChangeRequestManager *)bundleID2 requestConfigurationChangeForDevice:asdtName withBlock:&v23];
+      [(ASDTChangeRequestManager *)bundleID2 requestConfigurationChangeForDevice:asdtName withBlock:&v25];
     }
 
-    v18 = 0;
+    v19 = 0;
   }
 
 LABEL_11:
-  v21 = *MEMORY[0x277D85DE8];
-  return v18;
+  return v19;
 }
 
 - (BOOL)configurationChangePendingForObject:(id)object
@@ -203,36 +202,34 @@ LABEL_11:
 
 - (void)doWaitForConfigurationChangesForQueue:(id)queue withTimeout:(ASDTTime *)timeout
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   queueCopy = queue;
   while (([queueCopy flags] & 3) != 0)
   {
     changeRequestLock = [(ASDTChangeRequestManager *)self changeRequestLock];
-    v13 = *&timeout->nsec;
-    v14 = *&timeout->hostFrac;
-    v8 = [changeRequestLock waitUntilTime:&v13];
+    v14 = *&timeout->nsec;
+    v15 = *&timeout->hostFrac;
+    v8 = [changeRequestLock waitUntilTime:&v14];
 
     if ((v8 & 1) == 0)
     {
-      v9 = ASDTBaseLogType();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v11 = ASDTBaseLogType(v9, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         bundleID = [(ASDTChangeRequestManager *)self bundleID];
         name = [queueCopy name];
-        [(ASDTChangeRequestManager *)bundleID doWaitForConfigurationChangesForQueue:name withTimeout:&v13];
+        [(ASDTChangeRequestManager *)bundleID doWaitForConfigurationChangesForQueue:name withTimeout:&v14];
       }
 
       break;
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)waitForConfigurationChangesForDevice:(id)device
 {
   asdtName = [device asdtName];
-  ASDTTime::futureSecs(5, &v11);
+  ASDTTime::futureSecs(&v11, 5);
   changeRequestLock = [(ASDTChangeRequestManager *)self changeRequestLock];
   [changeRequestLock lock];
 
@@ -248,8 +245,8 @@ LABEL_11:
 
 - (void)waitForAllConfigurationChanges
 {
-  v3 = ASDTTime::futureSecs(0xA, &v16);
-  ASDTTime::machAbsoluteTime(v3, &v14);
+  ASDTTime::futureSecs(&v15, 0xA);
+  ASDTTime::machAbsoluteTime(&v13);
   changeRequestLock = [(ASDTChangeRequestManager *)self changeRequestLock];
   [changeRequestLock lock];
 
@@ -264,19 +261,20 @@ LABEL_11:
       break;
     }
 
-    v9 = v14;
-    v10 = v16;
+    v8 = v13;
+    v9 = v15;
 
-    if (v9 >= v10)
+    if (v8 >= v9)
     {
       goto LABEL_6;
     }
 
+    v11 = v15;
     v12 = v16;
-    v13 = v17;
-    ASDTTime::machAbsoluteTime([(ASDTChangeRequestManager *)self doWaitForConfigurationChangesForQueue:firstObject withTimeout:&v12], &v12);
+    [(ASDTChangeRequestManager *)self doWaitForConfigurationChangesForQueue:firstObject withTimeout:&v11];
+    ASDTTime::machAbsoluteTime(&v11);
+    v13 = v11;
     v14 = v12;
-    v15 = v13;
   }
 
 LABEL_6:

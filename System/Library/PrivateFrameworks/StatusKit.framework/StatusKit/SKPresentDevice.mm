@@ -102,20 +102,19 @@
 
 - (void)dealloc
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = +[SKPresentDevice logger];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     handle = self->_handle;
     *buf = 138412290;
-    v8 = handle;
+    v7 = handle;
     _os_log_impl(&dword_26BA07000, v3, OS_LOG_TYPE_DEFAULT, "Deallocing SKPresentDevice for handle %@", buf, 0xCu);
   }
 
-  v6.receiver = self;
-  v6.super_class = SKPresentDevice;
-  [(SKPresentDevice *)&v6 dealloc];
-  v5 = *MEMORY[0x277D85DE8];
+  v5.receiver = self;
+  v5.super_class = SKPresentDevice;
+  [(SKPresentDevice *)&v5 dealloc];
 }
 
 - (BOOL)isEqual:(id)equal

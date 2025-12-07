@@ -141,7 +141,7 @@
   v28 = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
   handlerCopy = handler;
-  [(PKServiceAddPaymentPassViewController *)self _hostAuditToken];
+  objc_msgSend__hostAuditToken(self);
   v9 = SecTaskCreateWithAuditToken(0, &v27);
   if (v9)
   {
@@ -158,7 +158,7 @@
 
     v14 = objc_alloc(MEMORY[0x1E69B8840]);
     _hostProcessIdentifier = [(PKServiceAddPaymentPassViewController *)self _hostProcessIdentifier];
-    [(PKServiceAddPaymentPassViewController *)self _hostAuditToken];
+    objc_msgSend__hostAuditToken(self);
     v16 = [v14 initWithProcessIdentifier:_hostProcessIdentifier auditToken:&v27];
     [configurationCopy updateAllowManagedAppleIDWithEntitlements:v16];
     self->_entitled = [v16 paymentPassProvisioning];
@@ -369,7 +369,7 @@ void __67__PKServiceAddPaymentPassViewController__launchFlowWithFlowManager__blo
     {
       v38 = 0u;
       v39 = 0u;
-      [(PKServiceAddPaymentPassViewController *)self _hostAuditToken];
+      objc_msgSend__hostAuditToken(self);
       v26 = MEMORY[0x1E69B8B20];
       v35[0] = MEMORY[0x1E69E9820];
       v35[1] = 3221225472;

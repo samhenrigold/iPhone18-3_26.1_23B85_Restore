@@ -30,32 +30,32 @@
 
 + (id)domainRestrictionForDictionary:(id)dictionary withError:(id *)error
 {
-  v28[1] = *MEMORY[0x277D85DE8];
+  v27[1] = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v6 = [dictionaryCopy objectForKey:@"Restrictions"];
   if (v6 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
     array = [MEMORY[0x277CBEB18] array];
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
     v8 = v6;
-    v9 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v23;
+      v11 = *v22;
       while (2)
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v23 != v11)
+          if (*v22 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = [RBDomainRestriction domainRestrictionForDictionary:*(*(&v22 + 1) + 8 * i) withError:error];
+          v13 = [RBDomainRestriction domainRestrictionForDictionary:*(*(&v21 + 1) + 8 * i) withError:error];
           if (!v13)
           {
 
@@ -67,7 +67,7 @@
           [array addObject:v13];
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
         if (v10)
         {
           continue;
@@ -89,10 +89,10 @@
     }
 
     v16 = MEMORY[0x277CCA9B8];
-    v27 = *MEMORY[0x277CCA470];
+    v26 = *MEMORY[0x277CCA470];
     dictionaryCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"RBCompoundNoneDomainRestriction doesn't specify restrictions: %@", dictionaryCopy];
-    v28[0] = dictionaryCopy;
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:&v27 count:1];
+    v27[0] = dictionaryCopy;
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:&v26 count:1];
     array = [v16 errorWithDomain:@"RBDomainAttributeManagerDataProviderErrorDomain" code:1 userInfo:v18];
 
     v19 = array;
@@ -103,66 +103,63 @@
 LABEL_16:
 
 LABEL_17:
-  v20 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
 
 - (id)dictionaryRepresentation
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v4 = self->_restrictions;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v13 objects:v19 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v12 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        dictionaryRepresentation = [*(*(&v13 + 1) + 8 * i) dictionaryRepresentation];
+        dictionaryRepresentation = [*(*(&v12 + 1) + 8 * i) dictionaryRepresentation];
         [v3 addObject:dictionaryRepresentation];
       }
 
-      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v13 objects:v19 count:16];
+      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v12 objects:v18 count:16];
     }
 
     while (v6);
   }
 
-  v17[0] = @"Class";
-  v17[1] = @"Restrictions";
-  v18[0] = @"CompoundNone";
-  v18[1] = v3;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v16[0] = @"Class";
+  v16[1] = @"Restrictions";
+  v17[0] = @"CompoundNone";
+  v17[1] = v3;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
 
   return v10;
 }
 
 - (BOOL)allowsContext:(id)context withError:(id *)error
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v7 = objc_msgSend(MEMORY[0x277CCAB68], "stringWithString:", @"(");
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   v8 = self->_restrictions;
-  v9 = [(NSArray *)v8 countByEnumeratingWithState:&v25 objects:v31 count:16];
+  v9 = [(NSArray *)v8 countByEnumeratingWithState:&v24 objects:v30 count:16];
   v10 = v9 == 0;
   if (!v9)
   {
@@ -170,20 +167,20 @@ LABEL_17:
   }
 
   v11 = v9;
-  v24 = v9 == 0;
-  v12 = *v26;
+  v23 = v9 == 0;
+  v12 = *v25;
   v10 = 1;
   v13 = 1;
   do
   {
     for (i = 0; i != v11; ++i)
     {
-      if (*v26 != v12)
+      if (*v25 != v12)
       {
         objc_enumerationMutation(v8);
       }
 
-      v15 = *(*(&v25 + 1) + 8 * i);
+      v15 = *(*(&v24 + 1) + 8 * i);
       v16 = [v15 allowsContext:contextCopy withError:0];
       v10 &= v16 ^ 1;
       if (error && v16)
@@ -201,7 +198,7 @@ LABEL_17:
       }
     }
 
-    v11 = [(NSArray *)v8 countByEnumeratingWithState:&v25 objects:v31 count:16];
+    v11 = [(NSArray *)v8 countByEnumeratingWithState:&v24 objects:v30 count:16];
   }
 
   while (v11);
@@ -221,55 +218,53 @@ LABEL_17:
     [v7 appendString:@""]);
     v19 = MEMORY[0x277CCA9B8];
     v20 = *MEMORY[0x277D47098];
-    v29 = *MEMORY[0x277CCA470];
+    v28 = *MEMORY[0x277CCA470];
     v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"Not allowed because it has %@", v7];
-    v30 = v8;
-    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
+    v29 = v8;
+    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
     *error = [v19 errorWithDomain:v20 code:1 userInfo:v21];
 
-    v10 = v24;
+    v10 = v23;
 LABEL_18:
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (id)allEntitlements
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEB58] set];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v4 = self->_restrictions;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        allEntitlements = [*(*(&v13 + 1) + 8 * i) allEntitlements];
+        allEntitlements = [*(*(&v12 + 1) + 8 * i) allEntitlements];
         [v3 unionSet:allEntitlements];
       }
 
-      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
   }
 
   v10 = [v3 copy];
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

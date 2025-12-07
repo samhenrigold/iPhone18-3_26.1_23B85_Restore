@@ -771,54 +771,13 @@ LABEL_8:
   return v14;
 }
 
-- (void)_ihaBPJCountAnalyticsWithCurrentDate:calendar:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_4(&dword_229486000, v0, v1, "Could not get BPJs with error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_numDaysSinceLastAnalysisWithCurrentDate:calendar:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_4(&dword_229486000, v0, v1, "Could not get last analysis window end date with error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_countOfLast30DaysWithHypertensiveMeasurementSamplesWithCurrentDate:calendar:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_4(&dword_229486000, v0, v1, "Could not get number of days with adequate data with error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_daysSinceLastHypertensionNotificationToDate:withinDateInterval:calendar:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_4(&dword_229486000, v0, v1, "Could not get days since most recent hypertension event with error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_daysSinceOldestHypertensionNotificationToDate:withinDateInterval:calendar:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_4(&dword_229486000, v0, v1, "Could not get days since oldest hypertension event with error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (void)_countOfSamplesWithType:dateInterval:additionalPredicate:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_0();
-  v4 = 2114;
-  v5 = v0;
-  _os_log_error_impl(&dword_229486000, v1, OS_LOG_TYPE_ERROR, "Could not get count of samples of type %{public}@ with error: %{public}@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 2114;
+  v4 = v0;
+  _os_log_error_impl(&dword_229486000, v1, OS_LOG_TYPE_ERROR, "Could not get count of samples of type %{public}@ with error: %{public}@", v2, 0x16u);
 }
 
 @end

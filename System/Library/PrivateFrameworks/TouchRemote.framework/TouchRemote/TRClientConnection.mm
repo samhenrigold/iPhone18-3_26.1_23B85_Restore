@@ -100,7 +100,7 @@ void __45__TRClientConnection_setInvalidationHandler___block_invoke(uint64_t a1)
 
 - (void)sendEvent:(id)event
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   session = [(TRClientConnection *)self session];
   v6 = session;
@@ -111,21 +111,19 @@ void __45__TRClientConnection_setInvalidationHandler___block_invoke(uint64_t a1)
 
   else if (_TRLogEnabled == 1)
   {
-    v7 = TRLogHandle();
+    v7 = TRLogHandle(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 136315138;
-      v10 = "[TRClientConnection sendEvent:]";
-      _os_log_impl(&dword_26F2A2000, v7, OS_LOG_TYPE_DEFAULT, "%s Unable to send event message. Connection not connected.", &v9, 0xCu);
+      v8 = 136315138;
+      v9 = "[TRClientConnection sendEvent:]";
+      _os_log_impl(&dword_26F2A2000, v7, OS_LOG_TYPE_DEFAULT, "%s Unable to send event message. Connection not connected.", &v8, 0xCu);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendRequest:(id)request
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   session = [(TRClientConnection *)self session];
   v6 = session;
@@ -138,32 +136,30 @@ void __45__TRClientConnection_setInvalidationHandler___block_invoke(uint64_t a1)
   {
     if (_TRLogEnabled == 1)
     {
-      v7 = TRLogHandle();
+      v7 = TRLogHandle(0);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v16 = "[TRClientConnection sendRequest:]";
+        v15 = "[TRClientConnection sendRequest:]";
         _os_log_impl(&dword_26F2A2000, v7, OS_LOG_TYPE_DEFAULT, "%s Unable to send request message. Connection not connected.", buf, 0xCu);
       }
     }
 
     v8 = *MEMORY[0x277CCA470];
-    v13[0] = *MEMORY[0x277CCA450];
-    v13[1] = v8;
-    v14[0] = @"Unable to send request message.";
-    v14[1] = @"The connection must be connected before sending messages";
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
+    v12[0] = *MEMORY[0x277CCA450];
+    v12[1] = v8;
+    v13[0] = @"Unable to send request message.";
+    v13[1] = @"The connection must be connected before sending messages";
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
     v10 = [MEMORY[0x277CCA9B8] errorWithDomain:@"TRNearbyDeviceErrorDomain" code:-9102 userInfo:v9];
     responseHandler = [requestCopy responseHandler];
     (responseHandler)[2](responseHandler, v10, 0);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendResponse:(id)response
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   session = [(TRClientConnection *)self session];
   v6 = session;
@@ -174,21 +170,19 @@ void __45__TRClientConnection_setInvalidationHandler___block_invoke(uint64_t a1)
 
   else if (_TRLogEnabled == 1)
   {
-    v7 = TRLogHandle();
+    v7 = TRLogHandle(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 136315138;
-      v10 = "[TRClientConnection sendResponse:]";
-      _os_log_impl(&dword_26F2A2000, v7, OS_LOG_TYPE_DEFAULT, "%s Unable to send response message. Connection not connected.", &v9, 0xCu);
+      v8 = 136315138;
+      v9 = "[TRClientConnection sendResponse:]";
+      _os_log_impl(&dword_26F2A2000, v7, OS_LOG_TYPE_DEFAULT, "%s Unable to send response message. Connection not connected.", &v8, 0xCu);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidate
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   session = [(TRClientConnection *)self session];
   v3 = session;
   if (session)
@@ -198,16 +192,14 @@ void __45__TRClientConnection_setInvalidationHandler___block_invoke(uint64_t a1)
 
   else if (_TRLogEnabled == 1)
   {
-    v4 = TRLogHandle();
+    v4 = TRLogHandle(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 136315138;
-      v7 = "[TRClientConnection invalidate]";
-      _os_log_impl(&dword_26F2A2000, v4, OS_LOG_TYPE_DEFAULT, "%s Unable to invalidate. Connection not connected.", &v6, 0xCu);
+      v5 = 136315138;
+      v6 = "[TRClientConnection invalidate]";
+      _os_log_impl(&dword_26F2A2000, v4, OS_LOG_TYPE_DEFAULT, "%s Unable to invalidate. Connection not connected.", &v5, 0xCu);
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connectToNearbyDevice:(id)device withCompletion:(id)completion
@@ -246,18 +238,19 @@ void __59__TRClientConnection_connectToNearbyDevice_withCompletion___block_invok
 {
   v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
     if (_TRLogEnabled == 1)
     {
-      v4 = TRLogHandle();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      v5 = TRLogHandle(v3);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         v8 = 136315394;
         v9 = "[TRClientConnection connectToNearbyDevice:withCompletion:]_block_invoke";
         v10 = 2112;
-        v11 = v3;
-        _os_log_impl(&dword_26F2A2000, v4, OS_LOG_TYPE_DEFAULT, "%s Connection failed to activate with error: %@", &v8, 0x16u);
+        v11 = v4;
+        _os_log_impl(&dword_26F2A2000, v5, OS_LOG_TYPE_DEFAULT, "%s Connection failed to activate with error: %@", &v8, 0x16u);
       }
     }
 
@@ -268,12 +261,12 @@ void __59__TRClientConnection_connectToNearbyDevice_withCompletion___block_invok
   {
     if (_TRLogEnabled == 1)
     {
-      v5 = TRLogHandle();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v6 = TRLogHandle(0);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         v8 = 136315138;
         v9 = "[TRClientConnection connectToNearbyDevice:withCompletion:]_block_invoke";
-        _os_log_impl(&dword_26F2A2000, v5, OS_LOG_TYPE_DEFAULT, "%s Connection activated successfully", &v8, 0xCu);
+        _os_log_impl(&dword_26F2A2000, v6, OS_LOG_TYPE_DEFAULT, "%s Connection activated successfully", &v8, 0xCu);
       }
     }
 
@@ -281,8 +274,6 @@ void __59__TRClientConnection_connectToNearbyDevice_withCompletion___block_invok
     [WeakRetained setSession:*(a1 + 32)];
     (*(*(a1 + 40) + 16))();
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

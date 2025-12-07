@@ -319,7 +319,7 @@ LABEL_11:
 - (id)_criticalPairedDeviceWithCBUUID:(id)d
 {
   dCopy = d;
-  if ([dCopy isEqualToIgnoringCase:kIDSDefaultPairedDeviceID])
+  if (objc_msgSend_isEqualToIgnoringCase_(dCopy))
   {
     [(IDSPairedDeviceRepository *)self _criticalActivePairedDevice];
   }
@@ -1017,7 +1017,7 @@ LABEL_18:
     v59 = v25;
     if ([versionCopy length])
     {
-      v26 = [v25 isEqualToIgnoringCase:versionCopy] ^ 1;
+      v26 = objc_msgSend_isEqualToIgnoringCase_(v25) ^ 1;
     }
 
     else
@@ -1029,7 +1029,7 @@ LABEL_18:
     value = productVersionCopy;
     if ([productVersionCopy length])
     {
-      v29 = [v64 isEqualToIgnoringCase:productVersionCopy] ^ 1;
+      v29 = objc_msgSend_isEqualToIgnoringCase_(v64) ^ 1;
     }
 
     else
@@ -1040,7 +1040,7 @@ LABEL_18:
     v30 = iDCopy;
     if ([nameCopy length])
     {
-      v31 = [v63 isEqualToIgnoringCase:nameCopy] ^ 1;
+      v31 = objc_msgSend_isEqualToIgnoringCase_(v63) ^ 1;
     }
 
     else
@@ -1051,7 +1051,7 @@ LABEL_18:
     v58 = dCopy;
     if ([v30 length])
     {
-      v55 = [uniqueID isEqualToIgnoringCase:v30] ^ 1;
+      v55 = objc_msgSend_isEqualToIgnoringCase_(uniqueID) ^ 1;
     }
 
     else

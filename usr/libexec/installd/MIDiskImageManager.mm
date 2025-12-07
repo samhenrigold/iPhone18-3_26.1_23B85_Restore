@@ -52,9 +52,9 @@
 {
   lCopy = l;
   keyCopy = key;
-  v14 = 0;
-  v7 = [NSDictionary dictionaryWithContentsOfURL:lCopy error:&v14];
-  v8 = v14;
+  v15 = 0;
+  v7 = [NSDictionary dictionaryWithContentsOfURL:lCopy error:&v15];
+  v8 = v15;
   if (v7)
   {
     v9 = [v7 objectForKeyedSubscript:keyCopy];
@@ -72,11 +72,11 @@
 
     if (path)
     {
-      objc_opt_class();
-      if (sub_100010AB8(path))
+      v12 = objc_opt_class();
+      if (sub_100010AB8(path, v12))
       {
         path = path;
-        v12 = path;
+        v13 = path;
 LABEL_15:
 
         goto LABEL_16;
@@ -86,7 +86,7 @@ LABEL_15:
     if (qword_1000A9720 && *(qword_1000A9720 + 44) < 3)
     {
 LABEL_14:
-      v12 = 0;
+      v13 = 0;
       goto LABEL_15;
     }
 
@@ -101,10 +101,10 @@ LABEL_13:
     goto LABEL_13;
   }
 
-  v12 = 0;
+  v13 = 0;
 LABEL_16:
 
-  return v12;
+  return v13;
 }
 
 - (void)_initializeInfoFromStorage

@@ -6,7 +6,9 @@
 - (id)accessibilityLabel;
 - (void)_accessibilityLoadAccessibilityInformation;
 - (void)_accessibilitySetCenterCircleHint;
+- (void)_dismissAnimated:(BOOL)animated completion:(id)completion;
 - (void)layoutPaletteCircles;
+- (void)presentAnimated:(BOOL)animated completion:(id)completion;
 - (void)showColorWheel;
 @end
 
@@ -106,6 +108,23 @@
   return v4;
 }
 
+- (void)presentAnimated:(BOOL)animated completion:(id)completion
+{
+  animatedCopy = animated;
+  completionCopy = completion;
+  v10[0] = MEMORY[0x29EDCA5F8];
+  v10[1] = 3221225472;
+  v10[2] = __61__ETColorPickerViewAccessibility_presentAnimated_completion___block_invoke;
+  v10[3] = &unk_29F2BAAC8;
+  v10[4] = self;
+  v11 = completionCopy;
+  v7 = completionCopy;
+  v8 = MEMORY[0x29C2D4430](v10);
+  v9.receiver = self;
+  v9.super_class = ETColorPickerViewAccessibility;
+  [(ETColorPickerViewAccessibility *)&v9 presentAnimated:animatedCopy completion:v8];
+}
+
 void __61__ETColorPickerViewAccessibility_presentAnimated_completion___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 40);
@@ -118,6 +137,23 @@ void __61__ETColorPickerViewAccessibility_presentAnimated_completion___block_inv
   v3 = *MEMORY[0x29EDC7ED8];
 
   UIAccessibilityPostNotification(v3, 0);
+}
+
+- (void)_dismissAnimated:(BOOL)animated completion:(id)completion
+{
+  animatedCopy = animated;
+  completionCopy = completion;
+  v10[0] = MEMORY[0x29EDCA5F8];
+  v10[1] = 3221225472;
+  v10[2] = __62__ETColorPickerViewAccessibility__dismissAnimated_completion___block_invoke;
+  v10[3] = &unk_29F2BAAC8;
+  v10[4] = self;
+  v11 = completionCopy;
+  v7 = completionCopy;
+  v8 = MEMORY[0x29C2D4430](v10);
+  v9.receiver = self;
+  v9.super_class = ETColorPickerViewAccessibility;
+  [(ETColorPickerViewAccessibility *)&v9 _dismissAnimated:animatedCopy completion:v8];
 }
 
 void __62__ETColorPickerViewAccessibility__dismissAnimated_completion___block_invoke(uint64_t a1)

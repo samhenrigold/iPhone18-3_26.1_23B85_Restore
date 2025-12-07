@@ -212,26 +212,26 @@ uint64_t __73__ATXHomeScreenLogUploader__timeBasedMergePublisher_withOtherPublis
 
 - (void)uploadHomeScreenSummaryLogsToCoreAnalyticsWithActivity:(id)activity customStartDate:(id)date dryRunCompletionHandler:(id)handler
 {
-  v128[2] = *MEMORY[0x277D85DE8];
+  v132[2] = *MEMORY[0x277D85DE8];
   activityCopy = activity;
   dateCopy = date;
   handlerCopy = handler;
   if (([activityCopy didDefer] & 1) == 0)
   {
-    v77 = handlerCopy;
+    v81 = handlerCopy;
     v11 = objc_opt_new();
-    v124 = 0;
-    v79 = [v11 loadHomeScreenAndTodayPageConfigurationsWithError:&v124];
-    v78 = v124;
+    v128 = 0;
+    v83 = [v11 loadHomeScreenAndTodayPageConfigurationsWithError:&v128];
+    v82 = v128;
 
-    if (!v79 || v78)
+    if (!v83 || v82)
     {
-      v14 = __atxlog_handle_home_screen();
-      v15 = v14;
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v15 = __atxlog_handle_home_screen(v12);
+      v16 = v15;
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         [ATXHomeScreenLogUploader uploadHomeScreenSummaryLogsToCoreAnalyticsWithActivity:customStartDate:dryRunCompletionHandler:];
-        v15 = v14;
+        v16 = v15;
       }
     }
 
@@ -241,171 +241,173 @@ uint64_t __73__ATXHomeScreenLogUploader__timeBasedMergePublisher_withOtherPublis
       {
 LABEL_47:
 
-        handlerCopy = v77;
+        handlerCopy = v81;
         goto LABEL_48;
       }
 
       if (dateCopy)
       {
         [dateCopy timeIntervalSinceNow];
-        v13 = -v12;
+        v14 = -v13;
       }
 
       else
       {
-        v13 = 86400.0;
+        v14 = 86400.0;
       }
 
-      v76 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:-v13];
-      [v76 timeIntervalSinceReferenceDate];
-      v17 = v16;
-      [(ATXHomeScreenLogSystemEventDictionaries *)self->_systemEventDictionary updateSystemLevelSummaryForHomeScreenPages:v79 startDate:v76];
-      [(ATXHomeScreenLogSystemChangeDictionary *)self->_systemChangeDictionary updateSystemChangeSummaryForHomeScreenPages:v79];
-      [(ATXHomeScreenLogWidgetSetupDictionaries *)self->_widgetSetupDictionaries updateWidgetSetupSummaryForHomeScreenPages:v79];
+      v80 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:-v14];
+      [v80 timeIntervalSinceReferenceDate];
+      v18 = v17;
+      [(ATXHomeScreenLogSystemEventDictionaries *)self->_systemEventDictionary updateSystemLevelSummaryForHomeScreenPages:v83 startDate:v80];
+      [(ATXHomeScreenLogSystemChangeDictionary *)self->_systemChangeDictionary updateSystemChangeSummaryForHomeScreenPages:v83];
+      [(ATXHomeScreenLogWidgetSetupDictionaries *)self->_widgetSetupDictionaries updateWidgetSetupSummaryForHomeScreenPages:v83];
       [(ATXHomeScreenWidgetDiscoverabilityLogHarvester *)self->_widgetDiscoverabilityDictionaries generateWidgetDiscoverabilityMetricsWithActivity:activityCopy];
       [(ATXTVWidgetLogHarvester *)self->_tvWidgetLogHarvester generateTVWidgetMetrics];
       if (([activityCopy didDefer] & 1) == 0)
       {
         objc_initWeak(&location, self);
-        v18 = dispatch_semaphore_create(0);
+        v19 = dispatch_semaphore_create(0);
         mEMORY[0x277CEB450] = [MEMORY[0x277CEB450] sharedInstance];
         if ([MEMORY[0x277D42590] isiPad])
         {
-          v19 = 2;
+          v20 = 2;
         }
 
         else
         {
-          v19 = 0;
+          v20 = 0;
         }
 
+        v124[0] = MEMORY[0x277D85DD0];
+        v124[1] = 3221225472;
+        v124[2] = __123__ATXHomeScreenLogUploader_uploadHomeScreenSummaryLogsToCoreAnalyticsWithActivity_customStartDate_dryRunCompletionHandler___block_invoke;
+        v124[3] = &unk_2785A1A68;
+        v21 = v19;
+        v125 = v21;
+        objc_copyWeak(&v126, &location);
+        [mEMORY[0x277CEB450] fetchSuggestedGalleryItemsOfGridSize:v20 widgetFamilyMask:7294 withCompletionHandler:v124];
+        v22 = [MEMORY[0x277D425A0] waitForSemaphore:v21 timeoutSeconds:2.0];
+        if (v22 == 1)
+        {
+          v23 = __atxlog_handle_home_screen(v22);
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+          {
+            [ATXHomeScreenLogUploader uploadHomeScreenSummaryLogsToCoreAnalyticsWithActivity:customStartDate:dryRunCompletionHandler:];
+          }
+        }
+
+        v24 = dispatch_semaphore_create(0);
         v120[0] = MEMORY[0x277D85DD0];
         v120[1] = 3221225472;
-        v120[2] = __123__ATXHomeScreenLogUploader_uploadHomeScreenSummaryLogsToCoreAnalyticsWithActivity_customStartDate_dryRunCompletionHandler___block_invoke;
-        v120[3] = &unk_2785A1A68;
-        v20 = v18;
-        v121 = v20;
-        objc_copyWeak(&v122, &location);
-        [mEMORY[0x277CEB450] fetchSuggestedGalleryItemsOfGridSize:v19 widgetFamilyMask:7294 withCompletionHandler:v120];
-        if ([MEMORY[0x277D425A0] waitForSemaphore:v20 timeoutSeconds:2.0] == 1)
+        v120[2] = __123__ATXHomeScreenLogUploader_uploadHomeScreenSummaryLogsToCoreAnalyticsWithActivity_customStartDate_dryRunCompletionHandler___block_invoke_30;
+        v120[3] = &unk_2785A1A90;
+        v78 = v24;
+        v121 = v78;
+        objc_copyWeak(&v123, &location);
+        v25 = v21;
+        v122 = v25;
+        [mEMORY[0x277CEB450] fetchSmartStackOfVariant:0 completionHandler:v120];
+        v26 = [MEMORY[0x277D425A0] waitForSemaphore:v78 timeoutSeconds:2.0];
+        v71 = v25;
+        if (v26 == 1)
         {
-          v21 = __atxlog_handle_home_screen();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+          v27 = __atxlog_handle_home_screen(v26);
+          if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
           {
             [ATXHomeScreenLogUploader uploadHomeScreenSummaryLogsToCoreAnalyticsWithActivity:customStartDate:dryRunCompletionHandler:];
           }
         }
 
-        v22 = dispatch_semaphore_create(0);
-        v116[0] = MEMORY[0x277D85DD0];
-        v116[1] = 3221225472;
-        v116[2] = __123__ATXHomeScreenLogUploader_uploadHomeScreenSummaryLogsToCoreAnalyticsWithActivity_customStartDate_dryRunCompletionHandler___block_invoke_30;
-        v116[3] = &unk_2785A1A90;
-        v74 = v22;
-        v117 = v74;
-        objc_copyWeak(&v119, &location);
-        v23 = v20;
-        v118 = v23;
-        [mEMORY[0x277CEB450] fetchSmartStackOfVariant:0 completionHandler:v116];
-        v67 = v23;
-        if ([MEMORY[0x277D425A0] waitForSemaphore:v74 timeoutSeconds:2.0] == 1)
-        {
-          v24 = __atxlog_handle_home_screen();
-          if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
-          {
-            [ATXHomeScreenLogUploader uploadHomeScreenSummaryLogsToCoreAnalyticsWithActivity:customStartDate:dryRunCompletionHandler:];
-          }
-        }
-
-        v112 = 0;
-        v113 = &v112;
-        v114 = 0x2020000000;
-        v115 = 0;
+        v116 = 0;
+        v117 = &v116;
+        v118 = 0x2020000000;
+        v119 = 0;
+        v110 = 0;
+        v111 = &v110;
+        v112 = 0x3032000000;
+        v113 = __Block_byref_object_copy__103;
+        v114 = __Block_byref_object_dispose__103;
+        v115 = objc_opt_new();
         v106 = 0;
         v107 = &v106;
-        v108 = 0x3032000000;
-        v109 = __Block_byref_object_copy__103;
-        v110 = __Block_byref_object_dispose__103;
-        v111 = objc_opt_new();
-        v102 = 0;
-        v103 = &v102;
-        v104 = 0x2020000000;
-        v105 = 0;
+        v108 = 0x2020000000;
+        v109 = 0;
+        v104[0] = 0;
+        v104[1] = v104;
+        v104[2] = 0x3032000000;
+        v104[3] = __Block_byref_object_copy__103;
+        v104[4] = __Block_byref_object_dispose__103;
+        v105 = objc_opt_new();
+        v102[0] = 0;
+        v102[1] = v102;
+        v102[2] = 0x2020000000;
+        v103 = 0;
         v100[0] = 0;
         v100[1] = v100;
         v100[2] = 0x3032000000;
         v100[3] = __Block_byref_object_copy__103;
         v100[4] = __Block_byref_object_dispose__103;
         v101 = objc_opt_new();
-        v98[0] = 0;
-        v98[1] = v98;
-        v98[2] = 0x2020000000;
-        v99 = 0;
-        v96[0] = 0;
-        v96[1] = v96;
-        v96[2] = 0x3032000000;
-        v96[3] = __Block_byref_object_copy__103;
-        v96[4] = __Block_byref_object_dispose__103;
-        v97 = objc_opt_new();
-        v25 = v13 + 43200.0;
-        v26 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:-(v13 + 43200.0)];
-        [v26 timeIntervalSinceReferenceDate];
-        v28 = v27;
+        v28 = v14 + 43200.0;
+        v29 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:-(v14 + 43200.0)];
+        [v29 timeIntervalSinceReferenceDate];
+        v31 = v30;
 
-        v29 = objc_opt_new();
-        v73 = [v29 genericEventPublisherFromStartTime:v28];
+        v32 = objc_opt_new();
+        v77 = [v32 genericEventPublisherFromStartTime:v31];
 
-        v30 = BiomeLibrary();
-        v31 = [v30 App];
-        inFocus = [v31 InFocus];
-        v33 = [MEMORY[0x277CCABB0] numberWithDouble:v28];
-        v72 = [inFocus atx_publisherFromStartTime:v33];
+        v33 = BiomeLibrary();
+        v34 = [v33 App];
+        inFocus = [v34 InFocus];
+        v36 = [MEMORY[0x277CCABB0] numberWithDouble:v31];
+        v76 = [inFocus atx_publisherFromStartTime:v36];
 
-        v34 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:-(v25 + 3600.0)];
-        [v34 timeIntervalSinceReferenceDate];
-        v36 = v35;
+        v37 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:-(v28 + 3600.0)];
+        [v37 timeIntervalSinceReferenceDate];
+        v39 = v38;
 
-        v37 = objc_opt_new();
-        v71 = [v37 publisherFromStartTime:v36];
-
-        v128[0] = v72;
-        v128[1] = v71;
-        v38 = [MEMORY[0x277CBEA60] arrayWithObjects:v128 count:2];
-        v70 = [(ATXHomeScreenLogUploader *)self _timeBasedMergePublisher:v73 withOtherPublishers:v38];
-
-        v39 = objc_opt_new();
         v40 = objc_opt_new();
-        v41 = [v70 filterWithIsIncluded:&__block_literal_global_41_4];
-        v85[0] = MEMORY[0x277D85DD0];
-        v85[1] = 3221225472;
-        v85[2] = __123__ATXHomeScreenLogUploader_uploadHomeScreenSummaryLogsToCoreAnalyticsWithActivity_customStartDate_dryRunCompletionHandler___block_invoke_45;
-        v85[3] = &unk_2785A1AB8;
-        objc_copyWeak(v95, &location);
-        v42 = activityCopy;
-        v86 = v42;
-        v89 = &v112;
-        v68 = v40;
-        v87 = v68;
-        v43 = v39;
-        v95[1] = v17;
-        v69 = v43;
-        v88 = v43;
-        v90 = &v102;
-        v91 = v96;
-        v92 = v98;
-        v93 = v100;
-        v94 = &v106;
-        v44 = [v41 sinkWithCompletion:&__block_literal_global_44_4 receiveInput:v85];
+        v75 = [v40 publisherFromStartTime:v39];
 
-        if (([v42 didDefer] & 1) == 0)
+        v132[0] = v76;
+        v132[1] = v75;
+        v41 = [MEMORY[0x277CBEA60] arrayWithObjects:v132 count:2];
+        v74 = [(ATXHomeScreenLogUploader *)self _timeBasedMergePublisher:v77 withOtherPublishers:v41];
+
+        v42 = objc_opt_new();
+        v43 = objc_opt_new();
+        v44 = [v74 filterWithIsIncluded:&__block_literal_global_41_4];
+        v89[0] = MEMORY[0x277D85DD0];
+        v89[1] = 3221225472;
+        v89[2] = __123__ATXHomeScreenLogUploader_uploadHomeScreenSummaryLogsToCoreAnalyticsWithActivity_customStartDate_dryRunCompletionHandler___block_invoke_45;
+        v89[3] = &unk_2785A1AB8;
+        objc_copyWeak(v99, &location);
+        v45 = activityCopy;
+        v90 = v45;
+        v93 = &v116;
+        v72 = v43;
+        v91 = v72;
+        v46 = v42;
+        v99[1] = v18;
+        v73 = v46;
+        v92 = v46;
+        v94 = &v106;
+        v95 = v100;
+        v96 = v102;
+        v97 = v104;
+        v98 = &v110;
+        v47 = [v44 sinkWithCompletion:&__block_literal_global_44_4 receiveInput:v89];
+
+        if (([v45 didDefer] & 1) == 0)
         {
-          [(ATXHomeScreenLogWidgetSetupDictionaries *)self->_widgetSetupDictionaries updateWidgetLevelParentAppLaunches:v107[5]];
-          v45 = v113[3];
-          [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
-          if (v45 >= v46)
+          [(ATXHomeScreenLogWidgetSetupDictionaries *)self->_widgetSetupDictionaries updateWidgetLevelParentAppLaunches:v111[5]];
+          v48 = v117[3];
+          timeIntervalSinceReferenceDate = [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
+          if (v48 >= v50)
           {
-            v63 = __atxlog_handle_home_screen();
-            if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
+            v67 = __atxlog_handle_home_screen(timeIntervalSinceReferenceDate);
+            if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
             {
               [ATXHomeScreenLogUploader uploadHomeScreenSummaryLogsToCoreAnalyticsWithActivity:customStartDate:dryRunCompletionHandler:];
             }
@@ -413,88 +415,88 @@ LABEL_47:
 
           else
           {
-            v47 = __atxlog_handle_home_screen();
-            if (os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG))
+            v51 = __atxlog_handle_home_screen(timeIntervalSinceReferenceDate);
+            if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
             {
               [ATXHomeScreenLogUploader uploadHomeScreenSummaryLogsToCoreAnalyticsWithActivity:customStartDate:dryRunCompletionHandler:];
             }
 
-            v83 = 0u;
-            v84 = 0u;
-            v81 = 0u;
-            v82 = 0u;
-            removeAndReturnCompletedSessions = [v69 removeAndReturnCompletedSessions];
-            v49 = [removeAndReturnCompletedSessions countByEnumeratingWithState:&v81 objects:v127 count:16];
-            if (v49)
+            v87 = 0u;
+            v88 = 0u;
+            v85 = 0u;
+            v86 = 0u;
+            removeAndReturnCompletedSessions = [v73 removeAndReturnCompletedSessions];
+            v53 = [removeAndReturnCompletedSessions countByEnumeratingWithState:&v85 objects:v131 count:16];
+            if (v53)
             {
-              v50 = *v82;
+              v54 = *v86;
               do
               {
-                for (i = 0; i != v49; ++i)
+                for (i = 0; i != v53; ++i)
                 {
-                  if (*v82 != v50)
+                  if (*v86 != v54)
                   {
                     objc_enumerationMutation(removeAndReturnCompletedSessions);
                   }
 
-                  v52 = *(*(&v81 + 1) + 8 * i);
-                  sessionEndDate = [v52 sessionEndDate];
+                  v56 = *(*(&v85 + 1) + 8 * i);
+                  sessionEndDate = [v56 sessionEndDate];
                   [sessionEndDate timeIntervalSinceReferenceDate];
-                  v55 = v54 < *&v17;
+                  v59 = v58 < *&v18;
 
-                  if (!v55)
+                  if (!v59)
                   {
-                    [(ATXHomeScreenLogSystemEventDictionaries *)self->_systemEventDictionary updateSystemLevelSummaryWithRotationSession:v52];
-                    [(ATXHomeScreenLogWidgetRotationDictionaries *)self->_widgetRotationDictionaries updateWithRotationSession:v52];
+                    [(ATXHomeScreenLogSystemEventDictionaries *)self->_systemEventDictionary updateSystemLevelSummaryWithRotationSession:v56];
+                    [(ATXHomeScreenLogWidgetRotationDictionaries *)self->_widgetRotationDictionaries updateWithRotationSession:v56];
                   }
                 }
 
-                v49 = [removeAndReturnCompletedSessions countByEnumeratingWithState:&v81 objects:v127 count:16];
+                v53 = [removeAndReturnCompletedSessions countByEnumeratingWithState:&v85 objects:v131 count:16];
               }
 
-              while (v49);
+              while (v53);
             }
 
-            [(ATXHomeScreenLogSystemEventDictionaries *)self->_systemEventDictionary updateSystemLevelSummaryTotalUnlockSessions:v103[3]];
-            [(ATXHomeScreenLogWidgetSetupDictionaries *)self->_widgetSetupDictionaries updateTotalUnlockSessions:v103[3]];
-            [(ATXHomeScreenLogSystemEventDictionaries *)self->_systemEventDictionary populateUnlockSessionEngagementSummaryFromManager:v68];
+            [(ATXHomeScreenLogSystemEventDictionaries *)self->_systemEventDictionary updateSystemLevelSummaryTotalUnlockSessions:v107[3]];
+            [(ATXHomeScreenLogWidgetSetupDictionaries *)self->_widgetSetupDictionaries updateTotalUnlockSessions:v107[3]];
+            [(ATXHomeScreenLogSystemEventDictionaries *)self->_systemEventDictionary populateUnlockSessionEngagementSummaryFromManager:v72];
             [(ATXHomeScreenLogSystemEventDictionaries *)self->_systemEventDictionary populateLifetimeNPlusOneStatistics];
             [(ATXHomeScreenLogSystemEventDictionaries *)self->_systemEventDictionary populateHasBehavioralData];
             [(ATXHomeScreenLogSystemEventDictionaries *)self->_systemEventDictionary populateUsedKettle];
-            if (v77)
+            if (v81)
             {
-              v125[0] = @"System Event Dictionary";
+              v129[0] = @"System Event Dictionary";
               dryRunResult = [(ATXHomeScreenLogSystemEventDictionaries *)self->_systemEventDictionary dryRunResult];
-              v126[0] = dryRunResult;
-              v125[1] = @"System Change Dictionary";
+              v130[0] = dryRunResult;
+              v129[1] = @"System Change Dictionary";
               dryRunResult2 = [(ATXHomeScreenLogSystemChangeDictionary *)self->_systemChangeDictionary dryRunResult];
-              v126[1] = dryRunResult2;
-              v125[2] = @"Widget Setup Dictionary";
+              v130[1] = dryRunResult2;
+              v129[2] = @"Widget Setup Dictionary";
               dryRunResult3 = [(ATXHomeScreenLogWidgetSetupDictionaries *)self->_widgetSetupDictionaries dryRunResult];
-              v126[2] = dryRunResult3;
-              v125[3] = @"Widget Event Dictionary";
+              v130[2] = dryRunResult3;
+              v129[3] = @"Widget Event Dictionary";
               dryRunResult4 = [(ATXHomeScreenLogWidgetEventDictionaries *)self->_widgetEventDictionaries dryRunResult];
-              v126[3] = dryRunResult4;
-              v125[4] = @"Widget Add Sheet Dictionary";
+              v130[3] = dryRunResult4;
+              v129[4] = @"Widget Add Sheet Dictionary";
               dryRunResult5 = [(ATXHomeScreenLogWidgetAddSheetDictionaries *)self->_widgetAddSheetDictionaries dryRunResult];
-              v126[4] = dryRunResult5;
-              v125[5] = @"Widget Rotation Dictionary";
+              v130[4] = dryRunResult5;
+              v129[5] = @"Widget Rotation Dictionary";
               dryRunResult6 = [(ATXHomeScreenLogWidgetRotationDictionaries *)self->_widgetRotationDictionaries dryRunResult];
-              v126[5] = dryRunResult6;
-              v125[6] = @"Default Stack Metrics Dictionary";
+              v130[5] = dryRunResult6;
+              v129[6] = @"Default Stack Metrics Dictionary";
               dryRunResult7 = [(ATXHomeScreenWidgetDiscoverabilityLogHarvester *)self->_widgetDiscoverabilityDictionaries dryRunResult];
-              v126[6] = dryRunResult7;
-              v125[7] = @"TV Widget Metrics Dictionary";
+              v130[6] = dryRunResult7;
+              v129[7] = @"TV Widget Metrics Dictionary";
               dryRunResult8 = [(ATXTVWidgetLogHarvester *)self->_tvWidgetLogHarvester dryRunResult];
-              v126[7] = dryRunResult8;
-              v63 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v126 forKeys:v125 count:8];
+              v130[7] = dryRunResult8;
+              v67 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v130 forKeys:v129 count:8];
 
-              (*(v77 + 2))(v77, v63, 0);
-              v64 = __atxlog_handle_home_screen();
-              if (os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT))
+              v68 = (*(v81 + 2))(v81, v67, 0);
+              v69 = __atxlog_handle_home_screen(v68);
+              if (os_log_type_enabled(v69, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 0;
-                _os_log_impl(&dword_2263AA000, v64, OS_LOG_TYPE_DEFAULT, "ATXHomeScreenLogUploader: Daily CoreAnalytics log upload dry-run complete - no actual logs uploaded", buf, 2u);
+                _os_log_impl(&dword_2263AA000, v69, OS_LOG_TYPE_DEFAULT, "ATXHomeScreenLogUploader: Daily CoreAnalytics log upload dry-run complete - no actual logs uploaded", buf, 2u);
               }
             }
 
@@ -507,42 +509,39 @@ LABEL_47:
               [(ATXHomeScreenLogWidgetAddSheetDictionaries *)self->_widgetAddSheetDictionaries sendToCoreAnalytics];
               [(ATXHomeScreenLogWidgetRotationDictionaries *)self->_widgetRotationDictionaries sendToCoreAnalytics];
               [(ATXHomeScreenWidgetDiscoverabilityLogHarvester *)self->_widgetDiscoverabilityDictionaries sendToCoreAnalytics];
-              [(ATXTVWidgetLogHarvester *)self->_tvWidgetLogHarvester sendToCoreAnalytics];
-              v63 = __atxlog_handle_home_screen();
-              if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
+              v67 = __atxlog_handle_home_screen([(ATXTVWidgetLogHarvester *)self->_tvWidgetLogHarvester sendToCoreAnalytics]);
+              if (os_log_type_enabled(v67, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 0;
-                _os_log_impl(&dword_2263AA000, v63, OS_LOG_TYPE_DEFAULT, "ATXHomeScreenLogUploader: Daily CoreAnalytics log upload complete", buf, 2u);
+                _os_log_impl(&dword_2263AA000, v67, OS_LOG_TYPE_DEFAULT, "ATXHomeScreenLogUploader: Daily CoreAnalytics log upload complete", buf, 2u);
               }
             }
           }
         }
 
-        objc_destroyWeak(v95);
-        _Block_object_dispose(v96, 8);
-
-        _Block_object_dispose(v98, 8);
+        objc_destroyWeak(v99);
         _Block_object_dispose(v100, 8);
 
-        _Block_object_dispose(&v102, 8);
+        _Block_object_dispose(v102, 8);
+        _Block_object_dispose(v104, 8);
+
         _Block_object_dispose(&v106, 8);
+        _Block_object_dispose(&v110, 8);
 
-        _Block_object_dispose(&v112, 8);
-        objc_destroyWeak(&v119);
+        _Block_object_dispose(&v116, 8);
+        objc_destroyWeak(&v123);
 
-        objc_destroyWeak(&v122);
+        objc_destroyWeak(&v126);
         objc_destroyWeak(&location);
       }
 
-      v15 = v76;
+      v16 = v80;
     }
 
     goto LABEL_47;
   }
 
 LABEL_48:
-
-  v65 = *MEMORY[0x277D85DE8];
 }
 
 void __123__ATXHomeScreenLogUploader_uploadHomeScreenSummaryLogsToCoreAnalyticsWithActivity_customStartDate_dryRunCompletionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -552,7 +551,7 @@ void __123__ATXHomeScreenLogUploader_uploadHomeScreenSummaryLogsToCoreAnalyticsW
   v7 = v6;
   if (!v5 || v6)
   {
-    v10 = __atxlog_handle_home_screen();
+    v10 = __atxlog_handle_home_screen(v6);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       __123__ATXHomeScreenLogUploader_uploadHomeScreenSummaryLogsToCoreAnalyticsWithActivity_customStartDate_dryRunCompletionHandler___block_invoke_cold_2();
@@ -572,7 +571,7 @@ void __123__ATXHomeScreenLogUploader_uploadHomeScreenSummaryLogsToCoreAnalyticsW
 
     else
     {
-      v11 = __atxlog_handle_home_screen();
+      v11 = __atxlog_handle_home_screen(0);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         __123__ATXHomeScreenLogUploader_uploadHomeScreenSummaryLogsToCoreAnalyticsWithActivity_customStartDate_dryRunCompletionHandler___block_invoke_cold_1();
@@ -590,7 +589,7 @@ void __123__ATXHomeScreenLogUploader_uploadHomeScreenSummaryLogsToCoreAnalyticsW
   v7 = [v5 count];
   if (v6 || !v7)
   {
-    v13 = __atxlog_handle_home_screen();
+    v13 = __atxlog_handle_home_screen(v7);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       __123__ATXHomeScreenLogUploader_uploadHomeScreenSummaryLogsToCoreAnalyticsWithActivity_customStartDate_dryRunCompletionHandler___block_invoke_30_cold_2();
@@ -614,7 +613,7 @@ void __123__ATXHomeScreenLogUploader_uploadHomeScreenSummaryLogsToCoreAnalyticsW
 
     else
     {
-      v14 = __atxlog_handle_home_screen();
+      v14 = __atxlog_handle_home_screen(0);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         __123__ATXHomeScreenLogUploader_uploadHomeScreenSummaryLogsToCoreAnalyticsWithActivity_customStartDate_dryRunCompletionHandler___block_invoke_30_cold_1();
@@ -631,7 +630,7 @@ void __123__ATXHomeScreenLogUploader_uploadHomeScreenSummaryLogsToCoreAnalyticsW
 {
   v2 = a2;
   v3 = [v2 state];
-  v4 = __atxlog_handle_home_screen();
+  v4 = __atxlog_handle_home_screen(v3);
   v5 = v4;
   if (v3)
   {
@@ -667,40 +666,40 @@ void __123__ATXHomeScreenLogUploader_uploadHomeScreenSummaryLogsToCoreAnalyticsW
 
     if (v7)
     {
-      v8 = [v3 eventBody];
+      v9 = [v3 eventBody];
       objc_opt_class();
       isKindOfClass = objc_opt_isKindOfClass();
 
       if (isKindOfClass)
       {
-        v10 = *(a1 + 40);
-        v11 = [v3 eventBody];
-        v12 = [v10 updateSessionStateWithUIEvent:v11];
+        v11 = *(a1 + 40);
+        v12 = [v3 eventBody];
+        v13 = [v11 updateSessionStateWithUIEvent:v12];
 
-        v13 = *(a1 + 48);
-        v14 = [v3 eventBody];
-        [v13 updateWithUIEvent:v14];
+        v14 = *(a1 + 48);
+        v15 = [v3 eventBody];
+        [v14 updateWithUIEvent:v15];
       }
 
       else
       {
-        v12 = 0;
+        v13 = 0;
       }
 
-      v16 = [v3 eventBody];
+      v17 = [v3 eventBody];
       objc_opt_class();
-      v17 = objc_opt_isKindOfClass();
+      v18 = objc_opt_isKindOfClass();
 
-      if (v17)
+      if (v18)
       {
-        v18 = *(a1 + 48);
-        v19 = [v3 eventBody];
-        [v18 updateWithBlendingUICacheUpdate:v19];
+        v19 = *(a1 + 48);
+        v20 = [v3 eventBody];
+        [v19 updateWithBlendingUICacheUpdate:v20];
       }
 
       else
       {
-        v20 = [v3 eventBody];
+        v21 = [v3 eventBody];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -708,127 +707,127 @@ void __123__ATXHomeScreenLogUploader_uploadHomeScreenSummaryLogsToCoreAnalyticsW
 
         else
         {
-          v21 = objc_opt_class();
-          v22 = [v3 eventBody];
-          LODWORD(v21) = [v21 _shouldProcessATXUIEvent:v22 startTime:*(a1 + 112)];
+          v22 = objc_opt_class();
+          v23 = [v3 eventBody];
+          LODWORD(v22) = [v22 _shouldProcessATXUIEvent:v23 startTime:*(a1 + 112)];
 
-          if (!v21)
+          if (!v22)
           {
             goto LABEL_37;
           }
         }
 
-        if (v12 == 1)
+        if (v13 == 1)
         {
           ++*(*(*(a1 + 64) + 8) + 24);
           [*(*(*(a1 + 72) + 8) + 40) removeAllObjects];
           *(*(*(a1 + 80) + 8) + 24) = 0;
         }
 
-        v23 = [v3 eventBody];
+        v24 = [v3 eventBody];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v56 = v23;
-          v57 = v12;
-          v24 = *(*(*(a1 + 88) + 8) + 40);
-          v25 = [v23 homeScreenEvent];
-          v26 = [v25 stackId];
-          v27 = [v24 objectForKeyedSubscript:v26];
-          v28 = [v27 eventBody];
-          v55 = [v28 homeScreenEvent];
+          v56 = v24;
+          v57 = v13;
+          v25 = *(*(*(a1 + 88) + 8) + 40);
+          v26 = [v24 homeScreenEvent];
+          v27 = [v26 stackId];
+          v28 = [v25 objectForKeyedSubscript:v27];
+          v29 = [v28 eventBody];
+          v55 = [v29 homeScreenEvent];
 
-          v29 = a1;
+          v30 = a1;
           [ATXHomeScreenLogUploaderUtilities stackShownEventsForPseudoTapIfPossible:*(*(*(a1 + 88) + 8) + 40) currentEvent:v3];
           v59 = 0u;
           v60 = 0u;
           v61 = 0u;
           obj = v62 = 0u;
-          v30 = [obj countByEnumeratingWithState:&v59 objects:v63 count:16];
-          if (v30)
+          v31 = [obj countByEnumeratingWithState:&v59 objects:v63 count:16];
+          if (v31)
           {
-            v31 = v30;
-            v32 = *v60;
+            v32 = v31;
+            v33 = *v60;
             do
             {
-              for (i = 0; i != v31; ++i)
+              for (i = 0; i != v32; ++i)
               {
-                if (*v60 != v32)
+                if (*v60 != v33)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v34 = *(*(&v59 + 1) + 8 * i);
-                [WeakRetained[4] updateSystemLevelSummaryForWidgetPseudoTapWithStackShownEvent:v34];
-                [WeakRetained[2] updateWidgetLevelSummaryForWidgetPseudoTapWithStackShownEvent:v34];
-                v35 = MEMORY[0x277CEB9B0];
-                v36 = [v34 widgetBundleId];
-                v37 = [v34 widgetKind];
-                v38 = [v35 stringRepresentationForExtensionBundleId:v36 kind:v37];
+                v35 = *(*(&v59 + 1) + 8 * i);
+                [WeakRetained[4] updateSystemLevelSummaryForWidgetPseudoTapWithStackShownEvent:v35];
+                [WeakRetained[2] updateWidgetLevelSummaryForWidgetPseudoTapWithStackShownEvent:v35];
+                v36 = MEMORY[0x277CEB9B0];
+                v37 = [v35 widgetBundleId];
+                v38 = [v35 widgetKind];
+                v39 = [v36 stringRepresentationForExtensionBundleId:v37 kind:v38];
 
-                [*(*(*(v29 + 72) + 8) + 40) setObject:v34 forKeyedSubscript:v38];
+                [*(*(*(v30 + 72) + 8) + 40) setObject:v35 forKeyedSubscript:v39];
               }
 
-              v31 = [obj countByEnumeratingWithState:&v59 objects:v63 count:16];
+              v32 = [obj countByEnumeratingWithState:&v59 objects:v63 count:16];
             }
 
-            while (v31);
+            while (v32);
           }
 
-          v39 = WeakRetained[4];
-          v23 = v56;
-          v40 = [v56 homeScreenEvent];
-          [v39 updateSystemLevelSummaryForHomeScreenEvent:v40];
+          v40 = WeakRetained[4];
+          v24 = v56;
+          v41 = [v56 homeScreenEvent];
+          [v40 updateSystemLevelSummaryForHomeScreenEvent:v41];
 
-          v41 = WeakRetained[5];
-          v42 = [v56 homeScreenEvent];
-          [v41 updateSystemChangeSummaryForHomeScreenEvent:v42];
+          v42 = WeakRetained[5];
+          v43 = [v56 homeScreenEvent];
+          [v42 updateSystemChangeSummaryForHomeScreenEvent:v43];
 
-          v43 = WeakRetained[2];
-          v44 = [v56 homeScreenEvent];
-          [v43 updateWidgetLevelSummaryForHomeScreenEvent:v44 lastStackEvent:v55];
+          v44 = WeakRetained[2];
+          v45 = [v56 homeScreenEvent];
+          [v44 updateWidgetLevelSummaryForHomeScreenEvent:v45 lastStackEvent:v55];
 
-          v12 = v57;
-          a1 = v29;
+          v13 = v57;
+          a1 = v30;
         }
 
         else
         {
-          v45 = [v3 eventBody];
+          v46 = [v3 eventBody];
           objc_opt_class();
-          v46 = objc_opt_isKindOfClass();
+          v47 = objc_opt_isKindOfClass();
 
-          if (v46)
+          if (v47)
           {
-            v47 = v23;
-            if ([ATXHomeScreenLogUploaderUtilities isValidAppLaunch:v47])
+            v48 = v24;
+            if ([ATXHomeScreenLogUploaderUtilities isValidAppLaunch:v48])
             {
-              v48 = *(*(*(a1 + 96) + 8) + 40);
-              v49 = [v47 bundleID];
-              [ATXHomeScreenLogUploaderUtilities incrementDictionary:v48 forKey:v49];
+              v49 = *(*(*(a1 + 96) + 8) + 40);
+              v50 = [v48 bundleID];
+              [ATXHomeScreenLogUploaderUtilities incrementDictionary:v49 forKey:v50];
 
               *(*(*(a1 + 80) + 8) + 24) = 1;
             }
           }
         }
 
-        if (v12 == 2 && (*(*(*(a1 + 80) + 8) + 24) & 1) == 0 && [*(*(*(a1 + 72) + 8) + 40) count])
+        if (v13 == 2 && (*(*(*(a1 + 80) + 8) + 24) & 1) == 0 && [*(*(*(a1 + 72) + 8) + 40) count])
         {
-          v50 = WeakRetained[4];
-          v51 = [*(*(*(a1 + 72) + 8) + 40) allValues];
-          [v50 updateSystemLevelUnlockSessionsWithWidgetDwell:v51];
+          v51 = WeakRetained[4];
+          v52 = [*(*(*(a1 + 72) + 8) + 40) allValues];
+          [v51 updateSystemLevelUnlockSessionsWithWidgetDwell:v52];
 
-          v52 = WeakRetained[2];
-          v53 = [*(*(*(a1 + 72) + 8) + 40) allValues];
-          [v52 updateUnlockSessionsWithWidgetDwell:v53];
+          v53 = WeakRetained[2];
+          v54 = [*(*(*(a1 + 72) + 8) + 40) allValues];
+          [v53 updateUnlockSessionsWithWidgetDwell:v54];
         }
       }
     }
 
     else
     {
-      v15 = __atxlog_handle_home_screen();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v16 = __atxlog_handle_home_screen(v8);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         __123__ATXHomeScreenLogUploader_uploadHomeScreenSummaryLogsToCoreAnalyticsWithActivity_customStartDate_dryRunCompletionHandler___block_invoke_45_cold_1();
       }
@@ -836,8 +835,6 @@ void __123__ATXHomeScreenLogUploader_uploadHomeScreenSummaryLogsToCoreAnalyticsW
   }
 
 LABEL_37:
-
-  v54 = *MEMORY[0x277D85DE8];
 }
 
 - (void)uploadHomeScreenSummaryLogsToCoreAnalyticsWithActivity:customStartDate:dryRunCompletionHandler:.cold.1()
@@ -863,11 +860,9 @@ LABEL_37:
 
 - (void)uploadHomeScreenSummaryLogsToCoreAnalyticsWithActivity:customStartDate:dryRunCompletionHandler:.cold.5()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __123__ATXHomeScreenLogUploader_uploadHomeScreenSummaryLogsToCoreAnalyticsWithActivity_customStartDate_dryRunCompletionHandler___block_invoke_cold_1()
@@ -879,11 +874,9 @@ void __123__ATXHomeScreenLogUploader_uploadHomeScreenSummaryLogsToCoreAnalyticsW
 
 void __123__ATXHomeScreenLogUploader_uploadHomeScreenSummaryLogsToCoreAnalyticsWithActivity_customStartDate_dryRunCompletionHandler___block_invoke_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __123__ATXHomeScreenLogUploader_uploadHomeScreenSummaryLogsToCoreAnalyticsWithActivity_customStartDate_dryRunCompletionHandler___block_invoke_30_cold_1()
@@ -895,21 +888,17 @@ void __123__ATXHomeScreenLogUploader_uploadHomeScreenSummaryLogsToCoreAnalyticsW
 
 void __123__ATXHomeScreenLogUploader_uploadHomeScreenSummaryLogsToCoreAnalyticsWithActivity_customStartDate_dryRunCompletionHandler___block_invoke_30_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __123__ATXHomeScreenLogUploader_uploadHomeScreenSummaryLogsToCoreAnalyticsWithActivity_customStartDate_dryRunCompletionHandler___block_invoke_2_cold_1(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v3 = [a1 error];
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXHomeScreenLogUploader: Error in CoreAnalytics log processing (task 1 of 2) : %@", v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXHomeScreenLogUploader: Error in CoreAnalytics log processing (task 1 of 2) : %@", v4, 0xCu);
 }
 
 void __123__ATXHomeScreenLogUploader_uploadHomeScreenSummaryLogsToCoreAnalyticsWithActivity_customStartDate_dryRunCompletionHandler___block_invoke_45_cold_1()

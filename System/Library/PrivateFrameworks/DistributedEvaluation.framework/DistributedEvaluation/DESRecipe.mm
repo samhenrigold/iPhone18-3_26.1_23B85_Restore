@@ -27,18 +27,18 @@
 
 - (id)_inithWithContentsOfFile:(id)file recipeID:(id)d bundleIdentifier:(id)identifier error:(id *)error
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   fileCopy = file;
   dCopy = d;
   identifierCopy = identifier;
-  v25 = 0;
-  v13 = [objc_alloc(MEMORY[0x277CBEA90]) initWithContentsOfFile:fileCopy options:0 error:&v25];
-  v14 = v25;
+  v24 = 0;
+  v13 = [objc_alloc(MEMORY[0x277CBEA90]) initWithContentsOfFile:fileCopy options:0 error:&v24];
+  v14 = v24;
   if (v13)
   {
-    v24 = v14;
-    v15 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v13 options:0 error:&v24];
-    v16 = v24;
+    v23 = v14;
+    v15 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v13 options:0 error:&v23];
+    v16 = v23;
 
     objc_opt_class();
     if (objc_opt_isKindOfClass())
@@ -52,9 +52,9 @@
       if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
       {
         *buf = 138412546;
-        v27 = fileCopy;
-        v28 = 2112;
-        v29 = v16;
+        v26 = fileCopy;
+        v27 = 2112;
+        v28 = v16;
         _os_log_impl(&dword_248FF7000, v20, OS_LOG_TYPE_INFO, "Unparsable record: %@, %@", buf, 0x16u);
       }
 
@@ -78,9 +78,9 @@
     if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
-      v27 = fileCopy;
-      v28 = 2112;
-      v29 = v14;
+      v26 = fileCopy;
+      v27 = 2112;
+      v28 = v14;
       _os_log_impl(&dword_248FF7000, v18, OS_LOG_TYPE_INFO, "Unreadable recipe %@: %@", buf, 0x16u);
     }
 
@@ -98,8 +98,6 @@
 
     v16 = v14;
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -150,14 +148,14 @@
 
 - (id)_initWithAssetURL:(id)l bundleIdentifier:(id)identifier error:(id *)error
 {
-  v39[1] = *MEMORY[0x277D85DE8];
+  v38[1] = *MEMORY[0x277D85DE8];
   lCopy = l;
   identifierCopy = identifier;
   if (lCopy)
   {
-    v29 = 0;
-    v10 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:lCopy options:8 error:&v29];
-    v11 = v29;
+    v28 = 0;
+    v10 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:lCopy options:8 error:&v28];
+    v11 = v28;
     if (!v10)
     {
       if (!error)
@@ -169,21 +167,21 @@ LABEL_23:
       }
 
       v20 = MEMORY[0x277CCA9B8];
-      v36[0] = *MEMORY[0x277CCA450];
+      v35[0] = *MEMORY[0x277CCA450];
       lCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"Fail to read URL=(%@)", lCopy];
-      v36[1] = *MEMORY[0x277CCA7E8];
-      v37[0] = lCopy;
-      v37[1] = v11;
-      lCopy2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:2];
+      v35[1] = *MEMORY[0x277CCA7E8];
+      v36[0] = lCopy;
+      v36[1] = v11;
+      lCopy2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:v35 count:2];
       [v20 errorWithDomain:@"kDESDistributedEvaluationErrorDomain" code:5006 userInfo:lCopy2];
       *error = selfCopy = 0;
       v13 = v11;
       goto LABEL_21;
     }
 
-    v28 = v11;
-    lCopy = [MEMORY[0x277CCAAA0] JSONObjectWithData:v10 options:0 error:&v28];
-    v13 = v28;
+    v27 = v11;
+    lCopy = [MEMORY[0x277CCAAA0] JSONObjectWithData:v10 options:0 error:&v27];
+    v13 = v27;
 
     if (!lCopy)
     {
@@ -193,14 +191,14 @@ LABEL_23:
         goto LABEL_22;
       }
 
-      v27 = MEMORY[0x277CCA9B8];
-      v34[0] = *MEMORY[0x277CCA450];
+      v26 = MEMORY[0x277CCA9B8];
+      v33[0] = *MEMORY[0x277CCA450];
       lCopy2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Fail to decode JSONObject from URL=(%@)", lCopy];
-      v34[1] = *MEMORY[0x277CCA7E8];
-      v35[0] = lCopy2;
-      v35[1] = v13;
-      lCopy4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:v34 count:2];
-      [v27 errorWithDomain:@"kDESDistributedEvaluationErrorDomain" code:5006 userInfo:lCopy4];
+      v33[1] = *MEMORY[0x277CCA7E8];
+      v34[0] = lCopy2;
+      v34[1] = v13;
+      lCopy4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:2];
+      [v26 errorWithDomain:@"kDESDistributedEvaluationErrorDomain" code:5006 userInfo:lCopy4];
       *error = selfCopy = 0;
       goto LABEL_20;
     }
@@ -212,7 +210,7 @@ LABEL_23:
       lCopy4 = [v14 objectForKeyedSubscript:@"id"];
       if (lCopy4)
       {
-        v26 = v13;
+        v25 = v13;
         lCopy3 = [lCopy objectForKeyedSubscript:@"recipe_predicate_client"];
         self = [(DESRecipe *)self _initWithRecipeUserInfo:lCopy2 recipeID:lCopy4 bundleIdentifier:identifierCopy predicate:lCopy3];
         selfCopy = self;
@@ -226,13 +224,13 @@ LABEL_23:
           goto LABEL_20;
         }
 
-        v25 = MEMORY[0x277CCA9B8];
-        v26 = v13;
-        v30 = *MEMORY[0x277CCA450];
+        v24 = MEMORY[0x277CCA9B8];
+        v25 = v13;
+        v29 = *MEMORY[0x277CCA450];
         lCopy3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Missing recipe ID for URL=(%@)", lCopy];
-        v31 = lCopy3;
-        v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
-        *error = [v25 errorWithDomain:@"kDESDistributedEvaluationErrorDomain" code:1524 userInfo:v21];
+        v30 = lCopy3;
+        v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
+        *error = [v24 errorWithDomain:@"kDESDistributedEvaluationErrorDomain" code:1524 userInfo:v21];
 
         selfCopy = 0;
       }
@@ -246,17 +244,17 @@ LABEL_23:
         goto LABEL_21;
       }
 
-      v24 = MEMORY[0x277CCA9B8];
-      v26 = v13;
-      v32 = *MEMORY[0x277CCA450];
+      v23 = MEMORY[0x277CCA9B8];
+      v25 = v13;
+      v31 = *MEMORY[0x277CCA450];
       lCopy4 = [MEMORY[0x277CCACA8] stringWithFormat:@"Missing user info dictionary for URL=(%@)", lCopy];
-      v33 = lCopy4;
-      lCopy3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
-      [v24 errorWithDomain:@"kDESDistributedEvaluationErrorDomain" code:1524 userInfo:lCopy3];
+      v32 = lCopy4;
+      lCopy3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
+      [v23 errorWithDomain:@"kDESDistributedEvaluationErrorDomain" code:1524 userInfo:lCopy3];
       *error = selfCopy = 0;
     }
 
-    v13 = v26;
+    v13 = v25;
 LABEL_20:
 
 LABEL_21:
@@ -269,9 +267,9 @@ LABEL_22:
   if (error)
   {
     v19 = MEMORY[0x277CCA9B8];
-    v38 = *MEMORY[0x277CCA450];
-    v39[0] = @"Nil recipe asset URL";
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:&v38 count:1];
+    v37 = *MEMORY[0x277CCA450];
+    v38[0] = @"Nil recipe asset URL";
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:&v37 count:1];
     [v19 errorWithDomain:@"kDESDistributedEvaluationErrorDomain" code:5003 userInfo:v11];
     *error = selfCopy = 0;
 LABEL_24:
@@ -282,68 +280,67 @@ LABEL_24:
   selfCopy = 0;
 LABEL_25:
 
-  v22 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
 - (id)_initWithRecipeResponse:(id)response recipeID:(id)d bundleIdentifier:(id)identifier error:(id *)error
 {
-  v152[1] = *MEMORY[0x277D85DE8];
+  v150[1] = *MEMORY[0x277D85DE8];
   responseCopy = response;
   dCopy = d;
   identifierCopy = identifier;
-  v118.receiver = self;
-  v118.super_class = DESRecipe;
-  v13 = [(DESRecipe *)&v118 init];
+  v116.receiver = self;
+  v116.super_class = DESRecipe;
+  v13 = [(DESRecipe *)&v116 init];
   if (!v13)
   {
-    v25 = 0;
+    v24 = 0;
     goto LABEL_136;
   }
 
   v14 = [responseCopy objectForKey:@"recipe_signing"];
   if (!v14)
   {
-    v26 = +[DESLogging coreChannel];
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    v25 = +[DESLogging coreChannel];
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
       [DESRecipe _initWithRecipeResponse:recipeID:bundleIdentifier:error:];
     }
 
     if (error)
     {
-      v27 = MEMORY[0x277CCA9B8];
-      v151 = *MEMORY[0x277CCA470];
-      v152[0] = @"Missing recipe_signing";
-      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v152 forKeys:&v151 count:1];
-      v28 = [v27 errorWithDomain:@"kDESDistributedEvaluationErrorDomain" code:1521 userInfo:v15];
+      v26 = MEMORY[0x277CCA9B8];
+      v149 = *MEMORY[0x277CCA470];
+      v150[0] = @"Missing recipe_signing";
+      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v150 forKeys:&v149 count:1];
+      v27 = [v26 errorWithDomain:@"kDESDistributedEvaluationErrorDomain" code:1521 userInfo:v15];
 LABEL_25:
-      v25 = 0;
-      *error = v28;
+      v24 = 0;
+      *error = v27;
       goto LABEL_134;
     }
 
 LABEL_26:
-    v25 = 0;
+    v24 = 0;
     goto LABEL_135;
   }
 
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v29 = +[DESLogging coreChannel];
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    v28 = +[DESLogging coreChannel];
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       [DESRecipe _initWithRecipeResponse:recipeID:bundleIdentifier:error:];
     }
 
     if (error)
     {
-      v30 = MEMORY[0x277CCA9B8];
-      v149 = *MEMORY[0x277CCA470];
-      v150 = @"Malformed recipe_signing";
-      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v150 forKeys:&v149 count:1];
-      v28 = [v30 errorWithDomain:@"kDESDistributedEvaluationErrorDomain" code:1521 userInfo:v15];
+      v29 = MEMORY[0x277CCA9B8];
+      v147 = *MEMORY[0x277CCA470];
+      v148 = @"Malformed recipe_signing";
+      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v148 forKeys:&v147 count:1];
+      v27 = [v29 errorWithDomain:@"kDESDistributedEvaluationErrorDomain" code:1521 userInfo:v15];
       goto LABEL_25;
     }
 
@@ -354,150 +351,150 @@ LABEL_26:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v31 = +[DESLogging coreChannel];
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+    v30 = +[DESLogging coreChannel];
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
       [DESRecipe _initWithRecipeResponse:recipeID:bundleIdentifier:error:];
     }
 
     if (error)
     {
-      v32 = MEMORY[0x277CCA9B8];
-      v147 = *MEMORY[0x277CCA470];
-      v148 = @"Malformed recipe_signature";
-      v111 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v148 forKeys:&v147 count:1];
-      [v32 errorWithDomain:@"kDESDistributedEvaluationErrorDomain" code:1521 userInfo:v111];
-      *error = v25 = 0;
+      v31 = MEMORY[0x277CCA9B8];
+      v145 = *MEMORY[0x277CCA470];
+      v146 = @"Malformed recipe_signature";
+      v109 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v146 forKeys:&v145 count:1];
+      [v31 errorWithDomain:@"kDESDistributedEvaluationErrorDomain" code:1521 userInfo:v109];
+      *error = v24 = 0;
     }
 
     else
     {
-      v25 = 0;
+      v24 = 0;
     }
 
     goto LABEL_134;
   }
 
-  v110 = [v14 objectForKey:@"recipe_content"];
+  v108 = [v14 objectForKey:@"recipe_content"];
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v33 = +[DESLogging coreChannel];
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+    v32 = +[DESLogging coreChannel];
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
       [DESRecipe _initWithRecipeResponse:recipeID:bundleIdentifier:error:];
     }
 
     if (error)
     {
-      v34 = MEMORY[0x277CCA9B8];
-      v145 = *MEMORY[0x277CCA470];
-      v146 = @"Malformed recipe_content";
-      v109 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v146 forKeys:&v145 count:1];
-      [v34 errorWithDomain:@"kDESDistributedEvaluationErrorDomain" code:1521 userInfo:v109];
-      *error = v25 = 0;
+      v33 = MEMORY[0x277CCA9B8];
+      v143 = *MEMORY[0x277CCA470];
+      v144 = @"Malformed recipe_content";
+      v107 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v144 forKeys:&v143 count:1];
+      [v33 errorWithDomain:@"kDESDistributedEvaluationErrorDomain" code:1521 userInfo:v107];
+      *error = v24 = 0;
     }
 
     else
     {
-      v25 = 0;
+      v24 = 0;
     }
 
     goto LABEL_133;
   }
 
-  v108 = [v14 objectForKey:@"asset_signing_certificate"];
+  v106 = [v14 objectForKey:@"asset_signing_certificate"];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0 || ![v108 length])
+  if ((objc_opt_isKindOfClass() & 1) == 0 || ![v106 length])
   {
-    v35 = +[DESLogging coreChannel];
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+    v34 = +[DESLogging coreChannel];
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
     {
       [DESRecipe _initWithRecipeResponse:recipeID:bundleIdentifier:error:];
     }
 
     if (error)
     {
-      v36 = MEMORY[0x277CCA9B8];
-      v143 = *MEMORY[0x277CCA470];
-      v144 = @"Malformed asset_signing_certificate";
-      v107 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v144 forKeys:&v143 count:1];
-      [v36 errorWithDomain:@"kDESDistributedEvaluationErrorDomain" code:1521 userInfo:v107];
-      *error = v25 = 0;
+      v35 = MEMORY[0x277CCA9B8];
+      v141 = *MEMORY[0x277CCA470];
+      v142 = @"Malformed asset_signing_certificate";
+      v105 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v142 forKeys:&v141 count:1];
+      [v35 errorWithDomain:@"kDESDistributedEvaluationErrorDomain" code:1521 userInfo:v105];
+      *error = v24 = 0;
     }
 
     else
     {
-      v25 = 0;
+      v24 = 0;
     }
 
     goto LABEL_132;
   }
 
-  v106 = [v108 dataUsingEncoding:4];
-  v16 = [v106 copy];
+  v104 = [v106 dataUsingEncoding:4];
+  v16 = [v104 copy];
   certificate = v13->_certificate;
   v13->_certificate = v16;
 
-  v105 = [v110 dataUsingEncoding:4];
-  v104 = [DESSignatureKey keyFromData:v106];
-  if (([v104 validateBase64Signature:v15 data:v105] & 1) == 0)
+  v103 = [v108 dataUsingEncoding:4];
+  v102 = [DESSignatureKey keyFromData:v104];
+  if (([v102 validateBase64Signature:v15 data:v103] & 1) == 0)
   {
-    v37 = +[DESLogging coreChannel];
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+    v36 = +[DESLogging coreChannel];
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
     {
       [DESRecipe _initWithRecipeResponse:recipeID:bundleIdentifier:error:];
     }
 
     if (error)
     {
-      v38 = MEMORY[0x277CCA9B8];
-      v141 = *MEMORY[0x277CCA470];
-      v142 = @"Failed to validate recipe signature";
-      v103 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v142 forKeys:&v141 count:1];
-      [v38 errorWithDomain:@"kDESDistributedEvaluationErrorDomain" code:1504 userInfo:v103];
-      *error = v25 = 0;
+      v37 = MEMORY[0x277CCA9B8];
+      v139 = *MEMORY[0x277CCA470];
+      v140 = @"Failed to validate recipe signature";
+      v101 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v140 forKeys:&v139 count:1];
+      [v37 errorWithDomain:@"kDESDistributedEvaluationErrorDomain" code:1504 userInfo:v101];
+      *error = v24 = 0;
     }
 
     else
     {
-      v25 = 0;
+      v24 = 0;
     }
 
     goto LABEL_131;
   }
 
-  v102 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBase64EncodedString:v110 options:0];
-  if (!v102)
+  v100 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBase64EncodedString:v108 options:0];
+  if (!v100)
   {
-    v39 = +[DESLogging coreChannel];
-    if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+    v38 = +[DESLogging coreChannel];
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
     {
       [DESRecipe _initWithRecipeResponse:recipeID:bundleIdentifier:error:];
     }
 
     if (error)
     {
-      v40 = MEMORY[0x277CCA9B8];
-      v139 = *MEMORY[0x277CCA470];
-      v140 = @"Failed to base64 decode recipe content";
-      v101 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v140 forKeys:&v139 count:1];
-      [v40 errorWithDomain:@"kDESDistributedEvaluationErrorDomain" code:1530 userInfo:v101];
-      *error = v25 = 0;
+      v39 = MEMORY[0x277CCA9B8];
+      v137 = *MEMORY[0x277CCA470];
+      v138 = @"Failed to base64 decode recipe content";
+      v99 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v138 forKeys:&v137 count:1];
+      [v39 errorWithDomain:@"kDESDistributedEvaluationErrorDomain" code:1530 userInfo:v99];
+      *error = v24 = 0;
     }
 
     else
     {
-      v25 = 0;
+      v24 = 0;
     }
 
     goto LABEL_130;
   }
 
-  v100 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v102 options:0 error:error];
+  v98 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v100 options:0 error:error];
   v18 = +[DESLogging coreChannel];
   v19 = v18;
-  if (!v100)
+  if (!v98)
   {
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
@@ -506,14 +503,14 @@ LABEL_26:
 
     if (error)
     {
-      v41 = MEMORY[0x277CCA9B8];
-      v137 = *MEMORY[0x277CCA470];
-      v138 = @"Failed to deserialize recipe content";
-      v42 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v138 forKeys:&v137 count:1];
-      *error = [v41 errorWithDomain:@"kDESDistributedEvaluationErrorDomain" code:1522 userInfo:v42];
+      v40 = MEMORY[0x277CCA9B8];
+      v135 = *MEMORY[0x277CCA470];
+      v136 = @"Failed to deserialize recipe content";
+      v41 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v136 forKeys:&v135 count:1];
+      *error = [v40 errorWithDomain:@"kDESDistributedEvaluationErrorDomain" code:1522 userInfo:v41];
     }
 
-    v25 = 0;
+    v24 = 0;
     goto LABEL_129;
   }
 
@@ -522,268 +519,267 @@ LABEL_26:
     [DESRecipe _initWithRecipeResponse:recipeID:bundleIdentifier:error:];
   }
 
-  v115 = 0;
-  v116[0] = &v115;
-  v116[1] = 0x3032000000;
-  v116[2] = __Block_byref_object_copy__0;
-  v116[3] = __Block_byref_object_dispose__0;
-  v117 = [v100 objectForKeyedSubscript:@"recipe"];
-  v20 = *(v116[0] + 40);
+  v113 = 0;
+  v114[0] = &v113;
+  v114[1] = 0x3032000000;
+  v114[2] = __Block_byref_object_copy__0;
+  v114[3] = __Block_byref_object_dispose__0;
+  v115 = [v98 objectForKeyedSubscript:@"recipe"];
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v43 = +[DESLogging coreChannel];
-    if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+    v42 = +[DESLogging coreChannel];
+    if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
     {
-      [(DESRecipe *)v116 _initWithRecipeResponse:v43 recipeID:v44 bundleIdentifier:v45 error:v46, v47, v48, v49];
+      [(DESRecipe *)v114 _initWithRecipeResponse:v42 recipeID:v43 bundleIdentifier:v44 error:v45, v46, v47, v48];
     }
 
     if (error)
     {
-      v50 = MEMORY[0x277CCA9B8];
-      v135 = *MEMORY[0x277CCA470];
-      v136 = @"Malformed recipe";
-      v51 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v136 forKeys:&v135 count:1];
-      [v50 errorWithDomain:@"kDESDistributedEvaluationErrorDomain" code:1524 userInfo:v51];
-      *error = v25 = 0;
+      v49 = MEMORY[0x277CCA9B8];
+      v133 = *MEMORY[0x277CCA470];
+      v134 = @"Malformed recipe";
+      v50 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v134 forKeys:&v133 count:1];
+      [v49 errorWithDomain:@"kDESDistributedEvaluationErrorDomain" code:1524 userInfo:v50];
+      *error = v24 = 0;
     }
 
     else
     {
-      v25 = 0;
+      v24 = 0;
     }
 
     goto LABEL_128;
   }
 
-  v21 = [v100 objectForKeyedSubscript:@"parameters"];
+  v20 = [v98 objectForKeyedSubscript:@"parameters"];
   objc_opt_class();
-  v95 = v21;
+  v93 = v20;
   if (objc_opt_isKindOfClass())
   {
-    v22 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    v112[0] = MEMORY[0x277D85DD0];
-    v112[1] = 3221225472;
-    v112[2] = __69__DESRecipe__initWithRecipeResponse_recipeID_bundleIdentifier_error___block_invoke;
-    v112[3] = &unk_278F83E78;
-    v23 = v22;
-    v113 = v23;
-    v114 = &v115;
-    [v21 enumerateKeysAndObjectsUsingBlock:v112];
+    v21 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v110[0] = MEMORY[0x277D85DD0];
+    v110[1] = 3221225472;
+    v110[2] = __69__DESRecipe__initWithRecipeResponse_recipeID_bundleIdentifier_error___block_invoke;
+    v110[3] = &unk_278F83E78;
+    v22 = v21;
+    v111 = v22;
+    v112 = &v113;
+    [v20 enumerateKeysAndObjectsUsingBlock:v110];
 
-    v24 = v23;
+    v23 = v22;
   }
 
   else
   {
-    v24 = 0;
+    v23 = 0;
   }
 
-  v93 = v24;
-  v52 = [v24 copy];
+  v91 = v23;
+  v51 = [v23 copy];
   parametersUsed = v13->_parametersUsed;
-  v13->_parametersUsed = v52;
+  v13->_parametersUsed = v51;
 
-  v54 = [*(v116[0] + 40) copy];
+  v53 = [*(v114[0] + 40) copy];
   recipeUserInfo = v13->_recipeUserInfo;
-  v13->_recipeUserInfo = v54;
+  v13->_recipeUserInfo = v53;
 
-  v98 = [v100 objectForKeyedSubscript:@"attached_files"];
-  if (v98)
+  v96 = [v98 objectForKeyedSubscript:@"attached_files"];
+  if (v96)
   {
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v62 = +[DESLogging coreChannel];
-      if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
+      v61 = +[DESLogging coreChannel];
+      if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
       {
         [DESRecipe _initWithRecipeResponse:recipeID:bundleIdentifier:error:];
       }
 
       if (error)
       {
-        v63 = MEMORY[0x277CCA9B8];
-        v133 = *MEMORY[0x277CCA470];
-        v134 = @"Malformed attached_files";
-        v64 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v134 forKeys:&v133 count:1];
-        [v63 errorWithDomain:@"kDESDistributedEvaluationErrorDomain" code:1523 userInfo:v64];
-        *error = v25 = 0;
+        v62 = MEMORY[0x277CCA9B8];
+        v131 = *MEMORY[0x277CCA470];
+        v132 = @"Malformed attached_files";
+        v63 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v132 forKeys:&v131 count:1];
+        [v62 errorWithDomain:@"kDESDistributedEvaluationErrorDomain" code:1523 userInfo:v63];
+        *error = v24 = 0;
       }
 
       else
       {
-        v25 = 0;
+        v24 = 0;
       }
 
       goto LABEL_127;
     }
   }
 
-  v97 = [v100 objectForKeyedSubscript:@"attached_files_signatures"];
-  if (v97)
+  v95 = [v98 objectForKeyedSubscript:@"attached_files_signatures"];
+  if (v95)
   {
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v69 = +[DESLogging coreChannel];
-      if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
+      v68 = +[DESLogging coreChannel];
+      if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
       {
         [DESRecipe _initWithRecipeResponse:recipeID:bundleIdentifier:error:];
       }
 
       if (error)
       {
-        v70 = MEMORY[0x277CCA9B8];
-        v131 = *MEMORY[0x277CCA470];
-        v132 = @"Malformed attached_files_signatures";
-        v71 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v132 forKeys:&v131 count:1];
-        [v70 errorWithDomain:@"kDESDistributedEvaluationErrorDomain" code:1523 userInfo:v71];
-        v68 = v94 = v71;
+        v69 = MEMORY[0x277CCA9B8];
+        v129 = *MEMORY[0x277CCA470];
+        v130 = @"Malformed attached_files_signatures";
+        v70 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v130 forKeys:&v129 count:1];
+        [v69 errorWithDomain:@"kDESDistributedEvaluationErrorDomain" code:1523 userInfo:v70];
+        v67 = v92 = v70;
         goto LABEL_99;
       }
 
 LABEL_100:
-      v25 = 0;
+      v24 = 0;
       goto LABEL_126;
     }
   }
 
-  v56 = [v97 count];
-  if (v56 != [v98 count])
+  v55 = [v95 count];
+  if (v55 != [v96 count])
   {
-    v65 = +[DESLogging coreChannel];
-    if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
+    v64 = +[DESLogging coreChannel];
+    if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
     {
       [DESRecipe _initWithRecipeResponse:recipeID:bundleIdentifier:error:];
     }
 
     if (error)
     {
-      v66 = MEMORY[0x277CCA9B8];
-      v129 = *MEMORY[0x277CCA470];
-      v130 = @"Length mismatch between attached_files and attached_files_signatures";
-      v67 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v130 forKeys:&v129 count:1];
-      [v66 errorWithDomain:@"kDESDistributedEvaluationErrorDomain" code:1523 userInfo:v67];
-      v68 = v94 = v67;
+      v65 = MEMORY[0x277CCA9B8];
+      v127 = *MEMORY[0x277CCA470];
+      v128 = @"Length mismatch between attached_files and attached_files_signatures";
+      v66 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v128 forKeys:&v127 count:1];
+      [v65 errorWithDomain:@"kDESDistributedEvaluationErrorDomain" code:1523 userInfo:v66];
+      v67 = v92 = v66;
 LABEL_99:
-      v25 = 0;
-      *error = v68;
+      v24 = 0;
+      *error = v67;
       goto LABEL_125;
     }
 
     goto LABEL_100;
   }
 
-  v94 = [v100 objectForKeyedSubscript:@"attached_files_paths"];
-  if (v94)
+  v92 = [v98 objectForKeyedSubscript:@"attached_files_paths"];
+  if (v92)
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v57 = [v94 count];
-      if (v57 == [v98 count])
+      v56 = [v92 count];
+      if (v56 == [v96 count])
       {
         goto LABEL_70;
       }
 
-      v79 = +[DESLogging coreChannel];
-      if (os_log_type_enabled(v79, OS_LOG_TYPE_ERROR))
+      v78 = +[DESLogging coreChannel];
+      if (os_log_type_enabled(v78, OS_LOG_TYPE_ERROR))
       {
         [DESRecipe _initWithRecipeResponse:recipeID:bundleIdentifier:error:];
       }
 
       if (error)
       {
-        v80 = MEMORY[0x277CCA9B8];
-        v125 = *MEMORY[0x277CCA470];
-        v126 = @"Length mismatch between paths and attachments";
-        obj = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v126 forKeys:&v125 count:1];
-        v78 = [v80 errorWithDomain:@"kDESDistributedEvaluationErrorDomain" code:1523 userInfo:obj];
+        v79 = MEMORY[0x277CCA9B8];
+        v123 = *MEMORY[0x277CCA470];
+        v124 = @"Length mismatch between paths and attachments";
+        obj = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v124 forKeys:&v123 count:1];
+        v77 = [v79 errorWithDomain:@"kDESDistributedEvaluationErrorDomain" code:1523 userInfo:obj];
         goto LABEL_111;
       }
     }
 
     else
     {
-      v76 = +[DESLogging coreChannel];
-      if (os_log_type_enabled(v76, OS_LOG_TYPE_ERROR))
+      v75 = +[DESLogging coreChannel];
+      if (os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
       {
         [DESRecipe _initWithRecipeResponse:recipeID:bundleIdentifier:error:];
       }
 
       if (error)
       {
-        v77 = MEMORY[0x277CCA9B8];
-        v127 = *MEMORY[0x277CCA470];
-        v128 = @"Malformed paths";
-        obj = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v128 forKeys:&v127 count:1];
-        v78 = [v77 errorWithDomain:@"kDESDistributedEvaluationErrorDomain" code:1523 userInfo:obj];
+        v76 = MEMORY[0x277CCA9B8];
+        v125 = *MEMORY[0x277CCA470];
+        v126 = @"Malformed paths";
+        obj = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v126 forKeys:&v125 count:1];
+        v77 = [v76 errorWithDomain:@"kDESDistributedEvaluationErrorDomain" code:1523 userInfo:obj];
 LABEL_111:
-        v25 = 0;
-        *error = v78;
+        v24 = 0;
+        *error = v77;
         goto LABEL_124;
       }
     }
 
-    v25 = 0;
+    v24 = 0;
     goto LABEL_125;
   }
 
 LABEL_70:
   obj = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v91 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v90 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v58 = 0;
-  *&v59 = 138412290;
-  v89 = v59;
+  v89 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v88 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v57 = 0;
+  *&v58 = 138412290;
+  v87 = v58;
   while (1)
   {
-    if (v58 >= [v98 count])
+    if (v57 >= [v96 count])
     {
       objc_storeStrong(&v13->_attachments, obj);
-      objc_storeStrong(&v13->_attachmentSignatures, v91);
-      objc_storeStrong(&v13->_attachmentPaths, v90);
-      v72 = [dCopy copy];
+      objc_storeStrong(&v13->_attachmentSignatures, v89);
+      objc_storeStrong(&v13->_attachmentPaths, v88);
+      v71 = [dCopy copy];
       recipeID = v13->_recipeID;
-      v13->_recipeID = v72;
+      v13->_recipeID = v71;
 
-      v74 = [identifierCopy copy];
+      v73 = [identifierCopy copy];
       bundleIdentifier = v13->_bundleIdentifier;
-      v13->_bundleIdentifier = v74;
+      v13->_bundleIdentifier = v73;
 
-      v25 = v13;
+      v24 = v13;
       goto LABEL_123;
     }
 
-    v99 = [v98 objectAtIndexedSubscript:v58];
+    v97 = [v96 objectAtIndexedSubscript:v57];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
       break;
     }
 
-    v61 = +[DESLogging coreChannel];
-    if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
+    v60 = +[DESLogging coreChannel];
+    if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
     {
-      *buf = v89;
-      v124 = v99;
-      _os_log_error_impl(&dword_248FF7000, v61, OS_LOG_TYPE_ERROR, "Invalid attachmentURLString = %@", buf, 0xCu);
+      *buf = v87;
+      v122 = v97;
+      _os_log_error_impl(&dword_248FF7000, v60, OS_LOG_TYPE_ERROR, "Invalid attachmentURLString = %@", buf, 0xCu);
     }
 
 LABEL_85:
 
-    ++v58;
+    ++v57;
   }
 
-  v60 = [MEMORY[0x277CBEBC0] URLWithString:v99];
-  v61 = v60;
-  if (!v60)
+  v59 = [MEMORY[0x277CBEBC0] URLWithString:v97];
+  v60 = v59;
+  if (!v59)
   {
     log = +[DESLogging coreChannel];
     if (os_log_type_enabled(log, OS_LOG_TYPE_ERROR))
     {
-      *buf = v89;
-      v124 = v99;
+      *buf = v87;
+      v122 = v97;
       _os_log_error_impl(&dword_248FF7000, log, OS_LOG_TYPE_ERROR, "Fail to create URL from attachmentURLString = %@", buf, 0xCu);
     }
 
@@ -792,71 +788,71 @@ LABEL_84:
     goto LABEL_85;
   }
 
-  [obj addObject:v60];
-  if (v58 >= [v97 count])
+  [obj addObject:v59];
+  if (v57 >= [v95 count])
   {
 LABEL_77:
-    if (v58 >= [v94 count])
+    if (v57 >= [v92 count])
     {
       goto LABEL_85;
     }
 
-    log = [v94 objectAtIndexedSubscript:v58];
+    log = [v92 objectAtIndexedSubscript:v57];
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v85 = +[DESLogging coreChannel];
-      if (os_log_type_enabled(v85, OS_LOG_TYPE_ERROR))
+      v84 = +[DESLogging coreChannel];
+      if (os_log_type_enabled(v84, OS_LOG_TYPE_ERROR))
       {
         [DESRecipe _initWithRecipeResponse:recipeID:bundleIdentifier:error:];
       }
 
       if (error)
       {
-        v86 = MEMORY[0x277CCA9B8];
-        v119 = *MEMORY[0x277CCA470];
-        v120 = @"Nonstring type used as attachment path";
-        v83 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v120 forKeys:&v119 count:1];
-        v84 = [v86 errorWithDomain:@"kDESDistributedEvaluationErrorDomain" code:1523 userInfo:v83];
+        v85 = MEMORY[0x277CCA9B8];
+        v117 = *MEMORY[0x277CCA470];
+        v118 = @"Nonstring type used as attachment path";
+        v82 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v118 forKeys:&v117 count:1];
+        v83 = [v85 errorWithDomain:@"kDESDistributedEvaluationErrorDomain" code:1523 userInfo:v82];
         goto LABEL_121;
       }
 
       goto LABEL_122;
     }
 
-    [v90 addObject:log];
+    [v88 addObject:log];
     goto LABEL_84;
   }
 
-  log = [v97 objectAtIndexedSubscript:v58];
+  log = [v95 objectAtIndexedSubscript:v57];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    [v91 addObject:log];
+    [v89 addObject:log];
 
     goto LABEL_77;
   }
 
-  v81 = +[DESLogging coreChannel];
-  if (os_log_type_enabled(v81, OS_LOG_TYPE_ERROR))
+  v80 = +[DESLogging coreChannel];
+  if (os_log_type_enabled(v80, OS_LOG_TYPE_ERROR))
   {
     [DESRecipe _initWithRecipeResponse:recipeID:bundleIdentifier:error:];
   }
 
   if (error)
   {
-    v82 = MEMORY[0x277CCA9B8];
-    v121 = *MEMORY[0x277CCA470];
-    v122 = @"Nonstring type used as signature in attached_files_signatures";
-    v83 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v122 forKeys:&v121 count:1];
-    v84 = [v82 errorWithDomain:@"kDESDistributedEvaluationErrorDomain" code:1523 userInfo:v83];
+    v81 = MEMORY[0x277CCA9B8];
+    v119 = *MEMORY[0x277CCA470];
+    v120 = @"Nonstring type used as signature in attached_files_signatures";
+    v82 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v120 forKeys:&v119 count:1];
+    v83 = [v81 errorWithDomain:@"kDESDistributedEvaluationErrorDomain" code:1523 userInfo:v82];
 LABEL_121:
-    *error = v84;
+    *error = v83;
   }
 
 LABEL_122:
 
-  v25 = 0;
+  v24 = 0;
 LABEL_123:
 
 LABEL_124:
@@ -866,7 +862,7 @@ LABEL_126:
 LABEL_127:
 
 LABEL_128:
-  _Block_object_dispose(&v115, 8);
+  _Block_object_dispose(&v113, 8);
 
 LABEL_129:
 LABEL_130:
@@ -880,13 +876,12 @@ LABEL_134:
 LABEL_135:
 LABEL_136:
 
-  v87 = *MEMORY[0x277D85DE8];
-  return v25;
+  return v24;
 }
 
 void __69__DESRecipe__initWithRecipeResponse_recipeID_bundleIdentifier_error___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   objc_opt_class();
@@ -898,9 +893,9 @@ void __69__DESRecipe__initWithRecipeResponse_recipeID_bundleIdentifier_error___b
     {
       v8 = MEMORY[0x277CCAAA0];
       v9 = [v7 dataUsingEncoding:4];
-      v20 = 0;
-      v10 = [v8 JSONObjectWithData:v9 options:4 error:&v20];
-      v11 = v20;
+      v19 = 0;
+      v10 = [v8 JSONObjectWithData:v9 options:4 error:&v19];
+      v11 = v19;
 
       if (v10)
       {
@@ -912,13 +907,13 @@ void __69__DESRecipe__initWithRecipeResponse_recipeID_bundleIdentifier_error___b
         v15 = +[DESLogging coreChannel];
         if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
         {
-          v19 = *(*(*(a1 + 40) + 8) + 40);
+          v18 = *(*(*(a1 + 40) + 8) + 40);
           *buf = 138412802;
-          v22 = v5;
-          v23 = 2112;
-          v24 = v19;
-          v25 = 2112;
-          v26 = v14;
+          v21 = v5;
+          v22 = 2112;
+          v23 = v18;
+          v24 = 2112;
+          v25 = v14;
           _os_log_debug_impl(&dword_248FF7000, v15, OS_LOG_TYPE_DEBUG, "Recipe after replacement of %@: %@ -> %@", buf, 0x20u);
         }
 
@@ -955,8 +950,6 @@ void __69__DESRecipe__initWithRecipeResponse_recipeID_bundleIdentifier_error___b
       __69__DESRecipe__initWithRecipeResponse_recipeID_bundleIdentifier_error___block_invoke_cold_3();
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)transportIsDedisco:(id)dedisco
@@ -989,7 +982,7 @@ void __69__DESRecipe__initWithRecipeResponse_recipeID_bundleIdentifier_error___b
 
 - (id)haruspexKeyWithError:(id *)error
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   v4 = [(NSDictionary *)self->_recipeUserInfo objectForKeyedSubscript:@"iCloudAggServiceKey"];
   if (v4)
   {
@@ -1006,8 +999,8 @@ void __69__DESRecipe__initWithRecipeResponse_recipeID_bundleIdentifier_error___b
       if (error)
       {
         v9 = MEMORY[0x277CCA9B8];
-        v13 = *MEMORY[0x277CCA450];
-        v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
+        v12 = *MEMORY[0x277CCA450];
+        v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
         *error = [v9 errorWithDomain:@"kDESDistributedEvaluationErrorDomain" code:1501 userInfo:v10];
       }
 
@@ -1020,8 +1013,8 @@ void __69__DESRecipe__initWithRecipeResponse_recipeID_bundleIdentifier_error___b
   if (error)
   {
     v8 = MEMORY[0x277CCA9B8];
-    v15 = *MEMORY[0x277CCA450];
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+    v14 = *MEMORY[0x277CCA450];
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
     [v8 errorWithDomain:@"kDESDistributedEvaluationErrorDomain" code:1501 userInfo:v6];
     *error = v7 = 0;
 LABEL_9:
@@ -1031,8 +1024,6 @@ LABEL_9:
 
   v7 = 0;
 LABEL_10:
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -1526,217 +1517,59 @@ LABEL_18:
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  recipeID = self->_recipeID;
-  v7 = [v3 stringWithFormat:@"%@(%@, %@, %@)", v5, self->_bundleIdentifier, recipeID, self->_recipeUserInfo];
+  v6 = [v3 stringWithFormat:@"%@(%@, %@, %@)", v5, self->_bundleIdentifier, self->_recipeID, self->_recipeUserInfo];
 
-  return v7;
-}
-
-- (void)_initWithRecipeResponse:recipeID:bundleIdentifier:error:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0(&dword_248FF7000, v0, v1, "recipe_signing is of wrong type, recipeSigning=%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_initWithRecipeResponse:recipeID:bundleIdentifier:error:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0(&dword_248FF7000, v0, v1, "recipe_signature is of wrong type, recipeSignature=%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_initWithRecipeResponse:recipeID:bundleIdentifier:error:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0(&dword_248FF7000, v0, v1, "recipe_content is of wrong type, recipeContent=%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_initWithRecipeResponse:recipeID:bundleIdentifier:error:.cold.4()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0(&dword_248FF7000, v0, v1, "Failed to validate recipe signature: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  return v6;
 }
 
 - (void)_initWithRecipeResponse:recipeID:bundleIdentifier:error:.cold.5()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_0();
-  _os_log_debug_impl(&dword_248FF7000, v0, OS_LOG_TYPE_DEBUG, "Successfully validated recipe signature: %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_248FF7000, v0, OS_LOG_TYPE_DEBUG, "Successfully validated recipe signature: %@", v1, 0xCu);
 }
 
 - (void)_initWithRecipeResponse:(uint64_t)a3 recipeID:(uint64_t)a4 bundleIdentifier:(uint64_t)a5 error:(uint64_t)a6 .cold.6(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*(*a1 + 40));
-  OUTLINED_FUNCTION_0(&dword_248FF7000, a2, a3, "recipe is of wrong type or zero length, recipe=%@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_initWithRecipeResponse:recipeID:bundleIdentifier:error:.cold.7()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0(&dword_248FF7000, v0, v1, "attachmentURLStrings is of wrong type, attachmentURLStrings=%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_initWithRecipeResponse:recipeID:bundleIdentifier:error:.cold.8()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0(&dword_248FF7000, v0, v1, "attachmentSignatures is of wrong type, attachmentSignatures=%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_initWithRecipeResponse:recipeID:bundleIdentifier:error:.cold.9()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_3(&dword_248FF7000, v0, v1, "Length mismatch between attached_files and attached_files_signatures, attachmentURLStrings=%@, attachmentSignatures=%@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_initWithRecipeResponse:recipeID:bundleIdentifier:error:.cold.10()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0(&dword_248FF7000, v0, v1, "attachmentPaths is of wrong type, attachmentPaths=%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_initWithRecipeResponse:recipeID:bundleIdentifier:error:.cold.11()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_3(&dword_248FF7000, v0, v1, "Length mismatch between paths and attachments, attachmentURLStrings=%@, attachmentPaths=%@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_initWithRecipeResponse:recipeID:bundleIdentifier:error:.cold.12()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0(&dword_248FF7000, v0, v1, "signature is of wrong type, signature=%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_initWithRecipeResponse:recipeID:bundleIdentifier:error:.cold.13()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0(&dword_248FF7000, v0, v1, "path  is of wrong type, path=%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_initWithRecipeResponse:recipeID:bundleIdentifier:error:.cold.14()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0(&dword_248FF7000, v0, v1, "Failed to deserialize recipe content for recipeId=%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_initWithRecipeResponse:recipeID:bundleIdentifier:error:.cold.15()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0(&dword_248FF7000, v0, v1, "Failed to base64 decode recipe content for recipeId=%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_initWithRecipeResponse:recipeID:bundleIdentifier:error:.cold.16()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0(&dword_248FF7000, v0, v1, "asset_signing_certificate is of wrong type or zero length, certStr=%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_initWithRecipeResponse:recipeID:bundleIdentifier:error:.cold.17()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0(&dword_248FF7000, v0, v1, "Missing recipe_signing for recipeId=%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __69__DESRecipe__initWithRecipeResponse_recipeID_bundleIdentifier_error___block_invoke_cold_1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_3(&dword_248FF7000, v0, v1, "Skipping invalid parameter value %@: %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-void __69__DESRecipe__initWithRecipeResponse_recipeID_bundleIdentifier_error___block_invoke_cold_2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_3(&dword_248FF7000, v0, v1, "Skipping unparsable parameter value %@: %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-void __69__DESRecipe__initWithRecipeResponse_recipeID_bundleIdentifier_error___block_invoke_cold_3()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_3(&dword_248FF7000, v0, v1, "Skipping invalid parameter set %@: %@");
-  v2 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(*a1 + 40);
+  OUTLINED_FUNCTION_0(&dword_248FF7000, a2, a3, "recipe is of wrong type or zero length, recipe=%@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)approximateStaleness
 {
-  v11 = *MEMORY[0x277D85DE8];
   v2 = [self objectForKeyedSubscript:@"iterationStartTime"];
   v3 = [self objectForKeyedSubscript:@"stalenessScale"];
-  v10 = [self objectForKeyedSubscript:@"stalenessBias"];
+  v9 = [self objectForKeyedSubscript:@"stalenessBias"];
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x20u);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)isFederatedBufferStaled:(void *)a1 .cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 objectForKeyedSubscript:@"maximumStaleness"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)isFederatedBufferStaled:(NSObject *)a3 .cold.2(uint64_t a1, void *a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = [a2 objectForKeyedSubscript:@"maximumStaleness"];
-  v7 = 138412546;
-  v8 = a1;
-  v9 = 2112;
-  v10 = v5;
-  _os_log_debug_impl(&dword_248FF7000, a3, OS_LOG_TYPE_DEBUG, "Rejecting recipe since the staleness %@ is larger or equal than the limit %@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138412546;
+  v7 = a1;
+  v8 = 2112;
+  v9 = v5;
+  _os_log_debug_impl(&dword_248FF7000, a3, OS_LOG_TYPE_DEBUG, "Rejecting recipe since the staleness %@ is larger or equal than the limit %@", &v6, 0x16u);
 }
 
 - (void)federatedBufferDownScalingFactor
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [self objectForKeyedSubscript:@"downScalingOrder"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

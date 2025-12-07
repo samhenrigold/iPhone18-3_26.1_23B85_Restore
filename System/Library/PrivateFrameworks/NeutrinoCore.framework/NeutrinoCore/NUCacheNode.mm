@@ -718,8 +718,7 @@ void __34__NUCacheNode_resolvedSourceNode___block_invoke(void *a1)
 
 uint64_t __25__NUCacheNode_isResolved__block_invoke(uint64_t result)
 {
-  v1 = *(result + 32);
-  if (*(v1 + 192) || *(v1 + 200))
+  if (*(*(result + 32) + 192) != 0)
   {
     *(*(*(result + 40) + 8) + 24) = 1;
   }
@@ -1188,7 +1187,7 @@ LABEL_20:
         v13 = [v11 size];
         v14 = [v10 size];
         v15 = [NUImageGeometry alloc];
-        [v8 extent];
+        objc_msgSend_extent(v8);
         v16 = [(NUImageGeometry *)v15 initWithExtent:&v21 renderScale:v13, v14];
 
         v8 = v10;

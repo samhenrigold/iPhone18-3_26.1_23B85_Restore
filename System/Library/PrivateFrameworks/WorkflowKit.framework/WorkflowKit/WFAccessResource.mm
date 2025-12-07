@@ -16,6 +16,7 @@
 - (void)makeAvailableWithRemoteInterface:(id)interface completionHandler:(id)handler;
 - (void)makeAvailableWithUserInterface:(id)interface completionHandler:(id)handler;
 - (void)refreshAvailability;
+- (void)refreshAvailabilityWithNotification:(BOOL)notification;
 - (void)setWorkflow:(id)workflow;
 @end
 
@@ -52,7 +53,7 @@
   interfaceCopy = interface;
   handlerCopy = handler;
   domain = [errorCopy domain];
-  if ([domain isEqualToString:@"ResourceErrorDomain"])
+  if (objc_msgSend_isEqualToString_(domain))
   {
     code = [errorCopy code];
 
@@ -77,7 +78,7 @@ LABEL_7:
 
 - (NSError)availabilityError
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   status = [(WFAccessResource *)self status];
   if (status == 4)
   {
@@ -87,9 +88,9 @@ LABEL_7:
   else
   {
     v5 = status;
-    v13 = *MEMORY[0x1E6997138];
-    v14[0] = self;
-    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+    v12 = *MEMORY[0x1E6997138];
+    v13[0] = self;
+    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
     v7 = [v6 mutableCopy];
 
     v8 = [(WFAccessResource *)self localizedErrorReasonForStatus:v5];
@@ -113,14 +114,12 @@ LABEL_7:
     v4 = [MEMORY[0x1E696ABC0] errorWithDomain:@"ResourceErrorDomain" code:0 userInfo:v7];
   }
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return v4;
 }
 
 - (id)localizedErrorRecoveryOptionsForStatus:(unint64_t)status
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   if ((status & 0xFFFFFFFFFFFFFFFDLL) != 0)
   {
     if (status == 3)
@@ -134,16 +133,14 @@ LABEL_7:
     }
 
     v4 = WFLocalizedString(v3);
-    v8[0] = v4;
-    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
+    v7[0] = v4;
+    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
   }
 
   else
   {
     v5 = 0;
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -293,22 +290,21 @@ void __69__WFAccessResource_makeAvailableWithUserInterface_completionHandler___b
 {
   if (a2)
   {
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __69__WFAccessResource_makeAvailableWithUserInterface_completionHandler___block_invoke_2;
-    v7[3] = &unk_1E837EE10;
+    v6[0] = MEMORY[0x1E69E9820];
+    v6[1] = 3221225472;
+    v6[2] = __69__WFAccessResource_makeAvailableWithUserInterface_completionHandler___block_invoke_2;
+    v6[3] = &unk_1E837EE10;
     v4 = *(a1 + 32);
-    v8 = *(a1 + 40);
-    v9 = *(a1 + 48);
-    [v4 makeAvailableWithRemoteInterface:a2 completionHandler:v7];
+    v7 = *(a1 + 40);
+    v8 = *(a1 + 48);
+    [v4 makeAvailableWithRemoteInterface:a2 completionHandler:v6];
   }
 
   else
   {
-    v5 = *(a1 + 48);
-    v6 = *(*(a1 + 48) + 16);
+    v5 = *(*(a1 + 48) + 16);
 
-    v6();
+    v5();
   }
 }
 
@@ -343,6 +339,79 @@ void __69__WFAccessResource_makeAvailableWithUserInterface_completionHandler___b
   }
 }
 
+- (void)refreshAvailabilityWithNotification:(BOOL)notification
+{
+  notificationCopy = notification;
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x2020000000;
+  v31 = 0;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x3032000000;
+  v25 = __Block_byref_object_copy__59670;
+  v26 = __Block_byref_object_dispose__59671;
+  v27 = 0;
+  stateAccessQueue = [(WFResource *)self stateAccessQueue];
+  block[0] = MEMORY[0x1E69E9820];
+  block[1] = 3221225472;
+  block[2] = __56__WFAccessResource_refreshAvailabilityWithNotification___block_invoke;
+  block[3] = &unk_1E837C620;
+  block[4] = self;
+  block[5] = &v28;
+  block[6] = &v22;
+  dispatch_sync(stateAccessQueue, block);
+
+  v20.receiver = self;
+  v20.super_class = WFAccessResource;
+  [(WFResource *)&v20 refreshAvailabilityWithNotification:notificationCopy];
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x2020000000;
+  v19 = 0;
+  v10 = 0;
+  v11 = &v10;
+  v12 = 0x3032000000;
+  v13 = __Block_byref_object_copy__59670;
+  v14 = __Block_byref_object_dispose__59671;
+  v15 = 0;
+  stateAccessQueue2 = [(WFResource *)self stateAccessQueue];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __56__WFAccessResource_refreshAvailabilityWithNotification___block_invoke_2;
+  v9[3] = &unk_1E837C620;
+  v9[4] = self;
+  v9[5] = &v16;
+  v9[6] = &v10;
+  dispatch_sync(stateAccessQueue2, v9);
+
+  if (*(v17 + 24) != *(v29 + 24) || ([v11[5] isEqual:v23[5]] & 1) == 0 && v11[5] != v23[5])
+  {
+    aBlock[0] = MEMORY[0x1E69E9820];
+    aBlock[1] = 3221225472;
+    aBlock[2] = __56__WFAccessResource_refreshAvailabilityWithNotification___block_invoke_3;
+    aBlock[3] = &unk_1E837FA70;
+    aBlock[4] = self;
+    v7 = _Block_copy(aBlock);
+    if ([MEMORY[0x1E696AF00] isMainThread])
+    {
+      v7[2](v7);
+    }
+
+    else
+    {
+      dispatch_async(MEMORY[0x1E69E96A0], v7);
+    }
+  }
+
+  _Block_object_dispose(&v10, 8);
+
+  _Block_object_dispose(&v16, 8);
+  _Block_object_dispose(&v22, 8);
+
+  _Block_object_dispose(&v28, 8);
+}
+
 void __56__WFAccessResource_refreshAvailabilityWithNotification___block_invoke(uint64_t a1)
 {
   *(*(*(a1 + 40) + 8) + 24) = [*(a1 + 32) _isAvailable];
@@ -361,20 +430,18 @@ void __56__WFAccessResource_refreshAvailabilityWithNotification___block_invoke_2
   *(v3 + 40) = v2;
 }
 
-void __56__WFAccessResource_refreshAvailabilityWithNotification___block_invoke_3(uint64_t a1)
+void __56__WFAccessResource_refreshAvailabilityWithNotification___block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v7[2] = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  v7[0] = @"WFAccessResourceAvailabilityChangedNotification";
+  v6[2] = *MEMORY[0x1E69E9840];
+  v6[0] = @"WFAccessResourceAvailabilityChangedNotification";
   v2 = objc_opt_class();
   v3 = NSStringFromClass(v2);
-  v7[1] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
+  v6[1] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
 
   v5 = [v4 componentsJoinedByString:@"."];
 
   notify_post([v5 UTF8String]);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setWorkflow:(id)workflow
@@ -447,11 +514,11 @@ void __56__WFAccessResource_refreshAvailabilityWithNotification___block_invoke_3
 - (WFAccessResource)initWithDefinition:(id)definition enableDistributedNotifications:(BOOL)notifications
 {
   notificationsCopy = notifications;
-  v23[2] = *MEMORY[0x1E69E9840];
+  v22[2] = *MEMORY[0x1E69E9840];
   definitionCopy = definition;
-  v22.receiver = self;
-  v22.super_class = WFAccessResource;
-  v7 = [(WFResource *)&v22 initWithDefinition:definitionCopy];
+  v21.receiver = self;
+  v21.super_class = WFAccessResource;
+  v7 = [(WFResource *)&v21 initWithDefinition:definitionCopy];
   v8 = v7;
   if (v7)
   {
@@ -459,11 +526,11 @@ void __56__WFAccessResource_refreshAvailabilityWithNotification___block_invoke_3
     if (notificationsCopy)
     {
       objc_initWeak(&location, v7);
-      v23[0] = @"WFAccessResourceAvailabilityChangedNotification";
+      v22[0] = @"WFAccessResourceAvailabilityChangedNotification";
       v9 = objc_opt_class();
       v10 = NSStringFromClass(v9);
-      v23[1] = v10;
-      v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:2];
+      v22[1] = v10;
+      v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:2];
 
       v12 = [v11 componentsJoinedByString:@"."];
 
@@ -474,17 +541,16 @@ void __56__WFAccessResource_refreshAvailabilityWithNotification___block_invoke_3
       handler[1] = 3221225472;
       handler[2] = __70__WFAccessResource_initWithDefinition_enableDistributedNotifications___block_invoke;
       handler[3] = &unk_1E837C5F8;
-      objc_copyWeak(&v20, &location);
+      objc_copyWeak(&v19, &location);
       notify_register_dispatch(uTF8String, &v8->_token, MEMORY[0x1E69E96A0], handler);
 
-      objc_destroyWeak(&v20);
+      objc_destroyWeak(&v19);
       objc_destroyWeak(&location);
     }
 
     v16 = v8;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v8;
 }
 

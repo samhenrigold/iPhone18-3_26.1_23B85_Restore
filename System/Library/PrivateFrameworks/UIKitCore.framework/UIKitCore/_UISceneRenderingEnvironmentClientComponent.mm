@@ -198,9 +198,9 @@
     {
       if (clientScene3 && v39)
       {
-        v41 = [clientScene3 isEqual:v39];
+        isEqual = objc_msgSend_isEqual_(clientScene3);
 
-        if (v41)
+        if (isEqual)
         {
           goto LABEL_20;
         }
@@ -308,9 +308,9 @@ LABEL_22:
     object2 = [componentsCopy object];
     clientScene = [(FBSSceneComponent *)self clientScene];
     _FBSScene = [object2 _FBSScene];
-    v10 = [clientScene isEqual:_FBSScene];
+    isEqual = objc_msgSend_isEqual_(clientScene);
 
-    if (v10)
+    if (isEqual)
     {
       defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
       [defaultCenter removeObserver:self name:@"_UISceneDidInitializeSceneComponentsNotification" object:0];

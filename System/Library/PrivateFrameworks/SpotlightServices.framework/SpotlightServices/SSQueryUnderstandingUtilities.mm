@@ -7,11 +7,11 @@
 
 + (id)queryUnderstandingParseWithQueryUnderstanding:(id)understanding
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   understandingCopy = understanding;
   v4 = objc_alloc_init(MEMORY[0x1E69CA330]);
   v5 = [understandingCopy objectForKeyedSubscript:@"kQPQUIntentIds"];
-  if ([v5 count])
+  if (objc_msgSend_count(v5))
   {
     v6 = [v5 objectAtIndexedSubscript:0];
     intValue = [v6 intValue];
@@ -36,26 +36,26 @@
 
 LABEL_7:
   v9 = [understandingCopy objectForKeyedSubscript:@"kQPQUOutputTokenInfo"];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v20;
+    v12 = *v19;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v20 != v12)
+        if (*v19 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = [*(*(&v19 + 1) + 8 * i) objectForKeyedSubscript:@"kQPQUOutputTokenArgIds"];
-        if ([v14 count])
+        v14 = [*(*(&v18 + 1) + 8 * i) objectForKeyedSubscript:@"kQPQUOutputTokenArgIds"];
+        if (objc_msgSend_count(v14))
         {
           v15 = [v14 objectAtIndexedSubscript:0];
           intValue2 = [v15 intValue];
@@ -139,13 +139,11 @@ LABEL_7:
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v11);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

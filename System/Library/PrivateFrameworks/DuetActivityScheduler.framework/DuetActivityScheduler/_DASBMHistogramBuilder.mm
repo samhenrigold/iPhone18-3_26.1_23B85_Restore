@@ -1,5 +1,6 @@
 @interface _DASBMHistogramBuilder
 + (id)builderWithPublisher:(id)publisher;
++ (id)builderWithPublisher:(id)publisher saveSpans:(BOOL)spans;
 - (_DASBMHistogramBuilder)initWithPublisher:(id)publisher saveSpans:(BOOL)spans;
 - (id)histogram;
 - (void)histogramOnResponseQueue:(id)queue withCompletion:(id)completion;
@@ -71,6 +72,15 @@
   v4 = [[_DASBMHistogramBuilder alloc] initWithPublisher:publisherCopy saveSpans:0];
 
   return v4;
+}
+
++ (id)builderWithPublisher:(id)publisher saveSpans:(BOOL)spans
+{
+  spansCopy = spans;
+  publisherCopy = publisher;
+  v6 = [[_DASBMHistogramBuilder alloc] initWithPublisher:publisherCopy saveSpans:spansCopy];
+
+  return v6;
 }
 
 - (_DASBMHistogramBuilder)initWithPublisher:(id)publisher saveSpans:(BOOL)spans

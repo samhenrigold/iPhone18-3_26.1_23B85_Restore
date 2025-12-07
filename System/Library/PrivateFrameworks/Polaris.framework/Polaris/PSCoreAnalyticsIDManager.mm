@@ -36,24 +36,23 @@
 
 void __42__PSCoreAnalyticsIDManager_sharedInstance__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v7 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v2 = MEMORY[0x277CBEAC0];
-  v3 = [v7 pathForResource:@"PSCoreAnalyticsGraphs" ofType:@"plist"];
-  v4 = [v2 dictionaryWithContentsOfFile:v3];
+  v6 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v1 = MEMORY[0x277CBEAC0];
+  v2 = [v6 pathForResource:@"PSCoreAnalyticsGraphs" ofType:@"plist"];
+  v3 = [v1 dictionaryWithContentsOfFile:v2];
 
-  v5 = [[PSCoreAnalyticsIDManager alloc] initWithIDs:v4];
-  v6 = sharedInstance_inst;
-  sharedInstance_inst = v5;
+  v4 = [[PSCoreAnalyticsIDManager alloc] initWithIDs:v3];
+  v5 = sharedInstance_inst;
+  sharedInstance_inst = v4;
 }
 
 - (PSCoreAnalyticsIDManager)initWithIDs:(id)ds
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
-  v35.receiver = self;
-  v35.super_class = PSCoreAnalyticsIDManager;
-  v5 = [(PSCoreAnalyticsIDManager *)&v35 init];
+  v34.receiver = self;
+  v34.super_class = PSCoreAnalyticsIDManager;
+  v5 = [(PSCoreAnalyticsIDManager *)&v34 init];
   if (v5)
   {
     v6 = os_log_create("com.apple.polaris", "coreanalytics");
@@ -66,123 +65,122 @@ void __42__PSCoreAnalyticsIDManager_sharedInstance__block_invoke(uint64_t a1)
     v8 = objc_alloc_init(MEMORY[0x277CBEB38]);
     [(PSCoreAnalyticsIDManager *)v5 setCStringForOpaqueID:v8];
 
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
     obj = [dsCopy objectForKeyedSubscript:@"ids"];
-    v25 = [obj countByEnumeratingWithState:&v31 objects:v37 count:16];
-    if (v25)
+    v24 = [obj countByEnumeratingWithState:&v30 objects:v36 count:16];
+    if (v24)
     {
-      v23 = *v32;
-      v24 = dsCopy;
+      v22 = *v31;
+      v23 = dsCopy;
       do
       {
         v9 = 0;
         do
         {
-          if (*v32 != v23)
+          if (*v31 != v22)
           {
             objc_enumerationMutation(obj);
           }
 
-          v26 = v9;
-          v10 = *(*(&v31 + 1) + 8 * v9);
+          v25 = v9;
+          v10 = *(*(&v30 + 1) + 8 * v9);
+          v26 = 0u;
           v27 = 0u;
           v28 = 0u;
           v29 = 0u;
-          v30 = 0u;
           v11 = [dsCopy objectForKeyedSubscript:@"ids"];
           v12 = [v11 objectForKeyedSubscript:v10];
 
-          v13 = [v12 countByEnumeratingWithState:&v27 objects:v36 count:16];
+          v13 = [v12 countByEnumeratingWithState:&v26 objects:v35 count:16];
           if (v13)
           {
             v14 = v13;
-            v15 = *v28;
+            v15 = *v27;
             do
             {
               for (i = 0; i != v14; ++i)
               {
-                if (*v28 != v15)
+                if (*v27 != v15)
                 {
                   objc_enumerationMutation(v12);
                 }
 
-                v17 = *(*(&v27 + 1) + 8 * i);
+                v17 = *(*(&v26 + 1) + 8 * i);
                 v18 = [v17 objectForKeyedSubscript:@"uniqueID"];
                 v19 = [v17 objectForKeyedSubscript:@"dimensions"];
                 [(PSCoreAnalyticsIDManager *)v5 setID:v18 forDimension:v19 forLogType:v10];
               }
 
-              v14 = [v12 countByEnumeratingWithState:&v27 objects:v36 count:16];
+              v14 = [v12 countByEnumeratingWithState:&v26 objects:v35 count:16];
             }
 
             while (v14);
           }
 
-          v9 = v26 + 1;
-          dsCopy = v24;
+          v9 = v25 + 1;
+          dsCopy = v23;
         }
 
-        while (v26 + 1 != v25);
-        v25 = [obj countByEnumeratingWithState:&v31 objects:v37 count:16];
+        while (v25 + 1 != v24);
+        v24 = [obj countByEnumeratingWithState:&v30 objects:v36 count:16];
       }
 
-      while (v25);
+      while (v24);
     }
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (void)dealloc
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   obj = [(PSCoreAnalyticsIDManager *)self cStringForOpaqueID];
-  v18 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
-  if (v18)
+  v17 = [obj countByEnumeratingWithState:&v23 objects:v28 count:16];
+  if (v17)
   {
-    v17 = *v25;
+    v16 = *v24;
     do
     {
       v3 = 0;
       do
       {
-        if (*v25 != v17)
+        if (*v24 != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v4 = *(*(&v24 + 1) + 8 * v3);
+        v4 = *(*(&v23 + 1) + 8 * v3);
+        v19 = 0u;
         v20 = 0u;
         v21 = 0u;
         v22 = 0u;
-        v23 = 0u;
         cStringForOpaqueID = [(PSCoreAnalyticsIDManager *)self cStringForOpaqueID];
         v6 = [cStringForOpaqueID objectForKeyedSubscript:v4];
 
-        v7 = [v6 countByEnumeratingWithState:&v20 objects:v28 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v19 objects:v27 count:16];
         if (v7)
         {
           v8 = v7;
-          v9 = *v21;
+          v9 = *v20;
           do
           {
             v10 = 0;
             do
             {
-              if (*v21 != v9)
+              if (*v20 != v9)
               {
                 objc_enumerationMutation(v6);
               }
 
-              v11 = *(*(&v20 + 1) + 8 * v10);
+              v11 = *(*(&v19 + 1) + 8 * v10);
               cStringForOpaqueID2 = [(PSCoreAnalyticsIDManager *)self cStringForOpaqueID];
               v13 = [cStringForOpaqueID2 objectForKeyedSubscript:v4];
               v14 = [v13 objectForKeyedSubscript:v11];
@@ -192,7 +190,7 @@ void __42__PSCoreAnalyticsIDManager_sharedInstance__block_invoke(uint64_t a1)
             }
 
             while (v8 != v10);
-            v8 = [v6 countByEnumeratingWithState:&v20 objects:v28 count:16];
+            v8 = [v6 countByEnumeratingWithState:&v19 objects:v27 count:16];
           }
 
           while (v8);
@@ -201,17 +199,16 @@ void __42__PSCoreAnalyticsIDManager_sharedInstance__block_invoke(uint64_t a1)
         ++v3;
       }
 
-      while (v3 != v18);
-      v18 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
+      while (v3 != v17);
+      v17 = [obj countByEnumeratingWithState:&v23 objects:v28 count:16];
     }
 
-    while (v18);
+    while (v17);
   }
 
-  v19.receiver = self;
-  v19.super_class = PSCoreAnalyticsIDManager;
-  [(PSCoreAnalyticsIDManager *)&v19 dealloc];
-  v15 = *MEMORY[0x277D85DE8];
+  v18.receiver = self;
+  v18.super_class = PSCoreAnalyticsIDManager;
+  [(PSCoreAnalyticsIDManager *)&v18 dealloc];
 }
 
 + (id)keyForSession:(id)session graph:(id)graph stride:(id)stride task:(id)task resource:(id)resource optionalBoolean:(id)boolean
@@ -257,100 +254,104 @@ void __42__PSCoreAnalyticsIDManager_sharedInstance__block_invoke(uint64_t a1)
 
 + (void)sendMissingUniqueIDEventForSession:(id)session graph:(id)graph stride:(id)stride
 {
-  v15[3] = *MEMORY[0x277D85DE8];
-  if (session && graph && stride)
+  v14[3] = *MEMORY[0x277D85DE8];
+  if (session && graph)
   {
-    v14[0] = @"session";
-    v14[1] = @"graph";
-    v15[0] = session;
-    v15[1] = graph;
-    v14[2] = @"stride";
-    v15[2] = stride;
-    v7 = MEMORY[0x277CBEAC0];
-    strideCopy = stride;
-    graphCopy = graph;
-    sessionCopy = session;
-    v13 = [v7 dictionaryWithObjects:v15 forKeys:v14 count:3];
-    v11 = v13;
-    AnalyticsSendEventLazy();
+    if (stride)
+    {
+      v13[0] = @"session";
+      v13[1] = @"graph";
+      v14[0] = session;
+      v14[1] = graph;
+      v13[2] = @"stride";
+      v14[2] = stride;
+      v7 = MEMORY[0x277CBEAC0];
+      strideCopy = stride;
+      graphCopy = graph;
+      sessionCopy = session;
+      v12 = [v7 dictionaryWithObjects:v14 forKeys:v13 count:3];
+      v11 = v12;
+      AnalyticsSendEventLazy();
+    }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 + (void)sendMissingUniqueIDEventForTask:(id)task graph:(id)graph stride:(id)stride session:(id)session
 {
-  v18[4] = *MEMORY[0x277D85DE8];
-  if (task && stride && graph && session)
+  v17[4] = *MEMORY[0x277D85DE8];
+  if (task && stride && graph)
   {
-    v17[0] = @"session";
-    v17[1] = @"graph";
-    v18[0] = session;
-    v18[1] = graph;
-    v17[2] = @"stride";
-    v17[3] = @"task";
-    v18[2] = stride;
-    v18[3] = task;
-    v9 = MEMORY[0x277CBEAC0];
-    sessionCopy = session;
-    strideCopy = stride;
-    graphCopy = graph;
-    taskCopy = task;
-    v16 = [v9 dictionaryWithObjects:v18 forKeys:v17 count:4];
-    v14 = v16;
-    AnalyticsSendEventLazy();
+    if (session)
+    {
+      v16[0] = @"session";
+      v16[1] = @"graph";
+      v17[0] = session;
+      v17[1] = graph;
+      v16[2] = @"stride";
+      v16[3] = @"task";
+      v17[2] = stride;
+      v17[3] = task;
+      v9 = MEMORY[0x277CBEAC0];
+      sessionCopy = session;
+      strideCopy = stride;
+      graphCopy = graph;
+      taskCopy = task;
+      v15 = [v9 dictionaryWithObjects:v17 forKeys:v16 count:4];
+      v14 = v15;
+      AnalyticsSendEventLazy();
+    }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 + (void)sendMissingUniqueIDEventForResource:(id)resource graph:(id)graph stride:(id)stride session:(id)session
 {
-  v18[4] = *MEMORY[0x277D85DE8];
-  if (resource && stride && graph && session)
+  v17[4] = *MEMORY[0x277D85DE8];
+  if (resource && stride && graph)
   {
-    v17[0] = @"session";
-    v17[1] = @"graph";
-    v18[0] = session;
-    v18[1] = graph;
-    v17[2] = @"stride";
-    v17[3] = @"resource";
-    v18[2] = stride;
-    v18[3] = resource;
-    v9 = MEMORY[0x277CBEAC0];
-    sessionCopy = session;
-    strideCopy = stride;
-    graphCopy = graph;
-    resourceCopy = resource;
-    v16 = [v9 dictionaryWithObjects:v18 forKeys:v17 count:4];
-    v14 = v16;
-    AnalyticsSendEventLazy();
+    if (session)
+    {
+      v16[0] = @"session";
+      v16[1] = @"graph";
+      v17[0] = session;
+      v17[1] = graph;
+      v16[2] = @"stride";
+      v16[3] = @"resource";
+      v17[2] = stride;
+      v17[3] = resource;
+      v9 = MEMORY[0x277CBEAC0];
+      sessionCopy = session;
+      strideCopy = stride;
+      graphCopy = graph;
+      resourceCopy = resource;
+      v15 = [v9 dictionaryWithObjects:v17 forKeys:v16 count:4];
+      v14 = v15;
+      AnalyticsSendEventLazy();
+    }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 + (void)sendMissingUniqueIDEventForResource:(id)resource graph:(id)graph session:(id)session
 {
-  v15[3] = *MEMORY[0x277D85DE8];
-  if (resource && graph && session)
+  v14[3] = *MEMORY[0x277D85DE8];
+  if (resource && graph)
   {
-    v14[0] = @"session";
-    v14[1] = @"graph";
-    v15[0] = session;
-    v15[1] = graph;
-    v14[2] = @"resource";
-    v15[2] = resource;
-    v7 = MEMORY[0x277CBEAC0];
-    sessionCopy = session;
-    graphCopy = graph;
-    resourceCopy = resource;
-    v13 = [v7 dictionaryWithObjects:v15 forKeys:v14 count:3];
-    v11 = v13;
-    AnalyticsSendEventLazy();
+    if (session)
+    {
+      v13[0] = @"session";
+      v13[1] = @"graph";
+      v14[0] = session;
+      v14[1] = graph;
+      v13[2] = @"resource";
+      v14[2] = resource;
+      v7 = MEMORY[0x277CBEAC0];
+      sessionCopy = session;
+      graphCopy = graph;
+      resourceCopy = resource;
+      v12 = [v7 dictionaryWithObjects:v14 forKeys:v13 count:3];
+      v11 = v12;
+      AnalyticsSendEventLazy();
+    }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - ($83DE3647E9E26936032982CC3A303C9F)opaqueIDForTask:(id)task graph:(id)graph stride:(id)stride session:(id)session
@@ -768,27 +769,27 @@ void __42__PSCoreAnalyticsIDManager_sharedInstance__block_invoke(uint64_t a1)
 
 - (void)setID:(id)d forDimension:(id)dimension forLogType:(id)type
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   dCopy = d;
   dimensionCopy = dimension;
   typeCopy = type;
-  v32 = 0;
-  v11 = asprintf(&v32, "%s", [dCopy UTF8String]);
+  v31 = 0;
+  v11 = asprintf(&v31, "%s", [dCopy UTF8String]);
   if (v11 < 0)
   {
     v12 = v11;
     log_handle = [(PSCoreAnalyticsIDManager *)self log_handle];
     if (os_log_type_enabled(log_handle, OS_LOG_TYPE_ERROR))
     {
-      v31 = strerror(v12);
+      v30 = strerror(v12);
       *buf = 67109890;
-      v34 = v12;
-      v35 = 2080;
-      v36 = v31;
-      v37 = 2112;
-      v38 = dCopy;
-      v39 = 2112;
-      v40 = dimensionCopy;
+      v33 = v12;
+      v34 = 2080;
+      v35 = v30;
+      v36 = 2112;
+      v37 = dCopy;
+      v38 = 2112;
+      v39 = dimensionCopy;
       _os_log_error_impl(&dword_25EA3A000, log_handle, OS_LOG_TYPE_ERROR, "asprintf returned error %d (%s) for %@ [dimension: %@]", buf, 0x26u);
     }
   }
@@ -812,7 +813,7 @@ void __42__PSCoreAnalyticsIDManager_sharedInstance__block_invoke(uint64_t a1)
   v22 = [opaqueIDForKey3 objectForKeyedSubscript:typeCopy];
   [v22 setObject:nextIndex forKeyedSubscript:dimensionCopy];
 
-  v23 = [MEMORY[0x277CCAE60] valueWithPointer:v32];
+  v23 = [MEMORY[0x277CCAE60] valueWithPointer:v31];
   cStringForOpaqueID2 = [(PSCoreAnalyticsIDManager *)self cStringForOpaqueID];
   v25 = [cStringForOpaqueID2 objectForKeyedSubscript:typeCopy];
   nextIndex2 = [(PSCoreAnalyticsIDManager *)self nextIndex];
@@ -822,8 +823,6 @@ void __42__PSCoreAnalyticsIDManager_sharedInstance__block_invoke(uint64_t a1)
   nextIndex3 = [(PSCoreAnalyticsIDManager *)self nextIndex];
   v29 = [v27 numberWithInt:{objc_msgSend(nextIndex3, "intValue") + 1}];
   [(PSCoreAnalyticsIDManager *)self setNextIndex:v29];
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -63,57 +63,53 @@
 
 - (void)_processDataMap:(id)map usingProcedure:(int64_t)procedure completion:(id)completion
 {
-  v24[1] = *MEMORY[0x1E69E9840];
+  v23[1] = *MEMORY[0x1E69E9840];
   mapCopy = map;
   completionCopy = completion;
   _connection = [(AFSecurityConnection *)self _connection];
   if (_connection)
   {
     objc_initWeak(&location, self);
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __66__AFSecurityConnection__processDataMap_usingProcedure_completion___block_invoke;
-    v19[3] = &unk_1E7341D60;
-    objc_copyWeak(&v21, &location);
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __66__AFSecurityConnection__processDataMap_usingProcedure_completion___block_invoke;
+    v18[3] = &unk_1E7341D60;
+    objc_copyWeak(&v20, &location);
     v11 = completionCopy;
-    v20 = v11;
-    v12 = [_connection remoteObjectProxyWithErrorHandler:v19];
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __66__AFSecurityConnection__processDataMap_usingProcedure_completion___block_invoke_2;
-    v16[3] = &unk_1E7341DB0;
-    objc_copyWeak(&v18, &location);
-    v17 = v11;
-    [v12 processDataMap:mapCopy usingProcedure:procedure completion:v16];
+    v19 = v11;
+    v12 = [_connection remoteObjectProxyWithErrorHandler:v18];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __66__AFSecurityConnection__processDataMap_usingProcedure_completion___block_invoke_2;
+    v15[3] = &unk_1E7341DB0;
+    objc_copyWeak(&v17, &location);
+    v16 = v11;
+    [v12 processDataMap:mapCopy usingProcedure:procedure completion:v15];
 
-    objc_destroyWeak(&v18);
-    objc_destroyWeak(&v21);
+    objc_destroyWeak(&v17);
+    objc_destroyWeak(&v20);
     objc_destroyWeak(&location);
   }
 
   else
   {
-    v23 = @"error";
+    v22 = @"error";
     v13 = [AFError errorWithCode:1606];
-    v24[0] = v13;
-    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:&v23 count:1];
+    v23[0] = v13;
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
     [(AFSecurityConnection *)self _dispatchCallbackForProcessedDataMap:0 errorMap:v14 completion:completionCopy];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __66__AFSecurityConnection__processDataMap_usingProcedure_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v7 = @"error";
-  v8[0] = v3;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v6 = @"error";
+  v7[0] = v3;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   [WeakRetained _dispatchCallbackForProcessedDataMap:0 errorMap:v5 completion:*(a1 + 32)];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __66__AFSecurityConnection__processDataMap_usingProcedure_completion___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -177,12 +173,12 @@ void __63__AFSecurityConnection__processData_usingProcedure_completion___block_i
 
 - (void)_connectionInvalidated
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315138;
-    v8 = "[AFSecurityConnection _connectionInvalidated]";
+    v7 = "[AFSecurityConnection _connectionInvalidated]";
     _os_log_error_impl(&dword_1912FE000, v3, OS_LOG_TYPE_ERROR, "%s ", buf, 0xCu);
   }
 
@@ -193,21 +189,18 @@ void __63__AFSecurityConnection__processData_usingProcedure_completion___block_i
   block[3] = &unk_1E73497C8;
   block[4] = self;
   dispatch_async(connectionQueue, block);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_connectionInterrupted
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
   {
-    v4 = 136315138;
-    v5 = "[AFSecurityConnection _connectionInterrupted]";
-    _os_log_error_impl(&dword_1912FE000, v2, OS_LOG_TYPE_ERROR, "%s ", &v4, 0xCu);
+    v3 = 136315138;
+    v4 = "[AFSecurityConnection _connectionInterrupted]";
+    _os_log_error_impl(&dword_1912FE000, v2, OS_LOG_TYPE_ERROR, "%s ", &v3, 0xCu);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_invalidateConnection
@@ -598,7 +591,7 @@ void __77__AFSecurityConnection_setKeychainValue_forKey_accountIdentifier_comple
 
 - (void)processDataMap:(id)map usingProcedure:(int64_t)procedure completion:(id)completion
 {
-  v24[1] = *MEMORY[0x1E69E9840];
+  v23[1] = *MEMORY[0x1E69E9840];
   mapCopy = map;
   completionCopy = completion;
   if (completionCopy)
@@ -613,30 +606,30 @@ void __77__AFSecurityConnection_setKeychainValue_forKey_accountIdentifier_comple
         block[2] = __65__AFSecurityConnection_processDataMap_usingProcedure_completion___block_invoke;
         block[3] = &unk_1E7343940;
         block[4] = self;
-        v18 = mapCopy;
+        v17 = mapCopy;
         procedureCopy = procedure;
-        v19 = completionCopy;
+        v18 = completionCopy;
         dispatch_async(connectionQueue, block);
 
         goto LABEL_8;
       }
 
-      v21 = @"error";
+      v20 = @"error";
       v11 = [AFError errorWithCode:1603];
-      v22 = v11;
+      v21 = v11;
       v12 = MEMORY[0x1E695DF20];
-      v13 = &v22;
-      v14 = &v21;
+      v13 = &v21;
+      v14 = &v20;
     }
 
     else
     {
-      v23 = @"error";
+      v22 = @"error";
       v11 = [AFError errorWithCode:1600];
-      v24[0] = v11;
+      v23[0] = v11;
       v12 = MEMORY[0x1E695DF20];
-      v13 = v24;
-      v14 = &v23;
+      v13 = v23;
+      v14 = &v22;
     }
 
     v15 = [v12 dictionaryWithObjects:v13 forKeys:v14 count:1];
@@ -644,8 +637,6 @@ void __77__AFSecurityConnection_setKeychainValue_forKey_accountIdentifier_comple
   }
 
 LABEL_8:
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)processData:(id)data usingProcedure:(int64_t)procedure completion:(id)completion

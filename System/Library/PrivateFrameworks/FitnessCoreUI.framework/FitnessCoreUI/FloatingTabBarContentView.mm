@@ -34,7 +34,7 @@
   }
 
   selfCopy = self;
-  sub_20C3AB6B0();
+  sub_20C3AB6B0(selfCopy);
 }
 
 - (void)handleSelectionGesture:(id)gesture

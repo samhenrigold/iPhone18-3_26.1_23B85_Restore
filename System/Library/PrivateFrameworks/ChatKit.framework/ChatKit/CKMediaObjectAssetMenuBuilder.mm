@@ -79,11 +79,11 @@
   return v16;
 }
 
-uint64_t __78__CKMediaObjectAssetMenuBuilder_contextMenuForChatItems_cursorChatItem_isCMM___block_invoke(uint64_t result, uint64_t a2)
+void *__78__CKMediaObjectAssetMenuBuilder_contextMenuForChatItems_cursorChatItem_isCMM___block_invoke(void *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(*(*(result + 32) + 8) + 40) addObject:a2];
+    return [*(*(result[4] + 8) + 40) addObject:a2];
   }
 
   return result;
@@ -132,23 +132,23 @@ uint64_t __78__CKMediaObjectAssetMenuBuilder_contextMenuForChatItems_cursorChatI
 {
   itemsCopy = items;
   itemCopy = item;
-  objc_initWeak(&location, self);
-  v8 = MEMORY[0x1E69DC628];
-  v9 = CKFrameworkBundle();
-  v10 = [v9 localizedStringForKey:@"QUICK_LOOK_MENU" value:&stru_1F04268F8 table:@"ChatKit"];
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __77__CKMediaObjectAssetMenuBuilder__quickLookActionForChatItems_cursorChatItem___block_invoke;
-  v14[3] = &unk_1E72EBF48;
-  objc_copyWeak(&v16, &location);
-  v11 = itemCopy;
-  v15 = v11;
-  v12 = [v8 actionWithTitle:v10 image:0 identifier:0 handler:v14];
+  inited = objc_initWeak(&location, self);
+  v9 = MEMORY[0x1E69DC628];
+  v10 = CKFrameworkBundle(inited);
+  v11 = [v10 localizedStringForKey:@"QUICK_LOOK_MENU" value:&stru_1F04268F8 table:@"ChatKit"];
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __77__CKMediaObjectAssetMenuBuilder__quickLookActionForChatItems_cursorChatItem___block_invoke;
+  v15[3] = &unk_1E72EBF48;
+  objc_copyWeak(&v17, &location);
+  v12 = itemCopy;
+  v16 = v12;
+  v13 = [v9 actionWithTitle:v11 image:0 identifier:0 handler:v15];
 
-  objc_destroyWeak(&v16);
+  objc_destroyWeak(&v17);
   objc_destroyWeak(&location);
 
-  return v12;
+  return v13;
 }
 
 void __77__CKMediaObjectAssetMenuBuilder__quickLookActionForChatItems_cursorChatItem___block_invoke(uint64_t a1)
@@ -166,28 +166,28 @@ void __77__CKMediaObjectAssetMenuBuilder__quickLookActionForChatItems_cursorChat
 
 - (id)_openActionForChatItems:(id)items
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
   v5 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(itemsCopy, "count")}];
-  v24 = 0u;
   v25 = 0u;
-  v22 = 0u;
+  v26 = 0u;
   v23 = 0u;
+  v24 = 0u;
   v6 = itemsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v7)
   {
-    v8 = *v23;
+    v8 = *v24;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v23 != v8)
+        if (*v24 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        mediaObject = [*(*(&v22 + 1) + 8 * i) mediaObject];
+        mediaObject = [*(*(&v23 + 1) + 8 * i) mediaObject];
         fileURL = [mediaObject fileURL];
         path = [fileURL path];
 
@@ -197,7 +197,7 @@ void __77__CKMediaObjectAssetMenuBuilder__quickLookActionForChatItems_cursorChat
         }
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v7);
@@ -205,28 +205,28 @@ void __77__CKMediaObjectAssetMenuBuilder__quickLookActionForChatItems_cursorChat
 
   if ([v5 count])
   {
-    objc_initWeak(&location, self);
-    v13 = MEMORY[0x1E69DC628];
-    v14 = CKFrameworkBundle();
-    v15 = [v14 localizedStringForKey:@"OPEN" value:&stru_1F04268F8 table:@"ChatKit"];
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __57__CKMediaObjectAssetMenuBuilder__openActionForChatItems___block_invoke;
-    v18[3] = &unk_1E72EBF48;
-    objc_copyWeak(&v20, &location);
-    v19 = v5;
-    v16 = [v13 actionWithTitle:v15 image:0 identifier:0 handler:v18];
+    inited = objc_initWeak(&location, self);
+    v14 = MEMORY[0x1E69DC628];
+    v15 = CKFrameworkBundle(inited);
+    v16 = [v15 localizedStringForKey:@"OPEN" value:&stru_1F04268F8 table:@"ChatKit"];
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __57__CKMediaObjectAssetMenuBuilder__openActionForChatItems___block_invoke;
+    v19[3] = &unk_1E72EBF48;
+    objc_copyWeak(&v21, &location);
+    v20 = v5;
+    v17 = [v14 actionWithTitle:v16 image:0 identifier:0 handler:v19];
 
-    objc_destroyWeak(&v20);
+    objc_destroyWeak(&v21);
     objc_destroyWeak(&location);
   }
 
   else
   {
-    v16 = 0;
+    v17 = 0;
   }
 
-  return v16;
+  return v17;
 }
 
 void __57__CKMediaObjectAssetMenuBuilder__openActionForChatItems___block_invoke(uint64_t a1)
@@ -305,29 +305,29 @@ void __57__CKMediaObjectAssetMenuBuilder__openActionForChatItems___block_invoke(
 
 - (id)_exportActionForChatItems:(id)items
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
   v4 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(itemsCopy, "count")}];
-  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
   v5 = itemsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v20;
+    v8 = *v21;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v20 != v8)
+        if (*v21 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * i);
+        v10 = *(*(&v20 + 1) + 8 * i);
         if ([v10 canExport])
         {
           mediaObject = [v10 mediaObject];
@@ -335,31 +335,32 @@ void __57__CKMediaObjectAssetMenuBuilder__openActionForChatItems___block_invoke(
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v7);
   }
 
-  if ([v4 count])
+  v12 = [v4 count];
+  if (v12)
   {
-    v12 = MEMORY[0x1E69DC628];
-    v13 = CKFrameworkBundle();
-    v14 = [v13 localizedStringForKey:@"SEARCH_ADD_TO_PHOTOS_LIBRARY" value:&stru_1F04268F8 table:@"ChatKit"];
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __59__CKMediaObjectAssetMenuBuilder__exportActionForChatItems___block_invoke;
-    v17[3] = &unk_1E72EC060;
-    v18 = v4;
-    v15 = [v12 actionWithTitle:v14 image:0 identifier:0 handler:v17];
+    v13 = MEMORY[0x1E69DC628];
+    v14 = CKFrameworkBundle(v12);
+    v15 = [v14 localizedStringForKey:@"SEARCH_ADD_TO_PHOTOS_LIBRARY" value:&stru_1F04268F8 table:@"ChatKit"];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __59__CKMediaObjectAssetMenuBuilder__exportActionForChatItems___block_invoke;
+    v18[3] = &unk_1E72EC060;
+    v19 = v4;
+    v16 = [v13 actionWithTitle:v15 image:0 identifier:0 handler:v18];
   }
 
   else
   {
-    v15 = 0;
+    v16 = 0;
   }
 
-  return v15;
+  return v16;
 }
 
 void __59__CKMediaObjectAssetMenuBuilder__exportActionForChatItems___block_invoke(uint64_t a1)
@@ -454,23 +455,23 @@ LABEL_9:
 - (id)_tapbackActionForChatItem:(id)item
 {
   itemCopy = item;
-  objc_initWeak(&location, self);
-  v5 = MEMORY[0x1E69DC628];
-  v6 = CKFrameworkBundle();
-  v7 = [v6 localizedStringForKey:@"TAPBACK_DETAILS_ELLIPSIS" value:&stru_1F04268F8 table:@"ChatKit"];
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __59__CKMediaObjectAssetMenuBuilder__tapbackActionForChatItem___block_invoke;
-  v11[3] = &unk_1E72EBF48;
-  objc_copyWeak(&v13, &location);
-  v8 = itemCopy;
-  v12 = v8;
-  v9 = [v5 actionWithTitle:v7 image:0 identifier:0 handler:v11];
+  inited = objc_initWeak(&location, self);
+  v6 = MEMORY[0x1E69DC628];
+  v7 = CKFrameworkBundle(inited);
+  v8 = [v7 localizedStringForKey:@"TAPBACK_DETAILS_ELLIPSIS" value:&stru_1F04268F8 table:@"ChatKit"];
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __59__CKMediaObjectAssetMenuBuilder__tapbackActionForChatItem___block_invoke;
+  v12[3] = &unk_1E72EBF48;
+  objc_copyWeak(&v14, &location);
+  v9 = itemCopy;
+  v13 = v9;
+  v10 = [v6 actionWithTitle:v8 image:0 identifier:0 handler:v12];
 
-  objc_destroyWeak(&v13);
+  objc_destroyWeak(&v14);
   objc_destroyWeak(&location);
 
-  return v9;
+  return v10;
 }
 
 void __59__CKMediaObjectAssetMenuBuilder__tapbackActionForChatItem___block_invoke(uint64_t a1)
@@ -498,23 +499,23 @@ void __59__CKMediaObjectAssetMenuBuilder__tapbackActionForChatItem___block_invok
 - (id)_replyActionForChatItem:(id)item
 {
   itemCopy = item;
-  objc_initWeak(&location, self);
-  v5 = MEMORY[0x1E69DC628];
-  v6 = CKFrameworkBundle();
-  v7 = [v6 localizedStringForKey:@"INLINE_REPLY_MENU" value:&stru_1F04268F8 table:@"ChatKit"];
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __57__CKMediaObjectAssetMenuBuilder__replyActionForChatItem___block_invoke;
-  v11[3] = &unk_1E72EBF48;
-  objc_copyWeak(&v13, &location);
-  v8 = itemCopy;
-  v12 = v8;
-  v9 = [v5 actionWithTitle:v7 image:0 identifier:0 handler:v11];
+  inited = objc_initWeak(&location, self);
+  v6 = MEMORY[0x1E69DC628];
+  v7 = CKFrameworkBundle(inited);
+  v8 = [v7 localizedStringForKey:@"INLINE_REPLY_MENU" value:&stru_1F04268F8 table:@"ChatKit"];
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __57__CKMediaObjectAssetMenuBuilder__replyActionForChatItem___block_invoke;
+  v12[3] = &unk_1E72EBF48;
+  objc_copyWeak(&v14, &location);
+  v9 = itemCopy;
+  v13 = v9;
+  v10 = [v6 actionWithTitle:v8 image:0 identifier:0 handler:v12];
 
-  objc_destroyWeak(&v13);
+  objc_destroyWeak(&v14);
   objc_destroyWeak(&location);
 
-  return v9;
+  return v10;
 }
 
 void __57__CKMediaObjectAssetMenuBuilder__replyActionForChatItem___block_invoke(uint64_t a1)
@@ -561,35 +562,35 @@ void __57__CKMediaObjectAssetMenuBuilder__replyActionForChatItem___block_invoke(
 
 - (id)_forwardActionForChatItems:(id)items
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
   v5 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(itemsCopy, "count")}];
-  v22 = 0u;
   v23 = 0u;
-  v20 = 0u;
+  v24 = 0u;
   v21 = 0u;
+  v22 = 0u;
   v6 = itemsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v7)
   {
-    v8 = *v21;
+    v8 = *v22;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v21 != v8)
+        if (*v22 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v20 + 1) + 8 * i);
+        v10 = *(*(&v21 + 1) + 8 * i);
         if ([v10 canForward])
         {
           [v5 addObject:v10];
         }
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v7);
@@ -597,28 +598,28 @@ void __57__CKMediaObjectAssetMenuBuilder__replyActionForChatItem___block_invoke(
 
   if ([v5 count])
   {
-    objc_initWeak(&location, self);
-    v11 = MEMORY[0x1E69DC628];
-    v12 = CKFrameworkBundle();
-    v13 = [v12 localizedStringForKey:@"FORWARD_ELLIPSIS" value:&stru_1F04268F8 table:@"ChatKit"];
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __60__CKMediaObjectAssetMenuBuilder__forwardActionForChatItems___block_invoke;
-    v16[3] = &unk_1E72EBF48;
-    objc_copyWeak(&v18, &location);
-    v17 = v6;
-    v14 = [v11 actionWithTitle:v13 image:0 identifier:0 handler:v16];
+    inited = objc_initWeak(&location, self);
+    v12 = MEMORY[0x1E69DC628];
+    v13 = CKFrameworkBundle(inited);
+    v14 = [v13 localizedStringForKey:@"FORWARD_ELLIPSIS" value:&stru_1F04268F8 table:@"ChatKit"];
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __60__CKMediaObjectAssetMenuBuilder__forwardActionForChatItems___block_invoke;
+    v17[3] = &unk_1E72EBF48;
+    objc_copyWeak(&v19, &location);
+    v18 = v6;
+    v15 = [v12 actionWithTitle:v14 image:0 identifier:0 handler:v17];
 
-    objc_destroyWeak(&v18);
+    objc_destroyWeak(&v19);
     objc_destroyWeak(&location);
   }
 
   else
   {
-    v14 = 0;
+    v15 = 0;
   }
 
-  return v14;
+  return v15;
 }
 
 void __60__CKMediaObjectAssetMenuBuilder__forwardActionForChatItems___block_invoke(uint64_t a1)
@@ -636,35 +637,35 @@ void __60__CKMediaObjectAssetMenuBuilder__forwardActionForChatItems___block_invo
 
 - (id)_copyActionForChatItems:(id)items
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
   v5 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(itemsCopy, "count")}];
-  v22 = 0u;
   v23 = 0u;
-  v20 = 0u;
+  v24 = 0u;
   v21 = 0u;
+  v22 = 0u;
   v6 = itemsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v7)
   {
-    v8 = *v21;
+    v8 = *v22;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v21 != v8)
+        if (*v22 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v20 + 1) + 8 * i);
+        v10 = *(*(&v21 + 1) + 8 * i);
         if ([v10 canCopy])
         {
           [v5 addObject:v10];
         }
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v7);
@@ -672,28 +673,28 @@ void __60__CKMediaObjectAssetMenuBuilder__forwardActionForChatItems___block_invo
 
   if ([v5 count])
   {
-    objc_initWeak(&location, self);
-    v11 = MEMORY[0x1E69DC628];
-    v12 = CKFrameworkBundle();
-    v13 = [v12 localizedStringForKey:@"COPY" value:&stru_1F04268F8 table:@"ChatKit"];
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __57__CKMediaObjectAssetMenuBuilder__copyActionForChatItems___block_invoke;
-    v16[3] = &unk_1E72EBF48;
-    objc_copyWeak(&v18, &location);
-    v17 = v5;
-    v14 = [v11 actionWithTitle:v13 image:0 identifier:0 handler:v16];
+    inited = objc_initWeak(&location, self);
+    v12 = MEMORY[0x1E69DC628];
+    v13 = CKFrameworkBundle(inited);
+    v14 = [v13 localizedStringForKey:@"COPY" value:&stru_1F04268F8 table:@"ChatKit"];
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __57__CKMediaObjectAssetMenuBuilder__copyActionForChatItems___block_invoke;
+    v17[3] = &unk_1E72EBF48;
+    objc_copyWeak(&v19, &location);
+    v18 = v5;
+    v15 = [v12 actionWithTitle:v14 image:0 identifier:0 handler:v17];
 
-    objc_destroyWeak(&v18);
+    objc_destroyWeak(&v19);
     objc_destroyWeak(&location);
   }
 
   else
   {
-    v14 = 0;
+    v15 = 0;
   }
 
-  return v14;
+  return v15;
 }
 
 void __57__CKMediaObjectAssetMenuBuilder__copyActionForChatItems___block_invoke(uint64_t a1)
@@ -711,30 +712,30 @@ void __57__CKMediaObjectAssetMenuBuilder__copyActionForChatItems___block_invoke(
 
 - (id)_deleteMenuForChatItems:(id)items
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v19[1] = *MEMORY[0x1E69E9840];
   itemsCopy = items;
-  objc_initWeak(&location, self);
-  v5 = MEMORY[0x1E69DC628];
-  v6 = CKFrameworkBundle();
-  v7 = [v6 localizedStringForKey:@"DELETE_ELLIPSIS" value:&stru_1F04268F8 table:@"ChatKit"];
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __57__CKMediaObjectAssetMenuBuilder__deleteMenuForChatItems___block_invoke;
-  v14[3] = &unk_1E72EBF48;
-  objc_copyWeak(&v16, &location);
-  v8 = itemsCopy;
-  v15 = v8;
-  v9 = [v5 actionWithTitle:v7 image:0 identifier:0 handler:v14];
+  inited = objc_initWeak(&location, self);
+  v6 = MEMORY[0x1E69DC628];
+  v7 = CKFrameworkBundle(inited);
+  v8 = [v7 localizedStringForKey:@"DELETE_ELLIPSIS" value:&stru_1F04268F8 table:@"ChatKit"];
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __57__CKMediaObjectAssetMenuBuilder__deleteMenuForChatItems___block_invoke;
+  v15[3] = &unk_1E72EBF48;
+  objc_copyWeak(&v17, &location);
+  v9 = itemsCopy;
+  v16 = v9;
+  v10 = [v6 actionWithTitle:v8 image:0 identifier:0 handler:v15];
 
-  v10 = MEMORY[0x1E69DCC60];
-  v18[0] = v9;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
-  v12 = [v10 menuWithTitle:&stru_1F04268F8 image:0 identifier:0 options:1 children:v11];
+  v11 = MEMORY[0x1E69DCC60];
+  v19[0] = v10;
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:1];
+  v13 = [v11 menuWithTitle:&stru_1F04268F8 image:0 identifier:0 options:1 children:v12];
 
-  objc_destroyWeak(&v16);
+  objc_destroyWeak(&v17);
   objc_destroyWeak(&location);
 
-  return v12;
+  return v13;
 }
 
 void __57__CKMediaObjectAssetMenuBuilder__deleteMenuForChatItems___block_invoke(uint64_t a1)

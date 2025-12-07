@@ -4,14 +4,36 @@
 - (NEVPNProtocolIKEv2)initWithCoder:(id)coder;
 - (id)copyLegacyDictionary;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 - (void)encodeWithCoder:(id)coder;
 - (void)initWithPluginType:(void *)type;
+- (void)removeKeychainItemsInDomain:(int64_t)domain keepIdentity:(BOOL)identity;
 - (void)setDefaultsForUIConfiguration;
 - (void)setPluginType:(void *)type;
 - (void)syncWithKeychainInDomain:(int64_t)domain configuration:(id)configuration suffix:(id)suffix;
 @end
 
 @implementation NEVPNProtocolIKEv2
+
+- (void)removeKeychainItemsInDomain:(int64_t)domain keepIdentity:(BOOL)identity
+{
+  v10.receiver = self;
+  v10.super_class = NEVPNProtocolIKEv2;
+  [(NEVPNProtocolIPSec *)&v10 removeKeychainItemsInDomain:domain keepIdentity:identity];
+  Property = [(NEVPNProtocolIKEv2 *)self ppkConfiguration];
+  v8 = Property;
+  if (Property)
+  {
+    Property = objc_getProperty(Property, v7, 32, 1);
+  }
+
+  v9 = Property;
+
+  if (v9 && [v9 domain] == domain)
+  {
+    [v9 setIdentifier:0];
+  }
+}
 
 - (BOOL)needToUpdateKeychain
 {
@@ -348,7 +370,7 @@ LABEL_58:
 
 - (void)setDefaultsForUIConfiguration
 {
-  v17[4] = *MEMORY[0x1E69E9840];
+  v16[4] = *MEMORY[0x1E69E9840];
   IKESecurityAssociationParameters = self->_IKESecurityAssociationParameters;
   self->_IKESecurityAssociationParameters = 0;
 
@@ -387,62 +409,237 @@ LABEL_58:
   [(NEVPNIKEv2SecurityAssociationParameters *)v11 setLifetimeMinutes:60];
   v12 = [(NEVPNIKEv2SecurityAssociationParameters *)v11 copy];
   [v12 setLifetimeMinutes:30];
-  v17[0] = v5;
-  v17[1] = v7;
-  v17[2] = v9;
-  v17[3] = v11;
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:4];
+  v16[0] = v5;
+  v16[1] = v7;
+  v16[2] = v9;
+  v16[3] = v11;
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:4];
   [(NEVPNProtocolIKEv2 *)self setIKESecurityAssociationParametersArray:v13];
 
-  v16[0] = v6;
-  v16[1] = v8;
-  v16[2] = v10;
-  v16[3] = v12;
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:4];
+  v15[0] = v6;
+  v15[1] = v8;
+  v15[2] = v10;
+  v15[3] = v12;
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:4];
   [(NEVPNProtocolIKEv2 *)self setChildSecurityAssociationParametersArray:v14];
 
   [(NEVPNProtocolIKEv2 *)self setEnablePFS:1];
   [(NEVPNProtocolIKEv2 *)self setOpportunisticPFS:1];
   [(NEVPNProtocolIKEv2 *)self setAllowPostQuantumKeyExchangeFallback:1];
+}
 
-  v15 = *MEMORY[0x1E69E9840];
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v7 = objc_alloc(MEMORY[0x1E696AD60]);
+  v26.receiver = self;
+  v26.super_class = NEVPNProtocolIKEv2;
+  v8 = [(NEVPNProtocolIPSec *)&v26 descriptionWithIndent:v5 options:options];
+  v9 = [v7 initWithString:v8];
+
+  if ([(NEVPNProtocolIKEv2 *)self deadPeerDetectionRate])
+  {
+    if ([(NEVPNProtocolIKEv2 *)self deadPeerDetectionRate]== NEVPNIKEv2DeadPeerDetectionRateLow)
+    {
+      v10 = options | 8;
+      v11 = @"low";
+    }
+
+    else if ([(NEVPNProtocolIKEv2 *)self deadPeerDetectionRate]== NEVPNIKEv2DeadPeerDetectionRateMedium)
+    {
+      v10 = options | 8;
+      v11 = @"medium";
+    }
+
+    else
+    {
+      v10 = options | 8;
+      if ([(NEVPNProtocolIKEv2 *)self deadPeerDetectionRate]!= NEVPNIKEv2DeadPeerDetectionRateHigh)
+      {
+        goto LABEL_10;
+      }
+
+      v11 = @"high";
+    }
+  }
+
+  else
+  {
+    v10 = options | 8;
+    v11 = @"none";
+  }
+
+  [v9 appendPrettyObject:v11 withName:@"deadPeerDetectionRate" andIndent:v5 options:v10];
+LABEL_10:
+  serverCertificateIssuerCommonName = [(NEVPNProtocolIKEv2 *)self serverCertificateIssuerCommonName];
+  [v9 appendPrettyObject:serverCertificateIssuerCommonName withName:@"serverCertificateIssuer" andIndent:v5 options:options | 9];
+
+  serverCertificateCommonName = [(NEVPNProtocolIKEv2 *)self serverCertificateCommonName];
+  [v9 appendPrettyObject:serverCertificateCommonName withName:@"serverCertificateCommonName" andIndent:v5 options:options | 9];
+
+  iKESecurityAssociationParameters = [(NEVPNProtocolIKEv2 *)self IKESecurityAssociationParameters];
+  [v9 appendPrettyObject:iKESecurityAssociationParameters withName:@"IKESAParameters" andIndent:v5 options:v10];
+
+  childSecurityAssociationParameters = [(NEVPNProtocolIKEv2 *)self childSecurityAssociationParameters];
+  [v9 appendPrettyObject:childSecurityAssociationParameters withName:@"childSAParameters" andIndent:v5 options:v10];
+
+  iKESecurityAssociationParametersArray = [(NEVPNProtocolIKEv2 *)self IKESecurityAssociationParametersArray];
+  [v9 appendPrettyObject:iKESecurityAssociationParametersArray withName:@"IKESAParametersArray" andIndent:v5 options:options & 0xFFFFFFFFFFFFFFF7];
+
+  childSecurityAssociationParametersArray = [(NEVPNProtocolIKEv2 *)self childSecurityAssociationParametersArray];
+  [v9 appendPrettyObject:childSecurityAssociationParametersArray withName:@"childSAParametersArray" andIndent:v5 options:options & 0xFFFFFFFFFFFFFFF7];
+
+  if (self)
+  {
+    [v9 appendPrettyBOOL:self->_strictAlgorithmSelection withName:@"strictAlgorithmSelection" andIndent:v5 options:options & 0xFFFFFFFFFFFFFFF7];
+    wakeForRekey = self->_wakeForRekey;
+  }
+
+  else
+  {
+    [v9 appendPrettyBOOL:0 withName:@"strictAlgorithmSelection" andIndent:v5 options:options & 0xFFFFFFFFFFFFFFF7];
+    wakeForRekey = 0;
+  }
+
+  [v9 appendPrettyBOOL:wakeForRekey withName:@"wakeForRekey" andIndent:v5 options:options & 0xFFFFFFFFFFFFFFF7];
+  if ([(NEVPNProtocolIKEv2 *)self certificateType]== NEVPNIKEv2CertificateTypeRSA)
+  {
+    v19 = @"RSA";
+  }
+
+  else if ([(NEVPNProtocolIKEv2 *)self certificateType]== NEVPNIKEv2CertificateTypeECDSA256)
+  {
+    v19 = @"ECDSA256";
+  }
+
+  else if ([(NEVPNProtocolIKEv2 *)self certificateType]== NEVPNIKEv2CertificateTypeECDSA384)
+  {
+    v19 = @"ECDSA384";
+  }
+
+  else if ([(NEVPNProtocolIKEv2 *)self certificateType]== NEVPNIKEv2CertificateTypeECDSA521)
+  {
+    v19 = @"ECDSA521";
+  }
+
+  else
+  {
+    if ([(NEVPNProtocolIKEv2 *)self certificateType]!= NEVPNIKEv2CertificateTypeEd25519)
+    {
+      goto LABEL_23;
+    }
+
+    v19 = @"Ed25519";
+  }
+
+  [v9 appendPrettyObject:v19 withName:@"certificateType" andIndent:v5 options:v10];
+LABEL_23:
+  [v9 appendPrettyBOOL:-[NEVPNProtocolIKEv2 useConfigurationAttributeInternalIPSubnet](self withName:"useConfigurationAttributeInternalIPSubnet") andIndent:@"useConfigurationAttributeInternalIPSubnet" options:{v5, v10}];
+  [v9 appendPrettyBOOL:-[NEVPNProtocolIKEv2 disableMOBIKE](self withName:"disableMOBIKE") andIndent:@"disableMOBIKE" options:{v5, v10}];
+  [v9 appendPrettyBOOL:-[NEVPNProtocolIKEv2 disableRedirect](self withName:"disableRedirect") andIndent:@"disableRedirect" options:{v5, v10}];
+  [v9 appendPrettyBOOL:-[NEVPNProtocolIKEv2 enablePFS](self withName:"enablePFS") andIndent:@"enabledPFS" options:{v5, v10}];
+  [v9 appendPrettyBOOL:-[NEVPNProtocolIKEv2 opportunisticPFS](self withName:"opportunisticPFS") andIndent:@"opportunisticPFS" options:{v5, v10}];
+  [v9 appendPrettyBOOL:-[NEVPNProtocolIKEv2 allowPostQuantumKeyExchangeFallback](self withName:"allowPostQuantumKeyExchangeFallback") andIndent:@"allowPostQuantumKeyExchangeFallback" options:{v5, options & 0xFFFFFFFFFFFFFFF7}];
+  [v9 appendPrettyInt:-[NEVPNProtocolIKEv2 natKeepAliveOffloadEnable](self withName:"natKeepAliveOffloadEnable") andIndent:@"natKeepAliveOffloadEnable" options:{v5, options & 0xFFFFFFFFFFFFFFF7}];
+  [v9 appendPrettyInt:-[NEVPNProtocolIKEv2 disableMOBIKERetryOnWake](self withName:"disableMOBIKERetryOnWake") andIndent:@"DisableMOBIKERetryOnWake" options:{v5, options & 0xFFFFFFFFFFFFFFF7}];
+  [v9 appendPrettyInt:-[NEVPNProtocolIKEv2 natKeepAliveOffloadInterval](self withName:"natKeepAliveOffloadInterval") andIndent:@"natKeepAliveOffloadInterval" options:{v5, options & 0xFFFFFFFFFFFFFFF7}];
+  providerBundleIdentifier = [(NEVPNProtocolIKEv2 *)self providerBundleIdentifier];
+  [v9 appendPrettyObject:providerBundleIdentifier withName:@"providerBundleIdentifier" andIndent:v5 options:options & 0xFFFFFFFFFFFFFFF7];
+
+  pluginType = [(NEVPNProtocolIKEv2 *)self pluginType];
+  [v9 appendPrettyObject:pluginType withName:@"pluginType" andIndent:v5 options:options & 0xFFFFFFFFFFFFFFF7];
+
+  [v9 appendPrettyBOOL:-[NEVPNProtocolIKEv2 enableRevocationCheck](self withName:"enableRevocationCheck") andIndent:@"enableRevocationCheck" options:{v5, v10}];
+  [v9 appendPrettyBOOL:-[NEVPNProtocolIKEv2 strictRevocationCheck](self withName:"strictRevocationCheck") andIndent:@"strictRevocationCheck" options:{v5, v10}];
+  if ([(NEVPNProtocolIKEv2 *)self minimumTLSVersion]== NEVPNIKEv2TLSVersion1_0)
+  {
+    v22 = @"1.0";
+  }
+
+  else if ([(NEVPNProtocolIKEv2 *)self minimumTLSVersion]== NEVPNIKEv2TLSVersion1_1)
+  {
+    v22 = @"1.1";
+  }
+
+  else
+  {
+    if ([(NEVPNProtocolIKEv2 *)self minimumTLSVersion]!= NEVPNIKEv2TLSVersion1_2)
+    {
+      goto LABEL_30;
+    }
+
+    v22 = @"1.2";
+  }
+
+  [v9 appendPrettyObject:v22 withName:@"minimumTLSVersion" andIndent:v5 options:v10];
+LABEL_30:
+  if ([(NEVPNProtocolIKEv2 *)self maximumTLSVersion]== NEVPNIKEv2TLSVersion1_0)
+  {
+    v23 = @"1.0";
+  }
+
+  else if ([(NEVPNProtocolIKEv2 *)self maximumTLSVersion]== NEVPNIKEv2TLSVersion1_1)
+  {
+    v23 = @"1.1";
+  }
+
+  else
+  {
+    if ([(NEVPNProtocolIKEv2 *)self maximumTLSVersion]!= NEVPNIKEv2TLSVersion1_2)
+    {
+      goto LABEL_37;
+    }
+
+    v23 = @"1.2";
+  }
+
+  [v9 appendPrettyObject:v23 withName:@"maximumTLSVersion" andIndent:v5 options:v10];
+LABEL_37:
+  [v9 appendPrettyBOOL:-[NEVPNProtocolIKEv2 enableFallback](self withName:"enableFallback") andIndent:@"enableFallback" options:{v5, v10}];
+  [v9 appendPrettyInt:-[NEVPNProtocolIKEv2 tunnelKind](self withName:"tunnelKind") andIndent:@"tunnelKind" options:{v5, v10}];
+  [v9 appendPrettyBOOL:-[NEVPNProtocolIKEv2 disableInitialContact](self withName:"disableInitialContact") andIndent:@"disableInitialContact" options:{v5, v10}];
+  [v9 appendPrettyInt:-[NEVPNProtocolIKEv2 mtu](self withName:"mtu") andIndent:@"MTU" options:{v5, v10}];
+  ppkConfiguration = [(NEVPNProtocolIKEv2 *)self ppkConfiguration];
+  [v9 appendPrettyObject:ppkConfiguration withName:@"PPK" andIndent:v5 options:v10];
+
+  return v9;
 }
 
 - (BOOL)checkValidityAndCollectErrors:(id)errors
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   errorsCopy = errors;
-  v49.receiver = self;
-  v49.super_class = NEVPNProtocolIKEv2;
-  v5 = [(NEVPNProtocolIPSec *)&v49 checkValidityAndCollectErrors:errorsCopy];
+  v48.receiver = self;
+  v48.super_class = NEVPNProtocolIKEv2;
+  v5 = [(NEVPNProtocolIPSec *)&v48 checkValidityAndCollectErrors:errorsCopy];
   iKESecurityAssociationParametersArray = [(NEVPNProtocolIKEv2 *)self IKESecurityAssociationParametersArray];
   v7 = [iKESecurityAssociationParametersArray count];
 
   if (v7)
   {
-    v47 = 0u;
-    v48 = 0u;
-    v45 = 0u;
     v46 = 0u;
+    v47 = 0u;
+    v44 = 0u;
+    v45 = 0u;
     iKESecurityAssociationParametersArray2 = [(NEVPNProtocolIKEv2 *)self IKESecurityAssociationParametersArray];
-    v9 = [iKESecurityAssociationParametersArray2 countByEnumeratingWithState:&v45 objects:v51 count:16];
+    v9 = [iKESecurityAssociationParametersArray2 countByEnumeratingWithState:&v44 objects:v50 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v46;
+      v11 = *v45;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v46 != v11)
+          if (*v45 != v11)
           {
             objc_enumerationMutation(iKESecurityAssociationParametersArray2);
           }
 
-          v5 &= [*(*(&v45 + 1) + 8 * i) checkValidityAndCollectErrors:errorsCopy];
+          v5 &= [*(*(&v44 + 1) + 8 * i) checkValidityAndCollectErrors:errorsCopy];
         }
 
-        v10 = [iKESecurityAssociationParametersArray2 countByEnumeratingWithState:&v45 objects:v51 count:16];
+        v10 = [iKESecurityAssociationParametersArray2 countByEnumeratingWithState:&v44 objects:v50 count:16];
       }
 
       while (v10);
@@ -462,29 +659,29 @@ LABEL_58:
 
   if (v16)
   {
-    v43 = 0u;
-    v44 = 0u;
-    v41 = 0u;
     v42 = 0u;
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
     childSecurityAssociationParametersArray2 = [(NEVPNProtocolIKEv2 *)self childSecurityAssociationParametersArray];
-    v18 = [childSecurityAssociationParametersArray2 countByEnumeratingWithState:&v41 objects:v50 count:16];
+    v18 = [childSecurityAssociationParametersArray2 countByEnumeratingWithState:&v40 objects:v49 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v42;
+      v20 = *v41;
       do
       {
         for (j = 0; j != v19; ++j)
         {
-          if (*v42 != v20)
+          if (*v41 != v20)
           {
             objc_enumerationMutation(childSecurityAssociationParametersArray2);
           }
 
-          v5 &= [*(*(&v41 + 1) + 8 * j) checkValidityAndCollectErrors:errorsCopy];
+          v5 &= [*(*(&v40 + 1) + 8 * j) checkValidityAndCollectErrors:errorsCopy];
         }
 
-        v19 = [childSecurityAssociationParametersArray2 countByEnumeratingWithState:&v41 objects:v50 count:16];
+        v19 = [childSecurityAssociationParametersArray2 countByEnumeratingWithState:&v40 objects:v49 count:16];
       }
 
       while (v19);
@@ -540,7 +737,6 @@ LABEL_32:
     LOBYTE(v5) = v38 & v5;
   }
 
-  v39 = *MEMORY[0x1E69E9840];
   return v5 & 1;
 }
 

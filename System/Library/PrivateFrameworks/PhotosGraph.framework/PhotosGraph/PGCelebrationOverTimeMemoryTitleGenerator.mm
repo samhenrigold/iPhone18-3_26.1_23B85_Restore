@@ -19,46 +19,46 @@
 
 - (id)_celebrationTitle
 {
-  v23 = *MEMORY[0x277D85DE8];
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x3032000000;
-  v19 = __Block_byref_object_copy__36094;
-  v20 = __Block_byref_object_dispose__36095;
-  v21 = 0;
+  v22 = *MEMORY[0x277D85DE8];
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x3032000000;
+  v18 = __Block_byref_object_copy__36094;
+  v19 = __Block_byref_object_dispose__36095;
+  v20 = 0;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   momentNodes = [(PGTitleGenerator *)self momentNodes];
-  v3 = [momentNodes countByEnumeratingWithState:&v12 objects:v22 count:16];
+  v3 = [momentNodes countByEnumeratingWithState:&v11 objects:v21 count:16];
   if (v3)
   {
-    v4 = *v13;
+    v4 = *v12;
 LABEL_3:
     v5 = 0;
     while (1)
     {
-      if (*v13 != v4)
+      if (*v12 != v4)
       {
         objc_enumerationMutation(momentNodes);
       }
 
-      v6 = *(*(&v12 + 1) + 8 * v5);
-      v11[0] = MEMORY[0x277D85DD0];
-      v11[1] = 3221225472;
-      v11[2] = __62__PGCelebrationOverTimeMemoryTitleGenerator__celebrationTitle__block_invoke;
-      v11[3] = &unk_278885C70;
-      v11[4] = &v16;
-      [v6 enumerateCelebratedHolidayNodesUsingBlock:v11];
-      if ([v17[5] length])
+      v6 = *(*(&v11 + 1) + 8 * v5);
+      v10[0] = MEMORY[0x277D85DD0];
+      v10[1] = 3221225472;
+      v10[2] = __62__PGCelebrationOverTimeMemoryTitleGenerator__celebrationTitle__block_invoke;
+      v10[3] = &unk_278885C70;
+      v10[4] = &v15;
+      [v6 enumerateCelebratedHolidayNodesUsingBlock:v10];
+      if ([v16[5] length])
       {
         break;
       }
 
       if (v3 == ++v5)
       {
-        v3 = [momentNodes countByEnumeratingWithState:&v12 objects:v22 count:16];
+        v3 = [momentNodes countByEnumeratingWithState:&v11 objects:v21 count:16];
         if (v3)
         {
           goto LABEL_3;
@@ -69,7 +69,7 @@ LABEL_3:
     }
   }
 
-  v7 = v17[5];
+  v7 = v16[5];
   if (v7)
   {
     v8 = [PGTitle titleWithString:v7 category:5];
@@ -80,9 +80,7 @@ LABEL_3:
     v8 = 0;
   }
 
-  _Block_object_dispose(&v16, 8);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v15, 8);
 
   return v8;
 }

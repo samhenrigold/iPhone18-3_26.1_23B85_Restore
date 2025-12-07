@@ -11,9 +11,9 @@
     +[NSBundle(VideosUI) vui_videosUIBundle];
   }
 
-  v1 = vui_videosUIBundle_bundle;
+  v2 = vui_videosUIBundle_bundle;
 
-  return v1;
+  return v2;
 }
 
 @end

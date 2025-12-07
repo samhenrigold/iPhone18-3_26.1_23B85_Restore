@@ -14,19 +14,19 @@
 
 - (DKDiagnosticXPCManager)initWithBundleIdentifier:(id)identifier connectionRoute:(unint64_t)route
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v7 = DiagnosticsKitLogHandleForCategory(1);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v17 = "[DKDiagnosticXPCManager initWithBundleIdentifier:connectionRoute:]";
+    v16 = "[DKDiagnosticXPCManager initWithBundleIdentifier:connectionRoute:]";
     _os_log_impl(&dword_248B9D000, v7, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 
-  v15.receiver = self;
-  v15.super_class = DKDiagnosticXPCManager;
-  v8 = [(DKDiagnosticManager *)&v15 initWithBundleIdentifier:identifierCopy connectionRoute:route];
+  v14.receiver = self;
+  v14.super_class = DKDiagnosticXPCManager;
+  v8 = [(DKDiagnosticManager *)&v14 initWithBundleIdentifier:identifierCopy connectionRoute:route];
 
   if (v8)
   {
@@ -39,13 +39,12 @@
     v8->_activeDiagnostics = v11;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (void)beginDiagnosticWithIdentifier:(id)identifier parameters:(id)parameters completion:(id)completion
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   parametersCopy = parameters;
   completionCopy = completion;
@@ -53,30 +52,28 @@
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v22 = "[DKDiagnosticXPCManager beginDiagnosticWithIdentifier:parameters:completion:]";
+    v21 = "[DKDiagnosticXPCManager beginDiagnosticWithIdentifier:parameters:completion:]";
     _os_log_impl(&dword_248B9D000, v11, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 
   diagnosticsManagerQueue = [(DKDiagnosticManager *)self diagnosticsManagerQueue];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __78__DKDiagnosticXPCManager_beginDiagnosticWithIdentifier_parameters_completion___block_invoke;
-  v17[3] = &unk_278F6C2D8;
-  v17[4] = self;
-  v18 = identifierCopy;
-  v19 = parametersCopy;
-  v20 = completionCopy;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __78__DKDiagnosticXPCManager_beginDiagnosticWithIdentifier_parameters_completion___block_invoke;
+  v16[3] = &unk_278F6C2D8;
+  v16[4] = self;
+  v17 = identifierCopy;
+  v18 = parametersCopy;
+  v19 = completionCopy;
   v13 = parametersCopy;
   v14 = completionCopy;
   v15 = identifierCopy;
-  dispatch_async(diagnosticsManagerQueue, v17);
-
-  v16 = *MEMORY[0x277D85DE8];
+  dispatch_async(diagnosticsManagerQueue, v16);
 }
 
 void __78__DKDiagnosticXPCManager_beginDiagnosticWithIdentifier_parameters_completion___block_invoke(uint64_t a1)
 {
-  v31[1] = *MEMORY[0x277D85DE8];
+  v30[1] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) diagnostics];
   v3 = [v2 objectForKeyedSubscript:*(a1 + 40)];
 
@@ -104,40 +101,40 @@ void __78__DKDiagnosticXPCManager_beginDiagnosticWithIdentifier_parameters_compl
 
     objc_initWeak(&location, *(a1 + 32));
     objc_initWeak(&from, v8);
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __78__DKDiagnosticXPCManager_beginDiagnosticWithIdentifier_parameters_completion___block_invoke_2;
-    v23[3] = &unk_278F6C260;
-    objc_copyWeak(&v24, &from);
-    objc_copyWeak(&v25, &location);
-    [v6 setInvalidationHandler:v23];
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __78__DKDiagnosticXPCManager_beginDiagnosticWithIdentifier_parameters_completion___block_invoke_7;
-    v21[3] = &unk_278F6C288;
-    objc_copyWeak(&v22, &from);
-    [v6 setInterruptionHandler:v21];
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __78__DKDiagnosticXPCManager_beginDiagnosticWithIdentifier_parameters_completion___block_invoke_2;
+    v22[3] = &unk_278F6C260;
+    objc_copyWeak(&v23, &from);
+    objc_copyWeak(&v24, &location);
+    [v6 setInvalidationHandler:v22];
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __78__DKDiagnosticXPCManager_beginDiagnosticWithIdentifier_parameters_completion___block_invoke_7;
+    v20[3] = &unk_278F6C288;
+    objc_copyWeak(&v21, &from);
+    [v6 setInterruptionHandler:v20];
     [v6 resume];
     v12 = DiagnosticsKitLogHandleForCategory(1);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       v13 = [*(a1 + 40) longValue];
       *buf = 134217984;
-      v29 = v13;
+      v28 = v13;
       _os_log_impl(&dword_248B9D000, v12, OS_LOG_TYPE_DEFAULT, "Found diagnostic for ID: %ld", buf, 0xCu);
     }
 
     v14 = *(a1 + 48);
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __78__DKDiagnosticXPCManager_beginDiagnosticWithIdentifier_parameters_completion___block_invoke_8;
-    v19[3] = &unk_278F6C2B0;
-    objc_copyWeak(&v20, &from);
-    [(DKDiagnosticHostContext *)v7 startWithPayload:v14 completion:v19];
-    objc_destroyWeak(&v20);
-    objc_destroyWeak(&v22);
-    objc_destroyWeak(&v25);
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __78__DKDiagnosticXPCManager_beginDiagnosticWithIdentifier_parameters_completion___block_invoke_8;
+    v18[3] = &unk_278F6C2B0;
+    objc_copyWeak(&v19, &from);
+    [(DKDiagnosticHostContext *)v7 startWithPayload:v14 completion:v18];
+    objc_destroyWeak(&v19);
+    objc_destroyWeak(&v21);
     objc_destroyWeak(&v24);
+    objc_destroyWeak(&v23);
     objc_destroyWeak(&from);
     objc_destroyWeak(&location);
   }
@@ -145,16 +142,14 @@ void __78__DKDiagnosticXPCManager_beginDiagnosticWithIdentifier_parameters_compl
   else
   {
     v15 = MEMORY[0x277CCA9B8];
-    v30 = *MEMORY[0x277CCA450];
+    v29 = *MEMORY[0x277CCA450];
     v16 = DKErrorLocalizedDescriptionForCode(-1000);
-    v31[0] = v16;
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:&v30 count:1];
+    v30[0] = v16;
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:&v29 count:1];
     v6 = [v15 errorWithDomain:@"DKErrorDomain" code:-1000 userInfo:v17];
 
     (*(*(a1 + 56) + 16))();
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __78__DKDiagnosticXPCManager_beginDiagnosticWithIdentifier_parameters_completion___block_invoke_2(uint64_t a1)
@@ -186,13 +181,13 @@ void __78__DKDiagnosticXPCManager_beginDiagnosticWithIdentifier_parameters_compl
 
 void __78__DKDiagnosticXPCManager_beginDiagnosticWithIdentifier_parameters_completion___block_invoke_8(uint64_t a1, int a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v4 = DiagnosticsKitLogHandleForCategory(1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7[0] = 67109120;
-    v7[1] = a2;
-    _os_log_impl(&dword_248B9D000, v4, OS_LOG_TYPE_DEFAULT, "Started: %d", v7, 8u);
+    v6[0] = 67109120;
+    v6[1] = a2;
+    _os_log_impl(&dword_248B9D000, v4, OS_LOG_TYPE_DEFAULT, "Started: %d", v6, 8u);
   }
 
   if ((a2 & 1) == 0)
@@ -200,33 +195,29 @@ void __78__DKDiagnosticXPCManager_beginDiagnosticWithIdentifier_parameters_compl
     WeakRetained = objc_loadWeakRetained((a1 + 32));
     [WeakRetained didFailStart];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)diagnosticsWithCompletion:(id)completion
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = DiagnosticsKitLogHandleForCategory(1);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v12 = "[DKDiagnosticXPCManager diagnosticsWithCompletion:]";
+    v11 = "[DKDiagnosticXPCManager diagnosticsWithCompletion:]";
     _os_log_impl(&dword_248B9D000, v5, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 
   diagnosticListQueue = [(DKDiagnosticManager *)self diagnosticListQueue];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __52__DKDiagnosticXPCManager_diagnosticsWithCompletion___block_invoke;
-  v9[3] = &unk_278F6C130;
-  v9[4] = self;
-  v10 = completionCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __52__DKDiagnosticXPCManager_diagnosticsWithCompletion___block_invoke;
+  v8[3] = &unk_278F6C130;
+  v8[4] = self;
+  v9 = completionCopy;
   v7 = completionCopy;
-  dispatch_async(diagnosticListQueue, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  dispatch_async(diagnosticListQueue, v8);
 }
 
 void __52__DKDiagnosticXPCManager_diagnosticsWithCompletion___block_invoke(uint64_t a1)
@@ -239,7 +230,7 @@ void __52__DKDiagnosticXPCManager_diagnosticsWithCompletion___block_invoke(uint6
 
 - (id)attributesForIdentifier:(id)identifier
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v5 = DiagnosticsKitLogHandleForCategory(1);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -251,16 +242,16 @@ void __52__DKDiagnosticXPCManager_diagnosticsWithCompletion___block_invoke(uint6
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v15 = 0x3032000000;
-  v16 = __Block_byref_object_copy__0;
-  v17 = __Block_byref_object_dispose__0;
-  v18 = 0;
+  v14 = 0x3032000000;
+  v15 = __Block_byref_object_copy__0;
+  v16 = __Block_byref_object_dispose__0;
+  v17 = 0;
   diagnosticListQueue = [(DKDiagnosticManager *)self diagnosticListQueue];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __50__DKDiagnosticXPCManager_attributesForIdentifier___block_invoke;
   block[3] = &unk_278F6C300;
-  v12 = identifierCopy;
+  v11 = identifierCopy;
   p_buf = &buf;
   block[4] = self;
   v7 = identifierCopy;
@@ -268,8 +259,6 @@ void __52__DKDiagnosticXPCManager_diagnosticsWithCompletion___block_invoke(uint6
 
   v8 = *(*(&buf + 1) + 40);
   _Block_object_dispose(&buf, 8);
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -285,49 +274,47 @@ void __50__DKDiagnosticXPCManager_attributesForIdentifier___block_invoke(uint64_
 
 - (void)cancelAllDiagnostics
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = DiagnosticsKitLogHandleForCategory(1);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v17 = "[DKDiagnosticXPCManager cancelAllDiagnostics]";
+    v16 = "[DKDiagnosticXPCManager cancelAllDiagnostics]";
     _os_log_impl(&dword_248B9D000, v3, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   activeDiagnostics = [(DKDiagnosticXPCManager *)self activeDiagnostics];
-  v5 = [activeDiagnostics countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [activeDiagnostics countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       v8 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(activeDiagnostics);
         }
 
-        context = [*(*(&v11 + 1) + 8 * v8) context];
+        context = [*(*(&v10 + 1) + 8 * v8) context];
         [context cancelWithCompletion:&__block_literal_global_9];
 
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [activeDiagnostics countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [activeDiagnostics countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __46__DKDiagnosticXPCManager_cancelAllDiagnostics__block_invoke()
@@ -342,27 +329,25 @@ void __46__DKDiagnosticXPCManager_cancelAllDiagnostics__block_invoke()
 
 - (void)registerDiagnosticWithAttributes:(id)attributes
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   attributesCopy = attributes;
   v5 = DiagnosticsKitLogHandleForCategory(1);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v12 = "[DKDiagnosticXPCManager registerDiagnosticWithAttributes:]";
+    v11 = "[DKDiagnosticXPCManager registerDiagnosticWithAttributes:]";
     _os_log_impl(&dword_248B9D000, v5, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 
   diagnosticListQueue = [(DKDiagnosticManager *)self diagnosticListQueue];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __59__DKDiagnosticXPCManager_registerDiagnosticWithAttributes___block_invoke;
-  v9[3] = &unk_278F6C090;
-  v9[4] = self;
-  v10 = attributesCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __59__DKDiagnosticXPCManager_registerDiagnosticWithAttributes___block_invoke;
+  v8[3] = &unk_278F6C090;
+  v8[4] = self;
+  v9 = attributesCopy;
   v7 = attributesCopy;
-  dispatch_barrier_async(diagnosticListQueue, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  dispatch_barrier_async(diagnosticListQueue, v8);
 }
 
 void __59__DKDiagnosticXPCManager_registerDiagnosticWithAttributes___block_invoke(uint64_t a1)
@@ -375,15 +360,15 @@ void __59__DKDiagnosticXPCManager_registerDiagnosticWithAttributes___block_invok
 
 - (void)getAsset:(id)asset completion:(id)completion
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   assetCopy = asset;
   completionCopy = completion;
   v8 = DiagnosticsKitLogHandleForCategory(1);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 136315138;
-    v14 = "[DKDiagnosticXPCManager getAsset:completion:]";
-    _os_log_impl(&dword_248B9D000, v8, OS_LOG_TYPE_DEFAULT, "%s", &v13, 0xCu);
+    v12 = 136315138;
+    v13 = "[DKDiagnosticXPCManager getAsset:completion:]";
+    _os_log_impl(&dword_248B9D000, v8, OS_LOG_TYPE_DEFAULT, "%s", &v12, 0xCu);
   }
 
   assetResponder = [(DKDiagnosticManager *)self assetResponder];
@@ -394,21 +379,19 @@ void __59__DKDiagnosticXPCManager_registerDiagnosticWithAttributes___block_invok
     assetResponder2 = [(DKDiagnosticManager *)self assetResponder];
     [assetResponder2 getAsset:assetCopy completion:completionCopy];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)showUI:(id)i completion:(id)completion
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   iCopy = i;
   completionCopy = completion;
   v8 = DiagnosticsKitLogHandleForCategory(1);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 136315138;
-    v14 = "[DKDiagnosticXPCManager showUI:completion:]";
-    _os_log_impl(&dword_248B9D000, v8, OS_LOG_TYPE_DEFAULT, "%s", &v13, 0xCu);
+    v12 = 136315138;
+    v13 = "[DKDiagnosticXPCManager showUI:completion:]";
+    _os_log_impl(&dword_248B9D000, v8, OS_LOG_TYPE_DEFAULT, "%s", &v12, 0xCu);
   }
 
   uiResponder = [(DKDiagnosticXPCManager *)self uiResponder];
@@ -419,8 +402,6 @@ void __59__DKDiagnosticXPCManager_registerDiagnosticWithAttributes___block_invok
     uiResponder2 = [(DKDiagnosticXPCManager *)self uiResponder];
     [uiResponder2 showUI:iCopy completion:completionCopy];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (DKUIResponder)uiResponder
@@ -432,11 +413,10 @@ void __59__DKDiagnosticXPCManager_registerDiagnosticWithAttributes___block_invok
 
 void __78__DKDiagnosticXPCManager_beginDiagnosticWithIdentifier_parameters_completion___block_invoke_7_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_248B9D000, a2, OS_LOG_TYPE_ERROR, "Connection interrupted: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_248B9D000, a2, OS_LOG_TYPE_ERROR, "Connection interrupted: %@", &v2, 0xCu);
 }
 
 @end

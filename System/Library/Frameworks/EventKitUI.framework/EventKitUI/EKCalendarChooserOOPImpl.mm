@@ -37,12 +37,12 @@
 
 - (CGSize)preferredContentSize
 {
-  v2 = EKUIContainedControllerIdealWidth();
+  EKUIContainedControllerIdealWidth();
   EKUIContainedControllerIdealHeight();
 
-  v4 = CGSizeMake(v3, v2);
-  result.height = v5;
-  result.width = v4;
+  CGSizeMake();
+  result.height = v3;
+  result.width = v2;
   return result;
 }
 
@@ -101,23 +101,28 @@
 - (NSSet)selectedCalendars
 {
   selfCopy = self;
-  sub_1D35A87A4();
+  v3 = sub_1D35A87A4();
 
-  sub_1D35A52E0(0, &qword_1EC76A860);
+  sub_1D35A52E0(0, &qword_1EC76A860, 0x1E6966990);
   sub_1D35AC630();
-  v3 = sub_1D35DF474();
+  v4 = sub_1D35DF474();
+  v3, v5, v6, v7, v8, v9, v10, v11;
 
-  return v3;
+  return v4;
 }
 
 - (void)setSelectedCalendars:(id)calendars
 {
-  sub_1D35A52E0(0, &qword_1EC76A860);
+  sub_1D35A52E0(0, &qword_1EC76A860, 0x1E6966990);
   sub_1D35AC630();
-  *(&self->super.super.super.isa + OBJC_IVAR____TtC10EventKitUI24EKCalendarChooserOOPImpl__selectedCalendars) = sub_1D35DF494();
+  v4 = sub_1D35DF494();
+  v5 = *(&self->super.super.super.isa + OBJC_IVAR____TtC10EventKitUI24EKCalendarChooserOOPImpl__selectedCalendars);
+  *(&self->super.super.super.isa + OBJC_IVAR____TtC10EventKitUI24EKCalendarChooserOOPImpl__selectedCalendars) = v4;
   selfCopy = self;
+  v5, v6, v7, v8, v9, v10, v11, v12;
 
-  sub_1D35A8C18(v4);
+  sub_1D35A8C18(v13);
+  v4, v14, v15, v16, v17, v18, v19, v20;
 }
 
 - (BOOL)showDetailAccessories
@@ -150,18 +155,21 @@
 
 - (EKCalendar)selectedCalendar
 {
+  v2 = *(&self->super.super.super.isa + OBJC_IVAR____TtC10EventKitUI24EKCalendarChooserOOPImpl__selectedCalendars);
   selfCopy = self;
 
-  v4 = sub_1D35A9C1C(v3);
+  v5 = sub_1D35A9C1C(v4);
 
-  return v4;
+  v2, v6, v7, v8, v9, v10, v11, v12;
+
+  return v5;
 }
 
 - (void)setSelectedCalendar:(id)calendar
 {
   calendarCopy = calendar;
   selfCopy = self;
-  sub_1D35AC698(calendar);
+  sub_1D35AC698(calendar, v6, v7, v8, v9, v10, v11, v12);
 }
 
 - (BOOL)showsDeclinedEventsSetting
@@ -198,7 +206,7 @@
   swift_beginAccess();
   *(&self->super.super.super.isa + v5) = mode;
   selfCopy = self;
-  v7 = sub_1D35A5820();
+  v7 = sub_1D35A5820(v9);
   memmove(__dst, v8, 0x92uLL);
   if (sub_1D35AC2C8(__dst) != 1)
   {

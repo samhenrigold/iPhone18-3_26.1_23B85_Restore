@@ -20,16 +20,16 @@
   return *&size_size;
 }
 
-uint64_t __20__NTKCIconView_size__block_invoke()
+uint64_t __20__NTKCIconView_size__block_invoke(uint64_t a1, uint64_t a2)
 {
-  result = NTKCScreenStyle();
-  v1 = 26.6666667;
+  result = NTKCScreenStyle(a1, a2);
+  v3 = 26.6666667;
   if (result != 1)
   {
-    v1 = 24.0;
+    v3 = 24.0;
   }
 
-  size_size = *&v1;
+  size_size = *&v3;
   return result;
 }
 

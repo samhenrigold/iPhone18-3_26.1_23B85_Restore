@@ -44,14 +44,14 @@ void __69___UIPreviewInteractionClickImpl_highlightEffectForClickInteraction___b
   }
 }
 
-uint64_t __81___UIPreviewInteractionClickImpl__handleTransitionToPossibleByEndingWithContext___block_invoke(uint64_t result, int a2)
+id *__81___UIPreviewInteractionClickImpl__handleTransitionToPossibleByEndingWithContext___block_invoke(id *result, int a2)
 {
   if (a2)
   {
     v2 = result;
     v3 = UIApp;
-    v4 = [*(result + 40) type];
-    v5 = [*(v2 + 32) view];
+    v4 = [result[5] type];
+    v5 = [v2[4] view];
     v6 = [v5 _window];
     v7 = [v6 _eventRoutingScene];
     [v3 _cancelAllEventsOfType:v4 onEventRoutingScene:v7];
@@ -60,7 +60,7 @@ uint64_t __81___UIPreviewInteractionClickImpl__handleTransitionToPossibleByEndin
     v8[1] = 3221225472;
     v8[2] = __81___UIPreviewInteractionClickImpl__handleTransitionToPossibleByEndingWithContext___block_invoke_2;
     v8[3] = &unk_1E70F3590;
-    v8[4] = *(v2 + 32);
+    v8[4] = v2[4];
     return [UIView performWithoutAnimation:v8];
   }
 

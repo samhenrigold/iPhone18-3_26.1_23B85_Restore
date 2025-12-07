@@ -51,6 +51,7 @@
 - (void)session:(id)session didUpdatePendingParticipants:(id)participants;
 - (void)setDiscoveryEnabled:(BOOL)enabled;
 - (void)startAcknowledgeResetTimerForSessionIdentifier:(id)identifier;
+- (void)startRemoteControlGroupSessionWithRouteType:(unsigned __int8)type completion:(id)completion;
 - (void)updateAdvertisementPreferences;
 @end
 
@@ -504,6 +505,36 @@ LABEL_12:
   v8 = observerCopy;
   v6 = observerCopy;
   dispatch_async(queue, v7);
+}
+
+- (void)startRemoteControlGroupSessionWithRouteType:(unsigned __int8)type completion:(id)completion
+{
+  typeCopy = type;
+  completionCopy = completion;
+  v19[0] = _NSConcreteStackBlock;
+  v19[1] = 3221225472;
+  v19[2] = sub_1000C40B8;
+  v19[3] = &unk_1004B9840;
+  v7 = [[MRDGroupSessionCreateTimingEvents alloc] initWithRouteType:typeCopy];
+  v20 = v7;
+  selfCopy = self;
+  v8 = completionCopy;
+  v22 = v8;
+  v9 = objc_retainBlock(v19);
+  queue = [(MRDGroupSessionManager *)self queue];
+  v14[0] = _NSConcreteStackBlock;
+  v14[1] = 3221225472;
+  v14[2] = sub_1000C41A0;
+  v14[3] = &unk_1004BB1B8;
+  v14[4] = self;
+  v15 = v7;
+  v18 = typeCopy;
+  v16 = v9;
+  v17 = v8;
+  v11 = v8;
+  v12 = v7;
+  v13 = v9;
+  dispatch_async(queue, v14);
 }
 
 - (void)leaveRemoteControlGroupSession:(id)session

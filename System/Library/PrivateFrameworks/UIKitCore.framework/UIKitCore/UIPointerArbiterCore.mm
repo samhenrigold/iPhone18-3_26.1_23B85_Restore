@@ -114,7 +114,7 @@ void __63___UIPointerArbiterCore_iOS_exitRegion_removeStyle_completion___block_i
   v8 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v4 = WeakRetained;
-  if (*(a1 + 64) == 1 && ([WeakRetained activePointerRegion], v5 = objc_claimAutoreleasedReturnValue(), v6 = objc_msgSend(v5, "isEqual:", *(a1 + 32)), v5, v6))
+  if (*(a1 + 64) == 1 && ([WeakRetained activePointerRegion], v5 = objc_claimAutoreleasedReturnValue(), isEqual = objc_msgSend_isEqual_(v5), v5, isEqual))
   {
     [v4 _setActiveHoverRegion:0 style:0 forPointerRegion:*(a1 + 32) transactionID:*(a1 + 56) completion:*(a1 + 40)];
   }
@@ -167,9 +167,9 @@ void __72___UIPointerArbiterCore_iOS__clearMatchMoveSourceForRegion_immediately_
 {
   v9[1] = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) activePointerRegion];
-  v3 = [v2 isEqual:*(a1 + 40)];
+  isEqual = objc_msgSend_isEqual_(v2);
 
-  if ((v3 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
     v4 = [*(a1 + 32) pointerRegionToMatchMoveSourceMap];
     v5 = [v4 objectForKey:*(a1 + 40)];

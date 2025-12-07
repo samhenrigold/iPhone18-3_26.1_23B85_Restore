@@ -1,4 +1,5 @@
 @interface CMIOExtensionPropertyAttributes
++ (CMIOExtensionPropertyAttributes)propertyAttributesWithMinValue:(id)minValue maxValue:(id)maxValue validValues:(NSArray *)validValues readOnly:(BOOL)readOnly;
 + (CMIOExtensionPropertyAttributes)propertyAttributesWithSharedStreamDefaultValue:(id)value minValue:(id)minValue maxValue:(id)maxValue validValues:(id)values;
 + (CMIOExtensionPropertyAttributes)readOnlyPropertyAttribute;
 - (BOOL)isEqual:(id)equal;
@@ -15,6 +16,13 @@
 @end
 
 @implementation CMIOExtensionPropertyAttributes
+
++ (CMIOExtensionPropertyAttributes)propertyAttributesWithMinValue:(id)minValue maxValue:(id)maxValue validValues:(NSArray *)validValues readOnly:(BOOL)readOnly
+{
+  v6 = [objc_alloc(objc_opt_class()) initWithMinValue:minValue maxValue:maxValue validValues:validValues readOnly:readOnly];
+
+  return v6;
+}
 
 + (CMIOExtensionPropertyAttributes)propertyAttributesWithSharedStreamDefaultValue:(id)value minValue:(id)minValue maxValue:(id)maxValue validValues:(id)values
 {
@@ -36,9 +44,9 @@
 
 - (CMIOExtensionPropertyAttributes)initWithMinValue:(id)minValue maxValue:(id)maxValue validValues:(NSArray *)validValues readOnly:(BOOL)readOnly
 {
-  v25.receiver = self;
-  v25.super_class = CMIOExtensionPropertyAttributes;
-  v10 = [(CMIOExtensionPropertyAttributes *)&v25 init];
+  v24.receiver = self;
+  v24.super_class = CMIOExtensionPropertyAttributes;
+  v10 = [(CMIOExtensionPropertyAttributes *)&v24 init];
   v11 = v10;
   if (!v10)
   {
@@ -285,14 +293,13 @@ LABEL_58:
 
   v11->_readOnly = readOnly;
   v21 = objc_alloc(MEMORY[0x277CCACA8]);
-  v22 = v11->_validValues;
-  v23 = 78;
+  v22 = 78;
   if (v11->_readOnly)
   {
-    v23 = 89;
+    v22 = 89;
   }
 
-  v11->_description = [v21 initWithFormat:@"<CMIOExtensionPropertyAttributes: %@:%@:%@:(%c)>", *&v11->_minValue, v11->_validValues, v23];
+  v11->_description = [v21 initWithFormat:@"<CMIOExtensionPropertyAttributes: %@:%@:%@:(%c)>", *&v11->_minValue, v11->_validValues, v22];
   return v11;
 }
 
@@ -435,12 +442,13 @@ CMIOExtensionPropertyAttributes *__60__CMIOExtensionPropertyAttributes_readOnlyP
         minValue = self->_minValue;
         if (minValue)
         {
-          if (cmio_XPCMessageSetCFDictionary(v3, "min", minValue))
+          v46 = cmio_XPCMessageSetCFDictionary(v3, "min", minValue);
+          if (v46)
           {
-            v27 = CMIOLog();
-            if (v27)
+            v48 = CMIOLog(v46, v47);
+            if (v48)
             {
-              if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+              if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
               {
                 [CMIOExtensionPropertyAttributes copyXPCDictionary];
               }
@@ -451,12 +459,13 @@ CMIOExtensionPropertyAttributes *__60__CMIOExtensionPropertyAttributes_readOnlyP
         maxValue = self->_maxValue;
         if (maxValue)
         {
-          if (cmio_XPCMessageSetCFDictionary(v3, "max", maxValue))
+          v50 = cmio_XPCMessageSetCFDictionary(v3, "max", maxValue);
+          if (v50)
           {
-            v29 = CMIOLog();
-            if (v29)
+            v52 = CMIOLog(v50, v51);
+            if (v52)
             {
-              if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+              if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
               {
                 [CMIOExtensionPropertyAttributes copyXPCDictionary];
               }
@@ -467,12 +476,13 @@ CMIOExtensionPropertyAttributes *__60__CMIOExtensionPropertyAttributes_readOnlyP
         validValues = self->_validValues;
         if (validValues)
         {
-          if (cmio_XPCMessageSetCFArray(v3, "validValues", validValues))
+          v54 = cmio_XPCMessageSetCFArray(v3, "validValues", validValues);
+          if (v54)
           {
-            v31 = CMIOLog();
-            if (v31)
+            v56 = CMIOLog(v54, v55);
+            if (v56)
             {
-              if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+              if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
               {
                 [CMIOExtensionPropertyAttributes copyXPCDictionary];
               }
@@ -488,15 +498,16 @@ CMIOExtensionPropertyAttributes *__60__CMIOExtensionPropertyAttributes_readOnlyP
           goto LABEL_87;
         }
 
-        v14 = self->_minValue;
-        if (v14)
+        v21 = self->_minValue;
+        if (v21)
         {
-          if (cmio_XPCMessageSetCFArray(v3, "min", v14))
+          v22 = cmio_XPCMessageSetCFArray(v3, "min", v21);
+          if (v22)
           {
-            v15 = CMIOLog();
-            if (v15)
+            v24 = CMIOLog(v22, v23);
+            if (v24)
             {
-              if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+              if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
               {
                 [CMIOExtensionPropertyAttributes copyXPCDictionary];
               }
@@ -504,15 +515,16 @@ CMIOExtensionPropertyAttributes *__60__CMIOExtensionPropertyAttributes_readOnlyP
           }
         }
 
-        v16 = self->_maxValue;
-        if (v16)
+        v25 = self->_maxValue;
+        if (v25)
         {
-          if (cmio_XPCMessageSetCFArray(v3, "max", v16))
+          v26 = cmio_XPCMessageSetCFArray(v3, "max", v25);
+          if (v26)
           {
-            v17 = CMIOLog();
-            if (v17)
+            v28 = CMIOLog(v26, v27);
+            if (v28)
             {
-              if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+              if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
               {
                 [CMIOExtensionPropertyAttributes copyXPCDictionary];
               }
@@ -520,15 +532,16 @@ CMIOExtensionPropertyAttributes *__60__CMIOExtensionPropertyAttributes_readOnlyP
           }
         }
 
-        v18 = self->_validValues;
-        if (v18)
+        v29 = self->_validValues;
+        if (v29)
         {
-          if (cmio_XPCMessageSetCFArray(v3, "validValues", v18))
+          v30 = cmio_XPCMessageSetCFArray(v3, "validValues", v29);
+          if (v30)
           {
-            v19 = CMIOLog();
-            if (v19)
+            v32 = CMIOLog(v30, v31);
+            if (v32)
             {
-              if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+              if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
               {
                 [CMIOExtensionPropertyAttributes copyXPCDictionary];
               }
@@ -540,15 +553,16 @@ CMIOExtensionPropertyAttributes *__60__CMIOExtensionPropertyAttributes_readOnlyP
 
     else if (objectType == 4)
     {
-      v20 = self->_minValue;
-      if (v20)
+      v33 = self->_minValue;
+      if (v33)
       {
-        if (cmio_XPCMessageSetCFString(v3, "min", v20))
+        v34 = cmio_XPCMessageSetCFString(v3, "min", v33);
+        if (v34)
         {
-          v21 = CMIOLog();
-          if (v21)
+          v36 = CMIOLog(v34, v35);
+          if (v36)
           {
-            if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
             {
               [CMIOExtensionPropertyAttributes copyXPCDictionary];
             }
@@ -556,15 +570,16 @@ CMIOExtensionPropertyAttributes *__60__CMIOExtensionPropertyAttributes_readOnlyP
         }
       }
 
-      v22 = self->_maxValue;
-      if (v22)
+      v37 = self->_maxValue;
+      if (v37)
       {
-        if (cmio_XPCMessageSetCFString(v3, "max", v22))
+        v38 = cmio_XPCMessageSetCFString(v3, "max", v37);
+        if (v38)
         {
-          v23 = CMIOLog();
-          if (v23)
+          v40 = CMIOLog(v38, v39);
+          if (v40)
           {
-            if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
             {
               [CMIOExtensionPropertyAttributes copyXPCDictionary];
             }
@@ -572,15 +587,16 @@ CMIOExtensionPropertyAttributes *__60__CMIOExtensionPropertyAttributes_readOnlyP
         }
       }
 
-      v24 = self->_validValues;
-      if (v24)
+      v41 = self->_validValues;
+      if (v41)
       {
-        if (cmio_XPCMessageSetCFArray(v3, "validValues", v24))
+        v42 = cmio_XPCMessageSetCFArray(v3, "validValues", v41);
+        if (v42)
         {
-          v25 = CMIOLog();
-          if (v25)
+          v44 = CMIOLog(v42, v43);
+          if (v44)
           {
-            if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
             {
               [CMIOExtensionPropertyAttributes copyXPCDictionary];
             }
@@ -591,42 +607,42 @@ CMIOExtensionPropertyAttributes *__60__CMIOExtensionPropertyAttributes_readOnlyP
 
     else
     {
-      v11 = self->_minValue;
-      if (v11)
+      v17 = self->_minValue;
+      if (v17)
       {
-        copyXPCDictionary = [v11 copyXPCDictionary];
+        copyXPCDictionary = [v17 copyXPCDictionary];
         if (copyXPCDictionary)
         {
-          v13 = copyXPCDictionary;
+          v20 = copyXPCDictionary;
           xpc_dictionary_set_value(v3, "min", copyXPCDictionary);
-          xpc_release(v13);
+          xpc_release(v20);
         }
 
         else
         {
-          v38 = CMIOLog();
-          if (v38 && os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+          v69 = CMIOLog(0, v19);
+          if (v69 && os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
           {
             [CMIOExtensionPropertyAttributes copyXPCDictionary];
           }
         }
       }
 
-      v39 = self->_maxValue;
-      if (v39)
+      v70 = self->_maxValue;
+      if (v70)
       {
-        copyXPCDictionary2 = [v39 copyXPCDictionary];
+        copyXPCDictionary2 = [v70 copyXPCDictionary];
         if (copyXPCDictionary2)
         {
-          v41 = copyXPCDictionary2;
+          v73 = copyXPCDictionary2;
           xpc_dictionary_set_value(v3, "max", copyXPCDictionary2);
-          xpc_release(v41);
+          xpc_release(v73);
         }
 
         else
         {
-          v42 = CMIOLog();
-          if (v42 && os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+          v74 = CMIOLog(0, v72);
+          if (v74 && os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
           {
             [CMIOExtensionPropertyAttributes copyXPCDictionary];
           }
@@ -635,12 +651,12 @@ CMIOExtensionPropertyAttributes *__60__CMIOExtensionPropertyAttributes_readOnlyP
 
       if (self->_validValues)
       {
-        v43 = [CMIOExtensionStreamFormat copyXPCArrayFromFormats:?];
-        if (v43)
+        v75 = [CMIOExtensionStreamFormat copyXPCArrayFromFormats:?];
+        if (v75)
         {
-          v44 = v43;
-          xpc_dictionary_set_value(v3, "validValues", v43);
-          xpc_release(v44);
+          v76 = v75;
+          xpc_dictionary_set_value(v3, "validValues", v75);
+          xpc_release(v76);
         }
       }
     }
@@ -660,25 +676,10 @@ CMIOExtensionPropertyAttributes *__60__CMIOExtensionPropertyAttributes_readOnlyP
         v5 = self->_minValue;
         if (v5)
         {
-          if (cmio_XPCMessageSetCFNumber(v3, "min", v5))
+          v6 = cmio_XPCMessageSetCFNumber(v3, "min", v5);
+          if (v6)
           {
-            v6 = CMIOLog();
-            if (v6)
-            {
-              if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
-              {
-                [CMIOExtensionPropertyAttributes copyXPCDictionary];
-              }
-            }
-          }
-        }
-
-        v7 = self->_maxValue;
-        if (v7)
-        {
-          if (cmio_XPCMessageSetCFNumber(v3, "max", v7))
-          {
-            v8 = CMIOLog();
+            v8 = CMIOLog(v6, v7);
             if (v8)
             {
               if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
@@ -689,15 +690,33 @@ CMIOExtensionPropertyAttributes *__60__CMIOExtensionPropertyAttributes_readOnlyP
           }
         }
 
-        v9 = self->_validValues;
+        v9 = self->_maxValue;
         if (v9)
         {
-          if (cmio_XPCMessageSetCFArray(v3, "validValues", v9))
+          v10 = cmio_XPCMessageSetCFNumber(v3, "max", v9);
+          if (v10)
           {
-            v10 = CMIOLog();
-            if (v10)
+            v12 = CMIOLog(v10, v11);
+            if (v12)
             {
-              if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+              if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+              {
+                [CMIOExtensionPropertyAttributes copyXPCDictionary];
+              }
+            }
+          }
+        }
+
+        v13 = self->_validValues;
+        if (v13)
+        {
+          v14 = cmio_XPCMessageSetCFArray(v3, "validValues", v13);
+          if (v14)
+          {
+            v16 = CMIOLog(v14, v15);
+            if (v16)
+            {
+              if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
               {
                 [CMIOExtensionPropertyAttributes copyXPCDictionary];
               }
@@ -713,15 +732,16 @@ LABEL_87:
       return 0;
     }
 
-    v32 = self->_minValue;
-    if (v32)
+    v57 = self->_minValue;
+    if (v57)
     {
-      if (cmio_XPCMessageSetCFData(v3, "min", v32))
+      v58 = cmio_XPCMessageSetCFData(v3, "min", v57);
+      if (v58)
       {
-        v33 = CMIOLog();
-        if (v33)
+        v60 = CMIOLog(v58, v59);
+        if (v60)
         {
-          if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
           {
             [CMIOExtensionPropertyAttributes copyXPCDictionary];
           }
@@ -729,15 +749,16 @@ LABEL_87:
       }
     }
 
-    v34 = self->_maxValue;
-    if (v34)
+    v61 = self->_maxValue;
+    if (v61)
     {
-      if (cmio_XPCMessageSetCFData(v3, "max", v34))
+      v62 = cmio_XPCMessageSetCFData(v3, "max", v61);
+      if (v62)
       {
-        v35 = CMIOLog();
-        if (v35)
+        v64 = CMIOLog(v62, v63);
+        if (v64)
         {
-          if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
           {
             [CMIOExtensionPropertyAttributes copyXPCDictionary];
           }
@@ -745,15 +766,16 @@ LABEL_87:
       }
     }
 
-    v36 = self->_validValues;
-    if (v36)
+    v65 = self->_validValues;
+    if (v65)
     {
-      if (cmio_XPCMessageSetCFArray(v3, "validValues", v36))
+      v66 = cmio_XPCMessageSetCFArray(v3, "validValues", v65);
+      if (v66)
       {
-        v37 = CMIOLog();
-        if (v37)
+        v68 = CMIOLog(v66, v67);
+        if (v68)
         {
-          if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
           {
             [CMIOExtensionPropertyAttributes copyXPCDictionary];
           }
@@ -769,9 +791,9 @@ LABEL_87:
 {
   if (dictionary)
   {
-    v28 = 0;
-    v29 = 0;
-    v27 = 0;
+    v58 = 0;
+    v59 = 0;
+    v57 = 0;
     uint64 = xpc_dictionary_get_uint64(dictionary, "type");
     v6 = xpc_dictionary_get_BOOL(dictionary, "readonly");
     if (uint64 > 4)
@@ -782,53 +804,56 @@ LABEL_87:
           value = xpc_dictionary_get_value(dictionary, "min");
           if (value)
           {
-            v29 = [[CMIOExtensionStreamFormat alloc] initWithXPCDictionary:value];
+            v59 = [[CMIOExtensionStreamFormat alloc] initWithXPCDictionary:value];
           }
 
-          v18 = xpc_dictionary_get_value(dictionary, "max");
-          if (v18)
+          v36 = xpc_dictionary_get_value(dictionary, "max");
+          if (v36)
           {
-            v28 = [[CMIOExtensionStreamFormat alloc] initWithXPCDictionary:v18];
+            v58 = [[CMIOExtensionStreamFormat alloc] initWithXPCDictionary:v36];
           }
 
-          v19 = xpc_dictionary_get_value(dictionary, "validValues");
-          if (v19)
+          v37 = xpc_dictionary_get_value(dictionary, "validValues");
+          if (v37)
           {
-            v27 = [CMIOExtensionStreamFormat copyFormatsFromXPCArray:v19];
+            v57 = [CMIOExtensionStreamFormat copyFormatsFromXPCArray:v37];
           }
 
           break;
         case 6:
-          if (cmio_XPCMessageCopyCFDictionary(dictionary, "min", &v29))
+          v47 = cmio_XPCMessageCopyCFDictionary(dictionary, "min", &v59);
+          if (v47)
           {
-            v23 = CMIOLog();
-            if (v23)
+            v49 = CMIOLog(v47, v48);
+            if (v49)
             {
-              if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+              if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
               {
                 [CMIOExtensionPropertyAttributes initWithXPCDictionary:];
               }
             }
           }
 
-          if (cmio_XPCMessageCopyCFDictionary(dictionary, "max", &v28))
+          v50 = cmio_XPCMessageCopyCFDictionary(dictionary, "max", &v58);
+          if (v50)
           {
-            v24 = CMIOLog();
-            if (v24)
+            v52 = CMIOLog(v50, v51);
+            if (v52)
             {
-              if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+              if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
               {
                 [CMIOExtensionPropertyAttributes initWithXPCDictionary:];
               }
             }
           }
 
-          if (cmio_XPCMessageCopyCFArray(dictionary, "validValues", &v27))
+          v53 = cmio_XPCMessageCopyCFArray(dictionary, "validValues", &v57);
+          if (v53)
           {
-            v25 = CMIOLog();
-            if (v25)
+            v55 = CMIOLog(v53, v54);
+            if (v55)
             {
-              if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+              if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
               {
                 [CMIOExtensionPropertyAttributes initWithXPCDictionary:];
               }
@@ -837,36 +862,39 @@ LABEL_87:
 
           break;
         case 7:
-          if (cmio_XPCMessageCopyCFArray(dictionary, "min", &v29))
+          v17 = cmio_XPCMessageCopyCFArray(dictionary, "min", &v59);
+          if (v17)
           {
-            v11 = CMIOLog();
-            if (v11)
+            v19 = CMIOLog(v17, v18);
+            if (v19)
             {
-              if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+              if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
               {
                 [CMIOExtensionPropertyAttributes initWithXPCDictionary:];
               }
             }
           }
 
-          if (cmio_XPCMessageCopyCFArray(dictionary, "max", &v28))
+          v20 = cmio_XPCMessageCopyCFArray(dictionary, "max", &v58);
+          if (v20)
           {
-            v12 = CMIOLog();
-            if (v12)
+            v22 = CMIOLog(v20, v21);
+            if (v22)
             {
-              if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+              if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
               {
                 [CMIOExtensionPropertyAttributes initWithXPCDictionary:];
               }
             }
           }
 
-          if (cmio_XPCMessageCopyCFArray(dictionary, "validValues", &v27))
+          v23 = cmio_XPCMessageCopyCFArray(dictionary, "validValues", &v57);
+          if (v23)
           {
-            v13 = CMIOLog();
-            if (v13)
+            v25 = CMIOLog(v23, v24);
+            if (v25)
             {
-              if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+              if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
               {
                 [CMIOExtensionPropertyAttributes initWithXPCDictionary:];
               }
@@ -882,36 +910,39 @@ LABEL_87:
       switch(uint64)
       {
         case 2:
-          if (cmio_XPCMessageCopyCFData(dictionary, "min", &v29))
+          v26 = cmio_XPCMessageCopyCFData(dictionary, "min", &v59);
+          if (v26)
           {
-            v14 = CMIOLog();
-            if (v14)
+            v28 = CMIOLog(v26, v27);
+            if (v28)
             {
-              if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+              if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
               {
                 [CMIOExtensionPropertyAttributes initWithXPCDictionary:];
               }
             }
           }
 
-          if (cmio_XPCMessageCopyCFData(dictionary, "max", &v28))
+          v29 = cmio_XPCMessageCopyCFData(dictionary, "max", &v58);
+          if (v29)
           {
-            v15 = CMIOLog();
-            if (v15)
+            v31 = CMIOLog(v29, v30);
+            if (v31)
             {
-              if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+              if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
               {
                 [CMIOExtensionPropertyAttributes initWithXPCDictionary:];
               }
             }
           }
 
-          if (cmio_XPCMessageCopyCFArray(dictionary, "validValues", &v27))
+          v32 = cmio_XPCMessageCopyCFArray(dictionary, "validValues", &v57);
+          if (v32)
           {
-            v16 = CMIOLog();
-            if (v16)
+            v34 = CMIOLog(v32, v33);
+            if (v34)
             {
-              if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+              if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
               {
                 [CMIOExtensionPropertyAttributes initWithXPCDictionary:];
               }
@@ -920,36 +951,39 @@ LABEL_87:
 
           break;
         case 3:
-          if (cmio_XPCMessageCopyCFNumber(dictionary, "min", &v29))
+          v38 = cmio_XPCMessageCopyCFNumber(dictionary, "min", &v59);
+          if (v38)
           {
-            v20 = CMIOLog();
-            if (v20)
+            v40 = CMIOLog(v38, v39);
+            if (v40)
             {
-              if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+              if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
               {
                 [CMIOExtensionPropertyAttributes initWithXPCDictionary:];
               }
             }
           }
 
-          if (cmio_XPCMessageCopyCFNumber(dictionary, "max", &v28))
+          v41 = cmio_XPCMessageCopyCFNumber(dictionary, "max", &v58);
+          if (v41)
           {
-            v21 = CMIOLog();
-            if (v21)
+            v43 = CMIOLog(v41, v42);
+            if (v43)
             {
-              if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+              if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
               {
                 [CMIOExtensionPropertyAttributes initWithXPCDictionary:];
               }
             }
           }
 
-          if (cmio_XPCMessageCopyCFArray(dictionary, "validValues", &v27))
+          v44 = cmio_XPCMessageCopyCFArray(dictionary, "validValues", &v57);
+          if (v44)
           {
-            v22 = CMIOLog();
-            if (v22)
+            v46 = CMIOLog(v44, v45);
+            if (v46)
             {
-              if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+              if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
               {
                 [CMIOExtensionPropertyAttributes initWithXPCDictionary:];
               }
@@ -958,36 +992,39 @@ LABEL_87:
 
           break;
         case 4:
-          if (cmio_XPCMessageCopyCFString(dictionary, "min", &v29))
+          v7 = cmio_XPCMessageCopyCFString(dictionary, "min", &v59);
+          if (v7)
           {
-            v7 = CMIOLog();
-            if (v7)
-            {
-              if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
-              {
-                [CMIOExtensionPropertyAttributes initWithXPCDictionary:];
-              }
-            }
-          }
-
-          if (cmio_XPCMessageCopyCFString(dictionary, "max", &v28))
-          {
-            v8 = CMIOLog();
-            if (v8)
-            {
-              if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
-              {
-                [CMIOExtensionPropertyAttributes initWithXPCDictionary:];
-              }
-            }
-          }
-
-          if (cmio_XPCMessageCopyCFArray(dictionary, "validValues", &v27))
-          {
-            v9 = CMIOLog();
+            v9 = CMIOLog(v7, v8);
             if (v9)
             {
               if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+              {
+                [CMIOExtensionPropertyAttributes initWithXPCDictionary:];
+              }
+            }
+          }
+
+          v10 = cmio_XPCMessageCopyCFString(dictionary, "max", &v58);
+          if (v10)
+          {
+            v12 = CMIOLog(v10, v11);
+            if (v12)
+            {
+              if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+              {
+                [CMIOExtensionPropertyAttributes initWithXPCDictionary:];
+              }
+            }
+          }
+
+          v13 = cmio_XPCMessageCopyCFArray(dictionary, "validValues", &v57);
+          if (v13)
+          {
+            v15 = CMIOLog(v13, v14);
+            if (v15)
+            {
+              if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
               {
                 [CMIOExtensionPropertyAttributes initWithXPCDictionary:];
               }
@@ -998,7 +1035,7 @@ LABEL_87:
       }
     }
 
-    v10 = [(CMIOExtensionPropertyAttributes *)self initWithMinValue:v29 maxValue:v28 validValues:v27 readOnly:v6];
+    v16 = [(CMIOExtensionPropertyAttributes *)self initWithMinValue:v59 maxValue:v58 validValues:v57 readOnly:v6];
   }
 
   else
@@ -1008,215 +1045,183 @@ LABEL_87:
     return 0;
   }
 
-  return v10;
+  return v16;
 }
 
 - (void)copyXPCDictionary
 {
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProperties.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithXPCDictionary:.cold.1()
 {
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProperties.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithXPCDictionary:.cold.2()
 {
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProperties.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithXPCDictionary:.cold.3()
 {
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProperties.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithXPCDictionary:.cold.4()
 {
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProperties.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithXPCDictionary:.cold.5()
 {
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProperties.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithXPCDictionary:.cold.6()
 {
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProperties.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithXPCDictionary:.cold.7()
 {
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProperties.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithXPCDictionary:.cold.8()
 {
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProperties.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithXPCDictionary:.cold.9()
 {
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProperties.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithXPCDictionary:.cold.10()
 {
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProperties.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithXPCDictionary:.cold.11()
 {
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProperties.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithXPCDictionary:.cold.12()
 {
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProperties.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithXPCDictionary:.cold.13()
 {
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProperties.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithXPCDictionary:.cold.14()
 {
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProperties.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithXPCDictionary:.cold.15()
 {
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProperties.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

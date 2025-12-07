@@ -313,7 +313,6 @@ LABEL_8:
   v13 = *(data + 4) == 0;
 LABEL_16:
   pthread_mutex_lock(&parser_mutex);
-  v14 = parser_wip;
   x_list_remove(parser_wip, bytes);
   parser_wip = v14;
   pthread_cond_broadcast(&parser_cond);

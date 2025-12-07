@@ -48,24 +48,23 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v5 = objc_opt_class();
-  v8 = objc_msgSend_allocWithZone_(v5, v6, zone, v7);
-  objc_msgSend_height(self, v9, v10, v11);
-  v13 = v12;
-  objc_msgSend_depth(self, v14, v15, v16);
-  v18 = v17;
-  objc_msgSend_width(self, v19, v20, v21);
+  v4 = [objc_opt_class() allocWithZone:zone];
+  [(EQKitRule *)self height];
+  v6 = v5;
+  [(EQKitRule *)self depth];
+  v8 = v7;
+  [(EQKitRule *)self width];
   mCGColor = self->mCGColor;
 
-  return objc_msgSend_initWithHeight_depth_width_cgColor_(v8, v22, mCGColor, v23, v13, v18, v24);
+  return [v4 initWithHeight:mCGColor depth:v6 width:v8 cgColor:v9];
 }
 
 - (BOOL)isEqual:(id)equal
 {
   if (self == equal)
   {
-    LOBYTE(isMemberOfClass) = 1;
-    return isMemberOfClass;
+    LOBYTE(v5) = 1;
+    return v5;
   }
 
   if (!equal)
@@ -73,28 +72,27 @@
     goto LABEL_10;
   }
 
-  v5 = objc_opt_class();
-  isMemberOfClass = objc_msgSend_isMemberOfClass_(equal, v6, v5, v7);
-  if (!isMemberOfClass)
+  v5 = [equal isMemberOfClass:objc_opt_class()];
+  if (!v5)
   {
-    return isMemberOfClass;
+    return v5;
   }
 
-  objc_msgSend_height(self, v9, v10, v11);
-  v13 = v12;
-  objc_msgSend_height(equal, v14, v15, v16);
-  if (v13 != v20 || (objc_msgSend_depth(self, v17, v18, v19), v22 = v21, objc_msgSend_depth(equal, v23, v24, v25), v22 != v29) || (objc_msgSend_width(self, v26, v27, v28), v31 = v30, objc_msgSend_width(equal, v32, v33, v34), v31 != v38))
+  [(EQKitRule *)self height];
+  v7 = v6;
+  [equal height];
+  if (v7 != v8 || (-[EQKitRule depth](self, "depth"), v10 = v9, [equal depth], v10 != v11) || (-[EQKitRule width](self, "width"), v13 = v12, objc_msgSend(equal, "width"), v13 != v14))
   {
 LABEL_10:
-    LOBYTE(isMemberOfClass) = 0;
-    return isMemberOfClass;
+    LOBYTE(v5) = 0;
+    return v5;
   }
 
-  v39 = objc_msgSend_color(self, v35, v36, v37);
-  v43 = objc_msgSend_color(equal, v40, v41, v42);
+  color = [(EQKitRule *)self color];
+  color2 = [equal color];
 
-  LOBYTE(isMemberOfClass) = CGColorEqualToColor(v39, v43);
-  return isMemberOfClass;
+  LOBYTE(v5) = CGColorEqualToColor(color, color2);
+  return v5;
 }
 
 - (unint64_t)hash
@@ -110,13 +108,13 @@ LABEL_10:
   {
     y = offset.y;
     x = offset.x;
-    objc_msgSend_width(self, a2, context, v4);
-    v10 = v9;
-    objc_msgSend_vsize(self, v11, v12, v13);
-    if (v10 > 0.0)
+    [(EQKitRule *)self width];
+    v9 = v8;
+    [(EQKitBox *)self vsize];
+    if (v9 > 0.0)
     {
-      v18 = v17;
-      if (v17 > 0.0)
+      v11 = v10;
+      if (v10 > 0.0)
       {
         if (self->mCGColor)
         {
@@ -124,28 +122,28 @@ LABEL_10:
           CGContextSetFillColorWithColor(context, self->mCGColor);
         }
 
-        objc_msgSend_height(self, v14, v15, v16);
-        v20 = y - v19;
-        v21 = x + v10;
-        v22 = -v10;
-        if (v10 >= 0.0)
+        [(EQKitRule *)self height];
+        v13 = y - v12;
+        v14 = x + v9;
+        v15 = -v9;
+        if (v9 >= 0.0)
         {
-          v22 = v10;
-          v21 = x;
+          v15 = v9;
+          v14 = x;
         }
 
-        v23 = -v18;
-        if (v18 < 0.0)
+        v16 = -v11;
+        if (v11 < 0.0)
         {
-          v20 = v18 + v20;
+          v13 = v11 + v13;
         }
 
         else
         {
-          v23 = v18;
+          v16 = v11;
         }
 
-        CGContextFillRect(context, *&v21);
+        CGContextFillRect(context, *&v14);
         if (self->mCGColor)
         {
 
@@ -177,12 +175,12 @@ LABEL_10:
 {
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
-  objc_msgSend_height(self, v5, v6, v7);
-  v9 = v8;
-  objc_msgSend_depth(self, v10, v11, v12);
-  v14 = v13;
-  objc_msgSend_width(self, v15, v16, v17);
-  return objc_msgSend_stringWithFormat_(v3, v18, @"<%@ %p>: height=%f depth=%f width=%f", v19, v4, self, v9, v14, v20);
+  [(EQKitRule *)self height];
+  v6 = v5;
+  [(EQKitRule *)self depth];
+  v8 = v7;
+  [(EQKitRule *)self width];
+  return [v3 stringWithFormat:@"<%@ %p>: height=%f depth=%f width=%f", v4, self, v6, v8, v9];
 }
 
 @end

@@ -5,6 +5,7 @@
 - (id)reportUsedImages;
 - (id)reportUsedImagesFullInfoUsingBlock:(id)block;
 - (id)searchFrame:(unint64_t)frame in:(id)in regions:(id)regions result:(id *)result;
+- (unint64_t)markImageAsUsed:(id)used from:(int)from;
 - (void)setKernelCache:(unsigned __int8)cache[16] address:(unint64_t)address size:(unint64_t)size;
 - (void)setRootedCacheLibs:(dyld_uuid_info_64 *)libs count:(unsigned int)count;
 - (void)targetSharedCache:(unsigned __int8)cache[16] withSlide:(unint64_t)slide atBaseAddress:(unint64_t)address;
@@ -14,10 +15,10 @@
 
 - (OSABinaryImageCatalog)init
 {
-  v21 = *MEMORY[0x1E69E9840];
-  v19.receiver = self;
-  v19.super_class = OSABinaryImageCatalog;
-  v2 = [(OSABinaryImageCatalog *)&v19 init];
+  v20 = *MEMORY[0x1E69E9840];
+  v18.receiver = self;
+  v18.super_class = OSABinaryImageCatalog;
+  v2 = [(OSABinaryImageCatalog *)&v18 init];
   if (v2)
   {
     v3 = objc_alloc_init(MEMORY[0x1E695DF70]);
@@ -56,7 +57,6 @@
     }
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -73,9 +73,7 @@ uint64_t __29__OSABinaryImageCatalog_init__block_invoke()
 
 - (void)setKernelCache:(unsigned __int8)cache[16] address:(unint64_t)address size:(unint64_t)size
 {
-  v6 = [[OSABinaryImageSegment alloc] initWithAddress:address size:0x40000000 for:cache];
-  kernel_cache_segment = self->_kernel_cache_segment;
-  self->_kernel_cache_segment = v6;
+  self->_kernel_cache_segment = [[OSABinaryImageSegment alloc] initWithAddress:address size:0x40000000 for:cache];
 
   MEMORY[0x1EEE66BB8]();
 }
@@ -108,6 +106,26 @@ uint64_t __29__OSABinaryImageCatalog_init__block_invoke()
   v10 = self->_rootedCacheLibs;
 
   [(NSMutableArray *)v10 sortByAddressAndSetInferredSizes];
+}
+
+- (unint64_t)markImageAsUsed:(id)used from:(int)from
+{
+  v4 = *&from;
+  usedCopy = used;
+  if ([usedCopy source] && objc_msgSend(usedCopy, "source") != 106)
+  {
+    used_index = [usedCopy used_index];
+  }
+
+  else
+  {
+    [usedCopy setSource:v4];
+    used_index = [(NSMutableArray *)self->_used_segments count];
+    [usedCopy setUsed_index:used_index];
+    [(NSMutableArray *)self->_used_segments addObject:usedCopy];
+  }
+
+  return used_index;
 }
 
 - (void)targetSharedCache:(unsigned __int8)cache[16] withSlide:(unint64_t)slide atBaseAddress:(unint64_t)address
@@ -186,7 +204,6 @@ LABEL_7:
 
 - (BOOL)isAddressInTargetedCache:(unint64_t)cache
 {
-  targeted_cache = self->_targeted_cache;
   targeted_slide = self->_targeted_slide;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -194,41 +211,41 @@ LABEL_7:
     return 0;
   }
 
-  v7 = cache - targeted_slide;
+  v6 = cache - targeted_slide;
   symbolInfo = [(OSABinaryImageSegment *)self->_targeted_cache symbolInfo];
-  if (v7 >= [symbolInfo start])
+  if (v6 >= [symbolInfo start])
   {
     symbolInfo2 = [(OSABinaryImageSegment *)self->_targeted_cache symbolInfo];
     start = [symbolInfo2 start];
     symbolInfo3 = [(OSABinaryImageSegment *)self->_targeted_cache symbolInfo];
-    v9 = v7 < [symbolInfo3 size] + start;
+    v8 = v6 < [symbolInfo3 size] + start;
   }
 
   else
   {
-    v9 = 0;
+    v8 = 0;
   }
 
-  return v9;
+  return v8;
 }
 
 - (id)searchFrame:(unint64_t)frame in:(id)in regions:(id)regions result:(id *)result
 {
-  v72[2] = *MEMORY[0x1E69E9840];
+  v70[2] = *MEMORY[0x1E69E9840];
   inCopy = in;
   regionsCopy = regions;
-  v64 = 0;
-  v65 = &v64;
-  v66 = 0x3032000000;
-  v67 = __Block_byref_object_copy__6;
-  v68 = __Block_byref_object_dispose__6;
-  v69 = 0;
-  v58 = 0;
-  v59 = &v58;
-  v60 = 0x3032000000;
-  v61 = __Block_byref_object_copy__6;
-  v62 = __Block_byref_object_dispose__6;
-  v63 = 0;
+  v62 = 0;
+  v63 = &v62;
+  v64 = 0x3032000000;
+  v65 = __Block_byref_object_copy__6;
+  v66 = __Block_byref_object_dispose__6;
+  v67 = 0;
+  v56 = 0;
+  v57 = &v56;
+  v58 = 0x3032000000;
+  v59 = __Block_byref_object_copy__6;
+  v60 = __Block_byref_object_dispose__6;
+  v61 = 0;
   kernel_cache_segment = self->_kernel_cache_segment;
   if (kernel_cache_segment)
   {
@@ -238,21 +255,21 @@ LABEL_7:
     if (!v14)
     {
       v15 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[OSABinaryImageCatalog markImageAsUsed:from:](self, "markImageAsUsed:from:", self->_kernel_cache_segment, 85)}];
-      v72[0] = v15;
+      v70[0] = v15;
       v16 = MEMORY[0x1E696AD98];
       symbolInfo2 = [(OSABinaryImageSegment *)self->_kernel_cache_segment symbolInfo];
       v18 = [v16 numberWithUnsignedLongLong:{frame - objc_msgSend(symbolInfo2, "start")}];
-      v72[1] = v18;
-      v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v72 count:2];
+      v70[1] = v18;
+      v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v70 count:2];
       v20 = [v19 copy];
-      v21 = v65[5];
-      v65[5] = v20;
+      v21 = v63[5];
+      v63[5] = v20;
 
-      objc_storeStrong(v59 + 5, self->_kernel_cache_segment);
+      objc_storeStrong(v57 + 5, self->_kernel_cache_segment);
     }
   }
 
-  v22 = v65[5];
+  v22 = v63[5];
   if (!v22)
   {
     v23 = self->_kernel_segments;
@@ -270,17 +287,17 @@ LABEL_7:
     }
 
     v26 = [(NSMutableArray *)v23 count];
-    v56[0] = MEMORY[0x1E69E9820];
-    v56[1] = 3221225472;
-    v56[2] = __55__OSABinaryImageCatalog_searchFrame_in_regions_result___block_invoke;
-    v56[3] = &unk_1E7A27C48;
-    v56[4] = self;
-    v56[5] = &v64;
-    v57 = v25;
-    v56[6] = &v58;
-    v56[7] = frame;
-    [(NSMutableArray *)v23 indexOfObject:&unk_1F241EB00 inSortedRange:0 options:v26 usingComparator:256, v56];
-    if (v65[5])
+    v54[0] = MEMORY[0x1E69E9820];
+    v54[1] = 3221225472;
+    v54[2] = __55__OSABinaryImageCatalog_searchFrame_in_regions_result___block_invoke;
+    v54[3] = &unk_1E7A27C48;
+    v54[4] = self;
+    v54[5] = &v62;
+    v55 = v25;
+    v54[6] = &v56;
+    v54[7] = frame;
+    [(NSMutableArray *)v23 indexOfObject:&unk_1F241EB00 inSortedRange:0 options:v26 usingComparator:256, v54];
+    if (v63[5])
     {
       goto LABEL_23;
     }
@@ -290,23 +307,22 @@ LABEL_7:
     {
       rootedCacheLibs = self->_rootedCacheLibs;
       v29 = [(NSMutableArray *)rootedCacheLibs count];
-      v55[0] = MEMORY[0x1E69E9820];
-      v55[1] = 3221225472;
-      v55[2] = __55__OSABinaryImageCatalog_searchFrame_in_regions_result___block_invoke_2;
-      v55[3] = &unk_1E7A27C70;
-      v55[4] = self;
-      v55[5] = &v64;
-      v55[6] = &v58;
-      v55[7] = v27;
-      [(NSMutableArray *)rootedCacheLibs indexOfObject:&unk_1F241EB00 inSortedRange:0 options:v29 usingComparator:256, v55];
+      v53[0] = MEMORY[0x1E69E9820];
+      v53[1] = 3221225472;
+      v53[2] = __55__OSABinaryImageCatalog_searchFrame_in_regions_result___block_invoke_2;
+      v53[3] = &unk_1E7A27C70;
+      v53[4] = self;
+      v53[5] = &v62;
+      v53[6] = &v56;
+      v53[7] = v27;
+      [(NSMutableArray *)rootedCacheLibs indexOfObject:&unk_1F241EB00 inSortedRange:0 options:v29 usingComparator:256, v53];
     }
 
-    if (v65[5])
+    if (v63[5])
     {
       goto LABEL_23;
     }
 
-    targeted_cache = self->_targeted_cache;
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -323,69 +339,69 @@ LABEL_7:
           goto LABEL_17;
         }
 
-        v34 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[OSABinaryImageCatalog markImageAsUsed:from:](self, "markImageAsUsed:from:", self->_targeted_cache, 83)}];
-        v71[0] = v34;
-        v35 = MEMORY[0x1E696AD98];
+        v33 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[OSABinaryImageCatalog markImageAsUsed:from:](self, "markImageAsUsed:from:", self->_targeted_cache, 83)}];
+        v69[0] = v33;
+        v34 = MEMORY[0x1E696AD98];
         symbolInfo6 = [(OSABinaryImageSegment *)self->_targeted_cache symbolInfo];
-        v37 = [v35 numberWithUnsignedLongLong:{v27 - objc_msgSend(symbolInfo6, "start")}];
-        v71[1] = v37;
-        v38 = [MEMORY[0x1E695DEC8] arrayWithObjects:v71 count:2];
-        v39 = [v38 copy];
-        v40 = v65[5];
-        v65[5] = v39;
+        v36 = [v34 numberWithUnsignedLongLong:{v27 - objc_msgSend(symbolInfo6, "start")}];
+        v69[1] = v36;
+        v37 = [MEMORY[0x1E695DEC8] arrayWithObjects:v69 count:2];
+        v38 = [v37 copy];
+        v39 = v63[5];
+        v63[5] = v38;
 
-        v41 = v59;
-        v42 = self->_targeted_cache;
-        symbolInfo3 = v41[5];
-        v41[5] = v42;
+        v40 = v57;
+        v41 = self->_targeted_cache;
+        symbolInfo3 = v40[5];
+        v40[5] = v41;
       }
     }
 
 LABEL_17:
-    if (!v65[5])
+    if (!v63[5])
     {
       exclave_shared_caches = self->_exclave_shared_caches;
-      v54[0] = MEMORY[0x1E69E9820];
-      v54[1] = 3221225472;
-      v54[2] = __55__OSABinaryImageCatalog_searchFrame_in_regions_result___block_invoke_3;
-      v54[3] = &unk_1E7A27C98;
-      v54[4] = self;
-      v54[5] = &v64;
-      v54[6] = &v58;
-      v54[7] = frame;
-      [(NSMutableArray *)exclave_shared_caches enumerateObjectsUsingBlock:v54];
-      if (!v65[5])
+      v52[0] = MEMORY[0x1E69E9820];
+      v52[1] = 3221225472;
+      v52[2] = __55__OSABinaryImageCatalog_searchFrame_in_regions_result___block_invoke_3;
+      v52[3] = &unk_1E7A27C98;
+      v52[4] = self;
+      v52[5] = &v62;
+      v52[6] = &v56;
+      v52[7] = frame;
+      [(NSMutableArray *)exclave_shared_caches enumerateObjectsUsingBlock:v52];
+      if (!v63[5])
       {
-        v53[0] = MEMORY[0x1E69E9820];
-        v53[1] = 3221225472;
-        v53[2] = __55__OSABinaryImageCatalog_searchFrame_in_regions_result___block_invoke_4;
-        v53[3] = &unk_1E7A27CC0;
-        v53[4] = self;
-        v53[5] = &v64;
-        v53[6] = &v58;
-        v53[7] = frame;
-        [inCopy indexOfObjectPassingTest:v53];
+        v51[0] = MEMORY[0x1E69E9820];
+        v51[1] = 3221225472;
+        v51[2] = __55__OSABinaryImageCatalog_searchFrame_in_regions_result___block_invoke_4;
+        v51[3] = &unk_1E7A27CC0;
+        v51[4] = self;
+        v51[5] = &v62;
+        v51[6] = &v56;
+        v51[7] = frame;
+        [inCopy indexOfObjectPassingTest:v51];
       }
 
-      if (!v65[5])
+      if (!v63[5])
       {
-        v44 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[OSABinaryImageCatalog markImageAsUsed:from:](self, "markImageAsUsed:from:", self->_absolute_segment, 65)}];
-        v70[0] = v44;
-        v45 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:frame];
-        v70[1] = v45;
-        v46 = [MEMORY[0x1E695DEC8] arrayWithObjects:v70 count:2];
-        v47 = v65[5];
-        v65[5] = v46;
+        v43 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[OSABinaryImageCatalog markImageAsUsed:from:](self, "markImageAsUsed:from:", self->_absolute_segment, 65)}];
+        v68[0] = v43;
+        v44 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:frame];
+        v68[1] = v44;
+        v45 = [MEMORY[0x1E695DEC8] arrayWithObjects:v68 count:2];
+        v46 = v63[5];
+        v63[5] = v45;
 
         if (regionsCopy)
         {
-          v52[0] = MEMORY[0x1E69E9820];
-          v52[1] = 3221225472;
-          v52[2] = __55__OSABinaryImageCatalog_searchFrame_in_regions_result___block_invoke_5;
-          v52[3] = &unk_1E7A27CE8;
-          v52[4] = &v58;
-          v52[5] = frame;
-          [regionsCopy indexOfObjectPassingTest:v52];
+          v50[0] = MEMORY[0x1E69E9820];
+          v50[1] = 3221225472;
+          v50[2] = __55__OSABinaryImageCatalog_searchFrame_in_regions_result___block_invoke_5;
+          v50[3] = &unk_1E7A27CE8;
+          v50[4] = &v56;
+          v50[5] = frame;
+          [regionsCopy indexOfObjectPassingTest:v50];
         }
       }
     }
@@ -393,24 +409,23 @@ LABEL_17:
 LABEL_23:
     if (result)
     {
-      *result = v59[5];
+      *result = v57[5];
     }
 
-    v22 = v65[5];
+    v22 = v63[5];
   }
 
-  v48 = v22;
-  _Block_object_dispose(&v58, 8);
+  v47 = v22;
+  _Block_object_dispose(&v56, 8);
 
-  _Block_object_dispose(&v64, 8);
-  v49 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v62, 8);
 
-  return v48;
+  return v47;
 }
 
 uint64_t __55__OSABinaryImageCatalog_searchFrame_in_regions_result___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v30[2] = *MEMORY[0x1E69E9840];
+  v29[2] = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   objc_opt_class();
@@ -439,13 +454,13 @@ uint64_t __55__OSABinaryImageCatalog_searchFrame_in_regions_result___block_invok
     if (v11 < v15)
     {
       v16 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(*(a1 + 32), "markImageAsUsed:from:", v8, *(a1 + 64))}];
-      v30[0] = v16;
+      v29[0] = v16;
       v17 = MEMORY[0x1E696AD98];
       v18 = *(a1 + 56);
       v19 = [v8 symbolInfo];
       v20 = [v17 numberWithUnsignedLongLong:{v18 - objc_msgSend(v19, "start")}];
-      v30[1] = v20;
-      v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:2];
+      v29[1] = v20;
+      v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:2];
       v22 = [v21 copy];
       v23 = *(*(a1 + 40) + 8);
       v24 = *(v23 + 40);
@@ -478,13 +493,12 @@ uint64_t __55__OSABinaryImageCatalog_searchFrame_in_regions_result___block_invok
     }
   }
 
-  v27 = *MEMORY[0x1E69E9840];
   return v25;
 }
 
 uint64_t __55__OSABinaryImageCatalog_searchFrame_in_regions_result___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v30[2] = *MEMORY[0x1E69E9840];
+  v29[2] = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   objc_opt_class();
@@ -513,13 +527,13 @@ uint64_t __55__OSABinaryImageCatalog_searchFrame_in_regions_result___block_invok
     if (v11 < v15)
     {
       v16 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(*(a1 + 32), "markImageAsUsed:from:", v8, 67)}];
-      v30[0] = v16;
+      v29[0] = v16;
       v17 = MEMORY[0x1E696AD98];
       v18 = *(a1 + 56);
       v19 = [v8 symbolInfo];
       v20 = [v17 numberWithUnsignedLongLong:{v18 - objc_msgSend(v19, "start")}];
-      v30[1] = v20;
-      v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:2];
+      v29[1] = v20;
+      v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:2];
       v22 = [v21 copy];
       v23 = *(*(a1 + 40) + 8);
       v24 = *(v23 + 40);
@@ -552,13 +566,12 @@ uint64_t __55__OSABinaryImageCatalog_searchFrame_in_regions_result___block_invok
     }
   }
 
-  v27 = *MEMORY[0x1E69E9840];
   return v25;
 }
 
 void __55__OSABinaryImageCatalog_searchFrame_in_regions_result___block_invoke_3(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v25[2] = *MEMORY[0x1E69E9840];
+  v24[2] = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = *(a1 + 56);
   v9 = [v7 symbolInfo];
@@ -573,13 +586,13 @@ void __55__OSABinaryImageCatalog_searchFrame_in_regions_result___block_invoke_3(
     if (v10 < v14)
     {
       v15 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(*(a1 + 32), "markImageAsUsed:from:", v7, 83)}];
-      v25[0] = v15;
+      v24[0] = v15;
       v16 = MEMORY[0x1E696AD98];
       v17 = *(a1 + 56);
       v18 = [v7 symbolInfo];
       v19 = [v16 numberWithUnsignedLongLong:{v17 - objc_msgSend(v18, "start")}];
-      v25[1] = v19;
-      v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:2];
+      v24[1] = v19;
+      v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:2];
       v21 = [v20 copy];
       v22 = *(*(a1 + 40) + 8);
       v23 = *(v22 + 40);
@@ -593,13 +606,11 @@ void __55__OSABinaryImageCatalog_searchFrame_in_regions_result___block_invoke_3(
   else
   {
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 BOOL __55__OSABinaryImageCatalog_searchFrame_in_regions_result___block_invoke_4(void *a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v31[2] = *MEMORY[0x1E69E9840];
+  v30[2] = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a1[7];
   v9 = [v7 symbolInfo];
@@ -618,15 +629,15 @@ BOOL __55__OSABinaryImageCatalog_searchFrame_in_regions_result___block_invoke_4(
       if (v15 == 106)
       {
         v17 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v16, "markImageAsUsed:from:", v7, 74)}];
-        v31[0] = v17;
-        v18 = v31;
+        v30[0] = v17;
+        v18 = v30;
       }
 
       else
       {
         v17 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v16, "markImageAsUsed:from:", v7, 80)}];
-        v30 = v17;
-        v18 = &v30;
+        v29 = v17;
+        v18 = &v29;
       }
 
       v19 = MEMORY[0x1E696AD98];
@@ -651,7 +662,6 @@ BOOL __55__OSABinaryImageCatalog_searchFrame_in_regions_result___block_invoke_4(
 
   v27 = *(*(a1[5] + 8) + 40) != 0;
 
-  v28 = *MEMORY[0x1E69E9840];
   return v27;
 }
 
@@ -686,67 +696,65 @@ BOOL __55__OSABinaryImageCatalog_searchFrame_in_regions_result___block_invoke_5(
 
 - (id)reportUsedImages
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E695DF70] arrayWithCapacity:{-[NSMutableArray count](self->_used_segments, "count")}];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v4 = self->_used_segments;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        details = [*(*(&v12 + 1) + 8 * i) details];
+        details = [*(*(&v11 + 1) + 8 * i) details];
         [v3 addObject:details];
       }
 
-      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 - (id)reportUsedImagesFullInfoUsingBlock:(id)block
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   v5 = [MEMORY[0x1E695DF70] arrayWithCapacity:{-[NSMutableArray count](self->_used_segments, "count")}];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v6 = self->_used_segments;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        full_details = [*(*(&v14 + 1) + 8 * i) full_details];
+        full_details = [*(*(&v13 + 1) + 8 * i) full_details];
         if (blockCopy)
         {
           blockCopy[2](blockCopy, full_details);
@@ -755,13 +763,11 @@ BOOL __55__OSABinaryImageCatalog_searchFrame_in_regions_result___block_invoke_5(
         [v5 addObject:full_details];
       }
 
-      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

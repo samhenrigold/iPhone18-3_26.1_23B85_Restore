@@ -11,8 +11,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v29[6] = *MEMORY[0x1E69E9840];
-  v23 = @"guest";
+  v28[6] = *MEMORY[0x1E69E9840];
+  v22 = @"guest";
   guest = self->_guest;
   null = guest;
   if (!guest)
@@ -20,9 +20,9 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v22 = null;
-  v29[0] = null;
-  v24 = @"advisementText";
+  v21 = null;
+  v28[0] = null;
+  v23 = @"advisementText";
   advisementText = self->_advisementText;
   null2 = advisementText;
   if (!advisementText)
@@ -30,9 +30,9 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v21 = null2;
-  v29[1] = null2;
-  v25 = @"selectedOffer";
+  v20 = null2;
+  v28[1] = null2;
+  v24 = @"selectedOffer";
   selectedOffer = self->_selectedOffer;
   null3 = selectedOffer;
   if (!selectedOffer)
@@ -40,9 +40,9 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v19 = null3;
-  v29[2] = null3;
-  v26 = @"guestProvidedSpecialRequestText";
+  v18 = null3;
+  v28[2] = null3;
+  v25 = @"guestProvidedSpecialRequestText";
   guestProvidedSpecialRequestText = self->_guestProvidedSpecialRequestText;
   null4 = guestProvidedSpecialRequestText;
   if (!guestProvidedSpecialRequestText)
@@ -50,8 +50,8 @@
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v29[3] = null4;
-  v27 = @"status";
+  v28[3] = null4;
+  v26 = @"status";
   status = [(INRestaurantReservationUserBooking *)self status];
   v12 = status;
   if (status <= INRestaurantReservationUserBookingStatusDenied)
@@ -64,8 +64,8 @@
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v29[4] = null5;
-  v28 = @"dateStatusModified";
+  v28[4] = null5;
+  v27 = @"dateStatusModified";
   dateStatusModified = self->_dateStatusModified;
   null6 = dateStatusModified;
   if (!dateStatusModified)
@@ -73,8 +73,8 @@
     null6 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v29[5] = null6;
-  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:&v23 count:6];
+  v28[5] = null6;
+  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v22 count:6];
   if (!dateStatusModified)
   {
   }
@@ -133,7 +133,6 @@ LABEL_20:
 LABEL_28:
 
 LABEL_21:
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }

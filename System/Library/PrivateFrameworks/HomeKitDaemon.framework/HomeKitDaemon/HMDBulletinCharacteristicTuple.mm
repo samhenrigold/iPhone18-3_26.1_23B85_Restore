@@ -1,4 +1,5 @@
 @interface HMDBulletinCharacteristicTuple
++ (id)tupleWithServiceContextID:(id)d currentType:(id)type targetValue:(id)value targetStateNumber:(id)number changedByThisDevice:(BOOL)device;
 - (HMDBulletinCharacteristicTuple)initWithServiceContextID:(id)d currentType:(id)type targetValue:(id)value targetStateNumber:(id)number changedByThisDevice:(BOOL)device;
 - (void)updatePostingTime;
 @end
@@ -35,6 +36,18 @@
   }
 
   return v18;
+}
+
++ (id)tupleWithServiceContextID:(id)d currentType:(id)type targetValue:(id)value targetStateNumber:(id)number changedByThisDevice:(BOOL)device
+{
+  deviceCopy = device;
+  numberCopy = number;
+  valueCopy = value;
+  typeCopy = type;
+  dCopy = d;
+  v15 = [[HMDBulletinCharacteristicTuple alloc] initWithServiceContextID:dCopy currentType:typeCopy targetValue:valueCopy targetStateNumber:numberCopy changedByThisDevice:deviceCopy];
+
+  return v15;
 }
 
 @end

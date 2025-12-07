@@ -27,7 +27,7 @@
     if (v8)
     {
       code = [v8 code];
-      v11 = +[REMLog cloudkit];
+      v11 = objc_msgSend_cloudkit(REMLog);
       v12 = os_log_type_enabled(v11, OS_LOG_TYPE_ERROR);
       if (code == 133000)
       {
@@ -46,7 +46,7 @@
 
   else
   {
-    v8 = +[REMLog cloudkit];
+    v8 = objc_msgSend_cloudkit(REMLog);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
       sub_10076672C(v8);
@@ -111,7 +111,7 @@
 
     if ((v8 & 1) == 0)
     {
-      v10 = +[REMLog cloudkit];
+      v10 = objc_msgSend_cloudkit(REMLog);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         sub_1007667C8();
@@ -143,7 +143,7 @@
 
   if ((v7 & 1) == 0)
   {
-    v9 = +[REMLog cloudkit];
+    v9 = objc_msgSend_cloudkit(REMLog);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_10076683C(self, v8, v9);
@@ -222,31 +222,31 @@
 
   if (!name)
   {
-    sub_100767860();
+    sub_100767860(v16, v17);
   }
 
-  v16 = [NSFetchRequest fetchRequestWithEntityName:name];
-  [v16 setIncludesSubentities:1];
+  v18 = [NSFetchRequest fetchRequestWithEntityName:name];
+  [v18 setIncludesSubentities:1];
   dsCopy = [NSPredicate predicateWithFormat:@"SELF in %@", dsCopy];
-  [v16 setPredicate:dsCopy];
+  [v18 setPredicate:dsCopy];
 
-  [v16 setPropertiesToFetch:fetchCopy];
-  [v16 setRelationshipKeyPathsForPrefetching:prefetchingCopy];
+  [v18 setPropertiesToFetch:fetchCopy];
+  [v18 setRelationshipKeyPathsForPrefetching:prefetchingCopy];
 
-  v22 = 0;
-  v18 = [contextCopy executeFetchRequest:v16 error:&v22];
+  v24 = 0;
+  v20 = [contextCopy executeFetchRequest:v18 error:&v24];
 
-  v19 = v22;
-  if (v19)
+  v21 = v24;
+  if (v21)
   {
-    v20 = +[REMLog cloudkit];
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v22 = objc_msgSend_cloudkit(REMLog);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      sub_1007678D4(dsCopy, v19, v20);
+      sub_1007678D4(dsCopy, v21, v22);
     }
   }
 
-  return v18;
+  return v20;
 }
 
 + (id)_ic_resultsMatchingPredicate:(id)predicate sortDescriptors:(id)descriptors resultType:(unint64_t)type fetchBatchSize:(unint64_t)size propertiesToFetch:(id)fetch relationshipKeyPathsForPrefetching:(id)prefetching context:(id)context
@@ -291,7 +291,7 @@
   v23 = v30;
   if (v23)
   {
-    v24 = +[REMLog cloudkit];
+    v24 = objc_msgSend_cloudkit(REMLog);
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       v28 = objc_opt_class();
@@ -314,7 +314,7 @@ LABEL_8:
 
   if (!v22)
   {
-    v24 = +[REMLog cloudkit];
+    v24 = objc_msgSend_cloudkit(REMLog);
     if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
       v26 = objc_opt_class();

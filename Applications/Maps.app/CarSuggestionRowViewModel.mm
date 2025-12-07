@@ -67,7 +67,7 @@ LABEL_7:
 
 LABEL_12:
 
-  sub_100024F64(v13, &unk_101908380);
+  sub_100024F64(v13, &unk_101908380, &unk_1011E6860);
 }
 
 - (_TtC4Maps25CarSuggestionRowViewModel)init

@@ -24,8 +24,8 @@
 
 - (id)toDict
 {
-  v13[2] = *MEMORY[0x277D85DE8];
-  v12[0] = @"startingRowCount";
+  v12[2] = *MEMORY[0x277D85DE8];
+  v11[0] = @"startingRowCount";
   startingRowCount = [(ICASStartTableData *)self startingRowCount];
   if (startingRowCount)
   {
@@ -38,8 +38,8 @@
   }
 
   v5 = startingRowCount2;
-  v12[1] = @"startingColumnCount";
-  v13[0] = startingRowCount2;
+  v11[1] = @"startingColumnCount";
+  v12[0] = startingRowCount2;
   startingColumnCount = [(ICASStartTableData *)self startingColumnCount];
   if (startingColumnCount)
   {
@@ -52,10 +52,8 @@
   }
 
   v8 = startingColumnCount2;
-  v13[1] = startingColumnCount2;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v12[1] = startingColumnCount2;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
 
   return v9;
 }

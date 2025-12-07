@@ -9,32 +9,32 @@
 
 - (void)adjustFilteredParametersForCandidates:(id)candidates withSystemState:(id)state andDate:(id)date
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   candidatesCopy = candidates;
   stateCopy = state;
   dateCopy = date;
   obj = candidatesCopy;
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
-  v10 = [candidatesCopy countByEnumeratingWithState:&v30 objects:v44 count:16];
+  v10 = [candidatesCopy countByEnumeratingWithState:&v29 objects:v43 count:16];
   if (v10)
   {
     v11 = v10;
     v12 = 0;
     v13 = 0;
-    v14 = *v31;
+    v14 = *v30;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v31 != v14)
+        if (*v30 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v30 + 1) + 8 * i);
+        v16 = *(*(&v29 + 1) + 8 * i);
         [v16 setIsConservativeFiltered:{-[IRCandidateClassificationDetectorFiltered _isConservativeFilteredCandidate:withSystemState:](self, "_isConservativeFilteredCandidate:withSystemState:", v16, stateCopy)}];
         v17 = +[IRFeatureFlags sharedFeatureFlags];
         isAggressiveFilteringEnabled = [v17 isAggressiveFilteringEnabled];
@@ -54,7 +54,7 @@
         v12 += [v16 isConservativeFiltered];
       }
 
-      v11 = [obj countByEnumeratingWithState:&v30 objects:v44 count:16];
+      v11 = [obj countByEnumeratingWithState:&v29 objects:v43 count:16];
     }
 
     while (v11);
@@ -76,19 +76,17 @@
     v25 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v12];
     v26 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(obj, "count")}];
     *buf = 136316162;
-    v35 = "#detector-filtered, ";
-    v36 = 2112;
-    v37 = v20;
-    v38 = 2112;
-    v39 = v24;
-    v40 = 2112;
-    v41 = v25;
-    v42 = 2112;
-    v43 = v26;
+    v34 = "#detector-filtered, ";
+    v35 = 2112;
+    v36 = v20;
+    v37 = 2112;
+    v38 = v24;
+    v39 = 2112;
+    v40 = v25;
+    v41 = 2112;
+    v42 = v26;
     _os_log_impl(&dword_25543D000, v23, OS_LOG_TYPE_INFO, "%s[%@], #filteredCandidates=%@, #conservativeFilteredCandidates=%@, #totalCandidatesTested=%@", buf, 0x34u);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_isConservativeFilteredCandidate:(id)candidate withSystemState:(id)state
@@ -200,7 +198,7 @@ LABEL_13:
 
 - (BOOL)_isCandidateIndirectlyUsed:(id)used withCandidates:(id)candidates andDate:(id)date
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   usedCopy = used;
   candidatesCopy = candidates;
   dateCopy = date;
@@ -210,38 +208,38 @@ LABEL_13:
 
   if (v12 >= 2)
   {
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     candidate2 = [usedCopy candidate];
     nodes2 = [candidate2 nodes];
 
-    v13 = [nodes2 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v13 = [nodes2 countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v13)
     {
-      v16 = *v26;
+      v16 = *v25;
       while (2)
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v26 != v16)
+          if (*v25 != v16)
           {
             objc_enumerationMutation(nodes2);
           }
 
-          v18 = *(*(&v25 + 1) + 8 * i);
+          v18 = *(*(&v24 + 1) + 8 * i);
           avOutpuDeviceIdentifier = [v18 avOutpuDeviceIdentifier];
 
           if (avOutpuDeviceIdentifier)
           {
-            v23[0] = MEMORY[0x277D85DD0];
-            v23[1] = 3221225472;
-            v23[2] = __95__IRCandidateClassificationDetectorFiltered__isCandidateIndirectlyUsed_withCandidates_andDate___block_invoke;
-            v23[3] = &unk_2797E1A78;
-            v23[4] = v18;
-            v24 = dateCopy;
-            v20 = [candidatesCopy containsObjectPassingTest:v23];
+            v22[0] = MEMORY[0x277D85DD0];
+            v22[1] = 3221225472;
+            v22[2] = __95__IRCandidateClassificationDetectorFiltered__isCandidateIndirectlyUsed_withCandidates_andDate___block_invoke;
+            v22[3] = &unk_2797E1A78;
+            v22[4] = v18;
+            v23 = dateCopy;
+            v20 = [candidatesCopy containsObjectPassingTest:v22];
 
             if (v20)
             {
@@ -251,7 +249,7 @@ LABEL_13:
           }
         }
 
-        v13 = [nodes2 countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v13 = [nodes2 countByEnumeratingWithState:&v24 objects:v28 count:16];
         if (v13)
         {
           continue;
@@ -269,7 +267,6 @@ LABEL_14:
     LOBYTE(v13) = 0;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v13;
 }
 

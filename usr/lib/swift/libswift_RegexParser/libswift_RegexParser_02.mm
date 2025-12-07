@@ -1,14 +1,12 @@
 uint64_t CompilerLexError.message.getter()
 {
   v1 = *(v0 + 8);
-  v2 = *(v0 + 16);
 
   return v1;
 }
 
 uint64_t CompilerLexError.message.setter(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 16);
 
   *(v2 + 8) = a1;
   *(v2 + 16) = a2;
@@ -28,7 +26,7 @@ uint64_t swiftCompilerLexRegexLiteral(start:bufferEnd:mustBeRegex:)@<X0>(unint64
   return result;
 }
 
-unint64_t lexRegex(start:end:)(unint64_t a1, unint64_t a2, unsigned __int8 *a3)
+uint64_t lexRegex(start:end:)(uint64_t a1, unint64_t a2, unsigned __int8 *a3)
 {
   result = lexRegex(start:end:delimiters:)(a1, a2, a3, &outlined read-only object #0 of lexRegex(start:end:));
   if (v3)
@@ -42,24 +40,15 @@ unint64_t lexRegex(start:end:)(unint64_t a1, unint64_t a2, unsigned __int8 *a3)
 uint64_t CompilerParseError.message.getter()
 {
   v1 = *v0;
-  v2 = v0[1];
 
   return v1;
 }
 
 uint64_t CompilerParseError.message.setter(uint64_t a1, uint64_t a2)
 {
-  v5 = v2[1];
 
   *v2 = a1;
   v2[1] = a2;
-  return result;
-}
-
-uint64_t CompilerParseError.location.getter()
-{
-  result = *(v0 + 16);
-  v2 = *(v0 + 24);
   return result;
 }
 
@@ -142,26 +131,26 @@ uint64_t swiftCompilerParseRegexLiteral(_:captureBufferOut:)(uint64_t a1, uint64
 
 uint64_t specialized parseWithDelimiters<A>(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  *&v59 = a1;
-  *(&v59 + 1) = a2;
+  *&v60 = a1;
+  *(&v60 + 1) = a2;
 
   v4 = String.init<A>(_:)();
   v6 = v5;
-  stripDelimiter #1 (_:) in droppingRegexDelimiters(_:)(0, v4, v5, &v59);
-  v7 = *(&v59 + 1);
-  if (!*(&v59 + 1))
+  stripDelimiter #1 (_:) in droppingRegexDelimiters(_:)(0, v4, v5, &v60);
+  v7 = *(&v60 + 1);
+  if (!*(&v60 + 1))
   {
-    stripDelimiter #1 (_:) in droppingRegexDelimiters(_:)(1, v4, v6, &v59);
-    v7 = *(&v59 + 1);
-    if (!*(&v59 + 1))
+    stripDelimiter #1 (_:) in droppingRegexDelimiters(_:)(1, v4, v6, &v60);
+    v7 = *(&v60 + 1);
+    if (!*(&v60 + 1))
     {
       goto LABEL_32;
     }
   }
 
-  v8 = *(&v60 + 1);
-  v9 = v59;
-  v10 = v60;
+  v8 = *(&v61 + 1);
+  v9 = v60;
+  v10 = v61;
 
   count = v8;
   if (v10)
@@ -179,13 +168,13 @@ uint64_t specialized parseWithDelimiters<A>(_:)@<X0>(uint64_t a1@<X0>, uint64_t 
     v11 = 0;
   }
 
-  v66 = v9;
-  specialized parseWithRecovery<A>(_:_:)(v9, v7, v11, v63);
-  v12 = v63[0];
-  v13 = v63[1];
-  v14 = v64;
-  v15 = v65;
-  v16 = *(v64 + 16);
+  v67 = v9;
+  specialized parseWithRecovery<A>(_:_:)(v9, v7, v11, v64);
+  v12 = v64[0];
+  v13 = v64[1];
+  v14 = v65;
+  v15 = v66;
+  v16 = *(v65 + 16);
   if (!v16)
   {
 LABEL_13:
@@ -200,16 +189,16 @@ LABEL_13:
   v17 = 32;
   while (1)
   {
-    v18 = (v64 + v17);
-    v59 = *(v64 + v17);
-    v19 = *(v64 + v17 + 16);
-    v20 = *(v64 + v17 + 32);
-    v21 = *(v64 + v17 + 48);
-    *(v62 + 9) = *(v64 + v17 + 57);
-    v61 = v20;
-    v62[0] = v21;
-    v60 = v19;
-    if (v59 != 2)
+    v18 = (v65 + v17);
+    v60 = *(v65 + v17);
+    v19 = *(v65 + v17 + 16);
+    v20 = *(v65 + v17 + 32);
+    v21 = *(v65 + v17 + 48);
+    *(v63 + 9) = *(v65 + v17 + 57);
+    v62 = v20;
+    v63[0] = v21;
+    v61 = v19;
+    if (v60 != 2)
     {
       break;
     }
@@ -221,43 +210,43 @@ LABEL_13:
     }
   }
 
-  v45 = *(&v60 + 1);
-  v46 = v61;
+  v45 = *(&v61 + 1);
+  v46 = v62;
   v23 = v18[3];
-  v57 = v18[2];
-  v58[0] = v23;
-  *(v58 + 9) = *(v18 + 57);
+  v58 = v18[2];
+  v59[0] = v23;
+  *(v59 + 9) = *(v18 + 57);
   v24 = v18[1];
-  v55 = *v18;
-  v56 = v24;
+  v56 = *v18;
+  v57 = v24;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s12_RegexParser6SourceV12LocatedErrorVy_AA11DiagnosticsV08throwAnyE0yyKF0E10DiagnosticL_VGMd, &_s12_RegexParser6SourceV12LocatedErrorVy_AA11DiagnosticsV08throwAnyE0yyKF0E10DiagnosticL_VGMR);
-  lazy protocol witness table accessor for type Source.LocatedError<ErrorDiagnostic #1 in Diagnostics.throwAnyError()> and conformance Source.LocatedError<A>(&lazy protocol witness table cache variable for type Source.LocatedError<ErrorDiagnostic #1 in Diagnostics.throwAnyError()> and conformance Source.LocatedError<A>, &_s12_RegexParser6SourceV12LocatedErrorVy_AA11DiagnosticsV08throwAnyE0yyKF0E10DiagnosticL_VGMd, &_s12_RegexParser6SourceV12LocatedErrorVy_AA11DiagnosticsV08throwAnyE0yyKF0E10DiagnosticL_VGMR);
+  lazy protocol witness table accessor for type Source.LocatedError<ErrorDiagnostic #1 in Diagnostics.throwAnyError()> and conformance Source.LocatedError<A>(&lazy protocol witness table cache variable for type Source.LocatedError<ErrorDiagnostic #1 in Diagnostics.throwAnyError()> and conformance Source.LocatedError<A>, &_s12_RegexParser6SourceV12LocatedErrorVy_AA11DiagnosticsV08throwAnyE0yyKF0E10DiagnosticL_VGMd, &_s12_RegexParser6SourceV12LocatedErrorVy_AA11DiagnosticsV08throwAnyE0yyKF0E10DiagnosticL_VGMR, &protocol conformance descriptor for Source.LocatedError<A>);
   v25 = swift_allocError();
-  *v26 = v55;
-  v28 = v57;
-  v27 = v58[0];
-  v29 = v56;
-  *(v26 + 57) = *(v58 + 9);
+  *v26 = v56;
+  v28 = v58;
+  v27 = v59[0];
+  v29 = v57;
+  *(v26 + 57) = *(v59 + 9);
   *(v26 + 32) = v28;
   *(v26 + 48) = v27;
   *(v26 + 16) = v29;
   *(v26 + 80) = v45;
   *(v26 + 88) = v46;
   swift_willThrow();
-  outlined init with copy of Diagnostic(&v59, v54);
+  outlined init with copy of Diagnostic(&v60, v55);
 
-  v53 = v25;
+  v54 = v25;
   MEMORY[0x1C68E13B0](v25);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s12_RegexParser20LocatedErrorProtocol_pMd, &_s12_RegexParser20LocatedErrorProtocol_pMR);
   if ((swift_dynamicCast() & 1) == 0)
   {
 
-    return MEMORY[0x1C68E13A0](v53);
+    return MEMORY[0x1C68E13A0](v54);
   }
 
   MEMORY[0x1C68E13A0](v25);
-  sub_1C0C61288(v54, v50);
+  sub_1C0C61288(v55, v51);
   v30._countAndFlagsBits = 35;
   v30._object = 0xE100000000000000;
   v31 = String.init(repeating:count:)(v30, count);
@@ -281,16 +270,16 @@ LABEL_13:
     v33 = 0xE100000000000000;
   }
 
-  v49 = v31;
+  v50 = v31;
 
   MEMORY[0x1C68E0BF0](v32, v33);
 
   v34 = String.count.getter();
 
-  v35 = v51;
-  v36 = v52;
-  __swift_project_boxed_opaque_existential_1Tm(v50, v51);
-  (*(v36 + 16))(&v49, v35, v36);
+  v35 = v52;
+  v36 = v53;
+  __swift_project_boxed_opaque_existential_1Tm(v51, v52);
+  (*(v36 + 16))(&v50, v35, v36);
   v37 = String.distance(from:to:)();
   v38 = String.distance(from:to:)();
 
@@ -312,18 +301,18 @@ LABEL_29:
   {
     v40 = v39;
     v41 = String.index(_:offsetBy:)();
-    v42 = v51;
-    v43 = v52;
-    __swift_project_boxed_opaque_existential_1Tm(v50, v51);
+    v42 = v52;
+    v43 = v53;
+    __swift_project_boxed_opaque_existential_1Tm(v51, v52);
     v44 = (*(v43 + 24))(v42, v43);
     swift_getErrorValue();
     if (v41 >> 14 >= v40 >> 14)
     {
-      Error.addingLocation(_:)(v40, v41, v48);
+      Error.addingLocation(_:)(v40, v41, v48, v49);
       MEMORY[0x1C68E13A0](v44);
       swift_willThrow();
-      __swift_destroy_boxed_opaque_existential_1Tm(v50);
-      return MEMORY[0x1C68E13A0](v53);
+      __swift_destroy_boxed_opaque_existential_1Tm(v51);
+      return MEMORY[0x1C68E13A0](v54);
     }
 
     goto LABEL_31;
@@ -341,196 +330,196 @@ LABEL_32:
 
 uint64_t parseWithDelimiters<A>(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
 {
-  v8 = *(*(a2 - 8) + 64);
-  MEMORY[0x1EEE9AC00](a1, a2);
-  (*(v10 + 16))(&v54 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0), a1, a2);
-  v11 = *(a3 + 40);
-  v12 = *(*(a3 + 8) + 8);
-  v13 = *(v12 + 8);
-  v14 = String.init<A>(_:)();
-  v16 = v15;
-  stripDelimiter #1 (_:) in droppingRegexDelimiters(_:)(0, v14, v15, &v73);
-  v17 = *(&v73 + 1);
-  if (!*(&v73 + 1))
+  MEMORY[0x1EEE9AC00](a1);
+  (*(v9 + 16))(&v54 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0), a1, a2);
+  v10 = *(*(a3 + 8) + 8);
+  v11 = String.init<A>(_:)();
+  v13 = v12;
+  stripDelimiter #1 (_:) in droppingRegexDelimiters(_:)(0, v11, v12, &v74);
+  v14 = *(&v74 + 1);
+  if (!*(&v74 + 1))
   {
-    stripDelimiter #1 (_:) in droppingRegexDelimiters(_:)(1, v14, v16, &v73);
-    v17 = *(&v73 + 1);
-    if (!*(&v73 + 1))
+    stripDelimiter #1 (_:) in droppingRegexDelimiters(_:)(1, v11, v13, &v74);
+    v14 = *(&v74 + 1);
+    if (!*(&v74 + 1))
     {
       goto LABEL_32;
     }
   }
 
-  v61 = *(&v74 + 1);
-  v18 = v73;
-  v19 = v74;
+  v61 = *(&v75 + 1);
+  v15 = v74;
+  v16 = v75;
 
-  v59 = v19;
+  v59 = v16;
   v57 = a2;
   v58 = a1;
-  v56 = v12;
-  if (v19)
+  v56 = v10;
+  if (v16)
   {
-    v20 = 61;
+    v17 = 61;
   }
 
-  else if (v61 >= 1 && (specialized StringProtocol.spansMultipleLinesInRegexLiteral.getter(v18, v17) & 1) != 0)
+  else if (v61 >= 1 && (specialized StringProtocol.spansMultipleLinesInRegexLiteral.getter(v15, v14) & 1) != 0)
   {
-    v20 = 67;
+    v17 = 67;
   }
 
   else
   {
-    v20 = 0;
+    v17 = 0;
   }
 
-  v60 = v18;
-  specialized parseWithRecovery<A>(_:_:)(v18, v17, v20, v77);
-  v22 = v77[0];
-  v21 = v77[1];
-  v23 = v78;
-  v24 = v79;
-  v25 = *(v78 + 16);
-  if (!v25)
+  v60 = v15;
+  specialized parseWithRecovery<A>(_:_:)(v15, v14, v17, v78);
+  v19 = v78[0];
+  v18 = v78[1];
+  v20 = v79;
+  v21 = v80;
+  v22 = *(v79 + 16);
+  if (!v22)
   {
 LABEL_13:
 
-    *a4 = v22;
-    *(a4 + 8) = v21;
-    *(a4 + 16) = v23;
-    *(a4 + 24) = v24;
+    *a4 = v19;
+    *(a4 + 8) = v18;
+    *(a4 + 16) = v20;
+    *(a4 + 24) = v21;
     return result;
   }
 
-  v26 = 32;
+  v23 = 32;
   while (1)
   {
-    v27 = (v78 + v26);
-    v73 = *(v78 + v26);
-    v28 = *(v78 + v26 + 16);
-    v29 = *(v78 + v26 + 32);
-    v30 = *(v78 + v26 + 48);
-    *(v76 + 9) = *(v78 + v26 + 57);
-    v75 = v29;
-    v76[0] = v30;
-    v74 = v28;
-    if (v73 != 2)
+    v24 = (v79 + v23);
+    v74 = *(v79 + v23);
+    v25 = *(v79 + v23 + 16);
+    v26 = *(v79 + v23 + 32);
+    v27 = *(v79 + v23 + 48);
+    *(v77 + 9) = *(v79 + v23 + 57);
+    v76 = v26;
+    v77[0] = v27;
+    v75 = v25;
+    if (v74 != 2)
     {
       break;
     }
 
-    v26 += 80;
-    if (!--v25)
+    v23 += 80;
+    if (!--v22)
     {
       goto LABEL_13;
     }
   }
 
-  v80 = v75;
-  v55 = *(&v74 + 1);
-  v32 = v27[3];
-  v71 = v27[2];
-  v72[0] = v32;
-  *(v72 + 9) = *(v27 + 57);
-  v33 = v27[1];
-  v69 = *v27;
-  v70 = v33;
+  v81 = v76;
+  v55 = *(&v75 + 1);
+  v29 = v24[3];
+  v72 = v24[2];
+  v73[0] = v29;
+  *(v73 + 9) = *(v24 + 57);
+  v30 = v24[1];
+  v70 = *v24;
+  v71 = v30;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s12_RegexParser6SourceV12LocatedErrorVy_AA11DiagnosticsV08throwAnyE0yyKF0E10DiagnosticL_VGMd, &_s12_RegexParser6SourceV12LocatedErrorVy_AA11DiagnosticsV08throwAnyE0yyKF0E10DiagnosticL_VGMR);
-  lazy protocol witness table accessor for type Source.LocatedError<ErrorDiagnostic #1 in Diagnostics.throwAnyError()> and conformance Source.LocatedError<A>(&lazy protocol witness table cache variable for type Source.LocatedError<ErrorDiagnostic #1 in Diagnostics.throwAnyError()> and conformance Source.LocatedError<A>, &_s12_RegexParser6SourceV12LocatedErrorVy_AA11DiagnosticsV08throwAnyE0yyKF0E10DiagnosticL_VGMd, &_s12_RegexParser6SourceV12LocatedErrorVy_AA11DiagnosticsV08throwAnyE0yyKF0E10DiagnosticL_VGMR);
-  v34 = swift_allocError();
-  *v35 = v69;
-  v37 = v71;
-  v36 = v72[0];
-  v38 = v70;
-  *(v35 + 57) = *(v72 + 9);
-  *(v35 + 32) = v37;
-  *(v35 + 48) = v36;
-  *(v35 + 16) = v38;
-  v39 = v80;
-  *(v35 + 80) = v55;
-  *(v35 + 88) = v39;
+  lazy protocol witness table accessor for type Source.LocatedError<ErrorDiagnostic #1 in Diagnostics.throwAnyError()> and conformance Source.LocatedError<A>(&lazy protocol witness table cache variable for type Source.LocatedError<ErrorDiagnostic #1 in Diagnostics.throwAnyError()> and conformance Source.LocatedError<A>, &_s12_RegexParser6SourceV12LocatedErrorVy_AA11DiagnosticsV08throwAnyE0yyKF0E10DiagnosticL_VGMd, &_s12_RegexParser6SourceV12LocatedErrorVy_AA11DiagnosticsV08throwAnyE0yyKF0E10DiagnosticL_VGMR, &protocol conformance descriptor for Source.LocatedError<A>);
+  v31 = swift_allocError();
+  *v32 = v70;
+  v34 = v72;
+  v33 = v73[0];
+  v35 = v71;
+  *(v32 + 57) = *(v73 + 9);
+  *(v32 + 32) = v34;
+  *(v32 + 48) = v33;
+  *(v32 + 16) = v35;
+  v36 = v81;
+  *(v32 + 80) = v55;
+  *(v32 + 88) = v36;
   swift_willThrow();
-  outlined init with copy of Diagnostic(&v73, v68);
+  outlined init with copy of Diagnostic(&v74, v69);
 
-  v67 = v34;
-  MEMORY[0x1C68E13B0](v34);
+  v68 = v31;
+  MEMORY[0x1C68E13B0](v31);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s12_RegexParser20LocatedErrorProtocol_pMd, &_s12_RegexParser20LocatedErrorProtocol_pMR);
   if ((swift_dynamicCast() & 1) == 0)
   {
 
-    return MEMORY[0x1C68E13A0](v67);
+    return MEMORY[0x1C68E13A0](v68);
   }
 
-  MEMORY[0x1C68E13A0](v34);
-  sub_1C0C61288(v68, v64);
-  v40._countAndFlagsBits = 35;
-  v40._object = 0xE100000000000000;
-  v41 = String.init(repeating:count:)(v40, v61);
+  MEMORY[0x1C68E13A0](v31);
+  sub_1C0C61288(v69, v65);
+  v37._countAndFlagsBits = 35;
+  v37._object = 0xE100000000000000;
+  v38 = String.init(repeating:count:)(v37, v61);
   if (v59)
   {
-    v42 = 31779;
+    v39 = 31779;
   }
 
   else
   {
-    v42 = 47;
+    v39 = 47;
   }
 
   if (v59)
   {
-    v43 = 0xE200000000000000;
+    v40 = 0xE200000000000000;
   }
 
   else
   {
-    v43 = 0xE100000000000000;
+    v40 = 0xE100000000000000;
   }
 
-  v63 = v41;
+  v64 = v38;
 
-  MEMORY[0x1C68E0BF0](v42, v43);
+  MEMORY[0x1C68E0BF0](v39, v40);
 
-  v44 = String.count.getter();
+  v41 = String.count.getter();
 
-  v45 = v65;
-  v46 = v66;
-  __swift_project_boxed_opaque_existential_1Tm(v64, v65);
-  (*(v46 + 16))(&v63, v45, v46);
-  v47 = String.distance(from:to:)();
-  v48 = String.distance(from:to:)();
+  v42 = v66;
+  v43 = v67;
+  __swift_project_boxed_opaque_existential_1Tm(v65, v66);
+  (*(v43 + 16))(&v64, v42, v43);
+  v44 = String.distance(from:to:)();
+  v45 = String.distance(from:to:)();
 
-  if (v48 < v47)
+  if (v45 < v44)
   {
     __break(1u);
     goto LABEL_29;
   }
 
-  if (__OFADD__(v44, v47))
+  v46 = v57;
+  v47 = v56;
+  if (__OFADD__(v41, v44))
   {
 LABEL_29:
     __break(1u);
     goto LABEL_30;
   }
 
-  Collection.index(atOffset:)();
-  if (!__OFADD__(v44, v48))
+  Collection.index(atOffset:)(v41 + v44, v57, v56);
+  v48 = v41 + v45;
+  if (!__OFADD__(v41, v45))
   {
-    countAndFlagsBits = v63._countAndFlagsBits;
-    Collection.index(atOffset:)();
-    v50 = v63._countAndFlagsBits;
-    v51 = v65;
-    v52 = v66;
-    __swift_project_boxed_opaque_existential_1Tm(v64, v65);
+    countAndFlagsBits = v64._countAndFlagsBits;
+    Collection.index(atOffset:)(v48, v46, v47);
+    v50 = v64._countAndFlagsBits;
+    v51 = v66;
+    v52 = v67;
+    __swift_project_boxed_opaque_existential_1Tm(v65, v66);
     v53 = (*(v52 + 24))(v51, v52);
     swift_getErrorValue();
     if (v50 >> 14 >= countAndFlagsBits >> 14)
     {
-      Error.addingLocation(_:)(countAndFlagsBits, v50, v62);
+      Error.addingLocation(_:)(countAndFlagsBits, v50, v62, v63);
       MEMORY[0x1C68E13A0](v53);
       swift_willThrow();
-      __swift_destroy_boxed_opaque_existential_1Tm(v64);
-      return MEMORY[0x1C68E13A0](v67);
+      __swift_destroy_boxed_opaque_existential_1Tm(v65);
+      return MEMORY[0x1C68E13A0](v68);
     }
 
     goto LABEL_31;
@@ -580,21 +569,21 @@ uint64_t protocol witness for Hashable.hash(into:) in conformance Delimiter()
   return MEMORY[0x1C68E1190](v1);
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Delimiter()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Delimiter(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = *(v0 + 1);
+  v2 = *v1;
+  v3 = *(v1 + 1);
   Hasher.init(_seed:)();
-  MEMORY[0x1C68E1190](v1);
   MEMORY[0x1C68E1190](v2);
+  MEMORY[0x1C68E1190](v3);
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.AbsentFunction.Start()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.AbsentFunction.Start(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  MEMORY[0x1C68E1190](v1);
+  MEMORY[0x1C68E1190](v2);
   return Hasher._finalize()();
 }
 
@@ -621,16 +610,13 @@ unint64_t DelimiterLexError.description.getter()
 
   if (*v0 <= 1u)
   {
-    result = v1;
+    return v1;
   }
 
   else
   {
-    result = v3;
+    return v3;
   }
-
-  *v0;
-  return result;
 }
 
 unint64_t protocol witness for CustomStringConvertible.description.getter in conformance DelimiterLexError()
@@ -656,16 +642,13 @@ unint64_t protocol witness for CustomStringConvertible.description.getter in con
 
   if (*v0 <= 1u)
   {
-    result = v1;
+    return v1;
   }
 
   else
   {
-    result = v3;
+    return v3;
   }
-
-  *v0;
-  return result;
 }
 
 unint64_t specialized Sequence<>.elementsEqual<A>(_:)(unint64_t a1, unint64_t a2, uint64_t a3)
@@ -2454,51 +2437,48 @@ LABEL_23:
   }
 }
 
-uint64_t Collection<>.tryDropPrefix<A>(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void (*a3)(uint64_t, uint64_t, void)@<X3>, uint64_t a4@<X4>, uint64_t a5@<X5>, void (*a6)(uint64_t, uint64_t, void)@<X6>, void (*a7)(uint64_t, uint64_t, void)@<X7>, uint64_t a8@<X8>)
+uint64_t Collection<>.tryDropPrefix<A>(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void (*a4)(uint64_t, uint64_t, void)@<X3>, uint64_t a6@<X5>, void (*a7)(uint64_t, uint64_t, void)@<X6>, void (*a8)(uint64_t, uint64_t, void)@<X7>, uint64_t a9@<X8>)
 {
-  v29 = a7;
-  v30 = a1;
-  v31 = a6;
-  v32 = a5;
-  v33 = a8;
+  v25 = a8;
+  v26 = a1;
+  v27 = a7;
+  v28 = a6;
+  v29 = a9;
   v11 = *(a2 - 8);
-  v12 = *(v11 + 64);
-  MEMORY[0x1EEE9AC00](a1, a2);
-  v14 = v28 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](a1);
+  v13 = v24 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v16 = *(AssociatedTypeWitness - 8);
-  v17 = *(v16 + 64);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness, v18);
-  v20 = v28 - v19;
-  v21 = dispatch thunk of Collection.count.getter();
-  v28[0] = *(v11 + 16);
-  v28[1] = v11 + 16;
-  (v28[0])(v14, v34, a2);
-  v31(v21, a2, a3);
-  v31 = a3;
-  v22 = *(swift_getAssociatedConformanceWitness() + 8);
-  v23 = *(a4 + 8);
-  LOBYTE(a4) = Sequence<>.elementsEqual<A>(_:)();
-  (*(v16 + 8))(v20, AssociatedTypeWitness);
-  if (a4)
+  v15 = *(AssociatedTypeWitness - 8);
+  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
+  v17 = v24 - v16;
+  v18 = dispatch thunk of Collection.count.getter();
+  v24[0] = *(v11 + 16);
+  v24[1] = v11 + 16;
+  (v24[0])(v13, v30, a2);
+  v27(v18, a2, a4);
+  v27 = a4;
+  swift_getAssociatedConformanceWitness();
+  v19 = Sequence<>.elementsEqual<A>(_:)();
+  (*(v15 + 8))(v17, AssociatedTypeWitness);
+  if (v19)
   {
-    (v28[0])(v14, v34, a2);
-    v24 = v33;
-    v29(v21, a2, v31);
-    v25 = 0;
-    v26 = v24;
+    (v24[0])(v13, v30, a2);
+    v20 = v29;
+    v25(v18, a2, v27);
+    v21 = 0;
+    v22 = v20;
   }
 
   else
   {
-    v25 = 1;
-    v26 = v33;
+    v21 = 1;
+    v22 = v29;
   }
 
-  return (*(v16 + 56))(v26, v25, 1, AssociatedTypeWitness);
+  return (*(v15 + 56))(v22, v21, 1, AssociatedTypeWitness);
 }
 
-unint64_t lexRegex(start:end:delimiters:)(unint64_t result, unint64_t a2, unsigned __int8 *a3, uint64_t a4)
+uint64_t lexRegex(start:end:delimiters:)(uint64_t result, unint64_t a2, unsigned __int8 *a3, uint64_t a4)
 {
   if (a3 < a2)
   {
@@ -2835,7 +2815,7 @@ LABEL_67:
     goto LABEL_105;
   }
 
-  v43 = result + 1;
+  v43 = (result + 1);
   if (__OFADD__(result, 1))
   {
     goto LABEL_102;
@@ -2856,7 +2836,7 @@ LABEL_67:
   result = v55;
   while (v44 < v41)
   {
-    if (v43 < 0)
+    if ((v43 & 0x8000000000000000) != 0)
     {
       goto LABEL_98;
     }
@@ -2895,74 +2875,74 @@ LABEL_105:
   return result;
 }
 
-uint64_t ParseError.hash(into:)()
+uint64_t ParseError.hash(into:)(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = *(v0 + 8);
-  v3 = *(v0 + 16);
-  v4 = *(v0 + 24);
-  switch(*(v0 + 32))
+  v2 = *v1;
+  v3 = *(v1 + 8);
+  v4 = *(v1 + 16);
+  v5 = *(v1 + 24);
+  switch(*(v1 + 32))
   {
     case 1:
       MEMORY[0x1C68E1190](1);
       String.hash(into:)();
-      v10 = v3;
+      v11 = v4;
       goto LABEL_71;
     case 2:
       MEMORY[0x1C68E1190](2);
       String.hash(into:)();
-      v10 = v3;
+      v11 = v4;
       goto LABEL_71;
     case 3:
-      v5 = 3;
+      v6 = 3;
       goto LABEL_59;
     case 4:
-      v5 = 5;
+      v6 = 5;
       goto LABEL_59;
     case 5:
-      v13 = 6;
+      v14 = 6;
       goto LABEL_40;
     case 6:
-      v5 = 7;
+      v6 = 7;
       goto LABEL_59;
     case 7:
-      v13 = 8;
+      v14 = 8;
       goto LABEL_40;
     case 8:
-      v5 = 9;
+      v6 = 9;
       goto LABEL_59;
     case 9:
-      v12 = 10;
+      v13 = 10;
       goto LABEL_47;
     case 0xA:
-      v12 = 13;
+      v13 = 13;
       goto LABEL_47;
     case 0xB:
-      v12 = 14;
+      v13 = 14;
       goto LABEL_47;
     case 0xC:
-      v5 = 18;
+      v6 = 18;
       goto LABEL_59;
     case 0xD:
-      v5 = 19;
+      v6 = 19;
       goto LABEL_59;
     case 0xE:
-      v5 = 20;
+      v6 = 20;
       goto LABEL_59;
     case 0xF:
-      v5 = 21;
+      v6 = 21;
       goto LABEL_59;
     case 0x10:
-      v12 = 22;
+      v13 = 22;
       goto LABEL_47;
     case 0x11:
-      v12 = 23;
+      v13 = 23;
 LABEL_47:
-      MEMORY[0x1C68E1190](v12);
+      MEMORY[0x1C68E1190](v13);
       goto LABEL_48;
     case 0x12:
       MEMORY[0x1C68E1190](27);
-      if (v2)
+      if (v3)
       {
         Hasher._combine(_:)(1u);
         String.hash(into:)();
@@ -2975,60 +2955,60 @@ LABEL_47:
 
       goto LABEL_60;
     case 0x13:
-      v5 = 28;
+      v6 = 28;
       goto LABEL_59;
     case 0x14:
-      v5 = 29;
+      v6 = 29;
       goto LABEL_59;
     case 0x15:
-      v5 = 30;
+      v6 = 30;
       goto LABEL_59;
     case 0x16:
-      v5 = 31;
+      v6 = 31;
       goto LABEL_59;
     case 0x17:
-      v5 = 32;
+      v6 = 32;
       goto LABEL_59;
     case 0x18:
-      v5 = 33;
+      v6 = 33;
       goto LABEL_59;
     case 0x19:
-      v5 = 34;
+      v6 = 34;
       goto LABEL_59;
     case 0x1A:
-      v11 = 37;
+      v12 = 37;
       goto LABEL_64;
     case 0x1B:
-      v11 = 38;
+      v12 = 38;
       goto LABEL_64;
     case 0x1C:
-      v11 = 39;
+      v12 = 39;
 LABEL_64:
-      MEMORY[0x1C68E1190](v11);
-      v10 = v1;
+      MEMORY[0x1C68E1190](v12);
+      v11 = v2;
       goto LABEL_71;
     case 0x1D:
-      v5 = 46;
+      v6 = 46;
       goto LABEL_59;
     case 0x1E:
-      v5 = 47;
+      v6 = 47;
       goto LABEL_59;
     case 0x1F:
-      v13 = 48;
+      v14 = 48;
 LABEL_40:
-      MEMORY[0x1C68E1190](v13);
-      v10 = v1;
+      MEMORY[0x1C68E1190](v14);
+      v11 = v2;
       goto LABEL_71;
     case 0x20:
-      v5 = 49;
+      v6 = 49;
       goto LABEL_59;
     case 0x21:
-      v5 = 50;
+      v6 = 50;
       goto LABEL_59;
     case 0x22:
       MEMORY[0x1C68E1190](53);
-      MEMORY[0x1C68E1190](v1);
-      v10 = v2;
+      MEMORY[0x1C68E1190](v2);
+      v11 = v3;
       goto LABEL_71;
     case 0x23:
       MEMORY[0x1C68E1190](54);
@@ -3037,159 +3017,159 @@ LABEL_48:
 
       goto LABEL_50;
     case 0x24:
-      if (v3 | v2 | v1 | v4)
+      if (v4 | v3 | v2 | v5)
       {
-        v6 = v3 | v2 | v4;
-        if (v1 == 1 && v6 == 0)
+        v7 = v4 | v3 | v5;
+        if (v2 == 1 && v7 == 0)
         {
-          v10 = 11;
+          v11 = 11;
         }
 
-        else if (v1 == 2 && v6 == 0)
+        else if (v2 == 2 && v7 == 0)
         {
-          v10 = 12;
+          v11 = 12;
         }
 
-        else if (v1 == 3 && v6 == 0)
+        else if (v2 == 3 && v7 == 0)
         {
-          v10 = 15;
+          v11 = 15;
         }
 
-        else if (v1 != 4 || v6)
+        else if (v2 != 4 || v7)
         {
-          if (v1 != 5 || v6)
+          if (v2 != 5 || v7)
           {
-            if (v1 != 6 || v6)
+            if (v2 != 6 || v7)
             {
-              if (v1 != 7 || v6)
+              if (v2 != 7 || v7)
               {
-                if (v1 != 8 || v6)
+                if (v2 != 8 || v7)
                 {
-                  if (v1 != 9 || v6)
+                  if (v2 != 9 || v7)
                   {
-                    if (v1 != 10 || v6)
+                    if (v2 != 10 || v7)
                     {
-                      if (v1 != 11 || v6)
+                      if (v2 != 11 || v7)
                       {
-                        if (v1 != 12 || v6)
+                        if (v2 != 12 || v7)
                         {
-                          if (v1 != 13 || v6)
+                          if (v2 != 13 || v7)
                           {
-                            if (v1 != 14 || v6)
+                            if (v2 != 14 || v7)
                             {
-                              if (v1 != 15 || v6)
+                              if (v2 != 15 || v7)
                               {
-                                if (v1 != 16 || v6)
+                                if (v2 != 16 || v7)
                                 {
-                                  if (v1 != 17 || v6)
+                                  if (v2 != 17 || v7)
                                   {
-                                    if (v1 != 18 || v6)
+                                    if (v2 != 18 || v7)
                                     {
-                                      v10 = 55;
+                                      v11 = 55;
                                     }
 
                                     else
                                     {
-                                      v10 = 52;
+                                      v11 = 52;
                                     }
                                   }
 
                                   else
                                   {
-                                    v10 = 51;
+                                    v11 = 51;
                                   }
                                 }
 
                                 else
                                 {
-                                  v10 = 45;
+                                  v11 = 45;
                                 }
                               }
 
                               else
                               {
-                                v10 = 44;
+                                v11 = 44;
                               }
                             }
 
                             else
                             {
-                              v10 = 43;
+                              v11 = 43;
                             }
                           }
 
                           else
                           {
-                            v10 = 42;
+                            v11 = 42;
                           }
                         }
 
                         else
                         {
-                          v10 = 41;
+                          v11 = 41;
                         }
                       }
 
                       else
                       {
-                        v10 = 40;
+                        v11 = 40;
                       }
                     }
 
                     else
                     {
-                      v10 = 36;
+                      v11 = 36;
                     }
                   }
 
                   else
                   {
-                    v10 = 35;
+                    v11 = 35;
                   }
                 }
 
                 else
                 {
-                  v10 = 26;
+                  v11 = 26;
                 }
               }
 
               else
               {
-                v10 = 25;
+                v11 = 25;
               }
             }
 
             else
             {
-              v10 = 24;
+              v11 = 24;
             }
           }
 
           else
           {
-            v10 = 17;
+            v11 = 17;
           }
         }
 
         else
         {
-          v10 = 16;
+          v11 = 16;
         }
       }
 
       else
       {
-        v10 = 4;
+        v11 = 4;
       }
 
 LABEL_71:
-      result = MEMORY[0x1C68E1190](v10);
+      result = MEMORY[0x1C68E1190](v11);
       break;
     default:
-      v5 = 0;
+      v6 = 0;
 LABEL_59:
-      MEMORY[0x1C68E1190](v5);
+      MEMORY[0x1C68E1190](v6);
 LABEL_60:
 
 LABEL_50:
@@ -3203,14 +3183,14 @@ LABEL_50:
 Swift::Int protocol witness for Hashable.hashValue.getter in conformance ParseError()
 {
   Hasher.init(_seed:)();
-  ParseError.hash(into:)();
+  ParseError.hash(into:)(v1);
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance ParseError()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance ParseError(uint64_t a1)
 {
   Hasher.init(_seed:)();
-  ParseError.hash(into:)();
+  ParseError.hash(into:)(v2);
   return Hasher._finalize()();
 }
 
@@ -3238,106 +3218,105 @@ unint64_t ParseError.description.getter()
     case 1:
       _StringGuts.grow(_:)(26);
 
-      strcpy(v40, "expected ");
-      WORD1(v40[1]) = 0;
-      HIDWORD(v40[1]) = -385875968;
-      v25 = dispatch thunk of CustomStringConvertible.description.getter();
-      MEMORY[0x1C68E0BF0](v25);
+      strcpy(v39, "expected ");
+      WORD1(v39[1]) = 0;
+      HIDWORD(v39[1]) = -385875968;
+      v24 = dispatch thunk of CustomStringConvertible.description.getter();
+      MEMORY[0x1C68E0BF0](v24);
 
       MEMORY[0x1C68E0BF0](0x2073746967696420, 0xEC00000027206E69);
       goto LABEL_68;
     case 2:
-      v22 = *(v0 + 16);
+      v21 = *(v0 + 16);
       if (*(v0 + 16))
       {
-        if (v22 == 1)
+        if (v21 == 1)
         {
-          v23 = 0x7265626D756ELL;
+          v22 = 0x7265626D756ELL;
         }
 
         else
         {
-          v23 = 0xD000000000000012;
+          v22 = 0xD000000000000012;
         }
 
-        if (v22 == 1)
+        if (v21 == 1)
         {
-          v24 = 0xE600000000000000;
+          v23 = 0xE600000000000000;
         }
 
         else
         {
-          v24 = 0x80000001C0C86B60;
+          v23 = 0x80000001C0C86B60;
         }
       }
 
       else
       {
-        v24 = 0xEC0000007265626DLL;
-        v23 = 0x756E206C6174636FLL;
+        v23 = 0xEC0000007265626DLL;
+        v22 = 0x756E206C6174636FLL;
       }
 
-      v38 = HIBYTE(v2) & 0xF;
+      v37 = HIBYTE(v2) & 0xF;
       if ((v2 & 0x2000000000000000) == 0)
       {
-        v38 = v1 & 0xFFFFFFFFFFFFLL;
+        v37 = v1 & 0xFFFFFFFFFFFFLL;
       }
 
-      if (v38)
+      if (v37)
       {
         MEMORY[0x1C68E0BF0](v1, v2);
         MEMORY[0x1C68E0BF0](39, 0xE100000000000000);
-        v39 = 0x27206E6920;
-        v36 = 0xE500000000000000;
+        v38 = 0x27206E6920;
+        v35 = 0xE500000000000000;
       }
 
       else
       {
-        v39 = 0;
-        v36 = 0xE000000000000000;
+        v38 = 0;
+        v35 = 0xE000000000000000;
       }
 
-      strcpy(v40, "expected ");
-      WORD1(v40[1]) = 0;
-      HIDWORD(v40[1]) = -385875968;
-      MEMORY[0x1C68E0BF0](v23, v24);
+      strcpy(v39, "expected ");
+      WORD1(v39[1]) = 0;
+      HIDWORD(v39[1]) = -385875968;
+      MEMORY[0x1C68E0BF0](v22, v23);
 
-      v29 = v39;
+      v28 = v38;
       goto LABEL_100;
     case 3:
-      strcpy(v40, "expected '");
-      BYTE3(v40[1]) = 0;
-      HIDWORD(v40[1]) = -369098752;
+      strcpy(v39, "expected '");
+      BYTE3(v39[1]) = 0;
+      HIDWORD(v39[1]) = -369098752;
       goto LABEL_68;
     case 4:
-      v17 = *(v0 + 8);
 
       return v1;
     case 5:
-      v40[0] = 0;
-      v40[1] = 0xE000000000000000;
+      v39[0] = 0;
+      v39[1] = 0xE000000000000000;
       _StringGuts.grow(_:)(43);
 
-      v26 = 0x80000001C0C86930;
-      v27 = 0xD000000000000029;
+      v25 = 0x80000001C0C86930;
+      v26 = 0xD000000000000029;
       goto LABEL_49;
     case 6:
       _StringGuts.grow(_:)(30);
 
-      v40[0] = v1;
-      v40[1] = v2;
+      v39[0] = v1;
+      v39[1] = v2;
       v15 = " expression, have ";
       v5 = 0xD00000000000001CLL;
       goto LABEL_85;
     case 7:
-      v40[0] = 0;
-      v40[1] = 0xE000000000000000;
+      v39[0] = 0;
+      v39[1] = 0xE000000000000000;
       _StringGuts.grow(_:)(52);
       MEMORY[0x1C68E0BF0](0xD000000000000032, 0x80000001C0C868D0);
       goto LABEL_50;
     case 8:
-      v40[0] = 0;
-      v40[1] = 0xE000000000000000;
+      v39[0] = 0;
+      v39[1] = 0xE000000000000000;
       _StringGuts.grow(_:)(62);
       MEMORY[0x1C68E0BF0](0xD000000000000011, 0x80000001C0C86880);
       MEMORY[0x1C68E0BF0](v1, v2);
@@ -3345,22 +3324,22 @@ unint64_t ParseError.description.getter()
       v5 = 0xD00000000000002BLL;
       goto LABEL_85;
     case 9:
-      v40[0] = 0;
-      v40[1] = 0xE000000000000000;
+      v39[0] = 0;
+      v39[1] = 0xE000000000000000;
       _StringGuts.grow(_:)(23);
-      v18 = "character class members";
-      v19 = 0xD000000000000014;
+      v17 = "character class members";
+      v18 = 0xD000000000000014;
       goto LABEL_57;
     case 0xA:
-      v40[0] = 0;
-      v40[1] = 0xE000000000000000;
+      v39[0] = 0;
+      v39[1] = 0xE000000000000000;
       _StringGuts.grow(_:)(29);
-      v18 = "ter; use '\\u{...}' instead";
-      v19 = 0xD00000000000001ALL;
+      v17 = "ter; use '\\u{...}' instead";
+      v18 = 0xD00000000000001ALL;
       goto LABEL_57;
     case 0xB:
-      v40[0] = 0;
-      v40[1] = 0xE000000000000000;
+      v39[0] = 0;
+      v39[1] = 0xE000000000000000;
       _StringGuts.grow(_:)(61);
       MEMORY[0x1C68E0BF0](39, 0xE100000000000000);
       Character.write<A>(to:)();
@@ -3370,9 +3349,9 @@ unint64_t ParseError.description.getter()
     case 0xC:
       _StringGuts.grow(_:)(44);
 
-      strcpy(v40, "quantifier '");
-      BYTE5(v40[1]) = 0;
-      HIWORD(v40[1]) = -5120;
+      strcpy(v39, "quantifier '");
+      BYTE5(v39[1]) = 0;
+      HIWORD(v39[1]) = -5120;
       MEMORY[0x1C68E0BF0](v1, v2);
       v15 = "' must include name";
       v5 = 0xD00000000000001ELL;
@@ -3380,30 +3359,30 @@ unint64_t ParseError.description.getter()
     case 0xD:
       _StringGuts.grow(_:)(45);
 
-      v40[0] = 0xD000000000000018;
-      v40[1] = 0x80000001C0C86960;
+      v39[0] = 0xD000000000000018;
+      v39[1] = 0x80000001C0C86960;
       MEMORY[0x1C68E0BF0](v1, v2);
       v15 = "backtracking directive '";
       v5 = 0xD000000000000013;
       goto LABEL_85;
     case 0xE:
-      v40[0] = 0;
-      v40[1] = 0xE000000000000000;
+      v39[0] = 0;
+      v39[1] = 0xE000000000000000;
       _StringGuts.grow(_:)(24);
 
       v16 = "unknown group kind '(";
       goto LABEL_64;
     case 0xF:
-      v40[0] = 0;
-      v40[1] = 0xE000000000000000;
+      v39[0] = 0;
+      v39[1] = 0xE000000000000000;
       _StringGuts.grow(_:)(25);
 
-      v20 = 0x80000001C0C86840;
-      v21 = 0xD000000000000016;
+      v19 = 0x80000001C0C86840;
+      v20 = 0xD000000000000016;
       goto LABEL_67;
     case 0x10:
-      v40[0] = 0;
-      v40[1] = 0xE000000000000000;
+      v39[0] = 0;
+      v39[1] = 0xE000000000000000;
       _StringGuts.grow(_:)(51);
       MEMORY[0x1C68E0BF0](0xD00000000000001BLL, 0x80000001C0C86800);
       Character.write<A>(to:)();
@@ -3411,21 +3390,21 @@ unint64_t ParseError.description.getter()
       v5 = 0xD000000000000016;
       goto LABEL_85;
     case 0x11:
-      v40[0] = 0;
-      v40[1] = 0xE000000000000000;
+      v39[0] = 0;
+      v39[1] = 0xE000000000000000;
       _StringGuts.grow(_:)(28);
-      v18 = "ith '^' specifier";
-      v19 = 0xD000000000000019;
+      v17 = "ith '^' specifier";
+      v18 = 0xD000000000000019;
 LABEL_57:
-      MEMORY[0x1C68E0BF0](v19, v18 | 0x8000000000000000);
+      MEMORY[0x1C68E0BF0](v18, v17 | 0x8000000000000000);
       goto LABEL_58;
     case 0x12:
       if (v2)
       {
         _StringGuts.grow(_:)(34);
 
-        v40[0] = 0xD00000000000001CLL;
-        v40[1] = 0x80000001C0C866A0;
+        v39[0] = 0xD00000000000001CLL;
+        v39[1] = 0x80000001C0C866A0;
         MEMORY[0x1C68E0BF0](v1, v2);
         MEMORY[0x1C68E0BF0](61, 0xE100000000000000);
       }
@@ -3434,41 +3413,41 @@ LABEL_57:
       {
         _StringGuts.grow(_:)(31);
 
-        v40[0] = 0xD00000000000001CLL;
-        v40[1] = 0x80000001C0C866A0;
+        v39[0] = 0xD00000000000001CLL;
+        v39[1] = 0x80000001C0C866A0;
       }
 
-      v31 = v3;
-      v32 = v4;
+      v30 = v3;
+      v31 = v4;
       goto LABEL_69;
     case 0x13:
-      v40[0] = 0;
-      v40[1] = 0xE000000000000000;
+      v39[0] = 0;
+      v39[1] = 0xE000000000000000;
       _StringGuts.grow(_:)(24);
 
       v16 = "unrecognized script '";
 LABEL_64:
-      v20 = (v16 - 32) | 0x8000000000000000;
-      v21 = 0xD000000000000015;
+      v19 = (v16 - 32) | 0x8000000000000000;
+      v20 = 0xD000000000000015;
       goto LABEL_67;
     case 0x14:
-      v40[0] = 0;
-      v40[1] = 0xE000000000000000;
+      v39[0] = 0;
+      v39[1] = 0xE000000000000000;
       _StringGuts.grow(_:)(26);
 
-      v28 = "unrecognized category '";
+      v27 = "unrecognized category '";
       goto LABEL_66;
     case 0x15:
-      v40[0] = 0;
-      v40[1] = 0xE000000000000000;
+      v39[0] = 0;
+      v39[1] = 0xE000000000000000;
       _StringGuts.grow(_:)(23);
 
-      v20 = 0x80000001C0C86480;
-      v21 = 0xD000000000000014;
+      v19 = 0x80000001C0C86480;
+      v20 = 0xD000000000000014;
       goto LABEL_67;
     case 0x16:
-      v40[0] = 0;
-      v40[1] = 0xE000000000000000;
+      v39[0] = 0;
+      v39[1] = 0xE000000000000000;
       _StringGuts.grow(_:)(57);
       MEMORY[0x1C68E0BF0](0xD000000000000018, 0x80000001C0C86420);
       MEMORY[0x1C68E0BF0](v1, v2);
@@ -3476,61 +3455,61 @@ LABEL_64:
       v5 = 0xD00000000000001FLL;
       goto LABEL_85;
     case 0x17:
-      v40[0] = 0;
-      v40[1] = 0xE000000000000000;
+      v39[0] = 0;
+      v39[1] = 0xE000000000000000;
       _StringGuts.grow(_:)(26);
 
-      v28 = "invalid numeric value '";
+      v27 = "invalid numeric value '";
 LABEL_66:
-      v20 = (v28 - 32) | 0x8000000000000000;
-      v21 = 0xD000000000000017;
+      v19 = (v27 - 32) | 0x8000000000000000;
+      v20 = 0xD000000000000017;
       goto LABEL_67;
     case 0x18:
-      v40[0] = 0;
-      v40[1] = 0xE000000000000000;
+      v39[0] = 0;
+      v39[1] = 0xE000000000000000;
       _StringGuts.grow(_:)(30);
 
-      v20 = 0x80000001C0C86460;
-      v21 = 0xD00000000000001BLL;
+      v19 = 0x80000001C0C86460;
+      v20 = 0xD00000000000001BLL;
       goto LABEL_67;
     case 0x19:
-      v40[0] = 0;
-      v40[1] = 0xE000000000000000;
+      v39[0] = 0;
+      v39[1] = 0xE000000000000000;
       _StringGuts.grow(_:)(38);
 
-      v20 = 0x80000001C0C863D0;
-      v21 = 0xD000000000000023;
+      v19 = 0x80000001C0C863D0;
+      v20 = 0xD000000000000023;
       goto LABEL_67;
     case 0x1A:
-      strcpy(v40, "expected ");
-      WORD1(v40[1]) = 0;
-      HIDWORD(v40[1]) = -385875968;
+      strcpy(v39, "expected ");
+      WORD1(v39[1]) = 0;
+      HIDWORD(v39[1]) = -385875968;
       if (v1)
       {
-        v29 = 0x2074756F6C6C6163;
+        v28 = 0x2074756F6C6C6163;
         if (v1 == 1)
         {
-          v36 = 0xEC000000656D616ELL;
+          v35 = 0xEC000000656D616ELL;
         }
 
         else
         {
-          v36 = 0xEB00000000676174;
+          v35 = 0xEB00000000676174;
         }
       }
 
       else
       {
-        v29 = 0x616E2070756F7267;
-        v36 = 0xEA0000000000656DLL;
+        v28 = 0x616E2070756F7267;
+        v35 = 0xEA0000000000656DLL;
       }
 
 LABEL_100:
-      v30 = v36;
+      v29 = v35;
       goto LABEL_101;
     case 0x1B:
-      v40[0] = 0;
-      v40[1] = 0xE000000000000000;
+      v39[0] = 0;
+      v39[1] = 0xE000000000000000;
       _StringGuts.grow(_:)(44);
       if (v1)
       {
@@ -3558,88 +3537,88 @@ LABEL_100:
       v5 = 0xD00000000000002ALL;
       goto LABEL_85;
     case 0x1C:
-      v40[0] = 0;
-      v40[1] = 0xE000000000000000;
+      v39[0] = 0;
+      v39[1] = 0xE000000000000000;
       _StringGuts.grow(_:)(29);
       if (v1)
       {
-        v33 = 0x2074756F6C6C6163;
+        v32 = 0x2074756F6C6C6163;
         if (v1 == 1)
         {
-          v34 = 0xEC000000656D616ELL;
+          v33 = 0xEC000000656D616ELL;
         }
 
         else
         {
-          v34 = 0xEB00000000676174;
+          v33 = 0xEB00000000676174;
         }
       }
 
       else
       {
-        v33 = 0x616E2070756F7267;
-        v34 = 0xEA0000000000656DLL;
+        v32 = 0x616E2070756F7267;
+        v33 = 0xEA0000000000656DLL;
       }
 
-      MEMORY[0x1C68E0BF0](v33, v34);
+      MEMORY[0x1C68E0BF0](v32, v33);
 
-      v35 = " must not start with number";
+      v34 = " must not start with number";
       goto LABEL_98;
     case 0x1D:
       _StringGuts.grow(_:)(29);
 
-      v40[0] = v1;
-      v40[1] = v2;
-      v35 = " is not currently supported";
+      v39[0] = v1;
+      v39[1] = v2;
+      v34 = " is not currently supported";
 LABEL_98:
-      v6 = (v35 - 32) | 0x8000000000000000;
+      v6 = (v34 - 32) | 0x8000000000000000;
       v5 = 0xD00000000000001BLL;
       goto LABEL_86;
     case 0x1E:
-      v40[0] = 0;
-      v40[1] = 0xE000000000000000;
+      v39[0] = 0;
+      v39[1] = 0xE000000000000000;
       _StringGuts.grow(_:)(57);
       MEMORY[0x1C68E0BF0](v1, v2);
       v15 = "no capture numbered ";
       v5 = 0xD000000000000037;
       goto LABEL_85;
     case 0x1F:
-      v40[0] = 0;
-      v40[1] = 0xE000000000000000;
+      v39[0] = 0;
+      v39[1] = 0xE000000000000000;
       _StringGuts.grow(_:)(22);
 
-      v26 = 0x80000001C0C86350;
-      v27 = 0xD000000000000014;
+      v25 = 0x80000001C0C86350;
+      v26 = 0xD000000000000014;
 LABEL_49:
-      v40[0] = v27;
-      v40[1] = v26;
+      v39[0] = v26;
+      v39[1] = v25;
 LABEL_50:
-      v29 = dispatch thunk of CustomStringConvertible.description.getter();
+      v28 = dispatch thunk of CustomStringConvertible.description.getter();
 LABEL_101:
-      MEMORY[0x1C68E0BF0](v29, v30);
+      MEMORY[0x1C68E0BF0](v28, v29);
 
-      return v40[0];
+      return v39[0];
     case 0x20:
-      v40[0] = 0;
-      v40[1] = 0xE000000000000000;
+      v39[0] = 0;
+      v39[1] = 0xE000000000000000;
       _StringGuts.grow(_:)(21);
 
-      v20 = 0x80000001C0C86330;
-      v21 = 0xD000000000000012;
+      v19 = 0x80000001C0C86330;
+      v20 = 0xD000000000000012;
 LABEL_67:
-      v40[0] = v21;
-      v40[1] = v20;
+      v39[0] = v20;
+      v39[1] = v19;
 LABEL_68:
-      v31 = v1;
-      v32 = v2;
+      v30 = v1;
+      v31 = v2;
 LABEL_69:
-      MEMORY[0x1C68E0BF0](v31, v32);
+      MEMORY[0x1C68E0BF0](v30, v31);
       goto LABEL_70;
     case 0x21:
       _StringGuts.grow(_:)(31);
 
-      strcpy(v40, "group named '");
-      HIWORD(v40[1]) = -4864;
+      strcpy(v39, "group named '");
+      HIWORD(v39[1]) = -4864;
       MEMORY[0x1C68E0BF0](v1, v2);
       v15 = "han or equal to upper bound '";
       v5 = 0xD000000000000010;
@@ -3647,8 +3626,8 @@ LABEL_85:
       v6 = v15 | 0x8000000000000000;
       goto LABEL_86;
     case 0x22:
-      v40[0] = 0;
-      v40[1] = 0xE000000000000000;
+      v39[0] = 0;
+      v39[1] = 0xE000000000000000;
       _StringGuts.grow(_:)(69);
       MEMORY[0x1C68E0BF0](0xD000000000000013, 0x80000001C0C862C0);
       v13 = dispatch thunk of CustomStringConvertible.description.getter();
@@ -3660,8 +3639,8 @@ LABEL_85:
 
       goto LABEL_70;
     case 0x23:
-      v40[0] = 0;
-      v40[1] = 0xE000000000000000;
+      v39[0] = 0;
+      v39[1] = 0xE000000000000000;
       _StringGuts.grow(_:)(54);
       MEMORY[0x1C68E0BF0](0x6574636172616863, 0xEB00000000272072);
       Character.write<A>(to:)();
@@ -3773,46 +3752,40 @@ LABEL_70:
     default:
       _StringGuts.grow(_:)(19);
 
-      v40[0] = 0xD000000000000011;
-      v40[1] = 0x80000001C0C86B80;
+      v39[0] = 0xD000000000000011;
+      v39[1] = 0x80000001C0C86B80;
       v5 = v1;
       v6 = v2;
 LABEL_86:
       MEMORY[0x1C68E0BF0](v5, v6);
-      return v40[0];
+      return v39[0];
   }
 }
 
 Swift::Int protocol witness for Hashable.hashValue.getter in conformance FatalParseError()
 {
-  v1 = *v0;
-  v2 = v0[1];
   Hasher.init(_seed:)();
   MEMORY[0x1C68E1190](0);
   String.hash(into:)();
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance FatalParseError()
+uint64_t protocol witness for Hashable.hash(into:) in conformance FatalParseError(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = v0[1];
   MEMORY[0x1C68E1190](0);
 
   return String.hash(into:)();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance FatalParseError()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance FatalParseError(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = v0[1];
   Hasher.init(_seed:)();
   MEMORY[0x1C68E1190](0);
   String.hash(into:)();
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance FatalParseError(void *a1, void *a2)
+uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance FatalParseError(uint64_t *a1, void *a2)
 {
   if (*a1 == *a2 && a1[1] == a2[1])
   {
@@ -3837,7 +3810,6 @@ uint64_t protocol witness for CustomStringConvertible.description.getter in conf
 uint64_t Diagnostic.message.getter()
 {
   v1 = *(v0 + 8);
-  v2 = *(v0 + 16);
 
   return v1;
 }
@@ -3849,20 +3821,16 @@ __n128 Diagnostic.location.getter@<Q0>(__n128 *a1@<X8>)
   return result;
 }
 
-void Diagnostic.hash(into:)()
+void Diagnostic.hash(into:)(uint64_t a1)
 {
-  v1 = *(v0 + 1);
-  v2 = *(v0 + 2);
-  v3 = *(v0 + 3);
-  v4 = *(v0 + 4);
-  v5 = *(v0 + 40);
-  v7 = *(v0 + 56);
-  v6 = v0[72];
-  MEMORY[0x1C68E1190](*v0);
+  v3 = *(v1 + 3);
+  v4 = *(v1 + 4);
+  v5 = v1[72];
+  MEMORY[0x1C68E1190](*v1);
   String.hash(into:)();
   MEMORY[0x1C68E11C0](v3 >> 14);
   MEMORY[0x1C68E11C0](v4 >> 14);
-  if (v6 == 255)
+  if (v5 == 255)
   {
     Hasher._combine(_:)(0);
   }
@@ -3870,63 +3838,65 @@ void Diagnostic.hash(into:)()
   else
   {
     Hasher._combine(_:)(1u);
-    ParseError.hash(into:)();
+    ParseError.hash(into:)(a1);
   }
 }
 
 Swift::Int Diagnostic.hashValue.getter()
 {
   v1 = *v0;
-  v2 = *(v0 + 1);
-  v3 = *(v0 + 2);
-  v4 = *(v0 + 3);
-  v5 = *(v0 + 4);
-  v8 = *(v0 + 40);
-  v9 = *(v0 + 56);
-  v6 = v0[72];
+  v2 = *(v0 + 3);
+  v3 = *(v0 + 4);
+  v6 = *(v0 + 40);
+  v7 = *(v0 + 56);
+  v4 = v0[72];
   Hasher.init(_seed:)();
   MEMORY[0x1C68E1190](v1);
   String.hash(into:)();
-  MEMORY[0x1C68E11C0](v4 >> 14);
-  MEMORY[0x1C68E11C0](v5 >> 14);
-  if (v6 == 255)
+  MEMORY[0x1C68E11C0](v2 >> 14);
+  MEMORY[0x1C68E11C0](v3 >> 14);
+  if (v4 == 255)
   {
     Hasher._combine(_:)(0);
   }
 
   else
   {
+    v9 = v6;
+    v10 = v7;
+    v11 = v4;
     Hasher._combine(_:)(1u);
-    ParseError.hash(into:)();
+    ParseError.hash(into:)(v8);
   }
 
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Diagnostic()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Diagnostic(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = *(v0 + 1);
-  v3 = *(v0 + 2);
-  v4 = *(v0 + 3);
-  v5 = *(v0 + 4);
-  v8 = *(v0 + 40);
-  v9 = *(v0 + 56);
-  v6 = v0[72];
+  v2 = *v1;
+  v3 = *(v1 + 3);
+  v4 = *(v1 + 4);
+  v7 = *(v1 + 40);
+  v8 = *(v1 + 56);
+  v5 = v1[72];
   Hasher.init(_seed:)();
-  MEMORY[0x1C68E1190](v1);
+  MEMORY[0x1C68E1190](v2);
   String.hash(into:)();
+  MEMORY[0x1C68E11C0](v3 >> 14);
   MEMORY[0x1C68E11C0](v4 >> 14);
-  MEMORY[0x1C68E11C0](v5 >> 14);
-  if (v6 == 255)
+  if (v5 == 255)
   {
     Hasher._combine(_:)(0);
   }
 
   else
   {
+    v10 = v7;
+    v11 = v8;
+    v12 = v5;
     Hasher._combine(_:)(1u);
-    ParseError.hash(into:)();
+    ParseError.hash(into:)(v9);
   }
 
   return Hasher._finalize()();
@@ -3992,9 +3962,8 @@ Swift::Void __swiftcall Diagnostics.append(contentsOf:)(_RegexParser::Diagnostic
 {
   if ((*(v1 + 8) & 1) == 0)
   {
-    v2 = *contentsOf.diags._rawValue;
 
-    specialized Array.append<A>(contentsOf:)(v3);
+    specialized Array.append<A>(contentsOf:)(v2);
   }
 }
 
@@ -4013,7 +3982,6 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if (result && v5 <= *(v3 + 24) >> 1)
   {
@@ -4027,15 +3995,15 @@ LABEL_16:
 
   if (v4 <= v5)
   {
-    v11 = v4 + v2;
+    v10 = v4 + v2;
   }
 
   else
   {
-    v11 = v4;
+    v10 = v4;
   }
 
-  result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(result, v11, 1, v3);
+  result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(result, v10, 1, v3);
   v3 = result;
   if (!*(v6 + 16))
   {
@@ -4066,12 +4034,12 @@ LABEL_14:
     return result;
   }
 
-  v8 = *(v3 + 16);
-  v9 = __OFADD__(v8, v2);
-  v10 = v8 + v2;
-  if (!v9)
+  v7 = *(v3 + 16);
+  v8 = __OFADD__(v7, v2);
+  v9 = v7 + v2;
+  if (!v8)
   {
-    *(v3 + 16) = v10;
+    *(v3 + 16) = v9;
     goto LABEL_14;
   }
 
@@ -4099,53 +4067,52 @@ Swift::Void __swiftcall Diagnostics.appendNewFatalErrors(from:)(_RegexParser::Di
 
       else
       {
-        v8 = *from.diags._rawValue;
 
-        v9 = ~v7 + v5;
+        v8 = ~v7 + v5;
         for (i = 80 * v7 + 32; ; i += 80)
         {
-          v21 = *(v2 + i);
-          v11 = *(v2 + i + 16);
-          v12 = *(v2 + i + 32);
-          v13 = *(v2 + i + 48);
-          *(v24 + 9) = *(v2 + i + 57);
-          v23 = v12;
-          v24[0] = v13;
+          v20 = *(v2 + i);
+          v10 = *(v2 + i + 16);
+          v11 = *(v2 + i + 32);
+          v12 = *(v2 + i + 48);
+          *(v23 + 9) = *(v2 + i + 57);
           v22 = v11;
-          if (!v21)
+          v23[0] = v12;
+          v21 = v10;
+          if (!v20)
           {
-            outlined init with copy of Diagnostic(&v21, &v20);
+            outlined init with copy of Diagnostic(&v20, &v19);
             if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
             {
               v3 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v3 + 2) + 1, 1, v3);
             }
 
-            v15 = *(v3 + 2);
-            v14 = *(v3 + 3);
-            if (v15 >= v14 >> 1)
+            v14 = *(v3 + 2);
+            v13 = *(v3 + 3);
+            if (v14 >= v13 >> 1)
             {
-              v3 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v14 > 1), v15 + 1, 1, v3);
+              v3 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v13 > 1), v14 + 1, 1, v3);
             }
 
-            *(v3 + 2) = v15 + 1;
-            v16 = &v3[80 * v15];
-            *(v16 + 2) = v21;
+            *(v3 + 2) = v14 + 1;
+            v15 = &v3[80 * v14];
+            *(v15 + 2) = v20;
+            v16 = v21;
             v17 = v22;
-            v18 = v23;
-            v19 = v24[0];
-            *(v16 + 89) = *(v24 + 9);
-            *(v16 + 4) = v18;
-            *(v16 + 5) = v19;
-            *(v16 + 3) = v17;
+            v18 = v23[0];
+            *(v15 + 89) = *(v23 + 9);
+            *(v15 + 4) = v17;
+            *(v15 + 5) = v18;
+            *(v15 + 3) = v16;
             *v1 = v3;
           }
 
-          if (!v9)
+          if (!v8)
           {
             break;
           }
 
-          --v9;
+          --v8;
         }
 
         swift_unknownObjectRelease();
@@ -4166,7 +4133,7 @@ uint64_t specialized Sequence.contains(where:)(uint64_t (*a1)(_BYTE *), uint64_t
       v8 = v6;
       v10[0] = *(v7 - 8);
       v11 = *v7;
-      LOBYTE(v4) = (v3 != 0) | a1(v10);
+      LOBYTE(v4) = (v3 != 0) | (a1)(v10, a2);
       if (v4)
       {
         break;
@@ -4272,13 +4239,13 @@ void protocol witness for Hashable.hash(into:) in conformance Diagnostics(uint64
   Hasher._combine(_:)(v3);
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Diagnostics()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Diagnostics(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = *(v0 + 8);
+  v2 = *v1;
+  v3 = *(v1 + 8);
   Hasher.init(_seed:)();
-  specialized Array<A>.hash(into:)(v4, v1);
-  Hasher._combine(_:)(v2);
+  specialized Array<A>.hash(into:)(v5, v2);
+  Hasher._combine(_:)(v3);
   return Hasher._finalize()();
 }
 
@@ -4289,11 +4256,11 @@ uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance Dia
   return _sSasSQRzlE2eeoiySbSayxG_ABtFZ12_RegexParser10DiagnosticV_Tt1g5(*a1, *a2) & ~(v2 ^ v3) & 1;
 }
 
-__n128 Diagnostics.error(_:at:)(uint64_t a1, __int128 *a2)
+__n128 Diagnostics.error(_:at:)(__int128 *a1, __int128 *a2)
 {
   v3 = v2;
-  v5 = *(a1 + 16);
-  v6 = *(a1 + 24);
+  v5 = *(a1 + 2);
+  v6 = *(a1 + 3);
   v7 = *(a1 + 32);
   v16 = *a2;
   v17 = *a1;
@@ -4346,31 +4313,30 @@ __n128 Diagnostics.error(_:at:)(uint64_t a1, __int128 *a2)
 uint64_t protocol witness for CustomStringConvertible.description.getter in conformance ErrorDiagnostic #1 in Diagnostics.throwAnyError()()
 {
   v1 = *(v0 + 8);
-  v2 = *(v0 + 16);
 
   return v1;
 }
 
 uint64_t Source.Located.init(_:_:)@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
 {
-  v5 = *a2;
-  v6 = a2[1];
+  v6 = *a2;
+  v7 = a2[1];
   (*(*(a3 - 8) + 32))(a4, a1);
-  result = type metadata accessor for Source.Located();
-  v8 = (a4 + *(result + 28));
-  *v8 = v5;
-  v8[1] = v6;
+  result = type metadata accessor for Source.Located(0, a3, v8, v9);
+  v11 = (a4 + *(result + 28));
+  *v11 = v6;
+  v11[1] = v7;
   return result;
 }
 
-uint64_t specialized Parser.tryEating<A>(_:)@<X0>(uint64_t a1@<X0>, char **a2@<X1>, void *a3@<X8>)
+void *specialized Parser.tryEating<A>(_:)@<X0>(__int128 *a1@<X0>, char **a2@<X1>, void *a3@<X8>)
 {
   *&v67[9] = *(a1 + 73);
-  v6 = *(a1 + 48);
-  v65 = *(a1 + 32);
+  v6 = a1[3];
+  v65 = a1[2];
   v66 = v6;
-  *v67 = *(a1 + 64);
-  v7 = *(a1 + 16);
+  *v67 = a1[4];
+  v7 = a1[1];
   v64[0] = *a1;
   v64[1] = v7;
   v61 = v65;
@@ -4388,7 +4354,7 @@ uint64_t specialized Parser.tryEating<A>(_:)@<X0>(uint64_t a1@<X0>, char **a2@<X
     goto LABEL_10;
   }
 
-  v11 = *(a1 + 16);
+  v11 = *(a1 + 2);
   result = specialized Parser.tryEating<A>(_:)(a1, a2, &v54);
   v13 = *(&v54 + 1);
   v14 = *(&v56 + 1);
@@ -4406,7 +4372,7 @@ uint64_t specialized Parser.tryEating<A>(_:)@<X0>(uint64_t a1@<X0>, char **a2@<X
 
   else
   {
-    if (*(a1 + 16) >> 14 < v11 >> 14)
+    if (*(a1 + 2) >> 14 < v11 >> 14)
     {
       __break(1u);
       goto LABEL_37;
@@ -4460,13 +4426,13 @@ LABEL_10:
   v46 = v14;
   v20 = *&v67[16];
   v21 = v67[24];
-  v22 = *(a1 + 80);
-  v23 = *(a1 + 48);
-  v56 = *(a1 + 32);
+  v22 = *(a1 + 10);
+  v23 = a1[3];
+  v56 = a1[2];
   v57 = v23;
-  *v58 = *(a1 + 64);
+  *v58 = a1[4];
   *&v58[9] = *(a1 + 73);
-  v24 = *(a1 + 16);
+  v24 = a1[1];
   v54 = *a1;
   v55 = v24;
 
@@ -4476,13 +4442,13 @@ LABEL_10:
 
 LABEL_35:
     v40 = v62;
-    *(a1 + 32) = v61;
-    *(a1 + 48) = v40;
-    *(a1 + 64) = v63;
+    a1[2] = v61;
+    a1[3] = v40;
+    a1[4] = v63;
     v41 = v60;
     *a1 = v59;
-    *(a1 + 16) = v41;
-    *(a1 + 80) = v8;
+    a1[1] = v41;
+    *(a1 + 10) = v8;
     *(a1 + 88) = v9;
     *a3 = v47;
     a3[1] = v13;
@@ -4585,6 +4551,7 @@ LABEL_37:
   return result;
 }
 
+void *specialized Parser.tryEating<A>(_:)@<X0>(uint64_t a1@<X0>, char **a2@<X1>, void *a3@<X8>)
 {
   *&v109[9] = *(a1 + 73);
   v6 = *(a1 + 48);
@@ -4613,7 +4580,7 @@ LABEL_37:
     *a2 = v10;
     if ((isUniquelyReferenced_nonNull_native & 1) == 0)
     {
-      v10 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v10 + 2) + 1, 1, v10, &_ss23_ContiguousArrayStorageCy12_RegexParser3ASTV6TriviaVGMd, &_ss23_ContiguousArrayStorageCy12_RegexParser3ASTV6TriviaVGMR);
+      v10 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v10 + 2) + 1, 1, v10, &_ss23_ContiguousArrayStorageCy12_RegexParser3ASTV6TriviaVGMd, &_ss23_ContiguousArrayStorageCy12_RegexParser3ASTV6TriviaVGMR, &type metadata for AST.Trivia);
       *a2 = v10;
     }
 
@@ -4621,7 +4588,7 @@ LABEL_37:
     v12 = *(v10 + 3);
     if (v13 >= v12 >> 1)
     {
-      v10 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v12 > 1), v13 + 1, 1, v10, &_ss23_ContiguousArrayStorageCy12_RegexParser3ASTV6TriviaVGMd, &_ss23_ContiguousArrayStorageCy12_RegexParser3ASTV6TriviaVGMR);
+      v10 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v12 > 1), v13 + 1, 1, v10, &_ss23_ContiguousArrayStorageCy12_RegexParser3ASTV6TriviaVGMd, &_ss23_ContiguousArrayStorageCy12_RegexParser3ASTV6TriviaVGMR, &type metadata for AST.Trivia);
       *a2 = v10;
     }
 
@@ -4649,7 +4616,7 @@ LABEL_37:
     *a2 = v17;
     if ((v18 & 1) == 0)
     {
-      v17 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v17 + 2) + 1, 1, v17, &_ss23_ContiguousArrayStorageCy12_RegexParser3ASTV6TriviaVGMd, &_ss23_ContiguousArrayStorageCy12_RegexParser3ASTV6TriviaVGMR);
+      v17 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v17 + 2) + 1, 1, v17, &_ss23_ContiguousArrayStorageCy12_RegexParser3ASTV6TriviaVGMd, &_ss23_ContiguousArrayStorageCy12_RegexParser3ASTV6TriviaVGMR, &type metadata for AST.Trivia);
       *a2 = v17;
     }
 
@@ -4657,7 +4624,7 @@ LABEL_37:
     v19 = *(v17 + 3);
     if (v20 >= v19 >> 1)
     {
-      v17 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v19 > 1), v20 + 1, 1, v17, &_ss23_ContiguousArrayStorageCy12_RegexParser3ASTV6TriviaVGMd, &_ss23_ContiguousArrayStorageCy12_RegexParser3ASTV6TriviaVGMR);
+      v17 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v19 > 1), v20 + 1, 1, v17, &_ss23_ContiguousArrayStorageCy12_RegexParser3ASTV6TriviaVGMd, &_ss23_ContiguousArrayStorageCy12_RegexParser3ASTV6TriviaVGMR, &type metadata for AST.Trivia);
       *a2 = v17;
     }
 
@@ -4733,7 +4700,7 @@ LABEL_24:
     *a2 = v31;
     if ((v32 & 1) == 0)
     {
-      v31 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v31 + 2) + 1, 1, v31, &_ss23_ContiguousArrayStorageCy12_RegexParser3ASTV6TriviaVGMd, &_ss23_ContiguousArrayStorageCy12_RegexParser3ASTV6TriviaVGMR);
+      v31 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v31 + 2) + 1, 1, v31, &_ss23_ContiguousArrayStorageCy12_RegexParser3ASTV6TriviaVGMd, &_ss23_ContiguousArrayStorageCy12_RegexParser3ASTV6TriviaVGMR, &type metadata for AST.Trivia);
       *a2 = v31;
     }
 
@@ -4741,7 +4708,7 @@ LABEL_24:
     v33 = *(v31 + 3);
     if (v34 >= v33 >> 1)
     {
-      v31 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v33 > 1), v34 + 1, 1, v31, &_ss23_ContiguousArrayStorageCy12_RegexParser3ASTV6TriviaVGMd, &_ss23_ContiguousArrayStorageCy12_RegexParser3ASTV6TriviaVGMR);
+      v31 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v33 > 1), v34 + 1, 1, v31, &_ss23_ContiguousArrayStorageCy12_RegexParser3ASTV6TriviaVGMd, &_ss23_ContiguousArrayStorageCy12_RegexParser3ASTV6TriviaVGMR, &type metadata for AST.Trivia);
       *a2 = v31;
     }
 
@@ -4775,7 +4742,7 @@ LABEL_24:
     *a2 = v39;
     if ((v40 & 1) == 0)
     {
-      v39 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v39 + 2) + 1, 1, v39, &_ss23_ContiguousArrayStorageCy12_RegexParser3ASTV6TriviaVGMd, &_ss23_ContiguousArrayStorageCy12_RegexParser3ASTV6TriviaVGMR);
+      v39 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v39 + 2) + 1, 1, v39, &_ss23_ContiguousArrayStorageCy12_RegexParser3ASTV6TriviaVGMd, &_ss23_ContiguousArrayStorageCy12_RegexParser3ASTV6TriviaVGMR, &type metadata for AST.Trivia);
       *a2 = v39;
     }
 
@@ -4783,7 +4750,7 @@ LABEL_24:
     v41 = *(v39 + 3);
     if (v42 >= v41 >> 1)
     {
-      v39 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v41 > 1), v42 + 1, 1, v39, &_ss23_ContiguousArrayStorageCy12_RegexParser3ASTV6TriviaVGMd, &_ss23_ContiguousArrayStorageCy12_RegexParser3ASTV6TriviaVGMR);
+      v39 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v41 > 1), v42 + 1, 1, v39, &_ss23_ContiguousArrayStorageCy12_RegexParser3ASTV6TriviaVGMd, &_ss23_ContiguousArrayStorageCy12_RegexParser3ASTV6TriviaVGMR, &type metadata for AST.Trivia);
       *a2 = v39;
     }
 
@@ -5064,14 +5031,12 @@ Swift::Bool __swiftcall Parser.tryEat(_:)(Swift::String a1)
   return 0;
 }
 
-uint64_t specialized Parser.tryEat<A>(sequence:)(uint64_t a1, uint64_t a2)
+uint64_t specialized Parser.tryEat<A>(sequence:)(uint64_t a1, void *a2)
 {
-  v5 = *v2;
-  v6 = v2[1];
-  v8 = v2[2];
-  v7 = v2[3];
-  v9 = String.subscript.getter();
-  v11 = specialized Sequence<>.starts<A>(with:)(a1, a2, v9, v10);
+  v6 = *(v2 + 16);
+  v5 = *(v2 + 24);
+  v7 = String.subscript.getter();
+  v11 = specialized Sequence<>.starts<A>(with:)(a1, a2, v7, v8, v9, v10);
 
   if ((v11 & 1) == 0)
   {
@@ -5087,8 +5052,8 @@ uint64_t specialized Parser.tryEat<A>(sequence:)(uint64_t a1, uint64_t a2)
     LOBYTE(v29) = 0;
     *(&v29 + 1) = v28[0];
     *&v30 = v28[1];
-    *(&v30 + 1) = v8;
-    *v31 = v8;
+    *(&v30 + 1) = v6;
+    *v31 = v6;
     memset(&v31[8], 0, 32);
     v31[40] = -1;
     if (*(v2 + 88) == 1)
@@ -5098,7 +5063,7 @@ uint64_t specialized Parser.tryEat<A>(sequence:)(uint64_t a1, uint64_t a2)
 
     else
     {
-      v17 = v2[10];
+      v17 = *(v2 + 80);
       if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
       {
         v17 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v17 + 2) + 1, 1, v17);
@@ -5141,20 +5106,20 @@ uint64_t specialized Parser.tryEat<A>(sequence:)(uint64_t a1, uint64_t a2)
       return v11 & 1;
     }
 
-    if (v7 >> 14 >= v25 >> 14)
+    if (v5 >> 14 >= v25 >> 14)
     {
       v16[2] = v25;
-      v16[3] = v7;
+      v16[3] = v5;
       return v11 & 1;
     }
   }
 
   else
   {
-    if (v7 >> 14 >= v12 >> 14)
+    if (v5 >> 14 >= v12 >> 14)
     {
-      v2[2] = v12;
-      v2[3] = v7;
+      *(v2 + 16) = v12;
+      *(v2 + 24) = v5;
       return v11 & 1;
     }
 
@@ -5165,50 +5130,44 @@ uint64_t specialized Parser.tryEat<A>(sequence:)(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t specialized Parser.tryEatNonEmpty<A>(sequence:)(uint64_t a1, uint64_t a2)
+uint64_t specialized Parser.tryEatNonEmpty<A>(sequence:)(uint64_t a1, void *a2)
 {
 
-  v16[0] = String.init<A>(_:)();
-  v16[1] = v5;
-  v16[2] = 0;
-  v16[3] = 0;
-  v17 = 3;
-  v6 = *v2;
-  v7 = v2[1];
-  v9 = v2[2];
-  v8 = v2[3];
-  v10 = String.subscript.getter();
-  v12 = v11;
+  *&v13 = String.init<A>(_:)();
+  *(&v13 + 1) = v5;
+  v14 = 0;
+  v15 = 0;
+  v16 = 3;
+  v6 = *(v2 + 16);
+  v7 = String.subscript.getter();
+  v9 = v8;
 
-  if ((v10 ^ v12) >> 14)
+  if ((v7 ^ v9) >> 14)
   {
 
-    v13 = specialized Parser.tryEat<A>(sequence:)(a1, a2);
+    v10 = specialized Parser.tryEat<A>(sequence:)(a1, a2);
   }
 
   else
   {
-    *&v15 = v9;
-    *(&v15 + 1) = v9;
-    Diagnostics.error(_:at:)(v16, &v15);
+    *&v12 = v6;
+    *(&v12 + 1) = v6;
+    Diagnostics.error(_:at:)(&v13, &v12);
 
-    v13 = 0;
+    v10 = 0;
   }
 
-  return v13 & 1;
+  return v10 & 1;
 }
 
 Swift::Void __swiftcall Parser.advance(_:)(Swift::Int a1)
 {
   if (a1 >= 1)
   {
-    v2 = *v1;
-    v3 = v1[1];
-    v5 = v1[2];
-    v4 = v1[3];
+    v2 = *(v1 + 24);
     String.subscript.getter();
-    v6 = Substring.index(_:offsetBy:limitedBy:)();
-    LOBYTE(v5) = v7;
+    v3 = Substring.index(_:offsetBy:limitedBy:)();
+    v5 = v4;
 
     if ((v5 & 1) == 0)
     {
@@ -5216,35 +5175,32 @@ Swift::Void __swiftcall Parser.advance(_:)(Swift::Int a1)
     }
   }
 
-  v8._object = 0x80000001C0C86F20;
-  v8._countAndFlagsBits = 0xD000000000000015;
-  Parser.unreachable(_:)(v8);
-  v9 = *v1;
-  v10 = v1[1];
-  v11 = v1[2];
-  v4 = v1[3];
+  v6._object = 0x80000001C0C86F20;
+  v6._countAndFlagsBits = 0xD000000000000015;
+  Parser.unreachable(_:)(v6);
+  v2 = *(v1 + 24);
   String.subscript.getter();
-  v12 = Substring.distance(from:to:)();
+  v7 = Substring.distance(from:to:)();
 
-  if (v12 >= 1)
+  if (v7 >= 1)
   {
     String.subscript.getter();
-    v6 = Substring.index(_:offsetBy:limitedBy:)();
-    v14 = v13;
+    v3 = Substring.index(_:offsetBy:limitedBy:)();
+    v9 = v8;
 
-    if ((v14 & 1) == 0)
+    if ((v9 & 1) == 0)
     {
-      if (v4 >> 14 >= v6 >> 14)
+      if (v2 >> 14 >= v3 >> 14)
       {
 LABEL_8:
-        v1[2] = v6;
-        v1[3] = v4;
+        *(v1 + 16) = v3;
+        *(v1 + 24) = v2;
         return;
       }
 
       __break(1u);
 LABEL_7:
-      if (v4 >> 14 < v6 >> 14)
+      if (v2 >> 14 < v3 >> 14)
       {
         __break(1u);
         return;
@@ -5314,28 +5270,25 @@ Swift::Bool __swiftcall Source.tryAdvance(_:)(Swift::Int a1)
     return 0;
   }
 
-  v2 = *v1;
-  v3 = v1[1];
-  v5 = v1[2];
-  v4 = v1[3];
+  v2 = *(v1 + 24);
   String.subscript.getter();
-  v6 = Substring.index(_:offsetBy:limitedBy:)();
-  LOBYTE(v5) = v7;
+  v3 = Substring.index(_:offsetBy:limitedBy:)();
+  v5 = v4;
 
   if (v5)
   {
     return 0;
   }
 
-  if (v4 >> 14 < v6 >> 14)
+  if (v2 >> 14 < v3 >> 14)
   {
     __break(1u);
   }
 
   else
   {
-    v1[2] = v6;
-    v1[3] = v4;
+    *(v1 + 16) = v3;
+    *(v1 + 24) = v2;
     return 1;
   }
 
@@ -5345,26 +5298,26 @@ Swift::Bool __swiftcall Source.tryAdvance(_:)(Swift::Int a1)
 uint64_t specialized Parser.tryEat<A>(anyOf:)(uint64_t a1)
 {
   v3 = v1[1];
-  v15[0] = *v1;
-  v15[1] = v3;
+  v14[0] = *v1;
+  v14[1] = v3;
   v4 = v1[3];
-  v15[2] = v1[2];
-  v15[3] = v4;
-  v16[0] = v1[4];
-  *(v16 + 9) = *(v1 + 73);
-  outlined init with copy of Parser(v15, v14);
+  v14[2] = v1[2];
+  v14[3] = v4;
+  v15[0] = v1[4];
+  *(v15 + 9) = *(v1 + 73);
+  outlined init with copy of Parser(v14, v13);
   v5 = String.subscript.getter();
   if ((v5 ^ v6) >> 14)
   {
     v7 = Substring.subscript.getter();
     v9 = v8;
 
-    v10 = outlined destroy of Parser(v15);
-    v14[0] = v7;
-    v14[1] = v9;
-    MEMORY[0x1EEE9AC00](v10, v11);
-    v13[2] = v14;
-    if (specialized Sequence.contains(where:)(partial apply for specialized closure #1 in Sequence<>.contains(_:), v13, a1))
+    v10 = outlined destroy of Parser(v14);
+    v13[0] = v7;
+    v13[1] = v9;
+    MEMORY[0x1EEE9AC00](v10);
+    v12[2] = v13;
+    if (specialized Sequence.contains(where:)(partial apply for specialized closure #1 in Sequence<>.contains(_:), v12, a1))
     {
       Parser.advance(_:)(1);
       return v7;
@@ -5374,18 +5327,16 @@ uint64_t specialized Parser.tryEat<A>(anyOf:)(uint64_t a1)
   else
   {
 
-    outlined destroy of Parser(v15);
+    outlined destroy of Parser(v14);
   }
 
   return 0;
 }
 
-uint64_t Parser.eat(upToCount:)@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
+unint64_t Parser.eat(upToCount:)@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
 {
-  v5 = v2[1];
-  v6 = v2[2];
-  v7 = v2[3];
-  v28 = *v2;
+  v5 = *(v2 + 16);
+  v6 = *(v2 + 24);
   result = String.subscript.getter();
   if (a1 < 0)
   {
@@ -5397,55 +5348,55 @@ LABEL_14:
     goto LABEL_15;
   }
 
-  v10 = result;
-  v11 = v9;
+  v9 = result;
+  v10 = v8;
   result = Substring.index(_:offsetBy:limitedBy:)();
-  if (v12)
+  if (v11)
   {
-    v13 = v11;
+    v12 = v10;
   }
 
   else
   {
-    v13 = result;
+    v12 = result;
   }
 
-  if (v13 >> 14 < v10 >> 14)
+  if (v12 >> 14 < v9 >> 14)
   {
     goto LABEL_13;
   }
 
-  v29 = v7;
-  v30 = a2;
-  v14 = Substring.subscript.getter();
-  v16 = v15;
-  v18 = v17;
-  v20 = v19;
+  v27 = v6;
+  v28 = a2;
+  v13 = Substring.subscript.getter();
+  v15 = v14;
+  v17 = v16;
+  v19 = v18;
 
-  v21 = v6;
-  if (Substring.distance(from:to:)() < 1 || (String.subscript.getter(), v22 = Substring.index(_:offsetBy:limitedBy:)(), v24 = v23, result = , v21 = v6, (v24 & 1) != 0))
+  v20 = v5;
+  if (Substring.distance(from:to:)() < 1 || (String.subscript.getter(), v21 = Substring.index(_:offsetBy:limitedBy:)(), v23 = v22, result = , v20 = v5, (v23 & 1) != 0))
   {
 LABEL_10:
-    v25 = MEMORY[0x1C68E0B20](v14, v16, v18, v20);
-    v27 = v26;
+    v24 = MEMORY[0x1C68E0B20](v13, v15, v17, v19);
+    v26 = v25;
 
-    if (v21 >> 14 >= v6 >> 14)
+    if (v20 >> 14 >= v5 >> 14)
     {
-      *v30 = v25;
-      v30[1] = v27;
-      v30[2] = v6;
-      v30[3] = v21;
+      *v28 = v24;
+      v28[1] = v26;
+      v28[2] = v5;
+      v28[3] = v20;
       return result;
     }
 
     goto LABEL_14;
   }
 
-  if (v29 >> 14 >= v22 >> 14)
+  if (v27 >> 14 >= v21 >> 14)
   {
-    v2[2] = v22;
-    v2[3] = v29;
-    v21 = v22;
+    *(v2 + 16) = v21;
+    *(v2 + 24) = v27;
+    v20 = v21;
     goto LABEL_10;
   }
 
@@ -5454,7 +5405,7 @@ LABEL_15:
   return result;
 }
 
-uint64_t specialized Parser.tryEatPrefix(maxLength:_:)@<X0>(uint64_t a1@<X0>, char a2@<W1>, void *a3@<X2>, uint64_t (*a4)(uint64_t, void, void *)@<X3>, uint64_t *a5@<X8>)
+uint64_t specialized Parser.tryEatPrefix(maxLength:_:)@<X0>(uint64_t a1@<X0>, char a2@<W1>, uint64_t *a3@<X2>, uint64_t (*a4)(uint64_t, void, uint64_t *)@<X3>, uint64_t *a5@<X8>)
 {
   v10 = a3[1];
   v11 = a3[2];
@@ -5517,55 +5468,53 @@ LABEL_11:
   return result;
 }
 
-uint64_t Parser.tryEatPrefix(maxLength:_:)@<X0>(uint64_t a1@<X0>, char a2@<W1>, uint64_t (*a3)(uint64_t)@<X2>, uint64_t *a4@<X8>)
+uint64_t Parser.tryEatPrefix(maxLength:_:)@<X0>(uint64_t a1@<X0>, char a2@<W1>, uint64_t (*a3)(uint64_t)@<X2>, uint64_t *a5@<X8>)
 {
-  v5 = v4;
-  v10 = v5[2];
-  v11 = v5[3];
-  v29 = *v5;
-  v30 = v5[1];
+  v6 = v5;
+  v11 = *(v6 + 16);
+  v12 = *(v6 + 24);
 
-  v12 = Source.peekPrefix(maxLength:_:)(a1, a2 & 1, a3);
-  v14 = v13;
-  v16 = v15;
-  v18 = v17;
+  v13 = Source.peekPrefix(maxLength:_:)(a1, a2 & 1, a3);
+  v15 = v14;
+  v17 = v16;
+  v19 = v18;
 
-  if (v18)
+  if (v19)
   {
-    v27 = a4;
-    v28 = v16;
-    v20 = v10;
+    v28 = a5;
+    v29 = v17;
+    v21 = v11;
     if (Substring.distance(from:to:)() >= 1)
     {
       String.subscript.getter();
-      v21 = Substring.index(_:offsetBy:limitedBy:)();
-      v23 = v22;
+      v22 = Substring.index(_:offsetBy:limitedBy:)();
+      v24 = v23;
 
-      v20 = v10;
-      if ((v23 & 1) == 0)
+      v21 = v11;
+      if ((v24 & 1) == 0)
       {
-        if (v11 >> 14 < v21 >> 14)
+        if (v12 >> 14 < v22 >> 14)
         {
 LABEL_11:
           __break(1u);
           return result;
         }
 
-        v5[2] = v21;
-        v5[3] = v11;
-        v20 = v21;
+        *(v6 + 16) = v22;
+        *(v6 + 24) = v12;
+        v21 = v22;
       }
     }
 
-    v24 = MEMORY[0x1C68E0B20](v12, v14, v28, v18);
-    v26 = v25;
+    v25 = MEMORY[0x1C68E0B20](v13, v15, v29, v19);
+    v27 = v26;
 
-    if (v20 >> 14 >= v10 >> 14)
+    if (v21 >> 14 >= v11 >> 14)
     {
-      *v27 = v24;
-      v27[1] = v26;
-      v27[2] = v10;
-      v27[3] = v20;
+      *v28 = v25;
+      v28[1] = v27;
+      v28[2] = v11;
+      v28[3] = v21;
       return result;
     }
 
@@ -5573,8 +5522,8 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  *a4 = 0u;
-  *(a4 + 1) = 0u;
+  *a5 = 0u;
+  *(a5 + 1) = 0u;
   return result;
 }
 
@@ -5670,7 +5619,7 @@ uint64_t Character.isOctalDigit.getter(uint64_t a1, uint64_t a2)
   return result;
 }
 
-unsigned __int8 *_s12_RegexParser0B0V14validateNumber33_E16AF135E664C72DDA9A5705859E2720LLyxSgAA6SourceV7LocatedVy_SSG_xmAA9RadixKindOts17FixedWidthIntegerRzlFs6UInt32V_Tt1B5(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, unsigned __int8 a5)
+unsigned __int8 *_s12_RegexParser0B0V14validateNumber33_E16AF135E664C72DDA9A5705859E2720LLyxSgAA6SourceV7LocatedVy_SSG_xmAA9RadixKindOts17FixedWidthIntegerRzlFs6UInt32V_Tt1B5(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, char a5)
 {
   v10 = HIBYTE(a2) & 0xF;
   v11 = a1 & 0xFFFFFFFFFFFFLL;
@@ -5687,11 +5636,11 @@ unsigned __int8 *_s12_RegexParser0B0V14validateNumber33_E16AF135E664C72DDA9A5705
   if (!v12)
   {
 LABEL_9:
-    v91 = a1;
-    v92 = a2;
-    v93 = a5;
-    v94 = 0;
-    v95 = 2;
+    *&v91 = a1;
+    *(&v91 + 1) = a2;
+    v92 = a5;
+    v93 = 0;
+    v94 = 2;
     *&v90 = a3;
     *(&v90 + 1) = a4;
 LABEL_10:
@@ -5704,10 +5653,10 @@ LABEL_11:
   }
 
   v13 = *(&off_1F402C470 + a5);
-  v91 = a1;
-  v92 = a2;
-  v93 = 0;
-  v94 = v12;
+  *&v91 = a1;
+  *(&v91 + 1) = a2;
+  v92 = 0;
+  v93 = v12;
 
   while (1)
   {
@@ -5760,11 +5709,11 @@ LABEL_11:
     }
 
 LABEL_182:
-    v91 = a1;
-    v92 = a2;
+    *&v91 = a1;
+    *(&v91 + 1) = a2;
+    v92 = 0;
     v93 = 0;
     v94 = 0;
-    v95 = 0;
     *&v90 = a3;
     *(&v90 + 1) = a4;
     goto LABEL_10;
@@ -6041,8 +5990,8 @@ LABEL_181:
     goto LABEL_182;
   }
 
-  v91 = a1;
-  v92 = a2 & 0xFFFFFFFFFFFFFFLL;
+  *&v91 = a1;
+  *(&v91 + 1) = a2 & 0xFFFFFFFFFFFFFFLL;
   if (a1 != 43)
   {
     if (a1 != 45)
@@ -6270,7 +6219,7 @@ LABEL_190:
   return result;
 }
 
-unsigned __int8 *Parser.validateUnicodeScalar(_:_:)@<X0>(uint64_t *a1@<X0>, unsigned __int8 a2@<W1>, uint64_t a3@<X8>)
+unsigned __int8 *Parser.validateUnicodeScalar(_:_:)@<X0>(uint64_t *a1@<X0>, char a2@<W1>, uint64_t a3@<X8>)
 {
   v4 = a1[2];
   v5 = a1[3];
@@ -6284,18 +6233,18 @@ unsigned __int8 *Parser.validateUnicodeScalar(_:_:)@<X0>(uint64_t *a1@<X0>, unsi
   {
     _StringGuts.grow(_:)(25);
 
-    v10[0] = 0xD000000000000017;
-    v10[1] = 0x80000001C0C87090;
+    *&v10 = 0xD000000000000017;
+    *(&v10 + 1) = 0x80000001C0C87090;
     lazy protocol witness table accessor for type UInt32 and conformance UInt32();
     v8 = String.init<A>(_:radix:uppercase:)();
     MEMORY[0x1C68E0BF0](v8);
 
-    v10[2] = 0;
-    v10[3] = 0;
-    v11 = 4;
+    v11 = 0;
+    v12 = 0;
+    v13 = 4;
     *&v9 = v4;
     *(&v9 + 1) = v5;
-    Diagnostics.error(_:at:)(v10, &v9);
+    Diagnostics.error(_:at:)(&v10, &v9);
 
 LABEL_8:
     result = 0;
@@ -6310,8 +6259,8 @@ LABEL_8:
 uint64_t Parser.lexNumber(_:)@<X0>(char a1@<W0>, uint64_t a2@<X8>)
 {
   Parser.tryEatPrefix(maxLength:_:)(0, 1, *(&off_1F402C470 + a1), &v87);
-  result = v88;
-  if (!v88)
+  result = *(&v87 + 1);
+  if (!*(&v87 + 1))
   {
     *a2 = 0u;
     *(a2 + 16) = 0u;
@@ -6341,13 +6290,13 @@ uint64_t Parser.lexNumber(_:)@<X0>(char a1@<W0>, uint64_t a2@<X8>)
     v7 = 8;
   }
 
-  v9 = v89;
-  v8 = v90;
-  v10 = HIBYTE(v88) & 0xF;
+  v9 = v88;
+  v8 = v89;
+  v10 = HIBYTE(*(&v87 + 1)) & 0xFLL;
   v11 = v87 & 0xFFFFFFFFFFFFLL;
-  if ((v88 & 0x2000000000000000) != 0)
+  if ((*(&v87 + 1) & 0x2000000000000000) != 0)
   {
-    v12 = HIBYTE(v88) & 0xF;
+    v12 = HIBYTE(*(&v87 + 1)) & 0xFLL;
   }
 
   else
@@ -6360,9 +6309,9 @@ uint64_t Parser.lexNumber(_:)@<X0>(char a1@<W0>, uint64_t a2@<X8>)
     goto LABEL_174;
   }
 
-  if ((v88 & 0x1000000000000000) != 0)
+  if ((*(&v87 + 1) & 0x1000000000000000) != 0)
   {
-    v82 = v88;
+    v82 = *(&v87 + 1);
 
     v18 = specialized _parseInteger<A, B>(ascii:radix:)(v5, v82, v7);
     v84 = v83;
@@ -6376,16 +6325,16 @@ uint64_t Parser.lexNumber(_:)@<X0>(char a1@<W0>, uint64_t a2@<X8>)
     goto LABEL_176;
   }
 
-  if ((v88 & 0x2000000000000000) == 0)
+  if ((*(&v87 + 1) & 0x2000000000000000) == 0)
   {
     if ((v87 & 0x1000000000000000) != 0)
     {
-      v10 = (v88 & 0xFFFFFFFFFFFFFFFLL) + 32;
+      v10 = (*(&v87 + 1) & 0xFFFFFFFFFFFFFFFLL) + 32;
     }
 
     else
     {
-      v85 = v88;
+      v85 = *(&v87 + 1);
       v10 = _StringObject.sharedUTF8.getter();
       result = v85;
     }
@@ -6477,11 +6426,11 @@ LABEL_173:
         if (v10)
         {
 LABEL_174:
-          v87 = v5;
-          v88 = result;
+          *&v87 = v5;
+          *(&v87 + 1) = result;
+          v88 = 0;
           v89 = 0;
           v90 = 0;
-          v91 = 0;
           *&v86 = v9;
           *(&v86 + 1) = v8;
 
@@ -6660,7 +6609,7 @@ LABEL_176:
     goto LABEL_172;
   }
 
-  v88 &= 0xFFFFFFFFFFFFFFuLL;
+  *(&v87 + 1) &= 0xFFFFFFFFFFFFFFuLL;
   if (v87 != 43)
   {
     if (v87 == 45)
@@ -6887,8 +6836,8 @@ LABEL_182:
 uint64_t Parser.lexQuantBound()@<X0>(uint64_t a1@<X8>)
 {
   specialized Parser.tryEatPrefix(maxLength:_:)(0, 1, v1, specialized Source.peekPrefix(maxLength:_:), &v33);
-  result = v34;
-  if (!v34)
+  result = *(&v33 + 1);
+  if (!*(&v33 + 1))
   {
     *a1 = 0u;
     *(a1 + 16) = 0u;
@@ -6897,13 +6846,13 @@ uint64_t Parser.lexQuantBound()@<X0>(uint64_t a1@<X8>)
   }
 
   v4 = v33;
-  v6 = v35;
-  v5 = v36;
-  v7 = HIBYTE(v34) & 0xF;
+  v6 = v34;
+  v5 = v35;
+  v7 = HIBYTE(*(&v33 + 1)) & 0xFLL;
   v8 = v33 & 0xFFFFFFFFFFFFLL;
-  if ((v34 & 0x2000000000000000) != 0)
+  if ((*(&v33 + 1) & 0x2000000000000000) != 0)
   {
-    v9 = HIBYTE(v34) & 0xF;
+    v9 = HIBYTE(*(&v33 + 1)) & 0xFLL;
   }
 
   else
@@ -6916,9 +6865,9 @@ uint64_t Parser.lexQuantBound()@<X0>(uint64_t a1@<X8>)
     goto LABEL_70;
   }
 
-  if ((v34 & 0x1000000000000000) != 0)
+  if ((*(&v33 + 1) & 0x1000000000000000) != 0)
   {
-    v30 = v34;
+    v30 = *(&v33 + 1);
 
     v13 = specialized _parseInteger<A, B>(ascii:radix:)(v4, v30, 10);
 
@@ -6931,16 +6880,16 @@ uint64_t Parser.lexQuantBound()@<X0>(uint64_t a1@<X8>)
     goto LABEL_70;
   }
 
-  if ((v34 & 0x2000000000000000) == 0)
+  if ((*(&v33 + 1) & 0x2000000000000000) == 0)
   {
     if ((v33 & 0x1000000000000000) != 0)
     {
-      v10 = ((v34 & 0xFFFFFFFFFFFFFFFLL) + 32);
+      v10 = ((*(&v33 + 1) & 0xFFFFFFFFFFFFFFFLL) + 32);
     }
 
     else
     {
-      v31 = v34;
+      v31 = *(&v33 + 1);
       v10 = _StringObject.sharedUTF8.getter();
       result = v31;
     }
@@ -7094,11 +7043,11 @@ LABEL_71:
         }
 
 LABEL_70:
-        v33 = v4;
-        v34 = result;
+        *&v33 = v4;
+        *(&v33 + 1) = result;
+        v34 = 0;
         v35 = 0;
         v36 = 0;
-        v37 = 0;
         *&v32 = v6;
         *(&v32 + 1) = v5;
 
@@ -7119,7 +7068,7 @@ LABEL_77:
     goto LABEL_78;
   }
 
-  v34 &= 0xFFFFFFFFFFFFFFuLL;
+  *(&v33 + 1) &= 0xFFFFFFFFFFFFFFuLL;
   if (v33 != 43)
   {
     if (v33 == 45)
@@ -7255,40 +7204,37 @@ uint64_t Parser.expectUnicodeScalar(numDigits:)@<X0>(uint64_t a1@<X0>, uint64_t 
 {
   v3 = v2;
   v6 = *(v2 + 16);
-  Parser.eat(upToCount:)(a1, &v17);
+  Parser.eat(upToCount:)(a1, &v16);
+  v7 = v16;
   v8 = v17;
-  v7 = v18;
-  v9 = v19;
-  v10 = v20;
+  v9 = v18;
 
-  v11 = String.count.getter();
+  v10 = String.count.getter();
 
-  if (v11 != a1)
+  if (v10 != a1)
   {
-    v17 = v8;
-    v18 = v7;
-    v19 = a1;
-    v20 = 0;
-    v21 = 1;
-    *&v14 = v9;
-    *(&v14 + 1) = v10;
+    v16 = v7;
+    v17 = a1;
+    v18 = 0;
+    v19 = 1;
+    *&v13 = v8;
+    *(&v13 + 1) = v9;
 
-    Diagnostics.error(_:at:)(&v17, &v14);
+    Diagnostics.error(_:at:)(&v16, &v13);
   }
 
-  v13 = *(v3 + 16);
-  if (v13 >> 14 < v6 >> 14)
+  v12 = *(v3 + 16);
+  if (v12 >> 14 < v6 >> 14)
   {
     __break(1u);
   }
 
   else
   {
-    *&v14 = v8;
-    *(&v14 + 1) = v7;
-    v15 = v6;
-    v16 = v13;
-    Parser.validateUnicodeScalar(_:_:)(&v14, 2u, a2);
+    v13 = v7;
+    v14 = v6;
+    v15 = v12;
+    Parser.validateUnicodeScalar(_:_:)(&v13, 2, a2);
   }
 
   return result;
@@ -7306,7 +7252,7 @@ uint64_t Parser.expectUnicodeScalarSequence(eating:)@<X0>(unint64_t a1@<X0>, voi
   {
     v5 = *v69;
     v61 = *&v69[16];
-    v11 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, 1, 1, MEMORY[0x1E69E7CC0], &_ss23_ContiguousArrayStorageCy12_RegexParser3ASTV6TriviaVGMd, &_ss23_ContiguousArrayStorageCy12_RegexParser3ASTV6TriviaVGMR);
+    v11 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, 1, 1, MEMORY[0x1E69E7CC0], &_ss23_ContiguousArrayStorageCy12_RegexParser3ASTV6TriviaVGMd, &_ss23_ContiguousArrayStorageCy12_RegexParser3ASTV6TriviaVGMR, &type metadata for AST.Trivia);
     a1 = *(v11 + 2);
     v12 = *(v11 + 3);
     v3 = a1 + 1;
@@ -7475,7 +7421,7 @@ LABEL_60:
 LABEL_61:
         __break(1u);
 LABEL_62:
-        v11 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v12 > 1), v3, 1, v11, &_ss23_ContiguousArrayStorageCy12_RegexParser3ASTV6TriviaVGMd, &_ss23_ContiguousArrayStorageCy12_RegexParser3ASTV6TriviaVGMR);
+        v11 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v12 > 1), v3, 1, v11, &_ss23_ContiguousArrayStorageCy12_RegexParser3ASTV6TriviaVGMd, &_ss23_ContiguousArrayStorageCy12_RegexParser3ASTV6TriviaVGMR, &type metadata for AST.Trivia);
 LABEL_3:
         *(v11 + 2) = v3;
         v13 = &v11[32 * a1];
@@ -7509,7 +7455,7 @@ LABEL_28:
       break;
     }
 
-    v40 = _s12_RegexParser0B0V14validateNumber33_E16AF135E664C72DDA9A5705859E2720LLyxSgAA6SourceV7LocatedVy_SSG_xmAA9RadixKindOts17FixedWidthIntegerRzlFs6UInt32V_Tt1B5(*&v77[0], *(&v77[0] + 1), v15, v14, 2u);
+    v40 = _s12_RegexParser0B0V14validateNumber33_E16AF135E664C72DDA9A5705859E2720LLyxSgAA6SourceV7LocatedVy_SSG_xmAA9RadixKindOts17FixedWidthIntegerRzlFs6UInt32V_Tt1B5(*&v77[0], *(&v77[0] + 1), v15, v14, 2);
     if ((v40 & 0x100000000) == 0)
     {
       v5 = v40;
@@ -7657,88 +7603,84 @@ LABEL_59:
 
 uint64_t closure #1 in Parser.expectUnicodeScalarSequence(eating:)(uint64_t *a1, uint64_t a2, uint64_t a3, char **a4)
 {
-  v8 = *a1;
-  v9 = a1[1];
-  v10 = a1[2];
-  v11 = a1[3];
-  v12 = String.subscript.getter();
-  v14 = v13;
+  v8 = String.subscript.getter();
+  v10 = v9;
 
-  if ((v12 ^ v14) < 0x4000)
+  if ((v8 ^ v10) < 0x4000)
   {
     return 1;
   }
 
-  v15 = *(a1 + 1);
-  v35[0] = *a1;
-  v35[1] = v15;
-  v16 = *(a1 + 3);
-  v35[2] = *(a1 + 2);
-  v35[3] = v16;
-  v36[0] = *(a1 + 4);
-  *(v36 + 9) = *(a1 + 73);
-  outlined init with copy of Parser(v35, &v32);
-  v17 = String.subscript.getter();
-  if (!((v17 ^ v18) >> 14))
+  v11 = *(a1 + 1);
+  v31[0] = *a1;
+  v31[1] = v11;
+  v12 = *(a1 + 3);
+  v31[2] = *(a1 + 2);
+  v31[3] = v12;
+  v32[0] = *(a1 + 4);
+  *(v32 + 9) = *(a1 + 73);
+  outlined init with copy of Parser(v31, &v28);
+  v13 = String.subscript.getter();
+  if (!((v13 ^ v14) >> 14))
   {
 
-    outlined destroy of Parser(v35);
+    outlined destroy of Parser(v31);
     goto LABEL_4;
   }
 
-  v26 = Substring.subscript.getter();
-  v28 = v27;
+  v22 = Substring.subscript.getter();
+  v24 = v23;
 
-  outlined destroy of Parser(v35);
-  if (v26 == a2 && v28 == a3)
+  outlined destroy of Parser(v31);
+  if (v22 == a2 && v24 == a3)
   {
 
     return 1;
   }
 
-  v29 = _stringCompareWithSmolCheck(_:_:expecting:)();
+  v25 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-  if (v29)
+  if (v25)
   {
     return 1;
   }
 
 LABEL_4:
-  specialized Parser.tryEatPrefix(maxLength:_:)(0, 1, a1, specialized Source.peekPrefix(maxLength:_:), &v32);
-  v19 = v33;
-  if (v33)
+  specialized Parser.tryEatPrefix(maxLength:_:)(0, 1, a1, specialized Source.peekPrefix(maxLength:_:), &v28);
+  v15 = v29;
+  if (v29)
   {
-    v20 = v32;
-    v31 = v34;
-    v21 = *a4;
+    v16 = v28;
+    v27 = v30;
+    v17 = *a4;
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    *a4 = v21;
+    *a4 = v17;
     if ((isUniquelyReferenced_nonNull_native & 1) == 0)
     {
-      v21 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v21 + 2) + 1, 1, v21, &_ss23_ContiguousArrayStorageCy12_RegexParser3ASTV6TriviaVGMd, &_ss23_ContiguousArrayStorageCy12_RegexParser3ASTV6TriviaVGMR);
-      *a4 = v21;
+      v17 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v17 + 2) + 1, 1, v17, &_ss23_ContiguousArrayStorageCy12_RegexParser3ASTV6TriviaVGMd, &_ss23_ContiguousArrayStorageCy12_RegexParser3ASTV6TriviaVGMR, &type metadata for AST.Trivia);
+      *a4 = v17;
     }
 
-    v24 = *(v21 + 2);
-    v23 = *(v21 + 3);
-    if (v24 >= v23 >> 1)
+    v20 = *(v17 + 2);
+    v19 = *(v17 + 3);
+    if (v20 >= v19 >> 1)
     {
-      v21 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v23 > 1), v24 + 1, 1, v21, &_ss23_ContiguousArrayStorageCy12_RegexParser3ASTV6TriviaVGMd, &_ss23_ContiguousArrayStorageCy12_RegexParser3ASTV6TriviaVGMR);
-      *a4 = v21;
+      v17 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v19 > 1), v20 + 1, 1, v17, &_ss23_ContiguousArrayStorageCy12_RegexParser3ASTV6TriviaVGMd, &_ss23_ContiguousArrayStorageCy12_RegexParser3ASTV6TriviaVGMR, &type metadata for AST.Trivia);
+      *a4 = v17;
     }
 
-    *(v21 + 2) = v24 + 1;
-    v25 = &v21[32 * v24];
-    *(v25 + 4) = v20;
-    *(v25 + 5) = v19;
-    *(v25 + 3) = v31;
+    *(v17 + 2) = v20 + 1;
+    v21 = &v17[32 * v20];
+    *(v21 + 4) = v16;
+    *(v21 + 5) = v15;
+    *(v21 + 3) = v27;
     return 1;
   }
 
   return 0;
 }
 
-uint64_t specialized Parser.lexUntil(_:)@<X0>(__int128 *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
+uint64_t specialized Parser.lexUntil(_:)@<X0>(__int128 *a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, void *a4@<X8>)
 {
   v8 = *(a1 + 2);
   v60 = 0;
@@ -7961,190 +7903,164 @@ LABEL_35:
   return result;
 }
 
-uint64_t specialized Parser.lexUntil(_:)@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, char a6@<W5>, void *a7@<X8>)
+uint64_t specialized Parser.lexUntil(_:)@<X0>(void *a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, char a6@<W5>, void *a7@<X8>)
 {
-  v81 = 0;
-  v82 = 0xE000000000000000;
-  v12 = *a1;
-  v13 = a1[1];
-  v15 = a1[2];
-  v14 = a1[3];
-  v16 = String.subscript.getter();
-  v69 = a2;
-  LOBYTE(a2) = specialized Sequence<>.starts<A>(with:)(a2, a3, v16, v17);
+  v76 = 0;
+  v77 = 0xE000000000000000;
+  v12 = a1[2];
+  v13 = String.subscript.getter();
+  v64 = a2;
+  LOBYTE(a2) = specialized Sequence<>.starts<A>(with:)(a2, a3, v13, v14, v15, v16);
 
   if ((a2 & 1) == 0)
   {
-    *&v73 = a4;
-    *(&v73 + 1) = a5;
-    v74 = 0uLL;
-    v75[0] = 3;
-    v18 = String.subscript.getter();
-    v20 = v19;
+    *&v68 = a4;
+    *(&v68 + 1) = a5;
+    v69 = 0uLL;
+    v70[0] = 3;
+    v17 = String.subscript.getter();
+    v19 = v18;
 
-    if ((v18 ^ v20) >> 14)
+    if ((v17 ^ v19) >> 14)
     {
-      if ((a6 & 1) == 0)
+      if ((a6 & 1) == 0 || (v22._countAndFlagsBits = 92, v22._object = 0xE100000000000000, !Parser.tryEat(_:)(v22)) || (v71 = 2uLL, v72 = 0uLL, LOBYTE(v73) = 36, v23 = a1[2], v24 = String.subscript.getter(), v26 = v25, , (v24 ^ v26) >> 14))
       {
-        goto LABEL_9;
-      }
-
-      v23._countAndFlagsBits = 92;
-      v23._object = 0xE100000000000000;
-      if (!Parser.tryEat(_:)(v23))
-      {
-        goto LABEL_9;
-      }
-
-      v76 = 2uLL;
-      v77 = 0uLL;
-      LOBYTE(v78) = 36;
-      v24 = *a1;
-      v25 = a1[1];
-      v27 = a1[2];
-      v26 = a1[3];
-      v28 = String.subscript.getter();
-      v30 = v29;
-
-      if ((v28 ^ v30) >> 14)
-      {
-LABEL_9:
-        v22 = v15;
+        v21 = v12;
         while (1)
         {
-          v31 = *(a1 + 1);
-          v76 = *a1;
-          v77 = v31;
-          v32 = *(a1 + 3);
-          v78 = *(a1 + 2);
-          v79 = v32;
-          *v80 = *(a1 + 4);
-          *&v80[9] = *(a1 + 73);
-          v33 = v77;
-          outlined init with copy of Parser(&v76, &v73);
-          v34 = String.subscript.getter();
-          if (!((v34 ^ v35) >> 14))
+          v27 = *(a1 + 1);
+          v71 = *a1;
+          v72 = v27;
+          v28 = *(a1 + 3);
+          v73 = *(a1 + 2);
+          v74 = v28;
+          *v75 = *(a1 + 4);
+          *&v75[9] = *(a1 + 73);
+          v29 = v72;
+          outlined init with copy of Parser(&v71, &v68);
+          v30 = String.subscript.getter();
+          if (!((v30 ^ v31) >> 14))
           {
 
-            outlined destroy of Parser(&v76);
+            outlined destroy of Parser(&v71);
             goto LABEL_36;
           }
 
-          v36 = a5;
-          v71 = Substring.subscript.getter();
-          v38 = v37;
+          v32 = a5;
+          v66 = Substring.subscript.getter();
+          v34 = v33;
 
-          outlined destroy of Parser(&v76);
+          outlined destroy of Parser(&v71);
           String.subscript.getter();
-          v22 = Substring.index(_:offsetBy:limitedBy:)();
-          v40 = v39;
+          v21 = Substring.index(_:offsetBy:limitedBy:)();
+          v36 = v35;
 
-          if (v40)
+          if (v36)
           {
-            v41 = *&v80[16];
-            v42 = v80[24];
-            strcpy(v72, "UNREACHABLE: ");
-            HIWORD(v72[1]) = -4864;
+            v37 = *&v75[16];
+            v38 = v75[24];
+            strcpy(v67, "UNREACHABLE: ");
+            HIWORD(v67[1]) = -4864;
             MEMORY[0x1C68E0BF0](0xD000000000000015, 0x80000001C0C86F20);
-            LOBYTE(v73) = 0;
-            *(&v73 + 1) = v72[0];
-            *&v74 = v72[1];
-            *(&v74 + 1) = v33;
-            *v75 = v33;
-            memset(&v75[8], 0, 32);
-            v75[40] = -1;
-            if (v42)
+            LOBYTE(v68) = 0;
+            *(&v68 + 1) = v67[0];
+            *&v69 = v67[1];
+            *(&v69 + 1) = v29;
+            *v70 = v29;
+            memset(&v70[8], 0, 32);
+            v70[40] = -1;
+            if (v38)
             {
-              outlined destroy of Diagnostic(&v73);
+              outlined destroy of Diagnostic(&v68);
             }
 
             else
             {
               if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
               {
-                v41 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v41 + 2) + 1, 1, v41);
+                v37 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v37 + 2) + 1, 1, v37);
               }
 
-              v44 = *(v41 + 2);
-              v43 = *(v41 + 3);
-              if (v44 >= v43 >> 1)
+              v40 = *(v37 + 2);
+              v39 = *(v37 + 3);
+              if (v40 >= v39 >> 1)
               {
-                v41 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v43 > 1), v44 + 1, 1, v41);
+                v37 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v39 > 1), v40 + 1, 1, v37);
               }
 
-              *(v41 + 2) = v44 + 1;
-              v45 = &v41[80 * v44];
-              *(v45 + 2) = v73;
-              v46 = v74;
-              v47 = *v75;
-              v48 = *&v75[16];
-              *(v45 + 89) = *&v75[25];
-              *(v45 + 4) = v47;
-              *(v45 + 5) = v48;
-              *(v45 + 3) = v46;
-              a1[10] = v41;
+              *(v37 + 2) = v40 + 1;
+              v41 = &v37[80 * v40];
+              *(v41 + 2) = v68;
+              v42 = v69;
+              v43 = *v70;
+              v44 = *&v70[16];
+              *(v41 + 89) = *&v70[25];
+              *(v41 + 4) = v43;
+              *(v41 + 5) = v44;
+              *(v41 + 3) = v42;
+              a1[10] = v37;
             }
 
             String.subscript.getter();
-            v49 = Substring.distance(from:to:)();
+            v45 = Substring.distance(from:to:)();
 
-            if (v49 < 1 || (String.subscript.getter(), v22 = Substring.index(_:offsetBy:limitedBy:)(), v51 = v50, result = , (v51 & 1) != 0))
+            if (v45 < 1 || (String.subscript.getter(), v21 = Substring.index(_:offsetBy:limitedBy:)(), v47 = v46, result = , (v47 & 1) != 0))
             {
-              v22 = v33;
+              v21 = v29;
             }
 
             else
             {
-              if (*(&v33 + 1) >> 14 < v22 >> 14)
+              if (*(&v29 + 1) >> 14 < v21 >> 14)
               {
                 goto LABEL_41;
               }
 
-              a1[2] = v22;
-              a1[3] = *(&v33 + 1);
+              a1[2] = v21;
+              a1[3] = *(&v29 + 1);
             }
 
-            a5 = v36;
+            a5 = v32;
           }
 
           else
           {
-            if (*(&v33 + 1) >> 14 < v22 >> 14)
+            if (*(&v29 + 1) >> 14 < v21 >> 14)
             {
               __break(1u);
               goto LABEL_40;
             }
 
-            a5 = v36;
-            a1[2] = v22;
-            a1[3] = *(&v33 + 1);
+            a5 = v32;
+            a1[2] = v21;
+            a1[3] = *(&v29 + 1);
           }
 
-          MEMORY[0x1C68E0BE0](v71, v38);
+          MEMORY[0x1C68E0BE0](v66, v34);
 
-          v52 = String.subscript.getter();
-          v54 = specialized Sequence<>.starts<A>(with:)(v69, a3, v52, v53);
+          v48 = String.subscript.getter();
+          v52 = specialized Sequence<>.starts<A>(with:)(v64, a3, v48, v49, v50, v51);
 
-          if (v54)
+          if (v52)
           {
             goto LABEL_36;
           }
 
-          v83[0] = a4;
-          v83[1] = a5;
-          v83[2] = 0;
-          v83[3] = 0;
-          v84 = 3;
-          v55 = String.subscript.getter();
-          v57 = v56;
+          v78[0] = a4;
+          v78[1] = a5;
+          v78[2] = 0;
+          v78[3] = 0;
+          v79 = 3;
+          v53 = String.subscript.getter();
+          v55 = v54;
 
-          if (!((v55 ^ v57) >> 14))
+          if (!((v53 ^ v55) >> 14))
           {
-            *&v73 = v22;
-            *(&v73 + 1) = v22;
-            v67 = v83;
+            *&v68 = v21;
+            *(&v68 + 1) = v21;
+            v62 = v78;
 LABEL_35:
-            Diagnostics.error(_:at:)(v67, &v73);
+            Diagnostics.error(_:at:)(v62, &v68);
 LABEL_36:
 
             goto LABEL_37;
@@ -8152,26 +8068,23 @@ LABEL_36:
 
           if (a6)
           {
-            v58._countAndFlagsBits = 92;
-            v58._object = 0xE100000000000000;
-            if (Parser.tryEat(_:)(v58))
+            v56._countAndFlagsBits = 92;
+            v56._object = 0xE100000000000000;
+            if (Parser.tryEat(_:)(v56))
             {
-              v85 = 2uLL;
-              v86 = 0;
-              v87 = 0;
-              v88 = 36;
-              v59 = *a1;
-              v60 = a1[1];
-              v62 = a1[2];
-              v61 = a1[3];
-              v63 = String.subscript.getter();
-              v65 = v64;
+              v80 = 2uLL;
+              v81 = 0;
+              v82 = 0;
+              v83 = 36;
+              v57 = a1[2];
+              v58 = String.subscript.getter();
+              v60 = v59;
 
-              if (!((v63 ^ v65) >> 14))
+              if (!((v58 ^ v60) >> 14))
               {
-                *&v73 = v62;
-                *(&v73 + 1) = v62;
-                v67 = &v85;
+                *&v68 = v57;
+                *(&v68 + 1) = v57;
+                v62 = &v80;
                 goto LABEL_35;
               }
             }
@@ -8179,22 +8092,22 @@ LABEL_36:
         }
       }
 
-      *&v85 = v27;
-      *(&v85 + 1) = v27;
-      Diagnostics.error(_:at:)(&v76, &v85);
+      *&v80 = v23;
+      *(&v80 + 1) = v23;
+      Diagnostics.error(_:at:)(&v71, &v80);
     }
 
     else
     {
-      *&v85 = v15;
-      *(&v85 + 1) = v15;
-      Diagnostics.error(_:at:)(&v73, &v85);
+      *&v80 = v12;
+      *(&v80 + 1) = v12;
+      Diagnostics.error(_:at:)(&v68, &v80);
     }
   }
 
-  v22 = v15;
+  v21 = v12;
 LABEL_37:
-  if (v22 >> 14 < v15 >> 14)
+  if (v21 >> 14 < v12 >> 14)
   {
 LABEL_40:
     __break(1u);
@@ -8204,11 +8117,11 @@ LABEL_41:
 
   else
   {
-    v66 = v82;
-    *a7 = v81;
-    a7[1] = v66;
-    a7[2] = v15;
-    a7[3] = v22;
+    v61 = v77;
+    *a7 = v76;
+    a7[1] = v61;
+    a7[2] = v12;
+    a7[3] = v21;
   }
 
   return result;
@@ -8217,304 +8130,303 @@ LABEL_41:
 void *Parser.lexUnicodeScalar()@<X0>(uint64_t a1@<X8>)
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12_RegexParser3ASTV4AtomV4KindOSgMd, &_s12_RegexParser3ASTV4AtomV4KindOSgMR);
-  v4 = *(*(v3 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v3 - 8, v5);
-  v7 = &v57 - v6;
-  *(v71 + 9) = *(v1 + 73);
-  v8 = *(v1 + 48);
-  v69 = *(v1 + 32);
-  v70 = v8;
-  v71[0] = *(v1 + 64);
+  MEMORY[0x1EEE9AC00](v3 - 8);
+  v5 = &v55 - v4;
+  *(v69 + 9) = *(v1 + 73);
+  v6 = *(v1 + 48);
+  v67 = *(v1 + 32);
+  v68 = v6;
+  v69[0] = *(v1 + 64);
+  v7 = *(v1 + 16);
+  v66[0] = *v1;
+  v66[1] = v7;
+  v64 = v6;
+  v65 = v69[0];
+  v62 = v7;
+  v63 = v67;
+  v61 = v66[0];
+  v58 = *&v69[1];
+  v8 = BYTE8(v69[1]);
+  outlined init with copy of Parser(v66, &v73);
   v9 = *(v1 + 16);
-  v68[0] = *v1;
-  v68[1] = v9;
-  v66 = v8;
-  v67 = v71[0];
-  v64 = v9;
-  v65 = v69;
-  v63 = v68[0];
-  v60 = *&v71[1];
-  v10 = BYTE8(v71[1]);
-  outlined init with copy of Parser(v68, &v75);
-  v11 = *(v1 + 16);
-  v75 = *v1;
-  v76 = v11;
-  v12 = *(v1 + 48);
-  v77 = *(v1 + 32);
-  v78 = v12;
-  *v79 = *(v1 + 64);
-  *&v79[9] = *(v1 + 73);
-  outlined init with copy of Parser(&v75, v72);
-  v13 = String.subscript.getter();
-  if ((v13 ^ v14) < 0x4000)
+  v73 = *v1;
+  v74 = v9;
+  v10 = *(v1 + 48);
+  v75 = *(v1 + 32);
+  v76 = v10;
+  *v77 = *(v1 + 64);
+  *&v77[9] = *(v1 + 73);
+  outlined init with copy of Parser(&v73, v70);
+  v11 = String.subscript.getter();
+  if ((v11 ^ v12) < 0x4000)
   {
 
-    outlined destroy of Parser(&v75);
+    outlined destroy of Parser(&v73);
 LABEL_3:
-    v15 = type metadata accessor for AST.Atom.Kind(0);
-    (*(*(v15 - 8) + 56))(v7, 1, 1, v15);
+    v13 = type metadata accessor for AST.Atom.Kind(0);
+    (*(*(v13 - 8) + 56))(v5, 1, 1, v13);
     goto LABEL_25;
   }
 
-  v16 = Substring.subscript.getter();
-  v18 = v17;
+  v14 = Substring.subscript.getter();
+  v16 = v15;
 
-  outlined destroy of Parser(&v75);
+  outlined destroy of Parser(&v73);
   Parser.advance(_:)(1);
-  if ((v16 != 117 || v18 != 0xE100000000000000) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || (v19._countAndFlagsBits = 123, v19._object = 0xE100000000000000, !Parser.tryEat(_:)(v19)))
+  if ((v14 != 117 || v16 != 0xE100000000000000) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || (v17._countAndFlagsBits = 123, v17._object = 0xE100000000000000, !Parser.tryEat(_:)(v17)))
   {
-    if (v16 == 120 && v18 == 0xE100000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+    if (v14 == 120 && v16 == 0xE100000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
     {
-      v21._countAndFlagsBits = 123;
-      v21._object = 0xE100000000000000;
-      if (Parser.tryEat(_:)(v21))
+      v19._countAndFlagsBits = 123;
+      v19._object = 0xE100000000000000;
+      if (Parser.tryEat(_:)(v19))
       {
 
-        specialized Parser.lexUntil(_:)(v1, 125, 0xE100000000000000, v72);
-        v23 = *(&v72[0] + 1);
-        v22 = *&v72[0];
+        specialized Parser.lexUntil(_:)(v1, 125, 0xE100000000000000, v70);
+        v21 = *(&v70[0] + 1);
+        v20 = *&v70[0];
 LABEL_20:
-        *&v72[0] = v22;
-        *(&v72[0] + 1) = v23;
-        v24 = 2;
+        *&v70[0] = v20;
+        *(&v70[0] + 1) = v21;
+        v22 = 2;
 LABEL_21:
-        Parser.validateUnicodeScalar(_:_:)(v72, v24, &v61);
+        Parser.validateUnicodeScalar(_:_:)(v70, v22, &v59);
 
-        *v7 = v61;
-        v25 = v62;
+        *v5 = v59;
+        v23 = v60;
 LABEL_22:
-        *(v7 + 8) = v25;
+        *(v5 + 8) = v23;
 LABEL_23:
-        v15 = type metadata accessor for AST.Atom.Kind(0);
+        v13 = type metadata accessor for AST.Atom.Kind(0);
         swift_storeEnumTagMultiPayload();
-        v20 = v15;
+        v18 = v13;
         goto LABEL_24;
       }
     }
 
-    if (!v18)
+    if (!v16)
     {
       goto LABEL_3;
     }
 
-    if (v16 == 120 && v18 == 0xE100000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+    if (v14 == 120 && v16 == 0xE100000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
     {
 
-      specialized Parser.tryEatPrefix(maxLength:_:)(2, 0, v1, specialized Source.peekPrefix(maxLength:_:), v72);
-      v23 = *(&v72[0] + 1);
-      if (*(&v72[0] + 1))
+      specialized Parser.tryEatPrefix(maxLength:_:)(2, 0, v1, specialized Source.peekPrefix(maxLength:_:), v70);
+      v21 = *(&v70[0] + 1);
+      if (*(&v70[0] + 1))
       {
-        v22 = *&v72[0];
+        v20 = *&v70[0];
         goto LABEL_20;
       }
 
 LABEL_70:
-      v56 = *(v1 + 16);
-      *v7 = 0;
-      *(v7 + 1) = v56;
-      *(v7 + 2) = v56;
+      v54 = *(v1 + 16);
+      *v5 = 0;
+      *(v5 + 1) = v54;
+      *(v5 + 2) = v54;
       goto LABEL_23;
     }
 
-    if (v16 == 117 && v18 == 0xE100000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+    if (v14 == 117 && v16 == 0xE100000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
     {
 
-      v51 = 4;
+      v49 = 4;
     }
 
     else
     {
-      if ((v16 != 85 || v18 != 0xE100000000000000) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+      if ((v14 != 85 || v16 != 0xE100000000000000) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
       {
-        if (v16 == 111 && v18 == 0xE100000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)()) && (v52._countAndFlagsBits = 123, v52._object = 0xE100000000000000, Parser.tryEat(_:)(v52)))
+        if (v14 == 111 && v16 == 0xE100000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)()) && (v50._countAndFlagsBits = 123, v50._object = 0xE100000000000000, Parser.tryEat(_:)(v50)))
         {
 
-          specialized Parser.lexUntil(_:)(v1, 125, 0xE100000000000000, v72);
-          v54 = *(&v72[0] + 1);
-          v53 = *&v72[0];
+          specialized Parser.lexUntil(_:)(v1, 125, 0xE100000000000000, v70);
+          v52 = *(&v70[0] + 1);
+          v51 = *&v70[0];
         }
 
         else
         {
-          if (v16 == 48 && v18 == 0xE100000000000000)
+          if (v14 == 48 && v16 == 0xE100000000000000)
           {
           }
 
           else
           {
-            v55 = _stringCompareWithSmolCheck(_:_:expecting:)();
+            v53 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-            if ((v55 & 1) == 0)
+            if ((v53 & 1) == 0)
             {
               goto LABEL_3;
             }
           }
 
-          specialized Parser.tryEatPrefix(maxLength:_:)(3, 0, v1, specialized Source.peekPrefix(maxLength:_:), v72);
-          v54 = *(&v72[0] + 1);
-          if (!*(&v72[0] + 1))
+          specialized Parser.tryEatPrefix(maxLength:_:)(3, 0, v1, specialized Source.peekPrefix(maxLength:_:), v70);
+          v52 = *(&v70[0] + 1);
+          if (!*(&v70[0] + 1))
           {
             goto LABEL_70;
           }
 
-          v53 = *&v72[0];
+          v51 = *&v70[0];
         }
 
-        *&v72[0] = v53;
-        *(&v72[0] + 1) = v54;
-        v24 = 0;
+        *&v70[0] = v51;
+        *(&v70[0] + 1) = v52;
+        v22 = 0;
         goto LABEL_21;
       }
 
-      v51 = 8;
+      v49 = 8;
     }
 
-    Parser.expectUnicodeScalar(numDigits:)(v51, v72);
-    *v7 = v72[0];
-    v25 = *(v72 + 8);
+    Parser.expectUnicodeScalar(numDigits:)(v49, v70);
+    *v5 = v70[0];
+    v23 = *(v70 + 8);
     goto LABEL_22;
   }
 
-  Parser.expectUnicodeScalarSequence(eating:)(0x7DuLL, 0xE100000000000000, v7);
-  v15 = type metadata accessor for AST.Atom.Kind(0);
-  v20 = v15;
+  Parser.expectUnicodeScalarSequence(eating:)(0x7DuLL, 0xE100000000000000, v5);
+  v13 = type metadata accessor for AST.Atom.Kind(0);
+  v18 = v13;
 LABEL_24:
-  (*(*(v20 - 8) + 56))(v7, 0, 1, v15);
+  (*(*(v18 - 8) + 56))(v5, 0, 1, v13);
 LABEL_25:
   type metadata accessor for AST.Atom.Kind(0);
-  v26 = *(v15 - 8);
-  if ((*(v26 + 48))(v7, 1, v15) != 1)
+  v24 = *(v13 - 8);
+  if ((*(v24 + 48))(v5, 1, v13) != 1)
   {
-    v77 = v65;
-    v78 = v66;
-    *v79 = v67;
     v75 = v63;
     v76 = v64;
-    *&v79[16] = v60;
-    v79[24] = v10;
-    outlined destroy of Parser(&v75);
-    outlined init with take of AST.Atom.Kind(v7, a1, type metadata accessor for AST.Atom.Kind);
-    return (*(v26 + 56))(a1, 0, 1, v15);
+    *v77 = v65;
+    v73 = v61;
+    v74 = v62;
+    *&v77[16] = v58;
+    v77[24] = v8;
+    outlined destroy of Parser(&v73);
+    outlined init with take of AST.Atom.Kind(v5, a1, type metadata accessor for AST.Atom.Kind);
+    return (*(v24 + 56))(a1, 0, 1, v13);
   }
 
-  v27 = *&v71[1];
-  v28 = BYTE8(v71[1]);
-  outlined destroy of _ASTParent?(v7, &_s12_RegexParser3ASTV4AtomV4KindOSgMd, &_s12_RegexParser3ASTV4AtomV4KindOSgMR);
-  v29 = *(v1 + 80);
-  v30 = *(v1 + 48);
-  v77 = *(v1 + 32);
-  v78 = v30;
-  *v79 = *(v1 + 64);
-  *&v79[9] = *(v1 + 73);
-  v31 = *(v1 + 16);
-  v75 = *v1;
-  v76 = v31;
+  v25 = *&v69[1];
+  v26 = BYTE8(v69[1]);
+  outlined destroy of _ASTParent?(v5, &_s12_RegexParser3ASTV4AtomV4KindOSgMd, &_s12_RegexParser3ASTV4AtomV4KindOSgMR);
+  v27 = *(v1 + 80);
+  v28 = *(v1 + 48);
+  v75 = *(v1 + 32);
+  v76 = v28;
+  *v77 = *(v1 + 64);
+  *&v77[9] = *(v1 + 73);
+  v29 = *(v1 + 16);
+  v73 = *v1;
+  v74 = v29;
 
-  result = outlined destroy of Parser(&v75);
-  if (v28 == 1)
+  result = outlined destroy of Parser(&v73);
+  if (v26 == 1)
   {
 
 LABEL_48:
-    v49 = v66;
-    *(v1 + 32) = v65;
-    *(v1 + 48) = v49;
-    *(v1 + 64) = v67;
-    v50 = v64;
-    *v1 = v63;
-    *(v1 + 16) = v50;
-    *(v1 + 80) = v60;
-    *(v1 + 88) = v10;
-    return (*(v26 + 56))(a1, 1, 1, v15);
+    v47 = v64;
+    *(v1 + 32) = v63;
+    *(v1 + 48) = v47;
+    *(v1 + 64) = v65;
+    v48 = v62;
+    *v1 = v61;
+    *(v1 + 16) = v48;
+    *(v1 + 80) = v58;
+    *(v1 + 88) = v8;
+    return (*(v24 + 56))(a1, 1, 1, v13);
   }
 
-  v33 = *(v27 + 2);
-  v34 = *(v29 + 16);
-  if (v34 >= v33)
+  v31 = *(v25 + 2);
+  v32 = *(v27 + 16);
+  if (v32 >= v31)
   {
-    v35 = *(v27 + 2);
+    v33 = *(v25 + 2);
   }
 
   else
   {
-    v35 = *(v29 + 16);
+    v33 = *(v27 + 16);
   }
 
-  if (v33)
+  if (v31)
   {
-    v36 = v35;
+    v34 = v33;
   }
 
   else
   {
-    v36 = 0;
+    v34 = 0;
   }
 
-  if (v36 == v34)
+  if (v34 == v32)
   {
     swift_unknownObjectRelease();
     goto LABEL_48;
   }
 
-  v58 = v10;
-  v59 = a1;
-  if (v36 < v34)
+  v56 = v8;
+  v57 = a1;
+  if (v34 < v32)
   {
 
-    v37 = ~v36 + v34;
-    v38 = 80 * v36 + 32;
-    v39 = v60;
+    v35 = ~v34 + v32;
+    v36 = 80 * v34 + 32;
+    v37 = v58;
     while (1)
     {
-      v72[0] = *(v29 + v38);
-      v40 = *(v29 + v38 + 16);
-      v41 = *(v29 + v38 + 32);
-      v42 = *(v29 + v38 + 48);
-      *(v74 + 9) = *(v29 + v38 + 57);
-      v73 = v41;
-      v74[0] = v42;
-      v72[1] = v40;
-      if (!LOBYTE(v72[0]))
+      v70[0] = *(v27 + v36);
+      v38 = *(v27 + v36 + 16);
+      v39 = *(v27 + v36 + 32);
+      v40 = *(v27 + v36 + 48);
+      *(v72 + 9) = *(v27 + v36 + 57);
+      v71 = v39;
+      v72[0] = v40;
+      v70[1] = v38;
+      if (!LOBYTE(v70[0]))
       {
-        outlined init with copy of Diagnostic(v72, &v61);
+        outlined init with copy of Diagnostic(v70, &v59);
         if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
         {
-          v27 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v27 + 2) + 1, 1, v27);
+          v25 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v25 + 2) + 1, 1, v25);
         }
 
-        v44 = *(v27 + 2);
-        v43 = *(v27 + 3);
-        if (v44 >= v43 >> 1)
+        v42 = *(v25 + 2);
+        v41 = *(v25 + 3);
+        if (v42 >= v41 >> 1)
         {
-          v27 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v43 > 1), v44 + 1, 1, v27);
+          v25 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v41 > 1), v42 + 1, 1, v25);
         }
 
-        *(v27 + 2) = v44 + 1;
-        v45 = &v27[80 * v44];
-        *(v45 + 2) = v72[0];
-        v46 = v72[1];
-        v47 = v73;
-        v48 = v74[0];
-        *(v45 + 89) = *(v74 + 9);
-        *(v45 + 4) = v47;
-        *(v45 + 5) = v48;
-        *(v45 + 3) = v46;
-        v39 = v27;
+        *(v25 + 2) = v42 + 1;
+        v43 = &v25[80 * v42];
+        *(v43 + 2) = v70[0];
+        v44 = v70[1];
+        v45 = v71;
+        v46 = v72[0];
+        *(v43 + 89) = *(v72 + 9);
+        *(v43 + 4) = v45;
+        *(v43 + 5) = v46;
+        *(v43 + 3) = v44;
+        v37 = v25;
       }
 
-      if (!v37)
+      if (!v35)
       {
         break;
       }
 
-      --v37;
-      v38 += 80;
+      --v35;
+      v36 += 80;
     }
 
-    v60 = v39;
+    v58 = v37;
     swift_unknownObjectRelease();
 
-    a1 = v59;
-    LOBYTE(v10) = v58;
+    a1 = v57;
+    LOBYTE(v8) = v56;
     goto LABEL_48;
   }
 
@@ -8728,7 +8640,7 @@ uint64_t closure #1 in Parser.lexQuantifier()@<X0>(uint64_t a1@<X0>, uint64_t a2
 
   v6 = *v39;
   v35 = *&v39[16];
-  v7 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, 1, 1, MEMORY[0x1E69E7CC0], &_ss23_ContiguousArrayStorageCy12_RegexParser3ASTV6TriviaVGMd, &_ss23_ContiguousArrayStorageCy12_RegexParser3ASTV6TriviaVGMR);
+  v7 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, 1, 1, MEMORY[0x1E69E7CC0], &_ss23_ContiguousArrayStorageCy12_RegexParser3ASTV6TriviaVGMd, &_ss23_ContiguousArrayStorageCy12_RegexParser3ASTV6TriviaVGMR, &type metadata for AST.Trivia);
   v9 = *(v7 + 2);
   v8 = *(v7 + 3);
   v2 = v9 + 1;
@@ -8834,7 +8746,7 @@ LABEL_15:
         v20 = v42;
         if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
         {
-          v20 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v20 + 2) + 1, 1, v20, &_ss23_ContiguousArrayStorageCy12_RegexParser3ASTV6TriviaVGMd, &_ss23_ContiguousArrayStorageCy12_RegexParser3ASTV6TriviaVGMR);
+          v20 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v20 + 2) + 1, 1, v20, &_ss23_ContiguousArrayStorageCy12_RegexParser3ASTV6TriviaVGMd, &_ss23_ContiguousArrayStorageCy12_RegexParser3ASTV6TriviaVGMR, &type metadata for AST.Trivia);
         }
 
         v22 = *(v20 + 2);
@@ -8842,7 +8754,7 @@ LABEL_15:
         v23 = v22 + 1;
         if (v22 >= v21 >> 1)
         {
-          v30 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v21 > 1), v22 + 1, 1, v20, &_ss23_ContiguousArrayStorageCy12_RegexParser3ASTV6TriviaVGMd, &_ss23_ContiguousArrayStorageCy12_RegexParser3ASTV6TriviaVGMR);
+          v30 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v21 > 1), v22 + 1, 1, v20, &_ss23_ContiguousArrayStorageCy12_RegexParser3ASTV6TriviaVGMd, &_ss23_ContiguousArrayStorageCy12_RegexParser3ASTV6TriviaVGMR, &type metadata for AST.Trivia);
           v23 = v22 + 1;
           v20 = v30;
         }
@@ -8880,7 +8792,7 @@ LABEL_15:
 LABEL_39:
     __break(1u);
 LABEL_40:
-    v7 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v8 > 1), v2, 1, v7, &_ss23_ContiguousArrayStorageCy12_RegexParser3ASTV6TriviaVGMd, &_ss23_ContiguousArrayStorageCy12_RegexParser3ASTV6TriviaVGMR);
+    v7 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v8 > 1), v2, 1, v7, &_ss23_ContiguousArrayStorageCy12_RegexParser3ASTV6TriviaVGMd, &_ss23_ContiguousArrayStorageCy12_RegexParser3ASTV6TriviaVGMR, &type metadata for AST.Trivia);
   }
 
   v28 = v42;
@@ -8903,178 +8815,175 @@ LABEL_32:
 uint64_t Source.Located.init(_:_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
 {
   (*(*(a4 - 8) + 32))(a5, a1, a4);
-  result = type metadata accessor for Source.Located();
-  v9 = (a5 + *(result + 28));
-  *v9 = a2;
-  v9[1] = a3;
+  result = type metadata accessor for Source.Located(0, a4, v9, v10);
+  v12 = (a5 + *(result + 28));
+  *v12 = a2;
+  v12[1] = a3;
   return result;
 }
 
-void closure #1 in Parser.lexQuote()(__int128 *a1@<X0>, void *a2@<X8>)
+void closure #1 in Parser.lexQuote()(void *a1@<X0>, void *a2@<X8>)
 {
   if (specialized Parser.tryEat<A>(sequence:)(20828, 0xE200000000000000))
   {
-    *&v58 = 0;
-    *(&v58 + 1) = 0xE000000000000000;
-    v4 = *a1;
-    v5 = *(a1 + 1);
-    v7 = *(a1 + 2);
-    v6 = *(a1 + 3);
-    v8 = String.subscript.getter();
-    v10 = v9;
+    *&v55 = 0;
+    *(&v55 + 1) = 0xE000000000000000;
+    v4 = a1[2];
+    v5 = String.subscript.getter();
+    v7 = v6;
 
-    v11 = v8 ^ v10;
-    v48 = v7;
-    v12 = v7;
-    if (v11 >= 0x4000)
+    v8 = v5 ^ v7;
+    v45 = v4;
+    v9 = v4;
+    if (v8 >= 0x4000)
     {
-      v12 = v7;
+      v9 = v4;
       if ((specialized Parser.tryEat<A>(sequence:)(17756, 0xE200000000000000) & 1) == 0)
       {
-        v12 = v7;
+        v9 = v4;
         do
         {
-          v13 = a1[1];
-          v53 = *a1;
-          v54 = v13;
-          v14 = a1[3];
-          v55 = a1[2];
-          v56 = v14;
-          *v57 = a1[4];
-          *&v57[9] = *(a1 + 73);
-          v15 = v54;
-          outlined init with copy of Parser(&v53, &v50);
-          v16 = String.subscript.getter();
-          if (!((v16 ^ v17) >> 14))
+          v10 = *(a1 + 1);
+          v50 = *a1;
+          v51 = v10;
+          v11 = *(a1 + 3);
+          v52 = *(a1 + 2);
+          v53 = v11;
+          *v54 = *(a1 + 4);
+          *&v54[9] = *(a1 + 73);
+          v12 = v51;
+          outlined init with copy of Parser(&v50, &v47);
+          v13 = String.subscript.getter();
+          if (!((v13 ^ v14) >> 14))
           {
 
-            outlined destroy of Parser(&v53);
+            outlined destroy of Parser(&v50);
             break;
           }
 
-          v18 = Substring.subscript.getter();
-          v20 = v19;
+          v15 = Substring.subscript.getter();
+          v17 = v16;
 
-          outlined destroy of Parser(&v53);
+          outlined destroy of Parser(&v50);
           String.subscript.getter();
-          v12 = Substring.index(_:offsetBy:limitedBy:)();
-          v22 = v21;
+          v9 = Substring.index(_:offsetBy:limitedBy:)();
+          v19 = v18;
 
-          if (v22)
+          if (v19)
           {
-            v23 = *&v57[16];
-            v24 = v57[24];
-            strcpy(v49, "UNREACHABLE: ");
-            HIWORD(v49[1]) = -4864;
+            v20 = *&v54[16];
+            v21 = v54[24];
+            strcpy(v46, "UNREACHABLE: ");
+            HIWORD(v46[1]) = -4864;
             MEMORY[0x1C68E0BF0](0xD000000000000015, 0x80000001C0C86F20);
-            LOBYTE(v50._countAndFlagsBits) = 0;
-            v50._object = v49[0];
-            *&v51 = v49[1];
-            *(&v51 + 1) = v15;
-            *v52 = v15;
-            memset(&v52[8], 0, 32);
-            v52[40] = -1;
-            if (v24)
+            LOBYTE(v47._countAndFlagsBits) = 0;
+            v47._object = v46[0];
+            *&v48 = v46[1];
+            *(&v48 + 1) = v12;
+            *v49 = v12;
+            memset(&v49[8], 0, 32);
+            v49[40] = -1;
+            if (v21)
             {
-              outlined destroy of Diagnostic(&v50);
+              outlined destroy of Diagnostic(&v47);
             }
 
             else
             {
               if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
               {
-                v23 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v23 + 2) + 1, 1, v23);
+                v20 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v20 + 2) + 1, 1, v20);
               }
 
-              v26 = *(v23 + 2);
-              v25 = *(v23 + 3);
-              if (v26 >= v25 >> 1)
+              v23 = *(v20 + 2);
+              v22 = *(v20 + 3);
+              if (v23 >= v22 >> 1)
               {
-                v23 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v25 > 1), v26 + 1, 1, v23);
+                v20 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v22 > 1), v23 + 1, 1, v20);
               }
 
-              *(v23 + 2) = v26 + 1;
-              v27 = &v23[80 * v26];
-              *(v27 + 2) = v50;
-              v28 = v51;
-              v29 = *v52;
-              v30 = *&v52[16];
-              *(v27 + 89) = *&v52[25];
-              *(v27 + 4) = v29;
-              *(v27 + 5) = v30;
-              *(v27 + 3) = v28;
-              *(a1 + 10) = v23;
+              *(v20 + 2) = v23 + 1;
+              v24 = &v20[80 * v23];
+              *(v24 + 2) = v47;
+              v25 = v48;
+              v26 = *v49;
+              v27 = *&v49[16];
+              *(v24 + 89) = *&v49[25];
+              *(v24 + 4) = v26;
+              *(v24 + 5) = v27;
+              *(v24 + 3) = v25;
+              a1[10] = v20;
             }
 
             String.subscript.getter();
-            v31 = Substring.distance(from:to:)();
+            v28 = Substring.distance(from:to:)();
 
-            if (v31 < 1 || (String.subscript.getter(), v12 = Substring.index(_:offsetBy:limitedBy:)(), v33 = v32, , (v33 & 1) != 0))
+            if (v28 < 1 || (String.subscript.getter(), v9 = Substring.index(_:offsetBy:limitedBy:)(), v30 = v29, , (v30 & 1) != 0))
             {
-              v12 = v15;
+              v9 = v12;
               goto LABEL_21;
             }
 
-            if (*(&v15 + 1) >> 14 < v12 >> 14)
+            if (*(&v12 + 1) >> 14 < v9 >> 14)
             {
               goto LABEL_47;
             }
           }
 
-          else if (*(&v15 + 1) >> 14 < v12 >> 14)
+          else if (*(&v12 + 1) >> 14 < v9 >> 14)
           {
             __break(1u);
             goto LABEL_46;
           }
 
-          *(a1 + 2) = v12;
-          *(a1 + 3) = *(&v15 + 1);
+          a1[2] = v9;
+          a1[3] = *(&v12 + 1);
 LABEL_21:
-          MEMORY[0x1C68E0BE0](v18, v20);
+          MEMORY[0x1C68E0BE0](v15, v17);
 
-          v34 = String.subscript.getter();
-          v36 = v35;
+          v31 = String.subscript.getter();
+          v33 = v32;
         }
 
-        while ((v34 ^ v36) >= 0x4000 && (specialized Parser.tryEat<A>(sequence:)(17756, 0xE200000000000000) & 1) == 0);
+        while ((v31 ^ v33) >= 0x4000 && (specialized Parser.tryEat<A>(sequence:)(17756, 0xE200000000000000) & 1) == 0);
       }
     }
 
-    if (v12 >> 14 >= v48 >> 14)
+    if (v9 >> 14 >= v45 >> 14)
     {
-      v46 = *(&v58 + 1);
-      v45 = v58;
-      if (a1[4] & 0x40) != 0 && (specialized StringProtocol.spansMultipleLinesInRegexLiteral.getter(v58, *(&v58 + 1)))
+      v43 = *(&v55 + 1);
+      v42 = v55;
+      if (a1[8] & 0x40) != 0 && (specialized StringProtocol.spansMultipleLinesInRegexLiteral.getter(v55, *(&v55 + 1)))
       {
-        v53 = 3uLL;
-        v54 = 0uLL;
-        LOBYTE(v55) = 36;
-        v50._countAndFlagsBits = v48;
-        v50._object = v12;
-        Diagnostics.error(_:at:)(&v53, &v50._countAndFlagsBits);
+        v50 = 3uLL;
+        v51 = 0uLL;
+        LOBYTE(v52) = 36;
+        v47._countAndFlagsBits = v45;
+        v47._object = v9;
+        Diagnostics.error(_:at:)(&v50, &v47._countAndFlagsBits);
       }
 
       if (*(a1 + 32) == 1)
       {
-        v47 = HIBYTE(v46) & 0xF;
-        if ((v46 & 0x2000000000000000) == 0)
+        v44 = HIBYTE(v43) & 0xF;
+        if ((v43 & 0x2000000000000000) == 0)
         {
-          v47 = v45 & 0xFFFFFFFFFFFFLL;
+          v44 = v42 & 0xFFFFFFFFFFFFLL;
         }
 
-        if (!v47)
+        if (!v44)
         {
-          v50 = 1uLL;
-          v51 = 0uLL;
-          v52[0] = 36;
-          *&v58 = v48;
-          *(&v58 + 1) = v12;
-          Diagnostics.error(_:at:)(&v50, &v58);
+          v47 = 1uLL;
+          v48 = 0uLL;
+          v49[0] = 36;
+          *&v55 = v45;
+          *(&v55 + 1) = v9;
+          Diagnostics.error(_:at:)(&v47._countAndFlagsBits, &v55);
         }
       }
 
-      *a2 = v45;
-      a2[1] = v46;
+      *a2 = v42;
+      a2[1] = v43;
       return;
     }
 
@@ -9087,55 +8996,55 @@ LABEL_48:
     return;
   }
 
-  if ((a1[4] & 4) == 0 || (v37._countAndFlagsBits = 34, v37._object = 0xE100000000000000, !Parser.tryEat(_:)(v37)))
+  if ((a1[8] & 4) == 0 || (v34._countAndFlagsBits = 34, v34._object = 0xE100000000000000, !Parser.tryEat(_:)(v34)))
   {
     *a2 = 0;
     a2[1] = 0;
     return;
   }
 
-  v38._countAndFlagsBits = 34;
-  v38._object = 0xE100000000000000;
-  v39 = String.init(repeating:count:)(v38, 1);
-  v40 = *(a1 + 2);
+  v35._countAndFlagsBits = 34;
+  v35._object = 0xE100000000000000;
+  v36 = String.init(repeating:count:)(v35, 1);
+  v37 = a1[2];
 
-  specialized Parser.lexUntil(_:)(a1, v39._countAndFlagsBits, v39._object, 34, 0xE100000000000000, 1, &v53);
-  v41 = *(a1 + 2);
-  if (v41 >> 14 < v40 >> 14)
+  specialized Parser.lexUntil(_:)(a1, v36._countAndFlagsBits, v36._object, 34, 0xE100000000000000, 1, &v50);
+  v38 = a1[2];
+  if (v38 >> 14 < v37 >> 14)
   {
     goto LABEL_48;
   }
 
-  v42 = v53;
-  v43 = HIBYTE(*(&v53 + 1)) & 0xFLL;
-  if ((*(&v53 + 1) & 0x2000000000000000) == 0)
+  v39 = v50;
+  v40 = HIBYTE(*(&v50 + 1)) & 0xFLL;
+  if ((*(&v50 + 1) & 0x2000000000000000) == 0)
   {
-    v43 = v53 & 0xFFFFFFFFFFFFLL;
+    v40 = v50 & 0xFFFFFFFFFFFFLL;
   }
 
-  if (!v43)
+  if (!v40)
   {
-    v53 = 1uLL;
-    v54 = 0uLL;
-    LOBYTE(v55) = 36;
-    v50._countAndFlagsBits = v40;
-    v50._object = v41;
-    Diagnostics.error(_:at:)(&v53, &v50._countAndFlagsBits);
-  }
-
-  if ((specialized Parser.tryEat<A>(sequence:)(v39._countAndFlagsBits, v39._object) & 1) == 0)
-  {
-    v50 = v39;
-    v50._countAndFlagsBits = String.init<A>(_:)();
-    v50._object = v44;
+    v50 = 1uLL;
     v51 = 0uLL;
-    v52[0] = 3;
-    *&v58 = *(a1 + 2);
-    *(&v58 + 1) = v58;
-    Diagnostics.error(_:at:)(&v50, &v58);
+    LOBYTE(v52) = 36;
+    v47._countAndFlagsBits = v37;
+    v47._object = v38;
+    Diagnostics.error(_:at:)(&v50, &v47._countAndFlagsBits);
   }
 
-  *a2 = v42;
+  if ((specialized Parser.tryEat<A>(sequence:)(v36._countAndFlagsBits, v36._object) & 1) == 0)
+  {
+    v47 = v36;
+    v47._countAndFlagsBits = String.init<A>(_:)();
+    v47._object = v41;
+    v48 = 0uLL;
+    v49[0] = 3;
+    *&v55 = a1[2];
+    *(&v55 + 1) = v55;
+    Diagnostics.error(_:at:)(&v47._countAndFlagsBits, &v55);
+  }
+
+  *a2 = v39;
 }
 
 uint64_t specialized StringProtocol.spansMultipleLinesInRegexLiteral.getter(uint64_t a1, unint64_t a2)
@@ -9396,185 +9305,181 @@ LABEL_43:
 uint64_t Parser.lexInterpolation()@<X0>(_OWORD *a1@<X8>)
 {
   v2 = v1;
-  v4 = v1[2];
-  v5 = *(v1 + 3);
-  v6 = *(v1 + 4);
-  v7 = *(v1 + 1);
-  v99 = *(v1 + 2);
-  v100 = v5;
-  *v101 = v6;
-  *&v101[9] = *(v1 + 73);
-  v98[0] = *v1;
-  v98[1] = v7;
-  v95 = v99;
-  v96 = v5;
-  v97 = v6;
-  v93 = v98[0];
-  v94 = v7;
-  v80 = *&v101[16];
-  v8 = v101[24];
-  outlined init with copy of Parser(v98, &v89);
+  v4 = *(v1 + 2);
+  v5 = v1[3];
+  v6 = v1[4];
+  v7 = v1[1];
+  v97 = v1[2];
+  v98 = v5;
+  *v99 = v6;
+  *&v99[9] = *(v1 + 73);
+  v96[0] = *v1;
+  v96[1] = v7;
+  v93 = v97;
+  v94 = v5;
+  v95 = v6;
+  v91 = v96[0];
+  v92 = v7;
+  v78 = *&v99[16];
+  v8 = v99[24];
+  outlined init with copy of Parser(v96, &v87);
   if ((specialized Parser.tryEat<A>(sequence:)(31548, 0xE200000000000000) & 1) == 0)
   {
     goto LABEL_29;
   }
 
-  v77 = v4;
-  v78 = v8;
-  v79 = a1;
-  v87 = 0;
-  v88 = 0xE000000000000000;
+  v75 = v4;
+  v76 = v8;
+  v77 = a1;
+  v85 = 0;
+  v86 = 0xE000000000000000;
   v9 = *v1;
-  v10 = v1[1];
-  v12 = v1[2];
-  v11 = v1[3];
-  v13 = v2[2];
-  v14 = v2[3];
-  v15 = *v2;
-  v16 = v2[1];
-  v17 = String.subscript.getter();
-  v19 = v18;
+  v10 = *(v1 + 1);
+  v12 = *(v1 + 2);
+  v11 = *(v1 + 3);
+  v13 = String.subscript.getter();
+  v15 = v14;
 
-  if ((v17 ^ v19) >= 0x4000)
+  if ((v13 ^ v15) >= 0x4000)
   {
-    v21 = v12;
-    v81 = v12;
+    v17 = v12;
+    v79 = v12;
     while (1)
     {
-      v26 = String.subscript.getter();
-      v28 = specialized Sequence<>.starts<A>(with:)(15997, 0xE200000000000000, v26, v27);
+      v22 = String.subscript.getter();
+      v26 = specialized Sequence<>.starts<A>(with:)(15997, 0xE200000000000000, v22, v23, v24, v25);
 
-      if (v28)
+      if (v26)
       {
         goto LABEL_23;
       }
 
-      v29 = *(v2 + 32);
-      v30 = v2[5];
-      v31 = v2[6];
-      v32 = *(v2 + 72);
-      v33 = v2[10];
-      v34 = *(v2 + 88);
-      *&v89 = v9;
-      *(&v89 + 1) = v10;
-      *&v90 = v21;
-      *(&v90 + 1) = v11;
-      LOBYTE(v91) = v29;
-      *(&v91 + 1) = v30;
-      *v92 = v31;
-      *&v92[8] = *(v2 + 7);
-      v92[24] = v32;
-      *&v92[32] = v33;
-      v92[40] = v34;
-      outlined init with copy of Parser(&v89, &v84);
-      v35 = String.subscript.getter();
-      if (!((v35 ^ v36) >> 14))
+      v27 = *(v2 + 32);
+      v28 = *(v2 + 5);
+      v29 = *(v2 + 6);
+      v30 = *(v2 + 72);
+      v31 = *(v2 + 10);
+      v32 = *(v2 + 88);
+      *&v87 = v9;
+      *(&v87 + 1) = v10;
+      *&v88 = v17;
+      *(&v88 + 1) = v11;
+      LOBYTE(v89) = v27;
+      *(&v89 + 1) = v28;
+      *v90 = v29;
+      *&v90[8] = *(v2 + 56);
+      v90[24] = v30;
+      *&v90[32] = v31;
+      v90[40] = v32;
+      outlined init with copy of Parser(&v87, &v82);
+      v33 = String.subscript.getter();
+      if (!((v33 ^ v34) >> 14))
       {
 
-        result = outlined destroy of Parser(&v89);
+        result = outlined destroy of Parser(&v87);
         goto LABEL_23;
       }
 
-      v82 = Substring.subscript.getter();
-      v83 = v37;
+      v80 = Substring.subscript.getter();
+      v81 = v35;
 
-      outlined destroy of Parser(&v89);
+      outlined destroy of Parser(&v87);
       String.subscript.getter();
-      v38 = Substring.index(_:offsetBy:limitedBy:)();
-      v40 = v39;
+      v36 = Substring.index(_:offsetBy:limitedBy:)();
+      v38 = v37;
 
-      if (v40)
+      if (v38)
       {
-        LOBYTE(v84) = 0;
-        *(&v84 + 1) = 0xD000000000000022;
-        *&v85 = 0x80000001C0C86FA0;
-        *(&v85 + 1) = v21;
-        *v86 = v21;
-        memset(&v86[8], 0, 32);
-        v86[40] = -1;
-        if (v34)
+        LOBYTE(v82) = 0;
+        *(&v82 + 1) = 0xD000000000000022;
+        *&v83 = 0x80000001C0C86FA0;
+        *(&v83 + 1) = v17;
+        *v84 = v17;
+        memset(&v84[8], 0, 32);
+        v84[40] = -1;
+        if (v32)
         {
-          outlined destroy of Diagnostic(&v84);
+          outlined destroy of Diagnostic(&v82);
         }
 
         else
         {
           if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
           {
-            v33 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v33 + 2) + 1, 1, v33);
+            v31 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v31 + 2) + 1, 1, v31);
           }
 
-          v42 = *(v33 + 2);
-          v41 = *(v33 + 3);
-          if (v42 >= v41 >> 1)
+          v40 = *(v31 + 2);
+          v39 = *(v31 + 3);
+          if (v40 >= v39 >> 1)
           {
-            v33 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v41 > 1), v42 + 1, 1, v33);
+            v31 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v39 > 1), v40 + 1, 1, v31);
           }
 
-          *(v33 + 2) = v42 + 1;
-          v43 = &v33[80 * v42];
-          *(v43 + 2) = v84;
-          v44 = v85;
-          v45 = *v86;
-          v46 = *&v86[16];
-          *(v43 + 89) = *&v86[25];
-          *(v43 + 4) = v45;
-          *(v43 + 5) = v46;
-          *(v43 + 3) = v44;
-          v2[10] = v33;
+          *(v31 + 2) = v40 + 1;
+          v41 = &v31[80 * v40];
+          *(v41 + 2) = v82;
+          v42 = v83;
+          v43 = *v84;
+          v44 = *&v84[16];
+          *(v41 + 89) = *&v84[25];
+          *(v41 + 4) = v43;
+          *(v41 + 5) = v44;
+          *(v41 + 3) = v42;
+          *(v2 + 10) = v31;
         }
 
         String.subscript.getter();
-        v47 = Substring.distance(from:to:)();
+        v45 = Substring.distance(from:to:)();
 
-        if (v47 < 1)
+        if (v45 < 1)
         {
           goto LABEL_7;
         }
 
         String.subscript.getter();
-        v38 = Substring.index(_:offsetBy:limitedBy:)();
-        v49 = v48;
+        v36 = Substring.index(_:offsetBy:limitedBy:)();
+        v47 = v46;
 
-        if (v49)
+        if (v47)
         {
           goto LABEL_7;
         }
 
-        if (v11 >> 14 < v38 >> 14)
+        if (v11 >> 14 < v36 >> 14)
         {
           goto LABEL_54;
         }
       }
 
-      else if (v11 >> 14 < v38 >> 14)
+      else if (v11 >> 14 < v36 >> 14)
       {
         __break(1u);
         goto LABEL_53;
       }
 
-      v2[2] = v38;
-      v2[3] = v11;
-      v21 = v38;
+      *(v2 + 2) = v36;
+      *(v2 + 3) = v11;
+      v17 = v36;
 LABEL_7:
-      MEMORY[0x1C68E0BE0](v82, v83);
+      MEMORY[0x1C68E0BE0](v80, v81);
 
-      v11 = v2[3];
-      v22 = String.subscript.getter();
-      v24 = v23;
+      v11 = *(v2 + 3);
+      v18 = String.subscript.getter();
+      v20 = v19;
 
-      v25 = (v22 ^ v24) >> 14;
-      v12 = v81;
-      if (!v25)
+      v21 = (v18 ^ v20) >> 14;
+      v12 = v79;
+      if (!v21)
       {
         goto LABEL_23;
       }
     }
   }
 
-  v21 = v12;
+  v17 = v12;
 LABEL_23:
-  if (v21 >> 14 < v12 >> 14)
+  if (v17 >> 14 < v12 >> 14)
   {
 LABEL_53:
     __break(1u);
@@ -9585,28 +9490,28 @@ LABEL_55:
     goto LABEL_56;
   }
 
-  v50 = v87;
-  v51 = v88;
+  v48 = v85;
+  v49 = v86;
   if (specialized Parser.tryEat<A>(sequence:)(15997, 0xE200000000000000))
   {
-    v91 = v95;
-    *v92 = v96;
-    *&v92[16] = v97;
     v89 = v93;
-    v90 = v94;
-    *&v92[32] = v80;
-    v92[40] = v78;
-    result = outlined destroy of Parser(&v89);
-    v52 = v2[2];
-    a1 = v79;
-    if (v52 >> 14 >= v77 >> 14)
+    *v90 = v94;
+    *&v90[16] = v95;
+    v87 = v91;
+    v88 = v92;
+    *&v90[32] = v78;
+    v90[40] = v76;
+    result = outlined destroy of Parser(&v87);
+    v50 = *(v2 + 2);
+    a1 = v77;
+    if (v50 >> 14 >= v75 >> 14)
     {
-      if (v51)
+      if (v49)
       {
-        *v79 = v50;
-        v79[1] = v51;
-        v79[2] = v77;
-        v79[3] = v52;
+        *v77 = v48;
+        *(v77 + 1) = v49;
+        *(v77 + 2) = v75;
+        *(v77 + 3) = v50;
         return result;
       }
 
@@ -9616,35 +9521,35 @@ LABEL_55:
     goto LABEL_55;
   }
 
-  a1 = v79;
-  v8 = v78;
+  a1 = v77;
+  v8 = v76;
 LABEL_29:
-  v53 = *&v101[16];
-  v54 = v101[24];
-  v55 = v2[10];
-  v56 = *(v2 + 3);
-  v91 = *(v2 + 2);
-  *v92 = v56;
-  *&v92[16] = *(v2 + 4);
-  *&v92[25] = *(v2 + 73);
-  v57 = *(v2 + 1);
-  v89 = *v2;
-  v90 = v57;
+  v51 = *&v99[16];
+  v52 = v99[24];
+  v53 = *(v2 + 10);
+  v54 = v2[3];
+  v89 = v2[2];
+  *v90 = v54;
+  *&v90[16] = v2[4];
+  *&v90[25] = *(v2 + 73);
+  v55 = v2[1];
+  v87 = *v2;
+  v88 = v55;
 
-  result = outlined destroy of Parser(&v89);
-  if (v54 == 1)
+  result = outlined destroy of Parser(&v87);
+  if (v52 == 1)
   {
 
-    v58 = v80;
+    v56 = v78;
 LABEL_50:
-    v75 = v96;
-    *(v2 + 2) = v95;
-    *(v2 + 3) = v75;
-    *(v2 + 4) = v97;
-    v76 = v94;
-    *v2 = v93;
-    *(v2 + 1) = v76;
-    v2[10] = v58;
+    v73 = v94;
+    v2[2] = v93;
+    v2[3] = v73;
+    v2[4] = v95;
+    v74 = v92;
+    *v2 = v91;
+    v2[1] = v74;
+    *(v2 + 10) = v56;
     *(v2 + 88) = v8;
 LABEL_51:
     *a1 = 0u;
@@ -9652,92 +9557,92 @@ LABEL_51:
     return result;
   }
 
-  v59 = *(v53 + 2);
-  v60 = *(v55 + 16);
-  if (v60 >= v59)
+  v57 = *(v51 + 2);
+  v58 = *(v53 + 16);
+  if (v58 >= v57)
   {
-    v61 = *(v53 + 2);
+    v59 = *(v51 + 2);
   }
 
   else
   {
-    v61 = *(v55 + 16);
+    v59 = *(v53 + 16);
   }
 
-  if (v59)
+  if (v57)
   {
-    v62 = v61;
+    v60 = v59;
   }
 
   else
   {
-    v62 = 0;
+    v60 = 0;
   }
 
-  if (v62 == v60)
+  if (v60 == v58)
   {
     result = swift_unknownObjectRelease();
-    v58 = v80;
+    v56 = v78;
     goto LABEL_50;
   }
 
-  if (v62 < v60)
+  if (v60 < v58)
   {
-    v63 = a1;
+    v61 = a1;
 
-    v64 = ~v62 + v60;
-    v65 = 80 * v62 + 32;
-    v58 = v80;
+    v62 = ~v60 + v58;
+    v63 = 80 * v60 + 32;
+    v56 = v78;
     while (1)
     {
-      v84 = *(v55 + v65);
-      v66 = *(v55 + v65 + 16);
-      v67 = *(v55 + v65 + 32);
-      v68 = *(v55 + v65 + 48);
-      *&v86[25] = *(v55 + v65 + 57);
-      *v86 = v67;
-      *&v86[16] = v68;
-      v85 = v66;
-      if (!v84)
+      v82 = *(v53 + v63);
+      v64 = *(v53 + v63 + 16);
+      v65 = *(v53 + v63 + 32);
+      v66 = *(v53 + v63 + 48);
+      *&v84[25] = *(v53 + v63 + 57);
+      *v84 = v65;
+      *&v84[16] = v66;
+      v83 = v64;
+      if (!v82)
       {
-        outlined init with copy of Diagnostic(&v84, &v87);
+        outlined init with copy of Diagnostic(&v82, &v85);
         if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
         {
-          v53 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v53 + 2) + 1, 1, v53);
+          v51 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v51 + 2) + 1, 1, v51);
         }
 
-        v70 = *(v53 + 2);
-        v69 = *(v53 + 3);
-        if (v70 >= v69 >> 1)
+        v68 = *(v51 + 2);
+        v67 = *(v51 + 3);
+        if (v68 >= v67 >> 1)
         {
-          v53 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v69 > 1), v70 + 1, 1, v53);
+          v51 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v67 > 1), v68 + 1, 1, v51);
         }
 
-        *(v53 + 2) = v70 + 1;
-        v71 = &v53[80 * v70];
-        *(v71 + 2) = v84;
-        v72 = v85;
-        v73 = *v86;
-        v74 = *&v86[16];
-        *(v71 + 89) = *&v86[25];
-        *(v71 + 4) = v73;
-        *(v71 + 5) = v74;
-        *(v71 + 3) = v72;
-        v58 = v53;
+        *(v51 + 2) = v68 + 1;
+        v69 = &v51[80 * v68];
+        *(v69 + 2) = v82;
+        v70 = v83;
+        v71 = *v84;
+        v72 = *&v84[16];
+        *(v69 + 89) = *&v84[25];
+        *(v69 + 4) = v71;
+        *(v69 + 5) = v72;
+        *(v69 + 3) = v70;
+        v56 = v51;
       }
 
-      if (!v64)
+      if (!v62)
       {
         break;
       }
 
-      --v64;
-      v65 += 80;
+      --v62;
+      v63 += 80;
     }
 
     swift_unknownObjectRelease();
 
-    a1 = v63;
+    a1 = v61;
     goto LABEL_50;
   }
 

@@ -107,7 +107,7 @@
   selfCopy = self;
   sub_100CC5DD8(forCopy);
 
-  sub_100006370(0, &qword_101A00130);
+  sub_100006370(0, &qword_101A00130, UIAccessibilityCustomAction_ptr);
   v6.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v6.super.isa;

@@ -3,6 +3,7 @@
 - (BOOL)registeredForLanguageIdentifier;
 - (CAFStringCharacteristic)languageIdentifierCharacteristic;
 - (NSString)languageIdentifier;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
 - (void)unregisterObserver:(id)observer;
 @end
@@ -84,6 +85,35 @@
   stringValue = [languageIdentifierCharacteristic stringValue];
 
   return stringValue;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if (![characteristicType isEqual:@"0x0000000046000008"])
+  {
+    goto LABEL_4;
+  }
+
+  uniqueIdentifier = [updateCopy uniqueIdentifier];
+  languageIdentifierCharacteristic = [(CAFLocale *)self languageIdentifierCharacteristic];
+  uniqueIdentifier2 = [languageIdentifierCharacteristic uniqueIdentifier];
+  v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+  if (v11)
+  {
+    characteristicType = [(CAFService *)self observers];
+    languageIdentifier = [(CAFLocale *)self languageIdentifier];
+    [characteristicType localeService:self didUpdateLanguageIdentifier:languageIdentifier];
+
+LABEL_4:
+  }
+
+  v13.receiver = self;
+  v13.super_class = CAFLocale;
+  [(CAFService *)&v13 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForLanguageIdentifier

@@ -277,7 +277,7 @@ id __49__MPAVItem_MPArtworkCatalog__artworkCatalogBlock__block_invoke(uint64_t a
       memset(&v24, 0, sizeof(v24));
       if (playerItem)
       {
-        [playerItem duration];
+        objc_msgSend_duration(playerItem);
         if ((v24.flags & 0x1D) == 1)
         {
           loadedTimeRanges = [playerItem loadedTimeRanges];
@@ -303,7 +303,7 @@ id __49__MPAVItem_MPArtworkCatalog__artworkCatalogBlock__block_invoke(uint64_t a
                 v13 = *(*(&v20 + 1) + 8 * i);
                 if (v13)
                 {
-                  [v13 CMTimeRangeValue];
+                  objc_msgSend_CMTimeRangeValue(v13);
                 }
 
                 else
@@ -747,7 +747,7 @@ void __41__MPAVItem_invalidateContentItemUserInfo__block_invoke(uint64_t a1, voi
   else
   {
     memset(&v9[1], 0, sizeof(CMTime));
-    [(MPAVItem *)self _playerItemDurationIfAvailable];
+    objc_msgSend__playerItemDurationIfAvailable(self);
     if (0 >> 96 == 1)
     {
       v9[0] = v9[1];
@@ -849,7 +849,7 @@ void __64__MPAVItem__updateDurationSnapshotWithElapsedTime_playbackRate___block_
     }
 
     memset(&v49, 0, sizeof(v49));
-    if (!playerItem || ([playerItem currentTime], (v49.flags & 0x1D) != 1) || (buf = v49, vabdd_f64(CMTimeGetSeconds(&buf), v8) >= 0.01))
+    if (!playerItem || (objc_msgSend_currentTime(playerItem), (v49.flags & 0x1D) != 1) || (buf = v49, vabdd_f64(CMTimeGetSeconds(&buf), v8) >= 0.01))
     {
       v11 = os_log_create("com.apple.amp.mediaplayer", "Playback");
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
@@ -1616,7 +1616,7 @@ LABEL_7:
   {
     [(MPContentItem *)self->_contentItem setPlayable:1];
     memset(&v66, 0, sizeof(v66));
-    [(MPAVItem *)self _playerItemDurationIfAvailable];
+    objc_msgSend__playerItemDurationIfAvailable(self);
     Seconds = 0.0;
     if (0 >> 96 == 1)
     {
@@ -2032,18 +2032,18 @@ void __53__MPAVItem__updateContentItemIncludingPlaybackState___block_invoke_260(
   dispatch_sync(assetQueue, block);
 }
 
-uint64_t __26__MPAVItem__clearAssetNow__block_invoke(uint64_t result)
+void *__26__MPAVItem__clearAssetNow__block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = result[4];
   if (*(v1 + 32) == 1)
   {
     v2 = result;
     v3 = *(v1 + 8);
     *(v1 + 8) = 0;
 
-    result = [*(v2 + 32) setPlayerItem:0];
-    *(*(v2 + 32) + 202) = 0;
-    *(*(v2 + 32) + 32) = 0;
+    result = [v2[4] setPlayerItem:0];
+    *(v2[4] + 202) = 0;
+    *(v2[4] + 32) = 0;
   }
 
   return result;
@@ -2188,7 +2188,7 @@ void __61__MPAVItem__performContentItemUpdate_debounceWithIdentifier___block_inv
     v6 = v5;
     if (v5)
     {
-      [v5 CMTimeRangeValue];
+      objc_msgSend_CMTimeRangeValue(v5);
     }
 
     else
@@ -2332,7 +2332,7 @@ LABEL_10:
     v16 = v15;
     if (v15)
     {
-      [v15 CMTimeValue];
+      objc_msgSend_CMTimeValue(v15);
     }
 
     else
@@ -2348,7 +2348,7 @@ LABEL_10:
     [(MPAVItem *)self _updateHasFinishedDownloading];
     v26 = 0uLL;
     v27 = 0;
-    [(MPAVItem *)self _playerItemDurationIfAvailable];
+    objc_msgSend__playerItemDurationIfAvailable(self);
     v23[0] = MEMORY[0x1E69E9820];
     v23[1] = 3221225472;
     v23[2] = __59__MPAVItem_observeValueForKeyPath_ofObject_change_context___block_invoke;
@@ -2421,7 +2421,7 @@ LABEL_9:
     v9 = asset2;
     if (asset2)
     {
-      [asset2 duration];
+      objc_msgSend_duration(asset2);
     }
 
     else
@@ -2482,7 +2482,7 @@ LABEL_10:
         memset(&v12, 0, sizeof(v12));
         if (v8)
         {
-          [v8 CMTimeRangeValue];
+          objc_msgSend_CMTimeRangeValue(v8);
         }
 
         else
@@ -2525,7 +2525,7 @@ LABEL_14:
   {
     if (**(&v7[0] + 1))
     {
-      [**(&v7[0] + 1) CMTimeRangeValue];
+      objc_msgSend_CMTimeRangeValue(**(&v7[0] + 1));
     }
 
     else
@@ -2620,7 +2620,7 @@ LABEL_5:
   if (asset)
   {
     v6 = asset;
-    [asset duration];
+    objc_msgSend_duration(asset);
     asset = v6;
   }
 
@@ -3059,7 +3059,7 @@ LABEL_8:
     v4 = asset;
     if (asset)
     {
-      [asset duration];
+      objc_msgSend_duration(asset);
     }
 
     else
@@ -3331,11 +3331,11 @@ LABEL_7:
   (*(*(a1 + 48) + 16))();
 }
 
-void __55__MPAVItem__loadAssetAndPlayerItemWithTask_completion___block_invoke_4(uint64_t a1, void *a2, void *a3)
+void __55__MPAVItem__loadAssetAndPlayerItemWithTask_completion___block_invoke_4(void *a1, void *a2, void *a3)
 {
   v5 = a2;
   v8 = a3;
-  v9 = *(a1 + 40);
+  v9 = a1[5];
   v6 = v8;
   v7 = v5;
   msv_dispatch_async_on_queue();

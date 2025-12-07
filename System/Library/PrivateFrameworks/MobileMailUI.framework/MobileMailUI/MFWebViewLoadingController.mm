@@ -144,20 +144,20 @@
 
 - (void)slapWebView
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = EMLogCategoryMessageLoading();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v9 = objc_opt_class();
-    v10 = NSStringFromClass(v9);
+    v8 = objc_opt_class();
+    v9 = NSStringFromClass(v8);
     webView = [(MFWebViewLoadingController *)self webView];
-    v12 = 138543874;
-    v13 = v10;
-    v14 = 2048;
+    v11 = 138543874;
+    v12 = v9;
+    v13 = 2048;
     selfCopy = self;
-    v16 = 2112;
-    v17 = webView;
-    _os_log_error_impl(&dword_2149C9000, v3, OS_LOG_TYPE_ERROR, "<%{public}@: %p>: Killing and resetting webview: %@", &v12, 0x20u);
+    v15 = 2112;
+    v16 = webView;
+    _os_log_error_impl(&dword_2149C9000, v3, OS_LOG_TYPE_ERROR, "<%{public}@: %p>: Killing and resetting webview: %@", &v11, 0x20u);
   }
 
   webView2 = [(MFWebViewLoadingController *)self webView];
@@ -166,50 +166,24 @@
   contentRepresentation = [(MFWebViewLoadingController *)self contentRepresentation];
   if (contentRepresentation)
   {
+
+LABEL_6:
+    [(MFWebViewLoadingController *)self _doIssueLoadRequest];
+    return;
   }
 
-  else
+  loadingURL = [(MFWebViewLoadingController *)self loadingURL];
+  v7 = loadingURL == 0;
+
+  if (!v7)
   {
-    loadingURL = [(MFWebViewLoadingController *)self loadingURL];
-    v7 = loadingURL == 0;
-
-    if (v7)
-    {
-      [(MFWebViewLoadingController *)self reload];
-      goto LABEL_7;
-    }
+    goto LABEL_6;
   }
 
-  [(MFWebViewLoadingController *)self _doIssueLoadRequest];
-LABEL_7:
-  v8 = *MEMORY[0x277D85DE8];
+  [(MFWebViewLoadingController *)self reload];
 }
 
 - (void)reload
-{
-  v16 = *MEMORY[0x277D85DE8];
-  v3 = EMLogCategoryMessageLoading();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
-  {
-    v7 = objc_opt_class();
-    v8 = NSStringFromClass(v7);
-    webView = [(MFWebViewLoadingController *)self webView];
-    v10 = 138543874;
-    v11 = v8;
-    v12 = 2048;
-    selfCopy = self;
-    v14 = 2112;
-    v15 = webView;
-    _os_log_debug_impl(&dword_2149C9000, v3, OS_LOG_TYPE_DEBUG, "<%{public}@: %p>: Sending request to reload webview: %@", &v10, 0x20u);
-  }
-
-  webView2 = [(MFWebViewLoadingController *)self webView];
-  reload = [webView2 reload];
-
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)stopLoading
 {
   v15 = *MEMORY[0x277D85DE8];
   v3 = EMLogCategoryMessageLoading();
@@ -224,18 +198,38 @@ LABEL_7:
     selfCopy = self;
     v13 = 2112;
     v14 = webView;
-    _os_log_debug_impl(&dword_2149C9000, v3, OS_LOG_TYPE_DEBUG, "<%{public}@: %p>: Sending request to stop loading webview: %@", &v9, 0x20u);
+    _os_log_debug_impl(&dword_2149C9000, v3, OS_LOG_TYPE_DEBUG, "<%{public}@: %p>: Sending request to reload webview: %@", &v9, 0x20u);
+  }
+
+  webView2 = [(MFWebViewLoadingController *)self webView];
+  reload = [webView2 reload];
+}
+
+- (void)stopLoading
+{
+  v14 = *MEMORY[0x277D85DE8];
+  v3 = EMLogCategoryMessageLoading();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  {
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
+    webView = [(MFWebViewLoadingController *)self webView];
+    v8 = 138543874;
+    v9 = v6;
+    v10 = 2048;
+    selfCopy = self;
+    v12 = 2112;
+    v13 = webView;
+    _os_log_debug_impl(&dword_2149C9000, v3, OS_LOG_TYPE_DEBUG, "<%{public}@: %p>: Sending request to stop loading webview: %@", &v8, 0x20u);
   }
 
   webView2 = [(MFWebViewLoadingController *)self webView];
   [webView2 stopLoading];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_doIssueLoadRequest
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   contentRepresentation = [(MFWebViewLoadingController *)self contentRepresentation];
   error = [(MFWebViewLoadingController *)self error];
   v5 = error;
@@ -248,13 +242,13 @@ LABEL_7:
       v8 = objc_opt_class();
       v9 = NSStringFromClass(v8);
       ef_publicDescription = [contentRepresentation ef_publicDescription];
-      v25 = 138543874;
-      v26 = v9;
-      v27 = 2048;
+      v24 = 138543874;
+      v25 = v9;
+      v26 = 2048;
       selfCopy3 = self;
-      v29 = 2114;
-      v30 = ef_publicDescription;
-      _os_log_impl(&dword_2149C9000, v7, OS_LOG_TYPE_DEFAULT, "<%{public}@: %p>: Sending request to load webview with content representation: %{public}@", &v25, 0x20u);
+      v28 = 2114;
+      v29 = ef_publicDescription;
+      _os_log_impl(&dword_2149C9000, v7, OS_LOG_TYPE_DEFAULT, "<%{public}@: %p>: Sending request to load webview with content representation: %{public}@", &v24, 0x20u);
     }
 
     webView = [(MFWebViewLoadingController *)self webView];
@@ -266,26 +260,26 @@ LABEL_5:
 
   if (!error)
   {
-    v15 = EMLogCategoryMessageLoading();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v14 = EMLogCategoryMessageLoading();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = objc_opt_class();
-      v17 = NSStringFromClass(v16);
+      v15 = objc_opt_class();
+      v16 = NSStringFromClass(v15);
       loadingURL = [(MFWebViewLoadingController *)self loadingURL];
-      v25 = 138543874;
-      v26 = v17;
-      v27 = 2048;
+      v24 = 138543874;
+      v25 = v16;
+      v26 = 2048;
       selfCopy3 = self;
-      v29 = 2112;
-      v30 = loadingURL;
-      _os_log_impl(&dword_2149C9000, v15, OS_LOG_TYPE_DEFAULT, "<%{public}@: %p>: Sending request to load webview with loading URL: %@", &v25, 0x20u);
+      v28 = 2112;
+      v29 = loadingURL;
+      _os_log_impl(&dword_2149C9000, v14, OS_LOG_TYPE_DEFAULT, "<%{public}@: %p>: Sending request to load webview with loading URL: %@", &v24, 0x20u);
     }
 
     contentURL = [(MFWebViewLoadingController *)self webView];
-    v19 = MEMORY[0x277CCAD20];
+    v18 = MEMORY[0x277CCAD20];
     webView = [(MFWebViewLoadingController *)self loadingURL];
-    v20 = [v19 requestWithURL:webView cachePolicy:0 timeoutInterval:60.0];
-    v21 = [contentURL loadRequest:v20];
+    v19 = [v18 requestWithURL:webView cachePolicy:0 timeoutInterval:60.0];
+    v20 = [contentURL loadRequest:v19];
 
     goto LABEL_5;
   }
@@ -293,22 +287,20 @@ LABEL_5:
   v13 = EMLogCategoryMessageLoading();
   if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
-    v22 = objc_opt_class();
-    v23 = NSStringFromClass(v22);
+    v21 = objc_opt_class();
+    v22 = NSStringFromClass(v21);
     ef_publicDescription2 = [v5 ef_publicDescription];
-    v25 = 138543874;
-    v26 = v23;
-    v27 = 2048;
+    v24 = 138543874;
+    v25 = v22;
+    v26 = 2048;
     selfCopy3 = self;
-    v29 = 2114;
-    v30 = ef_publicDescription2;
-    _os_log_error_impl(&dword_2149C9000, v13, OS_LOG_TYPE_ERROR, "<%{public}@: %p>: Sending request to load webview with error: %{public}@", &v25, 0x20u);
+    v28 = 2114;
+    v29 = ef_publicDescription2;
+    _os_log_error_impl(&dword_2149C9000, v13, OS_LOG_TYPE_ERROR, "<%{public}@: %p>: Sending request to load webview with error: %{public}@", &v24, 0x20u);
   }
 
   [(MFWebViewLoadingController *)self requestWebViewLoadWithError:v5];
 LABEL_10:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requestWebViewLoadWithoutShowingMessageWithRepresentation:(id)representation

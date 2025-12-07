@@ -145,7 +145,7 @@ LABEL_10:
 
 void __55__OAXColorTransform_Private__colorTransformTypeEnumMap__block_invoke()
 {
-  if ((atomic_load_explicit(&_ZGVZZ55__OAXColorTransform_Private__colorTransformTypeEnumMap_EUb_E29colorTransformTypeEnumStructs, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(_ZGVZZ55__OAXColorTransform_Private__colorTransformTypeEnumMap_EUb_E29colorTransformTypeEnumStructs, memory_order_acquire) & 1) == 0)
   {
     __55__OAXColorTransform_Private__colorTransformTypeEnumMap__block_invoke_cold_1();
   }
@@ -157,11 +157,11 @@ void __55__OAXColorTransform_Private__colorTransformTypeEnumMap__block_invoke()
 
 void __55__OAXColorTransform_Private__colorTransformTypeEnumMap__block_invoke_cold_1()
 {
-  if (__cxa_guard_acquire(&_ZGVZZ55__OAXColorTransform_Private__colorTransformTypeEnumMap_EUb_E29colorTransformTypeEnumStructs))
+  if (__cxa_guard_acquire(_ZGVZZ55__OAXColorTransform_Private__colorTransformTypeEnumMap_EUb_E29colorTransformTypeEnumStructs))
   {
     __cxa_atexit(__cxx_global_array_dtor_5, 0, &dword_25D297000);
 
-    __cxa_guard_release(&_ZGVZZ55__OAXColorTransform_Private__colorTransformTypeEnumMap_EUb_E29colorTransformTypeEnumStructs);
+    __cxa_guard_release(_ZGVZZ55__OAXColorTransform_Private__colorTransformTypeEnumMap_EUb_E29colorTransformTypeEnumStructs);
   }
 }
 

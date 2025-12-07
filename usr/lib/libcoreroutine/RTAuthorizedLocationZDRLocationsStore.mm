@@ -553,12 +553,12 @@ void __68__RTAuthorizedLocationZDRLocationsStore__deleteZDRLocation_handler___bl
   dispatch_async(queue, v12);
 }
 
-void __63__RTAuthorizedLocationZDRLocationsStore__deleteAllZDRLocation___block_invoke(uint64_t a1)
+void __63__RTAuthorizedLocationZDRLocationsStore__deleteAllZDRLocation___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v3[1] = *MEMORY[0x277D85DE8];
-  v3[0] = objc_opt_class();
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:1];
-  [*(a1 + 32) removeAll:v2 handler:*(a1 + 40)];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = objc_opt_class();
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
+  [*(a1 + 32) removeAll:v3 handler:*(a1 + 40)];
 }
 
 - (void)deleteZDRLocation:(id)location handler:(id)handler

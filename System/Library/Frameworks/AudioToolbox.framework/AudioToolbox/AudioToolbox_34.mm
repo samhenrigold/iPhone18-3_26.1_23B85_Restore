@@ -2357,8 +2357,8 @@ void Shoebox::ShoeboxRoom::reflectObject(Shoebox::ShoeboxRoom *this, uint64_t a2
   v35.i32[3] = v32.i32[2];
   v36 = vaddq_f32(vmlaq_laneq_f32(vmulq_laneq_f32(v31, v25, 3), v35, v25, 2), v34);
   v37 = vmulq_f32(_Q0, v36);
-  v31.f32[0] = vaddv_f32(*v37.f32);
-  v37.f32[0] = (v37.f32[2] + v31.f32[0]) + (v37.f32[2] + v31.f32[0]);
+  *v31.i32 = vaddv_f32(*v37.f32);
+  v37.f32[0] = (v37.f32[2] + *v31.i32) + (v37.f32[2] + *v31.i32);
   v38 = vmlsq_lane_f32(v36, _Q0, *v37.f32, 0);
   v39 = vmulq_f32(v38, xmmword_1DE09BBD0);
   if ((v39.f32[2] + vaddv_f32(*v39.f32)) >= 0.0)
@@ -2373,7 +2373,7 @@ void Shoebox::ShoeboxRoom::reflectObject(Shoebox::ShoeboxRoom *this, uint64_t a2
     v77 = vmlaq_f32(vextq_s8(vuzp1q_s32(v76, v76), v76, 0xCuLL), xmmword_1DE095680, v75);
     v71 = vextq_s8(vuzp1q_s32(v77, v77), v77, 0xCuLL);
     v78 = vmulq_f32(v75, xmmword_1DE09BBD0);
-    v71.f32[3] = v78.f32[2] + vaddv_f32(*v78.f32);
+    *&v71.i32[3] = v78.f32[2] + vaddv_f32(*v78.f32);
   }
 
   else
@@ -2420,7 +2420,7 @@ void Shoebox::ShoeboxRoom::reflectObject(Shoebox::ShoeboxRoom *this, uint64_t a2
       v65 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v64, v64), v64, 0xCuLL), vnegq_f32(v54)), v64, vextq_s8(vuzp1q_s32(v54, v54), v54, 0xCuLL));
       v66 = vextq_s8(vuzp1q_s32(v65, v65), v65, 0xCuLL);
       v67 = vmulq_f32(v54, v64);
-      v66.f32[3] = v67.f32[2] + vaddv_f32(*v67.f32);
+      *&v66.i32[3] = v67.f32[2] + vaddv_f32(*v67.f32);
       v68 = vnegq_f32(v66);
       v69 = vtrn2q_s32(v66, vtrn1q_s32(v66, v68));
       v70 = vrev64q_s32(v66);

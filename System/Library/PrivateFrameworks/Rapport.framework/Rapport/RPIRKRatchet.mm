@@ -8,8 +8,8 @@
 
 - (_TtC7Rapport12RPIRKRatchet)initWithStarting:(id)starting locallyPermanentSeed:(id)seed sameAccountDevicesRevision:(int64_t)revision managedAccountsRevision:(int64_t)accountsRevision contactsRevision:(int64_t)contactsRevision
 {
-  v11 = *(*(sub_1B6F22848() - 8) + 64);
-  MEMORY[0x1EEE9AC00]();
+  v11 = sub_1B6F22848();
+  MEMORY[0x1EEE9AC00](v11 - 8);
   v13 = &v20 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1B6F22818();
   seedCopy = seed;

@@ -48,46 +48,46 @@
 
 - (void)useImmutableObjectsFromMap:(id)map intermediateMutableObjectTransferBlock:(id)block
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   mapCopy = map;
   blockCopy = block;
   originalObjects = [(_MSPContainerEditReplacement *)self originalObjects];
-  v47[0] = MEMORY[0x277D85DD0];
-  v47[1] = 3221225472;
-  v48 = __98___MSPContainerEditReplacement_useImmutableObjectsFromMap_intermediateMutableObjectTransferBlock___block_invoke;
-  v49 = &unk_279868670;
-  v39 = mapCopy;
-  v50 = v39;
-  v37 = blockCopy;
-  v51 = v37;
+  v46[0] = MEMORY[0x277D85DD0];
+  v46[1] = 3221225472;
+  v47 = __98___MSPContainerEditReplacement_useImmutableObjectsFromMap_intermediateMutableObjectTransferBlock___block_invoke;
+  v48 = &unk_279868670;
+  v38 = mapCopy;
+  v49 = v38;
+  v36 = blockCopy;
+  v50 = v36;
   v9 = originalObjects;
-  v10 = v47;
+  v10 = v46;
   v11 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v51 = 0u;
   v52 = 0u;
   v53 = 0u;
   v54 = 0u;
-  v55 = 0u;
   v12 = v9;
-  v13 = [v12 countByEnumeratingWithState:&v52 objects:v56 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v51 objects:v55 count:16];
   if (v13)
   {
     v14 = v13;
     v15 = 0;
-    v16 = *v53;
+    v16 = *v52;
     do
     {
       v17 = 0;
       do
       {
-        if (*v53 != v16)
+        if (*v52 != v16)
         {
           objc_enumerationMutation(v12);
         }
 
-        v18 = (v48)(v10, *(*(&v52 + 1) + 8 * v17), v15);
+        v18 = (v47)(v10, *(*(&v51 + 1) + 8 * v17), v15);
         if (v18)
         {
-          [v11 addObject:{v18, v37, v39}];
+          [v11 addObject:{v18, v36, v38}];
         }
 
         ++v15;
@@ -96,7 +96,7 @@
       }
 
       while (v14 != v17);
-      v14 = [v12 countByEnumeratingWithState:&v52 objects:v56 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v51 objects:v55 count:16];
     }
 
     while (v14);
@@ -108,42 +108,42 @@
   self->_originalImmutableObjects = v20;
 
   replacementObjects = [(_MSPContainerEditReplacement *)self replacementObjects];
-  v41 = MEMORY[0x277D85DD0];
-  v42 = 3221225472;
-  v43 = __98___MSPContainerEditReplacement_useImmutableObjectsFromMap_intermediateMutableObjectTransferBlock___block_invoke_2;
-  v44 = &unk_279868670;
-  v40 = v39;
-  v45 = v40;
-  v38 = v37;
-  v46 = v38;
+  v40 = MEMORY[0x277D85DD0];
+  v41 = 3221225472;
+  v42 = __98___MSPContainerEditReplacement_useImmutableObjectsFromMap_intermediateMutableObjectTransferBlock___block_invoke_2;
+  v43 = &unk_279868670;
+  v39 = v38;
+  v44 = v39;
+  v37 = v36;
+  v45 = v37;
   v23 = replacementObjects;
-  v24 = &v41;
+  v24 = &v40;
   v25 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v51 = 0u;
   v52 = 0u;
   v53 = 0u;
   v54 = 0u;
-  v55 = 0u;
   v26 = v23;
-  v27 = [v26 countByEnumeratingWithState:&v52 objects:v56 count:16];
+  v27 = [v26 countByEnumeratingWithState:&v51 objects:v55 count:16];
   if (v27)
   {
     v28 = v27;
     v29 = 0;
-    v30 = *v53;
+    v30 = *v52;
     do
     {
       v31 = 0;
       do
       {
-        if (*v53 != v30)
+        if (*v52 != v30)
         {
           objc_enumerationMutation(v26);
         }
 
-        v32 = (v43)(v24, *(*(&v52 + 1) + 8 * v31), v29);
+        v32 = (v42)(v24, *(*(&v51 + 1) + 8 * v31), v29);
         if (v32)
         {
-          [v25 addObject:{v32, v38, v40, v41, v42}];
+          [v25 addObject:{v32, v37, v39, v40, v41}];
         }
 
         ++v29;
@@ -152,7 +152,7 @@
       }
 
       while (v28 != v31);
-      v28 = [v26 countByEnumeratingWithState:&v52 objects:v56 count:16];
+      v28 = [v26 countByEnumeratingWithState:&v51 objects:v55 count:16];
     }
 
     while (v28);
@@ -162,8 +162,6 @@
   v34 = [v33 copy];
   replacementImmutableObjects = self->_replacementImmutableObjects;
   self->_replacementImmutableObjects = v34;
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 @end

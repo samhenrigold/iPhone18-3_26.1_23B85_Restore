@@ -9,11 +9,11 @@
   [(TUILayout *)self renderModelSizeWithContext:context];
   v6 = v5;
   v8 = v7;
-  v9 = [(TUILayout *)self box];
+  v9 = objc_msgSend_box(self);
   identifier = [v9 identifier];
-  v11 = [(TUILayout *)self box];
+  v11 = objc_msgSend_box(self);
   playing = [v11 playing];
-  v13 = [(TUILayout *)self box];
+  v13 = objc_msgSend_box(self);
   color = [v13 color];
   v15 = [TUINowPlayingView renderModelWithIdentifier:identifier playing:playing color:color];
 

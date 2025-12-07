@@ -12,6 +12,7 @@
 - (id)samples:(id)samples withPosition:(unint64_t)position;
 - (void)addSample:(id)sample forKey:(id)key;
 - (void)addSample:(id)sample forKey:(id)key withPosition:(unint64_t)position;
+- (void)addToCounterForRateMetric:(int)metric forKey:(id)key;
 - (void)addToDurationForRateMetric:(double)metric forKey:(id)key;
 - (void)encodeWithCoder:(id)coder;
 - (void)haltTypingTimer;
@@ -95,9 +96,9 @@
     v3 = IXADefaultLogFacility();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v63 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s [SensorKit] _identifier is nil", "-[TISKSessionStats generateDataForSR]"];
+      v62 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s [SensorKit] _identifier is nil", "-[TISKSessionStats generateDataForSR]"];
       LODWORD(buf) = 138412290;
-      *(&buf + 4) = v63;
+      *(&buf + 4) = v62;
       _os_log_error_impl(&dword_22CA55000, v3, OS_LOG_TYPE_ERROR, "%@", &buf, 0xCu);
     }
   }
@@ -279,8 +280,8 @@
     if (!v32)
     {
 LABEL_60:
-      dlerror();
-      abort_report_np();
+      v63 = dlerror();
+      abort_report_np("%s", v63);
     }
 
     v78 = *v32;
@@ -426,16 +427,14 @@ LABEL_50:
     v38 = IXADefaultLogFacility();
     if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
     {
-      v62 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s TISKSessionStats has metadata that resolves to nil and cannot be published", "-[TISKSessionStats generateDataForSR]"];
+      v61 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s TISKSessionStats has metadata that resolves to nil and cannot be published", "-[TISKSessionStats generateDataForSR]"];
       LODWORD(buf) = 138412290;
-      *(&buf + 4) = v62;
+      *(&buf + 4) = v61;
       _os_log_error_impl(&dword_22CA55000, v38, OS_LOG_TYPE_ERROR, "%@", &buf, 0xCu);
     }
 
     v67 = 0;
   }
-
-  v60 = *MEMORY[0x277D85DE8];
 
   return v67;
 }
@@ -507,33 +506,33 @@ LABEL_50:
 - (id)description:(BOOL)description
 {
   descriptionCopy = description;
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CCAB68];
-  v24.receiver = self;
-  v24.super_class = TISKSessionStats;
-  v5 = [(TISKSessionStats *)&v24 description];
+  v23.receiver = self;
+  v23.super_class = TISKSessionStats;
+  v5 = [(TISKSessionStats *)&v23 description];
   v6 = [v4 stringWithString:v5];
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   obj = [(NSMutableDictionary *)self->_keyedMetrics allKeys];
-  v7 = [obj countByEnumeratingWithState:&v20 objects:v25 count:16];
+  v7 = [obj countByEnumeratingWithState:&v19 objects:v24 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v21;
+    v9 = *v20;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v21 != v9)
+        if (*v20 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v20 + 1) + 8 * i);
+        v11 = *(*(&v19 + 1) + 8 * i);
         v12 = [(NSMutableDictionary *)self->_keyedMetrics objectForKey:v11];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
@@ -579,13 +578,11 @@ LABEL_16:
         [v6 appendFormat:@"%@ %@\n", v11, v13];
       }
 
-      v8 = [obj countByEnumeratingWithState:&v20 objects:v25 count:16];
+      v8 = [obj countByEnumeratingWithState:&v19 objects:v24 count:16];
     }
 
     while (v8);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -659,6 +656,17 @@ LABEL_16:
   if (objc_opt_isKindOfClass())
   {
     [v5 addToDuration:metric];
+  }
+}
+
+- (void)addToCounterForRateMetric:(int)metric forKey:(id)key
+{
+  v4 = *&metric;
+  v5 = [(NSMutableDictionary *)self->_keyedMetrics objectForKey:key];
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    [v5 addToCounter:v4];
   }
 }
 
@@ -770,7 +778,7 @@ LABEL_18:
 
 - (void)merge:(id)merge
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   mergeCopy = merge;
   v5 = mergeCopy;
   if (!mergeCopy || ([mergeCopy isEmpty] & 1) != 0)
@@ -778,32 +786,32 @@ LABEL_18:
     goto LABEL_36;
   }
 
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
   v41 = 0u;
+  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
   keyedMetrics = [v5 keyedMetrics];
   allKeys = [keyedMetrics allKeys];
 
-  v39 = [allKeys countByEnumeratingWithState:&v40 objects:v46 count:16];
-  if (!v39)
+  v38 = [allKeys countByEnumeratingWithState:&v39 objects:v45 count:16];
+  if (!v38)
   {
     goto LABEL_30;
   }
 
-  v8 = *v41;
-  v38 = *v41;
+  v8 = *v40;
+  v37 = *v40;
   do
   {
     v9 = 0;
     do
     {
-      if (*v41 != v8)
+      if (*v40 != v8)
       {
         objc_enumerationMutation(allKeys);
       }
 
-      v10 = *(*(&v40 + 1) + 8 * v9);
+      v10 = *(*(&v39 + 1) + 8 * v9);
       v11 = [(NSMutableDictionary *)self->_keyedMetrics objectForKey:v10];
       keyedMetrics2 = [v5 keyedMetrics];
       v13 = [keyedMetrics2 objectForKey:v10];
@@ -831,7 +839,7 @@ LABEL_18:
           [(NSMutableDictionary *)keyedMetrics setObject:v20 forKey:v10];
 
           allKeys = v15;
-          v8 = v38;
+          v8 = v37;
           goto LABEL_25;
         }
 
@@ -842,15 +850,15 @@ LABEL_18:
         }
 
 LABEL_28:
-        v36 = MEMORY[0x277CCACA8];
-        v37 = allKeys;
+        v35 = MEMORY[0x277CCACA8];
+        v36 = allKeys;
         v22 = objc_opt_class();
-        v23 = [v36 stringWithFormat:@"%s [SensorKit] otherObject has different class: %@ than ownObject: %@ for key: %@", "-[TISKSessionStats merge:]", v22, objc_opt_class(), v10];
+        v23 = [v35 stringWithFormat:@"%s [SensorKit] otherObject has different class: %@ than ownObject: %@ for key: %@", "-[TISKSessionStats merge:]", v22, objc_opt_class(), v10];
         *buf = 138412290;
-        v45 = v23;
+        v44 = v23;
         _os_log_error_impl(&dword_22CA55000, v21, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
 
-        allKeys = v37;
+        allKeys = v36;
 LABEL_17:
 
         goto LABEL_25;
@@ -918,9 +926,9 @@ LABEL_25:
       ++v9;
     }
 
-    while (v39 != v9);
-    v24 = [allKeys countByEnumeratingWithState:&v40 objects:v46 count:16];
-    v39 = v24;
+    while (v38 != v9);
+    v24 = [allKeys countByEnumeratingWithState:&v39 objects:v45 count:16];
+    v38 = v24;
   }
 
   while (v24);
@@ -952,35 +960,33 @@ LABEL_30:
 
   self->_isEmpty = 0;
 LABEL_36:
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setup
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v3 = +[TISKMetricDefinition metricDefinitions];
-  v4 = [v3 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v18;
+    v7 = *v17;
     while (1)
     {
       for (i = 0; i != v5; ++i)
       {
         v9 = v6;
-        if (*v18 != v7)
+        if (*v17 != v7)
         {
           objc_enumerationMutation(v3);
         }
 
-        v6 = *(*(&v17 + 1) + 8 * i);
+        v6 = *(*(&v16 + 1) + 8 * i);
 
         metricType = [v6 metricType];
         if (metricType > 1)
@@ -1027,7 +1033,7 @@ LABEL_16:
         [(NSMutableDictionary *)keyedMetrics setObject:v14 forKey:metricName];
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (!v5)
       {
 
@@ -1035,15 +1041,13 @@ LABEL_16:
       }
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)haltTypingTimer
 {
   startTimerEvent = self->_startTimerEvent;
   self->_startTimerEvent = 0;
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](self, startTimerEvent);
 }
 
 - (void)haltTypingTimerWithEvent:(id)event

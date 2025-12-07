@@ -243,7 +243,7 @@ void __85__HROnboardingInlineExpandedContentView_learnMoreAboutAtrialFibrillatio
   v3 = MEMORY[0x277D756B8];
   keyCopy = key;
   v5 = objc_alloc_init(v3);
-  v6 = HRHeartRhythmUIFrameworkBundle();
+  v6 = HRHeartRhythmUIFrameworkBundle(v5);
   v7 = [v6 localizedStringForKey:keyCopy value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Antimony"];
 
   [v5 setText:v7];
@@ -263,7 +263,7 @@ void __85__HROnboardingInlineExpandedContentView_learnMoreAboutAtrialFibrillatio
   v3 = MEMORY[0x277D756B8];
   keyCopy = key;
   v5 = objc_alloc_init(v3);
-  v6 = HRHeartRhythmUIFrameworkBundle();
+  v6 = HRHeartRhythmUIFrameworkBundle(v5);
   v7 = [v6 localizedStringForKey:keyCopy value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Antimony"];
 
   [v5 setText:v7];
@@ -283,7 +283,7 @@ void __85__HROnboardingInlineExpandedContentView_learnMoreAboutAtrialFibrillatio
 {
   keyCopy = key;
   v4 = [HRBulletedIndentedLabel alloc];
-  v5 = HRHeartRhythmUIFrameworkBundle();
+  v5 = HRHeartRhythmUIFrameworkBundle(v4);
   v6 = [v5 localizedStringForKey:keyCopy value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Antimony"];
 
   v7 = [(HRBulletedIndentedLabel *)v4 initWithText:v6 isEmbedded:0];
@@ -519,7 +519,7 @@ LABEL_14:
   embeddedCopy = embedded;
   delegateCopy = delegate;
   textCopy = text;
-  v11 = HRHeartRhythmUIFrameworkBundle();
+  v11 = HRHeartRhythmUIFrameworkBundle(textCopy);
   v12 = [v11 localizedStringForKey:@"ONBOARDING_LEARN_MORE_WITH_ELLIPSES" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable"];
 
   v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ %@", textCopy, v12];

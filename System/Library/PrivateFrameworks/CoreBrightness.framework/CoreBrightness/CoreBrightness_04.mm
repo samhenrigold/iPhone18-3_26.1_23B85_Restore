@@ -1,254 +1,3 @@
-void sub_1DE9ECE3C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, _Unwind_Exception *exception_object, os_log_t log, int a12, os_log_type_t a13, uint8_t *buf, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, int a39, __int16 a40, char a41, os_log_type_t type, os_log_t oslog, uint64_t a44, int a45, int a46, void *exc_buf)
-{
-  if (a2)
-  {
-    if (a2 == 1)
-    {
-      v51 = objc_begin_catch(a1);
-      if (*(*(a37 + 8) + 112))
-      {
-        v50 = *(*(a37 + 8) + 112);
-      }
-
-      else
-      {
-        if (_COREBRIGHTNESS_LOG_DEFAULT)
-        {
-          inited = _COREBRIGHTNESS_LOG_DEFAULT;
-        }
-
-        else
-        {
-          inited = init_default_corebrightness_log();
-        }
-
-        v50 = inited;
-      }
-
-      if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
-      {
-        __os_log_helper_16_2_1_8_64(v47 - 192, v51);
-        _os_log_error_impl(&dword_1DE8E5000, v50, OS_LOG_TYPE_ERROR, "Observer was not added or already removed: %@", (v47 - 192), 0xCu);
-      }
-
-      objc_end_catch();
-      JUMPOUT(0x1DE9ECDA8);
-    }
-
-    exception_objecta = a1;
-  }
-
-  else
-  {
-    exception_objecta = a1;
-  }
-
-  _Unwind_Resume(exception_objecta);
-}
-
-BOOL isDisplayAvailable(CADisplay *a1)
-{
-  v2 = 0;
-  if (a1)
-  {
-    v2 = 0;
-    if ([-[CADisplay currentMode](a1 "currentMode")])
-    {
-      return [-[CADisplay currentMode](a1 "currentMode")] != 0;
-    }
-  }
-
-  return v2;
-}
-
-uint64_t __os_log_helper_16_2_4_8_66_8_66_8_66_8_66(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
-{
-  *result = 2;
-  *(result + 1) = 4;
-  *(result + 2) = 66;
-  *(result + 3) = 8;
-  *(result + 4) = a2;
-  *(result + 12) = 66;
-  *(result + 13) = 8;
-  *(result + 14) = a3;
-  *(result + 22) = 66;
-  *(result + 23) = 8;
-  *(result + 24) = a4;
-  *(result + 32) = 66;
-  *(result + 33) = 8;
-  *(result + 34) = a5;
-  return result;
-}
-
-uint64_t __os_log_helper_16_2_2_4_0_8_66(uint64_t result, int a2, uint64_t a3)
-{
-  *result = 2;
-  *(result + 1) = 2;
-  *(result + 2) = 0;
-  *(result + 3) = 4;
-  *(result + 4) = a2;
-  *(result + 8) = 66;
-  *(result + 9) = 8;
-  *(result + 10) = a3;
-  return result;
-}
-
-uint64_t __os_log_helper_16_2_3_8_0_8_66_4_0(uint64_t result, uint64_t a2, uint64_t a3, int a4)
-{
-  *result = 2;
-  *(result + 1) = 3;
-  *(result + 2) = 0;
-  *(result + 3) = 8;
-  *(result + 4) = a2;
-  *(result + 12) = 66;
-  *(result + 13) = 8;
-  *(result + 14) = a3;
-  *(result + 22) = 0;
-  *(result + 23) = 4;
-  *(result + 24) = a4;
-  return result;
-}
-
-void handleShutdownNotification(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
-{
-  v17 = a1;
-  v16 = a2;
-  v15 = a3;
-  v14 = a4;
-  v13 = a5;
-  v12 = a2;
-  MEMORY[0x1E69E5928](a2);
-  v5 = *(v12 + 24);
-  block = MEMORY[0x1E69E9820];
-  v7 = -1073741824;
-  v8 = 0;
-  v9 = __handleShutdownNotification_block_invoke;
-  v10 = &unk_1E867B480;
-  v11 = v12;
-  dispatch_async(v5, &block);
-}
-
-void handleAvailabilityNotification(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
-{
-  v17 = a1;
-  v16 = a2;
-  v15 = a3;
-  v14 = a4;
-  v13 = a5;
-  v12 = a2;
-  if (a2)
-  {
-    MEMORY[0x1E69E5928](v12);
-    v5 = *(v12 + 24);
-    block = MEMORY[0x1E69E9820];
-    v7 = -1073741824;
-    v8 = 0;
-    v9 = __handleAvailabilityNotification_block_invoke;
-    v10 = &unk_1E867B480;
-    v11 = v12;
-    dispatch_async(v5, &block);
-  }
-}
-
-void deviceManagementArrivalCallback(void *a1, io_iterator_t a2)
-{
-  v13 = *MEMORY[0x1E69E9840];
-  v11 = a1;
-  v10 = a2;
-  if (a1 && v10)
-  {
-    if (_COREBRIGHTNESS_LOG_DEFAULT)
-    {
-      inited = _COREBRIGHTNESS_LOG_DEFAULT;
-    }
-
-    else
-    {
-      inited = init_default_corebrightness_log();
-    }
-
-    if (os_log_type_enabled(inited, OS_LOG_TYPE_DEFAULT))
-    {
-      __os_log_helper_16_0_1_8_0(v12, v11);
-      _os_log_impl(&dword_1DE8E5000, inited, OS_LOG_TYPE_DEFAULT, "Device management arrived refcon=%p", v12, 0xCu);
-    }
-
-    while (1)
-    {
-      v6 = IOIteratorNext(v10);
-      if (!v6)
-      {
-        break;
-      }
-
-      if (v11)
-      {
-        [v11 handleDeviceManagementArrival:v6];
-      }
-    }
-  }
-
-  else
-  {
-    if (_COREBRIGHTNESS_LOG_DEFAULT)
-    {
-      v5 = _COREBRIGHTNESS_LOG_DEFAULT;
-    }
-
-    else
-    {
-      v5 = init_default_corebrightness_log();
-    }
-
-    v9 = v5;
-    v8 = 16;
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
-    {
-      log = v9;
-      type = v8;
-      __os_log_helper_16_0_0(v7);
-      _os_log_error_impl(&dword_1DE8E5000, log, type, "error: invalid input", v7, 2u);
-    }
-  }
-
-  *MEMORY[0x1E69E9840];
-}
-
-uint64_t __os_log_helper_16_2_3_8_32_8_66_8_0(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  *result = 2;
-  *(result + 1) = 3;
-  *(result + 2) = 32;
-  *(result + 3) = 8;
-  *(result + 4) = a2;
-  *(result + 12) = 66;
-  *(result + 13) = 8;
-  *(result + 14) = a3;
-  *(result + 22) = 0;
-  *(result + 23) = 8;
-  *(result + 24) = a4;
-  return result;
-}
-
-uint64_t __os_log_helper_16_2_4_8_0_8_0_8_0_8_66(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
-{
-  *result = 2;
-  *(result + 1) = 4;
-  *(result + 2) = 0;
-  *(result + 3) = 8;
-  *(result + 4) = a2;
-  *(result + 12) = 0;
-  *(result + 13) = 8;
-  *(result + 14) = a3;
-  *(result + 22) = 0;
-  *(result + 23) = 8;
-  *(result + 24) = a4;
-  *(result + 32) = 66;
-  *(result + 33) = 8;
-  *(result + 34) = a5;
-  return result;
-}
-
 uint64_t __os_log_helper_16_2_3_8_0_8_0_8_64(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   *result = 2;
@@ -730,7 +479,7 @@ uint64_t __getMLFeatureValueClass_block_invoke_2(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = Class;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    result = abort_report_np();
+    result = abort_report_np("Unable to find class %s", "MLFeatureValue");
   }
 
   getMLFeatureValueClass_softClass_2 = *(*(*(a1 + 32) + 8) + 24);
@@ -743,7 +492,7 @@ uint64_t CoreMLLibrary_3()
   v1 = CoreMLLibraryCore_3(&v2);
   if (!v1)
   {
-    abort_report_np();
+    abort_report_np("%s", v2);
   }
 
   if (v2)
@@ -775,11 +524,8 @@ uint64_t CoreMLLibraryCore_3(uint64_t a1)
 
 uint64_t __CoreMLLibraryCore_block_invoke_3(uint64_t a1)
 {
-  v3 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   CoreMLLibraryCore_frameworkLibrary_3 = result;
-  *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -791,7 +537,7 @@ uint64_t __getMLModelClass_block_invoke_2(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = Class;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    result = abort_report_np();
+    result = abort_report_np("Unable to find class %s", "MLModel");
   }
 
   getMLModelClass_softClass_2 = *(*(*(a1 + 32) + 8) + 24);
@@ -806,7 +552,7 @@ uint64_t __getMLPredictionOptionsClass_block_invoke_2(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = Class;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    result = abort_report_np();
+    result = abort_report_np("Unable to find class %s", "MLPredictionOptions");
   }
 
   getMLPredictionOptionsClass_softClass_2 = *(*(*(a1 + 32) + 8) + 24);
@@ -821,7 +567,7 @@ uint64_t __getMLArrayBatchProviderClass_block_invoke_2(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = Class;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    result = abort_report_np();
+    result = abort_report_np("Unable to find class %s", "MLArrayBatchProvider");
   }
 
   getMLArrayBatchProviderClass_softClass_2 = *(*(*(a1 + 32) + 8) + 24);
@@ -885,8 +631,6 @@ void displayArrivalCallback(void *a1, io_iterator_t a2)
       _os_log_error_impl(&dword_1DE8E5000, log, type, "error: invalid input", v7, 2u);
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 uint64_t __os_log_helper_16_2_3_4_0_8_0_8_66(uint64_t result, int a2, uint64_t a3, uint64_t a4)
@@ -1098,7 +842,7 @@ uint64_t __DisplayRegister()
   return result;
 }
 
-uint64_t __DisplayRequiresBDM_block_invoke(uint64_t a1)
+void *__DisplayRequiresBDM_block_invoke(uint64_t a1)
 {
   v4 = a1;
   v3 = a1;
@@ -1114,21 +858,20 @@ uint64_t __DisplayRequiresBDM_block_invoke(uint64_t a1)
 
 CFTypeRef DisplayCreateWithCapabilitiesAndID(const __CFAllocator *a1, io_object_t a2, NSObject *a3, uint64_t a4, int a5)
 {
-  v346 = *MEMORY[0x1E69E9840];
+  v345 = *MEMORY[0x1E69E9840];
   allocator = a1;
   object = a2;
   target = a3;
-  v293 = a4;
-  v292 = a5;
+  v292 = a4;
+  v291 = a5;
   _logHandle = os_log_create("com.apple.CoreBrightness.Display", "default");
   cf = 0;
   CFProperty = 0;
-  v288 = 0;
-  Private = __DisplayCreatePrivate();
+  v287 = 0;
+  Private = __DisplayCreatePrivate(allocator);
   if (!Private)
   {
-    v297 = 0;
-    goto LABEL_471;
+    return 0;
   }
 
   *(Private + 69) = 0;
@@ -1138,7 +881,7 @@ CFTypeRef DisplayCreateWithCapabilitiesAndID(const __CFAllocator *a1, io_object_
   *(Private + 57) = 0;
   *(Private + 2) = 0;
   *(Private + 10) = 0;
-  *(Private + 3148) = v292;
+  *(Private + 3148) = v291;
   *(Private + 3149) = 0;
   *(Private + 3150) = 0;
   *(Private + 321) = 0;
@@ -1171,7 +914,7 @@ CFTypeRef DisplayCreateWithCapabilitiesAndID(const __CFAllocator *a1, io_object_
   v8 = [CBBacklightNode alloc];
   v9 = [(CBBacklightNode *)v8 initWithService:object];
   *(Private + 1630) = v9;
-  v285 = 0;
+  v284 = 0;
   number = 0;
   theDict = IORegistryEntryCreateCFProperty(object, @"IODisplayParameters", allocator, 0);
   if (!theDict)
@@ -1179,18 +922,18 @@ CFTypeRef DisplayCreateWithCapabilitiesAndID(const __CFAllocator *a1, io_object_
     goto LABEL_466;
   }
 
-  v285 = CFDictionaryGetValue(theDict, @"brightness");
-  if (v285)
+  v284 = CFDictionaryGetValue(theDict, @"brightness");
+  if (v284)
   {
-    number = CFDictionaryGetValue(v285, @"value");
+    number = CFDictionaryGetValue(v284, @"value");
     if (number)
     {
       CFNumberGetValue(number, kCFNumberSInt32Type, Private + 1244);
-      number = CFDictionaryGetValue(v285, @"min");
+      number = CFDictionaryGetValue(v284, @"min");
       if (number)
       {
         CFNumberGetValue(number, kCFNumberSInt32Type, Private + 1236);
-        number = CFDictionaryGetValue(v285, @"max");
+        number = CFDictionaryGetValue(v284, @"max");
         if (number)
         {
           CFNumberGetValue(number, kCFNumberSInt32Type, Private + 1240);
@@ -1206,7 +949,7 @@ CFTypeRef DisplayCreateWithCapabilitiesAndID(const __CFAllocator *a1, io_object_
     *(Private + 8) = 1;
     if (_logHandle)
     {
-      v140 = _logHandle;
+      v139 = _logHandle;
     }
 
     else
@@ -1221,17 +964,17 @@ CFTypeRef DisplayCreateWithCapabilitiesAndID(const __CFAllocator *a1, io_object_
         inited = init_default_corebrightness_log();
       }
 
-      v140 = inited;
+      v139 = inited;
     }
 
-    oslog = v140;
+    oslog = v139;
     type = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(v140, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v139, OS_LOG_TYPE_DEFAULT))
     {
       log = oslog;
-      v138 = type;
-      __os_log_helper_16_0_0(v281);
-      _os_log_impl(&dword_1DE8E5000, log, v138, "New backlight architecture.", v281, 2u);
+      v137 = type;
+      __os_log_helper_16_0_0(v280);
+      _os_log_impl(&dword_1DE8E5000, log, v137, "New backlight architecture.", v280, 2u);
     }
   }
 
@@ -1249,8 +992,8 @@ CFTypeRef DisplayCreateWithCapabilitiesAndID(const __CFAllocator *a1, io_object_
   CFProperty = IORegistryEntryCreateCFProperty(object, @"backlight-calibration-parameters", allocator, 0);
   if (CFProperty)
   {
-    v136 = CFGetTypeID(CFProperty);
-    if (v136 == CFDictionaryGetTypeID())
+    v135 = CFGetTypeID(CFProperty);
+    if (v135 == CFDictionaryGetTypeID())
     {
       number = CFDictionaryGetValue(CFProperty, @"current-for-max-backlight");
       CFNumberGetValue(number, kCFNumberFloatType, Private + 1288);
@@ -1293,292 +1036,292 @@ CFTypeRef DisplayCreateWithCapabilitiesAndID(const __CFAllocator *a1, io_object_
 
       if (_logHandle)
       {
-        v135 = _logHandle;
+        v134 = _logHandle;
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v134 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v133 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v134 = init_default_corebrightness_log();
+          v133 = init_default_corebrightness_log();
         }
 
-        v135 = v134;
+        v134 = v133;
       }
 
-      v279 = v135;
-      v278 = OS_LOG_TYPE_DEFAULT;
-      if (os_log_type_enabled(v135, OS_LOG_TYPE_DEFAULT))
+      v278 = v134;
+      v277 = OS_LOG_TYPE_DEFAULT;
+      if (os_log_type_enabled(v134, OS_LOG_TYPE_DEFAULT))
       {
-        __os_log_helper_16_0_1_8_0(v345, COERCE__INT64(*(Private + 322)));
-        _os_log_impl(&dword_1DE8E5000, v279, v278, "I_max=%f", v345, 0xCu);
+        __os_log_helper_16_0_1_8_0(v344, COERCE__INT64(*(Private + 322)));
+        _os_log_impl(&dword_1DE8E5000, v278, v277, "I_max=%f", v344, 0xCu);
       }
 
       if (_logHandle)
       {
-        v133 = _logHandle;
+        v132 = _logHandle;
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v132 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v131 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v132 = init_default_corebrightness_log();
+          v131 = init_default_corebrightness_log();
         }
 
-        v133 = v132;
+        v132 = v131;
       }
 
-      v277 = v133;
-      v276 = OS_LOG_TYPE_DEFAULT;
-      if (os_log_type_enabled(v133, OS_LOG_TYPE_DEFAULT))
+      v276 = v132;
+      v275 = OS_LOG_TYPE_DEFAULT;
+      if (os_log_type_enabled(v132, OS_LOG_TYPE_DEFAULT))
       {
-        __os_log_helper_16_0_1_8_0(v344, COERCE__INT64(*(Private + 323)));
-        _os_log_impl(&dword_1DE8E5000, v277, v276, "I_mid=%f", v344, 0xCu);
+        __os_log_helper_16_0_1_8_0(v343, COERCE__INT64(*(Private + 323)));
+        _os_log_impl(&dword_1DE8E5000, v276, v275, "I_mid=%f", v343, 0xCu);
       }
 
       if (_logHandle)
       {
-        v131 = _logHandle;
+        v130 = _logHandle;
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v130 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v129 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v130 = init_default_corebrightness_log();
+          v129 = init_default_corebrightness_log();
         }
 
-        v131 = v130;
+        v130 = v129;
       }
 
-      v275 = v131;
-      v274 = OS_LOG_TYPE_DEFAULT;
-      if (os_log_type_enabled(v131, OS_LOG_TYPE_DEFAULT))
+      v274 = v130;
+      v273 = OS_LOG_TYPE_DEFAULT;
+      if (os_log_type_enabled(v130, OS_LOG_TYPE_DEFAULT))
       {
-        __os_log_helper_16_0_1_8_0(v343, COERCE__INT64(*(Private + 324)));
-        _os_log_impl(&dword_1DE8E5000, v275, v274, "Ihw_max=%f", v343, 0xCu);
+        __os_log_helper_16_0_1_8_0(v342, COERCE__INT64(*(Private + 324)));
+        _os_log_impl(&dword_1DE8E5000, v274, v273, "Ihw_max=%f", v342, 0xCu);
       }
 
       if (_logHandle)
       {
-        v129 = _logHandle;
+        v128 = _logHandle;
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v128 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v127 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v128 = init_default_corebrightness_log();
+          v127 = init_default_corebrightness_log();
         }
 
-        v129 = v128;
+        v128 = v127;
       }
 
-      v273 = v129;
-      v272 = OS_LOG_TYPE_DEFAULT;
-      if (os_log_type_enabled(v129, OS_LOG_TYPE_DEFAULT))
+      v272 = v128;
+      v271 = OS_LOG_TYPE_DEFAULT;
+      if (os_log_type_enabled(v128, OS_LOG_TYPE_DEFAULT))
       {
-        __os_log_helper_16_0_1_8_0(v342, COERCE__INT64(*(Private + 325)));
-        _os_log_impl(&dword_1DE8E5000, v273, v272, "Lmax_product=%f", v342, 0xCu);
+        __os_log_helper_16_0_1_8_0(v341, COERCE__INT64(*(Private + 325)));
+        _os_log_impl(&dword_1DE8E5000, v272, v271, "Lmax_product=%f", v341, 0xCu);
       }
 
       if (_logHandle)
       {
-        v127 = _logHandle;
+        v126 = _logHandle;
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v126 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v125 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v126 = init_default_corebrightness_log();
+          v125 = init_default_corebrightness_log();
         }
 
-        v127 = v126;
+        v126 = v125;
       }
 
-      v271 = v127;
-      v270 = OS_LOG_TYPE_DEFAULT;
-      if (os_log_type_enabled(v127, OS_LOG_TYPE_DEFAULT))
+      v270 = v126;
+      v269 = OS_LOG_TYPE_DEFAULT;
+      if (os_log_type_enabled(v126, OS_LOG_TYPE_DEFAULT))
       {
-        __os_log_helper_16_0_1_8_0(v341, COERCE__INT64(*(Private + 326)));
-        _os_log_impl(&dword_1DE8E5000, v271, v270, "Lmid_product=%f", v341, 0xCu);
+        __os_log_helper_16_0_1_8_0(v340, COERCE__INT64(*(Private + 326)));
+        _os_log_impl(&dword_1DE8E5000, v270, v269, "Lmid_product=%f", v340, 0xCu);
       }
 
       if (_logHandle)
       {
-        v125 = _logHandle;
+        v124 = _logHandle;
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v124 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v123 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v124 = init_default_corebrightness_log();
+          v123 = init_default_corebrightness_log();
         }
 
-        v125 = v124;
+        v124 = v123;
       }
 
-      v269 = v125;
-      v268 = OS_LOG_TYPE_DEFAULT;
-      if (os_log_type_enabled(v125, OS_LOG_TYPE_DEFAULT))
+      v268 = v124;
+      v267 = OS_LOG_TYPE_DEFAULT;
+      if (os_log_type_enabled(v124, OS_LOG_TYPE_DEFAULT))
       {
-        __os_log_helper_16_0_1_8_0(v340, COERCE__INT64(*(Private + 327)));
-        _os_log_impl(&dword_1DE8E5000, v269, v268, "Lmin_product=%f", v340, 0xCu);
+        __os_log_helper_16_0_1_8_0(v339, COERCE__INT64(*(Private + 327)));
+        _os_log_impl(&dword_1DE8E5000, v268, v267, "Lmin_product=%f", v339, 0xCu);
       }
 
       if (_logHandle)
       {
-        v123 = _logHandle;
+        v122 = _logHandle;
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v122 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v121 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v122 = init_default_corebrightness_log();
+          v121 = init_default_corebrightness_log();
         }
 
-        v123 = v122;
+        v122 = v121;
       }
 
-      v267 = v123;
-      v266 = OS_LOG_TYPE_DEFAULT;
-      if (os_log_type_enabled(v123, OS_LOG_TYPE_DEFAULT))
+      v266 = v122;
+      v265 = OS_LOG_TYPE_DEFAULT;
+      if (os_log_type_enabled(v122, OS_LOG_TYPE_DEFAULT))
       {
-        __os_log_helper_16_0_1_8_0(v339, COERCE__INT64(*(Private + 328)));
-        _os_log_impl(&dword_1DE8E5000, v267, v266, "Lmax_panel=%f", v339, 0xCu);
+        __os_log_helper_16_0_1_8_0(v338, COERCE__INT64(*(Private + 328)));
+        _os_log_impl(&dword_1DE8E5000, v266, v265, "Lmax_panel=%f", v338, 0xCu);
       }
 
       if (_logHandle)
       {
-        v121 = _logHandle;
+        v120 = _logHandle;
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v120 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v119 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v120 = init_default_corebrightness_log();
+          v119 = init_default_corebrightness_log();
         }
 
-        v121 = v120;
+        v120 = v119;
       }
 
-      v265 = v121;
-      v264 = OS_LOG_TYPE_DEFAULT;
-      if (os_log_type_enabled(v121, OS_LOG_TYPE_DEFAULT))
+      v264 = v120;
+      v263 = OS_LOG_TYPE_DEFAULT;
+      if (os_log_type_enabled(v120, OS_LOG_TYPE_DEFAULT))
       {
-        __os_log_helper_16_0_1_8_0(v338, COERCE__INT64(*(Private + 329)));
-        _os_log_impl(&dword_1DE8E5000, v265, v264, "Lmid_panel=%f", v338, 0xCu);
+        __os_log_helper_16_0_1_8_0(v337, COERCE__INT64(*(Private + 329)));
+        _os_log_impl(&dword_1DE8E5000, v264, v263, "Lmid_panel=%f", v337, 0xCu);
       }
 
       if (_logHandle)
       {
-        v119 = _logHandle;
+        v118 = _logHandle;
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v118 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v117 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v118 = init_default_corebrightness_log();
+          v117 = init_default_corebrightness_log();
         }
 
-        v119 = v118;
+        v118 = v117;
       }
 
-      v263 = v119;
-      v262 = OS_LOG_TYPE_DEFAULT;
-      if (os_log_type_enabled(v119, OS_LOG_TYPE_DEFAULT))
+      v262 = v118;
+      v261 = OS_LOG_TYPE_DEFAULT;
+      if (os_log_type_enabled(v118, OS_LOG_TYPE_DEFAULT))
       {
-        __os_log_helper_16_0_1_8_0(v337, COERCE__INT64(*(Private + 330)));
-        _os_log_impl(&dword_1DE8E5000, v263, v262, "Lmin_panel=%f", v337, 0xCu);
+        __os_log_helper_16_0_1_8_0(v336, COERCE__INT64(*(Private + 330)));
+        _os_log_impl(&dword_1DE8E5000, v262, v261, "Lmin_panel=%f", v336, 0xCu);
       }
 
       if (_logHandle)
       {
-        v117 = _logHandle;
+        v116 = _logHandle;
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v116 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v115 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v116 = init_default_corebrightness_log();
+          v115 = init_default_corebrightness_log();
         }
 
-        v117 = v116;
+        v116 = v115;
       }
 
-      v261 = v117;
-      v260 = OS_LOG_TYPE_DEFAULT;
-      if (os_log_type_enabled(v117, OS_LOG_TYPE_DEFAULT))
+      v260 = v116;
+      v259 = OS_LOG_TYPE_DEFAULT;
+      if (os_log_type_enabled(v116, OS_LOG_TYPE_DEFAULT))
       {
-        __os_log_helper_16_0_1_8_0(v336, COERCE__INT64(*(Private + 331)));
-        _os_log_impl(&dword_1DE8E5000, v261, v260, "milliAmps2NitsScaleFactor=%f", v336, 0xCu);
+        __os_log_helper_16_0_1_8_0(v335, COERCE__INT64(*(Private + 331)));
+        _os_log_impl(&dword_1DE8E5000, v260, v259, "milliAmps2NitsScaleFactor=%f", v335, 0xCu);
       }
 
       if ([+[CBAODState enableAODLiveON] sharedInstance]
       {
-        v334 = xmmword_1DEACE4EC;
-        v335 = 713503427;
-        v332 = xmmword_1DEACE500;
-        v333 = -1632750650;
-        v47 = &v332;
-        v48 = 0;
+        v333 = xmmword_1DEACE4EC;
+        v334 = 713503427;
+        v331 = xmmword_1DEACE500;
+        v332 = -1632750650;
+        v46 = &v331;
+        v47 = 0;
         if (MGIsDeviceOneOfType())
         {
           *(Private + 330) = 2.0;
@@ -1612,98 +1355,98 @@ CFTypeRef DisplayCreateWithCapabilitiesAndID(const __CFAllocator *a1, io_object_
   *(Private + 386) = *(Private + 328);
   *(Private + 383) = *(Private + 330);
   *(Private + 1548) = 0;
-  v259 = *(Private + 383);
-  [*(Private + 1630) loadFixedFloat:@"digital-dimming-min-nits" toDestination:{&v259, v47, v48}];
-  *(Private + 382) = v259;
-  v258 = *(Private + 386);
-  [*(Private + 1630) loadFixedFloat:@"user-accessible-max-nits" toDestination:&v258];
-  *(Private + 384) = v258;
-  v257 = *(Private + 330);
-  [*(Private + 1630) loadFixedFloat:@"aot-accessible-min-nits" toDestination:&v257];
-  *(Private + 385) = v257;
+  v258 = *(Private + 383);
+  [*(Private + 1630) loadFixedFloat:@"digital-dimming-min-nits" toDestination:{&v258, v46, v47}];
+  *(Private + 382) = v258;
+  v257 = *(Private + 386);
+  [*(Private + 1630) loadFixedFloat:@"user-accessible-max-nits" toDestination:&v257];
+  *(Private + 384) = v257;
+  v256 = *(Private + 330);
+  [*(Private + 1630) loadFixedFloat:@"aot-accessible-min-nits" toDestination:&v256];
+  *(Private + 385) = v256;
   *(Private + 1516) = *(Private + 383) > *(Private + 382);
   *(Private + 1517) = *(Private + 386) > *(Private + 384);
-  v288 = IORegistryEntryCreateCFProperty(object, @"backlight-marketing-table", *MEMORY[0x1E695E480], 0);
-  if (v288)
+  v287 = IORegistryEntryCreateCFProperty(object, @"backlight-marketing-table", *MEMORY[0x1E695E480], 0);
+  if (v287)
   {
-    v115 = CFGetTypeID(v288);
-    if (v115 == CFDataGetTypeID())
+    v114 = CFGetTypeID(v287);
+    if (v114 == CFDataGetTypeID())
     {
-      count = CFDataGetLength(v288) / 4uLL;
-      v255 = malloc_type_calloc(count, 4uLL, 0x100004052888210uLL);
-      BytePtr = CFDataGetBytePtr(v288);
+      count = CFDataGetLength(v287) / 4uLL;
+      v254 = malloc_type_calloc(count, 4uLL, 0x100004052888210uLL);
+      BytePtr = CFDataGetBytePtr(v287);
       for (i = 0; i < count; ++i)
       {
-        v252 = 0;
+        v251 = 0;
         v13 = BytePtr;
         BytePtr += 4;
-        v252 = *v13;
-        v255[i] = v252 / 65536.0;
+        v251 = *v13;
+        v254[i] = v251 / 65536.0;
       }
 
-      v251 = *(Private + 386);
-      v250 = *(Private + 383);
+      v250 = *(Private + 386);
+      v249 = *(Private + 383);
       if (_logHandle)
       {
-        v114 = _logHandle;
+        v113 = _logHandle;
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v113 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v112 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v113 = init_default_corebrightness_log();
+          v112 = init_default_corebrightness_log();
         }
 
-        v114 = v113;
+        v113 = v112;
       }
 
-      v249 = v114;
-      v248 = OS_LOG_TYPE_DEBUG;
-      if (os_log_type_enabled(v114, OS_LOG_TYPE_DEBUG))
+      v248 = v113;
+      v247 = OS_LOG_TYPE_DEBUG;
+      if (os_log_type_enabled(v113, OS_LOG_TYPE_DEBUG))
       {
-        __os_log_helper_16_0_6_8_0_8_0_8_0_8_0_8_0_8_0(v331, COERCE__INT64(*(Private + 386)), COERCE__INT64(*(Private + 383)), COERCE__INT64(*(Private + 384)), COERCE__INT64(*(Private + 382)), 0x3FF0000000000000, count);
-        _os_log_debug_impl(&dword_1DE8E5000, v249, v248, "Digital dimming params: hardware max: %f, hardware min: %f, user accessible max: %f, dig.dimming min: %f, midpointfactor: %f, mark table entries count: %ld", v331, 0x3Eu);
+        __os_log_helper_16_0_6_8_0_8_0_8_0_8_0_8_0_8_0(v330, COERCE__INT64(*(Private + 386)), COERCE__INT64(*(Private + 383)), COERCE__INT64(*(Private + 384)), COERCE__INT64(*(Private + 382)), 0x3FF0000000000000, count);
+        _os_log_debug_impl(&dword_1DE8E5000, v248, v247, "Digital dimming params: hardware max: %f, hardware min: %f, user accessible max: %f, dig.dimming min: %f, midpointfactor: %f, mark table entries count: %ld", v330, 0x3Eu);
       }
 
-      v247 = 1.0;
+      v246 = 1.0;
       if (*(Private + 1516))
       {
         for (j = 0; j < count / 2; ++j)
         {
-          v245 = (*(Private + 382) / v250) + ((j / (count / 2 - 1)) * (1.0 - (*(Private + 382) / v250)));
-          v255[j] = v255[j] * v245;
+          v244 = (*(Private + 382) / v249) + ((j / (count / 2 - 1)) * (1.0 - (*(Private + 382) / v249)));
+          v254[j] = v254[j] * v244;
           if (_logHandle)
           {
-            v112 = _logHandle;
+            v111 = _logHandle;
           }
 
           else
           {
             if (_COREBRIGHTNESS_LOG_DEFAULT)
             {
-              v111 = _COREBRIGHTNESS_LOG_DEFAULT;
+              v110 = _COREBRIGHTNESS_LOG_DEFAULT;
             }
 
             else
             {
-              v111 = init_default_corebrightness_log();
+              v110 = init_default_corebrightness_log();
             }
 
-            v112 = v111;
+            v111 = v110;
           }
 
-          v244 = v112;
-          v243 = OS_LOG_TYPE_DEBUG;
-          if (os_log_type_enabled(v112, OS_LOG_TYPE_DEBUG))
+          v243 = v111;
+          v242 = OS_LOG_TYPE_DEBUG;
+          if (os_log_type_enabled(v111, OS_LOG_TYPE_DEBUG))
           {
-            __os_log_helper_16_0_3_8_0_8_0_8_0(v330, j, COERCE__INT64(v255[j]), COERCE__INT64(v245));
-            _os_log_debug_impl(&dword_1DE8E5000, v244, v243, "Rescaled marketing table %ld: %f (factor %f)", v330, 0x20u);
+            __os_log_helper_16_0_3_8_0_8_0_8_0(v329, j, COERCE__INT64(v254[j]), COERCE__INT64(v244));
+            _os_log_debug_impl(&dword_1DE8E5000, v243, v242, "Rescaled marketing table %ld: %f (factor %f)", v329, 0x20u);
           }
         }
       }
@@ -1712,43 +1455,43 @@ CFTypeRef DisplayCreateWithCapabilitiesAndID(const __CFAllocator *a1, io_object_
       {
         for (k = count / 2; k < count; ++k)
         {
-          v241 = (((k - count / 2) / (count - 1 - count / 2)) * ((*(Private + 384) / v251) - 1.0)) + 1.0;
-          v255[k] = v255[k] * v241;
+          v240 = (((k - count / 2) / (count - 1 - count / 2)) * ((*(Private + 384) / v250) - 1.0)) + 1.0;
+          v254[k] = v254[k] * v240;
           if (_logHandle)
           {
-            v110 = _logHandle;
+            v109 = _logHandle;
           }
 
           else
           {
             if (_COREBRIGHTNESS_LOG_DEFAULT)
             {
-              v109 = _COREBRIGHTNESS_LOG_DEFAULT;
+              v108 = _COREBRIGHTNESS_LOG_DEFAULT;
             }
 
             else
             {
-              v109 = init_default_corebrightness_log();
+              v108 = init_default_corebrightness_log();
             }
 
-            v110 = v109;
+            v109 = v108;
           }
 
-          v240 = v110;
-          v239 = OS_LOG_TYPE_DEBUG;
-          if (os_log_type_enabled(v110, OS_LOG_TYPE_DEBUG))
+          v239 = v109;
+          v238 = OS_LOG_TYPE_DEBUG;
+          if (os_log_type_enabled(v109, OS_LOG_TYPE_DEBUG))
           {
-            __os_log_helper_16_0_3_8_0_8_0_8_0(v329, k, COERCE__INT64(v255[k]), COERCE__INT64(v241));
-            _os_log_debug_impl(&dword_1DE8E5000, v240, v239, "Rescaled marketing table %ld: %f (factor %f)", v329, 0x20u);
+            __os_log_helper_16_0_3_8_0_8_0_8_0(v328, k, COERCE__INT64(v254[k]), COERCE__INT64(v240));
+            _os_log_debug_impl(&dword_1DE8E5000, v239, v238, "Rescaled marketing table %ld: %f (factor %f)", v328, 0x20u);
           }
         }
       }
 
-      *(Private + 9) = v255;
+      *(Private + 9) = v254;
       *(Private + 16) = count;
     }
 
-    CFRelease(v288);
+    CFRelease(v287);
   }
 
   else
@@ -1758,84 +1501,83 @@ CFTypeRef DisplayCreateWithCapabilitiesAndID(const __CFAllocator *a1, io_object_
       goto LABEL_466;
     }
 
-    v327 = 0x430C000040A00000;
-    v328 = 1137180672;
-    v238 = 3;
+    v326 = 0x430C000040A00000;
+    v327 = 1137180672;
+    v237 = 3;
     v14 = malloc_type_calloc(3uLL, 4uLL, 0x100004052888210uLL);
     *(Private + 9) = v14;
-    *(Private + 16) = v238;
-    v15 = *(Private + 9);
+    *(Private + 16) = v237;
     __memcpy_chk();
   }
 
   if (_logHandle)
   {
-    v108 = _logHandle;
+    v107 = _logHandle;
   }
 
   else
   {
     if (_COREBRIGHTNESS_LOG_DEFAULT)
     {
-      v107 = _COREBRIGHTNESS_LOG_DEFAULT;
+      v106 = _COREBRIGHTNESS_LOG_DEFAULT;
     }
 
     else
     {
-      v107 = init_default_corebrightness_log();
+      v106 = init_default_corebrightness_log();
     }
 
-    v108 = v107;
+    v107 = v106;
   }
 
-  v237 = v108;
-  v236 = OS_LOG_TYPE_DEBUG;
-  if (os_log_type_enabled(v108, OS_LOG_TYPE_DEBUG))
+  v236 = v107;
+  v235 = OS_LOG_TYPE_DEBUG;
+  if (os_log_type_enabled(v107, OS_LOG_TYPE_DEBUG))
   {
-    __os_log_helper_16_0_3_8_0_8_0_8_0(v326, COERCE__INT64(*(Private + 330)), COERCE__INT64(*(Private + 329)), COERCE__INT64(*(Private + 328)));
-    _os_log_debug_impl(&dword_1DE8E5000, v237, v236, "Original panel calibration data: %f %f %f", v326, 0x20u);
+    __os_log_helper_16_0_3_8_0_8_0_8_0(v325, COERCE__INT64(*(Private + 330)), COERCE__INT64(*(Private + 329)), COERCE__INT64(*(Private + 328)));
+    _os_log_debug_impl(&dword_1DE8E5000, v236, v235, "Original panel calibration data: %f %f %f", v325, 0x20u);
   }
 
   if (*(Private + 1516))
   {
-    v16 = *(Private + 382);
-    *(Private + 330) = v16;
-    *(Private + 327) = v16;
+    v15 = *(Private + 382);
+    *(Private + 330) = v15;
+    *(Private + 327) = v15;
   }
 
   if (*(Private + 1517))
   {
-    v17 = *(Private + 384);
-    *(Private + 328) = v17;
-    *(Private + 325) = v17;
+    v16 = *(Private + 384);
+    *(Private + 328) = v16;
+    *(Private + 325) = v16;
   }
 
   if (_logHandle)
   {
-    v106 = _logHandle;
+    v105 = _logHandle;
   }
 
   else
   {
     if (_COREBRIGHTNESS_LOG_DEFAULT)
     {
-      v105 = _COREBRIGHTNESS_LOG_DEFAULT;
+      v104 = _COREBRIGHTNESS_LOG_DEFAULT;
     }
 
     else
     {
-      v105 = init_default_corebrightness_log();
+      v104 = init_default_corebrightness_log();
     }
 
-    v106 = v105;
+    v105 = v104;
   }
 
-  v235 = v106;
-  v234 = OS_LOG_TYPE_DEBUG;
-  if (os_log_type_enabled(v106, OS_LOG_TYPE_DEBUG))
+  v234 = v105;
+  v233 = OS_LOG_TYPE_DEBUG;
+  if (os_log_type_enabled(v105, OS_LOG_TYPE_DEBUG))
   {
-    __os_log_helper_16_0_3_8_0_8_0_8_0(v325, COERCE__INT64(*(Private + 330)), COERCE__INT64(*(Private + 329)), COERCE__INT64(*(Private + 328)));
-    _os_log_debug_impl(&dword_1DE8E5000, v235, v234, "Overridden panel calibration data: %f %f %f", v325, 0x20u);
+    __os_log_helper_16_0_3_8_0_8_0_8_0(v324, COERCE__INT64(*(Private + 330)), COERCE__INT64(*(Private + 329)), COERCE__INT64(*(Private + 328)));
+    _os_log_debug_impl(&dword_1DE8E5000, v234, v233, "Overridden panel calibration data: %f %f %f", v324, 0x20u);
   }
 
   *(Private + 75) = 0;
@@ -1852,23 +1594,23 @@ CFTypeRef DisplayCreateWithCapabilitiesAndID(const __CFAllocator *a1, io_object_
   {
     if (_logHandle)
     {
-      v104 = _logHandle;
+      v103 = _logHandle;
     }
 
     else
     {
-      v103 = _COREBRIGHTNESS_LOG_DEFAULT ? _COREBRIGHTNESS_LOG_DEFAULT : init_default_corebrightness_log();
-      v104 = v103;
+      v102 = _COREBRIGHTNESS_LOG_DEFAULT ? _COREBRIGHTNESS_LOG_DEFAULT : init_default_corebrightness_log();
+      v103 = v102;
     }
 
-    v233 = v104;
-    v232 = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(v104, OS_LOG_TYPE_DEFAULT))
+    v232 = v103;
+    v231 = OS_LOG_TYPE_DEFAULT;
+    if (os_log_type_enabled(v103, OS_LOG_TYPE_DEFAULT))
     {
-      v101 = v233;
-      v102 = v232;
-      __os_log_helper_16_0_0(v231);
-      _os_log_impl(&dword_1DE8E5000, v101, v102, "New backlight architecture.", v231, 2u);
+      v100 = v232;
+      v101 = v231;
+      __os_log_helper_16_0_0(v230);
+      _os_log_impl(&dword_1DE8E5000, v100, v101, "New backlight architecture.", v230, 2u);
     }
   }
 
@@ -1877,19 +1619,19 @@ CFTypeRef DisplayCreateWithCapabilitiesAndID(const __CFAllocator *a1, io_object_
   if (*(Private + 24))
   {
     context = objc_autoreleasePoolPush();
-    v323[0] = @"HardwareAccessibleMaxNits";
-    v324[0] = [MEMORY[0x1E696AD98] numberWithDouble:*(Private + 386)];
-    v323[1] = @"UserAccessibleMaxNits";
-    v324[1] = [MEMORY[0x1E696AD98] numberWithDouble:*(Private + 384)];
-    v323[2] = @"HardwareAccessibleMinNits";
-    v324[2] = [MEMORY[0x1E696AD98] numberWithDouble:*(Private + 383)];
-    v323[3] = @"MinNitsAccessibleWithDigitalDimming";
-    v324[3] = [MEMORY[0x1E696AD98] numberWithDouble:*(Private + 382)];
-    v323[4] = @"DigitalDimmingSupported";
-    v324[4] = [MEMORY[0x1E696AD98] numberWithBool:*(Private + 1516) & 1];
-    v323[5] = @"ExtrabrightEDRSupported";
-    v324[5] = [MEMORY[0x1E696AD98] numberWithBool:*(Private + 1517) & 1];
-    value = [MEMORY[0x1E695DF20] dictionaryWithObjects:v324 forKeys:v323 count:6];
+    v322[0] = @"HardwareAccessibleMaxNits";
+    v323[0] = [MEMORY[0x1E696AD98] numberWithDouble:*(Private + 386)];
+    v322[1] = @"UserAccessibleMaxNits";
+    v323[1] = [MEMORY[0x1E696AD98] numberWithDouble:*(Private + 384)];
+    v322[2] = @"HardwareAccessibleMinNits";
+    v323[2] = [MEMORY[0x1E696AD98] numberWithDouble:*(Private + 383)];
+    v322[3] = @"MinNitsAccessibleWithDigitalDimming";
+    v323[3] = [MEMORY[0x1E696AD98] numberWithDouble:*(Private + 382)];
+    v322[4] = @"DigitalDimmingSupported";
+    v323[4] = [MEMORY[0x1E696AD98] numberWithBool:*(Private + 1516) & 1];
+    v322[5] = @"ExtrabrightEDRSupported";
+    v323[5] = [MEMORY[0x1E696AD98] numberWithBool:*(Private + 1517) & 1];
+    value = [MEMORY[0x1E695DF20] dictionaryWithObjects:v323 forKeys:v322 count:6];
     CFDictionarySetValue(*(Private + 24), @"VirtualBrightnessLimits", value);
     objc_autoreleasePoolPop(context);
     number = CFNumberCreate(allocator, kCFNumberFloatType, Private + 1320);
@@ -1951,10 +1693,10 @@ CFTypeRef DisplayCreateWithCapabilitiesAndID(const __CFAllocator *a1, io_object_
       CFRelease(number);
     }
 
-    v229 = 0;
-    if ([*(Private + 1630) loadUint:@"default-curve-version" toDestination:&v229])
+    v228 = 0;
+    if ([*(Private + 1630) loadUint:@"default-curve-version" toDestination:&v228])
     {
-      number = CFNumberCreate(allocator, kCFNumberIntType, &v229);
+      number = CFNumberCreate(allocator, kCFNumberIntType, &v228);
       if (number)
       {
         CFDictionarySetValue(*(Private + 24), @"DefaultCurveVersion", number);
@@ -1962,10 +1704,10 @@ CFTypeRef DisplayCreateWithCapabilitiesAndID(const __CFAllocator *a1, io_object_
       }
     }
 
-    v228 = 0;
-    if ([*(Private + 1630) loadUint:@"raise-high-curve" toDestination:&v228])
+    v227 = 0;
+    if ([*(Private + 1630) loadUint:@"raise-high-curve" toDestination:&v227])
     {
-      number = CFNumberCreate(allocator, kCFNumberIntType, &v228);
+      number = CFNumberCreate(allocator, kCFNumberIntType, &v227);
       if (number)
       {
         CFDictionarySetValue(*(Private + 24), @"RaiseHighCurve", number);
@@ -1973,115 +1715,115 @@ CFTypeRef DisplayCreateWithCapabilitiesAndID(const __CFAllocator *a1, io_object_
       }
     }
 
-    v227 = 0;
-    v226 = load_int_from_edt(object, @"plt-logic-version", &v227);
-    if ((v226 & 1) == 0)
+    v226 = 0;
+    v225 = load_int_from_edt(object, @"plt-logic-version", &v226);
+    if ((v225 & 1) == 0)
     {
-      v227 = 0;
+      v226 = 0;
     }
 
-    v225 = CFNumberCreate(allocator, kCFNumberIntType, &v227);
-    if (v225)
+    v224 = CFNumberCreate(allocator, kCFNumberIntType, &v226);
+    if (v224)
     {
-      CFDictionarySetValue(*(Private + 24), @"plt-logic-version", v225);
-      CFRelease(v225);
+      CFDictionarySetValue(*(Private + 24), @"plt-logic-version", v224);
+      CFRelease(v224);
     }
 
     *(Private + 285) = 1.0;
     *(Private + 1048) = 0;
     *(Private + 1120) = 0;
-    v224 = 0;
+    v223 = 0;
     GlobalScalarFromDevice = _DisplayGetGlobalScalarFromDevice(Private, object);
     *(Private + 285) = GlobalScalarFromDevice;
     *(Private + 972) = 0;
-    v223 = [*(Private + 1630) copyRestrictionDictionary];
-    if (v223)
+    v222 = [*(Private + 1630) copyRestrictionDictionary];
+    if (v222)
     {
-      v222 = CFDictionaryGetValue(v223, @"multi_point");
-      if (v222)
+      v221 = CFDictionaryGetValue(v222, @"multi_point");
+      if (v221)
       {
-        v99 = CFGetTypeID(v222);
-        if (v99 == CFBooleanGetTypeID())
+        v98 = CFGetTypeID(v221);
+        if (v98 == CFBooleanGetTypeID())
         {
-          v20 = CFBooleanGetValue(v222) != 0;
-          *(Private + 972) = v20;
+          v19 = CFBooleanGetValue(v221) != 0;
+          *(Private + 972) = v19;
         }
       }
 
-      CFDictionarySetValue(*(Private + 24), @"BrightnessRestrictions", v223);
-      CFRelease(v223);
-      v224 = 1;
+      CFDictionarySetValue(*(Private + 24), @"BrightnessRestrictions", v222);
+      CFRelease(v222);
+      v223 = 1;
     }
 
-    if (*(Private + 285) < 1.0 || (v224 & 1) != 0)
+    if (*(Private + 285) < 1.0 || (v223 & 1) != 0)
     {
       CFPreferencesSynchronize(@"com.apple.CoreBrightness", *MEMORY[0x1E695E8B8], *MEMORY[0x1E695E8B0]);
-      if (v224)
+      if (v223)
       {
-        v221 = CFPreferencesCopyValue(@"DynamicSliderEnable", @"com.apple.CoreBrightness", *MEMORY[0x1E695E8B8], *MEMORY[0x1E695E8B0]);
-        if (v221)
+        v220 = CFPreferencesCopyValue(@"DynamicSliderEnable", @"com.apple.CoreBrightness", *MEMORY[0x1E695E8B8], *MEMORY[0x1E695E8B0]);
+        if (v220)
         {
-          v98 = CFGetTypeID(v221);
-          if (v98 == CFNumberGetTypeID())
+          v97 = CFGetTypeID(v220);
+          if (v97 == CFNumberGetTypeID())
           {
-            v220 = 1;
-            CFNumberGetValue(v221, kCFNumberIntType, &v220);
-            *(Private + 1048) = v220 == 0;
-            *(Private + 1120) = v220 == 0;
-            CFDictionarySetValue(*(Private + 24), @"DynamicSliderEnable", v221);
+            v219 = 1;
+            CFNumberGetValue(v220, kCFNumberIntType, &v219);
+            *(Private + 1048) = v219 == 0;
+            *(Private + 1120) = v219 == 0;
+            CFDictionarySetValue(*(Private + 24), @"DynamicSliderEnable", v220);
           }
 
-          CFRelease(v221);
+          CFRelease(v220);
         }
       }
 
       if (*(Private + 285) < 1.0)
       {
-        v219 = CFPreferencesCopyValue(@"BrightnessGlobalScalar", @"com.apple.CoreBrightness", *MEMORY[0x1E695E8B8], *MEMORY[0x1E695E8B0]);
-        if (v219)
+        v218 = CFPreferencesCopyValue(@"BrightnessGlobalScalar", @"com.apple.CoreBrightness", *MEMORY[0x1E695E8B8], *MEMORY[0x1E695E8B0]);
+        if (v218)
         {
-          v97 = CFGetTypeID(v219);
-          if (v97 == CFNumberGetTypeID())
+          v96 = CFGetTypeID(v218);
+          if (v96 == CFNumberGetTypeID())
           {
-            v218 = 1;
-            CFNumberGetValue(v219, kCFNumberIntType, &v218);
-            if (!v218)
+            v217 = 1;
+            CFNumberGetValue(v218, kCFNumberIntType, &v217);
+            if (!v217)
             {
               *(Private + 285) = 1.0;
               CFDictionarySetValue(*(Private + 24), @"BrightnessGlobalScalar", @"disabled");
             }
           }
 
-          CFRelease(v219);
+          CFRelease(v218);
         }
       }
     }
 
-    v217 = 0;
-    [*(Private + 1630) loadUint:@"supports-edm" toDestination:&v217];
-    v96 = *(Private + 24);
-    if (v217)
+    v216 = 0;
+    [*(Private + 1630) loadUint:@"supports-edm" toDestination:&v216];
+    v95 = *(Private + 24);
+    if (v216)
     {
-      CFDictionarySetValue(v96, @"EDMSupported", *MEMORY[0x1E695E4D0]);
+      CFDictionarySetValue(v95, @"EDMSupported", *MEMORY[0x1E695E4D0]);
     }
 
     else
     {
-      CFDictionarySetValue(v96, @"EDMSupported", *MEMORY[0x1E695E4C0]);
+      CFDictionarySetValue(v95, @"EDMSupported", *MEMORY[0x1E695E4C0]);
     }
 
-    v216 = [*(Private + 1630) copyAABConstraintDictionary];
-    if (v216)
-    {
-      CFDictionarySetValue(*(Private + 24), @"AABConstraints", v216);
-      CFRelease(v216);
-    }
-
-    v215 = [*(Private + 1630) copyAABCapDictionary];
+    v215 = [*(Private + 1630) copyAABConstraintDictionary];
     if (v215)
     {
-      CFDictionarySetValue(*(Private + 24), @"AABCurveCap", v215);
+      CFDictionarySetValue(*(Private + 24), @"AABConstraints", v215);
       CFRelease(v215);
+    }
+
+    v214 = [*(Private + 1630) copyAABCapDictionary];
+    if (v214)
+    {
+      CFDictionarySetValue(*(Private + 24), @"AABCurveCap", v214);
+      CFRelease(v214);
     }
 
     *(Private + 232) = 0;
@@ -2090,134 +1832,134 @@ CFTypeRef DisplayCreateWithCapabilitiesAndID(const __CFAllocator *a1, io_object_
     *(Private + 63) = -1;
     *(Private + 65) = -1;
     *(Private + 64) = -1;
-    v214 = 0;
-    if ([*(Private + 1630) loadUint:@"pre-strobe-dim-period" toDestination:&v214])
+    v213 = 0;
+    if ([*(Private + 1630) loadUint:@"pre-strobe-dim-period" toDestination:&v213])
     {
-      *(Private + 61) = v214 / 1000.0;
+      *(Private + 61) = v213 / 1000.0;
       *(Private + 62) = 0;
     }
 
-    v213 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, Private + 244);
-    if (v213)
+    v212 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, Private + 244);
+    if (v212)
     {
-      CFDictionarySetValue(*(Private + 24), @"PreStrobeDimPeriod", v213);
-      CFRelease(v213);
-    }
-
-    v212 = 0;
-    if ([*(Private + 1630) loadUint:@"pre-strobe-current" toDestination:&v212])
-    {
-      *(Private + 62) = 1;
+      CFDictionarySetValue(*(Private + 24), @"PreStrobeDimPeriod", v212);
+      CFRelease(v212);
     }
 
     v211 = 0;
-    if ([*(Private + 1630) loadUint:@"pre-strobe-nit" toDestination:&v211])
+    if ([*(Private + 1630) loadUint:@"pre-strobe-current" toDestination:&v211])
     {
       *(Private + 62) = 1;
-      v21 = v211 << 16;
-      *(Private + 63) = v211 << 16;
-      *(Private + 64) = v21;
     }
 
     v210 = 0;
-    [*(Private + 1630) loadUint:@"pre-strobe-drop-als-samples" toDestination:&v210];
-    v95 = *(Private + 24);
-    if (v210)
+    if ([*(Private + 1630) loadUint:@"pre-strobe-nit" toDestination:&v210])
     {
-      CFDictionarySetValue(v95, @"PreStrobeDropALSSamples", *MEMORY[0x1E695E4D0]);
+      *(Private + 62) = 1;
+      v20 = v210 << 16;
+      *(Private + 63) = v210 << 16;
+      *(Private + 64) = v20;
+    }
+
+    v209 = 0;
+    [*(Private + 1630) loadUint:@"pre-strobe-drop-als-samples" toDestination:&v209];
+    v94 = *(Private + 24);
+    if (v209)
+    {
+      CFDictionarySetValue(v94, @"PreStrobeDropALSSamples", *MEMORY[0x1E695E4D0]);
     }
 
     else
     {
-      CFDictionarySetValue(v95, @"PreStrobeDropALSSamples", *MEMORY[0x1E695E4C0]);
+      CFDictionarySetValue(v94, @"PreStrobeDropALSSamples", *MEMORY[0x1E695E4C0]);
     }
 
-    v209 = 0;
-    if ([*(Private + 1630) loadUint:@"sync-wake-ramp" toDestination:&v209])
+    v208 = 0;
+    if ([*(Private + 1630) loadUint:@"sync-wake-ramp" toDestination:&v208])
     {
-      *(Private + 21) = v209 != 0;
+      *(Private + 21) = v208 != 0;
     }
 
-    v208 = -1;
-    v207 = IORegistryEntryCreateCFProperty(*(Private + 20), @"IODisplayParameters", *MEMORY[0x1E695E480], 0);
-    if (v207)
+    v207 = -1;
+    v206 = IORegistryEntryCreateCFProperty(*(Private + 20), @"IODisplayParameters", *MEMORY[0x1E695E480], 0);
+    if (v206)
     {
-      v206 = CFDictionaryGetValue(v207, @"brightness");
-      if (v206)
+      v205 = CFDictionaryGetValue(v206, @"brightness");
+      if (v205)
       {
-        v205 = CFDictionaryGetValue(v206, @"value");
-        if (v205)
+        v204 = CFDictionaryGetValue(v205, @"value");
+        if (v204)
         {
-          CFNumberGetValue(v205, kCFNumberSInt32Type, &v208);
-          *(Private + 26) = v208 != 0;
+          CFNumberGetValue(v204, kCFNumberSInt32Type, &v207);
+          *(Private + 26) = v207 != 0;
         }
       }
 
       if (_logHandle)
       {
-        v94 = _logHandle;
+        v93 = _logHandle;
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v93 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v92 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v93 = init_default_corebrightness_log();
+          v92 = init_default_corebrightness_log();
         }
 
-        v94 = v93;
+        v93 = v92;
       }
 
-      v204 = v94;
-      v203 = OS_LOG_TYPE_DEFAULT;
-      if (os_log_type_enabled(v94, OS_LOG_TYPE_DEFAULT))
+      v203 = v93;
+      v202 = OS_LOG_TYPE_DEFAULT;
+      if (os_log_type_enabled(v93, OS_LOG_TYPE_DEFAULT))
       {
-        __os_log_helper_16_2_1_8_66(v322, v207);
-        _os_log_impl(&dword_1DE8E5000, v204, v203, "display parameters = %{public}@", v322, 0xCu);
+        __os_log_helper_16_2_1_8_66(v321, v206);
+        _os_log_impl(&dword_1DE8E5000, v203, v202, "display parameters = %{public}@", v321, 0xCu);
       }
 
-      CFRelease(v207);
+      CFRelease(v206);
     }
 
-    v22 = 1.0;
-    if (!v208)
+    v21 = 1.0;
+    if (!v207)
     {
-      v22 = 0.0;
+      v21 = 0.0;
     }
 
-    v23 = v22;
-    *(Private + 87) = v23;
+    v22 = v21;
+    *(Private + 87) = v22;
     if (_logHandle)
     {
-      v92 = _logHandle;
+      v91 = _logHandle;
     }
 
     else
     {
       if (_COREBRIGHTNESS_LOG_DEFAULT)
       {
-        v91 = _COREBRIGHTNESS_LOG_DEFAULT;
+        v90 = _COREBRIGHTNESS_LOG_DEFAULT;
       }
 
       else
       {
-        v91 = init_default_corebrightness_log();
+        v90 = init_default_corebrightness_log();
       }
 
-      v92 = v91;
+      v91 = v90;
     }
 
-    v202 = v92;
-    v201 = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(v92, OS_LOG_TYPE_DEFAULT))
+    v201 = v91;
+    v200 = OS_LOG_TYPE_DEFAULT;
+    if (os_log_type_enabled(v91, OS_LOG_TYPE_DEFAULT))
     {
-      __os_log_helper_16_0_2_4_0_8_0(v321, v208, COERCE__INT64(*(Private + 87)));
-      _os_log_impl(&dword_1DE8E5000, v202, v201, "brightness %d -> factor %f", v321, 0x12u);
+      __os_log_helper_16_0_2_4_0_8_0(v320, v207, COERCE__INT64(*(Private + 87)));
+      _os_log_impl(&dword_1DE8E5000, v201, v200, "brightness %d -> factor %f", v320, 0x12u);
     }
 
     *(Private + 350) = *(Private + 87);
@@ -2241,37 +1983,37 @@ CFTypeRef DisplayCreateWithCapabilitiesAndID(const __CFAllocator *a1, io_object_
 
     if (cf)
     {
-      v24 = _DisplaySliderToLogicalBrightnessInternal(Private, *(Private + 84));
-      *(Private + 313) = v24;
+      v23 = _DisplaySliderToLogicalBrightnessInternal(Private, *(Private + 84));
+      *(Private + 313) = v23;
       *(Private + 314) = *(Private + 313);
       *(Private + 372) = *(Private + 314);
       *(Private + 373) = *(Private + 313);
       *(Private + 315) = *(Private + 314);
       *(Private + 318) = *(Private + 314);
-      v200 = 0;
-      HIDWORD(v200) = *(Private + 315);
-      LODWORD(v200) = 1;
-      __DisplayUpdateAAPStateInternal(Private, &v200, 0);
-      v199 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloat32Type, Private + 1256);
-      if (v199)
+      v199 = 0;
+      HIDWORD(v199) = *(Private + 315);
+      LODWORD(v199) = 1;
+      __DisplayUpdateAAPStateInternal(Private, &v199, 0);
+      v198 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloat32Type, Private + 1256);
+      if (v198)
       {
-        CFDictionarySetValue(*(Private + 24), @"DisplayNitsKey", v199);
-        CFRelease(v199);
+        CFDictionarySetValue(*(Private + 24), @"DisplayNitsKey", v198);
+        CFRelease(v198);
       }
     }
 
     *(Private + 98) = 0;
-    v25 = *(Private + 330);
-    *(Private + 99) = v25;
-    *(Private + 100) = v25;
+    v24 = *(Private + 330);
+    *(Private + 99) = v24;
+    *(Private + 100) = v24;
     *(Private + 114) = 1.0;
-    v26 = *(Private + 328);
-    *(Private + 115) = v26;
-    *(Private + 116) = v26;
+    v25 = *(Private + 328);
+    *(Private + 115) = v25;
+    *(Private + 116) = v25;
     *(Private + 130) = 1.0;
-    v27 = *(Private + 328);
-    *(Private + 131) = v27;
-    *(Private + 132) = v27;
+    v26 = *(Private + 328);
+    *(Private + 131) = v26;
+    *(Private + 132) = v26;
     *(Private + 69) = 0x407E000000000000;
     *(Private + 68) = 0x404E000000000000;
     *(Private + 67) = CFAbsoluteTimeGetCurrent();
@@ -2293,16 +2035,16 @@ CFTypeRef DisplayCreateWithCapabilitiesAndID(const __CFAllocator *a1, io_object_
     *(Private + 181) = 1140457472;
     *(Private + 208) = 1120403456;
     *(Private + 264) = 1.0;
-    v28 = *(Private + 264);
-    *(Private + 272) = v28;
-    *(Private + 270) = v28;
-    *(Private + 271) = v28;
+    v27 = *(Private + 264);
+    *(Private + 272) = v27;
+    *(Private + 270) = v27;
+    *(Private + 271) = v27;
     *(Private + 133) = 0;
     *(Private + 246) = 1.0;
-    v29 = *(Private + 246);
-    *(Private + 254) = v29;
-    *(Private + 252) = v29;
-    *(Private + 253) = v29;
+    v28 = *(Private + 246);
+    *(Private + 254) = v28;
+    *(Private + 252) = v28;
+    *(Private + 253) = v28;
     *(Private + 124) = 0;
     *(Private + 245) = *(Private + 329);
     *(Private + 244) = *(Private + 329);
@@ -2352,25 +2094,25 @@ CFTypeRef DisplayCreateWithCapabilitiesAndID(const __CFAllocator *a1, io_object_
     *(Private + 3183) = 0;
     __memset_chk();
     *(Private + 3236) = -1.0;
-    v197 = MGGetBoolAnswer();
-    v198 = v197 & 1;
-    v30 = 1.0;
-    if ((v197 & 1) == 0)
+    v196 = MGGetBoolAnswer();
+    v197 = v196 & 1;
+    v29 = 1.0;
+    if ((v196 & 1) == 0)
     {
-      v30 = 0.0;
+      v29 = 0.0;
     }
 
-    v31 = v30;
-    *(Private + 301) = v31;
-    v90 = *(Private + 24);
-    if (v198)
+    v30 = v29;
+    *(Private + 301) = v30;
+    v89 = *(Private + 24);
+    if (v197)
     {
-      CFDictionarySetValue(v90, @"DisplayBrightnessAuto", *MEMORY[0x1E695E4D0]);
+      CFDictionarySetValue(v89, @"DisplayBrightnessAuto", *MEMORY[0x1E695E4D0]);
     }
 
     else
     {
-      CFDictionarySetValue(v90, @"DisplayBrightnessAuto", *MEMORY[0x1E695E4C0]);
+      CFDictionarySetValue(v89, @"DisplayBrightnessAuto", *MEMORY[0x1E695E4C0]);
     }
 
     *(Private + 50) = 6;
@@ -2381,84 +2123,84 @@ CFTypeRef DisplayCreateWithCapabilitiesAndID(const __CFAllocator *a1, io_object_
       CFRelease(number);
     }
 
-    v196 = 0;
-    v195 = [*(Private + 1630) loadUint:@"use-cabal" toDestination:&v196];
-    v194 = 0;
-    v193 = [*(Private + 1630) loadUint:@"use-new-AAP-ramp" toDestination:&v194];
-    if (v195 & 1) != 0 || (v193)
+    v195 = 0;
+    v194 = [*(Private + 1630) loadUint:@"use-cabal" toDestination:&v195];
+    v193 = 0;
+    v192 = [*(Private + 1630) loadUint:@"use-new-AAP-ramp" toDestination:&v193];
+    if (v194 & 1) != 0 || (v192)
     {
-      v89 = 1;
-      if (!v194)
-      {
-        v89 = v196 != 0;
-      }
-
-      *(Private + 12282) = v89;
       v88 = 1;
-      if (!v194)
+      if (!v193)
       {
-        v88 = v196 != 0;
+        v88 = v195 != 0;
       }
 
-      *(Private + 12248) = v88;
+      *(Private + 12282) = v88;
+      v87 = 1;
+      if (!v193)
+      {
+        v87 = v195 != 0;
+      }
+
+      *(Private + 12248) = v87;
       if (_logHandle)
       {
-        v87 = _logHandle;
+        v86 = _logHandle;
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v86 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v85 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v86 = init_default_corebrightness_log();
+          v85 = init_default_corebrightness_log();
         }
 
-        v87 = v86;
+        v86 = v85;
       }
 
-      v192 = v87;
-      v191 = OS_LOG_TYPE_DEFAULT;
-      if (os_log_type_enabled(v87, OS_LOG_TYPE_DEFAULT))
+      v191 = v86;
+      v190 = OS_LOG_TYPE_DEFAULT;
+      if (os_log_type_enabled(v86, OS_LOG_TYPE_DEFAULT))
       {
-        __os_log_helper_16_0_2_4_0_4_0(v320, v196, v194);
-        _os_log_impl(&dword_1DE8E5000, v192, v191, "Use Cabal = %d, new AAP ramp = %d", v320, 0xEu);
+        __os_log_helper_16_0_2_4_0_4_0(v319, v195, v193);
+        _os_log_impl(&dword_1DE8E5000, v191, v190, "Use Cabal = %d, new AAP ramp = %d", v319, 0xEu);
       }
 
-      if (v196)
+      if (v195)
       {
         if (_logHandle)
         {
-          v85 = _logHandle;
+          v84 = _logHandle;
         }
 
         else
         {
           if (_COREBRIGHTNESS_LOG_DEFAULT)
           {
-            v84 = _COREBRIGHTNESS_LOG_DEFAULT;
+            v83 = _COREBRIGHTNESS_LOG_DEFAULT;
           }
 
           else
           {
-            v84 = init_default_corebrightness_log();
+            v83 = init_default_corebrightness_log();
           }
 
-          v85 = v84;
+          v84 = v83;
         }
 
-        v190 = v85;
-        v189 = OS_LOG_TYPE_DEFAULT;
-        if (os_log_type_enabled(v85, OS_LOG_TYPE_DEFAULT))
+        v189 = v84;
+        v188 = OS_LOG_TYPE_DEFAULT;
+        if (os_log_type_enabled(v84, OS_LOG_TYPE_DEFAULT))
         {
-          v82 = v190;
-          v83 = v189;
-          __os_log_helper_16_0_0(v188);
-          _os_log_impl(&dword_1DE8E5000, v82, v83, "AAP factor calculation function = DisplayUpdateAAPStateLookup", v188, 2u);
+          v81 = v189;
+          v82 = v188;
+          __os_log_helper_16_0_0(v187);
+          _os_log_impl(&dword_1DE8E5000, v81, v82, "AAP factor calculation function = DisplayUpdateAAPStateLookup", v187, 2u);
         }
 
         *(Private + 1559) = __DisplayUpdateAAPStateLookup;
@@ -2468,69 +2210,69 @@ CFTypeRef DisplayCreateWithCapabilitiesAndID(const __CFAllocator *a1, io_object_
       {
         if (_logHandle)
         {
-          v81 = _logHandle;
+          v80 = _logHandle;
         }
 
         else
         {
           if (_COREBRIGHTNESS_LOG_DEFAULT)
           {
-            v80 = _COREBRIGHTNESS_LOG_DEFAULT;
+            v79 = _COREBRIGHTNESS_LOG_DEFAULT;
           }
 
           else
           {
-            v80 = init_default_corebrightness_log();
+            v79 = init_default_corebrightness_log();
           }
 
-          v81 = v80;
+          v80 = v79;
         }
 
-        v187 = v81;
-        v186 = OS_LOG_TYPE_DEFAULT;
-        if (os_log_type_enabled(v81, OS_LOG_TYPE_DEFAULT))
+        v186 = v80;
+        v185 = OS_LOG_TYPE_DEFAULT;
+        if (os_log_type_enabled(v80, OS_LOG_TYPE_DEFAULT))
         {
-          v78 = v187;
-          v79 = v186;
-          __os_log_helper_16_0_0(v185);
-          _os_log_impl(&dword_1DE8E5000, v78, v79, "AAP factor calculation function = DisplayUpdateAAPStateStandard", v185, 2u);
+          v77 = v186;
+          v78 = v185;
+          __os_log_helper_16_0_0(v184);
+          _os_log_impl(&dword_1DE8E5000, v77, v78, "AAP factor calculation function = DisplayUpdateAAPStateStandard", v184, 2u);
         }
 
         *(Private + 1559) = __DisplayUpdateAAPStateStandard;
       }
     }
 
-    v184 = 0;
-    if ([*(Private + 1630) loadUint:@"use-AAP" toDestination:&v184])
+    v183 = 0;
+    if ([*(Private + 1630) loadUint:@"use-AAP" toDestination:&v183])
     {
-      *(Private + 12248) = v184 != 0;
+      *(Private + 12248) = v183 != 0;
       if (_logHandle)
       {
-        v77 = _logHandle;
+        v76 = _logHandle;
       }
 
       else
       {
-        v76 = _COREBRIGHTNESS_LOG_DEFAULT ? _COREBRIGHTNESS_LOG_DEFAULT : init_default_corebrightness_log();
-        v77 = v76;
+        v75 = _COREBRIGHTNESS_LOG_DEFAULT ? _COREBRIGHTNESS_LOG_DEFAULT : init_default_corebrightness_log();
+        v76 = v75;
       }
 
-      v183 = v77;
-      v182 = OS_LOG_TYPE_DEFAULT;
-      if (os_log_type_enabled(v77, OS_LOG_TYPE_DEFAULT))
+      v182 = v76;
+      v181 = OS_LOG_TYPE_DEFAULT;
+      if (os_log_type_enabled(v76, OS_LOG_TYPE_DEFAULT))
       {
         if (*(Private + 12248))
         {
-          v32 = "";
+          v31 = "";
         }
 
         else
         {
-          v32 = "don't ";
+          v31 = "don't ";
         }
 
-        __os_log_helper_16_2_1_8_32(v319, v32);
-        _os_log_impl(&dword_1DE8E5000, v183, v182, "%suse AAP", v319, 0xCu);
+        __os_log_helper_16_2_1_8_32(v318, v31);
+        _os_log_impl(&dword_1DE8E5000, v182, v181, "%suse AAP", v318, 0xCu);
       }
     }
 
@@ -2560,16 +2302,16 @@ CFTypeRef DisplayCreateWithCapabilitiesAndID(const __CFAllocator *a1, io_object_
       *(Private + 393) = 0;
       *(Private + 1551) = CFAbsoluteTimeGetCurrent();
       *(Private + 3117) = -1.0;
-      v181 = 0;
-      [*(Private + 1630) loadUint:@"use-lut" toDestination:&v181];
-      v317 = xmmword_1DEACE520;
-      v318 = 460218192;
-      v315 = xmmword_1DEACE534;
-      v316 = 2144905009;
-      v313 = xmmword_1DEACE548;
-      v314 = 127894440;
-      v311 = xmmword_1DEACE55C;
-      v312 = 1070997468;
+      v180 = 0;
+      [*(Private + 1630) loadUint:@"use-lut" toDestination:&v180];
+      v316 = xmmword_1DEACE520;
+      v317 = 460218192;
+      v314 = xmmword_1DEACE534;
+      v315 = 2144905009;
+      v312 = xmmword_1DEACE548;
+      v313 = 127894440;
+      v310 = xmmword_1DEACE55C;
+      v311 = 1070997468;
       if (MGIsDeviceOneOfType())
       {
         *(Private + 1540) = DBV_SDR_XDR;
@@ -2581,72 +2323,72 @@ CFTypeRef DisplayCreateWithCapabilitiesAndID(const __CFAllocator *a1, io_object_
         *(Private + 3087) = 68;
         if (_logHandle)
         {
-          v75 = _logHandle;
+          v74 = _logHandle;
         }
 
         else
         {
           if (_COREBRIGHTNESS_LOG_DEFAULT)
           {
-            v74 = _COREBRIGHTNESS_LOG_DEFAULT;
+            v73 = _COREBRIGHTNESS_LOG_DEFAULT;
           }
 
           else
           {
-            v74 = init_default_corebrightness_log();
+            v73 = init_default_corebrightness_log();
           }
 
-          v75 = v74;
+          v74 = v73;
         }
 
-        v180 = v75;
-        v179 = OS_LOG_TYPE_DEFAULT;
-        if (os_log_type_enabled(v75, OS_LOG_TYPE_DEFAULT))
+        v179 = v74;
+        v178 = OS_LOG_TYPE_DEFAULT;
+        if (os_log_type_enabled(v74, OS_LOG_TYPE_DEFAULT))
         {
-          v72 = v180;
-          v73 = v179;
-          __os_log_helper_16_0_0(v178);
-          _os_log_impl(&dword_1DE8E5000, v72, v73, "select XDR PCC configuration", v178, 2u);
+          v71 = v179;
+          v72 = v178;
+          __os_log_helper_16_0_0(v177);
+          _os_log_impl(&dword_1DE8E5000, v71, v72, "select XDR PCC configuration", v177, 2u);
         }
       }
 
       else
       {
-        *(Private + 1540) = *(&D_SDRs + v181);
+        *(Private + 1540) = *(&D_SDRs + v180);
         *(Private + 3078) = 68;
-        *(Private + 1542) = *(&L_SDRs + v181);
+        *(Private + 1542) = *(&L_SDRs + v180);
         *(Private + 3082) = 92;
-        *(Private + 1544) = *(&A_SDRs + v181);
+        *(Private + 1544) = *(&A_SDRs + v180);
         *(Private + 3086) = 92;
         *(Private + 3087) = 68;
         if (_logHandle)
         {
-          v71 = _logHandle;
+          v70 = _logHandle;
         }
 
         else
         {
           if (_COREBRIGHTNESS_LOG_DEFAULT)
           {
-            v70 = _COREBRIGHTNESS_LOG_DEFAULT;
+            v69 = _COREBRIGHTNESS_LOG_DEFAULT;
           }
 
           else
           {
-            v70 = init_default_corebrightness_log();
+            v69 = init_default_corebrightness_log();
           }
 
-          v71 = v70;
+          v70 = v69;
         }
 
-        v177 = v71;
-        v176 = OS_LOG_TYPE_DEFAULT;
-        if (os_log_type_enabled(v71, OS_LOG_TYPE_DEFAULT))
+        v176 = v70;
+        v175 = OS_LOG_TYPE_DEFAULT;
+        if (os_log_type_enabled(v70, OS_LOG_TYPE_DEFAULT))
         {
-          v68 = v177;
-          v69 = v176;
-          __os_log_helper_16_0_0(v175);
-          _os_log_impl(&dword_1DE8E5000, v68, v69, "select non-XDR PCC configuration", v175, 2u);
+          v67 = v176;
+          v68 = v175;
+          __os_log_helper_16_0_0(v174);
+          _os_log_impl(&dword_1DE8E5000, v67, v68, "select non-XDR PCC configuration", v174, 2u);
         }
       }
 
@@ -2656,20 +2398,20 @@ CFTypeRef DisplayCreateWithCapabilitiesAndID(const __CFAllocator *a1, io_object_
       *(Private + 3094) = 100;
     }
 
-    v174 = 0;
+    v173 = 0;
     if (*(Private + 8))
     {
-      v174 = 1;
-      v173 = (*(Private + 329) * 65536.0);
-      v172 = CFNumberCreate(allocator, kCFNumberIntType, &v173);
-      if (v172)
+      v173 = 1;
+      v172 = (*(Private + 329) * 65536.0);
+      v171 = CFNumberCreate(allocator, kCFNumberIntType, &v172);
+      if (v171)
       {
-        __DisplaySetBLDriverProperty(Private, @"DisplayBrightnessNitsNVRAM", v172);
-        CFRelease(v172);
+        __DisplaySetBLDriverProperty(Private, @"DisplayBrightnessNitsNVRAM", v171);
+        CFRelease(v171);
       }
     }
 
-    number = CFNumberCreate(allocator, kCFNumberIntType, &v174);
+    number = CFNumberCreate(allocator, kCFNumberIntType, &v173);
     if (number)
     {
       CFDictionarySetValue(*(Private + 24), @"DisplayBackLightArchitecture", number);
@@ -2685,111 +2427,111 @@ CFTypeRef DisplayCreateWithCapabilitiesAndID(const __CFAllocator *a1, io_object_
     *(Private + 12180) = 1;
     float_from_edt = load_float_from_edt(object, @"cpms-hdr-reset-duration");
     *(Private + 3046) = float_from_edt;
-    v34 = load_float_from_edt(object, @"cpms-hdr-cap-multiplier");
-    *(Private + 3047) = v34;
+    v33 = load_float_from_edt(object, @"cpms-hdr-cap-multiplier");
+    *(Private + 3047) = v33;
     memset(__b, 0, sizeof(__b));
     __sprintf_chk(__b, 0, 0x100uLL, "Display: %p", Private);
     if (target)
     {
       if (_logHandle)
       {
-        v67 = _logHandle;
+        v66 = _logHandle;
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v66 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v65 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v66 = init_default_corebrightness_log();
+          v65 = init_default_corebrightness_log();
         }
 
-        v67 = v66;
+        v66 = v65;
       }
 
-      v171 = v67;
-      v170 = OS_LOG_TYPE_DEFAULT;
-      if (os_log_type_enabled(v67, OS_LOG_TYPE_DEFAULT))
+      v170 = v66;
+      v169 = OS_LOG_TYPE_DEFAULT;
+      if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
       {
-        v64 = v171;
-        v65 = v170;
-        __os_log_helper_16_0_0(v169);
-        _os_log_impl(&dword_1DE8E5000, v64, v65, "Using root queue \n", v169, 2u);
+        v63 = v170;
+        v64 = v169;
+        __os_log_helper_16_0_0(v168);
+        _os_log_impl(&dword_1DE8E5000, v63, v64, "Using root queue \n", v168, 2u);
       }
 
       *(Private + 160) = 1;
-      v35 = dispatch_queue_create_with_target_V2(__b, 0, target);
-      *(Private + 18) = v35;
+      v34 = dispatch_queue_create_with_target_V2(__b, 0, target);
+      *(Private + 18) = v34;
     }
 
     else
     {
       if (_logHandle)
       {
-        v63 = _logHandle;
+        v62 = _logHandle;
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v62 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v61 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v62 = init_default_corebrightness_log();
+          v61 = init_default_corebrightness_log();
         }
 
-        v63 = v62;
+        v62 = v61;
       }
 
-      v168 = v63;
-      v167 = OS_LOG_TYPE_DEFAULT;
-      if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
+      v167 = v62;
+      v166 = OS_LOG_TYPE_DEFAULT;
+      if (os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
       {
-        v60 = v168;
-        v61 = v167;
-        __os_log_helper_16_0_0(v166);
-        _os_log_impl(&dword_1DE8E5000, v60, v61, "Using default queue \n", v166, 2u);
+        v59 = v167;
+        v60 = v166;
+        __os_log_helper_16_0_0(v165);
+        _os_log_impl(&dword_1DE8E5000, v59, v60, "Using default queue \n", v165, 2u);
       }
 
       *(Private + 160) = 0;
-      v36 = dispatch_queue_create(__b, 0);
-      *(Private + 18) = v36;
+      v35 = dispatch_queue_create(__b, 0);
+      *(Private + 18) = v35;
     }
 
     __sprintf_chk(__b, 0, 0x100uLL, "DisplayAsync: %p", Private);
-    v37 = dispatch_queue_create(__b, 0);
-    *(Private + 21) = v37;
+    v36 = dispatch_queue_create(__b, 0);
+    *(Private + 21) = v36;
     __sprintf_chk(__b, 0, 0x100uLL, "DisplayAsyncCPMS: %p", Private);
-    v38 = dispatch_queue_create(__b, 0);
-    *(Private + 19) = v38;
+    v37 = dispatch_queue_create(__b, 0);
+    *(Private + 19) = v37;
     *(Private + 3125) = 0;
     *(Private + 3124) = -1.0;
     *(Private + 12522) = 1;
     *(Private + 12514) = 0;
     *(Private + 12520) = CBU_IsNightShiftSupported();
-    v165 = 0;
-    v165 = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 2, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-    if (v165)
+    v164 = 0;
+    v164 = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 2, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+    if (v164)
     {
       if (*(Private + 12520))
       {
-        CFDictionaryAddValue(v165, @"SupportsNightMode", *MEMORY[0x1E695E4D0]);
+        CFDictionaryAddValue(v164, @"SupportsNightMode", *MEMORY[0x1E695E4D0]);
       }
 
       else
       {
-        CFDictionaryAddValue(v165, @"SupportsNightMode", *MEMORY[0x1E695E4C0]);
+        CFDictionaryAddValue(v164, @"SupportsNightMode", *MEMORY[0x1E695E4C0]);
       }
 
-      CFDictionarySetValue(*(Private + 24), @"SupportedColorFX", v165);
-      CFRelease(v165);
+      CFDictionarySetValue(*(Private + 24), @"SupportedColorFX", v164);
+      CFRelease(v164);
     }
 
     *(Private + 1572) = 0;
@@ -2813,92 +2555,92 @@ CFTypeRef DisplayCreateWithCapabilitiesAndID(const __CFAllocator *a1, io_object_
       if (*(Private + 1563))
       {
         CFXInstallCallback(*(Private + 1563), ColorRampCallback, Private);
-        v164 = 0;
-        if ([*(Private + 1630) loadUint:@"default-whitepoint-type" toDestination:&v164])
+        v163 = 0;
+        if ([*(Private + 1630) loadUint:@"default-whitepoint-type" toDestination:&v163])
         {
-          CFXSetWhitePointType(*(Private + 1563), v164);
+          CFXSetWhitePointType(*(Private + 1563), v163);
         }
 
         if (*(Private + 12520))
         {
-          v163 = CFXInitializeBlueLightReduction(*(Private + 1563));
-          if (v163)
+          v162 = CFXInitializeBlueLightReduction(*(Private + 1563));
+          if (v162)
           {
-            v162 = 0.0;
             v161 = 0.0;
             v160 = 0.0;
             v159 = 0.0;
-            CFXGetBlueLightReductionCCTRange(*(Private + 1563), &v160, &v162, &v161);
-            v159 = v161;
-            CBU_GetNightShiftCCTRange(object, &v162, &v161, &v160, &v159);
-            v158 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, &v159);
-            if (v158)
-            {
-              CFDictionarySetValue(*(Private + 24), @"BlueLightReductionCCTWarningKey", v158);
-              CFRelease(v158);
-            }
-
-            v58 = MEMORY[0x1E695E8B8];
-            v59 = MEMORY[0x1E695E8B0];
-            CFPreferencesSynchronize(@"com.apple.CoreBrightness", *MEMORY[0x1E695E8B8], *MEMORY[0x1E695E8B0]);
-            v157 = CFPreferencesCopyValue(@"CBBlueLightReductionCCTRange", @"com.apple.CoreBrightness", *v58, *v59);
+            v158 = 0.0;
+            CFXGetBlueLightReductionCCTRange(*(Private + 1563), &v159, &v161, &v160);
+            v158 = v160;
+            CBU_GetNightShiftCCTRange(object, &v161, &v160, &v159, &v158);
+            v157 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, &v158);
             if (v157)
             {
+              CFDictionarySetValue(*(Private + 24), @"BlueLightReductionCCTWarningKey", v157);
+              CFRelease(v157);
+            }
+
+            v57 = MEMORY[0x1E695E8B8];
+            v58 = MEMORY[0x1E695E8B0];
+            CFPreferencesSynchronize(@"com.apple.CoreBrightness", *MEMORY[0x1E695E8B8], *MEMORY[0x1E695E8B0]);
+            v156 = CFPreferencesCopyValue(@"CBBlueLightReductionCCTRange", @"com.apple.CoreBrightness", *v57, *v58);
+            if (v156)
+            {
               TypeID = CFArrayGetTypeID();
-              if (TypeID == CFGetTypeID(v157))
+              if (TypeID == CFGetTypeID(v156))
               {
-                theArray = v157;
-                if (CFArrayGetCount(v157) == 3)
+                theArray = v156;
+                if (CFArrayGetCount(v156) == 3)
                 {
-                  v308 = 0xBF800000BF800000;
-                  v309 = -1.0;
+                  v307 = 0xBF800000BF800000;
+                  v308 = -1.0;
                   memset(idx, 0, sizeof(idx));
                   while (idx[0] < 3)
                   {
                     *&idx[1] = CFArrayGetValueAtIndex(theArray, idx[0]);
                     if (*&idx[1])
                     {
-                      v56 = CFNumberGetTypeID();
-                      if (v56 == CFGetTypeID(*&idx[1]))
+                      v55 = CFNumberGetTypeID();
+                      if (v55 == CFGetTypeID(*&idx[1]))
                       {
-                        CFNumberGetValue(*&idx[1], kCFNumberFloatType, &v308 + 4 * idx[0]);
+                        CFNumberGetValue(*&idx[1], kCFNumberFloatType, &v307 + 4 * idx[0]);
                       }
                     }
 
                     ++idx[0];
                   }
 
-                  if (*&v308 != -1.0 && *(&v308 + 1) != -1.0 && v309 != -1.0)
+                  if (*&v307 != -1.0 && *(&v307 + 1) != -1.0 && v308 != -1.0)
                   {
-                    v161 = *(&v308 + 1);
-                    LODWORD(v162) = v308;
-                    v160 = v309;
+                    v160 = *(&v307 + 1);
+                    LODWORD(v161) = v307;
+                    v159 = v308;
                   }
                 }
               }
 
-              CFRelease(v157);
+              CFRelease(v156);
             }
 
-            CFXOverrideBlueLightReductionCCTRange(*(Private + 1563), v160, v162, v161);
+            CFXOverrideBlueLightReductionCCTRange(*(Private + 1563), v159, v161, v160);
             values = 0;
+            v305 = 0;
             v306 = 0;
-            v307 = 0;
-            v55 = MEMORY[0x1E695E480];
-            values = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, &v162);
-            v306 = CFNumberCreate(*v55, kCFNumberFloatType, &v161);
-            v307 = CFNumberCreate(*v55, kCFNumberFloatType, &v160);
+            v54 = MEMORY[0x1E695E480];
+            values = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, &v161);
+            v305 = CFNumberCreate(*v54, kCFNumberFloatType, &v160);
+            v306 = CFNumberCreate(*v54, kCFNumberFloatType, &v159);
             if (values)
             {
-              if (v306)
+              if (v305)
               {
-                if (v307)
+                if (v306)
                 {
-                  v154 = CFArrayCreate(*MEMORY[0x1E695E480], &values, 3, MEMORY[0x1E695E9C0]);
-                  if (v154)
+                  v153 = CFArrayCreate(*MEMORY[0x1E695E480], &values, 3, MEMORY[0x1E695E9C0]);
+                  if (v153)
                   {
-                    CFDictionarySetValue(*(Private + 24), @"BlueLightReductionCCTRange", v154);
-                    CFRelease(v154);
+                    CFDictionarySetValue(*(Private + 24), @"BlueLightReductionCCTRange", v153);
+                    CFRelease(v153);
                   }
                 }
               }
@@ -2909,42 +2651,42 @@ CFTypeRef DisplayCreateWithCapabilitiesAndID(const __CFAllocator *a1, io_object_
               CFRelease(values);
             }
 
+            if (v305)
+            {
+              CFRelease(v305);
+            }
+
             if (v306)
             {
               CFRelease(v306);
             }
 
-            if (v307)
+            v152 = CFPreferencesCopyValue(@"CBBlueLightReductionCCTTargetRaw", @"com.apple.CoreBrightness", *MEMORY[0x1E695E8B8], *MEMORY[0x1E695E8B0]);
+            v151 = CFXGetBlueLightReductionTargetCCT(*(Private + 1563));
+            if (v152)
             {
-              CFRelease(v307);
-            }
-
-            v153 = CFPreferencesCopyValue(@"CBBlueLightReductionCCTTargetRaw", @"com.apple.CoreBrightness", *MEMORY[0x1E695E8B8], *MEMORY[0x1E695E8B0]);
-            v152 = CFXGetBlueLightReductionTargetCCT(*(Private + 1563));
-            if (v153)
-            {
-              v54 = CFGetTypeID(v153);
-              if (v54 == CFNumberGetTypeID())
+              v53 = CFGetTypeID(v152);
+              if (v53 == CFNumberGetTypeID())
               {
-                CFNumberGetValue(v153, kCFNumberFloatType, &v152);
-                v152 = fminf(fmaxf(v152, v162), v160);
-                CFXSetBlueLightReductionTargetCCT(*(Private + 1563), 0, v152, 0.0, 0.0);
+                CFNumberGetValue(v152, kCFNumberFloatType, &v151);
+                v151 = fminf(fmaxf(v151, v161), v159);
+                CFXSetBlueLightReductionTargetCCT(*(Private + 1563), 0, v151, 0.0, 0.0);
               }
 
-              CFRelease(v153);
+              CFRelease(v152);
             }
 
             keys = @"BlueLightReductionCCTTargetValue";
-            v303 = 0;
-            v303 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, &v152);
-            if (v303)
+            v302 = 0;
+            v302 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, &v151);
+            if (v302)
             {
-              v151 = CFDictionaryCreate(*MEMORY[0x1E695E480], &keys, &v303, 1, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-              CFRelease(v303);
-              if (v151)
+              v150 = CFDictionaryCreate(*MEMORY[0x1E695E480], &keys, &v302, 1, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+              CFRelease(v302);
+              if (v150)
               {
-                CFDictionarySetValue(*(Private + 24), @"BlueLightReductionCCTTargetKey", v151);
-                CFRelease(v151);
+                CFDictionarySetValue(*(Private + 24), @"BlueLightReductionCCTTargetKey", v150);
+                CFRelease(v150);
               }
             }
           }
@@ -2953,24 +2695,24 @@ CFTypeRef DisplayCreateWithCapabilitiesAndID(const __CFAllocator *a1, io_object_
 
       if (CFPreferencesAppSynchronize(*MEMORY[0x1E695E8A8]))
       {
-        v150 = CFPreferencesCopyAppValue(@"CBCarryLogEnabled", *MEMORY[0x1E695E8A8]);
-        v149 = 0;
-        if (!v150)
+        v149 = CFPreferencesCopyAppValue(@"CBCarryLogEnabled", *MEMORY[0x1E695E8A8]);
+        v148 = 0;
+        if (!v149)
         {
-          v150 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberIntType, &v149);
+          v149 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberIntType, &v148);
         }
 
-        if (v150)
+        if (v149)
         {
-          v53 = CFNumberGetTypeID();
-          if (v53 == CFGetTypeID(v150))
+          v52 = CFNumberGetTypeID();
+          if (v52 == CFGetTypeID(v149))
           {
-            CFNumberGetValue(v150, kCFNumberIntType, &v149);
-            CFXEnableLog(*(Private + 1563), v149 != 0);
-            CFDictionarySetValue(*(Private + 24), @"CarryLogEnabled", v150);
+            CFNumberGetValue(v149, kCFNumberIntType, &v148);
+            CFXEnableLog(*(Private + 1563), v148 != 0);
+            CFDictionarySetValue(*(Private + 24), @"CarryLogEnabled", v149);
           }
 
-          CFRelease(v150);
+          CFRelease(v149);
         }
       }
     }
@@ -2995,74 +2737,79 @@ CFTypeRef DisplayCreateWithCapabilitiesAndID(const __CFAllocator *a1, io_object_
     *(Private + 390) = 0;
     if (+[CBSoftWakeDisplayDelegate isSupported])
     {
-      v52 = objc_alloc_init(CBSoftWakeDisplayDelegate);
+      v51 = objc_alloc_init(CBSoftWakeDisplayDelegate);
     }
 
     else
     {
-      v52 = 0;
+      v51 = 0;
     }
 
-    *(Private + 41) = v52;
+    *(Private + 41) = v51;
     *(Private + 288) = 10.0;
     *(Private + 289) = *(Private + 384);
     *(Private + 290) = 16.0;
     *(Private + 291) = *(Private + 386);
     *(Private + 293) = 10.0;
     *(Private + 1176) = 1;
-    v148 = 0;
-    if ([*(Private + 1630) loadFixedFloat:@"bright-dot-mitigation-nits1" toDestination:&v148])
+    v147 = 0;
+    if ([*(Private + 1630) loadFixedFloat:@"bright-dot-mitigation-nits1" toDestination:&v147])
     {
-      *(Private + 289) = v148;
+      *(Private + 289) = v147;
     }
 
     *(Private + 292) = *(Private + 289);
-    v147 = 0;
-    if ([*(Private + 1630) loadFixedFloat:@"bright-dot-mitigation-nits2" toDestination:&v147])
+    v146 = 0;
+    if ([*(Private + 1630) loadFixedFloat:@"bright-dot-mitigation-nits2" toDestination:&v146])
     {
-      *(Private + 291) = v147;
+      *(Private + 291) = v146;
     }
 
-    v51 = objc_autoreleasePoolPush();
+    v50 = objc_autoreleasePoolPush();
     if (*(Private + 24))
     {
-      v146 = *(Private + 24);
-      v301[0] = @"brightDotsMitigationLux1";
-      LODWORD(v39) = *(Private + 288);
-      v302[0] = [MEMORY[0x1E696AD98] numberWithFloat:v39];
-      v301[1] = @"brightDotsMitigationLux2";
-      LODWORD(v40) = *(Private + 290);
-      v302[1] = [MEMORY[0x1E696AD98] numberWithFloat:v40];
-      v301[2] = @"brightDotsMitigationNits1";
-      LODWORD(v41) = *(Private + 289);
-      v302[2] = [MEMORY[0x1E696AD98] numberWithFloat:v41];
-      v301[3] = @"brightDotsMitigationNits2";
-      LODWORD(v42) = *(Private + 291);
-      v302[3] = [MEMORY[0x1E696AD98] numberWithFloat:v42];
-      [v146 setObject:objc_msgSend(MEMORY[0x1E695DF20] forKey:{"dictionaryWithObjects:forKeys:count:", v302, v301, 4), @"BrightDotsMitigationParameters"}];
+      v145 = *(Private + 24);
+      v300[0] = @"brightDotsMitigationLux1";
+      LODWORD(v38) = *(Private + 288);
+      v301[0] = [MEMORY[0x1E696AD98] numberWithFloat:v38];
+      v300[1] = @"brightDotsMitigationLux2";
+      LODWORD(v39) = *(Private + 290);
+      v301[1] = [MEMORY[0x1E696AD98] numberWithFloat:v39];
+      v300[2] = @"brightDotsMitigationNits1";
+      LODWORD(v40) = *(Private + 289);
+      v301[2] = [MEMORY[0x1E696AD98] numberWithFloat:v40];
+      v300[3] = @"brightDotsMitigationNits2";
+      LODWORD(v41) = *(Private + 291);
+      v301[3] = [MEMORY[0x1E696AD98] numberWithFloat:v41];
+      [v145 setObject:objc_msgSend(MEMORY[0x1E695DF20] forKey:{"dictionaryWithObjects:forKeys:count:", v301, v300, 4), @"BrightDotsMitigationParameters"}];
     }
 
-    objc_autoreleasePoolPop(v51);
-    v145 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberIntType, Private + 1560);
-    if (v145)
+    objc_autoreleasePoolPop(v50);
+    v144 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberIntType, Private + 1560);
+    if (v144)
     {
-      CFDictionarySetValue(*(Private + 24), @"BrightnessCLTMMode", v145);
-      CFRelease(v145);
+      CFDictionarySetValue(*(Private + 24), @"BrightnessCLTMMode", v144);
+      CFRelease(v144);
     }
 
-    v144 = 4.0;
-    v300 = xmmword_1E867C910;
+    v143 = 4.0;
+    v299 = xmmword_1E867C910;
+    v297 = 0;
     v298 = 0;
-    v299 = 0;
-    v50 = MEMORY[0x1E695E480];
-    v298 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberIntType, Private + 1556);
-    v299 = CFNumberCreate(*v50, kCFNumberFloatType, &v144);
-    v43 = CFGetAllocator(Private);
-    v143 = CFDictionaryCreate(v43, &v300, &v298, 2, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-    if (v143)
+    v49 = MEMORY[0x1E695E480];
+    v297 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberIntType, Private + 1556);
+    v298 = CFNumberCreate(*v49, kCFNumberFloatType, &v143);
+    v42 = CFGetAllocator(Private);
+    v142 = CFDictionaryCreate(v42, &v299, &v297, 2, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+    if (v142)
     {
-      CFDictionarySetValue(*(Private + 24), @"BrightnessCLTM", v143);
-      CFRelease(v143);
+      CFDictionarySetValue(*(Private + 24), @"BrightnessCLTM", v142);
+      CFRelease(v142);
+    }
+
+    if (v297)
+    {
+      CFRelease(v297);
     }
 
     if (v298)
@@ -3070,13 +2817,8 @@ CFTypeRef DisplayCreateWithCapabilitiesAndID(const __CFAllocator *a1, io_object_
       CFRelease(v298);
     }
 
-    if (v299)
-    {
-      CFRelease(v299);
-    }
-
-    v44 = _DisplayCheckEDRSupport(Private);
-    *(Private + 3149) = v44;
+    v43 = _DisplayCheckEDRSupport(Private);
+    *(Private + 3149) = v43;
     if (*(Private + 3149) == 1)
     {
       CBEDRServerAddMainDisplay(*(Private + 3148));
@@ -3086,31 +2828,30 @@ CFTypeRef DisplayCreateWithCapabilitiesAndID(const __CFAllocator *a1, io_object_
     *(Private + 1504) = 0;
     *(Private + 377) = *(Private + 326);
     *(Private + 378) = *(Private + 386);
-    v142 = 0;
-    if ([*(Private + 1630) loadUint:@"has-2dbl" toDestination:&v142])
+    v141 = 0;
+    if ([*(Private + 1630) loadUint:@"has-2dbl" toDestination:&v141])
     {
-      *(Private + 323) = v142 != 0;
+      *(Private + 323) = v141 != 0;
     }
 
-    v141 = 0;
-    [*(Private + 1630) loadUint:@"supports-aurora" toDestination:&v141];
-    v49 = objc_autoreleasePoolPush();
+    v140 = 0;
+    [*(Private + 1630) loadUint:@"supports-aurora" toDestination:&v140];
+    v48 = objc_autoreleasePoolPush();
     if (*(Private + 24))
     {
-      [*(Private + 24) setObject:objc_msgSend(MEMORY[0x1E696AD98] forKey:{"numberWithInt:", v141 == 1), @"AuroraSupported"}];
+      [*(Private + 24) setObject:objc_msgSend(MEMORY[0x1E696AD98] forKey:{"numberWithInt:", v140 == 1), @"AuroraSupported"}];
     }
 
-    objc_autoreleasePoolPop(v49);
+    objc_autoreleasePoolPop(v48);
     *(Private + 3238) = 1.0;
     *(Private + 13016) = 0;
     *(Private + 1620) = 0;
     *(Private + 3256) = 1150681088;
     *(Private + 3257) = 4.0;
     *(Private + 3258) = 4.0;
-    v45 = objc_alloc_init(CBDisplayRamps);
-    *(Private + 33) = v45;
-    v297 = Private;
-    goto LABEL_471;
+    v44 = objc_alloc_init(CBDisplayRamps);
+    *(Private + 33) = v44;
+    return Private;
   }
 
 LABEL_466:
@@ -3127,13 +2868,10 @@ LABEL_466:
   }
 
   CFRelease(Private);
-  v297 = 0;
-LABEL_471:
-  *MEMORY[0x1E69E9840];
-  return v297;
+  return 0;
 }
 
-uint64_t __DisplayCreatePrivate()
+uint64_t __DisplayCreatePrivate(uint64_t a1)
 {
   DisplayGetTypeID();
   Instance = _CFRuntimeCreateInstance();
@@ -3206,7 +2944,6 @@ uint64_t __DisplayBrightnessThreadInit()
     __assert_rtn("__DisplayBrightnessThreadInit", "Display.m", 1444, "!pthread_mutex_init(&__brightnessLock, NULL)");
   }
 
-  *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -3259,7 +2996,7 @@ float _DisplayGetGlobalScalarFromDevice(uint64_t a1, int a2)
   {
     *(v7 + 12176) = v4[0];
     valuePtr[0] = _DisplayCalculateGlobalScalar(v7, v4);
-    v8 = *valuePtr;
+    return *valuePtr;
   }
 
   else
@@ -3285,11 +3022,8 @@ float _DisplayGetGlobalScalarFromDevice(uint64_t a1, int a2)
       }
     }
 
-    v8 = *valuePtr;
+    return *valuePtr;
   }
-
-  *MEMORY[0x1E69E9840];
-  return v8;
 }
 
 void __DisplayUpdateAmbientProperties(uint64_t a1, float a2)
@@ -3374,8 +3108,6 @@ void __DisplayUpdateAmbientProperties(uint64_t a1, float a2)
     __os_log_helper_16_0_5_8_0_8_0_8_0_8_0_8_0(v14, COERCE__INT64(a2), COERCE__INT64(*(a1 + 1196)), COERCE__INT64(*(a1 + 1200)), COERCE__INT64(*(a1 + 1208)), COERCE__INT64(*(a1 + 1212)));
     _os_log_debug_impl(&dword_1DE8E5000, v5, OS_LOG_TYPE_DEBUG, "brightness=%f min=%f max=%f slope=%f intercept=%f\n", v14, 0x34u);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 void __DisplayUpdateAAPStateStandard(uint64_t a1, uint64_t a2)
@@ -3459,16 +3191,16 @@ void __DisplayUpdateAAPStateStandard(uint64_t a1, uint64_t a2)
   }
 }
 
-void __DisplayInitializeReport(uint64_t a1)
+void __DisplayInitializeReport(uint64_t result)
 {
-  if (*(a1 + 12520) & 1) != 0 || (*(a1 + 12514))
+  if (*(result + 12520) & 1) != 0 || (*(result + 12514))
   {
-    if (*(a1 + 12504))
+    if (*(result + 12504))
     {
-      CFXClearReport(*(a1 + 12504));
+      CFXClearReport(*(result + 12504));
     }
 
-    __DisplayResetLogTimer(a1, 0);
+    __DisplayResetLogTimer(result, 0);
   }
 }
 
@@ -3527,7 +3259,6 @@ BOOL _DisplayCheckEDRSupport(uint64_t a1)
     v2 = v6;
   }
 
-  *MEMORY[0x1E69E9840];
   return (v2 & 1) != 0;
 }
 
@@ -3677,8 +3408,6 @@ void __DisplaySetState_block_invoke(uint64_t a1)
     v14 = v15;
     dispatch_async(v3, &v8);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 uint64_t __DisplaySetState_block_invoke_376(uint64_t result)
@@ -3703,54 +3432,54 @@ uint64_t __DisplaySetState_block_invoke_376(uint64_t result)
 
 uint64_t DisplayOpen(char *a1, uint64_t a2, uint64_t a3)
 {
-  v69 = *MEMORY[0x1E69E9840];
-  v66 = a1;
-  v65 = a2;
-  v64 = a3;
-  v63 = 0;
+  v66 = *MEMORY[0x1E69E9840];
+  v63 = a1;
+  v62 = a2;
+  v61 = a3;
+  v60 = 0;
   *(a1 + 2) = a2;
-  *(v66 + 3) = v64;
-  v62 = 0;
-  v61 = 0;
-  if (v66[12248])
+  *(v63 + 3) = v61;
+  v59 = 0;
+  v58 = 0;
+  if (v63[12248])
   {
-    allocator = CFGetAllocator(v66);
-    v62 = CFNumberCreate(allocator, kCFNumberFloatType, v66 + 12460);
-    v18 = CFGetAllocator(v66);
-    v61 = CFNumberCreate(v18, kCFNumberFloatType, v66 + 12456);
+    allocator = CFGetAllocator(v63);
+    v59 = CFNumberCreate(allocator, kCFNumberFloatType, v63 + 12460);
+    v14 = CFGetAllocator(v63);
+    v58 = CFNumberCreate(v14, kCFNumberFloatType, v63 + 12456);
   }
 
-  v63 = 1;
-  if (v62)
+  v60 = 1;
+  if (v59)
   {
-    DisplaySetProperty(v66, @"DisplayAAPFactorMax", v62);
-    CFRelease(v62);
+    DisplaySetProperty(v63, @"DisplayAAPFactorMax", v59);
+    CFRelease(v59);
   }
 
-  if (v61)
+  if (v58)
   {
-    DisplaySetProperty(v66, @"DisplayAAPFactorMin", v61);
-    CFRelease(v61);
+    DisplaySetProperty(v63, @"DisplayAAPFactorMin", v58);
+    CFRelease(v58);
   }
 
-  notify_register_check("com.apple.iokit.hid.displayStatus", v66 + 12);
-  if (*(v66 + 87) == 0.0)
+  notify_register_check("com.apple.iokit.hid.displayStatus", v63 + 12);
+  if (*(v63 + 87) == 0.0)
   {
-    *(v66 + 11) = 0;
+    *(v63 + 11) = 0;
   }
 
   else
   {
-    *(v66 + 11) = 1;
-    v60 = *(v66 + 11);
-    notify_set_state(*(v66 + 12), v60);
+    *(v63 + 11) = 1;
+    v57 = *(v63 + 11);
+    notify_set_state(*(v63 + 12), v57);
     notify_post("com.apple.iokit.hid.displayStatus");
   }
 
-  if (*(v66 + 24))
+  if (*(v63 + 24))
   {
-    theDict = *(v66 + 24);
-    if (*(v66 + 11))
+    theDict = *(v63 + 24);
+    if (*(v63 + 11))
     {
       CFDictionarySetValue(theDict, @"DisplayOn", *MEMORY[0x1E695E4D0]);
     }
@@ -3761,8 +3490,8 @@ uint64_t DisplayOpen(char *a1, uint64_t a2, uint64_t a3)
     }
   }
 
-  *(v66 + 312) = -1;
-  *(v66 + 27) = 0;
+  *(v63 + 312) = -1;
+  *(v63 + 27) = 0;
   ValueAtIndex = 0;
   DisplayList = IOMobileFramebufferCreateDisplayList();
   if (DisplayList)
@@ -3779,64 +3508,63 @@ uint64_t DisplayOpen(char *a1, uint64_t a2, uint64_t a3)
     CFRelease(DisplayList);
     if (ValueAtIndex)
     {
-      *&v56[4] = 0;
-      v3 = *ValueAtIndex;
-      *v56 = IOMobileFramebufferOpenByName();
+      v53 = 0;
+      v52 = IOMobileFramebufferOpenByName();
     }
   }
 
-  *(v66 + 34) = 1;
-  *(v66 + 35) = -1;
-  *(v66 + 94) = -1.0;
-  v66[380] = 0;
-  if (v66[312])
+  *(v63 + 34) = 1;
+  *(v63 + 35) = -1;
+  *(v63 + 94) = -1.0;
+  v63[380] = 0;
+  if (v63[312])
   {
-    *(v66 + 34) = 0;
+    *(v63 + 34) = 0;
   }
 
-  if ((v66[312] & 1) == 0)
+  if ((v63[312] & 1) == 0)
   {
-    v4 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_USER_INTERACTIVE, 0);
-    *(v66 + 15) = dispatch_queue_create(0, v4);
+    v3 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_USER_INTERACTIVE, 0);
+    *(v63 + 15) = dispatch_queue_create(0, v3);
   }
 
-  v66[320] = 0;
+  v63[320] = 0;
   if (CBU_IsWatch())
   {
-    v66[320] = 1;
+    v63[320] = 1;
   }
 
-  *(v66 + 3098) = -1.0;
-  __DisplaySetAAPFactor(v66, *(v66 + 3114));
-  *(v66 + 71) = 0;
-  v66[288] = 0;
-  v66[289] = 0;
-  CFProperty = IORegistryEntryCreateCFProperty(*(v66 + 20), @"nitsThresholdPLC", *MEMORY[0x1E695E480], 0);
+  *(v63 + 3098) = -1.0;
+  __DisplaySetAAPFactor(v63, *(v63 + 3114));
+  *(v63 + 71) = 0;
+  v63[288] = 0;
+  v63[289] = 0;
+  CFProperty = IORegistryEntryCreateCFProperty(*(v63 + 20), @"nitsThresholdPLC", *MEMORY[0x1E695E480], 0);
   if (CFProperty)
   {
     TypeID = CFNumberGetTypeID();
     if (TypeID == CFGetTypeID(CFProperty))
     {
-      CFNumberGetValue(CFProperty, kCFNumberIntType, v66 + 284);
-      v66[288] = 1;
+      CFNumberGetValue(CFProperty, kCFNumberIntType, v63 + 284);
+      v63[288] = 1;
     }
 
     CFRelease(CFProperty);
   }
 
-  if (*(v66 + 27))
+  if (*(v63 + 27))
   {
-    v54 = 0;
-    v54 = IORegistryEntrySearchCFProperty(*(v66 + 27), "IOService", @"limit_max_physical_brightness", *MEMORY[0x1E695E480], 3u);
-    v53 = (*(v66 + 386) * 65536.0);
-    if (_DisplayGetUint32FromCFNumberAndRelease(v54, &v53))
+    v50 = 0;
+    v50 = IORegistryEntrySearchCFProperty(*(v63 + 27), "IOService", @"limit_max_physical_brightness", *MEMORY[0x1E695E480], 3u);
+    v49 = (*(v63 + 386) * 65536.0);
+    if (_DisplayGetUint32FromCFNumberAndRelease(v50, &v49))
     {
-      *(v66 + 386) = v53 / 65536.0;
+      *(v63 + 386) = v49 / 65536.0;
     }
 
     if (_logHandle)
     {
-      v15 = _logHandle;
+      v11 = _logHandle;
     }
 
     else
@@ -3851,66 +3579,61 @@ uint64_t DisplayOpen(char *a1, uint64_t a2, uint64_t a3)
         inited = init_default_corebrightness_log();
       }
 
-      v15 = inited;
+      v11 = inited;
     }
 
-    v52 = v15;
-    v51 = OS_LOG_TYPE_DEBUG;
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+    v48 = v11;
+    v47 = OS_LOG_TYPE_DEBUG;
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      __os_log_helper_16_0_1_8_0(v68, COERCE__INT64(*(v66 + 386)));
-      _os_log_debug_impl(&dword_1DE8E5000, v52, v51, "New hardwareAccessibleMaxNits: %f", v68, 0xCu);
+      __os_log_helper_16_0_1_8_0(v65, COERCE__INT64(*(v63 + 386)));
+      _os_log_debug_impl(&dword_1DE8E5000, v48, v47, "New hardwareAccessibleMaxNits: %f", v65, 0xCu);
     }
   }
 
-  v49 = MGGetBoolAnswer();
-  v50 = v49 & 1;
-  *(v66 + 3179) = (v49 & 1) != 0;
+  v45 = MGGetBoolAnswer();
+  v46 = v45 & 1;
+  *(v63 + 3179) = (v45 & 1) != 0;
   if (_logHandle)
   {
-    v13 = _logHandle;
+    v9 = _logHandle;
   }
 
   else
   {
     if (_COREBRIGHTNESS_LOG_DEFAULT)
     {
-      v12 = _COREBRIGHTNESS_LOG_DEFAULT;
+      v8 = _COREBRIGHTNESS_LOG_DEFAULT;
     }
 
     else
     {
-      v12 = init_default_corebrightness_log();
+      v8 = init_default_corebrightness_log();
     }
 
-    v13 = v12;
+    v9 = v8;
   }
 
-  v48 = v13;
-  v47 = OS_LOG_TYPE_DEFAULT;
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v44 = v9;
+  v43 = OS_LOG_TYPE_DEFAULT;
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    if (v50)
+    if (v46)
     {
-      v5 = "OLED";
+      v4 = "OLED";
     }
 
     else
     {
-      v5 = "LCD";
+      v4 = "LCD";
     }
 
-    __os_log_helper_16_2_1_8_32(v67, v5);
-    _os_log_impl(&dword_1DE8E5000, v48, v47, "Device has %s display.", v67, 0xCu);
+    __os_log_helper_16_2_1_8_32(v64, v4);
+    _os_log_impl(&dword_1DE8E5000, v44, v43, "Device has %s display.", v64, 0xCu);
   }
 
-  if (*(v66 + 3149) == 1)
+  if (*(v63 + 3149) == 1)
   {
-    v43[0] = 0;
-    v43[1] = v43;
-    v44 = 0x20000000;
-    v45 = 32;
-    v46 = 0;
     v39[0] = 0;
     v39[1] = v39;
     v40 = 0x20000000;
@@ -3926,89 +3649,90 @@ uint64_t DisplayOpen(char *a1, uint64_t a2, uint64_t a3)
     v32 = 0x20000000;
     v33 = 32;
     v34 = 0;
-    v6 = *(v66 + 18);
-    v21 = MEMORY[0x1E69E9820];
-    v22 = -1073741824;
-    v23 = 0;
-    v24 = __DisplayOpen_block_invoke;
-    v25 = &unk_1E867C970;
-    v30 = v66;
-    v26 = v43;
-    v27 = v39;
-    v28 = v35;
-    v29 = v31;
-    CBEDRServerRegisterCallbackBlockOnQueue(v6, &v21);
-    v66[12181] = 0;
+    v27[0] = 0;
+    v27[1] = v27;
+    v28 = 0x20000000;
+    v29 = 32;
+    v30 = 0;
+    v5 = *(v63 + 18);
+    v17 = MEMORY[0x1E69E9820];
+    v18 = -1073741824;
+    v19 = 0;
+    v20 = __DisplayOpen_block_invoke;
+    v21 = &unk_1E867C970;
+    v26 = v63;
+    v22 = v39;
+    v23 = v35;
+    v24 = v31;
+    v25 = v27;
+    CBEDRServerRegisterCallbackBlockOnQueue(v5, &v17);
+    v63[12181] = 0;
     if ([MEMORY[0x1E6991F30] isCPMSSupported] == 1)
     {
-      v66[12181] = 1;
-      if (DisplayHasDCP(v66))
+      v63[12181] = 1;
+      if (DisplayHasDCP(v63))
       {
-        *(v66 + 1516) = IOReportCopyChannelsInGroup();
-        if (*(v66 + 1516))
+        *(v63 + 1516) = IOReportCopyChannelsInGroup();
+        if (*(v63 + 1516))
         {
-          v9 = *(v66 + 1516);
-          *(v66 + 1518) = IOReportCreateSubscription();
+          *(v63 + 1518) = IOReportCreateSubscription();
         }
       }
 
       else
       {
-        *(v66 + 1516) = 0;
-        *(v66 + 1517) = 0;
-        *(v66 + 1518) = 0;
-        *(v66 + 1519) = 0;
-        *(v66 + 1520) = 0;
-        *(v66 + 1521) = 0;
-        v20 = IOServiceMatching("IOMobileFramebuffer");
-        *(v66 + 1516) = IOReportCopyChannelsWithID();
-        if (*(v66 + 1516))
+        *(v63 + 1516) = 0;
+        *(v63 + 1517) = 0;
+        *(v63 + 1518) = 0;
+        *(v63 + 1519) = 0;
+        *(v63 + 1520) = 0;
+        *(v63 + 1521) = 0;
+        v16 = IOServiceMatching("IOMobileFramebuffer");
+        *(v63 + 1516) = IOReportCopyChannelsWithID();
+        if (*(v63 + 1516))
         {
-          v7 = *(v66 + 1516);
-          *(v66 + 1518) = IOReportCreateSubscription();
+          *(v63 + 1518) = IOReportCreateSubscription();
         }
 
-        *(v66 + 1519) = IOReportCopyChannelsWithID();
-        if (*(v66 + 1519))
+        *(v63 + 1519) = IOReportCopyChannelsWithID();
+        if (*(v63 + 1519))
         {
-          v8 = *(v66 + 1519);
-          *(v66 + 1521) = IOReportCreateSubscription();
+          *(v63 + 1521) = IOReportCreateSubscription();
         }
 
-        *(v66 + 1511) = 0;
-        *(v66 + 1512) = 0;
-        *(v66 + 1514) = 0;
-        *(v66 + 3030) = 0;
-        if (v20)
+        *(v63 + 1511) = 0;
+        *(v63 + 1512) = 0;
+        *(v63 + 1514) = 0;
+        *(v63 + 3030) = 0;
+        if (v16)
         {
-          CFRelease(v20);
+          CFRelease(v16);
         }
       }
     }
 
+    _Block_object_dispose(v27, 8);
     _Block_object_dispose(v31, 8);
     _Block_object_dispose(v35, 8);
     _Block_object_dispose(v39, 8);
-    _Block_object_dispose(v43, 8);
   }
 
-  if (*(v66 + 21))
+  if (*(v63 + 21))
   {
-    v11 = IONotificationPortCreate(*MEMORY[0x1E696CD60]);
-    *(v66 + 22) = v11;
-    if (*(v66 + 22))
+    v7 = IONotificationPortCreate(*MEMORY[0x1E696CD60]);
+    *(v63 + 22) = v7;
+    if (*(v63 + 22))
     {
-      if (*(v66 + 18))
+      if (*(v63 + 18))
       {
-        IONotificationPortSetDispatchQueue(*(v66 + 22), *(v66 + 18));
-        IOServiceAddInterestNotification(*(v66 + 22), *(v66 + 20), "IOGeneralInterest", BacklightGeneralInterestNotificationCallback, v66, v66 + 46);
+        IONotificationPortSetDispatchQueue(*(v63 + 22), *(v63 + 18));
+        IOServiceAddInterestNotification(*(v63 + 22), *(v63 + 20), "IOGeneralInterest", BacklightGeneralInterestNotificationCallback, v63, v63 + 46);
       }
     }
   }
 
-  _DisplayReduceBacklightCompensation(v66, 1.0);
-  *MEMORY[0x1E69E9840];
-  return v63;
+  _DisplayReduceBacklightCompensation(v63, 1.0);
+  return v60;
 }
 
 void __DisplaySetAAPFactor(_BYTE *a1, float a2)
@@ -4096,11 +3820,9 @@ void __DisplaySetAAPFactor(_BYTE *a1, float a2)
       }
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
-uint64_t _DisplayGetUint32FromCFNumberAndRelease(const void *a1, _DWORD *a2)
+uint64_t _DisplayGetUint32FromCFNumberAndRelease(const void *a1, int *a2)
 {
   v7 = a1;
   v6 = a2;
@@ -4181,8 +3903,6 @@ void BacklightGeneralInterestNotificationCallback(uint64_t a1, uint64_t a2, int 
       }
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 void _DisplayReduceBacklightCompensation(uint64_t a1, float a2)
@@ -4220,8 +3940,6 @@ void _DisplayReduceBacklightCompensation(uint64_t a1, float a2)
   {
     CFRelease(v9);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 void DisplayClose(uint64_t a1)
@@ -4469,8 +4187,6 @@ void __DisplayStartRTPLCEDRCapRamp_block_invoke(uint64_t a1)
     __os_log_helper_16_2_5_8_32_8_0_8_0_8_0_8_32(v13, "RTPLC cap", COERCE__INT64(*(*(a1 + 32) + 12680)), COERCE__INT64(*(*(a1 + 32) + 12672)), *(*(a1 + 32) + 12656), v3);
     _os_log_impl(&dword_1DE8E5000, v5, OS_LOG_TYPE_DEFAULT, "[BRT update: %s]: %0.2f ->  %0.2f t: %f fadeIsRunning: %s", v13, 0x34u);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 uint64_t __os_log_helper_16_2_8_8_0_8_0_8_0_8_0_8_0_8_0_8_0_8_32(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
@@ -4705,7 +4421,7 @@ uint64_t __DisplayLogicalToSliderBrightness_block_invoke(uint64_t a1)
   return result;
 }
 
-void __ShortcutAllRamps(float *a1)
+void __ShortcutAllRamps(void *a1)
 {
   v8 = a1;
   if (_logHandle)
@@ -4812,8 +4528,6 @@ void __DisplaySetCabalFactorOverride_block_invoke(uint64_t a1)
   {
     __DisplaySetAAPFactor(*(a1 + 32), v4);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 void _DisplaySetBrightnessWeakCapWithFade(_BYTE *a1, char a2, float a3, float a4)
@@ -4885,7 +4599,7 @@ void _DisplaySetBrightnessWeakCapWithFade(_BYTE *a1, char a2, float a3, float a4
     *(v42 + 153) = v36;
     *(v42 + 154) = v36;
     *(v42 + 152) = v36;
-    __DisplaySetLogicalBrightnessInternal(v42, 12298, *(v42 + 314));
+    __DisplaySetLogicalBrightnessInternal(v42, 0x300Au, *(v42 + 314));
     v42[584] = 1;
     if (_logHandle)
     {
@@ -5045,8 +4759,6 @@ void _DisplaySetBrightnessWeakCapWithFade(_BYTE *a1, char a2, float a3, float a4
       _os_log_debug_impl(&dword_1DE8E5000, v5, v6, "Weak cap: user interacted\n", v21, 2u);
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 void __DisplaySetBrightnessWithFade(uint64_t a1, int a2, float a3, float a4)
@@ -5106,8 +4818,6 @@ void __DisplaySetBrightnessWithFade(uint64_t a1, int a2, float a3, float a4)
 
     _DisplaySetLogicalBrightnessWithFade(a1, a2, 0, 0, v4, a4);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 void __DisplayReportCommit(NSObject **a1, float a2)
@@ -5142,8 +4852,6 @@ void __DisplayReportCommit(NSObject **a1, float a2)
   {
     CFRelease(values);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 uint64_t __os_log_helper_16_2_5_8_32_8_0_8_0_8_0_4_0(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6)
@@ -5170,18 +4878,16 @@ uint64_t __os_log_helper_16_2_5_8_32_8_0_8_0_8_0_4_0(uint64_t result, uint64_t a
 
 uint64_t __DisplayGetPowerAccumulator(uint64_t a1)
 {
-  v11 = a1;
-  v6 = 0;
-  v7 = &v6;
-  v8 = 0x20000000;
-  v9 = 32;
-  v10 = 0x8000000000000000;
+  v9 = a1;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x20000000;
+  v7 = 32;
+  v8 = 0x8000000000000000;
   if (*(a1 + 12144))
   {
-    if (*(v11 + 12136))
+    if (*(v9 + 12136))
     {
-      v1 = *(v11 + 12144);
-      v2 = *(v11 + 12136);
       Samples = IOReportCreateSamples();
       if (Samples)
       {
@@ -5191,9 +4897,9 @@ uint64_t __DisplayGetPowerAccumulator(uint64_t a1)
     }
   }
 
-  v4 = v7[3];
-  _Block_object_dispose(&v6, 8);
-  return v4;
+  v2 = v5[3];
+  _Block_object_dispose(&v4, 8);
+  return v2;
 }
 
 uint64_t __DisplaySetProperty_block_invoke_458(void *a1)
@@ -5255,7 +4961,6 @@ void _DisplaySetAdaptiveDimmingLimitWithFade(uint64_t a1, float a2, float a3)
 
   LODWORD(v4) = 1015580809;
   __DisplayStartFadeWithType(a1, 13, v4);
-  *MEMORY[0x1E69E9840];
 }
 
 float __DisplayCalculateBrightnessAtAmbient(float *a1, float a2)
@@ -5302,20 +5007,16 @@ float __DisplayCalculateBrightnessAtAmbient(float *a1, float a2)
     _os_log_debug_impl(&dword_1DE8E5000, v4, OS_LOG_TYPE_DEBUG, "ambient=%f slope=%f intercept=%f user=%f brightness=%f\n", v8, 0x34u);
   }
 
-  if (v5 <= a1[86])
+  if (v5 > a1[86])
   {
-    if (v5 < a1[85])
-    {
-      v5 = a1[85];
-    }
+    return a1[86];
   }
 
-  else
+  if (v5 < a1[85])
   {
-    v5 = a1[86];
+    return a1[85];
   }
 
-  *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -5462,8 +5163,6 @@ void __DisplaySetLogicalBrightnessLegacy(float *a1, mach_port_t a2, float a3, do
       _os_log_debug_impl(&dword_1DE8E5000, v7, OS_LOG_TYPE_DEBUG, "logical=%f factor=%f pending=%f brightness=%f minPendingBrightness=%f\n", v19, 0x34u);
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 uint64_t GetCFBooleanValue(const __CFNumber *a1)
@@ -5543,18 +5242,18 @@ uint64_t evaluateClientOverrides(uint64_t a1)
   }
 }
 
-void _DisplaySetBrightnessMinPhysicalWithFade(uint64_t a1, float a2, float a3)
+float _DisplaySetBrightnessMinPhysicalWithFade(uint64_t a1, float a2, float a3)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   if (*(a1 + 380))
   {
     a3 = *(a1 + 376);
   }
 
-  v15 = fmaxf(a2, *(a1 + 1320));
+  v16 = fmaxf(a2, *(a1 + 1320));
   if (_logHandle)
   {
-    v11 = _logHandle;
+    v12 = _logHandle;
   }
 
   else
@@ -5569,23 +5268,24 @@ void _DisplaySetBrightnessMinPhysicalWithFade(uint64_t a1, float a2, float a3)
       inited = init_default_corebrightness_log();
     }
 
-    v11 = inited;
+    v12 = inited;
   }
 
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    __os_log_helper_16_0_2_8_0_8_0(v22, COERCE__INT64(v15), COERCE__INT64(a3));
-    _os_log_impl(&dword_1DE8E5000, v11, OS_LOG_TYPE_DEFAULT, "min: %f fadePeriod: %f", v22, 0x16u);
+    __os_log_helper_16_0_2_8_0_8_0(v23, COERCE__INT64(v16), COERCE__INT64(a3));
+    _os_log_impl(&dword_1DE8E5000, v12, OS_LOG_TYPE_DEFAULT, "min: %f fadePeriod: %f", v23, 0x16u);
   }
 
-  if (v15 != *(a1 + 396))
+  result = v16;
+  if (v16 != *(a1 + 396))
   {
-    *(a1 + 396) = v15;
-    *(a1 + 392) = _DisplayLogicalToSliderBrightnessInternal(a1, v15);
+    *(a1 + 396) = v16;
+    *(a1 + 392) = _DisplayLogicalToSliderBrightnessInternal(a1, v16);
     *(a1 + 408) = a3;
     if (a3 == 0.0)
     {
-      *(a1 + 400) = v15;
+      *(a1 + 400) = v16;
       if (*(a1 + 36))
       {
         _DisplaySetAmbient(a1, 0, *(a1 + 1184));
@@ -5593,35 +5293,35 @@ void _DisplaySetBrightnessMinPhysicalWithFade(uint64_t a1, float a2, float a3)
 
       else
       {
-        v14 = _DisplayLuminanceToPerceptualLuminanceInternal(a1, v15);
-        *(a1 + 428) = v14;
-        *(a1 + 432) = v14;
-        *(a1 + 424) = v14;
-        __DisplaySetLogicalBrightnessInternal(a1, 12290, *(a1 + 1256));
+        v15 = _DisplayLuminanceToPerceptualLuminanceInternal(a1, v16);
+        *(a1 + 428) = v15;
+        *(a1 + 432) = v15;
+        *(a1 + 424) = v15;
+        __DisplaySetLogicalBrightnessInternal(a1, 0x3002u, *(a1 + 1256));
         if (_logHandle)
         {
-          v9 = _logHandle;
+          v10 = _logHandle;
         }
 
         else
         {
           if (_COREBRIGHTNESS_LOG_DEFAULT)
           {
-            v8 = _COREBRIGHTNESS_LOG_DEFAULT;
+            v9 = _COREBRIGHTNESS_LOG_DEFAULT;
           }
 
           else
           {
-            v8 = init_default_corebrightness_log();
+            v9 = init_default_corebrightness_log();
           }
 
-          v9 = v8;
+          v10 = v9;
         }
 
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
-          __os_log_helper_16_2_4_8_32_8_0_8_0_8_0(v21, "MIN cap", COERCE__INT64(a2), COERCE__INT64(*(a1 + 1260)), COERCE__INT64(v14));
-          _os_log_impl(&dword_1DE8E5000, v9, OS_LOG_TYPE_DEFAULT, "[BRT update: %s]: Min brightness: %f, nits = %f, P = %f", v21, 0x2Au);
+          __os_log_helper_16_2_4_8_32_8_0_8_0_8_0(v22, "MIN cap", COERCE__INT64(a2), COERCE__INT64(*(a1 + 1260)), COERCE__INT64(v15));
+          _os_log_impl(&dword_1DE8E5000, v10, OS_LOG_TYPE_DEFAULT, "[BRT update: %s]: Min brightness: %f, nits = %f, P = %f", v22, 0x2Au);
         }
       }
     }
@@ -5633,67 +5333,67 @@ void _DisplaySetBrightnessMinPhysicalWithFade(uint64_t a1, float a2, float a3)
       *(a1 + 416) = CFAbsoluteTimeGetCurrent();
       if (_logHandle)
       {
-        v7 = _logHandle;
+        v8 = _logHandle;
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v6 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v7 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v6 = init_default_corebrightness_log();
+          v7 = init_default_corebrightness_log();
         }
 
-        v7 = v6;
+        v8 = v7;
       }
 
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
-        __os_log_helper_16_0_3_8_0_8_0_8_0(v20, *(a1 + 408), *(a1 + 416), *(a1 + 12480));
-        _os_log_debug_impl(&dword_1DE8E5000, v7, OS_LOG_TYPE_DEBUG, "fadePeriod=%f startTime=%f display->fade.timer=%p\n", v20, 0x20u);
+        __os_log_helper_16_0_3_8_0_8_0_8_0(v21, *(a1 + 408), *(a1 + 416), *(a1 + 12480));
+        _os_log_debug_impl(&dword_1DE8E5000, v8, OS_LOG_TYPE_DEBUG, "fadePeriod=%f startTime=%f display->fade.timer=%p\n", v21, 0x20u);
       }
 
-      v13 = (v15 - *(a1 + 400)) / a3;
-      UpdateFrequency = __DisplayGetUpdateFrequency(a1, v13);
+      v14 = (v16 - *(a1 + 400)) / a3;
+      UpdateFrequency = __DisplayGetUpdateFrequency(a1, v14);
       *(a1 + 428) = _DisplayLuminanceToPerceptualLuminanceInternal(a1, *(a1 + 400));
       *(a1 + 432) = *(a1 + 428);
-      *(a1 + 424) = _DisplayLuminanceToPerceptualLuminanceInternal(a1, v15);
+      *(a1 + 424) = _DisplayLuminanceToPerceptualLuminanceInternal(a1, v16);
       if (_logHandle)
       {
-        v5 = _logHandle;
+        v6 = _logHandle;
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v4 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v5 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v4 = init_default_corebrightness_log();
+          v5 = init_default_corebrightness_log();
         }
 
-        v5 = v4;
+        v6 = v5;
       }
 
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        __os_log_helper_16_2_8_8_32_8_0_8_0_8_0_8_0_8_0_8_0_8_0(v19, "MIN cap", COERCE__INT64(*(a1 + 400)), COERCE__INT64(v15), COERCE__INT64(*(a1 + 432)), COERCE__INT64(*(a1 + 424)), COERCE__INT64(a3), COERCE__INT64(v13), COERCE__INT64(UpdateFrequency));
-        _os_log_impl(&dword_1DE8E5000, v5, OS_LOG_TYPE_DEFAULT, "[BRT update: %s]: begin ramp L: %0.2f -> %0.2f P: %0.2f -> %0.2f t: %f rate: %0.2f nits/s %0.2fhz", v19, 0x52u);
+        __os_log_helper_16_2_8_8_32_8_0_8_0_8_0_8_0_8_0_8_0_8_0(v20, "MIN cap", COERCE__INT64(*(a1 + 400)), COERCE__INT64(v16), COERCE__INT64(*(a1 + 432)), COERCE__INT64(*(a1 + 424)), COERCE__INT64(a3), COERCE__INT64(v14), COERCE__INT64(UpdateFrequency));
+        _os_log_impl(&dword_1DE8E5000, v6, OS_LOG_TYPE_DEFAULT, "[BRT update: %s]: begin ramp L: %0.2f -> %0.2f P: %0.2f -> %0.2f t: %f rate: %0.2f nits/s %0.2fhz", v20, 0x52u);
       }
 
-      *&v3 = 1.0 / UpdateFrequency;
-      __DisplayStartFadeWithType(a1, 19, v3);
+      *&v4 = 1.0 / UpdateFrequency;
+      __DisplayStartFadeWithType(a1, 19, v4);
     }
   }
 
-  *MEMORY[0x1E69E9840];
+  return result;
 }
 
 void _DisplaySetAmbient(uint64_t a1, char a2, float a3)
@@ -5772,8 +5472,6 @@ void _DisplaySetAmbient(uint64_t a1, char a2, float a3)
 
     __DisplaySetLogicalBrightnessLegacy(a1, 2u, v7, -1.0);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 void _DisplaySetBrightnessEcoModeFactorWithFade(uint64_t a1, float a2, float a3)
@@ -5864,8 +5562,6 @@ void _DisplaySetBrightnessEcoModeFactorWithFade(uint64_t a1, float a2, float a3)
       _os_log_impl(&dword_1DE8E5000, v6, OS_LOG_TYPE_DEFAULT, "[BRT update: %s]: %0.2f -> %0.2f t: %f rate: %0.2fhz", v12, 0x34u);
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 void _DisplaySetBrightnessEcoModeLimitWithFade(uint64_t a1, float a2, float a3)
@@ -5884,7 +5580,7 @@ void _DisplaySetBrightnessEcoModeLimitWithFade(uint64_t a1, float a2, float a3)
     *(a1 + 808) = v6;
     *(a1 + 800) = v6;
     *(a1 + 784) = a3;
-    __DisplaySetLogicalBrightnessInternal(a1, 12298, *(a1 + 1256));
+    __DisplaySetLogicalBrightnessInternal(a1, 0x300Au, *(a1 + 1256));
   }
 
   else
@@ -5926,8 +5622,6 @@ void _DisplaySetBrightnessEcoModeLimitWithFade(uint64_t a1, float a2, float a3)
     __os_log_helper_16_2_5_8_32_8_0_8_0_8_0_8_0(v10, "Eco Mode", COERCE__INT64(*(a1 + 1260)), COERCE__INT64(a2), COERCE__INT64(a3), 0x404E000000000000);
     _os_log_impl(&dword_1DE8E5000, v5, OS_LOG_TYPE_DEFAULT, "[BRT update: %s]: %0.2f -> %0.2f t: %f rate: %0.2fhz", v10, 0x34u);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 void _DisplaySetBrightnessDominoModeLimitWithFade(uint64_t a1, float a2, float a3)
@@ -5967,18 +5661,16 @@ void _DisplaySetBrightnessDominoModeLimitWithFade(uint64_t a1, float a2, float a
     __os_log_helper_16_2_5_8_32_8_0_8_0_8_0_8_0(v9, "Domino Mode", COERCE__INT64(*(a1 + 724)), COERCE__INT64(a2), COERCE__INT64(a3), 0x404E000000000000);
     _os_log_impl(&dword_1DE8E5000, v5, OS_LOG_TYPE_DEFAULT, "[BRT update: %s]: %f -> %f t: %f rate: %0.2fhz", v9, 0x34u);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
-double __DisplayCancelFactorFade(uint64_t a1)
+double __DisplayCancelFactorFade(uint64_t a1, float a2)
 {
-  v9 = a1;
+  v10 = a1;
   if (_DisplayRampIsRunning(a1))
   {
     if (_logHandle)
     {
-      v5 = _logHandle;
+      v6 = _logHandle;
     }
 
     else
@@ -5993,27 +5685,27 @@ double __DisplayCancelFactorFade(uint64_t a1)
         inited = init_default_corebrightness_log();
       }
 
-      v5 = inited;
+      v6 = inited;
     }
 
-    v8 = v5;
-    v7 = 2;
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v9 = v6;
+    v8 = 2;
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      log = v8;
-      type = v7;
-      __os_log_helper_16_0_0(v6);
-      _os_log_debug_impl(&dword_1DE8E5000, log, type, "cancel factor ramp", v6, 2u);
+      log = v9;
+      type = v8;
+      __os_log_helper_16_0_0(v7);
+      _os_log_debug_impl(&dword_1DE8E5000, log, type, "cancel factor ramp", v7, 2u);
     }
 
-    *(v9 + 88) = 0;
-    if (*(v9 + 1424))
+    *(v10 + 88) = 0;
+    if (*(v10 + 1424))
     {
-      (*(v9 + 1424))(*(v9 + 1376));
+      (*(v10 + 1424))(*(v10 + 1376));
     }
 
     result = 0.0;
-    *(v9 + 1384) = 0;
+    *(v10 + 1384) = 0;
   }
 
   return result;
@@ -6223,16 +5915,13 @@ void _DisplaySetBrightnessFactor(uint64_t a1, float a2)
       *(v51 + 400) = v4;
     }
 
-    if (*(v51 + 32))
+    if (*(v51 + 32) && *(v51 + 1204) > 0.0)
     {
-      if (*(v51 + 1204) > 0.0)
+      *(v51 + 1252) = *(v51 + 1320);
+      *(v51 + 1492) = *(v51 + 1320);
+      if ([+[CBSILState isSILActive] sharedInstance]
       {
-        *(v51 + 1252) = *(v51 + 1320);
-        *(v51 + 1492) = *(v51 + 1320);
-        if ([+[CBSILState isSILActive] sharedInstance]
-        {
-          *(v51 + 1256) = 0;
-        }
+        *(v51 + 1256) = 0;
       }
     }
 
@@ -6255,11 +5944,9 @@ void _DisplaySetBrightnessFactor(uint64_t a1, float a2)
     *(v51 + 992) = 0;
     __DisplayCommitReport(v51, 1);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
-float __DisplayCalculateBrightnessFromFactorChange(float *a1, int a2)
+float __DisplayCalculateBrightnessFromFactorChange(uint64_t a1, int a2)
 {
   v9 = *MEMORY[0x1E69E9840];
   if (_logHandle)
@@ -6284,37 +5971,34 @@ float __DisplayCalculateBrightnessFromFactorChange(float *a1, int a2)
 
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    __os_log_helper_16_0_2_8_0_8_0(v8, COERCE__INT64(a1[87]), COERCE__INT64(a1[89]));
+    __os_log_helper_16_0_2_8_0_8_0(v8, COERCE__INT64(*(a1 + 348)), COERCE__INT64(*(a1 + 356)));
     _os_log_debug_impl(&dword_1DE8E5000, v4, OS_LOG_TYPE_DEBUG, "Brightness factor=%f pending=%f\n", v8, 0x16u);
   }
 
-  if (a1[87] == 1.0 && a1[89] != 0.0)
+  if (*(a1 + 348) == 1.0 && *(a1 + 356) != 0.0)
   {
-    a1[88] = a1[89];
+    *(a1 + 352) = *(a1 + 356);
   }
 
   if (a2)
   {
-    v5 = a1[88];
+    return *(a1 + 352);
   }
 
   else
   {
-    v5 = __DisplayCalculateBrightnessAtAmbient(a1, a1[296]);
+    return __DisplayCalculateBrightnessAtAmbient(a1, *(a1 + 1184));
   }
-
-  *MEMORY[0x1E69E9840];
-  return v5;
 }
 
-double __DisplayCancelReflectedBrightnessFadeInternal(uint64_t a1)
+double __DisplayCancelReflectedBrightnessFadeInternal(uint64_t a1, double result)
 {
-  v9 = a1;
-  if (*(a1 + 12248) & 1) != 0 && (_DisplayRampIsRunning(v9))
+  v10 = a1;
+  if (*(a1 + 12248) & 1) != 0 && (_DisplayRampIsRunning(v10))
   {
     if (_logHandle)
     {
-      v5 = _logHandle;
+      v6 = _logHandle;
     }
 
     else
@@ -6329,44 +6013,44 @@ double __DisplayCancelReflectedBrightnessFadeInternal(uint64_t a1)
         inited = init_default_corebrightness_log();
       }
 
-      v5 = inited;
+      v6 = inited;
     }
 
-    v8 = v5;
-    v7 = 2;
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v9 = v6;
+    v8 = 2;
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      log = v8;
-      type = v7;
-      __os_log_helper_16_0_0(v6);
-      _os_log_debug_impl(&dword_1DE8E5000, log, type, "cancel AAP ramp", v6, 2u);
+      log = v9;
+      type = v8;
+      __os_log_helper_16_0_0(v7);
+      _os_log_debug_impl(&dword_1DE8E5000, log, type, "cancel AAP ramp", v7, 2u);
     }
 
-    if ((*(v9 + 12282) & 1) == 0)
+    if ((*(v10 + 12282) & 1) == 0)
     {
-      __DisplayUpdateAAPFactor(v9);
+      __DisplayUpdateAAPFactor(v10);
     }
 
-    if (*(v9 + 1608))
+    if (*(v10 + 1608))
     {
-      (*(v9 + 1608))(*(v9 + 1616));
+      (*(v10 + 1608))(*(v10 + 1616));
     }
 
-    result = 0.0;
-    *(v9 + 1576) = 0;
+    v2 = 0.0;
+    *(v10 + 1576) = 0;
   }
 
-  return result;
+  return v2;
 }
 
-double __DisplayCancelAAPFade(_BYTE *a1)
+double __DisplayCancelAAPFade(_BYTE *a1, double result)
 {
-  v9 = a1;
-  if (a1[12248] & 1) != 0 && (_DisplayRampIsRunning(v9))
+  v10 = a1;
+  if (a1[12248] & 1) != 0 && (_DisplayRampIsRunning(v10))
   {
     if (_logHandle)
     {
-      v5 = _logHandle;
+      v6 = _logHandle;
     }
 
     else
@@ -6381,30 +6065,30 @@ double __DisplayCancelAAPFade(_BYTE *a1)
         inited = init_default_corebrightness_log();
       }
 
-      v5 = inited;
+      v6 = inited;
     }
 
-    v8 = v5;
-    v7 = 2;
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v9 = v6;
+    v8 = 2;
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      log = v8;
-      type = v7;
-      __os_log_helper_16_0_0(v6);
-      _os_log_debug_impl(&dword_1DE8E5000, log, type, "cancel AAP ramp", v6, 2u);
+      log = v9;
+      type = v8;
+      __os_log_helper_16_0_0(v7);
+      _os_log_debug_impl(&dword_1DE8E5000, log, type, "cancel AAP ramp", v7, 2u);
     }
 
-    __DisplaySetAAPFactor(v9, 0.0);
-    if (*(v9 + 1555))
+    __DisplaySetAAPFactor(v10, 0.0);
+    if (*(v10 + 1555))
     {
-      (*(v9 + 1555))(*(v9 + 1556));
+      (*(v10 + 1555))(*(v10 + 1556));
     }
 
-    result = 0.0;
-    *(v9 + 1550) = 0;
+    v2 = 0.0;
+    *(v10 + 1550) = 0;
   }
 
-  return result;
+  return v2;
 }
 
 uint64_t __os_log_helper_16_2_7_8_32_8_32_8_0_8_0_8_0_8_0_8_0(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
@@ -6489,9 +6173,9 @@ void __DisplaySetProperty_block_invoke_591(uint64_t a1)
   CFRelease(*(a1 + 40));
 }
 
-void _DisplaySetBrightnessMaxPhysicalZeroWithFade(uint64_t a1, uint64_t a2, uint64_t a3, float a4, float a5)
+float _DisplaySetBrightnessMaxPhysicalZeroWithFade(uint64_t a1, uint64_t a2, uint64_t a3, float a4, float a5)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if (*(a1 + 380))
   {
     a5 = *(a1 + 376);
@@ -6505,7 +6189,7 @@ void _DisplaySetBrightnessMaxPhysicalZeroWithFade(uint64_t a1, uint64_t a2, uint
   *(a1 + 480) = CFAbsoluteTimeGetCurrent();
   if (_logHandle)
   {
-    v9 = _logHandle;
+    v10 = _logHandle;
   }
 
   else
@@ -6520,59 +6204,59 @@ void _DisplaySetBrightnessMaxPhysicalZeroWithFade(uint64_t a1, uint64_t a2, uint
       inited = init_default_corebrightness_log();
     }
 
-    v9 = inited;
+    v10 = inited;
   }
 
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    __os_log_helper_16_0_3_8_0_8_0_8_0(v18, *(a1 + 472), *(a1 + 480), *(a1 + 12480));
-    _os_log_debug_impl(&dword_1DE8E5000, v9, OS_LOG_TYPE_DEBUG, "fadePeriod=%f startTime=%f display->fade.timer=%p\n", v18, 0x20u);
+    __os_log_helper_16_0_3_8_0_8_0_8_0(v19, *(a1 + 472), *(a1 + 480), *(a1 + 12480));
+    _os_log_debug_impl(&dword_1DE8E5000, v10, OS_LOG_TYPE_DEBUG, "fadePeriod=%f startTime=%f display->fade.timer=%p\n", v19, 0x20u);
   }
 
-  v11 = (a4 - *(a1 + 464)) / a5;
-  UpdateFrequency = __DisplayGetUpdateFrequency(a1, v11);
+  v12 = (a4 - *(a1 + 464)) / a5;
+  UpdateFrequency = __DisplayGetUpdateFrequency(a1, v12);
   *(a1 + 492) = _DisplayLuminanceToPerceptualLuminanceInternal(a1, *(a1 + 464));
   *(a1 + 496) = *(a1 + 492);
   *(a1 + 488) = _DisplayLuminanceToPerceptualLuminanceInternal(a1, a4);
   if (_logHandle)
   {
-    v7 = _logHandle;
+    v8 = _logHandle;
   }
 
   else
   {
     if (_COREBRIGHTNESS_LOG_DEFAULT)
     {
-      v6 = _COREBRIGHTNESS_LOG_DEFAULT;
+      v7 = _COREBRIGHTNESS_LOG_DEFAULT;
     }
 
     else
     {
-      v6 = init_default_corebrightness_log();
+      v7 = init_default_corebrightness_log();
     }
 
-    v7 = v6;
+    v8 = v7;
   }
 
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    __os_log_helper_16_2_8_8_32_8_0_8_0_8_0_8_0_8_0_8_0_8_0(v17, "MAX cap", COERCE__INT64(*(a1 + 464)), COERCE__INT64(a4), COERCE__INT64(*(a1 + 496)), COERCE__INT64(*(a1 + 488)), COERCE__INT64(a5), COERCE__INT64(v11), COERCE__INT64(UpdateFrequency));
-    _os_log_impl(&dword_1DE8E5000, v7, OS_LOG_TYPE_DEFAULT, "[BRT update: %s]: begin ramp L: %0.2f -> %0.2f P: %0.2f -> %0.2f t: %f rate: %0.2f nits/s %0.2fhz", v17, 0x52u);
+    __os_log_helper_16_2_8_8_32_8_0_8_0_8_0_8_0_8_0_8_0_8_0(v18, "MAX cap", COERCE__INT64(*(a1 + 464)), COERCE__INT64(a4), COERCE__INT64(*(a1 + 496)), COERCE__INT64(*(a1 + 488)), COERCE__INT64(a5), COERCE__INT64(v12), COERCE__INT64(UpdateFrequency));
+    _os_log_impl(&dword_1DE8E5000, v8, OS_LOG_TYPE_DEFAULT, "[BRT update: %s]: begin ramp L: %0.2f -> %0.2f P: %0.2f -> %0.2f t: %f rate: %0.2f nits/s %0.2fhz", v18, 0x52u);
   }
 
   *&v5 = 1.0 / UpdateFrequency;
   __DisplayStartFadeWithType(a1, 18, v5);
-  *MEMORY[0x1E69E9840];
+  return result;
 }
 
-void _DisplayRampDoneCallback(uint64_t a1)
+void _DisplayRampDoneCallback(uint64_t result)
 {
-  if (a1)
+  if (result)
   {
-    if (_DisplayCLTMRev2Applicable(a1))
+    if (_DisplayCLTMRev2Applicable(result))
     {
-      *(a1 + 464) = 0;
-      SetBLDriverNitsValueIfNotInLPM(a1, 0);
+      *(result + 464) = 0;
+      SetBLDriverNitsValueIfNotInLPM(result, 0);
     }
   }
 }
@@ -6678,8 +6362,6 @@ void SetPreStrobeState(_BYTE *a1, char a2)
 
     SetIOMFBBrightness(v19, v17, 1);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 float _DisplayGetGlobalScalarFromDictionary(uint64_t a1, int a2, const __CFDictionary *a3)
@@ -6780,18 +6462,18 @@ float _DisplayGetGlobalScalarFromDictionary(uint64_t a1, int a2, const __CFDicti
   }
 }
 
-void DisplayEnableFullBrightnessRangeAccessOverride(uint64_t a1, char a2)
+float DisplayEnableFullBrightnessRangeAccessOverride(uint64_t a1, char a2)
 {
-  v42 = *MEMORY[0x1E69E9840];
-  v39 = a1;
-  v38 = a2;
+  v41 = *MEMORY[0x1E69E9840];
+  v38 = a1;
+  v37 = a2;
   if (a2)
   {
-    if ((*(v39 + 1548) & 1) == 0)
+    if ((*(v38 + 1548) & 1) == 0)
     {
       if (_logHandle)
       {
-        v19 = _logHandle;
+        v18 = _logHandle;
       }
 
       else
@@ -6806,157 +6488,157 @@ void DisplayEnableFullBrightnessRangeAccessOverride(uint64_t a1, char a2)
           inited = init_default_corebrightness_log();
         }
 
-        v19 = inited;
+        v18 = inited;
       }
 
-      v37 = v19;
-      v36 = 2;
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+      v36 = v18;
+      v35 = 2;
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
       {
-        log = v37;
-        type = v36;
-        __os_log_helper_16_0_0(v35);
-        _os_log_debug_impl(&dword_1DE8E5000, log, type, "DisplayEnableFullBrightnessRangeAccessOverride: Enable", v35, 2u);
+        log = v36;
+        type = v35;
+        __os_log_helper_16_0_0(v34);
+        _os_log_debug_impl(&dword_1DE8E5000, log, type, "DisplayEnableFullBrightnessRangeAccessOverride: Enable", v34, 2u);
       }
 
-      v2 = *(v39 + 1544);
-      *(v39 + 1312) = v2;
-      *(v39 + 1300) = v2;
-      v34 = *(v39 + 64);
-      v33 = *(v39 + 72);
-      if (*(v39 + 1517))
+      v2 = *(v38 + 1544);
+      *(v38 + 1312) = v2;
+      *(v38 + 1300) = v2;
+      v33 = *(v38 + 64);
+      v32 = *(v38 + 72);
+      if (*(v38 + 1517))
       {
-        for (i = v34 / 2; i < v34; ++i)
+        for (i = v33 / 2; i < v33; ++i)
         {
-          v31 = *(v39 + 1544);
-          v30 = 1.0;
-          v29 = (((i - v34 / 2) / (v34 - 1 - v34 / 2)) * ((*(v39 + 1536) / v31) - 1.0)) + 1.0;
-          if (v29 > 0.0)
+          v30 = *(v38 + 1544);
+          v29 = 1.0;
+          v28 = (((i - v33 / 2) / (v33 - 1 - v33 / 2)) * ((*(v38 + 1536) / v30) - 1.0)) + 1.0;
+          if (v28 > 0.0)
           {
-            *(v33 + 4 * i) = *(v33 + 4 * i) / v29;
+            *(v32 + 4 * i) = *(v32 + 4 * i) / v28;
           }
 
           if (_logHandle)
           {
-            v15 = _logHandle;
+            v14 = _logHandle;
           }
 
           else
           {
             if (_COREBRIGHTNESS_LOG_DEFAULT)
             {
-              v14 = _COREBRIGHTNESS_LOG_DEFAULT;
+              v13 = _COREBRIGHTNESS_LOG_DEFAULT;
             }
 
             else
             {
-              v14 = init_default_corebrightness_log();
+              v13 = init_default_corebrightness_log();
             }
 
-            v15 = v14;
+            v14 = v13;
           }
 
-          v28 = v15;
-          v27 = OS_LOG_TYPE_DEBUG;
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+          v27 = v14;
+          v26 = OS_LOG_TYPE_DEBUG;
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
           {
-            __os_log_helper_16_0_3_8_0_8_0_8_0(v41, i, COERCE__INT64(*(v33 + 4 * i)), COERCE__INT64(v29));
-            _os_log_debug_impl(&dword_1DE8E5000, v28, v27, "Rescaled marketing table %ld: %f (factor %f)", v41, 0x20u);
+            __os_log_helper_16_0_3_8_0_8_0_8_0(v40, i, COERCE__INT64(*(v32 + 4 * i)), COERCE__INT64(v28));
+            _os_log_debug_impl(&dword_1DE8E5000, v27, v26, "Rescaled marketing table %ld: %f (factor %f)", v40, 0x20u);
           }
         }
       }
 
-      v3 = *(v39 + 1312);
-      *(v39 + 460) = v3;
-      *(v39 + 464) = v3;
-      v4 = *(v39 + 1312);
-      *(v39 + 460) = v4;
-      *(v39 + 528) = v4;
-      *(v39 + 1548) = 1;
+      v3 = *(v38 + 1312);
+      *(v38 + 460) = v3;
+      *(v38 + 464) = v3;
+      result = *(v38 + 1312);
+      *(v38 + 460) = result;
+      *(v38 + 528) = result;
+      *(v38 + 1548) = 1;
     }
   }
 
-  else if (*(v39 + 1548))
+  else if (*(v38 + 1548))
   {
     if (_logHandle)
     {
-      v13 = _logHandle;
+      v12 = _logHandle;
     }
 
     else
     {
       if (_COREBRIGHTNESS_LOG_DEFAULT)
       {
-        v12 = _COREBRIGHTNESS_LOG_DEFAULT;
+        v11 = _COREBRIGHTNESS_LOG_DEFAULT;
       }
 
       else
       {
-        v12 = init_default_corebrightness_log();
+        v11 = init_default_corebrightness_log();
       }
 
-      v13 = v12;
+      v12 = v11;
     }
 
-    v26 = v13;
-    v25 = 2;
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+    v25 = v12;
+    v24 = 2;
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
-      v10 = v26;
-      v11 = v25;
-      __os_log_helper_16_0_0(v24);
-      _os_log_debug_impl(&dword_1DE8E5000, v10, v11, "DisplayEnableFullBrightnessRangeAccessOverride: Disable", v24, 2u);
+      v9 = v25;
+      v10 = v24;
+      __os_log_helper_16_0_0(v23);
+      _os_log_debug_impl(&dword_1DE8E5000, v9, v10, "DisplayEnableFullBrightnessRangeAccessOverride: Disable", v23, 2u);
     }
 
-    v5 = *(v39 + 1536);
-    *(v39 + 1312) = v5;
-    *(v39 + 1300) = v5;
-    v23 = *(v39 + 64);
-    v22 = *(v39 + 72);
-    if (*(v39 + 1517))
+    v5 = *(v38 + 1536);
+    *(v38 + 1312) = v5;
+    *(v38 + 1300) = v5;
+    v22 = *(v38 + 64);
+    v21 = *(v38 + 72);
+    if (*(v38 + 1517))
     {
-      for (j = v23 / 2; j < v23; ++j)
+      for (j = v22 / 2; j < v22; ++j)
       {
-        v20 = (((j - v23 / 2) / (v23 - 1 - v23 / 2)) * ((*(v39 + 1536) / *(v39 + 1544)) - 1.0)) + 1.0;
-        *(v22 + 4 * j) = *(v22 + 4 * j) * v20;
+        v19 = (((j - v22 / 2) / (v22 - 1 - v22 / 2)) * ((*(v38 + 1536) / *(v38 + 1544)) - 1.0)) + 1.0;
+        *(v21 + 4 * j) = *(v21 + 4 * j) * v19;
         if (_logHandle)
         {
-          v9 = _logHandle;
+          v8 = _logHandle;
         }
 
         else
         {
           if (_COREBRIGHTNESS_LOG_DEFAULT)
           {
-            v8 = _COREBRIGHTNESS_LOG_DEFAULT;
+            v7 = _COREBRIGHTNESS_LOG_DEFAULT;
           }
 
           else
           {
-            v8 = init_default_corebrightness_log();
+            v7 = init_default_corebrightness_log();
           }
 
-          v9 = v8;
+          v8 = v7;
         }
 
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
         {
-          __os_log_helper_16_0_3_8_0_8_0_8_0(v40, j, COERCE__INT64(*(v22 + 4 * j)), COERCE__INT64(v20));
-          _os_log_debug_impl(&dword_1DE8E5000, v9, OS_LOG_TYPE_DEBUG, "Rescaled marketing table %ld: %f (factor %f)", v40, 0x20u);
+          __os_log_helper_16_0_3_8_0_8_0_8_0(v39, j, COERCE__INT64(*(v21 + 4 * j)), COERCE__INT64(v19));
+          _os_log_debug_impl(&dword_1DE8E5000, v8, OS_LOG_TYPE_DEBUG, "Rescaled marketing table %ld: %f (factor %f)", v39, 0x20u);
         }
       }
     }
 
-    v6 = *(v39 + 1312);
-    *(v39 + 460) = v6;
-    *(v39 + 464) = v6;
-    v7 = *(v39 + 1312);
-    *(v39 + 460) = v7;
-    *(v39 + 528) = v7;
-    *(v39 + 1548) = 0;
+    v6 = *(v38 + 1312);
+    *(v38 + 460) = v6;
+    *(v38 + 464) = v6;
+    result = *(v38 + 1312);
+    *(v38 + 460) = result;
+    *(v38 + 528) = result;
+    *(v38 + 1548) = 0;
   }
 
-  *MEMORY[0x1E69E9840];
+  return result;
 }
 
 void _DisplaySetAuroraFactorWithFade(uint64_t a1, float a2, float a3)
@@ -7061,8 +6743,6 @@ void _DisplaySetAuroraFactorWithFade(uint64_t a1, float a2, float a3)
     __os_log_helper_16_2_4_8_32_8_0_8_0_8_0(v14, "Aurora Factor", COERCE__INT64(*(a1 + 12980)), COERCE__INT64(*(a1 + 12976)), *(a1 + 12960));
     _os_log_impl(&dword_1DE8E5000, v6, OS_LOG_TYPE_DEFAULT, "[BRT update: %s]: %f -> %f t: %f", v14, 0x2Au);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 uint64_t _DisplayRampIsRunning(uint64_t a1)
@@ -7347,8 +7027,6 @@ void _DisplaySetRestrictionFactorWithFade(uint64_t a1, char a2, float a3, float 
     __os_log_helper_16_2_7_8_32_8_32_8_0_8_0_8_0_8_0_8_0(v19, "Restriction Factor", v7, COERCE__INT64(*(v12 + 28)), COERCE__INT64(*(v12 + 24)), *(v12 + 8), COERCE__INT64(*(a1 + 976)), COERCE__INT64(*(a1 + 980)));
     _os_log_impl(&dword_1DE8E5000, v9, OS_LOG_TYPE_DEFAULT, "[BRT update: %s]: %s: %f -> %f t: %f pivotingL: min = %f, max = %f", v19, 0x48u);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 void DisplaySetRestrictionFactorWithFade(uint64_t a1, char a2, float a3, float a4, float a5, float a6)
@@ -7572,7 +7250,6 @@ float __DisplayGetUpdateFrequency(uint64_t a1, float a2)
     v3 = *(a1 + 388);
   }
 
-  *MEMORY[0x1E69E9840];
   return fminf(fmaxf(v9, v4), v3);
 }
 
@@ -7755,8 +7432,6 @@ void _DisplaySetVirtualBrightnessWithFade(uint64_t a1, unsigned int a2, void (*a
     v6 = *(a1 + 1440);
     __DisplaySetVirtualBrightnessWithFadeInternal(a1, *(a1 + 1492), v6, a2, a3, a4);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 uint64_t __os_log_helper_16_0_5_8_0_8_0_4_0_8_0_8_0(uint64_t result, uint64_t a2, uint64_t a3, int a4, uint64_t a5, uint64_t a6)
@@ -7894,8 +7569,6 @@ void __DisplayUpdateAAPFactor(uint64_t a1)
 
     __DisplaySetAAPFactor(a1, v3);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 void __DisplaySetReflectedBrightnessWithFade_block_invoke(uint64_t a1)
@@ -8066,8 +7739,6 @@ void __DisplaySetReflectedBrightnessWithFade_block_invoke(uint64_t a1)
       _os_log_impl(&dword_1DE8E5000, v3, OS_LOG_TYPE_DEFAULT, "[BRT update: %s]: %f -> %f t: %f interval: %0.2f L_reflected: %f", v14, 0x3Eu);
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 void DisplayCancelReflectedBrightnessFade(uint64_t a1)
@@ -8187,8 +7858,6 @@ void __DisplayFadeUpdateAuroraFactorFade(uint64_t a1, uint64_t a2, double a3)
       v5(v6, @"AuroraRampInProgress", *MEMORY[0x1E695E4D0]);
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 void DisplayCancelRestrictionFactorFade(uint64_t a1, int a2)
@@ -8419,7 +8088,7 @@ void __DisplaySetVirtualBrightnessWithFadeInternal(uint64_t a1, float a2, float 
     *(a1 + 1460) = v6;
     *(a1 + 1464) = v6;
     *(a1 + 1456) = v6;
-    __DisplaySetLogicalBrightnessInternal(a1, 0x2000, *(a1 + 1256));
+    __DisplaySetLogicalBrightnessInternal(a1, 0x2000u, *(a1 + 1256));
   }
 
   else
@@ -8488,8 +8157,6 @@ void __DisplaySetVirtualBrightnessWithFadeInternal(uint64_t a1, float a2, float 
     __os_log_helper_16_2_8_8_32_8_0_8_0_8_0_8_0_8_0_8_0_8_0(v17, "Virtual Brightness", COERCE__INT64(*(a1 + 1488)), COERCE__INT64(a2), COERCE__INT64(*(a1 + 1464)), COERCE__INT64(*(a1 + 1456)), *(a1 + 1440), COERCE__INT64(v13), COERCE__INT64(UpdateFrequency));
     _os_log_impl(&dword_1DE8E5000, v9, OS_LOG_TYPE_DEFAULT, "[BRT update: %s]: L: %0.2f -> %0.2f P: %0.2f -> %0.2f t: %f rate: %0.2f nits/s %0.2fhz", v17, 0x52u);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 void __BLPropertyChangedCallback(uint64_t a1, const void *a2, uint64_t a3)
@@ -8515,7 +8182,7 @@ void __BLPropertyChangedCallback(uint64_t a1, const void *a2, uint64_t a3)
   }
 }
 
-uint64_t __DisplayHasDCP_block_invoke(uint64_t a1)
+void *__DisplayHasDCP_block_invoke(uint64_t a1)
 {
   v4 = a1;
   v3 = a1;
@@ -8780,7 +8447,6 @@ uint64_t brightnessThread(uint64_t a1)
     _os_log_error_impl(&dword_1DE8E5000, log, type, "brightnessThread: mach_msg_receive() failed: %{public}s\n", v14, 0xCu);
   }
 
-  *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -9020,8 +8686,6 @@ LABEL_61:
   {
     CFRelease(v45);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 uint64_t __os_log_helper_16_0_5_8_0_8_0_4_0_8_0_4_0(uint64_t result, uint64_t a2, uint64_t a3, int a4, uint64_t a5, int a6)
@@ -9105,7 +8769,6 @@ float _DisplayCalculateGlobalScalar(uint64_t a1, float *a2)
     }
   }
 
-  *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -9152,28 +8815,28 @@ void __DisplayLogTimerCallback(uint64_t a1)
 
 void __SetPreStrobeState_block_invoke(uint64_t a1)
 {
-  v8 = a1;
-  v17 = *MEMORY[0x1E69E9840];
+  v9 = a1;
+  v18 = *MEMORY[0x1E69E9840];
+  v16 = a1;
   v15 = a1;
-  v14 = a1;
   if (*(*(a1 + 32) + 16))
   {
-    v13 = *(*(v8 + 32) + 1520);
-    if (*(v8 + 40))
+    v14 = *(*(v9 + 32) + 1520);
+    if (*(v9 + 40))
     {
-      v13 = 1.0;
+      v14 = 1.0;
     }
 
     v1 = objc_alloc(MEMORY[0x1E696AD98]);
-    *&v2 = v13;
-    v12 = [v1 initWithFloat:v2];
-    v11 = [objc_alloc(MEMORY[0x1E695DF20]) initWithObjectsAndKeys:{v12, @"Scaler", 0}];
+    *&v2 = v14;
+    v13 = [v1 initWithFloat:v2];
+    v12 = [objc_alloc(MEMORY[0x1E695DF20]) initWithObjectsAndKeys:{v13, @"Scaler", 0}];
+    v3 = MEMORY[0x1E69E5920](v13);
+    (*(*(v9 + 32) + 16))(*(*(v9 + 32) + 24), @"UpdateDigitalDimmingBrightnessScaler", v12, v3);
     MEMORY[0x1E69E5920](v12);
-    (*(*(v8 + 32) + 16))(*(*(v8 + 32) + 24), @"UpdateDigitalDimmingBrightnessScaler", v11);
-    MEMORY[0x1E69E5920](v11);
     if (_logHandle)
     {
-      v7 = _logHandle;
+      v8 = _logHandle;
     }
 
     else
@@ -9188,22 +8851,20 @@ void __SetPreStrobeState_block_invoke(uint64_t a1)
         inited = init_default_corebrightness_log();
       }
 
-      v7 = inited;
+      v8 = inited;
     }
 
-    oslog = v7;
+    oslog = v8;
     type = OS_LOG_TYPE_DEBUG;
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       log = oslog;
-      *v4 = type;
-      buf = v16;
-      __os_log_helper_16_0_1_8_0(v16, COERCE__INT64(v13));
-      _os_log_debug_impl(&dword_1DE8E5000, log, v4[0], "Pre-strobe: setting Scalar=%f\n", buf, 0xCu);
+      *v5 = type;
+      buf = v17;
+      __os_log_helper_16_0_1_8_0(v17, COERCE__INT64(v14));
+      _os_log_debug_impl(&dword_1DE8E5000, log, v5[0], "Pre-strobe: setting Scalar=%f\n", buf, 0xCu);
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 void SetWiggledDigitalDimmingScalar(uint64_t a1, float a2)
@@ -9226,24 +8887,25 @@ void SetWiggledDigitalDimmingScalar(uint64_t a1, float a2)
   dispatch_async(v2, &block);
 }
 
-uint64_t __SetBLDriverNitsValue_block_invoke(uint64_t result)
+double __SetBLDriverNitsValue_block_invoke(uint64_t a1)
 {
-  v3 = result;
-  v8 = result;
-  v7 = result;
-  if (*(*(result + 32) + 16))
+  v5 = a1;
+  v10 = a1;
+  v9 = a1;
+  if (*(*(a1 + 32) + 16))
   {
-    v6 = *(v3 + 40) / *(*(v3 + 32) + 1532);
-    if (*(*(v3 + 32) + 1520) != v6)
+    v8 = *(v5 + 40) / *(*(v5 + 32) + 1532);
+    LODWORD(result) = *(*(v5 + 32) + 1520);
+    if (*&result != v8)
     {
-      v1 = objc_alloc(MEMORY[0x1E696AD98]);
-      *&v2 = v6;
-      v5 = [v1 initWithFloat:v2];
-      v4 = [objc_alloc(MEMORY[0x1E695DF20]) initWithObjectsAndKeys:{v5, @"Scaler", 0}];
-      MEMORY[0x1E69E5920](v5);
-      (*(*(v3 + 32) + 16))(*(*(v3 + 32) + 24), @"UpdateDigitalDimmingBrightnessScaler", v4);
-      *(*(v3 + 32) + 1520) = v6;
-      return MEMORY[0x1E69E5920](v4);
+      v2 = objc_alloc(MEMORY[0x1E696AD98]);
+      *&v3 = v8;
+      v7 = [v2 initWithFloat:v3];
+      v6 = [objc_alloc(MEMORY[0x1E695DF20]) initWithObjectsAndKeys:{v7, @"Scaler", 0}];
+      v4 = MEMORY[0x1E69E5920](v7);
+      (*(*(v5 + 32) + 16))(*(*(v5 + 32) + 24), @"UpdateDigitalDimmingBrightnessScaler", v6, v4);
+      *(*(v5 + 32) + 1520) = v8;
+      *&result = MEMORY[0x1E69E5920](v6).n128_u64[0];
     }
   }
 
@@ -9259,11 +8921,11 @@ float __SetBLDriverNitsValue_block_invoke_2(uint64_t a1)
     {
       v2 = objc_alloc(MEMORY[0x1E696AD98]);
       LODWORD(v3) = 1.0;
-      v6 = [v2 initWithFloat:v3];
-      v5 = [objc_alloc(MEMORY[0x1E695DF20]) initWithObjectsAndKeys:{v6, @"Scaler", 0}];
+      v7 = [v2 initWithFloat:v3];
+      v6 = [objc_alloc(MEMORY[0x1E695DF20]) initWithObjectsAndKeys:{v7, @"Scaler", 0}];
+      v4 = MEMORY[0x1E69E5920](v7);
+      (*(*(a1 + 32) + 16))(*(*(a1 + 32) + 24), @"UpdateDigitalDimmingBrightnessScaler", v6, v4);
       MEMORY[0x1E69E5920](v6);
-      (*(*(a1 + 32) + 16))(*(*(a1 + 32) + 24), @"UpdateDigitalDimmingBrightnessScaler", v5);
-      MEMORY[0x1E69E5920](v5);
       result = 1.0;
       *(*(a1 + 32) + 1520) = 1.0;
     }
@@ -9281,11 +8943,11 @@ float __SetBLDriverNitsValue_block_invoke_3(uint64_t a1)
     {
       v2 = objc_alloc(MEMORY[0x1E696AD98]);
       LODWORD(v3) = 1.0;
-      v6 = [v2 initWithFloat:v3];
-      v5 = [objc_alloc(MEMORY[0x1E695DF20]) initWithObjectsAndKeys:{v6, @"Scaler", 0}];
+      v7 = [v2 initWithFloat:v3];
+      v6 = [objc_alloc(MEMORY[0x1E695DF20]) initWithObjectsAndKeys:{v7, @"Scaler", 0}];
+      v4 = MEMORY[0x1E69E5920](v7);
+      (*(*(a1 + 32) + 16))(*(*(a1 + 32) + 24), @"UpdateDigitalDimmingBrightnessScaler", v6, v4);
       MEMORY[0x1E69E5920](v6);
-      (*(*(a1 + 32) + 16))(*(*(a1 + 32) + 24), @"UpdateDigitalDimmingBrightnessScaler", v5);
-      MEMORY[0x1E69E5920](v5);
       result = 1.0;
       *(*(a1 + 32) + 1520) = 1.0;
     }
@@ -9294,55 +8956,55 @@ float __SetBLDriverNitsValue_block_invoke_3(uint64_t a1)
   return result;
 }
 
-uint64_t __SetBLDriverNitsValue_block_invoke_4(uint64_t result)
+double __SetBLDriverNitsValue_block_invoke_4(uint64_t a1, double result)
 {
-  v4 = result;
-  v9 = result;
-  v8 = result;
-  if (*(*(result + 32) + 16))
+  v5 = a1;
+  v10 = a1;
+  v9 = a1;
+  if (*(*(a1 + 32) + 16))
   {
-    v1 = 1.0;
-    if (*(*(v4 + 32) + 1520) != 1.0)
+    v2 = 1.0;
+    if (*(*(v5 + 32) + 1520) != 1.0)
     {
-      v1 = 1.0;
+      v2 = 1.0;
     }
 
-    v7 = v1;
-    v2 = objc_alloc(MEMORY[0x1E696AD98]);
-    *&v3 = v7;
-    v6 = [v2 initWithFloat:v3];
-    v5 = [objc_alloc(MEMORY[0x1E695DF20]) initWithObjectsAndKeys:{v6, @"Scaler", 0}];
-    (*(*(v4 + 32) + 16))(*(*(v4 + 32) + 24), @"UpdateDigitalDimmingBrightnessScaler", v5);
-    *(*(v4 + 32) + 1520) = v7;
-    MEMORY[0x1E69E5920](v6);
-    return MEMORY[0x1E69E5920](v5);
+    v8 = v2;
+    v3 = objc_alloc(MEMORY[0x1E696AD98]);
+    *&v4 = v8;
+    v7 = [v3 initWithFloat:v4];
+    v6 = [objc_alloc(MEMORY[0x1E695DF20]) initWithObjectsAndKeys:{v7, @"Scaler", 0}];
+    (*(*(v5 + 32) + 16))(*(*(v5 + 32) + 24), @"UpdateDigitalDimmingBrightnessScaler", v6);
+    *(*(v5 + 32) + 1520) = v8;
+    MEMORY[0x1E69E5920](v7);
+    *&result = MEMORY[0x1E69E5920](v6).n128_u64[0];
   }
 
   return result;
 }
 
-uint64_t __SetWiggledDigitalDimmingScalar_block_invoke(uint64_t result)
+double __SetWiggledDigitalDimmingScalar_block_invoke(uint64_t a1)
 {
-  v3 = result;
-  v8 = result;
-  v7 = result;
-  if (*(*(result + 32) + 16))
+  v4 = a1;
+  v9 = a1;
+  v8 = a1;
+  if (*(*(a1 + 32) + 16))
   {
-    v6 = *(v3 + 40);
-    if (v6 == *(*(v3 + 32) + 1520))
+    v7 = *(v4 + 40);
+    if (v7 == *(*(v4 + 32) + 1520))
     {
-      v6 = v6 + (0.000001 * SetWiggledDigitalDimmingScalar_direction);
+      v7 = v7 + (0.000001 * SetWiggledDigitalDimmingScalar_direction);
       SetWiggledDigitalDimmingScalar_direction = -SetWiggledDigitalDimmingScalar_direction;
     }
 
     v1 = objc_alloc(MEMORY[0x1E696AD98]);
-    *&v2 = v6;
-    v5 = [v1 initWithFloat:v2];
-    v4 = [objc_alloc(MEMORY[0x1E695DF20]) initWithObjectsAndKeys:{v5, @"Scaler", 0}];
-    (*(*(v3 + 32) + 16))(*(*(v3 + 32) + 24), @"UpdateDigitalDimmingBrightnessScaler", v4);
-    *(*(v3 + 32) + 1520) = v6;
-    MEMORY[0x1E69E5920](v5);
-    return MEMORY[0x1E69E5920](v4);
+    *&v2 = v7;
+    v6 = [v1 initWithFloat:v2];
+    v5 = [objc_alloc(MEMORY[0x1E695DF20]) initWithObjectsAndKeys:{v6, @"Scaler", 0}];
+    (*(*(v4 + 32) + 16))(*(*(v4 + 32) + 24), @"UpdateDigitalDimmingBrightnessScaler", v5);
+    *(*(v4 + 32) + 1520) = v7;
+    MEMORY[0x1E69E5920](v6);
+    *&result = MEMORY[0x1E69E5920](v5).n128_u64[0];
   }
 
   return result;
@@ -9486,8 +9148,6 @@ void __DisplaySetPhysicalBrightnessLegacy(float *a1, mach_port_t a2, float a3, d
       }
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 uint64_t _DisplayAdaptiveDimmingLeftCallback(uint64_t a1)
@@ -9502,18 +9162,16 @@ uint64_t _DisplayAdaptiveDimmingLeftCallback(uint64_t a1)
 
 uint64_t __DisplayGetInstantPower(uint64_t a1)
 {
-  v11 = a1;
-  v6 = 0;
-  v7 = &v6;
-  v8 = 0x20000000;
-  v9 = 32;
-  v10 = 0x8000000000000000;
+  v9 = a1;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x20000000;
+  v7 = 32;
+  v8 = 0x8000000000000000;
   if (*(a1 + 12168))
   {
-    if (*(v11 + 12160))
+    if (*(v9 + 12160))
     {
-      v1 = *(v11 + 12168);
-      v2 = *(v11 + 12160);
       Samples = IOReportCreateSamples();
       if (Samples)
       {
@@ -9523,25 +9181,23 @@ uint64_t __DisplayGetInstantPower(uint64_t a1)
     }
   }
 
-  v4 = v7[3];
-  _Block_object_dispose(&v6, 8);
-  return v4;
+  v2 = v5[3];
+  _Block_object_dispose(&v4, 8);
+  return v2;
 }
 
 void __DisplayUpdateHDRCap(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   CPMSPowerConstraint = __DisplayGetCPMSPowerConstraint(a1);
   APLColumnOrDefault = DisplayGetAPLColumnOrDefault(a1, 0x64u);
-  v7 = DisplayPowerToPhysicalBrightness(a1, APLColumnOrDefault, CPMSPowerConstraint);
-  *(a1 + 323);
-  *(a1 + 12188);
-  v6 = fmaxf(*(a1 + 12108) * *(a1 + 12188), v7);
-  if (*(a1 + 12108) > v7)
+  v6 = DisplayPowerToPhysicalBrightness(a1, APLColumnOrDefault, CPMSPowerConstraint);
+  v5 = fmaxf(*(a1 + 12108) * *(a1 + 12188), v6);
+  if (*(a1 + 12108) > v6)
   {
     if (_logHandle)
     {
-      v5 = _logHandle;
+      v4 = _logHandle;
     }
 
     else
@@ -9556,31 +9212,28 @@ void __DisplayUpdateHDRCap(uint64_t a1)
         inited = init_default_corebrightness_log();
       }
 
-      v5 = inited;
+      v4 = inited;
     }
 
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      __os_log_helper_16_0_2_8_0_8_0(v11, COERCE__INT64(*(a1 + 12108)), COERCE__INT64(v6));
-      _os_log_impl(&dword_1DE8E5000, v5, OS_LOG_TYPE_INFO, "CPMS: Current HDR Power consumption is too high. Lowering from %f to %f", v11, 0x16u);
+      __os_log_helper_16_0_2_8_0_8_0(v10, COERCE__INT64(*(a1 + 12108)), COERCE__INT64(v5));
+      _os_log_impl(&dword_1DE8E5000, v4, OS_LOG_TYPE_INFO, "CPMS: Current HDR Power consumption is too high. Lowering from %f to %f", v10, 0x16u);
     }
 
     if (*(a1 + 12180))
     {
-      v1 = __DisplayCPMSHDRFactor(a1, v6);
+      v1 = __DisplayCPMSHDRFactor(a1, v5);
       __DisplaySetHDRFactorWithFade(a1, 0, 0, v1, 1.0);
     }
 
     else
     {
-      *(a1 + 12108) = v6;
-      v2 = *(a1 + 1500);
-      v3 = _DisplayComputeEDRNitsCap(a1);
-      SetLibEDRBrightness(a1, *(a1 + 1500), v3, *(a1 + 1192), *(a1 + 12528));
+      *(a1 + 12108) = v5;
+      v2 = _DisplayComputeEDRNitsCap(a1);
+      SetLibEDRBrightness(a1, *(a1 + 1500), v2, *(a1 + 1192), *(a1 + 12528));
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 uint64_t __os_log_helper_16_0_4_8_0_8_0_4_0_4_0(uint64_t result, uint64_t a2, uint64_t a3, int a4, int a5)
@@ -9735,7 +9388,7 @@ uint64_t __getMLFeatureValueClass_block_invoke_3(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = Class;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    result = abort_report_np();
+    result = abort_report_np("Unable to find class %s", "MLFeatureValue");
   }
 
   getMLFeatureValueClass_softClass_3 = *(*(*(a1 + 32) + 8) + 24);
@@ -9748,7 +9401,7 @@ uint64_t CoreMLLibrary_4()
   v1 = CoreMLLibraryCore_4(&v2);
   if (!v1)
   {
-    abort_report_np();
+    abort_report_np("%s", v2);
   }
 
   if (v2)
@@ -9780,11 +9433,8 @@ uint64_t CoreMLLibraryCore_4(uint64_t a1)
 
 uint64_t __CoreMLLibraryCore_block_invoke_4(uint64_t a1)
 {
-  v3 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   CoreMLLibraryCore_frameworkLibrary_4 = result;
-  *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -9796,7 +9446,7 @@ uint64_t __getMLModelClass_block_invoke_3(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = Class;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    result = abort_report_np();
+    result = abort_report_np("Unable to find class %s", "MLModel");
   }
 
   getMLModelClass_softClass_3 = *(*(*(a1 + 32) + 8) + 24);
@@ -9811,7 +9461,7 @@ uint64_t __getMLPredictionOptionsClass_block_invoke_3(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = Class;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    result = abort_report_np();
+    result = abort_report_np("Unable to find class %s", "MLPredictionOptions");
   }
 
   getMLPredictionOptionsClass_softClass_3 = *(*(*(a1 + 32) + 8) + 24);
@@ -9826,9 +9476,322 @@ uint64_t __getMLArrayBatchProviderClass_block_invoke_3(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = Class;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    result = abort_report_np();
+    result = abort_report_np("Unable to find class %s", "MLArrayBatchProvider");
   }
 
   getMLArrayBatchProviderClass_softClass_3 = *(*(*(a1 + 32) + 8) + 24);
   return result;
+}
+
+void AABC::SetDeviceInSleeve(NSObject **this, char a2)
+{
+  v11 = this;
+  v10 = a2;
+  v2 = this[488];
+  block = MEMORY[0x1E69E9820];
+  v4 = -1073741824;
+  v5 = 0;
+  v6 = ___ZN4AABC17SetDeviceInSleeveEb_block_invoke;
+  v7 = &__block_descriptor_41_e5_v8__0l;
+  v8 = v11;
+  v9 = a2 & 1;
+  dispatch_sync(v2, &block);
+}
+
+void AABCFactoryFunction(AABC *a1, const __CFAllocator *a2)
+{
+  if (AABCFactoryFunction::pred != -1)
+  {
+    dispatch_once(&AABCFactoryFunction::pred, &__block_literal_global_14);
+  }
+
+  AABC::alloc(a1, a2);
+}
+
+os_log_t __AABCFactoryFunction_block_invoke()
+{
+  result = os_log_create("com.apple.CoreBrightness.AABC", "default");
+  _logHandle = result;
+  return result;
+}
+
+AABC *AABC::alloc(AABC *this, const __CFAllocator *a2, AAB::UpdateCurveStrategy *a3)
+{
+  v12 = this;
+  v11 = a2;
+  v10 = MEMORY[0x1E12C3440](this, 4016, 0x10A1040A90B1919, 0);
+  if (v10)
+  {
+    v7 = v10;
+    v3 = *MEMORY[0x1E695E4A8];
+    p_byte7 = &byte7;
+    v9 = CFUUIDGetConstantUUIDWithBytes(v3, 0x96u, 0x5Fu, 0xC3u, 0xCBu, 0x16u, 0xB8u, 0x48u, 0x2Fu, 0xA6u, 0xC6u, 0x48u, 0x63u, 7u, 0x52u, 0x16u, 0xE9u);
+    AABC::AABC(v7, v9, v11);
+    return v7;
+  }
+
+  else
+  {
+    v6 = v11;
+    if (v11)
+    {
+      (*(*v6 + 8))(v6);
+    }
+  }
+
+  return v10;
+}
+
+void AABC::AABC(AABC *this, const __CFUUID *a2, AAB::UpdateCurveStrategy *a3)
+{
+  AABC::AABC(this, a2, a3);
+}
+
+{
+  v8 = *MEMORY[0x1E69E9840];
+  AAB::AAB(this, a3);
+  *this = &unk_1F599B890;
+  *(this + 136) = 0;
+  *(this + 144) = 0;
+  *(this + 19) = 0;
+  *(this + 160) = 0;
+  *(this + 161) = 0;
+  *(this + 162) = 0;
+  AABC::ALSFilter::ALSFilter((this + 168));
+  AABC::ALSFilter::ALSFilter((this + 216));
+  *(this + 264) = 0;
+  *(this + 35) = 0;
+  *(this + 36) = 0;
+  std::bitset<3ul>::bitset[abi:de200100](this + 37, 0);
+  *(this + 76) = -1.0;
+  *(this + 308) = 0;
+  *(this + 79) = 17;
+  *(this + 90) = 0;
+  *(this + 91) = 0;
+  *(this + 92) = 1;
+  *(this + 392) = 0;
+  *(this + 393) = 0;
+  *(this + 50) = 0;
+  *(this + 52) = 0;
+  *(this + 53) = 0;
+  *(this + 432) = 0;
+  *(this + 433) = 0;
+  *(this + 434) = 0;
+  *(this + 435) = 0;
+  *(this + 436) = 0;
+  *(this + 437) = 0;
+  *(this + 110) = 0;
+  *(this + 444) = 0;
+  *(this + 56) = 0;
+  *(this + 57) = 0;
+  *(this + 58) = 0;
+  *(this + 59) = 0;
+  *(this + 120) = 0;
+  *(this + 121) = 0;
+  *(this + 122) = 0;
+  *(this + 496) = 0;
+  *(this + 497) = 0;
+  *(this + 125) = 0;
+  *(this + 126) = 1;
+  *(this + 127) = 1;
+  *(this + 128) = 0;
+  *(this + 129) = 0;
+  *(this + 130) = 0;
+  *(this + 131) = 0.5;
+  *(this + 132) = 1138819072;
+  *(this + 133) = 1138819072;
+  *(this + 134) = -1.0;
+  *(this + 135) = -1.0;
+  *(this + 136) = -1.0;
+  *(this + 137) = 1138819072;
+  *(this + 140) = 0;
+  *(this + 141) = 1;
+  *(this + 146) = 255;
+  *(this + 74) = 0;
+  *(this + 150) = 0;
+  *(this + 151) = 0;
+  *(this + 152) = 0;
+  *(this + 154) = 0;
+  *(this + 155) = 0;
+  *(this + 156) = 0;
+  *(this + 628) = 0;
+  memset(this + 632, 0, 0x28uLL);
+  *(this + 168) = 0;
+  *(this + 169) = 0;
+  *(this + 85) = 0;
+  *(this + 86) = 0;
+  *(this + 87) = 1045220557;
+  *(this + 176) = 0;
+  *(this + 177) = 5.0;
+  *(this + 178) = 1124859904;
+  *(this + 179) = 1140457472;
+  *(this + 180) = 5.0;
+  *(this + 181) = 1124859904;
+  *(this + 182) = 1140457472;
+  *(this + 184) = 5;
+  *(this + 1560) = 0;
+  *(this + 721) = 0;
+  *(this + 722) = 0;
+  *(this + 723) = 0;
+  *(this + 2896) = 0;
+  *(this + 3328) = 0;
+  *(this + 3409) = 0;
+  *(this + 853) = 1;
+  *(this + 3424) = 0;
+  *(this + 3425) = 0;
+  *(this + 3426) = 1;
+  *(this + 857) = 0;
+  *(this + 3432) = AABC::_defaultSettings;
+  *(this + 3448) = xmmword_1DEACE5F0;
+  *(this + 866) = 3;
+  *(this + 3468) = 0;
+  *(this + 3720) = 1;
+  *(this + 466) = 0;
+  *(this + 938) = 0;
+  *(this + 3757) = 1;
+  *(this + 940) = 3.0;
+  *(this + 941) = 0;
+  *(this + 942) = 0;
+  *(this + 943) = 0;
+  *(this + 944) = 0;
+  *(this + 945) = 0;
+  *(this + 946) = 0;
+  *(this + 947) = 0;
+  *(this + 474) = 0;
+  *(this + 950) = 0;
+  *(this + 951) = 1045220557;
+  *(this + 952) = 1045220557;
+  *(this + 953) = 981668463;
+  *(this + 954) = 1036831949;
+  *(this + 955) = 1036831949;
+  *(this + 956) = 0;
+  *(this + 479) = 0;
+  *(this + 960) = 0;
+  *(this + 961) = 1.0;
+  *(this + 481) = os_log_create("com.apple.CoreBrightness.AABC", "LowPowerMode");
+  *(this + 965) = 0;
+  *(this + 483) = 1;
+  *(this + 968) = 0;
+  *(this + 486) = objc_alloc_init(CBLowPowerMode);
+  *(this + 488) = 0;
+  *(this + 3992) = 0;
+  *(this + 500) = 0;
+  *(this + 4008) = 0;
+  _logHandle = os_log_create("com.apple.CoreBrightness.AABC", "default");
+  if (_logHandle)
+  {
+    v5 = _logHandle;
+  }
+
+  else
+  {
+    if (_COREBRIGHTNESS_LOG_DEFAULT)
+    {
+      inited = _COREBRIGHTNESS_LOG_DEFAULT;
+    }
+
+    else
+    {
+      inited = init_default_corebrightness_log();
+    }
+
+    v5 = inited;
+  }
+
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  {
+    __os_log_helper_16_0_1_4_0(v7, 4);
+    _os_log_debug_impl(&dword_1DE8E5000, v5, OS_LOG_TYPE_DEBUG, "[%x]: ", v7, 8u);
+  }
+
+  memset(this + 632, 0, 0x28uLL);
+  *(this + 158) = 0;
+  *(this + 167) = 0;
+  *(this + 166) = *(this + 167);
+  *(this + 162) = 0;
+  *(this + 163) = 0;
+  *(this + 164) = 0;
+  *(this + 165) = 0;
+  *(this + 3376) = 0;
+  *(this + 423) = 0;
+  *(this + 425) = 0x4072C00000000000;
+  *(this + 424) = 0;
+  *(this + 845) = 3;
+  *(this + 3916) = 0;
+  *(this + 980) = 0;
+  *(this + 978) = 0;
+  *(this + 3924) = 0;
+  *(this + 464) = objc_alloc_init(ALSSelectionStats);
+  *(this + 467) = objc_alloc_init(AABCHistograms);
+  *(this + 468) = objc_alloc_init(ALSOcclusionStats);
+  if (+[CBSoftWakeAABCDelegate isSupported])
+  {
+    v3 = objc_alloc_init(CBSoftWakeAABCDelegate);
+  }
+
+  else
+  {
+    v3 = 0;
+  }
+
+  *(this + 485) = v3;
+  AABC::UpdateState(this, 0);
+}
+
+void AABC::operator delete(void *a1)
+{
+  v5 = *MEMORY[0x1E69E9840];
+  if (_logHandle)
+  {
+    v2 = _logHandle;
+  }
+
+  else
+  {
+    if (_COREBRIGHTNESS_LOG_DEFAULT)
+    {
+      inited = _COREBRIGHTNESS_LOG_DEFAULT;
+    }
+
+    else
+    {
+      inited = init_default_corebrightness_log();
+    }
+
+    v2 = inited;
+  }
+
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  {
+    __os_log_helper_16_0_1_8_0(v4, a1);
+    _os_log_impl(&dword_1DE8E5000, v2, OS_LOG_TYPE_INFO, "%p", v4, 0xCu);
+  }
+
+  (*(*a1 + 32))(a1);
+  CFAllocatorDeallocate(*MEMORY[0x1E695E480], a1);
+}
+
+void sub_1DEA4C800(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, _Unwind_Exception *exception_object)
+{
+  if (a2)
+  {
+    __clang_call_terminate(a1);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void AAB::AAB(AAB *this, AAB::UpdateCurveStrategy *a2)
+{
+  *this = &unk_1F599B920;
+  *(this + 2) = 1070315492;
+  *(this + 3) = 1031954742;
+  *(this + 4) = 1070315492;
+  *(this + 5) = 0;
+  *(this + 6) = 1157234688;
+  *(this + 7) = 1133903872;
+  *(this + 8) = -1.0;
+  *(this + 9) = -1.0;
+  *(this + 8) = a2;
+  std::mutex::mutex[abi:de200100](this + 9);
 }

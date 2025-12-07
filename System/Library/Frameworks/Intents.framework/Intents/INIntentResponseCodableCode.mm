@@ -150,25 +150,25 @@
 
 - (id)dictionaryRepresentationWithLocalizer:(id)localizer
 {
-  v86[6] = *MEMORY[0x1E69E9840];
+  v85[6] = *MEMORY[0x1E69E9840];
   localizerCopy = localizer;
   _codableDescription = [(INIntentResponseCodableCode *)self _codableDescription];
   formatStringLocID = [(INIntentResponseCodableCode *)self formatStringLocID];
   formatString = [(INIntentResponseCodableCode *)self formatString];
   _localizationTable = [_codableDescription _localizationTable];
-  v80 = 0;
-  v9 = INLocalizedStringFromCodable(formatStringLocID, formatString, _localizationTable, localizerCopy, &v80);
-  v10 = v80;
+  v79 = 0;
+  v9 = INLocalizedStringFromCodable(formatStringLocID, formatString, _localizationTable, localizerCopy, &v79);
+  v10 = v79;
 
   conciseFormatStringLocID = [(INIntentResponseCodableCode *)self conciseFormatStringLocID];
   conciseFormatString = [(INIntentResponseCodableCode *)self conciseFormatString];
   _localizationTable2 = [_codableDescription _localizationTable];
-  v79 = 0;
-  v74 = INLocalizedStringFromCodable(conciseFormatStringLocID, conciseFormatString, _localizationTable2, localizerCopy, &v79);
-  v72 = v79;
+  v78 = 0;
+  v73 = INLocalizedStringFromCodable(conciseFormatStringLocID, conciseFormatString, _localizationTable2, localizerCopy, &v78);
+  v71 = v78;
 
   __INCodableDescriptionNameKey = [(INIntentResponseCodableCode *)self __INCodableDescriptionNameKey];
-  v85[0] = __INCodableDescriptionNameKey;
+  v84[0] = __INCodableDescriptionNameKey;
   name = [(INIntentResponseCodableCode *)self name];
   v15 = name;
   if (!name)
@@ -176,21 +176,21 @@
     name = [MEMORY[0x1E695DFB0] null];
   }
 
-  v62 = name;
-  v86[0] = name;
+  v61 = name;
+  v85[0] = name;
   __INCodableDescriptionFormatStringKey = [(INIntentResponseCodableCode *)self __INCodableDescriptionFormatStringKey];
-  v85[1] = __INCodableDescriptionFormatStringKey;
+  v84[1] = __INCodableDescriptionFormatStringKey;
   null = v9;
   if (!v9)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v68 = localizerCopy;
-  v61 = null;
-  v86[1] = null;
+  v67 = localizerCopy;
+  v60 = null;
+  v85[1] = null;
   __INCodableDescriptionFormatStringIDKey = [(INIntentResponseCodableCode *)self __INCodableDescriptionFormatStringIDKey];
-  v85[2] = __INCodableDescriptionFormatStringIDKey;
+  v84[2] = __INCodableDescriptionFormatStringIDKey;
   formatStringLocID2 = [(INIntentResponseCodableCode *)self formatStringLocID];
   v18 = formatStringLocID2;
   if (!formatStringLocID2)
@@ -198,23 +198,23 @@
     formatStringLocID2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v69 = v9;
-  v60 = formatStringLocID2;
-  v86[2] = formatStringLocID2;
+  v68 = v9;
+  v59 = formatStringLocID2;
+  v85[2] = formatStringLocID2;
   __INCodableDescriptionConciseFormatStringKey = [(INIntentResponseCodableCode *)self __INCodableDescriptionConciseFormatStringKey];
-  v85[3] = __INCodableDescriptionConciseFormatStringKey;
-  null2 = v74;
-  if (!v74)
+  v84[3] = __INCodableDescriptionConciseFormatStringKey;
+  null2 = v73;
+  if (!v73)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v66 = v15;
-  v70 = v10;
-  v71 = _codableDescription;
-  v86[3] = null2;
+  v65 = v15;
+  v69 = v10;
+  v70 = _codableDescription;
+  v85[3] = null2;
   __INCodableDescriptionConciseFormatStringIDKey = [(INIntentResponseCodableCode *)self __INCodableDescriptionConciseFormatStringIDKey];
-  v85[4] = __INCodableDescriptionConciseFormatStringIDKey;
+  v84[4] = __INCodableDescriptionConciseFormatStringIDKey;
   conciseFormatStringLocID2 = [(INIntentResponseCodableCode *)self conciseFormatStringLocID];
   null3 = conciseFormatStringLocID2;
   if (!conciseFormatStringLocID2)
@@ -222,9 +222,9 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v86[4] = null3;
+  v85[4] = null3;
   __INCodableDescriptionSuccessKey = [(INIntentResponseCodableCode *)self __INCodableDescriptionSuccessKey];
-  v85[5] = __INCodableDescriptionSuccessKey;
+  v84[5] = __INCodableDescriptionSuccessKey;
   v24 = [MEMORY[0x1E696AD98] numberWithBool:{-[INIntentResponseCodableCode isSuccess](self, "isSuccess")}];
   null4 = v24;
   if (!v24)
@@ -232,9 +232,9 @@
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v86[5] = null4;
-  v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v86 forKeys:v85 count:6];
-  v73 = [v26 mutableCopy];
+  v85[5] = null4;
+  v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v85 forKeys:v84 count:6];
+  v72 = [v26 mutableCopy];
 
   if (!v24)
   {
@@ -244,127 +244,125 @@
   {
   }
 
-  v27 = v70;
-  v28 = v71;
-  v29 = v73;
-  if (!v74)
+  v27 = v69;
+  v28 = v70;
+  v29 = v72;
+  if (!v73)
   {
   }
 
-  v30 = v69;
+  v30 = v68;
   if (!v18)
   {
   }
 
-  if (!v69)
+  if (!v68)
   {
   }
 
-  if (!v66)
+  if (!v65)
   {
   }
 
   __INCodableDescriptionFormatStringLanguageCodeKey = [(INIntentResponseCodableCode *)self __INCodableDescriptionFormatStringLanguageCodeKey];
-  [v73 setObject:v70 forKeyedSubscript:__INCodableDescriptionFormatStringLanguageCodeKey];
+  [v72 setObject:v69 forKeyedSubscript:__INCodableDescriptionFormatStringLanguageCodeKey];
 
   __INCodableDescriptionConciseFormatStringLanguageCodeKey = [(INIntentResponseCodableCode *)self __INCodableDescriptionConciseFormatStringLanguageCodeKey];
-  [v73 setObject:v72 forKeyedSubscript:__INCodableDescriptionConciseFormatStringLanguageCodeKey];
+  [v72 setObject:v71 forKeyedSubscript:__INCodableDescriptionConciseFormatStringLanguageCodeKey];
 
-  languageCode = [v68 languageCode];
+  languageCode = [v67 languageCode];
   v34 = [languageCode length];
 
   if (v34)
   {
-    if ([v69 length])
+    if ([v68 length])
     {
       formatString2 = [(INIntentResponseCodableCode *)self formatString];
       formatStringLocID3 = [(INIntentResponseCodableCode *)self formatStringLocID];
-      v78 = formatString2;
-      _localizationTable3 = [v71 _localizationTable];
-      v77 = 0;
-      v38 = INStringsDictEntryForKeyInTable(formatStringLocID3, &v78, _localizationTable3, v68, &v77);
-      v39 = v78;
+      v77 = formatString2;
+      _localizationTable3 = [v70 _localizationTable];
+      v76 = 0;
+      v38 = INStringsDictEntryForKeyInTable(formatStringLocID3, &v77, _localizationTable3, v67, &v76);
+      v39 = v77;
 
-      v40 = v77;
+      v40 = v76;
       if (v38)
       {
         __INCodableDescriptionFormatStringKey2 = [(INIntentResponseCodableCode *)self __INCodableDescriptionFormatStringKey];
-        v83[0] = __INCodableDescriptionFormatStringKey2;
+        v82[0] = __INCodableDescriptionFormatStringKey2;
         null5 = v39;
         if (!v39)
         {
           null5 = [MEMORY[0x1E695DFB0] null];
         }
 
-        v84[0] = null5;
+        v83[0] = null5;
         __INCodableDescriptionFormatStringDictionaryKey = [(INIntentResponseCodableCode *)self __INCodableDescriptionFormatStringDictionaryKey];
-        v83[1] = __INCodableDescriptionFormatStringDictionaryKey;
-        v84[1] = v38;
-        v44 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v84 forKeys:v83 count:2];
-        [v73 addEntriesFromDictionary:v44];
+        v82[1] = __INCodableDescriptionFormatStringDictionaryKey;
+        v83[1] = v38;
+        v44 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v83 forKeys:v82 count:2];
+        [v72 addEntriesFromDictionary:v44];
 
         if (!v39)
         {
         }
 
         __INCodableDescriptionFormatStringDictionaryLanguageCodeKey = [(INIntentResponseCodableCode *)self __INCodableDescriptionFormatStringDictionaryLanguageCodeKey];
-        [v73 setObject:v40 forKeyedSubscript:__INCodableDescriptionFormatStringDictionaryLanguageCodeKey];
+        [v72 setObject:v40 forKeyedSubscript:__INCodableDescriptionFormatStringDictionaryLanguageCodeKey];
 
-        v30 = v69;
-        v27 = v70;
-        v28 = v71;
+        v30 = v68;
+        v27 = v69;
+        v28 = v70;
       }
 
-      v29 = v73;
+      v29 = v72;
     }
 
-    if ([v74 length])
+    if ([v73 length])
     {
       conciseFormatString2 = [(INIntentResponseCodableCode *)self conciseFormatString];
       conciseFormatStringLocID3 = [(INIntentResponseCodableCode *)self conciseFormatStringLocID];
-      v76 = conciseFormatString2;
+      v75 = conciseFormatString2;
       _localizationTable4 = [v28 _localizationTable];
-      v75 = 0;
-      v49 = INStringsDictEntryForKeyInTable(conciseFormatStringLocID3, &v76, _localizationTable4, v68, &v75);
-      v50 = v76;
+      v74 = 0;
+      v49 = INStringsDictEntryForKeyInTable(conciseFormatStringLocID3, &v75, _localizationTable4, v67, &v74);
+      v50 = v75;
 
-      v51 = v75;
+      v51 = v74;
       if (v49)
       {
         __INCodableDescriptionConciseFormatStringKey2 = [(INIntentResponseCodableCode *)self __INCodableDescriptionConciseFormatStringKey];
-        v81[0] = __INCodableDescriptionConciseFormatStringKey2;
+        v80[0] = __INCodableDescriptionConciseFormatStringKey2;
         null6 = v50;
         if (!v50)
         {
           null6 = [MEMORY[0x1E695DFB0] null];
         }
 
-        v82[0] = null6;
+        v81[0] = null6;
         __INCodableDescriptionConciseFormatStringDictionaryKey = [(INIntentResponseCodableCode *)self __INCodableDescriptionConciseFormatStringDictionaryKey];
-        v81[1] = __INCodableDescriptionConciseFormatStringDictionaryKey;
-        v82[1] = v49;
-        v55 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v82 forKeys:v81 count:2];
-        [v73 addEntriesFromDictionary:v55];
+        v80[1] = __INCodableDescriptionConciseFormatStringDictionaryKey;
+        v81[1] = v49;
+        v55 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v81 forKeys:v80 count:2];
+        [v72 addEntriesFromDictionary:v55];
 
         if (!v50)
         {
         }
 
         __INCodableDescriptionConciseFormatStringDictionaryLanguageCodeKey = [(INIntentResponseCodableCode *)self __INCodableDescriptionConciseFormatStringDictionaryLanguageCodeKey];
-        [v73 setObject:v51 forKeyedSubscript:__INCodableDescriptionConciseFormatStringDictionaryLanguageCodeKey];
+        [v72 setObject:v51 forKeyedSubscript:__INCodableDescriptionConciseFormatStringDictionaryLanguageCodeKey];
 
-        v30 = v69;
-        v27 = v70;
-        v28 = v71;
+        v30 = v68;
+        v27 = v69;
+        v28 = v70;
       }
 
-      v29 = v73;
+      v29 = v72;
     }
   }
 
   if_dictionaryWithNonEmptyValues = [v29 if_dictionaryWithNonEmptyValues];
-
-  v58 = *MEMORY[0x1E69E9840];
 
   return if_dictionaryWithNonEmptyValues;
 }
@@ -416,7 +414,7 @@
 
 - (id)_parameterNamesFromString:(id)string
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   if ([stringCopy length])
   {
@@ -424,26 +422,26 @@
     _intents_sharedFormatRegularExpression = [MEMORY[0x1E696AE70] _intents_sharedFormatRegularExpression];
     v6 = [_intents_sharedFormatRegularExpression matchesInString:stringCopy options:0 range:{0, objc_msgSend(stringCopy, "length")}];
 
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v7 = v6;
-    v8 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v20;
+      v10 = *v19;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v20 != v10)
+          if (*v19 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = [*(*(&v19 + 1) + 8 * i) resultByAdjustingRangesWithOffset:{0, v19}];
+          v12 = [*(*(&v18 + 1) + 8 * i) resultByAdjustingRangesWithOffset:{0, v18}];
           v13 = [v12 rangeAtIndex:1];
           v15 = [stringCopy substringWithRange:{v13, v14}];
           if (v15)
@@ -452,7 +450,7 @@
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v9);
@@ -465,8 +463,6 @@
   {
     v16 = MEMORY[0x1E695E0F0];
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }

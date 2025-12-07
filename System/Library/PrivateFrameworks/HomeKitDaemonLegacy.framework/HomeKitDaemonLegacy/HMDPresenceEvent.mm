@@ -96,7 +96,7 @@ LABEL_10:
 
 - (void)_transactionObjectUpdated:(id)updated newValues:(id)values message:(id)message
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   updatedCopy = updated;
   valuesCopy = values;
   messageCopy = message;
@@ -107,7 +107,7 @@ LABEL_10:
   {
     v13 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v48 = v13;
+    v47 = v13;
     _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@Handling transaction updated", buf, 0xCu);
   }
 
@@ -140,11 +140,11 @@ LABEL_10:
         presenceType = [(HMDPresenceEvent *)v22 presenceType];
         presenceType2 = [v16 presenceType];
         *buf = 138543874;
-        v48 = v24;
-        v49 = 2112;
-        v50 = presenceType;
-        v51 = 2112;
-        v52 = presenceType2;
+        v47 = v24;
+        v48 = 2112;
+        v49 = presenceType;
+        v50 = 2112;
+        v51 = presenceType2;
         _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_INFO, "%{public}@Updating presence type from %@ to %@", buf, 0x20u);
       }
 
@@ -181,30 +181,19 @@ LABEL_10:
       }
     }
 
-    if (![v16 propertyWasSet:@"activation"])
-    {
-      goto LABEL_19;
-    }
-
-    activation = [(HMDPresenceEvent *)selfCopy activation];
-    number = [activation number];
-    activation2 = [v16 activation];
-    v40 = HMFEqualObjects();
-
-    if ((v40 & 1) == 0)
+    if ([v16 propertyWasSet:@"activation"] && (-[HMDPresenceEvent activation](selfCopy, "activation"), v37 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v37, "number"), v38 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v16, "activation"), v39 = objc_claimAutoreleasedReturnValue(), v40 = HMFEqualObjects(), v39, v38, v37, (v40 & 1) == 0))
     {
       v41 = MEMORY[0x277CD1D28];
-      activation3 = [v16 activation];
-      v43 = [v41 activationGranularityWithNumber:activation3];
+      activation = [v16 activation];
+      v43 = [v41 activationGranularityWithNumber:activation];
       [(HMDPresenceEvent *)selfCopy setActivation:v43];
 
-      os_unfair_lock_unlock((selfCopy + v45));
+      os_unfair_lock_unlock((selfCopy + v44));
     }
 
     else
     {
-LABEL_19:
-      os_unfair_lock_unlock((selfCopy + v45));
+      os_unfair_lock_unlock((selfCopy + v44));
       if ((v20 & 1) == 0)
       {
         goto LABEL_23;
@@ -215,8 +204,6 @@ LABEL_19:
 LABEL_23:
     [messageCopy respondWithSuccess];
   }
-
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 - (id)modelObjectWithChangeType:(unint64_t)type
@@ -299,13 +286,13 @@ LABEL_11:
 
 - (void)encodeWithCoder:(id)coder
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   selfCopy = self;
-  v25.receiver = self;
-  v25.super_class = HMDPresenceEvent;
-  [(HMDEvent *)&v25 encodeWithCoder:coderCopy];
-  v17 = 88;
+  v24.receiver = self;
+  v24.super_class = HMDPresenceEvent;
+  [(HMDEvent *)&v24 encodeWithCoder:coderCopy];
+  v16 = 88;
   os_unfair_lock_lock_with_options();
   presenceType = [(HMDPresenceEvent *)self presenceType];
   users = [(HMDPresenceEvent *)self users];
@@ -335,38 +322,38 @@ LABEL_11:
   [coderCopy encodeObject:presenceType forKey:*MEMORY[0x277CD24C8]];
   if (([presenceType isEqualToString:*MEMORY[0x277CD0C68]] & 1) != 0 || objc_msgSend(presenceType, "isEqualToString:", *MEMORY[0x277CD0C70]))
   {
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     _presenceTypeForClient = [users allValues];
-    v6 = [_presenceTypeForClient countByEnumeratingWithState:&v21 objects:v27 count:16];
+    v6 = [_presenceTypeForClient countByEnumeratingWithState:&v20 objects:v26 count:16];
     if (v6)
     {
-      v7 = *v22;
+      v7 = *v21;
       v8 = *MEMORY[0x277CD24D0];
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v22 != v7)
+          if (*v21 != v7)
           {
             objc_enumerationMutation(_presenceTypeForClient);
           }
 
-          v10 = *(*(&v21 + 1) + 8 * i);
+          v10 = *(*(&v20 + 1) + 8 * i);
           hmd_user = [coderCopy hmd_user];
           v12 = [v10 isEqual:hmd_user];
 
           if (v12)
           {
-            v26 = v10;
-            v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v26 count:1];
+            v25 = v10;
+            v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v25 count:1];
             [coderCopy encodeObject:v13 forKey:v8];
           }
         }
 
-        v6 = [_presenceTypeForClient countByEnumeratingWithState:&v21 objects:v27 count:16];
+        v6 = [_presenceTypeForClient countByEnumeratingWithState:&v20 objects:v26 count:16];
       }
 
       while (v6);
@@ -375,20 +362,18 @@ LABEL_11:
 LABEL_19:
   }
 
-  os_unfair_lock_unlock((selfCopy + v17));
+  os_unfair_lock_unlock((selfCopy + v16));
   activation = [(HMDPresenceEvent *)selfCopy activation];
   [activation addToCoder:coderCopy];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDPresenceEvent)initWithCoder:(id)coder
 {
-  v43[2] = *MEMORY[0x277D85DE8];
+  v42[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v41.receiver = self;
-  v41.super_class = HMDPresenceEvent;
-  v5 = [(HMDEvent *)&v41 initWithCoder:coderCopy];
+  v40.receiver = self;
+  v40.super_class = HMDPresenceEvent;
+  v5 = [(HMDEvent *)&v40 initWithCoder:coderCopy];
   v6 = v5;
   if (v5)
   {
@@ -402,36 +387,36 @@ LABEL_19:
     v6->_activation = v9;
 
     v11 = MEMORY[0x277CBEB98];
-    v43[0] = objc_opt_class();
-    v43[1] = objc_opt_class();
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:2];
+    v42[0] = objc_opt_class();
+    v42[1] = objc_opt_class();
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:2];
     v13 = [v11 setWithArray:v12];
-    v36 = coderCopy;
+    v35 = coderCopy;
     v14 = [coderCopy decodeObjectOfClasses:v13 forKey:*MEMORY[0x277CD24D0]];
 
     dictionary = [MEMORY[0x277CBEB38] dictionary];
     array = [MEMORY[0x277CBEB18] array];
+    v36 = 0u;
     v37 = 0u;
     v38 = 0u;
     v39 = 0u;
-    v40 = 0u;
-    v35 = v14;
+    v34 = v14;
     v17 = [HMDHome filterUsersSupportingPresence:v14];
-    v18 = [v17 countByEnumeratingWithState:&v37 objects:v42 count:16];
+    v18 = [v17 countByEnumeratingWithState:&v36 objects:v41 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v38;
+      v20 = *v37;
       do
       {
         for (i = 0; i != v19; ++i)
         {
-          if (*v38 != v20)
+          if (*v37 != v20)
           {
             objc_enumerationMutation(v17);
           }
 
-          v22 = *(*(&v37 + 1) + 8 * i);
+          v22 = *(*(&v36 + 1) + 8 * i);
           uuid = [v22 uuid];
           uUIDString = [uuid UUIDString];
           [array addObject:uUIDString];
@@ -441,7 +426,7 @@ LABEL_19:
           [dictionary setObject:v22 forKeyedSubscript:uUIDString2];
         }
 
-        v19 = [v17 countByEnumeratingWithState:&v37 objects:v42 count:16];
+        v19 = [v17 countByEnumeratingWithState:&v36 objects:v41 count:16];
       }
 
       while (v19);
@@ -459,10 +444,9 @@ LABEL_19:
     featuresDataSource = v6->_featuresDataSource;
     v6->_featuresDataSource = v31;
 
-    coderCopy = v36;
+    coderCopy = v35;
   }
 
-  v33 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -485,7 +469,7 @@ LABEL_19:
     [v12 removeObject:uUIDString2];
 
     emptyModelObject = [(HMDPresenceEvent *)self emptyModelObject];
-    v16 = [v12 copy];
+    v16 = objc_msgSend_copy(v12);
     [emptyModelObject setUsers:v16];
 
     [transactionCopy add:emptyModelObject];
@@ -502,7 +486,7 @@ LABEL_19:
   uUIDString = [uuid UUIDString];
   [v14 setObject:userCopy forKeyedSubscript:uUIDString];
 
-  v8 = [v14 copy];
+  v8 = objc_msgSend_copy(v14);
   [(HMDPresenceEvent *)self setUsers:v8];
 
   userUUIDs = [(HMDPresenceEvent *)self userUUIDs];
@@ -513,7 +497,7 @@ LABEL_19:
   uUIDString2 = [uuid2 UUIDString];
   [v10 addObject:uUIDString2];
 
-  v13 = [v10 copy];
+  v13 = objc_msgSend_copy(v10);
   [(HMDPresenceEvent *)self setUserUUIDs:v13];
 }
 
@@ -528,11 +512,11 @@ LABEL_19:
 
 - (void)_updateUsers:(id)users home:(id)home
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   usersCopy = users;
   homeCopy = home;
   [(HMDPresenceEvent *)self _removeAllUsers];
-  v23 = homeCopy;
+  v22 = homeCopy;
   usersSupportingPresence = [homeCopy usersSupportingPresence];
   v9 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -541,35 +525,35 @@ LABEL_19:
   {
     v12 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v30 = v12;
-    v31 = 2112;
-    v32 = usersCopy;
-    v33 = 2112;
-    v34 = usersSupportingPresence;
+    v29 = v12;
+    v30 = 2112;
+    v31 = usersCopy;
+    v32 = 2112;
+    v33 = usersSupportingPresence;
     _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_DEBUG, "%{public}@Updating users: %@, %@", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v9);
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v13 = usersSupportingPresence;
-  v14 = [v13 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v25;
+    v16 = *v24;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v25 != v16)
+        if (*v24 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = *(*(&v24 + 1) + 8 * i);
+        v18 = *(*(&v23 + 1) + 8 * i);
         uuid = [v18 uuid];
         uUIDString = [uuid UUIDString];
         v21 = [usersCopy containsObject:uUIDString];
@@ -580,18 +564,16 @@ LABEL_19:
         }
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v15);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleUpdateRequest:(id)request
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   v5 = [requestCopy stringForKey:*MEMORY[0x277CD24C8]];
   v6 = [requestCopy arrayForKey:*MEMORY[0x277CD24D0]];
@@ -609,8 +591,8 @@ LABEL_19:
         currentUser = [home currentUser];
         uuid = [currentUser uuid];
         uUIDString = [uuid UUIDString];
-        v26 = uUIDString;
-        v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v26 count:1];
+        v25 = uUIDString;
+        v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v25 count:1];
         [emptyModelObject setUsers:v20];
       }
     }
@@ -647,19 +629,17 @@ LABEL_19:
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v28 = v13;
+      v27 = v13;
       _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_ERROR, "%{public}@Unable to update Presence event as parameters are NIL", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v10);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)compatibleWithUser:(id)user
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   userCopy = user;
   os_unfair_lock_lock_with_options();
   presenceType = [(HMDPresenceEvent *)self presenceType];
@@ -676,34 +656,34 @@ LABEL_19:
 
   else if (([presenceType isEqualToString:*MEMORY[0x277CD0C68]] & 1) != 0 || objc_msgSend(presenceType, "isEqualToString:", *MEMORY[0x277CD0C70]))
   {
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     users = [(HMDPresenceEvent *)self users];
     allValues = [users allValues];
 
-    v7 = [allValues countByEnumeratingWithState:&v19 objects:v29 count:16];
+    v7 = [allValues countByEnumeratingWithState:&v18 objects:v28 count:16];
     if (v7)
     {
-      v17 = *v20;
+      v16 = *v19;
       while (2)
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v20 != v17)
+          if (*v19 != v16)
           {
             objc_enumerationMutation(allValues);
           }
 
-          if ([*(*(&v19 + 1) + 8 * i) isEqual:userCopy])
+          if ([*(*(&v18 + 1) + 8 * i) isEqual:userCopy])
           {
             LOBYTE(v7) = 1;
             goto LABEL_22;
           }
         }
 
-        v7 = [allValues countByEnumeratingWithState:&v19 objects:v29 count:16];
+        v7 = [allValues countByEnumeratingWithState:&v18 objects:v28 count:16];
         if (v7)
         {
           continue;
@@ -730,16 +710,15 @@ LABEL_22:
     v11 = HMFGetLogIdentifier();
     v12 = HMFBooleanToString();
     *buf = 138543874;
-    v24 = v11;
-    v25 = 2112;
-    v26 = userCopy;
-    v27 = 2112;
-    v28 = v12;
+    v23 = v11;
+    v24 = 2112;
+    v25 = userCopy;
+    v26 = 2112;
+    v27 = v12;
     _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Checking if the username %@ is compatible: %@", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v8);
-  v13 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -820,7 +799,7 @@ LABEL_6:
 
 - (BOOL)evaluateWithUserPresence:(id)presence presenceType:(id)type
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   presenceCopy = presence;
   typeCopy = type;
   if (([typeCopy isEqualToString:*MEMORY[0x277CD0C50]] & 1) == 0 && (objc_msgSend(typeCopy, "isEqualToString:", *MEMORY[0x277CD0C48]) & 1) == 0 && !objc_msgSend(typeCopy, "isEqualToString:", *MEMORY[0x277CD0C68]))
@@ -837,8 +816,8 @@ LABEL_6:
       }
 
       v12 = HMFGetLogIdentifier();
-      v19 = 138543362;
-      v20 = v12;
+      v18 = 138543362;
+      v19 = v12;
       v13 = "%{public}@User presence in the update is leaving home";
       goto LABEL_7;
     }
@@ -855,9 +834,9 @@ LABEL_14:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       v16 = HMFGetLogIdentifier();
-      v19 = 138543362;
-      v20 = v16;
-      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Returning result to not fire event", &v19, 0xCu);
+      v18 = 138543362;
+      v19 = v16;
+      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Returning result to not fire event", &v18, 0xCu);
     }
 
     v11 = 0;
@@ -871,23 +850,22 @@ LABEL_14:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     v12 = HMFGetLogIdentifier();
-    v19 = 138543362;
-    v20 = v12;
+    v18 = 138543362;
+    v19 = v12;
     v13 = "%{public}@User presence in the update is arriving home";
 LABEL_7:
-    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, v13, &v19, 0xCu);
+    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, v13, &v18, 0xCu);
   }
 
 LABEL_17:
 
   objc_autoreleasePoolPop(v8);
-  v17 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (BOOL)evaluateWithHomePresenceUpdate:(id)update presenceType:(id)type
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   typeCopy = type;
   v8 = objc_autoreleasePoolPush();
@@ -897,13 +875,13 @@ LABEL_17:
   {
     v11 = HMFGetLogIdentifier();
     activation = [(HMDPresenceEvent *)selfCopy activation];
-    v18 = 138543874;
-    v19 = v11;
-    v20 = 2112;
-    v21 = updateCopy;
-    v22 = 2112;
-    v23 = activation;
-    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Evaluating with homePresenceUpdate %@, activation is set to %@", &v18, 0x20u);
+    v17 = 138543874;
+    v18 = v11;
+    v19 = 2112;
+    v20 = updateCopy;
+    v21 = 2112;
+    v22 = activation;
+    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Evaluating with homePresenceUpdate %@, activation is set to %@", &v17, 0x20u);
   }
 
   objc_autoreleasePoolPop(v8);
@@ -921,7 +899,6 @@ LABEL_17:
 
   v15 = v14;
 
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -941,7 +918,7 @@ LABEL_17:
 
 void __43__HMDPresenceEvent_didEndExecutionSession___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) executionSession];
   v3 = *(a1 + 40);
 
@@ -954,9 +931,9 @@ void __43__HMDPresenceEvent_didEndExecutionSession___block_invoke(uint64_t a1)
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       v10 = HMFGetLogIdentifier();
-      v12 = 138543362;
-      v13 = v10;
-      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Updating the current status to YES after the execution session is complete", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v10;
+      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Updating the current status to YES after the execution session is complete", &v11, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -974,17 +951,15 @@ void __43__HMDPresenceEvent_didEndExecutionSession___block_invoke(uint64_t a1)
     {
       v8 = HMFGetLogIdentifier();
       v9 = *(a1 + 40);
-      v12 = 138543618;
-      v13 = v8;
-      v14 = 2112;
-      v15 = v9;
-      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_ERROR, "%{public}@Received a callback that execution session %@ has ended, but is not known session", &v12, 0x16u);
+      v11 = 138543618;
+      v12 = v8;
+      v13 = 2112;
+      v14 = v9;
+      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_ERROR, "%{public}@Received a callback that execution session %@ has ended, but is not known session", &v11, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isCompatibleWithEvent:(id)event
@@ -996,7 +971,7 @@ void __43__HMDPresenceEvent_didEndExecutionSession___block_invoke(uint64_t a1)
 
 - (void)_evaluatePresenceEventForHomePresenceUpdate:(id)update
 {
-  v99 = *MEMORY[0x277D85DE8];
+  v98 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   workQueue = [(HMDEvent *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -1012,9 +987,9 @@ void __43__HMDPresenceEvent_didEndExecutionSession___block_invoke(uint64_t a1)
       {
         v22 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v92 = v22;
-        v93 = 2112;
-        v94 = updateCopy;
+        v91 = v22;
+        v92 = 2112;
+        v93 = updateCopy;
         _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Received home presence update is nil: %@", buf, 0x16u);
       }
 
@@ -1038,11 +1013,11 @@ void __43__HMDPresenceEvent_didEndExecutionSession___block_invoke(uint64_t a1)
         homePresence2 = [updateCopy homePresence];
         home3 = [homePresence2 home];
         *buf = 138543874;
-        v92 = v19;
-        v93 = 2112;
-        v94 = home3;
-        v95 = 2112;
-        v96 = home;
+        v91 = v19;
+        v92 = 2112;
+        v93 = home3;
+        v94 = 2112;
+        v95 = home;
         _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_INFO, "%{public}@Received home presence update, homes are not matching: %@, ours: %@", buf, 0x20u);
       }
 
@@ -1068,7 +1043,7 @@ void __43__HMDPresenceEvent_didEndExecutionSession___block_invoke(uint64_t a1)
       {
         v52 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v92 = v52;
+        v91 = v52;
         _os_log_impl(&dword_2531F8000, v51, OS_LOG_TYPE_INFO, "%{public}@Home presence is not an update", buf, 0xCu);
       }
 
@@ -1092,9 +1067,9 @@ LABEL_23:
           v32 = HMFGetLogIdentifier();
           v33 = HMFBooleanToString();
           *buf = 138543618;
-          v92 = v32;
-          v93 = 2112;
-          v94 = v33;
+          v91 = v32;
+          v92 = 2112;
+          v93 = v33;
           _os_log_impl(&dword_2531F8000, v31, OS_LOG_TYPE_INFO, "%{public}@Evaluated status: %@", buf, 0x16u);
         }
 
@@ -1113,9 +1088,9 @@ LABEL_23:
             {
               v39 = HMFGetLogIdentifier();
               *buf = 138543618;
-              v92 = v39;
-              v93 = 2112;
-              v94 = executionSession;
+              v91 = v39;
+              v92 = 2112;
+              v93 = executionSession;
               _os_log_impl(&dword_2531F8000, v37, OS_LOG_TYPE_INFO, "%{public}@Execution session %@ is already underway, no need to create another one", buf, 0x16u);
             }
 
@@ -1133,18 +1108,18 @@ LABEL_23:
               v47 = HMFGetLogIdentifier();
               v48 = @"Added";
               *buf = 138544130;
-              v92 = v47;
+              v91 = v47;
               if (!v43)
               {
                 v48 = @"Did not add";
               }
 
-              v93 = 2112;
-              v94 = v48;
-              v95 = 2112;
-              v96 = v43;
-              v97 = 2112;
-              v98 = v42;
+              v92 = 2112;
+              v93 = v48;
+              v94 = 2112;
+              v95 = v43;
+              v96 = 2112;
+              v97 = v42;
               _os_log_impl(&dword_2531F8000, v46, OS_LOG_TYPE_INFO, "%{public}@%@ device to execution session %@, device %@", buf, 0x2Au);
             }
 
@@ -1157,9 +1132,9 @@ LABEL_23:
             {
               v65 = HMFGetLogIdentifier();
               *buf = 138543618;
-              v92 = v65;
-              v93 = 2112;
-              v94 = executionSession;
+              v91 = v65;
+              v92 = 2112;
+              v93 = executionSession;
               _os_log_impl(&dword_2531F8000, v37, OS_LOG_TYPE_INFO, "%{public}@Evaluated status is changing to NO, resetting the execution session %@", buf, 0x16u);
             }
 
@@ -1181,9 +1156,9 @@ LABEL_23:
             [(HMDPresenceEvent *)v67 currentStatus];
             v70 = HMFBooleanToString();
             *buf = 138543618;
-            v92 = v69;
-            v93 = 2112;
-            v94 = v70;
+            v91 = v69;
+            v92 = 2112;
+            v93 = v70;
             _os_log_impl(&dword_2531F8000, v68, OS_LOG_TYPE_INFO, "%{public}@Current status is not changing from %@", buf, 0x16u);
           }
 
@@ -1207,11 +1182,11 @@ LABEL_23:
             {
               v60 = HMFGetLogIdentifier();
               *buf = 138543874;
-              v92 = v60;
-              v93 = 2112;
-              v94 = v56;
-              v95 = 2112;
-              v96 = v55;
+              v91 = v60;
+              v92 = 2112;
+              v93 = v56;
+              v94 = 2112;
+              v95 = v55;
               _os_log_impl(&dword_2531F8000, v59, OS_LOG_TYPE_INFO, "%{public}@Created execution session %@ with triggerDevice: %@", buf, 0x20u);
             }
 
@@ -1225,7 +1200,7 @@ LABEL_23:
               {
                 v64 = HMFGetLogIdentifier();
                 *buf = 138543362;
-                v92 = v64;
+                v91 = v64;
                 _os_log_impl(&dword_2531F8000, v63, OS_LOG_TYPE_INFO, "%{public}@Could not create execution session, updating the current status to YES", buf, 0xCu);
               }
 
@@ -1247,9 +1222,9 @@ LABEL_23:
               v86 = HMFGetLogIdentifier();
               executionSession2 = [(HMDPresenceEvent *)v84 executionSession];
               *buf = 138543618;
-              v92 = v86;
-              v93 = 2112;
-              v94 = executionSession2;
+              v91 = v86;
+              v92 = 2112;
+              v93 = executionSession2;
               _os_log_impl(&dword_2531F8000, v85, OS_LOG_TYPE_INFO, "%{public}@This event is moving to inactive state, current execution session %@", buf, 0x16u);
             }
 
@@ -1270,11 +1245,11 @@ LABEL_23:
             v81 = HMFBooleanToString();
             v82 = HMFBooleanToString();
             *buf = 138543874;
-            v92 = v80;
-            v93 = 2112;
-            v94 = v81;
-            v95 = 2112;
-            v96 = v82;
+            v91 = v80;
+            v92 = 2112;
+            v93 = v81;
+            v94 = 2112;
+            v95 = v82;
             _os_log_impl(&dword_2531F8000, v79, OS_LOG_TYPE_INFO, "%{public}@Evaluation status is changing from %@ to %@", buf, 0x20u);
           }
 
@@ -1292,9 +1267,9 @@ LABEL_23:
       {
         v76 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v92 = v76;
-        v93 = 2112;
-        v94 = selfCopy5;
+        v91 = v76;
+        v92 = 2112;
+        v93 = selfCopy5;
         _os_log_impl(&dword_2531F8000, v73, OS_LOG_TYPE_INFO, "%{public}@User presence in the update is not relevant to the user in this event: %@", buf, 0x16u);
       }
     }
@@ -1308,7 +1283,7 @@ LABEL_23:
       {
         v74 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v92 = v74;
+        v91 = v74;
         _os_log_impl(&dword_2531F8000, v73, OS_LOG_TYPE_INFO, "%{public}@User Presence is nil, not firing event", buf, 0xCu);
       }
     }
@@ -1328,9 +1303,9 @@ LABEL_67:
     v9 = HMFGetLogIdentifier();
     v10 = HMDEventTriggerActivationTypeAsString([(HMDEvent *)selfCopy7 activationType]);
     *buf = 138543618;
-    v92 = v9;
-    v93 = 2112;
-    v94 = v10;
+    v91 = v9;
+    v92 = 2112;
+    v93 = v10;
     _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Ignoring the home presence update since the activation type is %@", buf, 0x16u);
   }
 
@@ -1338,8 +1313,6 @@ LABEL_4:
 
   objc_autoreleasePoolPop(v6);
 LABEL_68:
-
-  v88 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleHomePresenceUpdate:(id)update
@@ -1379,21 +1352,21 @@ void __46__HMDPresenceEvent__handleHomePresenceUpdate___block_invoke(uint64_t a1
 
 - (BOOL)_activate:(unint64_t)_activate completionHandler:(id)handler
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   if ([(HMDEvent *)self isConfigured])
   {
-    v19.receiver = self;
-    v19.super_class = HMDPresenceEvent;
-    v7 = [(HMDEvent *)&v19 _activate:_activate completionHandler:handlerCopy];
+    v18.receiver = self;
+    v18.super_class = HMDPresenceEvent;
+    v7 = [(HMDEvent *)&v18 _activate:_activate completionHandler:handlerCopy];
     workQueue = [(HMDEvent *)self workQueue];
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __48__HMDPresenceEvent__activate_completionHandler___block_invoke;
-    v17[3] = &unk_279735D28;
-    v17[4] = self;
-    v18 = v7;
-    dispatch_async(workQueue, v17);
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __48__HMDPresenceEvent__activate_completionHandler___block_invoke;
+    v16[3] = &unk_279735D28;
+    v16[4] = self;
+    v17 = v7;
+    dispatch_async(workQueue, v16);
   }
 
   else
@@ -1405,7 +1378,7 @@ void __46__HMDPresenceEvent__handleHomePresenceUpdate___block_invoke(uint64_t a1
     {
       v12 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v21 = v12;
+      v20 = v12;
       _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Ignoring request to activate since event hasn't been configured", buf, 0xCu);
     }
 
@@ -1420,56 +1393,48 @@ void __46__HMDPresenceEvent__handleHomePresenceUpdate___block_invoke(uint64_t a1
     v7 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 void __48__HMDPresenceEvent__activate_completionHandler___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) activationType];
   if (v2 - 2 < 2)
   {
     if (*(a1 + 40) == 1)
     {
-      v5 = objc_autoreleasePoolPush();
-      v6 = *(a1 + 32);
-      v7 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+      v4 = objc_autoreleasePoolPush();
+      v5 = *(a1 + 32);
+      v6 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
-        v8 = HMFGetLogIdentifier();
-        v9 = HMDEventTriggerActivationTypeAsString([*(a1 + 32) activationType]);
-        v15 = 138543618;
+        v7 = HMFGetLogIdentifier();
+        v8 = HMDEventTriggerActivationTypeAsString([*(a1 + 32) activationType]);
+        v13 = 138543618;
+        v14 = v7;
+        v15 = 2112;
         v16 = v8;
-        v17 = 2112;
-        v18 = v9;
-        _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Activation is changing to %@, initializing the current status", &v15, 0x16u);
+        _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Activation is changing to %@, initializing the current status", &v13, 0x16u);
       }
 
-      objc_autoreleasePoolPop(v5);
-      v10 = [*(a1 + 32) eventTrigger];
-      v11 = [v10 home];
-      v12 = [v11 presenceMonitor];
-      v13 = [v12 homePresenceUpdate];
+      objc_autoreleasePoolPop(v4);
+      v9 = [*(a1 + 32) eventTrigger];
+      v10 = [v9 home];
+      v11 = [v10 presenceMonitor];
+      v12 = [v11 homePresenceUpdate];
 
-      [*(a1 + 32) _evaluatePresenceEventForHomePresenceUpdate:v13];
+      [*(a1 + 32) _evaluatePresenceEventForHomePresenceUpdate:v12];
     }
-
-    goto LABEL_10;
   }
 
-  if (v2 > 1)
+  else if (v2 <= 1)
   {
-LABEL_10:
-    v14 = *MEMORY[0x277D85DE8];
-    return;
+    [*(a1 + 32) setCurrentStatus:0];
+    v3 = *(a1 + 32);
+
+    [v3 setExecutionSession:0];
   }
-
-  [*(a1 + 32) setCurrentStatus:0];
-  v3 = *(a1 + 32);
-  v4 = *MEMORY[0x277D85DE8];
-
-  [v3 setExecutionSession:0];
 }
 
 - (void)_registerForMessages
@@ -1534,7 +1499,7 @@ LABEL_10:
   activation = [(HMDPresenceEvent *)self activation];
   [activation addToPayload:v5];
 
-  v9 = [v5 copy];
+  v9 = objc_msgSend_copy(v5);
 
   return v9;
 }
@@ -1558,7 +1523,7 @@ LABEL_10:
   activation = [(HMDPresenceEvent *)self activation];
   [activation addToPayload:v5];
 
-  v9 = [v5 copy];
+  v9 = objc_msgSend_copy(v5);
 
   return v9;
 }
@@ -1598,49 +1563,47 @@ LABEL_10:
 
 - (NSString)description
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock_with_options();
   presenceType = [(HMDPresenceEvent *)self presenceType];
   users = [(HMDPresenceEvent *)self users];
   os_unfair_lock_unlock(&self->_lock);
   v5 = [MEMORY[0x277CCAB68] stringWithFormat:@"type: %@", presenceType];
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v6 = users;
-  v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v7)
   {
-    v8 = *v19;
+    v8 = *v18;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v19 != v8)
+        if (*v18 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v18 + 1) + 8 * i);
+        v10 = *(*(&v17 + 1) + 8 * i);
         [v5 appendString:{@", "}];
         [v5 appendString:v10];
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v7);
   }
 
   v11 = MEMORY[0x277CCACA8];
-  v17.receiver = self;
-  v17.super_class = HMDPresenceEvent;
-  v12 = [(HMDEvent *)&v17 description];
+  v16.receiver = self;
+  v16.super_class = HMDPresenceEvent;
+  v12 = [(HMDEvent *)&v16 description];
   activation = [(HMDPresenceEvent *)self activation];
   v14 = [v11 stringWithFormat:@"[Presence-Event: %@, %@, %@]", v12, v5, activation];
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -1721,12 +1684,11 @@ LABEL_10:
 
 uint64_t __31__HMDPresenceEvent_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v6_30839;
-  logCategory__hmf_once_v6_30839 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v6_30839;
+  logCategory__hmf_once_v6_30839 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

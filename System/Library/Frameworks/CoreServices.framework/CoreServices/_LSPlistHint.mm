@@ -3,8 +3,8 @@
 - (id)completeDictionary;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)debugDescription;
-- (uint64_t)setCachedValue:(uint64_t)value forKey:;
 - (void)initWithKeys:(char)keys compacted:;
+- (void)setCachedValue:(uint64_t)value forKey:;
 - (void)setCompleteDictionary:(uint64_t)dictionary;
 @end
 
@@ -63,23 +63,23 @@
   }
 }
 
-- (uint64_t)setCachedValue:(uint64_t)value forKey:
+- (void)setCachedValue:(uint64_t)value forKey:
 {
   if (result)
   {
     if (value)
     {
       v4 = result;
-      if ((*(result + 24) & 1) == 0)
+      if ((result[3] & 1) == 0)
       {
-        v6 = *(result + 16);
+        v6 = result[2];
         if (!v6)
         {
           v7 = objc_alloc_init(MEMORY[0x1E695DF90]);
-          v8 = *(v4 + 16);
-          *(v4 + 16) = v7;
+          v8 = v4[2];
+          v4[2] = v7;
 
-          v6 = *(v4 + 16);
+          v6 = v4[2];
         }
 
         return [v6 setObject:a2 forKeyedSubscript:value];

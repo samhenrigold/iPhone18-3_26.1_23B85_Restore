@@ -1,8 +1,10 @@
 @interface SGXPCActivityManager
++ (id)nameForActivityId:(int)id;
 + (id)sharedInstance;
 - (BOOL)shouldDefer:(id)defer;
 - (SGXPCActivityManager)init;
 - (id)_taskForActivity:(id)activity;
+- (id)activityForActivityId:(int)id;
 - (id)copyCriteria:(id)criteria;
 - (void)dealloc;
 - (void)registerActivitiesWithSystem;
@@ -76,7 +78,7 @@ LABEL_6:
 
 - (void)setCriteria:(id)criteria criteria:(id)a4 forActivity:(int)activity
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   criteriaCopy = criteria;
   v10 = a4;
   if (!v10)
@@ -128,17 +130,45 @@ LABEL_13:
   if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
-    v31 = criteriaCopy;
-    v32 = 2112;
-    v33 = v10;
+    v30 = criteriaCopy;
+    v31 = 2112;
+    v32 = v10;
     _os_log_impl(&dword_231E60000, v27, OS_LOG_TYPE_INFO, "Setting CTS criteria for activity: %@, criteria: %@", buf, 0x16u);
   }
 
   xpc_activity_set_criteria(criteriaCopy, v10);
 LABEL_16:
   pthread_mutex_unlock(&self->_lock);
+}
 
-  v28 = *MEMORY[0x277D85DE8];
+- (id)activityForActivityId:(int)id
+{
+  v3 = *&id;
+  v12 = *MEMORY[0x277D85DE8];
+  pthread_mutex_lock(&self->_lock);
+  v5 = [(NSMutableArray *)self->_activities objectAtIndexedSubscript:v3];
+  pthread_mutex_unlock(&self->_lock);
+  null = [MEMORY[0x277CBEB68] null];
+
+  if (v5 == null)
+  {
+    v8 = sgLogHandle();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    {
+      v10 = 136315138;
+      v11 = identifierForActivityId(v3);
+      _os_log_debug_impl(&dword_231E60000, v8, OS_LOG_TYPE_DEBUG, "Activity %s has not registered with the system yet. Returning nil.", &v10, 0xCu);
+    }
+
+    v7 = 0;
+  }
+
+  else
+  {
+    v7 = v5;
+  }
+
+  return v7;
 }
 
 - (void)registerForActivity:(int)activity handler:(id)handler
@@ -234,7 +264,7 @@ LABEL_3:
 
 void __52__SGXPCActivityManager_registerActivitiesWithSystem__block_invoke(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (xpc_activity_get_state(v3))
   {
@@ -255,10 +285,10 @@ void __52__SGXPCActivityManager_registerActivitiesWithSystem__block_invoke(uint6
       v13 = sgLogHandle();
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
-        v19 = identifierForActivityId(*(a1 + 72));
-        v20 = 136315138;
-        v21 = v19;
-        _os_log_debug_impl(&dword_231E60000, v13, OS_LOG_TYPE_DEBUG, "Stub activity called for %s", &v20, 0xCu);
+        v18 = identifierForActivityId(*(a1 + 72));
+        v19 = 136315138;
+        v20 = v18;
+        _os_log_debug_impl(&dword_231E60000, v13, OS_LOG_TYPE_DEBUG, "Stub activity called for %s", &v19, 0xCu);
       }
     }
 
@@ -283,10 +313,10 @@ void __52__SGXPCActivityManager_registerActivitiesWithSystem__block_invoke(uint6
     v11 = sgLogHandle();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      v18 = identifierForActivityId(*(a1 + 72));
-      v20 = 136315138;
-      v21 = v18;
-      _os_log_debug_impl(&dword_231E60000, v11, OS_LOG_TYPE_DEBUG, "Checking in for activity %s", &v20, 0xCu);
+      v17 = identifierForActivityId(*(a1 + 72));
+      v19 = 136315138;
+      v20 = v17;
+      _os_log_debug_impl(&dword_231E60000, v11, OS_LOG_TYPE_DEBUG, "Checking in for activity %s", &v19, 0xCu);
     }
 
     pthread_mutex_lock(*(a1 + 64));
@@ -305,8 +335,6 @@ void __52__SGXPCActivityManager_registerActivitiesWithSystem__block_invoke(uint6
 
     pthread_mutex_unlock(*(a1 + 64));
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -347,6 +375,14 @@ void __52__SGXPCActivityManager_registerActivitiesWithSystem__block_invoke(uint6
   }
 
   return v3;
+}
+
++ (id)nameForActivityId:(int)id
+{
+  v3 = MEMORY[0x277CCACA8];
+  v4 = identifierForActivityId(*&id);
+
+  return [v3 stringWithUTF8String:v4];
 }
 
 + (id)sharedInstance

@@ -6,6 +6,8 @@
 - (float)volume;
 - (void)dealloc;
 - (void)gkVoiceChatSession:(id)session stateUpdate:(unint64_t)update forPeer:(id)peer;
+- (void)setActive:(BOOL)active;
+- (void)setMuted:(BOOL)muted forPlayerID:(id)d;
 - (void)setVolume:(float)volume;
 - (void)start;
 - (void)stop;
@@ -53,6 +55,13 @@
   return sessionName;
 }
 
+- (void)setActive:(BOOL)active
+{
+  activeCopy = active;
+  voiceChatSession = [(GKViceroyVoiceChat *)self voiceChatSession];
+  [voiceChatSession setActiveSession:activeCopy];
+}
+
 - (BOOL)isActive
 {
   voiceChatSession = [(GKViceroyVoiceChat *)self voiceChatSession];
@@ -75,6 +84,22 @@
   v4 = v3;
 
   return v4;
+}
+
+- (void)setMuted:(BOOL)muted forPlayerID:(id)d
+{
+  mutedCopy = muted;
+  dCopy = d;
+  connection = [(GKViceroyVoiceChat *)self connection];
+  v11 = 0;
+  v8 = [connection convertParticipantID:dCopy toPeerID:&v11];
+
+  v9 = v11;
+  if (v8)
+  {
+    voiceChatSession = [(GKViceroyVoiceChat *)self voiceChatSession];
+    [voiceChatSession setMute:mutedCopy forPeer:v9];
+  }
 }
 
 - (void)start

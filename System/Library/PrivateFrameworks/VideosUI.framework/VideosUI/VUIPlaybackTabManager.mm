@@ -120,7 +120,7 @@ void __39__VUIPlaybackTabManager_sharedInstance__block_invoke(uint64_t a1)
 
 - (void)updatePlayerTabsExcludingCanonicals:(id)canonicals completion:(id)completion
 {
-  v71 = *MEMORY[0x1E69E9840];
+  v74 = *MEMORY[0x1E69E9840];
   canonicalsCopy = canonicals;
   completionCopy = completion;
   if ([(VUIPlaybackTabManager *)self isPlayerTabsEnabled])
@@ -141,13 +141,13 @@ void __39__VUIPlaybackTabManager_sharedInstance__block_invoke(uint64_t a1)
       goto LABEL_61;
     }
 
-    *(&v56 + 1) = [currentMediaItem mediaItemMetadataForProperty:*MEMORY[0x1E69D5AE8]];
-    *&v56 = [currentMediaItem mediaItemMetadataForProperty:*MEMORY[0x1E69D5DA8]];
+    *(&v59 + 1) = [currentMediaItem mediaItemMetadataForProperty:*MEMORY[0x1E69D5AE8]];
+    *&v59 = [currentMediaItem mediaItemMetadataForProperty:*MEMORY[0x1E69D5DA8]];
     v12 = [currentMediaItem mediaItemMetadataForProperty:@"VUIMediaItemMetadataMakeAdditionalPlayerTabsRequest"];
     bOOLValue2 = [v12 BOOLValue];
 
     v14 = [currentMediaItem mediaItemMetadataForProperty:@"VUIMediaItemMetadataIsEligibleForPlayerTabs"];
-    v57 = v14;
+    v60 = v14;
     if (v14)
     {
       v15 = [v14 BOOLValue] ^ 1;
@@ -158,9 +158,9 @@ void __39__VUIPlaybackTabManager_sharedInstance__block_invoke(uint64_t a1)
       v15 = 1;
     }
 
-    v55 = [currentMediaItem mediaItemMetadataForProperty:@"VUIMediaItemMetadataPlayablePassThrough"];
-    v54 = [currentMediaItem mediaItemMetadataForProperty:*MEMORY[0x1E69D5BF0]];
-    v53 = [currentMediaItem mediaItemMetadataForProperty:*MEMORY[0x1E69D5CD8]];
+    v58 = [currentMediaItem mediaItemMetadataForProperty:@"VUIMediaItemMetadataPlayablePassThrough"];
+    v57 = [currentMediaItem mediaItemMetadataForProperty:*MEMORY[0x1E69D5BF0]];
+    v56 = [currentMediaItem mediaItemMetadataForProperty:*MEMORY[0x1E69D5CD8]];
     v16 = [currentMediaItem mediaItemMetadataForProperty:@"VUIMediaItemMetadataIsEligibleForInfoTab"];
     v17 = v16;
     if (v16)
@@ -173,20 +173,21 @@ void __39__VUIPlaybackTabManager_sharedInstance__block_invoke(uint64_t a1)
       bOOLValue3 = 1;
     }
 
-    if (!+[_TtC8VideosUI38VUINetworkReachabilityMonitorObjCProxy isNetworkReachable])
+    v19 = +[_TtC8VideosUI38VUINetworkReachabilityMonitorObjCProxy isNetworkReachable];
+    if ((v19 & 1) == 0)
     {
-      v24 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+      v26 = VUIDefaultLogObject(v19);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
       {
-        v25 = @"NO";
+        v27 = @"NO";
         if (bOOLValue3)
         {
-          v25 = @"YES";
+          v27 = @"YES";
         }
 
         *buf = 138412290;
-        v70 = v25;
-        _os_log_impl(&dword_1E323F000, v24, OS_LOG_TYPE_DEFAULT, "VUIPlaybackTabManager:: Network is not reachable, not fetching tabs setAllowInfoMetadataSubpanel:%@", buf, 0xCu);
+        v73 = v27;
+        _os_log_impl(&dword_1E323F000, v26, OS_LOG_TYPE_DEFAULT, "VUIPlaybackTabManager:: Network is not reachable, not fetching tabs setAllowInfoMetadataSubpanel:%@", buf, 0xCu);
       }
 
       delegate2 = [(VUIPlaybackTabManager *)self delegate];
@@ -207,15 +208,15 @@ void __39__VUIPlaybackTabManager_sharedInstance__block_invoke(uint64_t a1)
       {
         lastRequestDate2 = [(VUIPlaybackTabManager *)self lastRequestDate];
         [lastRequestDate2 timeIntervalSinceNow];
-        v22 = fabs(v21);
+        v23 = fabs(v22);
 
-        if (v22 < 1.0)
+        if (v23 < 1.0)
         {
-          v23 = VUIDefaultLogObject();
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+          v25 = VUIDefaultLogObject(v24);
+          if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_1E323F000, v23, OS_LOG_TYPE_DEFAULT, "VUIPlaybackTabManager:: Not fetching tabs since we just fetched them a moment ago", buf, 2u);
+            _os_log_impl(&dword_1E323F000, v25, OS_LOG_TYPE_DEFAULT, "VUIPlaybackTabManager:: Not fetching tabs since we just fetched them a moment ago", buf, 2u);
           }
 
           if (completionCopy)
@@ -235,24 +236,24 @@ void __39__VUIPlaybackTabManager_sharedInstance__block_invoke(uint64_t a1)
     aBlock[1] = 3221225472;
     aBlock[2] = __72__VUIPlaybackTabManager_updatePlayerTabsExcludingCanonicals_completion___block_invoke;
     aBlock[3] = &unk_1E8733608;
-    v29 = completionCopy;
-    v68 = v29;
-    v51 = _Block_copy(aBlock);
+    v31 = completionCopy;
+    v71 = v31;
+    v54 = _Block_copy(aBlock);
     objc_initWeak(&location, self);
     if (v15)
     {
       delegate3 = [(VUIPlaybackTabManager *)self delegate];
       val = [delegate3 playerViewController];
-      v30 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+      v32 = VUIDefaultLogObject(val);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1E323F000, v30, OS_LOG_TYPE_DEFAULT, "VUIPlaybackTabManager:: not fetching tabs because content is not eligible setAllowInfoMetadataSubpanel:NO", buf, 2u);
+        _os_log_impl(&dword_1E323F000, v32, OS_LOG_TYPE_DEFAULT, "VUIPlaybackTabManager:: not fetching tabs because content is not eligible setAllowInfoMetadataSubpanel:NO", buf, 2u);
       }
 
       [val vui_setAllowInfoMetadataSubpanel:0];
       [(VUIPlaybackTabManager *)self resetPlayerTabsForPlayerViewController:val];
-      if (!v29)
+      if (!v31)
       {
         goto LABEL_59;
       }
@@ -260,69 +261,68 @@ void __39__VUIPlaybackTabManager_sharedInstance__block_invoke(uint64_t a1)
       goto LABEL_58;
     }
 
-    if (v56 == 0)
+    if (v59 == 0)
     {
       delegate3 = [(VUIPlaybackTabManager *)self delegate];
       val = [delegate3 playerViewController];
-      [(VUIPlaybackTabManager *)self resetPlayerTabsForPlayerViewController:val];
-      v33 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+      v35 = VUIDefaultLogObject([(VUIPlaybackTabManager *)self resetPlayerTabsForPlayerViewController:val]);
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
       {
-        v34 = @"NO";
+        v36 = @"NO";
         if (bOOLValue3)
         {
-          v34 = @"YES";
+          v36 = @"YES";
         }
 
         *buf = 138412290;
-        v70 = v34;
-        _os_log_impl(&dword_1E323F000, v33, OS_LOG_TYPE_DEFAULT, "VUIPlaybackTabManager:: not fetching tabs because canonical id is missing setAllowInfoMetadataSubpanel:%@", buf, 0xCu);
+        v73 = v36;
+        _os_log_impl(&dword_1E323F000, v35, OS_LOG_TYPE_DEFAULT, "VUIPlaybackTabManager:: not fetching tabs because canonical id is missing setAllowInfoMetadataSubpanel:%@", buf, 0xCu);
       }
 
       [val vui_setAllowInfoMetadataSubpanel:bOOLValue3];
-      if (!v29)
+      if (!v31)
       {
         goto LABEL_59;
       }
 
 LABEL_58:
-      v29[2](v29);
+      v31[2](v31);
       goto LABEL_59;
     }
 
     delegate3 = [(VUIPlaybackTabManager *)self delegate];
     val = [delegate3 playerViewController];
-    if (*(&v56 + 1))
+    if (*(&v59 + 1))
     {
       tabsInfo = [(VUIPlaybackTabManager *)self tabsInfo];
       if (tabsInfo)
       {
         tabsInfo2 = [(VUIPlaybackTabManager *)self tabsInfo];
         canonicalId = [tabsInfo2 canonicalId];
-        v46 = [canonicalId isEqualToString:*(&v56 + 1)];
+        v49 = [canonicalId isEqualToString:*(&v59 + 1)];
 
-        if (((v46 ^ 1 | bOOLValue2) & 1) == 0)
+        if (((v49 ^ 1 | bOOLValue2) & 1) == 0)
         {
 LABEL_53:
           tabsInfo3 = [(VUIPlaybackTabManager *)self tabsInfo];
           isInfoTabAllowed = [tabsInfo3 isInfoTabAllowed];
 
-          v39 = VUIDefaultLogObject();
-          v40 = isInfoTabAllowed & bOOLValue3;
-          if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+          v42 = VUIDefaultLogObject(v41);
+          v43 = isInfoTabAllowed & bOOLValue3;
+          if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
           {
-            v41 = @"NO";
-            if (v40)
+            v44 = @"NO";
+            if (v43)
             {
-              v41 = @"YES";
+              v44 = @"YES";
             }
 
             *buf = 138412290;
-            v70 = v41;
-            _os_log_impl(&dword_1E323F000, v39, OS_LOG_TYPE_DEFAULT, "VUIPlaybackTabManager:: not fetching tabs because we already have tabs setAllowInfoMetadataSubpanel:%@", buf, 0xCu);
+            v73 = v44;
+            _os_log_impl(&dword_1E323F000, v42, OS_LOG_TYPE_DEFAULT, "VUIPlaybackTabManager:: not fetching tabs because we already have tabs setAllowInfoMetadataSubpanel:%@", buf, 0xCu);
           }
 
-          [val vui_setAllowInfoMetadataSubpanel:v40];
+          [val vui_setAllowInfoMetadataSubpanel:v43];
           tabsInfo4 = [(VUIPlaybackTabManager *)self tabsInfo];
           canonicalId2 = [tabsInfo4 canonicalId];
           tabsInfo5 = [(VUIPlaybackTabManager *)self tabsInfo];
@@ -330,7 +330,7 @@ LABEL_53:
           [(VUIPlaybackTabManager *)self _updateHUDsForAVPlayerViewController:val canonicalId:canonicalId2 tabInfo:tabDetails excludingCanonicals:canonicalsCopy];
 
           [(VUIPlaybackTabManager *)self _updateTimedMetadataEligibilityFlagInCurrentMediaItem];
-          if (!v29)
+          if (!v31)
           {
             goto LABEL_59;
           }
@@ -342,7 +342,7 @@ LABEL_53:
 
     else
     {
-      if (!v56)
+      if (!v59)
       {
         goto LABEL_53;
       }
@@ -352,13 +352,13 @@ LABEL_53:
       {
         tabsInfo7 = [(VUIPlaybackTabManager *)self tabsInfo];
         adamId = [tabsInfo7 adamId];
-        v47 = [adamId isEqualToString:v56];
+        v50 = [adamId isEqualToString:v59];
 
-        if (v47)
+        if (v50)
         {
           if ([(VUIPlaybackTabManager *)self playbackTabError]== 2)
           {
-            v51[2](v51, val, @"VUIPlaybackTabManager:: not fetching tabs as canonical id is missing and we couldn't resolve it using current adam id");
+            v54[2](v54, val, @"VUIPlaybackTabManager:: not fetching tabs as canonical id is missing and we couldn't resolve it using current adam id");
 LABEL_59:
 
             objc_destroyWeak(&location);
@@ -379,21 +379,21 @@ LABEL_61:
     }
 
     objc_initWeak(buf, val);
-    v58[0] = MEMORY[0x1E69E9820];
-    v58[1] = 3221225472;
-    v58[2] = __72__VUIPlaybackTabManager_updatePlayerTabsExcludingCanonicals_completion___block_invoke_153;
-    v58[3] = &unk_1E8733630;
-    objc_copyWeak(&v63, &location);
-    objc_copyWeak(&v64, buf);
-    v59 = *(&v56 + 1);
-    v61 = v51;
-    v65 = bOOLValue3;
-    v62 = v29;
-    v60 = canonicalsCopy;
-    [(VUIPlaybackTabManager *)self _getTabsForCanonicalId:v59 adamId:v56 playablePassThrough:v55 programId:v54 contentId:v53 completion:v58];
+    v61[0] = MEMORY[0x1E69E9820];
+    v61[1] = 3221225472;
+    v61[2] = __72__VUIPlaybackTabManager_updatePlayerTabsExcludingCanonicals_completion___block_invoke_153;
+    v61[3] = &unk_1E8733630;
+    objc_copyWeak(&v66, &location);
+    objc_copyWeak(&v67, buf);
+    v62 = *(&v59 + 1);
+    v64 = v54;
+    v68 = bOOLValue3;
+    v65 = v31;
+    v63 = canonicalsCopy;
+    [(VUIPlaybackTabManager *)self _getTabsForCanonicalId:v62 adamId:v59 playablePassThrough:v58 programId:v57 contentId:v56 completion:v61];
 
-    objc_destroyWeak(&v64);
-    objc_destroyWeak(&v63);
+    objc_destroyWeak(&v67);
+    objc_destroyWeak(&v66);
     objc_destroyWeak(buf);
     goto LABEL_59;
   }
@@ -409,7 +409,7 @@ LABEL_62:
 uint64_t __72__VUIPlaybackTabManager_updatePlayerTabsExcludingCanonicals_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = VUIDefaultLogObject();
+  v4 = VUIDefaultLogObject(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -428,11 +428,11 @@ uint64_t __72__VUIPlaybackTabManager_updatePlayerTabsExcludingCanonicals_complet
 
 void __72__VUIPlaybackTabManager_updatePlayerTabsExcludingCanonicals_completion___block_invoke_153(uint64_t a1, void *a2, uint64_t a3)
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   v5 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 64));
   v7 = objc_loadWeakRetained((a1 + 72));
-  v8 = VUIDefaultLogObject();
+  v8 = VUIDefaultLogObject(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = v7;
@@ -441,47 +441,48 @@ void __72__VUIPlaybackTabManager_updatePlayerTabsExcludingCanonicals_completion_
     v12 = [v11 count];
     v13 = [v5 isInfoTabAllowed];
     [v5 focusedTabIdOnFirstDisplay];
-    v42 = a1;
+    v44 = a1;
     v15 = v14 = v5;
     *buf = 138413314;
-    v44 = v10;
+    v46 = v10;
     v7 = v9;
-    v45 = 2048;
-    v46 = v12;
-    v47 = 1024;
-    *v48 = v13;
-    *&v48[4] = 2112;
-    *&v48[6] = v15;
-    v49 = 2048;
-    v50 = a3;
+    v47 = 2048;
+    v48 = v12;
+    v49 = 1024;
+    *v50 = v13;
+    *&v50[4] = 2112;
+    *&v50[6] = v15;
+    v51 = 2048;
+    v52 = a3;
     _os_log_impl(&dword_1E323F000, v8, OS_LOG_TYPE_DEFAULT, "VUIPlaybackTabManager:: Fetched tabs: %@, count = %lu, isInfoTabAllowed: %d, focusedTabIdOnFirstDisplay: %@, error: %ld", buf, 0x30u);
 
     v5 = v14;
-    a1 = v42;
+    a1 = v44;
   }
 
   [WeakRetained setPlaybackTabError:a3];
   if (a3)
   {
     (*(*(a1 + 48) + 16))();
-    if (!+[_TtC8VideosUI38VUINetworkReachabilityMonitorObjCProxy isNetworkReachable])
+    v16 = +[_TtC8VideosUI38VUINetworkReachabilityMonitorObjCProxy isNetworkReachable];
+    if ((v16 & 1) == 0)
     {
-      v16 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v17 = VUIDefaultLogObject(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         if (*(a1 + 80))
         {
-          v17 = @"YES";
+          v18 = @"YES";
         }
 
         else
         {
-          v17 = @"NO";
+          v18 = @"NO";
         }
 
         *buf = 138412290;
-        v44 = v17;
-        _os_log_impl(&dword_1E323F000, v16, OS_LOG_TYPE_DEFAULT, "VUIPlaybackTabManager:: Network is not reachable setAllowInfoMetadataSubpanel:%@", buf, 0xCu);
+        v46 = v18;
+        _os_log_impl(&dword_1E323F000, v17, OS_LOG_TYPE_DEFAULT, "VUIPlaybackTabManager:: Network is not reachable setAllowInfoMetadataSubpanel:%@", buf, 0xCu);
       }
 
       [v7 vui_setAllowInfoMetadataSubpanel:*(a1 + 80)];
@@ -490,16 +491,16 @@ void __72__VUIPlaybackTabManager_updatePlayerTabsExcludingCanonicals_completion_
     goto LABEL_40;
   }
 
-  v18 = *(a1 + 32);
-  if (v18)
+  v19 = *(a1 + 32);
+  if (v19)
   {
-    if ([v18 length])
+    if ([v19 length])
     {
-      v19 = *(a1 + 32);
-      v20 = [v5 canonicalId];
-      LOBYTE(v19) = [v19 isEqualToString:v20];
+      v20 = *(a1 + 32);
+      v21 = [v5 canonicalId];
+      LOBYTE(v20) = [v20 isEqualToString:v21];
 
-      if ((v19 & 1) == 0)
+      if ((v20 & 1) == 0)
       {
         (*(*(a1 + 48) + 16))();
         goto LABEL_40;
@@ -507,16 +508,16 @@ void __72__VUIPlaybackTabManager_updatePlayerTabsExcludingCanonicals_completion_
     }
   }
 
-  v21 = [WeakRetained delegate];
-  v22 = [v21 currentMediaItem];
+  v22 = [WeakRetained delegate];
+  v23 = [v22 currentMediaItem];
 
-  v23 = [v22 mediaItemMetadataForProperty:*MEMORY[0x1E69D5DA8]];
-  if (v23)
+  v24 = [v23 mediaItemMetadataForProperty:*MEMORY[0x1E69D5DA8]];
+  if (v24)
   {
-    v24 = [v5 adamId];
-    v25 = [v23 isEqualToString:v24];
+    v25 = [v5 adamId];
+    v26 = [v24 isEqualToString:v25];
 
-    if ((v25 & 1) == 0)
+    if ((v26 & 1) == 0)
     {
       (*(*(a1 + 48) + 16))();
 
@@ -524,48 +525,38 @@ void __72__VUIPlaybackTabManager_updatePlayerTabsExcludingCanonicals_completion_
     }
   }
 
-  v26 = [WeakRetained tabsInfo];
-  if (([v5 isEqual:v26] & 1) == 0)
+  v27 = [WeakRetained tabsInfo];
+  if (([v5 isEqual:v27] & 1) == 0)
   {
 
     goto LABEL_22;
   }
 
-  v27 = [v7 customInfoViewControllers];
-  v28 = [v27 count];
-  v29 = [v5 tabDetails];
-  v30 = [v29 count];
+  v28 = [v7 customInfoViewControllers];
+  v29 = [v28 count];
+  v30 = [v5 tabDetails];
+  v31 = [v30 count];
 
-  if (v28 != v30)
+  if (v29 != v31)
   {
 LABEL_22:
-    v32 = [v5 isInfoTabAllowed];
-    if (v32)
+    v33 = [v5 isInfoTabAllowed];
+    v34 = v33;
+    if (v33)
     {
-      v33 = *(a1 + 80);
+      v35 = *(a1 + 80);
     }
 
     else
     {
-      v33 = 0;
+      v35 = 0;
     }
 
-    v34 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+    v36 = VUIDefaultLogObject(v33);
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
     {
-      v35 = @"NO";
-      if (v33)
-      {
-        v36 = @"YES";
-      }
-
-      else
-      {
-        v36 = @"NO";
-      }
-
-      v37 = *(a1 + 80);
-      if (v32)
+      v37 = @"NO";
+      if (v35)
       {
         v38 = @"YES";
       }
@@ -575,43 +566,53 @@ LABEL_22:
         v38 = @"NO";
       }
 
-      *buf = 138412802;
-      v44 = v36;
-      v45 = 2112;
-      v46 = v38;
-      if (v37)
+      v39 = *(a1 + 80);
+      if (v34)
       {
-        v35 = @"YES";
+        v40 = @"YES";
       }
 
+      else
+      {
+        v40 = @"NO";
+      }
+
+      *buf = 138412802;
+      v46 = v38;
       v47 = 2112;
-      *v48 = v35;
-      _os_log_impl(&dword_1E323F000, v34, OS_LOG_TYPE_DEFAULT, "VUIPlaybackTabManager:: using tabs from UTS response setAllowInfoMetadataSubpanel: %@ isInfoTabAllowed = %@, isContentEligibleForInfoTab = %@", buf, 0x20u);
+      v48 = v40;
+      if (v39)
+      {
+        v37 = @"YES";
+      }
+
+      v49 = 2112;
+      *v50 = v37;
+      _os_log_impl(&dword_1E323F000, v36, OS_LOG_TYPE_DEFAULT, "VUIPlaybackTabManager:: using tabs from UTS response setAllowInfoMetadataSubpanel: %@ isInfoTabAllowed = %@, isContentEligibleForInfoTab = %@", buf, 0x20u);
     }
 
     [WeakRetained setTabsInfo:v5];
-    [v7 vui_setAllowInfoMetadataSubpanel:v33 & 1];
-    v39 = [v5 canonicalId];
-    v40 = [v5 tabDetails];
-    [WeakRetained _updateHUDsForAVPlayerViewController:v7 canonicalId:v39 tabInfo:v40 excludingCanonicals:*(a1 + 40)];
+    [v7 vui_setAllowInfoMetadataSubpanel:v35 & 1];
+    v41 = [v5 canonicalId];
+    v42 = [v5 tabDetails];
+    [WeakRetained _updateHUDsForAVPlayerViewController:v7 canonicalId:v41 tabInfo:v42 excludingCanonicals:*(a1 + 40)];
 
     [WeakRetained _updateTimedMetadataEligibilityFlagInCurrentMediaItem];
     goto LABEL_37;
   }
 
-  [WeakRetained _updateTimedMetadataEligibilityFlagInCurrentMediaItem];
-  v31 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+  v32 = VUIDefaultLogObject([WeakRetained _updateTimedMetadataEligibilityFlagInCurrentMediaItem]);
+  if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1E323F000, v31, OS_LOG_TYPE_DEFAULT, "VUIPlaybackTabManager:: not updating tabs because the new ones match the existing ones", buf, 2u);
+    _os_log_impl(&dword_1E323F000, v32, OS_LOG_TYPE_DEFAULT, "VUIPlaybackTabManager:: not updating tabs because the new ones match the existing ones", buf, 2u);
   }
 
 LABEL_37:
-  v41 = *(a1 + 56);
-  if (v41)
+  v43 = *(a1 + 56);
+  if (v43)
   {
-    (*(v41 + 16))();
+    (*(v43 + 16))();
   }
 
 LABEL_40:
@@ -630,30 +631,30 @@ LABEL_40:
 
   if (v17 && tabId)
   {
-    v18 = objc_alloc_init(VUIHUDViewController);
-    [(VUIHUDViewController *)v18 setTitle:title];
-    [(VUIHUDViewController *)v18 setHudContentViewController:v17];
+    v19 = objc_alloc_init(VUIHUDViewController);
+    [(VUIHUDViewController *)v19 setTitle:title];
+    [(VUIHUDViewController *)v19 setHudContentViewController:v17];
     tabId2 = [infoCopy tabId];
-    [(VUIHUDViewController *)v18 setTabIdentifier:tabId2];
+    [(VUIHUDViewController *)v19 setTabIdentifier:tabId2];
 
-    [(VUIHUDViewController *)v18 setIsMultiview:multiviewCopy];
+    [(VUIHUDViewController *)v19 setIsMultiview:multiviewCopy];
     hudViewControllers = [(VUIPlaybackTabManager *)self hudViewControllers];
-    [hudViewControllers setObject:v18 forKey:tabId];
+    [hudViewControllers setObject:v19 forKey:tabId];
   }
 
   else
   {
-    v21 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v22 = VUIDefaultLogObject(v18);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
-      *v23 = 0;
-      _os_log_impl(&dword_1E323F000, v21, OS_LOG_TYPE_DEFAULT, "VUIPlaybackTabManager::Failed to create hud content view controller", v23, 2u);
+      *v24 = 0;
+      _os_log_impl(&dword_1E323F000, v22, OS_LOG_TYPE_DEFAULT, "VUIPlaybackTabManager::Failed to create hud content view controller", v24, 2u);
     }
 
-    v18 = 0;
+    v19 = 0;
   }
 
-  return v18;
+  return v19;
 }
 
 - (void)resetPlayerTabsForPlayerViewController:(id)controller
@@ -925,154 +926,157 @@ LABEL_31:
 
 void __106__VUIPlaybackTabManager__getTabsForCanonicalId_adamId_playablePassThrough_programId_contentId_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 vui_stringForKey:@"error"];
+  v5 = v4;
   if (v4)
   {
-    v5 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = VUIDefaultLogObject(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v18 = v4;
-      _os_log_impl(&dword_1E323F000, v5, OS_LOG_TYPE_DEFAULT, "VUIPlaybackTabManager::Error occurred while fetching tabs: %@", buf, 0xCu);
+      v19 = v5;
+      _os_log_impl(&dword_1E323F000, v6, OS_LOG_TYPE_DEFAULT, "VUIPlaybackTabManager::Error occurred while fetching tabs: %@", buf, 0xCu);
     }
 
-    if ([v4 isEqualToString:@"PlaybackTabErrorNoCanonicalOrAdamId"])
+    if ([v5 isEqualToString:@"PlaybackTabErrorNoCanonicalOrAdamId"])
     {
-      v6 = 1;
+      v7 = 1;
     }
 
     else
     {
-      v6 = 2;
+      v7 = 2;
     }
 
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __106__VUIPlaybackTabManager__getTabsForCanonicalId_adamId_playablePassThrough_programId_contentId_completion___block_invoke_177;
     block[3] = &unk_1E872E230;
-    v15 = *(a1 + 32);
-    v16 = v6;
+    v16 = *(a1 + 32);
+    v17 = v7;
     dispatch_async(MEMORY[0x1E69E96A0], block);
-    v7 = v15;
+    v8 = v16;
   }
 
   else
   {
-    v8 = [[VUIPlaybackTabInfo alloc] initWithDictionary:v3];
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __106__VUIPlaybackTabManager__getTabsForCanonicalId_adamId_playablePassThrough_programId_contentId_completion___block_invoke_2_178;
-    v10[3] = &unk_1E8732AF0;
-    v9 = *(a1 + 32);
-    v11 = v8;
+    v9 = [[VUIPlaybackTabInfo alloc] initWithDictionary:v3];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __106__VUIPlaybackTabManager__getTabsForCanonicalId_adamId_playablePassThrough_programId_contentId_completion___block_invoke_2_178;
+    v11[3] = &unk_1E8732AF0;
+    v10 = *(a1 + 32);
     v12 = v9;
-    v13 = 0;
-    v7 = v8;
-    dispatch_async(MEMORY[0x1E69E96A0], v10);
+    v13 = v10;
+    v14 = 0;
+    v8 = v9;
+    dispatch_async(MEMORY[0x1E69E96A0], v11);
   }
 }
 
 void __106__VUIPlaybackTabManager__getTabsForCanonicalId_adamId_playablePassThrough_programId_contentId_completion___block_invoke_3(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 vui_stringForKey:@"error"];
+  v5 = v4;
   if (v4)
   {
-    v5 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = VUIDefaultLogObject(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v18 = v4;
-      _os_log_impl(&dword_1E323F000, v5, OS_LOG_TYPE_DEFAULT, "VUIPlaybackTabManager::Error occurred while fetching tabs: %@", buf, 0xCu);
+      v19 = v5;
+      _os_log_impl(&dword_1E323F000, v6, OS_LOG_TYPE_DEFAULT, "VUIPlaybackTabManager::Error occurred while fetching tabs: %@", buf, 0xCu);
     }
 
-    if ([v4 isEqualToString:@"PlaybackTabErrorNoCanonicalOrAdamId"])
+    if ([v5 isEqualToString:@"PlaybackTabErrorNoCanonicalOrAdamId"])
     {
-      v6 = 1;
+      v7 = 1;
     }
 
     else
     {
-      v6 = 2;
+      v7 = 2;
     }
 
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __106__VUIPlaybackTabManager__getTabsForCanonicalId_adamId_playablePassThrough_programId_contentId_completion___block_invoke_182;
     block[3] = &unk_1E872E230;
-    v15 = *(a1 + 32);
-    v16 = v6;
+    v16 = *(a1 + 32);
+    v17 = v7;
     dispatch_async(MEMORY[0x1E69E96A0], block);
-    v7 = v15;
+    v8 = v16;
   }
 
   else
   {
-    v8 = [[VUIPlaybackTabInfo alloc] initWithDictionary:v3];
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __106__VUIPlaybackTabManager__getTabsForCanonicalId_adamId_playablePassThrough_programId_contentId_completion___block_invoke_2_183;
-    v10[3] = &unk_1E8732AF0;
-    v9 = *(a1 + 32);
-    v11 = v8;
+    v9 = [[VUIPlaybackTabInfo alloc] initWithDictionary:v3];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __106__VUIPlaybackTabManager__getTabsForCanonicalId_adamId_playablePassThrough_programId_contentId_completion___block_invoke_2_183;
+    v11[3] = &unk_1E8732AF0;
+    v10 = *(a1 + 32);
     v12 = v9;
-    v13 = 0;
-    v7 = v8;
-    dispatch_async(MEMORY[0x1E69E96A0], v10);
+    v13 = v10;
+    v14 = 0;
+    v8 = v9;
+    dispatch_async(MEMORY[0x1E69E96A0], v11);
   }
 }
 
 void __106__VUIPlaybackTabManager__getTabsForCanonicalId_adamId_playablePassThrough_programId_contentId_completion___block_invoke_3_184(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 vui_stringForKey:@"error"];
+  v5 = v4;
   if (v4)
   {
-    v5 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = VUIDefaultLogObject(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v18 = v4;
-      _os_log_impl(&dword_1E323F000, v5, OS_LOG_TYPE_DEFAULT, "VUIPlaybackTabManager::Error occurred while fetching tabs: %@", buf, 0xCu);
+      v19 = v5;
+      _os_log_impl(&dword_1E323F000, v6, OS_LOG_TYPE_DEFAULT, "VUIPlaybackTabManager::Error occurred while fetching tabs: %@", buf, 0xCu);
     }
 
-    if ([v4 isEqualToString:@"PlaybackTabErrorNoCanonicalOrAdamId"])
+    if ([v5 isEqualToString:@"PlaybackTabErrorNoCanonicalOrAdamId"])
     {
-      v6 = 1;
+      v7 = 1;
     }
 
     else
     {
-      v6 = 2;
+      v7 = 2;
     }
 
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __106__VUIPlaybackTabManager__getTabsForCanonicalId_adamId_playablePassThrough_programId_contentId_completion___block_invoke_185;
     block[3] = &unk_1E872E230;
-    v15 = *(a1 + 32);
-    v16 = v6;
+    v16 = *(a1 + 32);
+    v17 = v7;
     dispatch_async(MEMORY[0x1E69E96A0], block);
-    v7 = v15;
+    v8 = v16;
   }
 
   else
   {
-    v8 = [[VUIPlaybackTabInfo alloc] initWithDictionary:v3];
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __106__VUIPlaybackTabManager__getTabsForCanonicalId_adamId_playablePassThrough_programId_contentId_completion___block_invoke_2_186;
-    v10[3] = &unk_1E8732AF0;
-    v9 = *(a1 + 32);
-    v11 = v8;
+    v9 = [[VUIPlaybackTabInfo alloc] initWithDictionary:v3];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __106__VUIPlaybackTabManager__getTabsForCanonicalId_adamId_playablePassThrough_programId_contentId_completion___block_invoke_2_186;
+    v11[3] = &unk_1E8732AF0;
+    v10 = *(a1 + 32);
     v12 = v9;
-    v13 = 0;
-    v7 = v8;
-    dispatch_async(MEMORY[0x1E69E96A0], v10);
+    v13 = v10;
+    v14 = 0;
+    v8 = v9;
+    dispatch_async(MEMORY[0x1E69E96A0], v11);
   }
 }
 
@@ -1192,7 +1196,7 @@ LABEL_24:
     }
   }
 
-  v34 = VUIDefaultLogObject();
+  v34 = VUIDefaultLogObject(0);
   if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1207,83 +1211,84 @@ LABEL_30:
 {
   startCopy = start;
   multiviewCopy = multiview;
-  v44 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   idCopy = id;
   titleCopy = title;
   canonicalsCopy = canonicals;
   localeCopy = locale;
   delegate = [(VUIPlaybackTabManager *)self delegate];
   v19 = objc_opt_new();
-  v41 = canonicalsCopy;
-  if ([idCopy isEqualToString:@"uts.marker.Spotlight"])
+  v20 = [idCopy isEqualToString:@"uts.marker.Spotlight"];
+  v43 = canonicalsCopy;
+  if (v20)
   {
-    v20 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    v21 = VUIDefaultLogObject(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1E323F000, v20, OS_LOG_TYPE_DEFAULT, "VUIPlaybackTabManager::Creating timed metadata controller", buf, 2u);
+      _os_log_impl(&dword_1E323F000, v21, OS_LOG_TYPE_DEFAULT, "VUIPlaybackTabManager::Creating timed metadata controller", buf, 2u);
     }
 
-    v21 = [[VUIDocumentDataSource alloc] initWithDocumentRef:@"TimedMetadata"];
-    v22 = +[VUIInterfaceFactory sharedInstance];
+    v22 = [[VUIDocumentDataSource alloc] initWithDocumentRef:@"TimedMetadata"];
+    v23 = +[VUIInterfaceFactory sharedInstance];
     appContext = [(VUIPlaybackTabManager *)self appContext];
-    v24 = [(VUIDocumentDataSource *)v22 viewControllerWithDocumentDataSource:v21 appContext:appContext];
+    v25 = [(VUIDocumentDataSource *)v23 viewControllerWithDocumentDataSource:v22 appContext:appContext];
   }
 
   else
   {
-    v25 = titleCopy;
-    v21 = [(VUIPlaybackTabManager *)self _createPrefetchedDataForPlayerHUDWithTabId:idCopy title:titleCopy excludingCanonicals:canonicalsCopy isMultiview:multiviewCopy locale:localeCopy playsFromStart:startCopy];
-    jsonData = [(VUIDocumentDataSource *)v21 jsonData];
+    v26 = titleCopy;
+    v22 = [(VUIPlaybackTabManager *)self _createPrefetchedDataForPlayerHUDWithTabId:idCopy title:titleCopy excludingCanonicals:canonicalsCopy isMultiview:multiviewCopy locale:localeCopy playsFromStart:startCopy];
+    jsonData = [(VUIDocumentDataSource *)v22 jsonData];
 
-    v27 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+    v29 = VUIDefaultLogObject(v28);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
     {
-      jsonData2 = [(VUIDocumentDataSource *)v21 jsonData];
+      jsonData2 = [(VUIDocumentDataSource *)v22 jsonData];
       *buf = 138412290;
-      v43 = jsonData2;
-      _os_log_impl(&dword_1E323F000, v27, OS_LOG_TYPE_DEFAULT, "VUIPlaybackTabManager::Creating hud content controller with data: [%@]", buf, 0xCu);
+      v45 = jsonData2;
+      _os_log_impl(&dword_1E323F000, v29, OS_LOG_TYPE_DEFAULT, "VUIPlaybackTabManager::Creating hud content controller with data: [%@]", buf, 0xCu);
     }
 
-    v22 = [[VUIDocumentDataSource alloc] initWithDocumentRef:@"PlayerHUD"];
+    v23 = [[VUIDocumentDataSource alloc] initWithDocumentRef:@"PlayerHUD"];
     appContext = [(VUIPlaybackTabManager *)self appContext];
-    [(VUIDocumentDataSource *)v22 setDocumentType:@"player"];
-    [(VUIDocumentDataSource *)v22 setControllerRef:@"PlayerHUD"];
-    [(VUIDocumentDataSource *)v22 setPrefetchData:v21];
-    v29 = +[VUIInterfaceFactory sharedInstance];
-    v24 = [v29 viewControllerWithDocumentDataSource:v22 appContext:appContext];
+    [(VUIDocumentDataSource *)v23 setDocumentType:@"player"];
+    [(VUIDocumentDataSource *)v23 setControllerRef:@"PlayerHUD"];
+    [(VUIDocumentDataSource *)v23 setPrefetchData:v22];
+    v31 = +[VUIInterfaceFactory sharedInstance];
+    v25 = [v31 viewControllerWithDocumentDataSource:v23 appContext:appContext];
 
     v19 = jsonData;
-    titleCopy = v25;
+    titleCopy = v26;
   }
 
-  if ([v24 conformsToProtocol:&unk_1F5F390C8])
+  if ([v25 conformsToProtocol:&unk_1F5F390C8])
   {
-    v30 = v24;
+    v32 = v25;
     if (objc_opt_respondsToSelector())
     {
       nowPlayingControllerDelegate = [delegate nowPlayingControllerDelegate];
-      [v30 setNowPlayingTabDelegate:nowPlayingControllerDelegate];
+      [v32 setNowPlayingTabDelegate:nowPlayingControllerDelegate];
     }
 
-    v32 = titleCopy;
+    v34 = titleCopy;
     if (objc_opt_respondsToSelector())
     {
-      [v30 setNowPlayingTabContextData:v19];
+      [v32 setNowPlayingTabContextData:v19];
     }
 
     playerViewController = [delegate playerViewController];
     view = [playerViewController view];
     window = [view window];
     [window bounds];
-    v37 = v36;
     v39 = v38;
+    v41 = v40;
 
-    [v30 setPlayerViewSize:{v37, v39}];
-    titleCopy = v32;
+    [v32 setPlayerViewSize:{v39, v41}];
+    titleCopy = v34;
   }
 
-  return v24;
+  return v25;
 }
 
 - (id)_createPrefetchedDataForPlayerHUDWithTabId:(id)id title:(id)title excludingCanonicals:(id)canonicals isMultiview:(BOOL)multiview locale:(id)locale playsFromStart:(BOOL)start

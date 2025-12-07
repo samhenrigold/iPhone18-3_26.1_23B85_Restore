@@ -634,8 +634,8 @@ LABEL_5:
     objc_storeStrong(&v13->_startEvent, event);
     if (eventCopy)
     {
-      [eventCopy monotonicTime];
-      [eventCopy monotonicTime];
+      objc_msgSend_monotonicTime(eventCopy);
+      objc_msgSend_monotonicTime(eventCopy);
       v14 = v19 + v20;
     }
 
@@ -648,8 +648,8 @@ LABEL_5:
     objc_storeStrong(&v13->_endEvent, endEvent);
     if (endEventCopy)
     {
-      [endEventCopy monotonicTime];
-      [endEventCopy monotonicTime];
+      objc_msgSend_monotonicTime(endEventCopy);
+      objc_msgSend_monotonicTime(endEventCopy);
       v15 = v17 + v18;
     }
 
@@ -679,8 +679,8 @@ LABEL_5:
     objc_storeStrong(&v12->_endEvent, event);
     if (eventCopy)
     {
-      [eventCopy monotonicTime];
-      [eventCopy monotonicTime];
+      objc_msgSend_monotonicTime(eventCopy);
+      objc_msgSend_monotonicTime(eventCopy);
       v13 = v15 + v16;
     }
 

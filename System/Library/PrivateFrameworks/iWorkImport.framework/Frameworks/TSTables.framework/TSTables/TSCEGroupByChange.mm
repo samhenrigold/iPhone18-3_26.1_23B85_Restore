@@ -34,7 +34,7 @@
 
 - (TSCEGroupByChange)initWithType:(unsigned __int8)type groupingColumnChanges:(const void *)changes groupByUid:(const TSKUIDStruct *)uid
 {
-  v6 = objc_msgSend_initWithType_groupByUid_(self, a2, type, uid, uid);
+  v6 = objc_msgSend_initWithType_groupByUid_(self, a2, type, uid);
   v7 = v6;
   if (v6)
   {
@@ -52,10 +52,10 @@
 {
   v4 = [TSCEGroupByChange alloc];
   v6 = objc_msgSend_initWithType_groupingColumnChanges_groupByUid_(v4, v5, self->_changeType, &self->_groupingColumnChanges, &self->_groupByUid);
-  objc_msgSend_setPreviousLevel_(v6, v7, self->_previousLevel, v8, v9);
-  objc_msgSend_setUpdatedLevel_(v6, v10, self->_updatedLevel, v11, v12);
-  objc_msgSend_setIsInverse_(v6, v13, self->_isInverse, v14, v15);
-  for (i = &self->_previousGroupNodeToUpdated.__table_.__first_node_; ; objc_msgSend_mapPreviousGroupNodeUid_toUpdatedGroupNodeUid_(v6, v16, &i[2], &i[4], v17))
+  objc_msgSend_setPreviousLevel_(v6, v7, self->_previousLevel, v8);
+  objc_msgSend_setUpdatedLevel_(v6, v9, self->_updatedLevel, v10);
+  objc_msgSend_setIsInverse_(v6, v11, self->_isInverse, v12);
+  for (i = &self->_previousGroupNodeToUpdated.__table_.__first_node_; ; objc_msgSend_mapPreviousGroupNodeUid_toUpdatedGroupNodeUid_(v6, v13, &i[2], &i[4]))
   {
     i = i->__next_;
     if (!i)
@@ -64,7 +64,7 @@
     }
   }
 
-  for (j = &self->_updatedGroupNodeToPrevious.__table_.__first_node_; ; objc_msgSend_mapPreviousGroupNodeUid_toUpdatedGroupNodeUid_(v6, v16, &j[4], &j[2], v17))
+  for (j = &self->_updatedGroupNodeToPrevious.__table_.__first_node_; ; objc_msgSend_mapPreviousGroupNodeUid_toUpdatedGroupNodeUid_(v6, v13, &j[4], &j[2]))
   {
     j = j->__next_;
     if (!j)
@@ -81,9 +81,9 @@
   removedGroupNodeUids = self->_removedGroupNodeUids;
   if (!removedGroupNodeUids)
   {
-    v7 = objc_opt_new();
-    v8 = self->_removedGroupNodeUids;
-    self->_removedGroupNodeUids = v7;
+    v6 = objc_opt_new();
+    v7 = self->_removedGroupNodeUids;
+    self->_removedGroupNodeUids = v6;
 
     removedGroupNodeUids = self->_removedGroupNodeUids;
   }
@@ -91,29 +91,31 @@
   lower = uid->_lower;
   upper = uid->_upper;
 
-  objc_msgSend_addUUID_(removedGroupNodeUids, a2, lower, upper, v3);
+  objc_msgSend_addUUID_(removedGroupNodeUids, a2, lower, upper);
 }
 
 - (void)mapPreviousGroupNodeUid:(const TSKUIDStruct *)uid toUpdatedGroupNodeUid:(const TSKUIDStruct *)nodeUid
 {
-  *(sub_221230440(&self->_previousGroupNodeToUpdated.__table_.__bucket_list_.__ptr_, uid) + 2) = *nodeUid;
-  *(sub_221230440(&self->_updatedGroupNodeToPrevious.__table_.__bucket_list_.__ptr_, nodeUid) + 2) = *uid;
+  nodeUidCopy = uid;
+  *(sub_221230440(&self->_previousGroupNodeToUpdated.__table_.__bucket_list_.__ptr_, uid, &unk_2217E0D98, &nodeUidCopy) + 2) = *nodeUid;
+  nodeUidCopy = nodeUid;
+  *(sub_221230440(&self->_updatedGroupNodeToPrevious.__table_.__bucket_list_.__ptr_, nodeUid, &unk_2217E0D98, &nodeUidCopy) + 2) = *uid;
   previousGroupNodeUids = self->_previousGroupNodeUids;
   if (!previousGroupNodeUids)
   {
-    v10 = objc_opt_new();
-    v11 = self->_previousGroupNodeUids;
-    self->_previousGroupNodeUids = v10;
+    v9 = objc_opt_new();
+    v10 = self->_previousGroupNodeUids;
+    self->_previousGroupNodeUids = v9;
 
-    v12 = objc_opt_new();
+    v11 = objc_opt_new();
     updatedGroupNodeUids = self->_updatedGroupNodeUids;
-    self->_updatedGroupNodeUids = v12;
+    self->_updatedGroupNodeUids = v11;
 
     previousGroupNodeUids = self->_previousGroupNodeUids;
   }
 
-  objc_msgSend_addUUID_(previousGroupNodeUids, v7, uid->_lower, uid->_upper, v8);
-  objc_msgSend_addUUID_(self->_updatedGroupNodeUids, v14, nodeUid->_lower, nodeUid->_upper, v15);
+  objc_msgSend_addUUID_(previousGroupNodeUids, v7, uid->_lower, uid->_upper);
+  objc_msgSend_addUUID_(self->_updatedGroupNodeUids, v13, nodeUid->_lower, nodeUid->_upper);
 }
 
 - (TSKUIDStruct)previousGroupNodeUidForUpdatedGroupNodeUid:(const TSKUIDStruct *)uid
@@ -212,59 +214,69 @@
     v5 = MEMORY[0x277D809E0];
   }
 
-  v53[0] = TSKUIDStruct::loadFromMessage(v5, a2);
-  v53[1] = v6;
-  v8 = objc_msgSend_initWithType_groupByUid_(self, v6, *(archive + 96), v53, v7);
-  if (v8)
+  v47[0] = TSKUIDStruct::loadFromMessage(v5, a2);
+  v47[1] = v6;
+  v7 = objc_msgSend_initWithType_groupByUid_(self, v6, *(archive + 96), v47);
+  if (v7)
   {
-    v9 = objc_opt_new();
-    previousGroupNodeUids = v8->_previousGroupNodeUids;
-    v8->_previousGroupNodeUids = v9;
+    v8 = objc_opt_new();
+    previousGroupNodeUids = v7->_previousGroupNodeUids;
+    v7->_previousGroupNodeUids = v8;
 
-    v11 = objc_opt_new();
-    updatedGroupNodeUids = v8->_updatedGroupNodeUids;
-    v8->_updatedGroupNodeUids = v11;
+    v10 = objc_opt_new();
+    updatedGroupNodeUids = v7->_updatedGroupNodeUids;
+    v7->_updatedGroupNodeUids = v10;
 
-    v14 = *(archive + 4);
-    v15 = *(archive + 100);
-    if ((v14 & 0x10) == 0)
+    v13 = *(archive + 4);
+    v14 = *(archive + 100);
+    if ((v13 & 0x10) == 0)
+    {
+      v14 = -1;
+    }
+
+    v7->_previousLevel = v14;
+    v15 = *(archive + 104);
+    if ((v13 & 0x20) == 0)
     {
       v15 = -1;
     }
 
-    v8->_previousLevel = v15;
-    v16 = *(archive + 104);
-    if ((v14 & 0x20) == 0)
+    v7->_updatedLevel = v15;
+    v16 = *(archive + 14);
+    if (v16 > 0)
     {
-      v16 = -1;
-    }
-
-    v8->_updatedLevel = v16;
-    v17 = *(archive + 14);
-    if (v17 > 0)
-    {
-      end = v8->_groupingColumnChanges.__end_;
-      v19 = 8;
+      end = v7->_groupingColumnChanges.__end_;
+      v18 = 8;
       do
       {
-        v20 = *(*(archive + 8) + v19);
-        v22 = *(v20 + 24);
-        v21 = *(v20 + 28);
-        cap = v8->_groupingColumnChanges.__cap_;
+        v19 = *(*(archive + 8) + v18);
+        v21 = *(v19 + 24);
+        v20 = *(v19 + 28);
+        cap = v7->_groupingColumnChanges.__cap_;
         if (end >= cap)
         {
-          begin = v8->_groupingColumnChanges.__begin_;
-          v25 = end - begin;
-          v26 = (end - begin) >> 1;
-          if (v26 <= -2)
+          begin = v7->_groupingColumnChanges.__begin_;
+          v24 = end - begin;
+          v25 = (end - begin) >> 1;
+          if (v25 <= -2)
           {
             sub_22107C148();
           }
 
-          v27 = cap - begin;
-          if (v27 <= v26 + 1)
+          v26 = cap - begin;
+          if (v26 <= v25 + 1)
           {
-            v28 = v26 + 1;
+            v27 = v25 + 1;
+          }
+
+          else
+          {
+            v27 = v26;
+          }
+
+          if (v26 >= 0x7FFFFFFFFFFFFFFELL)
+          {
+            v28 = 0x7FFFFFFFFFFFFFFFLL;
           }
 
           else
@@ -272,60 +284,50 @@
             v28 = v27;
           }
 
-          if (v27 >= 0x7FFFFFFFFFFFFFFELL)
+          if (v28)
           {
-            v29 = 0x7FFFFFFFFFFFFFFFLL;
+            sub_22115DB94(&v7->_groupingColumnChanges, v28);
           }
 
-          else
+          v29 = v25;
+          v30 = (2 * v25);
+          *v30 = v21;
+          v30[1] = v20;
+          end = (2 * v25 + 2);
+          v31 = &v30[-2 * v29];
+          memcpy(v31, begin, v24);
+          v32 = v7->_groupingColumnChanges.__begin_;
+          v7->_groupingColumnChanges.__begin_ = v31;
+          v7->_groupingColumnChanges.__end_ = end;
+          v7->_groupingColumnChanges.__cap_ = 0;
+          if (v32)
           {
-            v29 = v28;
-          }
-
-          if (v29)
-          {
-            sub_22115DB94(&v8->_groupingColumnChanges, v29);
-          }
-
-          v30 = v26;
-          v31 = (2 * v26);
-          *v31 = v22;
-          v31[1] = v21;
-          end = (2 * v26 + 2);
-          v32 = &v31[-2 * v30];
-          memcpy(v32, begin, v25);
-          v33 = v8->_groupingColumnChanges.__begin_;
-          v8->_groupingColumnChanges.__begin_ = v32;
-          v8->_groupingColumnChanges.__end_ = end;
-          v8->_groupingColumnChanges.__cap_ = 0;
-          if (v33)
-          {
-            operator delete(v33);
+            operator delete(v32);
           }
         }
 
         else
         {
-          *end = v22;
-          *(end + 1) = v21;
+          *end = v21;
+          *(end + 1) = v20;
           end = (end + 2);
         }
 
-        v8->_groupingColumnChanges.__end_ = end;
-        v19 += 8;
-        --v17;
+        v7->_groupingColumnChanges.__end_ = end;
+        v18 += 8;
+        --v16;
       }
 
-      while (v17);
-      v14 = *(archive + 4);
+      while (v16);
+      v13 = *(archive + 4);
     }
 
-    if ((v14 & 2) != 0)
+    if ((v13 & 2) != 0)
     {
-      sub_2212696E0(*(archive + 10), v13, v52);
-      sub_22120A3D8(&v8->_previousGroupNodeToUpdated, v52);
-      sub_2210BDEC0(v52);
-      for (i = &v8->_previousGroupNodeToUpdated.__table_.__first_node_; ; objc_msgSend_addUUID_(v8->_updatedGroupNodeUids, v36, i[4].__next_, i[5].__next_, v37))
+      sub_2212696E0(*(archive + 10), v12, v46);
+      sub_22120A3D8(&v7->_previousGroupNodeToUpdated, v46);
+      sub_2210BDEC0(v46);
+      for (i = &v7->_previousGroupNodeToUpdated.__table_.__first_node_; ; objc_msgSend_addUUID_(v7->_updatedGroupNodeUids, v34, i[4].__next_, i[5].__next_))
       {
         i = i->__next_;
         if (!i)
@@ -333,18 +335,18 @@
           break;
         }
 
-        objc_msgSend_addUUID_(v8->_previousGroupNodeUids, v13, i[2].__next_, i[3].__next_, v34);
+        objc_msgSend_addUUID_(v7->_previousGroupNodeUids, v12, i[2].__next_, i[3].__next_);
       }
 
-      v14 = *(archive + 4);
+      v13 = *(archive + 4);
     }
 
-    if ((v14 & 4) != 0)
+    if ((v13 & 4) != 0)
     {
-      sub_2212696E0(*(archive + 11), v13, v52);
-      sub_22120A3D8(&v8->_updatedGroupNodeToPrevious, v52);
-      sub_2210BDEC0(v52);
-      for (j = &v8->_updatedGroupNodeToPrevious.__table_.__first_node_; ; objc_msgSend_addUUID_(v8->_updatedGroupNodeUids, v50, j[2].__next_, j[3].__next_, v51))
+      sub_2212696E0(*(archive + 11), v12, v46);
+      sub_22120A3D8(&v7->_updatedGroupNodeToPrevious, v46);
+      sub_2210BDEC0(v46);
+      for (j = &v7->_updatedGroupNodeToPrevious.__table_.__first_node_; ; objc_msgSend_addUUID_(v7->_updatedGroupNodeUids, v45, j[2].__next_, j[3].__next_))
       {
         j = j->__next_;
         if (!j)
@@ -352,34 +354,34 @@
           break;
         }
 
-        objc_msgSend_addUUID_(v8->_previousGroupNodeUids, v47, j[4].__next_, j[5].__next_, v48);
+        objc_msgSend_addUUID_(v7->_previousGroupNodeUids, v43, j[4].__next_, j[5].__next_);
       }
     }
 
-    v38 = *(archive + 8);
-    if (v38)
+    v35 = *(archive + 8);
+    if (v35)
     {
-      v39 = objc_opt_new();
-      removedGroupNodeUids = v8->_removedGroupNodeUids;
-      v8->_removedGroupNodeUids = v39;
+      v36 = objc_opt_new();
+      removedGroupNodeUids = v7->_removedGroupNodeUids;
+      v7->_removedGroupNodeUids = v36;
 
-      if (v38 >= 1)
+      if (v35 >= 1)
       {
-        v42 = 8;
+        v39 = 8;
         do
         {
-          v43 = TSKUIDStruct::loadFromMessage(*(*(archive + 5) + v42), v41);
-          objc_msgSend_addUUID_(v8->_removedGroupNodeUids, v44, v43, v44, v45);
-          v42 += 8;
-          --v38;
+          v40 = TSKUIDStruct::loadFromMessage(*(*(archive + 5) + v39), v38);
+          objc_msgSend_addUUID_(v7->_removedGroupNodeUids, v41, v40, v41);
+          v39 += 8;
+          --v35;
         }
 
-        while (v38);
+        while (v35);
       }
     }
   }
 
-  return v8;
+  return v7;
 }
 
 - (void)saveToArchive:(void *)archive
@@ -419,91 +421,91 @@
   end = self->_groupingColumnChanges.__end_;
   while (begin != end)
   {
-    v16 = *(archive + 8);
-    if (!v16)
+    v15 = *(archive + 8);
+    if (!v15)
     {
       goto LABEL_16;
     }
 
-    v17 = *(archive + 14);
-    v18 = *v16;
-    if (v17 < *v16)
+    v16 = *(archive + 14);
+    v17 = *v15;
+    if (v16 < *v15)
     {
-      *(archive + 14) = v17 + 1;
-      v19 = *&v16[2 * v17 + 2];
+      *(archive + 14) = v16 + 1;
+      v18 = *&v15[2 * v16 + 2];
       goto LABEL_18;
     }
 
-    if (v18 == *(archive + 15))
+    if (v17 == *(archive + 15))
     {
 LABEL_16:
       google::protobuf::internal::RepeatedPtrFieldBase::Reserve((archive + 48));
-      v16 = *(archive + 8);
-      v18 = *v16;
+      v15 = *(archive + 8);
+      v17 = *v15;
     }
 
-    *v16 = v18 + 1;
-    v19 = google::protobuf::Arena::CreateMaybeMessage<TSCE::GroupByChangeArchive_GroupingColumnChangeArchive>(*(archive + 6));
-    v20 = *(archive + 14);
-    v21 = *(archive + 8) + 8 * v20;
-    *(archive + 14) = v20 + 1;
-    *(v21 + 8) = v19;
+    *v15 = v17 + 1;
+    v18 = google::protobuf::Arena::CreateMaybeMessage<TSCE::GroupByChangeArchive_GroupingColumnChangeArchive>(*(archive + 6));
+    v19 = *(archive + 14);
+    v20 = *(archive + 8) + 8 * v19;
+    *(archive + 14) = v19 + 1;
+    *(v20 + 8) = v18;
 LABEL_18:
-    v22 = *begin;
-    v23 = *(begin + 1);
-    v19[4] |= 3u;
-    v19[6] = v22;
-    v19[7] = v23;
+    v21 = *begin;
+    v22 = *(begin + 1);
+    v18[4] |= 3u;
+    v18[6] = v21;
+    v18[7] = v22;
     begin = (begin + 2);
   }
 
   if (self->_previousGroupNodeToUpdated.__table_.__size_)
   {
     *(archive + 4) |= 2u;
-    v24 = *(archive + 10);
-    if (!v24)
+    v23 = *(archive + 10);
+    if (!v23)
     {
-      v25 = *(archive + 1);
-      if (v25)
+      v24 = *(archive + 1);
+      if (v24)
       {
-        v25 = *(v25 & 0xFFFFFFFFFFFFFFFELL);
+        v24 = *(v24 & 0xFFFFFFFFFFFFFFFELL);
       }
 
-      v24 = MEMORY[0x223DA0310](v25);
-      *(archive + 10) = v24;
+      v23 = MEMORY[0x223DA0310](v24);
+      *(archive + 10) = v23;
     }
 
-    TSKUIDStructMap::saveToMessage(&self->_previousGroupNodeToUpdated, v24);
+    TSKUIDStructMap::saveToMessage(&self->_previousGroupNodeToUpdated, v23);
   }
 
   if (self->_updatedGroupNodeToPrevious.__table_.__size_)
   {
     *(archive + 4) |= 4u;
-    v26 = *(archive + 11);
-    if (!v26)
+    v25 = *(archive + 11);
+    if (!v25)
     {
-      v27 = *(archive + 1);
-      if (v27)
+      v26 = *(archive + 1);
+      if (v26)
       {
-        v27 = *(v27 & 0xFFFFFFFFFFFFFFFELL);
+        v26 = *(v26 & 0xFFFFFFFFFFFFFFFELL);
       }
 
-      v26 = MEMORY[0x223DA0310](v27);
-      *(archive + 11) = v26;
+      v25 = MEMORY[0x223DA0310](v26);
+      *(archive + 11) = v25;
     }
 
-    TSKUIDStructMap::saveToMessage(&self->_updatedGroupNodeToPrevious, v26);
+    TSKUIDStructMap::saveToMessage(&self->_updatedGroupNodeToPrevious, v25);
   }
 
-  if (objc_msgSend_count(self->_removedGroupNodeUids, v8, v9, v10, v11))
+  if (objc_msgSend_count(self->_removedGroupNodeUids, v8, v9, v10))
   {
     removedGroupNodeUids = self->_removedGroupNodeUids;
-    v32[0] = MEMORY[0x277D85DD0];
-    v32[1] = 3221225472;
-    v32[2] = sub_22123F514;
-    v32[3] = &unk_27845D920;
-    v32[4] = archive;
-    objc_msgSend_foreachUuid_(removedGroupNodeUids, v28, v32, v29, v30);
+    v30[0] = MEMORY[0x277D85DD0];
+    v30[1] = 3221225472;
+    v30[2] = sub_22123F514;
+    v30[3] = &unk_27845D920;
+    v30[4] = archive;
+    objc_msgSend_foreachUuid_(removedGroupNodeUids, v27, v30, v28);
   }
 }
 

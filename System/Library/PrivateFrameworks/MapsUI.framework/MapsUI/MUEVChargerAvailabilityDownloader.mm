@@ -2,6 +2,7 @@
 - (MUEVChargerAvailabilityDownloader)initWithMapItemIdentifier:(id)identifier;
 - (MUEVChargerAvailabilityDownloaderDelegate)delegate;
 - (void)didDownloadEVChargerAvailabilityWithEvCharger:(id)charger;
+- (void)setIsActive:(BOOL)active;
 @end
 
 @implementation MUEVChargerAvailabilityDownloader
@@ -25,6 +26,13 @@
     plugs = [chargerCopy plugs];
     [delegate2 evChargerAvailabilityDownloader:self didDownloadAvailabilityWithPlugs:plugs];
   }
+}
+
+- (void)setIsActive:(BOOL)active
+{
+  activeCopy = active;
+  downloader = [(MUEVChargerAvailabilityDownloader *)self downloader];
+  [downloader setIsActive:activeCopy];
 }
 
 - (MUEVChargerAvailabilityDownloader)initWithMapItemIdentifier:(id)identifier

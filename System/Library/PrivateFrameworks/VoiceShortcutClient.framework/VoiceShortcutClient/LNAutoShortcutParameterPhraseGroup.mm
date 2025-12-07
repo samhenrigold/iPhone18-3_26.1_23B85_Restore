@@ -11,7 +11,7 @@
   phrases = self->_phrases;
   self->_phrases = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, phrases);
 }
 
 - (LNAutoShortcutParameterPhraseGroup)initWithParameterID:(id)d phrases:(id)phrases

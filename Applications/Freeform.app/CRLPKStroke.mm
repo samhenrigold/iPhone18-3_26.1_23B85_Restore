@@ -66,7 +66,7 @@
   _isHidden = [strokeCopy _isHidden];
   if (strokeCopy)
   {
-    [strokeCopy _version];
+    objc_msgSend__version(strokeCopy);
   }
 
   else
@@ -107,10 +107,10 @@
   *(v11 + 248) = v12;
   if (strokeCopy)
   {
-    [strokeCopy _strokeID];
+    objc_msgSend__strokeID(strokeCopy);
     *(v11 + 24) = v24;
     *(v11 + 5) = v25;
-    [strokeCopy _baseValues];
+    objc_msgSend__baseValues(strokeCopy);
   }
 
   else
@@ -428,7 +428,7 @@
 {
   equalCopy = equal;
   objc_opt_class();
-  v6 = (objc_opt_isKindOfClass() & 1) != 0 && ((v12 = *&self->_strokeID.clock, v13 = *&self->_strokeID.replicaUUID[12], !equalCopy) ? (v5 = 0, v9 = 0, v10 = 0, v11 = 0) : ([equalCopy _strokeID], v5 = v8), v12 == v5 && !sub_1004A262C(&v12 + 4, &v9)) && HIDWORD(v13) == HIDWORD(v11);
+  v6 = (objc_opt_isKindOfClass() & 1) != 0 && ((v12 = *&self->_strokeID.clock, v13 = *&self->_strokeID.replicaUUID[12], !equalCopy) ? (v5 = 0, v9 = 0, v10 = 0, v11 = 0) : (objc_msgSend__strokeID(equalCopy), v5 = v8), v12 == v5 && !sub_1004A262C(&v12 + 4, &v9)) && HIDWORD(v13) == HIDWORD(v11);
 
   return v6;
 }
@@ -651,10 +651,10 @@
 - (int64_t)compareToStroke:(id)stroke
 {
   strokeCopy = stroke;
-  [(CRLPKStroke *)self _strokeID];
+  objc_msgSend__strokeID(self);
   if (strokeCopy)
   {
-    [strokeCopy _strokeID];
+    objc_msgSend__strokeID(strokeCopy);
   }
 
   else
@@ -709,14 +709,14 @@
     v16 = sub_10013593C(points);
     v41 = v17;
     v43 = v16;
-    [(CRLPKStroke *)self _transform];
+    objc_msgSend__transform(self);
     v35 = v45;
     v36 = v46;
     v37 = v44;
     v18 = sub_10013593C(points + 24);
     v38 = v19;
     v39 = v18;
-    [(CRLPKStroke *)self _transform];
+    objc_msgSend__transform(self);
 LABEL_18:
     __asm { FMOV            V2.2D, #2.0 }
 
@@ -750,21 +750,21 @@ LABEL_18:
     v21 = sub_10013593C(v20 - 24);
     v41 = v22;
     v43 = v21;
-    [(CRLPKStroke *)self _transform];
+    objc_msgSend__transform(self);
     v35 = v45;
     v36 = v46;
     v37 = v44;
     v23 = sub_10013593C(v20 - 48);
     v38 = v24;
     v39 = v23;
-    [(CRLPKStroke *)self _transform];
+    objc_msgSend__transform(self);
     goto LABEL_18;
   }
 
   v13 = sub_10013593C(points + 24 * point);
   v40 = v14;
   v42 = v13;
-  [(CRLPKStroke *)self _transform];
+  objc_msgSend__transform(self);
   v15 = vaddq_f64(v46, vmlaq_n_f64(vmulq_n_f64(v45, v40), v44, v42));
 LABEL_19:
   v30 = v15.f64[1];

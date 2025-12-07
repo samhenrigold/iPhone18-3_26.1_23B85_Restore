@@ -608,10 +608,10 @@ void __65__ICQUpgradeCloudStorageFlowManager__performPurchaseUsingTouchID__block
   dispatch_async(MEMORY[0x277D85CD0], v2);
 }
 
-uint64_t __65__ICQUpgradeCloudStorageFlowManager__performPurchaseUsingTouchID__block_invoke_2(uint64_t result)
+void *__65__ICQUpgradeCloudStorageFlowManager__performPurchaseUsingTouchID__block_invoke_2(void *result)
 {
   v1 = result;
-  v2 = *(result + 40);
+  v2 = *(result + 5);
   if (v2 > 2)
   {
     if (v2 != 3)
@@ -624,7 +624,7 @@ uint64_t __65__ICQUpgradeCloudStorageFlowManager__performPurchaseUsingTouchID__b
       goto LABEL_7;
     }
 
-    v5 = *(result + 32);
+    v5 = *(result + 4);
 
     return [v5 _cancelFlow];
   }
@@ -639,8 +639,8 @@ uint64_t __65__ICQUpgradeCloudStorageFlowManager__performPurchaseUsingTouchID__b
       }
 
 LABEL_7:
-      [*(result + 32) _clearBusyOfferViewController];
-      v3 = *(v1 + 32);
+      [*(result + 4) _clearBusyOfferViewController];
+      v3 = *(v1 + 4);
 
       return [v3 _performPurchaseUsingSettingsUI];
     }
@@ -652,8 +652,8 @@ LABEL_7:
       _os_log_impl(&dword_275623000, v4, OS_LOG_TYPE_DEFAULT, "ERROR: Unexpected ICQBuyProductSucceeded -- should go through ICQUICloudStorageOffersManager", v6, 2u);
     }
 
-    [*(v1 + 32) _presentUpgradeComplete];
-    return [*(v1 + 32) _clearBusyOfferViewController];
+    [*(v1 + 4) _presentUpgradeComplete];
+    return [*(v1 + 4) _clearBusyOfferViewController];
   }
 }
 

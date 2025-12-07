@@ -4,7 +4,11 @@
 - (BOOL)_submitVectorValue:(id)value toRecorder:(id)recorder description:(const char *)description;
 - (ENDifferentialPrivacyManager)initWithServerConfiguration:(id)configuration serverExposureConfiguration:(id)exposureConfiguration;
 - (void)_submitValue:(id)value toRecorder:(id)recorder description:(const char *)description;
+- (void)reportUserCodeVerified:(unsigned __int8)verified reportType:(unsigned int)type;
 - (void)reportUserDiagnosedVaccineStatus:(id)status;
+- (void)reportUserExposureNotificationTapped:(BOOL)tapped classificationIndex:(unsigned __int8)index;
+- (void)reportUserExposureNotificationWithClassificationIndex:(unsigned __int8)index daysDelay:(unsigned __int8)delay;
+- (void)reportUserKeysUploaded:(unsigned __int8)uploaded reportType:(unsigned int)type;
 - (void)reportUserRiskScoreWithSummary:(id)summary;
 - (void)updatedServerConfiguration:(id)configuration serverExposureConfiguration:(id)exposureConfiguration;
 @end
@@ -124,72 +128,158 @@
   [(ENDifferentialPrivacyManager *)self _submitValue:v5 toRecorder:self->_userRiskRecorder description:"user risk score"];
 }
 
-- (BOOL)_submitVectorValue:(id)value toRecorder:(id)recorder description:(const char *)description
+- (void)reportUserExposureNotificationTapped:(BOOL)tapped classificationIndex:(unsigned __int8)index
 {
-  v15 = *MEMORY[0x277D85DE8];
-  valueCopy = value;
-  v7 = MEMORY[0x277CBEA68];
-  recorderCopy = recorder;
-  valueCopy2 = value;
-  v10 = [v7 arrayWithObjects:&valueCopy count:1];
-  v11 = [recorderCopy recordBitVectors:v10 metadata:{self->_metadata, valueCopy, v15}];
-
-  if (v11)
+  indexCopy = index;
+  if ((index - 1) >= 4)
   {
-    if (gLogCategory_ENDifferentialPrivacyManager <= 50 && (gLogCategory_ENDifferentialPrivacyManager != -1 || _LogCategory_Initialize()))
+    v7 = +[ENLoggingPrefs sharedENLoggingPrefs];
+    isSensitiveLoggingAllowed = [v7 isSensitiveLoggingAllowed];
+
+    if (isSensitiveLoggingAllowed && gLogCategory_ENDifferentialPrivacyManager <= 90 && (gLogCategory_ENDifferentialPrivacyManager != -1 || _LogCategory_Initialize()))
     {
-      [ENDifferentialPrivacyManager _submitVectorValue:toRecorder:description:];
+      [ENDifferentialPrivacyManager reportUserExposureNotificationTapped:indexCopy classificationIndex:?];
     }
   }
 
   else
   {
-    [ENDifferentialPrivacyManager _submitVectorValue:toRecorder:description:];
+    if (tapped)
+    {
+      indexCopy2 = index;
+    }
+
+    else
+    {
+      indexCopy2 = (index + 4);
+    }
+
+    v9 = [MEMORY[0x277CCABA8] numberWithInt:indexCopy2];
+    [(ENDifferentialPrivacyManager *)self _submitValue:v9 toRecorder:self->_userNotificationInteractionRecorder description:"user exposure notification interaction"];
+  }
+}
+
+- (void)reportUserCodeVerified:(unsigned __int8)verified reportType:(unsigned int)type
+{
+  v4 = *&type;
+  verifiedCopy = verified;
+  v7 = [MEMORY[0x277CCABA8] numberWithUnsignedChar:?];
+  [(ENDifferentialPrivacyManager *)self _submitValue:v7 toRecorder:self->_userCodeVerifiedRecorder description:"code verified"];
+
+  v8 = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v4];
+  [(ENDifferentialPrivacyManager *)self _submitValue:v8 toRecorder:self->_userCodeVerifiedV2Recorder description:"code verified v2"];
+
+  v9 = +[ENLoggingPrefs sharedENLoggingPrefs];
+  isSensitiveLoggingAllowed = [v9 isSensitiveLoggingAllowed];
+
+  if (isSensitiveLoggingAllowed && gLogCategory_ENDifferentialPrivacyManager <= 50 && (gLogCategory_ENDifferentialPrivacyManager != -1 || _LogCategory_Initialize()))
+  {
+    LogPrintF_safe(&gLogCategory_ENDifferentialPrivacyManager, "[ENDifferentialPrivacyManager reportUserCodeVerified:reportType:]", 50, "submitted %d/%u for codeVerified", verifiedCopy, v4);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-  return v11;
+  if (verifiedCopy >= 2)
+  {
+    if (v4)
+    {
+      v11 = [MEMORY[0x277CCABA8] numberWithUnsignedInt:verifiedCopy + 4 * v4 - 6];
+      [(ENDifferentialPrivacyManager *)self _submitValue:v11 toRecorder:self->_userSecondaryAttackV2Recorder description:"secondary attack"];
+
+      v12 = +[ENLoggingPrefs sharedENLoggingPrefs];
+      LODWORD(v11) = [v12 isSensitiveLoggingAllowed];
+
+      if (v11)
+      {
+        if (gLogCategory_ENDifferentialPrivacyManager <= 50 && (gLogCategory_ENDifferentialPrivacyManager != -1 || _LogCategory_Initialize()))
+        {
+          LogPrintF_safe(&gLogCategory_ENDifferentialPrivacyManager, "[ENDifferentialPrivacyManager reportUserCodeVerified:reportType:]", 50, "submitted %d/%u/%u for secondary attack", verifiedCopy, v4, verifiedCopy + 4 * v4 - 6);
+        }
+      }
+    }
+  }
+}
+
+- (void)reportUserKeysUploaded:(unsigned __int8)uploaded reportType:(unsigned int)type
+{
+  v4 = *&type;
+  uploadedCopy = uploaded;
+  v7 = [MEMORY[0x277CCABA8] numberWithUnsignedChar:?];
+  [(ENDifferentialPrivacyManager *)self _submitValue:v7 toRecorder:self->_userKeysUploadedRecorder description:"keys uploaded"];
+
+  v8 = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v4];
+  [(ENDifferentialPrivacyManager *)self _submitValue:v8 toRecorder:self->_userKeysUploadedV2Recorder description:"keys uploaded v2"];
+
+  v9 = +[ENLoggingPrefs sharedENLoggingPrefs];
+  LODWORD(v8) = [v9 isSensitiveLoggingAllowed];
+
+  if (v8 && gLogCategory_ENDifferentialPrivacyManager <= 50 && (gLogCategory_ENDifferentialPrivacyManager != -1 || _LogCategory_Initialize()))
+  {
+    LogPrintF_safe(&gLogCategory_ENDifferentialPrivacyManager, "[ENDifferentialPrivacyManager reportUserKeysUploaded:reportType:]", 50, "submitted %d/%u for keysUploaded", uploadedCopy, v4);
+  }
+}
+
+- (BOOL)_submitVectorValue:(id)value toRecorder:(id)recorder description:(const char *)description
+{
+  v15 = *MEMORY[0x277D85DE8];
+  valueCopy = value;
+  v8 = MEMORY[0x277CBEA68];
+  recorderCopy = recorder;
+  valueCopy2 = value;
+  v11 = [v8 arrayWithObjects:&valueCopy count:1];
+  v12 = [recorderCopy recordBitVectors:v11 metadata:{self->_metadata, valueCopy, v15}];
+
+  if (v12)
+  {
+    if (gLogCategory_ENDifferentialPrivacyManager <= 50 && (gLogCategory_ENDifferentialPrivacyManager != -1 || _LogCategory_Initialize()))
+    {
+      [ENDifferentialPrivacyManager _submitVectorValue:description toRecorder:? description:?];
+    }
+  }
+
+  else
+  {
+    [ENDifferentialPrivacyManager _submitVectorValue:description toRecorder:? description:?];
+  }
+
+  return v12;
 }
 
 - (void)_submitValue:(id)value toRecorder:(id)recorder description:(const char *)description
 {
   v13 = *MEMORY[0x277D85DE8];
   valueCopy = value;
-  v7 = MEMORY[0x277CBEA68];
+  v8 = MEMORY[0x277CBEA68];
   recorderCopy = recorder;
   valueCopy2 = value;
-  v10 = [v7 arrayWithObjects:&valueCopy count:1];
-  LOBYTE(self) = [recorderCopy record:v10 metadata:{self->_metadata, valueCopy, v13}];
+  v11 = [v8 arrayWithObjects:&valueCopy count:1];
+  LOBYTE(self) = [recorderCopy record:v11 metadata:{self->_metadata, valueCopy, v13}];
 
   if (self)
   {
     if (gLogCategory_ENDifferentialPrivacyManager <= 50 && (gLogCategory_ENDifferentialPrivacyManager != -1 || _LogCategory_Initialize()))
     {
-      [ENDifferentialPrivacyManager _submitValue:toRecorder:description:];
+      [ENDifferentialPrivacyManager _submitValue:description toRecorder:? description:?];
     }
   }
 
   else
   {
-    [ENDifferentialPrivacyManager _submitValue:toRecorder:description:];
+    [ENDifferentialPrivacyManager _submitValue:description toRecorder:? description:?];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 + (unsigned)userRiskScoreForExposureDetectionSummary:(id)summary
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   daySummaries = [summary daySummaries];
-  v4 = [daySummaries countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v4 = [daySummaries countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v27;
+    v6 = *v26;
     v7 = 0.0;
     v8 = 0.0;
     v9 = 0.0;
@@ -197,12 +287,12 @@
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v27 != v6)
+        if (*v26 != v6)
         {
           objc_enumerationMutation(daySummaries);
         }
 
-        v11 = *(*(&v26 + 1) + 8 * i);
+        v11 = *(*(&v25 + 1) + 8 * i);
         daySummary = [v11 daySummary];
         [daySummary maximumScore];
         v14 = v13;
@@ -231,7 +321,7 @@
         }
       }
 
-      v5 = [daySummaries countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v5 = [daySummaries countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v5);
@@ -270,48 +360,159 @@
 
   if (gLogCategory_ENDifferentialPrivacyManager <= 30 && (gLogCategory_ENDifferentialPrivacyManager != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF_safe();
+    LogPrintF_safe(&gLogCategory_ENDifferentialPrivacyManager, "+[ENDifferentialPrivacyManager userRiskScoreForExposureDetectionSummary:]", 30, "differential privacy user risk score: max (val %f, bucket %u); sum (val %f, bucket %u); weightedDur (val %f, bucket %u); combined %u (0x%x)", v9, j, v8, k, v7, m, (k + 8 * j + (m << 6)), (k + 8 * j + (m << 6)));
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return k + 8 * j + (m << 6);
+}
+
+- (void)reportUserExposureNotificationWithClassificationIndex:(unsigned __int8)index daysDelay:(unsigned __int8)delay
+{
+  delayCopy = delay;
+  indexCopy = index;
+  v7 = +[ENLoggingPrefs sharedENLoggingPrefs];
+  isSensitiveLoggingAllowed = [v7 isSensitiveLoggingAllowed];
+
+  if (isSensitiveLoggingAllowed && gLogCategory_ENDifferentialPrivacyManager <= 50 && (gLogCategory_ENDifferentialPrivacyManager != -1 || _LogCategory_Initialize()))
+  {
+    LogPrintF_safe(&gLogCategory_ENDifferentialPrivacyManager, "[ENDifferentialPrivacyManager reportUserExposureNotificationWithClassificationIndex:daysDelay:]", 50, "reportUserExposureNotificationWithClassificationIndex %d delay %d", indexCopy, delayCopy);
+  }
+
+  if ((indexCopy - 1) >= 4u)
+  {
+    v17 = +[ENLoggingPrefs sharedENLoggingPrefs];
+    isSensitiveLoggingAllowed2 = [v17 isSensitiveLoggingAllowed];
+
+    if (isSensitiveLoggingAllowed2 && gLogCategory_ENDifferentialPrivacyManager <= 90 && (gLogCategory_ENDifferentialPrivacyManager != -1 || _LogCategory_Initialize()))
+    {
+      LogPrintF_safe(&gLogCategory_ENDifferentialPrivacyManager, "BOOL IsValidExposureClassificationIndex(ENExposureClassificationIndex)", 90, "### Unrecognized exposure notification classification index %d", indexCopy);
+    }
+  }
+
+  else
+  {
+    v9 = [MEMORY[0x277CCABA8] numberWithUnsignedChar:indexCopy];
+    [(ENDifferentialPrivacyManager *)self _submitValue:v9 toRecorder:self->_userNotificationRecorder description:"user exposure notification"];
+
+    v10 = [MEMORY[0x277CCABA8] numberWithUnsignedChar:indexCopy];
+    [(ENDifferentialPrivacyManager *)self _submitValue:v10 toRecorder:self->_userNotificationV2Recorder description:"user exposure notification v2"];
+
+    if (delayCopy < 0xB)
+    {
+      v11 = 2;
+    }
+
+    else
+    {
+      v11 = 3;
+    }
+
+    if (delayCopy >= 7)
+    {
+      v12 = v11;
+    }
+
+    else
+    {
+      v12 = 1;
+    }
+
+    if (delayCopy < 4)
+    {
+      v12 = 0;
+    }
+
+    v13 = v12 + 4 * indexCopy - 4;
+    v14 = [MEMORY[0x277CCABA8] numberWithInt:v13];
+    [(ENDifferentialPrivacyManager *)self _submitValue:v14 toRecorder:self->_userDateExposureRecorder description:"delay between exposure and notification"];
+
+    v15 = +[ENLoggingPrefs sharedENLoggingPrefs];
+    isSensitiveLoggingAllowed3 = [v15 isSensitiveLoggingAllowed];
+
+    if (isSensitiveLoggingAllowed3 && gLogCategory_ENDifferentialPrivacyManager <= 50 && (gLogCategory_ENDifferentialPrivacyManager != -1 || _LogCategory_Initialize()))
+    {
+      LogPrintF_safe(&gLogCategory_ENDifferentialPrivacyManager, "[ENDifferentialPrivacyManager reportUserExposureNotificationWithClassificationIndex:daysDelay:]", 50, "Submitted dateExposure %d to differential privacy", v13);
+    }
+
+    v19 = malloc_type_calloc(0x30uLL, 1uLL, 0x100004077774924uLL);
+    if (v19)
+    {
+      v20 = v19;
+      selfCopy = self;
+      if (delayCopy >= 0xB)
+      {
+        v21 = 11;
+      }
+
+      else
+      {
+        v21 = delayCopy;
+      }
+
+      v22 = 12 * indexCopy;
+      v23 = &v19[v22];
+      do
+      {
+        v23[v21 - 12] = 1;
+        v24 = +[ENLoggingPrefs sharedENLoggingPrefs];
+        isSensitiveLoggingAllowed4 = [v24 isSensitiveLoggingAllowed];
+
+        if (isSensitiveLoggingAllowed4 && gLogCategory_ENDifferentialPrivacyManager <= 50 && (gLogCategory_ENDifferentialPrivacyManager != -1 || _LogCategory_Initialize()))
+        {
+          LogPrintF_safe(&gLogCategory_ENDifferentialPrivacyManager, "[ENDifferentialPrivacyManager reportUserExposureNotificationWithClassificationIndex:daysDelay:]", 50, "setting bin %d for dateExposureV2", v22 + v21 - 12);
+        }
+
+        ++v21;
+      }
+
+      while (v21 != 12);
+      v26 = [MEMORY[0x277CBEA98] dataWithBytesNoCopy:v20 length:48];
+      v27 = selfCopy;
+      v31 = v26;
+      [ENDifferentialPrivacyManager _submitVectorValue:v27 toRecorder:"_submitVectorValue:toRecorder:description:" description:?];
+      v28 = +[ENLoggingPrefs sharedENLoggingPrefs];
+      isSensitiveLoggingAllowed5 = [v28 isSensitiveLoggingAllowed];
+
+      if ((isSensitiveLoggingAllowed5 & 1) != 0 && gLogCategory_ENDifferentialPrivacyManager <= 50 && (gLogCategory_ENDifferentialPrivacyManager != -1 || _LogCategory_Initialize()))
+      {
+        LogPrintF_safe(&gLogCategory_ENDifferentialPrivacyManager, "[ENDifferentialPrivacyManager reportUserExposureNotificationWithClassificationIndex:daysDelay:]", 50, "Submitted dateExposureV2 to differential privacy");
+      }
+    }
+  }
 }
 
 - (void)reportUserDiagnosedVaccineStatus:(id)status
 {
   statusCopy = status;
-  userDiagnosedVaccineStatusRecorder = self->_userDiagnosedVaccineStatusRecorder;
-  v12 = statusCopy;
   if ([ENDifferentialPrivacyManager _submitVectorValue:"_submitVectorValue:toRecorder:description:" toRecorder:? description:?])
   {
-    if ([(ENDifferentialPrivacyManager *)self _submitVectorValue:v12 toRecorder:self->_userDiagnosedVaccineStatusV2Recorder description:"user diagnosed vaccine status v2"])
+    if ([(ENDifferentialPrivacyManager *)self _submitVectorValue:statusCopy toRecorder:self->_userDiagnosedVaccineStatusV2Recorder description:"user diagnosed vaccine status v2"])
     {
-      v6 = v12;
-      bytes = [v12 bytes];
-      if ([v12 length])
+      v4 = statusCopy;
+      bytes = [statusCopy bytes];
+      if ([statusCopy length])
       {
-        v8 = 0;
+        v6 = 0;
         do
         {
-          if (*(bytes + v8) == 1)
+          if (*(bytes + v6) == 1)
           {
-            v9 = +[ENLoggingPrefs sharedENLoggingPrefs];
-            isSensitiveLoggingAllowed = [v9 isSensitiveLoggingAllowed];
+            v7 = +[ENLoggingPrefs sharedENLoggingPrefs];
+            isSensitiveLoggingAllowed = [v7 isSensitiveLoggingAllowed];
 
             if (isSensitiveLoggingAllowed)
             {
               if (gLogCategory_ENDifferentialPrivacyManager <= 50 && (gLogCategory_ENDifferentialPrivacyManager != -1 || _LogCategory_Initialize()))
               {
-                v11 = v8;
-                LogPrintF_safe();
+                LogPrintF_safe(&gLogCategory_ENDifferentialPrivacyManager, "[ENDifferentialPrivacyManager reportUserDiagnosedVaccineStatus:]", 50, "byte %lu set", v6);
               }
             }
           }
 
-          ++v8;
+          ++v6;
         }
 
-        while (v8 < [v12 length]);
+        while (v6 < [statusCopy length]);
       }
     }
   }
@@ -320,146 +521,153 @@
 + (id)hashForServerExposureConfiguration:(id)configuration
 {
   configurationCopy = configuration;
-  bzero(v31, 0x87uLL);
+  bzero(v39, 0x87uLL);
   if (configurationCopy)
   {
     exposureConfigurationValues = [configurationCopy exposureConfigurationValues];
-    v30[0] = CFDictionaryGetInt64Ranged();
-    v30[1] = OUTLINED_FUNCTION_0_6();
-    v30[2] = OUTLINED_FUNCTION_0_6();
-    v30[3] = OUTLINED_FUNCTION_0_6();
+    Int64Ranged = CFDictionaryGetInt64Ranged();
+    v38[0] = Int64Ranged;
+    v6 = OUTLINED_FUNCTION_0_6(Int64Ranged, @"nearDurationWeight");
+    v38[1] = v6;
+    v7 = OUTLINED_FUNCTION_0_6(v6, @"mediumDurationWeight");
+    v38[2] = v7;
+    v38[3] = OUTLINED_FUNCTION_0_6(v7, @"otherDurationWeight");
     CFArrayGetTypeID();
-    v5 = CFDictionaryGetTypedValue();
-    if (v5)
+    v8 = CFDictionaryGetTypedValue();
+    if (v8)
     {
-      v6 = NSArrayGetNSNumberAtIndex();
-      v7 = NSArrayGetNSNumberAtIndex();
-      v8 = NSArrayGetNSNumberAtIndex();
-      v31[0] = [v6 unsignedCharValue];
-      v31[1] = [v7 unsignedCharValue];
-      v31[2] = [v8 unsignedCharValue];
+      v9 = NSArrayGetNSNumberAtIndex();
+      v10 = NSArrayGetNSNumberAtIndex();
+      v11 = NSArrayGetNSNumberAtIndex();
+      v39[0] = [v9 unsignedCharValue];
+      v39[1] = [v10 unsignedCharValue];
+      v39[2] = [v11 unsignedCharValue];
     }
 
-    v27 = v5;
+    v35 = v8;
     CFDictionaryGetTypeID();
-    v9 = CFDictionaryGetTypedValue();
-    if (v9)
+    v12 = CFDictionaryGetTypedValue();
+    v13 = v12;
+    if (v12)
     {
-      v10 = 0;
-      v11 = 0;
-      v12 = -14;
+      v14 = 0;
+      v15 = 0;
+      v16 = -14;
       do
       {
-        [MEMORY[0x277CCABA8] numberWithInteger:v12];
-        v10 |= (OUTLINED_FUNCTION_2_1() & 3) << v11;
-        v11 += 2;
-        ++v12;
+        v12 = OUTLINED_FUNCTION_2_1(v13, [MEMORY[0x277CCABA8] numberWithInteger:v16]);
+        v14 |= (v12 & 3) << v15;
+        v15 += 2;
+        ++v16;
       }
 
-      while (v11 != 58);
-      v32 = v10;
+      while (v15 != 58);
+      v40 = v14;
     }
 
-    v33 = OUTLINED_FUNCTION_0_6();
-    v34 = OUTLINED_FUNCTION_0_6();
-    v35 = OUTLINED_FUNCTION_0_6();
-    v36 = OUTLINED_FUNCTION_0_6();
-    v37 = OUTLINED_FUNCTION_0_6();
-    v38 = OUTLINED_FUNCTION_2_1();
-    v28 = exposureConfigurationValues;
-    v39 = OUTLINED_FUNCTION_2_1();
-    v29 = configurationCopy;
+    v17 = OUTLINED_FUNCTION_0_6(v12, @"infectiousnessStandardWeight");
+    v41 = v17;
+    v18 = OUTLINED_FUNCTION_0_6(v17, @"infectiousnessHighWeight");
+    v42 = v18;
+    v19 = OUTLINED_FUNCTION_0_6(v18, @"reportTypeConfirmedTestWeight");
+    v43 = v19;
+    v20 = OUTLINED_FUNCTION_0_6(v19, @"reportTypeConfirmedClinicalDiagnosisWeight");
+    v44 = v20;
+    v45 = OUTLINED_FUNCTION_0_6(v20, @"reportTypeSelfReportedWeight");
+    v46 = OUTLINED_FUNCTION_2_1(exposureConfigurationValues, @"reportTypeNoneMap");
+    v36 = exposureConfigurationValues;
+    v47 = OUTLINED_FUNCTION_2_1(exposureConfigurationValues, @"daysSinceLastExposureThreshold");
+    v37 = configurationCopy;
     classificationCriteria = [configurationCopy classificationCriteria];
-    v26 = v9;
+    v34 = v13;
     if ([classificationCriteria count] > 3)
     {
-      v14 = 4;
+      v22 = 4;
     }
 
     else
     {
-      v14 = [classificationCriteria count];
-      if (!v14)
+      v22 = [classificationCriteria count];
+      if (!v22)
       {
 LABEL_14:
-        v22 = [objc_alloc(MEMORY[0x277CBEA98]) initWithBytes:v30 length:143];
-        sha256 = [v22 sha256];
-        [sha256 bytes];
-        [sha256 length];
-        [sha256 length];
-        v24 = NSPrintF();
+        v30 = [objc_alloc(MEMORY[0x277CBEA98]) initWithBytes:v38 length:143];
+        sha256 = [v30 sha256];
+        v32 = NSPrintF("%.3H", [sha256 bytes], objc_msgSend(sha256, "length"), objc_msgSend(sha256, "length"));
 
-        configurationCopy = v29;
+        configurationCopy = v37;
         goto LABEL_15;
       }
     }
 
-    v15 = 0;
-    v16 = &v40;
+    v23 = 0;
+    v24 = &v48;
     do
     {
-      v17 = [OUTLINED_FUNCTION_3_2() objectAtIndexedSubscript:?];
-      perDaySumERVThresholdsByDiagnosisReportType = [v17 perDaySumERVThresholdsByDiagnosisReportType];
+      v25 = [OUTLINED_FUNCTION_3_2() objectAtIndexedSubscript:?];
+      perDaySumERVThresholdsByDiagnosisReportType = [v25 perDaySumERVThresholdsByDiagnosisReportType];
 
-      *(v16 - 6) = OUTLINED_FUNCTION_1_3();
-      *(v16 - 5) = OUTLINED_FUNCTION_1_3();
-      *(v16 - 4) = OUTLINED_FUNCTION_1_3();
-      *(v16 - 3) = OUTLINED_FUNCTION_1_3();
-      v19 = [OUTLINED_FUNCTION_3_2() objectAtIndexedSubscript:?];
-      *(v16 - 2) = [v19 perDaySumERVThreshold];
+      *(v24 - 6) = OUTLINED_FUNCTION_1_3(perDaySumERVThresholdsByDiagnosisReportType, &unk_285D6E450);
+      *(v24 - 5) = OUTLINED_FUNCTION_1_3(perDaySumERVThresholdsByDiagnosisReportType, &unk_285D6E468);
+      *(v24 - 4) = OUTLINED_FUNCTION_1_3(perDaySumERVThresholdsByDiagnosisReportType, &unk_285D6E480);
+      *(v24 - 3) = OUTLINED_FUNCTION_1_3(perDaySumERVThresholdsByDiagnosisReportType, &unk_285D6E498);
+      v27 = [OUTLINED_FUNCTION_3_2() objectAtIndexedSubscript:?];
+      *(v24 - 2) = [v27 perDaySumERVThreshold];
 
-      v20 = [OUTLINED_FUNCTION_3_2() objectAtIndexedSubscript:?];
-      *(v16 - 1) = [v20 perDayMaxERVThreshold];
+      v28 = [OUTLINED_FUNCTION_3_2() objectAtIndexedSubscript:?];
+      *(v24 - 1) = [v28 perDayMaxERVThreshold];
 
-      v21 = [OUTLINED_FUNCTION_3_2() objectAtIndexedSubscript:?];
-      *v16 = [v21 weightedDurationAtAttenuationThreshold];
-      v16 += 28;
+      v29 = [OUTLINED_FUNCTION_3_2() objectAtIndexedSubscript:?];
+      *v24 = [v29 weightedDurationAtAttenuationThreshold];
+      v24 += 28;
 
-      ++v15;
+      ++v23;
     }
 
-    while (v14 != v15);
+    while (v22 != v23);
     goto LABEL_14;
   }
 
-  v24 = 0;
+  v32 = 0;
 LABEL_15:
 
-  return v24;
+  return v32;
 }
 
-- (uint64_t)_submitVectorValue:toRecorder:description:.cold.1()
+- (const)_submitVectorValue:(const char *)result toRecorder:description:.cold.1(const char *result)
 {
   if (gLogCategory__ENDifferentialPrivacyManager <= 90)
   {
+    v1 = result;
     if (gLogCategory__ENDifferentialPrivacyManager != -1)
     {
-      return LogPrintF_safe();
+      return LogPrintF_safe(&gLogCategory__ENDifferentialPrivacyManager, "[ENDifferentialPrivacyManager _submitVectorValue:toRecorder:description:]", 90, "### Failed submitting %s to differential privacy", v1);
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      return LogPrintF_safe();
+      return LogPrintF_safe(&gLogCategory__ENDifferentialPrivacyManager, "[ENDifferentialPrivacyManager _submitVectorValue:toRecorder:description:]", 90, "### Failed submitting %s to differential privacy", v1);
     }
   }
 
   return result;
 }
 
-- (uint64_t)_submitValue:toRecorder:description:.cold.1()
+- (const)_submitValue:(const char *)result toRecorder:description:.cold.1(const char *result)
 {
   if (gLogCategory__ENDifferentialPrivacyManager <= 90)
   {
+    v1 = result;
     if (gLogCategory__ENDifferentialPrivacyManager != -1)
     {
-      return LogPrintF_safe();
+      return LogPrintF_safe(&gLogCategory__ENDifferentialPrivacyManager, "[ENDifferentialPrivacyManager _submitValue:toRecorder:description:]", 90, "### Failed submitting %s value to differential privacy", v1);
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      return LogPrintF_safe();
+      return LogPrintF_safe(&gLogCategory__ENDifferentialPrivacyManager, "[ENDifferentialPrivacyManager _submitValue:toRecorder:description:]", 90, "### Failed submitting %s value to differential privacy", v1);
     }
   }
 

@@ -22,17 +22,17 @@
   if (os_log_type_enabled(qword_1025D4668, OS_LOG_TYPE_DEFAULT))
   {
     sub_1004A0AB8(__p);
-    v14 = v41 >= 0 ? __p : *__p;
+    v14 = v45 >= 0 ? __p : *__p;
     *buf = 136446978;
-    v46 = "[CLEEDCoexMonitorThermal initWithQueue:mitigationConfig:cachedCoexMetricData:eventCB:coexMetricUpdateCB:]";
-    v47 = 2114;
-    queueCopy = queue;
-    v49 = 2082;
-    v50 = v14;
+    v50 = "[CLEEDCoexMonitorThermal initWithQueue:mitigationConfig:cachedCoexMetricData:eventCB:coexMetricUpdateCB:]";
     v51 = 2114;
+    queueCopy = queue;
+    v53 = 2082;
+    v54 = v14;
+    v55 = 2114;
     bCopy = b;
     _os_log_impl(dword_100000000, v13, OS_LOG_TYPE_DEFAULT, "#EED2CXTH,%{public}s[queue:%{public}@,thermalConfig:%{public}s,mitigationCB:%{public}@]", buf, 0x2Au);
-    if (SHIBYTE(v41) < 0)
+    if (SHIBYTE(v45) < 0)
     {
       operator delete(*__p);
     }
@@ -46,41 +46,43 @@
       sub_10189B7A8();
     }
 
+    v28 = qword_1025D4668;
     sub_1004A0AB8(location);
-    if (v37 >= 0)
+    if (v41 >= 0)
     {
-      v28 = location;
+      v29 = location;
     }
 
     else
     {
-      v28 = location[0];
+      v29 = location[0];
     }
 
     *__p = 136446978;
     *&__p[4] = "[CLEEDCoexMonitorThermal initWithQueue:mitigationConfig:cachedCoexMetricData:eventCB:coexMetricUpdateCB:]";
-    v39 = 2114;
-    queueCopy2 = queue;
-    v41 = 2082;
-    v42 = v28;
     v43 = 2114;
+    queueCopy2 = queue;
+    v45 = 2082;
+    v46 = v29;
+    v47 = 2114;
     bCopy2 = b;
-    v29 = _os_log_send_and_compose_impl();
-    if (v37 < 0)
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, v28, 0, "#EED2CXTH,%{public}s[queue:%{public}@,thermalConfig:%{public}s,mitigationCB:%{public}@]", __p, 42);
+    v31 = v30;
+    if (v41 < 0)
     {
       operator delete(location[0]);
     }
 
-    sub_100152C7C("Generic", 1, 0, 2, "[CLEEDCoexMonitorThermal initWithQueue:mitigationConfig:cachedCoexMetricData:eventCB:coexMetricUpdateCB:]", "%s\n", v29);
-    if (v29 != buf)
+    sub_100152C7C("Generic", 1, 0, 2, "[CLEEDCoexMonitorThermal initWithQueue:mitigationConfig:cachedCoexMetricData:eventCB:coexMetricUpdateCB:]", "%s\n", v31);
+    if (v31 != buf)
     {
-      free(v29);
+      free(v31);
     }
   }
 
-  v35.receiver = self;
-  v35.super_class = CLEEDCoexMonitorThermal;
-  v15 = [(CLEEDCoexMonitorThermal *)&v35 init];
+  v39.receiver = self;
+  v39.super_class = CLEEDCoexMonitorThermal;
+  v15 = [(CLEEDCoexMonitorThermal *)&v39 init];
   if (v15)
   {
     dispatch_assert_queue_V2(queue);
@@ -123,7 +125,7 @@
     handler[1] = 3221225472;
     handler[2] = sub_1004D534C;
     handler[3] = &unk_102457078;
-    objc_copyWeak(&v33, location);
+    objc_copyWeak(&v37, location);
     if (notify_register_dispatch("com.apple.system.thermalpressurelevel", v15 + 48, v24, handler))
     {
       if (qword_1025D4660 != -1)
@@ -135,7 +137,7 @@
       if (os_log_type_enabled(qword_1025D4668, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136446210;
-        v46 = "[CLEEDCoexMonitorThermal initWithQueue:mitigationConfig:cachedCoexMetricData:eventCB:coexMetricUpdateCB:]";
+        v50 = "[CLEEDCoexMonitorThermal initWithQueue:mitigationConfig:cachedCoexMetricData:eventCB:coexMetricUpdateCB:]";
         _os_log_impl(dword_100000000, v25, OS_LOG_TYPE_DEFAULT, "#EED2CXTH,%{public}s: unable to register for Thermal notifications", buf, 0xCu);
       }
 
@@ -144,15 +146,17 @@
         sub_10189B7D0(buf);
         *__p = 136446210;
         *&__p[4] = "[CLEEDCoexMonitorThermal initWithQueue:mitigationConfig:cachedCoexMetricData:eventCB:coexMetricUpdateCB:]";
-        v30 = _os_log_send_and_compose_impl();
-        sub_100152C7C("Generic", 1, 0, 2, "[CLEEDCoexMonitorThermal initWithQueue:mitigationConfig:cachedCoexMetricData:eventCB:coexMetricUpdateCB:]", "%s\n", v30);
-        if (v30 != buf)
+        LODWORD(v34) = 12;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4668, 0, "#EED2CXTH,%{public}s: unable to register for Thermal notifications", __p, v34);
+        v33 = v32;
+        sub_100152C7C("Generic", 1, 0, 2, "[CLEEDCoexMonitorThermal initWithQueue:mitigationConfig:cachedCoexMetricData:eventCB:coexMetricUpdateCB:]", "%s\n", v32);
+        if (v33 != buf)
         {
-          free(v30);
+          free(v33);
         }
       }
 
-      objc_destroyWeak(&v33);
+      objc_destroyWeak(&v37);
       objc_destroyWeak(location);
       return 0;
     }
@@ -160,13 +164,13 @@
     else
     {
       v26 = *(v15 + 1);
-      v31[0] = _NSConcreteStackBlock;
-      v31[1] = 3221225472;
-      v31[2] = sub_1004D5384;
-      v31[3] = &unk_102447418;
-      v31[4] = v15;
-      dispatch_async(v26, v31);
-      objc_destroyWeak(&v33);
+      v35[0] = _NSConcreteStackBlock;
+      v35[1] = 3221225472;
+      v35[2] = sub_1004D5384;
+      v35[3] = &unk_102447418;
+      v35[4] = v15;
+      dispatch_async(v26, v35);
+      objc_destroyWeak(&v37);
       objc_destroyWeak(location);
     }
   }

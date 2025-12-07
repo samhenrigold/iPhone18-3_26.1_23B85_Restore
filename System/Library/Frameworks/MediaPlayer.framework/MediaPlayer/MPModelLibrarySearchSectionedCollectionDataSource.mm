@@ -16,37 +16,44 @@
   v6 = v5;
   if (v5)
   {
-    [v5 entityQueryResult];
-    v7 = v15;
+    objc_msgSend_entityQueryResult(v5);
+    v7 = v17;
   }
 
   else
   {
     v7 = 0;
-    v16 = 0;
+    v17 = 0;
+    v18 = 0;
   }
 
   [pathCopy item];
-  mlcore::EntityQueryResult::entityAtIndex(v7);
+  mlcore::EntityQueryResult::entityAtIndex(&v15, v7);
   v8 = mlcore::LocalizedSearchPropertyWeight(+[MPMediaLibrary logDatabaseAccess]);
-  if (v14)
+  v9 = v15;
+  v10 = v16;
+  if (v16)
   {
-    atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v16->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v9 = mlcore::Entity::propertyCache(v13);
-  v10 = MPMediaLibraryPropertyCacheValueForProperty(v8, v9);
-  integerValue = [v10 integerValue];
+  v11 = mlcore::Entity::propertyCache(v9);
+  v12 = MPMediaLibraryPropertyCacheValueForProperty(v8, v11);
+  integerValue = [v12 integerValue];
 
-  if (v14)
+  if (v10)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v14);
-    std::__shared_weak_count::__release_shared[abi:ne200100](v14);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v10);
   }
 
   if (v16)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v16);
+  }
+
+  if (v18)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v18);
   }
 
   return integerValue;
@@ -58,7 +65,7 @@
   v6 = v5;
   if (v5)
   {
-    [v5 entityQueryResult];
+    objc_msgSend_entityQueryResult(v5);
   }
 
   else
@@ -84,7 +91,7 @@
   v6 = v5;
   if (v5)
   {
-    [v5 entityQueryResult];
+    objc_msgSend_entityQueryResult(v5);
     v7 = v18;
   }
 
@@ -96,7 +103,7 @@
   }
 
   [pathCopy item];
-  mlcore::EntityQueryResult::entityAtIndex(v7);
+  mlcore::EntityQueryResult::entityAtIndex(&v20, v7);
   +[MPMediaLibrary logDatabaseAccess];
   if (v20)
   {
@@ -106,7 +113,7 @@
 
     scope2 = [v6 scope];
     itemProperties = [scope2 itemProperties];
-    v13 = (*(*v20 + 48))();
+    v13 = (*(*v20 + 48))(v20);
     v14 = mlcore::Entity::propertyCache(v20);
     entityTranslationContext = [v6 entityTranslationContext];
     v16 = [v10 objectForPropertySet:itemProperties entityClass:v13 propertyCache:v14 context:entityTranslationContext];
@@ -136,7 +143,7 @@
   v5 = v4;
   if (v4)
   {
-    [v4 entityQueryResult];
+    objc_msgSend_entityQueryResult(v4);
   }
 
   else

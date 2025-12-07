@@ -8,33 +8,33 @@
 
 - (void)execute
 {
-  v16 = *MEMORY[0x277D85DE8];
-  if ([(TRNetworkOperation *)self isCancelled])
+  v15 = *MEMORY[0x277D85DE8];
+  isCancelled = [(TRNetworkOperation *)self isCancelled];
+  if (isCancelled)
   {
     userCancelledError = [objc_opt_class() userCancelledError];
     [(TROperation *)self finishWithError:?];
-    v3 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
     if (_TRLogEnabled == 1)
     {
-      v4 = TRLogHandle();
+      v4 = TRLogHandle(isCancelled);
       if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v15 = "[TRNetworkOperation execute]";
+        v14 = "[TRNetworkOperation execute]";
         _os_log_impl(&dword_26F2A2000, v4, OS_LOG_TYPE_DEFAULT, "%s Send Network Request", buf, 0xCu);
       }
     }
 
     buf[0] = 0;
+    v11 = 0;
     v12 = 0;
-    v13 = 0;
-    Config = TRCanPerformSetupGetConfig(buf, &v13, &v12);
-    v6 = v13;
-    v7 = v12;
+    Config = TRCanPerformSetupGetConfig(buf, &v12, &v11);
+    v6 = v12;
+    v7 = v11;
     if (Config)
     {
       [(TRNetworkOperation *)self _sendRequestWithSSID:v6 password:v7];
@@ -55,8 +55,6 @@
       v9 = [MEMORY[0x277CCA9B8] errorWithDomain:@"TRNearbyDeviceErrorDomain" code:v8 userInfo:0];
       [(TROperation *)self finishWithError:v9];
     }
-
-    v10 = *MEMORY[0x277D85DE8];
   }
 }
 
@@ -123,38 +121,37 @@ void __52__TRNetworkOperation__sendRequestWithSSID_password___block_invoke(uint6
 {
   v17 = *MEMORY[0x277D85DE8];
   responseCopy = response;
+  v5 = responseCopy;
   if (_TRLogEnabled == 1)
   {
-    v5 = TRLogHandle();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = TRLogHandle(responseCopy);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
       v14 = "[TRNetworkOperation _handleResponse:]";
       v15 = 2112;
-      v16 = responseCopy;
-      _os_log_impl(&dword_26F2A2000, v5, OS_LOG_TYPE_DEFAULT, "%s Handle Network Response: %@", buf, 0x16u);
+      v16 = v5;
+      _os_log_impl(&dword_26F2A2000, v6, OS_LOG_TYPE_DEFAULT, "%s Handle Network Response: %@", buf, 0x16u);
     }
   }
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v6 = MEMORY[0x277CCABB0];
-    v7 = responseCopy;
-    v8 = [v6 numberWithBool:{objc_msgSend(v7, "hasNetwork", @"TRNetworkOperationHasNetworkKey"}];
-    v12 = v8;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
+    v7 = MEMORY[0x277CCABB0];
+    v8 = v5;
+    v9 = [v7 numberWithBool:{objc_msgSend(v8, "hasNetwork", @"TRNetworkOperationHasNetworkKey"}];
+    v12 = v9;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
 
-    [(TROperation *)self finishWithResult:v9];
+    [(TROperation *)self finishWithResult:v10];
   }
 
   else
   {
-    v9 = [MEMORY[0x277CCA9B8] errorWithDomain:@"TRNearbyDeviceErrorDomain" code:-10000 userInfo:0];
-    [(TROperation *)self finishWithError:v9];
+    v10 = [MEMORY[0x277CCA9B8] errorWithDomain:@"TRNearbyDeviceErrorDomain" code:-10000 userInfo:0];
+    [(TROperation *)self finishWithError:v10];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

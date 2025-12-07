@@ -23,7 +23,7 @@
 {
   buttonCopy = button;
   selfCopy = self;
-  sub_29960C();
+  sub_29960C(buttonCopy);
 }
 
 - (id)hitTest:(CGPoint)test withEvent:(id)event
@@ -42,7 +42,7 @@
   }
 
   v10 = v9;
-  sub_124C4(0, &qword_3FBD90);
+  sub_124C4(0, &qword_3FBD90, UIView_ptr);
   v11 = v7;
   v7 = v10;
   LOBYTE(v10) = sub_30D098();

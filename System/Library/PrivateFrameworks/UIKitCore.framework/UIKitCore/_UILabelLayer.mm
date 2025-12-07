@@ -1,8 +1,8 @@
 @interface _UILabelLayer
 - (BOOL)_glyphPathBoundsExceedsLayers:(CGRect)layers drawableGlyphPathBounds:(CGRect *)bounds edgesClipped:(unint64_t *)clipped;
 - (UIEdgeInsets)letterformAwareInsets;
+- (id)_configureSublayers:(id *)result;
 - (id)_labelLayerToClipDuringBoundsSizeAnimation;
-- (uint64_t)_configureSublayers:(uint64_t)result;
 - (void)_clearContents;
 - (void)_removeSublayers;
 - (void)_setFrameOrBounds:(uint64_t)bounds settingAction:(void *)action;
@@ -63,7 +63,7 @@
       v6 = v9;
     }
 
-    [(_UILabelLayer *)self _configureSublayers:v6];
+    [(_UILabelLayer *)&self->super.super.isa _configureSublayers:v6];
   }
 
   else if (self->_contentLayer || (self->_lightReactiveLayer || self->_lightInertLayer) && ([(_UILabelLayer *)self lightContainerView], v7 = objc_claimAutoreleasedReturnValue(), v7, !v7))
@@ -364,7 +364,7 @@ LABEL_18:
   }
 }
 
-- (uint64_t)_configureSublayers:(uint64_t)result
+- (id)_configureSublayers:(id *)result
 {
   if (result)
   {

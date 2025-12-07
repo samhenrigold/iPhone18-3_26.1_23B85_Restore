@@ -12,7 +12,7 @@
     self = objc_getProperty(self, a2, 16, 1);
   }
 
-  v2 = [(HMDFetchedAccessorySettingsControllerKeyPathMapItem *)self copy];
+  v2 = objc_msgSend_copy(self, a2);
 
   return v2;
 }

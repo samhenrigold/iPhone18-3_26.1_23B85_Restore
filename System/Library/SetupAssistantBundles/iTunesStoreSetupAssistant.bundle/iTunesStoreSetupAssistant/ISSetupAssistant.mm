@@ -89,175 +89,175 @@
     v9 = shouldLog;
   }
 
-  if (os_log_type_enabled([v7 OSLogObject], OS_LOG_TYPE_DEBUG))
+  oSLogObject = [v7 OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
   {
-    v10 = v9;
+    v11 = v9;
   }
 
   else
   {
-    v10 = v9 & 2;
+    v11 = v9 & 2;
   }
 
-  if (v10)
+  if (v11)
   {
-    v53 = 138412290;
-    v54 = objc_opt_class();
-    LODWORD(v47) = 12;
-    v45 = &v53;
-    v11 = _os_log_send_and_compose_impl();
-    if (v11)
+    v56 = 138412290;
+    v57 = objc_opt_class();
+    v12 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &dword_0, oSLogObject, 2, "%@: Complete setup.", &v56, 12);
+    if (v12)
     {
-      v12 = v11;
-      v13 = [NSString stringWithCString:v11 encoding:4, &v53, v47];
-      free(v12);
-      v45 = v13;
+      v13 = v12;
+      v14 = [NSString stringWithCString:v12 encoding:4];
+      free(v13);
+      v48 = v14;
       SSFileLog();
     }
   }
 
-  [parameters objectForKey:{@"dsid", v45}];
+  [parameters objectForKey:{@"dsid", v48}];
   UniqueIdentifierFromValue = SSAccountGetUniqueIdentifierFromValue();
   if (UniqueIdentifierFromValue)
   {
-    v15 = [parameters objectForKey:@"cookies"];
+    v16 = [parameters objectForKey:@"cookies"];
     handlerCopy = handler;
-    if (!v15)
+    if (!v16)
     {
       -[ISSetupAssistant _setCookiesWithString:userIdentifier:](self, "_setCookiesWithString:userIdentifier:", [parameters objectForKey:@"pod"], UniqueIdentifierFromValue);
-      v15 = [parameters objectForKey:@"weak-token"];
+      v16 = [parameters objectForKey:@"weak-token"];
     }
 
-    [(ISSetupAssistant *)self _setCookiesWithString:v15 userIdentifier:UniqueIdentifierFromValue];
-    v16 = [parameters objectForKey:@"storefront"];
-    v17 = +[SSLogConfig sharedConfig];
-    shouldLog2 = [v17 shouldLog];
-    if ([v17 shouldLogToDisk])
+    [(ISSetupAssistant *)self _setCookiesWithString:v16 userIdentifier:UniqueIdentifierFromValue];
+    v17 = [parameters objectForKey:@"storefront"];
+    v18 = +[SSLogConfig sharedConfig];
+    shouldLog2 = [v18 shouldLog];
+    if ([v18 shouldLogToDisk])
     {
-      v19 = shouldLog2 | 2;
-    }
-
-    else
-    {
-      v19 = shouldLog2;
-    }
-
-    if (os_log_type_enabled([v17 OSLogObject], OS_LOG_TYPE_ERROR))
-    {
-      v20 = v19;
+      v20 = shouldLog2 | 2;
     }
 
     else
     {
-      v20 = v19 & 2;
+      v20 = shouldLog2;
     }
 
-    if (v20)
+    oSLogObject2 = [v18 OSLogObject];
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
     {
-      v21 = objc_opt_class();
-      v53 = 138412546;
-      v54 = v21;
-      v55 = 2112;
-      v56 = v16;
-      LODWORD(v47) = 22;
-      v46 = &v53;
-      v22 = _os_log_send_and_compose_impl();
-      if (v22)
+      v22 = v20;
+    }
+
+    else
+    {
+      v22 = v20 & 2;
+    }
+
+    if (v22)
+    {
+      v23 = objc_opt_class();
+      v56 = 138412546;
+      v57 = v23;
+      v58 = 2112;
+      v59 = v17;
+      LODWORD(v50) = 22;
+      v24 = _os_log_send_and_compose_impl(v22, 0, 0, 0, &dword_0, oSLogObject2, 16, "%@: Setup set storefront ID: %@", &v56, v50);
+      if (v24)
       {
-        v23 = v22;
-        v24 = [NSString stringWithCString:v22 encoding:4, &v53, v47];
-        free(v23);
-        v46 = v24;
+        v25 = v24;
+        v26 = [NSString stringWithCString:v24 encoding:4];
+        free(v25);
+        v49 = v26;
         SSFileLog();
       }
     }
 
-    v25 = [parameters objectForKey:{@"strong-token", v46}];
+    v27 = [parameters objectForKey:{@"strong-token", v49}];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v26 = v25;
+      v28 = v27;
     }
 
     else
     {
-      v26 = 0;
+      v28 = 0;
     }
 
-    v27 = +[SSAccountStore defaultStore];
-    activeAccount = [v27 activeAccount];
-    v29 = [v27 accountWithUniqueIdentifier:UniqueIdentifierFromValue];
-    v30 = (activeAccount | v29) == 0;
-    if (v29)
+    v29 = +[SSAccountStore defaultStore];
+    activeAccount = [v29 activeAccount];
+    v31 = [v29 accountWithUniqueIdentifier:UniqueIdentifierFromValue];
+    v32 = (activeAccount | v31) == 0;
+    if (v31)
     {
-      if (v26)
+      if (v28)
       {
-        v31 = v29;
-        [v29 setSecureToken:v26];
+        v33 = v31;
+        [v31 setSecureToken:v28];
         if (activeAccount)
         {
-          [v27 addAccount:v31];
+          [v29 addAccount:v33];
         }
 
         else
         {
-          [v27 setActiveAccount:v31];
+          [v29 setActiveAccount:v33];
         }
       }
 
       goto LABEL_45;
     }
 
-    v36 = objc_alloc_init(SSAccount);
-    [v36 setAccountName:{objc_msgSend(parameters, "objectForKey:", @"email"}];
-    [v36 setSecureToken:v26];
-    [v36 setStoreFrontIdentifier:v16];
-    [v36 setUniqueIdentifier:UniqueIdentifierFromValue];
-    v37 = [parameters objectForKey:@"newCustomer"];
+    v38 = objc_alloc_init(SSAccount);
+    [v38 setAccountName:{objc_msgSend(parameters, "objectForKey:", @"email"}];
+    [v38 setSecureToken:v28];
+    [v38 setStoreFrontIdentifier:v17];
+    [v38 setUniqueIdentifier:UniqueIdentifierFromValue];
+    v39 = [parameters objectForKey:@"newCustomer"];
     if (objc_opt_respondsToSelector())
     {
-      [v36 setNewCustomer:{objc_msgSend(v37, "BOOLValue")}];
+      [v38 setNewCustomer:{objc_msgSend(v39, "BOOLValue")}];
     }
 
     if (activeAccount && ![activeAccount accountSource])
     {
-      [v27 addAccount:v36];
+      [v29 addAccount:v38];
 
 LABEL_45:
-      v38 = +[SSLogConfig sharedConfig];
-      shouldLog3 = [v38 shouldLog];
-      if ([v38 shouldLogToDisk])
+      v40 = +[SSLogConfig sharedConfig];
+      shouldLog3 = [v40 shouldLog];
+      if ([v40 shouldLogToDisk])
       {
-        v40 = shouldLog3 | 2;
+        v42 = shouldLog3 | 2;
       }
 
       else
       {
-        v40 = shouldLog3;
+        v42 = shouldLog3;
       }
 
-      if (os_log_type_enabled([v38 OSLogObject], OS_LOG_TYPE_ERROR))
+      oSLogObject3 = [v40 OSLogObject];
+      if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_ERROR))
       {
-        v41 = v40;
+        v44 = v42;
       }
 
       else
       {
-        v41 = v40 & 2;
+        v44 = v42 & 2;
       }
 
-      if (v41)
+      if (v44)
       {
-        v42 = objc_opt_class();
-        v53 = 138412290;
-        v54 = v42;
-        LODWORD(v47) = 12;
-        v43 = _os_log_send_and_compose_impl();
-        if (v43)
+        v45 = objc_opt_class();
+        v56 = 138412290;
+        v57 = v45;
+        LODWORD(v50) = 12;
+        v46 = _os_log_send_and_compose_impl(v44, 0, 0, 0, &dword_0, oSLogObject3, 16, "%@: Skipping setup for home sharing and match", &v56, v50);
+        if (v46)
         {
-          v44 = v43;
-          [NSString stringWithCString:v43 encoding:4, &v53, v47];
-          free(v44);
+          v47 = v46;
+          [NSString stringWithCString:v46 encoding:4];
+          free(v47);
           SSFileLog();
         }
       }
@@ -266,9 +266,9 @@ LABEL_45:
       return;
     }
 
-    [v27 setActiveAccount:v36];
+    [v29 setActiveAccount:v38];
     +[SSAccountStore resetExpiration];
-    if (v16)
+    if (v17)
     {
       [+[SSDevice currentDevice](SSDevice "currentDevice")];
     }
@@ -278,22 +278,22 @@ LABEL_45:
       [+[SSDevice currentDevice](SSDevice "currentDevice")];
     }
 
-    if (!v30)
+    if (!v32)
     {
       goto LABEL_45;
     }
 
-    v32 = 0;
+    v34 = 0;
     handler = handlerCopy;
   }
 
   else
   {
-    v32 = [NSError errorWithDomain:@"ISSetupErrorDomain" code:1 userInfo:0];
+    v34 = [NSError errorWithDomain:@"ISSetupErrorDomain" code:1 userInfo:0];
   }
 
   [(ISSetupAssistant *)self setHandler:handler];
-  v33 = dispatch_group_create();
+  v35 = dispatch_group_create();
   dispatchQueue = self->_dispatchQueue;
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
@@ -301,28 +301,28 @@ LABEL_45:
   block[3] = &unk_41B8;
   block[4] = self;
   block[5] = parameters;
-  dispatch_group_async(v33, dispatchQueue, block);
+  dispatch_group_async(v35, dispatchQueue, block);
   if (PSIsRunningInAssistant())
   {
-    v35 = self->_dispatchQueue;
-    v51[0] = _NSConcreteStackBlock;
-    v51[1] = 3221225472;
-    v51[2] = sub_167C;
-    v51[3] = &unk_41B8;
-    v51[4] = self;
-    v51[5] = parameters;
-    dispatch_group_async(v33, v35, v51);
+    v37 = self->_dispatchQueue;
+    v54[0] = _NSConcreteStackBlock;
+    v54[1] = 3221225472;
+    v54[2] = sub_167C;
+    v54[3] = &unk_41B8;
+    v54[4] = self;
+    v54[5] = parameters;
+    dispatch_group_async(v35, v37, v54);
   }
 
-  v49[0] = _NSConcreteStackBlock;
-  v49[1] = 3221225472;
-  v49[2] = sub_1688;
-  v49[3] = &unk_41E0;
-  v50 = UniqueIdentifierFromValue != 0;
-  v49[4] = self;
-  v49[5] = v32;
-  dispatch_group_notify(v33, &_dispatch_main_q, v49);
-  dispatch_release(v33);
+  v52[0] = _NSConcreteStackBlock;
+  v52[1] = 3221225472;
+  v52[2] = sub_1688;
+  v52[3] = &unk_41E0;
+  v53 = UniqueIdentifierFromValue != 0;
+  v52[4] = self;
+  v52[5] = v34;
+  dispatch_group_notify(v35, &_dispatch_main_q, v52);
+  dispatch_release(v35);
 }
 
 - (void)_setCookiesWithString:(id)string userIdentifier:(id)identifier
@@ -359,141 +359,156 @@ LABEL_45:
     shouldLog = [v6 shouldLog];
     if ([v6 shouldLogToDisk])
     {
-      v8 = shouldLog | 2;
+      LODWORD(v8) = shouldLog | 2;
     }
 
     else
     {
-      v8 = shouldLog;
+      LODWORD(v8) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v6 OSLogObject], OS_LOG_TYPE_ERROR))
+    oSLogObject = [v6 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    {
+      v8 = v8;
+    }
+
+    else
     {
       v8 &= 2u;
     }
 
     if (v8)
     {
-      *v40 = 138412546;
-      *&v40[4] = objc_opt_class();
-      *&v40[12] = 2112;
-      *&v40[14] = v5;
-      LODWORD(v35) = 22;
-      v33 = v40;
-      v9 = _os_log_send_and_compose_impl();
-      if (v9)
+      *v43 = 138412546;
+      *&v43[4] = objc_opt_class();
+      *&v43[12] = 2112;
+      *&v43[14] = v5;
+      v10 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &dword_0, oSLogObject, 16, "%@: Loading URL bag for DSID: %@", v43, 22);
+      if (v10)
       {
-        v10 = v9;
-        v11 = [NSString stringWithCString:v9 encoding:4, v40, v35];
-        free(v10);
-        v33 = v11;
+        v11 = v10;
+        v12 = [NSString stringWithCString:v10 encoding:4];
+        free(v11);
+        v36 = v12;
         SSFileLog();
       }
     }
 
-    v12 = [SSURLBagContext contextWithBagType:0, v33];
-    v13 = v12;
+    v13 = [SSURLBagContext contextWithBagType:0, v36];
+    v14 = v13;
     if (v5)
     {
-      [(SSURLBagContext *)v12 setUserIdentifier:v5];
+      [(SSURLBagContext *)v13 setUserIdentifier:v5];
     }
 
-    v14 = [[SSURLBag alloc] initWithURLBagContext:v13];
-    [v14 invalidate];
-    *v40 = 0;
-    *&v40[8] = v40;
-    *&v40[16] = 0x2020000000;
-    v41 = 0;
-    v15 = dispatch_semaphore_create(0);
-    v37[0] = _NSConcreteStackBlock;
-    v37[1] = 3221225472;
-    v37[2] = sub_2000;
-    v37[3] = &unk_4258;
-    v37[5] = v15;
-    v37[6] = v40;
-    v37[4] = self;
-    [v14 loadWithCompletionBlock:v37];
-    dispatch_semaphore_wait(v15, 0xFFFFFFFFFFFFFFFFLL);
+    v15 = [[SSURLBag alloc] initWithURLBagContext:v14];
+    [v15 invalidate];
+    *v43 = 0;
+    *&v43[8] = v43;
+    *&v43[16] = 0x2020000000;
+    v44 = 0;
+    v16 = dispatch_semaphore_create(0);
+    v40[0] = _NSConcreteStackBlock;
+    v40[1] = 3221225472;
+    v40[2] = sub_2000;
+    v40[3] = &unk_4258;
+    v40[5] = v16;
+    v40[6] = v43;
+    v40[4] = self;
+    [v15 loadWithCompletionBlock:v40];
+    dispatch_semaphore_wait(v16, 0xFFFFFFFFFFFFFFFFLL);
 
-    if (*(*&v40[8] + 24) == 1)
+    if (*(*&v43[8] + 24) == 1)
     {
-      v16 = objc_alloc_init(HSCloudClient);
-      v17 = dispatch_semaphore_create(0);
-      v18 = +[SSLogConfig sharedConfig];
-      shouldLog2 = [v18 shouldLog];
-      shouldLogToDisk = [v18 shouldLogToDisk];
-      oSLogObject = [v18 OSLogObject];
+      v17 = objc_alloc_init(HSCloudClient);
+      v18 = dispatch_semaphore_create(0);
+      v19 = +[SSLogConfig sharedConfig];
+      LODWORD(v20) = [v19 shouldLog];
+      shouldLogToDisk = [v19 shouldLogToDisk];
+      oSLogObject2 = [v19 OSLogObject];
+      v23 = oSLogObject2;
       if (shouldLogToDisk)
       {
-        shouldLog2 |= 2u;
+        LODWORD(v20) = v20 | 2;
       }
 
-      if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
       {
-        shouldLog2 &= 2u;
+        v20 = v20;
       }
 
-      if (shouldLog2)
+      else
       {
-        v22 = objc_opt_class();
-        v38 = 138412290;
-        v39 = v22;
-        LODWORD(v35) = 12;
-        v34 = &v38;
-        v23 = _os_log_send_and_compose_impl();
-        if (v23)
+        v20 &= 2u;
+      }
+
+      if (v20)
+      {
+        v24 = objc_opt_class();
+        v41 = 138412290;
+        v42 = v24;
+        LODWORD(v38) = 12;
+        v25 = _os_log_send_and_compose_impl(v20, 0, 0, 0, &dword_0, v23, 16, "%@: Authenticating for iCloud Music Library", &v41, v38);
+        if (v25)
         {
-          v24 = v23;
-          v25 = [NSString stringWithCString:v23 encoding:4, &v38, v35];
-          free(v24);
-          v34 = v25;
+          v26 = v25;
+          v27 = [NSString stringWithCString:v25 encoding:4];
+          free(v26);
+          v37 = v27;
           SSFileLog();
         }
       }
 
-      v36[0] = _NSConcreteStackBlock;
-      v36[1] = 3221225472;
-      v36[2] = sub_21BC;
-      v36[3] = &unk_4280;
-      v36[4] = v17;
-      [v16 authenticateWithCompletionHandler:{v36, v34}];
-      dispatch_semaphore_wait(v17, 0xFFFFFFFFFFFFFFFFLL);
+      v39[0] = _NSConcreteStackBlock;
+      v39[1] = 3221225472;
+      v39[2] = sub_21BC;
+      v39[3] = &unk_4280;
+      v39[4] = v18;
+      [v17 authenticateWithCompletionHandler:{v39, v37}];
+      dispatch_semaphore_wait(v18, 0xFFFFFFFFFFFFFFFFLL);
     }
 
     else
     {
-      v26 = +[SSLogConfig sharedConfig];
-      shouldLog3 = [v26 shouldLog];
-      shouldLogToDisk2 = [v26 shouldLogToDisk];
-      oSLogObject2 = [v26 OSLogObject];
+      v28 = +[SSLogConfig sharedConfig];
+      LODWORD(v29) = [v28 shouldLog];
+      shouldLogToDisk2 = [v28 shouldLogToDisk];
+      oSLogObject3 = [v28 OSLogObject];
+      v32 = oSLogObject3;
       if (shouldLogToDisk2)
       {
-        shouldLog3 |= 2u;
+        LODWORD(v29) = v29 | 2;
       }
 
-      if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_ERROR))
       {
-        shouldLog3 &= 2u;
+        v29 = v29;
       }
 
-      if (shouldLog3)
+      else
       {
-        v30 = objc_opt_class();
-        v38 = 138412290;
-        v39 = v30;
-        LODWORD(v35) = 12;
-        v31 = _os_log_send_and_compose_impl();
-        if (v31)
+        v29 &= 2u;
+      }
+
+      if (v29)
+      {
+        v33 = objc_opt_class();
+        v41 = 138412290;
+        v42 = v33;
+        LODWORD(v38) = 12;
+        v34 = _os_log_send_and_compose_impl(v29, 0, 0, 0, &dword_0, v32, 16, "%@: iCloud Music Library not available.", &v41, v38);
+        if (v34)
         {
-          v32 = v31;
-          [NSString stringWithCString:v31 encoding:4, &v38, v35];
-          free(v32);
+          v35 = v34;
+          [NSString stringWithCString:v34 encoding:4];
+          free(v35);
           SSFileLog();
         }
       }
     }
 
-    _Block_object_dispose(v40, 8);
+    _Block_object_dispose(v43, 8);
   }
 }
 

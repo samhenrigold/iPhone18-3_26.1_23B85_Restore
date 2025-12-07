@@ -44,7 +44,7 @@
         }
 
         v15 = *(*(&v28 + 1) + 8 * i);
-        [v15 transform];
+        objc_msgSend_transform(v15);
         v16 = 0;
         v32[0] = v17;
         v32[1] = v18;

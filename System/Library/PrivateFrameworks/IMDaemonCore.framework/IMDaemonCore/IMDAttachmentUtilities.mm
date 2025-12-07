@@ -6,6 +6,7 @@
 + (BOOL)isPreviewAttachmentSizeEnabled;
 + (BOOL)shouldAllowBackwardsCompatibilitySizeOverride;
 + (BOOL)shouldAllowHighQualityPhotoUploadForNetworkConditions;
++ (BOOL)shouldEnablePreviewTranscodingQualityForTransfer:(id)transfer isSending:(BOOL)sending;
 + (BOOL)shouldSendLowResolutionOnly;
 + (BOOL)updateAndReturnLQMStateAfterPreviewAttachmentSizeEnabled;
 + (id)_fetchSizeLimitsForTransfer:(id)transfer mode:(unint64_t)mode;
@@ -53,14 +54,14 @@
 
 + (id)messageAttachmentSendableUTIsForResourcePath:(id)path
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   v4 = IMLogHandleForCategory();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v18 = 138412290;
-    v19 = pathCopy;
-    _os_log_impl(&dword_22B4CC000, v4, OS_LOG_TYPE_INFO, "MessageAttachmentSendableUTIs called with resourcePath %@", &v18, 0xCu);
+    v17 = 138412290;
+    v18 = pathCopy;
+    _os_log_impl(&dword_22B4CC000, v4, OS_LOG_TYPE_INFO, "MessageAttachmentSendableUTIs called with resourcePath %@", &v17, 0xCu);
   }
 
   v5 = [(__CFString *)pathCopy stringByAppendingPathComponent:@"MessageSendableUTIs"];
@@ -69,9 +70,9 @@
   v7 = IMLogHandleForCategory();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    v18 = 138412290;
-    v19 = v6;
-    _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "looking at path: %@", &v18, 0xCu);
+    v17 = 138412290;
+    v18 = v6;
+    _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "looking at path: %@", &v17, 0xCu);
   }
 
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
@@ -86,11 +87,11 @@
       v11 = @"exists!";
     }
 
-    v18 = 138412546;
-    v19 = v6;
-    v20 = 2112;
-    v21 = v11;
-    _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "%@ %@", &v18, 0x16u);
+    v17 = 138412546;
+    v18 = v6;
+    v19 = 2112;
+    v20 = v11;
+    _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "%@ %@", &v17, 0x16u);
   }
 
   if (!v9)
@@ -102,11 +103,11 @@
   v13 = IMLogHandleForCategory();
   if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
-    v18 = 138412546;
-    v19 = v12;
-    v20 = 2112;
-    v21 = v6;
-    _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "MessageAttachmentSendableUTIs got dict %@ from %@", &v18, 0x16u);
+    v17 = 138412546;
+    v18 = v12;
+    v19 = 2112;
+    v20 = v6;
+    _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "MessageAttachmentSendableUTIs got dict %@ from %@", &v17, 0x16u);
   }
 
   if (v12)
@@ -115,9 +116,9 @@
     v15 = IMLogHandleForCategory();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
-      v18 = 138412290;
-      v19 = v14;
-      _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_INFO, "Got sendable UTI list: %@", &v18, 0xCu);
+      v17 = 138412290;
+      v18 = v14;
+      _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_INFO, "Got sendable UTI list: %@", &v17, 0xCu);
     }
   }
 
@@ -126,8 +127,6 @@
 LABEL_16:
     v14 = 0;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -155,11 +154,11 @@ LABEL_16:
 
 + (id)_fetchSizeLimitsForTransfer:(id)transfer mode:(unint64_t)mode
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   transferCopy = transfer;
-  v30 = 0;
+  v29 = 0;
   _smallerImageFileSize = 0;
-  [self _fetchStandardSizeLimit:&_smallerImageFileSize highQualitySizeLimit:&v30 forTransfer:transferCopy];
+  [self _fetchStandardSizeLimit:&_smallerImageFileSize highQualitySizeLimit:&v29 forTransfer:transferCopy];
   v7 = _smallerImageFileSize;
   isAuxVideo = [transferCopy isAuxVideo];
   type = [transferCopy type];
@@ -188,7 +187,7 @@ LABEL_16:
     {
       v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:_smallerImageFileSize];
       *buf = 138412290;
-      v38 = v16;
+      v37 = v16;
       _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_INFO, "Overwrite standard Size to tiny size %@", buf, 0xCu);
     }
   }
@@ -201,32 +200,32 @@ LABEL_16:
       guid = [transferCopy guid];
       v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(self, "tinyImageQualitySizeLimit")}];
       *buf = 138412546;
-      v38 = guid;
-      v39 = 2112;
-      v40 = v19;
+      v37 = guid;
+      v38 = 2112;
+      v39 = v19;
       _os_log_impl(&dword_22B4CC000, v17, OS_LOG_TYPE_INFO, "Attempting to send transfer %@ with low quality image mode on. Forcing size limit to be %@", buf, 0x16u);
     }
 
     v20 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(self, "tinyImageQualitySizeLimit")}];
-    v36 = v20;
-    __message_sortedDedupedNonZeroNumberArray = [MEMORY[0x277CBEA60] arrayWithObjects:&v36 count:1];
+    v35 = v20;
+    __message_sortedDedupedNonZeroNumberArray = [MEMORY[0x277CBEA60] arrayWithObjects:&v35 count:1];
     goto LABEL_28;
   }
 
   if (mode == 2)
   {
-    v22 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v30];
-    v32 = v22;
+    v22 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v29];
+    v31 = v22;
     v23 = MEMORY[0x277CBEA60];
-    v24 = &v32;
+    v24 = &v31;
   }
 
   else if (mode == 1)
   {
     v22 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v7];
-    v33 = v22;
+    v32 = v22;
     v23 = MEMORY[0x277CBEA60];
-    v24 = &v33;
+    v24 = &v32;
   }
 
   else
@@ -240,18 +239,18 @@ LABEL_16:
     if (![self shouldSendLowResolutionOnly])
     {
       v22 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:_smallerImageFileSize];
-      v34[0] = v22;
-      v29 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v30];
-      v34[1] = v29;
-      v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:2];
+      v33[0] = v22;
+      v28 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v29];
+      v33[1] = v28;
+      v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:2];
 
       goto LABEL_22;
     }
 
     v22 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v7];
-    v35 = v22;
+    v34 = v22;
     v23 = MEMORY[0x277CBEA60];
-    v24 = &v35;
+    v24 = &v34;
   }
 
   v25 = [v23 arrayWithObjects:v24 count:1];
@@ -262,7 +261,7 @@ LABEL_24:
   if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v38 = v25;
+    v37 = v25;
     _os_log_impl(&dword_22B4CC000, v26, OS_LOG_TYPE_INFO, "limits before sorting %@", buf, 0xCu);
   }
 
@@ -272,13 +271,11 @@ LABEL_24:
   if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v38 = __message_sortedDedupedNonZeroNumberArray;
+    v37 = __message_sortedDedupedNonZeroNumberArray;
     _os_log_impl(&dword_22B4CC000, v20, OS_LOG_TYPE_INFO, "limits after sorting %@", buf, 0xCu);
   }
 
 LABEL_28:
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return __message_sortedDedupedNonZeroNumberArray;
 }
@@ -337,7 +334,7 @@ LABEL_28:
 
 + (void)_fileTransferSizeForAuxVideoFromServerBag:(unint64_t *)bag smallSize:(unint64_t *)size serverBag:(id)serverBag
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   serverBagCopy = serverBag;
   v8 = [serverBagCopy objectForKey:@"att-aux-video-max-file-size"];
   unsignedIntegerValue = [v8 unsignedIntegerValue];
@@ -348,11 +345,11 @@ LABEL_28:
   v12 = IMLogHandleForCategory();
   if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
-    v15 = 134218240;
-    v16 = unsignedIntegerValue;
-    v17 = 2048;
-    v18 = unsignedIntegerValue2;
-    _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "Server bag results for aux video big %lu small %lu ", &v15, 0x16u);
+    v14 = 134218240;
+    v15 = unsignedIntegerValue;
+    v16 = 2048;
+    v17 = unsignedIntegerValue2;
+    _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "Server bag results for aux video big %lu small %lu ", &v14, 0x16u);
   }
 
   v13 = 0x100000;
@@ -370,13 +367,11 @@ LABEL_28:
   {
     *size = v13;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_fileTransferSizeForAAVideoFromServerBag:(unint64_t *)bag smallSize:(unint64_t *)size serverBag:(id)serverBag
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v7 = [serverBag objectForKey:@"att-aa-video-max-file-size"];
   v8 = v7;
   if (v7)
@@ -398,11 +393,11 @@ LABEL_28:
       v11 = @"YES";
     }
 
-    v13 = 134218242;
-    v14 = unsignedIntegerValue;
-    v15 = 2112;
-    v16 = v11;
-    _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "Server bag results for max stereo video %lu default(%@)", &v13, 0x16u);
+    v12 = 134218242;
+    v13 = unsignedIntegerValue;
+    v14 = 2112;
+    v15 = v11;
+    _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "Server bag results for max stereo video %lu default(%@)", &v12, 0x16u);
   }
 
   if (bag)
@@ -414,13 +409,11 @@ LABEL_28:
   {
     *size = unsignedIntegerValue;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 + (unint64_t)_fileTransferSizeForSpatialImageFromServerBag:(id)bag
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = [bag objectForKey:@"att-spatial-image-max-file-size"];
   v4 = v3;
   if (v3)
@@ -442,20 +435,19 @@ LABEL_28:
       v7 = @"YES";
     }
 
-    v10 = 134218242;
-    v11 = unsignedIntegerValue;
-    v12 = 2112;
-    v13 = v7;
-    _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "Server bag results for max spatial image %lu default(%@)", &v10, 0x16u);
+    v9 = 134218242;
+    v10 = unsignedIntegerValue;
+    v11 = 2112;
+    v12 = v7;
+    _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "Server bag results for max spatial image %lu default(%@)", &v9, 0x16u);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return unsignedIntegerValue;
 }
 
 + (BOOL)shouldAllowHighQualityPhotoUploadForNetworkConditions
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   mEMORY[0x277D19270] = [MEMORY[0x277D19270] sharedInstance];
   isWiFiUsable = [mEMORY[0x277D19270] isWiFiUsable];
 
@@ -486,27 +478,26 @@ LABEL_28:
       v9 = @"NO";
     }
 
-    v12 = 138412802;
-    v13 = v8;
-    v14 = 2112;
-    v15 = v9;
+    v11 = 138412802;
+    v12 = v8;
+    v13 = 2112;
+    v14 = v9;
     if (hasLTEDataConnection)
     {
       v7 = @"YES";
     }
 
-    v16 = 2112;
-    v17 = v7;
-    _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "shouldAllowHighQualityPhotoUploadForNetworkConditions: (%@), isWifiUsable: (%@), hasLTE: (%@)", &v12, 0x20u);
+    v15 = 2112;
+    v16 = v7;
+    _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "shouldAllowHighQualityPhotoUploadForNetworkConditions: (%@), isWifiUsable: (%@), hasLTE: (%@)", &v11, 0x20u);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return (isWiFiUsable | hasLTEDataConnection) & 1;
 }
 
 + (unint64_t)modernHighQualityPhotoSizeLimit
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277D18A10] sharedInstanceForBagType:1];
   v3 = [v2 objectForKey:@"hq-photo-size-limit"];
   v4 = v3;
@@ -529,14 +520,13 @@ LABEL_28:
       v7 = @"YES";
     }
 
-    v10 = 134218242;
-    v11 = unsignedIntegerValue;
-    v12 = 2112;
-    v13 = v7;
-    _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "Results for high quality photo size limit: %lu is default: (%@)", &v10, 0x16u);
+    v9 = 134218242;
+    v10 = unsignedIntegerValue;
+    v11 = 2112;
+    v12 = v7;
+    _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "Results for high quality photo size limit: %lu is default: (%@)", &v9, 0x16u);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return unsignedIntegerValue;
 }
 
@@ -564,7 +554,7 @@ LABEL_28:
 
 + (unint64_t)mmcsTargetReportSizeForHighQualityPhotoSize:(unint64_t)size commonCapabilities:(id)capabilities
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v6 = MEMORY[0x277D18A10];
   capabilitiesCopy = capabilities;
   v8 = [v6 sharedInstanceForBagType:1];
@@ -616,8 +606,8 @@ LABEL_28:
   if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
   {
     v19 = @"NO";
-    v26 = 2048;
-    v24 = 134219010;
+    v25 = 2048;
+    v23 = 134219010;
     if (shouldAllowBackwardsCompatibilitySizeOverride)
     {
       v20 = @"YES";
@@ -628,7 +618,7 @@ LABEL_28:
       v20 = @"NO";
     }
 
-    v25 = sizeCopy5;
+    v24 = sizeCopy5;
     sizeCopy6 = size;
     if (v11)
     {
@@ -640,21 +630,20 @@ LABEL_28:
       v21 = @"NO";
     }
 
-    v28 = 2112;
+    v27 = 2112;
     if (isHighQualityPhotosEnabled)
     {
       v19 = @"YES";
     }
 
-    v29 = v20;
-    v30 = 2112;
-    v31 = v21;
-    v32 = 2112;
-    v33 = v19;
-    _os_log_impl(&dword_22B4CC000, v18, OS_LOG_TYPE_INFO, "Determined MMCS photo upload size to report: %lu, actual file size: %lu, allowCompatibilityOverride: %@, recipients support hqp: %@, hqp enabled: %@", &v24, 0x34u);
+    v28 = v20;
+    v29 = 2112;
+    v30 = v21;
+    v31 = 2112;
+    v32 = v19;
+    _os_log_impl(&dword_22B4CC000, v18, OS_LOG_TYPE_INFO, "Determined MMCS photo upload size to report: %lu, actual file size: %lu, allowCompatibilityOverride: %@, recipients support hqp: %@, hqp enabled: %@", &v23, 0x34u);
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return sizeCopy5;
 }
 
@@ -668,7 +657,7 @@ LABEL_28:
 
 + (unint64_t)_minSizeForLargeAuxVideo
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   mEMORY[0x277D19270] = [MEMORY[0x277D19270] sharedInstance];
   if ([mEMORY[0x277D19270] isWiFiEnabled])
   {
@@ -700,8 +689,8 @@ LABEL_6:
     v10 = IMLogHandleForCategory();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v24) = 0;
-      _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "Low bandwidth cellular because network is ultra constrained", &v24, 2u);
+      LOWORD(v23) = 0;
+      _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "Low bandwidth cellular because network is ultra constrained", &v23, 2u);
     }
 
     hasLTEDataConnection = 0;
@@ -720,9 +709,9 @@ LABEL_6:
       v12 = @"NO";
     }
 
-    v24 = 138412290;
-    v25 = v12;
-    _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "  Low Bandwidth Cell: %@", &v24, 0xCu);
+    v23 = 138412290;
+    v24 = v12;
+    _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "  Low Bandwidth Cell: %@", &v23, 0xCu);
   }
 
   v13 = IMLogHandleForCategory();
@@ -738,9 +727,9 @@ LABEL_6:
       v14 = @"NO";
     }
 
-    v24 = 138412290;
-    v25 = v14;
-    _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, " High Bandwidth Cell: %@", &v24, 0xCu);
+    v23 = 138412290;
+    v24 = v14;
+    _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, " High Bandwidth Cell: %@", &v23, 0xCu);
   }
 
   v15 = IMLogHandleForCategory();
@@ -756,24 +745,24 @@ LABEL_6:
       v16 = @"NO";
     }
 
-    v24 = 138412290;
-    v25 = v16;
-    _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_INFO, "      High Bandwidth: %@", &v24, 0xCu);
+    v23 = 138412290;
+    v24 = v16;
+    _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_INFO, "      High Bandwidth: %@", &v23, 0xCu);
   }
 
   v17 = IMLogHandleForCategory();
   if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
   {
-    v24 = 138412290;
-    v25 = @"YES";
-    _os_log_impl(&dword_22B4CC000, v17, OS_LOG_TYPE_INFO, "    Wants Misc Types: %@", &v24, 0xCu);
+    v23 = 138412290;
+    v24 = @"YES";
+    _os_log_impl(&dword_22B4CC000, v17, OS_LOG_TYPE_INFO, "    Wants Misc Types: %@", &v23, 0xCu);
   }
 
   v18 = IMLogHandleForCategory();
   if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v24) = 0;
-    _os_log_impl(&dword_22B4CC000, v18, OS_LOG_TYPE_INFO, "      ** This is an aux video type", &v24, 2u);
+    LOWORD(v23) = 0;
+    _os_log_impl(&dword_22B4CC000, v18, OS_LOG_TYPE_INFO, "      ** This is an aux video type", &v23, 2u);
   }
 
   v19 = 0x200000;
@@ -795,20 +784,19 @@ LABEL_6:
   v21 = IMLogHandleForCategory();
   if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
   {
-    v24 = 134217984;
-    v25 = (v20 >> 10);
-    _os_log_impl(&dword_22B4CC000, v21, OS_LOG_TYPE_INFO, "  Max File Size: %lld kb", &v24, 0xCu);
+    v23 = 134217984;
+    v24 = (v20 >> 10);
+    _os_log_impl(&dword_22B4CC000, v21, OS_LOG_TYPE_INFO, "  Max File Size: %lld kb", &v23, 0xCu);
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
 + (void)_fetchStandardSizeLimit:(unint64_t *)limit highQualitySizeLimit:(unint64_t *)sizeLimit forTransfer:(id)transfer
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   transferCopy = transfer;
-  v48 = 0;
+  v47 = 0;
   modernHighQualityPhotoSizeLimit = 0;
   localURL = [transferCopy localURL];
   v10 = IMIsAAVideoURL();
@@ -825,9 +813,9 @@ LABEL_6:
     }
 
     *buf = 0;
-    v47 = 0;
+    v46 = 0;
     v13 = [MEMORY[0x277D18A10] sharedInstanceForBagType:1];
-    [self _fileTransferSizeForAAVideoFromServerBag:buf smallSize:&v47 serverBag:v13];
+    [self _fileTransferSizeForAAVideoFromServerBag:buf smallSize:&v46 serverBag:v13];
 
     v14 = *buf;
     if (v14 >= [self _maxAllowedStereoVideoSize])
@@ -840,20 +828,20 @@ LABEL_6:
       _maxAllowedStereoVideoSize = *buf;
     }
 
-    v48 = _maxAllowedStereoVideoSize;
+    v47 = _maxAllowedStereoVideoSize;
     modernHighQualityPhotoSizeLimit = _maxAllowedStereoVideoSize;
   }
 
   else if ([transferCopy isAuxVideo])
   {
+    v45 = 0;
     v46 = 0;
-    v47 = 0;
     v16 = [MEMORY[0x277D18A10] sharedInstanceForBagType:1];
-    [self _fileTransferSizeForAuxVideoFromServerBag:&v47 smallSize:&v46 serverBag:v16];
+    [self _fileTransferSizeForAuxVideoFromServerBag:&v46 smallSize:&v45 serverBag:v16];
 
-    v18 = v46;
-    v17 = v47;
-    v48 = v46;
+    v18 = v45;
+    v17 = v46;
+    v47 = v45;
     if (v17 <= [self _minSizeForLargeAuxVideo])
     {
       _minSizeForLargeAuxVideo = [self _minSizeForLargeAuxVideo];
@@ -861,7 +849,7 @@ LABEL_6:
 
     else
     {
-      _minSizeForLargeAuxVideo = v47;
+      _minSizeForLargeAuxVideo = v46;
     }
 
     modernHighQualityPhotoSizeLimit = _minSizeForLargeAuxVideo;
@@ -871,10 +859,10 @@ LABEL_6:
       guid2 = [transferCopy guid];
       *buf = 138412802;
       *&buf[4] = guid2;
-      v51 = 2048;
-      v52 = v18;
-      v53 = 2048;
-      v54 = _minSizeForLargeAuxVideo;
+      v50 = 2048;
+      v51 = v18;
+      v52 = 2048;
+      v53 = _minSizeForLargeAuxVideo;
       _os_log_impl(&dword_22B4CC000, v26, OS_LOG_TYPE_INFO, "Overriding file size for Aux video transfer %@ to small %lu large %lu", buf, 0x20u);
     }
   }
@@ -925,7 +913,7 @@ LABEL_6:
             _maxAllowedSpatialImageSize = [self _maxAllowedSpatialImageSize];
           }
 
-          v48 = _maxAllowedSpatialImageSize;
+          v47 = _maxAllowedSpatialImageSize;
           modernHighQualityPhotoSizeLimit = _maxAllowedSpatialImageSize;
         }
 
@@ -942,10 +930,10 @@ LABEL_6:
         guid4 = [transferCopy guid];
         *buf = 138412802;
         *&buf[4] = guid4;
-        v51 = 2048;
-        v52 = modernHighQualityPhotoSizeLimit;
-        v53 = 2048;
-        v54 = v48;
+        v50 = 2048;
+        v51 = modernHighQualityPhotoSizeLimit;
+        v52 = 2048;
+        v53 = v47;
         _os_log_impl(&dword_22B4CC000, v28, OS_LOG_TYPE_INFO, "Setting file size for image transfer: %@. bigSize: %lu smallSize: %lu", buf, 0x20u);
       }
     }
@@ -992,36 +980,34 @@ LABEL_6:
     if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
     {
       *buf = 134218752;
-      *&buf[4] = v48 >> 10;
-      v51 = 2048;
-      v52 = modernHighQualityPhotoSizeLimit >> 10;
-      v53 = 2048;
-      v54 = v43;
-      v55 = 2048;
-      v56 = v40;
+      *&buf[4] = v47 >> 10;
+      v50 = 2048;
+      v51 = modernHighQualityPhotoSizeLimit >> 10;
+      v52 = 2048;
+      v53 = v43;
+      v54 = 2048;
+      v55 = v40;
       _os_log_impl(&dword_22B4CC000, v44, OS_LOG_TYPE_INFO, "Overriding Transcode sizes limits due to default TranscodeSizeLimitsKB: (%lu, %lu) to (%lu, %lu)", buf, 0x2Au);
     }
 
-    v48 = v43 << 10;
+    v47 = v43 << 10;
     modernHighQualityPhotoSizeLimit = v40 << 10;
   }
 
   if (limit)
   {
-    *limit = v48;
+    *limit = v47;
   }
 
   if (sizeLimit)
   {
     *sizeLimit = modernHighQualityPhotoSizeLimit;
   }
-
-  v45 = *MEMORY[0x277D85DE8];
 }
 
 + (unint64_t)_smallerImageFileSize
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277D18A10] sharedInstanceForBagType:1];
   v3 = [v2 objectForKey:@"madrid-small-image-size"];
   unsignedIntegerValue = [v3 unsignedIntegerValue];
@@ -1035,9 +1021,9 @@ LABEL_6:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:unsignedIntegerValue2];
-      v11 = 138412290;
-      v12 = v8;
-      _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Small image size ovverriden by server %@", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = v8;
+      _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Small image size ovverriden by server %@", &v10, 0xCu);
     }
   }
 
@@ -1046,7 +1032,6 @@ LABEL_6:
     unsignedIntegerValue2 = 512000;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return unsignedIntegerValue2;
 }
 
@@ -1062,6 +1047,157 @@ LABEL_6:
   bOOLValue = [v5 BOOLValue];
 
   return bOOLValue;
+}
+
++ (BOOL)shouldEnablePreviewTranscodingQualityForTransfer:(id)transfer isSending:(BOOL)sending
+{
+  sendingCopy = sending;
+  type = [transfer type];
+  if (UTTypeConformsTo(type, *MEMORY[0x277CC20B0]))
+  {
+    v7 = [MEMORY[0x277D1AAC8] createNetworkMonitorWithRemoteHost:0 delegate:0 allowsUltraConstrainedNetwork:1];
+    if ([v7 isUltraConstrained])
+    {
+      v8 = IMLogHandleForCategory();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "LQM enabled because network is ultra constrained", buf, 2u);
+      }
+
+      updateAndReturnLQMStateAfterPreviewAttachmentSizeEnabled2 = 1;
+      goto LABEL_35;
+    }
+
+    mEMORY[0x277D19270] = [MEMORY[0x277D19270] sharedInstance];
+    isWiFiUsable = [mEMORY[0x277D19270] isWiFiUsable];
+
+    if (isWiFiUsable && [MEMORY[0x277D1A8F8] IMReadDisablePreviewTranscodingQualityOnWiFiCarrierValueForPhoneNumber:0 simID:0])
+    {
+      v12 = IMLogHandleForCategory();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+      {
+        v62 = 0;
+        v13 = "Operator: not using LQM on Wi-Fi";
+        v14 = &v62;
+LABEL_33:
+        _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, v13, v14, 2u);
+      }
+    }
+
+    else
+    {
+      mEMORY[0x277D1A9B8] = [MEMORY[0x277D1A9B8] sharedFeatureFlags];
+      isDynamicLQMDisabledByWRM = [mEMORY[0x277D1A9B8] isDynamicLQMDisabledByWRM];
+
+      if (!isDynamicLQMDisabledByWRM)
+      {
+        goto LABEL_30;
+      }
+
+      updateAndReturnLQMStateAfterPreviewAttachmentSizeEnabled = [self updateAndReturnLQMStateAfterPreviewAttachmentSizeEnabled];
+      if (![MEMORY[0x277D1A8F8] IMReadDisablePreviewTranscodingQualityOnWRMCarrierValueForPhoneNumber:0 simID:0])
+      {
+        goto LABEL_30;
+      }
+
+      v18 = IMLogHandleForCategory();
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+      {
+        *v61 = 0;
+        _os_log_impl(&dword_22B4CC000, v18, OS_LOG_TYPE_INFO, "LQM-WRM Operator recommends using WRM to disable LQM", v61, 2u);
+      }
+
+      _doesWRMRecommendDisablingLQM = [self _doesWRMRecommendDisablingLQM];
+      mEMORY[0x277D1A908] = [MEMORY[0x277D1A908] sharedInstance];
+      isDataConnectionExpensive = [mEMORY[0x277D1A908] isDataConnectionExpensive];
+
+      mEMORY[0x277D1A908]2 = [MEMORY[0x277D1A908] sharedInstance];
+      wrmNetworkPreference = [mEMORY[0x277D1A908]2 wrmNetworkPreference];
+      intValue = [wrmNetworkPreference intValue];
+
+      if (updateAndReturnLQMStateAfterPreviewAttachmentSizeEnabled)
+      {
+        v25 = IMAttachmentsLogHandle();
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+        {
+          sub_22B7D453C(v25, v26, v27, v28, v29, v30, v31, v32);
+        }
+
+        v33 = IMAttachmentsLogHandle();
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
+        {
+          sub_22B7D45B0();
+        }
+
+        v34 = IMAttachmentsLogHandle();
+        if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
+        {
+          sub_22B7D4618(v34, v35, v36, v37, v38, v39, v40, v41);
+        }
+
+        v42 = IMAttachmentsLogHandle();
+        if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
+        {
+          sub_22B7D468C();
+        }
+
+        v43 = IMAttachmentsLogHandle();
+        if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
+        {
+          sub_22B7D46F4();
+        }
+
+        v44 = IMAttachmentsLogHandle();
+        if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
+        {
+          sub_22B7D475C();
+        }
+
+        v58 = objc_alloc(MEMORY[0x277CBEAC0]);
+        v57 = [MEMORY[0x277CCABB0] numberWithBool:1];
+        v56 = *MEMORY[0x277D1A268];
+        v55 = [MEMORY[0x277CCABB0] numberWithBool:sendingCopy];
+        v54 = *MEMORY[0x277D1A270];
+        v45 = [MEMORY[0x277CCABB0] numberWithBool:1];
+        v46 = *MEMORY[0x277D1A260];
+        v47 = [MEMORY[0x277CCABB0] numberWithBool:intValue != 0];
+        v48 = *MEMORY[0x277D1A278];
+        [MEMORY[0x277CCABB0] numberWithBool:_doesWRMRecommendDisablingLQM];
+        _doesWRMRecommendDisablingLQM = v59 = _doesWRMRecommendDisablingLQM;
+        v49 = *MEMORY[0x277D1A250];
+        v50 = [MEMORY[0x277CCABB0] numberWithBool:isDataConnectionExpensive];
+        v51 = [v58 initWithObjectsAndKeys:{v57, v56, v55, v54, v45, v46, v47, v48, _doesWRMRecommendDisablingLQM, v49, v50, *MEMORY[0x277D1A258], 0}];
+
+        LOBYTE(_doesWRMRecommendDisablingLQM) = v59;
+        mEMORY[0x277D1AAA8] = [MEMORY[0x277D1AAA8] sharedInstance];
+        [mEMORY[0x277D1AAA8] trackEvent:*MEMORY[0x277D1A248] withDictionary:v51];
+      }
+
+      if (isDataConnectionExpensive & 1 | ((_doesWRMRecommendDisablingLQM & 1) == 0))
+      {
+LABEL_30:
+        updateAndReturnLQMStateAfterPreviewAttachmentSizeEnabled2 = [self updateAndReturnLQMStateAfterPreviewAttachmentSizeEnabled];
+LABEL_35:
+
+        return updateAndReturnLQMStateAfterPreviewAttachmentSizeEnabled2;
+      }
+
+      v12 = IMLogHandleForCategory();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+      {
+        *v60 = 0;
+        v13 = "LQM-WRM Disable LQM as WRM and Interface check is satisfied";
+        v14 = v60;
+        goto LABEL_33;
+      }
+    }
+
+    updateAndReturnLQMStateAfterPreviewAttachmentSizeEnabled2 = 0;
+    goto LABEL_35;
+  }
+
+  return 0;
 }
 
 + (BOOL)isNetworkLowDataMode
@@ -1103,7 +1239,7 @@ LABEL_6:
 
 + (unint64_t)tinyImageQualitySizeLimit
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = IMGetCachedDomainIntForKeyWithDefaultValue();
   if (v2)
   {
@@ -1111,13 +1247,12 @@ LABEL_6:
     v4 = IMLogHandleForCategory();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      v14 = 134217984;
-      v15 = v3;
-      _os_log_impl(&dword_22B4CC000, v4, OS_LOG_TYPE_INFO, "Preview size %lu from internal override", &v14, 0xCu);
+      v13 = 134217984;
+      v14 = v3;
+      _os_log_impl(&dword_22B4CC000, v4, OS_LOG_TYPE_INFO, "Preview size %lu from internal override", &v13, 0xCu);
     }
 
-    integerValue = v3 << 10;
-    goto LABEL_13;
+    return v3 << 10;
   }
 
   v6 = [MEMORY[0x277D1A8F8] IMReadAttachmentPreviewTranscodingQualitySizeCarrierValueForPhoneNumber:0 simID:0];
@@ -1127,11 +1262,11 @@ LABEL_6:
     v7 = IMLogHandleForCategory();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v14 = 134217984;
-      v15 = integerValue;
+      v13 = 134217984;
+      v14 = integerValue;
       v8 = "Preview size %lu from operator bundle";
 LABEL_11:
-      _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, v8, &v14, 0xCu);
+      _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, v8, &v13, 0xCu);
       goto LABEL_12;
     }
 
@@ -1148,27 +1283,24 @@ LABEL_11:
   {
     if (v11)
     {
-      v14 = 134217984;
-      v15 = integerValue;
+      v13 = 134217984;
+      v14 = integerValue;
       v8 = "Preview size %lu from server bag";
       goto LABEL_11;
     }
 
 LABEL_12:
 
-    goto LABEL_13;
+    return integerValue;
   }
 
   if (v11)
   {
-    LOWORD(v14) = 0;
-    _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Using hard coded preview size", &v14, 2u);
+    LOWORD(v13) = 0;
+    _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Using hard coded preview size", &v13, 2u);
   }
 
-  integerValue = 358400;
-LABEL_13:
-  v12 = *MEMORY[0x277D85DE8];
-  return integerValue;
+  return 358400;
 }
 
 + (BOOL)updateAndReturnLQMStateAfterPreviewAttachmentSizeEnabled
@@ -1203,7 +1335,7 @@ LABEL_13:
 
 + (BOOL)_doesWRMRecommendDisablingLQM
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v2 = IMLogHandleForCategory();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
@@ -1211,11 +1343,11 @@ LABEL_13:
     wrmNetworkPreference = [mEMORY[0x277D1A908] wrmNetworkPreference];
     mEMORY[0x277D1A908]2 = [MEMORY[0x277D1A908] sharedInstance];
     wrmCellScore = [mEMORY[0x277D1A908]2 wrmCellScore];
-    v19 = 138412546;
-    v20 = wrmNetworkPreference;
-    v21 = 2112;
-    v22 = wrmCellScore;
-    _os_log_impl(&dword_22B4CC000, v2, OS_LOG_TYPE_INFO, "LQM-WRM Network pref is %@ and cellscore is %@", &v19, 0x16u);
+    v18 = 138412546;
+    v19 = wrmNetworkPreference;
+    v20 = 2112;
+    v21 = wrmCellScore;
+    _os_log_impl(&dword_22B4CC000, v2, OS_LOG_TYPE_INFO, "LQM-WRM Network pref is %@ and cellscore is %@", &v18, 0x16u);
   }
 
   mEMORY[0x277D1A908]3 = [MEMORY[0x277D1A908] sharedInstance];
@@ -1241,8 +1373,8 @@ LABEL_13:
     v14 = IMLogHandleForCategory();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v19) = 0;
-      _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "LQM-WRM Disabling LQM based on WRM recommendation", &v19, 2u);
+      LOWORD(v18) = 0;
+      _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "LQM-WRM Disabling LQM based on WRM recommendation", &v18, 2u);
     }
   }
 
@@ -1255,12 +1387,11 @@ LABEL_13:
       v16 = @"YES";
     }
 
-    v19 = 138412290;
-    v20 = v16;
-    _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_INFO, "LQM-WRM _doesWRMRecommendDisablingLQM is %@", &v19, 0xCu);
+    v18 = 138412290;
+    v19 = v16;
+    _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_INFO, "LQM-WRM _doesWRMRecommendDisablingLQM is %@", &v18, 0xCu);
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v13;
 }
 

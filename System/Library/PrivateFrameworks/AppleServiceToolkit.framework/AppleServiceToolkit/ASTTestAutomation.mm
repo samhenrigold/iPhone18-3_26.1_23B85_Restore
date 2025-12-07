@@ -1,5 +1,6 @@
 @interface ASTTestAutomation
 + (id)sharedInstance;
++ (void)conditionallyPostAccessibilityNotification:(unsigned int)notification argument:(id)argument;
 + (void)postServerRequest:(id)request;
 + (void)postServerResponse:(id)response;
 - (ASTTestAutomation)init;
@@ -56,7 +57,7 @@ uint64_t __35__ASTTestAutomation_sharedInstance__block_invoke()
 
 + (void)postServerResponse:(id)response
 {
-  v10[3] = *MEMORY[0x277D85DE8];
+  v9[3] = *MEMORY[0x277D85DE8];
   responseCopy = response;
   if (+[ASTLinking isAXRuntimeFrameworkAvailable])
   {
@@ -65,23 +66,21 @@ uint64_t __35__ASTTestAutomation_sharedInstance__block_invoke()
 
     if (testAutomationEnabled)
     {
-      v9[0] = @"event";
-      v9[1] = @"type";
-      v10[0] = @"ASTTestAutomationEvent";
-      v10[1] = @"ServerResponse";
-      v9[2] = @"info";
-      v10[2] = responseCopy;
-      v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:3];
+      v8[0] = @"event";
+      v8[1] = @"type";
+      v9[0] = @"ASTTestAutomationEvent";
+      v9[1] = @"ServerResponse";
+      v8[2] = @"info";
+      v9[2] = responseCopy;
+      v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
       [self conditionallyPostAccessibilityNotification:4002 argument:v7];
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 + (void)postServerRequest:(id)request
 {
-  v10[3] = *MEMORY[0x277D85DE8];
+  v9[3] = *MEMORY[0x277D85DE8];
   requestCopy = request;
   if (+[ASTLinking isAXRuntimeFrameworkAvailable])
   {
@@ -90,18 +89,30 @@ uint64_t __35__ASTTestAutomation_sharedInstance__block_invoke()
 
     if (testAutomationEnabled)
     {
-      v9[0] = @"event";
-      v9[1] = @"type";
-      v10[0] = @"ASTTestAutomationEvent";
-      v10[1] = @"ServerRequest";
-      v9[2] = @"info";
-      v10[2] = requestCopy;
-      v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:3];
+      v8[0] = @"event";
+      v8[1] = @"type";
+      v9[0] = @"ASTTestAutomationEvent";
+      v9[1] = @"ServerRequest";
+      v8[2] = @"info";
+      v9[2] = requestCopy;
+      v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
       [self conditionallyPostAccessibilityNotification:4002 argument:v7];
     }
   }
+}
 
-  v8 = *MEMORY[0x277D85DE8];
++ (void)conditionallyPostAccessibilityNotification:(unsigned int)notification argument:(id)argument
+{
+  v4 = *&notification;
+  argumentCopy = argument;
+  v5 = dlopen(0, 1);
+  v6 = dlsym(v5, "UIAccessibilityPostNotification");
+  if (v6)
+  {
+    v6(v4, argumentCopy);
+  }
+
+  dlclose(v5);
 }
 
 @end

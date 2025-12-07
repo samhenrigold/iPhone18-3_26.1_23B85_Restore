@@ -298,7 +298,7 @@ LABEL_58:
         if (v39)
         {
 LABEL_44:
-          v13 = BDSWidgetLog();
+          v13 = BDSWidgetLog(v41);
           if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412546;
@@ -312,7 +312,7 @@ LABEL_44:
         }
 
 LABEL_59:
-        v41 = 0;
+        v42 = 0;
         goto LABEL_60;
       }
 
@@ -329,32 +329,32 @@ LABEL_59:
     libraryAssetType = [(BDSBookWidgetData *)self libraryAssetType];
     libraryAssetType2 = [(BDSBookWidgetData *)v5 libraryAssetType];
     v36 = libraryAssetType;
-    v44 = libraryAssetType2;
-    v45 = v44;
-    if (v36 == v44)
+    v45 = libraryAssetType2;
+    v46 = v45;
+    if (v36 == v45)
     {
       v50 = 0;
     }
 
     else
     {
-      if (v44)
+      if (v45)
       {
-        v46 = [v36 isEqualToString:v44] ^ 1;
+        v47 = [v36 isEqualToString:v45] ^ 1;
       }
 
       else
       {
-        LOBYTE(v46) = 1;
+        LOBYTE(v47) = 1;
       }
 
-      v50 = v46;
+      v50 = v47;
     }
 
     goto LABEL_57;
   }
 
-  v13 = BDSWidgetLog();
+  v13 = BDSWidgetLog(0);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
@@ -367,11 +367,10 @@ LABEL_46:
 
 LABEL_47:
 
-  v41 = 1;
+  v42 = 1;
 LABEL_60:
 
-  v47 = *MEMORY[0x1E69E9840];
-  return v41;
+  return v42;
 }
 
 - (id)description

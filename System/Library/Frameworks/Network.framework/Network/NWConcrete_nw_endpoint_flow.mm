@@ -23,7 +23,7 @@
   v6 = __nwlog_obj();
   *buf = 136446210;
   v18 = "[NWConcrete_nw_endpoint_flow init]";
-  v7 = _os_log_send_and_compose_impl();
+  v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v6, 16, "%{public}s [super init] failed", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v14 = 0;
@@ -113,19 +113,19 @@ LABEL_3:
 
 - (void)dealloc
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   if (self->internally_retained_object)
   {
     pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
     networkd_settings_init();
     v3 = gLogObj;
     *buf = 136446210;
-    v35 = "[NWConcrete_nw_endpoint_flow dealloc]";
-    v4 = _os_log_send_and_compose_impl();
+    v36 = "[NWConcrete_nw_endpoint_flow dealloc]";
+    v4 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v3, 16, "%{public}s over-release of nw_endpoint_flow_t! Object should not be internally retained and deallocating", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
-    v32 = 0;
-    if (!__nwlog_fault(v4, &type, &v32))
+    v33 = 0;
+    if (!__nwlog_fault(v4, &type, &v33))
     {
       goto LABEL_7;
     }
@@ -139,7 +139,7 @@ LABEL_3:
       if (os_log_type_enabled(v5, type))
       {
         *buf = 136446210;
-        v35 = "[NWConcrete_nw_endpoint_flow dealloc]";
+        v36 = "[NWConcrete_nw_endpoint_flow dealloc]";
         _os_log_impl(&dword_181A37000, v5, v6, "%{public}s over-release of nw_endpoint_flow_t! Object should not be internally retained and deallocating", buf, 0xCu);
       }
 
@@ -154,7 +154,7 @@ LABEL_7:
       goto LABEL_8;
     }
 
-    if (v32 != 1)
+    if (v33 != 1)
     {
       pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
       networkd_settings_init();
@@ -163,7 +163,7 @@ LABEL_7:
       if (os_log_type_enabled(v5, type))
       {
         *buf = 136446210;
-        v35 = "[NWConcrete_nw_endpoint_flow dealloc]";
+        v36 = "[NWConcrete_nw_endpoint_flow dealloc]";
         _os_log_impl(&dword_181A37000, v5, v28, "%{public}s over-release of nw_endpoint_flow_t! Object should not be internally retained and deallocating, backtrace limit exceeded", buf, 0xCu);
       }
 
@@ -181,7 +181,7 @@ LABEL_7:
       if (v21)
       {
         *buf = 136446210;
-        v35 = "[NWConcrete_nw_endpoint_flow dealloc]";
+        v36 = "[NWConcrete_nw_endpoint_flow dealloc]";
         _os_log_impl(&dword_181A37000, v5, v20, "%{public}s over-release of nw_endpoint_flow_t! Object should not be internally retained and deallocating, no backtrace", buf, 0xCu);
       }
 
@@ -191,9 +191,9 @@ LABEL_7:
     if (v21)
     {
       *buf = 136446466;
-      v35 = "[NWConcrete_nw_endpoint_flow dealloc]";
-      v36 = 2082;
-      v37 = backtrace_string;
+      v36 = "[NWConcrete_nw_endpoint_flow dealloc]";
+      v37 = 2082;
+      v38 = backtrace_string;
       _os_log_impl(&dword_181A37000, v5, v20, "%{public}s over-release of nw_endpoint_flow_t! Object should not be internally retained and deallocating, dumping backtrace:%{public}s", buf, 0x16u);
     }
 
@@ -215,12 +215,13 @@ LABEL_9:
   networkd_settings_init();
   v7 = gLogObj;
   *buf = 136446210;
-  v35 = "[NWConcrete_nw_endpoint_flow dealloc]";
-  v8 = _os_log_send_and_compose_impl();
+  v36 = "[NWConcrete_nw_endpoint_flow dealloc]";
+  LODWORD(v31) = 12;
+  v8 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v7, 16, "%{public}s read requests not drained", buf, v31);
 
   type = OS_LOG_TYPE_ERROR;
-  v32 = 0;
-  if (!__nwlog_fault(v8, &type, &v32))
+  v33 = 0;
+  if (!__nwlog_fault(v8, &type, &v33))
   {
 LABEL_15:
     if (!v8)
@@ -240,7 +241,7 @@ LABEL_15:
     if (os_log_type_enabled(v9, type))
     {
       *buf = 136446210;
-      v35 = "[NWConcrete_nw_endpoint_flow dealloc]";
+      v36 = "[NWConcrete_nw_endpoint_flow dealloc]";
       _os_log_impl(&dword_181A37000, v9, v10, "%{public}s read requests not drained", buf, 0xCu);
     }
 
@@ -249,7 +250,7 @@ LABEL_14:
     goto LABEL_15;
   }
 
-  if (v32 != 1)
+  if (v33 != 1)
   {
     pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
     networkd_settings_init();
@@ -258,7 +259,7 @@ LABEL_14:
     if (os_log_type_enabled(v9, type))
     {
       *buf = 136446210;
-      v35 = "[NWConcrete_nw_endpoint_flow dealloc]";
+      v36 = "[NWConcrete_nw_endpoint_flow dealloc]";
       _os_log_impl(&dword_181A37000, v9, v29, "%{public}s read requests not drained, backtrace limit exceeded", buf, 0xCu);
     }
 
@@ -276,7 +277,7 @@ LABEL_14:
     if (v24)
     {
       *buf = 136446210;
-      v35 = "[NWConcrete_nw_endpoint_flow dealloc]";
+      v36 = "[NWConcrete_nw_endpoint_flow dealloc]";
       _os_log_impl(&dword_181A37000, v9, v23, "%{public}s read requests not drained, no backtrace", buf, 0xCu);
     }
 
@@ -286,9 +287,9 @@ LABEL_14:
   if (v24)
   {
     *buf = 136446466;
-    v35 = "[NWConcrete_nw_endpoint_flow dealloc]";
-    v36 = 2082;
-    v37 = v22;
+    v36 = "[NWConcrete_nw_endpoint_flow dealloc]";
+    v37 = 2082;
+    v38 = v22;
     _os_log_impl(&dword_181A37000, v9, v23, "%{public}s read requests not drained, dumping backtrace:%{public}s", buf, 0x16u);
   }
 
@@ -309,12 +310,13 @@ LABEL_17:
   networkd_settings_init();
   v11 = gLogObj;
   *buf = 136446210;
-  v35 = "[NWConcrete_nw_endpoint_flow dealloc]";
-  v12 = _os_log_send_and_compose_impl();
+  v36 = "[NWConcrete_nw_endpoint_flow dealloc]";
+  LODWORD(v31) = 12;
+  v12 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v11, 16, "%{public}s write requests not drained", buf, v31);
 
   type = OS_LOG_TYPE_ERROR;
-  v32 = 0;
-  if (!__nwlog_fault(v12, &type, &v32))
+  v33 = 0;
+  if (!__nwlog_fault(v12, &type, &v33))
   {
 LABEL_23:
     if (!v12)
@@ -334,7 +336,7 @@ LABEL_23:
     if (os_log_type_enabled(v13, type))
     {
       *buf = 136446210;
-      v35 = "[NWConcrete_nw_endpoint_flow dealloc]";
+      v36 = "[NWConcrete_nw_endpoint_flow dealloc]";
       _os_log_impl(&dword_181A37000, v13, v14, "%{public}s write requests not drained", buf, 0xCu);
     }
 
@@ -343,7 +345,7 @@ LABEL_22:
     goto LABEL_23;
   }
 
-  if (v32 != 1)
+  if (v33 != 1)
   {
     pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
     networkd_settings_init();
@@ -352,7 +354,7 @@ LABEL_22:
     if (os_log_type_enabled(v13, type))
     {
       *buf = 136446210;
-      v35 = "[NWConcrete_nw_endpoint_flow dealloc]";
+      v36 = "[NWConcrete_nw_endpoint_flow dealloc]";
       _os_log_impl(&dword_181A37000, v13, v30, "%{public}s write requests not drained, backtrace limit exceeded", buf, 0xCu);
     }
 
@@ -370,7 +372,7 @@ LABEL_22:
     if (v27)
     {
       *buf = 136446210;
-      v35 = "[NWConcrete_nw_endpoint_flow dealloc]";
+      v36 = "[NWConcrete_nw_endpoint_flow dealloc]";
       _os_log_impl(&dword_181A37000, v13, v26, "%{public}s write requests not drained, no backtrace", buf, 0xCu);
     }
 
@@ -380,9 +382,9 @@ LABEL_22:
   if (v27)
   {
     *buf = 136446466;
-    v35 = "[NWConcrete_nw_endpoint_flow dealloc]";
-    v36 = 2082;
-    v37 = v25;
+    v36 = "[NWConcrete_nw_endpoint_flow dealloc]";
+    v37 = 2082;
+    v38 = v25;
     _os_log_impl(&dword_181A37000, v13, v26, "%{public}s write requests not drained, dumping backtrace:%{public}s", buf, 0x16u);
   }
 
@@ -418,9 +420,9 @@ LABEL_25:
   context = self->shared_protocol.context;
   self->shared_protocol.context = 0;
 
-  v31.receiver = self;
-  v31.super_class = NWConcrete_nw_endpoint_flow;
-  [(NWConcrete_nw_endpoint_flow *)&v31 dealloc];
+  v32.receiver = self;
+  v32.super_class = NWConcrete_nw_endpoint_flow;
+  [(NWConcrete_nw_endpoint_flow *)&v32 dealloc];
 }
 
 @end

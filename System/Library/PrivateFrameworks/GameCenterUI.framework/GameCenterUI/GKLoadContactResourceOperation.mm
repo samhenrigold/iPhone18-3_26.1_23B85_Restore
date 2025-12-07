@@ -166,7 +166,7 @@ void __38__GKLoadContactResourceOperation_main__block_invoke(uint64_t a1, void *
   return v3;
 }
 
-uint64_t __49__GKLoadContactResourceOperation_mainScreenScale__block_invoke(uint64_t a1, void *a2)
+void *__49__GKLoadContactResourceOperation_mainScreenScale__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 scale];
   v5 = *(*(a1 + 32) + 8);

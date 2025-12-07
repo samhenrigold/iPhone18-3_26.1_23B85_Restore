@@ -16,59 +16,59 @@
 
 - (void)mergeFrom:(id)from
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   fromCopy = from;
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v5 = *(fromCopy + 3);
-  v6 = [v5 countByEnumeratingWithState:&v21 objects:v26 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v20 objects:v25 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v22;
+    v8 = *v21;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v22 != v8)
+        if (*v21 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [(SIRINLUINTERNALRewriteInteraction *)self addOriginalUtterances:*(*(&v21 + 1) + 8 * i)];
+        [(SIRINLUINTERNALRewriteInteraction *)self addOriginalUtterances:*(*(&v20 + 1) + 8 * i)];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v21 objects:v26 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v20 objects:v25 count:16];
     }
 
     while (v7);
   }
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v10 = *(fromCopy + 4);
-  v11 = [v10 countByEnumeratingWithState:&v17 objects:v25 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v16 objects:v24 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v18;
+    v13 = *v17;
     do
     {
       for (j = 0; j != v12; ++j)
       {
-        if (*v18 != v13)
+        if (*v17 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        [(SIRINLUINTERNALRewriteInteraction *)self addSiriResponse:*(*(&v17 + 1) + 8 * j), v17];
+        [(SIRINLUINTERNALRewriteInteraction *)self addSiriResponse:*(*(&v16 + 1) + 8 * j), v16];
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v17 objects:v25 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v16 objects:v24 count:16];
     }
 
     while (v12);
@@ -92,8 +92,6 @@
     self->_startTimestamp = *(fromCopy + 1);
     *&self->_has |= 1u;
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)hash
@@ -167,7 +165,6 @@ LABEL_3:
       goto LABEL_15;
     }
 
-    v10 = *(equalCopy + 40);
     if (self->_tap2edit)
     {
       if ((*(equalCopy + 40) & 1) == 0)
@@ -207,61 +204,61 @@ LABEL_16:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   v6 = self->_originalUtterances;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v27 objects:v32 count:16];
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v26 objects:v31 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v28;
+    v9 = *v27;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v28 != v9)
+        if (*v27 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [*(*(&v27 + 1) + 8 * i) copyWithZone:zone];
+        v11 = [*(*(&v26 + 1) + 8 * i) copyWithZone:zone];
         [v5 addOriginalUtterances:v11];
       }
 
-      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v27 objects:v32 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v26 objects:v31 count:16];
     }
 
     while (v8);
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   v12 = self->_siriResponses;
-  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v23 objects:v31 count:16];
+  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v22 objects:v30 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v24;
+    v15 = *v23;
     do
     {
       for (j = 0; j != v14; ++j)
       {
-        if (*v24 != v15)
+        if (*v23 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = [*(*(&v23 + 1) + 8 * j) copyWithZone:{zone, v23}];
+        v17 = [*(*(&v22 + 1) + 8 * j) copyWithZone:{zone, v22}];
         [v5 addSiriResponse:v17];
       }
 
-      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v23 objects:v31 count:16];
+      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v22 objects:v30 count:16];
     }
 
     while (v14);
@@ -285,7 +282,6 @@ LABEL_16:
     *(v5 + 44) |= 1u;
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -344,64 +340,62 @@ LABEL_16:
 
 - (void)writeTo:(id)to
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   toCopy = to;
-  v25 = 0u;
-  v26 = 0u;
-  v27 = 0u;
-  v28 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   v5 = self->_originalUtterances;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v25 objects:v30 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v20 objects:v25 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v26;
+    v8 = *v21;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v26 != v8)
+        if (*v21 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v25 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v20 objects:v25 count:16];
     }
 
     while (v7);
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
-  v22 = 0u;
-  v11 = self->_siriResponses;
-  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v21 objects:v29 count:16];
-  if (v12)
+  v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v10 = self->_siriResponses;
+  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v16 objects:v24 count:16];
+  if (v11)
   {
-    v13 = v12;
-    v14 = *v22;
+    v12 = v11;
+    v13 = *v17;
     do
     {
-      for (j = 0; j != v13; ++j)
+      for (j = 0; j != v12; ++j)
       {
-        if (*v22 != v14)
+        if (*v17 != v13)
         {
-          objc_enumerationMutation(v11);
+          objc_enumerationMutation(v10);
         }
 
-        v16 = *(*(&v21 + 1) + 8 * j);
         PBDataWriterWriteSubmessage();
       }
 
-      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v21 objects:v29 count:16];
+      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v16 objects:v24 count:16];
     }
 
-    while (v13);
+    while (v12);
   }
 
   if (self->_locale)
@@ -412,51 +406,47 @@ LABEL_16:
   has = self->_has;
   if ((has & 2) != 0)
   {
-    tap2edit = self->_tap2edit;
     PBDataWriterWriteBOOLField();
     has = self->_has;
   }
 
   if (has)
   {
-    startTimestamp = self->_startTimestamp;
     PBDataWriterWriteUint64Field();
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (id)dictionaryRepresentation
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if ([(NSMutableArray *)self->_originalUtterances count])
   {
     v4 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSMutableArray count](self->_originalUtterances, "count")}];
+    v27 = 0u;
     v28 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
     v5 = self->_originalUtterances;
-    v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v28 objects:v33 count:16];
+    v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v27 objects:v32 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v29;
+      v8 = *v28;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v29 != v8)
+          if (*v28 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          dictionaryRepresentation = [*(*(&v28 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v27 + 1) + 8 * i) dictionaryRepresentation];
           [v4 addObject:dictionaryRepresentation];
         }
 
-        v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v28 objects:v33 count:16];
+        v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v27 objects:v32 count:16];
       }
 
       while (v7);
@@ -468,30 +458,30 @@ LABEL_16:
   if ([(NSMutableArray *)self->_siriResponses count])
   {
     v11 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSMutableArray count](self->_siriResponses, "count")}];
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
     v12 = self->_siriResponses;
-    v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v24 objects:v32 count:16];
+    v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v23 objects:v31 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v25;
+      v15 = *v24;
       do
       {
         for (j = 0; j != v14; ++j)
         {
-          if (*v25 != v15)
+          if (*v24 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          dictionaryRepresentation2 = [*(*(&v24 + 1) + 8 * j) dictionaryRepresentation];
+          dictionaryRepresentation2 = [*(*(&v23 + 1) + 8 * j) dictionaryRepresentation];
           [v11 addObject:dictionaryRepresentation2];
         }
 
-        v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v24 objects:v32 count:16];
+        v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v23 objects:v31 count:16];
       }
 
       while (v14);
@@ -520,8 +510,6 @@ LABEL_16:
     v21 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:self->_startTimestamp];
     [dictionary setObject:v21 forKey:@"start_timestamp"];
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }

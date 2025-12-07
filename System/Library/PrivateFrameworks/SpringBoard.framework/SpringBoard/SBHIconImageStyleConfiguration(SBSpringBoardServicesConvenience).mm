@@ -1,17 +1,17 @@
 @interface SBHIconImageStyleConfiguration(SBSpringBoardServicesConvenience)
 - (id)sb_homeScreenIconStyleConfiguration;
-- (uint64_t)sb_homeScreenIconStyleConfigurationType;
-- (uint64_t)sb_homeScreenIconStyleConfigurationVariant;
+- (void)sb_homeScreenIconStyleConfigurationType;
+- (void)sb_homeScreenIconStyleConfigurationVariant;
 @end
 
 @implementation SBHIconImageStyleConfiguration(SBSpringBoardServicesConvenience)
 
-- (uint64_t)sb_homeScreenIconStyleConfigurationType
+- (void)sb_homeScreenIconStyleConfigurationType
 {
   result = [self configurationType];
   if (result != 2)
   {
-    return result == 1;
+    return (result == 1);
   }
 
   return result;
@@ -29,12 +29,12 @@
   return v7;
 }
 
-- (uint64_t)sb_homeScreenIconStyleConfigurationVariant
+- (void)sb_homeScreenIconStyleConfigurationVariant
 {
   result = [self variant];
   if (result != 2)
   {
-    return result == 1;
+    return (result == 1);
   }
 
   return result;

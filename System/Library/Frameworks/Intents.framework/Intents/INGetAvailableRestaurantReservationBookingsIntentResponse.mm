@@ -22,11 +22,11 @@
 
 - (id)_dictionaryRepresentation
 {
-  v16[5] = *MEMORY[0x1E69E9840];
-  v15[0] = @"code";
+  v15[5] = *MEMORY[0x1E69E9840];
+  v14[0] = @"code";
   v3 = [MEMORY[0x1E696AD98] numberWithInteger:{-[INGetAvailableRestaurantReservationBookingsIntentResponse code](self, "code")}];
-  v16[0] = v3;
-  v15[1] = @"localizedRestaurantDescriptionText";
+  v15[0] = v3;
+  v14[1] = @"localizedRestaurantDescriptionText";
   localizedRestaurantDescriptionText = self->_localizedRestaurantDescriptionText;
   null = localizedRestaurantDescriptionText;
   if (!localizedRestaurantDescriptionText)
@@ -34,8 +34,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v16[1] = null;
-  v15[2] = @"localizedBookingAdvisementText";
+  v15[1] = null;
+  v14[2] = @"localizedBookingAdvisementText";
   localizedBookingAdvisementText = self->_localizedBookingAdvisementText;
   null2 = localizedBookingAdvisementText;
   if (!localizedBookingAdvisementText)
@@ -43,8 +43,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v16[2] = null2;
-  v15[3] = @"termsAndConditions";
+  v15[2] = null2;
+  v14[3] = @"termsAndConditions";
   termsAndConditions = self->_termsAndConditions;
   null3 = termsAndConditions;
   if (!termsAndConditions)
@@ -52,8 +52,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v16[3] = null3;
-  v15[4] = @"availableBookings";
+  v15[3] = null3;
+  v14[4] = @"availableBookings";
   availableBookings = self->_availableBookings;
   null4 = availableBookings;
   if (!availableBookings)
@@ -61,8 +61,8 @@
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v16[4] = null4;
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:5];
+  v15[4] = null4;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:5];
   if (availableBookings)
   {
     if (termsAndConditions)
@@ -107,7 +107,6 @@ LABEL_12:
 LABEL_19:
 
 LABEL_13:
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }

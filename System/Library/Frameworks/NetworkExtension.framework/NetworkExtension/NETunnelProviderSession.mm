@@ -8,7 +8,7 @@
 
 - (BOOL)sendProviderMessage:(NSData *)messageData returnError:(NSError *)error responseHandler:(void *)responseHandler
 {
-  v45[2] = *MEMORY[0x1E69E9840];
+  v43[2] = *MEMORY[0x1E69E9840];
   v8 = messageData;
   v9 = responseHandler;
   if (error)
@@ -29,7 +29,7 @@
     {
       v11 = [MEMORY[0x1E696ABC0] errorWithDomain:@"NEVPNErrorDomain" code:3 userInfo:0];
 LABEL_22:
-      v31 = 0;
+      v30 = 0;
       *error = v11;
       goto LABEL_26;
     }
@@ -46,7 +46,7 @@ LABEL_22:
     }
 
 LABEL_25:
-    v31 = 0;
+    v30 = 0;
     goto LABEL_26;
   }
 
@@ -56,10 +56,10 @@ LABEL_25:
     dispatch_once(&sharedWrapperForSession__globals_init, &__block_literal_global_24151);
   }
 
-  v45[0] = 0;
-  v45[1] = 0;
+  v43[0] = 0;
+  v43[1] = 0;
   ne_session_get_configuration_id();
-  v12 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:v45];
+  v12 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:v43];
   v13 = wrapperMap;
   objc_sync_enter(v13);
   v15 = [wrapperMap objectForKeyedSubscript:v12];
@@ -69,12 +69,12 @@ LABEL_25:
   }
 
   v16 = [NEIPCWrapper alloc];
-  v34 = v12;
+  v32 = v12;
   if (v16)
   {
-    v44.receiver = v16;
-    v44.super_class = NEIPCWrapper;
-    v17 = [(NETunnelProviderSession *)&v44 init];
+    v42.receiver = v16;
+    v42.super_class = NEIPCWrapper;
+    v17 = [(NETunnelProviderSession *)&v42 init];
     v18 = v17;
     if (v17)
     {
@@ -90,19 +90,18 @@ LABEL_25:
       *&v18->super._installed = v23;
 
       dispatch_suspend(*&v18->super._installed);
-      v25 = v18->super._status;
       *buf = MEMORY[0x1E69E9820];
-      v40 = 3221225472;
-      v41 = __43__NEIPCWrapper_initWithSession_identifier___block_invoke;
-      v42 = &unk_1E7F0AF98;
+      v38 = 3221225472;
+      v39 = __43__NEIPCWrapper_initWithSession_identifier___block_invoke;
+      v40 = &unk_1E7F0AF98;
       v15 = v18;
-      v43 = v15;
+      v41 = v15;
       ne_session_establish_ipc();
 
 LABEL_17:
-      v26 = wrapperMap;
-      v27 = objc_getProperty(v15, v14, 32, 1);
-      [v26 setObject:v15 forKeyedSubscript:v27];
+      v25 = wrapperMap;
+      v26 = objc_getProperty(v15, v14, 32, 1);
+      [v25 setObject:v15 forKeyedSubscript:v26];
 
       goto LABEL_18;
     }
@@ -123,22 +122,21 @@ LABEL_18:
     goto LABEL_25;
   }
 
-  Property = objc_getProperty(v15, v28, 8, 1);
+  Property = objc_getProperty(v15, v27, 8, 1);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __75__NETunnelProviderSession_sendProviderMessage_returnError_responseHandler___block_invoke;
   block[3] = &unk_1E7F0AAA0;
-  v36 = v15;
-  v37 = v8;
-  v38 = v9;
-  v30 = v15;
+  v34 = v15;
+  v35 = v8;
+  v36 = v9;
+  v29 = v15;
   dispatch_async(Property, block);
 
-  v31 = 1;
+  v30 = 1;
 LABEL_26:
 
-  v32 = *MEMORY[0x1E69E9840];
-  return v31;
+  return v30;
 }
 
 void __75__NETunnelProviderSession_sendProviderMessage_returnError_responseHandler___block_invoke(uint64_t a1, const char *a2)
@@ -235,14 +233,14 @@ LABEL_19:
 
 - (void)stopTunnel
 {
-  v11[2] = *MEMORY[0x1E69E9840];
+  v10[2] = *MEMORY[0x1E69E9840];
   if ([(NEVPNConnection *)self status]&& self && self->super._session)
   {
     objc_opt_self();
-    v11[0] = 0;
-    v11[1] = 0;
+    v10[0] = 0;
+    v10[1] = 0;
     ne_session_get_configuration_id();
-    v3 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:v11];
+    v3 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:v10];
     v4 = wrapperMap;
     objc_sync_enter(v4);
     v5 = [wrapperMap objectForKeyedSubscript:v3];
@@ -258,10 +256,9 @@ LABEL_19:
     objc_sync_exit(v4);
   }
 
-  v10.receiver = self;
-  v10.super_class = NETunnelProviderSession;
-  [(NEVPNConnection *)&v10 stopVPNTunnel];
-  v9 = *MEMORY[0x1E69E9840];
+  v9.receiver = self;
+  v9.super_class = NETunnelProviderSession;
+  [(NEVPNConnection *)&v9 stopVPNTunnel];
 }
 
 - (BOOL)startTunnelWithOptions:(NSDictionary *)options andReturnError:(NSError *)error

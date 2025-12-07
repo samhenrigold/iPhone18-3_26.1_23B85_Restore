@@ -4,13 +4,17 @@
 - (BOOL)isBusy;
 - (BOOL)isPeerBusy:(id)busy;
 - (BOOL)isWrappingGKSession:(id)session;
+- (BOOL)sendData:(id)data toPeers:(id)peers withDataMode:(int)mode error:(id *)error;
+- (BOOL)sendDataToAllPeers:(id)peers withDataMode:(int)mode error:(id *)error;
 - (GKViceroySession)initWithConnection:(id)connection delegate:(id)delegate;
+- (GKViceroySession)initWithGKSession:(id)session sessionID:(id)d displayName:(id)name sessionMode:(int)mode;
 - (double)disconnectTimeout;
 - (id)delegate;
 - (id)description;
 - (id)displayName;
 - (id)displayNameForPeer:(id)peer;
 - (id)peerID;
+- (id)peersWithConnectionState:(int)state;
 - (id)privateDelegate;
 - (id)sessionID;
 - (id)voiceChatWithName:(id)name players:(id)players;
@@ -22,6 +26,8 @@
 - (void)disableWifi;
 - (void)disconnectFromAllPeers;
 - (void)disconnectPeerFromAllPeers:(id)peers;
+- (void)setAvailable:(BOOL)available;
+- (void)setBusy:(BOOL)busy;
 - (void)setDataReceiveHandler:(id)handler withContext:(void *)context;
 - (void)setDelegate:(id)delegate;
 - (void)setDisconnectTimeout:(double)timeout;
@@ -56,6 +62,27 @@
   return v8;
 }
 
+- (GKViceroySession)initWithGKSession:(id)session sessionID:(id)d displayName:(id)name sessionMode:(int)mode
+{
+  v6 = *&mode;
+  sessionCopy = session;
+  dCopy = d;
+  nameCopy = name;
+  v19.receiver = self;
+  v19.super_class = GKViceroySession;
+  v14 = [(GKViceroySession *)&v19 init];
+  v15 = v14;
+  if (v14)
+  {
+    objc_storeStrong(&v14->_gkSession, session);
+    v16 = [objc_alloc(MEMORY[0x277D0C938]) initWithSessionID:dCopy displayName:nameCopy session:sessionCopy sessionMode:v6];
+    session = v15->_session;
+    v15->_session = v16;
+  }
+
+  return v15;
+}
+
 - (void)dealloc
 {
   session = [(GKViceroySession *)self session];
@@ -83,12 +110,26 @@
   return isAvailable;
 }
 
+- (void)setAvailable:(BOOL)available
+{
+  availableCopy = available;
+  session = [(GKViceroySession *)self session];
+  [session setAvailable:availableCopy];
+}
+
 - (BOOL)isBusy
 {
   session = [(GKViceroySession *)self session];
   isBusy = [session isBusy];
 
   return isBusy;
+}
+
+- (void)setBusy:(BOOL)busy
+{
+  busyCopy = busy;
+  session = [(GKViceroySession *)self session];
+  [session setBusy:busyCopy];
 }
 
 - (void)setDelegate:(id)delegate
@@ -249,6 +290,36 @@
   gkSession = [(GKViceroySession *)self gkSession];
 
   return gkSession == sessionCopy;
+}
+
+- (id)peersWithConnectionState:(int)state
+{
+  v3 = *&state;
+  session = [(GKViceroySession *)self session];
+  v5 = [session peersWithConnectionState:v3];
+
+  return v5;
+}
+
+- (BOOL)sendData:(id)data toPeers:(id)peers withDataMode:(int)mode error:(id *)error
+{
+  v7 = *&mode;
+  peersCopy = peers;
+  dataCopy = data;
+  session = [(GKViceroySession *)self session];
+  LOBYTE(error) = [session sendData:dataCopy toPeers:peersCopy withDataMode:v7 error:error];
+
+  return error;
+}
+
+- (BOOL)sendDataToAllPeers:(id)peers withDataMode:(int)mode error:(id *)error
+{
+  v6 = *&mode;
+  peersCopy = peers;
+  session = [(GKViceroySession *)self session];
+  LOBYTE(error) = [session sendDataToAllPeers:peersCopy withDataMode:v6 error:error];
+
+  return error;
 }
 
 - (void)setDataReceiveHandler:(id)handler withContext:(void *)context

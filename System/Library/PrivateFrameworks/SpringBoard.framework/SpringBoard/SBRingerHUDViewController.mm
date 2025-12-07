@@ -89,7 +89,7 @@
 {
   silentCopy = silent;
   v7 = *MEMORY[0x277D85DE8];
-  v5 = SBLogRingerHUD();
+  v5 = SBLogRingerHUD(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6[0] = 67109120;
@@ -137,7 +137,7 @@
   pressCopy = press;
   animatedCopy = animated;
   v16 = *MEMORY[0x277D85DE8];
-  v9 = SBLogRingerHUD();
+  v9 = SBLogRingerHUD(self);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v10 = 134218496;
@@ -180,7 +180,7 @@
 {
   animatedCopy = animated;
   v8 = *MEMORY[0x277D85DE8];
-  v5 = SBLogRingerHUD();
+  v5 = SBLogRingerHUD(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v7[0] = 67109120;
@@ -295,7 +295,7 @@ uint64_t __57__SBRingerHUDViewController__updateStateAnimated_invert___block_inv
 {
   changeCopy = change;
   v18 = *MEMORY[0x277D85DE8];
-  v5 = SBLogRingerHUD();
+  v5 = SBLogRingerHUD(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
@@ -347,7 +347,7 @@ uint64_t __57__SBRingerHUDViewController__updateStateAnimated_invert___block_inv
 
 - (void)_dismiss
 {
-  v3 = SBLogRingerHUD();
+  v3 = SBLogRingerHUD(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -360,7 +360,7 @@ uint64_t __57__SBRingerHUDViewController__updateStateAnimated_invert___block_inv
 
 - (void)_extendDismissalTimer
 {
-  v3 = SBLogRingerHUD();
+  v3 = SBLogRingerHUD(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;

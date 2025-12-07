@@ -40,7 +40,7 @@
       }
 
       v13 = ARShouldUseLogTypeError_internalOSVersion_8;
-      v14 = _ARLogTechnique_3();
+      v14 = _ARLogTechnique_3(v12);
       v15 = v14;
       if (v13 == 1)
       {
@@ -82,7 +82,7 @@ LABEL_16:
       goto LABEL_18;
     }
 
-    v21 = _ARLogTechnique_3();
+    v21 = _ARLogTechnique_3(v10);
     if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
     {
       v22 = objc_opt_class();
@@ -136,7 +136,7 @@ LABEL_18:
 
 - (id)processData:(id)data
 {
-  v109 = *MEMORY[0x1E69E9840];
+  v111 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
@@ -196,157 +196,159 @@ LABEL_18:
       self->_cropRect.origin.y = v30;
       self->_cropRect.size.width = v31;
       self->_cropRect.size.height = v32;
-      if (CGRectIsEmpty(*&v29) || ((v60 = self->_cropRect.size.width, v61 = self->_cropRect.size.height, v60 == v11) ? (v62 = v61 == v12) : (v62 = 0), v62))
+      IsEmpty = CGRectIsEmpty(*&v29);
+      if (IsEmpty || ((v61 = self->_cropRect.size.width, v62 = self->_cropRect.size.height, v61 == v11) ? (v63 = v62 == v12) : (v63 = 0), v63))
       {
         if (ARShouldUseLogTypeError_onceToken_8 != -1)
         {
           [ARImageCroppingTechnique processData:];
         }
 
-        v70 = ARShouldUseLogTypeError_internalOSVersion_8;
-        v71 = _ARLogTechnique_3();
-        v22 = v71;
-        if (v70 == 1)
+        v72 = ARShouldUseLogTypeError_internalOSVersion_8;
+        v73 = _ARLogTechnique_3(IsEmpty);
+        v22 = v73;
+        if (v72 == 1)
         {
-          if (!os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
+          if (!os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_49;
           }
 
-          v72 = objc_opt_class();
-          v73 = NSStringFromClass(v72);
+          v74 = objc_opt_class();
+          v75 = NSStringFromClass(v74);
           *buf = 138543618;
-          v104 = v73;
-          v105 = 2048;
+          v106 = v75;
+          v107 = 2048;
           selfCopy8 = self;
-          v74 = "%{public}@ <%p>: The cropped image size must be less than source image size and not zero";
-          v75 = v22;
-          v76 = OS_LOG_TYPE_ERROR;
+          v76 = "%{public}@ <%p>: The cropped image size must be less than source image size and not zero";
+          v77 = v22;
+          v78 = OS_LOG_TYPE_ERROR;
         }
 
         else
         {
-          if (!os_log_type_enabled(v71, OS_LOG_TYPE_INFO))
+          if (!os_log_type_enabled(v73, OS_LOG_TYPE_INFO))
           {
             goto LABEL_49;
           }
 
-          v77 = objc_opt_class();
-          v73 = NSStringFromClass(v77);
+          v79 = objc_opt_class();
+          v75 = NSStringFromClass(v79);
           *buf = 138543618;
-          v104 = v73;
-          v105 = 2048;
+          v106 = v75;
+          v107 = 2048;
           selfCopy8 = self;
-          v74 = "Error: %{public}@ <%p>: The cropped image size must be less than source image size and not zero";
-          v75 = v22;
-          v76 = OS_LOG_TYPE_INFO;
+          v76 = "Error: %{public}@ <%p>: The cropped image size must be less than source image size and not zero";
+          v77 = v22;
+          v78 = OS_LOG_TYPE_INFO;
         }
 
-        _os_log_impl(&dword_1C241C000, v75, v76, v74, buf, 0x16u);
+        _os_log_impl(&dword_1C241C000, v77, v78, v76, buf, 0x16u);
 
         goto LABEL_49;
       }
 
       x = p_cropRect->origin.x;
       y = self->_cropRect.origin.y;
-      DictionaryRepresentation = CGRectCreateDictionaryRepresentation(*(&v60 - 2));
-      v66 = VTSessionSetProperty(self->_vtPixelTransferSession, *MEMORY[0x1E6983E40], DictionaryRepresentation);
+      DictionaryRepresentation = CGRectCreateDictionaryRepresentation(*(&v61 - 2));
+      v67 = VTSessionSetProperty(self->_vtPixelTransferSession, *MEMORY[0x1E6983E40], DictionaryRepresentation);
+      v68 = v67;
       if (DictionaryRepresentation)
       {
         CFRelease(DictionaryRepresentation);
       }
 
-      if (v66)
+      if (v68)
       {
         if (ARShouldUseLogTypeError_onceToken_8 != -1)
         {
           [ARImageCroppingTechnique processData:];
         }
 
-        v67 = ARShouldUseLogTypeError_internalOSVersion_8;
-        v68 = _ARLogTechnique_3();
-        v22 = v68;
-        if (v67 == 1)
+        v69 = ARShouldUseLogTypeError_internalOSVersion_8;
+        v70 = _ARLogTechnique_3(v67);
+        v22 = v70;
+        if (v69 == 1)
         {
-          if (!os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
+          if (!os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_49;
           }
 
-          v69 = objc_opt_class();
-          v24 = NSStringFromClass(v69);
+          v71 = objc_opt_class();
+          v24 = NSStringFromClass(v71);
           *buf = 138543874;
-          v104 = v24;
-          v105 = 2048;
+          v106 = v24;
+          v107 = 2048;
           selfCopy8 = self;
-          v107 = 1024;
-          v108 = v66;
+          v109 = 1024;
+          v110 = v68;
           v25 = "%{public}@ <%p>: Unable to initialize pixel transfer session for image cropping: %i";
           goto LABEL_17;
         }
 
-        if (!os_log_type_enabled(v68, OS_LOG_TYPE_INFO))
+        if (!os_log_type_enabled(v70, OS_LOG_TYPE_INFO))
         {
           goto LABEL_49;
         }
 
-        v87 = objc_opt_class();
-        v24 = NSStringFromClass(v87);
+        v89 = objc_opt_class();
+        v24 = NSStringFromClass(v89);
         *buf = 138543874;
-        v104 = v24;
-        v105 = 2048;
+        v106 = v24;
+        v107 = 2048;
         selfCopy8 = self;
-        v107 = 1024;
-        v108 = v66;
+        v109 = 1024;
+        v110 = v68;
         v25 = "Error: %{public}@ <%p>: Unable to initialize pixel transfer session for image cropping: %i";
         goto LABEL_23;
       }
 
       PixelFormatType = CVPixelBufferGetPixelFormatType([(ARImageData *)v7 pixelBuffer]);
-      v82 = ARRecreatePixelBufferPoolOnConfigurationChanges(&self->_croppedPixelBufferPool, PixelFormatType, self->_cropRect.size.width, self->_cropRect.size.height);
-      if (v82)
+      v84 = ARRecreatePixelBufferPoolOnConfigurationChanges(&self->_croppedPixelBufferPool, PixelFormatType, self->_cropRect.size.width, self->_cropRect.size.height);
+      if (v84)
       {
-        v83 = v82;
+        v85 = v84;
         if (ARShouldUseLogTypeError_onceToken_8 != -1)
         {
           [ARImageCroppingTechnique processData:];
         }
 
-        v84 = ARShouldUseLogTypeError_internalOSVersion_8;
-        v85 = _ARLogTechnique_3();
-        v22 = v85;
-        if (v84 == 1)
+        v86 = ARShouldUseLogTypeError_internalOSVersion_8;
+        v87 = _ARLogTechnique_3(v84);
+        v22 = v87;
+        if (v86 == 1)
         {
-          if (!os_log_type_enabled(v85, OS_LOG_TYPE_ERROR))
+          if (!os_log_type_enabled(v87, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_49;
           }
 
-          v86 = objc_opt_class();
-          v24 = NSStringFromClass(v86);
+          v88 = objc_opt_class();
+          v24 = NSStringFromClass(v88);
           *buf = 138543874;
-          v104 = v24;
-          v105 = 2048;
+          v106 = v24;
+          v107 = 2048;
           selfCopy8 = self;
-          v107 = 1024;
-          v108 = v83;
+          v109 = 1024;
+          v110 = v85;
           v25 = "%{public}@ <%p>: Unable to create pixel buffer pool for cropping: %i";
           goto LABEL_17;
         }
 
-        if (!os_log_type_enabled(v85, OS_LOG_TYPE_INFO))
+        if (!os_log_type_enabled(v87, OS_LOG_TYPE_INFO))
         {
           goto LABEL_49;
         }
 
-        v88 = objc_opt_class();
-        v24 = NSStringFromClass(v88);
+        v90 = objc_opt_class();
+        v24 = NSStringFromClass(v90);
         *buf = 138543874;
-        v104 = v24;
-        v105 = 2048;
+        v106 = v24;
+        v107 = 2048;
         selfCopy8 = self;
-        v107 = 1024;
-        v108 = v83;
+        v109 = 1024;
+        v110 = v85;
         v25 = "Error: %{public}@ <%p>: Unable to create pixel buffer pool for cropping: %i";
         goto LABEL_23;
       }
@@ -363,41 +365,41 @@ LABEL_18:
       v8 = [[ARModifiedImageData alloc] initWithImageData:v7];
       [(ARImageData *)v8 setPixelBuffer:pixelBufferOut];
       [(ARImageData *)v7 cameraIntrinsics];
-      v93 = v36;
-      v96 = v35;
-      v91 = v37;
+      v95 = v36;
+      v98 = v35;
+      v93 = v37;
       [(ARImageData *)v7 imageResolution];
       v39 = v38;
       v41 = v40;
       [(ARImageData *)v8 imageResolution];
-      *&v44 = ARAdjustIntrinsicsForViewportSize(v96, v93, v91, v39, v41, v42, v43);
+      *&v44 = ARAdjustIntrinsicsForViewportSize(v98, v95, v93, v39, v41, v42, v43);
       [(ARImageData *)v8 setCameraIntrinsics:v44];
       v45 = &self->_cropRect;
-      v97 = v45->origin.x;
+      v99 = v45->origin.x;
       [(ARImageData *)v7 imageResolution];
-      v92 = v46;
-      v47.f64[0] = v97;
+      v94 = v46;
+      v47.f64[0] = v99;
       v47.f64[1] = v45->origin.y;
-      v98 = v47;
+      v100 = v47;
       [(ARImageData *)v7 imageResolution];
-      v90 = v48;
-      v94 = v45->size.width;
+      v92 = v48;
+      v96 = v45->size.width;
       [(ARImageData *)v7 imageResolution];
-      v89 = v49;
-      v50.f64[0] = v94;
+      v91 = v49;
+      v50.f64[0] = v96;
       v50.f64[1] = v45->size.height;
-      v95 = v50;
+      v97 = v50;
       [(ARImageData *)v7 imageResolution];
-      v51.f64[0] = v92;
-      v51.f64[1] = v90;
-      v52.f64[0] = v89;
+      v51.f64[0] = v94;
+      v51.f64[1] = v92;
+      v52.f64[0] = v91;
       v52.f64[1] = v53;
-      v101 = @"croppedRect";
-      v99[0] = vdivq_f64(v98, v51);
-      v99[1] = vdivq_f64(v95, v52);
-      v54 = [MEMORY[0x1E696B098] valueWithBytes:v99 objCType:"{CGRect={CGPoint=dd}{CGSize=dd}}"];
-      v102 = v54;
-      v55 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v102 forKeys:&v101 count:1];
+      v103 = @"croppedRect";
+      v101[0] = vdivq_f64(v100, v51);
+      v101[1] = vdivq_f64(v97, v52);
+      v54 = [MEMORY[0x1E696B098] valueWithBytes:v101 objCType:"{CGRect={CGPoint=dd}{CGSize=dd}}"];
+      v104 = v54;
+      v55 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v104 forKeys:&v103 count:1];
       [(ARModifiedImageData *)v8 setMetaData:v55];
 
       CVPixelBufferRelease(pixelBufferOut);
@@ -413,7 +415,7 @@ LABEL_51:
     }
 
     v20 = ARShouldUseLogTypeError_internalOSVersion_8;
-    v21 = _ARLogTechnique_3();
+    v21 = _ARLogTechnique_3(v18);
     v22 = v21;
     if (v20 == 1)
     {
@@ -422,11 +424,11 @@ LABEL_51:
         v23 = objc_opt_class();
         v24 = NSStringFromClass(v23);
         *buf = 138543874;
-        v104 = v24;
-        v105 = 2048;
+        v106 = v24;
+        v107 = 2048;
         selfCopy8 = self;
-        v107 = 1024;
-        v108 = v19;
+        v109 = 1024;
+        v110 = v19;
         v25 = "%{public}@ <%p>: Unable to create pixel buffer for cropping: %i";
 LABEL_17:
         v26 = v22;
@@ -438,8 +440,8 @@ LABEL_24:
 LABEL_49:
 
       delegate = [(ARTechnique *)self delegate];
-      v79 = ARErrorWithCodeAndUserInfo(151, 0);
-      [delegate technique:self didFailWithError:v79];
+      v81 = ARErrorWithCodeAndUserInfo(151, 0);
+      [delegate technique:self didFailWithError:v81];
 
 LABEL_50:
       v8 = v7;
@@ -454,11 +456,11 @@ LABEL_50:
     v56 = objc_opt_class();
     v24 = NSStringFromClass(v56);
     *buf = 138543874;
-    v104 = v24;
-    v105 = 2048;
+    v106 = v24;
+    v107 = 2048;
     selfCopy8 = self;
-    v107 = 1024;
-    v108 = v19;
+    v109 = 1024;
+    v110 = v19;
     v25 = "Error: %{public}@ <%p>: Unable to create pixel buffer for cropping: %i";
 LABEL_23:
     v26 = v22;

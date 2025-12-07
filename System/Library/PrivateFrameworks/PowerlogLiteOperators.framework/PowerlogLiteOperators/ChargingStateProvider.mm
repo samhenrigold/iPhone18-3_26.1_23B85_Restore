@@ -4,6 +4,7 @@
 - (ChargingStateProviderDelegate)delegate;
 - (id)chargingIconStateDictionary;
 - (id)debugDescription;
+- (id)getMostApplicableState:(id)state isPaused:(BOOL)paused;
 - (signed)getChargingState;
 - (void)_refreshTimeEstimates;
 - (void)chargeLevelChanged;
@@ -199,38 +200,38 @@ void __29__ChargingStateProvider_init__block_invoke_5(uint64_t a1)
 
 void __38__ChargingStateProvider_computeStates__block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) stateCalculation];
   v2 = ChargingStateProviderLog();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) debugDescription];
     *buf = 138412290;
-    v19 = v3;
+    v18 = v3;
     _os_log_impl(&dword_21A4C6000, v2, OS_LOG_TYPE_DEFAULT, "Data changed %@", buf, 0xCu);
   }
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v4 = *(*(a1 + 32) + 40);
-  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       v8 = 0;
       do
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * v8);
+        v9 = *(*(&v12 + 1) + 8 * v8);
         v10 = *(*(a1 + 32) + 32);
         block[0] = MEMORY[0x277D85DD0];
         block[1] = 3221225472;
@@ -242,24 +243,21 @@ void __38__ChargingStateProvider_computeStates__block_invoke(uint64_t a1)
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __38__ChargingStateProvider_computeStates__block_invoke_77(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   result = objc_opt_respondsToSelector();
   if (result)
   {
-    v4 = *(a1 + 32);
+    v3 = *(a1 + 32);
 
-    return [v4 dataChanged];
+    return [v3 dataChanged];
   }
 
   return result;
@@ -267,61 +265,59 @@ uint64_t __38__ChargingStateProvider_computeStates__block_invoke_77(uint64_t a1)
 
 - (void)lowPowerModeChanged
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   [(ChargingStateProvider *)self refreshLowPowerMode];
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v3 = self->_delegates;
-  v4 = [(NSHashTable *)v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [(NSHashTable *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       v7 = 0;
       do
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * v7);
+        v8 = *(*(&v11 + 1) + 8 * v7);
         queue = self->_queue;
-        v11[0] = MEMORY[0x277D85DD0];
-        v11[1] = 3221225472;
-        v11[2] = __44__ChargingStateProvider_lowPowerModeChanged__block_invoke;
-        v11[3] = &unk_278259658;
-        v11[4] = v8;
-        v11[5] = self;
-        dispatch_async(queue, v11);
+        v10[0] = MEMORY[0x277D85DD0];
+        v10[1] = 3221225472;
+        v10[2] = __44__ChargingStateProvider_lowPowerModeChanged__block_invoke;
+        v10[3] = &unk_278259658;
+        v10[4] = v8;
+        v10[5] = self;
+        dispatch_async(queue, v10);
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [(NSHashTable *)v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [(NSHashTable *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
   }
 
   [(ChargingStateProvider *)self computeStates];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __44__ChargingStateProvider_lowPowerModeChanged__block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   result = objc_opt_respondsToSelector();
   if (result)
   {
-    v4 = *(a1 + 32);
-    v5 = [*(a1 + 40) isLowPowerModeEnabled];
+    v3 = *(a1 + 32);
+    v4 = [*(a1 + 40) isLowPowerModeEnabled];
 
-    return [v4 lowPowerModeChangedWithEnabled:v5];
+    return [v3 lowPowerModeChangedWithEnabled:v4];
   }
 
   return result;
@@ -337,61 +333,59 @@ uint64_t __44__ChargingStateProvider_lowPowerModeChanged__block_invoke(uint64_t 
 
 - (void)powerSourceChanged
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   [(ChargingStateProvider *)self refreshPowerSource];
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v3 = self->_delegates;
-  v4 = [(NSHashTable *)v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [(NSHashTable *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       v7 = 0;
       do
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * v7);
+        v8 = *(*(&v11 + 1) + 8 * v7);
         queue = self->_queue;
-        v11[0] = MEMORY[0x277D85DD0];
-        v11[1] = 3221225472;
-        v11[2] = __43__ChargingStateProvider_powerSourceChanged__block_invoke;
-        v11[3] = &unk_278259658;
-        v11[4] = v8;
-        v11[5] = self;
-        dispatch_async(queue, v11);
+        v10[0] = MEMORY[0x277D85DD0];
+        v10[1] = 3221225472;
+        v10[2] = __43__ChargingStateProvider_powerSourceChanged__block_invoke;
+        v10[3] = &unk_278259658;
+        v10[4] = v8;
+        v10[5] = self;
+        dispatch_async(queue, v10);
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [(NSHashTable *)v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [(NSHashTable *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
   }
 
   [(ChargingStateProvider *)self computeStates];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __43__ChargingStateProvider_powerSourceChanged__block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   result = objc_opt_respondsToSelector();
   if (result)
   {
-    v4 = *(a1 + 32);
-    v5 = [*(a1 + 40) isExternallyConnected];
+    v3 = *(a1 + 32);
+    v4 = [*(a1 + 40) isExternallyConnected];
 
-    return [v4 powerSourceChangedWithConnected:v5];
+    return [v3 powerSourceChangedWithConnected:v4];
   }
 
   return result;
@@ -420,8 +414,8 @@ uint64_t __43__ChargingStateProvider_powerSourceChanged__block_invoke(uint64_t a
 
 - (void)refreshChargeLevel
 {
-  v24 = *MEMORY[0x277D85DE8];
-  v20 = 0;
+  v23 = *MEMORY[0x277D85DE8];
+  v19 = 0;
   v3 = IOPSGetPercentRemaining();
   if (v3)
   {
@@ -430,68 +424,65 @@ uint64_t __43__ChargingStateProvider_powerSourceChanged__block_invoke(uint64_t a
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      v23 = v4;
+      v22 = v4;
       _os_log_error_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_ERROR, "Error querying uisoc:%d", buf, 8u);
     }
   }
 
   else
   {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v6 = self->_delegates;
-    v7 = [(NSHashTable *)v6 countByEnumeratingWithState:&v16 objects:v21 count:16];
+    v7 = [(NSHashTable *)v6 countByEnumeratingWithState:&v15 objects:v20 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v17;
+      v9 = *v16;
       do
       {
         v10 = 0;
         do
         {
-          if (*v17 != v9)
+          if (*v16 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v16 + 1) + 8 * v10);
+          v11 = *(*(&v15 + 1) + 8 * v10);
           queue = self->_queue;
-          v14[0] = MEMORY[0x277D85DD0];
-          v14[1] = 3221225472;
-          v14[2] = __43__ChargingStateProvider_refreshChargeLevel__block_invoke;
-          v14[3] = &unk_278259680;
-          v14[4] = v11;
-          v15 = v20;
-          dispatch_async(queue, v14);
+          v13[0] = MEMORY[0x277D85DD0];
+          v13[1] = 3221225472;
+          v13[2] = __43__ChargingStateProvider_refreshChargeLevel__block_invoke;
+          v13[3] = &unk_278259680;
+          v13[4] = v11;
+          v14 = v19;
+          dispatch_async(queue, v13);
           ++v10;
         }
 
         while (v8 != v10);
-        v8 = [(NSHashTable *)v6 countByEnumeratingWithState:&v16 objects:v21 count:16];
+        v8 = [(NSHashTable *)v6 countByEnumeratingWithState:&v15 objects:v20 count:16];
       }
 
       while (v8);
     }
 
-    [(ChargingStateProvider *)self setUisocLevel:v20];
+    [(ChargingStateProvider *)self setUisocLevel:v19];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __43__ChargingStateProvider_refreshChargeLevel__block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   result = objc_opt_respondsToSelector();
   if (result)
   {
-    v4 = *(a1 + 32);
-    v5 = *(a1 + 40);
+    v3 = *(a1 + 32);
+    v4 = *(a1 + 40);
 
-    return [v4 uisocChangedWithUisoc:v5];
+    return [v3 uisocChangedWithUisoc:v4];
   }
 
   return result;
@@ -499,61 +490,59 @@ uint64_t __43__ChargingStateProvider_refreshChargeLevel__block_invoke(uint64_t a
 
 - (void)chargingStateChanged
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   [(ChargingStateProvider *)self refreshChargingState];
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v3 = self->_delegates;
-  v4 = [(NSHashTable *)v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [(NSHashTable *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       v7 = 0;
       do
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * v7);
+        v8 = *(*(&v11 + 1) + 8 * v7);
         queue = self->_queue;
-        v11[0] = MEMORY[0x277D85DD0];
-        v11[1] = 3221225472;
-        v11[2] = __45__ChargingStateProvider_chargingStateChanged__block_invoke;
-        v11[3] = &unk_278259658;
-        v11[4] = v8;
-        v11[5] = self;
-        dispatch_async(queue, v11);
+        v10[0] = MEMORY[0x277D85DD0];
+        v10[1] = 3221225472;
+        v10[2] = __45__ChargingStateProvider_chargingStateChanged__block_invoke;
+        v10[3] = &unk_278259658;
+        v10[4] = v8;
+        v10[5] = self;
+        dispatch_async(queue, v10);
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [(NSHashTable *)v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [(NSHashTable *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
   }
 
   [(ChargingStateProvider *)self computeStates];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __45__ChargingStateProvider_chargingStateChanged__block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   result = objc_opt_respondsToSelector();
   if (result)
   {
-    v4 = *(a1 + 32);
-    v5 = [*(a1 + 40) chargingState];
+    v3 = *(a1 + 32);
+    v4 = [*(a1 + 40) chargingState];
 
-    return [v4 chargingStateChangedWithState:v5];
+    return [v3 chargingStateChangedWithState:v4];
   }
 
   return result;
@@ -671,33 +660,134 @@ LABEL_9:
   return chargingIntervalType;
 }
 
+- (id)getMostApplicableState:(id)state isPaused:(BOOL)paused
+{
+  pausedCopy = paused;
+  v40 = *MEMORY[0x277D85DE8];
+  stateCopy = state;
+  v6 = stateCopy;
+  if (!stateCopy)
+  {
+LABEL_23:
+    v10 = 0;
+    goto LABEL_24;
+  }
+
+  v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
+  v7 = [stateCopy countByEnumeratingWithState:&v33 objects:v39 count:16];
+  if (!v7)
+  {
+LABEL_19:
+    if ([v6 count])
+    {
+      v27 = ChargingStateProviderLog();
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 138412290;
+        v38 = v6;
+        _os_log_error_impl(&dword_21A4C6000, v27, OS_LOG_TYPE_ERROR, "No charging states were supported %@", buf, 0xCu);
+      }
+    }
+
+    goto LABEL_23;
+  }
+
+  v9 = v7;
+  v10 = 0;
+  v11 = *v34;
+  v12 = @"name";
+  *&v8 = 138412290;
+  v29 = v8;
+  v30 = v6;
+  do
+  {
+    v13 = 0;
+    v31 = v9;
+    do
+    {
+      if (*v34 != v11)
+      {
+        objc_enumerationMutation(v6);
+      }
+
+      v14 = *(*(&v33 + 1) + 8 * v13);
+      v15 = [v14 objectForKeyedSubscript:{v12, v29}];
+      v16 = v15;
+      if (v15)
+      {
+        if (([v15 isSupported] & 1) == 0)
+        {
+          v26 = ChargingStateProviderLog();
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+          {
+            *buf = v29;
+            v38 = v14;
+            _os_log_error_impl(&dword_21A4C6000, v26, OS_LOG_TYPE_ERROR, "Unhandled hold type: %@", buf, 0xCu);
+          }
+
+          goto LABEL_15;
+        }
+
+        if ([v16 isPaused] == pausedCopy)
+        {
+          v17 = [v10 objectForKeyedSubscript:v12];
+          if (!v17 || (v18 = v17, -[NSObject objectForKeyedSubscript:](v10, "objectForKeyedSubscript:", v12), v19 = objc_claimAutoreleasedReturnValue(), v32 = [v19 statePriority], v20 = v12, v21 = v11, v22 = v10, v23 = pausedCopy, v24 = objc_msgSend(v16, "statePriority"), v19, v6 = v30, v18, v25 = v32 <= v24, pausedCopy = v23, v10 = v22, v11 = v21, v12 = v20, v9 = v31, !v25))
+          {
+            v26 = v10;
+            v10 = v14;
+LABEL_15:
+          }
+        }
+      }
+
+      ++v13;
+    }
+
+    while (v9 != v13);
+    v9 = [v6 countByEnumeratingWithState:&v33 objects:v39 count:16];
+  }
+
+  while (v9);
+  if (!v10)
+  {
+    goto LABEL_19;
+  }
+
+LABEL_24:
+
+  return v10;
+}
+
 - (BOOL)isBatteryGaugingEnabledWithOverrideStateArray:(id)array
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
   v4 = arrayCopy;
   if (arrayCopy)
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     v5 = arrayCopy;
-    v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v16;
+      v8 = *v15;
       while (2)
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v16 != v8)
+          if (*v15 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = [*(*(&v15 + 1) + 8 * i) objectForKeyedSubscript:{@"reason", v15}];
+          v10 = [*(*(&v14 + 1) + 8 * i) objectForKeyedSubscript:{@"reason", v14}];
           v11 = v10;
           if (v10 && ([v10 isEqualToString:@"PowerD-BatteryGaugingMitigation"] & 1) != 0)
           {
@@ -707,7 +797,7 @@ LABEL_9:
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
         if (v7)
         {
           continue;
@@ -726,13 +816,12 @@ LABEL_14:
     v12 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 - (id)chargingIconStateDictionary
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = IOPSCopyChargeStatus();
   if (v2)
   {
@@ -741,7 +830,7 @@ LABEL_14:
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      LODWORD(v8) = v3;
+      LODWORD(v7) = v3;
       _os_log_error_impl(&dword_21A4C6000, v4, OS_LOG_TYPE_ERROR, "Error in fetching charging status %d", buf, 8u);
     }
   }
@@ -752,42 +841,40 @@ LABEL_14:
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v8 = 0;
+      v7 = 0;
       _os_log_debug_impl(&dword_21A4C6000, v4, OS_LOG_TYPE_DEBUG, "State of chargingStatusDictionary post converting to ObjC %@", buf, 0xCu);
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return 0;
 }
 
 - (void)didUpdateEstimateFor:(int64_t)for newEstimate:(id)estimate error:(id)error
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   estimateCopy = estimate;
   errorCopy = error;
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   obj = self->_delegates;
-  v10 = [(NSHashTable *)obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v10 = [(NSHashTable *)obj countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v23;
+    v12 = *v22;
     do
     {
       v13 = 0;
       do
       {
-        if (*v23 != v12)
+        if (*v22 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v22 + 1) + 8 * v13);
+        v14 = *(*(&v21 + 1) + 8 * v13);
         queue = self->_queue;
         block[0] = MEMORY[0x277D85DD0];
         block[1] = 3221225472;
@@ -795,36 +882,34 @@ LABEL_14:
         block[3] = &unk_2782596A8;
         block[4] = v14;
         forCopy = for;
-        v19 = estimateCopy;
-        v20 = errorCopy;
+        v18 = estimateCopy;
+        v19 = errorCopy;
         dispatch_async(queue, block);
 
         ++v13;
       }
 
       while (v11 != v13);
-      v11 = [(NSHashTable *)obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v11 = [(NSHashTable *)obj countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v11);
   }
 
   [(ChargingStateProvider *)self refreshTimeEstimates];
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __64__ChargingStateProvider_didUpdateEstimateFor_newEstimate_error___block_invoke(void *a1)
 {
-  v2 = a1[4];
   result = objc_opt_respondsToSelector();
   if (result)
   {
-    v4 = a1[4];
-    v5 = a1[5];
-    v7 = a1[6];
-    v6 = a1[7];
+    v3 = a1[4];
+    v4 = a1[5];
+    v6 = a1[6];
+    v5 = a1[7];
 
-    return [v4 chargeTimeEstimateChangedForTarget:v6 newEstimate:v5 error:v7];
+    return [v3 chargeTimeEstimateChangedForTarget:v5 newEstimate:v4 error:v6];
   }
 
   return result;
@@ -860,15 +945,15 @@ uint64_t __45__ChargingStateProvider_refreshTimeEstimates__block_invoke(uint64_t
 
 - (void)refreshTimeEstimateForTarget:(int64_t)target slowChargerSignal:(BOOL *)signal
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   chargeTimeEstimateClient = [(ChargingStateProvider *)self chargeTimeEstimateClient];
 
   if (chargeTimeEstimateClient)
   {
     chargeTimeEstimateClient2 = [(ChargingStateProvider *)self chargeTimeEstimateClient];
-    v17 = 0;
-    v9 = [chargeTimeEstimateClient2 estimateForTarget:target withError:&v17];
-    v10 = v17;
+    v16 = 0;
+    v9 = [chargeTimeEstimateClient2 estimateForTarget:target withError:&v16];
+    v10 = v16;
 
     if (v10)
     {
@@ -877,8 +962,8 @@ uint64_t __45__ChargingStateProvider_refreshTimeEstimates__block_invoke(uint64_t
       {
         *buf = 134218242;
         targetCopy3 = target;
-        v20 = 2112;
-        v21 = v10;
+        v19 = 2112;
+        v20 = v10;
         _os_log_error_impl(&dword_21A4C6000, v11, OS_LOG_TYPE_ERROR, "Error querying estimate for target: %ld, error: %@", buf, 0x16u);
       }
 
@@ -893,8 +978,8 @@ uint64_t __45__ChargingStateProvider_refreshTimeEstimates__block_invoke(uint64_t
       {
         *buf = 134218242;
         targetCopy3 = target;
-        v20 = 2112;
-        v21 = v9;
+        v19 = 2112;
+        v20 = v9;
         _os_log_debug_impl(&dword_21A4C6000, v13, OS_LOG_TYPE_DEBUG, "Charge time estimate for target: %ld, output: %@", buf, 0x16u);
       }
 
@@ -944,8 +1029,6 @@ LABEL_20:
     [(ChargingStateProvider *)self setTimeEstimateToLimit:0];
 LABEL_21:
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)debugDescription

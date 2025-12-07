@@ -235,7 +235,7 @@ void __59__PHPersistentChangeFetchResult_enumerateChangesWithBlock___block_invok
   return v12;
 }
 
-uint64_t __75__PHPersistentChangeFetchResult_initWithTransactions_options_photoLibrary___block_invoke(uint64_t a1)
+void *__75__PHPersistentChangeFetchResult_initWithTransactions_options_photoLibrary___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 40) copy];
   v3 = *(a1 + 32);

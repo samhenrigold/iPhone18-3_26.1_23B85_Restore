@@ -41,7 +41,7 @@
 
 - (void)dealloc
 {
-  AKLog(@"%s");
+  AKLog();
   v3.receiver = self;
   v3.super_class = AKFormFeatureDetector;
   [(AKFormFeatureDetector *)&v3 dealloc];
@@ -65,7 +65,7 @@
     v37.size.width = v15;
     v37.size.height = v17;
     v35 = j__NSStringFromCGRect(v37);
-    AKLog(@"%@ unable to create bitmap of rect %@ from page controller: %@");
+    AKLog();
 
     v22 = 0;
     goto LABEL_30;
@@ -1553,7 +1553,7 @@ LABEL_22:
     v14 = v13;
     if (edges)
     {
-      [(AKFormFeatureDetector *)self _findVerticalEdgesAtPoint:v11 extent:pageCopy onPage:x, y];
+      objc_msgSend__findVerticalEdgesAtPoint_extent_onPage_(self, x, y);
       v15 = v22;
       v16 = v24 - v12;
       if (v23)

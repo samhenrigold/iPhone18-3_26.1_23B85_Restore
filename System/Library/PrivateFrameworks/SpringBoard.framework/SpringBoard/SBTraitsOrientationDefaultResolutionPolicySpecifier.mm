@@ -69,7 +69,7 @@
 
         v18 = *(*(&v37 + 1) + 8 * i);
         role = [v18 role];
-        if ([defaultDeviceOrientationDrivenRoles containsObject:role])
+        if (objc_msgSend_containsObject_(defaultDeviceOrientationDrivenRoles))
         {
           resolutionPolicyInfoDeviceOrientation = [*(v16 + 1232) resolutionPolicyInfoDeviceOrientation];
 LABEL_12:
@@ -77,14 +77,14 @@ LABEL_12:
           goto LABEL_22;
         }
 
-        if ([defaultActiveOrientationBelowDrivenRoles containsObject:role])
+        if (objc_msgSend_containsObject_(defaultActiveOrientationBelowDrivenRoles))
         {
           resolutionPolicyInfoDeviceOrientation = [*(v16 + 1232) resolutionPolicyInfoOrientationBelow];
           goto LABEL_12;
         }
 
         v22 = v16;
-        if ([defaultKeyboardFocusDrivenRoles containsObject:role])
+        if (objc_msgSend_containsObject_(defaultKeyboardFocusDrivenRoles))
         {
           v23 = defaultOtherParticipantDrivenRoles;
           validatedInputs = [contextCopy validatedInputs];

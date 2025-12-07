@@ -153,38 +153,36 @@ void __81__SPFirmwareUpdateSession_connectionTokensForBeaconUUID_dateInterval_co
 
 void __81__SPFirmwareUpdateSession_connectionTokensForBeaconUUID_dateInterval_completion___block_invoke_2(uint64_t a1)
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 64));
   v3 = [WeakRetained proxy];
 
   v4 = objc_opt_new();
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __81__SPFirmwareUpdateSession_connectionTokensForBeaconUUID_dateInterval_completion___block_invoke_3;
-  v17[3] = &unk_279B59D88;
-  v18 = *(a1 + 56);
-  v5 = [v4 addCompletionBlock:v17];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __81__SPFirmwareUpdateSession_connectionTokensForBeaconUUID_dateInterval_completion___block_invoke_3;
+  v16[3] = &unk_279B59D88;
+  v17 = *(a1 + 56);
+  v5 = [v4 addCompletionBlock:v16];
   v6 = [*(a1 + 32) sessionInvalidationFuture];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __81__SPFirmwareUpdateSession_connectionTokensForBeaconUUID_dateInterval_completion___block_invoke_4;
-  v15[3] = &unk_279B5A110;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __81__SPFirmwareUpdateSession_connectionTokensForBeaconUUID_dateInterval_completion___block_invoke_4;
+  v14[3] = &unk_279B5A110;
   v7 = v4;
-  v16 = v7;
-  v8 = [v6 addSuccessBlock:v15];
+  v15 = v7;
+  v8 = [v6 addSuccessBlock:v14];
 
-  v19[0] = *(a1 + 40);
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
+  v18[0] = *(a1 + 40);
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
   v10 = *(a1 + 48);
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __81__SPFirmwareUpdateSession_connectionTokensForBeaconUUID_dateInterval_completion___block_invoke_5;
-  v13[3] = &unk_279B5A188;
-  v14 = v7;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __81__SPFirmwareUpdateSession_connectionTokensForBeaconUUID_dateInterval_completion___block_invoke_5;
+  v12[3] = &unk_279B5A188;
+  v13 = v7;
   v11 = v7;
-  [v3 commandKeysForUUIDs:v9 dateInterval:v10 completion:v13];
-
-  v12 = *MEMORY[0x277D85DE8];
+  [v3 commandKeysForUUIDs:v9 dateInterval:v10 completion:v12];
 }
 
 void __81__SPFirmwareUpdateSession_connectionTokensForBeaconUUID_dateInterval_completion___block_invoke_3(uint64_t a1, void *a2, void *a3)
@@ -613,13 +611,13 @@ void __71__SPFirmwareUpdateSession_firmwareUpdateStateForBeaconUUID_completion__
     v6 = [objc_alloc(MEMORY[0x277D07BA8]) initWithServiceDescription:serviceDescription];
     [(SPFirmwareUpdateSession *)self setSession:v6];
 
-    v7 = LogCategory_FirmwareUpdate();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = LogCategory_FirmwareUpdate(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       machService = [serviceDescription machService];
       v14 = 138412290;
       v15 = machService;
-      _os_log_impl(&dword_2643D0000, v7, OS_LOG_TYPE_DEFAULT, "SPFirmwareUpdateSession: Establishing XPC connection to %@", &v14, 0xCu);
+      _os_log_impl(&dword_2643D0000, v8, OS_LOG_TYPE_DEFAULT, "SPFirmwareUpdateSession: Establishing XPC connection to %@", &v14, 0xCu);
     }
 
     session2 = [(SPFirmwareUpdateSession *)self session];
@@ -628,8 +626,6 @@ void __71__SPFirmwareUpdateSession_firmwareUpdateStateForBeaconUUID_completion__
 
   session3 = [(SPFirmwareUpdateSession *)self session];
   proxy = [session3 proxy];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return proxy;
 }
@@ -672,38 +668,36 @@ void __45__SPFirmwareUpdateSession_serviceDescription__block_invoke_2(uint64_t a
 
 - (id)remoteInterface
 {
-  v20[4] = *MEMORY[0x277D85DE8];
+  v19[4] = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_287606B50];
   v3 = MEMORY[0x277CBEB98];
-  v20[0] = objc_opt_class();
-  v20[1] = objc_opt_class();
-  v20[2] = objc_opt_class();
-  v20[3] = objc_opt_class();
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:4];
+  v19[0] = objc_opt_class();
+  v19[1] = objc_opt_class();
+  v19[2] = objc_opt_class();
+  v19[3] = objc_opt_class();
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:4];
   v5 = [v3 setWithArray:v4];
   [v2 setClasses:v5 forSelector:sel_commandKeysForUUIDs_dateInterval_completion_ argumentIndex:0 ofReply:1];
 
   v6 = MEMORY[0x277CBEB98];
-  v19[0] = objc_opt_class();
-  v19[1] = objc_opt_class();
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
+  v18[0] = objc_opt_class();
+  v18[1] = objc_opt_class();
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
   v8 = [v6 setWithArray:v7];
   [v2 setClasses:v8 forSelector:sel_firmwareUpdateCandidateBeaconsWithCompletion_ argumentIndex:0 ofReply:1];
 
   v9 = MEMORY[0x277CBEB98];
-  v18[0] = objc_opt_class();
-  v18[1] = objc_opt_class();
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
+  v17[0] = objc_opt_class();
+  v17[1] = objc_opt_class();
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
   v11 = [v9 setWithArray:v10];
   [v2 setClasses:v11 forSelector:sel_beaconsInFirmwareUpdateState_dateInterval_completion_ argumentIndex:0 ofReply:1];
 
   v12 = MEMORY[0x277CBEB98];
-  v17 = objc_opt_class();
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
+  v16 = objc_opt_class();
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v16 count:1];
   v14 = [v12 setWithArray:v13];
   [v2 setClasses:v14 forSelector:sel_firmwareUpdateStateForBeaconUUID_completion_ argumentIndex:0 ofReply:1];
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v2;
 }

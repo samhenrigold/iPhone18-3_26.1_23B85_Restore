@@ -52,9 +52,9 @@
 - (id)initForDevice:(id)device
 {
   deviceCopy = device;
-  v16.receiver = self;
-  v16.super_class = NTKColorCircularUtilitarianFaceViewComplicationFactory;
-  v5 = [(NTKFaceViewComplicationFactory *)&v16 initForDevice:deviceCopy];
+  v18.receiver = self;
+  v18.super_class = NTKColorCircularUtilitarianFaceViewComplicationFactory;
+  v5 = [(NTKFaceViewComplicationFactory *)&v18 initForDevice:deviceCopy];
   if (v5)
   {
     v6 = [[NTKUtilityComplicationFactory alloc] initForDevice:deviceCopy];
@@ -69,18 +69,18 @@
     whiteColor = [MEMORY[0x277D75348] whiteColor];
     [v5 setForegroundColor:whiteColor];
 
-    v9 = NTKActivityBackgroundPlatterColor();
-    [v5 setPlatterColor:v9];
+    v10 = NTKActivityBackgroundPlatterColor(v9);
+    [v5 setPlatterColor:v10];
 
     whiteColor2 = [MEMORY[0x277D75348] whiteColor];
-    v11 = *(v5 + 11);
+    v12 = *(v5 + 11);
     *(v5 + 11) = whiteColor2;
 
-    v12 = NTKActivityBackgroundPlatterColor();
-    v13 = *(v5 + 12);
-    *(v5 + 12) = v12;
+    v14 = NTKActivityBackgroundPlatterColor(v13);
+    v15 = *(v5 + 12);
+    *(v5 + 12) = v14;
 
-    v14 = *(v5 + 10);
+    v16 = *(v5 + 10);
     *(v5 + 10) = 0;
 
     objc_storeWeak(v5 + 14, 0);
@@ -163,9 +163,9 @@ void __85__NTKColorCircularUtilitarianFaceViewComplicationFactory_loadLayoutRule
   [*(a1 + 32) _edgeGapForState:a2];
   v7 = v5 + v6;
   v8 = [*(a1 + 32) device];
-  v9 = NTKCircularSmallComplicationDiameter();
+  v9 = NTKCircularSmallComplicationDiameter(v8);
   v10 = [*(a1 + 32) device];
-  v11 = NTKCircularSmallComplicationDiameter();
+  v11 = NTKCircularSmallComplicationDiameter(v10);
 
   v12 = [*(a1 + 32) device];
   v13 = [NTKComplicationLayoutRule layoutRuleForDevice:v12 withReferenceFrame:3 horizontalLayout:3 verticalLayout:v7 keylinePadding:v7, v9, v11, v5, v5, v5, v5];
@@ -611,43 +611,44 @@ void __143__NTKColorCircularUtilitarianFaceViewComplicationFactory_createComplic
   }
 }
 
-void __143__NTKColorCircularUtilitarianFaceViewComplicationFactory_createComplicationContentSpecificAttributesAnimationWithAttributes_faceView_forSlots___block_invoke_2(uint64_t a1)
+void __143__NTKColorCircularUtilitarianFaceViewComplicationFactory_createComplicationContentSpecificAttributesAnimationWithAttributes_faceView_forSlots___block_invoke_2(uint64_t a1, float a2)
 {
-  obj = NTKInterpolateBetweenColors();
-  v2 = NTKInterpolateBetweenColors();
+  v3 = a2;
+  obj = NTKInterpolateBetweenColors(a2);
+  v4 = NTKInterpolateBetweenColors(v3);
   objc_storeStrong((*(a1 + 64) + 88), obj);
-  objc_storeStrong((*(a1 + 64) + 96), v2);
-  v3 = [*(a1 + 72) normalComplicationDisplayWrapperForSlot:*(a1 + 80)];
-  v4 = [v3 display];
+  objc_storeStrong((*(a1 + 64) + 96), v4);
+  v5 = [*(a1 + 72) normalComplicationDisplayWrapperForSlot:*(a1 + 80)];
+  v6 = [v5 display];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v5 = v4;
-    v6 = v5;
+    v7 = v6;
+    v8 = v7;
     if (*(a1 + 88) == 1)
     {
-      [v5 setForegroundColor:obj];
+      [v7 setForegroundColor:obj];
     }
 
     if (*(a1 + 89) == 1)
     {
-      [v6 setPlatterColor:v2];
+      [v8 setPlatterColor:v4];
     }
   }
 
-  if ([v4 conformsToProtocol:&unk_28A859958] && *(a1 + 88) == 1)
+  if ([v6 conformsToProtocol:&unk_28A859958] && *(a1 + 88) == 1)
   {
-    [v4 setForegroundColor:obj];
+    [v6 setForegroundColor:obj];
   }
 
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) != 0 && *(a1 + 88) == 1)
   {
-    v7 = *(a1 + 72);
-    v8 = v4;
-    [v7 setComplicationColor:obj];
+    v9 = *(a1 + 72);
+    v10 = v6;
+    [v9 setComplicationColor:obj];
     [*(a1 + 72) setInterpolatedComplicationColor:obj];
-    [v8 transitionToMonochromeWithFraction:1.0];
+    [v10 transitionToMonochromeWithFraction:1.0];
   }
 }
 

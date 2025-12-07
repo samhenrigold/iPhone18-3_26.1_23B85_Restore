@@ -9,6 +9,7 @@
 - (void)setNumberOfDigits:(int64_t)digits;
 - (void)setUseMonospacedFont:(BOOL)font;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator;
 @end
 
@@ -28,6 +29,14 @@
   v3.super_class = HSPCPasscodeEntryViewController;
   [(HSPCPasscodeEntryViewController *)&v3 viewDidLoad];
   [(HSPCPasscodeEntryViewController *)self _updatePasscodeEntryView];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = HSPCPasscodeEntryViewController;
+  [(HSPCPasscodeEntryViewController *)&v4 viewWillAppear:appear];
+  [(HSPCPasscodeEntryView *)self->_passcodeEntryView becomeFirstResponder];
 }
 
 - (void)setNumberOfDigits:(int64_t)digits

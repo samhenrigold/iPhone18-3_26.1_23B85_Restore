@@ -31,13 +31,13 @@
     v8 = *handler;
     *handler = 0;
     v18 = v8;
-    v9 = WTF::fastMalloc(0x18);
+    v9 = WTF::fastMalloc(v8, 0x18);
     *v9 = &unk_1F10E5FB8;
-    *(v9 + 8) = 0;
-    objc_moveWeak((v9 + 8), &v17);
+    v9[1] = 0;
+    objc_moveWeak(v9 + 1, &v17);
     v10 = v18;
     v18 = 0;
-    *(v9 + 16) = v10;
+    v9[2] = v10;
     ptr = v7->_completionHandler.m_function.m_callableWrapper.__ptr_;
     v7->_completionHandler.m_function.m_callableWrapper.__ptr_ = v9;
     if (ptr)
@@ -89,7 +89,7 @@
   v9 = v8;
   if (self)
   {
-    [(_WKWarningView *)self warning];
+    objc_msgSend_warning(self);
     isa = v65.super.isa;
   }
 
@@ -357,7 +357,7 @@ LABEL_32:
   }
 
   [v7 removeFromSuperview];
-  [(_WKWarningView *)self _protectedWarning];
+  objc_msgSend__protectedWarning(self);
   v9 = *(v27 + 9);
   if (v9)
   {

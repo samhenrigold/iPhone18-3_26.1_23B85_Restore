@@ -43,27 +43,25 @@
 
 - (id)JSONObject
 {
-  v12[6] = *MEMORY[0x1E69E9840];
-  v12[0] = @"access";
-  v11[0] = @"type";
-  v11[1] = @"accessor";
+  v11[6] = *MEMORY[0x1E69E9840];
+  v11[0] = @"access";
+  v10[0] = @"type";
+  v10[1] = @"accessor";
   jSONObject = [(PAApplication *)self->_accessor JSONObject];
-  v12[1] = jSONObject;
-  v11[2] = @"category";
+  v11[1] = jSONObject;
+  v10[2] = @"category";
   descriptionForCategory = [(PAAccess *)self descriptionForCategory];
-  v12[2] = descriptionForCategory;
-  v11[3] = @"identifier";
+  v11[2] = descriptionForCategory;
+  v10[3] = @"identifier";
   uUIDString = [(NSUUID *)self->_identifier UUIDString];
-  v12[3] = uUIDString;
-  v11[4] = @"kind";
+  v11[3] = uUIDString;
+  v10[4] = @"kind";
   descriptionForKind = [(PAAccess *)self descriptionForKind];
-  v12[4] = descriptionForKind;
-  v11[5] = @"accessCount";
+  v11[4] = descriptionForKind;
+  v10[5] = @"accessCount";
   v7 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[PAAccess accessCount](self, "accessCount")}];
-  v12[5] = v7;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:6];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v11[5] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:6];
 
   return v8;
 }
@@ -97,14 +95,13 @@
 
 + (NSArray)allAccessClasses
 {
-  v5[5] = *MEMORY[0x1E69E9840];
-  v5[0] = objc_opt_class();
-  v5[1] = objc_opt_class();
-  v5[2] = objc_opt_class();
-  v5[3] = objc_opt_class();
-  v5[4] = objc_opt_class();
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:5];
-  v3 = *MEMORY[0x1E69E9840];
+  v4[5] = *MEMORY[0x1E69E9840];
+  v4[0] = objc_opt_class();
+  v4[1] = objc_opt_class();
+  v4[2] = objc_opt_class();
+  v4[3] = objc_opt_class();
+  v4[4] = objc_opt_class();
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:5];
 
   return v2;
 }
@@ -488,18 +485,16 @@ LABEL_19:
   return v13;
 }
 
-void __26__PAAccess_initWithCoder___block_invoke()
+void __26__PAAccess_initWithCoder___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v5[2] = *MEMORY[0x1E69E9840];
-  v0 = MEMORY[0x1E695DFD8];
-  v5[0] = objc_opt_class();
-  v5[1] = objc_opt_class();
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:2];
-  v2 = [v0 setWithArray:v1];
-  v3 = initWithCoder__allowedIdentifierClasses;
-  initWithCoder__allowedIdentifierClasses = v2;
-
-  v4 = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E69E9840];
+  v2 = MEMORY[0x1E695DFD8];
+  v6[0] = objc_opt_class();
+  v6[1] = objc_opt_class();
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
+  v4 = [v2 setWithArray:v3];
+  v5 = initWithCoder__allowedIdentifierClasses;
+  initWithCoder__allowedIdentifierClasses = v4;
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -643,15 +638,15 @@ void __26__PAAccess_initWithCoder___block_invoke()
 
 - (id)proto
 {
-  v12[2] = *MEMORY[0x1E69E9840];
+  v11[2] = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   proto = [(PAApplication *)self->_accessor proto];
   [v3 setAccessor:proto];
 
-  v12[0] = 0;
-  v12[1] = 0;
-  [(NSUUID *)self->_identifier getUUIDBytes:v12];
-  v5 = [MEMORY[0x1E695DEF0] dataWithBytes:v12 length:16];
+  v11[0] = 0;
+  v11[1] = 0;
+  [(NSUUID *)self->_identifier getUUIDBytes:v11];
+  v5 = [MEMORY[0x1E695DEF0] dataWithBytes:v11 length:16];
   [v3 setIdentifier:v5];
 
   v6 = 0;
@@ -675,8 +670,6 @@ void __26__PAAccess_initWithCoder___block_invoke()
 
     v6 = v3;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

@@ -191,13 +191,13 @@ LABEL_14:
 
 - (BOOL)saveToDirectory:(id)directory
 {
-  v31[2] = *MEMORY[0x1E69E9840];
+  v30[2] = *MEMORY[0x1E69E9840];
   directoryCopy = directory;
   if ([directoryCopy isFileURL] && -[NSMutableArray count](self->_recordings, "count"))
   {
-    v29 = 0;
-    v5 = [directoryCopy getResourceValue:&v29 forKey:*MEMORY[0x1E695DB78] error:0];
-    v6 = v29;
+    v28 = 0;
+    v5 = [directoryCopy getResourceValue:&v28 forKey:*MEMORY[0x1E695DB78] error:0];
+    v6 = v28;
     v7 = v6;
     if (v5 && [v6 BOOLValue])
     {
@@ -221,25 +221,25 @@ LABEL_14:
         v17 = [directoryCopy URLByAppendingPathComponent:v16];
         if (v17)
         {
-          v30[0] = @"payloadType";
+          v29[0] = @"payloadType";
           [MEMORY[0x1E696AD98] numberWithInteger:self->_payloadType];
-          v28 = v16;
+          v27 = v16;
           v18 = v13;
           v19 = v9;
           v20 = directoryCopy;
           v22 = v21 = v7;
-          v30[1] = @"recordings";
-          v31[0] = v22;
+          v29[1] = @"recordings";
+          v30[0] = v22;
           v23 = [(NSMutableArray *)self->_recordings copy];
-          v31[1] = v23;
-          v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:v30 count:2];
+          v30[1] = v23;
+          v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:v29 count:2];
           v25 = [v24 writeToURL:v17 atomically:1];
 
           v7 = v21;
           directoryCopy = v20;
           v9 = v19;
           v13 = v18;
-          v16 = v28;
+          v16 = v27;
         }
 
         else
@@ -265,7 +265,6 @@ LABEL_14:
     v25 = 0;
   }
 
-  v26 = *MEMORY[0x1E69E9840];
   return v25;
 }
 

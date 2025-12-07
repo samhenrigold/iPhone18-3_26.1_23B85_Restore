@@ -84,10 +84,11 @@
 
   v7 = (self + OBJC_IVAR___ICTagContainerCell_selectionDidChange);
   v8 = *(self + OBJC_IVAR___ICTagContainerCell_selectionDidChange);
+  v9 = *(self + OBJC_IVAR___ICTagContainerCell_selectionDidChange + 8);
   *v7 = v6;
   v7[1] = v4;
   selfCopy = self;
-  sub_10000C840(v8);
+  sub_10000C840(v8, v9);
 }
 
 - (id)dataDidChange
@@ -130,10 +131,11 @@
 
   v7 = (self + OBJC_IVAR___ICTagContainerCell_dataDidChange);
   v8 = *(self + OBJC_IVAR___ICTagContainerCell_dataDidChange);
+  v9 = *(self + OBJC_IVAR___ICTagContainerCell_dataDidChange + 8);
   *v7 = v6;
   v7[1] = v4;
   selfCopy = self;
-  sub_10000C840(v8);
+  sub_10000C840(v8, v9);
 }
 
 - (void)setAllowsContextualMenu:(BOOL)menu
@@ -172,7 +174,7 @@
 
   selfCopy = self;
   sub_1002B49B8(animated, v6, v7);
-  sub_10000C840(v6);
+  sub_10000C840(v6, v7);
 }
 
 - (void)selectTagWithIdentifier:(id)identifier animated:(BOOL)animated completion:(id)completion
@@ -196,7 +198,7 @@
   v13 = sub_1002B3F04();
   sub_1003AA804(v8, v10, animated, v7, v11);
 
-  sub_10000C840(v7);
+  sub_10000C840(v7, v11);
 }
 
 - (void)selectTagsWithTagSelection:(id)selection animated:(BOOL)animated
@@ -241,12 +243,12 @@
   width = size.width;
   selfCopy = self;
   v7 = sub_1002B3F04();
-  v8 = sub_1003AADCC(width);
-  v10 = v9;
-  v11 = v8;
+  sub_1003AADCC(width);
+  v9 = v8;
+  v11 = v10;
 
   v12 = width;
-  v13 = v10;
+  v13 = v9;
   result.height = v13;
   result.width = v12;
   return result;

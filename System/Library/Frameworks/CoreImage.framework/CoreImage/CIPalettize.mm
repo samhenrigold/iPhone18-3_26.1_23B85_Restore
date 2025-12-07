@@ -34,14 +34,15 @@
 
 - (id)outputImage
 {
-  v34[3] = *MEMORY[0x1E69E9840];
+  v36[3] = *MEMORY[0x1E69E9840];
   if (self->inputImage && (v3 = self->inputPaletteImage) != 0)
   {
     [(CIImage *)v3 extent];
-    if (CGRectIsInfinite(v36) || ([(CIImage *)self->inputPaletteImage extent], v4 > 1.0))
+    IsInfinite = CGRectIsInfinite(v38);
+    if ((IsInfinite & 1) != 0 || (IsInfinite = [(CIImage *)self->inputPaletteImage extent], v6 > 1.0))
     {
-      v5 = ci_logger_api();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v7 = ci_logger_api(IsInfinite, v5);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         [(CIPalettize *)&self->inputPaletteImage outputImage];
       }
@@ -53,7 +54,7 @@
     {
       inputImage = self->inputImage;
       [(CIImage *)self->inputPaletteImage extent];
-      v9 = v8;
+      v11 = v10;
       inputPerceptual = self->inputPerceptual;
       if (inputPerceptual)
       {
@@ -65,39 +66,39 @@
         bOOLValue = 0;
       }
 
-      v12 = v9;
+      v14 = v11;
       [(CIImage *)self->inputImage extent];
-      v14 = v13;
       v16 = v15;
       v18 = v17;
       v20 = v19;
+      v22 = v21;
       _kernelApplyPalette = [(CIPalettize *)self _kernelApplyPalette];
       inputPaletteImage = self->inputPaletteImage;
       [(CIImage *)inputPaletteImage extent];
-      v24 = -v23;
+      v26 = -v25;
       [(CIImage *)self->inputPaletteImage extent];
-      CGAffineTransformMakeTranslation(&v33, v24, -v25);
-      v26 = [(CIImage *)inputPaletteImage imageByApplyingTransform:&v33];
+      CGAffineTransformMakeTranslation(&v35, v26, -v27);
+      v28 = [(CIImage *)inputPaletteImage imageByApplyingTransform:&v35];
       if (bOOLValue)
       {
         inputImage = [(CIImage *)inputImage imageByApplyingFilter:@"CILinearToSRGBToneCurve"];
-        v26 = [(CIImage *)v26 imageByApplyingFilter:@"CILinearToSRGBToneCurve"];
+        v28 = [(CIImage *)v28 imageByApplyingFilter:@"CILinearToSRGBToneCurve"];
       }
 
       imageByUnpremultiplyingAlpha = [(CIImage *)inputImage imageByUnpremultiplyingAlpha];
-      v28 = *MEMORY[0x1E695F040];
-      v29 = *(MEMORY[0x1E695F040] + 8);
-      v30 = *(MEMORY[0x1E695F040] + 16);
-      v31 = *(MEMORY[0x1E695F040] + 24);
-      v32[0] = MEMORY[0x1E69E9820];
-      v32[1] = 3221225472;
-      v32[2] = __26__CIPalettize_outputImage__block_invoke;
-      v32[3] = &__block_descriptor_40_e73__CGRect__CGPoint_dd__CGSize_dd__44__0i8_CGRect__CGPoint_dd__CGSize_dd__12l;
-      v32[4] = v12;
-      v34[0] = imageByUnpremultiplyingAlpha;
-      v34[1] = v26;
-      v34[2] = [MEMORY[0x1E696AD98] numberWithUnsignedLong:v12];
-      result = [objc_msgSend(objc_msgSend(_kernelApplyPalette applyWithExtent:v32 roiCallback:objc_msgSend(MEMORY[0x1E695DEC8] arguments:{"arrayWithObjects:count:", v34, 3), v28, v29, v30, v31), "imageByCroppingToRect:", v14, v16, v18, v20), "imageByPremultiplyingAlpha"}];
+      v30 = *MEMORY[0x1E695F040];
+      v31 = *(MEMORY[0x1E695F040] + 8);
+      v32 = *(MEMORY[0x1E695F040] + 16);
+      v33 = *(MEMORY[0x1E695F040] + 24);
+      v34[0] = MEMORY[0x1E69E9820];
+      v34[1] = 3221225472;
+      v34[2] = __26__CIPalettize_outputImage__block_invoke;
+      v34[3] = &__block_descriptor_40_e73__CGRect__CGPoint_dd__CGSize_dd__44__0i8_CGRect__CGPoint_dd__CGSize_dd__12l;
+      v34[4] = v14;
+      v36[0] = imageByUnpremultiplyingAlpha;
+      v36[1] = v28;
+      v36[2] = [MEMORY[0x1E696AD98] numberWithUnsignedLong:v14];
+      result = [objc_msgSend(objc_msgSend(_kernelApplyPalette applyWithExtent:v34 roiCallback:objc_msgSend(MEMORY[0x1E695DEC8] arguments:{"arrayWithObjects:count:", v36, 3), v30, v31, v32, v33), "imageByCroppingToRect:", v16, v18, v20, v22), "imageByPremultiplyingAlpha"}];
       if (bOOLValue)
       {
         return [result imageByApplyingFilter:@"CISRGBToneCurveToLinear"];

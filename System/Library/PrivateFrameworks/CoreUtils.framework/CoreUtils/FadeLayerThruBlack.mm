@@ -5,8 +5,8 @@
 
 void ___FadeLayerThruBlack_block_invoke(uint64_t a1)
 {
-  [getCATransactionClass[0]() begin];
-  [getCATransactionClass[0]() setDisableActions:1];
+  [getCATransactionClass(a1) begin];
+  [(objc_class *)(getCATransactionClass)() setDisableActions:1];
   [*(a1 + 40) frame];
   [*(a1 + 32) setFrame:?];
   if (CGColorGetBlack_sOnce != -1)
@@ -28,24 +28,24 @@ void ___FadeLayerThruBlack_block_invoke(uint64_t a1)
   v5 = [*(a1 + 40) superlayer];
   [v5 addSublayer:*(a1 + 32)];
 
-  [getCATransactionClass[0]() commit];
+  [(objc_class *)(getCATransactionClass)() commit];
   LODWORD(v6) = 1.0;
-  [*(a1 + 32) setOpacity:v6];
-  v13 = [getCABasicAnimationClass[0]() animationWithKeyPath:@"opacity"];
-  v7 = [MEMORY[0x1E696AD98] numberWithFloat:0.0];
-  [v13 setFromValue:v7];
+  v7 = [*(a1 + 32) setOpacity:v6];
+  v14 = [getCABasicAnimationClass(v7) animationWithKeyPath:@"opacity"];
+  v8 = [MEMORY[0x1E696AD98] numberWithFloat:0.0];
+  [v14 setFromValue:v8];
 
-  LODWORD(v8) = 1.0;
-  v9 = [MEMORY[0x1E696AD98] numberWithFloat:v8];
-  [v13 setToValue:v9];
+  LODWORD(v9) = 1.0;
+  v10 = [MEMORY[0x1E696AD98] numberWithFloat:v9];
+  [v14 setToValue:v10];
 
-  v10 = getCAMediaTimingFunctionClass[0]();
-  v11 = getkCAMediaTimingFunctionEaseOut[0]();
-  v12 = [(objc_class *)v10 functionWithName:v11];
-  [v13 setTimingFunction:v12];
+  CAMediaTimingFunctionClass = getCAMediaTimingFunctionClass();
+  v12 = getkCAMediaTimingFunctionEaseOut();
+  v13 = [(objc_class *)CAMediaTimingFunctionClass functionWithName:v12];
+  [v14 setTimingFunction:v13];
 
-  [v13 setDuration:*(a1 + 48)];
-  [*(a1 + 32) addAnimation:v13 forKey:@"fadeToBlack"];
+  [v14 setDuration:*(a1 + 48)];
+  [*(a1 + 32) addAnimation:v14 forKey:@"fadeToBlack"];
 }
 
 void ___FadeLayerThruBlack_block_invoke_2(uint64_t a1, double a2)
@@ -58,72 +58,72 @@ void ___FadeLayerThruBlack_block_invoke_2(uint64_t a1, double a2)
 
   else
   {
-    [getCATransactionClass[0]() begin];
-    [getCATransactionClass[0]() setDisableActions:1];
+    [getCATransactionClass(a1) begin];
+    [(objc_class *)(getCATransactionClass)() setDisableActions:1];
     v4 = 0.0;
     [*(a1 + 32) setOpacity:0.0];
-    [getCATransactionClass[0]() commit];
+    [(objc_class *)(getCATransactionClass)() commit];
     v3 = 40;
   }
 
   *&a2 = v4;
-  [*(a1 + v3) setOpacity:a2];
-  v5 = [getCABasicAnimationClass[0]() animationWithKeyPath:@"opacity"];
+  v5 = [*(a1 + v3) setOpacity:a2];
+  v6 = [getCABasicAnimationClass(v5) animationWithKeyPath:@"opacity"];
   if (*(a1 + 72))
   {
-    *&v6 = 0.0;
+    *&v7 = 0.0;
   }
 
   else
   {
-    *&v6 = 1.0;
+    *&v7 = 1.0;
   }
 
-  v7 = [MEMORY[0x1E696AD98] numberWithFloat:v6];
-  [v5 setFromValue:v7];
+  v8 = [MEMORY[0x1E696AD98] numberWithFloat:v7];
+  [v6 setFromValue:v8];
 
   if (*(a1 + 72))
   {
-    *&v8 = 1.0;
+    *&v9 = 1.0;
   }
 
   else
   {
-    *&v8 = 0.0;
+    *&v9 = 0.0;
   }
 
-  v9 = [MEMORY[0x1E696AD98] numberWithFloat:v8];
-  [v5 setToValue:v9];
+  v10 = [MEMORY[0x1E696AD98] numberWithFloat:v9];
+  [v6 setToValue:v10];
 
-  v10 = getCAMediaTimingFunctionClass[0]();
-  v11 = getkCAMediaTimingFunctionEaseIn[0]();
-  v12 = [(objc_class *)v10 functionWithName:v11];
-  [v5 setTimingFunction:v12];
+  CAMediaTimingFunctionClass = getCAMediaTimingFunctionClass();
+  v12 = getkCAMediaTimingFunctionEaseIn();
+  v13 = [(objc_class *)CAMediaTimingFunctionClass functionWithName:v12];
+  [v6 setTimingFunction:v13];
 
-  [v5 setDuration:*(a1 + 64)];
-  v13 = objc_alloc_init(CAAnimationDelegateBlockHelper);
-  [v5 setDelegate:v13];
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = ___FadeLayerThruBlack_block_invoke_3;
-  v16[3] = &unk_1E73A28E8;
-  v17 = *(a1 + 40);
-  v19 = *(a1 + 56);
-  v18 = *(a1 + 48);
-  [(CAAnimationDelegateBlockHelper *)v13 setAnimationDidStopBlock:v16];
-  v14 = 32;
+  [v6 setDuration:*(a1 + 64)];
+  v14 = objc_alloc_init(CAAnimationDelegateBlockHelper);
+  [v6 setDelegate:v14];
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = ___FadeLayerThruBlack_block_invoke_3;
+  v17[3] = &unk_1E73A28E8;
+  v18 = *(a1 + 40);
+  v20 = *(a1 + 56);
+  v19 = *(a1 + 48);
+  [(CAAnimationDelegateBlockHelper *)v14 setAnimationDidStopBlock:v17];
+  v15 = 32;
   if (*(a1 + 72))
   {
-    v15 = @"fadeInTarget";
+    v16 = @"fadeInTarget";
   }
 
   else
   {
-    v14 = 40;
-    v15 = @"fadeOutBlack";
+    v15 = 40;
+    v16 = @"fadeOutBlack";
   }
 
-  [*(a1 + v14) addAnimation:v5 forKey:v15];
+  [*(a1 + v15) addAnimation:v6 forKey:v16];
 }
 
 void ___FadeLayerThruBlack_block_invoke_3(uint64_t a1)

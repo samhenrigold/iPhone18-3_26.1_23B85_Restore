@@ -101,7 +101,7 @@
     v44 = 0.0;
     if (v17)
     {
-      [(_MPUFallAnimatorDynamicItem *)v17 transform:0.0];
+      objc_msgSend_transform(v17, 0.0, 0.0);
       v44 = *(&v82 + 1);
       v43 = *&v82;
     }
@@ -149,7 +149,7 @@
         v51 = [v28 _animatorStep:0.0166666667];
         if (v17)
         {
-          [(_MPUFallAnimatorDynamicItem *)v17 transform];
+          objc_msgSend_transform(v17);
         }
 
         else

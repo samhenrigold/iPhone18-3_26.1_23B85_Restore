@@ -337,8 +337,8 @@ LABEL_25:
           _os_log_impl(&_mh_execute_header, logSubsystem, OS_LOG_TYPE_DEFAULT, "%{public}@: %{public}@ Sync Initial ASM sync complete", buf, 0x16u);
         }
 
-        v15 = sub_1000B51E4();
-        v16 = sub_1000B51E4();
+        v15 = sub_1000B51E4(PDAnalytics);
+        v16 = sub_1000B51E4(PDAnalytics);
         v17 = +[NSDate now];
         v18 = sub_1000B5A58(v16, v17, v7);
         sub_1000B5E40(v15, v18, v7);

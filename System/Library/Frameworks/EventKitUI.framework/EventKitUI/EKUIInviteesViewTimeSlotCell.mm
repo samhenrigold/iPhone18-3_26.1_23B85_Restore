@@ -49,7 +49,7 @@
     [(EKUIInviteesViewTimeSlotCell *)v4 setAndMoreBoundingRect:*MEMORY[0x1E695F050], *(MEMORY[0x1E695F050] + 8), *(MEMORY[0x1E695F050] + 16), *(MEMORY[0x1E695F050] + 24)];
     [objc_opt_class() _leftBuffer];
     [(EKUIInviteesViewTimeSlotCell *)v5 setSeparatorInset:0.0, v6, 0.0, 0.0];
-    contentView = [(EKUIInviteesViewTimeSlotCell *)v5 contentView];
+    v7 = objc_msgSend_contentView(v5);
     traitCollection = [(EKUIInviteesViewTimeSlotCell *)v5 traitCollection];
     v9 = TableViewCheckmarkImage(traitCollection);
 
@@ -59,33 +59,33 @@
     [v10 setTranslatesAutoresizingMaskIntoConstraints:0];
     [v10 setContentMode:4];
     [v10 setHidden:1];
-    [contentView addSubview:v10];
+    [v7 addSubview:v10];
     [(EKUIInviteesViewTimeSlotCell *)v5 setCheckmarkImageView:v10];
     v11 = objc_alloc_init(MEMORY[0x1E69DCC10]);
     [v11 setTranslatesAutoresizingMaskIntoConstraints:0];
-    [contentView addSubview:v11];
+    [v7 addSubview:v11];
     v29 = v11;
     [(EKUIInviteesViewTimeSlotCell *)v5 setTopTimeLabel:v11];
     v12 = objc_alloc_init(MEMORY[0x1E69DCC10]);
     [v12 setTranslatesAutoresizingMaskIntoConstraints:0];
-    [contentView addSubview:v12];
+    [v7 addSubview:v12];
     v28 = v12;
     [(EKUIInviteesViewTimeSlotCell *)v5 setBottomTimeLabel:v12];
     v13 = objc_alloc_init(MEMORY[0x1E69DCC10]);
     [v13 setTranslatesAutoresizingMaskIntoConstraints:0];
-    [contentView addSubview:v13];
+    [v7 addSubview:v13];
     [(EKUIInviteesViewTimeSlotCell *)v5 setTimeZoneTimeLabel:v13];
     v14 = objc_alloc_init(MEMORY[0x1E69DCC10]);
     [v14 setTranslatesAutoresizingMaskIntoConstraints:0];
     [v14 setNumberOfLines:4];
-    [contentView addSubview:v14];
+    [v7 addSubview:v14];
     [(EKUIInviteesViewTimeSlotCell *)v5 setProposedByLabel:v14];
     v15 = objc_alloc_init(MEMORY[0x1E69DCC10]);
     [v15 setTranslatesAutoresizingMaskIntoConstraints:0];
     v27 = v15;
     [(EKUIInviteesViewTimeSlotCell *)v5 setLabelForTextSizeTesting:v15];
     _generateParticipantTextView = [objc_opt_class() _generateParticipantTextView];
-    [contentView addSubview:_generateParticipantTextView];
+    [v7 addSubview:_generateParticipantTextView];
     [(EKUIInviteesViewTimeSlotCell *)v5 setParticipantsTextView:_generateParticipantTextView];
     _generateParticipantTextView2 = [objc_opt_class() _generateParticipantTextView];
     [(EKUIInviteesViewTimeSlotCell *)v5 setTextViewForTextSizeTesting:?];
@@ -99,14 +99,14 @@
     [objc_opt_class() _setRequiredHuggingAndCompression:v17];
     [v17 setTranslatesAutoresizingMaskIntoConstraints:0];
     [v17 addTarget:v5 action:sel__showPreviewButtonTapped_ forControlEvents:64];
-    contentView2 = [(EKUIInviteesViewTimeSlotCell *)v5 contentView];
-    [contentView2 addSubview:v17];
+    v19 = objc_msgSend_contentView(v5);
+    [v19 addSubview:v17];
 
     [(EKUIInviteesViewTimeSlotCell *)v5 setShowPreviewButton:v17];
     v20 = [objc_alloc(MEMORY[0x1E69DD060]) initWithTarget:v5 action:sel__andMoreTapped_];
     [v20 setDelegate:v5];
-    contentView3 = [(EKUIInviteesViewTimeSlotCell *)v5 contentView];
-    [contentView3 addGestureRecognizer:v20];
+    v21 = objc_msgSend_contentView(v5);
+    [v21 addGestureRecognizer:v20];
 
     [(EKUIInviteesViewTimeSlotCell *)v5 setTappedMoreRecognizer:v20];
     v22 = +[EKUIDebugPreferences shared];
@@ -164,14 +164,14 @@
     v4 = objc_alloc_init(MEMORY[0x1E695DF70]);
     v5 = MEMORY[0x1E696ACD8];
     checkmarkImageView = [(EKUIInviteesViewTimeSlotCell *)self checkmarkImageView];
-    contentView = [(EKUIInviteesViewTimeSlotCell *)self contentView];
-    v8 = [v5 constraintWithItem:checkmarkImageView attribute:9 relatedBy:0 toItem:contentView attribute:17 multiplier:1.0 constant:20.0];
+    v7 = objc_msgSend_contentView(self);
+    v8 = [v5 constraintWithItem:checkmarkImageView attribute:9 relatedBy:0 toItem:v7 attribute:17 multiplier:1.0 constant:20.0];
     [v4 addObject:v8];
 
     v9 = MEMORY[0x1E696ACD8];
     checkmarkImageView2 = [(EKUIInviteesViewTimeSlotCell *)self checkmarkImageView];
-    contentView2 = [(EKUIInviteesViewTimeSlotCell *)self contentView];
-    v12 = [v9 constraintWithItem:checkmarkImageView2 attribute:10 relatedBy:0 toItem:contentView2 attribute:10 multiplier:1.0 constant:0.0];
+    v11 = objc_msgSend_contentView(self);
+    v12 = [v9 constraintWithItem:checkmarkImageView2 attribute:10 relatedBy:0 toItem:v11 attribute:10 multiplier:1.0 constant:0.0];
     [v4 addObject:v12];
 
     v13 = MEMORY[0x1E696ACD8];
@@ -182,9 +182,9 @@
 
     v17 = MEMORY[0x1E696ACD8];
     topTimeLabel2 = [(EKUIInviteesViewTimeSlotCell *)self topTimeLabel];
-    contentView3 = [(EKUIInviteesViewTimeSlotCell *)self contentView];
+    v19 = objc_msgSend_contentView(self);
     [objc_opt_class() _rightBuffer];
-    v21 = [v17 constraintWithItem:topTimeLabel2 attribute:6 relatedBy:0 toItem:contentView3 attribute:6 multiplier:1.0 constant:-v20];
+    v21 = [v17 constraintWithItem:topTimeLabel2 attribute:6 relatedBy:0 toItem:v19 attribute:6 multiplier:1.0 constant:-v20];
     [v4 addObject:v21];
 
     v22 = MEMORY[0x1E696ACD8];
@@ -195,9 +195,9 @@
 
     v26 = MEMORY[0x1E696ACD8];
     bottomTimeLabel2 = [(EKUIInviteesViewTimeSlotCell *)self bottomTimeLabel];
-    contentView4 = [(EKUIInviteesViewTimeSlotCell *)self contentView];
+    v28 = objc_msgSend_contentView(self);
     [objc_opt_class() _rightBuffer];
-    v30 = [v26 constraintWithItem:bottomTimeLabel2 attribute:6 relatedBy:0 toItem:contentView4 attribute:6 multiplier:1.0 constant:-v29];
+    v30 = [v26 constraintWithItem:bottomTimeLabel2 attribute:6 relatedBy:0 toItem:v28 attribute:6 multiplier:1.0 constant:-v29];
     [v4 addObject:v30];
 
     v31 = MEMORY[0x1E696ACD8];
@@ -208,9 +208,9 @@
 
     v35 = MEMORY[0x1E696ACD8];
     timeZoneTimeLabel2 = [(EKUIInviteesViewTimeSlotCell *)self timeZoneTimeLabel];
-    contentView5 = [(EKUIInviteesViewTimeSlotCell *)self contentView];
+    v37 = objc_msgSend_contentView(self);
     [objc_opt_class() _rightBuffer];
-    v39 = [v35 constraintWithItem:timeZoneTimeLabel2 attribute:6 relatedBy:0 toItem:contentView5 attribute:6 multiplier:1.0 constant:-v38];
+    v39 = [v35 constraintWithItem:timeZoneTimeLabel2 attribute:6 relatedBy:0 toItem:v37 attribute:6 multiplier:1.0 constant:-v38];
     [v4 addObject:v39];
 
     v40 = MEMORY[0x1E696ACD8];
@@ -221,9 +221,9 @@
 
     v44 = MEMORY[0x1E696ACD8];
     proposedByLabel2 = [(EKUIInviteesViewTimeSlotCell *)self proposedByLabel];
-    contentView6 = [(EKUIInviteesViewTimeSlotCell *)self contentView];
+    v46 = objc_msgSend_contentView(self);
     [objc_opt_class() _rightBuffer];
-    v48 = [v44 constraintWithItem:proposedByLabel2 attribute:6 relatedBy:0 toItem:contentView6 attribute:6 multiplier:1.0 constant:-v47];
+    v48 = [v44 constraintWithItem:proposedByLabel2 attribute:6 relatedBy:0 toItem:v46 attribute:6 multiplier:1.0 constant:-v47];
     [v4 addObject:v48];
 
     v49 = MEMORY[0x1E696ACD8];
@@ -234,33 +234,33 @@
 
     v53 = MEMORY[0x1E696ACD8];
     participantsTextView2 = [(EKUIInviteesViewTimeSlotCell *)self participantsTextView];
-    contentView7 = [(EKUIInviteesViewTimeSlotCell *)self contentView];
+    v55 = objc_msgSend_contentView(self);
     [objc_opt_class() _rightBuffer];
-    v57 = [v53 constraintWithItem:participantsTextView2 attribute:6 relatedBy:0 toItem:contentView7 attribute:6 multiplier:1.0 constant:-v56];
+    v57 = [v53 constraintWithItem:participantsTextView2 attribute:6 relatedBy:0 toItem:v55 attribute:6 multiplier:1.0 constant:-v56];
     [v4 addObject:v57];
 
     v58 = MEMORY[0x1E696ACD8];
     participantsTextView3 = [(EKUIInviteesViewTimeSlotCell *)self participantsTextView];
-    contentView8 = [(EKUIInviteesViewTimeSlotCell *)self contentView];
-    v61 = [v58 constraintWithItem:participantsTextView3 attribute:4 relatedBy:-1 toItem:contentView8 attribute:4 multiplier:1.0 constant:0.0];
+    v60 = objc_msgSend_contentView(self);
+    v61 = [v58 constraintWithItem:participantsTextView3 attribute:4 relatedBy:-1 toItem:v60 attribute:4 multiplier:1.0 constant:0.0];
     [v4 addObject:v61];
 
     v62 = MEMORY[0x1E696ACD8];
     showPreviewButton = [(EKUIInviteesViewTimeSlotCell *)self showPreviewButton];
-    contentView9 = [(EKUIInviteesViewTimeSlotCell *)self contentView];
-    v65 = [v62 constraintWithItem:showPreviewButton attribute:6 relatedBy:0 toItem:contentView9 attribute:6 multiplier:1.0 constant:-16.0];
+    v64 = objc_msgSend_contentView(self);
+    v65 = [v62 constraintWithItem:showPreviewButton attribute:6 relatedBy:0 toItem:v64 attribute:6 multiplier:1.0 constant:-16.0];
     [v4 addObject:v65];
 
     v66 = MEMORY[0x1E696ACD8];
     showPreviewButton2 = [(EKUIInviteesViewTimeSlotCell *)self showPreviewButton];
-    contentView10 = [(EKUIInviteesViewTimeSlotCell *)self contentView];
-    v69 = [v66 constraintWithItem:showPreviewButton2 attribute:10 relatedBy:0 toItem:contentView10 attribute:10 multiplier:1.0 constant:0.0];
+    v68 = objc_msgSend_contentView(self);
+    v69 = [v66 constraintWithItem:showPreviewButton2 attribute:10 relatedBy:0 toItem:v68 attribute:10 multiplier:1.0 constant:0.0];
     [v4 addObject:v69];
 
     v70 = MEMORY[0x1E696ACD8];
     topTimeLabel7 = [(EKUIInviteesViewTimeSlotCell *)self topTimeLabel];
-    contentView11 = [(EKUIInviteesViewTimeSlotCell *)self contentView];
-    v73 = [v70 constraintWithItem:topTimeLabel7 attribute:12 relatedBy:0 toItem:contentView11 attribute:3 multiplier:1.0 constant:0.0];
+    v72 = objc_msgSend_contentView(self);
+    v73 = [v70 constraintWithItem:topTimeLabel7 attribute:12 relatedBy:0 toItem:v72 attribute:3 multiplier:1.0 constant:0.0];
     [(EKUIInviteesViewTimeSlotCell *)self setTopTimeLabelToTopContentViewConstraint:v73];
 
     topTimeLabelToTopContentViewConstraint = [(EKUIInviteesViewTimeSlotCell *)self topTimeLabelToTopContentViewConstraint];
@@ -303,9 +303,9 @@
     [v4 addObject:participantsViewToBottomTimeLabelConstraint];
 
     v95 = MEMORY[0x1E696ACD8];
-    contentView12 = [(EKUIInviteesViewTimeSlotCell *)self contentView];
+    v96 = objc_msgSend_contentView(self);
     participantsTextView5 = [(EKUIInviteesViewTimeSlotCell *)self participantsTextView];
-    v98 = [v95 constraintWithItem:contentView12 attribute:4 relatedBy:1 toItem:participantsTextView5 attribute:11 multiplier:1.0 constant:0.0];
+    v98 = [v95 constraintWithItem:v96 attribute:4 relatedBy:1 toItem:participantsTextView5 attribute:11 multiplier:1.0 constant:0.0];
     [(EKUIInviteesViewTimeSlotCell *)self setParticipantsViewToContentViewConstraint:v98];
 
     participantsViewToContentViewConstraint = [(EKUIInviteesViewTimeSlotCell *)self participantsViewToContentViewConstraint];
@@ -351,8 +351,8 @@
     proposedByMaxHeightConstraint = [(EKUIInviteesViewTimeSlotCell *)self proposedByMaxHeightConstraint];
     [v4 addObject:proposedByMaxHeightConstraint];
 
-    contentView13 = [(EKUIInviteesViewTimeSlotCell *)self contentView];
-    [contentView13 addConstraints:v4];
+    v120 = objc_msgSend_contentView(self);
+    [v120 addConstraints:v4];
 
     [(EKUIInviteesViewTimeSlotCell *)self setPersistentConstraints:v4];
   }

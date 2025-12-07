@@ -92,7 +92,7 @@ LABEL_9:
 
 - (ASFReceipt)initWithContentsOfFile:(id)file
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   fileCopy = file;
   v5 = fileCopy;
   if (!fileCopy || ![fileCopy length])
@@ -103,9 +103,9 @@ LABEL_8:
     goto LABEL_9;
   }
 
-  v16 = 0;
-  v6 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:v5 options:0 error:&v16];
-  v7 = v16;
+  v15 = 0;
+  v6 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:v5 options:0 error:&v15];
+  v7 = v15;
   v8 = v7;
   if (v7)
   {
@@ -129,12 +129,12 @@ LABEL_8:
       dispatch_once(&ASFLogHandleForCategory_onceToken, &__block_literal_global);
     }
 
-    v14 = ASFLogHandleForCategory_logHandles_0;
+    v13 = ASFLogHandleForCategory_logHandles_0;
     if (os_log_type_enabled(ASFLogHandleForCategory_logHandles_0, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v18 = v8;
-      _os_log_error_impl(&dword_2400E0000, v14, OS_LOG_TYPE_ERROR, "Error reading receipt: %{public}@", buf, 0xCu);
+      v17 = v8;
+      _os_log_error_impl(&dword_2400E0000, v13, OS_LOG_TYPE_ERROR, "Error reading receipt: %{public}@", buf, 0xCu);
     }
   }
 
@@ -151,23 +151,22 @@ LABEL_16:
     goto LABEL_10;
   }
 
-  v15 = v5;
+  v14 = v5;
   self = v11->_path;
-  v11->_path = v15;
+  v11->_path = v14;
 LABEL_9:
 
 LABEL_10:
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (ASFReceipt)initWithData:(id)data
 {
-  v225 = *MEMORY[0x277D85DE8];
+  v224 = *MEMORY[0x277D85DE8];
   dataCopy = data;
-  v221.receiver = self;
-  v221.super_class = ASFReceipt;
-  v5 = [(ASFReceipt *)&v221 init];
+  v220.receiver = self;
+  v220.super_class = ASFReceipt;
+  v5 = [(ASFReceipt *)&v220 init];
   if (!v5)
   {
     goto LABEL_44;
@@ -183,7 +182,7 @@ LABEL_10:
   }
 
   v8 = dataCopy;
-  *v224 = 0;
+  *v223 = 0;
   if (SecCmsDecoderCreate())
   {
     if (!v5->_verbose)
@@ -207,7 +206,7 @@ LABEL_10:
 LABEL_21:
     _os_log_error_impl(&dword_2400E0000, v9, OS_LOG_TYPE_ERROR, v10, buf, 2u);
 LABEL_22:
-    if (*v224)
+    if (*v223)
     {
       SecCmsDecoderDestroy();
     }
@@ -264,8 +263,8 @@ LABEL_22:
     goto LABEL_21;
   }
 
-  v23 = MEMORY[0x245CB8B50](0);
-  if (!v23 || !*v23)
+  v22 = MEMORY[0x245CB8B50](0);
+  if (!v22 || !*v22)
   {
     if (v5->_verbose)
     {
@@ -274,22 +273,22 @@ LABEL_22:
         dispatch_once(&ASFLogHandleForCategory_onceToken, &__block_literal_global);
       }
 
-      v176 = ASFLogHandleForCategory_logHandles_0;
+      v175 = ASFLogHandleForCategory_logHandles_0;
       if (os_log_type_enabled(ASFLogHandleForCategory_logHandles_0, OS_LOG_TYPE_DEFAULT))
       {
-        *v224 = 0;
-        _os_log_impl(&dword_2400E0000, v176, OS_LOG_TYPE_DEFAULT, "No content", v224, 2u);
+        *v223 = 0;
+        _os_log_impl(&dword_2400E0000, v175, OS_LOG_TYPE_DEFAULT, "No content", v223, 2u);
       }
     }
 
     goto LABEL_232;
   }
 
-  v24 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:v23[1] length:*v23];
-  v25 = 0x280FB5000uLL;
-  v26 = [ASFAsn1Token readTokenFromBuffer:v24 length:0];
-  v27 = v26;
-  if (!v26 || v26[2] != 17)
+  v23 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:v22[1] length:*v22];
+  v24 = 0x280FB5000uLL;
+  v25 = [ASFAsn1Token readTokenFromBuffer:v23 length:0];
+  v26 = v25;
+  if (!v25 || v25[2] != 17)
   {
     if (v5->_verbose)
     {
@@ -298,11 +297,11 @@ LABEL_22:
         dispatch_once(&ASFLogHandleForCategory_onceToken, &__block_literal_global);
       }
 
-      v179 = ASFLogHandleForCategory_logHandles_0;
+      v178 = ASFLogHandleForCategory_logHandles_0;
       if (os_log_type_enabled(ASFLogHandleForCategory_logHandles_0, OS_LOG_TYPE_ERROR))
       {
-        *v224 = 0;
-        _os_log_error_impl(&dword_2400E0000, v179, OS_LOG_TYPE_ERROR, "Failed to parse data", v224, 2u);
+        *v223 = 0;
+        _os_log_error_impl(&dword_2400E0000, v178, OS_LOG_TYPE_ERROR, "Failed to parse data", v223, 2u);
       }
     }
 
@@ -311,7 +310,7 @@ LABEL_232:
     goto LABEL_233;
   }
 
-  v28 = v26;
+  v27 = v25;
   if (v5->_verbose)
   {
     if (ASFLogHandleForCategory_onceToken != -1)
@@ -319,30 +318,30 @@ LABEL_232:
       dispatch_once(&ASFLogHandleForCategory_onceToken, &__block_literal_global);
     }
 
-    v29 = ASFLogHandleForCategory_logHandles_0;
+    v28 = ASFLogHandleForCategory_logHandles_0;
     if (os_log_type_enabled(ASFLogHandleForCategory_logHandles_0, OS_LOG_TYPE_DEFAULT))
     {
-      *v224 = 0;
-      _os_log_impl(&dword_2400E0000, v29, OS_LOG_TYPE_DEFAULT, "Parsing receipt", v224, 2u);
+      *v223 = 0;
+      _os_log_impl(&dword_2400E0000, v28, OS_LOG_TYPE_DEFAULT, "Parsing receipt", v223, 2u);
     }
   }
 
-  nextToken = [(ASFAsn1SetToken *)v28 nextToken];
+  nextToken = [(ASFAsn1SetToken *)v27 nextToken];
   if (nextToken)
   {
-    v31 = 0x280FB5000uLL;
+    v30 = 0x280FB5000uLL;
     do
     {
       context = objc_autoreleasePoolPush();
-      v33 = objc_getProperty(nextToken, v32, 24, 1);
-      v34 = [(ASFAsn1ReceiptToken *)v31 + 1304 readFromBuffer:v33];
+      v32 = objc_getProperty(nextToken, v31, 24, 1);
+      v33 = [(ASFAsn1ReceiptToken *)v30 + 1304 readFromBuffer:v32];
 
-      if (v34)
+      if (v33)
       {
-        switch(v34[1])
+        switch(v33[1])
         {
           case 0:
-            stringValue = [(ASFAsn1ReceiptIAPToken *)v34 stringValue];
+            stringValue = [(ASFAsn1ReceiptIAPToken *)v33 stringValue];
             receiptType = v5->_receiptType;
             v5->_receiptType = stringValue;
 
@@ -353,23 +352,23 @@ LABEL_232:
                 dispatch_once(&ASFLogHandleForCategory_onceToken, &__block_literal_global);
               }
 
-              v38 = ASFLogHandleForCategory_logHandles_0;
+              v37 = ASFLogHandleForCategory_logHandles_0;
               if (os_log_type_enabled(ASFLogHandleForCategory_logHandles_0, OS_LOG_TYPE_DEFAULT))
               {
-                v39 = v5->_receiptType;
-                *v224 = 138543362;
-                *&v224[4] = v39;
-                v40 = v38;
-                v41 = "Receipt type: %{public}@";
+                v38 = v5->_receiptType;
+                *v223 = 138543362;
+                *&v223[4] = v38;
+                v39 = v37;
+                v40 = "Receipt type: %{public}@";
                 goto LABEL_199;
               }
             }
 
             break;
           case 1:
-            v86 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:-[ASFAsn1ReceiptIAPToken integerValue](v34)];
+            v85 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:-[ASFAsn1ReceiptIAPToken integerValue](v33)];
             itemID = v5->_itemID;
-            v5->_itemID = v86;
+            v5->_itemID = v85;
 
             if (v5->_verbose)
             {
@@ -378,25 +377,25 @@ LABEL_232:
                 dispatch_once(&ASFLogHandleForCategory_onceToken, &__block_literal_global);
               }
 
-              v88 = ASFLogHandleForCategory_logHandles_0;
+              v87 = ASFLogHandleForCategory_logHandles_0;
               if (os_log_type_enabled(ASFLogHandleForCategory_logHandles_0, OS_LOG_TYPE_DEFAULT))
               {
-                v89 = v5->_itemID;
-                *v224 = 138543362;
-                *&v224[4] = v89;
-                v40 = v88;
-                v41 = "AdamID: %{public}@";
+                v88 = v5->_itemID;
+                *v223 = 138543362;
+                *&v223[4] = v88;
+                v39 = v87;
+                v40 = "AdamID: %{public}@";
                 goto LABEL_199;
               }
             }
 
             break;
           case 2:
-            v65 = objc_getProperty(v34, v35, 24, 1);
-            v67 = v65;
-            if (v65)
+            v64 = objc_getProperty(v33, v34, 24, 1);
+            v66 = v64;
+            if (v64)
             {
-              Property = objc_getProperty(v65, v66, 24, 1);
+              Property = objc_getProperty(v64, v65, 24, 1);
             }
 
             else
@@ -406,7 +405,7 @@ LABEL_232:
 
             objc_storeStrong(&v5->_bundleIDData, Property);
 
-            stringValue2 = [(ASFAsn1ReceiptIAPToken *)v34 stringValue];
+            stringValue2 = [(ASFAsn1ReceiptIAPToken *)v33 stringValue];
             bundleID = v5->_bundleID;
             v5->_bundleID = stringValue2;
 
@@ -417,21 +416,21 @@ LABEL_232:
                 dispatch_once(&ASFLogHandleForCategory_onceToken, &__block_literal_global);
               }
 
-              v71 = ASFLogHandleForCategory_logHandles_0;
+              v70 = ASFLogHandleForCategory_logHandles_0;
               if (os_log_type_enabled(ASFLogHandleForCategory_logHandles_0, OS_LOG_TYPE_DEFAULT))
               {
-                v72 = v5->_bundleID;
-                *v224 = 138543362;
-                *&v224[4] = v72;
-                v40 = v71;
-                v41 = "BundleID: %{public}@";
+                v71 = v5->_bundleID;
+                *v223 = 138543362;
+                *&v223[4] = v71;
+                v39 = v70;
+                v40 = "BundleID: %{public}@";
                 goto LABEL_199;
               }
             }
 
             break;
           case 3:
-            stringValue3 = [(ASFAsn1ReceiptIAPToken *)v34 stringValue];
+            stringValue3 = [(ASFAsn1ReceiptIAPToken *)v33 stringValue];
             bundleVersion = v5->_bundleVersion;
             v5->_bundleVersion = stringValue3;
 
@@ -442,36 +441,36 @@ LABEL_232:
                 dispatch_once(&ASFLogHandleForCategory_onceToken, &__block_literal_global);
               }
 
-              v128 = ASFLogHandleForCategory_logHandles_0;
+              v127 = ASFLogHandleForCategory_logHandles_0;
               if (os_log_type_enabled(ASFLogHandleForCategory_logHandles_0, OS_LOG_TYPE_DEFAULT))
               {
-                v129 = v5->_bundleVersion;
-                *v224 = 138543362;
-                *&v224[4] = v129;
-                v40 = v128;
-                v41 = "Application version: %{public}@";
+                v128 = v5->_bundleVersion;
+                *v223 = 138543362;
+                *&v223[4] = v128;
+                v39 = v127;
+                v40 = "Application version: %{public}@";
                 goto LABEL_199;
               }
             }
 
             break;
           case 4:
-            if ([(ASFAsn1ReceiptToken *)v34 contentIsAnInteger])
+            if ([(ASFAsn1ReceiptToken *)v33 contentIsAnInteger])
             {
-              v131 = objc_getProperty(v34, v130, 24, 1);
-              v133 = v131;
-              if (v131)
+              v130 = objc_getProperty(v33, v129, 24, 1);
+              v132 = v130;
+              if (v130)
               {
-                v131 = objc_getProperty(v131, v132, 24, 1);
+                v130 = objc_getProperty(v130, v131, 24, 1);
               }
 
-              v134 = v131;
-              v135 = [v134 length];
+              v133 = v130;
+              v134 = [v133 length];
 
-              if (v135)
+              if (v134)
               {
-                v136 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:-[ASFAsn1ReceiptIAPToken integerValue](v34)];
-                stringValue4 = [v136 stringValue];
+                v135 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:-[ASFAsn1ReceiptIAPToken integerValue](v33)];
+                stringValue4 = [v135 stringValue];
                 opaqueDSIDString = v5->_opaqueDSIDString;
                 v5->_opaqueDSIDString = stringValue4;
 
@@ -480,40 +479,40 @@ LABEL_193:
               }
             }
 
-            v158 = objc_getProperty(v34, v130, 24, 1);
-            v160 = v158;
-            if (v158)
+            v157 = objc_getProperty(v33, v129, 24, 1);
+            v159 = v157;
+            if (v157)
             {
-              v158 = objc_getProperty(v158, v159, 24, 1);
+              v157 = objc_getProperty(v157, v158, 24, 1);
             }
 
-            v161 = v158;
-            v162 = [v161 length];
+            v160 = v157;
+            v161 = [v160 length];
 
-            if (v162)
+            if (v161)
             {
-              v164 = objc_getProperty(v34, v163, 24, 1);
-              v166 = v164;
-              if (v164)
+              v163 = objc_getProperty(v33, v162, 24, 1);
+              v165 = v163;
+              if (v163)
               {
-                v167 = objc_getProperty(v164, v165, 24, 1);
+                v166 = objc_getProperty(v163, v164, 24, 1);
               }
 
               else
               {
-                v167 = 0;
+                v166 = 0;
               }
 
-              objc_storeStrong(&v5->_opaqueDSIDData, v167);
+              objc_storeStrong(&v5->_opaqueDSIDData, v166);
 
-              v168 = [(NSData *)v5->_opaqueDSIDData base64EncodedStringWithOptions:0];
-              v136 = v5->_opaqueDSIDString;
-              v5->_opaqueDSIDString = v168;
+              v167 = [(NSData *)v5->_opaqueDSIDData base64EncodedStringWithOptions:0];
+              v135 = v5->_opaqueDSIDString;
+              v5->_opaqueDSIDString = v167;
               goto LABEL_193;
             }
 
 LABEL_194:
-            v31 = 0x280FB5000;
+            v30 = 0x280FB5000;
             if (v5->_verbose)
             {
               if (ASFLogHandleForCategory_onceToken != -1)
@@ -521,31 +520,31 @@ LABEL_194:
                 dispatch_once(&ASFLogHandleForCategory_onceToken, &__block_literal_global);
               }
 
-              v169 = ASFLogHandleForCategory_logHandles_0;
+              v168 = ASFLogHandleForCategory_logHandles_0;
               if (os_log_type_enabled(ASFLogHandleForCategory_logHandles_0, OS_LOG_TYPE_DEFAULT))
               {
-                v170 = v5->_opaqueDSIDString;
-                *v224 = 138543362;
-                *&v224[4] = v170;
-                v40 = v169;
-                v41 = "DSID: %{public}@";
+                v169 = v5->_opaqueDSIDString;
+                *v223 = 138543362;
+                *&v223[4] = v169;
+                v39 = v168;
+                v40 = "DSID: %{public}@";
                 goto LABEL_199;
               }
             }
 
             break;
           case 5:
-            v73 = objc_getProperty(v34, v35, 24, 1);
-            v75 = v73;
-            if (v73)
+            v72 = objc_getProperty(v33, v34, 24, 1);
+            v74 = v72;
+            if (v72)
             {
-              v73 = objc_getProperty(v73, v74, 24, 1);
+              v72 = objc_getProperty(v72, v73, 24, 1);
             }
 
-            v76 = v73;
+            v75 = v72;
 
             sha1 = v5->_sha1;
-            v5->_sha1 = v76;
+            v5->_sha1 = v75;
 
             if (v5->_verbose)
             {
@@ -554,24 +553,24 @@ LABEL_194:
                 dispatch_once(&ASFLogHandleForCategory_onceToken, &__block_literal_global);
               }
 
-              v78 = ASFLogHandleForCategory_logHandles_0;
+              v77 = ASFLogHandleForCategory_logHandles_0;
               if (os_log_type_enabled(ASFLogHandleForCategory_logHandles_0, OS_LOG_TYPE_DEFAULT))
               {
-                v79 = v5->_sha1;
-                v80 = v78;
-                v81 = [(NSData *)v79 base64EncodedStringWithOptions:0];
-                *v224 = 138543362;
-                *&v224[4] = v81;
-                _os_log_impl(&dword_2400E0000, v80, OS_LOG_TYPE_DEFAULT, "SHA1: %{public}@", v224, 0xCu);
+                v78 = v5->_sha1;
+                v79 = v77;
+                v80 = [(NSData *)v78 base64EncodedStringWithOptions:0];
+                *v223 = 138543362;
+                *&v223[4] = v80;
+                _os_log_impl(&dword_2400E0000, v79, OS_LOG_TYPE_DEFAULT, "SHA1: %{public}@", v223, 0xCu);
               }
             }
 
             break;
           case 8:
-            stringValue5 = [(ASFAsn1ReceiptIAPToken *)v34 stringValue];
-            v91 = _readStringDate(stringValue5);
+            stringValue5 = [(ASFAsn1ReceiptIAPToken *)v33 stringValue];
+            v90 = _readStringDate(stringValue5);
             purchaseDate = v5->_purchaseDate;
-            v5->_purchaseDate = v91;
+            v5->_purchaseDate = v90;
 
             if (v5->_verbose)
             {
@@ -580,23 +579,23 @@ LABEL_194:
                 dispatch_once(&ASFLogHandleForCategory_onceToken, &__block_literal_global);
               }
 
-              v93 = ASFLogHandleForCategory_logHandles_0;
+              v92 = ASFLogHandleForCategory_logHandles_0;
               if (os_log_type_enabled(ASFLogHandleForCategory_logHandles_0, OS_LOG_TYPE_DEFAULT))
               {
-                v94 = v5->_purchaseDate;
-                *v224 = 138543362;
-                *&v224[4] = v94;
-                v40 = v93;
-                v41 = "Transaction date: %{public}@";
+                v93 = v5->_purchaseDate;
+                *v223 = 138543362;
+                *&v223[4] = v93;
+                v39 = v92;
+                v40 = "Transaction date: %{public}@";
                 goto LABEL_199;
               }
             }
 
             break;
           case 9:
-            v95 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:-[ASFAsn1ReceiptIAPToken integerValue](v34)];
+            v94 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:-[ASFAsn1ReceiptIAPToken integerValue](v33)];
             frToolVersion = v5->_frToolVersion;
-            v5->_frToolVersion = v95;
+            v5->_frToolVersion = v94;
 
             if (v5->_verbose)
             {
@@ -605,21 +604,21 @@ LABEL_194:
                 dispatch_once(&ASFLogHandleForCategory_onceToken, &__block_literal_global);
               }
 
-              v97 = ASFLogHandleForCategory_logHandles_0;
+              v96 = ASFLogHandleForCategory_logHandles_0;
               if (os_log_type_enabled(ASFLogHandleForCategory_logHandles_0, OS_LOG_TYPE_DEFAULT))
               {
-                v98 = v5->_frToolVersion;
-                *v224 = 138543362;
-                *&v224[4] = v98;
-                v40 = v97;
-                v41 = "FR tool version: %{public}@";
+                v97 = v5->_frToolVersion;
+                *v223 = 138543362;
+                *&v223[4] = v97;
+                v39 = v96;
+                v40 = "FR tool version: %{public}@";
                 goto LABEL_199;
               }
             }
 
             break;
           case 0xALL:
-            stringValue6 = [(ASFAsn1ReceiptIAPToken *)v34 stringValue];
+            stringValue6 = [(ASFAsn1ReceiptIAPToken *)v33 stringValue];
             parentalControls = v5->_parentalControls;
             v5->_parentalControls = stringValue6;
 
@@ -630,22 +629,22 @@ LABEL_194:
                 dispatch_once(&ASFLogHandleForCategory_onceToken, &__block_literal_global);
               }
 
-              v146 = ASFLogHandleForCategory_logHandles_0;
+              v145 = ASFLogHandleForCategory_logHandles_0;
               if (os_log_type_enabled(ASFLogHandleForCategory_logHandles_0, OS_LOG_TYPE_DEFAULT))
               {
-                v147 = v5->_parentalControls;
-                *v224 = 138543362;
-                *&v224[4] = v147;
-                v40 = v146;
-                v41 = "Parental controls: %{public}@";
+                v146 = v5->_parentalControls;
+                *v223 = 138543362;
+                *&v223[4] = v146;
+                v39 = v145;
+                v40 = "Parental controls: %{public}@";
                 goto LABEL_199;
               }
             }
 
             break;
           case 0xBLL:
-            v139 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:-[ASFAsn1ReceiptIAPToken integerValue](v34)];
-            stringValue7 = [v139 stringValue];
+            v138 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:-[ASFAsn1ReceiptIAPToken integerValue](v33)];
+            stringValue7 = [v138 stringValue];
             developerID = v5->_developerID;
             v5->_developerID = stringValue7;
 
@@ -656,24 +655,24 @@ LABEL_194:
                 dispatch_once(&ASFLogHandleForCategory_onceToken, &__block_literal_global);
               }
 
-              v142 = ASFLogHandleForCategory_logHandles_0;
+              v141 = ASFLogHandleForCategory_logHandles_0;
               if (os_log_type_enabled(ASFLogHandleForCategory_logHandles_0, OS_LOG_TYPE_DEFAULT))
               {
-                v143 = v5->_developerID;
-                *v224 = 138543362;
-                *&v224[4] = v143;
-                v40 = v142;
-                v41 = "DeveloperID: %{public}@";
+                v142 = v5->_developerID;
+                *v223 = 138543362;
+                *&v223[4] = v142;
+                v39 = v141;
+                v40 = "DeveloperID: %{public}@";
                 goto LABEL_199;
               }
             }
 
             break;
           case 0xCLL:
-            stringValue8 = [(ASFAsn1ReceiptIAPToken *)v34 stringValue];
-            v52 = _readStringDate(stringValue8);
+            stringValue8 = [(ASFAsn1ReceiptIAPToken *)v33 stringValue];
+            v51 = _readStringDate(stringValue8);
             creationDate = v5->_creationDate;
-            v5->_creationDate = v52;
+            v5->_creationDate = v51;
 
             if (v5->_verbose)
             {
@@ -682,21 +681,21 @@ LABEL_194:
                 dispatch_once(&ASFLogHandleForCategory_onceToken, &__block_literal_global);
               }
 
-              v54 = ASFLogHandleForCategory_logHandles_0;
+              v53 = ASFLogHandleForCategory_logHandles_0;
               if (os_log_type_enabled(ASFLogHandleForCategory_logHandles_0, OS_LOG_TYPE_DEFAULT))
               {
-                v55 = v5->_creationDate;
-                *v224 = 138543362;
-                *&v224[4] = v55;
-                v40 = v54;
-                v41 = "Receipt created: %{public}@";
+                v54 = v5->_creationDate;
+                *v223 = 138543362;
+                *&v223[4] = v54;
+                v39 = v53;
+                v40 = "Receipt created: %{public}@";
                 goto LABEL_199;
               }
             }
 
             break;
           case 0xDLL:
-            stringValue9 = [(ASFAsn1ReceiptIAPToken *)v34 stringValue];
+            stringValue9 = [(ASFAsn1ReceiptIAPToken *)v33 stringValue];
             frAppVersion = v5->_frAppVersion;
             v5->_frAppVersion = stringValue9;
 
@@ -707,22 +706,22 @@ LABEL_194:
                 dispatch_once(&ASFLogHandleForCategory_onceToken, &__block_literal_global);
               }
 
-              v84 = ASFLogHandleForCategory_logHandles_0;
+              v83 = ASFLogHandleForCategory_logHandles_0;
               if (os_log_type_enabled(ASFLogHandleForCategory_logHandles_0, OS_LOG_TYPE_DEFAULT))
               {
-                v85 = v5->_frAppVersion;
-                *v224 = 138543362;
-                *&v224[4] = v85;
-                v40 = v84;
-                v41 = "FR app version: %{public}@";
+                v84 = v5->_frAppVersion;
+                *v223 = 138543362;
+                *&v223[4] = v84;
+                v39 = v83;
+                v40 = "FR app version: %{public}@";
                 goto LABEL_199;
               }
             }
 
             break;
           case 0xELL:
-            v56 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:-[ASFAsn1ReceiptIAPToken integerValue](v34)];
-            stringValue10 = [v56 stringValue];
+            v55 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:-[ASFAsn1ReceiptIAPToken integerValue](v33)];
+            stringValue10 = [v55 stringValue];
             hwtype = v5->_hwtype;
             v5->_hwtype = stringValue10;
 
@@ -733,22 +732,22 @@ LABEL_194:
                 dispatch_once(&ASFLogHandleForCategory_onceToken, &__block_literal_global);
               }
 
-              v59 = ASFLogHandleForCategory_logHandles_0;
+              v58 = ASFLogHandleForCategory_logHandles_0;
               if (os_log_type_enabled(ASFLogHandleForCategory_logHandles_0, OS_LOG_TYPE_DEFAULT))
               {
-                v60 = v5->_hwtype;
-                *v224 = 138543362;
-                *&v224[4] = v60;
-                v40 = v59;
-                v41 = "HW type: %{public}@";
+                v59 = v5->_hwtype;
+                *v223 = 138543362;
+                *&v223[4] = v59;
+                v39 = v58;
+                v40 = "HW type: %{public}@";
                 goto LABEL_199;
               }
             }
 
             break;
           case 0xFLL:
-            v46 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:-[ASFAsn1ReceiptIAPToken integerValue](v34)];
-            stringValue11 = [v46 stringValue];
+            v45 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:-[ASFAsn1ReceiptIAPToken integerValue](v33)];
+            stringValue11 = [v45 stringValue];
             downloadID = v5->_downloadID;
             v5->_downloadID = stringValue11;
 
@@ -759,22 +758,22 @@ LABEL_194:
                 dispatch_once(&ASFLogHandleForCategory_onceToken, &__block_literal_global);
               }
 
-              v49 = ASFLogHandleForCategory_logHandles_0;
+              v48 = ASFLogHandleForCategory_logHandles_0;
               if (os_log_type_enabled(ASFLogHandleForCategory_logHandles_0, OS_LOG_TYPE_DEFAULT))
               {
-                v50 = v5->_downloadID;
-                *v224 = 138543362;
-                *&v224[4] = v50;
-                v40 = v49;
-                v41 = "DownloadID: %{public}@";
+                v49 = v5->_downloadID;
+                *v223 = 138543362;
+                *&v223[4] = v49;
+                v39 = v48;
+                v40 = "DownloadID: %{public}@";
                 goto LABEL_199;
               }
             }
 
             break;
           case 0x10:
-            v99 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:-[ASFAsn1ReceiptIAPToken integerValue](v34)];
-            stringValue12 = [v99 stringValue];
+            v98 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:-[ASFAsn1ReceiptIAPToken integerValue](v33)];
+            stringValue12 = [v98 stringValue];
             installerVersionID = v5->_installerVersionID;
             v5->_installerVersionID = stringValue12;
 
@@ -785,91 +784,91 @@ LABEL_194:
                 dispatch_once(&ASFLogHandleForCategory_onceToken, &__block_literal_global);
               }
 
-              v102 = ASFLogHandleForCategory_logHandles_0;
+              v101 = ASFLogHandleForCategory_logHandles_0;
               if (os_log_type_enabled(ASFLogHandleForCategory_logHandles_0, OS_LOG_TYPE_DEFAULT))
               {
-                v103 = v5->_installerVersionID;
-                *v224 = 138543362;
-                *&v224[4] = v103;
-                v40 = v102;
-                v41 = "Installer versionID: %{public}@";
+                v102 = v5->_installerVersionID;
+                *v223 = 138543362;
+                *&v223[4] = v102;
+                v39 = v101;
+                v40 = "Installer versionID: %{public}@";
                 goto LABEL_199;
               }
             }
 
             break;
           case 0x11:
-            v104 = objc_getProperty(v34, v35, 24, 1);
-            v106 = v104;
-            if (v104)
+            v103 = objc_getProperty(v33, v34, 24, 1);
+            v105 = v103;
+            if (v103)
             {
-              v104 = objc_getProperty(v104, v105, 24, 1);
+              v103 = objc_getProperty(v103, v104, 24, 1);
             }
 
-            v107 = v104;
+            v106 = v103;
 
-            v108 = v107;
-            if (v108)
+            v107 = v106;
+            if (v107)
             {
-              v109 = [(ASFAsn1Token *)v25 + 1224 readTokenFromBuffer:v108 length:0];
-              if (v109 && v109[2] == 17)
+              v108 = [(ASFAsn1Token *)v24 + 1224 readTokenFromBuffer:v107 length:0];
+              if (v108 && v108[2] == 17)
               {
-                v215 = v108;
-                v216 = v28;
-                v217 = v24;
-                v214 = v109;
-                v110 = v109;
-                v111 = objc_opt_new();
-                v219 = v110;
-                nextToken2 = [(ASFAsn1SetToken *)v110 nextToken];
+                v214 = v107;
+                v215 = v27;
+                v216 = v23;
+                v213 = v108;
+                v109 = v108;
+                v110 = objc_opt_new();
+                v218 = v109;
+                nextToken2 = [(ASFAsn1SetToken *)v109 nextToken];
                 if (nextToken2)
                 {
                   do
                   {
-                    v113 = objc_autoreleasePoolPush();
-                    v115 = objc_getProperty(nextToken2, v114, 24, 1);
-                    v116 = [ASFAsn1ReceiptIAPToken readFromBuffer:v115];
+                    v112 = objc_autoreleasePoolPush();
+                    v114 = objc_getProperty(nextToken2, v113, 24, 1);
+                    v115 = [ASFAsn1ReceiptIAPToken readFromBuffer:v114];
 
-                    if (v116)
+                    if (v115)
                     {
-                      v117 = v116[1];
-                      if (v117 > 1703)
+                      v116 = v115[1];
+                      if (v116 > 1703)
                       {
-                        switch(v117)
+                        switch(v116)
                         {
                           case 1704:
-                            stringValue13 = [(ASFAsn1ReceiptIAPToken *)v116 stringValue];
+                            stringValue13 = [(ASFAsn1ReceiptIAPToken *)v115 stringValue];
                             stringValue14 = _readStringDate(stringValue13);
 
-                            if (!v111)
+                            if (!v110)
                             {
                               goto LABEL_154;
                             }
 
-                            v120 = v111;
-                            v121 = stringValue14;
-                            v122 = 24;
+                            v119 = v110;
+                            v120 = stringValue14;
+                            v121 = 24;
                             goto LABEL_153;
                           case 1705:
-                            stringValue14 = [(ASFAsn1ReceiptIAPToken *)v116 stringValue];
-                            if (!v111)
+                            stringValue14 = [(ASFAsn1ReceiptIAPToken *)v115 stringValue];
+                            if (!v110)
                             {
                               goto LABEL_154;
                             }
 
-                            v120 = v111;
-                            v121 = stringValue14;
-                            v122 = 16;
+                            v119 = v110;
+                            v120 = stringValue14;
+                            v121 = 16;
                             goto LABEL_153;
                           case 1706:
-                            stringValue15 = [(ASFAsn1ReceiptIAPToken *)v116 stringValue];
+                            stringValue15 = [(ASFAsn1ReceiptIAPToken *)v115 stringValue];
                             stringValue14 = _readStringDate(stringValue15);
 
-                            if (v111)
+                            if (v110)
                             {
-                              v120 = v111;
-                              v121 = stringValue14;
-                              v122 = 8;
+                              v119 = v110;
+                              v120 = stringValue14;
+                              v121 = 8;
                               goto LABEL_153;
                             }
 
@@ -881,39 +880,39 @@ LABEL_154:
 
                       else
                       {
-                        switch(v117)
+                        switch(v116)
                         {
                           case 1701:
-                            stringValue14 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:-[ASFAsn1ReceiptIAPToken integerValue](v116)];
-                            if (!v111)
+                            stringValue14 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:-[ASFAsn1ReceiptIAPToken integerValue](v115)];
+                            if (!v110)
                             {
                               goto LABEL_154;
                             }
 
-                            v120 = v111;
-                            v121 = stringValue14;
-                            v122 = 40;
+                            v119 = v110;
+                            v120 = stringValue14;
+                            v121 = 40;
 LABEL_153:
-                            objc_setProperty_atomic_copy(v120, v118, v121, v122);
+                            objc_setProperty_atomic_copy(v119, v117, v120, v121);
                             goto LABEL_154;
                           case 1702:
-                            stringValue14 = [(ASFAsn1ReceiptIAPToken *)v116 stringValue];
-                            if (!v111)
+                            stringValue14 = [(ASFAsn1ReceiptIAPToken *)v115 stringValue];
+                            if (!v110)
                             {
                               goto LABEL_154;
                             }
 
-                            v120 = v111;
-                            v121 = stringValue14;
-                            v122 = 32;
+                            v119 = v110;
+                            v120 = stringValue14;
+                            v121 = 32;
                             goto LABEL_153;
                           case 1703:
-                            stringValue14 = [(ASFAsn1ReceiptIAPToken *)v116 stringValue];
-                            if (v111)
+                            stringValue14 = [(ASFAsn1ReceiptIAPToken *)v115 stringValue];
+                            if (v110)
                             {
-                              v120 = v111;
-                              v121 = stringValue14;
-                              v122 = 48;
+                              v119 = v110;
+                              v120 = stringValue14;
+                              v121 = 48;
                               goto LABEL_153;
                             }
 
@@ -922,8 +921,8 @@ LABEL_153:
                       }
                     }
 
-                    objc_autoreleasePoolPop(v113);
-                    nextToken3 = [(ASFAsn1SetToken *)v219 nextToken];
+                    objc_autoreleasePoolPop(v112);
+                    nextToken3 = [(ASFAsn1SetToken *)v218 nextToken];
 
                     nextToken2 = nextToken3;
                   }
@@ -931,44 +930,44 @@ LABEL_153:
                   while (nextToken3);
                 }
 
-                v28 = v216;
-                v24 = v217;
-                v25 = 0x280FB5000;
-                v109 = v214;
-                v108 = v215;
+                v27 = v215;
+                v23 = v216;
+                v24 = 0x280FB5000;
+                v108 = v213;
+                v107 = v214;
               }
 
               else if (v5->_verbose)
               {
-                v218 = v24;
-                v173 = v25;
-                v174 = v109;
+                v217 = v23;
+                v172 = v24;
+                v173 = v108;
                 if (ASFLogHandleForCategory_onceToken != -1)
                 {
                   dispatch_once(&ASFLogHandleForCategory_onceToken, &__block_literal_global);
                 }
 
-                v175 = ASFLogHandleForCategory_logHandles_0;
+                v174 = ASFLogHandleForCategory_logHandles_0;
                 if (os_log_type_enabled(ASFLogHandleForCategory_logHandles_0, OS_LOG_TYPE_ERROR))
                 {
-                  *v224 = 0;
-                  _os_log_error_impl(&dword_2400E0000, v175, OS_LOG_TYPE_ERROR, "Failed to parse data", v224, 2u);
+                  *v223 = 0;
+                  _os_log_error_impl(&dword_2400E0000, v174, OS_LOG_TYPE_ERROR, "Failed to parse data", v223, 2u);
                 }
 
-                v111 = 0;
-                v109 = v174;
-                v25 = v173;
-                v24 = v218;
+                v110 = 0;
+                v108 = v173;
+                v24 = v172;
+                v23 = v217;
               }
 
               else
               {
-                v111 = 0;
+                v110 = 0;
               }
 
-              if (v111)
+              if (v110)
               {
-                [(NSMutableArray *)v5->_mutableIAPs addObject:v111];
+                [(NSMutableArray *)v5->_mutableIAPs addObject:v110];
 
                 goto LABEL_217;
               }
@@ -981,24 +980,24 @@ LABEL_153:
                 dispatch_once(&ASFLogHandleForCategory_onceToken, &__block_literal_global);
               }
 
-              v172 = ASFLogHandleForCategory_logHandles_0;
+              v171 = ASFLogHandleForCategory_logHandles_0;
               if (os_log_type_enabled(ASFLogHandleForCategory_logHandles_0, OS_LOG_TYPE_ERROR))
               {
-                *v224 = 0;
-                _os_log_error_impl(&dword_2400E0000, v172, OS_LOG_TYPE_ERROR, "Failed to load data", v224, 2u);
+                *v223 = 0;
+                _os_log_error_impl(&dword_2400E0000, v171, OS_LOG_TYPE_ERROR, "Failed to load data", v223, 2u);
               }
             }
 
-            NSLog(&cfstr_DecodeIapsFail.isa, v214, v215, v216);
+            NSLog(&cfstr_DecodeIapsFail.isa, v213, v214, v215);
 LABEL_217:
-            v31 = 0x280FB5000;
+            v30 = 0x280FB5000;
 
             break;
           case 0x15:
-            stringValue16 = [(ASFAsn1ReceiptIAPToken *)v34 stringValue];
-            v154 = _readStringDate(stringValue16);
+            stringValue16 = [(ASFAsn1ReceiptIAPToken *)v33 stringValue];
+            v153 = _readStringDate(stringValue16);
             expirationDate = v5->_expirationDate;
-            v5->_expirationDate = v154;
+            v5->_expirationDate = v153;
 
             if (v5->_verbose)
             {
@@ -1007,24 +1006,24 @@ LABEL_217:
                 dispatch_once(&ASFLogHandleForCategory_onceToken, &__block_literal_global);
               }
 
-              v156 = ASFLogHandleForCategory_logHandles_0;
+              v155 = ASFLogHandleForCategory_logHandles_0;
               if (os_log_type_enabled(ASFLogHandleForCategory_logHandles_0, OS_LOG_TYPE_DEFAULT))
               {
-                v157 = v5->_expirationDate;
-                *v224 = 138543362;
-                *&v224[4] = v157;
-                v40 = v156;
-                v41 = "Receipt expires: %{public}@";
+                v156 = v5->_expirationDate;
+                *v223 = 138543362;
+                *&v223[4] = v156;
+                v39 = v155;
+                v40 = "Receipt expires: %{public}@";
                 goto LABEL_199;
               }
             }
 
             break;
           case 0x16:
-            stringValue17 = [(ASFAsn1ReceiptIAPToken *)v34 stringValue];
-            v149 = _readStringDate(stringValue17);
+            stringValue17 = [(ASFAsn1ReceiptIAPToken *)v33 stringValue];
+            v148 = _readStringDate(stringValue17);
             renewalDate = v5->_renewalDate;
-            v5->_renewalDate = v149;
+            v5->_renewalDate = v148;
 
             if (v5->_verbose)
             {
@@ -1033,21 +1032,21 @@ LABEL_217:
                 dispatch_once(&ASFLogHandleForCategory_onceToken, &__block_literal_global);
               }
 
-              v151 = ASFLogHandleForCategory_logHandles_0;
+              v150 = ASFLogHandleForCategory_logHandles_0;
               if (os_log_type_enabled(ASFLogHandleForCategory_logHandles_0, OS_LOG_TYPE_DEFAULT))
               {
-                v152 = v5->_renewalDate;
-                *v224 = 138543362;
-                *&v224[4] = v152;
-                v40 = v151;
-                v41 = "Receipt renewal: %{public}@";
+                v151 = v5->_renewalDate;
+                *v223 = 138543362;
+                *&v223[4] = v151;
+                v39 = v150;
+                v40 = "Receipt renewal: %{public}@";
                 goto LABEL_199;
               }
             }
 
             break;
           case 0x17:
-            stringValue18 = [(ASFAsn1ReceiptIAPToken *)v34 stringValue];
+            stringValue18 = [(ASFAsn1ReceiptIAPToken *)v33 stringValue];
             organizationDisplayName = v5->_organizationDisplayName;
             v5->_organizationDisplayName = stringValue18;
 
@@ -1058,21 +1057,21 @@ LABEL_217:
                 dispatch_once(&ASFLogHandleForCategory_onceToken, &__block_literal_global);
               }
 
-              v44 = ASFLogHandleForCategory_logHandles_0;
+              v43 = ASFLogHandleForCategory_logHandles_0;
               if (os_log_type_enabled(ASFLogHandleForCategory_logHandles_0, OS_LOG_TYPE_DEFAULT))
               {
-                v45 = v5->_organizationDisplayName;
-                *v224 = 138543362;
-                *&v224[4] = v45;
-                v40 = v44;
-                v41 = "Organization display name: %{public}@";
+                v44 = v5->_organizationDisplayName;
+                *v223 = 138543362;
+                *&v223[4] = v44;
+                v39 = v43;
+                v40 = "Organization display name: %{public}@";
                 goto LABEL_199;
               }
             }
 
             break;
           case 0x18:
-            stringValue19 = [(ASFAsn1ReceiptIAPToken *)v34 stringValue];
+            stringValue19 = [(ASFAsn1ReceiptIAPToken *)v33 stringValue];
             cancellationReason = v5->_cancellationReason;
             v5->_cancellationReason = stringValue19;
 
@@ -1083,16 +1082,16 @@ LABEL_217:
                 dispatch_once(&ASFLogHandleForCategory_onceToken, &__block_literal_global);
               }
 
-              v63 = ASFLogHandleForCategory_logHandles_0;
+              v62 = ASFLogHandleForCategory_logHandles_0;
               if (os_log_type_enabled(ASFLogHandleForCategory_logHandles_0, OS_LOG_TYPE_DEFAULT))
               {
-                v64 = v5->_cancellationReason;
-                *v224 = 138543362;
-                *&v224[4] = v64;
-                v40 = v63;
-                v41 = "Cancellation reason: %{public}@";
+                v63 = v5->_cancellationReason;
+                *v223 = 138543362;
+                *&v223[4] = v63;
+                v39 = v62;
+                v40 = "Cancellation reason: %{public}@";
 LABEL_199:
-                _os_log_impl(&dword_2400E0000, v40, OS_LOG_TYPE_DEFAULT, v41, v224, 0xCu);
+                _os_log_impl(&dword_2400E0000, v39, OS_LOG_TYPE_DEFAULT, v40, v223, 0xCu);
               }
             }
 
@@ -1103,7 +1102,7 @@ LABEL_199:
       }
 
       objc_autoreleasePoolPop(context);
-      nextToken4 = [(ASFAsn1SetToken *)v28 nextToken];
+      nextToken4 = [(ASFAsn1SetToken *)v27 nextToken];
 
       nextToken = nextToken4;
     }
@@ -1111,11 +1110,11 @@ LABEL_199:
     while (nextToken4);
   }
 
-  v180 = SecCmsMessageContentLevelCount();
-  if (v180 >= 1)
+  v179 = SecCmsMessageContentLevelCount();
+  if (v179 >= 1)
   {
-    v181 = v180;
-    for (i = 0; i != v181; ++i)
+    v180 = v179;
+    for (i = 0; i != v180; ++i)
     {
       SecCmsMessageContentLevel();
       if (SecCmsContentInfoGetContentTypeTag() == 26 && SecCmsContentInfoGetContent())
@@ -1125,7 +1124,7 @@ LABEL_199:
     }
   }
 
-  v183 = v5->_creationDate;
+  v182 = v5->_creationDate;
   *buf = 0;
   CertificateList = SecCmsSignedDataGetCertificateList();
   if (!CertificateList)
@@ -1133,34 +1132,34 @@ LABEL_199:
     goto LABEL_254;
   }
 
-  v185 = CertificateList;
+  v184 = CertificateList;
   Mutable = CFArrayCreateMutable(0, 0, MEMORY[0x277CBF128]);
-  v187 = *v185;
-  if (*v185)
+  v186 = *v184;
+  if (*v184)
   {
-    v188 = v185 + 1;
+    v187 = v184 + 1;
     do
     {
-      v189 = CFDataCreate(0, *(v187 + 8), *v187);
-      if (v189)
+      v188 = CFDataCreate(0, *(v186 + 8), *v186);
+      if (v188)
       {
-        v190 = v189;
-        v191 = SecCertificateCreateWithData(0, v189);
-        if (v191)
+        v189 = v188;
+        v190 = SecCertificateCreateWithData(0, v188);
+        if (v190)
         {
-          v192 = v191;
-          CFArrayAppendValue(Mutable, v191);
-          CFRelease(v192);
+          v191 = v190;
+          CFArrayAppendValue(Mutable, v190);
+          CFRelease(v191);
         }
 
-        CFRelease(v190);
+        CFRelease(v189);
       }
 
-      v193 = *v188++;
-      v187 = v193;
+      v192 = *v187++;
+      v186 = v192;
     }
 
-    while (v193);
+    while (v192);
   }
 
   if (!Mutable)
@@ -1173,11 +1172,11 @@ LABEL_254:
         dispatch_once(&ASFLogHandleForCategory_onceToken, &__block_literal_global);
       }
 
-      v196 = ASFLogHandleForCategory_logHandles_0;
+      v195 = ASFLogHandleForCategory_logHandles_0;
       if (os_log_type_enabled(ASFLogHandleForCategory_logHandles_0, OS_LOG_TYPE_ERROR))
       {
-        *v224 = 0;
-        _os_log_error_impl(&dword_2400E0000, v196, OS_LOG_TYPE_ERROR, "Could not read certificates", v224, 2u);
+        *v223 = 0;
+        _os_log_error_impl(&dword_2400E0000, v195, OS_LOG_TYPE_ERROR, "Could not read certificates", v223, 2u);
       }
     }
 
@@ -1194,32 +1193,32 @@ LABEL_254:
         dispatch_once(&ASFLogHandleForCategory_onceToken, &__block_literal_global);
       }
 
-      v194 = ASFLogHandleForCategory_logHandles_0;
+      v193 = ASFLogHandleForCategory_logHandles_0;
       if (os_log_type_enabled(ASFLogHandleForCategory_logHandles_0, OS_LOG_TYPE_ERROR))
       {
-        *v224 = 0;
-        v195 = "Could not create trust";
+        *v223 = 0;
+        v194 = "Could not create trust";
 LABEL_302:
-        _os_log_error_impl(&dword_2400E0000, v194, OS_LOG_TYPE_ERROR, v195, v224, 2u);
+        _os_log_error_impl(&dword_2400E0000, v193, OS_LOG_TYPE_ERROR, v194, v223, 2u);
       }
     }
 
     goto LABEL_282;
   }
 
-  v197 = *buf;
-  v198 = CFArrayCreateMutable(*MEMORY[0x277CBECE8], 3, MEMORY[0x277CBF128]);
-  v199 = *MEMORY[0x277CDC4C8];
-  v200 = *MEMORY[0x277CDC4D0];
-  v201 = 1;
+  v196 = *buf;
+  v197 = CFArrayCreateMutable(*MEMORY[0x277CBECE8], 3, MEMORY[0x277CBF128]);
+  v198 = *MEMORY[0x277CDC4C8];
+  v199 = *MEMORY[0x277CDC4D0];
+  v200 = 1;
   do
   {
-    v202 = v201;
-    v203 = SecPolicyCreateWithProperties(v199, 0);
-    if (!v203)
+    v201 = v200;
+    v202 = SecPolicyCreateWithProperties(v198, 0);
+    if (!v202)
     {
-      v204 = CFDictionaryCreateMutable(0, 1, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-      if (!v204)
+      v203 = CFDictionaryCreateMutable(0, 1, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+      if (!v203)
       {
         goto LABEL_277;
       }
@@ -1227,29 +1226,29 @@ LABEL_302:
       goto LABEL_266;
     }
 
-    CFArrayAppendValue(v198, v203);
-    CFRelease(v203);
-    v201 = 0;
-    v199 = v200;
+    CFArrayAppendValue(v197, v202);
+    CFRelease(v202);
+    v200 = 0;
+    v198 = v199;
   }
 
-  while ((v202 & 1) != 0);
-  v204 = CFDictionaryCreateMutable(0, 1, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-  if (v204)
+  while ((v201 & 1) != 0);
+  v203 = CFDictionaryCreateMutable(0, 1, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+  if (v203)
   {
 LABEL_266:
-    v205 = v204;
-    v206 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:{3, v214, v215, v216}];
-    CFDictionaryAddValue(v205, *MEMORY[0x277CDC4E8], v206);
-    v207 = SecPolicyCreateWithProperties(*MEMORY[0x277CDC4C0], v205);
-    if (v207)
+    v204 = v203;
+    v205 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:{3, v213, v214, v215}];
+    CFDictionaryAddValue(v204, *MEMORY[0x277CDC4E8], v205);
+    v206 = SecPolicyCreateWithProperties(*MEMORY[0x277CDC4C0], v204);
+    if (v206)
     {
-      v208 = v207;
-      CFArrayAppendValue(v198, v207);
-      CFRelease(v208);
-      CFRelease(v205);
+      v207 = v206;
+      CFArrayAppendValue(v197, v206);
+      CFRelease(v207);
+      CFRelease(v204);
 
-      if (v203)
+      if (v202)
       {
         goto LABEL_268;
       }
@@ -1257,20 +1256,20 @@ LABEL_266:
 
     else
     {
-      CFRelease(v205);
+      CFRelease(v204);
     }
 
 LABEL_277:
-    CFRelease(v198);
+    CFRelease(v197);
     goto LABEL_278;
   }
 
 LABEL_268:
-  v209 = SecTrustSetPolicies(v197, v198);
-  CFRelease(v198);
-  if (!v209)
+  v208 = SecTrustSetPolicies(v196, v197);
+  CFRelease(v197);
+  if (!v208)
   {
-    if (v183 && SecTrustSetVerifyDate(*buf, v183))
+    if (v182 && SecTrustSetVerifyDate(*buf, v182))
     {
       if (v5->_verbose)
       {
@@ -1279,11 +1278,11 @@ LABEL_268:
           dispatch_once(&ASFLogHandleForCategory_onceToken, &__block_literal_global);
         }
 
-        v194 = ASFLogHandleForCategory_logHandles_0;
+        v193 = ASFLogHandleForCategory_logHandles_0;
         if (os_log_type_enabled(ASFLogHandleForCategory_logHandles_0, OS_LOG_TYPE_ERROR))
         {
-          *v224 = 0;
-          v195 = "Could not set verification date";
+          *v223 = 0;
+          v194 = "Could not set verification date";
           goto LABEL_302;
         }
       }
@@ -1292,8 +1291,8 @@ LABEL_268:
     else
     {
       error = 0;
-      v210 = SecTrustEvaluateWithError(*buf, &error);
-      v211 = error;
+      v209 = SecTrustEvaluateWithError(*buf, &error);
+      v210 = error;
       if (error)
       {
         if (v5->_verbose)
@@ -1303,21 +1302,21 @@ LABEL_268:
             dispatch_once(&ASFLogHandleForCategory_onceToken, &__block_literal_global);
           }
 
-          v212 = ASFLogHandleForCategory_logHandles_0;
+          v211 = ASFLogHandleForCategory_logHandles_0;
           if (os_log_type_enabled(ASFLogHandleForCategory_logHandles_0, OS_LOG_TYPE_DEFAULT))
           {
-            *v224 = 138543362;
-            *&v224[4] = error;
-            _os_log_impl(&dword_2400E0000, v212, OS_LOG_TYPE_DEFAULT, "Error evaluating trust: %{public}@", v224, 0xCu);
+            *v223 = 138543362;
+            *&v223[4] = error;
+            _os_log_impl(&dword_2400E0000, v211, OS_LOG_TYPE_DEFAULT, "Error evaluating trust: %{public}@", v223, 0xCu);
           }
 
-          v211 = error;
+          v210 = error;
         }
 
-        CFRelease(v211);
+        CFRelease(v210);
       }
 
-      if (v210)
+      if (v209)
       {
         v11 = error == 0;
         goto LABEL_283;
@@ -1325,11 +1324,11 @@ LABEL_268:
 
       if (v5->_verbose)
       {
-        v213 = ASFLogHandleForCategory();
-        if (os_log_type_enabled(v213, OS_LOG_TYPE_ERROR))
+        v212 = ASFLogHandleForCategory();
+        if (os_log_type_enabled(v212, OS_LOG_TYPE_ERROR))
         {
-          *v224 = 0;
-          _os_log_error_impl(&dword_2400E0000, v213, OS_LOG_TYPE_ERROR, "Failed to evaluate trust", v224, 2u);
+          *v223 = 0;
+          _os_log_error_impl(&dword_2400E0000, v212, OS_LOG_TYPE_ERROR, "Failed to evaluate trust", v223, 2u);
         }
       }
     }
@@ -1345,11 +1344,11 @@ LABEL_278:
       dispatch_once(&ASFLogHandleForCategory_onceToken, &__block_literal_global);
     }
 
-    v194 = ASFLogHandleForCategory_logHandles_0;
+    v193 = ASFLogHandleForCategory_logHandles_0;
     if (os_log_type_enabled(ASFLogHandleForCategory_logHandles_0, OS_LOG_TYPE_ERROR))
     {
-      *v224 = 0;
-      v195 = "Failed to update policies";
+      *v223 = 0;
+      v194 = "Failed to update policies";
       goto LABEL_302;
     }
   }
@@ -1367,7 +1366,7 @@ LABEL_284:
 LABEL_233:
   SecCmsMessageDestroy();
 LABEL_25:
-  if ([(NSMutableArray *)v5->_mutableIAPs count:v214])
+  if ([(NSMutableArray *)v5->_mutableIAPs count:v213])
   {
     v12 = [(NSMutableArray *)v5->_mutableIAPs copy];
     iaps = v5->_iaps;
@@ -1389,8 +1388,8 @@ LABEL_28:
       {
         v15 = v14;
         v16 = [dataCopy length];
-        *v224 = 134217984;
-        *&v224[4] = v16;
+        *v223 = 134217984;
+        *&v223[4] = v16;
         v17 = "Allowing invalid receipt because it is a stub receipt [%{iec-bytes}ld]";
         goto LABEL_38;
       }
@@ -1408,11 +1407,11 @@ LABEL_28:
       {
         v15 = v18;
         v19 = [dataCopy length];
-        *v224 = 134217984;
-        *&v224[4] = v19;
+        *v223 = 134217984;
+        *&v223[4] = v19;
         v17 = "Allowing invalid receipt because it is an StoreKit testing receipt [%{iec-bytes}ld]";
 LABEL_38:
-        _os_log_error_impl(&dword_2400E0000, v15, OS_LOG_TYPE_ERROR, v17, v224, 0xCu);
+        _os_log_error_impl(&dword_2400E0000, v15, OS_LOG_TYPE_ERROR, v17, v223, 0xCu);
       }
     }
 
@@ -1426,11 +1425,11 @@ LABEL_38:
       v20 = ASFLogHandleForCategory_logHandles_0;
       if (os_log_type_enabled(ASFLogHandleForCategory_logHandles_0, OS_LOG_TYPE_ERROR))
       {
-        v177 = v20;
-        v178 = [dataCopy length];
-        *v224 = 134217984;
-        *&v224[4] = v178;
-        _os_log_error_impl(&dword_2400E0000, v177, OS_LOG_TYPE_ERROR, "Invalid receipt [%{iec-bytes}ld]", v224, 0xCu);
+        v176 = v20;
+        v177 = [dataCopy length];
+        *v223 = 134217984;
+        *&v223[4] = v177;
+        _os_log_error_impl(&dword_2400E0000, v176, OS_LOG_TYPE_ERROR, "Invalid receipt [%{iec-bytes}ld]", v223, 0xCu);
       }
 
       v5 = 0;
@@ -1439,7 +1438,6 @@ LABEL_38:
 
 LABEL_44:
 
-  v21 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

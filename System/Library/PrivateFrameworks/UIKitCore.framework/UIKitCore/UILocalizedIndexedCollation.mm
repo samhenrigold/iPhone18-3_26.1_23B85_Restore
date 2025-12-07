@@ -94,7 +94,7 @@
     v6->_lastSectionStartString = lastObject;
 
     languageCode = [(NSLocale *)v6->_locale languageCode];
-    v6->_primaryLanguageIsJapanese = [languageCode isEqualToString:@"ja"];
+    v6->_primaryLanguageIsJapanese = objc_msgSend_isEqualToString_(languageCode);
 
     if (v6->_primaryLanguageIsJapanese)
     {
@@ -105,7 +105,7 @@
     {
       v25 = [MEMORY[0x1E696AAE8] preferredLocalizationsFromArray:&unk_1EFE2D978];
       firstObject = [v25 firstObject];
-      v6->_preferJapaneseRomajiTranscriptions = [firstObject isEqualToString:@"ja"];
+      v6->_preferJapaneseRomajiTranscriptions = objc_msgSend_isEqualToString_(firstObject);
     }
   }
 

@@ -166,7 +166,7 @@ LABEL_12:
   v9 = [(PROAPIAccessing *)self->super.super._apiManager apiForProtocol:&unk_28735B780];
   if (v9)
   {
-    [(PAESharedDefaultBase *)self getPixelTransformForImage:input];
+    objc_msgSend_getPixelTransformForImage_(self);
     v20[0] = 0.0;
     [v9 getFloatValue:v20 fromParm:1 atFxTime:info->var0.var1];
     v20[0] = v20[0] * 0.5;
@@ -186,7 +186,7 @@ LABEL_12:
       {
         if (input)
         {
-          [input heliumRef];
+          objc_msgSend_heliumRef(input, v20[0]);
         }
 
         else
@@ -205,7 +205,7 @@ LABEL_12:
       {
         if (input)
         {
-          [input heliumRef];
+          objc_msgSend_heliumRef(input, v20[0]);
         }
 
         else

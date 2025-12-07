@@ -12,31 +12,32 @@
   v8 = v7;
   v9 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   v10 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
-  v11 = specialized _dictionaryDownCast<A, B, C, D>(_:)(v9);
+  specialized _dictionaryDownCast<A, B, C, D>(_:)(v9);
+  v12 = v11;
 
-  specialized AppExtensionPointEnumerator.init(bundleIdentifier:sdkDictionary:entitlements:)(v6, v8, v11, v10, &v21);
-  v12 = self + OBJC_IVAR____EXAppExtensionPointEnumerator_inner;
-  v13 = v21;
+  specialized AppExtensionPointEnumerator.init(bundleIdentifier:sdkDictionary:entitlements:)(v6, v8, v12, v10, &v22);
+  v13 = self + OBJC_IVAR____EXAppExtensionPointEnumerator_inner;
   v14 = v22;
   v15 = v23;
-  v26 = *(&v22 + 1);
-  v16 = v22;
-  *v12 = v21;
-  *(v12 + 1) = v16;
-  *(v12 + 4) = v15;
+  v16 = v24;
+  v27 = *(&v23 + 1);
+  v17 = v23;
+  *v13 = v22;
+  *(v13 + 1) = v17;
+  *(v13 + 4) = v16;
 
-  outlined init with copy of UUID?(&v26, v24, &_sSDySSypGMd, &_sSDySSypGMR);
-  specialized AppExtensionPointEnumerator.Iterator.init(_:)(v13, *(&v13 + 1), v14, *(&v14 + 1), v15, v24);
-  outlined destroy of NSObject?(&v26, &_sSDySSypGMd, &_sSDySSypGMR);
-  v17 = self + OBJC_IVAR____EXAppExtensionPointEnumerator_iterator;
-  v18 = v24[1];
-  *v17 = v24[0];
-  *(v17 + 1) = v18;
-  *(v17 + 2) = v24[2];
-  *(v17 + 6) = v25;
-  v20.receiver = self;
-  v20.super_class = _EXAppExtensionPointEnumerator;
-  return [(_EXAppExtensionPointEnumerator *)&v20 init];
+  outlined init with copy of UUID?(&v27, v25, &_sSDySSypGMd, &_sSDySSypGMR);
+  specialized AppExtensionPointEnumerator.Iterator.init(_:)(v14, *(&v14 + 1), v15, *(&v15 + 1), v16, v25);
+  outlined destroy of NSObject?(&v27, &_sSDySSypGMd, &_sSDySSypGMR);
+  v18 = self + OBJC_IVAR____EXAppExtensionPointEnumerator_iterator;
+  v19 = v25[1];
+  *v18 = v25[0];
+  *(v18 + 1) = v19;
+  *(v18 + 2) = v25[2];
+  *(v18 + 6) = v26;
+  v21.receiver = self;
+  v21.super_class = _EXAppExtensionPointEnumerator;
+  return [(_EXAppExtensionPointEnumerator *)&v21 init];
 }
 
 - (id)nextObject
@@ -59,24 +60,23 @@
     *(v15 + 2) = v10;
     v15[24] = v12;
     v15[25] = HIBYTE(v12) & 1;
-    v25.receiver = v14;
-    v25.super_class = v13;
-    v16 = [(_EXAppExtensionPointEnumerator *)&v25 init];
-    v26[3] = v13;
-    v26[0] = v16;
+    v24.receiver = v14;
+    v24.super_class = v13;
+    v16 = [(_EXAppExtensionPointEnumerator *)&v24 init];
+    v25[3] = v13;
+    v25[0] = v16;
 
     if (v13)
     {
-      v17 = __swift_project_boxed_opaque_existential_1(v26, v13);
+      v17 = __swift_project_boxed_opaque_existential_1(v25, v13);
       v18 = *(v13 - 1);
-      v19 = *(v18 + 64);
       MEMORY[0x1EEE9AC00](v17);
-      v21 = &v25 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-      (*(v18 + 16))(v21);
-      v22 = _bridgeAnythingToObjectiveC<A>(_:)();
-      (*(v18 + 8))(v21, v13);
-      __swift_destroy_boxed_opaque_existential_0Tm(v26);
-      v23 = v22;
+      v20 = &v24 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
+      (*(v18 + 16))(v20);
+      v21 = _bridgeAnythingToObjectiveC<A>(_:)();
+      (*(v18 + 8))(v20, v13);
+      __swift_destroy_boxed_opaque_existential_0Tm(v25);
+      v22 = v21;
       goto LABEL_6;
     }
   }
@@ -85,10 +85,10 @@
   {
   }
 
-  v23 = 0;
+  v22 = 0;
 LABEL_6:
 
-  return v23;
+  return v22;
 }
 
 - (_EXAppExtensionPointEnumerator)init

@@ -35,7 +35,7 @@
   swift_unknownObjectRetain();
   sub_1BA4A7BF8();
   swift_unknownObjectRelease();
-  __swift_destroy_boxed_opaque_existential_1(&v3);
+  __swift_destroy_boxed_opaque_existential_1(v3);
 }
 
 - (_TtC18HealthExperienceUI31CameraScannerFlowViewController)initWithNibName:(id)name bundle:(id)bundle

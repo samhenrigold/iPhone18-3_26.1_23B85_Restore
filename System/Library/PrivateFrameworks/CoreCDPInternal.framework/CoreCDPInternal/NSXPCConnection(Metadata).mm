@@ -8,18 +8,16 @@
 
 - (__CFString)processName
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v5 = 648;
-  memset(v6, 0, 512);
+  v6 = *MEMORY[0x277D85DE8];
+  v4 = 648;
+  memset(v5, 0, 512);
   dword_28134D0CC = [self processIdentifier];
-  v1 = sysctl(processName_name, 4u, v6, &v5, 0, 0);
+  v1 = sysctl(processName_name, 4u, v5, &v4, 0, 0);
   v2 = @"unknown";
-  if (!v1 && BYTE3(v6[15]))
+  if (!v1 && BYTE3(v5[15]))
   {
-    v2 = [MEMORY[0x277CCACA8] stringWithUTF8String:&v6[15] + 3];
+    v2 = [MEMORY[0x277CCACA8] stringWithUTF8String:&v5[15] + 3];
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
@@ -27,84 +25,81 @@
 - (id)bundleID
 {
   v14 = *MEMORY[0x277D85DE8];
-  [self auditToken];
-  v2 = SecTaskCreateWithAuditToken(0, &token);
-  if (v2)
+  objc_msgSend_auditToken(self, a2);
+  v3 = SecTaskCreateWithAuditToken(0, &token);
+  if (v3)
   {
-    v3 = v2;
+    v4 = v3;
     error = 0;
-    v4 = SecTaskCopySigningIdentifier(v2, &error);
-    v5 = v4;
+    v5 = SecTaskCopySigningIdentifier(v3, &error);
+    v6 = v5;
     if (error)
     {
-      v6 = _CDPLogSystem();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v7 = _CDPLogSystem();
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         token.val[0] = 138412802;
         *&token.val[1] = self;
         LOWORD(token.val[3]) = 2112;
-        *(&token.val[3] + 2) = v3;
+        *(&token.val[3] + 2) = v4;
         HIWORD(token.val[5]) = 2112;
         *&token.val[6] = error;
-        _os_log_error_impl(&dword_24510B000, v6, OS_LOG_TYPE_ERROR, "%@: Failed to copy signing ID from task (%@) with error (%@)", &token, 0x20u);
+        _os_log_error_impl(&dword_24510B000, v7, OS_LOG_TYPE_ERROR, "%@: Failed to copy signing ID from task (%@) with error (%@)", &token, 0x20u);
       }
 
       CFRelease(error);
-      if (!v5)
+      if (!v6)
       {
         goto LABEL_15;
       }
 
-      CFRelease(v5);
+      CFRelease(v6);
     }
 
     else
     {
-      if (v4)
+      if (v5)
       {
 LABEL_15:
-        CFRelease(v3);
+        CFRelease(v4);
         goto LABEL_16;
       }
 
-      v8 = _CDPLogSystem();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = _CDPLogSystem();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         [(NSXPCConnection(Metadata) *)self bundleID];
       }
     }
 
-    v5 = 0;
+    v6 = 0;
     goto LABEL_15;
   }
 
-  v7 = _CDPLogSystem();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v8 = _CDPLogSystem();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     [(NSXPCConnection(Metadata) *)self bundleID];
   }
 
-  v5 = 0;
+  v6 = 0;
 LABEL_16:
-  if (![v5 length])
+  if (![v6 length])
   {
-    v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"UNKNOWN-%0000x", arc4random_uniform(0xFFFFu)];
+    v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"UNKNOWN-%0000x", arc4random_uniform(0xFFFFu)];
 
-    v5 = v9;
+    v6 = v10;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-
-  return v5;
+  return v6;
 }
 
 - (void)bundleID
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_24510B000, a2, OS_LOG_TYPE_ERROR, "%@: Failed to allocate security task (using framework-provided identifier)", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_24510B000, a2, OS_LOG_TYPE_ERROR, "%@: Failed to allocate security task (using framework-provided identifier)", &v2, 0xCu);
 }
 
 @end

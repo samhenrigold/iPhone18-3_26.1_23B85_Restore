@@ -16,9 +16,9 @@
     +[CNContact(TUSearchUtilities) keysToFetchForFaceTime];
   }
 
-  v1 = keysToFetchForFaceTime_keysToFetchForFaceTime;
+  v2 = keysToFetchForFaceTime_keysToFetchForFaceTime;
 
-  return v1;
+  return v2;
 }
 
 - (id)anyDestinationID

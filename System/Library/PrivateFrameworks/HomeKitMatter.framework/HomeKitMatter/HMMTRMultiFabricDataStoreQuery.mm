@@ -42,7 +42,7 @@
 
 - (id)fabricDataFromV2FabricDataItem:(id)item
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   rootKeyPair = [itemCopy rootKeyPair];
   residentOpKeyPair = [itemCopy residentOpKeyPair];
@@ -61,17 +61,15 @@
     {
       v15 = HMFGetLogIdentifier();
       uuid = [itemCopy uuid];
-      v19 = 138543618;
-      v20 = v15;
-      v21 = 2112;
-      v22 = uuid;
-      _os_log_impl(&dword_22AEAE000, v14, OS_LOG_TYPE_ERROR, "%{public}@Failed to derive fabric data from combined data item: %@", &v19, 0x16u);
+      v18 = 138543618;
+      v19 = v15;
+      v20 = 2112;
+      v21 = uuid;
+      _os_log_impl(&dword_22AEAE000, v14, OS_LOG_TYPE_ERROR, "%{public}@Failed to derive fabric data from combined data item: %@", &v18, 0x16u);
     }
 
     objc_autoreleasePoolPop(v12);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -80,7 +78,7 @@
 {
   storeCopy = store;
   selfCopy = self;
-  v186 = *MEMORY[0x277D85DE8];
+  v185 = *MEMORY[0x277D85DE8];
   if (store)
   {
     *store = 0;
@@ -89,13 +87,13 @@
   v2FabricDataStoreDelegate = [(HMMTRMultiFabricDataStoreQuery *)self v2FabricDataStoreDelegate];
   fabricDataItems = [v2FabricDataStoreDelegate fabricDataItems];
 
-  v179 = 0u;
-  v180 = 0u;
-  v177 = 0u;
   v178 = 0u;
+  v179 = 0u;
+  v176 = 0u;
+  v177 = 0u;
   v9 = fabricDataItems;
-  v10 = [v9 countByEnumeratingWithState:&v177 objects:v185 count:16];
-  v174 = selfCopy;
+  v10 = [v9 countByEnumeratingWithState:&v176 objects:v184 count:16];
+  v173 = selfCopy;
   if (!v10)
   {
 
@@ -110,22 +108,22 @@
 
   v11 = v10;
   errorCopy = error;
-  v170 = storeCopy;
+  v169 = storeCopy;
   v12 = 0;
   v13 = 0;
-  v14 = *v178;
-  v172 = *v178;
+  v14 = *v177;
+  v171 = *v177;
   do
   {
     for (i = 0; i != v11; ++i)
     {
       v16 = v13;
-      if (*v178 != v14)
+      if (*v177 != v14)
       {
         objc_enumerationMutation(v9);
       }
 
-      v13 = *(*(&v177 + 1) + 8 * i);
+      v13 = *(*(&v176 + 1) + 8 * i);
       v17 = [(HMMTRMultiFabricDataStoreQuery *)selfCopy fabricDataFromV2FabricDataItem:v13];
       if (!v17)
       {
@@ -157,8 +155,8 @@ LABEL_16:
           v9 = v19;
 LABEL_17:
           v12 = v18;
-          v14 = v172;
-          selfCopy = v174;
+          v14 = v171;
+          selfCopy = v173;
 LABEL_18:
           v29 = v17;
 
@@ -201,12 +199,12 @@ LABEL_18:
       v13 = v16;
       v9 = v19;
       v12 = v18;
-      v14 = v172;
-      selfCopy = v174;
+      v14 = v171;
+      selfCopy = v173;
 LABEL_23:
     }
 
-    v11 = [v9 countByEnumeratingWithState:&v177 objects:v185 count:16];
+    v11 = [v9 countByEnumeratingWithState:&v176 objects:v184 count:16];
   }
 
   while (v11);
@@ -214,8 +212,8 @@ LABEL_23:
   if (!v12)
   {
     error = errorCopy;
-    storeCopy = v170;
-    if (!v170)
+    storeCopy = v169;
+    if (!v169)
     {
 LABEL_30:
       chipStorageDelegate = [(HMMTRMultiFabricDataStoreQuery *)selfCopy chipStorageDelegate];
@@ -250,7 +248,7 @@ LABEL_30:
             HMFGetLogIdentifier();
             v47 = v46 = v13;
             *buf = 138543362;
-            v182 = v47;
+            v181 = v47;
             _os_log_impl(&dword_22AEAE000, v45, OS_LOG_TYPE_INFO, "%{public}@No fabric ID", buf, 0xCu);
 
             v13 = v46;
@@ -270,19 +268,19 @@ LABEL_30:
           HMFGetLogIdentifier();
           v53 = v52 = v13;
           *buf = 138543618;
-          v182 = v53;
-          v183 = 2112;
-          v184 = fabricID;
+          v181 = v53;
+          v182 = 2112;
+          v183 = fabricID;
           _os_log_impl(&dword_22AEAE000, v51, OS_LOG_TYPE_INFO, "%{public}@In-memory fabric ID %@ is used while KVS hasn't stored fabric ID yet", buf, 0x16u);
 
           v13 = v52;
         }
 
         objc_autoreleasePoolPop(v49);
-        selfCopy = v174;
+        selfCopy = v173;
       }
 
-      v173 = v13;
+      v172 = v13;
       [(HMMTRMultiFabricDataStoreQuery *)selfCopy keychainDelegate];
       v55 = v54 = selfCopy;
       nocSigner = [v55 nocSigner];
@@ -301,13 +299,13 @@ LABEL_30:
         {
           v86 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v182 = v86;
+          v181 = v86;
           _os_log_impl(&dword_22AEAE000, v85, OS_LOG_TYPE_INFO, "%{public}@No fabric root key pair", buf, 0xCu);
         }
 
         objc_autoreleasePoolPop(v83);
         v48 = 0;
-        v13 = v173;
+        v13 = v172;
         goto LABEL_116;
       }
 
@@ -336,7 +334,7 @@ LABEL_30:
         *error = [v73 hapErrorWithCode:36 description:0 reason:0 suggestion:0 underlyingError:v74];
 
         v75 = objc_autoreleasePoolPush();
-        v76 = v174;
+        v76 = v173;
         v77 = HMFGetOSLogHandle();
         if (os_log_type_enabled(v77, OS_LOG_TYPE_INFO))
         {
@@ -344,7 +342,7 @@ LABEL_30:
           v78 = v58;
           v80 = v79 = v9;
           *buf = 138543362;
-          v182 = v80;
+          v181 = v80;
           _os_log_impl(&dword_22AEAE000, v77, OS_LOG_TYPE_INFO, "%{public}@No IPK", buf, 0xCu);
 
           v9 = v79;
@@ -353,20 +351,20 @@ LABEL_30:
 
         objc_autoreleasePoolPop(v75);
         v48 = 0;
-        v13 = v173;
+        v13 = v172;
         goto LABEL_115;
       }
 
       v64 = v63;
-      v166 = v62;
-      v167 = v58;
-      v169 = v9;
+      v165 = v62;
+      v166 = v58;
+      v168 = v9;
       keyValueStore3 = [chipStorageDelegate keyValueStore];
+      v174 = 0;
       v175 = 0;
-      v176 = 0;
-      v156 = [HMMTRStorage knownFabricInStorage:keyValueStore3 fabricID:fabricID keyPair:copyV0KeyPair controllerNodeID:&v176 rootCertificate:&v175];
-      v66 = v176;
-      v171 = v175;
+      v155 = [HMMTRStorage knownFabricInStorage:keyValueStore3 fabricID:fabricID keyPair:copyV0KeyPair controllerNodeID:&v175 rootCertificate:&v174];
+      v66 = v175;
+      v170 = v174;
 
       keyValueStore4 = [chipStorageDelegate keyValueStore];
       v68 = [keyValueStore4 objectForKeyedSubscript:@"HMD.MTRPlugin.OperationalCert"];
@@ -384,7 +382,7 @@ LABEL_30:
 
       v70 = v69;
 
-      v164 = v70;
+      v163 = v70;
       if (v70)
       {
         v71 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBase64EncodedString:v70 options:0];
@@ -395,14 +393,14 @@ LABEL_30:
         v71 = 0;
       }
 
-      v163 = v71;
-      v162 = [MEMORY[0x277CD5230] convertX509Certificate:v71];
-      v161 = [objc_alloc(MEMORY[0x277CD5228]) initWithTLVBytes:v162];
-      subject = [v161 subject];
+      v162 = v71;
+      v161 = [MEMORY[0x277CD5230] convertX509Certificate:v71];
+      v160 = [objc_alloc(MEMORY[0x277CD5228]) initWithTLVBytes:v161];
+      subject = [v160 subject];
       nodeID = [subject nodeID];
 
-      v165 = v66;
-      v160 = v64;
+      v164 = v66;
+      v159 = v64;
       if (!nodeID)
       {
         if (!v66)
@@ -412,29 +410,29 @@ LABEL_30:
           *error = [v118 hapErrorWithCode:36 description:0 reason:0 suggestion:0 underlyingError:v119];
 
           v120 = objc_autoreleasePoolPush();
-          v121 = v174;
+          v121 = v173;
           v122 = HMFGetOSLogHandle();
           if (os_log_type_enabled(v122, OS_LOG_TYPE_INFO))
           {
             v123 = HMFGetLogIdentifier();
             *buf = 138543362;
-            v182 = v123;
+            v181 = v123;
             _os_log_impl(&dword_22AEAE000, v122, OS_LOG_TYPE_INFO, "%{public}@No legacy resident node ID retrieved from stored operational cert", buf, 0xCu);
           }
 
           objc_autoreleasePoolPop(v120);
           v48 = 0;
-          v58 = v167;
-          v9 = v169;
-          v13 = v173;
-          v72 = v166;
+          v58 = v166;
+          v9 = v168;
+          v13 = v172;
+          v72 = v165;
           goto LABEL_114;
         }
 
         nodeID = v66;
       }
 
-      v159 = nodeID;
+      v158 = nodeID;
       keyValueStore5 = [chipStorageDelegate keyValueStore];
       v90 = [keyValueStore5 objectForKeyedSubscript:@"HMD.MTRPlugin.RootCert"];
 
@@ -451,27 +449,27 @@ LABEL_30:
 
       v92 = v91;
 
-      v158 = v92;
+      v157 = v92;
       if (!v92 || (v93 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBase64EncodedString:v92 options:0]) == 0)
       {
-        v9 = v169;
-        if (!v171)
+        v9 = v168;
+        if (!v170)
         {
           v112 = MEMORY[0x277CCA9B8];
           v113 = [MEMORY[0x277CCA9B8] hmmtrErrorWithCode:2];
           *error = [v112 hapErrorWithCode:36 description:0 reason:0 suggestion:0 underlyingError:v113];
 
           v114 = objc_autoreleasePoolPush();
-          v115 = v174;
+          v115 = v173;
           v116 = HMFGetOSLogHandle();
           if (os_log_type_enabled(v116, OS_LOG_TYPE_INFO))
           {
             v117 = HMFGetLogIdentifier();
             *buf = 138543362;
-            v182 = v117;
+            v181 = v117;
             _os_log_impl(&dword_22AEAE000, v116, OS_LOG_TYPE_INFO, "%{public}@No root cert", buf, 0xCu);
 
-            v9 = v169;
+            v9 = v168;
           }
 
           objc_autoreleasePoolPop(v114);
@@ -479,17 +477,17 @@ LABEL_30:
           goto LABEL_88;
         }
 
-        v93 = v171;
+        v93 = v170;
       }
 
       if ([MEMORY[0x277CD5230] keypair:copyV0KeyPair matchesCertificate:v93])
       {
-        v154 = v93;
-        keychainDelegate = [(HMMTRMultiFabricDataStoreQuery *)v174 keychainDelegate];
+        v153 = v93;
+        keychainDelegate = [(HMMTRMultiFabricDataStoreQuery *)v173 keychainDelegate];
         ownerSharedOperationalKeyPair = [keychainDelegate ownerSharedOperationalKeyPair];
         copyV0KeyPair2 = [ownerSharedOperationalKeyPair copyV0KeyPair];
 
-        v155 = copyV0KeyPair2;
+        v154 = copyV0KeyPair2;
         if (!copyV0KeyPair2)
         {
           v133 = MEMORY[0x277CCA9B8];
@@ -497,22 +495,22 @@ LABEL_30:
           *error = [v133 hapErrorWithCode:36 description:0 reason:0 suggestion:0 underlyingError:v134];
 
           v135 = objc_autoreleasePoolPush();
-          v136 = v174;
+          v136 = v173;
           v137 = HMFGetOSLogHandle();
           if (os_log_type_enabled(v137, OS_LOG_TYPE_ERROR))
           {
             v138 = HMFGetLogIdentifier();
             *buf = 138543362;
-            v182 = v138;
+            v181 = v138;
             _os_log_impl(&dword_22AEAE000, v137, OS_LOG_TYPE_ERROR, "%{public}@No operational key pair", buf, 0xCu);
           }
 
           objc_autoreleasePoolPop(v135);
           v48 = 0;
-          v58 = v167;
-          v9 = v169;
-          v13 = v173;
-          v72 = v166;
+          v58 = v166;
+          v9 = v168;
+          v13 = v172;
+          v72 = v165;
           v103 = 0;
           goto LABEL_112;
         }
@@ -533,7 +531,7 @@ LABEL_30:
 
         v100 = v99;
 
-        v9 = v169;
+        v9 = v168;
         v101 = 0x277CD5000uLL;
         if (v100)
         {
@@ -544,12 +542,12 @@ LABEL_30:
           }
         }
 
-        v153 = v100;
-        if (v156)
+        v152 = v100;
+        if (v155)
         {
-          v156 = [MEMORY[0x277CCACA8] stringWithFormat:@"f/%x/n", v156];
+          v155 = [MEMORY[0x277CCACA8] stringWithFormat:@"f/%x/n", v155];
           keyValueStore7 = [chipStorageDelegate keyValueStore];
-          v126 = [keyValueStore7 objectForKeyedSubscript:v156];
+          v126 = [keyValueStore7 objectForKeyedSubscript:v155];
 
           objc_opt_class();
           if (objc_opt_isKindOfClass())
@@ -567,64 +565,64 @@ LABEL_30:
           if (v128 && (v129 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBase64EncodedString:v128 options:0]) != 0)
           {
             v130 = v129;
-            v131 = v156;
+            v131 = v155;
             v132 = [MEMORY[0x277CD5230] convertMatterCertificate:v129];
-            if ([MEMORY[0x277CD5230] keypair:v155 matchesCertificate:v132])
+            if ([MEMORY[0x277CD5230] keypair:v154 matchesCertificate:v132])
             {
-              v157 = v132;
+              v156 = v132;
             }
 
             else
             {
-              v157 = 0;
+              v156 = 0;
             }
 
             v101 = 0x277CD5000;
-            if (v157)
+            if (v156)
             {
 
               v102 = 0;
-              v100 = v153;
+              v100 = v152;
 LABEL_80:
-              v103 = v155;
+              v103 = v154;
               v104 = v102;
-              if ([*(v101 + 560) keypair:v155 matchesCertificate:v102])
+              if ([*(v101 + 560) keypair:v154 matchesCertificate:v102])
               {
-                v58 = v167;
-                v48 = [[HMMTRFabricData alloc] initWithRootPublicKey:v167 fabricID:fabricID ipk:v64 residentNodeID:v159 rootKeyPair:copyV0KeyPair rootCert:v154 residentOperationalKeyPair:v155 residentOperationalCert:v104];
+                v58 = v166;
+                v48 = [[HMMTRFabricData alloc] initWithRootPublicKey:v166 fabricID:fabricID ipk:v64 residentNodeID:v158 rootKeyPair:copyV0KeyPair rootCert:v153 residentOperationalKeyPair:v154 residentOperationalCert:v104];
 
 LABEL_111:
-                v13 = v173;
-                v72 = v166;
+                v13 = v172;
+                v72 = v165;
 LABEL_112:
 
                 goto LABEL_113;
               }
 
-              v153 = v100;
+              v152 = v100;
               v139 = MEMORY[0x277CCA9B8];
               v140 = [MEMORY[0x277CCA9B8] hmmtrErrorWithCode:2];
               *error = [v139 hapErrorWithCode:36 description:0 reason:0 suggestion:0 underlyingError:v140];
 
               v141 = objc_autoreleasePoolPush();
-              v142 = v174;
+              v142 = v173;
               v143 = HMFGetOSLogHandle();
               if (os_log_type_enabled(v143, OS_LOG_TYPE_ERROR))
               {
                 v144 = HMFGetLogIdentifier();
                 *buf = 138543362;
-                v182 = v144;
+                v181 = v144;
                 _os_log_impl(&dword_22AEAE000, v143, OS_LOG_TYPE_ERROR, "%{public}@Operational key doesn't match operational cert", buf, 0xCu);
 
-                v9 = v169;
+                v9 = v168;
               }
 
               objc_autoreleasePoolPop(v141);
 LABEL_110:
               v48 = 0;
-              v58 = v167;
-              v103 = v155;
-              v100 = v153;
+              v58 = v166;
+              v103 = v154;
+              v100 = v152;
               goto LABEL_111;
             }
           }
@@ -639,16 +637,16 @@ LABEL_110:
         *error = [v145 hapErrorWithCode:36 description:0 reason:0 suggestion:0 underlyingError:v146];
 
         v147 = objc_autoreleasePoolPush();
-        v148 = v174;
+        v148 = v173;
         v149 = HMFGetOSLogHandle();
         if (os_log_type_enabled(v149, OS_LOG_TYPE_INFO))
         {
           v150 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v182 = v150;
+          v181 = v150;
           _os_log_impl(&dword_22AEAE000, v149, OS_LOG_TYPE_INFO, "%{public}@No operational cert", buf, 0xCu);
 
-          v9 = v169;
+          v9 = v168;
         }
 
         objc_autoreleasePoolPop(v147);
@@ -660,14 +658,14 @@ LABEL_110:
       *error = [v105 hapErrorWithCode:36 description:0 reason:0 suggestion:0 underlyingError:v106];
 
       v107 = objc_autoreleasePoolPush();
-      v108 = v174;
+      v108 = v173;
       v109 = HMFGetOSLogHandle();
       if (os_log_type_enabled(v109, OS_LOG_TYPE_ERROR))
       {
         HMFGetLogIdentifier();
         v111 = v110 = v93;
         *buf = 138543362;
-        v182 = v111;
+        v181 = v111;
         _os_log_impl(&dword_22AEAE000, v109, OS_LOG_TYPE_ERROR, "%{public}@Root key doesn't match root cert", buf, 0xCu);
 
         v93 = v110;
@@ -675,11 +673,11 @@ LABEL_110:
 
       objc_autoreleasePoolPop(v107);
       v48 = 0;
-      v9 = v169;
+      v9 = v168;
 LABEL_88:
-      v13 = v173;
-      v72 = v166;
-      v58 = v167;
+      v13 = v172;
+      v72 = v165;
+      v58 = v166;
 LABEL_113:
 
 LABEL_114:
@@ -697,14 +695,12 @@ LABEL_29:
     goto LABEL_30;
   }
 
-  if (v170)
+  if (v169)
   {
-    *v170 = 1;
+    *v169 = 1;
   }
 
 LABEL_118:
-
-  v151 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -742,12 +738,11 @@ LABEL_118:
 
 uint64_t __45__HMMTRMultiFabricDataStoreQuery_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v21;
-  logCategory__hmf_once_v21 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v21;
+  logCategory__hmf_once_v21 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

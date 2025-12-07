@@ -29,25 +29,23 @@
 - (id)contextualInfoForIdentifier:(id)identifier
 {
   sub_232E014D0();
-  v4 = *(&self->super.isa + OBJC_IVAR___TPSFullTipUsageEventManager_queue);
   selfCopy = self;
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DDD7448, &qword_232E06520);
   sub_232E01770();
 
-  return v7;
+  return v6;
 }
 
 - (id)contextualInfoMap
 {
-  v2 = *(&self->super.isa + OBJC_IVAR___TPSFullTipUsageEventManager_queue);
   selfCopy = self;
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DDD7450, &qword_232E06528);
   sub_232E01770();
 
   sub_232DB3688(0, &qword_2814E7BF8, off_2789AEDC8);
-  v4 = sub_232E01450();
+  v3 = sub_232E01450();
 
-  return v4;
+  return v3;
 }
 
 - (void)removeUsageEventCache

@@ -9,7 +9,7 @@
 
 - (id)parameterStateFromLinkValue:(id)value
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   value = [value value];
   if (value)
   {
@@ -40,19 +40,17 @@
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       valueType2 = [(WFLinkActionParameterDefinition *)self valueType];
-      v15 = 136315650;
-      v16 = "[WFLinkActionRecurrenceRuleParameterDefinition parameterStateFromLinkValue:]";
-      v17 = 2114;
-      v18 = value;
-      v19 = 2114;
-      v20 = valueType2;
+      v14 = 136315650;
+      v15 = "[WFLinkActionRecurrenceRuleParameterDefinition parameterStateFromLinkValue:]";
+      v16 = 2114;
+      v17 = value;
+      v18 = 2114;
+      v19 = valueType2;
     }
   }
 
   v10 = 0;
 LABEL_11:
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

@@ -28,7 +28,7 @@
   contactCopy = contact;
   swift_unknownObjectRetain();
   sceneCopy = scene;
-  v15 = sub_199B29F10(contactCopy, skip, nickname, height, delegate, sceneCopy);
+  v15 = sub_199B29F10(contactCopy, skip, nickname, delegate, sceneCopy, height);
   swift_unknownObjectRelease();
 
   return v15;

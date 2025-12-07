@@ -8,7 +8,7 @@
 
 - (void)requestUnlockIfNeeded:(id)needed
 {
-  v25[1] = *MEMORY[0x1E69E9840];
+  v24[1] = *MEMORY[0x1E69E9840];
   neededCopy = needed;
   v5 = getLNLogCategoryConnection();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
@@ -17,9 +17,9 @@
     _os_log_impl(&dword_19763D000, v5, OS_LOG_TYPE_INFO, "Device unlock requested", buf, 2u);
   }
 
-  v24 = @"ExtendedDeviceLockState";
-  v25[0] = MEMORY[0x1E695E118];
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+  v23 = @"ExtendedDeviceLockState";
+  v24[0] = MEMORY[0x1E695E118];
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:&v23 count:1];
   v7 = MKBGetDeviceLockState();
   v8 = getLNLogCategoryConnection();
   v9 = os_log_type_enabled(v8, OS_LOG_TYPE_INFO);
@@ -47,16 +47,16 @@ LABEL_16:
 
       service = [(LNUnlockService *)self service];
       v16 = objc_opt_new();
-      v19[0] = MEMORY[0x1E69E9820];
-      v19[1] = 3221225472;
-      v19[2] = __41__LNUnlockService_requestUnlockIfNeeded___block_invoke_6;
-      v19[3] = &unk_1E74B1FF0;
-      v19[4] = self;
-      v20 = neededCopy;
+      v18[0] = MEMORY[0x1E69E9820];
+      v18[1] = 3221225472;
+      v18[2] = __41__LNUnlockService_requestUnlockIfNeeded___block_invoke_6;
+      v18[3] = &unk_1E74B1FF0;
+      v18[4] = self;
+      v19 = neededCopy;
       v17 = neededCopy;
-      [service requestPasscodeUnlockUIWithOptions:v16 withCompletion:v19];
+      [service requestPasscodeUnlockUIWithOptions:v16 withCompletion:v18];
 
-      v14 = v20;
+      v14 = v19;
       goto LABEL_18;
     }
 
@@ -81,14 +81,12 @@ LABEL_12:
   block[1] = 3221225472;
   block[2] = __41__LNUnlockService_requestUnlockIfNeeded___block_invoke;
   block[3] = &unk_1E74B1FA0;
-  v22 = neededCopy;
+  v21 = neededCopy;
   v13 = neededCopy;
   dispatch_async(queue, block);
 
-  v14 = v22;
+  v14 = v21;
 LABEL_18:
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __41__LNUnlockService_requestUnlockIfNeeded___block_invoke_6(uint64_t a1, int a2)

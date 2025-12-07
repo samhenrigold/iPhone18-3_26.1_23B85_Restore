@@ -2,6 +2,7 @@
 - (CGSize)sizeThatFits:(CGSize)fits;
 - (CKAssistantUIContentView)initWithFrame:(CGRect)frame;
 - (double)_balloonMaxWidthForBoundsWidth:(double)width;
+- (id)_balloonViewWithText:(id)text color:(char)color;
 - (void)layoutSubviews;
 - (void)setChatContent:(id)content;
 - (void)setMessageContent:(id)content sent:(BOOL)sent;
@@ -150,6 +151,32 @@
   result.height = v12;
   result.width = v13;
   return result;
+}
+
+- (id)_balloonViewWithText:(id)text color:(char)color
+{
+  colorCopy = color;
+  textCopy = text;
+  v6 = +[CKUIBehavior sharedBehaviors];
+  objc_opt_class();
+  v7 = CKBalloonViewForClass();
+  [v7 setHasTail:1];
+  [v7 setOrientation:1];
+  [v7 setColor:colorCopy];
+  [v7 setCanUseOpaqueMask:0];
+  v8 = [[NSMutableAttributedString alloc] initWithString:textCopy];
+
+  v9 = [v8 length];
+  balloonTextFont = [v6 balloonTextFont];
+  [v8 addAttribute:NSFontAttributeName value:balloonTextFont range:{0, v9}];
+  theme = [v6 theme];
+  v12 = [theme balloonTextColorForColorType:{objc_msgSend(v7, "color")}];
+  [v8 addAttribute:NSForegroundColorAttributeName value:v12 range:{0, v9}];
+
+  [v7 setAttributedText:v8];
+  [v7 prepareForDisplay];
+
+  return v7;
 }
 
 - (double)_balloonMaxWidthForBoundsWidth:(double)width

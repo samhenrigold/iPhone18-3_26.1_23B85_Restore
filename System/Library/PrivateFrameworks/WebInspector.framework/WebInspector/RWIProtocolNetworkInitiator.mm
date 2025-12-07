@@ -6,6 +6,7 @@
 - (int)nodeId;
 - (int64_t)type;
 - (void)setLineNumber:(double)number;
+- (void)setNodeId:(int)id;
 - (void)setStackTrace:(id)trace;
 - (void)setType:(int64_t)type;
 - (void)setUrl:(id)url;
@@ -114,7 +115,7 @@ LABEL_8:
     v11.receiver = self;
     v11.super_class = RWIProtocolNetworkInitiator;
     v5 = [(RWIProtocolJSONObject *)&v11 objectForKey:@"stackTrace"];
-    [v5 toJSONObject];
+    objc_msgSend_toJSONObject(v5);
     v6 = v12;
     ++*v12;
     v13 = v6;
@@ -187,6 +188,13 @@ LABEL_8:
   v3.super_class = RWIProtocolNetworkInitiator;
   [(RWIProtocolJSONObject *)&v3 doubleForKey:@"lineNumber"];
   return result;
+}
+
+- (void)setNodeId:(int)id
+{
+  v3.receiver = self;
+  v3.super_class = RWIProtocolNetworkInitiator;
+  [(RWIProtocolJSONObject *)&v3 setInteger:*&id forKey:@"nodeId"];
 }
 
 - (int)nodeId

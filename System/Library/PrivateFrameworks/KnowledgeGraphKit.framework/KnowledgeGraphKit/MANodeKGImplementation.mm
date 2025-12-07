@@ -17,21 +17,20 @@
 
 - (void)enumerateNeighborNodesMatchingFilter:(id)filter usingBlock:(id)block
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   blockCopy = block;
   filterCopy = filter;
   v8 = +[(MAElementFilter *)MAEdgeFilter];
   anyDirectionRelation = [v8 anyDirectionRelation];
   excludeSource = [anyDirectionRelation excludeSource];
-  v15[0] = excludeSource;
+  v14[0] = excludeSource;
   relation = [filterCopy relation];
 
-  v15[1] = relation;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
+  v14[1] = relation;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
   v13 = [MARelation chain:v12];
 
   [(MANodeKGImplementation *)self enumerateNodesRelatedWithRelation:v13 usingBlock:blockCopy];
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enumerateNodesRelatedWithRelation:(id)relation usingBlock:(id)block

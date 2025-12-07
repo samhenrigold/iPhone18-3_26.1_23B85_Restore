@@ -114,7 +114,7 @@
 {
   filterType = self->_filterType;
   filterType = [effect filterType];
-  LOBYTE(filterType) = [(NSString *)filterType isEqualToString:filterType];
+  LOBYTE(filterType) = objc_msgSend_isEqualToString_(filterType);
 
   return filterType;
 }

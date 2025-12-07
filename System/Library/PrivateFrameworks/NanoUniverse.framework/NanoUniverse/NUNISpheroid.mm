@@ -159,7 +159,7 @@
   v19 = 0.0;
   v18 = 0;
   targetCopy = target;
-  NUNIComputeSpheroidTransformParameters(self, targetCopy, &v20, &v19, &v17, &v18 + 1, &v18, 1);
+  NUNIComputeSpheroidTransformParameters(self, targetCopy, &v20, &v19, v17, &v18 + 1, &v18, 1);
   *v9.i64 = NUNIComputeSpheroidParentPosition(self->_parent, targetCopy);
   v15 = v9;
 
@@ -168,10 +168,10 @@
   *(&v11 + 1) = -v10.f32[0];
   v16 = vaddq_f32(v15, v11);
   WeakRetained = objc_loadWeakRetained(&self->_scene);
-  structure = [WeakRetained structure];
+  v13 = objc_msgSend_structure(WeakRetained);
 
-  v14 = NUNIComputeCameraView(self->_structure.type, *&vadd_f32(*&self->_anon_30[112], structure[13]), v20);
-  *v6 = vmlaq_n_f32(v16, vmulq_n_f32(vnegq_f32(v14), *&v18), structure[6].f32[0]);
+  v14 = NUNIComputeCameraView(self->_structure.type, *&vadd_f32(*&self->_anon_30[112], v13[13]), v20);
+  *v6 = vmlaq_n_f32(v16, vmulq_n_f32(vnegq_f32(v14), *&v18), v13[6].f32[0]);
   *v5 = v16;
 }
 
@@ -352,9 +352,9 @@ LABEL_5:
     }
 
     v6 = objc_loadWeakRetained(&self->_scene);
-    structure = [v6 structure];
+    v7 = objc_msgSend_structure(v6);
 
-    v17 = NUNIComputeCameraView(self->_structure.type, *&vadd_f32(*&self->_anon_30[112], structure[13]), self->_structure.equatorRotation);
+    v17 = NUNIComputeCameraView(self->_structure.type, *&vadd_f32(*&self->_anon_30[112], v7[13]), self->_structure.equatorRotation);
     v14 = *&self->_anon_30[52];
     v15 = *&self->_anon_30[64];
     v8 = objc_loadWeakRetained(&self->_scene);

@@ -149,24 +149,25 @@
 
 - (void)commonInit
 {
-  v11.receiver = self;
-  v11.super_class = PDFActionRemoteGoTo;
-  [(PDFAction *)&v11 commonInit];
+  v12.receiver = self;
+  v12.super_class = PDFActionRemoteGoTo;
+  [(PDFAction *)&v12 commonInit];
   v3 = objc_alloc_init(PDFActionRemoteGoToPrivateVars);
   private2 = self->_private2;
   self->_private2 = v3;
 
   self->_private2->pageIndex = 0;
   v5 = self->_private2;
-  v5->point.x = PDFPointMake(3.40282347e38, 3.40282347e38);
-  v5->point.y = v6;
-  v7 = self->_private2;
-  url = v7->url;
-  v7->url = 0;
+  PDFPointMake();
+  v5->point.x = v6;
+  v5->point.y = v7;
+  v8 = self->_private2;
+  url = v8->url;
+  v8->url = 0;
 
-  v9 = self->_private2;
-  destination = v9->destination;
-  v9->destination = 0;
+  v10 = self->_private2;
+  destination = v10->destination;
+  v10->destination = 0;
 }
 
 - (__CFDictionary)createDictionaryRef

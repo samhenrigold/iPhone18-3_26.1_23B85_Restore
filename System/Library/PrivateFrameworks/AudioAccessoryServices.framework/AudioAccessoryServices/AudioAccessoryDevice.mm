@@ -1279,16 +1279,16 @@
 - (id)descriptionWithLevel:(int)level
 {
   levelCopy = level;
-  identifier = self->_identifier;
-  NSAppendPrintF_safe();
-  v4 = 0;
+  v451[0] = 0;
+  NSAppendPrintF_safe(v451, "AADevice id: %@, ", self->_identifier);
+  v4 = v451[0];
   v5 = self->_name;
   v6 = v5;
   if (v5)
   {
-    identifier = v5;
-    NSAppendPrintF_safe();
-    v7 = v4;
+    v450 = v4;
+    NSAppendPrintF_safe(&v450, "nm %@, ", v5);
+    v7 = v450;
 
     v4 = v7;
   }
@@ -1297,190 +1297,199 @@
   v9 = v8;
   if (v8)
   {
-    identifier = v8;
-    NSAppendPrintF_safe();
-    v10 = v4;
+    v449 = v4;
+    NSAppendPrintF_safe(&v449, "ml %@, ", v8);
+    v10 = v449;
 
     v4 = v10;
   }
 
-  if (self->_productID)
+  productID = self->_productID;
+  if (productID)
   {
-    identifier = self->_productID;
-    NSAppendPrintF_safe();
-    v11 = v4;
+    v448 = v4;
+    NSAppendPrintF_safe(&v448, "pid %u, ", productID);
+    v12 = v448;
 
-    v4 = v11;
+    v4 = v12;
   }
 
-  NSAppendPrintF_safe();
-  v12 = v4;
+  v447 = v4;
+  NSAppendPrintF_safe(&v447, "\n");
+  v13 = v447;
 
-  v13 = [v12 length];
-  NSAppendPrintF_safe();
-  v14 = v12;
+  v14 = [v13 length];
+  v446 = v13;
+  NSAppendPrintF_safe(&v446, "AutoANC: ");
+  v15 = v446;
 
   autoANCCapability = self->_autoANCCapability;
   if (autoANCCapability)
   {
+    v445 = v15;
     if (autoANCCapability > 3)
     {
-      v16 = "?";
+      v17 = "?";
     }
 
     else
     {
-      v16 = off_278CDDA98[autoANCCapability - 1];
+      v17 = off_278CDDA98[autoANCCapability - 1];
     }
 
-    v289 = ShorthandString(v16);
-    NSAppendPrintF_safe();
-    v17 = v14;
+    v18 = ShorthandString(v17);
+    NSAppendPrintF_safe(&v445, "cap %s, ", v18);
+    v19 = v445;
 
-    v14 = v17;
+    v15 = v19;
   }
 
   autoANCStrength = self->_autoANCStrength;
   if (autoANCStrength)
   {
-    v19 = "High";
-    v20 = "?";
+    v444 = v15;
+    v21 = "High";
+    v22 = "?";
     if (autoANCStrength == 1050)
     {
-      v20 = "Medium";
+      v22 = "Medium";
     }
 
     if (autoANCStrength != 1100)
     {
-      v19 = v20;
+      v21 = v22;
     }
 
     if (autoANCStrength == 1000)
     {
-      v21 = "Low";
+      v23 = "Low";
     }
 
     else
     {
-      v21 = v19;
+      v23 = v21;
     }
 
-    v289 = ShorthandString(v21);
-    NSAppendPrintF_safe();
-    v22 = v14;
+    v24 = ShorthandString(v23);
+    NSAppendPrintF_safe(&v444, "cfg %s, ", v24);
+    v25 = v444;
 
-    v14 = v22;
+    v15 = v25;
   }
 
-  if ([v14 length] > v13)
+  if ([v15 length] > v14)
   {
-    NSAppendPrintF_safe();
-    v23 = v14;
+    v443 = v15;
+    NSAppendPrintF_safe(&v443, "\n");
+    v26 = v443;
 
-    v14 = v23;
+    v15 = v26;
   }
 
-  v24 = [v14 length];
+  v27 = [v15 length];
   batteryInfo = self->_batteryInfo;
   if (batteryInfo)
   {
     batteryMain = [(AADeviceBatteryInfo *)batteryInfo batteryMain];
-    v27 = batteryMain;
+    v30 = batteryMain;
     if (batteryMain)
     {
-      v290 = batteryMain;
-      NSAppendPrintF_safe();
-      v28 = v14;
+      v442 = v15;
+      NSAppendPrintF_safe(&v442, "%@, ", batteryMain);
+      v31 = v442;
 
-      v14 = v28;
+      v15 = v31;
     }
 
     batteryCase = [(AADeviceBatteryInfo *)self->_batteryInfo batteryCase];
-    v30 = batteryCase;
+    v33 = batteryCase;
     if (batteryCase)
     {
-      v290 = batteryCase;
-      NSAppendPrintF_safe();
-      v31 = v14;
+      v441 = v15;
+      NSAppendPrintF_safe(&v441, "%@, ", batteryCase);
+      v34 = v441;
 
-      v14 = v31;
+      v15 = v34;
     }
 
     batteryCombinedLeftRight = [(AADeviceBatteryInfo *)self->_batteryInfo batteryCombinedLeftRight];
-    v33 = batteryCombinedLeftRight;
+    v36 = batteryCombinedLeftRight;
     if (batteryCombinedLeftRight)
     {
-      v290 = batteryCombinedLeftRight;
-      NSAppendPrintF_safe();
-      v34 = v14;
+      v440 = v15;
+      NSAppendPrintF_safe(&v440, ", comb LR %@", batteryCombinedLeftRight);
+      v37 = v440;
 
-      v14 = v34;
+      v15 = v37;
     }
 
     batteryLeft = [(AADeviceBatteryInfo *)self->_batteryInfo batteryLeft];
-    v36 = batteryLeft;
+    v39 = batteryLeft;
     if (batteryLeft)
     {
-      v290 = batteryLeft;
-      NSAppendPrintF_safe();
-      v37 = v14;
+      v439 = v15;
+      NSAppendPrintF_safe(&v439, "%@, ", batteryLeft);
+      v40 = v439;
 
-      v14 = v37;
+      v15 = v40;
     }
 
     batteryRight = [(AADeviceBatteryInfo *)self->_batteryInfo batteryRight];
-    v39 = batteryRight;
+    v42 = batteryRight;
     if (batteryRight)
     {
-      v290 = batteryRight;
-      NSAppendPrintF_safe();
-      v40 = v14;
+      v438 = v15;
+      NSAppendPrintF_safe(&v438, "%@, ", batteryRight);
+      v43 = v438;
 
-      v14 = v40;
+      v15 = v43;
     }
 
-    if ([v14 length] > v24)
+    if ([v15 length] > v27)
     {
-      NSAppendPrintF_safe();
-      v41 = v14;
+      v437 = v15;
+      NSAppendPrintF_safe(&v437, "\n");
+      v44 = v437;
 
-      v14 = v41;
+      v15 = v44;
     }
 
-    v24 = [v14 length];
+    v27 = [v15 length];
   }
 
-  NSAppendPrintF_safe();
-  v42 = v14;
+  v436 = v15;
+  NSAppendPrintF_safe(&v436, "Bbl: ");
+  v45 = v436;
 
   bobbleCapability = self->_bobbleCapability;
   if (self->_bobbleCapability)
   {
     if (bobbleCapability == 1)
     {
-      v44 = "Unsupported";
+      v47 = "Unsupported";
     }
 
     else
     {
-      v44 = "?";
+      v47 = "?";
     }
 
     if (bobbleCapability == 2)
     {
-      v45 = "Supported";
+      v48 = "Supported";
     }
 
     else
     {
-      v45 = v44;
+      v48 = v47;
     }
 
-    v290 = ShorthandString(v45);
-    NSAppendPrintF_safe();
-    v46 = v42;
+    v49 = ShorthandString(v48);
+    v435 = v45;
+    NSAppendPrintF_safe(&v435, "cap %s, ", v49);
+    v50 = v435;
 
-    v42 = v46;
+    v45 = v50;
   }
 
   bobbleConfig = self->_bobbleConfig;
@@ -1488,133 +1497,141 @@
   {
     if (bobbleConfig == 1)
     {
-      v48 = "Disabled";
+      v52 = "Disabled";
     }
 
     else
     {
-      v48 = "?";
+      v52 = "?";
     }
 
     if (bobbleConfig == 2)
     {
-      v49 = "Enabled";
+      v53 = "Enabled";
     }
 
     else
     {
-      v49 = v48;
+      v53 = v52;
     }
 
-    v290 = ShorthandString(v49);
-    NSAppendPrintF_safe();
-    v50 = v42;
+    v54 = ShorthandString(v53);
+    v434 = v45;
+    NSAppendPrintF_safe(&v434, "cfg %s, ", v54);
+    v55 = v434;
 
-    v42 = v50;
+    v45 = v55;
   }
 
-  if ([v42 length] > v24)
+  if ([v45 length] > v27)
   {
-    NSAppendPrintF_safe();
-    v51 = v42;
+    v433 = v45;
+    NSAppendPrintF_safe(&v433, "\n");
+    v56 = v433;
 
-    v42 = v51;
+    v45 = v56;
   }
 
-  v52 = [v42 length];
-  NSAppendPrintF_safe();
-  v53 = v42;
+  v57 = [v45 length];
+  v432 = v45;
+  NSAppendPrintF_safe(&v432, "Cam ctl: ");
+  v58 = v432;
 
   cameraControlCapability = self->_cameraControlCapability;
   if (self->_cameraControlCapability)
   {
     if (cameraControlCapability == 1)
     {
-      v55 = "Unsupported";
+      v60 = "Unsupported";
     }
 
     else
     {
-      v55 = "?";
+      v60 = "?";
     }
 
     if (cameraControlCapability == 2)
     {
-      v56 = "Supported";
+      v61 = "Supported";
     }
 
     else
     {
-      v56 = v55;
+      v61 = v60;
     }
 
-    v291 = ShorthandString(v56);
-    NSAppendPrintF_safe();
-    v57 = v53;
+    v62 = ShorthandString(v61);
+    v431 = v58;
+    NSAppendPrintF_safe(&v431, "cap %s, ", v62);
+    v63 = v431;
 
-    v53 = v57;
+    v58 = v63;
   }
 
   remoteCameraControlConfig = self->_remoteCameraControlConfig;
   if (self->_remoteCameraControlConfig)
   {
+    v430 = v58;
     if (remoteCameraControlConfig > 3)
     {
-      v59 = "?";
+      v65 = "?";
     }
 
     else
     {
-      v59 = off_278CDDAB0[remoteCameraControlConfig - 1];
+      v65 = off_278CDDAB0[remoteCameraControlConfig - 1];
     }
 
-    v291 = ShorthandString(v59);
-    NSAppendPrintF_safe();
-    v60 = v53;
+    v66 = ShorthandString(v65);
+    NSAppendPrintF_safe(&v430, "cfg %s, ", v66);
+    v67 = v430;
 
-    v53 = v60;
+    v58 = v67;
   }
 
-  if ([v53 length] > v52)
+  if ([v58 length] > v57)
   {
-    NSAppendPrintF_safe();
-    v61 = v53;
+    v429 = v58;
+    NSAppendPrintF_safe(&v429, "\n");
+    v68 = v429;
 
-    v53 = v61;
+    v58 = v68;
   }
 
-  v62 = [v53 length];
-  NSAppendPrintF_safe();
-  v63 = v53;
+  v69 = [v58 length];
+  v428 = v58;
+  NSAppendPrintF_safe(&v428, "Chr rem: ");
+  v70 = v428;
 
   chargingReminderCapability = [(AudioAccessoryDevice *)self chargingReminderCapability];
   if (chargingReminderCapability)
   {
     if (chargingReminderCapability == 1)
     {
-      v65 = "Unsupported";
+      v72 = "Unsupported";
     }
 
     else
     {
-      v65 = "?";
+      v72 = "?";
     }
 
     if (chargingReminderCapability == 2)
     {
-      v66 = "Supported";
+      v73 = "Supported";
     }
 
     else
     {
-      v66 = v65;
+      v73 = v72;
     }
 
-    v292 = ShorthandString(v66);
-    NSAppendPrintF_safe();
-    v67 = v63;
+    v74 = ShorthandString(v73);
+    v427 = v70;
+    NSAppendPrintF_safe(&v427, "cap %s, ", v74);
+    v75 = v427;
 
-    v63 = v67;
+    v70 = v75;
   }
 
   chargingReminderEnabled = self->_chargingReminderEnabled;
@@ -1622,167 +1639,177 @@
   {
     if (chargingReminderEnabled == 1)
     {
-      v69 = "Yes";
+      v77 = "Yes";
     }
 
     else
     {
-      v69 = "?";
+      v77 = "?";
     }
 
     if (chargingReminderEnabled == 2)
     {
-      v70 = "No";
+      v78 = "No";
     }
 
     else
     {
-      v70 = v69;
+      v78 = v77;
     }
 
-    v292 = ShorthandString(v70);
-    NSAppendPrintF_safe();
-    v71 = v63;
+    v79 = ShorthandString(v78);
+    v426 = v70;
+    NSAppendPrintF_safe(&v426, "en %s, ", v79);
+    v80 = v426;
 
-    v63 = v71;
+    v70 = v80;
   }
 
-  NSAppendPrintF_safe();
-  v72 = v63;
+  v425 = v70;
+  NSAppendPrintF_safe(&v425, "DEOC: ");
+  v81 = v425;
 
   dynamicEndOfChargeCapability = self->_dynamicEndOfChargeCapability;
   if (self->_dynamicEndOfChargeCapability)
   {
     if (dynamicEndOfChargeCapability == 1)
     {
-      v74 = "Unsupported";
+      v83 = "Unsupported";
     }
 
     else
     {
-      v74 = "?";
+      v83 = "?";
     }
 
     if (dynamicEndOfChargeCapability == 2)
     {
-      v75 = "Supported";
+      v84 = "Supported";
     }
 
     else
     {
-      v75 = v74;
+      v84 = v83;
     }
 
-    v292 = ShorthandString(v75);
-    NSAppendPrintF_safe();
-    v76 = v72;
+    v85 = ShorthandString(v84);
+    v424 = v81;
+    NSAppendPrintF_safe(&v424, "cap %s, ", v85);
+    v86 = v424;
 
-    v72 = v76;
+    v81 = v86;
   }
 
   dynamicEndOfChargeState = [(AudioAccessoryDevice *)self dynamicEndOfChargeState];
   if (dynamicEndOfChargeState)
   {
+    v423 = v81;
     if (dynamicEndOfChargeState > 3)
     {
-      v78 = "?";
+      v88 = "?";
     }
 
     else
     {
-      v78 = off_278CDDAC8[dynamicEndOfChargeState - 1];
+      v88 = off_278CDDAC8[dynamicEndOfChargeState - 1];
     }
 
-    v293 = ShorthandString(v78);
-    NSAppendPrintF_safe();
-    v79 = v72;
+    v89 = ShorthandString(v88);
+    NSAppendPrintF_safe(&v423, "st %s, ", v89);
+    v90 = v423;
 
-    v72 = v79;
+    v81 = v90;
   }
 
-  NSAppendPrintF_safe();
-  v80 = v72;
+  v422 = v81;
+  NSAppendPrintF_safe(&v422, "OBC: ");
+  v91 = v422;
 
   optimizedBatteryChargingCapability = [(AudioAccessoryDevice *)self optimizedBatteryChargingCapability];
   if (optimizedBatteryChargingCapability)
   {
     if (optimizedBatteryChargingCapability == 1)
     {
-      v82 = "Unsupported";
+      v93 = "Unsupported";
     }
 
     else
     {
-      v82 = "?";
+      v93 = "?";
     }
 
     if (optimizedBatteryChargingCapability == 2)
     {
-      v83 = "Supported";
+      v94 = "Supported";
     }
 
     else
     {
-      v83 = v82;
+      v94 = v93;
     }
 
-    v293 = ShorthandString(v83);
-    NSAppendPrintF_safe();
-    v84 = v80;
+    v95 = ShorthandString(v94);
+    v421 = v91;
+    NSAppendPrintF_safe(&v421, "cap %s, ", v95);
+    v96 = v421;
 
-    v80 = v84;
+    v91 = v96;
   }
 
   optimizedBatteryChargingState = self->_optimizedBatteryChargingState;
   if (self->_optimizedBatteryChargingState)
   {
+    v420 = v91;
     if (optimizedBatteryChargingState > 3)
     {
-      v86 = "?";
+      v98 = "?";
     }
 
     else
     {
-      v86 = off_278CDDAC8[optimizedBatteryChargingState - 1];
+      v98 = off_278CDDAC8[optimizedBatteryChargingState - 1];
     }
 
-    v293 = ShorthandString(v86);
-    NSAppendPrintF_safe();
-    v87 = v80;
+    v99 = ShorthandString(v98);
+    NSAppendPrintF_safe(&v420, "en %s, ", v99);
+    v100 = v420;
 
-    v80 = v87;
+    v91 = v100;
   }
 
-  if ([v80 length] > v62)
+  if ([v91 length] > v69)
   {
-    NSAppendPrintF_safe();
-    v88 = v80;
+    v419 = v91;
+    NSAppendPrintF_safe(&v419, "\n");
+    v101 = v419;
 
-    v80 = v88;
+    v91 = v101;
   }
 
-  v89 = [v80 length];
-  NSAppendPrintF_safe();
-  v90 = v80;
+  v102 = [v91 length];
+  v418 = v91;
+  NSAppendPrintF_safe(&v418, "HG: ");
+  v103 = v418;
 
   detectedHeadGesture = self->_detectedHeadGesture;
   if (self->_detectedHeadGesture)
   {
+    v417 = v103;
     if (detectedHeadGesture > 4)
     {
-      v92 = "?";
+      v105 = "?";
     }
 
     else
     {
-      v92 = off_278CDDAE0[detectedHeadGesture - 1];
+      v105 = off_278CDDAE0[detectedHeadGesture - 1];
     }
 
-    v294 = ShorthandString(v92);
-    NSAppendPrintF_safe();
-    v93 = v90;
+    v106 = ShorthandString(v105);
+    NSAppendPrintF_safe(&v417, "det %s, ", v106);
+    v107 = v417;
 
-    v90 = v93;
+    v103 = v107;
   }
 
   headGestureToggle = self->_headGestureToggle;
@@ -1790,98 +1817,7 @@
   {
     if (headGestureToggle == 1)
     {
-      v95 = "Yes";
-    }
-
-    else
-    {
-      v95 = "?";
-    }
-
-    if (headGestureToggle == 2)
-    {
-      v96 = "No";
-    }
-
-    else
-    {
-      v96 = v95;
-    }
-
-    v294 = ShorthandString(v96);
-    NSAppendPrintF_safe();
-    v97 = v90;
-
-    v90 = v97;
-  }
-
-  acceptReplyPlayPauseConfig = self->_acceptReplyPlayPauseConfig;
-  if (self->_acceptReplyPlayPauseConfig)
-  {
-    if (acceptReplyPlayPauseConfig > 3)
-    {
-      v99 = "?";
-    }
-
-    else
-    {
-      v99 = off_278CDDB00[acceptReplyPlayPauseConfig - 1];
-    }
-
-    v294 = ShorthandString(v99);
-    NSAppendPrintF_safe();
-    v100 = v90;
-
-    v90 = v100;
-  }
-
-  declineDismissSkipConfig = self->_declineDismissSkipConfig;
-  if (self->_declineDismissSkipConfig)
-  {
-    if (declineDismissSkipConfig > 3)
-    {
-      v102 = "?";
-    }
-
-    else
-    {
-      v102 = off_278CDDB00[declineDismissSkipConfig - 1];
-    }
-
-    v294 = ShorthandString(v102);
-    NSAppendPrintF_safe();
-    v103 = v90;
-
-    v90 = v103;
-  }
-
-  if (self->_rawGesturesConfigFlags)
-  {
-    v294 = CUPrintFlags32();
-    NSAppendPrintF_safe();
-    v104 = v90;
-
-    v90 = v104;
-  }
-
-  if ([v90 length] > v89)
-  {
-    NSAppendPrintF_safe();
-    v105 = v90;
-
-    v90 = v105;
-  }
-
-  v106 = [v90 length];
-  NSAppendPrintF_safe();
-  v107 = v90;
-
-  hearingAidCapability = self->_hearingAidCapability;
-  if (self->_hearingAidCapability)
-  {
-    if (hearingAidCapability == 1)
-    {
-      v109 = "Disabled";
+      v109 = "Yes";
     }
 
     else
@@ -1889,9 +1825,9 @@
       v109 = "?";
     }
 
-    if (hearingAidCapability == 2)
+    if (headGestureToggle == 2)
     {
-      v110 = "Enabled";
+      v110 = "No";
     }
 
     else
@@ -1899,11 +1835,109 @@
       v110 = v109;
     }
 
-    hearingProtectionPPECapLevel = ShorthandString(v110);
-    NSAppendPrintF_safe();
-    v111 = v107;
+    v111 = ShorthandString(v110);
+    v416 = v103;
+    NSAppendPrintF_safe(&v416, "tgl %s, ", v111);
+    v112 = v416;
 
-    v107 = v111;
+    v103 = v112;
+  }
+
+  acceptReplyPlayPauseConfig = self->_acceptReplyPlayPauseConfig;
+  if (self->_acceptReplyPlayPauseConfig)
+  {
+    v415 = v103;
+    if (acceptReplyPlayPauseConfig > 3)
+    {
+      v114 = "?";
+    }
+
+    else
+    {
+      v114 = off_278CDDB00[acceptReplyPlayPauseConfig - 1];
+    }
+
+    v115 = ShorthandString(v114);
+    NSAppendPrintF_safe(&v415, "acct %s, ", v115);
+    v116 = v415;
+
+    v103 = v116;
+  }
+
+  declineDismissSkipConfig = self->_declineDismissSkipConfig;
+  if (self->_declineDismissSkipConfig)
+  {
+    v414 = v103;
+    if (declineDismissSkipConfig > 3)
+    {
+      v118 = "?";
+    }
+
+    else
+    {
+      v118 = off_278CDDB00[declineDismissSkipConfig - 1];
+    }
+
+    v119 = ShorthandString(v118);
+    NSAppendPrintF_safe(&v414, "decl %s, ", v119);
+    v120 = v414;
+
+    v103 = v120;
+  }
+
+  if (self->_rawGesturesConfigFlags)
+  {
+    v413 = v103;
+    v121 = CUPrintFlags32();
+    NSAppendPrintF_safe(&v413, "rgCg %@, ", v121);
+    v122 = v413;
+
+    v103 = v122;
+  }
+
+  if ([v103 length] > v102)
+  {
+    v412 = v103;
+    NSAppendPrintF_safe(&v412, "\n");
+    v123 = v412;
+
+    v103 = v123;
+  }
+
+  v124 = [v103 length];
+  v411 = v103;
+  NSAppendPrintF_safe(&v411, "HA: ");
+  v125 = v411;
+
+  hearingAidCapability = self->_hearingAidCapability;
+  if (self->_hearingAidCapability)
+  {
+    if (hearingAidCapability == 1)
+    {
+      v127 = "Disabled";
+    }
+
+    else
+    {
+      v127 = "?";
+    }
+
+    if (hearingAidCapability == 2)
+    {
+      v128 = "Enabled";
+    }
+
+    else
+    {
+      v128 = v127;
+    }
+
+    v129 = ShorthandString(v128);
+    v410 = v125;
+    NSAppendPrintF_safe(&v410, "cap %s, ", v129);
+    v130 = v410;
+
+    v125 = v130;
   }
 
   hearingAidEnabled = self->_hearingAidEnabled;
@@ -1911,29 +1945,30 @@
   {
     if (hearingAidEnabled == 1)
     {
-      v113 = "Yes";
+      v132 = "Yes";
     }
 
     else
     {
-      v113 = "?";
+      v132 = "?";
     }
 
     if (hearingAidEnabled == 2)
     {
-      v114 = "No";
+      v133 = "No";
     }
 
     else
     {
-      v114 = v113;
+      v133 = v132;
     }
 
-    hearingProtectionPPECapLevel = ShorthandString(v114);
-    NSAppendPrintF_safe();
-    v115 = v107;
+    v134 = ShorthandString(v133);
+    v409 = v125;
+    NSAppendPrintF_safe(&v409, "en %s, ", v134);
+    v135 = v409;
 
-    v107 = v115;
+    v125 = v135;
   }
 
   hearingAidEnrolled = self->_hearingAidEnrolled;
@@ -1941,29 +1976,30 @@
   {
     if (hearingAidEnrolled == 1)
     {
-      v117 = "Yes";
+      v137 = "Yes";
     }
 
     else
     {
-      v117 = "?";
+      v137 = "?";
     }
 
     if (hearingAidEnrolled == 2)
     {
-      v118 = "No";
+      v138 = "No";
     }
 
     else
     {
-      v118 = v117;
+      v138 = v137;
     }
 
-    hearingProtectionPPECapLevel = ShorthandString(v118);
-    NSAppendPrintF_safe();
-    v119 = v107;
+    v139 = ShorthandString(v138);
+    v408 = v125;
+    NSAppendPrintF_safe(&v408, "enr %s, ", v139);
+    v140 = v408;
 
-    v107 = v119;
+    v125 = v140;
   }
 
   hearingAidGainSwipeEnabled = self->_hearingAidGainSwipeEnabled;
@@ -1971,29 +2007,30 @@
   {
     if (hearingAidGainSwipeEnabled == 1)
     {
-      v121 = "Yes";
+      v142 = "Yes";
     }
 
     else
     {
-      v121 = "?";
+      v142 = "?";
     }
 
     if (hearingAidGainSwipeEnabled == 2)
     {
-      v122 = "No";
+      v143 = "No";
     }
 
     else
     {
-      v122 = v121;
+      v143 = v142;
     }
 
-    hearingProtectionPPECapLevel = ShorthandString(v122);
-    NSAppendPrintF_safe();
-    v123 = v107;
+    v144 = ShorthandString(v143);
+    v407 = v125;
+    NSAppendPrintF_safe(&v407, "gs %s, ", v144);
+    v145 = v407;
 
-    v107 = v123;
+    v125 = v145;
   }
 
   hearingAidV2Capability = self->_hearingAidV2Capability;
@@ -2001,29 +2038,30 @@
   {
     if (hearingAidV2Capability == 1)
     {
-      v125 = "Unsupported";
+      v147 = "Unsupported";
     }
 
     else
     {
-      v125 = "?";
+      v147 = "?";
     }
 
     if (hearingAidV2Capability == 2)
     {
-      v126 = "Supported";
+      v148 = "Supported";
     }
 
     else
     {
-      v126 = v125;
+      v148 = v147;
     }
 
-    hearingProtectionPPECapLevel = ShorthandString(v126);
-    NSAppendPrintF_safe();
-    v127 = v107;
+    v149 = ShorthandString(v148);
+    v406 = v125;
+    NSAppendPrintF_safe(&v406, "v2 cap %s, ", v149);
+    v150 = v406;
 
-    v107 = v127;
+    v125 = v150;
   }
 
   hearingAssistEnabled = self->_hearingAssistEnabled;
@@ -2031,104 +2069,110 @@
   {
     if (hearingAssistEnabled == 1)
     {
-      v129 = "Yes";
+      v152 = "Yes";
     }
 
     else
     {
-      v129 = "?";
+      v152 = "?";
     }
 
     if (hearingAssistEnabled == 2)
     {
-      v130 = "No";
+      v153 = "No";
     }
 
     else
     {
-      v130 = v129;
+      v153 = v152;
     }
 
-    hearingProtectionPPECapLevel = ShorthandString(v130);
-    NSAppendPrintF_safe();
-    v131 = v107;
+    v154 = ShorthandString(v153);
+    v405 = v125;
+    NSAppendPrintF_safe(&v405, "top lvl %s, ", v154);
+    v155 = v405;
 
-    v107 = v131;
+    v125 = v155;
   }
 
-  NSAppendPrintF_safe();
-  v132 = v107;
+  v404 = v125;
+  NSAppendPrintF_safe(&v404, "HP: ");
+  v156 = v404;
 
   hearingProtectionCapability = self->_hearingProtectionCapability;
   if (self->_hearingProtectionCapability)
   {
     if (hearingProtectionCapability == 1)
     {
-      v134 = "Unsupported";
+      v158 = "Unsupported";
     }
 
     else
     {
-      v134 = "?";
+      v158 = "?";
     }
 
     if (hearingProtectionCapability == 2)
     {
-      v135 = "Supported";
+      v159 = "Supported";
     }
 
     else
     {
-      v135 = v134;
+      v159 = v158;
     }
 
-    hearingProtectionPPECapLevel = ShorthandString(v135);
-    NSAppendPrintF_safe();
-    v136 = v132;
+    v160 = ShorthandString(v159);
+    v403 = v156;
+    NSAppendPrintF_safe(&v403, "cap %s, ", v160);
+    v161 = v403;
 
-    v132 = v136;
+    v156 = v161;
   }
 
-  NSAppendPrintF_safe();
-  v137 = v132;
+  v402 = v156;
+  NSAppendPrintF_safe(&v402, "PPE: ");
+  v162 = v402;
 
   hearingProtectionPPECapability = self->_hearingProtectionPPECapability;
   if (self->_hearingProtectionPPECapability)
   {
     if (hearingProtectionPPECapability == 1)
     {
-      v139 = "Unsupported";
+      v164 = "Unsupported";
     }
 
     else
     {
-      v139 = "?";
+      v164 = "?";
     }
 
     if (hearingProtectionPPECapability == 2)
     {
-      v140 = "Supported";
+      v165 = "Supported";
     }
 
     else
     {
-      v140 = v139;
+      v165 = v164;
     }
 
-    hearingProtectionPPECapLevel = ShorthandString(v140);
-    NSAppendPrintF_safe();
-    v141 = v137;
+    v166 = ShorthandString(v165);
+    v401 = v162;
+    NSAppendPrintF_safe(&v401, "cap %s, ", v166);
+    v167 = v401;
 
-    v137 = v141;
+    v162 = v167;
   }
 
-  if (self->_hearingProtectionPPECapLevel)
+  hearingProtectionPPECapLevel = self->_hearingProtectionPPECapLevel;
+  if (hearingProtectionPPECapLevel)
   {
-    hearingProtectionPPECapLevel = self->_hearingProtectionPPECapLevel;
-    NSAppendPrintF_safe();
-    v142 = v137;
+    v400 = v162;
+    NSAppendPrintF_safe(&v400, "lvl %u, ", hearingProtectionPPECapLevel);
+    v169 = v400;
 
-    v137 = v142;
+    v162 = v169;
   }
 
   hearingProtectionPPEEnabled = self->_hearingProtectionPPEEnabled;
@@ -2136,115 +2180,121 @@
   {
     if (hearingProtectionPPEEnabled == 1)
     {
-      v144 = "Yes";
+      v171 = "Yes";
     }
 
     else
     {
-      v144 = "?";
+      v171 = "?";
     }
 
     if (hearingProtectionPPEEnabled == 2)
     {
-      v145 = "No";
+      v172 = "No";
     }
 
     else
     {
-      v145 = v144;
+      v172 = v171;
     }
 
-    hearingProtectionPPECapLevel = ShorthandString(v145);
-    NSAppendPrintF_safe();
-    v146 = v137;
+    v173 = ShorthandString(v172);
+    v399 = v162;
+    NSAppendPrintF_safe(&v399, "en %s, ", v173);
+    v174 = v399;
 
-    v137 = v146;
+    v162 = v174;
   }
 
-  NSAppendPrintF_safe();
-  v147 = v137;
+  v398 = v162;
+  NSAppendPrintF_safe(&v398, "HT: ");
+  v175 = v398;
 
   hearingTestCapability = self->_hearingTestCapability;
   if (self->_hearingTestCapability)
   {
     if (hearingTestCapability == 1)
     {
-      v149 = "Disabled";
+      v177 = "Disabled";
     }
 
     else
     {
-      v149 = "?";
+      v177 = "?";
     }
 
     if (hearingTestCapability == 2)
     {
-      v150 = "Enabled";
+      v178 = "Enabled";
     }
 
     else
     {
-      v150 = v149;
+      v178 = v177;
     }
 
-    hearingProtectionPPECapLevel = ShorthandString(v150);
-    NSAppendPrintF_safe();
-    v151 = v147;
+    v179 = ShorthandString(v178);
+    v397 = v175;
+    NSAppendPrintF_safe(&v397, "cap %s, ", v179);
+    v180 = v397;
 
-    v147 = v151;
+    v175 = v180;
   }
 
-  v152 = self->_audiogramEnrolledTimestamp;
-  v153 = v152;
-  if (v152)
+  v181 = self->_audiogramEnrolledTimestamp;
+  v182 = v181;
+  if (v181)
   {
-    hearingProtectionPPECapLevel = v152;
-    NSAppendPrintF_safe();
-    v154 = v147;
+    v396 = v175;
+    NSAppendPrintF_safe(&v396, "ag enr '%@', ", v181);
+    v183 = v396;
 
-    v147 = v154;
+    v175 = v183;
   }
 
-  if ([v147 length] > v106)
+  if ([v175 length] > v124)
   {
-    NSAppendPrintF_safe();
-    v155 = v147;
+    v395 = v175;
+    NSAppendPrintF_safe(&v395, "\n");
+    v184 = v395;
 
-    v147 = v155;
+    v175 = v184;
   }
 
-  v156 = [v147 length];
-  NSAppendPrintF_safe();
-  v157 = v147;
+  v185 = [v175 length];
+  v394 = v175;
+  NSAppendPrintF_safe(&v394, "HR: ");
+  v186 = v394;
 
   heartRateMonitorCapability = self->_heartRateMonitorCapability;
   if (self->_heartRateMonitorCapability)
   {
     if (heartRateMonitorCapability == 1)
     {
-      v159 = "Unsupported";
+      v188 = "Unsupported";
     }
 
     else
     {
-      v159 = "?";
+      v188 = "?";
     }
 
     if (heartRateMonitorCapability == 2)
     {
-      v160 = "Supported";
+      v189 = "Supported";
     }
 
     else
     {
-      v160 = v159;
+      v189 = v188;
     }
 
-    v296 = ShorthandString(v160);
-    NSAppendPrintF_safe();
-    v161 = v157;
+    v190 = ShorthandString(v189);
+    v393 = v186;
+    NSAppendPrintF_safe(&v393, "cap %s, ", v190);
+    v191 = v393;
 
-    v157 = v161;
+    v186 = v191;
   }
 
   heartRateMonitorEnabled = self->_heartRateMonitorEnabled;
@@ -2252,70 +2302,75 @@
   {
     if (heartRateMonitorEnabled == 1)
     {
-      v163 = "Yes";
+      v193 = "Yes";
     }
 
     else
     {
-      v163 = "?";
+      v193 = "?";
     }
 
     if (heartRateMonitorEnabled == 2)
     {
-      v164 = "No";
+      v194 = "No";
     }
 
     else
     {
-      v164 = v163;
+      v194 = v193;
     }
 
-    v296 = ShorthandString(v164);
-    NSAppendPrintF_safe();
-    v165 = v157;
+    v195 = ShorthandString(v194);
+    v392 = v186;
+    NSAppendPrintF_safe(&v392, "en %s, ", v195);
+    v196 = v392;
 
-    v157 = v165;
+    v186 = v196;
   }
 
-  if ([v157 length] > v156)
+  if ([v186 length] > v185)
   {
-    NSAppendPrintF_safe();
-    v166 = v157;
+    v391 = v186;
+    NSAppendPrintF_safe(&v391, "\n");
+    v197 = v391;
 
-    v157 = v166;
+    v186 = v197;
   }
 
-  v167 = [v157 length];
-  NSAppendPrintF_safe();
-  v168 = v157;
+  v198 = [v186 length];
+  v390 = v186;
+  NSAppendPrintF_safe(&v390, "Lsn: ");
+  v199 = v390;
 
   listeningMode = self->_listeningMode;
   if (listeningMode)
   {
+    v389 = v199;
     if (listeningMode > 4)
     {
-      v170 = "?";
+      v201 = "?";
     }
 
     else
     {
-      v170 = off_278CDDB18[listeningMode - 1];
+      v201 = off_278CDDB18[listeningMode - 1];
     }
 
-    v297 = ShorthandString(v170);
-    NSAppendPrintF_safe();
-    v171 = v168;
+    v202 = ShorthandString(v201);
+    NSAppendPrintF_safe(&v389, "md %s, ", v202);
+    v203 = v389;
 
-    v168 = v171;
+    v199 = v203;
   }
 
   if (self->_listeningModeConfigs)
   {
-    v297 = CUPrintFlags32();
-    NSAppendPrintF_safe();
-    v172 = v168;
+    v388 = v199;
+    v204 = CUPrintFlags32();
+    NSAppendPrintF_safe(&v388, "cfg %@, ", v204);
+    v205 = v388;
 
-    v168 = v172;
+    v199 = v205;
   }
 
   listeningModeOffAllowed = self->_listeningModeOffAllowed;
@@ -2323,125 +2378,133 @@
   {
     if (listeningModeOffAllowed == 1)
     {
-      v174 = "Yes";
+      v207 = "Yes";
     }
 
     else
     {
-      v174 = "?";
+      v207 = "?";
     }
 
     if (listeningModeOffAllowed == 2)
     {
-      v175 = "No";
+      v208 = "No";
     }
 
     else
     {
-      v175 = v174;
+      v208 = v207;
     }
 
-    v297 = ShorthandString(v175);
-    NSAppendPrintF_safe();
-    v176 = v168;
+    v209 = ShorthandString(v208);
+    v387 = v199;
+    NSAppendPrintF_safe(&v387, "off %s, ", v209);
+    v210 = v387;
 
-    v168 = v176;
+    v199 = v210;
   }
 
-  if ([v168 length] > v167)
+  if ([v199 length] > v198)
   {
-    NSAppendPrintF_safe();
-    v177 = v168;
+    v386 = v199;
+    NSAppendPrintF_safe(&v386, "\n");
+    v211 = v386;
 
-    v168 = v177;
+    v199 = v211;
   }
 
-  v178 = [v168 length];
-  NSAppendPrintF_safe();
-  v179 = v168;
+  v212 = [v199 length];
+  v385 = v199;
+  NSAppendPrintF_safe(&v385, "Pl: ");
+  v213 = v385;
 
   placementMode = self->_placementMode;
   if (self->_placementMode)
   {
-    v181 = "Enabled";
+    v215 = "Enabled";
     if (placementMode != 1)
     {
-      v181 = "?";
+      v215 = "?";
     }
 
     if (placementMode == 2)
     {
-      v182 = "Disabled";
+      v216 = "Disabled";
     }
 
     else
     {
-      v182 = v181;
+      v216 = v215;
     }
 
-    v298 = ShorthandString(v182);
-    NSAppendPrintF_safe();
-    v183 = v179;
+    v217 = ShorthandString(v216);
+    v384 = v213;
+    NSAppendPrintF_safe(&v384, "md %s, ", v217);
+    v218 = v384;
 
-    v179 = v183;
+    v213 = v218;
   }
 
   primaryPlacement = self->_primaryPlacement;
   if (primaryPlacement)
   {
+    v383 = v213;
     if (primaryPlacement > 7)
     {
-      v185 = "?";
+      v220 = "?";
     }
 
     else
     {
-      v185 = off_278CDDB38[primaryPlacement - 1];
+      v220 = off_278CDDB38[primaryPlacement - 1];
     }
 
-    v298 = ShorthandString(v185);
-    NSAppendPrintF_safe();
-    v186 = v179;
+    v221 = ShorthandString(v220);
+    NSAppendPrintF_safe(&v383, "pr %s, ", v221);
+    v222 = v383;
 
-    v179 = v186;
+    v213 = v222;
   }
 
   secondaryPlacement = self->_secondaryPlacement;
   if (secondaryPlacement)
   {
+    v382 = v213;
     if (secondaryPlacement > 7)
     {
-      v188 = "?";
+      v224 = "?";
     }
 
     else
     {
-      v188 = off_278CDDB38[secondaryPlacement - 1];
+      v224 = off_278CDDB38[secondaryPlacement - 1];
     }
 
-    v298 = ShorthandString(v188);
-    NSAppendPrintF_safe();
-    v189 = v179;
+    v225 = ShorthandString(v224);
+    NSAppendPrintF_safe(&v382, "sc %s, ", v225);
+    v226 = v382;
 
-    v179 = v189;
+    v213 = v226;
   }
 
-  if ([v179 length] > v178)
+  if ([v213 length] > v212)
   {
-    NSAppendPrintF_safe();
-    v190 = v179;
+    v381 = v213;
+    NSAppendPrintF_safe(&v381, "\n");
+    v227 = v381;
 
-    v179 = v190;
+    v213 = v227;
   }
 
-  v191 = [v179 length];
+  v228 = [v213 length];
   if (self->_smartRoutingStateFlags)
   {
-    v299 = CUPrintFlags32();
-    NSAppendPrintF_safe();
-    v192 = v179;
+    v380 = v213;
+    v229 = CUPrintFlags32();
+    NSAppendPrintF_safe(&v380, "smRtS %@, ", v229);
+    v230 = v380;
 
-    v179 = v192;
+    v213 = v230;
   }
 
   temporaryManagedPairedStatus = self->_temporaryManagedPairedStatus;
@@ -2449,71 +2512,75 @@
   {
     if (temporaryManagedPairedStatus == 1)
     {
-      v194 = "Yes";
+      v232 = "Yes";
     }
 
     else
     {
-      v194 = "?";
+      v232 = "?";
     }
 
     if (temporaryManagedPairedStatus == 2)
     {
-      v195 = "No";
+      v233 = "No";
     }
 
     else
     {
-      v195 = v194;
+      v233 = v232;
     }
 
-    v299 = ShorthandString(v195);
-    NSAppendPrintF_safe();
-    v196 = v179;
+    v234 = ShorthandString(v233);
+    v379 = v213;
+    NSAppendPrintF_safe(&v379, "temp mg %s, ", v234);
+    v235 = v379;
 
-    v179 = v196;
+    v213 = v235;
   }
 
-  if ([v179 length] > v191)
+  if ([v213 length] > v228)
   {
-    NSAppendPrintF_safe();
-    v197 = v179;
+    v378 = v213;
+    NSAppendPrintF_safe(&v378, "\n");
+    v236 = v378;
 
-    v179 = v197;
+    v213 = v236;
   }
 
-  v198 = [v179 length];
-  NSAppendPrintF_safe();
-  v199 = v179;
+  v237 = [v213 length];
+  v377 = v213;
+  NSAppendPrintF_safe(&v377, "SrMt: ");
+  v238 = v377;
 
   siriMultitoneCapability = self->_siriMultitoneCapability;
   if (self->_siriMultitoneCapability)
   {
     if (siriMultitoneCapability == 1)
     {
-      v201 = "Unsupported";
+      v240 = "Unsupported";
     }
 
     else
     {
-      v201 = "?";
+      v240 = "?";
     }
 
     if (siriMultitoneCapability == 2)
     {
-      v202 = "Supported";
+      v241 = "Supported";
     }
 
     else
     {
-      v202 = v201;
+      v241 = v240;
     }
 
-    v300 = ShorthandString(v202);
-    NSAppendPrintF_safe();
-    v203 = v199;
+    v242 = ShorthandString(v241);
+    v376 = v238;
+    NSAppendPrintF_safe(&v376, "cap %s, ", v242);
+    v243 = v376;
 
-    v199 = v203;
+    v238 = v243;
   }
 
   siriMultitoneEnabled = self->_siriMultitoneEnabled;
@@ -2521,268 +2588,7 @@
   {
     if (siriMultitoneEnabled == 1)
     {
-      v205 = "Yes";
-    }
-
-    else
-    {
-      v205 = "?";
-    }
-
-    if (siriMultitoneEnabled == 2)
-    {
-      v206 = "No";
-    }
-
-    else
-    {
-      v206 = v205;
-    }
-
-    v300 = ShorthandString(v206);
-    NSAppendPrintF_safe();
-    v207 = v199;
-
-    v199 = v207;
-  }
-
-  if ([v199 length] > v198)
-  {
-    NSAppendPrintF_safe();
-    v208 = v199;
-
-    v199 = v208;
-  }
-
-  v209 = [v199 length];
-  NSAppendPrintF_safe();
-  v210 = v199;
-
-  sleepDetectionCapability = self->_sleepDetectionCapability;
-  if (self->_sleepDetectionCapability)
-  {
-    if (sleepDetectionCapability == 1)
-    {
-      v212 = "Unsupported";
-    }
-
-    else
-    {
-      v212 = "?";
-    }
-
-    if (sleepDetectionCapability == 2)
-    {
-      v213 = "Supported";
-    }
-
-    else
-    {
-      v213 = v212;
-    }
-
-    v301 = ShorthandString(v213);
-    NSAppendPrintF_safe();
-    v214 = v210;
-
-    v210 = v214;
-  }
-
-  sleepDetectionEnabled = self->_sleepDetectionEnabled;
-  if (self->_sleepDetectionEnabled)
-  {
-    if (sleepDetectionEnabled == 1)
-    {
-      v216 = "Yes";
-    }
-
-    else
-    {
-      v216 = "?";
-    }
-
-    if (sleepDetectionEnabled == 2)
-    {
-      v217 = "No";
-    }
-
-    else
-    {
-      v217 = v216;
-    }
-
-    v301 = ShorthandString(v217);
-    NSAppendPrintF_safe();
-    v218 = v210;
-
-    v210 = v218;
-  }
-
-  if ([v210 length] > v209)
-  {
-    NSAppendPrintF_safe();
-    v219 = v210;
-
-    v210 = v219;
-  }
-
-  v220 = [v210 length];
-  NSAppendPrintF_safe();
-  v221 = v210;
-
-  audioStreamState = self->_audioStreamState;
-  if (audioStreamState)
-  {
-    if (audioStreamState > 3)
-    {
-      v223 = "?";
-    }
-
-    else
-    {
-      v223 = off_278CDDB70[audioStreamState - 1];
-    }
-
-    v302 = ShorthandString(v223);
-    NSAppendPrintF_safe();
-    v224 = v221;
-
-    v221 = v224;
-  }
-
-  frequencyBand = self->_frequencyBand;
-  if (self->_frequencyBand)
-  {
-    v226 = "2.4";
-    if (frequencyBand != 1)
-    {
-      v226 = "?";
-    }
-
-    if (frequencyBand == 2)
-    {
-      v227 = "5";
-    }
-
-    else
-    {
-      v227 = v226;
-    }
-
-    v302 = ShorthandString(v227);
-    NSAppendPrintF_safe();
-    v228 = v221;
-
-    v221 = v228;
-  }
-
-  streamStateAoS = self->_streamStateAoS;
-  if (self->_streamStateAoS)
-  {
-    if (streamStateAoS > 3)
-    {
-      v230 = "?";
-    }
-
-    else
-    {
-      v230 = off_278CDDB88[streamStateAoS - 1];
-    }
-
-    v302 = ShorthandString(v230);
-    NSAppendPrintF_safe();
-    v231 = v221;
-
-    v221 = v231;
-  }
-
-  if ([v221 length] > v220)
-  {
-    NSAppendPrintF_safe();
-    v232 = v221;
-
-    v221 = v232;
-  }
-
-  v233 = [v221 length];
-  if ([v221 length] > v233)
-  {
-    NSAppendPrintF_safe();
-    v234 = v221;
-
-    v221 = v234;
-  }
-
-  [v221 length];
-  NSAppendPrintF_safe();
-  v235 = v221;
-
-  caseSoundCapability = self->_caseSoundCapability;
-  if (self->_caseSoundCapability)
-  {
-    if (caseSoundCapability == 1)
-    {
-      v237 = "Unsupported";
-    }
-
-    else
-    {
-      v237 = "?";
-    }
-
-    if (caseSoundCapability == 2)
-    {
-      v238 = "Supported";
-    }
-
-    else
-    {
-      v238 = v237;
-    }
-
-    ShorthandString(v238);
-    NSAppendPrintF_safe();
-    v239 = v235;
-
-    v235 = v239;
-  }
-
-  earTipFitTestCapability = self->_earTipFitTestCapability;
-  if (self->_earTipFitTestCapability)
-  {
-    if (earTipFitTestCapability == 1)
-    {
-      v241 = "Unsupported";
-    }
-
-    else
-    {
-      v241 = "?";
-    }
-
-    if (earTipFitTestCapability == 2)
-    {
-      v242 = "Supported";
-    }
-
-    else
-    {
-      v242 = v241;
-    }
-
-    ShorthandString(v242);
-    NSAppendPrintF_safe();
-    v243 = v235;
-
-    v235 = v243;
-  }
-
-  farFieldUplinkCapability = self->_farFieldUplinkCapability;
-  if (self->_farFieldUplinkCapability)
-  {
-    if (farFieldUplinkCapability == 1)
-    {
-      v245 = "Unsupported";
+      v245 = "Yes";
     }
 
     else
@@ -2790,9 +2596,9 @@
       v245 = "?";
     }
 
-    if (farFieldUplinkCapability == 2)
+    if (siriMultitoneEnabled == 2)
     {
-      v246 = "Supported";
+      v246 = "No";
     }
 
     else
@@ -2800,47 +2606,32 @@
       v246 = v245;
     }
 
-    ShorthandString(v246);
-    NSAppendPrintF_safe();
-    v247 = v235;
+    v247 = ShorthandString(v246);
+    v375 = v238;
+    NSAppendPrintF_safe(&v375, "tg %s, ", v247);
+    v248 = v375;
 
-    v235 = v247;
+    v238 = v248;
   }
 
-  hideEarDetectionCapability = self->_hideEarDetectionCapability;
-  if (self->_hideEarDetectionCapability)
+  if ([v238 length] > v237)
   {
-    if (hideEarDetectionCapability == 1)
-    {
-      v249 = "Unsupported";
-    }
+    v374 = v238;
+    NSAppendPrintF_safe(&v374, "\n");
+    v249 = v374;
 
-    else
-    {
-      v249 = "?";
-    }
-
-    if (hideEarDetectionCapability == 2)
-    {
-      v250 = "Supported";
-    }
-
-    else
-    {
-      v250 = v249;
-    }
-
-    ShorthandString(v250);
-    NSAppendPrintF_safe();
-    v251 = v235;
-
-    v235 = v251;
+    v238 = v249;
   }
 
-  hideOffListeningModeCapability = self->_hideOffListeningModeCapability;
-  if (self->_hideOffListeningModeCapability)
+  v250 = [v238 length];
+  v373 = v238;
+  NSAppendPrintF_safe(&v373, "Sldt: ");
+  v251 = v373;
+
+  sleepDetectionCapability = self->_sleepDetectionCapability;
+  if (self->_sleepDetectionCapability)
   {
-    if (hideOffListeningModeCapability == 1)
+    if (sleepDetectionCapability == 1)
     {
       v253 = "Unsupported";
     }
@@ -2850,7 +2641,7 @@
       v253 = "?";
     }
 
-    if (hideOffListeningModeCapability == 2)
+    if (sleepDetectionCapability == 2)
     {
       v254 = "Supported";
     }
@@ -2860,11 +2651,305 @@
       v254 = v253;
     }
 
-    ShorthandString(v254);
-    NSAppendPrintF_safe();
-    v255 = v235;
+    v255 = ShorthandString(v254);
+    v372 = v251;
+    NSAppendPrintF_safe(&v372, "cap %s, ", v255);
+    v256 = v372;
 
-    v235 = v255;
+    v251 = v256;
+  }
+
+  sleepDetectionEnabled = self->_sleepDetectionEnabled;
+  if (self->_sleepDetectionEnabled)
+  {
+    if (sleepDetectionEnabled == 1)
+    {
+      v258 = "Yes";
+    }
+
+    else
+    {
+      v258 = "?";
+    }
+
+    if (sleepDetectionEnabled == 2)
+    {
+      v259 = "No";
+    }
+
+    else
+    {
+      v259 = v258;
+    }
+
+    v260 = ShorthandString(v259);
+    v371 = v251;
+    NSAppendPrintF_safe(&v371, "tg %s, ", v260);
+    v261 = v371;
+
+    v251 = v261;
+  }
+
+  if ([v251 length] > v250)
+  {
+    v370 = v251;
+    NSAppendPrintF_safe(&v370, "\n");
+    v262 = v370;
+
+    v251 = v262;
+  }
+
+  v263 = [v251 length];
+  v369 = v251;
+  NSAppendPrintF_safe(&v369, "SS: ");
+  v264 = v369;
+
+  audioStreamState = self->_audioStreamState;
+  if (audioStreamState)
+  {
+    v368 = v264;
+    if (audioStreamState > 3)
+    {
+      v266 = "?";
+    }
+
+    else
+    {
+      v266 = off_278CDDB70[audioStreamState - 1];
+    }
+
+    v267 = ShorthandString(v266);
+    NSAppendPrintF_safe(&v368, "as %s, ", v267);
+    v268 = v368;
+
+    v264 = v268;
+  }
+
+  frequencyBand = self->_frequencyBand;
+  if (self->_frequencyBand)
+  {
+    v270 = "2.4";
+    if (frequencyBand != 1)
+    {
+      v270 = "?";
+    }
+
+    if (frequencyBand == 2)
+    {
+      v271 = "5";
+    }
+
+    else
+    {
+      v271 = v270;
+    }
+
+    v272 = ShorthandString(v271);
+    v367 = v264;
+    NSAppendPrintF_safe(&v367, "fqBd %s, ", v272);
+    v273 = v367;
+
+    v264 = v273;
+  }
+
+  streamStateAoS = self->_streamStateAoS;
+  if (self->_streamStateAoS)
+  {
+    v366 = v264;
+    if (streamStateAoS > 3)
+    {
+      v275 = "?";
+    }
+
+    else
+    {
+      v275 = off_278CDDB88[streamStateAoS - 1];
+    }
+
+    v276 = ShorthandString(v275);
+    NSAppendPrintF_safe(&v366, "aos %s, ", v276);
+    v277 = v366;
+
+    v264 = v277;
+  }
+
+  if ([v264 length] > v263)
+  {
+    v365 = v264;
+    NSAppendPrintF_safe(&v365, "\n");
+    v278 = v365;
+
+    v264 = v278;
+  }
+
+  v279 = [v264 length];
+  if ([v264 length] > v279)
+  {
+    v364 = v264;
+    NSAppendPrintF_safe(&v364, "\n");
+    v280 = v364;
+
+    v264 = v280;
+  }
+
+  [v264 length];
+  v363 = v264;
+  NSAppendPrintF_safe(&v363, "Misc Caps: ");
+  v281 = v363;
+
+  caseSoundCapability = self->_caseSoundCapability;
+  if (self->_caseSoundCapability)
+  {
+    if (caseSoundCapability == 1)
+    {
+      v283 = "Unsupported";
+    }
+
+    else
+    {
+      v283 = "?";
+    }
+
+    if (caseSoundCapability == 2)
+    {
+      v284 = "Supported";
+    }
+
+    else
+    {
+      v284 = v283;
+    }
+
+    v285 = ShorthandString(v284);
+    v362 = v281;
+    NSAppendPrintF_safe(&v362, "cas snd %s, ", v285);
+    v286 = v362;
+
+    v281 = v286;
+  }
+
+  earTipFitTestCapability = self->_earTipFitTestCapability;
+  if (self->_earTipFitTestCapability)
+  {
+    if (earTipFitTestCapability == 1)
+    {
+      v288 = "Unsupported";
+    }
+
+    else
+    {
+      v288 = "?";
+    }
+
+    if (earTipFitTestCapability == 2)
+    {
+      v289 = "Supported";
+    }
+
+    else
+    {
+      v289 = v288;
+    }
+
+    v290 = ShorthandString(v289);
+    v361 = v281;
+    NSAppendPrintF_safe(&v361, "ear fit %s, ", v290);
+    v291 = v361;
+
+    v281 = v291;
+  }
+
+  farFieldUplinkCapability = self->_farFieldUplinkCapability;
+  if (self->_farFieldUplinkCapability)
+  {
+    if (farFieldUplinkCapability == 1)
+    {
+      v293 = "Unsupported";
+    }
+
+    else
+    {
+      v293 = "?";
+    }
+
+    if (farFieldUplinkCapability == 2)
+    {
+      v294 = "Supported";
+    }
+
+    else
+    {
+      v294 = v293;
+    }
+
+    v295 = ShorthandString(v294);
+    v360 = v281;
+    NSAppendPrintF_safe(&v360, "ff upl %s, ", v295);
+    v296 = v360;
+
+    v281 = v296;
+  }
+
+  hideEarDetectionCapability = self->_hideEarDetectionCapability;
+  if (self->_hideEarDetectionCapability)
+  {
+    if (hideEarDetectionCapability == 1)
+    {
+      v298 = "Unsupported";
+    }
+
+    else
+    {
+      v298 = "?";
+    }
+
+    if (hideEarDetectionCapability == 2)
+    {
+      v299 = "Supported";
+    }
+
+    else
+    {
+      v299 = v298;
+    }
+
+    v300 = ShorthandString(v299);
+    v359 = v281;
+    NSAppendPrintF_safe(&v359, "hide er %s, ", v300);
+    v301 = v359;
+
+    v281 = v301;
+  }
+
+  hideOffListeningModeCapability = self->_hideOffListeningModeCapability;
+  if (self->_hideOffListeningModeCapability)
+  {
+    if (hideOffListeningModeCapability == 1)
+    {
+      v303 = "Unsupported";
+    }
+
+    else
+    {
+      v303 = "?";
+    }
+
+    if (hideOffListeningModeCapability == 2)
+    {
+      v304 = "Supported";
+    }
+
+    else
+    {
+      v304 = v303;
+    }
+
+    v305 = ShorthandString(v304);
+    v358 = v281;
+    NSAppendPrintF_safe(&v358, "hide off %s, ", v305);
+    v306 = v358;
+
+    v281 = v306;
   }
 
   ovadStreamingCapability = self->_ovadStreamingCapability;
@@ -2872,29 +2957,30 @@
   {
     if (ovadStreamingCapability == 1)
     {
-      v257 = "Unsupported";
+      v308 = "Unsupported";
     }
 
     else
     {
-      v257 = "?";
+      v308 = "?";
     }
 
     if (ovadStreamingCapability == 2)
     {
-      v258 = "Supported";
+      v309 = "Supported";
     }
 
     else
     {
-      v258 = v257;
+      v309 = v308;
     }
 
-    ShorthandString(v258);
-    NSAppendPrintF_safe();
-    v259 = v235;
+    v310 = ShorthandString(v309);
+    v357 = v281;
+    NSAppendPrintF_safe(&v357, "ovd str %s, ", v310);
+    v311 = v357;
 
-    v235 = v259;
+    v281 = v311;
   }
 
   pmeEverywhereCapability = self->_pmeEverywhereCapability;
@@ -2902,29 +2988,30 @@
   {
     if (pmeEverywhereCapability == 1)
     {
-      v261 = "Unsupported";
+      v313 = "Unsupported";
     }
 
     else
     {
-      v261 = "?";
+      v313 = "?";
     }
 
     if (pmeEverywhereCapability == 2)
     {
-      v262 = "Supported";
+      v314 = "Supported";
     }
 
     else
     {
-      v262 = v261;
+      v314 = v313;
     }
 
-    ShorthandString(v262);
-    NSAppendPrintF_safe();
-    v263 = v235;
+    v315 = ShorthandString(v314);
+    v356 = v281;
+    NSAppendPrintF_safe(&v356, "pmee %s, ", v315);
+    v316 = v356;
 
-    v235 = v263;
+    v281 = v316;
   }
 
   personalTranslatorCapability = self->_personalTranslatorCapability;
@@ -2932,46 +3019,54 @@
   {
     if (personalTranslatorCapability == 1)
     {
-      v265 = "Unsupported";
+      v318 = "Unsupported";
     }
 
     else
     {
-      v265 = "?";
+      v318 = "?";
     }
 
     if (personalTranslatorCapability == 2)
     {
-      v266 = "Supported";
+      v319 = "Supported";
     }
 
     else
     {
-      v266 = v265;
+      v319 = v318;
     }
 
-    ShorthandString(v266);
-    NSAppendPrintF_safe();
-    v267 = v235;
+    v320 = ShorthandString(v319);
+    v355 = v281;
+    NSAppendPrintF_safe(&v355, "pt %s, ", v320);
+    v321 = v355;
 
-    v235 = v267;
+    v281 = v321;
   }
 
-  NSAppendPrintF_safe();
-  v268 = v235;
+  v354 = v281;
+  NSAppendPrintF_safe(&v354, "Misc Info: ");
+  v322 = v354;
 
   enhancedTransparencyVersion = self->_enhancedTransparencyVersion;
   if (self->_enhancedTransparencyVersion)
   {
-    if (enhancedTransparencyVersion <= 4)
+    v353 = v322;
+    if (enhancedTransparencyVersion > 4)
     {
-      v270 = off_278CDDBA0[enhancedTransparencyVersion - 1];
+      v324 = "Unknown";
     }
 
-    NSAppendPrintF_safe();
-    v271 = v268;
+    else
+    {
+      v324 = off_278CDDBA0[enhancedTransparencyVersion - 1];
+    }
 
-    v268 = v271;
+    NSAppendPrintF_safe(&v353, "enh trn %s,", v324);
+    v325 = v353;
+
+    v322 = v325;
   }
 
   farFieldSessionOnGoing = self->_farFieldSessionOnGoing;
@@ -2979,29 +3074,30 @@
   {
     if (farFieldSessionOnGoing == 1)
     {
-      v273 = "Yes";
+      v327 = "Yes";
     }
 
     else
     {
-      v273 = "?";
+      v327 = "?";
     }
 
     if (farFieldSessionOnGoing == 2)
     {
-      v274 = "No";
+      v328 = "No";
     }
 
     else
     {
-      v274 = v273;
+      v328 = v327;
     }
 
-    ShorthandString(v274);
-    NSAppendPrintF_safe();
-    v275 = v268;
+    v329 = ShorthandString(v328);
+    v352 = v322;
+    NSAppendPrintF_safe(&v352, "ffsog %s, ", v329);
+    v330 = v352;
 
-    v268 = v275;
+    v322 = v330;
   }
 
   healthKitDataWriteAllowed = self->_healthKitDataWriteAllowed;
@@ -3009,63 +3105,70 @@
   {
     if (healthKitDataWriteAllowed == 1)
     {
-      v277 = "Yes";
+      v332 = "Yes";
     }
 
     else
     {
-      v277 = "?";
+      v332 = "?";
     }
 
     if (healthKitDataWriteAllowed == 2)
     {
-      v278 = "No";
+      v333 = "No";
     }
 
     else
     {
-      v278 = v277;
+      v333 = v332;
     }
 
-    ShorthandString(v278);
-    NSAppendPrintF_safe();
-    v279 = v268;
+    v334 = ShorthandString(v333);
+    v351 = v322;
+    NSAppendPrintF_safe(&v351, "hk wr %s", v334);
+    v335 = v351;
 
-    v268 = v279;
+    v322 = v335;
   }
 
-  v280 = self->_lastSeenConnectedTime;
-  if (v280)
+  v336 = self->_lastSeenConnectedTime;
+  v337 = v336;
+  if (v336)
   {
-    NSAppendPrintF_safe();
-    v281 = v268;
+    v350 = v322;
+    NSAppendPrintF_safe(&v350, "lst conn '%@', ", v336);
+    v338 = v350;
 
-    v268 = v281;
+    v322 = v338;
   }
 
-  NSAppendPrintF_safe();
-  v282 = v268;
+  v349 = v322;
+  NSAppendPrintF_safe(&v349, "\n");
+  v339 = v349;
 
-  v283 = self->_coreBluetoothDevice;
-  if (v283)
+  v340 = self->_coreBluetoothDevice;
+  v341 = v340;
+  if (v340)
   {
-    NSAppendPrintF_safe();
-    v284 = v282;
+    v348 = v339;
+    NSAppendPrintF_safe(&v348, "\n%@", v340);
+    v342 = v348;
 
-    v282 = v284;
+    v339 = v342;
   }
 
   if (levelCopy < 0x15u)
   {
-    NSAppendPrintF_safe();
-    v285 = v282;
+    v347 = v339;
+    NSAppendPrintF_safe(&v347, "\n");
+    v343 = v347;
 
-    v282 = v285;
+    v339 = v343;
   }
 
-  v286 = v282;
+  v344 = v339;
 
-  return v282;
+  return v339;
 }
 
 - (NSString)bluetoothAddress
@@ -3232,10 +3335,9 @@
   selfCopy = self;
   objc_sync_enter(selfCopy);
   objc_storeStrong(&selfCopy->_bluetoothAddressData, data);
-  bluetoothAddressData = selfCopy->_bluetoothAddressData;
-  v7 = CUPrintNSDataAddress();
+  v6 = CUPrintNSDataAddress();
   bluetoothAddress = selfCopy->_bluetoothAddress;
-  selfCopy->_bluetoothAddress = v7;
+  selfCopy->_bluetoothAddress = v6;
 
   objc_sync_exit(selfCopy);
 }

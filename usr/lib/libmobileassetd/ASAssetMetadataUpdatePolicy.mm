@@ -87,7 +87,7 @@ void __37__ASAssetMetadataUpdatePolicy_policy__block_invoke(id a1)
 
 void __49__ASAssetMetadataUpdatePolicy_syntheticTrainName__block_invoke(id a1)
 {
-  v1 = getDownloadManager();
+  v1 = getDownloadManager(a1);
   v2 = [v1 trainName];
 
   if (v2)
@@ -253,165 +253,165 @@ LABEL_6:
 - (id)serverURLForAssetType:(id)type
 {
   typeCopy = type;
-  IsInternalAllowed = _MAPreferencesIsInternalAllowed();
-  v6 = MGCopyAnswer();
+  IsInternalAllowed = _MAPreferencesIsInternalAllowed(typeCopy, v5);
   v7 = MGCopyAnswer();
+  v8 = MGCopyAnswer();
   if (isSystemAppType(typeCopy))
   {
     if (IsInternalAllowed)
     {
-      v8 = @"https://basejumper.apple.com/systemassets/";
+      v9 = @"https://basejumper.apple.com/systemassets/";
     }
 
     else
     {
-      v8 = @"https://mesu.apple.com/systemassets/";
+      v9 = @"https://mesu.apple.com/systemassets/";
     }
 
-    v10 = [(ASAssetMetadataUpdatePolicy *)self getSystemAppURL:v8 assetType:typeCopy];
+    v11 = [(ASAssetMetadataUpdatePolicy *)self getSystemAppURL:v9 assetType:typeCopy];
     goto LABEL_44;
   }
 
   if (isBuildAlignedType(typeCopy))
   {
-    if (v6 && v7)
+    if (v7 && v8)
     {
-      v9 = 1;
+      v10 = 1;
       goto LABEL_14;
     }
 
-    v11 = _MADLog(@"V2");
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = _MADLog(@"V2");
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412802;
-      v30 = typeCopy;
-      v31 = 2112;
-      v32 = v7;
-      v33 = 2112;
-      v34 = v6;
-      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_ERROR, "Asset-Type (%@) is build aligned but the OS is missing information: (BuildID:%@ -- BuildVersion:%@)", buf, 0x20u);
+      v31 = typeCopy;
+      v32 = 2112;
+      v33 = v8;
+      v34 = 2112;
+      v35 = v7;
+      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_ERROR, "Asset-Type (%@) is build aligned but the OS is missing information: (BuildID:%@ -- BuildVersion:%@)", buf, 0x20u);
     }
   }
 
-  v9 = 0;
+  v10 = 0;
 LABEL_14:
   if (IsInternalAllowed)
   {
     syntheticTrainName = [(ASAssetMetadataUpdatePolicy *)self syntheticTrainName];
     if (syntheticTrainName)
     {
-      v13 = syntheticTrainName;
+      v14 = syntheticTrainName;
       actualTrainName = [(ASAssetMetadataUpdatePolicy *)self actualTrainName];
       if (actualTrainName)
       {
-        if (v9)
+        if (v10)
         {
-          [NSString stringWithFormat:@"https://basejumper.apple.com/assets/%s/%s%@/", actualTrainName, actualTrainName, v6];
+          [NSString stringWithFormat:@"https://basejumper.apple.com/assets/%s/%s%@/", actualTrainName, actualTrainName, v7];
         }
 
         else
         {
-          [NSString stringWithFormat:@"https://basejumper.apple.com/livability/%s/", v13, v27, v28];
+          [NSString stringWithFormat:@"https://basejumper.apple.com/livability/%s/", v14, v28, v29];
         }
 
         goto LABEL_24;
       }
     }
 
-    v15 = _MADLog(@"V2");
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = _MADLog(@"V2");
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEFAULT, "Train name was nil, falling back to customer path, defaulting to mesu", buf, 2u);
+      _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEFAULT, "Train name was nil, falling back to customer path, defaulting to mesu", buf, 2u);
     }
   }
 
-  v16 = @"https://mesu.apple.com/assets/";
-  if (!v9)
+  v17 = @"https://mesu.apple.com/assets/";
+  if (!v10)
   {
     goto LABEL_25;
   }
 
-  [NSString stringWithFormat:@"%@builds/%@/", @"https://mesu.apple.com/assets/", v7, v28];
-  v16 = LABEL_24:;
+  [NSString stringWithFormat:@"%@builds/%@/", @"https://mesu.apple.com/assets/", v8, v29];
+  v17 = LABEL_24:;
 LABEL_25:
   if (typeCopy)
   {
     if ([MAThirdPartyCompatibilityDaemon isThirdPartyAssetType:typeCopy])
     {
-      v17 = [MAThirdPartyCompatibilityDaemon thirdPartyServerURLForAssetType:typeCopy];
-      v18 = v17;
-      if (v17)
+      v18 = [MAThirdPartyCompatibilityDaemon thirdPartyServerURLForAssetType:typeCopy];
+      v19 = v18;
+      if (v18)
       {
-        v19 = v16;
-        v16 = v17;
+        v20 = v17;
+        v17 = v18;
       }
 
       else
       {
-        v19 = _MADLog(@"V2");
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+        v20 = _MADLog(@"V2");
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v30 = typeCopy;
-          _os_log_impl(&dword_0, v19, OS_LOG_TYPE_ERROR, "Asset-Type: (%@) is a 3rd party asset, but contains no server URL.", buf, 0xCu);
+          v31 = typeCopy;
+          _os_log_impl(&dword_0, v20, OS_LOG_TYPE_ERROR, "Asset-Type: (%@) is a 3rd party asset, but contains no server URL.", buf, 0xCu);
         }
       }
 
-      v20 = IsInternalAllowed ^ 1;
+      v21 = IsInternalAllowed ^ 1;
     }
 
     else
     {
-      v20 = 0;
+      v21 = 0;
     }
 
-    v21 = v16;
-    v22 = [(ASAssetMetadataUpdatePolicy *)self checkPreferencesForOverride:typeCopy];
+    v22 = v17;
+    v23 = [(ASAssetMetadataUpdatePolicy *)self checkPreferencesForOverride:typeCopy];
     objc_opt_class();
-    v23 = v21;
+    v24 = v22;
     if (objc_opt_isKindOfClass())
     {
-      if (v20)
+      if (v21)
       {
-        v24 = _MADLog(@"V2");
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+        v25 = _MADLog(@"V2");
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412546;
-          v30 = typeCopy;
-          v31 = 2112;
-          v32 = v22;
-          _os_log_impl(&dword_0, v24, OS_LOG_TYPE_ERROR, "Asset-Type: (%@) has an overridden URL (%@) that will not be honored.", buf, 0x16u);
+          v31 = typeCopy;
+          v32 = 2112;
+          v33 = v23;
+          _os_log_impl(&dword_0, v25, OS_LOG_TYPE_ERROR, "Asset-Type: (%@) has an overridden URL (%@) that will not be honored.", buf, 0x16u);
         }
 
-        v23 = v21;
+        v24 = v22;
       }
 
       else
       {
-        v23 = v22;
-        v24 = v21;
+        v24 = v23;
+        v25 = v22;
       }
     }
 
-    if (([v23 hasSuffix:@"/"] & 1) == 0)
+    if (([v24 hasSuffix:@"/"] & 1) == 0)
     {
-      v25 = [NSString stringWithFormat:@"%@/", v23];
+      v26 = [NSString stringWithFormat:@"%@/", v24];
 
-      v23 = v25;
+      v24 = v26;
     }
 
-    v10 = [NSURL URLWithString:v23];
+    v11 = [NSURL URLWithString:v24];
   }
 
   else
   {
-    v10 = [NSURL URLWithString:v16];
+    v11 = [NSURL URLWithString:v17];
   }
 
 LABEL_44:
 
-  return v10;
+  return v11;
 }
 
 - (id)getSystemAppURL:(id)l assetType:(id)type

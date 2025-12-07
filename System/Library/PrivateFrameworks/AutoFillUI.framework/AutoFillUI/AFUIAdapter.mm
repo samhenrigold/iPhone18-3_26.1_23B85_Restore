@@ -56,41 +56,41 @@
 
 + (id)gatherRespondersFromResponder:(id)responder
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   responderCopy = responder;
   array = [MEMORY[0x1E695DF70] array];
   [responderCopy _gatherKeyResponders:array indexOfSelf:0 visibilityTest:&__block_literal_global_8 passingTest:&__block_literal_global_11 subviewsTest:&__block_literal_global_283];
   if ([array count] >= 3)
   {
-    v46 = responderCopy;
+    v45 = responderCopy;
     [MEMORY[0x1E695DF70] array];
-    v48 = v47 = array;
+    v47 = v46 = array;
+    v48 = 0u;
     v49 = 0u;
     v50 = 0u;
     v51 = 0u;
-    v52 = 0u;
     v5 = array;
-    v6 = [v5 countByEnumeratingWithState:&v49 objects:v53 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v48 objects:v52 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v50;
+      v8 = *v49;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v50 != v8)
+          if (*v49 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v49 + 1) + 8 * i);
+          v10 = *(*(&v48 + 1) + 8 * i);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
             v11 = v10;
             [v11 frame];
-            if (!CGRectIsEmpty(v56))
+            if (!CGRectIsEmpty(v55))
             {
               [v11 bounds];
               [v11 convertRect:0 toView:?];
@@ -112,49 +112,47 @@
               windowScene2 = [window3 windowScene];
               coordinateSpace2 = [windowScene2 coordinateSpace];
               [coordinateSpace2 bounds];
-              v60.origin.x = v35;
-              v60.origin.y = v36;
-              v60.size.width = v37;
-              v60.size.height = v38;
-              v57.origin.x = v25;
-              v57.origin.y = v27;
-              v57.size.width = v29;
-              v57.size.height = v31;
-              v58 = CGRectIntersection(v57, v60);
-              x = v58.origin.x;
-              y = v58.origin.y;
-              width = v58.size.width;
-              height = v58.size.height;
+              v59.origin.x = v35;
+              v59.origin.y = v36;
+              v59.size.width = v37;
+              v59.size.height = v38;
+              v56.origin.x = v25;
+              v56.origin.y = v27;
+              v56.size.width = v29;
+              v56.size.height = v31;
+              v57 = CGRectIntersection(v56, v59);
+              x = v57.origin.x;
+              y = v57.origin.y;
+              width = v57.size.width;
+              height = v57.size.height;
 
-              v59.origin.x = x;
-              v59.origin.y = y;
-              v59.size.width = width;
-              v59.size.height = height;
-              if (CGRectIsEmpty(v59))
+              v58.origin.x = x;
+              v58.origin.y = y;
+              v58.size.width = width;
+              v58.size.height = height;
+              if (CGRectIsEmpty(v58))
               {
-                [v48 addObject:v11];
+                [v47 addObject:v11];
               }
             }
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v49 objects:v53 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v48 objects:v52 count:16];
       }
 
       while (v7);
     }
 
     v43 = [v5 count];
-    if ((v43 - [v48 count]) >= 4)
+    if ((v43 - [v47 count]) >= 4)
     {
-      [v5 removeObjectsInArray:v48];
+      [v5 removeObjectsInArray:v47];
     }
 
-    responderCopy = v46;
-    array = v47;
+    responderCopy = v45;
+    array = v46;
   }
-
-  v44 = *MEMORY[0x1E69E9840];
 
   return array;
 }
@@ -401,37 +399,35 @@ LABEL_5:
 
 + (void)addTemporaryTextColorToTextField:(id)field
 {
-  v11[2] = *MEMORY[0x1E69E9840];
+  v10[2] = *MEMORY[0x1E69E9840];
   fieldCopy = field;
   textLayoutController = [fieldCopy textLayoutController];
   documentRange = [textLayoutController documentRange];
-  v10[0] = *MEMORY[0x1E69DB650];
+  v9[0] = *MEMORY[0x1E69DB650];
   blackColor = [MEMORY[0x1E69DC888] blackColor];
-  v11[0] = blackColor;
-  v10[1] = *MEMORY[0x1E69DB600];
+  v10[0] = blackColor;
+  v9[1] = *MEMORY[0x1E69DB600];
   clearColor = [MEMORY[0x1E69DC888] clearColor];
-  v11[1] = clearColor;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v10[1] = clearColor;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:2];
   [textLayoutController addRenderingAttributes:v8 forRange:documentRange];
 
   [fieldCopy setNeedsDisplay];
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 + (void)removeTemporaryTextColorFromTextField:(id)field
 {
-  v9[2] = *MEMORY[0x1E69E9840];
+  v8[2] = *MEMORY[0x1E69E9840];
   fieldCopy = field;
   textLayoutController = [fieldCopy textLayoutController];
   documentRange = [textLayoutController documentRange];
   v6 = *MEMORY[0x1E69DB600];
-  v9[0] = *MEMORY[0x1E69DB650];
-  v9[1] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:2];
+  v8[0] = *MEMORY[0x1E69DB650];
+  v8[1] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:2];
   [textLayoutController removeRenderingAttributes:v7 forRange:documentRange];
 
   [fieldCopy setNeedsDisplay];
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 + (id)textFromResponder:(id)responder
@@ -530,10 +526,10 @@ LABEL_5:
 
 + (void)enumerateSignUpSignalsFromButton:(id)button block:(id)block
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   buttonCopy = button;
   blockCopy = block;
-  v34 = 0;
+  v33 = 0;
   text = [buttonCopy titleForState:{objc_msgSend(buttonCopy, "state")}];
   if (!text)
   {
@@ -541,58 +537,58 @@ LABEL_5:
     text = [titleLabel text];
   }
 
-  blockCopy[2](blockCopy, text, &v34);
-  if ((v34 & 1) == 0)
+  blockCopy[2](blockCopy, text, &v33);
+  if ((v33 & 1) == 0)
   {
-    v23 = text;
+    v22 = text;
     [buttonCopy allTargets];
+    v29 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v32 = 0u;
-    obj = v33 = 0u;
-    v9 = [obj countByEnumeratingWithState:&v30 objects:v36 count:16];
+    obj = v32 = 0u;
+    v9 = [obj countByEnumeratingWithState:&v29 objects:v35 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v31;
+      v11 = *v30;
 LABEL_6:
       v12 = 0;
       while (1)
       {
-        if (*v31 != v11)
+        if (*v30 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = [buttonCopy actionsForTarget:*(*(&v30 + 1) + 8 * v12) forControlEvent:64];
+        v13 = [buttonCopy actionsForTarget:*(*(&v29 + 1) + 8 * v12) forControlEvent:64];
+        v25 = 0u;
         v26 = 0u;
         v27 = 0u;
         v28 = 0u;
-        v29 = 0u;
         v14 = v13;
-        v15 = [v14 countByEnumeratingWithState:&v26 objects:v35 count:16];
+        v15 = [v14 countByEnumeratingWithState:&v25 objects:v34 count:16];
         if (v15)
         {
           v16 = v15;
-          v17 = *v27;
+          v17 = *v26;
 LABEL_11:
           v18 = 0;
           while (1)
           {
-            if (*v27 != v17)
+            if (*v26 != v17)
             {
               objc_enumerationMutation(v14);
             }
 
-            blockCopy[2](blockCopy, *(*(&v26 + 1) + 8 * v18), &v34);
-            if (v34)
+            blockCopy[2](blockCopy, *(*(&v25 + 1) + 8 * v18), &v33);
+            if (v33)
             {
               break;
             }
 
             if (v16 == ++v18)
             {
-              v16 = [v14 countByEnumeratingWithState:&v26 objects:v35 count:16];
+              v16 = [v14 countByEnumeratingWithState:&v25 objects:v34 count:16];
               if (v16)
               {
                 goto LABEL_11;
@@ -603,7 +599,7 @@ LABEL_11:
           }
         }
 
-        v19 = v34;
+        v19 = v33;
         if (v19)
         {
           break;
@@ -611,7 +607,7 @@ LABEL_11:
 
         if (++v12 == v10)
         {
-          v10 = [obj countByEnumeratingWithState:&v30 objects:v36 count:16];
+          v10 = [obj countByEnumeratingWithState:&v29 objects:v35 count:16];
           if (v10)
           {
             goto LABEL_6;
@@ -622,22 +618,20 @@ LABEL_11:
       }
     }
 
-    text = v23;
-    if ((v34 & 1) == 0 && [v23 length])
+    text = v22;
+    if ((v33 & 1) == 0 && [v22 length])
     {
       mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
-      v25 = 0;
-      [mainBundle _searchForLocalizedString:v23 foundKey:&v25 foundTable:0];
-      v21 = v25;
+      v24 = 0;
+      [mainBundle _searchForLocalizedString:v22 foundKey:&v24 foundTable:0];
+      v21 = v24;
 
       if (v21)
       {
-        blockCopy[2](blockCopy, v21, &v34);
+        blockCopy[2](blockCopy, v21, &v33);
       }
     }
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 + (void)enumerateSignUpSignalsFromViewControllerForResponder:(id)responder block:(id)block viewControllerOut:(id *)out
@@ -656,44 +650,44 @@ LABEL_11:
 
 + (void)enumerateSignUpSignalsFromViewController:(id)controller block:(id)block
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
   blockCopy = block;
-  v24 = 0;
+  v23 = 0;
   v8 = objc_opt_class();
   v9 = NSStringFromClass(v8);
-  blockCopy[2](blockCopy, v9, &v24);
+  blockCopy[2](blockCopy, v9, &v23);
 
-  if ((v24 & 1) == 0)
+  if ((v23 & 1) == 0)
   {
     [controllerCopy childViewControllers];
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
-    v10 = v23 = 0u;
-    v11 = [v10 countByEnumeratingWithState:&v20 objects:v25 count:16];
+    v10 = v22 = 0u;
+    v11 = [v10 countByEnumeratingWithState:&v19 objects:v24 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v21;
+      v13 = *v20;
       do
       {
         v14 = 0;
         do
         {
-          if (*v21 != v13)
+          if (*v20 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v20 + 1) + 8 * v14);
+          v15 = *(*(&v19 + 1) + 8 * v14);
           if (([v15 isBeingPresented] & 1) != 0 || (objc_msgSend(v15, "isMovingToParentViewController") & 1) != 0 || objc_msgSend(v15, "_appearState") == 1 || objc_msgSend(v15, "_appearState") == 2)
           {
             v16 = objc_opt_class();
             v17 = NSStringFromClass(v16);
-            blockCopy[2](blockCopy, v17, &v24);
+            blockCopy[2](blockCopy, v17, &v23);
 
-            if (v24)
+            if (v23)
             {
               goto LABEL_16;
             }
@@ -708,7 +702,7 @@ LABEL_11:
         }
 
         while (v12 != v14);
-        v18 = [v10 countByEnumeratingWithState:&v20 objects:v25 count:16];
+        v18 = [v10 countByEnumeratingWithState:&v19 objects:v24 count:16];
         v12 = v18;
       }
 
@@ -717,8 +711,6 @@ LABEL_11:
 
 LABEL_16:
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 + (void)enumerateSignUpSignalsFromNavBarItem:(id)item block:(id)block
@@ -734,46 +726,20 @@ LABEL_16:
     rightBarButtonItem = [topItem rightBarButtonItem];
 
     customView = [rightBarButtonItem customView];
-    if (customView)
+    if (customView && (v11 = customView, [rightBarButtonItem customView], v12 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v12, v11, (isKindOfClass & 1) != 0) && (objc_msgSend(rightBarButtonItem, "customView"), v14 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v14, "titleForState:", 0), v15 = objc_claimAutoreleasedReturnValue(), v14, v15) || (objc_msgSend(rightBarButtonItem, "title"), v15 = objc_claimAutoreleasedReturnValue(), v15, v15) && (objc_msgSend(rightBarButtonItem, "title"), (v15 = objc_claimAutoreleasedReturnValue()) != 0))
     {
-      v11 = customView;
-      customView2 = [rightBarButtonItem customView];
-      objc_opt_class();
-      isKindOfClass = objc_opt_isKindOfClass();
-
-      if (isKindOfClass)
+      if (([itemCopy isNavigationBarHidden] & 1) != 0 || !objc_msgSend(v15, "length") || (blockCopy[2](blockCopy, v15, &v19), (v19 & 1) == 0))
       {
-        customView3 = [rightBarButtonItem customView];
-        title = [customView3 titleForState:0];
-
-        if (title)
+        if ([v15 length])
         {
-          goto LABEL_18;
-        }
-      }
-    }
+          mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
+          v18 = 0;
+          [mainBundle _searchForLocalizedString:v15 foundKey:&v18 foundTable:0];
+          v17 = v18;
 
-    title = [rightBarButtonItem title];
-
-    if (title)
-    {
-      title = [rightBarButtonItem title];
-      if (title)
-      {
-LABEL_18:
-        if (([itemCopy isNavigationBarHidden] & 1) != 0 || !objc_msgSend(title, "length") || (blockCopy[2](blockCopy, title, &v19), (v19 & 1) == 0))
-        {
-          if ([title length])
+          if (v17)
           {
-            mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
-            v18 = 0;
-            [mainBundle _searchForLocalizedString:title foundKey:&v18 foundTable:0];
-            v17 = v18;
-
-            if (v17)
-            {
-              blockCopy[2](blockCopy, v17, &v19);
-            }
+            blockCopy[2](blockCopy, v17, &v19);
           }
         }
       }

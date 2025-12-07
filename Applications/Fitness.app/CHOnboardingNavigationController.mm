@@ -51,10 +51,11 @@
 
   v7 = (self + OBJC_IVAR___CHOnboardingNavigationController_buddyControllerDoneAction);
   v8 = *(self + OBJC_IVAR___CHOnboardingNavigationController_buddyControllerDoneAction);
+  v9 = *(self + OBJC_IVAR___CHOnboardingNavigationController_buddyControllerDoneAction + 8);
   *v7 = v6;
   v7[1] = v4;
   selfCopy = self;
-  sub_1000245E0(v8);
+  sub_1000245E0(v8, v9);
 }
 
 - (CHOnboardingNavigationController)initWithNavigationBarClass:(Class)class toolbarClass:(Class)toolbarClass
@@ -129,11 +130,12 @@
   v3 = *(self + OBJC_IVAR___CHOnboardingNavigationController_buddyControllerDoneAction);
   if (v3)
   {
+    v4 = *(self + OBJC_IVAR___CHOnboardingNavigationController_buddyControllerDoneAction + 8);
     selfCopy = self;
-    v5 = sub_10000B210(v3);
-    v3(v5);
+    v6 = sub_10000B210(v3, v4);
+    v3(v6);
 
-    sub_1000245E0(v3);
+    sub_1000245E0(v3, v4);
   }
 }
 
@@ -142,11 +144,12 @@
   v4 = *(self + OBJC_IVAR___CHOnboardingNavigationController_buddyControllerDoneAction);
   if (v4)
   {
+    v5 = *(self + OBJC_IVAR___CHOnboardingNavigationController_buddyControllerDoneAction + 8);
     selfCopy = self;
-    v6 = sub_10000B210(v4);
-    v4(v6);
+    v7 = sub_10000B210(v4, v5);
+    v4(v7);
 
-    sub_1000245E0(v4);
+    sub_1000245E0(v4, v5);
   }
 }
 

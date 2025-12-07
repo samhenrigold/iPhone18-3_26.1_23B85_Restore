@@ -59,7 +59,7 @@
 
 - (void)handler:(id)handler deleteCommand:(id)command toIdentifier:(id)identifier fromIdentifier:(id)fromIdentifier fromToken:(id)token fromIDSID:(id)d timeStamp:(id)stamp needsDeliveryReceipt:(id)self0 deliveryContext:(id)self1 storageContext:(id)self2
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   commandCopy = command;
   identifierCopy = identifier;
@@ -93,13 +93,13 @@
         if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
         {
           *buf = 138413058;
-          v48 = commandCopy;
-          v49 = 1024;
-          v50 = cloudKitSyncingEnabled & 1;
-          v51 = 1024;
-          v52 = bOOLValue;
-          v53 = 1024;
-          v54 = isActive;
+          v47 = commandCopy;
+          v48 = 1024;
+          v49 = cloudKitSyncingEnabled & 1;
+          v50 = 1024;
+          v51 = bOOLValue;
+          v52 = 1024;
+          v53 = isActive;
           _os_log_impl(&dword_22B4CC000, v32, OS_LOG_TYPE_INFO, "Handling delete command: %@ (cloudKitSyncEnabled: %d, wasReportedJunk: %d, senderIsPairedWatch: %d)", buf, 0x1Eu);
         }
       }
@@ -112,14 +112,14 @@
         commandCopy = v34;
       }
 
-      v45[0] = MEMORY[0x277D85DD0];
-      v45[1] = 3221225472;
-      v45[2] = sub_22B5003B0;
-      v45[3] = &unk_278703040;
-      v45[4] = self;
+      v44[0] = MEMORY[0x277D85DD0];
+      v44[1] = 3221225472;
+      v44[2] = sub_22B5003B0;
+      v44[3] = &unk_278703040;
+      v44[4] = self;
       commandCopy = commandCopy;
-      v46 = commandCopy;
-      [(IMDRelayDeletionController *)self _enqueueBlock:v45 withTimeout:45.0];
+      v45 = commandCopy;
+      [(IMDRelayDeletionController *)self _enqueueBlock:v44 withTimeout:45.0];
     }
 
     else if (v31)
@@ -128,7 +128,7 @@
       if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v48 = commandCopy;
+        v47 = commandCopy;
         _os_log_impl(&dword_22B4CC000, v35, OS_LOG_TYPE_INFO, "iCloudSync not enabled and not reported as junk, dropping delete command: %@", buf, 0xCu);
       }
     }
@@ -142,20 +142,18 @@
       if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v48 = tokenCopy;
+        v47 = tokenCopy;
         _os_log_impl(&dword_22B4CC000, v36, OS_LOG_TYPE_INFO, "Received a delete command, but it was not from one of our own devices From: %@", buf, 0xCu);
       }
     }
 
     v22 = 0;
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handler:(id)handler recoverCommand:(id)command toIdentifier:(id)identifier fromIdentifier:(id)fromIdentifier fromToken:(id)token fromIDSID:(id)d timeStamp:(id)stamp needsDeliveryReceipt:(id)self0 deliveryContext:(id)self1 storageContext:(id)self2
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   commandCopy = command;
   identifierCopy = identifier;
@@ -183,18 +181,18 @@
         if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v41 = commandCopy;
+          v40 = commandCopy;
           _os_log_impl(&dword_22B4CC000, v30, OS_LOG_TYPE_INFO, "Handling recover command: %@ (cloudKitSyncEnabled: YES)", buf, 0xCu);
         }
       }
 
-      v38[0] = MEMORY[0x277D85DD0];
-      v38[1] = 3221225472;
-      v38[2] = sub_22B500774;
-      v38[3] = &unk_278703040;
-      v38[4] = self;
-      v39 = commandCopy;
-      [(IMDRelayDeletionController *)self _enqueueBlock:v38 withTimeout:45.0];
+      v37[0] = MEMORY[0x277D85DD0];
+      v37[1] = 3221225472;
+      v37[2] = sub_22B500774;
+      v37[3] = &unk_278703040;
+      v37[4] = self;
+      v38 = commandCopy;
+      [(IMDRelayDeletionController *)self _enqueueBlock:v37 withTimeout:45.0];
     }
 
     else if (v29)
@@ -203,7 +201,7 @@
       if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v41 = commandCopy;
+        v40 = commandCopy;
         _os_log_impl(&dword_22B4CC000, v31, OS_LOG_TYPE_INFO, "iCloudSync not enabled, dropping recover command: %@", buf, 0xCu);
       }
     }
@@ -217,15 +215,13 @@
       if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v41 = tokenCopy;
+        v40 = tokenCopy;
         _os_log_impl(&dword_22B4CC000, v32, OS_LOG_TYPE_INFO, "Received a recover command, but it was not from one of our own devices From: %@", buf, 0xCu);
       }
     }
 
     v25 = 0;
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (id)broadcasterForChatListenersForService:(id)service
@@ -292,35 +288,35 @@
 
 - (BOOL)deleteChatsForCommandDictionary:(id)dictionary
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v4 = [dictionaryCopy objectForKeyedSubscript:@"isPermanentDelete"];
   bOOLValue = [v4 BOOLValue];
 
-  v38 = bOOLValue;
+  v37 = bOOLValue;
   if (bOOLValue)
   {
     v6 = [dictionaryCopy objectForKeyedSubscript:@"permanentDeleteChatMetadataArray"];
-    v37 = 0;
+    v36 = 0;
   }
 
   else
   {
     v6 = [dictionaryCopy objectForKeyedSubscript:@"chat"];
-    v37 = [dictionaryCopy objectForKeyedSubscript:@"recoverableDeleteDate"];
+    v36 = [dictionaryCopy objectForKeyedSubscript:@"recoverableDeleteDate"];
   }
 
-  v48 = 0u;
-  v49 = 0u;
-  v46 = 0u;
   v47 = 0u;
+  v48 = 0u;
+  v45 = 0u;
+  v46 = 0u;
   obj = v6;
-  v33 = [obj countByEnumeratingWithState:&v46 objects:v58 count:16];
-  if (v33)
+  v32 = [obj countByEnumeratingWithState:&v45 objects:v57 count:16];
+  if (v32)
   {
     v7 = 0;
-    v32 = *v47;
-    if (v38)
+    v31 = *v46;
+    if (v37)
     {
       v8 = @"YES";
     }
@@ -330,21 +326,21 @@
       v8 = @"NO";
     }
 
-    v35 = v8;
+    v34 = v8;
     do
     {
       v9 = 0;
       do
       {
-        if (*v47 != v32)
+        if (*v46 != v31)
         {
           v10 = v9;
           objc_enumerationMutation(obj);
           v9 = v10;
         }
 
-        v34 = v9;
-        v11 = *(*(&v46 + 1) + 8 * v9);
+        v33 = v9;
+        v11 = *(*(&v45 + 1) + 8 * v9);
         [(IMDRelayDeletionController *)self _blocklistIfNeededForChatDict:v11];
         v12 = [(IMDRelayDeletionController *)self _chatsForDeleteAndRecoveryChatMetadataDictionary:v11];
         v13 = [v11 objectForKeyedSubscript:@"deleteIncomingMessages"];
@@ -356,39 +352,39 @@
           if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v54 = v11;
+            v53 = v11;
             _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_INFO, "IMDRelayDeletionController | Deletion: did not find any chats for chat metadata %@", buf, 0xCu);
           }
         }
 
-        v44 = 0u;
-        v45 = 0u;
-        v42 = 0u;
         v43 = 0u;
-        v36 = v12;
-        v16 = [v36 countByEnumeratingWithState:&v42 objects:v57 count:16];
+        v44 = 0u;
+        v41 = 0u;
+        v42 = 0u;
+        v35 = v12;
+        v16 = [v35 countByEnumeratingWithState:&v41 objects:v56 count:16];
         if (v16)
         {
-          v17 = *v43;
+          v17 = *v42;
           do
           {
             for (i = 0; i != v16; ++i)
             {
-              if (*v43 != v17)
+              if (*v42 != v17)
               {
-                objc_enumerationMutation(v36);
+                objc_enumerationMutation(v35);
               }
 
-              v19 = *(*(&v42 + 1) + 8 * i);
+              v19 = *(*(&v41 + 1) + 8 * i);
               if (IMOSLoggingEnabled())
               {
                 v20 = OSLogHandleForIMFoundationCategory();
                 if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
                 {
                   *buf = 138412546;
-                  v54 = v19;
-                  v55 = 2112;
-                  v56 = v35;
+                  v53 = v19;
+                  v54 = 2112;
+                  v55 = v34;
                   _os_log_impl(&dword_22B4CC000, v20, OS_LOG_TYPE_INFO, "removing chat: %@, permanently: %@", buf, 0x16u);
                 }
               }
@@ -398,51 +394,51 @@
               v23 = -[IMDRelayDeletionController broadcasterForChatListenersForService:withBlackholeStatus:](self, "broadcasterForChatListenersForService:withBlackholeStatus:", service, [v19 isBlackholed]);
 
               chatRegistry = [(IMDRelayDeletionController *)self chatRegistry];
-              if (v38)
+              if (v37)
               {
-                v52 = guid;
-                v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v52 count:1];
-                v39[0] = MEMORY[0x277D85DD0];
-                v39[1] = 3221225472;
-                v39[2] = sub_22B500FF8;
-                v39[3] = &unk_278703068;
-                v40 = v23;
-                v41 = guid;
-                [chatRegistry permanentlyDeleteRecoverableMessagesInChatsWithGUIDs:v25 completionHandler:v39];
+                v51 = guid;
+                v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v51 count:1];
+                v38[0] = MEMORY[0x277D85DD0];
+                v38[1] = 3221225472;
+                v38[2] = sub_22B500FF8;
+                v38[3] = &unk_278703068;
+                v39 = v23;
+                v40 = guid;
+                [chatRegistry permanentlyDeleteRecoverableMessagesInChatsWithGUIDs:v25 completionHandler:v38];
 
-                v26 = v40;
+                v26 = v39;
               }
 
               else
               {
-                v51 = guid;
-                v27 = [MEMORY[0x277CBEA60] arrayWithObjects:&v51 count:1];
-                [chatRegistry moveMessagesInChatsWithGUIDsToRecentlyDeleted:v27 deleteDate:v37];
+                v50 = guid;
+                v27 = [MEMORY[0x277CBEA60] arrayWithObjects:&v50 count:1];
+                [chatRegistry moveMessagesInChatsWithGUIDsToRecentlyDeleted:v27 deleteDate:v36];
 
                 [(IMDRelayDeletionController *)self _updateLastMessageTimeStampForChat:v19 broadcaster:v23];
-                v50 = guid;
-                v26 = [MEMORY[0x277CBEA60] arrayWithObjects:&v50 count:1];
-                [v23 movedMessagesToRecentlyDeletedForChatsWithGUIDs:v26 queryID:0 deletionDate:v37];
+                v49 = guid;
+                v26 = [MEMORY[0x277CBEA60] arrayWithObjects:&v49 count:1];
+                [v23 movedMessagesToRecentlyDeletedForChatsWithGUIDs:v26 queryID:0 deletionDate:v36];
               }
 
               [v19 setDeletingIncomingMessages:bOOLValue2];
             }
 
-            v16 = [v36 countByEnumeratingWithState:&v42 objects:v57 count:16];
+            v16 = [v35 countByEnumeratingWithState:&v41 objects:v56 count:16];
           }
 
           while (v16);
           v7 = 1;
         }
 
-        v9 = v34 + 1;
+        v9 = v33 + 1;
       }
 
-      while (v34 + 1 != v33);
-      v33 = [obj countByEnumeratingWithState:&v46 objects:v58 count:16];
+      while (v33 + 1 != v32);
+      v32 = [obj countByEnumeratingWithState:&v45 objects:v57 count:16];
     }
 
-    while (v33);
+    while (v32);
   }
 
   else
@@ -450,13 +446,12 @@
     v7 = 0;
   }
 
-  v28 = *MEMORY[0x277D85DE8];
   return v7 & 1;
 }
 
 - (BOOL)deleteMessagesForCommandDictionary:(id)dictionary
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v5 = [dictionaryCopy objectForKeyedSubscript:@"message"];
   if (IMOSLoggingEnabled())
@@ -465,9 +460,9 @@
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v5, "count")}];
-      v27 = 138412290;
-      v28 = v7;
-      _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "Deleting %@: messages", &v27, 0xCu);
+      v26 = 138412290;
+      v27 = v7;
+      _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "Deleting %@: messages", &v26, 0xCu);
     }
   }
 
@@ -492,9 +487,9 @@
       v18 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
       {
-        v27 = 138412290;
-        v28 = v5;
-        _os_log_impl(&dword_22B4CC000, v18, OS_LOG_TYPE_INFO, "Permanently deleting messages with GUID %@: ", &v27, 0xCu);
+        v26 = 138412290;
+        v27 = v5;
+        _os_log_impl(&dword_22B4CC000, v18, OS_LOG_TYPE_INFO, "Permanently deleting messages with GUID %@: ", &v26, 0xCu);
       }
     }
 
@@ -509,9 +504,9 @@
       v21 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
       {
-        v27 = 138412290;
-        v28 = v5;
-        _os_log_impl(&dword_22B4CC000, v21, OS_LOG_TYPE_INFO, "Recoverably deleting messages with GUID %@: ", &v27, 0xCu);
+        v26 = 138412290;
+        v27 = v5;
+        _os_log_impl(&dword_22B4CC000, v21, OS_LOG_TYPE_INFO, "Recoverably deleting messages with GUID %@: ", &v26, 0xCu);
       }
     }
 
@@ -521,9 +516,9 @@
       v22 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
       {
-        v27 = 138412290;
-        v28 = v19;
-        _os_log_impl(&dword_22B4CC000, v22, OS_LOG_TYPE_INFO, "Recently Deleted | messages delete date: %@", &v27, 0xCu);
+        v26 = 138412290;
+        v27 = v19;
+        _os_log_impl(&dword_22B4CC000, v22, OS_LOG_TYPE_INFO, "Recently Deleted | messages delete date: %@", &v26, 0xCu);
       }
     }
 
@@ -536,16 +531,15 @@
   [v16 historicalMessageGUIDsDeleted:v5 chatGUIDs:0 queryID:0];
   v24 = [v5 count] != 0;
 
-  v25 = *MEMORY[0x277D85DE8];
   return v24;
 }
 
 - (BOOL)deleteMessagePartsForCommandDictionary:(id)dictionary
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
-  v33 = [dictionaryCopy objectForKeyedSubscript:@"parts"];
-  if (![v33 count])
+  v32 = [dictionaryCopy objectForKeyedSubscript:@"parts"];
+  if (![v32 count])
   {
     if (IMOSLoggingEnabled())
     {
@@ -586,45 +580,45 @@ LABEL_10:
     goto LABEL_11;
   }
 
-  v34 = [dictionaryCopy objectForKeyedSubscript:@"recoverableDeleteDate"];
+  v33 = [dictionaryCopy objectForKeyedSubscript:@"recoverableDeleteDate"];
   *buf = 0;
-  v50 = buf;
-  v51 = 0x2020000000;
-  v52 = 0;
+  v49 = buf;
+  v50 = 0x2020000000;
+  v51 = 0;
   if (IMOSLoggingEnabled())
   {
     v7 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v8 = [v33 count];
-      v9 = [v33 objectAtIndexedSubscript:0];
-      *v54 = 134218242;
-      v55 = v8;
-      v56 = 2112;
-      v57 = v9;
-      _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Recently Deleted | Deleting message parts from %lu messages: %@", v54, 0x16u);
+      v8 = [v32 count];
+      v9 = [v32 objectAtIndexedSubscript:0];
+      *v53 = 134218242;
+      v54 = v8;
+      v55 = 2112;
+      v56 = v9;
+      _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Recently Deleted | Deleting message parts from %lu messages: %@", v53, 0x16u);
     }
   }
 
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
   v46 = 0u;
-  obj = v33;
-  v10 = [obj countByEnumeratingWithState:&v45 objects:v53 count:16];
+  v47 = 0u;
+  v44 = 0u;
+  v45 = 0u;
+  obj = v32;
+  v10 = [obj countByEnumeratingWithState:&v44 objects:v52 count:16];
   if (v10)
   {
-    v37 = *v46;
+    v36 = *v45;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v46 != v37)
+        if (*v45 != v36)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v45 + 1) + 8 * i);
+        v12 = *(*(&v44 + 1) + 8 * i);
         v13 = [v12 objectForKeyedSubscript:@"messageGuid"];
         v14 = [v12 objectForKeyedSubscript:@"deleteSubject"];
         bOOLValue2 = [v14 BOOLValue];
@@ -634,11 +628,11 @@ LABEL_10:
 
         if (v17)
         {
+          v42 = 0;
           v43 = 0;
-          v44 = 0;
-          [IMDDeletePartsHelper _convertDeletedPartsDict:v12 toIndexSet:&v44 toMap:&v43];
-          v18 = v44;
-          v19 = v43;
+          [IMDDeletePartsHelper _convertDeletedPartsDict:v12 toIndexSet:&v43 toMap:&v42];
+          v18 = v43;
+          v19 = v42;
           if ([v18 count])
           {
             v20 = [MEMORY[0x277D1AA70] _messageItemWithIndexesDeleted:v18 subRangesToDeleteMapping:v19 deleteSubject:bOOLValue2 deleteTransferCallback:0 createItemCallback:0 fromMessageItem:v17];
@@ -647,24 +641,24 @@ LABEL_10:
               v21 = OSLogHandleForIMFoundationCategory();
               if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
               {
-                *v54 = 138412546;
-                v55 = v17;
-                v56 = 2112;
-                v57 = v20;
-                _os_log_impl(&dword_22B4CC000, v21, OS_LOG_TYPE_INFO, "Recently Deleted | Removed parts from old item %@, got new item: %@", v54, 0x16u);
+                *v53 = 138412546;
+                v54 = v17;
+                v55 = 2112;
+                v56 = v20;
+                _os_log_impl(&dword_22B4CC000, v21, OS_LOG_TYPE_INFO, "Recently Deleted | Removed parts from old item %@, got new item: %@", v53, 0x16u);
               }
             }
 
             body = [v17 body];
-            v38[0] = MEMORY[0x277D85DD0];
-            v38[1] = 3221225472;
-            v38[2] = sub_22B501C2C;
-            v38[3] = &unk_278703090;
-            v39 = v18;
-            v40 = v17;
-            v41 = v34;
-            v42 = buf;
-            [body __im_visitMessageParts:v38];
+            v37[0] = MEMORY[0x277D85DD0];
+            v37[1] = 3221225472;
+            v37[2] = sub_22B501C2C;
+            v37[3] = &unk_278703090;
+            v38 = v18;
+            v39 = v17;
+            v40 = v33;
+            v41 = buf;
+            [body __im_visitMessageParts:v37];
 
             v23 = +[IMDMessageStore sharedInstance];
             v24 = [v23 chatForMessageGUID:v13];
@@ -682,9 +676,9 @@ LABEL_10:
             v29 = OSLogHandleForIMFoundationCategory();
             if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
             {
-              *v54 = 138412290;
-              v55 = v13;
-              _os_log_impl(&dword_22B4CC000, v29, OS_LOG_TYPE_INFO, "IMDRelayDeletionController: Recently Deleted | did not find indexes to delete at for GUID: %@", v54, 0xCu);
+              *v53 = 138412290;
+              v54 = v13;
+              _os_log_impl(&dword_22B4CC000, v29, OS_LOG_TYPE_INFO, "IMDRelayDeletionController: Recently Deleted | did not find indexes to delete at for GUID: %@", v53, 0xCu);
             }
           }
         }
@@ -694,52 +688,51 @@ LABEL_10:
           v28 = OSLogHandleForIMFoundationCategory();
           if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
           {
-            *v54 = 138412290;
-            v55 = v13;
-            _os_log_impl(&dword_22B4CC000, v28, OS_LOG_TYPE_INFO, "IMDRelayDeletionController: Recently Deleted | could not find messageItem for GUID: %@", v54, 0xCu);
+            *v53 = 138412290;
+            v54 = v13;
+            _os_log_impl(&dword_22B4CC000, v28, OS_LOG_TYPE_INFO, "IMDRelayDeletionController: Recently Deleted | could not find messageItem for GUID: %@", v53, 0xCu);
           }
         }
       }
 
-      v10 = [obj countByEnumeratingWithState:&v45 objects:v53 count:16];
+      v10 = [obj countByEnumeratingWithState:&v44 objects:v52 count:16];
     }
 
     while (v10);
   }
 
-  v6 = v50[24];
+  v6 = v49[24];
   _Block_object_dispose(buf, 8);
 
 LABEL_40:
-  v30 = *MEMORY[0x277D85DE8];
   return v6 & 1;
 }
 
 - (void)_handleDeleteCommandWithMessageDictionary:(id)dictionary
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v5 = [(IMDRelayDeletionController *)self deleteChatsForCommandDictionary:dictionaryCopy];
   [dictionaryCopy objectForKeyedSubscript:@"chat-clear"];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  obj = v22 = 0u;
-  v6 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+  obj = v21 = 0u;
+  v6 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v20;
+    v8 = *v19;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = [(IMDRelayDeletionController *)self _chatsForDeleteAndRecoveryChatMetadataDictionary:*(*(&v19 + 1) + 8 * i)];
+        v10 = [(IMDRelayDeletionController *)self _chatsForDeleteAndRecoveryChatMetadataDictionary:*(*(&v18 + 1) + 8 * i)];
         if ([v10 count])
         {
           v11 = MEMORY[0x277CBEB98];
@@ -750,7 +743,7 @@ LABEL_40:
         }
       }
 
-      v7 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v7 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v7);
@@ -781,59 +774,57 @@ LABEL_14:
   }
 
 LABEL_15:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)recoverChatsForCommandDictionary:(id)dictionary
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   [dictionaryCopy objectForKeyedSubscript:@"recoverChatMetadataArray"];
+  v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
-  obj = v29 = 0u;
-  v21 = [obj countByEnumeratingWithState:&v28 objects:v35 count:16];
-  if (v21)
+  v27 = 0u;
+  obj = v28 = 0u;
+  v20 = [obj countByEnumeratingWithState:&v27 objects:v34 count:16];
+  if (v20)
   {
-    v20 = *v29;
+    v19 = *v28;
     do
     {
-      for (i = 0; i != v21; ++i)
+      for (i = 0; i != v20; ++i)
       {
-        if (*v29 != v20)
+        if (*v28 != v19)
         {
           objc_enumerationMutation(obj);
         }
 
-        v5 = *(*(&v28 + 1) + 8 * i);
+        v5 = *(*(&v27 + 1) + 8 * i);
         v6 = [(IMDRelayDeletionController *)self _chatsForDeleteAndRecoveryChatMetadataDictionary:v5];
         if ([v6 count])
         {
-          v22 = [v6 arrayByApplyingSelector:sel_guid];
+          v21 = [v6 arrayByApplyingSelector:sel_guid];
           chatRegistry = [(IMDRelayDeletionController *)self chatRegistry];
-          [chatRegistry recoverMessagesWithChatGUIDs:v22];
+          [chatRegistry recoverMessagesWithChatGUIDs:v21];
 
-          v26 = 0u;
-          v27 = 0u;
-          v24 = 0u;
           v25 = 0u;
+          v26 = 0u;
+          v23 = 0u;
+          v24 = 0u;
           v8 = v6;
-          v9 = [v8 countByEnumeratingWithState:&v24 objects:v32 count:16];
+          v9 = [v8 countByEnumeratingWithState:&v23 objects:v31 count:16];
           if (v9)
           {
-            v10 = *v25;
+            v10 = *v24;
             do
             {
               for (j = 0; j != v9; ++j)
               {
-                if (*v25 != v10)
+                if (*v24 != v10)
                 {
                   objc_enumerationMutation(v8);
                 }
 
-                v12 = *(*(&v24 + 1) + 8 * j);
+                v12 = *(*(&v23 + 1) + 8 * j);
                 service = [v12 service];
                 v14 = [(IMDRelayDeletionController *)self broadcasterForChatListenersForService:service withBlackholeStatus:0];
 
@@ -841,19 +832,19 @@ LABEL_15:
                 [v12 setDeletingIncomingMessages:0];
               }
 
-              v9 = [v8 countByEnumeratingWithState:&v24 objects:v32 count:16];
+              v9 = [v8 countByEnumeratingWithState:&v23 objects:v31 count:16];
             }
 
             while (v9);
           }
 
           v15 = [(IMDRelayDeletionController *)self _groupChatsByService:v8];
-          v23[0] = MEMORY[0x277D85DD0];
-          v23[1] = 3221225472;
-          v23[2] = sub_22B502318;
-          v23[3] = &unk_2787030B8;
-          v23[4] = self;
-          [v15 enumerateKeysAndObjectsUsingBlock:v23];
+          v22[0] = MEMORY[0x277D85DD0];
+          v22[1] = 3221225472;
+          v22[2] = sub_22B502318;
+          v22[3] = &unk_2787030B8;
+          v22[4] = self;
+          [v15 enumerateKeysAndObjectsUsingBlock:v22];
         }
 
         else if (IMOSLoggingEnabled())
@@ -862,28 +853,26 @@ LABEL_15:
           if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v34 = v5;
+            v33 = v5;
             _os_log_impl(&dword_22B4CC000, v16, OS_LOG_TYPE_INFO, "IMDRelayDeletionController | Recovery: did not find any chats for chat metadata %@", buf, 0xCu);
           }
         }
       }
 
-      v21 = [obj countByEnumeratingWithState:&v28 objects:v35 count:16];
+      v20 = [obj countByEnumeratingWithState:&v27 objects:v34 count:16];
     }
 
-    while (v21);
+    while (v20);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_chatsForDeleteAndRecoveryChatMetadataDictionary:(id)dictionary
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
-  v45 = [dictionaryCopy objectForKeyedSubscript:@"guid"];
-  v43 = [dictionaryCopy objectForKeyedSubscript:@"groupID"];
-  v47 = [dictionaryCopy objectForKeyedSubscript:@"ptcpts"];
+  v44 = [dictionaryCopy objectForKeyedSubscript:@"guid"];
+  v42 = [dictionaryCopy objectForKeyedSubscript:@"groupID"];
+  v46 = [dictionaryCopy objectForKeyedSubscript:@"ptcpts"];
   v4 = objc_alloc_init(MEMORY[0x277CBEB58]);
   if (IMOSLoggingEnabled())
   {
@@ -891,17 +880,17 @@ LABEL_15:
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       *buf = 138412802;
-      v54 = v45;
-      v55 = 2112;
-      v56 = v43;
-      v57 = 2112;
-      v58 = v47;
+      v53 = v44;
+      v54 = 2112;
+      v55 = v42;
+      v56 = 2112;
+      v57 = v46;
       _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "Finding chats for delete or recovery using guid %@ groupID %@ participants %@", buf, 0x20u);
     }
   }
 
   chatRegistry = [(IMDRelayDeletionController *)self chatRegistry];
-  v7 = [chatRegistry existingChatWithGUID:v45];
+  v7 = [chatRegistry existingChatWithGUID:v44];
 
   service = [v7 service];
   if (v7)
@@ -927,14 +916,14 @@ LABEL_15:
             if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
             {
               *buf = 138412290;
-              v54 = v45;
+              v53 = v44;
               _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "Ignoring chatGUID %@, as it has a display name and service does not merge display names", buf, 0xCu);
             }
           }
 
           v13 = 0;
 LABEL_16:
-          if ([v7 hasMatchingParticipantHandles:v47])
+          if ([v7 hasMatchingParticipantHandles:v46])
           {
             if (v13)
             {
@@ -945,7 +934,7 @@ LABEL_16:
                 {
                   guid = [v7 guid];
                   *buf = 138412290;
-                  v54 = guid;
+                  v53 = guid;
                   _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "Found chat with specific guid %@ for chat metadata", buf, 0xCu);
                 }
               }
@@ -963,13 +952,13 @@ LABEL_16:
             {
               participants = [v7 participants];
               v19 = [participants count];
-              v20 = [v47 count];
+              v20 = [v46 count];
               *buf = 138412802;
-              v54 = v45;
-              v55 = 2048;
-              v56 = v19;
-              v57 = 2048;
-              v58 = v20;
+              v53 = v44;
+              v54 = 2048;
+              v55 = v19;
+              v56 = 2048;
+              v57 = v20;
               _os_log_impl(&dword_22B4CC000, v17, OS_LOG_TYPE_INFO, "Ignoring chatGUID %@, due to mismatching participants chat %ld received %ld", buf, 0x20u);
             }
           }
@@ -989,7 +978,7 @@ LABEL_28:
 
 LABEL_29:
   chatRegistry2 = [(IMDRelayDeletionController *)self chatRegistry];
-  v22 = [chatRegistry2 existingChatsWithGroupID:v43];
+  v22 = [chatRegistry2 existingChatsWithGroupID:v42];
 
   if ([v22 count])
   {
@@ -1000,11 +989,11 @@ LABEL_29:
       {
         v24 = [v22 count];
         *buf = 134218498;
-        v54 = v24;
-        v55 = 2112;
-        v56 = v43;
-        v57 = 2112;
-        v58 = v22;
+        v53 = v24;
+        v54 = 2112;
+        v55 = v42;
+        v56 = 2112;
+        v57 = v22;
         _os_log_impl(&dword_22B4CC000, v23, OS_LOG_TYPE_INFO, "Found %llu chats with specific group ID %@ for chat metadata: %@", buf, 0x20u);
       }
     }
@@ -1013,10 +1002,10 @@ LABEL_29:
     [v4 addObjectsFromArray:v25];
   }
 
-  if ([v47 count] >= 2)
+  if ([v46 count] >= 2)
   {
     chatRegistry3 = [(IMDRelayDeletionController *)self chatRegistry];
-    v27 = [chatRegistry3 existingChatsForIDs:v47 onService:service style:43];
+    v27 = [chatRegistry3 existingChatsForIDs:v46 onService:service style:43];
 
     v28 = [v27 __imArrayByFilteringWithBlock:&unk_283F19628];
 
@@ -1029,11 +1018,11 @@ LABEL_29:
         {
           v30 = [v28 count];
           *buf = 134218498;
-          v54 = v30;
-          v55 = 2112;
-          v56 = v47;
-          v57 = 2112;
-          v58 = v28;
+          v53 = v30;
+          v54 = 2112;
+          v55 = v46;
+          v56 = 2112;
+          v57 = v28;
           _os_log_impl(&dword_22B4CC000, v29, OS_LOG_TYPE_INFO, "Found %llu chats with handles: %@ chats: %@", buf, 0x20u);
         }
       }
@@ -1044,25 +1033,25 @@ LABEL_29:
   }
 
   v32 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v50 = 0u;
-  v51 = 0u;
-  v48 = 0u;
   v49 = 0u;
+  v50 = 0u;
+  v47 = 0u;
+  v48 = 0u;
   v33 = v4;
-  v34 = [v33 countByEnumeratingWithState:&v48 objects:v52 count:16];
+  v34 = [v33 countByEnumeratingWithState:&v47 objects:v51 count:16];
   if (v34)
   {
-    v35 = *v49;
+    v35 = *v48;
     do
     {
       for (i = 0; i != v34; ++i)
       {
-        if (*v49 != v35)
+        if (*v48 != v35)
         {
           objc_enumerationMutation(v33);
         }
 
-        v37 = *(*(&v48 + 1) + 8 * i);
+        v37 = *(*(&v47 + 1) + 8 * i);
         chatRegistry4 = [(IMDRelayDeletionController *)self chatRegistry];
         v39 = [chatRegistry4 existingChatWithGUID:v37];
 
@@ -1072,7 +1061,7 @@ LABEL_29:
         }
       }
 
-      v34 = [v33 countByEnumeratingWithState:&v48 objects:v52 count:16];
+      v34 = [v33 countByEnumeratingWithState:&v47 objects:v51 count:16];
     }
 
     while (v34);
@@ -1084,54 +1073,52 @@ LABEL_29:
     if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
     {
       *buf = 134218242;
-      v54 = v32;
-      v55 = 2112;
-      v56 = v45;
+      v53 = v32;
+      v54 = 2112;
+      v55 = v44;
       _os_log_impl(&dword_22B4CC000, v40, OS_LOG_TYPE_INFO, "Found %llu chats for delete command with guid %@", buf, 0x16u);
     }
   }
-
-  v41 = *MEMORY[0x277D85DE8];
 
   return v32;
 }
 
 - (BOOL)_doClearChats:(id)chats
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   chatsCopy = chats;
-  v29 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v28 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v6 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
   obj = chatsCopy;
-  v7 = [obj countByEnumeratingWithState:&v33 objects:v41 count:16];
+  v7 = [obj countByEnumeratingWithState:&v32 objects:v40 count:16];
   if (v7)
   {
-    v9 = *v34;
+    v9 = *v33;
     style = 45;
     *&v8 = 138412290;
-    v27 = v8;
+    v26 = v8;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v34 != v9)
+        if (*v33 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v33 + 1) + 8 * i);
+        v12 = *(*(&v32 + 1) + 8 * i);
         chatRegistry = [(IMDRelayDeletionController *)self chatRegistry];
         v14 = [chatRegistry existingChatWithGUID:v12];
 
         if (v14)
         {
           chatIdentifier = [v14 chatIdentifier];
-          [v29 addObject:chatIdentifier];
+          [v28 addObject:chatIdentifier];
 
           serviceName = [v14 serviceName];
           [v5 addObject:serviceName];
@@ -1145,14 +1132,14 @@ LABEL_29:
           v17 = OSLogHandleForIMFoundationCategory();
           if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
           {
-            *buf = v27;
-            v38 = v12;
+            *buf = v26;
+            v37 = v12;
             _os_log_impl(&dword_22B4CC000, v17, OS_LOG_TYPE_INFO, "Handling chat-clear, could not find chat by GUID: %@", buf, 0xCu);
           }
         }
       }
 
-      v7 = [obj countByEnumeratingWithState:&v33 objects:v41 count:16];
+      v7 = [obj countByEnumeratingWithState:&v32 objects:v40 count:16];
     }
 
     while (v7);
@@ -1169,61 +1156,60 @@ LABEL_29:
     if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
-      v38 = v29;
-      v39 = 2112;
-      v40 = v5;
+      v37 = v28;
+      v38 = 2112;
+      v39 = v5;
       _os_log_impl(&dword_22B4CC000, v18, OS_LOG_TYPE_INFO, "clearing messages for chat IDS:%@ on services:%@", buf, 0x16u);
     }
   }
 
   v19 = +[IMDMessageStore sharedInstance];
-  v20 = [v19 deleteMessagesWithChatIdentifiers:v29 style:style onServices:v5];
+  v20 = [v19 deleteMessagesWithChatIdentifiers:v28 style:style onServices:v5];
 
-  v31[0] = MEMORY[0x277D85DD0];
-  v31[1] = 3221225472;
-  v31[2] = sub_22B503118;
-  v31[3] = &unk_278703100;
-  v32 = v20;
-  v21 = v20;
-  v22 = [v6 __imArrayByFilteringWithBlock:v31];
-  v23 = [(IMDRelayDeletionController *)self _groupChatsByService:v22];
   v30[0] = MEMORY[0x277D85DD0];
   v30[1] = 3221225472;
-  v30[2] = sub_22B503160;
-  v30[3] = &unk_2787030B8;
-  v30[4] = self;
-  [v23 enumerateKeysAndObjectsUsingBlock:v30];
+  v30[2] = sub_22B503118;
+  v30[3] = &unk_278703100;
+  v31 = v20;
+  v21 = v20;
+  v22 = [v6 __imArrayByFilteringWithBlock:v30];
+  v23 = [(IMDRelayDeletionController *)self _groupChatsByService:v22];
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = sub_22B503160;
+  v29[3] = &unk_2787030B8;
+  v29[4] = self;
+  [v23 enumerateKeysAndObjectsUsingBlock:v29];
 
   v24 = [v21 count] != 0;
-  v25 = *MEMORY[0x277D85DE8];
   return v24;
 }
 
 - (id)_groupChatsByService:(id)service
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   v4 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v5 = serviceCopy;
-  v6 = [v5 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v24;
+    v8 = *v23;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v24 != v8)
+        if (*v23 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v23 + 1) + 8 * i);
+        v10 = *(*(&v22 + 1) + 8 * i);
         serviceName = [v10 serviceName];
         if (serviceName)
         {
@@ -1256,20 +1242,18 @@ LABEL_29:
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v7);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (void)_updateLastMessageTimeStampForChat:(id)chat broadcaster:(id)broadcaster
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   chatCopy = chat;
   broadcasterCopy = broadcaster;
   if (chatCopy)
@@ -1338,11 +1322,11 @@ LABEL_29:
         time4 = [lastMessage3 time];
         [time4 timeIntervalSinceReferenceDate];
         v26 = [v23 numberWithDouble:?];
-        v29 = 138412546;
-        v30 = guid;
-        v31 = 2112;
-        v32 = v26;
-        _os_log_impl(&dword_22B4CC000, v21, OS_LOG_TYPE_INFO, "Recently Deleted | IMDChat: %@, updating last message timestamp on load: %@", &v29, 0x16u);
+        v28 = 138412546;
+        v29 = guid;
+        v30 = 2112;
+        v31 = v26;
+        _os_log_impl(&dword_22B4CC000, v21, OS_LOG_TYPE_INFO, "Recently Deleted | IMDChat: %@, updating last message timestamp on load: %@", &v28, 0x16u);
       }
     }
 
@@ -1355,28 +1339,26 @@ LABEL_29:
     v13 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v29) = 0;
-      _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "Recently Deleted | _updateLastMessageTimeStampForChat received nil chat", &v29, 2u);
+      LOWORD(v28) = 0;
+      _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "Recently Deleted | _updateLastMessageTimeStampForChat received nil chat", &v28, 2u);
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_enqueueBlock:(id)block withTimeout:(double)timeout
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   if (IMOSLoggingEnabled())
   {
     v7 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v13 = 138412546;
-      v14 = @"IMDRelayDeletionController";
-      v15 = 2048;
+      v12 = 138412546;
+      v13 = @"IMDRelayDeletionController";
+      v14 = 2048;
       timeoutCopy = timeout;
-      _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, " Enqueued item for key: %@    timeout: %f", &v13, 0x16u);
+      _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, " Enqueued item for key: %@    timeout: %f", &v12, 0x16u);
     }
   }
 
@@ -1392,8 +1374,6 @@ LABEL_29:
   }
 
   [(IMMultiQueue *)incomingMessageMultiQueue addBlock:blockCopy withTimeout:@"IMDRelayDeletionController" forKey:0 description:timeout];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 @end

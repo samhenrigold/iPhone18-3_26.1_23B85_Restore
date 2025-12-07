@@ -120,9 +120,9 @@
     goto LABEL_8;
   }
 
-  v7 = [(NSString *)v5 isEqualToString:v6];
+  isEqualToString = objc_msgSend_isEqualToString_(v5, v6, v6);
 
-  if (!v7)
+  if ((isEqualToString & 1) == 0)
   {
 LABEL_8:
     v8 = [(NSString *)v10 copy];

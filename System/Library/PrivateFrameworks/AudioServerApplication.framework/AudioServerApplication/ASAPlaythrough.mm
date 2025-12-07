@@ -44,7 +44,7 @@
 - (ASAPlaythrough)initWithDevices:(id)devices usingMainDevice:(id)device andClockDevice:(id)clockDevice withName:(id)name isPrivate:(BOOL)private usingChannelMapping:(id)mapping
 {
   privateCopy = private;
-  v83 = *MEMORY[0x277D85DE8];
+  v82 = *MEMORY[0x277D85DE8];
   devicesCopy = devices;
   deviceCopy = device;
   clockDeviceCopy = clockDevice;
@@ -53,27 +53,27 @@
   array = [MEMORY[0x277CBEB18] array];
   string = [MEMORY[0x277CCAB68] string];
   firstObject = [devicesCopy firstObject];
+  v70 = 0u;
   v71 = 0u;
   v72 = 0u;
   v73 = 0u;
-  v74 = 0u;
   v16 = devicesCopy;
-  v17 = [v16 countByEnumeratingWithState:&v71 objects:v82 count:16];
-  v61 = deviceCopy;
+  v17 = [v16 countByEnumeratingWithState:&v70 objects:v81 count:16];
+  v60 = deviceCopy;
   if (v17)
   {
     v18 = v17;
-    v19 = *v72;
+    v19 = *v71;
     while (2)
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v72 != v19)
+        if (*v71 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        v21 = *(*(&v71 + 1) + 8 * i);
+        v21 = *(*(&v70 + 1) + 8 * i);
         clockDomain = [firstObject clockDomain];
         if (clockDomain != [v21 clockDomain])
         {
@@ -82,7 +82,7 @@
         }
       }
 
-      v18 = [v16 countByEnumeratingWithState:&v71 objects:v82 count:16];
+      v18 = [v16 countByEnumeratingWithState:&v70 objects:v81 count:16];
       if (v18)
       {
         continue;
@@ -95,35 +95,35 @@
   v23 = 1;
 LABEL_11:
 
-  v69 = 0u;
-  v70 = 0u;
-  v67 = 0u;
   v68 = 0u;
+  v69 = 0u;
+  v66 = 0u;
+  v67 = 0u;
   obj = v16;
-  v24 = [obj countByEnumeratingWithState:&v67 objects:v81 count:16];
+  v24 = [obj countByEnumeratingWithState:&v66 objects:v80 count:16];
   if (v24)
   {
     v25 = v24;
     v26 = string;
-    v27 = *v68;
+    v27 = *v67;
 
     do
     {
       for (j = 0; j != v25; ++j)
       {
-        if (*v68 != v27)
+        if (*v67 != v27)
         {
           objc_enumerationMutation(obj);
         }
 
-        v29 = *(*(&v67 + 1) + 8 * j);
+        v29 = *(*(&v66 + 1) + 8 * j);
         if (v23)
         {
           v30 = 0;
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v80 = nameCopy;
+            v79 = nameCopy;
             _os_log_impl(&dword_2415BC000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "All devices in aggregate %@ share a clock domain, disabling drift compensation", buf, 0xCu);
             v30 = 0;
           }
@@ -138,23 +138,23 @@ LABEL_11:
           v30 = v33 ^ 1u;
         }
 
-        v77[0] = @"uid";
+        v76[0] = @"uid";
         deviceUID3 = [v29 deviceUID];
-        v78[0] = deviceUID3;
-        v77[1] = @"drift";
+        v77[0] = deviceUID3;
+        v76[1] = @"drift";
         v35 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v30];
-        v78[1] = v35;
-        v77[2] = @"drift quality";
+        v77[1] = v35;
+        v76[2] = @"drift quality";
         v36 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:127];
-        v78[2] = v36;
-        v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v78 forKeys:v77 count:3];
+        v77[2] = v36;
+        v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v77 forKeys:v76 count:3];
 
         [array addObject:v37];
         deviceUID4 = [v29 deviceUID];
         [v26 appendFormat:@"%@%@", &stru_285341100, deviceUID4];
       }
 
-      v25 = [obj countByEnumeratingWithState:&v67 objects:v81 count:16];
+      v25 = [obj countByEnumeratingWithState:&v66 objects:v80 count:16];
     }
 
     while (v25);
@@ -176,10 +176,10 @@ LABEL_11:
   }
 
   v43 = MEMORY[0x277CCACA8];
-  deviceUID7 = [v61 deviceUID];
+  deviceUID7 = [v60 deviceUID];
   if (deviceUID7)
   {
-    deviceUID8 = [v61 deviceUID];
+    deviceUID8 = [v60 deviceUID];
     v46 = [v43 stringWithFormat:@"%@", deviceUID8];
   }
 
@@ -188,25 +188,25 @@ LABEL_11:
     v46 = [v43 stringWithFormat:@"%@", &stru_285341100];
   }
 
-  v75[0] = @"name";
-  v75[1] = @"uid";
-  v76[0] = nameCopy;
-  v76[1] = string;
-  v75[2] = @"clock";
-  v75[3] = @"master";
-  v76[2] = v42;
-  v76[3] = v46;
-  v76[4] = array;
-  v75[4] = @"subdevices";
-  v75[5] = @"private";
+  v74[0] = @"name";
+  v74[1] = @"uid";
+  v75[0] = nameCopy;
+  v75[1] = string;
+  v74[2] = @"clock";
+  v74[3] = @"master";
+  v75[2] = v42;
+  v75[3] = v46;
+  v75[4] = array;
+  v74[4] = @"subdevices";
+  v74[5] = @"private";
   v47 = [MEMORY[0x277CCABB0] numberWithBool:privateCopy];
-  v76[5] = v47;
-  v48 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v76 forKeys:v75 count:6];
+  v75[5] = v47;
+  v48 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v75 forKeys:v74 count:6];
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v80 = v48;
+    v79 = v48;
     _os_log_impl(&dword_2415BC000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Aggregate %@", buf, 0xCu);
   }
 
@@ -262,14 +262,13 @@ LABEL_11:
 LABEL_44:
   }
 
-  v57 = *MEMORY[0x277D85DE8];
   return v52;
 }
 
 - (ASAPlaythrough)initWithDevices:(id)devices usingMainDevice:(id)device andClockDeviceUID:(id)d withName:(id)name isPrivate:(BOOL)private usingChannelMapping:(id)mapping
 {
   privateCopy = private;
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   devicesCopy = devices;
   deviceCopy = device;
   dCopy = d;
@@ -277,27 +276,27 @@ LABEL_44:
   mappingCopy = mapping;
   v16 = objc_opt_new();
   v17 = +[ASACoreAudio sharedCoreAudioObject];
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   v18 = devicesCopy;
-  v19 = [v18 countByEnumeratingWithState:&v32 objects:v36 count:16];
+  v19 = [v18 countByEnumeratingWithState:&v31 objects:v35 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v33;
+    v21 = *v32;
     do
     {
       v22 = 0;
       do
       {
-        if (*v33 != v21)
+        if (*v32 != v21)
         {
           objc_enumerationMutation(v18);
         }
 
-        v23 = [v17 audioDeviceWithUID:*(*(&v32 + 1) + 8 * v22)];
+        v23 = [v17 audioDeviceWithUID:*(*(&v31 + 1) + 8 * v22)];
         if (v23)
         {
           [v16 addObject:v23];
@@ -307,7 +306,7 @@ LABEL_44:
       }
 
       while (v20 != v22);
-      v20 = [v18 countByEnumeratingWithState:&v32 objects:v36 count:16];
+      v20 = [v18 countByEnumeratingWithState:&v31 objects:v35 count:16];
     }
 
     while (v20);
@@ -317,7 +316,6 @@ LABEL_44:
   v25 = [v17 clockDeviceWithUID:dCopy];
   v26 = [(ASAPlaythrough *)self initWithDevices:v16 usingMainDevice:v24 andClockDevice:v25 withName:nameCopy isPrivate:privateCopy usingChannelMapping:mappingCopy];
 
-  v27 = *MEMORY[0x277D85DE8];
   return v26;
 }
 
@@ -443,7 +441,7 @@ LABEL_44:
 
 - (void)_createIOContext
 {
-  v117 = *MEMORY[0x277D85DE8];
+  v116 = *MEMORY[0x277D85DE8];
   v3 = malloc_type_calloc(1uLL, 0x48uLL, 0x10A0040D5B763B2uLL);
   if (v3)
   {
@@ -452,33 +450,33 @@ LABEL_44:
     inputStreamObjectIDs = [audioDevice inputStreamObjectIDs];
 
     array = [MEMORY[0x277CBEB18] array];
+    v107 = 0u;
     v108 = 0u;
     v109 = 0u;
     v110 = 0u;
-    v111 = 0u;
     obj = inputStreamObjectIDs;
-    v7 = [obj countByEnumeratingWithState:&v108 objects:v116 count:16];
+    v7 = [obj countByEnumeratingWithState:&v107 objects:v115 count:16];
     if (v7)
     {
       v8 = v7;
       v9 = 0;
-      v10 = *v109;
+      v10 = *v108;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v109 != v10)
+          if (*v108 != v10)
           {
             objc_enumerationMutation(obj);
           }
 
-          v12 = -[ASAObject initWithAudioObjectID:]([ASAStream alloc], "initWithAudioObjectID:", [*(*(&v108 + 1) + 8 * i) unsignedIntValue]);
+          v12 = -[ASAObject initWithAudioObjectID:]([ASAStream alloc], "initWithAudioObjectID:", [*(*(&v107 + 1) + 8 * i) unsignedIntValue]);
           [array addObject:v12];
           virtualFormat = [(ASAStream *)v12 virtualFormat];
           v9 += [virtualFormat channelsPerFrame];
         }
 
-        v8 = [obj countByEnumeratingWithState:&v108 objects:v116 count:16];
+        v8 = [obj countByEnumeratingWithState:&v107 objects:v115 count:16];
       }
 
       while (v8);
@@ -493,33 +491,33 @@ LABEL_44:
     outputStreamObjectIDs = [audioDevice2 outputStreamObjectIDs];
 
     array2 = [MEMORY[0x277CBEB18] array];
+    v103 = 0u;
     v104 = 0u;
     v105 = 0u;
     v106 = 0u;
-    v107 = 0u;
-    v89 = outputStreamObjectIDs;
-    v16 = [v89 countByEnumeratingWithState:&v104 objects:v115 count:16];
+    v88 = outputStreamObjectIDs;
+    v16 = [v88 countByEnumeratingWithState:&v103 objects:v114 count:16];
     if (v16)
     {
       v17 = v16;
       v18 = 0;
-      v19 = *v105;
+      v19 = *v104;
       do
       {
         for (j = 0; j != v17; ++j)
         {
-          if (*v105 != v19)
+          if (*v104 != v19)
           {
-            objc_enumerationMutation(v89);
+            objc_enumerationMutation(v88);
           }
 
-          v21 = -[ASAObject initWithAudioObjectID:]([ASAStream alloc], "initWithAudioObjectID:", [*(*(&v104 + 1) + 8 * j) unsignedIntValue]);
+          v21 = -[ASAObject initWithAudioObjectID:]([ASAStream alloc], "initWithAudioObjectID:", [*(*(&v103 + 1) + 8 * j) unsignedIntValue]);
           [array2 addObject:v21];
           virtualFormat2 = [(ASAStream *)v21 virtualFormat];
           v18 += [virtualFormat2 channelsPerFrame];
         }
 
-        v17 = [v89 countByEnumeratingWithState:&v104 objects:v115 count:16];
+        v17 = [v88 countByEnumeratingWithState:&v103 objects:v114 count:16];
       }
 
       while (v17);
@@ -530,24 +528,24 @@ LABEL_44:
       v18 = 0;
     }
 
-    memset(&v103, 0, sizeof(v103));
+    memset(&v102, 0, sizeof(v102));
     firstObject = [array firstObject];
     virtualFormat3 = [firstObject virtualFormat];
     v25 = virtualFormat3;
     if (virtualFormat3)
     {
-      [virtualFormat3 audioStreamBasicDescription];
+      objc_msgSend_audioStreamBasicDescription(virtualFormat3);
     }
 
     else
     {
-      memset(&v103, 0, sizeof(v103));
+      memset(&v102, 0, sizeof(v102));
     }
 
-    v103.mFormatFlags |= 0x20u;
-    v103.mBytesPerPacket = 4;
-    v103.mChannelsPerFrame = v18;
-    v103.mBytesPerFrame = 4;
+    v102.mFormatFlags |= 0x20u;
+    v102.mBytesPerPacket = 4;
+    v102.mChannelsPerFrame = v18;
+    v102.mBytesPerFrame = 4;
     audioDevice3 = [(ASAPlaythrough *)self audioDevice];
     v4->var0 = [audioDevice3 ioBufferFrameSize];
 
@@ -578,21 +576,21 @@ LABEL_44:
     v4->var9 = v31;
     if (v4->var5)
     {
-      v88 = 0;
+      v87 = 0;
       if (v4->var7 && v31)
       {
-        v101 = 0u;
-        v102 = 0u;
-        v99 = 0u;
         v100 = 0u;
-        v82 = array;
-        v91 = [v82 countByEnumeratingWithState:&v99 objects:v114 count:16];
-        if (v91)
+        v101 = 0u;
+        v98 = 0u;
+        v99 = 0u;
+        v81 = array;
+        v90 = [v81 countByEnumeratingWithState:&v98 objects:v113 count:16];
+        if (v90)
         {
           v32 = 0;
           v33 = 0;
-          v88 = 0;
-          v84 = *v100;
+          v87 = 0;
+          v83 = *v99;
           selfCopy = self;
           do
           {
@@ -600,13 +598,13 @@ LABEL_44:
             v35 = 0uLL;
             do
             {
-              if (*v100 != v84)
+              if (*v99 != v83)
               {
-                objc_enumerationMutation(v82);
+                objc_enumerationMutation(v81);
                 v35 = 0uLL;
               }
 
-              v36 = *(*(&v99 + 1) + 8 * v34);
+              v36 = *(*(&v98 + 1) + 8 * v34);
               *&inSourceFormat.mBitsPerChannel = 0;
               *&inSourceFormat.mSampleRate = v35;
               *&inSourceFormat.mBytesPerPacket = v35;
@@ -614,7 +612,7 @@ LABEL_44:
               v38 = virtualFormat4;
               if (virtualFormat4)
               {
-                [virtualFormat4 audioStreamBasicDescription];
+                objc_msgSend_audioStreamBasicDescription(virtualFormat4);
               }
 
               else
@@ -673,13 +671,13 @@ LABEL_44:
 
                 else
                 {
-                  v88 = 1;
+                  v87 = 1;
                 }
               }
 
               else
               {
-                v88 = 1;
+                v87 = 1;
                 self = selfCopy;
                 v35 = 0uLL;
               }
@@ -689,23 +687,23 @@ LABEL_44:
               ++v34;
             }
 
-            while (v34 != v91);
-            v91 = [v82 countByEnumeratingWithState:&v99 objects:v114 count:{16, 0.0}];
+            while (v34 != v90);
+            v90 = [v81 countByEnumeratingWithState:&v98 objects:v113 count:{16, 0.0}];
           }
 
-          while (v91);
+          while (v90);
         }
 
         else
         {
-          v88 = 0;
+          v87 = 0;
         }
       }
     }
 
     else
     {
-      v88 = 0;
+      v87 = 0;
     }
 
     v53 = malloc_type_calloc(1uLL, 16 * (v18 - 1) + 24, 0x10800404ACF7207uLL);
@@ -717,7 +715,7 @@ LABEL_44:
       {
         v54 = 0;
         v55 = v4->var0;
-        v56 = v4->var0 * v103.mBytesPerFrame;
+        v56 = v4->var0 * v102.mBytesPerFrame;
         v57 = v4->var4;
         v58 = v18;
         v59 = v53 + 4;
@@ -735,39 +733,39 @@ LABEL_44:
       }
     }
 
-    v60 = [v89 count];
+    v60 = [v88 count];
     v4->var2 = v60;
     v4->var6 = malloc_type_calloc(v60, 8uLL, 0x2004093837F09uLL);
     v61 = malloc_type_calloc(v4->var2, 8uLL, 0x2004093837F09uLL);
     v4->var8 = v61;
     if (v4->var6 && v61)
     {
-      v96 = 0u;
-      v97 = 0u;
-      v94 = 0u;
       v95 = 0u;
-      v83 = array2;
-      v87 = [v83 countByEnumeratingWithState:&v94 objects:v112 count:16];
-      if (v87)
+      v96 = 0u;
+      v93 = 0u;
+      v94 = 0u;
+      v82 = array2;
+      v86 = [v82 countByEnumeratingWithState:&v93 objects:v111 count:16];
+      if (v86)
       {
         v63 = 0;
-        v85 = *v95;
+        v84 = *v94;
         v64 = MEMORY[0x277D86220];
         *&v62 = 67109632;
-        v81 = v62;
+        v80 = v62;
         do
         {
           v65 = 0;
           v66 = 0uLL;
           do
           {
-            if (*v95 != v85)
+            if (*v94 != v84)
             {
-              objc_enumerationMutation(v83);
+              objc_enumerationMutation(v82);
               v66 = 0uLL;
             }
 
-            v67 = *(*(&v94 + 1) + 8 * v65);
+            v67 = *(*(&v93 + 1) + 8 * v65);
             *&inSourceFormat.mBitsPerChannel = 0;
             *&inSourceFormat.mSampleRate = v66;
             *&inSourceFormat.mBytesPerPacket = v66;
@@ -775,7 +773,7 @@ LABEL_44:
             v69 = virtualFormat5;
             if (virtualFormat5)
             {
-              [virtualFormat5 audioStreamBasicDescription];
+              objc_msgSend_audioStreamBasicDescription(virtualFormat5);
             }
 
             else
@@ -783,7 +781,7 @@ LABEL_44:
               memset(&inSourceFormat, 0, sizeof(inSourceFormat));
             }
 
-            AudioConverterNew(&v103, &inSourceFormat, &v4->var6[v63]);
+            AudioConverterNew(&v102, &inSourceFormat, &v4->var6[v63]);
             v70 = (inSourceFormat.mChannelsPerFrame - 1) & ((inSourceFormat.mFormatFlags << 26) >> 31);
             v4->var8[v63] = malloc_type_calloc(1uLL, 16 * v70 + 24, 0x10800404ACF7207uLL);
             if (v4->var6[v63] && (v71 = v4->var8[v63]) != 0)
@@ -796,7 +794,7 @@ LABEL_44:
                 if (os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT))
                 {
                   startingChannel = [v67 startingChannel];
-                  *&inDestinationFormat.mSampleRate = __PAIR64__(v63, v81);
+                  *&inDestinationFormat.mSampleRate = __PAIR64__(v63, v80);
                   LOWORD(inDestinationFormat.mFormatID) = 1024;
                   *(&inDestinationFormat.mFormatID + 2) = startingChannel;
                   HIWORD(inDestinationFormat.mFormatFlags) = 1024;
@@ -850,7 +848,7 @@ LABEL_44:
 
             else
             {
-              v88 = 1;
+              v87 = 1;
             }
 
             ++v63;
@@ -858,15 +856,15 @@ LABEL_44:
             v66 = 0uLL;
           }
 
-          while (v65 != v87);
-          v87 = [v83 countByEnumeratingWithState:&v94 objects:v112 count:{16, 0.0}];
+          while (v65 != v86);
+          v86 = [v82 countByEnumeratingWithState:&v93 objects:v111 count:{16, 0.0}];
         }
 
-        while (v87);
+        while (v86);
       }
     }
 
-    if (v4->var5 && v4->var7 && v4->var9 && v4->var10 && v4->var6 && !((v4->var8 == 0) | v88 & 1))
+    if (v4->var5 && v4->var7 && v4->var9 && v4->var10 && v4->var6 && !((v4->var8 == 0) | v87 & 1))
     {
       self->_ioContext = v4;
     }
@@ -877,8 +875,6 @@ LABEL_95:
       [(ASAPlaythrough *)self _freeIOContext:v4];
     }
   }
-
-  v80 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_freeIOContext:(id *)context
@@ -992,19 +988,51 @@ LABEL_95:
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *self;
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xEu);
-  v6 = *MEMORY[0x277D85DE8];
-}
+  if (self->_playing)
+  {
+    [(ASAPlaythrough *)self stop];
+  }
 
-- (void)initWithDevices:usingMainDevice:andClockDevice:withName:isPrivate:usingChannelMapping:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
+  if (self->_aggregateID)
+  {
+    v3 = +[ASACoreAudio sharedCoreAudioObject];
+    v4 = [v3 pluginWithBundleID:@"com.apple.audio.V5"];
+    if (AudioHardwareDestroyAggregateDevice(self->_aggregateID))
+    {
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      {
+        [ASAPlaythrough dealloc];
+      }
+    }
+
+    else
+    {
+      while (1)
+      {
+        v5 = [v4 audioDeviceObjectIDWithUID:self->_aggregateUID];
+        self->_aggregateID = v5;
+        if (!v5)
+        {
+          break;
+        }
+
+        usleep(0x186A0u);
+      }
+    }
+  }
+
+  aggregateUID = self->_aggregateUID;
+  self->_aggregateUID = 0;
+
+  audioDevice = self->_audioDevice;
+  self->_audioDevice = 0;
+
+  channelMapping = self->_channelMapping;
+  self->_channelMapping = 0;
+
+  v9.receiver = self;
+  v9.super_class = ASAPlaythrough;
+  [(ASAPlaythrough *)&v9 dealloc];
 }
 
 @end

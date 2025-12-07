@@ -5,6 +5,7 @@
 - (id)getId;
 - (id)namedForThisSegmentWithNSString:(id)string;
 - (id)putAttributeWithNSString:(id)string withNSString:(id)sString;
+- (id)toStringWithInt:(int)int;
 - (int)maxDoc;
 - (unint64_t)hash;
 - (void)addFileWithNSString:(id)string;
@@ -13,13 +14,14 @@
 - (void)setCodecWithOrgApacheLuceneCodecsCodec:(id)codec;
 - (void)setDiagnosticsWithJavaUtilMap:(id)map;
 - (void)setFilesWithJavaUtilCollection:(id)collection;
+- (void)setMaxDocWithInt:(int)int;
 @end
 
 @implementation OrgApacheLuceneIndexSegmentInfo
 
 - (void)setDiagnosticsWithJavaUtilMap:(id)map
 {
-  v4 = OrgLukhnosPortmobileUtilObjects_requireNonNullWithId_(map);
+  v4 = OrgLukhnosPortmobileUtilObjects_requireNonNullWithId_(map, a2);
 
   JreStrongAssign(&self->diagnostics_, v4);
 }
@@ -49,6 +51,18 @@
   return result;
 }
 
+- (void)setMaxDocWithInt:(int)int
+{
+  if (self->maxDoc_ != -1)
+  {
+    v8 = JreStrcat("$I$I", a2, *&int, v3, v4, v5, v6, v7, @"maxDoc was already set: this.maxDoc=");
+    v9 = new_JavaLangIllegalStateException_initWithNSString_(v8);
+    objc_exception_throw(v9);
+  }
+
+  self->maxDoc_ = int;
+}
+
 - (id)files
 {
   setFiles = self->setFiles_;
@@ -58,7 +72,81 @@
     objc_exception_throw(v5);
   }
 
-  return JavaUtilCollections_unmodifiableSetWithJavaUtilSet_(setFiles);
+  return JavaUtilCollections_unmodifiableSetWithJavaUtilSet_(setFiles, a2);
+}
+
+- (id)toStringWithInt:(int)int
+{
+  v3 = *&int;
+  v5 = new_JavaLangStringBuilder_init();
+  v6 = [(JavaLangStringBuilder *)v5 appendWithNSString:self->name_];
+  if (!v6)
+  {
+    goto LABEL_20;
+  }
+
+  v7 = [v6 appendWithChar:40];
+  if (!v7)
+  {
+    goto LABEL_20;
+  }
+
+  v8 = self->version__ ? self->version__ : @"?";
+  v9 = [v7 appendWithId:v8];
+  if (!v9)
+  {
+    goto LABEL_20;
+  }
+
+  v10 = [v9 appendWithChar:41];
+  if (!v10)
+  {
+    goto LABEL_20;
+  }
+
+  [v10 appendWithChar:58];
+  if ([(OrgApacheLuceneIndexSegmentInfo *)self getUseCompoundFile])
+  {
+    v11 = 99;
+  }
+
+  else
+  {
+    v11 = 67;
+  }
+
+  [(JavaLangStringBuilder *)v5 appendWithChar:v11];
+  [(JavaLangStringBuilder *)v5 appendWithInt:self->maxDoc_];
+  if (v3)
+  {
+    v12 = [(JavaLangStringBuilder *)v5 appendWithChar:47];
+    if (!v12)
+    {
+      goto LABEL_20;
+    }
+
+    [v12 appendWithInt:v3];
+  }
+
+  diagnostics = self->diagnostics_;
+  if (!diagnostics)
+  {
+LABEL_20:
+    JreThrowNullPointerException();
+  }
+
+  v14 = [(JavaUtilMap *)diagnostics getWithId:@"sorter"];
+  if (v14)
+  {
+    v15 = v14;
+    [(JavaLangStringBuilder *)v5 appendWithNSString:@":["];
+    [(JavaLangStringBuilder *)v5 appendWithNSString:@"sorter"];
+    [(JavaLangStringBuilder *)v5 appendWithChar:61];
+    [(JavaLangStringBuilder *)v5 appendWithNSString:v15];
+    [(JavaLangStringBuilder *)v5 appendWithChar:93];
+  }
+
+  return [(JavaLangStringBuilder *)v5 description];
 }
 
 - (BOOL)isEqual:(id)equal

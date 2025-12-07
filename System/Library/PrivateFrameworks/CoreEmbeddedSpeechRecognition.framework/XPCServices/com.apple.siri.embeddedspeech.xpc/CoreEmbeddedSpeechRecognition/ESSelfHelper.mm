@@ -11,6 +11,7 @@
 - (BOOL)_isLoggingAllowedForCurrentRequestWithTask:(id)task isSpeechAPIRequest:(BOOL)request;
 - (BOOL)_isNonTier1Message:(id)message;
 - (BOOL)_isTier1LoggingAllowedForCurrentRequestWithTask:(id)task;
+- (ESSelfHelper)initWithTask:(id)task isSpeechAPIRequest:(BOOL)request requestId:(id)id language:(id)language asrId:(id)asrId;
 - (void)logActiveConfigUpdateEnded;
 - (void)logActiveConfigUpdateStartedOrChangedWithTimeInTicks:(id)ticks;
 - (void)logAppleNeuralEngineModelInitializationEnded;
@@ -27,6 +28,7 @@
 - (void)logFirstAudioPacketReadyUpstreamWithTimeInTicks:(id)ticks;
 - (void)logFirstAudioPacketRecordedWithTimeInTicks:(id)ticks;
 - (void)logFrameProcessingReady;
+- (void)logInitializationEndedIsSpeechRecognizerCreated:(BOOL)created;
 - (void)logInitializationStartedOrChangedWithTimeInTicks:(id)ticks;
 - (void)logIntermediateUtteranceInfoTier1WithPmInput:(id)input pmOutput:(id)output unrepairedPostItn:(id)itn loggableSharedUserId:(id)id;
 - (void)logJitLmeEndedAndEndedTier1WithDialogContext:(id)context;
@@ -1262,6 +1264,20 @@ LABEL_61:
   [captureSnapshot logWithEventContext:v7 asrIdentifier:self->_asrId];
 }
 
+- (void)logInitializationEndedIsSpeechRecognizerCreated:(BOOL)created
+{
+  createdCopy = created;
+  v8 = objc_alloc_init(ASRSchemaASRInitializationEnded);
+  [v8 setExists:1];
+  [v8 setIsSpeechRecognizerCreated:createdCopy];
+  v5 = objc_alloc_init(ASRSchemaASRInitializationContext);
+  [v5 setEnded:v8];
+  [(ESSelfHelper *)self wrapAndEmitTopLevelEvent:v5 timestampInTicks:0];
+  captureSnapshot = [qword_1000615E0 captureSnapshot];
+  v7 = +[SPIAsrInitializationEndedEventContext context];
+  [captureSnapshot logWithEventContext:v7 asrIdentifier:self->_asrId];
+}
+
 - (void)logInitializationStartedOrChangedWithTimeInTicks:(id)ticks
 {
   ticksCopy = ticks;
@@ -1436,6 +1452,147 @@ LABEL_61:
   }
 
   return v7;
+}
+
+- (ESSelfHelper)initWithTask:(id)task isSpeechAPIRequest:(BOOL)request requestId:(id)id language:(id)language asrId:(id)asrId
+{
+  requestCopy = request;
+  taskCopy = task;
+  idCopy = id;
+  languageCopy = language;
+  asrIdCopy = asrId;
+  v43.receiver = self;
+  v43.super_class = ESSelfHelper;
+  v17 = [(ESSelfHelper *)&v43 init];
+  v18 = v17;
+  if (!v17)
+  {
+LABEL_9:
+    v22 = 0;
+    goto LABEL_25;
+  }
+
+  if (![(ESSelfHelper *)v17 _isLoggingAllowedForCurrentRequestWithTask:taskCopy isSpeechAPIRequest:requestCopy])
+  {
+    v20 = AFSiriLogContextSpeech;
+    if (os_log_type_enabled(AFSiriLogContextSpeech, OS_LOG_TYPE_INFO))
+    {
+      v21 = @"NO";
+      *buf = 136315650;
+      v45 = "[ESSelfHelper initWithTask:isSpeechAPIRequest:requestId:language:asrId:]";
+      v46 = 2112;
+      v47 = taskCopy;
+      if (requestCopy)
+      {
+        v21 = @"YES";
+      }
+
+      v48 = 2112;
+      v49 = v21;
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "%s SELF: Logging disabled because it is not allowed for the current request. recognitionTask=%@, isSpeechAPIRequest=%@", buf, 0x20u);
+    }
+
+    goto LABEL_9;
+  }
+
+  if (asrIdCopy)
+  {
+    v19 = asrIdCopy;
+  }
+
+  else
+  {
+    v23 = AFSiriLogContextSpeech;
+    if (os_log_type_enabled(AFSiriLogContextSpeech, OS_LOG_TYPE_INFO))
+    {
+      *buf = 136315138;
+      v45 = "[ESSelfHelper initWithTask:isSpeechAPIRequest:requestId:language:asrId:]";
+      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_INFO, "%s SELF: asrId is nil, creating a new UUID for this request.", buf, 0xCu);
+    }
+
+    v19 = +[NSUUID UUID];
+  }
+
+  asrId = v18->_asrId;
+  v18->_asrId = v19;
+
+  v25 = [[NSUUID alloc] initWithUUIDString:idCopy];
+  requestId = v18->_requestId;
+  v18->_requestId = v25;
+
+  objc_storeStrong(&v18->_recognitionTask, task);
+  v27 = [[_EAREmojiRecognition alloc] initWithLanguage:languageCopy];
+  emojiUtils = v18->_emojiUtils;
+  v18->_emojiUtils = v27;
+
+  v18->_isTier1LoggingAllowedForCurrentRequest = [(ESSelfHelper *)v18 _isTier1LoggingAllowedForCurrentRequestWithTask:taskCopy];
+  v29 = AFSiriLogContextSpeech;
+  if (os_log_type_enabled(AFSiriLogContextSpeech, OS_LOG_TYPE_INFO))
+  {
+    v39 = v18->_asrId;
+    v40 = v18->_requestId;
+    recognitionTask = v18->_recognitionTask;
+    if (requestCopy)
+    {
+      v30 = @"YES";
+    }
+
+    else
+    {
+      v30 = @"NO";
+    }
+
+    v38 = v30;
+    v42 = v29;
+    v37 = +[AFPreferences sharedPreferences];
+    if ([v37 isDictationHIPAACompliant])
+    {
+      v31 = @"YES";
+    }
+
+    else
+    {
+      v31 = @"NO";
+    }
+
+    v32 = +[AFPreferences sharedPreferences];
+    [v32 siriDataSharingOptInStatus];
+    v33 = AFSiriDataSharingOptInStatusGetName();
+    v34 = v33;
+    if (v18->_isTier1LoggingAllowedForCurrentRequest)
+    {
+      v35 = @"YES";
+    }
+
+    else
+    {
+      v35 = @"NO";
+    }
+
+    *buf = 136316930;
+    v45 = "[ESSelfHelper initWithTask:isSpeechAPIRequest:requestId:language:asrId:]";
+    v46 = 2112;
+    v47 = v39;
+    v48 = 2112;
+    v49 = v40;
+    v50 = 2112;
+    v51 = recognitionTask;
+    v52 = 2112;
+    v53 = v38;
+    v54 = 2112;
+    v55 = v31;
+    v56 = 2112;
+    v57 = v33;
+    v58 = 2112;
+    v59 = v35;
+    _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_INFO, "%s SELF: Logging object created successfully (logging allowed for current request). asrId=%@, requestId=%@, recognitionTask=%@, isSpeechAPIRequest=%@, isHipaaCompliant=%@, siriOptInStatus=%@, isTier1LoggingAllowed=%@", buf, 0x52u);
+  }
+
+  [ESSelfHelper _logRequestLinkWithRequestId:v18->_requestId asrId:v18->_asrId];
+  v22 = v18;
+LABEL_25:
+
+  return v22;
 }
 
 + (void)logPowerSnapshotForProcessEnded

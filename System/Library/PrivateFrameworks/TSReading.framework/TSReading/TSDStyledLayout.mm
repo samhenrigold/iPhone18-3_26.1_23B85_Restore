@@ -39,7 +39,7 @@
     parent2 = [(TSDAbstractLayout *)self parent];
     if (parent2)
     {
-      [(TSDAbstractLayout *)parent2 transformInRoot];
+      objc_msgSend_transformInRoot(parent2);
     }
 
     else

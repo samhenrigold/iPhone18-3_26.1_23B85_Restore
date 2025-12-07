@@ -3,7 +3,7 @@
 - (double)_layoutWithContext:(double)context bounds:(double)bounds;
 - (double)_prepareViewForReuse:(int)reuse type:(double)type state:(double)state;
 - (id)hitTest:(CGPoint)test withEvent:(id)event;
-- (uint64_t)initWithWidth:(void *)width;
+- (id)initWithWidth:(void *)width;
 - (void)_updateForTraitCollection:(uint64_t)collection;
 - (void)_updateSubviewsAnimated:(uint64_t)animated;
 - (void)dealloc;
@@ -17,7 +17,7 @@
 
 @implementation PKApplicationMessageContentView
 
-- (uint64_t)initWithWidth:(void *)width
+- (id)initWithWidth:(void *)width
 {
   if (!width)
   {
@@ -596,7 +596,7 @@ LABEL_53:
 
 - (double)_layoutWithContext:(double)context bounds:(double)bounds
 {
-  v155 = *MEMORY[0x1E69E9840];
+  v193 = *MEMORY[0x1E69E9840];
   if (!self)
   {
     return 0.0;
@@ -605,277 +605,303 @@ LABEL_53:
   v10 = a2 & 0xFFFFFFFF00000000;
   v11 = (a2 & 0xFFFFFFFF00000000) == 0x100000000;
   [*(self + 408) sizeThatFits:{1.79769313e308, 1.79769313e308}];
+  v13 = v12;
+  v15 = v14;
   selfCopy = self;
   imageView = [*(self + 408) imageView];
   image = [imageView image];
 
   [image alignmentRectInsets];
+  v19 = 15.0 - v18;
+  v21 = 15.0 - v20;
+  v23 = 15.0 - v22;
+  v25 = 15.0 - v24;
+  v26.n128_f64[0] = context + v21;
+  v27.n128_f64[0] = bounds + v19;
+  v28.n128_f64[0] = a5 - (v21 + v25);
   r2.origin.y = a6;
-  PKSizeAlignedInRect();
-  v18 = v14;
-  v19 = v15;
-  v20 = v16;
-  v21 = v17;
+  v29.n128_f64[0] = a6 - (v19 + v23);
+  v30.n128_u64[0] = v13;
+  v31.n128_u64[0] = v15;
+  PKSizeAlignedInRect(~(a2 >> 7) & 2, v30, v31, v26, v27, v28, v29, v32);
+  v37 = v33;
+  v38 = v34;
+  v39 = v35;
+  v40 = v36;
   if (v11)
   {
-    [*(selfCopy + 408) setFrame:{v14, v15, v16, v17}];
+    [*(selfCopy + 408) setFrame:{v33, v34, v35, v36}];
   }
 
-  v22 = *(selfCopy + 536);
-  if (!v22 || (v23 = v21, v24 = v19, (*(v22 + 16) & 1) == 0))
+  v41 = *(selfCopy + 536);
+  if (!v41 || (v42 = v40, v43 = v38, (*(v41 + 16) & 1) == 0))
   {
-    v18 = *MEMORY[0x1E695F050];
-    v24 = *(MEMORY[0x1E695F050] + 8);
-    v20 = *(MEMORY[0x1E695F050] + 16);
-    v23 = *(MEMORY[0x1E695F050] + 24);
+    v37 = *MEMORY[0x1E695F050];
+    v43 = *(MEMORY[0x1E695F050] + 8);
+    v39 = *(MEMORY[0x1E695F050] + 16);
+    v42 = *(MEMORY[0x1E695F050] + 24);
   }
 
-  r2.origin.x = v18;
+  r2.origin.x = v37;
 
-  v25 = *(selfCopy + 504);
-  v26 = *(selfCopy + 512);
-  v28 = *(selfCopy + 520);
-  v27 = *(selfCopy + 528);
+  v44 = *(selfCopy + 504);
+  v45 = *(selfCopy + 512);
+  v47 = *(selfCopy + 520);
+  v46 = *(selfCopy + 528);
   if (v10 == 0x100000000)
   {
     [selfCopy layoutMargins];
-    v30 = fmax(v28, v29);
-    v31 = context + v26;
-    v32 = bounds + v25;
-    v33 = a5 - (v26 + v27);
-    v34 = r2.origin.y - (v25 + v30);
-    [*(selfCopy + 416) pkui_setFrame:a2 & 1 animated:{v31, bounds + v25, v33, v34}];
+    v49 = fmax(v47, v48);
+    v50 = context + v45;
+    v51 = bounds + v44;
+    v52 = a5 - (v45 + v46);
+    v53 = r2.origin.y - (v44 + v49);
+    [*(selfCopy + 416) pkui_setFrame:a2 & 1 animated:{v50, bounds + v44, v52, v53}];
   }
 
   else
   {
-    v31 = context + v26;
-    v33 = a5 - (v26 + v27);
-    v35 = v25 + v28;
-    v32 = bounds + v25;
-    v34 = r2.origin.y - v35;
+    v50 = context + v45;
+    v52 = a5 - (v45 + v46);
+    v54 = v44 + v47;
+    v51 = bounds + v44;
+    v53 = r2.origin.y - v54;
   }
 
-  v156.origin.x = v31;
-  v156.origin.y = v32;
-  rect = v33;
-  v156.size.width = v33;
-  v156.size.height = v34;
-  v162.origin.x = r2.origin.x;
-  v162.origin.y = v24;
-  v162.size.width = v20;
-  v162.size.height = v23;
-  v157 = CGRectIntersection(v156, v162);
-  v158 = CGRectOffset(v157, -v31, -v32);
-  width = v158.size.width;
-  y = v158.origin.y;
-  height = v158.size.height;
-  v36 = HIDWORD(a2);
+  v194.origin.x = v50;
+  v194.origin.y = v51;
+  rect = v52;
+  v194.size.width = v52;
+  v194.size.height = v53;
+  v200.origin.x = r2.origin.x;
+  v200.origin.y = v43;
+  v200.size.width = v39;
+  v200.size.height = v42;
+  v195 = CGRectIntersection(v194, v200);
+  v196 = CGRectOffset(v195, -v50, -v51);
+  width = v196.size.width;
+  y = v196.origin.y;
+  height = v196.size.height;
+  v55 = HIDWORD(a2);
   if ((a2 >> 8))
   {
-    v37 = 2;
+    v56 = 2;
   }
 
   else
   {
-    v37 = 0x200000000;
+    v56 = 0x200000000;
   }
 
-  v38 = *(selfCopy + 536);
-  x = v158.origin.x;
-  if (v38)
+  v57 = *(selfCopy + 536);
+  x = v196.origin.x;
+  if (v57)
   {
-    v39 = *(v38 + 16) | (*(v38 + 20) << 32);
+    v58 = *(v57 + 16) | (*(v57 + 20) << 32);
   }
 
   else
   {
-    v39 = 0;
+    v58 = 0;
   }
 
-  v145 = 0;
-  v146 = &v145;
-  v147 = 0x2020000000;
-  v148 = 0x4018000000000000;
-  v140 = 0;
-  v141 = &v140;
-  v142 = 0x4010000000;
-  v143 = &unk_1BE347799;
-  v135 = 0;
-  v136 = &v135;
-  v137 = 0x4010000000;
-  v138 = &unk_1BE347799;
-  memset(&v139, 0, sizeof(v139));
-  v144.origin = xmmword_1BE116C90;
-  v159.size.width = v33;
-  v144.size.width = v33;
-  v144.size.height = v34;
-  v159.origin.x = 0.0;
-  v159.origin.y = 6.0;
-  v159.size.height = v34;
-  CGRectDivide(v159, &v139, &v144, 45.0, v37);
-  v40 = *(selfCopy + 536);
-  v112 = v32;
-  if (!v40)
+  v183 = 0;
+  v184 = &v183;
+  v185 = 0x2020000000;
+  v186 = 0x4018000000000000;
+  v178 = 0;
+  v179 = &v178;
+  v180 = 0x4010000000;
+  v181 = &unk_1BE347799;
+  v173 = 0;
+  v174 = &v173;
+  v175 = 0x4010000000;
+  v176 = &unk_1BE347799;
+  memset(&v177, 0, sizeof(v177));
+  v182.origin = xmmword_1BE116C90;
+  v197.size.width = v52;
+  v182.size.width = v52;
+  v182.size.height = v53;
+  v197.origin.x = 0.0;
+  v197.origin.y = 6.0;
+  v197.size.height = v53;
+  CGRectDivide(v197, &v177, &v182, 45.0, v56);
+  v59 = *(selfCopy + 536);
+  v147 = v51;
+  if (!v59)
   {
-    v42 = 0;
+    v61 = 0;
 LABEL_24:
     PKSizeScaleAspectFit();
-    v47 = v46;
+    v65 = v69;
+    v67 = v70;
     objc_opt_self();
-    v44 = v34;
-    v45 = v47 * 0.206896552;
+    v63 = v53;
+    v68 = v65 * 0.206896552;
     goto LABEL_25;
   }
 
-  v41 = *(v40 + 24);
-  v42 = v41;
-  if (!v41)
+  v60 = *(v59 + 24);
+  v61 = v60;
+  if (!v60)
   {
     goto LABEL_24;
   }
 
-  style = [v41 style];
+  style = [v60 style];
   if (!style)
   {
     goto LABEL_24;
   }
 
-  v44 = v34;
+  v63 = v53;
   if (style == 1)
   {
     PKPassFrontFaceContentSize();
     PKSizeScaleAspectFit();
-    v45 = 4.0;
+    v65 = v64;
+    v67 = v66;
+    v68 = 4.0;
   }
 
   else
   {
-    v45 = 0.0;
+    v65 = *MEMORY[0x1E695F060];
+    v67 = *(MEMORY[0x1E695F060] + 8);
+    v68 = 0.0;
   }
 
 LABEL_25:
-  PKContentAlignmentMake();
-  PKSizeAlignedInRect();
-  v124 = v49;
-  r2.origin.x = v48;
-  v123 = v50;
-  r2.origin.y = v51;
-  if (v36 != 1)
+  v71 = PKContentAlignmentMake();
+  v72.n128_u64[0] = *&v174[1].origin.x;
+  v73.n128_u64[0] = *&v174[1].origin.y;
+  v74.n128_u64[0] = *&v174[1].size.width;
+  v75.n128_u64[0] = *&v174[1].size.height;
+  v76.n128_f64[0] = v65;
+  v77.n128_u64[0] = v67;
+  PKSizeAlignedInRect(v71, v76, v77, v72, v73, v74, v75, v78);
+  v162 = v80;
+  r2.origin.x = v79;
+  v161 = v81;
+  r2.origin.y = v82;
+  if (v55 != 1)
   {
-    if ((v39 & 0x100) == 0)
+    if ((v58 & 0x100) == 0)
     {
       goto LABEL_27;
     }
 
 LABEL_29:
-    v146[3] = fmax(r2.origin.y + 6.0, v146[3]);
-    v52 = 1;
+    v184[3] = fmax(r2.origin.y + 6.0, v184[3]);
+    v83 = 1;
     goto LABEL_30;
   }
 
-  [*(selfCopy + 464) pkui_setCornerRadius:a2 & BYTE1(v39) & 1 animated:v45];
-  [*(selfCopy + 464) pkui_setFrame:a2 & BYTE1(v39) & 1 animated:{r2.origin.x, v124, v123, r2.origin.y}];
+  [*(selfCopy + 464) pkui_setCornerRadius:a2 & BYTE1(v58) & 1 animated:v68];
+  [*(selfCopy + 464) pkui_setFrame:a2 & BYTE1(v58) & 1 animated:{r2.origin.x, v162, v161, r2.origin.y}];
   [*(selfCopy + 464) frame];
-  CGRectGetMaxX(v160);
+  CGRectGetMaxX(v198);
   [*(selfCopy + 464) frame];
-  CGRectGetMinY(v161);
+  CGRectGetMinY(v199);
   UIRectCenteredAboutPoint();
-  [*(selfCopy + 480) pkui_setFrame:a2 & BYTE4(v39) & 1u animated:?];
-  if ((v39 >> 8))
+  [*(selfCopy + 480) pkui_setFrame:a2 & BYTE4(v58) & 1u animated:?];
+  if ((v58 >> 8))
   {
     goto LABEL_29;
   }
 
 LABEL_27:
-  v52 = 0;
+  v83 = 0;
 LABEL_30:
 
-  CGRectDivide(v141[1], v136 + 1, v141 + 1, 13.0, v37);
-  p_x = &v141->origin.x;
-  v54 = v141[1].origin.x;
-  v55 = v141[1].origin.y;
-  v56 = v141[1].size.height;
-  v113 = v141[1].size.width;
-  if (v36 == 1)
+  CGRectDivide(v179[1], v174 + 1, v179 + 1, 13.0, v56);
+  p_x = &v179->origin.x;
+  v85 = v179[1].origin.x;
+  v86 = v179[1].origin.y;
+  v87 = v179[1].size.height;
+  v148 = v179[1].size.width;
+  if (v55 == 1)
   {
     [*(selfCopy + 464) bounds];
-    v58 = v57;
-    v60 = v59;
-    v62 = v61;
-    v64 = v63;
+    v89 = v88;
+    v91 = v90;
+    v93 = v92;
+    v95 = v94;
     image2 = [*(selfCopy + 472) image];
     if (image2)
     {
-      v66 = *(selfCopy + 536);
-      if (v66)
+      v97 = *(selfCopy + 536);
+      if (v97)
       {
-        v66 = v66[3];
+        v97 = v97[3];
       }
 
-      v67 = v66;
-      image3 = [v67 image];
+      v98 = v97;
+      image3 = [v98 image];
       hasBackground = [image3 hasBackground];
 
       if (hasBackground)
       {
-        [image2 pkui_alignmentSizeThatFills:{v62, v64}];
+        objc_msgSend_pkui_alignmentSizeThatFills_(image2, v93, v95);
       }
 
       else
       {
-        [image2 pkui_alignmentSizeThatFits:v62 maximumScale:{v64, 1.0}];
+        objc_msgSend_pkui_alignmentSizeThatFits_maximumScale_(image2, v93, v95, 1.0);
       }
 
-      v70.n128_f64[0] = v152 + v58 + (v62 - v149) * 0.5;
-      v71.n128_f64[0] = v151 + v60 + (v64 - v150) * 0.5;
-      v72.n128_f64[0] = v149 - (v152 + v154);
-      v74.n128_f64[0] = v151 + v153;
-      v73.n128_f64[0] = v150 - (v151 + v153);
-      PKRectRoundToPixel(v70, v71, v72, v73, v74);
-      v58 = v75;
-      v60 = v76;
-      v62 = v77;
-      v64 = v78;
+      v101.n128_f64[0] = v190 + v89 + (v93 - v187) * 0.5;
+      v102.n128_f64[0] = v189 + v91 + (v95 - v188) * 0.5;
+      v103.n128_f64[0] = v187 - (v190 + v192);
+      v105.n128_f64[0] = v189 + v191;
+      v104.n128_f64[0] = v188 - (v189 + v191);
+      PKRectRoundToPixel(v101, v102, v103, v104, v105);
+      v89 = v106;
+      v91 = v107;
+      v93 = v108;
+      v95 = v109;
     }
 
-    [*(selfCopy + 472) pkui_setFrame:v52 & a2 animated:{v58, v60, v62, v64, *&v112}];
+    [*(selfCopy + 472) pkui_setFrame:v83 & a2 animated:{v89, v91, v93, v95, *&v147}];
 
-    p_x = &v141->origin.x;
+    p_x = &v179->origin.x;
   }
 
-  if (v52)
+  if (v83)
   {
-    v79 = v54;
+    v110 = v85;
   }
 
   else
   {
-    v79 = 0.0;
+    v110 = 0.0;
   }
 
-  v80 = 6.0;
-  if (v52)
+  v111 = 6.0;
+  if (v83)
   {
-    v80 = v55;
+    v111 = v86;
   }
 
-  p_x[4] = v79;
-  p_x[5] = v80;
-  v81 = rect;
-  if (v52)
+  v159 = v111;
+  v160 = v110;
+  p_x[4] = v110;
+  p_x[5] = v111;
+  v112 = rect;
+  if (v83)
   {
-    v81 = v113;
-    v82 = v56;
+    v112 = v148;
+    v113 = v87;
   }
 
   else
   {
-    v82 = v44;
+    v113 = v63;
   }
 
-  p_x[6] = v81;
-  p_x[7] = v82;
+  recta = v112;
+  p_x[6] = v112;
+  p_x[7] = v113;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __87__PKApplicationMessageContentView__layoutContentViewWithContext_bounds_occludedBounds___block_invoke;
@@ -884,121 +910,134 @@ LABEL_30:
   *&aBlock[9] = y;
   *&aBlock[10] = width;
   *&aBlock[11] = height;
-  aBlock[12] = v37;
-  v130 = v37;
-  v131 = 0;
-  v133 = HIDWORD(a2) == 2;
-  v134 = HIDWORD(a2) == 1;
-  v132 = a2;
+  aBlock[12] = v56;
+  v168 = v56;
+  v169 = 0;
+  v171 = HIDWORD(a2) == 2;
+  v172 = HIDWORD(a2) == 1;
+  v170 = a2;
   aBlock[4] = selfCopy;
-  aBlock[5] = &v140;
-  aBlock[6] = &v135;
-  aBlock[7] = &v145;
-  v118 = _Block_copy(aBlock);
-  v118[2](v118, *(selfCopy + 488), (v39 >> 16) & 1);
-  CGRectDivide(v141[1], v136 + 1, v141 + 1, 1.0, CGRectMinYEdge);
-  v118[2](v118, *(selfCopy + 496), (v39 >> 24) & 1);
-  if (v36 == 1)
+  aBlock[5] = &v178;
+  aBlock[6] = &v173;
+  aBlock[7] = &v183;
+  v153 = _Block_copy(aBlock);
+  v153[2](v153, *(selfCopy + 488), (v58 >> 16) & 1);
+  CGRectDivide(v179[1], v174 + 1, v179 + 1, 1.0, CGRectMinYEdge);
+  v153[2](v153, *(selfCopy + 496), (v58 >> 24) & 1);
+  if (v55 == 1)
   {
-    v127 = 0u;
-    v128 = 0u;
+    v165 = 0u;
+    v166 = 0u;
     r2.size = 0u;
-    v126 = 0u;
-    v83 = *(selfCopy + 544);
-    v84 = [v83 countByEnumeratingWithState:&r2.size objects:&v149 count:16];
-    if (v84)
+    v164 = 0u;
+    v114 = *(selfCopy + 544);
+    v115 = [v114 countByEnumeratingWithState:&r2.size objects:&v187 count:16];
+    if (v115)
     {
-      v85 = *v126;
-      v86 = MEMORY[0x1E69DDCE0];
+      v116 = *v164;
+      v117 = *MEMORY[0x1E69BB7F8];
+      v118 = MEMORY[0x1E69DDCE0];
       do
       {
-        v87 = 0;
+        v119 = 0;
         do
         {
-          if (*v126 != v85)
+          if (*v164 != v116)
           {
-            objc_enumerationMutation(v83);
+            objc_enumerationMutation(v114);
           }
 
-          v88 = *(*&r2.size.height + 8 * v87);
-          if (v88)
+          v120 = *(*&r2.size.height + 8 * v119);
+          if (v120)
           {
-            v89 = *(v88 + 8);
-            v90 = v86 + 1;
-            v91 = v86 + 2;
-            v92 = v86 + 3;
-            v93 = (v88 + 24);
-            if (v89)
+            v121 = *(v120 + 8);
+            v122 = v118 + 1;
+            v123 = v118 + 2;
+            v124 = v118 + 3;
+            v125 = (v120 + 24);
+            if (v121)
             {
-              v93 = v86;
+              v125 = v118;
             }
 
             else
             {
-              v92 = (v88 + 48);
-              v91 = (v88 + 40);
-              v90 = (v88 + 32);
+              v124 = (v120 + 48);
+              v123 = (v120 + 40);
+              v122 = (v120 + 32);
             }
 
-            v94 = *v93;
-            v95 = *v90;
-            v96 = *v91;
-            v97 = *v92;
-            v88 = *(v88 + 16);
+            v126 = *v125;
+            v127 = *v122;
+            v128 = *v123;
+            v129 = *v124;
+            v120 = *(v120 + 16);
           }
 
           else
           {
-            v89 = 0;
-            v97 = 0.0;
-            v96 = 0.0;
-            v95 = 0.0;
-            v94 = 0.0;
+            v121 = 0;
+            v129 = 0.0;
+            v128 = 0.0;
+            v127 = 0.0;
+            v126 = 0.0;
           }
 
-          v98 = v88;
-          [v98 frame];
-          v102 = v101 - (v97 + v95);
-          v104 = v103 - (v96 + v94);
-          if (v89)
+          v130 = v120;
+          [v130 frame];
+          v138 = v133.n128_f64[0] - (v129 + v127);
+          v139 = v134.n128_f64[0] - (v128 + v126);
+          if (v121)
           {
-            v105 = v94 + v100;
-            if (v89 == 1)
+            v140 = v126 + v132.n128_f64[0];
+            if (v121 == 1)
             {
-              PKSizeAlignedInRect();
+              v131.n128_f64[0] = v133.n128_f64[0] - (v129 + v127);
+              v132.n128_f64[0] = v134.n128_f64[0] - (v128 + v126);
+              v134.n128_f64[0] = v159;
+              v133.n128_f64[0] = v160;
+              v135.n128_f64[0] = recta;
+              v136.n128_f64[0] = v113;
+              PKSizeAlignedInRect(v56 & 2, v131, v132, v133, v134, v135, v136, v137);
             }
 
             else
             {
-              v106 = v95 + v99;
+              v141 = v127 + v131.n128_f64[0];
             }
           }
 
           else
           {
-            PKSizeAlignedInRect();
-            v105 = v107;
-            v102 = v108;
-            v104 = v109;
+            v131.n128_f64[0] = v133.n128_f64[0] - (v129 + v127);
+            v132.n128_f64[0] = v134.n128_f64[0] - (v128 + v126);
+            v134.n128_f64[0] = v162;
+            v133.n128_u64[0] = *&r2.origin.x;
+            v135.n128_f64[0] = v161;
+            v136.n128_u64[0] = *&r2.origin.y;
+            PKSizeAlignedInRect(v117, v131, v132, v133, v134, v135, v136, v137);
+            v140 = v142;
+            v138 = v143;
+            v139 = v144;
           }
 
-          [v98 pkui_setFrame:a2 & 1 animated:{v106 - v95, v105 - v94, v102 - (-v97 - v95), v104 - (-v96 - v94), *&v112}];
+          [v130 pkui_setFrame:a2 & 1 animated:{v141 - v127, v140 - v126, v138 - (-v129 - v127), v139 - (-v128 - v126), *&v147}];
 
-          ++v87;
+          ++v119;
         }
 
-        while (v84 != v87);
-        v110 = [v83 countByEnumeratingWithState:&r2.size objects:&v149 count:16];
-        v84 = v110;
+        while (v115 != v119);
+        v145 = [v114 countByEnumeratingWithState:&r2.size objects:&v187 count:16];
+        v115 = v145;
       }
 
-      while (v110);
+      while (v145);
     }
   }
 
-  _Block_object_dispose(&v135, 8);
-  _Block_object_dispose(&v140, 8);
-  _Block_object_dispose(&v145, 8);
+  _Block_object_dispose(&v173, 8);
+  _Block_object_dispose(&v178, 8);
+  _Block_object_dispose(&v183, 8);
   return a5;
 }
 
@@ -1088,146 +1127,164 @@ void __87__PKApplicationMessageContentView__layoutContentViewWithContext_bounds_
 {
   v5 = a2;
   v6 = *(*(a1 + 40) + 8);
-  v44 = *(v6 + 32);
-  v45 = *(v6 + 48);
-  v43 = v5;
+  v52 = *(v6 + 32);
+  v53 = *(v6 + 48);
+  v51 = v5;
   [v5 pkui_sizeThatFits:{*(v6 + 48), 1.79769313e308}];
-  v42 = v7;
+  v50 = v7;
   v9 = v8;
   v10 = *(*(a1 + 40) + 8);
-  v47.origin.x = v10[1].origin.x;
-  v47.origin.y = v10[1].origin.y;
+  v55.origin.x = v10[1].origin.x;
+  v55.origin.y = v10[1].origin.y;
   ++v10;
-  v47.size.width = v10->size.width;
-  v47.size.height = v10->size.height;
-  CGRectDivide(v47, (*(*(a1 + 48) + 8) + 32), v10, v9, CGRectMinYEdge);
+  v55.size.width = v10->size.width;
+  v55.size.height = v10->size.height;
+  v49 = v9;
+  CGRectDivide(v55, (*(*(a1 + 48) + 8) + 32), v10, v9, CGRectMinYEdge);
   v11 = *(a1 + 100);
   v12 = *(a1 + 64);
   v13 = *(a1 + 72);
   v14 = *(a1 + 80);
   v15 = *(a1 + 88);
-  v48 = CGRectStandardize(*(*(*(a1 + 48) + 8) + 32));
-  x = v48.origin.x;
-  y = v48.origin.y;
-  width = v48.size.width;
-  height = v48.size.height;
-  v50.origin.x = v12;
-  v50.origin.y = v13;
-  v50.size.width = v14;
-  v50.size.height = v15;
-  v49 = CGRectIntersection(v48, v50);
-  v20 = v49.origin.x;
-  v21 = v49.origin.y;
-  v22 = v49.size.width;
-  v23 = v49.size.height;
-  if (!CGRectIsNull(v49))
+  v56 = CGRectStandardize(*(*(*(a1 + 48) + 8) + 32));
+  x = v56.origin.x;
+  y = v56.origin.y;
+  width = v56.size.width;
+  height = v56.size.height;
+  v58.origin.x = v12;
+  v58.origin.y = v13;
+  v58.size.width = v14;
+  v58.size.height = v15;
+  v57 = CGRectIntersection(v56, v58);
+  v20 = v57.origin.x;
+  v21 = v57.origin.y;
+  v22 = v57.size.width;
+  v23 = v57.size.height;
+  if (CGRectIsNull(v57))
   {
-    if (v11 > 1)
-    {
-      if (v11 == 2)
-      {
-        width = fmax(v20 - x, 0.0);
-        goto LABEL_2;
-      }
+    goto LABEL_2;
+  }
 
-      if (v11 == 3)
-      {
-        height = fmax(v21 - y, 0.0);
-        goto LABEL_2;
-      }
+  if (v11 > 1)
+  {
+    if (v11 == 2)
+    {
+      width = fmax(v20 - x, 0.0);
     }
 
     else
     {
-      if (!v11)
+      if (v11 != 3)
       {
-        v41 = x + width;
-        x = fmin(v20 + v22, x + width);
-        width = v41 - x;
-        goto LABEL_2;
+        goto LABEL_31;
       }
 
+      height = fmax(v21 - y, 0.0);
+    }
+  }
+
+  else
+  {
+    if (v11)
+    {
       if (v11 == 1)
       {
-        v26 = y + height;
+        v33 = y + height;
         y = fmin(v21 + v23, y + height);
-        height = v26 - y;
+        height = v33 - y;
         goto LABEL_2;
       }
+
+LABEL_31:
+      __break(1u);
+      return;
     }
 
-    __break(1u);
-    return;
+    v48 = x + width;
+    x = fmin(v20 + v22, x + width);
+    width = v48 - x;
   }
 
 LABEL_2:
-  v24 = *(*(a1 + 48) + 8);
-  v24[4] = x;
-  v24[5] = y;
-  v24[6] = width;
-  v24[7] = height;
-  v25 = *(*(*(a1 + 48) + 8) + 48);
-  if (v25 < v42)
+  v31 = *(*(a1 + 48) + 8);
+  v31[4] = x;
+  v31[5] = y;
+  v31[6] = width;
+  v31[7] = height;
+  v32 = *(*(a1 + 48) + 8);
+  v28.n128_u64[0] = v32[6];
+  v24.n128_f64[0] = v50;
+  if (v28.n128_f64[0] >= v50)
   {
-    [v43 pkui_sizeThatFits:{v25, 1.79769313e308}];
+    v25.n128_f64[0] = v49;
   }
 
-  PKSizeAlignedInRect();
-  v28 = v27;
-  v30 = v29;
-  v32 = v31;
-  v34 = v33;
+  else
+  {
+    [v51 pkui_sizeThatFits:{v28.n128_f64[0], 1.79769313e308}];
+    v32 = *(*(a1 + 48) + 8);
+    v28.n128_u64[0] = v32[6];
+  }
+
+  v26.n128_u64[0] = v32[4];
+  v27.n128_u64[0] = v32[5];
+  v29.n128_u64[0] = v32[7];
+  PKSizeAlignedInRect(*(a1 + 104), v24, v25, v26, v27, v28, v29, v30);
+  v35 = v34;
+  v37 = v36;
+  v39 = v38;
+  v41 = v40;
   if (*(a1 + 120) == 1)
   {
-    [v43 alpha];
-    v36 = 0;
-    v37 = v35 <= 0.0;
-    if (*(a1 + 120) == 1 && v35 > 0.0)
+    [v51 alpha];
+    v43 = 0;
+    v44 = v42 <= 0.0;
+    if (*(a1 + 120) == 1 && v42 > 0.0)
     {
-      [v43 frame];
-      v37 = 0;
-      v36 = v32 != v38;
-      if (v34 != v39)
+      [v51 frame];
+      v44 = 0;
+      v43 = v39 != v45;
+      if (v41 != v46)
       {
-        v36 = 1;
+        v43 = 1;
       }
     }
   }
 
   else
   {
-    v36 = 0;
-    v37 = 1;
+    v43 = 0;
+    v44 = 1;
   }
 
-  if ((*(a1 + 121) & 1) == 0 && (v37 || (*(a1 + 120) & 1) == 0 || v36))
+  if ((*(a1 + 121) & 1) == 0 && (v44 || (*(a1 + 120) & 1) == 0 || v43))
   {
-    if (v36)
+    if (v43)
     {
-      [(PKApplicationMessageContentView *)*(a1 + 32) _prepareViewForReuse:v43 type:1 state:*(*(a1 + 32) + 432), *(*(a1 + 32) + 440), *(*(a1 + 32) + 448), *(*(a1 + 32) + 456)];
+      [(PKApplicationMessageContentView *)*(a1 + 32) _prepareViewForReuse:v51 type:1 state:*(*(a1 + 32) + 432), *(*(a1 + 32) + 440), *(*(a1 + 32) + 448), *(*(a1 + 32) + 456)];
     }
 
     if (a3)
     {
-      goto LABEL_19;
+      goto LABEL_20;
     }
 
-LABEL_21:
-    v40 = *(*(a1 + 40) + 8);
-    *(v40 + 32) = v44;
-    *(v40 + 48) = v45;
+LABEL_22:
+    v47 = *(*(a1 + 40) + 8);
+    *(v47 + 32) = v52;
+    *(v47 + 48) = v53;
+    goto LABEL_23;
+  }
+
+  [v51 pkui_setFrame:(*(a1 + 112) & a3) animated:{v35, v37, v39, v41}];
+  if (!a3)
+  {
     goto LABEL_22;
   }
 
-  [v43 pkui_setFrame:(*(a1 + 112) & a3) animated:{v28, v30, v32, v34}];
-  if (!a3)
-  {
-    goto LABEL_21;
-  }
-
-LABEL_19:
-  *(*(*(a1 + 56) + 8) + 24) = fmax(v30 + v34, *(*(*(a1 + 56) + 8) + 24));
-LABEL_22:
+LABEL_20:
+  *(*(*(a1 + 56) + 8) + 24) = fmax(v37 + v41, *(*(*(a1 + 56) + 8) + 24));
+LABEL_23:
 }
 
 - (double)_prepareViewForReuse:(int)reuse type:(double)type state:(double)state

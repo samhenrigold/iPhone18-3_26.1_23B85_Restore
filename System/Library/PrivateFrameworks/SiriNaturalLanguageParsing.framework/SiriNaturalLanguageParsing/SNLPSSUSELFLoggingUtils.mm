@@ -2,6 +2,7 @@
 + (id)buildMetadataFromRequestId:(id)id;
 + (id)buildMetadataWithNlId:(id)id andWithTrpId:(id)trpId andWithResultCandidateId:(id)candidateId;
 + (id)generateRandomUUID;
++ (id)logBackgroundUpdateStarted:(int)started;
 + (void)emitEvent:(id)event;
 + (void)emitEventBackgroundUpdate:(id)update backgroundUpdateContextBuilder:(id)builder;
 + (void)emitEventUserRequest:(id)request userRequestContextBuilder:(id)builder;
@@ -143,6 +144,23 @@ void __74__SNLPSSUSELFLoggingUtils_emitEventUserRequest_userRequestContextBuilde
   v13 = v10;
   v11 = v10;
   [self emitEventBackgroundUpdate:endedCopy backgroundUpdateContextBuilder:v12];
+}
+
++ (id)logBackgroundUpdateStarted:(int)started
+{
+  v3 = *&started;
+  v5 = objc_alloc_init(MEMORY[0x277D59150]);
+  [v5 setBackgroundUpdateType:v3];
+  generateRandomUUID = [self generateRandomUUID];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __54__SNLPSSUSELFLoggingUtils_logBackgroundUpdateStarted___block_invoke;
+  v9[3] = &unk_2784B6EE0;
+  v10 = v5;
+  v7 = v5;
+  [self emitEventBackgroundUpdate:generateRandomUUID backgroundUpdateContextBuilder:v9];
+
+  return generateRandomUUID;
 }
 
 + (void)logUserRequestFailed:(id)failed

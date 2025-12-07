@@ -318,7 +318,7 @@
   v36 = objc_msgSend_renderElementsWithoutShadows(v20, v31, v32, v33, v34);
   if (v30)
   {
-    objc_msgSend_offset(shadowCopy, v35, v37, v38, v39);
+    objc_msgSend_offset(shadowCopy, v37, v38, v39);
     v41 = fabs(v40);
     objc_msgSend_radius(shadowCopy, v42, v40, v43, v44);
     v46 = -(v41 + fabs(v45));

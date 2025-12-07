@@ -1781,21 +1781,21 @@ LABEL_11:
   _os_log_error_impl(v0, v1, v2, v3, v4, v5);
 }
 
-- (uint64_t)startInputForClient:(uint64_t *)a3 error:.cold.1(id *a1, uint64_t a2, uint64_t *a3)
+- (void)startInputForClient:(void *)a3 error:.cold.1(id *a1, uint64_t a2, void *a3)
 {
   result = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unable to start the packet thread for Client=%p for StreamInputID=%ld", a2, objc_msgSend(objc_msgSend(*a1, "streamInputID"), "longValue")];
   *a3 = result;
   return result;
 }
 
-- (uint64_t)startInputForClient:(uint64_t *)a3 error:.cold.2(id *a1, uint64_t a2, uint64_t *a3)
+- (void)startInputForClient:(void *)a3 error:.cold.2(id *a1, uint64_t a2, void *a3)
 {
   result = [MEMORY[0x1E696AEC0] stringWithFormat:@"Client (%p) sinkIO is nil for StreamInputID=%ld", a2, objc_msgSend(objc_msgSend(*a1, "streamInputID"), "longValue")];
   *a3 = result;
   return result;
 }
 
-- (uint64_t)startInputForClient:(uint64_t)a3 error:(uint64_t *)a4 .cold.3(void *a1, char *a2, uint64_t a3, uint64_t *a4)
+- (void)startInputForClient:(uint64_t)a3 error:(void *)a4 .cold.3(void *a1, char *a2, uint64_t a3, void *a4)
 {
   result = [MEMORY[0x1E696AEC0] stringWithFormat:@"AudioStreamBasicDescription is nil for client or stream. Client asbd=%s Stream asbd=%p for client (%p)", FormatToCStr(objc_msgSend(a1, "clientFormat"), a2, 0x40uLL), a3, a1];
   *a4 = result;

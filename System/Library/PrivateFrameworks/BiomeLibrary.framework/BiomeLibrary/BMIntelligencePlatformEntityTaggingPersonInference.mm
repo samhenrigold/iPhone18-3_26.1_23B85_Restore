@@ -16,18 +16,16 @@
 
 + (id)columns
 {
-  v9[4] = *MEMORY[0x1E69E9840];
+  v8[4] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"entityIdentifier" dataType:0 requestOnly:0 fieldNumber:1 protoDataType:5 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"entityTagID" dataType:0 requestOnly:0 fieldNumber:2 protoDataType:4 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"score" dataType:1 requestOnly:0 fieldNumber:3 protoDataType:0 convertedType:0];
   v5 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"feedbackEventID" dataType:2 requestOnly:0 fieldNumber:4 protoDataType:13 convertedType:0];
-  v9[0] = v2;
-  v9[1] = v3;
-  v9[2] = v4;
-  v9[3] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:4];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v8[0] = v2;
+  v8[1] = v3;
+  v8[2] = v4;
+  v8[3] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:4];
 
   return v6;
 }
@@ -72,7 +70,7 @@
 
 - (id)jsonDictionary
 {
-  v17[4] = *MEMORY[0x1E69E9840];
+  v16[4] = *MEMORY[0x1E69E9840];
   if ([(BMIntelligencePlatformEntityTaggingPersonInference *)self hasEntityIdentifier])
   {
     v3 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:{-[BMIntelligencePlatformEntityTaggingPersonInference entityIdentifier](self, "entityIdentifier")}];
@@ -98,39 +96,39 @@
   }
 
   feedbackEventID = [(BMIntelligencePlatformEntityTaggingPersonInference *)self feedbackEventID];
-  v16[0] = @"entityIdentifier";
+  v15[0] = @"entityIdentifier";
   null = v3;
   if (!v3)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v17[0] = null;
-  v16[1] = @"entityTagID";
+  v16[0] = null;
+  v15[1] = @"entityTagID";
   null2 = v4;
   if (!v4)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v17[1] = null2;
-  v16[2] = @"score";
+  v16[1] = null2;
+  v15[2] = @"score";
   null3 = v7;
   if (!v7)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v17[2] = null3;
-  v16[3] = @"feedbackEventID";
+  v16[2] = null3;
+  v15[3] = @"feedbackEventID";
   null4 = feedbackEventID;
   if (!feedbackEventID)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v17[3] = null4;
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:4];
+  v16[3] = null4;
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:4];
   if (feedbackEventID)
   {
     if (v7)
@@ -175,19 +173,18 @@ LABEL_19:
 LABEL_26:
 
 LABEL_20:
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
 
 - (BMIntelligencePlatformEntityTaggingPersonInference)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v40[1] = *MEMORY[0x1E69E9840];
+  v39[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"entityIdentifier"];
   if (!v7 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
-    v32 = 0;
+    v31 = 0;
 LABEL_4:
     v8 = [dictionaryCopy objectForKeyedSubscript:@"entityTagID"];
     if (v8 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
@@ -205,32 +202,32 @@ LABEL_4:
         {
           if (!error)
           {
-            v31 = 0;
+            v30 = 0;
             selfCopy4 = 0;
             goto LABEL_35;
           }
 
-          v26 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v27 = *MEMORY[0x1E698F240];
-          v37 = *MEMORY[0x1E696A578];
+          v25 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v26 = *MEMORY[0x1E698F240];
+          v36 = *MEMORY[0x1E696A578];
           v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"entityTagID"];
-          v38 = v16;
-          v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
-          v31 = 0;
+          v37 = v16;
+          v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
+          v30 = 0;
           selfCopy4 = 0;
-          *error = [v26 initWithDomain:v27 code:2 userInfo:v13];
+          *error = [v25 initWithDomain:v26 code:2 userInfo:v13];
           goto LABEL_34;
         }
 
         v9 = [MEMORY[0x1E696AD98] numberWithInt:BMIntelligencePlatformEntityTaggingPersonInferenceEntityTagIDFromString(v8)];
       }
 
-      v31 = v9;
+      v30 = v9;
     }
 
     else
     {
-      v31 = 0;
+      v30 = 0;
     }
 
     v13 = [dictionaryCopy objectForKeyedSubscript:@"score"];
@@ -246,15 +243,15 @@ LABEL_4:
           goto LABEL_34;
         }
 
-        v29 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v28 = objc_alloc(MEMORY[0x1E696ABC0]);
         v19 = *MEMORY[0x1E698F240];
-        v35 = *MEMORY[0x1E696A578];
+        v34 = *MEMORY[0x1E696A578];
         v18 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"score"];
-        v36 = v18;
-        [MEMORY[0x1E695DF20] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
+        v35 = v18;
+        [MEMORY[0x1E695DF20] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
         selfCopy3 = self;
         v17 = v20 = error;
-        v21 = [v29 initWithDomain:v19 code:2 userInfo:v17];
+        v21 = [v28 initWithDomain:v19 code:2 userInfo:v17];
         v16 = 0;
         selfCopy4 = 0;
         *v20 = v21;
@@ -278,7 +275,7 @@ LABEL_4:
     {
       v18 = 0;
 LABEL_22:
-      self = -[BMIntelligencePlatformEntityTaggingPersonInference initWithEntityIdentifier:entityTagID:score:feedbackEventID:](selfCopy3, "initWithEntityIdentifier:entityTagID:score:feedbackEventID:", v32, [v31 intValue], v16, v18);
+      self = -[BMIntelligencePlatformEntityTaggingPersonInference initWithEntityIdentifier:entityTagID:score:feedbackEventID:](selfCopy3, "initWithEntityIdentifier:entityTagID:score:feedbackEventID:", v31, [v30 intValue], v16, v18);
       selfCopy4 = self;
 LABEL_33:
 
@@ -295,13 +292,13 @@ LABEL_34:
 
     if (errorCopy2)
     {
-      v30 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v28 = *MEMORY[0x1E698F240];
-      v33 = *MEMORY[0x1E696A578];
+      v29 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v27 = *MEMORY[0x1E698F240];
+      v32 = *MEMORY[0x1E696A578];
       v22 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"feedbackEventID"];
-      v34 = v22;
-      v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
-      *errorCopy2 = [v30 initWithDomain:v28 code:2 userInfo:v23];
+      v33 = v22;
+      v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
+      *errorCopy2 = [v29 initWithDomain:v27 code:2 userInfo:v23];
     }
 
     v18 = 0;
@@ -314,30 +311,29 @@ LABEL_32:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v32 = v7;
+    v31 = v7;
     goto LABEL_4;
   }
 
   if (!error)
   {
-    v32 = 0;
+    v31 = 0;
     selfCopy4 = 0;
     goto LABEL_36;
   }
 
   v10 = objc_alloc(MEMORY[0x1E696ABC0]);
   v11 = *MEMORY[0x1E698F240];
-  v39 = *MEMORY[0x1E696A578];
-  v31 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"entityIdentifier"];
-  v40[0] = v31;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v40 forKeys:&v39 count:1];
-  v32 = 0;
+  v38 = *MEMORY[0x1E696A578];
+  v30 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"entityIdentifier"];
+  v39[0] = v30;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v39 forKeys:&v38 count:1];
+  v31 = 0;
   selfCopy4 = 0;
   *error = [v10 initWithDomain:v11 code:2 userInfo:v8];
 LABEL_35:
 
 LABEL_36:
-  v24 = *MEMORY[0x1E69E9840];
   return selfCopy4;
 }
 
@@ -355,23 +351,20 @@ LABEL_36:
   toCopy = to;
   if (self->_hasEntityIdentifier)
   {
-    entityIdentifier = self->_entityIdentifier;
     PBDataWriterWriteUint64Field();
   }
 
-  entityTagID = self->_entityTagID;
   PBDataWriterWriteUint32Field();
   if (self->_hasScore)
   {
-    score = self->_score;
     PBDataWriterWriteDoubleField();
   }
 
-  v7 = toCopy;
+  v4 = toCopy;
   if (self->_feedbackEventID)
   {
     PBDataWriterWriteStringField();
-    v7 = toCopy;
+    v4 = toCopy;
   }
 }
 
@@ -664,18 +657,16 @@ LABEL_60:
 
 + (id)protoFields
 {
-  v9[4] = *MEMORY[0x1E69E9840];
+  v8[4] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"entityIdentifier" number:1 type:5 subMessageClass:0];
-  v9[0] = v2;
+  v8[0] = v2;
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"entityTagID" number:2 type:4 subMessageClass:0];
-  v9[1] = v3;
+  v8[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"score" number:3 type:0 subMessageClass:0];
-  v9[2] = v4;
+  v8[2] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"feedbackEventID" number:4 type:13 subMessageClass:0];
-  v9[3] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:4];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v8[3] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:4];
 
   return v6;
 }

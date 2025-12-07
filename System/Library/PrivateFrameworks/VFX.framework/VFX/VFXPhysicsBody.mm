@@ -19,7 +19,6 @@
 - (id)velocityValue;
 - (int8x16_t)angularVelocity;
 - (uint64_t)moveToTransform:(float32x4_t)transform;
-- (uint64_t)resetToTransform:(__n128)transform;
 - (void)_activate;
 - (void)_createBody;
 - (void)_removeOwner;
@@ -41,6 +40,7 @@
 - (void)encodeWithCoder:(id)coder;
 - (void)invalidateShape;
 - (void)moveToPosition:(VFXPhysicsBody *)self;
+- (void)resetToTransform:(__n128)transform;
 - (void)resetTransform;
 - (void)rotateToAxisAngle:(VFXPhysicsBody *)self;
 - (void)setAffectedByGravity:(BOOL)gravity;
@@ -82,210 +82,210 @@
 
 - (id)momentOfInertiaValue
 {
-  v29[3] = *MEMORY[0x1E69E9840];
-  v5 = MEMORY[0x1E696AD98];
-  objc_msgSend_momentOfInertia(self, a2, v2, v3);
-  v9 = objc_msgSend_numberWithFloat_(v5, v6, v7, v8);
-  v10 = MEMORY[0x1E696AD98];
-  objc_msgSend_momentOfInertia(self, v11, v12, v13, v9);
-  LODWORD(v14) = HIDWORD(v14);
-  v29[1] = objc_msgSend_numberWithFloat_(v10, v15, v16, v17, v14);
-  v18 = MEMORY[0x1E696AD98];
-  objc_msgSend_momentOfInertia(self, v19, v20, v21);
-  LODWORD(v23) = v22;
-  v29[2] = objc_msgSend_numberWithFloat_(v18, v24, v25, v26, v23);
-  return objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v27, v29, 3);
+  v23[3] = *MEMORY[0x1E69E9840];
+  v4 = MEMORY[0x1E696AD98];
+  objc_msgSend_momentOfInertia(self, a2, v2);
+  v7 = objc_msgSend_numberWithFloat_(v4, v5, v6);
+  v8 = MEMORY[0x1E696AD98];
+  objc_msgSend_momentOfInertia(self, v9, v10, v7);
+  LODWORD(v11) = HIDWORD(v11);
+  v23[1] = objc_msgSend_numberWithFloat_(v8, v12, v13, v11);
+  v14 = MEMORY[0x1E696AD98];
+  objc_msgSend_momentOfInertia(self, v15, v16);
+  LODWORD(v18) = v17;
+  v23[2] = objc_msgSend_numberWithFloat_(v14, v19, v20, v18);
+  return objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v21, v23, 3);
 }
 
 - (void)setMomentOfInertiaValue:(id)value
 {
-  v6 = objc_msgSend_objectAtIndexedSubscript_(value, a2, 0, v3);
-  objc_msgSend_floatValue(v6, v7, v8, v9);
-  v28 = v10;
-  v13 = objc_msgSend_objectAtIndexedSubscript_(value, v11, 1, v12);
-  objc_msgSend_floatValue(v13, v14, v15, v16);
-  v27 = v17;
-  v20 = objc_msgSend_objectAtIndexedSubscript_(value, v18, 2, v19);
-  objc_msgSend_floatValue(v20, v21, v22, v23);
+  v5 = objc_msgSend_objectAtIndexedSubscript_(value, a2, 0);
+  objc_msgSend_floatValue(v5, v6, v7);
+  v21 = v8;
+  v10 = objc_msgSend_objectAtIndexedSubscript_(value, v9, 1);
+  objc_msgSend_floatValue(v10, v11, v12);
+  v20 = v13;
+  v15 = objc_msgSend_objectAtIndexedSubscript_(value, v14, 2);
+  objc_msgSend_floatValue(v15, v16, v17);
 
-  objc_msgSend_setMomentOfInertia_(self, v24, v25, v26, COERCE_DOUBLE(__PAIR64__(v27, v28)));
+  objc_msgSend_setMomentOfInertia_(self, v18, v19, COERCE_DOUBLE(__PAIR64__(v20, v21)));
 }
 
 - (id)velocityValue
 {
-  v29[3] = *MEMORY[0x1E69E9840];
-  v5 = MEMORY[0x1E696AD98];
-  objc_msgSend_velocity(self, a2, v2, v3);
-  v9 = objc_msgSend_numberWithFloat_(v5, v6, v7, v8);
-  v10 = MEMORY[0x1E696AD98];
-  objc_msgSend_velocity(self, v11, v12, v13, v9);
-  LODWORD(v14) = HIDWORD(v14);
-  v29[1] = objc_msgSend_numberWithFloat_(v10, v15, v16, v17, v14);
-  v18 = MEMORY[0x1E696AD98];
-  objc_msgSend_velocity(self, v19, v20, v21);
-  LODWORD(v23) = v22;
-  v29[2] = objc_msgSend_numberWithFloat_(v18, v24, v25, v26, v23);
-  return objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v27, v29, 3);
+  v23[3] = *MEMORY[0x1E69E9840];
+  v4 = MEMORY[0x1E696AD98];
+  objc_msgSend_velocity(self, a2, v2);
+  v7 = objc_msgSend_numberWithFloat_(v4, v5, v6);
+  v8 = MEMORY[0x1E696AD98];
+  objc_msgSend_velocity(self, v9, v10, v7);
+  LODWORD(v11) = HIDWORD(v11);
+  v23[1] = objc_msgSend_numberWithFloat_(v8, v12, v13, v11);
+  v14 = MEMORY[0x1E696AD98];
+  objc_msgSend_velocity(self, v15, v16);
+  LODWORD(v18) = v17;
+  v23[2] = objc_msgSend_numberWithFloat_(v14, v19, v20, v18);
+  return objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v21, v23, 3);
 }
 
 - (void)setVelocityValue:(id)value
 {
-  v6 = objc_msgSend_objectAtIndexedSubscript_(value, a2, 0, v3);
-  objc_msgSend_floatValue(v6, v7, v8, v9);
-  v28 = v10;
-  v13 = objc_msgSend_objectAtIndexedSubscript_(value, v11, 1, v12);
-  objc_msgSend_floatValue(v13, v14, v15, v16);
-  v27 = v17;
-  v20 = objc_msgSend_objectAtIndexedSubscript_(value, v18, 2, v19);
-  objc_msgSend_floatValue(v20, v21, v22, v23);
+  v5 = objc_msgSend_objectAtIndexedSubscript_(value, a2, 0);
+  objc_msgSend_floatValue(v5, v6, v7);
+  v21 = v8;
+  v10 = objc_msgSend_objectAtIndexedSubscript_(value, v9, 1);
+  objc_msgSend_floatValue(v10, v11, v12);
+  v20 = v13;
+  v15 = objc_msgSend_objectAtIndexedSubscript_(value, v14, 2);
+  objc_msgSend_floatValue(v15, v16, v17);
 
-  objc_msgSend_setVelocity_(self, v24, v25, v26, COERCE_DOUBLE(__PAIR64__(v27, v28)));
+  objc_msgSend_setVelocity_(self, v18, v19, COERCE_DOUBLE(__PAIR64__(v20, v21)));
 }
 
 - (id)angularVelocityValue
 {
-  v37[4] = *MEMORY[0x1E69E9840];
-  v5 = MEMORY[0x1E696AD98];
-  objc_msgSend_angularVelocity(self, a2, v2, v3);
-  v37[0] = objc_msgSend_numberWithFloat_(v5, v6, v7, v8);
-  v9 = MEMORY[0x1E696AD98];
-  objc_msgSend_angularVelocity(self, v10, v11, v12);
-  LODWORD(v13) = HIDWORD(v13);
-  v37[1] = objc_msgSend_numberWithFloat_(v9, v14, v15, v16, v13);
-  v17 = MEMORY[0x1E696AD98];
-  objc_msgSend_angularVelocity(self, v18, v19, v20);
-  LODWORD(v22) = v21;
-  v37[2] = objc_msgSend_numberWithFloat_(v17, v23, v24, v25, v22);
-  v26 = MEMORY[0x1E696AD98];
-  objc_msgSend_angularVelocity(self, v27, v28, v29);
-  LODWORD(v31) = v30;
-  v37[3] = objc_msgSend_numberWithFloat_(v26, v32, v33, v34, v31);
-  return objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v35, v37, 4);
+  v29[4] = *MEMORY[0x1E69E9840];
+  v4 = MEMORY[0x1E696AD98];
+  objc_msgSend_angularVelocity(self, a2, v2);
+  v29[0] = objc_msgSend_numberWithFloat_(v4, v5, v6);
+  v7 = MEMORY[0x1E696AD98];
+  objc_msgSend_angularVelocity(self, v8, v9);
+  LODWORD(v10) = HIDWORD(v10);
+  v29[1] = objc_msgSend_numberWithFloat_(v7, v11, v12, v10);
+  v13 = MEMORY[0x1E696AD98];
+  objc_msgSend_angularVelocity(self, v14, v15);
+  LODWORD(v17) = v16;
+  v29[2] = objc_msgSend_numberWithFloat_(v13, v18, v19, v17);
+  v20 = MEMORY[0x1E696AD98];
+  objc_msgSend_angularVelocity(self, v21, v22);
+  LODWORD(v24) = v23;
+  v29[3] = objc_msgSend_numberWithFloat_(v20, v25, v26, v24);
+  return objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v27, v29, 4);
 }
 
 - (void)setAngularVelocityValue:(id)value
 {
-  v6 = objc_msgSend_objectAtIndexedSubscript_(value, a2, 0, v3);
-  objc_msgSend_floatValue(v6, v7, v8, v9);
-  v34 = v10;
-  v13 = objc_msgSend_objectAtIndexedSubscript_(value, v11, 1, v12);
-  objc_msgSend_floatValue(v13, v14, v15, v16);
-  v33 = v17;
-  v20 = objc_msgSend_objectAtIndexedSubscript_(value, v18, 2, v19);
-  objc_msgSend_floatValue(v20, v21, v22, v23);
-  v26 = objc_msgSend_objectAtIndexedSubscript_(value, v24, 3, v25);
-  objc_msgSend_floatValue(v26, v27, v28, v29);
+  v5 = objc_msgSend_objectAtIndexedSubscript_(value, a2, 0);
+  objc_msgSend_floatValue(v5, v6, v7);
+  v25 = v8;
+  v10 = objc_msgSend_objectAtIndexedSubscript_(value, v9, 1);
+  objc_msgSend_floatValue(v10, v11, v12);
+  v24 = v13;
+  v15 = objc_msgSend_objectAtIndexedSubscript_(value, v14, 2);
+  objc_msgSend_floatValue(v15, v16, v17);
+  v19 = objc_msgSend_objectAtIndexedSubscript_(value, v18, 3);
+  objc_msgSend_floatValue(v19, v20, v21);
 
-  objc_msgSend_setAngularVelocity_(self, v30, v31, v32, COERCE_DOUBLE(__PAIR64__(v33, v34)));
+  objc_msgSend_setAngularVelocity_(self, v22, v23, COERCE_DOUBLE(__PAIR64__(v24, v25)));
 }
 
 - (id)velocityFactorValue
 {
-  v29[3] = *MEMORY[0x1E69E9840];
-  v5 = MEMORY[0x1E696AD98];
-  objc_msgSend_velocityFactor(self, a2, v2, v3);
-  v9 = objc_msgSend_numberWithFloat_(v5, v6, v7, v8);
-  v10 = MEMORY[0x1E696AD98];
-  objc_msgSend_velocityFactor(self, v11, v12, v13, v9);
-  LODWORD(v14) = HIDWORD(v14);
-  v29[1] = objc_msgSend_numberWithFloat_(v10, v15, v16, v17, v14);
-  v18 = MEMORY[0x1E696AD98];
-  objc_msgSend_velocityFactor(self, v19, v20, v21);
-  LODWORD(v23) = v22;
-  v29[2] = objc_msgSend_numberWithFloat_(v18, v24, v25, v26, v23);
-  return objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v27, v29, 3);
+  v23[3] = *MEMORY[0x1E69E9840];
+  v4 = MEMORY[0x1E696AD98];
+  objc_msgSend_velocityFactor(self, a2, v2);
+  v7 = objc_msgSend_numberWithFloat_(v4, v5, v6);
+  v8 = MEMORY[0x1E696AD98];
+  objc_msgSend_velocityFactor(self, v9, v10, v7);
+  LODWORD(v11) = HIDWORD(v11);
+  v23[1] = objc_msgSend_numberWithFloat_(v8, v12, v13, v11);
+  v14 = MEMORY[0x1E696AD98];
+  objc_msgSend_velocityFactor(self, v15, v16);
+  LODWORD(v18) = v17;
+  v23[2] = objc_msgSend_numberWithFloat_(v14, v19, v20, v18);
+  return objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v21, v23, 3);
 }
 
 - (void)setVelocityFactorValue:(id)value
 {
-  v6 = objc_msgSend_objectAtIndexedSubscript_(value, a2, 0, v3);
-  objc_msgSend_floatValue(v6, v7, v8, v9);
-  v28 = v10;
-  v13 = objc_msgSend_objectAtIndexedSubscript_(value, v11, 1, v12);
-  objc_msgSend_floatValue(v13, v14, v15, v16);
-  v27 = v17;
-  v20 = objc_msgSend_objectAtIndexedSubscript_(value, v18, 2, v19);
-  objc_msgSend_floatValue(v20, v21, v22, v23);
+  v5 = objc_msgSend_objectAtIndexedSubscript_(value, a2, 0);
+  objc_msgSend_floatValue(v5, v6, v7);
+  v21 = v8;
+  v10 = objc_msgSend_objectAtIndexedSubscript_(value, v9, 1);
+  objc_msgSend_floatValue(v10, v11, v12);
+  v20 = v13;
+  v15 = objc_msgSend_objectAtIndexedSubscript_(value, v14, 2);
+  objc_msgSend_floatValue(v15, v16, v17);
 
-  objc_msgSend_setVelocityFactor_(self, v24, v25, v26, COERCE_DOUBLE(__PAIR64__(v27, v28)));
+  objc_msgSend_setVelocityFactor_(self, v18, v19, COERCE_DOUBLE(__PAIR64__(v20, v21)));
 }
 
 - (id)angularVelocityFactorValue
 {
-  v29[3] = *MEMORY[0x1E69E9840];
-  v5 = MEMORY[0x1E696AD98];
-  objc_msgSend_angularVelocityFactor(self, a2, v2, v3);
-  v9 = objc_msgSend_numberWithFloat_(v5, v6, v7, v8);
-  v10 = MEMORY[0x1E696AD98];
-  objc_msgSend_angularVelocityFactor(self, v11, v12, v13, v9);
-  LODWORD(v14) = HIDWORD(v14);
-  v29[1] = objc_msgSend_numberWithFloat_(v10, v15, v16, v17, v14);
-  v18 = MEMORY[0x1E696AD98];
-  objc_msgSend_angularVelocityFactor(self, v19, v20, v21);
-  LODWORD(v23) = v22;
-  v29[2] = objc_msgSend_numberWithFloat_(v18, v24, v25, v26, v23);
-  return objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v27, v29, 3);
+  v23[3] = *MEMORY[0x1E69E9840];
+  v4 = MEMORY[0x1E696AD98];
+  objc_msgSend_angularVelocityFactor(self, a2, v2);
+  v7 = objc_msgSend_numberWithFloat_(v4, v5, v6);
+  v8 = MEMORY[0x1E696AD98];
+  objc_msgSend_angularVelocityFactor(self, v9, v10, v7);
+  LODWORD(v11) = HIDWORD(v11);
+  v23[1] = objc_msgSend_numberWithFloat_(v8, v12, v13, v11);
+  v14 = MEMORY[0x1E696AD98];
+  objc_msgSend_angularVelocityFactor(self, v15, v16);
+  LODWORD(v18) = v17;
+  v23[2] = objc_msgSend_numberWithFloat_(v14, v19, v20, v18);
+  return objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v21, v23, 3);
 }
 
 - (void)setAngularVelocityFactorValue:(id)value
 {
-  v6 = objc_msgSend_objectAtIndexedSubscript_(value, a2, 0, v3);
-  objc_msgSend_floatValue(v6, v7, v8, v9);
-  v28 = v10;
-  v13 = objc_msgSend_objectAtIndexedSubscript_(value, v11, 1, v12);
-  objc_msgSend_floatValue(v13, v14, v15, v16);
-  v27 = v17;
-  v20 = objc_msgSend_objectAtIndexedSubscript_(value, v18, 2, v19);
-  objc_msgSend_floatValue(v20, v21, v22, v23);
+  v5 = objc_msgSend_objectAtIndexedSubscript_(value, a2, 0);
+  objc_msgSend_floatValue(v5, v6, v7);
+  v21 = v8;
+  v10 = objc_msgSend_objectAtIndexedSubscript_(value, v9, 1);
+  objc_msgSend_floatValue(v10, v11, v12);
+  v20 = v13;
+  v15 = objc_msgSend_objectAtIndexedSubscript_(value, v14, 2);
+  objc_msgSend_floatValue(v15, v16, v17);
 
-  objc_msgSend_setAngularVelocityFactor_(self, v24, v25, v26, COERCE_DOUBLE(__PAIR64__(v27, v28)));
+  objc_msgSend_setAngularVelocityFactor_(self, v18, v19, COERCE_DOUBLE(__PAIR64__(v20, v21)));
 }
 
 - (void)applyForceValue:(id)value impulse:(BOOL)impulse
 {
   impulseCopy = impulse;
-  v7 = objc_msgSend_objectAtIndexedSubscript_(value, a2, 0, impulse);
-  objc_msgSend_floatValue(v7, v8, v9, v10);
-  v13 = objc_msgSend_objectAtIndexedSubscript_(value, v11, 1, v12);
-  objc_msgSend_floatValue(v13, v14, v15, v16);
-  v19 = objc_msgSend_objectAtIndexedSubscript_(value, v17, 2, v18);
-  objc_msgSend_floatValue(v19, v20, v21, v22);
+  v7 = objc_msgSend_objectAtIndexedSubscript_(value, a2, 0);
+  objc_msgSend_floatValue(v7, v8, v9);
+  v11 = objc_msgSend_objectAtIndexedSubscript_(value, v10, 1);
+  objc_msgSend_floatValue(v11, v12, v13);
+  v15 = objc_msgSend_objectAtIndexedSubscript_(value, v14, 2);
+  objc_msgSend_floatValue(v15, v16, v17);
 
-  MEMORY[0x1EEE66B58](self, sel_applyForce_impulse_, impulseCopy, v23);
+  MEMORY[0x1EEE66B58](self, sel_applyForce_impulse_, impulseCopy);
 }
 
 - (void)applyForceValue:(id)value atPosition:(id)position impulse:(BOOL)impulse
 {
   impulseCopy = impulse;
-  v9 = objc_msgSend_objectAtIndexedSubscript_(value, a2, 0, position);
-  objc_msgSend_floatValue(v9, v10, v11, v12);
-  v15 = objc_msgSend_objectAtIndexedSubscript_(value, v13, 1, v14);
-  objc_msgSend_floatValue(v15, v16, v17, v18);
-  v21 = objc_msgSend_objectAtIndexedSubscript_(value, v19, 2, v20);
-  objc_msgSend_floatValue(v21, v22, v23, v24);
-  v27 = objc_msgSend_objectAtIndexedSubscript_(position, v25, 0, v26);
-  objc_msgSend_floatValue(v27, v28, v29, v30);
-  v33 = objc_msgSend_objectAtIndexedSubscript_(position, v31, 1, v32);
-  objc_msgSend_floatValue(v33, v34, v35, v36);
-  v39 = objc_msgSend_objectAtIndexedSubscript_(position, v37, 2, v38);
-  objc_msgSend_floatValue(v39, v40, v41, v42);
+  v9 = objc_msgSend_objectAtIndexedSubscript_(value, a2, 0);
+  objc_msgSend_floatValue(v9, v10, v11);
+  v13 = objc_msgSend_objectAtIndexedSubscript_(value, v12, 1);
+  objc_msgSend_floatValue(v13, v14, v15);
+  v17 = objc_msgSend_objectAtIndexedSubscript_(value, v16, 2);
+  objc_msgSend_floatValue(v17, v18, v19);
+  v21 = objc_msgSend_objectAtIndexedSubscript_(position, v20, 0);
+  objc_msgSend_floatValue(v21, v22, v23);
+  v25 = objc_msgSend_objectAtIndexedSubscript_(position, v24, 1);
+  objc_msgSend_floatValue(v25, v26, v27);
+  v29 = objc_msgSend_objectAtIndexedSubscript_(position, v28, 2);
+  objc_msgSend_floatValue(v29, v30, v31);
 
-  MEMORY[0x1EEE66B58](self, sel_applyForce_atPosition_impulse_, impulseCopy, v43);
+  MEMORY[0x1EEE66B58](self, sel_applyForce_atPosition_impulse_, impulseCopy);
 }
 
 - (void)applyTorqueValue:(id)value impulse:(BOOL)impulse
 {
   impulseCopy = impulse;
-  v7 = objc_msgSend_objectAtIndexedSubscript_(value, a2, 0, impulse);
-  objc_msgSend_floatValue(v7, v8, v9, v10);
-  v13 = objc_msgSend_objectAtIndexedSubscript_(value, v11, 1, v12);
-  objc_msgSend_floatValue(v13, v14, v15, v16);
-  v19 = objc_msgSend_objectAtIndexedSubscript_(value, v17, 2, v18);
-  objc_msgSend_floatValue(v19, v20, v21, v22);
-  v25 = objc_msgSend_objectAtIndexedSubscript_(value, v23, 3, v24);
-  objc_msgSend_floatValue(v25, v26, v27, v28);
+  v7 = objc_msgSend_objectAtIndexedSubscript_(value, a2, 0);
+  objc_msgSend_floatValue(v7, v8, v9);
+  v11 = objc_msgSend_objectAtIndexedSubscript_(value, v10, 1);
+  objc_msgSend_floatValue(v11, v12, v13);
+  v15 = objc_msgSend_objectAtIndexedSubscript_(value, v14, 2);
+  objc_msgSend_floatValue(v15, v16, v17);
+  v19 = objc_msgSend_objectAtIndexedSubscript_(value, v18, 3);
+  objc_msgSend_floatValue(v19, v20, v21);
 
-  MEMORY[0x1EEE66B58](self, sel_applyTorque_impulse_, impulseCopy, v29);
+  MEMORY[0x1EEE66B58](self, sel_applyTorque_impulse_, impulseCopy);
 }
 
 - (void)commonInit
@@ -306,24 +306,24 @@
 
 - (VFXPhysicsBody)init
 {
-  v8.receiver = self;
-  v8.super_class = VFXPhysicsBody;
-  v2 = [(VFXPhysicsBody *)&v8 init];
-  v6 = v2;
+  v7.receiver = self;
+  v7.super_class = VFXPhysicsBody;
+  v2 = [(VFXPhysicsBody *)&v7 init];
+  v5 = v2;
   if (v2)
   {
-    objc_msgSend_commonInit(v2, v3, v4, v5);
+    objc_msgSend_commonInit(v2, v3, v4);
   }
 
-  return v6;
+  return v5;
 }
 
 - (VFXPhysicsBody)initWithType:(int64_t)type shape:(id)shape
 {
-  v21.receiver = self;
-  v21.super_class = VFXPhysicsBody;
-  v6 = [(VFXPhysicsBody *)&v21 init];
-  v10 = v6;
+  v18.receiver = self;
+  v18.super_class = VFXPhysicsBody;
+  v6 = [(VFXPhysicsBody *)&v18 init];
+  v9 = v6;
   if (v6)
   {
     v6->_type = type;
@@ -331,8 +331,8 @@
     {
       v6->_defaultShape = 0;
       shapeCopy = shape;
-      *(v10 + 48) = shapeCopy;
-      objc_msgSend_didAddToPhysicsBody_(shapeCopy, v12, v10, v13);
+      *(v9 + 48) = shapeCopy;
+      objc_msgSend_didAddToPhysicsBody_(shapeCopy, v11, v9);
     }
 
     else
@@ -340,22 +340,22 @@
       v6->_defaultShape = 1;
     }
 
-    v14 = 0.0;
+    v12 = 0.0;
     if (type == 1)
     {
-      v14 = 1.0;
+      v12 = 1.0;
     }
 
-    *(v10 + 16) = v14;
-    v15 = vdup_n_s32(type == 0);
-    v16.i64[0] = v15.u32[0];
-    v16.i64[1] = v15.u32[1];
-    *(v10 + 208) = vbslq_s8(vcltzq_s64(vshlq_n_s64(v16, 0x3FuLL)), xmmword_1AFE47BA0, xmmword_1AFE47B90);
-    objc_msgSend_commonInit(v10, v7, v8, v9);
-    *(v10 + 240) = objc_msgSend__createBody(v10, v17, v18, v19);
+    *(v9 + 16) = v12;
+    v13 = vdup_n_s32(type == 0);
+    v14.i64[0] = v13.u32[0];
+    v14.i64[1] = v13.u32[1];
+    *(v9 + 208) = vbslq_s8(vcltzq_s64(vshlq_n_s64(v14, 0x3FuLL)), xmmword_1AFE47BA0, xmmword_1AFE47B90);
+    objc_msgSend_commonInit(v9, v7, v8);
+    *(v9 + 240) = objc_msgSend__createBody(v9, v15, v16);
   }
 
-  return v10;
+  return v9;
 }
 
 - (void)dealloc
@@ -363,18 +363,18 @@
   body = self->_body;
   if (body)
   {
-    v5 = body[67];
-    if (!v5 || ((*(*v5 + 8))(body[67], a2), (body = self->_body) != 0))
+    v4 = body[67];
+    if (!v4 || ((*(*v4 + 8))(body[67], a2), (body = self->_body) != 0))
     {
       (*(*body + 16))(body, a2);
     }
   }
 
-  objc_msgSend_didRemoveFromPhysicsBody_(self->_physicsShape, a2, self, v2);
+  objc_msgSend_didRemoveFromPhysicsBody_(self->_physicsShape, a2, self);
 
-  v6.receiver = self;
-  v6.super_class = VFXPhysicsBody;
-  [(VFXPhysicsBody *)&v6 dealloc];
+  v5.receiver = self;
+  v5.super_class = VFXPhysicsBody;
+  [(VFXPhysicsBody *)&v5 dealloc];
 }
 
 + (VFXPhysicsBody)bodyWithType:(int64_t)type shape:(id)shape
@@ -410,26 +410,26 @@
 {
   self->_type = type;
   v4 = vmovn_s64(vceqq_s64(vdupq_n_s64(type), xmmword_1AFE22A20));
-  v12 = v4.i8[0];
+  v11 = v4.i8[0];
   v5 = vdup_lane_s32(v4, 1);
   v6.i64[0] = v5.i32[0];
   v6.i64[1] = v5.i32[1];
   *&self->_categoryBitMask = vbslq_s8(v6, xmmword_1AFE47BA0, xmmword_1AFE47B90);
   node = self->_node;
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = sub_1AF35667C;
-  v13[3] = &unk_1E7A7E248;
-  v13[4] = self;
-  v13[5] = type;
-  objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, a2, node, v13);
-  v11 = 0.0;
-  if (v12)
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = sub_1AF35667C;
+  v12[3] = &unk_1E7A7E248;
+  v12[4] = self;
+  v12[5] = type;
+  objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, a2, node, v12);
+  v10 = 0.0;
+  if (v11)
   {
-    *&v11 = 1.0;
+    *&v10 = 1.0;
   }
 
-  objc_msgSend_setMass_(self, v8, v9, v10, v11);
+  objc_msgSend_setMass_(self, v8, v9, v10);
 }
 
 - (void)setMass:(float)mass
@@ -664,36 +664,36 @@
 
 - (void)cleanCollisionCache
 {
-  v5 = objc_msgSend_world(self->_node, a2, v2, v3);
-  v9 = objc_msgSend_physicsWorld(v5, v6, v7, v8);
-  v13 = objc_msgSend__handle(v9, v10, v11, v12);
-  if (v13)
+  v4 = objc_msgSend_world(self->_node, a2, v2);
+  v7 = objc_msgSend_physicsWorld(v4, v5, v6);
+  v10 = objc_msgSend__handle(v7, v8, v9);
+  if (v10)
   {
-    v14 = *(v13 + 40);
-    v15 = (*(**(v13 + 96) + 72))(*(v13 + 96));
-    (*(*v15 + 80))(v15, *(self->_body + 25), v14);
-    v16 = (*(*v15 + 56))(v15);
-    v17 = *(v16 + 4);
-    if (v17 >= 1)
+    v11 = *(v10 + 40);
+    v12 = (*(**(v10 + 96) + 72))(*(v10 + 96));
+    (*(*v12 + 80))(v12, *(self->_body + 25), v11);
+    v13 = (*(*v12 + 56))(v12);
+    v14 = *(v13 + 4);
+    if (v14 >= 1)
     {
-      v18 = v16;
-      v19 = 0;
-      for (i = 0; i < v17; ++i)
+      v15 = v13;
+      v16 = 0;
+      for (i = 0; i < v14; ++i)
       {
-        v21 = *(v18 + 16);
-        v22 = **(v21 + v19);
-        if (v22 == self->_body)
+        v18 = *(v15 + 16);
+        v19 = **(v18 + v16);
+        if (v19 == self->_body)
         {
-          v22 = **(v21 + v19 + 8);
+          v19 = **(v18 + v16 + 8);
         }
 
-        if (v22[61] != 4)
+        if (v19[61] != 4)
         {
-          sub_1AFD73C3C(v22, 1);
-          v17 = *(v18 + 4);
+          sub_1AFD73C3C(v19, 1);
+          v14 = *(v15 + 4);
         }
 
-        v19 += 32;
+        v16 += 32;
       }
     }
   }
@@ -701,9 +701,9 @@
 
 - (void)invalidateShape
 {
-  objc_msgSend__updateCollisionShape(self, a2, v2, v3);
+  objc_msgSend__updateCollisionShape(self, a2, v2);
 
-  objc_msgSend_cleanCollisionCache(self, v5, v6, v7);
+  objc_msgSend_cleanCollisionCache(self, v4, v5);
 }
 
 - (void)_updateCollisionShape
@@ -711,34 +711,34 @@
   physicsShape = self->_physicsShape;
   mass = self->_mass;
   explicitMomentOfInertia = self->_explicitMomentOfInertia;
-  v12 = *&self->_centerOfMassOffset[3];
-  v13 = *&self->_momentOfInertia[3];
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x2020000000;
-  v25 = objc_msgSend_nodeRef(self->_node, a2, v2, v3);
-  v9 = v23[3];
-  if (v9)
+  v11 = *&self->_centerOfMassOffset[3];
+  v12 = *&self->_momentOfInertia[3];
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x2020000000;
+  v24 = objc_msgSend_nodeRef(self->_node, a2, v2);
+  v8 = v22[3];
+  if (v8)
   {
-    CFRetain(v9);
+    CFRetain(v8);
   }
 
-  v10 = v12;
-  HIDWORD(v10) = 0;
+  v9 = v11;
+  HIDWORD(v9) = 0;
   node = self->_node;
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3321888768;
-  v14[2] = sub_1AF3575D0;
-  v14[3] = &unk_1F24EC450;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3321888768;
+  v13[2] = sub_1AF3575D0;
+  v13[3] = &unk_1F24EC450;
   selfCopy = self;
-  v18 = physicsShape;
-  v19 = &v22;
-  v20 = mass;
-  v21 = explicitMomentOfInertia;
-  v15 = v13;
-  v16 = v10;
-  objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v8, node, v14);
-  _Block_object_dispose(&v22, 8);
+  v17 = physicsShape;
+  v18 = &v21;
+  v19 = mass;
+  v20 = explicitMomentOfInertia;
+  v14 = v12;
+  v15 = v9;
+  objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v7, node, v13);
+  _Block_object_dispose(&v21, 8);
 }
 
 - (void)setPhysicsShape:(id)DefaultShapeForNode
@@ -747,18 +747,18 @@
   {
     if (DefaultShapeForNode)
     {
-      v6 = 0;
+      v5 = 0;
     }
 
     else
     {
-      DefaultShapeForNode = objc_msgSend__generateDefaultShapeForNode_(VFXPhysicsBody, a2, self->_node, v3);
-      v6 = 1;
+      DefaultShapeForNode = objc_msgSend__generateDefaultShapeForNode_(VFXPhysicsBody, a2, self->_node);
+      v5 = 1;
     }
 
-    self->_defaultShape = v6;
+    self->_defaultShape = v5;
 
-    MEMORY[0x1EEE66B58](self, sel__setPhysicsShape_, DefaultShapeForNode, v3);
+    MEMORY[0x1EEE66B58](self, sel__setPhysicsShape_, DefaultShapeForNode);
   }
 }
 
@@ -777,9 +777,9 @@
 
 - (void)updateDefaultShape
 {
-  DefaultShapeForNode = objc_msgSend__generateDefaultShapeForNode_(VFXPhysicsBody, a2, self->_node, v2);
+  DefaultShapeForNode = objc_msgSend__generateDefaultShapeForNode_(VFXPhysicsBody, a2, self->_node);
 
-  MEMORY[0x1EEE66B58](self, sel__setPhysicsShape_, DefaultShapeForNode, v5);
+  MEMORY[0x1EEE66B58](self, sel__setPhysicsShape_, DefaultShapeForNode);
 }
 
 - (void)setCategoryBitMask:(unint64_t)mask
@@ -787,21 +787,21 @@
   self->_categoryBitMask = mask;
   collisionBitMask = self->_collisionBitMask;
   contactTestBitMask = self->_contactTestBitMask;
-  v8 = objc_msgSend_world(self->_node, a2, mask, v3);
-  IfNeeded = objc_msgSend__physicsWorldCreateIfNeeded_(v8, v9, 0, v10);
+  v7 = objc_msgSend_world(self->_node, a2, mask);
+  IfNeeded = objc_msgSend__physicsWorldCreateIfNeeded_(v7, v8, 0);
   if (IfNeeded)
   {
     node = self->_node;
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = sub_1AF357974;
-    v14[3] = &unk_1E7A7F7A8;
-    v14[4] = self;
-    v14[5] = IfNeeded;
-    v14[6] = mask;
-    v14[7] = collisionBitMask;
-    v14[8] = contactTestBitMask;
-    objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v12, node, v14);
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = sub_1AF357974;
+    v12[3] = &unk_1E7A7F7A8;
+    v12[4] = self;
+    v12[5] = IfNeeded;
+    v12[6] = mask;
+    v12[7] = collisionBitMask;
+    v12[8] = contactTestBitMask;
+    objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v10, node, v12);
   }
 }
 
@@ -810,21 +810,21 @@
   self->_collisionBitMask = mask;
   categoryBitMask = self->_categoryBitMask;
   contactTestBitMask = self->_contactTestBitMask;
-  v8 = objc_msgSend_world(self->_node, a2, mask, v3);
-  IfNeeded = objc_msgSend__physicsWorldCreateIfNeeded_(v8, v9, 0, v10);
+  v7 = objc_msgSend_world(self->_node, a2, mask);
+  IfNeeded = objc_msgSend__physicsWorldCreateIfNeeded_(v7, v8, 0);
   if (IfNeeded)
   {
     node = self->_node;
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = sub_1AF357AB0;
-    v14[3] = &unk_1E7A7F7A8;
-    v14[4] = self;
-    v14[5] = IfNeeded;
-    v14[6] = mask;
-    v14[7] = categoryBitMask;
-    v14[8] = contactTestBitMask;
-    objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v12, node, v14);
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = sub_1AF357AB0;
+    v12[3] = &unk_1E7A7F7A8;
+    v12[4] = self;
+    v12[5] = IfNeeded;
+    v12[6] = mask;
+    v12[7] = categoryBitMask;
+    v12[8] = contactTestBitMask;
+    objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v10, node, v12);
   }
 }
 
@@ -833,21 +833,21 @@
   self->_contactTestBitMask = mask;
   categoryBitMask = self->_categoryBitMask;
   collisionBitMask = self->_collisionBitMask;
-  v8 = objc_msgSend_world(self->_node, a2, mask, v3);
-  IfNeeded = objc_msgSend__physicsWorldCreateIfNeeded_(v8, v9, 0, v10);
+  v7 = objc_msgSend_world(self->_node, a2, mask);
+  IfNeeded = objc_msgSend__physicsWorldCreateIfNeeded_(v7, v8, 0);
   if (IfNeeded)
   {
     node = self->_node;
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = sub_1AF357BE8;
-    v14[3] = &unk_1E7A7F7A8;
-    v14[4] = self;
-    v14[5] = IfNeeded;
-    v14[6] = mask;
-    v14[7] = collisionBitMask;
-    v14[8] = categoryBitMask;
-    objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v12, node, v14);
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = sub_1AF357BE8;
+    v12[3] = &unk_1E7A7F7A8;
+    v12[4] = self;
+    v12[5] = IfNeeded;
+    v12[6] = mask;
+    v12[7] = collisionBitMask;
+    v12[8] = categoryBitMask;
+    objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v10, node, v12);
   }
 }
 
@@ -879,9 +879,9 @@
 
 - (__n128)velocity
 {
-  if (objc_msgSend_immediateMode(VFXTransaction, a2, a3, a4) && (v6 = self[15].n128_u64[0]) != 0)
+  if (objc_msgSend_immediateMode(VFXTransaction, a2, a3) && (v5 = self[15].n128_u64[0]) != 0)
   {
-    result.n128_u64[0] = *(v6 + 352);
+    result.n128_u64[0] = *(v5 + 352);
   }
 
   else
@@ -898,24 +898,24 @@
   node = self->_node;
   if (node)
   {
-    v7 = objc_msgSend_world(node, a2, gravity, v3);
-    node = objc_msgSend__physicsWorldCreateIfNeeded_(v7, v8, 0, v9);
-    v10 = self->_node;
+    v6 = objc_msgSend_world(node, a2, gravity);
+    node = objc_msgSend__physicsWorldCreateIfNeeded_(v6, v7, 0);
+    v8 = self->_node;
   }
 
   else
   {
-    v10 = 0;
+    v8 = 0;
   }
 
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = sub_1AF357EDC;
-  v11[3] = &unk_1E7A7F7D0;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = sub_1AF357EDC;
+  v9[3] = &unk_1E7A7F7D0;
   gravityCopy = gravity;
-  v11[4] = self;
-  v11[5] = node;
-  objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, a2, v10, v11);
+  v9[4] = self;
+  v9[5] = node;
+  objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, a2, v8, v9);
 }
 
 - (void)setAngularVelocity:(VFXPhysicsBody *)self
@@ -933,15 +933,15 @@
 
 - (int8x16_t)angularVelocity
 {
-  if (objc_msgSend_immediateMode(VFXTransaction, a2, a3, a4) && (v5 = self[15].i64[0]) != 0)
+  if (objc_msgSend_immediateMode(VFXTransaction, a2, a3) && (v4 = self[15].i64[0]) != 0)
   {
-    v6 = v5[23];
-    result = vmulq_f32(v6, v6);
-    v7 = sqrtf(vadd_f32(vpadd_f32(*result.i8, *result.i8), *&vextq_s8(result, result, 8uLL)).f32[0]);
+    v5 = *(v4 + 368);
+    result = vmulq_f32(v5, v5);
+    v6 = sqrtf(vadd_f32(vpadd_f32(*result.i8, *result.i8), *&vextq_s8(result, result, 8uLL)).f32[0]);
     result.i64[0] = 0;
-    if (v7 > 0.0)
+    if (v6 > 0.0)
     {
-      result.i64[0] = vmulq_n_f32(v6, 1.0 / v7).u64[0];
+      result.i64[0] = vmulq_n_f32(v5, 1.0 / v6).u64[0];
     }
   }
 
@@ -1051,7 +1051,7 @@
   objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, a2, node, v4);
 }
 
-- (uint64_t)resetToTransform:(__n128)transform
+- (void)resetToTransform:(__n128)transform
 {
   v6 = *(self + 8);
   v8[0] = MEMORY[0x1E69E9820];
@@ -1059,11 +1059,11 @@
   v8[2] = sub_1AF3588FC;
   v8[3] = &unk_1E7A7E578;
   selfCopy = self;
+  v9 = a2;
   transformCopy = transform;
-  v10 = a4;
-  v11 = a5;
-  v12 = a6;
-  return objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, a2, v6, v8);
+  v11 = a4;
+  v12 = a5;
+  return objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v5, v6, v8);
 }
 
 - (void)resetTransform
@@ -1071,123 +1071,123 @@
   node = self->_node;
   if (node)
   {
-    objc_msgSend_worldTransform(node, a2, v2, v3);
-    v6 = self->_node;
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = sub_1AF3589A8;
-    v12[3] = &unk_1E7A7E578;
+    objc_msgSend_worldTransform(node, a2, v2);
+    v5 = self->_node;
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = sub_1AF3589A8;
+    v11[3] = &unk_1E7A7E578;
     selfCopy = self;
+    v12 = v6;
     v13 = v7;
     v14 = v8;
     v15 = v9;
-    v16 = v10;
-    objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v11, v6, v12);
+    objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v10, v5, v11);
   }
 }
 
 - (void)moveToPosition:(VFXPhysicsBody *)self
 {
-  v5 = objc_msgSend_presentationNode(self->_node, a2, v2, v3);
-  objc_msgSend_worldTransform(v5, v6, v7, v8);
+  v4 = objc_msgSend_presentationNode(self->_node, a2, v2);
+  objc_msgSend_worldTransform(v4, v5, v6);
 
-  MEMORY[0x1EEE66B58](self, sel_moveToTransform_, v9, v10);
+  MEMORY[0x1EEE66B58](self, sel_moveToTransform_, v7);
 }
 
 - (void)rotateToAxisAngle:(VFXPhysicsBody *)self
 {
-  v53 = v4;
-  v6 = objc_msgSend_presentationNode(self->_node, a2, v2, v3);
-  objc_msgSend_worldTransform(v6, v7, v8, v9);
-  v56 = v10;
-  v13 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v11, v11), v11, 0xCuLL), vnegq_f32(v12)), v11, vextq_s8(vuzp1q_s32(v12, v12), v12, 0xCuLL));
-  v15 = vmulq_f32(v14, vextq_s8(vuzp1q_s32(v13, v13), v13, 0xCuLL));
-  v16 = vmulq_f32(v14, v14);
-  v17 = vmulq_f32(v12, v12);
-  *v13.i8 = vadd_f32(vzip1_s32(*v16.i8, *v17.i8), vzip2_s32(*v16.i8, *v17.i8));
-  v19 = vextq_s8(v16, v16, 8uLL);
-  *v19.f32 = vsqrt_f32(vadd_f32(vzip1_s32(*v19.f32, *&vextq_s8(v17, v17, 8uLL)), *v13.i8));
-  v18 = vmulq_f32(v11, v11);
-  v19.i32[2] = sqrtf(v18.f32[2] + vaddv_f32(*v18.f32));
-  if ((v15.f32[2] + vaddv_f32(*v15.f32)) >= 0.0)
+  v50 = v3;
+  v5 = objc_msgSend_presentationNode(self->_node, a2, v2);
+  objc_msgSend_worldTransform(v5, v6, v7);
+  v53 = v8;
+  v11 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v9, v9), v9, 0xCuLL), vnegq_f32(v10)), v9, vextq_s8(vuzp1q_s32(v10, v10), v10, 0xCuLL));
+  v13 = vmulq_f32(v12, vextq_s8(vuzp1q_s32(v11, v11), v11, 0xCuLL));
+  v14 = vmulq_f32(v12, v12);
+  v15 = vmulq_f32(v10, v10);
+  *v11.i8 = vadd_f32(vzip1_s32(*v14.i8, *v15.i8), vzip2_s32(*v14.i8, *v15.i8));
+  v17 = vextq_s8(v14, v14, 8uLL);
+  *v17.f32 = vsqrt_f32(vadd_f32(vzip1_s32(*v17.f32, *&vextq_s8(v15, v15, 8uLL)), *v11.i8));
+  v16 = vmulq_f32(v9, v9);
+  v17.i32[2] = sqrtf(v16.f32[2] + vaddv_f32(*v16.f32));
+  if ((v13.f32[2] + vaddv_f32(*v13.f32)) >= 0.0)
   {
-    v20 = 1.0;
+    v18 = 1.0;
   }
 
   else
   {
-    v20 = -1.0;
+    v18 = -1.0;
   }
 
-  v55 = vmulq_n_f32(v19, v20);
-  v21 = v53.f32[3];
-  v22 = vmulq_f32(v53, v53);
-  v22.f32[0] = v22.f32[2] + vaddv_f32(*v22.f32);
-  v23 = vdupq_lane_s32(*v22.f32, 0);
-  v23.i32[3] = 0;
-  v24 = vrsqrteq_f32(v23);
-  v25 = vmulq_f32(v24, vrsqrtsq_f32(v23, vmulq_f32(v24, v24)));
-  v26 = vcltzq_s32(vshlq_n_s32(vmovl_u16(vdup_n_s16(v22.f32[0] != 0.0)), 0x1FuLL));
-  v26.i32[3] = 0;
-  v54 = vbslq_s8(vcltzq_s32(v26), vmulq_f32(vmulq_f32(v25, vrsqrtsq_f32(v23, vmulq_f32(v25, v25))), v53), v53);
-  v29 = __sincosf_stret(v21);
-  v30 = 0;
-  v31 = v54;
-  v32 = vmulq_f32(v31, v31);
+  v52 = vmulq_n_f32(v17, v18);
+  v19 = v50.f32[3];
+  v20 = vmulq_f32(v50, v50);
+  v20.f32[0] = v20.f32[2] + vaddv_f32(*v20.f32);
+  v21 = vdupq_lane_s32(*v20.f32, 0);
+  v21.i32[3] = 0;
+  v22 = vrsqrteq_f32(v21);
+  v23 = vmulq_f32(v22, vrsqrtsq_f32(v21, vmulq_f32(v22, v22)));
+  v24 = vcltzq_s32(vshlq_n_s32(vmovl_u16(vdup_n_s16(v20.f32[0] != 0.0)), 0x1FuLL));
+  v24.i32[3] = 0;
+  v51 = vbslq_s8(vcltzq_s32(v24), vmulq_f32(vmulq_f32(v23, vrsqrtsq_f32(v21, vmulq_f32(v23, v23))), v50), v50);
+  v26 = __sincosf_stret(v19);
+  v27 = 0;
+  v28 = v51;
+  v29 = vmulq_f32(v28, v28);
   __asm { FMOV            V2.4S, #1.0 }
 
-  v38 = vmlaq_n_f32(v32, vsubq_f32(_Q2, v32), v29.__cosval);
-  v39 = (1.0 - v29.__cosval) * vmuls_lane_f32(v31.f32[0], *v31.f32, 1);
-  v40 = (1.0 - v29.__cosval) * vmuls_lane_f32(v31.f32[0], v31, 2);
-  _Q2.f32[0] = (1.0 - v29.__cosval) * vmuls_lane_f32(v54.f32[1], v54, 2);
-  v41 = vmulq_n_f32(v54, -v29.__sinval);
-  *&v42 = v40 + v41.f32[1];
-  v43.f32[0] = v40 - v41.f32[1];
-  v43.f32[1] = _Q2.f32[0] + v41.f32[0];
-  v43.i64[1] = v38.u32[2];
-  v45.i32[0] = v38.i32[0];
-  *&v44 = _Q2.f32[0] - v41.f32[0];
-  v45.f32[1] = v39 - v41.f32[2];
-  v45.i64[1] = v42;
-  v46.f32[0] = v39 + v41.f32[2];
-  v46.i32[1] = v38.i32[1];
-  v46.i64[1] = v44;
-  v47 = vabsq_f32(v55);
-  v47.i32[3] = 0;
-  *&v48 = 0;
-  v49.i64[0] = 0x8000000080000000;
-  v49.i64[1] = 0x8000000080000000;
-  v50 = vorrq_s8(vandq_s8(v55, v49), vabsq_f32(vmaxnmq_f32(v47, xmmword_1AFE20A30)));
-  v41.i32[0] = 0;
-  v41.i32[1] = v50.i32[1];
-  *(&v48 + 1) = v50.u32[2];
-  v57 = v50.u32[0];
-  v58 = v41.u64[0];
-  v59 = v48;
-  v60 = xmmword_1AFE201A0;
+  v35 = vmlaq_n_f32(v29, vsubq_f32(_Q2, v29), v26.__cosval);
+  v36 = (1.0 - v26.__cosval) * vmuls_lane_f32(v28.f32[0], *v28.f32, 1);
+  v37 = (1.0 - v26.__cosval) * vmuls_lane_f32(v28.f32[0], v28, 2);
+  _Q2.f32[0] = (1.0 - v26.__cosval) * vmuls_lane_f32(v51.f32[1], v51, 2);
+  v38 = vmulq_n_f32(v51, -v26.__sinval);
+  *&v39 = v37 + v38.f32[1];
+  v40.f32[0] = v37 - v38.f32[1];
+  v40.f32[1] = _Q2.f32[0] + v38.f32[0];
+  v40.i64[1] = v35.u32[2];
+  v42.i32[0] = v35.i32[0];
+  *&v41 = _Q2.f32[0] - v38.f32[0];
+  v42.f32[1] = v36 - v38.f32[2];
+  v42.i64[1] = v39;
+  v43.f32[0] = v36 + v38.f32[2];
+  v43.i32[1] = v35.i32[1];
+  v43.i64[1] = v41;
+  v44 = vabsq_f32(v52);
+  v44.i32[3] = 0;
+  *&v45 = 0;
+  v46.i64[0] = 0x8000000080000000;
+  v46.i64[1] = 0x8000000080000000;
+  v47 = vorrq_s8(vandq_s8(v52, v46), vabsq_f32(vmaxnmq_f32(v44, xmmword_1AFE20A30)));
+  v38.i32[0] = 0;
+  v38.i32[1] = v47.i32[1];
+  *(&v45 + 1) = v47.u32[2];
+  v54 = v47.u32[0];
+  v55 = v38.u64[0];
+  v56 = v45;
+  v57 = xmmword_1AFE201A0;
   do
   {
-    v61[v30 / 0x10] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v45, COERCE_FLOAT(*(&v57 + v30))), v46, *(&v57 + v30), 1), v43, *(&v57 + v30), 2), xmmword_1AFE201A0, *(&v57 + v30), 3);
-    v30 += 16;
+    v58[v27 / 0x10] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v42, COERCE_FLOAT(*(&v54 + v27))), v43, *(&v54 + v27), 1), v40, *(&v54 + v27), 2), xmmword_1AFE201A0, *(&v54 + v27), 3);
+    v27 += 16;
   }
 
-  while (v30 != 64);
-  v51 = 0;
-  v52 = v56;
-  v52.i32[3] = 1.0;
-  v57 = v61[0];
-  v58 = v61[1];
-  v59 = v61[2];
-  v60 = v61[3];
+  while (v27 != 64);
+  v48 = 0;
+  v49 = v53;
+  v49.i32[3] = 1.0;
+  v54 = v58[0];
+  v55 = v58[1];
+  v56 = v58[2];
+  v57 = v58[3];
   do
   {
-    v61[v51 / 0x10] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(xmmword_1AFE20150, COERCE_FLOAT(*(&v57 + v51))), xmmword_1AFE20160, *(&v57 + v51), 1), xmmword_1AFE20180, *(&v57 + v51), 2), v52, *(&v57 + v51), 3);
-    v51 += 16;
+    v58[v48 / 0x10] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(xmmword_1AFE20150, COERCE_FLOAT(*(&v54 + v48))), xmmword_1AFE20160, *(&v54 + v48), 1), xmmword_1AFE20180, *(&v54 + v48), 2), v49, *(&v54 + v48), 3);
+    v48 += 16;
   }
 
-  while (v51 != 64);
+  while (v48 != 64);
 
-  (MEMORY[0x1EEE66B58])(self, sel_moveToTransform_, v27, v28);
+  (MEMORY[0x1EEE66B58])(self, sel_moveToTransform_, v25);
 }
 
 - (uint64_t)moveToTransform:(float32x4_t)transform
@@ -1215,27 +1215,27 @@
         v21 = vrsqrte_f32(v16.u32[0]);
         v22 = vmul_f32(v21, vrsqrts_f32(v16.u32[0], vmul_f32(v21, v21)));
         v23 = vmulq_n_f32(a2, vmul_f32(v22, vrsqrts_f32(v16.u32[0], vmul_f32(v22, v22))).f32[0]);
-        v22.i32[0] = v16.i32[1];
-        v24 = vrsqrte_f32(v16.u32[1]);
-        v25 = vmul_f32(v24, vrsqrts_f32(v22.u32[0], vmul_f32(v24, v24)));
-        v26 = vmulq_n_f32(transform, vmul_f32(v25, vrsqrts_f32(v22.u32[0], vmul_f32(v25, v25))).f32[0]);
-        v27 = v18;
-        v28 = vrsqrte_f32(LODWORD(v18));
-        v29 = vmul_f32(v28, vrsqrts_f32(LODWORD(v27), vmul_f32(v28, v28)));
-        v41 = vzip1_s32(*v23.i8, *v26.i8);
-        v30 = vmulq_n_f32(a4, vmul_f32(v29, vrsqrts_f32(LODWORD(v27), vmul_f32(v29, v29))).f32[0]);
-        v42 = v30.i32[0];
+        v24 = v16.u32[1];
+        v25 = vrsqrte_f32(v16.u32[1]);
+        v26 = vmul_f32(v25, vrsqrts_f32(v24, vmul_f32(v25, v25)));
+        v27 = vmulq_n_f32(transform, vmul_f32(v26, vrsqrts_f32(v24, vmul_f32(v26, v26))).f32[0]);
+        v28 = LODWORD(v18);
+        v29 = vrsqrte_f32(LODWORD(v18));
+        v30 = vmul_f32(v29, vrsqrts_f32(v28, vmul_f32(v29, v29)));
+        v41 = vzip1_s32(*v23.i8, *v27.i8);
+        v31 = vmulq_n_f32(a4, vmul_f32(v30, vrsqrts_f32(v28, vmul_f32(v30, v30))).f32[0]);
+        v42 = v31.i32[0];
         v43 = 0;
-        v44 = vzip2_s32(*v23.i8, *v26.i8);
-        v45 = v30.i32[1];
+        v44 = vzip2_s32(*v23.i8, *v27.i8);
+        v45 = v31.i32[1];
         v46 = 0;
-        v47 = vzip2q_s32(v23, v26).u64[0];
-        v48 = v30.i32[2];
+        v47 = vzip2q_s32(v23, v27).u64[0];
+        v48 = v31.i32[2];
         v49 = 0;
         v50 = a5.n128_u64[0];
         v51 = a5.n128_u32[2];
         v52 = 0;
-        sub_1AFDA6AC0();
+        sub_1AFDA6AC0(result, &v41);
         v34 = self[30];
         v35 = *(v34 + 536);
         if (v35)
@@ -1248,7 +1248,7 @@
             v37 = self[6];
             if (v37)
             {
-              objc_msgSend__setNodeScale_(v37, v31, v32, v33);
+              objc_msgSend__setNodeScale_(v37, v32, v33);
             }
 
             else
@@ -1256,7 +1256,7 @@
               v38 = self[31];
               if (v38)
               {
-                v39 = objc_msgSend_btShape(v38, v31, v32, v33);
+                v39 = objc_msgSend_btShape(v38, v32, v33);
                 v41 = *v40.f32;
                 v42 = v20;
                 v43 = 0;
@@ -1270,7 +1270,7 @@
             goto LABEL_17;
           }
 
-          objc_msgSend_cleanCollisionCache(self, v31, v32, v33);
+          objc_msgSend_cleanCollisionCache(self, v32, v33, *&v40);
           v34 = self[30];
         }
 
@@ -1286,62 +1286,62 @@ LABEL_17:
 
 - (void)copyTo:(id)to withContext:(id)context
 {
-  objc_msgSend_begin(VFXTransaction, a2, to, context);
-  objc_msgSend_setImmediateMode_(VFXTransaction, v7, 1, v8);
-  v12 = objc_msgSend_type(self, v9, v10, v11);
-  objc_msgSend_setType_(to, v13, v12, v14);
-  v18 = objc_msgSend_physicsShape(self, v15, v16, v17);
-  v19 = sub_1AF2BED30(v18, context);
-  objc_msgSend_setPhysicsShape_(to, v20, v19, v21);
-  objc_msgSend_mass(self, v22, v23, v24);
-  objc_msgSend_setMass_(to, v25, v26, v27);
-  objc_msgSend_charge(self, v28, v29, v30);
-  objc_msgSend_setCharge_(to, v31, v32, v33);
-  objc_msgSend_friction(self, v34, v35, v36);
-  objc_msgSend_setFriction_(to, v37, v38, v39);
-  objc_msgSend_restitution(self, v40, v41, v42);
-  objc_msgSend_setRestitution_(to, v43, v44, v45);
-  objc_msgSend_rollingFriction(self, v46, v47, v48);
-  objc_msgSend_setRollingFriction_(to, v49, v50, v51);
-  objc_msgSend_damping(self, v52, v53, v54);
-  objc_msgSend_setDamping_(to, v55, v56, v57);
-  objc_msgSend_angularVelocity(self, v58, v59, v60);
-  objc_msgSend_setAngularVelocity_(to, v61, v62, v63);
-  objc_msgSend_angularDamping(self, v64, v65, v66);
-  objc_msgSend_setAngularDamping_(to, v67, v68, v69);
-  objc_msgSend_linearRestingThreshold(self, v70, v71, v72);
-  objc_msgSend_setLinearRestingThreshold_(to, v73, v74, v75);
-  objc_msgSend_angularRestingThreshold(self, v76, v77, v78);
-  objc_msgSend_setAngularRestingThreshold_(to, v79, v80, v81);
-  objc_msgSend_velocityFactor(self, v82, v83, v84);
-  objc_msgSend_setVelocityFactor_(to, v85, v86, v87);
-  objc_msgSend_angularVelocityFactor(self, v88, v89, v90);
-  objc_msgSend_setAngularVelocityFactor_(to, v91, v92, v93);
-  objc_msgSend_velocity(self, v94, v95, v96);
-  objc_msgSend_setVelocity_(to, v97, v98, v99);
-  v103 = objc_msgSend_categoryBitMask(self, v100, v101, v102);
-  objc_msgSend_setCategoryBitMask_(to, v104, v103, v105);
-  v109 = objc_msgSend_collisionBitMask(self, v106, v107, v108);
-  objc_msgSend_setCollisionBitMask_(to, v110, v109, v111);
-  v115 = objc_msgSend_contactTestBitMask(self, v112, v113, v114);
-  objc_msgSend_setContactTestBitMask_(to, v116, v115, v117);
-  v121 = objc_msgSend_allowsResting(self, v118, v119, v120);
-  objc_msgSend_setAllowsResting_(to, v122, v121, v123);
-  objc_msgSend_angularVelocity(self, v124, v125, v126);
-  objc_msgSend_setAngularVelocity_(to, v127, v128, v129);
-  isAffectedByGravity = objc_msgSend_isAffectedByGravity(self, v130, v131, v132);
-  objc_msgSend_setAffectedByGravity_(to, v134, isAffectedByGravity, v135);
-  v139 = objc_msgSend_usesDefaultMomentOfInertia(self, v136, v137, v138);
-  objc_msgSend_setUsesDefaultMomentOfInertia_(to, v140, v139, v141);
-  objc_msgSend_momentOfInertia(self, v142, v143, v144);
-  objc_msgSend_setMomentOfInertia_(to, v145, v146, v147);
-  objc_msgSend_centerOfMassOffset(self, v148, v149, v150);
-  objc_msgSend_setCenterOfMassOffset_(to, v151, v152, v153);
-  objc_msgSend_continuousCollisionDetectionThreshold(self, v154, v155, v156);
-  objc_msgSend_setContinuousCollisionDetectionThreshold_(to, v157, v158, v159);
-  *(to + 30) = objc_msgSend__createBody(to, v160, v161, v162);
+  objc_msgSend_begin(VFXTransaction, a2, to);
+  objc_msgSend_setImmediateMode_(VFXTransaction, v7, 1);
+  v10 = objc_msgSend_type(self, v8, v9);
+  objc_msgSend_setType_(to, v11, v10);
+  v14 = objc_msgSend_physicsShape(self, v12, v13);
+  v15 = sub_1AF2BED30(v14, context);
+  objc_msgSend_setPhysicsShape_(to, v16, v15);
+  objc_msgSend_mass(self, v17, v18);
+  objc_msgSend_setMass_(to, v19, v20);
+  objc_msgSend_charge(self, v21, v22);
+  objc_msgSend_setCharge_(to, v23, v24);
+  objc_msgSend_friction(self, v25, v26);
+  objc_msgSend_setFriction_(to, v27, v28);
+  objc_msgSend_restitution(self, v29, v30);
+  objc_msgSend_setRestitution_(to, v31, v32);
+  objc_msgSend_rollingFriction(self, v33, v34);
+  objc_msgSend_setRollingFriction_(to, v35, v36);
+  objc_msgSend_damping(self, v37, v38);
+  objc_msgSend_setDamping_(to, v39, v40);
+  objc_msgSend_angularVelocity(self, v41, v42);
+  objc_msgSend_setAngularVelocity_(to, v43, v44);
+  objc_msgSend_angularDamping(self, v45, v46);
+  objc_msgSend_setAngularDamping_(to, v47, v48);
+  objc_msgSend_linearRestingThreshold(self, v49, v50);
+  objc_msgSend_setLinearRestingThreshold_(to, v51, v52);
+  objc_msgSend_angularRestingThreshold(self, v53, v54);
+  objc_msgSend_setAngularRestingThreshold_(to, v55, v56);
+  objc_msgSend_velocityFactor(self, v57, v58);
+  objc_msgSend_setVelocityFactor_(to, v59, v60);
+  objc_msgSend_angularVelocityFactor(self, v61, v62);
+  objc_msgSend_setAngularVelocityFactor_(to, v63, v64);
+  objc_msgSend_velocity(self, v65, v66);
+  objc_msgSend_setVelocity_(to, v67, v68);
+  v71 = objc_msgSend_categoryBitMask(self, v69, v70);
+  objc_msgSend_setCategoryBitMask_(to, v72, v71);
+  v75 = objc_msgSend_collisionBitMask(self, v73, v74);
+  objc_msgSend_setCollisionBitMask_(to, v76, v75);
+  v79 = objc_msgSend_contactTestBitMask(self, v77, v78);
+  objc_msgSend_setContactTestBitMask_(to, v80, v79);
+  v83 = objc_msgSend_allowsResting(self, v81, v82);
+  objc_msgSend_setAllowsResting_(to, v84, v83);
+  objc_msgSend_angularVelocity(self, v85, v86);
+  objc_msgSend_setAngularVelocity_(to, v87, v88);
+  isAffectedByGravity = objc_msgSend_isAffectedByGravity(self, v89, v90);
+  objc_msgSend_setAffectedByGravity_(to, v92, isAffectedByGravity);
+  v95 = objc_msgSend_usesDefaultMomentOfInertia(self, v93, v94);
+  objc_msgSend_setUsesDefaultMomentOfInertia_(to, v96, v95);
+  objc_msgSend_momentOfInertia(self, v97, v98);
+  objc_msgSend_setMomentOfInertia_(to, v99, v100);
+  objc_msgSend_centerOfMassOffset(self, v101, v102);
+  objc_msgSend_setCenterOfMassOffset_(to, v103, v104);
+  objc_msgSend_continuousCollisionDetectionThreshold(self, v105, v106);
+  objc_msgSend_setContinuousCollisionDetectionThreshold_(to, v107, v108);
+  *(to + 30) = objc_msgSend__createBody(to, v109, v110);
 
-  objc_msgSend_commitImmediate(VFXTransaction, v163, v164, v165);
+  objc_msgSend_commitImmediate(VFXTransaction, v111, v112);
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -1415,21 +1415,21 @@ LABEL_17:
 - (void)_removeOwner
 {
   node = self->_node;
-  v6 = objc_msgSend_world(node, a2, v2, v3);
-  v10 = objc_msgSend_physicsWorld(v6, v7, v8, v9);
+  v5 = objc_msgSend_world(node, a2, v2);
+  v8 = objc_msgSend_physicsWorld(v5, v6, v7);
   self->_node = 0;
   body = self->_body;
   if (body)
   {
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = sub_1AF3593B4;
-    v13[3] = &unk_1E7A7E310;
-    v13[4] = node;
-    v13[5] = v10;
-    v13[6] = self;
-    v13[7] = body;
-    objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v11, node, v13);
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = sub_1AF3593B4;
+    v11[3] = &unk_1E7A7E310;
+    v11[4] = node;
+    v11[5] = v8;
+    v11[6] = self;
+    v11[7] = body;
+    objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v9, node, v11);
   }
 }
 
@@ -1439,63 +1439,63 @@ LABEL_17:
   {
     if (self->_body)
     {
-      v6 = sub_1AF0D5194();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+      v5 = sub_1AF0D5194(self, a2);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
       {
-        sub_1AFDFA608(v6, a2, owner, v3, v7, v8, v9, v10);
+        sub_1AFDFA608(v5, a2, owner, v6, v7, v8, v9, v10);
       }
     }
   }
 
   self->_node = owner;
-  v11 = objc_msgSend_nodeRef(owner, a2, owner, v3);
+  v11 = objc_msgSend_nodeRef(owner, a2, owner);
   body = self->_body;
-  v16 = objc_msgSend_categoryBitMask(self, v13, v14, v15);
-  v20 = objc_msgSend_collisionBitMask(self, v17, v18, v19);
-  v24 = objc_msgSend_contactTestBitMask(self, v21, v22, v23);
+  v15 = objc_msgSend_categoryBitMask(self, v13, v14);
+  v18 = objc_msgSend_collisionBitMask(self, v16, v17);
+  v21 = objc_msgSend_contactTestBitMask(self, v19, v20);
   node = self->_node;
   if (node)
   {
-    v28 = v24;
+    v24 = v21;
     mass = self->_mass;
     explicitMomentOfInertia = self->_explicitMomentOfInertia;
-    v31 = *&self->_momentOfInertia[3];
-    v32 = *&self->_centerOfMassOffset[3];
-    HIDWORD(v32) = 0;
+    v27 = *&self->_momentOfInertia[3];
+    v28 = *&self->_centerOfMassOffset[3];
+    HIDWORD(v28) = 0;
     if (!self->_physicsShape)
     {
-      v37 = v32;
-      v38 = *&self->_momentOfInertia[3];
-      v33 = objc_msgSend__generateDefaultShapeForNode_(VFXPhysicsBody, v25, node, v26);
-      self->_physicsShape = v33;
-      objc_msgSend_didAddToPhysicsBody_(v33, v34, self, v35);
-      v32 = v37;
-      v31 = v38;
+      v32 = v28;
+      v33 = *&self->_momentOfInertia[3];
+      v29 = objc_msgSend__generateDefaultShapeForNode_(VFXPhysicsBody, v22, node);
+      self->_physicsShape = v29;
+      objc_msgSend_didAddToPhysicsBody_(v29, v30, self);
+      v28 = v32;
+      v27 = v33;
       node = self->_node;
     }
 
-    v39[0] = MEMORY[0x1E69E9820];
-    v39[1] = 3321888768;
-    v39[2] = sub_1AF3595B4;
-    v39[3] = &unk_1F24EC488;
+    v34[0] = MEMORY[0x1E69E9820];
+    v34[1] = 3321888768;
+    v34[2] = sub_1AF3595B4;
+    v34[3] = &unk_1F24EC488;
     ownerCopy = owner;
     selfCopy = self;
-    v44 = v11;
-    v45 = body;
-    v49 = mass;
-    v50 = explicitMomentOfInertia;
-    v40 = v31;
-    v41 = v32;
-    v46 = v16;
-    v47 = v20;
-    v48 = v28;
-    objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v25, node, v39);
+    v39 = v11;
+    v40 = body;
+    v44 = mass;
+    v45 = explicitMomentOfInertia;
+    v35 = v27;
+    v36 = v28;
+    v41 = v15;
+    v42 = v18;
+    v43 = v24;
+    objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v22, node, v34);
   }
 
   else
   {
-    v36 = sub_1AF0D5194();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+    v31 = sub_1AF0D5194(v21, v22);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDFA680();
     }
@@ -1504,284 +1504,286 @@ LABEL_17:
 
 + (id)_generateDefaultShapeForNode:(id)node
 {
-  if (objc_msgSend_model(node, a2, node, v3))
+  if (objc_msgSend_model(node, a2, node))
   {
 
-    return objc_msgSend_shapeWithModel_(VFXPhysicsShape, v5, 0, v6);
+    return objc_msgSend_shapeWithModel_(VFXPhysicsShape, v4, 0);
   }
 
   else
   {
 
-    return objc_msgSend_shapeWithNode_flattened_(VFXPhysicsShape, v5, node, 0);
+    return objc_msgSend_shapeWithNode_flattened_(VFXPhysicsShape, v4, node, 0);
   }
 }
 
 - (void)_setPhysicsShape:(id)shape
 {
+  selfCopy = self;
   if (!shape)
   {
-    v5 = sub_1AF0D5194();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    v5 = sub_1AF0D5194(self, a2);
+    self = os_log_type_enabled(v5, OS_LOG_TYPE_FAULT);
+    if (self)
     {
-      sub_1AFDFA6F4(v5, v6, v7, v8, v9, v10, v11, v12);
+      sub_1AFDFA6F4(v5, a2, v6, v7, v8, v9, v10, v11);
     }
   }
 
-  if (self->_physicsShape == shape)
+  if (selfCopy->_physicsShape == shape)
   {
-    v13 = sub_1AF0D5194();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+    v12 = sub_1AF0D5194(self, a2);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
-      sub_1AFDFA76C(v13, v14, v15, v16, v17, v18, v19, v20);
+      sub_1AFDFA76C(v12, v13, v14, v15, v16, v17, v18, v19);
     }
   }
 
-  physicsShape = self->_physicsShape;
-  self->_physicsShape = shape;
-  objc_msgSend_didRemoveFromPhysicsBody_(physicsShape, v22, self, v23);
-  objc_msgSend_didAddToPhysicsBody_(self->_physicsShape, v24, self, v25);
+  physicsShape = selfCopy->_physicsShape;
+  selfCopy->_physicsShape = shape;
+  objc_msgSend_didRemoveFromPhysicsBody_(physicsShape, v21, selfCopy);
+  objc_msgSend_didAddToPhysicsBody_(selfCopy->_physicsShape, v22, selfCopy);
 
-  objc_msgSend__updateCollisionShape(self, v26, v27, v28);
+  objc_msgSend__updateCollisionShape(selfCopy, v23, v24);
 }
 
 - (id)valueForKey:(id)key
 {
-  if (objc_msgSend_isEqualToString_(key, a2, @"momentOfInertia", v3))
+  if (objc_msgSend_isEqualToString_(key, a2, @"momentOfInertia"))
   {
-    v9 = MEMORY[0x1E696B098];
-    objc_msgSend_momentOfInertia(self, v6, v7, v8);
+    v7 = MEMORY[0x1E696B098];
+    objc_msgSend_momentOfInertia(self, v5, v6);
 LABEL_5:
 
-    return objc_msgSend_valueWithVFXFloat3_(v9, v10, v11, v12);
+    return objc_msgSend_valueWithVFXFloat3_(v7, v8, v9);
   }
 
-  if (objc_msgSend_isEqualToString_(key, v6, @"velocity", v8))
+  if (objc_msgSend_isEqualToString_(key, v5, @"velocity"))
   {
-    v9 = MEMORY[0x1E696B098];
-    objc_msgSend_velocity(self, v13, v14, v15);
+    v7 = MEMORY[0x1E696B098];
+    objc_msgSend_velocity(self, v10, v11);
     goto LABEL_5;
   }
 
-  if (!objc_msgSend_isEqualToString_(key, v13, @"angularVelocity", v15))
+  if (!objc_msgSend_isEqualToString_(key, v10, @"angularVelocity"))
   {
-    if (objc_msgSend_isEqualToString_(key, v17, @"velocityFactor", v19))
+    if (objc_msgSend_isEqualToString_(key, v13, @"velocityFactor"))
     {
-      v9 = MEMORY[0x1E696B098];
-      objc_msgSend_velocityFactor(self, v24, v25, v26);
+      v7 = MEMORY[0x1E696B098];
+      objc_msgSend_velocityFactor(self, v18, v19);
     }
 
-    else if (objc_msgSend_isEqualToString_(key, v24, @"angularVelocityFactor", v26))
+    else if (objc_msgSend_isEqualToString_(key, v18, @"angularVelocityFactor"))
     {
-      v9 = MEMORY[0x1E696B098];
-      objc_msgSend_angularVelocityFactor(self, v27, v28, v29);
+      v7 = MEMORY[0x1E696B098];
+      objc_msgSend_angularVelocityFactor(self, v20, v21);
     }
 
     else
     {
-      if (!objc_msgSend_isEqualToString_(key, v27, @"centerOfMassOffset", v29))
+      if (!objc_msgSend_isEqualToString_(key, v20, @"centerOfMassOffset"))
       {
-        v33.receiver = self;
-        v33.super_class = VFXPhysicsBody;
-        return [(VFXPhysicsBody *)&v33 valueForKey:key];
+        v24.receiver = self;
+        v24.super_class = VFXPhysicsBody;
+        return [(VFXPhysicsBody *)&v24 valueForKey:key];
       }
 
-      v9 = MEMORY[0x1E696B098];
-      objc_msgSend_centerOfMassOffset(self, v30, v31, v32);
+      v7 = MEMORY[0x1E696B098];
+      objc_msgSend_centerOfMassOffset(self, v22, v23);
     }
 
     goto LABEL_5;
   }
 
-  v20 = MEMORY[0x1E696B098];
-  objc_msgSend_angularVelocity(self, v17, v18, v19);
+  v15 = MEMORY[0x1E696B098];
+  objc_msgSend_angularVelocity(self, v13, v14);
 
-  return objc_msgSend_valueWithVFXFloat4_(v20, v21, v22, v23);
+  return objc_msgSend_valueWithVFXFloat4_(v15, v16, v17);
 }
 
 - (void)setValue:(id)value forKey:(id)key
 {
-  if (objc_msgSend_isEqualToString_(key, a2, @"momentOfInertia", key))
+  if (objc_msgSend_isEqualToString_(key, a2, @"momentOfInertia"))
   {
-    objc_msgSend_VFXFloat3Value(value, v7, v8, v9);
+    objc_msgSend_VFXFloat3Value(value, v7, v8);
 
-    objc_msgSend_setMomentOfInertia_(self, v10, v11, v12);
+    objc_msgSend_setMomentOfInertia_(self, v9, v10);
   }
 
-  else if (objc_msgSend_isEqualToString_(key, v7, @"velocity", v9))
+  else if (objc_msgSend_isEqualToString_(key, v7, @"velocity"))
   {
-    objc_msgSend_VFXFloat3Value(value, v13, v14, v15);
+    objc_msgSend_VFXFloat3Value(value, v11, v12);
 
-    objc_msgSend_setVelocity_(self, v16, v17, v18);
+    objc_msgSend_setVelocity_(self, v13, v14);
   }
 
-  else if (objc_msgSend_isEqualToString_(key, v13, @"angularVelocity", v15))
+  else if (objc_msgSend_isEqualToString_(key, v11, @"angularVelocity"))
   {
-    objc_msgSend_VFXFloat4Value(value, v19, v20, v21);
+    objc_msgSend_VFXFloat4Value(value, v15, v16);
 
-    objc_msgSend_setAngularVelocity_(self, v22, v23, v24);
+    objc_msgSend_setAngularVelocity_(self, v17, v18);
   }
 
-  else if (objc_msgSend_isEqualToString_(key, v19, @"velocityFactor", v21))
+  else if (objc_msgSend_isEqualToString_(key, v15, @"velocityFactor"))
   {
-    objc_msgSend_VFXFloat3Value(value, v25, v26, v27);
+    objc_msgSend_VFXFloat3Value(value, v19, v20);
 
-    objc_msgSend_setVelocityFactor_(self, v28, v29, v30);
+    objc_msgSend_setVelocityFactor_(self, v21, v22);
   }
 
-  else if (objc_msgSend_isEqualToString_(key, v25, @"angularVelocityFactor", v27))
+  else if (objc_msgSend_isEqualToString_(key, v19, @"angularVelocityFactor"))
   {
-    objc_msgSend_VFXFloat3Value(value, v31, v32, v33);
+    objc_msgSend_VFXFloat3Value(value, v23, v24);
 
-    objc_msgSend_setAngularVelocityFactor_(self, v34, v35, v36);
+    objc_msgSend_setAngularVelocityFactor_(self, v25, v26);
   }
 
-  else if (objc_msgSend_isEqualToString_(key, v31, @"centerOfMassOffset", v33))
+  else if (objc_msgSend_isEqualToString_(key, v23, @"centerOfMassOffset"))
   {
-    objc_msgSend_VFXFloat3Value(value, v37, v38, v39);
+    objc_msgSend_VFXFloat3Value(value, v27, v28);
 
-    objc_msgSend_setCenterOfMassOffset_(self, v40, v41, v42);
+    objc_msgSend_setCenterOfMassOffset_(self, v29, v30);
   }
 
   else
   {
-    v43.receiver = self;
-    v43.super_class = VFXPhysicsBody;
-    [(VFXPhysicsBody *)&v43 setValue:value forKey:key];
+    v31.receiver = self;
+    v31.super_class = VFXPhysicsBody;
+    [(VFXPhysicsBody *)&v31 setValue:value forKey:key];
   }
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  objc_msgSend_encodeDouble_forKey_(coder, a2, @"mass", v3, self->_mass);
-  objc_msgSend_encodeDouble_forKey_(coder, v6, @"charge", v7, self->_charge);
-  objc_msgSend_encodeDouble_forKey_(coder, v8, @"friction", v9, self->_friction);
-  objc_msgSend_encodeDouble_forKey_(coder, v10, @"restitution", v11, self->_restitution);
-  objc_msgSend_encodeDouble_forKey_(coder, v12, @"rollingFriction", v13, self->_rollingFriction);
-  objc_msgSend_encodeDouble_forKey_(coder, v14, @"ccdThreshold", v15, self->_continuousCollisionDetectionThreshold);
+  objc_msgSend_encodeDouble_forKey_(coder, a2, @"mass", self->_mass);
+  objc_msgSend_encodeDouble_forKey_(coder, v5, @"charge", self->_charge);
+  objc_msgSend_encodeDouble_forKey_(coder, v6, @"friction", self->_friction);
+  objc_msgSend_encodeDouble_forKey_(coder, v7, @"restitution", self->_restitution);
+  objc_msgSend_encodeDouble_forKey_(coder, v8, @"rollingFriction", self->_rollingFriction);
+  objc_msgSend_encodeDouble_forKey_(coder, v9, @"ccdThreshold", self->_continuousCollisionDetectionThreshold);
   if (!self->_defaultShape)
   {
-    objc_msgSend_encodeObject_forKey_(coder, v16, self->_physicsShape, @"physicsShape");
+    objc_msgSend_encodeObject_forKey_(coder, v10, self->_physicsShape, @"physicsShape");
   }
 
-  objc_msgSend_encodeInteger_forKey_(coder, v16, self->_type, @"type");
-  objc_msgSend_encodeDouble_forKey_(coder, v17, @"damping", v18, self->_damping);
+  objc_msgSend_encodeInteger_forKey_(coder, v10, self->_type, @"type");
+  objc_msgSend_encodeDouble_forKey_(coder, v11, @"damping", self->_damping);
   sub_1AF371AF4(coder, @"angularVelocity", *self->_angularVelocity);
-  objc_msgSend_encodeDouble_forKey_(coder, v19, @"angularDamping", v20, self->_angularDamping);
-  objc_msgSend_encodeDouble_forKey_(coder, v21, @"linearRestingThreshold", v22, self->_linearRestingThreshold);
-  objc_msgSend_encodeDouble_forKey_(coder, v23, @"angularRestingThreshold", v24, self->_angularRestingThreshold);
+  objc_msgSend_encodeDouble_forKey_(coder, v12, @"angularDamping", self->_angularDamping);
+  objc_msgSend_encodeDouble_forKey_(coder, v13, @"linearRestingThreshold", self->_linearRestingThreshold);
+  objc_msgSend_encodeDouble_forKey_(coder, v14, @"angularRestingThreshold", self->_angularRestingThreshold);
   sub_1AF371A8C(coder, @"velocityFactor", *self->_velocityFactor);
   sub_1AF371A8C(coder, @"angularVelocityFactor", *self->_angularVelocityFactor);
   sub_1AF371A8C(coder, @"velocity", *self->_velocity);
-  objc_msgSend_encodeBool_forKey_(coder, v25, self->_ignoreGravity, @"ignoreGravity");
-  objc_msgSend_encodeBool_forKey_(coder, v26, self->_explicitMomentOfInertia, @"explicitMomentOfInertia");
+  objc_msgSend_encodeBool_forKey_(coder, v15, self->_ignoreGravity, @"ignoreGravity");
+  objc_msgSend_encodeBool_forKey_(coder, v16, self->_explicitMomentOfInertia, @"explicitMomentOfInertia");
   sub_1AF371A8C(coder, @"momentOfInertia", *&self->_momentOfInertia[3]);
   sub_1AF371A8C(coder, @"centerOfMassOffset", *&self->_centerOfMassOffset[3]);
-  objc_msgSend_encodeInteger_forKey_(coder, v27, self->_categoryBitMask, @"categoryBitMask");
-  objc_msgSend_encodeInteger_forKey_(coder, v28, self->_collisionBitMask, @"collisionBitMask");
-  objc_msgSend_encodeInteger_forKey_(coder, v29, self->_contactTestBitMask, @"contactTestBitMask");
-  objc_msgSend_encodeBool_forKey_(coder, v30, self->_allowsResting, @"allowsResting");
+  objc_msgSend_encodeInteger_forKey_(coder, v17, self->_categoryBitMask, @"categoryBitMask");
+  objc_msgSend_encodeInteger_forKey_(coder, v18, self->_collisionBitMask, @"collisionBitMask");
+  objc_msgSend_encodeInteger_forKey_(coder, v19, self->_contactTestBitMask, @"contactTestBitMask");
+  objc_msgSend_encodeBool_forKey_(coder, v20, self->_allowsResting, @"allowsResting");
   defaultShape = self->_defaultShape;
 
-  objc_msgSend_encodeBool_forKey_(coder, v31, defaultShape, @"defaultShape");
+  objc_msgSend_encodeBool_forKey_(coder, v21, defaultShape, @"defaultShape");
 }
 
 - (VFXPhysicsBody)initWithCoder:(id)coder
 {
-  v147.receiver = self;
-  v147.super_class = VFXPhysicsBody;
-  v7 = [(VFXPhysicsBody *)&v147 init];
-  if (v7)
+  v100.receiver = self;
+  v100.super_class = VFXPhysicsBody;
+  v6 = [(VFXPhysicsBody *)&v100 init];
+  if (v6)
   {
-    v8 = objc_msgSend_immediateMode(VFXTransaction, v4, v5, v6);
-    objc_msgSend_setImmediateMode_(VFXTransaction, v9, 1, v10);
-    objc_msgSend_decodeDoubleForKey_(coder, v11, @"charge", v12);
-    *&v13 = v13;
-    objc_msgSend_setCharge_(v7, v14, v15, v16, v13);
-    objc_msgSend_decodeDoubleForKey_(coder, v17, @"friction", v18);
-    *&v19 = v19;
-    objc_msgSend_setFriction_(v7, v20, v21, v22, v19);
-    objc_msgSend_decodeDoubleForKey_(coder, v23, @"restitution", v24);
-    *&v25 = v25;
-    objc_msgSend_setRestitution_(v7, v26, v27, v28, v25);
-    objc_msgSend_decodeDoubleForKey_(coder, v29, @"rollingFriction", v30);
-    *&v31 = v31;
-    objc_msgSend_setRollingFriction_(v7, v32, v33, v34, v31);
-    if (objc_msgSend_containsValueForKey_(coder, v35, @"defaultShape", v36))
+    v7 = objc_msgSend_immediateMode(VFXTransaction, v4, v5);
+    objc_msgSend_setImmediateMode_(VFXTransaction, v8, 1);
+    objc_msgSend_decodeDoubleForKey_(coder, v9, @"charge");
+    *&v10 = v10;
+    objc_msgSend_setCharge_(v6, v11, v12, v10);
+    objc_msgSend_decodeDoubleForKey_(coder, v13, @"friction");
+    *&v14 = v14;
+    objc_msgSend_setFriction_(v6, v15, v16, v14);
+    objc_msgSend_decodeDoubleForKey_(coder, v17, @"restitution");
+    *&v18 = v18;
+    objc_msgSend_setRestitution_(v6, v19, v20, v18);
+    objc_msgSend_decodeDoubleForKey_(coder, v21, @"rollingFriction");
+    *&v22 = v22;
+    objc_msgSend_setRollingFriction_(v6, v23, v24, v22);
+    if (objc_msgSend_containsValueForKey_(coder, v25, @"defaultShape"))
     {
-      v7->_defaultShape = objc_msgSend_decodeBoolForKey_(coder, v37, @"defaultShape", v38);
+      v6->_defaultShape = objc_msgSend_decodeBoolForKey_(coder, v26, @"defaultShape");
     }
 
-    v39 = objc_opt_class();
-    v41 = objc_msgSend_decodeObjectOfClass_forKey_(coder, v40, v39, @"physicsShape");
-    if (v41)
+    v27 = objc_opt_class();
+    v29 = objc_msgSend_decodeObjectOfClass_forKey_(coder, v28, v27, @"physicsShape");
+    if (v29)
     {
-      objc_msgSend_setPhysicsShape_(v7, v42, v41, v43);
+      objc_msgSend_setPhysicsShape_(v6, v30, v29);
     }
 
-    if (objc_msgSend_containsValueForKey_(coder, v42, @"ccdThreshold", v43))
+    if (objc_msgSend_containsValueForKey_(coder, v30, @"ccdThreshold"))
     {
-      objc_msgSend_decodeDoubleForKey_(coder, v44, @"ccdThreshold", v45);
-      *&v46 = v46;
-      objc_msgSend_setContinuousCollisionDetectionThreshold_(v7, v47, v48, v49, v46);
+      objc_msgSend_decodeDoubleForKey_(coder, v31, @"ccdThreshold");
+      *&v32 = v32;
+      objc_msgSend_setContinuousCollisionDetectionThreshold_(v6, v33, v34, v32);
     }
 
-    v50 = objc_msgSend_decodeIntegerForKey_(coder, v44, @"type", v45);
-    objc_msgSend_setType_(v7, v51, v50, v52);
-    objc_msgSend_decodeDoubleForKey_(coder, v53, @"mass", v54);
-    *&v55 = v55;
-    objc_msgSend_setMass_(v7, v56, v57, v58, v55);
-    objc_msgSend_decodeDoubleForKey_(coder, v59, @"damping", v60);
-    *&v61 = v61;
-    objc_msgSend_setDamping_(v7, v62, v63, v64, v61);
-    *&v65 = sub_1AF371C0C(coder, @"angularVelocity").n128_u64[0];
-    objc_msgSend_setAngularVelocity_(v7, v66, v67, v68, v65);
-    objc_msgSend_decodeDoubleForKey_(coder, v69, @"angularDamping", v70);
-    *&v71 = v71;
-    objc_msgSend_setAngularDamping_(v7, v72, v73, v74, v71);
-    v75 = @"linearRestingThreshold";
-    if ((objc_msgSend_containsValueForKey_(coder, v76, @"linearRestingThreshold", v77) & 1) != 0 || (v75 = @"linearSleepingThreshold", objc_msgSend_containsValueForKey_(coder, v78, @"linearSleepingThreshold", v79)))
+    v35 = objc_msgSend_decodeIntegerForKey_(coder, v31, @"type");
+    objc_msgSend_setType_(v6, v36, v35);
+    objc_msgSend_decodeDoubleForKey_(coder, v37, @"mass");
+    *&v38 = v38;
+    objc_msgSend_setMass_(v6, v39, v40, v38);
+    objc_msgSend_decodeDoubleForKey_(coder, v41, @"damping");
+    *&v42 = v42;
+    objc_msgSend_setDamping_(v6, v43, v44, v42);
+    *&v45 = sub_1AF371C0C(coder, @"angularVelocity").n128_u64[0];
+    objc_msgSend_setAngularVelocity_(v6, v46, v47, v45);
+    objc_msgSend_decodeDoubleForKey_(coder, v48, @"angularDamping");
+    *&v49 = v49;
+    objc_msgSend_setAngularDamping_(v6, v50, v51, v49);
+    v52 = @"linearRestingThreshold";
+    if ((objc_msgSend_containsValueForKey_(coder, v53, @"linearRestingThreshold") & 1) != 0 || (v52 = @"linearSleepingThreshold", objc_msgSend_containsValueForKey_(coder, v54, @"linearSleepingThreshold")))
     {
-      objc_msgSend_decodeDoubleForKey_(coder, v78, v75, v79);
-      *&v80 = v80;
-      objc_msgSend_setLinearRestingThreshold_(v7, v81, v82, v83, v80);
+      objc_msgSend_decodeDoubleForKey_(coder, v54, v52);
+      *&v55 = v55;
+      objc_msgSend_setLinearRestingThreshold_(v6, v56, v57, v55);
     }
 
-    v84 = @"angularRestingThreshold";
-    if ((objc_msgSend_containsValueForKey_(coder, v78, @"angularRestingThreshold", v79) & 1) != 0 || (v84 = @"angularSleepingThreshold", objc_msgSend_containsValueForKey_(coder, v85, @"angularSleepingThreshold", v86)))
+    v58 = @"angularRestingThreshold";
+    if ((objc_msgSend_containsValueForKey_(coder, v54, @"angularRestingThreshold") & 1) != 0 || (v58 = @"angularSleepingThreshold", objc_msgSend_containsValueForKey_(coder, v59, @"angularSleepingThreshold")))
     {
-      objc_msgSend_decodeDoubleForKey_(coder, v85, v84, v86);
-      *&v87 = v87;
-      objc_msgSend_setAngularRestingThreshold_(v7, v88, v89, v90, v87);
+      objc_msgSend_decodeDoubleForKey_(coder, v59, v58);
+      *&v60 = v60;
+      objc_msgSend_setAngularRestingThreshold_(v6, v61, v62, v60);
     }
 
-    v91 = sub_1AF371BC4(coder, @"velocityFactor");
-    objc_msgSend_setVelocityFactor_(v7, v92, v93, v94, v91);
-    v95 = sub_1AF371BC4(coder, @"angularVelocityFactor");
-    objc_msgSend_setAngularVelocityFactor_(v7, v96, v97, v98, v95);
-    v99 = sub_1AF371BC4(coder, @"velocity");
-    objc_msgSend_setVelocity_(v7, v100, v101, v102, v99);
-    v105 = objc_msgSend_decodeBoolForKey_(coder, v103, @"ignoreGravity", v104);
-    objc_msgSend_setAffectedByGravity_(v7, v106, v105 ^ 1u, v107);
-    v110 = objc_msgSend_decodeBoolForKey_(coder, v108, @"explicitMomentOfInertia", v109);
-    objc_msgSend_setUsesDefaultMomentOfInertia_(v7, v111, v110 ^ 1u, v112);
-    v113 = sub_1AF371BC4(coder, @"momentOfInertia");
-    objc_msgSend_setMomentOfInertia_(v7, v114, v115, v116, v113);
-    v117 = sub_1AF371BC4(coder, @"centerOfMassOffset");
-    objc_msgSend_setCenterOfMassOffset_(v7, v118, v119, v120, v117);
-    v123 = objc_msgSend_decodeIntegerForKey_(coder, v121, @"categoryBitMask", v122);
-    objc_msgSend_setCategoryBitMask_(v7, v124, v123, v125);
-    v128 = objc_msgSend_decodeIntegerForKey_(coder, v126, @"collisionBitMask", v127);
-    objc_msgSend_setCollisionBitMask_(v7, v129, v128, v130);
-    v133 = objc_msgSend_decodeIntegerForKey_(coder, v131, @"contactTestBitMask", v132);
-    objc_msgSend_setContactTestBitMask_(v7, v134, v133, v135);
-    v138 = objc_msgSend_decodeBoolForKey_(coder, v136, @"allowsResting", v137);
-    objc_msgSend_setAllowsResting_(v7, v139, v138, v140);
-    v7->_body = objc_msgSend__createBody(v7, v141, v142, v143);
-    objc_msgSend_setImmediateMode_(VFXTransaction, v144, v8, v145);
+    v63 = sub_1AF371BC4(coder, @"velocityFactor");
+    objc_msgSend_setVelocityFactor_(v6, v64, v65, v63);
+    v66 = sub_1AF371BC4(coder, @"angularVelocityFactor");
+    objc_msgSend_setAngularVelocityFactor_(v6, v67, v68, v66);
+    v69 = sub_1AF371BC4(coder, @"velocity");
+    objc_msgSend_setVelocity_(v6, v70, v71, v69);
+    v73 = objc_msgSend_decodeBoolForKey_(coder, v72, @"ignoreGravity");
+    objc_msgSend_setAffectedByGravity_(v6, v74, v73 ^ 1u);
+    v76 = objc_msgSend_decodeBoolForKey_(coder, v75, @"explicitMomentOfInertia");
+    objc_msgSend_setUsesDefaultMomentOfInertia_(v6, v77, v76 ^ 1u);
+    v78 = sub_1AF371BC4(coder, @"momentOfInertia");
+    objc_msgSend_setMomentOfInertia_(v6, v79, v80, v78);
+    v81 = sub_1AF371BC4(coder, @"centerOfMassOffset");
+    objc_msgSend_setCenterOfMassOffset_(v6, v82, v83, v81);
+    v85 = objc_msgSend_decodeIntegerForKey_(coder, v84, @"categoryBitMask");
+    objc_msgSend_setCategoryBitMask_(v6, v86, v85);
+    v88 = objc_msgSend_decodeIntegerForKey_(coder, v87, @"collisionBitMask");
+    objc_msgSend_setCollisionBitMask_(v6, v89, v88);
+    v91 = objc_msgSend_decodeIntegerForKey_(coder, v90, @"contactTestBitMask");
+    objc_msgSend_setContactTestBitMask_(v6, v92, v91);
+    v94 = objc_msgSend_decodeBoolForKey_(coder, v93, @"allowsResting");
+    objc_msgSend_setAllowsResting_(v6, v95, v94);
+    v6->_body = objc_msgSend__createBody(v6, v96, v97);
+    objc_msgSend_setImmediateMode_(VFXTransaction, v98, v7);
   }
 
-  return v7;
+  return v6;
 }
 
 @end

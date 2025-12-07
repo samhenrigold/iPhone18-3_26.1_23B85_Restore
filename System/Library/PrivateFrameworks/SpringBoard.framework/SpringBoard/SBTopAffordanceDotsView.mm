@@ -236,7 +236,7 @@
 
   else
   {
-    [(SBTopAffordanceDotsView *)self frame];
+    objc_msgSend_frame(self);
     x = v17.origin.x;
     y = v17.origin.y;
     width = v17.size.width;

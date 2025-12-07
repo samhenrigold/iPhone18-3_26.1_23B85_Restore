@@ -1453,7 +1453,7 @@ void __72__DBDisplayManager__createRootSceneWithIdentifier_displayConfiguration_
   if (v11)
   {
     mEMORY[0x277D0AAC0] = [MEMORY[0x277D0AAC0] sharedInstance];
-    [v11 auditToken];
+    objc_msgSend_auditToken(v11);
     v13 = [mEMORY[0x277D0AAC0] registerProcessForAuditToken:buf];
   }
 

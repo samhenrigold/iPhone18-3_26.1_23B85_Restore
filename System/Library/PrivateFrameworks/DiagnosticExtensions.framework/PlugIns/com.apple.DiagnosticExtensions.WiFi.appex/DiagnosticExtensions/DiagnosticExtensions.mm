@@ -29,9 +29,9 @@ id sub_10000121C()
   return v1;
 }
 
-void sub_100001310(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_100001310(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -60,9 +60,9 @@ id sub_100001328()
   return v1;
 }
 
-void sub_10000141C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_10000141C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -192,7 +192,6 @@ LABEL_7:
 
 uint64_t sub_100003028(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_10000C288 = result;
   return result;

@@ -66,13 +66,12 @@
 
 - (void)layoutSubviews
 {
-  v4.receiver = self;
-  v4.super_class = WATextHeaderView;
-  [(WATextHeaderView *)&v4 layoutSubviews];
+  v3.receiver = self;
+  v3.super_class = WATextHeaderView;
+  [(WATextHeaderView *)&v3 layoutSubviews];
   [(WATextHeaderView *)self bounds];
-  v6 = CGRectInset(v5, SiriUIPlatterStyle[32], 0.0);
-  [(UILabel *)self->_headerLabel sizeThatFits:v6.size.width, v6.size.height];
-  headerLabel = self->_headerLabel;
+  v5 = CGRectInset(v4, SiriUIPlatterStyle[32], 0.0);
+  [(UILabel *)self->_headerLabel sizeThatFits:v5.size.width, v5.size.height];
   SiriUIRectForLabelWithDistanceFromTopToBaseline();
   [(UILabel *)self->_headerLabel setFrame:?];
 }

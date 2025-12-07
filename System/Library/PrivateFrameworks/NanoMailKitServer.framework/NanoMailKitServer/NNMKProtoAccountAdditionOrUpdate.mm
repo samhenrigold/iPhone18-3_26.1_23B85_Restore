@@ -79,7 +79,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   v4 = dictionary;
   accountId = self->_accountId;
@@ -109,30 +109,30 @@
   if ([(NSMutableArray *)self->_mailboxes count])
   {
     v9 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableArray count](self->_mailboxes, "count")}];
+    v25 = 0u;
     v26 = 0u;
     v27 = 0u;
     v28 = 0u;
-    v29 = 0u;
     v10 = self->_mailboxes;
-    v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v26 objects:v30 count:16];
+    v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v25 objects:v29 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v27;
+      v13 = *v26;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v27 != v13)
+          if (*v26 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          dictionaryRepresentation = [*(*(&v26 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v25 + 1) + 8 * i) dictionaryRepresentation];
           [v9 addObject:dictionaryRepresentation];
         }
 
-        v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v26 objects:v30 count:16];
+        v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v25 objects:v29 count:16];
       }
 
       while (v12);
@@ -189,14 +189,12 @@
     [v4 setObject:pccEmailAddress forKey:@"pccEmailAddress"];
   }
 
-  v24 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
 - (void)writeTo:(id)to
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   toCopy = to;
   if (self->_accountId)
   {
@@ -210,77 +208,73 @@
 
   if ((*&self->_has & 2) != 0)
   {
-    shouldArchive = self->_shouldArchive;
     PBDataWriterWriteBOOLField();
   }
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
-  v25 = 0u;
-  v6 = self->_emails;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v24 objects:v29 count:16];
-  if (v7)
+  v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v5 = self->_emails;
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v19 objects:v24 count:16];
+  if (v6)
   {
-    v8 = v7;
-    v9 = *v25;
+    v7 = v6;
+    v8 = *v20;
     do
     {
-      v10 = 0;
+      v9 = 0;
       do
       {
-        if (*v25 != v9)
+        if (*v20 != v8)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v24 + 1) + 8 * v10);
         PBDataWriterWriteStringField();
-        ++v10;
+        ++v9;
       }
 
-      while (v8 != v10);
-      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v24 objects:v29 count:16];
+      while (v7 != v9);
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v19 objects:v24 count:16];
     }
 
-    while (v8);
+    while (v7);
   }
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
-  v21 = 0u;
-  v12 = self->_mailboxes;
-  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v20 objects:v28 count:16];
-  if (v13)
+  v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v10 = self->_mailboxes;
+  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v15 objects:v23 count:16];
+  if (v11)
   {
-    v14 = v13;
-    v15 = *v21;
+    v12 = v11;
+    v13 = *v16;
     do
     {
-      v16 = 0;
+      v14 = 0;
       do
       {
-        if (*v21 != v15)
+        if (*v16 != v13)
         {
-          objc_enumerationMutation(v12);
+          objc_enumerationMutation(v10);
         }
 
-        v17 = *(*(&v20 + 1) + 8 * v16);
         PBDataWriterWriteSubmessage();
-        ++v16;
+        ++v14;
       }
 
-      while (v14 != v16);
-      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v20 objects:v28 count:16];
+      while (v12 != v14);
+      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v15 objects:v23 count:16];
     }
 
-    while (v14);
+    while (v12);
   }
 
   if (*&self->_has)
   {
-    fullSyncVersion = self->_fullSyncVersion;
     PBDataWriterWriteUint32Field();
   }
 
@@ -318,8 +312,6 @@
   {
     PBDataWriterWriteStringField();
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyTo:(id)to
@@ -426,7 +418,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(NSString *)self->_accountId copyWithZone:zone];
   v7 = *(v5 + 8);
@@ -442,67 +434,67 @@
     *(v5 + 108) |= 2u;
   }
 
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
   v43 = 0u;
+  v44 = 0u;
+  v41 = 0u;
+  v42 = 0u;
   v10 = self->_emails;
-  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v42 objects:v47 count:16];
+  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v41 objects:v46 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v43;
+    v13 = *v42;
     do
     {
       v14 = 0;
       do
       {
-        if (*v43 != v13)
+        if (*v42 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = [*(*(&v42 + 1) + 8 * v14) copyWithZone:zone];
+        v15 = [*(*(&v41 + 1) + 8 * v14) copyWithZone:zone];
         [v5 addEmail:v15];
 
         ++v14;
       }
 
       while (v12 != v14);
-      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v42 objects:v47 count:16];
+      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v41 objects:v46 count:16];
     }
 
     while (v12);
   }
 
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   v16 = self->_mailboxes;
-  v17 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v38 objects:v46 count:16];
+  v17 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v37 objects:v45 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v39;
+    v19 = *v38;
     do
     {
       v20 = 0;
       do
       {
-        if (*v39 != v19)
+        if (*v38 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        v21 = [*(*(&v38 + 1) + 8 * v20) copyWithZone:{zone, v38}];
+        v21 = [*(*(&v37 + 1) + 8 * v20) copyWithZone:{zone, v37}];
         [v5 addMailboxes:v21];
 
         ++v20;
       }
 
       while (v18 != v20);
-      v18 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v38 objects:v46 count:16];
+      v18 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v37 objects:v45 count:16];
     }
 
     while (v18);
@@ -514,7 +506,7 @@
     *(v5 + 108) |= 1u;
   }
 
-  v22 = [(NSString *)self->_defaultEmail copyWithZone:zone, v38];
+  v22 = [(NSString *)self->_defaultEmail copyWithZone:zone, v37];
   v23 = *(v5 + 16);
   *(v5 + 16) = v22;
 
@@ -542,7 +534,6 @@
   v35 = *(v5 + 80);
   *(v5 + 80) = v34;
 
-  v36 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -572,7 +563,6 @@
     }
   }
 
-  v7 = *(equalCopy + 108);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 108) & 2) == 0)
@@ -580,7 +570,6 @@
       goto LABEL_16;
     }
 
-    v13 = *(equalCopy + 104);
     if (self->_shouldArchive)
     {
       if ((*(equalCopy + 104) & 1) == 0)
@@ -615,7 +604,6 @@
     }
   }
 
-  v10 = *(equalCopy + 108);
   if (*&self->_has)
   {
     if ((*(equalCopy + 108) & 1) != 0 && self->_fullSyncVersion == *(equalCopy + 12))
@@ -624,7 +612,7 @@
     }
 
 LABEL_16:
-    v11 = 0;
+    v9 = 0;
     goto LABEL_17;
   }
 
@@ -688,17 +676,17 @@ LABEL_25:
   pccEmailAddress = self->_pccEmailAddress;
   if (pccEmailAddress | *(equalCopy + 10))
   {
-    v11 = [(NSString *)pccEmailAddress isEqual:?];
+    v9 = [(NSString *)pccEmailAddress isEqual:?];
   }
 
   else
   {
-    v11 = 1;
+    v9 = 1;
   }
 
 LABEL_17:
 
-  return v11;
+  return v9;
 }
 
 - (unint64_t)hash
@@ -738,7 +726,7 @@ LABEL_17:
 
 - (void)mergeFrom:(id)from
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   if (*(fromCopy + 1))
   {
@@ -756,57 +744,57 @@ LABEL_17:
     *&self->_has |= 2u;
   }
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v5 = *(fromCopy + 5);
-  v6 = [v5 countByEnumeratingWithState:&v20 objects:v25 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v19 objects:v24 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v21;
+    v8 = *v20;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v21 != v8)
+        if (*v20 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [(NNMKProtoAccountAdditionOrUpdate *)self addEmail:*(*(&v20 + 1) + 8 * i)];
+        [(NNMKProtoAccountAdditionOrUpdate *)self addEmail:*(*(&v19 + 1) + 8 * i)];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v20 objects:v25 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v19 objects:v24 count:16];
     }
 
     while (v7);
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v10 = *(fromCopy + 8);
-  v11 = [v10 countByEnumeratingWithState:&v16 objects:v24 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v15 objects:v23 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v17;
+    v13 = *v16;
     do
     {
       for (j = 0; j != v12; ++j)
       {
-        if (*v17 != v13)
+        if (*v16 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        [(NNMKProtoAccountAdditionOrUpdate *)self addMailboxes:*(*(&v16 + 1) + 8 * j), v16];
+        [(NNMKProtoAccountAdditionOrUpdate *)self addMailboxes:*(*(&v15 + 1) + 8 * j), v15];
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v16 objects:v24 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v15 objects:v23 count:16];
     }
 
     while (v12);
@@ -852,8 +840,6 @@ LABEL_17:
   {
     [(NNMKProtoAccountAdditionOrUpdate *)self setPccEmailAddress:?];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -3,6 +3,7 @@
 + (BOOL)_shouldDisallowAvailabilityNotifications;
 - (BOOL)cancelUpdate:(id)update;
 - (BOOL)cancelUpdateForKey:(id)key withError:(id *)error;
+- (BOOL)createInstallationKeybag:(id)keybag forUnattendedInstall:(BOOL)install;
 - (BOOL)createInstallationKeybagWithOptions:(id)options;
 - (BOOL)isAnyClientInUserInteraction;
 - (BOOL)isAutoUpdateScheduled;
@@ -21,6 +22,7 @@
 - (BOOL)shouldDisableAutoInstallRSRToggle;
 - (BOOL)writeKeepAliveFile;
 - (NSString)description;
+- (SUManagerClient)initWithDelegate:(id)delegate queue:(id)queue clientType:(int)type;
 - (SUManagerClientDelegate)delegate;
 - (id)_getExistingAutoInstallOperationFromModel:(id)model;
 - (id)_identifier;
@@ -29,6 +31,7 @@
 - (id)_remoteSynchronousInterfaceWithErrorHandler:(id)handler connectIfNecessary:(BOOL)necessary;
 - (id)declarationsWithError:(id *)error;
 - (id)getDDMUpdateDescriptor;
+- (id)getDocumentationDataForInstalledUpdateType:(int)type error:(id *)error;
 - (id)getMandatorySoftwareUpdateDictionaryWithError:(id *)error;
 - (id)globalSettingsDeclarationWithError:(id *)error;
 - (id)observeInstallationConstraintChangesForDownload:(id)download observer:(id)observer;
@@ -48,10 +51,13 @@
 - (void)autoInstallOperationPasscodePolicyChanged:(id)changed passcodePolicyType:(unint64_t)type;
 - (void)autoInstallOperationWasCancelled:(id)cancelled;
 - (void)autoScanAndDownloadIfAvailable:(id)available;
+- (void)autoScanAndDownloadNow:(BOOL)now IfAvailable:(id)available;
 - (void)automaticDownloadDidFailToStartForNewUpdateAvailable:(id)available withError:(id)error;
 - (void)cancelDownload:(id)download;
 - (void)cancelDownloadWithOptions:(id)options withResult:(id)result;
+- (void)clearingSpaceForDownload:(id)download clearing:(BOOL)clearing;
 - (void)connectToServerIfNecessary;
+- (void)currentAutoInstallOperation:(BOOL)operation withResult:(id)result;
 - (void)currentAutoInstallOperationForecast:(id)forecast;
 - (void)currentPasscodePolicy:(id)policy;
 - (void)dealloc;
@@ -63,6 +69,7 @@
 - (void)deviceBootedAfterSplatUpdate;
 - (void)deviceHasSufficientSpaceForDownload:(id)download;
 - (void)deviceHasSufficientSpaceForDownloads:(id)downloads;
+- (void)disableReserveSpace:(BOOL)space completion:(id)completion;
 - (void)download:(id)download;
 - (void)downloadAndInstallState:(id)state;
 - (void)downloadDidFail:(id)fail withError:(id)error;
@@ -73,6 +80,8 @@
 - (void)downloadWasInvalidatedForNewUpdateAvailable:(id)available;
 - (void)downloadWasInvalidatedForNewUpdatesAvailable:(id)available;
 - (void)eligibleRollbackWithOptions:(id)options withResult:(id)result;
+- (void)enableAutomaticDownload:(BOOL)download;
+- (void)enableAutomaticUpdateV2:(BOOL)v2;
 - (void)extraSpaceNeededForDownloadWithoutAppPurging:(id)purging;
 - (void)fetchInstallHistory:(id)history;
 - (void)getDDMDeclarationWithHandler:(id)handler;
@@ -87,6 +96,7 @@
 - (void)installDidStart:(id)start;
 - (void)installPolicyDidChange:(id)change;
 - (void)installServerConfiguration;
+- (void)installTonightScheduled:(BOOL)scheduled operationID:(id)d;
 - (void)installUpdate:(id)update;
 - (void)installUpdateWithInstallOptions:(id)options withResult:(id)result;
 - (void)installUpdateWithOptions:(id)options withResult:(id)result;
@@ -110,6 +120,7 @@
 - (void)pauseDownload:(id)download;
 - (void)preferences:(id)preferences didChangePreference:(id)preference toValue:(id)value;
 - (void)presentAutoUpdateBanner:(id)banner;
+- (void)presentingRecommendedUpdate:(id)update shouldPresent:(BOOL)present;
 - (void)previousRollbackWithOptions:(id)options withResult:(id)result;
 - (void)purgeDownload:(id)download;
 - (void)purgeDownloadWithOptions:(id)options withResult:(id)result;
@@ -134,6 +145,7 @@
 - (void)scanRequestDidStartForOptions:(id)options;
 - (void)scheduleRollbackRebootForLater:(id)later;
 - (void)setClientType:(int)type;
+- (void)setExclusiveControl:(BOOL)control;
 - (void)setMandatorySoftwareUpdateDictionary:(id)dictionary;
 - (void)slaVersion:(id)version;
 - (void)softwareUpdatePathRestriction:(id)restriction;
@@ -152,6 +164,49 @@
 @end
 
 @implementation SUManagerClient
+
+- (SUManagerClient)initWithDelegate:(id)delegate queue:(id)queue clientType:(int)type
+{
+  v5 = *&type;
+  delegateCopy = delegate;
+  queueCopy = queue;
+  v20.receiver = self;
+  v20.super_class = SUManagerClient;
+  v10 = [(SUManagerClient *)&v20 init];
+  v11 = v10;
+  if (v10)
+  {
+    [(SUManagerClient *)v10 setDelegate:delegateCopy];
+    if (queueCopy)
+    {
+      v12 = queueCopy;
+    }
+
+    else
+    {
+      v12 = MEMORY[0x277D85CD0];
+    }
+
+    [(SUManagerClient *)v11 setQueue:v12];
+    [(SUManagerClient *)v11 setClientType:v5];
+    [(SUManagerClient *)v11 connectToServerIfNecessary];
+    v13 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    installOperationIDsToOperationHandler = v11->_installOperationIDsToOperationHandler;
+    v11->_installOperationIDsToOperationHandler = v13;
+
+    v15 = objc_alloc_init(MEMORY[0x277CBEB58]);
+    installationConstraintObservers = v11->_installationConstraintObservers;
+    v11->_installationConstraintObservers = v15;
+
+    v17 = +[SUPreferences sharedInstance];
+    [v17 addObserver:v11];
+
+    DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
+    CFNotificationCenterAddObserver(DarwinNotifyCenter, v11, __softwareUpdateDaemonStarted, @"SUDaemonStartedNotification", 0, CFNotificationSuspensionBehaviorCoalesce);
+  }
+
+  return v11;
+}
 
 - (void)invalidate
 {
@@ -221,27 +276,26 @@ void __33__SUManagerClient__setClientType__block_invoke(uint64_t a1, void *a2)
 
 void __33__SUManagerClient__setClientType__block_invoke_2(uint64_t a1, void *a2)
 {
-  v15 = a2;
+  v14 = a2;
   v3 = [*(a1 + 32) queue];
   dispatch_assert_queue_V2(v3);
 
-  v11 = v15;
-  if (v15)
+  v11 = v14;
+  if (v14)
   {
-    v14 = *(a1 + 32);
     SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v5, v6, v7, v8, v9, v10, "[SUManagerClient _setClientType]_block_invoke_2");
-    v12 = [v15 domain];
+    v12 = [v14 domain];
     if ([v12 isEqualToString:*MEMORY[0x277CCA050]])
     {
-      if ([v15 code] == 4097)
+      if ([v14 code] == 4097)
       {
       }
 
       else
       {
-        v13 = [v15 code];
+        v13 = [v14 code];
 
-        v11 = v15;
+        v11 = v14;
         if (v13 != 4099)
         {
           goto LABEL_9;
@@ -255,7 +309,7 @@ void __33__SUManagerClient__setClientType__block_invoke_2(uint64_t a1, void *a2)
     {
     }
 
-    v11 = v15;
+    v11 = v14;
   }
 
 LABEL_9:
@@ -306,28 +360,27 @@ LABEL_9:
 
 uint64_t __30__SUManagerClient_isScanning___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = a2;
+  v14 = a2;
   v3 = [*(a1 + 32) queue];
   dispatch_assert_queue_V2(v3);
 
-  if (v15)
+  if (v14)
   {
-    v14 = *(a1 + 32);
-    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v15, v5, v6, v7, v8, v9, "[SUManagerClient isScanning:]_block_invoke");
-    v10 = [v15 domain];
+    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v14, v5, v6, v7, v8, v9, "[SUManagerClient isScanning:]_block_invoke");
+    v10 = [v14 domain];
     if (![v10 isEqualToString:*MEMORY[0x277CCA050]])
     {
 
       goto LABEL_8;
     }
 
-    if ([v15 code] == 4097)
+    if ([v14 code] == 4097)
     {
     }
 
     else
     {
-      v11 = [v15 code];
+      v11 = [v14 code];
 
       if (v11 != 4099)
       {
@@ -342,7 +395,7 @@ LABEL_8:
   v12 = *(a1 + 40);
   if (v12)
   {
-    (*(v12 + 16))(v12, 0, v15);
+    (*(v12 + 16))(v12, 0, v14);
   }
 
   return MEMORY[0x2821F9730]();
@@ -396,28 +449,27 @@ void __30__SUManagerClient_isScanning___block_invoke_2(uint64_t a1, unsigned int
 
 uint64_t __50__SUManagerClient_scanForUpdates_withScanResults___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = a2;
+  v14 = a2;
   v3 = [*(a1 + 32) queue];
   dispatch_assert_queue_V2(v3);
 
-  if (v15)
+  if (v14)
   {
-    v14 = *(a1 + 32);
-    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v15, v5, v6, v7, v8, v9, "[SUManagerClient scanForUpdates:withScanResults:]_block_invoke");
-    v10 = [v15 domain];
+    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v14, v5, v6, v7, v8, v9, "[SUManagerClient scanForUpdates:withScanResults:]_block_invoke");
+    v10 = [v14 domain];
     if (![v10 isEqualToString:*MEMORY[0x277CCA050]])
     {
 
       goto LABEL_8;
     }
 
-    if ([v15 code] == 4097)
+    if ([v14 code] == 4097)
     {
     }
 
     else
     {
-      v11 = [v15 code];
+      v11 = [v14 code];
 
       if (v11 != 4099)
       {
@@ -432,7 +484,7 @@ LABEL_8:
   v12 = *(a1 + 40);
   if (v12)
   {
-    (*(v12 + 16))(v12, 0, v15);
+    (*(v12 + 16))(v12, 0, v14);
   }
 
   return MEMORY[0x2821F9730]();
@@ -477,28 +529,27 @@ void __50__SUManagerClient_scanForUpdates_withScanResults___block_invoke_2(uint6
 
 uint64_t __45__SUManagerClient_scanForUpdates_withResult___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = a2;
+  v14 = a2;
   v3 = [*(a1 + 32) queue];
   dispatch_assert_queue_V2(v3);
 
-  if (v15)
+  if (v14)
   {
-    v14 = *(a1 + 32);
-    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v15, v5, v6, v7, v8, v9, "[SUManagerClient scanForUpdates:withResult:]_block_invoke");
-    v10 = [v15 domain];
+    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v14, v5, v6, v7, v8, v9, "[SUManagerClient scanForUpdates:withResult:]_block_invoke");
+    v10 = [v14 domain];
     if (![v10 isEqualToString:*MEMORY[0x277CCA050]])
     {
 
       goto LABEL_8;
     }
 
-    if ([v15 code] == 4097)
+    if ([v14 code] == 4097)
     {
     }
 
     else
     {
-      v11 = [v15 code];
+      v11 = [v14 code];
 
       if (v11 != 4099)
       {
@@ -513,7 +564,7 @@ LABEL_8:
   v12 = *(a1 + 40);
   if (v12)
   {
-    (*(v12 + 16))(v12, 0, v15);
+    (*(v12 + 16))(v12, 0, v14);
   }
 
   return MEMORY[0x2821F9730]();
@@ -558,28 +609,27 @@ void __45__SUManagerClient_scanForUpdates_withResult___block_invoke_2(uint64_t a
 
 uint64_t __50__SUManagerClient_autoScanAndDownloadIfAvailable___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = a2;
+  v14 = a2;
   v3 = [*(a1 + 32) queue];
   dispatch_assert_queue_V2(v3);
 
-  if (v15)
+  if (v14)
   {
-    v14 = *(a1 + 32);
-    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v15, v5, v6, v7, v8, v9, "[SUManagerClient autoScanAndDownloadIfAvailable:]_block_invoke");
-    v10 = [v15 domain];
+    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v14, v5, v6, v7, v8, v9, "[SUManagerClient autoScanAndDownloadIfAvailable:]_block_invoke");
+    v10 = [v14 domain];
     if (![v10 isEqualToString:*MEMORY[0x277CCA050]])
     {
 
       goto LABEL_8;
     }
 
-    if ([v15 code] == 4097)
+    if ([v14 code] == 4097)
     {
     }
 
     else
     {
-      v11 = [v15 code];
+      v11 = [v14 code];
 
       if (v11 != 4099)
       {
@@ -594,7 +644,7 @@ LABEL_8:
   v12 = *(a1 + 40);
   if (v12)
   {
-    (*(v12 + 16))(v12, 0, v15);
+    (*(v12 + 16))(v12, 0, v14);
   }
 
   return MEMORY[0x2821F9730]();
@@ -614,30 +664,52 @@ void __50__SUManagerClient_autoScanAndDownloadIfAvailable___block_invoke_2(uint6
   }
 }
 
+- (void)autoScanAndDownloadNow:(BOOL)now IfAvailable:(id)available
+{
+  nowCopy = now;
+  availableCopy = available;
+  SULogInfo(@"%@ called %s", v7, v8, v9, v10, v11, v12, v13, self);
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __54__SUManagerClient_autoScanAndDownloadNow_IfAvailable___block_invoke;
+  v19[3] = &unk_279CAC238;
+  v19[4] = self;
+  v14 = availableCopy;
+  v20 = v14;
+  v15 = [(SUManagerClient *)self _remoteInterfaceWithErrorHandler:v19];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __54__SUManagerClient_autoScanAndDownloadNow_IfAvailable___block_invoke_2;
+  v17[3] = &unk_279CAC3E8;
+  v17[4] = self;
+  v18 = v14;
+  v16 = v14;
+  [v15 autoScanAndDownloadNow:nowCopy ifAvailable:v17];
+}
+
 uint64_t __54__SUManagerClient_autoScanAndDownloadNow_IfAvailable___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = a2;
+  v14 = a2;
   v3 = [*(a1 + 32) queue];
   dispatch_assert_queue_V2(v3);
 
-  if (v15)
+  if (v14)
   {
-    v14 = *(a1 + 32);
-    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v15, v5, v6, v7, v8, v9, "[SUManagerClient autoScanAndDownloadNow:IfAvailable:]_block_invoke");
-    v10 = [v15 domain];
+    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v14, v5, v6, v7, v8, v9, "[SUManagerClient autoScanAndDownloadNow:IfAvailable:]_block_invoke");
+    v10 = [v14 domain];
     if (![v10 isEqualToString:*MEMORY[0x277CCA050]])
     {
 
       goto LABEL_8;
     }
 
-    if ([v15 code] == 4097)
+    if ([v14 code] == 4097)
     {
     }
 
     else
     {
-      v11 = [v15 code];
+      v11 = [v14 code];
 
       if (v11 != 4099)
       {
@@ -652,7 +724,7 @@ LABEL_8:
   v12 = *(a1 + 40);
   if (v12)
   {
-    (*(v12 + 16))(v12, 0, v15);
+    (*(v12 + 16))(v12, 0, v14);
   }
 
   return MEMORY[0x2821F9730]();
@@ -696,28 +768,27 @@ void __54__SUManagerClient_autoScanAndDownloadNow_IfAvailable___block_invoke_2(u
 
 uint64_t __31__SUManagerClient_descriptors___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = a2;
+  v14 = a2;
   v3 = [*(a1 + 32) queue];
   dispatch_assert_queue_V2(v3);
 
-  if (v15)
+  if (v14)
   {
-    v14 = *(a1 + 32);
-    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v15, v5, v6, v7, v8, v9, "[SUManagerClient descriptors:]_block_invoke");
-    v10 = [v15 domain];
+    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v14, v5, v6, v7, v8, v9, "[SUManagerClient descriptors:]_block_invoke");
+    v10 = [v14 domain];
     if (![v10 isEqualToString:*MEMORY[0x277CCA050]])
     {
 
       goto LABEL_8;
     }
 
-    if ([v15 code] == 4097)
+    if ([v14 code] == 4097)
     {
     }
 
     else
     {
-      v11 = [v15 code];
+      v11 = [v14 code];
 
       if (v11 != 4099)
       {
@@ -732,7 +803,7 @@ LABEL_8:
   v12 = *(a1 + 40);
   if (v12)
   {
-    (*(v12 + 16))(v12, 0, v15);
+    (*(v12 + 16))(v12, 0, v14);
   }
 
   return MEMORY[0x2821F9730]();
@@ -782,28 +853,27 @@ void __31__SUManagerClient_descriptors___block_invoke_2(uint64_t a1, void *a2, v
 
 uint64_t __30__SUManagerClient_descriptor___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = a2;
+  v14 = a2;
   v3 = [*(a1 + 32) queue];
   dispatch_assert_queue_V2(v3);
 
-  if (v15)
+  if (v14)
   {
-    v14 = *(a1 + 32);
-    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v15, v5, v6, v7, v8, v9, "[SUManagerClient descriptor:]_block_invoke");
-    v10 = [v15 domain];
+    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v14, v5, v6, v7, v8, v9, "[SUManagerClient descriptor:]_block_invoke");
+    v10 = [v14 domain];
     if (![v10 isEqualToString:*MEMORY[0x277CCA050]])
     {
 
       goto LABEL_8;
     }
 
-    if ([v15 code] == 4097)
+    if ([v14 code] == 4097)
     {
     }
 
     else
     {
-      v11 = [v15 code];
+      v11 = [v14 code];
 
       if (v11 != 4099)
       {
@@ -818,7 +888,7 @@ LABEL_8:
   v12 = *(a1 + 40);
   if (v12)
   {
-    (*(v12 + 16))(v12, 0, v15);
+    (*(v12 + 16))(v12, 0, v14);
   }
 
   return MEMORY[0x2821F9730]();
@@ -868,28 +938,27 @@ void __30__SUManagerClient_descriptor___block_invoke_2(uint64_t a1, void *a2, vo
 
 uint64_t __46__SUManagerClient_isClearingSpaceForDownload___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = a2;
+  v14 = a2;
   v3 = [*(a1 + 32) queue];
   dispatch_assert_queue_V2(v3);
 
-  if (v15)
+  if (v14)
   {
-    v14 = *(a1 + 32);
-    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v15, v5, v6, v7, v8, v9, "[SUManagerClient isClearingSpaceForDownload:]_block_invoke");
-    v10 = [v15 domain];
+    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v14, v5, v6, v7, v8, v9, "[SUManagerClient isClearingSpaceForDownload:]_block_invoke");
+    v10 = [v14 domain];
     if (![v10 isEqualToString:*MEMORY[0x277CCA050]])
     {
 
       goto LABEL_8;
     }
 
-    if ([v15 code] == 4097)
+    if ([v14 code] == 4097)
     {
     }
 
     else
     {
-      v11 = [v15 code];
+      v11 = [v14 code];
 
       if (v11 != 4099)
       {
@@ -904,7 +973,7 @@ LABEL_8:
   v12 = *(a1 + 40);
   if (v12)
   {
-    (*(v12 + 16))(v12, 0, v15);
+    (*(v12 + 16))(v12, 0, v14);
   }
 
   return MEMORY[0x2821F9730]();
@@ -933,30 +1002,60 @@ void __46__SUManagerClient_isClearingSpaceForDownload___block_invoke_2(uint64_t 
   }
 }
 
+- (id)getDocumentationDataForInstalledUpdateType:(int)type error:(id *)error
+{
+  v9 = *&type;
+  SULogInfo(@"%@ called %s", a2, *&type, error, v4, v5, v6, v7, self);
+
+  return [SUUtility documentationDataForInstalledUpdateType:v9 error:error];
+}
+
+- (void)disableReserveSpace:(BOOL)space completion:(id)completion
+{
+  spaceCopy = space;
+  completionCopy = completion;
+  SULogInfo(@"%@ called %s", v7, v8, v9, v10, v11, v12, v13, self);
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __50__SUManagerClient_disableReserveSpace_completion___block_invoke;
+  v19[3] = &unk_279CAC238;
+  v19[4] = self;
+  v14 = completionCopy;
+  v20 = v14;
+  v15 = [(SUManagerClient *)self _remoteInterfaceWithErrorHandler:v19];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __50__SUManagerClient_disableReserveSpace_completion___block_invoke_2;
+  v17[3] = &unk_279CAAE18;
+  v17[4] = self;
+  v18 = v14;
+  v16 = v14;
+  [v15 disableReserveSpace:spaceCopy withResult:v17];
+}
+
 uint64_t __50__SUManagerClient_disableReserveSpace_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = a2;
+  v14 = a2;
   v3 = [*(a1 + 32) queue];
   dispatch_assert_queue_V2(v3);
 
-  if (v15)
+  if (v14)
   {
-    v14 = *(a1 + 32);
-    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v15, v5, v6, v7, v8, v9, "[SUManagerClient disableReserveSpace:completion:]_block_invoke");
-    v10 = [v15 domain];
+    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v14, v5, v6, v7, v8, v9, "[SUManagerClient disableReserveSpace:completion:]_block_invoke");
+    v10 = [v14 domain];
     if (![v10 isEqualToString:*MEMORY[0x277CCA050]])
     {
 
       goto LABEL_8;
     }
 
-    if ([v15 code] == 4097)
+    if ([v14 code] == 4097)
     {
     }
 
     else
     {
-      v11 = [v15 code];
+      v11 = [v14 code];
 
       if (v11 != 4099)
       {
@@ -971,7 +1070,7 @@ LABEL_8:
   v12 = *(a1 + 40);
   if (v12)
   {
-    (*(v12 + 16))(v12, 0, v15);
+    (*(v12 + 16))(v12, 0, v14);
   }
 
   return MEMORY[0x2821F9730]();
@@ -1026,28 +1125,27 @@ void __50__SUManagerClient_disableReserveSpace_completion___block_invoke_2(uint6
 
 uint64_t __83__SUManagerClient_overrideSoftwareUpdateReserve_systemGrowthMarginSize_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = a2;
+  v14 = a2;
   v3 = [*(a1 + 32) queue];
   dispatch_assert_queue_V2(v3);
 
-  if (v15)
+  if (v14)
   {
-    v14 = *(a1 + 32);
-    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v15, v5, v6, v7, v8, v9, "[SUManagerClient overrideSoftwareUpdateReserve:systemGrowthMarginSize:completion:]_block_invoke");
-    v10 = [v15 domain];
+    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v14, v5, v6, v7, v8, v9, "[SUManagerClient overrideSoftwareUpdateReserve:systemGrowthMarginSize:completion:]_block_invoke");
+    v10 = [v14 domain];
     if (![v10 isEqualToString:*MEMORY[0x277CCA050]])
     {
 
       goto LABEL_8;
     }
 
-    if ([v15 code] == 4097)
+    if ([v14 code] == 4097)
     {
     }
 
     else
     {
-      v11 = [v15 code];
+      v11 = [v14 code];
 
       if (v11 != 4099)
       {
@@ -1062,7 +1160,7 @@ LABEL_8:
   v12 = *(a1 + 40);
   if (v12)
   {
-    (*(v12 + 16))(v12, 0, v15);
+    (*(v12 + 16))(v12, 0, v14);
   }
 
   return MEMORY[0x2821F9730]();
@@ -1115,28 +1213,27 @@ void __83__SUManagerClient_overrideSoftwareUpdateReserve_systemGrowthMarginSize_
 
 uint64_t __46__SUManagerClient_softwareUpdateReserveSizes___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = a2;
+  v14 = a2;
   v3 = [*(a1 + 32) queue];
   dispatch_assert_queue_V2(v3);
 
-  if (v15)
+  if (v14)
   {
-    v14 = *(a1 + 32);
-    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v15, v5, v6, v7, v8, v9, "[SUManagerClient softwareUpdateReserveSizes:]_block_invoke");
-    v10 = [v15 domain];
+    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v14, v5, v6, v7, v8, v9, "[SUManagerClient softwareUpdateReserveSizes:]_block_invoke");
+    v10 = [v14 domain];
     if (![v10 isEqualToString:*MEMORY[0x277CCA050]])
     {
 
       goto LABEL_8;
     }
 
-    if ([v15 code] == 4097)
+    if ([v14 code] == 4097)
     {
     }
 
     else
     {
-      v11 = [v15 code];
+      v11 = [v14 code];
 
       if (v11 != 4099)
       {
@@ -1151,7 +1248,7 @@ LABEL_8:
   v12 = *(a1 + 40);
   if (v12)
   {
-    (*(v12 + 16))(v12, 0, v15);
+    (*(v12 + 16))(v12, 0, v14);
   }
 
   return MEMORY[0x2821F9730]();
@@ -1195,28 +1292,27 @@ void __46__SUManagerClient_softwareUpdateReserveSizes___block_invoke_2(uint64_t 
 
 uint64_t __33__SUManagerClient_isDownloading___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = a2;
+  v14 = a2;
   v3 = [*(a1 + 32) queue];
   dispatch_assert_queue_V2(v3);
 
-  if (v15)
+  if (v14)
   {
-    v14 = *(a1 + 32);
-    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v15, v5, v6, v7, v8, v9, "[SUManagerClient isDownloading:]_block_invoke");
-    v10 = [v15 domain];
+    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v14, v5, v6, v7, v8, v9, "[SUManagerClient isDownloading:]_block_invoke");
+    v10 = [v14 domain];
     if (![v10 isEqualToString:*MEMORY[0x277CCA050]])
     {
 
       goto LABEL_8;
     }
 
-    if ([v15 code] == 4097)
+    if ([v14 code] == 4097)
     {
     }
 
     else
     {
-      v11 = [v15 code];
+      v11 = [v14 code];
 
       if (v11 != 4099)
       {
@@ -1231,7 +1327,7 @@ LABEL_8:
   v12 = *(a1 + 40);
   if (v12)
   {
-    (*(v12 + 16))(v12, 0, v15);
+    (*(v12 + 16))(v12, 0, v14);
   }
 
   return MEMORY[0x2821F9730]();
@@ -1284,28 +1380,27 @@ void __33__SUManagerClient_isDownloading___block_invoke_2(uint64_t a1, unsigned 
 
 uint64_t __33__SUManagerClient_startDownload___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = a2;
+  v14 = a2;
   v3 = [*(a1 + 32) queue];
   dispatch_assert_queue_V2(v3);
 
-  if (v15)
+  if (v14)
   {
-    v14 = *(a1 + 32);
-    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v15, v5, v6, v7, v8, v9, "[SUManagerClient startDownload:]_block_invoke");
-    v10 = [v15 domain];
+    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v14, v5, v6, v7, v8, v9, "[SUManagerClient startDownload:]_block_invoke");
+    v10 = [v14 domain];
     if (![v10 isEqualToString:*MEMORY[0x277CCA050]])
     {
 
       goto LABEL_8;
     }
 
-    if ([v15 code] == 4097)
+    if ([v14 code] == 4097)
     {
     }
 
     else
     {
-      v11 = [v15 code];
+      v11 = [v14 code];
 
       if (v11 != 4099)
       {
@@ -1320,7 +1415,7 @@ LABEL_8:
   v12 = *(a1 + 40);
   if (v12)
   {
-    (*(v12 + 16))(v12, 0, v15);
+    (*(v12 + 16))(v12, 0, v14);
   }
 
   return MEMORY[0x2821F9730]();
@@ -1374,28 +1469,27 @@ void __33__SUManagerClient_startDownload___block_invoke_2(uint64_t a1, unsigned 
 
 uint64_t __55__SUManagerClient_startDownloadWithOptions_withResult___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = a2;
+  v14 = a2;
   v3 = [*(a1 + 32) queue];
   dispatch_assert_queue_V2(v3);
 
-  if (v15)
+  if (v14)
   {
-    v14 = *(a1 + 32);
-    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v15, v5, v6, v7, v8, v9, "[SUManagerClient startDownloadWithOptions:withResult:]_block_invoke");
-    v10 = [v15 domain];
+    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v14, v5, v6, v7, v8, v9, "[SUManagerClient startDownloadWithOptions:withResult:]_block_invoke");
+    v10 = [v14 domain];
     if (![v10 isEqualToString:*MEMORY[0x277CCA050]])
     {
 
       goto LABEL_8;
     }
 
-    if ([v15 code] == 4097)
+    if ([v14 code] == 4097)
     {
     }
 
     else
     {
-      v11 = [v15 code];
+      v11 = [v14 code];
 
       if (v11 != 4099)
       {
@@ -1410,7 +1504,7 @@ LABEL_8:
   v12 = *(a1 + 40);
   if (v12)
   {
-    (*(v12 + 16))(v12, 0, v15);
+    (*(v12 + 16))(v12, 0, v14);
   }
 
   return MEMORY[0x2821F9730]();
@@ -1464,28 +1558,27 @@ void __55__SUManagerClient_startDownloadWithOptions_withResult___block_invoke_2(
 
 uint64_t __56__SUManagerClient_startDownloadWithMetadata_withResult___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = a2;
+  v14 = a2;
   v3 = [*(a1 + 32) queue];
   dispatch_assert_queue_V2(v3);
 
-  if (v15)
+  if (v14)
   {
-    v14 = *(a1 + 32);
-    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v15, v5, v6, v7, v8, v9, "[SUManagerClient startDownloadWithMetadata:withResult:]_block_invoke");
-    v10 = [v15 domain];
+    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v14, v5, v6, v7, v8, v9, "[SUManagerClient startDownloadWithMetadata:withResult:]_block_invoke");
+    v10 = [v14 domain];
     if (![v10 isEqualToString:*MEMORY[0x277CCA050]])
     {
 
       goto LABEL_8;
     }
 
-    if ([v15 code] == 4097)
+    if ([v14 code] == 4097)
     {
     }
 
     else
     {
-      v11 = [v15 code];
+      v11 = [v14 code];
 
       if (v11 != 4099)
       {
@@ -1500,7 +1593,7 @@ LABEL_8:
   v12 = *(a1 + 40);
   if (v12)
   {
-    (*(v12 + 16))(v12, 0, v15);
+    (*(v12 + 16))(v12, 0, v14);
   }
 
   return MEMORY[0x2821F9730]();
@@ -1554,28 +1647,27 @@ void __56__SUManagerClient_startDownloadWithMetadata_withResult___block_invoke_2
 
 uint64_t __56__SUManagerClient_cancelDownloadWithOptions_withResult___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = a2;
+  v14 = a2;
   v3 = [*(a1 + 32) queue];
   dispatch_assert_queue_V2(v3);
 
-  if (v15)
+  if (v14)
   {
-    v14 = *(a1 + 32);
-    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v15, v5, v6, v7, v8, v9, "[SUManagerClient cancelDownloadWithOptions:withResult:]_block_invoke");
-    v10 = [v15 domain];
+    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v14, v5, v6, v7, v8, v9, "[SUManagerClient cancelDownloadWithOptions:withResult:]_block_invoke");
+    v10 = [v14 domain];
     if (![v10 isEqualToString:*MEMORY[0x277CCA050]])
     {
 
       goto LABEL_8;
     }
 
-    if ([v15 code] == 4097)
+    if ([v14 code] == 4097)
     {
     }
 
     else
     {
-      v11 = [v15 code];
+      v11 = [v14 code];
 
       if (v11 != 4099)
       {
@@ -1590,7 +1682,7 @@ LABEL_8:
   v12 = *(a1 + 40);
   if (v12)
   {
-    (*(v12 + 16))(v12, 0, v15);
+    (*(v12 + 16))(v12, 0, v14);
   }
 
   return MEMORY[0x2821F9730]();
@@ -1643,28 +1735,27 @@ void __56__SUManagerClient_cancelDownloadWithOptions_withResult___block_invoke_2
 
 uint64_t __34__SUManagerClient_cancelDownload___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = a2;
+  v14 = a2;
   v3 = [*(a1 + 32) queue];
   dispatch_assert_queue_V2(v3);
 
-  if (v15)
+  if (v14)
   {
-    v14 = *(a1 + 32);
-    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v15, v5, v6, v7, v8, v9, "[SUManagerClient cancelDownload:]_block_invoke");
-    v10 = [v15 domain];
+    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v14, v5, v6, v7, v8, v9, "[SUManagerClient cancelDownload:]_block_invoke");
+    v10 = [v14 domain];
     if (![v10 isEqualToString:*MEMORY[0x277CCA050]])
     {
 
       goto LABEL_8;
     }
 
-    if ([v15 code] == 4097)
+    if ([v14 code] == 4097)
     {
     }
 
     else
     {
-      v11 = [v15 code];
+      v11 = [v14 code];
 
       if (v11 != 4099)
       {
@@ -1679,7 +1770,7 @@ LABEL_8:
   v12 = *(a1 + 40);
   if (v12)
   {
-    (*(v12 + 16))(v12, 0, v15);
+    (*(v12 + 16))(v12, 0, v14);
   }
 
   return MEMORY[0x2821F9730]();
@@ -1732,28 +1823,27 @@ void __34__SUManagerClient_cancelDownload___block_invoke_2(uint64_t a1, unsigned
 
 uint64_t __33__SUManagerClient_pauseDownload___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = a2;
+  v14 = a2;
   v3 = [*(a1 + 32) queue];
   dispatch_assert_queue_V2(v3);
 
-  if (v15)
+  if (v14)
   {
-    v14 = *(a1 + 32);
-    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v15, v5, v6, v7, v8, v9, "[SUManagerClient pauseDownload:]_block_invoke");
-    v10 = [v15 domain];
+    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v14, v5, v6, v7, v8, v9, "[SUManagerClient pauseDownload:]_block_invoke");
+    v10 = [v14 domain];
     if (![v10 isEqualToString:*MEMORY[0x277CCA050]])
     {
 
       goto LABEL_8;
     }
 
-    if ([v15 code] == 4097)
+    if ([v14 code] == 4097)
     {
     }
 
     else
     {
-      v11 = [v15 code];
+      v11 = [v14 code];
 
       if (v11 != 4099)
       {
@@ -1768,7 +1858,7 @@ LABEL_8:
   v12 = *(a1 + 40);
   if (v12)
   {
-    (*(v12 + 16))(v12, 0, v15);
+    (*(v12 + 16))(v12, 0, v14);
   }
 
   return MEMORY[0x2821F9730]();
@@ -1821,28 +1911,27 @@ void __33__SUManagerClient_pauseDownload___block_invoke_2(uint64_t a1, unsigned 
 
 uint64_t __34__SUManagerClient_resumeDownload___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = a2;
+  v14 = a2;
   v3 = [*(a1 + 32) queue];
   dispatch_assert_queue_V2(v3);
 
-  if (v15)
+  if (v14)
   {
-    v14 = *(a1 + 32);
-    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v15, v5, v6, v7, v8, v9, "[SUManagerClient resumeDownload:]_block_invoke");
-    v10 = [v15 domain];
+    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v14, v5, v6, v7, v8, v9, "[SUManagerClient resumeDownload:]_block_invoke");
+    v10 = [v14 domain];
     if (![v10 isEqualToString:*MEMORY[0x277CCA050]])
     {
 
       goto LABEL_8;
     }
 
-    if ([v15 code] == 4097)
+    if ([v14 code] == 4097)
     {
     }
 
     else
     {
-      v11 = [v15 code];
+      v11 = [v14 code];
 
       if (v11 != 4099)
       {
@@ -1857,7 +1946,7 @@ LABEL_8:
   v12 = *(a1 + 40);
   if (v12)
   {
-    (*(v12 + 16))(v12, 0, v15);
+    (*(v12 + 16))(v12, 0, v14);
   }
 
   return MEMORY[0x2821F9730]();
@@ -1911,28 +2000,27 @@ void __34__SUManagerClient_resumeDownload___block_invoke_2(uint64_t a1, unsigned
 
 uint64_t __52__SUManagerClient_updateDownloadOptions_withResult___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = a2;
+  v14 = a2;
   v3 = [*(a1 + 32) queue];
   dispatch_assert_queue_V2(v3);
 
-  if (v15)
+  if (v14)
   {
-    v14 = *(a1 + 32);
-    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v15, v5, v6, v7, v8, v9, "[SUManagerClient updateDownloadOptions:withResult:]_block_invoke");
-    v10 = [v15 domain];
+    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v14, v5, v6, v7, v8, v9, "[SUManagerClient updateDownloadOptions:withResult:]_block_invoke");
+    v10 = [v14 domain];
     if (![v10 isEqualToString:*MEMORY[0x277CCA050]])
     {
 
       goto LABEL_8;
     }
 
-    if ([v15 code] == 4097)
+    if ([v14 code] == 4097)
     {
     }
 
     else
     {
-      v11 = [v15 code];
+      v11 = [v14 code];
 
       if (v11 != 4099)
       {
@@ -1947,7 +2035,7 @@ LABEL_8:
   v12 = *(a1 + 40);
   if (v12)
   {
-    (*(v12 + 16))(v12, 0, v15);
+    (*(v12 + 16))(v12, 0, v14);
   }
 
   return MEMORY[0x2821F9730]();
@@ -2001,28 +2089,27 @@ void __52__SUManagerClient_updateDownloadOptions_withResult___block_invoke_2(uin
 
 uint64_t __53__SUManagerClient_updateDownloadMetadata_withResult___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = a2;
+  v14 = a2;
   v3 = [*(a1 + 32) queue];
   dispatch_assert_queue_V2(v3);
 
-  if (v15)
+  if (v14)
   {
-    v14 = *(a1 + 32);
-    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v15, v5, v6, v7, v8, v9, "[SUManagerClient updateDownloadMetadata:withResult:]_block_invoke");
-    v10 = [v15 domain];
+    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v14, v5, v6, v7, v8, v9, "[SUManagerClient updateDownloadMetadata:withResult:]_block_invoke");
+    v10 = [v14 domain];
     if (![v10 isEqualToString:*MEMORY[0x277CCA050]])
     {
 
       goto LABEL_8;
     }
 
-    if ([v15 code] == 4097)
+    if ([v14 code] == 4097)
     {
     }
 
     else
     {
-      v11 = [v15 code];
+      v11 = [v14 code];
 
       if (v11 != 4099)
       {
@@ -2037,7 +2124,7 @@ LABEL_8:
   v12 = *(a1 + 40);
   if (v12)
   {
-    (*(v12 + 16))(v12, 0, v15);
+    (*(v12 + 16))(v12, 0, v14);
   }
 
   return MEMORY[0x2821F9730]();
@@ -2091,28 +2178,27 @@ void __53__SUManagerClient_updateDownloadMetadata_withResult___block_invoke_2(ui
 
 uint64_t __55__SUManagerClient_purgeDownloadWithOptions_withResult___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = a2;
+  v14 = a2;
   v3 = [*(a1 + 32) queue];
   dispatch_assert_queue_V2(v3);
 
-  if (v15)
+  if (v14)
   {
-    v14 = *(a1 + 32);
-    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v15, v5, v6, v7, v8, v9, "[SUManagerClient purgeDownloadWithOptions:withResult:]_block_invoke");
-    v10 = [v15 domain];
+    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v14, v5, v6, v7, v8, v9, "[SUManagerClient purgeDownloadWithOptions:withResult:]_block_invoke");
+    v10 = [v14 domain];
     if (![v10 isEqualToString:*MEMORY[0x277CCA050]])
     {
 
       goto LABEL_8;
     }
 
-    if ([v15 code] == 4097)
+    if ([v14 code] == 4097)
     {
     }
 
     else
     {
-      v11 = [v15 code];
+      v11 = [v14 code];
 
       if (v11 != 4099)
       {
@@ -2127,7 +2213,7 @@ LABEL_8:
   v12 = *(a1 + 40);
   if (v12)
   {
-    (*(v12 + 16))(v12, 0, v15);
+    (*(v12 + 16))(v12, 0, v14);
   }
 
   return MEMORY[0x2821F9730]();
@@ -2180,28 +2266,27 @@ void __55__SUManagerClient_purgeDownloadWithOptions_withResult___block_invoke_2(
 
 uint64_t __33__SUManagerClient_purgeDownload___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = a2;
+  v14 = a2;
   v3 = [*(a1 + 32) queue];
   dispatch_assert_queue_V2(v3);
 
-  if (v15)
+  if (v14)
   {
-    v14 = *(a1 + 32);
-    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v15, v5, v6, v7, v8, v9, "[SUManagerClient purgeDownload:]_block_invoke");
-    v10 = [v15 domain];
+    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v14, v5, v6, v7, v8, v9, "[SUManagerClient purgeDownload:]_block_invoke");
+    v10 = [v14 domain];
     if (![v10 isEqualToString:*MEMORY[0x277CCA050]])
     {
 
       goto LABEL_8;
     }
 
-    if ([v15 code] == 4097)
+    if ([v14 code] == 4097)
     {
     }
 
     else
     {
-      v11 = [v15 code];
+      v11 = [v14 code];
 
       if (v11 != 4099)
       {
@@ -2216,7 +2301,7 @@ LABEL_8:
   v12 = *(a1 + 40);
   if (v12)
   {
-    (*(v12 + 16))(v12, 0, v15);
+    (*(v12 + 16))(v12, 0, v14);
   }
 
   return MEMORY[0x2821F9730]();
@@ -2282,28 +2367,27 @@ void __33__SUManagerClient_purgeDownload___block_invoke_2(uint64_t a1, unsigned 
 
 uint64_t __43__SUManagerClient_downloadAndInstallState___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = a2;
+  v14 = a2;
   v3 = [*(a1 + 32) queue];
   dispatch_assert_queue_V2(v3);
 
-  if (v15)
+  if (v14)
   {
-    v14 = *(a1 + 32);
-    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v5, v6, v15, v7, v8, v9, "[SUManagerClient downloadAndInstallState:]_block_invoke");
-    v10 = [v15 domain];
+    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v5, v6, v14, v7, v8, v9, "[SUManagerClient downloadAndInstallState:]_block_invoke");
+    v10 = [v14 domain];
     if (![v10 isEqualToString:*MEMORY[0x277CCA050]])
     {
 
       goto LABEL_8;
     }
 
-    if ([v15 code] == 4097)
+    if ([v14 code] == 4097)
     {
     }
 
     else
     {
-      v11 = [v15 code];
+      v11 = [v14 code];
 
       if (v11 != 4099)
       {
@@ -2318,7 +2402,7 @@ LABEL_8:
   v12 = *(a1 + 40);
   if (v12)
   {
-    (*(v12 + 16))(v12, 0, 0, 0, v15);
+    (*(v12 + 16))(v12, 0, 0, 0, v14);
   }
 
   return MEMORY[0x2821F97D0]();
@@ -2375,28 +2459,27 @@ void __43__SUManagerClient_downloadAndInstallState___block_invoke_2(uint64_t a1,
 
 uint64_t __88__SUManagerClient_updatesDownloadableWithOptions_alternateDownloadOptions_replyHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = a2;
+  v14 = a2;
   v3 = [*(a1 + 32) queue];
   dispatch_assert_queue_V2(v3);
 
-  if (v15)
+  if (v14)
   {
-    v14 = *(a1 + 32);
-    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v5, v15, v6, v7, v8, v9, "[SUManagerClient updatesDownloadableWithOptions:alternateDownloadOptions:replyHandler:]_block_invoke");
-    v10 = [v15 domain];
+    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v5, v14, v6, v7, v8, v9, "[SUManagerClient updatesDownloadableWithOptions:alternateDownloadOptions:replyHandler:]_block_invoke");
+    v10 = [v14 domain];
     if (![v10 isEqualToString:*MEMORY[0x277CCA050]])
     {
 
       goto LABEL_8;
     }
 
-    if ([v15 code] == 4097)
+    if ([v14 code] == 4097)
     {
     }
 
     else
     {
-      v11 = [v15 code];
+      v11 = [v14 code];
 
       if (v11 != 4099)
       {
@@ -2504,21 +2587,20 @@ void __174__SUManagerClient_areUpdatesDownloadableWithOptions_alternateUpdateOpt
   v3 = a2;
   if (v3)
   {
-    v13 = *(a1 + 32);
-    v14 = v3;
+    v13 = v3;
     SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v5, v6, v7, v8, v9, v10, "[SUManagerClient areUpdatesDownloadableWithOptions:alternateUpdateOptions:preferredUpdateDownloadable:alternateUpdateDownloadable:preferredUpdateError:alternateUpdateError:]_block_invoke");
-    v11 = [v14 domain];
+    v11 = [v13 domain];
     if ([v11 isEqualToString:*MEMORY[0x277CCA050]])
     {
-      if ([v14 code] == 4097)
+      if ([v13 code] == 4097)
       {
       }
 
       else
       {
-        v12 = [v14 code];
+        v12 = [v13 code];
 
-        v3 = v14;
+        v3 = v13;
         if (v12 != 4099)
         {
           goto LABEL_9;
@@ -2532,7 +2614,7 @@ void __174__SUManagerClient_areUpdatesDownloadableWithOptions_alternateUpdateOpt
     {
     }
 
-    v3 = v14;
+    v3 = v13;
   }
 
 LABEL_9:
@@ -2584,21 +2666,20 @@ void __37__SUManagerClient_writeKeepAliveFile__block_invoke(uint64_t a1, void *a
   v3 = a2;
   if (v3)
   {
-    v13 = *(a1 + 32);
-    v14 = v3;
+    v13 = v3;
     SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v5, v6, v7, v8, v9, v10, "[SUManagerClient writeKeepAliveFile]_block_invoke");
-    v11 = [v14 domain];
+    v11 = [v13 domain];
     if ([v11 isEqualToString:*MEMORY[0x277CCA050]])
     {
-      if ([v14 code] == 4097)
+      if ([v13 code] == 4097)
       {
       }
 
       else
       {
-        v12 = [v14 code];
+        v12 = [v13 code];
 
-        v3 = v14;
+        v3 = v13;
         if (v12 != 4099)
         {
           goto LABEL_9;
@@ -2612,7 +2693,7 @@ void __37__SUManagerClient_writeKeepAliveFile__block_invoke(uint64_t a1, void *a
     {
     }
 
-    v3 = v14;
+    v3 = v13;
   }
 
 LABEL_9:
@@ -2696,21 +2777,20 @@ void __44__SUManagerClient_scheduleUpdate_withError___block_invoke(uint64_t a1, 
   v3 = a2;
   if (v3)
   {
-    v13 = *(a1 + 32);
-    v14 = v3;
+    v13 = v3;
     SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v5, v6, v7, v8, v9, v10, "[SUManagerClient scheduleUpdate:withError:]_block_invoke");
-    v11 = [v14 domain];
+    v11 = [v13 domain];
     if ([v11 isEqualToString:*MEMORY[0x277CCA050]])
     {
-      if ([v14 code] == 4097)
+      if ([v13 code] == 4097)
       {
       }
 
       else
       {
-        v12 = [v14 code];
+        v12 = [v13 code];
 
-        v3 = v14;
+        v3 = v13;
         if (v12 != 4099)
         {
           goto LABEL_9;
@@ -2724,7 +2804,7 @@ void __44__SUManagerClient_scheduleUpdate_withError___block_invoke(uint64_t a1, 
     {
     }
 
-    v3 = v14;
+    v3 = v13;
   }
 
 LABEL_9:
@@ -2755,28 +2835,27 @@ LABEL_9:
 
 uint64_t __51__SUManagerClient_getDDMStatusWithKeys_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = a2;
+  v14 = a2;
   v3 = [*(a1 + 32) queue];
   dispatch_assert_queue_V2(v3);
 
-  if (v15)
+  if (v14)
   {
-    v14 = *(a1 + 32);
-    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v15, v5, v6, v7, v8, v9, "[SUManagerClient getDDMStatusWithKeys:completion:]_block_invoke");
-    v10 = [v15 domain];
+    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v14, v5, v6, v7, v8, v9, "[SUManagerClient getDDMStatusWithKeys:completion:]_block_invoke");
+    v10 = [v14 domain];
     if (![v10 isEqualToString:*MEMORY[0x277CCA050]])
     {
 
       goto LABEL_8;
     }
 
-    if ([v15 code] == 4097)
+    if ([v14 code] == 4097)
     {
     }
 
     else
     {
-      v11 = [v15 code];
+      v11 = [v14 code];
 
       if (v11 != 4099)
       {
@@ -2791,7 +2870,7 @@ LABEL_8:
   v12 = *(a1 + 40);
   if (v12)
   {
-    (*(v12 + 16))(v12, 0, v15);
+    (*(v12 + 16))(v12, 0, v14);
   }
 
   return MEMORY[0x2821F9730]();
@@ -2840,21 +2919,20 @@ void __32__SUManagerClient_cancelUpdate___block_invoke(uint64_t a1, void *a2)
   v3 = a2;
   if (v3)
   {
-    v13 = *(a1 + 32);
-    v14 = v3;
+    v13 = v3;
     SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v5, v6, v7, v8, v9, v10, "[SUManagerClient cancelUpdate:]_block_invoke");
-    v11 = [v14 domain];
+    v11 = [v13 domain];
     if ([v11 isEqualToString:*MEMORY[0x277CCA050]])
     {
-      if ([v14 code] == 4097)
+      if ([v13 code] == 4097)
       {
       }
 
       else
       {
-        v12 = [v14 code];
+        v12 = [v13 code];
 
-        v3 = v14;
+        v3 = v13;
         if (v12 != 4099)
         {
           goto LABEL_9;
@@ -2868,7 +2946,7 @@ void __32__SUManagerClient_cancelUpdate___block_invoke(uint64_t a1, void *a2)
     {
     }
 
-    v3 = v14;
+    v3 = v13;
   }
 
 LABEL_9:
@@ -2919,21 +2997,20 @@ void __48__SUManagerClient_cancelUpdateForKey_withError___block_invoke(uint64_t 
   v3 = a2;
   if (v3)
   {
-    v13 = *(a1 + 32);
-    v14 = v3;
+    v13 = v3;
     SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v5, v6, v7, v8, v9, v10, "[SUManagerClient cancelUpdateForKey:withError:]_block_invoke");
-    v11 = [v14 domain];
+    v11 = [v13 domain];
     if ([v11 isEqualToString:*MEMORY[0x277CCA050]])
     {
-      if ([v14 code] == 4097)
+      if ([v13 code] == 4097)
       {
       }
 
       else
       {
-        v12 = [v14 code];
+        v12 = [v13 code];
 
-        v3 = v14;
+        v3 = v13;
         if (v12 != 4099)
         {
           goto LABEL_9;
@@ -2947,7 +3024,7 @@ void __48__SUManagerClient_cancelUpdateForKey_withError___block_invoke(uint64_t 
     {
     }
 
-    v3 = v14;
+    v3 = v13;
   }
 
 LABEL_9:
@@ -2979,28 +3056,27 @@ LABEL_9:
 
 uint64_t __51__SUManagerClient_handleDDMDeclaration_withResult___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = a2;
+  v14 = a2;
   v3 = [*(a1 + 32) queue];
   dispatch_assert_queue_V2(v3);
 
-  if (v15)
+  if (v14)
   {
-    v14 = *(a1 + 32);
-    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v15, v5, v6, v7, v8, v9, "[SUManagerClient handleDDMDeclaration:withResult:]_block_invoke");
-    v10 = [v15 domain];
+    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v14, v5, v6, v7, v8, v9, "[SUManagerClient handleDDMDeclaration:withResult:]_block_invoke");
+    v10 = [v14 domain];
     if (![v10 isEqualToString:*MEMORY[0x277CCA050]])
     {
 
       goto LABEL_8;
     }
 
-    if ([v15 code] == 4097)
+    if ([v14 code] == 4097)
     {
     }
 
     else
     {
-      v11 = [v15 code];
+      v11 = [v14 code];
 
       if (v11 != 4099)
       {
@@ -3015,7 +3091,7 @@ LABEL_8:
   v12 = *(a1 + 40);
   if (v12)
   {
-    (*(v12 + 16))(v12, 0, v15);
+    (*(v12 + 16))(v12, 0, v14);
   }
 
   return MEMORY[0x2821F9730]();
@@ -3055,28 +3131,27 @@ void __51__SUManagerClient_handleDDMDeclaration_withResult___block_invoke_2(uint
 
 uint64_t __48__SUManagerClient_getDDMDeclarationWithHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = a2;
+  v14 = a2;
   v3 = [*(a1 + 32) queue];
   dispatch_assert_queue_V2(v3);
 
-  if (v15)
+  if (v14)
   {
-    v14 = *(a1 + 32);
-    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v15, v5, v6, v7, v8, v9, "[SUManagerClient getDDMDeclarationWithHandler:]_block_invoke");
-    v10 = [v15 domain];
+    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v14, v5, v6, v7, v8, v9, "[SUManagerClient getDDMDeclarationWithHandler:]_block_invoke");
+    v10 = [v14 domain];
     if (![v10 isEqualToString:*MEMORY[0x277CCA050]])
     {
 
       goto LABEL_8;
     }
 
-    if ([v15 code] == 4097)
+    if ([v14 code] == 4097)
     {
     }
 
     else
     {
-      v11 = [v15 code];
+      v11 = [v14 code];
 
       if (v11 != 4099)
       {
@@ -3091,7 +3166,7 @@ LABEL_8:
   v12 = *(a1 + 40);
   if (v12)
   {
-    (*(v12 + 16))(v12, 0, v15);
+    (*(v12 + 16))(v12, 0, v14);
   }
 
   return MEMORY[0x2821F9730]();
@@ -3143,21 +3218,20 @@ void __41__SUManagerClient_getDDMUpdateDescriptor__block_invoke(uint64_t a1, voi
   v3 = a2;
   if (v3)
   {
-    v13 = *(a1 + 32);
-    v14 = v3;
+    v13 = v3;
     SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v5, v6, v7, v8, v9, v10, "[SUManagerClient getDDMUpdateDescriptor]_block_invoke");
-    v11 = [v14 domain];
+    v11 = [v13 domain];
     if ([v11 isEqualToString:*MEMORY[0x277CCA050]])
     {
-      if ([v14 code] == 4097)
+      if ([v13 code] == 4097)
       {
       }
 
       else
       {
-        v12 = [v14 code];
+        v12 = [v13 code];
 
-        v3 = v14;
+        v3 = v13;
         if (v12 != 4099)
         {
           goto LABEL_9;
@@ -3171,7 +3245,7 @@ void __41__SUManagerClient_getDDMUpdateDescriptor__block_invoke(uint64_t a1, voi
     {
     }
 
-    v3 = v14;
+    v3 = v13;
   }
 
 LABEL_9:
@@ -3233,21 +3307,20 @@ void __41__SUManagerClient_declarationsWithError___block_invoke(uint64_t a1, voi
   v3 = a2;
   if (v3)
   {
-    v13 = *(a1 + 32);
-    v14 = v3;
+    v13 = v3;
     SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v5, v6, v7, v8, v9, v10, "[SUManagerClient declarationsWithError:]_block_invoke");
-    v11 = [v14 domain];
+    v11 = [v13 domain];
     if ([v11 isEqualToString:*MEMORY[0x277CCA050]])
     {
-      if ([v14 code] == 4097)
+      if ([v13 code] == 4097)
       {
       }
 
       else
       {
-        v12 = [v14 code];
+        v12 = [v13 code];
 
-        v3 = v14;
+        v3 = v13;
         if (v12 != 4099)
         {
           goto LABEL_9;
@@ -3261,7 +3334,7 @@ void __41__SUManagerClient_declarationsWithError___block_invoke(uint64_t a1, voi
     {
     }
 
-    v3 = v14;
+    v3 = v13;
   }
 
 LABEL_9:
@@ -3326,21 +3399,20 @@ void __47__SUManagerClient_setGlobalSettings_withError___block_invoke(uint64_t a
   v3 = a2;
   if (v3)
   {
-    v13 = *(a1 + 32);
-    v14 = v3;
+    v13 = v3;
     SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v5, v6, v7, v8, v9, v10, "[SUManagerClient setGlobalSettings:withError:]_block_invoke");
-    v11 = [v14 domain];
+    v11 = [v13 domain];
     if ([v11 isEqualToString:*MEMORY[0x277CCA050]])
     {
-      if ([v14 code] == 4097)
+      if ([v13 code] == 4097)
       {
       }
 
       else
       {
-        v12 = [v14 code];
+        v12 = [v13 code];
 
-        v3 = v14;
+        v3 = v13;
         if (v12 != 4099)
         {
           goto LABEL_9;
@@ -3354,7 +3426,7 @@ void __47__SUManagerClient_setGlobalSettings_withError___block_invoke(uint64_t a
     {
     }
 
-    v3 = v14;
+    v3 = v13;
   }
 
 LABEL_9:
@@ -3407,21 +3479,20 @@ void __54__SUManagerClient_globalSettingsDeclarationWithError___block_invoke(uin
   v3 = a2;
   if (v3)
   {
-    v13 = *(a1 + 32);
-    v14 = v3;
+    v13 = v3;
     SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v5, v6, v7, v8, v9, v10, "[SUManagerClient globalSettingsDeclarationWithError:]_block_invoke");
-    v11 = [v14 domain];
+    v11 = [v13 domain];
     if ([v11 isEqualToString:*MEMORY[0x277CCA050]])
     {
-      if ([v14 code] == 4097)
+      if ([v13 code] == 4097)
       {
       }
 
       else
       {
-        v12 = [v14 code];
+        v12 = [v13 code];
 
-        v3 = v14;
+        v3 = v13;
         if (v12 != 4099)
         {
           goto LABEL_9;
@@ -3435,7 +3506,7 @@ void __54__SUManagerClient_globalSettingsDeclarationWithError___block_invoke(uin
     {
     }
 
-    v3 = v14;
+    v3 = v13;
   }
 
 LABEL_9:
@@ -3485,21 +3556,20 @@ void __60__SUManagerClient_shouldDisableAutoDownloadIOSUpdatesToggle__block_invo
   v3 = a2;
   if (v3)
   {
-    v13 = *(a1 + 32);
-    v14 = v3;
+    v13 = v3;
     SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v5, v6, v7, v8, v9, v10, "[SUManagerClient shouldDisableAutoDownloadIOSUpdatesToggle]_block_invoke");
-    v11 = [v14 domain];
+    v11 = [v13 domain];
     if ([v11 isEqualToString:*MEMORY[0x277CCA050]])
     {
-      if ([v14 code] == 4097)
+      if ([v13 code] == 4097)
       {
       }
 
       else
       {
-        v12 = [v14 code];
+        v12 = [v13 code];
 
-        v3 = v14;
+        v3 = v13;
         if (v12 != 4099)
         {
           goto LABEL_9;
@@ -3513,7 +3583,7 @@ void __60__SUManagerClient_shouldDisableAutoDownloadIOSUpdatesToggle__block_invo
     {
     }
 
-    v3 = v14;
+    v3 = v13;
   }
 
 LABEL_9:
@@ -3562,21 +3632,20 @@ void __59__SUManagerClient_shouldDisableAutoInstallIOSUpdatesToggle__block_invok
   v3 = a2;
   if (v3)
   {
-    v13 = *(a1 + 32);
-    v14 = v3;
+    v13 = v3;
     SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v5, v6, v7, v8, v9, v10, "[SUManagerClient shouldDisableAutoInstallIOSUpdatesToggle]_block_invoke");
-    v11 = [v14 domain];
+    v11 = [v13 domain];
     if ([v11 isEqualToString:*MEMORY[0x277CCA050]])
     {
-      if ([v14 code] == 4097)
+      if ([v13 code] == 4097)
       {
       }
 
       else
       {
-        v12 = [v14 code];
+        v12 = [v13 code];
 
-        v3 = v14;
+        v3 = v13;
         if (v12 != 4099)
         {
           goto LABEL_9;
@@ -3590,7 +3659,7 @@ void __59__SUManagerClient_shouldDisableAutoInstallIOSUpdatesToggle__block_invok
     {
     }
 
-    v3 = v14;
+    v3 = v13;
   }
 
 LABEL_9:
@@ -3639,21 +3708,20 @@ void __52__SUManagerClient_shouldDisableAutoInstallRSRToggle__block_invoke(uint6
   v3 = a2;
   if (v3)
   {
-    v13 = *(a1 + 32);
-    v14 = v3;
+    v13 = v3;
     SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v5, v6, v7, v8, v9, v10, "[SUManagerClient shouldDisableAutoInstallRSRToggle]_block_invoke");
-    v11 = [v14 domain];
+    v11 = [v13 domain];
     if ([v11 isEqualToString:*MEMORY[0x277CCA050]])
     {
-      if ([v14 code] == 4097)
+      if ([v13 code] == 4097)
       {
       }
 
       else
       {
-        v12 = [v14 code];
+        v12 = [v13 code];
 
-        v3 = v14;
+        v3 = v13;
         if (v12 != 4099)
         {
           goto LABEL_9;
@@ -3667,7 +3735,7 @@ void __52__SUManagerClient_shouldDisableAutoInstallRSRToggle__block_invoke(uint6
     {
     }
 
-    v3 = v14;
+    v3 = v13;
   }
 
 LABEL_9:
@@ -3710,28 +3778,27 @@ void __52__SUManagerClient_shouldDisableAutoInstallRSRToggle__block_invoke_2(uin
 
 uint64_t __55__SUManagerClient_currentAutoInstallOperationForecast___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = a2;
+  v14 = a2;
   v3 = [*(a1 + 32) queue];
   dispatch_assert_queue_V2(v3);
 
-  if (v15)
+  if (v14)
   {
-    v14 = *(a1 + 32);
-    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v15, v5, v6, v7, v8, v9, "[SUManagerClient currentAutoInstallOperationForecast:]_block_invoke");
-    v10 = [v15 domain];
+    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v14, v5, v6, v7, v8, v9, "[SUManagerClient currentAutoInstallOperationForecast:]_block_invoke");
+    v10 = [v14 domain];
     if (![v10 isEqualToString:*MEMORY[0x277CCA050]])
     {
 
       goto LABEL_8;
     }
 
-    if ([v15 code] == 4097)
+    if ([v14 code] == 4097)
     {
     }
 
     else
     {
-      v11 = [v15 code];
+      v11 = [v14 code];
 
       if (v11 != 4099)
       {
@@ -3746,7 +3813,7 @@ LABEL_8:
   v12 = *(a1 + 40);
   if (v12)
   {
-    (*(v12 + 16))(v12, 0, v15);
+    (*(v12 + 16))(v12, 0, v14);
   }
 
   return MEMORY[0x2821F9730]();
@@ -3766,30 +3833,52 @@ void __55__SUManagerClient_currentAutoInstallOperationForecast___block_invoke_2(
   }
 }
 
+- (void)currentAutoInstallOperation:(BOOL)operation withResult:(id)result
+{
+  operationCopy = operation;
+  resultCopy = result;
+  SULogInfo(@"%@ called %s", v7, v8, v9, v10, v11, v12, v13, self);
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __58__SUManagerClient_currentAutoInstallOperation_withResult___block_invoke;
+  v19[3] = &unk_279CAC238;
+  v19[4] = self;
+  v14 = resultCopy;
+  v20 = v14;
+  v15 = [(SUManagerClient *)self _remoteInterfaceWithErrorHandler:v19];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __58__SUManagerClient_currentAutoInstallOperation_withResult___block_invoke_2;
+  v17[3] = &unk_279CAC5F0;
+  v17[4] = self;
+  v18 = v14;
+  v16 = v14;
+  [v15 currentAutoInstallOperation:operationCopy withResult:v17];
+}
+
 uint64_t __58__SUManagerClient_currentAutoInstallOperation_withResult___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = a2;
+  v14 = a2;
   v3 = [*(a1 + 32) queue];
   dispatch_assert_queue_V2(v3);
 
-  if (v15)
+  if (v14)
   {
-    v14 = *(a1 + 32);
-    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v15, v5, v6, v7, v8, v9, "[SUManagerClient currentAutoInstallOperation:withResult:]_block_invoke");
-    v10 = [v15 domain];
+    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v14, v5, v6, v7, v8, v9, "[SUManagerClient currentAutoInstallOperation:withResult:]_block_invoke");
+    v10 = [v14 domain];
     if (![v10 isEqualToString:*MEMORY[0x277CCA050]])
     {
 
       goto LABEL_8;
     }
 
-    if ([v15 code] == 4097)
+    if ([v14 code] == 4097)
     {
     }
 
     else
     {
-      v11 = [v15 code];
+      v11 = [v14 code];
 
       if (v11 != 4099)
       {
@@ -3804,7 +3893,7 @@ LABEL_8:
   v12 = *(a1 + 40);
   if (v12)
   {
-    (*(v12 + 16))(v12, 0, v15);
+    (*(v12 + 16))(v12, 0, v14);
   }
 
   return MEMORY[0x2821F9730]();
@@ -3855,28 +3944,27 @@ void __58__SUManagerClient_currentAutoInstallOperation_withResult___block_invoke
 
 uint64_t __41__SUManagerClient_currentPasscodePolicy___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = a2;
+  v14 = a2;
   v3 = [*(a1 + 32) queue];
   dispatch_assert_queue_V2(v3);
 
-  if (v15)
+  if (v14)
   {
-    v14 = *(a1 + 32);
-    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v15, v5, v6, v7, v8, v9, "[SUManagerClient currentPasscodePolicy:]_block_invoke");
-    v10 = [v15 domain];
+    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v14, v5, v6, v7, v8, v9, "[SUManagerClient currentPasscodePolicy:]_block_invoke");
+    v10 = [v14 domain];
     if (![v10 isEqualToString:*MEMORY[0x277CCA050]])
     {
 
       goto LABEL_8;
     }
 
-    if ([v15 code] == 4097)
+    if ([v14 code] == 4097)
     {
     }
 
     else
     {
-      v11 = [v15 code];
+      v11 = [v14 code];
 
       if (v11 != 4099)
       {
@@ -3891,7 +3979,7 @@ LABEL_8:
   v12 = *(a1 + 40);
   if (v12)
   {
-    (*(v12 + 16))(v12, 0, v15);
+    (*(v12 + 16))(v12, 0, v14);
   }
 
   return MEMORY[0x2821F9730]();
@@ -3934,28 +4022,27 @@ void __41__SUManagerClient_currentPasscodePolicy___block_invoke_2(uint64_t a1, u
 
 uint64_t __39__SUManagerClient_isAutoUpdateEnabled___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = a2;
+  v14 = a2;
   v3 = [*(a1 + 32) queue];
   dispatch_assert_queue_V2(v3);
 
-  if (v15)
+  if (v14)
   {
-    v14 = *(a1 + 32);
-    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v15, v5, v6, v7, v8, v9, "[SUManagerClient isAutoUpdateEnabled:]_block_invoke");
-    v10 = [v15 domain];
+    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v14, v5, v6, v7, v8, v9, "[SUManagerClient isAutoUpdateEnabled:]_block_invoke");
+    v10 = [v14 domain];
     if (![v10 isEqualToString:*MEMORY[0x277CCA050]])
     {
 
       goto LABEL_8;
     }
 
-    if ([v15 code] == 4097)
+    if ([v14 code] == 4097)
     {
     }
 
     else
     {
-      v11 = [v15 code];
+      v11 = [v14 code];
 
       if (v11 != 4099)
       {
@@ -3970,7 +4057,7 @@ LABEL_8:
   v12 = *(a1 + 40);
   if (v12)
   {
-    (*(v12 + 16))(v12, 0, v15);
+    (*(v12 + 16))(v12, 0, v14);
   }
 
   return MEMORY[0x2821F9730]();
@@ -4013,28 +4100,27 @@ void __39__SUManagerClient_isAutoUpdateEnabled___block_invoke_2(uint64_t a1, uin
 
 uint64_t __41__SUManagerClient_isAutoUpdateScheduled___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = a2;
+  v14 = a2;
   v3 = [*(a1 + 32) queue];
   dispatch_assert_queue_V2(v3);
 
-  if (v15)
+  if (v14)
   {
-    v14 = *(a1 + 32);
-    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v15, v5, v6, v7, v8, v9, "[SUManagerClient isAutoUpdateScheduled:]_block_invoke");
-    v10 = [v15 domain];
+    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v14, v5, v6, v7, v8, v9, "[SUManagerClient isAutoUpdateScheduled:]_block_invoke");
+    v10 = [v14 domain];
     if (![v10 isEqualToString:*MEMORY[0x277CCA050]])
     {
 
       goto LABEL_8;
     }
 
-    if ([v15 code] == 4097)
+    if ([v14 code] == 4097)
     {
     }
 
     else
     {
-      v11 = [v15 code];
+      v11 = [v14 code];
 
       if (v11 != 4099)
       {
@@ -4049,7 +4135,7 @@ LABEL_8:
   v12 = *(a1 + 40);
   if (v12)
   {
-    (*(v12 + 16))(v12, 0, v15);
+    (*(v12 + 16))(v12, 0, v14);
   }
 
   return MEMORY[0x2821F9730]();
@@ -4098,21 +4184,20 @@ void __40__SUManagerClient_isAutoUpdateScheduled__block_invoke(uint64_t a1, void
   v3 = a2;
   if (v3)
   {
-    v13 = *(a1 + 32);
-    v14 = v3;
+    v13 = v3;
     SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v5, v6, v7, v8, v9, v10, "[SUManagerClient isAutoUpdateScheduled]_block_invoke");
-    v11 = [v14 domain];
+    v11 = [v13 domain];
     if ([v11 isEqualToString:*MEMORY[0x277CCA050]])
     {
-      if ([v14 code] == 4097)
+      if ([v13 code] == 4097)
       {
       }
 
       else
       {
-        v12 = [v14 code];
+        v12 = [v13 code];
 
-        v3 = v14;
+        v3 = v13;
         if (v12 != 4099)
         {
           goto LABEL_9;
@@ -4126,7 +4211,7 @@ void __40__SUManagerClient_isAutoUpdateScheduled__block_invoke(uint64_t a1, void
     {
     }
 
-    v3 = v14;
+    v3 = v13;
   }
 
 LABEL_9:
@@ -4156,28 +4241,27 @@ LABEL_9:
 
 uint64_t __43__SUManagerClient_presentAutoUpdateBanner___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = a2;
+  v14 = a2;
   v3 = [*(a1 + 32) queue];
   dispatch_assert_queue_V2(v3);
 
-  if (v15)
+  if (v14)
   {
-    v14 = *(a1 + 32);
-    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v15, v5, v6, v7, v8, v9, "[SUManagerClient presentAutoUpdateBanner:]_block_invoke");
-    v10 = [v15 domain];
+    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v14, v5, v6, v7, v8, v9, "[SUManagerClient presentAutoUpdateBanner:]_block_invoke");
+    v10 = [v14 domain];
     if (![v10 isEqualToString:*MEMORY[0x277CCA050]])
     {
 
       goto LABEL_8;
     }
 
-    if ([v15 code] == 4097)
+    if ([v14 code] == 4097)
     {
     }
 
     else
     {
-      v11 = [v15 code];
+      v11 = [v14 code];
 
       if (v11 != 4099)
       {
@@ -4192,7 +4276,7 @@ LABEL_8:
   v12 = *(a1 + 40);
   if (v12)
   {
-    (*(v12 + 16))(v12, 0, v15);
+    (*(v12 + 16))(v12, 0, v14);
   }
 
   return MEMORY[0x2821F9730]();
@@ -4239,42 +4323,42 @@ void __43__SUManagerClient_presentAutoUpdateBanner___block_invoke_2(uint64_t a1,
 
 - (id)observeInstallationConstraintChangesForDownload:(id)download observer:(id)observer
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   downloadCopy = download;
   observerCopy = observer;
   SULogInfo(@"%@ called %s", v8, v9, v10, v11, v12, v13, v14, self);
-  v49 = downloadCopy;
+  v47 = downloadCopy;
   progress = [downloadCopy progress];
   isDone = [progress isDone];
 
   if (isDone)
   {
-    v48 = observerCopy;
-    v54 = 0u;
-    v55 = 0u;
+    v46 = observerCopy;
     v52 = 0u;
     v53 = 0u;
+    v50 = 0u;
+    v51 = 0u;
     v17 = self->_installationConstraintObservers;
-    v18 = [(NSMutableSet *)v17 countByEnumeratingWithState:&v52 objects:v56 count:16];
+    v18 = [(NSMutableSet *)v17 countByEnumeratingWithState:&v50 objects:v54 count:16];
     if (v18)
     {
       v19 = v18;
       selfCopy = self;
       v20 = 0;
-      v21 = *v53;
+      v21 = *v51;
       do
       {
         for (i = 0; i != v19; ++i)
         {
-          if (*v53 != v21)
+          if (*v51 != v21)
           {
             objc_enumerationMutation(v17);
           }
 
-          v23 = *(*(&v52 + 1) + 8 * i);
+          v23 = *(*(&v50 + 1) + 8 * i);
           download = [v23 download];
           descriptor = [download descriptor];
-          descriptor2 = [v49 descriptor];
+          descriptor2 = [v47 descriptor];
           v27 = [descriptor isEqual:descriptor2];
 
           if (v27)
@@ -4285,13 +4369,13 @@ void __43__SUManagerClient_presentAutoUpdateBanner___block_invoke_2(uint64_t a1,
           }
         }
 
-        v19 = [(NSMutableSet *)v17 countByEnumeratingWithState:&v52 objects:v56 count:16];
+        v19 = [(NSMutableSet *)v17 countByEnumeratingWithState:&v50 objects:v54 count:16];
       }
 
       while (v19);
 
       self = selfCopy;
-      observerCopy = v48;
+      observerCopy = v46;
       if (v20)
       {
         goto LABEL_16;
@@ -4302,21 +4386,20 @@ void __43__SUManagerClient_presentAutoUpdateBanner___block_invoke_2(uint64_t a1,
     {
     }
 
-    v20 = [[SUInstallationConstraintObserver alloc] initWithDownload:v49];
+    v20 = [[SUInstallationConstraintObserver alloc] initWithDownload:v47];
     [(SUComposedInstallationConstraintMonitor *)v20 setDelegate:self];
     if (v20)
     {
       [(NSMutableSet *)self->_installationConstraintObservers addObject:v20];
-      installationConstraintObservers = self->_installationConstraintObservers;
       SULogDebug(@"Created installation constraint observer: %@: observers: %@", v36, v37, v38, v39, v40, v41, v42, v20);
 LABEL_16:
-      v50[0] = MEMORY[0x277D85DD0];
-      v50[1] = 3221225472;
-      v50[2] = __76__SUManagerClient_observeInstallationConstraintChangesForDownload_observer___block_invoke;
-      v50[3] = &unk_279CAC668;
-      v50[4] = self;
-      v51 = observerCopy;
-      v43 = [(SUInstallationConstraintObserver *)v20 registerObserverBlock:v50];
+      v48[0] = MEMORY[0x277D85DD0];
+      v48[1] = 3221225472;
+      v48[2] = __76__SUManagerClient_observeInstallationConstraintChangesForDownload_observer___block_invoke;
+      v48[3] = &unk_279CAC668;
+      v48[4] = self;
+      v49 = observerCopy;
+      v43 = [(SUInstallationConstraintObserver *)v20 registerObserverBlock:v48];
 
       goto LABEL_19;
     }
@@ -4326,8 +4409,6 @@ LABEL_16:
 
   v43 = 0;
 LABEL_19:
-
-  v44 = *MEMORY[0x277D85DE8];
 
   return v43;
 }
@@ -4381,28 +4462,27 @@ void __76__SUManagerClient_observeInstallationConstraintChangesForDownload_obser
 
 uint64_t __48__SUManagerClient_isUpdateReadyForInstallation___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = a2;
+  v14 = a2;
   v3 = [*(a1 + 32) queue];
   dispatch_assert_queue_V2(v3);
 
-  if (v15)
+  if (v14)
   {
-    v14 = *(a1 + 32);
-    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v15, v5, v6, v7, v8, v9, "[SUManagerClient isUpdateReadyForInstallation:]_block_invoke");
-    v10 = [v15 domain];
+    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v14, v5, v6, v7, v8, v9, "[SUManagerClient isUpdateReadyForInstallation:]_block_invoke");
+    v10 = [v14 domain];
     if (![v10 isEqualToString:*MEMORY[0x277CCA050]])
     {
 
       goto LABEL_8;
     }
 
-    if ([v15 code] == 4097)
+    if ([v14 code] == 4097)
     {
     }
 
     else
     {
-      v11 = [v15 code];
+      v11 = [v14 code];
 
       if (v11 != 4099)
       {
@@ -4417,7 +4497,7 @@ LABEL_8:
   v12 = *(a1 + 40);
   if (v12)
   {
-    (*(v12 + 16))(v12, 0, v15);
+    (*(v12 + 16))(v12, 0, v14);
   }
 
   return MEMORY[0x2821F9730]();
@@ -4471,28 +4551,27 @@ void __48__SUManagerClient_isUpdateReadyForInstallation___block_invoke_2(uint64_
 
 uint64_t __70__SUManagerClient_isUpdateReadyForInstallationWithOptions_withResult___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = a2;
+  v14 = a2;
   v3 = [*(a1 + 32) queue];
   dispatch_assert_queue_V2(v3);
 
-  if (v15)
+  if (v14)
   {
-    v14 = *(a1 + 32);
-    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v15, v5, v6, v7, v8, v9, "[SUManagerClient isUpdateReadyForInstallationWithOptions:withResult:]_block_invoke");
-    v10 = [v15 domain];
+    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v14, v5, v6, v7, v8, v9, "[SUManagerClient isUpdateReadyForInstallationWithOptions:withResult:]_block_invoke");
+    v10 = [v14 domain];
     if (![v10 isEqualToString:*MEMORY[0x277CCA050]])
     {
 
       goto LABEL_8;
     }
 
-    if ([v15 code] == 4097)
+    if ([v14 code] == 4097)
     {
     }
 
     else
     {
-      v11 = [v15 code];
+      v11 = [v14 code];
 
       if (v11 != 4099)
       {
@@ -4507,7 +4586,7 @@ LABEL_8:
   v12 = *(a1 + 40);
   if (v12)
   {
-    (*(v12 + 16))(v12, 0, v15);
+    (*(v12 + 16))(v12, 0, v14);
   }
 
   return MEMORY[0x2821F9730]();
@@ -4561,28 +4640,27 @@ void __70__SUManagerClient_isUpdateReadyForInstallationWithOptions_withResult___
 
 uint64_t __62__SUManagerClient_installUpdateWithInstallOptions_withResult___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = a2;
+  v14 = a2;
   v3 = [*(a1 + 32) queue];
   dispatch_assert_queue_V2(v3);
 
-  if (v15)
+  if (v14)
   {
-    v14 = *(a1 + 32);
-    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v15, v5, v6, v7, v8, v9, "[SUManagerClient installUpdateWithInstallOptions:withResult:]_block_invoke");
-    v10 = [v15 domain];
+    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v14, v5, v6, v7, v8, v9, "[SUManagerClient installUpdateWithInstallOptions:withResult:]_block_invoke");
+    v10 = [v14 domain];
     if (![v10 isEqualToString:*MEMORY[0x277CCA050]])
     {
 
       goto LABEL_8;
     }
 
-    if ([v15 code] == 4097)
+    if ([v14 code] == 4097)
     {
     }
 
     else
     {
-      v11 = [v15 code];
+      v11 = [v14 code];
 
       if (v11 != 4099)
       {
@@ -4597,7 +4675,7 @@ LABEL_8:
   v12 = *(a1 + 40);
   if (v12)
   {
-    (*(v12 + 16))(v12, 0, v15);
+    (*(v12 + 16))(v12, 0, v14);
   }
 
   return MEMORY[0x2821F9730]();
@@ -4651,28 +4729,27 @@ void __62__SUManagerClient_installUpdateWithInstallOptions_withResult___block_in
 
 uint64_t __55__SUManagerClient_installUpdateWithOptions_withResult___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = a2;
+  v14 = a2;
   v3 = [*(a1 + 32) queue];
   dispatch_assert_queue_V2(v3);
 
-  if (v15)
+  if (v14)
   {
-    v14 = *(a1 + 32);
-    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v15, v5, v6, v7, v8, v9, "[SUManagerClient installUpdateWithOptions:withResult:]_block_invoke");
-    v10 = [v15 domain];
+    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v14, v5, v6, v7, v8, v9, "[SUManagerClient installUpdateWithOptions:withResult:]_block_invoke");
+    v10 = [v14 domain];
     if (![v10 isEqualToString:*MEMORY[0x277CCA050]])
     {
 
       goto LABEL_8;
     }
 
-    if ([v15 code] == 4097)
+    if ([v14 code] == 4097)
     {
     }
 
     else
     {
-      v11 = [v15 code];
+      v11 = [v14 code];
 
       if (v11 != 4099)
       {
@@ -4687,7 +4764,7 @@ LABEL_8:
   v12 = *(a1 + 40);
   if (v12)
   {
-    (*(v12 + 16))(v12, 0, v15);
+    (*(v12 + 16))(v12, 0, v14);
   }
 
   return MEMORY[0x2821F9730]();
@@ -4740,28 +4817,27 @@ void __55__SUManagerClient_installUpdateWithOptions_withResult___block_invoke_2(
 
 uint64_t __33__SUManagerClient_installUpdate___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = a2;
+  v14 = a2;
   v3 = [*(a1 + 32) queue];
   dispatch_assert_queue_V2(v3);
 
-  if (v15)
+  if (v14)
   {
-    v14 = *(a1 + 32);
-    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v15, v5, v6, v7, v8, v9, "[SUManagerClient installUpdate:]_block_invoke");
-    v10 = [v15 domain];
+    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v14, v5, v6, v7, v8, v9, "[SUManagerClient installUpdate:]_block_invoke");
+    v10 = [v14 domain];
     if (![v10 isEqualToString:*MEMORY[0x277CCA050]])
     {
 
       goto LABEL_8;
     }
 
-    if ([v15 code] == 4097)
+    if ([v14 code] == 4097)
     {
     }
 
     else
     {
-      v11 = [v15 code];
+      v11 = [v14 code];
 
       if (v11 != 4099)
       {
@@ -4776,7 +4852,7 @@ LABEL_8:
   v12 = *(a1 + 40);
   if (v12)
   {
-    (*(v12 + 16))(v12, 0, v15);
+    (*(v12 + 16))(v12, 0, v14);
   }
 
   return MEMORY[0x2821F9730]();
@@ -4829,28 +4905,27 @@ void __33__SUManagerClient_installUpdate___block_invoke_2(uint64_t a1, unsigned 
 
 uint64_t __39__SUManagerClient_fetchInstallHistory___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = a2;
+  v14 = a2;
   v3 = [*(a1 + 32) queue];
   dispatch_assert_queue_V2(v3);
 
-  if (v15)
+  if (v14)
   {
-    v14 = *(a1 + 32);
-    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v15, v5, v6, v7, v8, v9, "[SUManagerClient fetchInstallHistory:]_block_invoke");
-    v10 = [v15 domain];
+    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v14, v5, v6, v7, v8, v9, "[SUManagerClient fetchInstallHistory:]_block_invoke");
+    v10 = [v14 domain];
     if (![v10 isEqualToString:*MEMORY[0x277CCA050]])
     {
 
       goto LABEL_8;
     }
 
-    if ([v15 code] == 4097)
+    if ([v14 code] == 4097)
     {
     }
 
     else
     {
-      v11 = [v15 code];
+      v11 = [v14 code];
 
       if (v11 != 4099)
       {
@@ -4865,7 +4940,7 @@ LABEL_8:
   v12 = *(a1 + 40);
   if (v12)
   {
-    (*(v12 + 16))(v12, 0, v15);
+    (*(v12 + 16))(v12, 0, v14);
   }
 
   return MEMORY[0x2821F9730]();
@@ -4902,21 +4977,20 @@ void __42__SUManagerClient_userAskedToDeferInstall__block_invoke(uint64_t a1, vo
   v3 = a2;
   if (v3)
   {
-    v13 = *(a1 + 32);
-    v14 = v3;
+    v13 = v3;
     SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v5, v6, v7, v8, v9, v10, "[SUManagerClient userAskedToDeferInstall]_block_invoke");
-    v11 = [v14 domain];
+    v11 = [v13 domain];
     if ([v11 isEqualToString:*MEMORY[0x277CCA050]])
     {
-      if ([v14 code] == 4097)
+      if ([v13 code] == 4097)
       {
       }
 
       else
       {
-        v12 = [v14 code];
+        v12 = [v13 code];
 
-        v3 = v14;
+        v3 = v13;
         if (v12 != 4099)
         {
           goto LABEL_9;
@@ -4930,7 +5004,7 @@ void __42__SUManagerClient_userAskedToDeferInstall__block_invoke(uint64_t a1, vo
     {
     }
 
-    v3 = v14;
+    v3 = v13;
   }
 
 LABEL_9:
@@ -4961,28 +5035,27 @@ LABEL_9:
 
 uint64_t __58__SUManagerClient_eligibleRollbackWithOptions_withResult___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = a2;
+  v14 = a2;
   v3 = [*(a1 + 32) queue];
   dispatch_assert_queue_V2(v3);
 
-  if (v15)
+  if (v14)
   {
-    v14 = *(a1 + 32);
-    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v15, v5, v6, v7, v8, v9, "[SUManagerClient eligibleRollbackWithOptions:withResult:]_block_invoke");
-    v10 = [v15 domain];
+    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v14, v5, v6, v7, v8, v9, "[SUManagerClient eligibleRollbackWithOptions:withResult:]_block_invoke");
+    v10 = [v14 domain];
     if (![v10 isEqualToString:*MEMORY[0x277CCA050]])
     {
 
       goto LABEL_8;
     }
 
-    if ([v15 code] == 4097)
+    if ([v14 code] == 4097)
     {
     }
 
     else
     {
-      v11 = [v15 code];
+      v11 = [v14 code];
 
       if (v11 != 4099)
       {
@@ -4997,7 +5070,7 @@ LABEL_8:
   v12 = *(a1 + 40);
   if (v12)
   {
-    (*(v12 + 16))(v12, 0, v15);
+    (*(v12 + 16))(v12, 0, v14);
   }
 
   return MEMORY[0x2821F9730]();
@@ -5042,28 +5115,27 @@ void __58__SUManagerClient_eligibleRollbackWithOptions_withResult___block_invoke
 
 uint64_t __56__SUManagerClient_rollbackUpdateWithOptions_withResult___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = a2;
+  v14 = a2;
   v3 = [*(a1 + 32) queue];
   dispatch_assert_queue_V2(v3);
 
-  if (v15)
+  if (v14)
   {
-    v14 = *(a1 + 32);
-    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v5, v15, v6, v7, v8, v9, "[SUManagerClient rollbackUpdateWithOptions:withResult:]_block_invoke");
-    v10 = [v15 domain];
+    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v5, v14, v6, v7, v8, v9, "[SUManagerClient rollbackUpdateWithOptions:withResult:]_block_invoke");
+    v10 = [v14 domain];
     if (![v10 isEqualToString:*MEMORY[0x277CCA050]])
     {
 
       goto LABEL_8;
     }
 
-    if ([v15 code] == 4097)
+    if ([v14 code] == 4097)
     {
     }
 
     else
     {
-      v11 = [v15 code];
+      v11 = [v14 code];
 
       if (v11 != 4099)
       {
@@ -5078,7 +5150,7 @@ LABEL_8:
   v12 = *(a1 + 40);
   if (v12)
   {
-    (*(v12 + 16))(v12, 0, 0, v15);
+    (*(v12 + 16))(v12, 0, 0, v14);
   }
 
   return MEMORY[0x2821F97C8]();
@@ -5123,28 +5195,27 @@ void __56__SUManagerClient_rollbackUpdateWithOptions_withResult___block_invoke_2
 
 uint64_t __58__SUManagerClient_previousRollbackWithOptions_withResult___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = a2;
+  v14 = a2;
   v3 = [*(a1 + 32) queue];
   dispatch_assert_queue_V2(v3);
 
-  if (v15)
+  if (v14)
   {
-    v14 = *(a1 + 32);
-    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v15, v5, v6, v7, v8, v9, "[SUManagerClient previousRollbackWithOptions:withResult:]_block_invoke");
-    v10 = [v15 domain];
+    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v14, v5, v6, v7, v8, v9, "[SUManagerClient previousRollbackWithOptions:withResult:]_block_invoke");
+    v10 = [v14 domain];
     if (![v10 isEqualToString:*MEMORY[0x277CCA050]])
     {
 
       goto LABEL_8;
     }
 
-    if ([v15 code] == 4097)
+    if ([v14 code] == 4097)
     {
     }
 
     else
     {
-      v11 = [v15 code];
+      v11 = [v14 code];
 
       if (v11 != 4099)
       {
@@ -5159,7 +5230,7 @@ LABEL_8:
   v12 = *(a1 + 40);
   if (v12)
   {
-    (*(v12 + 16))(v12, 0, v15);
+    (*(v12 + 16))(v12, 0, v14);
   }
 
   return MEMORY[0x2821F9730]();
@@ -5203,28 +5274,27 @@ void __58__SUManagerClient_previousRollbackWithOptions_withResult___block_invoke
 
 uint64_t __33__SUManagerClient_isRollingBack___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = a2;
+  v14 = a2;
   v3 = [*(a1 + 32) queue];
   dispatch_assert_queue_V2(v3);
 
-  if (v15)
+  if (v14)
   {
-    v14 = *(a1 + 32);
-    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v5, v15, v6, v7, v8, v9, "[SUManagerClient isRollingBack:]_block_invoke");
-    v10 = [v15 domain];
+    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v5, v14, v6, v7, v8, v9, "[SUManagerClient isRollingBack:]_block_invoke");
+    v10 = [v14 domain];
     if (![v10 isEqualToString:*MEMORY[0x277CCA050]])
     {
 
       goto LABEL_8;
     }
 
-    if ([v15 code] == 4097)
+    if ([v14 code] == 4097)
     {
     }
 
     else
     {
-      v11 = [v15 code];
+      v11 = [v14 code];
 
       if (v11 != 4099)
       {
@@ -5239,7 +5309,7 @@ LABEL_8:
   v12 = *(a1 + 40);
   if (v12)
   {
-    (*(v12 + 16))(v12, 0, 0, v15);
+    (*(v12 + 16))(v12, 0, 0, v14);
   }
 
   return MEMORY[0x2821F97C8]();
@@ -5283,28 +5353,27 @@ void __33__SUManagerClient_isRollingBack___block_invoke_2(uint64_t a1, uint64_t 
 
 uint64_t __50__SUManagerClient_scheduleRollbackRebootForLater___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = a2;
+  v14 = a2;
   v3 = [*(a1 + 32) queue];
   dispatch_assert_queue_V2(v3);
 
-  if (v15)
+  if (v14)
   {
-    v14 = *(a1 + 32);
-    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v15, v5, v6, v7, v8, v9, "[SUManagerClient scheduleRollbackRebootForLater:]_block_invoke");
-    v10 = [v15 domain];
+    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v14, v5, v6, v7, v8, v9, "[SUManagerClient scheduleRollbackRebootForLater:]_block_invoke");
+    v10 = [v14 domain];
     if (![v10 isEqualToString:*MEMORY[0x277CCA050]])
     {
 
       goto LABEL_8;
     }
 
-    if ([v15 code] == 4097)
+    if ([v14 code] == 4097)
     {
     }
 
     else
     {
-      v11 = [v15 code];
+      v11 = [v14 code];
 
       if (v11 != 4099)
       {
@@ -5319,7 +5388,7 @@ LABEL_8:
   v12 = *(a1 + 40);
   if (v12)
   {
-    (*(v12 + 16))(v12, 0, v15);
+    (*(v12 + 16))(v12, 0, v14);
   }
 
   return MEMORY[0x2821F9730]();
@@ -5386,21 +5455,20 @@ void __45__SUManagerClient_setLastRollbackDescriptor___block_invoke(uint64_t a1,
   v3 = a2;
   if (v3)
   {
-    v13 = *(a1 + 32);
-    v14 = v3;
+    v13 = v3;
     SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v5, v6, v7, v8, v9, v10, "[SUManagerClient setLastRollbackDescriptor:]_block_invoke");
-    v11 = [v14 domain];
+    v11 = [v13 domain];
     if ([v11 isEqualToString:*MEMORY[0x277CCA050]])
     {
-      if ([v14 code] == 4097)
+      if ([v13 code] == 4097)
       {
       }
 
       else
       {
-        v12 = [v14 code];
+        v12 = [v13 code];
 
-        v3 = v14;
+        v3 = v13;
         if (v12 != 4099)
         {
           goto LABEL_9;
@@ -5414,17 +5482,17 @@ void __45__SUManagerClient_setLastRollbackDescriptor___block_invoke(uint64_t a1,
     {
     }
 
-    v3 = v14;
+    v3 = v13;
   }
 
 LABEL_9:
 }
 
-void __45__SUManagerClient_setLastRollbackDescriptor___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void __45__SUManagerClient_setLastRollbackDescriptor___block_invoke_2(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (a3)
   {
-    SULogDebug(@"%@: unable to set rollback descriptor in state file: %@", a2, a3, a4, a5, a6, a7, a8, *(a1 + 32));
+    SULogDebug(@"%@: unable to set rollback descriptor in state file: %@", a2, a3, a4, a5, a6, a7, a8, *(result + 32));
     LOBYTE(a2) = 1;
     v9 = 40;
   }
@@ -5434,7 +5502,7 @@ void __45__SUManagerClient_setLastRollbackDescriptor___block_invoke_2(uint64_t a
     v9 = 48;
   }
 
-  *(*(*(a1 + v9) + 8) + 24) = a2;
+  *(*(*(result + v9) + 8) + 24) = a2;
 }
 
 - (BOOL)securityResponseRollbackSuggested:(id)suggested error:(id *)error
@@ -5482,21 +5550,20 @@ void __59__SUManagerClient_securityResponseRollbackSuggested_error___block_invok
   v3 = a2;
   if (v3)
   {
-    v13 = *(a1 + 32);
-    v14 = v3;
+    v13 = v3;
     SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v5, v6, v7, v8, v9, v10, "[SUManagerClient securityResponseRollbackSuggested:error:]_block_invoke");
-    v11 = [v14 domain];
+    v11 = [v13 domain];
     if ([v11 isEqualToString:*MEMORY[0x277CCA050]])
     {
-      if ([v14 code] == 4097)
+      if ([v13 code] == 4097)
       {
       }
 
       else
       {
-        v12 = [v14 code];
+        v12 = [v13 code];
 
-        v3 = v14;
+        v3 = v13;
         if (v12 != 4099)
         {
           goto LABEL_9;
@@ -5510,7 +5577,7 @@ void __59__SUManagerClient_securityResponseRollbackSuggested_error___block_invok
     {
     }
 
-    v3 = v14;
+    v3 = v13;
   }
 
 LABEL_9:
@@ -5564,21 +5631,20 @@ void __55__SUManagerClient_createInstallationKeybagWithOptions___block_invoke(ui
   v3 = a2;
   if (v3)
   {
-    v13 = *(a1 + 32);
-    v14 = v3;
+    v13 = v3;
     SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v5, v6, v7, v8, v9, v10, "[SUManagerClient createInstallationKeybagWithOptions:]_block_invoke");
-    v11 = [v14 domain];
+    v11 = [v13 domain];
     if ([v11 isEqualToString:*MEMORY[0x277CCA050]])
     {
-      if ([v14 code] == 4097)
+      if ([v13 code] == 4097)
       {
       }
 
       else
       {
-        v12 = [v14 code];
+        v12 = [v13 code];
 
-        v3 = v14;
+        v3 = v13;
         if (v12 != 4099)
         {
           goto LABEL_9;
@@ -5592,17 +5658,17 @@ void __55__SUManagerClient_createInstallationKeybagWithOptions___block_invoke(ui
     {
     }
 
-    v3 = v14;
+    v3 = v13;
   }
 
 LABEL_9:
 }
 
-void __55__SUManagerClient_createInstallationKeybagWithOptions___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void __55__SUManagerClient_createInstallationKeybagWithOptions___block_invoke_2(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (a3)
   {
-    SULogDebug(@"%@: unable to create installation keybag: %@", a2, a3, a4, a5, a6, a7, a8, *(a1 + 32));
+    SULogDebug(@"%@: unable to create installation keybag: %@", a2, a3, a4, a5, a6, a7, a8, *(result + 32));
     LOBYTE(a2) = 1;
     v9 = 40;
   }
@@ -5612,7 +5678,20 @@ void __55__SUManagerClient_createInstallationKeybagWithOptions___block_invoke_2(
     v9 = 48;
   }
 
-  *(*(*(a1 + v9) + 8) + 24) = a2;
+  *(*(*(result + v9) + 8) + 24) = a2;
+}
+
+- (BOOL)createInstallationKeybag:(id)keybag forUnattendedInstall:(BOOL)install
+{
+  installCopy = install;
+  keybagCopy = keybag;
+  v7 = objc_alloc_init(SUKeybagOptions);
+  [(SUKeybagOptions *)v7 setPasscode:keybagCopy];
+
+  [(SUKeybagOptions *)v7 setKeybagType:installCopy];
+  LOBYTE(installCopy) = [(SUManagerClient *)self createInstallationKeybagWithOptions:v7];
+
+  return installCopy;
 }
 
 - (BOOL)isInstallationKeybagRequired
@@ -5645,21 +5724,20 @@ void __47__SUManagerClient_isInstallationKeybagRequired__block_invoke(uint64_t a
   v3 = a2;
   if (v3)
   {
-    v13 = *(a1 + 32);
-    v14 = v3;
+    v13 = v3;
     SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v5, v6, v7, v8, v9, v10, "[SUManagerClient isInstallationKeybagRequired]_block_invoke");
-    v11 = [v14 domain];
+    v11 = [v13 domain];
     if ([v11 isEqualToString:*MEMORY[0x277CCA050]])
     {
-      if ([v14 code] == 4097)
+      if ([v13 code] == 4097)
       {
       }
 
       else
       {
-        v12 = [v14 code];
+        v12 = [v13 code];
 
-        v3 = v14;
+        v3 = v13;
         if (v12 != 4099)
         {
           goto LABEL_9;
@@ -5673,7 +5751,7 @@ void __47__SUManagerClient_isInstallationKeybagRequired__block_invoke(uint64_t a
     {
     }
 
-    v3 = v14;
+    v3 = v13;
   }
 
 LABEL_9:
@@ -5711,21 +5789,20 @@ void __61__SUManagerClient_isInstallationKeybagRequiredForDescriptor___block_inv
   v3 = a2;
   if (v3)
   {
-    v13 = *(a1 + 32);
-    v14 = v3;
+    v13 = v3;
     SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v5, v6, v7, v8, v9, v10, "[SUManagerClient isInstallationKeybagRequiredForDescriptor:]_block_invoke");
-    v11 = [v14 domain];
+    v11 = [v13 domain];
     if ([v11 isEqualToString:*MEMORY[0x277CCA050]])
     {
-      if ([v14 code] == 4097)
+      if ([v13 code] == 4097)
       {
       }
 
       else
       {
-        v12 = [v14 code];
+        v12 = [v13 code];
 
-        v3 = v14;
+        v3 = v13;
         if (v12 != 4099)
         {
           goto LABEL_9;
@@ -5739,7 +5816,7 @@ void __61__SUManagerClient_isInstallationKeybagRequiredForDescriptor___block_inv
     {
     }
 
-    v3 = v14;
+    v3 = v13;
   }
 
 LABEL_9:
@@ -5762,21 +5839,20 @@ void __44__SUManagerClient_destroyInstallationKeybag__block_invoke(uint64_t a1, 
   v3 = a2;
   if (v3)
   {
-    v13 = *(a1 + 32);
-    v14 = v3;
+    v13 = v3;
     SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v5, v6, v7, v8, v9, v10, "[SUManagerClient destroyInstallationKeybag]_block_invoke");
-    v11 = [v14 domain];
+    v11 = [v13 domain];
     if ([v11 isEqualToString:*MEMORY[0x277CCA050]])
     {
-      if ([v14 code] == 4097)
+      if ([v13 code] == 4097)
       {
       }
 
       else
       {
-        v12 = [v14 code];
+        v12 = [v13 code];
 
-        v3 = v14;
+        v3 = v13;
         if (v12 != 4099)
         {
           goto LABEL_9;
@@ -5790,7 +5866,7 @@ void __44__SUManagerClient_destroyInstallationKeybag__block_invoke(uint64_t a1, 
     {
     }
 
-    v3 = v14;
+    v3 = v13;
   }
 
 LABEL_9:
@@ -5820,28 +5896,27 @@ LABEL_9:
 
 uint64_t __30__SUManagerClient_slaVersion___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = a2;
+  v14 = a2;
   v3 = [*(a1 + 32) queue];
   dispatch_assert_queue_V2(v3);
 
-  if (v15)
+  if (v14)
   {
-    v14 = *(a1 + 32);
-    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v15, v5, v6, v7, v8, v9, "[SUManagerClient slaVersion:]_block_invoke");
-    v10 = [v15 domain];
+    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v14, v5, v6, v7, v8, v9, "[SUManagerClient slaVersion:]_block_invoke");
+    v10 = [v14 domain];
     if (![v10 isEqualToString:*MEMORY[0x277CCA050]])
     {
 
       goto LABEL_8;
     }
 
-    if ([v15 code] == 4097)
+    if ([v14 code] == 4097)
     {
     }
 
     else
     {
-      v11 = [v15 code];
+      v11 = [v14 code];
 
       if (v11 != 4099)
       {
@@ -5856,7 +5931,7 @@ LABEL_8:
   v12 = *(a1 + 40);
   if (v12)
   {
-    (*(v12 + 16))(v12, 0, v15);
+    (*(v12 + 16))(v12, 0, v14);
   }
 
   return MEMORY[0x2821F9730]();
@@ -5891,27 +5966,26 @@ void __30__SUManagerClient_slaVersion___block_invoke_2(uint64_t a1, void *a2, vo
 
 void __56__SUManagerClient_setMandatorySoftwareUpdateDictionary___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = a2;
+  v14 = a2;
   v3 = [*(a1 + 32) queue];
   dispatch_assert_queue_V2(v3);
 
-  v11 = v15;
-  if (v15)
+  v11 = v14;
+  if (v14)
   {
-    v14 = *(a1 + 32);
     SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v5, v6, v7, v8, v9, v10, "[SUManagerClient setMandatorySoftwareUpdateDictionary:]_block_invoke");
-    v12 = [v15 domain];
+    v12 = [v14 domain];
     if ([v12 isEqualToString:*MEMORY[0x277CCA050]])
     {
-      if ([v15 code] == 4097)
+      if ([v14 code] == 4097)
       {
       }
 
       else
       {
-        v13 = [v15 code];
+        v13 = [v14 code];
 
-        v11 = v15;
+        v11 = v14;
         if (v13 != 4099)
         {
           goto LABEL_9;
@@ -5925,7 +5999,7 @@ void __56__SUManagerClient_setMandatorySoftwareUpdateDictionary___block_invoke(u
     {
     }
 
-    v11 = v15;
+    v11 = v14;
   }
 
 LABEL_9:
@@ -5954,28 +6028,27 @@ LABEL_9:
 
 uint64_t __56__SUManagerClient_getMandatorySoftwareUpdateDictionary___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = a2;
+  v14 = a2;
   v3 = [*(a1 + 32) queue];
   dispatch_assert_queue_V2(v3);
 
-  if (v15)
+  if (v14)
   {
-    v14 = *(a1 + 32);
-    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v15, v5, v6, v7, v8, v9, "[SUManagerClient getMandatorySoftwareUpdateDictionary:]_block_invoke");
-    v10 = [v15 domain];
+    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v14, v5, v6, v7, v8, v9, "[SUManagerClient getMandatorySoftwareUpdateDictionary:]_block_invoke");
+    v10 = [v14 domain];
     if (![v10 isEqualToString:*MEMORY[0x277CCA050]])
     {
 
       goto LABEL_8;
     }
 
-    if ([v15 code] == 4097)
+    if ([v14 code] == 4097)
     {
     }
 
     else
     {
-      v11 = [v15 code];
+      v11 = [v14 code];
 
       if (v11 != 4099)
       {
@@ -5990,7 +6063,7 @@ LABEL_8:
   v12 = *(a1 + 40);
   if (v12)
   {
-    (*(v12 + 16))(v12, 0, v15);
+    (*(v12 + 16))(v12, 0, v14);
   }
 
   return MEMORY[0x2821F9730]();
@@ -6054,21 +6127,20 @@ void __65__SUManagerClient_getMandatorySoftwareUpdateDictionaryWithError___block
   v3 = a2;
   if (v3)
   {
-    v13 = *(a1 + 32);
-    v14 = v3;
+    v13 = v3;
     SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v5, v6, v7, v8, v9, v10, "[SUManagerClient getMandatorySoftwareUpdateDictionaryWithError:]_block_invoke");
-    v11 = [v14 domain];
+    v11 = [v13 domain];
     if ([v11 isEqualToString:*MEMORY[0x277CCA050]])
     {
-      if ([v14 code] == 4097)
+      if ([v13 code] == 4097)
       {
       }
 
       else
       {
-        v12 = [v14 code];
+        v12 = [v13 code];
 
-        v3 = v14;
+        v3 = v13;
         if (v12 != 4099)
         {
           goto LABEL_9;
@@ -6082,7 +6154,7 @@ void __65__SUManagerClient_getMandatorySoftwareUpdateDictionaryWithError___block
     {
     }
 
-    v3 = v14;
+    v3 = v13;
   }
 
 LABEL_9:
@@ -6102,29 +6174,41 @@ void __65__SUManagerClient_getMandatorySoftwareUpdateDictionaryWithError___block
   *(v9 + 40) = v6;
 }
 
+- (void)enableAutomaticUpdateV2:(BOOL)v2
+{
+  v2Copy = v2;
+  SULogInfo(@"%@ called %s", a2, v2, v3, v4, v5, v6, v7, self);
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __43__SUManagerClient_enableAutomaticUpdateV2___block_invoke;
+  v11[3] = &unk_279CABA10;
+  v11[4] = self;
+  v10 = [(SUManagerClient *)self _remoteInterfaceWithErrorHandler:v11];
+  [v10 enableAutomaticUpdateV2:v2Copy];
+}
+
 void __43__SUManagerClient_enableAutomaticUpdateV2___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = a2;
+  v14 = a2;
   v3 = [*(a1 + 32) queue];
   dispatch_assert_queue_V2(v3);
 
-  v11 = v15;
-  if (v15)
+  v11 = v14;
+  if (v14)
   {
-    v14 = *(a1 + 32);
     SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v5, v6, v7, v8, v9, v10, "[SUManagerClient enableAutomaticUpdateV2:]_block_invoke");
-    v12 = [v15 domain];
+    v12 = [v14 domain];
     if ([v12 isEqualToString:*MEMORY[0x277CCA050]])
     {
-      if ([v15 code] == 4097)
+      if ([v14 code] == 4097)
       {
       }
 
       else
       {
-        v13 = [v15 code];
+        v13 = [v14 code];
 
-        v11 = v15;
+        v11 = v14;
         if (v13 != 4099)
         {
           goto LABEL_9;
@@ -6138,7 +6222,7 @@ void __43__SUManagerClient_enableAutomaticUpdateV2___block_invoke(uint64_t a1, v
     {
     }
 
-    v11 = v15;
+    v11 = v14;
   }
 
 LABEL_9:
@@ -6174,21 +6258,20 @@ void __45__SUManagerClient_isAutomaticUpdateV2Enabled__block_invoke(uint64_t a1,
   v3 = a2;
   if (v3)
   {
-    v13 = *(a1 + 32);
-    v14 = v3;
+    v13 = v3;
     SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v5, v6, v7, v8, v9, v10, "[SUManagerClient isAutomaticUpdateV2Enabled]_block_invoke");
-    v11 = [v14 domain];
+    v11 = [v13 domain];
     if ([v11 isEqualToString:*MEMORY[0x277CCA050]])
     {
-      if ([v14 code] == 4097)
+      if ([v13 code] == 4097)
       {
       }
 
       else
       {
-        v12 = [v14 code];
+        v12 = [v13 code];
 
-        v3 = v14;
+        v3 = v13;
         if (v12 != 4099)
         {
           goto LABEL_9;
@@ -6202,35 +6285,47 @@ void __45__SUManagerClient_isAutomaticUpdateV2Enabled__block_invoke(uint64_t a1,
     {
     }
 
-    v3 = v14;
+    v3 = v13;
   }
 
 LABEL_9:
 }
 
+- (void)enableAutomaticDownload:(BOOL)download
+{
+  downloadCopy = download;
+  SULogInfo(@"%@ called %s", a2, download, v3, v4, v5, v6, v7, self);
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __43__SUManagerClient_enableAutomaticDownload___block_invoke;
+  v11[3] = &unk_279CABA10;
+  v11[4] = self;
+  v10 = [(SUManagerClient *)self _remoteInterfaceWithErrorHandler:v11];
+  [v10 enableAutomaticDownload:downloadCopy];
+}
+
 void __43__SUManagerClient_enableAutomaticDownload___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = a2;
+  v14 = a2;
   v3 = [*(a1 + 32) queue];
   dispatch_assert_queue_V2(v3);
 
-  v11 = v15;
-  if (v15)
+  v11 = v14;
+  if (v14)
   {
-    v14 = *(a1 + 32);
     SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v5, v6, v7, v8, v9, v10, "[SUManagerClient enableAutomaticDownload:]_block_invoke");
-    v12 = [v15 domain];
+    v12 = [v14 domain];
     if ([v12 isEqualToString:*MEMORY[0x277CCA050]])
     {
-      if ([v15 code] == 4097)
+      if ([v14 code] == 4097)
       {
       }
 
       else
       {
-        v13 = [v15 code];
+        v13 = [v14 code];
 
-        v11 = v15;
+        v11 = v14;
         if (v13 != 4099)
         {
           goto LABEL_9;
@@ -6244,7 +6339,7 @@ void __43__SUManagerClient_enableAutomaticDownload___block_invoke(uint64_t a1, v
     {
     }
 
-    v11 = v15;
+    v11 = v14;
   }
 
 LABEL_9:
@@ -6280,21 +6375,20 @@ void __45__SUManagerClient_isAutomaticDownloadEnabled__block_invoke(uint64_t a1,
   v3 = a2;
   if (v3)
   {
-    v13 = *(a1 + 32);
-    v14 = v3;
+    v13 = v3;
     SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v5, v6, v7, v8, v9, v10, "[SUManagerClient isAutomaticDownloadEnabled]_block_invoke");
-    v11 = [v14 domain];
+    v11 = [v13 domain];
     if ([v11 isEqualToString:*MEMORY[0x277CCA050]])
     {
-      if ([v14 code] == 4097)
+      if ([v13 code] == 4097)
       {
       }
 
       else
       {
-        v12 = [v14 code];
+        v12 = [v13 code];
 
-        v3 = v14;
+        v3 = v13;
         if (v12 != 4099)
         {
           goto LABEL_9;
@@ -6308,7 +6402,7 @@ void __45__SUManagerClient_isAutomaticDownloadEnabled__block_invoke(uint64_t a1,
     {
     }
 
-    v3 = v14;
+    v3 = v13;
   }
 
 LABEL_9:
@@ -6344,21 +6438,20 @@ void __47__SUManagerClient_isAnyClientInUserInteraction__block_invoke(uint64_t a
   v3 = a2;
   if (v3)
   {
-    v13 = *(a1 + 32);
-    v14 = v3;
+    v13 = v3;
     SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v5, v6, v7, v8, v9, v10, "[SUManagerClient isAnyClientInUserInteraction]_block_invoke");
-    v11 = [v14 domain];
+    v11 = [v13 domain];
     if ([v11 isEqualToString:*MEMORY[0x277CCA050]])
     {
-      if ([v14 code] == 4097)
+      if ([v13 code] == 4097)
       {
       }
 
       else
       {
-        v12 = [v14 code];
+        v12 = [v13 code];
 
-        v3 = v14;
+        v3 = v13;
         if (v12 != 4099)
         {
           goto LABEL_9;
@@ -6372,7 +6465,7 @@ void __47__SUManagerClient_isAnyClientInUserInteraction__block_invoke(uint64_t a
     {
     }
 
-    v3 = v14;
+    v3 = v13;
   }
 
 LABEL_9:
@@ -6404,28 +6497,27 @@ LABEL_9:
 
 uint64_t __46__SUManagerClient_isSoftwareUpdateInProgress___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = a2;
+  v14 = a2;
   v3 = [*(a1 + 32) queue];
   dispatch_assert_queue_V2(v3);
 
-  if (v15)
+  if (v14)
   {
-    v14 = *(a1 + 32);
-    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v15, v5, v6, v7, v8, v9, "[SUManagerClient isSoftwareUpdateInProgress:]_block_invoke");
-    v10 = [v15 domain];
+    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v14, v5, v6, v7, v8, v9, "[SUManagerClient isSoftwareUpdateInProgress:]_block_invoke");
+    v10 = [v14 domain];
     if (![v10 isEqualToString:*MEMORY[0x277CCA050]])
     {
 
       goto LABEL_8;
     }
 
-    if ([v15 code] == 4097)
+    if ([v14 code] == 4097)
     {
     }
 
     else
     {
-      v11 = [v15 code];
+      v11 = [v14 code];
 
       if (v11 != 4099)
       {
@@ -6440,7 +6532,7 @@ LABEL_8:
   v12 = *(a1 + 40);
   if (v12)
   {
-    (*(v12 + 16))(v12, 0, v15);
+    (*(v12 + 16))(v12, 0, v14);
   }
 
   return MEMORY[0x2821F9730]();
@@ -6487,28 +6579,27 @@ void __46__SUManagerClient_isSoftwareUpdateInProgress___block_invoke_2(uint64_t 
 
 uint64_t __49__SUManagerClient_softwareUpdatePathRestriction___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = a2;
+  v14 = a2;
   v3 = [*(a1 + 32) queue];
   dispatch_assert_queue_V2(v3);
 
-  if (v15)
+  if (v14)
   {
-    v14 = *(a1 + 32);
-    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v15, v5, v6, v7, v8, v9, "[SUManagerClient softwareUpdatePathRestriction:]_block_invoke");
-    v10 = [v15 domain];
+    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v14, v5, v6, v7, v8, v9, "[SUManagerClient softwareUpdatePathRestriction:]_block_invoke");
+    v10 = [v14 domain];
     if (![v10 isEqualToString:*MEMORY[0x277CCA050]])
     {
 
       goto LABEL_8;
     }
 
-    if ([v15 code] == 4097)
+    if ([v14 code] == 4097)
     {
     }
 
     else
     {
-      v11 = [v15 code];
+      v11 = [v14 code];
 
       if (v11 != 4099)
       {
@@ -6523,7 +6614,7 @@ LABEL_8:
   v12 = *(a1 + 40);
   if (v12)
   {
-    (*(v12 + 16))(v12, 0, v15);
+    (*(v12 + 16))(v12, 0, v14);
   }
 
   return MEMORY[0x2821F9730]();
@@ -6566,28 +6657,27 @@ void __49__SUManagerClient_softwareUpdatePathRestriction___block_invoke_2(uint64
 
 uint64_t __37__SUManagerClient_isDelayingUpdates___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = a2;
+  v14 = a2;
   v3 = [*(a1 + 32) queue];
   dispatch_assert_queue_V2(v3);
 
-  if (v15)
+  if (v14)
   {
-    v14 = *(a1 + 32);
-    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v15, v5, v6, v7, v8, v9, "[SUManagerClient isDelayingUpdates:]_block_invoke");
-    v10 = [v15 domain];
+    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v14, v5, v6, v7, v8, v9, "[SUManagerClient isDelayingUpdates:]_block_invoke");
+    v10 = [v14 domain];
     if (![v10 isEqualToString:*MEMORY[0x277CCA050]])
     {
 
       goto LABEL_8;
     }
 
-    if ([v15 code] == 4097)
+    if ([v14 code] == 4097)
     {
     }
 
     else
     {
-      v11 = [v15 code];
+      v11 = [v14 code];
 
       if (v11 != 4099)
       {
@@ -6602,7 +6692,7 @@ LABEL_8:
   v12 = *(a1 + 40);
   if (v12)
   {
-    (*(v12 + 16))(v12, 0, v15);
+    (*(v12 + 16))(v12, 0, v14);
   }
 
   return MEMORY[0x2821F9730]();
@@ -6655,28 +6745,27 @@ void __37__SUManagerClient_isDelayingUpdates___block_invoke_2(uint64_t a1, unsig
 
 uint64_t __32__SUManagerClient_delayEndDate___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = a2;
+  v14 = a2;
   v3 = [*(a1 + 32) queue];
   dispatch_assert_queue_V2(v3);
 
-  if (v15)
+  if (v14)
   {
-    v14 = *(a1 + 32);
-    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v15, v5, v6, v7, v8, v9, "[SUManagerClient delayEndDate:]_block_invoke");
-    v10 = [v15 domain];
+    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v14, v5, v6, v7, v8, v9, "[SUManagerClient delayEndDate:]_block_invoke");
+    v10 = [v14 domain];
     if (![v10 isEqualToString:*MEMORY[0x277CCA050]])
     {
 
       goto LABEL_8;
     }
 
-    if ([v15 code] == 4097)
+    if ([v14 code] == 4097)
     {
     }
 
     else
     {
-      v11 = [v15 code];
+      v11 = [v14 code];
 
       if (v11 != 4099)
       {
@@ -6691,7 +6780,7 @@ LABEL_8:
   v12 = *(a1 + 40);
   if (v12)
   {
-    (*(v12 + 16))(v12, 0, v15);
+    (*(v12 + 16))(v12, 0, v14);
   }
 
   return MEMORY[0x2821F9730]();
@@ -6761,21 +6850,20 @@ void __52__SUManagerClient_isSplatOnlyUpdateRollbackAllowed___block_invoke(uint6
   v3 = a2;
   if (v3)
   {
-    v13 = *(a1 + 32);
-    v14 = v3;
+    v13 = v3;
     SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v5, v6, v7, v8, v9, v10, "[SUManagerClient isSplatOnlyUpdateRollbackAllowed:]_block_invoke");
-    v11 = [v14 domain];
+    v11 = [v13 domain];
     if ([v11 isEqualToString:*MEMORY[0x277CCA050]])
     {
-      if ([v14 code] == 4097)
+      if ([v13 code] == 4097)
       {
       }
 
       else
       {
-        v12 = [v14 code];
+        v12 = [v13 code];
 
-        v3 = v14;
+        v3 = v13;
         if (v12 != 4099)
         {
           goto LABEL_9;
@@ -6789,7 +6877,7 @@ void __52__SUManagerClient_isSplatOnlyUpdateRollbackAllowed___block_invoke(uint6
     {
     }
 
-    v3 = v14;
+    v3 = v13;
   }
 
 LABEL_9:
@@ -6825,21 +6913,20 @@ void __53__SUManagerClient_isSplatOnlyUpdateRollbackSuggested__block_invoke(uint
   v3 = a2;
   if (v3)
   {
-    v13 = *(a1 + 32);
-    v14 = v3;
+    v13 = v3;
     SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v5, v6, v7, v8, v9, v10, "[SUManagerClient isSplatOnlyUpdateRollbackSuggested]_block_invoke");
-    v11 = [v14 domain];
+    v11 = [v13 domain];
     if ([v11 isEqualToString:*MEMORY[0x277CCA050]])
     {
-      if ([v14 code] == 4097)
+      if ([v13 code] == 4097)
       {
       }
 
       else
       {
-        v12 = [v14 code];
+        v12 = [v13 code];
 
-        v3 = v14;
+        v3 = v13;
         if (v12 != 4099)
         {
           goto LABEL_9;
@@ -6853,7 +6940,7 @@ void __53__SUManagerClient_isSplatOnlyUpdateRollbackSuggested__block_invoke(uint
     {
     }
 
-    v3 = v14;
+    v3 = v13;
   }
 
 LABEL_9:
@@ -6932,28 +7019,27 @@ LABEL_9:
 
 uint64_t __59__SUManagerClient__consentAutoInstallOperation_withResult___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = a2;
+  v14 = a2;
   v3 = [*(a1 + 32) queue];
   dispatch_assert_queue_V2(v3);
 
-  if (v15)
+  if (v14)
   {
-    v14 = *(a1 + 32);
-    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v15, v5, v6, v7, v8, v9, "[SUManagerClient _consentAutoInstallOperation:withResult:]_block_invoke");
-    v10 = [v15 domain];
+    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v14, v5, v6, v7, v8, v9, "[SUManagerClient _consentAutoInstallOperation:withResult:]_block_invoke");
+    v10 = [v14 domain];
     if (![v10 isEqualToString:*MEMORY[0x277CCA050]])
     {
 
       goto LABEL_8;
     }
 
-    if ([v15 code] == 4097)
+    if ([v14 code] == 4097)
     {
     }
 
     else
     {
-      v11 = [v15 code];
+      v11 = [v14 code];
 
       if (v11 != 4099)
       {
@@ -6968,7 +7054,7 @@ LABEL_8:
   v12 = *(a1 + 40);
   if (v12)
   {
-    (*(v12 + 16))(v12, 0, v15);
+    (*(v12 + 16))(v12, 0, v14);
   }
 
   return MEMORY[0x2821F9730]();
@@ -7015,28 +7101,27 @@ void __59__SUManagerClient__consentAutoInstallOperation_withResult___block_invok
 
 uint64_t __58__SUManagerClient__cancelAutoInstallOperation_withResult___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = a2;
+  v14 = a2;
   v3 = [*(a1 + 32) queue];
   dispatch_assert_queue_V2(v3);
 
-  if (v15)
+  if (v14)
   {
-    v14 = *(a1 + 32);
-    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v15, v5, v6, v7, v8, v9, "[SUManagerClient _cancelAutoInstallOperation:withResult:]_block_invoke");
-    v10 = [v15 domain];
+    SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v14, v5, v6, v7, v8, v9, "[SUManagerClient _cancelAutoInstallOperation:withResult:]_block_invoke");
+    v10 = [v14 domain];
     if (![v10 isEqualToString:*MEMORY[0x277CCA050]])
     {
 
       goto LABEL_8;
     }
 
-    if ([v15 code] == 4097)
+    if ([v14 code] == 4097)
     {
     }
 
     else
     {
-      v11 = [v15 code];
+      v11 = [v14 code];
 
       if (v11 != 4099)
       {
@@ -7051,7 +7136,7 @@ LABEL_8:
   v12 = *(a1 + 40);
   if (v12)
   {
-    (*(v12 + 16))(v12, 0, v15);
+    (*(v12 + 16))(v12, 0, v14);
   }
 
   return MEMORY[0x2821F9730]();
@@ -7087,21 +7172,20 @@ void __45__SUManagerClient_installServerConfiguration__block_invoke(uint64_t a1,
   v3 = a2;
   if (v3)
   {
-    v13 = *(a1 + 32);
-    v14 = v3;
+    v13 = v3;
     SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v5, v6, v7, v8, v9, v10, "[SUManagerClient installServerConfiguration]_block_invoke");
-    v11 = [v14 domain];
+    v11 = [v13 domain];
     if ([v11 isEqualToString:*MEMORY[0x277CCA050]])
     {
-      if ([v14 code] == 4097)
+      if ([v13 code] == 4097)
       {
       }
 
       else
       {
-        v12 = [v14 code];
+        v12 = [v13 code];
 
-        v3 = v14;
+        v3 = v13;
         if (v12 != 4099)
         {
           goto LABEL_9;
@@ -7115,35 +7199,47 @@ void __45__SUManagerClient_installServerConfiguration__block_invoke(uint64_t a1,
     {
     }
 
-    v3 = v14;
+    v3 = v13;
   }
 
 LABEL_9:
 }
 
+- (void)setExclusiveControl:(BOOL)control
+{
+  controlCopy = control;
+  SULogInfo(@"%@ called %s", a2, control, v3, v4, v5, v6, v7, self);
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __39__SUManagerClient_setExclusiveControl___block_invoke;
+  v11[3] = &unk_279CABA10;
+  v11[4] = self;
+  v10 = [(SUManagerClient *)self _remoteInterfaceWithErrorHandler:v11];
+  [v10 setExclusiveControl:controlCopy];
+}
+
 void __39__SUManagerClient_setExclusiveControl___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = a2;
+  v14 = a2;
   v3 = [*(a1 + 32) queue];
   dispatch_assert_queue_V2(v3);
 
-  v11 = v15;
-  if (v15)
+  v11 = v14;
+  if (v14)
   {
-    v14 = *(a1 + 32);
     SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v5, v6, v7, v8, v9, v10, "[SUManagerClient setExclusiveControl:]_block_invoke");
-    v12 = [v15 domain];
+    v12 = [v14 domain];
     if ([v12 isEqualToString:*MEMORY[0x277CCA050]])
     {
-      if ([v15 code] == 4097)
+      if ([v14 code] == 4097)
       {
       }
 
       else
       {
-        v13 = [v15 code];
+        v13 = [v14 code];
 
-        v11 = v15;
+        v11 = v14;
         if (v13 != 4099)
         {
           goto LABEL_9;
@@ -7157,7 +7253,7 @@ void __39__SUManagerClient_setExclusiveControl___block_invoke(uint64_t a1, void 
     {
     }
 
-    v11 = v15;
+    v11 = v14;
   }
 
 LABEL_9:
@@ -7219,13 +7315,6 @@ LABEL_9:
   dispatch_async(queue, v8);
 }
 
-void __76__SUManagerClient_installationConstraintObserverDidRemoveAllObserverBlocks___block_invoke(uint64_t a1)
-{
-  [*(a1 + 32) _invalidateConstraintObserver:*(a1 + 40) withError:0];
-  v9 = *(*(a1 + 32) + 64);
-  SULogInfo(@"installationConstraintObserverDidRemoveAllObserverBlocks: %@: observers: %@", v2, v3, v4, v5, v6, v7, v8, *(a1 + 40));
-}
-
 - (void)preferences:(id)preferences didChangePreference:(id)preference toValue:(id)value
 {
   queue = self->_queue;
@@ -7253,42 +7342,41 @@ void __59__SUManagerClient_preferences_didChangePreference_toValue___block_invok
     }
   }
 
-  v14 = *(a1 + 32);
   SULogInfo(@"%s: Client delegate %@ receive status - %d", v3, v4, v5, v6, v7, v8, v9, "[SUManagerClient preferences:didChangePreference:toValue:]_block_invoke");
 }
 
 - (void)_invalidateAllInstallationConstraintObserversForDownload
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   queue = [(SUManagerClient *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   obj = [(NSMutableSet *)self->_installationConstraintObservers allObjects];
-  v4 = [obj countByEnumeratingWithState:&v15 objects:v21 count:16];
+  v4 = [obj countByEnumeratingWithState:&v14 objects:v20 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v16;
+    v6 = *v15;
     v7 = *MEMORY[0x277CCA470];
     do
     {
       v8 = 0;
       do
       {
-        if (*v16 != v6)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * v8);
+        v9 = *(*(&v14 + 1) + 8 * v8);
         v10 = MEMORY[0x277CCA9B8];
-        v19 = v7;
-        v20 = @"Download changed";
-        v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
+        v18 = v7;
+        v19 = @"Download changed";
+        v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
         v12 = [v10 errorWithDomain:@"com.apple.softwareupdateservices.errors" code:56 userInfo:v11];
         [(SUManagerClient *)self _invalidateConstraintObserver:v9 withError:v12];
 
@@ -7296,13 +7384,11 @@ void __59__SUManagerClient_preferences_didChangePreference_toValue___block_invok
       }
 
       while (v5 != v8);
-      v5 = [obj countByEnumeratingWithState:&v15 objects:v21 count:16];
+      v5 = [obj countByEnumeratingWithState:&v14 objects:v20 count:16];
     }
 
     while (v5);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_invalidateConstraintObserver:(id)observer withError:(id)error
@@ -7870,6 +7956,30 @@ LABEL_8:
   SULogInfo(@"%s: Client delegate %@ receive status - %d", v6, v7, v8, v9, v10, v11, v12, "[SUManagerClient downloadWasInvalidatedForNewUpdateAvailable:]");
 }
 
+- (void)clearingSpaceForDownload:(id)download clearing:(BOOL)clearing
+{
+  clearingCopy = clearing;
+  downloadCopy = download;
+  queue = [(SUManagerClient *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  if (WeakRetained)
+  {
+    v15 = WeakRetained;
+    v16 = objc_loadWeakRetained(&self->_delegate);
+    v17 = objc_opt_respondsToSelector();
+
+    if (v17)
+    {
+      v18 = objc_loadWeakRetained(&self->_delegate);
+      [v18 client:self clearingSpaceForDownload:downloadCopy clearingSpace:clearingCopy];
+    }
+  }
+
+  SULogInfo(@"%s: Client delegate %@ receive status - %d", v8, v9, v10, v11, v12, v13, v14, "[SUManagerClient clearingSpaceForDownload:clearing:]");
+}
+
 - (void)userWantsToDeferInstall
 {
   queue = [(SUManagerClient *)self queue];
@@ -8246,6 +8356,27 @@ LABEL_8:
   SULogInfo(@"%s: Client delegate %@ receive status - %d", v15, v16, v17, v18, v19, v20, v21, "[SUManagerClient rollbackSuggested:info:]");
 }
 
+- (void)installTonightScheduled:(BOOL)scheduled operationID:(id)d
+{
+  scheduledCopy = scheduled;
+  dCopy = d;
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  if (WeakRetained)
+  {
+    v14 = WeakRetained;
+    v15 = objc_loadWeakRetained(&self->_delegate);
+    v16 = objc_opt_respondsToSelector();
+
+    if (v16)
+    {
+      v17 = objc_loadWeakRetained(&self->_delegate);
+      [v17 client:self installTonightScheduled:scheduledCopy operationID:dCopy];
+    }
+  }
+
+  SULogInfo(@"%s: Client delegate %@ receive status - %d", v7, v8, v9, v10, v11, v12, v13, "[SUManagerClient installTonightScheduled:operationID:]");
+}
+
 - (void)autoInstallOperationWasCancelled:(id)cancelled
 {
   installOperationIDsToOperationHandler = self->_installOperationIDsToOperationHandler;
@@ -8314,6 +8445,27 @@ LABEL_8:
   }
 }
 
+- (void)presentingRecommendedUpdate:(id)update shouldPresent:(BOOL)present
+{
+  presentCopy = present;
+  updateCopy = update;
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  if (WeakRetained)
+  {
+    v14 = WeakRetained;
+    v15 = objc_loadWeakRetained(&self->_delegate);
+    v16 = objc_opt_respondsToSelector();
+
+    if (v16)
+    {
+      v17 = objc_loadWeakRetained(&self->_delegate);
+      [v17 client:self presentingRecommendedUpdate:updateCopy shouldPresent:presentCopy];
+    }
+  }
+
+  SULogInfo(@"%s: Client delegate %@ receive status - %d", v7, v8, v9, v10, v11, v12, v13, "[SUManagerClient presentingRecommendedUpdate:shouldPresent:]");
+}
+
 - (void)inUserInteraction:(id)interaction
 {
   interactionCopy = interaction;
@@ -8353,21 +8505,20 @@ void __29__SUManagerClient_resetState__block_invoke(uint64_t a1, void *a2)
   v3 = a2;
   if (v3)
   {
-    v13 = *(a1 + 32);
-    v14 = v3;
+    v13 = v3;
     SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v5, v6, v7, v8, v9, v10, "[SUManagerClient resetState]_block_invoke");
-    v11 = [v14 domain];
+    v11 = [v13 domain];
     if ([v11 isEqualToString:*MEMORY[0x277CCA050]])
     {
-      if ([v14 code] == 4097)
+      if ([v13 code] == 4097)
       {
       }
 
       else
       {
-        v12 = [v14 code];
+        v12 = [v13 code];
 
-        v3 = v14;
+        v3 = v13;
         if (v12 != 4099)
         {
           goto LABEL_9;
@@ -8381,7 +8532,7 @@ void __29__SUManagerClient_resetState__block_invoke(uint64_t a1, void *a2)
     {
     }
 
-    v3 = v14;
+    v3 = v13;
   }
 
 LABEL_9:
@@ -8420,21 +8571,20 @@ void __39__SUManagerClient_rvGetCurrentNeRDInfo__block_invoke(uint64_t a1, void 
   v3 = a2;
   if (v3)
   {
-    v13 = *(a1 + 32);
-    v14 = v3;
+    v13 = v3;
     SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v5, v6, v7, v8, v9, v10, "[SUManagerClient rvGetCurrentNeRDInfo]_block_invoke");
-    v11 = [v14 domain];
+    v11 = [v13 domain];
     if ([v11 isEqualToString:*MEMORY[0x277CCA050]])
     {
-      if ([v14 code] == 4097)
+      if ([v13 code] == 4097)
       {
       }
 
       else
       {
-        v12 = [v14 code];
+        v12 = [v13 code];
 
-        v3 = v14;
+        v3 = v13;
         if (v12 != 4099)
         {
           goto LABEL_9;
@@ -8448,7 +8598,7 @@ void __39__SUManagerClient_rvGetCurrentNeRDInfo__block_invoke(uint64_t a1, void 
     {
     }
 
-    v3 = v14;
+    v3 = v13;
   }
 
 LABEL_9:
@@ -8483,27 +8633,26 @@ void __39__SUManagerClient_rvGetCurrentNeRDInfo__block_invoke_2(uint64_t a1, voi
 
 void __39__SUManagerClient_rvTriggerNeRDUpdate___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = a2;
+  v14 = a2;
   v3 = [*(a1 + 32) queue];
   dispatch_assert_queue_V2(v3);
 
-  v11 = v15;
-  if (v15)
+  v11 = v14;
+  if (v14)
   {
-    v14 = *(a1 + 32);
     SULogDebug(@"%s failed - connection interrupted: %@ error: %@", v4, v5, v6, v7, v8, v9, v10, "[SUManagerClient rvTriggerNeRDUpdate:]_block_invoke");
-    v12 = [v15 domain];
+    v12 = [v14 domain];
     if ([v12 isEqualToString:*MEMORY[0x277CCA050]])
     {
-      if ([v15 code] == 4097)
+      if ([v14 code] == 4097)
       {
       }
 
       else
       {
-        v13 = [v15 code];
+        v13 = [v14 code];
 
-        v11 = v15;
+        v11 = v14;
         if (v13 != 4099)
         {
           goto LABEL_9;
@@ -8517,7 +8666,7 @@ void __39__SUManagerClient_rvTriggerNeRDUpdate___block_invoke(uint64_t a1, void 
     {
     }
 
-    v11 = v15;
+    v11 = v14;
   }
 
 LABEL_9:

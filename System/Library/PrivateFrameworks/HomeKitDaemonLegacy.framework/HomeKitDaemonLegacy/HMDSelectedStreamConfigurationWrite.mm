@@ -25,39 +25,38 @@
 
 - (HMDSelectedStreamConfigurationWrite)initWithCoder:(id)coder
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v23.receiver = self;
-  v23.super_class = HMDSelectedStreamConfigurationWrite;
-  v5 = [(HMDSelectedStreamConfigurationWrite *)&v23 init];
+  v22.receiver = self;
+  v22.super_class = HMDSelectedStreamConfigurationWrite;
+  v5 = [(HMDSelectedStreamConfigurationWrite *)&v22 init];
   if (v5)
   {
     v6 = MEMORY[0x277CBEB98];
-    v26[0] = objc_opt_class();
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:1];
+    v25[0] = objc_opt_class();
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
     v8 = [v6 setWithArray:v7];
     v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"kSelectedStreamConfigurationWrite__SessionControl"];
     sessionControl = v5->_sessionControl;
     v5->_sessionControl = v9;
 
     v11 = MEMORY[0x277CBEB98];
-    v25 = objc_opt_class();
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v25 count:1];
+    v24 = objc_opt_class();
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v24 count:1];
     v13 = [v11 setWithArray:v12];
     v14 = [coderCopy decodeObjectOfClasses:v13 forKey:@"kSelectedStreamConfigurationWrite__SelectedVideoParameters"];
     videoParameters = v5->_videoParameters;
     v5->_videoParameters = v14;
 
     v16 = MEMORY[0x277CBEB98];
-    v24 = objc_opt_class();
-    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v24 count:1];
+    v23 = objc_opt_class();
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v23 count:1];
     v18 = [v16 setWithArray:v17];
     v19 = [coderCopy decodeObjectOfClasses:v18 forKey:@"kSelectedStreamConfigurationWrite__SelectedAudioParameters"];
     audioParameters = v5->_audioParameters;
     v5->_audioParameters = v19;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -80,15 +79,15 @@
 
 - (BOOL)_parseFromTLVData
 {
-  v40[1] = *MEMORY[0x277D85DE8];
+  v39[1] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CFEB38] wrappertlv:1 name:@"kSelectedStreamConfigurationWrite__SessionControl"];
   v4 = [MEMORY[0x277CFEB38] wrappertlv:2 name:@"kSelectedStreamConfigurationWrite__SelectedVideoParameters"];
   v5 = [MEMORY[0x277CFEB38] wrappertlv:3 name:@"kSelectedStreamConfigurationWrite__SelectedAudioParameters"];
-  v40[0] = v3;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:1];
-  v39[0] = v4;
-  v39[1] = v5;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:2];
+  v39[0] = v3;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:1];
+  v38[0] = v4;
+  v38[1] = v5;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:2];
   v8 = [(HAPTLVBase *)self _parseMandatory:v6 optional:v7];
 
   if (v8)
@@ -99,7 +98,7 @@
     sessionControl = self->_sessionControl;
     self->_sessionControl = v11;
 
-    v20 = checkForParseResult(1, v13, v14, v15, v16, v17, v18, v19, self->_sessionControl, v38);
+    v20 = checkForParseResult(1, v13, v14, v15, v16, v17, v18, v19, self->_sessionControl, v37);
     if ([(HMDSessionControl *)self->_sessionControl controlCommand]== 1)
     {
       v21 = [HMDSelectedVideoParameters alloc];
@@ -126,7 +125,6 @@
     LOBYTE(v20) = 0;
   }
 
-  v36 = *MEMORY[0x277D85DE8];
   return v20;
 }
 

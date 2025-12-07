@@ -48,32 +48,32 @@
 
 - (BOOL)_parsePropertyList:(id)list
 {
+  v36 = objc_alloc_init(NSMutableArray);
   v35 = objc_alloc_init(NSMutableArray);
-  v34 = objc_alloc_init(NSMutableArray);
   v4 = [list objectForKey:@"items"];
-  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v37 objects:v45 count:16];
+  v41 = 0u;
+  v5 = [v4 countByEnumeratingWithState:&v38 objects:v46 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v38;
+    v7 = *v39;
     v8 = @"metadata";
     v9 = @"bundle-identifier";
-    v36 = *v38;
+    v37 = *v39;
     do
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v38 != v7)
+        if (*v39 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v11 = *(*(&v37 + 1) + 8 * i);
-        v12 = [v11 objectForKey:{v8, v31, v32}];
+        v11 = *(*(&v38 + 1) + 8 * i);
+        v12 = [v11 objectForKey:{v8, v32}];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -92,23 +92,23 @@
               profileValidated = [v17 profileValidated];
               if (!isInstalled || (v19 & profileValidated & 1) != 0)
               {
-                v28 = [[Download alloc] initWithExternalManifestDictionary:v11];
-                if ([(Download *)v28 valueForProperty:@"download_state.download_error"])
+                v29 = [[Download alloc] initWithExternalManifestDictionary:v11];
+                if ([(Download *)v29 valueForProperty:@"download_state.download_error"])
                 {
-                  v29 = v35;
+                  v30 = v36;
                 }
 
                 else
                 {
-                  v29 = v34;
+                  v30 = v35;
                 }
 
-                [(NSArray *)v29 addObject:v28];
+                [(NSArray *)v30 addObject:v29];
 
                 v4 = v16;
                 v9 = v15;
                 v8 = v14;
-                v7 = v36;
+                v7 = v37;
               }
 
               else
@@ -122,15 +122,21 @@
                 shouldLog = [v21 shouldLog];
                 if ([v21 shouldLogToDisk])
                 {
-                  v23 = shouldLog | 2;
+                  LODWORD(v23) = shouldLog | 2;
                 }
 
                 else
                 {
-                  v23 = shouldLog;
+                  LODWORD(v23) = shouldLog;
                 }
 
-                if (!os_log_type_enabled([v21 OSLogObject], OS_LOG_TYPE_ERROR))
+                oSLogObject = [v21 OSLogObject];
+                if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+                {
+                  v23 = v23;
+                }
+
+                else
                 {
                   v23 &= 2u;
                 }
@@ -138,23 +144,22 @@
                 v4 = v16;
                 v9 = v15;
                 v8 = v14;
-                v7 = v36;
+                v7 = v37;
                 if (v23)
                 {
-                  v24 = objc_opt_class();
-                  v41 = 138412546;
-                  v42 = v24;
-                  v43 = 2112;
-                  v44 = v13;
-                  LODWORD(v32) = 22;
-                  v31 = &v41;
-                  v25 = _os_log_send_and_compose_impl();
-                  if (v25)
+                  v25 = objc_opt_class();
+                  v42 = 138412546;
+                  v43 = v25;
+                  v44 = 2112;
+                  v45 = v13;
+                  LODWORD(v33) = 22;
+                  v26 = _os_log_send_and_compose_impl(v23, 0, 0, 0, &_mh_execute_header, oSLogObject, 16, "%@: Skipping download and install of: %@", &v42, v33);
+                  if (v26)
                   {
-                    v26 = v25;
-                    v27 = [NSString stringWithCString:v25 encoding:4, &v41, v32];
-                    free(v26);
-                    v31 = v27;
+                    v27 = v26;
+                    v28 = [NSString stringWithCString:v26 encoding:4];
+                    free(v27);
+                    v32 = v28;
                     SSFileLog();
                   }
                 }
@@ -164,14 +169,14 @@
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v37 objects:v45 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v38 objects:v46 count:16];
     }
 
     while (v6);
   }
 
-  self->_invalidDownloads = v35;
-  self->_validDownloads = v34;
+  self->_invalidDownloads = v36;
+  self->_validDownloads = v35;
   return 1;
 }
 

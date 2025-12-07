@@ -46,29 +46,29 @@
 
 + (unint64_t)getMinTemporalDistanceFromDate:(id)date toVisitsToLOI:(id)i
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   visits = [i visits];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v8 = [visits countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v8 = [visits countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v19;
+    v10 = *v18;
     v11 = -1;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v19 != v10)
+        if (*v18 != v10)
         {
           objc_enumerationMutation(visits);
         }
 
-        rangeValue = [*(*(&v18 + 1) + 8 * i) rangeValue];
+        rangeValue = [*(*(&v17 + 1) + 8 * i) rangeValue];
         v15 = [self minDistanceFromDate:dateCopy toDateRange:{rangeValue, v14}];
         if (v15 < v11)
         {
@@ -76,7 +76,7 @@
         }
       }
 
-      v9 = [visits countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v9 = [visits countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v9);
@@ -87,7 +87,6 @@
     v11 = -1;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -97,69 +96,70 @@
   searchCopy = search;
   mEMORY[0x277D41BF8] = [MEMORY[0x277D41BF8] sharedInstance];
   v8 = dispatch_semaphore_create(0);
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x3032000000;
-  v22 = __Block_byref_object_copy__22;
-  v23 = __Block_byref_object_dispose__22;
-  v24 = 0;
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __77__ATXMagicalMomentsContexts_locationOfInterestForDate_dateIntervalForSearch___block_invoke;
-  v15[3] = &unk_2785991D8;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = __Block_byref_object_copy__22;
+  v24 = __Block_byref_object_dispose__22;
+  v25 = 0;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __77__ATXMagicalMomentsContexts_locationOfInterestForDate_dateIntervalForSearch___block_invoke;
+  v16[3] = &unk_2785991D8;
   v9 = dateCopy;
-  v16 = v9;
-  v18 = &v19;
+  v17 = v9;
+  v19 = &v20;
   v10 = v8;
-  v17 = v10;
-  [mEMORY[0x277D41BF8] fetchLocationsOfInterestVisitedDuring:searchCopy handler:v15];
-  if ([MEMORY[0x277D425A0] waitForSemaphore:v10 timeoutSeconds:2.0])
+  v18 = v10;
+  [mEMORY[0x277D41BF8] fetchLocationsOfInterestVisitedDuring:searchCopy handler:v16];
+  v11 = [MEMORY[0x277D425A0] waitForSemaphore:v10 timeoutSeconds:2.0];
+  if (v11)
   {
-    v11 = __atxlog_handle_default();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = __atxlog_handle_default(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 0;
-      _os_log_impl(&dword_2263AA000, v11, OS_LOG_TYPE_DEFAULT, "LOI fetch near date timed out", &v14, 2u);
+      v15 = 0;
+      _os_log_impl(&dword_2263AA000, v12, OS_LOG_TYPE_DEFAULT, "LOI fetch near date timed out", &v15, 2u);
     }
 
-    v12 = 0;
+    v13 = 0;
   }
 
   else
   {
-    v12 = v20[5];
+    v13 = v21[5];
   }
 
-  _Block_object_dispose(&v19, 8);
+  _Block_object_dispose(&v20, 8);
 
-  return v12;
+  return v13;
 }
 
 void __77__ATXMagicalMomentsContexts_locationOfInterestForDate_dateIntervalForSearch___block_invoke(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v3 = a2;
-  v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v14;
+    v6 = *v13;
     v7 = 900;
 LABEL_3:
     v8 = 0;
     while (1)
     {
-      if (*v14 != v6)
+      if (*v13 != v6)
       {
         objc_enumerationMutation(v3);
       }
 
-      v9 = *(*(&v13 + 1) + 8 * v8);
-      v10 = [ATXMagicalMomentsContexts getMinTemporalDistanceFromDate:*(a1 + 32) toVisitsToLOI:v9, v13];
+      v9 = *(*(&v12 + 1) + 8 * v8);
+      v10 = [ATXMagicalMomentsContexts getMinTemporalDistanceFromDate:*(a1 + 32) toVisitsToLOI:v9, v12];
       if (v10 < v7)
       {
         v11 = v10;
@@ -173,7 +173,7 @@ LABEL_3:
 
       if (v5 == ++v8)
       {
-        v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
         if (v5)
         {
           goto LABEL_3;
@@ -185,7 +185,6 @@ LABEL_3:
   }
 
   dispatch_semaphore_signal(*(a1 + 40));
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 + (id)timeOfDayPredicatesWithRequestedDurationInHours:(unint64_t)hours shouldPredicateOnStartDate:(BOOL)date
@@ -206,7 +205,7 @@ LABEL_3:
     v19 = 0x18 / hoursCopy;
     if ((v19 * hoursCopy) != 24)
     {
-      v7 = __atxlog_handle_default();
+      v7 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
       {
         [ATXMagicalMomentsContexts timeOfDayPredicatesWithRequestedDurationInHours:v7 shouldPredicateOnStartDate:?];
@@ -265,7 +264,7 @@ LABEL_3:
 
 + (id)partOfWeekPredicatesUsingStartDate:(BOOL)date
 {
-  v9[2] = *MEMORY[0x277D85DE8];
+  v8[2] = *MEMORY[0x277D85DE8];
   if (date)
   {
     v3 = @"isStartDateOnWeekday";
@@ -278,11 +277,9 @@ LABEL_3:
 
   v4 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K == YES", v3];
   v5 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K == NO", v3];
-  v9[0] = v4;
-  v9[1] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:2];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v8[0] = v4;
+  v8[1] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:2];
 
   return v6;
 }

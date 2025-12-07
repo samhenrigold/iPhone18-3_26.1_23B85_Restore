@@ -212,15 +212,15 @@ LABEL_31:
 
 + (int64_t)conditionallyUnenrollIfNotMatchingOfferedTokensWithConfig:(id)config userIdentifier:(id)identifier
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   configCopy = config;
   identifierCopy = identifier;
   v7 = +[SDSeedingLogging mdmHandle];
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v20 = 136446210;
-    v21 = "+[SDMDMConfiguratorImplementation conditionallyUnenrollIfNotMatchingOfferedTokensWithConfig:userIdentifier:]";
-    _os_log_impl(&dword_22E41E000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}s", &v20, 0xCu);
+    v19 = 136446210;
+    v20 = "+[SDMDMConfiguratorImplementation conditionallyUnenrollIfNotMatchingOfferedTokensWithConfig:userIdentifier:]";
+    _os_log_impl(&dword_22E41E000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}s", &v19, 0xCu);
   }
 
   v8 = +[SDBetaManager _currentBetaProgram];
@@ -230,9 +230,9 @@ LABEL_31:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       betaEnrollmentTokens = [v8 betaEnrollmentTokens];
-      v20 = 138543362;
-      v21 = betaEnrollmentTokens;
-      _os_log_impl(&dword_22E41E000, v9, OS_LOG_TYPE_INFO, "Currently enrolled in MDM program with BETs [%{public}@]", &v20, 0xCu);
+      v19 = 138543362;
+      v20 = betaEnrollmentTokens;
+      _os_log_impl(&dword_22E41E000, v9, OS_LOG_TYPE_INFO, "Currently enrolled in MDM program with BETs [%{public}@]", &v19, 0xCu);
     }
 
     tokens = [configCopy tokens];
@@ -246,11 +246,11 @@ LABEL_31:
       {
         programID = [v8 programID];
         betaEnrollmentTokens3 = [v8 betaEnrollmentTokens];
-        v20 = 134218242;
-        v21 = programID;
-        v22 = 2114;
-        v23 = betaEnrollmentTokens3;
-        _os_log_impl(&dword_22E41E000, v14, OS_LOG_TYPE_DEFAULT, "Currently enrolled MDM program [%lu: %{public}@] not in offered in new configuration. Will unenroll.", &v20, 0x16u);
+        v19 = 134218242;
+        v20 = programID;
+        v21 = 2114;
+        v22 = betaEnrollmentTokens3;
+        _os_log_impl(&dword_22E41E000, v14, OS_LOG_TYPE_DEFAULT, "Currently enrolled MDM program [%lu: %{public}@] not in offered in new configuration. Will unenroll.", &v19, 0x16u);
       }
 
       v17 = +[SDDevice _currentDevice];
@@ -258,13 +258,12 @@ LABEL_31:
     }
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 + (BOOL)shouldReturnBecauseOfInvalidTokens:(id)tokens andReportErrorWith:(id)with
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   tokensCopy = tokens;
   withCopy = with;
   v7 = +[SDSeedingLogging mdmHandle];
@@ -280,20 +279,20 @@ LABEL_31:
     v8 = dispatch_group_create();
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v18 = 0x3032000000;
-    v19 = __Block_byref_object_copy_;
-    v20 = __Block_byref_object_dispose_;
-    v21 = 0;
+    v17 = 0x3032000000;
+    v18 = __Block_byref_object_copy_;
+    v19 = __Block_byref_object_dispose_;
+    v20 = 0;
     dispatch_group_enter(v8);
     v9 = +[SDBetaManager sharedManager];
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __89__SDMDMConfiguratorImplementation_shouldReturnBecauseOfInvalidTokens_andReportErrorWith___block_invoke;
-    v14[3] = &unk_2787CBA10;
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __89__SDMDMConfiguratorImplementation_shouldReturnBecauseOfInvalidTokens_andReportErrorWith___block_invoke;
+    v13[3] = &unk_2787CBA10;
     p_buf = &buf;
     v10 = v8;
-    v15 = v10;
-    [v9 validateBetaEnrollmentTokens:tokensCopy errorHandler:v14];
+    v14 = v10;
+    [v9 validateBetaEnrollmentTokens:tokensCopy errorHandler:v13];
 
     dispatch_group_wait(v10, 0xFFFFFFFFFFFFFFFFLL);
     withCopy[2](withCopy, *(*(&buf + 1) + 40));
@@ -315,7 +314,6 @@ LABEL_31:
     v11 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -344,7 +342,7 @@ void __89__SDMDMConfiguratorImplementation_shouldReturnBecauseOfInvalidTokens_an
 
 + (int64_t)enrollWithRequireProgramToken:(id)token language:(id)language userIdentifier:(id)identifier
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   tokenCopy = token;
   languageCopy = language;
   identifierCopy = identifier;
@@ -358,23 +356,23 @@ void __89__SDMDMConfiguratorImplementation_shouldReturnBecauseOfInvalidTokens_an
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v26 = 0x2020000000;
-  v27 = 0;
+  v25 = 0x2020000000;
+  v26 = 0;
   v11 = dispatch_semaphore_create(0);
   v12 = +[SDBetaManager sharedManager];
-  v19 = MEMORY[0x277D85DD0];
-  v20 = 3221225472;
-  v21 = __89__SDMDMConfiguratorImplementation_enrollWithRequireProgramToken_language_userIdentifier___block_invoke;
-  v22 = &unk_2787CBA38;
+  v18 = MEMORY[0x277D85DD0];
+  v19 = 3221225472;
+  v20 = __89__SDMDMConfiguratorImplementation_enrollWithRequireProgramToken_language_userIdentifier___block_invoke;
+  v21 = &unk_2787CBA38;
   p_buf = &buf;
   v13 = v11;
-  v23 = v13;
-  [v12 enrollInProgramWithToken:tokenCopy userIdentifier:identifierCopy language:languageCopy shouldSaveToken:0 completion:&v19];
+  v22 = v13;
+  [v12 enrollInProgramWithToken:tokenCopy userIdentifier:identifierCopy language:languageCopy shouldSaveToken:0 completion:&v18];
 
   v14 = dispatch_time(0, 60000000000);
   if (dispatch_semaphore_wait(v13, v14))
   {
-    v15 = [SDSeedingLogging mdmHandle:v19];
+    v15 = [SDSeedingLogging mdmHandle:v18];
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [SDMDMConfiguratorImplementation enrollWithRequireProgramToken:v15 language:? userIdentifier:?];
@@ -390,34 +388,30 @@ void __89__SDMDMConfiguratorImplementation_shouldReturnBecauseOfInvalidTokens_an
   }
 
   _Block_object_dispose(&buf, 8);
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 + (void)isBetaEnrollmentDisabled
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   localizedDescription = [self localizedDescription];
-  v5 = 138543362;
-  v6 = localizedDescription;
-  _os_log_error_impl(&dword_22E41E000, a2, OS_LOG_TYPE_ERROR, "Failed to load mdm configuration: %{public}@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138543362;
+  v5 = localizedDescription;
+  _os_log_error_impl(&dword_22E41E000, a2, OS_LOG_TYPE_ERROR, "Failed to load mdm configuration: %{public}@", &v4, 0xCu);
 }
 
 + (void)configureWithOfferProgramTokens:(uint64_t)a1 requireProgramToken:(NSObject *)a2 enrollmentPolicy:userIdentifier:language:completion:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = "Unknown";
   if (a1 == 3)
   {
     v2 = "AlwaysOff";
   }
 
-  v4 = 136446210;
-  v5 = v2;
-  _os_log_error_impl(&dword_22E41E000, a2, OS_LOG_TYPE_ERROR, "Unknown enrollment policy: [%{public}s]", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 136446210;
+  v4 = v2;
+  _os_log_error_impl(&dword_22E41E000, a2, OS_LOG_TYPE_ERROR, "Unknown enrollment policy: [%{public}s]", &v3, 0xCu);
 }
 
 @end

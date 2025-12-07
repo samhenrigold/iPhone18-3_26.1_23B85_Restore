@@ -152,7 +152,7 @@ uint64_t __36__CRKExpiredCoursesInteraction_main__block_invoke_2(uint64_t a1, vo
   return v3;
 }
 
-uint64_t __36__CRKExpiredCoursesInteraction_main__block_invoke_3(uint64_t a1)
+void *__36__CRKExpiredCoursesInteraction_main__block_invoke_3(uint64_t a1)
 {
   result = [*(a1 + 32) isExecuting];
   if (result)

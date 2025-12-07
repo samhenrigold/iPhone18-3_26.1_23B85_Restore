@@ -98,7 +98,7 @@
 
                   else
                   {
-                    v20 = logHandle();
+                    v20 = logHandle(0);
                     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
                     {
                       *buf = 138412546;
@@ -178,7 +178,7 @@
 
             if (v27)
             {
-              loga = logHandle();
+              loga = logHandle(v28);
               if (os_log_type_enabled(loga, OS_LOG_TYPE_ERROR))
               {
                 LODWORD(v140) = 138412290;
@@ -189,70 +189,49 @@
 
             else
             {
-              v28 = [EKEvent alloc];
+              v29 = [EKEvent alloc];
               persistentObject = [v98 persistentObject];
-              loga = [(EKEvent *)v28 initWithPersistentObject:persistentObject];
+              loga = [(EKEvent *)v29 initWithPersistentObject:persistentObject];
 
               if ((!(excludeAllDayEvents & 1 | (([loga isAllDay]& 1) == 0)) || (([loga isAllDay]| excludeTimedEvents) & 1) == 0) && (!excludeDeclined || [loga participationStatus]!= 3))
               {
                 calendars = [self calendars];
-                if (!calendars)
+                if (!calendars || ([self calendars], v32 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v98, "calendar"), v33 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v33, "CADObjectID"), v34 = objc_claimAutoreleasedReturnValue(), v35 = objc_msgSend(v32, "containsObject:", v34), v34, v33, v32, calendars, v35))
                 {
-                  goto LABEL_97;
-                }
-
-                calendars2 = [self calendars];
-                calendar = [v98 calendar];
-                cADObjectID = [calendar CADObjectID];
-                v34 = [calendars2 containsObject:cADObjectID];
-
-                if (v34)
-                {
-LABEL_97:
                   eventUUID = [self eventUUID];
-                  if (!eventUUID)
+                  if (!eventUUID || ([v98 uniqueID], v37 = objc_claimAutoreleasedReturnValue(), objc_msgSend(self, "eventUUID"), v38 = objc_claimAutoreleasedReturnValue(), v39 = objc_msgSend(v37, "isEqualToString:", v38), v38, v37, eventUUID, v39))
                   {
-                    goto LABEL_98;
-                  }
-
-                  uniqueID = [v98 uniqueID];
-                  eventUUID2 = [self eventUUID];
-                  v38 = [uniqueID isEqualToString:eventUUID2];
-
-                  if (v38)
-                  {
-LABEL_98:
                     objectID5 = [loga objectID];
-                    v40 = [v106 containsObject:objectID5];
+                    v41 = [v106 containsObject:objectID5];
 
-                    if ((v40 & 1) == 0)
+                    if ((v41 & 1) == 0)
                     {
                       startDate = [self startDate];
                       if (startDate)
                       {
                         endDate = [self endDate];
-                        v43 = endDate != 0;
+                        v44 = endDate != 0;
                       }
 
                       else
                       {
-                        v43 = 0;
+                        v44 = 0;
                       }
 
-                      v44 = MEMORY[0x1E6992F70];
+                      v45 = MEMORY[0x1E6992F70];
                       startDate2 = [loga startDate];
                       endDateUnadjustedForLegacyClients = [loga endDateUnadjustedForLegacyClients];
-                      v82 = [v44 rangeWithStartDate:startDate2 endDate:endDateUnadjustedForLegacyClients];
+                      v82 = [v45 rangeWithStartDate:startDate2 endDate:endDateUnadjustedForLegacyClients];
 
-                      v47 = MEMORY[0x1E6992F70];
+                      v48 = MEMORY[0x1E6992F70];
                       startDate3 = [self startDate];
                       endDate2 = [self endDate];
-                      v81 = [v47 rangeWithStartDate:startDate3 endDate:endDate2];
+                      v81 = [v48 rangeWithStartDate:startDate3 endDate:endDate2];
 
-                      if (v43)
+                      if (v44)
                       {
-                        v50 = [v82 intersectsRange:v81];
-                        if (([loga hasRecurrenceRules]& v43) == 1)
+                        v51 = [v82 intersectsRange:v81];
+                        if (([loga hasRecurrenceRules]& v44) == 1)
                         {
                           startDate5 = objc_opt_new();
                           startDate4 = [self startDate];
@@ -260,14 +239,14 @@ LABEL_98:
                           effectiveTimeZone = [loga effectiveTimeZone];
                           exceptionDates = [loga exceptionDates];
                           LOBYTE(v80) = 1;
-                          v56 = [startDate5 copyOccurrenceDatesWithEKEvent:loga startDate:startDate4 endDate:endDate3 timeZone:effectiveTimeZone exceptionDates:exceptionDates limit:0 adjustDatesForAllDayEvents:v80];
+                          v57 = [startDate5 copyOccurrenceDatesWithEKEvent:loga startDate:startDate4 endDate:endDate3 timeZone:effectiveTimeZone exceptionDates:exceptionDates limit:0 adjustDatesForAllDayEvents:v80];
 
                           goto LABEL_61;
                         }
 
-                        if (!v50)
+                        if (!v51)
                         {
-                          v56 = 0;
+                          v57 = 0;
                           goto LABEL_62;
                         }
                       }
@@ -277,66 +256,66 @@ LABEL_98:
                         [loga hasRecurrenceRules];
                       }
 
-                      v57 = MEMORY[0x1E695DEC8];
+                      v58 = MEMORY[0x1E695DEC8];
                       startDate5 = [loga startDate];
-                      v56 = [v57 arrayWithObject:startDate5];
+                      v57 = [v58 arrayWithObject:startDate5];
 LABEL_61:
 
 LABEL_62:
-                      v58 = [MEMORY[0x1E695DFA8] set];
-                      if (v43)
+                      v59 = [MEMORY[0x1E695DFA8] set];
+                      if (v44)
                       {
                         v113 = 0u;
                         v114 = 0u;
                         v111 = 0u;
                         v112 = 0u;
                         detachedItems2 = [loga detachedItems];
-                        v59 = [detachedItems2 countByEnumeratingWithState:&v111 objects:v132 count:16];
-                        if (v59)
+                        v60 = [detachedItems2 countByEnumeratingWithState:&v111 objects:v132 count:16];
+                        if (v60)
                         {
-                          v60 = *v112;
+                          v61 = *v112;
                           do
                           {
-                            for (k = 0; k != v59; ++k)
+                            for (k = 0; k != v60; ++k)
                             {
-                              if (*v112 != v60)
+                              if (*v112 != v61)
                               {
                                 objc_enumerationMutation(detachedItems2);
                               }
 
-                              v62 = *(*(&v111 + 1) + 8 * k);
-                              objectID6 = [v62 objectID];
-                              v64 = [v96 containsObject:objectID6];
+                              v63 = *(*(&v111 + 1) + 8 * k);
+                              objectID6 = [v63 objectID];
+                              v65 = [v96 containsObject:objectID6];
 
-                              if ((v64 & 1) == 0)
+                              if ((v65 & 1) == 0)
                               {
-                                startDate6 = [v62 startDate];
+                                startDate6 = [v63 startDate];
                                 startDate7 = [self startDate];
                                 endDate4 = [self endDate];
-                                v68 = [startDate6 CalIsBetweenStartDate:startDate7 endDate:endDate4];
+                                v69 = [startDate6 CalIsBetweenStartDate:startDate7 endDate:endDate4];
 
-                                if (v68)
+                                if (v69)
                                 {
-                                  [objc_opt_class() _addEventOccurrenceAndProposedTimeOccurrenceFor:v62 withOccurrenceStartDate:startDate6 toResults:v104 excludeProposed:excludeProposed excludeDeclinedUnlessProposed:excludeDeclinedUnlessProposed excludeSkippedReminders:excludeSkippedReminders];
+                                  [objc_opt_class() _addEventOccurrenceAndProposedTimeOccurrenceFor:v63 withOccurrenceStartDate:startDate6 toResults:v104 excludeProposed:excludeProposed excludeDeclinedUnlessProposed:excludeDeclinedUnlessProposed excludeSkippedReminders:excludeSkippedReminders];
                                 }
 
-                                originalStartDate = [v62 originalStartDate];
+                                originalStartDate = [v63 originalStartDate];
                                 if (originalStartDate)
                                 {
                                   if ([loga isFloating])
                                   {
                                     effectiveTimeZone2 = [loga effectiveTimeZone];
-                                    v71 = [originalStartDate dateInTimeZone:effectiveTimeZone2 fromTimeZone:0];
+                                    v72 = [originalStartDate dateInTimeZone:effectiveTimeZone2 fromTimeZone:0];
 
-                                    originalStartDate = v71;
+                                    originalStartDate = v72;
                                   }
 
-                                  [v58 addObject:originalStartDate];
+                                  [v59 addObject:originalStartDate];
                                 }
 
                                 else
                                 {
-                                  originalStartDate = logHandle();
+                                  originalStartDate = logHandle(0);
                                   if (os_log_type_enabled(originalStartDate, OS_LOG_TYPE_ERROR))
                                   {
                                     [CADEventPredicate(EKPredicateExpanding) expandWithObjectsPendingCommit:buf deletedObjectIDs:&buf[1] andResultArray:originalStartDate];
@@ -345,10 +324,10 @@ LABEL_62:
                               }
                             }
 
-                            v59 = [detachedItems2 countByEnumeratingWithState:&v111 objects:v132 count:16];
+                            v60 = [detachedItems2 countByEnumeratingWithState:&v111 objects:v132 count:16];
                           }
 
-                          while (v59);
+                          while (v60);
                         }
                       }
 
@@ -356,31 +335,31 @@ LABEL_62:
                       v110 = 0u;
                       v107 = 0u;
                       v108 = 0u;
-                      v72 = v56;
-                      v73 = [v72 countByEnumeratingWithState:&v107 objects:v131 count:16];
-                      if (v73)
+                      v73 = v57;
+                      v74 = [v73 countByEnumeratingWithState:&v107 objects:v131 count:16];
+                      if (v74)
                       {
-                        v74 = *v108;
+                        v75 = *v108;
                         do
                         {
-                          for (m = 0; m != v73; ++m)
+                          for (m = 0; m != v74; ++m)
                           {
-                            if (*v108 != v74)
+                            if (*v108 != v75)
                             {
-                              objc_enumerationMutation(v72);
+                              objc_enumerationMutation(v73);
                             }
 
-                            v76 = *(*(&v107 + 1) + 8 * m);
-                            if (([v58 containsObject:v76] & 1) == 0)
+                            v77 = *(*(&v107 + 1) + 8 * m);
+                            if (([v59 containsObject:v77] & 1) == 0)
                             {
-                              [objc_opt_class() _addEventOccurrenceAndProposedTimeOccurrenceFor:v98 withOccurrenceStartDate:v76 toResults:v104 excludeProposed:excludeProposed excludeDeclinedUnlessProposed:excludeDeclinedUnlessProposed excludeSkippedReminders:excludeSkippedReminders];
+                              [objc_opt_class() _addEventOccurrenceAndProposedTimeOccurrenceFor:v98 withOccurrenceStartDate:v77 toResults:v104 excludeProposed:excludeProposed excludeDeclinedUnlessProposed:excludeDeclinedUnlessProposed excludeSkippedReminders:excludeSkippedReminders];
                             }
                           }
 
-                          v73 = [v72 countByEnumeratingWithState:&v107 objects:v131 count:16];
+                          v74 = [v73 countByEnumeratingWithState:&v107 objects:v131 count:16];
                         }
 
-                        while (v73);
+                        while (v74);
                       }
 
                       objectID7 = [loga objectID];
@@ -397,14 +376,12 @@ LABEL_62:
       }
 
       while (obja != v89);
-      v78 = [v86 countByEnumeratingWithState:&v115 objects:v133 count:16];
-      v89 = v78;
+      v79 = [v86 countByEnumeratingWithState:&v115 objects:v133 count:16];
+      v89 = v79;
     }
 
-    while (v78);
+    while (v79);
   }
-
-  v79 = *MEMORY[0x1E69E9840];
 }
 
 + (void)_addEventOccurrenceAndProposedTimeOccurrenceFor:()EKPredicateExpanding withOccurrenceStartDate:toResults:excludeProposed:excludeDeclinedUnlessProposed:excludeSkippedReminders:

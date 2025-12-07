@@ -93,7 +93,7 @@
 {
   y = point.y;
   x = point.x;
-  [(KNBuildFlameSystem *)self duration];
+  objc_msgSend_duration(self, a2);
   v7 = 1.0 / fmax(v6, 2.0);
   if (v7 <= 1.0)
   {

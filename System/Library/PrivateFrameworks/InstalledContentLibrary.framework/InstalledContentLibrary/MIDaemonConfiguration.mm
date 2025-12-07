@@ -205,7 +205,7 @@ LABEL_48:
   return v2;
 }
 
-uint64_t __39__MIDaemonConfiguration_sharedInstance__block_invoke()
+uint64_t __39__MIDaemonConfiguration_sharedInstance__block_invoke(uint64_t a1)
 {
   sharedInstance_daemonConfigInstance = objc_alloc_init(objc_opt_class());
 
@@ -537,8 +537,17 @@ uint64_t __51__MIDaemonConfiguration_localSigningIsUnrestricted__block_invoke(ui
 - (void)init
 {
   OUTLINED_FUNCTION_1(self, a2);
-  os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-  OUTLINED_FUNCTION_0_0();
+  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  {
+    v7 = 3;
+  }
+
+  else
+  {
+    v7 = 2;
+  }
+
+  OUTLINED_FUNCTION_0_0(v7, v2, v3, v4, &dword_1B16A0000, v5, v6, "Expected headroom in installd (%zu) must be less than expected jetsam limit (%zu) in installd");
   _os_crash_msg();
   __break(1u);
 }
@@ -546,8 +555,17 @@ uint64_t __51__MIDaemonConfiguration_localSigningIsUnrestricted__block_invoke(ui
 - (void)daemonUserDataLibraryDirectory
 {
   OUTLINED_FUNCTION_1(self, a2);
-  os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-  OUTLINED_FUNCTION_0_0();
+  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  {
+    v7 = 3;
+  }
+
+  else
+  {
+    v7 = 2;
+  }
+
+  OUTLINED_FUNCTION_0_0(v7, v2, v3, v4, &dword_1B16A0000, v5, v6, "Failed to get installd daemon container: %@");
   _os_crash_msg();
   __break(1u);
 }
@@ -555,8 +573,17 @@ uint64_t __51__MIDaemonConfiguration_localSigningIsUnrestricted__block_invoke(ui
 - (void)installcoordinationdUserDataLibraryDirectory
 {
   OUTLINED_FUNCTION_1(self, a2);
-  os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-  OUTLINED_FUNCTION_0_0();
+  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  {
+    v7 = 3;
+  }
+
+  else
+  {
+    v7 = 2;
+  }
+
+  OUTLINED_FUNCTION_0_0(v7, v2, v3, v4, &dword_1B16A0000, v5, v6, "Failed to get installcoordinationd daemon container: %@");
   _os_crash_msg();
   __break(1u);
 }

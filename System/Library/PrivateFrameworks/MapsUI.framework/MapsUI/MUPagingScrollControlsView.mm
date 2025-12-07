@@ -195,32 +195,30 @@ uint64_t __54__MUPagingScrollControlsView__updateChevronVisibility__block_invoke
 
 - (void)_setupConstraints
 {
-  v20[4] = *MEMORY[0x1E69E9840];
+  v19[4] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DF70]);
   centerYAnchor = [(UIButton *)self->_previousPageButton centerYAnchor];
   centerYAnchor2 = [(MUPagingScrollControlsView *)self centerYAnchor];
-  v17 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-  v20[0] = v17;
+  v16 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
+  v19[0] = v16;
   centerYAnchor3 = [(UIButton *)self->_nextPageButton centerYAnchor];
   centerYAnchor4 = [(MUPagingScrollControlsView *)self centerYAnchor];
   v5 = [centerYAnchor3 constraintEqualToAnchor:centerYAnchor4];
-  v20[1] = v5;
+  v19[1] = v5;
   leftAnchor = [(UIButton *)self->_previousPageButton leftAnchor];
   leftAnchor2 = [(MUPagingScrollControlsView *)self leftAnchor];
   v8 = [leftAnchor constraintEqualToAnchor:leftAnchor2];
-  v20[2] = v8;
+  v19[2] = v8;
   rightAnchor = [(UIButton *)self->_nextPageButton rightAnchor];
   rightAnchor2 = [(MUPagingScrollControlsView *)self rightAnchor];
   v11 = [rightAnchor constraintEqualToAnchor:rightAnchor2];
-  v20[3] = v11;
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:4];
+  v19[3] = v11;
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:4];
   [v3 addObjectsFromArray:v12];
 
   v13 = MEMORY[0x1E696ACD8];
   v14 = [v3 copy];
   [v13 activateConstraints:v14];
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setupSubviews

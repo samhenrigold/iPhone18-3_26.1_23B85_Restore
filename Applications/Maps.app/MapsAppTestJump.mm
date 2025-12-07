@@ -199,7 +199,7 @@
 - (BOOL)runTest
 {
   testName = [(MapsAppTest *)self testName];
-  options = [(MapsAppTest *)self options];
+  v4 = objc_msgSend_options(self);
   NSLog(@"test is %@", testName);
   v5 = [testName rangeOfString:@"-"];
   if (v5 == 0x7FFFFFFFFFFFFFFFLL)
@@ -211,8 +211,8 @@
   v7 = NSSelectorFromString(v6);
   if ((objc_opt_respondsToSelector() & 1) == 0)
   {
-    v8 = [options objectForKeyedSubscript:@"latitude"];
-    if (!v8 || (v9 = v8, [options objectForKeyedSubscript:@"longitude"], v10 = objc_claimAutoreleasedReturnValue(), v10, v9, !v10))
+    v8 = [v4 objectForKeyedSubscript:@"latitude"];
+    if (!v8 || (v9 = v8, [v4 objectForKeyedSubscript:@"longitude"], v10 = objc_claimAutoreleasedReturnValue(), v10, v9, !v10))
     {
       v14 = 0;
       goto LABEL_12;
@@ -281,20 +281,20 @@ LABEL_12:
       }
     }
 
-    options = [(MapsAppTest *)v9 options];
-    _mapstest_hasAltitude = [options _mapstest_hasAltitude];
+    v18 = objc_msgSend_options(v9);
+    _mapstest_hasAltitude = [v18 _mapstest_hasAltitude];
 
     if (_mapstest_hasAltitude)
     {
-      options2 = [(MapsAppTest *)v9 options];
-      [options2 _mapstest_altitude];
+      v20 = objc_msgSend_options(v9);
+      [v20 _mapstest_altitude];
       v9->_endPoint.altitude = v21;
 
       v9->_altitudeIsRegionSize = 0;
     }
 
-    options3 = [(MapsAppTest *)v9 options];
-    v9->_waitSecondsForMapViewSetup = [options3 _mapstest_waitSecondsForMapViewSetup];
+    v22 = objc_msgSend_options(v9);
+    v9->_waitSecondsForMapViewSetup = [v22 _mapstest_waitSecondsForMapViewSetup];
   }
 
   return v9;

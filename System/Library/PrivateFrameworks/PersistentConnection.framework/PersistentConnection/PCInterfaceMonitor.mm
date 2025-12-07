@@ -20,28 +20,26 @@
 
 - (int)currentRAT
 {
-  internal = self->_internal;
   if ((objc_opt_respondsToSelector() & 1) == 0)
   {
     return -1;
   }
 
-  v4 = self->_internal;
+  internal = self->_internal;
 
-  return [(PCInterfaceUsabilityMonitorProtocol *)v4 currentRAT];
+  return [(PCInterfaceUsabilityMonitorProtocol *)internal currentRAT];
 }
 
 - (BOOL)isLTEWithCDRX
 {
-  internal = self->_internal;
   if ((objc_opt_respondsToSelector() & 1) == 0)
   {
     return 0;
   }
 
-  v4 = self->_internal;
+  internal = self->_internal;
 
-  return [(PCInterfaceUsabilityMonitorProtocol *)v4 isLTEWithCDRX];
+  return [(PCInterfaceUsabilityMonitorProtocol *)internal isLTEWithCDRX];
 }
 
 + (BOOL)isNetworkingPowerExpensiveToUse
@@ -180,33 +178,33 @@ LABEL_7:
 
 - (void)interfaceLinkQualityChanged:(id)changed previousLinkQuality:(int)quality
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
   selfCopy = self;
   objc_sync_enter(selfCopy);
   v7 = [(NSMapTable *)selfCopy->_delegateMap copy];
   objc_sync_exit(selfCopy);
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v8 = v7;
-  v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v9)
   {
-    v10 = *v19;
+    v10 = *v18;
     do
     {
       v11 = 0;
       do
       {
-        if (*v19 != v10)
+        if (*v18 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
-        v12 = *(*(&v18 + 1) + 8 * v11);
+        v12 = *(*(&v17 + 1) + 8 * v11);
         if (objc_opt_respondsToSelector())
         {
           v13 = [v8 objectForKey:{v12, changedCopy}];
@@ -224,13 +222,11 @@ LABEL_7:
       }
 
       while (v9 != v11);
-      v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v9);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __70__PCInterfaceMonitor_interfaceLinkQualityChanged_previousLinkQuality___block_invoke(uint64_t a1)
@@ -243,33 +239,33 @@ void __70__PCInterfaceMonitor_interfaceLinkQualityChanged_previousLinkQuality___
 
 - (void)interfaceReachabilityChanged:(id)changed
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
   selfCopy = self;
   objc_sync_enter(selfCopy);
   v5 = [(NSMapTable *)selfCopy->_delegateMap copy];
   objc_sync_exit(selfCopy);
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v6 = v5;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       v9 = 0;
       do
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * v9);
+        v10 = *(*(&v14 + 1) + 8 * v9);
         if (objc_opt_respondsToSelector())
         {
           v11 = [v6 objectForKey:v10];
@@ -286,13 +282,11 @@ void __70__PCInterfaceMonitor_interfaceLinkQualityChanged_previousLinkQuality___
       }
 
       while (v7 != v9);
-      v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __51__PCInterfaceMonitor_interfaceReachabilityChanged___block_invoke(uint64_t a1)
@@ -305,33 +299,33 @@ void __51__PCInterfaceMonitor_interfaceReachabilityChanged___block_invoke(uint64
 
 - (void)interfaceRadioHotnessChanged:(id)changed
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
   selfCopy = self;
   objc_sync_enter(selfCopy);
   v5 = [(NSMapTable *)selfCopy->_delegateMap copy];
   objc_sync_exit(selfCopy);
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v6 = v5;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       v9 = 0;
       do
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * v9);
+        v10 = *(*(&v14 + 1) + 8 * v9);
         if (objc_opt_respondsToSelector())
         {
           v11 = [v6 objectForKey:v10];
@@ -348,13 +342,11 @@ void __51__PCInterfaceMonitor_interfaceReachabilityChanged___block_invoke(uint64
       }
 
       while (v7 != v9);
-      v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __51__PCInterfaceMonitor_interfaceRadioHotnessChanged___block_invoke(uint64_t a1)
@@ -367,33 +359,33 @@ void __51__PCInterfaceMonitor_interfaceRadioHotnessChanged___block_invoke(uint64
 
 - (void)interfaceConstraintChanged:(id)changed
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
   selfCopy = self;
   objc_sync_enter(selfCopy);
   v5 = [(NSMapTable *)selfCopy->_delegateMap copy];
   objc_sync_exit(selfCopy);
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v6 = v5;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       v9 = 0;
       do
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * v9);
+        v10 = *(*(&v14 + 1) + 8 * v9);
         if (objc_opt_respondsToSelector())
         {
           v11 = [v6 objectForKey:v10];
@@ -410,13 +402,11 @@ void __51__PCInterfaceMonitor_interfaceRadioHotnessChanged___block_invoke(uint64
       }
 
       while (v7 != v9);
-      v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __49__PCInterfaceMonitor_interfaceConstraintChanged___block_invoke(uint64_t a1)
@@ -429,33 +419,30 @@ void __49__PCInterfaceMonitor_interfaceConstraintChanged___block_invoke(uint64_t
 
 - (__CFString)wwanInterfaceName
 {
-  internal = self->_internal;
   if ((objc_opt_respondsToSelector() & 1) == 0)
   {
     return 0;
   }
 
-  v4 = self->_internal;
+  internal = self->_internal;
 
-  return [(PCInterfaceUsabilityMonitorProtocol *)v4 wwanInterfaceName];
+  return [(PCInterfaceUsabilityMonitorProtocol *)internal wwanInterfaceName];
 }
 
 - (unint64_t)interface5GMode
 {
-  internal = self->_internal;
   if ((objc_opt_respondsToSelector() & 1) == 0)
   {
     return 0;
   }
 
-  v4 = self->_internal;
+  internal = self->_internal;
 
-  return [(PCInterfaceUsabilityMonitorProtocol *)v4 interface5GMode];
+  return [(PCInterfaceUsabilityMonitorProtocol *)internal interface5GMode];
 }
 
 - (NSString)networkCode
 {
-  internal = self->_internal;
   if (objc_opt_respondsToSelector())
   {
     networkCode = [(PCInterfaceUsabilityMonitorProtocol *)self->_internal networkCode];

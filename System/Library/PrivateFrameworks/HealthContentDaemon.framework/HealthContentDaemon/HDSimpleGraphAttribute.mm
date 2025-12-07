@@ -50,13 +50,12 @@
 - (id)description
 {
   v3 = MEMORY[0x277CCACA8];
-  v8.receiver = self;
-  v8.super_class = HDSimpleGraphAttribute;
-  v4 = [(HDSimpleGraphObject *)&v8 description];
-  type = self->_type;
-  v6 = [v3 stringWithFormat:@"<%@ %lld->%lld = %@>", v4, self->_nodeID, type, self->_value];
+  v7.receiver = self;
+  v7.super_class = HDSimpleGraphAttribute;
+  v4 = [(HDSimpleGraphObject *)&v7 description];
+  v5 = [v3 stringWithFormat:@"<%@ %lld->%lld = %@>", v4, self->_nodeID, self->_type, self->_value];
 
-  return v6;
+  return v5;
 }
 
 @end

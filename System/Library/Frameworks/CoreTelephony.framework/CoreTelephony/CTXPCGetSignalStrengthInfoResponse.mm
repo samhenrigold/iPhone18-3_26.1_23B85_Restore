@@ -8,16 +8,15 @@
 
 - (CTXPCGetSignalStrengthInfoResponse)initWithSignalStrengthInfo:(id)info
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   infoCopy = info;
-  v10 = @"signalInfo";
-  v11[0] = infoCopy;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
-  v9.receiver = self;
-  v9.super_class = CTXPCGetSignalStrengthInfoResponse;
-  v6 = [(CTXPCMessage *)&v9 initWithNamedArguments:v5];
+  v9 = @"signalInfo";
+  v10[0] = infoCopy;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8.receiver = self;
+  v8.super_class = CTXPCGetSignalStrengthInfoResponse;
+  v6 = [(CTXPCMessage *)&v8 initWithNamedArguments:v5];
 
-  v7 = *MEMORY[0x1E69E9840];
   return v6;
 }
 

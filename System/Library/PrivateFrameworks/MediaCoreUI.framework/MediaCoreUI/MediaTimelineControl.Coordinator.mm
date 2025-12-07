@@ -16,7 +16,7 @@
 
 - (NSArray)timeRangeMarks
 {
-  sub_1C592535C(0, &qword_1EC1961A8);
+  sub_1C592535C(0, &qword_1EC1961A8, 0x1E6958620);
 
   v2 = sub_1C5BCB044();
 
@@ -25,7 +25,7 @@
 
 - (void)setTimeRangeMarks:(id)marks
 {
-  sub_1C592535C(0, &qword_1EC1961A8);
+  sub_1C592535C(0, &qword_1EC1961A8, 0x1E6958620);
   *(self + OBJC_IVAR____TtCV11MediaCoreUI20MediaTimelineControl11Coordinator_timeRangeMarks) = sub_1C5BCB054();
 }
 
@@ -72,7 +72,11 @@
   top = insets.top;
   controlCopy = control;
   selfCopy = self;
-  sub_1C5AA2A04(top, left, bottom, right);
+  v10.n128_f64[0] = top;
+  v11.n128_f64[0] = left;
+  v12.n128_f64[0] = bottom;
+  v13.n128_f64[0] = right;
+  sub_1C5AA2A04(v10, v11, v12, v13);
 }
 
 - (CGSize)timeRangeMark:(id)mark sizeInFrame:(CGRect)frame

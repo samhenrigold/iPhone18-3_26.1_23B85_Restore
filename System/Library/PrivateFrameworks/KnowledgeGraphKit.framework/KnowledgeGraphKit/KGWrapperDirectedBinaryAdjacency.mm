@@ -232,15 +232,14 @@
 
 - (NSString)description
 {
-  v3 = *(&self->super.isa + OBJC_IVAR____TtC17KnowledgeGraphKit32KGWrapperDirectedBinaryAdjacency_wrappedValue);
   sub_255889D18();
   selfCopy = self;
 
   sub_2559652A0();
 
-  v5 = sub_2559653D0();
+  v4 = sub_2559653D0();
 
-  return v5;
+  return v4;
 }
 
 - (id)mutableCopy

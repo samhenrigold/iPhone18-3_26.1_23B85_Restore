@@ -19,20 +19,20 @@
 
 + (BOOL)isAvailable
 {
-  v2 = sub_10001A3E8();
-  v3 = sub_1000247AC(v2);
-  if ((v3 & 1) == 0)
+  sub_10001A3E8(self, a2);
+  v2 = sub_1000247AC();
+  if (!v2)
   {
     if (qword_1025D4510 != -1)
     {
       sub_1018EFFA0();
     }
 
-    v4 = qword_1025D4518;
+    v3 = qword_1025D4518;
     if (os_log_type_enabled(qword_1025D4518, OS_LOG_TYPE_ERROR))
     {
-      *v6 = 0;
-      _os_log_impl(dword_100000000, v4, OS_LOG_TYPE_ERROR, "Background InertialOdometry not supported", v6, 2u);
+      *v5 = 0;
+      _os_log_impl(dword_100000000, v3, OS_LOG_TYPE_ERROR, "Background InertialOdometry not supported", v5, 2u);
     }
 
     if (sub_10000A100(121, 0))
@@ -41,7 +41,7 @@
     }
   }
 
-  return v3;
+  return v2;
 }
 
 + (void)becameFatallyBlocked:(id)blocked index:(unint64_t)index
@@ -133,8 +133,8 @@
   [-[CLBackgroundInertialOdometryService universe](self "universe")];
   if (self->_backgroundBatchDispatcher.__ptr_)
   {
-    v3 = sub_10017C7AC(0);
-    sub_10095D9F8(v3, 51, self->_backgroundBatchDispatcher.__ptr_);
+    v4 = sub_10017C7AC(0, v3);
+    sub_10095D9F8(v4, 51, self->_backgroundBatchDispatcher.__ptr_);
     ptr = self->_backgroundBatchDispatcher.__ptr_;
     self->_backgroundBatchDispatcher.__ptr_ = 0;
     if (ptr)
@@ -257,11 +257,11 @@
     do
     {
       v6 = *(&data->var12[4] + v4 + 1);
-      v71[0] = _NSConcreteStackBlock;
-      v71[1] = 3221225472;
-      v72 = sub_10063BA1C;
-      v73 = &unk_102464BE8;
-      v74 = v6;
+      v67[0] = _NSConcreteStackBlock;
+      v67[1] = 3221225472;
+      v68 = sub_10063BA1C;
+      v69 = &unk_102464BE8;
+      v70 = v6;
       if (v6 == 1)
       {
         if (qword_1025D4510 != -1)
@@ -278,7 +278,7 @@
 
         if (sub_10000A100(121, 2))
         {
-          sub_1018F03D0(&v68, v69);
+          sub_1018F03D0(&v64, v65);
         }
       }
 
@@ -303,38 +303,34 @@
       v50 = v11;
       self->_isStatic = v8;
       LODWORD(v3) = *&v54[4 * v4];
-      v76[0] = [NSNumber numberWithFloat:v3];
+      v71[0] = [NSNumber numberWithFloat:v3];
       LODWORD(v12) = *&v53[4 * v4];
-      v76[1] = [NSNumber numberWithFloat:v12];
+      v71[1] = [NSNumber numberWithFloat:v12];
       LODWORD(v13) = *&v52[4 * v4];
-      v76[2] = [NSNumber numberWithFloat:v13];
+      v71[2] = [NSNumber numberWithFloat:v13];
       LODWORD(v14) = *&v51[4 * v4];
-      v76[3] = [NSNumber numberWithFloat:v14];
-      [(CLBackgroundInertialOdometryService *)self setAttitude:[NSArray arrayWithObjects:v76 count:4]];
+      v71[3] = [NSNumber numberWithFloat:v14];
+      [(CLBackgroundInertialOdometryService *)self setAttitude:[NSArray arrayWithObjects:v71 count:4]];
       v3 = *(&data->var12[2] + 1) - *(self->_geomagneticModelClient.__ptr_ + 1);
       *&v3 = v3;
       self->_rotationArbitraryToTrueNorth = *&v3;
       if ((v10 & 1) == 0 || !self->_isStatic)
       {
-        v66 = 0u;
-        v67 = 0u;
-        v64 = 0u;
-        v65 = 0u;
         obj = [(CLBackgroundInertialOdometryService *)self activeClients];
-        v57 = [(NSMutableSet *)obj countByEnumeratingWithState:&v64 objects:v75 count:16];
+        v57 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj);
         if (v57)
         {
-          v49 = *v65;
+          v49 = MEMORY[0];
           do
           {
             for (i = 0; i != v57; i = i + 1)
             {
-              if (*v65 != v49)
+              if (MEMORY[0] != v49)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v16 = *(*(&v64 + 1) + 8 * i);
+              v16 = *(8 * i);
               v62 = [CMOdometry alloc];
               if (v5[v4])
               {
@@ -347,7 +343,7 @@
                 v18 = 0;
               }
 
-              v61 = v72(v71, v18);
+              v61 = v68(v67, v18);
               if ((v5[v4] & 2) != 0)
               {
                 *&v19 = *(&data->var2[v4 + 2] + 1);
@@ -359,7 +355,7 @@
                 v20 = 0;
               }
 
-              v60 = v72(v71, v20);
+              v60 = v68(v67, v20);
               v63 = v16;
               if ((v5[v4] & 4) != 0)
               {
@@ -372,28 +368,28 @@
                 v22 = 0;
               }
 
-              v59 = v72(v71, v22);
+              v59 = v68(v67, v22);
               *&v23 = *(&data->var4[v4 + 3] + 1);
               v24 = [NSNumber numberWithFloat:v23];
-              v58 = v72(v71, v24);
+              v58 = v68(v67, v24);
               *&v25 = *(&data->var6[v4 + 2] + 1);
               v26 = [NSNumber numberWithFloat:v25];
-              v27 = v72(v71, v26);
+              v27 = v68(v67, v26);
               *&v28 = *(&data->var7[v4 + 2] + 1);
               v29 = [NSNumber numberWithFloat:v28];
-              v30 = v72(v71, v29);
+              v30 = v68(v67, v29);
               LODWORD(v31) = *&v54[4 * v4];
               v32 = [NSNumber numberWithFloat:v31];
-              v33 = v72(v71, v32);
+              v33 = v68(v67, v32);
               LODWORD(v34) = *&v53[4 * v4];
               v35 = [NSNumber numberWithFloat:v34];
-              v36 = v72(v71, v35);
+              v36 = v68(v67, v35);
               LODWORD(v37) = *&v52[4 * v4];
               v38 = [NSNumber numberWithFloat:v37];
-              v39 = v72(v71, v38);
+              v39 = v68(v67, v38);
               LODWORD(v40) = *&v51[4 * v4];
               v41 = [NSNumber numberWithFloat:v40];
-              v42 = v72(v71, v41);
+              v42 = v68(v67, v41);
               v43 = *(&data->var12[2] + 1) - *(self->_geomagneticModelClient.__ptr_ + 1);
               *&v43 = v43;
               BYTE2(v46) = data->var16[v4 + 1];
@@ -411,7 +407,7 @@
               v5 = &data->var4[2] + 1;
             }
 
-            v57 = [(NSMutableSet *)obj countByEnumeratingWithState:&v64 objects:v75 count:16];
+            v57 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj);
           }
 
           while (v57);
@@ -436,9 +432,9 @@
   v4 = qword_1025D4518;
   if (os_log_type_enabled(qword_1025D4518, OS_LOG_TYPE_DEFAULT))
   {
-    v7[0] = 67240192;
-    v7[1] = [(NSMutableSet *)[(CLBackgroundInertialOdometryService *)self activeClients] count];
-    _os_log_impl(dword_100000000, v4, OS_LOG_TYPE_DEFAULT, "Number of BIO clients: %{public}d", v7, 8u);
+    v9[0] = 67240192;
+    v9[1] = [(NSMutableSet *)[(CLBackgroundInertialOdometryService *)self activeClients] count];
+    _os_log_impl(dword_100000000, v4, OS_LOG_TYPE_DEFAULT, "Number of BIO clients: %{public}d", v9, 8u);
   }
 
   if (sub_10000A100(121, 2))
@@ -446,17 +442,17 @@
     sub_1018F04DC(self);
   }
 
-  v5 = sub_10017C7AC(0);
-  sub_1005AD970(v5, v3 != 0, self->_enableMotionSimulation, self->_trajectorySampleInterval);
+  v6 = sub_10017C7AC(0, v5);
+  sub_1005AD970(v6, v3 != 0, self->_enableMotionSimulation, self->_trajectorySampleInterval);
   ptr = self->_geomagneticModelClient.__ptr_;
   if (v3)
   {
-    sub_100E28B84(ptr);
+    sub_100E28B84(ptr, v7);
   }
 
   else
   {
-    sub_100E28DD0(ptr);
+    sub_100E28DD0(ptr, v7);
     self->_isStatic = 0;
     [(CLBackgroundInertialOdometryService *)self setAttitude:0];
     self->_rotationArbitraryToTrueNorth = 0.0;
@@ -470,7 +466,7 @@
   v13 = 0u;
   v14 = 0u;
   activeClients = [(CLBackgroundInertialOdometryService *)self activeClients];
-  v5 = [(NSMutableSet *)activeClients countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = objc_msgSend_countByEnumeratingWithState_objects_count_(activeClients);
   if (!v5)
   {
     return 0;
@@ -495,7 +491,7 @@ LABEL_3:
 
     if (v6 == ++v8)
     {
-      v6 = [(NSMutableSet *)activeClients countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(activeClients);
       if (v6)
       {
         goto LABEL_3;

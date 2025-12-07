@@ -136,25 +136,25 @@ LABEL_14:
   [flush addFinishBlock:v5];
 }
 
-void __37__AMSAuthenticateMetrics_flushEvents__block_invoke()
+void __37__AMSAuthenticateMetrics_flushEvents__block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = +[AMSLogConfig sharedAccountsConfig];
-  if (!v0)
+  v9 = *MEMORY[0x1E69E9840];
+  v1 = +[AMSLogConfig sharedAccountsConfig];
+  if (!v1)
   {
-    v0 = +[AMSLogConfig sharedConfig];
+    v1 = +[AMSLogConfig sharedConfig];
   }
 
-  v1 = [v0 OSLogObject];
-  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
+  v2 = [v1 OSLogObject];
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v2 = objc_opt_class();
-    v3 = AMSLogKey();
-    v4 = 138543618;
-    v5 = v2;
-    v6 = 2114;
-    v7 = v3;
-    _os_log_impl(&dword_192869000, v1, OS_LOG_TYPE_DEBUG, "%{public}@: [%{public}@] Flushing Authentication Metrics", &v4, 0x16u);
+    v3 = objc_opt_class();
+    v4 = AMSLogKey();
+    v5 = 138543618;
+    v6 = v3;
+    v7 = 2114;
+    v8 = v4;
+    _os_log_impl(&dword_192869000, v2, OS_LOG_TYPE_DEBUG, "%{public}@: [%{public}@] Flushing Authentication Metrics", &v5, 0x16u);
   }
 }
 

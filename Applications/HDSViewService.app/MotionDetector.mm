@@ -10,9 +10,9 @@
 
 - (MotionDetector)init
 {
-  v11.receiver = self;
-  v11.super_class = MotionDetector;
-  v2 = [(MotionDetector *)&v11 init];
+  v12.receiver = self;
+  v12.super_class = MotionDetector;
+  v2 = [(MotionDetector *)&v12 init];
   v4 = v2;
   if (v2)
   {
@@ -21,9 +21,9 @@
     LODWORD(v3) = 1120403456;
     [(MotionDetector *)v2 setAccelerationThreshold:v3];
     LODWORD(v5) = 1120403456;
-    [(MotionDetector *)v4 setRotationThreshold:v5];
-    v6 = objc_alloc_init(off_100101178());
-    [(MotionDetector *)v4 setMotion:v6];
+    v6 = [(MotionDetector *)v4 setRotationThreshold:v5];
+    v7 = objc_alloc_init(off_100101178(v6));
+    [(MotionDetector *)v4 setMotion:v7];
 
     motion = [(MotionDetector *)v4 motion];
     isDeviceMotionAvailable = [motion isDeviceMotionAvailable];

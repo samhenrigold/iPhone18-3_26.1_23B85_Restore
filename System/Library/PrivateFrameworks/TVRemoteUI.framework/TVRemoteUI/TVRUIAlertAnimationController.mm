@@ -48,7 +48,7 @@
 - (void)_runPresentationAnimationWithTransition:(id)transition
 {
   transitionCopy = transition;
-  v5 = _TVRUIViewControllerLog();
+  v5 = _TVRUIViewControllerLog(transitionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -94,7 +94,7 @@
   [v6 addSubview:foregroundVisualEffectView2];
 
   [v6 setAlpha:0.0];
-  [(TVRUIAlertAnimationController *)self scaleTransform];
+  objc_msgSend_scaleTransform(self);
   *buf = v48;
   v46 = v49;
   v47 = v50;
@@ -149,7 +149,7 @@ uint64_t __73__TVRUIAlertAnimationController__runPresentationAnimationWithTransi
 - (void)_runDismissalAnimationWithTransition:(id)transition
 {
   transitionCopy = transition;
-  v5 = _TVRUIViewControllerLog();
+  v5 = _TVRUIViewControllerLog(transitionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -211,7 +211,7 @@ void __70__TVRUIAlertAnimationController__runDismissalAnimationWithTransition___
   v6 = *(a1 + 32);
   if (v6)
   {
-    [v6 scaleTransform];
+    objc_msgSend_scaleTransform(v6);
   }
 
   else

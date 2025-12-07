@@ -16,12 +16,12 @@
 
 - (MIBUMulticastSocket)initWithConfiguration:(id)configuration delegate:(id)delegate
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   delegateCopy = delegate;
-  v55.receiver = self;
-  v55.super_class = MIBUMulticastSocket;
-  v8 = [(MIBUMulticastSocket *)&v55 init];
+  v53.receiver = self;
+  v53.super_class = MIBUMulticastSocket;
+  v8 = [(MIBUMulticastSocket *)&v53 init];
   if (!v8)
   {
     goto LABEL_83;
@@ -82,12 +82,12 @@ LABEL_24:
     *&buf[12] = 2112;
     *&buf[14] = v12;
     *&buf[22] = 2112;
-    v58 = v14;
+    v56 = v14;
     _os_log_impl(&dword_259B04000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@: Creating multicast socket: %@:%@", buf, 0x20u);
   }
 
   memset(buf, 0, sizeof(buf));
-  LODWORD(v58) = 0;
+  LODWORD(v56) = 0;
   v17 = v12;
   [v12 UTF8String];
   if (!StringToSockAddr())
@@ -119,10 +119,10 @@ LABEL_24:
         [MIBUMulticastSocket initWithConfiguration:delegate:];
       }
 
-      v27 = MIBUConnObj;
+      v26 = MIBUConnObj;
       if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_ERROR))
       {
-        [MIBUMulticastSocket initWithConfiguration:v8 delegate:v27];
+        [MIBUMulticastSocket initWithConfiguration:v8 delegate:v26];
       }
 
       goto LABEL_14;
@@ -130,21 +130,21 @@ LABEL_24:
 
     if (v19 == 30)
     {
-      v56[0] = 0;
-      if (setsockopt(v20, 41, 42, v56, 4u) < 0)
+      v54[0] = 0;
+      if (setsockopt(v20, 41, 42, v54, 4u) < 0)
       {
-        v35 = *__error();
-        if (v35)
+        v34 = *__error();
+        if (v34)
         {
           if (MIBUOnceToken != -1)
           {
             [MIBUMulticastSocket initWithConfiguration:delegate:];
           }
 
-          v36 = MIBUConnObj;
+          v35 = MIBUConnObj;
           if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_ERROR))
           {
-            [(MIBUMulticastSocket *)v8 initWithConfiguration:v36 delegate:v35];
+            [(MIBUMulticastSocket *)v8 initWithConfiguration:v35 delegate:v34];
           }
 
           goto LABEL_14;
@@ -153,25 +153,24 @@ LABEL_24:
     }
 
     objc_initWeak(&location, v8);
-    v22 = *(v8 + 1);
     if (objc_opt_respondsToSelector())
     {
       SocketSetNonBlocking();
-      v53 = 1;
-      if (setsockopt(v21, 0xFFFF, 512, &v53, 4u) < 0)
+      v51 = 1;
+      if (setsockopt(v21, 0xFFFF, 512, &v51, 4u) < 0)
       {
-        v37 = *__error();
-        if (v37)
+        v36 = *__error();
+        if (v36)
         {
           if (MIBUOnceToken != -1)
           {
             [MIBUMulticastSocket initWithConfiguration:delegate:];
           }
 
-          v26 = MIBUConnObj;
-          if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+          v25 = MIBUConnObj;
+          if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
           {
-            strerror(v37);
+            strerror(v36);
             [MIBUMulticastSocket initWithConfiguration:delegate:];
           }
 
@@ -187,18 +186,18 @@ LABEL_99:
       Size = SockAddrGetSize();
       if (bind(v21, buf, Size) < 0)
       {
-        v38 = *__error();
-        if (v38)
+        v37 = *__error();
+        if (v37)
         {
           if (MIBUOnceToken != -1)
           {
             [MIBUMulticastSocket initWithConfiguration:delegate:];
           }
 
-          v26 = MIBUConnObj;
-          if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+          v25 = MIBUConnObj;
+          if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
           {
-            strerror(v38);
+            strerror(v37);
             [MIBUMulticastSocket initWithConfiguration:delegate:];
           }
 
@@ -206,28 +205,28 @@ LABEL_99:
         }
       }
 
-      v24 = v15;
+      v23 = v15;
       [v15 UTF8String];
-      v25 = SocketJoinMulticast();
-      if (v25)
+      v24 = SocketJoinMulticast();
+      if (v24)
       {
         if (MIBUOnceToken != -1)
         {
           [MIBUMulticastSocket initWithConfiguration:delegate:];
         }
 
-        v26 = MIBUConnObj;
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+        v25 = MIBUConnObj;
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
         {
-          strerror(v25);
+          strerror(v24);
           [MIBUMulticastSocket initWithConfiguration:delegate:];
         }
 
         goto LABEL_73;
       }
 
-      v41 = dispatch_source_create(MEMORY[0x277D85D28], v21, 0, *(v8 + 2));
-      if (!v41)
+      v40 = dispatch_source_create(MEMORY[0x277D85D28], v21, 0, *(v8 + 2));
+      if (!v40)
       {
         if (MIBUOnceToken != -1)
         {
@@ -242,18 +241,18 @@ LABEL_99:
         goto LABEL_99;
       }
 
-      v32 = v41;
+      v31 = v40;
       handler[0] = MEMORY[0x277D85DD0];
       handler[1] = 3221225472;
       handler[2] = __54__MIBUMulticastSocket_initWithConfiguration_delegate___block_invoke_43;
       handler[3] = &unk_2798EBA70;
-      v33 = &v52;
-      objc_copyWeak(&v52, &location);
-      v34 = handler;
+      v32 = &v50;
+      objc_copyWeak(&v50, &location);
+      v33 = handler;
       goto LABEL_82;
     }
 
-    v28 = v15;
+    v27 = v15;
     if (!if_nametoindex([v15 UTF8String]))
     {
       if (MIBUOnceToken != -1)
@@ -269,30 +268,30 @@ LABEL_99:
       goto LABEL_99;
     }
 
-    v29 = v15;
+    v28 = v15;
     [v15 UTF8String];
-    if ((SocketSetMulticastInterface() & 0x80000000) != 0 && (v39 = *__error()) != 0)
+    if ((SocketSetMulticastInterface() & 0x80000000) != 0 && (v38 = *__error()) != 0)
     {
       if (MIBUOnceToken != -1)
       {
         [MIBUMulticastSocket initWithConfiguration:delegate:];
       }
 
-      v40 = MIBUConnObj;
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+      v39 = MIBUConnObj;
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
       {
-        strerror(v39);
+        strerror(v38);
         [MIBUMulticastSocket initWithConfiguration:delegate:];
       }
     }
 
     else
     {
-      v30 = SockAddrGetSize();
-      if ((connect(v21, buf, v30) & 0x80000000) == 0 || (v46 = *__error()) == 0)
+      v29 = SockAddrGetSize();
+      if ((connect(v21, buf, v29) & 0x80000000) == 0 || (v44 = *__error()) == 0)
       {
-        v31 = dispatch_source_create(MEMORY[0x277D85D50], v21, 0, *(v8 + 2));
-        if (!v31)
+        v30 = dispatch_source_create(MEMORY[0x277D85D50], v21, 0, *(v8 + 2));
+        if (!v30)
         {
           if (MIBUOnceToken != -1)
           {
@@ -307,30 +306,30 @@ LABEL_99:
           goto LABEL_99;
         }
 
-        v32 = v31;
-        v49[0] = MEMORY[0x277D85DD0];
-        v49[1] = 3221225472;
-        v49[2] = __54__MIBUMulticastSocket_initWithConfiguration_delegate___block_invoke_55;
-        v49[3] = &unk_2798EBA70;
-        v33 = &v50;
-        objc_copyWeak(&v50, &location);
-        v34 = v49;
-LABEL_82:
-        dispatch_source_set_event_handler(v32, v34);
-        objc_destroyWeak(v33);
+        v31 = v30;
         v47[0] = MEMORY[0x277D85DD0];
         v47[1] = 3221225472;
-        v47[2] = __54__MIBUMulticastSocket_initWithConfiguration_delegate___block_invoke_2_56;
+        v47[2] = __54__MIBUMulticastSocket_initWithConfiguration_delegate___block_invoke_55;
         v47[3] = &unk_2798EBA70;
+        v32 = &v48;
         objc_copyWeak(&v48, &location);
-        dispatch_source_set_cancel_handler(v32, v47);
-        objc_storeStrong(v8 + 3, v32);
+        v33 = v47;
+LABEL_82:
+        dispatch_source_set_event_handler(v31, v33);
+        objc_destroyWeak(v32);
+        v45[0] = MEMORY[0x277D85DD0];
+        v45[1] = 3221225472;
+        v45[2] = __54__MIBUMulticastSocket_initWithConfiguration_delegate___block_invoke_2_56;
+        v45[3] = &unk_2798EBA70;
+        objc_copyWeak(&v46, &location);
+        dispatch_source_set_cancel_handler(v31, v45);
+        objc_storeStrong(v8 + 3, v31);
         *(v8 + 8) = v21;
-        v42 = [MEMORY[0x277CBEAA8] now];
-        v43 = *(v8 + 5);
-        *(v8 + 5) = v42;
+        v41 = [MEMORY[0x277CBEAA8] now];
+        v42 = *(v8 + 5);
+        *(v8 + 5) = v41;
 
-        objc_destroyWeak(&v48);
+        objc_destroyWeak(&v46);
         objc_destroyWeak(&location);
 
 LABEL_83:
@@ -343,10 +342,10 @@ LABEL_83:
         [MIBUMulticastSocket initWithConfiguration:delegate:];
       }
 
-      v40 = MIBUConnObj;
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+      v39 = MIBUConnObj;
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
       {
-        strerror(v46);
+        strerror(v44);
         [MIBUMulticastSocket initWithConfiguration:delegate:];
       }
     }
@@ -370,7 +369,6 @@ LABEL_25:
   v18 = 0;
 LABEL_84:
 
-  v44 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
@@ -692,7 +690,7 @@ void __54__MIBUMulticastSocket_initWithConfiguration_delegate___block_invoke_2_5
 
 - (void)_start
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (MIBUOnceToken != -1)
   {
@@ -702,9 +700,9 @@ void __54__MIBUMulticastSocket_initWithConfiguration_delegate___block_invoke_2_5
   v3 = MIBUConnObj;
   if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138543362;
+    v5 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_259B04000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: Starting multicast socket.", &v6, 0xCu);
+    _os_log_impl(&dword_259B04000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: Starting multicast socket.", &v5, 0xCu);
   }
 
   dispatch_activate(self->_dispatchSource);
@@ -713,8 +711,6 @@ void __54__MIBUMulticastSocket_initWithConfiguration_delegate___block_invoke_2_5
   {
     [(MIBUMulticastSocketDelegate *)socketDelegate multicastSocketDidStart:self];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __29__MIBUMulticastSocket__start__block_invoke()
@@ -735,7 +731,7 @@ void __29__MIBUMulticastSocket__start__block_invoke()
 
 - (void)_stop
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (MIBUOnceToken != -1)
   {
@@ -745,13 +741,12 @@ void __29__MIBUMulticastSocket__start__block_invoke()
   v3 = MIBUConnObj;
   if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138543362;
+    v4 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_259B04000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: Stopping multicast socket.", &v5, 0xCu);
+    _os_log_impl(&dword_259B04000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: Stopping multicast socket.", &v4, 0xCu);
   }
 
   dispatch_source_cancel(self->_dispatchSource);
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __28__MIBUMulticastSocket__stop__block_invoke()
@@ -802,8 +797,8 @@ void __28__MIBUMulticastSocket__stop__block_invoke()
     else
     {
       v14 = *MEMORY[0x277CCA5B8];
-      v15 = *__error();
-      v16 = NSErrorF();
+      v15 = __error();
+      v16 = NSErrorF(v14, *v15, "send failed");
       (completionCopy)[2](completionCopy, v16);
     }
   }
@@ -811,7 +806,7 @@ void __28__MIBUMulticastSocket__stop__block_invoke()
 
 - (void)_handleReadDispatchSource
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_dispatchQueue);
   data = dispatch_source_get_data(self->_dispatchSource);
   v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
@@ -842,9 +837,9 @@ void __28__MIBUMulticastSocket__stop__block_invoke()
           v15 = v14;
           v16 = __error();
           v17 = strerror(*v16);
-          v21 = 136315138;
-          v22 = v17;
-          _os_log_impl(&dword_259B04000, v15, OS_LOG_TYPE_DEFAULT, "Failed to read data from socket: %s", &v21, 0xCu);
+          v20 = 136315138;
+          v21 = v17;
+          _os_log_impl(&dword_259B04000, v15, OS_LOG_TYPE_DEFAULT, "Failed to read data from socket: %s", &v20, 0xCu);
         }
 
         goto LABEL_23;
@@ -861,9 +856,9 @@ void __28__MIBUMulticastSocket__stop__block_invoke()
         v19 = MIBUConnObj;
         if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
         {
-          v21 = 134217984;
-          v22 = v18;
-          _os_log_impl(&dword_259B04000, v19, OS_LOG_TYPE_DEFAULT, "Unexpected size of data read from socket: %ld", &v21, 0xCu);
+          v20 = 134217984;
+          v21 = v18;
+          _os_log_impl(&dword_259B04000, v19, OS_LOG_TYPE_DEFAULT, "Unexpected size of data read from socket: %ld", &v20, 0xCu);
         }
 
 LABEL_23:
@@ -888,9 +883,9 @@ LABEL_23:
     v13 = MIBUConnObj;
     if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
     {
-      v21 = 134217984;
-      v22 = 1028;
-      _os_log_impl(&dword_259B04000, v13, OS_LOG_TYPE_DEFAULT, "Failed to allocate buffer of size: %lu", &v21, 0xCu);
+      v20 = 134217984;
+      v21 = 1028;
+      _os_log_impl(&dword_259B04000, v13, OS_LOG_TYPE_DEFAULT, "Failed to allocate buffer of size: %lu", &v20, 0xCu);
     }
   }
 
@@ -907,8 +902,6 @@ LABEL_2:
   }
 
 LABEL_24:
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __48__MIBUMulticastSocket__handleReadDispatchSource__block_invoke()
@@ -979,30 +972,17 @@ void __48__MIBUMulticastSocket__handleReadDispatchSource__block_invoke_72()
 
 - (void)initWithConfiguration:delegate:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initWithConfiguration:delegate:.cold.5()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3_0();
-  OUTLINED_FUNCTION_6(&dword_259B04000, v0, v1, "%{public}@: Invalid group address specified: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithConfiguration:(int)a3 delegate:.cold.7(uint64_t a1, void *a2, int a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v4 = a2;
   strerror(a3);
   OUTLINED_FUNCTION_7();
-  OUTLINED_FUNCTION_9(&dword_259B04000, v5, v6, "%{public}@: Failed to set IPV6_USE_MIN_MTU on socket: %s", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_9(&dword_259B04000, v5, v6, "%{public}@: Failed to set IPV6_USE_MIN_MTU on socket: %s", v7, v8, v9, v10);
 }
 
 - (void)initWithConfiguration:delegate:.cold.9()
@@ -1021,19 +1001,9 @@ void __48__MIBUMulticastSocket__handleReadDispatchSource__block_invoke_72()
 
 - (void)initWithConfiguration:delegate:.cold.13()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initWithConfiguration:delegate:.cold.15()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3_0();
-  OUTLINED_FUNCTION_6(&dword_259B04000, v0, v1, "%{public}@: Failed to get network interface index for: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithConfiguration:delegate:.cold.17()
@@ -1059,40 +1029,25 @@ void __48__MIBUMulticastSocket__handleReadDispatchSource__block_invoke_72()
 
 - (void)initWithConfiguration:delegate:.cold.23()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithConfiguration:(uint64_t)a1 delegate:(void *)a2 .cold.25(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = __error();
   strerror(*v3);
   OUTLINED_FUNCTION_7();
-  OUTLINED_FUNCTION_9(&dword_259B04000, v4, v5, "%{public}@: Failed to create socket: %s", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initWithConfiguration:delegate:.cold.27()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3_0();
-  OUTLINED_FUNCTION_6(&dword_259B04000, v0, v1, "%{public}@: Invalid IPv4 or IPv6 group address specified: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_9(&dword_259B04000, v4, v5, "%{public}@: Failed to create socket: %s", v6, v7, v8, v9);
 }
 
 - (void)initWithConfiguration:delegate:.cold.29()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

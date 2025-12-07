@@ -21,11 +21,15 @@
 
 - (void)_screenOnChanged
 {
-  [(CUSystemMonitor *)self->_systemMonitor screenOn];
-  [(CUSystemMonitor *)self->_systemMonitor screenLocked];
-  if (dword_100B50958 <= 30 && (dword_100B50958 != -1 || _LogCategory_Initialize()))
+  screenOn = [(CUSystemMonitor *)self->_systemMonitor screenOn];
+  screenLocked = [(CUSystemMonitor *)self->_systemMonitor screenLocked];
+  if (dword_100B50958 <= 30)
   {
-    sub_1000A33BC();
+    v5 = screenLocked;
+    if (dword_100B50958 != -1 || _LogCategory_Initialize())
+    {
+      sub_1000A33BC(screenOn, v5);
+    }
   }
 
   [(CBAccessoryDaemon *)self _update];
@@ -119,67 +123,78 @@ LABEL_16:
 
 - (void)_accessoryDiscoveryEnsureStopped
 {
-  if (self->_accessoryDiscovery && dword_100B50958 <= 30 && (dword_100B50958 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (self->_accessoryDiscovery)
   {
-    sub_100800FDC();
+    if (dword_100B50958 <= 30)
+    {
+      if (dword_100B50958 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_100800FDC(self, a2, v2);
+      }
+    }
   }
 
-  [(CBDiscovery *)self->_accessoryDiscovery invalidate];
-  accessoryDiscovery = self->_accessoryDiscovery;
-  self->_accessoryDiscovery = 0;
+  [(CBDiscovery *)selfCopy->_accessoryDiscovery invalidate];
+  accessoryDiscovery = selfCopy->_accessoryDiscovery;
+  selfCopy->_accessoryDiscovery = 0;
 
-  accessoryFakeDevice = self->_accessoryFakeDevice;
-  self->_accessoryFakeDevice = 0;
+  accessoryFakeDevice = selfCopy->_accessoryFakeDevice;
+  selfCopy->_accessoryFakeDevice = 0;
 
-  [(NSMutableDictionary *)self->_accessoryInfoMap enumerateKeysAndObjectsUsingBlock:&stru_100ADFE60];
-  accessoryInfoMap = self->_accessoryInfoMap;
-  self->_accessoryInfoMap = 0;
+  [(NSMutableDictionary *)selfCopy->_accessoryInfoMap enumerateKeysAndObjectsUsingBlock:&stru_100ADFE60];
+  accessoryInfoMap = selfCopy->_accessoryInfoMap;
+  selfCopy->_accessoryInfoMap = 0;
 }
 
 - (void)_connectionMonitorEnsureStarted
 {
   if (!self->_connectionMonitor)
   {
-    v13[6] = v5;
-    v13[7] = v4;
-    v13[12] = v2;
-    v13[13] = v3;
-    if (dword_100B50958 <= 30 && (dword_100B50958 != -1 || _LogCategory_Initialize()))
+    v14[6] = v6;
+    v14[7] = v5;
+    v14[12] = v3;
+    v14[13] = v4;
+    selfCopy = self;
+    if (dword_100B50958 <= 30)
     {
-      sub_100800FF8();
+      if (dword_100B50958 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_100800FF8(self, a2, v2);
+      }
     }
 
-    v7 = objc_alloc_init(CBDiscovery);
-    connectionMonitor = self->_connectionMonitor;
-    self->_connectionMonitor = v7;
-    v9 = v7;
+    v8 = objc_alloc_init(CBDiscovery);
+    connectionMonitor = selfCopy->_connectionMonitor;
+    selfCopy->_connectionMonitor = v8;
+    v10 = v8;
 
-    v10 = [(CBAccessoryDaemon *)self description];
-    [(CBDiscovery *)v9 setAppID:v10];
+    v11 = [(CBAccessoryDaemon *)selfCopy description];
+    [(CBDiscovery *)v10 setAppID:v11];
 
-    [(CBDiscovery *)v9 setDiscoveryFlags:0x80000A00000];
-    [(CBDiscovery *)v9 setDispatchQueue:self->_dispatchQueue];
+    [(CBDiscovery *)v10 setDiscoveryFlags:0x80000A00000];
+    [(CBDiscovery *)v10 setDispatchQueue:selfCopy->_dispatchQueue];
+    v14[0] = _NSConcreteStackBlock;
+    v14[1] = 3221225472;
+    v14[2] = sub_1000F46AC;
+    v14[3] = &unk_100ADF718;
+    v14[4] = v10;
+    v14[5] = selfCopy;
+    [(CBDiscovery *)v10 setDeviceFoundHandler:v14];
     v13[0] = _NSConcreteStackBlock;
     v13[1] = 3221225472;
-    v13[2] = sub_1000F46AC;
+    v13[2] = sub_1000F4774;
     v13[3] = &unk_100ADF718;
-    v13[4] = v9;
-    v13[5] = self;
-    [(CBDiscovery *)v9 setDeviceFoundHandler:v13];
+    v13[4] = v10;
+    v13[5] = selfCopy;
+    [(CBDiscovery *)v10 setDeviceLostHandler:v13];
     v12[0] = _NSConcreteStackBlock;
     v12[1] = 3221225472;
-    v12[2] = sub_1000F4774;
-    v12[3] = &unk_100ADF718;
-    v12[4] = v9;
-    v12[5] = self;
-    [(CBDiscovery *)v9 setDeviceLostHandler:v12];
-    v11[0] = _NSConcreteStackBlock;
-    v11[1] = 3221225472;
-    v11[2] = sub_1000F4834;
-    v11[3] = &unk_100ADF740;
-    v11[4] = v9;
-    v11[5] = self;
-    [(CBDiscovery *)v9 activateWithCompletion:v11];
+    v12[2] = sub_1000F4834;
+    v12[3] = &unk_100ADF740;
+    v12[4] = v10;
+    v12[5] = selfCopy;
+    [(CBDiscovery *)v10 activateWithCompletion:v12];
   }
 }
 
@@ -213,7 +228,7 @@ LABEL_16:
         {
           if (dword_100B50958 <= 30 && (dword_100B50958 != -1 || _LogCategory_Initialize()))
           {
-            sub_100801490();
+            sub_100801490(v9);
           }
 
           [(NSMutableDictionary *)self->_connectionMap setObject:0 forKeyedSubscript:v9];
@@ -264,7 +279,7 @@ LABEL_16:
       {
         if (dword_100B50958 <= 30 && (dword_100B50958 != -1 || _LogCategory_Initialize()))
         {
-          sub_1008014D0();
+          sub_1008014D0(v20);
           if (!v17)
           {
 LABEL_26:
@@ -377,20 +392,28 @@ LABEL_51:
 
 - (id)descriptionWithLevel:(int)level
 {
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x3032000000;
-  v29 = sub_1000421A4;
-  v30 = sub_100042564;
-  v31 = 0;
-  v25 = 12;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x3032000000;
+  v26 = sub_1000421A4;
+  v27 = sub_100042564;
+  v28 = 0;
+  v22 = 12;
   obj = 0;
-  levelCopy = level;
-  v16 = objc_opt_class();
-  CUAppendF();
-  objc_storeStrong(&v31, 0);
-  v6 = v27 + 5;
-  v23 = v27[5];
+  v5 = objc_opt_class();
+  if (level >= 0x15u)
+  {
+    CUAppendF(&obj, &v22, "%@", v5);
+  }
+
+  else
+  {
+    CUAppendF(&obj, &v22, "== %@", v5);
+  }
+
+  objc_storeStrong(&v28, obj);
+  v6 = v24 + 5;
+  v20 = v24[5];
   v7 = [(NSMutableDictionary *)self->_accessoryInfoMap count];
   if (self->_connectionMonitor)
   {
@@ -402,44 +425,41 @@ LABEL_51:
     v8 = "no";
   }
 
-  v17 = v7;
-  v18 = v8;
-  CUAppendF();
-  objc_storeStrong(v6, v23);
-  if (levelCopy <= 0x14)
+  CUAppendF(&v20, &v22, "devices %d, discovery %s", v7, v8);
+  objc_storeStrong(v6, v20);
+  if (level <= 0x14u)
   {
-    v9 = v27;
-    v22 = v27[5];
-    NSAppendPrintF_safe();
-    objc_storeStrong(v9 + 5, v22);
+    v9 = v24;
+    v19 = v24[5];
+    NSAppendPrintF_safe(&v19, " ==\n");
+    objc_storeStrong(v9 + 5, v19);
     connectionMonitor = self->_connectionMonitor;
     if (connectionMonitor)
     {
-      v11 = v27;
-      v21 = v27[5];
-      v17 = connectionMonitor;
-      NSAppendPrintF_safe();
-      objc_storeStrong(v11 + 5, v21);
+      v11 = v24;
+      v18 = v24[5];
+      NSAppendPrintF_safe(&v18, "%@\n", connectionMonitor);
+      objc_storeStrong(v11 + 5, v18);
     }
 
     accessoryInfoMap = self->_accessoryInfoMap;
-    v19[0] = _NSConcreteStackBlock;
-    v19[1] = 3221225472;
-    v19[2] = sub_1000F335C;
-    v19[3] = &unk_100ADFE00;
-    v19[4] = &v26;
-    levelCopy2 = level;
-    [(NSMutableDictionary *)accessoryInfoMap enumerateKeysAndObjectsUsingBlock:v19, v17, v18];
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = sub_1000F335C;
+    v16[3] = &unk_100ADFE00;
+    v16[4] = &v23;
+    levelCopy = level;
+    [(NSMutableDictionary *)accessoryInfoMap enumerateKeysAndObjectsUsingBlock:v16];
   }
 
-  v13 = v27[5];
+  v13 = v24[5];
   if (!v13)
   {
     v13 = &stru_100B0F9E0;
   }
 
   v14 = v13;
-  _Block_object_dispose(&v26, 8);
+  _Block_object_dispose(&v23, 8);
 
   return v14;
 }
@@ -447,32 +467,35 @@ LABEL_51:
 - (void)activate
 {
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  if (dword_100B50958 <= 30 && (dword_100B50958 != -1 || _LogCategory_Initialize()))
+  if (dword_100B50958 <= 30)
   {
-    sub_100800E50();
+    if (dword_100B50958 != -1 || (v3 = _LogCategory_Initialize(), v3))
+    {
+      sub_100800E50(v3, v4, v5);
+    }
   }
 
-  v3 = self->_systemMonitor;
-  if (!v3)
+  v6 = self->_systemMonitor;
+  if (!v6)
   {
-    v3 = objc_alloc_init(CUSystemMonitor);
+    v6 = objc_alloc_init(CUSystemMonitor);
     systemMonitor = self->_systemMonitor;
-    self->_systemMonitor = v3;
+    self->_systemMonitor = v6;
 
-    [(CUSystemMonitor *)v3 setDispatchQueue:self->_dispatchQueue];
-    v6[0] = _NSConcreteStackBlock;
-    v6[1] = 3221225472;
-    v6[2] = sub_1000A31F4;
-    v6[3] = &unk_100ADF5B8;
-    v6[4] = self;
-    [(CUSystemMonitor *)v3 setScreenOnChangedHandler:v6];
-    v5[0] = _NSConcreteStackBlock;
-    v5[1] = 3221225472;
-    v5[2] = sub_1000F3530;
-    v5[3] = &unk_100ADF5B8;
-    v5[4] = self;
-    [(CUSystemMonitor *)v3 setScreenLockedChangedHandler:v5];
-    [(CUSystemMonitor *)v3 activateWithCompletion:&stru_100ADFE20];
+    [(CUSystemMonitor *)v6 setDispatchQueue:self->_dispatchQueue];
+    v9[0] = _NSConcreteStackBlock;
+    v9[1] = 3221225472;
+    v9[2] = sub_1000A31F4;
+    v9[3] = &unk_100ADF5B8;
+    v9[4] = self;
+    [(CUSystemMonitor *)v6 setScreenOnChangedHandler:v9];
+    v8[0] = _NSConcreteStackBlock;
+    v8[1] = 3221225472;
+    v8[2] = sub_1000F3530;
+    v8[3] = &unk_100ADF5B8;
+    v8[4] = self;
+    [(CUSystemMonitor *)v6 setScreenLockedChangedHandler:v8];
+    [(CUSystemMonitor *)v6 activateWithCompletion:&stru_100ADFE20];
   }
 
   [(CBAccessoryDaemon *)self prefsChanged];
@@ -481,9 +504,12 @@ LABEL_51:
 - (void)invalidate
 {
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  if (dword_100B50958 <= 30 && (dword_100B50958 != -1 || _LogCategory_Initialize()))
+  if (dword_100B50958 <= 30)
   {
-    sub_100800E6C();
+    if (dword_100B50958 != -1 || (v3 = _LogCategory_Initialize(), v3))
+    {
+      sub_100800E6C(v3, v4, v5);
+    }
   }
 
   [(CBAccessoryDaemon *)self _accessoryDiscoveryEnsureStopped];
@@ -491,9 +517,9 @@ LABEL_51:
   periodicTimer = self->_periodicTimer;
   if (periodicTimer)
   {
-    v4 = periodicTimer;
-    dispatch_source_cancel(v4);
-    v5 = self->_periodicTimer;
+    v7 = periodicTimer;
+    dispatch_source_cancel(v7);
+    v8 = self->_periodicTimer;
     self->_periodicTimer = 0;
   }
 
@@ -523,7 +549,7 @@ LABEL_51:
       {
         if (dword_100B50958 <= 30 && (dword_100B50958 != -1 || _LogCategory_Initialize()))
         {
-          sub_100800E88();
+          sub_100800E88(v11);
         }
 
         identifier = [(CBDevice *)v11 identifier];
@@ -798,7 +824,7 @@ LABEL_76:
 
   else if (error)
   {
-    CBErrorF();
+    CBErrorF(4294960591, "No input string");
     *error = v10 = 0;
   }
 
@@ -868,7 +894,7 @@ LABEL_77:
   [(CBDevice *)v19 setVendorIDSource:1];
   if (dword_100B50958 <= 30 && (dword_100B50958 != -1 || _LogCategory_Initialize()))
   {
-    sub_100800EC8();
+    sub_100800EC8(v19);
   }
 
   [(CBAccessoryDaemon *)self _accessoryDiscoveryFoundDevice:v19];
@@ -895,7 +921,7 @@ LABEL_77:
   {
     stackController = [(CBDaemonServer *)self->_daemonServer stackController];
     v6 = 1;
-    v27 = stackController;
+    v25 = stackController;
     do
     {
       v7 = (stackController != 0) & v6;
@@ -908,26 +934,26 @@ LABEL_77:
       v9 = v8;
       if (v8)
       {
-        v30 = 0u;
-        v31 = 0u;
         v28 = 0u;
         v29 = 0u;
+        v26 = 0u;
+        v27 = 0u;
         v10 = v8;
-        v11 = [v10 countByEnumeratingWithState:&v28 objects:v32 count:16];
+        v11 = [v10 countByEnumeratingWithState:&v26 objects:v30 count:16];
         if (v11)
         {
           v12 = v11;
-          v13 = *v29;
+          v13 = *v27;
           while (2)
           {
             for (i = 0; i != v12; i = i + 1)
             {
-              if (*v29 != v13)
+              if (*v27 != v13)
               {
                 objc_enumerationMutation(v10);
               }
 
-              v15 = *(*(&v28 + 1) + 8 * i);
+              v15 = *(*(&v26 + 1) + 8 * i);
               findMyCaseIdentifier = [v15 findMyCaseIdentifier];
               v17 = deviceCopy;
               v18 = findMyCaseIdentifier;
@@ -938,12 +964,10 @@ LABEL_77:
 LABEL_21:
                 if (dword_100B50958 <= 30 && (dword_100B50958 != -1 || _LogCategory_Initialize()))
                 {
-                  v23 = v17;
-                  v24 = v15;
-                  LogPrintF_safe();
+                  LogPrintF_safe(&dword_100B50958, "[CBAccessoryDaemon findPrimaryCBDevice:]", 30, "Found primary CBDevice for accessory with identifier %@: %@", v17, v15);
                 }
 
-                v26 = v15;
+                v24 = v15;
                 v21 = 1;
                 v9 = v10;
                 goto LABEL_27;
@@ -964,7 +988,7 @@ LABEL_21:
               }
             }
 
-            v12 = [v10 countByEnumeratingWithState:&v28 objects:v32 count:16];
+            v12 = [v10 countByEnumeratingWithState:&v26 objects:v30 count:16];
             if (v12)
             {
               continue;
@@ -975,7 +999,7 @@ LABEL_21:
 
           v21 = 0;
 LABEL_27:
-          stackController = v27;
+          stackController = v25;
           v7 = 1;
         }
 
@@ -1002,10 +1026,10 @@ LABEL_27:
     }
   }
 
-  v26 = 0;
+  v24 = 0;
 LABEL_33:
 
-  return v26;
+  return v24;
 }
 
 - (void)prefsChanged
@@ -1015,7 +1039,7 @@ LABEL_33:
   {
     if (dword_100B50958 <= 30 && (dword_100B50958 != -1 || _LogCategory_Initialize()))
     {
-      sub_100800F08();
+      sub_100800F08(v3);
     }
 
     self->_prefAccessoryDaemonConnectionMonitor = v3;
@@ -1028,82 +1052,91 @@ LABEL_33:
     if (dword_100B50958 <= 30 && (dword_100B50958 != -1 || _LogCategory_Initialize()))
     {
       v6 = CUPrintDurationDouble();
-      CUPrintDurationDouble();
-      v11 = v10 = v6;
-      LogPrintF_safe();
+      v7 = CUPrintDurationDouble();
+      LogPrintF_safe(&dword_100B50958, "[CBAccessoryDaemon prefsChanged]", 30, "AccessoryDaemonConnectSeconds: %@ -> %@", v6, v7);
     }
 
     self->_prefAccessoryDaemonConnectSeconds = v5;
   }
 
   CFPrefs_GetDouble();
-  v8 = v7;
-  if (v7 != self->_prefAccessoryDaemonStayConnectedSeconds)
+  v9 = v8;
+  if (v8 != self->_prefAccessoryDaemonStayConnectedSeconds)
   {
     if (dword_100B50958 <= 30 && (dword_100B50958 != -1 || _LogCategory_Initialize()))
     {
-      v9 = CUPrintDurationDouble();
-      CUPrintDurationDouble();
-      v11 = v10 = v9;
-      LogPrintF_safe();
+      v10 = CUPrintDurationDouble();
+      v11 = CUPrintDurationDouble();
+      LogPrintF_safe(&dword_100B50958, "[CBAccessoryDaemon prefsChanged]", 30, "AccessoryDaemonStayConnectSeconds: %@ -> %@", v10, v11);
     }
 
-    self->_prefAccessoryDaemonStayConnectedSeconds = v8;
+    self->_prefAccessoryDaemonStayConnectedSeconds = v9;
   }
 
-  [(CBAccessoryDaemon *)self _update:v10];
+  [(CBAccessoryDaemon *)self _update];
 }
 
 - (void)_accessoryDiscoveryEnsureStarted
 {
   if (!self->_accessoryDiscovery)
   {
-    v12[6] = v5;
-    v12[7] = v4;
-    v12[12] = v2;
-    v12[13] = v3;
-    if (dword_100B50958 <= 30 && (dword_100B50958 != -1 || _LogCategory_Initialize()))
+    v13[6] = v6;
+    v13[7] = v5;
+    v13[12] = v3;
+    v13[13] = v4;
+    selfCopy = self;
+    if (dword_100B50958 <= 30)
     {
-      sub_100800F64();
+      if (dword_100B50958 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_100800F64(self, a2, v2);
+      }
     }
 
-    v7 = objc_alloc_init(CBDiscovery);
-    accessoryDiscovery = self->_accessoryDiscovery;
-    self->_accessoryDiscovery = v7;
-    v9 = v7;
+    v8 = objc_alloc_init(CBDiscovery);
+    accessoryDiscovery = selfCopy->_accessoryDiscovery;
+    selfCopy->_accessoryDiscovery = v8;
+    v10 = v8;
 
-    v10 = [(CBAccessoryDaemon *)self description];
-    [(CBDiscovery *)v9 setAppID:v10];
+    v11 = [(CBAccessoryDaemon *)selfCopy description];
+    [(CBDiscovery *)v10 setAppID:v11];
 
-    [(CBDiscovery *)v9 setDiscoveryFlags:0x180000000080];
-    [(CBDiscovery *)v9 setDispatchQueue:self->_dispatchQueue];
+    [(CBDiscovery *)v10 setDiscoveryFlags:0x180000000080];
+    [(CBDiscovery *)v10 setDispatchQueue:selfCopy->_dispatchQueue];
+    v13[0] = _NSConcreteStackBlock;
+    v13[1] = 3221225472;
+    v13[2] = sub_1000F45E0;
+    v13[3] = &unk_100ADF718;
+    v13[4] = v10;
+    v13[5] = selfCopy;
+    [(CBDiscovery *)v10 setDeviceFoundHandler:v13];
     v12[0] = _NSConcreteStackBlock;
     v12[1] = 3221225472;
-    v12[2] = sub_1000F45E0;
-    v12[3] = &unk_100ADF718;
-    v12[4] = v9;
-    v12[5] = self;
-    [(CBDiscovery *)v9 setDeviceFoundHandler:v12];
-    v11[0] = _NSConcreteStackBlock;
-    v11[1] = 3221225472;
-    v11[2] = sub_1000F45FC;
-    v11[3] = &unk_100ADF740;
-    v11[4] = v9;
-    v11[5] = self;
-    [(CBDiscovery *)v9 activateWithCompletion:v11];
+    v12[2] = sub_1000F45FC;
+    v12[3] = &unk_100ADF740;
+    v12[4] = v10;
+    v12[5] = selfCopy;
+    [(CBDiscovery *)v10 activateWithCompletion:v12];
   }
 }
 
 - (void)_connectionMonitorEnsureStopped
 {
-  if (self->_connectionMonitor && dword_100B50958 <= 30 && (dword_100B50958 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (self->_connectionMonitor)
   {
-    sub_100801070();
+    if (dword_100B50958 <= 30)
+    {
+      if (dword_100B50958 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_100801070(self, a2, v2);
+      }
+    }
   }
 
-  [(CBDiscovery *)self->_connectionMonitor invalidate];
-  connectionMonitor = self->_connectionMonitor;
-  self->_connectionMonitor = 0;
+  [(CBDiscovery *)selfCopy->_connectionMonitor invalidate];
+  connectionMonitor = selfCopy->_connectionMonitor;
+  selfCopy->_connectionMonitor = 0;
 }
 
 - (void)_connectionMonitorFoundDevice:(id)device
@@ -1139,7 +1172,7 @@ LABEL_33:
             Current = CFAbsoluteTimeGetCurrent();
             if (Current - v10 < self->_prefAccessoryDaemonConnectSeconds)
             {
-              sub_1008011BC();
+              sub_1008011BC(deviceCopy);
             }
 
             else
@@ -1148,7 +1181,7 @@ LABEL_33:
               [v12 setIdentifier:findMyCaseIdentifier];
               if (dword_100B50958 <= 30 && (dword_100B50958 != -1 || _LogCategory_Initialize()))
               {
-                sub_10080117C();
+                sub_10080117C(v12);
               }
 
               v13 = objc_alloc_init(CBConnection);
@@ -1278,7 +1311,7 @@ LABEL_33:
 LABEL_18:
   if (dword_100B50958 <= 30 && (dword_100B50958 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF_safe();
+    LogPrintF_safe(&dword_100B50958, "[CBAccessoryDaemon _accessoryDiscoveryFoundDevice:]", 30, "Accessory found: %@, device: %@", v5, deviceCopy);
   }
 
   if ((_os_feature_enabled_impl() & 1) == 0)

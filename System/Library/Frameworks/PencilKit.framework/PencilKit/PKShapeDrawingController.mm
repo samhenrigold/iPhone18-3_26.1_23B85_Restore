@@ -1,7 +1,7 @@
 @interface PKShapeDrawingController
 + (CGMutablePathRef)_createNormalizedPathFromPath:(uint64_t)path;
 + (uint64_t)hasSnapToShapeEntitlement;
-- (CGRect)_addCurrentStrokePoint:(CGFloat)point;
+- (PKShape)shapeFromStroke:(__int128 *)stroke inputScale:(void *)scale averageInputPoint:(double)point allowedShapeTypes:;
 - (double)_arrowRadiusForStroke:(void *)stroke inputScale:(double)scale;
 - (double)aspectRatioAdjustedSizeFromResult:(void *)result;
 - (id).cxx_construct;
@@ -19,11 +19,11 @@
 - (id)_generateTriangle:(void *)triangle sourceStroke:(uint64_t)stroke inputScale:(double)scale averageInputPoint:;
 - (id)_strokeFromPoints:(uint64_t)points inputScale:(void *)scale averageInputPoint:(double)point sourceStroke:;
 - (id)detectedShapeWithInputScale:(void *)scale averageInputPoint:(void *)point allowedShapeTypes:(double)types createCurrentStrokeBlock:;
-- (id)shapeFromStroke:(__int128 *)stroke inputScale:(void *)scale averageInputPoint:(double)point allowedShapeTypes:;
 - (uint64_t)_shapeTypeFromResultName:(uint64_t)name;
 - (uint64_t)hasMovementStopped;
 - (uint64_t)isScratchOutActive;
-- (void)_addAngles:(void *)result;
+- (void)_addAngles:(void *)angles;
+- (void)_addCurrentStrokePoint:(CGFloat)point;
 - (void)_checkDetectedStroke;
 - (void)addStrokePoint:(CGFloat)point inputPoint:(CGFloat)inputPoint;
 - (void)beginStrokeAtPoint:(CGFloat)point;
@@ -140,87 +140,87 @@
   return CGPathCreateMutableCopyByTransformingPath(a2, &transform);
 }
 
-void __48__PKShapeDrawingController__normalizedHeartPath__block_invoke()
+void __48__PKShapeDrawingController__normalizedHeartPath__block_invoke(uint64_t a1)
 {
-  v36[6] = *MEMORY[0x1E69E9840];
-  v0 = @"M 76.9531 23.4375 C 78.1738 23.4375 79.8828 22.6562 81.1035 21.875 C 116.016 -0.634766 138.77 -26.6113 138.77 -53.125 C 138.77 -74.9023 123.779 -90.4297 104.199 -90.4297 C 92.2363 -90.4297 82.4707 -83.6914 76.9531 -73.3398 C 71.4844 -83.6426 61.7188 -90.4297 49.707 -90.4297 C 30.127 -90.4297 15.1367 -74.9023 15.1367 -53.125 C 15.1367 -26.6113 37.8906 -0.634766 72.8516 21.875 C 74.0723 22.6562 75.7812 23.4375 76.9531 23.4375 Z";
-  v34 = objc_opt_self();
+  v37[6] = *MEMORY[0x1E69E9840];
+  v1 = @"M 76.9531 23.4375 C 78.1738 23.4375 79.8828 22.6562 81.1035 21.875 C 116.016 -0.634766 138.77 -26.6113 138.77 -53.125 C 138.77 -74.9023 123.779 -90.4297 104.199 -90.4297 C 92.2363 -90.4297 82.4707 -83.6914 76.9531 -73.3398 C 71.4844 -83.6426 61.7188 -90.4297 49.707 -90.4297 C 30.127 -90.4297 15.1367 -74.9023 15.1367 -53.125 C 15.1367 -26.6113 37.8906 -0.634766 72.8516 21.875 C 74.0723 22.6562 75.7812 23.4375 76.9531 23.4375 Z";
+  v35 = objc_opt_self();
   Mutable = CGPathCreateMutable();
-  v2 = [MEMORY[0x1E696AB08] whitespaceCharacterSet];
-  v3 = [@"M 76.9531 23.4375 C 78.1738 23.4375 79.8828 22.6562 81.1035 21.875 C 116.016 -0.634766 138.77 -26.6113 138.77 -53.125 C 138.77 -74.9023 123.779 -90.4297 104.199 -90.4297 C 92.2363 -90.4297 82.4707 -83.6914 76.9531 -73.3398 C 71.4844 -83.6426 61.7188 -90.4297 49.707 -90.4297 C 30.127 -90.4297 15.1367 -74.9023 15.1367 -53.125 C 15.1367 -26.6113 37.8906 -0.634766 72.8516 21.875 C 74.0723 22.6562 75.7812 23.4375 76.9531 23.4375 Z" componentsSeparatedByCharactersInSet:v2];
+  v3 = [MEMORY[0x1E696AB08] whitespaceCharacterSet];
+  v4 = [@"M 76.9531 23.4375 C 78.1738 23.4375 79.8828 22.6562 81.1035 21.875 C 116.016 -0.634766 138.77 -26.6113 138.77 -53.125 C 138.77 -74.9023 123.779 -90.4297 104.199 -90.4297 C 92.2363 -90.4297 82.4707 -83.6914 76.9531 -73.3398 C 71.4844 -83.6426 61.7188 -90.4297 49.707 -90.4297 C 30.127 -90.4297 15.1367 -74.9023 15.1367 -53.125 C 15.1367 -26.6113 37.8906 -0.634766 72.8516 21.875 C 74.0723 22.6562 75.7812 23.4375 76.9531 23.4375 Z" componentsSeparatedByCharactersInSet:v3];
 
-  v4 = [v3 count];
-  v5 = v4;
-  if (v4)
+  v5 = [v4 count];
+  v6 = v5;
+  if (v5)
   {
-    v6 = 0;
-    v7 = v4 - 2;
-    v8 = @"L";
-    v35 = v4 - 6;
+    v7 = 0;
+    v8 = v5 - 2;
+    v9 = @"L";
+    v36 = v5 - 6;
     while (1)
     {
-      v9 = [v3 objectAtIndexedSubscript:v6];
-      v10 = [v9 isEqualToString:@"M"];
-      v11 = v6 + 1;
-      v12 = v6 + 1 < v7 ? v10 : 0;
-      if (v12 == 1)
+      v10 = [v4 objectAtIndexedSubscript:v7];
+      v11 = [v10 isEqualToString:@"M"];
+      v12 = v7 + 1;
+      v13 = v7 + 1 < v8 ? v11 : 0;
+      if (v13 == 1)
       {
         break;
       }
 
-      v19 = [v9 isEqualToString:v8];
-      if (v11 < v7)
+      v20 = [v10 isEqualToString:v9];
+      if (v12 < v8)
       {
-        v20 = v19;
+        v21 = v20;
       }
 
       else
       {
-        v20 = 0;
+        v21 = 0;
       }
 
-      if (v20 == 1)
+      if (v21 == 1)
       {
-        v21 = [v3 objectAtIndexedSubscript:v6 + 1];
-        [v21 doubleValue];
-        v23 = v22;
+        v22 = [v4 objectAtIndexedSubscript:v7 + 1];
+        [v22 doubleValue];
+        v24 = v23;
 
-        v24 = [v3 objectAtIndexedSubscript:v6 + 2];
-        [v24 doubleValue];
-        v26 = v25;
+        v25 = [v4 objectAtIndexedSubscript:v7 + 2];
+        [v25 doubleValue];
+        v27 = v26;
 
-        CGPathAddLineToPoint(Mutable, 0, v23, v26);
+        CGPathAddLineToPoint(Mutable, 0, v24, v27);
         goto LABEL_13;
       }
 
-      v27 = [v9 isEqualToString:@"C"];
-      if (v11 < v35)
+      v28 = [v10 isEqualToString:@"C"];
+      if (v12 < v36)
       {
-        v28 = v27;
+        v29 = v28;
       }
 
       else
       {
-        v28 = 0;
+        v29 = 0;
       }
 
-      if (v28 == 1)
+      if (v29 == 1)
       {
-        v29 = v8;
+        v30 = v9;
         for (i = 0; i != 6; ++i)
         {
-          v31 = [v3 objectAtIndexedSubscript:v11];
-          [v31 doubleValue];
-          v36[i] = v32;
+          v32 = [v4 objectAtIndexedSubscript:v12];
+          [v32 doubleValue];
+          v37[i] = v33;
 
-          ++v11;
+          ++v12;
         }
 
-        CGPathAddCurveToPoint(Mutable, 0, v36[0], v36[1], v36[2], v36[3], v36[4], v36[5]);
-        v8 = v29;
+        CGPathAddCurveToPoint(Mutable, 0, v37[0], v37[1], v37[2], v37[3], v37[4], v37[5]);
+        v9 = v30;
       }
 
-      else if ([v9 isEqualToString:@"Z"])
+      else if ([v10 isEqualToString:@"Z"])
       {
         CGPathCloseSubpath(Mutable);
 
@@ -229,32 +229,32 @@ void __48__PKShapeDrawingController__normalizedHeartPath__block_invoke()
 
 LABEL_14:
 
-      v6 = v11;
-      if (v11 >= v5)
+      v7 = v12;
+      if (v12 >= v6)
       {
         goto LABEL_25;
       }
     }
 
-    v13 = [v3 objectAtIndexedSubscript:v6 + 1];
-    [v13 doubleValue];
-    v15 = v14;
+    v14 = [v4 objectAtIndexedSubscript:v7 + 1];
+    [v14 doubleValue];
+    v16 = v15;
 
-    v16 = [v3 objectAtIndexedSubscript:v6 + 2];
-    [v16 doubleValue];
-    v18 = v17;
+    v17 = [v4 objectAtIndexedSubscript:v7 + 2];
+    [v17 doubleValue];
+    v19 = v18;
 
-    CGPathMoveToPoint(Mutable, 0, v15, v18);
+    CGPathMoveToPoint(Mutable, 0, v16, v19);
 LABEL_13:
-    v11 = v6 + 3;
+    v12 = v7 + 3;
     goto LABEL_14;
   }
 
 LABEL_25:
-  v33 = [(PKShapeDrawingController *)v34 _createNormalizedPathFromPath:?];
+  v34 = [(PKShapeDrawingController *)v35 _createNormalizedPathFromPath:?];
   CGPathRelease(Mutable);
 
-  qword_1ED6A5448 = v33;
+  qword_1ED6A5448 = v34;
 }
 
 - (double)_arrowRadiusForStroke:(void *)stroke inputScale:(double)scale
@@ -331,7 +331,7 @@ void __57__PKShapeDrawingController_recognitionResultsForDrawing___block_invoke(
   *(v4 + 40) = v3;
 }
 
-uint64_t __49__PKShapeDrawingController__chDrawingFromStroke___block_invoke(uint64_t a1)
+void *__49__PKShapeDrawingController__chDrawingFromStroke___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) addPoint:?];
   *(*(*(a1 + 40) + 8) + 24) = 1;
@@ -500,12 +500,12 @@ uint64_t __49__PKShapeDrawingController__chDrawingFromStroke___block_invoke(uint
           v75 = *&buf[72];
           v76 = *&buf[88];
           *&v73[24] = *&buf[24];
-          PKCompressStrokePoint(v73, v32, v77);
-          v37 = (__p + v34);
+          PKCompressStrokePoint(v77, v73, v32);
+          v37 = __p + v34;
           v38 = v77[1];
           *v37 = v77[0];
-          v37[1] = v38;
-          v37[2].i32[0] = v78;
+          *(v37 + 1) = v38;
+          *(v37 + 8) = v78;
           ++v35;
           v34 += 36;
           v33 += 2;
@@ -572,7 +572,7 @@ uint64_t __49__PKShapeDrawingController__chDrawingFromStroke___block_invoke(uint
             memset(buf, 0, sizeof(buf));
             if (path2)
             {
-              [path2 decompressedPointAt:v55];
+              objc_msgSend_decompressedPointAt_(path2);
               v57 = *&buf[56];
             }
 
@@ -2018,7 +2018,7 @@ LABEL_27:
   return v5;
 }
 
-- (id)shapeFromStroke:(__int128 *)stroke inputScale:(void *)scale averageInputPoint:(double)point allowedShapeTypes:
+- (PKShape)shapeFromStroke:(__int128 *)stroke inputScale:(void *)scale averageInputPoint:(double)point allowedShapeTypes:
 {
   v158 = *MEMORY[0x1E69E9840];
   v9 = a2;
@@ -2045,7 +2045,7 @@ LABEL_27:
       [path3 timestampAtIndex:{objc_msgSend(path4, "count") - 1}];
       v19 = v18;
 
-      *(self + 152) = v19 - v15;
+      *&self[4]._originalStroke = v19 - v15;
     }
 
     v20 = v9;
@@ -2069,7 +2069,7 @@ LABEL_27:
   }
 
   v138 = 0;
-  if (*(self + 193) != 1)
+  if (BYTE1(self[6].super.isa) != 1)
   {
     goto LABEL_19;
   }
@@ -2186,7 +2186,7 @@ LABEL_26:
   {
 LABEL_43:
     v58 = 0;
-    if (v9 && (*(self + 192) & 1) != 0)
+    if (v9 && (self[6].super.isa & 1) != 0)
     {
       isScratchOutActive = [(PKShapeDrawingController *)self isScratchOutActive];
       if (v138 == 13)
@@ -2365,7 +2365,7 @@ LABEL_42:
       goto LABEL_87;
     }
 
-    WeakRetained = objc_loadWeakRetained((self + 200));
+    WeakRetained = objc_loadWeakRetained(&self[6]._type);
     v110 = [WeakRetained shapeDrawingController:self scratchOutStrokesCoveredByStroke:v9];
 
     if ((v110 & 1) == 0)
@@ -2554,7 +2554,7 @@ LABEL_90:
   if ([v58 count])
   {
     uUID = [MEMORY[0x1E696AFB0] UUID];
-    objc_storeStrong((self + 224), uUID);
+    objc_storeStrong(&self[7].super.isa, uUID);
 
     v136 = 0u;
     v137 = 0u;
@@ -2575,7 +2575,7 @@ LABEL_90:
           }
 
           v116 = *(*(&v134 + 1) + 8 * j);
-          v117 = *(self + 224);
+          v117 = self[7].super.isa;
           [v116 _setGroupID:v117];
 
           [v116 _setShapeType:v138];
@@ -2645,7 +2645,7 @@ LABEL_118:
   {
     if (((*(self + 193) & 1) != 0 || *(self + 216)) && ((*(self + 64) & 1) != 0 || *(self + 65) == 1))
     {
-      v12 = (*(pointCopy + 2))(pointCopy);
+      v12 = pointCopy[2](pointCopy);
       [v12 renderBounds];
       if (v14 / types < 10.0 && v13 / types < 10.0 || v12 == 0)
       {
@@ -2680,160 +2680,154 @@ LABEL_118:
   return self;
 }
 
-- (void)_addAngles:(void *)result
+- (void)_addAngles:(void *)angles
 {
-  if (result)
+  if (angles)
   {
-    v3 = result;
     v4 = CACurrentMediaTime();
-    result = v3[12];
-    v5 = v3[13];
-    if (result == v5 || *(v5 - 8) < v4 + -0.1)
+    v5 = angles[12];
+    v6 = angles[13];
+    if (v5 == v6 || *(v6 - 8) < v4 + -0.1)
     {
-      v6 = (v5 - result) >> 5;
-      if (v6 >= 0xA)
+      v7 = (v6 - v5) >> 5;
+      if (v7 >= 0xA)
       {
-        v7 = v5 - 32;
+        v8 = v6 - 32;
         do
         {
-          if (v5 != result + 4)
+          if (v6 != v5 + 32)
           {
-            memmove(result, result + 4, v7 - result);
-            result = v3[12];
+            memmove(v5, (v5 + 32), v8 - v5);
+            v5 = angles[12];
           }
 
-          v5 = v7;
-          v3[13] = v7;
-          v6 = (v7 - result) >> 5;
-          v7 -= 32;
+          v6 = v8;
+          angles[13] = v8;
+          v7 = (v8 - v5) >> 5;
+          v8 -= 32;
         }
 
-        while (v6 > 9);
-        v5 = v7 + 32;
+        while (v7 > 9);
+        v6 = v8 + 32;
       }
 
-      v8 = a2[4];
-      v9 = a2[14];
-      v10 = v3[14];
-      if (v5 >= v10)
+      v9 = a2[4];
+      v10 = a2[14];
+      v11 = angles[14];
+      if (v6 >= v11)
       {
-        v11 = v10 - result;
-        if (v11 >> 4 <= v6 + 1)
+        v12 = v11 - v5;
+        if (v12 >> 4 <= v7 + 1)
         {
-          v12 = v6 + 1;
+          v13 = v7 + 1;
         }
 
         else
         {
-          v12 = v11 >> 4;
+          v13 = v12 >> 4;
         }
 
-        if (v11 >= 0x7FFFFFFFFFFFFFE0)
+        if (v12 >= 0x7FFFFFFFFFFFFFE0)
         {
-          v13 = 0x7FFFFFFFFFFFFFFLL;
+          v14 = 0x7FFFFFFFFFFFFFFLL;
         }
 
         else
         {
-          v13 = v12;
+          v14 = v13;
         }
 
-        std::__allocate_at_least[abi:ne200100]<std::allocator<PolarPoint>>(v13);
+        std::__allocate_at_least[abi:ne200100]<std::allocator<PolarPoint>>(v14);
       }
 
-      *v5 = a2[3];
-      *(v5 + 8) = v8;
-      *(v5 + 16) = v9;
-      *(v5 + 24) = v4;
-      v3[13] = v5 + 32;
+      *v6 = a2[3];
+      *(v6 + 8) = v9;
+      *(v6 + 16) = v10;
+      *(v6 + 24) = v4;
+      angles[13] = v6 + 32;
     }
   }
-
-  return result;
 }
 
-- (CGRect)_addCurrentStrokePoint:(CGFloat)point
+- (void)_addCurrentStrokePoint:(CGFloat)point
 {
-  if (result)
+  if (self)
   {
-    p_x = &result->origin.x;
-    v22.size.width = 1.0;
-    v22.size.height = 1.0;
-    v22.origin.x = a2;
-    v22.origin.y = point;
-    result[1] = CGRectUnion(result[1], v22);
+    v23.size.width = 1.0;
+    v23.size.height = 1.0;
+    v23.origin.x = a2;
+    v23.origin.y = point;
+    *(self + 32) = CGRectUnion(*(self + 32), v23);
     _Q0.f64[0] = a2;
     _Q0.f64[1] = point;
     *&_Q0.f64[0] = vmovn_s64(vcvtq_s64_f64(vmulq_f64(_Q0, vdupq_n_s64(0x4059000000000000uLL))));
     *&v5 = SLODWORD(_Q0.f64[0]);
     *(&v5 + 1) = SHIDWORD(_Q0.f64[0]);
-    v20 = v5;
+    v21 = v5;
     __asm { FMOV            V0.2S, #-1.0 }
 
-    v21 = -_Q0.f64[0];
-    std::vector<ClipperLib::IntPoint>::push_back[abi:ne200100]((p_x + 1), &v20);
+    v22 = -_Q0.f64[0];
+    std::vector<ClipperLib::IntPoint>::push_back[abi:ne200100](self + 8, &v21);
     v10 = CACurrentMediaTime();
-    result = p_x[9];
-    v11 = p_x[10];
-    if (result == v11 || *(v11 - 1) < v10 + -0.1)
+    v11 = *(self + 72);
+    v12 = *(self + 80);
+    if (v11 == v12 || *(v12 - 1) < v10 + -0.1)
     {
-      v12 = 0xAAAAAAAAAAAAAAABLL * ((v11 - result) >> 3);
-      if (v12 >= 0xA)
+      v13 = 0xAAAAAAAAAAAAAAABLL * ((v12 - v11) >> 3);
+      if (v13 >= 0xA)
       {
-        v13 = v11 - 3;
+        v14 = v12 - 3;
         do
         {
-          if (v11 != &result->size.height)
+          if (v12 != (v11 + 24))
           {
-            memmove(result, &result->size.height, v13 - result);
-            result = p_x[9];
+            memmove(v11, (v11 + 24), v14 - v11);
+            v11 = *(self + 72);
           }
 
-          v11 = v13;
-          p_x[10] = v13;
-          v12 = 0xAAAAAAAAAAAAAAABLL * ((v13 - result) >> 3);
-          v13 -= 3;
+          v12 = v14;
+          *(self + 80) = v14;
+          v13 = 0xAAAAAAAAAAAAAAABLL * ((v14 - v11) >> 3);
+          v14 -= 3;
         }
 
-        while (v12 > 9);
-        v11 = v13 + 3;
+        while (v13 > 9);
+        v12 = v14 + 3;
       }
 
-      v14 = p_x[11];
-      if (v11 >= v14)
+      v15 = *(self + 88);
+      if (v12 >= v15)
       {
-        v15 = 0xAAAAAAAAAAAAAAABLL * ((v14 - result) >> 3);
-        if (2 * v15 <= v12 + 1)
+        v16 = 0xAAAAAAAAAAAAAAABLL * ((v15 - v11) >> 3);
+        if (2 * v16 <= v13 + 1)
         {
-          v16 = v12 + 1;
+          v17 = v13 + 1;
         }
 
         else
         {
-          v16 = 2 * v15;
+          v17 = 2 * v16;
         }
 
-        if (v15 >= 0x555555555555555)
+        if (v16 >= 0x555555555555555)
         {
-          v17 = 0xAAAAAAAAAAAAAAALL;
+          v18 = 0xAAAAAAAAAAAAAAALL;
         }
 
         else
         {
-          v17 = v16;
+          v18 = v17;
         }
 
-        std::__allocate_at_least[abi:ne200100]<std::allocator<TimestampedPoint>>(v17);
+        std::__allocate_at_least[abi:ne200100]<std::allocator<TimestampedPoint>>(v18);
       }
 
-      *v11 = a2;
-      v11[1] = point;
-      v11[2] = v10;
-      p_x[10] = v11 + 3;
+      *v12 = a2;
+      v12[1] = point;
+      v12[2] = v10;
+      *(self + 80) = v12 + 3;
     }
   }
-
-  return result;
 }
 
 - (void)beginStrokeAtPoint:(CGFloat)point
@@ -2863,10 +2857,10 @@ LABEL_118:
 
 - (void)addStrokePoint:(CGFloat)point inputPoint:(CGFloat)inputPoint
 {
-  if (self)
+  if (result)
   {
-    v5 = (self + 8);
-    if (*(self + 16) != *(self + 8))
+    v5 = (result + 1);
+    if (result[2] != result[1])
     {
       v9 = a2[7];
       v30 = a2[6];
@@ -2881,19 +2875,19 @@ LABEL_118:
       v12 = a2[1];
       v24 = *a2;
       v25 = v12;
-      [(PKShapeDrawingController *)self _addAngles:?];
-      v13 = *(self + 16);
-      v14 = sqrt((inputPoint - (*(v13 - 16) / 100)) * (inputPoint - (*(v13 - 16) / 100)) + (point - (*(v13 - 24) / 100)) * (point - (*(v13 - 24) / 100)));
+      [(PKShapeDrawingController *)result _addAngles:?];
+      v13 = result[2];
+      v14 = sqrt((inputPoint - (*(v13 - 2) / 100)) * (inputPoint - (*(v13 - 2) / 100)) + (point - (*(v13 - 3) / 100)) * (point - (*(v13 - 3) / 100)));
       v15 = 10.0;
-      if (!*(self + 208))
+      if (!result[26])
       {
         v15 = 2.0;
       }
 
       if (v14 > v15)
       {
-        [(PKShapeDrawingController *)self _addCurrentStrokePoint:point, inputPoint];
-        v16 = *(self + 120);
+        [(PKShapeDrawingController *)result _addCurrentStrokePoint:point, inputPoint];
+        v16 = result[15];
         v17 = a2[7];
         v30 = a2[6];
         v31 = v17;
@@ -2908,30 +2902,30 @@ LABEL_118:
         v24 = *a2;
         v25 = v20;
         [(PKAveragePointGenerator *)v16 addInputPoint:?];
-        ++*(self + 128);
+        result[16] = result[16] + 1;
         v21 = CACurrentMediaTime();
-        if (*(self + 208))
+        if (result[26])
         {
-          WeakRetained = objc_loadWeakRetained((self + 200));
-          [WeakRetained shapeDrawingControllerShapeDetectionCancelled:self];
+          WeakRetained = objc_loadWeakRetained(result + 25);
+          [WeakRetained shapeDrawingControllerShapeDetectionCancelled:result];
 
-          *(self + 136) = v21;
+          *(result + 17) = v21;
           v23 = v21;
         }
 
         else
         {
-          v23 = *(self + 136);
+          v23 = *(result + 17);
         }
 
-        *(self + 144) = v21;
+        *(result + 18) = v21;
         if (v21 - v23 > 0.3 && sqrt((inputPoint - (*(*v5 + 8) / 100)) * (inputPoint - (*(*v5 + 8) / 100)) + (point - (**v5 / 100)) * (point - (**v5 / 100))) < 20.0 && fabs(ClipperLib::Area(v5)) / 10000.0 > 500.0)
         {
-          *(self + 64) = 1;
+          *(result + 64) = 1;
         }
       }
 
-      [(PKShapeDrawingController *)self _checkDetectedStroke];
+      [(PKShapeDrawingController *)result _checkDetectedStroke];
     }
   }
 }

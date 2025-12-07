@@ -127,7 +127,7 @@ void __52__ICInlineTextAttachment_inlineAttachmentInContext___block_invoke(uint6
     attachmentAttributesForAttributedString = [(ICInlineTextAttachment *)self attachmentAttributesForAttributedString];
     [stringCopy addAttributes:attachmentAttributesForAttributedString range:{v11.location, v11.length}];
     v13 = *MEMORY[0x1E69DB5F8];
-    v14 = [attachmentAttributesForAttributedString objectForKeyedSubscript:*MEMORY[0x1E69DB5F8]];
+    v14 = objc_msgSend_objectForKeyedSubscript_(attachmentAttributesForAttributedString);
 
     if (!v14)
     {

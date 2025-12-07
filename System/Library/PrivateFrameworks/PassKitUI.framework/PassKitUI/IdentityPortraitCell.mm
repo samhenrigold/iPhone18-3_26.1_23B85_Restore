@@ -32,25 +32,31 @@
 
 - (void)layoutSubviews
 {
-  v18.receiver = self;
-  v18.super_class = IdentityPortraitCell;
-  [(IdentityPortraitCell *)&v18 layoutSubviews];
+  v29.receiver = self;
+  v29.super_class = IdentityPortraitCell;
+  [(IdentityPortraitCell *)&v29 layoutSubviews];
   contentView = [(IdentityPortraitCell *)self contentView];
   [contentView bounds];
   v5 = v4;
   v7 = v6;
+  v9 = v8;
+  v11 = v10;
 
   imageView = [(IdentityPortraitCell *)self imageView];
-  [imageView sizeThatFits:{v5, v7}];
+  [imageView sizeThatFits:{v9, v11}];
 
   PKSizeAspectFit();
-  PKSizeAlignedInRect();
-  v10 = v9;
-  v12 = v11;
-  v14 = v13;
-  v16 = v15;
+  v13.n128_u64[0] = v5;
+  v14.n128_u64[0] = v7;
+  v15.n128_f64[0] = v9;
+  v16.n128_f64[0] = v11;
+  PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v17, v18, v13, v14, v15, v16, v19);
+  v21 = v20;
+  v23 = v22;
+  v25 = v24;
+  v27 = v26;
   imageView2 = [(IdentityPortraitCell *)self imageView];
-  [imageView2 setFrame:{v10, v12, v14, v16}];
+  [imageView2 setFrame:{v21, v23, v25, v27}];
 }
 
 @end

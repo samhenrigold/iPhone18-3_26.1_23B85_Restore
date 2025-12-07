@@ -8,12 +8,12 @@
 
 - (BOOL)isCurrentlyValid
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   lockerFileRealPath = [(MAAutoAssetSetShortTermLockInMemoryRecord *)self lockerFileRealPath];
-  v18 = 0;
-  v5 = [defaultManager attributesOfItemAtPath:lockerFileRealPath error:&v18];
-  v6 = v18;
+  v17 = 0;
+  v5 = [defaultManager attributesOfItemAtPath:lockerFileRealPath error:&v17];
+  v6 = v17;
 
   if (v5)
   {
@@ -32,9 +32,9 @@
     {
       summary = [(MAAutoAssetSetShortTermLockInMemoryRecord *)self summary];
       *buf = 138412546;
-      v20 = summary;
-      v21 = 2114;
-      v22 = v6;
+      v19 = summary;
+      v20 = 2114;
+      v21 = v6;
       v10 = "[MAAutoAssetSetShortTermLockInMemoryRecord]: Failed to read lockFileAttributes for %@ Error:%{public}@";
       v11 = v8;
       v12 = 22;
@@ -55,7 +55,7 @@ LABEL_11:
     {
       summary = [(MAAutoAssetSetShortTermLockInMemoryRecord *)self summary];
       *buf = 138543362;
-      v20 = summary;
+      v19 = summary;
       v10 = "[MAAutoAssetSetShortTermLockInMemoryRecord]: Unable to determine modification date for lock file tracked by %{public}@";
       v11 = v8;
       v12 = 12;
@@ -72,7 +72,6 @@ LABEL_12:
   v15 = [v8 compare:recordDate]== -1;
 
 LABEL_13:
-  v16 = *MEMORY[0x1E69E9840];
   return v15;
 }
 

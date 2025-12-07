@@ -422,7 +422,7 @@ LABEL_10:
     layer = [(UIView *)superview layer];
     if (layer)
     {
-      [(CALayer *)layer transform];
+      objc_msgSend_transform(layer);
       self->_cachedScale = v6;
     }
   }

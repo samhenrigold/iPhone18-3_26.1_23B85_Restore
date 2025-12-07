@@ -1,6 +1,6 @@
 @interface MDLTransformMatrixOp
 - (MDLTransformMatrixOp)initWithName:(id)name inverse:(BOOL)inverse data:(id)data;
-- (double)double4x4AtTime:(uint64_t)time@<X2>;
+- (double)double4x4AtTime:(_OWORD *)time@<X8>;
 - (double)float4x4AtTime:(uint64_t)time;
 @end
 
@@ -27,22 +27,22 @@
 
 - (double)float4x4AtTime:(uint64_t)time
 {
-  objc_msgSend_float4x4AtTime_(*(self + 24), a2, time);
-  if (*(self + 8))
+  objc_msgSend_float4x4AtTime_(*(time + 24), v1, v2, v3, v8, v9, v10, v11, v4, v5, v6, v7);
+  if (*(time + 8))
   {
-    v4.columns[0].i64[0] = __invert_f4(v4);
+    v13.columns[0].i64[0] = __invert_f4(v13);
   }
 
-  return *v4.columns[0].i64;
+  return *v13.columns[0].i64;
 }
 
-- (double)double4x4AtTime:(uint64_t)time@<X2>
+- (double)double4x4AtTime:(_OWORD *)time@<X8>
 {
   vars0 = 0u;
-  v6 = *(self + 24);
-  if (v6)
+  v32 = *(self + 24);
+  if (v32)
   {
-    objc_msgSend_double4x4AtTime_(v6, a2, time);
+    objc_msgSend_double4x4AtTime_(v32, v27, 0, v28, v29, a2, v21, v22, v23, v24, v25, v26);
   }
 
   if (*(self + 8))
@@ -52,15 +52,15 @@
 
   else
   {
-    a4[4] = 0u;
-    a4[5] = 0u;
-    a4[6] = 0u;
-    a4[7] = 0u;
-    *a4 = 0u;
-    a4[1] = 0u;
+    time[4] = 0u;
+    time[5] = 0u;
+    time[6] = 0u;
+    time[7] = 0u;
+    *time = 0u;
+    time[1] = 0u;
     result = 0.0;
-    a4[2] = 0u;
-    a4[3] = 0u;
+    time[2] = 0u;
+    time[3] = 0u;
   }
 
   return result;

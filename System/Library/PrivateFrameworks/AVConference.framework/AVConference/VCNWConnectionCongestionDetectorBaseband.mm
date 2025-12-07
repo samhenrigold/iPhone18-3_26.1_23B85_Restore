@@ -6,78 +6,78 @@
 
 - (BOOL)processNWConnectionNotification:(tagVCNWConnectionNotification *)notification
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if (notification)
   {
     if (notification->version < 3u)
     {
       frequency_band = notification->var1.advisory.frequency_band;
       reference_signal_level = notification->var1.advisory.cell_context.reference_signal_level;
-      v18 = *(&notification->var1.thermalUpdate + 29);
+      v12 = *(&notification->var1.thermalUpdate + 29);
       quality_score_loss = notification->var1.advisory.quality_score_loss;
-      v20 = *&notification->var1.advisory.version;
+      v14 = *&notification->var1.advisory.version;
       interface_type = notification->var1.advisory.header.interface_type;
       timestamp = notification->var1.advisory.timestamp;
-      memset(&v31[80], 170, 24);
-      memset(&v30[1], 170, 64);
-      *&v30[0] = 12;
-      *(&v30[0] + 1) = micro();
-      LODWORD(v30[1]) = 0x10000;
-      WORD4(v30[1]) = v20;
-      BYTE10(v30[1]) = interface_type;
-      *(&v30[1] + 11) = 0;
-      HIBYTE(v30[1]) = 0;
-      *&v30[2] = timestamp;
-      *(&v30[2] + 8) = 0u;
-      *(&v30[3] + 8) = 0u;
-      *(&v30[4] + 8) = 0u;
-      *(&v30[5] + 1) = 0;
-      v31[0] = frequency_band;
-      v31[1] = -86;
-      *&v31[2] = reference_signal_level;
-      v31[6] = 0;
-      *&v31[7] = v18;
-      v31[9] = quality_score_loss;
-      *&v31[10] = 0xAA0000000000AA00;
-      memset(&v31[18], 0, 70);
-      AVCStatisticsCollector_SetVCStatistics(self->super._statisticsCollector, v30);
-      v23 = *&v31[80];
-      *(&self->super._previousStatistics.var0.addRemoveEndPoint + 17) = *&v31[64];
-      *(&self->super._previousStatistics.var0.addRemoveEndPoint + 19) = v23;
-      *(&self->super._previousStatistics.var0.addRemoveEndPoint + 21) = *&v31[96];
-      v24 = *&v31[16];
-      *(&self->super._previousStatistics.var0.addRemoveEndPoint + 9) = *v31;
-      *(&self->super._previousStatistics.var0.addRemoveEndPoint + 11) = v24;
-      v25 = *&v31[48];
-      *(&self->super._previousStatistics.var0.addRemoveEndPoint + 13) = *&v31[32];
-      *(&self->super._previousStatistics.var0.addRemoveEndPoint + 15) = v25;
-      v26 = v30[3];
-      *&self->super._previousStatistics.var0.rtcpRR.lastSequenceNumber = v30[2];
-      *(&self->super._previousStatistics.var0.addRemoveEndPoint + 3) = v26;
-      v27 = v30[5];
-      *(&self->super._previousStatistics.var0.addRemoveEndPoint + 5) = v30[4];
-      *(&self->super._previousStatistics.var0.addRemoveEndPoint + 7) = v27;
-      v28 = v30[1];
+      memset(&v25[80], 170, 24);
+      memset(&v24[1], 170, 64);
+      *&v24[0] = 12;
+      *(&v24[0] + 1) = micro(self, a2);
+      LODWORD(v24[1]) = 0x10000;
+      WORD4(v24[1]) = v14;
+      BYTE10(v24[1]) = interface_type;
+      *(&v24[1] + 11) = 0;
+      HIBYTE(v24[1]) = 0;
+      *&v24[2] = timestamp;
+      *(&v24[2] + 8) = 0u;
+      *(&v24[3] + 8) = 0u;
+      *(&v24[4] + 8) = 0u;
+      *(&v24[5] + 1) = 0;
+      v25[0] = frequency_band;
+      v25[1] = -86;
+      *&v25[2] = reference_signal_level;
+      v25[6] = 0;
+      *&v25[7] = v12;
+      v25[9] = quality_score_loss;
+      *&v25[10] = 0xAA0000000000AA00;
+      memset(&v25[18], 0, 70);
+      AVCStatisticsCollector_SetVCStatistics(self->super._statisticsCollector, v24);
+      v17 = *&v25[80];
+      *(&self->super._previousStatistics.var0.addRemoveEndPoint + 17) = *&v25[64];
+      *(&self->super._previousStatistics.var0.addRemoveEndPoint + 19) = v17;
+      *(&self->super._previousStatistics.var0.addRemoveEndPoint + 21) = *&v25[96];
+      v18 = *&v25[16];
+      *(&self->super._previousStatistics.var0.addRemoveEndPoint + 9) = *v25;
+      *(&self->super._previousStatistics.var0.addRemoveEndPoint + 11) = v18;
+      v19 = *&v25[48];
+      *(&self->super._previousStatistics.var0.addRemoveEndPoint + 13) = *&v25[32];
+      *(&self->super._previousStatistics.var0.addRemoveEndPoint + 15) = v19;
+      v20 = v24[3];
+      *&self->super._previousStatistics.var0.rtcpRR.lastSequenceNumber = v24[2];
+      *(&self->super._previousStatistics.var0.addRemoveEndPoint + 3) = v20;
+      v21 = v24[5];
+      *(&self->super._previousStatistics.var0.addRemoveEndPoint + 5) = v24[4];
+      *(&self->super._previousStatistics.var0.addRemoveEndPoint + 7) = v21;
+      v22 = v24[1];
       LOBYTE(logNWDump) = 1;
-      *&self->super._previousStatistics.type = v30[0];
-      *&self->super._previousStatistics.isVCRCInternal = v28;
+      *&self->super._previousStatistics.type = v24[0];
+      *&self->super._previousStatistics.isVCRCInternal = v22;
       return logNWDump;
     }
 
     if (VRTraceGetErrorLogLevelForModule() >= 3)
     {
-      v11 = VRTraceErrorLogLevelToCSTR();
-      v12 = *MEMORY[0x1E6986650];
+      v5 = VRTraceErrorLogLevelToCSTR();
+      v6 = *MEMORY[0x1E6986650];
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
       {
-        [(VCNWConnectionCongestionDetectorBaseband *)v11 processNWConnectionNotification:notification, v12];
+        [(VCNWConnectionCongestionDetectorBaseband *)v5 processNWConnectionNotification:notification, v6];
       }
     }
 
     logNWDump = self->super._logNWDump;
     if (logNWDump)
     {
-      VRLogfilePrint(logNWDump, "NWConnection notification has a bad version=%d\n", v5, v6, v7, v8, v9, v10, notification->var1.advisory.version);
+      VRLogfilePrint(logNWDump, "NWConnection notification has a bad version=%d\n", notification->var1.advisory.version);
 LABEL_11:
       LOBYTE(logNWDump) = 0;
     }
@@ -90,12 +90,12 @@ LABEL_11:
       goto LABEL_11;
     }
 
-    v14 = VRTraceErrorLogLevelToCSTR();
-    v15 = *MEMORY[0x1E6986650];
+    v8 = VRTraceErrorLogLevelToCSTR();
+    v9 = *MEMORY[0x1E6986650];
     LODWORD(logNWDump) = os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR);
     if (logNWDump)
     {
-      [(VCNWConnectionCongestionDetectorBaseband *)v14 processNWConnectionNotification:v15];
+      [(VCNWConnectionCongestionDetectorBaseband *)v8 processNWConnectionNotification:v9];
       goto LABEL_11;
     }
   }

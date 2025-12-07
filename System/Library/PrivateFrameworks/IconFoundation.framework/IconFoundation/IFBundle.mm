@@ -202,9 +202,11 @@ void __38__IFBundle_mobileIconsFrameworkBundle__block_invoke()
 
 uint64_t __22__IFBundle_mainBundle__block_invoke()
 {
-  mainBundle_mainBundle = [[IFBundle alloc] initWithCFBundle:CFBundleGetMainBundle()];
+  v0 = [[IFBundle alloc] initWithCFBundle:CFBundleGetMainBundle()];
+  v1 = mainBundle_mainBundle;
+  mainBundle_mainBundle = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)coreTypesBundle
@@ -530,11 +532,11 @@ void __33__IFBundle_appIconOverrideBundle__block_invoke()
 
 - (unint64_t)icc_platformWithIOButNoLS
 {
-  v19 = *MEMORY[0x1E69E9840];
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x2020000000;
-  v17 = 0;
+  v20 = *MEMORY[0x1E69E9840];
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x2020000000;
+  v18 = 0;
   bundleURL = [(IFBundle *)self bundleURL];
   v4 = bundleURL == 0;
 
@@ -553,17 +555,18 @@ void __33__IFBundle_appIconOverrideBundle__block_invoke()
           v9 = v8;
           if ((v8 & 0x80000000) == 0)
           {
-            v13[0] = MEMORY[0x1E69E9820];
-            v13[1] = 3221225472;
-            v13[2] = __57__IFBundle_ICC_PlatformWithIO__icc_platformWithIOButNoLS__block_invoke;
-            v13[3] = &unk_1E7ED9938;
-            v13[4] = &v14;
-            if ((parse_macho_iterate_slices_fd(v8, buffer, v13) & 1) == 0)
+            v14[0] = MEMORY[0x1E69E9820];
+            v14[1] = 3221225472;
+            v14[2] = __57__IFBundle_ICC_PlatformWithIO__icc_platformWithIOButNoLS__block_invoke;
+            v14[3] = &unk_1E7ED9938;
+            v14[4] = &v15;
+            v10 = parse_macho_iterate_slices_fd(v8, buffer, v14);
+            if ((v10 & 1) == 0)
             {
-              v10 = IFDefaultLog();
-              if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+              v11 = IFDefaultLog(v10);
+              if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
               {
-                [(IFBundle(ICC_PlatformWithIO) *)v10 icc_platformWithIOButNoLS];
+                [(IFBundle(ICC_PlatformWithIO) *)v11 icc_platformWithIOButNoLS];
               }
             }
 
@@ -576,9 +579,9 @@ void __33__IFBundle_appIconOverrideBundle__block_invoke()
     }
   }
 
-  v11 = [objc_opt_class() platformFromDyldPlatform:*(v15 + 6)];
-  _Block_object_dispose(&v14, 8);
-  return v11;
+  v12 = [objc_opt_class() platformFromDyldPlatform:*(v16 + 6)];
+  _Block_object_dispose(&v15, 8);
+  return v12;
 }
 
 uint64_t __57__IFBundle_ICC_PlatformWithIO__icc_platformWithIOButNoLS__block_invoke_2(uint64_t result, int a2)

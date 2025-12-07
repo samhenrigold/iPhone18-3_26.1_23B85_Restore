@@ -53,32 +53,32 @@ void __54__PSUIDefaultVoiceLineListItemsController_reloadCache__block_invoke(uin
 
 - (id)specifiers
 {
-  v25 = *MEMORY[0x277D85DE8];
-  v23.receiver = self;
-  v23.super_class = PSUIDefaultVoiceLineListItemsController;
-  specifiers = [(PSListItemsController *)&v23 specifiers];
+  v24 = *MEMORY[0x277D85DE8];
+  v22.receiver = self;
+  v22.super_class = PSUIDefaultVoiceLineListItemsController;
+  specifiers = [(PSListItemsController *)&v22 specifiers];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v4 = [specifiers countByEnumeratingWithState:&v19 objects:v24 count:16];
+  v4 = [specifiers countByEnumeratingWithState:&v18 objects:v23 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v20;
+    v6 = *v19;
     v7 = *MEMORY[0x277D3FE58];
     v8 = *MEMORY[0x277D3FE68];
-    v18 = *MEMORY[0x277D40128];
+    v17 = *MEMORY[0x277D40128];
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v20 != v6)
+        if (*v19 != v6)
         {
           objc_enumerationMutation(specifiers);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * i);
+        v10 = *(*(&v18 + 1) + 8 * i);
         if ([v10 cellType])
         {
           [v10 setProperty:objc_opt_class() forKey:v7];
@@ -90,13 +90,13 @@ void __54__PSUIDefaultVoiceLineListItemsController_reloadCache__block_invoke(uin
             v13 = [*(&self->super.super.super.super.super.super.isa + v11) subscriptionContextForListItem:v10];
             if (v13)
             {
-              [v10 setProperty:v13 forKey:v18];
+              [v10 setProperty:v13 forKey:v17];
             }
           }
         }
       }
 
-      v5 = [specifiers countByEnumeratingWithState:&v19 objects:v24 count:16];
+      v5 = [specifiers countByEnumeratingWithState:&v18 objects:v23 count:16];
     }
 
     while (v5);
@@ -105,8 +105,6 @@ void __54__PSUIDefaultVoiceLineListItemsController_reloadCache__block_invoke(uin
   v14 = MEMORY[0x277D4D878];
   v15 = [specifiers mutableCopy];
   [v14 logSpecifiers:v15 origin:@"[PSUIDefaultVoiceLineListItemsController specifiers] end"];
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return specifiers;
 }

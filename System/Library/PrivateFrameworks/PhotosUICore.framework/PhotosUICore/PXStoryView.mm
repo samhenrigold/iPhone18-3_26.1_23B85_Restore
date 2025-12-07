@@ -619,7 +619,7 @@ LABEL_31:
         v45 = 0u;
         if (viewModel)
         {
-          [viewModel swipeDownInteractionState];
+          objc_msgSend_swipeDownInteractionState(viewModel);
         }
 
         [downCopy locationInView:tungstenView];
@@ -655,7 +655,7 @@ LABEL_32:
     v45 = 0u;
     if (viewModel)
     {
-      [viewModel swipeDownInteractionState];
+      objc_msgSend_swipeDownInteractionState(viewModel);
     }
 
     v36[2] = v46;
@@ -1805,9 +1805,9 @@ id __44__PXStoryView__initializeGestureRecognizers__block_invoke(uint64_t a1, ui
 
     [(PXStoryView *)v12 _updateBackgroundColor];
     configuration2 = [configurationCopy configuration];
-    options = [configuration2 options];
+    v33 = objc_msgSend_options(configuration2);
 
-    if ((options & 0x20) != 0)
+    if ((v33 & 0x20) != 0)
     {
       transitionQuality = 2;
     }
@@ -1821,14 +1821,14 @@ id __44__PXStoryView__initializeGestureRecognizers__block_invoke(uint64_t a1, ui
     tungstenView = [(PXGViewCoordinator *)v12->_tungstenViewCoordinator tungstenView];
     [tungstenView setOffscreenEffectQuality:transitionQuality];
 
-    if ((options & 0x20) == 0)
+    if ((v33 & 0x20) == 0)
     {
     }
 
     tungstenView2 = [(PXGViewCoordinator *)v12->_tungstenViewCoordinator tungstenView];
     [tungstenView2 setLowPowerModeEnabled:useLowPowerMode];
 
-    if (([configuration options] & 0x400) == 0)
+    if ((objc_msgSend_options(configuration) & 0x400) == 0)
     {
       [(PXStoryView *)v12 _initializeGestureRecognizers];
     }

@@ -5,11 +5,11 @@
 - (HDMedicationCountProvider)initWithDaemon:(id)daemon;
 - (id)_countOfOntologyBackedMedicationsForTransaction:(uint64_t)transaction error:;
 - (int64_t)ontologyBackedMedicationCountInProfile:(id)profile;
-- (uint64_t)_getAndSetReadyProfile:(uint64_t)result;
-- (uint64_t)_isReadyProfile:(uint64_t)result;
 - (uint64_t)_lock_lookupAndUpdateCountForProfile:(void *)profile transaction:(uint64_t)transaction error:;
 - (uint64_t)_updateAndReturnCountForProfile:(uint64_t)profile;
 - (uint64_t)_updateCountForReadyProfile:(uint64_t)profile;
+- (void)_getAndSetReadyProfile:(void *)result;
+- (void)_isReadyProfile:(void *)result;
 - (void)_lock_updateCountAndNotifyIfRequiredForProfile:(void *)profile currentCountNumber:(uint64_t)number newCount:;
 - (void)_lock_updateOntologyBackedMedicationCountWithAddedCount:(void *)count profile:;
 - (void)_monitorMedicationCountsInProfile:(uint64_t)profile;
@@ -168,29 +168,29 @@
 
 - (void)userDomainConceptManager:(id)manager didAddUserDomainConcepts:(id)concepts
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   conceptsCopy = concepts;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v8 = [conceptsCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v8 = [conceptsCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v8)
   {
     v9 = v8;
     v10 = 0;
-    v11 = *v18;
+    v11 = *v17;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(conceptsCopy);
         }
 
-        v13 = *(*(&v17 + 1) + 8 * i);
+        v13 = *(*(&v16 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -203,7 +203,7 @@
         }
       }
 
-      v9 = [conceptsCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v9 = [conceptsCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v9);
@@ -213,20 +213,18 @@
       [(HDMedicationCountProvider *)self _updateOntologyBackedMedicationCountWithAddedCount:v10 profile:profile];
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
-BOOL __57__HDMedicationCountProvider__updateCountForReadyProfile___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+BOOL __57__HDMedicationCountProvider__updateCountForReadyProfile___block_invoke(void *a1, void *a2, uint64_t a3)
 {
-  v5 = *(a1 + 32);
+  v5 = a1[4];
   v6 = a2;
   os_unfair_lock_lock(v5 + 4);
-  v7 = [(HDMedicationCountProvider *)*(a1 + 32) _lock_lookupAndUpdateCountForProfile:v6 transaction:a3 error:?];
+  v7 = [(HDMedicationCountProvider *)a1[4] _lock_lookupAndUpdateCountForProfile:v6 transaction:a3 error:?];
 
-  *(*(*(a1 + 48) + 8) + 24) = v7;
-  os_unfair_lock_unlock((*(a1 + 32) + 16));
-  return *(*(*(a1 + 48) + 8) + 24) != -1;
+  *(*(a1[6] + 8) + 24) = v7;
+  os_unfair_lock_unlock((a1[4] + 16));
+  return *(*(a1[6] + 8) + 24) != -1;
 }
 
 + (uint64_t)_medicationCountForCurrentCountNumber:(uint64_t)number addedCount:
@@ -321,18 +319,18 @@ BOOL __57__HDMedicationCountProvider__updateCountForReadyProfile___block_invoke(
   return profile;
 }
 
-- (uint64_t)_getAndSetReadyProfile:(uint64_t)result
+- (void)_getAndSetReadyProfile:(void *)result
 {
   if (result)
   {
     v2 = result;
     v3 = a2;
-    os_unfair_lock_lock((v2 + 16));
-    v4 = [*(v2 + 32) objectForKey:v3];
+    os_unfair_lock_lock(v2 + 4);
+    v4 = [*(v2 + 4) objectForKey:v3];
     bOOLValue = [v4 BOOLValue];
 
-    [*(v2 + 32) setObject:MEMORY[0x277CBEC38] forKey:v3];
-    os_unfair_lock_unlock((v2 + 16));
+    [*(v2 + 4) setObject:MEMORY[0x277CBEC38] forKey:v3];
+    os_unfair_lock_unlock(v2 + 4);
     return bOOLValue;
   }
 
@@ -360,17 +358,17 @@ BOOL __57__HDMedicationCountProvider__updateCountForReadyProfile___block_invoke(
   [(HDMedicationCountProvider *)self _updateAndReturnCountForProfile:profile];
 }
 
-- (uint64_t)_isReadyProfile:(uint64_t)result
+- (void)_isReadyProfile:(void *)result
 {
   if (result)
   {
     v2 = result;
     v3 = a2;
-    os_unfair_lock_lock((v2 + 16));
-    v4 = [*(v2 + 32) objectForKey:v3];
+    os_unfair_lock_lock(v2 + 4);
+    v4 = [*(v2 + 4) objectForKey:v3];
 
     bOOLValue = [v4 BOOLValue];
-    os_unfair_lock_unlock((v2 + 16));
+    os_unfair_lock_unlock(v2 + 4);
     return bOOLValue;
   }
 
@@ -444,7 +442,7 @@ BOOL __57__HDMedicationCountProvider__updateCountForReadyProfile___block_invoke(
 
 - (id)_countOfOntologyBackedMedicationsForTransaction:(uint64_t)transaction error:
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   if (self)
   {
     v4 = MEMORY[0x277D10B20];
@@ -452,10 +450,10 @@ BOOL __57__HDMedicationCountProvider__updateCountForReadyProfile___block_invoke(
     v6 = a2;
     medicationUserDomainConceptTypeIdentifier = [v5 medicationUserDomainConceptTypeIdentifier];
     v8 = HDUserDomainConceptEntityPredicateForConceptsWithTypeIdentifier();
-    v15[0] = v8;
+    v14[0] = v8;
     v9 = [MEMORY[0x277D10B18] predicateWithProperty:*MEMORY[0x277D10520] equalToValue:*MEMORY[0x277CCC348]];
-    v15[1] = v9;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
+    v14[1] = v9;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
     v11 = [v4 predicateMatchingAllPredicates:v10];
 
     v12 = [MEMORY[0x277D10938] countOfUserDomainConceptsMatchingPredicate:v11 options:0 transaction:v6 error:transaction];
@@ -465,8 +463,6 @@ BOOL __57__HDMedicationCountProvider__updateCountForReadyProfile___block_invoke(
   {
     v12 = 0;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -520,13 +516,12 @@ BOOL __57__HDMedicationCountProvider__updateCountForReadyProfile___block_invoke(
 
 - (void)_updateCountForReadyProfile:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_error_impl(&dword_25181C000, log, OS_LOG_TYPE_ERROR, "%{public}@ Failed to determine if profile has ontology backed medications: %{public}@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 2114;
+  v6 = a2;
+  _os_log_error_impl(&dword_25181C000, log, OS_LOG_TYPE_ERROR, "%{public}@ Failed to determine if profile has ontology backed medications: %{public}@", &v3, 0x16u);
 }
 
 @end

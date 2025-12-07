@@ -6,101 +6,100 @@
 
 - (void)performWithCompletion:(id)completion
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v107 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  date = [MEMORY[0x277CBEAA8] date];
-  if (![(NSString *)self->_requestAceHash length])
+  v9 = objc_msgSend_date(MEMORY[0x277CBEAA8], v5, v6, v7, v8);
+  if (!objc_msgSend_length(self->_requestAceHash, v10, v11, v12, v13))
   {
-    aceId = [(MPAssistantSetShuffleMode *)self aceId];
-    v7 = sub_233505670(@"Set Shuffle Mode", aceId);
+    v18 = objc_msgSend_aceId(self, v14, v15, v16, v17);
+    v19 = sub_233505670(@"Set Shuffle Mode", v18);
     requestAceHash = self->_requestAceHash;
-    self->_requestAceHash = v7;
+    self->_requestAceHash = v19;
   }
 
-  v9 = _MPLogCategoryAssistant();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v21 = _MPLogCategoryAssistant();
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = self->_requestAceHash;
-    hashedRouteUIDs = [(MPAssistantSetShuffleMode *)self hashedRouteUIDs];
-    v12 = [hashedRouteUIDs count];
-    shuffleMode = [(MPAssistantSetShuffleMode *)self shuffleMode];
+    v26 = self->_requestAceHash;
+    v27 = objc_msgSend_hashedRouteUIDs(self, v22, v23, v24, v25);
+    v32 = objc_msgSend_count(v27, v28, v29, v30, v31);
+    v37 = objc_msgSend_shuffleMode(self, v33, v34, v35, v36);
     *buf = 138543874;
-    v41 = v10;
-    v42 = 2048;
-    v43 = v12;
-    v44 = 2114;
-    v45 = shuffleMode;
-    _os_log_impl(&dword_2334D9000, v9, OS_LOG_TYPE_DEFAULT, "Set Shuffle Mode (invoke) <%{public}@>: %lu UIDs, %{public}@ mode", buf, 0x20u);
+    v102 = v26;
+    v103 = 2048;
+    v104 = v32;
+    v105 = 2114;
+    v106 = v37;
+    _os_log_impl(&dword_2334D9000, v21, OS_LOG_TYPE_DEFAULT, "Set Shuffle Mode (invoke) <%{public}@>: %lu UIDs, %{public}@ mode", buf, 0x20u);
   }
 
-  v14 = self->_requestAceHash;
-  hashedRouteUIDs2 = [(MPAssistantSetShuffleMode *)self hashedRouteUIDs];
-  sub_2335057BC(@"Set Shuffle Mode", v14, hashedRouteUIDs2);
+  v38 = self->_requestAceHash;
+  v43 = objc_msgSend_hashedRouteUIDs(self, v39, v40, v41, v42);
+  sub_2335057BC(@"Set Shuffle Mode", v38, v43);
 
-  shuffleMode2 = [(MPAssistantSetShuffleMode *)self shuffleMode];
-  LOBYTE(hashedRouteUIDs2) = [shuffleMode2 isEqualToString:*MEMORY[0x277D48718]];
+  v48 = objc_msgSend_shuffleMode(self, v44, v45, v46, v47);
+  LOBYTE(v43) = objc_msgSend_isEqualToString_(v48, v49, *MEMORY[0x277D48718], v50, v51);
 
-  if (hashedRouteUIDs2)
+  if (v43)
   {
-    v17 = 1;
+    v56 = 1;
   }
 
   else
   {
-    shuffleMode3 = [(MPAssistantSetShuffleMode *)self shuffleMode];
-    v19 = [shuffleMode3 isEqualToString:*MEMORY[0x277D48710]];
+    v57 = objc_msgSend_shuffleMode(self, v52, v53, v54, v55);
+    isEqualToString = objc_msgSend_isEqualToString_(v57, v58, *MEMORY[0x277D48710], v59, v60);
 
-    if (v19)
+    if (isEqualToString)
     {
-      v17 = 2;
+      v56 = 2;
     }
 
     else
     {
-      shuffleMode4 = [(MPAssistantSetShuffleMode *)self shuffleMode];
-      v21 = [shuffleMode4 isEqualToString:*MEMORY[0x277D48720]];
+      v63 = objc_msgSend_shuffleMode(self, v52, v62, v54, v55);
+      v67 = objc_msgSend_isEqualToString_(v63, v64, *MEMORY[0x277D48720], v65, v66);
 
-      if ((v21 & 1) == 0)
+      if ((v67 & 1) == 0)
       {
-        v29 = objc_alloc_init(MEMORY[0x277D47208]);
-        dictionary = [v29 dictionary];
-        completionCopy[2](completionCopy, dictionary);
+        v84 = objc_alloc_init(MEMORY[0x277D47208]);
+        v83 = objc_msgSend_dictionary(v84, v88, v89, v90, v91);
+        completionCopy[2](completionCopy, v83);
         goto LABEL_12;
       }
 
-      v17 = 3;
+      v56 = 3;
     }
   }
 
-  v38[0] = *MEMORY[0x277D27DE8];
-  v22 = [MEMORY[0x277CCABB0] numberWithInt:v17];
-  v39[0] = v22;
-  v38[1] = *MEMORY[0x277D27D08];
-  refId = [(MPAssistantSetShuffleMode *)self refId];
-  v38[2] = *MEMORY[0x277D27DC0];
-  v39[1] = refId;
-  v39[2] = @"com.apple.MediaAssistant.siri";
-  v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:3];
+  v99[0] = *MEMORY[0x277D27DE8];
+  v68 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v52, v56, v54, v55);
+  v100[0] = v68;
+  v99[1] = *MEMORY[0x277D27D08];
+  v73 = objc_msgSend_refId(self, v69, v70, v71, v72);
+  v99[2] = *MEMORY[0x277D27DC0];
+  v100[1] = v73;
+  v100[2] = @"com.apple.MediaAssistant.siri";
+  v75 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v74, v100, v99, 3);
 
-  v25 = objc_alloc_init(MEMORY[0x277D27828]);
-  nowPlayingApplicationDestination = [MEMORY[0x277D27850] nowPlayingApplicationDestination];
-  v31[0] = MEMORY[0x277D85DD0];
-  v31[1] = 3221225472;
-  v31[2] = sub_2334FE628;
-  v31[3] = &unk_2789DBAF8;
-  v32 = nowPlayingApplicationDestination;
+  v76 = objc_alloc_init(MEMORY[0x277D27828]);
+  v81 = objc_msgSend_nowPlayingApplicationDestination(MEMORY[0x277D27850], v77, v78, v79, v80);
+  v92[0] = MEMORY[0x277D85DD0];
+  v92[1] = 3221225472;
+  v92[2] = sub_2334FE628;
+  v92[3] = &unk_2789DBAF8;
+  v93 = v81;
   selfCopy = self;
-  v34 = v25;
-  v35 = v24;
-  v36 = date;
-  v37 = completionCopy;
-  v27 = v24;
-  dictionary = v25;
-  v29 = nowPlayingApplicationDestination;
-  sub_2334FE628(v31, 0);
+  v95 = v76;
+  v96 = v75;
+  v97 = v9;
+  v98 = completionCopy;
+  v82 = v75;
+  v83 = v76;
+  v84 = v81;
+  sub_2334FE628(v92, 0, v85, v86, v87);
 
 LABEL_12:
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 @end

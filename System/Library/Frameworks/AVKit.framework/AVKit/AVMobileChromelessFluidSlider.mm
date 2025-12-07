@@ -363,7 +363,7 @@
 
 - (void)_updateBarVisualEffectsIfNeeded
 {
-  v21[2] = *MEMORY[0x1E69E9840];
+  v23[2] = *MEMORY[0x1E69E9840];
   if (self)
   {
     traitCollection = [self traitCollection];
@@ -376,10 +376,10 @@
         v4 = MEMORY[0x1E69DD290];
         secondaryLabelColor = [MEMORY[0x1E69DC888] secondaryLabelColor];
         v6 = [v4 effectCompositingColor:secondaryLabelColor];
-        v21[0] = v6;
+        v23[0] = v6;
         v7 = [MEMORY[0x1E69DC730] effectWithStyle:13];
-        v21[1] = v7;
-        v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:2];
+        v23[1] = v7;
+        v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:2];
         v9 = [v4 effectCombiningEffects:v8];
         v10 = *(self + 616);
         *(self + 616) = v9;
@@ -390,10 +390,10 @@
         v11 = MEMORY[0x1E69DD290];
         tertiarySystemFillColor = [MEMORY[0x1E69DC888] tertiarySystemFillColor];
         v13 = [v11 effectCompositingColor:tertiarySystemFillColor];
-        v20[0] = v13;
+        v22[0] = v13;
         v14 = [MEMORY[0x1E69DC730] effectWithStyle:13];
-        v20[1] = v14;
-        v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:2];
+        v22[1] = v14;
+        v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:2];
         v16 = [v11 effectCombiningEffects:v15];
         v17 = *(self + 664);
         *(self + 664) = v16;
@@ -411,9 +411,11 @@
 
       if ((*(self + 578) & 1) == 0)
       {
-        *(self + 664) = [MEMORY[0x1E69DC730] effectWithStyle:11];
+        v20 = [MEMORY[0x1E69DC730] effectWithStyle:11];
+        v21 = *(self + 664);
+        *(self + 664) = v20;
 
-        MEMORY[0x1EEE66BB8]();
+        MEMORY[0x1EEE66BB8](v20, v21);
       }
     }
   }
@@ -1086,9 +1088,11 @@
     {
       if (!self->_speedChangeFeedbackGenerator)
       {
-        self->_speedChangeFeedbackGenerator = objc_alloc_init(MEMORY[0x1E69DCF40]);
+        v4 = objc_alloc_init(MEMORY[0x1E69DCF40]);
+        speedChangeFeedbackGenerator = self->_speedChangeFeedbackGenerator;
+        self->_speedChangeFeedbackGenerator = v4;
 
-        MEMORY[0x1EEE66BB8]();
+        MEMORY[0x1EEE66BB8](v4, speedChangeFeedbackGenerator);
       }
     }
   }

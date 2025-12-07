@@ -3,6 +3,7 @@
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection;
 - (HMServiceDaemon)init;
 - (void)_activate;
+- (void)_fetchOcclusionResultForDeviceIdentifier:(id)identifier featureID:(int)d completion:(id)completion;
 - (void)_modifyDeviceConfig:(id)config identifier:(id)identifier completion:(id)completion;
 - (void)_reportDeviceRecordChange:(id)change;
 - (void)_reportDeviceRecordLost:(id)lost;
@@ -22,28 +23,28 @@
 
 - (void)_update
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v2 = self->_xpcConnections;
-  v3 = [(NSMutableSet *)v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [(NSMutableSet *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        if (([*(*(&v9 + 1) + 8 * v6) audiogramsReported] & 1) == 0)
+        if (([*(*(&v8 + 1) + 8 * v6) audiogramsReported] & 1) == 0)
         {
           v7 = +[HMHealthKitUtilities sharedInstance];
           [v7 startAudiogramQuery];
@@ -53,13 +54,11 @@
       }
 
       while (v4 != v6);
-      v4 = [(NSMutableSet *)v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [(NSMutableSet *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 + (id)sharedHMServiceDaemon
@@ -243,6 +242,15 @@ void __29__HMServiceDaemon_invalidate__block_invoke(uint64_t a1)
   [(HMServiceDaemon *)self _update];
 }
 
+- (void)_fetchOcclusionResultForDeviceIdentifier:(id)identifier featureID:(int)d completion:(id)completion
+{
+  v5 = *&d;
+  completionCopy = completion;
+  identifierCopy = identifier;
+  v9 = +[HMDeviceManager sharedInstance];
+  [v9 fetchOcclusionResultForDeviceIdentifier:identifierCopy featureID:v5 completion:completionCopy];
+}
+
 - (void)_modifyDeviceConfig:(id)config identifier:(id)identifier completion:(id)completion
 {
   completionCopy = completion;
@@ -268,6 +276,93 @@ void __29__HMServiceDaemon_invalidate__block_invoke(uint64_t a1)
 
 - (void)_reportDeviceRecordChange:(id)change
 {
+  v17 = *MEMORY[0x277D85DE8];
+  changeCopy = change;
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v5 = self->_xpcConnections;
+  v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v6)
+  {
+    v7 = v6;
+    v8 = *v13;
+    do
+    {
+      for (i = 0; i != v7; ++i)
+      {
+        if (*v13 != v8)
+        {
+          objc_enumerationMutation(v5);
+        }
+
+        v10 = *(*(&v12 + 1) + 8 * i);
+        hearingModeClient = [v10 hearingModeClient];
+        if (hearingModeClient)
+        {
+          [v10 clientReportHMDeviceRecordChanged:changeCopy];
+        }
+      }
+
+      v7 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    }
+
+    while (v7);
+  }
+}
+
+- (void)reportDeviceRecordLost:(id)lost
+{
+  lostCopy = lost;
+  dispatchQueue = self->_dispatchQueue;
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __42__HMServiceDaemon_reportDeviceRecordLost___block_invoke;
+  v7[3] = &unk_2796EFEC8;
+  v7[4] = self;
+  v8 = lostCopy;
+  v6 = lostCopy;
+  dispatch_async(dispatchQueue, v7);
+}
+
+- (void)_reportDeviceRecordLost:(id)lost
+{
+  v15 = *MEMORY[0x277D85DE8];
+  lostCopy = lost;
+  v10 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v5 = self->_xpcConnections;
+  v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v6)
+  {
+    v7 = v6;
+    v8 = *v11;
+    do
+    {
+      v9 = 0;
+      do
+      {
+        if (*v11 != v8)
+        {
+          objc_enumerationMutation(v5);
+        }
+
+        [*(*(&v10 + 1) + 8 * v9++) clientReportHMDeviceRecordLost:{lostCopy, v10}];
+      }
+
+      while (v7 != v9);
+      v7 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
+    }
+
+    while (v7);
+  }
+}
+
+- (void)reportDiagnosticRecordChange:(id)change
+{
   v18 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   v13 = 0u;
@@ -291,97 +386,6 @@ void __29__HMServiceDaemon_invalidate__block_invoke(uint64_t a1)
 
         v10 = *(*(&v13 + 1) + 8 * i);
         hearingModeClient = [v10 hearingModeClient];
-        if (hearingModeClient)
-        {
-          [v10 clientReportHMDeviceRecordChanged:changeCopy];
-        }
-      }
-
-      v7 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
-    }
-
-    while (v7);
-  }
-
-  v12 = *MEMORY[0x277D85DE8];
-}
-
-- (void)reportDeviceRecordLost:(id)lost
-{
-  lostCopy = lost;
-  dispatchQueue = self->_dispatchQueue;
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __42__HMServiceDaemon_reportDeviceRecordLost___block_invoke;
-  v7[3] = &unk_2796EFEC8;
-  v7[4] = self;
-  v8 = lostCopy;
-  v6 = lostCopy;
-  dispatch_async(dispatchQueue, v7);
-}
-
-- (void)_reportDeviceRecordLost:(id)lost
-{
-  v16 = *MEMORY[0x277D85DE8];
-  lostCopy = lost;
-  v11 = 0u;
-  v12 = 0u;
-  v13 = 0u;
-  v14 = 0u;
-  v5 = self->_xpcConnections;
-  v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
-  if (v6)
-  {
-    v7 = v6;
-    v8 = *v12;
-    do
-    {
-      v9 = 0;
-      do
-      {
-        if (*v12 != v8)
-        {
-          objc_enumerationMutation(v5);
-        }
-
-        [*(*(&v11 + 1) + 8 * v9++) clientReportHMDeviceRecordLost:{lostCopy, v11}];
-      }
-
-      while (v7 != v9);
-      v7 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
-    }
-
-    while (v7);
-  }
-
-  v10 = *MEMORY[0x277D85DE8];
-}
-
-- (void)reportDiagnosticRecordChange:(id)change
-{
-  v19 = *MEMORY[0x277D85DE8];
-  changeCopy = change;
-  v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v17 = 0u;
-  v5 = self->_xpcConnections;
-  v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
-  if (v6)
-  {
-    v7 = v6;
-    v8 = *v15;
-    do
-    {
-      for (i = 0; i != v7; ++i)
-      {
-        if (*v15 != v8)
-        {
-          objc_enumerationMutation(v5);
-        }
-
-        v10 = *(*(&v14 + 1) + 8 * i);
-        hearingModeClient = [v10 hearingModeClient];
         internalFlags = [hearingModeClient internalFlags];
 
         if (internalFlags)
@@ -390,13 +394,11 @@ void __29__HMServiceDaemon_invalidate__block_invoke(uint64_t a1)
         }
       }
 
-      v7 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reportValidAudiograms:(id)audiograms invalidAudiograms:(id)invalidAudiograms error:(id)error
@@ -421,30 +423,30 @@ void __29__HMServiceDaemon_invalidate__block_invoke(uint64_t a1)
 
 - (void)_reportValidAudiograms:(id)audiograms invalidAudiograms:(id)invalidAudiograms error:(id)error
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   audiogramsCopy = audiograms;
   invalidAudiogramsCopy = invalidAudiograms;
   errorCopy = error;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v11 = self->_xpcConnections;
-  v12 = [(NSMutableSet *)v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v12 = [(NSMutableSet *)v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v20;
+    v14 = *v19;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v20 != v14)
+        if (*v19 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v19 + 1) + 8 * i);
+        v16 = *(*(&v18 + 1) + 8 * i);
         hearingModeClient = [v16 hearingModeClient];
         if (hearingModeClient)
         {
@@ -452,13 +454,11 @@ void __29__HMServiceDaemon_invalidate__block_invoke(uint64_t a1)
         }
       }
 
-      v13 = [(NSMutableSet *)v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v13 = [(NSMutableSet *)v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v13);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_triggerDiagnosticCheckForIdentifier:(id)identifier completion:(id)completion
@@ -472,8 +472,7 @@ void __29__HMServiceDaemon_invalidate__block_invoke(uint64_t a1)
 - (void)_xpcConnectionInvalidated:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 xpcCnx];
-  [v1 processIdentifier];
-  LogPrintF();
+  LogPrintF(&gLogCategory_HMServiceDaemon, "-[HMServiceDaemon _xpcConnectionInvalidated:]", 20, "XPC connection ended: %#{pid}", [v1 processIdentifier]);
 }
 
 @end

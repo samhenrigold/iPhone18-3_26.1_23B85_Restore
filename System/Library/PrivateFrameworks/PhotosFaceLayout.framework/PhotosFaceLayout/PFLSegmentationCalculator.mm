@@ -80,31 +80,30 @@ uint64_t __43__PFLSegmentationCalculator_sharedInstance__block_invoke(uint64_t a
 
 void __65__PFLSegmentationCalculator_bestSegmentationForAsset_completion___block_invoke(uint64_t a1)
 {
-  v37 = *MEMORY[0x277D85DE8];
-  v33[0] = MEMORY[0x277D85DD0];
-  v33[1] = 3221225472;
-  v33[2] = __65__PFLSegmentationCalculator_bestSegmentationForAsset_completion___block_invoke_2;
-  v33[3] = &unk_27875BA78;
+  v39 = *MEMORY[0x277D85DE8];
+  v35[0] = MEMORY[0x277D85DD0];
+  v35[1] = 3221225472;
+  v35[2] = __65__PFLSegmentationCalculator_bestSegmentationForAsset_completion___block_invoke_2;
+  v35[3] = &unk_27875BA78;
   v2 = *(a1 + 48);
-  v33[4] = *(a1 + 32);
-  v34 = v2;
-  v3 = MEMORY[0x2318CC2A0](v33);
-  [MEMORY[0x277D3A950] ensureResources];
-  v4 = pfl_layout_log();
+  v35[4] = *(a1 + 32);
+  v36 = v2;
+  v3 = MEMORY[0x2318CC2A0](v35);
+  v4 = pfl_layout_log([MEMORY[0x277D3A950] ensureResources]);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(*(a1 + 32) + 8);
     *buf = 138412290;
-    v36 = v5;
+    v38 = v5;
     _os_log_impl(&dword_22D2ED000, v4, OS_LOG_TYPE_DEFAULT, "PFL: bestSegmentationForAsset DISPATCHED, seg data == %@", buf, 0xCu);
   }
 
   v6 = [MEMORY[0x277CBEB18] arrayWithCapacity:4];
   v7 = *(a1 + 32);
   v8 = *(a1 + 40);
-  v32 = 0;
-  v9 = [v7 queue_bestSegmentationForAsset:v8 timePositions:&unk_284076F08 error:&v32];
-  v10 = v32;
+  v34 = 0;
+  v9 = [v7 queue_bestSegmentationForAsset:v8 timePositions:&unk_284076F08 error:&v34];
+  v10 = v34;
   if ((v3)[2](v3, v10))
   {
     goto LABEL_34;
@@ -113,29 +112,30 @@ void __65__PFLSegmentationCalculator_bestSegmentationForAsset_completion___block
   if (v9)
   {
     [v9 visibleRect];
-    if (CGRectIsEmpty(v38))
+    IsEmpty = CGRectIsEmpty(v40);
+    if (IsEmpty)
     {
-      v11 = pfl_layout_log();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = pfl_layout_log(IsEmpty);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        __65__PFLSegmentationCalculator_bestSegmentationForAsset_completion___block_invoke_cold_1(v11);
+        __65__PFLSegmentationCalculator_bestSegmentationForAsset_completion___block_invoke_cold_1(v12);
       }
 
-      v12 = *(a1 + 32);
-      v13 = *(a1 + 40);
-      v31 = v10;
-      v14 = [v12 queue_bestSegmentationForAsset:v13 timePositions:&unk_284076F20 error:&v31];
-      v15 = v31;
+      v13 = *(a1 + 32);
+      v14 = *(a1 + 40);
+      v33 = v10;
+      v15 = [v13 queue_bestSegmentationForAsset:v14 timePositions:&unk_284076F20 error:&v33];
+      v16 = v33;
 
-      if ((v3)[2](v3, v15))
+      if ((v3)[2](v3, v16))
       {
-        v10 = v15;
+        v10 = v16;
 LABEL_19:
-        v9 = v14;
+        v9 = v15;
         goto LABEL_34;
       }
 
-      if (!v14)
+      if (!v15)
       {
         goto LABEL_14;
       }
@@ -143,24 +143,24 @@ LABEL_19:
 
     else
     {
-      v14 = v9;
-      v15 = v10;
+      v15 = v9;
+      v16 = v10;
     }
 
-    [v6 addObject:v14];
+    [v6 addObject:v15];
   }
 
   else
   {
-    v15 = v10;
+    v16 = v10;
   }
 
 LABEL_14:
-  v16 = *(a1 + 32);
-  v17 = *(a1 + 40);
-  v30 = v15;
-  v9 = [v16 queue_bestSegmentationForAsset:v17 timePositions:&unk_284076F38 error:&v30];
-  v10 = v30;
+  v17 = *(a1 + 32);
+  v18 = *(a1 + 40);
+  v32 = v16;
+  v9 = [v17 queue_bestSegmentationForAsset:v18 timePositions:&unk_284076F38 error:&v32];
+  v10 = v32;
 
   if ((v3)[2](v3, v10))
   {
@@ -172,32 +172,32 @@ LABEL_14:
     [v6 addObject:v9];
   }
 
-  v18 = *(a1 + 32);
-  v19 = *(a1 + 40);
-  v29 = v10;
-  v14 = [v18 queue_bestSegmentationForAsset:v19 timePositions:&unk_284076F50 error:&v29];
-  v20 = v29;
+  v19 = *(a1 + 32);
+  v20 = *(a1 + 40);
+  v31 = v10;
+  v15 = [v19 queue_bestSegmentationForAsset:v20 timePositions:&unk_284076F50 error:&v31];
+  v21 = v31;
 
-  if ((v3)[2](v3, v20))
+  if ((v3)[2](v3, v21))
   {
-    v10 = v20;
+    v10 = v21;
     goto LABEL_19;
   }
 
-  if (v14)
+  if (v15)
   {
-    [v6 addObject:v14];
+    [v6 addObject:v15];
   }
 
-  v21 = *(a1 + 32);
-  v22 = *(a1 + 40);
-  v28 = v20;
-  v9 = [v21 queue_bestSegmentationForAsset:v22 timePositions:&unk_284076F68 error:&v28];
-  v23 = v28;
+  v22 = *(a1 + 32);
+  v23 = *(a1 + 40);
+  v30 = v21;
+  v9 = [v22 queue_bestSegmentationForAsset:v23 timePositions:&unk_284076F68 error:&v30];
+  v24 = v30;
 
-  if ((v3)[2](v3, v23))
+  if ((v3)[2](v3, v24))
   {
-    v10 = v23;
+    v10 = v24;
     goto LABEL_34;
   }
 
@@ -208,28 +208,28 @@ LABEL_14:
 
   if ([v6 count])
   {
-    v10 = v23;
+    v10 = v24;
 LABEL_31:
-    (*(*(a1 + 48) + 16))();
-    v25 = pfl_layout_log();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    v26 = (*(*(a1 + 48) + 16))();
+    v27 = pfl_layout_log(v26);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_22D2ED000, v25, OS_LOG_TYPE_DEFAULT, "PFL: bestSegmentationForAsset DONE", buf, 2u);
+      _os_log_impl(&dword_22D2ED000, v27, OS_LOG_TYPE_DEFAULT, "PFL: bestSegmentationForAsset DONE", buf, 2u);
     }
 
-    v26 = *(a1 + 32);
-    v27 = *(v26 + 8);
-    *(v26 + 8) = 0;
+    v28 = *(a1 + 32);
+    v29 = *(v28 + 8);
+    *(v28 + 8) = 0;
 
     [MEMORY[0x277D3A950] freeResources];
     goto LABEL_34;
   }
 
-  v24 = pfl_layout_log();
-  if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+  v25 = pfl_layout_log(0);
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
   {
-    __65__PFLSegmentationCalculator_bestSegmentationForAsset_completion___block_invoke_cold_2(v24);
+    __65__PFLSegmentationCalculator_bestSegmentationForAsset_completion___block_invoke_cold_2(v25);
   }
 
   v10 = [MEMORY[0x277CCA9B8] errorWithDomain:0x284075FD0 code:2 userInfo:0];
@@ -244,22 +244,22 @@ LABEL_34:
 
 BOOL __65__PFLSegmentationCalculator_bestSegmentationForAsset_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
-    (*(*(a1 + 40) + 16))();
-    v4 = pfl_layout_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v4 = (*(*(a1 + 40) + 16))();
+    v5 = pfl_layout_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 138412290;
-      v9 = v3;
-      _os_log_impl(&dword_22D2ED000, v4, OS_LOG_TYPE_DEFAULT, "PFL: bestSegmentationForAsset DONE with error %@", &v8, 0xCu);
+      v9 = 138412290;
+      v10 = v3;
+      _os_log_impl(&dword_22D2ED000, v5, OS_LOG_TYPE_DEFAULT, "PFL: bestSegmentationForAsset DONE with error %@", &v9, 0xCu);
     }
 
-    v5 = *(a1 + 32);
-    v6 = *(v5 + 8);
-    *(v5 + 8) = 0;
+    v6 = *(a1 + 32);
+    v7 = *(v6 + 8);
+    *(v6 + 8) = 0;
 
     [MEMORY[0x277D3A950] freeResources];
   }
@@ -287,80 +287,79 @@ BOOL __65__PFLSegmentationCalculator_bestSegmentationForAsset_completion___block
 
 void __78__PFLSegmentationCalculator_bestSegmentationForAsset_timePosition_completion___block_invoke(void *a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  [MEMORY[0x277D3A950] ensureResources];
-  v2 = pfl_layout_log();
+  v18 = *MEMORY[0x277D85DE8];
+  v2 = pfl_layout_log([MEMORY[0x277D3A950] ensureResources]);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1[4] + 8);
     *buf = 138412290;
-    v16 = v3;
+    v17 = v3;
     _os_log_impl(&dword_22D2ED000, v2, OS_LOG_TYPE_DEFAULT, "PFL: bestSegmentationForAsset DISPATCHED, seg data == %@", buf, 0xCu);
   }
 
   v4 = a1[4];
   v5 = a1[5];
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:a1[7]];
-  v14 = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
-  v13 = 0;
-  v8 = [v4 queue_bestSegmentationForAsset:v5 timePositions:v7 error:&v13];
-  v9 = v13;
+  v15 = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v15 count:1];
+  v14 = 0;
+  v8 = [v4 queue_bestSegmentationForAsset:v5 timePositions:v7 error:&v14];
+  v9 = v14;
 
-  (*(a1[6] + 16))();
-  v10 = pfl_layout_log();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v10 = (*(a1[6] + 16))();
+  v11 = pfl_layout_log(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_22D2ED000, v10, OS_LOG_TYPE_DEFAULT, "PFL: bestSegmentationForAsset DONE", buf, 2u);
+    _os_log_impl(&dword_22D2ED000, v11, OS_LOG_TYPE_DEFAULT, "PFL: bestSegmentationForAsset DONE", buf, 2u);
   }
 
-  v11 = a1[4];
-  v12 = *(v11 + 8);
-  *(v11 + 8) = 0;
+  v12 = a1[4];
+  v13 = *(v12 + 8);
+  *(v12 + 8) = 0;
 
   [MEMORY[0x277D3A950] freeResources];
 }
 
 - (id)queue_bestSegmentationForAsset:(id)asset timePositions:(id)positions error:(id *)error
 {
-  v74 = *MEMORY[0x277D85DE8];
+  v77 = *MEMORY[0x277D85DE8];
   assetCopy = asset;
-  v59 = 0u;
-  v60 = 0u;
-  v61 = 0u;
   v62 = 0u;
+  v63 = 0u;
+  v64 = 0u;
+  v65 = 0u;
   obj = positions;
-  v48 = [obj countByEnumeratingWithState:&v59 objects:v73 count:16];
-  if (v48)
+  v51 = [obj countByEnumeratingWithState:&v62 objects:v76 count:16];
+  if (v51)
   {
     v7 = 0;
-    v45 = *v60;
-    v43 = *MEMORY[0x277D3B598];
+    v48 = *v63;
+    v46 = *MEMORY[0x277D3B598];
     v8 = -1.0;
 LABEL_3:
     v9 = 0;
     while (1)
     {
       v10 = v7;
-      if (*v60 != v45)
+      if (*v63 != v48)
       {
         objc_enumerationMutation(obj);
       }
 
-      v11 = *(*(&v59 + 1) + 8 * v9);
-      *v69 = 0;
-      *&v69[8] = v69;
-      *&v69[16] = 0x3032000000;
-      v70 = __Block_byref_object_copy__0;
-      v71 = __Block_byref_object_dispose__0;
-      v72 = 0;
-      v53 = 0;
-      v54 = &v53;
-      v55 = 0x3032000000;
-      v56 = __Block_byref_object_copy__0;
-      v57 = __Block_byref_object_dispose__0;
-      v58 = 0;
+      v11 = *(*(&v62 + 1) + 8 * v9);
+      *v72 = 0;
+      *&v72[8] = v72;
+      *&v72[16] = 0x3032000000;
+      v73 = __Block_byref_object_copy__0;
+      v74 = __Block_byref_object_dispose__0;
+      v75 = 0;
+      v56 = 0;
+      v57 = &v56;
+      v58 = 0x3032000000;
+      v59 = __Block_byref_object_copy__0;
+      v60 = __Block_byref_object_dispose__0;
+      v61 = 0;
       segmentationQueue = self->_segmentationQueue;
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
@@ -369,54 +368,54 @@ LABEL_3:
       block[4] = v11;
       block[5] = self;
       v13 = assetCopy;
-      v50 = v13;
-      v51 = v69;
-      v52 = &v53;
+      v53 = v13;
+      v54 = v72;
+      v55 = &v56;
       dispatch_async(segmentationQueue, block);
-      dispatch_semaphore_wait(self->_segmentationQueueSema, 0xFFFFFFFFFFFFFFFFLL);
-      v14 = pfl_layout_log();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v14 = dispatch_semaphore_wait(self->_segmentationQueueSema, 0xFFFFFFFFFFFFFFFFLL);
+      v15 = pfl_layout_log(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v64 = *&v11;
-        _os_log_impl(&dword_22D2ED000, v14, OS_LOG_TYPE_DEFAULT, "PFL: queue_bestSegmentationForAsset DONE SEGMENTING for %@", buf, 0xCu);
+        v67 = *&v11;
+        _os_log_impl(&dword_22D2ED000, v15, OS_LOG_TYPE_DEFAULT, "PFL: queue_bestSegmentationForAsset DONE SEGMENTING for %@", buf, 0xCu);
       }
 
-      v15 = v54[5];
-      if (v15)
+      v17 = v57[5];
+      if (v17)
       {
         if (error)
         {
-          v16 = v15;
-          *error = v15;
+          v16 = v17;
+          *error = v17;
         }
 
-        v17 = pfl_layout_log();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+        v18 = pfl_layout_log(v16);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_22D2ED000, v17, OS_LOG_TYPE_DEFAULT, "PFL: queue_bestSegmentationForAsset ALL DONE with an error; returning nil layout", buf, 2u);
+          _os_log_impl(&dword_22D2ED000, v18, OS_LOG_TYPE_DEFAULT, "PFL: queue_bestSegmentationForAsset ALL DONE with an error; returning nil layout", buf, 2u);
         }
       }
 
       else
       {
-        v18 = pfl_layout_log();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+        v19 = pfl_layout_log(v16);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
           scores = [(PISegmentationData *)self->_segmentationData scores];
-          v20 = [scores objectForKeyedSubscript:v43];
-          [v20 floatValue];
-          v22 = v21;
-          [*(*&v69[8] + 40) visibleRect];
-          v27 = _rectAsString(v23, v24, v25, v26);
+          v21 = [scores objectForKeyedSubscript:v46];
+          [v21 floatValue];
+          v23 = v22;
+          [*(*&v72[8] + 40) visibleRect];
+          v28 = _rectAsString(v24, v25, v26, v27);
           *buf = 138412802;
-          v64 = *&v11;
-          v65 = 2048;
-          v66 = v22;
-          v67 = 2112;
-          v68 = v27;
-          _os_log_impl(&dword_22D2ED000, v18, OS_LOG_TYPE_DEFAULT, "PFL: queue_bestSegmentationForAsset: score for %@ == %.2f, crop == %@", buf, 0x20u);
+          v67 = *&v11;
+          v68 = 2048;
+          v69 = v23;
+          v70 = 2112;
+          v71 = v28;
+          _os_log_impl(&dword_22D2ED000, v19, OS_LOG_TYPE_DEFAULT, "PFL: queue_bestSegmentationForAsset: score for %@ == %.2f, crop == %@", buf, 0x20u);
         }
 
         if (!self->_segmentationData)
@@ -424,48 +423,48 @@ LABEL_3:
           goto LABEL_21;
         }
 
-        v28 = [PFLLayoutConfiguration alloc];
+        v29 = [PFLLayoutConfiguration alloc];
         intValue = [v11 intValue];
-        v17 = [(PFLLayoutConfiguration *)v28 initWithAsset:v13 timePosition:intValue segmentationData:self->_segmentationData coreLayout:*(*&v69[8] + 40)];
-        [v17 cropScore];
-        if (v30 > v8)
+        v18 = [(PFLLayoutConfiguration *)v29 initWithAsset:v13 timePosition:intValue segmentationData:self->_segmentationData coreLayout:*(*&v72[8] + 40)];
+        [v18 cropScore];
+        if (v31 > v8)
         {
-          v17 = v17;
+          v18 = v18;
 
-          [v17 cropScore];
-          v8 = v31;
-          v32 = pfl_layout_log();
-          if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+          cropScore = [v18 cropScore];
+          v8 = v33;
+          v34 = pfl_layout_log(cropScore);
+          if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 134218242;
-            v64 = v8;
-            v65 = 2112;
-            v66 = *&v11;
-            _os_log_impl(&dword_22D2ED000, v32, OS_LOG_TYPE_DEFAULT, "PFL: queue_bestSegmentationForAsset: top score is now %.2f (%@)", buf, 0x16u);
+            v67 = v8;
+            v68 = 2112;
+            v69 = *&v11;
+            _os_log_impl(&dword_22D2ED000, v34, OS_LOG_TYPE_DEFAULT, "PFL: queue_bestSegmentationForAsset: top score is now %.2f (%@)", buf, 0x16u);
           }
 
-          v10 = v17;
+          v10 = v18;
         }
       }
 
 LABEL_21:
-      _Block_object_dispose(&v53, 8);
+      _Block_object_dispose(&v56, 8);
 
-      _Block_object_dispose(v69, 8);
-      if (v15)
+      _Block_object_dispose(v72, 8);
+      if (v17)
       {
 
-        v33 = 0;
+        v35 = 0;
         goto LABEL_30;
       }
 
       ++v9;
       v7 = v10;
-      if (v48 == v9)
+      if (v51 == v9)
       {
-        v48 = [obj countByEnumeratingWithState:&v59 objects:v73 count:16];
+        v51 = [obj countByEnumeratingWithState:&v62 objects:v76 count:16];
         v7 = v10;
-        if (v48)
+        if (v51)
         {
           goto LABEL_3;
         }
@@ -477,32 +476,32 @@ LABEL_21:
 
   v7 = 0;
 LABEL_27:
-  v34 = v7;
+  v36 = v7;
 
-  v35 = pfl_layout_log();
-  if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+  v38 = pfl_layout_log(v37);
+  if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
   {
-    timePosition = [v34 timePosition];
-    [v34 visibleRect];
-    v41 = _rectAsString(v37, v38, v39, v40);
-    *v69 = 134218242;
-    *&v69[4] = timePosition;
-    *&v69[12] = 2112;
-    *&v69[14] = v41;
-    _os_log_impl(&dword_22D2ED000, v35, OS_LOG_TYPE_DEFAULT, "PFL: queue_bestSegmentationForAsset ALL DONE; winner == %ld (%@)", v69, 0x16u);
+    timePosition = [v36 timePosition];
+    [v36 visibleRect];
+    v44 = _rectAsString(v40, v41, v42, v43);
+    *v72 = 134218242;
+    *&v72[4] = timePosition;
+    *&v72[12] = 2112;
+    *&v72[14] = v44;
+    _os_log_impl(&dword_22D2ED000, v38, OS_LOG_TYPE_DEFAULT, "PFL: queue_bestSegmentationForAsset ALL DONE; winner == %ld (%@)", v72, 0x16u);
   }
 
-  v10 = v34;
-  v33 = v10;
+  v10 = v36;
+  v35 = v10;
 LABEL_30:
 
-  return v33;
+  return v35;
 }
 
 void __80__PFLSegmentationCalculator_queue_bestSegmentationForAsset_timePositions_error___block_invoke(uint64_t a1)
 {
   v19 = *MEMORY[0x277D85DE8];
-  v2 = pfl_layout_log();
+  v2 = pfl_layout_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -541,10 +540,10 @@ void __80__PFLSegmentationCalculator_queue_bestSegmentationForAsset_timePosition
   objc_storeStrong((*(a1[8] + 8) + 40), a4);
   if (*(*(a1[8] + 8) + 40))
   {
-    v11 = pfl_layout_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = pfl_layout_log(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      __80__PFLSegmentationCalculator_queue_bestSegmentationForAsset_timePositions_error___block_invoke_320_cold_1(a1, (a1 + 8), v11);
+      __80__PFLSegmentationCalculator_queue_bestSegmentationForAsset_timePositions_error___block_invoke_320_cold_1(a1, (a1 + 8), v12);
     }
   }
 
@@ -613,7 +612,7 @@ void __81__PFLSegmentationCalculator__queue_segmentationForAsset_timePosition_co
 
   else
   {
-    v10 = pfl_layout_log();
+    v10 = pfl_layout_log(v8);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       __81__PFLSegmentationCalculator__queue_segmentationForAsset_timePosition_completion___block_invoke_cold_1(a1, v5, v10);

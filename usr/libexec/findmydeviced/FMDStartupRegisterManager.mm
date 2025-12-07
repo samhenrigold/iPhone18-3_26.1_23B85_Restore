@@ -120,7 +120,7 @@
 
 - (void)eventDidOccur:(int64_t)occur
 {
-  v5 = sub_100002880();
+  v5 = sub_100002880(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     fm_logID = [(FMDStartupRegisterManager *)self fm_logID];

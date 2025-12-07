@@ -46,7 +46,7 @@
   [(OKJavaScriptContext *)&v2 dealloc];
 }
 
-uint64_t __44__OKJavaScriptContext_setupExceptionHandler__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+void *__44__OKJavaScriptContext_setupExceptionHandler__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (*MEMORY[0x277D62808] >= 4)
   {

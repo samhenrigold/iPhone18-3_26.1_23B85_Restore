@@ -152,9 +152,9 @@
 - (void)run
 {
   v3 = [SSURLBagContext contextWithBagType:0];
-  v36 = 0;
-  v4 = [(LoadDownloadQueueOperation *)self loadURLBagWithContext:v3 returningError:&v36];
-  v5 = v36;
+  v35 = 0;
+  v4 = [(LoadDownloadQueueOperation *)self loadURLBagWithContext:v3 returningError:&v35];
+  v5 = v35;
   v6 = v5;
   if ((v4 & 1) == 0)
   {
@@ -189,13 +189,12 @@
     if (v28)
     {
       v29 = objc_opt_class();
-      v37 = 138412546;
-      v38 = v29;
-      v39 = 2112;
-      v40 = v6;
+      v36 = 138412546;
+      v37 = v29;
+      v38 = 2112;
+      v39 = v6;
       v30 = v29;
-      LODWORD(v33) = 22;
-      v31 = _os_log_send_and_compose_impl();
+      v31 = _os_log_send_and_compose_impl(v28, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Could not load URL bag: %@", &v36, 22);
 
       if (!v31)
       {
@@ -205,7 +204,7 @@ LABEL_33:
         goto LABEL_34;
       }
 
-      oSLogObject = [NSString stringWithCString:v31 encoding:4, &v37, v33];
+      oSLogObject = [NSString stringWithCString:v31 encoding:4];
       free(v31);
       SSFileLog();
     }
@@ -213,7 +212,7 @@ LABEL_33:
     goto LABEL_33;
   }
 
-  v35 = v5;
+  v34 = v5;
   v7 = [NSMutableArray alloc];
   v8 = [NSNumber numberWithUnsignedLongLong:0];
   v9 = [NSNumber numberWithUnsignedLongLong:0];
@@ -273,18 +272,17 @@ LABEL_33:
 
       v19 = objc_opt_class();
       accountIdentifier = self->_accountIdentifier;
-      v37 = 138413058;
-      v38 = v19;
-      v39 = 2112;
-      v40 = accountIdentifier;
-      v41 = 2112;
-      v42 = v12;
-      v43 = 2112;
-      v44 = v13;
+      v36 = 138413058;
+      v37 = v19;
+      v38 = 2112;
+      v39 = accountIdentifier;
+      v40 = 2112;
+      v41 = v12;
+      v42 = 2112;
+      v43 = v13;
       v21 = v19;
-      LODWORD(v34) = 42;
-      v32 = &v37;
-      v22 = _os_log_send_and_compose_impl();
+      LODWORD(v33) = 42;
+      v22 = _os_log_send_and_compose_impl(v18, 0, 0, 0, &_mh_execute_header, oSLogObject2, 1, "%@: Finished loading download queue (%@, %@, %@)", &v36, v33);
 
       if (v22)
       {
@@ -303,7 +301,7 @@ LABEL_19:
       }
     }
 
-    oSLogObject2 = [NSString stringWithCString:v22 encoding:4, &v37, v34];
+    oSLogObject2 = [NSString stringWithCString:v22 encoding:4];
     free(v22);
     v32 = oSLogObject2;
     SSFileLog();
@@ -316,7 +314,7 @@ LABEL_20:
   v23 = self->_rangesToLoad;
   self->_rangesToLoad = 0;
 
-  v6 = v35;
+  v6 = v34;
 LABEL_34:
 }
 
@@ -340,16 +338,21 @@ LABEL_34:
     shouldLog = [v12 shouldLog];
     if ([v12 shouldLogToDisk])
     {
-      v14 = shouldLog | 2;
+      LODWORD(v14) = shouldLog | 2;
     }
 
     else
     {
-      v14 = shouldLog;
+      LODWORD(v14) = shouldLog;
     }
 
     oSLogObject = [v12 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    {
+      v14 = v14;
+    }
+
+    else
     {
       v14 &= 2u;
     }
@@ -358,30 +361,30 @@ LABEL_34:
     {
       v16 = objc_opt_class();
       v17 = v16;
-      [(LoadDownloadQueueOperation *)self requestIdentifier];
+      requestIdentifier = [(LoadDownloadQueueOperation *)self requestIdentifier];
       v20 = 138412546;
       v21 = v16;
-      v23 = v22 = 2112;
-      LODWORD(v19) = 22;
-      v18 = _os_log_send_and_compose_impl();
+      v22 = 2112;
+      v23 = requestIdentifier;
+      v19 = _os_log_send_and_compose_impl(v14, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Importing keybag from response: %@", &v20, 22);
 
-      if (!v18)
+      if (!v19)
       {
-LABEL_13:
+LABEL_14:
 
         sub_1000B29AC(keybag);
-        goto LABEL_14;
+        goto LABEL_15;
       }
 
-      oSLogObject = [NSString stringWithCString:v18 encoding:4, &v20, v19];
-      free(v18);
+      oSLogObject = [NSString stringWithCString:v19 encoding:4];
+      free(v19);
       SSFileLog();
     }
 
-    goto LABEL_13;
+    goto LABEL_14;
   }
 
-LABEL_14:
+LABEL_15:
 }
 
 - (id)_account
@@ -467,13 +470,11 @@ LABEL_14:
     v62 = endCopy;
     v63 = 2048;
     reason = [(LoadDownloadQueueOperation *)self reason];
-    LODWORD(v48) = 52;
-    v46 = &v55;
-    v14 = _os_log_send_and_compose_impl();
+    v14 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Loading download queue (%@, %@, %@) with reason: %ld", &v55, 52);
 
     if (v14)
     {
-      v15 = [NSString stringWithCString:v14 encoding:4, &v55, v48];
+      v15 = [NSString stringWithCString:v14 encoding:4];
       free(v14);
       v46 = v15;
       SSFileLog();
@@ -499,7 +500,7 @@ LABEL_14:
     if (!v21)
     {
       v40 = 0;
-      goto LABEL_36;
+      goto LABEL_37;
     }
 
     v50 = v16;
@@ -525,23 +526,28 @@ LABEL_14:
     shouldLog2 = [v27 shouldLog];
     if ([v27 shouldLogToDisk])
     {
-      v29 = shouldLog2 | 2;
+      LODWORD(v29) = shouldLog2 | 2;
     }
 
     else
     {
-      v29 = shouldLog2;
+      LODWORD(v29) = shouldLog2;
     }
 
     oSLogObject2 = [v27 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+    {
+      v29 = v29;
+    }
+
+    else
     {
       v29 &= 2u;
     }
 
     if (!v29)
     {
-      goto LABEL_26;
+      goto LABEL_27;
     }
 
     v31 = objc_opt_class();
@@ -557,16 +563,15 @@ LABEL_14:
     reason = output;
     v32 = v31;
     LODWORD(v48) = 52;
-    v47 = &v55;
-    v33 = _os_log_send_and_compose_impl();
+    v33 = _os_log_send_and_compose_impl(v29, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%@: Download queue response (key: %@ startID: %@ endID: %@) %@.", &v55, v48);
 
     if (v33)
     {
-      oSLogObject2 = [NSString stringWithCString:v33 encoding:4, &v55, v48];
+      oSLogObject2 = [NSString stringWithCString:v33 encoding:4];
       free(v33);
       v47 = oSLogObject2;
       SSFileLog();
-LABEL_26:
+LABEL_27:
     }
 
     v34 = [StoreDownloadQueueResponse alloc];
@@ -612,7 +617,7 @@ LABEL_26:
       startCopy = v49;
     }
 
-LABEL_36:
+LABEL_37:
     [v20 setDelegate:{0, v47}];
 
     v44 = v40 & v18;
@@ -671,17 +676,17 @@ LABEL_36:
   [v12 setCachePolicy:1];
   [_account accountScope];
   [v12 setURLBagType:SSURLBagTypeForAccountScope()];
-  v50 = v12;
+  v49 = v12;
   if ([(LoadDownloadQueueOperation *)self reason]!= 1)
   {
     [v12 setHTTPMethod:@"POST"];
     v13 = +[ISDevice sharedInstance];
     [v13 guid];
     v15 = v14 = identifierCopy;
-    [v50 setValue:v15 forRequestParameter:@"guid"];
+    [v49 setValue:v15 forRequestParameter:@"guid"];
 
     identifierCopy = v14;
-    v12 = v50;
+    v12 = v49;
   }
 
   v16 = +[SSDevice currentDevice];
@@ -720,7 +725,7 @@ LABEL_36:
     v26 = _account;
     v27 = v11;
     v29 = v28 = v9;
-    [v50 setValue:v29 forRequestParameter:kISLoadMoreStartIDParameter];
+    [v49 setValue:v29 forRequestParameter:kISLoadMoreStartIDParameter];
 
     v9 = v28;
     v11 = v27;
@@ -728,24 +733,24 @@ LABEL_36:
     thinnedApplicationVariantIdentifier = v25;
     v8 = v24;
     v30 = [NSString stringWithFormat:@"%llu", itemIdentifierValue2];
-    [v50 setValue:v30 forRequestParameter:kISLoadMoreEndIDParameter];
+    [v49 setValue:v30 forRequestParameter:kISLoadMoreEndIDParameter];
   }
 
   if ([(LoadDownloadQueueOperation *)self _shouldSendKeyBagSync])
   {
-    v48 = thinnedApplicationVariantIdentifier;
-    v49 = v21;
+    v47 = thinnedApplicationVariantIdentifier;
+    v48 = v21;
     _account2 = [(LoadDownloadQueueOperation *)self _account];
     uniqueIdentifier3 = [_account2 uniqueIdentifier];
     v33 = sub_1000B18E8([uniqueIdentifier3 unsignedLongLongValue], 1);
 
     if (![(__CFData *)v33 length])
     {
-LABEL_26:
+LABEL_27:
 
-      thinnedApplicationVariantIdentifier = v48;
-      v21 = v49;
-      goto LABEL_27;
+      thinnedApplicationVariantIdentifier = v47;
+      v21 = v48;
+      goto LABEL_28;
     }
 
     [(__CFData *)v33 bytes];
@@ -753,67 +758,70 @@ LABEL_26:
     v34 = ISCopyEncodedBase64();
     if (!v34)
     {
-LABEL_25:
+LABEL_26:
 
-      goto LABEL_26;
+      goto LABEL_27;
     }
 
-    v47 = v9;
+    v46 = v9;
     v35 = +[SSLogConfig sharedDaemonConfig];
     if (!v35)
     {
       v35 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v35 shouldLog];
+    LODWORD(v36) = [v35 shouldLog];
     if ([v35 shouldLogToDisk])
     {
-      shouldLog |= 2u;
+      LODWORD(v36) = v36 | 2;
     }
 
     oSLogObject = [v35 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
     {
-      shouldLog &= 2u;
+      v36 = v36;
     }
 
-    if (shouldLog)
+    else
     {
-      v46 = v34;
+      v36 &= 2u;
+    }
+
+    if (v36)
+    {
+      v45 = v34;
       v38 = _account2;
       v39 = objc_opt_class();
-      v45 = v39;
+      v44 = v39;
       requestIdentifier = [(LoadDownloadQueueOperation *)self requestIdentifier];
-      v51 = 138412546;
-      v52 = v39;
+      v50 = 138412546;
+      v51 = v39;
       _account2 = v38;
-      v34 = v46;
-      v53 = 2112;
-      v54 = requestIdentifier;
-      LODWORD(v44) = 22;
-      v43 = &v51;
-      v41 = _os_log_send_and_compose_impl();
+      v34 = v45;
+      v52 = 2112;
+      v53 = requestIdentifier;
+      v41 = _os_log_send_and_compose_impl(v36, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Adding kbsync data to request: %@", &v50, 22);
 
       if (!v41)
       {
-LABEL_24:
+LABEL_25:
 
-        [v50 setValue:v34 forRequestParameter:@"kbsync"];
-        v9 = v47;
-        goto LABEL_25;
+        [v49 setValue:v34 forRequestParameter:@"kbsync"];
+        v9 = v46;
+        goto LABEL_26;
       }
 
-      oSLogObject = [NSString stringWithCString:v41 encoding:4, &v51, v44];
+      oSLogObject = [NSString stringWithCString:v41 encoding:4];
       free(v41);
       v43 = oSLogObject;
       SSFileLog();
     }
 
-    goto LABEL_24;
+    goto LABEL_25;
   }
 
-LABEL_27:
-  [v8 setRequestProperties:{v50, v43}];
+LABEL_28:
+  [v8 setRequestProperties:{v49, v43}];
 
   return v8;
 }

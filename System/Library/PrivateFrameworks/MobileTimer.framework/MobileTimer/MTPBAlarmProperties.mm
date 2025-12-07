@@ -822,68 +822,63 @@ LABEL_38:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v34 = toCopy;
+  v8 = toCopy;
   if (self->_alarmID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   has = self->_has;
   if ((*&has & 0x4000) != 0)
   {
-    hour = self->_hour;
     PBDataWriterWriteUint32Field();
-    toCopy = v34;
+    toCopy = v8;
     has = self->_has;
   }
 
   if ((*&has & 0x8000) != 0)
   {
-    minute = self->_minute;
     PBDataWriterWriteUint32Field();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_title)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
-  v8 = self->_has;
-  if ((*&v8 & 0x80000) != 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x80000) != 0)
   {
-    allowsSnooze = self->_allowsSnooze;
     PBDataWriterWriteBOOLField();
-    toCopy = v34;
-    v8 = self->_has;
+    toCopy = v8;
+    v6 = self->_has;
   }
 
-  if ((*&v8 & 0x1000) != 0)
+  if ((*&v6 & 0x1000) != 0)
   {
-    daySetting = self->_daySetting;
     PBDataWriterWriteUint32Field();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_sound)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v34;
+    toCopy = v8;
   }
 
-  v11 = self->_has;
-  if ((*&v11 & 0x200000) != 0)
+  v7 = self->_has;
+  if ((*&v7 & 0x200000) != 0)
   {
-    isSleepAlarm = self->_isSleepAlarm;
     PBDataWriterWriteBOOLField();
-    toCopy = v34;
-    v11 = self->_has;
-    if ((*&v11 & 0x200) == 0)
+    toCopy = v8;
+    v7 = self->_has;
+    if ((*&v7 & 0x200) == 0)
     {
 LABEL_17:
-      if ((*&v11 & 0x400) == 0)
+      if ((*&v7 & 0x400) == 0)
       {
         goto LABEL_18;
       }
@@ -892,19 +887,18 @@ LABEL_17:
     }
   }
 
-  else if ((*&v11 & 0x200) == 0)
+  else if ((*&v7 & 0x200) == 0)
   {
     goto LABEL_17;
   }
 
-  bedtimeHour = self->_bedtimeHour;
   PBDataWriterWriteUint32Field();
-  toCopy = v34;
-  v11 = self->_has;
-  if ((*&v11 & 0x400) == 0)
+  toCopy = v8;
+  v7 = self->_has;
+  if ((*&v7 & 0x400) == 0)
   {
 LABEL_18:
-    if ((*&v11 & 0x800) == 0)
+    if ((*&v7 & 0x800) == 0)
     {
       goto LABEL_19;
     }
@@ -913,14 +907,13 @@ LABEL_18:
   }
 
 LABEL_43:
-  bedtimeMinute = self->_bedtimeMinute;
   PBDataWriterWriteUint32Field();
-  toCopy = v34;
-  v11 = self->_has;
-  if ((*&v11 & 0x800) == 0)
+  toCopy = v8;
+  v7 = self->_has;
+  if ((*&v7 & 0x800) == 0)
   {
 LABEL_19:
-    if ((*&v11 & 0x20000) == 0)
+    if ((*&v7 & 0x20000) == 0)
     {
       goto LABEL_20;
     }
@@ -929,14 +922,13 @@ LABEL_19:
   }
 
 LABEL_44:
-  bedtimeReminderMinutes = self->_bedtimeReminderMinutes;
   PBDataWriterWriteUint32Field();
-  toCopy = v34;
-  v11 = self->_has;
-  if ((*&v11 & 0x20000) == 0)
+  toCopy = v8;
+  v7 = self->_has;
+  if ((*&v7 & 0x20000) == 0)
   {
 LABEL_20:
-    if ((*&v11 & 0x40) == 0)
+    if ((*&v7 & 0x40) == 0)
     {
       goto LABEL_21;
     }
@@ -945,14 +937,13 @@ LABEL_20:
   }
 
 LABEL_45:
-  revision = self->_revision;
   PBDataWriterWriteUint32Field();
-  toCopy = v34;
-  v11 = self->_has;
-  if ((*&v11 & 0x40) == 0)
+  toCopy = v8;
+  v7 = self->_has;
+  if ((*&v7 & 0x40) == 0)
   {
 LABEL_21:
-    if ((*&v11 & 0x80) == 0)
+    if ((*&v7 & 0x80) == 0)
     {
       goto LABEL_22;
     }
@@ -961,14 +952,13 @@ LABEL_21:
   }
 
 LABEL_46:
-  lastModifiedDate = self->_lastModifiedDate;
   PBDataWriterWriteDoubleField();
-  toCopy = v34;
-  v11 = self->_has;
-  if ((*&v11 & 0x80) == 0)
+  toCopy = v8;
+  v7 = self->_has;
+  if ((*&v7 & 0x80) == 0)
   {
 LABEL_22:
-    if ((*&v11 & 4) == 0)
+    if ((*&v7 & 4) == 0)
     {
       goto LABEL_23;
     }
@@ -977,14 +967,13 @@ LABEL_22:
   }
 
 LABEL_47:
-  snoozeFireDate = self->_snoozeFireDate;
   PBDataWriterWriteDoubleField();
-  toCopy = v34;
-  v11 = self->_has;
-  if ((*&v11 & 4) == 0)
+  toCopy = v8;
+  v7 = self->_has;
+  if ((*&v7 & 4) == 0)
   {
 LABEL_23:
-    if ((*&v11 & 0x100000) == 0)
+    if ((*&v7 & 0x100000) == 0)
     {
       goto LABEL_24;
     }
@@ -993,14 +982,13 @@ LABEL_23:
   }
 
 LABEL_48:
-  bedtimeSnoozeFireDate = self->_bedtimeSnoozeFireDate;
   PBDataWriterWriteDoubleField();
-  toCopy = v34;
-  v11 = self->_has;
-  if ((*&v11 & 0x100000) == 0)
+  toCopy = v8;
+  v7 = self->_has;
+  if ((*&v7 & 0x100000) == 0)
   {
 LABEL_24:
-    if ((*&v11 & 0x10) == 0)
+    if ((*&v7 & 0x10) == 0)
     {
       goto LABEL_25;
     }
@@ -1009,14 +997,13 @@ LABEL_24:
   }
 
 LABEL_49:
-  isEnabled = self->_isEnabled;
   PBDataWriterWriteBOOLField();
-  toCopy = v34;
-  v11 = self->_has;
-  if ((*&v11 & 0x10) == 0)
+  toCopy = v8;
+  v7 = self->_has;
+  if ((*&v7 & 0x10) == 0)
   {
 LABEL_25:
-    if ((*&v11 & 8) == 0)
+    if ((*&v7 & 8) == 0)
     {
       goto LABEL_26;
     }
@@ -1025,14 +1012,13 @@ LABEL_25:
   }
 
 LABEL_50:
-  firedDate = self->_firedDate;
   PBDataWriterWriteDoubleField();
-  toCopy = v34;
-  v11 = self->_has;
-  if ((*&v11 & 8) == 0)
+  toCopy = v8;
+  v7 = self->_has;
+  if ((*&v7 & 8) == 0)
   {
 LABEL_26:
-    if ((*&v11 & 0x400000) == 0)
+    if ((*&v7 & 0x400000) == 0)
     {
       goto LABEL_27;
     }
@@ -1041,14 +1027,13 @@ LABEL_26:
   }
 
 LABEL_51:
-  dismissedDate = self->_dismissedDate;
   PBDataWriterWriteDoubleField();
-  toCopy = v34;
-  v11 = self->_has;
-  if ((*&v11 & 0x400000) == 0)
+  toCopy = v8;
+  v7 = self->_has;
+  if ((*&v7 & 0x400000) == 0)
   {
 LABEL_27:
-    if ((*&v11 & 0x1000000) == 0)
+    if ((*&v7 & 0x1000000) == 0)
     {
       goto LABEL_28;
     }
@@ -1057,14 +1042,13 @@ LABEL_27:
   }
 
 LABEL_52:
-  sleepMode = self->_sleepMode;
   PBDataWriterWriteBOOLField();
-  toCopy = v34;
-  v11 = self->_has;
-  if ((*&v11 & 0x1000000) == 0)
+  toCopy = v8;
+  v7 = self->_has;
+  if ((*&v7 & 0x1000000) == 0)
   {
 LABEL_28:
-    if ((*&v11 & 0x800000) == 0)
+    if ((*&v7 & 0x800000) == 0)
     {
       goto LABEL_29;
     }
@@ -1073,14 +1057,13 @@ LABEL_28:
   }
 
 LABEL_53:
-  sleepTracking = self->_sleepTracking;
   PBDataWriterWriteBOOLField();
-  toCopy = v34;
-  v11 = self->_has;
-  if ((*&v11 & 0x800000) == 0)
+  toCopy = v8;
+  v7 = self->_has;
+  if ((*&v7 & 0x800000) == 0)
   {
 LABEL_29:
-    if ((*&v11 & 0x10000) == 0)
+    if ((*&v7 & 0x10000) == 0)
     {
       goto LABEL_30;
     }
@@ -1089,14 +1072,13 @@ LABEL_29:
   }
 
 LABEL_54:
-  sleepSchedule = self->_sleepSchedule;
   PBDataWriterWriteBOOLField();
-  toCopy = v34;
-  v11 = self->_has;
-  if ((*&v11 & 0x10000) == 0)
+  toCopy = v8;
+  v7 = self->_has;
+  if ((*&v7 & 0x10000) == 0)
   {
 LABEL_30:
-    if ((*&v11 & 0x40000) == 0)
+    if ((*&v7 & 0x40000) == 0)
     {
       goto LABEL_31;
     }
@@ -1105,14 +1087,13 @@ LABEL_30:
   }
 
 LABEL_55:
-  onboardingVersion = self->_onboardingVersion;
   PBDataWriterWriteUint32Field();
-  toCopy = v34;
-  v11 = self->_has;
-  if ((*&v11 & 0x40000) == 0)
+  toCopy = v8;
+  v7 = self->_has;
+  if ((*&v7 & 0x40000) == 0)
   {
 LABEL_31:
-    if ((*&v11 & 0x2000000) == 0)
+    if ((*&v7 & 0x2000000) == 0)
     {
       goto LABEL_32;
     }
@@ -1121,14 +1102,13 @@ LABEL_31:
   }
 
 LABEL_56:
-  sleepModeOptions = self->_sleepModeOptions;
   PBDataWriterWriteUint32Field();
-  toCopy = v34;
-  v11 = self->_has;
-  if ((*&v11 & 0x2000000) == 0)
+  toCopy = v8;
+  v7 = self->_has;
+  if ((*&v7 & 0x2000000) == 0)
   {
 LABEL_32:
-    if ((*&v11 & 0x2000) == 0)
+    if ((*&v7 & 0x2000) == 0)
     {
       goto LABEL_33;
     }
@@ -1137,14 +1117,13 @@ LABEL_32:
   }
 
 LABEL_57:
-  timeInBedTracking = self->_timeInBedTracking;
   PBDataWriterWriteBOOLField();
-  toCopy = v34;
-  v11 = self->_has;
-  if ((*&v11 & 0x2000) == 0)
+  toCopy = v8;
+  v7 = self->_has;
+  if ((*&v7 & 0x2000) == 0)
   {
 LABEL_33:
-    if ((*&v11 & 2) == 0)
+    if ((*&v7 & 2) == 0)
     {
       goto LABEL_34;
     }
@@ -1153,14 +1132,13 @@ LABEL_33:
   }
 
 LABEL_58:
-  dismissedAction = self->_dismissedAction;
   PBDataWriterWriteUint32Field();
-  toCopy = v34;
-  v11 = self->_has;
-  if ((*&v11 & 2) == 0)
+  toCopy = v8;
+  v7 = self->_has;
+  if ((*&v7 & 2) == 0)
   {
 LABEL_34:
-    if ((*&v11 & 1) == 0)
+    if ((*&v7 & 1) == 0)
     {
       goto LABEL_35;
     }
@@ -1169,14 +1147,13 @@ LABEL_34:
   }
 
 LABEL_59:
-  bedtimeFiredDate = self->_bedtimeFiredDate;
   PBDataWriterWriteDoubleField();
-  toCopy = v34;
-  v11 = self->_has;
-  if ((*&v11 & 1) == 0)
+  toCopy = v8;
+  v7 = self->_has;
+  if ((*&v7 & 1) == 0)
   {
 LABEL_35:
-    if ((*&v11 & 0x100) == 0)
+    if ((*&v7 & 0x100) == 0)
     {
       goto LABEL_36;
     }
@@ -1185,14 +1162,13 @@ LABEL_35:
   }
 
 LABEL_60:
-  bedtimeDismissedDate = self->_bedtimeDismissedDate;
   PBDataWriterWriteDoubleField();
-  toCopy = v34;
-  v11 = self->_has;
-  if ((*&v11 & 0x100) == 0)
+  toCopy = v8;
+  v7 = self->_has;
+  if ((*&v7 & 0x100) == 0)
   {
 LABEL_36:
-    if ((*&v11 & 0x20) == 0)
+    if ((*&v7 & 0x20) == 0)
     {
       goto LABEL_38;
     }
@@ -1201,15 +1177,13 @@ LABEL_36:
   }
 
 LABEL_61:
-  bedtimeDismissedAction = self->_bedtimeDismissedAction;
   PBDataWriterWriteUint32Field();
-  toCopy = v34;
+  toCopy = v8;
   if ((*&self->_has & 0x20) != 0)
   {
 LABEL_37:
-    keepOffUntilDate = self->_keepOffUntilDate;
     PBDataWriterWriteDoubleField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
 LABEL_38:
@@ -2012,7 +1986,6 @@ LABEL_31:
       goto LABEL_161;
     }
 
-    v10 = *(equalCopy + 144);
     if (self->_allowsSnooze)
     {
       if ((*(equalCopy + 144) & 1) == 0)
@@ -2056,15 +2029,14 @@ LABEL_31:
     has = self->_has;
   }
 
-  v12 = *(equalCopy + 38);
+  v11 = *(equalCopy + 38);
   if ((*&has & 0x200000) != 0)
   {
-    if ((v12 & 0x200000) == 0)
+    if ((v11 & 0x200000) == 0)
     {
       goto LABEL_161;
     }
 
-    v13 = *(equalCopy + 146);
     if (self->_isSleepAlarm)
     {
       if ((*(equalCopy + 146) & 1) == 0)
@@ -2079,110 +2051,109 @@ LABEL_31:
     }
   }
 
-  else if ((v12 & 0x200000) != 0)
+  else if ((v11 & 0x200000) != 0)
   {
     goto LABEL_161;
   }
 
   if ((*&has & 0x200) != 0)
   {
-    if ((v12 & 0x200) == 0 || self->_bedtimeHour != *(equalCopy + 21))
+    if ((v11 & 0x200) == 0 || self->_bedtimeHour != *(equalCopy + 21))
     {
       goto LABEL_161;
     }
   }
 
-  else if ((v12 & 0x200) != 0)
+  else if ((v11 & 0x200) != 0)
   {
     goto LABEL_161;
   }
 
   if ((*&has & 0x400) != 0)
   {
-    if ((v12 & 0x400) == 0 || self->_bedtimeMinute != *(equalCopy + 22))
+    if ((v11 & 0x400) == 0 || self->_bedtimeMinute != *(equalCopy + 22))
     {
       goto LABEL_161;
     }
   }
 
-  else if ((v12 & 0x400) != 0)
+  else if ((v11 & 0x400) != 0)
   {
     goto LABEL_161;
   }
 
   if ((*&has & 0x800) != 0)
   {
-    if ((v12 & 0x800) == 0 || self->_bedtimeReminderMinutes != *(equalCopy + 23))
+    if ((v11 & 0x800) == 0 || self->_bedtimeReminderMinutes != *(equalCopy + 23))
     {
       goto LABEL_161;
     }
   }
 
-  else if ((v12 & 0x800) != 0)
+  else if ((v11 & 0x800) != 0)
   {
     goto LABEL_161;
   }
 
   if ((*&has & 0x20000) != 0)
   {
-    if ((v12 & 0x20000) == 0 || self->_revision != *(equalCopy + 29))
+    if ((v11 & 0x20000) == 0 || self->_revision != *(equalCopy + 29))
     {
       goto LABEL_161;
     }
   }
 
-  else if ((v12 & 0x20000) != 0)
+  else if ((v11 & 0x20000) != 0)
   {
     goto LABEL_161;
   }
 
   if ((*&has & 0x40) != 0)
   {
-    if ((v12 & 0x40) == 0 || self->_lastModifiedDate != *(equalCopy + 7))
+    if ((v11 & 0x40) == 0 || self->_lastModifiedDate != *(equalCopy + 7))
     {
       goto LABEL_161;
     }
   }
 
-  else if ((v12 & 0x40) != 0)
+  else if ((v11 & 0x40) != 0)
   {
     goto LABEL_161;
   }
 
   if ((*&has & 0x80) != 0)
   {
-    if ((v12 & 0x80) == 0 || self->_snoozeFireDate != *(equalCopy + 8))
+    if ((v11 & 0x80) == 0 || self->_snoozeFireDate != *(equalCopy + 8))
     {
       goto LABEL_161;
     }
   }
 
-  else if ((v12 & 0x80) != 0)
+  else if ((v11 & 0x80) != 0)
   {
     goto LABEL_161;
   }
 
   if ((*&has & 4) != 0)
   {
-    if ((v12 & 4) == 0 || self->_bedtimeSnoozeFireDate != *(equalCopy + 3))
+    if ((v11 & 4) == 0 || self->_bedtimeSnoozeFireDate != *(equalCopy + 3))
     {
       goto LABEL_161;
     }
   }
 
-  else if ((v12 & 4) != 0)
+  else if ((v11 & 4) != 0)
   {
     goto LABEL_161;
   }
 
   if ((*&has & 0x100000) != 0)
   {
-    if ((v12 & 0x100000) == 0)
+    if ((v11 & 0x100000) == 0)
     {
       goto LABEL_161;
     }
 
-    v14 = *(equalCopy + 145);
     if (self->_isEnabled)
     {
       if ((*(equalCopy + 145) & 1) == 0)
@@ -2197,45 +2168,44 @@ LABEL_31:
     }
   }
 
-  else if ((v12 & 0x100000) != 0)
+  else if ((v11 & 0x100000) != 0)
   {
     goto LABEL_161;
   }
 
   if ((*&has & 0x10) != 0)
   {
-    if ((v12 & 0x10) == 0 || self->_firedDate != *(equalCopy + 5))
+    if ((v11 & 0x10) == 0 || self->_firedDate != *(equalCopy + 5))
     {
       goto LABEL_161;
     }
   }
 
-  else if ((v12 & 0x10) != 0)
+  else if ((v11 & 0x10) != 0)
   {
     goto LABEL_161;
   }
 
   if ((*&has & 8) != 0)
   {
-    if ((v12 & 8) == 0 || self->_dismissedDate != *(equalCopy + 4))
+    if ((v11 & 8) == 0 || self->_dismissedDate != *(equalCopy + 4))
     {
       goto LABEL_161;
     }
   }
 
-  else if ((v12 & 8) != 0)
+  else if ((v11 & 8) != 0)
   {
     goto LABEL_161;
   }
 
   if ((*&has & 0x400000) != 0)
   {
-    if ((v12 & 0x400000) == 0)
+    if ((v11 & 0x400000) == 0)
     {
       goto LABEL_161;
     }
 
-    v15 = *(equalCopy + 147);
     if (self->_sleepMode)
     {
       if ((*(equalCopy + 147) & 1) == 0)
@@ -2250,19 +2220,18 @@ LABEL_31:
     }
   }
 
-  else if ((v12 & 0x400000) != 0)
+  else if ((v11 & 0x400000) != 0)
   {
     goto LABEL_161;
   }
 
   if ((*&has & 0x1000000) != 0)
   {
-    if ((v12 & 0x1000000) == 0)
+    if ((v11 & 0x1000000) == 0)
     {
       goto LABEL_161;
     }
 
-    v16 = *(equalCopy + 149);
     if (self->_sleepTracking)
     {
       if ((*(equalCopy + 149) & 1) == 0)
@@ -2277,19 +2246,18 @@ LABEL_31:
     }
   }
 
-  else if ((v12 & 0x1000000) != 0)
+  else if ((v11 & 0x1000000) != 0)
   {
     goto LABEL_161;
   }
 
   if ((*&has & 0x800000) != 0)
   {
-    if ((v12 & 0x800000) == 0)
+    if ((v11 & 0x800000) == 0)
     {
       goto LABEL_161;
     }
 
-    v17 = *(equalCopy + 148);
     if (self->_sleepSchedule)
     {
       if ((*(equalCopy + 148) & 1) == 0)
@@ -2304,55 +2272,54 @@ LABEL_31:
     }
   }
 
-  else if ((v12 & 0x800000) != 0)
+  else if ((v11 & 0x800000) != 0)
   {
     goto LABEL_161;
   }
 
   if ((*&has & 0x10000) != 0)
   {
-    if ((v12 & 0x10000) == 0 || self->_onboardingVersion != *(equalCopy + 28))
+    if ((v11 & 0x10000) == 0 || self->_onboardingVersion != *(equalCopy + 28))
     {
       goto LABEL_161;
     }
   }
 
-  else if ((v12 & 0x10000) != 0)
+  else if ((v11 & 0x10000) != 0)
   {
     goto LABEL_161;
   }
 
   if ((*&has & 0x40000) != 0)
   {
-    if ((v12 & 0x40000) == 0 || self->_sleepModeOptions != *(equalCopy + 30))
+    if ((v11 & 0x40000) == 0 || self->_sleepModeOptions != *(equalCopy + 30))
     {
       goto LABEL_161;
     }
   }
 
-  else if ((v12 & 0x40000) != 0)
+  else if ((v11 & 0x40000) != 0)
   {
     goto LABEL_161;
   }
 
   if ((*&has & 0x2000000) == 0)
   {
-    if ((v12 & 0x2000000) == 0)
+    if ((v11 & 0x2000000) == 0)
     {
       goto LABEL_130;
     }
 
 LABEL_161:
-    v19 = 0;
+    v12 = 0;
     goto LABEL_162;
   }
 
-  if ((v12 & 0x2000000) == 0)
+  if ((v11 & 0x2000000) == 0)
   {
     goto LABEL_161;
   }
 
-  v18 = *(equalCopy + 150);
   if (self->_timeInBedTracking)
   {
     if ((*(equalCopy + 150) & 1) == 0)
@@ -2369,74 +2336,74 @@ LABEL_161:
 LABEL_130:
   if ((*&has & 0x2000) != 0)
   {
-    if ((v12 & 0x2000) == 0 || self->_dismissedAction != *(equalCopy + 25))
+    if ((v11 & 0x2000) == 0 || self->_dismissedAction != *(equalCopy + 25))
     {
       goto LABEL_161;
     }
   }
 
-  else if ((v12 & 0x2000) != 0)
+  else if ((v11 & 0x2000) != 0)
   {
     goto LABEL_161;
   }
 
   if ((*&has & 2) != 0)
   {
-    if ((v12 & 2) == 0 || self->_bedtimeFiredDate != *(equalCopy + 2))
+    if ((v11 & 2) == 0 || self->_bedtimeFiredDate != *(equalCopy + 2))
     {
       goto LABEL_161;
     }
   }
 
-  else if ((v12 & 2) != 0)
+  else if ((v11 & 2) != 0)
   {
     goto LABEL_161;
   }
 
   if (*&has)
   {
-    if ((v12 & 1) == 0 || self->_bedtimeDismissedDate != *(equalCopy + 1))
+    if ((v11 & 1) == 0 || self->_bedtimeDismissedDate != *(equalCopy + 1))
     {
       goto LABEL_161;
     }
   }
 
-  else if (v12)
+  else if (v11)
   {
     goto LABEL_161;
   }
 
   if ((*&has & 0x100) != 0)
   {
-    if ((v12 & 0x100) == 0 || self->_bedtimeDismissedAction != *(equalCopy + 20))
+    if ((v11 & 0x100) == 0 || self->_bedtimeDismissedAction != *(equalCopy + 20))
     {
       goto LABEL_161;
     }
   }
 
-  else if ((v12 & 0x100) != 0)
+  else if ((v11 & 0x100) != 0)
   {
     goto LABEL_161;
   }
 
   if ((*&has & 0x20) != 0)
   {
-    if ((v12 & 0x20) == 0 || self->_keepOffUntilDate != *(equalCopy + 6))
+    if ((v11 & 0x20) == 0 || self->_keepOffUntilDate != *(equalCopy + 6))
     {
       goto LABEL_161;
     }
 
-    v19 = 1;
+    v12 = 1;
   }
 
   else
   {
-    v19 = (*(equalCopy + 38) & 0x20) == 0;
+    v12 = (*(equalCopy + 38) & 0x20) == 0;
   }
 
 LABEL_162:
 
-  return v19;
+  return v12;
 }
 
 - (unint64_t)hash

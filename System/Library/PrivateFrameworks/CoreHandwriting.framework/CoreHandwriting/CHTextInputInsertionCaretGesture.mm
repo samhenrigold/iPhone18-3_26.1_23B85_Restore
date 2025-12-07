@@ -106,7 +106,7 @@
     x = self->_caretTipPoint.x;
     y = self->_caretTipPoint.y;
     v133 = objc_msgSend_targetContentInfo(self, v128, v129, v130, v131, v132);
-    v134 = sub_1837E11D0(x, y, CHTextInputGesture, v133, v113, v30);
+    v134 = sub_1837E11D0(CHTextInputGesture, v133, v113, v30, x, y);
 
     v140 = v134 > 0;
     v141 = v134;

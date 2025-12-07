@@ -37,7 +37,7 @@
   enabledCopy = enabled;
   objc_storeStrong(&self->_authorizationPromptMapDisplayEnabled, enabled);
   bOOLValue = [enabledCopy BOOLValue];
-  v8 = _PUILoggingFacility();
+  v8 = _PUILoggingFacility(bOOLValue);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v12 = 136315394;
@@ -47,23 +47,22 @@
     _os_log_impl(&dword_2657FE000, v8, OS_LOG_TYPE_DEFAULT, "%s - enable: %d", &v12, 0x12u);
   }
 
-  if (bOOLValue == [getCLLocationManagerClass() authorizationPromptMapDisplayEnabled])
+  authorizationPromptMapDisplayEnabled = [getCLLocationManagerClass() authorizationPromptMapDisplayEnabled];
+  if (bOOLValue == authorizationPromptMapDisplayEnabled)
   {
-    v10 = _PUILoggingFacility();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = _PUILoggingFacility(authorizationPromptMapDisplayEnabled);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       v12 = 136315138;
       v13 = "[PUILocationServicesPrivacyAlertsLevelController setAuthorizationPromptMapDisplayEnabled:specifier:]";
-      _os_log_impl(&dword_2657FE000, v10, OS_LOG_TYPE_DEFAULT, "%s - authorization prompt map display already enabled.", &v12, 0xCu);
+      _os_log_impl(&dword_2657FE000, v11, OS_LOG_TYPE_DEFAULT, "%s - authorization prompt map display already enabled.", &v12, 0xCu);
     }
   }
 
   else
   {
-    v9 = [getCLLocationManagerClass() setAuthorizationPromptMapDisplayEnabled:bOOLValue];
+    v10 = [getCLLocationManagerClass() setAuthorizationPromptMapDisplayEnabled:bOOLValue];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)specifiers

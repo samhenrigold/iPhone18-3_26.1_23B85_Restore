@@ -30,8 +30,8 @@
 {
   WeakRetained = objc_loadWeakRetained(&self->_connection);
   remoteProcess = [WeakRetained remoteProcess];
-  auditToken = [remoteProcess auditToken];
-  versionedPID = [auditToken versionedPID];
+  v4 = objc_msgSend_auditToken(remoteProcess);
+  versionedPID = [v4 versionedPID];
 
   return versionedPID;
 }
@@ -77,8 +77,8 @@
   entitlementCopy = entitlement;
   connection = [(_UIOServiceConnection *)self connection];
   remoteProcess = [connection remoteProcess];
-  auditToken = [remoteProcess auditToken];
-  v8 = [auditToken hasEntitlement:entitlementCopy];
+  v7 = objc_msgSend_auditToken(remoteProcess);
+  v8 = [v7 hasEntitlement:entitlementCopy];
 
   return v8;
 }

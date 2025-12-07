@@ -7,26 +7,24 @@
 
 - (id)attributeDescriptions
 {
-  v18[4] = *MEMORY[0x277D85DE8];
+  v17[4] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   v4 = HMDUserComingHomeStateAsString([(HMDUserActivityType6StateEvent *)self state]);
   v5 = [v3 initWithName:@"State" value:v4];
-  v18[0] = v5;
+  v17[0] = v5;
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   stateEnd = [(HMDUserActivityType6StateEvent *)self stateEnd];
   v8 = [v6 initWithName:@"State End" value:stateEnd];
-  v18[1] = v8;
+  v17[1] = v8;
   v9 = objc_alloc(MEMORY[0x277D0F778]);
   changedTimestamp = [(HMDUserActivityType6StateEvent *)self changedTimestamp];
   v11 = [v9 initWithName:@"Changed Timestamp" value:changedTimestamp];
-  v18[2] = v11;
+  v17[2] = v11;
   v12 = objc_alloc(MEMORY[0x277D0F778]);
   v13 = HMDUserActivityStateDetectorUpdateReasonAsString([(HMDUserActivityType6StateEvent *)self reason]);
   v14 = [v12 initWithName:@"Reason" value:v13];
-  v18[3] = v14;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:4];
-
-  v16 = *MEMORY[0x277D85DE8];
+  v17[3] = v14;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:4];
 
   return v15;
 }

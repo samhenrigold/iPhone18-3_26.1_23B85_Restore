@@ -1,48 +1,475 @@
-uint64_t specialized TabViewCoordinator_Phone.updateHosts<A, B>(_:tabs:selected:environment:transaction:)(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, unint64_t a8, uint64_t a9, __int128 a10, uint64_t a11)
+uint64_t specialized TabViewCoordinator_Phone.updateHosts<A, B>(_:tabs:selected:environment:transaction:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+{
+  v7 = v6;
+  v86 = a4;
+  v87 = a1;
+  type metadata accessor for Binding<SearchFieldState>?(0);
+  MEMORY[0x1EEE9AC00](v12 - 8);
+  v14 = v65 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  type metadata accessor for Logger?(0);
+  MEMORY[0x1EEE9AC00](v15 - 8);
+  v85 = v65 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v17 = OBJC_IVAR____TtC7SwiftUI24TabViewCoordinator_Phone_selectionCache;
+  swift_beginAccess();
+  v18 = *(v7 + v17);
+  if (!v18)
+  {
+    return swift_endAccess();
+  }
+
+  if (!*(v18 + 16))
+  {
+    return swift_endAccess();
+  }
+
+  v19 = specialized __RawDictionaryStorage.find<A>(_:)(a3);
+  if ((v20 & 1) == 0)
+  {
+    return swift_endAccess();
+  }
+
+  v76 = v14;
+  v21 = (*(v18 + 56) + 32 * v19);
+  v22 = v21[2];
+  v78 = v21[1];
+  v68 = v22;
+  v69 = a6;
+  v23 = v21[3];
+  swift_endAccess();
+  v24 = OBJC_IVAR____TtC7SwiftUI24TabViewCoordinator_Phone_searchState;
+  v67 = v7 + OBJC_IVAR____TtC7SwiftUI24TabViewCoordinator_Phone_searchIndex;
+  v73 = v23;
+  v74 = OBJC_IVAR____TtC7SwiftUI24TabViewCoordinator_Phone_tabCache;
+
+  v75 = v24;
+  swift_beginAccess();
+  v26 = 0;
+  v27 = v87 & 0xFFFFFFFFFFFFFF8;
+  if (v87 < 0)
+  {
+    v28 = v87;
+  }
+
+  else
+  {
+    v28 = v87 & 0xFFFFFFFFFFFFFF8;
+  }
+
+  v65[1] = v28;
+  v82 = v87 & 0xC000000000000001;
+  v83 = a5;
+  v29 = a2 + 32;
+  v80 = (&v103[16] + 8);
+  v84 = v87 >> 62;
+  *&v25 = 136315138;
+  v66 = v25;
+  v81 = v87 & 0xFFFFFFFFFFFFFF8;
+  v79 = v7;
+  v77 = a2;
+  while (1)
+  {
+    if (v84)
+    {
+      if (v26 == __CocoaSet.count.getter())
+      {
+      }
+    }
+
+    else if (v26 == *(v27 + 16))
+    {
+    }
+
+    if (!v82)
+    {
+      break;
+    }
+
+    v31 = MEMORY[0x18D00E9C0](v26, v87);
+LABEL_16:
+    v32 = *(a2 + 16);
+    if (v26 == v32)
+    {
+    }
+
+    if (v26 >= v32)
+    {
+      goto LABEL_63;
+    }
+
+    *&v103[0] = v31;
+    v88 = v29;
+    outlined init with copy of TabEntry(v29, v103 + 8);
+    v33 = *&v103[0];
+    if (!*&v103[0])
+    {
+    }
+
+    v34 = *v80;
+    v103[0] = *(v103 + 8);
+    v103[1] = *(&v103[1] + 8);
+    v103[2] = *(&v103[2] + 8);
+    v103[3] = *(&v103[3] + 8);
+    v103[4] = *(&v103[4] + 8);
+    v103[5] = *(&v103[5] + 8);
+    v103[6] = *(&v103[6] + 8);
+    v103[7] = *(&v103[7] + 8);
+    v103[8] = *(&v103[8] + 8);
+    v103[9] = *(&v103[9] + 8);
+    v103[10] = *(&v103[10] + 8);
+    v103[11] = *(&v103[11] + 8);
+    v103[12] = *(&v103[12] + 8);
+    v103[13] = *(&v103[13] + 8);
+    v103[14] = *(&v103[14] + 8);
+    v103[15] = *(&v103[15] + 8);
+    v103[16] = v34;
+    v104 = v105;
+    LOBYTE(v105) = v106;
+    outlined init with copy of TabEntry(v103, v101);
+    if (v102)
+    {
+      memcpy(v97, v101, sizeof(v97));
+      outlined init with copy of TabItem?(&v97[48], v96);
+      if (*(&v96[1] + 1))
+      {
+        v89 = *&v96[6];
+        v35 = one-time initialization token for defaultValue;
+
+        if (v35 != -1)
+        {
+          swift_once();
+        }
+
+        v92 = static TabOptions.TraitKey.defaultValue;
+        v93[0] = unk_1EAB09380;
+        *(v93 + 9) = *(&word_1EAB09388 + 1);
+        v99 = static TabOptions.TraitKey.defaultValue;
+        v100[0] = unk_1EAB09380;
+        *(v100 + 9) = *(&word_1EAB09388 + 1);
+        outlined init with copy of TabOptions(&v92, &v94);
+        ViewTraitCollection.value<A>(for:defaultValue:)();
+        v94 = v99;
+        v95[0] = v100[0];
+        *(v95 + 9) = *(v100 + 9);
+        outlined destroy of TabOptions(&v94);
+        outlined destroy of TabItemGroup(v97);
+
+        v99 = v90;
+        v100[0] = v91[0];
+        *(v100 + 9) = *(v91 + 9);
+        outlined destroy of TabOptions(&v99);
+        v36 = BYTE1(v99);
+        outlined destroy of TabItem(v96);
+        if (v36)
+        {
+          goto LABEL_9;
+        }
+      }
+
+      else
+      {
+        outlined destroy of TabItemGroup(v97);
+        _s7SwiftUI7BindingVyAA10VisibilityOGWOhTm_0(v96, &lazy cache variable for type metadata for TabItem?, &type metadata for TabItem, MEMORY[0x1E69E6720]);
+      }
+    }
+
+    else
+    {
+      *&v97[80] = *&v101[80];
+      *&v97[96] = *&v101[96];
+      *v97 = *v101;
+      *&v97[16] = *&v101[16];
+      *&v97[48] = *&v101[48];
+      *&v97[64] = *&v101[64];
+      *&v97[32] = *&v101[32];
+      *&v90 = *&v101[96];
+      v37 = one-time initialization token for defaultValue;
+
+      if (v37 != -1)
+      {
+        swift_once();
+      }
+
+      v94 = static TabOptions.TraitKey.defaultValue;
+      v95[0] = unk_1EAB09380;
+      *(v95 + 9) = *(&word_1EAB09388 + 1);
+      v96[0] = static TabOptions.TraitKey.defaultValue;
+      v96[1] = unk_1EAB09380;
+      *(&v96[1] + 9) = *(&word_1EAB09388 + 1);
+      outlined init with copy of TabOptions(&v94, &v99);
+      ViewTraitCollection.value<A>(for:defaultValue:)();
+      v99 = v96[0];
+      v100[0] = v96[1];
+      *(v100 + 9) = *(&v96[1] + 9);
+      outlined destroy of TabOptions(&v99);
+      outlined destroy of TabItem(v97);
+
+      v96[0] = v92;
+      v96[1] = v93[0];
+      *(&v96[1] + 9) = *(v93 + 9);
+      outlined destroy of TabOptions(v96);
+      if (BYTE1(v96[0]) == 1)
+      {
+LABEL_9:
+        outlined destroy of TabEntry(v103);
+
+        goto LABEL_10;
+      }
+    }
+
+    v38 = v85;
+    static Log.tabView.getter();
+    v39 = type metadata accessor for Logger();
+    v40 = *(v39 - 8);
+    v41 = (*(v40 + 48))(v38, 1, v39);
+    v42 = v83;
+    if (v41 == 1)
+    {
+      _s2os6LoggerVSgWOhTm_0(v38, type metadata accessor for Logger?);
+    }
+
+    else
+    {
+      outlined init with copy of TabEntry(v103, v101);
+      v43 = Logger.logObject.getter();
+      v44 = static os_log_type_t.default.getter();
+      if (os_log_type_enabled(v43, v44))
+      {
+        v71 = v44;
+        v45 = swift_slowAlloc();
+        v70 = swift_slowAlloc();
+        *&v99 = v70;
+        v72 = v45;
+        *v45 = v66;
+        outlined init with copy of TabEntry(v101, v97);
+        if (v98)
+        {
+          outlined destroy of TabEntry(v101);
+          memcpy(v96, v97, 0x118uLL);
+          v47 = *(&v96[1] + 1);
+          v46 = *&v96[2];
+          outlined copy of TabCustomizationID.Base();
+          outlined destroy of TabItemGroup(v96);
+        }
+
+        else
+        {
+          v96[4] = *&v97[64];
+          v96[5] = *&v97[80];
+          v96[6] = *&v97[96];
+          v96[0] = *v97;
+          v96[1] = *&v97[16];
+          v96[2] = *&v97[32];
+          v96[3] = *&v97[48];
+          v47 = TabItem.platformIdentifier.getter();
+          v46 = v48;
+          outlined destroy of TabItem(v96);
+          outlined destroy of TabEntry(v101);
+        }
+
+        v49 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v47, v46, &v99);
+
+        v50 = v72;
+        *(v72 + 1) = v49;
+        _os_log_impl(&dword_18BD4A000, v43, v71, "Updating tab %s", v50, 0xCu);
+        v51 = v70;
+        __swift_destroy_boxed_opaque_existential_1(v70);
+        MEMORY[0x18D0110E0](v51, -1, -1);
+        MEMORY[0x18D0110E0](v50, -1, -1);
+
+        v42 = v83;
+      }
+
+      else
+      {
+
+        outlined destroy of TabEntry(v101);
+      }
+
+      (*(v40 + 8))(v85, v39);
+      v7 = v79;
+    }
+
+    type metadata accessor for TabHostingController(0);
+    v52 = swift_dynamicCastClassUnconditional();
+    *v101 = v86;
+    *&v101[8] = v42;
+    TabViewCoordinator_Phone.updateTabElementCreatingIfNeeded(on:using:environment:)(v52, v103, v101);
+    if (v78 == v26)
+    {
+      v53 = v76;
+      outlined init with copy of UIKitAdaptableTabView(v7 + v75, v76, type metadata accessor for Binding<SearchFieldState>?);
+      type metadata accessor for Binding<SearchFieldState>(0);
+      v55 = 1;
+      v56 = (*(*(v54 - 8) + 48))(v53, 1, v54);
+      _s2os6LoggerVSgWOhTm_0(v53, type metadata accessor for Binding<SearchFieldState>?);
+      if (v56 != 1)
+      {
+        if (*(v67 + 8))
+        {
+          v55 = 2;
+        }
+
+        else if (*v67 == v78)
+        {
+          v55 = 2;
+        }
+
+        else
+        {
+          v55 = 1;
+        }
+      }
+
+      v57 = *(v7 + v74);
+      if (!v57)
+      {
+        goto LABEL_64;
+      }
+
+      outlined init with copy of TabEntry(v103, v101);
+      if (v102)
+      {
+        memcpy(v97, v101, sizeof(v97));
+        *&v99 = v86;
+        *(&v99 + 1) = v83;
+        v58 = v55;
+        v59 = v73;
+
+        TabViewCoordinator_Phone.visibleTab(in:selectedID:tabCache:environment:)(v97, v68, v59, v57, &v99, v96);
+
+        v55 = v58;
+
+        outlined destroy of TabItemGroup(v97);
+      }
+
+      else
+      {
+        v96[4] = *&v101[64];
+        v96[5] = *&v101[80];
+        v96[6] = *&v101[96];
+        v96[0] = *v101;
+        v96[1] = *&v101[16];
+        v96[2] = *&v101[32];
+        v96[3] = *&v101[48];
+      }
+
+      outlined init with copy of TabItem?(v96, v101);
+      if (*&v101[24])
+      {
+        v100[3] = *&v101[64];
+        v100[4] = *&v101[80];
+        v100[5] = *&v101[96];
+        v99 = *v101;
+        v100[0] = *&v101[16];
+        v100[1] = *&v101[32];
+        v100[2] = *&v101[48];
+        outlined init with copy of TabItem(&v99, v97);
+        v97[112] = 0;
+        v97[113] = v55;
+        outlined init with copy of TabEntry(v103, v101);
+        v60 = v102;
+        outlined destroy of TabEntry(v101);
+        v7 = v79;
+        if (v60)
+        {
+          v61 = TabItem.platformIdentifier.getter();
+          TabHostingController.setChildRootViewCreatingHostIfNeeded(_:childID:transaction:coordinator:)(v97, v61, v62, v69, v7);
+        }
+
+        else
+        {
+          v64 = *&v52[direct field offset for UIHostingController.host];
+          specialized _UIHostingView.setRootView(_:transaction:)(v97, v69);
+        }
+
+        *v101 = v86;
+        *&v101[8] = v83;
+        TabHostingController.updateTabEnvironment(environment:coordinator:)(v101, v7);
+
+        outlined destroy of TabItem.RootView(v97);
+        outlined destroy of TabItem(&v99);
+        _s7SwiftUI7BindingVyAA10VisibilityOGWOhTm_0(v96, &lazy cache variable for type metadata for TabItem?, &type metadata for TabItem, MEMORY[0x1E69E6720]);
+        outlined destroy of TabEntry(v103);
+        a2 = v77;
+      }
+
+      else
+      {
+
+        v63 = MEMORY[0x1E69E6720];
+        _s7SwiftUI7BindingVyAA10VisibilityOGWOhTm_0(v96, &lazy cache variable for type metadata for TabItem?, &type metadata for TabItem, MEMORY[0x1E69E6720]);
+        outlined destroy of TabEntry(v103);
+        _s7SwiftUI7BindingVyAA10VisibilityOGWOhTm_0(v101, &lazy cache variable for type metadata for TabItem?, &type metadata for TabItem, v63);
+        a2 = v77;
+        v7 = v79;
+      }
+    }
+
+    else
+    {
+      outlined destroy of TabEntry(v103);
+
+      a2 = v77;
+    }
+
+LABEL_10:
+    v29 = v88 + 288;
+    ++v26;
+    v27 = v81;
+  }
+
+  if (v26 < *(v27 + 16))
+  {
+    v31 = *(v87 + 8 * v26 + 32);
+    goto LABEL_16;
+  }
+
+  __break(1u);
+LABEL_63:
+  __break(1u);
+LABEL_64:
+  LODWORD(vars8) = 0;
+  vars0 = 554;
+  result = _assertionFailure(_:_:file:line:flags:)();
+  __break(1u);
+  return result;
+}
+
+void specialized TabViewCoordinator_Phone.updateHosts<A, B>(_:tabs:selected:environment:transaction:)(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, unint64_t a8, uint64_t a9, __int128 a10, uint64_t a11)
 {
   v12 = v11;
-  v107 = a2;
+  v106 = a2;
   type metadata accessor for Binding<SearchFieldState>?(0);
   MEMORY[0x1EEE9AC00](v20 - 8);
-  v87 = &v72 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
-  type metadata accessor for Logger?();
+  v86 = &v71 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  type metadata accessor for Logger?(0);
   MEMORY[0x1EEE9AC00](v22 - 8);
-  v88 = &v72 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v87 = &v71 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
   v24 = OBJC_IVAR____TtC7SwiftUI24TabViewCoordinator_Phone_selectionCache;
   swift_beginAccess();
   v25 = *(v12 + v24);
-  if (!v25)
+  if (!v25 || !*(v25 + 16) || (v26 = specialized __RawDictionaryStorage.find<A>(_:)(a9), (v27 & 1) == 0))
   {
-    return swift_endAccess();
-  }
-
-  if (!*(v25 + 16))
-  {
-    return swift_endAccess();
-  }
-
-  v26 = specialized __RawDictionaryStorage.find<A>(_:)(a9);
-  if ((v27 & 1) == 0)
-  {
-    return swift_endAccess();
+    swift_endAccess();
+    return;
   }
 
   v28 = (*(v25 + 56) + 32 * v26);
   v29 = v28[2];
-  v81 = v28[1];
-  v75 = v29;
+  v80 = v28[1];
+  v74 = v29;
   v30 = v28[3];
   swift_endAccess();
-  v80 = v30;
+  v79 = v30;
 
   v31 = OBJC_IVAR____TtC7SwiftUI24TabViewCoordinator_Phone_searchState;
-  v109 = OBJC_IVAR____TtC7SwiftUI24TabViewCoordinator_Phone_searchIndex;
-  v77 = a1;
-  v78 = OBJC_IVAR____TtC7SwiftUI24TabViewCoordinator_Phone_tabCache;
+  v108 = OBJC_IVAR____TtC7SwiftUI24TabViewCoordinator_Phone_searchIndex;
+  v76 = a1;
+  v77 = OBJC_IVAR____TtC7SwiftUI24TabViewCoordinator_Phone_tabCache;
   swift_unknownObjectRetain();
-  v76 = a5;
+  v75 = a5;
   swift_unknownObjectRetain();
-  v79 = v31;
+  v78 = v31;
   swift_beginAccess();
   v33 = a4 >> 1;
   if (a4 >> 1 == a3)
@@ -50,127 +477,128 @@ uint64_t specialized TabViewCoordinator_Phone.updateHosts<A, B>(_:tabs:selected:
 LABEL_5:
 
     swift_unknownObjectRelease();
-    return swift_unknownObjectRelease();
+    swift_unknownObjectRelease();
+    return;
   }
 
-  v35 = 0;
-  v73 = v12 + v109;
-  v74 = a11;
-  v83 = a10;
-  v36 = a8 >> 1;
-  v86 = (&v124[16] + 8);
-  v37 = a6 + 288 * a7;
-  *&v32 = 136315138;
-  v72 = v32;
-  v82 = v12;
-  v84 = a8 >> 1;
-  v85 = v33;
+  v34 = 0;
+  v72 = v12 + v108;
+  v73 = a11;
+  v82 = a10;
+  v35 = a8 >> 1;
+  v85 = (&v123[16] + 8);
+  v36 = a6 + 288 * a7;
+  v32.n128_u64[0] = 136315138;
+  v71 = v32;
+  v81 = v12;
+  v83 = a8 >> 1;
+  v84 = v33;
   while (a3 < v33)
   {
-    if (v36 == a7)
+    if (v35 == a7)
     {
       goto LABEL_5;
     }
 
-    if (a7 >= v36)
+    if (a7 >= v35)
     {
       goto LABEL_54;
     }
 
-    v38 = *(v107 + 8 * a3);
-    *&v124[0] = v38;
-    outlined init with copy of TabEntry(v37, v124 + 8);
-    if (__OFADD__(v35, 1))
+    v37 = *(v106 + 8 * a3);
+    *&v123[0] = v37;
+    outlined init with copy of TabEntry(v36, v123 + 8);
+    if (__OFADD__(v34, 1))
     {
       goto LABEL_55;
     }
 
-    v109 = v35;
-    v106 = v37;
-    v39 = v12;
-    v104 = *(&v124[1] + 8);
-    v105 = *(v124 + 8);
-    v102 = *(&v124[3] + 8);
-    v103 = *(&v124[2] + 8);
-    v100 = *(&v124[5] + 8);
-    v101 = *(&v124[4] + 8);
-    v98 = *(&v124[7] + 8);
-    v99 = *(&v124[6] + 8);
-    v96 = *(&v124[9] + 8);
-    v97 = *(&v124[8] + 8);
-    v94 = *(&v124[11] + 8);
-    v95 = *(&v124[10] + 8);
-    v92 = *(&v124[13] + 8);
-    v93 = *(&v124[12] + 8);
-    v90 = *(&v124[15] + 8);
-    v91 = *(&v124[14] + 8);
-    v89 = *v86;
-    v40 = *&v124[0];
+    v108 = v34;
+    v105 = v36;
+    v38 = v12;
+    v103 = *(&v123[1] + 8);
+    v104 = *(v123 + 8);
+    v101 = *(&v123[3] + 8);
+    v102 = *(&v123[2] + 8);
+    v99 = *(&v123[5] + 8);
+    v100 = *(&v123[4] + 8);
+    v97 = *(&v123[7] + 8);
+    v98 = *(&v123[6] + 8);
+    v95 = *(&v123[9] + 8);
+    v96 = *(&v123[8] + 8);
+    v93 = *(&v123[11] + 8);
+    v94 = *(&v123[10] + 8);
+    v91 = *(&v123[13] + 8);
+    v92 = *(&v123[12] + 8);
+    v89 = *(&v123[15] + 8);
+    v90 = *(&v123[14] + 8);
+    v88 = *v85;
+    v39 = *&v123[0];
+    v40 = v125;
     v41 = v126;
-    v42 = v127;
-    v43 = v38;
-    v108 = v40;
-    if (!v40)
+    v42 = v37;
+    v107 = v39;
+    if (!v39)
     {
       goto LABEL_5;
     }
 
-    v124[0] = v105;
-    v124[1] = v104;
-    v124[2] = v103;
-    v124[3] = v102;
-    v124[4] = v101;
-    v124[5] = v100;
-    v124[6] = v99;
-    v124[7] = v98;
-    v124[8] = v97;
-    v124[9] = v96;
-    v124[10] = v95;
-    v124[11] = v94;
-    v124[12] = v93;
-    v124[13] = v92;
-    v124[14] = v91;
-    v124[15] = v90;
-    v124[16] = v89;
-    v125 = v41;
-    LOBYTE(v126) = v42;
-    outlined init with copy of TabEntry(v124, v122);
-    if (v123)
+    v123[0] = v104;
+    v123[1] = v103;
+    v123[2] = v102;
+    v123[3] = v101;
+    v123[4] = v100;
+    v123[5] = v99;
+    v123[6] = v98;
+    v123[7] = v97;
+    v123[8] = v96;
+    v123[9] = v95;
+    v123[10] = v94;
+    v123[11] = v93;
+    v123[12] = v92;
+    v123[13] = v91;
+    v123[14] = v90;
+    v123[15] = v89;
+    v123[16] = v88;
+    v124 = v40;
+    LOBYTE(v125) = v41;
+    outlined init with copy of TabEntry(v123, v121);
+    if (v122)
     {
-      memcpy(v118, v122, sizeof(v118));
-      outlined init with copy of TabItem?(&v118[48], v117);
-      if (*(&v117[1] + 1))
+      memcpy(v117, v121, sizeof(v117));
+      outlined init with copy of TabItem?(&v117[48], v116);
+      if (*(&v116[1] + 1))
       {
-        v110 = *&v117[6];
-        v44 = one-time initialization token for defaultValue;
+        v109 = *&v116[6];
+        v43 = one-time initialization token for defaultValue;
 
-        v12 = v39;
-        if (v44 != -1)
+        v12 = v38;
+        if (v43 != -1)
         {
           swift_once();
         }
 
-        v113 = static TabOptions.TraitKey.defaultValue;
-        v114[0] = unk_1EAB09380;
-        *(v114 + 9) = *(&word_1EAB09388 + 1);
-        v120 = static TabOptions.TraitKey.defaultValue;
-        v121[0] = unk_1EAB09380;
-        *(v121 + 9) = *(&word_1EAB09388 + 1);
-        outlined init with copy of TabOptions(&v113, &v115);
+        v112 = static TabOptions.TraitKey.defaultValue;
+        v113[0] = unk_1EAB09380;
+        *(v113 + 9) = *(&word_1EAB09388 + 1);
+        v119 = static TabOptions.TraitKey.defaultValue;
+        v120[0] = unk_1EAB09380;
+        *(v120 + 9) = *(&word_1EAB09388 + 1);
+        outlined init with copy of TabOptions(&v112, &v114);
         ViewTraitCollection.value<A>(for:defaultValue:)();
-        v115 = v120;
-        v116[0] = v121[0];
-        *(v116 + 9) = *(v121 + 9);
-        outlined destroy of TabOptions(&v115);
-        outlined destroy of TabItemGroup(v118);
+        v114 = v119;
+        v115[0] = v120[0];
+        *(v115 + 9) = *(v120 + 9);
+        outlined destroy of TabOptions(&v114);
+        outlined destroy of TabItemGroup(v117);
 
-        v120 = v111;
-        v121[0] = v112[0];
-        *(v121 + 9) = *(v112 + 9);
-        outlined destroy of TabOptions(&v120);
-        v45 = BYTE1(v120);
-        outlined destroy of TabItem(v117);
-        if (v45)
+        v119 = v110;
+        v120[0] = v111[0];
+        *(v120 + 9) = *(v111 + 9);
+        outlined destroy of TabOptions(&v119);
+        v44 = BYTE1(v119);
+        outlined destroy of TabItem(v116);
+        if (v44)
         {
           goto LABEL_8;
         }
@@ -178,253 +606,253 @@ LABEL_5:
 
       else
       {
-        outlined destroy of TabItemGroup(v118);
-        _s7SwiftUI7BindingVyAA10VisibilityOGWOhTm_0(v117, &lazy cache variable for type metadata for TabItem?, &type metadata for TabItem, MEMORY[0x1E69E6720]);
-        v12 = v39;
+        outlined destroy of TabItemGroup(v117);
+        _s7SwiftUI7BindingVyAA10VisibilityOGWOhTm_0(v116, &lazy cache variable for type metadata for TabItem?, &type metadata for TabItem, MEMORY[0x1E69E6720]);
+        v12 = v38;
       }
     }
 
     else
     {
-      *&v118[80] = *&v122[80];
-      *&v118[96] = *&v122[96];
-      *v118 = *v122;
-      *&v118[16] = *&v122[16];
-      *&v118[48] = *&v122[48];
-      *&v118[64] = *&v122[64];
-      *&v118[32] = *&v122[32];
-      *&v111 = *&v122[96];
-      v46 = one-time initialization token for defaultValue;
+      *&v117[80] = *&v121[80];
+      *&v117[96] = *&v121[96];
+      *v117 = *v121;
+      *&v117[16] = *&v121[16];
+      *&v117[48] = *&v121[48];
+      *&v117[64] = *&v121[64];
+      *&v117[32] = *&v121[32];
+      *&v110 = *&v121[96];
+      v45 = one-time initialization token for defaultValue;
 
-      if (v46 != -1)
+      if (v45 != -1)
       {
         swift_once();
       }
 
-      v115 = static TabOptions.TraitKey.defaultValue;
-      v116[0] = unk_1EAB09380;
-      *(v116 + 9) = *(&word_1EAB09388 + 1);
-      v117[0] = static TabOptions.TraitKey.defaultValue;
-      v117[1] = unk_1EAB09380;
-      *(&v117[1] + 9) = *(&word_1EAB09388 + 1);
-      outlined init with copy of TabOptions(&v115, &v120);
+      v114 = static TabOptions.TraitKey.defaultValue;
+      v115[0] = unk_1EAB09380;
+      *(v115 + 9) = *(&word_1EAB09388 + 1);
+      v116[0] = static TabOptions.TraitKey.defaultValue;
+      v116[1] = unk_1EAB09380;
+      *(&v116[1] + 9) = *(&word_1EAB09388 + 1);
+      outlined init with copy of TabOptions(&v114, &v119);
       ViewTraitCollection.value<A>(for:defaultValue:)();
-      v120 = v117[0];
-      v121[0] = v117[1];
-      *(v121 + 9) = *(&v117[1] + 9);
-      outlined destroy of TabOptions(&v120);
-      outlined destroy of TabItem(v118);
+      v119 = v116[0];
+      v120[0] = v116[1];
+      *(v120 + 9) = *(&v116[1] + 9);
+      outlined destroy of TabOptions(&v119);
+      outlined destroy of TabItem(v117);
 
-      v117[0] = v113;
-      v117[1] = v114[0];
-      *(&v117[1] + 9) = *(v114 + 9);
-      outlined destroy of TabOptions(v117);
-      v36 = v84;
-      v12 = v39;
-      if (BYTE1(v117[0]) == 1)
+      v116[0] = v112;
+      v116[1] = v113[0];
+      *(&v116[1] + 9) = *(v113 + 9);
+      outlined destroy of TabOptions(v116);
+      v35 = v83;
+      v12 = v38;
+      if (BYTE1(v116[0]) == 1)
       {
 LABEL_8:
-        outlined destroy of TabEntry(v124);
+        outlined destroy of TabEntry(v123);
 
         goto LABEL_9;
       }
     }
 
-    v47 = v88;
+    v46 = v87;
     static Log.tabView.getter();
-    v48 = type metadata accessor for Logger();
-    v49 = *(v48 - 8);
-    if ((*(v49 + 48))(v47, 1, v48) == 1)
+    v47 = type metadata accessor for Logger();
+    v48 = *(v47 - 8);
+    if ((*(v48 + 48))(v46, 1, v47) == 1)
     {
-      _s2os6LoggerVSgWOhTm_0(v47, type metadata accessor for Logger?);
+      _s2os6LoggerVSgWOhTm_0(v46, type metadata accessor for Logger?);
     }
 
     else
     {
-      outlined init with copy of TabEntry(v124, v122);
-      v50 = Logger.logObject.getter();
-      v51 = static os_log_type_t.default.getter();
-      if (os_log_type_enabled(v50, v51))
+      outlined init with copy of TabEntry(v123, v121);
+      v49 = Logger.logObject.getter();
+      v50 = static os_log_type_t.default.getter();
+      if (os_log_type_enabled(v49, v50))
       {
-        LODWORD(v105) = v51;
-        v52 = swift_slowAlloc();
-        *&v104 = swift_slowAlloc();
-        *&v120 = v104;
-        *v52 = v72;
-        outlined init with copy of TabEntry(v122, v118);
-        if (v119)
+        LODWORD(v104) = v50;
+        v51 = swift_slowAlloc();
+        *&v103 = swift_slowAlloc();
+        *&v119 = v103;
+        *v51 = v71.n128_u32[0];
+        outlined init with copy of TabEntry(v121, v117);
+        if (v118)
         {
-          outlined destroy of TabEntry(v122);
-          memcpy(v117, v118, 0x118uLL);
-          v53 = *(&v117[1] + 1);
-          v54 = *&v117[2];
+          outlined destroy of TabEntry(v121);
+          memcpy(v116, v117, 0x118uLL);
+          v52 = *(&v116[1] + 1);
+          v53 = *&v116[2];
           outlined copy of TabCustomizationID.Base();
-          outlined destroy of TabItemGroup(v117);
+          outlined destroy of TabItemGroup(v116);
         }
 
         else
         {
-          v117[4] = *&v118[64];
-          v117[5] = *&v118[80];
-          v117[6] = *&v118[96];
-          v117[0] = *v118;
-          v117[1] = *&v118[16];
-          v117[2] = *&v118[32];
-          v117[3] = *&v118[48];
-          v53 = TabItem.platformIdentifier.getter();
-          v54 = v55;
-          outlined destroy of TabItem(v117);
-          outlined destroy of TabEntry(v122);
+          v116[4] = *&v117[64];
+          v116[5] = *&v117[80];
+          v116[6] = *&v117[96];
+          v116[0] = *v117;
+          v116[1] = *&v117[16];
+          v116[2] = *&v117[32];
+          v116[3] = *&v117[48];
+          v52 = TabItem.platformIdentifier.getter();
+          v53 = v54;
+          outlined destroy of TabItem(v116);
+          outlined destroy of TabEntry(v121);
         }
 
-        v56 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v53, v54, &v120);
+        v55 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v52, v53, &v119);
 
-        *(v52 + 4) = v56;
-        _os_log_impl(&dword_18BD4A000, v50, v105, "Updating tab %s", v52, 0xCu);
-        v57 = v104;
-        __swift_destroy_boxed_opaque_existential_1(v104);
-        MEMORY[0x18D0110E0](v57, -1, -1);
-        MEMORY[0x18D0110E0](v52, -1, -1);
+        *(v51 + 4) = v55;
+        _os_log_impl(&dword_18BD4A000, v49, v104, "Updating tab %s", v51, 0xCu);
+        v56 = v103;
+        __swift_destroy_boxed_opaque_existential_1(v103);
+        MEMORY[0x18D0110E0](v56, -1, -1);
+        MEMORY[0x18D0110E0](v51, -1, -1);
 
-        v12 = v82;
-        v36 = v84;
+        v12 = v81;
+        v35 = v83;
       }
 
       else
       {
 
-        outlined destroy of TabEntry(v122);
+        outlined destroy of TabEntry(v121);
       }
 
-      (*(v49 + 8))(v88, v48);
+      (*(v48 + 8))(v87, v47);
     }
 
     type metadata accessor for TabHostingController(0);
-    v58 = v108;
-    v59 = swift_dynamicCastClassUnconditional();
-    *v122 = v83;
-    TabViewCoordinator_Phone.updateTabElementCreatingIfNeeded(on:using:environment:)(v59, v124, v122);
-    if (v81 == v109)
+    v57 = v107;
+    v58 = swift_dynamicCastClassUnconditional();
+    *v121 = v82;
+    TabViewCoordinator_Phone.updateTabElementCreatingIfNeeded(on:using:environment:)(v58, v123, v121);
+    if (v80 == v108)
     {
-      v60 = v87;
-      outlined init with copy of UIKitAdaptableTabView(v12 + v79, v87, type metadata accessor for Binding<SearchFieldState>?);
+      v59 = v86;
+      outlined init with copy of UIKitAdaptableTabView(v12 + v78, v86, type metadata accessor for Binding<SearchFieldState>?);
       type metadata accessor for Binding<SearchFieldState>(0);
-      v62 = 1;
-      v63 = (*(*(v61 - 8) + 48))(v60, 1, v61);
-      _s2os6LoggerVSgWOhTm_0(v60, type metadata accessor for Binding<SearchFieldState>?);
-      if (v63 != 1)
+      v61 = 1;
+      v62 = (*(*(v60 - 8) + 48))(v59, 1, v60);
+      _s2os6LoggerVSgWOhTm_0(v59, type metadata accessor for Binding<SearchFieldState>?);
+      if (v62 != 1)
       {
-        if (*(v73 + 8))
+        if (*(v72 + 8))
         {
-          v62 = 2;
+          v61 = 2;
         }
 
-        else if (*v73 == v81)
+        else if (*v72 == v80)
         {
-          v62 = 2;
+          v61 = 2;
         }
 
         else
         {
-          v62 = 1;
+          v61 = 1;
         }
       }
 
-      v64 = *(v82 + v78);
-      if (!v64)
+      v63 = *(v81 + v77);
+      if (!v63)
       {
         goto LABEL_56;
       }
 
-      outlined init with copy of TabEntry(v124, v122);
-      if (v123)
+      outlined init with copy of TabEntry(v123, v121);
+      if (v122)
       {
-        memcpy(v118, v122, sizeof(v118));
-        v120 = v83;
-        v65 = v80;
+        memcpy(v117, v121, sizeof(v117));
+        v119 = v82;
+        v64 = v79;
 
-        TabViewCoordinator_Phone.visibleTab(in:selectedID:tabCache:environment:)(v118, v75, v65, v64, &v120, v117);
+        TabViewCoordinator_Phone.visibleTab(in:selectedID:tabCache:environment:)(v117, v74, v64, v63, &v119, v116);
 
-        outlined destroy of TabItemGroup(v118);
+        outlined destroy of TabItemGroup(v117);
       }
 
       else
       {
-        v117[4] = *&v122[64];
-        v117[5] = *&v122[80];
-        v117[6] = *&v122[96];
-        v117[0] = *v122;
-        v117[1] = *&v122[16];
-        v117[2] = *&v122[32];
-        v117[3] = *&v122[48];
+        v116[4] = *&v121[64];
+        v116[5] = *&v121[80];
+        v116[6] = *&v121[96];
+        v116[0] = *v121;
+        v116[1] = *&v121[16];
+        v116[2] = *&v121[32];
+        v116[3] = *&v121[48];
       }
 
-      v66 = v108;
-      outlined init with copy of TabItem?(v117, v122);
-      v36 = v84;
-      if (*&v122[24])
+      v65 = v107;
+      outlined init with copy of TabItem?(v116, v121);
+      v35 = v83;
+      if (*&v121[24])
       {
-        v121[3] = *&v122[64];
-        v121[4] = *&v122[80];
-        v121[5] = *&v122[96];
-        v120 = *v122;
-        v121[0] = *&v122[16];
-        v121[1] = *&v122[32];
-        v121[2] = *&v122[48];
-        outlined init with copy of TabItem(&v120, v118);
-        v118[112] = 0;
-        v118[113] = v62;
-        outlined init with copy of TabEntry(v124, v122);
-        v67 = v123;
-        outlined destroy of TabEntry(v122);
-        if (v67)
+        v120[3] = *&v121[64];
+        v120[4] = *&v121[80];
+        v120[5] = *&v121[96];
+        v119 = *v121;
+        v120[0] = *&v121[16];
+        v120[1] = *&v121[32];
+        v120[2] = *&v121[48];
+        outlined init with copy of TabItem(&v119, v117);
+        v117[112] = 0;
+        v117[113] = v61;
+        outlined init with copy of TabEntry(v123, v121);
+        v66 = v122;
+        outlined destroy of TabEntry(v121);
+        if (v66)
         {
-          v68 = TabItem.platformIdentifier.getter();
-          v12 = v82;
-          TabHostingController.setChildRootViewCreatingHostIfNeeded(_:childID:transaction:coordinator:)(v118, v68, v69, v74, v82);
-          v66 = v108;
+          v67 = TabItem.platformIdentifier.getter();
+          v12 = v81;
+          TabHostingController.setChildRootViewCreatingHostIfNeeded(_:childID:transaction:coordinator:)(v117, v67, v68, v73, v81);
+          v65 = v107;
         }
 
         else
         {
-          v71 = *&v59[direct field offset for UIHostingController.host];
-          specialized _UIHostingView.setRootView(_:transaction:)(v118);
+          v70 = *&v58[direct field offset for UIHostingController.host];
+          specialized _UIHostingView.setRootView(_:transaction:)(v117, v73);
 
-          v12 = v82;
+          v12 = v81;
         }
 
-        *v122 = v83;
-        TabHostingController.updateTabEnvironment(environment:coordinator:)(v122, v12);
+        *v121 = v82;
+        TabHostingController.updateTabEnvironment(environment:coordinator:)(v121, v12);
 
-        outlined destroy of TabItem.RootView(v118);
-        outlined destroy of TabItem(&v120);
-        _s7SwiftUI7BindingVyAA10VisibilityOGWOhTm_0(v117, &lazy cache variable for type metadata for TabItem?, &type metadata for TabItem, MEMORY[0x1E69E6720]);
-        outlined destroy of TabEntry(v124);
+        outlined destroy of TabItem.RootView(v117);
+        outlined destroy of TabItem(&v119);
+        _s7SwiftUI7BindingVyAA10VisibilityOGWOhTm_0(v116, &lazy cache variable for type metadata for TabItem?, &type metadata for TabItem, MEMORY[0x1E69E6720]);
+        outlined destroy of TabEntry(v123);
       }
 
       else
       {
 
-        v70 = MEMORY[0x1E69E6720];
-        _s7SwiftUI7BindingVyAA10VisibilityOGWOhTm_0(v117, &lazy cache variable for type metadata for TabItem?, &type metadata for TabItem, MEMORY[0x1E69E6720]);
-        outlined destroy of TabEntry(v124);
-        _s7SwiftUI7BindingVyAA10VisibilityOGWOhTm_0(v122, &lazy cache variable for type metadata for TabItem?, &type metadata for TabItem, v70);
-        v12 = v82;
+        v69 = MEMORY[0x1E69E6720];
+        _s7SwiftUI7BindingVyAA10VisibilityOGWOhTm_0(v116, &lazy cache variable for type metadata for TabItem?, &type metadata for TabItem, MEMORY[0x1E69E6720]);
+        outlined destroy of TabEntry(v123);
+        _s7SwiftUI7BindingVyAA10VisibilityOGWOhTm_0(v121, &lazy cache variable for type metadata for TabItem?, &type metadata for TabItem, v69);
+        v12 = v81;
       }
     }
 
     else
     {
-      outlined destroy of TabEntry(v124);
+      outlined destroy of TabEntry(v123);
     }
 
 LABEL_9:
     ++a3;
-    v37 = v106 + 288;
-    v35 = v109 + 1;
+    v36 = v105 + 288;
+    v34 = v108 + 1;
     ++a7;
-    v33 = v85;
-    if (v85 == a3)
+    v33 = v84;
+    if (v84 == a3)
     {
       goto LABEL_5;
     }
@@ -436,15 +864,14 @@ LABEL_54:
 LABEL_55:
   __break(1u);
 LABEL_56:
-  result = _assertionFailure(_:_:file:line:flags:)();
+  _assertionFailure(_:_:file:line:flags:)();
   __break(1u);
-  return result;
 }
 
 Swift::Int_optional __swiftcall TabViewCoordinator_Phone.updatedSelection(didSelect:viewController:selectionCache:)(UITabBarController *didSelect, UIViewController *viewController, Swift::OpaquePointer_optional selectionCache)
 {
   rawValue = selectionCache.value._rawValue;
-  type metadata accessor for Logger?();
+  type metadata accessor for Logger?(0);
   MEMORY[0x1EEE9AC00](v6 - 8);
   v8 = &v33 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   static Log.tabView.getter();
@@ -536,9 +963,9 @@ Swift::Int_optional __swiftcall TabViewCoordinator_Phone.updatedSelection(didSel
 
 uint64_t TabViewCoordinator_Phone.acceptDropItems(from:onto:tabCache:)(uint64_t a1, void *a2, uint64_t a3)
 {
-  type metadata accessor for Logger?();
+  type metadata accessor for Logger?(0);
   MEMORY[0x1EEE9AC00](v6 - 8);
-  v8 = &v27 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v28 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   static Log.tabView.getter();
   v9 = type metadata accessor for Logger();
   v10 = *(v9 - 8);
@@ -549,7 +976,7 @@ uint64_t TabViewCoordinator_Phone.acceptDropItems(from:onto:tabCache:)(uint64_t 
 
   else
   {
-    v27 = a1;
+    v28 = a1;
     v11 = Logger.logObject.getter();
     v12 = static os_log_type_t.default.getter();
     if (os_log_type_enabled(v11, v12))
@@ -563,87 +990,88 @@ uint64_t TabViewCoordinator_Phone.acceptDropItems(from:onto:tabCache:)(uint64_t 
     (*(v10 + 8))(v8, v9);
   }
 
-  TabViewCoordinator_Phone.getElement(for:tabCache:)(a2, a3, &v34);
-  if (!*(&v35[0] + 1))
+  TabViewCoordinator_Phone.getElement(for:tabCache:)(a2, a3, &v35);
+  if (!*(&v36[0] + 1))
   {
-    return _s7SwiftUI7BindingVyAA10VisibilityOGWOhTm_0(&v34, &lazy cache variable for type metadata for TabItem?, &type metadata for TabItem, MEMORY[0x1E69E6720]);
+    return _s7SwiftUI7BindingVyAA10VisibilityOGWOhTm_0(&v35, &lazy cache variable for type metadata for TabItem?, &type metadata for TabItem, MEMORY[0x1E69E6720]);
   }
 
-  v37[5] = v35[4];
-  v38 = v36;
-  v37[0] = v34;
-  v37[1] = v35[0];
-  v37[3] = v35[2];
-  v37[4] = v35[3];
-  v37[2] = v35[1];
-  *&v31 = v36;
-  memset(v33, 0, sizeof(v33));
+  v38[5] = v36[4];
+  v39 = v37;
+  v38[0] = v35;
+  v38[1] = v36[0];
+  v38[3] = v36[2];
+  v38[4] = v36[3];
+  v38[2] = v36[1];
+  *&v32 = v37;
+  memset(v34, 0, sizeof(v34));
   ViewTraitCollection.value<A>(for:defaultValue:)();
-  v14 = v34;
-  if (v34)
+  v14 = v35;
+  if (v35)
   {
-    v15 = *(&v34 + 1);
-    v16 = *&v35[0];
-    v17 = BYTE8(v35[0]);
-    v18 = *(&v35[1] + 1);
-    v27 = *&v35[1];
+    v15 = *(&v35 + 1);
+    v16 = *&v36[0];
+    v17 = BYTE8(v36[0]);
+    v18 = *(&v36[1] + 1);
+    v28 = *&v36[1];
     swift_getObjectType();
-    v19 = UIDropSession.itemProviders(for:)(v14);
-    v28 = v38;
+    UIDropSession.itemProviders(for:)(v14);
+    v20 = v19;
+    v29 = v39;
     if (one-time initialization token for defaultValue != -1)
     {
       swift_once();
     }
 
-    v31 = static TabOptions.TraitKey.defaultValue;
-    v32[0] = unk_1EAB09380;
-    *(v32 + 9) = *(&word_1EAB09388 + 1);
-    v34 = static TabOptions.TraitKey.defaultValue;
-    v35[0] = unk_1EAB09380;
-    *(v35 + 9) = *(&word_1EAB09388 + 1);
-    outlined init with copy of TabOptions(&v31, v33);
+    v32 = static TabOptions.TraitKey.defaultValue;
+    v33[0] = unk_1EAB09380;
+    *(v33 + 9) = *(&word_1EAB09388 + 1);
+    v35 = static TabOptions.TraitKey.defaultValue;
+    v36[0] = unk_1EAB09380;
+    *(v36 + 9) = *(&word_1EAB09388 + 1);
+    outlined init with copy of TabOptions(&v32, v34);
     ViewTraitCollection.value<A>(for:defaultValue:)();
-    v33[0] = v34;
-    v33[1] = v35[0];
-    *(&v33[1] + 9) = *(v35 + 9);
-    outlined destroy of TabOptions(v33);
-    v34 = v29;
-    v35[0] = *v30;
-    *(v35 + 9) = *&v30[9];
-    v20 = *(&v29 + 1);
-    v21 = *v30;
-    v22 = v30[8];
-    outlined copy of TabCustomizationID?(*(&v29 + 1), *&v35[0], SBYTE8(v35[0]));
-    outlined destroy of TabOptions(&v34);
-    v23 = v22 == 255;
-    if (v22 == 255)
+    v34[0] = v35;
+    v34[1] = v36[0];
+    *(&v34[1] + 9) = *(v36 + 9);
+    outlined destroy of TabOptions(v34);
+    v35 = v30;
+    v36[0] = *v31;
+    *(v36 + 9) = *&v31[9];
+    v21 = *(&v30 + 1);
+    v22 = *v31;
+    v23 = v31[8];
+    outlined copy of TabCustomizationID?(*(&v30 + 1), *&v36[0], SBYTE8(v36[0]));
+    outlined destroy of TabOptions(&v35);
+    v24 = v23 == 255;
+    if (v23 == 255)
     {
-      v24 = 0;
+      v25 = 0;
     }
 
     else
     {
-      v24 = v20;
+      v25 = v21;
     }
 
-    if (v23)
+    if (v24)
     {
-      v21 = 0;
+      v22 = 0;
     }
 
-    LOBYTE(v28) = 17;
-    v25 = swift_allocObject();
-    *(v25 + 16) = v14;
-    *(v25 + 24) = v15;
-    *(v25 + 32) = v16;
-    *(v25 + 40) = v17;
-    *(v25 + 41) = v29;
-    *(v25 + 44) = *(&v29 + 3);
-    *(v25 + 48) = v27;
-    *(v25 + 56) = v18;
-    *(v25 + 64) = v24;
-    *(v25 + 72) = v21;
-    *(v25 + 80) = v19;
+    LOBYTE(v29) = 17;
+    v26 = swift_allocObject();
+    *(v26 + 16) = v14;
+    *(v26 + 24) = v15;
+    *(v26 + 32) = v16;
+    *(v26 + 40) = v17;
+    *(v26 + 41) = v30;
+    *(v26 + 44) = *(&v30 + 3);
+    *(v26 + 48) = v28;
+    *(v26 + 56) = v18;
+    *(v26 + 64) = v25;
+    *(v26 + 72) = v22;
+    *(v26 + 80) = v20;
 
     outlined copy of Binding<Int>?(v15, v16);
 
@@ -652,13 +1080,13 @@ uint64_t TabViewCoordinator_Phone.acceptDropItems(from:onto:tabCache:)(uint64_t 
     outlined consume of Binding<NavigationSplitViewColumn>?(v15, v16);
   }
 
-  return outlined destroy of TabItem(v37);
+  return outlined destroy of TabItem(v38);
 }
 
 uint64_t TabViewCoordinator_Phone.mayHaveCustomizedTabBarVisibility(of:customization:tabCache:)(unint64_t a1, uint64_t a2, uint64_t a3)
 {
   v4 = v3;
-  v70 = type metadata accessor for TabViewCustomization();
+  v70 = type metadata accessor for TabViewCustomization(0);
   MEMORY[0x1EEE9AC00](v70);
   v66 = &v64 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v9);
@@ -762,7 +1190,7 @@ LABEL_62:
         v29 = v28;
         v30 = v27;
         v31 = [v29 _children];
-        type metadata accessor for NSObject(0, &lazy cache variable for type metadata for _UITab);
+        type metadata accessor for NSObject(0, &lazy cache variable for type metadata for _UITab, 0x1E69DD780);
         v32 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
         outlined init with copy of UIKitAdaptableTabView(v76, v13, type metadata accessor for Binding<TabViewCustomization>);
@@ -852,7 +1280,7 @@ LABEL_14:
         v89[1] = v90[1];
         v89[2] = v90[2];
         v89[3] = v90[3];
-        if ((TabItem.needsCustomizationIDForEnablement.getter() & 1) == 0)
+        if (!TabItem.needsCustomizationIDForEnablement.getter())
         {
           goto LABEL_37;
         }
@@ -951,7 +1379,7 @@ LABEL_53:
               v89[3] = v90[3];
               v60 = TabItem.needsCustomizationIDForEnablement.getter();
               v24 = v71;
-              if ((v60 & 1) == 0)
+              if (!v60)
               {
                 goto LABEL_59;
               }
@@ -1049,7 +1477,7 @@ LABEL_43:
 
 uint64_t TabViewCoordinator_Phone.dragSessionItems(for:tabCache:)(void *a1, uint64_t a2)
 {
-  type metadata accessor for Logger?();
+  type metadata accessor for Logger?(0);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v30 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   static Log.tabView.getter();
@@ -1142,7 +1570,7 @@ LABEL_13:
 id TabViewCoordinator_Phone.swipeActionsConfiguration(for:edge:tabCache:)(void *a1, int a2, uint64_t a3)
 {
   LODWORD(v5) = a2;
-  type metadata accessor for Logger?();
+  type metadata accessor for Logger?(0);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v31 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static Log.tabView.getter();
@@ -1219,7 +1647,7 @@ id TabViewCoordinator_Phone.swipeActionsConfiguration(for:edge:tabCache:)(void *
 
 unint64_t TabViewCoordinator_Phone.contextMenu(for:tabCache:)(void *a1, uint64_t a2)
 {
-  type metadata accessor for Logger?();
+  type metadata accessor for Logger?(0);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v26 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   static Log.tabView.getter();
@@ -1297,7 +1725,7 @@ uint64_t specialized UIHostingController.updateProperties(on:using:customization
   ViewTraitCollection.value<A>(for:defaultValue:)();
   v9 = v41;
   v10 = v42;
-  v11 = specialized TabViewCoordinator_Phone.badgeValue(environment:badgeLabel:)(&v37, v41, *(&v41 + 1), v42);
+  v11 = specialized TabViewCoordinator_Phone.badgeValue(environment:badgeLabel:)(&v37, v41, *(&v41 + 1), v42, v43);
   v13 = v12;
   outlined consume of BadgeLabel?(v9, *(&v9 + 1), v10);
   v14 = [a1 badgeValue];
@@ -1519,7 +1947,6 @@ LABEL_12:
     [v15 _setAllowsReordering_];
   }
 
-  specialized UIHostingController.updateChildrenCreatingIfNeeded(of:using:customization:environment:coordinator:)(v15, a1, a2, a3, a4, a5);
   v28 = [v15 _selectedElement];
   if (v28)
   {
@@ -1528,12 +1955,12 @@ LABEL_12:
   else
   {
     v29 = [v15 _children];
-    type metadata accessor for NSObject(0, &lazy cache variable for type metadata for _UITab);
+    type metadata accessor for NSObject(0, &lazy cache variable for type metadata for _UITab, 0x1E69DD780);
     v30 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
     *&v33 = v30;
-    type metadata accessor for NSObject(0, &lazy cache variable for type metadata for _UITabElement);
-    type metadata accessor for [_UITab]();
+    type metadata accessor for NSObject(0, &lazy cache variable for type metadata for _UITabElement, 0x1E69DD7A0);
+    type metadata accessor for [_UITab](0);
     lazy protocol witness table accessor for type [_UITab] and conformance [A]();
     Sequence.first<A>(ofType:)();
 
@@ -1542,44 +1969,44 @@ LABEL_12:
   }
 }
 
-uint64_t specialized UIHostingController.updateChildrenCreatingIfNeeded(of:using:customization:environment:coordinator:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+double specialized UIHostingController.updateChildrenCreatingIfNeeded(of:using:customization:environment:coordinator:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v319 = a5;
-  v333 = a6;
-  v318 = a4;
-  v322 = a3;
-  v316 = a1;
+  v312 = a5;
+  v326 = a6;
+  v311 = a4;
+  v315 = a3;
+  v309 = a1;
   type metadata accessor for TabViewCustomization?(0);
   MEMORY[0x1EEE9AC00](v8 - 8);
-  v305 = v302 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v307 = type metadata accessor for TabViewCustomization();
-  v304 = *(v307 - 8);
-  MEMORY[0x1EEE9AC00](v307);
-  v309 = v302 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v298 = v295 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v300 = type metadata accessor for TabViewCustomization(0);
+  v297 = *(v300 - 8);
+  MEMORY[0x1EEE9AC00](v300);
+  v302 = v295 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   type metadata accessor for Binding<TabViewCustomization>?(0);
   MEMORY[0x1EEE9AC00](v11 - 8);
-  v303 = v302 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v296 = v295 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v13);
-  v308 = v302 - v14;
-  type metadata accessor for Logger?();
+  v301 = v295 - v14;
+  type metadata accessor for Logger?(0);
   MEMORY[0x1EEE9AC00](v15 - 8);
-  v336 = v302 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v329 = v295 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v17);
-  v342 = v302 - v18;
+  v335 = v295 - v18;
   MEMORY[0x1EEE9AC00](v19);
-  v306 = v302 - v20;
+  v299 = v295 - v20;
   MEMORY[0x1EEE9AC00](v21);
-  v23 = v302 - v22;
+  v23 = v295 - v22;
   static Log.tabView.getter();
   v24 = type metadata accessor for Logger();
-  v313 = *(v24 - 8);
-  v25 = *(v313 + 48);
-  v346 = v24;
-  v343 = v25;
-  v344 = v313 + 48;
+  v306 = *(v24 - 8);
+  v25 = *(v306 + 48);
+  v339 = v24;
+  v336 = v25;
+  v337 = v306 + 48;
   v26 = (v25)(v23, 1);
   v27 = MEMORY[0x1E69E7CC0];
-  v337 = a2;
+  v330 = a2;
   if (v26 == 1)
   {
     _s2os6LoggerVSgWOhTm_0(v23, type metadata accessor for Logger?);
@@ -1587,72 +2014,72 @@ uint64_t specialized UIHostingController.updateChildrenCreatingIfNeeded(of:using
 
   else
   {
-    outlined init with copy of TabItemGroup(a2, v365);
-    outlined init with copy of TabItemGroup(a2, &v367);
+    outlined init with copy of TabItemGroup(a2, v358);
+    outlined init with copy of TabItemGroup(a2, &v360);
     v28 = Logger.logObject.getter();
     v29 = static os_log_type_t.default.getter();
     if (os_log_type_enabled(v28, v29))
     {
-      LODWORD(v347) = v29;
+      LODWORD(v340) = v29;
       v30 = swift_slowAlloc();
-      v345 = swift_slowAlloc();
-      *&v374 = v345;
+      v338 = swift_slowAlloc();
+      *&v367 = v338;
       *v30 = 136315394;
-      v31 = *&v365[24];
-      v32 = *&v365[32];
+      v31 = *&v358[24];
+      v32 = *&v358[32];
       outlined copy of TabCustomizationID.Base();
-      outlined destroy of TabItemGroup(v365);
-      v33 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v31, v32, &v374);
+      outlined destroy of TabItemGroup(v358);
+      v33 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v31, v32, &v367);
       outlined consume of TabCustomizationID.Base();
       *(v30 + 2) = v33;
-      v348 = v30;
+      v341 = v30;
       v30[6] = 2080;
       v34 = TabItemGroup.allChildEntries.getter();
       v6 = *(v34 + 16);
       if (v6)
       {
-        v340 = v28;
-        v341 = v23;
-        *&v372 = v27;
+        v333 = v28;
+        v334 = v23;
+        *&v365 = v27;
         specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v6, 0);
-        v35 = v372;
-        v339 = v34;
+        v35 = v365;
+        v332 = v34;
         v36 = v34 + 32;
         do
         {
-          outlined init with copy of TabEntry(v36, v363);
-          outlined init with copy of TabEntry(v363, v380);
-          if (BYTE8(v380[17]))
+          outlined init with copy of TabEntry(v36, v356);
+          outlined init with copy of TabEntry(v356, v373);
+          if (BYTE8(v373[17]))
           {
-            memcpy(v364, v380, 0x118uLL);
-            v37 = *(&v364[1] + 1);
-            v38 = *&v364[2];
+            memcpy(v357, v373, 0x118uLL);
+            v37 = *(&v357[1] + 1);
+            v38 = *&v357[2];
             outlined copy of TabCustomizationID.Base();
-            outlined destroy of TabItemGroup(v364);
+            outlined destroy of TabItemGroup(v357);
           }
 
           else
           {
-            v364[4] = v380[4];
-            v364[5] = v380[5];
-            v364[6] = v380[6];
-            v364[0] = v380[0];
-            v364[1] = v380[1];
-            v364[3] = v380[3];
-            v364[2] = v380[2];
+            v357[4] = v373[4];
+            v357[5] = v373[5];
+            v357[6] = v373[6];
+            v357[0] = v373[0];
+            v357[1] = v373[1];
+            v357[3] = v373[3];
+            v357[2] = v373[2];
             v37 = TabItem.platformIdentifier.getter();
             v38 = v39;
-            outlined destroy of TabItem(v364);
+            outlined destroy of TabItem(v357);
           }
 
-          outlined destroy of TabEntry(v363);
-          *&v372 = v35;
+          outlined destroy of TabEntry(v356);
+          *&v365 = v35;
           v41 = *(v35 + 16);
           v40 = *(v35 + 24);
           if (v41 >= v40 >> 1)
           {
             specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v40 > 1), v41 + 1, 1);
-            v35 = v372;
+            v35 = v365;
           }
 
           *(v35 + 16) = v41 + 1;
@@ -1665,8 +2092,8 @@ uint64_t specialized UIHostingController.updateChildrenCreatingIfNeeded(of:using
 
         while (v6);
 
-        v28 = v340;
-        v23 = v341;
+        v28 = v333;
+        v23 = v334;
       }
 
       else
@@ -1675,20 +2102,20 @@ uint64_t specialized UIHostingController.updateChildrenCreatingIfNeeded(of:using
         v35 = MEMORY[0x1E69E7CC0];
       }
 
-      v363[0] = v35;
+      v356[0] = v35;
       v43 = MEMORY[0x1E69E6158];
       type metadata accessor for TabItem?(0, &lazy cache variable for type metadata for [String], MEMORY[0x1E69E6158], MEMORY[0x1E69E62F8]);
       lazy protocol witness table accessor for type [AnyHashable] and conformance [A](&lazy protocol witness table cache variable for type [String] and conformance [A], &lazy cache variable for type metadata for [String], v43);
       v44 = BidirectionalCollection<>.joined(separator:)();
       v46 = v45;
 
-      outlined destroy of TabItemGroup(&v367);
-      v47 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v44, v46, &v374);
+      outlined destroy of TabItemGroup(&v360);
+      v47 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v44, v46, &v367);
 
-      v48 = v348;
-      *(v348 + 14) = v47;
-      _os_log_impl(&dword_18BD4A000, v28, v347, "Resolved children of group %s:\n%s", v48, 0x16u);
-      v49 = v345;
+      v48 = v341;
+      *(v341 + 14) = v47;
+      _os_log_impl(&dword_18BD4A000, v28, v340, "Resolved children of group %s:\n%s", v48, 0x16u);
+      v49 = v338;
       swift_arrayDestroy();
       MEMORY[0x18D0110E0](v49, -1, -1);
       MEMORY[0x18D0110E0](v48, -1, -1);
@@ -1697,15 +2124,15 @@ uint64_t specialized UIHostingController.updateChildrenCreatingIfNeeded(of:using
     else
     {
 
-      outlined destroy of TabItemGroup(&v367);
-      outlined destroy of TabItemGroup(v365);
+      outlined destroy of TabItemGroup(&v360);
+      outlined destroy of TabItemGroup(v358);
     }
 
-    (*(v313 + 8))(v23, v346);
+    (*(v306 + 8))(v23, v339);
   }
 
-  v50 = [v316 _children];
-  v321 = type metadata accessor for NSObject(0, &lazy cache variable for type metadata for _UITab);
+  v50 = [v309 _children];
+  v314 = type metadata accessor for NSObject(0, &lazy cache variable for type metadata for _UITab, 0x1E69DD780);
   v51 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   if (v51 >> 62)
@@ -1729,7 +2156,7 @@ LABEL_29:
   }
 
 LABEL_19:
-  v363[0] = MEMORY[0x1E69E7CC0];
+  v356[0] = MEMORY[0x1E69E7CC0];
   specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v52 & ~(v52 >> 63), 0);
   if (v52 < 0)
   {
@@ -1738,11 +2165,11 @@ LABEL_356:
     __break(1u);
 LABEL_357:
 
-    v363[0] = 0xD000000000000021;
-    v363[1] = 0x800000018CD52B70;
-    *&v380[0] = v6;
-    v300 = dispatch thunk of CustomStringConvertible.description.getter();
-    MEMORY[0x18D00C9B0](v300);
+    v356[0] = 0xD000000000000021;
+    v356[1] = 0x800000018CD52B70;
+    *&v373[0] = v6;
+    v293 = dispatch thunk of CustomStringConvertible.description.getter();
+    MEMORY[0x18D00C9B0](v293);
 
     while (1)
     {
@@ -1753,13 +2180,13 @@ LABEL_359:
   }
 
   v53 = 0;
-  v6 = v363[0];
+  v6 = v356[0];
   v54 = v51;
-  v348 = v51 & 0xC000000000000001;
+  v341 = v51 & 0xC000000000000001;
   v55 = v51;
   do
   {
-    if (v348)
+    if (v341)
     {
       v56 = MEMORY[0x18D00E9C0](v53, v54);
     }
@@ -1775,13 +2202,13 @@ LABEL_359:
     v61 = v60;
 
     v62 = v6;
-    v363[0] = v6;
+    v356[0] = v6;
     v64 = *(v6 + 16);
     v63 = *(v6 + 24);
     if (v64 >= v63 >> 1)
     {
       specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v63 > 1), v64 + 1, 1);
-      v62 = v363[0];
+      v62 = v356[0];
     }
 
     ++v53;
@@ -1798,49 +2225,49 @@ LABEL_359:
 LABEL_30:
   v66 = TabItemGroup.allChildEntries.getter();
   v67 = *(v66 + 16);
-  v341 = v6;
+  v334 = v6;
   if (v67)
   {
-    *&v367 = MEMORY[0x1E69E7CC0];
+    *&v360 = MEMORY[0x1E69E7CC0];
     specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v67, 0);
-    v68 = v367;
+    v68 = v360;
     v69 = v66 + 32;
     do
     {
-      outlined init with copy of TabEntry(v69, v363);
-      outlined init with copy of TabEntry(v363, v380);
-      if (BYTE8(v380[17]))
+      outlined init with copy of TabEntry(v69, v356);
+      outlined init with copy of TabEntry(v356, v373);
+      if (BYTE8(v373[17]))
       {
-        memcpy(v365, v380, sizeof(v365));
-        v70 = *&v365[24];
-        v71 = *&v365[32];
+        memcpy(v358, v373, sizeof(v358));
+        v70 = *&v358[24];
+        v71 = *&v358[32];
         outlined copy of TabCustomizationID.Base();
-        outlined destroy of TabItemGroup(v365);
+        outlined destroy of TabItemGroup(v358);
       }
 
       else
       {
-        *&v365[64] = v380[4];
-        *&v365[80] = v380[5];
-        *&v365[96] = v380[6];
-        *v365 = v380[0];
-        *&v365[16] = v380[1];
-        *&v365[48] = v380[3];
-        *&v365[32] = v380[2];
+        *&v358[64] = v373[4];
+        *&v358[80] = v373[5];
+        *&v358[96] = v373[6];
+        *v358 = v373[0];
+        *&v358[16] = v373[1];
+        *&v358[48] = v373[3];
+        *&v358[32] = v373[2];
         v70 = TabItem.platformIdentifier.getter();
         v71 = v72;
-        outlined destroy of TabItem(v365);
+        outlined destroy of TabItem(v358);
       }
 
-      outlined destroy of TabEntry(v363);
+      outlined destroy of TabEntry(v356);
       v73 = v68;
-      *&v367 = v68;
+      *&v360 = v68;
       v75 = *(v68 + 16);
       v74 = *(v68 + 24);
       if (v75 >= v74 >> 1)
       {
         specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v74 > 1), v75 + 1, 1);
-        v73 = v367;
+        v73 = v360;
       }
 
       *(v73 + 16) = v75 + 1;
@@ -1854,7 +2281,7 @@ LABEL_30:
 
     while (v67);
 
-    v6 = v341;
+    v6 = v334;
   }
 
   else
@@ -1863,37 +2290,37 @@ LABEL_30:
     v68 = MEMORY[0x1E69E7CC0];
   }
 
-  *&v380[0] = v6;
-  v311 = v68;
-  *v365 = v68;
-  v363[0] = MEMORY[0x1E69E7CC0];
+  *&v373[0] = v6;
+  v304 = v68;
+  *v358 = v68;
+  v356[0] = MEMORY[0x1E69E7CC0];
   type metadata accessor for CollectionChanges<Int, Int>();
   v77 = MEMORY[0x1E69E6158];
   type metadata accessor for TabItem?(0, &lazy cache variable for type metadata for [String], MEMORY[0x1E69E6158], MEMORY[0x1E69E62F8]);
   v79 = v78;
-  v302[0] = lazy protocol witness table accessor for type [AnyHashable] and conformance [A](&lazy protocol witness table cache variable for type [String] and conformance [A], &lazy cache variable for type metadata for [String], v77);
+  v295[0] = lazy protocol witness table accessor for type [AnyHashable] and conformance [A](&lazy protocol witness table cache variable for type [String] and conformance [A], &lazy cache variable for type metadata for [String], v77);
   CollectionChanges.formChanges<A, B>(from:to:)();
-  v324 = v363[0];
-  v80 = [v316 _children];
-  v314 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  v317 = v356[0];
+  v80 = [v309 _children];
+  v307 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
-  v81 = v337;
+  v81 = v330;
   v82 = *(TabItemGroup.allChildEntries.getter() + 16);
 
-  v338 = _sSa9repeating5countSayxGx_SitcfCSo6_UITabCSg_Tt1g5Tf4gn_n(0, v82);
+  v331 = _sSa9repeating5countSayxGx_SitcfCSo6_UITabCSg_Tt1g5Tf4gn_n(0, v82);
   v83 = *(v81 + 24);
   v84 = *(v81 + 32);
   LODWORD(v68) = *(v81 + 40);
   v85 = OBJC_IVAR____TtC7SwiftUI24TabViewCoordinator_Phone_groupHostCache;
-  v86 = v333;
+  v86 = v326;
   swift_beginAccess();
-  v310 = v85;
+  v303 = v85;
   v87 = *(v86 + v85);
   v88 = *(v87 + 16);
   outlined copy of TabCustomizationID.Base();
-  v317 = v84;
-  v302[1] = v79;
-  v312 = v83;
+  v310 = v84;
+  v295[1] = v79;
+  v305 = v83;
   if (v88)
   {
     outlined copy of TabCustomizationID.Base();
@@ -1924,11 +2351,12 @@ LABEL_30:
 
   v95 = 0;
 LABEL_46:
-  v376 = v94;
-  v377 = v93;
-  v378 = v88;
-  v379 = v95;
+  v369 = v94;
+  v370 = v93;
+  v371 = v88;
+  v372 = v95;
   swift_endAccess();
+  v96 = v331;
   if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
   {
     goto LABEL_221;
@@ -1936,247 +2364,247 @@ LABEL_46:
 
   while (1)
   {
-    v97 = *(v324 + 16);
-    v315 = v68;
-    if (!v97)
+    v98 = *(v317 + 16);
+    v308 = v68;
+    if (!v98)
     {
       break;
     }
 
-    v98 = 0;
-    v323 = v324 + 32;
-    v330 = v314 & 0xC000000000000001;
-    v328 = v314 + 32;
-    v329 = v314 & 0xFFFFFFFFFFFFFF8;
-    v334 = (v313 + 8);
-    v335 = v338 + 32;
-    v339 = v6 + 32;
-    *&v96 = 136315138;
-    v325 = v96;
-    *&v96 = 134218498;
-    v320 = v96;
+    v99 = 0;
+    v316 = v317 + 32;
+    v323 = v307 & 0xC000000000000001;
+    v321 = v307 + 32;
+    v322 = v307 & 0xFFFFFFFFFFFFFF8;
+    v327 = (v306 + 8);
+    v328 = v331 + 32;
+    v332 = v6 + 32;
+    *&v97 = 136315138;
+    v318 = v97;
+    *&v97 = 134218498;
+    v313 = v97;
     while (1)
     {
-      if (v98 >= v97)
+      if (v99 >= v98)
       {
         goto LABEL_214;
       }
 
-      v99 = v323 + 40 * v98;
-      v100 = *v99;
-      v101 = *(v99 + 8);
-      v102 = *(v99 + 32);
-      v347 = v101;
-      v348 = v100;
-      v331 = v98;
-      if (!v102)
+      v100 = v316 + 40 * v99;
+      v101 = *v100;
+      v102 = *(v100 + 8);
+      v103 = *(v100 + 32);
+      v340 = v102;
+      v341 = v101;
+      v324 = v99;
+      if (!v103)
       {
         break;
       }
 
-      if (v102 == 1)
+      if (v103 == 1)
       {
-        if (v100 != v101)
+        if (v101 != v102)
         {
-          v6 = v348;
-          if (v101 < v348)
+          v6 = v341;
+          if (v102 < v341)
           {
             goto LABEL_219;
           }
 
-          v103 = *(v337 + 16);
-          v340 = *(v337 + 8);
-          v104 = *(v103 + 16);
-          v332 = v103 + 32;
-          v345 = v104;
+          v104 = *(v330 + 16);
+          v333 = *(v330 + 8);
+          v105 = *(v104 + 16);
+          v325 = v104 + 32;
+          v338 = v105;
           while (2)
           {
-            if (v6 >= v101)
+            if (v6 >= v102)
             {
               goto LABEL_202;
             }
 
-            if (v104)
+            if (v105)
             {
-              *v365 = MEMORY[0x1E69E7CC0];
-              specialized ContiguousArray.reserveCapacity(_:)(v104);
-              v105 = *v365;
-              v106 = v332;
+              *v358 = MEMORY[0x1E69E7CC0];
+              specialized ContiguousArray.reserveCapacity(_:)(v105);
+              v106 = *v358;
+              v107 = v325;
               do
               {
-                outlined init with copy of TabItem(v106, v380);
-                BYTE8(v380[17]) = 0;
+                outlined init with copy of TabItem(v107, v373);
+                BYTE8(v373[17]) = 0;
                 if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
                 {
-                  specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v105 + 16) + 1, 1);
-                  v105 = *v365;
+                  specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v106 + 16) + 1, 1);
+                  v106 = *v358;
                 }
 
-                v108 = *(v105 + 16);
-                v107 = *(v105 + 24);
-                v68 = v108 + 1;
-                if (v108 >= v107 >> 1)
+                v109 = *(v106 + 16);
+                v108 = *(v106 + 24);
+                v68 = v109 + 1;
+                if (v109 >= v108 >> 1)
                 {
-                  specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v107 > 1), v108 + 1, 1);
-                  v105 = *v365;
+                  specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v108 > 1), v109 + 1, 1);
+                  v106 = *v358;
                 }
 
-                *(v105 + 16) = v68;
-                memcpy((v105 + 288 * v108 + 32), v380, 0x119uLL);
-                v106 += 112;
-                --v104;
+                *(v106 + 16) = v68;
+                memcpy((v106 + 288 * v109 + 32), v373, 0x119uLL);
+                v107 += 112;
+                --v105;
               }
 
-              while (v104);
-              v104 = v345;
+              while (v105);
+              v105 = v338;
             }
 
             else
             {
-              v105 = MEMORY[0x1E69E7CC0];
+              v106 = MEMORY[0x1E69E7CC0];
             }
 
-            *&v380[0] = v340;
+            *&v373[0] = v333;
 
-            specialized Array.append<A>(contentsOf:)(v105);
-            if (v348 < 0 || v6 >= *(*&v380[0] + 16))
+            specialized Array.append<A>(contentsOf:)(v106);
+            if (v341 < 0 || v6 >= *(*&v373[0] + 16))
             {
               goto LABEL_357;
             }
 
-            outlined init with copy of TabEntry(*&v380[0] + 288 * v6 + 32, v363);
+            outlined init with copy of TabEntry(*&v373[0] + 288 * v6 + 32, v356);
 
-            outlined init with copy of TabEntry(v363, v380);
-            if (BYTE8(v380[17]))
+            outlined init with copy of TabEntry(v356, v373);
+            if (BYTE8(v373[17]))
             {
-              memcpy(v365, v380, sizeof(v365));
-              outlined init with copy of TabItem?(&v365[48], &v367);
-              if (!*(&v368[0] + 1))
+              memcpy(v358, v373, sizeof(v358));
+              outlined init with copy of TabItem?(&v358[48], &v360);
+              if (!*(&v361[0] + 1))
               {
-                outlined destroy of TabItemGroup(v365);
-                _s7SwiftUI7BindingVyAA10VisibilityOGWOhTm_0(&v367, &lazy cache variable for type metadata for TabItem?, &type metadata for TabItem, MEMORY[0x1E69E6720]);
+                outlined destroy of TabItemGroup(v358);
+                _s7SwiftUI7BindingVyAA10VisibilityOGWOhTm_0(&v360, &lazy cache variable for type metadata for TabItem?, &type metadata for TabItem, MEMORY[0x1E69E6720]);
                 goto LABEL_81;
               }
 
-              *&v360 = v369;
-              v109 = one-time initialization token for defaultValue;
+              *&v353 = v362;
+              v110 = one-time initialization token for defaultValue;
 
-              if (v109 != -1)
+              if (v110 != -1)
               {
                 swift_once();
               }
 
-              v372 = static TabOptions.TraitKey.defaultValue;
-              v373[0] = unk_1EAB09380;
-              *(v373 + 9) = *(&word_1EAB09388 + 1);
-              v364[0] = static TabOptions.TraitKey.defaultValue;
-              v364[1] = unk_1EAB09380;
-              *(&v364[1] + 9) = *(&word_1EAB09388 + 1);
-              outlined init with copy of TabOptions(&v372, &v374);
+              v365 = static TabOptions.TraitKey.defaultValue;
+              v366[0] = unk_1EAB09380;
+              *(v366 + 9) = *(&word_1EAB09388 + 1);
+              v357[0] = static TabOptions.TraitKey.defaultValue;
+              v357[1] = unk_1EAB09380;
+              *(&v357[1] + 9) = *(&word_1EAB09388 + 1);
+              outlined init with copy of TabOptions(&v365, &v367);
               ViewTraitCollection.value<A>(for:defaultValue:)();
-              v374 = v364[0];
-              v375[0] = v364[1];
-              *(v375 + 9) = *(&v364[1] + 9);
-              outlined destroy of TabOptions(&v374);
-              outlined destroy of TabItemGroup(v365);
+              v367 = v357[0];
+              v368[0] = v357[1];
+              *(v368 + 9) = *(&v357[1] + 9);
+              outlined destroy of TabOptions(&v367);
+              outlined destroy of TabItemGroup(v358);
 
-              v364[0] = v370;
-              v364[1] = v371[0];
-              *(&v364[1] + 9) = *(v371 + 9);
-              outlined destroy of TabOptions(v364);
-              v110 = BYTE1(v364[0]);
-              outlined destroy of TabItem(&v367);
-              v104 = v345;
-              if ((v110 & 1) == 0)
+              v357[0] = v363;
+              v357[1] = v364[0];
+              *(&v357[1] + 9) = *(v364 + 9);
+              outlined destroy of TabOptions(v357);
+              v96 = BYTE1(v357[0]);
+              outlined destroy of TabItem(&v360);
+              v105 = v338;
+              if ((v96 & 1) == 0)
               {
 LABEL_81:
-                v112 = v336;
+                v112 = v329;
                 static Log.tabView.getter();
-                if (v343(v112, 1, v346) == 1)
+                if (v336(v112, 1, v339) == 1)
                 {
                   _s2os6LoggerVSgWOhTm_0(v112, type metadata accessor for Logger?);
                 }
 
                 else
                 {
-                  outlined init with copy of TabItemGroup(v337, &v367);
-                  outlined init with copy of TabEntry(v363, v380);
+                  outlined init with copy of TabItemGroup(v330, &v360);
+                  outlined init with copy of TabEntry(v356, v373);
                   v113 = Logger.logObject.getter();
                   v114 = static os_log_type_t.default.getter();
                   if (os_log_type_enabled(v113, v114))
                   {
-                    v327 = v114;
+                    v320 = v114;
                     v115 = swift_slowAlloc();
-                    v326 = swift_slowAlloc();
-                    *&v374 = v326;
-                    *v115 = v320;
+                    v319 = swift_slowAlloc();
+                    *&v367 = v319;
+                    *v115 = v313;
                     *(v115 + 4) = v6;
                     *(v115 + 12) = 2080;
-                    v116 = *(&v368[0] + 1);
-                    v117 = *&v368[1];
+                    v116 = *(&v361[0] + 1);
+                    v117 = *&v361[1];
                     outlined copy of TabCustomizationID.Base();
-                    outlined destroy of TabItemGroup(&v367);
-                    v118 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v116, v117, &v374);
+                    outlined destroy of TabItemGroup(&v360);
+                    v118 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v116, v117, &v367);
                     outlined consume of TabCustomizationID.Base();
                     *(v115 + 14) = v118;
                     *(v115 + 22) = 2080;
-                    outlined init with copy of TabEntry(v380, v365);
-                    if (v366)
+                    outlined init with copy of TabEntry(v373, v358);
+                    if (v359)
                     {
-                      memcpy(v364, v365, 0x118uLL);
-                      v68 = *(&v364[1] + 1);
-                      v119 = *&v364[2];
+                      memcpy(v357, v358, 0x118uLL);
+                      v68 = *(&v357[1] + 1);
+                      v119 = *&v357[2];
                       outlined copy of TabCustomizationID.Base();
-                      outlined destroy of TabItemGroup(v364);
+                      outlined destroy of TabItemGroup(v357);
                     }
 
                     else
                     {
-                      v364[4] = *&v365[64];
-                      v364[5] = *&v365[80];
-                      v364[6] = *&v365[96];
-                      v364[0] = *v365;
-                      v364[1] = *&v365[16];
-                      v364[3] = *&v365[48];
-                      v364[2] = *&v365[32];
+                      v357[4] = *&v358[64];
+                      v357[5] = *&v358[80];
+                      v357[6] = *&v358[96];
+                      v357[0] = *v358;
+                      v357[1] = *&v358[16];
+                      v357[3] = *&v358[48];
+                      v357[2] = *&v358[32];
                       v68 = TabItem.platformIdentifier.getter();
                       v119 = v120;
-                      outlined destroy of TabItem(v364);
+                      outlined destroy of TabItem(v357);
                     }
 
-                    v121 = v327;
-                    outlined destroy of TabEntry(v380);
-                    v122 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v68, v119, &v374);
+                    v121 = v320;
+                    outlined destroy of TabEntry(v373);
+                    v122 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v68, v119, &v367);
 
                     *(v115 + 24) = v122;
                     _os_log_impl(&dword_18BD4A000, v113, v121, "Inserting UITab child @ idx %ld into group\n%s; id %s", v115, 0x20u);
-                    v123 = v326;
+                    v123 = v319;
                     swift_arrayDestroy();
                     MEMORY[0x18D0110E0](v123, -1, -1);
                     MEMORY[0x18D0110E0](v115, -1, -1);
 
-                    v104 = v345;
+                    v105 = v338;
                   }
 
                   else
                   {
 
-                    outlined destroy of TabEntry(v380);
-                    outlined destroy of TabItemGroup(&v367);
+                    outlined destroy of TabEntry(v373);
+                    outlined destroy of TabItemGroup(&v360);
                   }
 
-                  (*v334)(v336, v346);
+                  (*v327)(v329, v339);
                 }
 
-                v124 = specialized UIHostingController.createBridgedTab(using:coordinator:)(v363, v333);
-                outlined destroy of TabEntry(v363);
-                if (v6 >= *(v338 + 16))
+                v96 = specialized UIHostingController.createBridgedTab(using:coordinator:)(v356, v326);
+                outlined destroy of TabEntry(v356);
+                if (v6 >= *(v331 + 16))
                 {
                   goto LABEL_206;
                 }
 
-                v125 = *(v335 + 8 * v6);
-                *(v335 + 8 * v6) = v124;
+                v124 = *(v328 + 8 * v6);
+                *(v328 + 8 * v6) = v96;
 
                 goto LABEL_57;
               }
@@ -2184,14 +2612,14 @@ LABEL_81:
 
             else
             {
-              *&v365[96] = v380[6];
-              *&v365[64] = v380[4];
-              *&v365[80] = v380[5];
-              *v365 = v380[0];
-              *&v365[16] = v380[1];
-              *&v365[48] = v380[3];
-              *&v365[32] = v380[2];
-              *&v370 = *&v380[6];
+              *&v358[96] = v373[6];
+              *&v358[64] = v373[4];
+              *&v358[80] = v373[5];
+              *v358 = v373[0];
+              *&v358[16] = v373[1];
+              *&v358[48] = v373[3];
+              *&v358[32] = v373[2];
+              *&v363 = *&v373[6];
               v111 = one-time initialization token for defaultValue;
 
               if (v111 != -1)
@@ -2199,36 +2627,37 @@ LABEL_81:
                 swift_once();
               }
 
-              v374 = static TabOptions.TraitKey.defaultValue;
-              v375[0] = unk_1EAB09380;
-              *(v375 + 9) = *(&word_1EAB09388 + 1);
               v367 = static TabOptions.TraitKey.defaultValue;
               v368[0] = unk_1EAB09380;
               *(v368 + 9) = *(&word_1EAB09388 + 1);
-              outlined init with copy of TabOptions(&v374, v364);
+              v360 = static TabOptions.TraitKey.defaultValue;
+              v361[0] = unk_1EAB09380;
+              *(v361 + 9) = *(&word_1EAB09388 + 1);
+              outlined init with copy of TabOptions(&v367, v357);
+              v96 = &v363;
               ViewTraitCollection.value<A>(for:defaultValue:)();
-              v364[0] = v367;
-              v364[1] = v368[0];
-              *(&v364[1] + 9) = *(v368 + 9);
-              outlined destroy of TabOptions(v364);
-              outlined destroy of TabItem(v365);
+              v357[0] = v360;
+              v357[1] = v361[0];
+              *(&v357[1] + 9) = *(v361 + 9);
+              outlined destroy of TabOptions(v357);
+              outlined destroy of TabItem(v358);
 
-              v367 = v372;
-              v368[0] = v373[0];
-              *(v368 + 9) = *(v373 + 9);
-              outlined destroy of TabOptions(&v367);
-              v104 = v345;
-              if (BYTE1(v367) != 1)
+              v360 = v365;
+              v361[0] = v366[0];
+              *(v361 + 9) = *(v366 + 9);
+              outlined destroy of TabOptions(&v360);
+              v105 = v338;
+              if (BYTE1(v360) != 1)
               {
                 goto LABEL_81;
               }
             }
 
-            outlined destroy of TabEntry(v363);
+            outlined destroy of TabEntry(v356);
 LABEL_57:
             ++v6;
-            v101 = v347;
-            if (v6 == v347)
+            v102 = v340;
+            if (v6 == v340)
             {
               break;
             }
@@ -2240,159 +2669,160 @@ LABEL_57:
 
       else
       {
-        v6 = *(v99 + 16);
-        v150 = *(v99 + 24);
-        if (v100 != v101)
+        v6 = *(v100 + 16);
+        v148 = *(v100 + 24);
+        if (v101 != v102)
         {
-          if (v101 < v348)
+          if (v102 < v341)
           {
             goto LABEL_218;
           }
 
-          if (v6 <= v150)
+          if (v6 <= v148)
           {
-            v151 = *(v99 + 24);
+            v149 = *(v100 + 24);
           }
 
           else
           {
-            v151 = *(v99 + 16);
+            v149 = *(v100 + 16);
           }
 
-          v345 = v151;
-          v152 = v6;
-          v340 = v6;
-          v332 = v150;
+          v338 = v149;
+          v150 = v6;
+          v333 = v6;
+          v325 = v148;
           while (2)
           {
-            if (v348 == v101)
+            if (v341 == v102)
             {
               goto LABEL_207;
             }
 
-            if (v152 == v150)
+            if (v150 == v148)
             {
               goto LABEL_49;
             }
 
-            if (v150 < v6)
+            if (v148 < v6)
             {
               goto LABEL_208;
             }
 
-            if (v152 == v345)
+            if (v150 == v338)
             {
               goto LABEL_209;
             }
 
-            v153 = *(v337 + 8);
-            v154 = *(v337 + 16);
-            v155 = *(v154 + 16);
-            if (v155)
+            v151 = *(v330 + 8);
+            v152 = *(v330 + 16);
+            v153 = *(v152 + 16);
+            if (v153)
             {
-              *v365 = MEMORY[0x1E69E7CC0];
-              specialized ContiguousArray.reserveCapacity(_:)(v155);
-              v156 = v154 + 32;
-              v157 = *v365;
+              *v358 = MEMORY[0x1E69E7CC0];
+              specialized ContiguousArray.reserveCapacity(_:)(v153);
+              v154 = v152 + 32;
+              v155 = *v358;
               do
               {
-                outlined init with copy of TabItem(v156, v380);
-                BYTE8(v380[17]) = 0;
+                outlined init with copy of TabItem(v154, v373);
+                BYTE8(v373[17]) = 0;
                 if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
                 {
-                  specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v157 + 16) + 1, 1);
-                  v157 = *v365;
+                  specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v155 + 16) + 1, 1);
+                  v155 = *v358;
                 }
 
-                v159 = *(v157 + 16);
-                v158 = *(v157 + 24);
-                if (v159 >= v158 >> 1)
+                v157 = *(v155 + 16);
+                v156 = *(v155 + 24);
+                if (v157 >= v156 >> 1)
                 {
-                  specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v158 > 1), v159 + 1, 1);
-                  v157 = *v365;
+                  specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v156 > 1), v157 + 1, 1);
+                  v155 = *v358;
                 }
 
-                *(v157 + 16) = v159 + 1;
-                memcpy((v157 + 288 * v159 + 32), v380, 0x119uLL);
-                v156 += 112;
-                --v155;
+                *(v155 + 16) = v157 + 1;
+                memcpy((v155 + 288 * v157 + 32), v373, 0x119uLL);
+                v154 += 112;
+                --v153;
               }
 
-              while (v155);
+              while (v153);
             }
 
             else
             {
-              v157 = MEMORY[0x1E69E7CC0];
+              v155 = MEMORY[0x1E69E7CC0];
             }
 
-            *&v380[0] = v153;
+            *&v373[0] = v151;
 
-            specialized Array.append<A>(contentsOf:)(v157);
-            v6 = v340;
-            if (v340 < 0 || (v68 = v348, v152 >= *(*&v380[0] + 16)))
+            specialized Array.append<A>(contentsOf:)(v155);
+            v96 = *&v373[0];
+            v6 = v333;
+            if (v333 < 0 || (v68 = v341, v150 >= *(*&v373[0] + 16)))
             {
 
-              v363[0] = 0xD000000000000021;
-              v363[1] = 0x800000018CD52B70;
-              *&v380[0] = v152;
-              v301 = dispatch thunk of CustomStringConvertible.description.getter();
-              MEMORY[0x18D00C9B0](v301);
+              v356[0] = 0xD000000000000021;
+              v356[1] = 0x800000018CD52B70;
+              *&v373[0] = v150;
+              v294 = dispatch thunk of CustomStringConvertible.description.getter();
+              MEMORY[0x18D00C9B0](v294);
 
               goto LABEL_359;
             }
 
-            outlined init with copy of TabEntry(*&v380[0] + 288 * v152 + 32, v363);
+            outlined init with copy of TabEntry(*&v373[0] + 288 * v150 + 32, v356);
 
-            outlined init with copy of TabEntry(v363, v380);
-            if (BYTE8(v380[17]))
+            outlined init with copy of TabEntry(v356, v373);
+            if (BYTE8(v373[17]))
             {
-              memcpy(v365, v380, sizeof(v365));
-              outlined init with copy of TabItem?(&v365[48], &v367);
-              if (*(&v368[0] + 1))
+              memcpy(v358, v373, sizeof(v358));
+              outlined init with copy of TabItem?(&v358[48], &v360);
+              if (*(&v361[0] + 1))
               {
-                *&v360 = v369;
-                v160 = one-time initialization token for defaultValue;
+                *&v353 = v362;
+                v158 = one-time initialization token for defaultValue;
 
-                if (v160 != -1)
+                if (v158 != -1)
                 {
                   swift_once();
                 }
 
-                v372 = static TabOptions.TraitKey.defaultValue;
-                v373[0] = unk_1EAB09380;
-                *(v373 + 9) = *(&word_1EAB09388 + 1);
-                v364[0] = static TabOptions.TraitKey.defaultValue;
-                v364[1] = unk_1EAB09380;
-                *(&v364[1] + 9) = *(&word_1EAB09388 + 1);
-                outlined init with copy of TabOptions(&v372, &v374);
+                v365 = static TabOptions.TraitKey.defaultValue;
+                v366[0] = unk_1EAB09380;
+                *(v366 + 9) = *(&word_1EAB09388 + 1);
+                v357[0] = static TabOptions.TraitKey.defaultValue;
+                v357[1] = unk_1EAB09380;
+                *(&v357[1] + 9) = *(&word_1EAB09388 + 1);
+                outlined init with copy of TabOptions(&v365, &v367);
                 ViewTraitCollection.value<A>(for:defaultValue:)();
-                v374 = v364[0];
-                v375[0] = v364[1];
-                *(v375 + 9) = *(&v364[1] + 9);
-                outlined destroy of TabOptions(&v374);
-                outlined destroy of TabItemGroup(v365);
+                v367 = v357[0];
+                v368[0] = v357[1];
+                *(v368 + 9) = *(&v357[1] + 9);
+                outlined destroy of TabOptions(&v367);
+                outlined destroy of TabItemGroup(v358);
 
-                v364[0] = v370;
-                v364[1] = v371[0];
-                *(&v364[1] + 9) = *(v371 + 9);
-                outlined destroy of TabOptions(v364);
-                v161 = BYTE1(v364[0]);
-                outlined destroy of TabItem(&v367);
-                if ((v161 & 1) == 0)
+                v357[0] = v363;
+                v357[1] = v364[0];
+                *(&v357[1] + 9) = *(v364 + 9);
+                outlined destroy of TabOptions(v357);
+                v96 = BYTE1(v357[0]);
+                outlined destroy of TabItem(&v360);
+                if ((v96 & 1) == 0)
                 {
                   goto LABEL_173;
                 }
 
 LABEL_147:
-                outlined destroy of TabEntry(v363);
+                outlined destroy of TabEntry(v356);
 LABEL_148:
                 ++v68;
-                ++v152;
-                v348 = v68;
-                v101 = v347;
-                v150 = v332;
-                if (v68 == v347)
+                ++v150;
+                v341 = v68;
+                v102 = v340;
+                v148 = v325;
+                if (v68 == v340)
                 {
                   goto LABEL_49;
                 }
@@ -2400,22 +2830,22 @@ LABEL_148:
                 continue;
               }
 
-              outlined destroy of TabItemGroup(v365);
-              _s7SwiftUI7BindingVyAA10VisibilityOGWOhTm_0(&v367, &lazy cache variable for type metadata for TabItem?, &type metadata for TabItem, MEMORY[0x1E69E6720]);
-              if (v330)
+              outlined destroy of TabItemGroup(v358);
+              _s7SwiftUI7BindingVyAA10VisibilityOGWOhTm_0(&v360, &lazy cache variable for type metadata for TabItem?, &type metadata for TabItem, MEMORY[0x1E69E6720]);
+              if (v323)
               {
 LABEL_180:
-                v163 = MEMORY[0x18D00E9C0](v68, v314);
+                v160 = MEMORY[0x18D00E9C0](v68, v307);
 LABEL_177:
-                v164 = v163;
-                outlined destroy of TabEntry(v363);
-                if (v152 >= *(v338 + 16))
+                v96 = v160;
+                outlined destroy of TabEntry(v356);
+                if (v150 >= *(v331 + 16))
                 {
                   goto LABEL_212;
                 }
 
-                v165 = *(v335 + 8 * v152);
-                *(v335 + 8 * v152) = v164;
+                v161 = *(v328 + 8 * v150);
+                *(v328 + 8 * v150) = v96;
 
                 goto LABEL_148;
               }
@@ -2423,46 +2853,47 @@ LABEL_177:
 
             else
             {
-              *&v365[96] = v380[6];
-              *&v365[64] = v380[4];
-              *&v365[80] = v380[5];
-              *v365 = v380[0];
-              *&v365[16] = v380[1];
-              *&v365[48] = v380[3];
-              *&v365[32] = v380[2];
-              *&v370 = *&v380[6];
-              v162 = one-time initialization token for defaultValue;
+              *&v358[96] = v373[6];
+              *&v358[64] = v373[4];
+              *&v358[80] = v373[5];
+              *v358 = v373[0];
+              *&v358[16] = v373[1];
+              *&v358[48] = v373[3];
+              *&v358[32] = v373[2];
+              *&v363 = *&v373[6];
+              v159 = one-time initialization token for defaultValue;
 
-              if (v162 != -1)
+              if (v159 != -1)
               {
                 swift_once();
               }
 
-              v374 = static TabOptions.TraitKey.defaultValue;
-              v375[0] = unk_1EAB09380;
-              *(v375 + 9) = *(&word_1EAB09388 + 1);
               v367 = static TabOptions.TraitKey.defaultValue;
               v368[0] = unk_1EAB09380;
               *(v368 + 9) = *(&word_1EAB09388 + 1);
-              outlined init with copy of TabOptions(&v374, v364);
+              v360 = static TabOptions.TraitKey.defaultValue;
+              v361[0] = unk_1EAB09380;
+              *(v361 + 9) = *(&word_1EAB09388 + 1);
+              outlined init with copy of TabOptions(&v367, v357);
+              v96 = &v363;
               ViewTraitCollection.value<A>(for:defaultValue:)();
-              v364[0] = v367;
-              v364[1] = v368[0];
-              *(&v364[1] + 9) = *(v368 + 9);
-              outlined destroy of TabOptions(v364);
-              outlined destroy of TabItem(v365);
+              v357[0] = v360;
+              v357[1] = v361[0];
+              *(&v357[1] + 9) = *(v361 + 9);
+              outlined destroy of TabOptions(v357);
+              outlined destroy of TabItem(v358);
 
-              v367 = v372;
-              v368[0] = v373[0];
-              *(v368 + 9) = *(v373 + 9);
-              outlined destroy of TabOptions(&v367);
-              if (BYTE1(v367) == 1)
+              v360 = v365;
+              v361[0] = v366[0];
+              *(v361 + 9) = *(v366 + 9);
+              outlined destroy of TabOptions(&v360);
+              if (BYTE1(v360) == 1)
               {
                 goto LABEL_147;
               }
 
 LABEL_173:
-              if (v330)
+              if (v323)
               {
                 goto LABEL_180;
               }
@@ -2476,134 +2907,135 @@ LABEL_173:
             goto LABEL_211;
           }
 
-          if (v68 >= *(v329 + 16))
+          if (v68 >= *(v322 + 16))
           {
             goto LABEL_213;
           }
 
-          v163 = *(v328 + 8 * v68);
+          v160 = *(v321 + 8 * v68);
           goto LABEL_177;
         }
       }
 
 LABEL_49:
-      v98 = v331 + 1;
-      v97 = *(v324 + 16);
-      v6 = v341;
-      if (v331 + 1 == v97)
+      v99 = v324 + 1;
+      v98 = *(v317 + 16);
+      v6 = v334;
+      if (v324 + 1 == v98)
       {
         goto LABEL_181;
       }
     }
 
-    if (v100 == v101)
+    if (v101 == v102)
     {
       goto LABEL_49;
     }
 
-    v126 = v348;
-    if (v101 < v348)
+    v125 = v341;
+    if (v102 < v341)
     {
       goto LABEL_220;
     }
 
     while (2)
     {
-      if (v126 >= v101)
+      if (v125 >= v102)
       {
         goto LABEL_203;
       }
 
-      if ((v348 & 0x8000000000000000) == 0)
+      if ((v341 & 0x8000000000000000) == 0)
       {
-        if (v126 >= *(v341 + 2))
+        if (v125 >= *(v334 + 2))
         {
           goto LABEL_205;
         }
 
-        v127 = (v339 + 16 * v126);
-        v128 = *v127;
-        v6 = v127[1];
+        v126 = (v332 + 16 * v125);
+        v127 = *v126;
+        v6 = v126[1];
 
-        v129 = v342;
+        v128 = v335;
         static Log.tabView.getter();
-        if (v343(v129, 1, v346) == 1)
+        if (v336(v128, 1, v339) == 1)
         {
-          _s2os6LoggerVSgWOhTm_0(v129, type metadata accessor for Logger?);
-          v130 = v378;
-          if (!v378)
+          _s2os6LoggerVSgWOhTm_0(v128, type metadata accessor for Logger?);
+          v96 = v371;
+          if (!v371)
           {
             goto LABEL_95;
           }
 
 LABEL_106:
-          v134 = v377;
-          v135 = *(v130 + 16);
-          if (v377)
+          v132 = v370;
+          v133 = *(v96 + 16);
+          if (v370)
           {
 
-            v136 = specialized _HashTable.UnsafeHandle._find<A>(_:in:)(v128, v6, v130 + 32, v135, (v134 + 16));
+            v134 = specialized _HashTable.UnsafeHandle._find<A>(_:in:)(v127, v6, v96 + 32, v133, (v132 + 16), v132 + 32);
+            v136 = v135;
             v138 = v137;
-            v140 = v139;
 
-            if (v138)
+            if (v136)
             {
               goto LABEL_96;
             }
 
-            v141 = *(v130 + 16);
+            v139 = *(v96 + 16);
             swift_beginAccess();
-            if ((*(v134 + 16) & 0x3FLL) == (*(v134 + 24) & 0x3FLL))
+            if ((*(v132 + 16) & 0x3FLL) == (*(v132 + 24) & 0x3FLL))
             {
-              v68 = &v376;
-              if (!v141)
+              v68 = &v369;
+              if (!v139)
               {
 LABEL_130:
-                specialized ContiguousArray.remove(at:)(v136);
+                specialized ContiguousArray.remove(at:)(v134);
 
-                if (v134)
+                if (v132)
                 {
                   swift_beginAccess();
-                  v144 = *(v134 + 24) & 0x3FLL;
+                  v142 = *(v132 + 24) & 0x3FLL;
                 }
 
                 else
                 {
-                  v144 = 0;
+                  v142 = 0;
                 }
 
-                v145 = v378;
-                v146 = *(v378 + 16);
-                if (v144 || v146 >= 0x10)
+                v143 = v371;
+                v144 = *(v371 + 16);
+                if (v142 || v144 >= 0x10)
                 {
-                  v147 = MEMORY[0x18D000DA0](v146);
-                  if (v144 <= v147)
+                  v145 = MEMORY[0x18D000DA0](v144);
+                  if (v142 <= v145)
                   {
-                    v148 = v147;
+                    v146 = v145;
                   }
 
                   else
                   {
-                    v148 = v144;
+                    v146 = v142;
                   }
 
-                  v149 = _s19CollectionsInternal10_HashTableV6create23uncheckedUniqueElements5scale13reservedScaleACSgx_SiSgSitSkRzSH7ElementRpzlFZs15ContiguousArrayVySSG_Tt2g5(v145, v148, 0, v144);
+                  v147 = _s19CollectionsInternal10_HashTableV6create23uncheckedUniqueElements5scale13reservedScaleACSgx_SiSgSitSkRzSH7ElementRpzlFZs15ContiguousArrayVySSG_Tt2g5(v143, v146, 0, v142);
 
-                  v377 = v149;
+                  v370 = v147;
                 }
 
                 else
                 {
 
-                  v377 = 0;
+                  v370 = 0;
                 }
 
 LABEL_140:
+                v96 = &v372;
 
 LABEL_96:
-                ++v126;
-                v101 = v347;
-                if (v126 == v347)
+                ++v125;
+                v102 = v340;
+                if (v125 == v340)
                 {
                   goto LABEL_49;
                 }
@@ -2614,8 +3046,8 @@ LABEL_96:
 
             else
             {
-              v68 = &v376;
-              if (v141 <= MEMORY[0x18D000D80]())
+              v68 = &v369;
+              if (v139 <= MEMORY[0x18D000D80]())
               {
                 goto LABEL_130;
               }
@@ -2623,88 +3055,88 @@ LABEL_96:
 
             if ((swift_isUniquelyReferenced_native() & 1) == 0)
             {
-              v143 = _HashTable.copy()();
+              v141 = _HashTable.copy()();
 
-              v377 = v143;
-              v134 = v143;
-              if (!v143)
+              v370 = v141;
+              v132 = v141;
+              if (!v141)
               {
                 goto LABEL_356;
               }
             }
 
-            specialized _HashTable.UnsafeHandle.delete(bucket:hashValueGenerator:)(v140, (v134 + 16), v134 + 32, &v377);
-            if (__OFADD__(v136, 1))
+            specialized _HashTable.UnsafeHandle.delete(bucket:hashValueGenerator:)(v138, (v132 + 16), v132 + 32, &v370);
+            if (__OFADD__(v134, 1))
             {
               goto LABEL_216;
             }
 
-            if (v136 + 1 < v136)
+            if (v134 + 1 < v134)
             {
               goto LABEL_217;
             }
 
-            specialized _HashTable.UnsafeHandle.adjustContents<A>(preparingForRemovalOf:in:)(v136, v136 + 1, v130, (v134 + 16));
+            specialized _HashTable.UnsafeHandle.adjustContents<A>(preparingForRemovalOf:in:)(v134, v134 + 1, v96, (v132 + 16), v132 + 32);
           }
 
           else
           {
-            if (!v135)
+            if (!v133)
             {
               goto LABEL_95;
             }
 
-            v136 = 0;
-            v68 = v130 + 40;
+            v134 = 0;
+            v68 = v96 + 40;
             while (1)
             {
-              v142 = *(v68 - 8) == v128 && *v68 == v6;
-              if (v142 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+              v140 = *(v68 - 8) == v127 && *v68 == v6;
+              if (v140 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
               {
                 break;
               }
 
-              ++v136;
+              ++v134;
               v68 += 16;
-              if (v135 == v136)
+              if (v133 == v134)
               {
                 goto LABEL_95;
               }
             }
 
-            if (!*(v130 + 16))
+            if (!*(v96 + 16))
             {
-              v68 = &v376;
+              v68 = &v369;
               goto LABEL_130;
             }
 
-            v68 = &v376;
+            v68 = &v369;
           }
 
-          specialized ContiguousArray.remove(at:)(v136);
+          specialized ContiguousArray.remove(at:)(v134);
 
           goto LABEL_140;
         }
 
-        v131 = Logger.logObject.getter();
-        v132 = static os_log_type_t.default.getter();
+        v129 = Logger.logObject.getter();
+        v130 = static os_log_type_t.default.getter();
 
-        if (os_log_type_enabled(v131, v132))
+        if (os_log_type_enabled(v129, v130))
         {
-          v133 = swift_slowAlloc();
+          v131 = swift_slowAlloc();
           v68 = swift_slowAlloc();
-          v363[0] = v68;
-          *v133 = v325;
-          *(v133 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v128, v6, v363);
-          _os_log_impl(&dword_18BD4A000, v131, v132, "Removing VC for cached child '%s'", v133, 0xCu);
+          v356[0] = v68;
+          *v131 = v318;
+          *(v131 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v127, v6, v356);
+          _os_log_impl(&dword_18BD4A000, v129, v130, "Removing VC for cached child '%s'", v131, 0xCu);
           __swift_destroy_boxed_opaque_existential_1(v68);
           MEMORY[0x18D0110E0](v68, -1, -1);
-          MEMORY[0x18D0110E0](v133, -1, -1);
+          MEMORY[0x18D0110E0](v131, -1, -1);
         }
 
-        (*v334)(v342, v346);
-        v130 = v378;
-        if (v378)
+        (*v327)(v335, v339);
+        v96 = v371;
+        if (v371)
         {
           goto LABEL_106;
         }
@@ -2752,48 +3184,48 @@ LABEL_219:
 LABEL_220:
     __break(1u);
 LABEL_221:
-    v338 = specialized _ArrayBuffer._consumeAndCreateNew()();
+    v331 = specialized _ArrayBuffer._consumeAndCreateNew()(v96);
   }
 
 LABEL_181:
 
-  v166 = 0;
-  v167 = MEMORY[0x1E69E7CC0];
-  v363[0] = MEMORY[0x1E69E7CC0];
-  v168 = v338;
-  v169 = *(v338 + 16);
-  v170 = v316;
-  while (v169 != v166)
+  v162 = 0;
+  v96 = MEMORY[0x1E69E7CC0];
+  v356[0] = MEMORY[0x1E69E7CC0];
+  v163 = v331;
+  v164 = *(v331 + 16);
+  v165 = v309;
+  while (v164 != v162)
   {
-    if (v166 >= *(v168 + 16))
+    if (v162 >= *(v163 + 16))
     {
       goto LABEL_210;
     }
 
-    v171 = *(v168 + 8 * v166++ + 32);
-    if (v171)
+    v166 = *(v163 + 8 * v162++ + 32);
+    if (v166)
     {
-      v172 = v171;
+      v167 = v166;
       MEMORY[0x18D00CC30]();
-      if (*((v363[0] & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v363[0] & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+      if (*((v356[0] & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v356[0] & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
       {
         specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
       }
 
       specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
-      v167 = v363[0];
-      v170 = v316;
-      v168 = v338;
+      v96 = v356[0];
+      v165 = v309;
+      v163 = v331;
     }
   }
 
-  v348 = [v170 _selectedElement];
-  v173 = v167;
-  if (v167 >> 62)
+  v341 = [v165 _selectedElement];
+  v168 = v96;
+  if (v96 >> 62)
   {
-    v174 = __CocoaSet.count.getter();
-    v175 = v317;
-    if (v174)
+    v169 = __CocoaSet.count.getter();
+    v170 = v310;
+    if (v169)
     {
       goto LABEL_190;
     }
@@ -2801,21 +3233,21 @@ LABEL_181:
 
   else
   {
-    v174 = *((v167 & 0xFFFFFFFFFFFFFF8) + 0x10);
-    v175 = v317;
-    if (v174)
+    v169 = *((v96 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    v170 = v310;
+    if (v169)
     {
 LABEL_190:
-      v176 = 0;
-      v68 = v167 & 0xC000000000000001;
-      v6 = v167 & 0xFFFFFFFFFFFFFF8;
+      v171 = 0;
+      v68 = v96 & 0xC000000000000001;
+      v6 = v96 & 0xFFFFFFFFFFFFFF8;
       do
       {
         if (v68)
         {
-          v177 = MEMORY[0x18D00E9C0](v176, v173);
-          v178 = v176 + 1;
-          if (__OFADD__(v176, 1))
+          v172 = MEMORY[0x18D00E9C0](v171, v168);
+          v173 = v171 + 1;
+          if (__OFADD__(v171, 1))
           {
             goto LABEL_201;
           }
@@ -2823,14 +3255,14 @@ LABEL_190:
 
         else
         {
-          if (v176 >= *((v173 & 0xFFFFFFFFFFFFFF8) + 0x10))
+          if (v171 >= *((v168 & 0xFFFFFFFFFFFFFF8) + 0x10))
           {
             goto LABEL_215;
           }
 
-          v177 = *(v173 + 8 * v176 + 32);
-          v178 = v176 + 1;
-          if (__OFADD__(v176, 1))
+          v172 = *(v168 + 8 * v171 + 32);
+          v173 = v171 + 1;
+          if (__OFADD__(v171, 1))
           {
 LABEL_201:
             __break(1u);
@@ -2842,15 +3274,15 @@ LABEL_203:
           }
         }
 
-        v179 = v348;
-        if (v348)
+        v96 = v341;
+        if (v341)
         {
-          v180 = v177;
-          v181 = v179;
-          v182 = static NSObject.== infix(_:_:)();
+          v174 = v172;
+          v175 = v96;
+          v96 = static NSObject.== infix(_:_:)();
 
-          v175 = v317;
-          if (v182)
+          v170 = v310;
+          if (v96)
           {
             goto LABEL_225;
           }
@@ -2860,54 +3292,54 @@ LABEL_203:
         {
         }
 
-        ++v176;
+        ++v171;
       }
 
-      while (v178 != v174);
+      while (v173 != v169);
     }
   }
 
-  if (v348)
+  if (v341)
   {
-    *&v380[0] = v173;
-    type metadata accessor for NSObject(0, &lazy cache variable for type metadata for _UITabElement);
-    type metadata accessor for [_UITab]();
+    *&v373[0] = v168;
+    type metadata accessor for NSObject(0, &lazy cache variable for type metadata for _UITabElement, 0x1E69DD7A0);
+    type metadata accessor for [_UITab](0);
     lazy protocol witness table accessor for type [_UITab] and conformance [A]();
 
-    v175 = v317;
+    v170 = v310;
     Sequence.first<A>(ofType:)();
-    v183 = v363[0];
-    [v316 _setSelectedElement_];
+    v176 = v356[0];
+    [v309 _setSelectedElement_];
   }
 
 LABEL_225:
   isa = Array._bridgeToObjectiveC()().super.isa;
 
-  [v316 _setChildren_];
+  [v309 _setChildren_];
 
-  v185 = v376;
-  v186 = v377;
-  v187 = v378;
-  v188 = v379;
+  v178 = v369;
+  v179 = v370;
+  v180 = v371;
+  v181 = v372;
   swift_beginAccess();
-  outlined copy of TabItemGroup.HostCache?(v185, v186, v187);
-  v340 = v186;
-  v341 = v185;
-  v339 = v187;
-  v336 = v188;
-  specialized Dictionary.subscript.setter(v185, v186, v187, v188, v312, v175);
+  outlined copy of TabItemGroup.HostCache?(v178, v179, v180, v181);
+  v333 = v179;
+  v334 = v178;
+  v332 = v180;
+  v329 = v181;
+  specialized Dictionary.subscript.setter(v178, v179, v180, v181, v305, v170);
   swift_endAccess();
-  v189 = TabItemGroup.allChildEntries.getter();
-  v190 = v189;
-  v191 = *(v189 + 16);
-  if (v191)
+  v182 = TabItemGroup.allChildEntries.getter();
+  v183 = v182;
+  v184 = *(v182 + 16);
+  if (v184)
   {
-    v192 = 0;
-    v193 = v189 + 32;
-    v194 = MEMORY[0x1E69E7CC0];
+    v185 = 0;
+    v186 = v182 + 32;
+    v187 = MEMORY[0x1E69E7CC0];
     while (1)
     {
-      if (v192 >= v190[2])
+      if (v185 >= v183[2])
       {
         __break(1u);
 LABEL_350:
@@ -2917,136 +3349,136 @@ LABEL_351:
 LABEL_352:
         __break(1u);
 LABEL_353:
-        v283 = __CocoaSet.count.getter();
-        if (!v283)
+        v276 = __CocoaSet.count.getter();
+        if (!v276)
         {
           goto LABEL_348;
         }
 
 LABEL_327:
-        v284 = 0;
-        v285 = v193 & 0xC000000000000001;
-        v346 = v193 & 0xC000000000000001;
-        v347 = v193 & 0xFFFFFFFFFFFFFF8;
-        v286 = (v194 + 32);
-        v342 = v194;
-        v345 = v283;
+        v277 = 0;
+        v278 = v186 & 0xC000000000000001;
+        v339 = v186 & 0xC000000000000001;
+        v340 = v186 & 0xFFFFFFFFFFFFFF8;
+        v279 = (v187 + 32);
+        v335 = v187;
+        v338 = v276;
         while (1)
         {
-          if (v285)
+          if (v278)
           {
-            v287 = MEMORY[0x18D00E9C0](v284, v193);
+            v280 = MEMORY[0x18D00E9C0](v277, v186);
           }
 
           else
           {
-            if (v284 >= *(v347 + 16))
+            if (v277 >= *(v340 + 16))
             {
               goto LABEL_350;
             }
 
-            v287 = *(v193 + 8 * v284 + 32);
+            v280 = *(v186 + 8 * v277 + 32);
           }
 
-          v288 = v287;
-          v289 = *(v194 + 2);
-          if (v284 == v289)
+          v281 = v280;
+          v282 = *(v187 + 2);
+          if (v277 == v282)
           {
             break;
           }
 
-          if (v284 >= v289)
+          if (v277 >= v282)
           {
             goto LABEL_351;
           }
 
-          outlined init with copy of TabEntry(v286, &v363[1]);
-          outlined init with copy of TabEntry(&v363[1], v380);
-          if (BYTE8(v380[17]))
+          outlined init with copy of TabEntry(v279, &v356[1]);
+          outlined init with copy of TabEntry(&v356[1], v373);
+          if (BYTE8(v373[17]))
           {
-            memcpy(v365, v380, sizeof(v365));
+            memcpy(v358, v373, sizeof(v358));
             objc_opt_self();
-            v290 = swift_dynamicCastObjCClass();
-            if (!v290)
+            v283 = swift_dynamicCastObjCClass();
+            if (!v283)
             {
               goto LABEL_359;
             }
 
-            v291 = v290;
-            outlined init with copy of TabItem?(&v365[48], v364);
-            if (*(&v364[1] + 1))
+            v284 = v283;
+            outlined init with copy of TabItem?(&v358[48], v357);
+            if (*(&v357[1] + 1))
             {
-              v368[3] = v364[4];
-              v368[4] = v364[5];
-              v369 = v364[6];
-              v367 = v364[0];
-              v368[0] = v364[1];
-              v368[2] = v364[3];
-              v368[1] = v364[2];
-              v292 = v288;
-              specialized UIHostingController.updateProperties(on:using:customization:environment:coordinator:)(v291, &v367, v322, v318, v319);
-              outlined destroy of TabItem(&v367);
+              v361[3] = v357[4];
+              v361[4] = v357[5];
+              v362 = v357[6];
+              v360 = v357[0];
+              v361[0] = v357[1];
+              v361[2] = v357[3];
+              v361[1] = v357[2];
+              v285 = v281;
+              specialized UIHostingController.updateProperties(on:using:customization:environment:coordinator:)(v284, &v360, v315, v311, v312);
+              outlined destroy of TabItem(&v360);
             }
 
             else
             {
-              v293 = v288;
-              _s7SwiftUI7BindingVyAA10VisibilityOGWOhTm_0(v364, &lazy cache variable for type metadata for TabItem?, &type metadata for TabItem, MEMORY[0x1E69E6720]);
+              v286 = v281;
+              _s7SwiftUI7BindingVyAA10VisibilityOGWOhTm_0(v357, &lazy cache variable for type metadata for TabItem?, &type metadata for TabItem, MEMORY[0x1E69E6720]);
             }
 
-            v294 = TabItemGroup.sidebarReorderable.getter();
-            if (v294 != [v291 _allowsReordering])
+            v287 = TabItemGroup.sidebarReorderable.getter();
+            if (v287 != [v284 _allowsReordering])
             {
-              [v291 _setAllowsReordering_];
+              [v284 _setAllowsReordering_];
             }
 
-            specialized UIHostingController.updateChildrenCreatingIfNeeded(of:using:customization:environment:coordinator:)(v291, v365, v322, v318, v319, v333);
-            v295 = [v291 v190[227]];
-            if (v295)
+            specialized UIHostingController.updateChildrenCreatingIfNeeded(of:using:customization:environment:coordinator:)(v284, v358, v315, v311, v312, v326);
+            v288 = [v284 v183[227]];
+            if (v288)
             {
-              v296 = v295;
+              v289 = v288;
             }
 
             else
             {
-              v297 = [v291 _children];
-              v298 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+              v290 = [v284 _children];
+              v291 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
-              *&v364[0] = v298;
-              type metadata accessor for NSObject(0, &lazy cache variable for type metadata for _UITabElement);
-              type metadata accessor for [_UITab]();
+              *&v357[0] = v291;
+              type metadata accessor for NSObject(0, &lazy cache variable for type metadata for _UITabElement, 0x1E69DD7A0);
+              type metadata accessor for [_UITab](0);
               lazy protocol witness table accessor for type [_UITab] and conformance [A]();
-              v190 = &selRef_setConfiguration_;
-              v194 = v342;
+              v183 = &selRef_setConfiguration_;
+              v187 = v335;
               Sequence.first<A>(ofType:)();
-              v283 = v345;
+              v276 = v338;
 
-              v296 = v367;
-              [v291 _setSelectedElement_];
+              v289 = v360;
+              [v284 _setSelectedElement_];
             }
 
-            outlined destroy of TabItemGroup(v365);
-            v285 = v346;
+            outlined destroy of TabItemGroup(v358);
+            v278 = v339;
           }
 
           else
           {
-            *&v365[64] = v380[4];
-            *&v365[80] = v380[5];
-            *&v365[96] = v380[6];
-            *v365 = v380[0];
-            *&v365[16] = v380[1];
-            *&v365[48] = v380[3];
-            *&v365[32] = v380[2];
-            specialized UIHostingController.updateProperties(on:using:customization:environment:coordinator:)(v288, v365, v322, v318, v319);
+            *&v358[64] = v373[4];
+            *&v358[80] = v373[5];
+            *&v358[96] = v373[6];
+            *v358 = v373[0];
+            *&v358[16] = v373[1];
+            *&v358[48] = v373[3];
+            *&v358[32] = v373[2];
+            specialized UIHostingController.updateProperties(on:using:customization:environment:coordinator:)(v281, v358, v315, v311, v312);
 
-            outlined destroy of TabItem(v365);
+            outlined destroy of TabItem(v358);
           }
 
-          ++v284;
-          outlined destroy of TabEntry(&v363[1]);
-          v286 += 288;
-          if (v283 == v284)
+          ++v277;
+          outlined destroy of TabEntry(&v356[1]);
+          v279 += 288;
+          if (v276 == v277)
           {
             goto LABEL_348;
           }
@@ -3055,68 +3487,68 @@ LABEL_327:
         goto LABEL_348;
       }
 
-      outlined init with copy of TabEntry(v193, v363);
-      outlined init with copy of TabEntry(v363, v380);
-      if (BYTE8(v380[17]))
+      outlined init with copy of TabEntry(v186, v356);
+      outlined init with copy of TabEntry(v356, v373);
+      if (BYTE8(v373[17]))
       {
-        memcpy(v365, v380, sizeof(v365));
-        outlined init with copy of TabItem?(&v365[48], &v367);
-        if (!*(&v368[0] + 1))
+        memcpy(v358, v373, sizeof(v358));
+        outlined init with copy of TabItem?(&v358[48], &v360);
+        if (!*(&v361[0] + 1))
         {
-          outlined destroy of TabItemGroup(v365);
-          _s7SwiftUI7BindingVyAA10VisibilityOGWOhTm_0(&v367, &lazy cache variable for type metadata for TabItem?, &type metadata for TabItem, MEMORY[0x1E69E6720]);
+          outlined destroy of TabItemGroup(v358);
+          _s7SwiftUI7BindingVyAA10VisibilityOGWOhTm_0(&v360, &lazy cache variable for type metadata for TabItem?, &type metadata for TabItem, MEMORY[0x1E69E6720]);
 LABEL_241:
-          memcpy(v380, v363, 0x119uLL);
+          memcpy(v373, v356, 0x119uLL);
           isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-          *&v360 = v194;
+          *&v353 = v187;
           if ((isUniquelyReferenced_nonNull_native & 1) == 0)
           {
-            specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v194 + 2) + 1, 1);
-            v194 = v360;
+            specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v187 + 2) + 1, 1);
+            v187 = v353;
           }
 
-          v200 = *(v194 + 2);
-          v199 = *(v194 + 3);
-          if (v200 >= v199 >> 1)
+          v193 = *(v187 + 2);
+          v192 = *(v187 + 3);
+          if (v193 >= v192 >> 1)
           {
-            specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v199 > 1), v200 + 1, 1);
-            v194 = v360;
+            specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v192 > 1), v193 + 1, 1);
+            v187 = v353;
           }
 
-          *(v194 + 2) = v200 + 1;
-          memcpy(&v194[288 * v200 + 32], v380, 0x119uLL);
+          *(v187 + 2) = v193 + 1;
+          memcpy(&v187[288 * v193 + 32], v373, 0x119uLL);
           goto LABEL_228;
         }
 
-        *&v358 = v369;
-        v195 = one-time initialization token for defaultValue;
+        *&v351 = v362;
+        v188 = one-time initialization token for defaultValue;
 
-        if (v195 != -1)
+        if (v188 != -1)
         {
           swift_once();
         }
 
-        v372 = static TabOptions.TraitKey.defaultValue;
-        v373[0] = unk_1EAB09380;
-        *(v373 + 9) = *(&word_1EAB09388 + 1);
-        v364[0] = static TabOptions.TraitKey.defaultValue;
-        v364[1] = unk_1EAB09380;
-        *(&v364[1] + 9) = *(&word_1EAB09388 + 1);
-        outlined init with copy of TabOptions(&v372, &v374);
+        v365 = static TabOptions.TraitKey.defaultValue;
+        v366[0] = unk_1EAB09380;
+        *(v366 + 9) = *(&word_1EAB09388 + 1);
+        v357[0] = static TabOptions.TraitKey.defaultValue;
+        v357[1] = unk_1EAB09380;
+        *(&v357[1] + 9) = *(&word_1EAB09388 + 1);
+        outlined init with copy of TabOptions(&v365, &v367);
         ViewTraitCollection.value<A>(for:defaultValue:)();
-        v374 = v364[0];
-        v375[0] = v364[1];
-        *(v375 + 9) = *(&v364[1] + 9);
-        outlined destroy of TabOptions(&v374);
-        outlined destroy of TabItemGroup(v365);
+        v367 = v357[0];
+        v368[0] = v357[1];
+        *(v368 + 9) = *(&v357[1] + 9);
+        outlined destroy of TabOptions(&v367);
+        outlined destroy of TabItemGroup(v358);
 
-        v364[0] = v370;
-        v364[1] = v371[0];
-        *(&v364[1] + 9) = *(v371 + 9);
-        outlined destroy of TabOptions(v364);
-        v196 = BYTE1(v364[0]);
-        outlined destroy of TabItem(&v367);
-        if ((v196 & 1) == 0)
+        v357[0] = v363;
+        v357[1] = v364[0];
+        *(&v357[1] + 9) = *(v364 + 9);
+        outlined destroy of TabOptions(v357);
+        v189 = BYTE1(v357[0]);
+        outlined destroy of TabItem(&v360);
+        if ((v189 & 1) == 0)
         {
           goto LABEL_241;
         }
@@ -3124,577 +3556,577 @@ LABEL_241:
 
       else
       {
-        *&v365[96] = v380[6];
-        *&v365[64] = v380[4];
-        *&v365[80] = v380[5];
-        *v365 = v380[0];
-        *&v365[16] = v380[1];
-        *&v365[48] = v380[3];
-        *&v365[32] = v380[2];
-        *&v370 = *&v380[6];
-        v197 = one-time initialization token for defaultValue;
+        *&v358[96] = v373[6];
+        *&v358[64] = v373[4];
+        *&v358[80] = v373[5];
+        *v358 = v373[0];
+        *&v358[16] = v373[1];
+        *&v358[48] = v373[3];
+        *&v358[32] = v373[2];
+        *&v363 = *&v373[6];
+        v190 = one-time initialization token for defaultValue;
 
-        if (v197 != -1)
+        if (v190 != -1)
         {
           swift_once();
         }
 
-        v374 = static TabOptions.TraitKey.defaultValue;
-        v375[0] = unk_1EAB09380;
-        *(v375 + 9) = *(&word_1EAB09388 + 1);
         v367 = static TabOptions.TraitKey.defaultValue;
         v368[0] = unk_1EAB09380;
         *(v368 + 9) = *(&word_1EAB09388 + 1);
-        outlined init with copy of TabOptions(&v374, v364);
+        v360 = static TabOptions.TraitKey.defaultValue;
+        v361[0] = unk_1EAB09380;
+        *(v361 + 9) = *(&word_1EAB09388 + 1);
+        outlined init with copy of TabOptions(&v367, v357);
         ViewTraitCollection.value<A>(for:defaultValue:)();
-        v364[0] = v367;
-        v364[1] = v368[0];
-        *(&v364[1] + 9) = *(v368 + 9);
-        outlined destroy of TabOptions(v364);
-        outlined destroy of TabItem(v365);
+        v357[0] = v360;
+        v357[1] = v361[0];
+        *(&v357[1] + 9) = *(v361 + 9);
+        outlined destroy of TabOptions(v357);
+        outlined destroy of TabItem(v358);
 
-        v367 = v372;
-        v368[0] = v373[0];
-        *(v368 + 9) = *(v373 + 9);
-        outlined destroy of TabOptions(&v367);
-        if (BYTE1(v367) != 1)
+        v360 = v365;
+        v361[0] = v366[0];
+        *(v361 + 9) = *(v366 + 9);
+        outlined destroy of TabOptions(&v360);
+        if (BYTE1(v360) != 1)
         {
           goto LABEL_241;
         }
       }
 
-      outlined destroy of TabEntry(v363);
+      outlined destroy of TabEntry(v356);
 LABEL_228:
-      ++v192;
-      v193 += 288;
-      if (v191 == v192)
+      ++v185;
+      v186 += 288;
+      if (v184 == v185)
       {
         goto LABEL_247;
       }
     }
   }
 
-  v194 = MEMORY[0x1E69E7CC0];
+  v187 = MEMORY[0x1E69E7CC0];
 LABEL_247:
 
-  v201 = [v316 identifier];
-  v193 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v203 = v202;
+  v194 = [v309 identifier];
+  v186 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v196 = v195;
 
-  v204 = v308;
-  outlined init with copy of UIKitAdaptableTabView(v322, v308, type metadata accessor for Binding<TabViewCustomization>?);
+  v197 = v301;
+  outlined init with copy of UIKitAdaptableTabView(v315, v301, type metadata accessor for Binding<TabViewCustomization>?);
   type metadata accessor for Binding<TabViewCustomization>(0);
-  v206 = v205;
-  v207 = *(v205 - 8);
-  v208 = *(v207 + 48);
-  v209 = v207 + 48;
-  if ((v208)(v204, 1, v205) == 1)
+  v199 = v198;
+  v200 = *(v198 - 8);
+  v201 = *(v200 + 48);
+  v202 = v200 + 48;
+  if ((v201)(v197, 1, v198) == 1)
   {
 
-    _s2os6LoggerVSgWOhTm_0(v204, type metadata accessor for Binding<TabViewCustomization>?);
+    _s2os6LoggerVSgWOhTm_0(v197, type metadata accessor for Binding<TabViewCustomization>?);
     goto LABEL_268;
   }
 
-  v210 = v309;
-  MEMORY[0x18D00ACC0](v206);
-  _s2os6LoggerVSgWOhTm_0(v204, type metadata accessor for Binding<TabViewCustomization>);
-  v211 = *(v210 + *(v307 + 24));
-  if (*(v211 + 16) && (v212 = specialized __RawDictionaryStorage.find<A>(_:)(v193, v203, 0), (v213 & 1) != 0))
+  v203 = v302;
+  MEMORY[0x18D00ACC0](v199);
+  _s2os6LoggerVSgWOhTm_0(v197, type metadata accessor for Binding<TabViewCustomization>);
+  v204 = *(v203 + *(v300 + 24));
+  if (*(v204 + 16) && (v205 = specialized __RawDictionaryStorage.find<A>(_:)(v186, v196, 0), (v206 & 1) != 0))
   {
-    v214 = *(*(v211 + 56) + 8 * v212);
+    v207 = *(*(v204 + 56) + 8 * v205);
   }
 
   else
   {
-    v214 = MEMORY[0x1E69E7CC0];
+    v207 = MEMORY[0x1E69E7CC0];
   }
 
-  v215 = TabSectionCustomizationEntry.clientOrder.getter(v214);
-  _s2os6LoggerVSgWOhTm_0(v309, type metadata accessor for TabViewCustomization);
+  v208 = TabSectionCustomizationEntry.clientOrder.getter(v207);
+  _s2os6LoggerVSgWOhTm_0(v302, type metadata accessor for TabViewCustomization);
 
-  if (!v215 || (v216 = *(v215 + 16), , !v216))
+  if (!v208 || (v209 = *(v208 + 16), , !v209))
   {
 LABEL_268:
 
-    v224 = v316;
-    v225 = [v316 _displayOrder];
-    v226 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+    v217 = v309;
+    v218 = [v309 _displayOrder];
+    v219 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
-    v227 = *(v226 + 16);
+    v220 = *(v219 + 16);
 
-    v190 = &selRef_setConfiguration_;
-    if (v227)
+    v183 = &selRef_setConfiguration_;
+    if (v220)
     {
-      v228 = Array._bridgeToObjectiveC()().super.isa;
-      [v224 _setDisplayOrder_];
+      v221 = Array._bridgeToObjectiveC()().super.isa;
+      [v217 _setDisplayOrder_];
     }
 
     goto LABEL_325;
   }
 
-  v332 = v209;
-  v334 = v208;
-  v335 = v206;
-  v217 = *(v194 + 2);
-  if (v217)
+  v325 = v202;
+  v327 = v201;
+  v328 = v199;
+  v210 = *(v187 + 2);
+  if (v210)
   {
-    v218 = 0;
-    v190 = (v194 + 32);
-    v345 = MEMORY[0x1E69E7CC0];
+    v211 = 0;
+    v183 = (v187 + 32);
+    v338 = MEMORY[0x1E69E7CC0];
     while (1)
     {
-      if (v218 >= *(v194 + 2))
+      if (v211 >= *(v187 + 2))
       {
         goto LABEL_352;
       }
 
-      outlined init with copy of TabEntry(v190, v363);
-      outlined init with copy of TabEntry(v363, v380);
-      if (BYTE8(v380[17]))
+      outlined init with copy of TabEntry(v183, v356);
+      outlined init with copy of TabEntry(v356, v373);
+      if (BYTE8(v373[17]))
       {
         break;
       }
 
-      *&v365[96] = v380[6];
-      *&v365[64] = v380[4];
-      *&v365[80] = v380[5];
-      *v365 = v380[0];
-      *&v365[16] = v380[1];
-      *&v365[48] = v380[3];
-      *&v365[32] = v380[2];
-      *&v380[0] = *&v380[6];
-      v219 = ViewTraitCollection.isAuxiliaryContent.getter();
-      outlined destroy of TabItem(v365);
-      if ((v219 & 1) == 0)
+      *&v358[96] = v373[6];
+      *&v358[64] = v373[4];
+      *&v358[80] = v373[5];
+      *v358 = v373[0];
+      *&v358[16] = v373[1];
+      *&v358[48] = v373[3];
+      *&v358[32] = v373[2];
+      *&v373[0] = *&v373[6];
+      v212 = ViewTraitCollection.isAuxiliaryContent.getter();
+      outlined destroy of TabItem(v358);
+      if ((v212 & 1) == 0)
       {
         goto LABEL_263;
       }
 
-      outlined destroy of TabEntry(v363);
+      outlined destroy of TabEntry(v356);
 LABEL_258:
-      ++v218;
-      v190 += 36;
-      if (v217 == v218)
+      ++v211;
+      v183 += 36;
+      if (v210 == v211)
       {
         goto LABEL_271;
       }
     }
 
-    outlined destroy of TabEntry(v380);
+    outlined destroy of TabEntry(v373);
 LABEL_263:
-    memcpy(v380, v363, 0x119uLL);
-    v220 = v345;
-    v221 = swift_isUniquelyReferenced_nonNull_native();
-    *&v367 = v220;
-    if ((v221 & 1) == 0)
+    memcpy(v373, v356, 0x119uLL);
+    v213 = v338;
+    v214 = swift_isUniquelyReferenced_nonNull_native();
+    *&v360 = v213;
+    if ((v214 & 1) == 0)
     {
-      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v220 + 16) + 1, 1);
-      v220 = v367;
+      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v213 + 16) + 1, 1);
+      v213 = v360;
     }
 
-    v223 = *(v220 + 16);
-    v222 = *(v220 + 24);
-    v193 = v223 + 1;
-    if (v223 >= v222 >> 1)
+    v216 = *(v213 + 16);
+    v215 = *(v213 + 24);
+    v186 = v216 + 1;
+    if (v216 >= v215 >> 1)
     {
-      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v222 > 1), v223 + 1, 1);
-      v220 = v367;
+      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v215 > 1), v216 + 1, 1);
+      v213 = v360;
     }
 
-    *(v220 + 16) = v193;
-    v345 = v220;
-    memcpy((v220 + 288 * v223 + 32), v380, 0x119uLL);
+    *(v213 + 16) = v186;
+    v338 = v213;
+    memcpy((v213 + 288 * v216 + 32), v373, 0x119uLL);
     goto LABEL_258;
   }
 
-  v345 = MEMORY[0x1E69E7CC0];
+  v338 = MEMORY[0x1E69E7CC0];
 LABEL_271:
-  v229 = *(v345 + 16);
-  if (v229)
+  v222 = *(v338 + 16);
+  if (v222)
   {
-    v230 = v345;
-    v362 = MEMORY[0x1E69E7CC0];
-    v347 = v229;
-    specialized ContiguousArray.reserveCapacity(_:)(v229);
-    v231 = v230 + 32;
-    v330 = 0xD000000000000016;
-    v331 = 0x800000018CD45E10;
+    v223 = v338;
+    v355 = MEMORY[0x1E69E7CC0];
+    v340 = v222;
+    specialized ContiguousArray.reserveCapacity(_:)(v222);
+    v224 = v223 + 32;
+    v323 = 0xD000000000000016;
+    v324 = 0x800000018CD45E10;
     while (1)
     {
-      outlined init with copy of TabEntry(v231, v363);
-      outlined init with copy of TabEntry(v363, v380);
-      if ((BYTE8(v380[17]) & 1) == 0)
+      outlined init with copy of TabEntry(v224, v356);
+      outlined init with copy of TabEntry(v356, v373);
+      if ((BYTE8(v373[17]) & 1) == 0)
       {
         break;
       }
 
-      outlined destroy of TabEntry(v363);
-      memcpy(v365, v380, sizeof(v365));
-      v232 = *&v365[24];
-      v233 = *&v365[32];
-      LOBYTE(v234) = v365[40];
+      outlined destroy of TabEntry(v356);
+      memcpy(v358, v373, sizeof(v358));
+      v225 = *&v358[24];
+      v226 = *&v358[32];
+      LOBYTE(v227) = v358[40];
       outlined copy of TabCustomizationID.Base();
-      outlined destroy of TabItemGroup(v365);
+      outlined destroy of TabItemGroup(v358);
 LABEL_291:
-      v239 = v362;
+      v232 = v355;
       if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
       {
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v239 + 16) + 1, 1);
-        v239 = v362;
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v232 + 16) + 1, 1);
+        v232 = v355;
       }
 
-      v241 = *(v239 + 16);
-      v240 = *(v239 + 24);
-      if (v241 >= v240 >> 1)
+      v234 = *(v232 + 16);
+      v233 = *(v232 + 24);
+      if (v234 >= v233 >> 1)
       {
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v240 > 1), v241 + 1, 1);
-        v239 = v362;
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v233 > 1), v234 + 1, 1);
+        v232 = v355;
       }
 
-      *(v239 + 16) = v241 + 1;
-      v242 = v239 + 24 * v241;
-      *(v242 + 32) = v232;
-      *(v242 + 40) = v233;
-      *(v242 + 48) = v234 & 1;
-      v231 += 288;
-      --v347;
-      v243 = v315;
-      if (!v347)
+      *(v232 + 16) = v234 + 1;
+      v235 = v232 + 24 * v234;
+      *(v235 + 32) = v225;
+      *(v235 + 40) = v226;
+      *(v235 + 48) = v227 & 1;
+      v224 += 288;
+      --v340;
+      v236 = v308;
+      if (!v340)
       {
 
-        v244 = v337;
+        v237 = v330;
         goto LABEL_298;
       }
     }
 
-    *&v365[96] = v380[6];
-    *&v365[64] = v380[4];
-    *&v365[80] = v380[5];
-    *v365 = v380[0];
-    *&v365[16] = v380[1];
-    *&v365[48] = v380[3];
-    *&v365[32] = v380[2];
-    *&v370 = *&v380[6];
+    *&v358[96] = v373[6];
+    *&v358[64] = v373[4];
+    *&v358[80] = v373[5];
+    *v358 = v373[0];
+    *&v358[16] = v373[1];
+    *&v358[48] = v373[3];
+    *&v358[32] = v373[2];
+    *&v363 = *&v373[6];
     if (one-time initialization token for defaultValue != -1)
     {
       swift_once();
     }
 
-    v374 = static TabOptions.TraitKey.defaultValue;
-    v375[0] = unk_1EAB09380;
-    *(v375 + 9) = *(&word_1EAB09388 + 1);
     v367 = static TabOptions.TraitKey.defaultValue;
     v368[0] = unk_1EAB09380;
     *(v368 + 9) = *(&word_1EAB09388 + 1);
-    outlined init with copy of TabOptions(&v374, v364);
+    v360 = static TabOptions.TraitKey.defaultValue;
+    v361[0] = unk_1EAB09380;
+    *(v361 + 9) = *(&word_1EAB09388 + 1);
+    outlined init with copy of TabOptions(&v367, v357);
     ViewTraitCollection.value<A>(for:defaultValue:)();
-    v364[0] = v367;
-    v364[1] = v368[0];
-    *(&v364[1] + 9) = *(v368 + 9);
-    outlined destroy of TabOptions(v364);
-    v367 = v372;
-    v368[0] = v373[0];
-    *(v368 + 9) = *(v373 + 9);
-    outlined destroy of TabOptions(&v367);
-    if (!BYTE10(v368[0]) || (*&v354 = *&v365[96], v360 = static TabOptions.TraitKey.defaultValue, v361[0] = unk_1EAB09380, *(v361 + 9) = *(&word_1EAB09388 + 1), v356 = static TabOptions.TraitKey.defaultValue, v357[0] = unk_1EAB09380, *(v357 + 9) = *(&word_1EAB09388 + 1), outlined init with copy of TabOptions(&v360, &v358), ViewTraitCollection.value<A>(for:defaultValue:)(), v370 = v356, v371[0] = v357[0], *(v371 + 9) = *(v357 + 9), outlined destroy of TabOptions(&v370), v372 = v358, v373[0] = *v359, *(v373 + 9) = *&v359[9], outlined destroy of TabOptions(&v372), !BYTE9(v373[0])) || (TabItem.alwaysRequiresCustomizationID.getter() & 1) != 0)
+    v357[0] = v360;
+    v357[1] = v361[0];
+    *(&v357[1] + 9) = *(v361 + 9);
+    outlined destroy of TabOptions(v357);
+    v360 = v365;
+    v361[0] = v366[0];
+    *(v361 + 9) = *(v366 + 9);
+    outlined destroy of TabOptions(&v360);
+    if (!BYTE10(v361[0]) || (*&v347 = *&v358[96], v353 = static TabOptions.TraitKey.defaultValue, v354[0] = unk_1EAB09380, *(v354 + 9) = *(&word_1EAB09388 + 1), v349 = static TabOptions.TraitKey.defaultValue, v350[0] = unk_1EAB09380, *(v350 + 9) = *(&word_1EAB09388 + 1), outlined init with copy of TabOptions(&v353, &v351), ViewTraitCollection.value<A>(for:defaultValue:)(), v363 = v349, v364[0] = v350[0], *(v364 + 9) = *(v350 + 9), outlined destroy of TabOptions(&v363), v365 = v351, v366[0] = *v352, *(v366 + 9) = *&v352[9], outlined destroy of TabOptions(&v365), !BYTE9(v366[0])) || TabItem.alwaysRequiresCustomizationID.getter())
     {
-      *&v354 = *&v365[96];
-      v360 = static TabOptions.TraitKey.defaultValue;
-      v361[0] = unk_1EAB09380;
-      *(v361 + 9) = *(&word_1EAB09388 + 1);
-      v356 = static TabOptions.TraitKey.defaultValue;
-      v357[0] = unk_1EAB09380;
-      *(v357 + 9) = *(&word_1EAB09388 + 1);
-      outlined init with copy of TabOptions(&v360, &v358);
+      *&v347 = *&v358[96];
+      v353 = static TabOptions.TraitKey.defaultValue;
+      v354[0] = unk_1EAB09380;
+      *(v354 + 9) = *(&word_1EAB09388 + 1);
+      v349 = static TabOptions.TraitKey.defaultValue;
+      v350[0] = unk_1EAB09380;
+      *(v350 + 9) = *(&word_1EAB09388 + 1);
+      outlined init with copy of TabOptions(&v353, &v351);
       ViewTraitCollection.value<A>(for:defaultValue:)();
-      v370 = v356;
-      v371[0] = v357[0];
-      *(v371 + 9) = *(v357 + 9);
-      outlined destroy of TabOptions(&v370);
-      v372 = v358;
-      v373[0] = *v359;
-      *(v373 + 9) = *&v359[9];
-      v232 = *(&v358 + 1);
-      v233 = *v359;
-      v234 = v359[8];
-      outlined copy of TabCustomizationID?(*(&v358 + 1), *v359, v359[8]);
-      outlined destroy of TabOptions(&v372);
-      if (v234 != 255)
+      v363 = v349;
+      v364[0] = v350[0];
+      *(v364 + 9) = *(v350 + 9);
+      outlined destroy of TabOptions(&v363);
+      v365 = v351;
+      v366[0] = *v352;
+      *(v366 + 9) = *&v352[9];
+      v225 = *(&v351 + 1);
+      v226 = *v352;
+      v227 = v352[8];
+      outlined copy of TabCustomizationID?(*(&v351 + 1), *v352, v352[8]);
+      outlined destroy of TabOptions(&v365);
+      if (v227 != 255)
       {
-        outlined destroy of TabEntry(v363);
+        outlined destroy of TabEntry(v356);
 LABEL_290:
-        outlined destroy of TabItem(v365);
+        outlined destroy of TabItem(v358);
         goto LABEL_291;
       }
     }
 
-    *&v372 = *&v365[104];
-    v232 = dispatch thunk of CustomStringConvertible.description.getter();
-    v233 = v235;
-    *&v372 = *&v365[96];
+    *&v365 = *&v358[104];
+    v225 = dispatch thunk of CustomStringConvertible.description.getter();
+    v226 = v228;
+    *&v365 = *&v358[96];
     if ((ViewTraitCollection.isAuxiliaryContent.getter() & 1) == 0)
     {
-      *&v352 = *&v365[96];
-      v360 = static TabOptions.TraitKey.defaultValue;
-      v361[0] = unk_1EAB09380;
-      *(v361 + 9) = *(&word_1EAB09388 + 1);
-      v356 = static TabOptions.TraitKey.defaultValue;
-      v357[0] = unk_1EAB09380;
-      *(v357 + 9) = *(&word_1EAB09388 + 1);
-      outlined init with copy of TabOptions(&v360, &v354);
+      *&v345 = *&v358[96];
+      v353 = static TabOptions.TraitKey.defaultValue;
+      v354[0] = unk_1EAB09380;
+      *(v354 + 9) = *(&word_1EAB09388 + 1);
+      v349 = static TabOptions.TraitKey.defaultValue;
+      v350[0] = unk_1EAB09380;
+      *(v350 + 9) = *(&word_1EAB09388 + 1);
+      outlined init with copy of TabOptions(&v353, &v347);
       ViewTraitCollection.value<A>(for:defaultValue:)();
-      v370 = v356;
-      v371[0] = v357[0];
-      *(v371 + 9) = *(v357 + 9);
-      outlined destroy of TabOptions(&v370);
-      v372 = v358;
-      v373[0] = *v359;
-      *(v373 + 9) = *&v359[9];
-      outlined destroy of TabOptions(&v372);
-      if ((BYTE8(v373[1]) & 1) == 0)
+      v363 = v349;
+      v364[0] = v350[0];
+      *(v364 + 9) = *(v350 + 9);
+      outlined destroy of TabOptions(&v363);
+      v365 = v351;
+      v366[0] = *v352;
+      *(v366 + 9) = *&v352[9];
+      outlined destroy of TabOptions(&v365);
+      if ((BYTE8(v366[1]) & 1) == 0)
       {
 
-        outlined destroy of TabEntry(v363);
-        v232 = v330;
-        v233 = v331;
+        outlined destroy of TabEntry(v356);
+        v225 = v323;
+        v226 = v324;
         goto LABEL_289;
       }
 
       if (TabItem.needsCustomizationIDForEnablement.getter())
       {
-        v351 = *&v365[96];
-        v354 = static TabOptions.TraitKey.defaultValue;
-        v355[0] = unk_1EAB09380;
-        *(v355 + 9) = *(&word_1EAB09388 + 1);
-        v349 = static TabOptions.TraitKey.defaultValue;
-        v350[0] = unk_1EAB09380;
-        *(v350 + 9) = *(&word_1EAB09388 + 1);
-        outlined init with copy of TabOptions(&v354, &v352);
+        v344 = *&v358[96];
+        v347 = static TabOptions.TraitKey.defaultValue;
+        v348[0] = unk_1EAB09380;
+        *(v348 + 9) = *(&word_1EAB09388 + 1);
+        v342 = static TabOptions.TraitKey.defaultValue;
+        v343[0] = unk_1EAB09380;
+        *(v343 + 9) = *(&word_1EAB09388 + 1);
+        outlined init with copy of TabOptions(&v347, &v345);
         ViewTraitCollection.value<A>(for:defaultValue:)();
-        v356 = v349;
-        v357[0] = v350[0];
-        *(v357 + 9) = *(v350 + 9);
-        outlined destroy of TabOptions(&v356);
-        outlined destroy of TabEntry(v363);
-        v358 = v352;
-        *v359 = *v353;
-        *&v359[9] = *&v353[9];
-        v236 = *(&v352 + 1);
-        v237 = *v353;
-        v238 = v353[8];
-        outlined copy of TabCustomizationID?(*(&v352 + 1), *v353, v353[8]);
-        outlined destroy of TabOptions(&v358);
-        if (v238 != 255)
+        v349 = v342;
+        v350[0] = v343[0];
+        *(v350 + 9) = *(v343 + 9);
+        outlined destroy of TabOptions(&v349);
+        outlined destroy of TabEntry(v356);
+        v351 = v345;
+        *v352 = *v346;
+        *&v352[9] = *&v346[9];
+        v229 = *(&v345 + 1);
+        v230 = *v346;
+        v231 = v346[8];
+        outlined copy of TabCustomizationID?(*(&v345 + 1), *v346, v346[8]);
+        outlined destroy of TabOptions(&v351);
+        if (v231 != 255)
         {
 
-          v232 = v236;
-          v233 = v237;
+          v225 = v229;
+          v226 = v230;
         }
 
         goto LABEL_289;
       }
     }
 
-    outlined destroy of TabEntry(v363);
+    outlined destroy of TabEntry(v356);
 LABEL_289:
-    LOBYTE(v234) = 1;
+    LOBYTE(v227) = 1;
     goto LABEL_290;
   }
 
-  v239 = MEMORY[0x1E69E7CC0];
-  v244 = v337;
-  v243 = v315;
+  v232 = MEMORY[0x1E69E7CC0];
+  v237 = v330;
+  v236 = v308;
 LABEL_298:
-  v245 = v303;
-  outlined init with copy of UIKitAdaptableTabView(v322, v303, type metadata accessor for Binding<TabViewCustomization>?);
-  v246 = 1;
-  v247 = v335;
-  v248 = (v334)(v245, 1, v335);
-  v249 = type metadata accessor for Binding<TabViewCustomization>?;
-  v250 = v305;
-  if (v248 != 1)
+  v238 = v296;
+  outlined init with copy of UIKitAdaptableTabView(v315, v296, type metadata accessor for Binding<TabViewCustomization>?);
+  v239 = 1;
+  v240 = v328;
+  v241 = (v327)(v238, 1, v328);
+  v242 = type metadata accessor for Binding<TabViewCustomization>?;
+  v243 = v298;
+  if (v241 != 1)
   {
-    MEMORY[0x18D00ACC0](v247);
-    v246 = 0;
-    v249 = type metadata accessor for Binding<TabViewCustomization>;
+    MEMORY[0x18D00ACC0](v240);
+    v239 = 0;
+    v242 = type metadata accessor for Binding<TabViewCustomization>;
   }
 
-  _s2os6LoggerVSgWOhTm_0(v245, v249);
-  (*(v304 + 56))(v250, v246, 1, v307);
-  v251 = _s7SwiftUI20TabViewCustomizationV16arrangedChildren_13customization9sectionID13includeHidden2idSayxGq__ACSgAA0ceJ0VSbALxXEt7ElementQy_RszSlR_r0_lFZAL_SayALGTt4g503_s7a32UI19UIHostingControllerC30updateg114CreatingIfNeeded33_E387C3C47C0D2A0931533D8490A5A8B72of5using13customization11environment11coordinatorySo18_UITabn11GroupC_AA12c26ItemGroupVAA7BindingVyAA20cde30VGSgAA17EnvironmentValuesVAA24cd24Coordinator_PhoneCtFAA18cE11IDVAZXEfU4_Tf1nnnnc_n(v239, v250, v312, v317, v243, 1);
+  _s2os6LoggerVSgWOhTm_0(v238, v242);
+  (*(v297 + 56))(v243, v239, 1, v300);
+  v244 = _s7SwiftUI20TabViewCustomizationV16arrangedChildren_13customization9sectionID13includeHidden2idSayxGq__ACSgAA0ceJ0VSbALxXEt7ElementQy_RszSlR_r0_lFZAL_SayALGTt4g503_s7a32UI19UIHostingControllerC30updateg114CreatingIfNeeded33_E387C3C47C0D2A0931533D8490A5A8B72of5using13customization11environment11coordinatorySo18_UITabn11GroupC_AA12c26ItemGroupVAA7BindingVyAA20cde30VGSgAA17EnvironmentValuesVAA24cd24Coordinator_PhoneCtFAA18cE11IDVAZXEfU4_Tf1nnnnc_n(v232, v243, v305, v310, v236, 1);
 
-  _s2os6LoggerVSgWOhTm_0(v250, type metadata accessor for TabViewCustomization?);
-  v252 = *(v251 + 16);
-  if (v252)
+  _s2os6LoggerVSgWOhTm_0(v243, type metadata accessor for TabViewCustomization?);
+  v245 = *(v244 + 16);
+  if (v245)
   {
-    v363[0] = MEMORY[0x1E69E7CC0];
-    specialized ContiguousArray.reserveCapacity(_:)(v252);
-    v253 = v363[0];
-    v347 = v251;
-    v254 = v251 + 48;
-    v255 = v252;
+    v356[0] = MEMORY[0x1E69E7CC0];
+    specialized ContiguousArray.reserveCapacity(_:)(v245);
+    v246 = v356[0];
+    v340 = v244;
+    v247 = v244 + 48;
+    v248 = v245;
     do
     {
-      v256 = *(v254 - 16);
-      v257 = *(v254 - 8);
+      v249 = *(v247 - 16);
+      v250 = *(v247 - 8);
       outlined copy of TabCustomizationID.Base();
       if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
       {
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v253 + 16) + 1, 1);
-        v253 = v363[0];
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v246 + 16) + 1, 1);
+        v246 = v356[0];
       }
 
-      v259 = *(v253 + 16);
-      v258 = *(v253 + 24);
-      if (v259 >= v258 >> 1)
+      v252 = *(v246 + 16);
+      v251 = *(v246 + 24);
+      if (v252 >= v251 >> 1)
       {
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v258 > 1), v259 + 1, 1);
-        v253 = v363[0];
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v251 > 1), v252 + 1, 1);
+        v246 = v356[0];
       }
 
-      *(v253 + 16) = v259 + 1;
-      v260 = v253 + 16 * v259;
-      *(v260 + 32) = v256;
-      *(v260 + 40) = v257;
-      v254 += 24;
-      --v255;
-      v244 = v337;
+      *(v246 + 16) = v252 + 1;
+      v253 = v246 + 16 * v252;
+      *(v253 + 32) = v249;
+      *(v253 + 40) = v250;
+      v247 += 24;
+      --v248;
+      v237 = v330;
     }
 
-    while (v255);
+    while (v248);
 
-    v251 = v347;
+    v244 = v340;
   }
 
   else
   {
   }
 
-  v261 = Array._bridgeToObjectiveC()().super.isa;
+  v254 = Array._bridgeToObjectiveC()().super.isa;
 
-  [v316 _setDisplayOrder_];
+  [v309 _setDisplayOrder_];
 
-  v262 = v306;
+  v255 = v299;
   static Log.tabView.getter();
-  if (v343(v262, 1, v346) == 1)
+  if (v336(v255, 1, v339) == 1)
   {
 
-    _s2os6LoggerVSgWOhTm_0(v262, type metadata accessor for Logger?);
+    _s2os6LoggerVSgWOhTm_0(v255, type metadata accessor for Logger?);
   }
 
   else
   {
-    outlined init with copy of TabItemGroup(v244, v363);
+    outlined init with copy of TabItemGroup(v237, v356);
 
-    v263 = Logger.logObject.getter();
-    v264 = static os_log_type_t.default.getter();
+    v256 = Logger.logObject.getter();
+    v257 = static os_log_type_t.default.getter();
 
-    if (os_log_type_enabled(v263, v264))
+    if (os_log_type_enabled(v256, v257))
     {
-      LODWORD(v344) = v264;
-      v265 = swift_slowAlloc();
-      v343 = swift_slowAlloc();
-      *&v380[0] = v343;
-      *v265 = 136315394;
-      v266 = v363[3];
-      v267 = v363[4];
+      LODWORD(v337) = v257;
+      v258 = swift_slowAlloc();
+      v336 = swift_slowAlloc();
+      *&v373[0] = v336;
+      *v258 = 136315394;
+      v259 = v356[3];
+      v260 = v356[4];
       outlined copy of TabCustomizationID.Base();
-      outlined destroy of TabItemGroup(v363);
-      v268 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v266, v267, v380);
+      outlined destroy of TabItemGroup(v356);
+      v261 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v259, v260, v373);
       outlined consume of TabCustomizationID.Base();
-      *(v265 + 4) = v268;
-      v345 = v265;
-      *(v265 + 12) = 2080;
-      if (v252)
+      *(v258 + 4) = v261;
+      v338 = v258;
+      *(v258 + 12) = 2080;
+      if (v245)
       {
-        v338 = v263;
-        *v365 = MEMORY[0x1E69E7CC0];
-        specialized ContiguousArray.reserveCapacity(_:)(v252);
-        v269 = *v365;
-        v347 = v251;
-        v270 = v251 + 48;
+        v331 = v256;
+        *v358 = MEMORY[0x1E69E7CC0];
+        specialized ContiguousArray.reserveCapacity(_:)(v245);
+        v262 = *v358;
+        v340 = v244;
+        v263 = v244 + 48;
         do
         {
-          v272 = *(v270 - 16);
-          v271 = *(v270 - 8);
+          v265 = *(v263 - 16);
+          v264 = *(v263 - 8);
           outlined copy of TabCustomizationID.Base();
           if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
           {
-            specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v269 + 16) + 1, 1);
-            v269 = *v365;
+            specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v262 + 16) + 1, 1);
+            v262 = *v358;
           }
 
-          v274 = *(v269 + 16);
-          v273 = *(v269 + 24);
-          if (v274 >= v273 >> 1)
+          v267 = *(v262 + 16);
+          v266 = *(v262 + 24);
+          if (v267 >= v266 >> 1)
           {
-            specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v273 > 1), v274 + 1, 1);
-            v269 = *v365;
+            specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v266 > 1), v267 + 1, 1);
+            v262 = *v358;
           }
 
-          *(v269 + 16) = v274 + 1;
-          v275 = v269 + 16 * v274;
-          *(v275 + 32) = v272;
-          *(v275 + 40) = v271;
-          v270 += 24;
-          --v252;
+          *(v262 + 16) = v267 + 1;
+          v268 = v262 + 16 * v267;
+          *(v268 + 32) = v265;
+          *(v268 + 40) = v264;
+          v263 += 24;
+          --v245;
         }
 
-        while (v252);
+        while (v245);
 
-        v263 = v338;
+        v256 = v331;
       }
 
       else
       {
 
-        v269 = MEMORY[0x1E69E7CC0];
+        v262 = MEMORY[0x1E69E7CC0];
       }
 
-      *v365 = v269;
-      v276 = BidirectionalCollection<>.joined(separator:)();
-      v278 = v277;
+      *v358 = v262;
+      v269 = BidirectionalCollection<>.joined(separator:)();
+      v271 = v270;
 
-      v279 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v276, v278, v380);
+      v272 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v269, v271, v373);
 
-      v280 = v345;
-      *(v345 + 14) = v279;
-      _os_log_impl(&dword_18BD4A000, v263, v344, "Set display order of group %s:\n%s", v280, 0x16u);
-      v281 = v343;
+      v273 = v338;
+      *(v338 + 14) = v272;
+      _os_log_impl(&dword_18BD4A000, v256, v337, "Set display order of group %s:\n%s", v273, 0x16u);
+      v274 = v336;
       swift_arrayDestroy();
-      MEMORY[0x18D0110E0](v281, -1, -1);
-      MEMORY[0x18D0110E0](v280, -1, -1);
+      MEMORY[0x18D0110E0](v274, -1, -1);
+      MEMORY[0x18D0110E0](v273, -1, -1);
     }
 
     else
     {
 
-      outlined destroy of TabItemGroup(v363);
+      outlined destroy of TabItemGroup(v356);
     }
 
-    (*(v313 + 8))(v306, v346);
+    (*(v306 + 8))(v299, v339);
   }
 
-  v224 = v316;
-  v190 = &selRef_setConfiguration_;
+  v217 = v309;
+  v183 = &selRef_setConfiguration_;
 LABEL_325:
-  v282 = [v224 _children];
-  v193 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  v275 = [v217 _children];
+  v186 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
-  if (v193 >> 62)
+  if (v186 >> 62)
   {
     goto LABEL_353;
   }
 
-  v283 = *((v193 & 0xFFFFFFFFFFFFFF8) + 0x10);
-  if (v283)
+  v276 = *((v186 & 0xFFFFFFFFFFFFFF8) + 0x10);
+  if (v276)
   {
     goto LABEL_327;
   }
 
 LABEL_348:
 
-  return outlined consume of TabItemGroup.HostCache?(v341, v340, v339);
+  return outlined consume of TabItemGroup.HostCache?(v334, v333, v332);
 }
 
 void specialized UIHostingController.updateTitleImage(on:using:)(void *a1, _OWORD *a2)
@@ -3871,7 +4303,7 @@ LABEL_27:
     v48 = v47;
     if (v46)
     {
-      type metadata accessor for NSObject(0, &lazy cache variable for type metadata for UIImage);
+      type metadata accessor for NSObject(0, &lazy cache variable for type metadata for UIImage, 0x1E69DCAB8);
       v49 = v46;
       v50 = static NSObject.== infix(_:_:)();
 
@@ -3912,7 +4344,7 @@ LABEL_50:
   {
     if (v46)
     {
-      type metadata accessor for NSObject(0, &lazy cache variable for type metadata for UIImage);
+      type metadata accessor for NSObject(0, &lazy cache variable for type metadata for UIImage, 0x1E69DCAB8);
       v54 = v46;
       v55 = static NSObject.== infix(_:_:)();
 
@@ -3950,9 +4382,9 @@ LABEL_48:
 
 void PrimitiveAdaptableTabView.BodyContent.representable(isPhone:)(char a1@<W0>, uint64_t a2@<X8>)
 {
-  v3 = v2;
-  v55 = type metadata accessor for PrimitiveAdaptableTabView.BodyContent(0);
-  v6 = _VariadicView_Children.endIndex.getter();
+  v4 = v3;
+  v57 = type metadata accessor for PrimitiveAdaptableTabView.BodyContent(0);
+  v7 = _VariadicView_Children.endIndex.getter();
   if (_VariadicView_Children.endIndex.getter() < 0)
   {
 LABEL_20:
@@ -3962,75 +4394,75 @@ LABEL_21:
     return;
   }
 
-  v7 = _VariadicView_Children.endIndex.getter();
-  if (v6 < 0 || v7 < v6)
+  v8 = _VariadicView_Children.endIndex.getter();
+  if (v7 < 0 || v8 < v7)
   {
     goto LABEL_21;
   }
 
-  v54 = a2;
-  v8 = MEMORY[0x1E69E7CC0];
-  if (v6)
+  v56 = a2;
+  v9 = MEMORY[0x1E69E7CC0];
+  if (v7)
   {
-    v66 = MEMORY[0x1E69E7CC0];
-    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v6, 0);
-    v9 = 0;
-    v8 = v66;
+    v68 = MEMORY[0x1E69E7CC0];
+    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v7, 0);
+    v10 = 0;
+    v9 = v68;
     while (1)
     {
       _VariadicView_Children.subscript.getter();
-      outlined init with copy of _VariadicView_Children.Element(v59, v58);
-      outlined init with copy of _VariadicView_Children.Element(v58, v56);
+      outlined init with copy of _VariadicView_Children.Element(v61, v60);
+      outlined init with copy of _VariadicView_Children.Element(v60, v58);
       ViewTraitCollection.value<A>(for:defaultValue:)();
-      if (BYTE8(v60) == 1)
+      if (BYTE8(v62) == 1)
       {
-        v10 = AGMakeUniqueID();
+        v11 = AGMakeUniqueID();
       }
 
       else
       {
-        v10 = v60;
+        v11 = v62;
       }
 
-      outlined destroy of _VariadicView_Children.Element(v59);
-      outlined destroy of _VariadicView_Children.Element(v58);
-      *(&v57 + 1) = v10;
-      v63 = v56[4];
-      v64 = v56[5];
-      v60 = v56[0];
-      v61 = v56[1];
-      v62[0] = v56[2];
-      v62[1] = v56[3];
-      v65 = v57;
-      v66 = v8;
-      v12 = *(v8 + 16);
-      v11 = *(v8 + 24);
-      if (v12 >= v11 >> 1)
+      outlined destroy of _VariadicView_Children.Element(v61);
+      outlined destroy of _VariadicView_Children.Element(v60);
+      *(&v59 + 1) = v11;
+      v65 = v58[4];
+      v66 = v58[5];
+      v62 = v58[0];
+      v63 = v58[1];
+      v64[0] = v58[2];
+      v64[1] = v58[3];
+      v67 = v59;
+      v68 = v9;
+      v13 = *(v9 + 16);
+      v12 = *(v9 + 24);
+      if (v13 >= v12 >> 1)
       {
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v11 > 1), v12 + 1, 1);
-        v8 = v66;
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v12 > 1), v13 + 1, 1);
+        v9 = v68;
       }
 
-      *(v8 + 16) = v12 + 1;
-      v13 = (v8 + 112 * v12);
-      v14 = v60;
-      v15 = v62[0];
-      v13[3] = v61;
-      v13[4] = v15;
-      v13[2] = v14;
-      v16 = v62[1];
-      v17 = v63;
+      *(v9 + 16) = v13 + 1;
+      v14 = (v9 + 112 * v13);
+      v15 = v62;
+      v16 = v64[0];
+      v14[3] = v63;
+      v14[4] = v16;
+      v14[2] = v15;
+      v17 = v64[1];
       v18 = v65;
-      v13[7] = v64;
-      v13[8] = v18;
-      v13[5] = v16;
-      v13[6] = v17;
-      if (v9 >= _VariadicView_Children.endIndex.getter())
+      v19 = v67;
+      v14[7] = v66;
+      v14[8] = v19;
+      v14[5] = v17;
+      v14[6] = v18;
+      if (v10 >= _VariadicView_Children.endIndex.getter())
       {
         break;
       }
 
-      if (v6 == ++v9)
+      if (v7 == ++v10)
       {
         goto LABEL_13;
       }
@@ -4041,93 +4473,94 @@ LABEL_21:
   }
 
 LABEL_13:
-  if (a1 & 1) == 0 && ((specialized Environment.wrappedValue.getter(*(v3 + v55[8]), *(v3 + v55[8] + 8), &v60), v60 == 2) || (v60))
+  if (a1 & 1) == 0 && ((specialized Environment.wrappedValue.getter(*(v4 + v57[8]), *(v4 + v57[8] + 8), &v62), v62 == 2) || (v62))
   {
-    v19 = static AdaptableTabView.makeTabGroups(_:depth:maxDepth:)(v8, 0, 2);
-    v32 = (v3 + v55[10]);
-    v27 = *v32;
-    v29 = v32[1];
-    v52 = v32[2];
-    v53 = v33;
+    v20 = static AdaptableTabView.makeTabGroups(_:depth:maxDepth:)(v9, 0, 2);
+    v34 = (v4 + v57[10]);
+    v29 = *v34;
+    v31 = v34[1];
+    v54 = v34[2];
+    v55 = v35;
 
-    v31 = 0;
+    v33 = 0;
   }
 
   else
   {
-    v19 = specialized static AdaptableTabView.extractTabs(_:)(v8);
-    v53 = v20;
-    v21 = (v3 + v55[10]);
-    v22 = *v21;
-    v23 = v21[1];
-    v24 = v21[2];
+    v20 = specialized static AdaptableTabView.extractTabs(_:)(v9);
+    v55 = v21;
+    v22 = (v4 + v57[10]);
+    v23 = *v22;
+    v24 = v22[1];
+    v25 = v22[2];
     type metadata accessor for ItemIndexTabsOnlyIndexProjection();
     swift_allocObject();
 
-    v26 = specialized ItemIndexTabsOnlyIndexProjection.init(_:)(v25);
+    v27 = specialized ItemIndexTabsOnlyIndexProjection.init(_:)(v26);
 
-    v27 = specialized Binding.projecting<A>(_:)(v26, v22, v23, v24);
+    specialized Binding.projecting<A>(_:)(v27, v23, v24, v25);
     v29 = v28;
-    v52 = v30;
+    v31 = v30;
+    v54 = v32;
 
-    v31 = 1;
+    v33 = 1;
   }
 
-  v49 = v19;
-  v51 = static AdaptableTabView.makeSelectionCache(items:selectionValueOnlyIncludesTabs:processedTabs:)(v8, v31, v19);
+  v51 = v20;
+  v53 = static AdaptableTabView.makeSelectionCache(items:selectionValueOnlyIncludesTabs:processedTabs:)(v9, v33, v20);
 
-  v34 = v3 + v55[5];
-  v35 = *v34;
-  v36 = *(v34 + 8);
+  v36 = v4 + v57[5];
+  v37 = *v36;
+  v38 = *(v36 + 8);
 
-  specialized Environment.wrappedValue.getter(v35, v36, &v60);
-  v50 = v60;
-  specialized Environment.wrappedValue.getter(*(v3 + v55[6]), *(v3 + v55[6] + 8), v56);
-  v37 = v56[0];
-  v38 = specialized Environment.wrappedValue.getter(*(v3 + v55[7]), *(v3 + v55[7] + 8));
-  v39 = v55[11];
-  v40 = *(v3 + v55[12]);
-  v41 = v38 & 1;
-  v42 = *(v3 + v39 + 16);
-  v60 = *(v3 + v39);
-  v61 = v42;
-  v62[0] = *(v3 + v39 + 32);
-  *(v62 + 9) = *(v3 + v39 + 41);
-  v43 = type metadata accessor for UIKitAdaptableTabView(0);
-  v44 = v43[7];
+  specialized Environment.wrappedValue.getter(v37, v38, &v62);
+  v52 = v62;
+  specialized Environment.wrappedValue.getter(*(v4 + v57[6]), *(v4 + v57[6] + 8), v58);
+  v39 = v58[0];
+  v40 = specialized Environment.wrappedValue.getter(*(v4 + v57[7]), *(v4 + v57[7] + 8));
+  v41 = v57[11];
+  v42 = *(v4 + v57[12]);
+  v43 = v40 & 1;
+  v44 = *(v4 + v41 + 16);
+  v62 = *(v4 + v41);
+  v63 = v44;
+  v64[0] = *(v4 + v41 + 32);
+  *(v64 + 9) = *(v4 + v41 + 41);
+  v45 = type metadata accessor for UIKitAdaptableTabView(0);
+  v46 = v45[7];
 
-  outlined init with copy of TabSidebarConfiguration(&v60, v56);
-  specialized Environment.wrappedValue.getter(a2 + v44);
-  v45 = v61;
-  *(a2 + 40) = v60;
-  *a2 = v27;
-  *(a2 + 8) = v29;
-  *(a2 + 16) = v52;
-  *(a2 + 24) = v50;
-  *(a2 + 25) = v37;
-  *(a2 + 26) = v41;
-  *(a2 + 32) = v40;
-  *(a2 + 56) = v45;
-  *(a2 + 72) = v62[0];
-  *(a2 + 81) = *(v62 + 9);
-  *(a2 + v43[8]) = v49;
-  *(a2 + v43[9]) = v53;
-  *(a2 + v43[10]) = v51;
-  v46 = v43[11];
-  *(v54 + v46) = closure #1 in variable initialization expression of SheetBridge.clientNeedsOutOfWindowPresentationSuppression() & 1;
-  LOBYTE(v44) = static Edge.Set.all.getter();
+  outlined init with copy of TabSidebarConfiguration(&v62, v58);
+  specialized Environment.wrappedValue.getter((a2 + v46));
+  v47 = v63;
+  *(a2 + 40) = v62;
+  *a2 = v29;
+  *(a2 + 8) = v31;
+  *(a2 + 16) = v54;
+  *(a2 + 24) = v52;
+  *(a2 + 25) = v39;
+  *(a2 + 26) = v43;
+  *(a2 + 32) = v42;
+  *(a2 + 56) = v47;
+  *(a2 + 72) = v64[0];
+  *(a2 + 81) = *(v64 + 9);
+  *(a2 + v45[8]) = v51;
+  *(a2 + v45[9]) = v55;
+  *(a2 + v45[10]) = v53;
+  v48 = v45[11];
+  *(v56 + v48) = closure #1 in variable initialization expression of SheetBridge.clientNeedsOutOfWindowPresentationSuppression() & 1;
+  LOBYTE(v46) = static Edge.Set.all.getter();
 
   type metadata accessor for ModifiedContent<ModifiedContent<UIKitAdaptableTabView, TabViewCommonModifier>, _SafeAreaRegionsIgnoringLayout>(0, &lazy cache variable for type metadata for ModifiedContent<ModifiedContent<UIKitAdaptableTabView, TabViewCommonModifier>, _SafeAreaRegionsIgnoringLayout>, type metadata accessor for ModifiedContent<UIKitAdaptableTabView, TabViewCommonModifier>);
-  v48 = v54 + *(v47 + 36);
-  *v48 = -1;
-  *(v48 + 8) = v44;
+  v50 = v56 + *(v49 + 36);
+  *v50 = -1;
+  *(v50 + 8) = v46;
 }
 
 void protocol witness for View.body.getter in conformance PrimitiveAdaptableTabView.BodyContent(uint64_t a1@<X8>)
 {
   PrimitiveAdaptableTabView.BodyContent.representable(isPhone:)(1, a1);
-  type metadata accessor for StaticIf<InterfaceIdiomPredicate<PhoneInterfaceIdiom>, ModifiedContent<ModifiedContent<UIKitAdaptableTabView, TabViewCommonModifier>, _SafeAreaRegionsIgnoringLayout>, ModifiedContent<ModifiedContent<UIKitAdaptableTabView, TabViewCommonModifier>, _SafeAreaRegionsIgnoringLayout>>();
-  PrimitiveAdaptableTabView.BodyContent.representable(isPhone:)(0, a1 + *(v2 + 44));
+  type metadata accessor for StaticIf<InterfaceIdiomPredicate<PhoneInterfaceIdiom>, ModifiedContent<ModifiedContent<UIKitAdaptableTabView, TabViewCommonModifier>, _SafeAreaRegionsIgnoringLayout>, ModifiedContent<ModifiedContent<UIKitAdaptableTabView, TabViewCommonModifier>, _SafeAreaRegionsIgnoringLayout>>(0);
+  PrimitiveAdaptableTabView.BodyContent.representable(isPhone:)(0, a1 + *(v3 + 44));
 }
 
 id UIKitAdaptableTabView.makeCoordinator()()
@@ -4145,7 +4578,7 @@ id UIKitAdaptableTabView.makeCoordinator()()
   *(v29 + 9) = *(v0 + 81);
   v8 = type metadata accessor for UIKitAdaptableTabView(0);
   outlined init with copy of UIKitAdaptableTabView(v0 + *(v8 + 28), v3, type metadata accessor for Binding<TabViewCustomization>?);
-  v9 = type metadata accessor for TabViewCoordinator_Phone();
+  v9 = type metadata accessor for TabViewCoordinator_Phone(0);
   v10 = objc_allocWithZone(v9);
   *&v10[OBJC_IVAR____TtC7SwiftUI24TabViewCoordinator_Phone_tabCache] = 0;
   *&v10[OBJC_IVAR____TtC7SwiftUI24TabViewCoordinator_Phone_selectionCache] = 0;
@@ -4194,7 +4627,7 @@ id UIKitAdaptableTabView.makeCoordinator()()
   return v23;
 }
 
-id UIKitAdaptableTabView.makeUIViewController(context:)(uint64_t *a1)
+char *UIKitAdaptableTabView.makeUIViewController(context:)(uint64_t *a1)
 {
   v2 = *a1;
   v3 = [objc_allocWithZone(type metadata accessor for UIKitTabBarController()) init];
@@ -4207,11 +4640,11 @@ id UIKitAdaptableTabView.makeUIViewController(context:)(uint64_t *a1)
   return v3;
 }
 
-uint64_t UIKitAdaptableTabView.updateUIViewController(_:context:)(void *a1, uint64_t *a2)
+void UIKitAdaptableTabView.updateUIViewController(_:context:)(void *a1, uint64_t *a2)
 {
   v3 = v2;
   v6 = v134;
-  v7 = type metadata accessor for TabViewCustomization();
+  v7 = type metadata accessor for TabViewCustomization(0);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v93 = &v90[-((v8 + 15) & 0xFFFFFFFFFFFFFFF0)];
   type metadata accessor for Binding<TabViewCustomization>?(0);
@@ -4222,7 +4655,7 @@ uint64_t UIKitAdaptableTabView.updateUIViewController(_:context:)(void *a1, uint
   v103 = *(v11 - 8);
   MEMORY[0x1EEE9AC00](v11);
   v92 = &v90[-((v12 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  type metadata accessor for Logger?();
+  type metadata accessor for Logger?(0);
   MEMORY[0x1EEE9AC00](v13 - 8);
   v94 = &v90[-((v14 + 15) & 0xFFFFFFFFFFFFFFF0)];
   MEMORY[0x1EEE9AC00](v15);
@@ -4451,20 +4884,20 @@ LABEL_30:
   {
     v41 = v106;
     v42 = v107;
-    if (v39 >= v40 || (LOBYTE(v135[0]) = v108, result = specialized static SystemTabConstants.maxTabs(in:)(v135), result >= v40))
+    if (v39 >= v40 || (LOBYTE(v135[0]) = v108, v43 = specialized static SystemTabConstants.maxTabs(in:)(v135), v43 >= v40))
     {
       v44 = 1;
     }
 
     else
     {
-      if (__OFSUB__(result, 1))
+      if (__OFSUB__(v43, 1))
       {
         __break(1u);
-        return result;
+        return;
       }
 
-      v44 = v39 < result - 1;
+      v44 = v39 < v43 - 1;
     }
 
     v96 = v44;
@@ -4522,7 +4955,7 @@ LABEL_30:
   BYTE2(v133[0]) = v59;
   *(&v133[0] + 1) = v60;
 
-  UIKitTabBarController.updateTabBarToConfiguration(_:transaction:)(v133);
+  UIKitTabBarController.updateTabBarToConfiguration(_:transaction:)(v133, v113);
 
   specialized UIKitTabBarController.updateSidebarToConfiguration(coordinator:customization:transaction:)(v47, v41 + v55);
   if (v112 == v111)
@@ -4675,7 +5108,7 @@ LABEL_55:
 
 uint64_t UIKitAdaptableTabView.rearrangeHosts(_:toMatch:)(unint64_t *a1, unint64_t a2)
 {
-  type metadata accessor for Logger?();
+  type metadata accessor for Logger?(0);
   MEMORY[0x1EEE9AC00](v4 - 8);
   v96 = &v91 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   v99 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_SiTt0g5Tf4g_n(MEMORY[0x1E69E7CC0]);
@@ -5147,7 +5580,7 @@ LABEL_59:
 
                 if (!swift_isUniquelyReferenced_nonNull_bridgeObject() || (v63 & 0x8000000000000000) != 0 || (v63 & 0x4000000000000000) != 0)
                 {
-                  v63 = specialized _ArrayBuffer._consumeAndCreateNew()(v63);
+                  v63 = specialized _ArrayBuffer._consumeAndCreateNew()();
                   v73 = v63 & 0xFFFFFFFFFFFFFF8;
                   v72 = (v63 >> 62) & 1;
                 }
@@ -5167,7 +5600,7 @@ LABEL_59:
                 v98 = v63;
                 if ((v63 & 0x8000000000000000) != 0 || v72)
                 {
-                  v98 = specialized _ArrayBuffer._consumeAndCreateNew()(v98);
+                  v98 = specialized _ArrayBuffer._consumeAndCreateNew()();
                   v74 = v98 & 0xFFFFFFFFFFFFFF8;
                 }
 
@@ -5612,9 +6045,9 @@ LABEL_58:
   }
 }
 
-uint64_t closure #3 in UIKitAdaptableTabView.setViewControllers(on:allViewControllers:tabs:selected:environment:forceUpdate:)(void *a1, uint64_t a2, id a3, char a4, uint64_t a5, uint64_t a6)
+uint64_t closure #3 in UIKitAdaptableTabView.setViewControllers(on:allViewControllers:tabs:selected:environment:forceUpdate:)(void *a1, uint64_t a2, id a3, char a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  type metadata accessor for NSObject(0, &lazy cache variable for type metadata for UIViewController);
+  type metadata accessor for NSObject(0, &lazy cache variable for type metadata for UIViewController, 0x1E69DD258);
   isa = Array._bridgeToObjectiveC()().super.isa;
   [a1 setViewControllers_];
 
@@ -5627,7 +6060,9 @@ uint64_t closure #3 in UIKitAdaptableTabView.setViewControllers(on:allViewContro
   result = type metadata accessor for UIKitAdaptableTabView(0);
   if (*(a5 + *(result + 44)) == 1)
   {
-    return UIKitTabBarController.updateColorScheme(selectedHostVC:environment:)(a6);
+    v17[0] = a7;
+    v17[1] = a8;
+    return UIKitTabBarController.updateColorScheme(selectedHostVC:environment:)(a6, v17);
   }
 
   return result;
@@ -5751,7 +6186,7 @@ LABEL_15:
 
 __n128 TabViewCoordinator_Phone.visibleTab(in:selectedID:tabCache:environment:)@<Q0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, _OWORD *a5@<X4>, uint64_t a6@<X8>)
 {
-  type metadata accessor for Logger?();
+  type metadata accessor for Logger?(0);
   MEMORY[0x1EEE9AC00](v12 - 8);
   v14 = &v41 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
   v49[0] = *a5;
@@ -5958,7 +6393,7 @@ LABEL_14:
 
 __n128 TabViewCoordinator_Phone.getElement(for:tabCache:)@<Q0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  type metadata accessor for Logger?();
+  type metadata accessor for Logger?(0);
   v7 = MEMORY[0x1EEE9AC00](v6 - 8);
   v9 = &v33 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (a1)
@@ -6112,53 +6547,53 @@ uint64_t TabViewCoordinator_Phone.updateTargeting(_:for:tabCache:)(char a1, void
 
 uint64_t closure #1 in TabViewCoordinator_Phone.updatedOrder(within:newOrder:customization:tabCache:)@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  type metadata accessor for Logger?();
+  type metadata accessor for Logger?(0);
   MEMORY[0x1EEE9AC00](v6 - 8);
-  v8 = &v28 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v29 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   v9 = *a1;
   v10 = a1[1];
   if (*(a2 + 16) && (v11 = specialized __RawDictionaryStorage.find<A>(_:)(*a1, a1[1]), (v12 & 1) != 0))
   {
-    outlined init with copy of TabEntry(*(a2 + 56) + 288 * v11, v33);
-    outlined init with copy of TabEntry(v33, v31);
-    if (v32)
+    outlined init with copy of TabEntry(*(a2 + 56) + 288 * v11, v34);
+    v13 = outlined init with copy of TabEntry(v34, v32);
+    if (v33)
     {
-      outlined destroy of TabEntry(v33);
-      memcpy(v30, v31, sizeof(v30));
-      v13 = *&v30[24];
-      v14 = *&v30[32];
-      v15 = v30[40];
+      outlined destroy of TabEntry(v34);
+      memcpy(v31, v32, sizeof(v31));
+      v14 = *&v31[24];
+      v15 = *&v31[32];
+      v16 = v31[40];
       outlined copy of TabCustomizationID.Base();
-      result = outlined destroy of TabItemGroup(v30);
+      result = outlined destroy of TabItemGroup(v31);
     }
 
     else
     {
-      *&v30[64] = *&v31[64];
-      *&v30[80] = *&v31[80];
-      *&v30[96] = *&v31[96];
-      *v30 = *v31;
-      *&v30[16] = *&v31[16];
-      *&v30[32] = *&v31[32];
-      *&v30[48] = *&v31[48];
-      v13 = TabItem.resolvedCustomizationID.getter();
-      v14 = v26;
+      *&v31[64] = *&v32[64];
+      *&v31[80] = *&v32[80];
+      *&v31[96] = *&v32[96];
+      *v31 = *v32;
+      *&v31[16] = *&v32[16];
+      *&v31[32] = *&v32[32];
+      *&v31[48] = *&v32[48];
+      v14 = TabItem.resolvedCustomizationID.getter(v13);
       v15 = v27;
-      outlined destroy of TabItem(v30);
-      result = outlined destroy of TabEntry(v33);
+      v16 = v28;
+      outlined destroy of TabItem(v31);
+      result = outlined destroy of TabEntry(v34);
     }
 
-    v25 = v15 & 1;
-    *a3 = v13;
-    *(a3 + 8) = v14;
+    v26 = v16 & 1;
+    *a3 = v14;
+    *(a3 + 8) = v15;
   }
 
   else
   {
     static Log.tabView.getter();
-    v17 = type metadata accessor for Logger();
-    v18 = *(v17 - 8);
-    if ((*(v18 + 48))(v8, 1, v17) == 1)
+    v18 = type metadata accessor for Logger();
+    v19 = *(v18 - 8);
+    if ((*(v19 + 48))(v8, 1, v18) == 1)
     {
       result = _s2os6LoggerVSgWOhTm_0(v8, type metadata accessor for Logger?);
     }
@@ -6166,39 +6601,39 @@ uint64_t closure #1 in TabViewCoordinator_Phone.updatedOrder(within:newOrder:cus
     else
     {
 
-      v19 = Logger.logObject.getter();
-      v20 = static os_log_type_t.default.getter();
+      v20 = Logger.logObject.getter();
+      v21 = static os_log_type_t.default.getter();
 
-      v29 = v20;
-      if (os_log_type_enabled(v19, v20))
+      v30 = v21;
+      if (os_log_type_enabled(v20, v21))
       {
-        v21 = swift_slowAlloc();
         v22 = swift_slowAlloc();
-        v28 = v19;
-        v23 = v22;
-        v33[0] = v22;
-        *v21 = 136315138;
-        *(v21 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v9, v10, v33);
-        v24 = v28;
-        _os_log_impl(&dword_18BD4A000, v28, v29, "Tab identifier %s missing from cache", v21, 0xCu);
-        __swift_destroy_boxed_opaque_existential_1(v23);
-        MEMORY[0x18D0110E0](v23, -1, -1);
-        MEMORY[0x18D0110E0](v21, -1, -1);
+        v23 = swift_slowAlloc();
+        v29 = v20;
+        v24 = v23;
+        v34[0] = v23;
+        *v22 = 136315138;
+        *(v22 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v9, v10, v34);
+        v25 = v29;
+        _os_log_impl(&dword_18BD4A000, v29, v30, "Tab identifier %s missing from cache", v22, 0xCu);
+        __swift_destroy_boxed_opaque_existential_1(v24);
+        MEMORY[0x18D0110E0](v24, -1, -1);
+        MEMORY[0x18D0110E0](v22, -1, -1);
       }
 
       else
       {
       }
 
-      result = (*(v18 + 8))(v8, v17);
+      result = (*(v19 + 8))(v8, v18);
     }
 
     *a3 = 0;
     *(a3 + 8) = 0;
-    v25 = -1;
+    v26 = -1;
   }
 
-  *(a3 + 16) = v25;
+  *(a3 + 16) = v26;
   return result;
 }
 
@@ -6214,7 +6649,7 @@ id TabViewCoordinator_Phone.findRootSelectedElement(_:)(void *a1)
     if (v4)
     {
       v5 = v4;
-      v6 = TabViewCoordinator_Phone.findRootSelectedElement(_:)();
+      v6 = TabViewCoordinator_Phone.findRootSelectedElement(_:)(v4);
 
       return v6;
     }
@@ -6270,7 +6705,7 @@ id specialized UIHostingController.updateCustomizationProperties(on:using:custom
     [a1 setHidden_];
   }
 
-  if ((TabItem.needsCustomizationIDForEnablement.getter() & 1) != 0 && !TabItem.hasCustomizationID.getter())
+  if (TabItem.needsCustomizationIDForEnablement.getter() && !TabItem.hasCustomizationID.getter())
   {
     result = [a1 allowsHiding];
     if ((result & 1) == 0)
@@ -6315,7 +6750,7 @@ id specialized UIHostingController.updateCustomizationProperties(on:using:custom
 
 id specialized UIHostingController.createBridgedTab(using:)(uint64_t a1)
 {
-  type metadata accessor for Logger?();
+  type metadata accessor for Logger?(0);
   MEMORY[0x1EEE9AC00](v2 - 8);
   v4 = &v48 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v5);
@@ -6464,13 +6899,13 @@ id specialized UIHostingController.createBridgedTab(using:)(uint64_t a1)
 
 id specialized UIHostingController.createBridgedTab(using:coordinator:)(uint64_t a1, uint64_t a2)
 {
-  type metadata accessor for Logger?();
+  type metadata accessor for Logger?(0);
   MEMORY[0x1EEE9AC00](v4 - 8);
-  v6 = &v25 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of TabEntry(a1, v32);
-  if (v33)
+  v6 = &v26 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of TabEntry(a1, v33);
+  if (v34)
   {
-    memcpy(v31, v32, sizeof(v31));
+    memcpy(v32, v33, sizeof(v32));
     static Log.tabView.getter();
     v7 = type metadata accessor for Logger();
     v8 = *(v7 - 8);
@@ -6481,30 +6916,30 @@ id specialized UIHostingController.createBridgedTab(using:coordinator:)(uint64_t
 
     else
     {
-      outlined init with copy of TabItemGroup(v31, v30);
+      outlined init with copy of TabItemGroup(v32, v31);
       v10 = Logger.logObject.getter();
       v11 = static os_log_type_t.default.getter();
       if (os_log_type_enabled(v10, v11))
       {
         v12 = swift_slowAlloc();
-        v26 = v12;
-        v28 = swift_slowAlloc();
-        v29 = v28;
+        v27 = v12;
+        v29 = swift_slowAlloc();
+        v30 = v29;
         *v12 = 136315138;
-        v13 = v30[3];
-        v14 = v30[4];
-        v27 = v11;
+        v13 = v31[3];
+        v14 = v31[4];
+        v28 = v11;
         outlined copy of TabCustomizationID.Base();
-        outlined destroy of TabItemGroup(v30);
+        outlined destroy of TabItemGroup(v31);
         v15 = a2;
-        v16 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v13, v14, &v29);
+        v16 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v13, v14, &v30);
         outlined consume of TabCustomizationID.Base();
-        v17 = v26;
-        *(v26 + 1) = v16;
+        v17 = v27;
+        *(v27 + 1) = v16;
         a2 = v15;
-        _os_log_impl(&dword_18BD4A000, v10, v27, "Creating UITabGroup id %s", v17, 0xCu);
-        v18 = v28;
-        __swift_destroy_boxed_opaque_existential_1(v28);
+        _os_log_impl(&dword_18BD4A000, v10, v28, "Creating UITabGroup id %s", v17, 0xCu);
+        v18 = v29;
+        __swift_destroy_boxed_opaque_existential_1(v29);
         MEMORY[0x18D0110E0](v18, -1, -1);
         MEMORY[0x18D0110E0](v17, -1, -1);
       }
@@ -6512,37 +6947,37 @@ id specialized UIHostingController.createBridgedTab(using:coordinator:)(uint64_t
       else
       {
 
-        outlined destroy of TabItemGroup(v30);
+        outlined destroy of TabItemGroup(v31);
       }
 
       (*(v8 + 8))(v6, v7);
     }
 
-    v19 = *&v31[24];
-    v20 = *&v31[32];
-    type metadata accessor for NSObject(0, &lazy cache variable for type metadata for _UITabElementGroup);
+    v19 = *&v32[24];
+    v20 = *&v32[32];
+    type metadata accessor for NSObject(0, &lazy cache variable for type metadata for _UITabElementGroup, 0x1E69DD7A8);
     v21 = objc_allocWithZone(swift_getObjCClassFromMetadata());
-    outlined copy of TabCustomizationID.Base();
-    v22 = MEMORY[0x18D00C850](v19, v20);
+    v22 = outlined copy of TabCustomizationID.Base();
+    v23 = MEMORY[0x18D00C850](v19, v20, v22);
     outlined consume of TabCustomizationID.Base();
-    v23 = MEMORY[0x18D00C850](0, 0xE000000000000000);
-    v9 = [v21 initWithIdentifier:v22 title:v23 image:0];
+    v24 = MEMORY[0x18D00C850](0, 0xE000000000000000);
+    v9 = [v21 initWithIdentifier:v23 title:v24 image:0];
 
     [v9 _setDelegate_];
-    outlined destroy of TabItemGroup(v31);
+    outlined destroy of TabItemGroup(v32);
   }
 
   else
   {
-    *&v31[64] = *&v32[64];
-    *&v31[80] = *&v32[80];
-    *&v31[96] = *&v32[96];
-    *v31 = *v32;
-    *&v31[16] = *&v32[16];
-    *&v31[32] = *&v32[32];
-    *&v31[48] = *&v32[48];
-    v9 = specialized UIHostingController.createBridgedTab(using:)(v31);
-    outlined destroy of TabItem(v31);
+    *&v32[64] = *&v33[64];
+    *&v32[80] = *&v33[80];
+    *&v32[96] = *&v33[96];
+    *v32 = *v33;
+    *&v32[16] = *&v33[16];
+    *&v32[32] = *&v33[32];
+    *&v32[48] = *&v33[48];
+    v9 = specialized UIHostingController.createBridgedTab(using:)(v32);
+    outlined destroy of TabItem(v32);
   }
 
   return v9;
@@ -6618,7 +7053,7 @@ void specialized TabViewCoordinator_Phone.removeHosts<A>(_:)(uint64_t a1, uint64
   }
 }
 
-void specialized TabViewCoordinator_Phone.rebuildTabs<A>(tabBarController:tabs:selected:environment:transaction:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t a5)
+void specialized TabViewCoordinator_Phone.rebuildTabs<A>(tabBarController:tabs:selected:environment:transaction:)(Swift::Int a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t a5)
 {
   v6 = v5;
   *&v112 = a3;
@@ -6877,7 +7312,7 @@ LABEL_3:
   v46 = _sSa9repeating5countSayxGx_SitcfCSo16UIViewControllerCSg_Tt1g5Tf4gn_n(0, v18);
   if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
   {
-    v46 = specialized _ArrayBuffer._consumeAndCreateNew()();
+    v46 = specialized _ArrayBuffer._consumeAndCreateNew()(v46);
   }
 
   v47 = *(v14 + 2);
@@ -6989,7 +7424,7 @@ LABEL_3:
             goto LABEL_152;
           }
 
-          type metadata accessor for NSObject(0, &lazy cache variable for type metadata for UIViewController);
+          type metadata accessor for NSObject(0, &lazy cache variable for type metadata for UIViewController, 0x1E69DD258);
 
           v62 = a1;
           do
@@ -7223,7 +7658,7 @@ LABEL_165:
     {
       if (v53 > a1)
       {
-        type metadata accessor for NSObject(0, &lazy cache variable for type metadata for UIViewController);
+        type metadata accessor for NSObject(0, &lazy cache variable for type metadata for UIViewController, 0x1E69DD258);
 
         v71 = a1;
         do
@@ -7265,7 +7700,7 @@ LABEL_99:
 
     if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
     {
-      v46 = specialized _ArrayBuffer._consumeAndCreateNew()();
+      v46 = specialized _ArrayBuffer._consumeAndCreateNew()(v46);
     }
 
     v14 = (v53 - a1);
@@ -7449,7 +7884,7 @@ uint64_t specialized TabViewCoordinator_Phone.operationToAcceptDropItems(from:on
 uint64_t specialized TabViewCoordinator_Phone.updatedSidebarVisibility(for:customization:tabCache:)(unint64_t a1, uint64_t a2, uint64_t a3)
 {
   v52 = a3;
-  v50 = type metadata accessor for TabViewCustomization();
+  v50 = type metadata accessor for TabViewCustomization(0);
   MEMORY[0x1EEE9AC00](v50);
   v56 = &v50 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   type metadata accessor for Binding<TabViewCustomization>?(0);
@@ -7460,7 +7895,7 @@ uint64_t specialized TabViewCoordinator_Phone.updatedSidebarVisibility(for:custo
   v10 = *(v9 - 8);
   MEMORY[0x1EEE9AC00](v9);
   v55 = &v50 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  type metadata accessor for Logger?();
+  type metadata accessor for Logger?(0);
   MEMORY[0x1EEE9AC00](v12 - 8);
   v14 = &v50 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
   static Log.tabView.getter();
@@ -7582,7 +8017,7 @@ LABEL_15:
                 v69[1] = v70[1];
                 v69[2] = v70[2];
                 v69[3] = v70[3];
-                if ((TabItem.needsCustomizationIDForEnablement.getter() & 1) == 0)
+                if (!TabItem.needsCustomizationIDForEnablement.getter())
                 {
                   goto LABEL_31;
                 }
@@ -7694,7 +8129,7 @@ LABEL_41:
 
 void specialized TabViewCoordinator_Phone.updatedSelection(didSelect:element:selectionCache:)(void *a1, uint64_t a2)
 {
-  type metadata accessor for Logger?();
+  type metadata accessor for Logger?(0);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v23 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   static Log.tabView.getter();
@@ -7746,65 +8181,65 @@ void specialized TabViewCoordinator_Phone.updatedSelection(didSelect:element:sel
 
 uint64_t specialized TabViewCoordinator_Phone.updatedOrder(within:newOrder:customization:tabCache:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v72 = a4;
-  *&v71 = a3;
-  v69 = a1;
-  v5 = type metadata accessor for TabViewCustomization();
+  v73 = a4;
+  *&v72 = a3;
+  v70 = a1;
+  v5 = type metadata accessor for TabViewCustomization(0);
   MEMORY[0x1EEE9AC00](v5);
-  v68 = &v61 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v69 = &v62 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   type metadata accessor for Binding<TabViewCustomization>?(0);
   MEMORY[0x1EEE9AC00](v7 - 8);
-  v9 = &v61 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v62 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   type metadata accessor for Binding<TabViewCustomization>(0);
   v11 = v10;
   v12 = *(v10 - 8);
   MEMORY[0x1EEE9AC00](v10);
-  v14 = &v61 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  type metadata accessor for Logger?();
+  v14 = &v62 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  type metadata accessor for Logger?(0);
   MEMORY[0x1EEE9AC00](v15 - 8);
-  v17 = &v61 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v17 = &v62 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
   static Log.tabView.getter();
   v18 = type metadata accessor for Logger();
   v19 = *(v18 - 8);
   v20 = (*(v19 + 48))(v17, 1, v18);
-  v66 = a2;
+  v67 = a2;
   if (v20 == 1)
   {
     _s2os6LoggerVSgWOhTm_0(v17, type metadata accessor for Logger?);
-    v21 = v71;
+    v21 = v72;
   }
 
   else
   {
-    v70 = v11;
+    v71 = v11;
     v22 = v14;
-    v67 = v5;
+    v68 = v5;
 
     v23 = Logger.logObject.getter();
     v24 = static os_log_type_t.default.getter();
 
-    v64 = v24;
-    v65 = v23;
+    v65 = v24;
+    v66 = v23;
     if (os_log_type_enabled(v23, v24))
     {
       v25 = swift_slowAlloc();
-      v63 = v22;
+      v64 = v22;
       v26 = v25;
-      v62 = swift_slowAlloc();
-      v76[0] = v62;
+      v63 = swift_slowAlloc();
+      v77[0] = v63;
       *v26 = 136315138;
       v27 = MEMORY[0x18D00CC60](a2, MEMORY[0x1E69E6158]);
-      v29 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v27, v28, v76);
+      v29 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v27, v28, v77);
 
       *(v26 + 4) = v29;
-      v11 = v70;
-      v30 = v65;
-      _os_log_impl(&dword_18BD4A000, v65, v64, "group: didCustomizeDisplayOrder %s", v26, 0xCu);
-      v31 = v62;
-      __swift_destroy_boxed_opaque_existential_1(v62);
+      v11 = v71;
+      v30 = v66;
+      _os_log_impl(&dword_18BD4A000, v66, v65, "group: didCustomizeDisplayOrder %s", v26, 0xCu);
+      v31 = v63;
+      __swift_destroy_boxed_opaque_existential_1(v63);
       MEMORY[0x18D0110E0](v31, -1, -1);
       v32 = v26;
-      v14 = v63;
+      v14 = v64;
       MEMORY[0x18D0110E0](v32, -1, -1);
     }
 
@@ -7812,12 +8247,12 @@ uint64_t specialized TabViewCoordinator_Phone.updatedOrder(within:newOrder:custo
     {
 
       v14 = v22;
-      v11 = v70;
+      v11 = v71;
     }
 
     (*(v19 + 8))(v17, v18);
-    v21 = v71;
-    v5 = v67;
+    v21 = v72;
+    v5 = v68;
   }
 
   outlined init with copy of UIKitAdaptableTabView(v21, v9, type metadata accessor for Binding<TabViewCustomization>?);
@@ -7830,11 +8265,11 @@ uint64_t specialized TabViewCoordinator_Phone.updatedOrder(within:newOrder:custo
   else
   {
     outlined init with take of Binding<TabViewCustomization>(v9, v14, type metadata accessor for Binding<TabViewCustomization>);
-    v35 = v72;
-    if (v72)
+    v35 = v73;
+    if (v73)
     {
-      v70 = v11;
-      v36 = [v69 identifier];
+      v71 = v11;
+      v36 = [v70 identifier];
       v37 = static String._unconditionallyBridgeFromObjectiveC(_:)();
       v39 = v38;
 
@@ -7845,26 +8280,26 @@ uint64_t specialized TabViewCoordinator_Phone.updatedOrder(within:newOrder:custo
 
         if (v42)
         {
-          v67 = v5;
-          v63 = v14;
-          outlined init with copy of TabEntry(*(v35 + 56) + 288 * v40, v76);
-          v43 = *(v66 + 16);
+          v68 = v5;
+          v64 = v14;
+          outlined init with copy of TabEntry(*(v35 + 56) + 288 * v40, v77);
+          v43 = *(v67 + 16);
           if (v43)
           {
-            v44 = (v66 + 40);
+            v44 = (v67 + 40);
             v45 = MEMORY[0x1E69E7CC0];
             do
             {
               v47 = *v44;
-              *&v73[0] = *(v44 - 1);
-              *(&v73[0] + 1) = v47;
+              *&v74[0] = *(v44 - 1);
+              *(&v74[0] + 1) = v47;
 
-              closure #1 in TabViewCoordinator_Phone.updatedOrder(within:newOrder:customization:tabCache:)(v73, v35, v74);
+              closure #1 in TabViewCoordinator_Phone.updatedOrder(within:newOrder:customization:tabCache:)(v74, v35, v75);
 
-              v48 = v74[16];
-              if (v74[16] != 255)
+              v48 = v75[16];
+              if (v75[16] != 255)
               {
-                v71 = *v74;
+                v72 = *v75;
                 if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
                 {
                   v45 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v45 + 2) + 1, 1, v45);
@@ -7879,9 +8314,9 @@ uint64_t specialized TabViewCoordinator_Phone.updatedOrder(within:newOrder:custo
 
                 *(v45 + 2) = v50 + 1;
                 v46 = &v45[24 * v50];
-                *(v46 + 2) = v71;
+                *(v46 + 2) = v72;
                 v46[48] = v48 & 1;
-                v35 = v72;
+                v35 = v73;
               }
 
               v44 += 2;
@@ -7896,57 +8331,57 @@ uint64_t specialized TabViewCoordinator_Phone.updatedOrder(within:newOrder:custo
             v45 = MEMORY[0x1E69E7CC0];
           }
 
-          outlined init with copy of TabEntry(v76, v74);
-          v14 = v63;
-          if (v75)
+          v51 = outlined init with copy of TabEntry(v77, v75);
+          v14 = v64;
+          if (v76)
           {
-            memcpy(v73, v74, 0x118uLL);
-            v51 = *(&v73[1] + 1);
-            v52 = *&v73[2];
-            v53 = BYTE8(v73[2]);
+            memcpy(v74, v75, 0x118uLL);
+            v52 = *(&v74[1] + 1);
+            v53 = *&v74[2];
+            v54 = BYTE8(v74[2]);
             outlined copy of TabCustomizationID.Base();
-            outlined destroy of TabItemGroup(v73);
+            outlined destroy of TabItemGroup(v74);
           }
 
           else
           {
-            v73[4] = *&v74[64];
-            v73[5] = *&v74[80];
-            v73[6] = *&v74[96];
-            v73[0] = *v74;
-            v73[1] = *&v74[16];
-            v73[2] = *&v74[32];
-            v73[3] = *&v74[48];
-            v51 = TabItem.resolvedCustomizationID.getter();
-            v52 = v54;
+            v74[4] = *&v75[64];
+            v74[5] = *&v75[80];
+            v74[6] = *&v75[96];
+            v74[0] = *v75;
+            v74[1] = *&v75[16];
+            v74[2] = *&v75[32];
+            v74[3] = *&v75[48];
+            v52 = TabItem.resolvedCustomizationID.getter(v51);
             v53 = v55;
-            outlined destroy of TabItem(v73);
+            v54 = v56;
+            outlined destroy of TabItem(v74);
           }
 
-          MEMORY[0x18D00ACC0](v70);
+          MEMORY[0x18D00ACC0](v71);
           if (*(v45 + 2))
           {
-            v56 = v68;
-            v57 = *(v67 + 24);
+            v57 = v69;
+            v58 = *(v68 + 24);
             isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-            *v74 = *&v56[v57];
-            specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v45, v51, v52, v53 & 1, isUniquelyReferenced_nonNull_native);
+            *v75 = *&v57[v58];
+            specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v45, v52, v53, v54 & 1, isUniquelyReferenced_nonNull_native);
             outlined consume of TabCustomizationID.Base();
-            *&v56[v57] = *v74;
+            *&v57[v58] = *v75;
           }
 
           else
           {
 
-            specialized Dictionary._Variant.removeValue(forKey:)(v51, v52, v53 & 1);
+            specialized Dictionary._Variant.removeValue(forKey:)(v52, v53, v54 & 1);
 
             outlined consume of TabCustomizationID.Base();
           }
 
-          v59 = v68;
+          v60 = v69;
           dispatch thunk of AnyLocation.set(_:transaction:)();
-          _s2os6LoggerVSgWOhTm_0(v59, type metadata accessor for TabViewCustomization);
-          outlined destroy of TabEntry(v76);
+          _s2os6LoggerVSgWOhTm_0(v60, type metadata accessor for TabViewCustomization);
+          outlined destroy of TabEntry(v77);
         }
       }
 
@@ -7969,9 +8404,9 @@ uint64_t outlined init with copy of UIKitAdaptableTabView(uint64_t a1, uint64_t 
   return a2;
 }
 
-uint64_t outlined consume of TabDropConfiguration?(uint64_t result, uint64_t a2, uint64_t a3)
+double outlined consume of TabDropConfiguration?(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (result)
+  if (a1)
   {
 
     outlined consume of Binding<NavigationSplitViewColumn>?(a2, a3);
@@ -8016,7 +8451,7 @@ uint64_t *initializeBufferWithCopyOfBuffer for PrimitiveAdaptableTabView.BodyCon
         v59 = *(*(v16 - 8) + 16);
 
         v59(v14, v15, v16);
-        v17 = type metadata accessor for TabViewCustomization();
+        v17 = type metadata accessor for TabViewCustomization(0);
         *&v14[*(v17 + 20)] = *&v15[*(v17 + 20)];
         *&v14[*(v17 + 24)] = *&v15[*(v17 + 24)];
         v18 = *(v9 + 56);
@@ -8099,7 +8534,7 @@ uint64_t *initializeBufferWithCopyOfBuffer for PrimitiveAdaptableTabView.BodyCon
     else
     {
       *v52 = *(v51 + 8);
-      *(v52 + 16) = v51[24];
+      v52[16] = v51[24];
     }
 
     v55 = *(v51 + 4);
@@ -8125,7 +8560,7 @@ uint64_t *initializeBufferWithCopyOfBuffer for PrimitiveAdaptableTabView.BodyCon
   return a1;
 }
 
-uint64_t destroy for PrimitiveAdaptableTabView.BodyContent(uint64_t a1, int *a2)
+double destroy for PrimitiveAdaptableTabView.BodyContent(uint64_t a1, int *a2)
 {
   type metadata accessor for Environment<Binding<TabViewCustomization>?>.Content(0);
   if (swift_getEnumCaseMultiPayload() == 1)
@@ -8138,7 +8573,7 @@ uint64_t destroy for PrimitiveAdaptableTabView.BodyContent(uint64_t a1, int *a2)
       v6 = a1 + *(v5 + 32);
       v7 = type metadata accessor for UUID();
       (*(*(v7 - 8) + 8))(v6, v7);
-      type metadata accessor for TabViewCustomization();
+      type metadata accessor for TabViewCustomization(0);
     }
   }
 
@@ -8161,9 +8596,11 @@ uint64_t destroy for PrimitiveAdaptableTabView.BodyContent(uint64_t a1, int *a2)
   if (*(v9 + 32) != 1)
   {
   }
+
+  return result;
 }
 
-void *initializeWithCopy for PrimitiveAdaptableTabView.BodyContent(void *a1, void *a2, int *a3)
+uint64_t *initializeWithCopy for PrimitiveAdaptableTabView.BodyContent(uint64_t *a1, uint64_t *a2, int *a3)
 {
   type metadata accessor for Environment<Binding<TabViewCustomization>?>.Content(0);
   if (swift_getEnumCaseMultiPayload() == 1)
@@ -8189,7 +8626,7 @@ void *initializeWithCopy for PrimitiveAdaptableTabView.BodyContent(void *a1, voi
       v57 = *(*(v14 - 8) + 16);
 
       v57(v12, v13, v14);
-      v15 = type metadata accessor for TabViewCustomization();
+      v15 = type metadata accessor for TabViewCustomization(0);
       *&v12[*(v15 + 20)] = *&v13[*(v15 + 20)];
       *&v12[*(v15 + 24)] = *&v13[*(v15 + 24)];
       v16 = *(v8 + 56);
@@ -8272,7 +8709,7 @@ void *initializeWithCopy for PrimitiveAdaptableTabView.BodyContent(void *a1, voi
   else
   {
     *v50 = *(v49 + 8);
-    *(v50 + 16) = v49[24];
+    v50[16] = v49[24];
   }
 
   v53 = *(v49 + 4);
@@ -8297,7 +8734,7 @@ void *initializeWithCopy for PrimitiveAdaptableTabView.BodyContent(void *a1, voi
   return a1;
 }
 
-void *assignWithCopy for PrimitiveAdaptableTabView.BodyContent(void *a1, void *a2, int *a3)
+uint64_t *assignWithCopy for PrimitiveAdaptableTabView.BodyContent(uint64_t *a1, uint64_t *a2, int *a3)
 {
   if (a1 != a2)
   {
@@ -8325,7 +8762,7 @@ void *assignWithCopy for PrimitiveAdaptableTabView.BodyContent(void *a1, void *a
         v66 = *(*(v13 - 8) + 16);
 
         v66(v11, v12, v13);
-        v14 = type metadata accessor for TabViewCustomization();
+        v14 = type metadata accessor for TabViewCustomization(0);
         *&v11[*(v14 + 20)] = *&v12[*(v14 + 20)];
         *&v11[*(v14 + 24)] = *&v12[*(v14 + 24)];
         v15 = *(v8 + 56);
@@ -8514,7 +8951,7 @@ void *initializeWithTake for PrimitiveAdaptableTabView.BodyContent(void *a1, voi
       v15 = a2 + v13;
       v16 = type metadata accessor for UUID();
       (*(*(v16 - 8) + 32))(v14, v15, v16);
-      v17 = type metadata accessor for TabViewCustomization();
+      v17 = type metadata accessor for TabViewCustomization(0);
       *&v14[*(v17 + 20)] = *&v15[*(v17 + 20)];
       *&v14[*(v17 + 24)] = *&v15[*(v17 + 24)];
       (*(v10 + 56))(a1, 0, 1, v9);
@@ -8604,7 +9041,7 @@ void *assignWithTake for PrimitiveAdaptableTabView.BodyContent(void *a1, void *a
         v15 = a2 + v13;
         v16 = type metadata accessor for UUID();
         (*(*(v16 - 8) + 32))(v14, v15, v16);
-        v17 = type metadata accessor for TabViewCustomization();
+        v17 = type metadata accessor for TabViewCustomization(0);
         *&v14[*(v17 + 20)] = *&v15[*(v17 + 20)];
         *&v14[*(v17 + 24)] = *&v15[*(v17 + 24)];
         (*(v10 + 56))(a1, 0, 1, v9);
@@ -8662,7 +9099,7 @@ void *assignWithTake for PrimitiveAdaptableTabView.BodyContent(void *a1, void *a
   v42 = a3[9];
   v43 = a1 + v42;
   v44 = a2 + v42;
-  __swift_destroy_boxed_opaque_existential_1(a1 + v42);
+  __swift_destroy_boxed_opaque_existential_1((a1 + v42));
   v45 = *(v44 + 1);
   *v43 = *v44;
   *(v43 + 1) = v45;
@@ -8703,7 +9140,7 @@ void *assignWithTake for PrimitiveAdaptableTabView.BodyContent(void *a1, void *a
   }
 
   *(v52 + 8) = *v54;
-  v52[24] = *(v54 + 16);
+  v52[24] = v54[16];
 LABEL_13:
   v55 = *(v53 + 4);
   if (*(v52 + 4) != 1)
@@ -8731,25 +9168,25 @@ LABEL_18:
   return a1;
 }
 
-void type metadata completion function for PrimitiveAdaptableTabView.BodyContent()
+void type metadata completion function for PrimitiveAdaptableTabView.BodyContent(uint64_t a1)
 {
   type metadata accessor for Environment<Binding<TabViewCustomization>?>.Content(319);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     swift_initStructMetadata();
   }
 }
 
-void type metadata accessor for StaticIf<InterfaceIdiomPredicate<PhoneInterfaceIdiom>, ModifiedContent<ModifiedContent<UIKitAdaptableTabView, TabViewCommonModifier>, _SafeAreaRegionsIgnoringLayout>, ModifiedContent<ModifiedContent<UIKitAdaptableTabView, TabViewCommonModifier>, _SafeAreaRegionsIgnoringLayout>>()
+void type metadata accessor for StaticIf<InterfaceIdiomPredicate<PhoneInterfaceIdiom>, ModifiedContent<ModifiedContent<UIKitAdaptableTabView, TabViewCommonModifier>, _SafeAreaRegionsIgnoringLayout>, ModifiedContent<ModifiedContent<UIKitAdaptableTabView, TabViewCommonModifier>, _SafeAreaRegionsIgnoringLayout>>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for StaticIf<InterfaceIdiomPredicate<PhoneInterfaceIdiom>, ModifiedContent<ModifiedContent<UIKitAdaptableTabView, TabViewCommonModifier>, _SafeAreaRegionsIgnoringLayout>, ModifiedContent<ModifiedContent<UIKitAdaptableTabView, TabViewCommonModifier>, _SafeAreaRegionsIgnoringLayout>>)
   {
     type metadata accessor for InterfaceIdiomPredicate<PhoneInterfaceIdiom>(255, &lazy cache variable for type metadata for InterfaceIdiomPredicate<PhoneInterfaceIdiom>, MEMORY[0x1E697F748], MEMORY[0x1E697F740], MEMORY[0x1E69801E0]);
     type metadata accessor for ModifiedContent<ModifiedContent<UIKitAdaptableTabView, TabViewCommonModifier>, _SafeAreaRegionsIgnoringLayout>(255, &lazy cache variable for type metadata for ModifiedContent<ModifiedContent<UIKitAdaptableTabView, TabViewCommonModifier>, _SafeAreaRegionsIgnoringLayout>, type metadata accessor for ModifiedContent<UIKitAdaptableTabView, TabViewCommonModifier>);
-    v0 = type metadata accessor for StaticIf();
-    if (!v1)
+    v1 = type metadata accessor for StaticIf();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for StaticIf<InterfaceIdiomPredicate<PhoneInterfaceIdiom>, ModifiedContent<ModifiedContent<UIKitAdaptableTabView, TabViewCommonModifier>, _SafeAreaRegionsIgnoringLayout>, ModifiedContent<ModifiedContent<UIKitAdaptableTabView, TabViewCommonModifier>, _SafeAreaRegionsIgnoringLayout>>);
+      atomic_store(v1, &lazy cache variable for type metadata for StaticIf<InterfaceIdiomPredicate<PhoneInterfaceIdiom>, ModifiedContent<ModifiedContent<UIKitAdaptableTabView, TabViewCommonModifier>, _SafeAreaRegionsIgnoringLayout>, ModifiedContent<ModifiedContent<UIKitAdaptableTabView, TabViewCommonModifier>, _SafeAreaRegionsIgnoringLayout>>);
     }
   }
 }
@@ -8842,7 +9279,7 @@ uint64_t initializeBufferWithCopyOfBuffer for UIKitAdaptableTabView(uint64_t a1,
       v30 = *(*(v24 - 8) + 16);
 
       v30(v22, v23, v24);
-      v25 = type metadata accessor for TabViewCustomization();
+      v25 = type metadata accessor for TabViewCustomization(0);
       *&v22[*(v25 + 20)] = *&v23[*(v25 + 20)];
       *&v22[*(v25 + 24)] = *&v23[*(v25 + 24)];
       v26 = *(v18 + 56);
@@ -8881,46 +9318,46 @@ uint64_t destroy for UIKitAdaptableTabView(uint64_t a1, uint64_t a2)
     v7 = v4 + *(v6 + 32);
     v8 = type metadata accessor for UUID();
     (*(*(v8 - 8) + 8))(v7, v8);
-    type metadata accessor for TabViewCustomization();
+    type metadata accessor for TabViewCustomization(0);
   }
 }
 
-uint64_t initializeWithCopy for UIKitAdaptableTabView(uint64_t a1, uint64_t a2, int *a3)
+uint64_t initializeWithCopy for UIKitAdaptableTabView(uint64_t a1, uint64_t *a2, int *a3)
 {
-  v6 = *(a2 + 8);
+  v6 = a2[1];
   *a1 = *a2;
   *(a1 + 8) = v6;
-  *(a1 + 16) = *(a2 + 16);
+  *(a1 + 16) = a2[2];
   *(a1 + 24) = *(a2 + 24);
   *(a1 + 25) = *(a2 + 25);
-  *(a1 + 32) = *(a2 + 32);
+  *(a1 + 32) = a2[4];
   *(a1 + 40) = *(a2 + 40);
-  v7 = *(a2 + 56);
+  v7 = a2[7];
 
   if (v7)
   {
-    *(a1 + 48) = *(a2 + 48);
+    *(a1 + 48) = a2[6];
     *(a1 + 56) = v7;
     *(a1 + 64) = *(a2 + 64);
   }
 
   else
   {
-    *(a1 + 48) = *(a2 + 48);
+    *(a1 + 48) = *(a2 + 3);
     *(a1 + 64) = *(a2 + 64);
   }
 
-  v8 = *(a2 + 72);
+  v8 = a2[9];
   if (v8 == 1)
   {
-    *(a1 + 72) = *(a2 + 72);
-    *(a1 + 88) = *(a2 + 88);
+    *(a1 + 72) = *(a2 + 9);
+    *(a1 + 88) = a2[11];
   }
 
   else
   {
-    v9 = *(a2 + 80);
-    v10 = *(a2 + 88);
+    v9 = a2[10];
+    v10 = a2[11];
     *(a1 + 72) = v8;
     *(a1 + 80) = v9;
     *(a1 + 88) = v10;
@@ -8951,7 +9388,7 @@ uint64_t initializeWithCopy for UIKitAdaptableTabView(uint64_t a1, uint64_t a2, 
     v28 = *(*(v22 - 8) + 16);
 
     v28(v20, v21, v22);
-    v23 = type metadata accessor for TabViewCustomization();
+    v23 = type metadata accessor for TabViewCustomization(0);
     *&v20[*(v23 + 20)] = *&v21[*(v23 + 20)];
     *&v20[*(v23 + 24)] = *&v21[*(v23 + 24)];
     v24 = *(v16 + 56);
@@ -8969,27 +9406,27 @@ uint64_t initializeWithCopy for UIKitAdaptableTabView(uint64_t a1, uint64_t a2, 
   return a1;
 }
 
-uint64_t assignWithCopy for UIKitAdaptableTabView(uint64_t a1, uint64_t a2, int *a3)
+uint64_t assignWithCopy for UIKitAdaptableTabView(uint64_t a1, uint64_t *a2, int *a3)
 {
   *a1 = *a2;
 
-  *(a1 + 8) = *(a2 + 8);
+  *(a1 + 8) = a2[1];
 
-  *(a1 + 16) = *(a2 + 16);
+  *(a1 + 16) = a2[2];
   *(a1 + 24) = *(a2 + 24);
   *(a1 + 25) = *(a2 + 25);
   *(a1 + 26) = *(a2 + 26);
-  *(a1 + 32) = *(a2 + 32);
+  *(a1 + 32) = a2[4];
 
   *(a1 + 40) = *(a2 + 40);
-  v6 = *(a2 + 56);
+  v6 = a2[7];
   if (*(a1 + 56))
   {
     if (v6)
     {
-      *(a1 + 48) = *(a2 + 48);
+      *(a1 + 48) = a2[6];
 
-      *(a1 + 56) = *(a2 + 56);
+      *(a1 + 56) = a2[7];
 
       *(a1 + 64) = *(a2 + 64);
     }
@@ -8998,49 +9435,49 @@ uint64_t assignWithCopy for UIKitAdaptableTabView(uint64_t a1, uint64_t a2, int 
     {
       _s7SwiftUI7BindingVyAA10VisibilityOGWOhTm_0(a1 + 48, &lazy cache variable for type metadata for Binding<Visibility>, MEMORY[0x1E697DB50], MEMORY[0x1E6981948]);
       v7 = *(a2 + 64);
-      *(a1 + 48) = *(a2 + 48);
+      *(a1 + 48) = *(a2 + 3);
       *(a1 + 64) = v7;
     }
   }
 
   else if (v6)
   {
-    *(a1 + 48) = *(a2 + 48);
-    *(a1 + 56) = *(a2 + 56);
+    *(a1 + 48) = a2[6];
+    *(a1 + 56) = a2[7];
     *(a1 + 64) = *(a2 + 64);
   }
 
   else
   {
-    v8 = *(a2 + 48);
+    v8 = *(a2 + 3);
     *(a1 + 64) = *(a2 + 64);
     *(a1 + 48) = v8;
   }
 
   v9 = (a1 + 72);
-  v11 = (a2 + 72);
-  v10 = *(a2 + 72);
+  v11 = a2 + 9;
+  v10 = a2[9];
   if (*(a1 + 72) == 1)
   {
     if (v10 == 1)
     {
       v12 = *v11;
-      *(a1 + 88) = *(a2 + 88);
+      *(a1 + 88) = a2[11];
       *v9 = v12;
     }
 
     else
     {
       *(a1 + 72) = v10;
-      *(a1 + 80) = *(a2 + 80);
-      *(a1 + 88) = *(a2 + 88);
+      *(a1 + 80) = a2[10];
+      *(a1 + 88) = a2[11];
     }
   }
 
   else if (v10 == 1)
   {
     outlined destroy of TabSidebarAccessoryViewConfiguration(a1 + 72);
-    v13 = *(a2 + 88);
+    v13 = a2[11];
     *v9 = *v11;
     *(a1 + 88) = v13;
   }
@@ -9049,9 +9486,9 @@ uint64_t assignWithCopy for UIKitAdaptableTabView(uint64_t a1, uint64_t a2, int 
   {
     *(a1 + 72) = v10;
 
-    *(a1 + 80) = *(a2 + 80);
+    *(a1 + 80) = a2[10];
 
-    *(a1 + 88) = *(a2 + 88);
+    *(a1 + 88) = a2[11];
   }
 
   *(a1 + 96) = *(a2 + 96);
@@ -9077,7 +9514,7 @@ uint64_t assignWithCopy for UIKitAdaptableTabView(uint64_t a1, uint64_t a2, int 
       v34 = v16 + v32;
       v35 = type metadata accessor for UUID();
       (*(*(v35 - 8) + 24))(v33, v34, v35);
-      v36 = type metadata accessor for TabViewCustomization();
+      v36 = type metadata accessor for TabViewCustomization(0);
       *&v33[*(v36 + 20)] = *&v34[*(v36 + 20)];
 
       *&v33[*(v36 + 24)] = *&v34[*(v36 + 24)];
@@ -9109,7 +9546,7 @@ LABEL_20:
   v27 = v26;
   a3 = v38;
   v37(v24, v25, v27);
-  v28 = type metadata accessor for TabViewCustomization();
+  v28 = type metadata accessor for TabViewCustomization(0);
   *&v24[*(v28 + 20)] = *&v25[*(v28 + 20)];
   *&v24[*(v28 + 24)] = *&v25[*(v28 + 24)];
   v29 = *(v19 + 56);
@@ -9157,7 +9594,7 @@ uint64_t initializeWithTake for UIKitAdaptableTabView(uint64_t a1, uint64_t a2, 
     v16 = v8 + v14;
     v17 = type metadata accessor for UUID();
     (*(*(v17 - 8) + 32))(v15, v16, v17);
-    v18 = type metadata accessor for TabViewCustomization();
+    v18 = type metadata accessor for TabViewCustomization(0);
     *&v15[*(v18 + 20)] = *&v16[*(v18 + 20)];
     *&v15[*(v18 + 24)] = *&v16[*(v18 + 24)];
     (*(v11 + 56))(v7, 0, 1, v10);
@@ -9248,7 +9685,7 @@ LABEL_11:
       v27 = v10 + v25;
       v28 = type metadata accessor for UUID();
       (*(*(v28 - 8) + 40))(v26, v27, v28);
-      v29 = type metadata accessor for TabViewCustomization();
+      v29 = type metadata accessor for TabViewCustomization(0);
       *&v26[*(v29 + 20)] = *&v27[*(v29 + 20)];
 
       *&v26[*(v29 + 24)] = *&v27[*(v29 + 24)];
@@ -9276,7 +9713,7 @@ LABEL_16:
   v20 = v10 + v18;
   v21 = type metadata accessor for UUID();
   (*(*(v21 - 8) + 32))(v19, v20, v21);
-  v22 = type metadata accessor for TabViewCustomization();
+  v22 = type metadata accessor for TabViewCustomization(0);
   *&v19[*(v22 + 20)] = *&v20[*(v22 + 20)];
   *&v19[*(v22 + 24)] = *&v20[*(v22 + 24)];
   (*(v13 + 56))(v9, 0, 1, v12);
@@ -9291,10 +9728,10 @@ LABEL_17:
   return a1;
 }
 
-void type metadata completion function for UIKitAdaptableTabView()
+void type metadata completion function for UIKitAdaptableTabView(uint64_t a1)
 {
   type metadata accessor for Binding<TabViewCustomization>?(319);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     swift_initStructMetadata();
   }
@@ -9305,10 +9742,14 @@ unint64_t lazy protocol witness table accessor for type StaticIf<InterfaceIdiomP
   result = lazy protocol witness table cache variable for type StaticIf<InterfaceIdiomPredicate<PhoneInterfaceIdiom>, ModifiedContent<ModifiedContent<UIKitAdaptableTabView, TabViewCommonModifier>, _SafeAreaRegionsIgnoringLayout>, ModifiedContent<ModifiedContent<UIKitAdaptableTabView, TabViewCommonModifier>, _SafeAreaRegionsIgnoringLayout>> and conformance <> StaticIf<A, B, C>;
   if (!lazy protocol witness table cache variable for type StaticIf<InterfaceIdiomPredicate<PhoneInterfaceIdiom>, ModifiedContent<ModifiedContent<UIKitAdaptableTabView, TabViewCommonModifier>, _SafeAreaRegionsIgnoringLayout>, ModifiedContent<ModifiedContent<UIKitAdaptableTabView, TabViewCommonModifier>, _SafeAreaRegionsIgnoringLayout>> and conformance <> StaticIf<A, B, C>)
   {
-    type metadata accessor for StaticIf<InterfaceIdiomPredicate<PhoneInterfaceIdiom>, ModifiedContent<ModifiedContent<UIKitAdaptableTabView, TabViewCommonModifier>, _SafeAreaRegionsIgnoringLayout>, ModifiedContent<ModifiedContent<UIKitAdaptableTabView, TabViewCommonModifier>, _SafeAreaRegionsIgnoringLayout>>();
-    lazy protocol witness table accessor for type InterfaceIdiomPredicate<PhoneInterfaceIdiom> and conformance InterfaceIdiomPredicate<A>();
-    lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<UIKitAdaptableTabView, TabViewCommonModifier>, _SafeAreaRegionsIgnoringLayout> and conformance <> ModifiedContent<A, B>();
-    result = swift_getWitnessTable();
+    v8 = v0;
+    v9 = v1;
+    type metadata accessor for StaticIf<InterfaceIdiomPredicate<PhoneInterfaceIdiom>, ModifiedContent<ModifiedContent<UIKitAdaptableTabView, TabViewCommonModifier>, _SafeAreaRegionsIgnoringLayout>, ModifiedContent<ModifiedContent<UIKitAdaptableTabView, TabViewCommonModifier>, _SafeAreaRegionsIgnoringLayout>>(255);
+    v4 = v3;
+    v5 = lazy protocol witness table accessor for type InterfaceIdiomPredicate<PhoneInterfaceIdiom> and conformance InterfaceIdiomPredicate<A>();
+    v6 = lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<UIKitAdaptableTabView, TabViewCommonModifier>, _SafeAreaRegionsIgnoringLayout> and conformance <> ModifiedContent<A, B>();
+    v7 = v6;
+    result = swift_getWitnessTable(MEMORY[0x1E6981CE8], v4, &v5);
     atomic_store(result, &lazy protocol witness table cache variable for type StaticIf<InterfaceIdiomPredicate<PhoneInterfaceIdiom>, ModifiedContent<ModifiedContent<UIKitAdaptableTabView, TabViewCommonModifier>, _SafeAreaRegionsIgnoringLayout>, ModifiedContent<ModifiedContent<UIKitAdaptableTabView, TabViewCommonModifier>, _SafeAreaRegionsIgnoringLayout>> and conformance <> StaticIf<A, B, C>);
   }
 
@@ -9321,7 +9762,7 @@ unint64_t lazy protocol witness table accessor for type InterfaceIdiomPredicate<
   if (!lazy protocol witness table cache variable for type InterfaceIdiomPredicate<PhoneInterfaceIdiom> and conformance InterfaceIdiomPredicate<A>)
   {
     type metadata accessor for InterfaceIdiomPredicate<PhoneInterfaceIdiom>(255, &lazy cache variable for type metadata for InterfaceIdiomPredicate<PhoneInterfaceIdiom>, MEMORY[0x1E697F748], MEMORY[0x1E697F740], MEMORY[0x1E69801E0]);
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(MEMORY[0x1E69801E8], v3, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type InterfaceIdiomPredicate<PhoneInterfaceIdiom> and conformance InterfaceIdiomPredicate<A>);
   }
 
@@ -9333,457 +9774,14 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Modified
   result = lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<UIKitAdaptableTabView, TabViewCommonModifier>, _SafeAreaRegionsIgnoringLayout> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<UIKitAdaptableTabView, TabViewCommonModifier>, _SafeAreaRegionsIgnoringLayout> and conformance <> ModifiedContent<A, B>)
   {
+    v6[4] = v0;
+    v6[5] = v1;
     type metadata accessor for ModifiedContent<ModifiedContent<UIKitAdaptableTabView, TabViewCommonModifier>, _SafeAreaRegionsIgnoringLayout>(255, &lazy cache variable for type metadata for ModifiedContent<ModifiedContent<UIKitAdaptableTabView, TabViewCommonModifier>, _SafeAreaRegionsIgnoringLayout>, type metadata accessor for ModifiedContent<UIKitAdaptableTabView, TabViewCommonModifier>);
-    lazy protocol witness table accessor for type ModifiedContent<UIKitAdaptableTabView, TabViewCommonModifier> and conformance <> ModifiedContent<A, B>();
-    result = swift_getWitnessTable();
+    v4 = v3;
+    v6[0] = lazy protocol witness table accessor for type ModifiedContent<UIKitAdaptableTabView, TabViewCommonModifier> and conformance <> ModifiedContent<A, B>(v5);
+    v6[1] = MEMORY[0x1E6980A30];
+    result = swift_getWitnessTable(MEMORY[0x1E697E858], v4, v6);
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<UIKitAdaptableTabView, TabViewCommonModifier>, _SafeAreaRegionsIgnoringLayout> and conformance <> ModifiedContent<A, B>);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type ModifiedContent<UIKitAdaptableTabView, TabViewCommonModifier> and conformance <> ModifiedContent<A, B>()
-{
-  result = lazy protocol witness table cache variable for type ModifiedContent<UIKitAdaptableTabView, TabViewCommonModifier> and conformance <> ModifiedContent<A, B>;
-  if (!lazy protocol witness table cache variable for type ModifiedContent<UIKitAdaptableTabView, TabViewCommonModifier> and conformance <> ModifiedContent<A, B>)
-  {
-    type metadata accessor for ModifiedContent<UIKitAdaptableTabView, TabViewCommonModifier>(255);
-    lazy protocol witness table accessor for type TabViewCommonModifier and conformance TabViewCommonModifier();
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<UIKitAdaptableTabView, TabViewCommonModifier> and conformance <> ModifiedContent<A, B>);
-  }
-
-  return result;
-}
-
-uint64_t outlined assign with copy of Binding<TabViewCustomization>?(uint64_t a1, uint64_t a2)
-{
-  type metadata accessor for Binding<TabViewCustomization>?(0);
-  (*(*(v4 - 8) + 24))(a2, a1, v4);
-  return a2;
-}
-
-uint64_t outlined assign with take of Binding<SearchFieldState>?(uint64_t a1, uint64_t a2)
-{
-  type metadata accessor for Binding<SearchFieldState>?(0);
-  (*(*(v4 - 8) + 40))(a2, a1, v4);
-  return a2;
-}
-
-void type metadata accessor for InterfaceIdiomPredicate<PhoneInterfaceIdiom>(uint64_t a1, unint64_t *a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void, uint64_t, uint64_t))
-{
-  if (!*a2)
-  {
-    v6 = a5(0, a3, a4);
-    if (!v7)
-    {
-      atomic_store(v6, a2);
-    }
-  }
-}
-
-uint64_t lazy protocol witness table accessor for type EnvironmentPropertyKey<EnvironmentValues.__Key_tabViewSearchActivation> and conformance EnvironmentPropertyKey<A>(unint64_t *a1, unint64_t *a2, uint64_t a3, uint64_t a4)
-{
-  result = *a1;
-  if (!result)
-  {
-    type metadata accessor for InterfaceIdiomPredicate<PhoneInterfaceIdiom>(255, a2, a3, a4, MEMORY[0x1E697FE38]);
-    result = swift_getWitnessTable();
-    atomic_store(result, a1);
-  }
-
-  return result;
-}
-
-void type metadata accessor for [_UITab]()
-{
-  if (!lazy cache variable for type metadata for [_UITab])
-  {
-    type metadata accessor for NSObject(255, &lazy cache variable for type metadata for _UITab);
-    v0 = type metadata accessor for Array();
-    if (!v1)
-    {
-      atomic_store(v0, &lazy cache variable for type metadata for [_UITab]);
-    }
-  }
-}
-
-unint64_t lazy protocol witness table accessor for type [_UITab] and conformance [A]()
-{
-  result = lazy protocol witness table cache variable for type [_UITab] and conformance [A];
-  if (!lazy protocol witness table cache variable for type [_UITab] and conformance [A])
-  {
-    type metadata accessor for [_UITab]();
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type [_UITab] and conformance [A]);
-  }
-
-  return result;
-}
-
-uint64_t lazy protocol witness table accessor for type [AnyHashable] and conformance [A](unint64_t *a1, unint64_t *a2, uint64_t a3)
-{
-  result = *a1;
-  if (!result)
-  {
-    type metadata accessor for TabItem?(255, a2, a3, MEMORY[0x1E69E62F8]);
-    result = swift_getWitnessTable();
-    atomic_store(result, a1);
-  }
-
-  return result;
-}
-
-uint64_t outlined copy of TabItemGroup.HostCache?(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  if (a3)
-  {
-  }
-
-  return result;
-}
-
-uint64_t outlined consume of TabItemGroup.HostCache?(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  if (a3)
-  {
-  }
-
-  return result;
-}
-
-uint64_t outlined init with take of Binding<TabViewCustomization>(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
-{
-  v5 = a3(0);
-  (*(*(v5 - 8) + 32))(a2, a1, v5);
-  return a2;
-}
-
-uint64_t partial apply for closure #3 in UIKitAdaptableTabView.setViewControllers(on:allViewControllers:tabs:selected:environment:forceUpdate:)()
-{
-  v1 = *(type metadata accessor for UIKitAdaptableTabView(0) - 8);
-  v2 = (*(v1 + 80) + 41) & ~*(v1 + 80);
-  v3 = *(v0 + 16);
-  v4 = *(v0 + 24);
-  v5 = *(v0 + 32);
-  v6 = *(v0 + ((*(v1 + 64) + v2 + 7) & 0xFFFFFFFFFFFFFFF8));
-  v7 = *(v0 + 40);
-
-  return closure #3 in UIKitAdaptableTabView.setViewControllers(on:allViewControllers:tabs:selected:environment:forceUpdate:)(v3, v4, v5, v7, v0 + v2, v6);
-}
-
-void type metadata accessor for TabItem?(uint64_t a1, unint64_t *a2, uint64_t a3, uint64_t (*a4)(void, uint64_t))
-{
-  if (!*a2)
-  {
-    v5 = a4(0, a3);
-    if (!v6)
-    {
-      atomic_store(v5, a2);
-    }
-  }
-}
-
-uint64_t assignWithTake for CoordinateSpaceNameModifier(uint64_t result, _OWORD *a2)
-{
-  if (result != a2)
-  {
-    v3 = result;
-    outlined destroy of CoordinateSpace.Name(result);
-    v4 = a2[1];
-    *v3 = *a2;
-    v3[1] = v4;
-    *(v3 + 25) = *(a2 + 25);
-    return v3;
-  }
-
-  return result;
-}
-
-uint64_t specialized static CoordinateSpaceNameModifier._makeViewInputs(modifier:inputs:)(uint64_t a1, uint64_t a2)
-{
-  v37 = *MEMORY[0x1E69E9840];
-  v3 = *(a2 + 48);
-  v4 = *(a2 + 16);
-  v20 = *(a2 + 32);
-  v21 = v3;
-  v22 = *(a2 + 64);
-  v5 = *(a2 + 16);
-  v19[0] = *a2;
-  v19[1] = v5;
-  v7 = *(a2 + 48);
-  v6 = *(a2 + 64);
-  v33 = v20;
-  v34 = v7;
-  v35 = v6;
-  v23 = *(a2 + 80);
-  v36 = *(a2 + 80);
-  v31 = v19[0];
-  v32 = v4;
-  outlined init with copy of _ViewInputs(v19, v26);
-  _ViewInputs.animatedPosition()();
-  v24[2] = v33;
-  v24[3] = v34;
-  v24[4] = v35;
-  v25 = v36;
-  v24[0] = v31;
-  v24[1] = v32;
-  outlined destroy of _ViewInputs(v24);
-  v8 = *(a2 + 48);
-  v9 = *(a2 + 16);
-  v27 = *(a2 + 32);
-  v28 = v8;
-  v10 = *(a2 + 48);
-  v29 = *(a2 + 64);
-  v11 = *(a2 + 16);
-  v26[0] = *a2;
-  v26[1] = v11;
-  v15 = v27;
-  v16 = v10;
-  v17 = *(a2 + 64);
-  v30 = *(a2 + 80);
-  v18 = *(a2 + 80);
-  v13 = v26[0];
-  v14 = v9;
-  outlined init with copy of _ViewInputs(v26, &v31);
-  _ViewInputs.animatedCGSize()();
-  v33 = v15;
-  v34 = v16;
-  v35 = v17;
-  v36 = v18;
-  v31 = v13;
-  v32 = v14;
-  outlined destroy of _ViewInputs(&v31);
-  protocol witness for static PreferenceKey._includesRemovedValues.getter in conformance AccessibilityLargeContentViewTree.Key();
-  lazy protocol witness table accessor for type CoordinateSpaceNameTransform and conformance CoordinateSpaceNameTransform();
-  Attribute.init<A>(body:value:flags:update:)();
-  return _ViewInputs.transform.setter();
-}
-
-uint64_t ControlGroup.init<A, B>(content:label:)@<X0>(uint64_t a1@<X0>, void (*a2)(uint64_t)@<X2>, uint64_t a3@<X4>, uint64_t a4@<X5>, uint64_t a5@<X6>, uint64_t a6@<X7>, uint64_t a7@<X8>)
-{
-  MEMORY[0x1EEE9AC00](a1);
-  v14 = v22 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = MEMORY[0x1EEE9AC00](v15);
-  v18 = v22 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v20 = v19(v16);
-  a2(v20);
-  LabeledControlGroupContent.init(content:label:)(v18, v14, a3, a4, a7);
-  v22[0] = a3;
-  v22[1] = a4;
-  v22[2] = a5;
-  v22[3] = a6;
-  type metadata accessor for LabeledControlGroupContent();
-  swift_getWitnessTable();
-  result = type metadata accessor for ControlGroup();
-  *(a7 + *(result + 36)) = 1;
-  return result;
-}
-
-uint64_t ControlGroup.init(content:)@<X0>(void (*a1)(void)@<X0>, uint64_t a2@<X8>)
-{
-  a1();
-  result = type metadata accessor for ControlGroup();
-  *(a2 + *(result + 36)) = 0;
-  return result;
-}
-
-uint64_t ControlGroup.body.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  v33 = a2;
-  v4 = *(a1 + 16);
-  v30 = *(v4 - 8);
-  MEMORY[0x1EEE9AC00](a1);
-  v6 = &v30 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v7);
-  v9 = &v30 - v8;
-  v10 = lazy protocol witness table accessor for type ControlGroupStyleConfiguration.Content and conformance ControlGroupStyleConfiguration.Content();
-  v11 = *(a1 + 24);
-  v42 = &type metadata for ControlGroupStyleConfiguration.Content;
-  v43 = v4;
-  v44 = v10;
-  v45 = v11;
-  v32 = v11;
-  type metadata accessor for StaticSourceWriter();
-  v12 = type metadata accessor for ModifiedContent();
-  v13 = *(v12 - 8);
-  MEMORY[0x1EEE9AC00](v12);
-  v15 = &v30 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v16);
-  v18 = &v30 - v17;
-  v19 = type metadata accessor for _ConditionalContent();
-  v31 = *(v19 - 8);
-  MEMORY[0x1EEE9AC00](a1);
-  v22 = &v30 - v21;
-  if (*(v2 + *(v20 + 36)))
-  {
-    v23 = v2;
-    v24 = v32;
-    static ViewBuilder.buildExpression<A>(_:)(v23, v4, v32);
-    static ViewBuilder.buildExpression<A>(_:)(v9, v4, v24);
-    v40 = lazy protocol witness table accessor for type ResolvedControlGroup and conformance ResolvedControlGroup();
-    v41 = &protocol witness table for StaticSourceWriter<A, B>;
-    swift_getWitnessTable();
-    static ViewBuilder.buildEither<A, B>(second:)(v6, v12, v4);
-    v25 = *(v30 + 8);
-    v25(v6, v4);
-    v25(v9, v4);
-  }
-
-  else
-  {
-    ControlGroup.resolvedBody.getter(v20);
-    v34 = lazy protocol witness table accessor for type ResolvedControlGroup and conformance ResolvedControlGroup();
-    v35 = &protocol witness table for StaticSourceWriter<A, B>;
-    WitnessTable = swift_getWitnessTable();
-    static ViewBuilder.buildExpression<A>(_:)(v15, v12, WitnessTable);
-    v27 = *(v13 + 8);
-    v27(v15, v12);
-    static ViewBuilder.buildExpression<A>(_:)(v18, v12, WitnessTable);
-    v24 = v32;
-    static ViewBuilder.buildEither<A, B>(first:)(v15, v12);
-    v27(v15, v12);
-    v27(v18, v12);
-  }
-
-  v38 = lazy protocol witness table accessor for type ResolvedControlGroup and conformance ResolvedControlGroup();
-  v39 = &protocol witness table for StaticSourceWriter<A, B>;
-  v36 = swift_getWitnessTable();
-  v37 = v24;
-  v28 = swift_getWitnessTable();
-  static ViewBuilder.buildExpression<A>(_:)(v22, v19, v28);
-  return (*(v31 + 8))(v22, v19);
-}
-
-uint64_t ControlGroup.resolvedBody.getter(uint64_t a1)
-{
-  v1 = *(a1 + 24);
-  v5 = *(a1 + 16);
-  v6 = v1;
-  v2 = lazy protocol witness table accessor for type ResolvedControlGroup and conformance ResolvedControlGroup();
-  lazy protocol witness table accessor for type ControlGroupStyleConfiguration.Content and conformance ControlGroupStyleConfiguration.Content();
-  return View.viewAlias<A, B>(_:_:)(&type metadata for ControlGroupStyleConfiguration.Content, partial apply for closure #1 in ControlGroup.resolvedBody.getter, v4, &type metadata for ResolvedControlGroup, &type metadata for ControlGroupStyleConfiguration.Content, v5, v2);
-}
-
-uint64_t closure #1 in ControlGroup.resolvedBody.getter(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v5 = *(a2 - 8);
-  MEMORY[0x1EEE9AC00](a1);
-  v7 = &v12 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  static ViewBuilder.buildExpression<A>(_:)(v8, v9, v10);
-  static ViewBuilder.buildExpression<A>(_:)(v7, a2, a3);
-  return (*(v5 + 8))(v7, a2);
-}
-
-uint64_t LabeledControlGroupContent.body.getter@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
-{
-  v31 = a2;
-  v28 = lazy protocol witness table accessor for type ControlGroupStyleConfiguration.Content and conformance ControlGroupStyleConfiguration.Content();
-  v4 = a1[2];
-  v5 = a1[4];
-  v44 = &type metadata for ControlGroupStyleConfiguration.Content;
-  v45 = v4;
-  v46 = v28;
-  v47 = v5;
-  type metadata accessor for StaticSourceWriter();
-  v6 = type metadata accessor for ModifiedContent();
-  v30 = *(v6 - 8);
-  MEMORY[0x1EEE9AC00](v6);
-  v8 = &v24 - v7;
-  v9 = a1[3];
-  v27 = lazy protocol witness table accessor for type ControlGroupStyleConfiguration.Label and conformance ControlGroupStyleConfiguration.Label();
-  v10 = a1[5];
-  v44 = &type metadata for ControlGroupStyleConfiguration.Label;
-  v45 = v9;
-  v26 = v9;
-  v46 = v27;
-  v47 = v10;
-  type metadata accessor for StaticSourceWriter();
-  v11 = type metadata accessor for ModifiedContent();
-  v29 = *(v11 - 8);
-  MEMORY[0x1EEE9AC00](v11);
-  v13 = &v24 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v14);
-  v16 = &v24 - v15;
-  *&v17 = v4;
-  *(&v17 + 1) = v9;
-  v25 = v17;
-  *&v18 = v5;
-  *(&v18 + 1) = v10;
-  v24 = v18;
-  v37 = v17;
-  v38 = v18;
-  v39 = v2;
-  v19 = lazy protocol witness table accessor for type ResolvedControlGroup and conformance ResolvedControlGroup();
-  View.viewAlias<A, B>(_:_:)(&type metadata for ControlGroupStyleConfiguration.Content, partial apply for closure #1 in LabeledControlGroupContent.body.getter, v36, &type metadata for ResolvedControlGroup, &type metadata for ControlGroupStyleConfiguration.Content, v4, v19);
-  v33 = v25;
-  v34 = v24;
-  v35 = v2;
-  v42 = v19;
-  v43 = &protocol witness table for StaticSourceWriter<A, B>;
-  WitnessTable = swift_getWitnessTable();
-  View.viewAlias<A, B>(_:_:)(&type metadata for ControlGroupStyleConfiguration.Label, partial apply for closure #2 in LabeledControlGroupContent.body.getter, v32, v6, &type metadata for ControlGroupStyleConfiguration.Label, v26, WitnessTable);
-  (*(v30 + 8))(v8, v6);
-  v40 = WitnessTable;
-  v41 = &protocol witness table for StaticSourceWriter<A, B>;
-  v21 = swift_getWitnessTable();
-  static ViewBuilder.buildExpression<A>(_:)(v13, v11, v21);
-  v22 = *(v29 + 8);
-  v22(v13, v11);
-  static ViewBuilder.buildExpression<A>(_:)(v16, v11, v21);
-  return (v22)(v16, v11);
-}
-
-uint64_t closure #1 in LabeledControlGroupContent.body.getter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v6 = *(a2 - 8);
-  MEMORY[0x1EEE9AC00](a1);
-  v8 = &v13 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  static ViewBuilder.buildExpression<A>(_:)(v9, v10, v11);
-  static ViewBuilder.buildExpression<A>(_:)(v8, a2, a4);
-  return (*(v6 + 8))(v8, a2);
-}
-
-uint64_t closure #2 in LabeledControlGroupContent.body.getter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
-{
-  v8 = *(a3 - 8);
-  MEMORY[0x1EEE9AC00](a1);
-  v10 = v17 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v17[0] = v11;
-  v17[1] = v12;
-  v17[2] = v13;
-  v17[3] = v14;
-  v15 = type metadata accessor for LabeledControlGroupContent();
-  static ViewBuilder.buildExpression<A>(_:)(a1 + *(v15 + 52), a3, a5);
-  static ViewBuilder.buildExpression<A>(_:)(v10, a3, a5);
-  return (*(v8 + 8))(v10, a3);
-}
-
-uint64_t LabeledControlGroupContent.init(content:label:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
-{
-  (*(*(a3 - 8) + 32))(a5, a1);
-  v8 = type metadata accessor for LabeledControlGroupContent();
-  return (*(*(a4 - 8) + 32))(a5 + *(v8 + 52), a2, a4);
-}
-
-unint64_t lazy protocol witness table accessor for type ResolvedControlGroup and conformance ResolvedControlGroup()
-{
-  result = lazy protocol witness table cache variable for type ResolvedControlGroup and conformance ResolvedControlGroup;
-  if (!lazy protocol witness table cache variable for type ResolvedControlGroup and conformance ResolvedControlGroup)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type ResolvedControlGroup and conformance ResolvedControlGroup);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type ResolvedControlGroup and conformance ResolvedControlGroup;
-  if (!lazy protocol witness table cache variable for type ResolvedControlGroup and conformance ResolvedControlGroup)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type ResolvedControlGroup and conformance ResolvedControlGroup);
   }
 
   return result;

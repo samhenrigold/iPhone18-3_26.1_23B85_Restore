@@ -7,16 +7,13 @@ uint64_t __routingContextResilientRemote_SelectRouteDescriptors_block_invoke(uin
 {
   v3 = *(a1 + 32);
   v4 = *(a1 + 40);
-  VTable = CMBaseObjectGetVTable();
-  v6 = *(*(VTable + 16) + 48);
-  if (!v6)
+  v5 = *(*(CMBaseObjectGetVTable() + 16) + 48);
+  if (!v5)
   {
     return 4294954514;
   }
 
-  v7 = *(VTable + 16) + 48;
-
-  return v6(a2, v3, v4);
+  return v5(a2, v3, v4);
 }
 
 void __routingContext_SelectRouteDescriptors_block_invoke(uint64_t a1)

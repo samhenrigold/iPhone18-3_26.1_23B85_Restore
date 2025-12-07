@@ -38,7 +38,7 @@
 
 - (IDSActivityMonitor)initWithActivity:(id)activity serviceIdentifier:(id)identifier queue:(id)queue xpcConnector:(id)connector
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   activityCopy = activity;
   identifierCopy = identifier;
   queueCopy = queue;
@@ -49,15 +49,15 @@
     if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v26 = activityCopy;
-      v27 = 2112;
-      v28 = identifierCopy;
+      v25 = activityCopy;
+      v26 = 2112;
+      v27 = identifierCopy;
       _os_log_impl(&dword_1959FF000, registration, OS_LOG_TYPE_DEFAULT, "Creaating new activity monitor with activity %@ service identifier %@", buf, 0x16u);
     }
 
-    v24.receiver = self;
-    v24.super_class = IDSActivityMonitor;
-    v16 = [(IDSActivityMonitor *)&v24 init];
+    v23.receiver = self;
+    v23.super_class = IDSActivityMonitor;
+    v16 = [(IDSActivityMonitor *)&v23 init];
     v17 = v16;
     if (v16)
     {
@@ -85,7 +85,6 @@
     selfCopy = 0;
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -102,7 +101,7 @@
 
 - (void)setDelegate:(id)delegate
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   delegateCopy = delegate;
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
 
@@ -112,11 +111,11 @@
     if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
     {
       activityIdentifier = [(IDSActivityMonitor *)self activityIdentifier];
-      v11 = 138412546;
-      v12 = delegateCopy;
-      v13 = 2112;
-      v14 = activityIdentifier;
-      _os_log_impl(&dword_1959FF000, registration, OS_LOG_TYPE_DEFAULT, "Adding delegate %@ to activity monitor %@", &v11, 0x16u);
+      v10 = 138412546;
+      v11 = delegateCopy;
+      v12 = 2112;
+      v13 = activityIdentifier;
+      _os_log_impl(&dword_1959FF000, registration, OS_LOG_TYPE_DEFAULT, "Adding delegate %@ to activity monitor %@", &v10, 0x16u);
     }
 
     objc_storeWeak(&self->_delegate, delegateCopy);
@@ -132,8 +131,6 @@
       [xPCConnector removeListener:self forTopic:activityIdentifier2];
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)beginBroadcastingWithInfo:(id)info withCompletion:(id)completion
@@ -152,7 +149,7 @@
 
 - (void)stopBroadcastingForSubActivity:(id)activity withCompletion:(id)completion
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   activityCopy = activity;
   completionCopy = completion;
   if (activityCopy && [activityCopy length])
@@ -161,22 +158,22 @@
     if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v17 = activityCopy;
+      v16 = activityCopy;
       _os_log_impl(&dword_1959FF000, registration, OS_LOG_TYPE_DEFAULT, "Stopping broadcast with subActivity %@", buf, 0xCu);
     }
 
     objc_initWeak(buf, self);
     xPCConnector = [(IDSActivityMonitor *)self XPCConnector];
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = sub_195A39830;
-    v12[3] = &unk_1E743F730;
-    objc_copyWeak(&v15, buf);
-    v13 = activityCopy;
-    v14 = completionCopy;
-    [xPCConnector performAction:v12 errorHandler:v14];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = sub_195A39830;
+    v11[3] = &unk_1E743F730;
+    objc_copyWeak(&v14, buf);
+    v12 = activityCopy;
+    v13 = completionCopy;
+    [xPCConnector performAction:v11 errorHandler:v13];
 
-    objc_destroyWeak(&v15);
+    objc_destroyWeak(&v14);
     objc_destroyWeak(buf);
   }
 
@@ -185,13 +182,11 @@
     v10 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.ids.activity.error" code:-100 userInfo:0];
     (*(completionCopy + 2))(completionCopy, v10);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)listeningForUpdates
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   registration = [MEMORY[0x1E69A6138] registration];
   if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
   {
@@ -202,47 +197,44 @@
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v10 = 0x2020000000;
-  v11 = 0;
+  v9 = 0x2020000000;
+  v10 = 0;
   xPCConnector = [(IDSActivityMonitor *)self XPCConnector];
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = sub_195A39A14;
-  v8[3] = &unk_1E743F780;
-  v8[4] = self;
-  v8[5] = &buf;
-  [xPCConnector performSyncAction:v8];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = sub_195A39A14;
+  v7[3] = &unk_1E743F780;
+  v7[4] = self;
+  v7[5] = &buf;
+  [xPCConnector performSyncAction:v7];
 
   v5 = *(*(&buf + 1) + 24);
   _Block_object_dispose(&buf, 8);
-  v6 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (void)setListeningForUpdates:(BOOL)updates
 {
   updatesCopy = updates;
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   registration = [MEMORY[0x1E69A6138] registration];
   if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109378;
-    v11 = updatesCopy;
-    v12 = 2112;
+    v10 = updatesCopy;
+    v11 = 2112;
     selfCopy = self;
     _os_log_impl(&dword_1959FF000, registration, OS_LOG_TYPE_DEFAULT, "Set listening for updates %d on self %@", buf, 0x12u);
   }
 
   xPCConnector = [(IDSActivityMonitor *)self XPCConnector];
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = sub_195A39C78;
-  v8[3] = &unk_1E743F7A8;
-  v9 = updatesCopy;
-  v8[4] = self;
-  [xPCConnector performSyncAction:v8];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = sub_195A39C78;
+  v7[3] = &unk_1E743F7A8;
+  v8 = updatesCopy;
+  v7[4] = self;
+  [xPCConnector performSyncAction:v7];
 }
 
 - (NSArray)subscriptions

@@ -27,7 +27,7 @@
 
 - (void)retrieveContentCollectionWithVariableSource:(id)source completionHandler:(id)handler
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E6996DB8];
   v5 = MEMORY[0x1E695DF00];
   handlerCopy = handler;
@@ -35,12 +35,10 @@
   v8 = [v4 itemWithObject:date];
 
   v9 = MEMORY[0x1E6996D40];
-  v13[0] = v8;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
+  v12[0] = v8;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
   v11 = [v9 collectionWithItems:v10];
   handlerCopy[2](handlerCopy, v11, 0);
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (WFCurrentDateVariable)initWithAggrandizements:(id)aggrandizements

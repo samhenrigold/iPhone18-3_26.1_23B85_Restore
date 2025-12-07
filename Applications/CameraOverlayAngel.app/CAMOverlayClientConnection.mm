@@ -14,7 +14,10 @@
 - (void)invalidate;
 - (void)removeObserver:(id)observer;
 - (void)sendActiveControlIdentifier:(id)identifier;
+- (void)sendOverlayVisibility:(BOOL)visibility activeControlIdentifier:(id)identifier;
 - (void)setFocusLockGestureEnabled:(id)enabled;
+- (void)setFocusLocked:(BOOL)locked;
+- (void)setQuietUIActive:(BOOL)active;
 @end
 
 @implementation CAMOverlayClientConnection
@@ -279,6 +282,52 @@
   [_clientProxy serverDidUpdateControl:updateCopy];
 }
 
+- (void)sendOverlayVisibility:(BOOL)visibility activeControlIdentifier:(id)identifier
+{
+  visibilityCopy = visibility;
+  identifierCopy = identifier;
+  if (self->_overlayVisible != visibilityCopy)
+  {
+    self->_overlayVisible = visibilityCopy;
+    controlsByID = [(CAMOverlayClientConnection *)self controlsByID];
+    v8 = [controlsByID objectForKeyedSubscript:identifierCopy];
+
+    if (!v8)
+    {
+      v9 = os_log_create("com.apple.camera.overlay", "Angel");
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      {
+        sub_100036394(self);
+      }
+
+      identifierCopy = 0;
+    }
+
+    v10 = os_log_create("com.apple.camera.overlay", "Angel");
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    {
+      _loggingHeader = [(CAMOverlayClientConnection *)self _loggingHeader];
+      v12 = @"NO";
+      v15 = 138543874;
+      v16 = _loggingHeader;
+      v17 = 2114;
+      if (visibilityCopy)
+      {
+        v12 = @"YES";
+      }
+
+      v18 = v12;
+      v19 = 2114;
+      v20 = identifierCopy;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%{public}@: Sending visibility: %{public}@ for control ID %{public}@", &v15, 0x20u);
+    }
+
+    _clientProxy = [(CAMOverlayClientConnection *)self _clientProxy];
+    v14 = [NSNumber numberWithBool:visibilityCopy];
+    [_clientProxy serverDidChangeOverlayVisible:v14 activeControlIdentifier:identifierCopy];
+  }
+}
+
 - (void)sendActiveControlIdentifier:(id)identifier
 {
   identifierCopy = identifier;
@@ -295,6 +344,66 @@
 
   _clientProxy = [(CAMOverlayClientConnection *)self _clientProxy];
   [_clientProxy serverDidChangeActiveControlIdentifier:identifierCopy];
+}
+
+- (void)setQuietUIActive:(BOOL)active
+{
+  if (self->_quietUIActive != active)
+  {
+    activeCopy = active;
+    self->_quietUIActive = active;
+    v5 = os_log_create("com.apple.camera.overlay", "Angel");
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    {
+      _loggingHeader = [(CAMOverlayClientConnection *)self _loggingHeader];
+      v7 = _loggingHeader;
+      v8 = @"NO";
+      if (activeCopy)
+      {
+        v8 = @"YES";
+      }
+
+      v11 = 138543618;
+      v12 = _loggingHeader;
+      v13 = 2114;
+      v14 = v8;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Sending interfaceReduced: %{public}@", &v11, 0x16u);
+    }
+
+    _clientProxy = [(CAMOverlayClientConnection *)self _clientProxy];
+    v10 = [NSNumber numberWithBool:activeCopy];
+    [_clientProxy didChangeInterfaceReduced:v10];
+  }
+}
+
+- (void)setFocusLocked:(BOOL)locked
+{
+  if (self->_focusLocked != locked)
+  {
+    lockedCopy = locked;
+    self->_focusLocked = locked;
+    v5 = os_log_create("com.apple.camera.overlay", "Angel");
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    {
+      _loggingHeader = [(CAMOverlayClientConnection *)self _loggingHeader];
+      v7 = _loggingHeader;
+      v8 = @"NO";
+      if (lockedCopy)
+      {
+        v8 = @"YES";
+      }
+
+      v11 = 138543618;
+      v12 = _loggingHeader;
+      v13 = 2114;
+      v14 = v8;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Sending focusLocked: %{public}@", &v11, 0x16u);
+    }
+
+    _clientProxy = [(CAMOverlayClientConnection *)self _clientProxy];
+    v10 = [NSNumber numberWithBool:lockedCopy];
+    [_clientProxy serverDidChangeFocusLocked:v10];
+  }
 }
 
 - (void)clientDidConfigureControls:(id)controls initialUpdates:(id)updates reply:(id)reply

@@ -5,7 +5,7 @@
 
 void __74___SVXRemoteExpressionParsingService_parseExpressions_targetDevice_reply___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -20,11 +20,11 @@ void __74___SVXRemoteExpressionParsingService_parseExpressions_targetDevice_repl
     v6 = *MEMORY[0x277CEF098];
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
     {
-      v9 = 136315394;
-      v10 = "[_SVXRemoteExpressionParsingService parseExpressions:targetDevice:reply:]_block_invoke";
-      v11 = 2112;
-      v12 = v3;
-      _os_log_error_impl(&dword_2695B9000, v6, OS_LOG_TYPE_ERROR, "%s Got an unknown response %@ when attempting to parse expressions. Bailing", &v9, 0x16u);
+      v8 = 136315394;
+      v9 = "[_SVXRemoteExpressionParsingService parseExpressions:targetDevice:reply:]_block_invoke";
+      v10 = 2112;
+      v11 = v3;
+      _os_log_error_impl(&dword_2695B9000, v6, OS_LOG_TYPE_ERROR, "%s Got an unknown response %@ when attempting to parse expressions. Bailing", &v8, 0x16u);
     }
 
     v7 = *(a1 + 32);
@@ -33,8 +33,6 @@ void __74___SVXRemoteExpressionParsingService_parseExpressions_targetDevice_repl
       (*(v7 + 16))(v7, 0, 0);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -15,7 +15,7 @@
   if (v9)
   {
     objc_storeStrong(&v9->_writeRequest, request);
-    v11 = [requestsCopy copy];
+    v11 = objc_msgSend_copy(requestsCopy);
     modificationRequests = v10->_modificationRequests;
     v10->_modificationRequests = v11;
   }

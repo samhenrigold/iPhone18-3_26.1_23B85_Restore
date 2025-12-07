@@ -3,6 +3,7 @@
 - (id)_axCoachingText;
 - (void)_axAnnounceCoachingText;
 - (void)crossFadeCoachingMessage:(int64_t)message;
+- (void)setActive:(BOOL)active animated:(BOOL)animated;
 @end
 
 @implementation ARCoachingOverlayViewAccessibility
@@ -30,6 +31,21 @@
   v2 = *MEMORY[0x29EDC7EA8];
   _axCoachingText = [(ARCoachingOverlayViewAccessibility *)self _axCoachingText];
   UIAccessibilityPostNotification(v2, _axCoachingText);
+}
+
+- (void)setActive:(BOOL)active animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  activeCopy = active;
+  _axIsActive = [(ARCoachingOverlayViewAccessibility *)self _axIsActive];
+  v9.receiver = self;
+  v9.super_class = ARCoachingOverlayViewAccessibility;
+  [(ARCoachingOverlayViewAccessibility *)&v9 setActive:activeCopy animated:animatedCopy];
+  _axIsActive2 = [(ARCoachingOverlayViewAccessibility *)self _axIsActive];
+  if (!_axIsActive && _axIsActive2)
+  {
+    [(ARCoachingOverlayViewAccessibility *)self _axAnnounceCoachingText];
+  }
 }
 
 - (void)crossFadeCoachingMessage:(int64_t)message

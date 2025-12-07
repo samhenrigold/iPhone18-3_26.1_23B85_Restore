@@ -33,8 +33,8 @@
     return 0;
   }
 
-  v47 = [(NSArray *)self->_sortDescriptors count];
-  if (!v47)
+  v49 = [(NSArray *)self->_sortDescriptors count];
+  if (!v49)
   {
     v41 = MEMORY[0x1E696AD60];
 
@@ -45,7 +45,7 @@
   fetchIntermediate = [(NSSQLIntermediate *)self fetchIntermediate];
   v5 = [objc_alloc(MEMORY[0x1E696AD60]) initWithString:@"ORDER BY"];
   v8 = 0;
-  v45 = *MEMORY[0x1E695D940];
+  v47 = *MEMORY[0x1E695D940];
   selfCopy = self;
   while (1)
   {
@@ -57,7 +57,7 @@
       [v5 appendString:{@", "}];
     }
 
-    v49 = ascending;
+    v51 = ascending;
     if ([(__CFString *)v10 rangeOfString:@"."]!= 0x7FFFFFFFFFFFFFFFLL)
     {
       v16 = 0;
@@ -83,7 +83,7 @@ LABEL_17:
 
       if ([(NSSQLIntermediate *)self isUpdateScoped])
       {
-        [contextCopy setObject:objc_msgSend(MEMORY[0x1E695DF30] forKey:{"exceptionWithName:reason:userInfo:", v45, objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"Unsupported join (ordering by mtm not allowed in updates): %@", self->_sortDescriptors), 0), @"NSUnderlyingException"}];
+        [contextCopy setObject:objc_msgSend(MEMORY[0x1E695DF30] forKey:{"exceptionWithName:reason:userInfo:", v47, objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], self->_sortDescriptors), 0), @"NSUnderlyingException"}];
       }
 
       else
@@ -131,7 +131,7 @@ LABEL_24:
 
       if ([(NSSQLIntermediate *)selfCopy isUpdateScoped])
       {
-        [contextCopy setObject:objc_msgSend(MEMORY[0x1E695DF30] forKey:{"exceptionWithName:reason:userInfo:", v45, objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"Unsupported join (ordering by tm not allowed in updates): %@", selfCopy->_sortDescriptors), 0), @"NSUnderlyingException"}];
+        [contextCopy setObject:objc_msgSend(MEMORY[0x1E695DF30] forKey:{"exceptionWithName:reason:userInfo:", v47, objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], selfCopy->_sortDescriptors), 0), @"NSUnderlyingException"}];
         v17 = 0;
       }
 
@@ -264,15 +264,17 @@ LABEL_44:
       if (selector != sel_localizedStandardCompare_)
       {
         v42 = MEMORY[0x1E695DF30];
-        v43 = [MEMORY[0x1E696AEC0] stringWithFormat:@"unsupported NSSortDescriptor selector: %@", NSStringFromSelector(selector)];
-        v44 = v42;
+        v43 = MEMORY[0x1E696AEC0];
+        v44 = NSStringFromSelector(selector);
+        v45 = objc_msgSend_stringWithFormat_(v43, v44);
+        v46 = v42;
         goto LABEL_89;
       }
     }
 
     [v5 appendString:v39];
 LABEL_73:
-    if ((v49 & 1) == 0)
+    if ((v51 & 1) == 0)
     {
       [v5 appendString:@" DESC"];
     }
@@ -280,7 +282,7 @@ LABEL_73:
     self = selfCopy;
     if ((objc_opt_respondsToSelector() & 1) != 0 && [v9 reverseNullOrder])
     {
-      if (v49)
+      if (v51)
       {
         v40 = @" ASC NULLS LAST";
       }
@@ -293,7 +295,7 @@ LABEL_73:
       [v5 appendString:v40];
     }
 
-    if (++v8 == v47)
+    if (++v8 == v49)
     {
       return v5;
     }
@@ -304,10 +306,10 @@ LABEL_73:
     goto LABEL_73;
   }
 
-  v44 = MEMORY[0x1E695DF30];
-  v43 = @"unsupported NSSortDescriptor (comparator blocks are not supported)";
+  v46 = MEMORY[0x1E695DF30];
+  v45 = @"unsupported NSSortDescriptor (comparator blocks are not supported)";
 LABEL_89:
-  [contextCopy setObject:objc_msgSend(v44 forKey:{"exceptionWithName:reason:userInfo:", v45, v43, 0), @"NSUnderlyingException"}];
+  [contextCopy setObject:objc_msgSend(v46 forKey:{"exceptionWithName:reason:userInfo:", v47, v45, 0), @"NSUnderlyingException"}];
 LABEL_90:
 
   return 0;

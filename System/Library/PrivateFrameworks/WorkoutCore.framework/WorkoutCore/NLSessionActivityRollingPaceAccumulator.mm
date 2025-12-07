@@ -60,52 +60,51 @@
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, date);
-  v31 = 0;
-  objc_storeStrong(&v31, handler);
+  v30 = 0;
+  objc_storeStrong(&v30, handler);
   [(FIUIWorkoutActivityType *)selfCopy->_activityType effectiveTypeIdentifier];
-  v30 = _HKWorkoutDistanceTypeForActivityType();
-  if (!v30)
+  v29 = _HKWorkoutDistanceTypeForActivityType();
+  if (!v29)
   {
     __assert_rtn("[NLSessionActivityRollingPaceAccumulator accumulatorDidStartWithStartDate:handler:]", "NLSessionActivityRollingPaceAccumulator.m", 66, "quantityType != nil && Should always get a distance type in the rolling pace accumulator.");
   }
 
-  distanceUnit = selfCopy->_distanceUnit;
-  v29 = FIStandardDistanceQuantity();
-  v5 = objc_alloc(MEMORY[0x277D095C8]);
-  v6 = [v5 initWithQuantityType:v30 threshold:v29 startDate:location[0]];
+  v28 = FIStandardDistanceQuantity();
+  v4 = objc_alloc(MEMORY[0x277D095C8]);
+  v5 = [v4 initWithQuantityType:v29 threshold:v28 startDate:location[0]];
   trailingIntervalController = selfCopy->_trailingIntervalController;
-  selfCopy->_trailingIntervalController = v6;
+  selfCopy->_trailingIntervalController = v5;
   MEMORY[0x277D82BD8](trailingIntervalController);
-  objc_initWeak(&v28, selfCopy);
+  objc_initWeak(&v27, selfCopy);
   queue = selfCopy->_queue;
-  v22 = MEMORY[0x277D85DD0];
-  v23 = -1073741824;
-  v24 = 0;
-  v25 = __84__NLSessionActivityRollingPaceAccumulator_accumulatorDidStartWithStartDate_handler___block_invoke;
-  v26 = &unk_277D88B00;
-  objc_copyWeak(&v27, &v28);
-  dispatch_async(queue, &v22);
-  v14 = objc_alloc(MEMORY[0x277CCDC10]);
-  v12 = v30;
+  v21 = MEMORY[0x277D85DD0];
+  v22 = -1073741824;
+  v23 = 0;
+  v24 = __84__NLSessionActivityRollingPaceAccumulator_accumulatorDidStartWithStartDate_handler___block_invoke;
+  v25 = &unk_277D88B00;
+  objc_copyWeak(&v26, &v27);
+  dispatch_async(queue, &v21);
+  v13 = objc_alloc(MEMORY[0x277CCDC10]);
+  v11 = v29;
   builder = [(NLSessionActivityBuilderAccumulator *)selfCopy builder];
-  v16 = MEMORY[0x277D85DD0];
-  v17 = -1073741824;
-  v18 = 0;
-  v19 = __84__NLSessionActivityRollingPaceAccumulator_accumulatorDidStartWithStartDate_handler___block_invoke_2;
-  v20 = &unk_277D89248;
-  objc_copyWeak(v21, &v28);
-  v11 = [v14 initWithQuantityType:v12 workoutBuilder:builder quantitiesAddedHandler:&v16];
+  v15 = MEMORY[0x277D85DD0];
+  v16 = -1073741824;
+  v17 = 0;
+  v18 = __84__NLSessionActivityRollingPaceAccumulator_accumulatorDidStartWithStartDate_handler___block_invoke_2;
+  v19 = &unk_277D89248;
+  objc_copyWeak(v20, &v27);
+  v10 = [v13 initWithQuantityType:v11 workoutBuilder:builder quantitiesAddedHandler:&v15];
   query = selfCopy->_query;
-  selfCopy->_query = v11;
+  selfCopy->_query = v10;
   MEMORY[0x277D82BD8](query);
-  *&v9 = MEMORY[0x277D82BD8](builder).n128_u64[0];
-  [(HKHealthStore *)selfCopy->_healthStore executeQuery:selfCopy->_query, v9];
-  objc_destroyWeak(v21);
+  *&v8 = MEMORY[0x277D82BD8](builder).n128_u64[0];
+  [(HKHealthStore *)selfCopy->_healthStore executeQuery:selfCopy->_query, v8];
+  objc_destroyWeak(v20);
+  objc_destroyWeak(&v26);
   objc_destroyWeak(&v27);
-  objc_destroyWeak(&v28);
+  objc_storeStrong(&v28, 0);
   objc_storeStrong(&v29, 0);
   objc_storeStrong(&v30, 0);
-  objc_storeStrong(&v31, 0);
   objc_storeStrong(location, 0);
 }
 
@@ -152,7 +151,6 @@ void __84__NLSessionActivityRollingPaceAccumulator_accumulatorDidStartWithStartD
   objc_storeStrong(&v9, 0);
   objc_storeStrong(&v10, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)processBuilderQuantities:(id)quantities
@@ -227,7 +225,6 @@ void __84__NLSessionActivityRollingPaceAccumulator_accumulatorDidStartWithStartD
   objc_storeStrong(&v29, 0);
   objc_storeStrong(&v30, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __68__NLSessionActivityRollingPaceAccumulator_processBuilderQuantities___block_invoke(id *a1)
@@ -267,7 +264,6 @@ void __68__NLSessionActivityRollingPaceAccumulator_processBuilderQuantities___bl
   MEMORY[0x277D82BD8](queue);
   objc_destroyWeak(v14);
   objc_storeStrong(v18, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __68__NLSessionActivityRollingPaceAccumulator_processBuilderQuantities___block_invoke_300(uint64_t a1)
@@ -505,7 +501,6 @@ void __72__NLSessionActivityRollingPaceAccumulator_workoutBuilderDidCollectEvent
   MEMORY[0x277D82BD8](obj);
   objc_storeStrong(&v26, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)updateDistanceUnit:(id)unit

@@ -1,1743 +1,3 @@
-uint64_t mlir::ODIE::Compiler::CoreMLAX::QuantizeOp::parse(mlir::ODIE::Compiler::CoreMLAX::QuantizeOp *this, mlir::OpAsmParser *a2, mlir::OperationState *a3)
-{
-  v14[0] = v15;
-  v14[1] = 0x400000000;
-  if ((*(*this + 280))())
-  {
-    v5 = (*(*this + 40))(this);
-    if ((*(*this + 720))(this, v14, 0, 1, 0xFFFFFFFFLL) & 1) != 0 && ((*(*this + 296))(this))
-    {
-      (*(*this + 40))(this);
-      if ((*(*this + 488))(this, a2 + 112) & 1) != 0 && ((*(*this + 104))(this))
-      {
-        v12 = 0;
-        if (sub_10023B73C(this, &v12))
-        {
-          v13[0] = mlir::FunctionType::getInputs(&v12);
-          v13[1] = v6;
-          Results = mlir::FunctionType::getResults(&v12);
-          sub_1001D4484(a2, Results, v8);
-          v9 = sub_10023B994(this, v14, v13, v5, a2 + 16) & 1;
-          v10 = v14[0];
-          if (v14[0] == v15)
-          {
-            return v9;
-          }
-
-          goto LABEL_10;
-        }
-      }
-    }
-  }
-
-  v9 = 0;
-  v10 = v14[0];
-  if (v14[0] != v15)
-  {
-LABEL_10:
-    free(v10);
-  }
-
-  return v9;
-}
-
-void mlir::ODIE::Compiler::CoreMLAX::ViewOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v7 = a4;
-  mlir::OperationState::addOperands(a2, &v7, 1uLL);
-  v6 = *(a2 + 72);
-  if (v6 >= *(a2 + 76))
-  {
-    llvm::SmallVectorBase<unsigned int>::grow_pod(a2 + 64, (a2 + 80), v6 + 1, 8);
-    LODWORD(v6) = *(a2 + 72);
-  }
-
-  *(*(a2 + 64) + 8 * v6) = a3;
-  ++*(a2 + 72);
-}
-
-BOOL mlir::ODIE::Compiler::CoreMLAX::ViewOp::verifyInvariantsImpl(mlir::Operation **this)
-{
-  v2 = sub_10026D02C(*this, *(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8, "operand", 7, 0);
-  result = 0;
-  if (v2)
-  {
-    if (*(*this + 9))
-    {
-      v4 = *this - 16;
-    }
-
-    else
-    {
-      v4 = 0;
-    }
-
-    NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v4, 0);
-    return sub_10026D02C(*this, *(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8, "result", 6, 0);
-  }
-
-  return result;
-}
-
-uint64_t mlir::ODIE::Compiler::CoreMLAX::ViewOp::parse(mlir::ODIE::Compiler::CoreMLAX::ViewOp *this, mlir::OpAsmParser *a2, mlir::OperationState *a3)
-{
-  v14[0] = v15;
-  v14[1] = 0x400000000;
-  if ((*(*this + 280))())
-  {
-    v5 = (*(*this + 40))(this);
-    if ((*(*this + 720))(this, v14, 0, 1, 0xFFFFFFFFLL) & 1) != 0 && ((*(*this + 296))(this))
-    {
-      (*(*this + 40))(this);
-      if ((*(*this + 488))(this, a2 + 112) & 1) != 0 && ((*(*this + 104))(this))
-      {
-        v12 = 0;
-        if (sub_10023B73C(this, &v12))
-        {
-          v13[0] = mlir::FunctionType::getInputs(&v12);
-          v13[1] = v6;
-          Results = mlir::FunctionType::getResults(&v12);
-          sub_1001D4484(a2, Results, v8);
-          v9 = sub_10023B994(this, v14, v13, v5, a2 + 16) & 1;
-          v10 = v14[0];
-          if (v14[0] == v15)
-          {
-            return v9;
-          }
-
-          goto LABEL_10;
-        }
-      }
-    }
-  }
-
-  v9 = 0;
-  v10 = v14[0];
-  if (v14[0] != v15)
-  {
-LABEL_10:
-    free(v10);
-  }
-
-  return v9;
-}
-
-const char *sub_100273ED4()
-{
-  v5 = "StringRef llvm::detail::getTypeNameImpl() [DesiredTypeName = mlir::ODIE::Compiler::CoreMLAX::RemoveRedundantCopyWithConstraintsOp]";
-  v6 = 130;
-  v0 = llvm::StringRef::find(&v5, "DesiredTypeName = ", 0x12uLL, 0);
-  if (v6 >= v0)
-  {
-    v1 = v0;
-  }
-
-  else
-  {
-    v1 = v6;
-  }
-
-  v2 = &v5[v1];
-  if (v6 - v1 >= 0x12)
-  {
-    v3 = 18;
-  }
-
-  else
-  {
-    v3 = v6 - v1;
-  }
-
-  return &v2[v3];
-}
-
-const char *sub_100274210()
-{
-  v5 = "StringRef llvm::detail::getTypeNameImpl() [DesiredTypeName = mlir::ODIE::Compiler::CoreMLAX::PromoteToFromPairToCastOp]";
-  v6 = 119;
-  v0 = llvm::StringRef::find(&v5, "DesiredTypeName = ", 0x12uLL, 0);
-  if (v6 >= v0)
-  {
-    v1 = v0;
-  }
-
-  else
-  {
-    v1 = v6;
-  }
-
-  v2 = &v5[v1];
-  if (v6 - v1 >= 0x12)
-  {
-    v3 = 18;
-  }
-
-  else
-  {
-    v3 = v6 - v1;
-  }
-
-  return &v2[v3];
-}
-
-const char *sub_10027454C()
-{
-  v5 = "StringRef llvm::detail::getTypeNameImpl() [DesiredTypeName = mlir::ODIE::Compiler::CoreMLAX::RemoveRedundantCopyDiscardingConstraintsOp]";
-  v6 = 136;
-  v0 = llvm::StringRef::find(&v5, "DesiredTypeName = ", 0x12uLL, 0);
-  if (v6 >= v0)
-  {
-    v1 = v0;
-  }
-
-  else
-  {
-    v1 = v6;
-  }
-
-  v2 = &v5[v1];
-  if (v6 - v1 >= 0x12)
-  {
-    v3 = 18;
-  }
-
-  else
-  {
-    v3 = v6 - v1;
-  }
-
-  return &v2[v3];
-}
-
-const char *sub_100274A5C()
-{
-  v5 = "StringRef llvm::detail::getTypeNameImpl() [DesiredTypeName = mlir::ODIE::Compiler::CoreMLAX::FoldCastOpIntoCopyWithConstraintsOp]";
-  v6 = 129;
-  v0 = llvm::StringRef::find(&v5, "DesiredTypeName = ", 0x12uLL, 0);
-  if (v6 >= v0)
-  {
-    v1 = v0;
-  }
-
-  else
-  {
-    v1 = v6;
-  }
-
-  v2 = &v5[v1];
-  if (v6 - v1 >= 0x12)
-  {
-    v3 = 18;
-  }
-
-  else
-  {
-    v3 = v6 - v1;
-  }
-
-  return &v2[v3];
-}
-
-const char *sub_100274BC4()
-{
-  v5 = "StringRef llvm::detail::getTypeNameImpl() [DesiredTypeName = mlir::ODIE::Compiler::CoreMLAX::PromoteCastOpToViewOp]";
-  v6 = 115;
-  v0 = llvm::StringRef::find(&v5, "DesiredTypeName = ", 0x12uLL, 0);
-  if (v6 >= v0)
-  {
-    v1 = v0;
-  }
-
-  else
-  {
-    v1 = v6;
-  }
-
-  v2 = &v5[v1];
-  if (v6 - v1 >= 0x12)
-  {
-    v3 = 18;
-  }
-
-  else
-  {
-    v3 = v6 - v1;
-  }
-
-  return &v2[v3];
-}
-
-uint64_t *sub_100274C44@<X0>(mlir::Operation ***a1@<X0>, uint64_t *a2@<X8>)
-{
-  v2 = *a1;
-  v5 = 257;
-  return mlir::OpState::emitError(v2, v4, a2);
-}
-
-uint64_t *sub_100274C74@<X0>(mlir::Operation ***a1@<X0>, uint64_t *a2@<X8>)
-{
-  v2 = *a1;
-  v5 = 257;
-  return mlir::OpState::emitError(v2, v4, a2);
-}
-
-uint64_t *sub_100274CA4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19)
-{
-  v21 = *(*v19 + 36);
-  v22 = *v19 - 16;
-  if (!v21)
-  {
-    v22 = 0;
-  }
-
-  a18 = v22;
-  a19 = v21;
-
-  return mlir::ResultRange::getTypes(&a18, &a10);
-}
-
-llvm::raw_ostream *sub_100274CF4(uint64_t a1, ...)
-{
-  va_start(va1, a1);
-  va_start(va, a1);
-  v4 = va_arg(va1, void);
-  v6 = va_arg(va1, void);
-  v7 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
-
-  return sub_10023BF78(v1, va1, va);
-}
-
-uint64_t *sub_100274D10@<X0>(uint64_t a1@<X8>, uint64_t a2, ...)
-{
-  va_start(va1, a2);
-  va_start(va, a2);
-  va_arg(va1, void);
-  va_arg(va1, void);
-  v8 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
-  v5 = a1;
-  v7 = v2;
-
-  return mlir::OperandRange::getTypes(va, va1);
-}
-
-uint64_t sub_100274D44(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
-{
-  a14 = a1;
-
-  return mlir::DictionaryAttr::getValue(&a14);
-}
-
-unint64_t sub_100274D5C()
-{
-  v2 = *v0;
-
-  return mlir::Operation::getAttrDictionary(v2);
-}
-
-void mlir::ODIE::Compiler::CoreMLAX::getStrides(uint64_t a1@<X0>, void *a2@<X8>)
-{
-  v19 = a1;
-  Shape = mlir::RankedTensorType::getShape(&v19);
-  Encoding = mlir::RankedTensorType::getEncoding(&v19);
-  if (Encoding)
-  {
-    v5 = *(*Encoding + 136);
-    v6 = v5 == &mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreMLAX::HardwareConstraintsAttr,void>::id;
-    v7 = v5 == &mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreMLAX::HardwareConstraintsAttr,void>::id ? Encoding : 0;
-    v18 = v7;
-    if (v6)
-    {
-      mlir::ODIE::Compiler::CoreMLAX::HardwareConstraintsAttr::computeStrides(&v18, Shape, a2);
-      return;
-    }
-  }
-
-  mlir::RankedTensorType::getShape(&v19);
-  *a2 = a2 + 2;
-  a2[1] = 0x600000000;
-  v9 = v8 + 1;
-  if (v8 == -1)
-  {
-    return;
-  }
-
-  if (v9 < 7)
-  {
-    v10 = 0;
-    v11 = v8 + 1;
-  }
-
-  else
-  {
-    llvm::SmallVectorBase<unsigned int>::grow_pod(a2, a2 + 2, v8 + 1, 8);
-    v10 = *(a2 + 2);
-    v11 = v9 - v10;
-    if (v9 == v10)
-    {
-      goto LABEL_13;
-    }
-  }
-
-  bzero((*a2 + 8 * v10), 8 * v11);
-LABEL_13:
-  *(a2 + 2) = v9;
-  if (v9)
-  {
-    v12 = v9;
-    v13 = *a2;
-    *(*a2 + 8 * (v9 - 1)) = 1;
-    if (v9 != 1)
-    {
-      v14 = 0;
-      v15 = v13 - 16;
-      v16 = 1;
-      do
-      {
-        v17 = *(Shape - 16 + 8 * v12);
-        v14 |= v17 == 0x8000000000000000;
-        v16 *= v17;
-        if (v14)
-        {
-          v16 = 0x8000000000000000;
-        }
-
-        *(v15 + 8 * v12--) = v16;
-      }
-
-      while (v12 != 1);
-    }
-  }
-}
-
-uint64_t mlir::ODIE::Compiler::getHandleForToken(uint64_t a1)
-{
-  v4 = a1;
-  result = mlir::Value::getDefiningOp(&v4);
-  if (result)
-  {
-    v2 = *(*(result + 48) + 16);
-    if (v2 == &mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::ReadHandleOp,void>::id || v2 == &mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::WriteHandleOp,void>::id)
-    {
-      return *(*(result + 72) + 24);
-    }
-
-    else
-    {
-      return 0;
-    }
-  }
-
-  return result;
-}
-
-uint64_t mlir::ODIE::Compiler::getSymbolicTypeAffineMap(uint64_t a1)
-{
-  if (*(*a1 + 136) == &mlir::detail::TypeIDResolver<mlir::RankedTensorType,void>::id)
-  {
-    v1 = a1;
-  }
-
-  else
-  {
-    v1 = 0;
-  }
-
-  v3 = v1;
-  if (!v1)
-  {
-    return 0;
-  }
-
-  result = mlir::RankedTensorType::getEncoding(&v3);
-  if (result)
-  {
-    if (*(*result + 136) != &mlir::detail::TypeIDResolver<mlir::AffineMapAttr,void>::id)
-    {
-      return 0;
-    }
-  }
-
-  return result;
-}
-
-BOOL mlir::ODIE::Compiler::areTypesCompatible(uint64_t a1, uint64_t a2)
-{
-  if (*(*a1 + 136) == &mlir::detail::TypeIDResolver<mlir::RankedTensorType,void>::id)
-  {
-    v4 = a1;
-  }
-
-  else
-  {
-    v4 = 0;
-  }
-
-  v18 = v4;
-  if (*(*a2 + 136) == &mlir::detail::TypeIDResolver<mlir::RankedTensorType,void>::id)
-  {
-    v5 = a2;
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  v17 = v5;
-  if (v4)
-  {
-    v6 = v5 == 0;
-  }
-
-  else
-  {
-    v6 = 1;
-  }
-
-  if (v6)
-  {
-    return a1 == a2;
-  }
-
-  Encoding = mlir::RankedTensorType::getEncoding(&v18);
-  if (Encoding)
-  {
-    v8 = *(*Encoding + 136) != &mlir::detail::TypeIDResolver<mlir::AffineMapAttr,void>::id;
-    v9 = mlir::RankedTensorType::getEncoding(&v17);
-    if (v9)
-    {
-      goto LABEL_13;
-    }
-
-LABEL_18:
-    if (!v8)
-    {
-      goto LABEL_14;
-    }
-
-    return a1 == a2;
-  }
-
-  v8 = 1;
-  v9 = mlir::RankedTensorType::getEncoding(&v17);
-  if (!v9)
-  {
-    goto LABEL_18;
-  }
-
-LABEL_13:
-  if (((v8 ^ (*(*v9 + 136) != &mlir::detail::TypeIDResolver<mlir::AffineMapAttr,void>::id)) & 1) == 0)
-  {
-    return a1 == a2;
-  }
-
-LABEL_14:
-  ElementType = mlir::RankedTensorType::getElementType(&v18);
-  if (ElementType == mlir::RankedTensorType::getElementType(&v17) && (Shape = mlir::RankedTensorType::getShape(&v18), v13 = v12, v14 = mlir::RankedTensorType::getShape(&v17), v13 == v15))
-  {
-    return memcmp(Shape, v14, 8 * v13) == 0;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-BOOL mlir::ODIE::Compiler::areTypesCompatible(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  if (a2 != a4)
-  {
-    return 0;
-  }
-
-  if (a2)
-  {
-    for (i = 0; i != a2; ++i)
-    {
-      if (a2 == i)
-      {
-        break;
-      }
-
-      v8 = mlir::TypeRange::dereference_iterator(a1, i);
-      v9 = mlir::TypeRange::dereference_iterator(a3, i);
-      result = mlir::ODIE::Compiler::areTypesCompatible(v8, v9);
-      if (!result)
-      {
-        return result;
-      }
-    }
-  }
-
-  return 1;
-}
-
-uint64_t mlir::detail::verifyTypesAlongControlFlowEdges(mlir::detail *this, mlir::Operation *a2)
-{
-  v2 = this;
-  v22 = this;
-  if (this)
-  {
-    this = sub_100276190(this);
-  }
-
-  v21[0] = v2;
-  v21[1] = this;
-  v20 = v21;
-  if (!sub_100275414(v2, 0, sub_100276D20, &v20))
-  {
-    return 0;
-  }
-
-  v19 = v21;
-  v3 = v2[11];
-  v4 = 1;
-  if ((v3 & 0x7FFFFF) != 0)
-  {
-    v5 = (((&v2[4 * ((v3 >> 23) & 1) + 17] + ((v3 >> 21) & 0x7F8) + 3) & 0xFFFFFFFFFFFFFFF8) + 32 * v2[10]);
-    v6 = (v5 + 24 * (v3 & 0x7FFFFF));
-    while (1)
-    {
-      v23 = v25;
-      v24 = 0x300000000;
-      v7 = *(v5 + 1);
-      if (v7 == v5)
-      {
-        break;
-      }
-
-      do
-      {
-        v10 = (v7 - 8);
-        if (!v7)
-        {
-          v10 = 0;
-        }
-
-        v11 = v10[4];
-        if (v11 != v10 + 4)
-        {
-          ValuePtr = llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getValuePtr(v11);
-          if (sub_100276A74(ValuePtr))
-          {
-            v13 = sub_100276A74(ValuePtr);
-            if (ValuePtr)
-            {
-              v8 = v24;
-              if (v24 >= HIDWORD(v24))
-              {
-                v17 = v13;
-                llvm::SmallVectorBase<unsigned int>::grow_pod(&v23, v25, v24 + 1, 16);
-                v13 = v17;
-                v8 = v24;
-              }
-
-              v9 = (v23 + 16 * v8);
-              *v9 = ValuePtr;
-              v9[1] = v13;
-              LODWORD(v24) = v24 + 1;
-            }
-          }
-        }
-
-        v7 = *(v7 + 1);
-      }
-
-      while (v7 != v5);
-      if (!v24)
-      {
-        break;
-      }
-
-      v18[0] = &v23;
-      v18[1] = &v19;
-      v18[2] = &v22;
-      v18[3] = v5;
-      v14 = !sub_100275414(v22, v5, sub_100276DCC, v18);
-      v15 = v23;
-      if (v23 != v25)
-      {
-        goto LABEL_24;
-      }
-
-LABEL_25:
-      if (v14 != 3 && v14)
-      {
-        return 0;
-      }
-
-      v5 = (v5 + 24);
-      if (v5 == v6)
-      {
-        return 1;
-      }
-    }
-
-    v14 = 3;
-    v15 = v23;
-    if (v23 == v25)
-    {
-      goto LABEL_25;
-    }
-
-LABEL_24:
-    free(v15);
-    goto LABEL_25;
-  }
-
-  return v4;
-}
-
-BOOL sub_100275414(mlir::Operation *a1, mlir::Region *a2, void (*a3)(uint64_t *__return_ptr, uint64_t, unint64_t), uint64_t a4)
-{
-  if (a1)
-  {
-    v6 = sub_100276190(a1);
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
-  v125 = v127;
-  v126 = 0x200000000;
-  (*(v6 + 16))(v6, a1, a2, &v125);
-  if (v126)
-  {
-    v7 = v125;
-    v102 = &v125[3 * v126];
-    while (1)
-    {
-      a3(&v122, a4, *v7);
-      if ((v124 & 1) == 0)
-      {
-        v54 = 0;
-        goto LABEL_82;
-      }
-
-      v119 = *(v7 + 1);
-      mlir::ValueRange::getTypes(&v119, &v108);
-      v9 = v108.n128_u64[1];
-      v8 = v108.n128_u64[0];
-      v10 = v109;
-      v105 = v108;
-      if (v108.n128_u64[1])
-      {
-        v8 = mlir::ValueRange::offset_base(&v105, v108.n128_i64[1]);
-        v9 = v105.n128_u64[1];
-      }
-
-      mlir::TypeRange::TypeRange(&v120, v8, v10 - v9);
-      v11 = v123;
-      if (v123 != v121)
-      {
-        break;
-      }
-
-      if (v123)
-      {
-        v12 = 0;
-        v13 = v122;
-        v14 = v120;
-        while (v11 != v12)
-        {
-          v15 = mlir::TypeRange::dereference_iterator(v13, v12);
-          v16 = mlir::TypeRange::dereference_iterator(v14, v12);
-          if (((*(v6 + 32))(v6, a1, v15, v16) & 1) == 0)
-          {
-            v105.n128_u64[0] = " along control flow edge ";
-            v107 = 259;
-            mlir::Operation::emitOpError(&v108, a1, &v105);
-            sub_10027643C(&v108, a2, *v7);
-            if (v108.n128_u64[0])
-            {
-              v105.n128_u32[0] = 3;
-              v105.n128_u64[1] = ": source type #";
-              v106 = 15;
-              v17 = &v105;
-              v18 = v109;
-              if (v110 >= v111)
-              {
-                if (v109 <= &v105 && v109 + 24 * v110 > &v105)
-                {
-                  v90 = &v105 - v109;
-                  llvm::SmallVectorBase<unsigned int>::grow_pod(&v109, v112, v110 + 1, 24);
-                  v18 = v109;
-                  v17 = (v109 + v90);
-                }
-
-                else
-                {
-                  llvm::SmallVectorBase<unsigned int>::grow_pod(&v109, v112, v110 + 1, 24);
-                  v17 = &v105;
-                  v18 = v109;
-                }
-              }
-
-              v19 = &v18[24 * v110];
-              v20 = *v17;
-              *(v19 + 2) = v17[1].n128_u64[0];
-              *v19 = v20;
-              v21 = ++v110;
-              if (v108.n128_u64[0])
-              {
-                v105.n128_u32[0] = 5;
-                v105.n128_u64[1] = v12;
-                v22 = &v105;
-                v23 = v109;
-                if (v21 >= v111)
-                {
-                  if (v109 <= &v105 && v109 + 24 * v21 > &v105)
-                  {
-                    v91 = &v105 - v109;
-                    llvm::SmallVectorBase<unsigned int>::grow_pod(&v109, v112, v21 + 1, 24);
-                    v23 = v109;
-                    v22 = (v109 + v91);
-                  }
-
-                  else
-                  {
-                    llvm::SmallVectorBase<unsigned int>::grow_pod(&v109, v112, v21 + 1, 24);
-                    v22 = &v105;
-                    v23 = v109;
-                  }
-                }
-
-                v24 = &v23[24 * v110];
-                v25 = *v22;
-                *(v24 + 2) = v22[1].n128_u64[0];
-                *v24 = v25;
-                v26 = ++v110;
-                if (v108.n128_u64[0])
-                {
-                  v105.n128_u32[0] = 3;
-                  v105.n128_u64[1] = " ";
-                  v106 = 1;
-                  v27 = &v105;
-                  v28 = v109;
-                  if (v26 >= v111)
-                  {
-                    if (v109 <= &v105 && v109 + 24 * v26 > &v105)
-                    {
-                      v92 = &v105 - v109;
-                      llvm::SmallVectorBase<unsigned int>::grow_pod(&v109, v112, v26 + 1, 24);
-                      v28 = v109;
-                      v27 = (v109 + v92);
-                    }
-
-                    else
-                    {
-                      llvm::SmallVectorBase<unsigned int>::grow_pod(&v109, v112, v26 + 1, 24);
-                      v27 = &v105;
-                      v28 = v109;
-                    }
-                  }
-
-                  v29 = &v28[24 * v110];
-                  v30 = *v27;
-                  *(v29 + 2) = v27[1].n128_u64[0];
-                  *v29 = v30;
-                  ++v110;
-                  if (v108.n128_u64[0])
-                  {
-                    v31 = &v105;
-                    mlir::DiagnosticArgument::DiagnosticArgument(&v105, v15);
-                    v32 = v109;
-                    if (v110 >= v111)
-                    {
-                      if (v109 <= &v105 && v109 + 24 * v110 > &v105)
-                      {
-                        v93 = &v105 - v109;
-                        llvm::SmallVectorBase<unsigned int>::grow_pod(&v109, v112, v110 + 1, 24);
-                        v32 = v109;
-                        v31 = (v109 + v93);
-                      }
-
-                      else
-                      {
-                        llvm::SmallVectorBase<unsigned int>::grow_pod(&v109, v112, v110 + 1, 24);
-                        v31 = &v105;
-                        v32 = v109;
-                      }
-                    }
-
-                    v33 = &v32[24 * v110];
-                    v34 = *v31;
-                    *(v33 + 2) = v31[1].n128_u64[0];
-                    *v33 = v34;
-                    v35 = ++v110;
-                    if (v108.n128_u64[0])
-                    {
-                      v105.n128_u32[0] = 3;
-                      v105.n128_u64[1] = " should match input type #";
-                      v106 = 26;
-                      v36 = &v105;
-                      v37 = v109;
-                      if (v35 >= v111)
-                      {
-                        if (v109 <= &v105 && v109 + 24 * v35 > &v105)
-                        {
-                          v95 = &v105 - v109;
-                          llvm::SmallVectorBase<unsigned int>::grow_pod(&v109, v112, v35 + 1, 24);
-                          v37 = v109;
-                          v36 = (v109 + v95);
-                        }
-
-                        else
-                        {
-                          llvm::SmallVectorBase<unsigned int>::grow_pod(&v109, v112, v35 + 1, 24);
-                          v36 = &v105;
-                          v37 = v109;
-                        }
-                      }
-
-                      v38 = &v37[24 * v110];
-                      v39 = *v36;
-                      *(v38 + 2) = v36[1].n128_u64[0];
-                      *v38 = v39;
-                      v40 = ++v110;
-                      if (v108.n128_u64[0])
-                      {
-                        v105.n128_u32[0] = 5;
-                        v105.n128_u64[1] = v12;
-                        v41 = &v105;
-                        v42 = v109;
-                        if (v40 >= v111)
-                        {
-                          if (v109 <= &v105 && v109 + 24 * v40 > &v105)
-                          {
-                            v97 = &v105 - v109;
-                            llvm::SmallVectorBase<unsigned int>::grow_pod(&v109, v112, v40 + 1, 24);
-                            v42 = v109;
-                            v41 = (v109 + v97);
-                          }
-
-                          else
-                          {
-                            llvm::SmallVectorBase<unsigned int>::grow_pod(&v109, v112, v40 + 1, 24);
-                            v41 = &v105;
-                            v42 = v109;
-                          }
-                        }
-
-                        v43 = &v42[24 * v110];
-                        v44 = *v41;
-                        *(v43 + 2) = v41[1].n128_u64[0];
-                        *v43 = v44;
-                        v45 = ++v110;
-                        if (v108.n128_u64[0])
-                        {
-                          v105.n128_u32[0] = 3;
-                          v105.n128_u64[1] = " ";
-                          v106 = 1;
-                          v46 = &v105;
-                          v47 = v109;
-                          if (v45 >= v111)
-                          {
-                            if (v109 <= &v105 && v109 + 24 * v45 > &v105)
-                            {
-                              v99 = &v105 - v109;
-                              llvm::SmallVectorBase<unsigned int>::grow_pod(&v109, v112, v45 + 1, 24);
-                              v47 = v109;
-                              v46 = (v109 + v99);
-                            }
-
-                            else
-                            {
-                              llvm::SmallVectorBase<unsigned int>::grow_pod(&v109, v112, v45 + 1, 24);
-                              v46 = &v105;
-                              v47 = v109;
-                            }
-                          }
-
-                          v48 = &v47[24 * v110];
-                          v49 = *v46;
-                          *(v48 + 2) = v46[1].n128_u64[0];
-                          *v48 = v49;
-                          ++v110;
-                          if (v108.n128_u64[0])
-                          {
-                            v50 = &v105;
-                            mlir::DiagnosticArgument::DiagnosticArgument(&v105, v16);
-                            v51 = v109;
-                            if (v110 >= v111)
-                            {
-                              if (v109 <= &v105 && v109 + 24 * v110 > &v105)
-                              {
-                                v101 = &v105 - v109;
-                                llvm::SmallVectorBase<unsigned int>::grow_pod(&v109, v112, v110 + 1, 24);
-                                v51 = v109;
-                                v50 = (v109 + v101);
-                              }
-
-                              else
-                              {
-                                llvm::SmallVectorBase<unsigned int>::grow_pod(&v109, v112, v110 + 1, 24);
-                                v50 = &v105;
-                                v51 = v109;
-                              }
-                            }
-
-                            v52 = &v51[24 * v110];
-                            v53 = *v50;
-                            *(v52 + 2) = v50[1].n128_u64[0];
-                            *v52 = v53;
-                            ++v110;
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-
-            v54 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(&v108);
-            if (v108.n128_u64[0])
-            {
-              mlir::InFlightDiagnostic::report(&v108);
-            }
-
-            if ((v118 & 1) == 0)
-            {
-              goto LABEL_82;
-            }
-
-            if (v117 != &v118)
-            {
-              free(v117);
-            }
-
-            v55 = __p;
-            if (__p)
-            {
-              v56 = v116;
-              v57 = __p;
-              if (v116 != __p)
-              {
-                do
-                {
-                  v56 = sub_100052FFC(v56 - 1);
-                }
-
-                while (v56 != v55);
-                v57 = __p;
-              }
-
-              v116 = v55;
-              operator delete(v57);
-            }
-
-            v58 = v113;
-            if (v113)
-            {
-              v59 = v114;
-              v60 = v113;
-              if (v114 != v113)
-              {
-                do
-                {
-                  v61 = *--v59;
-                  *v59 = 0;
-                  if (v61)
-                  {
-                    operator delete[]();
-                  }
-                }
-
-                while (v59 != v58);
-                v60 = v113;
-              }
-
-              v114 = v58;
-              operator delete(v60);
-            }
-
-            v62 = v109;
-            if (v109 == v112)
-            {
-              goto LABEL_82;
-            }
-
-            goto LABEL_54;
-          }
-
-          if (v11 == ++v12)
-          {
-            break;
-          }
-        }
-      }
-
-      v7 += 3;
-      if (v7 == v102)
-      {
-        v54 = 1;
-        goto LABEL_82;
-      }
-    }
-
-    v105.n128_u64[0] = " region control flow edge ";
-    v107 = 259;
-    mlir::Operation::emitOpError(&v108, a1, &v105);
-    sub_10027643C(&v108, a2, *v7);
-    if (v108.n128_u64[0])
-    {
-      v105.n128_u32[0] = 3;
-      v105.n128_u64[1] = ": source has ";
-      v106 = 13;
-      v63 = &v105;
-      v64 = v109;
-      if (v110 >= v111)
-      {
-        if (v109 <= &v105 && v109 + 24 * v110 > &v105)
-        {
-          v94 = &v105 - v109;
-          llvm::SmallVectorBase<unsigned int>::grow_pod(&v109, v112, v110 + 1, 24);
-          v64 = v109;
-          v63 = (v109 + v94);
-        }
-
-        else
-        {
-          llvm::SmallVectorBase<unsigned int>::grow_pod(&v109, v112, v110 + 1, 24);
-          v63 = &v105;
-          v64 = v109;
-        }
-      }
-
-      v65 = &v64[24 * v110];
-      v66 = *v63;
-      *(v65 + 2) = v63[1].n128_u64[0];
-      *v65 = v66;
-      v67 = ++v110;
-      if (v108.n128_u64[0])
-      {
-        v105.n128_u32[0] = 5;
-        v105.n128_u64[1] = v123;
-        v68 = &v105;
-        v69 = v109;
-        if (v67 >= v111)
-        {
-          if (v109 <= &v105 && v109 + 24 * v67 > &v105)
-          {
-            v96 = &v105 - v109;
-            llvm::SmallVectorBase<unsigned int>::grow_pod(&v109, v112, v67 + 1, 24);
-            v69 = v109;
-            v68 = (v109 + v96);
-          }
-
-          else
-          {
-            llvm::SmallVectorBase<unsigned int>::grow_pod(&v109, v112, v67 + 1, 24);
-            v68 = &v105;
-            v69 = v109;
-          }
-        }
-
-        v70 = &v69[24 * v110];
-        v71 = *v68;
-        *(v70 + 2) = v68[1].n128_u64[0];
-        *v70 = v71;
-        v72 = ++v110;
-        if (v108.n128_u64[0])
-        {
-          v105.n128_u32[0] = 3;
-          v105.n128_u64[1] = " operands, but target successor needs ";
-          v106 = 38;
-          v73 = &v105;
-          v74 = v109;
-          if (v72 >= v111)
-          {
-            if (v109 <= &v105 && v109 + 24 * v72 > &v105)
-            {
-              v98 = &v105 - v109;
-              llvm::SmallVectorBase<unsigned int>::grow_pod(&v109, v112, v72 + 1, 24);
-              v74 = v109;
-              v73 = (v109 + v98);
-            }
-
-            else
-            {
-              llvm::SmallVectorBase<unsigned int>::grow_pod(&v109, v112, v72 + 1, 24);
-              v73 = &v105;
-              v74 = v109;
-            }
-          }
-
-          v75 = &v74[24 * v110];
-          v76 = *v73;
-          *(v75 + 2) = v73[1].n128_u64[0];
-          *v75 = v76;
-          v77 = ++v110;
-          if (v108.n128_u64[0])
-          {
-            v105.n128_u32[0] = 5;
-            v105.n128_u64[1] = v121;
-            v78 = &v105;
-            v79 = v109;
-            if (v77 >= v111)
-            {
-              if (v109 <= &v105 && v109 + 24 * v77 > &v105)
-              {
-                v100 = &v105 - v109;
-                llvm::SmallVectorBase<unsigned int>::grow_pod(&v109, v112, v77 + 1, 24);
-                v79 = v109;
-                v78 = (v109 + v100);
-              }
-
-              else
-              {
-                llvm::SmallVectorBase<unsigned int>::grow_pod(&v109, v112, v77 + 1, 24);
-                v78 = &v105;
-                v79 = v109;
-              }
-            }
-
-            v80 = &v79[24 * v110];
-            v81 = *v78;
-            *(v80 + 2) = v78[1].n128_u64[0];
-            *v80 = v81;
-            ++v110;
-          }
-        }
-      }
-    }
-
-    v54 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(&v108);
-    if (v108.n128_u64[0])
-    {
-      mlir::InFlightDiagnostic::report(&v108);
-    }
-
-    if (v118 == 1)
-    {
-      if (v117 != &v118)
-      {
-        free(v117);
-      }
-
-      v82 = __p;
-      if (__p)
-      {
-        v83 = v116;
-        v84 = __p;
-        if (v116 != __p)
-        {
-          do
-          {
-            v83 = sub_100052FFC(v83 - 1);
-          }
-
-          while (v83 != v82);
-          v84 = __p;
-        }
-
-        v116 = v82;
-        operator delete(v84);
-      }
-
-      v85 = v113;
-      if (v113)
-      {
-        v86 = v114;
-        v87 = v113;
-        if (v114 != v113)
-        {
-          do
-          {
-            v88 = *--v86;
-            *v86 = 0;
-            if (v88)
-            {
-              operator delete[]();
-            }
-          }
-
-          while (v86 != v85);
-          v87 = v113;
-        }
-
-        v114 = v85;
-        operator delete(v87);
-      }
-
-      v62 = v109;
-      if (v109 != v112)
-      {
-LABEL_54:
-        free(v62);
-      }
-    }
-  }
-
-  else
-  {
-    v54 = 1;
-  }
-
-LABEL_82:
-  if (v125 != v127)
-  {
-    free(v125);
-  }
-
-  return v54;
-}
-
-uint64_t sub_100276190(uint64_t a1)
-{
-  v1 = *(a1 + 48);
-  v2 = *(v1 + 16);
-  if (v2 == &mlir::detail::TypeIDResolver<void,void>::id)
-  {
-    v3 = 0;
-  }
-
-  else
-  {
-    v3 = *(a1 + 48);
-  }
-
-  if (v2 == &mlir::detail::TypeIDResolver<void,void>::id)
-  {
-    v25 = *(v1 + 8);
-    ReferencedDialect = mlir::StringAttr::getReferencedDialect(&v25);
-    if (!ReferencedDialect)
-    {
-      return 0;
-    }
-
-    {
-      v24 = ReferencedDialect;
-      sub_10028D248();
-      ReferencedDialect = v24;
-    }
-
-    return (*(*ReferencedDialect + 104))(ReferencedDialect, mlir::detail::TypeIDResolver<mlir::RegionBranchOpInterface,void>::resolveTypeID(void)::id, v1);
-  }
-
-  {
-    v4 = &unk_1002C1000;
-    v5 = mlir::detail::TypeIDResolver<mlir::RegionBranchOpInterface,void>::resolveTypeID(void)::id;
-    v6 = *(v1 + 32);
-    v7 = *(v1 + 40);
-    if (!v7)
-    {
-      goto LABEL_23;
-    }
-  }
-
-  else
-  {
-    v21 = v3;
-    v22 = a1;
-    sub_10028D1F4();
-    v3 = v21;
-    a1 = v22;
-    v4 = &unk_1002C1000;
-    v5 = mlir::detail::TypeIDResolver<mlir::RegionBranchOpInterface,void>::resolveTypeID(void)::id;
-    v6 = *(v1 + 32);
-    v7 = *(v1 + 40);
-    if (!v7)
-    {
-      goto LABEL_23;
-    }
-  }
-
-  v8 = v6;
-  v9 = v7;
-  do
-  {
-    v10 = v9 >> 1;
-    v11 = &v8[2 * (v9 >> 1)];
-    v13 = *v11;
-    v12 = v11 + 2;
-    v9 += ~(v9 >> 1);
-    if (v13 < v5)
-    {
-      v8 = v12;
-    }
-
-    else
-    {
-      v9 = v10;
-    }
-  }
-
-  while (v9);
-  if (v8 != &v6[2 * v7] && *v8 == v5)
-  {
-    v15 = v8[1];
-    if (v15)
-    {
-      return v15;
-    }
-  }
-
-LABEL_23:
-  v17 = *(v3 + 24);
-  v18 = *(a1 + 48);
-  {
-    v23 = v18;
-    sub_10028D1F4();
-    v4 = &unk_1002C1000;
-    v18 = v23;
-  }
-
-  v19 = v4[353];
-  v20 = *(*v17 + 104);
-
-  return v20(v17, v19, v18);
-}
-
-uint64_t sub_100276374()
-{
-  {
-    sub_10028D288();
-  }
-
-  return llvm::getTypeName<mlir::RegionBranchOpInterface>(void)::Name;
-}
-
-const char *sub_1002763BC()
-{
-  v5 = "StringRef llvm::detail::getTypeNameImpl() [DesiredTypeName = mlir::RegionBranchOpInterface]";
-  v6 = 91;
-  v0 = llvm::StringRef::find(&v5, "DesiredTypeName = ", 0x12uLL, 0);
-  if (v6 >= v0)
-  {
-    v1 = v0;
-  }
-
-  else
-  {
-    v1 = v6;
-  }
-
-  v2 = &v5[v1];
-  if (v6 - v1 >= 0x12)
-  {
-    v3 = 18;
-  }
-
-  else
-  {
-    v3 = v6 - v1;
-  }
-
-  return &v2[v3];
-}
-
-uint64_t *sub_10027643C(uint64_t *a1, mlir::Region *this, unint64_t a3)
-{
-  if (*a1)
-  {
-    v5 = (a1 + 3);
-    v6 = a1[3];
-    v70 = 3;
-    v71 = "from ";
-    v72 = 5;
-    v7 = *(a1 + 8);
-    v8 = &v70;
-    if (v7 >= *(a1 + 9))
-    {
-      v60 = this;
-      if (v6 <= &v70 && v6 + 24 * v7 > &v70)
-      {
-        v62 = &v70 - v6;
-        llvm::SmallVectorBase<unsigned int>::grow_pod(v5, a1 + 5, v7 + 1, 24);
-        v6 = a1[3];
-        v8 = &v62[v6];
-      }
-
-      else
-      {
-        llvm::SmallVectorBase<unsigned int>::grow_pod(v5, a1 + 5, v7 + 1, 24);
-        v6 = a1[3];
-        v8 = &v70;
-      }
-
-      this = v60;
-    }
-
-    v9 = v6 + 24 * *(a1 + 8);
-    v10 = *v8;
-    *(v9 + 16) = *(v8 + 2);
-    *v9 = v10;
-    ++*(a1 + 8);
-  }
-
-  v11 = *a1;
-  if (this)
-  {
-    if (v11)
-    {
-      v12 = (a1 + 3);
-      v13 = a1[3];
-      v70 = 3;
-      v71 = "Region #";
-      v72 = 8;
-      v14 = *(a1 + 8);
-      v15 = &v70;
-      if (v14 >= *(a1 + 9))
-      {
-        v61 = this;
-        if (v13 <= &v70 && v13 + 24 * v14 > &v70)
-        {
-          v63 = &v70 - v13;
-          llvm::SmallVectorBase<unsigned int>::grow_pod(v12, a1 + 5, v14 + 1, 24);
-          v13 = a1[3];
-          v15 = &v63[v13];
-        }
-
-        else
-        {
-          llvm::SmallVectorBase<unsigned int>::grow_pod(v12, a1 + 5, v14 + 1, 24);
-          v13 = a1[3];
-          v15 = &v70;
-        }
-
-        this = v61;
-      }
-
-      v16 = v13 + 24 * *(a1 + 8);
-      v17 = *v15;
-      *(v16 + 16) = *(v15 + 2);
-      *v16 = v17;
-      ++*(a1 + 8);
-    }
-
-    RegionNumber = mlir::Region::getRegionNumber(this);
-    if (!*a1)
-    {
-      goto LABEL_17;
-    }
-
-    v19 = RegionNumber;
-    v20 = (a1 + 3);
-    v21 = a1[3];
-    v70 = 5;
-    v71 = v19;
-    v22 = *(a1 + 8);
-    v23 = &v70;
-    if (v22 >= *(a1 + 9))
-    {
-      if (v21 <= &v70 && v21 + 24 * v22 > &v70)
-      {
-        v64 = &v70 - v21;
-        llvm::SmallVectorBase<unsigned int>::grow_pod(v20, a1 + 5, v22 + 1, 24);
-        v21 = a1[3];
-        v23 = &v64[v21];
-      }
-
-      else
-      {
-        llvm::SmallVectorBase<unsigned int>::grow_pod(v20, a1 + 5, v22 + 1, 24);
-        v21 = a1[3];
-        v23 = &v70;
-      }
-    }
-
-    v24 = v21 + 24 * *(a1 + 8);
-    v25 = *v23;
-    *(v24 + 16) = *(v23 + 2);
-    *v24 = v25;
-    v26 = *(a1 + 8) + 1;
-    *(a1 + 8) = v26;
-    if (!*a1)
-    {
-      goto LABEL_17;
-    }
-
-LABEL_15:
-    v33 = (a1 + 3);
-    v34 = a1[3];
-    v70 = 3;
-    v71 = " to ";
-    v72 = 4;
-    v35 = &v70;
-    if (v26 >= *(a1 + 9))
-    {
-      if (v34 <= &v70 && v34 + 24 * v26 > &v70)
-      {
-        v65 = &v70 - v34;
-        llvm::SmallVectorBase<unsigned int>::grow_pod(v33, a1 + 5, v26 + 1, 24);
-        v34 = a1[3];
-        v35 = &v65[v34];
-      }
-
-      else
-      {
-        llvm::SmallVectorBase<unsigned int>::grow_pod(v33, a1 + 5, v26 + 1, 24);
-        v34 = a1[3];
-        v35 = &v70;
-      }
-    }
-
-    v36 = v34 + 24 * *(a1 + 8);
-    v37 = *v35;
-    *(v36 + 16) = *(v35 + 2);
-    *v36 = v37;
-    ++*(a1 + 8);
-    goto LABEL_17;
-  }
-
-  if (v11)
-  {
-    v27 = (a1 + 3);
-    v28 = a1[3];
-    v70 = 3;
-    v71 = "parent operands";
-    v72 = 15;
-    v29 = *(a1 + 8);
-    v30 = &v70;
-    if (v29 >= *(a1 + 9))
-    {
-      if (v28 <= &v70 && v28 + 24 * v29 > &v70)
-      {
-        v68 = &v70 - v28;
-        llvm::SmallVectorBase<unsigned int>::grow_pod(v27, a1 + 5, v29 + 1, 24);
-        v28 = a1[3];
-        v30 = &v68[v28];
-      }
-
-      else
-      {
-        llvm::SmallVectorBase<unsigned int>::grow_pod(v27, a1 + 5, v29 + 1, 24);
-        v28 = a1[3];
-        v30 = &v70;
-      }
-    }
-
-    v31 = v28 + 24 * *(a1 + 8);
-    v32 = *v30;
-    *(v31 + 16) = *(v30 + 2);
-    *v31 = v32;
-    v26 = *(a1 + 8) + 1;
-    *(a1 + 8) = v26;
-    if (*a1)
-    {
-      goto LABEL_15;
-    }
-  }
-
-LABEL_17:
-  v38 = *a1;
-  if (a3)
-  {
-    if (v38)
-    {
-      v39 = (a1 + 3);
-      v40 = a1[3];
-      v70 = 3;
-      v71 = "Region #";
-      v72 = 8;
-      v41 = *(a1 + 8);
-      v42 = &v70;
-      if (v41 >= *(a1 + 9))
-      {
-        if (v40 <= &v70 && v40 + 24 * v41 > &v70)
-        {
-          v66 = &v70 - v40;
-          llvm::SmallVectorBase<unsigned int>::grow_pod(v39, a1 + 5, v41 + 1, 24);
-          v40 = a1[3];
-          v42 = &v66[v40];
-        }
-
-        else
-        {
-          llvm::SmallVectorBase<unsigned int>::grow_pod(v39, a1 + 5, v41 + 1, 24);
-          v40 = a1[3];
-          v42 = &v70;
-        }
-      }
-
-      v43 = v40 + 24 * *(a1 + 8);
-      v44 = *v42;
-      *(v43 + 16) = *(v42 + 2);
-      *v43 = v44;
-      ++*(a1 + 8);
-    }
-
-    v45 = mlir::Region::getRegionNumber(a3);
-    if (*a1)
-    {
-      v46 = v45;
-      v47 = (a1 + 3);
-      v48 = a1[3];
-      v70 = 5;
-      v71 = v46;
-      v49 = *(a1 + 8);
-      v50 = &v70;
-      if (v49 >= *(a1 + 9))
-      {
-        if (v48 <= &v70 && v48 + 24 * v49 > &v70)
-        {
-          v67 = &v70 - v48;
-          llvm::SmallVectorBase<unsigned int>::grow_pod(v47, a1 + 5, v49 + 1, 24);
-          v48 = a1[3];
-          v50 = &v67[v48];
-        }
-
-        else
-        {
-          llvm::SmallVectorBase<unsigned int>::grow_pod(v47, a1 + 5, v49 + 1, 24);
-          v48 = a1[3];
-          v50 = &v70;
-        }
-      }
-
-      v51 = v48 + 24 * *(a1 + 8);
-      v52 = *v50;
-      *(v51 + 16) = *(v50 + 2);
-      *v51 = v52;
-LABEL_27:
-      ++*(a1 + 8);
-    }
-  }
-
-  else if (v38)
-  {
-    v53 = (a1 + 3);
-    v54 = a1[3];
-    v70 = 3;
-    v71 = "parent results";
-    v72 = 14;
-    v55 = *(a1 + 8);
-    v56 = &v70;
-    if (v55 >= *(a1 + 9))
-    {
-      if (v54 <= &v70 && v54 + 24 * v55 > &v70)
-      {
-        v69 = &v70 - v54;
-        llvm::SmallVectorBase<unsigned int>::grow_pod(v53, a1 + 5, v55 + 1, 24);
-        v54 = a1[3];
-        v56 = &v69[v54];
-      }
-
-      else
-      {
-        llvm::SmallVectorBase<unsigned int>::grow_pod(v53, a1 + 5, v55 + 1, 24);
-        v54 = a1[3];
-        v56 = &v70;
-      }
-    }
-
-    v57 = v54 + 24 * *(a1 + 8);
-    v58 = *v56;
-    *(v57 + 16) = *(v56 + 2);
-    *v57 = v58;
-    goto LABEL_27;
-  }
-
-  return a1;
-}
-
 uint64_t sub_100276A74(uint64_t a1)
 {
   v1 = *(a1 + 48);
@@ -1844,7 +104,7 @@ LABEL_23:
   return v20(v17, v19, v18);
 }
 
-uint64_t sub_100276C58()
+uint64_t sub_100276C58(uint64_t a1, uint64_t a2)
 {
   {
     sub_10028D370();
@@ -1882,113 +142,110 @@ const char *sub_100276CA0()
   return &v2[v3];
 }
 
-double sub_100276D20@<D0>(uint64_t **a1@<X0>, uint64_t a2@<X8>)
+double sub_100276D20@<D0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v3 = **a1;
-  v6[0] = (*(*a1)[1])();
-  v6[1] = v4;
-  mlir::OperandRange::getTypes(v6, &v7);
-  mlir::ValueRange::ValueRange(v11, v7 + 32 * v8, v9 - v8);
-  mlir::TypeRange::TypeRange(v10, v11[0], v11[1]);
-  result = *v10;
-  *a2 = *v10;
+  v5[0] = (**(*a1 + 8))();
+  v5[1] = v3;
+  mlir::OperandRange::getTypes(v5, &v6);
+  mlir::ValueRange::ValueRange(v10, v6 + 32 * v7, v8 - v7);
+  mlir::TypeRange::TypeRange(v9, v10[0], v10[1]);
+  result = *v9;
+  *a2 = *v9;
   *(a2 + 16) = 1;
   return result;
 }
 
 void sub_100276DCC(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  LOBYTE(v35) = 0;
-  v36 = 0;
+  LOBYTE(v33) = 0;
+  v34 = 0;
   v3 = *a1;
   v4 = *(*a1 + 8);
   if (!v4)
   {
 LABEL_20:
-    mlir::OperandRange::getTypes(&v35, &v41);
-    mlir::ValueRange::ValueRange(&v37, v41 + 32 * v42, v44 - v42);
-    *(mlir::TypeRange::TypeRange(a3, v37, v38) + 16) = 1;
+    mlir::OperandRange::getTypes(&v33, &v39);
+    mlir::ValueRange::ValueRange(&v35, v39 + 32 * v40, v42 - v40);
+    *(mlir::TypeRange::TypeRange(a3, v35, v36) + 16) = 1;
     return;
   }
 
   v6 = *v3;
-  v7 = &(*v3)[2 * v4];
+  v7 = *v3 + 16 * v4;
   while (1)
   {
-    v8 = *v6;
-    (*v6[1])(&v41);
-    v9 = mlir::MutableOperandRange::operator mlir::OperandRange(&v41);
-    v11 = v10;
-    if (v43 != v45)
+    (**(v6 + 8))(&v39);
+    v8 = mlir::MutableOperandRange::operator mlir::OperandRange(&v39);
+    v10 = v9;
+    if (v41 != v43)
     {
-      free(v43);
+      free(v41);
     }
 
-    *&v34 = v9;
-    *(&v34 + 1) = v11;
-    if ((v36 & 1) == 0)
+    *&v32 = v8;
+    *(&v32 + 1) = v10;
+    if ((v34 & 1) == 0)
     {
-      v35 = v34;
-      v36 = 1;
+      v33 = v32;
+      v34 = 1;
       goto LABEL_4;
     }
 
-    v12 = *(a1 + 8);
-    mlir::OperandRange::getTypes(&v35, &v41);
-    mlir::ValueRange::ValueRange(&v37, v41 + 32 * v42, v44 - v42);
-    mlir::TypeRange::TypeRange(&v54, v37, v38);
-    mlir::OperandRange::getTypes(&v34, &v41);
-    mlir::ValueRange::ValueRange(&v37, v41 + 32 * v42, v44 - v42);
-    mlir::TypeRange::TypeRange(v53, v37, v38);
-    v13 = v55;
-    if (v55 != v53[1])
+    v11 = *(a1 + 8);
+    mlir::OperandRange::getTypes(&v33, &v39);
+    mlir::ValueRange::ValueRange(&v35, v39 + 32 * v40, v42 - v40);
+    mlir::TypeRange::TypeRange(&v52, v35, v36);
+    mlir::OperandRange::getTypes(&v32, &v39);
+    mlir::ValueRange::ValueRange(&v35, v39 + 32 * v40, v42 - v40);
+    mlir::TypeRange::TypeRange(v51, v35, v36);
+    v12 = v53;
+    if (v53 != v51[1])
     {
       goto LABEL_14;
     }
 
-    if (v55)
+    if (v53)
     {
       break;
     }
 
 LABEL_4:
-    v6 += 2;
+    v6 += 16;
     if (v6 == v7)
     {
       goto LABEL_20;
     }
   }
 
-  v14 = 0;
-  v15 = v54;
-  v16 = v53[0];
+  v13 = 0;
+  v14 = v52;
+  v15 = v51[0];
   while (1)
   {
-    mlir::TypeRange::dereference_iterator(v15, v14);
-    mlir::TypeRange::dereference_iterator(v16, v14);
-    v17 = **v12;
-    if (!(*((*v12)[1] + 32))())
+    mlir::TypeRange::dereference_iterator(v14, v13);
+    mlir::TypeRange::dereference_iterator(v15, v13);
+    if (!(*(*(*v11 + 8) + 32))())
     {
       break;
     }
 
-    if (v13 == ++v14)
+    if (v12 == ++v13)
     {
       goto LABEL_4;
     }
   }
 
 LABEL_14:
-  v18 = **(a1 + 16);
-  v37 = " along control flow edge";
-  v40 = 259;
-  mlir::Operation::emitOpError(&v41, v18, &v37);
-  sub_10027643C(&v41, *(a1 + 24), a2);
-  if (!v41)
+  v16 = **(a1 + 16);
+  v35 = " along control flow edge";
+  v38 = 259;
+  mlir::Operation::emitOpError(&v39, v16, &v35);
+  sub_10027643C(&v39, *(a1 + 24), a2);
+  if (!v39)
   {
     *a3 = 0;
     *(a3 + 16) = 0;
-    if (v52 != 1)
+    if (v50 != 1)
     {
       return;
     }
@@ -1996,98 +253,98 @@ LABEL_14:
     goto LABEL_22;
   }
 
-  LODWORD(v37) = 3;
-  v38 = " operands mismatch between return-like terminators";
-  v39 = 50;
-  v19 = &v37;
-  v20 = v44;
-  if (v45[0] >= v45[1])
+  LODWORD(v35) = 3;
+  v36 = " operands mismatch between return-like terminators";
+  v37 = 50;
+  v17 = &v35;
+  v18 = v42;
+  if (v43[0] >= v43[1])
   {
-    if (v44 <= &v37 && v44 + 24 * v45[0] > &v37)
+    if (v42 <= &v35 && v42 + 24 * v43[0] > &v35)
     {
-      v31 = &v37 - v44;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(&v44, v46, v45[0] + 1, 24);
-      v20 = v44;
-      v19 = (v44 + v31);
+      v29 = &v35 - v42;
+      llvm::SmallVectorBase<unsigned int>::grow_pod(&v42, v44, v43[0] + 1, 24);
+      v18 = v42;
+      v17 = (v42 + v29);
     }
 
     else
     {
-      llvm::SmallVectorBase<unsigned int>::grow_pod(&v44, v46, v45[0] + 1, 24);
-      v19 = &v37;
-      v20 = v44;
+      llvm::SmallVectorBase<unsigned int>::grow_pod(&v42, v44, v43[0] + 1, 24);
+      v17 = &v35;
+      v18 = v42;
     }
   }
 
-  v21 = &v20[24 * v45[0]];
-  v22 = *v19;
-  *(v21 + 2) = v19[2];
-  *v21 = v22;
-  ++v45[0];
-  v23 = v41;
+  v19 = &v18[24 * v43[0]];
+  v20 = *v17;
+  *(v19 + 2) = v17[2];
+  *v19 = v20;
+  ++v43[0];
+  v21 = v39;
   *a3 = 0;
   *(a3 + 16) = 0;
-  if (v23)
+  if (v21)
   {
-    mlir::InFlightDiagnostic::report(&v41);
+    mlir::InFlightDiagnostic::report(&v39);
   }
 
-  if (v52 == 1)
+  if (v50 == 1)
   {
 LABEL_22:
-    if (v51 != &v52)
+    if (v49 != &v50)
     {
-      free(v51);
+      free(v49);
     }
 
-    v24 = __p;
+    v22 = __p;
     if (__p)
     {
-      v25 = v50;
-      v26 = __p;
-      if (v50 != __p)
+      v23 = v48;
+      v24 = __p;
+      if (v48 != __p)
       {
         do
         {
-          v25 = sub_100052FFC(v25 - 1);
+          v23 = sub_100052FFC(v23 - 1);
         }
 
-        while (v25 != v24);
-        v26 = __p;
+        while (v23 != v22);
+        v24 = __p;
       }
 
-      v50 = v24;
-      operator delete(v26);
+      v48 = v22;
+      operator delete(v24);
     }
 
-    v27 = v47;
-    if (v47)
+    v25 = v45;
+    if (v45)
     {
-      v28 = v48;
-      v29 = v47;
-      if (v48 != v47)
+      v26 = v46;
+      v27 = v45;
+      if (v46 != v45)
       {
         do
         {
-          v30 = *--v28;
-          *v28 = 0;
-          if (v30)
+          v28 = *--v26;
+          *v26 = 0;
+          if (v28)
           {
             operator delete[]();
           }
         }
 
-        while (v28 != v27);
-        v29 = v47;
+        while (v26 != v25);
+        v27 = v45;
       }
 
-      v48 = v27;
-      operator delete(v29);
+      v46 = v25;
+      operator delete(v27);
     }
 
-    if (v44 != v46)
+    if (v42 != v44)
     {
-      free(v44);
+      free(v42);
     }
   }
 }
@@ -2259,29 +516,18 @@ LABEL_24:
   return v5[5];
 }
 
-void mlir::ShapeAdaptor::getDims(uint64_t *a1, uint64_t a2)
+void mlir::ShapeAdaptor::getDims(void *a1, uint64_t a2)
 {
   v3 = *a1 & 6;
   v4 = *a1 & 0xFFFFFFFFFFFFFFF8;
-  if (v3 == 2)
+  if (v3 == 2 && v4 != 0)
   {
-    v5 = v4 == 0;
-    v6 = *a1 < 0;
-  }
-
-  else
-  {
-    v5 = 1;
-  }
-
-  if (!v5)
-  {
-    v11 = *v4;
+    v10 = *v4;
     {
-      v12 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-      v13 = v11[1];
-      v14 = *(v11 + 4);
-      if (!v14)
+      v11 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
+      v12 = v10[1];
+      v13 = *(v10 + 4);
+      if (!v13)
       {
         goto LABEL_45;
       }
@@ -2290,149 +536,138 @@ void mlir::ShapeAdaptor::getDims(uint64_t *a1, uint64_t a2)
     else
     {
       sub_10027F2B8();
-      v12 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-      v13 = v11[1];
-      v14 = *(v11 + 4);
-      if (!v14)
+      v11 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
+      v12 = v10[1];
+      v13 = *(v10 + 4);
+      if (!v13)
       {
         goto LABEL_45;
       }
     }
 
+    v14 = v12;
     v15 = v13;
-    v16 = v14;
     do
     {
-      v17 = v16 >> 1;
-      v18 = &v15[2 * (v16 >> 1)];
-      v20 = *v18;
-      v19 = v18 + 2;
-      v16 += ~(v16 >> 1);
-      if (v20 < v12)
+      v16 = v15 >> 1;
+      v17 = &v14[2 * (v15 >> 1)];
+      v19 = *v17;
+      v18 = v17 + 2;
+      v15 += ~(v15 >> 1);
+      if (v19 < v11)
       {
-        v15 = v19;
+        v14 = v18;
       }
 
       else
       {
-        v16 = v17;
+        v15 = v16;
       }
     }
 
-    while (v16);
-    if (v15 != &v13[2 * v14] && *v15 == v12)
+    while (v15);
+    if (v14 != &v12[2 * v13] && *v14 == v11)
     {
-      v27 = v15[1];
+      v26 = v14[1];
       goto LABEL_47;
     }
 
 LABEL_45:
-    v27 = 0;
+    v26 = 0;
 LABEL_47:
-    *&v37 = v4;
-    *(&v37 + 1) = v27;
-    Shape = mlir::ShapedType::getShape(&v37);
-    v30 = v29;
-    v31 = 0;
+    *&v36 = v4;
+    *(&v36 + 1) = v26;
+    Shape = mlir::ShapedType::getShape(&v36);
+    v29 = v28;
+    v30 = 0;
     *(a2 + 8) = 0;
-    v32 = (8 * v29) >> 3;
-    if (v32 > *(a2 + 12))
+    v31 = (8 * v28) >> 3;
+    if (v31 > *(a2 + 12))
     {
-      llvm::SmallVectorBase<unsigned int>::grow_pod(a2, (a2 + 16), v32, 8);
-      v31 = *(a2 + 8);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(a2, (a2 + 16), v31, 8);
+      v30 = *(a2 + 8);
     }
 
-    if (v30)
+    if (v29)
     {
-      memcpy((*a2 + 8 * v31), Shape, 8 * v30);
-      v31 = *(a2 + 8);
+      memcpy((*a2 + 8 * v30), Shape, 8 * v29);
+      v30 = *(a2 + 8);
     }
 
-    v26 = v31 + v30;
+    v25 = v30 + v29;
     goto LABEL_52;
   }
 
-  if (v3 == 4)
+  if (v3 != 4 || v4 == 0)
   {
-    v7 = v4 == 0;
-    v6 = *a1 < 0;
-  }
-
-  else
-  {
-    v7 = 1;
-  }
-
-  if (v7)
-  {
-    v8 = *v4;
-    v9 = *(v4 + 8);
+    v7 = *v4;
+    v8 = *(v4 + 8);
     *(a2 + 8) = 0;
-    if (v9 <= *(a2 + 12))
+    if (v8 <= *(a2 + 12))
     {
-      if (!v9)
+      if (!v8)
       {
-        v25 = 0;
+        v24 = 0;
         goto LABEL_40;
       }
 
-      v10 = 0;
+      v9 = 0;
     }
 
     else
     {
-      llvm::SmallVectorBase<unsigned int>::grow_pod(a2, (a2 + 16), v9, 8);
-      v10 = *(a2 + 8);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(a2, (a2 + 16), v8, 8);
+      v9 = *(a2 + 8);
     }
 
-    memcpy((*a2 + 8 * v10), v8, 8 * v9);
-    v25 = *(a2 + 8);
+    memcpy((*a2 + 8 * v9), v7, 8 * v8);
+    v24 = *(a2 + 8);
 LABEL_40:
-    v26 = v25 + v9;
+    v25 = v24 + v8;
 LABEL_52:
-    *(a2 + 8) = v26;
+    *(a2 + 8) = v25;
     return;
   }
 
-  v40 = *a1 & 0xFFFFFFFFFFFFFFF8;
+  v39 = *a1 & 0xFFFFFFFFFFFFFFF8;
   *(a2 + 8) = 0;
-  NumElements = mlir::DenseElementsAttr::getNumElements(&v40);
+  NumElements = mlir::DenseElementsAttr::getNumElements(&v39);
   if (NumElements > *(a2 + 12))
   {
     llvm::SmallVectorBase<unsigned int>::grow_pod(a2, (a2 + 16), NumElements, 8);
   }
 
-  sub_1000B83F8(&v40, &v37);
+  sub_1000B83F8(&v39, &v36);
+  v34 = v36;
   v35 = v37;
-  v36 = v38;
-  for (i = v39; v36 != i; *&v36 = v36 + 1)
+  for (i = v38; v35 != i; *&v35 = v35 + 1)
   {
-    mlir::DenseElementsAttr::IntElementIterator::operator*(&v35, &v33);
-    if (v34 > 0x40)
+    mlir::DenseElementsAttr::IntElementIterator::operator*(&v34, &v32);
+    if (v33 > 0x40)
     {
-      v23 = *v33;
+      v22 = *v32;
     }
 
-    else if (v34)
+    else if (v33)
     {
-      v23 = (v33 << -v34) >> -v34;
+      v22 = (v32 << -v33) >> -v33;
     }
 
     else
     {
-      v23 = 0;
+      v22 = 0;
     }
 
-    v24 = *(a2 + 8);
-    if (v24 >= *(a2 + 12))
+    v23 = *(a2 + 8);
+    if (v23 >= *(a2 + 12))
     {
-      llvm::SmallVectorBase<unsigned int>::grow_pod(a2, (a2 + 16), v24 + 1, 8);
-      v24 = *(a2 + 8);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(a2, (a2 + 16), v23 + 1, 8);
+      v23 = *(a2 + 8);
     }
 
-    *(*a2 + 8 * v24) = v23;
+    *(*a2 + 8 * v23) = v22;
     ++*(a2 + 8);
-    if (v34 >= 0x41 && v33)
+    if (v33 >= 0x41 && v32)
     {
       operator delete[]();
     }
@@ -2611,11 +846,11 @@ uint64_t sub_100277970(unint64_t **a1, uint64_t a2)
   return result;
 }
 
-void sub_100277A98(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_100277A98(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a16);
+  va_start(va, a24);
 
-  llvm::SmallVectorBase<unsigned int>::grow_pod(v17 + 24, va, v16 + 1, 24);
+  llvm::SmallVectorBase<unsigned int>::grow_pod(v25 + 24, va, v24 + 1, 24);
 }
 
 uint64_t mlir::function_interface_impl::getArgAttrDict(uint64_t a1, uint64_t a2, unsigned int a3)
@@ -2668,7 +903,7 @@ uint64_t mlir::function_interface_impl::parseFunctionSignatureWithArguments(uint
   return result;
 }
 
-uint64_t sub_100277CB4(uint64_t a1)
+BOOL sub_100277CB4(uint64_t a1)
 {
   if (**a1 == 1)
   {
@@ -2923,7 +1158,7 @@ LABEL_53:
   return v4;
 }
 
-uint64_t sub_1002782F8(uint64_t a1)
+BOOL sub_1002782F8(uint64_t a1)
 {
   if ((*(*a1 + 528))(a1))
   {
@@ -3299,9 +1534,8 @@ void llvm::APInt::shlSlowCase(const void **this, unsigned int a2)
     sub_1000306F0();
     if (v17)
     {
-      v18 = *v2;
       sub_1000306DC();
-      v2 = (v20 + 8 * v19);
+      v2 = (v19 + 8 * v18);
     }
   }
 
@@ -3343,103 +1577,104 @@ void *sub_1002789E0(void *a1, unint64_t *a2, uint64_t a3, unsigned int *a4)
 
 void sub_100278A6C()
 {
-  v0 = __cxa_guard_acquire(&qword_1002C42F0);
+  v0 = __cxa_guard_acquire(byte_1002C42F0);
   if (v0)
   {
     sub_1000340D4(v0, "General options", v1, "");
 
-    __cxa_guard_release(&qword_1002C42F0);
+    __cxa_guard_release(byte_1002C42F0);
   }
 }
 
 void sub_100278AD0()
 {
-  v0 = __cxa_guard_acquire(&qword_1002C4378);
+  v0 = __cxa_guard_acquire(byte_1002C4378);
   if (v0)
   {
     sub_1000356D4(v0, &off_1002C0440, &_mh_execute_header);
 
-    __cxa_guard_release(&qword_1002C4378);
+    __cxa_guard_release(byte_1002C4378);
   }
 }
 
 void sub_100278B28()
 {
-  v0 = __cxa_guard_acquire(&qword_1002C4378);
+  v0 = __cxa_guard_acquire(byte_1002C4378);
   if (v0)
   {
     sub_1000356D4(v0, &off_1002C0440, &_mh_execute_header);
-    __cxa_guard_release(&qword_1002C4378);
+    __cxa_guard_release(byte_1002C4378);
   }
 }
 
 void sub_100278B6C()
 {
-  if (__cxa_guard_acquire(&qword_1002C43A8))
+  if (__cxa_guard_acquire(byte_1002C43A8))
   {
     std::recursive_mutex::recursive_mutex(&stru_1002C43B0);
     __cxa_atexit(&std::recursive_mutex::~recursive_mutex, &stru_1002C43B0, &_mh_execute_header);
 
-    __cxa_guard_release(&qword_1002C43A8);
+    __cxa_guard_release(byte_1002C43A8);
   }
 }
 
 void sub_100278BE4()
 {
-  if (__cxa_guard_acquire(&qword_1002C4400))
+  v0 = __cxa_guard_acquire(byte_1002C4400);
+  if (v0)
   {
-    dword_1002C43F4 = sub_100036EA8();
+    dword_1002C43F4 = sub_100036EA8(v0);
 
-    __cxa_guard_release(&qword_1002C4400);
+    __cxa_guard_release(byte_1002C4400);
   }
 }
 
 void sub_100278C34()
 {
-  v0 = __cxa_guard_acquire(&qword_1002C4408);
+  v0 = __cxa_guard_acquire(byte_1002C4408);
   if (v0)
   {
     sub_100040DC0(v0, "-");
     v1 = sub_100040DAC();
     __cxa_atexit(v1, &unk_1002C4450, v2);
 
-    __cxa_guard_release(&qword_1002C4408);
+    __cxa_guard_release(byte_1002C4408);
   }
 }
 
 void sub_100278CA8()
 {
-  if (__cxa_guard_acquire(qword_1002C4410))
+  if (__cxa_guard_acquire(byte_1002C4410))
   {
     llvm::raw_fd_ostream::raw_fd_ostream(&unk_1002C44B0, 2u, 0, 1, 0);
     v0 = sub_100040DAC();
     __cxa_atexit(v0, &unk_1002C44B0, v1);
 
-    __cxa_guard_release(qword_1002C4410);
+    __cxa_guard_release(byte_1002C4410);
   }
 }
 
 void sub_100278D24()
 {
-  if (__cxa_guard_acquire(&qword_1002C4528))
+  if (__cxa_guard_acquire(byte_1002C4528))
   {
     dword_1002C4520 = getpagesize();
 
-    __cxa_guard_release(&qword_1002C4528);
+    __cxa_guard_release(byte_1002C4528);
   }
 }
 
 void sub_100278D74()
 {
-  if (__cxa_guard_acquire(&qword_1002C5060))
+  if (__cxa_guard_acquire(byte_1002C5060))
   {
     dword_1002C5058 = sub_1000502EC();
 
-    __cxa_guard_release(&qword_1002C5060);
+    __cxa_guard_release(byte_1002C5060);
   }
 }
 
-uint64_t sub_100278DC4(uint64_t a1, uint64_t *a2)
+void *sub_100278DC4(uint64_t a1, void **a2)
 {
   v3 = a2;
   result = sub_1000560B4(a1, a2);
@@ -3485,9 +1720,10 @@ uint64_t sub_100278DC4(uint64_t a1, uint64_t *a2)
 
 void sub_100278E58()
 {
+  if (v0)
   {
-    v0 = sub_100055C50();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::SymbolTable<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::SymbolTable>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100055C50(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::SymbolTable<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::SymbolTable>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -3501,35 +1737,39 @@ void sub_100278EAC()
 
 void sub_100278F00()
 {
+  if (v0)
   {
-    v0 = sub_10005E7C8();
-    mlir::detail::TypeIDResolver<mlir::DialectResourceBlobHandle<mlir::BuiltinDialect>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_10005E7C8(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::DialectResourceBlobHandle<mlir::BuiltinDialect>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_100278F40()
 {
+  if (v0)
   {
-    v0 = sub_10005D4A4();
-    v2 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
-    sub_100060898(v2);
+    v2 = sub_10005D4A4(v0, v1);
+    v4 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
+    sub_100060898(v4);
   }
 }
 
 void sub_100278F7C()
 {
+  if (v0)
   {
-    v0 = sub_10005EA24();
-    mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_10005EA24(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_100278FD0()
 {
+  if (v0)
   {
-    v0 = sub_10005D4A4();
-    v2 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
-    sub_100060898(v2);
+    v2 = sub_10005D4A4(v0, v1);
+    v4 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
+    sub_100060898(v4);
   }
 }
 
@@ -3559,9 +1799,10 @@ void sub_1002790C8()
 
 void sub_10027911C()
 {
+  if (v0)
   {
-    v0 = sub_100062EA0();
-    mlir::detail::TypeIDResolver<mlir::TypedAttr,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100062EA0(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::TypedAttr,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -3575,39 +1816,42 @@ void sub_100279170()
 
 void sub_1002791C4()
 {
-  if (__cxa_guard_acquire(&qword_1002C04D8))
+  v0 = __cxa_guard_acquire(byte_1002C04D8);
+  if (v0)
   {
-    v0 = sub_100065820();
-    qword_1002C04D0 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100065820(v0, v1);
+    qword_1002C04D0 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
 
-    __cxa_guard_release(&qword_1002C04D8);
+    __cxa_guard_release(byte_1002C04D8);
   }
 }
 
 void sub_100279218()
 {
-  if (__cxa_guard_acquire(&qword_1002C04F0))
+  if (__cxa_guard_acquire(byte_1002C04F0))
   {
     qword_1002C04E0 = sub_100065868();
     *algn_1002C04E8 = v0;
 
-    __cxa_guard_release(&qword_1002C04F0);
+    __cxa_guard_release(byte_1002C04F0);
   }
 }
 
 void sub_10027926C()
 {
+  if (v0)
   {
-    v0 = sub_1000714E0();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::IsIsolatedFromAbove<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::IsIsolatedFromAbove>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1000714E0(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::IsIsolatedFromAbove<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::IsIsolatedFromAbove>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_1002792AC()
 {
+  if (v0)
   {
-    v0 = sub_1000715A8();
-    mlir::detail::TypeIDResolver<mlir::OpAsmOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1000715A8(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpAsmOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -3629,9 +1873,10 @@ void sub_100279340()
 
 void sub_100279394()
 {
+  if (v0)
   {
-    v0 = sub_10007809C();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::IsTerminator<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::IsTerminator>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_10007809C(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::IsTerminator<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::IsTerminator>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -3645,49 +1890,52 @@ void sub_1002793D4()
 
 void sub_100279428()
 {
+  if (v0)
   {
-    v0 = sub_10005D4A4();
-    mlir::detail::TypeIDResolver<mlir::FloatType,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_10005D4A4(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::FloatType,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_100279468()
 {
-  if (__cxa_guard_acquire(&qword_1002C0508))
+  v0 = __cxa_guard_acquire(byte_1002C0508);
+  if (v0)
   {
-    v0 = sub_1000827D8();
-    off_1002C0500 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
-    __cxa_guard_release(&qword_1002C0508);
+    v2 = sub_1000827D8(v0, v1);
+    off_1002C0500 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
+    __cxa_guard_release(byte_1002C0508);
   }
 }
 
 void sub_1002794A8()
 {
-  if (__cxa_guard_acquire(&qword_1002C0520))
+  if (__cxa_guard_acquire(byte_1002C0520))
   {
     qword_1002C0510 = sub_100082820();
     *algn_1002C0518 = v0;
 
-    __cxa_guard_release(&qword_1002C0520);
+    __cxa_guard_release(byte_1002C0520);
   }
 }
 
 void sub_1002794FC()
 {
-  if (__cxa_guard_acquire(&qword_1002C0548))
+  if (__cxa_guard_acquire(byte_1002C0548))
   {
     qword_1002C0538 = sub_1000828E8();
     unk_1002C0540 = v0;
 
-    __cxa_guard_release(&qword_1002C0548);
+    __cxa_guard_release(byte_1002C0548);
   }
 }
 
 void sub_100279550()
 {
+  if (v0)
   {
-    v0 = sub_100082AFC();
-    mlir::detail::TypeIDResolver<mlir::VerifiableTensorEncoding,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100082AFC(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::VerifiableTensorEncoding,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -3701,70 +1949,75 @@ void sub_1002795A4()
 
 void sub_1002795F8()
 {
-  if (__cxa_guard_acquire(&qword_1002C0530))
+  v0 = __cxa_guard_acquire(byte_1002C0530);
+  if (v0)
   {
-    v0 = sub_1000828A0();
-    qword_1002C0528 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1000828A0(v0, v1);
+    qword_1002C0528 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
 
-    __cxa_guard_release(&qword_1002C0530);
+    __cxa_guard_release(byte_1002C0530);
   }
 }
 
 void sub_10027964C()
 {
-  if (__cxa_guard_acquire(&qword_1002C0558))
+  v0 = __cxa_guard_acquire(byte_1002C0558);
+  if (v0)
   {
-    v0 = sub_100087B98();
-    qword_1002C0550 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
-    __cxa_guard_release(&qword_1002C0558);
+    v2 = sub_100087B98(v0, v1);
+    qword_1002C0550 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
+    __cxa_guard_release(byte_1002C0558);
   }
 }
 
 void sub_10027968C()
 {
-  if (__cxa_guard_acquire(&qword_1002C0580))
+  v0 = __cxa_guard_acquire(byte_1002C0580);
+  if (v0)
   {
-    v0 = sub_100087C60();
-    qword_1002C0578 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
-    __cxa_guard_release(&qword_1002C0580);
+    v2 = sub_100087C60(v0, v1);
+    qword_1002C0578 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
+    __cxa_guard_release(byte_1002C0580);
   }
 }
 
 void sub_1002796CC()
 {
-  if (__cxa_guard_acquire(&qword_1002C0570))
+  if (__cxa_guard_acquire(byte_1002C0570))
   {
     qword_1002C0560 = sub_100087BE0();
     *algn_1002C0568 = v0;
 
-    __cxa_guard_release(&qword_1002C0570);
+    __cxa_guard_release(byte_1002C0570);
   }
 }
 
 void sub_100279720()
 {
-  if (__cxa_guard_acquire(&qword_1002C0598))
+  if (__cxa_guard_acquire(byte_1002C0598))
   {
     qword_1002C0588 = sub_100087BE0();
     unk_1002C0590 = v0;
 
-    __cxa_guard_release(&qword_1002C0598);
+    __cxa_guard_release(byte_1002C0598);
   }
 }
 
 void sub_100279774()
 {
+  if (v0)
   {
-    v0 = sub_10008A374();
-    mlir::detail::TypeIDResolver<mlir::BytecodeOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_10008A374(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::BytecodeOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_1002797C8()
 {
+  if (v0)
   {
-    v0 = sub_10008A374();
-    mlir::detail::TypeIDResolver<mlir::BytecodeOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_10008A374(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::BytecodeOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -3778,9 +2031,10 @@ void sub_100279808()
 
 void sub_10027985C()
 {
+  if (v0)
   {
-    v0 = sub_100090F30();
-    mlir::detail::TypeIDResolver<mlir::BytecodeDialectInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100090F30(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::BytecodeDialectInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -3802,12 +2056,12 @@ void sub_100279904()
 
 void sub_100279944()
 {
-  if (__cxa_guard_acquire(&qword_1002C05C8))
+  if (__cxa_guard_acquire(byte_1002C05C8))
   {
     *&xmmword_1002C05B8 = sub_1000A52DC();
     *(&xmmword_1002C05B8 + 1) = v0;
 
-    __cxa_guard_release(&qword_1002C05C8);
+    __cxa_guard_release(byte_1002C05C8);
   }
 }
 
@@ -3831,74 +2085,77 @@ void sub_1002799EC(llvm::Twine *a1, uint64_t a2, uint64_t a3)
 
 void sub_100279A54()
 {
-  if (__cxa_guard_acquire(&qword_1002C0608))
+  v0 = __cxa_guard_acquire(byte_1002C0608);
+  if (v0)
   {
-    v0 = sub_1000ABE54();
-    qword_1002C0600 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1000ABE54(v0, v1);
+    qword_1002C0600 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
 
-    __cxa_guard_release(&qword_1002C0608);
+    __cxa_guard_release(byte_1002C0608);
   }
 }
 
 void sub_100279AA8()
 {
-  if (__cxa_guard_acquire(&qword_1002C0630))
+  v0 = __cxa_guard_acquire(byte_1002C0630);
+  if (v0)
   {
-    v0 = sub_1000AC01C();
-    qword_1002C0628 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1000AC01C(v0, v1);
+    qword_1002C0628 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
 
-    __cxa_guard_release(&qword_1002C0630);
+    __cxa_guard_release(byte_1002C0630);
   }
 }
 
 void sub_100279AFC()
 {
-  if (__cxa_guard_acquire(&qword_1002C05E0))
+  v0 = __cxa_guard_acquire(byte_1002C05E0);
+  if (v0)
   {
-    v0 = sub_1000ABCC4();
-    qword_1002C05D8 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1000ABCC4(v0, v1);
+    qword_1002C05D8 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
 
-    __cxa_guard_release(&qword_1002C05E0);
+    __cxa_guard_release(byte_1002C05E0);
   }
 }
 
 void sub_100279B50()
 {
-  if (__cxa_guard_acquire(&qword_1002C05F8))
+  if (__cxa_guard_acquire(byte_1002C05F8))
   {
     qword_1002C05E8 = sub_1000ABD0C();
     unk_1002C05F0 = v0;
 
-    __cxa_guard_release(&qword_1002C05F8);
+    __cxa_guard_release(byte_1002C05F8);
   }
 }
 
 void sub_100279BA4()
 {
-  if (__cxa_guard_acquire(&qword_1002C0620))
+  if (__cxa_guard_acquire(byte_1002C0620))
   {
     qword_1002C0610 = sub_1000ABE9C();
     *algn_1002C0618 = v0;
 
-    __cxa_guard_release(&qword_1002C0620);
+    __cxa_guard_release(byte_1002C0620);
   }
 }
 
 void sub_100279BF8()
 {
-  if (__cxa_guard_acquire(&qword_1002C0648))
+  if (__cxa_guard_acquire(byte_1002C0648))
   {
     qword_1002C0638 = sub_1000AC064();
     unk_1002C0640 = v0;
 
-    __cxa_guard_release(&qword_1002C0648);
+    __cxa_guard_release(byte_1002C0648);
   }
 }
 
 llvm::raw_ostream *mlir::OpAsmPrinter::printFunctionalType(mlir::OpAsmPrinter *this, mlir::Operation *a2)
 {
   v4 = (*(*this + 16))(this);
-  sub_1000C9AF0(v4);
+  sub_1000C9AF0();
   if (v6)
   {
     llvm::raw_ostream::write(v4, 40);
@@ -3924,12 +2181,10 @@ llvm::raw_ostream *mlir::OpAsmPrinter::printFunctionalType(mlir::OpAsmPrinter *t
         v12 = v8 + 56;
         do
         {
-          v14 = *(v4 + 3);
-          v13 = *(v4 + 4);
           sub_1000C9AE4();
-          if (!v16 & v6)
+          if (!v14 & v6)
           {
-            sub_1000C9B98(v15);
+            sub_1000C9B98(v13);
           }
 
           else
@@ -3939,15 +2194,15 @@ llvm::raw_ostream *mlir::OpAsmPrinter::printFunctionalType(mlir::OpAsmPrinter *t
 
           if (*v12)
           {
-            v17 = *(*v12 + 8) & 0xFFFFFFFFFFFFFFF8;
+            v15 = *(*v12 + 8) & 0xFFFFFFFFFFFFFFF8;
           }
 
           else
           {
-            v17 = 0;
+            v15 = 0;
           }
 
-          (*(*this + 32))(this, v17);
+          (*(*this + 32))(this, v15);
           v12 += 32;
           --v11;
         }
@@ -3957,11 +2212,11 @@ llvm::raw_ostream *mlir::OpAsmPrinter::printFunctionalType(mlir::OpAsmPrinter *t
     }
   }
 
-  v18 = *(v4 + 4);
-  if ((*(v4 + 3) - v18) > 4)
+  v16 = *(v4 + 4);
+  if ((*(v4 + 3) - v16) > 4)
   {
-    *(v18 + 4) = 32;
-    *v18 = 1043144745;
+    *(v16 + 4) = 32;
+    *v16 = 1043144745;
     *(v4 + 4) += 5;
   }
 
@@ -3972,44 +2227,42 @@ llvm::raw_ostream *mlir::OpAsmPrinter::printFunctionalType(mlir::OpAsmPrinter *t
 
   if (*(a2 + 9) != 1 || (*(a2 - 1) & 0xFFFFFFFFFFFFFFF8) != 0 && *(*(*(a2 - 1) & 0xFFFFFFFFFFFFFFF8) + 136) == &mlir::detail::TypeIDResolver<mlir::FunctionType,void>::id)
   {
-    v21 = *(v4 + 4);
-    if (v21 >= *(v4 + 3))
+    v19 = *(v4 + 4);
+    if (v19 >= *(v4 + 3))
     {
       llvm::raw_ostream::write(v4, 40);
     }
 
     else
     {
-      sub_1000C9BD8(v21);
+      sub_1000C9BD8(v19);
     }
 
-    v22 = *(a2 + 9);
+    v20 = *(a2 + 9);
     result = (a2 - 16);
-    if (v22)
+    if (v20)
     {
-      v24 = a2 - 16;
+      v22 = a2 - 16;
     }
 
     else
     {
-      v24 = 0;
+      v22 = 0;
     }
 
-    if (v22)
+    if (v20)
     {
       NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(result, 0);
-      v26 = NextResultAtOffset ? *(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8 : 0;
-      result = (*(*this + 32))(this, v26);
-      if (v22 != 1)
+      v24 = NextResultAtOffset ? *(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8 : 0;
+      result = (*(*this + 32))(this, v24);
+      if (v20 != 1)
       {
-        for (i = 1; i != v22; ++i)
+        for (i = 1; i != v20; ++i)
         {
-          v29 = *(v4 + 3);
-          v28 = *(v4 + 4);
           sub_1000C9AE4();
-          if (!v16 & v6)
+          if (!v14 & v6)
           {
-            sub_1000C9B98(v30);
+            sub_1000C9B98(v26);
           }
 
           else
@@ -4017,24 +2270,24 @@ llvm::raw_ostream *mlir::OpAsmPrinter::printFunctionalType(mlir::OpAsmPrinter *t
             llvm::raw_ostream::write(v4, ", ", 2uLL);
           }
 
-          v31 = mlir::detail::OpResultImpl::getNextResultAtOffset(v24, i);
-          if (v31)
+          v27 = mlir::detail::OpResultImpl::getNextResultAtOffset(v22, i);
+          if (v27)
           {
-            v32 = *(v31 + 8) & 0xFFFFFFFFFFFFFFF8;
+            v28 = *(v27 + 8) & 0xFFFFFFFFFFFFFFF8;
           }
 
           else
           {
-            v32 = 0;
+            v28 = 0;
           }
 
-          result = (*(*this + 32))(this, v32);
+          result = (*(*this + 32))(this, v28);
         }
       }
     }
 
-    v33 = *(v4 + 4);
-    if (v33 >= *(v4 + 3))
+    v29 = *(v4 + 4);
+    if (v29 >= *(v4 + 3))
     {
 
       return llvm::raw_ostream::write(v4, 41);
@@ -4042,27 +2295,27 @@ llvm::raw_ostream *mlir::OpAsmPrinter::printFunctionalType(mlir::OpAsmPrinter *t
 
     else
     {
-      *(v4 + 4) = v33 + 1;
-      *v33 = 41;
+      *(v4 + 4) = v29 + 1;
+      *v29 = 41;
     }
   }
 
   else
   {
-    v19 = mlir::detail::OpResultImpl::getNextResultAtOffset(a2 - 16, 0);
-    if (v19)
+    v17 = mlir::detail::OpResultImpl::getNextResultAtOffset(a2 - 16, 0);
+    if (v17)
     {
-      v20 = *(v19 + 8) & 0xFFFFFFFFFFFFFFF8;
+      v18 = *(v17 + 8) & 0xFFFFFFFFFFFFFFF8;
     }
 
     else
     {
-      v20 = 0;
+      v18 = 0;
     }
 
-    v34 = *(*this + 32);
+    v30 = *(*this + 32);
 
-    return v34(this, v20);
+    return v30(this, v18);
   }
 
   return result;
@@ -4073,11 +2326,11 @@ void sub_100279FE4(uint64_t a1, uint64_t a2)
   v4 = *(a1 + 24);
   v5 = *(a1 + 80);
   v6 = *(a1 + 152);
-  *&v125[0] = a2;
+  *&v120[0] = a2;
   v7 = *(v4 + 672);
   if (v7)
   {
-    v8 = sub_10008CF58(v7, v125);
+    v8 = sub_10008CF58(v7, v120);
     *v8 = v5;
     v8[1] = v6;
     v6 = *(a1 + 152);
@@ -4107,7 +2360,7 @@ LABEL_6:
         if (v16)
         {
           v17 = *(v15 + 8);
-          v124 = *(v15 + 16);
+          v119 = *(v15 + 16);
           if (v16 != 1)
           {
             v18 = v16 - 1;
@@ -4117,8 +2370,8 @@ LABEL_6:
             sub_1000B64E4(v21, v22, v23, v19);
             if (v20 >= 2)
             {
-              v24 = sub_1000C9AF0(*(a1 + 16));
-              if (v94)
+              sub_1000C9AF0();
+              if (v91)
               {
                 v26 = llvm::raw_ostream::write(v24, 58);
               }
@@ -4139,7 +2392,7 @@ LABEL_6:
               do
               {
                 sub_1000C9AC4();
-                if (!v31 && v94)
+                if (!v31 && v91)
                 {
                   *v30 = 8236;
                   sub_1000C9AB4();
@@ -4151,24 +2404,23 @@ LABEL_6:
                 }
 
                 v32 = *(v17 + (v29 >> 30) + 4) - *(v17 + (v29 >> 30));
-                v33 = *(a1 + 16);
-                v34 = sub_1000C9BCC(*(a1 + 24));
-                sub_1000B64E4(v34, v35, v36, v37);
+                v33 = sub_1000C9BCC(*(a1 + 24));
+                sub_1000B64E4(v33, v34, v35, v36);
                 if (v32 >= 2)
                 {
-                  v38 = sub_1000C9AF0(*(a1 + 16));
-                  if (v94)
+                  sub_1000C9AF0();
+                  if (v91)
                   {
-                    v40 = llvm::raw_ostream::write(v38, 58);
+                    v39 = llvm::raw_ostream::write(v37, 58);
                   }
 
                   else
                   {
-                    v40 = sub_1000C9B08(v38, v39);
-                    *v41 = 58;
+                    v39 = sub_1000C9B08(v37, v38);
+                    *v40 = 58;
                   }
 
-                  llvm::raw_ostream::operator<<(v40, v32);
+                  llvm::raw_ostream::operator<<(v39, v32);
                 }
 
                 v29 = (&_mh_execute_header + v29);
@@ -4181,20 +2433,19 @@ LABEL_6:
 
           sub_1000C9AFC();
           sub_1000C9AE4();
-          if (!v31 && v94)
+          if (!v31 && v91)
           {
-            sub_1000C9B14(v42, v43);
+            sub_1000C9B14(v41, v42);
           }
 
           else
           {
-            llvm::raw_ostream::write(v42, ", ", 2uLL);
+            llvm::raw_ostream::write(v41, ", ", 2uLL);
           }
 
-          v9 -= v17[v124 - 1];
-          v44 = *(a1 + 16);
-          v45 = sub_1000C9BCC(*(a1 + 24));
-          sub_1000B64E4(v45, v46, v47, v48);
+          v9 -= v17[v119 - 1];
+          v43 = sub_1000C9BCC(*(a1 + 24));
+          sub_1000B64E4(v43, v44, v45, v46);
           if (v9 < 2)
           {
             goto LABEL_38;
@@ -4210,7 +2461,7 @@ LABEL_6:
       while (v14 != -4096)
       {
         sub_1000C9B28();
-        v14 = *(v12 + v49);
+        v14 = *(v12 + v47);
         if (v14 == a2)
         {
           goto LABEL_6;
@@ -4219,81 +2470,80 @@ LABEL_6:
     }
   }
 
-  v50 = *(a1 + 16);
-  v51 = sub_1000C9BCC(v10);
-  sub_1000B64E4(v51, v52, v53, v54);
+  v48 = sub_1000C9BCC(v10);
+  sub_1000B64E4(v48, v49, v50, v51);
   if (v9 != 1)
   {
 LABEL_34:
-    v55 = sub_1000C9AF0(*(a1 + 16));
-    if (v94)
+    sub_1000C9AF0();
+    if (v91)
     {
-      v57 = llvm::raw_ostream::write(v55, 58);
+      v54 = llvm::raw_ostream::write(v52, 58);
     }
 
     else
     {
-      v57 = sub_1000C9B08(v55, v56);
-      *v58 = 58;
+      v54 = sub_1000C9B08(v52, v53);
+      *v55 = 58;
     }
 
-    llvm::raw_ostream::operator<<(v57, v9);
+    llvm::raw_ostream::operator<<(v54, v9);
   }
 
 LABEL_38:
-  v59 = sub_1000C9AFC();
-  if ((v61 - v60) > 2)
+  v56 = sub_1000C9AFC();
+  if ((v58 - v57) > 2)
   {
-    *(v60 + 2) = 32;
-    sub_1000C9BAC(v59, v60);
+    *(v57 + 2) = 32;
+    sub_1000C9BAC(v56, v57);
   }
 
   else
   {
-    llvm::raw_ostream::write(v59, " = ", 3uLL);
+    llvm::raw_ostream::write(v56, " = ", 3uLL);
   }
 
 LABEL_41:
   (*(*a1 + 208))(a1, a2);
-  v62 = *(a1 + 72);
-  if (v62)
+  v59 = *(a1 + 72);
+  if (v59)
   {
-    v63 = *(a2 + 24);
-    v64 = sub_1000C9AFC();
-    if (v66 == v65)
+    v60 = *(a2 + 24);
+    v61 = sub_1000C9AFC();
+    if (v63 == v62)
     {
-      llvm::raw_ostream::write(v64, " ", 1uLL);
+      llvm::raw_ostream::write(v61, " ", 1uLL);
     }
 
     else
     {
-      sub_1000C9AA0(v64, v65);
+      sub_1000C9AA0(v61, v62);
     }
 
-    mlir::AsmPrinter::Impl::printLocation(a1 + 16, v63, 1);
-    v62 = *(a1 + 72);
+    mlir::AsmPrinter::Impl::printLocation((a1 + 16), v60, 1);
+    v59 = *(a1 + 72);
   }
 
-  if ((v62 & 0x40) == 0)
+  if ((v59 & 0x40) == 0)
   {
     return;
   }
 
-  v67 = *(a2 + 36);
-  if (!v67)
+  v64 = *(a2 + 36);
+  if (!v64)
   {
     if ((*(a2 + 46) & 0x80) != 0 && *(a2 + 68))
     {
-      v73 = sub_1000C9AFC();
-      if ((v75 - v74) > 7)
+      v70 = sub_1000C9AFC();
+      if ((v72 - v71) > 7)
       {
-        *v74 = 0x203A6469202F2F20;
-        v73[4] += 8;
+        *v71 = 0x203A6469202F2F20;
+        v70[4] += 8;
       }
 
       else
       {
-        llvm::raw_ostream::write(v73, " // id: ", 8uLL);
+        llvm::raw_ostream::write(v70, " // id: ", 8uLL);
       }
 
       sub_1000C11AC(*(a1 + 16), *(*(a1 + 24) + 328), *(*(a1 + 24) + 344), a2);
@@ -4302,112 +2552,112 @@ LABEL_41:
     return;
   }
 
-  v68 = 0;
-  v69 = a2 - 16;
-  while (!*mlir::detail::OpResultImpl::getNextResultAtOffset(a2 - 16, v68))
+  v65 = 0;
+  v66 = a2 - 16;
+  while (!*mlir::detail::OpResultImpl::getNextResultAtOffset(a2 - 16, v65))
   {
-    if (v67 == ++v68)
+    if (v64 == ++v65)
     {
-      v70 = sub_1000C9AFC();
-      if ((v72 - v71) > 9)
+      v67 = sub_1000C9AFC();
+      if ((v69 - v68) > 9)
       {
-        *(v71 + 8) = 25701;
-        *v71 = *" // unused";
-        v70[4] += 10;
+        *(v68 + 8) = 25701;
+        *v68 = *" // unused";
+        v67[4] += 10;
       }
 
       else
       {
-        llvm::raw_ostream::write(v70, " // unused", 0xAuLL);
+        llvm::raw_ostream::write(v67, " // unused", 0xAuLL);
       }
 
       return;
     }
   }
 
-  v76 = *(a2 + 36);
-  if (!v76)
+  v73 = *(a2 + 36);
+  if (!v73)
   {
     return;
   }
 
-  v77 = 0;
+  v74 = 0;
   while (1)
   {
-    v78 = sub_1000C9BC0();
-    if (*mlir::detail::OpResultImpl::getNextResultAtOffset(v78, v79))
+    v75 = sub_1000C9BC0();
+    if (*mlir::detail::OpResultImpl::getNextResultAtOffset(v75, v76))
     {
       break;
     }
 
-    if (v76 == ++v77)
+    if (v73 == ++v74)
     {
       return;
     }
   }
 
-  v129 = &v133;
-  v130 = 1;
-  v131 = 0;
-  v80 = 1;
-  v132 = 1;
-  v81 = *(a2 + 36);
-  if (v81)
+  v124 = &v128;
+  v125 = 1;
+  v126 = 0;
+  v77 = 1;
+  v127 = 1;
+  v78 = *(a2 + 36);
+  if (v78)
   {
-    v82 = a2 - 16;
+    v79 = a2 - 16;
   }
 
   else
   {
-    v82 = 0;
+    v79 = 0;
   }
 
-  *&v125[0] = v82;
-  *(&v125[0] + 1) = v81;
-  mlir::ResultRange::use_begin(v125, v134);
-  v83 = *(a2 + 36);
-  if (v83)
+  *&v120[0] = v79;
+  *(&v120[0] + 1) = v78;
+  mlir::ResultRange::use_begin(v120, v129);
+  v80 = *(a2 + 36);
+  if (v80)
   {
-    v84 = a2 - 16;
+    v81 = a2 - 16;
   }
 
   else
   {
-    v84 = 0;
+    v81 = 0;
   }
 
-  v136.n128_u64[0] = v84;
-  v136.n128_u64[1] = v83;
-  mlir::ResultRange::use_end(&v136, v127);
-  v85 = v135;
-  v126 = v135;
-  v125[0] = v134[0];
-  v125[1] = v134[1];
-  v86 = v128;
-  if (v135 == v128)
+  v131.n128_u64[0] = v81;
+  v131.n128_u64[1] = v80;
+  mlir::ResultRange::use_end(&v131, v122);
+  v82 = v130;
+  v121 = v130;
+  v120[0] = v129[0];
+  v120[1] = v129[1];
+  v83 = v123;
+  if (v130 == v123)
   {
     goto LABEL_90;
   }
 
-  v87 = 0;
-  v88 = 0;
+  v84 = 0;
+  v85 = 0;
   do
   {
-    v89 = *(v85 + 16);
-    if (v132 != 1)
+    v86 = *(v82 + 16);
+    if (v127 != 1)
     {
       goto LABEL_81;
     }
 
-    v90 = HIDWORD(v130);
-    if (!HIDWORD(v130))
+    v87 = HIDWORD(v125);
+    if (!HIDWORD(v125))
     {
 LABEL_79:
-      if (HIDWORD(v130) >= v130)
+      if (HIDWORD(v125) >= v125)
       {
 LABEL_81:
-        llvm::SmallPtrSetImplBase::insert_imp_big(&v129, v89);
-        if ((v93 & 1) == 0)
+        llvm::SmallPtrSetImplBase::insert_imp_big(&v124, v86);
+        if ((v90 & 1) == 0)
         {
           goto LABEL_83;
         }
@@ -4415,212 +2665,209 @@ LABEL_81:
 
       else
       {
-        ++HIDWORD(v130);
-        *(v129 + v90) = v89;
+        ++HIDWORD(v125);
+        *(v124 + v87) = v86;
       }
 
-      ++v88;
-      v87 += *(v89 + 36);
+      ++v85;
+      v84 += *(v86 + 36);
       goto LABEL_83;
     }
 
-    v91 = 8 * HIDWORD(v130);
-    v92 = v129;
-    while (*v92 != v89)
+    v88 = 8 * HIDWORD(v125);
+    v89 = v124;
+    while (*v89 != v86)
     {
-      ++v92;
-      v91 -= 8;
-      if (!v91)
+      ++v89;
+      v88 -= 8;
+      if (!v88)
       {
         goto LABEL_79;
       }
     }
 
 LABEL_83:
-    mlir::ResultRange::UseIterator::operator++(v134);
-    v85 = v135;
+    mlir::ResultRange::UseIterator::operator++(v129);
+    v82 = v130;
   }
 
-  while (v135 != v86);
-  v94 = v87 >= 2 || v88 >= 2;
-  v80 = !v94;
+  while (v130 != v83);
+  v91 = v84 >= 2 || v85 >= 2;
+  v77 = !v91;
 LABEL_90:
-  v95 = v67 == 1;
-  v96 = v95 & v80;
-  if ((v95 & v80) != 0)
+  v92 = v64 == 1;
+  v93 = v92 & v77;
+  if ((v92 & v77) != 0)
   {
-    v97 = "user";
+    v94 = "user";
   }
 
   else
   {
-    v97 = "users";
+    v94 = "users";
   }
 
-  v98 = *(a1 + 16);
-  v99 = v98[4];
-  if (v98[3] - v99 > 3uLL)
+  v95 = *(a1 + 16);
+  v96 = v95[4];
+  if (v95[3] - v96 > 3uLL)
   {
-    *v99 = 539963168;
-    v100 = (v98[4] + 4);
-    v98[4] = v100;
+    *v96 = 539963168;
+    v97 = (v95[4] + 4);
+    v95[4] = v97;
   }
 
   else
   {
-    v98 = llvm::raw_ostream::write(*(a1 + 16), " // ", 4uLL);
-    v100 = v98[4];
+    v95 = llvm::raw_ostream::write(*(a1 + 16), " // ", 4uLL);
+    v97 = v95[4];
   }
 
-  if (v96)
+  if (v93)
   {
-    v101 = 4;
+    v98 = 4;
   }
 
   else
   {
-    v101 = 5;
+    v98 = 5;
   }
 
-  if (v101 <= v98[3] - v100)
+  if (v98 <= v95[3] - v97)
   {
-    memcpy(v100, v97, v101);
-    v98[4] += v101;
+    memcpy(v97, v94, v98);
+    v95[4] += v98;
   }
 
   else
   {
-    v102 = sub_1000C9BC0();
-    v98 = llvm::raw_ostream::write(v102, v103, v101);
-    v104 = v98[4];
+    v99 = sub_1000C9BC0();
+    v95 = llvm::raw_ostream::write(v99, v100, v98);
   }
 
-  v105 = v98[3];
   sub_1000C9AE4();
-  if (!v31 && v94)
+  if (!v31 && v91)
   {
-    *v106 = 8250;
+    *v101 = 8250;
     sub_1000C9AB4();
   }
 
   else
   {
-    llvm::raw_ostream::write(v98, ": ", 2uLL);
+    llvm::raw_ostream::write(v95, ": ", 2uLL);
   }
 
-  v107 = *(a2 + 36);
-  if (v107)
+  v102 = *(a2 + 36);
+  if (v102)
   {
-    v108 = a2 - 16;
+    v103 = a2 - 16;
   }
 
   else
   {
-    v108 = 0;
+    v103 = 0;
   }
 
-  if (v107)
+  if (v102)
   {
-    v109 = *(a1 + 16);
-    NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v69, 0);
-    if (v67 == 1)
+    v104 = *(a1 + 16);
+    NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v66, 0);
+    if (v64 == 1)
     {
       sub_1000C12EC(a1, NextResultAtOffset);
     }
 
     else
     {
-      v111 = sub_1000C9AFC();
-      if (v113 == v112)
+      v106 = sub_1000C9AFC();
+      if (v108 == v107)
       {
-        llvm::raw_ostream::write(v111, "(", 1uLL);
+        llvm::raw_ostream::write(v106, "(", 1uLL);
       }
 
       else
       {
-        sub_1000C9AA0(v111, v112);
+        sub_1000C9AA0(v106, v107);
       }
 
       sub_1000C12EC(a1, NextResultAtOffset);
-      v114 = sub_1000C9B60(*(a1 + 16));
+      sub_1000C9B60();
       if (v31)
       {
-        llvm::raw_ostream::write(v114, ")", 1uLL);
+        llvm::raw_ostream::write(v109, ")", 1uLL);
       }
 
       else
       {
-        sub_1000C9AA0(v114, v115);
+        sub_1000C9AA0(v109, v110);
       }
     }
 
-    if (v107 != 1)
+    if (v102 != 1)
     {
-      for (i = 1; i != v107; ++i)
+      for (i = 1; i != v102; ++i)
       {
         sub_1000C9AC4();
-        if (!v31 && v94)
+        if (!v31 && v91)
         {
-          *v117 = 8236;
+          *v112 = 8236;
           sub_1000C9AB4();
         }
 
         else
         {
-          llvm::raw_ostream::write(v109, ", ", 2uLL);
+          llvm::raw_ostream::write(v104, ", ", 2uLL);
         }
 
-        v118 = mlir::detail::OpResultImpl::getNextResultAtOffset(v108, i);
-        if (v67 == 1)
+        v113 = mlir::detail::OpResultImpl::getNextResultAtOffset(v103, i);
+        if (v64 == 1)
         {
-          sub_1000C12EC(a1, v118);
+          sub_1000C12EC(a1, v113);
         }
 
         else
         {
-          v119 = sub_1000C9AFC();
-          if (v121 == v120)
+          v114 = sub_1000C9AFC();
+          if (v116 == v115)
           {
-            llvm::raw_ostream::write(v119, "(", 1uLL);
+            llvm::raw_ostream::write(v114, "(", 1uLL);
           }
 
           else
           {
-            *v120 = 40;
-            ++v119[4];
+            *v115 = 40;
+            ++v114[4];
           }
 
-          sub_1000C12EC(a1, v118);
-          v122 = sub_1000C9B60(*(a1 + 16));
+          sub_1000C12EC(a1, v113);
+          sub_1000C9B60();
           if (v31)
           {
-            llvm::raw_ostream::write(v122, ")", 1uLL);
+            llvm::raw_ostream::write(v117, ")", 1uLL);
           }
 
           else
           {
-            sub_1000C9AA0(v122, v123);
+            sub_1000C9AA0(v117, v118);
           }
         }
       }
     }
   }
 
-  if ((v132 & 1) == 0)
+  if ((v127 & 1) == 0)
   {
-    free(v129);
+    free(v124);
   }
 }
 
-llvm::raw_ostream *sub_10027A828(uint64_t *a1, uint64_t a2, int a3)
+llvm::raw_ostream *sub_10027A828(llvm::raw_ostream **a1, uint64_t a2, int a3)
 {
-  v5 = a2;
   if (a3)
   {
-    *&v111[0] = *(*(a2 + 48) + 8);
-    Value = mlir::StringAttr::getValue(v111);
+    *&v94[0] = *(*(a2 + 48) + 8);
+    Value = mlir::StringAttr::getValue(v94);
     v8 = v7;
-    v9 = sub_1000C9B60(a1[2]);
+    sub_1000C9B60();
     if (v11)
     {
       llvm::raw_ostream::write(v9, "", 1uLL);
@@ -4632,7 +2879,7 @@ llvm::raw_ostream *sub_10027A828(uint64_t *a1, uint64_t a2, int a3)
     }
 
     llvm::printEscapedString(Value, v8, a1[2]);
-    v12 = sub_1000C9B60(a1[2]);
+    sub_1000C9B60();
     if (v11)
     {
       llvm::raw_ostream::write(v12, "", 1uLL);
@@ -4644,8 +2891,8 @@ llvm::raw_ostream *sub_10027A828(uint64_t *a1, uint64_t a2, int a3)
     }
   }
 
-  v14 = (a1 + 2);
-  v15 = sub_1000C9AF0(a1[2]);
+  v14 = a1 + 2;
+  sub_1000C9AF0();
   if (v17)
   {
     llvm::raw_ostream::write(v15, 40);
@@ -4657,12 +2904,12 @@ llvm::raw_ostream *sub_10027A828(uint64_t *a1, uint64_t a2, int a3)
     *v18 = 40;
   }
 
-  if ((*(v5 + 46) & 0x80) != 0)
+  if ((*(a2 + 46) & 0x80) != 0)
   {
-    v3 = *(v5 + 68);
+    v3 = *(a2 + 68);
     if (v3)
     {
-      v19 = *(v5 + 72);
+      v19 = *(a2 + 72);
       sub_1000B64E4((a1[3] + 280), *(v19 + 24), 1, *v14);
       if (v3 != 1)
       {
@@ -4706,7 +2953,7 @@ llvm::raw_ostream *sub_10027A828(uint64_t *a1, uint64_t a2, int a3)
     *v27 = 41;
   }
 
-  if (*(v5 + 40))
+  if (*(a2 + 40))
   {
     v28 = sub_1000C9AD4();
     if (v17)
@@ -4720,33 +2967,27 @@ llvm::raw_ostream *sub_10027A828(uint64_t *a1, uint64_t a2, int a3)
       *v30 = 91;
     }
 
-    v110 = v5;
-    mlir::SuccessorRange::SuccessorRange(v111, v5);
-    v31 = *(&v111[0] + 1);
-    if (!*(&v111[0] + 1))
+    mlir::SuccessorRange::SuccessorRange(v94, a2);
+    v31 = *(&v94[0] + 1);
+    if (!*(&v94[0] + 1))
     {
       goto LABEL_36;
     }
 
-    v32 = *&v111[0];
-    v33 = a1[2];
-    v34 = *(a1[3] + 392);
-    if (v34)
+    v32 = a1[2];
+    if (*(a1[3] + 98))
     {
-      v35 = *(*&v111[0] + 24);
-      sub_1000C9B3C(v34);
+      sub_1000C9B3C();
       if (v11)
       {
 LABEL_30:
-        if (v38 != v36)
+        if (v35 != v33)
         {
-          v44 = v37 + 32 * v38;
-          v45 = *(v44 + 16);
-          v42 = *(v44 + 24);
-          v40 = sub_1000C9B84();
-          if (v42 <= v46)
+          v39 = *(v34 + 32 * v35 + 24);
+          v37 = sub_1000C9B84();
+          if (v39 <= v41)
           {
-            if (!v42)
+            if (!v39)
             {
               goto LABEL_35;
             }
@@ -4755,18 +2996,18 @@ LABEL_30:
           }
 
 LABEL_34:
-          llvm::raw_ostream::write(v33, v41, v42);
+          llvm::raw_ostream::write(v32, v38, v39);
           goto LABEL_35;
         }
       }
 
       else
       {
-        while (v39 != -4096)
+        while (v36 != -4096)
         {
           sub_1000C9B28();
-          v39 = *(v37 + v108);
-          if (v39 == v109)
+          v36 = *(v34 + v92);
+          if (v36 == v93)
           {
             goto LABEL_30;
           }
@@ -4774,273 +3015,261 @@ LABEL_34:
       }
     }
 
-    v40 = sub_1000C9B84();
-    v41 = "INVALIDBLOCK";
-    v42 = 12;
-    if (v43 > 0xB)
+    v37 = sub_1000C9B84();
+    v38 = "INVALIDBLOCK";
+    v39 = 12;
+    if (v40 > 0xB)
     {
 LABEL_32:
-      memcpy(v40, v41, v42);
-      *Value += v42;
+      memcpy(v37, v38, v39);
+      *Value += v39;
 LABEL_35:
       if (v31 == 1)
       {
 LABEL_36:
-        v14 = (a1 + 2);
-        v47 = sub_1000C9AD4();
+        v14 = a1 + 2;
+        v42 = sub_1000C9AD4();
         if (v17)
         {
-          llvm::raw_ostream::write(v47, 93);
+          llvm::raw_ostream::write(v42, 93);
         }
 
         else
         {
-          sub_1000C9B08(v47, v48);
-          *v49 = 93;
+          sub_1000C9B08(v42, v43);
+          *v44 = 93;
         }
 
-        v5 = v110;
-        goto LABEL_40;
+        goto LABEL_39;
       }
 
-      v87 = 1;
+      v76 = 1;
       while (1)
       {
         sub_1000C9AC4();
         if (!v11 & v17)
         {
-          *v88 = 8236;
+          *v77 = 8236;
           sub_1000C9AB4();
         }
 
         else
         {
-          v89 = sub_1000C9BC0();
-          llvm::raw_ostream::write(v89, v90, 2uLL);
+          v78 = sub_1000C9BC0();
+          llvm::raw_ostream::write(v78, v79, 2uLL);
         }
 
-        v91 = a1[2];
-        v92 = *(a1[3] + 392);
-        if (!v92)
+        if (!*(a1[3] + 98))
         {
-          goto LABEL_82;
+          goto LABEL_81;
         }
 
-        v93 = *(v32 + 32 * v87 + 24);
-        sub_1000C9B3C(v92);
+        sub_1000C9B3C();
         if (!v11)
         {
           break;
         }
 
-LABEL_81:
-        if (v96 == v94)
+LABEL_80:
+        if (v82 == v80)
         {
-          goto LABEL_82;
+          goto LABEL_81;
         }
 
-        v103 = v95 + 32 * v96;
-        v104 = *(v103 + 16);
-        v102 = *(v103 + 24);
-        v98 = sub_1000C9BEC(v91);
-        if (v102 > v105)
+        v88 = *(v81 + 32 * v82 + 24);
+        sub_1000C9BEC();
+        if (v88 > v89)
         {
-          goto LABEL_86;
+          goto LABEL_85;
         }
 
-        if (v102)
+        if (v88)
         {
-          goto LABEL_88;
+          goto LABEL_87;
         }
 
-LABEL_89:
-        if (++v87 == v31)
+LABEL_88:
+        if (++v76 == v31)
         {
           goto LABEL_36;
         }
       }
 
-      while (v97 != -4096)
+      while (v83 != -4096)
       {
         sub_1000C9B28();
-        v97 = *(v95 + v106);
-        if (v97 == v107)
+        v83 = *(v81 + v90);
+        if (v83 == v91)
         {
-          goto LABEL_81;
+          goto LABEL_80;
         }
       }
 
-LABEL_82:
-      v98 = sub_1000C9BEC(v91);
-      if (v100 > 0xB)
+LABEL_81:
+      sub_1000C9BEC();
+      if (v86 > 0xB)
       {
-        v102 = 12;
-        v101 = "INVALIDBLOCK";
-LABEL_88:
-        memcpy(v99, v101, v102);
-        *v3 += v102;
-        goto LABEL_89;
+        v88 = 12;
+        v87 = "INVALIDBLOCK";
+LABEL_87:
+        memcpy(v85, v87, v88);
+        *v3 += v88;
+        goto LABEL_88;
       }
 
-      v101 = "INVALIDBLOCK";
-      v102 = 12;
-LABEL_86:
-      llvm::raw_ostream::write(v98, v101, v102);
-      goto LABEL_89;
+      v87 = "INVALIDBLOCK";
+      v88 = 12;
+LABEL_85:
+      llvm::raw_ostream::write(v84, v87, v88);
+      goto LABEL_88;
     }
 
     goto LABEL_34;
   }
 
-LABEL_40:
-  PropertiesAsAttribute = mlir::Operation::getPropertiesAsAttribute(v5);
+LABEL_39:
+  PropertiesAsAttribute = mlir::Operation::getPropertiesAsAttribute(a2);
   if (PropertiesAsAttribute)
   {
-    v51 = PropertiesAsAttribute;
-    v53 = *(*v14 + 3);
-    v52 = *(*v14 + 4);
+    v46 = PropertiesAsAttribute;
     sub_1000C9AE4();
     if (!v11 & v17)
     {
-      sub_1000C9B14(v54, v55);
+      sub_1000C9B14(v47, v48);
     }
 
     else
     {
-      llvm::raw_ostream::write(v54, " <", 2uLL);
+      llvm::raw_ostream::write(v47, " <", 2uLL);
     }
 
-    if ((sub_1000AEDE4((a1[3] + 144), v51, a1[2]) & 1) == 0)
+    if ((sub_1000AEDE4(a1[3] + 18, v46, a1[2]) & 1) == 0)
     {
-      mlir::AsmPrinter::Impl::printAttributeImpl(v14, v51, 0);
+      mlir::AsmPrinter::Impl::printAttributeImpl(v14, v46, 0);
     }
 
-    v56 = sub_1000C9AD4();
+    v49 = sub_1000C9AD4();
     if (v17)
     {
-      llvm::raw_ostream::write(v56, 62);
+      llvm::raw_ostream::write(v49, 62);
     }
 
     else
     {
-      sub_1000C9B08(v56, v57);
-      *v58 = 62;
+      sub_1000C9B08(v49, v50);
+      *v51 = 62;
     }
   }
 
-  v59 = *(v5 + 44);
-  if ((v59 & 0x7FFFFF) != 0)
+  v52 = *(a2 + 44);
+  if ((v52 & 0x7FFFFF) != 0)
   {
-    v61 = *(*v14 + 3);
-    v60 = *(*v14 + 4);
     sub_1000C9AE4();
     if (!v11 & v17)
     {
-      sub_1000C9B14(v62, v63);
+      sub_1000C9B14(v53, v54);
     }
 
     else
     {
-      llvm::raw_ostream::write(v62, " (", 2uLL);
+      llvm::raw_ostream::write(v53, " (", 2uLL);
     }
 
-    v64 = *(v5 + 44);
-    v65 = v64 & 0x7FFFFF;
-    if ((v64 & 0x7FFFFF) != 0)
+    v55 = *(a2 + 44);
+    v56 = v55 & 0x7FFFFF;
+    if ((v55 & 0x7FFFFF) != 0)
     {
-      v66 = ((v5 + 16 * ((v64 >> 23) & 1) + ((v64 >> 21) & 0x7F8) + 71) & 0xFFFFFFFFFFFFFFF8) + 32 * *(v5 + 40);
-      v67 = a1[2];
-      v68 = *(*a1 + 224);
-      v69 = sub_1000C9B6C();
-      v70(v69);
-      if (v65 != 1)
+      v57 = ((a2 + 16 * ((v55 >> 23) & 1) + ((v55 >> 21) & 0x7F8) + 71) & 0xFFFFFFFFFFFFFFF8) + 32 * *(a2 + 40);
+      v58 = a1[2];
+      v59 = sub_1000C9B6C();
+      v60(v59);
+      if (v56 != 1)
       {
-        v71 = v66 + 24;
-        v72 = 24 * v65 - 24;
+        v61 = v57 + 24;
+        v62 = 24 * v56 - 24;
         do
         {
           sub_1000C9AC4();
           if (!v11 & v17)
           {
-            *v73 = 8236;
+            *v63 = 8236;
             sub_1000C9AB4();
           }
 
           else
           {
-            llvm::raw_ostream::write(v67, ", ", 2uLL);
+            llvm::raw_ostream::write(v58, ", ", 2uLL);
           }
 
-          v74 = *(*a1 + 224);
-          v75 = sub_1000C9B6C();
-          v76(v75);
-          v71 += 24;
-          v72 -= 24;
+          v64 = sub_1000C9B6C();
+          v65(v64);
+          v61 += 24;
+          v62 -= 24;
         }
 
-        while (v72);
+        while (v62);
       }
     }
 
-    v77 = sub_1000C9AD4();
+    v66 = sub_1000C9AD4();
     if (v17)
     {
-      llvm::raw_ostream::write(v77, 41);
+      llvm::raw_ostream::write(v66, 41);
     }
 
     else
     {
-      sub_1000C9B08(v77, v78);
-      *v79 = 41;
+      sub_1000C9B08(v66, v67);
+      *v68 = 41;
     }
 
-    v59 = *(v5 + 44);
+    v52 = *(a2 + 44);
   }
 
-  v80 = HIBYTE(v59);
-  if (HIBYTE(v59))
+  v69 = HIBYTE(v52);
+  if (HIBYTE(v52))
   {
-    sub_1000892C0(v5, v111);
-    v118[0] = v111[0];
-    v118[1] = v111[1];
-    v119 = v112;
-    v116[0] = v113;
-    v116[1] = v114;
-    v117 = v115;
-    AttrDictionary = v122;
-    v121 = 0x300000000;
-    sub_1000893E0(&AttrDictionary, v118, v116);
-    v81 = AttrDictionary;
-    v83 = v121;
+    sub_1000892C0(a2, v94);
+    v101[0] = v94[0];
+    v101[1] = v94[1];
+    v102 = v95;
+    v99[0] = v96;
+    v99[1] = v97;
+    v100 = v98;
+    AttrDictionary = v105;
+    v104 = 0x300000000;
+    sub_1000893E0(&AttrDictionary, v101, v99);
+    v70 = AttrDictionary;
+    v72 = v104;
   }
 
   else
   {
-    AttrDictionary = mlir::Operation::getAttrDictionary(v5);
-    v81 = mlir::DictionaryAttr::getValue(&AttrDictionary);
-    v83 = v82;
+    AttrDictionary = mlir::Operation::getAttrDictionary(a2);
+    v70 = mlir::DictionaryAttr::getValue(&AttrDictionary);
+    v72 = v71;
   }
 
-  (*(*a1 + 192))(a1, v81, v83, 0, 0);
-  if (v80 && AttrDictionary != v122)
+  (*(*a1 + 24))(a1, v70, v72, 0, 0);
+  if (v69 && AttrDictionary != v105)
   {
     free(AttrDictionary);
   }
 
-  v84 = *v14;
-  v85 = *(*v14 + 4);
-  if ((*(*v14 + 3) - v85) > 2)
+  v73 = *v14;
+  v74 = *(*v14 + 4);
+  if ((*(*v14 + 3) - v74) > 2)
   {
-    *(v85 + 2) = 32;
-    sub_1000C9BAC(v84, v85);
+    *(v74 + 2) = 32;
+    sub_1000C9BAC(v73, v74);
   }
 
   else
   {
-    llvm::raw_ostream::write(v84, " : ", 3uLL);
+    llvm::raw_ostream::write(v73, " : ", 3uLL);
   }
 
-  return mlir::OpAsmPrinter::printFunctionalType(a1, v5);
+  return mlir::OpAsmPrinter::printFunctionalType(a1, a2);
 }
 
 uint64_t sub_10027AEC0(void *a1, uint64_t a2)
@@ -5102,7 +3331,7 @@ uint64_t sub_10027AEC0(void *a1, uint64_t a2)
 
   v26 = v13;
   v27 = v12;
-  mlir::ResultRange::getTypes(&v26, &AttrDictionary);
+  mlir::ResultRange::getTypes(&AttrDictionary, &v26);
   v14 = v24;
   v15 = v25;
   if (v24 != v25)
@@ -5140,49 +3369,51 @@ uint64_t sub_10027AEC0(void *a1, uint64_t a2)
 
 void sub_10027B0D8()
 {
-  if (__cxa_guard_acquire(&qword_1002C0668))
+  v0 = __cxa_guard_acquire(byte_1002C0668);
+  if (v0)
   {
-    v0 = sub_1000B80E4();
-    qword_1002C0660 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1000B80E4(v0, v1);
+    qword_1002C0660 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
 
-    __cxa_guard_release(&qword_1002C0668);
+    __cxa_guard_release(byte_1002C0668);
   }
 }
 
 void sub_10027B12C()
 {
+  if (v0)
   {
-    v0 = sub_1000B8330();
-    mlir::detail::TypeIDResolver<mlir::ElementsAttr,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1000B8330(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::ElementsAttr,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_10027B180()
 {
+  if (v0)
   {
-    v0 = sub_1000714E0();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::IsIsolatedFromAbove<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::IsIsolatedFromAbove>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1000714E0(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::IsIsolatedFromAbove<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::IsIsolatedFromAbove>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
-uint64_t sub_10027B1D4(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t a4)
+uint64_t sub_10027B1D4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   do
   {
-    ValuePtr = llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getValuePtr(a2);
-    sub_100279FE4(a1, ValuePtr);
-    v9 = *a3;
+    llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getValuePtr();
+    sub_100279FE4(a1, v7);
     ++*(a1 + 80);
-    v10 = sub_1000C9AF0(v9);
-    if (v12)
+    sub_1000C9AF0();
+    if (v10)
     {
-      result = llvm::raw_ostream::write(v10, 10);
+      result = llvm::raw_ostream::write(v8, 10);
     }
 
     else
     {
-      result = sub_1000C9B08(v10, v11);
-      *v14 = 10;
+      result = sub_1000C9B08(v8, v9);
+      *v12 = 10;
     }
 
     a2 = *(a2 + 8);
@@ -5194,12 +3425,12 @@ uint64_t sub_10027B1D4(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t a4)
 
 void sub_10027B260()
 {
-  if (__cxa_guard_acquire(&qword_1002C0680))
+  if (__cxa_guard_acquire(byte_1002C0680))
   {
     qword_1002C0670 = sub_1000B812C();
     *algn_1002C0678 = v0;
 
-    __cxa_guard_release(&qword_1002C0680);
+    __cxa_guard_release(byte_1002C0680);
   }
 }
 
@@ -5213,27 +3444,30 @@ void sub_10027B2B4()
 
 void sub_10027B308()
 {
+  if (v0)
   {
-    v0 = sub_1000715A8();
-    mlir::detail::TypeIDResolver<mlir::OpAsmOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1000715A8(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpAsmOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_10027B35C()
 {
-  if (__cxa_guard_acquire(&qword_1002C0668))
+  v0 = __cxa_guard_acquire(byte_1002C0668);
+  if (v0)
   {
-    v0 = sub_1000B80E4();
-    qword_1002C0660 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
-    __cxa_guard_release(&qword_1002C0668);
+    v2 = sub_1000B80E4(v0, v1);
+    qword_1002C0660 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
+    __cxa_guard_release(byte_1002C0668);
   }
 }
 
 void sub_10027B39C()
 {
+  if (v0)
   {
-    v0 = sub_10007809C();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::IsTerminator<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::IsTerminator>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_10007809C(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::IsTerminator<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::IsTerminator>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -5247,735 +3481,771 @@ void sub_10027B3F0()
 
 void sub_10027B444()
 {
+  if (v0)
   {
-    v0 = sub_1000B8330();
-    v2 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
-    sub_100102A60(v2);
+    v2 = sub_1000B8330(v0, v1);
+    v4 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
+    sub_100102A60(v4);
   }
 }
 
 void sub_10027B494()
 {
-  if (__cxa_guard_acquire(&qword_1002C0668))
+  v0 = __cxa_guard_acquire(byte_1002C0668);
+  if (v0)
   {
-    v0 = sub_1000B80E4();
-    v2 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
-    sub_100102A78(v2);
-    __cxa_guard_release(&qword_1002C0668);
+    v2 = sub_1000B80E4(v0, v1);
+    v4 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
+    sub_100102A78(v4);
+    __cxa_guard_release(byte_1002C0668);
   }
 }
 
 void sub_10027B4D0()
 {
-  if (__cxa_guard_acquire(&qword_1002C0690))
+  v0 = __cxa_guard_acquire(byte_1002C0690);
+  if (v0)
   {
-    v0 = sub_1000DAFDC();
-    qword_1002C0688 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1000DAFDC(v0, v1);
+    qword_1002C0688 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
 
-    __cxa_guard_release(&qword_1002C0690);
+    __cxa_guard_release(byte_1002C0690);
   }
 }
 
 void sub_10027B524()
 {
-  if (__cxa_guard_acquire(&qword_1002C06A8))
+  if (__cxa_guard_acquire(byte_1002C06A8))
   {
     qword_1002C0698 = sub_1000DB024();
     unk_1002C06A0 = v0;
 
-    __cxa_guard_release(&qword_1002C06A8);
+    __cxa_guard_release(byte_1002C06A8);
   }
 }
 
 void sub_10027B578()
 {
-  if (__cxa_guard_acquire(&qword_1002C06C0))
+  v0 = __cxa_guard_acquire(byte_1002C06C0);
+  if (v0)
   {
-    v0 = sub_1000DB770();
-    off_1002C06B8 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
-    __cxa_guard_release(&qword_1002C06C0);
+    v2 = sub_1000DB770(v0, v1);
+    off_1002C06B8 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
+    __cxa_guard_release(byte_1002C06C0);
   }
 }
 
 void sub_10027B5B8()
 {
-  if (__cxa_guard_acquire(&qword_1002C06D8))
+  if (__cxa_guard_acquire(byte_1002C06D8))
   {
     qword_1002C06C8 = sub_1000DB7B8();
     unk_1002C06D0 = v0;
 
-    __cxa_guard_release(&qword_1002C06D8);
+    __cxa_guard_release(byte_1002C06D8);
   }
 }
 
 void sub_10027B60C()
 {
-  if (__cxa_guard_acquire(&qword_1002C06E8))
+  v0 = __cxa_guard_acquire(byte_1002C06E8);
+  if (v0)
   {
-    v0 = sub_1000DB898();
-    qword_1002C06E0 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1000DB898(v0, v1);
+    qword_1002C06E0 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
 
-    __cxa_guard_release(&qword_1002C06E8);
+    __cxa_guard_release(byte_1002C06E8);
   }
 }
 
 void sub_10027B660()
 {
-  if (__cxa_guard_acquire(&qword_1002C0700))
+  if (__cxa_guard_acquire(byte_1002C0700))
   {
     qword_1002C06F0 = sub_1000DB8E0();
     *algn_1002C06F8 = v0;
 
-    __cxa_guard_release(&qword_1002C0700);
+    __cxa_guard_release(byte_1002C0700);
   }
 }
 
 void sub_10027B6B4()
 {
+  if (v0)
   {
-    v0 = sub_100062EA0();
-    v2 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
-    sub_100102A54(v2);
+    v2 = sub_100062EA0(v0, v1);
+    v4 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
+    sub_100102A54(v4);
   }
 }
 
 void sub_10027B704()
 {
-  if (__cxa_guard_acquire(&qword_1002C0710))
+  v0 = __cxa_guard_acquire(byte_1002C0710);
+  if (v0)
   {
-    v0 = sub_1000DC67C();
-    qword_1002C0708 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1000DC67C(v0, v1);
+    qword_1002C0708 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
 
-    __cxa_guard_release(&qword_1002C0710);
+    __cxa_guard_release(byte_1002C0710);
   }
 }
 
 void sub_10027B758()
 {
-  if (__cxa_guard_acquire(&qword_1002C0738))
+  v0 = __cxa_guard_acquire(byte_1002C0738);
+  if (v0)
   {
-    v0 = sub_1000DC96C();
-    v2 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
-    sub_100102A90(v2);
+    v2 = sub_1000DC96C(v0, v1);
+    v4 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
+    sub_100102A90(v4);
 
-    __cxa_guard_release(&qword_1002C0738);
+    __cxa_guard_release(byte_1002C0738);
   }
 }
 
 void sub_10027B7A8()
 {
-  if (__cxa_guard_acquire(&qword_1002C0728))
+  if (__cxa_guard_acquire(byte_1002C0728))
   {
     qword_1002C0718 = sub_1000DC6C4();
     unk_1002C0720 = v0;
 
-    __cxa_guard_release(&qword_1002C0728);
+    __cxa_guard_release(byte_1002C0728);
   }
 }
 
 void sub_10027B7FC()
 {
-  if (__cxa_guard_acquire(&qword_1002C0760))
+  v0 = __cxa_guard_acquire(byte_1002C0760);
+  if (v0)
   {
-    v0 = sub_1000DCC5C();
-    v2 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
-    sub_100102A84(v2);
+    v2 = sub_1000DCC5C(v0, v1);
+    v4 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
+    sub_100102A84(v4);
 
-    __cxa_guard_release(&qword_1002C0760);
+    __cxa_guard_release(byte_1002C0760);
   }
 }
 
 void sub_10027B84C()
 {
-  if (__cxa_guard_acquire(&qword_1002C0750))
+  if (__cxa_guard_acquire(byte_1002C0750))
   {
     qword_1002C0740 = sub_1000DC9B4();
     *algn_1002C0748 = v0;
 
-    __cxa_guard_release(&qword_1002C0750);
+    __cxa_guard_release(byte_1002C0750);
   }
 }
 
 void sub_10027B8A0()
 {
-  if (__cxa_guard_acquire(&qword_1002C0788))
+  v0 = __cxa_guard_acquire(byte_1002C0788);
+  if (v0)
   {
-    v0 = sub_1000DCF4C();
-    qword_1002C0780 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1000DCF4C(v0, v1);
+    qword_1002C0780 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
 
-    __cxa_guard_release(&qword_1002C0788);
+    __cxa_guard_release(byte_1002C0788);
   }
 }
 
 void sub_10027B8F4()
 {
-  if (__cxa_guard_acquire(&qword_1002C0778))
+  if (__cxa_guard_acquire(byte_1002C0778))
   {
     qword_1002C0768 = sub_1000DCCA4();
     unk_1002C0770 = v0;
 
-    __cxa_guard_release(&qword_1002C0778);
+    __cxa_guard_release(byte_1002C0778);
   }
 }
 
 void sub_10027B948()
 {
-  if (__cxa_guard_acquire(&qword_1002C07B0))
+  v0 = __cxa_guard_acquire(byte_1002C07B0);
+  if (v0)
   {
-    v0 = sub_1000DD14C();
-    qword_1002C07A8 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1000DD14C(v0, v1);
+    qword_1002C07A8 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
 
-    __cxa_guard_release(&qword_1002C07B0);
+    __cxa_guard_release(byte_1002C07B0);
   }
 }
 
 void sub_10027B99C()
 {
-  if (__cxa_guard_acquire(&qword_1002C07A0))
+  if (__cxa_guard_acquire(byte_1002C07A0))
   {
     qword_1002C0790 = sub_1000DCF94();
     *algn_1002C0798 = v0;
 
-    __cxa_guard_release(&qword_1002C07A0);
+    __cxa_guard_release(byte_1002C07A0);
   }
 }
 
 void sub_10027B9F0()
 {
-  if (__cxa_guard_acquire(&qword_1002C07D8))
+  v0 = __cxa_guard_acquire(byte_1002C07D8);
+  if (v0)
   {
-    v0 = sub_1000DD43C();
-    v2 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
-    sub_100102AA8(v2);
+    v2 = sub_1000DD43C(v0, v1);
+    v4 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
+    sub_100102AA8(v4);
 
-    __cxa_guard_release(&qword_1002C07D8);
+    __cxa_guard_release(byte_1002C07D8);
   }
 }
 
 void sub_10027BA40()
 {
-  if (__cxa_guard_acquire(&qword_1002C07C8))
+  if (__cxa_guard_acquire(byte_1002C07C8))
   {
     qword_1002C07B8 = sub_1000DD194();
     unk_1002C07C0 = v0;
 
-    __cxa_guard_release(&qword_1002C07C8);
+    __cxa_guard_release(byte_1002C07C8);
   }
 }
 
 void sub_10027BA94()
 {
-  if (__cxa_guard_acquire(&qword_1002C0800))
+  v0 = __cxa_guard_acquire(byte_1002C0800);
+  if (v0)
   {
-    v0 = sub_1000DD72C();
-    v2 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
-    sub_100102A9C(v2);
+    v2 = sub_1000DD72C(v0, v1);
+    v4 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
+    sub_100102A9C(v4);
 
-    __cxa_guard_release(&qword_1002C0800);
+    __cxa_guard_release(byte_1002C0800);
   }
 }
 
 void sub_10027BAE4()
 {
-  if (__cxa_guard_acquire(&qword_1002C07F0))
+  if (__cxa_guard_acquire(byte_1002C07F0))
   {
     qword_1002C07E0 = sub_1000DD484();
     *algn_1002C07E8 = v0;
 
-    __cxa_guard_release(&qword_1002C07F0);
+    __cxa_guard_release(byte_1002C07F0);
   }
 }
 
 void sub_10027BB38()
 {
-  if (__cxa_guard_acquire(&qword_1002C0828))
+  v0 = __cxa_guard_acquire(byte_1002C0828);
+  if (v0)
   {
-    v0 = sub_1000DDA1C();
-    qword_1002C0820 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1000DDA1C(v0, v1);
+    qword_1002C0820 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
 
-    __cxa_guard_release(&qword_1002C0828);
+    __cxa_guard_release(byte_1002C0828);
   }
 }
 
 void sub_10027BB8C()
 {
-  if (__cxa_guard_acquire(&qword_1002C0818))
+  if (__cxa_guard_acquire(byte_1002C0818))
   {
     qword_1002C0808 = sub_1000DD774();
     unk_1002C0810 = v0;
 
-    __cxa_guard_release(&qword_1002C0818);
+    __cxa_guard_release(byte_1002C0818);
   }
 }
 
 void sub_10027BBE0()
 {
-  if (__cxa_guard_acquire(&qword_1002C0840))
+  if (__cxa_guard_acquire(byte_1002C0840))
   {
     qword_1002C0830 = sub_1000DDA64();
     *algn_1002C0838 = v0;
 
-    __cxa_guard_release(&qword_1002C0840);
+    __cxa_guard_release(byte_1002C0840);
   }
 }
 
 void sub_10027BC34()
 {
-  if (__cxa_guard_acquire(&qword_1002C0850))
+  v0 = __cxa_guard_acquire(byte_1002C0850);
+  if (v0)
   {
-    v0 = sub_1000DE1EC();
-    qword_1002C0848 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1000DE1EC(v0, v1);
+    qword_1002C0848 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
 
-    __cxa_guard_release(&qword_1002C0850);
+    __cxa_guard_release(byte_1002C0850);
   }
 }
 
 void sub_10027BC88()
 {
-  if (__cxa_guard_acquire(&qword_1002C0878))
+  v0 = __cxa_guard_acquire(byte_1002C0878);
+  if (v0)
   {
-    v0 = sub_1000DE3EC();
-    qword_1002C0870 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1000DE3EC(v0, v1);
+    qword_1002C0870 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
 
-    __cxa_guard_release(&qword_1002C0878);
+    __cxa_guard_release(byte_1002C0878);
   }
 }
 
 void sub_10027BCDC()
 {
-  if (__cxa_guard_acquire(&qword_1002C0868))
+  if (__cxa_guard_acquire(byte_1002C0868))
   {
     qword_1002C0858 = sub_1000DE234();
     unk_1002C0860 = v0;
 
-    __cxa_guard_release(&qword_1002C0868);
+    __cxa_guard_release(byte_1002C0868);
   }
 }
 
 void sub_10027BD30()
 {
-  if (__cxa_guard_acquire(&qword_1002C08A0))
+  v0 = __cxa_guard_acquire(byte_1002C08A0);
+  if (v0)
   {
-    v0 = sub_1000DE5EC();
-    qword_1002C0898 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1000DE5EC(v0, v1);
+    qword_1002C0898 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
 
-    __cxa_guard_release(&qword_1002C08A0);
+    __cxa_guard_release(byte_1002C08A0);
   }
 }
 
 void sub_10027BD84()
 {
-  if (__cxa_guard_acquire(&qword_1002C0890))
+  if (__cxa_guard_acquire(byte_1002C0890))
   {
     qword_1002C0880 = sub_1000DE434();
     *algn_1002C0888 = v0;
 
-    __cxa_guard_release(&qword_1002C0890);
+    __cxa_guard_release(byte_1002C0890);
   }
 }
 
 void sub_10027BDD8()
 {
-  if (__cxa_guard_acquire(&qword_1002C08C8))
+  v0 = __cxa_guard_acquire(byte_1002C08C8);
+  if (v0)
   {
-    v0 = sub_1000DE8E8();
-    qword_1002C08C0 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1000DE8E8(v0, v1);
+    qword_1002C08C0 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
 
-    __cxa_guard_release(&qword_1002C08C8);
+    __cxa_guard_release(byte_1002C08C8);
   }
 }
 
 void sub_10027BE2C()
 {
-  if (__cxa_guard_acquire(&qword_1002C08B8))
+  if (__cxa_guard_acquire(byte_1002C08B8))
   {
     qword_1002C08A8 = sub_1000DE634();
     unk_1002C08B0 = v0;
 
-    __cxa_guard_release(&qword_1002C08B8);
+    __cxa_guard_release(byte_1002C08B8);
   }
 }
 
 void sub_10027BE80()
 {
-  if (__cxa_guard_acquire(&qword_1002C08F0))
+  v0 = __cxa_guard_acquire(byte_1002C08F0);
+  if (v0)
   {
-    v0 = sub_1000DEBE4();
-    qword_1002C08E8 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1000DEBE4(v0, v1);
+    qword_1002C08E8 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
 
-    __cxa_guard_release(&qword_1002C08F0);
+    __cxa_guard_release(byte_1002C08F0);
   }
 }
 
 void sub_10027BED4()
 {
-  if (__cxa_guard_acquire(&qword_1002C08E0))
+  if (__cxa_guard_acquire(byte_1002C08E0))
   {
     qword_1002C08D0 = sub_1000DE930();
     *algn_1002C08D8 = v0;
 
-    __cxa_guard_release(&qword_1002C08E0);
+    __cxa_guard_release(byte_1002C08E0);
   }
 }
 
 void sub_10027BF28()
 {
-  if (__cxa_guard_acquire(&qword_1002C0918))
+  v0 = __cxa_guard_acquire(byte_1002C0918);
+  if (v0)
   {
-    v0 = sub_1000DEEE0();
-    qword_1002C0910 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1000DEEE0(v0, v1);
+    qword_1002C0910 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
 
-    __cxa_guard_release(&qword_1002C0918);
+    __cxa_guard_release(byte_1002C0918);
   }
 }
 
 void sub_10027BF7C()
 {
-  if (__cxa_guard_acquire(&qword_1002C0908))
+  if (__cxa_guard_acquire(byte_1002C0908))
   {
     qword_1002C08F8 = sub_1000DEC2C();
     unk_1002C0900 = v0;
 
-    __cxa_guard_release(&qword_1002C0908);
+    __cxa_guard_release(byte_1002C0908);
   }
 }
 
 void sub_10027BFD0()
 {
-  if (__cxa_guard_acquire(&qword_1002C0940))
+  v0 = __cxa_guard_acquire(byte_1002C0940);
+  if (v0)
   {
-    v0 = sub_1000DF1DC();
-    qword_1002C0938 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1000DF1DC(v0, v1);
+    qword_1002C0938 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
 
-    __cxa_guard_release(&qword_1002C0940);
+    __cxa_guard_release(byte_1002C0940);
   }
 }
 
 void sub_10027C024()
 {
-  if (__cxa_guard_acquire(&qword_1002C0930))
+  if (__cxa_guard_acquire(byte_1002C0930))
   {
     qword_1002C0920 = sub_1000DEF28();
     *algn_1002C0928 = v0;
 
-    __cxa_guard_release(&qword_1002C0930);
+    __cxa_guard_release(byte_1002C0930);
   }
 }
 
 void sub_10027C078()
 {
-  if (__cxa_guard_acquire(&qword_1002C0968))
+  v0 = __cxa_guard_acquire(byte_1002C0968);
+  if (v0)
   {
-    v0 = sub_1000DF4D8();
-    qword_1002C0960 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1000DF4D8(v0, v1);
+    qword_1002C0960 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
 
-    __cxa_guard_release(&qword_1002C0968);
+    __cxa_guard_release(byte_1002C0968);
   }
 }
 
 void sub_10027C0CC()
 {
-  if (__cxa_guard_acquire(&qword_1002C0958))
+  if (__cxa_guard_acquire(byte_1002C0958))
   {
     qword_1002C0948 = sub_1000DF224();
     unk_1002C0950 = v0;
 
-    __cxa_guard_release(&qword_1002C0958);
+    __cxa_guard_release(byte_1002C0958);
   }
 }
 
 void sub_10027C120()
 {
-  if (__cxa_guard_acquire(&qword_1002C0990))
+  v0 = __cxa_guard_acquire(byte_1002C0990);
+  if (v0)
   {
-    v0 = sub_1000DF7D4();
-    qword_1002C0988 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1000DF7D4(v0, v1);
+    qword_1002C0988 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
 
-    __cxa_guard_release(&qword_1002C0990);
+    __cxa_guard_release(byte_1002C0990);
   }
 }
 
 void sub_10027C174()
 {
-  if (__cxa_guard_acquire(&qword_1002C0980))
+  if (__cxa_guard_acquire(byte_1002C0980))
   {
     qword_1002C0970 = sub_1000DF520();
     *algn_1002C0978 = v0;
 
-    __cxa_guard_release(&qword_1002C0980);
+    __cxa_guard_release(byte_1002C0980);
   }
 }
 
 void sub_10027C1C8()
 {
-  if (__cxa_guard_acquire(&qword_1002C09B8))
+  v0 = __cxa_guard_acquire(byte_1002C09B8);
+  if (v0)
   {
-    v0 = sub_1000DFA84();
-    qword_1002C09B0 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1000DFA84(v0, v1);
+    qword_1002C09B0 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
 
-    __cxa_guard_release(&qword_1002C09B8);
+    __cxa_guard_release(byte_1002C09B8);
   }
 }
 
 void sub_10027C21C()
 {
-  if (__cxa_guard_acquire(&qword_1002C09A8))
+  if (__cxa_guard_acquire(byte_1002C09A8))
   {
     qword_1002C0998 = sub_1000DF81C();
     unk_1002C09A0 = v0;
 
-    __cxa_guard_release(&qword_1002C09A8);
+    __cxa_guard_release(byte_1002C09A8);
   }
 }
 
 void sub_10027C270()
 {
-  if (__cxa_guard_acquire(&qword_1002C09E0))
+  v0 = __cxa_guard_acquire(byte_1002C09E0);
+  if (v0)
   {
-    v0 = sub_1000DFD3C();
-    qword_1002C09D8 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1000DFD3C(v0, v1);
+    qword_1002C09D8 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
 
-    __cxa_guard_release(&qword_1002C09E0);
+    __cxa_guard_release(byte_1002C09E0);
   }
 }
 
 void sub_10027C2C4()
 {
-  if (__cxa_guard_acquire(&qword_1002C0A08))
+  v0 = __cxa_guard_acquire(byte_1002C0A08);
+  if (v0)
   {
-    v0 = sub_1000DFFDC();
-    qword_1002C0A00 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1000DFFDC(v0, v1);
+    qword_1002C0A00 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
 
-    __cxa_guard_release(&qword_1002C0A08);
+    __cxa_guard_release(byte_1002C0A08);
   }
 }
 
 void sub_10027C318()
 {
-  if (__cxa_guard_acquire(&qword_1002C09D0))
+  if (__cxa_guard_acquire(byte_1002C09D0))
   {
     qword_1002C09C0 = sub_1000DFACC();
     *algn_1002C09C8 = v0;
 
-    __cxa_guard_release(&qword_1002C09D0);
+    __cxa_guard_release(byte_1002C09D0);
   }
 }
 
 void sub_10027C36C()
 {
-  if (__cxa_guard_acquire(&qword_1002C09F8))
+  if (__cxa_guard_acquire(byte_1002C09F8))
   {
     qword_1002C09E8 = sub_1000DFD84();
     unk_1002C09F0 = v0;
 
-    __cxa_guard_release(&qword_1002C09F8);
+    __cxa_guard_release(byte_1002C09F8);
   }
 }
 
 void sub_10027C3C0()
 {
-  if (__cxa_guard_acquire(&qword_1002C0A30))
+  v0 = __cxa_guard_acquire(byte_1002C0A30);
+  if (v0)
   {
-    v0 = sub_1000E01A4();
-    qword_1002C0A28 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1000E01A4(v0, v1);
+    qword_1002C0A28 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
 
-    __cxa_guard_release(&qword_1002C0A30);
+    __cxa_guard_release(byte_1002C0A30);
   }
 }
 
 void sub_10027C414()
 {
-  if (__cxa_guard_acquire(&qword_1002C0A58))
+  v0 = __cxa_guard_acquire(byte_1002C0A58);
+  if (v0)
   {
-    v0 = sub_1000E036C();
-    qword_1002C0A50 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1000E036C(v0, v1);
+    qword_1002C0A50 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
 
-    __cxa_guard_release(&qword_1002C0A58);
+    __cxa_guard_release(byte_1002C0A58);
   }
 }
 
 void sub_10027C468()
 {
-  if (__cxa_guard_acquire(&qword_1002C0A20))
+  if (__cxa_guard_acquire(byte_1002C0A20))
   {
     qword_1002C0A10 = sub_1000E0024();
     *algn_1002C0A18 = v0;
 
-    __cxa_guard_release(&qword_1002C0A20);
+    __cxa_guard_release(byte_1002C0A20);
   }
 }
 
 void sub_10027C4BC()
 {
-  if (__cxa_guard_acquire(&qword_1002C0A48))
+  if (__cxa_guard_acquire(byte_1002C0A48))
   {
     qword_1002C0A38 = sub_1000E01EC();
     unk_1002C0A40 = v0;
 
-    __cxa_guard_release(&qword_1002C0A48);
+    __cxa_guard_release(byte_1002C0A48);
   }
 }
 
 void sub_10027C510()
 {
-  if (__cxa_guard_acquire(&qword_1002C0A70))
+  if (__cxa_guard_acquire(byte_1002C0A70))
   {
     qword_1002C0A60 = sub_1000E03B4();
     *algn_1002C0A68 = v0;
 
-    __cxa_guard_release(&qword_1002C0A70);
+    __cxa_guard_release(byte_1002C0A70);
   }
 }
 
 void sub_10027C564()
 {
-  if (__cxa_guard_acquire(&qword_1002C0A80))
+  v0 = __cxa_guard_acquire(byte_1002C0A80);
+  if (v0)
   {
-    v0 = sub_1000E073C();
-    qword_1002C0A78 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1000E073C(v0, v1);
+    qword_1002C0A78 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
 
-    __cxa_guard_release(&qword_1002C0A80);
+    __cxa_guard_release(byte_1002C0A80);
   }
 }
 
 void sub_10027C5B8()
 {
-  if (__cxa_guard_acquire(&qword_1002C0AA8))
+  v0 = __cxa_guard_acquire(byte_1002C0AA8);
+  if (v0)
   {
-    v0 = sub_1000E08B0();
-    qword_1002C0AA0 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1000E08B0(v0, v1);
+    qword_1002C0AA0 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
 
-    __cxa_guard_release(&qword_1002C0AA8);
+    __cxa_guard_release(byte_1002C0AA8);
   }
 }
 
 void sub_10027C60C()
 {
-  if (__cxa_guard_acquire(&qword_1002C0AD0))
+  v0 = __cxa_guard_acquire(byte_1002C0AD0);
+  if (v0)
   {
-    v0 = sub_1000E0E4C();
-    qword_1002C0AC8 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1000E0E4C(v0, v1);
+    qword_1002C0AC8 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
 
-    __cxa_guard_release(&qword_1002C0AD0);
+    __cxa_guard_release(byte_1002C0AD0);
   }
 }
 
 void sub_10027C660()
 {
-  if (__cxa_guard_acquire(&qword_1002C0A98))
+  if (__cxa_guard_acquire(byte_1002C0A98))
   {
     qword_1002C0A88 = sub_1000E0784();
     unk_1002C0A90 = v0;
 
-    __cxa_guard_release(&qword_1002C0A98);
+    __cxa_guard_release(byte_1002C0A98);
   }
 }
 
 void sub_10027C6B4()
 {
-  if (__cxa_guard_acquire(&qword_1002C0AC0))
+  if (__cxa_guard_acquire(byte_1002C0AC0))
   {
     qword_1002C0AB0 = sub_1000E08F8();
     *algn_1002C0AB8 = v0;
 
-    __cxa_guard_release(&qword_1002C0AC0);
+    __cxa_guard_release(byte_1002C0AC0);
   }
 }
 
 void sub_10027C708()
 {
-  if (__cxa_guard_acquire(&qword_1002C0AF8))
+  v0 = __cxa_guard_acquire(byte_1002C0AF8);
+  if (v0)
   {
-    v0 = sub_1000E114C();
-    qword_1002C0AF0 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1000E114C(v0, v1);
+    qword_1002C0AF0 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
 
-    __cxa_guard_release(&qword_1002C0AF8);
+    __cxa_guard_release(byte_1002C0AF8);
   }
 }
 
 void sub_10027C75C()
 {
-  if (__cxa_guard_acquire(&qword_1002C0AE8))
+  if (__cxa_guard_acquire(byte_1002C0AE8))
   {
     qword_1002C0AD8 = sub_1000E0E94();
     unk_1002C0AE0 = v0;
 
-    __cxa_guard_release(&qword_1002C0AE8);
+    __cxa_guard_release(byte_1002C0AE8);
   }
 }
 
 void sub_10027C7B0()
 {
-  if (__cxa_guard_acquire(&qword_1002C0B20))
+  v0 = __cxa_guard_acquire(byte_1002C0B20);
+  if (v0)
   {
-    v0 = sub_1000E140C();
-    qword_1002C0B18 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1000E140C(v0, v1);
+    qword_1002C0B18 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
 
-    __cxa_guard_release(&qword_1002C0B20);
+    __cxa_guard_release(byte_1002C0B20);
   }
 }
 
 void sub_10027C804()
 {
-  if (__cxa_guard_acquire(&qword_1002C0B10))
+  if (__cxa_guard_acquire(byte_1002C0B10))
   {
     qword_1002C0B00 = sub_1000E1194();
     *algn_1002C0B08 = v0;
 
-    __cxa_guard_release(&qword_1002C0B10);
+    __cxa_guard_release(byte_1002C0B10);
   }
 }
 
 void sub_10027C858()
 {
-  if (__cxa_guard_acquire(&qword_1002C0B48))
+  v0 = __cxa_guard_acquire(byte_1002C0B48);
+  if (v0)
   {
-    v0 = sub_1000E15A0();
-    qword_1002C0B40 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1000E15A0(v0, v1);
+    qword_1002C0B40 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
 
-    __cxa_guard_release(&qword_1002C0B48);
+    __cxa_guard_release(byte_1002C0B48);
   }
 }
 
 void sub_10027C8AC()
 {
-  if (__cxa_guard_acquire(&qword_1002C0B38))
+  if (__cxa_guard_acquire(byte_1002C0B38))
   {
     qword_1002C0B28 = sub_1000E1454();
     unk_1002C0B30 = v0;
 
-    __cxa_guard_release(&qword_1002C0B38);
+    __cxa_guard_release(byte_1002C0B38);
   }
 }
 
 void sub_10027C900()
 {
-  if (__cxa_guard_acquire(&qword_1002C0B60))
+  if (__cxa_guard_acquire(byte_1002C0B60))
   {
     qword_1002C0B50 = sub_1000E15E8();
     *algn_1002C0B58 = v0;
 
-    __cxa_guard_release(&qword_1002C0B60);
+    __cxa_guard_release(byte_1002C0B60);
   }
 }
 
 void sub_10027C954()
 {
+  if (v0)
   {
-    v0 = sub_1000E1834();
-    v2 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
-    sub_100102A6C(v2);
+    v2 = sub_1000E1834(v0, v1);
+    v4 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
+    sub_100102A6C(v4);
   }
 }
 
 void sub_10027C9A4()
 {
-  if (__cxa_guard_acquire(&qword_1002C0B70))
+  v0 = __cxa_guard_acquire(byte_1002C0B70);
+  if (v0)
   {
-    v0 = sub_1000E18FC();
-    qword_1002C0B68 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1000E18FC(v0, v1);
+    qword_1002C0B68 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
 
-    __cxa_guard_release(&qword_1002C0B70);
+    __cxa_guard_release(byte_1002C0B70);
   }
 }
 
@@ -5989,264 +4259,286 @@ void sub_10027C9F8()
 
 void sub_10027CA4C()
 {
-  if (__cxa_guard_acquire(&qword_1002C0B88))
+  if (__cxa_guard_acquire(byte_1002C0B88))
   {
     qword_1002C0B78 = sub_1000E1944();
     unk_1002C0B80 = v0;
 
-    __cxa_guard_release(&qword_1002C0B88);
+    __cxa_guard_release(byte_1002C0B88);
   }
 }
 
 void sub_10027CAA0()
 {
-  if (__cxa_guard_acquire(&qword_1002C0B98))
+  v0 = __cxa_guard_acquire(byte_1002C0B98);
+  if (v0)
   {
-    v0 = sub_1000E1F20();
-    qword_1002C0B90 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1000E1F20(v0, v1);
+    qword_1002C0B90 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
 
-    __cxa_guard_release(&qword_1002C0B98);
+    __cxa_guard_release(byte_1002C0B98);
   }
 }
 
 void sub_10027CAF4()
 {
-  if (__cxa_guard_acquire(&qword_1002C0BB0))
+  if (__cxa_guard_acquire(byte_1002C0BB0))
   {
     qword_1002C0BA0 = sub_1000E1F68();
     *algn_1002C0BA8 = v0;
 
-    __cxa_guard_release(&qword_1002C0BB0);
+    __cxa_guard_release(byte_1002C0BB0);
   }
 }
 
 void sub_10027CB48()
 {
-  if (__cxa_guard_acquire(&qword_1002C06C0))
+  v0 = __cxa_guard_acquire(byte_1002C06C0);
+  if (v0)
   {
-    v0 = sub_1000DB770();
-    off_1002C06B8 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1000DB770(v0, v1);
+    off_1002C06B8 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
 
-    __cxa_guard_release(&qword_1002C06C0);
+    __cxa_guard_release(byte_1002C06C0);
   }
 }
 
 void sub_10027CB9C()
 {
-  if (__cxa_guard_acquire(&qword_1002C06E8))
+  v0 = __cxa_guard_acquire(byte_1002C06E8);
+  if (v0)
   {
-    v0 = sub_1000DB898();
-    qword_1002C06E0 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1000DB898(v0, v1);
+    qword_1002C06E0 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
 
-    __cxa_guard_release(&qword_1002C06E8);
+    __cxa_guard_release(byte_1002C06E8);
   }
 }
 
 void sub_10027CBF0()
 {
+  if (v0)
   {
-    v0 = sub_100062EA0();
-    v2 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
-    sub_100102A54(v2);
+    v2 = sub_100062EA0(v0, v1);
+    v4 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
+    sub_100102A54(v4);
   }
 }
 
 void sub_10027CC2C()
 {
-  if (__cxa_guard_acquire(&qword_1002C0710))
+  v0 = __cxa_guard_acquire(byte_1002C0710);
+  if (v0)
   {
-    v0 = sub_1000DC67C();
-    qword_1002C0708 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1000DC67C(v0, v1);
+    qword_1002C0708 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
 
-    __cxa_guard_release(&qword_1002C0710);
+    __cxa_guard_release(byte_1002C0710);
   }
 }
 
 void sub_10027CC80()
 {
-  if (__cxa_guard_acquire(&qword_1002C0788))
+  v0 = __cxa_guard_acquire(byte_1002C0788);
+  if (v0)
   {
-    v0 = sub_1000DCF4C();
-    qword_1002C0780 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1000DCF4C(v0, v1);
+    qword_1002C0780 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
 
-    __cxa_guard_release(&qword_1002C0788);
+    __cxa_guard_release(byte_1002C0788);
   }
 }
 
 void sub_10027CCD4()
 {
-  if (__cxa_guard_acquire(&qword_1002C07B0))
+  v0 = __cxa_guard_acquire(byte_1002C07B0);
+  if (v0)
   {
-    v0 = sub_1000DD14C();
-    qword_1002C07A8 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1000DD14C(v0, v1);
+    qword_1002C07A8 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
 
-    __cxa_guard_release(&qword_1002C07B0);
+    __cxa_guard_release(byte_1002C07B0);
   }
 }
 
 void sub_10027CD28()
 {
-  if (__cxa_guard_acquire(&qword_1002C0828))
+  v0 = __cxa_guard_acquire(byte_1002C0828);
+  if (v0)
   {
-    v0 = sub_1000DDA1C();
-    qword_1002C0820 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1000DDA1C(v0, v1);
+    qword_1002C0820 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
 
-    __cxa_guard_release(&qword_1002C0828);
+    __cxa_guard_release(byte_1002C0828);
   }
 }
 
 void sub_10027CD7C()
 {
-  if (__cxa_guard_acquire(&qword_1002C0850))
+  v0 = __cxa_guard_acquire(byte_1002C0850);
+  if (v0)
   {
-    v0 = sub_1000DE1EC();
-    qword_1002C0848 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1000DE1EC(v0, v1);
+    qword_1002C0848 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
 
-    __cxa_guard_release(&qword_1002C0850);
+    __cxa_guard_release(byte_1002C0850);
   }
 }
 
 void sub_10027CDD0()
 {
-  if (__cxa_guard_acquire(&qword_1002C0878))
+  v0 = __cxa_guard_acquire(byte_1002C0878);
+  if (v0)
   {
-    v0 = sub_1000DE3EC();
-    qword_1002C0870 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1000DE3EC(v0, v1);
+    qword_1002C0870 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
 
-    __cxa_guard_release(&qword_1002C0878);
+    __cxa_guard_release(byte_1002C0878);
   }
 }
 
 void sub_10027CE24()
 {
-  if (__cxa_guard_acquire(&qword_1002C08A0))
+  v0 = __cxa_guard_acquire(byte_1002C08A0);
+  if (v0)
   {
-    v0 = sub_1000DE5EC();
-    qword_1002C0898 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1000DE5EC(v0, v1);
+    qword_1002C0898 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
 
-    __cxa_guard_release(&qword_1002C08A0);
+    __cxa_guard_release(byte_1002C08A0);
   }
 }
 
 void sub_10027CE78()
 {
-  if (__cxa_guard_acquire(&qword_1002C08C8))
+  v0 = __cxa_guard_acquire(byte_1002C08C8);
+  if (v0)
   {
-    v0 = sub_1000DE8E8();
-    qword_1002C08C0 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1000DE8E8(v0, v1);
+    qword_1002C08C0 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
 
-    __cxa_guard_release(&qword_1002C08C8);
+    __cxa_guard_release(byte_1002C08C8);
   }
 }
 
 void sub_10027CECC()
 {
-  if (__cxa_guard_acquire(&qword_1002C08F0))
+  v0 = __cxa_guard_acquire(byte_1002C08F0);
+  if (v0)
   {
-    v0 = sub_1000DEBE4();
-    qword_1002C08E8 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1000DEBE4(v0, v1);
+    qword_1002C08E8 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
 
-    __cxa_guard_release(&qword_1002C08F0);
+    __cxa_guard_release(byte_1002C08F0);
   }
 }
 
 void sub_10027CF20()
 {
-  if (__cxa_guard_acquire(&qword_1002C0918))
+  v0 = __cxa_guard_acquire(byte_1002C0918);
+  if (v0)
   {
-    v0 = sub_1000DEEE0();
-    qword_1002C0910 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1000DEEE0(v0, v1);
+    qword_1002C0910 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
 
-    __cxa_guard_release(&qword_1002C0918);
+    __cxa_guard_release(byte_1002C0918);
   }
 }
 
 void sub_10027CF74()
 {
-  if (__cxa_guard_acquire(&qword_1002C0940))
+  v0 = __cxa_guard_acquire(byte_1002C0940);
+  if (v0)
   {
-    v0 = sub_1000DF1DC();
-    qword_1002C0938 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1000DF1DC(v0, v1);
+    qword_1002C0938 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
 
-    __cxa_guard_release(&qword_1002C0940);
+    __cxa_guard_release(byte_1002C0940);
   }
 }
 
 void sub_10027CFC8()
 {
-  if (__cxa_guard_acquire(&qword_1002C0968))
+  v0 = __cxa_guard_acquire(byte_1002C0968);
+  if (v0)
   {
-    v0 = sub_1000DF4D8();
-    qword_1002C0960 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1000DF4D8(v0, v1);
+    qword_1002C0960 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
 
-    __cxa_guard_release(&qword_1002C0968);
+    __cxa_guard_release(byte_1002C0968);
   }
 }
 
 void sub_10027D01C()
 {
-  if (__cxa_guard_acquire(&qword_1002C0990))
+  v0 = __cxa_guard_acquire(byte_1002C0990);
+  if (v0)
   {
-    v0 = sub_1000DF7D4();
-    qword_1002C0988 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1000DF7D4(v0, v1);
+    qword_1002C0988 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
 
-    __cxa_guard_release(&qword_1002C0990);
+    __cxa_guard_release(byte_1002C0990);
   }
 }
 
 void sub_10027D070()
 {
-  if (__cxa_guard_acquire(&qword_1002C09B8))
+  v0 = __cxa_guard_acquire(byte_1002C09B8);
+  if (v0)
   {
-    v0 = sub_1000DFA84();
-    qword_1002C09B0 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1000DFA84(v0, v1);
+    qword_1002C09B0 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
 
-    __cxa_guard_release(&qword_1002C09B8);
+    __cxa_guard_release(byte_1002C09B8);
   }
 }
 
 void sub_10027D0C4()
 {
-  if (__cxa_guard_acquire(&qword_1002C09E0))
+  v0 = __cxa_guard_acquire(byte_1002C09E0);
+  if (v0)
   {
-    v0 = sub_1000DFD3C();
-    qword_1002C09D8 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1000DFD3C(v0, v1);
+    qword_1002C09D8 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
 
-    __cxa_guard_release(&qword_1002C09E0);
+    __cxa_guard_release(byte_1002C09E0);
   }
 }
 
 void sub_10027D118()
 {
-  if (__cxa_guard_acquire(&qword_1002C0A08))
+  v0 = __cxa_guard_acquire(byte_1002C0A08);
+  if (v0)
   {
-    v0 = sub_1000DFFDC();
-    qword_1002C0A00 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1000DFFDC(v0, v1);
+    qword_1002C0A00 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
 
-    __cxa_guard_release(&qword_1002C0A08);
+    __cxa_guard_release(byte_1002C0A08);
   }
 }
 
 void sub_10027D16C()
 {
-  if (__cxa_guard_acquire(&qword_1002C0690))
+  v0 = __cxa_guard_acquire(byte_1002C0690);
+  if (v0)
   {
-    v0 = sub_1000DAFDC();
-    qword_1002C0688 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1000DAFDC(v0, v1);
+    qword_1002C0688 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
 
-    __cxa_guard_release(&qword_1002C0690);
+    __cxa_guard_release(byte_1002C0690);
   }
 }
 
 void sub_10027D1C0()
 {
-  if (__cxa_guard_acquire(&qword_1002C0668))
+  v0 = __cxa_guard_acquire(byte_1002C0668);
+  if (v0)
   {
-    v0 = sub_1000B80E4();
-    v2 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
-    sub_100102A78(v2);
+    v2 = sub_1000B80E4(v0, v1);
+    v4 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
+    sub_100102A78(v4);
 
-    __cxa_guard_release(&qword_1002C0668);
+    __cxa_guard_release(byte_1002C0668);
   }
 }
 
@@ -6273,25 +4565,25 @@ uint64_t mlir::UnrealizedConversionCastOp::fold(uint64_t *a1, uint64_t a2, uint6
     v5 = 0;
   }
 
-  v53 = v6;
-  v54 = v5;
-  sub_10010B2F4(v4);
-  v52[0] = v7;
-  v52[1] = v8;
-  mlir::OperandRange::getType(&v53, &v49);
-  mlir::ResultRange::getType(v52, &v46);
-  v9 = v51 - v50;
-  v10 = v47;
-  if (v51 - v50 == v48 - v47)
+  v52 = v6;
+  v53 = v5;
+  sub_10010B2F4();
+  v51[0] = v7;
+  v51[1] = v8;
+  mlir::OperandRange::getType(&v52, &v48);
+  mlir::ResultRange::getType(v51, &v45);
+  v9 = v50 - v49;
+  v10 = v46;
+  if (v50 - v49 == v47 - v46)
   {
-    if (v51 == v50)
+    if (v50 == v49)
     {
 LABEL_8:
-      v14 = v54;
+      v14 = v53;
       v15 = *(a3 + 8);
-      if (v54 + v15 > *(a3 + 12))
+      if (v53 + v15 > *(a3 + 12))
       {
-        llvm::SmallVectorBase<unsigned int>::grow_pod(a3, (a3 + 16), v54 + v15, 8);
+        llvm::SmallVectorBase<unsigned int>::grow_pod(a3, (a3 + 16), v53 + v15, 8);
         v15 = *(a3 + 8);
       }
 
@@ -6327,8 +4619,8 @@ LABEL_8:
       goto LABEL_60;
     }
 
-    v11 = v46;
-    v12 = v49 + 32 * v50 + 24;
+    v11 = v45;
+    v12 = v48 + 32 * v49 + 24;
     while (1)
     {
       v13 = *(*v12 + 8);
@@ -6346,13 +4638,13 @@ LABEL_8:
     }
   }
 
-  if (!v54)
+  if (!v53)
   {
     return 0;
   }
 
-  v45 = *(v53 + 24);
-  DefiningOp = mlir::Value::getDefiningOp(&v45);
+  v44 = *(v52 + 24);
+  DefiningOp = mlir::Value::getDefiningOp(&v44);
   if (!DefiningOp)
   {
     return 0;
@@ -6367,7 +4659,7 @@ LABEL_8:
 
   v26 = *(DefiningOp + 36);
   v27 = v26 ? DefiningOp - 16 : 0;
-  if (v54 != v26)
+  if (v53 != v26)
   {
     return 0;
   }
@@ -6375,7 +4667,7 @@ LABEL_8:
   if (v26)
   {
     v28 = 0;
-    v29 = (v53 + 24);
+    v29 = (v52 + 24);
     while (mlir::detail::OpResultImpl::getNextResultAtOffset(v27, v28) == *v29)
     {
       ++v28;
@@ -6402,21 +4694,21 @@ LABEL_35:
     v31 = 0;
   }
 
-  v55[0] = v30;
-  v55[1] = v31;
-  mlir::OperandRange::getTypes(v55, &v49);
-  mlir::ResultRange::getTypes(v52, &v46);
-  v32 = v51 - v50;
-  v33 = v47;
-  if (v51 - v50 != v48 - v47)
+  v54[0] = v30;
+  v54[1] = v31;
+  mlir::OperandRange::getTypes(v54, &v48);
+  mlir::ResultRange::getTypes(&v45, v51);
+  v32 = v50 - v49;
+  v33 = v46;
+  if (v50 - v49 != v47 - v46)
   {
     return 0;
   }
 
-  if (v51 != v50)
+  if (v50 != v49)
   {
-    v34 = v46;
-    v35 = v49 + 32 * v50 + 24;
+    v34 = v45;
+    v35 = v48 + 32 * v49 + 24;
     do
     {
       v36 = *(*v35 + 8);
@@ -6434,7 +4726,6 @@ LABEL_35:
 
   if ((*(v25 + 46) & 0x80) != 0)
   {
-    v37 = *(v25 + 72);
     v14 = *(v25 + 68);
   }
 
@@ -6452,26 +4743,26 @@ LABEL_35:
 
   if (v14)
   {
-    v38 = (*a3 + 8 * v15);
+    v37 = (*a3 + 8 * v15);
     if (v14 >= 0xB)
     {
       sub_10010B31C();
-      if (v19 || v40 >= v39)
+      if (v19 || v39 >= v38)
       {
         sub_10010B2D0();
         do
         {
-          sub_10010B278(v42);
+          sub_10010B278(v41);
         }
 
         while (!v22);
-        v38 = v43;
+        v37 = v42;
       }
     }
 
     do
     {
-      sub_10010B308(v38);
+      sub_10010B308(v37);
     }
 
     while (!v22);
@@ -6484,74 +4775,97 @@ LABEL_61:
   return 1;
 }
 
-void mlir::UnrealizedConversionCastOp::print(mlir::UnrealizedConversionCastOp *this, mlir::OpAsmPrinter *a2)
+void mlir::UnrealizedConversionCastOp::print(mlir::Operation **this, mlir::OpAsmPrinter *a2)
 {
-  if ((*(*this + 46) & 0x80) != 0 && *(*this + 68))
+  if ((*(*this + 46) & 0x80) != 0 && *(*this + 17))
   {
-    v4 = (*(*a2 + 16))(a2);
-    v5 = sub_1000C9AF0(v4);
-    if (v7)
+    (*(*a2 + 16))(a2);
+    sub_1000C9AF0();
+    if (v6)
     {
-      llvm::raw_ostream::write(v5, 32);
+      llvm::raw_ostream::write(v4, 32);
     }
 
     else
     {
-      sub_10010B264(v5, v6);
+      sub_10010B264(v4, v5);
     }
 
-    v8 = *this;
+    v7 = *this;
     if ((*(*this + 46) & 0x80) != 0)
     {
-      v9 = *(v8 + 68);
-      v10 = *(v8 + 72);
+      v8 = *(v7 + 17);
+      v9 = *(v7 + 9);
     }
 
     else
     {
-      v10 = 0;
       v9 = 0;
+      v8 = 0;
     }
 
-    v11 = (*(*a2 + 16))(a2);
-    if (v9)
+    v10 = (*(*a2 + 16))(a2);
+    if (v8)
     {
-      v12 = v11;
-      v13 = *(v10 + 24);
+      v11 = v10;
       sub_10010B2A4();
-      (*(v14 + 160))(a2);
-      v15 = v9 - 1;
-      if (v15)
+      (*(v12 + 160))(a2);
+      v13 = v8 - 1;
+      if (v13)
       {
-        v16 = (v10 + 56);
+        v14 = v9 + 56;
         do
         {
-          v17 = v12[4];
-          if (v12[3] - v17 > 1uLL)
+          v15 = v11[4];
+          if (v11[3] - v15 > 1uLL)
           {
-            *v17 = 8236;
-            v12[4] += 2;
+            *v15 = 8236;
+            v11[4] += 2;
           }
 
           else
           {
-            llvm::raw_ostream::write(v12, ", ", 2uLL);
+            llvm::raw_ostream::write(v11, ", ", 2uLL);
           }
 
-          v18 = *v16;
-          v16 += 4;
+          v14 += 32;
           sub_10010B2A4();
-          (*(v19 + 160))(a2);
-          --v15;
+          (*(v16 + 160))(a2);
+          --v13;
         }
 
-        while (v15);
+        while (v13);
       }
     }
 
-    v20 = (*(*a2 + 16))(a2);
-    v21 = sub_1000C9AF0(v20);
-    if (v7)
+    (*(*a2 + 16))(a2);
+    sub_1000C9AF0();
+    if (v6)
+    {
+      llvm::raw_ostream::write(v17, 32);
+    }
+
+    else
+    {
+      sub_10010B264(v17, v18);
+    }
+
+    v19 = (*(*a2 + 16))(a2);
+    v20 = v19[4];
+    if (v19[3] == v20)
+    {
+      llvm::raw_ostream::write(v19, ":", 1uLL);
+    }
+
+    else
+    {
+      *v20 = 58;
+      ++v19[4];
+    }
+
+    (*(*a2 + 16))(a2);
+    sub_1000C9AF0();
+    if (v6)
     {
       llvm::raw_ostream::write(v21, 32);
     }
@@ -6561,174 +4875,142 @@ void mlir::UnrealizedConversionCastOp::print(mlir::UnrealizedConversionCastOp *t
       sub_10010B264(v21, v22);
     }
 
-    v23 = (*(*a2 + 16))(a2);
-    v24 = v23[4];
-    if (v23[3] == v24)
-    {
-      llvm::raw_ostream::write(v23, ":", 1uLL);
-    }
-
-    else
-    {
-      *v24 = 58;
-      ++v23[4];
-    }
-
-    v25 = (*(*a2 + 16))(a2);
-    v26 = sub_1000C9AF0(v25);
-    if (v7)
-    {
-      llvm::raw_ostream::write(v26, 32);
-    }
-
-    else
-    {
-      sub_10010B264(v26, v27);
-    }
-
-    v28 = *this;
+    v23 = *this;
     if ((*(*this + 46) & 0x80) != 0)
     {
-      v29 = *(v28 + 68);
-      v30 = *(v28 + 72);
+      v24 = *(v23 + 17);
+      v25 = *(v23 + 9);
     }
 
     else
     {
-      v30 = 0;
-      v29 = 0;
+      v25 = 0;
+      v24 = 0;
     }
 
-    AttrDictionary = v30;
-    v83 = v29;
-    mlir::OperandRange::getTypes(&AttrDictionary, &v84);
-    v31 = v85;
-    v32 = v87;
-    if (v85 != v87)
+    AttrDictionary = v25;
+    v60 = v24;
+    mlir::OperandRange::getTypes(&AttrDictionary, &v61);
+    v26 = v62;
+    v27 = v64;
+    if (v62 != v64)
     {
-      v33 = v84 + 32 * v85;
-      v34 = *(*(v33 + 3) + 8);
+      v28 = v61 + 32 * v62;
       sub_10010B2A4();
-      v36 = *(v35 + 32);
-      v37 = sub_10010B2E8();
-      v38(v37);
-      if (v31 + 1 != v32)
+      v29 = sub_10010B2E8();
+      v30(v29);
+      if (v26 + 1 != v27)
       {
-        v39 = ~v31 + v32;
-        v40 = (v33 + 56);
+        v31 = ~v26 + v27;
+        v32 = v28 + 56;
         do
         {
-          v41 = (*(*a2 + 16))(a2);
-          v42 = sub_10010B2C0(v41);
-          if (!v44 & v7)
+          (*(*a2 + 16))(a2);
+          sub_10010B2C0();
+          if (!v35 & v6)
           {
-            *v43 = 8236;
-            sub_10010B2B0(v42);
+            *v34 = 8236;
+            sub_10010B2B0(v33);
           }
 
           else
           {
-            llvm::raw_ostream::write(v42, ", ", 2uLL);
+            llvm::raw_ostream::write(v33, ", ", 2uLL);
           }
 
-          v45 = *v40;
-          v40 += 4;
-          v46 = *(v45 + 8);
+          v32 += 32;
           sub_10010B2A4();
-          v48 = *(v47 + 32);
-          v49 = sub_10010B2E8();
-          v50(v49);
-          --v39;
+          v36 = sub_10010B2E8();
+          v37(v36);
+          --v31;
         }
 
-        while (v39);
+        while (v31);
       }
     }
   }
 
-  v51 = (*(*a2 + 16))(a2);
-  v52 = sub_1000C9AF0(v51);
-  if (v7)
+  (*(*a2 + 16))(a2);
+  sub_1000C9AF0();
+  if (v6)
   {
-    llvm::raw_ostream::write(v52, 32);
+    llvm::raw_ostream::write(v38, 32);
   }
 
   else
   {
-    sub_10010B264(v52, v53);
+    sub_10010B264(v38, v39);
   }
 
-  v54 = (*(*a2 + 16))(a2);
-  v55 = sub_10010B2C0(v54);
-  if (!v44 & v7)
+  (*(*a2 + 16))(a2);
+  sub_10010B2C0();
+  if (!v35 & v6)
   {
-    *v56 = 28532;
-    sub_10010B2B0(v55);
-  }
-
-  else
-  {
-    llvm::raw_ostream::write(v55, "to", 2uLL);
-  }
-
-  v57 = (*(*a2 + 16))(a2);
-  v58 = sub_1000C9AF0(v57);
-  if (v7)
-  {
-    llvm::raw_ostream::write(v58, 32);
+    *v41 = 28532;
+    sub_10010B2B0(v40);
   }
 
   else
   {
-    sub_10010B264(v58, v59);
+    llvm::raw_ostream::write(v40, "to", 2uLL);
   }
 
-  sub_10010B2F4(*this);
-  AttrDictionary = v60;
-  v83 = v61;
-  mlir::ResultRange::getTypes(&AttrDictionary, &v84);
-  v62 = v85;
-  v63 = v87;
-  if (v85 != v87)
+  (*(*a2 + 16))(a2);
+  sub_1000C9AF0();
+  if (v6)
   {
-    v64 = v84;
-    v65 = *(mlir::detail::OpResultImpl::getNextResultAtOffset(v84, v85) + 8);
+    llvm::raw_ostream::write(v42, 32);
+  }
+
+  else
+  {
+    sub_10010B264(v42, v43);
+  }
+
+  sub_10010B2F4();
+  AttrDictionary = v44;
+  v60 = v45;
+  mlir::ResultRange::getTypes(&v61, &AttrDictionary);
+  v46 = v62;
+  v47 = v64;
+  if (v62 != v64)
+  {
+    v48 = v61;
+    mlir::detail::OpResultImpl::getNextResultAtOffset(v61, v62);
     sub_10010B2A4();
-    v67 = *(v66 + 32);
-    v68 = sub_10010B2E8();
-    v69(v68);
-    for (i = v62 + 1; v63 != i; ++i)
+    v49 = sub_10010B2E8();
+    v50(v49);
+    for (i = v46 + 1; v47 != i; ++i)
     {
-      v71 = (*(*a2 + 16))(a2);
-      v72 = sub_10010B2C0(v71);
-      if (!v44 & v7)
+      (*(*a2 + 16))(a2);
+      sub_10010B2C0();
+      if (!v35 & v6)
       {
-        *v73 = 8236;
-        sub_10010B2B0(v72);
+        *v53 = 8236;
+        sub_10010B2B0(v52);
       }
 
       else
       {
-        llvm::raw_ostream::write(v72, ", ", 2uLL);
+        llvm::raw_ostream::write(v52, ", ", 2uLL);
       }
 
-      v74 = *(mlir::detail::OpResultImpl::getNextResultAtOffset(v64, i) + 8);
+      mlir::detail::OpResultImpl::getNextResultAtOffset(v48, i);
       sub_10010B2A4();
-      v76 = *(v75 + 32);
-      v77 = sub_10010B2E8();
-      v78(v77);
+      v54 = sub_10010B2E8();
+      v55(v54);
     }
   }
 
-  v84 = &v86;
-  v85 = 0x200000000;
+  v61 = &v63;
+  v62 = 0x200000000;
   AttrDictionary = mlir::Operation::getAttrDictionary(*this);
   mlir::DictionaryAttr::getValue(&AttrDictionary);
   sub_10010B2A4();
-  (*(v79 + 192))(a2, v80, v81);
-  if (v84 != &v86)
+  (*(v56 + 192))(a2, v57, v58);
+  if (v61 != &v63)
   {
-    free(v84);
+    free(v61);
   }
 }
 
@@ -6759,7 +5041,7 @@ uint64_t sub_10027DBC4(uint64_t a1, uint64_t a2, unint64_t a3, unint64_t a4, uin
   return mlir::UnrealizedConversionCastOp::fold(v15, v13, a5);
 }
 
-void sub_10027DC94(uint64_t a1, uint64_t a2, mlir::OpAsmPrinter *a3, uint64_t a4, uint64_t a5)
+void sub_10027DC94(uint64_t a1, mlir::Operation *a2, mlir::OpAsmPrinter *a3, uint64_t a4, uint64_t a5)
 {
   mlir::OpState::printOpName(a2, a3, a4, a5);
   v7 = a2;
@@ -6768,21 +5050,23 @@ void sub_10027DC94(uint64_t a1, uint64_t a2, mlir::OpAsmPrinter *a3, uint64_t a4
 
 void sub_10027DCE4()
 {
-  if (__cxa_guard_acquire(&qword_1002C04D8))
+  v0 = __cxa_guard_acquire(byte_1002C04D8);
+  if (v0)
   {
-    v0 = sub_100065820();
-    qword_1002C04D0 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
-    __cxa_guard_release(&qword_1002C04D8);
+    v2 = sub_100065820(v0, v1);
+    qword_1002C04D0 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
+    __cxa_guard_release(byte_1002C04D8);
   }
 }
 
 void sub_10027DD24()
 {
-  if (__cxa_guard_acquire(&qword_1002C0C70))
+  v0 = __cxa_guard_acquire(byte_1002C0C70);
+  if (v0)
   {
-    v0 = sub_10010ADBC();
-    off_1002C0C68 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
-    __cxa_guard_release(&qword_1002C0C70);
+    v2 = sub_10010ADBC(v0, v1);
+    off_1002C0C68 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
+    __cxa_guard_release(byte_1002C0C70);
   }
 }
 
@@ -6796,39 +5080,42 @@ void sub_10027DD64()
 
 void sub_10027DDA4()
 {
-  if (__cxa_guard_acquire(&qword_1002C0BC0))
+  v0 = __cxa_guard_acquire(byte_1002C0BC0);
+  if (v0)
   {
-    v0 = sub_100106218();
-    qword_1002C0BB8 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100106218(v0, v1);
+    qword_1002C0BB8 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
 
-    __cxa_guard_release(&qword_1002C0BC0);
+    __cxa_guard_release(byte_1002C0BC0);
   }
 }
 
 void sub_10027DDF8()
 {
-  if (__cxa_guard_acquire(&qword_1002C0BD8))
+  if (__cxa_guard_acquire(byte_1002C0BD8))
   {
     qword_1002C0BC8 = sub_100106260();
     unk_1002C0BD0 = v0;
 
-    __cxa_guard_release(&qword_1002C0BD8);
+    __cxa_guard_release(byte_1002C0BD8);
   }
 }
 
 void sub_10027DE4C()
 {
+  if (v0)
   {
-    v0 = sub_100107570();
-    mlir::detail::TypeIDResolver<mlir::RegionKindInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100107570(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::RegionKindInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_10027DEA0()
 {
+  if (v0)
   {
-    v0 = sub_10010747C();
-    mlir::detail::TypeIDResolver<mlir::SymbolOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_10010747C(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::SymbolOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -6850,124 +5137,139 @@ void sub_10027DF48()
 
 void sub_10027DF9C()
 {
+  if (v0)
   {
-    v0 = sub_100107C3C();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::OneRegion<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::OneRegion>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100107C3C(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::OneRegion<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::OneRegion>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_10027DFF0()
 {
+  if (v0)
   {
-    v0 = sub_100107D04();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::ZeroResults<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::ZeroResults>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100107D04(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::ZeroResults<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::ZeroResults>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_10027E044()
 {
+  if (v0)
   {
-    v0 = sub_100107DCC();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::ZeroSuccessors<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::ZeroSuccessors>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100107DCC(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::ZeroSuccessors<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::ZeroSuccessors>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_10027E098()
 {
+  if (v0)
   {
-    v0 = sub_100107E94();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::ZeroOperands<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::ZeroOperands>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100107E94(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::ZeroOperands<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::ZeroOperands>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_10027E0EC()
 {
+  if (v0)
   {
-    v0 = sub_100107F5C();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::NoRegionArguments<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::NoRegionArguments>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100107F5C(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::NoRegionArguments<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::NoRegionArguments>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_10027E140()
 {
+  if (v0)
   {
-    v0 = sub_100108024();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::NoTerminator<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::NoTerminator>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100108024(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::NoTerminator<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::NoTerminator>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_10027E194()
 {
+  if (v0)
   {
-    v0 = sub_1001080EC();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::SingleBlock<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::SingleBlock>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1001080EC(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::SingleBlock<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::SingleBlock>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_10027E1E8()
 {
+  if (v0)
   {
-    v0 = sub_1001081B4();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::OpInvariants<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::OpInvariants>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1001081B4(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::OpInvariants<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::OpInvariants>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_10027E23C()
 {
+  if (v0)
   {
-    v0 = sub_10010827C();
-    mlir::detail::TypeIDResolver<mlir::BytecodeOpInterface::Trait<mlir::TypeID mlir::TypeID::get<mlir::BytecodeOpInterface::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_10010827C(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::BytecodeOpInterface::Trait<mlir::TypeID mlir::TypeID::get<mlir::BytecodeOpInterface::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_10027E290()
 {
-  if (__cxa_guard_acquire(&qword_1002C0BF8))
+  v0 = __cxa_guard_acquire(byte_1002C0BF8);
+  if (v0)
   {
-    v0 = sub_100108344();
-    qword_1002C0BF0 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100108344(v0, v1);
+    qword_1002C0BF0 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
 
-    __cxa_guard_release(&qword_1002C0BF8);
+    __cxa_guard_release(byte_1002C0BF8);
   }
 }
 
 void sub_10027E2E4()
 {
+  if (v0)
   {
-    v0 = sub_1000714E0();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::IsIsolatedFromAbove<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::IsIsolatedFromAbove>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1000714E0(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::IsIsolatedFromAbove<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::IsIsolatedFromAbove>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_10027E338()
 {
+  if (v0)
   {
-    v0 = sub_10010840C();
-    mlir::detail::TypeIDResolver<mlir::SymbolOpInterface::Trait<mlir::TypeID mlir::TypeID::get<mlir::SymbolOpInterface::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_10010840C(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::SymbolOpInterface::Trait<mlir::TypeID mlir::TypeID::get<mlir::SymbolOpInterface::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_10027E38C()
 {
+  if (v0)
   {
-    v0 = sub_1001084D4();
-    mlir::detail::TypeIDResolver<mlir::OpAsmOpInterface::Trait<mlir::TypeID mlir::TypeID::get<mlir::OpAsmOpInterface::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1001084D4(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpAsmOpInterface::Trait<mlir::TypeID mlir::TypeID::get<mlir::OpAsmOpInterface::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_10027E3E0()
 {
+  if (v0)
   {
-    v0 = sub_10010859C();
-    mlir::detail::TypeIDResolver<mlir::RegionKindInterface::Trait<mlir::TypeID mlir::TypeID::get<mlir::RegionKindInterface::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_10010859C(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::RegionKindInterface::Trait<mlir::TypeID mlir::TypeID::get<mlir::RegionKindInterface::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_10027E434()
 {
+  if (v0)
   {
-    v0 = sub_100108664();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::HasOnlyGraphRegion<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::HasOnlyGraphRegion>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100108664(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::HasOnlyGraphRegion<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::HasOnlyGraphRegion>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -7045,12 +5347,12 @@ void sub_10027E728()
 
 void sub_10027E77C()
 {
-  if (__cxa_guard_acquire(&qword_1002C0C10))
+  if (__cxa_guard_acquire(byte_1002C0C10))
   {
     qword_1002C0C00 = sub_10010838C();
     *algn_1002C0C08 = v0;
 
-    __cxa_guard_release(&qword_1002C0C10);
+    __cxa_guard_release(byte_1002C0C10);
   }
 }
 
@@ -7088,17 +5390,19 @@ void sub_10027E8CC()
 
 void sub_10027E920()
 {
+  if (v0)
   {
-    v0 = sub_1001097A0();
-    mlir::detail::TypeIDResolver<mlir::ConditionallySpeculatable,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1001097A0(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::ConditionallySpeculatable,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_10027E974()
 {
+  if (v0)
   {
-    v0 = sub_10010986C();
-    mlir::detail::TypeIDResolver<mlir::MemoryEffectOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_10010986C(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::MemoryEffectOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -7120,57 +5424,64 @@ void sub_10027EA1C()
 
 void sub_10027EA70()
 {
+  if (v0)
   {
-    v0 = sub_100109BC0();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::ZeroRegions<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::ZeroRegions>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100109BC0(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::ZeroRegions<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::ZeroRegions>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_10027EAC4()
 {
+  if (v0)
   {
-    v0 = sub_100109C88();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::VariadicResults<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::VariadicResults>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100109C88(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::VariadicResults<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::VariadicResults>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_10027EB18()
 {
+  if (v0)
   {
-    v0 = sub_100107DCC();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::ZeroSuccessors<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::ZeroSuccessors>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100107DCC(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::ZeroSuccessors<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::ZeroSuccessors>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_10027EB6C()
 {
+  if (v0)
   {
-    v0 = sub_100109D50();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::VariadicOperands<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::VariadicOperands>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100109D50(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::VariadicOperands<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::VariadicOperands>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_10027EBC0()
 {
+  if (v0)
   {
-    v0 = sub_100109E18();
-    mlir::detail::TypeIDResolver<mlir::ConditionallySpeculatable::Trait<mlir::TypeID mlir::TypeID::get<mlir::ConditionallySpeculatable::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100109E18(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::ConditionallySpeculatable::Trait<mlir::TypeID mlir::TypeID::get<mlir::ConditionallySpeculatable::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_10027EC14()
 {
+  if (v0)
   {
-    v0 = sub_100109EE0();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::AlwaysSpeculatableImplTrait<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::AlwaysSpeculatableImplTrait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100109EE0(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::AlwaysSpeculatableImplTrait<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::AlwaysSpeculatableImplTrait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_10027EC68()
 {
+  if (v0)
   {
-    v0 = sub_100109FA8();
-    mlir::detail::TypeIDResolver<mlir::MemoryEffectOpInterface::Trait<mlir::TypeID mlir::TypeID::get<mlir::MemoryEffectOpInterface::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100109FA8(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::MemoryEffectOpInterface::Trait<mlir::TypeID mlir::TypeID::get<mlir::MemoryEffectOpInterface::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -7224,67 +5535,71 @@ void sub_10027EE60()
 
 void sub_10027EEB4()
 {
+  if (v0)
   {
-    v0 = sub_1001027CC();
-    mlir::detail::TypeIDResolver<mlir::ResourceBlobManagerDialectInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1001027CC(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::ResourceBlobManagerDialectInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_10027EF08()
 {
-  if (__cxa_guard_acquire(&qword_1002C0668))
+  v0 = __cxa_guard_acquire(byte_1002C0668);
+  if (v0)
   {
-    v0 = sub_1000B80E4();
-    qword_1002C0660 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1000B80E4(v0, v1);
+    qword_1002C0660 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
 
-    __cxa_guard_release(&qword_1002C0668);
+    __cxa_guard_release(byte_1002C0668);
   }
 }
 
 void sub_10027EF5C()
 {
+  if (v0)
   {
-    v0 = sub_10005E7C8();
-    mlir::detail::TypeIDResolver<mlir::DialectResourceBlobHandle<mlir::BuiltinDialect>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_10005E7C8(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::DialectResourceBlobHandle<mlir::BuiltinDialect>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_10027EFB0()
 {
-  if (__cxa_guard_acquire(&qword_1002C0C88))
+  if (__cxa_guard_acquire(byte_1002C0C88))
   {
     qword_1002C0C78 = sub_10010AE04();
     unk_1002C0C80 = v0;
 
-    __cxa_guard_release(&qword_1002C0C88);
+    __cxa_guard_release(byte_1002C0C88);
   }
 }
 
 void sub_10027F004()
 {
+  if (v0)
   {
-    v0 = sub_100090F30();
-    mlir::detail::TypeIDResolver<mlir::BytecodeDialectInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100090F30(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::BytecodeDialectInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_10027F058()
 {
-  if (__cxa_guard_acquire(&qword_1002C0CA0))
+  if (__cxa_guard_acquire(byte_1002C0CA0))
   {
     qword_1002C0C90 = sub_100110568();
     *algn_1002C0C98 = v0;
-    __cxa_guard_release(&qword_1002C0CA0);
+    __cxa_guard_release(byte_1002C0CA0);
   }
 }
 
 void sub_10027F098()
 {
-  if (__cxa_guard_acquire(&qword_1002C05C8))
+  if (__cxa_guard_acquire(byte_1002C05C8))
   {
     *&xmmword_1002C05B8 = sub_1000A52DC();
     *(&xmmword_1002C05B8 + 1) = v0;
-    __cxa_guard_release(&qword_1002C05C8);
+    __cxa_guard_release(byte_1002C05C8);
   }
 }
 
@@ -7298,223 +5613,237 @@ void sub_10027F0D8()
 
 void sub_10027F118()
 {
-  if (__cxa_guard_acquire(&qword_1002C0CB8))
+  if (__cxa_guard_acquire(byte_1002C0CB8))
   {
     qword_1002C0CA8 = sub_100111C3C();
     unk_1002C0CB0 = v0;
-    __cxa_guard_release(&qword_1002C0CB8);
+    __cxa_guard_release(byte_1002C0CB8);
   }
 }
 
 void sub_10027F158()
 {
-  if (__cxa_guard_acquire(&qword_1002C0CD0))
+  if (__cxa_guard_acquire(byte_1002C0CD0))
   {
     qword_1002C0CC0 = sub_100111CBC();
     *algn_1002C0CC8 = v0;
-    __cxa_guard_release(&qword_1002C0CD0);
+    __cxa_guard_release(byte_1002C0CD0);
   }
 }
 
 void sub_10027F198()
 {
-  if (__cxa_guard_acquire(&qword_1002C0548))
+  if (__cxa_guard_acquire(byte_1002C0548))
   {
     qword_1002C0538 = sub_1000828E8();
     unk_1002C0540 = v0;
-    __cxa_guard_release(&qword_1002C0548);
+    __cxa_guard_release(byte_1002C0548);
   }
 }
 
 void sub_10027F1D8()
 {
-  if (__cxa_guard_acquire(&qword_1002C0530))
+  v0 = __cxa_guard_acquire(byte_1002C0530);
+  if (v0)
   {
-    v0 = sub_1000828A0();
-    v2 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
-    sub_100120BDC(v2);
-    __cxa_guard_release(&qword_1002C0530);
+    v2 = sub_1000828A0(v0, v1);
+    v4 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
+    sub_100120BDC(v4);
+    __cxa_guard_release(byte_1002C0530);
   }
 }
 
 void sub_10027F214()
 {
-  if (__cxa_guard_acquire(&qword_1002C0CE0))
+  v0 = __cxa_guard_acquire(byte_1002C0CE0);
+  if (v0)
   {
-    v0 = sub_10011B0C0();
-    v2 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
-    sub_100120BC4(v2);
+    v2 = sub_10011B0C0(v0, v1);
+    v4 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
+    sub_100120BC4(v4);
 
-    __cxa_guard_release(&qword_1002C0CE0);
+    __cxa_guard_release(byte_1002C0CE0);
   }
 }
 
 void sub_10027F264()
 {
-  if (__cxa_guard_acquire(&qword_1002C0CF8))
+  if (__cxa_guard_acquire(byte_1002C0CF8))
   {
     qword_1002C0CE8 = sub_10011B108();
     unk_1002C0CF0 = v0;
 
-    __cxa_guard_release(&qword_1002C0CF8);
+    __cxa_guard_release(byte_1002C0CF8);
   }
 }
 
 void sub_10027F2B8()
 {
+  if (v0)
   {
-    v0 = sub_10005EA24();
-    v2 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
-    sub_100120BD0(v2);
+    v2 = sub_10005EA24(v0, v1);
+    v4 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
+    sub_100120BD0(v4);
   }
 }
 
 void sub_10027F308()
 {
-  if (__cxa_guard_acquire(&qword_1002C0D08))
+  v0 = __cxa_guard_acquire(byte_1002C0D08);
+  if (v0)
   {
-    v0 = sub_10011E6D4();
-    qword_1002C0D00 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_10011E6D4(v0, v1);
+    qword_1002C0D00 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
 
-    __cxa_guard_release(&qword_1002C0D08);
+    __cxa_guard_release(byte_1002C0D08);
   }
 }
 
 void sub_10027F35C()
 {
-  if (__cxa_guard_acquire(&qword_1002C0D20))
+  if (__cxa_guard_acquire(byte_1002C0D20))
   {
     qword_1002C0D10 = sub_10011E71C();
     *algn_1002C0D18 = v0;
 
-    __cxa_guard_release(&qword_1002C0D20);
+    __cxa_guard_release(byte_1002C0D20);
   }
 }
 
 void sub_10027F3B0()
 {
-  if (__cxa_guard_acquire(&qword_1002C0530))
+  v0 = __cxa_guard_acquire(byte_1002C0530);
+  if (v0)
   {
-    v0 = sub_1000828A0();
-    v2 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
-    sub_100120BDC(v2);
+    v2 = sub_1000828A0(v0, v1);
+    v4 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
+    sub_100120BDC(v4);
 
-    __cxa_guard_release(&qword_1002C0530);
+    __cxa_guard_release(byte_1002C0530);
   }
 }
 
 void sub_10027F400()
 {
-  if (__cxa_guard_acquire(&qword_1002C0D30))
+  v0 = __cxa_guard_acquire(byte_1002C0D30);
+  if (v0)
   {
-    v0 = sub_10011F1A4();
-    qword_1002C0D28 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_10011F1A4(v0, v1);
+    qword_1002C0D28 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
 
-    __cxa_guard_release(&qword_1002C0D30);
+    __cxa_guard_release(byte_1002C0D30);
   }
 }
 
 void sub_10027F454()
 {
-  if (__cxa_guard_acquire(&qword_1002C0D48))
+  if (__cxa_guard_acquire(byte_1002C0D48))
   {
     qword_1002C0D38 = sub_10011F1EC();
     unk_1002C0D40 = v0;
 
-    __cxa_guard_release(&qword_1002C0D48);
+    __cxa_guard_release(byte_1002C0D48);
   }
 }
 
 void sub_10027F4A8()
 {
+  if (v0)
   {
-    v0 = sub_100107570();
-    mlir::detail::TypeIDResolver<mlir::RegionKindInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100107570(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::RegionKindInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_10027F4FC()
 {
+  if (v0)
   {
-    v0 = sub_100107570();
-    mlir::detail::TypeIDResolver<mlir::RegionKindInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100107570(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::RegionKindInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_10027F53C()
 {
-  if (__cxa_guard_acquire(&qword_1002C0D60))
+  v0 = __cxa_guard_acquire(byte_1002C0D60);
+  if (v0)
   {
-    v0 = sub_100131B94();
-    v2 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
-    sub_100133754(v2);
+    v2 = sub_100131B94(v0, v1);
+    v4 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
+    sub_100133754(v4);
 
-    __cxa_guard_release(&qword_1002C0D60);
+    __cxa_guard_release(byte_1002C0D60);
   }
 }
 
 void sub_10027F58C()
 {
-  if (__cxa_guard_acquire(&qword_1002C0D78))
+  if (__cxa_guard_acquire(byte_1002C0D78))
   {
     qword_1002C0D68 = sub_100131BDC();
     unk_1002C0D70 = v0;
 
-    __cxa_guard_release(&qword_1002C0D78);
+    __cxa_guard_release(byte_1002C0D78);
   }
 }
 
 void sub_10027F5E0()
 {
-  if (__cxa_guard_acquire(&qword_1002C0630))
+  v0 = __cxa_guard_acquire(byte_1002C0630);
+  if (v0)
   {
-    v0 = sub_1000AC01C();
-    qword_1002C0628 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
-    __cxa_guard_release(&qword_1002C0630);
+    v2 = sub_1000AC01C(v0, v1);
+    qword_1002C0628 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
+    __cxa_guard_release(byte_1002C0630);
   }
 }
 
 void sub_10027F620()
 {
-  if (__cxa_guard_acquire(&qword_1002C0608))
+  v0 = __cxa_guard_acquire(byte_1002C0608);
+  if (v0)
   {
-    v0 = sub_1000ABE54();
-    qword_1002C0600 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
-    __cxa_guard_release(&qword_1002C0608);
+    v2 = sub_1000ABE54(v0, v1);
+    qword_1002C0600 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
+    __cxa_guard_release(byte_1002C0608);
   }
 }
 
 void sub_10027F660()
 {
-  if (__cxa_guard_acquire(&qword_1002C05E0))
+  v0 = __cxa_guard_acquire(byte_1002C05E0);
+  if (v0)
   {
-    v0 = sub_1000ABCC4();
-    qword_1002C05D8 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
-    __cxa_guard_release(&qword_1002C05E0);
+    v2 = sub_1000ABCC4(v0, v1);
+    qword_1002C05D8 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
+    __cxa_guard_release(byte_1002C05E0);
   }
 }
 
 void sub_10027F6A0()
 {
-  if (__cxa_guard_acquire(&qword_1002C0D88))
+  v0 = __cxa_guard_acquire(byte_1002C0D88);
+  if (v0)
   {
-    v0 = sub_100138980();
-    qword_1002C0D80 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
-    __cxa_guard_release(&qword_1002C0D88);
+    v2 = sub_100138980(v0, v1);
+    qword_1002C0D80 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
+    __cxa_guard_release(byte_1002C0D88);
   }
 }
 
 void sub_10027F6E0()
 {
-  if (__cxa_guard_acquire(&qword_1002C0DB0))
+  v0 = __cxa_guard_acquire(byte_1002C0DB0);
+  if (v0)
   {
-    v0 = sub_100138A48();
-    qword_1002C0DA8 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
-    __cxa_guard_release(&qword_1002C0DB0);
+    v2 = sub_100138A48(v0, v1);
+    qword_1002C0DA8 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
+    __cxa_guard_release(byte_1002C0DB0);
   }
 }
 
-uint64_t sub_10027F720(uint64_t a1, int8x16_t *a2, unint64_t a3, void *a4, void *a5)
+uint64_t sub_10027F720(uint64_t a1, int8x16_t *a2, size_t a3, void *a4, void *a5)
 {
   v9 = (a1 + 336);
   *a5 = a1 + 336;
@@ -7537,23 +5866,25 @@ uint64_t sub_10027F720(uint64_t a1, int8x16_t *a2, unint64_t a3, void *a4, void 
 
 void sub_10027F7C0()
 {
-  if (__cxa_guard_acquire(&qword_1002C0D88))
+  v0 = __cxa_guard_acquire(byte_1002C0D88);
+  if (v0)
   {
-    v0 = sub_100138980();
-    qword_1002C0D80 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100138980(v0, v1);
+    qword_1002C0D80 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
 
-    __cxa_guard_release(&qword_1002C0D88);
+    __cxa_guard_release(byte_1002C0D88);
   }
 }
 
 void sub_10027F814()
 {
-  if (__cxa_guard_acquire(&qword_1002C0DB0))
+  v0 = __cxa_guard_acquire(byte_1002C0DB0);
+  if (v0)
   {
-    v0 = sub_100138A48();
-    qword_1002C0DA8 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100138A48(v0, v1);
+    qword_1002C0DA8 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
 
-    __cxa_guard_release(&qword_1002C0DB0);
+    __cxa_guard_release(byte_1002C0DB0);
   }
 }
 
@@ -7572,23 +5903,23 @@ void sub_10027F868()
 
 void sub_10027F8E4()
 {
-  if (__cxa_guard_acquire(&qword_1002C0DA0))
+  if (__cxa_guard_acquire(byte_1002C0DA0))
   {
     qword_1002C0D90 = sub_1001389C8();
     *algn_1002C0D98 = v0;
 
-    __cxa_guard_release(&qword_1002C0DA0);
+    __cxa_guard_release(byte_1002C0DA0);
   }
 }
 
 void sub_10027F938()
 {
-  if (__cxa_guard_acquire(&qword_1002C0DC8))
+  if (__cxa_guard_acquire(byte_1002C0DC8))
   {
     qword_1002C0DB8 = sub_100138A90();
     unk_1002C0DC0 = v0;
 
-    __cxa_guard_release(&qword_1002C0DC8);
+    __cxa_guard_release(byte_1002C0DC8);
   }
 }
 
@@ -7631,17 +5962,16 @@ void mlir::Operation::dropAllReferences(mlir::Operation *this)
   if ((v2 & 0x7FFFFF) != 0)
   {
     sub_10014070C();
-    v8 = (v7 + 32 * *(this + 10));
+    v8 = v7 + 32 * *(this + 10);
     v10 = 24 * v9;
     do
     {
       mlir::Region::dropAllReferences(v8);
-      v8 = (v8 + 24);
+      v8 += 24;
       v10 -= 24;
     }
 
     while (v10);
-    v11 = *(this + 11);
   }
 
   if (*(this + 10))
@@ -7649,25 +5979,25 @@ void mlir::Operation::dropAllReferences(mlir::Operation *this)
     sub_10014070C();
     do
     {
-      v13 = v12[1];
-      if (v13)
+      v12 = v11[1];
+      if (v12)
       {
-        v14 = *v12;
-        *v13 = *v12;
-        if (v14)
+        v13 = *v11;
+        *v12 = *v11;
+        if (v13)
         {
-          *(v14 + 8) = v13;
+          *(v13 + 8) = v12;
         }
       }
 
-      sub_100140838(v12);
+      sub_100140838(v11);
     }
 
     while (!v6);
   }
 }
 
-uint64_t mlir::Operation::clone(Operation *a1, uint64_t a2, char a3)
+char *mlir::Operation::clone(Operation *a1, uint64_t a2, char a3)
 {
   v67 = v78;
   v76 = v78;
@@ -7810,7 +6140,7 @@ LABEL_24:
 
   v79 = v33;
   v80 = v32;
-  mlir::ResultRange::getTypes(&v79, &v69);
+  mlir::ResultRange::getTypes(&v69, &v79);
   NextResultAtOffset = v69;
   v35 = v70;
   v36 = v71;
@@ -7845,7 +6175,7 @@ LABEL_24:
       v41 = 0;
       do
       {
-        mlir::Region::cloneInto((((a1 + 16 * ((v40 >> 23) & 1) + ((v40 >> 21) & 0x7F8) + 71) & 0xFFFFFFFFFFFFFFF8) + 32 * *(a1 + 10) + 24 * v41), ((v39 + 64 + 16 * ((*(v39 + 44) >> 23) & 1) + ((*(v39 + 44) >> 21) & 0x7F8) + 7) & 0xFFFFFFFFFFFFFFF8) + 32 * *(v39 + 40) + 24 * v41, a2);
+        mlir::Region::cloneInto((((a1 + 16 * ((v40 >> 23) & 1) + ((v40 >> 21) & 0x7F8) + 71) & 0xFFFFFFFFFFFFFFF8) + 32 * *(a1 + 10) + 24 * v41), ((&v39[16 * ((*(v39 + 11) >> 23) & 1) + 71 + ((*(v39 + 11) >> 21) & 0x7F8)] & 0xFFFFFFFFFFFFFFF8) + 32 * *(v39 + 10) + 24 * v41), a2);
         ++v41;
         v40 = *(a1 + 11);
       }
@@ -8027,9 +6357,9 @@ LABEL_26:
   return v10 != v7;
 }
 
-BOOL mlir::OpTrait::impl::verifyZeroOperands(mlir::OpTrait::impl *this, mlir::Operation *a2)
+uint64_t mlir::OpTrait::impl::verifyZeroOperands(mlir::OpTrait::impl *this, mlir::Operation *a2)
 {
-  v2 = sub_100140820(this, __stack_chk_guard);
+  sub_100140820(__stack_chk_guard);
   if ((v3 & 0x80) == 0 || !*(v2 + 17))
   {
     return 1;
@@ -8131,10 +6461,10 @@ BOOL mlir::OpTrait::impl::verifyZeroOperands(mlir::OpTrait::impl *this, mlir::Op
   return v6;
 }
 
-BOOL mlir::OpTrait::impl::verifyNOperands(mlir::OpTrait::impl *this, mlir::Operation *a2)
+uint64_t mlir::OpTrait::impl::verifyNOperands(mlir::OpTrait::impl *this, mlir::Operation *a2)
 {
   v2 = a2;
-  sub_100140820(this, __stack_chk_guard);
+  sub_100140820(__stack_chk_guard);
   if (v4 < 0)
   {
     v5 = *(this + 17);
@@ -8152,24 +6482,24 @@ BOOL mlir::OpTrait::impl::verifyNOperands(mlir::OpTrait::impl *this, mlir::Opera
 
   sub_100140658();
   mlir::Operation::emitOpError(v8, this, v7);
-  if (v95)
+  if (v92)
   {
     sub_1001407F4();
-    v90 = "expected ";
-    v93 = 9;
+    v87 = "expected ";
+    v90 = 9;
     sub_100140514();
     if (v10)
     {
       sub_1001404C4();
-      if (v62 <= v63 && (v61 & 1) != 0)
+      if (v59 <= v60 && (v58 & 1) != 0)
       {
-        sub_100140560(v53, v54, v55, v56, v57, v58, v59, v60, v76, v78, v80, v82, v84, v86);
-        v9 = v98;
+        sub_100140560(v50, v51, v52, v53, v54, v55, v56, v57, v73, v75, v77, v79, v81, v83, v85, "expected ", 9, v92, v93, v94, v95, v96);
+        v9 = v95;
       }
 
       else
       {
-        sub_100140560(v53, v54, v55, v56, v57, v58, v59, v60, v76, v78, v80, v82, v84, v86);
+        sub_100140560(v50, v51, v52, v53, v54, v55, v56, v57, v73, v75, v77, v79, v81, v83, v85, "expected ", 9, v92, v93, v94, v95, v96);
         sub_100140670();
       }
     }
@@ -8179,125 +6509,118 @@ BOOL mlir::OpTrait::impl::verifyNOperands(mlir::OpTrait::impl *this, mlir::Opera
     if (v11)
     {
       sub_100140814();
-      v91 = v2;
+      v88 = v2;
       sub_1001405D0();
       if (v10)
       {
         sub_1001405E4();
-        if (v70 <= v71 && (v69 & 1) != 0)
+        if (v67 <= v68 && (v66 & 1) != 0)
         {
-          sub_100140528(v68, v76, v78, v80, v82, v84, v86, v88, v2, 9, v95, v96, v97, v98, v99);
+          sub_100140528(v65, v73, v75, v77, v79, v81, v83, v85, v2, v90, v92, v93, v94, v95, v96);
           sub_100140894();
         }
 
         else
         {
-          sub_100140528(v68, v76, v78, v80, v82, v84, v86, v88, v2, 9, v95, v96, v97, v98, v99);
+          sub_100140528(v65, v73, v75, v77, v79, v81, v83, v85, v2, v90, v92, v93, v94, v95, v96);
           sub_1001406CC();
         }
       }
 
-      sub_1001404F0(v12, v13, v14, v15, v16, v17, v18, v19, v76, v78, v80, v82, v84, v86, v88, v91, v93, v95, v96, v97, v98, v99);
-      LODWORD(v99) = v20 + 1;
-      if (v95)
+      sub_1001404F0(v12, v13, v14, v15, v16, v17, v18, v19, v73, v75, v77, v79, v81, v83, v85, v88, v90, v92, v93, v94, v95, v96);
+      LODWORD(v96) = v20 + 1;
+      if (v92)
       {
-        LODWORD(v88) = 3;
-        v90 = " operands, but found ";
-        v93 = 21;
+        LODWORD(v85) = 3;
+        v87 = " operands, but found ";
+        v90 = 21;
         sub_1001405D0();
         if (v10)
         {
           sub_1001405E4();
-          if (v74 <= v75 && (v73 & 1) != 0)
+          if (v71 <= v72 && (v70 & 1) != 0)
           {
-            sub_100140528(v72, v76, v78, v80, v82, v84, v86, v88, " operands, but found ", 21, v95, v96, v97, v98, v99);
+            sub_100140528(v69, v73, v75, v77, v79, v81, v83, v85, " operands, but found ", 21, v92, v93, v94, v95, v96);
             sub_100140894();
           }
 
           else
           {
-            sub_100140528(v72, v76, v78, v80, v82, v84, v86, v88, " operands, but found ", 21, v95, v96, v97, v98, v99);
+            sub_100140528(v69, v73, v75, v77, v79, v81, v83, v85, " operands, but found ", 21, v92, v93, v94, v95, v96);
             sub_1001406CC();
           }
         }
 
-        v23 = (v21 + 24 * v99);
-        v24 = v22[1].n128_u64[0];
-        sub_1001404D8(v23, *v22);
+        sub_1001404D8((v21 + 24 * v96), *v22);
       }
     }
   }
 
-  if ((*(this + 46) & 0x80) != 0)
-  {
-    v25 = *(this + 17);
-  }
-
-  if (v95)
+  if (v92)
   {
     sub_100140814();
-    v90 = v26;
+    v87 = v23;
     sub_100140514();
     if (v10)
     {
       sub_100140794();
-      if (v66 <= v67 && (v65 & 1) != 0)
+      if (v63 <= v64 && (v62 & 1) != 0)
       {
-        sub_1001405B4(v64 + 24, &v95);
-        v27 = v98;
+        sub_1001405B4(v61 + 24, &v92);
+        v24 = v95;
       }
 
       else
       {
-        sub_1001405B4(v64 + 24, &v95);
+        sub_1001405B4(v61 + 24, &v92);
         sub_100140670();
       }
     }
 
-    sub_100140494(v27);
+    sub_100140494(v24);
     sub_100140584();
   }
 
-  v6 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(&v95);
-  if (v95)
+  v6 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(&v92);
+  if (v92)
   {
-    mlir::InFlightDiagnostic::report(&v95);
+    mlir::InFlightDiagnostic::report(&v92);
   }
 
   sub_100140864();
-  if (v36)
+  if (v33)
   {
-    v37 = sub_100140774(v28, v29, v30, v31, v32, v33, v34, v35, v76, v78, v80, v82, v84, v86, v88, v90, v93, v95, v96, v97, v98, v99, v100, v101, v102, v103, v104, v105, v106, v107, v108, v109, v110, v111, __p, v113, v114, v115, v116, v117, v118);
-    if (!v36)
+    v34 = sub_100140774(v25, v26, v27, v28, v29, v30, v31, v32, v73, v75, v77, v79, v81, v83, v85, v87, v90, v92, v93, v94, v95, v96, v97, v98, v99, v100, v101, v102, v103, v104, v105, v106, v107, v108, __p, v110, v111, v112, v113, v114, v115);
+    if (!v33)
     {
-      free(v37);
+      free(v34);
     }
 
-    v45 = v115;
-    if (v115)
+    v42 = v112;
+    if (v112)
     {
       sub_10014064C();
-      if (!v36)
+      if (!v33)
       {
         do
         {
-          v46 = sub_100052FFC(v46 - 1);
+          v43 = sub_100052FFC(v43 - 1);
         }
 
-        while (v46 != v45);
-        v47 = v115;
+        while (v43 != v42);
+        v44 = v112;
       }
 
-      v116 = v45;
-      operator delete(v47);
+      v113 = v42;
+      operator delete(v44);
     }
 
-    v48 = __p;
+    v45 = __p;
     if (__p)
     {
-      v49 = v113;
-      v50 = sub_1001406B0();
-      if (!v36)
+      v46 = v110;
+      v47 = sub_1001406B0();
+      if (!v33)
       {
         sub_1001404B0();
         do
@@ -8308,28 +6631,28 @@ BOOL mlir::OpTrait::impl::verifyNOperands(mlir::OpTrait::impl *this, mlir::Opera
           }
         }
 
-        while (v49 != v48);
-        v50 = __p;
+        while (v46 != v45);
+        v47 = __p;
       }
 
-      v113 = v48;
-      operator delete(v50);
+      v110 = v45;
+      operator delete(v47);
     }
 
-    v51 = sub_1001405F8(v37, v38, v39, v40, v41, v42, v43, v44, v77, v79, v81, v83, v85, v87, v89, v92, v94, v95, v96, v97, v98);
-    if (!v36)
+    v48 = sub_1001405F8(v34, v35, v36, v37, v38, v39, v40, v41, v74, v76, v78, v80, v82, v84, v86, v89, v91, v92, v93, v94, v95);
+    if (!v33)
     {
-      free(v51);
+      free(v48);
     }
   }
 
   return v6;
 }
 
-BOOL mlir::OpTrait::impl::verifyAtLeastNOperands(mlir::OpTrait::impl *this, mlir::Operation *a2)
+uint64_t mlir::OpTrait::impl::verifyAtLeastNOperands(mlir::OpTrait::impl *this, mlir::Operation *a2)
 {
   v2 = a2;
-  sub_100140820(this, __stack_chk_guard);
+  sub_100140820(__stack_chk_guard);
   if (v4 < 0)
   {
     v5 = *(this + 17);
@@ -8347,24 +6670,24 @@ BOOL mlir::OpTrait::impl::verifyAtLeastNOperands(mlir::OpTrait::impl *this, mlir
 
   sub_100140658();
   mlir::Operation::emitOpError(v7, this, v6);
-  if (v95)
+  if (v92)
   {
     sub_1001407F4();
-    v90 = "expected ";
-    v93 = 9;
+    v87 = "expected ";
+    v90 = 9;
     sub_100140514();
     if (v9)
     {
       sub_1001404C4();
-      if (v62 <= v63 && (v61 & 1) != 0)
+      if (v59 <= v60 && (v58 & 1) != 0)
       {
-        sub_100140560(v53, v54, v55, v56, v57, v58, v59, v60, v76, v78, v80, v82, v84, v86);
-        v8 = v98;
+        sub_100140560(v50, v51, v52, v53, v54, v55, v56, v57, v73, v75, v77, v79, v81, v83, v85, "expected ", 9, v92, v93, v94, v95, v96);
+        v8 = v95;
       }
 
       else
       {
-        sub_100140560(v53, v54, v55, v56, v57, v58, v59, v60, v76, v78, v80, v82, v84, v86);
+        sub_100140560(v50, v51, v52, v53, v54, v55, v56, v57, v73, v75, v77, v79, v81, v83, v85, "expected ", 9, v92, v93, v94, v95, v96);
         sub_100140670();
       }
     }
@@ -8374,125 +6697,118 @@ BOOL mlir::OpTrait::impl::verifyAtLeastNOperands(mlir::OpTrait::impl *this, mlir
     if (v10)
     {
       sub_100140814();
-      v91 = v2;
+      v88 = v2;
       sub_1001405D0();
       if (v9)
       {
         sub_1001405E4();
-        if (v70 <= v71 && (v69 & 1) != 0)
+        if (v67 <= v68 && (v66 & 1) != 0)
         {
-          sub_100140528(v68, v76, v78, v80, v82, v84, v86, v88, v2, 9, v95, v96, v97, v98, v99);
+          sub_100140528(v65, v73, v75, v77, v79, v81, v83, v85, v2, v90, v92, v93, v94, v95, v96);
           sub_100140894();
         }
 
         else
         {
-          sub_100140528(v68, v76, v78, v80, v82, v84, v86, v88, v2, 9, v95, v96, v97, v98, v99);
+          sub_100140528(v65, v73, v75, v77, v79, v81, v83, v85, v2, v90, v92, v93, v94, v95, v96);
           sub_1001406CC();
         }
       }
 
-      sub_1001404F0(v11, v12, v13, v14, v15, v16, v17, v18, v76, v78, v80, v82, v84, v86, v88, v91, v93, v95, v96, v97, v98, v99);
-      LODWORD(v99) = v19 + 1;
-      if (v95)
+      sub_1001404F0(v11, v12, v13, v14, v15, v16, v17, v18, v73, v75, v77, v79, v81, v83, v85, v88, v90, v92, v93, v94, v95, v96);
+      LODWORD(v96) = v19 + 1;
+      if (v92)
       {
-        LODWORD(v88) = 3;
-        v90 = " or more operands, but found ";
-        v93 = 29;
+        LODWORD(v85) = 3;
+        v87 = " or more operands, but found ";
+        v90 = 29;
         sub_1001405D0();
         if (v9)
         {
           sub_1001405E4();
-          if (v74 <= v75 && (v73 & 1) != 0)
+          if (v71 <= v72 && (v70 & 1) != 0)
           {
-            sub_100140528(v72, v76, v78, v80, v82, v84, v86, v88, " or more operands, but found ", 29, v95, v96, v97, v98, v99);
+            sub_100140528(v69, v73, v75, v77, v79, v81, v83, v85, " or more operands, but found ", 29, v92, v93, v94, v95, v96);
             sub_100140894();
           }
 
           else
           {
-            sub_100140528(v72, v76, v78, v80, v82, v84, v86, v88, " or more operands, but found ", 29, v95, v96, v97, v98, v99);
+            sub_100140528(v69, v73, v75, v77, v79, v81, v83, v85, " or more operands, but found ", 29, v92, v93, v94, v95, v96);
             sub_1001406CC();
           }
         }
 
-        v22 = (v20 + 24 * v99);
-        v23 = v21[1].n128_u64[0];
-        sub_1001404D8(v22, *v21);
+        sub_1001404D8((v20 + 24 * v96), *v21);
       }
     }
   }
 
-  if ((*(this + 46) & 0x80) != 0)
-  {
-    v24 = *(this + 17);
-  }
-
-  if (v95)
+  if (v92)
   {
     sub_100140814();
-    v90 = v25;
+    v87 = v22;
     sub_100140514();
     if (v9)
     {
       sub_100140794();
-      if (v66 <= v67 && (v65 & 1) != 0)
+      if (v63 <= v64 && (v62 & 1) != 0)
       {
-        sub_1001405B4(v64 + 24, &v95);
-        v26 = v98;
+        sub_1001405B4(v61 + 24, &v92);
+        v23 = v95;
       }
 
       else
       {
-        sub_1001405B4(v64 + 24, &v95);
+        sub_1001405B4(v61 + 24, &v92);
         sub_100140670();
       }
     }
 
-    sub_100140494(v26);
+    sub_100140494(v23);
     sub_100140584();
   }
 
-  v27 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(&v95);
-  if (v95)
+  v24 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(&v92);
+  if (v92)
   {
-    mlir::InFlightDiagnostic::report(&v95);
+    mlir::InFlightDiagnostic::report(&v92);
   }
 
   sub_100140864();
-  if (v36)
+  if (v33)
   {
-    v37 = sub_100140774(v28, v29, v30, v31, v32, v33, v34, v35, v76, v78, v80, v82, v84, v86, v88, v90, v93, v95, v96, v97, v98, v99, v100, v101, v102, v103, v104, v105, v106, v107, v108, v109, v110, v111, __p, v113, v114, v115, v116, v117, v118);
-    if (!v36)
+    v34 = sub_100140774(v25, v26, v27, v28, v29, v30, v31, v32, v73, v75, v77, v79, v81, v83, v85, v87, v90, v92, v93, v94, v95, v96, v97, v98, v99, v100, v101, v102, v103, v104, v105, v106, v107, v108, __p, v110, v111, v112, v113, v114, v115);
+    if (!v33)
     {
-      free(v37);
+      free(v34);
     }
 
-    v45 = v115;
-    if (v115)
+    v42 = v112;
+    if (v112)
     {
       sub_10014064C();
-      if (!v36)
+      if (!v33)
       {
         do
         {
-          v46 = sub_100052FFC(v46 - 1);
+          v43 = sub_100052FFC(v43 - 1);
         }
 
-        while (v46 != v45);
-        v47 = v115;
+        while (v43 != v42);
+        v44 = v112;
       }
 
-      v116 = v45;
-      operator delete(v47);
+      v113 = v42;
+      operator delete(v44);
     }
 
-    v48 = __p;
+    v45 = __p;
     if (__p)
     {
-      v49 = v113;
-      v50 = sub_1001406B0();
-      if (!v36)
+      v46 = v110;
+      v47 = sub_1001406B0();
+      if (!v33)
       {
         sub_1001404B0();
         do
@@ -8503,27 +6819,27 @@ BOOL mlir::OpTrait::impl::verifyAtLeastNOperands(mlir::OpTrait::impl *this, mlir
           }
         }
 
-        while (v49 != v48);
-        v50 = __p;
+        while (v46 != v45);
+        v47 = __p;
       }
 
-      v113 = v48;
-      operator delete(v50);
+      v110 = v45;
+      operator delete(v47);
     }
 
-    v51 = sub_1001405F8(v37, v38, v39, v40, v41, v42, v43, v44, v77, v79, v81, v83, v85, v87, v89, v92, v94, v95, v96, v97, v98);
-    if (!v36)
+    v48 = sub_1001405F8(v34, v35, v36, v37, v38, v39, v40, v41, v74, v76, v78, v80, v82, v84, v86, v89, v91, v92, v93, v94, v95);
+    if (!v33)
     {
-      free(v51);
+      free(v48);
     }
   }
 
-  return v27;
+  return v24;
 }
 
 BOOL mlir::OpTrait::impl::verifySameOperandsAndResultShape(mlir::OpTrait::impl *this, mlir::Operation *a2)
 {
-  if (!mlir::OpTrait::impl::verifyAtLeastNOperands(this, 1) || !mlir::OpTrait::impl::verifyAtLeastNResults(this, 1))
+  if ((mlir::OpTrait::impl::verifyAtLeastNOperands(this, 1) & 1) == 0 || (mlir::OpTrait::impl::verifyAtLeastNResults(this, 1) & 1) == 0)
   {
     return 0;
   }
@@ -8539,11 +6855,11 @@ BOOL mlir::OpTrait::impl::verifySameOperandsAndResultShape(mlir::OpTrait::impl *
     sub_1001406D8();
   }
 
-  v80 = v3;
-  v81 = v4;
-  mlir::OperandRange::getTypes(&v80, &__src);
-  v80 = v82;
-  v81 = 0x800000000;
+  v81 = v3;
+  v82 = v4;
+  mlir::OperandRange::getTypes(&v81, &__src);
+  v81 = v83;
+  v82 = 0x800000000;
   v5 = __src;
   v6 = v71;
   v7 = v73;
@@ -8556,14 +6872,14 @@ BOOL mlir::OpTrait::impl::verifySameOperandsAndResultShape(mlir::OpTrait::impl *
 
   else
   {
-    llvm::SmallVectorBase<unsigned int>::grow_pod(&v80, v82, v73 - v71, 8);
-    v9 = v81;
-    v10 = v81;
+    llvm::SmallVectorBase<unsigned int>::grow_pod(&v81, v83, v73 - v71, 8);
+    v9 = v82;
+    v10 = v82;
   }
 
   if (v7 != v6)
   {
-    v13 = &v80[8 * v9];
+    v13 = &v81[8 * v9];
     v14 = &v5[32 * v6 + 24];
     v15 = v8;
     do
@@ -8575,10 +6891,10 @@ BOOL mlir::OpTrait::impl::verifySameOperandsAndResultShape(mlir::OpTrait::impl *
     }
 
     while (v15);
-    v10 = v81;
+    v10 = v82;
   }
 
-  LODWORD(v81) = v10 + v8;
+  LODWORD(v82) = v10 + v8;
   v17 = *(this + 9);
   v18 = this - 16;
   if (!v17)
@@ -8588,7 +6904,7 @@ BOOL mlir::OpTrait::impl::verifySameOperandsAndResultShape(mlir::OpTrait::impl *
 
   __src = v18;
   v71 = v17;
-  mlir::ResultRange::getTypes(&__src, &v62);
+  mlir::ResultRange::getTypes(&v62, &__src);
   v19 = v62;
   v20 = v63;
   v21 = v65;
@@ -8625,28 +6941,28 @@ BOOL mlir::OpTrait::impl::verifySameOperandsAndResultShape(mlir::OpTrait::impl *
 
   v27 = (v25 + v22);
   LODWORD(v71) = v27;
-  v28 = v81;
-  if (v81 + v27 > HIDWORD(v81))
+  v28 = v82;
+  if (v82 + v27 > HIDWORD(v82))
   {
-    llvm::SmallVectorBase<unsigned int>::grow_pod(&v80, v82, v81 + v27, 8);
-    v28 = v81;
+    llvm::SmallVectorBase<unsigned int>::grow_pod(&v81, v83, v82 + v27, 8);
+    v28 = v82;
   }
 
   if (v27)
   {
-    memcpy(&v80[8 * v28], v24, 8 * v27);
-    v28 = v81;
+    memcpy(&v81[8 * v28], v24, 8 * v27);
+    v28 = v82;
   }
 
   v29 = v28 + v27;
-  LODWORD(v81) = v29;
+  LODWORD(v82) = v29;
   if (__src != &v72)
   {
     free(__src);
-    v29 = v81;
+    v29 = v82;
   }
 
-  mlir::TypeRange::TypeRange(&__src, v80, v29);
+  mlir::TypeRange::TypeRange(&__src, v81, v29);
   if (mlir::verifyCompatibleShapes(__src, v71))
   {
     v11 = 1;
@@ -8667,13 +6983,13 @@ BOOL mlir::OpTrait::impl::verifySameOperandsAndResultShape(mlir::OpTrait::impl *
         sub_1001404C4();
         if (v59 <= v60 && (v58 & 1) != 0)
         {
-          sub_100140560(v50, v51, v52, v53, v54, v55, v56, v57, v61, v62, v63, v64, v65, v66);
+          sub_100140560(v50, v51, v52, v53, v54, v55, v56, v57, v61, v62, v63, v64, v65, v66, v67, v68, v69, __src, v71, v72, v73, v74);
           v32 = v73;
         }
 
         else
         {
-          sub_100140560(v50, v51, v52, v53, v54, v55, v56, v57, v61, v62, v63, v64, v65, v66);
+          sub_100140560(v50, v51, v52, v53, v54, v55, v56, v57, v61, v62, v63, v64, v65, v66, v67, v68, v69, __src, v71, v72, v73, v74);
           sub_100140670();
         }
       }
@@ -8691,14 +7007,14 @@ BOOL mlir::OpTrait::impl::verifySameOperandsAndResultShape(mlir::OpTrait::impl *
     sub_100140864();
     if (v41)
     {
-      v42 = v78;
-      if (v78 != &v79)
+      v42 = v79;
+      if (v79 != &v80)
       {
-        free(v78);
+        free(v79);
       }
 
-      v43 = v76;
-      if (v76)
+      v43 = v77;
+      if (v77)
       {
         sub_10014082C();
         if (!v41)
@@ -8709,17 +7025,17 @@ BOOL mlir::OpTrait::impl::verifySameOperandsAndResultShape(mlir::OpTrait::impl *
           }
 
           while (v44 != v43);
-          v45 = v76;
+          v45 = v77;
         }
 
-        v77 = v43;
+        v78 = v43;
         operator delete(v45);
       }
 
       v46 = __p;
       if (__p)
       {
-        v47 = v75;
+        v47 = v76;
         v48 = sub_1001407B8();
         if (!v41)
         {
@@ -8736,7 +7052,7 @@ BOOL mlir::OpTrait::impl::verifySameOperandsAndResultShape(mlir::OpTrait::impl *
           v48 = __p;
         }
 
-        v75 = v46;
+        v76 = v46;
         operator delete(v48);
       }
 
@@ -8748,17 +7064,17 @@ BOOL mlir::OpTrait::impl::verifySameOperandsAndResultShape(mlir::OpTrait::impl *
     }
   }
 
-  if (v80 != v82)
+  if (v81 != v83)
   {
-    free(v80);
+    free(v81);
   }
 
   return v11;
 }
 
-BOOL mlir::OpTrait::impl::verifySameOperandsElementType(mlir::OpTrait::impl *this, mlir::Operation *a2)
+uint64_t mlir::OpTrait::impl::verifySameOperandsElementType(mlir::OpTrait::impl *this, mlir::Operation *a2)
 {
-  if (!mlir::OpTrait::impl::verifyAtLeastNOperands(this, 1))
+  if ((mlir::OpTrait::impl::verifyAtLeastNOperands(this, 1) & 1) == 0)
   {
     return 0;
   }
@@ -8857,10 +7173,10 @@ BOOL mlir::OpTrait::impl::verifySameOperandsElementType(mlir::OpTrait::impl *thi
   return v8;
 }
 
-mlir::OpTrait::impl *mlir::OpTrait::impl::verifySameOperandsAndResultType(mlir::OpTrait::impl *this, mlir::Operation *a2)
+uint64_t mlir::OpTrait::impl::verifySameOperandsAndResultType(mlir::OpTrait::impl *this, mlir::Operation *a2)
 {
   v2 = this;
-  if (!mlir::OpTrait::impl::verifyAtLeastNOperands(this, 1) || !mlir::OpTrait::impl::verifyAtLeastNResults(v2, 1))
+  if ((mlir::OpTrait::impl::verifyAtLeastNOperands(this, 1) & 1) == 0 || (mlir::OpTrait::impl::verifyAtLeastNResults(v2, 1) & 1) == 0)
   {
     return 0;
   }
@@ -8901,7 +7217,7 @@ mlir::OpTrait::impl *mlir::OpTrait::impl::verifySameOperandsAndResultType(mlir::
 
   *v133 = v9;
   v134 = v8;
-  mlir::ResultRange::getTypes(v133, &v141);
+  mlir::ResultRange::getTypes(&v141, v133);
   v10 = v144;
   v11 = v142 + 1;
   if ((v142 + 1) != v144)
@@ -9392,7 +7708,7 @@ uint64_t mlir::OpTrait::impl::verifyElementwise(mlir::OpTrait::impl *this, mlir:
 
   v96.i64[0] = v4;
   v96.i64[1] = v3;
-  mlir::ResultRange::getTypes(v96.i64, &__src);
+  mlir::ResultRange::getTypes(&__src, v96.i64);
   v6 = __src;
   v5 = v89;
   v7 = v90;
@@ -9894,23 +8210,24 @@ LABEL_133:
 
 void sub_100281C70()
 {
-  if (__cxa_guard_acquire(&qword_1002C0DD8))
+  v0 = __cxa_guard_acquire(byte_1002C0DD8);
+  if (v0)
   {
-    v0 = sub_10013EDCC();
-    qword_1002C0DD0 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_10013EDCC(v0, v1);
+    qword_1002C0DD0 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
 
-    __cxa_guard_release(&qword_1002C0DD8);
+    __cxa_guard_release(byte_1002C0DD8);
   }
 }
 
 void sub_100281CC4()
 {
-  if (__cxa_guard_acquire(&qword_1002C0DF0))
+  if (__cxa_guard_acquire(byte_1002C0DF0))
   {
     qword_1002C0DE0 = sub_10013EE14();
     *algn_1002C0DE8 = v0;
 
-    __cxa_guard_release(&qword_1002C0DF0);
+    __cxa_guard_release(byte_1002C0DF0);
   }
 }
 
@@ -9947,42 +8264,47 @@ void sub_100281D88()
 
 void sub_100281DDC()
 {
+  if (v0)
   {
-    v0 = sub_100055C50();
-    v2 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
-    sub_100147C04(v2);
+    v2 = sub_100055C50(v0, v1);
+    v4 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
+    sub_100147C04(v4);
   }
 }
 
 void sub_100281E18()
 {
+  if (v0)
   {
-    v0 = sub_10010747C();
-    mlir::detail::TypeIDResolver<mlir::SymbolOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_10010747C(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::SymbolOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_100281E6C()
 {
+  if (v0)
   {
-    v0 = sub_10010747C();
-    mlir::detail::TypeIDResolver<mlir::SymbolOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_10010747C(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::SymbolOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_100281EAC()
 {
+  if (v0)
   {
-    v0 = sub_1001464D0();
-    mlir::detail::TypeIDResolver<mlir::SymbolUserOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1001464D0(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::SymbolUserOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_100281F00()
 {
+  if (v0)
   {
-    v0 = sub_1001464D0();
-    mlir::detail::TypeIDResolver<mlir::SymbolUserOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1001464D0(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::SymbolUserOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -9996,10 +8318,11 @@ void sub_100281F40()
 
 void sub_100281F94()
 {
+  if (v0)
   {
-    v0 = sub_100055C50();
-    v2 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
-    sub_100147C04(v2);
+    v2 = sub_100055C50(v0, v1);
+    v4 = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
+    sub_100147C04(v4);
   }
 }
 
@@ -10053,9 +8376,9 @@ void sub_100282108()
 
 void sub_100282170()
 {
-  if (__cxa_guard_acquire(&qword_1002C50A0))
+  if (__cxa_guard_acquire(byte_1002C50A0))
   {
-    llvm::sys::RWMutexImpl::RWMutexImpl(&unk_1002C50A8);
+    llvm::sys::RWMutexImpl::RWMutexImpl(&qword_1002C50A8);
     unk_1002C50B0 = 0u;
     qword_1002C50C0 = 0;
     unk_1002C50C8 = &unk_1002C50D8;
@@ -10064,22 +8387,23 @@ void sub_100282170()
     unk_1002C5100 = 0u;
     unk_1002C5110 = 0u;
     *(&qword_1002C5118 + 4) = 0u;
-    __cxa_atexit(sub_10014FBE4, &unk_1002C50A8, &_mh_execute_header);
+    __cxa_atexit(sub_10014FBE4, &qword_1002C50A8, &_mh_execute_header);
 
-    __cxa_guard_release(&qword_1002C50A0);
+    __cxa_guard_release(byte_1002C50A0);
   }
 }
 
 uint64_t mlir::detail::CallOpInterfaceInterfaceTraits::Model<mlir::ODIE::Compiler::CoreML::CallOp>::getArgOperands(uint64_t a1, uint64_t a2)
 {
-  if ((*(a2 + 46) & 0x80) == 0)
+  if ((*(a2 + 46) & 0x80) != 0)
+  {
+    return *(a2 + 72);
+  }
+
+  else
   {
     return 0;
   }
-
-  result = *(a2 + 72);
-  v3 = *(a2 + 68);
-  return result;
 }
 
 uint64_t mlir::detail::RegionBranchOpInterfaceInterfaceTraits::Model<mlir::ODIE::Compiler::CoreML::IfOp>::getEntrySuccessorOperands(uint64_t a1, uint64_t a2)
@@ -10101,14 +8425,15 @@ uint64_t mlir::detail::RegionBranchOpInterfaceInterfaceTraits::Model<mlir::ODIE:
 
 uint64_t mlir::detail::CallOpInterfaceInterfaceTraits::Model<mlir::ODIE::Compiler::CoreML::InvokeOp>::getArgOperands(uint64_t a1, uint64_t a2)
 {
-  if ((*(a2 + 46) & 0x80) == 0)
+  if ((*(a2 + 46) & 0x80) != 0)
+  {
+    return *(a2 + 72);
+  }
+
+  else
   {
     return 0;
   }
-
-  result = *(a2 + 72);
-  v3 = *(a2 + 68);
-  return result;
 }
 
 void sub_100282288(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -10181,25 +8506,28 @@ void sub_100282288(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 
 void sub_1002823A0()
 {
+  if (v0)
   {
-    v0 = sub_1001C7458();
-    mlir::detail::TypeIDResolver<mlir::DialectInlinerInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1001C7458(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::DialectInlinerInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_1002823F8()
 {
+  if (v0)
   {
-    v0 = sub_100090F30();
-    mlir::detail::TypeIDResolver<mlir::BytecodeDialectInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100090F30(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::BytecodeDialectInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_10028243C()
 {
+  if (v0)
   {
-    v0 = sub_100062EA0();
-    mlir::detail::TypeIDResolver<mlir::TypedAttr,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100062EA0(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::TypedAttr,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -10212,33 +8540,37 @@ void sub_100282480(uint64_t a1, uint64_t a2, uint64_t a3)
 
 void sub_1002824C4()
 {
+  if (v0)
   {
-    v0 = sub_1001097A0();
-    mlir::detail::TypeIDResolver<mlir::ConditionallySpeculatable,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1001097A0(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::ConditionallySpeculatable,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_10028251C()
 {
+  if (v0)
   {
-    v0 = sub_10010986C();
-    mlir::detail::TypeIDResolver<mlir::MemoryEffectOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_10010986C(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::MemoryEffectOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_100282574()
 {
+  if (v0)
   {
-    v0 = sub_1000A8650();
-    mlir::detail::TypeIDResolver<mlir::InferTypeOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1000A8650(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::InferTypeOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_1002825CC()
 {
+  if (v0)
   {
-    v0 = sub_10016EC6C();
-    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::IntentProviderOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_10016EC6C(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::IntentProviderOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -10252,105 +8584,118 @@ void sub_100282624()
 
 void sub_100282678()
 {
+  if (v0)
   {
-    v0 = sub_100109BC0();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::ZeroRegions<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::ZeroRegions>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100109BC0(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::ZeroRegions<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::ZeroRegions>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_1002826D0()
 {
+  if (v0)
   {
-    v0 = sub_10016F0F4();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::OneResult<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::OneResult>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_10016F0F4(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::OneResult<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::OneResult>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_100282728()
 {
+  if (v0)
   {
-    v0 = sub_10016F1BC();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::OneTypedResult<mlir::TensorType>::Impl<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::OneTypedResult<mlir::TensorType>::Impl>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_10016F1BC(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::OneTypedResult<mlir::TensorType>::Impl<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::OneTypedResult<mlir::TensorType>::Impl>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_100282780()
 {
+  if (v0)
   {
-    v0 = sub_100107DCC();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::ZeroSuccessors<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::ZeroSuccessors>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100107DCC(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::ZeroSuccessors<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::ZeroSuccessors>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_1002827D8()
 {
+  if (v0)
   {
-    v0 = sub_10016F284();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::OneOperand<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::OneOperand>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_10016F284(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::OneOperand<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::OneOperand>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_100282830()
 {
+  if (v0)
   {
-    v0 = sub_1001081B4();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::OpInvariants<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::OpInvariants>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1001081B4(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::OpInvariants<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::OpInvariants>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_100282888()
 {
+  if (v0)
   {
-    v0 = sub_100109E18();
-    mlir::detail::TypeIDResolver<mlir::ConditionallySpeculatable::Trait<mlir::TypeID mlir::TypeID::get<mlir::ConditionallySpeculatable::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100109E18(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::ConditionallySpeculatable::Trait<mlir::TypeID mlir::TypeID::get<mlir::ConditionallySpeculatable::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_1002828E0()
 {
+  if (v0)
   {
-    v0 = sub_100109EE0();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::AlwaysSpeculatableImplTrait<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::AlwaysSpeculatableImplTrait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100109EE0(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::AlwaysSpeculatableImplTrait<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::AlwaysSpeculatableImplTrait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_100282938()
 {
+  if (v0)
   {
-    v0 = sub_100109FA8();
-    mlir::detail::TypeIDResolver<mlir::MemoryEffectOpInterface::Trait<mlir::TypeID mlir::TypeID::get<mlir::MemoryEffectOpInterface::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100109FA8(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::MemoryEffectOpInterface::Trait<mlir::TypeID mlir::TypeID::get<mlir::MemoryEffectOpInterface::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_100282990()
 {
+  if (v0)
   {
-    v0 = sub_1001403CC();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::Elementwise<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::Elementwise>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1001403CC(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::Elementwise<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::Elementwise>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_1002829E8()
 {
+  if (v0)
   {
-    v0 = sub_10016F34C();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::SameOperandsAndResultShape<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::SameOperandsAndResultShape>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_10016F34C(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::SameOperandsAndResultShape<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::SameOperandsAndResultShape>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_100282A40()
 {
+  if (v0)
   {
-    v0 = sub_10016F414();
-    mlir::detail::TypeIDResolver<mlir::InferTypeOpInterface::Trait<mlir::TypeID mlir::TypeID::get<mlir::InferTypeOpInterface::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_10016F414(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::InferTypeOpInterface::Trait<mlir::TypeID mlir::TypeID::get<mlir::InferTypeOpInterface::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_100282A98()
 {
+  if (v0)
   {
-    v0 = sub_10016F4DC();
-    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::IntentProviderOpInterface::Trait<mlir::TypeID mlir::TypeID::get<mlir::ODIE::Compiler::CoreML::IntentProviderOpInterface::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_10016F4DC(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::IntentProviderOpInterface::Trait<mlir::TypeID mlir::TypeID::get<mlir::ODIE::Compiler::CoreML::IntentProviderOpInterface::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -10404,17 +8749,19 @@ void sub_100282C94()
 
 void sub_100282CE8()
 {
+  if (v0)
   {
-    v0 = sub_100170520();
-    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::ComplexDecompositionOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100170520(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::ComplexDecompositionOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_100282D40()
 {
+  if (v0)
   {
-    v0 = sub_10017068C();
-    mlir::detail::TypeIDResolver<mlir::InferShapedTypeOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_10017068C(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::InferShapedTypeOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -10436,33 +8783,37 @@ void sub_100282DEC()
 
 void sub_100282E40()
 {
+  if (v0)
   {
-    v0 = sub_100170DBC();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::NOperands<2u>::Impl<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::NOperands<2u>::Impl>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100170DBC(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::NOperands<2u>::Impl<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::NOperands<2u>::Impl>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_100282E98()
 {
+  if (v0)
   {
-    v0 = sub_100142500();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::IsCommutative<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::IsCommutative>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100142500(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::IsCommutative<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::IsCommutative>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_100282EF0()
 {
+  if (v0)
   {
-    v0 = sub_100170E84();
-    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::ComplexDecompositionOpInterface::Trait<mlir::TypeID mlir::TypeID::get<mlir::ODIE::Compiler::CoreML::ComplexDecompositionOpInterface::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100170E84(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::ComplexDecompositionOpInterface::Trait<mlir::TypeID mlir::TypeID::get<mlir::ODIE::Compiler::CoreML::ComplexDecompositionOpInterface::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_100282F48()
 {
+  if (v0)
   {
-    v0 = sub_100170F4C();
-    mlir::detail::TypeIDResolver<mlir::InferShapedTypeOpInterface::Trait<mlir::TypeID mlir::TypeID::get<mlir::InferShapedTypeOpInterface::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100170F4C(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::InferShapedTypeOpInterface::Trait<mlir::TypeID mlir::TypeID::get<mlir::InferShapedTypeOpInterface::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -10492,9 +8843,10 @@ void sub_100283048()
 
 void sub_10028309C()
 {
+  if (v0)
   {
-    v0 = sub_1001716A4();
-    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::KernelTypeInference,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1001716A4(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::KernelTypeInference,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -10508,17 +8860,19 @@ void sub_1002830F4()
 
 void sub_100283148()
 {
+  if (v0)
   {
-    v0 = sub_100171AE4();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::NOperands<3u>::Impl<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::NOperands<3u>::Impl>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100171AE4(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::NOperands<3u>::Impl<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::NOperands<3u>::Impl>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_1002831A0()
 {
+  if (v0)
   {
-    v0 = sub_100171BAC();
-    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::KernelTypeInference::Trait<mlir::TypeID mlir::TypeID::get<mlir::ODIE::Compiler::CoreML::KernelTypeInference::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100171BAC(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::KernelTypeInference::Trait<mlir::TypeID mlir::TypeID::get<mlir::ODIE::Compiler::CoreML::KernelTypeInference::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -10540,9 +8894,10 @@ void sub_10028324C()
 
 void sub_1002832A0()
 {
+  if (v0)
   {
-    v0 = sub_100173294();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::SameOperandsAndResultType<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::SameOperandsAndResultType>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100173294(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::SameOperandsAndResultType<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::SameOperandsAndResultType>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -10556,9 +8911,10 @@ void sub_1002832F8()
 
 void sub_10028334C()
 {
+  if (v0)
   {
-    v0 = sub_10017435C();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::NOperands<4u>::Impl<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::NOperands<4u>::Impl>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_10017435C(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::NOperands<4u>::Impl<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::NOperands<4u>::Impl>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -10572,17 +8928,19 @@ void sub_1002833A4()
 
 void sub_1002833F8()
 {
+  if (v0)
   {
-    v0 = sub_100176D74();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::OneTypedResult<mlir::RankedTensorType>::Impl<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::OneTypedResult<mlir::RankedTensorType>::Impl>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100176D74(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::OneTypedResult<mlir::RankedTensorType>::Impl<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::OneTypedResult<mlir::RankedTensorType>::Impl>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_100283450()
 {
+  if (v0)
   {
-    v0 = sub_100176E3C();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::NOperands<7u>::Impl<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::NOperands<7u>::Impl>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100176E3C(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::NOperands<7u>::Impl<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::NOperands<7u>::Impl>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -10604,9 +8962,10 @@ void sub_1002834FC()
 
 void sub_100283550()
 {
+  if (v0)
   {
-    v0 = sub_100178240();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::OneTypedResult<mlir::Type>::Impl<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::OneTypedResult<mlir::Type>::Impl>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100178240(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::OneTypedResult<mlir::Type>::Impl<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::OneTypedResult<mlir::Type>::Impl>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -10620,9 +8979,10 @@ void sub_1002835A8()
 
 void sub_1002835FC()
 {
+  if (v0)
   {
-    v0 = sub_1001797B8();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::NOperands<6u>::Impl<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::NOperands<6u>::Impl>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1001797B8(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::NOperands<6u>::Impl<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::NOperands<6u>::Impl>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -10636,41 +8996,46 @@ void sub_100283654()
 
 void sub_1002836A8()
 {
+  if (v0)
   {
-    v0 = sub_100107C3C();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::OneRegion<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::OneRegion>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100107C3C(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::OneRegion<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::OneRegion>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_100283700()
 {
+  if (v0)
   {
-    v0 = sub_1001080EC();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::SingleBlock<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::SingleBlock>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1001080EC(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::SingleBlock<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::SingleBlock>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_100283758()
 {
+  if (v0)
   {
-    v0 = sub_10017A31C();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::SingleBlockImplicitTerminator<mlir::ODIE::Compiler::CoreML::YieldOp>::Impl<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::SingleBlockImplicitTerminator<mlir::ODIE::Compiler::CoreML::YieldOp>::Impl>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_10017A31C(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::SingleBlockImplicitTerminator<mlir::ODIE::Compiler::CoreML::YieldOp>::Impl<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::SingleBlockImplicitTerminator<mlir::ODIE::Compiler::CoreML::YieldOp>::Impl>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_1002837B0()
 {
+  if (v0)
   {
-    v0 = sub_1000714E0();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::IsIsolatedFromAbove<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::IsIsolatedFromAbove>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1000714E0(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::IsIsolatedFromAbove<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::IsIsolatedFromAbove>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_100283808()
 {
+  if (v0)
   {
-    v0 = sub_10017A3E4();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::ODIE::Compiler::CoreML::Decomposable<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::ODIE::Compiler::CoreML::Decomposable>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_10017A3E4(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::ODIE::Compiler::CoreML::Decomposable<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::ODIE::Compiler::CoreML::Decomposable>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -10692,41 +9057,46 @@ void sub_1002838B4()
 
 void sub_100283908()
 {
+  if (v0)
   {
-    v0 = sub_10008A374();
-    mlir::detail::TypeIDResolver<mlir::BytecodeOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_10008A374(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::BytecodeOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_100283960()
 {
+  if (v0)
   {
-    v0 = sub_1001464D0();
-    mlir::detail::TypeIDResolver<mlir::SymbolUserOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1001464D0(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::SymbolUserOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_1002839B8()
 {
+  if (v0)
   {
-    v0 = sub_10017F91C();
-    mlir::detail::TypeIDResolver<mlir::CallOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_10017F91C(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::CallOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_100283A10()
 {
+  if (v0)
   {
-    v0 = sub_100062EA0();
-    mlir::detail::TypeIDResolver<mlir::TypedAttr,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100062EA0(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::TypedAttr,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_100283A68()
 {
+  if (v0)
   {
-    v0 = sub_10017F91C();
-    mlir::detail::TypeIDResolver<mlir::CallOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_10017F91C(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::CallOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -10740,41 +9110,46 @@ void sub_100283AAC()
 
 void sub_100283B00()
 {
+  if (v0)
   {
-    v0 = sub_100109C88();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::VariadicResults<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::VariadicResults>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100109C88(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::VariadicResults<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::VariadicResults>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_100283B58()
 {
+  if (v0)
   {
-    v0 = sub_100109D50();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::VariadicOperands<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::VariadicOperands>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100109D50(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::VariadicOperands<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::VariadicOperands>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_100283BB0()
 {
+  if (v0)
   {
-    v0 = sub_10010827C();
-    mlir::detail::TypeIDResolver<mlir::BytecodeOpInterface::Trait<mlir::TypeID mlir::TypeID::get<mlir::BytecodeOpInterface::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_10010827C(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::BytecodeOpInterface::Trait<mlir::TypeID mlir::TypeID::get<mlir::BytecodeOpInterface::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_100283C08()
 {
+  if (v0)
   {
-    v0 = sub_10017FCC8();
-    mlir::detail::TypeIDResolver<mlir::CallOpInterface::Trait<mlir::TypeID mlir::TypeID::get<mlir::CallOpInterface::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_10017FCC8(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::CallOpInterface::Trait<mlir::TypeID mlir::TypeID::get<mlir::CallOpInterface::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_100283C60()
 {
+  if (v0)
   {
-    v0 = sub_10017FD90();
-    mlir::detail::TypeIDResolver<mlir::SymbolUserOpInterface::Trait<mlir::TypeID mlir::TypeID::get<mlir::SymbolUserOpInterface::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_10017FD90(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::SymbolUserOpInterface::Trait<mlir::TypeID mlir::TypeID::get<mlir::SymbolUserOpInterface::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -10796,41 +9171,46 @@ void sub_100283D0C()
 
 void sub_100283D60()
 {
+  if (v0)
   {
-    v0 = sub_1000715A8();
-    mlir::detail::TypeIDResolver<mlir::OpAsmOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1000715A8(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpAsmOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_100283DB8()
 {
+  if (v0)
   {
-    v0 = sub_100107570();
-    mlir::detail::TypeIDResolver<mlir::RegionKindInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100107570(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::RegionKindInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_100283E10()
 {
+  if (v0)
   {
-    v0 = sub_10010747C();
-    mlir::detail::TypeIDResolver<mlir::SymbolOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_10010747C(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::SymbolOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_100283E68()
 {
+  if (v0)
   {
-    v0 = sub_1001826D8();
-    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::ParamScopeOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1001826D8(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::ParamScopeOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_100283EC0()
 {
+  if (v0)
   {
-    v0 = sub_1001826D8();
-    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::ParamScopeOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1001826D8(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::ParamScopeOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -10844,81 +9224,91 @@ void sub_100283F04()
 
 void sub_100283F58()
 {
+  if (v0)
   {
-    v0 = sub_100107D04();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::ZeroResults<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::ZeroResults>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100107D04(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::ZeroResults<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::ZeroResults>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_100283FB0()
 {
+  if (v0)
   {
-    v0 = sub_100107E94();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::ZeroOperands<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::ZeroOperands>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100107E94(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::ZeroOperands<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::ZeroOperands>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_100284008()
 {
+  if (v0)
   {
-    v0 = sub_100107F5C();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::NoRegionArguments<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::NoRegionArguments>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100107F5C(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::NoRegionArguments<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::NoRegionArguments>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_100284060()
 {
+  if (v0)
   {
-    v0 = sub_100108024();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::NoTerminator<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::NoTerminator>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100108024(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::NoTerminator<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::NoTerminator>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_1002840B8()
 {
+  if (v0)
   {
-    v0 = sub_100055C50();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::SymbolTable<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::SymbolTable>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100055C50(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::SymbolTable<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::SymbolTable>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_100284110()
 {
+  if (v0)
   {
-    v0 = sub_10010840C();
-    mlir::detail::TypeIDResolver<mlir::SymbolOpInterface::Trait<mlir::TypeID mlir::TypeID::get<mlir::SymbolOpInterface::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_10010840C(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::SymbolOpInterface::Trait<mlir::TypeID mlir::TypeID::get<mlir::SymbolOpInterface::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_100284168()
 {
+  if (v0)
   {
-    v0 = sub_1001084D4();
-    mlir::detail::TypeIDResolver<mlir::OpAsmOpInterface::Trait<mlir::TypeID mlir::TypeID::get<mlir::OpAsmOpInterface::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1001084D4(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpAsmOpInterface::Trait<mlir::TypeID mlir::TypeID::get<mlir::OpAsmOpInterface::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_1002841C0()
 {
+  if (v0)
   {
-    v0 = sub_100182D68();
-    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::ParamScopeOpInterface::Trait<mlir::TypeID mlir::TypeID::get<mlir::ODIE::Compiler::CoreML::ParamScopeOpInterface::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100182D68(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::ParamScopeOpInterface::Trait<mlir::TypeID mlir::TypeID::get<mlir::ODIE::Compiler::CoreML::ParamScopeOpInterface::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_100284218()
 {
+  if (v0)
   {
-    v0 = sub_10010859C();
-    mlir::detail::TypeIDResolver<mlir::RegionKindInterface::Trait<mlir::TypeID mlir::TypeID::get<mlir::RegionKindInterface::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_10010859C(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::RegionKindInterface::Trait<mlir::TypeID mlir::TypeID::get<mlir::RegionKindInterface::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_100284270()
 {
+  if (v0)
   {
-    v0 = sub_100108664();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::HasOnlyGraphRegion<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::HasOnlyGraphRegion>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100108664(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::HasOnlyGraphRegion<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::HasOnlyGraphRegion>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -10932,9 +9322,10 @@ void sub_1002842C8()
 
 void sub_10028431C()
 {
+  if (v0)
   {
-    v0 = sub_100183BBC();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::AtLeastNOperands<1u>::Impl<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::AtLeastNOperands<1u>::Impl>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100183BBC(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::AtLeastNOperands<1u>::Impl<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::AtLeastNOperands<1u>::Impl>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -10948,33 +9339,37 @@ void sub_100284374()
 
 void sub_1002843C8()
 {
+  if (v0)
   {
-    v0 = sub_100276C58();
-    mlir::detail::TypeIDResolver<mlir::RegionBranchTerminatorOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100276C58(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::RegionBranchTerminatorOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_100284420()
 {
+  if (v0)
   {
-    v0 = sub_100184794();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::HasParent<mlir::ODIE::Compiler::CoreML::WhileOp>::Impl<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::HasParent<mlir::ODIE::Compiler::CoreML::WhileOp>::Impl>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100184794(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::HasParent<mlir::ODIE::Compiler::CoreML::WhileOp>::Impl<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::HasParent<mlir::ODIE::Compiler::CoreML::WhileOp>::Impl>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_100284478()
 {
+  if (v0)
   {
-    v0 = sub_10018485C();
-    mlir::detail::TypeIDResolver<mlir::RegionBranchTerminatorOpInterface::Trait<mlir::TypeID mlir::TypeID::get<mlir::RegionBranchTerminatorOpInterface::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_10018485C(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::RegionBranchTerminatorOpInterface::Trait<mlir::TypeID mlir::TypeID::get<mlir::RegionBranchTerminatorOpInterface::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_1002844D0()
 {
+  if (v0)
   {
-    v0 = sub_10007809C();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::IsTerminator<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::IsTerminator>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_10007809C(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::IsTerminator<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::IsTerminator>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -10996,17 +9391,19 @@ void sub_10028457C()
 
 void sub_1002845D0()
 {
+  if (v0)
   {
-    v0 = sub_100185A0C();
-    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::HashableOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100185A0C(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::HashableOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_100284628()
 {
+  if (v0)
   {
-    v0 = sub_100185944();
-    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::HashableAttrInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100185944(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::HashableAttrInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -11028,17 +9425,19 @@ void sub_1002846D4()
 
 void sub_100284728()
 {
+  if (v0)
   {
-    v0 = sub_1000CD018();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::ConstantLike<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::ConstantLike>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1000CD018(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::ConstantLike<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::ConstantLike>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_100284780()
 {
+  if (v0)
   {
-    v0 = sub_100186290();
-    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::HashableOpInterface::Trait<mlir::TypeID mlir::TypeID::get<mlir::ODIE::Compiler::CoreML::HashableOpInterface::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100186290(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::HashableOpInterface::Trait<mlir::TypeID mlir::TypeID::get<mlir::ODIE::Compiler::CoreML::HashableOpInterface::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -11052,17 +9451,19 @@ void sub_1002847D8()
 
 void sub_10028482C()
 {
+  if (v0)
   {
-    v0 = sub_100176E3C();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::NOperands<7u>::Impl<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::NOperands<7u>::Impl>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100176E3C(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::NOperands<7u>::Impl<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::NOperands<7u>::Impl>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_100284884()
 {
+  if (v0)
   {
-    v0 = sub_10018AAEC();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::OneTypedResult<mlir::ODIE::Compiler::CoreML::TokenType>::Impl<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::OneTypedResult<mlir::ODIE::Compiler::CoreML::TokenType>::Impl>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_10018AAEC(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::OneTypedResult<mlir::ODIE::Compiler::CoreML::TokenType>::Impl<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::OneTypedResult<mlir::ODIE::Compiler::CoreML::TokenType>::Impl>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -11076,17 +9477,19 @@ void sub_1002848DC()
 
 void sub_100284930()
 {
+  if (v0)
   {
-    v0 = sub_10017435C();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::NOperands<4u>::Impl<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::NOperands<4u>::Impl>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_10017435C(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::NOperands<4u>::Impl<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::NOperands<4u>::Impl>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_100284988()
 {
+  if (v0)
   {
-    v0 = sub_10018BF9C();
-    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::ConditionallyFoldable,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_10018BF9C(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::ConditionallyFoldable,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -11100,25 +9503,28 @@ void sub_1002849E0()
 
 void sub_100284A34()
 {
+  if (v0)
   {
-    v0 = sub_100109C88();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::VariadicResults<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::VariadicResults>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100109C88(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::VariadicResults<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::VariadicResults>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_100284A8C()
 {
+  if (v0)
   {
-    v0 = sub_100109D50();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::VariadicOperands<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::VariadicOperands>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100109D50(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::VariadicOperands<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::VariadicOperands>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_100284AE4()
 {
+  if (v0)
   {
-    v0 = sub_10018C3DC();
-    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::ConditionallyFoldable::Trait<mlir::TypeID mlir::TypeID::get<mlir::ODIE::Compiler::CoreML::ConditionallyFoldable::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_10018C3DC(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::ConditionallyFoldable::Trait<mlir::TypeID mlir::TypeID::get<mlir::ODIE::Compiler::CoreML::ConditionallyFoldable::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -11132,25 +9538,28 @@ void sub_100284B3C()
 
 void sub_100284B90()
 {
+  if (v0)
   {
-    v0 = sub_10017A31C();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::SingleBlockImplicitTerminator<mlir::ODIE::Compiler::CoreML::YieldOp>::Impl<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::SingleBlockImplicitTerminator<mlir::ODIE::Compiler::CoreML::YieldOp>::Impl>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_10017A31C(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::SingleBlockImplicitTerminator<mlir::ODIE::Compiler::CoreML::YieldOp>::Impl<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::SingleBlockImplicitTerminator<mlir::ODIE::Compiler::CoreML::YieldOp>::Impl>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_100284BE8()
 {
+  if (v0)
   {
-    v0 = sub_10017A3E4();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::ODIE::Compiler::CoreML::Decomposable<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::ODIE::Compiler::CoreML::Decomposable>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_10017A3E4(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::ODIE::Compiler::CoreML::Decomposable<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::ODIE::Compiler::CoreML::Decomposable>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_100284C40()
 {
+  if (v0)
   {
-    v0 = sub_10018E5A4();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::SameOperandsElementType<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::SameOperandsElementType>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_10018E5A4(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::SameOperandsElementType<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::SameOperandsElementType>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -11164,25 +9573,28 @@ void sub_100284C98()
 
 void sub_100284CEC()
 {
+  if (v0)
   {
-    v0 = sub_10010840C();
-    mlir::detail::TypeIDResolver<mlir::SymbolOpInterface::Trait<mlir::TypeID mlir::TypeID::get<mlir::SymbolOpInterface::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_10010840C(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::SymbolOpInterface::Trait<mlir::TypeID mlir::TypeID::get<mlir::SymbolOpInterface::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_100284D44()
 {
+  if (v0)
   {
-    v0 = sub_1000715A8();
-    mlir::detail::TypeIDResolver<mlir::OpAsmOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1000715A8(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpAsmOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_100284D9C()
 {
+  if (v0)
   {
-    v0 = sub_1001932B0();
-    mlir::detail::TypeIDResolver<mlir::CallableOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1001932B0(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::CallableOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -11196,9 +9608,10 @@ void sub_100284DF4()
 
 void sub_100284E48()
 {
+  if (v0)
   {
-    v0 = sub_100193F70();
-    mlir::detail::TypeIDResolver<mlir::FunctionOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100193F70(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::FunctionOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -11212,33 +9625,37 @@ void sub_100284EA0()
 
 void sub_100284EF4()
 {
+  if (v0)
   {
-    v0 = sub_100194A1C();
-    mlir::detail::TypeIDResolver<mlir::CallableOpInterface::Trait<mlir::TypeID mlir::TypeID::get<mlir::CallableOpInterface::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100194A1C(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::CallableOpInterface::Trait<mlir::TypeID mlir::TypeID::get<mlir::CallableOpInterface::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_100284F4C()
 {
+  if (v0)
   {
-    v0 = sub_100194AE4();
-    mlir::detail::TypeIDResolver<mlir::FunctionOpInterface::Trait<mlir::TypeID mlir::TypeID::get<mlir::FunctionOpInterface::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100194AE4(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::FunctionOpInterface::Trait<mlir::TypeID mlir::TypeID::get<mlir::FunctionOpInterface::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_100284FA4()
 {
+  if (v0)
   {
-    v0 = sub_1001084D4();
-    mlir::detail::TypeIDResolver<mlir::OpAsmOpInterface::Trait<mlir::TypeID mlir::TypeID::get<mlir::OpAsmOpInterface::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1001084D4(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpAsmOpInterface::Trait<mlir::TypeID mlir::TypeID::get<mlir::OpAsmOpInterface::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_100284FFC()
 {
+  if (v0)
   {
-    v0 = sub_100182D68();
-    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::ParamScopeOpInterface::Trait<mlir::TypeID mlir::TypeID::get<mlir::ODIE::Compiler::CoreML::ParamScopeOpInterface::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100182D68(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::ParamScopeOpInterface::Trait<mlir::TypeID mlir::TypeID::get<mlir::ODIE::Compiler::CoreML::ParamScopeOpInterface::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -11260,25 +9677,28 @@ void sub_1002850A8()
 
 void sub_1002850FC()
 {
+  if (v0)
   {
-    v0 = sub_1001464D0();
-    mlir::detail::TypeIDResolver<mlir::SymbolUserOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1001464D0(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::SymbolUserOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_100285154()
 {
+  if (v0)
   {
-    v0 = sub_10017FD90();
-    mlir::detail::TypeIDResolver<mlir::SymbolUserOpInterface::Trait<mlir::TypeID mlir::TypeID::get<mlir::SymbolUserOpInterface::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_10017FD90(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::SymbolUserOpInterface::Trait<mlir::TypeID mlir::TypeID::get<mlir::SymbolUserOpInterface::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_1002851AC()
 {
+  if (v0)
   {
-    v0 = sub_10019B244();
-    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::ImportableOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_10019B244(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::ImportableOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -11292,9 +9712,10 @@ void sub_100285204()
 
 void sub_100285258()
 {
+  if (v0)
   {
-    v0 = sub_10019B72C();
-    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::ImportableOpInterface::Trait<mlir::TypeID mlir::TypeID::get<mlir::ODIE::Compiler::CoreML::ImportableOpInterface::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_10019B72C(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::ImportableOpInterface::Trait<mlir::TypeID mlir::TypeID::get<mlir::ODIE::Compiler::CoreML::ImportableOpInterface::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -11308,41 +9729,46 @@ void sub_1002852B0()
 
 void sub_100285304()
 {
+  if (v0)
   {
-    v0 = sub_100276374();
-    mlir::detail::TypeIDResolver<mlir::RegionBranchOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100276374(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::RegionBranchOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_10028535C()
 {
+  if (v0)
   {
-    v0 = sub_10019DF9C();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::NRegions<2u>::Impl<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::NRegions<2u>::Impl>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_10019DF9C(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::NRegions<2u>::Impl<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::NRegions<2u>::Impl>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_1002853B4()
 {
+  if (v0)
   {
-    v0 = sub_100107F5C();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::NoRegionArguments<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::NoRegionArguments>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100107F5C(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::NoRegionArguments<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::NoRegionArguments>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_10028540C()
 {
+  if (v0)
   {
-    v0 = sub_10019E064();
-    mlir::detail::TypeIDResolver<mlir::RegionBranchOpInterface::Trait<mlir::TypeID mlir::TypeID::get<mlir::RegionBranchOpInterface::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_10019E064(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::RegionBranchOpInterface::Trait<mlir::TypeID mlir::TypeID::get<mlir::RegionBranchOpInterface::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_100285464()
 {
+  if (v0)
   {
-    v0 = sub_10019E12C();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::HasRecursiveMemoryEffects<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::HasRecursiveMemoryEffects>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_10019E12C(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::HasRecursiveMemoryEffects<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::HasRecursiveMemoryEffects>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -11372,25 +9798,28 @@ void sub_100285564()
 
 void sub_1002855B8()
 {
+  if (v0)
   {
-    v0 = sub_100062EA0();
-    mlir::detail::TypeIDResolver<mlir::TypedAttr,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100062EA0(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::TypedAttr,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_100285610()
 {
+  if (v0)
   {
-    v0 = sub_1001797B8();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::NOperands<6u>::Impl<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::NOperands<6u>::Impl>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1001797B8(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::NOperands<6u>::Impl<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::NOperands<6u>::Impl>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_100285668()
 {
+  if (v0)
   {
-    v0 = sub_1001A54A4();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::HasParent<mlir::ODIE::Compiler::CoreML::ClassOp>::Impl<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::HasParent<mlir::ODIE::Compiler::CoreML::ClassOp>::Impl>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1001A54A4(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::HasParent<mlir::ODIE::Compiler::CoreML::ClassOp>::Impl<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::HasParent<mlir::ODIE::Compiler::CoreML::ClassOp>::Impl>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -11404,57 +9833,64 @@ void sub_1002856C0()
 
 void sub_100285714()
 {
+  if (v0)
   {
-    v0 = sub_100107570();
-    mlir::detail::TypeIDResolver<mlir::RegionKindInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100107570(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::RegionKindInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_10028576C()
 {
+  if (v0)
   {
-    v0 = sub_100108024();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::NoTerminator<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::NoTerminator>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100108024(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::NoTerminator<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::NoTerminator>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_1002857C4()
 {
+  if (v0)
   {
-    v0 = sub_10010859C();
-    mlir::detail::TypeIDResolver<mlir::RegionKindInterface::Trait<mlir::TypeID mlir::TypeID::get<mlir::RegionKindInterface::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_10010859C(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::RegionKindInterface::Trait<mlir::TypeID mlir::TypeID::get<mlir::RegionKindInterface::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_10028581C()
 {
+  if (v0)
   {
-    v0 = sub_100108664();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::HasOnlyGraphRegion<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::HasOnlyGraphRegion>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100108664(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::HasOnlyGraphRegion<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::HasOnlyGraphRegion>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_100285874()
 {
+  if (v0)
   {
-    v0 = sub_100173294();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::SameOperandsAndResultType<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::SameOperandsAndResultType>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100173294(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::SameOperandsAndResultType<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::SameOperandsAndResultType>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_1002858CC()
 {
+  if (v0)
   {
-    v0 = sub_1001ABFD0();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::HasParent<mlir::ODIE::Compiler::CoreML::GraphOp>::Impl<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::HasParent<mlir::ODIE::Compiler::CoreML::GraphOp>::Impl>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1001ABFD0(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::HasParent<mlir::ODIE::Compiler::CoreML::GraphOp>::Impl<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::HasParent<mlir::ODIE::Compiler::CoreML::GraphOp>::Impl>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_100285924()
 {
+  if (v0)
   {
-    v0 = sub_10007809C();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::IsTerminator<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::IsTerminator>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_10007809C(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::IsTerminator<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::IsTerminator>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -11468,9 +9904,10 @@ void sub_10028597C()
 
 void sub_1002859D0()
 {
+  if (v0)
   {
-    v0 = sub_1001B0264();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::NResults<2u>::Impl<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::NResults<2u>::Impl>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1001B0264(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::NResults<2u>::Impl<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::NResults<2u>::Impl>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -11484,9 +9921,10 @@ void sub_100285A28()
 
 void sub_100285A7C()
 {
+  if (v0)
   {
-    v0 = sub_1001B4470();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::ODIE::Compiler::CoreML::KernelNotImplemented<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::ODIE::Compiler::CoreML::KernelNotImplemented>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1001B4470(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::ODIE::Compiler::CoreML::KernelNotImplemented<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::ODIE::Compiler::CoreML::KernelNotImplemented>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -11500,9 +9938,10 @@ void sub_100285AD4()
 
 void sub_100285B28()
 {
+  if (v0)
   {
-    v0 = sub_1001B4D1C();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::HasParent<mlir::ODIE::Compiler::CoreML::FuncOp>::Impl<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::HasParent<mlir::ODIE::Compiler::CoreML::FuncOp>::Impl>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1001B4D1C(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::HasParent<mlir::ODIE::Compiler::CoreML::FuncOp>::Impl<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::HasParent<mlir::ODIE::Compiler::CoreML::FuncOp>::Impl>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -11516,9 +9955,10 @@ void sub_100285B80()
 
 void sub_100285BD4()
 {
+  if (v0)
   {
-    v0 = sub_1001BCD48();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::NOperands<5u>::Impl<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::NOperands<5u>::Impl>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1001BCD48(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::NOperands<5u>::Impl<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::NOperands<5u>::Impl>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -11532,25 +9972,28 @@ void sub_100285C2C()
 
 void sub_100285C80()
 {
+  if (v0)
   {
-    v0 = sub_100276C58();
-    mlir::detail::TypeIDResolver<mlir::RegionBranchTerminatorOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100276C58(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::RegionBranchTerminatorOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_100285CD8()
 {
+  if (v0)
   {
-    v0 = sub_10018485C();
-    mlir::detail::TypeIDResolver<mlir::RegionBranchTerminatorOpInterface::Trait<mlir::TypeID mlir::TypeID::get<mlir::RegionBranchTerminatorOpInterface::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_10018485C(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::RegionBranchTerminatorOpInterface::Trait<mlir::TypeID mlir::TypeID::get<mlir::RegionBranchTerminatorOpInterface::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_100285D30()
 {
+  if (v0)
   {
-    v0 = sub_1001C6C48();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::OneTypedResult<mlir::ShapedType>::Impl<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::OneTypedResult<mlir::ShapedType>::Impl>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1001C6C48(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::OneTypedResult<mlir::ShapedType>::Impl<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::OneTypedResult<mlir::ShapedType>::Impl>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -11579,9 +10022,10 @@ void sub_100285E30(uint64_t a1, uint64_t a2, uint64_t a3)
 
 void sub_100285E74()
 {
+  if (v0)
   {
-    v0 = sub_1001C976C();
-    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::KeywordPrintableAttr,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1001C976C(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::KeywordPrintableAttr,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -11595,9 +10039,10 @@ void sub_100285ECC()
 
 void sub_100285F20()
 {
+  if (v0)
   {
-    v0 = sub_1001C989C();
-    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::KeywordPrintableAttr::Trait<mlir::TypeID mlir::TypeID::get<mlir::ODIE::Compiler::KeywordPrintableAttr::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1001C989C(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::KeywordPrintableAttr::Trait<mlir::TypeID mlir::TypeID::get<mlir::ODIE::Compiler::KeywordPrintableAttr::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -11611,17 +10056,19 @@ void sub_100285F78()
 
 void sub_100285FCC()
 {
+  if (v0)
   {
-    v0 = sub_100082AFC();
-    mlir::detail::TypeIDResolver<mlir::VerifiableTensorEncoding,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100082AFC(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::VerifiableTensorEncoding,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_100286010()
 {
+  if (v0)
   {
-    v0 = sub_1001CA77C();
-    mlir::detail::TypeIDResolver<mlir::VerifiableTensorEncoding::Trait<mlir::TypeID mlir::TypeID::get<mlir::VerifiableTensorEncoding::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1001CA77C(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::VerifiableTensorEncoding::Trait<mlir::TypeID mlir::TypeID::get<mlir::VerifiableTensorEncoding::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -11635,9 +10082,10 @@ void sub_100286068()
 
 void sub_1002860BC()
 {
+  if (v0)
   {
-    v0 = sub_1001CB100();
-    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::ParamAttrInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1001CB100(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::ParamAttrInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -11651,17 +10099,19 @@ void sub_100286114()
 
 void sub_100286168()
 {
+  if (v0)
   {
-    v0 = sub_1000E1834();
-    mlir::detail::TypeIDResolver<mlir::TypedAttr::Trait<mlir::TypeID mlir::TypeID::get<mlir::TypedAttr::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1000E1834(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::TypedAttr::Trait<mlir::TypeID mlir::TypeID::get<mlir::TypedAttr::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_1002861C0()
 {
+  if (v0)
   {
-    v0 = sub_1001CB24C();
-    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::ParamAttrInterface::Trait<mlir::TypeID mlir::TypeID::get<mlir::ODIE::Compiler::ParamAttrInterface::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1001CB24C(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::ParamAttrInterface::Trait<mlir::TypeID mlir::TypeID::get<mlir::ODIE::Compiler::ParamAttrInterface::Trait>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -11673,143 +10123,142 @@ void sub_100286218()
   }
 }
 
-uint64_t mlir::ODIE::Compiler::CoreML::YieldOp::getMutableSuccessorOperands@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t mlir::ODIE::Compiler::CoreML::YieldOp::getMutableSuccessorOperands@<X0>(uint64_t a1@<X8>)
 {
-  v2 = sub_100259D80(a1, a2);
-  if (v4 < 0)
+  v1 = sub_100259D80(a1);
+  if (v3 < 0)
   {
-    v5 = *(v3 + 68);
+    v4 = *(v2 + 68);
   }
 
   else
   {
-    v5 = 0;
+    v4 = 0;
   }
 
-  return sub_100259730(v2, v3, 0, v5);
+  return sub_100259730(v1, v2, 0, v4);
 }
 
-uint64_t mlir::ODIE::Compiler::CoreML::ConditionOp::getMutableSuccessorOperands@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t mlir::ODIE::Compiler::CoreML::ConditionOp::getMutableSuccessorOperands@<X0>(uint64_t a1@<X8>)
 {
-  v2 = sub_100259D80(a1, a2);
-  if (v4 < 0)
+  v1 = sub_100259D80(a1);
+  if (v3 < 0)
   {
-    v5 = *(v3 + 68) - 1;
+    v4 = *(v2 + 68) - 1;
   }
 
   else
   {
-    v5 = -1;
+    v4 = -1;
   }
 
-  return sub_100259730(v2, v3, 1, v5);
+  return sub_100259730(v1, v2, 1, v4);
 }
 
-uint64_t mlir::ODIE::Compiler::CoreML::WhileOp::getEntrySuccessorOperands(uint64_t *a1)
+uint64_t mlir::ODIE::Compiler::CoreML::WhileOp::getEntrySuccessorOperands(uint64_t a1)
 {
-  v1 = *a1;
-  if ((*(*a1 + 46) & 0x80) == 0)
+  if ((*(*a1 + 46) & 0x80) != 0)
+  {
+    return *(*a1 + 72);
+  }
+
+  else
   {
     return 0;
   }
-
-  v2 = *(v1 + 68);
-  return *(v1 + 72);
 }
 
 uint64_t mlir::ODIE::Compiler::CoreML::SetMemberOp::print(mlir::ODIE::Compiler::CoreML::SetMemberOp *this, mlir::OpAsmPrinter *a2)
 {
   sub_100259CC4();
-  sub_100259C20(v6, v7);
-  v10 = (*(v8 + 16))(v9);
-  v11 = sub_1000C9B60(v10);
-  if (v13)
+  sub_100259C20();
+  (*(v6 + 16))(v7);
+  sub_1000C9B60();
+  if (v10)
   {
-    llvm::raw_ostream::write(v11, "(", 1uLL);
+    llvm::raw_ostream::write(v8, "(", 1uLL);
   }
 
   else
   {
-    sub_1000C9AA0(v11, v12);
+    sub_1000C9AA0(v8, v9);
   }
 
-  v14 = *(*(*v3 + 9) + 24);
   sub_10010B2A4();
-  (*(v15 + 160))(v2);
+  (*(v11 + 160))(v2);
   sub_10010B2A4();
-  v17 = (*(v16 + 16))(v2);
-  v18 = sub_10010B2C0(v17);
-  if (!v13 & v20)
+  (*(v12 + 16))(v2);
+  sub_10010B2C0();
+  if (!v10 & v15)
   {
-    *v19 = 8236;
+    *v14 = 8236;
+    sub_10010B2B0(v13);
+  }
+
+  else
+  {
+    llvm::raw_ostream::write(v13, ", ", 2uLL);
+  }
+
+  sub_10010B2A4();
+  (*(v16 + 160))(v2);
+  sub_10010B2A4();
+  (*(v17 + 16))(v2);
+  sub_10010B2C0();
+  if (!v10 & v15)
+  {
+    *v19 = 8233;
     sub_10010B2B0(v18);
   }
 
   else
   {
-    llvm::raw_ostream::write(v18, ", ", 2uLL);
+    llvm::raw_ostream::write(v18, ") ", 2uLL);
   }
 
-  v21 = *(*(*v3 + 9) + 56);
-  sub_10010B2A4();
-  (*(v22 + 160))(v2);
-  sub_10010B2A4();
-  v24 = (*(v23 + 16))(v2);
-  v25 = sub_10010B2C0(v24);
-  if (!v13 & v20)
+  v20 = sub_1001D89A4(v3);
+  v21 = *(*v20 + 136);
+  if (v21 == &mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::ParamConstantAttr,void>::id)
   {
-    *v26 = 8233;
-    sub_10010B2B0(v25);
+    v22 = v20;
   }
 
   else
   {
-    llvm::raw_ostream::write(v25, ") ", 2uLL);
+    v22 = 0;
   }
 
-  v27 = sub_1001D89A4(v3);
-  v28 = *(*v27 + 136);
-  if (v28 == &mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::ParamConstantAttr,void>::id)
+  v54[0] = v22;
+  if (v22)
   {
-    v29 = v27;
-  }
-
-  else
-  {
-    v29 = 0;
-  }
-
-  v72[0] = v29;
-  if (v29)
-  {
-    Value = mlir::ODIE::Compiler::CoreML::ParamConstantAttr::getValue(v72);
+    Value = mlir::ODIE::Compiler::CoreML::ParamConstantAttr::getValue(v54);
 LABEL_15:
     (*(*v2 + 40))(v2, Value);
     goto LABEL_16;
   }
 
-  Value = v27;
-  if (!v27 || v28 != &mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::ParamBindAttr,void>::id)
+  Value = v20;
+  if (!v20 || v21 != &mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::ParamBindAttr,void>::id)
   {
     goto LABEL_15;
   }
 
-  mlir::ODIE::Compiler::CoreML::prettyPrintBindAttr(v2, v27);
+  mlir::ODIE::Compiler::CoreML::prettyPrintBindAttr(v2, v20);
 LABEL_16:
-  v31 = (*(*v2 + 16))(v2);
-  v32 = sub_100259A90(v31);
-  if (v34 > 2)
+  (*(*v2 + 16))(v2);
+  sub_100259A90();
+  if (v26 > 2)
   {
-    sub_10025992C(v32, v33);
+    sub_10025992C(v24, v25);
   }
 
   else
   {
-    llvm::raw_ostream::write(v32, " : ", 3uLL);
+    llvm::raw_ostream::write(v24, " : ", 3uLL);
   }
 
   sub_100259C14();
-  if (v35 < 0)
+  if (v27 < 0)
   {
     sub_100259C9C();
   }
@@ -11819,43 +10268,38 @@ LABEL_16:
     sub_1001406D8();
   }
 
-  v71[1] = v45;
-  v46 = sub_100259E38(v36, v37, v38, v39, v40, v41, v42, v43, v70, v44);
-  mlir::OperandRange::getTypes(v46, v47);
+  v53[1] = v37;
+  v38 = sub_100259E38(v28, v29, v30, v31, v32, v33, v34, v35, v52, v36);
+  mlir::OperandRange::getTypes(v38, v39);
   sub_100259CE0();
-  if (!v13)
+  if (!v10)
   {
-    v48 = (v72[0] + 32 * v4);
-    v49 = *(v48[3] + 8);
+    v40 = v54[0] + 32 * v4;
     sub_10010B2A4();
-    v51 = *(v50 + 32);
-    v52 = sub_10010B2E8();
-    v53(v52);
+    v41 = sub_10010B2E8();
+    v42(v41);
     if (v4 + 1 != v5)
     {
       sub_100259CD0();
       do
       {
-        v54 = (*(*v2 + 16))(v2);
-        v55 = sub_10010B2C0(v54);
-        if (!v13 & v20)
+        (*(*v2 + 16))(v2);
+        sub_10010B2C0();
+        if (!v10 & v15)
         {
-          *v56 = 8236;
-          sub_10010B2B0(v55);
+          *v44 = 8236;
+          sub_10010B2B0(v43);
         }
 
         else
         {
-          llvm::raw_ostream::write(v55, ", ", 2uLL);
+          llvm::raw_ostream::write(v43, ", ", 2uLL);
         }
 
-        v57 = *v48;
-        v48 += 4;
-        v58 = *(v57 + 8);
+        v40 += 32;
         sub_10010B2A4();
-        v60 = *(v59 + 32);
-        v61 = sub_10010B2E8();
-        v62(v61);
+        v45 = sub_10010B2E8();
+        v46(v45);
         --v5;
       }
 
@@ -11863,16 +10307,15 @@ LABEL_16:
     }
   }
 
-  v72[0] = mlir::Operation::getAttrDictionary(*v3);
-  mlir::DictionaryAttr::getValue(v72);
+  v54[0] = mlir::Operation::getAttrDictionary(*v3);
+  mlir::DictionaryAttr::getValue(v54);
   sub_100259A28();
-  v71[0] = *v63;
-  v72[0] = mlir::StringAttr::getValue(v71);
-  v72[1] = v64;
+  v53[0] = *v47;
+  v54[0] = mlir::StringAttr::getValue(v53);
+  v54[1] = v48;
   sub_10010B2A4();
-  v66 = *(v65 + 200);
-  v67 = sub_100259C2C();
-  return v68(v67);
+  v49 = sub_100259C2C();
+  return v50(v49);
 }
 
 uint64_t *sub_1002866AC@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
@@ -11896,11 +10339,11 @@ uint64_t *sub_1002866AC@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
 
 void sub_1002866F0(uint64_t a1, uint64_t a2, mlir::Block *this)
 {
-  Terminator = mlir::Block::getTerminator(this);
-  if ((*(Terminator + 46) & 0x80) != 0)
+  mlir::Block::getTerminator(this);
+  if ((*(v5 + 46) & 0x80) != 0)
   {
-    v6 = Terminator;
-    v7 = *(Terminator + 68);
+    v6 = v5;
+    v7 = *(v5 + 68);
     __src = v33;
     v32 = 0x600000000;
     if (v7 <= 6)
@@ -12048,22 +10491,22 @@ LABEL_32:
 
 void mlir::ODIE::Compiler::CoreML::DelegateOp::getInputIntents(mlir::ODIE::Compiler::CoreML::DelegateOp *this@<X0>, uint64_t a2@<X8>)
 {
-  v5 = *this;
-  v6 = *(*this + 44);
-  v7 = *(*this + 16 * ((v6 >> 23) & 1) + 64) != 0;
-  __src = *(*this + 16 * ((v6 >> 23) & 1) + 64);
-  LOBYTE(v40) = v7;
-  if ((v6 & 0x800000) != 0)
+  v4 = *this;
+  v5 = *(*this + 44);
+  v6 = *(*this + 16 * ((v5 >> 23) & 1) + 64) != 0;
+  __src = *(*this + 16 * ((v5 >> 23) & 1) + 64);
+  LOBYTE(v39) = v6;
+  if ((v5 & 0x800000) != 0)
   {
-    v8 = *(v5 + 68);
+    v7 = *(v4 + 68);
   }
 
   else
   {
-    v8 = 0;
+    v7 = 0;
   }
 
-  sub_1001E39EC(&v42, &__src, v8);
+  sub_1001E39EC(&v41, &__src, v7);
   if ((*(*this + 46) & 0x80) != 0)
   {
     sub_100259C9C();
@@ -12074,17 +10517,17 @@ void mlir::ODIE::Compiler::CoreML::DelegateOp::getInputIntents(mlir::ODIE::Compi
     sub_1001406D8();
   }
 
-  __src = v9;
-  v40 = v10;
-  mlir::OperandRange::getTypes(&__src, &v36);
+  __src = v8;
+  v39 = v9;
+  mlir::OperandRange::getTypes(&__src, &v35);
+  v10 = v35;
   v11 = v36;
   v12 = v37;
-  v13 = v38;
+  v13 = v41;
   v14 = v42;
-  v15 = v43;
-  __src = v41;
-  v40 = 0x600000000;
-  if (!v43 || v37 == v38)
+  __src = v40;
+  v39 = 0x600000000;
+  if (!v42 || v36 == v37)
   {
     *a2 = a2 + 16;
     *(a2 + 8) = 0x600000000;
@@ -12092,357 +10535,191 @@ void mlir::ODIE::Compiler::CoreML::DelegateOp::getInputIntents(mlir::ODIE::Compi
     goto LABEL_40;
   }
 
-  v16 = v38 + ~v37;
-  if (v16 >= ((v43 - 1) & 0x1FFFFFFFFFFFFFFFuLL))
+  v15 = v37 + ~v36;
+  if (v15 >= ((v42 - 1) & 0x1FFFFFFFFFFFFFFFuLL))
   {
-    v16 = (v43 - 1) & 0x1FFFFFFFFFFFFFFFLL;
+    v15 = (v42 - 1) & 0x1FFFFFFFFFFFFFFFLL;
   }
 
-  v35 = v16 + 1;
-  if (v16 < 6)
+  v34 = v15 + 1;
+  if (v15 < 6)
   {
-    v17 = 0;
-    v18 = v41;
+    v16 = 0;
+    v17 = v40;
   }
 
   else
   {
-    llvm::SmallVectorBase<unsigned int>::grow_pod(&__src, v41, v16 + 1, 8);
-    v17 = v40;
-    v18 = __src;
+    llvm::SmallVectorBase<unsigned int>::grow_pod(&__src, v40, v15 + 1, 8);
+    v16 = v39;
+    v17 = __src;
   }
 
-  v19 = &v18[8 * v17];
-  v20 = 8 * v15 - 8;
-  v21 = ~v12 + v13;
-  v22 = v11 + 32 * v12 + 24;
+  v18 = &v17[8 * v16];
+  v19 = 8 * v14 - 8;
+  v20 = ~v11 + v12;
+  v21 = v10 + 32 * v11 + 24;
   do
   {
-    v23 = *(*(*(*v22 + 8) & 0xFFFFFFFFFFFFFFF8) + 136);
-    if (v23 == &mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::HandleType,void>::id || v23 == &mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::TokenType,void>::id)
+    v22 = *(*(*(*v21 + 8) & 0xFFFFFFFFFFFFFFF8) + 136);
+    if (v22 == &mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::HandleType,void>::id || v22 == &mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::TokenType,void>::id)
     {
-      v25 = 1;
+      v24 = 1;
     }
 
     else
     {
-      v26 = *v14;
-      if (*v14)
+      v25 = *v13;
+      if (*v13)
       {
         goto LABEL_23;
       }
 
-      v25 = 3;
+      v24 = 3;
     }
 
     Context = mlir::Attribute::getContext((*this + 24));
-    v26 = mlir::ODIE::Compiler::CoreML::IntentAttr::get(Context, v25);
+    v25 = mlir::ODIE::Compiler::CoreML::IntentAttr::get(Context, v24);
 LABEL_23:
-    *v19++ = v26;
-    v29 = v21-- != 0;
-    if (!v20)
+    *v18++ = v25;
+    v28 = v20-- != 0;
+    if (!v19)
     {
       break;
     }
 
-    ++v14;
-    v20 -= 8;
-    v22 += 32;
+    ++v13;
+    v19 -= 8;
+    v21 += 32;
   }
 
-  while (v29);
-  v30 = v40;
+  while (v28);
+  v29 = v39;
   *a2 = a2 + 16;
   *(a2 + 8) = 0x600000000;
-  v31 = __src;
-  v32 = v30 + v35;
-  LODWORD(v40) = v30 + v35;
-  if (v30 + v35 && &__src != a2)
+  v30 = __src;
+  v31 = v29 + v34;
+  LODWORD(v39) = v29 + v34;
+  if (v29 + v34 && &__src != a2)
   {
-    if (__src == v41)
+    if (__src == v40)
     {
-      v34 = v30 + v35;
-      if (v32 < 7 || (llvm::SmallVectorBase<unsigned int>::grow_pod(a2, (a2 + 16), (v30 + v35), 8), v34 = v40, v31 = __src, v40))
+      v33 = v29 + v34;
+      if (v31 < 7 || (llvm::SmallVectorBase<unsigned int>::grow_pod(a2, (a2 + 16), (v29 + v34), 8), v33 = v39, v30 = __src, v39))
       {
-        memcpy(*a2, v31, 8 * v34);
-        v31 = __src;
+        memcpy(*a2, v30, 8 * v33);
+        v30 = __src;
       }
 
-      *(a2 + 8) = v32;
+      *(a2 + 8) = v31;
     }
 
     else
     {
       *a2 = __src;
-      v33 = HIDWORD(v40);
-      *(a2 + 8) = v32;
-      *(a2 + 12) = v33;
-      __src = v41;
-      HIDWORD(v40) = 0;
-      v31 = v41;
+      v32 = HIDWORD(v39);
+      *(a2 + 8) = v31;
+      *(a2 + 12) = v32;
+      __src = v40;
+      HIDWORD(v39) = 0;
+      v30 = v40;
     }
 
-    LODWORD(v40) = 0;
+    LODWORD(v39) = 0;
   }
 
   *(a2 + 64) = 1;
-  if (v31 != v41)
+  if (v30 != v40)
   {
-    free(v31);
+    free(v30);
   }
 
 LABEL_40:
-  if (v42 != &v44)
+  if (v41 != &v43)
   {
-    free(v42);
+    free(v41);
   }
 }
 
 llvm::raw_ostream *mlir::ODIE::Compiler::CoreML::CallOp::print(mlir::ODIE::Compiler::CoreML::CallOp *this, mlir::OpAsmPrinter *a2)
 {
   sub_100259CC4();
-  sub_100259C20(v5, v6);
-  v9 = (*(v7 + 16))(v8);
-  v10 = sub_1000C9B60(v9);
-  if (v12)
+  sub_100259C20();
+  (*(v5 + 16))(v6);
+  sub_1000C9B60();
+  if (v9)
   {
-    llvm::raw_ostream::write(v10, " ", 1uLL);
+    llvm::raw_ostream::write(v7, " ", 1uLL);
   }
 
   else
   {
-    sub_1000C9AA0(v10, v11);
+    sub_1000C9AA0(v7, v8);
   }
 
   sub_1002599DC();
-  if (*(v13 + 16 * v14 + 72))
+  if (*(v10 + 16 * v11 + 72))
   {
-    v15 = (*(*v2 + 16))(v2);
-    v16 = sub_100259A90(v15);
-    if (v18 > 4)
+    (*(*v2 + 16))(v2);
+    sub_100259A90();
+    if (v14 > 4)
     {
-      *(v17 + 4) = 32;
-      *v17 = 1835624563;
-      v16[4] += 5;
+      *(v13 + 4) = 32;
+      *v13 = 1835624563;
+      v12[4] += 5;
     }
 
     else
     {
-      llvm::raw_ostream::write(v16, "shim ", 5uLL);
+      llvm::raw_ostream::write(v12, "shim ", 5uLL);
     }
   }
 
-  v19 = sub_1001E5280(v3);
-  v20 = *(*v19 + 136);
-  if (v20 == &mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::ParamConstantAttr,void>::id)
+  v15 = sub_1001E5280(v3);
+  v16 = *(*v15 + 136);
+  if (v16 == &mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::ParamConstantAttr,void>::id)
   {
-    v21 = v19;
+    v17 = v15;
   }
 
   else
   {
-    v21 = 0;
+    v17 = 0;
   }
 
-  v85 = v21;
-  if (v21)
+  v72 = v17;
+  if (v17)
   {
-    Value = mlir::ODIE::Compiler::CoreML::ParamConstantAttr::getValue(&v85);
+    Value = mlir::ODIE::Compiler::CoreML::ParamConstantAttr::getValue(&v72);
 LABEL_13:
     (*(*v2 + 40))(v2, Value);
     goto LABEL_14;
   }
 
-  Value = v19;
-  if (!v19 || v20 != &mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::ParamBindAttr,void>::id)
+  Value = v15;
+  if (!v15 || v16 != &mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::ParamBindAttr,void>::id)
   {
     goto LABEL_13;
   }
 
-  mlir::ODIE::Compiler::CoreML::prettyPrintBindAttr(v2, v19);
+  mlir::ODIE::Compiler::CoreML::prettyPrintBindAttr(v2, v15);
 LABEL_14:
-  v23 = (*(*v2 + 16))(v2);
-  v24 = sub_1000C9B60(v23);
-  if (v12)
-  {
-    llvm::raw_ostream::write(v24, "(", 1uLL);
-  }
-
-  else
-  {
-    sub_1000C9AA0(v24, v25);
-  }
-
-  sub_100259D2C();
-  if (v27 < 0)
-  {
-    sub_100259CF0(v26);
-  }
-
-  else
-  {
-    sub_100259B3C();
-  }
-
   (*(*v2 + 16))(v2);
-  if (v4)
+  sub_1000C9B60();
+  if (v9)
   {
-    sub_1002597F4();
-    (*(v28 + 160))(v2);
-    for (i = v4 - 1; i; --i)
-    {
-      sub_100259858();
-      if (!v12 & v31)
-      {
-        sub_1002597E0(v30);
-      }
-
-      else
-      {
-        sub_100259A40();
-      }
-
-      sub_100259848();
-      (*(v32 + 160))(v2);
-    }
-  }
-
-  v33 = (*(*v2 + 16))(v2);
-  v34 = sub_10010B2C0(v33);
-  if (!v12 & v31)
-  {
-    *v35 = 8233;
-    sub_10010B2B0(v34);
+    llvm::raw_ostream::write(v19, "(", 1uLL);
   }
 
   else
   {
-    llvm::raw_ostream::write(v34, ") ", 2uLL);
-  }
-
-  AttrDictionary = mlir::Operation::getAttrDictionary(*v3);
-  sub_100259D94(AttrDictionary, v37, v38, v39, v40, v41, v42, v43, v75, v77, v79, v81, v82, v83, v84, v85);
-  sub_100259A28();
-  v89 = *(v44 + 16);
-  v85 = mlir::StringAttr::getValue(&v89);
-  v86 = v45;
-  v83 = *(*(*(*v3 + 6) + 96) + 8);
-  v87 = mlir::StringAttr::getValue(&v83);
-  v88 = v46;
-  sub_10010B2A4();
-  v48 = *(v47 + 192);
-  v49 = sub_100259C2C();
-  v50(v49);
-  sub_10010B2A4();
-  v52 = (*(v51 + 16))(v2);
-  v53 = sub_100259A90(v52);
-  if (v55 > 2)
-  {
-    sub_10025992C(v53, v54);
-  }
-
-  else
-  {
-    llvm::raw_ostream::write(v53, " : ", 3uLL);
-  }
-
-  sub_100259C14();
-  if (v56 < 0)
-  {
-    sub_100259C9C();
-  }
-
-  else
-  {
-    sub_1001406D8();
-  }
-
-  v89 = v57;
-  v90 = v58;
-  mlir::OperandRange::getTypes(&v89, &v85);
-  mlir::ValueRange::ValueRange(&v89, v85 + 32 * v86, v88 - v86);
-  mlir::TypeRange::TypeRange(&v83, v89, v90);
-  sub_1002599DC();
-  v61 = *(v59 + 16 * v60 + 64);
-  sub_10010B2F4(v59);
-  v89 = v62;
-  v90 = v63;
-  mlir::ResultRange::getTypes(&v89, &v85);
-  NextResultAtOffset = v85;
-  v65 = v86;
-  v66 = v88;
-  if (v86)
-  {
-    NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v85, v86);
-  }
-
-  mlir::ValueRange::ValueRange(&v89, NextResultAtOffset, v66 - v65);
-  mlir::TypeRange::TypeRange(&v81, v89, v90);
-  sub_1002599DC();
-  return sub_100259C38(v69, v83, v84, v70, v71, v72, v73, *(v67 + 16 * v68 + 96), v76, v78, v80, v81, v82);
-}
-
-llvm::raw_ostream *mlir::ODIE::Compiler::CoreML::InvokeOp::print(mlir::ODIE::Compiler::CoreML::InvokeOp *this, mlir::OpAsmPrinter *a2)
-{
-  sub_100259CC4();
-  sub_100259C20(v5, v6);
-  v9 = (*(v7 + 16))(v8);
-  v10 = sub_1000C9B60(v9);
-  if (v12)
-  {
-    llvm::raw_ostream::write(v10, " ", 1uLL);
-  }
-
-  else
-  {
-    sub_1000C9AA0(v10, v11);
-  }
-
-  v13 = sub_1001E72C4(v3);
-  v14 = *(*v13 + 136);
-  if (v14 == &mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::ParamConstantAttr,void>::id)
-  {
-    v15 = v13;
-  }
-
-  else
-  {
-    v15 = 0;
-  }
-
-  AttrDictionary = v15;
-  if (v15)
-  {
-    Value = mlir::ODIE::Compiler::CoreML::ParamConstantAttr::getValue(&AttrDictionary);
-LABEL_9:
-    (*(*v2 + 40))(v2, Value);
-    goto LABEL_10;
-  }
-
-  Value = v13;
-  if (!v13 || v14 != &mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::ParamBindAttr,void>::id)
-  {
-    goto LABEL_9;
-  }
-
-  mlir::ODIE::Compiler::CoreML::prettyPrintBindAttr(v2, v13);
-LABEL_10:
-  v17 = (*(*v2 + 16))(v2);
-  v18 = sub_1000C9B60(v17);
-  if (v12)
-  {
-    llvm::raw_ostream::write(v18, "(", 1uLL);
-  }
-
-  else
-  {
-    sub_1000C9AA0(v18, v19);
+    sub_1000C9AA0(v19, v20);
   }
 
   sub_100259D2C();
   if (v21 < 0)
   {
-    sub_100259CF0(v20);
+    sub_100259CF0();
   }
 
   else
@@ -12458,7 +10735,7 @@ LABEL_10:
     for (i = v4 - 1; i; --i)
     {
       sub_100259858();
-      if (!v12 & v25)
+      if (!v9 & v25)
       {
         sub_1002597E0(v24);
       }
@@ -12473,44 +10750,46 @@ LABEL_10:
     }
   }
 
-  v27 = (*(*v2 + 16))(v2);
-  v28 = sub_10010B2C0(v27);
-  if (!v12 & v25)
+  (*(*v2 + 16))(v2);
+  sub_10010B2C0();
+  if (!v9 & v25)
   {
-    *v29 = 8233;
-    sub_10010B2B0(v28);
+    *v28 = 8233;
+    sub_10010B2B0(v27);
   }
 
   else
   {
-    llvm::raw_ostream::write(v28, ") ", 2uLL);
+    llvm::raw_ostream::write(v27, ") ", 2uLL);
   }
 
   AttrDictionary = mlir::Operation::getAttrDictionary(*v3);
-  mlir::DictionaryAttr::getValue(&AttrDictionary);
+  sub_100259D94(AttrDictionary, v30, v31, v32, v33, v34, v35, v36, v62, v64, v66, v68, v69, v70, v71, v72);
   sub_100259A28();
-  v70 = *(v30 + 8);
-  AttrDictionary = mlir::StringAttr::getValue(&v70);
-  v67 = v31;
+  v76 = *(v37 + 16);
+  v72 = mlir::StringAttr::getValue(&v76);
+  v73 = v38;
+  v70 = *(*(*(*v3 + 6) + 96) + 8);
+  v74 = mlir::StringAttr::getValue(&v70);
+  v75 = v39;
   sub_10010B2A4();
-  v33 = *(v32 + 192);
-  v34 = sub_100259C2C();
-  v35(v34);
+  v40 = sub_100259C2C();
+  v41(v40);
   sub_10010B2A4();
-  v37 = (*(v36 + 16))(v2);
-  v38 = sub_100259A90(v37);
-  if (v40 > 2)
+  (*(v42 + 16))(v2);
+  sub_100259A90();
+  if (v45 > 2)
   {
-    sub_10025992C(v38, v39);
+    sub_10025992C(v43, v44);
   }
 
   else
   {
-    llvm::raw_ostream::write(v38, " : ", 3uLL);
+    llvm::raw_ostream::write(v43, " : ", 3uLL);
   }
 
   sub_100259C14();
-  if (v41 < 0)
+  if (v46 < 0)
   {
     sub_100259C9C();
   }
@@ -12520,269 +10799,91 @@ LABEL_10:
     sub_1001406D8();
   }
 
-  v70 = v42;
-  v71 = v43;
-  mlir::OperandRange::getTypes(&v70, &AttrDictionary);
-  sub_100259B88();
-  mlir::ValueRange::ValueRange(&v70, v44, v45);
-  mlir::TypeRange::TypeRange(v69, v70, v71);
+  v76 = v47;
+  v77 = v48;
+  mlir::OperandRange::getTypes(&v76, &v72);
+  mlir::ValueRange::ValueRange(&v76, v72 + 32 * v73, v75 - v73);
+  mlir::TypeRange::TypeRange(&v70, v76, v77);
   sub_1002599DC();
-  v48 = *(v46 + 16 * v47 + 64);
-  sub_10010B2F4(v46);
-  v70 = v49;
-  v71 = v50;
-  mlir::ResultRange::getTypes(&v70, &AttrDictionary);
-  NextResultAtOffset = AttrDictionary;
-  v52 = v67;
-  v53 = v68;
-  if (v67)
+  sub_10010B2F4();
+  v76 = v49;
+  v77 = v50;
+  mlir::ResultRange::getTypes(&v72, &v76);
+  NextResultAtOffset = v72;
+  v52 = v73;
+  v53 = v75;
+  if (v73)
   {
-    NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(AttrDictionary, v67);
+    NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v72, v73);
   }
 
-  mlir::ValueRange::ValueRange(&v70, NextResultAtOffset, v53 - v52);
-  mlir::TypeRange::TypeRange(v65, v70, v71);
+  mlir::ValueRange::ValueRange(&v76, NextResultAtOffset, v53 - v52);
+  mlir::TypeRange::TypeRange(&v68, v76, v77);
   sub_1002599DC();
-  return sub_100259C38(v56, v69[0], v69[1], v57, v58, v59, v60, *(v54 + 16 * v55 + 88), v62, v63, v64, v65[0], v65[1]);
+  return sub_100259C38(v56, v70, v71, v57, v58, v59, v60, *(v54 + 16 * v55 + 96), v63, v65, v67, v68, v69);
 }
 
-uint64_t mlir::ODIE::Compiler::CoreML::CallOp::getOperandsMutable@<X0>(mlir::ODIE::Compiler::CoreML::CallOp *this@<X0>, uint64_t a2@<X8>)
+llvm::raw_ostream *mlir::ODIE::Compiler::CoreML::InvokeOp::print(mlir::ODIE::Compiler::CoreML::InvokeOp *this, mlir::OpAsmPrinter *a2)
 {
-  v2 = sub_100259D80(this, a2);
-  if (v4 < 0)
+  sub_100259CC4();
+  sub_100259C20();
+  (*(v5 + 16))(v6);
+  sub_1000C9B60();
+  if (v9)
   {
-    v5 = *(v3 + 68);
+    llvm::raw_ostream::write(v7, " ", 1uLL);
   }
 
   else
   {
-    v5 = 0;
+    sub_1000C9AA0(v7, v8);
   }
 
-  return sub_100259730(v2, v3, 0, v5);
-}
-
-uint64_t mlir::ODIE::Compiler::CoreML::InvokeOp::getOperandsMutable@<X0>(mlir::ODIE::Compiler::CoreML::InvokeOp *this@<X0>, uint64_t a2@<X8>)
-{
-  v2 = sub_100259D80(this, a2);
-  if (v4 < 0)
+  v10 = sub_1001E72C4(v3);
+  v11 = *(*v10 + 136);
+  if (v11 == &mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::ParamConstantAttr,void>::id)
   {
-    v5 = *(v3 + 68);
+    v12 = v10;
   }
 
   else
   {
-    v5 = 0;
+    v12 = 0;
   }
 
-  return sub_100259730(v2, v3, 0, v5);
-}
-
-void mlir::ODIE::Compiler::CoreML::OutputOp::print(mlir::ODIE::Compiler::CoreML::OutputOp *this, mlir::OpAsmPrinter *a2)
-{
-  sub_100259CC4();
-  v8 = *v7;
-  if ((*(v8 + 46) & 0x80) != 0 && *(v8 + 68))
-  {
-    v9 = (*(*v2 + 16))(v2);
-    v10 = sub_1000C9AF0(v9);
-    if (v12)
-    {
-      llvm::raw_ostream::write(v10, 32);
-    }
-
-    else
-    {
-      sub_10010B264(v10, v11);
-    }
-
-    sub_100259D2C();
-    if (v14 < 0)
-    {
-      sub_100259CF0(v13);
-    }
-
-    else
-    {
-      sub_100259B3C();
-    }
-
-    (*(*v2 + 16))(v2);
-    if (v6)
-    {
-      sub_1002597F4();
-      (*(v15 + 160))(v2);
-      v16 = v6 - 1;
-      if (v16)
-      {
-        v5 = ", ";
-        do
-        {
-          sub_100259858();
-          if (!v18 & v12)
-          {
-            sub_1002597E0(v17);
-          }
-
-          else
-          {
-            sub_100259A40();
-          }
-
-          sub_100259848();
-          (*(v19 + 160))(v2);
-          --v16;
-        }
-
-        while (v16);
-      }
-    }
-
-    v20 = (*(*v2 + 16))(v2);
-    v21 = sub_1000C9AF0(v20);
-    if (v12)
-    {
-      llvm::raw_ostream::write(v21, 32);
-    }
-
-    else
-    {
-      sub_10010B264(v21, v22);
-    }
-
-    v23 = (*(*v2 + 16))(v2);
-    v24 = sub_1000C9B60(v23);
-    if (v18)
-    {
-      llvm::raw_ostream::write(v24, ":", 1uLL);
-    }
-
-    else
-    {
-      sub_1000C9AA0(v24, v25);
-    }
-
-    v26 = (*(*v2 + 16))(v2);
-    v27 = sub_1000C9AF0(v26);
-    if (v12)
-    {
-      llvm::raw_ostream::write(v27, 32);
-    }
-
-    else
-    {
-      sub_10010B264(v27, v28);
-    }
-
-    sub_100259C14();
-    if (v29 < 0)
-    {
-      sub_100259CFC();
-    }
-
-    else
-    {
-      sub_100259D08();
-    }
-
-    v62[1] = v38;
-    v40 = sub_100259E38(v30, v31, v32, v33, v34, v35, v36, v37, v61, v39);
-    mlir::OperandRange::getTypes(v40, v41);
-    sub_100259CE0();
-    if (!v18)
-    {
-      v42 = (v63 + 32 * v4);
-      v43 = *(v42[3] + 8);
-      sub_10010B2A4();
-      v45 = *(v44 + 32);
-      v46 = sub_10010B2E8();
-      v47(v46);
-      if ((v4 + 1) != v5)
-      {
-        sub_100259CD0();
-        do
-        {
-          v48 = (*(*v2 + 16))(v2);
-          v49 = sub_10010B2C0(v48);
-          if (!v18 & v12)
-          {
-            *v50 = 8236;
-            sub_10010B2B0(v49);
-          }
-
-          else
-          {
-            llvm::raw_ostream::write(v49, ", ", 2uLL);
-          }
-
-          v51 = *v42;
-          v42 += 4;
-          v52 = *(v51 + 8);
-          sub_10010B2A4();
-          v54 = *(v53 + 32);
-          v55 = sub_10010B2E8();
-          v56(v55);
-          --v5;
-        }
-
-        while (v5);
-      }
-    }
-
-    v8 = *v3;
-  }
-
-  v63 = v65;
-  v64 = 0x200000000;
-  v62[0] = mlir::Operation::getAttrDictionary(v8);
-  mlir::DictionaryAttr::getValue(v62);
-  sub_10010B2A4();
-  v58 = *(v57 + 192);
-  v59 = sub_10025994C();
-  v60(v59);
-  if (v63 != v65)
-  {
-    free(v63);
-  }
-}
-
-void mlir::ODIE::Compiler::CoreML::PlaceholderOp::print(mlir::ODIE::Compiler::CoreML::PlaceholderOp *this, mlir::OpAsmPrinter *a2)
-{
-  sub_100259CC4();
-  sub_100259C20(v5, v6);
-  v9 = (*(v7 + 16))(v8);
-  v10 = sub_1000C9AF0(v9);
+  AttrDictionary = v12;
   if (v12)
   {
-    llvm::raw_ostream::write(v10, 32);
+    Value = mlir::ODIE::Compiler::CoreML::ParamConstantAttr::getValue(&AttrDictionary);
+LABEL_9:
+    (*(*v2 + 40))(v2, Value);
+    goto LABEL_10;
+  }
+
+  Value = v10;
+  if (!v10 || v11 != &mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::ParamBindAttr,void>::id)
+  {
+    goto LABEL_9;
+  }
+
+  mlir::ODIE::Compiler::CoreML::prettyPrintBindAttr(v2, v10);
+LABEL_10:
+  (*(*v2 + 16))(v2);
+  sub_1000C9B60();
+  if (v9)
+  {
+    llvm::raw_ostream::write(v14, "(", 1uLL);
   }
 
   else
   {
-    sub_10010B264(v10, v11);
-  }
-
-  sub_1002599DC();
-  v15 = *(v13 + 16 * v14 + 64);
-  sub_10010B2A4();
-  (*(v16 + 48))(v2);
-  sub_10010B2A4();
-  v18 = (*(v17 + 16))(v2);
-  v19 = sub_1000C9B60(v18);
-  if (v21)
-  {
-    llvm::raw_ostream::write(v19, "(", 1uLL);
-  }
-
-  else
-  {
-    sub_1000C9AA0(v19, v20);
+    sub_1000C9AA0(v14, v15);
   }
 
   sub_100259D2C();
-  if (v23 < 0)
+  if (v16 < 0)
   {
-    sub_100259CF0(v22);
+    sub_100259CF0();
   }
 
   else
@@ -12794,13 +10895,13 @@ void mlir::ODIE::Compiler::CoreML::PlaceholderOp::print(mlir::ODIE::Compiler::Co
   if (v4)
   {
     sub_1002597F4();
-    (*(v24 + 160))(v2);
+    (*(v17 + 160))(v2);
     for (i = v4 - 1; i; --i)
     {
       sub_100259858();
-      if (!v21 & v12)
+      if (!v9 & v20)
       {
-        sub_1002597E0(v26);
+        sub_1002597E0(v19);
       }
 
       else
@@ -12809,115 +10910,135 @@ void mlir::ODIE::Compiler::CoreML::PlaceholderOp::print(mlir::ODIE::Compiler::Co
       }
 
       sub_100259848();
-      (*(v27 + 160))(v2);
+      (*(v21 + 160))(v2);
     }
   }
 
-  v28 = (*(*v2 + 16))(v2);
-  v29 = sub_1000C9B60(v28);
-  if (v21)
+  (*(*v2 + 16))(v2);
+  sub_10010B2C0();
+  if (!v9 & v20)
   {
-    llvm::raw_ostream::write(v29, ")", 1uLL);
+    *v23 = 8233;
+    sub_10010B2B0(v22);
   }
 
   else
   {
-    sub_1000C9AA0(v29, v30);
+    llvm::raw_ostream::write(v22, ") ", 2uLL);
   }
 
-  v63 = v65;
-  v65[0] = "opname";
-  v65[1] = 6;
-  v64 = 0x200000001;
-  v62[0] = mlir::Operation::getAttrDictionary(*v3);
-  mlir::DictionaryAttr::getValue(v62);
+  AttrDictionary = mlir::Operation::getAttrDictionary(*v3);
+  mlir::DictionaryAttr::getValue(&AttrDictionary);
+  sub_100259A28();
+  v58 = *(v24 + 8);
+  AttrDictionary = mlir::StringAttr::getValue(&v58);
+  v55 = v25;
   sub_10010B2A4();
-  v32 = *(v31 + 192);
-  v33 = sub_10025994C();
-  v34(v33);
+  v26 = sub_100259C2C();
+  v27(v26);
   sub_10010B2A4();
-  v36 = (*(v35 + 16))(v2);
-  v37 = sub_1000C9AF0(v36);
-  if (v12)
+  (*(v28 + 16))(v2);
+  sub_100259A90();
+  if (v31 > 2)
   {
-    llvm::raw_ostream::write(v37, 32);
+    sub_10025992C(v29, v30);
   }
 
   else
   {
-    sub_10010B264(v37, v38);
-  }
-
-  v39 = (*(*v2 + 16))(v2);
-  v40 = sub_1000C9B60(v39);
-  if (v21)
-  {
-    llvm::raw_ostream::write(v40, ":", 1uLL);
-  }
-
-  else
-  {
-    sub_1000C9AA0(v40, v41);
-  }
-
-  v42 = (*(*v2 + 16))(v2);
-  v43 = sub_1000C9AF0(v42);
-  if (v12)
-  {
-    llvm::raw_ostream::write(v43, 32);
-  }
-
-  else
-  {
-    sub_10010B264(v43, v44);
+    llvm::raw_ostream::write(v29, " : ", 3uLL);
   }
 
   sub_100259C14();
-  if (v45 < 0)
+  if (v32 < 0)
   {
-    sub_100259CFC();
+    sub_100259C9C();
   }
 
   else
   {
-    sub_100259D08();
+    sub_1001406D8();
   }
 
-  v61[0] = v47;
-  v61[1] = v46;
-  mlir::OperandRange::getTypes(v61, v62);
-  sub_10010B2F4(*v3);
-  v57 = sub_100259E38(v48, v49, v50, v51, v52, v53, v54, v55, v59, v56);
-  mlir::ResultRange::getTypes(v57, v58);
-  sub_10023BF78(v2, v62, v60);
-  if (v63 != v65)
+  v58 = v33;
+  v59 = v34;
+  mlir::OperandRange::getTypes(&v58, &AttrDictionary);
+  sub_100259B88();
+  mlir::ValueRange::ValueRange(&v58, v35, v36);
+  mlir::TypeRange::TypeRange(v57, v58, v59);
+  sub_1002599DC();
+  sub_10010B2F4();
+  v58 = v37;
+  v59 = v38;
+  mlir::ResultRange::getTypes(&AttrDictionary, &v58);
+  NextResultAtOffset = AttrDictionary;
+  v40 = v55;
+  v41 = v56;
+  if (v55)
   {
-    free(v63);
+    NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(AttrDictionary, v55);
   }
+
+  mlir::ValueRange::ValueRange(&v58, NextResultAtOffset, v41 - v40);
+  mlir::TypeRange::TypeRange(v53, v58, v59);
+  sub_1002599DC();
+  return sub_100259C38(v44, v57[0], v57[1], v45, v46, v47, v48, *(v42 + 16 * v43 + 88), v50, v51, v52, v53[0], v53[1]);
 }
 
-void mlir::ODIE::Compiler::CoreML::ReturnOp::print(mlir::ODIE::Compiler::CoreML::ReturnOp *this, mlir::OpAsmPrinter *a2)
+uint64_t mlir::ODIE::Compiler::CoreML::CallOp::getOperandsMutable@<X0>(uint64_t a1@<X8>)
+{
+  v1 = sub_100259D80(a1);
+  if (v3 < 0)
+  {
+    v4 = *(v2 + 68);
+  }
+
+  else
+  {
+    v4 = 0;
+  }
+
+  return sub_100259730(v1, v2, 0, v4);
+}
+
+uint64_t mlir::ODIE::Compiler::CoreML::InvokeOp::getOperandsMutable@<X0>(uint64_t a1@<X8>)
+{
+  v1 = sub_100259D80(a1);
+  if (v3 < 0)
+  {
+    v4 = *(v2 + 68);
+  }
+
+  else
+  {
+    v4 = 0;
+  }
+
+  return sub_100259730(v1, v2, 0, v4);
+}
+
+void mlir::ODIE::Compiler::CoreML::OutputOp::print(mlir::ODIE::Compiler::CoreML::OutputOp *this, mlir::OpAsmPrinter *a2)
 {
   sub_100259CC4();
   v8 = *v7;
   if ((*(v8 + 46) & 0x80) != 0 && *(v8 + 68))
   {
-    v9 = (*(*v2 + 16))(v2);
-    v10 = sub_1000C9AF0(v9);
-    if (v12)
+    (*(*v2 + 16))(v2);
+    sub_1000C9AF0();
+    if (v11)
     {
-      llvm::raw_ostream::write(v10, 32);
+      llvm::raw_ostream::write(v9, 32);
     }
 
     else
     {
-      sub_10010B264(v10, v11);
+      sub_10010B264(v9, v10);
     }
 
     sub_100259D2C();
-    if (v14 < 0)
+    if (v12 < 0)
     {
-      sub_100259CF0(v13);
+      sub_100259CF0();
     }
 
     else
@@ -12929,17 +11050,17 @@ void mlir::ODIE::Compiler::CoreML::ReturnOp::print(mlir::ODIE::Compiler::CoreML:
     if (v6)
     {
       sub_1002597F4();
-      (*(v15 + 160))(v2);
-      v16 = v6 - 1;
-      if (v16)
+      (*(v13 + 160))(v2);
+      v14 = v6 - 1;
+      if (v14)
       {
         v5 = ", ";
         do
         {
           sub_100259858();
-          if (!v18 & v12)
+          if (!v16 & v11)
           {
-            sub_1002597E0(v17);
+            sub_1002597E0(v15);
           }
 
           else
@@ -12948,52 +11069,52 @@ void mlir::ODIE::Compiler::CoreML::ReturnOp::print(mlir::ODIE::Compiler::CoreML:
           }
 
           sub_100259848();
-          (*(v19 + 160))(v2);
-          --v16;
+          (*(v17 + 160))(v2);
+          --v14;
         }
 
-        while (v16);
+        while (v14);
       }
     }
 
-    v20 = (*(*v2 + 16))(v2);
-    v21 = sub_1000C9AF0(v20);
-    if (v12)
+    (*(*v2 + 16))(v2);
+    sub_1000C9AF0();
+    if (v11)
     {
-      llvm::raw_ostream::write(v21, 32);
+      llvm::raw_ostream::write(v18, 32);
     }
 
     else
     {
-      sub_10010B264(v21, v22);
+      sub_10010B264(v18, v19);
     }
 
-    v23 = (*(*v2 + 16))(v2);
-    v24 = sub_1000C9B60(v23);
-    if (v18)
+    (*(*v2 + 16))(v2);
+    sub_1000C9B60();
+    if (v16)
     {
-      llvm::raw_ostream::write(v24, ":", 1uLL);
-    }
-
-    else
-    {
-      sub_1000C9AA0(v24, v25);
-    }
-
-    v26 = (*(*v2 + 16))(v2);
-    v27 = sub_1000C9AF0(v26);
-    if (v12)
-    {
-      llvm::raw_ostream::write(v27, 32);
+      llvm::raw_ostream::write(v20, ":", 1uLL);
     }
 
     else
     {
-      sub_10010B264(v27, v28);
+      sub_1000C9AA0(v20, v21);
+    }
+
+    (*(*v2 + 16))(v2);
+    sub_1000C9AF0();
+    if (v11)
+    {
+      llvm::raw_ostream::write(v22, 32);
+    }
+
+    else
+    {
+      sub_10010B264(v22, v23);
     }
 
     sub_100259C14();
-    if (v29 < 0)
+    if (v24 < 0)
     {
       sub_100259CFC();
     }
@@ -13003,43 +11124,38 @@ void mlir::ODIE::Compiler::CoreML::ReturnOp::print(mlir::ODIE::Compiler::CoreML:
       sub_100259D08();
     }
 
-    v62[1] = v38;
-    v40 = sub_100259E38(v30, v31, v32, v33, v34, v35, v36, v37, v61, v39);
-    mlir::OperandRange::getTypes(v40, v41);
+    v47[1] = v33;
+    v35 = sub_100259E38(v25, v26, v27, v28, v29, v30, v31, v32, v46, v34);
+    mlir::OperandRange::getTypes(v35, v36);
     sub_100259CE0();
-    if (!v18)
+    if (!v16)
     {
-      v42 = (v63 + 32 * v4);
-      v43 = *(v42[3] + 8);
+      v37 = v48 + 32 * v4;
       sub_10010B2A4();
-      v45 = *(v44 + 32);
-      v46 = sub_10010B2E8();
-      v47(v46);
+      v38 = sub_10010B2E8();
+      v39(v38);
       if ((v4 + 1) != v5)
       {
         sub_100259CD0();
         do
         {
-          v48 = (*(*v2 + 16))(v2);
-          v49 = sub_10010B2C0(v48);
-          if (!v18 & v12)
+          (*(*v2 + 16))(v2);
+          sub_10010B2C0();
+          if (!v16 & v11)
           {
-            *v50 = 8236;
-            sub_10010B2B0(v49);
+            *v41 = 8236;
+            sub_10010B2B0(v40);
           }
 
           else
           {
-            llvm::raw_ostream::write(v49, ", ", 2uLL);
+            llvm::raw_ostream::write(v40, ", ", 2uLL);
           }
 
-          v51 = *v42;
-          v42 += 4;
-          v52 = *(v51 + 8);
+          v37 += 32;
           sub_10010B2A4();
-          v54 = *(v53 + 32);
-          v55 = sub_10010B2E8();
-          v56(v55);
+          v42 = sub_10010B2E8();
+          v43(v42);
           --v5;
         }
 
@@ -13050,26 +11166,335 @@ void mlir::ODIE::Compiler::CoreML::ReturnOp::print(mlir::ODIE::Compiler::CoreML:
     v8 = *v3;
   }
 
-  v63 = v65;
-  v64 = 0x200000000;
-  v62[0] = mlir::Operation::getAttrDictionary(v8);
-  mlir::DictionaryAttr::getValue(v62);
+  v48 = v50;
+  v49 = 0x200000000;
+  v47[0] = mlir::Operation::getAttrDictionary(v8);
+  mlir::DictionaryAttr::getValue(v47);
   sub_10010B2A4();
-  v58 = *(v57 + 192);
-  v59 = sub_10025994C();
-  v60(v59);
-  if (v63 != v65)
+  v44 = sub_10025994C();
+  v45(v44);
+  if (v48 != v50)
   {
-    free(v63);
+    free(v48);
   }
 }
 
-uint64_t sub_100288E58(uint64_t **a1, uint64_t a2)
+void mlir::ODIE::Compiler::CoreML::PlaceholderOp::print(mlir::ODIE::Compiler::CoreML::PlaceholderOp *this, mlir::OpAsmPrinter *a2)
 {
-  v156 = a2;
-  mlir::FunctionType::getInputs(&v156);
+  sub_100259CC4();
+  sub_100259C20();
+  (*(v5 + 16))(v6);
+  sub_1000C9AF0();
+  if (v9)
+  {
+    llvm::raw_ostream::write(v7, 32);
+  }
+
+  else
+  {
+    sub_10010B264(v7, v8);
+  }
+
+  sub_1002599DC();
+  sub_10010B2A4();
+  (*(v10 + 48))(v2);
+  sub_10010B2A4();
+  (*(v11 + 16))(v2);
+  sub_1000C9B60();
+  if (v14)
+  {
+    llvm::raw_ostream::write(v12, "(", 1uLL);
+  }
+
+  else
+  {
+    sub_1000C9AA0(v12, v13);
+  }
+
+  sub_100259D2C();
+  if (v15 < 0)
+  {
+    sub_100259CF0();
+  }
+
+  else
+  {
+    sub_100259B3C();
+  }
+
+  (*(*v2 + 16))(v2);
+  if (v4)
+  {
+    sub_1002597F4();
+    (*(v16 + 160))(v2);
+    for (i = v4 - 1; i; --i)
+    {
+      sub_100259858();
+      if (!v14 & v9)
+      {
+        sub_1002597E0(v18);
+      }
+
+      else
+      {
+        sub_100259A40();
+      }
+
+      sub_100259848();
+      (*(v19 + 160))(v2);
+    }
+  }
+
+  (*(*v2 + 16))(v2);
+  sub_1000C9B60();
+  if (v14)
+  {
+    llvm::raw_ostream::write(v20, ")", 1uLL);
+  }
+
+  else
+  {
+    sub_1000C9AA0(v20, v21);
+  }
+
+  v49 = v51;
+  v51[0] = "opname";
+  v51[1] = 6;
+  v50 = 0x200000001;
+  v48[0] = mlir::Operation::getAttrDictionary(*v3);
+  mlir::DictionaryAttr::getValue(v48);
+  sub_10010B2A4();
+  v22 = sub_10025994C();
+  v23(v22);
+  sub_10010B2A4();
+  (*(v24 + 16))(v2);
+  sub_1000C9AF0();
+  if (v9)
+  {
+    llvm::raw_ostream::write(v25, 32);
+  }
+
+  else
+  {
+    sub_10010B264(v25, v26);
+  }
+
+  (*(*v2 + 16))(v2);
+  sub_1000C9B60();
+  if (v14)
+  {
+    llvm::raw_ostream::write(v27, ":", 1uLL);
+  }
+
+  else
+  {
+    sub_1000C9AA0(v27, v28);
+  }
+
+  (*(*v2 + 16))(v2);
+  sub_1000C9AF0();
+  if (v9)
+  {
+    llvm::raw_ostream::write(v29, 32);
+  }
+
+  else
+  {
+    sub_10010B264(v29, v30);
+  }
+
+  sub_100259C14();
+  if (v31 < 0)
+  {
+    sub_100259CFC();
+  }
+
+  else
+  {
+    sub_100259D08();
+  }
+
+  v47[0] = v33;
+  v47[1] = v32;
+  mlir::OperandRange::getTypes(v47, v48);
+  sub_10010B2F4();
+  v43 = sub_100259E38(v34, v35, v36, v37, v38, v39, v40, v41, v45, v42);
+  mlir::ResultRange::getTypes(v44, v43);
+  sub_10023BF78(v2, v48, v46);
+  if (v49 != v51)
+  {
+    free(v49);
+  }
+}
+
+void mlir::ODIE::Compiler::CoreML::ReturnOp::print(mlir::ODIE::Compiler::CoreML::ReturnOp *this, mlir::OpAsmPrinter *a2)
+{
+  sub_100259CC4();
+  v8 = *v7;
+  if ((*(v8 + 46) & 0x80) != 0 && *(v8 + 68))
+  {
+    (*(*v2 + 16))(v2);
+    sub_1000C9AF0();
+    if (v11)
+    {
+      llvm::raw_ostream::write(v9, 32);
+    }
+
+    else
+    {
+      sub_10010B264(v9, v10);
+    }
+
+    sub_100259D2C();
+    if (v12 < 0)
+    {
+      sub_100259CF0();
+    }
+
+    else
+    {
+      sub_100259B3C();
+    }
+
+    (*(*v2 + 16))(v2);
+    if (v6)
+    {
+      sub_1002597F4();
+      (*(v13 + 160))(v2);
+      v14 = v6 - 1;
+      if (v14)
+      {
+        v5 = ", ";
+        do
+        {
+          sub_100259858();
+          if (!v16 & v11)
+          {
+            sub_1002597E0(v15);
+          }
+
+          else
+          {
+            sub_100259A40();
+          }
+
+          sub_100259848();
+          (*(v17 + 160))(v2);
+          --v14;
+        }
+
+        while (v14);
+      }
+    }
+
+    (*(*v2 + 16))(v2);
+    sub_1000C9AF0();
+    if (v11)
+    {
+      llvm::raw_ostream::write(v18, 32);
+    }
+
+    else
+    {
+      sub_10010B264(v18, v19);
+    }
+
+    (*(*v2 + 16))(v2);
+    sub_1000C9B60();
+    if (v16)
+    {
+      llvm::raw_ostream::write(v20, ":", 1uLL);
+    }
+
+    else
+    {
+      sub_1000C9AA0(v20, v21);
+    }
+
+    (*(*v2 + 16))(v2);
+    sub_1000C9AF0();
+    if (v11)
+    {
+      llvm::raw_ostream::write(v22, 32);
+    }
+
+    else
+    {
+      sub_10010B264(v22, v23);
+    }
+
+    sub_100259C14();
+    if (v24 < 0)
+    {
+      sub_100259CFC();
+    }
+
+    else
+    {
+      sub_100259D08();
+    }
+
+    v47[1] = v33;
+    v35 = sub_100259E38(v25, v26, v27, v28, v29, v30, v31, v32, v46, v34);
+    mlir::OperandRange::getTypes(v35, v36);
+    sub_100259CE0();
+    if (!v16)
+    {
+      v37 = v48 + 32 * v4;
+      sub_10010B2A4();
+      v38 = sub_10010B2E8();
+      v39(v38);
+      if ((v4 + 1) != v5)
+      {
+        sub_100259CD0();
+        do
+        {
+          (*(*v2 + 16))(v2);
+          sub_10010B2C0();
+          if (!v16 & v11)
+          {
+            *v41 = 8236;
+            sub_10010B2B0(v40);
+          }
+
+          else
+          {
+            llvm::raw_ostream::write(v40, ", ", 2uLL);
+          }
+
+          v37 += 32;
+          sub_10010B2A4();
+          v42 = sub_10010B2E8();
+          v43(v42);
+          --v5;
+        }
+
+        while (v5);
+      }
+    }
+
+    v8 = *v3;
+  }
+
+  v48 = v50;
+  v49 = 0x200000000;
+  v47[0] = mlir::Operation::getAttrDictionary(v8);
+  mlir::DictionaryAttr::getValue(v47);
+  sub_10010B2A4();
+  v44 = sub_10025994C();
+  v45(v44);
+  if (v48 != v50)
+  {
+    free(v48);
+  }
+}
+
+uint64_t sub_100288E58(uint64_t a1, uint64_t a2)
+{
+  v157 = a2;
+  mlir::FunctionType::getInputs(&v157);
   sub_100259D14();
-  if (v12 < 0)
+  if (v11 < 0)
   {
     sub_100259C9C();
   }
@@ -13079,7 +11504,7 @@ uint64_t sub_100288E58(uint64_t **a1, uint64_t a2)
     sub_1001406D8();
   }
 
-  sub_100259D5C(v13, v143, v146, v149, v152, v156, v157, v158, v159, v160, v161, v162, v163, v164, v165, v166, v167, v168, v169, v170, v171, v172, v173, v174, v175, v176, v177, v178, v179, __p, v181, v182, v183, v184, v185, v186);
+  sub_100259D5C(v12, v136, v141, v146, v151, v157, v158, v159, v160, v161, v162, v163, v164, v165, v166, v167, v168, v169, v170, v171, v172, v173, v174, v175, v176, v177, v178, v179, v180, __p, v182, v183, v184, v185, v186, v187);
   if (v4)
   {
     sub_100259A5C();
@@ -13090,21 +11515,21 @@ uint64_t sub_100288E58(uint64_t **a1, uint64_t a2)
         break;
       }
 
-      v14 = sub_100259E68();
-      if (!v14)
+      v13 = sub_100259E68();
+      if (!v13)
       {
-        sub_100259B1C(v14, v15, v16, v17, v18, v19, v20, v21);
-        if (v160)
+        sub_100259B1C(v13, v14, v15, v16, v17, v18, v19, v20, v137, v142, v147, v152, v157, v158, v159, v160);
+        if (v161)
         {
           sub_100259E18();
           sub_1002598B8();
-          if (v46)
+          if (v45)
           {
             sub_1001404C4();
-            if (v97 <= v98 && (v96 & 1) != 0)
+            if (v90 <= v91 && (v89 & 1) != 0)
             {
               sub_100259AFC();
-              v45 = v163;
+              v44 = v164;
             }
 
             else
@@ -13114,20 +11539,19 @@ uint64_t sub_100288E58(uint64_t **a1, uint64_t a2)
             }
           }
 
-          sub_100140494(v45);
+          sub_100140494(v44);
           sub_100259808();
-          if (v47)
+          if (v46)
           {
-            v48 = *v3;
             sub_100259BFC();
-            mlir::DiagnosticArgument::DiagnosticArgument(v49, v50);
+            mlir::DiagnosticArgument::DiagnosticArgument(v47, v48);
             sub_1002598A8();
-            if (v46)
+            if (v45)
             {
               sub_100259770();
-              if (v110 <= v3 && (v111 & 1) != 0)
+              if (v103 <= v3 && (v104 & 1) != 0)
               {
-                v3 = &v157 - v110;
+                v3 = &v158 - v103;
                 sub_10025997C();
                 sub_100259E0C();
               }
@@ -13139,42 +11563,40 @@ uint64_t sub_100288E58(uint64_t **a1, uint64_t a2)
               }
             }
 
-            sub_10025973C(v51);
+            sub_10025973C(v49);
             sub_100259A00();
-            if (v52)
+            if (v50)
             {
               sub_100259B9C();
               sub_100259890();
-              if (v46)
+              if (v45)
               {
                 sub_1001405E4();
-                if (v123 <= v125 && (v124 & 1) != 0)
+                if (v116 <= v118 && (v117 & 1) != 0)
                 {
-                  v3 = &v157 - v123;
-                  sub_100259ADC(v122);
-                  v53 = v163;
-                  v54 = &v3[v163];
+                  v3 = &v158 - v116;
+                  sub_100259ADC(v115);
+                  v51 = v164;
+                  v52 = &v3[v164];
                 }
 
                 else
                 {
-                  sub_100259ADC(v122);
+                  sub_100259ADC(v115);
                   sub_100259BE4();
                 }
               }
 
-              v55 = &v53[24 * v164];
-              v56 = v54[1].n128_u64[0];
-              sub_100259758(v55, *v54);
-              if (v160)
+              sub_100259758(&v51[24 * v165], *v52);
+              if (v161)
               {
                 sub_100259BFC();
-                mlir::DiagnosticArgument::DiagnosticArgument(v57, v4 & 0xFFFFFFFFFFFFFFF8);
+                mlir::DiagnosticArgument::DiagnosticArgument(v53, v4 & 0xFFFFFFFFFFFFFFF8);
                 sub_1002598A8();
-                if (v46)
+                if (v45)
                 {
                   sub_100259770();
-                  if (v131 <= v3 && (v130 & 1) != 0)
+                  if (v124 <= v3 && (v123 & 1) != 0)
                   {
                     sub_10025997C();
                     sub_100259E0C();
@@ -13187,94 +11609,94 @@ uint64_t sub_100288E58(uint64_t **a1, uint64_t a2)
                   }
                 }
 
-                sub_10025973C(v58);
+                sub_10025973C(v54);
                 sub_10025981C();
               }
             }
           }
         }
 
-        sub_100259ED0(v37, v38, v39, v40, v41, v42, v43, v44, v144, v147, v150, v153, v156, v157, v158, v159, v160, v161, v162, v163, v164, v165, v166, v167, v168, v169, v170, v171, v172, v173, v174, v175, v176, v177, v178, v179, __p, v181, v182, v183, v184, v185, v186);
-        if (v160)
+        sub_100259ED0(v36, v37, v38, v39, v40, v41, v42, v43, v139, v144, v149, v154, v157, v158, v159, v160, v161, v162, v163, v164, v165, v166, v167, v168, v169, v170, v171, v172, v173, v174, v175, v176, v177, v178, v179, v180, __p, v182, v183, v184, v185, v186);
+        if (v161)
         {
-          mlir::InFlightDiagnostic::report(&v160);
+          mlir::InFlightDiagnostic::report(&v161);
         }
 
         sub_100259DF4();
-        if (v22)
+        if (v21)
         {
-          if (v183 != v8)
+          if (v184 != v8)
           {
-            free(v183);
+            free(v184);
           }
 
-          v59 = __p;
+          v55 = __p;
           if (__p)
           {
-            v60 = v181;
-            v61 = __p;
-            if (v181 != __p)
+            v56 = v182;
+            v57 = __p;
+            if (v182 != __p)
             {
               do
               {
-                v60 = sub_100052FFC((v60 - 8));
+                v56 = sub_100052FFC((v56 - 8));
               }
 
-              while (v60 != v59);
-              v61 = __p;
+              while (v56 != v55);
+              v57 = __p;
             }
 
-            v181 = v59;
-            operator delete(v61);
+            v182 = v55;
+            operator delete(v57);
           }
 
-          v62 = v177;
-          if (v177)
+          v58 = v178;
+          if (v178)
           {
-            v63 = v178;
-            v64 = v177;
-            if (v178 != v177)
+            v59 = v179;
+            v60 = v178;
+            if (v179 != v178)
             {
               sub_10014054C();
               do
               {
-                v65 = *--v63;
-                *v63 = 0;
-                if (v65)
+                v61 = *--v59;
+                *v59 = 0;
+                if (v61)
                 {
                   operator delete[]();
                 }
               }
 
-              while (v63 != v62);
-              v64 = v177;
+              while (v59 != v58);
+              v60 = v178;
             }
 
-            v178 = v62;
-            operator delete(v64);
+            v179 = v58;
+            operator delete(v60);
           }
 
-          if (v163 != v2)
+          if (v164 != v2)
           {
-            free(v163);
+            free(v164);
           }
         }
 
         sub_100259B78();
-        mlir::Diagnostic::attachNote(v7 + 1, v66, 1);
+        mlir::Diagnostic::attachNote(v7 + 1, v62, 1);
       }
 
       sub_100259E24();
     }
 
-    while (!v22);
+    while (!v21);
   }
 
-  Results = mlir::FunctionType::getResults(&v156);
-  v25 = v24;
-  sub_10010B2F4(**a1);
-  sub_100259D38(v26, v144, v147, v150, v153, v156, v157, v158, v159, v160, v161, v162, v163, v164, v165, v166, v167, v168, v169, v170, v171, v172, v173, v174, v175, v176, v177, v178, v179, __p, v181, v182, v183, v184, v185, v186);
-  if (v25)
+  Results = mlir::FunctionType::getResults(&v157);
+  v24 = v23;
+  sub_10010B2F4();
+  sub_100259D38(v25, v137, v142, v147, v152, v157, v158, v159, v160, v161, v162, v163, v164, v165, v166, v167, v168, v169, v170, v171, v172, v173, v174, v175, v176, v177, v178, v179, v180, __p, v182, v183, v184, v185, v186, v187);
+  if (v24)
   {
     sub_100259BAC();
     do
@@ -13284,178 +11706,175 @@ uint64_t sub_100288E58(uint64_t **a1, uint64_t a2)
         break;
       }
 
-      v27 = *(mlir::detail::OpResultImpl::getNextResultAtOffset(v4, v5) + 8);
-      v28 = mlir::ODIE::Compiler::areTypesCompatible(*Results, v27 & 0xFFFFFFFFFFFFFFF8);
-      if (!v28)
+      v26 = *(mlir::detail::OpResultImpl::getNextResultAtOffset(v4, v5) + 8);
+      v27 = mlir::ODIE::Compiler::areTypesCompatible(*Results, v26 & 0xFFFFFFFFFFFFFFF8);
+      if (!v27)
       {
-        sub_100259B1C(v28, v29, v30, v31, v32, v33, v34, v35);
-        if (v160)
+        sub_100259B1C(v27, v28, v29, v30, v31, v32, v33, v34, v138, v143, v148, v153, v157, v158, v159, v160);
+        if (v161)
         {
           sub_100259E18();
           sub_1002598B8();
-          if (v46)
+          if (v45)
           {
             sub_1001404C4();
-            if (v108 <= v109 && (v107 & 1) != 0)
+            if (v101 <= v102 && (v100 & 1) != 0)
             {
-              sub_100259ABC(v99, v100, v101, v102, v103, v104, v105, v106, v145, v148, v151, v154);
-              v75 = v163;
+              sub_100259ABC(v92, v93, v94, v95, v96, v97, v98, v99, v140, v145, v150, v155);
+              v71 = v164;
             }
 
             else
             {
-              sub_100259ABC(v99, v100, v101, v102, v103, v104, v105, v106, v145, v148, v151, v154);
+              sub_100259ABC(v92, v93, v94, v95, v96, v97, v98, v99, v140, v145, v150, v155);
               sub_100259C08();
             }
           }
 
-          sub_100140494(v75);
+          sub_100140494(v71);
           sub_100259808();
-          if (v76)
+          if (v72)
           {
-            v77 = *Results;
             sub_100259BFC();
-            mlir::DiagnosticArgument::DiagnosticArgument(v78, v79);
+            mlir::DiagnosticArgument::DiagnosticArgument(v73, v74);
             sub_1002598A8();
-            if (v46)
+            if (v45)
             {
               sub_100259770();
-              if (v121 <= Results && (v120 & 1) != 0)
+              if (v114 <= Results && (v113 & 1) != 0)
               {
-                sub_10025995C(v112, v113, v114, v115, v116, v117, v118, v119, v145, v148, v151, v154);
+                sub_10025995C(v105, v106, v107, v108, v109, v110, v111, v112, v140, v145, v150, v155);
                 sub_100259E00();
               }
 
               else
               {
-                sub_10025995C(v112, v113, v114, v115, v116, v117, v118, v119, v145, v148, v151, v154);
+                sub_10025995C(v105, v106, v107, v108, v109, v110, v111, v112, v140, v145, v150, v155);
                 sub_100259BF0();
               }
             }
 
-            sub_10025973C(v80);
+            sub_10025973C(v75);
             sub_100259A00();
-            if (v81)
+            if (v76)
             {
               sub_100259B9C();
               sub_100259890();
-              if (v46)
+              if (v45)
               {
                 sub_1001405E4();
-                if (v127 <= v129 && (v128 & 1) != 0)
+                if (v120 <= v122 && (v121 & 1) != 0)
                 {
-                  v142 = &v157 - v127;
-                  sub_100259A9C(v126, v145, v148, v151, v154);
-                  v82 = v163;
-                  v83 = &v142[v163];
+                  v135 = &v158 - v120;
+                  sub_100259A9C(v119, v140, v145, v150, v155);
+                  v77 = v164;
+                  v78 = &v135[v164];
                 }
 
                 else
                 {
-                  sub_100259A9C(v126, v145, v148, v151, v154);
+                  sub_100259A9C(v119, v140, v145, v150, v155);
                   sub_100259BE4();
                 }
               }
 
-              v84 = &v82[24 * v164];
-              v85 = v83[1].n128_u64[0];
-              sub_100259758(v84, *v83);
-              if (v160)
+              sub_100259758(&v77[24 * v165], *v78);
+              if (v161)
               {
                 sub_100259BFC();
-                mlir::DiagnosticArgument::DiagnosticArgument(v86, v27 & 0xFFFFFFFFFFFFFFF8);
+                mlir::DiagnosticArgument::DiagnosticArgument(v79, v26 & 0xFFFFFFFFFFFFFFF8);
                 sub_1002598A8();
-                if (v46)
+                if (v45)
                 {
                   sub_100259770();
-                  if (v141 <= Results && (v140 & 1) != 0)
+                  if (v134 <= Results && (v133 & 1) != 0)
                   {
-                    sub_10025995C(v132, v133, v134, v135, v136, v137, v138, v139, v145, v148, v151, v154);
+                    sub_10025995C(v125, v126, v127, v128, v129, v130, v131, v132, v140, v145, v150, v155);
                     sub_100259E00();
                   }
 
                   else
                   {
-                    sub_10025995C(v132, v133, v134, v135, v136, v137, v138, v139, v145, v148, v151, v154);
+                    sub_10025995C(v125, v126, v127, v128, v129, v130, v131, v132, v140, v145, v150, v155);
                     sub_100259BF0();
                   }
                 }
 
-                sub_10025973C(v87);
+                sub_10025973C(v80);
                 sub_10025981C();
               }
             }
           }
         }
 
-        sub_100259ED0(v67, v68, v69, v70, v71, v72, v73, v74, v145, v148, v151, v154, v156, v157, v158, v159, v160, v161, v162, v163, v164, v165, v166, v167, v168, v169, v170, v171, v172, v173, v174, v175, v176, v177, v178, v179, __p, v181, v182, v183, v184, v185, v186);
-        if (v160)
+        sub_100259ED0(v63, v64, v65, v66, v67, v68, v69, v70, v140, v145, v150, v155, v157, v158, v159, v160, v161, v162, v163, v164, v165, v166, v167, v168, v169, v170, v171, v172, v173, v174, v175, v176, v177, v178, v179, v180, __p, v182, v183, v184, v185, v186);
+        if (v161)
         {
-          mlir::InFlightDiagnostic::report(&v160);
+          mlir::InFlightDiagnostic::report(&v161);
         }
 
         sub_100259DF4();
-        if (v22)
+        if (v21)
         {
-          if (v183 != v7)
+          if (v184 != v7)
           {
-            free(v183);
+            free(v184);
           }
 
-          v88 = __p;
+          v81 = __p;
           if (__p)
           {
-            v89 = v181;
-            v90 = __p;
-            if (v181 != __p)
+            v82 = v182;
+            v83 = __p;
+            if (v182 != __p)
             {
               do
               {
-                v89 = sub_100052FFC((v89 - 8));
+                v82 = sub_100052FFC((v82 - 8));
               }
 
-              while (v89 != v88);
-              v90 = __p;
+              while (v82 != v81);
+              v83 = __p;
             }
 
-            v181 = v88;
-            operator delete(v90);
+            v182 = v81;
+            operator delete(v83);
           }
 
-          v91 = v177;
-          if (v177)
+          v84 = v178;
+          if (v178)
           {
-            v92 = v178;
-            v93 = v177;
-            if (v178 != v177)
+            v85 = v179;
+            v86 = v178;
+            if (v179 != v178)
             {
               sub_10014054C();
               do
               {
-                v94 = *--v92;
-                *v92 = 0;
-                if (v94)
+                v87 = *--v85;
+                *v85 = 0;
+                if (v87)
                 {
                   operator delete[]();
                 }
               }
 
-              while (v92 != v91);
-              v93 = v177;
+              while (v85 != v84);
+              v86 = v178;
             }
 
-            v178 = v91;
-            operator delete(v93);
+            v179 = v84;
+            operator delete(v86);
           }
 
-          if (v163 != v155)
+          if (v164 != v156)
           {
-            free(v163);
+            free(v164);
           }
         }
 
         sub_100259B78();
-        mlir::Diagnostic::attachNote((v9 + 8), v95, 1);
+        mlir::Diagnostic::attachNote((v9 + 8), v88, 1);
       }
 
       ++Results;
@@ -13469,12 +11888,12 @@ uint64_t sub_100288E58(uint64_t **a1, uint64_t a2)
   return 1;
 }
 
-uint64_t sub_10028966C(uint64_t **a1, uint64_t a2)
+uint64_t sub_10028966C(uint64_t a1, uint64_t a2)
 {
-  v156 = a2;
-  mlir::FunctionType::getInputs(&v156);
+  v157 = a2;
+  mlir::FunctionType::getInputs(&v157);
   sub_100259D14();
-  if (v12 < 0)
+  if (v11 < 0)
   {
     sub_100259C9C();
   }
@@ -13484,7 +11903,7 @@ uint64_t sub_10028966C(uint64_t **a1, uint64_t a2)
     sub_1001406D8();
   }
 
-  sub_100259D5C(v13, v143, v146, v149, v152, v156, v157, v158, v159, v160, v161, v162, v163, v164, v165, v166, v167, v168, v169, v170, v171, v172, v173, v174, v175, v176, v177, v178, v179, __p, v181, v182, v183, v184, v185, v186);
+  sub_100259D5C(v12, v136, v141, v146, v151, v157, v158, v159, v160, v161, v162, v163, v164, v165, v166, v167, v168, v169, v170, v171, v172, v173, v174, v175, v176, v177, v178, v179, v180, __p, v182, v183, v184, v185, v186, v187);
   if (v4)
   {
     sub_100259A5C();
@@ -13495,21 +11914,21 @@ uint64_t sub_10028966C(uint64_t **a1, uint64_t a2)
         break;
       }
 
-      v14 = sub_100259E68();
-      if (!v14)
+      v13 = sub_100259E68();
+      if (!v13)
       {
-        sub_100259B1C(v14, v15, v16, v17, v18, v19, v20, v21);
-        if (v160)
+        sub_100259B1C(v13, v14, v15, v16, v17, v18, v19, v20, v137, v142, v147, v152, v157, v158, v159, v160);
+        if (v161)
         {
           sub_100259E18();
           sub_1002598B8();
-          if (v46)
+          if (v45)
           {
             sub_1001404C4();
-            if (v97 <= v98 && (v96 & 1) != 0)
+            if (v90 <= v91 && (v89 & 1) != 0)
             {
               sub_100259AFC();
-              v45 = v163;
+              v44 = v164;
             }
 
             else
@@ -13519,20 +11938,19 @@ uint64_t sub_10028966C(uint64_t **a1, uint64_t a2)
             }
           }
 
-          sub_100140494(v45);
+          sub_100140494(v44);
           sub_100259808();
-          if (v47)
+          if (v46)
           {
-            v48 = *v3;
             sub_100259BFC();
-            mlir::DiagnosticArgument::DiagnosticArgument(v49, v50);
+            mlir::DiagnosticArgument::DiagnosticArgument(v47, v48);
             sub_1002598A8();
-            if (v46)
+            if (v45)
             {
               sub_100259770();
-              if (v110 <= v3 && (v111 & 1) != 0)
+              if (v103 <= v3 && (v104 & 1) != 0)
               {
-                v3 = &v157 - v110;
+                v3 = &v158 - v103;
                 sub_10025997C();
                 sub_100259E0C();
               }
@@ -13544,42 +11962,40 @@ uint64_t sub_10028966C(uint64_t **a1, uint64_t a2)
               }
             }
 
-            sub_10025973C(v51);
+            sub_10025973C(v49);
             sub_100259A00();
-            if (v52)
+            if (v50)
             {
               sub_100259B9C();
               sub_100259890();
-              if (v46)
+              if (v45)
               {
                 sub_1001405E4();
-                if (v123 <= v125 && (v124 & 1) != 0)
+                if (v116 <= v118 && (v117 & 1) != 0)
                 {
-                  v3 = &v157 - v123;
-                  sub_100259ADC(v122);
-                  v53 = v163;
-                  v54 = &v3[v163];
+                  v3 = &v158 - v116;
+                  sub_100259ADC(v115);
+                  v51 = v164;
+                  v52 = &v3[v164];
                 }
 
                 else
                 {
-                  sub_100259ADC(v122);
+                  sub_100259ADC(v115);
                   sub_100259BE4();
                 }
               }
 
-              v55 = &v53[24 * v164];
-              v56 = v54[1].n128_u64[0];
-              sub_100259758(v55, *v54);
-              if (v160)
+              sub_100259758(&v51[24 * v165], *v52);
+              if (v161)
               {
                 sub_100259BFC();
-                mlir::DiagnosticArgument::DiagnosticArgument(v57, v4 & 0xFFFFFFFFFFFFFFF8);
+                mlir::DiagnosticArgument::DiagnosticArgument(v53, v4 & 0xFFFFFFFFFFFFFFF8);
                 sub_1002598A8();
-                if (v46)
+                if (v45)
                 {
                   sub_100259770();
-                  if (v131 <= v3 && (v130 & 1) != 0)
+                  if (v124 <= v3 && (v123 & 1) != 0)
                   {
                     sub_10025997C();
                     sub_100259E0C();
@@ -13592,94 +12008,94 @@ uint64_t sub_10028966C(uint64_t **a1, uint64_t a2)
                   }
                 }
 
-                sub_10025973C(v58);
+                sub_10025973C(v54);
                 sub_10025981C();
               }
             }
           }
         }
 
-        sub_100259ED0(v37, v38, v39, v40, v41, v42, v43, v44, v144, v147, v150, v153, v156, v157, v158, v159, v160, v161, v162, v163, v164, v165, v166, v167, v168, v169, v170, v171, v172, v173, v174, v175, v176, v177, v178, v179, __p, v181, v182, v183, v184, v185, v186);
-        if (v160)
+        sub_100259ED0(v36, v37, v38, v39, v40, v41, v42, v43, v139, v144, v149, v154, v157, v158, v159, v160, v161, v162, v163, v164, v165, v166, v167, v168, v169, v170, v171, v172, v173, v174, v175, v176, v177, v178, v179, v180, __p, v182, v183, v184, v185, v186);
+        if (v161)
         {
-          mlir::InFlightDiagnostic::report(&v160);
+          mlir::InFlightDiagnostic::report(&v161);
         }
 
         sub_100259DF4();
-        if (v22)
+        if (v21)
         {
-          if (v183 != v8)
+          if (v184 != v8)
           {
-            free(v183);
+            free(v184);
           }
 
-          v59 = __p;
+          v55 = __p;
           if (__p)
           {
-            v60 = v181;
-            v61 = __p;
-            if (v181 != __p)
+            v56 = v182;
+            v57 = __p;
+            if (v182 != __p)
             {
               do
               {
-                v60 = sub_100052FFC((v60 - 8));
+                v56 = sub_100052FFC((v56 - 8));
               }
 
-              while (v60 != v59);
-              v61 = __p;
+              while (v56 != v55);
+              v57 = __p;
             }
 
-            v181 = v59;
-            operator delete(v61);
+            v182 = v55;
+            operator delete(v57);
           }
 
-          v62 = v177;
-          if (v177)
+          v58 = v178;
+          if (v178)
           {
-            v63 = v178;
-            v64 = v177;
-            if (v178 != v177)
+            v59 = v179;
+            v60 = v178;
+            if (v179 != v178)
             {
               sub_10014054C();
               do
               {
-                v65 = *--v63;
-                *v63 = 0;
-                if (v65)
+                v61 = *--v59;
+                *v59 = 0;
+                if (v61)
                 {
                   operator delete[]();
                 }
               }
 
-              while (v63 != v62);
-              v64 = v177;
+              while (v59 != v58);
+              v60 = v178;
             }
 
-            v178 = v62;
-            operator delete(v64);
+            v179 = v58;
+            operator delete(v60);
           }
 
-          if (v163 != v2)
+          if (v164 != v2)
           {
-            free(v163);
+            free(v164);
           }
         }
 
         sub_100259B78();
-        mlir::Diagnostic::attachNote(v7 + 1, v66, 1);
+        mlir::Diagnostic::attachNote(v7 + 1, v62, 1);
       }
 
       sub_100259E24();
     }
 
-    while (!v22);
+    while (!v21);
   }
 
-  Results = mlir::FunctionType::getResults(&v156);
-  v25 = v24;
-  sub_10010B2F4(**a1);
-  sub_100259D38(v26, v144, v147, v150, v153, v156, v157, v158, v159, v160, v161, v162, v163, v164, v165, v166, v167, v168, v169, v170, v171, v172, v173, v174, v175, v176, v177, v178, v179, __p, v181, v182, v183, v184, v185, v186);
-  if (v25)
+  Results = mlir::FunctionType::getResults(&v157);
+  v24 = v23;
+  sub_10010B2F4();
+  sub_100259D38(v25, v137, v142, v147, v152, v157, v158, v159, v160, v161, v162, v163, v164, v165, v166, v167, v168, v169, v170, v171, v172, v173, v174, v175, v176, v177, v178, v179, v180, __p, v182, v183, v184, v185, v186, v187);
+  if (v24)
   {
     sub_100259BAC();
     do
@@ -13689,178 +12105,175 @@ uint64_t sub_10028966C(uint64_t **a1, uint64_t a2)
         break;
       }
 
-      v27 = *(mlir::detail::OpResultImpl::getNextResultAtOffset(v4, v5) + 8);
-      v28 = mlir::ODIE::Compiler::areTypesCompatible(*Results, v27 & 0xFFFFFFFFFFFFFFF8);
-      if (!v28)
+      v26 = *(mlir::detail::OpResultImpl::getNextResultAtOffset(v4, v5) + 8);
+      v27 = mlir::ODIE::Compiler::areTypesCompatible(*Results, v26 & 0xFFFFFFFFFFFFFFF8);
+      if (!v27)
       {
-        sub_100259B1C(v28, v29, v30, v31, v32, v33, v34, v35);
-        if (v160)
+        sub_100259B1C(v27, v28, v29, v30, v31, v32, v33, v34, v138, v143, v148, v153, v157, v158, v159, v160);
+        if (v161)
         {
           sub_100259E18();
           sub_1002598B8();
-          if (v46)
+          if (v45)
           {
             sub_1001404C4();
-            if (v108 <= v109 && (v107 & 1) != 0)
+            if (v101 <= v102 && (v100 & 1) != 0)
             {
-              sub_100259ABC(v99, v100, v101, v102, v103, v104, v105, v106, v145, v148, v151, v154);
-              v75 = v163;
+              sub_100259ABC(v92, v93, v94, v95, v96, v97, v98, v99, v140, v145, v150, v155);
+              v71 = v164;
             }
 
             else
             {
-              sub_100259ABC(v99, v100, v101, v102, v103, v104, v105, v106, v145, v148, v151, v154);
+              sub_100259ABC(v92, v93, v94, v95, v96, v97, v98, v99, v140, v145, v150, v155);
               sub_100259C08();
             }
           }
 
-          sub_100140494(v75);
+          sub_100140494(v71);
           sub_100259808();
-          if (v76)
+          if (v72)
           {
-            v77 = *Results;
             sub_100259BFC();
-            mlir::DiagnosticArgument::DiagnosticArgument(v78, v79);
+            mlir::DiagnosticArgument::DiagnosticArgument(v73, v74);
             sub_1002598A8();
-            if (v46)
+            if (v45)
             {
               sub_100259770();
-              if (v121 <= Results && (v120 & 1) != 0)
+              if (v114 <= Results && (v113 & 1) != 0)
               {
-                sub_10025995C(v112, v113, v114, v115, v116, v117, v118, v119, v145, v148, v151, v154);
+                sub_10025995C(v105, v106, v107, v108, v109, v110, v111, v112, v140, v145, v150, v155);
                 sub_100259E00();
               }
 
               else
               {
-                sub_10025995C(v112, v113, v114, v115, v116, v117, v118, v119, v145, v148, v151, v154);
+                sub_10025995C(v105, v106, v107, v108, v109, v110, v111, v112, v140, v145, v150, v155);
                 sub_100259BF0();
               }
             }
 
-            sub_10025973C(v80);
+            sub_10025973C(v75);
             sub_100259A00();
-            if (v81)
+            if (v76)
             {
               sub_100259B9C();
               sub_100259890();
-              if (v46)
+              if (v45)
               {
                 sub_1001405E4();
-                if (v127 <= v129 && (v128 & 1) != 0)
+                if (v120 <= v122 && (v121 & 1) != 0)
                 {
-                  v142 = &v157 - v127;
-                  sub_100259A9C(v126, v145, v148, v151, v154);
-                  v82 = v163;
-                  v83 = &v142[v163];
+                  v135 = &v158 - v120;
+                  sub_100259A9C(v119, v140, v145, v150, v155);
+                  v77 = v164;
+                  v78 = &v135[v164];
                 }
 
                 else
                 {
-                  sub_100259A9C(v126, v145, v148, v151, v154);
+                  sub_100259A9C(v119, v140, v145, v150, v155);
                   sub_100259BE4();
                 }
               }
 
-              v84 = &v82[24 * v164];
-              v85 = v83[1].n128_u64[0];
-              sub_100259758(v84, *v83);
-              if (v160)
+              sub_100259758(&v77[24 * v165], *v78);
+              if (v161)
               {
                 sub_100259BFC();
-                mlir::DiagnosticArgument::DiagnosticArgument(v86, v27 & 0xFFFFFFFFFFFFFFF8);
+                mlir::DiagnosticArgument::DiagnosticArgument(v79, v26 & 0xFFFFFFFFFFFFFFF8);
                 sub_1002598A8();
-                if (v46)
+                if (v45)
                 {
                   sub_100259770();
-                  if (v141 <= Results && (v140 & 1) != 0)
+                  if (v134 <= Results && (v133 & 1) != 0)
                   {
-                    sub_10025995C(v132, v133, v134, v135, v136, v137, v138, v139, v145, v148, v151, v154);
+                    sub_10025995C(v125, v126, v127, v128, v129, v130, v131, v132, v140, v145, v150, v155);
                     sub_100259E00();
                   }
 
                   else
                   {
-                    sub_10025995C(v132, v133, v134, v135, v136, v137, v138, v139, v145, v148, v151, v154);
+                    sub_10025995C(v125, v126, v127, v128, v129, v130, v131, v132, v140, v145, v150, v155);
                     sub_100259BF0();
                   }
                 }
 
-                sub_10025973C(v87);
+                sub_10025973C(v80);
                 sub_10025981C();
               }
             }
           }
         }
 
-        sub_100259ED0(v67, v68, v69, v70, v71, v72, v73, v74, v145, v148, v151, v154, v156, v157, v158, v159, v160, v161, v162, v163, v164, v165, v166, v167, v168, v169, v170, v171, v172, v173, v174, v175, v176, v177, v178, v179, __p, v181, v182, v183, v184, v185, v186);
-        if (v160)
+        sub_100259ED0(v63, v64, v65, v66, v67, v68, v69, v70, v140, v145, v150, v155, v157, v158, v159, v160, v161, v162, v163, v164, v165, v166, v167, v168, v169, v170, v171, v172, v173, v174, v175, v176, v177, v178, v179, v180, __p, v182, v183, v184, v185, v186);
+        if (v161)
         {
-          mlir::InFlightDiagnostic::report(&v160);
+          mlir::InFlightDiagnostic::report(&v161);
         }
 
         sub_100259DF4();
-        if (v22)
+        if (v21)
         {
-          if (v183 != v7)
+          if (v184 != v7)
           {
-            free(v183);
+            free(v184);
           }
 
-          v88 = __p;
+          v81 = __p;
           if (__p)
           {
-            v89 = v181;
-            v90 = __p;
-            if (v181 != __p)
+            v82 = v182;
+            v83 = __p;
+            if (v182 != __p)
             {
               do
               {
-                v89 = sub_100052FFC((v89 - 8));
+                v82 = sub_100052FFC((v82 - 8));
               }
 
-              while (v89 != v88);
-              v90 = __p;
+              while (v82 != v81);
+              v83 = __p;
             }
 
-            v181 = v88;
-            operator delete(v90);
+            v182 = v81;
+            operator delete(v83);
           }
 
-          v91 = v177;
-          if (v177)
+          v84 = v178;
+          if (v178)
           {
-            v92 = v178;
-            v93 = v177;
-            if (v178 != v177)
+            v85 = v179;
+            v86 = v178;
+            if (v179 != v178)
             {
               sub_10014054C();
               do
               {
-                v94 = *--v92;
-                *v92 = 0;
-                if (v94)
+                v87 = *--v85;
+                *v85 = 0;
+                if (v87)
                 {
                   operator delete[]();
                 }
               }
 
-              while (v92 != v91);
-              v93 = v177;
+              while (v85 != v84);
+              v86 = v178;
             }
 
-            v178 = v91;
-            operator delete(v93);
+            v179 = v84;
+            operator delete(v86);
           }
 
-          if (v163 != v155)
+          if (v164 != v156)
           {
-            free(v163);
+            free(v164);
           }
         }
 
         sub_100259B78();
-        mlir::Diagnostic::attachNote((v9 + 8), v95, 1);
+        mlir::Diagnostic::attachNote((v9 + 8), v88, 1);
       }
 
       ++Results;
@@ -13876,17 +12289,19 @@ uint64_t sub_10028966C(uint64_t **a1, uint64_t a2)
 
 void sub_100289E80()
 {
+  if (v0)
   {
-    v0 = sub_10005EA24();
-    mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_10005EA24(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_100289EC4()
 {
+  if (v0)
   {
-    v0 = sub_10005EA24();
-    mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_10005EA24(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -13899,9 +12314,10 @@ void sub_100289F1C(uint64_t a1, uint64_t a2, uint64_t a3)
 
 void sub_100289F60()
 {
+  if (v0)
   {
-    v0 = sub_10025388C();
-    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::detail::ModuleOpGenericAdaptorBase::Properties,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_10025388C(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::detail::ModuleOpGenericAdaptorBase::Properties,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -13915,25 +12331,28 @@ void sub_100289FA4()
 
 void sub_100289FE4()
 {
+  if (v0)
   {
-    v0 = sub_100253A0C();
-    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::detail::ImportOpGenericAdaptorBase::Properties,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100253A0C(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::detail::ImportOpGenericAdaptorBase::Properties,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_10028A028()
 {
+  if (v0)
   {
-    v0 = sub_1001CB100();
-    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::ParamAttrInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1001CB100(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::ParamAttrInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_10028A06C()
 {
+  if (v0)
   {
-    v0 = sub_100254834();
-    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::detail::GraphOpGenericAdaptorBase::Properties,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100254834(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::detail::GraphOpGenericAdaptorBase::Properties,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -13963,9 +12382,10 @@ void sub_10028A130()
 
 void sub_10028A170()
 {
+  if (v0)
   {
-    v0 = sub_100254AB4();
-    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::detail::IsolatedGroupOpGenericAdaptorBase::Properties,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100254AB4(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::detail::IsolatedGroupOpGenericAdaptorBase::Properties,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -13975,20 +12395,20 @@ void sub_10028A1B4(uint64_t a1)
   if (*(a1 + 32) >= *(a1 + 36))
   {
     sub_1001404C4();
-    llvm::SmallVectorBase<unsigned int>::grow_pod(v5, (a1 + 40), v4 + 1, 24);
+    llvm::SmallVectorBase<unsigned int>::grow_pod(v4, (a1 + 40), v3 + 1, 24);
     v2 = *(a1 + 24);
   }
 
-  v3 = *(a1 + 32);
   sub_100140494(v2);
   ++*(a1 + 32);
 }
 
 void sub_10028A26C()
 {
+  if (v0)
   {
-    v0 = sub_100254BAC();
-    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::detail::DelegateOpGenericAdaptorBase::Properties,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100254BAC(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::detail::DelegateOpGenericAdaptorBase::Properties,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -14002,9 +12422,10 @@ void sub_10028A2B0()
 
 void sub_10028A2F0()
 {
+  if (v0)
   {
-    v0 = sub_100254D2C();
-    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::detail::CallOpGenericAdaptorBase::Properties,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100254D2C(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::detail::CallOpGenericAdaptorBase::Properties,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -14018,9 +12439,10 @@ void sub_10028A334()
 
 void sub_10028A374()
 {
+  if (v0)
   {
-    v0 = sub_100254E24();
-    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::detail::InvokeOpGenericAdaptorBase::Properties,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100254E24(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::detail::InvokeOpGenericAdaptorBase::Properties,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -14034,9 +12456,10 @@ void sub_10028A3B8()
 
 void sub_10028A3F8()
 {
+  if (v0)
   {
-    v0 = sub_1000CD018();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::ConstantLike<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::ConstantLike>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1000CD018(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::ConstantLike<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::ConstantLike>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -14070,9 +12493,10 @@ void sub_10028A508(uint64_t a1, uint64_t a2, uint64_t a3)
 
 void sub_10028A54C()
 {
+  if (v0)
   {
-    v0 = sub_100256938();
-    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::detail::ClassOpGenericAdaptorBase::Properties,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100256938(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::detail::ClassOpGenericAdaptorBase::Properties,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -14080,7 +12504,7 @@ void sub_10028A590(mlir::Operation **a1, BOOL *a2)
 {
   v10 = "failed to verify that Operation must have at least two operands.";
   v11 = 259;
-  mlir::OpState::emitOpError(a1, &v10, v12);
+  mlir::OpState::emitOpError(v12, a1, &v10);
   *a2 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v12);
   if (v12[0])
   {
@@ -14148,33 +12572,37 @@ void sub_10028A590(mlir::Operation **a1, BOOL *a2)
 
 void sub_10028A6EC()
 {
+  if (v0)
   {
-    v0 = sub_100256A30();
-    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::detail::ConstantOpGenericAdaptorBase::Properties,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100256A30(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::detail::ConstantOpGenericAdaptorBase::Properties,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_10028A730()
 {
+  if (v0)
   {
-    v0 = sub_100256E88();
-    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::detail::ErrorOpGenericAdaptorBase::Properties,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100256E88(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::detail::ErrorOpGenericAdaptorBase::Properties,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_10028A774()
 {
+  if (v0)
   {
-    v0 = sub_100257540();
-    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::detail::FFIImportOpGenericAdaptorBase::Properties,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100257540(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::detail::FFIImportOpGenericAdaptorBase::Properties,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_10028A7B8()
 {
+  if (v0)
   {
-    v0 = sub_100257D18();
-    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::detail::FuncOpGenericAdaptorBase::Properties,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100257D18(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::detail::FuncOpGenericAdaptorBase::Properties,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -14196,9 +12624,10 @@ void sub_10028A83C()
 
 void sub_10028A87C()
 {
+  if (v0)
   {
-    v0 = sub_100257E90();
-    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::detail::GELUOpGenericAdaptorBase::Properties,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100257E90(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::detail::GELUOpGenericAdaptorBase::Properties,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -14212,17 +12641,19 @@ void sub_10028A8C0()
 
 void sub_10028A900()
 {
+  if (v0)
   {
-    v0 = sub_100258008();
-    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::detail::GetMemberOpGenericAdaptorBase::Properties,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100258008(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::detail::GetMemberOpGenericAdaptorBase::Properties,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_10028A944()
 {
+  if (v0)
   {
-    v0 = sub_100258108();
-    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::detail::MemberOpGenericAdaptorBase::Properties,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100258108(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::detail::MemberOpGenericAdaptorBase::Properties,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -14236,9 +12667,10 @@ void sub_10028A988()
 
 void sub_10028A9C8()
 {
+  if (v0)
   {
-    v0 = sub_100258280();
-    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::detail::PadOpGenericAdaptorBase::Properties,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100258280(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::detail::PadOpGenericAdaptorBase::Properties,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -14252,17 +12684,19 @@ void sub_10028AA0C()
 
 void sub_10028AA4C()
 {
+  if (v0)
   {
-    v0 = sub_1002583F8();
-    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::detail::PlaceholderOpGenericAdaptorBase::Properties,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1002583F8(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::detail::PlaceholderOpGenericAdaptorBase::Properties,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_10028AA90()
 {
+  if (v0)
   {
-    v0 = sub_100258DE8();
-    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::detail::ResizeByScaleOpGenericAdaptorBase::Properties,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100258DE8(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::detail::ResizeByScaleOpGenericAdaptorBase::Properties,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -14284,9 +12718,10 @@ void sub_10028AB14()
 
 void sub_10028AB54()
 {
+  if (v0)
   {
-    v0 = sub_100258FE0();
-    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::detail::ScatterAlongAxisOpGenericAdaptorBase::Properties,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100258FE0(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::detail::ScatterAlongAxisOpGenericAdaptorBase::Properties,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -14300,17 +12735,19 @@ void sub_10028AB98()
 
 void sub_10028ABD8()
 {
+  if (v0)
   {
-    v0 = sub_100259158();
-    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::detail::SetMemberOpGenericAdaptorBase::Properties,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100259158(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::detail::SetMemberOpGenericAdaptorBase::Properties,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_10028AC1C()
 {
+  if (v0)
   {
-    v0 = sub_100259250();
-    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::detail::TargetSpecOpGenericAdaptorBase::Properties,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100259250(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::detail::TargetSpecOpGenericAdaptorBase::Properties,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -14338,25 +12775,28 @@ void sub_10028ACE4(uint64_t a1, uint64_t a2, uint64_t a3)
 
 void sub_10028AD28()
 {
+  if (v0)
   {
-    v0 = sub_100193F70();
-    mlir::detail::TypeIDResolver<mlir::FunctionOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100193F70(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::FunctionOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_10028AD6C()
 {
+  if (v0)
   {
-    v0 = sub_10016EC6C();
-    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::IntentProviderOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_10016EC6C(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::IntentProviderOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_10028ADB0()
 {
+  if (v0)
   {
-    v0 = sub_1000B8330();
-    mlir::detail::TypeIDResolver<mlir::ElementsAttr,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1000B8330(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::ElementsAttr,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -14637,17 +13077,19 @@ void sub_10028D1B4()
 
 void sub_10028D1F4()
 {
+  if (v0)
   {
-    v0 = sub_100276374();
-    mlir::detail::TypeIDResolver<mlir::RegionBranchOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100276374(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::RegionBranchOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_10028D248()
 {
+  if (v0)
   {
-    v0 = sub_100276374();
-    mlir::detail::TypeIDResolver<mlir::RegionBranchOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100276374(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::RegionBranchOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -14661,17 +13103,19 @@ void sub_10028D288()
 
 void sub_10028D2DC()
 {
+  if (v0)
   {
-    v0 = sub_100276C58();
-    mlir::detail::TypeIDResolver<mlir::RegionBranchTerminatorOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100276C58(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::RegionBranchTerminatorOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_10028D330()
 {
+  if (v0)
   {
-    v0 = sub_100276C58();
-    mlir::detail::TypeIDResolver<mlir::RegionBranchTerminatorOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_100276C58(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::RegionBranchTerminatorOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
@@ -14692,16 +13136,16 @@ uint64_t mlir::detail::verifyInferredResultTypes(mlir::detail *this, mlir::Opera
     v4 = 0;
   }
 
-  v64 = v4;
-  v65 = v3;
-  mlir::ResultRange::getTypes(&v64, &v52);
-  v64 = v66;
-  v65 = 0x400000000;
-  v5 = v52;
-  v6 = v53;
-  v7 = v54;
-  v8 = v54 - v53;
-  if (v54 - v53 < 5)
+  v66 = v4;
+  v67 = v3;
+  mlir::ResultRange::getTypes(&v54, &v66);
+  v66 = v68;
+  v67 = 0x400000000;
+  v5 = v54;
+  v6 = v55;
+  v7 = v57;
+  v8 = v57 - v55;
+  if (v57 - v55 < 5)
   {
     v9 = 0;
     v10 = 0;
@@ -14709,27 +13153,27 @@ uint64_t mlir::detail::verifyInferredResultTypes(mlir::detail *this, mlir::Opera
 
   else
   {
-    llvm::SmallVectorBase<unsigned int>::grow_pod(&v64, v66, v54 - v53, 8);
-    v9 = v65;
-    v10 = v65;
+    llvm::SmallVectorBase<unsigned int>::grow_pod(&v66, v68, v57 - v55, 8);
+    v9 = v67;
+    v10 = v67;
   }
 
   if (v7 == v6)
   {
-    LODWORD(v65) = v10 + v8;
+    LODWORD(v67) = v10 + v8;
 LABEL_11:
     v12 = sub_10027778C(this);
     goto LABEL_12;
   }
 
-  v11 = &v64[8 * v9];
+  v11 = &v66[8 * v9];
   do
   {
     *v11++ = *(mlir::detail::OpResultImpl::getNextResultAtOffset(v5, v6++) + 8) & 0xFFFFFFFFFFFFFFF8;
   }
 
   while (v7 != v6);
-  LODWORD(v65) = v65 + v8;
+  LODWORD(v67) = v67 + v8;
   if (this)
   {
     goto LABEL_11;
@@ -14751,7 +13195,7 @@ LABEL_12:
     v16 = 0;
   }
 
-  mlir::ValueRange::ValueRange(&v52, v15, v16);
+  mlir::ValueRange::ValueRange(&v54, v15, v16);
   v17 = *(this + 7);
   v18 = *(this + 11);
   if (HIBYTE(*(this + 11)))
@@ -14779,60 +13223,60 @@ LABEL_12:
   mlir::RegionRange::RegionRange(&v49, v21, v20);
   v45 = v50;
   v44 = v49;
-  v22 = (*(v12 + 8))(Context, v14, 1, v52, v53, v17, v19);
+  v22 = (*(v12 + 8))(Context, v14, 1, v54, v55, v17, v19);
   if ((v22 & 1) == 0)
   {
-    v51 = 257;
-    mlir::Operation::emitOpError(&v52, this, &v49);
-    if (v52)
+    LOWORD(v53) = 257;
+    mlir::Operation::emitOpError(&v54, this, &v49);
+    if (v54)
     {
       LODWORD(v46) = 3;
       v47 = "failed to infer returned types";
       v48 = 30;
       v31 = &v46;
-      v32 = v54;
-      if (v55 >= v56)
+      v32 = v57;
+      if (v58 >= HIDWORD(v58))
       {
-        if (v54 <= &v46 && v54 + 24 * v55 > &v46)
+        if (v57 <= &v46 && v57 + 24 * v58 > &v46)
         {
-          v43 = &v46 - v54;
-          sub_100277A98(v23, v24, v25, v26, v27, v28, v29, v30, v44, v45, &v64, v46, v47, v48, v49, v50);
-          v32 = v54;
-          v31 = (v54 + v43);
+          v43 = &v46 - v57;
+          sub_100277A98(v23, v24, v25, v26, v27, v28, v29, v30, v44, v45, &v66, v46, v47, v48, v49, v50, v51, v52, v53, v54, v55, v56, v57, v58);
+          v32 = v57;
+          v31 = (v57 + v43);
         }
 
         else
         {
-          sub_100277A98(v23, v24, v25, v26, v27, v28, v29, v30, v44, v45, &v64, v46, v47, v48, v49, v50);
+          sub_100277A98(v23, v24, v25, v26, v27, v28, v29, v30, v44, v45, &v66, v46, v47, v48, v49, v50, v51, v52, v53, v54, v55, v56, v57, v58);
           v31 = &v46;
-          v32 = v54;
+          v32 = v57;
         }
       }
 
-      v33 = &v32[24 * v55];
+      v33 = &v32[24 * v58];
       v34 = *v31;
       *(v33 + 2) = v31[2];
       *v33 = v34;
-      ++v55;
-      if (v52)
+      LODWORD(v58) = v58 + 1;
+      if (v54)
       {
-        mlir::InFlightDiagnostic::report(&v52);
+        mlir::InFlightDiagnostic::report(&v54);
       }
     }
 
-    if (v63 == 1)
+    if (v65 == 1)
     {
-      if (v62 != &v63)
+      if (v64 != &v65)
       {
-        free(v62);
+        free(v64);
       }
 
       v35 = __p;
       if (__p)
       {
-        v36 = v61;
+        v36 = v63;
         v37 = __p;
-        if (v61 != __p)
+        if (v63 != __p)
         {
           do
           {
@@ -14843,16 +13287,16 @@ LABEL_12:
           v37 = __p;
         }
 
-        v61 = v35;
+        v63 = v35;
         operator delete(v37);
       }
 
-      v38 = v58;
-      if (v58)
+      v38 = v60;
+      if (v60)
       {
-        v39 = v59;
-        v40 = v58;
-        if (v59 != v58)
+        v39 = v61;
+        v40 = v60;
+        if (v61 != v60)
         {
           do
           {
@@ -14865,23 +13309,23 @@ LABEL_12:
           }
 
           while (v39 != v38);
-          v40 = v58;
+          v40 = v60;
         }
 
-        v59 = v38;
+        v61 = v38;
         operator delete(v40);
       }
 
-      if (v54 != &v57)
+      if (v57 != &v59)
       {
-        free(v54);
+        free(v57);
       }
     }
   }
 
-  if (v64 != v66)
+  if (v66 != v68)
   {
-    free(v64);
+    free(v66);
   }
 
   return v22;
@@ -14889,25 +13333,28 @@ LABEL_12:
 
 void sub_10028D76C()
 {
+  if (v0)
   {
-    v0 = sub_1000A8650();
-    mlir::detail::TypeIDResolver<mlir::InferTypeOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1000A8650(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::InferTypeOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_10028D7C0()
 {
+  if (v0)
   {
-    v0 = sub_1000A8650();
-    mlir::detail::TypeIDResolver<mlir::InferTypeOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1000A8650(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::InferTypeOpInterface,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 
 void sub_10028D800()
 {
+  if (v0)
   {
-    v0 = sub_1000CD018();
-    mlir::detail::TypeIDResolver<mlir::OpTrait::ConstantLike<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::ConstantLike>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v0, v1);
+    v2 = sub_1000CD018(v0, v1);
+    mlir::detail::TypeIDResolver<mlir::OpTrait::ConstantLike<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::ConstantLike>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v2, v3);
   }
 }
 

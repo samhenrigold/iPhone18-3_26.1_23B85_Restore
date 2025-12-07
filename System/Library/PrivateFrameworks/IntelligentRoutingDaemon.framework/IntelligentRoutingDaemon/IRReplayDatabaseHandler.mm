@@ -19,18 +19,7 @@
   v14.receiver = self;
   v14.super_class = IRReplayDatabaseHandler;
   v5 = [(IRReplayDatabaseHandler *)&v14 init];
-  if (!v5)
-  {
-    goto LABEL_3;
-  }
-
-  v6 = [IRPersistenceManager alloc];
-  v7 = +[IRPersistenceManager defaultModelsDirectory];
-  v8 = [(IRPersistenceManager *)v6 initWithModelsDirectory:v7 storesDirectory:directoryCopy];
-  persistanceManager = v5->_persistanceManager;
-  v5->_persistanceManager = v8;
-
-  if (![(IRPersistenceManager *)v5->_persistanceManager connectToStore])
+  if (v5 && (v6 = [IRPersistenceManager alloc], +[IRPersistenceManager defaultModelsDirectory], v7 = objc_claimAutoreleasedReturnValue(), v8 = [(IRPersistenceManager *)v6 initWithModelsDirectory:v7 storesDirectory:directoryCopy], persistanceManager = v5->_persistanceManager, v5->_persistanceManager = v8, persistanceManager, v7, ![(IRPersistenceManager *)v5->_persistanceManager connectToStore]))
   {
     v11 = *MEMORY[0x277D21260];
     if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_DEFAULT))
@@ -44,7 +33,6 @@
 
   else
   {
-LABEL_3:
     v10 = v5;
   }
 
@@ -122,7 +110,7 @@ LABEL_3:
 
 void __48__IRReplayDatabaseHandler_exportDatabaseToPath___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v49[1] = *MEMORY[0x277D85DE8];
+  v48[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -150,9 +138,9 @@ LABEL_4:
       goto LABEL_4;
     }
 
-    v48 = *MEMORY[0x277CCA180];
-    v49[0] = &unk_2867690B8;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v49 forKeys:&v48 count:1];
+    v47 = *MEMORY[0x277CCA180];
+    v48[0] = &unk_2867690B8;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v48 forKeys:&v47 count:1];
     v9 = [MEMORY[0x277CCAA00] defaultManager];
     v10 = [v9 fileExistsAtPath:*(a1 + 40)];
 
@@ -168,9 +156,9 @@ LABEL_4:
     {
       v11 = [MEMORY[0x277CCAA00] defaultManager];
       v12 = *(a1 + 40);
-      v46 = 0;
-      v13 = [v11 createDirectoryAtPath:v12 withIntermediateDirectories:1 attributes:v8 error:&v46];
-      v14 = v46;
+      v45 = 0;
+      v13 = [v11 createDirectoryAtPath:v12 withIntermediateDirectories:1 attributes:v8 error:&v45];
+      v14 = v45;
 
       if ((v13 & 1) == 0)
       {
@@ -187,28 +175,28 @@ LABEL_33:
       }
     }
 
-    v44 = 0u;
-    v45 = 0u;
-    v42 = 0u;
     v43 = 0u;
-    v39 = v5;
+    v44 = 0u;
+    v41 = 0u;
+    v42 = 0u;
+    v38 = v5;
     obj = v5;
-    v15 = [obj countByEnumeratingWithState:&v42 objects:v47 count:16];
+    v15 = [obj countByEnumeratingWithState:&v41 objects:v46 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v43;
-      v38 = v8;
+      v17 = *v42;
+      v37 = v8;
       while (2)
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v43 != v17)
+          if (*v42 != v17)
           {
             objc_enumerationMutation(obj);
           }
 
-          v19 = *(*(&v42 + 1) + 8 * i);
+          v19 = *(*(&v41 + 1) + 8 * i);
           v20 = [MEMORY[0x277CCAA00] defaultManager];
           v21 = [v19 path];
           v22 = [v20 fileExistsAtPath:v21];
@@ -224,8 +212,8 @@ LABEL_33:
             dispatch_semaphore_signal(*(a1 + 32));
 
             v6 = 0;
-            v5 = v39;
-            v8 = v38;
+            v5 = v38;
+            v8 = v37;
             goto LABEL_33;
           }
 
@@ -240,8 +228,8 @@ LABEL_33:
           [v29 copyItemAtURL:v19 toURL:v28 error:0];
         }
 
-        v16 = [obj countByEnumeratingWithState:&v42 objects:v47 count:16];
-        v8 = v38;
+        v16 = [obj countByEnumeratingWithState:&v41 objects:v46 count:16];
+        v8 = v37;
         if (v16)
         {
           continue;
@@ -266,7 +254,7 @@ LABEL_33:
 
     dispatch_semaphore_signal(*(a1 + 32));
     v6 = 0;
-    v5 = v39;
+    v5 = v38;
     goto LABEL_33;
   }
 
@@ -276,8 +264,6 @@ LABEL_33:
   }
 
 LABEL_34:
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getAllServices
@@ -317,7 +303,7 @@ LABEL_34:
 void __41__IRReplayDatabaseHandler_getAllServices__block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v6 = [v3 clientIdentifier];
+  v6 = objc_msgSend_clientIdentifier(v3);
   v4 = *(*(*(a1 + 32) + 8) + 40);
   v5 = [v3 serviceIdentifier];
 
@@ -326,7 +312,7 @@ void __41__IRReplayDatabaseHandler_getAllServices__block_invoke(uint64_t a1, voi
 
 - (id)getSortedEventsForServiceIdentifier:(id)identifier
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v5 = [[IRServiceStore alloc] initWithPersistenceManager:self->_persistanceManager serviceIdentifier:identifierCopy];
 
@@ -335,8 +321,8 @@ void __41__IRReplayDatabaseHandler_getAllServices__block_invoke(uint64_t a1, voi
   {
     v7 = [objc_alloc(MEMORY[0x277CCAC98]) initWithKey:@"date" ascending:1];
     replayEvents = [fetchReplayEventsContainer replayEvents];
-    v13[0] = v7;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+    v12[0] = v7;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
     v10 = [replayEvents sortedArrayUsingDescriptors:v9];
   }
 
@@ -344,8 +330,6 @@ void __41__IRReplayDatabaseHandler_getAllServices__block_invoke(uint64_t a1, voi
   {
     v10 = 0;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -362,7 +346,7 @@ void __41__IRReplayDatabaseHandler_getAllServices__block_invoke(uint64_t a1, voi
 
 - (id)getSortedHistoryEventsForServiceIdentifier:(id)identifier
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v5 = [[IRServiceStore alloc] initWithPersistenceManager:self->_persistanceManager serviceIdentifier:identifierCopy];
 
@@ -374,8 +358,8 @@ void __41__IRReplayDatabaseHandler_getAllServices__block_invoke(uint64_t a1, voi
   {
     v9 = [objc_alloc(MEMORY[0x277CCAC98]) initWithKey:@"date" ascending:1];
     historyEvents = [v8 historyEvents];
-    v15[0] = v9;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+    v14[0] = v9;
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
     v12 = [historyEvents sortedArrayUsingDescriptors:v11];
   }
 
@@ -388,8 +372,6 @@ void __41__IRReplayDatabaseHandler_getAllServices__block_invoke(uint64_t a1, voi
 
     v12 = 0;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -646,32 +628,28 @@ LABEL_6:
 
 void __48__IRReplayDatabaseHandler_exportDatabaseToPath___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_25543D000, a2, OS_LOG_TYPE_ERROR, "#appDBHandler, [ErrorId - Export DB exception] get exception %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_25543D000, a2, OS_LOG_TYPE_ERROR, "#appDBHandler, [ErrorId - Export DB exception] get exception %@", &v2, 0xCu);
 }
 
 void __48__IRReplayDatabaseHandler_exportDatabaseToPath___block_invoke_cold_3(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_25543D000, a2, OS_LOG_TYPE_ERROR, "#appDBHandler, [ErrorId - Export DB directory create error] failed to create directory, error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_25543D000, a2, OS_LOG_TYPE_ERROR, "#appDBHandler, [ErrorId - Export DB directory create error] failed to create directory, error: %@", &v2, 0xCu);
 }
 
 void __48__IRReplayDatabaseHandler_exportDatabaseToPath___block_invoke_cold_5(void *a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 path];
-  v6 = 138412290;
-  v7 = v4;
-  _os_log_error_impl(&dword_25543D000, v3, OS_LOG_TYPE_ERROR, "#appDBHandler, [ErrorId - Export DB non existing file] got a non-existing file from exportDatabase! This should never happen. path: %@", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138412290;
+  v6 = v4;
+  _os_log_error_impl(&dword_25543D000, v3, OS_LOG_TYPE_ERROR, "#appDBHandler, [ErrorId - Export DB non existing file] got a non-existing file from exportDatabase! This should never happen. path: %@", &v5, 0xCu);
 }
 
 @end

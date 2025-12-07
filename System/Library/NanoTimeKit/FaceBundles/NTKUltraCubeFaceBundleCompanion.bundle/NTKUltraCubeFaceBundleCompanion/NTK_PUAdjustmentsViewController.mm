@@ -58,9 +58,9 @@
 
 - (void)viewDidLoad
 {
-  v48.receiver = self;
-  v48.super_class = NTK_PUAdjustmentsViewController;
-  [(NTK_PUAdjustmentsViewController *)&v48 viewDidLoad];
+  v50.receiver = self;
+  v50.super_class = NTK_PUAdjustmentsViewController;
+  [(NTK_PUAdjustmentsViewController *)&v50 viewDidLoad];
   [(NTK_PUAdjustmentsViewController *)self setLayoutDirection:0];
   v3 = +[UIColor clearColor];
   view = [(NTK_PUAdjustmentsViewController *)self view];
@@ -121,40 +121,40 @@
   collectionView12 = [(NTK_PUAdjustmentsViewController *)self collectionView];
   [collectionView12 setDecelerationRate:UIScrollViewDecelerationRateFast];
 
-  if (NTK_PUHapticsAllowed())
+  if (NTK_PUHapticsAllowed(v26, v27))
   {
-    v26 = objc_alloc_init(NTK_PUSelectionFeedbackGenerator);
+    v28 = objc_alloc_init(NTK_PUSelectionFeedbackGenerator);
     selectionFeedbackGenerator = self->_selectionFeedbackGenerator;
-    self->_selectionFeedbackGenerator = v26;
+    self->_selectionFeedbackGenerator = v28;
   }
 
   [(NTK_PUAdjustmentsViewController *)self setDidPerformHapticFeedback:1];
-  v28 = [[CEKBadgeTextView alloc] initWithFrame:{CGRectZero.origin.x, y, width, height}];
-  [(NTK_PUAdjustmentsViewController *)self setBadgeView:v28];
+  v30 = [[CEKBadgeTextView alloc] initWithFrame:{CGRectZero.origin.x, y, width, height}];
+  [(NTK_PUAdjustmentsViewController *)self setBadgeView:v30];
 
   badgeView = [(NTK_PUAdjustmentsViewController *)self badgeView];
   [badgeView setUserInteractionEnabled:0];
 
-  v30 = +[PUPhotoEditProtoSettings sharedInstance];
-  [v30 adjustmentLabelPlatterAlpha];
-  v32 = [UIColor colorWithWhite:0.0 alpha:v31];
+  v32 = +[PUPhotoEditProtoSettings sharedInstance];
+  [v32 adjustmentLabelPlatterAlpha];
+  v34 = [UIColor colorWithWhite:0.0 alpha:v33];
   badgeView2 = [(NTK_PUAdjustmentsViewController *)self badgeView];
-  [badgeView2 _setFillColor:v32];
+  [badgeView2 _setFillColor:v34];
 
-  v34 = [UIColor colorWithWhite:1.0 alpha:1.0];
+  v36 = [UIColor colorWithWhite:1.0 alpha:1.0];
   badgeView3 = [(NTK_PUAdjustmentsViewController *)self badgeView];
-  [badgeView3 _setContentColor:v34];
+  [badgeView3 _setContentColor:v36];
 
   badgeView4 = [(NTK_PUAdjustmentsViewController *)self badgeView];
   [badgeView4 _setFillCornerRadius:4.0];
 
   +[CEKBadgeTextView _defaultTextInsets];
-  v38 = v37 + 3.0;
   v40 = v39 + 3.0;
-  v42 = v41 + 1.0;
+  v42 = v41 + 3.0;
   v44 = v43 + 1.0;
+  v46 = v45 + 1.0;
   badgeView5 = [(NTK_PUAdjustmentsViewController *)self badgeView];
-  [badgeView5 _setTextInsets:{v44, v38, v42, v40}];
+  [badgeView5 _setTextInsets:{v46, v40, v44, v42}];
 
   view3 = [(NTK_PUAdjustmentsViewController *)self view];
   badgeView6 = [(NTK_PUAdjustmentsViewController *)self badgeView];

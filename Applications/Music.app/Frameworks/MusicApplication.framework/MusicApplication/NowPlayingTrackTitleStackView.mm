@@ -16,7 +16,7 @@
 - (CGSize)intrinsicContentSize
 {
   selfCopy = self;
-  NowPlaying.TrackTitleStackView.intrinsicContentSize.getter();
+  NowPlaying.TrackTitleStackView.intrinsicContentSize.getter(selfCopy);
   v4 = v3;
   v6 = v5;
 

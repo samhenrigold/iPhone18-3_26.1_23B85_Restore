@@ -15,10 +15,10 @@
 
 - (PKThumbnailCollectionViewCell)initWithFrame:(CGRect)frame
 {
-  v17[1] = *MEMORY[0x1E69E9840];
-  v16.receiver = self;
-  v16.super_class = PKThumbnailCollectionViewCell;
-  v3 = [(PKDashboardCollectionViewCell *)&v16 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v18[1] = *MEMORY[0x1E69E9840];
+  v17.receiver = self;
+  v17.super_class = PKThumbnailCollectionViewCell;
+  v3 = [(PKDashboardCollectionViewCell *)&v17 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
   v4 = v3;
   if (v3)
   {
@@ -38,10 +38,10 @@
     LODWORD(v10) = 1036831949;
     [(UILabel *)v4->_labelTitle _setHyphenationFactor:v10];
     [(UILabel *)v4->_labelTitle setAccessibilityIdentifier:*MEMORY[0x1E69B9D20]];
-    [contentView addSubview:v4->_labelTitle];
-    v11 = [objc_alloc(getCNAvatarViewClass_2()) initWithFrame:{*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)}];
+    v11 = [contentView addSubview:v4->_labelTitle];
+    v12 = [objc_alloc(getCNAvatarViewClass_2(v11)) initWithFrame:{*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)}];
     avatarView = v4->_avatarView;
-    v4->_avatarView = v11;
+    v4->_avatarView = v12;
 
     [(CNAvatarView *)v4->_avatarView setUserInteractionEnabled:0];
     [(CNAvatarView *)v4->_avatarView setAsynchronousRendering:1];
@@ -49,9 +49,9 @@
     [(CNAvatarView *)v4->_avatarView setHidden:1];
     [contentView addSubview:v4->_avatarView];
     [(PKThumbnailCollectionViewCell *)v4 _resetFonts];
-    v17[0] = objc_opt_class();
-    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
-    v14 = [(PKThumbnailCollectionViewCell *)v4 registerForTraitChanges:v13 withHandler:&__block_literal_global_187];
+    v18[0] = objc_opt_class();
+    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
+    v15 = [(PKThumbnailCollectionViewCell *)v4 registerForTraitChanges:v14 withHandler:&__block_literal_global_187];
 
     [(PKThumbnailCollectionViewCell *)v4 setAccessibilityIdentifier:*MEMORY[0x1E69B9620]];
   }

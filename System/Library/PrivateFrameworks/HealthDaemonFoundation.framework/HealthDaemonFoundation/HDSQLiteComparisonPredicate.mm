@@ -9,17 +9,18 @@
 + (id)predicateWithProperty:(id)property likePattern:(id)pattern;
 + (id)predicateWithProperty:(id)property likeValue:(id)value escapeCharacter:(id)character;
 + (id)predicateWithProperty:(id)property value:(id)value comparisonType:(int64_t)type;
++ (id)predicateWithProperty:(id)property value:(id)value comparisonType:(int64_t)type influenceIndexUsage:(BOOL)usage;
 - (BOOL)isCompatibleWithPredicate:(id)predicate;
 - (BOOL)isEqual:(id)equal;
 - (HDSQLiteComparisonPredicate)initWithProperty:(id)property value:(id)value comparisonType:(int64_t)type influenceIndexUsage:(BOOL)usage;
 - (id)SQLForEntityClass:(Class)class;
 - (id)description;
-- (uint64_t)_comparisonTypeString;
+- (void)_comparisonTypeString;
 @end
 
 @implementation HDSQLiteComparisonPredicate
 
-- (uint64_t)_comparisonTypeString
+- (void)_comparisonTypeString
 {
   if (self)
   {
@@ -108,6 +109,16 @@
   v9 = [objc_alloc(objc_opt_class()) initWithProperty:propertyCopy value:valueCopy comparisonType:type];
 
   return v9;
+}
+
++ (id)predicateWithProperty:(id)property value:(id)value comparisonType:(int64_t)type influenceIndexUsage:(BOOL)usage
+{
+  usageCopy = usage;
+  valueCopy = value;
+  propertyCopy = property;
+  v11 = [objc_alloc(objc_opt_class()) initWithProperty:propertyCopy value:valueCopy comparisonType:type influenceIndexUsage:usageCopy];
+
+  return v11;
 }
 
 + (id)predicateWithProperty:(id)property ifNullValue:(id)value value:(id)a5 comparisonType:(int64_t)type

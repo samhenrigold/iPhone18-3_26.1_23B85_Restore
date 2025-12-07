@@ -29,7 +29,7 @@
     if (snapshot && [snapshot hasSnapshotValueForProperty:@"invitationRecords"])
     {
       v7 = [v6 snapshotValueForProperty:@"invitationRecords"];
-      v8 = [v7 count];
+      v8 = objc_msgSend_count(v7);
     }
 
     else
@@ -39,7 +39,7 @@
 
     album2 = [(PLInvitationRecordsChangeNotification *)self album];
     invitationRecords = [album2 invitationRecords];
-    v11 = [invitationRecords count];
+    v11 = objc_msgSend_count(invitationRecords);
 
     self->_invitationRecordsDidChange = v8 != v11;
   }

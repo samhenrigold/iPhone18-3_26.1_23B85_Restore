@@ -163,7 +163,7 @@ LABEL_8:
   v3 = currentConnection;
   if (currentConnection)
   {
-    [currentConnection auditToken];
+    objc_msgSend_auditToken(currentConnection);
     v4 = MSVBundleIDForAuditToken();
   }
 
@@ -1333,7 +1333,7 @@ LABEL_15:
     v16 = currentConnection;
     if (currentConnection)
     {
-      [currentConnection auditToken];
+      objc_msgSend_auditToken(currentConnection);
       v17 = MSVBundleIDForAuditToken();
     }
 

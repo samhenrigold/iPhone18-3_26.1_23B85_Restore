@@ -16,7 +16,7 @@
     v10 = [elementCopy getAttribute:@"direction"];
     if ([v10 length])
     {
-      v11 = [v10 isEqualToString:@"descending"] ^ 1;
+      v11 = objc_msgSend_isEqualToString_(v10) ^ 1;
     }
 
     else

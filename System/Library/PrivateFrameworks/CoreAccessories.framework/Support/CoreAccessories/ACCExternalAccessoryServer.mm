@@ -2,6 +2,7 @@
 + (id)sharedServer;
 - (ACCExternalAccessoryServer)initWithXPCServiceName:(id)name andFeatureNotification:(const char *)notification;
 - (BOOL)accessoryClosingExternalAccessorySession:(id)session;
+- (BOOL)destinationSharingStatus:(id)status success:(BOOL)success successfulParams:(id)params forAccessoryUUID:(id)d;
 - (BOOL)externalAccessoryArrived:(id)arrived;
 - (BOOL)externalAccessoryLeft:(id)left;
 - (BOOL)handleIncomingExternalAccessoryData:(id)data forEASessionIdentifier:(id)identifier;
@@ -2791,6 +2792,115 @@ void __53__ACCExternalAccessoryServer_stopDestinationSharing___block_invoke(id a
   {
     __86__ACCConnectionInfoServer_accessoryConnectionAttached_type_info_properties_forClient___block_invoke_cold_2();
   }
+}
+
+- (BOOL)destinationSharingStatus:(id)status success:(BOOL)success successfulParams:(id)params forAccessoryUUID:(id)d
+{
+  successCopy = success;
+  statusCopy = status;
+  paramsCopy = params;
+  dCopy = d;
+  v12 = [(ACCExternalAccessoryServer *)self _externalAccessoryForUUID:dCopy];
+  if (v12)
+  {
+    v30 = v12;
+    [(ACCExternalAccessoryServer *)self _eaClientsForAccessory:v12];
+    v34 = 0u;
+    v35 = 0u;
+    v36 = 0u;
+    obj = v37 = 0u;
+    v13 = [obj countByEnumeratingWithState:&v34 objects:v48 count:16];
+    v29 = v13 != 0;
+    if (v13)
+    {
+      v14 = v13;
+      v15 = *v35;
+      v16 = @"no";
+      if (successCopy)
+      {
+        v16 = @"yes";
+      }
+
+      v31 = v16;
+      do
+      {
+        for (i = 0; i != v14; i = i + 1)
+        {
+          if (*v35 != v15)
+          {
+            objc_enumerationMutation(obj);
+          }
+
+          v18 = *(*(&v34 + 1) + 8 * i);
+          v19 = gLogObjects;
+          v20 = gNumLogObjects;
+          if (gLogObjects)
+          {
+            v21 = gNumLogObjects < 10;
+          }
+
+          else
+          {
+            v21 = 1;
+          }
+
+          if (v21)
+          {
+            if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+            {
+              *buf = 134218240;
+              v39 = v19;
+              v40 = 1024;
+              LODWORD(v41) = v20;
+              _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
+            }
+
+            v22 = &_os_log_default;
+            v23 = &_os_log_default;
+          }
+
+          else
+          {
+            v23 = *(gLogObjects + 72);
+          }
+
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+          {
+            bundleID = [v18 bundleID];
+            *buf = 138413314;
+            v39 = v31;
+            v40 = 2112;
+            v41 = paramsCopy;
+            v42 = 2112;
+            v43 = statusCopy;
+            v44 = 2112;
+            v45 = dCopy;
+            v46 = 2112;
+            v47 = bundleID;
+            _os_log_debug_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEBUG, "sending destination status success %@, successful params %@, destination sharing UUID %@, for endpoint UUID %@ to client %@", buf, 0x34u);
+          }
+
+          xPCConnection = [v18 XPCConnection];
+          v25 = [xPCConnection remoteObjectProxyWithErrorHandler:&__block_literal_global_157];
+          [v25 destinationSharingStatus:successCopy forDestinationUUID:statusCopy supportedParams:paramsCopy forUUID:dCopy];
+        }
+
+        v14 = [obj countByEnumeratingWithState:&v34 objects:v48 count:16];
+      }
+
+      while (v14);
+    }
+
+    v12 = v30;
+    v27 = v29;
+  }
+
+  else
+  {
+    v27 = 0;
+  }
+
+  return v27;
 }
 
 void __97__ACCExternalAccessoryServer_destinationSharingStatus_success_successfulParams_forAccessoryUUID___block_invoke(id a1, NSError *a2)

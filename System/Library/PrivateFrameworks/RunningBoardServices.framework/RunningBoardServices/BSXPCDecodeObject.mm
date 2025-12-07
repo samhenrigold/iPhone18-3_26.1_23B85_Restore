@@ -21,10 +21,10 @@ BOOL ___BSXPCDecodeObject_block_invoke(uint64_t a1, uint64_t a2, void *a3)
     v11 = *(v10 + 40);
     *(v10 + 40) = v9;
 
-    v12 = rbs_coder_log();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = rbs_coder_log(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      ___BSXPCDecodeObject_block_invoke_cold_1(v5, a2, v12);
+      ___BSXPCDecodeObject_block_invoke_cold_1(v5, a2, v13);
     }
   }
 
@@ -50,13 +50,12 @@ BOOL ___BSXPCDecodeObject_block_invoke_205(uint64_t a1, uint64_t a2)
 
 void ___BSXPCDecodeObject_block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 134218242;
-  v5 = a2;
-  v6 = 2112;
-  v7 = a1;
-  _os_log_error_impl(&dword_18E8AD000, log, OS_LOG_TYPE_ERROR, "Array element %zu failed to decode: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 134218242;
+  v4 = a2;
+  v5 = 2112;
+  v6 = a1;
+  _os_log_error_impl(&dword_18E8AD000, log, OS_LOG_TYPE_ERROR, "Array element %zu failed to decode: %@", &v3, 0x16u);
 }
 
 @end

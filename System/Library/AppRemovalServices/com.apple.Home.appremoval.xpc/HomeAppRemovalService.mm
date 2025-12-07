@@ -9,11 +9,11 @@
 - (void)removeAppWithReply:(id)reply
 {
   replyCopy = reply;
-  v5 = os_log_appremoval();
+  v5 = os_log_appremoval(replyCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v15 = @"com.apple.Home";
+    v17 = @"com.apple.Home";
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Removing User Defaults for %@", buf, 0xCu);
   }
 
@@ -21,13 +21,13 @@
   if (_deleteAllUserDefaults)
   {
     v7 = _deleteAllUserDefaults;
-    v8 = os_log_appremoval();
+    v8 = os_log_appremoval(_deleteAllUserDefaults);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v15 = @"com.apple.Home";
-      v16 = 2112;
-      v17 = v7;
+      v17 = @"com.apple.Home";
+      v18 = 2112;
+      v19 = v7;
       _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Error removing user defaults %@: %@", buf, 0x16u);
     }
 
@@ -37,34 +37,35 @@
   else
   {
     _appSupportDirectoryURL = [(HomeAppRemovalService *)self _appSupportDirectoryURL];
+    v10 = _appSupportDirectoryURL;
     if (!_appSupportDirectoryURL)
     {
       goto LABEL_14;
     }
 
-    v10 = os_log_appremoval();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = os_log_appremoval(_appSupportDirectoryURL);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v15 = _appSupportDirectoryURL;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Removing App Support Directory @ %@", buf, 0xCu);
+      v17 = v10;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Removing App Support Directory @ %@", buf, 0xCu);
     }
 
-    v11 = +[NSFileManager defaultManager];
-    v13 = 0;
-    [v11 removeItemAtURL:_appSupportDirectoryURL error:&v13];
-    v7 = v13;
+    v12 = +[NSFileManager defaultManager];
+    v15 = 0;
+    [v12 removeItemAtURL:v10 error:&v15];
+    v7 = v15;
 
     if (v7)
     {
-      v12 = os_log_appremoval();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v14 = os_log_appremoval(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v15 = _appSupportDirectoryURL;
-        v16 = 2112;
-        v17 = v7;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Error removing App Support Directory '%@': %@", buf, 0x16u);
+        v17 = v10;
+        v18 = 2112;
+        v19 = v7;
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Error removing App Support Directory '%@': %@", buf, 0x16u);
       }
 
       replyCopy[2](replyCopy, v7);
@@ -96,15 +97,16 @@ LABEL_14:
     v7 = *v15;
     do
     {
-      for (i = 0; i != v6; i = i + 1)
+      v8 = 0;
+      do
       {
         if (*v15 != v7)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
-        v10 = os_log_appremoval();
+        v9 = *(*(&v14 + 1) + 8 * v8);
+        v10 = os_log_appremoval(v5);
         if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
@@ -112,13 +114,16 @@ LABEL_14:
           _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Removing User Default key %@", buf, 0xCu);
         }
 
-        [v2 removeObjectForKey:v9];
+        v5 = [v2 removeObjectForKey:v9];
+        v8 = v8 + 1;
       }
 
-      v6 = [allKeys countByEnumeratingWithState:&v14 objects:v22 count:16];
+      while (v6 != v8);
+      v5 = [allKeys countByEnumeratingWithState:&v14 objects:v22 count:16];
+      v6 = v5;
     }
 
-    while (v6);
+    while (v5);
   }
 
   if ([v2 synchronize])

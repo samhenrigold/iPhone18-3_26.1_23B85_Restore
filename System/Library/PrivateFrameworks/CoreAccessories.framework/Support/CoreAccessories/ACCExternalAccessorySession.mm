@@ -6,6 +6,7 @@
 - (BOOL)openPipeToApp;
 - (id)description;
 - (int)_createListenSocket;
+- (void)_createListenSocket;
 - (void)_openPipeToApp;
 - (void)dealloc;
 - (void)shuttingDownSession;
@@ -331,6 +332,13 @@
   v4 = [NSString stringWithFormat:@"%@ eaSessionUUID=%@ legacyConnectionID=%llu protocolID=%d sessionID=%d", v3, self->_eaSessionUUID, self->_legacyConnectionID, self->_protocolID, self->_sessionID];
 
   return v4;
+}
+
+- (void)_createListenSocket
+{
+  LODWORD(v6) = 67109120;
+  HIDWORD(v6) = *__error();
+  OUTLINED_FUNCTION_4_1(&_mh_execute_header, v0, v1, "can't listen to socket, errno = %d", v2, v3, v4, v5, v6);
 }
 
 @end

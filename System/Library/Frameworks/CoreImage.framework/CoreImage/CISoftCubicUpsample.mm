@@ -39,9 +39,9 @@
   if (objc_opt_isKindOfClass())
   {
     [*(self + 88) doubleValue];
-    v3 = fmax(v2, 1.0);
-    *&v3 = v3;
-    return vdup_lane_s32(*&v3, 0);
+    v4 = fmax(v3, 1.0);
+    *&v4 = v4;
+    return vdup_lane_s32(*&v4, 0);
   }
 
   else
@@ -49,15 +49,15 @@
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v5 = *(self + 88);
-      [v5 X];
-      v14 = v6;
-      [v5 Y];
-      v7.f64[0] = v14;
-      v7.f64[1] = v8;
+      v6 = *(self + 88);
+      [v6 X];
+      v15 = v7;
+      [v6 Y];
+      v8.f64[0] = v15;
+      v8.f64[1] = v9;
       __asm { FMOV            V0.2D, #1.0 }
 
-      return vcvt_f32_f64(vmaxnmq_f64(v7, _Q0));
+      return vcvt_f32_f64(vmaxnmq_f64(v8, _Q0));
     }
 
     else
@@ -158,7 +158,7 @@ LABEL_15:
   v65.size.height = height;
   if (!CGRectIsInfinite(v65))
   {
-    Rectangle::inset(&v58, -*v46.i32, -*&v46.i32[1], &v54);
+    Rectangle::inset(&v54, &v58, -*v46.i32, -*&v46.i32[1]);
     if (fabs(v54.f64[0]) == INFINITY || fabs(v54.f64[1]) == INFINITY)
     {
       *&v56.var0 = vdupq_n_s64(0x7FF0000000000000uLL);
@@ -185,7 +185,7 @@ LABEL_15:
       }
     }
 
-    Rectangle::integralize(&v56, 0.0001, v57);
+    Rectangle::integralize(v57, &v56, 0.0001);
     v22 = v57[0];
     v23 = v57[1];
     goto LABEL_21;

@@ -39,13 +39,11 @@
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "#bias-est, Destroying espresso plan and context for Bias estimator.", buf, 2u);
   }
 
-  plan = self->_neuralNetworkModel.plan;
   espresso_plan_destroy();
-  ctx = self->_neuralNetworkModel.ctx;
   espresso_context_destroy();
-  v6.receiver = self;
-  v6.super_class = NeuralNetworkModelWithDataTransformer;
-  [(NeuralNetworkModelWithDataTransformer *)&v6 dealloc];
+  v4.receiver = self;
+  v4.super_class = NeuralNetworkModelWithDataTransformer;
+  [(NeuralNetworkModelWithDataTransformer *)&v4 dealloc];
 }
 
 @end

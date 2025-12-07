@@ -34,13 +34,11 @@
 {
   clearColor = [MEMORY[0x277D75348] clearColor];
   [(AKAuthorizationTwoLineTableViewCell *)self setBackgroundColor:?];
-  MEMORY[0x277D82BD8](clearColor);
-  [(AKAuthorizationTwoLineTableViewCell *)self setSelectionStyle:1];
+  [(AKAuthorizationTwoLineTableViewCell *)self setSelectionStyle:1, MEMORY[0x277D82BD8](clearColor).n128_f64[0]];
   v4 = [MEMORY[0x277D74300] ak_dynamicFontWithStyle:*MEMORY[0x277D76918] traits:0x8000];
   detailTextLabel = [(AKAuthorizationTwoLineTableViewCell *)self detailTextLabel];
   [detailTextLabel setFont:v4];
   MEMORY[0x277D82BD8](detailTextLabel);
-  MEMORY[0x277D82BD8](v4);
   secondaryLabelColor = [MEMORY[0x277D75348] secondaryLabelColor];
   detailTextLabel2 = [(AKAuthorizationTwoLineTableViewCell *)self detailTextLabel];
   [detailTextLabel2 setTextColor:secondaryLabelColor];

@@ -39,14 +39,11 @@
 
 - (void)cancel
 {
-  v8 = *MEMORY[0x1E69E9840];
   objc_opt_class();
   OUTLINED_FUNCTION_1();
-  v1 = v0;
+  v2 = v1;
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
 - (void)receiveCompletion:(id)completion
@@ -56,7 +53,7 @@
   v6 = __biome_log_for_category();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    [_BPSDebounceInner receiveCompletion:];
+    [_BPSDebounceInner receiveCompletion:selfCopy];
   }
 
   downstream = [(_BPSDebounceInner *)selfCopy downstream];
@@ -116,34 +113,27 @@
   [downstream receiveSubscription:subscriptionCopy];
 }
 
-- (void)receiveCompletion:.cold.1()
+- (void)receiveCompletion:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   objc_opt_class();
   OUTLINED_FUNCTION_1();
-  v1 = v0;
+  v2 = v1;
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
 - (void)receiveInput:(uint64_t)a1 .cold.1(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v8 = [a2 description];
+  v7 = [a2 description];
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)receiveInput:.cold.2()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(&dword_1C871B000, v0, OS_LOG_TYPE_DEBUG, "deliverying: %@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1C871B000, v0, OS_LOG_TYPE_DEBUG, "deliverying: %@", v1, 0xCu);
 }
 
 @end

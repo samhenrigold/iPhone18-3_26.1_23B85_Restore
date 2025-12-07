@@ -1,8 +1,32 @@
 @interface PLCloudUploadChanges
 - (PLCloudUploadChanges)init;
+- (id)summaryCounts;
 @end
 
 @implementation PLCloudUploadChanges
+
+- (id)summaryCounts
+{
+  v21 = MEMORY[0x1E696AEC0];
+  v20 = objc_msgSend_count(self->_insertedAssets, a2);
+  v19 = objc_msgSend_count(self->_insertedResources);
+  v18 = objc_msgSend_count(self->_deferredAssets);
+  v17 = objc_msgSend_count(self->_updatedAssets);
+  v16 = objc_msgSend_count(self->_updatedMasters);
+  v15 = objc_msgSend_count(self->_updatedResources);
+  v14 = objc_msgSend_count(self->_albumInserts);
+  v13 = objc_msgSend_count(self->_albumChanges);
+  v3 = objc_msgSend_count(self->_memoryChanges);
+  v4 = objc_msgSend_count(self->_personChanges);
+  v5 = objc_msgSend_count(self->_faceCropChanges);
+  v6 = objc_msgSend_count(self->_suggestionChanges);
+  v7 = objc_msgSend_count(self->_userFeedbackChanges);
+  v8 = objc_msgSend_count(self->_libraryScopeChanges);
+  v9 = objc_msgSend_count(self->_collectionShareChanges);
+  v10 = objc_msgSend_count(self->_socialGroupChanges);
+  v11 = objc_msgSend_count(self->_commentChanges);
+  return [v21 stringWithFormat:@"inserted = %zu, insertedResources = %zu, deferredAssets = %zu, updated = %zu, updatedMasters = %zu, updatedResources = %zu, albumInsert = %zu, albumChange = %zu, memoryChange = %zu, personChange = %zu, faceCropChange = %zu, suggestionChange = %zu, userFeedbackChange = %zu, libraryScopeChanges = %zu, collectionShareChanges = %zu, socialGroupChanges = %zu, commentChanges = %zu, deletedRecords = %zu", v20, v19, v18, v17, v16, v15, v14, v13, v3, v4, v5, v6, v7, v8, v9, v10, v11, objc_msgSend_count(self->_deletedRecords)];
+}
 
 - (PLCloudUploadChanges)init
 {

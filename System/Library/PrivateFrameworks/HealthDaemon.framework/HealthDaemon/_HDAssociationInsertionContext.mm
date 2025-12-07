@@ -15,7 +15,7 @@
   v15 = [(_HDAssociationInsertionContext *)&v19 init];
   if (v15)
   {
-    v16 = [dCopy copy];
+    v16 = objc_msgSend_copy(dCopy);
     parentUUID = v15->_parentUUID;
     v15->_parentUUID = v16;
 

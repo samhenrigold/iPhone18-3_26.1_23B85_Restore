@@ -16,7 +16,7 @@
 
 - (id)_intents_decodeFromProto
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if (_INSharedClassPrefixRegularExpression_onceToken != -1)
   {
     dispatch_once(&_INSharedClassPrefixRegularExpression_onceToken, &__block_literal_global_35);
@@ -45,18 +45,18 @@
             if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
             {
               *buf = 136315650;
-              v22 = "[NSString(ProtoUtils) _intents_decodeFromProto]";
-              v23 = 2112;
-              v24 = v7;
-              v25 = 2112;
-              v26 = _intents_allowedUnarchiverClassesForProtoAsClasses;
+              v21 = "[NSString(ProtoUtils) _intents_decodeFromProto]";
+              v22 = 2112;
+              v23 = v7;
+              v24 = 2112;
+              v25 = _intents_allowedUnarchiverClassesForProtoAsClasses;
               _os_log_error_impl(&dword_18E991000, v13, OS_LOG_TYPE_ERROR, "%s Proto references class %@ which is not an allowed class (%@)", buf, 0x20u);
             }
           }
 
-          v20 = 0;
-          selfCopy3 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClasses:_intents_allowedUnarchiverClassesForProtoAsClasses fromData:v10 error:&v20];
-          v14 = v20;
+          v19 = 0;
+          selfCopy3 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClasses:_intents_allowedUnarchiverClassesForProtoAsClasses fromData:v10 error:&v19];
+          v14 = v19;
           if (selfCopy3)
           {
             v15 = selfCopy3;
@@ -68,9 +68,9 @@
             if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
             {
               *buf = 136315394;
-              v22 = "[NSString(ProtoUtils) _intents_decodeFromProto]";
-              v23 = 2112;
-              v24 = v14;
+              v21 = "[NSString(ProtoUtils) _intents_decodeFromProto]";
+              v22 = 2112;
+              v23 = v14;
               _os_log_error_impl(&dword_18E991000, v17, OS_LOG_TYPE_ERROR, "%s Failed to decode string for proto: %@", buf, 0x16u);
             }
           }
@@ -82,7 +82,7 @@
           if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
           {
             *buf = 136315138;
-            v22 = "[NSString(ProtoUtils) _intents_decodeFromProto]";
+            v21 = "[NSString(ProtoUtils) _intents_decodeFromProto]";
             _os_log_error_impl(&dword_18E991000, v16, OS_LOG_TYPE_ERROR, "%s Failed to find allowed classes for proto", buf, 0xCu);
           }
 
@@ -106,8 +106,6 @@
   {
     selfCopy3 = self;
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return selfCopy3;
 }

@@ -8,7 +8,7 @@
 - (LoadStoreQueueRequestEncoder)initWithBag:(id)bag
 {
   bagCopy = bag;
-  v5 = sub_1003BBF50();
+  v5 = sub_1003BBF50(Device);
   v6 = v5;
   if (self)
   {

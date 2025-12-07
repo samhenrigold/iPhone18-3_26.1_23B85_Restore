@@ -37,7 +37,7 @@
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
 LABEL_14:
-    v18 = 0;
+    v17 = 0;
     goto LABEL_15;
   }
 
@@ -46,7 +46,6 @@ LABEL_14:
   countryCode = v6->_countryCode;
   v6->_countryCode = v8;
 
-  v10 = v6->_countryCode;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0 || [(NSString *)v6->_countryCode length]!= 2)
   {
@@ -55,7 +54,7 @@ LABEL_13:
     goto LABEL_14;
   }
 
-  v11 = [v7 objectForKeyedSubscript:@"Until Year"];
+  v10 = [v7 objectForKeyedSubscript:@"Until Year"];
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
@@ -64,8 +63,8 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  v6->_untilYear = [v11 unsignedIntegerValue];
-  v12 = [v7 objectForKeyedSubscript:@"Until Month"];
+  v6->_untilYear = [v10 unsignedIntegerValue];
+  v11 = [v7 objectForKeyedSubscript:@"Until Month"];
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
@@ -74,8 +73,8 @@ LABEL_11:
     goto LABEL_12;
   }
 
-  v6->_untilMonth = [v12 unsignedIntegerValue];
-  v13 = [v7 objectForKeyedSubscript:@"Until Day"];
+  v6->_untilMonth = [v11 unsignedIntegerValue];
+  v12 = [v7 objectForKeyedSubscript:@"Until Day"];
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
@@ -83,20 +82,20 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  v6->_untilDay = [v13 unsignedIntegerValue];
-  v14 = objc_opt_new();
-  [v14 setDateFormat:@"yyyy-MM-dd"];
-  v15 = [NSString stringWithFormat:@"%@-%@-%@", v11, v12, v13];
-  v16 = [v14 dateFromString:v15];
+  v6->_untilDay = [v12 unsignedIntegerValue];
+  v13 = objc_opt_new();
+  [v13 setDateFormat:@"yyyy-MM-dd"];
+  v14 = [NSString stringWithFormat:@"%@-%@-%@", v10, v11, v12];
+  v15 = [v13 dateFromString:v14];
   untilDate = v6->_untilDate;
-  v6->_untilDate = v16;
+  v6->_untilDate = v15;
 
   v6->super._tlvLength = 6;
 LABEL_9:
-  v18 = v6;
+  v17 = v6;
 LABEL_15:
 
-  return v18;
+  return v17;
 }
 
 - (UARPMetaDataHostDeploymentRuleCountry)initWithLength:(unint64_t)length value:(void *)value
@@ -106,7 +105,7 @@ LABEL_15:
   {
     if (length != 6)
     {
-      v14 = 0;
+      v13 = 0;
       goto LABEL_6;
     }
 
@@ -119,17 +118,16 @@ LABEL_15:
 
     v9 = objc_opt_new();
     [v9 setDateFormat:@"yyyy-MM-dd"];
-    untilMonth = v6->_untilMonth;
-    v11 = [NSString stringWithFormat:@"%lu-%lu-%lu", v6->_untilYear, untilMonth, v6->_untilDay];
-    v12 = [v9 dateFromString:v11];
+    v10 = [NSString stringWithFormat:@"%lu-%lu-%lu", v6->_untilYear, v6->_untilMonth, v6->_untilDay];
+    v11 = [v9 dateFromString:v10];
     untilDate = v6->_untilDate;
-    v6->_untilDate = v12;
+    v6->_untilDate = v11;
   }
 
-  v14 = v6;
+  v13 = v6;
 LABEL_6:
 
-  return v14;
+  return v13;
 }
 
 - (id)tlvValue

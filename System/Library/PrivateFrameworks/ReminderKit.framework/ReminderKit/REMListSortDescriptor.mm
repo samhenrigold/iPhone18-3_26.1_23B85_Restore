@@ -1,4 +1,6 @@
 @interface REMListSortDescriptor
++ (id)sortDescriptorSortingByNameAscending:(BOOL)ascending;
++ (id)sortDescriptorSortingByOrderingInAccountAscending:(BOOL)ascending;
 - (BOOL)isEqual:(id)equal;
 - (REMListSortDescriptor)initWithCoder:(id)coder;
 - (REMListSortDescriptor)initWithType:(int64_t)type ascending:(BOOL)ascending;
@@ -6,6 +8,20 @@
 @end
 
 @implementation REMListSortDescriptor
+
++ (id)sortDescriptorSortingByNameAscending:(BOOL)ascending
+{
+  v3 = [[REMListSortDescriptor alloc] initWithType:0 ascending:ascending];
+
+  return v3;
+}
+
++ (id)sortDescriptorSortingByOrderingInAccountAscending:(BOOL)ascending
+{
+  v3 = [[REMListSortDescriptor alloc] initWithType:1 ascending:ascending];
+
+  return v3;
+}
 
 - (REMListSortDescriptor)initWithType:(int64_t)type ascending:(BOOL)ascending
 {
@@ -78,11 +94,10 @@
 
 - (void)initWithCoder:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_fault_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_FAULT, "Unknown REMListSortDescriptorType %ld", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_fault_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_FAULT, "Unknown REMListSortDescriptorType %ld", &v2, 0xCu);
 }
 
 @end

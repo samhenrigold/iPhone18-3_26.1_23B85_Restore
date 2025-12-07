@@ -3,6 +3,7 @@
 - (_WBSBrowsingDataImportScanner)init;
 - (id)_createSandboxExtensionForURL:(id)l;
 - (void)_processFileForURL:(id)l isInUnarchivedFolder:(BOOL)folder completionHandler:(id)handler;
+- (void)_scanImportedURL:(id)l isInUnarchivedFolder:(BOOL)folder;
 - (void)scanImportURLs:(id)ls sandboxExtensions:(id)extensions completionHandler:(id)handler;
 @end
 
@@ -55,101 +56,101 @@
 
 - (void)scanImportURLs:(id)ls sandboxExtensions:(id)extensions completionHandler:(id)handler
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   lsCopy = ls;
   handlerCopy = handler;
   if ([lsCopy count])
   {
     fileManager = self->_fileManager;
     firstObject = [lsCopy firstObject];
-    v38 = 0;
-    v11 = [(NSFileManager *)fileManager safari_createTemporaryDirectoryAppropriateForURL:firstObject error:&v38];
-    v12 = v38;
+    v41 = 0;
+    v11 = [(NSFileManager *)fileManager safari_createTemporaryDirectoryAppropriateForURL:firstObject error:&v41];
+    v12 = v41;
     temporaryUnarchiveDestinationFolder = self->_temporaryUnarchiveDestinationFolder;
     self->_temporaryUnarchiveDestinationFolder = v11;
 
-    v14 = self->_temporaryUnarchiveDestinationFolder;
-    if (v14)
+    v16 = self->_temporaryUnarchiveDestinationFolder;
+    if (v16)
     {
-      v37 = v12;
-      v15 = [MEMORY[0x1E696AC00] safari_fileHandleWithURL:v14 options:0x100000 createMode:0 error:&v37];
-      v16 = v37;
+      v40 = v12;
+      v17 = [MEMORY[0x1E696AC00] safari_fileHandleWithURL:v16 options:0x100000 createMode:0 error:&v40];
+      v18 = v40;
 
       temporaryUnarchiveDestinationFileHandle = self->_temporaryUnarchiveDestinationFileHandle;
-      self->_temporaryUnarchiveDestinationFileHandle = v15;
+      self->_temporaryUnarchiveDestinationFileHandle = v17;
 
       if (self->_temporaryUnarchiveDestinationFileHandle)
       {
-        v18 = [(_WBSBrowsingDataImportScanner *)self _createSandboxExtensionForURL:self->_temporaryUnarchiveDestinationFolder];
+        v22 = [(_WBSBrowsingDataImportScanner *)self _createSandboxExtensionForURL:self->_temporaryUnarchiveDestinationFolder];
         temporaryUnarchiveDestinationFolderSandboxExtension = self->_temporaryUnarchiveDestinationFolderSandboxExtension;
-        self->_temporaryUnarchiveDestinationFolderSandboxExtension = v18;
+        self->_temporaryUnarchiveDestinationFolderSandboxExtension = v22;
 
         dictionary = [MEMORY[0x1E695DF90] dictionary];
         results = self->_results;
         self->_results = dictionary;
 
         dispatch_group_enter(self->_scannerGroup);
-        v35 = 0u;
+        v38 = 0u;
+        v39 = 0u;
         v36 = 0u;
-        v33 = 0u;
-        v34 = 0u;
-        v22 = lsCopy;
-        v23 = [v22 countByEnumeratingWithState:&v33 objects:v39 count:16];
-        if (v23)
+        v37 = 0u;
+        v26 = lsCopy;
+        v27 = [v26 countByEnumeratingWithState:&v36 objects:v42 count:16];
+        if (v27)
         {
-          v24 = v23;
-          v25 = *v34;
+          v28 = v27;
+          v29 = *v37;
           do
           {
-            v26 = 0;
+            v30 = 0;
             do
             {
-              if (*v34 != v25)
+              if (*v37 != v29)
               {
-                objc_enumerationMutation(v22);
+                objc_enumerationMutation(v26);
               }
 
-              [(_WBSBrowsingDataImportScanner *)self _scanImportedURL:*(*(&v33 + 1) + 8 * v26++) isInUnarchivedFolder:0];
+              [(_WBSBrowsingDataImportScanner *)self _scanImportedURL:*(*(&v36 + 1) + 8 * v30++) isInUnarchivedFolder:0];
             }
 
-            while (v24 != v26);
-            v24 = [v22 countByEnumeratingWithState:&v33 objects:v39 count:16];
+            while (v28 != v30);
+            v28 = [v26 countByEnumeratingWithState:&v36 objects:v42 count:16];
           }
 
-          while (v24);
+          while (v28);
         }
 
         scannerGroup = self->_scannerGroup;
-        v31[0] = MEMORY[0x1E69E9820];
-        v31[1] = 3221225472;
-        v31[2] = __84___WBSBrowsingDataImportScanner_scanImportURLs_sandboxExtensions_completionHandler___block_invoke;
-        v31[3] = &unk_1E7CF16B8;
-        v31[4] = self;
-        v32 = handlerCopy;
-        dispatch_group_notify(scannerGroup, MEMORY[0x1E69E96A0], v31);
+        v34[0] = MEMORY[0x1E69E9820];
+        v34[1] = 3221225472;
+        v34[2] = __84___WBSBrowsingDataImportScanner_scanImportURLs_sandboxExtensions_completionHandler___block_invoke;
+        v34[3] = &unk_1E7CF16B8;
+        v34[4] = self;
+        v35 = handlerCopy;
+        dispatch_group_notify(scannerGroup, MEMORY[0x1E69E96A0], v34);
         dispatch_group_leave(self->_scannerGroup);
       }
 
       else
       {
-        v29 = WBS_LOG_CHANNEL_PREFIXImport();
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+        v33 = WBS_LOG_CHANNEL_PREFIXImport(v20, v21);
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
         {
-          [_WBSBrowsingDataImportScanner scanImportURLs:v29 sandboxExtensions:? completionHandler:?];
+          [_WBSBrowsingDataImportScanner scanImportURLs:v33 sandboxExtensions:? completionHandler:?];
         }
 
-        (*(handlerCopy + 2))(handlerCopy, MEMORY[0x1E695E0F8], v16);
+        (*(handlerCopy + 2))(handlerCopy, MEMORY[0x1E695E0F8], v18);
       }
 
-      v12 = v16;
+      v12 = v18;
     }
 
     else
     {
-      v28 = WBS_LOG_CHANNEL_PREFIXImport();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+      v32 = WBS_LOG_CHANNEL_PREFIXImport(v14, v15);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
-        [_WBSBrowsingDataImportScanner scanImportURLs:v28 sandboxExtensions:? completionHandler:?];
+        [_WBSBrowsingDataImportScanner scanImportURLs:v32 sandboxExtensions:? completionHandler:?];
       }
 
       (*(handlerCopy + 2))(handlerCopy, MEMORY[0x1E695E0F8], v12);
@@ -160,8 +161,79 @@
   {
     (*(handlerCopy + 2))(handlerCopy, MEMORY[0x1E695E0F8], 0);
   }
+}
 
-  v30 = *MEMORY[0x1E69E9840];
+- (void)_scanImportedURL:(id)l isInUnarchivedFolder:(BOOL)folder
+{
+  folderCopy = folder;
+  v27[1] = *MEMORY[0x1E69E9840];
+  lCopy = l;
+  v26 = 0;
+  fileManager = self->_fileManager;
+  path = [lCopy path];
+  LODWORD(fileManager) = [(NSFileManager *)fileManager fileExistsAtPath:path isDirectory:&v26];
+
+  if (fileManager)
+  {
+    if (v26)
+    {
+      v9 = self->_fileManager;
+      v10 = *MEMORY[0x1E695DB78];
+      v27[0] = *MEMORY[0x1E695DB78];
+      v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:1];
+      v12 = [(NSFileManager *)v9 enumeratorAtURL:lCopy includingPropertiesForKeys:v11 options:6 errorHandler:0];
+
+      nextObject = [v12 nextObject];
+      if (nextObject)
+      {
+        v14 = nextObject;
+        do
+        {
+          v22 = 0;
+          [v14 getResourceValue:&v22 forKey:v10 error:0];
+          v15 = v22;
+          if (([v15 BOOLValue] & 1) == 0)
+          {
+            [(_WBSBrowsingDataImportScanner *)self _scanImportedURL:v14 isInUnarchivedFolder:folderCopy];
+          }
+
+          nextObject2 = [v12 nextObject];
+
+          v14 = nextObject2;
+        }
+
+        while (nextObject2);
+      }
+    }
+
+    else if ([(_WBSBrowsingDataImportScanner *)self _isArchiveFileURL:lCopy])
+    {
+      lastPathComponent = [lCopy lastPathComponent];
+      stringByDeletingPathExtension = [lastPathComponent stringByDeletingPathExtension];
+
+      v19 = [(NSFileManager *)self->_fileManager safari_createDirectoryWithUniqueName:stringByDeletingPathExtension relativeToDirectoryFileHandle:self->_temporaryUnarchiveDestinationFileHandle error:0];
+      dispatch_group_enter(self->_scannerGroup);
+      archiveService = self->_archiveService;
+      v25[0] = MEMORY[0x1E69E9820];
+      v25[1] = 3221225472;
+      v25[2] = __71___WBSBrowsingDataImportScanner__scanImportedURL_isInUnarchivedFolder___block_invoke;
+      v25[3] = &unk_1E7CF5108;
+      v25[4] = self;
+      v21 = [(DSArchiveService *)archiveService unarchiveItemAtURL:lCopy toURL:v19 options:0 acceptedFormats:1 passphrases:0 completionHandler:v25];
+    }
+
+    else
+    {
+      dispatch_group_enter(self->_scannerGroup);
+      v23[0] = MEMORY[0x1E69E9820];
+      v23[1] = 3221225472;
+      v23[2] = __71___WBSBrowsingDataImportScanner__scanImportedURL_isInUnarchivedFolder___block_invoke_73;
+      v23[3] = &unk_1E7CF5130;
+      v23[4] = self;
+      v24 = lCopy;
+      [(_WBSBrowsingDataImportScanner *)self _processFileForURL:v24 isInUnarchivedFolder:folderCopy completionHandler:v23];
+    }
+  }
 }
 
 - (BOOL)_isArchiveFileURL:(id)l
@@ -185,17 +257,16 @@
 - (id)_createSandboxExtensionForURL:(id)l
 {
   lCopy = l;
-  v4 = *MEMORY[0x1E69E9BB0];
   [lCopy fileSystemRepresentation];
-  v5 = sandbox_extension_issue_file();
-  if (v5)
+  v4 = sandbox_extension_issue_file();
+  if (v4)
   {
-    v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytesNoCopy:v5 length:strlen(v5) encoding:4 freeWhenDone:1];
+    v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytesNoCopy:v4 length:strlen(v4) encoding:4 freeWhenDone:1];
   }
 
   else
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXImport();
+    v7 = WBS_LOG_CHANNEL_PREFIXImport(0, v5);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [(_WBSBrowsingDataImportScanner *)lCopy _createSandboxExtensionForURL:v7];
@@ -295,37 +366,28 @@ LABEL_15:
 
 - (void)scanImportURLs:(void *)a1 sandboxExtensions:completionHandler:.cold.1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_2_0() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_7();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)scanImportURLs:(void *)a1 sandboxExtensions:completionHandler:.cold.2(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_2_0() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_7();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_createSandboxExtensionForURL:(uint64_t)a1 .cold.1(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v9 = *__error();
+  __error();
   OUTLINED_FUNCTION_0_7();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x12u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 @end

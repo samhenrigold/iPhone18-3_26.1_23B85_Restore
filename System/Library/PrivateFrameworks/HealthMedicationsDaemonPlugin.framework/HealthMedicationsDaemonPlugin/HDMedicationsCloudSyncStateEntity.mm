@@ -22,18 +22,17 @@
 
 + (HDStateSyncEntitySchema)stateEntitySchema
 {
-  v8[5] = *MEMORY[0x277D85DE8];
+  v7[5] = *MEMORY[0x277D85DE8];
   v2 = objc_alloc(MEMORY[0x277CBEB98]);
-  v8[0] = 0x2863B7F98;
-  v8[1] = 0x2863B7A18;
-  v8[2] = 0x2863B9798;
-  v8[3] = @"MedicationsCloudSyncStateEntityDoseEventWindowKey";
-  v8[4] = @"MedicationsCloudSyncStateEntitySampleOriginKey";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:5];
+  v7[0] = 0x2863B7F98;
+  v7[1] = 0x2863B7A18;
+  v7[2] = 0x2863B9798;
+  v7[3] = @"MedicationsCloudSyncStateEntityDoseEventWindowKey";
+  v7[4] = @"MedicationsCloudSyncStateEntitySampleOriginKey";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:5];
   v4 = [v2 initWithArray:v3];
 
   v5 = [objc_alloc(MEMORY[0x277D10888]) initWithWithDomain:@"CloudSyncStateEntityDomainMedications" dataKeys:v4];
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -44,47 +43,47 @@
   storageCopy = storage;
   profileCopy = profile;
   transactionCopy = transaction;
-  v12 = objc_alloc_init(HDCloudSyncStateUpdaterMedicationDelegate);
+  v13 = objc_alloc_init(HDCloudSyncStateUpdaterMedicationDelegate);
   v55 = 0;
-  v13 = [MEMORY[0x277D10600] updateDataWithStateStore:storageCopy delegate:v12 profile:profileCopy transaction:transactionCopy error:&v55];
-  v14 = v55;
-  if (v13)
+  v14 = [MEMORY[0x277D10600] updateDataWithStateStore:storageCopy delegate:v13 profile:profileCopy transaction:transactionCopy error:&v55];
+  v15 = v55;
+  if (v14)
   {
     errorCopy = error;
-    v15 = objc_alloc_init(HDCloudSyncStateUpdaterMedsListDelegate);
+    v16 = objc_alloc_init(HDCloudSyncStateUpdaterMedsListDelegate);
     v54 = 0;
-    v16 = [MEMORY[0x277D10600] updateDataWithStateStore:storageCopy delegate:v15 profile:profileCopy transaction:transactionCopy error:&v54];
-    v17 = v54;
-    v52 = v17;
-    if (v16)
+    v17 = [MEMORY[0x277D10600] updateDataWithStateStore:storageCopy delegate:v16 profile:profileCopy transaction:transactionCopy error:&v54];
+    v18 = v54;
+    v52 = v18;
+    if (v17)
     {
-      v18 = objc_alloc_init(HDCloudSyncStateUpdaterMedicationScheduleDelegate);
+      v19 = objc_alloc_init(HDCloudSyncStateUpdaterMedicationScheduleDelegate);
       v53 = 0;
-      v19 = [MEMORY[0x277D10600] updateDataWithStateStore:storageCopy delegate:v18 profile:profileCopy transaction:transactionCopy error:&v53];
-      v20 = v53;
-      v50 = v20;
-      if (v19)
+      v20 = [MEMORY[0x277D10600] updateDataWithStateStore:storageCopy delegate:v19 profile:profileCopy transaction:transactionCopy error:&v53];
+      v21 = v53;
+      v50 = v21;
+      if (v20)
       {
-        v48 = +[HDMedicationsCloudSyncStateEntity _windowUpdaterConfiguration];
-        v21 = [MEMORY[0x277D105F0] updateDataWithStateStorage:storageCopy configuration:? profile:? transaction:? error:?];
+        v48 = +[(HDMedicationsCloudSyncStateEntity *)self];
+        v22 = [MEMORY[0x277D105F0] updateDataWithStateStorage:storageCopy configuration:? profile:? transaction:? error:?];
         v49 = 0;
         _HKInitializeLogging();
-        v22 = HKLogMedication();
-        v23 = v22;
-        if (v21)
+        v23 = HKLogMedication();
+        v24 = v23;
+        if (v22)
         {
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
           {
-            v24 = objc_opt_class();
+            v25 = objc_opt_class();
             *buf = 138543362;
-            v57 = v24;
-            _os_log_impl(&dword_25181C000, v23, OS_LOG_TYPE_DEFAULT, "[%{public}@] update success", buf, 0xCu);
+            v57 = v25;
+            _os_log_impl(&dword_25181C000, v24, OS_LOG_TYPE_DEFAULT, "[%{public}@] update success", buf, 0xCu);
           }
         }
 
         else
         {
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
           {
             v47 = objc_opt_class();
             *buf = 138543874;
@@ -93,17 +92,17 @@
             v59 = v48;
             v60 = 2114;
             v61 = v49;
-            _os_log_error_impl(&dword_25181C000, v23, OS_LOG_TYPE_ERROR, "[%{public}@] %{public}@ error: %{public}@", buf, 0x20u);
+            _os_log_error_impl(&dword_25181C000, v24, OS_LOG_TYPE_ERROR, "[%{public}@] %{public}@ error: %{public}@", buf, 0x20u);
           }
 
-          v36 = v49;
-          v23 = v36;
-          if (v36)
+          v37 = v49;
+          v24 = v37;
+          if (v37)
           {
             if (errorCopy)
             {
-              v37 = v36;
-              *errorCopy = v23;
+              v38 = v37;
+              *errorCopy = v24;
             }
 
             else
@@ -113,36 +112,36 @@
           }
         }
 
-        v34 = v48;
+        v35 = v48;
         goto LABEL_35;
       }
 
-      v31 = v20;
+      v32 = v21;
       _HKInitializeLogging();
-      v32 = HKLogMedication();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+      v33 = HKLogMedication();
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
       {
         v45 = objc_opt_class();
         v46 = objc_opt_class();
         *buf = 138543874;
         v57 = v45;
-        v31 = v50;
+        v32 = v50;
         v58 = 2114;
         v59 = v46;
         v60 = 2114;
         v61 = v50;
-        _os_log_error_impl(&dword_25181C000, v32, OS_LOG_TYPE_ERROR, "[%{public}@] %{public}@ error: %{public}@", buf, 0x20u);
+        _os_log_error_impl(&dword_25181C000, v33, OS_LOG_TYPE_ERROR, "[%{public}@] %{public}@ error: %{public}@", buf, 0x20u);
       }
 
-      v33 = v31;
-      v34 = v33;
-      if (v33)
+      v34 = v32;
+      v35 = v34;
+      if (v34)
       {
         if (errorCopy)
         {
-          v35 = v33;
-          v21 = 0;
-          *errorCopy = v34;
+          v36 = v34;
+          v22 = 0;
+          *errorCopy = v35;
 LABEL_35:
 
           goto LABEL_36;
@@ -151,35 +150,35 @@ LABEL_35:
         _HKLogDroppedError();
       }
 
-      v21 = 0;
+      v22 = 0;
       goto LABEL_35;
     }
 
-    v27 = v17;
+    v28 = v18;
     _HKInitializeLogging();
-    v28 = HKLogMedication();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    v29 = HKLogMedication();
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
-      v41 = objc_opt_class();
       v42 = objc_opt_class();
+      v43 = objc_opt_class();
       *buf = 138543874;
-      v57 = v41;
+      v57 = v42;
       v58 = 2114;
-      v59 = v42;
+      v59 = v43;
       v60 = 2114;
-      v61 = v27;
-      _os_log_error_impl(&dword_25181C000, v28, OS_LOG_TYPE_ERROR, "[%{public}@] %{public}@ error: %{public}@", buf, 0x20u);
+      v61 = v28;
+      _os_log_error_impl(&dword_25181C000, v29, OS_LOG_TYPE_ERROR, "[%{public}@] %{public}@ error: %{public}@", buf, 0x20u);
     }
 
-    v29 = v27;
-    v18 = v29;
-    if (v29)
+    v30 = v28;
+    v19 = v30;
+    if (v30)
     {
       if (errorCopy)
       {
-        v30 = v29;
-        v21 = 0;
-        *errorCopy = v18;
+        v31 = v30;
+        v22 = 0;
+        *errorCopy = v19;
 LABEL_36:
 
         goto LABEL_37;
@@ -188,29 +187,29 @@ LABEL_36:
       _HKLogDroppedError();
     }
 
-    v21 = 0;
+    v22 = 0;
     goto LABEL_36;
   }
 
   _HKInitializeLogging();
-  v25 = HKLogMedication();
-  if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+  v26 = HKLogMedication();
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
   {
     errorCopy2 = error;
-    v39 = objc_opt_class();
     v40 = objc_opt_class();
+    v41 = objc_opt_class();
     *buf = 138543874;
-    v57 = v39;
+    v57 = v40;
     error = errorCopy2;
     v58 = 2114;
-    v59 = v40;
+    v59 = v41;
     v60 = 2114;
-    v61 = v14;
-    _os_log_error_impl(&dword_25181C000, v25, OS_LOG_TYPE_ERROR, "[%{public}@] %{public}@ error: %{public}@", buf, 0x20u);
+    v61 = v15;
+    _os_log_error_impl(&dword_25181C000, v26, OS_LOG_TYPE_ERROR, "[%{public}@] %{public}@ error: %{public}@", buf, 0x20u);
   }
 
-  v15 = v14;
-  if (!v15)
+  v16 = v15;
+  if (!v16)
   {
     goto LABEL_23;
   }
@@ -219,35 +218,34 @@ LABEL_36:
   {
     _HKLogDroppedError();
 LABEL_23:
-    v21 = 0;
+    v22 = 0;
     goto LABEL_37;
   }
 
-  v26 = v15;
-  v21 = 0;
-  *error = v15;
+  v27 = v16;
+  v22 = 0;
+  *error = v16;
 LABEL_37:
 
-  v43 = *MEMORY[0x277D85DE8];
-  return v21;
+  return v22;
 }
 
 + (id)_windowUpdaterConfiguration
 {
   objc_opt_self();
-  v0 = objc_alloc(MEMORY[0x277D105F8]);
+  v1 = objc_alloc(MEMORY[0x277D105F8]);
   medicationDoseEventType = [MEMORY[0x277CCD658] medicationDoseEventType];
   medicationDoseEventSyncEntityClass = [MEMORY[0x277D106A8] medicationDoseEventSyncEntityClass];
-  v3 = +[HDMedicationsCloudSyncStateEntity _timeWindow];
-  v4 = HKLogMedication();
-  v5 = [v0 initWithDomain:@"CloudSyncStateEntityDomainMedications" key:@"MedicationsCloudSyncStateEntityDoseEventWindowKey" sampleOriginKey:@"MedicationsCloudSyncStateEntitySampleOriginKey" sampleType:medicationDoseEventType syncEntityClass:medicationDoseEventSyncEntityClass timeWindow:v3 loggingCategory:v4 sampleUUIDsFunction:MEMORY[0x277D10438]];
+  v4 = +[HDMedicationsCloudSyncStateEntity _timeWindow];
+  v5 = HKLogMedication();
+  v6 = [v1 initWithDomain:@"CloudSyncStateEntityDomainMedications" key:@"MedicationsCloudSyncStateEntityDoseEventWindowKey" sampleOriginKey:@"MedicationsCloudSyncStateEntitySampleOriginKey" sampleType:medicationDoseEventType syncEntityClass:medicationDoseEventSyncEntityClass timeWindow:v4 loggingCategory:v5 sampleUUIDsFunction:MEMORY[0x277D10438]];
 
-  return v5;
+  return v6;
 }
 
 + (void)syncDidFinishWithResult:(int64_t)result stateStore:(id)store profile:(id)profile
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   profileCopy = profile;
   _HKInitializeLogging();
   v8 = HKLogMedication();
@@ -256,16 +254,14 @@ LABEL_37:
     v9 = objc_opt_class();
     v10 = [(HDMedicationsCloudSyncStateEntity *)self _stringFromSyncResult:result];
     profileIdentifier = [profileCopy profileIdentifier];
-    v13 = 138543874;
-    v14 = v9;
-    v15 = 2114;
-    v16 = v10;
-    v17 = 2114;
-    v18 = profileIdentifier;
-    _os_log_impl(&dword_25181C000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] state sync result '%{public}@' for %{public}@", &v13, 0x20u);
+    v12 = 138543874;
+    v13 = v9;
+    v14 = 2114;
+    v15 = v10;
+    v16 = 2114;
+    v17 = profileIdentifier;
+    _os_log_impl(&dword_25181C000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] state sync result '%{public}@' for %{public}@", &v12, 0x20u);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 + (__CFString)_stringFromSyncResult:(uint64_t)result
@@ -293,10 +289,10 @@ LABEL_37:
 {
   objc_opt_self();
   date = [MEMORY[0x277CBEAA8] date];
-  v1 = [date dateByAddingTimeInterval:-172800.0];
-  v2 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:v1 duration:172800.0];
+  v2 = [date dateByAddingTimeInterval:-172800.0];
+  v3 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:v2 duration:172800.0];
 
-  return v2;
+  return v3;
 }
 
 @end

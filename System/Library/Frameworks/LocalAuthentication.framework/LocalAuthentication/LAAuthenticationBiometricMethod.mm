@@ -86,8 +86,8 @@ LABEL_7:
     {
 
 LABEL_8:
-      v14 = LA_LOG_laabio();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+      v15 = LA_LOG_laabio(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
         [LAAuthenticationBiometricMethod initWithConfiguration:];
       }
@@ -111,7 +111,7 @@ LABEL_8:
     {
     }
 
-    v25 = LA_LOG_laabio();
+    v25 = LA_LOG_laabio(v14);
     if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
     {
       [LAAuthenticationBiometricMethod initWithConfiguration:];
@@ -138,7 +138,7 @@ LABEL_29:
         }
 
 LABEL_26:
-        v29 = LA_LOG_laabio();
+        v29 = LA_LOG_laabio(code2);
         if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
@@ -170,19 +170,18 @@ LABEL_26:
 
 LABEL_11:
     context2 = [(LAAuthenticationBiometricMethod *)v5 context];
-    v16 = [context2 biometryType] == 1;
+    v17 = [context2 biometryType] == 1;
     currentState2 = [(LAAuthenticationBiometricMethod *)v5 currentState];
-    [currentState2 setIsTouchID:v16];
+    [currentState2 setIsTouchID:v17];
 
     context3 = [(LAAuthenticationBiometricMethod *)v5 context];
-    v19 = [context3 biometryType] == 2;
+    v20 = [context3 biometryType] == 2;
     currentState3 = [(LAAuthenticationBiometricMethod *)v5 currentState];
-    [currentState3 setIsFaceID:v19];
+    [currentState3 setIsFaceID:v20];
 
     v5->_isAllowed = v5->_isEnrolled;
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -279,7 +278,7 @@ void __56__LAAuthenticationBiometricMethod_runBiometricOperation__block_invoke(u
 {
   v5 = a2;
   v6 = a3;
-  v7 = LA_LOG_laabio();
+  v7 = LA_LOG_laabio(v6);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
   if (v5)
   {
@@ -337,7 +336,7 @@ void __56__LAAuthenticationBiometricMethod_runBiometricOperation__block_invoke(u
 - (void)event:(int64_t)event params:(id)params reply:(id)reply
 {
   paramsCopy = params;
-  v8 = LA_LOG_laabio();
+  v8 = LA_LOG_laabio(paramsCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [LAAuthenticationBiometricMethod event:params:reply:];
@@ -350,14 +349,14 @@ void __56__LAAuthenticationBiometricMethod_runBiometricOperation__block_invoke(u
   {
     if (event == 7)
     {
-      v17 = [paramsCopy objectForKeyedSubscript:&unk_1F1A6FC80];
-      v12 = v17;
-      if (!v17)
+      v19 = [paramsCopy objectForKeyedSubscript:&unk_1F1A6FC80];
+      v13 = v19;
+      if (!v19)
       {
         goto LABEL_46;
       }
 
-      integerValue = [v17 integerValue];
+      integerValue = [v19 integerValue];
       if (integerValue <= 0xD)
       {
         if (((1 << integerValue) & 0x3EFC) != 0)
@@ -373,17 +372,17 @@ void __56__LAAuthenticationBiometricMethod_runBiometricOperation__block_invoke(u
         if (integerValue == 8)
         {
           selfCopy13 = self;
-          v16 = 13;
+          v18 = 13;
 LABEL_45:
-          [(LAAuthenticationBiometricMethod *)selfCopy13 distributeBiometricFeedback:v16];
+          [(LAAuthenticationBiometricMethod *)selfCopy13 distributeBiometricFeedback:v18];
           goto LABEL_46;
         }
       }
 
       if (integerValue)
       {
-        v19 = LA_LOG_laabio();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+        v21 = LA_LOG_laabio(integerValue);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
         {
           [LAAuthenticationBiometricMethod event:params:reply:];
         }
@@ -398,64 +397,65 @@ LABEL_31:
 
     if (event == 12)
     {
-      v14 = [paramsCopy objectForKeyedSubscript:&unk_1F1A6FC98];
-      v12 = v14;
-      if (v14)
+      v15 = [paramsCopy objectForKeyedSubscript:&unk_1F1A6FC98];
+      v13 = v15;
+      if (v15)
       {
-        switch([v14 integerValue])
+        integerValue2 = [v15 integerValue];
+        switch(integerValue2)
         {
           case 1:
             selfCopy13 = self;
-            v16 = 12;
+            v18 = 12;
             goto LABEL_45;
           case 2:
             selfCopy13 = self;
-            v16 = 0;
+            v18 = 0;
             goto LABEL_45;
           case 3:
             selfCopy13 = self;
-            v16 = 1;
+            v18 = 1;
             goto LABEL_45;
           case 4:
             selfCopy13 = self;
-            v16 = 2;
+            v18 = 2;
             goto LABEL_45;
           case 5:
             selfCopy13 = self;
-            v16 = 3;
+            v18 = 3;
             goto LABEL_45;
           case 6:
             selfCopy13 = self;
-            v16 = 4;
+            v18 = 4;
             goto LABEL_45;
           case 7:
           case 11:
             selfCopy13 = self;
-            v16 = 5;
+            v18 = 5;
             goto LABEL_45;
           case 8:
             selfCopy13 = self;
-            v16 = 6;
+            v18 = 6;
             goto LABEL_45;
           case 9:
             selfCopy13 = self;
-            v16 = 7;
+            v18 = 7;
             goto LABEL_45;
           case 10:
             selfCopy13 = self;
-            v16 = 8;
+            v18 = 8;
             goto LABEL_45;
           case 12:
             selfCopy13 = self;
-            v16 = 10;
+            v18 = 10;
             goto LABEL_45;
           case 13:
             selfCopy13 = self;
-            v16 = 11;
+            v18 = 11;
             goto LABEL_45;
           default:
-            v19 = LA_LOG_laabio();
-            if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+            v21 = LA_LOG_laabio(integerValue2);
+            if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
             {
               [LAAuthenticationBiometricMethod event:params:reply:];
             }
@@ -468,8 +468,8 @@ LABEL_31:
     }
 
 LABEL_16:
-    v12 = LA_LOG_laabio();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v13 = LA_LOG_laabio(v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       [LAAuthenticationBiometricMethod event:params:reply:];
     }
@@ -487,28 +487,28 @@ LABEL_16:
     goto LABEL_16;
   }
 
-  v11 = [paramsCopy objectForKeyedSubscript:&unk_1F1A6FC68];
-  v12 = v11;
-  if (!v11)
+  v12 = [paramsCopy objectForKeyedSubscript:&unk_1F1A6FC68];
+  v13 = v12;
+  if (!v12)
   {
     goto LABEL_46;
   }
 
-  integerValue2 = [v11 integerValue];
-  if (integerValue2 <= 2)
+  integerValue3 = [v12 integerValue];
+  if (integerValue3 <= 2)
   {
-    if (integerValue2)
+    if (integerValue3)
     {
-      if (integerValue2 != 1)
+      if (integerValue3 != 1)
       {
-        if (integerValue2 == 2)
+        if (integerValue3 == 2)
         {
           goto LABEL_46;
         }
 
 LABEL_27:
-        v19 = LA_LOG_laabio();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+        v21 = LA_LOG_laabio(integerValue3);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
         {
           [LAAuthenticationBiometricMethod event:params:reply:];
         }
@@ -526,16 +526,16 @@ LABEL_29:
     goto LABEL_31;
   }
 
-  if ((integerValue2 - 4) >= 9)
+  if ((integerValue3 - 4) >= 9)
   {
-    if (integerValue2 == 3)
+    if (integerValue3 == 3)
     {
-      v23[0] = MEMORY[0x1E69E9820];
-      v23[1] = 3221225472;
-      v23[2] = __54__LAAuthenticationBiometricMethod_event_params_reply___block_invoke;
-      v23[3] = &unk_1E77CC060;
-      v23[4] = self;
-      [(LAAuthenticationMethod *)self forEachObserverWithProtocol:&unk_1F1A74D28 selector:sel_authenticationBiometricsMethodDidReceiveNoMatch_ invoke:v23];
+      v25[0] = MEMORY[0x1E69E9820];
+      v25[1] = 3221225472;
+      v25[2] = __54__LAAuthenticationBiometricMethod_event_params_reply___block_invoke;
+      v25[3] = &unk_1E77CC060;
+      v25[4] = self;
+      [(LAAuthenticationMethod *)self forEachObserverWithProtocol:&unk_1F1A74D28 selector:sel_authenticationBiometricsMethodDidReceiveNoMatch_ invoke:v25];
       goto LABEL_46;
     }
 
@@ -567,74 +567,41 @@ LABEL_47:
   [(LAAuthenticationMethod *)&v4 terminate];
 }
 
-- (void)initWithConfiguration:.cold.1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_1();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void __56__LAAuthenticationBiometricMethod_runBiometricOperation__block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_1();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void __56__LAAuthenticationBiometricMethod_runBiometricOperation__block_invoke_cold_2()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_1();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
 - (void)event:params:reply:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_2();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_debug_impl(&dword_1A784E000, v1, OS_LOG_TYPE_DEBUG, "got bio event: %d (%@)", v3, 0x12u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_debug_impl(&dword_1A784E000, v1, OS_LOG_TYPE_DEBUG, "got bio event: %d (%@)", v2, 0x12u);
 }
 
 - (void)event:params:reply:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_0_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)event:params:reply:.cold.3()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_0_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)event:params:reply:.cold.4()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_0_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)event:params:reply:.cold.5()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_0_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

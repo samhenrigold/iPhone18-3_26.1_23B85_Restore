@@ -17,6 +17,7 @@
 - (BOOL)trySetDatabaseInitializationOptions:(id)options;
 - (BOOL)withDatabaseForObject:(id)object perform:(id)perform;
 - (BOOL)withDatabaseForObjects:(id)objects options:(unint64_t)options perform:(id)perform;
+- (BOOL)withDatabaseID:(int)d perform:(id)perform;
 - (CADAccountAccessHandler)accountAccessHandler;
 - (CADPermissionValidator)permissionValidator;
 - (CDBAccountInfo)localAccountInfo;
@@ -120,11 +121,9 @@
 uint64_t __39__ClientConnection_permissionValidator__block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) _permissionValidator];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2);
 }
 
 - (id)_databaseProvider
@@ -285,33 +284,33 @@ void __40__ClientConnection_accountAccessHandler__block_invoke(uint64_t a1)
 
 - (void)dealloc
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = self->_operations;
   objc_sync_enter(v3);
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v4 = self->_operations;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        [*(*(&v10 + 1) + 8 * v7++) cancel];
+        [*(*(&v9 + 1) + 8 * v7++) cancel];
       }
 
       while (v5 != v7);
-      v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
@@ -320,15 +319,14 @@ void __40__ClientConnection_accountAccessHandler__block_invoke(uint64_t a1)
   [(NSMutableArray *)self->_operations removeAllObjects];
   objc_sync_exit(v3);
 
-  v9.receiver = self;
-  v9.super_class = ClientConnection;
-  [(ClientConnection *)&v9 dealloc];
-  v8 = *MEMORY[0x277D85DE8];
+  v8.receiver = self;
+  v8.super_class = ClientConnection;
+  [(ClientConnection *)&v8 dealloc];
 }
 
 - (void)_initAccountAccessHandler
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   v3 = +[CADRealCalendarDatabaseDataProvider realDataProvider];
   v4 = [[CADGroupedAccountAccessHandler alloc] initWithDatabaseDataProvider:v3];
   _permissionValidator = [(ClientConnection *)self _permissionValidator];
@@ -357,9 +355,9 @@ void __40__ClientConnection_accountAccessHandler__block_invoke(uint64_t a1)
       identity2 = [(ClientConnection *)self identity];
       v14 = [v12 numberWithInt:{objc_msgSend(identity2, "pid")}];
       *buf = 138412546;
-      v41 = v11;
-      v42 = 2112;
-      v43 = v14;
+      v40 = v11;
+      v41 = 2112;
+      v42 = v14;
       _os_log_impl(&dword_22430B000, v9, OS_LOG_TYPE_INFO, "XPC Client [%@] (PID: [%@]). allowDelegateSources is NO. Adding Excluded Delegate Access Handler", buf, 0x16u);
 
       v6 = v10;
@@ -396,18 +394,18 @@ void __40__ClientConnection_accountAccessHandler__block_invoke(uint64_t a1)
       clientName = [identity3 clientName];
       v23 = MEMORY[0x277CCABB0];
       [(ClientConnection *)self identity];
-      v24 = v38 = v6;
+      v24 = v37 = v6;
       v25 = [v23 numberWithInt:{objc_msgSend(v24, "pid")}];
       allowedSourceIdentifiers2 = [(CADDatabaseInitializationOptions *)self->_databaseInitializationOptions allowedSourceIdentifiers];
       *buf = 138543874;
-      v41 = clientName;
-      v42 = 2114;
-      v43 = v25;
-      v44 = 2114;
-      v45 = allowedSourceIdentifiers2;
+      v40 = clientName;
+      v41 = 2114;
+      v42 = v25;
+      v43 = 2114;
+      v44 = allowedSourceIdentifiers2;
       _os_log_impl(&dword_22430B000, v20, OS_LOG_TYPE_INFO, "XPC Client [%{public}@] (PID: [%{public}@]). allowedSourceIdentifiers is not nil. Adding Allow Specified Accounts Access Handler for sources %{public}@", buf, 0x20u);
 
-      v6 = v38;
+      v6 = v37;
     }
 
     v27 = [CADAllowSpecifiedAccountsAccessHandler alloc];
@@ -454,8 +452,6 @@ void __40__ClientConnection_accountAccessHandler__block_invoke(uint64_t a1)
     strictAccountAccessHandler = self->_strictAccountAccessHandler;
     self->_strictAccountAccessHandler = 0;
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_accountsProvider
@@ -539,12 +535,12 @@ void __46__ClientConnection_strictAccountAccessHandler__block_invoke(uint64_t a1
 
 - (ClientConnection)initWithXPCConnection:(id)connection tccPermissionChecker:(id)checker
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   checkerCopy = checker;
-  v33.receiver = self;
-  v33.super_class = ClientConnection;
-  v9 = [(ClientConnection *)&v33 init];
+  v32.receiver = self;
+  v32.super_class = ClientConnection;
+  v9 = [(ClientConnection *)&v32 init];
   v10 = v9;
   if (v9)
   {
@@ -553,7 +549,7 @@ void __46__ClientConnection_strictAccountAccessHandler__block_invoke(uint64_t a1
     v11 = [ClientIdentity alloc];
     if (connectionCopy)
     {
-      [connectionCopy auditToken];
+      objc_msgSend_auditToken(connectionCopy);
     }
 
     else
@@ -602,20 +598,20 @@ void __46__ClientConnection_strictAccountAccessHandler__block_invoke(uint64_t a1
     v10->_agentLock._os_unfair_lock_opaque = 0;
   }
 
-  v31 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 uint64_t __31__ClientConnection_poolManager__block_invoke()
 {
-  poolManager_defaultManager = objc_alloc_init(CADDatabaseConnectionPoolManager);
+  v0 = objc_alloc_init(CADDatabaseConnectionPoolManager);
+  poolManager_defaultManager = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0);
 }
 
 - (id)_createManagedConfigAccountAccessHandlerWithValidator:(id)validator
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   validatorCopy = validator;
   v5 = +[CADRealCalendarDatabaseDataProvider realDataProvider];
   hasSyncClientEntitlement = [validatorCopy hasSyncClientEntitlement];
@@ -654,11 +650,11 @@ uint64_t __31__ClientConnection_poolManager__block_invoke()
             v16 = MEMORY[0x277CCABB0];
             identity3 = [(ClientConnection *)self identity];
             v18 = [v16 numberWithInt:{objc_msgSend(identity3, "pid")}];
-            v27 = 138412546;
-            v28 = clientName;
-            v29 = 2112;
-            v30 = v18;
-            _os_log_impl(&dword_22430B000, v13, OS_LOG_TYPE_DEBUG, "XPC Client [%@] (PID: [%@]) does not have a bundle identifier. Account access behavior via MDM API will be undefined.", &v27, 0x16u);
+            v26 = 138412546;
+            v27 = clientName;
+            v28 = 2112;
+            v29 = v18;
+            _os_log_impl(&dword_22430B000, v13, OS_LOG_TYPE_DEBUG, "XPC Client [%@] (PID: [%@]) does not have a bundle identifier. Account access behavior via MDM API will be undefined.", &v26, 0x16u);
           }
 
           bundleIdentifier = 0;
@@ -674,8 +670,6 @@ uint64_t __31__ClientConnection_poolManager__block_invoke()
     _accountsProvider = [(ClientConnection *)self _accountsProvider];
     v7 = [(CADMCAccountAccessHandler *)v23 initWithDatabaseDataProvider:v5 accountsProvider:_accountsProvider managedConfigHandler:v22 accountManagement:v20 bundleIdentifier:bundleIdentifier];
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -705,11 +699,9 @@ uint64_t __31__ClientConnection_poolManager__block_invoke()
 uint64_t __36__ClientConnection_accountsProvider__block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) _accountsProvider];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2);
 }
 
 - (void)handleDatabaseChanged
@@ -723,7 +715,7 @@ uint64_t __36__ClientConnection_accountsProvider__block_invoke(uint64_t a1)
 
 - (BOOL)trySetDatabaseInitializationOptions:(id)options
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   v5 = CADLogHandle;
   if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_DEFAULT))
@@ -748,13 +740,13 @@ uint64_t __36__ClientConnection_accountsProvider__block_invoke(uint64_t a1)
         v10 = identity;
         if (identity)
         {
-          [identity auditToken];
+          objc_msgSend_auditToken(identity);
         }
 
         else
         {
           *buf = 0u;
-          v21 = 0u;
+          v20 = 0u;
         }
 
         v14 = PAAuthenticatedClientIdentity();
@@ -763,13 +755,13 @@ uint64_t __36__ClientConnection_accountsProvider__block_invoke(uint64_t a1)
     }
 
     dbQueue = self->_dbQueue;
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __56__ClientConnection_trySetDatabaseInitializationOptions___block_invoke;
-    v18[3] = &unk_27851AB28;
-    v18[4] = self;
-    v19 = v6;
-    dispatch_sync(dbQueue, v18);
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __56__ClientConnection_trySetDatabaseInitializationOptions___block_invoke;
+    v17[3] = &unk_27851AB28;
+    v17[4] = self;
+    v18 = v6;
+    dispatch_sync(dbQueue, v17);
   }
 
   else
@@ -798,13 +790,12 @@ uint64_t __36__ClientConnection_accountsProvider__block_invoke(uint64_t a1)
     }
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 void __56__ClientConnection_trySetDatabaseInitializationOptions___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   *(*(a1 + 32) + 72) = 1;
   v2 = *(a1 + 40);
   v3 = *(*(a1 + 32) + 152);
@@ -815,9 +806,9 @@ void __56__ClientConnection_trySetDatabaseInitializationOptions___block_invoke(u
     if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       v5 = *(*(a1 + 32) + 152);
-      v13 = 138543362;
-      v14 = v5;
-      _os_log_impl(&dword_22430B000, v4, OS_LOG_TYPE_DEFAULT, "Changed database initialization options to [%{public}@]", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = v5;
+      _os_log_impl(&dword_22430B000, v4, OS_LOG_TYPE_DEFAULT, "Changed database initialization options to [%{public}@]", &v12, 0xCu);
     }
 
     v6 = *(a1 + 32);
@@ -838,8 +829,6 @@ void __56__ClientConnection_trySetDatabaseInitializationOptions___block_invoke(u
     v11 = *(v10 + 8);
     *(v10 + 8) = 0;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addCreatedAuxDatabase:(CalDatabase *)database
@@ -901,29 +890,29 @@ void __44__ClientConnection_withAllDatabasesPerform___block_invoke(uint64_t a1)
 - (BOOL)withDatabaseForObjects:(id)objects options:(unint64_t)options perform:(id)perform
 {
   optionsCopy = options;
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   objectsCopy = objects;
   performCopy = perform;
   v7 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v55 = 0u;
   v56 = 0u;
   v57 = 0u;
   v58 = 0u;
-  v59 = 0u;
   v8 = objectsCopy;
-  v9 = [v8 countByEnumeratingWithState:&v56 objects:v63 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v55 objects:v62 count:16];
   if (v9)
   {
-    v10 = *v57;
+    v10 = *v56;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v57 != v10)
+        if (*v56 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
-        v12 = *(*(&v56 + 1) + 8 * i);
+        v12 = *(*(&v55 + 1) + 8 * i);
         databaseID = [v12 databaseID];
         v14 = [MEMORY[0x277CCABB0] numberWithInt:databaseID];
         v15 = [v7 objectForKeyedSubscript:v14];
@@ -936,72 +925,72 @@ void __44__ClientConnection_withAllDatabasesPerform___block_invoke(uint64_t a1)
         [v15 addObject:v12];
       }
 
-      v9 = [v8 countByEnumeratingWithState:&v56 objects:v63 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v55 objects:v62 count:16];
     }
 
     while (v9);
   }
 
-  v50 = 0;
-  v51 = &v50;
-  v52 = 0x3032000000;
-  v53 = __Block_byref_object_copy__6;
-  v54 = __Block_byref_object_dispose__6;
-  v55 = 0;
-  v44 = 0;
-  v45 = &v44;
-  v46 = 0x3032000000;
-  v47 = __Block_byref_object_copy__6;
-  v48 = __Block_byref_object_dispose__6;
   v49 = 0;
+  v50 = &v49;
+  v51 = 0x3032000000;
+  v52 = __Block_byref_object_copy__6;
+  v53 = __Block_byref_object_dispose__6;
+  v54 = 0;
+  v43 = 0;
+  v44 = &v43;
+  v45 = 0x3032000000;
+  v46 = __Block_byref_object_copy__6;
+  v47 = __Block_byref_object_dispose__6;
+  v48 = 0;
   dbQueue = self->_dbQueue;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __59__ClientConnection_withDatabaseForObjects_options_perform___block_invoke;
   block[3] = &unk_27851B0C8;
   block[4] = self;
-  block[5] = &v50;
-  block[6] = &v44;
+  block[5] = &v49;
+  block[6] = &v43;
   dispatch_sync(dbQueue, block);
   _currentPriority = [(ClientConnection *)self _currentPriority];
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
   v40 = 0u;
+  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
   obja = v7;
-  v17 = [obja countByEnumeratingWithState:&v39 objects:v62 count:16];
+  v17 = [obja countByEnumeratingWithState:&v38 objects:v61 count:16];
   if (v17)
   {
-    v18 = *v40;
+    v18 = *v39;
     while (2)
     {
       for (j = 0; j != v17; ++j)
       {
-        if (*v40 != v18)
+        if (*v39 != v18)
         {
           objc_enumerationMutation(obja);
         }
 
-        v20 = *(*(&v39 + 1) + 8 * j);
+        v20 = *(*(&v38 + 1) + 8 * j);
         intValue = [v20 intValue];
         v22 = [obja objectForKeyedSubscript:v20];
-        v23 = v51[5];
-        v24 = v45[5];
-        v35[0] = MEMORY[0x277D85DD0];
-        v35[1] = 3221225472;
-        v35[2] = __59__ClientConnection_withDatabaseForObjects_options_perform___block_invoke_2;
-        v35[3] = &unk_27851B0F0;
-        v37 = performCopy;
-        v38 = intValue;
+        v23 = v50[5];
+        v24 = v44[5];
+        v34[0] = MEMORY[0x277D85DD0];
+        v34[1] = 3221225472;
+        v34[2] = __59__ClientConnection_withDatabaseForObjects_options_perform___block_invoke_2;
+        v34[3] = &unk_27851B0F0;
+        v36 = performCopy;
+        v37 = intValue;
         v25 = v22;
-        v36 = v25;
-        if (((optionsCopy | [v23 performWithConfiguration:v24 priority:_currentPriority databaseID:intValue block:v35]) & 1) == 0)
+        v35 = v25;
+        if (((optionsCopy | [v23 performWithConfiguration:v24 priority:_currentPriority databaseID:intValue block:v34]) & 1) == 0)
         {
           v27 = CADLogHandle;
           if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543362;
-            v61 = v20;
+            v60 = v20;
             _os_log_impl(&dword_22430B000, v27, OS_LOG_TYPE_ERROR, "No database with ID %{public}@", buf, 0xCu);
           }
 
@@ -1010,7 +999,7 @@ void __44__ClientConnection_withAllDatabasesPerform___block_invoke(uint64_t a1)
         }
       }
 
-      v17 = [obja countByEnumeratingWithState:&v39 objects:v62 count:16];
+      v17 = [obja countByEnumeratingWithState:&v38 objects:v61 count:16];
       if (v17)
       {
         continue;
@@ -1023,10 +1012,9 @@ void __44__ClientConnection_withAllDatabasesPerform___block_invoke(uint64_t a1)
   v26 = 1;
 LABEL_22:
 
-  _Block_object_dispose(&v44, 8);
-  _Block_object_dispose(&v50, 8);
+  _Block_object_dispose(&v43, 8);
+  _Block_object_dispose(&v49, 8);
 
-  v28 = *MEMORY[0x277D85DE8];
   return v26;
 }
 
@@ -1049,6 +1037,49 @@ void __59__ClientConnection_withDatabaseForObjects_options_perform___block_invok
   LOBYTE(object) = -[ClientConnection withDatabaseID:perform:](self, "withDatabaseID:perform:", [object databaseID], performCopy);
 
   return object;
+}
+
+- (BOOL)withDatabaseID:(int)d perform:(id)perform
+{
+  v4 = *&d;
+  performCopy = perform;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x3032000000;
+  v26 = __Block_byref_object_copy__6;
+  v27 = __Block_byref_object_dispose__6;
+  v28 = 0;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = __Block_byref_object_copy__6;
+  v21 = __Block_byref_object_dispose__6;
+  v22 = 0;
+  dbQueue = self->_dbQueue;
+  block[0] = MEMORY[0x277D85DD0];
+  block[1] = 3221225472;
+  block[2] = __43__ClientConnection_withDatabaseID_perform___block_invoke;
+  block[3] = &unk_27851B0C8;
+  block[4] = self;
+  block[5] = &v23;
+  block[6] = &v17;
+  dispatch_sync(dbQueue, block);
+  _currentPriority = [(ClientConnection *)self _currentPriority];
+  v9 = v24[5];
+  v10 = v18[5];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __43__ClientConnection_withDatabaseID_perform___block_invoke_2;
+  v13[3] = &unk_27851B118;
+  v11 = performCopy;
+  v14 = v11;
+  v15 = v4;
+  LOBYTE(v4) = [v9 performWithConfiguration:v10 priority:_currentPriority databaseID:v4 block:v13];
+
+  _Block_object_dispose(&v17, 8);
+  _Block_object_dispose(&v23, 8);
+
+  return v4;
 }
 
 void __43__ClientConnection_withDatabaseID_perform___block_invoke(uint64_t a1)
@@ -1147,7 +1178,7 @@ void __43__ClientConnection_withDatabaseID_perform___block_invoke(uint64_t a1)
 
 - (void)addOperation:(id)operation
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   operationCopy = operation;
   if ([operationCopy isAsynchronous])
   {
@@ -1155,7 +1186,7 @@ void __43__ClientConnection_withDatabaseID_perform___block_invoke(uint64_t a1)
     if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v16 = operationCopy;
+      v15 = operationCopy;
       v6 = "Asynchronous operations are not supported: %@";
 LABEL_8:
       _os_log_impl(&dword_22430B000, v5, OS_LOG_TYPE_ERROR, v6, buf, 0xCu);
@@ -1171,14 +1202,14 @@ LABEL_8:
 
     v8 = self->_operations;
     asynchronousOperationQueue = self->_asynchronousOperationQueue;
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __33__ClientConnection_addOperation___block_invoke;
-    v12[3] = &unk_27851AB28;
-    v13 = operationCopy;
-    v14 = v8;
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __33__ClientConnection_addOperation___block_invoke;
+    v11[3] = &unk_27851AB28;
+    v12 = operationCopy;
+    v13 = v8;
     v10 = v8;
-    dispatch_async(asynchronousOperationQueue, v12);
+    dispatch_async(asynchronousOperationQueue, v11);
   }
 
   else
@@ -1187,13 +1218,11 @@ LABEL_8:
     if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v16 = operationCopy;
+      v15 = operationCopy;
       v6 = "Operations that aren't ready are not supported: %@";
       goto LABEL_8;
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __33__ClientConnection_addOperation___block_invoke(uint64_t a1)
@@ -1207,30 +1236,30 @@ void __33__ClientConnection_addOperation___block_invoke(uint64_t a1)
 
 - (BOOL)cancelOperationsWithToken:(unsigned int)token
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = self->_operations;
   objc_sync_enter(v5);
   v6 = objc_alloc_init(MEMORY[0x277CCAB58]);
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v7 = self->_operations;
-  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v8)
   {
     v9 = 0;
-    v10 = *v17;
+    v10 = *v16;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v10)
+        if (*v16 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v16 + 1) + 8 * i);
+        v12 = *(*(&v15 + 1) + 8 * i);
         if ([v12 token] == token)
         {
           [v12 cancel];
@@ -1240,7 +1269,7 @@ void __33__ClientConnection_addOperation___block_invoke(uint64_t a1)
         ++v9;
       }
 
-      v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
@@ -1253,7 +1282,6 @@ void __33__ClientConnection_addOperation___block_invoke(uint64_t a1)
   }
 
   objc_sync_exit(v5);
-  v14 = *MEMORY[0x277D85DE8];
   return v13 != 0;
 }
 
@@ -1277,19 +1305,19 @@ void __33__ClientConnection_addOperation___block_invoke(uint64_t a1)
 
 - (id)removeAgentWithToken:(int)token
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_agentLock);
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v5 = self->_agents;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v17;
+    v9 = *v16;
     while (2)
     {
       v10 = 0;
@@ -1297,12 +1325,12 @@ void __33__ClientConnection_addOperation___block_invoke(uint64_t a1)
       v8 += v7;
       do
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v12 = *(*(&v16 + 1) + 8 * v10);
+        v12 = *(*(&v15 + 1) + 8 * v10);
         if ([v12 token] == token)
         {
           v13 = v12;
@@ -1315,7 +1343,7 @@ void __33__ClientConnection_addOperation___block_invoke(uint64_t a1)
       }
 
       while (v7 != v10);
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v7)
       {
         continue;
@@ -1329,35 +1357,34 @@ void __33__ClientConnection_addOperation___block_invoke(uint64_t a1)
 LABEL_11:
 
   os_unfair_lock_unlock(&self->_agentLock);
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
 
 - (id)agentWithToken:(int)token
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_agentLock);
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v5 = self->_agents;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
+        v10 = *(*(&v13 + 1) + 8 * i);
         if ([v10 token] == token)
         {
           v11 = v10;
@@ -1365,7 +1392,7 @@ LABEL_11:
         }
       }
 
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v7)
       {
         continue;
@@ -1379,7 +1406,6 @@ LABEL_11:
 LABEL_11:
 
   os_unfair_lock_unlock(&self->_agentLock);
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -1419,17 +1445,15 @@ LABEL_11:
 
 - (void)logAccessToObject:(id)object
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   objectCopy = object;
   v5 = _os_feature_enabled_impl();
   if (objectCopy && v5)
   {
-    v8[0] = objectCopy;
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+    v7[0] = objectCopy;
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
     [(ClientConnection *)self logAccessToObjects:v6];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logAccessToObjects:(id)objects
@@ -1457,33 +1481,33 @@ LABEL_11:
 
 - (void)logAccessToEntities:(id)entities
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   entitiesCopy = entities;
   v5 = _os_feature_enabled_impl();
   if (entitiesCopy && v5 && [entitiesCopy count])
   {
     v6 = objc_opt_new();
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     v7 = entitiesCopy;
-    v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v15;
+      v10 = *v14;
       do
       {
         v11 = 0;
         do
         {
-          if (*v15 != v10)
+          if (*v14 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = [(ClientConnection *)self _resolveObjectIDForLoggingAccessToEntity:*(*(&v14 + 1) + 8 * v11), v14];
+          v12 = [(ClientConnection *)self _resolveObjectIDForLoggingAccessToEntity:*(*(&v13 + 1) + 8 * v11), v13];
           if (v12)
           {
             [v6 addObject:v12];
@@ -1493,7 +1517,7 @@ LABEL_11:
         }
 
         while (v9 != v11);
-        v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v9);
@@ -1501,8 +1525,6 @@ LABEL_11:
 
     [(ClientConnection *)self _logAccessToResolvedObjectIDs:v6];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_isPrimaryObjectTypeForAccessLogging:(id)logging
@@ -1519,84 +1541,80 @@ LABEL_11:
 
 - (id)_objectIDsToBeResolved:(id)resolved
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   resolvedCopy = resolved;
   v5 = objc_opt_new();
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v6 = resolvedCopy;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v14 + 1) + 8 * i);
-        if (!-[ClientConnection _isPrimaryObjectTypeForAccessLogging:](self, "_isPrimaryObjectTypeForAccessLogging:", v11, v14) && [v11 entityType] != -1)
+        v11 = *(*(&v13 + 1) + 8 * i);
+        if (!-[ClientConnection _isPrimaryObjectTypeForAccessLogging:](self, "_isPrimaryObjectTypeForAccessLogging:", v11, v13) && [v11 entityType] != -1)
         {
           [v5 addObject:v11];
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 - (id)_objectIDsResolvedAndLoggable:(id)loggable
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   loggableCopy = loggable;
   v5 = objc_opt_new();
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v6 = loggableCopy;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v14 + 1) + 8 * i);
-        if ([(ClientConnection *)self _isPrimaryObjectTypeForAccessLogging:v11, v14])
+        v11 = *(*(&v13 + 1) + 8 * i);
+        if ([(ClientConnection *)self _isPrimaryObjectTypeForAccessLogging:v11, v13])
         {
           [v5 addObject:v11];
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -1625,28 +1643,28 @@ LABEL_11:
 
 void __48__ClientConnection__resolveObjectIDsForLogging___block_invoke(uint64_t a1, uint64_t a2, void *a3, os_unfair_lock_s *a4)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v6 = a3;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       v10 = 0;
       do
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = CADCopyEntityInDatabase(a4, *(*(&v15 + 1) + 8 * v10));
+        v11 = CADCopyEntityInDatabase(a4, *(*(&v14 + 1) + 8 * v10));
         if (v11)
         {
           v12 = v11;
@@ -1663,35 +1681,33 @@ void __48__ClientConnection__resolveObjectIDsForLogging___block_invoke(uint64_t 
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_resolveObjectIDForLoggingAccessToEntity:(void *)entity
 {
-  CADOwningEntity(entity);
-  v4 = CADEntityCopyObjectID();
-  if ([(ClientConnection *)self _isPrimaryObjectTypeForAccessLogging:v4])
+  v4 = CADOwningEntity(entity);
+  v5 = CADEntityCopyObjectID(v4);
+  if ([(ClientConnection *)self _isPrimaryObjectTypeForAccessLogging:v5])
   {
-    v5 = v4;
+    v6 = v5;
   }
 
   else
   {
-    v5 = 0;
+    v6 = 0;
   }
 
-  return v5;
+  return v6;
 }
 
 - (void)_logAccessToResolvedObjectIDs:(id)ds
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   dbQueue = self->_dbQueue;
   block[0] = MEMORY[0x277D85DD0];
@@ -1701,30 +1717,30 @@ void __48__ClientConnection__resolveObjectIDsForLogging___block_invoke(uint64_t 
   block[4] = self;
   dispatch_sync(dbQueue, block);
   v6 = objc_opt_new();
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v7 = dsCopy;
-  v8 = [v7 countByEnumeratingWithState:&v21 objects:v26 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v20 objects:v25 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v22;
+    v10 = *v21;
     do
     {
       v11 = 0;
       do
       {
-        if (*v22 != v10)
+        if (*v21 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v21 + 1) + 8 * v11);
+        v12 = *(*(&v20 + 1) + 8 * v11);
         v13 = objc_autoreleasePoolPush();
         v14 = objc_alloc(MEMORY[0x277CCAAB0]);
-        v15 = [v14 initRequiringSecureCoding:{1, v21}];
+        v15 = [v14 initRequiringSecureCoding:{1, v20}];
         [v15 encodeObject:v12];
         encodedData = [v15 encodedData];
         [v6 addObject:encodedData];
@@ -1734,7 +1750,7 @@ void __48__ClientConnection__resolveObjectIDsForLogging___block_invoke(uint64_t 
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v21 objects:v26 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v20 objects:v25 count:16];
     }
 
     while (v9);
@@ -1744,8 +1760,6 @@ void __48__ClientConnection__resolveObjectIDsForLogging___block_invoke(uint64_t 
   v18 = [v17 initWithAccessor:self->_privacyApplication forService:*MEMORY[0x277D6C118] assetIdentifiers:v6];
   mEMORY[0x277D41260] = [MEMORY[0x277D41260] sharedInstance];
   [mEMORY[0x277D41260] log:v18];
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __50__ClientConnection__logAccessToResolvedObjectIDs___block_invoke(uint64_t a1)
@@ -1770,7 +1784,7 @@ void __50__ClientConnection__logAccessToResolvedObjectIDs___block_invoke(uint64_
       v8 = *(*(a1 + 32) + 144);
       if (v8)
       {
-        [v8 auditToken];
+        objc_msgSend_auditToken(v8);
       }
 
       else
@@ -2027,17 +2041,15 @@ void __50__ClientConnection__logAccessToResolvedObjectIDs___block_invoke(uint64_
 
 void __42__ClientConnection_reportIntegrityErrors___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = CADLogHandle;
   if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_22430B000, v3, OS_LOG_TYPE_ERROR, "Error sending integrity errors back to client: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_22430B000, v3, OS_LOG_TYPE_ERROR, "Error sending integrity errors back to client: %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (CDBAccountInfo)localAccountInfo

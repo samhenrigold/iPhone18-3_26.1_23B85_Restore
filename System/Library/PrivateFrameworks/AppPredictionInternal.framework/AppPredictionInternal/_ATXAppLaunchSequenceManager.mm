@@ -84,8 +84,7 @@
     v23[2] = __50___ATXAppLaunchSequenceManager_initWithDataStore___block_invoke;
     v23[3] = &unk_278596DA0;
     objc_copyWeak(&v24, &location);
-    [(_ATXInternalUninstallNotification *)v20 registerForNotificationsWithUninstallBlock:v23];
-    v21 = __atxlog_handle_default();
+    v21 = __atxlog_handle_default([(_ATXInternalUninstallNotification *)v20 registerForNotificationsWithUninstallBlock:v23]);
     if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
     {
       [_ATXAppLaunchSequenceManager initWithDataStore:v21];

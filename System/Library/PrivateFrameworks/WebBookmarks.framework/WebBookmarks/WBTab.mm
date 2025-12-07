@@ -31,6 +31,7 @@
 - (WBTab)initWithDictionaryRepresentation:(id)representation;
 - (WBTab)initWithUUID:(id)d title:(id)title url:(id)url deviceIdentifier:(id)identifier isPrivateBrowsing:(BOOL)browsing;
 - (WBTab)initWithUUID:(id)d title:(id)title url:(id)url deviceIdentifier:(id)identifier lastVisitTime:(id)time;
+- (WBTab)initWithUUID:(id)d title:(id)title url:(id)url pinned:(BOOL)pinned pinnedTitle:(id)pinnedTitle pinnedURL:(id)l localAttributes:(id)attributes deviceIdentifier:(id)self0;
 - (WebBookmark)bookmark;
 - (double)lastViewedTime;
 - (id)_addressFromURL:(id)l;
@@ -273,6 +274,31 @@
   return v21;
 }
 
+- (WBTab)initWithUUID:(id)d title:(id)title url:(id)url pinned:(BOOL)pinned pinnedTitle:(id)pinnedTitle pinnedURL:(id)l localAttributes:(id)attributes deviceIdentifier:(id)self0
+{
+  pinnedCopy = pinned;
+  pinnedTitleCopy = pinnedTitle;
+  lCopy = l;
+  attributesCopy = attributes;
+  v19 = [(WBTab *)self initWithUUID:d title:title url:url deviceIdentifier:identifier];
+  v20 = v19;
+  if (v19)
+  {
+    value = [(WBSCopyOnWriteValue *)v19->_bookmarkStorage value];
+    absoluteString = [lCopy absoluteString];
+    [value setPinned:pinnedCopy title:pinnedTitleCopy address:absoluteString];
+
+    dictionaryRepresentation = [attributesCopy dictionaryRepresentation];
+    [value setLocalAttributes:dictionaryRepresentation];
+
+    [value setNeedsSyncUpdate:0];
+    [value setModifiedAttributes:0];
+    v24 = v20;
+  }
+
+  return v20;
+}
+
 - (WBTab)initWithBookmark:(id)bookmark
 {
   v4 = MEMORY[0x277D499E0];
@@ -285,11 +311,11 @@
 
 - (WBTab)initWithBookmarkStorage:(id)storage
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   storageCopy = storage;
-  v17.receiver = self;
-  v17.super_class = WBTab;
-  v6 = [(WBTab *)&v17 init];
+  v21.receiver = self;
+  v21.super_class = WBTab;
+  v6 = [(WBTab *)&v21 init];
   if (v6)
   {
     value = [storageCopy value];
@@ -303,37 +329,37 @@
       uuid = [(WBTab *)v6 uuid];
       if (uuid)
       {
-        v9 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:uuid];
+        v12 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:uuid];
 
-        if (!v9)
+        if (!v12)
         {
-          v10 = WBS_LOG_CHANNEL_PREFIXTabGroup();
-          if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+          v15 = WBS_LOG_CHANNEL_PREFIXTabGroup(v13, v14);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
           {
-            v11 = v10;
+            v16 = v15;
             privacyPreservingDescription = [(WBTab *)v6 privacyPreservingDescription];
             *buf = 138543362;
-            v19 = privacyPreservingDescription;
-            _os_log_impl(&dword_272C20000, v11, OS_LOG_TYPE_DEFAULT, "WBTab initialized with a malformed UUID %{public}@", buf, 0xCu);
+            v23 = privacyPreservingDescription;
+            _os_log_impl(&dword_272C20000, v16, OS_LOG_TYPE_DEFAULT, "WBTab initialized with a malformed UUID %{public}@", buf, 0xCu);
           }
         }
 
         goto LABEL_14;
       }
 
-      v14 = WBS_LOG_CHANNEL_PREFIXTabGroup();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+      v19 = WBS_LOG_CHANNEL_PREFIXTabGroup(0, v10);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
       {
-        [(WBTab *)v14 initWithBookmarkStorage:v6];
+        [(WBTab *)v19 initWithBookmarkStorage:v6];
       }
     }
 
     else
     {
-      v13 = WBS_LOG_CHANNEL_PREFIXTabGroup();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+      v18 = WBS_LOG_CHANNEL_PREFIXTabGroup(v8, v9);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
       {
-        [(WBTab *)v13 initWithBookmarkStorage:v6];
+        [(WBTab *)v18 initWithBookmarkStorage:v6];
       }
 
       uuid = v6;
@@ -343,7 +369,6 @@
 LABEL_14:
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -728,46 +753,17 @@ LABEL_14:
 - (BOOL)isIdentical:(id)identical
 {
   identicalCopy = identical;
-  if (!WBSIsEqual())
+  if (WBSIsEqual() && (v5 = -[WBTab isPinned](self, "isPinned"), v5 == [identicalCopy isPinned]) && (-[WBTab title](self, "title"), v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(identicalCopy, "title"), v7 = objc_claimAutoreleasedReturnValue(), v8 = WBSIsEqual(), v7, v6, v8) && (-[WBSCopyOnWriteValue value](self->_bookmarkStorage, "value"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "extraAttributes"), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v10, "objectForKeyedSubscript:", @"LocalURL"), v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(identicalCopy[1], "value"), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v12, "extraAttributes"), v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v13, "objectForKeyedSubscript:", @"LocalURL"), v14 = objc_claimAutoreleasedReturnValue(), v15 = WBSIsEqual(), v14, v13, v12, v11, v10, v9, v15))
   {
-    goto LABEL_6;
-  }
-
-  isPinned = [(WBTab *)self isPinned];
-  if (isPinned != [identicalCopy isPinned])
-  {
-    goto LABEL_6;
-  }
-
-  title = [(WBTab *)self title];
-  title2 = [identicalCopy title];
-  v8 = WBSIsEqual();
-
-  if (!v8)
-  {
-    goto LABEL_6;
-  }
-
-  value = [(WBSCopyOnWriteValue *)self->_bookmarkStorage value];
-  extraAttributes = [value extraAttributes];
-  v11 = [extraAttributes objectForKeyedSubscript:@"LocalURL"];
-  value2 = [identicalCopy[1] value];
-  extraAttributes2 = [value2 extraAttributes];
-  v14 = [extraAttributes2 objectForKeyedSubscript:@"LocalURL"];
-  v15 = WBSIsEqual();
-
-  if (v15)
-  {
-    value3 = [(WBSCopyOnWriteValue *)self->_bookmarkStorage value];
-    address = [value3 address];
-    value4 = [identicalCopy[1] value];
-    address2 = [value4 address];
+    value = [(WBSCopyOnWriteValue *)self->_bookmarkStorage value];
+    address = [value address];
+    value2 = [identicalCopy[1] value];
+    address2 = [value2 address];
     v20 = WBSIsEqual();
   }
 
   else
   {
-LABEL_6:
     v20 = 0;
   }
 
@@ -883,30 +879,32 @@ void __29__WBTab_debugSyncDescription__block_invoke(uint64_t a1, void *a2)
 
 - (BOOL)canCloseAutomaticallyForInterval:(double)interval
 {
-  if ([(WBTab *)self isSyncable])
+  isSyncable = [(WBTab *)self isSyncable];
+  if (isSyncable)
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXTabs();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v7 = WBS_LOG_CHANNEL_PREFIXTabs(isSyncable, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v23 = 0;
-      v6 = "Not automatically closable because the tab is syncable.";
-      v7 = &v23;
+      v33 = 0;
+      v8 = "Not automatically closable because the tab is syncable.";
+      v9 = &v33;
 LABEL_19:
-      _os_log_impl(&dword_272C20000, v5, OS_LOG_TYPE_INFO, v6, v7, 2u);
+      _os_log_impl(&dword_272C20000, v7, OS_LOG_TYPE_INFO, v8, v9, 2u);
       return 0;
     }
 
     return 0;
   }
 
-  if ([(WBTab *)self isPinned])
+  isPinned = [(WBTab *)self isPinned];
+  if (isPinned)
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXTabs();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v7 = WBS_LOG_CHANNEL_PREFIXTabs(isPinned, v11);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v22 = 0;
-      v6 = "Not automatically closable because tab is pinned.";
-      v7 = &v22;
+      v32 = 0;
+      v8 = "Not automatically closable because tab is pinned.";
+      v9 = &v32;
       goto LABEL_19;
     }
 
@@ -918,26 +916,27 @@ LABEL_19:
 
   if (!lastVisitTime)
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXTabs();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v7 = WBS_LOG_CHANNEL_PREFIXTabs(v14, v15);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v21 = 0;
-      v6 = "Not automatically closable because lastViewedTime is unknown.";
-      v7 = &v21;
+      v31 = 0;
+      v8 = "Not automatically closable because lastViewedTime is unknown.";
+      v9 = &v31;
       goto LABEL_19;
     }
 
     return 0;
   }
 
-  if ([(WBTab *)self isBlank])
+  isBlank = [(WBTab *)self isBlank];
+  if (isBlank)
   {
-    v10 = WBS_LOG_CHANNEL_PREFIXTabs();
-    v11 = 1;
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v18 = WBS_LOG_CHANNEL_PREFIXTabs(isBlank, v17);
+    v19 = 1;
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_272C20000, v10, OS_LOG_TYPE_INFO, "Tab is automatically closable because it is blank.", buf, 2u);
+      _os_log_impl(&dword_272C20000, v18, OS_LOG_TYPE_INFO, "Tab is automatically closable because it is blank.", buf, 2u);
     }
   }
 
@@ -946,53 +945,51 @@ LABEL_19:
     localAttributes2 = [(WBTab *)self localAttributes];
     lastVisitTime2 = [localAttributes2 lastVisitTime];
     [lastVisitTime2 timeIntervalSinceNow];
-    v15 = -v14;
+    v23 = -v22;
 
-    v16 = WBS_LOG_CHANNEL_PREFIXTabs();
-    v5 = v16;
-    if (v15 <= interval)
+    v26 = WBS_LOG_CHANNEL_PREFIXTabs(v24, v25);
+    v7 = v26;
+    if (v23 <= interval)
     {
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
       {
-        v18 = 0;
-        v6 = "Not automatically closable because its lastVisitTime does not cross threshold.";
-        v7 = &v18;
+        v28 = 0;
+        v8 = "Not automatically closable because its lastVisitTime does not cross threshold.";
+        v9 = &v28;
         goto LABEL_19;
       }
 
       return 0;
     }
 
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
-      *v19 = 0;
-      _os_log_impl(&dword_272C20000, v5, OS_LOG_TYPE_DEFAULT, "Tab is automatically closable because lastVisitTime is beyond threshold from user preference.", v19, 2u);
+      *v29 = 0;
+      _os_log_impl(&dword_272C20000, v7, OS_LOG_TYPE_DEFAULT, "Tab is automatically closable because lastVisitTime is beyond threshold from user preference.", v29, 2u);
     }
 
     return 1;
   }
 
-  return v11;
+  return v19;
 }
 
 - (void)initWithBookmarkStorage:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 privacyPreservingDescription];
-  OUTLINED_FUNCTION_0(&dword_272C20000, v5, v6, "WBTab must have a UUID %{public}@", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x277D85DE8];
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_0(&dword_272C20000, v5, v6, "WBTab must have a UUID %{public}@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 - (void)initWithBookmarkStorage:(void *)a1 .cold.2(void *a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 privacyPreservingDescription];
-  OUTLINED_FUNCTION_0(&dword_272C20000, v5, v6, "WBTab must be backed by a bookmark %{public}@", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x277D85DE8];
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_0(&dword_272C20000, v5, v6, "WBTab must be backed by a bookmark %{public}@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 @end

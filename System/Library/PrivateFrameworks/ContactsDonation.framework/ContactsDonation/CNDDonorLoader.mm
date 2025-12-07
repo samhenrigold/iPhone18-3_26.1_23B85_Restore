@@ -138,76 +138,74 @@ id __45__CNDDonorLoader_currentExtensionsObservable__block_invoke(uint64_t a1, v
 
 void __45__CNDDonorLoader_currentExtensionsObservable__block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (v5)
   {
-    v16 = v6;
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
+    v15 = v6;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     v8 = v5;
-    v9 = [v8 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v25;
+      v11 = *v24;
       do
       {
         v12 = 0;
         do
         {
-          if (*v25 != v11)
+          if (*v24 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v24 + 1) + 8 * v12);
-          v22[0] = MEMORY[0x277D85DD0];
-          v22[1] = 3221225472;
-          v22[2] = __45__CNDDonorLoader_currentExtensionsObservable__block_invoke_3;
-          v22[3] = &unk_278569C98;
-          v22[4] = v13;
-          v23 = *(a1 + 32);
-          [WeakRetained performBlock:v22];
+          v13 = *(*(&v23 + 1) + 8 * v12);
+          v21[0] = MEMORY[0x277D85DD0];
+          v21[1] = 3221225472;
+          v21[2] = __45__CNDDonorLoader_currentExtensionsObservable__block_invoke_3;
+          v21[3] = &unk_278569C98;
+          v21[4] = v13;
+          v22 = *(a1 + 32);
+          [WeakRetained performBlock:v21];
 
           ++v12;
         }
 
         while (v10 != v12);
-        v10 = [v8 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
       while (v10);
     }
 
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __45__CNDDonorLoader_currentExtensionsObservable__block_invoke_4;
-    v20[3] = &unk_278569CC0;
-    v14 = &v21;
-    v21 = *(a1 + 32);
-    [WeakRetained performBlock:v20];
-    v6 = v16;
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __45__CNDDonorLoader_currentExtensionsObservable__block_invoke_4;
+    v19[3] = &unk_278569CC0;
+    v14 = &v20;
+    v20 = *(a1 + 32);
+    [WeakRetained performBlock:v19];
+    v6 = v15;
   }
 
   else
   {
     NSLog(&cfstr_ExtensionDisco.isa, v6);
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __45__CNDDonorLoader_currentExtensionsObservable__block_invoke_5;
-    v17[3] = &unk_278569C98;
-    v14 = &v18;
-    v18 = *(a1 + 32);
-    v19 = v6;
-    [WeakRetained performBlock:v17];
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __45__CNDDonorLoader_currentExtensionsObservable__block_invoke_5;
+    v16[3] = &unk_278569C98;
+    v14 = &v17;
+    v17 = *(a1 + 32);
+    v18 = v6;
+    [WeakRetained performBlock:v16];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __45__CNDDonorLoader_currentExtensionsObservable__block_invoke_3(uint64_t a1)

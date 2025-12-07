@@ -420,96 +420,96 @@ uint64_t __54__WKKeyboardScrollingAnimator_keyboardScrollForEvent___block_invoke
     goto LABEL_19;
   }
 
-  [(WKKeyboardScrollingAnimator *)self keyboardScrollForEvent:event];
-  if ((v37[28] & 1) == 0 || self->_scrollTriggeringKeyIsPressed)
+  objc_msgSend_keyboardScrollForEvent_(self);
+  if ((v36[28] & 1) == 0 || self->_scrollTriggeringKeyIsPressed)
   {
     goto LABEL_19;
   }
 
   rubberbandableDirections = [(WKKeyboardScrollableInternal *)self->_scrollable rubberbandableDirections];
-  if ((v37[28] & 1) == 0)
+  if ((v36[28] & 1) == 0)
   {
     goto LABEL_35;
   }
 
-  v6 = rubberbandableDirections >> 8;
-  v7 = HIWORD(rubberbandableDirections);
-  if (v37[25] != 1)
+  v5 = rubberbandableDirections >> 8;
+  v6 = HIWORD(rubberbandableDirections);
+  if (v36[25] != 1)
   {
-    LOBYTE(v7) = rubberbandableDirections;
+    LOBYTE(v6) = rubberbandableDirections;
   }
 
-  if (v37[25] == 2)
+  if (v36[25] == 2)
   {
-    v7 = HIBYTE(rubberbandableDirections);
+    v6 = HIBYTE(rubberbandableDirections);
   }
 
-  if (v37[25] != 3)
+  if (v36[25] != 3)
   {
-    LOBYTE(v6) = v7;
+    LOBYTE(v5) = v6;
   }
 
-  if ((v6 & 1) == 0)
+  if ((v5 & 1) == 0)
   {
 LABEL_19:
-    v19 = 0;
+    v18 = 0;
     goto LABEL_20;
   }
 
   self->_scrollTriggeringKeyIsPressed = 1;
-  *&self->_currentScroll.var0.__null_state_ = *v37;
-  *(&self->_currentScroll.var0.__val_.maximumVelocity.m_height + 1) = *&v37[13];
+  *&self->_currentScroll.var0.__null_state_ = *v36;
+  *(&self->_currentScroll.var0.__val_.maximumVelocity.m_height + 1) = *&v36[13];
   LOBYTE(rubberbandableDirections) = [(WKKeyboardScrollingAnimator *)self resetViewForScrollToExtentAnimation];
-  if ((v37[28] & 1) == 0)
+  if ((v36[28] & 1) == 0)
   {
     goto LABEL_35;
   }
 
-  if (v37[24] == 2)
+  if (v36[24] == 2)
   {
     self->_velocity.m_width = 0.0;
     self->_velocity.m_height = 0.0;
     [(WKKeyboardScrollingAnimator *)self stopAnimatedScroll];
     LOBYTE(rubberbandableDirections) = [(WKKeyboardScrollableInternal *)self->_scrollable contentOffset];
-    if (v37[28])
+    if (v36[28])
     {
+      v9 = v7;
       v10 = v8;
-      v11 = v9;
       scrollable = self->_scrollable;
-      *&v35.x = vadd_f32(self->_currentPosition, *v37);
+      *&v34.x = vadd_f32(self->_currentPosition, *v36);
       WebCore::FloatPoint::operator CGPoint();
       [(WKKeyboardScrollableInternal *)scrollable boundedContentOffset:?];
-      v14 = v13;
-      v16 = v15;
-      v17 = objc_opt_new();
+      v13 = v12;
+      v15 = v14;
+      v16 = objc_opt_new();
       m_ptr = self->_viewForTrackingScrollToExtentAnimation.m_ptr;
-      self->_viewForTrackingScrollToExtentAnimation.m_ptr = v17;
+      self->_viewForTrackingScrollToExtentAnimation.m_ptr = v16;
       if (m_ptr)
       {
 
-        v17 = self->_viewForTrackingScrollToExtentAnimation.m_ptr;
+        v16 = self->_viewForTrackingScrollToExtentAnimation.m_ptr;
       }
 
-      v19 = 1;
-      [(UIView *)v17 setHidden:1];
+      v18 = 1;
+      [(UIView *)v16 setHidden:1];
       [(UIView *)self->_viewForTrackingScrollToExtentAnimation.m_ptr setUserInteractionEnabled:0];
       [(WKKeyboardScrollableInternal *)self->_scrollable willBeginScrollingToExtentWithAnimationInTrackingView:self->_viewForTrackingScrollToExtentAnimation.m_ptr];
-      v20 = [MEMORY[0x1E69794A8] animationWithKeyPath:@"position"];
-      [v20 setMass:1.0];
-      [v20 setStiffness:109.662271];
-      [v20 setDamping:20.943951];
-      [v20 setDuration:1.6];
-      LODWORD(v21) = 1045220557;
+      v19 = [MEMORY[0x1E69794A8] animationWithKeyPath:@"position"];
+      [v19 setMass:1.0];
+      [v19 setStiffness:109.662271];
+      [v19 setDamping:20.943951];
+      [v19 setDuration:1.6];
+      LODWORD(v20) = 1045220557;
+      LODWORD(v21) = 1.0;
       LODWORD(v22) = 1.0;
-      LODWORD(v23) = 1.0;
-      [v20 setTimingFunction:{objc_msgSend(MEMORY[0x1E69793D0], "functionWithControlPoints::::", 0.0, v21, v22, v23)}];
-      [v20 setFromValue:{objc_msgSend(MEMORY[0x1E696B098], "valueWithCGPoint:", v10, v11)}];
-      [v20 setToValue:{objc_msgSend(MEMORY[0x1E696B098], "valueWithCGPoint:", v14, v16)}];
+      [v19 setTimingFunction:{objc_msgSend(MEMORY[0x1E69793D0], "functionWithControlPoints::::", 0.0, v20, v21, v22)}];
+      [v19 setFromValue:{objc_msgSend(MEMORY[0x1E696B098], "valueWithCGPoint:", v9, v10)}];
+      [v19 setToValue:{objc_msgSend(MEMORY[0x1E696B098], "valueWithCGPoint:", v13, v15)}];
       layer = [(UIView *)self->_viewForTrackingScrollToExtentAnimation.m_ptr layer];
-      [(CALayer *)layer setPosition:v10, v11];
+      [(CALayer *)layer setPosition:v9, v10];
       [(CALayer *)layer removeAllAnimations];
-      [(CALayer *)layer addAnimation:v20 forKey:@"ScrollToExtentAnimation"];
-      [(CALayer *)layer setPosition:v14, v16];
+      [(CALayer *)layer addAnimation:v19 forKey:@"ScrollToExtentAnimation"];
+      [(CALayer *)layer setPosition:v13, v15];
       [(WKKeyboardScrollingAnimator *)self startDisplayLinkIfNeeded];
       goto LABEL_20;
     }
@@ -521,67 +521,67 @@ LABEL_35:
 
   [(WKKeyboardScrollingAnimator *)self startDisplayLinkIfNeeded];
   [(WKKeyboardScrollableInternal *)self->_scrollable interactiveScrollVelocity];
-  v35.x = v25;
-  v35.y = v26;
-  LOBYTE(rubberbandableDirections) = WebCore::FloatSize::FloatSize(&v36, &v35);
-  if ((v37[28] & 1) == 0)
+  v34.x = v24;
+  v34.y = v25;
+  LOBYTE(rubberbandableDirections) = WebCore::FloatSize::FloatSize(&v35, &v34);
+  if ((v36[28] & 1) == 0)
   {
     goto LABEL_35;
   }
 
-  if (v37[25] > 1u)
+  if (v36[25] > 1u)
   {
-    if (v37[25] == 2)
+    if (v36[25] == 2)
     {
-      v28 = fminf(v36.f32[0], 0.0);
+      v27 = fminf(v35.f32[0], 0.0);
     }
 
     else
     {
-      if (v37[25] != 3)
+      if (v36[25] != 3)
       {
         goto LABEL_33;
       }
 
-      v28 = fmaxf(v36.f32[0], 0.0);
+      v27 = fmaxf(v35.f32[0], 0.0);
     }
 
-    v36.f32[0] = v28;
+    v35.f32[0] = v27;
     goto LABEL_33;
   }
 
-  if (!v37[25])
+  if (!v36[25])
   {
-    v27 = fminf(v36.f32[1], 0.0);
+    v26 = fminf(v35.f32[1], 0.0);
     goto LABEL_30;
   }
 
-  if (v37[25] == 1)
+  if (v36[25] == 1)
   {
-    v27 = fmaxf(v36.f32[1], 0.0);
+    v26 = fmaxf(v35.f32[1], 0.0);
 LABEL_30:
-    v36.f32[1] = v27;
+    v35.f32[1] = v26;
   }
 
 LABEL_33:
   [(WKKeyboardScrollableInternal *)self->_scrollable contentOffset];
-  v35.x = v29;
-  v35.y = v30;
-  LOBYTE(rubberbandableDirections) = WebCore::FloatPoint::FloatPoint(&v34, &v35);
-  v31 = v34;
-  self->_currentPosition = v34;
-  self->_velocity = vadd_f32(self->_velocity, v36);
+  v34.x = v28;
+  v34.y = v29;
+  LOBYTE(rubberbandableDirections) = WebCore::FloatPoint::FloatPoint(&v33, &v34);
+  v30 = v33;
+  self->_currentPosition = v33;
+  self->_velocity = vadd_f32(self->_velocity, v35);
   if (!self->_currentScroll.__engaged_)
   {
     goto LABEL_35;
   }
 
-  v32 = self->_currentScroll.var0.__val_.offset.m_height + v31.m_y;
-  self->_idealPositionForMinimumTravel.m_x = self->_currentScroll.var0.__val_.offset.m_width + v31.m_x;
-  self->_idealPositionForMinimumTravel.m_y = v32;
-  v19 = 1;
+  v31 = self->_currentScroll.var0.__val_.offset.m_height + v30.m_y;
+  self->_idealPositionForMinimumTravel.m_x = self->_currentScroll.var0.__val_.offset.m_width + v30.m_x;
+  self->_idealPositionForMinimumTravel.m_y = v31;
+  v18 = 1;
 LABEL_20:
-  LOBYTE(rubberbandableDirections) = v19;
+  LOBYTE(rubberbandableDirections) = v18;
   return rubberbandableDirections;
 }
 
@@ -589,7 +589,7 @@ LABEL_20:
 {
   if (self->_scrollTriggeringKeyIsPressed)
   {
-    [(WKKeyboardScrollingAnimator *)self keyboardScrollForEvent:?];
+    objc_msgSend_keyboardScrollForEvent_(self, a2);
     if (v5 != 1 || [event type] == 5 || (objc_msgSend(event, "modifierFlags") & 0x1010000) != 0)
     {
       [(WKKeyboardScrollingAnimator *)self stopAnimatedScroll];

@@ -26,109 +26,109 @@
 
 - (void)setIteratorToRow:(unsigned int)row
 {
-  v5 = *&row;
-  v7 = objc_msgSend_intersectingColumnsInRow_(self->_region, a2, *&row, v3, v4);
-  if (objc_msgSend_count(v7, v8, v9, v10, v11))
+  v4 = *&row;
+  v6 = objc_msgSend_intersectingColumnsInRow_(self->_region, a2, *&row, v3);
+  if (objc_msgSend_count(v6, v7, v8, v9))
   {
-    v16 = objc_msgSend_mutableCopy(v7, v12, v13, v14, v15);
-    v21 = objc_msgSend_strokeSidecar(self, v17, v18, v19, v20);
-    v25 = objc_msgSend_strokeLayerForTopOfRow_(v21, v22, v5, v23, v24);
+    v13 = objc_msgSend_mutableCopy(v6, v10, v11, v12);
+    v17 = objc_msgSend_strokeSidecar(self, v14, v15, v16);
+    v20 = objc_msgSend_strokeLayerForTopOfRow_(v17, v18, v4, v19);
 
-    Index = objc_msgSend_firstIndex(v16, v26, v27, v28, v29);
+    Index = objc_msgSend_firstIndex(v13, v21, v22, v23);
     if (Index == 0x7FFFFFFFFFFFFFFFLL)
     {
-      v34 = 0;
+      v27 = 0;
     }
 
     else
     {
-      v35 = 0;
+      v28 = 0;
       do
       {
-        v34 = objc_msgSend_findStrokeAndRangeAtIndex_(v25, v30, Index, v32, v33);
+        v27 = objc_msgSend_findStrokeAndRangeAtIndex_(v20, v24, Index, v26);
 
-        v40 = objc_msgSend_range(v34, v36, v37, v38, v39);
-        v41 = v30;
-        if (!v30)
+        v32 = objc_msgSend_range(v27, v29, v30, v31);
+        v33 = v24;
+        if (!v24)
         {
           break;
         }
 
-        v42 = v40;
-        objc_msgSend_removeIndexesInRange_(v16, v30, v40, v30, v33);
-        v46 = &v41[v42] >= v42 ? objc_msgSend_indexGreaterThanOrEqualToIndex_(v16, v43, &v41[v42], v44, v45) : objc_msgSend_indexGreaterThanOrEqualToIndex_(v16, v43, 0x7FFFFFFFFFFFFFFFLL, v44, v45);
-        Index = v46;
-        v35 = v34;
+        v34 = v32;
+        objc_msgSend_removeIndexesInRange_(v13, v24, v32, v24);
+        v37 = &v33[v34] >= v34 ? objc_msgSend_indexGreaterThanOrEqualToIndex_(v13, v35, &v33[v34], v36) : objc_msgSend_indexGreaterThanOrEqualToIndex_(v13, v35, 0x7FFFFFFFFFFFFFFFLL, v36);
+        Index = v37;
+        v28 = v27;
       }
 
-      while (v46 != 0x7FFFFFFFFFFFFFFFLL);
+      while (v37 != 0x7FFFFFFFFFFFFFFFLL);
     }
 
-    v47 = objc_msgSend_strokeSidecar(self, v30, Index, v32, v33);
-    v51 = objc_msgSend_strokeLayerForBottomOfRow_(v47, v48, v5, v49, v50);
+    v38 = objc_msgSend_strokeSidecar(self, v24, Index, v26);
+    v41 = objc_msgSend_strokeLayerForBottomOfRow_(v38, v39, v4, v40);
 
-    v57 = objc_msgSend_firstIndex(v16, v52, v53, v54, v55);
-    if (v57 == 0x7FFFFFFFFFFFFFFFLL)
+    v46 = objc_msgSend_firstIndex(v13, v42, v43, v44);
+    if (v46 == 0x7FFFFFFFFFFFFFFFLL)
     {
-      v60 = v34;
+      v48 = v27;
     }
 
     else
     {
       do
       {
-        v60 = objc_msgSend_findStrokeAndRangeAtIndex_(v51, v56, v57, v58, v59);
+        v48 = objc_msgSend_findStrokeAndRangeAtIndex_(v41, v45, v46, v47);
 
-        v65 = objc_msgSend_range(v60, v61, v62, v63, v64);
-        v66 = v56;
-        if (!v56)
+        v52 = objc_msgSend_range(v48, v49, v50, v51);
+        v53 = v45;
+        if (!v45)
         {
           break;
         }
 
-        v67 = v65;
-        objc_msgSend_removeIndexesInRange_(v16, v56, v65, v56, v59);
-        v71 = &v66[v67] >= v67 ? objc_msgSend_indexGreaterThanOrEqualToIndex_(v16, v68, &v66[v67], v69, v70) : objc_msgSend_indexGreaterThanOrEqualToIndex_(v16, v68, 0x7FFFFFFFFFFFFFFFLL, v69, v70);
-        v57 = v71;
-        v34 = v60;
+        v54 = v52;
+        objc_msgSend_removeIndexesInRange_(v13, v45, v52, v45);
+        v57 = &v53[v54] >= v54 ? objc_msgSend_indexGreaterThanOrEqualToIndex_(v13, v55, &v53[v54], v56) : objc_msgSend_indexGreaterThanOrEqualToIndex_(v13, v55, 0x7FFFFFFFFFFFFFFFLL, v56);
+        v46 = v57;
+        v27 = v48;
       }
 
-      while (v71 != 0x7FFFFFFFFFFFFFFFLL);
+      while (v57 != 0x7FFFFFFFFFFFFFFFLL);
     }
 
-    v72 = objc_msgSend_mutableCopy(v16, v56, v57, v58, v59);
-    v83[0] = MEMORY[0x277D85DD0];
-    v83[1] = 3221225472;
-    v83[2] = sub_2211E31D4;
-    v83[3] = &unk_278461158;
-    v83[4] = self;
-    v85 = v5;
-    v73 = v16;
-    v84 = v73;
-    objc_msgSend_enumerateIndexesUsingBlock_(v72, v74, v83, v75, v76);
-    objc_msgSend_removeIndexes_(v7, v77, v73, v78, v79);
-    objc_msgSend_setColumnIndexesInRow_(self, v80, v7, v81, v82);
+    v58 = objc_msgSend_mutableCopy(v13, v45, v46, v47);
+    v66[0] = MEMORY[0x277D85DD0];
+    v66[1] = 3221225472;
+    v66[2] = sub_2211E31D4;
+    v66[3] = &unk_278461158;
+    v66[4] = self;
+    v68 = v4;
+    v59 = v13;
+    v67 = v59;
+    objc_msgSend_enumerateIndexesUsingBlock_(v58, v60, v66, v61);
+    objc_msgSend_removeIndexes_(v6, v62, v59, v63);
+    objc_msgSend_setColumnIndexesInRow_(self, v64, v6, v65);
   }
 
   else
   {
-    objc_msgSend_setColumnIndexesInRow_(self, v12, 0, v14, v15);
+    objc_msgSend_setColumnIndexesInRow_(self, v10, 0, v12);
   }
 }
 
 - (BOOL)anyCellBordersInThisRow
 {
-  v5 = objc_msgSend_columnIndexesInRow(self, a2, v2, v3, v4);
-  v10 = objc_msgSend_count(v5, v6, v7, v8, v9) != 0;
+  v4 = objc_msgSend_columnIndexesInRow(self, a2, v2, v3);
+  v8 = objc_msgSend_count(v4, v5, v6, v7) != 0;
 
-  return v10;
+  return v8;
 }
 
 - (BOOL)cellBorderAtColumn:(unsigned __int16)column
 {
   columnCopy = column;
-  v6 = objc_msgSend_columnIndexesInRow(self, a2, column, v3, v4);
-  LOBYTE(columnCopy) = objc_msgSend_containsIndex_(v6, v7, columnCopy, v8, v9);
+  v5 = objc_msgSend_columnIndexesInRow(self, a2, column, v3);
+  LOBYTE(columnCopy) = objc_msgSend_containsIndex_(v5, v6, columnCopy, v7);
 
   return columnCopy;
 }

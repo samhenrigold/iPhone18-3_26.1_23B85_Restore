@@ -1,3 +1,23 @@
+char *reverse_bytes(char *result, unint64_t a2)
+{
+  if (a2 >= 2)
+  {
+    v2 = a2 >> 1;
+    v3 = &result[a2 - 1];
+    do
+    {
+      v4 = *result;
+      *result++ = *v3;
+      *v3-- = v4;
+      --v2;
+    }
+
+    while (v2);
+  }
+
+  return result;
+}
+
 uint64_t parse_string_into_data(_BYTE *a1, uint64_t a2, _BYTE *a3)
 {
   v3 = *a3;
@@ -131,7 +151,7 @@ uint64_t encode_data_into_string(unsigned __int8 *a1, uint64_t a2, _BYTE *a3, un
   return v5;
 }
 
-unint64_t strtoBOOL(const char *a1)
+BOOL strtoBOOL(const char *a1)
 {
   v1 = *a1 - 70;
   if (v1 < 0x34 && ((0x8410100084101uLL >> v1) & 1) != 0)
@@ -434,7 +454,7 @@ BOOL is_hex(unsigned __int8 *a1, uint64_t a2)
   return v2 == 0;
 }
 
-uint64_t is_uppercase_or_digit(char *a1, uint64_t a2)
+BOOL is_uppercase_or_digit(char *a1, uint64_t a2)
 {
   if (!a2)
   {
@@ -468,7 +488,7 @@ uint64_t is_uppercase_or_digit(char *a1, uint64_t a2)
     result = !v6;
     v6 = v3-- != 0;
     v8 = v6;
-    if (result != 1)
+    if (!result)
     {
       break;
     }
@@ -494,9 +514,9 @@ uint64_t OpenFile1M(const char **a1, int *a2)
   tcflush(v5, 3);
   v6 = fcntl(v5, 3);
   fcntl(v5, 4, v6 | 4u);
-  v21 = 0;
-  setsockopt(v5, 0xFFFF, 4130, &v21, 4u);
-  if (tcgetattr(v5, &v29) || (memset(v29.c_cc, 255, sizeof(v29.c_cc)), *&v29.c_cflag = xmmword_100447340, v29.c_iflag = 0, v29.c_oflag = 0, cfmakeraw(&v29), tcsetattr(v5, 0, &v29)))
+  v17 = 0;
+  setsockopt(v5, 0xFFFF, 4130, &v17, 4u);
+  if (tcgetattr(v5, &v25) || (memset(v25.c_cc, 255, sizeof(v25.c_cc)), *&v25.c_cflag = xmmword_100447340, v25.c_iflag = 0, v25.c_oflag = 0, cfmakeraw(&v25), tcsetattr(v5, 0, &v25)))
   {
     OpenFile1M();
   }
@@ -513,9 +533,15 @@ uint64_t OpenFile1M(const char **a1, int *a2)
 LABEL_8:
     if (v8 != 1000000)
     {
-      strrchr[abi:ne200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/Rcp/host-ot-adaptation/RcpConfigHelper.cpp", 47);
-      otExitCodeToString(2);
-      otLogCritPlat("%s() at %s:%d: %s", v14, v15, v16, v17, v18, v19, v20, "OpenFile1M");
+      v14 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/Rcp/host-ot-adaptation/RcpConfigHelper.cpp";
+      v15 = strrchr[abi:ne200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/Rcp/host-ot-adaptation/RcpConfigHelper.cpp", 47);
+      if (v15)
+      {
+        v14 = v15 + 1;
+      }
+
+      v16 = otExitCodeToString(2);
+      otLogCritPlat("%s() at %s:%d: %s", "OpenFile1M", v14, 74, v16);
       handle_daemon_exit();
       exit(2);
     }
@@ -531,8 +557,8 @@ LABEL_8:
   }
 
 LABEL_9:
-  v22 = v8;
-  v9 = ioctl(v5, 0x80085402uLL, &v22);
+  v18 = v8;
+  v9 = ioctl(v5, 0x80085402uLL, &v18);
   logging_obg = log_get_logging_obg("com.apple.threadradiod", "default");
   if (logging_obg)
   {
@@ -541,11 +567,11 @@ LABEL_9:
     {
       v12 = strerror(v9);
       *buf = 67109634;
-      v24 = 1000000;
-      v25 = 2080;
-      v26 = v12;
-      v27 = 1024;
-      v28 = v9;
+      v20 = 1000000;
+      v21 = 2080;
+      v22 = v12;
+      v23 = 1024;
+      v24 = v9;
       _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "IOCTL: baud rate(with CTS/RTS) [%d], %s(%u)", buf, 0x18u);
     }
   }
@@ -668,15 +694,6 @@ double ot::Spinel::SpinelDriver::SpinelDriver(ot::Spinel::SpinelDriver *this)
   return result;
 }
 
-void ot::Spinel::SpinelDriver::HandleTransportError(ot::Spinel::SpinelDriver *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  otLogNotePlat("SpinelDriver::%s status= %d gPciStatus=%d\n", a2, a3, a4, a5, a6, a7, a8, "HandleTransportError");
-}
-
-{
-  otLogNotePlat("SpinelDriver::%s status= %d gPciStatus=%d\n", a2, a3, a4, a5, a6, a7, a8, "HandleTransportError");
-}
-
 uint64_t ot::Spinel::SpinelDriver::Init(ot::Spinel::SpinelDriver *this, ot::Spinel::SpinelInterface *a2, int a3, char *a4, int a5)
 {
   *(this + 1029) = a2;
@@ -687,37 +704,81 @@ uint64_t ot::Spinel::SpinelDriver::Init(ot::Spinel::SpinelDriver *this, ot::Spin
   v9 = (*(*a2 + 8))(a2, ot::Spinel::SpinelDriver::HandleReceivedFrame, this, this + 8, ot::Spinel::SpinelDriver::HandleTransportError);
   if (v9)
   {
-    v58 = v9;
-    strrchr[abi:ne200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/spinel_driver.cpp", 47);
-    if (v58 == 7)
+    v59 = v9;
+    v60 = strrchr[abi:ne200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/spinel_driver.cpp", 47);
+    if (v60)
     {
-      v59 = 2;
+      v61 = v60 + 1;
     }
 
     else
     {
-      v59 = 1;
+      v61 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/spinel_driver.cpp";
     }
 
-    goto LABEL_34;
+    if (v59 == 7)
+    {
+      v62 = 2;
+    }
+
+    else
+    {
+      v62 = 1;
+    }
+
+    v63 = otExitCodeToString(v62);
+    v64 = 152;
+LABEL_72:
+    otLogCritPlat("%s() at %s:%d: %s", "Init", v61, v64, v63);
+    handle_daemon_exit();
+    exit(v62);
   }
 
-  if (!a4 || a5 != 1)
+  if (!a4)
   {
-    strrchr[abi:ne200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/spinel_driver.cpp", 47);
-    otExitCodeToString(2);
-    otLogCritPlat("%s() at %s:%d: %s", v67, v68, v69, v70, v71, v72, v73, "Init");
+    v53 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/spinel_driver.cpp";
+    v65 = strrchr[abi:ne200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/spinel_driver.cpp", 47);
+    if (v65)
+    {
+      v53 = v65 + 1;
+    }
+
+    v55 = otExitCodeToString(2);
+    v56 = 157;
+LABEL_45:
+    otLogCritPlat("%s() at %s:%d: %s", "Init", v53, v56, v55);
     handle_daemon_exit();
     exit(2);
+  }
+
+  if (a5 != 1)
+  {
+    v53 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/spinel_driver.cpp";
+    v54 = strrchr[abi:ne200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/spinel_driver.cpp", 47);
+    if (v54)
+    {
+      v53 = v54 + 1;
+    }
+
+    v55 = otExitCodeToString(2);
+    v56 = 158;
+    goto LABEL_45;
   }
 
   v16 = *(this + 4124);
   if (v16 == 1)
   {
-    strrchr[abi:ne200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/spinel_driver.cpp", 47);
-    otExitCodeToString(1);
-LABEL_27:
-    otLogCritPlat("%s() at %s:%d: %s", v49, v50, v51, v52, v53, v54, v55, "Init");
+    v49 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/spinel_driver.cpp";
+    v66 = strrchr[abi:ne200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/spinel_driver.cpp", 47);
+    if (v66)
+    {
+      v49 = v66 + 1;
+    }
+
+    v51 = otExitCodeToString(1);
+    v52 = 162;
+LABEL_29:
+    otLogCritPlat("%s() at %s:%d: %s", "Init", v49, v52, v51);
     handle_daemon_exit();
     exit(1);
   }
@@ -735,89 +796,125 @@ LABEL_27:
   v25 = ot::Spinel::SpinelDriver::CheckSpinelVersion(this, v18, v19, v20, v21, v22, v23, v24);
   if (v25)
   {
-    v74 = v25;
-    strrchr[abi:ne200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/spinel_driver.cpp", 47);
-    if (v74 == 7)
+    v67 = v25;
+    v68 = strrchr[abi:ne200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/spinel_driver.cpp", 47);
+    if (v68)
     {
-      v59 = 2;
+      v61 = v68 + 1;
     }
 
     else
     {
-      v59 = 1;
+      v61 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/spinel_driver.cpp";
     }
 
-LABEL_34:
-    otExitCodeToString(v59);
-    goto LABEL_49;
+    if (v67 == 7)
+    {
+      v62 = 2;
+    }
+
+    else
+    {
+      v62 = 1;
+    }
+
+    v63 = otExitCodeToString(v62);
+    v64 = 173;
+    goto LABEL_72;
   }
 
-  v31 = spinel_datatype_pack(v75, 0x514u, "Cii", v26, v27, v28, v29, v30, (16 * *(this + 8245)) | 0x81u);
+  v31 = spinel_datatype_pack(v71, 0x514u, "Cii", v26, v27, v28, v29, v30, (16 * *(this + 8245)) | 0x81u);
   if ((v31 - 1) > 0x513)
   {
-    v56 = 3;
-LABEL_41:
-    strrchr[abi:ne200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/spinel_driver.cpp", 47);
-    if (v56 == 7)
-    {
-      v59 = 2;
-    }
-
-    else
-    {
-      v59 = 1;
-    }
-
-    goto LABEL_48;
+    v57 = 3;
+    goto LABEL_57;
   }
 
   v32 = v31;
-  v33 = (*(**(this + 1029) + 24))(*(this + 1029), v75, v31);
-  if (v33 || (ot::Spinel::Logger::LogSpinelFrame(this, v75, v32, 1), *(this + 8244) = 1, *(this + 2060) = 2, (v33 = ot::Spinel::SpinelDriver::WaitResponse(this)) != 0))
+  v33 = (*(**(this + 1029) + 24))(*(this + 1029), v71, v31);
+  if (v33 || (ot::Spinel::Logger::LogSpinelFrame(this, v71, v32, 1), *(this + 8244) = 1, *(this + 2060) = 2, (v33 = ot::Spinel::SpinelDriver::WaitResponse(this)) != 0))
   {
-    v56 = v33;
-    goto LABEL_41;
-  }
-
-  v39 = spinel_datatype_pack(v75, 0x514u, "Cii", v34, v35, v36, v37, v38, (16 * *(this + 8245)) | 0x81u);
-  if ((v39 - 1) > 0x513)
-  {
-    v57 = 3;
-LABEL_45:
-    strrchr[abi:ne200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/spinel_driver.cpp", 47);
-    if (v57 == 7)
+    v57 = v33;
+LABEL_57:
+    v69 = strrchr[abi:ne200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/spinel_driver.cpp", 47);
+    if (v69)
     {
-      v59 = 2;
+      v61 = v69 + 1;
     }
 
     else
     {
-      v59 = 1;
+      v61 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/spinel_driver.cpp";
     }
 
-LABEL_48:
-    otExitCodeToString(v59);
-LABEL_49:
-    otLogCritPlat("%s() at %s:%d: %s", v60, v61, v62, v63, v64, v65, v66, "Init");
-    handle_daemon_exit();
-    exit(v59);
+    if (v57 == 7)
+    {
+      v62 = 2;
+    }
+
+    else
+    {
+      v62 = 1;
+    }
+
+    v63 = otExitCodeToString(v62);
+    v64 = 174;
+    goto LABEL_72;
+  }
+
+  v39 = spinel_datatype_pack(v71, 0x514u, "Cii", v34, v35, v36, v37, v38, (16 * *(this + 8245)) | 0x81u);
+  if ((v39 - 1) > 0x513)
+  {
+    v58 = 3;
+    goto LABEL_65;
   }
 
   v40 = v39;
-  v41 = (*(**(this + 1029) + 24))(*(this + 1029), v75, v39);
-  if (v41 || (ot::Spinel::Logger::LogSpinelFrame(this, v75, v40, 1), *(this + 8244) = 1, *(this + 2060) = 5, (v41 = ot::Spinel::SpinelDriver::WaitResponse(this)) != 0))
+  v41 = (*(**(this + 1029) + 24))(*(this + 1029), v71, v39);
+  if (v41 || (ot::Spinel::Logger::LogSpinelFrame(this, v71, v40, 1), *(this + 8244) = 1, *(this + 2060) = 5, (v41 = ot::Spinel::SpinelDriver::WaitResponse(this)) != 0))
   {
-    v57 = v41;
-    goto LABEL_45;
+    v58 = v41;
+LABEL_65:
+    v70 = strrchr[abi:ne200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/spinel_driver.cpp", 47);
+    if (v70)
+    {
+      v61 = v70 + 1;
+    }
+
+    else
+    {
+      v61 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/spinel_driver.cpp";
+    }
+
+    if (v58 == 7)
+    {
+      v62 = 2;
+    }
+
+    else
+    {
+      v62 = 1;
+    }
+
+    v63 = otExitCodeToString(v62);
+    v64 = 175;
+    goto LABEL_72;
   }
 
   if (!*(this + 4410))
   {
 LABEL_26:
     ot::Spinel::Logger::LogCrit1(this, "The coprocessor mode is unknown!");
-    strrchr[abi:ne200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/spinel_driver.cpp", 47);
-    otExitCodeToString(1);
-    goto LABEL_27;
+    v49 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/spinel_driver.cpp";
+    v50 = strrchr[abi:ne200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/spinel_driver.cpp", 47);
+    if (v50)
+    {
+      v49 = v50 + 1;
+    }
+
+    v51 = otExitCodeToString(1);
+    v52 = 181;
+    goto LABEL_29;
   }
 
   v42 = (this + 8420);
@@ -861,15 +958,15 @@ LABEL_26:
   return 2;
 }
 
-void ot::Spinel::SpinelDriver::ResetCoprocessor(ot::Spinel::SpinelDriver *this, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void ot::Spinel::SpinelDriver::ResetCoprocessor(uint64_t this, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v8 = this + 0x2000;
   if ((*(this + 8288) & 1) == 0)
   {
-    *(this + 2060) = 0;
-    if (!a2 || (v10 = spinel_datatype_pack(v19, 0x514u, "CiC", a4, a5, a6, a7, a8, (16 * *(this + 8245)) | 0x80u), (v10 - 1) > 0x513) || (v11 = v10, ot::Spinel::Logger::LogNote1(this, "[->RCP] PROP_VALUE_SET(RESET) Type(%d)", 2), (*(**(this + 1029) + 24))(*(this + 1029), v19, v11)) || (ot::Spinel::Logger::LogSpinelFrame(this, v19, v11, 1), ot::Spinel::SpinelDriver::WaitResponse(this)))
+    *(this + 8240) = 0;
+    if (!a2 || (v10 = spinel_datatype_pack(v15, 0x514u, "CiC", a4, a5, a6, a7, a8, (16 * *(this + 8245)) | 0x80u), (v10 - 1) > 0x513) || (v11 = v10, ot::Spinel::Logger::LogNote1(this, "[->RCP] PROP_VALUE_SET(RESET) Type(%d)", 2), (*(**(this + 8232) + 24))(*(this + 8232), v15, v11)) || (ot::Spinel::Logger::LogSpinelFrame(this, v15, v11, 1), ot::Spinel::SpinelDriver::WaitResponse(this)))
     {
-      if ((*(**(this + 1029) + 64))(*(this + 1029)))
+      if ((*(**(this + 8232) + 64))(*(this + 8232)))
       {
         ot::Spinel::Logger::LogInfo1(this, "co-processor self reset successfully");
         return;
@@ -882,16 +979,22 @@ void ot::Spinel::SpinelDriver::ResetCoprocessor(ot::Spinel::SpinelDriver *this, 
       }
     }
 
-    else if (v8[96] == 1)
+    else if (*(v8 + 96) == 1)
     {
       ot::Spinel::Logger::LogCrit1(this, "Software reset co-processor successfully");
       return;
     }
 
     ot::Spinel::Logger::LogCrit1(this, "Failed to reset co-processor!");
-    strrchr[abi:ne200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/spinel_driver.cpp", 47);
-    otExitCodeToString(1);
-    otLogCritPlat("%s() at %s:%d: %s", v12, v13, v14, v15, v16, v17, v18, "ResetCoprocessor");
+    v12 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/spinel_driver.cpp";
+    v13 = strrchr[abi:ne200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/spinel_driver.cpp", 47);
+    if (v13)
+    {
+      v12 = v13 + 1;
+    }
+
+    v14 = otExitCodeToString(1);
+    otLogCritPlat("%s() at %s:%d: %s", "ResetCoprocessor", v12, 253, v14);
     handle_daemon_exit();
     exit(1);
   }
@@ -900,110 +1003,151 @@ void ot::Spinel::SpinelDriver::ResetCoprocessor(ot::Spinel::SpinelDriver *this, 
 uint64_t ot::Spinel::SpinelDriver::VendorInit(const char **this)
 {
   result = otPlatRadioGetRcp2Vendor2EnabledVerify();
+  if (!result)
+  {
+    return result;
+  }
+
+  ot::Spinel::Logger::LogNote1(this, "%s: Getting SPINEL_PROP_VENDOR_INITIALIZED", "VendorInit");
+  result = ot::Spinel::SpinelDriver::GetVendorInitialized(this);
   if (result)
   {
-    ot::Spinel::Logger::LogNote1(this, "%s: Getting SPINEL_PROP_VENDOR_INITIALIZED", "VendorInit");
-    result = ot::Spinel::SpinelDriver::GetVendorInitialized(this);
-    if (result)
+    v7 = result;
+    v8 = strrchr[abi:ne200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/spinel_driver.cpp", 47);
+    if (v8)
     {
-      v7 = result;
-      strrchr[abi:ne200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/spinel_driver.cpp", 47);
-      if (v7 == 7)
-      {
-        v8 = 2;
-      }
-
-      else
-      {
-        v8 = 1;
-      }
+      v9 = v8 + 1;
     }
 
     else
     {
-      if (*(this + 8417))
-      {
-        return result;
-      }
-
-      ot::Spinel::Logger::LogNote1(this, "%s: Setting SPINEL_PROP_VENDOR_INITIALIZED", "VendorInit");
-      if (!otPlatRadioGetRcp2Vendor2EnabledVerify())
-      {
-        goto LABEL_8;
-      }
-
-      v6 = ot::Spinel::SpinelDriver::SendCommandWrapper(this, 3, 15519, 1, "b", v3, v4, v5, 1);
-      if (v6 || (*(this + 8244) = 1, *(this + 2060) = 15519, (v6 = ot::Spinel::SpinelDriver::WaitResponse(this)) != 0))
-      {
-        v9 = v6;
-        strrchr[abi:ne200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/spinel_driver.cpp", 47);
-        if (v9 == 7)
-        {
-          v8 = 2;
-        }
-
-        else
-        {
-          v8 = 1;
-        }
-
-        goto LABEL_20;
-      }
-
-      if ((*(this + 8417) & 1) == 0)
-      {
-        *(this + 2060) = 15519;
-        result = sleep(4u);
-        if (*(this + 8417))
-        {
-          return result;
-        }
-      }
-
-      else
-      {
-LABEL_8:
-        result = sleep(4u);
-        if (*(this + 8417))
-        {
-          return result;
-        }
-      }
-
-      ot::Spinel::Logger::LogNote1(this, "%s: Getting SPINEL_PROP_VENDOR_INITIALIZED", "VendorInit");
-      result = ot::Spinel::SpinelDriver::GetVendorInitialized(this);
-      if (!result)
-      {
-        if ((*(this + 8417) & 1) == 0)
-        {
-          strrchr[abi:ne200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/spinel_driver.cpp", 47);
-          otExitCodeToString(1);
-          otLogCritPlat("%s() at %s:%d: %s", v18, v19, v20, v21, v22, v23, v24, "VendorInit");
-          handle_daemon_exit();
-          exit(1);
-        }
-
-        return result;
-      }
-
-      v17 = result;
-      strrchr[abi:ne200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/spinel_driver.cpp", 47);
-      if (v17 == 7)
-      {
-        v8 = 2;
-      }
-
-      else
-      {
-        v8 = 1;
-      }
+      v9 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/spinel_driver.cpp";
     }
 
-LABEL_20:
-    otExitCodeToString(v8);
-    otLogCritPlat("%s() at %s:%d: %s", v10, v11, v12, v13, v14, v15, v16, "VendorInit");
+    if (v7 == 7)
+    {
+      v10 = 2;
+    }
+
+    else
+    {
+      v10 = 1;
+    }
+
+    v11 = otExitCodeToString(v10);
+    v12 = 465;
+    goto LABEL_21;
+  }
+
+  if (*(this + 8417))
+  {
+    return result;
+  }
+
+  ot::Spinel::Logger::LogNote1(this, "%s: Setting SPINEL_PROP_VENDOR_INITIALIZED", "VendorInit");
+  if (!otPlatRadioGetRcp2Vendor2EnabledVerify())
+  {
+    goto LABEL_8;
+  }
+
+  v6 = ot::Spinel::SpinelDriver::SendCommandWrapper(this, 3, 15519, 1, "b", v3, v4, v5, 1);
+  if (v6 || (*(this + 8244) = 1, *(this + 2060) = 15519, (v6 = ot::Spinel::SpinelDriver::WaitResponse(this)) != 0))
+  {
+    v13 = v6;
+    v14 = strrchr[abi:ne200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/spinel_driver.cpp", 47);
+    if (v14)
+    {
+      v15 = v14 + 1;
+    }
+
+    else
+    {
+      v15 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/spinel_driver.cpp";
+    }
+
+    if (v13 == 7)
+    {
+      v10 = 2;
+    }
+
+    else
+    {
+      v10 = 1;
+    }
+
+    v21 = otExitCodeToString(v10);
+    otLogCritPlat("%s() at %s:%d: %s", "VendorInit", v15, 469, v21);
+LABEL_29:
     handle_daemon_exit();
-    exit(v8);
+    exit(v10);
+  }
+
+  if ((*(this + 8417) & 1) == 0)
+  {
+    *(this + 2060) = 15519;
+    result = sleep(4u);
+    if (*(this + 8417))
+    {
+      return result;
+    }
+  }
+
+  else
+  {
+LABEL_8:
+    result = sleep(4u);
+    if (*(this + 8417))
+    {
+      return result;
+    }
+  }
+
+  ot::Spinel::Logger::LogNote1(this, "%s: Getting SPINEL_PROP_VENDOR_INITIALIZED", "VendorInit");
+  result = ot::Spinel::SpinelDriver::GetVendorInitialized(this);
+  if (result)
+  {
+    v16 = result;
+    v17 = strrchr[abi:ne200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/spinel_driver.cpp", 47);
+    if (v17)
+    {
+      v9 = v17 + 1;
+    }
+
+    else
+    {
+      v9 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/spinel_driver.cpp";
+    }
+
+    if (v16 == 7)
+    {
+      v10 = 2;
+    }
+
+    else
+    {
+      v10 = 1;
+    }
+
+    v11 = otExitCodeToString(v10);
+    v12 = 474;
+LABEL_21:
+    otLogCritPlat("%s() at %s:%d: %s", "VendorInit", v9, v12, v11);
+    goto LABEL_29;
+  }
+
+  if ((*(this + 8417) & 1) == 0)
+  {
+    v18 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/spinel_driver.cpp";
+    v19 = strrchr[abi:ne200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/spinel_driver.cpp", 47);
+    if (v19)
+    {
+      v18 = v19 + 1;
+    }
+
+    v20 = otExitCodeToString(1);
+    otLogCritPlat("%s() at %s:%d: %s", "VendorInit", v18, 477, v20);
+    handle_daemon_exit();
+    exit(1);
   }
 
   return result;
@@ -1012,17 +1156,17 @@ LABEL_20:
 uint64_t ot::Spinel::SpinelDriver::CheckSpinelVersion(ot::Spinel::SpinelDriver *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v9 = this + 0x2000;
-  v10 = spinel_datatype_pack(v21, 0x514u, "Cii", a4, a5, a6, a7, a8, (16 * *(this + 8245)) | 0x81u);
+  v10 = spinel_datatype_pack(v17, 0x514u, "Cii", a4, a5, a6, a7, a8, (16 * *(this + 8245)) | 0x81u);
   if ((v10 - 1) > 0x513)
   {
     return 3;
   }
 
   v11 = v10;
-  result = (*(**(this + 1029) + 24))(*(this + 1029), v21, v10);
+  result = (*(**(this + 1029) + 24))(*(this + 1029), v17, v10);
   if (!result)
   {
-    ot::Spinel::Logger::LogSpinelFrame(this, v21, v11, 1);
+    ot::Spinel::Logger::LogSpinelFrame(this, v17, v11, 1);
     v9[52] = 1;
     *(this + 2060) = 1;
     result = ot::Spinel::SpinelDriver::WaitResponse(this);
@@ -1032,9 +1176,15 @@ uint64_t ot::Spinel::SpinelDriver::CheckSpinelVersion(ot::Spinel::SpinelDriver *
       if (*(this + 2070) != 4 || v13 != 3)
       {
         ot::Spinel::Logger::LogCrit1(this, "Spinel version mismatch - Posix:%d.%d, co-processor:%d.%d", 4, 3, *(this + 2070), v13);
-        strrchr[abi:ne200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/spinel_driver.cpp", 47);
-        otExitCodeToString(3);
-        otLogCritPlat("%s() at %s:%d: %s", v14, v15, v16, v17, v18, v19, v20, "CheckSpinelVersion");
+        v14 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/spinel_driver.cpp";
+        v15 = strrchr[abi:ne200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/spinel_driver.cpp", 47);
+        if (v15)
+        {
+          v14 = v15 + 1;
+        }
+
+        v16 = otExitCodeToString(3);
+        otLogCritPlat("%s() at %s:%d: %s", "CheckSpinelVersion", v14, 715, v16);
         handle_daemon_exit();
         exit(3);
       }
@@ -1231,12 +1381,12 @@ uint64_t ot::Spinel::SpinelDriver::WaitResponse(const char **this)
 
 void ot::Spinel::SpinelDriver::ProcessFrameQueue(ot::Spinel::SpinelDriver *this)
 {
-  v16 = 0;
-  v15 = 0;
+  v8 = 0;
+  v7 = 0;
   *(this + 8224) = 0;
-  while (!ot::Spinel::MultiFrameBuffer<(unsigned short)8192>::GetNextSavedFrame(this + 8, &v16, &v15))
+  while (!ot::Spinel::MultiFrameBuffer<(unsigned short)8192>::GetNextSavedFrame(this + 8, &v8, &v7))
   {
-    (*(this + 1033))(v16, v15, *(this + 1034));
+    (*(this + 1033))(v8, v7, *(this + 1034));
   }
 
   if (*(this + 8224) == 1)
@@ -1246,30 +1396,30 @@ void ot::Spinel::SpinelDriver::ProcessFrameQueue(ot::Spinel::SpinelDriver *this)
     *(this + 10) = 0;
     *(this + 1) = this + 22;
     *(this + 8) = 8188;
-    otLogNotePlat("[ProcessFrameQueue] Interrupted by Reset.\n", v2, v3, v4, v5, v6, v7, v8, v14);
+    otLogNotePlat("[ProcessFrameQueue] Interrupted by Reset.\n");
   }
 
   else
   {
-    v9 = *(this + 1027);
-    v10 = this + 18;
-    if (v9 + 4 <= this + 8210)
+    v2 = *(this + 1027);
+    v3 = this + 18;
+    if (v2 + 4 <= this + 8210)
     {
-      v11 = v9 - v10;
-      v12 = (v9 - v10);
-      if (v9 != v10)
+      v4 = v2 - v3;
+      v5 = (v2 - v3);
+      if (v2 != v3)
       {
-        v13 = *(this + 1);
-        memmove(v10, v9, (v13 - v9));
-        *(this + 1) = v13 - v12;
-        *(this + 1027) -= v12;
-        *(this + 8) += v11;
+        v6 = *(this + 1);
+        memmove(v3, v2, (v6 - v2));
+        *(this + 1) = v6 - v5;
+        *(this + 1027) -= v5;
+        *(this + 8) += v4;
       }
     }
 
     else
     {
-      *(this + 1027) = v10;
+      *(this + 1027) = v3;
       *(this + 10) = 0;
       *(this + 1) = this + 22;
       *(this + 8) = 8188;
@@ -1277,7 +1427,7 @@ void ot::Spinel::SpinelDriver::ProcessFrameQueue(ot::Spinel::SpinelDriver *this)
   }
 }
 
-uint64_t ot::Spinel::SpinelDriver::SendCommand(ot::Spinel::SpinelDriver *this, unsigned int a2, unsigned int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t ot::Spinel::SpinelDriver::SendCommand(ot::Spinel::SpinelDriver *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v9 = spinel_datatype_pack(v12, 0x514u, "Cii", a4, a5, a6, a7, a8, (a4 | (16 * *(this + 8245))) | 0x80u);
   if ((v9 - 1) > 0x513)
@@ -1296,21 +1446,23 @@ uint64_t ot::Spinel::SpinelDriver::SendCommand(ot::Spinel::SpinelDriver *this, u
   return result;
 }
 
-uint64_t ot::Spinel::SpinelDriver::SendCommand(ot::Spinel::SpinelDriver *this, int a2, int a3, uint64_t a4, char *a5, char **a6, uint64_t a7, uint64_t a8)
+uint64_t ot::Spinel::SpinelDriver::SendCommand(ot::Spinel::SpinelDriver *this, uint64_t a2, uint64_t a3, uint64_t a4, char *a5, const char **a6, uint64_t a7, uint64_t a8)
 {
-  v14 = spinel_datatype_pack(v63, 0x514u, "Cii", a4, a5, a6, a7, a8, (a4 | (16 * *(this + 8245))) | 0x80u);
-  if (v14 - 1 > 0x513)
+  v11 = a3;
+  v12 = a2;
+  v14 = spinel_datatype_pack(v56, 0x514u, "Cii", a4, a5, a6, a7, a8, (a4 | (16 * *(this + 8245))) | 0x80u);
+  if ((v14 - 1) > 0x513)
   {
     return 3;
   }
 
-  v22 = v14;
+  v15 = v14;
   if (!a5)
   {
-    v25 = v14;
-    v22 = 0;
-    v27 = spinel_prop_key_to_cstr(a3);
-    if (strlen(v27) != 10)
+    v18 = v14;
+    v15 = 0;
+    v20 = spinel_prop_key_to_cstr(v11);
+    if (strlen(v20) != 10)
     {
       goto LABEL_12;
     }
@@ -1318,114 +1470,114 @@ uint64_t ot::Spinel::SpinelDriver::SendCommand(ot::Spinel::SpinelDriver *this, i
     goto LABEL_11;
   }
 
-  if (a3 == 52)
+  if (v11 == 52)
   {
-    otLogInfoPlat("SPINEL_PROP_MAC_15_4_LADDR: format[%s] offset[%u]", v15, v16, v17, v18, v19, v20, v21, a5);
+    otLogInfoPlat("SPINEL_PROP_MAC_15_4_LADDR: format[%s] offset[%u]", a5, v14);
   }
 
-  v23 = spinel_datatype_vpack(&v63[v22], 1300 - v22, a5, a6);
+  v16 = spinel_datatype_vpack(&v56[v15], 1300 - v15, a5, a6);
   result = 3;
-  if (v23 >= 1)
+  if (v16 >= 1)
   {
-    v25 = v23 + v22;
-    if (v23 + v22 <= 0x514)
+    v18 = v16 + v15;
+    if (v16 + v15 <= 0x514)
     {
-      v26 = spinel_prop_key_to_cstr(a3);
-      if (strlen(v26) != 10)
+      v19 = spinel_prop_key_to_cstr(v11);
+      if (strlen(v19) != 10)
       {
         goto LABEL_12;
       }
 
 LABEL_11:
-      v28 = spinel_prop_key_to_cstr(a3);
-      if (!strcmp("STREAM_RAW", v28) && v25 > v22 && (v25 - v22) >= 20)
+      v21 = spinel_prop_key_to_cstr(v11);
+      if (!strcmp("STREAM_RAW", v21) && v18 > v15 && (v18 - v15) >= 20)
       {
-        v35 = &v63[v22];
-        v36 = *v35;
-        v62[0] = a0123456789abcd_0[v36 >> 4];
-        v62[1] = a0123456789abcd_0[v36 & 0xF];
-        v37 = v35[1];
-        v62[2] = a0123456789abcd_0[v37 >> 4];
-        v38 = v35[2];
-        v39 = a0123456789abcd_0[v38 >> 4];
-        v62[3] = a0123456789abcd_0[v37 & 0xF];
-        v62[4] = v39;
-        v62[5] = a0123456789abcd_0[v38 & 0xF];
-        v40 = v35[3];
-        v62[6] = a0123456789abcd_0[v40 >> 4];
-        v41 = v35[4];
-        v42 = a0123456789abcd_0[v41 >> 4];
-        v62[7] = a0123456789abcd_0[v40 & 0xF];
-        v62[8] = v42;
-        v62[9] = a0123456789abcd_0[v41 & 0xF];
-        v43 = v35[5];
-        v62[10] = a0123456789abcd_0[v43 >> 4];
-        v44 = v35[6];
-        v45 = a0123456789abcd_0[v44 >> 4];
-        v62[11] = a0123456789abcd_0[v43 & 0xF];
-        v62[12] = v45;
-        v62[13] = a0123456789abcd_0[v44 & 0xF];
-        v46 = v35[7];
-        v62[14] = a0123456789abcd_0[v46 >> 4];
-        v47 = v35[8];
-        v48 = a0123456789abcd_0[v47 >> 4];
-        v62[15] = a0123456789abcd_0[v46 & 0xF];
-        v62[16] = v48;
-        v62[17] = a0123456789abcd_0[v47 & 0xF];
-        v49 = v35[9];
-        v62[18] = a0123456789abcd_0[v49 >> 4];
-        v62[19] = a0123456789abcd_0[v49 & 0xF];
-        v62[20] = 0;
-        v50 = &v63[v25];
-        v51 = *(v50 - 10);
-        LOBYTE(v46) = a0123456789abcd_0[v51 >> 4];
-        LOBYTE(v51) = a0123456789abcd_0[v51 & 0xF];
-        v62[1025] = v46;
-        v62[1026] = v51;
-        v52 = *(v50 - 9);
-        v62[1027] = a0123456789abcd_0[v52 >> 4];
-        v62[1028] = a0123456789abcd_0[v52 & 0xF];
-        v53 = *(v50 - 8);
-        LOBYTE(v46) = a0123456789abcd_0[v53 >> 4];
-        LOBYTE(v53) = a0123456789abcd_0[v53 & 0xF];
-        v62[1029] = v46;
-        v62[1030] = v53;
-        v54 = *(v50 - 7);
-        v62[1031] = a0123456789abcd_0[v54 >> 4];
-        v62[1032] = a0123456789abcd_0[v54 & 0xF];
-        v55 = *(v50 - 6);
-        LOBYTE(v46) = a0123456789abcd_0[v55 >> 4];
-        LOBYTE(v55) = a0123456789abcd_0[v55 & 0xF];
-        v62[1033] = v46;
-        v62[1034] = v55;
-        v56 = *(v50 - 5);
-        v62[1035] = a0123456789abcd_0[v56 >> 4];
-        v62[1036] = a0123456789abcd_0[v56 & 0xF];
-        v57 = *(v50 - 4);
-        LOBYTE(v46) = a0123456789abcd_0[v57 >> 4];
-        LOBYTE(v57) = a0123456789abcd_0[v57 & 0xF];
-        v62[1037] = v46;
-        v62[1038] = v57;
-        v58 = *(v50 - 3);
-        v62[1039] = a0123456789abcd_0[v58 >> 4];
-        v62[1040] = a0123456789abcd_0[v58 & 0xF];
-        v59 = *(v50 - 2);
-        LOBYTE(v46) = a0123456789abcd_0[v59 >> 4];
-        LOBYTE(v59) = a0123456789abcd_0[v59 & 0xF];
-        v62[1041] = v46;
-        v62[1042] = v59;
-        v60 = *(v50 - 1);
-        v62[1043] = a0123456789abcd_0[v60 >> 4];
-        v62[1044] = a0123456789abcd_0[v60 & 0xF];
-        v62[1045] = 0;
-        v61 = spinel_command_to_cstr(a2);
-        spinel_prop_key_to_cstr(a3);
-        ot::Spinel::Logger::LogNote1(this, "[->RCP] (%d) %s(%s) (format[%s]) key(%d) [%s-%s] len=%d", a4, v61);
+        v28 = &v56[v15];
+        v29 = *v28;
+        v55[0] = a0123456789abcd_0[v29 >> 4];
+        v55[1] = a0123456789abcd_0[v29 & 0xF];
+        v30 = v28[1];
+        v55[2] = a0123456789abcd_0[v30 >> 4];
+        v31 = v28[2];
+        v32 = a0123456789abcd_0[v31 >> 4];
+        v55[3] = a0123456789abcd_0[v30 & 0xF];
+        v55[4] = v32;
+        v55[5] = a0123456789abcd_0[v31 & 0xF];
+        v33 = v28[3];
+        v55[6] = a0123456789abcd_0[v33 >> 4];
+        v34 = v28[4];
+        v35 = a0123456789abcd_0[v34 >> 4];
+        v55[7] = a0123456789abcd_0[v33 & 0xF];
+        v55[8] = v35;
+        v55[9] = a0123456789abcd_0[v34 & 0xF];
+        v36 = v28[5];
+        v55[10] = a0123456789abcd_0[v36 >> 4];
+        v37 = v28[6];
+        v38 = a0123456789abcd_0[v37 >> 4];
+        v55[11] = a0123456789abcd_0[v36 & 0xF];
+        v55[12] = v38;
+        v55[13] = a0123456789abcd_0[v37 & 0xF];
+        v39 = v28[7];
+        v55[14] = a0123456789abcd_0[v39 >> 4];
+        v40 = v28[8];
+        v41 = a0123456789abcd_0[v40 >> 4];
+        v55[15] = a0123456789abcd_0[v39 & 0xF];
+        v55[16] = v41;
+        v55[17] = a0123456789abcd_0[v40 & 0xF];
+        v42 = v28[9];
+        v55[18] = a0123456789abcd_0[v42 >> 4];
+        v55[19] = a0123456789abcd_0[v42 & 0xF];
+        v55[20] = 0;
+        v43 = &v56[v18];
+        v44 = *(v43 - 10);
+        LOBYTE(v39) = a0123456789abcd_0[v44 >> 4];
+        LOBYTE(v44) = a0123456789abcd_0[v44 & 0xF];
+        v55[1025] = v39;
+        v55[1026] = v44;
+        v45 = *(v43 - 9);
+        v55[1027] = a0123456789abcd_0[v45 >> 4];
+        v55[1028] = a0123456789abcd_0[v45 & 0xF];
+        v46 = *(v43 - 8);
+        LOBYTE(v39) = a0123456789abcd_0[v46 >> 4];
+        LOBYTE(v46) = a0123456789abcd_0[v46 & 0xF];
+        v55[1029] = v39;
+        v55[1030] = v46;
+        v47 = *(v43 - 7);
+        v55[1031] = a0123456789abcd_0[v47 >> 4];
+        v55[1032] = a0123456789abcd_0[v47 & 0xF];
+        v48 = *(v43 - 6);
+        LOBYTE(v39) = a0123456789abcd_0[v48 >> 4];
+        LOBYTE(v48) = a0123456789abcd_0[v48 & 0xF];
+        v55[1033] = v39;
+        v55[1034] = v48;
+        v49 = *(v43 - 5);
+        v55[1035] = a0123456789abcd_0[v49 >> 4];
+        v55[1036] = a0123456789abcd_0[v49 & 0xF];
+        v50 = *(v43 - 4);
+        LOBYTE(v39) = a0123456789abcd_0[v50 >> 4];
+        LOBYTE(v50) = a0123456789abcd_0[v50 & 0xF];
+        v55[1037] = v39;
+        v55[1038] = v50;
+        v51 = *(v43 - 3);
+        v55[1039] = a0123456789abcd_0[v51 >> 4];
+        v55[1040] = a0123456789abcd_0[v51 & 0xF];
+        v52 = *(v43 - 2);
+        LOBYTE(v39) = a0123456789abcd_0[v52 >> 4];
+        LOBYTE(v52) = a0123456789abcd_0[v52 & 0xF];
+        v55[1041] = v39;
+        v55[1042] = v52;
+        v53 = *(v43 - 1);
+        v55[1043] = a0123456789abcd_0[v53 >> 4];
+        v55[1044] = a0123456789abcd_0[v53 & 0xF];
+        v55[1045] = 0;
+        v54 = spinel_command_to_cstr(v12);
+        spinel_prop_key_to_cstr(v11);
+        ot::Spinel::Logger::LogNote1(this, "[->RCP] (%d) %s(%s) (format[%s]) key(%d) [%s-%s] len=%d", a4, v54);
 LABEL_17:
-        result = (*(**(this + 1029) + 24))(*(this + 1029), v63, v25);
+        result = (*(**(this + 1029) + 24))(*(this + 1029), v56, v18);
         if (!result)
         {
-          ot::Spinel::Logger::LogSpinelFrame(this, v63, v25, 1);
+          ot::Spinel::Logger::LogSpinelFrame(this, v56, v18, 1);
           return 0;
         }
 
@@ -1433,29 +1585,29 @@ LABEL_17:
       }
 
 LABEL_12:
-      v29 = 0;
-      v62[0] = 0;
-      v30 = v25 - 1;
-      if (v30 >= 0x1FF)
+      v22 = 0;
+      v55[0] = 0;
+      v23 = v18 - 1;
+      if (v23 >= 0x1FF)
       {
-        v30 = 511;
+        v23 = 511;
       }
 
-      v31 = 2 * v30 + 2;
-      v32 = v63;
+      v24 = 2 * v23 + 2;
+      v25 = v56;
       do
       {
-        v33 = *v32++;
-        v34 = &v62[v29];
-        *v34 = a0123456789abcd_0[v33 >> 4];
-        v34[1] = a0123456789abcd_0[v33 & 0xF];
-        v29 += 2;
+        v26 = *v25++;
+        v27 = &v55[v22];
+        *v27 = a0123456789abcd_0[v26 >> 4];
+        v27[1] = a0123456789abcd_0[v26 & 0xF];
+        v22 += 2;
       }
 
-      while (v31 != v29);
-      v62[v29] = 0;
-      spinel_command_to_cstr(a2);
-      spinel_prop_key_to_cstr(a3);
+      while (v24 != v22);
+      v55[v22] = 0;
+      spinel_command_to_cstr(v12);
+      spinel_prop_key_to_cstr(v11);
       ot::Spinel::Logger::LogNote1(this, "[->RCP] (%d) %s(%s) (format[%s]) key(%d) [%s] len=%d", a4);
       goto LABEL_17;
     }
@@ -1464,7 +1616,7 @@ LABEL_12:
   return result;
 }
 
-uint64_t ot::Spinel::SpinelDriver::SendCommandNK(ot::Spinel::SpinelDriver *this, unsigned int a2, int a3, char *a4, char **a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t ot::Spinel::SpinelDriver::SendCommandNK(ot::Spinel::SpinelDriver *this, unsigned int a2, int a3, char *a4, const char **a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v11 = spinel_datatype_pack(v15, 0x514u, "Ci", a4, a5, a6, a7, a8, a3 | 0x80u);
   if (v11 - 1 > 0x513)
@@ -1549,91 +1701,86 @@ void *ot::Spinel::SpinelDriver::SetFrameHandler(void *this, void (*a2)(const uns
 
 void ot::Spinel::SpinelDriver::HandleReceivedFrame(ot::Spinel::SpinelDriver *this)
 {
-  v29 = 0;
+  v24 = 0;
   v2 = (*(this + 1027) + *(*(this + 1027) + 2) + 4);
-  v3 = (*(this + 2) - v2);
   ot::Spinel::Logger::LogSpinelFrame(this, v2, (*(this + 4) - v2), 0);
-  v4 = *(this + 1027) + *(*(this + 1027) + 2) + 4;
-  v10 = spinel_datatype_unpack(v4, (*(this + 4) - v4), "C", v5, v6, v7, v8, v9, &v29);
-  v11 = *(this + 4124);
+  v3 = (*(this + 1027) + *(*(this + 1027) + 2) + 4);
+  v9 = spinel_datatype_unpack(v3, (*(this + 4) - v3), "C", v4, v5, v6, v7, v8, &v24);
+  v10 = *(this + 4124);
   if (!*(this + 4124))
   {
 LABEL_11:
-    v21 = *(this + 1027);
-    v20 = this + 8210;
-    if (v21 + 4 <= this + 8210)
+    v16 = *(this + 1027);
+    v15 = this + 8210;
+    if (v16 + 4 <= this + 8210)
     {
-      *(v21 + 2) = 0;
-      v21 = *(this + 1027);
-      v22 = v21 + *(v21 + 2) + 4;
-      *(this + 1) = v22;
-      *(this + 8) = v20 - v22;
+      *(v16 + 2) = 0;
+      v16 = *(this + 1027);
+      v17 = v16 + *(v16 + 2) + 4;
+      *(this + 1) = v17;
+      *(this + 8) = v15 - v17;
     }
 
 LABEL_13:
-    v23 = v21 + *(v21 + 2) + 4;
-    *(this + 1) = v23;
-    *(this + 8) = v20 - v23;
+    v18 = v16 + *(v16 + 2) + 4;
+    *(this + 1) = v18;
+    *(this + 8) = v15 - v18;
     return;
   }
 
-  v12 = 8246;
-  while (*(this + v12) != ((v29 >> 4) & 3))
+  v11 = 8246;
+  while (*(this + v11) != ((v24 >> 4) & 3))
   {
-    ++v12;
-    if (!--v11)
+    ++v11;
+    if (!--v10)
     {
       goto LABEL_11;
     }
   }
 
-  v13 = v10;
-  v14 = 6;
-  if (v13 >= 1 && (v29 & 0x80) != 0)
+  v12 = v9;
+  v13 = 6;
+  if (v12 >= 1 && (v24 & 0x80) != 0)
   {
-    v15 = *(this + 2) - (*(this + 2054) + *(*(this + 1027) + 2) + 4);
-    v16 = *(this + 1034);
     (*(this + 1032))();
     if (*(this + 8) >= 4u)
     {
-      v17 = *(this + 1027);
-      v18 = v17[1];
-      *v17 = *(this + 2) - v17 - 4;
-      v19 = *(this + 1);
-      *(this + 1027) = v19;
-      v20 = this + 8210;
-      if (v19 + 4 > this + 8210)
+      **(this + 1027) = *(this + 2) - *(this + 1027) - 4;
+      v14 = *(this + 1);
+      *(this + 1027) = v14;
+      v15 = this + 8210;
+      if (v14 + 4 > this + 8210)
       {
         return;
       }
 
-      *(v19 + 2) = 0;
-      v21 = *(this + 1027);
+      *(v14 + 2) = 0;
+      v16 = *(this + 1027);
       goto LABEL_13;
     }
 
-    v14 = 3;
+    v13 = 3;
   }
 
-  v24 = *(this + 1027);
-  v25 = this + 8210;
-  if (v24 + 4 <= this + 8210)
+  v19 = *(this + 1027);
+  v20 = this + 8210;
+  if (v19 + 4 <= this + 8210)
   {
-    *(v24 + 2) = 0;
-    v24 = *(this + 1027);
-    v26 = v24 + *(v24 + 2) + 4;
-    *(this + 1) = v26;
-    *(this + 8) = v25 - v26;
+    *(v19 + 2) = 0;
+    v19 = *(this + 1027);
+    v21 = v19 + *(v19 + 2) + 4;
+    *(this + 1) = v21;
+    *(this + 8) = v20 - v21;
   }
 
-  v27 = v24 + *(v24 + 2) + 4;
-  *(this + 1) = v27;
-  *(this + 8) = v25 - v27;
-  v28 = otThreadErrorToString(v14);
-  ot::Spinel::Logger::LogWarn1(this, "Error handling spinel frame: %s", v28);
+  v22 = v19 + *(v19 + 2) + 4;
+  *(this + 1) = v22;
+  *(this + 8) = v20 - v22;
+  v23 = otThreadErrorToString(v13);
+  ot::Spinel::Logger::LogWarn1(this, "Error handling spinel frame: %s", v23);
 }
 
-void ot::Spinel::SpinelDriver::HandleInitialFrame(const char **this, const unsigned __int8 *a2, unsigned int a3, uint64_t a4, BOOL *a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void ot::Spinel::SpinelDriver::HandleInitialFrame(const char **this, unsigned __int8 *a2, unsigned __int16 a3, uint64_t a4, BOOL *a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v16 = 0;
   v15 = 0;
@@ -1943,105 +2090,105 @@ void _GLOBAL__sub_I_CAMetricsClient_mm()
 
 void XPCIPCServer_rcp::get_xpc_connection(XPCIPCServer_rcp *this)
 {
-  v2 = xpc_null_create();
-  v3 = xpc_dictionary_create(0, 0, 0);
-  if (v3 || (v3 = xpc_null_create()) != 0)
+  v3 = xpc_null_create();
+  v4 = xpc_dictionary_create(0, 0, 0);
+  if (v4 || (v4 = xpc_null_create()) != 0)
   {
-    if (xpc_get_type(v3) == &_xpc_type_dictionary)
+    if (xpc_get_type(v4) == &_xpc_type_dictionary)
     {
-      xpc_retain(v3);
-      v4 = v3;
+      xpc_retain(v4);
+      v5 = v4;
     }
 
     else
     {
-      v4 = xpc_null_create();
+      v5 = xpc_null_create();
     }
   }
 
   else
   {
-    v4 = xpc_null_create();
-    v3 = 0;
+    v5 = xpc_null_create();
+    v4 = 0;
   }
 
+  xpc_release(v4);
+  v6 = xpc_null_create();
   xpc_release(v3);
-  v5 = xpc_null_create();
-  xpc_release(v2);
-  xpc_release(v5);
-  v6 = xpc_string_create("threadradiod");
-  if (!v6)
-  {
-    v6 = xpc_null_create();
-  }
-
-  xpc_dictionary_set_value(v4, "ServerHostName", v6);
-  v7 = xpc_null_create();
   xpc_release(v6);
+  v7 = xpc_string_create("threadradiod");
+  if (!v7)
+  {
+    v7 = xpc_null_create();
+  }
+
+  xpc_dictionary_set_value(v5, "ServerHostName", v7);
+  v8 = xpc_null_create();
   xpc_release(v7);
-  v8 = xpc_string_create("com.apple.wpantund.xpc");
-  if (!v8)
-  {
-    v8 = xpc_null_create();
-  }
-
-  xpc_dictionary_set_value(v4, "ServiceXPCName", v8);
-  v9 = xpc_null_create();
   xpc_release(v8);
+  v9 = xpc_string_create("com.apple.wpantund.xpc");
+  if (!v9)
+  {
+    v9 = xpc_null_create();
+  }
+
+  xpc_dictionary_set_value(v5, "ServiceXPCName", v9);
+  v10 = xpc_null_create();
   xpc_release(v9);
-  v10 = xpc_string_create("wpantund.daemon.ready");
-  if (!v10)
-  {
-    v10 = xpc_null_create();
-  }
-
-  xpc_dictionary_set_value(v4, "ServiceNotificationName", v10);
-  v11 = xpc_null_create();
   xpc_release(v10);
+  v11 = xpc_string_create("wpantund.daemon.ready");
+  if (!v11)
+  {
+    v11 = xpc_null_create();
+  }
+
+  xpc_dictionary_set_value(v5, "ServiceNotificationName", v11);
+  v12 = xpc_null_create();
   xpc_release(v11);
-  v12 = xpc_BOOL_create(0);
-  if (!v12)
-  {
-    v12 = xpc_null_create();
-  }
-
-  xpc_dictionary_set_value(v4, "ServerEnableSignalHandler", v12);
-  v13 = xpc_null_create();
   xpc_release(v12);
-  xpc_release(v13);
-  v14 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_USER_INITIATED, 0);
-  v15 = dispatch_queue_create("threadradiod.xpc.queue", v14);
-  v16 = *(this + 4);
-  *(this + 4) = v15;
-  if (v16)
+  v13 = xpc_BOOL_create(0);
+  if (!v13)
   {
-    dispatch_release(v16);
+    v13 = xpc_null_create();
   }
 
-  v20 = v4;
-  if (v4)
+  xpc_dictionary_set_value(v5, "ServerEnableSignalHandler", v13);
+  v14 = xpc_null_create();
+  xpc_release(v13);
+  xpc_release(v14);
+  v15 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_USER_INITIATED, 0);
+  v16 = dispatch_queue_create("threadradiod.xpc.queue", v15);
+  v17 = *(this + 4);
+  *(this + 4) = v16;
+  if (v17)
   {
-    xpc_retain(v4);
+    dispatch_release(v17);
+  }
+
+  v21 = v5;
+  if (v5)
+  {
+    xpc_retain(v5);
   }
 
   else
   {
-    v20 = xpc_null_create();
+    v21 = xpc_null_create();
   }
 
-  v17 = _Block_copy(&__block_literal_global_5);
-  v18 = *(this + 4);
-  if (v18)
+  v18 = _Block_copy(&__block_literal_global_5);
+  v19 = *(this + 4);
+  if (v19)
   {
     dispatch_retain(*(this + 4));
   }
 
-  v19[0] = v17;
-  v19[1] = v18;
-  CtrXPC::Server::create(&v20, v19);
+  v20[0] = v18;
+  v20[1] = v19;
+  CtrXPC::Server::create(&v21, v20);
 }
 
-void sub_1000FE82C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, char a21, uint64_t a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, void *a33, uint64_t a34, int a35, __int16 a36, char a37, char a38, char a39, uint64_t a40, uint64_t a41, uint64_t a42, int a43, __int16 a44, char a45, char a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, void *a51, uint64_t a52, int a53, __int16 a54, char a55, char a56)
+void sub_1000FE82C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, void *a33, uint64_t a34, int a35, __int16 a36, char a37, char a38, char a39, uint64_t a40, uint64_t a41, uint64_t a42, int a43, __int16 a44, char a45, char a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, void *a51, uint64_t a52, int a53, __int16 a54, char a55, char a56)
 {
   dispatch::callback<void({block_pointer})(void)>::~callback(&a21);
   if (a20 < 0)
@@ -2096,6 +2243,42 @@ void sub_1000FE94C()
   JUMPOUT(0x1000FE934);
 }
 
+void ___ZN16XPCIPCServer_rcp18get_xpc_connectionEv_block_invoke(id a1, int a2)
+{
+  v2 = *&a2;
+  logging_obg = log_get_logging_obg("com.apple.threadradiod", "default");
+  if (logging_obg)
+  {
+    v4 = logging_obg;
+    if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    {
+      CtrXPC::Server::statusToString(v2, __p);
+      if (v7 >= 0)
+      {
+        v5 = __p;
+      }
+
+      else
+      {
+        v5 = __p[0];
+      }
+
+      *buf = 136315138;
+      v9 = v5;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "OTD Server status: %s", buf, 0xCu);
+      if (v7 < 0)
+      {
+        operator delete(__p[0]);
+      }
+    }
+  }
+
+  else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+  {
+    [PowerEventHandler_Rcp init:];
+  }
+}
+
 void ___ZN16XPCIPCServer_rcp18get_xpc_connectionEv_block_invoke_10(uint64_t a1, uint64_t *a2, void **a3, uint64_t a4)
 {
   v8 = *(a1 + 32);
@@ -2143,7 +2326,7 @@ void ___ZN16XPCIPCServer_rcp18get_xpc_connectionEv_block_invoke_10(uint64_t a1, 
   v21 = v13;
   if (v13)
   {
-    atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v13 + 8), 1uLL, memory_order_relaxed);
   }
 
   v14 = *a3;
@@ -2903,7 +3086,7 @@ void ___ZN16XPCIPCServer_rcp18get_xpc_connectionEv_block_invoke_25(uint64_t a1, 
   v21 = v13;
   if (v13)
   {
-    atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v13 + 8), 1uLL, memory_order_relaxed);
   }
 
   v14 = *a3;
@@ -3175,32 +3358,33 @@ void XPCIPCServer_rcp::XPCIPCServer_rcp(XPCIPCServer_rcp *this, dispatch_queue_s
   XPCIPCServer_rcp::get_xpc_connection(this);
 }
 
-void sub_100100250(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, dispatch_object_t object, char a11)
+void sub_100100250(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, dispatch_object_t object, ...)
 {
+  va_start(va, object);
   if (object)
   {
     dispatch_release(object);
   }
 
-  std::shared_ptr<CtrXPC::Server>::~shared_ptr[abi:ne200100](&a11);
-  std::shared_ptr<CtrXPC::Server>::~shared_ptr[abi:ne200100](v11 + 48);
-  v14 = *(v11 + 32);
-  if (v14)
+  std::shared_ptr<CtrXPC::Server>::~shared_ptr[abi:ne200100](va);
+  std::shared_ptr<CtrXPC::Server>::~shared_ptr[abi:ne200100](v10 + 48);
+  v13 = *(v10 + 32);
+  if (v13)
   {
-    dispatch_release(v14);
-    if ((*(v11 + 31) & 0x80000000) == 0)
+    dispatch_release(v13);
+    if ((*(v10 + 31) & 0x80000000) == 0)
     {
 LABEL_5:
       _Unwind_Resume(a1);
     }
   }
 
-  else if ((*(v11 + 31) & 0x80000000) == 0)
+  else if ((*(v10 + 31) & 0x80000000) == 0)
   {
     goto LABEL_5;
   }
 
-  operator delete(*v12);
+  operator delete(*v11);
   _Unwind_Resume(a1);
 }
 
@@ -3280,7 +3464,7 @@ LABEL_13:
   operator delete();
 }
 
-void XPCIPCServer_rcp::add_interface(XPCIPCServer_rcp *this)
+void XPCIPCServer_rcp::add_interface(CtrXPC::Server **this)
 {
   logging_obg = log_get_logging_obg("com.apple.threadradiod", "default");
   if (logging_obg)
@@ -3288,7 +3472,7 @@ void XPCIPCServer_rcp::add_interface(XPCIPCServer_rcp *this)
     v3 = logging_obg;
     if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      v4 = (this + 8);
+      v4 = this + 1;
       if (*(this + 31) < 0)
       {
         v4 = *v4;
@@ -3305,7 +3489,7 @@ void XPCIPCServer_rcp::add_interface(XPCIPCServer_rcp *this)
     [PowerEventHandler_Rcp init:];
   }
 
-  XPCIPCAPI_v1_rcp::add_interface((this + 64));
+  XPCIPCAPI_v1_rcp::add_interface((this + 8));
 }
 
 int setlogmask(int a1)
@@ -3492,24 +3676,24 @@ void CtrXPC::Server::~Server(CtrXPC::Server *this)
 
 void CtrXPC::Server::create(void **a1, uint64_t a2)
 {
-  v3 = *a1;
-  v8 = v3;
-  if (v3)
+  v4 = *a1;
+  v9 = v4;
+  if (v4)
   {
-    xpc_retain(v3);
-    v4 = *a2;
+    xpc_retain(v4);
+    v5 = *a2;
     if (!*a2)
     {
 LABEL_6:
-      v5 = *(a2 + 8);
-      aBlock = v4;
-      object = v5;
-      if (v5)
+      v6 = *(a2 + 8);
+      aBlock = v5;
+      object = v6;
+      if (v6)
       {
-        dispatch_retain(v5);
+        dispatch_retain(v6);
       }
 
-      CtrXPC::Server::State::create(&v8, &v9);
+      CtrXPC::Server::State::create(&v9, &v10);
       if (object)
       {
         dispatch_release(object);
@@ -3520,56 +3704,57 @@ LABEL_6:
         _Block_release(aBlock);
       }
 
-      xpc_release(v8);
-      v8 = 0;
+      xpc_release(v9);
+      v9 = 0;
       operator new();
     }
   }
 
   else
   {
-    v8 = xpc_null_create();
-    v4 = *a2;
+    v9 = xpc_null_create();
+    v5 = *a2;
     if (!*a2)
     {
       goto LABEL_6;
     }
   }
 
-  v4 = _Block_copy(v4);
+  v5 = _Block_copy(v5);
   goto LABEL_6;
 }
 
-void sub_100100B70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14)
+void sub_100100B70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  std::unique_ptr<CtrXPC::Server>::~unique_ptr[abi:ne200100]((v14 - 40));
+  va_start(va, a13);
+  std::unique_ptr<CtrXPC::Server>::~unique_ptr[abi:ne200100]((v13 - 40));
   std::shared_ptr<CtrXPC::Server>::~shared_ptr[abi:ne200100](&a9);
-  std::shared_ptr<CtrXPC::Server>::~shared_ptr[abi:ne200100](&a14);
+  std::shared_ptr<CtrXPC::Server>::~shared_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_100100BA0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, xpc_object_t object)
+void sub_100100BA0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, xpc_object_t object)
 {
   dispatch::callback<void({block_pointer})(void)>::~callback(&a11);
   xpc_release(object);
   _Unwind_Resume(a1);
 }
 
-void CtrXPC::Server::State::create(xpc_object_t *a1@<X0>, void *a2@<X8>)
+void CtrXPC::Server::State::create(xpc_object_t *a1@<X0>, void *a3@<X8>)
 {
-  *a2 = 0;
-  a2[1] = 0;
+  *a3 = 0;
+  a3[1] = 0;
   if (xpc_get_type(*a1) != &_xpc_type_dictionary)
   {
     goto LABEL_49;
   }
 
-  memset(v19, 0, sizeof(v19));
-  v18 = 0u;
-  memset(v17, 0, sizeof(v17));
+  memset(v20, 0, sizeof(v20));
+  v19 = 0u;
+  memset(v18, 0, sizeof(v18));
   *__p = 0u;
   value = xpc_dictionary_get_value(*a1, "ServiceXPCName");
-  v21 = value;
+  v22 = value;
   if (value)
   {
     xpc_retain(value);
@@ -3577,71 +3762,71 @@ void CtrXPC::Server::State::create(xpc_object_t *a1@<X0>, void *a2@<X8>)
 
   else
   {
-    v21 = xpc_null_create();
+    v22 = xpc_null_create();
   }
 
-  xpc::dyn_cast_or_default(&block, &v21, "", v4);
-  if (SHIBYTE(v17[0]) < 0)
+  xpc::dyn_cast_or_default(&v22, "", v5);
+  if (SHIBYTE(v18[0]) < 0)
   {
     operator delete(__p[0]);
   }
 
   *__p = block;
-  v17[0] = v23;
-  HIBYTE(v23) = 0;
+  v18[0] = v24;
+  HIBYTE(v24) = 0;
   LOBYTE(block) = 0;
-  xpc_release(v21);
-  v5 = xpc_dictionary_get_value(*a1, "ServiceNotificationName");
-  v21 = v5;
-  if (v5)
+  xpc_release(v22);
+  v6 = xpc_dictionary_get_value(*a1, "ServiceNotificationName");
+  v22 = v6;
+  if (v6)
   {
-    xpc_retain(v5);
+    xpc_retain(v6);
   }
 
   else
   {
-    v21 = xpc_null_create();
+    v22 = xpc_null_create();
   }
 
-  xpc::dyn_cast_or_default(&block, &v21, "", v6);
-  if (SHIBYTE(v17[3]) < 0)
+  xpc::dyn_cast_or_default(&v22, "", v7);
+  if (SHIBYTE(v18[3]) < 0)
   {
-    operator delete(v17[1]);
+    operator delete(v18[1]);
   }
 
-  *&v17[1] = block;
-  v17[3] = v23;
-  HIBYTE(v23) = 0;
+  *&v18[1] = block;
+  v18[3] = v24;
+  HIBYTE(v24) = 0;
   LOBYTE(block) = 0;
-  xpc_release(v21);
-  v7 = xpc_dictionary_get_value(*a1, "ServerHostName");
-  v21 = v7;
-  if (v7)
+  xpc_release(v22);
+  v8 = xpc_dictionary_get_value(*a1, "ServerHostName");
+  v22 = v8;
+  if (v8)
   {
-    xpc_retain(v7);
+    xpc_retain(v8);
   }
 
   else
   {
-    v21 = xpc_null_create();
+    v22 = xpc_null_create();
   }
 
-  xpc::dyn_cast_or_default(&block, &v21, "UnknownServerHost", v8);
-  if (SHIBYTE(v19[0]) < 0)
+  xpc::dyn_cast_or_default(&v22, "UnknownServerHost", v9);
+  if (SHIBYTE(v20[0]) < 0)
   {
-    operator delete(v18);
+    operator delete(v19);
   }
 
-  v18 = block;
-  v19[0] = v23;
-  HIBYTE(v23) = 0;
+  v19 = block;
+  v20[0] = v24;
+  HIBYTE(v24) = 0;
   LOBYTE(block) = 0;
-  xpc_release(v21);
-  v9 = xpc_dictionary_get_value(*a1, "ServerEnableSignalHandler");
-  *&block = v9;
-  if (v9)
+  xpc_release(v22);
+  v10 = xpc_dictionary_get_value(*a1, "ServerEnableSignalHandler");
+  *&block = v10;
+  if (v10)
   {
-    xpc_retain(v9);
+    xpc_retain(v10);
   }
 
   else
@@ -3649,81 +3834,81 @@ void CtrXPC::Server::State::create(xpc_object_t *a1@<X0>, void *a2@<X8>)
     *&block = xpc_null_create();
   }
 
-  v20 = xpc::dyn_cast_or_default(&block, 0, v10);
+  v21 = xpc::dyn_cast_or_default(&block, 0, v11);
   xpc_release(block);
-  if (v17[0] >= 0)
+  if (v18[0] >= 0)
   {
-    v11 = HIBYTE(v17[0]);
+    v12 = HIBYTE(v18[0]);
   }
 
   else
   {
-    v11 = __p[1];
+    v12 = __p[1];
   }
 
-  if (v11 + 6 >= 0x7FFFFFFFFFFFFFF8)
+  if (v12 + 6 >= 0x7FFFFFFFFFFFFFF8)
   {
     std::string::__throw_length_error[abi:ne200100]();
   }
 
-  if (v11 + 6 >= 0x17)
+  if (v12 + 6 >= 0x17)
   {
     operator new();
   }
 
-  v23 = 0;
+  v24 = 0;
   block = 0uLL;
-  HIBYTE(v23) = v11 + 6;
-  if (v11)
+  HIBYTE(v24) = v12 + 6;
+  if (v12)
   {
-    if (v17[0] >= 0)
+    if (v18[0] >= 0)
     {
-      v12 = __p;
+      v13 = __p;
     }
 
     else
     {
-      v12 = __p[0];
+      v13 = __p[0];
     }
 
-    memmove(&block, v12, v11);
+    memmove(&block, v13, v12);
   }
 
-  strcpy(&block + v11, ".allow");
-  if (SHIBYTE(v19[3]) < 0)
+  strcpy(&block + v12, ".allow");
+  if (SHIBYTE(v20[3]) < 0)
   {
-    operator delete(v19[1]);
+    operator delete(v20[1]);
   }
 
-  *&v19[1] = block;
-  v19[3] = v23;
-  v13 = HIBYTE(v17[0]);
-  if (v17[0] < 0)
+  *&v20[1] = block;
+  v20[3] = v24;
+  v14 = HIBYTE(v18[0]);
+  if (v18[0] < 0)
   {
-    v13 = __p[1];
+    v14 = __p[1];
   }
 
-  if (v13)
+  if (v14)
   {
-    v14 = HIBYTE(v17[3]);
-    if (v17[3] < 0)
+    v15 = HIBYTE(v18[3]);
+    if (v18[3] < 0)
     {
-      v14 = v17[2];
+      v15 = v18[2];
     }
 
-    if (v14)
+    if (v15)
     {
       operator new();
     }
   }
 
-  if (SHIBYTE(v19[3]) < 0)
+  if (SHIBYTE(v20[3]) < 0)
   {
-    operator delete(v19[1]);
-    if ((SHIBYTE(v19[0]) & 0x80000000) == 0)
+    operator delete(v20[1]);
+    if ((SHIBYTE(v20[0]) & 0x80000000) == 0)
     {
 LABEL_42:
-      if ((SHIBYTE(v17[3]) & 0x80000000) == 0)
+      if ((SHIBYTE(v18[3]) & 0x80000000) == 0)
       {
         goto LABEL_43;
       }
@@ -3732,16 +3917,16 @@ LABEL_42:
     }
   }
 
-  else if ((SHIBYTE(v19[0]) & 0x80000000) == 0)
+  else if ((SHIBYTE(v20[0]) & 0x80000000) == 0)
   {
     goto LABEL_42;
   }
 
-  operator delete(v18);
-  if ((SHIBYTE(v17[3]) & 0x80000000) == 0)
+  operator delete(v19);
+  if ((SHIBYTE(v18[3]) & 0x80000000) == 0)
   {
 LABEL_43:
-    if ((SHIBYTE(v17[0]) & 0x80000000) == 0)
+    if ((SHIBYTE(v18[0]) & 0x80000000) == 0)
     {
       goto LABEL_49;
     }
@@ -3752,8 +3937,8 @@ LABEL_48:
   }
 
 LABEL_47:
-  operator delete(v17[1]);
-  if (SHIBYTE(v17[0]) < 0)
+  operator delete(v18[1]);
+  if (SHIBYTE(v18[0]) < 0)
   {
     goto LABEL_48;
   }
@@ -3917,7 +4102,7 @@ void CtrXPC::Server::State::broadcast(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 }
 
-void sub_1001015F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, xpc_object_t object, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
+void sub_1001015F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, xpc_object_t object, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
 {
   dispatch::callback<void({block_pointer})(void)>::~callback(&a10);
   xpc_release(object);
@@ -4530,16 +4715,16 @@ LABEL_20:
   }
 }
 
-void sub_100102420(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_100102420(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::shared_ptr<CtrXPC::Server>::~shared_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_100102434(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_100102434(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::shared_ptr<CtrXPC::Server>::~shared_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -4794,7 +4979,7 @@ LABEL_57:
   }
 }
 
-void sub_100102978(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, void *a25, uint64_t a26, int a27, __int16 a28, char a29, char a30)
+void sub_100102978(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, void *a25, uint64_t a26, int a27, __int16 a28, char a29, char a30)
 {
   if (a14 < 0)
   {
@@ -4905,12 +5090,12 @@ LABEL_7:
   _Unwind_Resume(exception_object);
 }
 
-uint64_t CtrXPC::Server::State::State(uint64_t a1, char *a2, uint64_t a3)
+uint64_t CtrXPC::Server::State::State(uint64_t a1, const CtrXPC::Server::State::Parameters *a2, uint64_t a3)
 {
   v12 = 6;
   strcpy(__p, "Server");
   v6 = a2;
-  if (a2[23] < 0)
+  if (*(a2 + 23) < 0)
   {
     v6 = *a2;
   }
@@ -5175,7 +5360,7 @@ void CtrXPC::Server::State::handleSIGTERM(CtrXPC::Server::State *this)
   std::__shared_weak_count::__release_weak(v6);
 }
 
-void sub_10010336C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, std::__shared_weak_count *a15, char a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23)
+void sub_10010336C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, std::__shared_weak_count *a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23)
 {
   dispatch::callback<void({block_pointer})(void)>::~callback(&a16);
   if (a15)
@@ -6505,7 +6690,7 @@ void ___ZN6CtrXPC6Server5State17setCommandHandlerENSt3__112basic_stringIcNS2_11c
   }
 
   *buf = a1 + 40;
-  v5 = std::__tree<std::__value_type<std::string,dispatch::callback<void({block_pointer})(CtrXPC::ServerClientState,xpc::dict,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::__map_value_compare<std::string,std::__value_type<std::string,dispatch::callback<void({block_pointer})(CtrXPC::ServerClientState,xpc::dict,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,dispatch::callback<void({block_pointer})(CtrXPC::ServerClientState,xpc::dict,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v2 + 232, (a1 + 40));
+  v5 = std::__tree<std::__value_type<std::string,dispatch::callback<void({block_pointer})(CtrXPC::ServerClientState,xpc::dict,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::__map_value_compare<std::string,std::__value_type<std::string,dispatch::callback<void({block_pointer})(CtrXPC::ServerClientState,xpc::dict,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,dispatch::callback<void({block_pointer})(CtrXPC::ServerClientState,xpc::dict,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((v2 + 232), (a1 + 40), &std::piecewise_construct, buf);
   v6 = *(a1 + 64);
   if (v6)
   {
@@ -6600,122 +6785,122 @@ void __destroy_helper_block_e8_40c67_ZTSKNSt3__112basic_stringIcNS_11char_traits
   }
 }
 
-void *std::__tree<std::__value_type<std::string,dispatch::callback<void({block_pointer})(CtrXPC::ServerClientState,xpc::dict,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::__map_value_compare<std::string,std::__value_type<std::string,dispatch::callback<void({block_pointer})(CtrXPC::ServerClientState,xpc::dict,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,dispatch::callback<void({block_pointer})(CtrXPC::ServerClientState,xpc::dict,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t a1, const void **a2)
+uint64_t *std::__tree<std::__value_type<std::string,dispatch::callback<void({block_pointer})(CtrXPC::ServerClientState,xpc::dict,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::__map_value_compare<std::string,std::__value_type<std::string,dispatch::callback<void({block_pointer})(CtrXPC::ServerClientState,xpc::dict,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,dispatch::callback<void({block_pointer})(CtrXPC::ServerClientState,xpc::dict,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t **a1, const void **a2, uint64_t a3, __int128 **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = a1[1];
+  if (!v4)
   {
 LABEL_25:
     operator new();
   }
 
-  v3 = *(a2 + 23);
-  if (v3 >= 0)
+  v5 = *(a2 + 23);
+  if (v5 >= 0)
   {
-    v4 = *(a2 + 23);
+    v6 = *(a2 + 23);
   }
 
   else
   {
-    v4 = a2[1];
+    v6 = a2[1];
   }
 
-  if (v3 >= 0)
+  if (v5 >= 0)
   {
-    v5 = a2;
+    v7 = a2;
   }
 
   else
   {
-    v5 = *a2;
+    v7 = *a2;
   }
 
   while (1)
   {
     while (1)
     {
-      v6 = v2;
-      v9 = v2[4];
-      v7 = v2 + 4;
-      v8 = v9;
-      v10 = *(v7 + 23);
-      if (v10 >= 0)
+      v8 = v4;
+      v11 = v4[4];
+      v9 = v4 + 4;
+      v10 = v11;
+      v12 = *(v9 + 23);
+      if (v12 >= 0)
       {
-        v11 = *(v7 + 23);
+        v13 = *(v9 + 23);
       }
 
       else
       {
-        v11 = v7[1];
+        v13 = v9[1];
       }
 
-      if (v10 >= 0)
+      if (v12 >= 0)
       {
-        v12 = v7;
+        v14 = v9;
       }
 
       else
       {
-        v12 = v8;
+        v14 = v10;
       }
 
-      if (v11 >= v4)
+      if (v13 >= v6)
       {
-        v13 = v4;
+        v15 = v6;
       }
 
       else
       {
-        v13 = v11;
+        v15 = v13;
       }
 
-      v14 = memcmp(v5, v12, v13);
-      v15 = v4 < v11;
-      if (v14)
+      v16 = memcmp(v7, v14, v15);
+      v17 = v6 < v13;
+      if (v16)
       {
-        v15 = v14 < 0;
+        v17 = v16 < 0;
       }
 
-      if (!v15)
+      if (!v17)
       {
         break;
       }
 
-      v2 = *v6;
-      if (!*v6)
+      v4 = *v8;
+      if (!*v8)
       {
         goto LABEL_25;
       }
     }
 
-    v16 = memcmp(v12, v5, v13);
-    v17 = v11 < v4;
-    if (v16)
+    v18 = memcmp(v14, v7, v15);
+    v19 = v13 < v6;
+    if (v18)
     {
-      v17 = v16 < 0;
+      v19 = v18 < 0;
     }
 
-    if (!v17)
+    if (!v19)
     {
-      return v6;
+      return v8;
     }
 
-    v2 = v6[1];
-    if (!v2)
+    v4 = v8[1];
+    if (!v4)
     {
       goto LABEL_25;
     }
   }
 }
 
-void sub_1001053E8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1001053E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__tree_node<std::__value_type<std::string,dispatch::callback<void({block_pointer})(CtrXPC::ServerClientState,xpc::dict,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,dispatch::callback<void({block_pointer})(CtrXPC::ServerClientState,xpc::dict,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::unique_ptr<std::__tree_node<std::__value_type<std::string,dispatch::callback<void({block_pointer})(CtrXPC::ServerClientState,xpc::dict,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,dispatch::callback<void({block_pointer})(CtrXPC::ServerClientState,xpc::dict,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
+char **std::unique_ptr<std::__tree_node<std::__value_type<std::string,dispatch::callback<void({block_pointer})(CtrXPC::ServerClientState,xpc::dict,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,dispatch::callback<void({block_pointer})(CtrXPC::ServerClientState,xpc::dict,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,void *>>>>::~unique_ptr[abi:ne200100](char **a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -6723,7 +6908,7 @@ uint64_t std::unique_ptr<std::__tree_node<std::__value_type<std::string,dispatch
   {
     if (*(a1 + 16) == 1)
     {
-      std::allocator_traits<std::allocator<std::__tree_node<std::__value_type<std::string,dispatch::callback<void({block_pointer})(CtrXPC::ServerClientState,xpc::dict,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,void *>>>::destroy[abi:ne200100]<std::pair<std::string const,dispatch::callback<void({block_pointer})(CtrXPC::ServerClientState,xpc::dict,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,void,0>(*(a1 + 8), v2 + 32);
+      std::allocator_traits<std::allocator<std::__tree_node<std::__value_type<std::string,dispatch::callback<void({block_pointer})(CtrXPC::ServerClientState,xpc::dict,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,void *>>>::destroy[abi:ne200100]<std::pair<std::string const,dispatch::callback<void({block_pointer})(CtrXPC::ServerClientState,xpc::dict,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,void,0>(a1[1], v2 + 32);
     }
 
     operator delete(v2);
@@ -7611,7 +7796,7 @@ LABEL_130:
   }
 }
 
-void sub_100106414(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, xpc_object_t object, xpc_object_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, xpc_object_t a17, xpc_object_t a18, char a19, uint64_t a20, xpc_object_t a21, uint64_t a22, void *__p, uint64_t a24, int a25, __int16 a26, char a27, char a28, void *a29, uint64_t a30, int a31, __int16 a32, char a33, char a34)
+void sub_100106414(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, xpc_object_t object, xpc_object_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, xpc_object_t a17, xpc_object_t a18, uint64_t a19, uint64_t a20, xpc_object_t a21, uint64_t a22, void *__p, uint64_t a24, int a25, __int16 a26, char a27, char a28, void *a29, uint64_t a30, int a31, __int16 a32, char a33, char a34)
 {
   dispatch::callback<void({block_pointer})(void)>::~callback(&a9);
   xpc_release(object);
@@ -7835,7 +8020,7 @@ LABEL_44:
             object.__r_.__value_.__r.__words[0] = xpc_null_create();
           }
 
-          xpc::bridge(&buf, &object, v20);
+          xpc::bridge(&object, v20);
           v31 = buf.__r_.__value_.__r.__words[0];
           if (buf.__r_.__value_.__r.__words[0] && (v32 = CFGetTypeID(buf.__r_.__value_.__l.__data_), v32 == CFArrayGetTypeID()))
           {
@@ -8516,7 +8701,7 @@ LABEL_268:
       object.__r_.__value_.__r.__words[0] = xpc_null_create();
     }
 
-    xpc::bridge(&buf, &object, v17);
+    xpc::bridge(&object, v17);
     v42 = buf.__r_.__value_.__r.__words[0];
     if (buf.__r_.__value_.__r.__words[0])
     {
@@ -8709,7 +8894,7 @@ void dispatch::block<void({block_pointer})(CtrXPC::ServerClientState,xpc::dict,d
   v15 = v6;
   if (v6)
   {
-    atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
   }
 
   v7 = *a3;
@@ -8767,12 +8952,13 @@ LABEL_8:
   }
 }
 
-void sub_100107EDC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, xpc_object_t object, char a13)
+void sub_100107EDC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, xpc_object_t object, ...)
 {
+  va_start(va, object);
   dispatch::callback<void({block_pointer})(void)>::~callback(&a10);
   xpc_release(object);
   object = 0;
-  std::shared_ptr<CtrXPC::Server>::~shared_ptr[abi:ne200100](&a13);
+  std::shared_ptr<CtrXPC::Server>::~shared_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
@@ -9097,9 +9283,9 @@ void ___ZN6CtrXPC6Server5State20registerNotificationEN3xpc10connectionEbN3ctu2cf
   }
 }
 
-void sub_100108530(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_100108530(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   std::shared_ptr<CtrXPC::Server>::~shared_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -9581,186 +9767,5 @@ void ___ZN6CtrXPC6Server5State7unicastEN3xpc10connectionENSt3__112basic_stringIc
     v9 = *(a1 + 88);
 
     dispatch_group_leave(v9);
-  }
-}
-
-void sub_100109098(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, char a16)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-    std::shared_ptr<CtrXPC::Server>::~shared_ptr[abi:ne200100](&a16);
-    _Unwind_Resume(a1);
-  }
-
-  std::shared_ptr<CtrXPC::Server>::~shared_ptr[abi:ne200100](&a16);
-  _Unwind_Resume(a1);
-}
-
-void ___ZN6CtrXPC6Server5State7unicastEN3xpc10connectionENSt3__112basic_stringIcNS4_11char_traitsIcEENS4_9allocatorIcEEEENS2_4dictEN8dispatch8callbackIU13block_pointerFvvEEE_block_invoke_52(uint64_t a1)
-{
-  v2 = *(a1 + 40);
-  if (v2)
-  {
-    v3 = std::__shared_weak_count::lock(v2);
-    if (v3)
-    {
-      if (*(a1 + 32))
-      {
-        logging_obg = log_get_logging_obg("com.apple.wpantund.xpcserver", "default");
-        if (os_log_type_enabled(logging_obg, OS_LOG_TYPE_INFO))
-        {
-          xpc::object::to_string(__p, (a1 + 48));
-          v5 = __p[0];
-          if (SHIBYTE(v12) >= 0)
-          {
-            v5 = __p;
-          }
-
-          v6 = (a1 + 56);
-          if (*(a1 + 79) < 0)
-          {
-            v6 = *v6;
-          }
-
-          *buf = 136315394;
-          v16 = v5;
-          v17 = 2080;
-          v18 = v6;
-          _os_log_impl(&_mh_execute_header, logging_obg, OS_LOG_TYPE_INFO, "Client: %s, responded to: %s", buf, 0x16u);
-          if (SHIBYTE(v12) < 0)
-          {
-            operator delete(__p[0]);
-          }
-        }
-      }
-    }
-  }
-
-  else
-  {
-    v3 = 0;
-  }
-
-  v7 = *(a1 + 80);
-  if (v7)
-  {
-    v8 = _Block_copy(v7);
-  }
-
-  else
-  {
-    v8 = 0;
-  }
-
-  v9 = *(a1 + 88);
-  __p[0] = _NSConcreteStackBlock;
-  __p[1] = 1174405120;
-  v12 = ___ZNK8dispatch8callbackIU13block_pointerFvvEEclIJEEEvDpT__block_invoke_0;
-  v13 = &__block_descriptor_tmp_31;
-  if (!v8)
-  {
-    aBlock = 0;
-    dispatch_async(v9, __p);
-    v10 = aBlock;
-    if (!aBlock)
-    {
-      goto LABEL_20;
-    }
-
-    goto LABEL_19;
-  }
-
-  aBlock = _Block_copy(v8);
-  dispatch_async(v9, __p);
-  v10 = aBlock;
-  if (aBlock)
-  {
-LABEL_19:
-    _Block_release(v10);
-  }
-
-LABEL_20:
-  if (v8)
-  {
-    _Block_release(v8);
-  }
-
-  if (v3)
-  {
-    if (!atomic_fetch_add(&v3->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-    {
-      (v3->__on_zero_shared)(v3);
-      std::__shared_weak_count::__release_weak(v3);
-    }
-  }
-}
-
-void sub_10010930C(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  std::shared_ptr<CtrXPC::Server>::~shared_ptr[abi:ne200100](va);
-  _Unwind_Resume(a1);
-}
-
-void sub_100109324(_Unwind_Exception *exception_object, int a2)
-{
-  if (!a2)
-  {
-    _Unwind_Resume(exception_object);
-  }
-
-  __clang_call_terminate(exception_object);
-}
-
-void __copy_helper_block_e8_32c39_ZTSNSt3__18weak_ptrIN3ctu9XpcServerEEE48c23_ZTSKN3xpc10connectionE56c67_ZTSKNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEE80c46_ZTSN8dispatch8callbackIU13block_pointerFvvEEE(uint64_t a1, uint64_t a2)
-{
-  v4 = *(a2 + 40);
-  *(a1 + 32) = *(a2 + 32);
-  *(a1 + 40) = v4;
-  if (v4)
-  {
-    atomic_fetch_add_explicit((v4 + 16), 1uLL, memory_order_relaxed);
-  }
-
-  v5 = *(a2 + 48);
-  *(a1 + 48) = v5;
-  if (v5)
-  {
-    xpc_retain(v5);
-    if ((*(a2 + 79) & 0x80000000) == 0)
-    {
-LABEL_5:
-      v6 = *(a2 + 56);
-      *(a1 + 72) = *(a2 + 72);
-      *(a1 + 56) = v6;
-      goto LABEL_8;
-    }
-  }
-
-  else
-  {
-    *(a1 + 48) = xpc_null_create();
-    if ((*(a2 + 79) & 0x80000000) == 0)
-    {
-      goto LABEL_5;
-    }
-  }
-
-  std::string::__init_copy_ctor_external((a1 + 56), *(a2 + 56), *(a2 + 64));
-LABEL_8:
-  v7 = *(a2 + 80);
-  if (v7)
-  {
-    v7 = _Block_copy(v7);
-  }
-
-  v8 = *(a2 + 88);
-  *(a1 + 80) = v7;
-  *(a1 + 88) = v8;
-  if (v8)
-  {
-
-    dispatch_retain(v8);
   }
 }

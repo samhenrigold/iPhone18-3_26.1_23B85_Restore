@@ -44,9 +44,9 @@
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_alloc(objc_opt_class());
-  home = [(HFServiceItemProvider *)self home];
+  v5 = objc_msgSend_home(self);
   serviceTypes = [(HFServiceItemProvider *)self serviceTypes];
-  v7 = [v4 initWithHome:home serviceTypes:serviceTypes];
+  v7 = [v4 initWithHome:v5 serviceTypes:serviceTypes];
 
   return v7;
 }
@@ -90,14 +90,14 @@ id __36__HFServiceItemProvider_reloadItems__block_invoke(uint64_t a1)
   if (v2)
   {
     v3 = [*(a1 + 32) sourceServiceGenerator];
-    v4 = [*(a1 + 32) home];
+    v4 = objc_msgSend_home(*(a1 + 32));
     (v3)[2](v3, v4);
   }
 
   else
   {
     v5 = MEMORY[0x277D2C900];
-    v3 = [*(a1 + 32) home];
+    v3 = objc_msgSend_home(*(a1 + 32));
     v4 = [v3 hf_allVisibleServices];
     [v5 futureWithResult:v4];
   }
@@ -198,16 +198,14 @@ id __36__HFServiceItemProvider_reloadItems__block_invoke_5(uint64_t a1, void *a2
 
 - (id)invalidationReasons
 {
-  v8[2] = *MEMORY[0x277D85DE8];
-  v7.receiver = self;
-  v7.super_class = HFServiceItemProvider;
-  invalidationReasons = [(HFItemProvider *)&v7 invalidationReasons];
-  v8[0] = @"service";
-  v8[1] = @"accessory";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:2];
+  v7[2] = *MEMORY[0x277D85DE8];
+  v6.receiver = self;
+  v6.super_class = HFServiceItemProvider;
+  invalidationReasons = [(HFItemProvider *)&v6 invalidationReasons];
+  v7[0] = @"service";
+  v7[1] = @"accessory";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:2];
   v4 = [invalidationReasons setByAddingObjectsFromArray:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -223,8 +221,8 @@ id __36__HFServiceItemProvider_reloadItems__block_invoke_5(uint64_t a1, void *a2
 
   else
   {
-    home = [(HFServiceItemProvider *)self home];
-    overrideValueSource2 = [home hf_characteristicValueManager];
+    v5 = objc_msgSend_home(self);
+    overrideValueSource2 = [v5 hf_characteristicValueManager];
   }
 
   return overrideValueSource2;

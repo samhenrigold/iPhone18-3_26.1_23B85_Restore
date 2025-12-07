@@ -213,32 +213,31 @@
 
   if (addedFrequency)
   {
-    v47 = 0u;
-    v48 = 0u;
     v45 = 0u;
     v46 = 0u;
+    v43 = 0u;
+    v44 = 0u;
     addedFrequency2 = [modificationCopy addedFrequency];
-    v14 = [addedFrequency2 countByEnumeratingWithState:&v45 objects:v50 count:16];
+    v14 = [addedFrequency2 countByEnumeratingWithState:&v43 objects:v48 count:16];
     if (v14)
     {
       v15 = v14;
       v16 = 0;
-      v17 = *v46;
+      v17 = *v44;
       do
       {
-        for (i = 0; i != v15; i = i + 1)
+        for (i = 0; i != v15; ++i)
         {
-          if (*v46 != v17)
+          if (*v44 != v17)
           {
             objc_enumerationMutation(addedFrequency2);
           }
 
-          v19 = *(*(&v45 + 1) + 8 * i);
-          v20 = SAAlarmDayOfWeekForString();
-          v16 |= MTAlarmRepeatDayFromSAAlarmDayOfWeek(v20);
+          v19 = SAAlarmDayOfWeekForString();
+          v16 |= MTAlarmRepeatDayFromSAAlarmDayOfWeek(v19);
         }
 
-        v15 = [addedFrequency2 countByEnumeratingWithState:&v45 objects:v50 count:16];
+        v15 = [addedFrequency2 countByEnumeratingWithState:&v43 objects:v48 count:16];
       }
 
       while (v15);
@@ -257,44 +256,42 @@
 
   if (removedFrequency)
   {
-    v43 = 0u;
-    v44 = 0u;
     v41 = 0u;
     v42 = 0u;
+    v40 = 0u;
     removedFrequency2 = [modificationCopy removedFrequency];
-    v23 = [removedFrequency2 countByEnumeratingWithState:&v41 objects:v49 count:16];
-    if (v23)
+    v22 = [removedFrequency2 countByEnumeratingWithState:&v39 objects:v47 count:16];
+    if (v22)
     {
-      v24 = v23;
-      v25 = *v42;
+      v23 = v22;
+      v24 = *v40;
       do
       {
-        for (j = 0; j != v24; j = j + 1)
+        for (j = 0; j != v23; ++j)
         {
-          if (*v42 != v25)
+          if (*v40 != v24)
           {
             objc_enumerationMutation(removedFrequency2);
           }
 
-          v27 = *(*(&v41 + 1) + 8 * j);
-          v28 = SAAlarmDayOfWeekForString();
-          v29 = MTAlarmRepeatDayFromSAAlarmDayOfWeek(v28);
+          v26 = SAAlarmDayOfWeekForString();
+          v27 = MTAlarmRepeatDayFromSAAlarmDayOfWeek(v26);
         }
 
-        v30 = v29;
-        v24 = [removedFrequency2 countByEnumeratingWithState:&v41 objects:v49 count:16];
+        v28 = v27;
+        v23 = [removedFrequency2 countByEnumeratingWithState:&v39 objects:v47 count:16];
       }
 
-      while (v24);
-      v31 = ~v30;
+      while (v23);
+      v29 = ~v28;
     }
 
     else
     {
-      v31 = -1;
+      v29 = -1;
     }
 
-    [v6 setRepeatSchedule:{objc_msgSend(v6, "repeatSchedule") & v31}];
+    [v6 setRepeatSchedule:{objc_msgSend(v6, "repeatSchedule") & v29}];
     v8 = 1;
   }
 
@@ -334,13 +331,13 @@ LABEL_30:
     bOOLValue = [enabled4 BOOLValue];
 
     [v6 setEnabled:bOOLValue];
-    v40 = &kMTCASiriAlarmDeactivations;
+    v38 = &kMTCASiriAlarmDeactivations;
     if (bOOLValue)
     {
-      v40 = &kMTCASiriAlarmActivations;
+      v38 = &kMTCASiriAlarmActivations;
     }
 
-    [MTAnalytics incrementEventCount:*v40];
+    [MTAnalytics incrementEventCount:*v38];
   }
 
 LABEL_34:

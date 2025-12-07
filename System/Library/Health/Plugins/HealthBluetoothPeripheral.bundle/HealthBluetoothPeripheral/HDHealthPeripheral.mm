@@ -176,12 +176,12 @@
 
   v18 = *p_cbPeripheral;
   allObjects = [v3 allObjects];
-  [v18 discoverServices:allObjects];
+  [(CBPeripheral *)v18 discoverServices:allObjects];
 
   _HKInitializeLogging();
   if (os_log_type_enabled(HKLogServices, OS_LOG_TYPE_DEBUG))
   {
-    sub_27808(v3, p_cbPeripheral);
+    sub_27808();
   }
 }
 

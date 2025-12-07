@@ -680,35 +680,30 @@ LABEL_6:
 
 + (void)stringForMatchOutcome:totalParticipant:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(&dword_227904000, v0, OS_LOG_TYPE_DEBUG, "GKTurnBasedMatch stringForMatchOutcome: a TURN_BASED_OUTCOME_NONE will be returned because an invalid outcome was encountered: %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_227904000, v0, OS_LOG_TYPE_DEBUG, "GKTurnBasedMatch stringForMatchOutcome: a TURN_BASED_OUTCOME_NONE will be returned because an invalid outcome was encountered: %@", v1, 0xCu);
 }
 
 - (void)matchOutcomeString:(uint64_t)a3 .cold.1(void *a1, void *a2, uint64_t a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = [a2 basicMatchOutcomeString:a3];
   OUTLINED_FUNCTION_0();
-  v9 = 2112;
-  v10 = a2;
-  _os_log_debug_impl(&dword_227904000, v5, OS_LOG_TYPE_DEBUG, "encountered matchOutcome %@ in a non done match: %@", v8, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v8 = 2112;
+  v9 = a2;
+  _os_log_debug_impl(&dword_227904000, v5, OS_LOG_TYPE_DEBUG, "encountered matchOutcome %@ in a non done match: %@", v7, 0x16u);
 }
 
 + (void)matchOutcomeIsValidForDoneState:(void *)a1 .cold.1(void *a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCABB0];
   v4 = a1;
   v5 = [v3 numberWithInteger:a2];
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(&dword_227904000, v4, OS_LOG_TYPE_DEBUG, "GKTurnBasedMatch matchOutcomeIsValidForDoneState: match outcome will be marked not valid as invalid outcome was encountered: %@", v7, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_227904000, v4, OS_LOG_TYPE_DEBUG, "GKTurnBasedMatch matchOutcomeIsValidForDoneState: match outcome will be marked not valid as invalid outcome was encountered: %@", v6, 0xCu);
 }
 
 @end

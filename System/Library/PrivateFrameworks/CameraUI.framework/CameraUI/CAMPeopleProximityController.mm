@@ -161,10 +161,10 @@
       [(CAMPeopleProximityController *)self setQueue_hasDiscoveredFirstPerson:0];
       [(CAMPeopleProximityController *)self setQueue_hasDiscoveredFirstPersonNearby:0];
       queue_proximityScanner2 = [(CAMPeopleProximityController *)self queue_proximityScanner];
-      CAMSignpostsDiscoverPersonBegin();
+      CAMSignpostsDiscoverPersonBegin(queue_proximityScanner2);
 
       queue_proximityScanner3 = [(CAMPeopleProximityController *)self queue_proximityScanner];
-      CAMSignpostsDiscoverPersonNearbyBegin();
+      CAMSignpostsDiscoverPersonNearbyBegin(queue_proximityScanner3);
 
       peopleProximityInitialScanRate = [v5 peopleProximityInitialScanRate];
       [v5 peopleProximityInitialScanDuration];

@@ -78,8 +78,8 @@ id __62__ATXGlobalWidgetPopularityModel_modelWithAllAvailableWidgets__block_invo
 
 - (id)_computePriors
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v3 = __atxlog_handle_modes();
+  v21 = *MEMORY[0x277D85DE8];
+  v3 = __atxlog_handle_modes(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -87,27 +87,27 @@ id __62__ATXGlobalWidgetPopularityModel_modelWithAllAvailableWidgets__block_invo
   }
 
   v4 = objc_opt_new();
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v5 = self->_bundleIdAndKinds;
-  v6 = [(NSSet *)v5 countByEnumeratingWithState:&v16 objects:v21 count:16];
+  v6 = [(NSSet *)v5 countByEnumeratingWithState:&v15 objects:v20 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
-        v11 = [(_PASCFBurstTrie *)self->_priorsTrie payloadForString:v10, v16];
+        v10 = *(*(&v15 + 1) + 8 * i);
+        v11 = [(_PASCFBurstTrie *)self->_priorsTrie payloadForString:v10, v15];
         if (v11)
         {
           v12 = [MEMORY[0x277CCABB0] numberWithDouble:(v11 - 1) / 4294967300.0];
@@ -115,14 +115,13 @@ id __62__ATXGlobalWidgetPopularityModel_modelWithAllAvailableWidgets__block_invo
         }
       }
 
-      v7 = [(NSSet *)v5 countByEnumeratingWithState:&v16 objects:v21 count:16];
+      v7 = [(NSSet *)v5 countByEnumeratingWithState:&v15 objects:v20 count:16];
     }
 
     while (v7);
   }
 
   v13 = [v4 copy];
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -148,7 +147,7 @@ id __62__ATXGlobalWidgetPopularityModel_modelWithAllAvailableWidgets__block_invo
   {
     if (selfCopy->_assetOffloadedDueToMemoryPressure)
     {
-      v9 = __atxlog_handle_modes();
+      v9 = __atxlog_handle_modes(0);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
         *v16 = 0;

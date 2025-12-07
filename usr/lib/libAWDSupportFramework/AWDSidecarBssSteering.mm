@@ -390,7 +390,6 @@ LABEL_14:
   has = self->_has;
   if ((has & 0x1000) != 0)
   {
-    trafficType = self->_trafficType;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((has & 0x10) == 0)
@@ -410,7 +409,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  completionTime = self->_completionTime;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -425,7 +423,6 @@ LABEL_4:
   }
 
 LABEL_17:
-  attemptStatus = self->_attemptStatus;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 1) == 0)
@@ -440,7 +437,6 @@ LABEL_5:
   }
 
 LABEL_18:
-  attemptPeerCount = self->_attemptPeerCount;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -455,7 +451,6 @@ LABEL_6:
   }
 
 LABEL_19:
-  bssSyncChannel = self->_bssSyncChannel;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -470,7 +465,6 @@ LABEL_7:
   }
 
 LABEL_20:
-  peerChannel = self->_peerChannel;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x100) == 0)
@@ -485,7 +479,6 @@ LABEL_8:
   }
 
 LABEL_21:
-  selfInfraChannel = self->_selfInfraChannel;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x400) == 0)
@@ -500,7 +493,6 @@ LABEL_9:
   }
 
 LABEL_22:
-  targetChannel = self->_targetChannel;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -515,7 +507,6 @@ LABEL_10:
   }
 
 LABEL_23:
-  policyCode = self->_policyCode;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -530,7 +521,6 @@ LABEL_11:
   }
 
 LABEL_24:
-  peerChannelFlags = self->_peerChannelFlags;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x200) == 0)
@@ -542,7 +532,6 @@ LABEL_12:
     }
 
 LABEL_26:
-    bssSyncChannelFlags = self->_bssSyncChannelFlags;
     PBDataWriterWriteUint32Field();
     if ((*&self->_has & 0x800) == 0)
     {
@@ -553,7 +542,6 @@ LABEL_26:
   }
 
 LABEL_25:
-  selfInfraChannelFlags = self->_selfInfraChannelFlags;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 8) != 0)
@@ -568,7 +556,6 @@ LABEL_13:
   }
 
 LABEL_27:
-  targetChannelFlags = self->_targetChannelFlags;
 
   PBDataWriterWriteUint32Field();
 }

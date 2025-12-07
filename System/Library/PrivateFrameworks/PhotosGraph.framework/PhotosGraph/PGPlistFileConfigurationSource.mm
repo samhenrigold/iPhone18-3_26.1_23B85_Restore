@@ -6,11 +6,11 @@
 
 - (PGPlistFileConfigurationSource)initWithPlistFileURL:(id)l
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   lCopy = l;
-  v16.receiver = self;
-  v16.super_class = PGPlistFileConfigurationSource;
-  v5 = [(PGPlistFileConfigurationSource *)&v16 init];
+  v15.receiver = self;
+  v15.super_class = PGPlistFileConfigurationSource;
+  v5 = [(PGPlistFileConfigurationSource *)&v15 init];
   if (!v5)
   {
     goto LABEL_4;
@@ -37,14 +37,13 @@ LABEL_4:
   if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v18 = lCopy;
+    v17 = lCopy;
     _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "[PGConfigurationSource] failed to load PlistFile at filePath: %@", buf, 0xCu);
   }
 
   v11 = 0;
 LABEL_8:
 
-  v14 = *MEMORY[0x277D85DE8];
   return v11;
 }
 

@@ -1,9 +1,7 @@
 @interface PostalAddressResolutionResult
-+ (id)confirmationRequiredWithObjectToConfirm:(id)confirm;
 + (id)confirmationRequiredWithPostalAddressToConfirm:(id)confirm;
 + (id)disambiguationWithObjectsToDisambiguate:(id)disambiguate;
 + (id)disambiguationWithPostalAddresssToDisambiguate:(id)disambiguate;
-+ (id)successWithResolvedObject:(id)object;
 + (id)successWithResolvedPostalAddress:(id)address;
 @end
 
@@ -37,26 +35,13 @@
   return v5;
 }
 
-+ (id)successWithResolvedObject:(id)object
-{
-  objectCopy = object;
-  static PostalAddressResolutionResult.success(with:)();
-  return static PostalAddressResolutionResult.disambiguation(with:)();
-}
-
 + (id)disambiguationWithObjectsToDisambiguate:(id)disambiguate
 {
   type metadata accessor for INObject();
-  static Array._unconditionallyBridgeFromObjectiveC(_:)();
-  static PostalAddressResolutionResult.success(with:)();
-  return static PostalAddressResolutionResult.confirmationRequired(with:)();
-}
-
-+ (id)confirmationRequiredWithObjectToConfirm:(id)confirm
-{
-  confirmCopy = confirm;
-  static PostalAddressResolutionResult.confirmationRequired(with:)();
-  return PostalAddressResolutionResult.__allocating_init(JSONDictionary:intent:)();
+  v3 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  static PostalAddressResolutionResult.success(with:)(v3);
+  static PostalAddressResolutionResult.confirmationRequired(with:)(v4);
+  return result;
 }
 
 @end

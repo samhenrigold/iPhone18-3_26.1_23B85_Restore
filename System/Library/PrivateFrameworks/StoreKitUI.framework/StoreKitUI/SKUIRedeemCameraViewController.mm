@@ -133,12 +133,12 @@
     self->_flipButton = v13;
 
     [(UIBarButtonItem *)self->_flipButton setAction:sel__flipAction_];
-    [(UIBarButtonItem *)self->_flipButton setTarget:self];
-    v15 = self->_flipButton;
-    v16 = MEMORY[0x277D755B8];
-    v17 = SKUIBundle();
-    v18 = [v16 imageNamed:@"CameraFlip" inBundle:v17];
-    [(UIBarButtonItem *)v15 setImage:v18];
+    v15 = [(UIBarButtonItem *)self->_flipButton setTarget:self];
+    v16 = self->_flipButton;
+    v17 = MEMORY[0x277D755B8];
+    v19 = SKUIBundle(v15, v18);
+    v20 = [v17 imageNamed:@"CameraFlip" inBundle:v19];
+    [(UIBarButtonItem *)v16 setImage:v20];
   }
 
   [(SKUIRedeemCameraViewController *)self _updateRightBarButtonItemsForRedeemInputState:1];
@@ -151,9 +151,9 @@
 
   if (self->_fullscreen)
   {
-    v23 = [[SKUIFullscreenRedeemCameraView alloc] initWithClientContext:clientContext];
+    v25 = [[SKUIFullscreenRedeemCameraView alloc] initWithClientContext:clientContext];
     clientContext2 = [(SKUIRedeemStepViewController *)self clientContext];
-    v25 = clientContext2;
+    v27 = clientContext2;
     if (clientContext2)
     {
       [clientContext2 localizedStringForKey:@"CAMERA_REDEEM_TITLE" inTable:@"Redeem"];
@@ -163,8 +163,8 @@
     {
       [SKUIClientContext localizedStringForKey:@"CAMERA_REDEEM_TITLE" inBundles:0 inTable:@"Redeem"];
     }
-    v30 = ;
-    [(SKUIRedeemCameraViewController *)self setTitle:v30];
+    v32 = ;
+    [(SKUIRedeemCameraViewController *)self setTitle:v32];
   }
 
   else
@@ -174,29 +174,29 @@
 
     if ((userInterfaceIdiom & 0xFFFFFFFFFFFFFFFBLL) == 1)
     {
-      v23 = [[SKUIIPadRedeemCameraView alloc] initWithClientContext:clientContext];
+      v25 = [[SKUIIPadRedeemCameraView alloc] initWithClientContext:clientContext];
     }
 
     else
     {
-      v23 = [[SKUIRedeemCameraView alloc] initWithClientContext:clientContext];
+      v25 = [[SKUIRedeemCameraView alloc] initWithClientContext:clientContext];
       if ([(SKUIRedeemStepViewController *)self shouldShowPassbookLearnMore])
       {
         configuration3 = [(SKUIRedeemStepViewController *)self configuration];
         iTunesPassConfiguration = [configuration3 ITunesPassConfiguration];
-        [(SKUIFullscreenRedeemCameraView *)v23 setITunesPassConfiguration:iTunesPassConfiguration];
+        [(SKUIFullscreenRedeemCameraView *)v25 setITunesPassConfiguration:iTunesPassConfiguration];
       }
     }
   }
 
   whiteColor = [MEMORY[0x277D75348] whiteColor];
-  [(SKUIFullscreenRedeemCameraView *)v23 setBackgroundColor:whiteColor];
+  [(SKUIFullscreenRedeemCameraView *)v25 setBackgroundColor:whiteColor];
 
-  [(SKUIFullscreenRedeemCameraView *)v23 setText:self->_initialCode];
-  [(SKUIFullscreenRedeemCameraView *)v23 setImage:landingImage];
-  [(SKUIFullscreenRedeemCameraView *)v23 setDelegate:self];
-  [(SKUIFullscreenRedeemCameraView *)v23 start];
-  [(SKUIRedeemCameraViewController *)self setView:v23];
+  [(SKUIFullscreenRedeemCameraView *)v25 setText:self->_initialCode];
+  [(SKUIFullscreenRedeemCameraView *)v25 setImage:landingImage];
+  [(SKUIFullscreenRedeemCameraView *)v25 setDelegate:self];
+  [(SKUIFullscreenRedeemCameraView *)v25 start];
+  [(SKUIRedeemCameraViewController *)self setView:v25];
 }
 
 - (void)_cancelAction:(id)action

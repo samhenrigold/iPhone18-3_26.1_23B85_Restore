@@ -9,27 +9,25 @@
 
 - (NSUUID)messageGUID
 {
-  v3 = type metadata accessor for Metadata();
-  v4 = *(*(v3 - 8) + 64);
+  v3 = type metadata accessor for Metadata(0);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v14 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = sub_2146D8B88();
-  v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  MEMORY[0x28223BE20](v7);
-  v11 = &v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_213FB568C(self + OBJC_IVAR___BlastDoorMetadata_metadata, v6, type metadata accessor for Metadata);
-  (*(v8 + 32))(v11, v6, v7);
-  v12 = sub_2146D8B38();
-  (*(v8 + 8))(v11, v7);
+  v5 = &v12 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = sub_2146D8B88();
+  v7 = *(v6 - 8);
+  MEMORY[0x28223BE20](v6);
+  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_213FB568C(self + OBJC_IVAR___BlastDoorMetadata_metadata, v5, type metadata accessor for Metadata);
+  (*(v7 + 32))(v9, v5, v6);
+  v10 = sub_2146D8B38();
+  (*(v7 + 8))(v9, v6);
 
-  return v12;
+  return v10;
 }
 
 - (unint64_t)timestamp
 {
   v2 = self + OBJC_IVAR___BlastDoorMetadata_metadata;
-  v3 = &v2[*(type metadata accessor for Metadata() + 20)];
+  v3 = &v2[*(type metadata accessor for Metadata(0) + 20)];
   if (v3[8])
   {
     return 0;
@@ -44,7 +42,7 @@
 - (BlastDoorMetadata_StorageContext)storageContext
 {
   v2 = self + OBJC_IVAR___BlastDoorMetadata_metadata;
-  v3 = &v2[*(type metadata accessor for Metadata() + 32)];
+  v3 = &v2[*(type metadata accessor for Metadata(0) + 32)];
   v4 = *v3;
   v5 = v3[1];
   v6 = type metadata accessor for _ObjCMetadata_StorageContextWrapper();

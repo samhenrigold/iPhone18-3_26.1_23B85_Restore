@@ -135,87 +135,83 @@ LABEL_5:
 
 - (void)unstagePackagesWithIdentifiers:(id)identifiers
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __53__AEPackageTransport_unstagePackagesWithIdentifiers___block_invoke;
-  v17[3] = &unk_278CC77A8;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __53__AEPackageTransport_unstagePackagesWithIdentifiers___block_invoke;
+  v16[3] = &unk_278CC77A8;
   v5 = identifiersCopy;
-  v18 = v5;
+  v17 = v5;
   selfCopy = self;
-  [(AEPackageTransport *)self performChanges:v17];
+  [(AEPackageTransport *)self performChanges:v16];
   delegate = [(AEPackageTransport *)self delegate];
   if (objc_opt_respondsToSelector())
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v13 objects:v20 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v12 objects:v19 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v14;
+      v10 = *v13;
       do
       {
         v11 = 0;
         do
         {
-          if (*v14 != v10)
+          if (*v13 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          [delegate packageTransport:self didUnstagePackageWithIdentifier:{*(*(&v13 + 1) + 8 * v11++), v13}];
+          [delegate packageTransport:self didUnstagePackageWithIdentifier:{*(*(&v12 + 1) + 8 * v11++), v12}];
         }
 
         while (v9 != v11);
-        v9 = [v7 countByEnumeratingWithState:&v13 objects:v20 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v12 objects:v19 count:16];
       }
 
       while (v9);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __53__AEPackageTransport_unstagePackagesWithIdentifiers___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(a1 + 40) _removePackageFromStagingWithIdentifier:{*(*(&v8 + 1) + 8 * v6++), v8}];
+        [*(a1 + 40) _removePackageFromStagingWithIdentifier:{*(*(&v7 + 1) + 8 * v6++), v7}];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unstagePackageWithIdentifier:(id)identifier andNotify:(BOOL)notify
@@ -264,77 +260,71 @@ void __53__AEPackageTransport_unstagePackagesWithIdentifiers___block_invoke(uint
 
 void __46__AEPackageTransport_stagePackages_andNotify___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(a1 + 40) _addPackageToStaging:{*(*(&v8 + 1) + 8 * v6++), v8}];
+        [*(a1 + 40) _addPackageToStaging:{*(*(&v7 + 1) + 8 * v6++), v7}];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stagePackage:(id)package
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   packageCopy = package;
-  v9 = MEMORY[0x277D85DD0];
-  v10 = 3221225472;
-  v11 = __35__AEPackageTransport_stagePackage___block_invoke;
-  v12 = &unk_278CC77A8;
+  v8 = MEMORY[0x277D85DD0];
+  v9 = 3221225472;
+  v10 = __35__AEPackageTransport_stagePackage___block_invoke;
+  v11 = &unk_278CC77A8;
   selfCopy = self;
   v5 = packageCopy;
-  v14 = v5;
-  [(AEPackageTransport *)self performChanges:&v9];
-  v6 = [(AEPackageTransport *)self delegate:v9];
+  v13 = v5;
+  [(AEPackageTransport *)self performChanges:&v8];
+  v6 = [(AEPackageTransport *)self delegate:v8];
   if (objc_opt_respondsToSelector())
   {
-    v15[0] = v5;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+    v14[0] = v5;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
     [v6 packageTransport:self didStagePackages:v7];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reportError:(id)error
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v4 = PLAssetExplorerGetLog();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     localizedDescription = [errorCopy localizedDescription];
-    v7 = 138543362;
-    v8 = localizedDescription;
-    _os_log_impl(&dword_2411DE000, v4, OS_LOG_TYPE_ERROR, "AssetExplorer reported error to transport: %{public}@", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = localizedDescription;
+    _os_log_impl(&dword_2411DE000, v4, OS_LOG_TYPE_ERROR, "AssetExplorer reported error to transport: %{public}@", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removePackageFromStagingWithIdentifier:(id)identifier
@@ -350,7 +340,7 @@ void __46__AEPackageTransport_stagePackages_andNotify___block_invoke(uint64_t a1
 
 - (void)_addPackageToStaging:(id)staging
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   stagingCopy = staging;
   _stagedPackagesByIdentifier = [(AEPackageTransport *)self _stagedPackagesByIdentifier];
   _allOrderedPackageIdentifiers = [(AEPackageTransport *)self _allOrderedPackageIdentifiers];
@@ -373,13 +363,13 @@ void __46__AEPackageTransport_stagePackages_andNotify___block_invoke(uint64_t a1
       v12 = PLAssetExplorerGetLog();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        v15 = 138543874;
-        v16 = identifier;
-        v17 = 2050;
-        v18 = v11;
-        v19 = 2050;
-        v20 = [_allOrderedPackageIdentifiers count];
-        _os_log_impl(&dword_2411DE000, v12, OS_LOG_TYPE_ERROR, "Package staging request index for %{public}@ is out of bounds (index: %{public}lu; package count: %{public}lu)", &v15, 0x20u);
+        v14 = 138543874;
+        v15 = identifier;
+        v16 = 2050;
+        v17 = v11;
+        v18 = 2050;
+        v19 = [_allOrderedPackageIdentifiers count];
+        _os_log_impl(&dword_2411DE000, v12, OS_LOG_TYPE_ERROR, "Package staging request index for %{public}@ is out of bounds (index: %{public}lu; package count: %{public}lu)", &v14, 0x20u);
       }
     }
 
@@ -391,7 +381,6 @@ LABEL_9:
   [_stagedPackagesByIdentifier setObject:v13 forKey:identifier];
 
   [(AEPackageTransport *)self signalChange:1];
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performChanges:(id)changes
@@ -422,42 +411,40 @@ LABEL_9:
 
 - (id)packagesWithLivePhotoContent
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   stagedPackages = [(AEPackageTransport *)self stagedPackages];
   v3 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v4 = stagedPackages;
-  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * i);
+        v9 = *(*(&v11 + 1) + 8 * i);
         if ([v9 containsLivePhotoContent])
         {
           [v3 addObject:v9];
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

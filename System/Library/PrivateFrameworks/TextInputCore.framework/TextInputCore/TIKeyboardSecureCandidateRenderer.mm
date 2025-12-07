@@ -7,8 +7,10 @@
 - (__CFArray)imagesFromContexts:(__CFArray *)contexts;
 - (__CFArray)imagesFromSecureCandidates:(id)candidates withRenderTraits:(id)traits outAccessibilityLabels:(id *)labels;
 - (id)_truncationSentinel;
+- (id)accessibilityLabelForSlotID:(unsigned int)d;
 - (id)accessibilityLabelsForSecureHeaders:(id)headers secureContents:(id)contents truncationSentinel:(id)sentinel;
 - (id)cachedCandidateForSecureCandidate:(id)candidate;
+- (id)cachedPayloadForSecureCandidateSlotID:(unsigned int)d;
 - (id)initForLocalizedStrings;
 - (id)localizedApplicationNameWithBundleIdentifier:(id)identifier;
 - (id)localizedStringForKey:(id)key;
@@ -16,6 +18,7 @@
 - (id)updateCachedCandidate:(id)candidate withCandidateString:(id)string;
 - (id)updateCachedCandidate:(id)candidate withStickerIdentifier:(id)identifier;
 - (unsigned)slotIDForSendCurrentLocationWithRenderTraits:(id)traits;
+- (void)cacheAccessibilityLabel:(id)label forSlotID:(unsigned int)d;
 - (void)clearSecureCandidateCache;
 - (void)createContext;
 - (void)dealloc;
@@ -24,6 +27,24 @@
 @end
 
 @implementation TIKeyboardSecureCandidateRenderer
+
+- (id)cachedPayloadForSecureCandidateSlotID:(unsigned int)d
+{
+  if (d)
+  {
+    v3 = *&d;
+    secureCandidateCache = [(TIKeyboardSecureCandidateRenderer *)self secureCandidateCache];
+    v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v3];
+    v6 = [secureCandidateCache objectForKey:v5];
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  return v6;
+}
 
 - (id)updateCachedCandidate:(id)candidate withStickerIdentifier:(id)identifier
 {
@@ -111,44 +132,44 @@
 
 - (void)clearSecureCandidateCache
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   secureCandidateCache = [(TIKeyboardSecureCandidateRenderer *)self secureCandidateCache];
 
   if (secureCandidateCache)
   {
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     secureCandidateCache2 = [(TIKeyboardSecureCandidateRenderer *)self secureCandidateCache];
     allKeys = [secureCandidateCache2 allKeys];
 
-    v6 = [allKeys countByEnumeratingWithState:&v19 objects:v27 count:16];
+    v6 = [allKeys countByEnumeratingWithState:&v18 objects:v26 count:16];
     if (v6)
     {
       v8 = v6;
-      v9 = *v20;
+      v9 = *v19;
       v10 = MEMORY[0x277D86220];
       *&v7 = 136315394;
-      v18 = v7;
+      v17 = v7;
       do
       {
         v11 = 0;
         do
         {
-          if (*v20 != v9)
+          if (*v19 != v9)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v12 = *(*(&v19 + 1) + 8 * v11);
+          v12 = *(*(&v18 + 1) + 8 * v11);
           if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
           {
             unsignedIntValue = [v12 unsignedIntValue];
-            *buf = v18;
-            v24 = "[TIKeyboardSecureCandidateRenderer clearSecureCandidateCache]";
-            v25 = 1024;
-            v26 = unsignedIntValue;
+            *buf = v17;
+            v23 = "[TIKeyboardSecureCandidateRenderer clearSecureCandidateCache]";
+            v24 = 1024;
+            v25 = unsignedIntValue;
             _os_log_impl(&dword_22CA55000, v10, OS_LOG_TYPE_DEFAULT, "%s  Deleted slotID %X", buf, 0x12u);
           }
 
@@ -159,7 +180,7 @@
         }
 
         while (v8 != v11);
-        v8 = [allKeys countByEnumeratingWithState:&v19 objects:v27 count:16];
+        v8 = [allKeys countByEnumeratingWithState:&v18 objects:v26 count:16];
       }
 
       while (v8);
@@ -172,8 +193,6 @@
     v16 = +[TIKeyboardSecureTouchManager sharedInstance];
     [v16 clearRegistrations];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)recreateContext
@@ -185,7 +204,7 @@
 
 - (unsigned)slotIDForSendCurrentLocationWithRenderTraits:(id)traits
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   traitsCopy = traits;
   context = [(TIKeyboardSecureCandidateRenderer *)self context];
   createSlot = [context createSlot];
@@ -193,9 +212,9 @@
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v15 = "[TIKeyboardSecureCandidateRenderer slotIDForSendCurrentLocationWithRenderTraits:]";
-    v16 = 1024;
-    v17 = createSlot;
+    v14 = "[TIKeyboardSecureCandidateRenderer slotIDForSendCurrentLocationWithRenderTraits:]";
+    v15 = 1024;
+    v16 = createSlot;
     _os_log_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s  Created slotID %X", buf, 0x12u);
   }
 
@@ -217,27 +236,26 @@
     v10 = TIOSLogFacility();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s TISecureCandidateLogging: send current location slotID = %ud", "-[TIKeyboardSecureCandidateRenderer slotIDForSendCurrentLocationWithRenderTraits:]", createSlot];
+      v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s TISecureCandidateLogging: send current location slotID = %ud", "-[TIKeyboardSecureCandidateRenderer slotIDForSendCurrentLocationWithRenderTraits:]", createSlot];
       *buf = 138412290;
-      v15 = v13;
+      v14 = v12;
       _os_log_debug_impl(&dword_22CA55000, v10, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return createSlot;
 }
 
 - (CGImage)imageForSendCurrentLocationWithRenderTraits:(id)traits
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   traitsCopy = traits;
   v5 = [(TIKeyboardSecureCandidateRenderer *)self arrayOfContexts:1 withRenderTraits:traitsCopy];
   v6 = MEMORY[0x277CCACA8];
   v7 = [(TIKeyboardSecureCandidateRenderer *)self localizedStringForKey:@"SEND_CURRENT_LOCATION_BUTTON_CAPTION"];
-  v21 = 0;
-  v8 = [v6 stringWithValidatedFormat:v7 validFormatSpecifiers:@"%@" error:&v21, @""];
-  v9 = v21;
+  v20 = 0;
+  v8 = [v6 stringWithValidatedFormat:v7 validFormatSpecifiers:@"%@" error:&v20, @""];
+  v9 = v20;
   v10 = &stru_283FDFAF8;
   if (v8)
   {
@@ -256,15 +274,15 @@
     v12 = TIOSLogFacility();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
-      v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s TISecureCandidateLogging: ERROR: invalid localized format for key SEND_CURRENT_LOCATION_BUTTON_CAPTION: %@", "-[TIKeyboardSecureCandidateRenderer imageForSendCurrentLocationWithRenderTraits:]", v9];
+      v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s TISecureCandidateLogging: ERROR: invalid localized format for key SEND_CURRENT_LOCATION_BUTTON_CAPTION: %@", "-[TIKeyboardSecureCandidateRenderer imageForSendCurrentLocationWithRenderTraits:]", v9];
       *buf = 138412290;
-      v24 = v20;
+      v23 = v19;
       _os_log_debug_impl(&dword_22CA55000, v12, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
     }
   }
 
-  v22 = v11;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v22 count:1];
+  v21 = v11;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v21 count:1];
   v14 = [TIKeyboardSecureCandidateTextRendering drawSecureHeaders:&unk_28400B898 secureContents:v13 inContexts:v5 traits:traitsCopy truncationSentinel:0];
 
   v15 = [(TIKeyboardSecureCandidateRenderer *)self imagesFromContexts:v5];
@@ -273,16 +291,15 @@
   v17 = CFRetain(ValueAtIndex);
   CFRelease(v15);
 
-  v18 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
 - (id)slotIDsFromSecureCandidates:(id)candidates withRenderTraits:(id)traits
 {
-  v35 = *MEMORY[0x277D85DE8];
-  v30 = 0;
-  v5 = [(TIKeyboardSecureCandidateRenderer *)self imagesFromSecureCandidates:candidates withRenderTraits:traits outAccessibilityLabels:&v30];
-  v6 = v30;
+  v34 = *MEMORY[0x277D85DE8];
+  v29 = 0;
+  v5 = [(TIKeyboardSecureCandidateRenderer *)self imagesFromSecureCandidates:candidates withRenderTraits:traits outAccessibilityLabels:&v29];
+  v6 = v29;
   v7 = [v6 count];
   Count = CFArrayGetCount(v5);
   if ([(NSArray *)self->_arrayOfAttributes count]< Count)
@@ -332,7 +349,7 @@
         if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315138;
-          v32 = "[TIKeyboardSecureCandidateRenderer slotIDsFromSecureCandidates:withRenderTraits:]";
+          v31 = "[TIKeyboardSecureCandidateRenderer slotIDsFromSecureCandidates:withRenderTraits:]";
           _os_log_impl(&dword_22CA55000, v16, OS_LOG_TYPE_DEFAULT, "%s  slotID is 0, recreating remote context", buf, 0xCu);
         }
 
@@ -349,9 +366,9 @@
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v32 = "[TIKeyboardSecureCandidateRenderer slotIDsFromSecureCandidates:withRenderTraits:]";
-        v33 = 1024;
-        v34 = createSlot;
+        v31 = "[TIKeyboardSecureCandidateRenderer slotIDsFromSecureCandidates:withRenderTraits:]";
+        v32 = 1024;
+        v33 = createSlot;
         _os_log_impl(&dword_22CA55000, v16, OS_LOG_TYPE_DEFAULT, "%s  Created slotID %X", buf, 0x12u);
       }
 
@@ -367,9 +384,9 @@
           v21 = TIOSLogFacility();
           if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
           {
-            v29 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s TISecureCandidateLogging: proactive candidate first slotID = %ud", "-[TIKeyboardSecureCandidateRenderer slotIDsFromSecureCandidates:withRenderTraits:]", createSlot];
+            v28 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s TISecureCandidateLogging: proactive candidate first slotID = %ud", "-[TIKeyboardSecureCandidateRenderer slotIDsFromSecureCandidates:withRenderTraits:]", createSlot];
             *buf = 138412290;
-            v32 = v29;
+            v31 = v28;
             _os_log_debug_impl(&dword_22CA55000, v21, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
           }
         }
@@ -396,7 +413,7 @@
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v32 = "[TIKeyboardSecureCandidateRenderer slotIDsFromSecureCandidates:withRenderTraits:]";
+      v31 = "[TIKeyboardSecureCandidateRenderer slotIDsFromSecureCandidates:withRenderTraits:]";
       _os_log_error_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s  slotID is still 0 after recreating remote context", buf, 0xCu);
     }
   }
@@ -406,7 +423,6 @@ LABEL_30:
   v25 = self->_arrayOfAttributes;
   v26 = v25;
 
-  v27 = *MEMORY[0x277D85DE8];
   return v25;
 }
 
@@ -445,9 +461,36 @@ LABEL_30:
   return localizedName;
 }
 
+- (id)accessibilityLabelForSlotID:(unsigned int)d
+{
+  accessibilityLabelCache = self->_accessibilityLabelCache;
+  v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*&d];
+  v5 = [(NSMutableDictionary *)accessibilityLabelCache objectForKey:v4];
+
+  return v5;
+}
+
+- (void)cacheAccessibilityLabel:(id)label forSlotID:(unsigned int)d
+{
+  v4 = *&d;
+  labelCopy = label;
+  accessibilityLabelCache = self->_accessibilityLabelCache;
+  if (!accessibilityLabelCache)
+  {
+    v7 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:1];
+    v8 = self->_accessibilityLabelCache;
+    self->_accessibilityLabelCache = v7;
+
+    accessibilityLabelCache = self->_accessibilityLabelCache;
+  }
+
+  v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v4];
+  [(NSMutableDictionary *)accessibilityLabelCache setObject:labelCopy forKey:v9];
+}
+
 - (id)accessibilityLabelsForSecureHeaders:(id)headers secureContents:(id)contents truncationSentinel:(id)sentinel
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   headersCopy = headers;
   contentsCopy = contents;
   sentinelCopy = sentinel;
@@ -455,7 +498,7 @@ LABEL_30:
   if ([headersCopy count])
   {
     v11 = 0;
-    v27 = v10;
+    v26 = v10;
     do
     {
       v12 = [headersCopy objectAtIndex:v11];
@@ -472,9 +515,9 @@ LABEL_30:
       {
         v16 = contentsCopy;
         v17 = [(TIKeyboardSecureCandidateRenderer *)self localizedStringForKey:@"PROACTIVE_CANDIDATE_ACCESSIBILITY_LABEL"];
-        v29 = 0;
-        v18 = [MEMORY[0x277CCACA8] stringWithValidatedFormat:v17 validFormatSpecifiers:@"%@%@" error:&v29, v13, v15];
-        v19 = v29;
+        v28 = 0;
+        v18 = [MEMORY[0x277CCACA8] stringWithValidatedFormat:v17 validFormatSpecifiers:@"%@%@" error:&v28, v13, v15];
+        v19 = v28;
         v20 = &stru_283FDFAF8;
         if (v18)
         {
@@ -493,15 +536,15 @@ LABEL_30:
           v22 = TIOSLogFacility();
           if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
           {
-            v26 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s TISecureCandidateLogging: ERROR: invalid localized format for key PROACTIVE_CANDIDATE_ACCESSIBILITY_LABEL: %@", "-[TIKeyboardSecureCandidateRenderer accessibilityLabelsForSecureHeaders:secureContents:truncationSentinel:]", v19];
+            v25 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s TISecureCandidateLogging: ERROR: invalid localized format for key PROACTIVE_CANDIDATE_ACCESSIBILITY_LABEL: %@", "-[TIKeyboardSecureCandidateRenderer accessibilityLabelsForSecureHeaders:secureContents:truncationSentinel:]", v19];
             *buf = 138412290;
-            v31 = v26;
+            v30 = v25;
             _os_log_debug_impl(&dword_22CA55000, v22, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
           }
         }
 
         contentsCopy = v16;
-        v10 = v27;
+        v10 = v26;
         goto LABEL_21;
       }
 
@@ -531,14 +574,12 @@ LABEL_21:
     while (v11 < [headersCopy count]);
   }
 
-  v24 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 - (__CFArray)imagesFromSecureCandidates:(id)candidates withRenderTraits:(id)traits outAccessibilityLabels:(id *)labels
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   candidatesCopy = candidates;
   traitsCopy = traits;
   if (TICanLogMessageAtLevel_onceToken != -1)
@@ -551,14 +592,14 @@ LABEL_21:
     v10 = TIOSLogFacility();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      v31 = MEMORY[0x277CCACA8];
-      v32 = [candidatesCopy count];
+      v30 = MEMORY[0x277CCACA8];
+      v31 = [candidatesCopy count];
       [traitsCopy singleCellWidth];
-      v34 = v33;
+      v33 = v32;
       [traitsCopy singleCellHeight];
-      v36 = [v31 stringWithFormat:@"%s DEBUG:ProactiveQuickType:TI: Secure rendering %lu items (width: %f, height: %f)", "-[TIKeyboardSecureCandidateRenderer imagesFromSecureCandidates:withRenderTraits:outAccessibilityLabels:]", v32, v34, v35];
+      v35 = [v30 stringWithFormat:@"%s DEBUG:ProactiveQuickType:TI: Secure rendering %lu items (width: %f, height: %f)", "-[TIKeyboardSecureCandidateRenderer imagesFromSecureCandidates:withRenderTraits:outAccessibilityLabels:]", v31, v33, v34];
       *buf = 138412290;
-      v47 = v36;
+      v46 = v35;
       _os_log_debug_impl(&dword_22CA55000, v10, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
     }
   }
@@ -576,30 +617,30 @@ LABEL_21:
   }
 
   selfCopy = self;
-  v40 = traitsCopy;
+  v39 = traitsCopy;
   v12 = -[TIKeyboardSecureCandidateRenderer arrayOfContexts:withRenderTraits:](self, "arrayOfContexts:withRenderTraits:", [candidatesCopy count], traitsCopy);
   v13 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(candidatesCopy, "count")}];
   v14 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(candidatesCopy, "count")}];
+  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
   v15 = candidatesCopy;
-  v16 = [v15 countByEnumeratingWithState:&v41 objects:v45 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v40 objects:v44 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v42;
+    v18 = *v41;
     do
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v42 != v18)
+        if (*v41 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        v20 = *(*(&v41 + 1) + 8 * i);
+        v20 = *(*(&v40 + 1) + 8 * i);
         secureHeader = [v20 secureHeader];
         if (secureHeader)
         {
@@ -617,13 +658,13 @@ LABEL_21:
         }
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v41 objects:v45 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v40 objects:v44 count:16];
     }
 
     while (v17);
   }
 
-  v26 = [TIKeyboardSecureCandidateTextRendering drawSecureHeaders:v13 secureContents:v14 inContexts:v12 traits:v40 truncationSentinel:truncationSentinel];
+  v26 = [TIKeyboardSecureCandidateTextRendering drawSecureHeaders:v13 secureContents:v14 inContexts:v12 traits:v39 truncationSentinel:truncationSentinel];
   arrayOfAttributes = selfCopy->_arrayOfAttributes;
   selfCopy->_arrayOfAttributes = v26;
 
@@ -634,7 +675,6 @@ LABEL_21:
     *labelsCopy = [(TIKeyboardSecureCandidateRenderer *)selfCopy accessibilityLabelsForSecureHeaders:v13 secureContents:v14 truncationSentinel:truncationSentinel];
   }
 
-  v29 = *MEMORY[0x277D85DE8];
   return v28;
 }
 
@@ -648,8 +688,6 @@ LABEL_21:
   v3 = MEMORY[0x277CCACA8];
   uUIDString = [v2 UUIDString];
   v5 = [v3 stringWithFormat:@"*%@*", uUIDString];
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -792,14 +830,14 @@ CGColorSpaceRef __70__TIKeyboardSecureCandidateRenderer_arrayOfContexts_withRend
 
 - (id)localizedStringForKey:(id)key
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   keyCopy = key;
   v4 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   _deviceLanguage = [MEMORY[0x277CBEAF8] _deviceLanguage];
   preferredLocalizations = [v4 preferredLocalizations];
   v7 = MEMORY[0x277CCA8D8];
-  v16[0] = _deviceLanguage;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+  v15[0] = _deviceLanguage;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
   v9 = [v7 preferredLocalizationsFromArray:preferredLocalizations forPreferences:v8];
 
   firstObject = [v9 firstObject];
@@ -816,15 +854,13 @@ CGColorSpaceRef __70__TIKeyboardSecureCandidateRenderer_arrayOfContexts_withRend
 
   v13 = v12;
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
 - (void)setLocaleIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  if (([identifierCopy isEqualToString:self->_localeIdentifier] & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(identifierCopy) & 1) == 0)
   {
     objc_storeStrong(&self->_localeIdentifier, identifier);
     [(TIKeyboardSecureCandidateRenderer *)self clearSecureCandidateCache];
@@ -833,27 +869,25 @@ CGColorSpaceRef __70__TIKeyboardSecureCandidateRenderer_arrayOfContexts_withRend
 
 - (void)createContext
 {
-  v12[5] = *MEMORY[0x277D85DE8];
+  v11[5] = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CBED28];
   v4 = *MEMORY[0x277CDA100];
-  v11[0] = *MEMORY[0x277CDA118];
-  v11[1] = v4;
+  v10[0] = *MEMORY[0x277CDA118];
+  v10[1] = v4;
   v5 = *MEMORY[0x277CBED10];
-  v12[0] = v3;
-  v12[1] = v5;
+  v11[0] = v3;
+  v11[1] = v5;
   v6 = *MEMORY[0x277CDA110];
-  v11[2] = *MEMORY[0x277CDA108];
-  v11[3] = v6;
-  v12[2] = v3;
-  v12[3] = v3;
-  v11[4] = *MEMORY[0x277CDA0E8];
-  v12[4] = v3;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:5];
+  v10[2] = *MEMORY[0x277CDA108];
+  v10[3] = v6;
+  v11[2] = v3;
+  v11[3] = v3;
+  v10[4] = *MEMORY[0x277CDA0E8];
+  v11[4] = v3;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:5];
   v8 = [MEMORY[0x277CD9E38] remoteContextWithOptions:v7];
   context = self->_context;
   self->_context = v8;
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc

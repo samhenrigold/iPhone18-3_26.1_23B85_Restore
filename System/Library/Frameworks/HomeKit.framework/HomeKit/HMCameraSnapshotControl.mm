@@ -23,7 +23,7 @@ void __67___HMCameraSnapshotControl__notifyDelegateOfDidTakeSnapshot_error___blo
 
 void __41___HMCameraSnapshotControl__takeSnapshot__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -34,27 +34,26 @@ void __41___HMCameraSnapshotControl__takeSnapshot__block_invoke(uint64_t a1, voi
   {
     v11 = HMFGetLogIdentifier();
     v12 = *(a1 + 32);
-    v14 = 138543874;
-    v15 = v11;
-    v16 = 2112;
-    v17 = v12;
-    v18 = 2112;
-    v19 = v6;
-    _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Received response for snapshot request with session ID %@: %@", &v14, 0x20u);
+    v13 = 138543874;
+    v14 = v11;
+    v15 = 2112;
+    v16 = v12;
+    v17 = 2112;
+    v18 = v6;
+    _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Received response for snapshot request with session ID %@: %@", &v13, 0x20u);
   }
 
   objc_autoreleasePoolPop(v8);
   [v9 _handleSnapshotDictionary:v6 error:v5 isMostRecent:0];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __39___HMCameraSnapshotControl_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x1E69A2980];
-  logCategory__hmf_once_v22 = HMFCreateOSLogHandle();
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v22;
+  logCategory__hmf_once_v22 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (void)cameraSnapshotControlDidUpdateMostRecentSnapshot:(id)snapshot

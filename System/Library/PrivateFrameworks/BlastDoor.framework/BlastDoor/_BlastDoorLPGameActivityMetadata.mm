@@ -10,11 +10,11 @@
 
 - (_BlastDoorLPGameActivityMetadata)initWithCoder:(id)coder
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v17.receiver = self;
-  v17.super_class = _BlastDoorLPGameActivityMetadata;
-  v5 = [(_BlastDoorLPGameActivityMetadata *)&v17 init];
+  v16.receiver = self;
+  v16.super_class = _BlastDoorLPGameActivityMetadata;
+  v5 = [(_BlastDoorLPGameActivityMetadata *)&v16 init];
   if (v5)
   {
     v6 = decodeStringForKey(coderCopy, @"title");
@@ -36,7 +36,6 @@
     v14 = v5;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -75,11 +74,11 @@
 
 - (BOOL)isEqual:(id)equal
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   equalCopy = equal;
-  v13.receiver = self;
-  v13.super_class = _BlastDoorLPGameActivityMetadata;
-  if ([(_BlastDoorLPGameActivityMetadata *)&v13 isEqual:equalCopy])
+  v12.receiver = self;
+  v12.super_class = _BlastDoorLPGameActivityMetadata;
+  if ([(_BlastDoorLPGameActivityMetadata *)&v12 isEqual:equalCopy])
   {
     v5 = 1;
   }
@@ -117,7 +116,6 @@
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

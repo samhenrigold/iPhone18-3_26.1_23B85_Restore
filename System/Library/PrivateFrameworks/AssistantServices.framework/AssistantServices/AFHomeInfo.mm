@@ -146,24 +146,23 @@
 - (id)_descriptionWithIndent:(unint64_t)indent
 {
   v4 = objc_alloc(MEMORY[0x1E696AEC0]);
-  v11.receiver = self;
-  v11.super_class = AFHomeInfo;
-  v5 = [(AFHomeInfo *)&v11 description];
+  v10.receiver = self;
+  v10.super_class = AFHomeInfo;
+  v5 = [(AFHomeInfo *)&v10 description];
   v6 = v5;
-  homeIdentifier = self->_homeIdentifier;
   if (self->_activityNotificationsEnabledForPersonalRequests)
   {
-    v8 = @"YES";
+    v7 = @"YES";
   }
 
   else
   {
-    v8 = @"NO";
+    v7 = @"NO";
   }
 
-  v9 = [v4 initWithFormat:@"%@ {homeIdentifier = %@, activityNotificationsEnabledForPersonalRequests = %@}", v5, self->_homeIdentifier, v8];
+  v8 = [v4 initWithFormat:@"%@ {homeIdentifier = %@, activityNotificationsEnabledForPersonalRequests = %@}", v5, self->_homeIdentifier, v7];
 
-  return v9;
+  return v8;
 }
 
 - (AFHomeInfo)initWithHomeIdentifier:(id)identifier activityNotificationsEnabledForPersonalRequests:(BOOL)requests

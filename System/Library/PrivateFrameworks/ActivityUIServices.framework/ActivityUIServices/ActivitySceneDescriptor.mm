@@ -11,45 +11,40 @@
 
 - (NSString)activityIdentifier
 {
-  v2 = *(self + OBJC_IVAR____TtC18ActivityUIServices23ActivitySceneDescriptor_activityIdentifier);
-  v3 = *(self + OBJC_IVAR____TtC18ActivityUIServices23ActivitySceneDescriptor_activityIdentifier + 8);
 
-  v4 = sub_18E65F8F0();
+  v2 = sub_18E65F8F0();
 
-  return v4;
+  return v2;
 }
 
 - (NSData)activityDescriptor
 {
   v3 = sub_18E65F4C0();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  v6 = MEMORY[0x1EEE9AC00](v3);
-  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v4 + 16))(v8, self + OBJC_IVAR____TtC18ActivityUIServices23ActivitySceneDescriptor_activityDescriptor, v3, v6);
-  sub_18E64CDEC(&qword_1ED764FA8, MEMORY[0x1E6959B98]);
-  v9 = sub_18E65F680();
-  (*(v4 + 8))(v8, v3);
+  v5 = MEMORY[0x1EEE9AC00](v3);
+  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v4 + 16))(v7, self + OBJC_IVAR____TtC18ActivityUIServices23ActivitySceneDescriptor_activityDescriptor, v3, v5);
+  sub_18E64CDEC(&qword_1ED764FA8, MEMORY[0x1E6959B98], MEMORY[0x1E6959B90]);
+  v8 = sub_18E65F680();
+  (*(v4 + 8))(v7, v3);
 
-  return v9;
+  return v8;
 }
 
 - (NSString)payloadID
 {
   if (*(self + OBJC_IVAR____TtC18ActivityUIServices23ActivitySceneDescriptor_payloadID + 8))
   {
-    v2 = *(self + OBJC_IVAR____TtC18ActivityUIServices23ActivitySceneDescriptor_payloadID);
-    v3 = *(self + OBJC_IVAR____TtC18ActivityUIServices23ActivitySceneDescriptor_payloadID + 8);
 
-    v4 = sub_18E65F8F0();
+    v2 = sub_18E65F8F0();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (_TtC18ActivityUIServices20ActivitySceneMetrics)metrics
@@ -73,41 +68,40 @@
 {
   v10 = sub_18E65F4C0();
   v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
   MEMORY[0x1EEE9AC00](v10);
-  v14 = &v25 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_18E64CDEC(&qword_1ED764FA8, MEMORY[0x1E6959B98]);
+  v13 = &v24 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_18E64CDEC(&qword_1ED764FA8, MEMORY[0x1E6959B98], MEMORY[0x1E6959B90]);
   sub_18E65F670();
   if (d)
   {
     d = sub_18E65F900();
-    v16 = v15;
+    v15 = v14;
   }
 
   else
   {
-    v16 = 0;
+    v15 = 0;
   }
 
   requestCopy = request;
-  v18 = _s18ActivityUIServices0A16InstanceIdentityV10identifierSSvg_0();
-  v19 = (self + OBJC_IVAR____TtC18ActivityUIServices23ActivitySceneDescriptor_activityIdentifier);
-  *v19 = v18;
-  v19[1] = v20;
+  v17 = _s18ActivityUIServices0A16InstanceIdentityV10identifierSSvg_0();
+  v18 = (self + OBJC_IVAR____TtC18ActivityUIServices23ActivitySceneDescriptor_activityIdentifier);
+  *v18 = v17;
+  v18[1] = v19;
   *(self + OBJC_IVAR____TtC18ActivityUIServices23ActivitySceneDescriptor_activitySceneType) = type;
-  sub_18E64CDEC(&unk_1EAC894E0, MEMORY[0x1E6959B98]);
+  sub_18E64CDEC(&unk_1EAC894E0, MEMORY[0x1E6959B98], MEMORY[0x1E6959BB0]);
   *(self + OBJC_IVAR____TtC18ActivityUIServices23ActivitySceneDescriptor_activityDescriptorData) = sub_18E65FD10();
-  (*(v11 + 16))(self + OBJC_IVAR____TtC18ActivityUIServices23ActivitySceneDescriptor_activityDescriptor, v14, v10);
+  (*(v11 + 16))(self + OBJC_IVAR____TtC18ActivityUIServices23ActivitySceneDescriptor_activityDescriptor, v13, v10);
   *(self + OBJC_IVAR____TtC18ActivityUIServices23ActivitySceneDescriptor_metricsRequest) = requestCopy;
-  v21 = (self + OBJC_IVAR____TtC18ActivityUIServices23ActivitySceneDescriptor_payloadID);
-  *v21 = d;
-  v21[1] = v16;
-  v22 = type metadata accessor for ActivitySceneDescriptor();
-  v25.receiver = self;
-  v25.super_class = v22;
-  v23 = [(ActivitySceneDescriptor *)&v25 init];
-  (*(v11 + 8))(v14, v10);
-  return v23;
+  v20 = (self + OBJC_IVAR____TtC18ActivityUIServices23ActivitySceneDescriptor_payloadID);
+  *v20 = d;
+  v20[1] = v15;
+  v21 = type metadata accessor for ActivitySceneDescriptor(0);
+  v24.receiver = self;
+  v24.super_class = v21;
+  v22 = [(ActivitySceneDescriptor *)&v24 init];
+  (*(v11 + 8))(v13, v10);
+  return v22;
 }
 
 - (_TtC18ActivityUIServices23ActivitySceneDescriptor)init

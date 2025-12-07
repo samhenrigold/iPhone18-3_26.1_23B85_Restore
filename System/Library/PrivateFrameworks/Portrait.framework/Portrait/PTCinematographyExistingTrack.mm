@@ -58,7 +58,7 @@
   v6 = v5;
   if (v5)
   {
-    [v5 time];
+    objc_msgSend_time(v5);
   }
 
   else
@@ -73,7 +73,7 @@
     memset(&v17, 0, sizeof(v17));
     if (v6)
     {
-      [v6 time];
+      objc_msgSend_time(v6);
     }
 
     else
@@ -97,7 +97,7 @@
       v9 = v8;
       if (v8)
       {
-        [v8 time];
+        objc_msgSend_time(v8);
       }
 
       else

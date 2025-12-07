@@ -1,4 +1,4 @@
-uint64_t sub_E60()
+uint64_t sub_E60(uint64_t a1, uint64_t a2)
 {
   if (qword_1B038 != -1)
   {
@@ -8,16 +8,16 @@ uint64_t sub_E60()
   return byte_1B030;
 }
 
-id sub_EC0()
+id sub_EC0(uint64_t a1)
 {
   if (qword_1B048 != -1)
   {
     sub_9F30();
   }
 
-  v1 = qword_1B040;
+  v2 = qword_1B040;
 
-  return v1;
+  return v2;
 }
 
 void sub_F04(id a1)
@@ -27,16 +27,16 @@ void sub_F04(id a1)
   qword_1B040 = v1;
 }
 
-id sub_F48()
+id sub_F48(uint64_t a1)
 {
   if (qword_1B058 != -1)
   {
     sub_9F44();
   }
 
-  v1 = qword_1B050;
+  v2 = qword_1B050;
 
-  return v1;
+  return v2;
 }
 
 void sub_F8C(id a1)
@@ -46,16 +46,16 @@ void sub_F8C(id a1)
   qword_1B050 = v1;
 }
 
-id sub_FD0()
+id sub_FD0(uint64_t a1)
 {
   if (qword_1B068 != -1)
   {
     sub_9F58();
   }
 
-  v1 = qword_1B060;
+  v2 = qword_1B060;
 
-  return v1;
+  return v2;
 }
 
 void sub_1014(id a1)
@@ -65,16 +65,16 @@ void sub_1014(id a1)
   qword_1B060 = v1;
 }
 
-id sub_1058()
+id sub_1058(uint64_t a1)
 {
   if (qword_1B078 != -1)
   {
     sub_9F6C();
   }
 
-  v1 = qword_1B070;
+  v2 = qword_1B070;
 
-  return v1;
+  return v2;
 }
 
 void sub_109C(id a1)
@@ -91,16 +91,16 @@ void sub_10E0(char *category)
   qword_1B080 = v1;
 }
 
-id sub_1120()
+id sub_1120(uint64_t a1)
 {
   if (qword_1B088 != -1)
   {
     sub_9F80();
   }
 
-  v1 = qword_1B080;
+  v2 = qword_1B080;
 
-  return v1;
+  return v2;
 }
 
 void sub_1164(id a1)
@@ -111,16 +111,16 @@ void sub_1164(id a1)
   }
 }
 
-id sub_1188()
+id sub_1188(uint64_t a1)
 {
   if (qword_1B098 != -1)
   {
     sub_9F94();
   }
 
-  v1 = qword_1B090;
+  v2 = qword_1B090;
 
-  return v1;
+  return v2;
 }
 
 void sub_11CC(id a1)
@@ -130,16 +130,16 @@ void sub_11CC(id a1)
   qword_1B090 = v1;
 }
 
-id sub_1210()
+id sub_1210(uint64_t a1)
 {
   if (qword_1B0A8 != -1)
   {
     sub_9FA8();
   }
 
-  v1 = qword_1B0A0;
+  v2 = qword_1B0A0;
 
-  return v1;
+  return v2;
 }
 
 void sub_1254(id a1)
@@ -149,16 +149,16 @@ void sub_1254(id a1)
   qword_1B0A0 = v1;
 }
 
-id sub_1298()
+id sub_1298(uint64_t a1)
 {
   if (qword_1B0B8 != -1)
   {
     sub_9FBC();
   }
 
-  v1 = qword_1B0B0;
+  v2 = qword_1B0B0;
 
-  return v1;
+  return v2;
 }
 
 void sub_12DC(id a1)
@@ -194,7 +194,7 @@ void sub_15C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int
 void sub_15F8(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = sub_1120();
+  v2 = sub_1120(WeakRetained);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v3 = 0;
@@ -209,7 +209,7 @@ void sub_15F8(uint64_t a1)
 void sub_1690(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = sub_1120();
+  v2 = sub_1120(WeakRetained);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -220,9 +220,9 @@ void sub_1690(uint64_t a1)
   [v3 driverCheckIn];
 }
 
-void sub_1E04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1E04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -237,7 +237,7 @@ uint64_t sub_1E24(uint64_t result, uint64_t a2)
 void sub_1E3C(uint64_t a1)
 {
   v2 = [NSString stringWithCString:dispatch_queue_get_label(*(a1 + 32)) encoding:4];
-  v3 = sub_1120();
+  v3 = sub_1120(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;
@@ -279,18 +279,19 @@ void sub_27E4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int
 void sub_2808(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = sub_1120();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = sub_1120(WeakRetained);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      *v4 = 0;
-      _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "calling cancel handler", v4, 2u);
+      *v5 = 0;
+      _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "calling cancel handler", v5, 2u);
     }
 
-    (*(WeakRetained[1] + 16))();
-    v3 = WeakRetained[1];
-    WeakRetained[1] = 0;
+    (*(v2[1] + 16))();
+    v4 = v2[1];
+    v2[1] = 0;
   }
 }
 
@@ -366,19 +367,20 @@ void sub_4988(uint64_t a1)
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
-    v5 = 0uLL;
-    clock_gettime(_CLOCK_MONOTONIC_RAW, &v5);
-    if ((*(&v5 + 1) + v5 * 1000000000.0 - (*(WeakRetained + 64) + *(WeakRetained + 63) * 1000000000.0)) * 0.000000001 >= *(WeakRetained + 122))
+    v6 = 0uLL;
+    clock_gettime(_CLOCK_MONOTONIC_RAW, &v6);
+    if ((*(&v6 + 1) + v6 * 1000000000.0 - (*(WeakRetained + 64) + *(WeakRetained + 63) * 1000000000.0)) * 0.000000001 >= *(WeakRetained + 122))
     {
-      *(WeakRetained + 504) = v5;
+      *(WeakRetained + 504) = v6;
       v2 = [WeakRetained isAnyHapticMotorEnabled];
-      v3 = sub_1120();
-      v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG);
-      if (v2)
+      v3 = v2;
+      v4 = sub_1120(v2);
+      v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
+      if (v3)
       {
-        if (v4)
+        if (v5)
         {
-          sub_A3F8(v3);
+          sub_A3F8(v4);
         }
 
         *(WeakRetained + 121) = 0;
@@ -387,9 +389,9 @@ void sub_4988(uint64_t a1)
 
       else
       {
-        if (v4)
+        if (v5)
         {
-          sub_A3B4(v3);
+          sub_A3B4(v4);
         }
 
         [WeakRetained stopHaptics];
@@ -398,7 +400,7 @@ void sub_4988(uint64_t a1)
   }
 }
 
-uint64_t sub_5068()
+uint64_t sub_5068(unsigned int a1)
 {
 
   return kdebug_trace();
@@ -406,7 +408,6 @@ uint64_t sub_5068()
 
 id sub_5090(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 656);
 
   return [a2 timestamp];
 }
@@ -418,9 +419,9 @@ void sub_50B8(uint64_t a1)
   dispatch_after(v2, v3, v1);
 }
 
-id hexStringFromByteArray(uint64_t a1, int a2)
+id hexStringFromByteArray(uint64_t a1, unsigned int a2)
 {
-  v4 = [NSMutableString stringWithCapacity:2 * a2];
+  v4 = [NSMutableString stringWithCapacity:(2 * a2)];
   if (a2 >= 1)
   {
     v5 = a2 - 1;
@@ -451,7 +452,7 @@ id hexStringFromByteArray(uint64_t a1, int a2)
   return v10;
 }
 
-uint64_t isPartnerSupportEnabled()
+uint64_t isPartnerSupportEnabled(uint64_t a1, uint64_t a2)
 {
   if (qword_1B0D0 != -1)
   {
@@ -464,13 +465,14 @@ uint64_t isPartnerSupportEnabled()
 void sub_5DC0(id a1)
 {
   v1 = [[NSUserDefaults alloc] initWithSuiteName:@"com.apple.GameController"];
-  byte_1B0D8 = [v1 BOOLForKey:@"GCPartnersEnable"];
-  v2 = sub_1120();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v2 = [v1 BOOLForKey:@"GCPartnersEnable"];
+  byte_1B0D8 = v2;
+  v3 = sub_1120(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3[0] = 67109120;
-    v3[1] = byte_1B0D8;
-    _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "Partners mode enabled? %d", v3, 8u);
+    v4[0] = 67109120;
+    v4[1] = byte_1B0D8;
+    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "Partners mode enabled? %d", v4, 8u);
   }
 }
 
@@ -478,9 +480,9 @@ void sub_6788(void *a1, int a2, int a3, uint64_t a4)
 {
   v7 = a1;
   v8 = v7;
-  if (a3 == -536870400 && a4 && *(v7 + 6) == a2)
+  if (a3 == -536870400 && a4 && v7[6] == a2)
   {
-    v9 = sub_1120();
+    v9 = sub_1120(v7);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = 134217984;
@@ -496,13 +498,12 @@ void sub_6874(void *a1)
 {
   v1 = a1;
   v2 = 5;
-  v162 = 0u;
-  v163 = 0u;
+  v153 = 0u;
+  v154 = 0u;
   __asm { FMOV            V11.2S, #1.0 }
 
   while (1)
   {
-    v7 = *(v1 + 8);
     NextSample = IOGCFastPathReaderReadNextSample();
     if (NextSample <= -536870169)
     {
@@ -520,23 +521,23 @@ void sub_6874(void *a1)
     }
 
 LABEL_13:
-    v15 = *(v1 + 8);
-    v16 = IOGCFastPathReaderReset();
-    v17 = sub_1120();
-    v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG);
-    if (v16)
+    v14 = IOGCFastPathReaderReset();
+    v15 = v14;
+    v16 = sub_1120(v14);
+    v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG);
+    if (v15)
     {
-      if (v18)
+      if (v17)
       {
         *buf = 67109120;
-        *&buf[4] = v16;
-        _os_log_debug_impl(&dword_0, v17, OS_LOG_TYPE_DEBUG, "Input reader reset failed: %{mach.errno}d", buf, 8u);
+        *&buf[4] = v15;
+        _os_log_debug_impl(&dword_0, v16, OS_LOG_TYPE_DEBUG, "Input reader reset failed: %{mach.errno}d", buf, 8u);
       }
     }
 
-    else if (v18)
+    else if (v17)
     {
-      sub_AF88(&v160, v161);
+      sub_AF88(&v151, v152);
     }
 
     if (v2 < 2)
@@ -550,32 +551,32 @@ LABEL_25:
 
   if (!NextSample)
   {
-    v159 = 0;
-    v158 = 0;
-    v157 = 0;
+    v150 = 0;
+    v149 = 0;
+    v148 = 0;
     SequenceID = IOGCFastPathSampleGetSequenceID();
     if (SequenceID)
     {
-      v10 = SequenceID;
-      v11 = sub_1120();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+      v9 = SequenceID;
+      v10 = sub_1120(SequenceID);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
         *buf = 67109120;
-        *&buf[4] = v10;
-        v12 = v11;
-        v13 = "Could not read sequence ID: %{mach.errno}d";
+        *&buf[4] = v9;
+        v11 = v10;
+        v12 = "Could not read sequence ID: %{mach.errno}d";
         goto LABEL_39;
       }
 
 LABEL_22:
 
-      if (v10 == -536870165 || v10 == -536870168)
+      if (v9 == -536870165 || v9 == -536870168)
       {
-        v131 = *(v1 + 8);
-        if (IOGCFastPathReaderReset())
+        v122 = IOGCFastPathReaderReset();
+        if (v122)
         {
-          v132 = sub_1120();
-          if (os_log_type_enabled(v132, OS_LOG_TYPE_DEBUG))
+          v123 = sub_1120(v122);
+          if (os_log_type_enabled(v123, OS_LOG_TYPE_DEBUG))
           {
             sub_AEEC();
           }
@@ -596,28 +597,28 @@ LABEL_24:
     Flags = IOGCFastPathSampleGetFlags();
     if (Flags)
     {
-      v10 = Flags;
-      v11 = sub_1120();
-      if (!os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+      v9 = Flags;
+      v10 = sub_1120(Flags);
+      if (!os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
         goto LABEL_22;
       }
 
       *buf = 67109120;
-      *&buf[4] = v10;
-      v12 = v11;
-      v13 = "Could not read flags: %{mach.errno}d";
+      *&buf[4] = v9;
+      v11 = v10;
+      v12 = "Could not read flags: %{mach.errno}d";
 LABEL_39:
-      _os_log_debug_impl(&dword_0, v12, OS_LOG_TYPE_DEBUG, v13, buf, 8u);
+      _os_log_debug_impl(&dword_0, v11, OS_LOG_TYPE_DEBUG, v12, buf, 8u);
       goto LABEL_22;
     }
 
-    if ((v158 & 1) == 0)
+    if ((v149 & 1) == 0)
     {
-      v20 = sub_1120();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+      v19 = sub_1120(Flags);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
       {
-        sub_AF5C(&v155, v156);
+        sub_AF5C(&v146, v147);
       }
 
       goto LABEL_24;
@@ -626,48 +627,47 @@ LABEL_39:
     Timestamp = IOGCFastPathSampleGetTimestamp();
     if (Timestamp)
     {
-      v10 = Timestamp;
-      v11 = sub_1120();
-      if (!os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+      v9 = Timestamp;
+      v10 = sub_1120(Timestamp);
+      if (!os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
         goto LABEL_22;
       }
 
       *buf = 67109120;
-      *&buf[4] = v10;
-      v12 = v11;
-      v13 = "Could not read timestamp: %{mach.errno}d";
+      *&buf[4] = v9;
+      v11 = v10;
+      v12 = "Could not read timestamp: %{mach.errno}d";
       goto LABEL_39;
     }
 
-    v22 = *(v1 + 4);
     kdebug_trace();
-    v23 = v157;
-    v24 = v1;
-    v25 = v24;
-    v26 = v1[104];
-    if (v26 != 2)
+    v21 = v148;
+    v22 = v1;
+    v23 = v22;
+    v24 = v1[104];
+    if (v24 != 2)
     {
-      if (v26 != 1)
+      if (v24 != 1)
       {
         goto LABEL_83;
       }
 
-      v154 = v24;
-      v169 = 0;
-      v170 = 0;
-      v167 = 0;
-      v168 = 0;
-      v165 = 0.0;
-      v166 = -2;
-      v164 = 0;
+      v145 = v22;
+      v160 = 0;
+      v161 = 0;
+      v158 = 0;
+      v159 = 0;
+      v156 = 0.0;
+      v157 = -2;
+      v155 = 0;
       Integer = IOGCFastPathSampleGetInteger();
       if (Integer)
       {
-        v28 = Integer;
-        sub_1120();
-        *&v29 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+        v26 = Integer;
+        sub_1120(Integer);
+        *&v27 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_37;
         }
@@ -675,31 +675,31 @@ LABEL_39:
 LABEL_82:
 
 LABEL_83:
-        v54 = v159;
-        v55 = v157;
-        v56 = v25;
-        v57 = IOGCFastPathSampleGet3Double();
-        if (v57)
+        v52 = v150;
+        v53 = v148;
+        v54 = v23;
+        v55 = IOGCFastPathSampleGet3Double();
+        if (v55)
         {
-          v58 = v57;
-          v59 = sub_1120();
-          if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
+          v56 = v55;
+          v57 = sub_1120(v55);
+          if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
           {
 LABEL_88:
-            v196.i32[0] = 67109120;
-            v196.i32[1] = v58;
-            _os_log_error_impl(&dword_0, v59, OS_LOG_TYPE_ERROR, "Failed to get acceleration: %{mach.errno}d", &v196, 8u);
+            v187.i32[0] = 67109120;
+            v187.i32[1] = v56;
+            _os_log_error_impl(&dword_0, v57, OS_LOG_TYPE_ERROR, "Failed to get acceleration: %{mach.errno}d", &v187, 8u);
           }
         }
 
         else
         {
-          v60 = IOGCFastPathSampleGet3Double();
-          if (v60)
+          v58 = IOGCFastPathSampleGet3Double();
+          if (v58)
           {
-            v58 = v60;
-            v59 = sub_1120();
-            if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
+            v56 = v58;
+            v57 = sub_1120(v58);
+            if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
             {
               goto LABEL_88;
             }
@@ -707,42 +707,42 @@ LABEL_88:
 
           else
           {
-            v59 = [[HIDEvent alloc] initWithType:1 timestamp:v55 senderID:*(v1 + 4)];
-            [v59 setIntegerValue:65280 forField:0x10000];
-            [v59 setIntegerValue:59 forField:65537];
-            [v59 setIntegerValue:1 forField:65538];
-            v61 = [[HIDEvent alloc] initWithType:13 timestamp:v55 senderID:*(v1 + 4)];
+            v57 = [[HIDEvent alloc] initWithType:1 timestamp:v53 senderID:*(v1 + 4)];
+            [v57 setIntegerValue:65280 forField:0x10000];
+            [v57 setIntegerValue:59 forField:65537];
+            [v57 setIntegerValue:1 forField:65538];
+            v59 = [[HIDEvent alloc] initWithType:13 timestamp:v53 senderID:*(v1 + 4)];
             IOHIDEventSetEventFlags();
-            [v61 setDoubleValue:851968 forField:*buf];
-            [v61 setDoubleValue:851969 forField:*&buf[8]];
-            [v61 setDoubleValue:851970 forField:*&v172];
-            [v61 setIntegerValue:v54 forField:851973];
+            [v59 setDoubleValue:851968 forField:*buf];
+            [v59 setDoubleValue:851969 forField:*&buf[8]];
+            [v59 setDoubleValue:851970 forField:*&v163];
+            [v59 setIntegerValue:v52 forField:851973];
             IOHIDEventAppendEvent();
-            v62 = [[HIDEvent alloc] initWithType:20 timestamp:v55 senderID:*(v1 + 4)];
+            v60 = [[HIDEvent alloc] initWithType:20 timestamp:v53 senderID:*(v1 + 4)];
             IOHIDEventSetEventFlags();
-            [v62 setDoubleValue:1310720 forField:v191];
-            [v62 setDoubleValue:1310721 forField:v192];
-            [v62 setDoubleValue:1310722 forField:v193];
-            [v62 setIntegerValue:v54 forField:1310725];
+            [v60 setDoubleValue:1310720 forField:v182];
+            [v60 setDoubleValue:1310721 forField:v183];
+            [v60 setDoubleValue:1310722 forField:v184];
+            [v60 setIntegerValue:v52 forField:1310725];
             IOHIDEventAppendEvent();
-            [v56 dispatchEvent:v59];
+            [v54 dispatchEvent:v57];
           }
         }
 
-        v63 = v56;
+        v61 = v54;
         *buf = 0;
-        v191 = 0.0;
-        v64 = IOGCFastPathSampleGetInteger();
-        if (v64)
+        v182 = 0.0;
+        v62 = IOGCFastPathSampleGetInteger();
+        if (v62)
         {
-          v65 = v64;
-          v66 = sub_1120();
-          if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
+          v63 = v62;
+          v64 = sub_1120(v62);
+          if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
           {
-            v196.i32[0] = 67109120;
-            v196.i32[1] = v65;
-            v67 = v66;
-            v68 = "Failed to get power charge status: %{mach.errno}d";
+            v187.i32[0] = 67109120;
+            v187.i32[1] = v63;
+            v65 = v64;
+            v66 = "Failed to get power charge status: %{mach.errno}d";
             goto LABEL_101;
           }
 
@@ -752,16 +752,16 @@ LABEL_88:
         Double = IOGCFastPathSampleGetDouble();
         if (Double)
         {
-          v70 = Double;
-          v66 = sub_1120();
-          if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
+          v68 = Double;
+          v64 = sub_1120(Double);
+          if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
           {
-            v196.i32[0] = 67109120;
-            v196.i32[1] = v70;
-            v67 = v66;
-            v68 = "Failed to get power battery level: %{mach.errno}d";
+            v187.i32[0] = 67109120;
+            v187.i32[1] = v68;
+            v65 = v64;
+            v66 = "Failed to get power battery level: %{mach.errno}d";
 LABEL_101:
-            _os_log_error_impl(&dword_0, v67, OS_LOG_TYPE_ERROR, v68, &v196, 8u);
+            _os_log_error_impl(&dword_0, v65, OS_LOG_TYPE_ERROR, v66, &v187, 8u);
           }
 
 LABEL_95:
@@ -769,29 +769,28 @@ LABEL_95:
 
         else
         {
-          v72 = *buf - 1;
-          v73 = (*buf - 1) < 2;
-          v74 = v191;
-          if (v1[496] != v73 || v191 != *(v1 + 61))
+          v69 = *buf - 1;
+          v70 = (*buf - 1) < 2;
+          v71 = v182;
+          if (v1[496] != v70 || v182 != *(v1 + 61))
           {
-            *(v1 + 61) = v191;
-            v1[496] = v73;
-            [*(v1 + 16) updateBattery:(v74 * 100.0) isCharging:v72 < 2];
+            *(v1 + 61) = v182;
+            v1[496] = v70;
+            [*(v1 + 16) updateBattery:(v71 * 100.0) isCharging:v69 < 2];
           }
         }
 
-        v71 = *(v1 + 4);
         kdebug_trace();
         goto LABEL_24;
       }
 
-      v33 = IOGCFastPathSampleGetInteger();
-      if (v33)
+      v31 = IOGCFastPathSampleGetInteger();
+      if (v31)
       {
-        v34 = v33;
-        sub_1120();
-        *&v29 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-        if (!os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+        v32 = v31;
+        sub_1120(v31);
+        *&v27 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+        if (!os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_82;
         }
@@ -799,13 +798,13 @@ LABEL_95:
         goto LABEL_45;
       }
 
-      v36 = IOGCFastPathSampleGetInteger();
-      if (v36)
+      v34 = IOGCFastPathSampleGetInteger();
+      if (v34)
       {
-        v37 = v36;
-        sub_1120();
-        *&v29 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-        if (!os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+        v35 = v34;
+        sub_1120(v34);
+        *&v27 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+        if (!os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_82;
         }
@@ -813,13 +812,13 @@ LABEL_95:
         goto LABEL_51;
       }
 
-      v39 = IOGCFastPathSampleGetInteger();
-      if (v39)
+      v37 = IOGCFastPathSampleGetInteger();
+      if (v37)
       {
-        v40 = v39;
-        sub_1120();
-        *&v29 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-        if (!os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+        v38 = v37;
+        sub_1120(v37);
+        *&v27 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+        if (!os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_82;
         }
@@ -827,27 +826,27 @@ LABEL_95:
         goto LABEL_57;
       }
 
-      v153 = v23;
-      v42 = IOGCFastPathSampleGetInteger();
-      if (v42)
+      v144 = v21;
+      v40 = IOGCFastPathSampleGetInteger();
+      if (v40)
       {
-        v43 = v42;
-        v44 = sub_1120();
-        if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
+        v41 = v40;
+        v42 = sub_1120(v40);
+        if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
         {
           *buf = 67109120;
-          *&buf[4] = v43;
-          _os_log_impl(&dword_0, v44, OS_LOG_TYPE_INFO, "Failed to get trigger press (raw): %{mach.errno}d", buf, 8u);
+          *&buf[4] = v41;
+          _os_log_impl(&dword_0, v42, OS_LOG_TYPE_INFO, "Failed to get trigger press (raw): %{mach.errno}d", buf, 8u);
         }
       }
 
-      v45 = IOGCFastPathSampleGetDouble();
-      if (v45)
+      v43 = IOGCFastPathSampleGetDouble();
+      if (v43)
       {
-        v46 = v45;
-        sub_1120();
-        *&v29 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-        if (!os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+        v44 = v43;
+        sub_1120(v43);
+        *&v27 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+        if (!os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_82;
         }
@@ -855,13 +854,13 @@ LABEL_95:
         goto LABEL_67;
       }
 
-      v51 = IOGCFastPathSampleGet2Double();
-      if (v51)
+      v49 = IOGCFastPathSampleGet2Double();
+      if (v49)
       {
-        v52 = v51;
-        sub_1120();
-        *&v29 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-        if (!os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+        v50 = v49;
+        sub_1120(v49);
+        *&v27 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+        if (!os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_82;
         }
@@ -869,13 +868,13 @@ LABEL_95:
         goto LABEL_80;
       }
 
-      v75 = IOGCFastPathSampleGetInteger();
-      if (v75)
+      v72 = IOGCFastPathSampleGetInteger();
+      if (v72)
       {
-        v76 = v75;
-        sub_1120();
-        *&v29 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-        if (!os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+        v73 = v72;
+        sub_1120(v72);
+        *&v27 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+        if (!os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_82;
         }
@@ -883,24 +882,22 @@ LABEL_95:
         goto LABEL_197;
       }
 
-      v78 = v164 < 1;
-      v79 = *(v1 + 86);
-      if (v165 <= 0.0 || v79 > 0.0)
+      v75 = v155 < 1;
+      v76 = *(v1 + 86);
+      if (v156 <= 0.0 || v76 > 0.0)
       {
-        if (v165 > 0.0 || v79 <= 0.0)
+        if (v156 > 0.0 || v76 <= 0.0)
         {
-          if (v165 > 0.0)
+          if (v156 > 0.0)
           {
-            v129 = *(v1 + 4);
             kdebug_trace();
           }
         }
 
         else
         {
-          v88 = *(v1 + 4);
           kdebug_trace();
-          v82 = *(v1 + 60);
+          v78 = *(v1 + 60);
           *(v1 + 60) = 0;
 LABEL_119:
         }
@@ -908,19 +905,74 @@ LABEL_119:
 
       else
       {
-        v80 = *(v1 + 4);
         kdebug_trace();
         if (os_variant_has_internal_diagnostics())
         {
-          v81 = _os_activity_create(&dword_0, "[PSVR2 (L)] Trigger press", &_os_activity_none, OS_ACTIVITY_FLAG_DEFAULT);
-          v82 = *(v1 + 60);
-          *(v1 + 60) = v81;
+          v77 = _os_activity_create(&dword_0, "[PSVR2 (L)] Trigger press", &_os_activity_none, OS_ACTIVITY_FLAG_DEFAULT);
+          v78 = *(v1 + 60);
+          *(v1 + 60) = v77;
           goto LABEL_119;
         }
       }
 
-      v152 = v78 << 15;
-      if ((v169 & 0x10) != 0)
+      v143 = v75 << 15;
+      if ((v160 & 0x10) != 0)
+      {
+        v83 = 1.0;
+      }
+
+      else
+      {
+        v83 = 0.0;
+      }
+
+      v127 = v160;
+      if ((v160 & 0x40) != 0)
+      {
+        v85 = 1.0;
+      }
+
+      else
+      {
+        v85 = 0.0;
+      }
+
+      v84 = v156;
+      v139 = v84;
+      v141 = v85;
+      if ((v161 & 4) != 0)
+      {
+        v86 = 1.0;
+      }
+
+      else
+      {
+        v86 = 0.0;
+      }
+
+      if ((v161 & 8) != 0)
+      {
+        v87 = 1.0;
+      }
+
+      else
+      {
+        v87 = 0.0;
+      }
+
+      v135 = v87;
+      v137 = v86;
+      if ((v161 & 0x10) != 0)
+      {
+        v88 = 1.0;
+      }
+
+      else
+      {
+        v88 = 0.0;
+      }
+
+      if ((v161 & 0x20) != 0)
       {
         v89 = 1.0;
       }
@@ -930,358 +982,300 @@ LABEL_119:
         v89 = 0.0;
       }
 
-      v136 = v169;
-      if ((v169 & 0x40) != 0)
+      v131 = v89;
+      v133 = v88;
+      if ((v161 & 0x40) != 0)
       {
-        v91 = 1.0;
+        v90 = 1.0;
       }
 
       else
       {
-        v91 = 0.0;
+        v90 = 0.0;
       }
 
-      v90 = v165;
-      v148 = v90;
-      v150 = v91;
-      if ((v170 & 4) != 0)
+      v129 = v90;
+      v91 = vextq_s8(v187, v187, 8uLL);
+      v92 = fmax(*&v187.i64[1], 0.0);
+      v93 = vcvt_f32_f64(vandq_s8(vnegq_f64(v91), vcltzq_f64(v91)));
+      v94 = fmax(*v187.i64, 0.0);
+      [v145 dispatchMenuButtonEventWithValue:(v160 >> 7) & 1 timestamp:v144];
+      [v145 dispatchHomeButtonEventWithValue:(v160 >> 8) & 1 timestamp:v144];
+      [v145 createEvent:14 timestamp:v144];
+      *&v27 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+      [v27 setOptions:[v27 options]| 1];
+      [v27 setIntegerValue:0 forField:917506];
+      if ((v161 & 4) != 0)
       {
-        v92 = 1.0;
+        v95 = 7200;
       }
 
       else
       {
-        v92 = 0.0;
+        v95 = 7168;
       }
 
-      if ((v170 & 8) != 0)
+      [v27 setIntegerValue:v95 forField:917504];
+      v182 = *&v27;
+      [v145 createEvent:14 timestamp:v144];
+      v96 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+      v126 = v96;
+      [*&v96 setOptions:{objc_msgSend(*&v96, "options") | 1}];
+      [*&v96 setIntegerValue:0 forField:917506];
+      if ((v161 & 8) != 0)
       {
-        v93 = 1.0;
+        v97 = 8224;
       }
 
       else
       {
-        v93 = 0.0;
+        v97 = 0x2000;
       }
 
-      v144 = v93;
-      v146 = v92;
-      if ((v170 & 0x10) != 0)
+      [*&v96 setIntegerValue:v97 forField:917504];
+      v183 = v96;
+      [v145 createEvent:14 timestamp:v144];
+      v98 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+      v125 = v98;
+      [*&v98 setOptions:{objc_msgSend(*&v98, "options") | 1}];
+      [*&v98 setIntegerValue:0 forField:917506];
+      if ((v161 & 0x40) != 0)
       {
-        v94 = 1.0;
+        v99 = 17440;
       }
 
       else
       {
-        v94 = 0.0;
+        v99 = 17408;
       }
 
-      if ((v170 & 0x20) != 0)
+      [*&v98 setIntegerValue:v99 forField:917504];
+      v184 = v98;
+      v100 = [v145 createEvent:14 timestamp:v144];
+      [v100 setOptions:{objc_msgSend(v100, "options") | 1}];
+      [v100 setIntegerValue:0 forField:917506];
+      if ((v161 & 0x10) != 0)
       {
-        v95 = 1.0;
+        v101 = 9264;
       }
 
       else
       {
-        v95 = 0.0;
+        v101 = 9232;
       }
 
-      v140 = v95;
-      v142 = v94;
-      if ((v170 & 0x40) != 0)
-      {
-        v96 = 1.0;
-      }
-
-      else
-      {
-        v96 = 0.0;
-      }
-
-      v138 = v96;
-      v97 = vextq_s8(v196, v196, 8uLL);
-      v98 = fmax(*&v196.i64[1], 0.0);
-      v99 = vcvt_f32_f64(vandq_s8(vnegq_f64(v97), vcltzq_f64(v97)));
-      v100 = fmax(*v196.i64, 0.0);
-      [v154 dispatchMenuButtonEventWithValue:(v169 >> 7) & 1 timestamp:v153];
-      [v154 dispatchHomeButtonEventWithValue:(v169 >> 8) & 1 timestamp:v153];
-      [v154 createEvent:14 timestamp:v153];
-      *&v29 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-      [v29 setOptions:[v29 options]| 1];
-      [v29 setIntegerValue:0 forField:917506];
-      if ((v170 & 4) != 0)
-      {
-        v101 = 7200;
-      }
-
-      else
-      {
-        v101 = 7168;
-      }
-
-      [v29 setIntegerValue:v101 forField:917504];
-      v191 = *&v29;
-      [v154 createEvent:14 timestamp:v153];
-      v102 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-      v135 = v102;
-      [*&v102 setOptions:{objc_msgSend(*&v102, "options") | 1}];
-      [*&v102 setIntegerValue:0 forField:917506];
-      if ((v170 & 8) != 0)
-      {
-        v103 = 8224;
-      }
-
-      else
-      {
-        v103 = 0x2000;
-      }
-
-      [*&v102 setIntegerValue:v103 forField:917504];
-      v192 = v102;
-      [v154 createEvent:14 timestamp:v153];
-      v104 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-      v134 = v104;
-      [*&v104 setOptions:{objc_msgSend(*&v104, "options") | 1}];
-      [*&v104 setIntegerValue:0 forField:917506];
-      if ((v170 & 0x40) != 0)
-      {
-        v105 = 17440;
-      }
-
-      else
-      {
-        v105 = 17408;
-      }
-
-      [*&v104 setIntegerValue:v105 forField:917504];
-      v193 = v104;
-      v106 = [v154 createEvent:14 timestamp:v153];
-      [v106 setOptions:{objc_msgSend(v106, "options") | 1}];
-      [v106 setIntegerValue:0 forField:917506];
-      if ((v170 & 0x10) != 0)
-      {
-        v107 = 9264;
-      }
-
-      else
-      {
-        v107 = 9232;
-      }
-
-      [v106 setIntegerValue:v107 forField:917504];
-      [v106 setIntegerValue:v168 forField:?];
-      v194 = v106;
-      v108 = [v154 createEvent:14 timestamp:v153];
-      [v108 setOptions:{objc_msgSend(v108, "options") | 1}];
-      [v108 setIntegerValue:0 forField:917506];
-      [v108 setIntegerValue:v170 & 0x20 | 0x2C10 forField:917504];
-      [v108 setIntegerValue:v167 forField:917505];
-      v195 = v108;
-      v109 = [NSArray arrayWithObjects:&v191 count:5];
+      [v100 setIntegerValue:v101 forField:917504];
+      [v100 setIntegerValue:v159 forField:?];
+      v185 = v100;
+      v102 = [v145 createEvent:14 timestamp:v144];
+      [v102 setOptions:{objc_msgSend(v102, "options") | 1}];
+      [v102 setIntegerValue:0 forField:917506];
+      [v102 setIntegerValue:v161 & 0x20 | 0x2C10 forField:917504];
+      [v102 setIntegerValue:v158 forField:917505];
+      v186 = v102;
+      v103 = [NSArray arrayWithObjects:&v182 count:5];
       *buf = 0u;
-      v172 = 0u;
-      v173 = vbic_s8(_D11, vmovn_s64(vceqzq_s64(vandq_s8(vdupq_n_s64(v136), xmmword_11290))));
-      v174 = v89;
+      v163 = 0u;
+      v164 = vbic_s8(_D11, vmovn_s64(vceqzq_s64(vandq_s8(vdupq_n_s64(v127), xmmword_11290))));
+      v165 = v83;
+      v166 = 0.0;
+      *(&v167 + 4) = v93;
+      *&v167 = v92;
+      *(&v167 + 3) = v94;
+      v168 = 0u;
+      v169 = v139;
+      v170 = 0.0;
+      *v172 = 0u;
+      v171 = v141;
+      *&v172[16] = v137;
+      v173 = 0.0;
+      v174 = v135;
       v175 = 0.0;
-      *(&v176 + 4) = v99;
-      *&v176 = v98;
-      *(&v176 + 3) = v100;
-      v177 = 0u;
-      v178 = v148;
+      v176 = v133;
+      v177 = 0.0;
+      v178 = v131;
       v179 = 0.0;
-      *v181 = 0u;
-      v180 = v150;
-      *&v181[16] = v146;
-      v182 = 0.0;
-      v183 = v144;
-      v184 = 0.0;
-      v185 = v142;
-      v186 = 0.0;
-      v187 = v140;
-      v188 = 0.0;
-      v189 = v138;
-      memset(v190, 0, sizeof(v190));
+      v180 = v129;
+      memset(v181, 0, sizeof(v181));
 LABEL_192:
-      [v154 dispatchGameControllerExtendedEventWithState:buf timestamp:v153 options:v152 children:v109];
+      [v145 dispatchGameControllerExtendedEventWithState:buf timestamp:v144 options:v143 children:v103];
 
       goto LABEL_82;
     }
 
-    v154 = v24;
-    v169 = 0;
-    v170 = 0;
-    v167 = 0;
-    v168 = 0;
-    v165 = 0.0;
-    v166 = -2;
-    v164 = 0;
-    v32 = IOGCFastPathSampleGetInteger();
-    if (v32)
+    v145 = v22;
+    v160 = 0;
+    v161 = 0;
+    v158 = 0;
+    v159 = 0;
+    v156 = 0.0;
+    v157 = -2;
+    v155 = 0;
+    v30 = IOGCFastPathSampleGetInteger();
+    if (v30)
     {
-      v28 = v32;
-      sub_1120();
-      *&v29 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-      if (!os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      v26 = v30;
+      sub_1120(v30);
+      *&v27 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+      if (!os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_82;
       }
 
 LABEL_37:
       *buf = 67109120;
-      *&buf[4] = v28;
-      v30 = v29;
-      v31 = "Failed to get button touch state: %{mach.errno}d";
+      *&buf[4] = v26;
+      v28 = v27;
+      v29 = "Failed to get button touch state: %{mach.errno}d";
       goto LABEL_81;
     }
 
-    v35 = IOGCFastPathSampleGetInteger();
-    if (v35)
+    v33 = IOGCFastPathSampleGetInteger();
+    if (v33)
     {
-      v34 = v35;
-      sub_1120();
-      *&v29 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-      if (!os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      v32 = v33;
+      sub_1120(v33);
+      *&v27 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+      if (!os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_82;
       }
 
 LABEL_45:
       *buf = 67109120;
-      *&buf[4] = v34;
-      v30 = v29;
-      v31 = "Failed to get button press state: %{mach.errno}d";
+      *&buf[4] = v32;
+      v28 = v27;
+      v29 = "Failed to get button press state: %{mach.errno}d";
       goto LABEL_81;
     }
 
-    v38 = IOGCFastPathSampleGetInteger();
-    if (v38)
+    v36 = IOGCFastPathSampleGetInteger();
+    if (v36)
     {
-      v37 = v38;
-      sub_1120();
-      *&v29 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-      if (!os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      v35 = v36;
+      sub_1120(v36);
+      *&v27 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+      if (!os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_82;
       }
 
 LABEL_51:
       *buf = 67109120;
-      *&buf[4] = v37;
-      v30 = v29;
-      v31 = "Failed to get grip proximity: %{mach.errno}d";
+      *&buf[4] = v35;
+      v28 = v27;
+      v29 = "Failed to get grip proximity: %{mach.errno}d";
       goto LABEL_81;
     }
 
-    v41 = IOGCFastPathSampleGetInteger();
-    if (v41)
+    v39 = IOGCFastPathSampleGetInteger();
+    if (v39)
     {
-      v40 = v41;
-      sub_1120();
-      *&v29 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-      if (!os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      v38 = v39;
+      sub_1120(v39);
+      *&v27 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+      if (!os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_82;
       }
 
 LABEL_57:
       *buf = 67109120;
-      *&buf[4] = v40;
-      v30 = v29;
-      v31 = "Failed to get trigger proximity: %{mach.errno}d";
+      *&buf[4] = v38;
+      v28 = v27;
+      v29 = "Failed to get trigger proximity: %{mach.errno}d";
       goto LABEL_81;
     }
 
-    v153 = v23;
-    v47 = IOGCFastPathSampleGetInteger();
-    if (v47)
+    v144 = v21;
+    v45 = IOGCFastPathSampleGetInteger();
+    if (v45)
     {
-      v48 = v47;
-      v49 = sub_1120();
-      if (os_log_type_enabled(v49, OS_LOG_TYPE_INFO))
+      v46 = v45;
+      v47 = sub_1120(v45);
+      if (os_log_type_enabled(v47, OS_LOG_TYPE_INFO))
       {
         *buf = 67109120;
-        *&buf[4] = v48;
-        _os_log_impl(&dword_0, v49, OS_LOG_TYPE_INFO, "Failed to get trigger press (raw): %{mach.errno}d", buf, 8u);
+        *&buf[4] = v46;
+        _os_log_impl(&dword_0, v47, OS_LOG_TYPE_INFO, "Failed to get trigger press (raw): %{mach.errno}d", buf, 8u);
       }
     }
 
-    v50 = IOGCFastPathSampleGetDouble();
-    if (v50)
+    v48 = IOGCFastPathSampleGetDouble();
+    if (v48)
     {
-      v46 = v50;
-      sub_1120();
-      *&v29 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-      if (!os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      v44 = v48;
+      sub_1120(v48);
+      *&v27 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+      if (!os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_82;
       }
 
 LABEL_67:
       *buf = 67109120;
-      *&buf[4] = v46;
-      v30 = v29;
-      v31 = "Failed to get trigger press: %{mach.errno}d";
+      *&buf[4] = v44;
+      v28 = v27;
+      v29 = "Failed to get trigger press: %{mach.errno}d";
       goto LABEL_81;
     }
 
-    v53 = IOGCFastPathSampleGet2Double();
-    if (v53)
+    v51 = IOGCFastPathSampleGet2Double();
+    if (v51)
     {
-      v52 = v53;
-      sub_1120();
-      *&v29 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-      if (!os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      v50 = v51;
+      sub_1120(v51);
+      *&v27 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+      if (!os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_82;
       }
 
 LABEL_80:
       *buf = 67109120;
-      *&buf[4] = v52;
-      v30 = v29;
-      v31 = "Failed to get thumbstick position: %{mach.errno}d";
+      *&buf[4] = v50;
+      v28 = v27;
+      v29 = "Failed to get thumbstick position: %{mach.errno}d";
       goto LABEL_81;
     }
 
-    v77 = IOGCFastPathSampleGetInteger();
-    if (v77)
+    v74 = IOGCFastPathSampleGetInteger();
+    if (v74)
     {
-      v76 = v77;
-      sub_1120();
-      *&v29 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-      if (!os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      v73 = v74;
+      sub_1120(v74);
+      *&v27 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+      if (!os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_82;
       }
 
 LABEL_197:
       *buf = 67109120;
-      *&buf[4] = v76;
-      v30 = v29;
-      v31 = "Failed to get held state: %{mach.errno}d";
+      *&buf[4] = v73;
+      v28 = v27;
+      v29 = "Failed to get held state: %{mach.errno}d";
 LABEL_81:
-      _os_log_error_impl(&dword_0, v30, OS_LOG_TYPE_ERROR, v31, buf, 8u);
+      _os_log_error_impl(&dword_0, v28, OS_LOG_TYPE_ERROR, v29, buf, 8u);
       goto LABEL_82;
     }
 
-    v83 = v164 == 0;
-    v84 = *(v1 + 87);
-    if (v165 <= 0.0 || v84 > 0.0)
+    v79 = v155 == 0;
+    v80 = *(v1 + 87);
+    if (v156 <= 0.0 || v80 > 0.0)
     {
-      if (v165 > 0.0 || v84 <= 0.0)
+      if (v156 > 0.0 || v80 <= 0.0)
       {
-        if (v165 > 0.0)
+        if (v156 > 0.0)
         {
-          v130 = *(v1 + 4);
           kdebug_trace();
         }
       }
 
       else
       {
-        v110 = *(v1 + 4);
         kdebug_trace();
-        v87 = *(v1 + 60);
+        v82 = *(v1 + 60);
         *(v1 + 60) = 0;
 LABEL_157:
       }
@@ -1289,19 +1283,86 @@ LABEL_157:
 
     else
     {
-      v85 = *(v1 + 4);
       kdebug_trace();
       if (os_variant_has_internal_diagnostics())
       {
-        v86 = _os_activity_create(&dword_0, "[PSVR2 (R)] Trigger press", &_os_activity_none, OS_ACTIVITY_FLAG_DEFAULT);
-        v87 = *(v1 + 60);
-        *(v1 + 60) = v86;
+        v81 = _os_activity_create(&dword_0, "[PSVR2 (R)] Trigger press", &_os_activity_none, OS_ACTIVITY_FLAG_DEFAULT);
+        v82 = *(v1 + 60);
+        *(v1 + 60) = v81;
         goto LABEL_157;
       }
     }
 
-    v152 = v83 << 15;
-    if ((v169 & 0x10) != 0)
+    v143 = v79 << 15;
+    if ((v160 & 0x10) != 0)
+    {
+      v104 = 1.0;
+    }
+
+    else
+    {
+      v104 = 0.0;
+    }
+
+    v128 = v160;
+    if ((v160 & 0x40) != 0)
+    {
+      v106 = 1.0;
+    }
+
+    else
+    {
+      v106 = 0.0;
+    }
+
+    v105 = v156;
+    v140 = v105;
+    v142 = v106;
+    if (v161)
+    {
+      v107 = 1.0;
+    }
+
+    else
+    {
+      v107 = 0.0;
+    }
+
+    if ((v161 & 2) != 0)
+    {
+      v108 = 1.0;
+    }
+
+    else
+    {
+      v108 = 0.0;
+    }
+
+    v136 = v108;
+    v138 = v107;
+    if ((v161 & 0x10) != 0)
+    {
+      v109 = 1.0;
+    }
+
+    else
+    {
+      v109 = 0.0;
+    }
+
+    if ((v161 & 0x20) != 0)
+    {
+      v110 = 1.0;
+    }
+
+    else
+    {
+      v110 = 0.0;
+    }
+
+    v132 = v110;
+    v134 = v109;
+    if ((v161 & 0x40) != 0)
     {
       v111 = 1.0;
     }
@@ -1311,179 +1372,111 @@ LABEL_157:
       v111 = 0.0;
     }
 
-    v137 = v169;
-    if ((v169 & 0x40) != 0)
+    v130 = v111;
+    v112 = vextq_s8(v187, v187, 8uLL);
+    v113 = fmax(*&v187.i64[1], 0.0);
+    v114 = vcvt_f32_f64(vandq_s8(vnegq_f64(v112), vcltzq_f64(v112)));
+    v115 = fmax(*v187.i64, 0.0);
+    [v145 dispatchMenuButtonEventWithValue:(v160 >> 7) & 1 timestamp:v144];
+    [v145 dispatchHomeButtonEventWithValue:(v160 >> 8) & 1 timestamp:v144];
+    [v145 createEvent:14 timestamp:v144];
+    *&v27 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+    [v27 setOptions:[v27 options]| 1];
+    [v27 setIntegerValue:0 forField:917506];
+    if (v161)
     {
-      v113 = 1.0;
+      v116 = 5152;
     }
 
     else
     {
-      v113 = 0.0;
+      v116 = 5120;
     }
 
-    v112 = v165;
-    v149 = v112;
-    v151 = v113;
-    if (v170)
+    [v27 setIntegerValue:v116 forField:917504];
+    v182 = *&v27;
+    [v145 createEvent:14 timestamp:v144];
+    v117 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+    v126 = v117;
+    [*&v117 setOptions:{objc_msgSend(*&v117, "options") | 1}];
+    [*&v117 setIntegerValue:0 forField:917506];
+    if ((v161 & 2) != 0)
     {
-      v114 = 1.0;
+      v118 = 6176;
     }
 
     else
     {
-      v114 = 0.0;
+      v118 = 6144;
     }
 
-    if ((v170 & 2) != 0)
+    [*&v117 setIntegerValue:v118 forField:917504];
+    v183 = v117;
+    [v145 createEvent:14 timestamp:v144];
+    v119 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+    v125 = v119;
+    [*&v119 setOptions:{objc_msgSend(*&v119, "options") | 1}];
+    [*&v119 setIntegerValue:0 forField:917506];
+    if ((v161 & 0x40) != 0)
     {
-      v115 = 1.0;
+      v120 = 18464;
     }
 
     else
     {
-      v115 = 0.0;
+      v120 = 18432;
     }
 
-    v145 = v115;
-    v147 = v114;
-    if ((v170 & 0x10) != 0)
+    [*&v119 setIntegerValue:v120 forField:917504];
+    v184 = v119;
+    v100 = [v145 createEvent:14 timestamp:v144];
+    [v100 setOptions:{objc_msgSend(v100, "options") | 1}];
+    [v100 setIntegerValue:0 forField:917506];
+    if ((v161 & 0x10) != 0)
     {
-      v116 = 1.0;
+      v121 = 10288;
     }
 
     else
     {
-      v116 = 0.0;
+      v121 = 10256;
     }
 
-    if ((v170 & 0x20) != 0)
-    {
-      v117 = 1.0;
-    }
-
-    else
-    {
-      v117 = 0.0;
-    }
-
-    v141 = v117;
-    v143 = v116;
-    if ((v170 & 0x40) != 0)
-    {
-      v118 = 1.0;
-    }
-
-    else
-    {
-      v118 = 0.0;
-    }
-
-    v139 = v118;
-    v119 = vextq_s8(v196, v196, 8uLL);
-    v120 = fmax(*&v196.i64[1], 0.0);
-    v121 = vcvt_f32_f64(vandq_s8(vnegq_f64(v119), vcltzq_f64(v119)));
-    v122 = fmax(*v196.i64, 0.0);
-    [v154 dispatchMenuButtonEventWithValue:(v169 >> 7) & 1 timestamp:v153];
-    [v154 dispatchHomeButtonEventWithValue:(v169 >> 8) & 1 timestamp:v153];
-    [v154 createEvent:14 timestamp:v153];
-    *&v29 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-    [v29 setOptions:[v29 options]| 1];
-    [v29 setIntegerValue:0 forField:917506];
-    if (v170)
-    {
-      v123 = 5152;
-    }
-
-    else
-    {
-      v123 = 5120;
-    }
-
-    [v29 setIntegerValue:v123 forField:917504];
-    v191 = *&v29;
-    [v154 createEvent:14 timestamp:v153];
-    v124 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-    v135 = v124;
-    [*&v124 setOptions:{objc_msgSend(*&v124, "options") | 1}];
-    [*&v124 setIntegerValue:0 forField:917506];
-    if ((v170 & 2) != 0)
-    {
-      v125 = 6176;
-    }
-
-    else
-    {
-      v125 = 6144;
-    }
-
-    [*&v124 setIntegerValue:v125 forField:917504];
-    v192 = v124;
-    [v154 createEvent:14 timestamp:v153];
-    v126 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-    v134 = v126;
-    [*&v126 setOptions:{objc_msgSend(*&v126, "options") | 1}];
-    [*&v126 setIntegerValue:0 forField:917506];
-    if ((v170 & 0x40) != 0)
-    {
-      v127 = 18464;
-    }
-
-    else
-    {
-      v127 = 18432;
-    }
-
-    [*&v126 setIntegerValue:v127 forField:917504];
-    v193 = v126;
-    v106 = [v154 createEvent:14 timestamp:v153];
-    [v106 setOptions:{objc_msgSend(v106, "options") | 1}];
-    [v106 setIntegerValue:0 forField:917506];
-    if ((v170 & 0x10) != 0)
-    {
-      v128 = 10288;
-    }
-
-    else
-    {
-      v128 = 10256;
-    }
-
-    [v106 setIntegerValue:v128 forField:917504];
-    [v106 setIntegerValue:v168 forField:?];
-    v194 = v106;
-    v108 = [v154 createEvent:14 timestamp:v153];
-    [v108 setOptions:{objc_msgSend(v108, "options") | 1}];
-    [v108 setIntegerValue:0 forField:917506];
-    [v108 setIntegerValue:v170 & 0x20 | 0x3010 forField:917504];
-    [v108 setIntegerValue:v167 forField:917505];
-    v195 = v108;
-    v109 = [NSArray arrayWithObjects:&v191 count:5];
-    *&v172 = 0;
+    [v100 setIntegerValue:v121 forField:917504];
+    [v100 setIntegerValue:v159 forField:?];
+    v185 = v100;
+    v102 = [v145 createEvent:14 timestamp:v144];
+    [v102 setOptions:{objc_msgSend(v102, "options") | 1}];
+    [v102 setIntegerValue:0 forField:917506];
+    [v102 setIntegerValue:v161 & 0x20 | 0x3010 forField:917504];
+    [v102 setIntegerValue:v158 forField:917505];
+    v186 = v102;
+    v103 = [NSArray arrayWithObjects:&v182 count:5];
+    *&v163 = 0;
     *buf = 0u;
-    *(&v172 + 1) = vbic_s8(_D11, vmovn_s64(vceqzq_s64(vandq_s8(vdupq_n_s64(v137), xmmword_11280))));
-    v173 = 0;
+    *(&v163 + 1) = vbic_s8(_D11, vmovn_s64(vceqzq_s64(vandq_s8(vdupq_n_s64(v128), xmmword_11280))));
+    v164 = 0;
+    v165 = 0.0;
+    v167 = 0u;
+    v166 = v104;
+    *&v168 = v113;
+    *(&v168 + 4) = v114;
+    *(&v168 + 3) = v115;
+    v169 = 0.0;
+    v170 = v140;
+    v171 = 0.0;
+    *&v172[4] = 0u;
+    *v172 = v142;
+    v173 = v138;
     v174 = 0.0;
-    v176 = 0u;
-    v175 = v111;
-    *&v177 = v120;
-    *(&v177 + 4) = v121;
-    *(&v177 + 3) = v122;
+    v175 = v136;
+    v176 = 0.0;
+    v177 = v134;
     v178 = 0.0;
-    v179 = v149;
+    v179 = v132;
     v180 = 0.0;
-    *&v181[4] = 0u;
-    *v181 = v151;
-    v182 = v147;
-    v183 = 0.0;
-    v184 = v145;
-    v185 = 0.0;
-    v186 = v143;
-    v187 = 0.0;
-    v188 = v141;
-    v189 = 0.0;
-    *v190 = v139;
-    memset(&v190[1], 0, 52);
+    *v181 = v130;
+    memset(&v181[1], 0, 52);
     goto LABEL_192;
   }
 
@@ -1493,8 +1486,8 @@ LABEL_157:
   }
 
 LABEL_203:
-  v133 = sub_1120();
-  if (os_log_type_enabled(v133, OS_LOG_TYPE_DEBUG))
+  v124 = sub_1120(NextSample);
+  if (os_log_type_enabled(v124, OS_LOG_TYPE_DEBUG))
   {
     sub_AFB4();
   }
@@ -1506,24 +1499,20 @@ LABEL_206:
 void sub_8048(uint64_t a1)
 {
   v2 = _os_activity_create(&dword_0, "Finish", &_os_activity_current, OS_ACTIVITY_FLAG_DEFAULT);
-  v8.opaque[0] = 0;
-  v8.opaque[1] = 0;
-  os_activity_scope_enter(v2, &v8);
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 96);
-  if (v4)
+  v6.opaque[0] = 0;
+  v6.opaque[1] = 0;
+  os_activity_scope_enter(v2, &v6);
+  v3 = *(*(a1 + 32) + 96);
+  if (v3)
   {
-    (*(v4 + 16))();
-    v5 = *(a1 + 32);
-    v6 = *(v5 + 96);
-    *(v5 + 96) = 0;
-
-    v3 = *(a1 + 32);
+    (*(v3 + 16))();
+    v4 = *(a1 + 32);
+    v5 = *(v4 + 96);
+    *(v4 + 96) = 0;
   }
 
-  v7 = *(v3 + 48);
   IOGCFastPathClientClose();
-  os_activity_scope_leave(&v8);
+  os_activity_scope_leave(&v6);
 }
 
 void sub_97AC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id location)
@@ -1537,7 +1526,7 @@ void sub_97AC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int
 void sub_97DC(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = sub_1120();
+  v2 = sub_1120(WeakRetained);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v3 = 0;
@@ -1552,7 +1541,7 @@ void sub_97DC(uint64_t a1)
 void sub_9874(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v3 = sub_1120();
+  v3 = sub_1120(WeakRetained);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1658,20 +1647,19 @@ void sub_9FD0(uint64_t a1, void *a2, int a3)
   v5 = a2;
   if (a1)
   {
-    v8 = v5;
+    v7 = v5;
     if (a3)
     {
       *(a1 + 664) = [v5 timestamp];
     }
 
-    v6 = *(a1 + 656);
-    [v8 timestamp];
-    [v8 type];
+    [v7 timestamp];
+    [v7 type];
     kdebug_trace();
     WeakRetained = objc_loadWeakRetained((a1 + 624));
-    [WeakRetained dispatchEvent:v8];
+    [WeakRetained dispatchEvent:v7];
 
-    v5 = v8;
+    v5 = v7;
   }
 }
 
@@ -1687,7 +1675,7 @@ uint64_t sub_A080(uint64_t result)
 
 void sub_A134(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = sub_1120();
+  v6 = sub_1120(a1);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     v7 = *(a1 + 656);
@@ -1704,8 +1692,7 @@ void sub_A134(uint64_t a1, uint64_t a2, uint64_t a3)
 void sub_A218(uint64_t a1, void *a2)
 {
   sub_5090(a1, a2);
-  [v3 type];
-  sub_5068();
+  sub_5068([v3 type]);
   dispatch_time(0, (*v4 * 1000000000.0));
   [v5 dispatchQueue];
   objc_claimAutoreleasedReturnValue();
@@ -1720,8 +1707,7 @@ void sub_A218(uint64_t a1, void *a2)
 void sub_A2C8(uint64_t a1, void *a2)
 {
   sub_5090(a1, a2);
-  [v3 type];
-  sub_5068();
+  sub_5068([v3 type]);
   dispatch_time(0, (*v4 * 1000000000.0));
   [v5 dispatchQueue];
   objc_claimAutoreleasedReturnValue();
@@ -1731,16 +1717,6 @@ void sub_A2C8(uint64_t a1, void *a2)
   *(v2 + 24) = &unk_14750;
   *(v2 + 32) = v5;
   sub_50B8(v3);
-}
-
-uint64_t sub_A378(uint64_t a1)
-{
-  if (a1)
-  {
-    v1 = *(a1 + 656);
-  }
-
-  return kdebug_trace();
 }
 
 uint64_t sub_A450(uint64_t a1, CFTypeRef *a2)
@@ -1912,20 +1888,19 @@ uint64_t sub_A620(uint64_t a1, void *a2, id *a3)
 
 void sub_A8A4(uint64_t a1, void *a2, int a3)
 {
-  v7 = a2;
+  v6 = a2;
   if (a1)
   {
-    v5 = *(a1 + 32);
-    [v7 timestamp];
-    [v7 type];
+    [v6 timestamp];
+    [v6 type];
     kdebug_trace();
     if (a3)
     {
-      *(a1 + 136) = [v7 timestamp];
+      *(a1 + 136) = [v6 timestamp];
     }
 
     WeakRetained = objc_loadWeakRetained((a1 + 88));
-    [WeakRetained dispatchEvent:v7];
+    [WeakRetained dispatchEvent:v6];
   }
 }
 
@@ -1957,13 +1932,14 @@ void sub_AA88()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_AAC4(int a1, void *a2, void *a3)
+void sub_AAC4(uint64_t a1, void *a2, void *a3)
 {
-  v6 = sub_1120();
+  v5 = a1;
+  v6 = sub_1120(a1);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     v7[0] = 67109120;
-    v7[1] = a1;
+    v7[1] = v5;
     _os_log_error_impl(&dword_0, v6, OS_LOG_TYPE_ERROR, "Failed to set 'Power' configuration: %{mach.errno}d", v7, 8u);
   }
 
@@ -1972,7 +1948,7 @@ void sub_AAC4(int a1, void *a2, void *a3)
 
 void sub_AB84(void *a1)
 {
-  v2 = sub_1120();
+  v2 = sub_1120(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     v7 = [a1 objectForKeyedSubscript:@"Power.Disconnect.OnBattery.NotHeldAfterTime"];
@@ -1981,14 +1957,13 @@ void sub_AB84(void *a1)
   }
 }
 
-void sub_AC44(unsigned __int8 *a1)
+void sub_AC44(uint64_t a1)
 {
-  v2 = sub_1120();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v1 = sub_1120(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    v7 = *a1;
     sub_9AEC();
-    _os_log_error_impl(v3, v4, OS_LOG_TYPE_ERROR, v5, v6, 8u);
+    _os_log_error_impl(v2, v3, OS_LOG_TYPE_ERROR, v4, v5, 8u);
   }
 }
 
@@ -2050,29 +2025,29 @@ void sub_AFB4()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_B024()
+void sub_B024(uint64_t a1)
 {
-  v0 = sub_1120();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v1 = sub_1120(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
     sub_9AEC();
-    _os_log_debug_impl(v1, v2, OS_LOG_TYPE_DEBUG, v3, v4, 0xCu);
+    _os_log_debug_impl(v2, v3, OS_LOG_TYPE_DEBUG, v4, v5, 0xCu);
   }
 }
 
-void sub_B0C8()
+void sub_B0C8(uint64_t a1)
 {
-  v0 = sub_1120();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v1 = sub_1120(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
     sub_9AEC();
-    _os_log_debug_impl(v1, v2, OS_LOG_TYPE_DEBUG, v3, v4, 0x16u);
+    _os_log_debug_impl(v2, v3, OS_LOG_TYPE_DEBUG, v4, v5, 0x16u);
   }
 }
 
 void sub_B184(void *a1, NSObject **a2)
 {
-  v4 = sub_1120();
+  v4 = sub_1120(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     [a1 unsignedIntValue];
@@ -2090,13 +2065,13 @@ void sub_B264()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_B2A0()
+void sub_B2A0(uint64_t a1)
 {
-  v0 = sub_1120();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v1 = sub_1120(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
     sub_9AEC();
-    _os_log_debug_impl(v1, v2, OS_LOG_TYPE_DEBUG, v3, v4, 8u);
+    _os_log_debug_impl(v2, v3, OS_LOG_TYPE_DEBUG, v4, v5, 8u);
   }
 }
 

@@ -38,7 +38,7 @@
     }
 
 LABEL_9:
-    v5 = IFDefaultLog();
+    v5 = IFDefaultLog(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [(CUINamedIconLayerStack(IconFoundationAdditions_Internal) *)a3 _deviceClassFromPlatform:v5];
@@ -56,7 +56,7 @@ LABEL_9:
   v8 = *MEMORY[0x1E69E9840];
   if (a3 >= 2)
   {
-    v4 = IFDefaultLog();
+    v4 = IFDefaultLog(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       v6 = 134217984;
@@ -86,7 +86,7 @@ LABEL_9:
     {
       if (a3)
       {
-        v7 = IFDefaultLog();
+        v7 = IFDefaultLog(v5);
         if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
         {
           v24 = 134217984;
@@ -136,7 +136,7 @@ LABEL_14:
   v28 = [self _deviceClassFromPlatform:a6];
   v18 = [self _icrAppearanceFromAppearance:a7];
   v19 = [self _icrRenderingModeFromAppearanceVariant:a8 tintColor:v17];
-  v20 = IFDefaultLog();
+  v20 = IFDefaultLog(v19);
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
   {
     layers = [self layers];
@@ -192,49 +192,50 @@ LABEL_14:
   v22 = v21;
   if (v21)
   {
-    v31 = 0;
-    v23 = [v21 serializedDataWithError:&v31];
-    v24 = v31;
-    if (!v23 || ![v23 length])
+    v32 = 0;
+    v23 = [v21 serializedDataWithError:&v32];
+    v24 = v32;
+    v25 = v24;
+    if (!v23 || (v24 = [v23 length]) == 0)
     {
-      v25 = IFDefaultLog();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      v26 = IFDefaultLog(v24);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
-        [CUINamedIconLayerStack(IconFoundationAdditions_Internal) _IF_ImageWithSize:v24 scale:v25 platform:? appearance:? appearanceVariant:? tintColor:? isLegacy:? encapsulationShape:?];
+        [CUINamedIconLayerStack(IconFoundationAdditions_Internal) _IF_ImageWithSize:v25 scale:v26 platform:? appearance:? appearanceVariant:? tintColor:? isLegacy:? encapsulationShape:?];
       }
     }
 
-    v26 = objc_opt_new();
-    v27 = v26;
+    v27 = objc_opt_new();
+    v28 = v27;
     if (v20)
     {
-      [v26 setEncapsulationShape:v20];
+      [v27 setEncapsulationShape:v20];
     }
 
-    v28 = [v22 renderedIconWithConfiguration:v27];
-    if (v28)
+    v29 = [v22 renderedIconWithConfiguration:v28];
+    if (v29)
     {
-      v29 = [[IFImage alloc] initWithCGImage:v28 scale:v23 layerData:a5];
+      v30 = [[IFImage alloc] initWithCGImage:v29 scale:v23 layerData:a5];
     }
 
     else
     {
-      v29 = 0;
+      v30 = 0;
     }
   }
 
   else
   {
-    v24 = IFDefaultLog();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v25 = IFDefaultLog(0);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
-      [CUINamedIconLayerStack(IconFoundationAdditions_Internal) _IF_ImageWithSize:v24 scale:? platform:? appearance:? appearanceVariant:? tintColor:? isLegacy:? encapsulationShape:?];
+      [CUINamedIconLayerStack(IconFoundationAdditions_Internal) _IF_ImageWithSize:v25 scale:? platform:? appearance:? appearanceVariant:? tintColor:? isLegacy:? encapsulationShape:?];
     }
 
-    v29 = 0;
+    v30 = 0;
   }
 
-  return v29;
+  return v30;
 }
 
 - (void)_deviceClassFromPlatform:()IconFoundationAdditions_Internal .cold.1(uint64_t a1, NSObject *a2)

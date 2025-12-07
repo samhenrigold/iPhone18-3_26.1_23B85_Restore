@@ -188,19 +188,19 @@ LABEL_4:
 
 void __65__BiometricAutoBugCapture_sendSignature_withDuration_replyBlock___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = os_transaction_create();
   v3 = objc_autoreleasePoolPush();
   v4 = *(a1 + 40);
   v5 = *(*(a1 + 32) + 40);
   v6 = *(a1 + 56);
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __65__BiometricAutoBugCapture_sendSignature_withDuration_replyBlock___block_invoke_2;
-  v11[3] = &unk_2784FA150;
-  v12 = v4;
-  v13 = *(a1 + 48);
-  if (([v5 snapshotWithSignature:v12 duration:0 event:0 payload:v11 reply:v6] & 1) == 0)
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __65__BiometricAutoBugCapture_sendSignature_withDuration_replyBlock___block_invoke_2;
+  v10[3] = &unk_2784FA150;
+  v11 = v4;
+  v12 = *(a1 + 48);
+  if (([v5 snapshotWithSignature:v11 duration:0 event:0 payload:v10 reply:v6] & 1) == 0)
   {
     if (__osLog)
     {
@@ -216,7 +216,7 @@ void __65__BiometricAutoBugCapture_sendSignature_withDuration_replyBlock___block
     {
       v8 = *(a1 + 40);
       *buf = 138412290;
-      v15 = v8;
+      v14 = v8;
       _os_log_impl(&dword_223E00000, v7, OS_LOG_TYPE_ERROR, "Failed to send auto bug capture signature: %@\n", buf, 0xCu);
     }
 
@@ -228,12 +228,11 @@ void __65__BiometricAutoBugCapture_sendSignature_withDuration_replyBlock___block
   }
 
   objc_autoreleasePoolPop(v3);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __65__BiometricAutoBugCapture_sendSignature_withDuration_replyBlock___block_invoke_2(uint64_t a1, void *a2)
 {
-  *&v23[13] = *MEMORY[0x277D85DE8];
+  *&v22[13] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 objectForKeyedSubscript:*MEMORY[0x277D6B1A0]];
   v5 = [v4 BOOLValue];
@@ -256,11 +255,11 @@ void __65__BiometricAutoBugCapture_sendSignature_withDuration_replyBlock___block
       v8 = *MEMORY[0x277D6B190];
       v9 = v6;
       v10 = [v3 objectForKeyedSubscript:v8];
-      v20 = 138412546;
-      v21 = v7;
-      v22 = 2112;
-      *v23 = v10;
-      _os_log_impl(&dword_223E00000, v9, OS_LOG_TYPE_DEFAULT, "Successfully send auto bug capture signature: %@ with sessionID: %@\n", &v20, 0x16u);
+      v19 = 138412546;
+      v20 = v7;
+      v21 = 2112;
+      *v22 = v10;
+      _os_log_impl(&dword_223E00000, v9, OS_LOG_TYPE_DEFAULT, "Successfully send auto bug capture signature: %@ with sessionID: %@\n", &v19, 0x16u);
     }
 
     v11 = *MEMORY[0x277D6B070];
@@ -296,13 +295,13 @@ void __65__BiometricAutoBugCapture_sendSignature_withDuration_replyBlock___block
       v15 = *MEMORY[0x277D6B178];
       v16 = v13;
       v17 = [v3 objectForKeyedSubscript:v15];
-      v20 = 138412802;
-      v21 = v14;
-      v22 = 1024;
-      *v23 = v11;
-      v23[2] = 2112;
-      *&v23[3] = v17;
-      _os_log_impl(&dword_223E00000, v16, OS_LOG_TYPE_DEFAULT, "Dampened auto bug capture signature: %@ with error code: %d reason: %@\n", &v20, 0x1Cu);
+      v19 = 138412802;
+      v20 = v14;
+      v21 = 1024;
+      *v22 = v11;
+      v22[2] = 2112;
+      *&v22[3] = v17;
+      _os_log_impl(&dword_223E00000, v16, OS_LOG_TYPE_DEFAULT, "Dampened auto bug capture signature: %@ with error code: %d reason: %@\n", &v19, 0x1Cu);
     }
   }
 
@@ -311,63 +310,52 @@ void __65__BiometricAutoBugCapture_sendSignature_withDuration_replyBlock___block
   {
     (*(v18 + 16))(v18, v11);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithDomain:(void *)a1 process:dispatchQueue:.cold.1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v2, v3, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v4, v5, v6, v7, v9);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v2, v3, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v4, v5, v6, v7);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getSignatureForReason:(void *)a1 .cold.1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v2, v3, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v4, v5, v6, v7, v9);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v2, v3, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v4, v5, v6, v7);
   }
 
   *a1 = 0;
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getSignatureForReason:(void *)a1 .cold.2(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v2, v3, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v4, v5, v6, v7, v9);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v2, v3, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v4, v5, v6, v7);
   }
 
   *a1 = 0;
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendAutoBugCaptureEvent:(_BYTE *)a1 .cold.1(_BYTE *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v2, v3, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v4, v5, v6, v7, v9);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v2, v3, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v4, v5, v6, v7);
   }
 
   *a1 = 0;
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

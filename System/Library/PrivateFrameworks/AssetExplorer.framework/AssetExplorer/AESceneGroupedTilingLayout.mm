@@ -64,21 +64,19 @@
   [(AESceneGroupedTilingLayout *)self _thumbnailRowsForCurrentLayoutStyle:tile];
   [(AESceneGroupedTilingLayout *)self _safeReferenceSize];
   [(AESceneGroupedTilingLayout *)self layoutStyle];
-  v5 = *MEMORY[0x277CBF348];
-  v6 = *(MEMORY[0x277CBF348] + 8);
+  UIRoundToViewScale();
+  v6 = v5;
   UIRoundToViewScale();
   v8 = v7;
   UIRoundToViewScale();
   v10 = v9;
-  UIRoundToViewScale();
-  v12 = v11;
-  v13 = v10;
-  v14 = v8;
-  v15 = v8;
-  result.size.height = v15;
-  result.size.width = v14;
-  result.origin.y = v12;
-  result.origin.x = v13;
+  v11 = v8;
+  v12 = v6;
+  v13 = v6;
+  result.size.height = v13;
+  result.size.width = v12;
+  result.origin.y = v10;
+  result.origin.x = v11;
   return result;
 }
 
@@ -237,7 +235,7 @@ LABEL_25:
   if (geometry)
   {
 LABEL_14:
-    [(AESceneGroupedTilingLayout *)self _geometryWithFrame:v17 alpha:v19 zPosition:v21, v23, 1.0, v25];
+    objc_msgSend__geometryWithFrame_alpha_zPosition_(self, v17, v19, v21, v23, 1.0, v25);
     v33 = v78;
     *&geometry->var6 = v77;
     *&geometry->var7.height = v33;
@@ -353,40 +351,8 @@ LABEL_27:
           v72 = v24;
           *(&v105[2] + 8) = v24;
           *(&v105[3] + 1) = coordinateSpaceIdentifier;
-          if (!tileGroups || [tileGroups containsIndex:66059])
+          if ((!tileGroups || [tileGroups containsIndex:66059]) && (v25 = blockCopy[2], *&v89 = 5, *(&v89 + 1) = v65, v90 = identifier, v91 = 0, v92 = v17 - 1, v93 = 0x7FFFFFFFFFFFFFFFLL, v94 = 0u, v95 = 0u, v96 = 0, v87 = v105[0], *v88 = v105[1], *&v88[16] = v105[2], *&v88[32] = v105[3], v83 = v101, v84 = v102, v85 = v103, v86 = v104, v79 = v97, v80 = v98, v81 = v99, v82 = v100, v25(blockCopy, &v89, &v79, 66059, 0, v106), !tileGroups) || objc_msgSend(tileGroups, "containsIndex:", 855060))
           {
-            v25 = blockCopy[2];
-            *&v89 = 5;
-            *(&v89 + 1) = v65;
-            v90 = identifier;
-            v91 = 0;
-            v92 = v17 - 1;
-            v93 = 0x7FFFFFFFFFFFFFFFLL;
-            v94 = 0u;
-            v95 = 0u;
-            v96 = 0;
-            v87 = v105[0];
-            *v88 = v105[1];
-            *&v88[16] = v105[2];
-            *&v88[32] = v105[3];
-            v83 = v101;
-            v84 = v102;
-            v85 = v103;
-            v86 = v104;
-            v79 = v97;
-            v80 = v98;
-            v81 = v99;
-            v82 = v100;
-            v25(blockCopy, &v89, &v79, 66059, 0, v106);
-            if (!tileGroups)
-            {
-              goto LABEL_9;
-            }
-          }
-
-          if ([tileGroups containsIndex:855060])
-          {
-LABEL_9:
             progressSnapshot = [(AESceneGroupedTilingLayout *)self progressSnapshot];
             v79 = identifier;
             *&v80 = v17 - 1;

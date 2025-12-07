@@ -13,13 +13,13 @@
 
 - (NSArray)preferredFocusEnvironments
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C7629D0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C7629D0, &unk_20C14F960);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_20C14F580;
   v4 = *((*(&self->super.super.super.isa + OBJC_IVAR____TtC9SeymourUI30TVLibraryGalleryViewController_dataProvider))[2] + OBJC_IVAR____TtC9SeymourUI11CatalogPage_collectionView);
   *(v3 + 32) = v4;
   v5 = v4;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C7620E0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C7620E0, &unk_20C14F970);
   v6 = sub_20C13CC54();
 
   return v6;
@@ -57,11 +57,11 @@
 {
   disappearCopy = disappear;
   v5.receiver = self;
-  v5.super_class = type metadata accessor for TVLibraryGalleryViewController();
+  v5.super_class = type metadata accessor for TVLibraryGalleryViewController(0);
   v4 = v5.receiver;
   [(TVLibraryGalleryViewController *)&v5 viewDidDisappear:disappearCopy];
-  sub_20C006E68(&unk_27C771C50);
-  sub_20C006E68(&qword_27C771C68);
+  sub_20C006E68(&unk_27C771C50, &unk_20C189B78);
+  sub_20C006E68(&qword_27C771C68, &unk_20C189AF0);
   sub_20C139374();
 }
 
@@ -72,18 +72,18 @@
   v6 = *(v5 - 8);
   MEMORY[0x28223BE20](v5);
   v8 = v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = type metadata accessor for TVLibraryGalleryViewController();
+  v9 = type metadata accessor for TVLibraryGalleryViewController(0);
   v12.receiver = self;
   v12.super_class = v9;
   selfCopy = self;
   [(TVLibraryGalleryViewController *)&v12 viewDidAppear:appearCopy];
   v11[1] = selfCopy;
   (*(v6 + 16))(v8, *(&selfCopy->super.super.super.isa + OBJC_IVAR____TtC9SeymourUI30TVLibraryGalleryViewController_dataProvider) + OBJC_IVAR____TtC9SeymourUI28TVLibraryGalleryDataProvider_metricPage, v5);
-  sub_20C006E68(&qword_27C771C60);
+  sub_20C006E68(&qword_27C771C60, &unk_20C189B38);
   sub_20C138C54();
   (*(v6 + 8))(v8, v5);
-  sub_20C006E68(&unk_27C771C50);
-  sub_20C006E68(&qword_27C771C68);
+  sub_20C006E68(&unk_27C771C50, &unk_20C189B78);
+  sub_20C006E68(&qword_27C771C68, &unk_20C189AF0);
   sub_20C139364();
 }
 

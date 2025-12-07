@@ -50,10 +50,11 @@
 
   v7 = (self + OBJC_IVAR___AVInputPickerPresenterViewController_dismissalBlock);
   v8 = *(self + OBJC_IVAR___AVInputPickerPresenterViewController_dismissalBlock);
+  v9 = *(self + OBJC_IVAR___AVInputPickerPresenterViewController_dismissalBlock + 8);
   *v7 = v6;
   v7[1] = v4;
   selfCopy = self;
-  sub_18B4A31A4(v8);
+  sub_18B4A31A4(v8, v9);
 }
 
 - (void)setSourceView:(id)view
@@ -80,7 +81,7 @@
 
   selfCopy = self;
   sub_18B5329CC(visible, animated, v8, v9);
-  sub_18B4A31A4(v8);
+  sub_18B4A31A4(v8, v9);
 }
 
 - (void)loadView
@@ -94,11 +95,12 @@
   v3 = *(self + OBJC_IVAR___AVInputPickerPresenterViewController_dismissalBlock);
   if (v3)
   {
+    v4 = *(self + OBJC_IVAR___AVInputPickerPresenterViewController_dismissalBlock + 8);
     selfCopy = self;
-    v5 = sub_18B4A324C(v3);
-    v3(v5);
+    v6 = sub_18B4A324C(v3, v4);
+    v3(v6);
 
-    sub_18B4A31A4(v3);
+    sub_18B4A31A4(v3, v4);
   }
 }
 

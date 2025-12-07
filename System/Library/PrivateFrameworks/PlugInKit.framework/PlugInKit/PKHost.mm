@@ -8,9 +8,12 @@
 - (id)continuouslyDiscoverPlugInsForAttributes:(id)attributes flags:(unint64_t)flags found:(id)found;
 - (id)findPlugInByUUID:(id)d withError:(id *)error;
 - (id)rewriteDiscoveryAttributes:(id)attributes flags:(unint64_t)flags;
+- (void)_findPlugInByUUID:(id)d synchronously:(BOOL)synchronously reply:(id)reply;
+- (void)accessPlugIns:(id)ins synchronously:(BOOL)synchronously flags:(unint64_t)flags extensions:(id)extensions;
 - (void)deactivatePlugIn:(id)in;
 - (void)discoverPlugInsForAttributes:(id)attributes flags:(unint64_t)flags found:(id)found;
 - (void)findPlugInByPathURL:(id)l reply:(id)reply;
+- (void)readyPlugIns:(id)ins synchronously:(BOOL)synchronously environment:(id)environment languages:(id)languages persona:(id)persona sandbox:(id)sandbox ready:(id)ready;
 - (void)setElection:(int64_t)election forPlugIn:(id)in;
 - (void)setExtensionState:(id)state forPlugIn:(id)in;
 @end
@@ -65,6 +68,22 @@
   }
 
   return v8;
+}
+
+- (void)_findPlugInByUUID:(id)d synchronously:(BOOL)synchronously reply:(id)reply
+{
+  synchronouslyCopy = synchronously;
+  replyCopy = reply;
+  dCopy = d;
+  daemon = [(PKHost *)self daemon];
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = sub_1C68A0B50;
+  v12[3] = &unk_1E827F6C0;
+  v12[4] = self;
+  v13 = replyCopy;
+  v11 = replyCopy;
+  [daemon findPlugInByUUID:dCopy synchronously:synchronouslyCopy reply:v12];
 }
 
 - (id)findPlugInByUUID:(id)d withError:(id *)error
@@ -140,7 +159,7 @@
 
 - (id)rewriteDiscoveryAttributes:(id)attributes flags:(unint64_t)flags
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   attributesCopy = attributes;
   v5 = [attributesCopy objectForKeyedSubscript:@"NSExtensionPointName"];
 
@@ -151,16 +170,16 @@
   }
 
   v6 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(attributesCopy, "count")}];
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
-  v26 = attributesCopy;
+  v25 = attributesCopy;
   v7 = attributesCopy;
-  v8 = [v7 countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v8)
   {
-    v9 = *v29;
+    v9 = *v28;
     v10 = @"com.apple.version";
     v11 = @"NSExtensionIdentifier";
     do
@@ -176,15 +195,15 @@
         v13 = v8;
       }
 
-      v27 = v13;
+      v26 = v13;
       do
       {
-        if (*v29 != v9)
+        if (*v28 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v18 = *(*(&v28 + 1) + 8 * v12);
+        v18 = *(*(&v27 + 1) + 8 * v12);
         if ([(__CFString *)v18 isEqualToString:@"com.apple.identifier"])
         {
           v14 = [v7 objectForKeyedSubscript:v18];
@@ -224,23 +243,21 @@ LABEL_11:
         v10 = v21;
         v11 = v20;
         v9 = v19;
-        v13 = v27;
+        v13 = v26;
 LABEL_12:
 
         ++v12;
       }
 
       while (v13 != v12);
-      v8 = [v7 countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v27 objects:v31 count:16];
     }
 
     while (v8);
   }
 
-  attributesCopy = v26;
+  attributesCopy = v25;
 LABEL_23:
-
-  v24 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -256,9 +273,44 @@ LABEL_23:
   return v10;
 }
 
+- (void)accessPlugIns:(id)ins synchronously:(BOOL)synchronously flags:(unint64_t)flags extensions:(id)extensions
+{
+  synchronouslyCopy = synchronously;
+  extensionsCopy = extensions;
+  insCopy = ins;
+  daemon = [(PKHost *)self daemon];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = sub_1C68A2934;
+  v13[3] = &unk_1E827F788;
+  v14 = extensionsCopy;
+  v12 = extensionsCopy;
+  [daemon accessPlugIns:insCopy synchronously:synchronouslyCopy flags:0 reply:v13];
+}
+
+- (void)readyPlugIns:(id)ins synchronously:(BOOL)synchronously environment:(id)environment languages:(id)languages persona:(id)persona sandbox:(id)sandbox ready:(id)ready
+{
+  synchronouslyCopy = synchronously;
+  readyCopy = ready;
+  sandboxCopy = sandbox;
+  personaCopy = persona;
+  languagesCopy = languages;
+  environmentCopy = environment;
+  insCopy = ins;
+  daemon = [(PKHost *)self daemon];
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = sub_1C68A2AFC;
+  v24[3] = &unk_1E827F7B0;
+  v24[4] = self;
+  v25 = readyCopy;
+  v23 = readyCopy;
+  [daemon readyPlugIns:insCopy synchronously:synchronouslyCopy flags:0 environment:environmentCopy languages:languagesCopy persona:personaCopy sandbox:sandboxCopy reply:v24];
+}
+
 - (void)setElection:(int64_t)election forPlugIn:(id)in
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   inCopy = in;
   v7 = objc_opt_new();
   v8 = [MEMORY[0x1E696AD98] numberWithInteger:election];
@@ -273,16 +325,14 @@ LABEL_23:
   daemon = [(PKHost *)self daemon];
   uuid = [inCopy uuid];
 
-  v15[0] = uuid;
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
+  v14[0] = uuid;
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
   [daemon setPluginAnnotations:v13 annotations:v7 reply:&unk_1F4639228];
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setExtensionState:(id)state forPlugIn:(id)in
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   stateCopy = state;
   if (stateCopy)
   {
@@ -306,11 +356,9 @@ LABEL_23:
   daemon = [(PKHost *)self daemon];
   uuid = [inCopy uuid];
 
-  v16[0] = uuid;
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
+  v15[0] = uuid;
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
   [daemon setPluginAnnotations:v14 annotations:v9 reply:&unk_1F4639248];
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (id)activePlugInForIdentifier:(id)identifier

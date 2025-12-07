@@ -245,7 +245,7 @@ LABEL_16:
 
   heading2 = selfCopy;
   session = [(PedestrianARFloatingDebugViewController *)selfCopy session];
-  configuration = [session configuration];
+  v41 = objc_msgSend_configuration(session);
   objc_opt_class();
   LOBYTE(v35) = objc_opt_isKindOfClass();
 
@@ -253,8 +253,8 @@ LABEL_16:
   if (v35)
   {
     session2 = [(PedestrianARFloatingDebugViewController *)selfCopy session];
-    configuration2 = [session2 configuration];
-    fileURL = [configuration2 fileURL];
+    v44 = objc_msgSend_configuration(session2);
+    fileURL = [v44 fileURL];
     path = [fileURL path];
 
     v47 = objc_alloc(v24[408]);
@@ -264,15 +264,15 @@ LABEL_16:
   }
 
   session3 = [(PedestrianARFloatingDebugViewController *)selfCopy session];
-  configuration3 = [session3 configuration];
+  v51 = objc_msgSend_configuration(session3);
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
 
   if (isKindOfClass)
   {
     session4 = [(PedestrianARFloatingDebugViewController *)selfCopy session];
-    configuration4 = [session4 configuration];
-    fileURL2 = [configuration4 fileURL];
+    v54 = objc_msgSend_configuration(session4);
+    fileURL2 = [v54 fileURL];
     path2 = [fileURL2 path];
 
     v57 = objc_alloc(v24[408]);
@@ -363,7 +363,7 @@ LABEL_16:
     }
 
     camera = [currentFrame camera];
-    [camera transform];
+    objc_msgSend_transform(camera);
     v140 = v88;
 
     v24 = &_s10MapsDesign17ListCellViewModelCMa_ptr_0;

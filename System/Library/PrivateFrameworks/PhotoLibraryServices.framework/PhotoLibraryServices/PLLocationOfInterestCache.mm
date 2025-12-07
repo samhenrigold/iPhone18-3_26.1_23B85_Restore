@@ -13,7 +13,7 @@
 - (unint64_t)numberOfLocationsOfInterest
 {
   allLocationsOfInterest = [(PLLocationOfInterestCache *)self allLocationsOfInterest];
-  v3 = [allLocationsOfInterest count];
+  v3 = objc_msgSend_count(allLocationsOfInterest);
 
   return v3;
 }
@@ -332,7 +332,7 @@ LABEL_3:
     goto LABEL_39;
   }
 
-  self->_numberOfLocationsOfInterestVisits += [visits count];
+  self->_numberOfLocationsOfInterestVisits += objc_msgSend_count(visits);
   [(NSMutableSet *)self->_allLocationsOfInterest addObject:interestCopy];
   if (![interestCopy type])
   {

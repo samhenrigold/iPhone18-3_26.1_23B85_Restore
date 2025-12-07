@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)syncTypeAsString:(int)string;
 - (int)StringAsSyncType:(id)type;
 - (int)syncType;
 - (unint64_t)hash;
@@ -24,6 +25,21 @@
   {
     return 0;
   }
+}
+
+- (id)syncTypeAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100202B48 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsSyncType:(id)type
@@ -112,24 +128,23 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (self->_objectId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    syncType = self->_syncType;
     PBDataWriterWriteInt32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_status)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -193,7 +208,6 @@
     }
   }
 
-  v6 = *(equalCopy + 28);
   if (*&self->_has)
   {
     if ((*(equalCopy + 28) & 1) == 0 || self->_syncType != *(equalCopy + 6))
@@ -205,24 +219,24 @@
   else if (*(equalCopy + 28))
   {
 LABEL_11:
-    v8 = 0;
+    v7 = 0;
     goto LABEL_12;
   }
 
   status = self->_status;
   if (status | *(equalCopy + 2))
   {
-    v8 = [(PDDPStatus *)status isEqual:?];
+    v7 = [(PDDPStatus *)status isEqual:?];
   }
 
   else
   {
-    v8 = 1;
+    v7 = 1;
   }
 
 LABEL_12:
 
-  return v8;
+  return v7;
 }
 
 - (unint64_t)hash
@@ -261,18 +275,28 @@ LABEL_12:
   v6 = *(fromCopy + 2);
   if (status)
   {
-    if (v6)
+    if (!v6)
     {
-      [(PDDPStatus *)status mergeFrom:?];
+      goto LABEL_11;
     }
+
+    status = [(PDDPStatus *)status mergeFrom:?];
   }
 
-  else if (v6)
+  else
   {
-    [(PDDPIngestItemStatus *)self setStatus:?];
+    if (!v6)
+    {
+      goto LABEL_11;
+    }
+
+    status = [(PDDPIngestItemStatus *)self setStatus:?];
   }
 
-  _objc_release_x1();
+  fromCopy = v7;
+LABEL_11:
+
+  _objc_release_x1(status, fromCopy);
 }
 
 @end

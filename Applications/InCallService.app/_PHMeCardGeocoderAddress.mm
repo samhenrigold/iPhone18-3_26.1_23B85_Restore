@@ -123,11 +123,11 @@
 - (id)createGeocodeAfterDate
 {
   v2 = +[NSDate date];
-  v3 = sub_100004F84();
+  v3 = sub_100004F84(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v17) = 0;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Our date is between start and end dates for geocoder, so we're throttling", &v17, 2u);
+    LOWORD(v18) = 0;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Our date is between start and end dates for geocoder, so we're throttling", &v18, 2u);
   }
 
   v4 = time(0);
@@ -136,46 +136,46 @@
   v6 = +[_PHMeCardGeocoderPreferences sharedPreferences];
   isActivelyUsing = [v6 isActivelyUsing];
 
-  v8 = sub_100004F84();
-  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+  v9 = sub_100004F84(v8);
+  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
   if (isActivelyUsing)
   {
-    if (v9)
+    if (v10)
     {
-      LOWORD(v17) = 0;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "User has been actively using feature, so using active period length", &v17, 2u);
+      LOWORD(v18) = 0;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "User has been actively using feature, so using active period length", &v18, 2u);
     }
 
-    v10 = v5 / 2147483650.0;
-    v11 = +[_PHMeCardGeocoderPreferences sharedPreferences];
-    [v11 activeUsagePeriodLength];
+    v11 = v5 / 2147483650.0;
+    v12 = +[_PHMeCardGeocoderPreferences sharedPreferences];
+    [v12 activeUsagePeriodLength];
   }
 
   else
   {
-    if (v9)
+    if (v10)
     {
-      LOWORD(v17) = 0;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "User has not yet used the feature, so using normal period length", &v17, 2u);
+      LOWORD(v18) = 0;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "User has not yet used the feature, so using normal period length", &v18, 2u);
     }
 
-    v10 = v5 / 2147483650.0;
-    v11 = +[_PHMeCardGeocoderPreferences sharedPreferences];
-    [v11 periodLength];
+    v11 = v5 / 2147483650.0;
+    v12 = +[_PHMeCardGeocoderPreferences sharedPreferences];
+    [v12 periodLength];
   }
 
-  v13 = v10 * v12;
+  v14 = v11 * v13;
 
-  v14 = [NSDate dateWithTimeInterval:v2 sinceDate:v13];
-  v15 = sub_100004F84();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v15 = [NSDate dateWithTimeInterval:v2 sinceDate:v14];
+  v16 = sub_100004F84(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 138412290;
-    v18 = v14;
-    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Created geocode-after date of: %@", &v17, 0xCu);
+    v18 = 138412290;
+    v19 = v15;
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Created geocode-after date of: %@", &v18, 0xCu);
   }
 
-  return v14;
+  return v15;
 }
 
 - (BOOL)checkGeocodeAfterDateForSanity
@@ -196,15 +196,15 @@
 
     if (v8 > v12)
     {
-      v13 = sub_100004F84();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v14 = sub_100004F84(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = self->_geocodeAfter;
-        v20 = 138412290;
-        v21 = v14;
-        v15 = "Geocode-after date had insane value for active use: %@";
+        v15 = self->_geocodeAfter;
+        v22 = 138412290;
+        v23 = v15;
+        v16 = "Geocode-after date had insane value for active use: %@";
 LABEL_8:
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, v15, &v20, 0xCu);
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, v16, &v22, 0xCu);
         goto LABEL_9;
       }
 
@@ -215,17 +215,17 @@ LABEL_8:
   else
   {
     [v9 periodLength];
-    v17 = v16;
+    v18 = v17;
 
-    if (v8 > v17)
+    if (v8 > v18)
     {
-      v13 = sub_100004F84();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v14 = sub_100004F84(v19);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v18 = self->_geocodeAfter;
-        v20 = 138412290;
-        v21 = v18;
-        v15 = "Geocode-after date had insane value: %@";
+        v20 = self->_geocodeAfter;
+        v22 = 138412290;
+        v23 = v20;
+        v16 = "Geocode-after date had insane value: %@";
         goto LABEL_8;
       }
 
@@ -241,9 +241,11 @@ LABEL_9:
 
 - (void)recalculateGeocodeAfterDate
 {
-  self->_geocodeAfter = [(_PHMeCardGeocoderAddress *)self createGeocodeAfterDate];
+  createGeocodeAfterDate = [(_PHMeCardGeocoderAddress *)self createGeocodeAfterDate];
+  geocodeAfter = self->_geocodeAfter;
+  self->_geocodeAfter = createGeocodeAfterDate;
 
-  _objc_release_x1();
+  _objc_release_x1(createGeocodeAfterDate, geocodeAfter);
 }
 
 - (void)attemptGeocodeWithCompletionBlock:(id)block

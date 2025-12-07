@@ -30,7 +30,7 @@
 
 - (void)dealloc
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   __CFCheckCFInfoPACSignature(self);
   v3 = CFGetTypeID(self);
   if (v3 == 2)
@@ -47,10 +47,9 @@
     }
   }
 
-  v6.receiver = self;
-  v6.super_class = __NSCFType;
-  [(__NSCFType *)&v6 dealloc];
-  v5 = *MEMORY[0x1E69E9840];
+  v5.receiver = self;
+  v5.super_class = __NSCFType;
+  [(__NSCFType *)&v5 dealloc];
 }
 
 @end

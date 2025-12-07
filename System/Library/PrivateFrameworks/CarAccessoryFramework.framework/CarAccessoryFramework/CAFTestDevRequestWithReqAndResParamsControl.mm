@@ -1,6 +1,7 @@
 @interface CAFTestDevRequestWithReqAndResParamsControl
 + (void)load;
 - (void)registerObserver:(id)observer;
+- (void)testDevRequestWithReqAndResParamsWithTestInput5:(unsigned __int8)input5 testInput6:(id)input6 completion:(id)completion;
 - (void)unregisterObserver:(id)observer;
 @end
 
@@ -47,6 +48,28 @@
   v6.receiver = self;
   v6.super_class = CAFTestDevRequestWithReqAndResParamsControl;
   [(CAFControl *)&v6 unregisterObserver:v5];
+}
+
+- (void)testDevRequestWithReqAndResParamsWithTestInput5:(unsigned __int8)input5 testInput6:(id)input6 completion:(id)completion
+{
+  input5Copy = input5;
+  v17[2] = *MEMORY[0x277D85DE8];
+  completionCopy = completion;
+  v16[0] = @"testInput5";
+  v9 = MEMORY[0x277CCABB0];
+  input6Copy = input6;
+  v11 = [v9 numberWithUnsignedChar:input5Copy];
+  v16[1] = @"testInput6";
+  v17[0] = v11;
+  v17[1] = input6Copy;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __117__CAFTestDevRequestWithReqAndResParamsControl_testDevRequestWithReqAndResParamsWithTestInput5_testInput6_completion___block_invoke;
+  v14[3] = &unk_27890EFF8;
+  v15 = completionCopy;
+  v13 = completionCopy;
+  [(CAFControl *)self requestWithValue:v12 response:v14];
 }
 
 void __117__CAFTestDevRequestWithReqAndResParamsControl_testDevRequestWithReqAndResParamsWithTestInput5_testInput6_completion___block_invoke(uint64_t a1, void *a2, void *a3)

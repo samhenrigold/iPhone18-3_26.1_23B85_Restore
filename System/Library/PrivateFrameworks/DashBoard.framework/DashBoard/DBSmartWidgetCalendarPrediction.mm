@@ -4,6 +4,7 @@
 + (double)initialValidInterval;
 + (double)maxValue;
 + (double)minValue;
++ (void)initialValidInterval;
 - (BOOL)allDay;
 - (BOOL)hasSecondaryAction;
 - (BOOL)isEqualToCalendarPrediction:(id)prediction;
@@ -32,6 +33,7 @@
 - (void)_launchTelephonyCall:(id)call;
 - (void)_launchVirtualConference:(id)conference forBundleID:(id)d;
 - (void)addEvent:(id)event;
+- (void)defaultValidRanges;
 - (void)setSoonestEvent:(BOOL)event;
 - (void)updateRangeIfNeeded:(id)needed;
 - (void)updateVirtualConferenceBundleIDIfNeeded;
@@ -1152,6 +1154,20 @@ void __55__DBSmartWidgetCalendarPrediction_secondaryActionBlock__block_invoke_2_
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1_1();
   _os_log_debug_impl(v6, v7, v8, v9, v10, 0x16u);
+}
+
++ (void)initialValidInterval
+{
+  LODWORD(v9) = 134349056;
+  *(&v9 + 4) = a9;
+  OUTLINED_FUNCTION_0(&dword_248146000, self, a3, "initialValidInterval invalid %{public}f", a5, a6, a7, a8, v9, DWORD2(v9));
+}
+
+- (void)defaultValidRanges
+{
+  LODWORD(v9) = 134349056;
+  *(&v9 + 4) = a9;
+  OUTLINED_FUNCTION_0(&dword_248146000, self, a3, "beforeStartDateValidInterval invalid %{public}f", a5, a6, a7, a8, v9, DWORD2(v9));
 }
 
 @end

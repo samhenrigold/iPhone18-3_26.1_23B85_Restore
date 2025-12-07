@@ -8,13 +8,13 @@
 - (BSMachPortSendOnceRight)initWithPort:(unsigned int)port
 {
   v3 = *&port;
-  if (port - 1 <= 0xFFFFFFFD && !BSMachPortIsType(port, 1310720))
+  if (port - 1 <= 0xFFFFFFFD && !BSMachPortIsType(*&port, 1310720))
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
     [currentHandler handleFailureInMethod:a2 object:self file:@"BSMachPortRight.m" lineNumber:448 description:@"you must pass in a send-once (or dead) right or NULL"];
   }
 
-  v6 = _BSMachPortRightDescription(2u, 0, @"take", v3, 0);
+  v6 = _BSMachPortRightDescription(2, 0, @"take", v3, 0);
   v7 = [(BSMachPortRight *)self _initWithPort:v3 type:2 owner:0 trace:v6];
 
   return v7;
@@ -34,7 +34,7 @@
   [right accessPort:v10];
   v5 = *(v12 + 6);
   trace = [right trace];
-  v7 = _BSMachPortRightDescription(2u, 0, @"make", v5, trace);
+  v7 = _BSMachPortRightDescription(2, 0, @"make", v5, trace);
 
   v8 = [(BSMachPortRight *)self _initWithPort:2 type:0 owner:v7 trace:?];
   _Block_object_dispose(&v11, 8);

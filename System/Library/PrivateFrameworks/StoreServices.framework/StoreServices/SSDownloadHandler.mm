@@ -150,7 +150,7 @@ id __43__SSDownloadHandler_downloadPhasesToIgnore__block_invoke(uint64_t a1)
 - (void)resetDisavowedSessions
 {
   v20 = *MEMORY[0x1E69E9840];
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  if (SSIsInternalBuild(self, a2) && _os_feature_enabled_impl())
   {
     v3 = +[SSLogConfig sharedStoreServicesConfig];
     if (!v3)
@@ -169,37 +169,36 @@ id __43__SSDownloadHandler_downloadPhasesToIgnore__block_invoke(uint64_t a1)
       v5 = shouldLog;
     }
 
-    if (os_log_type_enabled([v3 OSLogObject], OS_LOG_TYPE_FAULT))
+    oSLogObject = [v3 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_FAULT))
     {
-      v6 = v5;
+      v7 = v5;
     }
 
     else
     {
-      v6 = v5 & 2;
+      v7 = v5 & 2;
     }
 
-    if (v6)
+    if (v7)
     {
       v18 = 136446210;
       v19 = "[SSDownloadHandler resetDisavowedSessions]";
-      LODWORD(v17) = 12;
-      v7 = _os_log_send_and_compose_impl();
-      if (v7)
+      if (v8)
       {
-        v8 = v7;
-        v9 = [MEMORY[0x1E696AEC0] stringWithCString:v7 encoding:{4, &v18, v17}];
-        free(v8);
-        SSFileLog(v3, @"%@", v10, v11, v12, v13, v14, v15, v9);
+        v9 = v8;
+        v10 = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:4];
+        free(v9);
+        SSFileLog(v3, @"%@", v11, v12, v13, v14, v15, v16, v10);
       }
     }
   }
 
-  v16 = xpc_dictionary_create(0, 0, 0);
-  xpc_dictionary_set_int64(v16, "0", 40);
-  xpc_dictionary_set_int64(v16, "1", self->_handlerID);
-  [(SSXPCConnection *)self->_controlConnection sendMessage:v16];
-  xpc_release(v16);
+  v17 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_int64(v17, "0", 40);
+  xpc_dictionary_set_int64(v17, "1", self->_handlerID);
+  [(SSXPCConnection *)self->_controlConnection sendMessage:v17];
+  xpc_release(v17);
 }
 
 - (BOOL)sessionsNeedPowerAssertion
@@ -277,15 +276,15 @@ id __43__SSDownloadHandler_downloadPhasesToIgnore__block_invoke(uint64_t a1)
   xpc_release(v7);
 }
 
-uint64_t __47__SSDownloadHandler_setDownloadPhasesToIgnore___block_invoke(uint64_t result)
+void *__47__SSDownloadHandler_setDownloadPhasesToIgnore___block_invoke(void *result)
 {
-  v1 = *(*(result + 32) + 40);
-  if (v1 != *(result + 40))
+  v1 = *(result[4] + 40);
+  if (v1 != result[5])
   {
     v2 = result;
 
-    result = [*(v2 + 40) copy];
-    *(*(v2 + 32) + 40) = result;
+    result = [v2[5] copy];
+    *(v2[4] + 40) = result;
   }
 
   return result;
@@ -342,7 +341,7 @@ uint64_t __47__SSDownloadHandler_setDownloadPhasesToIgnore___block_invoke(uint64
   return v3;
 }
 
-uint64_t __32__SSDownloadHandler_description__block_invoke(uint64_t a1)
+void *__32__SSDownloadHandler_description__block_invoke(uint64_t a1)
 {
   v2 = objc_alloc(MEMORY[0x1E696AEC0]);
   v4.receiver = *(a1 + 32);
@@ -354,8 +353,8 @@ uint64_t __32__SSDownloadHandler_description__block_invoke(uint64_t a1)
 
 - (void)_connectToDaemon
 {
-  v43 = *MEMORY[0x1E69E9840];
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  v44 = *MEMORY[0x1E69E9840];
+  if (SSIsInternalBuild(self, a2) && _os_feature_enabled_impl())
   {
     v3 = +[SSLogConfig sharedStoreServicesConfig];
     if (!v3)
@@ -374,110 +373,114 @@ uint64_t __32__SSDownloadHandler_description__block_invoke(uint64_t a1)
       v5 = shouldLog;
     }
 
-    if (os_log_type_enabled([v3 OSLogObject], OS_LOG_TYPE_FAULT))
+    oSLogObject = [v3 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_FAULT))
     {
-      v6 = v5;
+      v7 = v5;
     }
 
     else
     {
-      v6 = v5 & 2;
+      v7 = v5 & 2;
     }
 
-    if (v6)
+    if (v7)
     {
-      v39 = 136446210;
-      v40 = "[SSDownloadHandler _connectToDaemon]";
-      LODWORD(v36) = 12;
-      v35 = &v39;
-      v7 = _os_log_send_and_compose_impl();
-      if (v7)
+      v40 = 136446210;
+      v41 = "[SSDownloadHandler _connectToDaemon]";
+      if (v8)
       {
-        v8 = v7;
-        v9 = [MEMORY[0x1E696AEC0] stringWithCString:v7 encoding:{4, &v39, v36}];
-        free(v8);
-        SSFileLog(v3, @"%@", v10, v11, v12, v13, v14, v15, v9);
+        v9 = v8;
+        v10 = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:4];
+        free(v9);
+        SSFileLog(v3, @"%@", v11, v12, v13, v14, v15, v16, v10);
       }
     }
   }
 
-  v16 = [SSWeakReference weakReferenceWithObject:self, v35];
+  v17 = [SSWeakReference weakReferenceWithObject:self];
   if (!self->_controlConnection)
   {
-    v17 = [[SSXPCConnection alloc] initWithServiceName:@"com.apple.itunesstored.xpc"];
-    self->_controlConnection = v17;
-    v38[0] = MEMORY[0x1E69E9820];
-    v38[1] = 3221225472;
-    v38[2] = __37__SSDownloadHandler__connectToDaemon__block_invoke;
-    v38[3] = &unk_1E84AC408;
-    v38[4] = v16;
-    [(SSXPCConnection *)v17 setDisconnectBlock:v38];
+    v18 = [[SSXPCConnection alloc] initWithServiceName:@"com.apple.itunesstored.xpc"];
+    self->_controlConnection = v18;
+    v39[0] = MEMORY[0x1E69E9820];
+    v39[1] = 3221225472;
+    v39[2] = __37__SSDownloadHandler__connectToDaemon__block_invoke;
+    v39[3] = &unk_1E84AC408;
+    v39[4] = v17;
+    [(SSXPCConnection *)v18 setDisconnectBlock:v39];
   }
 
   if (!self->_observerConnection)
   {
-    v18 = objc_alloc_init(SSXPCConnection);
-    self->_observerConnection = v18;
-    v37[0] = MEMORY[0x1E69E9820];
-    v37[1] = 3221225472;
-    v37[2] = __37__SSDownloadHandler__connectToDaemon__block_invoke_2;
-    v37[3] = &unk_1E84B0848;
-    v37[4] = v16;
-    [(SSXPCConnection *)v18 setMessageBlock:v37];
+    v19 = objc_alloc_init(SSXPCConnection);
+    self->_observerConnection = v19;
+    v38[0] = MEMORY[0x1E69E9820];
+    v38[1] = 3221225472;
+    v38[2] = __37__SSDownloadHandler__connectToDaemon__block_invoke_2;
+    v38[3] = &unk_1E84B0848;
+    v38[4] = v17;
+    [(SSXPCConnection *)v19 setMessageBlock:v38];
   }
 
-  v19 = +[SSLogConfig sharedStoreServicesConfig];
-  if (!v19)
+  v20 = +[SSLogConfig sharedStoreServicesConfig];
+  if (!v20)
   {
-    v19 = +[SSLogConfig sharedConfig];
+    v20 = +[SSLogConfig sharedConfig];
   }
 
-  shouldLog2 = [v19 shouldLog];
-  if ([v19 shouldLogToDisk])
+  shouldLog2 = [v20 shouldLog];
+  if ([v20 shouldLogToDisk])
   {
-    v21 = shouldLog2 | 2;
+    LODWORD(v22) = shouldLog2 | 2;
   }
 
   else
   {
-    v21 = shouldLog2;
+    LODWORD(v22) = shouldLog2;
   }
 
-  if (!os_log_type_enabled([v19 OSLogObject], OS_LOG_TYPE_INFO))
+  oSLogObject2 = [v20 OSLogObject];
+  if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
   {
-    v21 &= 2u;
+    v22 = v22;
   }
 
-  if (v21)
+  else
   {
-    v22 = objc_opt_class();
+    v22 &= 2u;
+  }
+
+  if (v22)
+  {
+    v24 = objc_opt_class();
     handlerID = self->_handlerID;
-    v39 = 138412546;
-    v40 = v22;
-    v41 = 2048;
-    v42 = handlerID;
-    LODWORD(v36) = 22;
-    v24 = _os_log_send_and_compose_impl();
-    if (v24)
+    v40 = 138412546;
+    v41 = v24;
+    v42 = 2048;
+    v43 = handlerID;
+    LODWORD(v37) = 22;
+    v26 = _os_log_send_and_compose_impl(v22, 0, 0, 0, &dword_1D48BA000, oSLogObject2, 1, "%@: Connecting download handler: %lld", &v40, v37);
+    if (v26)
     {
-      v25 = v24;
-      v26 = [MEMORY[0x1E696AEC0] stringWithCString:v24 encoding:{4, &v39, v36}];
-      free(v25);
-      SSFileLog(v19, @"%@", v27, v28, v29, v30, v31, v32, v26);
+      v27 = v26;
+      v28 = [MEMORY[0x1E696AEC0] stringWithCString:v26 encoding:4];
+      free(v27);
+      SSFileLog(v20, @"%@", v29, v30, v31, v32, v33, v34, v28);
     }
   }
 
-  v33 = xpc_dictionary_create(0, 0, 0);
-  xpc_dictionary_set_int64(v33, "0", 3);
-  xpc_dictionary_set_int64(v33, "1", self->_handlerID);
-  xpc_dictionary_set_BOOL(v33, "3", self->_sessionsShouldBlockOtherDownloads);
-  SSXPCDictionarySetCFObject(v33, "4", self->_downloadPhasesToIgnore);
-  xpc_dictionary_set_BOOL(v33, "5", self->_sessionsNeedPowerAssertion);
+  v35 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_int64(v35, "0", 3);
+  xpc_dictionary_set_int64(v35, "1", self->_handlerID);
+  xpc_dictionary_set_BOOL(v35, "3", self->_sessionsShouldBlockOtherDownloads);
+  SSXPCDictionarySetCFObject(v35, "4", self->_downloadPhasesToIgnore);
+  xpc_dictionary_set_BOOL(v35, "5", self->_sessionsNeedPowerAssertion);
   createXPCEndpoint = [(SSXPCConnection *)self->_observerConnection createXPCEndpoint];
-  xpc_dictionary_set_value(v33, "2", createXPCEndpoint);
+  xpc_dictionary_set_value(v35, "2", createXPCEndpoint);
   xpc_release(createXPCEndpoint);
-  [(SSXPCConnection *)self->_controlConnection sendMessage:v33];
-  xpc_release(v33);
+  [(SSXPCConnection *)self->_controlConnection sendMessage:v35];
+  xpc_release(v35);
 }
 
 uint64_t __37__SSDownloadHandler__connectToDaemon__block_invoke(uint64_t a1)
@@ -550,37 +553,42 @@ void __57__SSDownloadHandler__handleMessage_fromServerConnection___block_invoke(
   v4 = [v3 shouldLog];
   if ([v3 shouldLogToDisk])
   {
-    v5 = v4 | 2;
+    LODWORD(v5) = v4 | 2;
   }
 
   else
   {
-    v5 = v4;
+    LODWORD(v5) = v4;
   }
 
-  if (!os_log_type_enabled([v3 OSLogObject], OS_LOG_TYPE_INFO))
+  v6 = [v3 OSLogObject];
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  {
+    v5 = v5;
+  }
+
+  else
   {
     v5 &= 2u;
   }
 
   if (v5)
   {
-    v6 = objc_opt_class();
-    v7 = *(*(a1 + 40) + 48);
+    v7 = objc_opt_class();
+    v8 = *(*(a1 + 40) + 48);
     v25 = 138412802;
-    v26 = v6;
+    v26 = v7;
     v27 = 2048;
-    v28 = v7;
+    v28 = v8;
     v29 = 2048;
     v30 = int64;
-    LODWORD(v21) = 32;
-    v8 = _os_log_send_and_compose_impl();
-    if (v8)
+    v9 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &dword_1D48BA000, v6, 1, "%@: Received message: (%lld, %lld)", &v25, 32);
+    if (v9)
     {
-      v9 = v8;
-      v10 = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:{4, &v25, v21}];
-      free(v9);
-      SSFileLog(v3, @"%@", v11, v12, v13, v14, v15, v16, v10);
+      v10 = v9;
+      v11 = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:4];
+      free(v10);
+      SSFileLog(v3, @"%@", v12, v13, v14, v15, v16, v17, v11);
     }
   }
 
@@ -590,15 +598,15 @@ void __57__SSDownloadHandler__handleMessage_fromServerConnection___block_invoke(
     xpc_retain(*(a1 + 48));
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
-    v17 = *(a1 + 32);
-    v18 = *(a1 + 40);
-    v19 = *(*(a1 + 40) + 24);
+    v18 = *(a1 + 32);
+    v19 = *(a1 + 40);
+    v20 = *(*(a1 + 40) + 24);
     block[2] = __57__SSDownloadHandler__handleMessage_fromServerConnection___block_invoke_27;
     block[3] = &unk_1E84B0870;
-    block[4] = v17;
+    block[4] = v18;
     v24 = int64;
-    v23 = v18;
-    dispatch_async(v19, block);
+    v23 = v19;
+    dispatch_async(v20, block);
   }
 
   else if (int64)
@@ -740,7 +748,7 @@ LABEL_11:
 - (void)_setValue:(id)value forProperty:(const char *)property
 {
   v25 = *MEMORY[0x1E69E9840];
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  if (SSIsInternalBuild(self, a2) && _os_feature_enabled_impl())
   {
     v7 = +[SSLogConfig sharedStoreServicesConfig];
     if (!v7)
@@ -759,41 +767,40 @@ LABEL_11:
       v9 = shouldLog;
     }
 
-    if (os_log_type_enabled([v7 OSLogObject], OS_LOG_TYPE_FAULT))
+    oSLogObject = [v7 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_FAULT))
     {
-      v10 = v9;
+      v11 = v9;
     }
 
     else
     {
-      v10 = v9 & 2;
+      v11 = v9 & 2;
     }
 
-    if (v10)
+    if (v11)
     {
       v23 = 136446210;
       v24 = "[SSDownloadHandler _setValue:forProperty:]";
-      LODWORD(v22) = 12;
-      v11 = _os_log_send_and_compose_impl();
-      if (v11)
+      if (v12)
       {
-        v12 = v11;
-        v13 = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:{4, &v23, v22}];
-        free(v12);
-        SSFileLog(v7, @"%@", v14, v15, v16, v17, v18, v19, v13);
+        v13 = v12;
+        v14 = [MEMORY[0x1E696AEC0] stringWithCString:v12 encoding:4];
+        free(v13);
+        SSFileLog(v7, @"%@", v15, v16, v17, v18, v19, v20, v14);
       }
     }
   }
 
-  v20 = xpc_dictionary_create(0, 0, 0);
-  xpc_dictionary_set_int64(v20, "0", 31);
-  xpc_dictionary_set_int64(v20, "1", self->_handlerID);
   v21 = xpc_dictionary_create(0, 0, 0);
-  xpc_dictionary_set_value(v21, property, value);
-  xpc_dictionary_set_value(v20, "2", v21);
+  xpc_dictionary_set_int64(v21, "0", 31);
+  xpc_dictionary_set_int64(v21, "1", self->_handlerID);
+  v22 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_value(v22, property, value);
+  xpc_dictionary_set_value(v21, "2", v22);
+  xpc_release(v22);
+  [(SSXPCConnection *)self->_controlConnection sendMessage:v21];
   xpc_release(v21);
-  [(SSXPCConnection *)self->_controlConnection sendMessage:v20];
-  xpc_release(v20);
 }
 
 @end

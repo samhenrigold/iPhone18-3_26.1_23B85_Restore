@@ -111,7 +111,7 @@
       v12 = 0;
       v8 = [(PBFPosterRoleCoordinator *)self synchronizeFileSystemAttributesForStorage:storageCopy error:&v12];
       v5 = v12;
-      v9 = PBFLogRoleCoordinator();
+      v9 = PBFLogRoleCoordinator(v5);
       v10 = v9;
       if (v8)
       {
@@ -137,7 +137,7 @@
 
 - (BOOL)synchronizeFileSystemAttributesForStorage:(id)storage error:(id *)error
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   storageCopy = storage;
   hasBeenSignalled = [(BSAtomicSignal *)self->_invalidationSignal hasBeenSignalled];
   if (hasBeenSignalled)
@@ -160,23 +160,23 @@
 
       if ((v12 & 1) == 0)
       {
-        v13 = PBFLogRoleCoordinator();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+        v14 = PBFLogRoleCoordinator(v13);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
-          v20 = role;
-          _os_log_impl(&dword_21B526000, v13, OS_LOG_TYPE_DEFAULT, "[%{public}@] Discovered selected poster not part of ordered posters; correcting...", buf, 0xCu);
+          v22 = role;
+          _os_log_impl(&dword_21B526000, v14, OS_LOG_TYPE_DEFAULT, "[%{public}@] Discovered selected poster not part of ordered posters; correcting...", buf, 0xCu);
         }
 
         pbf_posterUUID = [selectedPoster pbf_posterUUID];
-        v18 = 0;
-        [storageCopy assignPosterUUID:pbf_posterUUID toRole:role error:&v18];
-        v15 = v18;
+        v20 = 0;
+        [storageCopy assignPosterUUID:pbf_posterUUID toRole:role error:&v20];
+        v16 = v20;
 
-        if (v15)
+        if (v16)
         {
-          v16 = PBFLogRoleCoordinator();
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+          v18 = PBFLogRoleCoordinator(v17);
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
           {
             [PBFPosterRoleCoordinator synchronizeFileSystemAttributesForStorage:error:];
           }
@@ -498,7 +498,7 @@ void __47__PBFPosterRoleCoordinator_protectedAttributes__block_invoke()
           v31 = 0;
           v20 = [(PBFPosterExtensionDataStorageRetrieving *)storageCopy2 attributeForPoster:pbf_posterUUID roleId:role attributeId:v19 error:&v31, v26];
           v21 = v31;
-          v22 = PBFLogRoleCoordinator();
+          v22 = PBFLogRoleCoordinator(v21);
           v23 = v22;
           if (v20 | v21)
           {
@@ -539,7 +539,7 @@ void __47__PBFPosterRoleCoordinator_protectedAttributes__block_invoke()
 
               else
               {
-                v24 = PBFLogRoleCoordinator();
+                v24 = PBFLogRoleCoordinator(0);
                 if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
                 {
                   *buf = 138543874;
@@ -678,7 +678,7 @@ LABEL_14:
 
 - (BOOL)notifyEventWasReceived:(id)received changes:(id *)changes storage:(id)storage
 {
-  v184 = *MEMORY[0x277D85DE8];
+  v185 = *MEMORY[0x277D85DE8];
   receivedCopy = received;
   storageCopy = storage;
   if (([(BSAtomicSignal *)self->_invalidationSignal hasBeenSignalled]& 1) == 0 && [(PBFPosterRoleCoordinator *)self validateEventIsRelevant:receivedCopy])
@@ -702,39 +702,39 @@ LABEL_14:
     eventType = [receivedCopy eventType];
     v18 = [eventType isEqual:@"PBFPosterDataStoreEventTypeRoleCoordinatorReset"];
 
-    v134 = v15;
+    v135 = v15;
     if (v18)
     {
-      v140 = v13;
+      v141 = v13;
       changesCopy = changes;
-      v127 = modelCoordinatorProvider;
-      v130 = storageCopy;
-      v170 = 0u;
+      v128 = modelCoordinatorProvider;
+      v131 = storageCopy;
       v171 = 0u;
-      v168 = 0u;
+      v172 = 0u;
       v169 = 0u;
+      v170 = 0u;
       orderedPosters = [v15 orderedPosters];
-      v20 = [orderedPosters countByEnumeratingWithState:&v168 objects:v183 count:16];
+      v20 = [orderedPosters countByEnumeratingWithState:&v169 objects:v184 count:16];
       if (v20)
       {
         v21 = v20;
-        v22 = *v169;
+        v22 = *v170;
         do
         {
           for (i = 0; i != v21; ++i)
           {
-            if (*v169 != v22)
+            if (*v170 != v22)
             {
               objc_enumerationMutation(orderedPosters);
             }
 
-            pbf_posterUUID = [*(*(&v168 + 1) + 8 * i) pbf_posterUUID];
+            pbf_posterUUID = [*(*(&v169 + 1) + 8 * i) pbf_posterUUID];
             v25 = [PBFPosterRoleCoordinatorChange removePosterFromRole:role matchingUUID:pbf_posterUUID];
 
             [v16 bs_safeAddObject:v25];
           }
 
-          v21 = [orderedPosters countByEnumeratingWithState:&v168 objects:v183 count:16];
+          v21 = [orderedPosters countByEnumeratingWithState:&v169 objects:v184 count:16];
         }
 
         while (v21);
@@ -743,18 +743,18 @@ LABEL_14:
       v26 = [PBFPosterRoleCoordinatorChange resetRole:role];
       [v16 bs_safeAddObject:v26];
 
-      modelCoordinatorProvider = v127;
-      storageCopy = v130;
+      modelCoordinatorProvider = v128;
+      storageCopy = v131;
       changes = changesCopy;
 LABEL_16:
-      v13 = v140;
+      v13 = v141;
 LABEL_99:
-      v112 = [v16 count];
+      v113 = [v16 count];
       LOBYTE(v12) = 1;
       if (changes)
       {
-        v15 = v134;
-        if (v112)
+        v15 = v135;
+        if (v113)
         {
           *changes = [v16 copy];
         }
@@ -762,7 +762,7 @@ LABEL_99:
 
       else
       {
-        v15 = v134;
+        v15 = v135;
       }
 
       goto LABEL_103;
@@ -773,232 +773,232 @@ LABEL_99:
 
     if (v28)
     {
-      v141 = v13;
+      v142 = v13;
       changesCopy2 = changes;
-      v128 = modelCoordinatorProvider;
-      v131 = storageCopy;
-      v138 = objc_opt_new();
-      v164 = 0u;
+      v129 = modelCoordinatorProvider;
+      v132 = storageCopy;
+      v139 = objc_opt_new();
       v165 = 0u;
       v166 = 0u;
       v167 = 0u;
+      v168 = 0u;
       toValue = [receivedCopy toValue];
-      v30 = [toValue countByEnumeratingWithState:&v164 objects:v182 count:16];
+      v30 = [toValue countByEnumeratingWithState:&v165 objects:v183 count:16];
       if (v30)
       {
         v31 = v30;
-        v32 = *v165;
+        v32 = *v166;
         do
         {
           for (j = 0; j != v31; ++j)
           {
-            if (*v165 != v32)
+            if (*v166 != v32)
             {
               objc_enumerationMutation(toValue);
             }
 
-            v34 = *(*(&v164 + 1) + 8 * j);
+            v34 = *(*(&v165 + 1) + 8 * j);
             supportedRoles = [v34 supportedRoles];
             v36 = [supportedRoles containsObject:role];
 
             if (v36)
             {
               posterExtensionBundleIdentifier = [v34 posterExtensionBundleIdentifier];
-              [v138 addObject:posterExtensionBundleIdentifier];
+              [v139 addObject:posterExtensionBundleIdentifier];
             }
           }
 
-          v31 = [toValue countByEnumeratingWithState:&v164 objects:v182 count:16];
+          v31 = [toValue countByEnumeratingWithState:&v165 objects:v183 count:16];
         }
 
         while (v31);
       }
 
-      v38 = v134;
-      selectedPoster = [v134 selectedPoster];
+      v38 = v135;
+      selectedPoster = [v135 selectedPoster];
       pbf_posterUUID2 = [selectedPoster pbf_posterUUID];
 
       v40 = objc_opt_new();
       knownExtensionIdentifiers = [(PBFPosterRoleCoordinator *)selfCopy knownExtensionIdentifiers];
-      v118 = receivedCopy;
-      if ([knownExtensionIdentifiers isEqualToSet:v138])
+      v119 = receivedCopy;
+      if ([knownExtensionIdentifiers isEqualToSet:v139])
       {
-        v42 = v128;
-        v13 = v141;
+        v42 = v129;
+        v13 = v142;
       }
 
       else
       {
-        v114 = knownExtensionIdentifiers;
+        v115 = knownExtensionIdentifiers;
         v67 = [knownExtensionIdentifiers mutableCopy];
-        [v67 minusSet:v138];
-        v162 = 0u;
+        [v67 minusSet:v139];
         v163 = 0u;
-        v160 = 0u;
+        v164 = 0u;
         v161 = 0u;
+        v162 = 0u;
         obja = v67;
-        v68 = [obja countByEnumeratingWithState:&v160 objects:v181 count:16];
+        v68 = [obja countByEnumeratingWithState:&v161 objects:v182 count:16];
         if (v68)
         {
           v69 = v68;
-          v70 = *v161;
+          v70 = *v162;
           do
           {
             for (k = 0; k != v69; ++k)
             {
-              if (*v161 != v70)
+              if (*v162 != v70)
               {
                 objc_enumerationMutation(obja);
               }
 
-              v72 = *(*(&v160 + 1) + 8 * k);
-              v156 = 0u;
+              v72 = *(*(&v161 + 1) + 8 * k);
               v157 = 0u;
               v158 = 0u;
               v159 = 0u;
-              v73 = [v141 posterUUIDsForExtensionIdentifier:v72 role:role error:0];
-              v74 = [v73 countByEnumeratingWithState:&v156 objects:v180 count:16];
+              v160 = 0u;
+              v73 = [v142 posterUUIDsForExtensionIdentifier:v72 role:role error:0];
+              v74 = [v73 countByEnumeratingWithState:&v157 objects:v181 count:16];
               if (v74)
               {
                 v75 = v74;
-                v76 = *v157;
+                v76 = *v158;
                 do
                 {
                   for (m = 0; m != v75; ++m)
                   {
-                    if (*v157 != v76)
+                    if (*v158 != v76)
                     {
                       objc_enumerationMutation(v73);
                     }
 
-                    [v40 addObject:*(*(&v156 + 1) + 8 * m)];
+                    [v40 addObject:*(*(&v157 + 1) + 8 * m)];
                   }
 
-                  v75 = [v73 countByEnumeratingWithState:&v156 objects:v180 count:16];
+                  v75 = [v73 countByEnumeratingWithState:&v157 objects:v181 count:16];
                 }
 
                 while (v75);
               }
             }
 
-            v69 = [obja countByEnumeratingWithState:&v160 objects:v181 count:16];
+            v69 = [obja countByEnumeratingWithState:&v161 objects:v182 count:16];
           }
 
           while (v69);
         }
 
-        v78 = PBFLogRoleCoordinator();
-        if (os_log_type_enabled(v78, OS_LOG_TYPE_DEFAULT))
+        v79 = PBFLogRoleCoordinator(v78);
+        if (os_log_type_enabled(v79, OS_LOG_TYPE_DEFAULT))
         {
           knownExtensionIdentifiers = selfCopy->_knownExtensionIdentifiers;
           *buf = 138543874;
-          v175 = selfCopy;
-          v176 = 2112;
-          v177 = knownExtensionIdentifiers;
-          v178 = 2112;
-          v179 = v138;
-          _os_log_impl(&dword_21B526000, v78, OS_LOG_TYPE_DEFAULT, "<%{public}@> Updating knownExtensionIdentifiers.\n\tfromValue: %@\n\ttoValue: %@", buf, 0x20u);
+          v176 = selfCopy;
+          v177 = 2112;
+          v178 = knownExtensionIdentifiers;
+          v179 = 2112;
+          v180 = v139;
+          _os_log_impl(&dword_21B526000, v79, OS_LOG_TYPE_DEFAULT, "<%{public}@> Updating knownExtensionIdentifiers.\n\tfromValue: %@\n\ttoValue: %@", buf, 0x20u);
         }
 
-        knownExtensionIdentifiers = [v138 copy];
+        knownExtensionIdentifiers = [v139 copy];
         objc_storeStrong(&selfCopy->_knownExtensionIdentifiers, knownExtensionIdentifiers);
 
-        receivedCopy = v118;
-        v42 = v128;
-        v13 = v141;
-        v38 = v134;
+        receivedCopy = v119;
+        v42 = v129;
+        v13 = v142;
+        v38 = v135;
       }
 
       orderedPosterUUIDs = [v38 orderedPosterUUIDs];
-      v81 = [orderedPosterUUIDs set];
-      v82 = [v81 mutableCopy];
+      v82 = [orderedPosterUUIDs set];
+      v83 = [v82 mutableCopy];
 
-      [v82 minusSet:v40];
-      v115 = v82;
-      if ([v82 count])
+      [v83 minusSet:v40];
+      v116 = v83;
+      if ([v83 count])
       {
-        v83 = pbf_posterUUID2;
+        v84 = pbf_posterUUID2;
         modelCoordinatorProvider = v42;
       }
 
       else
       {
         modelCoordinatorProvider = v42;
-        v93 = [(PBFPosterRoleCoordinator *)selfCopy _addChangesForInitialPostersTo:v16 modelCoordinatorProvider:v42 role:role];
-        v94 = v93;
-        v114 = knownExtensionIdentifiers;
-        if (v93)
+        v94 = [(PBFPosterRoleCoordinator *)selfCopy _addChangesForInitialPostersTo:v16 modelCoordinatorProvider:v42 role:role];
+        v95 = v94;
+        v115 = knownExtensionIdentifiers;
+        if (v94)
         {
-          v95 = v93;
+          v96 = v94;
         }
 
         else
         {
-          v95 = pbf_posterUUID2;
+          v96 = pbf_posterUUID2;
         }
 
-        v83 = v95;
+        v84 = v96;
       }
 
-      v151[0] = MEMORY[0x277D85DD0];
-      v151[1] = 3221225472;
-      v151[2] = __67__PBFPosterRoleCoordinator_notifyEventWasReceived_changes_storage___block_invoke;
-      v151[3] = &unk_2782C7A20;
-      v117 = v83;
-      v152 = v117;
-      v96 = v134;
-      v153 = v96;
-      v97 = knownExtensionIdentifiers;
+      v152[0] = MEMORY[0x277D85DD0];
+      v152[1] = 3221225472;
+      v152[2] = __67__PBFPosterRoleCoordinator_notifyEventWasReceived_changes_storage___block_invoke;
+      v152[3] = &unk_2782C7A20;
+      v118 = v84;
+      v153 = v118;
+      v97 = v135;
       v154 = v97;
+      v98 = knownExtensionIdentifiers;
+      v155 = v98;
       objb = v40;
-      v155 = objb;
-      if (__67__PBFPosterRoleCoordinator_notifyEventWasReceived_changes_storage___block_invoke(v151))
+      v156 = objb;
+      if (__67__PBFPosterRoleCoordinator_notifyEventWasReceived_changes_storage___block_invoke(v152))
       {
-        v98 = [(PBFPosterRoleCoordinator *)selfCopy posterConfigurationsSortedByLastActivatedDate:v96];
-        v147 = 0u;
+        v99 = [(PBFPosterRoleCoordinator *)selfCopy posterConfigurationsSortedByLastActivatedDate:v97];
         v148 = 0u;
         v149 = 0u;
         v150 = 0u;
-        reverseObjectEnumerator = [v98 reverseObjectEnumerator];
-        v100 = [reverseObjectEnumerator countByEnumeratingWithState:&v147 objects:v173 count:16];
-        if (v100)
+        v151 = 0u;
+        reverseObjectEnumerator = [v99 reverseObjectEnumerator];
+        v101 = [reverseObjectEnumerator countByEnumeratingWithState:&v148 objects:v174 count:16];
+        if (v101)
         {
-          v101 = v100;
-          v114 = v98;
-          v122 = v97;
-          v102 = *v148;
+          v102 = v101;
+          v115 = v99;
+          v123 = v98;
+          v103 = *v149;
           while (2)
           {
-            for (n = 0; n != v101; ++n)
+            for (n = 0; n != v102; ++n)
             {
-              if (*v148 != v102)
+              if (*v149 != v103)
               {
                 objc_enumerationMutation(reverseObjectEnumerator);
               }
 
-              v104 = *(*(&v147 + 1) + 8 * n);
-              v105 = [v96 configuredPropertiesForPoster:{v104, v114}];
-              focusConfiguration = [v105 focusConfiguration];
+              v105 = *(*(&v148 + 1) + 8 * n);
+              v106 = [v97 configuredPropertiesForPoster:{v105, v115}];
+              focusConfiguration = [v106 focusConfiguration];
 
               if (!focusConfiguration)
               {
-                pbf_posterUUID3 = [v104 pbf_posterUUID];
+                pbf_posterUUID3 = [v105 pbf_posterUUID];
                 if (![objb containsObject:pbf_posterUUID3])
                 {
-                  v108 = pbf_posterUUID3;
+                  v109 = pbf_posterUUID3;
 
-                  v109 = [PBFPosterRoleCoordinatorChange selectPosterForRole:role matchingUUID:v108];
+                  v110 = [PBFPosterRoleCoordinatorChange selectPosterForRole:role matchingUUID:v109];
 
-                  [v16 addObject:v109];
-                  modelCoordinatorProvider = v128;
-                  v97 = v122;
+                  [v16 addObject:v110];
+                  modelCoordinatorProvider = v129;
+                  v98 = v123;
                   goto LABEL_91;
                 }
               }
             }
 
-            v101 = [reverseObjectEnumerator countByEnumeratingWithState:&v147 objects:v173 count:16];
-            if (v101)
+            v102 = [reverseObjectEnumerator countByEnumeratingWithState:&v148 objects:v174 count:16];
+            if (v102)
             {
               continue;
             }
@@ -1006,29 +1006,29 @@ LABEL_99:
             break;
           }
 
-          modelCoordinatorProvider = v128;
-          v97 = v122;
-          v108 = v117;
+          modelCoordinatorProvider = v129;
+          v98 = v123;
+          v109 = v118;
 LABEL_91:
-          v98 = v114;
+          v99 = v115;
         }
 
         else
         {
-          v108 = v117;
+          v109 = v118;
         }
 
-        storageCopy = v131;
+        storageCopy = v132;
         changes = changesCopy2;
-        v13 = v141;
-        receivedCopy = v118;
+        v13 = v142;
+        receivedCopy = v119;
       }
 
       else
       {
-        storageCopy = v131;
+        storageCopy = v132;
         changes = changesCopy2;
-        v108 = v117;
+        v109 = v118;
       }
 
       goto LABEL_99;
@@ -1042,7 +1042,7 @@ LABEL_91:
       selectedPoster2 = [v15 selectedPoster];
       pbf_posterUUID4 = [selectedPoster2 pbf_posterUUID];
 
-      v119 = receivedCopy;
+      v120 = receivedCopy;
       obj = [receivedCopy fromValue];
       pbf_posterUUID5 = [obj pbf_posterUUID];
       orderedPosterUUIDs2 = [v15 orderedPosterUUIDs];
@@ -1080,38 +1080,38 @@ LABEL_91:
 
         changes = changesCopy3;
 
-        v15 = v134;
+        v15 = v135;
       }
 
       if ([pbf_posterUUID4 isEqual:pbf_posterUUID5])
       {
-        v142 = v13;
-        v129 = modelCoordinatorProvider;
+        v143 = v13;
+        v130 = modelCoordinatorProvider;
         v57 = [(PBFPosterRoleCoordinator *)selfCopy posterConfigurationsSortedByLastActivatedDate:v15];
-        v143 = 0u;
         v144 = 0u;
         v145 = 0u;
         v146 = 0u;
+        v147 = 0u;
         reverseObjectEnumerator2 = [v57 reverseObjectEnumerator];
-        v59 = [reverseObjectEnumerator2 countByEnumeratingWithState:&v143 objects:v172 count:16];
+        v59 = [reverseObjectEnumerator2 countByEnumeratingWithState:&v144 objects:v173 count:16];
         if (v59)
         {
           v60 = v59;
-          v121 = v57;
+          v122 = v57;
           changesCopy4 = changes;
-          v132 = storageCopy;
-          v61 = *v144;
+          v133 = storageCopy;
+          v61 = *v145;
           while (2)
           {
             for (ii = 0; ii != v60; ++ii)
             {
-              if (*v144 != v61)
+              if (*v145 != v61)
               {
                 objc_enumerationMutation(reverseObjectEnumerator2);
               }
 
-              v63 = *(*(&v143 + 1) + 8 * ii);
-              v64 = [v134 configuredPropertiesForPoster:v63];
+              v63 = *(*(&v144 + 1) + 8 * ii);
+              v64 = [v135 configuredPropertiesForPoster:v63];
               focusConfiguration2 = [v64 focusConfiguration];
 
               if (!focusConfiguration2)
@@ -1119,18 +1119,18 @@ LABEL_91:
                 pbf_posterUUID6 = [v63 pbf_posterUUID];
                 if (![pbf_posterUUID6 isEqual:pbf_posterUUID5])
                 {
-                  v110 = pbf_posterUUID6;
+                  v111 = pbf_posterUUID6;
 
-                  v111 = [PBFPosterRoleCoordinatorChange selectPosterForRole:role matchingUUID:v110];
+                  v112 = [PBFPosterRoleCoordinatorChange selectPosterForRole:role matchingUUID:v111];
 
-                  [v16 addObject:v111];
-                  pbf_posterUUID4 = v110;
+                  [v16 addObject:v112];
+                  pbf_posterUUID4 = v111;
                   goto LABEL_96;
                 }
               }
             }
 
-            v60 = [reverseObjectEnumerator2 countByEnumeratingWithState:&v143 objects:v172 count:16];
+            v60 = [reverseObjectEnumerator2 countByEnumeratingWithState:&v144 objects:v173 count:16];
             if (v60)
             {
               continue;
@@ -1140,16 +1140,16 @@ LABEL_91:
           }
 
 LABEL_96:
-          storageCopy = v132;
-          v57 = v121;
+          storageCopy = v133;
+          v57 = v122;
           changes = changesCopy4;
         }
 
-        modelCoordinatorProvider = v129;
-        v13 = v142;
+        modelCoordinatorProvider = v130;
+        v13 = v143;
       }
 
-      receivedCopy = v119;
+      receivedCopy = v120;
       goto LABEL_99;
     }
 
@@ -1158,7 +1158,7 @@ LABEL_96:
 
     if (v12)
     {
-      v133 = storageCopy;
+      v134 = storageCopy;
       toValue2 = [receivedCopy toValue];
       pbf_posterUUID7 = [toValue2 pbf_posterUUID];
 
@@ -1167,26 +1167,26 @@ LABEL_96:
 
       if (v12)
       {
-        v140 = v13;
+        v141 = v13;
         changesCopy5 = changes;
-        v89 = [v15 posterWithUUID:pbf_posterUUID7];
-        v90 = [v15 attributeForPoster:v89 ofType:*MEMORY[0x277D3EED8]];
-        if (!v90)
+        v90 = [v15 posterWithUUID:pbf_posterUUID7];
+        v91 = [v15 attributeForPoster:v90 ofType:*MEMORY[0x277D3EED8]];
+        if (!v91)
         {
-          v90 = objc_opt_new();
+          v91 = objc_opt_new();
         }
 
-        usageMetadataWithUpdatedLastActivatedDate = [v90 usageMetadataWithUpdatedLastActivatedDate];
+        usageMetadataWithUpdatedLastActivatedDate = [v91 usageMetadataWithUpdatedLastActivatedDate];
 
-        v92 = [PBFPosterRoleCoordinatorChange assignAttributeToPosterWithinRole:role matchingUUID:pbf_posterUUID7 attribute:usageMetadataWithUpdatedLastActivatedDate];
-        [v16 addObject:v92];
+        v93 = [PBFPosterRoleCoordinatorChange assignAttributeToPosterWithinRole:role matchingUUID:pbf_posterUUID7 attribute:usageMetadataWithUpdatedLastActivatedDate];
+        [v16 addObject:v93];
 
-        storageCopy = v133;
+        storageCopy = v134;
         changes = changesCopy5;
         goto LABEL_16;
       }
 
-      storageCopy = v133;
+      storageCopy = v134;
     }
 
 LABEL_103:
@@ -1474,9 +1474,9 @@ LABEL_28:
 
 - (BOOL)finalizeChangesWithChangeHandler:(id)handler outEvents:(id *)events error:(id *)error
 {
-  v89 = *MEMORY[0x277D85DE8];
+  v97 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
-  v66 = handlerCopy;
+  v74 = handlerCopy;
   if (![(BSAtomicSignal *)self->_invalidationSignal hasBeenSignalled])
   {
     role = [(PBFPosterRoleCoordinator *)self role];
@@ -1489,23 +1489,23 @@ LABEL_28:
     errorCopy = error;
     if (v13)
     {
-      v14 = selfCopy;
+      v15 = selfCopy;
       goto LABEL_6;
     }
 
-    v16 = PBFLogRoleCoordinator();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v18 = PBFLogRoleCoordinator(v14);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       [PBFPosterRoleCoordinator finalizeChangesWithChangeHandler:outEvents:error:];
     }
 
-    v14 = selfCopy;
+    v15 = selfCopy;
     modelCoordinatorProvider = [(PBFPosterRoleCoordinator *)selfCopy modelCoordinatorProvider];
-    v18 = [PBFInitialPosterHelper initialPosterConfigurationsWithModelCoordinatorProvider:modelCoordinatorProvider role:role];
+    v20 = [PBFInitialPosterHelper initialPosterConfigurationsWithModelCoordinatorProvider:modelCoordinatorProvider role:role];
 
-    if (!v18)
+    if (!v20)
     {
-      pbf_posterUUID = PBFLogRoleCoordinator();
+      pbf_posterUUID = PBFLogRoleCoordinator(v21);
       if (os_log_type_enabled(pbf_posterUUID, OS_LOG_TYPE_ERROR))
       {
         [PBFPosterRoleCoordinator finalizeChangesWithChangeHandler:outEvents:error:];
@@ -1514,66 +1514,66 @@ LABEL_28:
       goto LABEL_71;
     }
 
-    v82 = 0u;
-    v83 = 0u;
-    v80 = 0u;
-    v81 = 0u;
-    v18 = v18;
-    v67 = [v18 countByEnumeratingWithState:&v80 objects:v88 count:16];
-    if (v67)
+    v90 = 0u;
+    v91 = 0u;
+    v88 = 0u;
+    v89 = 0u;
+    v20 = v20;
+    v75 = [v20 countByEnumeratingWithState:&v88 objects:v96 count:16];
+    if (v75)
     {
-      v61 = v11;
-      v71 = 0;
-      v19 = 0;
-      v64 = *v81;
-      v20 = 0x2782C4000uLL;
-      v65 = role;
+      v69 = v11;
+      v79 = 0;
+      v22 = 0;
+      v72 = *v89;
+      v23 = 0x2782C4000uLL;
+      v73 = role;
       do
       {
-        for (i = 0; i != v67; ++i)
+        for (i = 0; i != v75; ++i)
         {
-          v70 = v19;
-          if (*v81 != v64)
+          v78 = v22;
+          if (*v89 != v72)
           {
-            objc_enumerationMutation(v18);
+            objc_enumerationMutation(v20);
           }
 
-          v22 = *(*(&v80 + 1) + 8 * i);
-          v23 = [*(v20 + 1032) addPosterToRole:role incomingPoster:{v22, v61}];
-          v24 = [(PBFPosterRoleCoordinator *)selfCopy _executeChange:v23 storage:v66 outEvents:eventsCopy error:errorCopy];
+          v25 = *(*(&v88 + 1) + 8 * i);
+          v26 = [*(v23 + 1032) addPosterToRole:role incomingPoster:{v25, v69}];
+          v27 = [(PBFPosterRoleCoordinator *)selfCopy _executeChange:v26 storage:v74 outEvents:eventsCopy error:errorCopy];
 
-          if (v71 || !v24)
+          if (v79 || !v27)
           {
-            v19 = v24 | v70;
+            v22 = v27 | v78;
           }
 
           else
           {
-            v25 = *(v20 + 1032);
-            destinationUUID = [v22 destinationUUID];
-            v27 = [v25 selectPosterForRole:role matchingUUID:destinationUUID];
-            v71 = [(PBFPosterRoleCoordinator *)selfCopy _executeChange:v27 storage:v66 outEvents:eventsCopy error:errorCopy];
+            v28 = *(v23 + 1032);
+            destinationUUID = [v25 destinationUUID];
+            v30 = [v28 selectPosterForRole:role matchingUUID:destinationUUID];
+            v79 = [(PBFPosterRoleCoordinator *)selfCopy _executeChange:v30 storage:v74 outEvents:eventsCopy error:errorCopy];
 
-            v19 = 1;
+            v22 = 1;
           }
 
-          role = v65;
-          v20 = 0x2782C4000;
+          role = v73;
+          v23 = 0x2782C4000;
         }
 
-        v67 = [v18 countByEnumeratingWithState:&v80 objects:v88 count:16];
+        v75 = [v20 countByEnumeratingWithState:&v88 objects:v96 count:16];
       }
 
-      while (v67);
+      while (v75);
 
-      handlerCopy = v66;
-      v11 = v61;
-      if (v19 & v71)
+      handlerCopy = v74;
+      v11 = v69;
+      if (v22 & v79)
       {
 
-        v28 = [(PBFPosterRoleCoordinator *)selfCopy buildNewPosterCollectionFromStorage:v66];
+        v32 = [(PBFPosterRoleCoordinator *)selfCopy buildNewPosterCollectionFromStorage:v74];
 
-        v11 = v28;
+        v11 = v32;
 LABEL_6:
         selectedPoster = [v11 selectedPoster];
 
@@ -1585,45 +1585,45 @@ LABEL_73:
           goto LABEL_74;
         }
 
-        v29 = PBFLogRoleCoordinator();
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+        v33 = PBFLogRoleCoordinator(v17);
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
         {
           [PBFPosterRoleCoordinator finalizeChangesWithChangeHandler:outEvents:error:];
         }
 
-        [(PBFPosterRoleCoordinator *)v14 posterConfigurationsSortedByLastActivatedDate:v11];
-        v76 = 0u;
-        v77 = 0u;
-        v78 = 0u;
-        obj = v79 = 0u;
+        [(PBFPosterRoleCoordinator *)v15 posterConfigurationsSortedByLastActivatedDate:v11];
+        v84 = 0u;
+        v85 = 0u;
+        v86 = 0u;
+        obj = v87 = 0u;
         reverseObjectEnumerator = [obj reverseObjectEnumerator];
-        v31 = [reverseObjectEnumerator countByEnumeratingWithState:&v76 objects:v87 count:16];
-        if (v31)
+        v35 = [reverseObjectEnumerator countByEnumeratingWithState:&v84 objects:v95 count:16];
+        if (v35)
         {
-          v32 = v31;
-          v33 = *v77;
+          v36 = v35;
+          v37 = *v85;
 LABEL_28:
-          v34 = 0;
+          v38 = 0;
           while (1)
           {
-            if (*v77 != v33)
+            if (*v85 != v37)
             {
               objc_enumerationMutation(reverseObjectEnumerator);
             }
 
-            v35 = *(*(&v76 + 1) + 8 * v34);
-            v36 = [v11 configuredPropertiesForPoster:v35];
-            focusConfiguration = [v36 focusConfiguration];
+            v39 = *(*(&v84 + 1) + 8 * v38);
+            v40 = [v11 configuredPropertiesForPoster:v39];
+            focusConfiguration = [v40 focusConfiguration];
 
             if (!focusConfiguration)
             {
               break;
             }
 
-            if (v32 == ++v34)
+            if (v36 == ++v38)
             {
-              v32 = [reverseObjectEnumerator countByEnumeratingWithState:&v76 objects:v87 count:16];
-              if (v32)
+              v36 = [reverseObjectEnumerator countByEnumeratingWithState:&v84 objects:v95 count:16];
+              if (v36)
               {
                 goto LABEL_28;
               }
@@ -1632,29 +1632,29 @@ LABEL_28:
             }
           }
 
-          pbf_posterUUID = [v35 pbf_posterUUID];
+          pbf_posterUUID = [v39 pbf_posterUUID];
 
           if (!pbf_posterUUID)
           {
             goto LABEL_41;
           }
 
-          v39 = PBFLogRoleCoordinator();
-          v40 = selfCopy;
-          if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+          v44 = PBFLogRoleCoordinator(v42);
+          v45 = selfCopy;
+          if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
           {
             [PBFPosterRoleCoordinator finalizeChangesWithChangeHandler:outEvents:error:];
           }
 
 LABEL_39:
-          v41 = [PBFPosterRoleCoordinatorChange selectPosterForRole:role matchingUUID:pbf_posterUUID];
-          v42 = [(PBFPosterRoleCoordinator *)v40 _executeChange:v41 storage:handlerCopy outEvents:eventsCopy error:errorCopy];
+          v46 = [PBFPosterRoleCoordinatorChange selectPosterForRole:role matchingUUID:pbf_posterUUID];
+          v47 = [(PBFPosterRoleCoordinator *)v45 _executeChange:v46 storage:handlerCopy outEvents:eventsCopy error:errorCopy];
 
-          if (v42)
+          if (v47)
           {
             v9 = 1;
 LABEL_65:
-            v18 = obj;
+            v20 = obj;
 LABEL_72:
 
             goto LABEL_73;
@@ -1666,72 +1666,72 @@ LABEL_72:
 LABEL_34:
 
 LABEL_41:
-        v43 = PBFLogRoleCoordinator();
-        if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+        v48 = PBFLogRoleCoordinator(v42);
+        if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
-          v86 = role;
-          _os_log_impl(&dword_21B526000, v43, OS_LOG_TYPE_DEFAULT, "[%{public}@] don't have any non-focus posters for role", buf, 0xCu);
+          v94 = role;
+          _os_log_impl(&dword_21B526000, v48, OS_LOG_TYPE_DEFAULT, "[%{public}@] don't have any non-focus posters for role", buf, 0xCu);
         }
 
         modelCoordinatorProvider2 = [(PBFPosterRoleCoordinator *)selfCopy modelCoordinatorProvider];
-        v45 = [PBFInitialPosterHelper initialPosterConfigurationsWithModelCoordinatorProvider:modelCoordinatorProvider2 role:role];
+        v50 = [PBFInitialPosterHelper initialPosterConfigurationsWithModelCoordinatorProvider:modelCoordinatorProvider2 role:role];
 
-        if (v45)
+        if (v50)
         {
-          v46 = v11;
-          v74 = 0u;
-          v75 = 0u;
-          v72 = 0u;
-          v73 = 0u;
-          v47 = v45;
-          v48 = [v47 countByEnumeratingWithState:&v72 objects:v84 count:16];
-          if (v48)
+          v52 = v11;
+          v82 = 0u;
+          v83 = 0u;
+          v80 = 0u;
+          v81 = 0u;
+          v53 = v50;
+          v54 = [v53 countByEnumeratingWithState:&v80 objects:v92 count:16];
+          if (v54)
           {
-            v49 = v48;
-            v50 = 0;
-            v51 = *v73;
+            v55 = v54;
+            v56 = 0;
+            v57 = *v81;
             do
             {
-              for (j = 0; j != v49; ++j)
+              for (j = 0; j != v55; ++j)
               {
-                if (*v73 != v51)
+                if (*v81 != v57)
                 {
-                  objc_enumerationMutation(v47);
+                  objc_enumerationMutation(v53);
                 }
 
-                v53 = [PBFPosterRoleCoordinatorChange addPosterToRole:role incomingPoster:*(*(&v72 + 1) + 8 * j)];
-                v50 |= [(PBFPosterRoleCoordinator *)selfCopy _executeChange:v53 storage:handlerCopy outEvents:eventsCopy error:errorCopy];
+                v59 = [PBFPosterRoleCoordinatorChange addPosterToRole:role incomingPoster:*(*(&v80 + 1) + 8 * j)];
+                v56 |= [(PBFPosterRoleCoordinator *)selfCopy _executeChange:v59 storage:handlerCopy outEvents:eventsCopy error:errorCopy];
               }
 
-              v49 = [v47 countByEnumeratingWithState:&v72 objects:v84 count:16];
+              v55 = [v53 countByEnumeratingWithState:&v80 objects:v92 count:16];
             }
 
-            while (v49);
+            while (v55);
 
-            v40 = selfCopy;
-            if (v50)
+            v45 = selfCopy;
+            if (v56)
             {
-              firstObject = [v47 firstObject];
+              firstObject = [v53 firstObject];
               pbf_posterUUID = [firstObject destinationUUID];
 
-              v11 = v46;
+              v11 = v52;
               if (pbf_posterUUID)
               {
                 goto LABEL_39;
               }
 
 LABEL_62:
-              v57 = v11;
-              v58 = PBFLogRoleCoordinator();
-              if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
+              v65 = v11;
+              v66 = PBFLogRoleCoordinator(v62);
+              if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
               {
                 [PBFPosterRoleCoordinator finalizeChangesWithChangeHandler:outEvents:error:];
               }
 
               pbf_posterUUID = 0;
               v9 = 1;
-              v11 = v57;
+              v11 = v65;
               goto LABEL_65;
             }
           }
@@ -1740,29 +1740,29 @@ LABEL_62:
           {
           }
 
-          v59 = PBFLogRoleCoordinator();
-          if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
+          v67 = PBFLogRoleCoordinator(v60);
+          if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
           {
-            [PBFPosterRoleCoordinator finalizeChangesWithChangeHandler:role outEvents:v47 error:?];
+            [PBFPosterRoleCoordinator finalizeChangesWithChangeHandler:role outEvents:v53 error:?];
           }
 
           pbf_posterUUID = 0;
-          v11 = v46;
+          v11 = v52;
 LABEL_70:
-          v18 = obj;
+          v20 = obj;
 LABEL_71:
           v9 = 0;
           goto LABEL_72;
         }
 
-        v55 = v11;
-        v56 = PBFLogRoleCoordinator();
-        if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
+        v63 = v11;
+        v64 = PBFLogRoleCoordinator(v51);
+        if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
         {
           [PBFPosterRoleCoordinator finalizeChangesWithChangeHandler:outEvents:error:];
         }
 
-        v11 = v55;
+        v11 = v63;
         goto LABEL_62;
       }
     }
@@ -1771,10 +1771,10 @@ LABEL_71:
     {
     }
 
-    pbf_posterUUID = PBFLogRoleCoordinator();
+    pbf_posterUUID = PBFLogRoleCoordinator(v31);
     if (os_log_type_enabled(pbf_posterUUID, OS_LOG_TYPE_ERROR))
     {
-      [PBFPosterRoleCoordinator finalizeChangesWithChangeHandler:role outEvents:v18 error:?];
+      [PBFPosterRoleCoordinator finalizeChangesWithChangeHandler:role outEvents:v20 error:?];
     }
 
     goto LABEL_71;
@@ -2248,7 +2248,7 @@ uint64_t __120__PBFPosterRoleCoordinator_buildInitialStateSetupEventsForRoleCoor
   v50 = v39;
   v28 = v39;
   v29 = _Block_copy(aBlock);
-  v30 = PBFLogRoleCoordinator();
+  v30 = PBFLogRoleCoordinator(v29);
   if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
@@ -3408,7 +3408,7 @@ LABEL_209:
         else
         {
           v52 = v49;
-          v53 = PBFLogRoleCoordinator();
+          v53 = PBFLogRoleCoordinator(0);
           if (os_log_type_enabled(v53, OS_LOG_TYPE_FAULT))
           {
             orderedPosterUUIDs = [v52 orderedPosterUUIDs];
@@ -4712,8 +4712,7 @@ uint64_t __112__PBFPosterRoleCoordinator__ingestIncomingPosterConfiguration_chan
     if ([v22 intersectsSet:protectedAttributes])
     {
       v27 = [v22 mutableCopy];
-      [v27 intersectSet:protectedAttributes];
-      v28 = PBFLogRoleCoordinator();
+      v28 = PBFLogRoleCoordinator([v27 intersectSet:protectedAttributes]);
       if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
       {
         role = [(PBFPosterRoleCoordinator *)self role];
@@ -4777,7 +4776,7 @@ uint64_t __112__PBFPosterRoleCoordinator__ingestIncomingPosterConfiguration_chan
 - (void)noteDidResetRoleCoordinator:(id)coordinator
 {
   v10 = *MEMORY[0x277D85DE8];
-  v4 = PBFLogRoleCoordinator();
+  v4 = PBFLogRoleCoordinator(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     role = [(PBFPosterRoleCoordinator *)self role];
@@ -4792,7 +4791,7 @@ uint64_t __112__PBFPosterRoleCoordinator__ingestIncomingPosterConfiguration_chan
 + (void)dumpResultsForEvent:(id)event role:(id)role posterCollection:(id)collection changes:(id)changes eventWasHandled:(BOOL)handled
 {
   handledCopy = handled;
-  v60 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   roleCopy = role;
   collectionCopy = collection;
@@ -4801,162 +4800,172 @@ uint64_t __112__PBFPosterRoleCoordinator__ingestIncomingPosterConfiguration_chan
   uUIDString = [uUID UUIDString];
   v16 = [uUIDString substringToIndex:7];
 
-  v17 = PBFLogRoleCoordinator();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 138543874;
-    v55 = v16;
-    v56 = 2114;
-    v57 = eventCopy;
-    v58 = 2114;
-    v59 = roleCopy;
-    _os_log_impl(&dword_21B526000, v17, OS_LOG_TYPE_DEFAULT, "[%{public}@]\tExecution report for notifyEventWasReceived:%{public}@ for role %{public}@", buf, 0x20u);
-  }
-
-  v18 = PBFLogRoleCoordinator();
+  v18 = PBFLogRoleCoordinator(v17);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
-    *buf = 138543618;
-    v55 = v16;
-    v56 = 1024;
-    LODWORD(v57) = handledCopy;
-    _os_log_impl(&dword_21B526000, v18, OS_LOG_TYPE_DEFAULT, "[%{public}@]\tWas event handled: '%{BOOL}u'", buf, 0x12u);
+    *buf = 138543874;
+    v61 = v16;
+    v62 = 2114;
+    v63 = eventCopy;
+    v64 = 2114;
+    v65 = roleCopy;
+    _os_log_impl(&dword_21B526000, v18, OS_LOG_TYPE_DEFAULT, "[%{public}@]\tExecution report for notifyEventWasReceived:%{public}@ for role %{public}@", buf, 0x20u);
   }
 
-  v19 = PBFLogRoleCoordinator();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+  v20 = PBFLogRoleCoordinator(v19);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138543618;
+    v61 = v16;
+    v62 = 1024;
+    LODWORD(v63) = handledCopy;
+    _os_log_impl(&dword_21B526000, v20, OS_LOG_TYPE_DEFAULT, "[%{public}@]\tWas event handled: '%{BOOL}u'", buf, 0x12u);
+  }
+
+  v22 = PBFLogRoleCoordinator(v21);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v55 = v16;
-    _os_log_impl(&dword_21B526000, v19, OS_LOG_TYPE_DEFAULT, "[%{public}@]\tEvent Description:", buf, 0xCu);
+    v61 = v16;
+    _os_log_impl(&dword_21B526000, v22, OS_LOG_TYPE_DEFAULT, "[%{public}@]\tEvent Description:", buf, 0xCu);
   }
 
-  v20 = PBFLogRoleCoordinator();
-  [eventCopy dumpLongDescriptionWithPreamble:v16 log:v20 type:16];
+  v24 = PBFLogRoleCoordinator(v23);
+  [eventCopy dumpLongDescriptionWithPreamble:v16 log:v24 type:16];
 
-  v21 = PBFLogRoleCoordinator();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+  v26 = PBFLogRoleCoordinator(v25);
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
   {
     selectedPoster = [collectionCopy selectedPoster];
     *buf = 138543618;
-    v55 = v16;
-    v56 = 2114;
-    v57 = selectedPoster;
-    _os_log_impl(&dword_21B526000, v21, OS_LOG_TYPE_DEFAULT, "[%{public}@]\t\tCurrent selected poster: %{public}@", buf, 0x16u);
+    v61 = v16;
+    v62 = 2114;
+    v63 = selectedPoster;
+    _os_log_impl(&dword_21B526000, v26, OS_LOG_TYPE_DEFAULT, "[%{public}@]\t\tCurrent selected poster: %{public}@", buf, 0x16u);
   }
 
-  v42 = eventCopy;
+  v48 = eventCopy;
 
-  v23 = PBFLogRoleCoordinator();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+  v29 = PBFLogRoleCoordinator(v28);
+  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v55 = v16;
-    _os_log_impl(&dword_21B526000, v23, OS_LOG_TYPE_DEFAULT, "[%{public}@]\t\tCurrent poster collection:", buf, 0xCu);
+    v61 = v16;
+    _os_log_impl(&dword_21B526000, v29, OS_LOG_TYPE_DEFAULT, "[%{public}@]\t\tCurrent poster collection:", buf, 0xCu);
   }
 
-  v50 = 0u;
-  v51 = 0u;
-  v48 = 0u;
-  v49 = 0u;
-  v41 = collectionCopy;
+  v56 = 0u;
+  v57 = 0u;
+  v54 = 0u;
+  v55 = 0u;
+  v47 = collectionCopy;
   orderedPosters = [collectionCopy orderedPosters];
-  v25 = [orderedPosters countByEnumeratingWithState:&v48 objects:v53 count:16];
-  if (v25)
+  v31 = [orderedPosters countByEnumeratingWithState:&v54 objects:v59 count:16];
+  if (v31)
   {
-    v26 = v25;
-    v27 = *v49;
+    v32 = v31;
+    v33 = *v55;
     do
     {
-      for (i = 0; i != v26; ++i)
+      v34 = 0;
+      do
       {
-        if (*v49 != v27)
+        if (*v55 != v33)
         {
           objc_enumerationMutation(orderedPosters);
         }
 
-        v29 = *(*(&v48 + 1) + 8 * i);
-        v30 = PBFLogRoleCoordinator();
-        if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+        v35 = *(*(&v54 + 1) + 8 * v34);
+        v36 = PBFLogRoleCoordinator(v31);
+        if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543618;
-          v55 = v16;
-          v56 = 2114;
-          v57 = v29;
-          _os_log_impl(&dword_21B526000, v30, OS_LOG_TYPE_DEFAULT, "[%{public}@]\t\t\t%{public}@", buf, 0x16u);
+          v61 = v16;
+          v62 = 2114;
+          v63 = v35;
+          _os_log_impl(&dword_21B526000, v36, OS_LOG_TYPE_DEFAULT, "[%{public}@]\t\t\t%{public}@", buf, 0x16u);
         }
+
+        ++v34;
       }
 
-      v26 = [orderedPosters countByEnumeratingWithState:&v48 objects:v53 count:16];
+      while (v32 != v34);
+      v31 = [orderedPosters countByEnumeratingWithState:&v54 objects:v59 count:16];
+      v32 = v31;
     }
 
-    while (v26);
+    while (v31);
   }
 
-  v31 = [changesCopy count];
-  v32 = PBFLogRoleCoordinator();
-  v33 = os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT);
-  if (v31)
+  v37 = [changesCopy count];
+  v38 = PBFLogRoleCoordinator(v37);
+  v39 = os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT);
+  if (v37)
   {
-    v34 = v42;
-    if (v33)
+    v40 = v48;
+    if (v39)
     {
       *buf = 138543618;
-      v55 = v16;
-      v56 = 2114;
-      v57 = v42;
-      _os_log_impl(&dword_21B526000, v32, OS_LOG_TYPE_DEFAULT, "[%{public}@]\t\tProposed changes in response to event '%{public}@':", buf, 0x16u);
+      v61 = v16;
+      v62 = 2114;
+      v63 = v48;
+      _os_log_impl(&dword_21B526000, v38, OS_LOG_TYPE_DEFAULT, "[%{public}@]\t\tProposed changes in response to event '%{public}@':", buf, 0x16u);
     }
 
-    v46 = 0u;
-    v47 = 0u;
-    v44 = 0u;
-    v45 = 0u;
-    v32 = changesCopy;
-    v35 = [v32 countByEnumeratingWithState:&v44 objects:v52 count:16];
-    if (v35)
+    v52 = 0u;
+    v53 = 0u;
+    v50 = 0u;
+    v51 = 0u;
+    v38 = changesCopy;
+    v41 = [v38 countByEnumeratingWithState:&v50 objects:v58 count:16];
+    if (v41)
     {
-      v36 = v35;
-      v37 = *v45;
+      v42 = v41;
+      v43 = *v51;
       do
       {
-        for (j = 0; j != v36; ++j)
+        v44 = 0;
+        do
         {
-          if (*v45 != v37)
+          if (*v51 != v43)
           {
-            objc_enumerationMutation(v32);
+            objc_enumerationMutation(v38);
           }
 
-          v39 = *(*(&v44 + 1) + 8 * j);
-          v40 = PBFLogRoleCoordinator();
-          if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+          v45 = *(*(&v50 + 1) + 8 * v44);
+          v46 = PBFLogRoleCoordinator(v41);
+          if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543618;
-            v55 = v16;
-            v56 = 2114;
-            v57 = v39;
-            _os_log_impl(&dword_21B526000, v40, OS_LOG_TYPE_DEFAULT, "[%{public}@]\t\t\t%{public}@", buf, 0x16u);
+            v61 = v16;
+            v62 = 2114;
+            v63 = v45;
+            _os_log_impl(&dword_21B526000, v46, OS_LOG_TYPE_DEFAULT, "[%{public}@]\t\t\t%{public}@", buf, 0x16u);
           }
+
+          ++v44;
         }
 
-        v36 = [v32 countByEnumeratingWithState:&v44 objects:v52 count:16];
+        while (v42 != v44);
+        v41 = [v38 countByEnumeratingWithState:&v50 objects:v58 count:16];
+        v42 = v41;
       }
 
-      while (v36);
-      v34 = v42;
+      while (v41);
+      v40 = v48;
     }
   }
 
   else
   {
-    v34 = v42;
-    if (v33)
+    v40 = v48;
+    if (v39)
     {
       *buf = 138543618;
-      v55 = v16;
-      v56 = 2114;
-      v57 = v42;
-      _os_log_impl(&dword_21B526000, v32, OS_LOG_TYPE_DEFAULT, "[%{public}@]\t\t0 Proposed changes in response to event '%{public}@':", buf, 0x16u);
+      v61 = v16;
+      v62 = 2114;
+      v63 = v48;
+      _os_log_impl(&dword_21B526000, v38, OS_LOG_TYPE_DEFAULT, "[%{public}@]\t\t0 Proposed changes in response to event '%{public}@':", buf, 0x16u);
     }
   }
 }
@@ -4970,7 +4979,7 @@ uint64_t __112__PBFPosterRoleCoordinator__ingestIncomingPosterConfiguration_chan
 
 - (void)initWithRole:(char *)a1 storage:modelCoordinatorProvider:providers:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object conformsToProtocol:@protocol(PBFPosterExtensionDataStorage)]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -4978,7 +4987,7 @@ uint64_t __112__PBFPosterRoleCoordinator__ingestIncomingPosterConfiguration_chan
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object conformsToProtocol:@protocol(PBFPosterExtensionDataStorage)]", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -4988,7 +4997,7 @@ uint64_t __112__PBFPosterRoleCoordinator__ingestIncomingPosterConfiguration_chan
 
 - (void)initWithRole:(char *)a1 storage:modelCoordinatorProvider:providers:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object conformsToProtocol:@protocol(PBFModelCoordinatorProviding)]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -4996,7 +5005,7 @@ uint64_t __112__PBFPosterRoleCoordinator__ingestIncomingPosterConfiguration_chan
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object conformsToProtocol:@protocol(PBFModelCoordinatorProviding)]", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -5006,7 +5015,7 @@ uint64_t __112__PBFPosterRoleCoordinator__ingestIncomingPosterConfiguration_chan
 
 - (void)initWithRole:(char *)a1 storage:modelCoordinatorProvider:providers:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -5014,7 +5023,7 @@ uint64_t __112__PBFPosterRoleCoordinator__ingestIncomingPosterConfiguration_chan
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -5024,7 +5033,7 @@ uint64_t __112__PBFPosterRoleCoordinator__ingestIncomingPosterConfiguration_chan
 
 - (void)initWithRole:(char *)a1 storage:modelCoordinatorProvider:providers:.cold.4(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -5032,7 +5041,7 @@ uint64_t __112__PBFPosterRoleCoordinator__ingestIncomingPosterConfiguration_chan
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -5044,19 +5053,19 @@ uint64_t __112__PBFPosterRoleCoordinator__ingestIncomingPosterConfiguration_chan
 {
   [a2 count];
   OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_16(&dword_21B526000, v2, v3, "[%{public}@] unable to add any of %lu initial posters for role", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_16(&dword_21B526000, v2, v3, "[%{public}@] unable to add any of %lu initial posters for role", v4, v5, v6, v7);
 }
 
 - (void)finalizeChangesWithChangeHandler:(uint64_t)a1 outEvents:(void *)a2 error:.cold.7(uint64_t a1, void *a2)
 {
   [a2 count];
   OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_16(&dword_21B526000, v2, v3, "[%{public}@] unable to add & select any of %lu initial posters for role", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_16(&dword_21B526000, v2, v3, "[%{public}@] unable to add & select any of %lu initial posters for role", v4, v5, v6, v7);
 }
 
 - (void)_ingestIncomingPosterConfiguration:(char *)a1 change:currentCollection:storage:outEvents:error:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"BSEqualObjects(role, [path role])"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -5064,7 +5073,7 @@ uint64_t __112__PBFPosterRoleCoordinator__ingestIncomingPosterConfiguration_chan
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"BSEqualObjects(role, [path role])", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -5074,7 +5083,7 @@ uint64_t __112__PBFPosterRoleCoordinator__ingestIncomingPosterConfiguration_chan
 
 - (void)_ingestIncomingPosterConfiguration:(char *)a1 change:currentCollection:storage:outEvents:error:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"BSEqualObjects(originalPosterUUID, [[change userInfo] objectForKey:PBFPosterRoleCoordinatorChangeUserInfoKeyPosterUUID])"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -5082,7 +5091,7 @@ uint64_t __112__PBFPosterRoleCoordinator__ingestIncomingPosterConfiguration_chan
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"BSEqualObjects(originalPosterUUID, [[change userInfo] objectForKey:PBFPosterRoleCoordinatorChangeUserInfoKeyPosterUUID])", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -5092,7 +5101,7 @@ uint64_t __112__PBFPosterRoleCoordinator__ingestIncomingPosterConfiguration_chan
 
 - (void)_ingestIncomingPosterConfiguration:(char *)a1 change:currentCollection:storage:outEvents:error:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"originalPosterConfiguration != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -5100,7 +5109,7 @@ uint64_t __112__PBFPosterRoleCoordinator__ingestIncomingPosterConfiguration_chan
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"originalPosterConfiguration != nil", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];

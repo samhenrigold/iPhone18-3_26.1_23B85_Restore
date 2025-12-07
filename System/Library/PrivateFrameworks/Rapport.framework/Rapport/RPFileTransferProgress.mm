@@ -40,66 +40,117 @@
 
 - (id)descriptionWithLevel:(int)level
 {
-  v17[1] = 0;
-  self->_type;
-  NSAppendPrintF();
-  v4 = 0;
-  v5 = v4;
+  v26 = 0;
+  type = self->_type;
+  if (type > 10)
+  {
+    switch(type)
+    {
+      case 11:
+        v5 = "ControlDisconnected";
+        goto LABEL_15;
+      case 20:
+        v5 = "Completed";
+        goto LABEL_15;
+      case 30:
+        v5 = "DataTransferred";
+        goto LABEL_15;
+    }
+
+LABEL_12:
+    v5 = "?";
+    goto LABEL_15;
+  }
+
+  if (!type)
+  {
+    v5 = "Unspecified";
+    goto LABEL_15;
+  }
+
+  if (type == 1)
+  {
+    v5 = "SessionStart";
+    goto LABEL_15;
+  }
+
+  if (type != 10)
+  {
+    goto LABEL_12;
+  }
+
+  v5 = "ControlConnected";
+LABEL_15:
+  NSAppendPrintF(&v26, "RPFileTransferProgress: %s", v5);
+  v6 = v26;
+  v7 = v6;
   if (self->_transferredFileCount < 0 || self->_totalFileCount < 1)
   {
-    v16 = v4;
-    v6 = &v16;
+    v24 = v6;
+    v8 = &v24;
+    NSAppendPrintF(&v24, ", 0 Files");
   }
 
   else
   {
-    v17[0] = v4;
-    v6 = v17;
+    v25 = v6;
+    v8 = &v25;
+    NSAppendPrintF(&v25, ", %lld/%lld (%lld%%) Files");
   }
 
-  NSAppendPrintF();
-  v7 = *v6;
+  v9 = *v8;
 
-  if (self->_totalByteCount >= 1)
+  totalByteCount = self->_totalByteCount;
+  if (totalByteCount >= 1)
   {
-    totalByteCount = self->_totalByteCount;
-    NSAppendPrintF();
-    v8 = v7;
+    v23 = v9;
+    NSAppendPrintF(&v23, ", %llu bytes (%.2f MB)", totalByteCount, totalByteCount / 1000000.0);
+    v11 = v23;
 
-    v7 = v8;
+    v9 = v11;
   }
 
-  if (self->_bytesPerSecond > 0.0)
+  bytesPerSecond = self->_bytesPerSecond;
+  if (bytesPerSecond > 0.0)
   {
-    NSAppendPrintF();
-    v9 = v7;
+    v22 = v9;
+    NSAppendPrintF(&v22, ", %.2f MB/sec", bytesPerSecond / 1000000.0);
+    v13 = v22;
 
-    v7 = v9;
+    v9 = v13;
   }
 
-  if (self->_compressionRate >= 0.0)
+  compressionRate = self->_compressionRate;
+  if (compressionRate >= 0.0)
   {
-    NSAppendPrintF();
-    v10 = v7;
+    v21 = v9;
+    NSAppendPrintF(&v21, ", Cmp %d%%", (compressionRate * 100.0));
+    v15 = v21;
 
-    v7 = v10;
+    v9 = v15;
   }
 
   linkType = self->_linkType;
   if (linkType)
   {
-    if (linkType <= 0xB)
+    v20 = v9;
+    if (linkType > 0xB)
     {
-      v12 = off_1E7C946F0[linkType - 1];
+      v17 = "?";
     }
 
-    NSAppendPrintF();
-    v13 = v7;
+    else
+    {
+      v17 = off_1E7C946F0[linkType - 1];
+    }
 
-    v7 = v13;
+    NSAppendPrintF(&v20, ", LT %s", v17);
+    v18 = v20;
+
+    v9 = v18;
   }
 
-  return v7;
+  return v9;
 }
 
 @end

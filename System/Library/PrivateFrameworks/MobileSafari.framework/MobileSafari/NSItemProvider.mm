@@ -58,19 +58,19 @@ void __92__NSItemProvider_MobileSafariFrameworkExtras__safari_loadObjectOfClasse
 {
   v5 = a2;
   v6 = a3;
-  v7 = WBS_LOG_CHANNEL_PREFIXItemProvider();
-  v8 = v7;
+  v8 = WBS_LOG_CHANNEL_PREFIXItemProvider(v6, v7);
+  v9 = v8;
   if (v6)
   {
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __92__NSItemProvider_MobileSafariFrameworkExtras__safari_loadObjectOfClasses_completionHandler___block_invoke_cold_1(v8, v6);
+      __92__NSItemProvider_MobileSafariFrameworkExtras__safari_loadObjectOfClasses_completionHandler___block_invoke_cold_1(v9, v6);
     }
   }
 
-  else if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  else if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    __92__NSItemProvider_MobileSafariFrameworkExtras__safari_loadObjectOfClasses_completionHandler___block_invoke_cold_2(v8);
+    __92__NSItemProvider_MobileSafariFrameworkExtras__safari_loadObjectOfClasses_completionHandler___block_invoke_cold_2(v9, v5);
   }
 
   (*(*(a1 + 32) + 16))();
@@ -101,13 +101,13 @@ void __92__NSItemProvider_MobileSafariFrameworkExtras__safari_loadObjectOfClasse
   _os_log_error_impl(&dword_18B7AC000, v3, OS_LOG_TYPE_ERROR, "Could not load item: %{public}@", &v5, 0xCu);
 }
 
-void __92__NSItemProvider_MobileSafariFrameworkExtras__safari_loadObjectOfClasses_completionHandler___block_invoke_cold_2(void *a1)
+void __92__NSItemProvider_MobileSafariFrameworkExtras__safari_loadObjectOfClasses_completionHandler___block_invoke_cold_2(void *a1, uint64_t a2)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = a1;
-  v2 = 138543362;
-  v3 = objc_opt_class();
-  _os_log_debug_impl(&dword_18B7AC000, v1, OS_LOG_TYPE_DEBUG, "Loaded item of class: %{public}@", &v2, 0xCu);
+  v5 = *MEMORY[0x1E69E9840];
+  v2 = a1;
+  v3 = 138543362;
+  v4 = objc_opt_class();
+  _os_log_debug_impl(&dword_18B7AC000, v2, OS_LOG_TYPE_DEBUG, "Loaded item of class: %{public}@", &v3, 0xCu);
 }
 
 @end

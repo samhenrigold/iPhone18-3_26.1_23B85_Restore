@@ -41,7 +41,7 @@
   [defaultCenter removeObserver:selfCopy];
 
   v6.receiver = selfCopy;
-  v6.super_class = type metadata accessor for FullScreenCollectionViewController();
+  v6.super_class = type metadata accessor for FullScreenCollectionViewController(0);
   [(FullScreenCollectionViewController *)&v6 dealloc];
 }
 
@@ -154,7 +154,7 @@
 
 - (id)indexPathForPreferredFocusedViewInCollectionView:(id)view
 {
-  v4 = sub_1000F24EC(&unk_100ADFB90);
+  v4 = sub_1000F24EC(&unk_100ADFB90, &qword_1009512D0);
   __chkstk_darwin(v4 - 8);
   v6 = &v14 - v5;
   selfCopy = self;
@@ -199,7 +199,7 @@
 
   v8 = sub_100433974(action, v10);
 
-  sub_100004F84(v10, &qword_100AD13D0);
+  sub_100004F84(v10, &qword_100AD13D0, &unk_100942DB0);
   return v8 & 1;
 }
 

@@ -149,9 +149,11 @@ void __47__FBSApplicationDataStoreClientFactory_checkin__block_invoke(uint64_t a
 
 uint64_t __54__FBSApplicationDataStoreClientFactory_sharedInstance__block_invoke()
 {
-  sharedInstance___singleton = objc_alloc_init(FBSApplicationDataStoreClientFactory);
+  v0 = objc_alloc_init(FBSApplicationDataStoreClientFactory);
+  v1 = sharedInstance___singleton;
+  sharedInstance___singleton = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (BOOL)isServerProcess

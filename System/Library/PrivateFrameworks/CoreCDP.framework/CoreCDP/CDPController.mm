@@ -74,11 +74,10 @@
 
 - (void)invalidate
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_debug_impl(&dword_1DED99000, a2, OS_LOG_TYPE_DEBUG, "Invalidating connection for controller %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1DED99000, a2, OS_LOG_TYPE_DEBUG, "Invalidating connection for controller %@", &v2, 0xCu);
 }
 
 - (CDPStateUIProviderProxy)uiProviderProxy

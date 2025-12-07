@@ -59,28 +59,28 @@
 
 - (NSArray)supportedLocales
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEB58] set];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v4 = self->_supportedLocalePairs;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v16;
+    v7 = *v15;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
+        v9 = *(*(&v14 + 1) + 8 * i);
         sourceLocale = [v9 sourceLocale];
         [v3 addObject:sourceLocale];
 
@@ -88,15 +88,13 @@
         [v3 addObject:targetLocale];
       }
 
-      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v6);
   }
 
   allObjects = [v3 allObjects];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return allObjects;
 }
@@ -257,17 +255,17 @@
 
 - (_LTPreflightConfiguration)initWithCoder:(id)coder
 {
-  v41[2] = *MEMORY[0x277D85DE8];
+  v40[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v38.receiver = self;
-  v38.super_class = _LTPreflightConfiguration;
-  v5 = [(_LTPreflightConfiguration *)&v38 init];
+  v37.receiver = self;
+  v37.super_class = _LTPreflightConfiguration;
+  v5 = [(_LTPreflightConfiguration *)&v37 init];
   if (v5)
   {
     v6 = MEMORY[0x277CBEB98];
-    v41[0] = objc_opt_class();
-    v41[1] = objc_opt_class();
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:2];
+    v40[0] = objc_opt_class();
+    v40[1] = objc_opt_class();
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:2];
     v8 = [v6 setWithArray:v7];
 
     v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"sourceStrings"];
@@ -277,9 +275,9 @@
     if (v5->_sourceStrings)
     {
       v11 = MEMORY[0x277CBEB98];
-      v40[0] = objc_opt_class();
-      v40[1] = objc_opt_class();
-      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:2];
+      v39[0] = objc_opt_class();
+      v39[1] = objc_opt_class();
+      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:2];
       v13 = [v11 setWithArray:v12];
 
       v14 = [coderCopy decodeObjectOfClasses:v13 forKey:@"supportedLocalePairs"];
@@ -289,9 +287,9 @@
       if (v5->_supportedLocalePairs)
       {
         v16 = MEMORY[0x277CBEB98];
-        v39[0] = objc_opt_class();
-        v39[1] = objc_opt_class();
-        v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:2];
+        v38[0] = objc_opt_class();
+        v38[1] = objc_opt_class();
+        v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:2];
         v18 = [v16 setWithArray:v17];
 
         v19 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"systemLocale"];
@@ -349,7 +347,6 @@
     v35 = 0;
   }
 
-  v36 = *MEMORY[0x277D85DE8];
   return v35;
 }
 

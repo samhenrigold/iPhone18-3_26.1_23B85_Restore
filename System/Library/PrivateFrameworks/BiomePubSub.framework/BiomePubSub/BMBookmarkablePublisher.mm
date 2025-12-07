@@ -32,35 +32,35 @@
 
 - (id)bookmarkNode
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v4 = objc_opt_class();
   upstreamPublishers = [(BPSPublisher *)self upstreamPublishers];
   v6 = [v4 bookmarkablePublishersFromPublishers:upstreamPublishers];
 
-  v7 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v20;
+    v9 = *v19;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v20 != v9)
+        if (*v19 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        bookmarkNode = [*(*(&v19 + 1) + 8 * i) bookmarkNode];
+        bookmarkNode = [*(*(&v18 + 1) + 8 * i) bookmarkNode];
         [v3 addObject:bookmarkNode];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v8);
@@ -71,8 +71,6 @@
   v14 = objc_opt_class();
   v15 = NSStringFromClass(v14);
   v16 = [(BMBookmarkNode *)v12 initWithValue:bookmark upstreams:v3 name:v15];
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
@@ -113,15 +111,14 @@
 
 - (id)mergeWithOthers:(id)others
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   v3 = MEMORY[0x1E695DEC8];
   othersCopy = others;
   v5 = [v3 arrayWithObjects:&selfCopy count:1];
-  v6 = [v5 arrayByAddingObjectsFromArray:{othersCopy, selfCopy, v11}];
+  v6 = [v5 arrayByAddingObjectsFromArray:{othersCopy, selfCopy, v10}];
 
   v7 = [[BPSMergeMany alloc] initWithPublishers:v6];
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -199,16 +196,15 @@
 
 - (id)orderedMergeWithOthers:(id)others comparator:(id)comparator
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   v5 = MEMORY[0x1E695DEC8];
   comparatorCopy = comparator;
   othersCopy = others;
   v8 = [v5 arrayWithObjects:&selfCopy count:1];
-  v9 = [v8 arrayByAddingObjectsFromArray:{othersCopy, selfCopy, v14}];
+  v9 = [v8 arrayByAddingObjectsFromArray:{othersCopy, selfCopy, v13}];
 
   v10 = [[BPSOrderedMerge alloc] initWithPublishers:v9 comparator:comparatorCopy];
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -273,7 +269,7 @@
 
 - (id)withBookmark:(id)bookmark
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   bookmarkCopy = bookmark;
   if (bookmarkCopy && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
   {
@@ -291,13 +287,13 @@
     v5 = bookmarkCopy;
   }
 
-  v38 = [MEMORY[0x1E695E0F0] mutableCopy];
+  v37 = [MEMORY[0x1E695E0F0] mutableCopy];
   bookmarkableUpstreams = [(BMBookmarkablePublisher *)self bookmarkableUpstreams];
   if ([bookmarkableUpstreams count])
   {
     v9 = 0;
     *&v8 = 138412546;
-    v37 = v8;
+    v36 = v8;
     while (1)
     {
       null = [MEMORY[0x1E695DFB0] null];
@@ -314,7 +310,7 @@
         upstreams3 = __biome_log_for_category();
         if (os_log_type_enabled(upstreams3, OS_LOG_TYPE_ERROR))
         {
-          [(BMBookmarkablePublisher *)&v43 withBookmark:v44];
+          [(BMBookmarkablePublisher *)&v42 withBookmark:v43];
         }
 
         goto LABEL_21;
@@ -328,7 +324,7 @@
         v18 = __biome_log_for_category();
         if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
         {
-          [(BMBookmarkablePublisher *)&v41 withBookmark:v42];
+          [(BMBookmarkablePublisher *)&v40 withBookmark:v41];
         }
 
         null2 = [MEMORY[0x1E695DFB0] null];
@@ -349,9 +345,9 @@ LABEL_21:
         v21 = __biome_log_for_category();
         if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
         {
-          *buf = v37;
-          v46 = bookmarkCopy;
-          v47 = 2112;
+          *buf = v36;
+          v45 = bookmarkCopy;
+          v46 = 2112;
           selfCopy = self;
           _os_log_debug_impl(&dword_1C871B000, v21, OS_LOG_TYPE_DEBUG, "Null bookmark:\n%@ for publisher:%@", buf, 0x16u);
         }
@@ -377,7 +373,7 @@ LABEL_21:
       {
         v27 = [bookmarkableUpstreams objectAtIndexedSubscript:v9];
         v28 = [v27 withBookmark:v24];
-        [v38 addObject:v28];
+        [v37 addObject:v28];
       }
 
       else
@@ -385,7 +381,7 @@ LABEL_21:
         v27 = __biome_log_for_category();
         if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
         {
-          [(BMBookmarkablePublisher *)&v39 withBookmark:v40];
+          [(BMBookmarkablePublisher *)&v38 withBookmark:v39];
         }
       }
 
@@ -405,7 +401,7 @@ LABEL_20:
 LABEL_33:
   v29 = objc_opt_class();
   value = [v5 value];
-  v31 = [v29 publisherWithPublisher:self upstreams:v38 bookmarkState:value];
+  v31 = [v29 publisherWithPublisher:self upstreams:v37 bookmarkState:value];
 
   if ([(BMBookmarkablePublisher *)self canStorePassThroughValueInBookmark])
   {
@@ -418,8 +414,6 @@ LABEL_33:
   {
     v34 = v31;
   }
-
-  v35 = *MEMORY[0x1E69E9840];
 
   return v34;
 }
@@ -436,82 +430,81 @@ LABEL_33:
 
 + (id)bookmarkablePublishersFromPublishers:(id)publishers
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   publishersCopy = publishers;
   v4 = objc_opt_new();
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v5 = publishersCopy;
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
-        if ([v10 conformsToProtocol:{&unk_1F4872E18, v14}])
+        v10 = *(*(&v13 + 1) + 8 * i);
+        if ([v10 conformsToProtocol:{&unk_1F4872E18, v13}])
         {
           [v4 addObject:v10];
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
 
   v11 = [v4 copy];
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
 
 + (BOOL)isPipelineBookmarkable:(id)bookmarkable
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   bookmarkableCopy = bookmarkable;
-  v21[0] = bookmarkableCopy;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:1];
+  v20[0] = bookmarkableCopy;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:1];
   v6 = [self bookmarkablePublishersFromPublishers:v5];
   v7 = [v6 count];
 
   if (v7)
   {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     upstreamPublishers = [bookmarkableCopy upstreamPublishers];
-    v9 = [upstreamPublishers countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v9 = [upstreamPublishers countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v17;
+      v11 = *v16;
       v12 = 1;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v17 != v11)
+          if (*v16 != v11)
           {
             objc_enumerationMutation(upstreamPublishers);
           }
 
-          v12 &= [self isPipelineBookmarkable:*(*(&v16 + 1) + 8 * i)];
+          v12 &= [self isPipelineBookmarkable:*(*(&v15 + 1) + 8 * i)];
         }
 
-        v10 = [upstreamPublishers countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v10 = [upstreamPublishers countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v10);
@@ -528,13 +521,12 @@ LABEL_33:
     LOBYTE(v12) = 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 - (id)validateBookmarkNode:(id)node
 {
-  v49[1] = *MEMORY[0x1E69E9840];
+  v48[1] = *MEMORY[0x1E69E9840];
   nodeCopy = node;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -544,9 +536,9 @@ LABEL_33:
     v20 = objc_opt_class();
     v11 = [v18 initWithFormat:@"%@ expected publisher with class %@, but received %@", v19, v20, objc_opt_class()];
     v21 = MEMORY[0x1E696ABC0];
-    v48 = *MEMORY[0x1E696A578];
-    v49[0] = v11;
-    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v49 forKeys:&v48 count:1];
+    v47 = *MEMORY[0x1E696A578];
+    v48[0] = v11;
+    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v48 forKeys:&v47 count:1];
     v17 = [v21 errorWithDomain:@"BiomePubSubError" code:2 userInfo:v16];
     goto LABEL_8;
   }
@@ -565,9 +557,9 @@ LABEL_33:
     v11 = [v22 initWithFormat:@"%@ expected publisher with name %@, but received %@", v23, v24, name2];
 
     v26 = MEMORY[0x1E696ABC0];
-    v46 = *MEMORY[0x1E696A578];
-    v47 = v11;
-    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v47 forKeys:&v46 count:1];
+    v45 = *MEMORY[0x1E696A578];
+    v46 = v11;
+    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v46 forKeys:&v45 count:1];
     v17 = [v26 errorWithDomain:@"BiomePubSubError" code:2 userInfo:v16];
     goto LABEL_8;
   }
@@ -594,41 +586,39 @@ LABEL_8:
       goto LABEL_9;
     }
 
-    v38 = 0;
-    v39 = &v38;
-    v40 = 0x3032000000;
-    v41 = __Block_byref_object_copy__0;
-    v42 = __Block_byref_object_dispose__0;
-    v43 = 0;
-    v35[0] = MEMORY[0x1E69E9820];
-    v35[1] = 3221225472;
-    v35[2] = __48__BMBookmarkablePublisher_validateBookmarkNode___block_invoke;
-    v35[3] = &unk_1E8320F48;
-    v36 = nodeCopy;
-    v37 = &v38;
-    [v11 enumerateObjectsUsingBlock:v35];
-    v27 = v39[5];
+    v37 = 0;
+    v38 = &v37;
+    v39 = 0x3032000000;
+    v40 = __Block_byref_object_copy__0;
+    v41 = __Block_byref_object_dispose__0;
+    v42 = 0;
+    v34[0] = MEMORY[0x1E69E9820];
+    v34[1] = 3221225472;
+    v34[2] = __48__BMBookmarkablePublisher_validateBookmarkNode___block_invoke;
+    v34[3] = &unk_1E8320F48;
+    v35 = nodeCopy;
+    v36 = &v37;
+    [v11 enumerateObjectsUsingBlock:v34];
+    v27 = v38[5];
 
-    _Block_object_dispose(&v38, 8);
+    _Block_object_dispose(&v37, 8);
   }
 
   else
   {
-    v30 = objc_alloc(MEMORY[0x1E696AEC0]);
-    v31 = objc_opt_class();
+    v29 = objc_alloc(MEMORY[0x1E696AEC0]);
+    v30 = objc_opt_class();
     upstreams2 = [nodeCopy upstreams];
-    v16 = [v30 initWithFormat:@"%@ expected publisher upstream count %lu, but received %lu", v31, objc_msgSend(upstreams2, "count"), objc_msgSend(v11, "count")];
+    v16 = [v29 initWithFormat:@"%@ expected publisher upstream count %lu, but received %lu", v30, objc_msgSend(upstreams2, "count"), objc_msgSend(v11, "count")];
 
-    v33 = MEMORY[0x1E696ABC0];
-    v44 = *MEMORY[0x1E696A578];
-    v45 = v16;
-    v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v45 forKeys:&v44 count:1];
-    v27 = [v33 errorWithDomain:@"BiomePubSubError" code:2 userInfo:v34];
+    v32 = MEMORY[0x1E696ABC0];
+    v43 = *MEMORY[0x1E696A578];
+    v44 = v16;
+    v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v44 forKeys:&v43 count:1];
+    v27 = [v32 errorWithDomain:@"BiomePubSubError" code:2 userInfo:v33];
   }
 
 LABEL_9:
-
-  v28 = *MEMORY[0x1E69E9840];
 
   return v27;
 }
@@ -728,11 +718,10 @@ BPSTuple *__47__BMBookmarkablePublisher_GroupBy__groupByKey___block_invoke(uint6
 
 - (void)withBookmark:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1C871B000, a2, OS_LOG_TYPE_ERROR, "Bookmark should be BMBookmarkNode, instead got %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1C871B000, a2, OS_LOG_TYPE_ERROR, "Bookmark should be BMBookmarkNode, instead got %@", &v2, 0xCu);
 }
 
 @end

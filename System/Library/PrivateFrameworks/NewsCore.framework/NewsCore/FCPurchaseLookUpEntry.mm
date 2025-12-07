@@ -10,7 +10,7 @@
 
 - (FCPurchaseLookUpEntry)initWithEntryID:(id)d tagID:(id)iD purchaseID:(id)purchaseID lastVerificationTime:(id)time lastVerificationFailureTime:(id)failureTime purchaseType:(unint64_t)type purchaseValidationState:(unint64_t)state isNewsAppPurchase:(BOOL)self0 dateOfExpiration:(id)self1 hasShownRenewalNotice:(BOOL)self2
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   dCopy = d;
   iDCopy = iD;
   purchaseIDCopy = purchaseID;
@@ -19,15 +19,15 @@
   expirationCopy = expiration;
   if (!dCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v38 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"purchase lookup entry must have an identifier"];
+    v37 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"purchase lookup entry must have an identifier"];
     *buf = 136315906;
-    v42 = "[FCPurchaseLookUpEntry initWithEntryID:tagID:purchaseID:lastVerificationTime:lastVerificationFailureTime:purchaseType:purchaseValidationState:isNewsAppPurchase:dateOfExpiration:hasShownRenewalNotice:]";
-    v43 = 2080;
-    v44 = "FCPurchaseLookUpEntry.m";
-    v45 = 1024;
-    v46 = 41;
-    v47 = 2114;
-    v48 = v38;
+    v41 = "[FCPurchaseLookUpEntry initWithEntryID:tagID:purchaseID:lastVerificationTime:lastVerificationFailureTime:purchaseType:purchaseValidationState:isNewsAppPurchase:dateOfExpiration:hasShownRenewalNotice:]";
+    v42 = 2080;
+    v43 = "FCPurchaseLookUpEntry.m";
+    v44 = 1024;
+    v45 = 41;
+    v46 = 2114;
+    v47 = v37;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (iDCopy)
@@ -43,22 +43,22 @@
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v39 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"purchase lookup entry must have an tag ID"];
+    v38 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"purchase lookup entry must have an tag ID"];
     *buf = 136315906;
-    v42 = "[FCPurchaseLookUpEntry initWithEntryID:tagID:purchaseID:lastVerificationTime:lastVerificationFailureTime:purchaseType:purchaseValidationState:isNewsAppPurchase:dateOfExpiration:hasShownRenewalNotice:]";
-    v43 = 2080;
-    v44 = "FCPurchaseLookUpEntry.m";
-    v45 = 1024;
-    v46 = 42;
-    v47 = 2114;
-    v48 = v39;
+    v41 = "[FCPurchaseLookUpEntry initWithEntryID:tagID:purchaseID:lastVerificationTime:lastVerificationFailureTime:purchaseType:purchaseValidationState:isNewsAppPurchase:dateOfExpiration:hasShownRenewalNotice:]";
+    v42 = 2080;
+    v43 = "FCPurchaseLookUpEntry.m";
+    v44 = 1024;
+    v45 = 42;
+    v46 = 2114;
+    v47 = v38;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
 LABEL_6:
-  v40.receiver = self;
-  v40.super_class = FCPurchaseLookUpEntry;
-  v24 = [(FCPurchaseLookUpEntry *)&v40 init];
+  v39.receiver = self;
+  v39.super_class = FCPurchaseLookUpEntry;
+  v24 = [(FCPurchaseLookUpEntry *)&v39 init];
   v25 = v24;
   if (v24)
   {
@@ -98,27 +98,26 @@ LABEL_6:
     }
   }
 
-  v36 = *MEMORY[0x1E69E9840];
   return v25;
 }
 
 - (FCPurchaseLookUpEntry)initWithEntryID:(id)d dictionaryRepresentation:(id)representation
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   dCopy = d;
   representationCopy = representation;
-  v31 = dCopy;
+  v30 = dCopy;
   if (!dCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v23 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"purchase lookup entry must have an identifier"];
+    v22 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"purchase lookup entry must have an identifier"];
     *buf = 136315906;
-    v33 = "[FCPurchaseLookUpEntry initWithEntryID:dictionaryRepresentation:]";
-    v34 = 2080;
-    v35 = "FCPurchaseLookUpEntry.m";
-    v36 = 1024;
-    v37 = 69;
-    v38 = 2114;
-    v39 = v23;
+    v32 = "[FCPurchaseLookUpEntry initWithEntryID:dictionaryRepresentation:]";
+    v33 = 2080;
+    v34 = "FCPurchaseLookUpEntry.m";
+    v35 = 1024;
+    v36 = 69;
+    v37 = 2114;
+    v38 = v22;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
@@ -131,34 +130,34 @@ LABEL_6:
   v13 = [representationCopy objectForKeyedSubscript:@"PurchaseLookUpEntryIsNewsAppPurchase"];
   bOOLValue = [v13 BOOLValue];
 
-  v29 = v7;
+  v28 = v7;
   intValue = [v7 intValue];
   if (!intValue && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v24 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Purchase mode cannot be unknown"];
+    v23 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Purchase mode cannot be unknown"];
     *buf = 136315906;
-    v33 = "[FCPurchaseLookUpEntry initWithEntryID:dictionaryRepresentation:]";
-    v34 = 2080;
-    v35 = "FCPurchaseLookUpEntry.m";
-    v36 = 1024;
-    v37 = 79;
-    v38 = 2114;
-    v39 = v24;
+    v32 = "[FCPurchaseLookUpEntry initWithEntryID:dictionaryRepresentation:]";
+    v33 = 2080;
+    v34 = "FCPurchaseLookUpEntry.m";
+    v35 = 1024;
+    v36 = 79;
+    v37 = 2114;
+    v38 = v23;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
   intValue2 = [v8 intValue];
   if (!intValue2 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v25 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Purchase validation state cannot be unknown"];
+    v24 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Purchase validation state cannot be unknown"];
     *buf = 136315906;
-    v33 = "[FCPurchaseLookUpEntry initWithEntryID:dictionaryRepresentation:]";
-    v34 = 2080;
-    v35 = "FCPurchaseLookUpEntry.m";
-    v36 = 1024;
-    v37 = 82;
-    v38 = 2114;
-    v39 = v25;
+    v32 = "[FCPurchaseLookUpEntry initWithEntryID:dictionaryRepresentation:]";
+    v33 = 2080;
+    v34 = "FCPurchaseLookUpEntry.m";
+    v35 = 1024;
+    v36 = 82;
+    v37 = 2114;
+    v38 = v24;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
@@ -167,11 +166,10 @@ LABEL_6:
   bOOLValue2 = [v17 BOOLValue];
 
   v19 = [representationCopy objectForKeyedSubscript:@"PurchaseLookUpEntryDateOfExpiration"];
-  LOBYTE(v27) = bOOLValue2;
-  LOBYTE(v26) = bOOLValue;
-  v20 = [(FCPurchaseLookUpEntry *)self initWithEntryID:v31 tagID:v11 purchaseID:v12 lastVerificationTime:v9 lastVerificationFailureTime:v10 purchaseType:intValue purchaseValidationState:v16 isNewsAppPurchase:v26 dateOfExpiration:v19 hasShownRenewalNotice:v27];
+  LOBYTE(v26) = bOOLValue2;
+  LOBYTE(v25) = bOOLValue;
+  v20 = [(FCPurchaseLookUpEntry *)self initWithEntryID:v30 tagID:v11 purchaseID:v12 lastVerificationTime:v9 lastVerificationFailureTime:v10 purchaseType:intValue purchaseValidationState:v16 isNewsAppPurchase:v25 dateOfExpiration:v19 hasShownRenewalNotice:v26];
 
-  v21 = *MEMORY[0x1E69E9840];
   return v20;
 }
 

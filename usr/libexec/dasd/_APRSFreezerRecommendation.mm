@@ -93,7 +93,7 @@
   v3 = +[NSDate date];
   v4 = [(_APRSFreezerRecommendation *)self aggregatorScoresForAllApplicationsAtDate:v3];
 
-  if ([v4 count])
+  if (objc_msgSend_count(v4))
   {
     v5 = [v4 keysSortedByValueUsingComparator:&stru_1001B6FD8];
     v6 = +[NSMutableArray array];
@@ -496,7 +496,7 @@
   v7 = [appsFromProactiveSuggestions mutableCopy];
 
   v8 = v7;
-  if (![v7 count])
+  if (!objc_msgSend_count(v7))
   {
     v25 = v5;
 LABEL_13:
@@ -504,7 +504,7 @@ LABEL_13:
     goto LABEL_14;
   }
 
-  if (![v5 count])
+  if (!objc_msgSend_count(v5))
   {
     v25 = v7;
     goto LABEL_13;
@@ -570,7 +570,7 @@ LABEL_14:
   v7 = +[NSMutableSet set];
   v8 = +[NSMutableArray array];
   v9 = [(_APRSFreezerRecommendation *)self predictedAppsAtDate:dateCopy];
-  v10 = [v9 count];
+  v10 = objc_msgSend_count(v9);
   v70 = v8;
   [v8 addObject:v9];
   allKeys = [v9 allKeys];
@@ -588,7 +588,7 @@ LABEL_14:
   v13 = [(_APRSFreezerRecommendation *)self killScoresForAllApplicationsAtDate:dateCopy];
   v14 = [v13 mutableCopy];
 
-  if ([v14 count])
+  if (objc_msgSend_count(v14))
   {
     [v70 addObject:v14];
     allKeys2 = [v14 allKeys];
@@ -614,7 +614,7 @@ LABEL_14:
   v18 = [(_APRSFreezerRecommendation *)self appActivationTimeScores:dateCopy];
   v19 = [v18 mutableCopy];
 
-  if ([v19 count])
+  if (objc_msgSend_count(v19))
   {
     [v70 addObject:v19];
     allKeys3 = [v19 allKeys];
@@ -643,7 +643,7 @@ LABEL_14:
     v25 = 0;
   }
 
-  else if (v10 || [v7 count] >= 0xA)
+  else if (v10 || objc_msgSend_count(v7) >= 0xA)
   {
     v63 = v14;
     v64 = v9;

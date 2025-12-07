@@ -2,6 +2,8 @@
 - (SYDocumentSenderAvatar)initWithDocumentSender:(id)sender;
 - (id)_createAvatarImageRenderer;
 - (id)_createContactFromPersonNameComponents:(id)components;
+- (id)_createRenderingScopeWithSize:(CGSize)size scale:(double)scale isRTL:(BOOL)l;
+- (id)_defaultThumbnailImageWithSize:(CGSize)size scale:(double)scale isRTL:(BOOL)l;
 - (id)_documentSenderHandle;
 - (id)_renderAvatarImageForContact:(id)contact renderer:(id)renderer renderingScope:(id)scope;
 - (id)_renderAvatarImageWithRenderer:(id)renderer renderingScope:(id)scope;
@@ -67,14 +69,14 @@ uint64_t __73__SYDocumentSenderAvatar_fetchThumbnailImagesWithScale_isRTL_comple
 
 void __73__SYDocumentSenderAvatar_fetchThumbnailImagesWithScale_isRTL_completion___block_invoke_2(uint64_t a1)
 {
-  v47[1] = *MEMORY[0x277D85DE8];
+  v46[1] = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CBDAB8]);
   v3 = os_log_create("com.apple.synapse", "DocumentWorkflows");
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = [*(a1 + 32) documentSender];
     *buf = 138477827;
-    v44 = v4;
+    v43 = v4;
     _os_log_impl(&dword_225901000, v3, OS_LOG_TYPE_DEFAULT, "Fetching all matching contacts for sender: %{private}@", buf, 0xCu);
   }
 
@@ -82,10 +84,10 @@ void __73__SYDocumentSenderAvatar_fetchThumbnailImagesWithScale_isRTL_completion
   v6 = [*(a1 + 32) _documentSenderHandle];
   v7 = [v5 predicateForContactsMatchingEmailAddress:v6];
 
-  v47[0] = *MEMORY[0x277CBD158];
-  [MEMORY[0x277CBEA60] arrayWithObjects:v47 count:1];
-  v30 = v41 = 0;
-  v31 = v7;
+  v46[0] = *MEMORY[0x277CBD158];
+  [MEMORY[0x277CBEA60] arrayWithObjects:v46 count:1];
+  v29 = v40 = 0;
+  v30 = v7;
   v8 = [v2 unifiedContactsMatchingPredicate:v7 keysToFetch:? error:?];
   v9 = 0;
   if (!v8)
@@ -97,43 +99,43 @@ void __73__SYDocumentSenderAvatar_fetchThumbnailImagesWithScale_isRTL_completion
     }
   }
 
-  v29 = v9;
-  v32 = v2;
+  v28 = v9;
+  v31 = v2;
   v11 = os_log_create("com.apple.synapse", "DocumentWorkflows");
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     v12 = [v8 count];
     v13 = [*(a1 + 32) documentSender];
     *buf = 134218243;
-    v44 = v12;
-    v45 = 2113;
-    v46 = v13;
+    v43 = v12;
+    v44 = 2113;
+    v45 = v13;
     _os_log_impl(&dword_225901000, v11, OS_LOG_TYPE_DEFAULT, "Found %ld matching contacts for sender: %{private}@", buf, 0x16u);
   }
 
   v14 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v8, "count")}];
   v15 = [*(a1 + 32) _createAvatarImageRenderer];
   v16 = [*(a1 + 32) _createRenderingScopeWithSize:*(a1 + 56) scale:100.0 isRTL:{100.0, *(a1 + 48)}];
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
   v17 = v8;
-  v18 = [v17 countByEnumeratingWithState:&v37 objects:v42 count:16];
+  v18 = [v17 countByEnumeratingWithState:&v36 objects:v41 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v38;
+    v20 = *v37;
     do
     {
       for (i = 0; i != v19; ++i)
       {
-        if (*v38 != v20)
+        if (*v37 != v20)
         {
           objc_enumerationMutation(v17);
         }
 
-        v22 = *(*(&v37 + 1) + 8 * i);
+        v22 = *(*(&v36 + 1) + 8 * i);
         v23 = [v22 thumbnailImageData];
 
         if (v23)
@@ -146,7 +148,7 @@ void __73__SYDocumentSenderAvatar_fetchThumbnailImagesWithScale_isRTL_completion
         }
       }
 
-      v19 = [v17 countByEnumeratingWithState:&v37 objects:v42 count:16];
+      v19 = [v17 countByEnumeratingWithState:&v36 objects:v41 count:16];
     }
 
     while (v19);
@@ -167,24 +169,22 @@ void __73__SYDocumentSenderAvatar_fetchThumbnailImagesWithScale_isRTL_completion
     block[3] = &unk_27856B7B0;
     v27 = *(a1 + 40);
     block[4] = *(a1 + 32);
-    v35 = *(a1 + 48);
-    v36 = *(a1 + 56);
-    v34 = v27;
+    v34 = *(a1 + 48);
+    v35 = *(a1 + 56);
+    v33 = v27;
     dispatch_async(MEMORY[0x277D85CD0], block);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __73__SYDocumentSenderAvatar_fetchThumbnailImagesWithScale_isRTL_completion___block_invoke_7(uint64_t a1)
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _defaultThumbnailImageWithSize:*(a1 + 56) scale:100.0 isRTL:{100.0, *(a1 + 48)}];
   v3 = v2;
   if (v2)
   {
-    v12[0] = v2;
-    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+    v11[0] = v2;
+    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
   }
 
   else
@@ -193,63 +193,59 @@ void __73__SYDocumentSenderAvatar_fetchThumbnailImagesWithScale_isRTL_completion
   }
 
   v5 = *(*(a1 + 32) + 8);
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __73__SYDocumentSenderAvatar_fetchThumbnailImagesWithScale_isRTL_completion___block_invoke_2_8;
-  v9[3] = &unk_27856B788;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __73__SYDocumentSenderAvatar_fetchThumbnailImagesWithScale_isRTL_completion___block_invoke_2_8;
+  v8[3] = &unk_27856B788;
   v6 = *(a1 + 40);
-  v10 = v4;
-  v11 = v6;
+  v9 = v4;
+  v10 = v6;
   v7 = v4;
-  dispatch_async(v5, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  dispatch_async(v5, v8);
 }
 
 - (id)_documentSenderHandle
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   documentSender = [(SYDocumentSenderAvatar *)self documentSender];
   handle = [documentSender handle];
   v4 = [MEMORY[0x277CCA900] characterSetWithCharactersInString:@"<>"];
   v5 = [handle componentsSeparatedByCharactersInSet:v4];
 
   v6 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v5, "count")}];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v7 = v5;
-  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v17;
+    v10 = *v16;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v17 != v10)
+        if (*v16 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v16 + 1) + 8 * i);
+        v12 = *(*(&v15 + 1) + 8 * i);
         if ([v12 length])
         {
           [v6 addObject:v12];
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v9);
   }
 
   lastObject = [v6 lastObject];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return lastObject;
 }
@@ -288,19 +284,19 @@ void __73__SYDocumentSenderAvatar_fetchThumbnailImagesWithScale_isRTL_completion
 - (id)fetchThumbnailImagesWithScale:(double)scale isRTL:(BOOL)l
 {
   lCopy = l;
-  v43[1] = *MEMORY[0x277D85DE8];
+  v42[1] = *MEMORY[0x277D85DE8];
   v6 = objc_alloc_init(MEMORY[0x277CBDAB8]);
   v7 = MEMORY[0x277CBDA58];
   _documentSenderHandle = [(SYDocumentSenderAvatar *)self _documentSenderHandle];
   v9 = [v7 predicateForContactsMatchingEmailAddress:_documentSenderHandle];
 
-  v43[0] = *MEMORY[0x277CBD158];
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:1];
-  v37 = 0;
-  v31 = v9;
-  v32 = v6;
-  v11 = [v6 unifiedContactsMatchingPredicate:v9 keysToFetch:v10 error:&v37];
-  v12 = v37;
+  v42[0] = *MEMORY[0x277CBD158];
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:1];
+  v36 = 0;
+  v30 = v9;
+  v31 = v6;
+  v11 = [v6 unifiedContactsMatchingPredicate:v9 keysToFetch:v10 error:&v36];
+  v12 = v36;
   if (!v11)
   {
     v13 = os_log_create("com.apple.synapse", "DocumentWorkflows");
@@ -316,33 +312,33 @@ void __73__SYDocumentSenderAvatar_fetchThumbnailImagesWithScale_isRTL_completion
     v15 = [v11 count];
     documentSender = [(SYDocumentSenderAvatar *)self documentSender];
     *buf = 134218243;
-    v40 = v15;
-    v41 = 2113;
-    v42 = documentSender;
+    v39 = v15;
+    v40 = 2113;
+    v41 = documentSender;
     _os_log_impl(&dword_225901000, v14, OS_LOG_TYPE_DEFAULT, "Found %ld matching contacts for sender: %{private}@", buf, 0x16u);
   }
 
   v17 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v11, "count")}];
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
   v18 = v11;
-  v19 = [v18 countByEnumeratingWithState:&v33 objects:v38 count:16];
+  v19 = [v18 countByEnumeratingWithState:&v32 objects:v37 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v34;
+    v21 = *v33;
     do
     {
       for (i = 0; i != v20; ++i)
       {
-        if (*v34 != v21)
+        if (*v33 != v21)
         {
           objc_enumerationMutation(v18);
         }
 
-        v23 = *(*(&v33 + 1) + 8 * i);
+        v23 = *(*(&v32 + 1) + 8 * i);
         thumbnailImageData = [v23 thumbnailImageData];
 
         if (thumbnailImageData)
@@ -352,7 +348,7 @@ void __73__SYDocumentSenderAvatar_fetchThumbnailImagesWithScale_isRTL_completion
         }
       }
 
-      v20 = [v18 countByEnumeratingWithState:&v33 objects:v38 count:16];
+      v20 = [v18 countByEnumeratingWithState:&v32 objects:v37 count:16];
     }
 
     while (v20);
@@ -369,9 +365,19 @@ void __73__SYDocumentSenderAvatar_fetchThumbnailImagesWithScale_isRTL_completion
 
   v27 = [v17 copy];
 
-  v28 = *MEMORY[0x277D85DE8];
-
   return v27;
+}
+
+- (id)_defaultThumbnailImageWithSize:(CGSize)size scale:(double)scale isRTL:(BOOL)l
+{
+  lCopy = l;
+  height = size.height;
+  width = size.width;
+  _createAvatarImageRenderer = [(SYDocumentSenderAvatar *)self _createAvatarImageRenderer];
+  scale = [(SYDocumentSenderAvatar *)self _createRenderingScopeWithSize:lCopy scale:width isRTL:height, scale];
+  v12 = [(SYDocumentSenderAvatar *)self _renderAvatarImageWithRenderer:_createAvatarImageRenderer renderingScope:scale];
+
+  return v12;
 }
 
 - (id)_createAvatarImageRenderer
@@ -418,18 +424,46 @@ void __73__SYDocumentSenderAvatar_fetchThumbnailImagesWithScale_isRTL_completion
   return v7;
 }
 
+- (id)_createRenderingScopeWithSize:(CGSize)size scale:(double)scale isRTL:(BOOL)l
+{
+  lCopy = l;
+  height = size.height;
+  width = size.width;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x2050000000;
+  v9 = getCNAvatarImageRenderingScopeClass_softClass;
+  v17 = getCNAvatarImageRenderingScopeClass_softClass;
+  if (!getCNAvatarImageRenderingScopeClass_softClass)
+  {
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __getCNAvatarImageRenderingScopeClass_block_invoke;
+    v13[3] = &unk_27856B3C8;
+    v13[4] = &v14;
+    __getCNAvatarImageRenderingScopeClass_block_invoke(v13);
+    v9 = v15[3];
+  }
+
+  v10 = v9;
+  _Block_object_dispose(&v14, 8);
+  v11 = [v9 scopeWithPointSize:lCopy scale:0 rightToLeft:width style:{height, scale}];
+
+  return v11;
+}
+
 - (id)_renderAvatarImageWithRenderer:(id)renderer renderingScope:(id)scope
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   rendererCopy = renderer;
   scopeCopy = scope;
   v8 = os_log_create("com.apple.synapse", "DocumentWorkflows");
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     documentSender = [(SYDocumentSenderAvatar *)self documentSender];
-    v20 = 138477827;
-    v21 = documentSender;
-    _os_log_impl(&dword_225901000, v8, OS_LOG_TYPE_DEFAULT, "Rendering avatar image for sender: %{private}@", &v20, 0xCu);
+    v19 = 138477827;
+    v20 = documentSender;
+    _os_log_impl(&dword_225901000, v8, OS_LOG_TYPE_DEFAULT, "Rendering avatar image for sender: %{private}@", &v19, 0xCu);
   }
 
   documentSender2 = [(SYDocumentSenderAvatar *)self documentSender];
@@ -444,15 +478,15 @@ void __73__SYDocumentSenderAvatar_fetchThumbnailImagesWithScale_isRTL_completion
     {
       documentSender3 = [(SYDocumentSenderAvatar *)self documentSender];
       v16 = [v13 length];
-      v20 = 138478595;
-      v21 = documentSender3;
-      v22 = 2113;
-      v23 = v12;
-      v24 = 2113;
-      v25 = v11;
-      v26 = 2048;
-      v27 = v16;
-      _os_log_impl(&dword_225901000, v14, OS_LOG_TYPE_DEFAULT, "Finished rendering avatar image for sender: %{private}@, contact: %{private}@, components: %{private}@, size: %ld", &v20, 0x2Au);
+      v19 = 138478595;
+      v20 = documentSender3;
+      v21 = 2113;
+      v22 = v12;
+      v23 = 2113;
+      v24 = v11;
+      v25 = 2048;
+      v26 = v16;
+      _os_log_impl(&dword_225901000, v14, OS_LOG_TYPE_DEFAULT, "Finished rendering avatar image for sender: %{private}@, contact: %{private}@, components: %{private}@, size: %ld", &v19, 0x2Au);
     }
   }
 
@@ -462,53 +496,49 @@ void __73__SYDocumentSenderAvatar_fetchThumbnailImagesWithScale_isRTL_completion
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       documentSender4 = [(SYDocumentSenderAvatar *)self documentSender];
-      v20 = 138477827;
-      v21 = documentSender4;
-      _os_log_impl(&dword_225901000, v14, OS_LOG_TYPE_DEFAULT, "Unable to get person name components for sender: %{private}@", &v20, 0xCu);
+      v19 = 138477827;
+      v20 = documentSender4;
+      _os_log_impl(&dword_225901000, v14, OS_LOG_TYPE_DEFAULT, "Unable to get person name components for sender: %{private}@", &v19, 0xCu);
     }
 
     v13 = 0;
     v12 = v14;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
 - (id)_renderAvatarImageForContact:(id)contact renderer:(id)renderer renderingScope:(id)scope
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   contactCopy = contact;
   rendererCopy = renderer;
   scopeCopy = scope;
-  v22[0] = contactCopy;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
+  v21[0] = contactCopy;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
   v11 = [rendererCopy avatarImageForContacts:v10 scope:scopeCopy];
 
   v12 = v11;
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x2020000000;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x2020000000;
   v13 = getUIImagePNGRepresentationSymbolLoc_ptr;
-  v21 = getUIImagePNGRepresentationSymbolLoc_ptr;
+  v20 = getUIImagePNGRepresentationSymbolLoc_ptr;
   if (!getUIImagePNGRepresentationSymbolLoc_ptr)
   {
     v14 = UIKitLibrary();
-    v19[3] = dlsym(v14, "UIImagePNGRepresentation");
-    getUIImagePNGRepresentationSymbolLoc_ptr = v19[3];
-    v13 = v19[3];
+    v18[3] = dlsym(v14, "UIImagePNGRepresentation");
+    getUIImagePNGRepresentationSymbolLoc_ptr = v18[3];
+    v13 = v18[3];
   }
 
-  _Block_object_dispose(&v18, 8);
+  _Block_object_dispose(&v17, 8);
   if (!v13)
   {
     [SYDocumentSenderAvatar _renderAvatarImageForContact:renderer:renderingScope:];
   }
 
   v15 = v13(v12);
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -551,11 +581,10 @@ void __73__SYDocumentSenderAvatar_fetchThumbnailImagesWithScale_isRTL_completion
 
 void __73__SYDocumentSenderAvatar_fetchThumbnailImagesWithScale_isRTL_completion___block_invoke_2_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_225901000, a2, OS_LOG_TYPE_ERROR, "Failed to find matching contacts, error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_225901000, a2, OS_LOG_TYPE_ERROR, "Failed to find matching contacts, error: %@", &v2, 0xCu);
 }
 
 - (void)_renderAvatarImageForContact:renderer:renderingScope:.cold.1()

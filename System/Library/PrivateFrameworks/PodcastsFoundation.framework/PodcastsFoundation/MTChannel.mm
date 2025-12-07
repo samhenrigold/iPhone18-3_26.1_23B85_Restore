@@ -11,37 +11,33 @@
 
 + (id)predicateForLibraryChannel
 {
-  v15[2] = *MEMORY[0x1E69E9840];
+  v14[2] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696AB28];
   v3 = +[MTChannel predicateForMultiShowChannel];
-  v15[0] = v3;
+  v14[0] = v3;
   v4 = MEMORY[0x1E696AB28];
   v5 = +[MTChannel predicateForSubscribedChannel];
   v6 = +[MTChannel predicateForFollowedChannel];
-  v14[1] = v6;
+  v13[1] = v6;
   v7 = +[MTChannel predicateForFavoritedChannel];
-  v14[2] = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:3];
+  v13[2] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:3];
   v9 = [v4 orPredicateWithSubpredicates:v8];
-  v15[1] = v9;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
+  v14[1] = v9;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:2];
   v11 = [v2 andPredicateWithSubpredicates:v10];
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
 
 + (id)predicateForFollowedChannel
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696AB28];
   v3 = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K > 0", @"followedShowCount"];
-  v8[0] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
+  v7[0] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
   v5 = [v2 andPredicateWithSubpredicates:v4];
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -137,14 +133,12 @@
 
 + (id)sortDescriptorsForLibraryChannelsPage
 {
-  v7[2] = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"interest.interestValue" ascending:0];
-  v7[0] = v2;
+  v6[0] = v2;
   v3 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"name" ascending:1 selector:sel_localizedStandardCompare_];
-  v7[1] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v6[1] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
 
   return v4;
 }

@@ -325,7 +325,7 @@ LABEL_11:
   queue = [(VMDCarrierAccountDataSource *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v91 = +[NSMutableArray array];
+  v93 = +[NSMutableArray array];
   telephonyClient = [(VMDCarrierAccountDataSource *)selfCopy telephonyClient];
   contexts = [telephonyClient contexts];
 
@@ -333,43 +333,43 @@ LABEL_11:
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v110 = contexts;
+    v112 = contexts;
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Update accounts for active contexts %@", buf, 0xCu);
   }
 
+  v109 = 0u;
+  v110 = 0u;
   v107 = 0u;
   v108 = 0u;
-  v105 = 0u;
-  v106 = 0u;
-  v86 = contexts;
+  v88 = contexts;
   subscriptions = [contexts subscriptions];
-  v8 = [subscriptions countByEnumeratingWithState:&v105 objects:v115 count:16];
+  v8 = [subscriptions countByEnumeratingWithState:&v107 objects:v117 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v106;
-    v94 = selfCopy;
-    v90 = subscriptions;
-    v98 = *v106;
+    v10 = *v108;
+    v96 = selfCopy;
+    v92 = subscriptions;
+    v100 = *v108;
     do
     {
       v11 = 0;
-      v96 = v9;
+      v98 = v9;
       do
       {
-        if (*v106 != v10)
+        if (*v108 != v10)
         {
           objc_enumerationMutation(subscriptions);
         }
 
-        v12 = *(*(&v105 + 1) + 8 * v11);
+        v12 = *(*(&v107 + 1) + 8 * v11);
         if (![v12 slotID])
         {
           v13 = vm_vmd_log();
           if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v110 = v12;
+            v112 = v12;
             _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Current context is not supported; cancelling account creation for subscription %@", buf, 0xCu);
           }
         }
@@ -378,7 +378,7 @@ LABEL_11:
         telephonyClient2 = [(VMDCarrierAccountDataSource *)selfCopy telephonyClient];
         v16 = [telephonyClient2 carrierBundle:v12];
 
-        v101 = context;
+        v103 = context;
         if ([v16 isServiceSupportedForSubscription])
         {
           v17 = [(VMDCarrierAccountDataSource *)selfCopy findValidContextForSubscription:context];
@@ -388,7 +388,7 @@ LABEL_11:
             if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v110 = v101;
+              v112 = v103;
               _os_log_error_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "Could not find valid context for subscription %@", buf, 0xCu);
             }
           }
@@ -401,7 +401,7 @@ LABEL_11:
             if (v21)
             {
               *buf = 138412290;
-              v110 = v12;
+              v112 = v12;
               _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Current context does not support voice service; cancelling account creation for subscription %@", buf, 0xCu);
             }
 
@@ -411,7 +411,7 @@ LABEL_11:
           if (v21)
           {
             *buf = 138412290;
-            v110 = v12;
+            v112 = v12;
             _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Carrier supports voicemail; creating account for subscription %@", buf, 0xCu);
           }
 
@@ -425,9 +425,9 @@ LABEL_11:
             if (v24)
             {
               *buf = 138412546;
-              v110 = v20;
-              v111 = 2112;
-              v112 = v12;
+              v112 = v20;
+              v113 = 2112;
+              v114 = v12;
               v25 = v23;
               v26 = "Call voicemail with phoneNumber '%@' is supported for subscription %@";
               v27 = 22;
@@ -438,7 +438,7 @@ LABEL_11:
           else if (v24)
           {
             *buf = 138412290;
-            v110 = v12;
+            v112 = v12;
             v25 = v23;
             v26 = "Call voicemail is not supported for subscription %@, invalid voicemail phoneNumber";
             v27 = 12;
@@ -453,18 +453,18 @@ LABEL_29:
           telephonyClient4 = [(VMDCarrierAccountDataSource *)selfCopy telephonyClient];
           v32 = [telephonyClient4 isoCountryCode:v12];
 
-          v99 = v32;
+          v101 = v32;
           if (!v30 || !v32)
           {
             v38 = vm_vmd_log();
             if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412802;
-              v110 = v30;
-              v111 = 2112;
-              v112 = v32;
+              v112 = v30;
               v113 = 2112;
-              v114 = v12;
+              v114 = v32;
+              v115 = 2112;
+              v116 = v12;
               _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "Invalid label UUID %@ or ISO country code %@; unable to create account for subscription %@", buf, 0x20u);
             }
 
@@ -472,7 +472,7 @@ LABEL_29:
           }
 
           accountID = [v12 accountID];
-          v100 = sub_1000855D4(accountID);
+          v102 = sub_1000855D4(accountID);
 
           v34 = VMMap_copyAccountForLabel(v30);
           if (v34)
@@ -483,32 +483,32 @@ LABEL_29:
 
             if (v37)
             {
-              v93 = v35;
+              v95 = v35;
 LABEL_53:
-              v95 = v30;
-              v48 = [[VMMutableAccount alloc] initWithUUID:v30];
+              v97 = v30;
+              v50 = [[VMMutableAccount alloc] initWithUUID:v30];
               telephonyClient5 = [(VMDCarrierAccountDataSource *)selfCopy telephonyClient];
               context2 = [v12 context];
-              v104 = 0;
-              [telephonyClient5 getShortLabel:context2 error:&v104];
-              v52 = v51 = selfCopy;
-              v92 = v104;
-              [v48 setAbbreviatedAccountDescription:v52];
+              v106 = 0;
+              [telephonyClient5 getShortLabel:context2 error:&v106];
+              v54 = v53 = selfCopy;
+              v94 = v106;
+              [v50 setAbbreviatedAccountDescription:v54];
 
               label = [v12 label];
-              [v48 setAccountDescription:label];
+              [v50 setAccountDescription:label];
 
-              telephonyClient6 = [(VMDCarrierAccountDataSource *)v51 telephonyClient];
-              v55 = [telephonyClient6 isoCountryCode:v12];
-              v97 = v48;
-              [v48 setIsoCountryCode:v55];
+              telephonyClient6 = [(VMDCarrierAccountDataSource *)v53 telephonyClient];
+              v57 = [telephonyClient6 isoCountryCode:v12];
+              v99 = v50;
+              [v50 setIsoCountryCode:v57];
 
-              v56 = +[NSFileManager defaultManager];
-              path = [v100 path];
-              LOBYTE(v52) = [v56 fileExistsAtPath:path];
+              v58 = +[NSFileManager defaultManager];
+              path = [v102 path];
+              LOBYTE(v54) = [v58 fileExistsAtPath:path];
 
-              subscriptions = v90;
-              if (v52)
+              subscriptions = v92;
+              if (v54)
               {
                 goto LABEL_68;
               }
@@ -519,124 +519,124 @@ LABEL_53:
                 goto LABEL_68;
               }
 
-              v59 = phoneNumber;
+              v61 = phoneNumber;
               phoneNumber2 = [v12 phoneNumber];
-              v61 = [phoneNumber2 length];
+              v63 = [phoneNumber2 length];
 
-              if (!v61)
+              if (!v63)
               {
                 goto LABEL_68;
               }
 
               phoneNumber3 = [v12 phoneNumber];
-              v63 = v99;
-              v64 = sub_10002532C(phoneNumber3, v99);
+              v65 = v101;
+              v66 = sub_10002532C(phoneNumber3, v101);
 
-              v89 = v64;
-              if (v64)
+              v91 = v66;
+              if (v66)
               {
-                uUIDString = [v64 UUIDString];
-                v66 = sub_1000856C8(uUIDString);
+                uUIDString = [v66 UUIDString];
+                v68 = sub_1000856C8(uUIDString);
 
-                v68 = v94;
-                v67 = v95;
-                if (v66)
+                v70 = v96;
+                v69 = v97;
+                if (v68)
                 {
-                  v69 = +[NSFileManager defaultManager];
-                  v103 = 0;
-                  v88 = v66;
-                  v70 = [v69 moveItemAtURL:v66 toURL:v100 error:&v103];
-                  v87 = v103;
+                  v71 = +[NSFileManager defaultManager];
+                  v105 = 0;
+                  v90 = v68;
+                  v72 = [v71 moveItemAtURL:v68 toURL:v102 error:&v105];
+                  v89 = v105;
 
-                  if (v70)
+                  if (v72)
                   {
-                    v71 = vm_vmd_log();
-                    if (os_log_type_enabled(v71, OS_LOG_TYPE_DEFAULT))
+                    v73 = vm_vmd_log();
+                    if (os_log_type_enabled(v73, OS_LOG_TYPE_DEFAULT))
                     {
-                      path2 = [v66 path];
-                      path3 = [v100 path];
+                      path2 = [v68 path];
+                      path3 = [v102 path];
                       *buf = 138412546;
-                      v110 = path2;
-                      v111 = 2112;
-                      v112 = path3;
-                      _os_log_impl(&_mh_execute_header, v71, OS_LOG_TYPE_DEFAULT, "successfully moved old storage from %@ to %@", buf, 0x16u);
+                      v112 = path2;
+                      v113 = 2112;
+                      v114 = path3;
+                      _os_log_impl(&_mh_execute_header, v73, OS_LOG_TYPE_DEFAULT, "successfully moved old storage from %@ to %@", buf, 0x16u);
 
-                      v74 = v89;
+                      v76 = v91;
                       goto LABEL_67;
                     }
 
 LABEL_66:
-                    v66 = v88;
-                    v74 = v89;
+                    v68 = v90;
+                    v76 = v91;
 LABEL_67:
 
 LABEL_68:
-                    v77 = [v100 URLByAppendingPathComponent:@"com.apple.voicemail.imap.parameters.plist" isDirectory:0];
-                    v78 = +[NSFileManager defaultManager];
-                    path4 = [v77 path];
-                    v80 = [v78 fileExistsAtPath:path4];
+                    v79 = [v102 URLByAppendingPathComponent:@"com.apple.voicemail.imap.parameters.plist" isDirectory:0];
+                    v80 = +[NSFileManager defaultManager];
+                    path4 = [v79 path];
+                    v82 = [v80 fileExistsAtPath:path4];
 
-                    v30 = v95;
-                    if (v80)
+                    v30 = v97;
+                    if (v82)
                     {
-                      v81 = [NSDictionary alloc];
-                      v102 = 0;
-                      v82 = [v81 initWithContentsOfURL:v77 error:&v102];
-                      v83 = v102;
-                      v84 = v83;
-                      if (v82)
+                      v83 = [NSDictionary alloc];
+                      v104 = 0;
+                      v84 = [v83 initWithContentsOfURL:v79 error:&v104];
+                      v85 = v104;
+                      v86 = v85;
+                      if (v84)
                       {
-                        [(VMDCarrierAccountDataSource *)v94 updateAccount:v97 withDictionary:v82];
+                        [(VMDCarrierAccountDataSource *)v96 updateAccount:v99 withDictionary:v84];
                       }
 
-                      else if (v83)
+                      else if (v85)
                       {
-                        v85 = vm_vmd_log();
-                        if (os_log_type_enabled(v85, OS_LOG_TYPE_ERROR))
+                        v87 = vm_vmd_log();
+                        if (os_log_type_enabled(v87, OS_LOG_TYPE_ERROR))
                         {
                           *buf = 138412546;
-                          v110 = v77;
-                          v111 = 2112;
-                          v112 = v84;
-                          _os_log_error_impl(&_mh_execute_header, v85, OS_LOG_TYPE_ERROR, "Could not open account file at %@ due to error %@", buf, 0x16u);
+                          v112 = v79;
+                          v113 = 2112;
+                          v114 = v86;
+                          _os_log_error_impl(&_mh_execute_header, v87, OS_LOG_TYPE_ERROR, "Could not open account file at %@ due to error %@", buf, 0x16u);
                         }
                       }
                     }
 
-                    [v91 addObject:v97];
+                    [v93 addObject:v99];
 
-                    selfCopy = v94;
-                    v38 = v100;
+                    selfCopy = v96;
+                    v38 = v102;
 LABEL_77:
 
-                    v9 = v96;
+                    v9 = v98;
 LABEL_78:
 
-                    v10 = v98;
+                    v10 = v100;
                     goto LABEL_79;
                   }
 
-                  v63 = v99;
+                  v65 = v101;
 LABEL_64:
-                  v67 = v95;
+                  v69 = v97;
                 }
 
                 else
                 {
-                  v87 = 0;
-                  v88 = 0;
+                  v89 = 0;
+                  v90 = 0;
                 }
 
                 phoneNumber4 = [v12 phoneNumber];
-                v76 = v63;
-                v71 = phoneNumber4;
-                [(VMDCarrierAccountDataSource *)v68 dataMigration_legacy:v67 context:v12 isoCountryCode:v76 phone:phoneNumber4 accountDir:v100];
+                v78 = v65;
+                v73 = phoneNumber4;
+                [(VMDCarrierAccountDataSource *)v70 dataMigration_legacy:v69 context:v12 isoCountryCode:v78 phone:phoneNumber4 accountDir:v102];
                 goto LABEL_66;
               }
 
-              v87 = 0;
-              v88 = 0;
-              v68 = v94;
+              v89 = 0;
+              v90 = 0;
+              v70 = v96;
               goto LABEL_64;
             }
 
@@ -645,76 +645,78 @@ LABEL_64:
             {
               uUIDString2 = [v30 UUIDString];
               *buf = 138412546;
-              v110 = v35;
-              v111 = 2112;
-              v112 = uUIDString2;
+              v112 = v35;
+              v113 = 2112;
+              v114 = uUIDString2;
               _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "found old mapping %@ <> %@ - unmapping", buf, 0x16u);
             }
 
             while (1)
             {
               v41 = VMMap_copyRecordWithLabel(v30);
+              v42 = v41;
               if (!v41)
               {
                 break;
               }
 
-              VMMap_removeRecord();
-              CFRelease(v41);
+              VMMap_removeRecord(v41);
+              CFRelease(v42);
               sub_100093258(v35);
             }
 
             while (1)
             {
-              v42 = VMMap_copyRecordWithAccount([v12 accountID]);
-              if (!v42)
+              v43 = VMMap_copyRecordWithAccount([v12 accountID]);
+              v44 = v43;
+              if (!v43)
               {
                 break;
               }
 
-              VMMap_removeRecord();
-              CFRelease(v42);
+              VMMap_removeRecord(v43);
+              CFRelease(v44);
             }
           }
 
-          v43 = VMMap_addRecord([v12 accountID], v30);
-          if (v43)
+          v45 = VMMap_addRecord([v12 accountID], v30);
+          if (v45)
           {
-            CFRelease(v43);
-            v44 = vm_vmd_log();
-            if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+            CFRelease(v45);
+            v46 = vm_vmd_log();
+            if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
             {
               accountID3 = [v12 accountID];
               *buf = 138412546;
-              v110 = accountID3;
-              v111 = 2112;
-              v112 = v30;
-              v46 = v44;
-              v47 = "created new account map record: %@ <=> %@";
+              v112 = accountID3;
+              v113 = 2112;
+              v114 = v30;
+              v48 = v46;
+              v49 = "created new account map record: %@ <=> %@";
               goto LABEL_51;
             }
           }
 
           else
           {
-            v44 = vm_vmd_log();
-            if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+            v46 = vm_vmd_log();
+            if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
             {
               accountID3 = [v12 accountID];
               *buf = 138412546;
-              v110 = accountID3;
-              v111 = 2112;
-              v112 = v30;
-              v46 = v44;
-              v47 = "FAILED to create new account map record: %@ <=> %@";
+              v112 = accountID3;
+              v113 = 2112;
+              v114 = v30;
+              v48 = v46;
+              v49 = "FAILED to create new account map record: %@ <=> %@";
 LABEL_51:
-              _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_DEFAULT, v47, buf, 0x16u);
+              _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEFAULT, v49, buf, 0x16u);
             }
           }
 
           VMStoreSave();
-          v93 = 0;
-          selfCopy = v94;
+          v95 = 0;
+          selfCopy = v96;
           goto LABEL_53;
         }
 
@@ -722,7 +724,7 @@ LABEL_51:
         if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v110 = v12;
+          v112 = v12;
           _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Carrier does not support voicemail; cancelling account creation for subscription %@", buf, 0xCu);
         }
 
@@ -732,13 +734,13 @@ LABEL_79:
       }
 
       while (v11 != v9);
-      v9 = [subscriptions countByEnumeratingWithState:&v105 objects:v115 count:16];
+      v9 = [subscriptions countByEnumeratingWithState:&v107 objects:v117 count:16];
     }
 
     while (v9);
   }
 
-  [(VMDCarrierAccountDataSource *)selfCopy setAccounts:v91];
+  [(VMDCarrierAccountDataSource *)selfCopy setAccounts:v93];
 }
 
 - (void)updateAccount:(id)account withDictionary:(id)dictionary

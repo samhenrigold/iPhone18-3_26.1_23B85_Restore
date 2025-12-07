@@ -8,6 +8,7 @@
 - (BOOL)isAutomaticSyncingEnabled;
 - (BOOL)isIdentityLostError:(id)error;
 - (BOOL)removeObjectForKey:(id)key inStoreWithIdentifier:(id)identifier excludeFromChangeTracking:(BOOL)tracking didRemoveValue:(BOOL *)value error:(id *)error;
+- (BOOL)setObject:(id)object forKey:(id)key inStoreWithIdentifier:(id)identifier excludeFromChangeTracking:(BOOL)tracking enforceQuota:(BOOL)quota didChangeValue:(BOOL *)value error:(id *)error;
 - (BOOL)shouldRetryAfterModifyError:(id)error;
 - (BOOL)shouldSyncStoreWithIdentifier:(id)identifier;
 - (BOOL)validateKey:(id)key error:(id *)error;
@@ -56,6 +57,7 @@
 - (void)resetSyncEngineWithContainer:(id)container;
 - (void)savePendingChangesToCloudForStoreIdentifiers:(id)identifiers group:(id)group completionHandler:(id)handler;
 - (void)saveSyncAnchorSystemFieldsRecord:(id)record;
+- (void)setAutomaticSyncingEnabled:(BOOL)enabled;
 - (void)syncEngine:(id)engine accountChangedFromUserRecordID:(id)d toUserRecordID:(id)iD;
 - (void)syncEngine:(id)engine handleEvent:(id)event;
 - (void)synchronizeAllStoresWithCompletionHandler:(id)handler;
@@ -79,13 +81,12 @@
   dispatch_async(queue, block);
 }
 
-void __42__SYDSyncManager_willBeginFetchingChanges__block_invoke_cold_1(uint64_t a1)
+void __42__SYDSyncManager_willBeginFetchingChanges__block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_8_0(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_8_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 - (CKSyncEngine)engine
@@ -111,7 +112,7 @@ void __42__SYDSyncManager_willBeginFetchingChanges__block_invoke(uint64_t a1)
   v2 = SYDGetCloudKitLog();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    __42__SYDSyncManager_willBeginFetchingChanges__block_invoke_cold_1(a1);
+    __42__SYDSyncManager_willBeginFetchingChanges__block_invoke_cold_1();
   }
 
   v3 = [*(a1 + 32) storeIdentifiersWithChangedValuesDuringFetchChanges];
@@ -149,11 +150,11 @@ void __42__SYDSyncManager_willBeginFetchingChanges__block_invoke(uint64_t a1)
 
 void __39__SYDSyncManager_didEndFetchingChanges__block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = SYDGetCloudKitLog();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    __39__SYDSyncManager_didEndFetchingChanges__block_invoke_cold_1(a1);
+    __39__SYDSyncManager_didEndFetchingChanges__block_invoke_cold_1();
   }
 
   v4 = *(a1 + 32);
@@ -182,27 +183,27 @@ void __39__SYDSyncManager_didEndFetchingChanges__block_invoke(uint64_t a1)
       __39__SYDSyncManager_didEndFetchingChanges__block_invoke_cold_3(v3);
     }
 
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v10 = [*v3 storeIdentifiersWithChangedValuesDuringFetchChanges];
-    v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v20;
+      v13 = *v19;
       do
       {
         v14 = 0;
         do
         {
-          if (*v20 != v13)
+          if (*v19 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s%@", "com.apple.kvs.store-did-change.", *(*(&v19 + 1) + 8 * v14)];
+          v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s%@", "com.apple.kvs.store-did-change.", *(*(&v18 + 1) + 8 * v14)];
           v16 = CFNotificationCenterGetDarwinNotifyCenter();
           CFNotificationCenterPostNotification(v16, v15, 0, 0, 0);
 
@@ -210,7 +211,7 @@ void __39__SYDSyncManager_didEndFetchingChanges__block_invoke(uint64_t a1)
         }
 
         while (v12 != v14);
-        v12 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v12);
@@ -219,17 +220,14 @@ void __39__SYDSyncManager_didEndFetchingChanges__block_invoke(uint64_t a1)
     v17 = [*v3 storeIdentifiersWithChangedValuesDuringFetchChanges];
     [v17 removeAllObjects];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
-void __39__SYDSyncManager_didEndFetchingChanges__block_invoke_cold_1(uint64_t a1)
+void __39__SYDSyncManager_didEndFetchingChanges__block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_8_0(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_8_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 - (SYDSyncManagerDelegate)delegate
@@ -472,7 +470,7 @@ LABEL_3:
 
 - (BOOL)validateKey:(id)key error:(id *)error
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   keyCopy = key;
   v6 = keyCopy;
   if (keyCopy && [keyCopy length])
@@ -484,15 +482,14 @@ LABEL_3:
   {
     v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid key parameter provided"];
     v8 = MEMORY[0x277CCA9B8];
-    v12 = *MEMORY[0x277CCA450];
-    v13[0] = v7;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    v11 = *MEMORY[0x277CCA450];
+    v12[0] = v7;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
     *error = [v8 errorWithDomain:@"SyncedDefaults" code:2222 userInfo:v9];
 
     LOBYTE(error) = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return error;
 }
 
@@ -585,7 +582,7 @@ LABEL_3:
 
 void __59__SYDSyncManager_objectForKey_inStoreWithIdentifier_error___block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) coreDataStore];
   v3 = *(a1 + 40);
   v4 = *(a1 + 48);
@@ -603,11 +600,11 @@ void __59__SYDSyncManager_objectForKey_inStoreWithIdentifier_error___block_invok
       v9 = *(a1 + 48);
       v10 = *(*(*(a1 + 56) + 8) + 40);
       *buf = 138478339;
-      v20 = v8;
-      v21 = 2112;
-      v22 = v9;
-      v23 = 2112;
-      v24 = v10;
+      v19 = v8;
+      v20 = 2112;
+      v21 = v9;
+      v22 = 2112;
+      v23 = v10;
       _os_log_error_impl(&dword_26C384000, v7, OS_LOG_TYPE_ERROR, "Error fetching object for key %{private}@ in %@: %@", buf, 0x20u);
     }
   }
@@ -624,32 +621,104 @@ void __59__SYDSyncManager_objectForKey_inStoreWithIdentifier_error___block_invok
     {
       if (*(*(*(a1 + 64) + 8) + 40))
       {
-        v15 = &stru_287CEF040;
+        v14 = &stru_287CEF040;
       }
 
       else
       {
-        v15 = @"(null) ";
+        v14 = @"(null) ";
       }
 
-      v16 = *(a1 + 40);
-      v17 = *(a1 + 48);
+      v15 = *(a1 + 40);
+      v16 = *(a1 + 48);
       *buf = 138412803;
-      v20 = v15;
-      v21 = 2113;
-      v22 = v16;
-      v23 = 2112;
-      v24 = v17;
+      v19 = v14;
+      v20 = 2113;
+      v21 = v15;
+      v22 = 2112;
+      v23 = v16;
       _os_log_debug_impl(&dword_26C384000, v7, OS_LOG_TYPE_DEBUG, "Fetched %@object for key %{private}@ in %@", buf, 0x20u);
     }
   }
+}
 
-  v14 = *MEMORY[0x277D85DE8];
+- (BOOL)setObject:(id)object forKey:(id)key inStoreWithIdentifier:(id)identifier excludeFromChangeTracking:(BOOL)tracking enforceQuota:(BOOL)quota didChangeValue:(BOOL *)value error:(id *)error
+{
+  trackingCopy = tracking;
+  objectCopy = object;
+  keyCopy = key;
+  identifierCopy = identifier;
+  if (![(SYDSyncManager *)self validateKey:keyCopy error:error])
+  {
+    goto LABEL_11;
+  }
+
+  if (!objectCopy)
+  {
+    v19 = [(SYDSyncManager *)self removeObjectForKey:keyCopy inStoreWithIdentifier:identifierCopy excludeFromChangeTracking:trackingCopy didRemoveValue:value error:error];
+    goto LABEL_12;
+  }
+
+  if (([MEMORY[0x277CCAC58] propertyList:objectCopy isValidForFormat:200] & 1) == 0)
+  {
+    v20 = MEMORY[0x277CBEAD8];
+    v21 = *MEMORY[0x277CBE660];
+    v22 = objc_opt_class();
+    v23 = NSStringFromClass(v22);
+    [v20 raise:v21 format:{@"Attempted to insert invalid value '%@' of class '%@'", objectCopy, v23}];
+
+LABEL_11:
+    v19 = 0;
+    goto LABEL_12;
+  }
+
+  v40 = 0;
+  v41 = &v40;
+  v42 = 0x2020000000;
+  v43 = 0;
+  v34 = 0;
+  v35 = &v34;
+  v36 = 0x3032000000;
+  v37 = __Block_byref_object_copy__2;
+  v38 = __Block_byref_object_dispose__2;
+  v39 = 0;
+  queue = [(SYDSyncManager *)self queue];
+  block[0] = MEMORY[0x277D85DD0];
+  block[1] = 3221225472;
+  block[2] = __117__SYDSyncManager_setObject_forKey_inStoreWithIdentifier_excludeFromChangeTracking_enforceQuota_didChangeValue_error___block_invoke;
+  block[3] = &unk_279D2FA30;
+  v26 = objectCopy;
+  v27 = keyCopy;
+  v28 = identifierCopy;
+  selfCopy = self;
+  v30 = &v34;
+  v31 = &v40;
+  v32 = trackingCopy;
+  quotaCopy = quota;
+  dispatch_sync(queue, block);
+
+  if (error)
+  {
+    *error = v35[5];
+  }
+
+  if (value)
+  {
+    *value = *(v41 + 24);
+  }
+
+  v19 = v35[5] == 0;
+
+  _Block_object_dispose(&v34, 8);
+  _Block_object_dispose(&v40, 8);
+LABEL_12:
+
+  return v19;
 }
 
 void __117__SYDSyncManager_setObject_forKey_inStoreWithIdentifier_excludeFromChangeTracking_enforceQuota_didChangeValue_error___block_invoke(uint64_t a1)
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   v2 = SYDGetCloudKitLog();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
@@ -658,23 +727,22 @@ void __117__SYDSyncManager_setObject_forKey_inStoreWithIdentifier_excludeFromCha
 
   v3 = [*(a1 + 56) coreDataStore];
   v4 = a1 + 64;
-  v6 = (a1 + 40);
   v5 = *(a1 + 40);
-  v8 = (a1 + 48);
-  v7 = *(a1 + 48);
-  v9 = *(*(a1 + 64) + 8);
-  obj = *(v9 + 40);
-  v10 = [v3 keyValueForKey:v5 inStoreWithIdentifier:v7 createIfNecessary:1 error:&obj];
-  objc_storeStrong((v9 + 40), obj);
+  v7 = (a1 + 48);
+  v6 = *(a1 + 48);
+  v8 = *(*(a1 + 64) + 8);
+  obj = *(v8 + 40);
+  v9 = [v3 keyValueForKey:v5 inStoreWithIdentifier:v6 createIfNecessary:1 error:&obj];
+  objc_storeStrong((v8 + 40), obj);
 
-  v11 = [v10 value];
-  v12 = v11;
+  v10 = [v9 value];
+  v11 = v10;
   if (*(*(*(a1 + 64) + 8) + 40))
   {
-    v13 = SYDGetCloudKitLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v12 = SYDGetCloudKitLog();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      __117__SYDSyncManager_setObject_forKey_inStoreWithIdentifier_excludeFromChangeTracking_enforceQuota_didChangeValue_error___block_invoke_cold_2(v4);
+      __117__SYDSyncManager_setObject_forKey_inStoreWithIdentifier_excludeFromChangeTracking_enforceQuota_didChangeValue_error___block_invoke_cold_2();
     }
 
 LABEL_6:
@@ -682,23 +750,23 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  if (!v10)
+  if (!v9)
   {
-    v13 = SYDGetCloudKitLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v12 = SYDGetCloudKitLog();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      __117__SYDSyncManager_setObject_forKey_inStoreWithIdentifier_excludeFromChangeTracking_enforceQuota_didChangeValue_error___block_invoke_cold_10(v6);
+      __117__SYDSyncManager_setObject_forKey_inStoreWithIdentifier_excludeFromChangeTracking_enforceQuota_didChangeValue_error___block_invoke_cold_10();
     }
 
     goto LABEL_6;
   }
 
-  if (v11 && *(a1 + 32) && [v11 isEqual:?])
+  if (v10 && *(a1 + 32) && [v10 isEqual:?])
   {
-    v13 = SYDGetCloudKitLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+    v12 = SYDGetCloudKitLog();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
-      __117__SYDSyncManager_setObject_forKey_inStoreWithIdentifier_excludeFromChangeTracking_enforceQuota_didChangeValue_error___block_invoke_cold_3(v6);
+      __117__SYDSyncManager_setObject_forKey_inStoreWithIdentifier_excludeFromChangeTracking_enforceQuota_didChangeValue_error___block_invoke_cold_3();
     }
 
     goto LABEL_6;
@@ -706,99 +774,99 @@ LABEL_6:
 
   if (!*(a1 + 32))
   {
-    v13 = SYDGetCloudKitLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+    v12 = SYDGetCloudKitLog();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
-      __117__SYDSyncManager_setObject_forKey_inStoreWithIdentifier_excludeFromChangeTracking_enforceQuota_didChangeValue_error___block_invoke_cold_9(v6);
+      __117__SYDSyncManager_setObject_forKey_inStoreWithIdentifier_excludeFromChangeTracking_enforceQuota_didChangeValue_error___block_invoke_cold_9();
     }
 
     goto LABEL_6;
   }
 
   *(*(*(a1 + 72) + 8) + 24) = 1;
-  v15 = *(a1 + 32);
-  v16 = [MEMORY[0x277CBEAA8] date];
-  [v10 setValue:v15 withModificationDate:v16];
+  v13 = *(a1 + 32);
+  v14 = [MEMORY[0x277CBEAA8] date];
+  [v9 setValue:v13 withModificationDate:v14];
 
-  v17 = [v10 recordName];
+  v15 = [v9 recordName];
 
-  if (v17)
+  if (v15)
   {
     goto LABEL_16;
   }
 
-  v19 = [*(a1 + 56) newRecordNameForKey:*(a1 + 40)];
-  [v10 setRecordName:v19];
+  v17 = [*(a1 + 56) newRecordNameForKey:*(a1 + 40)];
+  [v9 setRecordName:v17];
 
-  v20 = SYDGetCloudKitLog();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+  v18 = SYDGetCloudKitLog();
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
   {
-    v47 = [v10 recordName];
-    v48 = *v6;
-    v49 = *v8;
+    v44 = [v9 recordName];
+    v45 = *(a1 + 40);
+    v46 = *v7;
     *buf = 138412803;
-    v56 = v47;
-    v57 = 2113;
-    v58 = v48;
-    v59 = 2112;
-    v60 = v49;
-    _os_log_debug_impl(&dword_26C384000, v20, OS_LOG_TYPE_DEBUG, "Assigned new record name (%@) for (%{private}@) in (%@)", buf, 0x20u);
+    v53 = v44;
+    v54 = 2113;
+    v55 = v45;
+    v56 = 2112;
+    v57 = v46;
+    _os_log_debug_impl(&dword_26C384000, v18, OS_LOG_TYPE_DEBUG, "Assigned new record name (%@) for (%{private}@) in (%@)", buf, 0x20u);
   }
 
-  v21 = [*(a1 + 56) coreDataStore];
-  v22 = *(a1 + 48);
-  v23 = *(*(a1 + 64) + 8);
-  v51 = *(v23 + 40);
-  v24 = [v21 numberOfKeyValuesInStoreWithIdentifier:v22 error:&v51];
-  objc_storeStrong((v23 + 40), v51);
+  v19 = [*(a1 + 56) coreDataStore];
+  v20 = *(a1 + 48);
+  v21 = *(*(a1 + 64) + 8);
+  v48 = *(v21 + 40);
+  v22 = [v19 numberOfKeyValuesInStoreWithIdentifier:v20 error:&v48];
+  objc_storeStrong((v21 + 40), v48);
 
-  v25 = *(*(*(a1 + 64) + 8) + 40);
-  v18 = v25 == 0;
-  if (v25)
+  v23 = *(*(*(a1 + 64) + 8) + 40);
+  v16 = v23 == 0;
+  if (v23)
   {
-    v26 = SYDGetCloudKitLog();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    v24 = SYDGetCloudKitLog();
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       __117__SYDSyncManager_setObject_forKey_inStoreWithIdentifier_excludeFromChangeTracking_enforceQuota_didChangeValue_error___block_invoke_cold_4();
     }
 
-    v27 = *(*v4 + 8);
-    v28 = *(v27 + 40);
-    *(v27 + 40) = 0;
+    v25 = *(*v4 + 8);
+    v26 = *(v25 + 40);
+    *(v25 + 40) = 0;
   }
 
   else
   {
-    if (v24)
+    if (v22)
     {
 LABEL_16:
-      v18 = 0;
+      v16 = 0;
       goto LABEL_28;
     }
 
-    v28 = SYDGetCloudKitLog();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+    v26 = SYDGetCloudKitLog();
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
     {
-      __117__SYDSyncManager_setObject_forKey_inStoreWithIdentifier_excludeFromChangeTracking_enforceQuota_didChangeValue_error___block_invoke_cold_5((a1 + 48));
+      __117__SYDSyncManager_setObject_forKey_inStoreWithIdentifier_excludeFromChangeTracking_enforceQuota_didChangeValue_error___block_invoke_cold_5();
     }
   }
 
 LABEL_28:
-  v29 = [*(a1 + 56) coreDataStore];
-  v30 = *(a1 + 48);
-  v31 = *(a1 + 80);
-  v32 = *(a1 + 81);
-  v33 = *(*(a1 + 64) + 8);
-  v50 = *(v33 + 40);
-  v34 = [v29 saveKeyValue:v10 inStoreWithIdentifier:v30 excludeFromChangeTracking:v31 enforceQuota:v32 error:&v50];
-  objc_storeStrong((v33 + 40), v50);
+  v27 = [*(a1 + 56) coreDataStore];
+  v28 = *(a1 + 48);
+  v29 = *(a1 + 80);
+  v30 = *(a1 + 81);
+  v31 = *(*(a1 + 64) + 8);
+  v47 = *(v31 + 40);
+  v32 = [v27 saveKeyValue:v9 inStoreWithIdentifier:v28 excludeFromChangeTracking:v29 enforceQuota:v30 error:&v47];
+  objc_storeStrong((v31 + 40), v47);
 
-  if (v34)
+  if (v32)
   {
     if (([*(a1 + 56) shouldSyncStoreWithIdentifier:*(a1 + 48)] & 1) == 0)
     {
-      v13 = SYDGetCloudKitLog();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+      v12 = SYDGetCloudKitLog();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
         __117__SYDSyncManager_setObject_forKey_inStoreWithIdentifier_excludeFromChangeTracking_enforceQuota_didChangeValue_error___block_invoke_cold_7();
       }
@@ -806,11 +874,11 @@ LABEL_28:
       goto LABEL_6;
     }
 
-    v35 = [v10 recordID];
+    v33 = [v9 recordID];
     if ([*(a1 + 56) alwaysSaveRecordZones])
     {
-      v36 = SYDGetCloudKitLog();
-      if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
+      v34 = SYDGetCloudKitLog();
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
       {
         __117__SYDSyncManager_setObject_forKey_inStoreWithIdentifier_excludeFromChangeTracking_enforceQuota_didChangeValue_error___block_invoke_cold_8();
       }
@@ -821,43 +889,39 @@ LABEL_28:
       }
     }
 
-    else if (!v18)
+    else if (!v16)
     {
 LABEL_45:
-      v44 = *(a1 + 56);
-      v53 = v35;
-      v45 = [MEMORY[0x277CBEA60] arrayWithObjects:&v53 count:1];
-      [v44 addKeyValueRecordIDsToSave:v45 recordIDsToDelete:0 storeIdentifier:*(a1 + 48)];
+      v42 = *(a1 + 56);
+      v50 = v33;
+      v43 = [MEMORY[0x277CBEA60] arrayWithObjects:&v50 count:1];
+      [v42 addKeyValueRecordIDsToSave:v43 recordIDsToDelete:0 storeIdentifier:*(a1 + 48)];
 
-      v46 = *(a1 + 40);
-      [SYDUserNotifications showUserNotificationIfEnabledForStoreIdentifier:*(a1 + 48) format:@"Set %@ = %@", v46, *(a1 + 32)];
-
+      [SYDUserNotifications showUserNotificationIfEnabledForStoreIdentifier:*(a1 + 48) format:@"Set %@ = %@", *(a1 + 40), *(a1 + 32)];
       goto LABEL_7;
     }
 
-    v38 = objc_alloc(MEMORY[0x277CBC5E8]);
-    v39 = [v35 zoneID];
-    v40 = [v38 initWithZoneID:v39];
+    v36 = objc_alloc(MEMORY[0x277CBC5E8]);
+    v37 = [v33 zoneID];
+    v38 = [v36 initWithZoneID:v37];
 
-    v41 = *(a1 + 56);
-    v42 = [objc_alloc(MEMORY[0x277CBC728]) initWithZone:v40];
-    v54 = v42;
-    v43 = [MEMORY[0x277CBEA60] arrayWithObjects:&v54 count:1];
-    [v41 addPendingDatabaseChanges:v43 storeIdentifier:*(a1 + 48)];
+    v39 = *(a1 + 56);
+    v40 = [objc_alloc(MEMORY[0x277CBC728]) initWithZone:v38];
+    v51 = v40;
+    v41 = [MEMORY[0x277CBEA60] arrayWithObjects:&v51 count:1];
+    [v39 addPendingDatabaseChanges:v41 storeIdentifier:*(a1 + 48)];
 
     goto LABEL_45;
   }
 
-  v37 = SYDGetCloudKitLog();
-  if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+  v35 = SYDGetCloudKitLog();
+  if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
   {
-    __117__SYDSyncManager_setObject_forKey_inStoreWithIdentifier_excludeFromChangeTracking_enforceQuota_didChangeValue_error___block_invoke_cold_6(v4);
+    __117__SYDSyncManager_setObject_forKey_inStoreWithIdentifier_excludeFromChangeTracking_enforceQuota_didChangeValue_error___block_invoke_cold_6();
   }
 
-  [SYDUserNotifications showUserNotificationIfEnabledForStoreIdentifier:*v8 format:@"Failed to set value: %@", *(*(*v4 + 8) + 40)];
+  [SYDUserNotifications showUserNotificationIfEnabledForStoreIdentifier:*v7 format:@"Failed to set value: %@", *(*(*v4 + 8) + 40)];
 LABEL_7:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)removeObjectForKey:(id)key inStoreWithIdentifier:(id)identifier excludeFromChangeTracking:(BOOL)tracking didRemoveValue:(BOOL *)value error:(id *)error
@@ -915,90 +979,89 @@ LABEL_7:
 
 void __106__SYDSyncManager_removeObjectForKey_inStoreWithIdentifier_excludeFromChangeTracking_didRemoveValue_error___block_invoke(uint64_t a1)
 {
-  v32[1] = *MEMORY[0x277D85DE8];
+  v30[1] = *MEMORY[0x277D85DE8];
   v2 = SYDGetCloudKitLog();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    __106__SYDSyncManager_removeObjectForKey_inStoreWithIdentifier_excludeFromChangeTracking_didRemoveValue_error___block_invoke_cold_1(a1);
+    __106__SYDSyncManager_removeObjectForKey_inStoreWithIdentifier_excludeFromChangeTracking_didRemoveValue_error___block_invoke_cold_1();
   }
 
   v3 = [*(a1 + 48) coreDataStore];
-  v4 = a1 + 56;
-  v5 = *(a1 + 32);
-  v6 = *(a1 + 40);
-  v7 = *(*(a1 + 56) + 8);
-  obj = *(v7 + 40);
-  v8 = [v3 keyValueForKey:v5 inStoreWithIdentifier:v6 createIfNecessary:0 error:&obj];
-  objc_storeStrong((v7 + 40), obj);
+  v4 = *(a1 + 32);
+  v5 = *(a1 + 40);
+  v6 = *(*(a1 + 56) + 8);
+  obj = *(v6 + 40);
+  v7 = [v3 keyValueForKey:v4 inStoreWithIdentifier:v5 createIfNecessary:0 error:&obj];
+  objc_storeStrong((v6 + 40), obj);
 
   if (*(*(*(a1 + 56) + 8) + 40))
   {
-    v9 = SYDGetCloudKitLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v8 = SYDGetCloudKitLog();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __106__SYDSyncManager_removeObjectForKey_inStoreWithIdentifier_excludeFromChangeTracking_didRemoveValue_error___block_invoke_cold_2(a1 + 56);
+      __106__SYDSyncManager_removeObjectForKey_inStoreWithIdentifier_excludeFromChangeTracking_didRemoveValue_error___block_invoke_cold_2();
     }
   }
 
-  else if (v8)
+  else if (v7)
   {
     *(*(*(a1 + 64) + 8) + 24) = 1;
-    v11 = [v8 recordName];
+    v9 = [v7 recordName];
 
-    if (!v11)
+    if (!v9)
     {
       if ([*(a1 + 48) useUUIDRecordNames])
       {
         [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE658] format:@"Trying to delete a key-value that never had a record name in a store that uses UUID record names"];
       }
 
-      v12 = [*(a1 + 48) newRecordNameForKey:*(a1 + 32)];
-      [v8 setRecordName:v12];
+      v10 = [*(a1 + 48) newRecordNameForKey:*(a1 + 32)];
+      [v7 setRecordName:v10];
     }
 
-    v13 = [*(a1 + 48) shouldSyncStoreWithIdentifier:*(a1 + 40)];
-    v14 = *(a1 + 48);
-    if (v13)
+    v11 = [*(a1 + 48) shouldSyncStoreWithIdentifier:*(a1 + 40)];
+    v12 = *(a1 + 48);
+    if (v11)
     {
-      v15 = [v8 recordID];
-      v32[0] = v15;
-      v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:1];
-      [v14 addKeyValueRecordIDsToSave:0 recordIDsToDelete:v16 storeIdentifier:*(a1 + 40)];
+      v13 = [v7 recordID];
+      v30[0] = v13;
+      v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:1];
+      [v12 addKeyValueRecordIDsToSave:0 recordIDsToDelete:v14 storeIdentifier:*(a1 + 40)];
 
-      [v8 markForDeletion];
-      v17 = [*(a1 + 48) coreDataStore];
-      v18 = *(a1 + 40);
-      v19 = *(a1 + 72);
-      v20 = *(*(a1 + 56) + 8);
-      v27 = *(v20 + 40);
-      LOBYTE(v15) = [v17 saveKeyValue:v8 inStoreWithIdentifier:v18 excludeFromChangeTracking:v19 enforceQuota:0 error:&v27];
-      objc_storeStrong((v20 + 40), v27);
+      [v7 markForDeletion];
+      v15 = [*(a1 + 48) coreDataStore];
+      v16 = *(a1 + 40);
+      v17 = *(a1 + 72);
+      v18 = *(*(a1 + 56) + 8);
+      v25 = *(v18 + 40);
+      LOBYTE(v13) = [v15 saveKeyValue:v7 inStoreWithIdentifier:v16 excludeFromChangeTracking:v17 enforceQuota:0 error:&v25];
+      objc_storeStrong((v18 + 40), v25);
 
-      if (v15)
+      if (v13)
       {
         goto LABEL_7;
       }
 
-      v9 = SYDGetCloudKitLog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v8 = SYDGetCloudKitLog();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        __106__SYDSyncManager_removeObjectForKey_inStoreWithIdentifier_excludeFromChangeTracking_didRemoveValue_error___block_invoke_cold_4(v4);
+        __106__SYDSyncManager_removeObjectForKey_inStoreWithIdentifier_excludeFromChangeTracking_didRemoveValue_error___block_invoke_cold_4();
       }
     }
 
     else
     {
-      v22 = [*(a1 + 48) coreDataStore];
-      v23 = *(a1 + 32);
-      v24 = *(a1 + 40);
-      v25 = *(a1 + 72);
-      v26 = *(*(a1 + 56) + 8);
-      v28 = *(v26 + 40);
-      [v22 removeKeyValueForKey:v23 inStoreWithIdentifier:v24 excludeFromChangeTracking:v25 error:&v28];
-      objc_storeStrong((v26 + 40), v28);
+      v20 = [*(a1 + 48) coreDataStore];
+      v21 = *(a1 + 32);
+      v22 = *(a1 + 40);
+      v23 = *(a1 + 72);
+      v24 = *(*(a1 + 56) + 8);
+      v26 = *(v24 + 40);
+      [v20 removeKeyValueForKey:v21 inStoreWithIdentifier:v22 excludeFromChangeTracking:v23 error:&v26];
+      objc_storeStrong((v24 + 40), v26);
 
-      v9 = SYDGetCloudKitLog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      v8 = SYDGetCloudKitLog();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
         __106__SYDSyncManager_removeObjectForKey_inStoreWithIdentifier_excludeFromChangeTracking_didRemoveValue_error___block_invoke_cold_3();
       }
@@ -1007,18 +1070,17 @@ void __106__SYDSyncManager_removeObjectForKey_inStoreWithIdentifier_excludeFromC
 
   else
   {
-    v9 = SYDGetCloudKitLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v8 = SYDGetCloudKitLog();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v21 = *(a1 + 32);
+      v19 = *(a1 + 32);
       *buf = 138477827;
-      v31 = v21;
-      _os_log_impl(&dword_26C384000, v9, OS_LOG_TYPE_INFO, "Trying to remove object for a key that doesn't exist (%{private}@)", buf, 0xCu);
+      v29 = v19;
+      _os_log_impl(&dword_26C384000, v8, OS_LOG_TYPE_INFO, "Trying to remove object for a key that doesn't exist (%{private}@)", buf, 0xCu);
     }
   }
 
 LABEL_7:
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)synchronizeStoreWithIdentifier:(id)identifier completionHandler:(id)handler
@@ -1250,13 +1312,13 @@ void __60__SYDSyncManager_synchronizeAllStoresWithCompletionHandler___block_invo
 
 - (void)savePendingChangesToCloudForStoreIdentifiers:(id)identifiers group:(id)group completionHandler:(id)handler
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   groupCopy = group;
   handlerCopy = handler;
-  v46 = 0;
-  v11 = [(SYDSyncManager *)self engineWithError:&v46];
-  v12 = v46;
+  v45 = 0;
+  v11 = [(SYDSyncManager *)self engineWithError:&v45];
+  v12 = v45;
   v13 = v12;
   if (v11 && !v12)
   {
@@ -1271,37 +1333,37 @@ void __60__SYDSyncManager_synchronizeAllStoresWithCompletionHandler___block_invo
       }
 
       v17 = [objc_alloc(MEMORY[0x277CBEB58]) initWithCapacity:{objc_msgSend(identifiersCopy, "count")}];
+      v38 = 0u;
       v39 = 0u;
       v40 = 0u;
       v41 = 0u;
-      v42 = 0u;
       v15 = identifiersCopy;
-      v18 = [v15 countByEnumeratingWithState:&v39 objects:v47 count:16];
+      v18 = [v15 countByEnumeratingWithState:&v38 objects:v46 count:16];
       if (v18)
       {
         v19 = v18;
-        v31 = groupCopy;
-        v32 = identifiersCopy;
-        v20 = *v40;
+        v30 = groupCopy;
+        v31 = identifiersCopy;
+        v20 = *v39;
         do
         {
           for (i = 0; i != v19; ++i)
           {
-            if (*v40 != v20)
+            if (*v39 != v20)
             {
               objc_enumerationMutation(v15);
             }
 
-            v22 = SYDStoreZoneID(*(*(&v39 + 1) + 8 * i));
+            v22 = SYDStoreZoneID(*(*(&v38 + 1) + 8 * i));
             [v17 addObject:v22];
           }
 
-          v19 = [v15 countByEnumeratingWithState:&v39 objects:v47 count:16];
+          v19 = [v15 countByEnumeratingWithState:&v38 objects:v46 count:16];
         }
 
         while (v19);
-        groupCopy = v31;
-        identifiersCopy = v32;
+        groupCopy = v30;
+        identifiersCopy = v31;
       }
     }
 
@@ -1315,27 +1377,27 @@ void __60__SYDSyncManager_synchronizeAllStoresWithCompletionHandler___block_invo
       v17 = 0;
     }
 
-    v37[0] = MEMORY[0x277D85DD0];
-    v37[1] = 3221225472;
-    v37[2] = __87__SYDSyncManager_savePendingChangesToCloudForStoreIdentifiers_group_completionHandler___block_invoke_101;
-    v37[3] = &unk_279D2FB70;
-    v37[4] = self;
-    v38 = handlerCopy;
-    v25 = MEMORY[0x26D6A00B0](v37);
+    v36[0] = MEMORY[0x277D85DD0];
+    v36[1] = 3221225472;
+    v36[2] = __87__SYDSyncManager_savePendingChangesToCloudForStoreIdentifiers_group_completionHandler___block_invoke_101;
+    v36[3] = &unk_279D2FB70;
+    v36[4] = self;
+    v37 = handlerCopy;
+    v25 = MEMORY[0x26D6A00B0](v36);
     v26 = [objc_alloc(MEMORY[0x277CBC740]) initWithZoneIDs:v17];
     v27 = [objc_alloc(MEMORY[0x277CBC738]) initWithScope:v26];
     [v27 setOperationGroup:groupCopy];
-    v33[0] = MEMORY[0x277D85DD0];
-    v33[1] = 3221225472;
-    v33[2] = __87__SYDSyncManager_savePendingChangesToCloudForStoreIdentifiers_group_completionHandler___block_invoke_3;
-    v33[3] = &unk_279D2FBC0;
-    v33[4] = self;
-    v34 = v11;
-    v35 = v27;
-    v36 = v25;
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = __87__SYDSyncManager_savePendingChangesToCloudForStoreIdentifiers_group_completionHandler___block_invoke_3;
+    v32[3] = &unk_279D2FBC0;
+    v32[4] = self;
+    v33 = v11;
+    v34 = v27;
+    v35 = v25;
     v28 = v25;
     v29 = v27;
-    [v34 sendChangesWithOptions:v29 completionHandler:v33];
+    [v33 sendChangesWithOptions:v29 completionHandler:v32];
 
     goto LABEL_22;
   }
@@ -1353,15 +1415,13 @@ void __60__SYDSyncManager_synchronizeAllStoresWithCompletionHandler___block_invo
     block[1] = 3221225472;
     block[2] = __87__SYDSyncManager_savePendingChangesToCloudForStoreIdentifiers_group_completionHandler___block_invoke;
     block[3] = &unk_279D2FB20;
-    v45 = handlerCopy;
-    v44 = v13;
+    v44 = handlerCopy;
+    v43 = v13;
     dispatch_async(callbackQueue, block);
 
-    v17 = v45;
+    v17 = v44;
 LABEL_22:
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void __87__SYDSyncManager_savePendingChangesToCloudForStoreIdentifiers_group_completionHandler___block_invoke_101(uint64_t a1, void *a2)
@@ -1411,7 +1471,7 @@ void __87__SYDSyncManager_savePendingChangesToCloudForStoreIdentifiers_group_com
 
 void __87__SYDSyncManager_savePendingChangesToCloudForStoreIdentifiers_group_completionHandler___block_invoke_3(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -1444,32 +1504,30 @@ void __87__SYDSyncManager_savePendingChangesToCloudForStoreIdentifiers_group_com
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v14 = v3;
+      v13 = v3;
       _os_log_impl(&dword_26C384000, v6, OS_LOG_TYPE_INFO, "Will retry after error modifying pending records: %@", buf, 0xCu);
     }
 
     v8 = *(a1 + 40);
     v9 = *(a1 + 48);
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __87__SYDSyncManager_savePendingChangesToCloudForStoreIdentifiers_group_completionHandler___block_invoke_105;
-    v11[3] = &unk_279D2FB98;
-    v12 = *(a1 + 56);
-    [v8 sendChangesWithOptions:v9 completionHandler:v11];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __87__SYDSyncManager_savePendingChangesToCloudForStoreIdentifiers_group_completionHandler___block_invoke_105;
+    v10[3] = &unk_279D2FB98;
+    v11 = *(a1 + 56);
+    [v8 sendChangesWithOptions:v9 completionHandler:v10];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchChangesFromCloudForStoreIdentifiers:(id)identifiers group:(id)group completionHandler:(id)handler
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   groupCopy = group;
   handlerCopy = handler;
-  v39 = 0;
-  v11 = [(SYDSyncManager *)self engineWithError:&v39];
-  v12 = v39;
+  v38 = 0;
+  v11 = [(SYDSyncManager *)self engineWithError:&v38];
+  v12 = v38;
   v13 = v12;
   if (v11 && !v12)
   {
@@ -1484,37 +1542,37 @@ void __87__SYDSyncManager_savePendingChangesToCloudForStoreIdentifiers_group_com
       }
 
       v17 = [objc_alloc(MEMORY[0x277CBEB58]) initWithCapacity:{objc_msgSend(identifiersCopy, "count")}];
+      v31 = 0u;
       v32 = 0u;
       v33 = 0u;
       v34 = 0u;
-      v35 = 0u;
       v15 = identifiersCopy;
-      v18 = [v15 countByEnumeratingWithState:&v32 objects:v40 count:16];
+      v18 = [v15 countByEnumeratingWithState:&v31 objects:v39 count:16];
       if (v18)
       {
         v19 = v18;
-        v28 = groupCopy;
-        v29 = identifiersCopy;
-        v20 = *v33;
+        v27 = groupCopy;
+        v28 = identifiersCopy;
+        v20 = *v32;
         do
         {
           for (i = 0; i != v19; ++i)
           {
-            if (*v33 != v20)
+            if (*v32 != v20)
             {
               objc_enumerationMutation(v15);
             }
 
-            v22 = SYDStoreZoneID(*(*(&v32 + 1) + 8 * i));
+            v22 = SYDStoreZoneID(*(*(&v31 + 1) + 8 * i));
             [v17 addObject:v22];
           }
 
-          v19 = [v15 countByEnumeratingWithState:&v32 objects:v40 count:16];
+          v19 = [v15 countByEnumeratingWithState:&v31 objects:v39 count:16];
         }
 
         while (v19);
-        groupCopy = v28;
-        identifiersCopy = v29;
+        groupCopy = v27;
+        identifiersCopy = v28;
       }
     }
 
@@ -1531,13 +1589,13 @@ void __87__SYDSyncManager_savePendingChangesToCloudForStoreIdentifiers_group_com
     v25 = [objc_alloc(MEMORY[0x277CBC700]) initWithZoneIDs:v17];
     v26 = [objc_alloc(MEMORY[0x277CBC6F8]) initWithScope:v25];
     [v26 setOperationGroup:groupCopy];
-    v30[0] = MEMORY[0x277D85DD0];
-    v30[1] = 3221225472;
-    v30[2] = __83__SYDSyncManager_fetchChangesFromCloudForStoreIdentifiers_group_completionHandler___block_invoke_108;
-    v30[3] = &unk_279D2F930;
-    v30[4] = self;
-    v31 = handlerCopy;
-    [v11 fetchChangesWithOptions:v26 completionHandler:v30];
+    v29[0] = MEMORY[0x277D85DD0];
+    v29[1] = 3221225472;
+    v29[2] = __83__SYDSyncManager_fetchChangesFromCloudForStoreIdentifiers_group_completionHandler___block_invoke_108;
+    v29[3] = &unk_279D2F930;
+    v29[4] = self;
+    v30 = handlerCopy;
+    [v11 fetchChangesWithOptions:v26 completionHandler:v29];
 
     goto LABEL_22;
   }
@@ -1555,15 +1613,13 @@ void __87__SYDSyncManager_savePendingChangesToCloudForStoreIdentifiers_group_com
     block[1] = 3221225472;
     block[2] = __83__SYDSyncManager_fetchChangesFromCloudForStoreIdentifiers_group_completionHandler___block_invoke;
     block[3] = &unk_279D2FB20;
-    v38 = handlerCopy;
-    v37 = v13;
+    v37 = handlerCopy;
+    v36 = v13;
     dispatch_async(callbackQueue, block);
 
-    v17 = v38;
+    v17 = v37;
 LABEL_22:
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __83__SYDSyncManager_fetchChangesFromCloudForStoreIdentifiers_group_completionHandler___block_invoke_108(uint64_t a1, void *a2)
@@ -1571,8 +1627,8 @@ void __83__SYDSyncManager_fetchChangesFromCloudForStoreIdentifiers_group_complet
   v3 = a2;
   if (!v3)
   {
-    v8 = SYDGetCloudKitLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v7 = SYDGetCloudKitLog();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       __83__SYDSyncManager_fetchChangesFromCloudForStoreIdentifiers_group_completionHandler___block_invoke_108_cold_3();
     }
@@ -1581,24 +1637,23 @@ void __83__SYDSyncManager_fetchChangesFromCloudForStoreIdentifiers_group_complet
   }
 
   v4 = v3;
-  v5 = *(a1 + 32);
-  v6 = [objc_opt_class() shouldIgnoreFetchError:v4];
-  v7 = SYDGetCloudKitLog();
-  v8 = v7;
-  if (v6)
+  v5 = [objc_opt_class() shouldIgnoreFetchError:v3];
+  v6 = SYDGetCloudKitLog();
+  v7 = v6;
+  if (v5)
   {
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       __83__SYDSyncManager_fetchChangesFromCloudForStoreIdentifiers_group_completionHandler___block_invoke_108_cold_2();
     }
 
-    v8 = v4;
+    v7 = v4;
 LABEL_8:
     v4 = 0;
     goto LABEL_11;
   }
 
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     __83__SYDSyncManager_fetchChangesFromCloudForStoreIdentifiers_group_completionHandler___block_invoke_108_cold_1();
   }
@@ -1607,16 +1662,16 @@ LABEL_11:
 
   if (*(a1 + 40))
   {
-    v9 = [*(a1 + 32) queue];
+    v8 = [*(a1 + 32) queue];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __83__SYDSyncManager_fetchChangesFromCloudForStoreIdentifiers_group_completionHandler___block_invoke_109;
     block[3] = &unk_279D2FB48;
-    v10 = *(a1 + 40);
+    v9 = *(a1 + 40);
     block[4] = *(a1 + 32);
-    v13 = v10;
-    v12 = v4;
-    dispatch_async(v9, block);
+    v12 = v9;
+    v11 = v4;
+    dispatch_async(v8, block);
   }
 }
 
@@ -1673,9 +1728,9 @@ void __83__SYDSyncManager_fetchChangesFromCloudForStoreIdentifiers_group_complet
   return v6 & 1;
 }
 
-uint64_t __41__SYDSyncManager_shouldIgnoreFetchError___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__41__SYDSyncManager_shouldIgnoreFetchError___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
-  result = [*(a1 + 40) shouldIgnoreFetchError:?];
+  result = [*(a1 + 40) shouldIgnoreFetchError:a3];
   if ((result & 1) == 0)
   {
     *(*(*(a1 + 32) + 8) + 24) = 0;
@@ -1726,9 +1781,9 @@ uint64_t __41__SYDSyncManager_shouldIgnoreFetchError___block_invoke(uint64_t a1,
   return v6 & 1;
 }
 
-uint64_t __46__SYDSyncManager_shouldRetryAfterModifyError___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__46__SYDSyncManager_shouldRetryAfterModifyError___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
-  result = [*(a1 + 32) shouldRetryAfterModifyError:?];
+  result = [*(a1 + 32) shouldRetryAfterModifyError:a3];
   if (result)
   {
     *(*(*(a1 + 40) + 8) + 24) = 1;
@@ -1740,7 +1795,7 @@ uint64_t __46__SYDSyncManager_shouldRetryAfterModifyError___block_invoke(uint64_
 
 - (void)deleteDataFromCloudWithCompletionHandler:(id)handler
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   v5 = SYDGetCloudKitLog();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
@@ -1752,21 +1807,19 @@ uint64_t __46__SYDSyncManager_shouldRetryAfterModifyError___block_invoke(uint64_
 
   engine = [(SYDSyncManager *)self engine];
   database = [engine database];
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __59__SYDSyncManager_deleteDataFromCloudWithCompletionHandler___block_invoke;
-  v10[3] = &unk_279D2FC60;
-  v10[4] = self;
-  v11 = handlerCopy;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __59__SYDSyncManager_deleteDataFromCloudWithCompletionHandler___block_invoke;
+  v9[3] = &unk_279D2FC60;
+  v9[4] = self;
+  v10 = handlerCopy;
   v8 = handlerCopy;
-  [database fetchAllRecordZonesWithCompletionHandler:v10];
-
-  v9 = *MEMORY[0x277D85DE8];
+  [database fetchAllRecordZonesWithCompletionHandler:v9];
 }
 
 void __59__SYDSyncManager_deleteDataFromCloudWithCompletionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -1786,29 +1839,29 @@ void __59__SYDSyncManager_deleteDataFromCloudWithCompletionHandler___block_invok
 
   else
   {
-    v25 = a1;
+    v24 = a1;
     v9 = [MEMORY[0x277CBEB18] array];
+    v28 = 0u;
     v29 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v32 = 0u;
-    v26 = v5;
+    v25 = v5;
     v10 = v5;
-    v11 = [v10 countByEnumeratingWithState:&v29 objects:v33 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v28 objects:v32 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v30;
+      v13 = *v29;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v30 != v13)
+          if (*v29 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v29 + 1) + 8 * i);
+          v15 = *(*(&v28 + 1) + 8 * i);
           v16 = [v15 zoneID];
           v17 = [v16 zoneName];
           v18 = [v17 isEqualToString:@"metadata_zone"];
@@ -1820,7 +1873,7 @@ void __59__SYDSyncManager_deleteDataFromCloudWithCompletionHandler___block_invok
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v29 objects:v33 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v28 objects:v32 count:16];
       }
 
       while (v12);
@@ -1830,13 +1883,13 @@ void __59__SYDSyncManager_deleteDataFromCloudWithCompletionHandler___block_invok
     {
       v20 = [objc_alloc(MEMORY[0x277CBC490]) initWithRecordZonesToSave:0 recordZoneIDsToDelete:v9];
       [v20 setMarkZonesAsUserPurged:1];
-      v27[0] = MEMORY[0x277D85DD0];
-      v27[1] = 3221225472;
-      v27[2] = __59__SYDSyncManager_deleteDataFromCloudWithCompletionHandler___block_invoke_115;
-      v27[3] = &unk_279D2FC38;
-      v28 = *(v25 + 40);
-      [v20 setModifyRecordZonesCompletionBlock:v27];
-      v21 = [*(v25 + 32) engine];
+      v26[0] = MEMORY[0x277D85DD0];
+      v26[1] = 3221225472;
+      v26[2] = __59__SYDSyncManager_deleteDataFromCloudWithCompletionHandler___block_invoke_115;
+      v26[3] = &unk_279D2FC38;
+      v27 = *(v24 + 40);
+      [v20 setModifyRecordZonesCompletionBlock:v26];
+      v21 = [*(v24 + 32) engine];
       v22 = [v21 database];
       [v22 addOperation:v20];
 
@@ -1846,17 +1899,15 @@ void __59__SYDSyncManager_deleteDataFromCloudWithCompletionHandler___block_invok
     else
     {
       v6 = 0;
-      v23 = *(v25 + 40);
+      v23 = *(v24 + 40);
       if (v23)
       {
         (*(v23 + 16))(v23, 0);
       }
     }
 
-    v5 = v26;
+    v5 = v25;
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __59__SYDSyncManager_deleteDataFromCloudWithCompletionHandler___block_invoke_115(uint64_t a1, void *a2, void *a3, void *a4)
@@ -1897,6 +1948,13 @@ void __59__SYDSyncManager_deleteDataFromCloudWithCompletionHandler___block_invok
   recordID = [v9 recordID];
 
   return recordID;
+}
+
+- (void)setAutomaticSyncingEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  engine = [(SYDSyncManager *)self engine];
+  [engine setAutomaticSyncingEnabled:enabledCopy];
 }
 
 - (BOOL)isAutomaticSyncingEnabled
@@ -1959,7 +2017,7 @@ void __59__SYDSyncManager_deleteDataFromCloudWithCompletionHandler___block_invok
 
 void __55__SYDSyncManager_markAllKeyValuesAsNeedingToBeUploaded__block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = SYDGetCloudKitLog();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
@@ -1967,9 +2025,9 @@ void __55__SYDSyncManager_markAllKeyValuesAsNeedingToBeUploaded__block_invoke(ui
   }
 
   v3 = [*(a1 + 32) coreDataStore];
-  v16 = 0;
-  v4 = [v3 allStoreIdentifiersWithError:&v16];
-  v5 = v16;
+  v15 = 0;
+  v4 = [v3 allStoreIdentifiersWithError:&v15];
+  v5 = v15;
 
   if (v5)
   {
@@ -1982,43 +2040,41 @@ void __55__SYDSyncManager_markAllKeyValuesAsNeedingToBeUploaded__block_invoke(ui
 
   else
   {
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
     v13 = 0u;
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
     v6 = v4;
-    v7 = [v6 countByEnumeratingWithState:&v12 objects:v17 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v11 objects:v16 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v13;
+      v9 = *v12;
       do
       {
         v10 = 0;
         do
         {
-          if (*v13 != v9)
+          if (*v12 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          [*(a1 + 32) markAllKeyValuesAsNeedingToBeUploadedForStoreWithIdentifier:{*(*(&v12 + 1) + 8 * v10++), v12}];
+          [*(a1 + 32) markAllKeyValuesAsNeedingToBeUploadedForStoreWithIdentifier:{*(*(&v11 + 1) + 8 * v10++), v11}];
         }
 
         while (v8 != v10);
-        v8 = [v6 countByEnumeratingWithState:&v12 objects:v17 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v11 objects:v16 count:16];
       }
 
       while (v8);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)markAllKeyValuesAsNeedingToBeUploadedForStoreWithIdentifier:(id)identifier
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   queue = [(SYDSyncManager *)self queue];
   dispatch_assert_queue_V2(queue);
@@ -2030,9 +2086,9 @@ void __55__SYDSyncManager_markAllKeyValuesAsNeedingToBeUploaded__block_invoke(ui
   }
 
   coreDataStore = [(SYDSyncManager *)self coreDataStore];
-  v28 = 0;
-  v8 = [coreDataStore allRecordNamesInStoreWithIdentifier:identifierCopy error:&v28];
-  v9 = v28;
+  v27 = 0;
+  v8 = [coreDataStore allRecordNamesInStoreWithIdentifier:identifierCopy error:&v27];
+  v9 = v27;
 
   if (v9)
   {
@@ -2048,27 +2104,27 @@ void __55__SYDSyncManager_markAllKeyValuesAsNeedingToBeUploaded__block_invoke(ui
     selfCopy = self;
     v10 = SYDStoreZoneID(identifierCopy);
     v11 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v8, "count")}];
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
-    v23 = v8;
+    v22 = v8;
     v12 = v8;
-    v13 = [v12 countByEnumeratingWithState:&v24 objects:v33 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v23 objects:v32 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v25;
+      v15 = *v24;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v25 != v15)
+          if (*v24 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v17 = *(*(&v24 + 1) + 8 * i);
+          v17 = *(*(&v23 + 1) + 8 * i);
           v18 = [v17 length];
           if ((v18 - 256) > 0xFFFFFFFFFFFFFF00)
           {
@@ -2083,15 +2139,15 @@ void __55__SYDSyncManager_markAllKeyValuesAsNeedingToBeUploaded__block_invoke(ui
             if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
             {
               *buf = 134218242;
-              v30 = v19;
-              v31 = 2112;
-              v32 = identifierCopy;
+              v29 = v19;
+              v30 = 2112;
+              v31 = identifierCopy;
               _os_log_error_impl(&dword_26C384000, v20, OS_LOG_TYPE_ERROR, "Excluding key from cloud storage due to key length of (%ld) UTF-16 code units in store (%@)", buf, 0x16u);
             }
           }
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v24 objects:v33 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v23 objects:v32 count:16];
       }
 
       while (v14);
@@ -2103,10 +2159,8 @@ void __55__SYDSyncManager_markAllKeyValuesAsNeedingToBeUploaded__block_invoke(ui
     }
 
     v9 = 0;
-    v8 = v23;
+    v8 = v22;
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addPendingDatabaseChanges:(id)changes storeIdentifier:(id)identifier
@@ -2132,77 +2186,77 @@ void __55__SYDSyncManager_markAllKeyValuesAsNeedingToBeUploaded__block_invoke(ui
 
 - (void)addKeyValueRecordIDsToSave:(id)save recordIDsToDelete:(id)delete storeIdentifier:(id)identifier
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   saveCopy = save;
   deleteCopy = delete;
   identifierCopy = identifier;
   if ([(SYDSyncManager *)self shouldSyncStoreWithIdentifier:identifierCopy])
   {
-    v47 = identifierCopy;
+    v46 = identifierCopy;
     v11 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(deleteCopy, "count") + objc_msgSend(saveCopy, "count")}];
+    v65 = 0u;
     v66 = 0u;
     v67 = 0u;
     v68 = 0u;
-    v69 = 0u;
-    v49 = saveCopy;
+    v48 = saveCopy;
     v12 = saveCopy;
-    v13 = [v12 countByEnumeratingWithState:&v66 objects:v74 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v65 objects:v73 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v67;
+      v15 = *v66;
       do
       {
         v16 = 0;
         do
         {
-          if (*v67 != v15)
+          if (*v66 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v17 = [objc_alloc(MEMORY[0x277CBC718]) initWithRecordID:*(*(&v66 + 1) + 8 * v16) type:0];
+          v17 = [objc_alloc(MEMORY[0x277CBC718]) initWithRecordID:*(*(&v65 + 1) + 8 * v16) type:0];
           [v11 addObject:v17];
 
           ++v16;
         }
 
         while (v14 != v16);
-        v14 = [v12 countByEnumeratingWithState:&v66 objects:v74 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v65 objects:v73 count:16];
       }
 
       while (v14);
     }
 
-    v64 = 0u;
-    v65 = 0u;
-    v62 = 0u;
     v63 = 0u;
-    v48 = deleteCopy;
+    v64 = 0u;
+    v61 = 0u;
+    v62 = 0u;
+    v47 = deleteCopy;
     v18 = deleteCopy;
-    v19 = [v18 countByEnumeratingWithState:&v62 objects:v73 count:16];
+    v19 = [v18 countByEnumeratingWithState:&v61 objects:v72 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v63;
+      v21 = *v62;
       do
       {
         v22 = 0;
         do
         {
-          if (*v63 != v21)
+          if (*v62 != v21)
           {
             objc_enumerationMutation(v18);
           }
 
-          v23 = [objc_alloc(MEMORY[0x277CBC718]) initWithRecordID:*(*(&v62 + 1) + 8 * v22) type:1];
+          v23 = [objc_alloc(MEMORY[0x277CBC718]) initWithRecordID:*(*(&v61 + 1) + 8 * v22) type:1];
           [v11 addObject:v23];
 
           ++v22;
         }
 
         while (v20 != v22);
-        v20 = [v18 countByEnumeratingWithState:&v62 objects:v73 count:16];
+        v20 = [v18 countByEnumeratingWithState:&v61 objects:v72 count:16];
       }
 
       while (v20);
@@ -2213,27 +2267,27 @@ void __55__SYDSyncManager_markAllKeyValuesAsNeedingToBeUploaded__block_invoke(ui
     [state addPendingRecordZoneChanges:v11];
 
     v26 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(v18, "count") + objc_msgSend(v12, "count")}];
+    v57 = 0u;
     v58 = 0u;
     v59 = 0u;
     v60 = 0u;
-    v61 = 0u;
     v27 = v12;
-    v28 = [v27 countByEnumeratingWithState:&v58 objects:v72 count:16];
+    v28 = [v27 countByEnumeratingWithState:&v57 objects:v71 count:16];
     if (v28)
     {
       v29 = v28;
-      v30 = *v59;
+      v30 = *v58;
       do
       {
         v31 = 0;
         do
         {
-          if (*v59 != v30)
+          if (*v58 != v30)
           {
             objc_enumerationMutation(v27);
           }
 
-          zoneID = [*(*(&v58 + 1) + 8 * v31) zoneID];
+          zoneID = [*(*(&v57 + 1) + 8 * v31) zoneID];
           zoneName = [zoneID zoneName];
           [v26 addObject:zoneName];
 
@@ -2241,33 +2295,33 @@ void __55__SYDSyncManager_markAllKeyValuesAsNeedingToBeUploaded__block_invoke(ui
         }
 
         while (v29 != v31);
-        v29 = [v27 countByEnumeratingWithState:&v58 objects:v72 count:16];
+        v29 = [v27 countByEnumeratingWithState:&v57 objects:v71 count:16];
       }
 
       while (v29);
     }
 
-    v56 = 0u;
-    v57 = 0u;
-    v54 = 0u;
     v55 = 0u;
+    v56 = 0u;
+    v53 = 0u;
+    v54 = 0u;
     v34 = v18;
-    v35 = [v34 countByEnumeratingWithState:&v54 objects:v71 count:16];
+    v35 = [v34 countByEnumeratingWithState:&v53 objects:v70 count:16];
     if (v35)
     {
       v36 = v35;
-      v37 = *v55;
+      v37 = *v54;
       do
       {
         v38 = 0;
         do
         {
-          if (*v55 != v37)
+          if (*v54 != v37)
           {
             objc_enumerationMutation(v34);
           }
 
-          zoneID2 = [*(*(&v54 + 1) + 8 * v38) zoneID];
+          zoneID2 = [*(*(&v53 + 1) + 8 * v38) zoneID];
           zoneName2 = [zoneID2 zoneName];
           [v26 addObject:zoneName2];
 
@@ -2275,45 +2329,45 @@ void __55__SYDSyncManager_markAllKeyValuesAsNeedingToBeUploaded__block_invoke(ui
         }
 
         while (v36 != v38);
-        v36 = [v34 countByEnumeratingWithState:&v54 objects:v71 count:16];
+        v36 = [v34 countByEnumeratingWithState:&v53 objects:v70 count:16];
       }
 
       while (v36);
     }
 
-    v52 = 0u;
-    v53 = 0u;
-    v50 = 0u;
     v51 = 0u;
+    v52 = 0u;
+    v49 = 0u;
+    v50 = 0u;
     v41 = v26;
-    v42 = [v41 countByEnumeratingWithState:&v50 objects:v70 count:16];
-    deleteCopy = v48;
+    v42 = [v41 countByEnumeratingWithState:&v49 objects:v69 count:16];
+    deleteCopy = v47;
     if (v42)
     {
       v43 = v42;
-      v44 = *v51;
+      v44 = *v50;
       do
       {
         v45 = 0;
         do
         {
-          if (*v51 != v44)
+          if (*v50 != v44)
           {
             objc_enumerationMutation(v41);
           }
 
-          [(SYDSyncManager *)self addSyncAnchorRecordIDToSaveIfNecessaryForStoreIdentifier:*(*(&v50 + 1) + 8 * v45++)];
+          [(SYDSyncManager *)self addSyncAnchorRecordIDToSaveIfNecessaryForStoreIdentifier:*(*(&v49 + 1) + 8 * v45++)];
         }
 
         while (v43 != v45);
-        v43 = [v41 countByEnumeratingWithState:&v50 objects:v70 count:16];
+        v43 = [v41 countByEnumeratingWithState:&v49 objects:v69 count:16];
       }
 
       while (v43);
     }
 
-    saveCopy = v49;
-    identifierCopy = v47;
+    saveCopy = v48;
+    identifierCopy = v46;
   }
 
   else
@@ -2324,13 +2378,11 @@ void __55__SYDSyncManager_markAllKeyValuesAsNeedingToBeUploaded__block_invoke(ui
       [SYDSyncManager addKeyValueRecordIDsToSave:recordIDsToDelete:storeIdentifier:];
     }
   }
-
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addSyncAnchorRecordIDToSaveIfNecessaryForStoreIdentifier:(id)identifier
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   if (![(SYDSyncManager *)self shouldSyncStoreWithIdentifier:identifierCopy])
   {
@@ -2349,14 +2401,12 @@ void __55__SYDSyncManager_markAllKeyValuesAsNeedingToBeUploaded__block_invoke(ui
     engine = [(SYDSyncManager *)self engine];
     state = [engine state];
     v8 = [objc_alloc(MEMORY[0x277CBC718]) initWithRecordID:v5 type:0];
-    v11[0] = v8;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+    v10[0] = v8;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
     [state addPendingRecordZoneChanges:v9];
 
 LABEL_6:
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetSyncEngine
@@ -2389,7 +2439,7 @@ uint64_t __47__SYDSyncManager_resetSyncEngineWithContainer___block_invoke(uint64
   v2 = SYDGetCloudKitLog();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    __47__SYDSyncManager_resetSyncEngineWithContainer___block_invoke_cold_1(a1);
+    __47__SYDSyncManager_resetSyncEngineWithContainer___block_invoke_cold_1();
   }
 
   [*(a1 + 40) setContainer:*(a1 + 32)];
@@ -2398,16 +2448,14 @@ uint64_t __47__SYDSyncManager_resetSyncEngineWithContainer___block_invoke(uint64
 
 - (void)_queue_resetSyncEngine
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)syncEngine:(id)engine handleEvent:(id)event
 {
-  v92 = *MEMORY[0x277D85DE8];
+  v91 = *MEMORY[0x277D85DE8];
   engineCopy = engine;
   eventCopy = event;
   engine = [(SYDSyncManager *)self engine];
@@ -2431,26 +2479,26 @@ uint64_t __47__SYDSyncManager_resetSyncEngineWithContainer___block_invoke(uint64
       if (type == 2)
       {
         fetchedDatabaseChangesEvent = [eventCopy fetchedDatabaseChangesEvent];
+        v80 = 0u;
         v81 = 0u;
         v82 = 0u;
         v83 = 0u;
-        v84 = 0u;
         deletions = [fetchedDatabaseChangesEvent deletions];
-        v44 = [deletions countByEnumeratingWithState:&v81 objects:v91 count:16];
+        v44 = [deletions countByEnumeratingWithState:&v80 objects:v90 count:16];
         if (v44)
         {
           v45 = v44;
-          v46 = *v82;
+          v46 = *v81;
           do
           {
             for (i = 0; i != v45; ++i)
             {
-              if (*v82 != v46)
+              if (*v81 != v46)
               {
                 objc_enumerationMutation(deletions);
               }
 
-              v48 = *(*(&v81 + 1) + 8 * i);
+              v48 = *(*(&v80 + 1) + 8 * i);
               if ([v48 reason] == 1)
               {
                 zoneID = [v48 zoneID];
@@ -2458,7 +2506,7 @@ uint64_t __47__SYDSyncManager_resetSyncEngineWithContainer___block_invoke(uint64
               }
             }
 
-            v45 = [deletions countByEnumeratingWithState:&v81 objects:v91 count:16];
+            v45 = [deletions countByEnumeratingWithState:&v80 objects:v90 count:16];
           }
 
           while (v45);
@@ -2468,60 +2516,60 @@ uint64_t __47__SYDSyncManager_resetSyncEngineWithContainer___block_invoke(uint64
       else
       {
         fetchedDatabaseChangesEvent = [eventCopy fetchedRecordZoneChangesEvent];
+        v76 = 0u;
         v77 = 0u;
         v78 = 0u;
         v79 = 0u;
-        v80 = 0u;
         modifications = [fetchedDatabaseChangesEvent modifications];
-        v15 = [modifications countByEnumeratingWithState:&v77 objects:v90 count:16];
+        v15 = [modifications countByEnumeratingWithState:&v76 objects:v89 count:16];
         if (v15)
         {
           v16 = v15;
-          v17 = *v78;
+          v17 = *v77;
           do
           {
             for (j = 0; j != v16; ++j)
             {
-              if (*v78 != v17)
+              if (*v77 != v17)
               {
                 objc_enumerationMutation(modifications);
               }
 
-              [(SYDSyncManager *)self didFetchRecord:*(*(&v77 + 1) + 8 * j)];
+              [(SYDSyncManager *)self didFetchRecord:*(*(&v76 + 1) + 8 * j)];
             }
 
-            v16 = [modifications countByEnumeratingWithState:&v77 objects:v90 count:16];
+            v16 = [modifications countByEnumeratingWithState:&v76 objects:v89 count:16];
           }
 
           while (v16);
         }
 
-        v75 = 0u;
-        v76 = 0u;
-        v73 = 0u;
         v74 = 0u;
+        v75 = 0u;
+        v72 = 0u;
+        v73 = 0u;
         deletions = [fetchedDatabaseChangesEvent deletions];
-        v19 = [deletions countByEnumeratingWithState:&v73 objects:v89 count:16];
+        v19 = [deletions countByEnumeratingWithState:&v72 objects:v88 count:16];
         if (v19)
         {
           v20 = v19;
-          v21 = *v74;
+          v21 = *v73;
           do
           {
             for (k = 0; k != v20; ++k)
             {
-              if (*v74 != v21)
+              if (*v73 != v21)
               {
                 objc_enumerationMutation(deletions);
               }
 
-              v23 = *(*(&v73 + 1) + 8 * k);
+              v23 = *(*(&v72 + 1) + 8 * k);
               recordID = [v23 recordID];
               recordType = [v23 recordType];
               [(SYDSyncManager *)self didFetchRecordDeletion:recordID recordType:recordType];
             }
 
-            v20 = [deletions countByEnumeratingWithState:&v73 objects:v89 count:16];
+            v20 = [deletions countByEnumeratingWithState:&v72 objects:v88 count:16];
           }
 
           while (v20);
@@ -2560,29 +2608,29 @@ LABEL_75:
     if (type == 4)
     {
       fetchedDatabaseChangesEvent = [eventCopy sentDatabaseChangesEvent];
+      v68 = 0u;
       v69 = 0u;
       v70 = 0u;
       v71 = 0u;
-      v72 = 0u;
       deletions = [fetchedDatabaseChangesEvent deletedZoneIDs];
-      v50 = [deletions countByEnumeratingWithState:&v69 objects:v88 count:16];
+      v50 = [deletions countByEnumeratingWithState:&v68 objects:v87 count:16];
       if (v50)
       {
         v51 = v50;
-        v52 = *v70;
+        v52 = *v69;
         do
         {
           for (m = 0; m != v51; ++m)
           {
-            if (*v70 != v52)
+            if (*v69 != v52)
             {
               objc_enumerationMutation(deletions);
             }
 
-            [(SYDSyncManager *)self didDeleteRecordZoneWithID:*(*(&v69 + 1) + 8 * m)];
+            [(SYDSyncManager *)self didDeleteRecordZoneWithID:*(*(&v68 + 1) + 8 * m)];
           }
 
-          v51 = [deletions countByEnumeratingWithState:&v69 objects:v88 count:16];
+          v51 = [deletions countByEnumeratingWithState:&v68 objects:v87 count:16];
         }
 
         while (v51);
@@ -2592,100 +2640,100 @@ LABEL_75:
     else
     {
       fetchedDatabaseChangesEvent = [eventCopy sentRecordZoneChangesEvent];
+      v64 = 0u;
       v65 = 0u;
       v66 = 0u;
       v67 = 0u;
-      v68 = 0u;
       savedRecords = [fetchedDatabaseChangesEvent savedRecords];
-      v27 = [savedRecords countByEnumeratingWithState:&v65 objects:v87 count:16];
+      v27 = [savedRecords countByEnumeratingWithState:&v64 objects:v86 count:16];
       if (v27)
       {
         v28 = v27;
-        v29 = *v66;
+        v29 = *v65;
         do
         {
           for (n = 0; n != v28; ++n)
           {
-            if (*v66 != v29)
+            if (*v65 != v29)
             {
               objc_enumerationMutation(savedRecords);
             }
 
-            [(SYDSyncManager *)self didSaveRecord:*(*(&v65 + 1) + 8 * n)];
+            [(SYDSyncManager *)self didSaveRecord:*(*(&v64 + 1) + 8 * n)];
           }
 
-          v28 = [savedRecords countByEnumeratingWithState:&v65 objects:v87 count:16];
+          v28 = [savedRecords countByEnumeratingWithState:&v64 objects:v86 count:16];
         }
 
         while (v28);
       }
 
-      v63 = 0u;
-      v64 = 0u;
-      v61 = 0u;
       v62 = 0u;
+      v63 = 0u;
+      v60 = 0u;
+      v61 = 0u;
       deletedRecordIDs = [fetchedDatabaseChangesEvent deletedRecordIDs];
-      v32 = [deletedRecordIDs countByEnumeratingWithState:&v61 objects:v86 count:16];
+      v32 = [deletedRecordIDs countByEnumeratingWithState:&v60 objects:v85 count:16];
       if (v32)
       {
         v33 = v32;
-        v34 = *v62;
+        v34 = *v61;
         do
         {
           for (ii = 0; ii != v33; ++ii)
           {
-            if (*v62 != v34)
+            if (*v61 != v34)
             {
               objc_enumerationMutation(deletedRecordIDs);
             }
 
-            [(SYDSyncManager *)self didDeleteRecordWithID:*(*(&v61 + 1) + 8 * ii)];
+            [(SYDSyncManager *)self didDeleteRecordWithID:*(*(&v60 + 1) + 8 * ii)];
           }
 
-          v33 = [deletedRecordIDs countByEnumeratingWithState:&v61 objects:v86 count:16];
+          v33 = [deletedRecordIDs countByEnumeratingWithState:&v60 objects:v85 count:16];
         }
 
         while (v33);
       }
 
-      v59 = 0u;
-      v60 = 0u;
-      v57 = 0u;
       v58 = 0u;
+      v59 = 0u;
+      v56 = 0u;
+      v57 = 0u;
       failedRecordSaves = [fetchedDatabaseChangesEvent failedRecordSaves];
-      v37 = [failedRecordSaves countByEnumeratingWithState:&v57 objects:v85 count:16];
+      v37 = [failedRecordSaves countByEnumeratingWithState:&v56 objects:v84 count:16];
       if (v37)
       {
         v38 = v37;
-        v39 = *v58;
+        v39 = *v57;
         do
         {
           for (jj = 0; jj != v38; ++jj)
           {
-            if (*v58 != v39)
+            if (*v57 != v39)
             {
               objc_enumerationMutation(failedRecordSaves);
             }
 
-            v41 = *(*(&v57 + 1) + 8 * jj);
+            v41 = *(*(&v56 + 1) + 8 * jj);
             record = [v41 record];
             error = [v41 error];
             [(SYDSyncManager *)self didFailToSaveRecord:record error:error];
           }
 
-          v38 = [failedRecordSaves countByEnumeratingWithState:&v57 objects:v85 count:16];
+          v38 = [failedRecordSaves countByEnumeratingWithState:&v56 objects:v84 count:16];
         }
 
         while (v38);
       }
 
       deletions = [fetchedDatabaseChangesEvent failedRecordDeletes];
-      v56[0] = MEMORY[0x277D85DD0];
-      v56[1] = 3221225472;
-      v56[2] = __41__SYDSyncManager_syncEngine_handleEvent___block_invoke;
-      v56[3] = &unk_279D2FC88;
-      v56[4] = self;
-      [deletions enumerateKeysAndObjectsUsingBlock:v56];
+      v55[0] = MEMORY[0x277D85DD0];
+      v55[1] = 3221225472;
+      v55[2] = __41__SYDSyncManager_syncEngine_handleEvent___block_invoke;
+      v55[3] = &unk_279D2FC88;
+      v55[4] = self;
+      [deletions enumerateKeysAndObjectsUsingBlock:v55];
     }
 
     goto LABEL_76;
@@ -2717,13 +2765,11 @@ LABEL_77:
   }
 
 LABEL_78:
-
-  v55 = *MEMORY[0x277D85DE8];
 }
 
 - (void)syncEngine:(id)engine accountChangedFromUserRecordID:(id)d toUserRecordID:(id)iD
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   iDCopy = iD;
   v8 = iDCopy;
   if (!d && iDCopy)
@@ -2731,15 +2777,13 @@ LABEL_78:
     v9 = SYDGetCloudKitLog();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v11 = 138412290;
-      v12 = v8;
-      _os_log_impl(&dword_26C384000, v9, OS_LOG_TYPE_INFO, "Detected a newUserRecordID: %@ Marking everything to be re-uploaded", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = v8;
+      _os_log_impl(&dword_26C384000, v9, OS_LOG_TYPE_INFO, "Detected a newUserRecordID: %@ Marking everything to be re-uploaded", &v10, 0xCu);
     }
 
     [(SYDSyncManager *)self markAllKeyValuesAsNeedingToBeUploaded];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didFailToFetchChangesForRecordZoneID:(id)d error:(id)error
@@ -2759,28 +2803,27 @@ LABEL_78:
   dispatch_sync(queue, block);
 }
 
-uint64_t __61__SYDSyncManager_didFailToFetchChangesForRecordZoneID_error___block_invoke(uint64_t a1)
+void *__61__SYDSyncManager_didFailToFetchChangesForRecordZoneID_error___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = SYDGetCloudKitLog();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
-    v7 = 138412546;
-    v8 = v3;
-    v9 = 2112;
-    v10 = v4;
-    _os_log_impl(&dword_26C384000, v2, OS_LOG_TYPE_INFO, "Failed to fetch changes for RecordZoneID %@: %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = v3;
+    v8 = 2112;
+    v9 = v4;
+    _os_log_impl(&dword_26C384000, v2, OS_LOG_TYPE_INFO, "Failed to fetch changes for RecordZoneID %@: %@", &v6, 0x16u);
   }
 
   result = [*(a1 + 48) isIdentityLostError:*(a1 + 40)];
   if (result)
   {
-    result = [*(a1 + 48) _markZoneForDeletionOnManateeFailureForRecordZoneID:*(a1 + 32)];
+    return [*(a1 + 48) _markZoneForDeletionOnManateeFailureForRecordZoneID:*(a1 + 32)];
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -2825,9 +2868,9 @@ uint64_t __61__SYDSyncManager_didFailToFetchChangesForRecordZoneID_error___block
   return v6 & 1;
 }
 
-uint64_t __38__SYDSyncManager_isIdentityLostError___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__38__SYDSyncManager_isIdentityLostError___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
-  result = [*(a1 + 32) isIdentityLostError:?];
+  result = [*(a1 + 32) isIdentityLostError:a3];
   if (result)
   {
     *(*(*(a1 + 40) + 8) + 24) = 1;
@@ -2839,31 +2882,29 @@ uint64_t __38__SYDSyncManager_isIdentityLostError___block_invoke(uint64_t a1, ui
 
 - (void)_markZoneForDeletionOnManateeFailureForRecordZoneID:(id)d
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v5 = SYDGetCloudKitLog();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v13 = dCopy;
+    v12 = dCopy;
     _os_log_impl(&dword_26C384000, v5, OS_LOG_TYPE_INFO, "Missing Manatee identity fetching %@, deleting the zone now", buf, 0xCu);
   }
 
   zoneName = [dCopy zoneName];
   v7 = [objc_alloc(MEMORY[0x277CBC720]) initWithZoneID:dCopy];
-  v11 = v7;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v11 count:1];
+  v10 = v7;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v10 count:1];
   [(SYDSyncManager *)self addPendingDatabaseChanges:v8 storeIdentifier:zoneName];
 
   coreDataStore = [(SYDSyncManager *)self coreDataStore];
   [coreDataStore clearServerSystemFieldsRecordsForAllKeyValuesInStoreWithIdentifier:zoneName error:0];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)syncEngine:(id)engine nextRecordZoneChangeBatchForContext:(id)context
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   engineCopy = engine;
   contextCopy = context;
   engine = [(SYDSyncManager *)self engine];
@@ -2880,31 +2921,31 @@ uint64_t __38__SYDSyncManager_isIdentityLostError___block_invoke(uint64_t a1, ui
       [SYDSyncManager syncEngine:nextRecordZoneChangeBatchForContext:];
     }
 
-    v30 = contextCopy;
+    v29 = contextCopy;
 
     v13 = objc_opt_new();
+    v32 = 0u;
     v33 = 0u;
     v34 = 0u;
     v35 = 0u;
-    v36 = 0u;
     state = [engineCopy state];
     pendingRecordZoneChanges = [state pendingRecordZoneChanges];
 
-    v16 = [pendingRecordZoneChanges countByEnumeratingWithState:&v33 objects:v37 count:16];
+    v16 = [pendingRecordZoneChanges countByEnumeratingWithState:&v32 objects:v36 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v34;
+      v18 = *v33;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v34 != v18)
+          if (*v33 != v18)
           {
             objc_enumerationMutation(pendingRecordZoneChanges);
           }
 
-          v20 = *(*(&v33 + 1) + 8 * i);
+          v20 = *(*(&v32 + 1) + 8 * i);
           recordID = [v20 recordID];
           v22 = [scope containsRecordID:recordID];
 
@@ -2914,7 +2955,7 @@ uint64_t __38__SYDSyncManager_isIdentityLostError___block_invoke(uint64_t a1, ui
           }
         }
 
-        v17 = [pendingRecordZoneChanges countByEnumeratingWithState:&v33 objects:v37 count:16];
+        v17 = [pendingRecordZoneChanges countByEnumeratingWithState:&v32 objects:v36 count:16];
       }
 
       while (v17);
@@ -2922,26 +2963,24 @@ uint64_t __38__SYDSyncManager_isIdentityLostError___block_invoke(uint64_t a1, ui
 
     v23 = objc_opt_new();
     v24 = objc_alloc(MEMORY[0x277CBC730]);
-    v31[0] = MEMORY[0x277D85DD0];
-    v31[1] = 3221225472;
-    v31[2] = __65__SYDSyncManager_syncEngine_nextRecordZoneChangeBatchForContext___block_invoke;
-    v31[3] = &unk_279D2FCB0;
-    v31[4] = selfCopy;
-    v32 = v23;
+    v30[0] = MEMORY[0x277D85DD0];
+    v30[1] = 3221225472;
+    v30[2] = __65__SYDSyncManager_syncEngine_nextRecordZoneChangeBatchForContext___block_invoke;
+    v30[3] = &unk_279D2FCB0;
+    v30[4] = selfCopy;
+    v31 = v23;
     v25 = v23;
-    v9 = [v24 initWithPendingChanges:v13 recordProvider:v31];
+    v9 = [v24 initWithPendingChanges:v13 recordProvider:v30];
     state2 = [engineCopy state];
     [state2 removePendingRecordZoneChanges:v25];
 
-    contextCopy = v30;
+    contextCopy = v29;
   }
 
   else
   {
     v9 = 0;
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -2965,7 +3004,7 @@ id __65__SYDSyncManager_syncEngine_nextRecordZoneChangeBatchForContext___block_i
 
 - (id)recordToSaveForRecordID:(id)d error:(id *)error
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v7 = SYDGetCloudKitLog();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
@@ -2983,9 +3022,9 @@ id __65__SYDSyncManager_syncEngine_nextRecordZoneChangeBatchForContext___block_i
   v13 = coreDataStore;
   if (v11)
   {
-    v27 = 0;
-    v14 = [coreDataStore serverSyncAnchorSystemFieldsRecordDataForStoreWithIdentifier:zoneName error:&v27];
-    v15 = v27;
+    v26 = 0;
+    v14 = [coreDataStore serverSyncAnchorSystemFieldsRecordDataForStoreWithIdentifier:zoneName error:&v26];
+    v15 = v26;
 
     if (v15)
     {
@@ -3003,14 +3042,14 @@ LABEL_10:
 
     if (v14)
     {
-      v26 = 0;
-      v23 = [objc_alloc(MEMORY[0x277CCAAC8]) initForReadingFromData:v14 error:&v26];
-      v15 = v26;
-      v18 = [objc_alloc(MEMORY[0x277CBC5A0]) initWithCoder:v23];
+      v25 = 0;
+      v22 = [objc_alloc(MEMORY[0x277CCAAC8]) initForReadingFromData:v14 error:&v25];
+      v15 = v25;
+      v18 = [objc_alloc(MEMORY[0x277CBC5A0]) initWithCoder:v22];
       if (v15)
       {
-        v24 = SYDGetCloudKitLog();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+        v23 = SYDGetCloudKitLog();
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
           [SYDSyncManager recordToSaveForRecordID:error:];
         }
@@ -3027,9 +3066,9 @@ LABEL_10:
   else
   {
     recordName2 = [dCopy recordName];
-    v25 = 0;
-    v14 = [v13 keyValueForRecordName:recordName2 inStoreWithIdentifier:zoneName error:&v25];
-    v15 = v25;
+    v24 = 0;
+    v14 = [v13 keyValueForRecordName:recordName2 inStoreWithIdentifier:zoneName error:&v24];
+    v15 = v24;
 
     if (v15)
     {
@@ -3048,7 +3087,7 @@ LABEL_10:
       if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v29 = dCopy;
+        v28 = dCopy;
         _os_log_impl(&dword_26C384000, v16, OS_LOG_TYPE_INFO, "No keyValue for recordID %@, so we're returning nothing", buf, 0xCu);
       }
 
@@ -3071,8 +3110,6 @@ LABEL_11:
   {
     [SYDSyncManager recordToSaveForRecordID:v18 error:?];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -3151,7 +3188,7 @@ void __32__SYDSyncManager_didSaveRecord___block_invoke(uint64_t a1)
 
 - (void)didSaveKeyValueRecord:(id)record
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   queue = [(SYDSyncManager *)self queue];
   dispatch_assert_queue_V2(queue);
@@ -3169,9 +3206,9 @@ void __32__SYDSyncManager_didSaveRecord___block_invoke(uint64_t a1)
   coreDataStore = [(SYDSyncManager *)self coreDataStore];
   recordID2 = [recordCopy recordID];
   recordName = [recordID2 recordName];
-  v25 = 0;
-  v13 = [coreDataStore keyValueForRecordName:recordName inStoreWithIdentifier:zoneName error:&v25];
-  v14 = v25;
+  v24 = 0;
+  v13 = [coreDataStore keyValueForRecordName:recordName inStoreWithIdentifier:zoneName error:&v24];
+  v14 = v24;
 
   if (v14)
   {
@@ -3186,11 +3223,11 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  v19 = SYDGetCloudKitLog();
-  v15 = v19;
+  v18 = SYDGetCloudKitLog();
+  v15 = v18;
   if (!v13)
   {
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
     {
       [SYDSyncManager didSaveKeyValueRecord:recordCopy];
     }
@@ -3199,28 +3236,28 @@ LABEL_6:
     goto LABEL_6;
   }
 
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
   {
     syd_shortDescription = [recordCopy syd_shortDescription];
-    v21 = [v13 key];
+    v20 = [v13 key];
     *buf = 138413059;
-    v27 = syd_shortDescription;
-    v28 = 2160;
-    v29 = 1752392040;
-    v30 = 2113;
-    v31 = v21;
-    v32 = 2112;
-    v33 = zoneName;
+    v26 = syd_shortDescription;
+    v27 = 2160;
+    v28 = 1752392040;
+    v29 = 2113;
+    v30 = v20;
+    v31 = 2112;
+    v32 = zoneName;
     _os_log_impl(&dword_26C384000, v15, OS_LOG_TYPE_INFO, "Saved record %@ for key <(%{private, mask.hash}@)> in store <(%@)>", buf, 0x2Au);
   }
 
   [v13 setServerSystemFieldsRecord:recordCopy];
   coreDataStore2 = [(SYDSyncManager *)self coreDataStore];
-  v24 = 0;
-  v23 = [coreDataStore2 saveKeyValue:v13 inStoreWithIdentifier:zoneName excludeFromChangeTracking:0 enforceQuota:0 error:&v24];
-  v14 = v24;
+  v23 = 0;
+  v22 = [coreDataStore2 saveKeyValue:v13 inStoreWithIdentifier:zoneName excludeFromChangeTracking:0 enforceQuota:0 error:&v23];
+  v14 = v23;
 
-  if ((v23 & 1) == 0)
+  if ((v22 & 1) == 0)
   {
     v15 = SYDGetCloudKitLog();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
@@ -3236,8 +3273,6 @@ LABEL_7:
   v16 = [v13 key];
   value = [v13 value];
   [SYDUserNotifications showUserNotificationIfEnabledForStoreIdentifier:zoneName format:@"Uploaded %@ = %@", v16, value];
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didFailToSaveRecord:(id)record error:(id)error
@@ -3259,17 +3294,17 @@ LABEL_7:
 
 void __44__SYDSyncManager_didFailToSaveRecord_error___block_invoke(id *a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = SYDGetCloudKitLog();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = [a1[4] syd_shortDescription];
     v4 = a1[5];
-    v18 = 138412546;
-    v19 = v3;
-    v20 = 2112;
-    v21 = v4;
-    _os_log_impl(&dword_26C384000, v2, OS_LOG_TYPE_INFO, "Failed to save record %@: %@", &v18, 0x16u);
+    v17 = 138412546;
+    v18 = v3;
+    v19 = 2112;
+    v20 = v4;
+    _os_log_impl(&dword_26C384000, v2, OS_LOG_TYPE_INFO, "Failed to save record %@: %@", &v17, 0x16u);
   }
 
   v5 = [a1[4] recordType];
@@ -3278,7 +3313,7 @@ void __44__SYDSyncManager_didFailToSaveRecord_error___block_invoke(id *a1)
 
 LABEL_6:
     [a1[6] failedToSaveKeyValueRecord:a1[4] error:a1[5]];
-    goto LABEL_7;
+    return;
   }
 
   v6 = [a1[4] recordType];
@@ -3289,37 +3324,37 @@ LABEL_6:
     goto LABEL_6;
   }
 
-  v9 = [a1[4] recordType];
-  if (([v9 isEqualToString:@"KVSSyncAnchorRecord"] & 1) == 0)
+  v8 = [a1[4] recordType];
+  if (([v8 isEqualToString:@"KVSSyncAnchorRecord"] & 1) == 0)
   {
 LABEL_16:
 
-    goto LABEL_7;
+    return;
   }
 
-  v10 = [a1[4] recordID];
-  v11 = [v10 recordName];
-  v12 = [v11 isEqualToString:@"syncAnchor"];
+  v9 = [a1[4] recordID];
+  v10 = [v9 recordName];
+  v11 = [v10 isEqualToString:@"syncAnchor"];
 
-  if (v12 && [a1[5] code] == 14)
+  if (v11 && [a1[5] code] == 14)
   {
-    v13 = [a1[5] userInfo];
-    v9 = [v13 objectForKeyedSubscript:*MEMORY[0x277CBBFE8]];
+    v12 = [a1[5] userInfo];
+    v8 = [v12 objectForKeyedSubscript:*MEMORY[0x277CBBFE8]];
 
-    if (v9)
+    if (v8)
     {
-      [a1[6] saveSyncAnchorSystemFieldsRecord:v9];
-      v14 = a1[6];
-      v15 = [a1[4] recordID];
-      v16 = [v15 zoneID];
-      v17 = [v16 zoneName];
-      [v14 addSyncAnchorRecordIDToSaveIfNecessaryForStoreIdentifier:v17];
+      [a1[6] saveSyncAnchorSystemFieldsRecord:v8];
+      v13 = a1[6];
+      v14 = [a1[4] recordID];
+      v15 = [v14 zoneID];
+      v16 = [v15 zoneName];
+      [v13 addSyncAnchorRecordIDToSaveIfNecessaryForStoreIdentifier:v16];
     }
 
     else
     {
-      v15 = SYDGetCloudKitLog();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v14 = SYDGetCloudKitLog();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         __44__SYDSyncManager_didFailToSaveRecord_error___block_invoke_cold_1();
       }
@@ -3327,14 +3362,11 @@ LABEL_16:
 
     goto LABEL_16;
   }
-
-LABEL_7:
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)failedToSaveKeyValueRecord:(id)record error:(id)error
 {
-  v117 = *MEMORY[0x277D85DE8];
+  v116 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   errorCopy = error;
   queue = [(SYDSyncManager *)self queue];
@@ -3377,16 +3409,16 @@ LABEL_7:
       {
         syd_shortDescription = [recordCopy syd_shortDescription];
         *buf = 138412290;
-        v110 = syd_shortDescription;
+        v109 = syd_shortDescription;
         _os_log_impl(&dword_26C384000, v15, OS_LOG_TYPE_INFO, "Unknown item saving key-value record, will re-upload %@", buf, 0xCu);
       }
 
       coreDataStore = [(SYDSyncManager *)self coreDataStore];
       recordID2 = [recordCopy recordID];
       recordName = [recordID2 recordName];
-      v97 = 0;
-      recordID10 = [coreDataStore keyValueForRecordName:recordName inStoreWithIdentifier:zoneName error:&v97];
-      recordID7 = v97;
+      v96 = 0;
+      recordID10 = [coreDataStore keyValueForRecordName:recordName inStoreWithIdentifier:zoneName error:&v96];
+      recordID7 = v96;
 
       if (recordID7)
       {
@@ -3412,15 +3444,15 @@ LABEL_7:
 
         [recordID10 setServerSystemFieldsRecord:0];
         coreDataStore2 = [(SYDSyncManager *)self coreDataStore];
-        v96 = 0;
-        v71 = [coreDataStore2 saveKeyValue:recordID10 inStoreWithIdentifier:zoneName excludeFromChangeTracking:0 enforceQuota:0 error:&v96];
-        recordID7 = v96;
+        v95 = 0;
+        v71 = [coreDataStore2 saveKeyValue:recordID10 inStoreWithIdentifier:zoneName excludeFromChangeTracking:0 enforceQuota:0 error:&v95];
+        recordID7 = v95;
 
         if (v71)
         {
           recordID3 = [recordCopy recordID];
-          v106 = recordID3;
-          v72 = [MEMORY[0x277CBEA60] arrayWithObjects:&v106 count:1];
+          v105 = recordID3;
+          v72 = [MEMORY[0x277CBEA60] arrayWithObjects:&v105 count:1];
           [(SYDSyncManager *)self addKeyValueRecordIDsToSave:v72 recordIDsToDelete:0 storeIdentifier:zoneName];
         }
 
@@ -3482,7 +3514,7 @@ LABEL_20:
         recordID4 = [recordCopy recordID];
         syd_shortDescription2 = [recordID4 syd_shortDescription];
         *buf = 138412290;
-        v110 = syd_shortDescription2;
+        v109 = syd_shortDescription2;
         _os_log_impl(&dword_26C384000, v56, OS_LOG_TYPE_INFO, "No server record when resolving conflict saving record %@", buf, 0xCu);
 
         v14 = 0x279D2F000uLL;
@@ -3501,8 +3533,8 @@ LABEL_20:
         [SYDSyncManager failedToSaveKeyValueRecord:recordCopy error:?];
       }
 
-      v108 = recordID10;
-      v56 = [MEMORY[0x277CBEA60] arrayWithObjects:&v108 count:1];
+      v107 = recordID10;
+      v56 = [MEMORY[0x277CBEA60] arrayWithObjects:&v107 count:1];
       [(SYDSyncManager *)self processFetchedRecords:v56 deletedRecordIDs:0];
       goto LABEL_92;
     }
@@ -3526,21 +3558,21 @@ LABEL_20:
       goto LABEL_91;
     }
 
-    v92 = v56;
-    v93 = v57;
+    v91 = v56;
+    v92 = v57;
     coreDataStore3 = [(SYDSyncManager *)self coreDataStore];
     recordID5 = [recordCopy recordID];
     recordName2 = [recordID5 recordName];
-    v99 = 0;
-    v61 = [coreDataStore3 keyValueForRecordName:recordName2 inStoreWithIdentifier:zoneName error:&v99];
-    v90 = v99;
+    v98 = 0;
+    v61 = [coreDataStore3 keyValueForRecordName:recordName2 inStoreWithIdentifier:zoneName error:&v98];
+    v89 = v98;
 
     v62 = v61;
-    v91 = v61;
+    v90 = v61;
     if (v61)
     {
       valueModificationDate = [v61 valueModificationDate];
-      v64 = [valueModificationDate compare:v93];
+      v64 = [valueModificationDate compare:v92];
 
       v65 = SYDGetCloudKitLog();
       v66 = v65;
@@ -3554,16 +3586,16 @@ LABEL_20:
 
         [v62 updateWithServerRecord:recordID10];
         coreDataStore4 = [(SYDSyncManager *)self coreDataStore];
-        v98 = v90;
-        v68 = [coreDataStore4 saveKeyValue:v62 inStoreWithIdentifier:zoneName excludeFromChangeTracking:0 enforceQuota:0 error:&v98];
-        v69 = v98;
+        v97 = v89;
+        v68 = [coreDataStore4 saveKeyValue:v62 inStoreWithIdentifier:zoneName excludeFromChangeTracking:0 enforceQuota:0 error:&v97];
+        v69 = v97;
 
         if (v68)
         {
-          v56 = v92;
+          v56 = v91;
 LABEL_90:
 
-          v58 = v93;
+          v58 = v92;
 LABEL_91:
 
           v14 = 0x279D2F000uLL;
@@ -3575,15 +3607,15 @@ LABEL_92:
             recordID6 = [recordCopy recordID];
             recordName3 = [recordID6 recordName];
             *buf = 138412290;
-            v110 = recordName3;
+            v109 = recordName3;
             _os_log_impl(&dword_26C384000, v75, OS_LOG_TYPE_INFO, "Attempting to save keyValue again after a conflict for recordName:%@", buf, 0xCu);
 
             v14 = 0x279D2F000uLL;
           }
 
           recordID7 = [recordCopy recordID];
-          v107 = recordID7;
-          v78 = [MEMORY[0x277CBEA60] arrayWithObjects:&v107 count:1];
+          v106 = recordID7;
+          v78 = [MEMORY[0x277CBEA60] arrayWithObjects:&v106 count:1];
           [(SYDSyncManager *)self addKeyValueRecordIDsToSave:v78 recordIDsToDelete:0 storeIdentifier:zoneName];
 
           goto LABEL_95;
@@ -3604,13 +3636,13 @@ LABEL_92:
         recordName4 = [recordID8 recordName];
         valueModificationDate2 = [v62 valueModificationDate];
         *buf = 138413058;
-        v110 = recordName4;
-        v111 = 2112;
-        v112 = valueModificationDate2;
-        v113 = 2112;
-        v114 = v93;
-        v115 = 2112;
-        v116 = zoneName;
+        v109 = recordName4;
+        v110 = 2112;
+        v111 = valueModificationDate2;
+        v112 = 2112;
+        v113 = v92;
+        v114 = 2112;
+        v115 = zoneName;
         _os_log_error_impl(&dword_26C384000, v66, OS_LOG_TYPE_ERROR, "Unable to update local record recordName:%@ , keyValue.valueModificationDate:%@ , serverValueModificationDate:%@ in store:%@", buf, 0x2Au);
       }
     }
@@ -3620,16 +3652,16 @@ LABEL_92:
       v66 = SYDGetCloudKitLog();
       if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
       {
-        v69 = v90;
+        v69 = v89;
         [SYDSyncManager failedToSaveKeyValueRecord:error:];
 LABEL_88:
-        v56 = v92;
+        v56 = v91;
         goto LABEL_89;
       }
     }
 
-    v56 = v92;
-    v69 = v90;
+    v56 = v91;
+    v69 = v89;
 LABEL_89:
 
     goto LABEL_90;
@@ -3646,7 +3678,7 @@ LABEL_89:
         {
           syd_shortDescription3 = [recordCopy syd_shortDescription];
           *buf = 138412290;
-          v110 = syd_shortDescription3;
+          v109 = syd_shortDescription3;
           _os_log_impl(&dword_26C384000, v36, OS_LOG_TYPE_INFO, "Zone not found saving %@. Saving zone and re-saving record", buf, 0xCu);
         }
 
@@ -3656,14 +3688,14 @@ LABEL_89:
         container = [v38 initWithZoneID:zoneID2];
 
         v42 = [objc_alloc(MEMORY[0x277CBC728]) initWithZone:container];
-        v105 = v42;
-        v43 = [MEMORY[0x277CBEA60] arrayWithObjects:&v105 count:1];
+        v104 = v42;
+        v43 = [MEMORY[0x277CBEA60] arrayWithObjects:&v104 count:1];
         [(SYDSyncManager *)self addPendingDatabaseChanges:v43 storeIdentifier:zoneName];
 
         coreDataStore5 = [(SYDSyncManager *)self coreDataStore];
-        v95 = 0;
-        v45 = [coreDataStore5 clearServerSystemFieldsRecordsForAllKeyValuesInStoreWithIdentifier:zoneName error:&v95];
-        containerIdentifier = v95;
+        v94 = 0;
+        v45 = [coreDataStore5 clearServerSystemFieldsRecordsForAllKeyValuesInStoreWithIdentifier:zoneName error:&v94];
+        containerIdentifier = v94;
 
         if (v45)
         {
@@ -3699,7 +3731,7 @@ LABEL_96:
 
       recordID7 = [recordCopy syd_shortDescription];
       *buf = 138412290;
-      v110 = recordID7;
+      v109 = recordID7;
       _os_log_impl(&dword_26C384000, recordID10, OS_LOG_TYPE_INFO, "Failed to save %@ because zone was user-purged", buf, 0xCu);
 LABEL_95:
 
@@ -3721,14 +3753,14 @@ LABEL_95:
     {
       syd_shortDescription4 = [recordCopy syd_shortDescription];
       *buf = 138412290;
-      v110 = syd_shortDescription4;
+      v109 = syd_shortDescription4;
       _os_log_impl(&dword_26C384000, v30, OS_LOG_TYPE_INFO, "Batch failure trying to save %@. Retrying eventually", buf, 0xCu);
     }
 
     recordID10 = [recordCopy recordID];
-    v102 = recordID10;
+    v101 = recordID10;
     v32 = MEMORY[0x277CBEA60];
-    v33 = &v102;
+    v33 = &v101;
 LABEL_44:
     recordID7 = [v32 arrayWithObjects:v33 count:1];
     [(SYDSyncManager *)self addKeyValueRecordIDsToSave:recordID7 recordIDsToDelete:0 storeIdentifier:zoneName];
@@ -3746,7 +3778,7 @@ LABEL_44:
         {
           syd_shortDescription5 = [recordCopy syd_shortDescription];
           *buf = 138412290;
-          v110 = syd_shortDescription5;
+          v109 = syd_shortDescription5;
           _os_log_impl(&dword_26C384000, v23, OS_LOG_TYPE_INFO, "Missing Manatee identity saving %@, deleting the zone now", buf, 0xCu);
         }
 
@@ -3754,8 +3786,8 @@ LABEL_44:
         recordID11 = [recordCopy recordID];
         zoneID3 = [recordID11 zoneID];
         v28 = [v25 initWithZoneID:zoneID3];
-        v104 = v28;
-        v29 = [MEMORY[0x277CBEA60] arrayWithObjects:&v104 count:1];
+        v103 = v28;
+        v29 = [MEMORY[0x277CBEA60] arrayWithObjects:&v103 count:1];
         [(SYDSyncManager *)self addPendingDatabaseChanges:v29 storeIdentifier:zoneName];
 
         recordID10 = [(SYDSyncManager *)self coreDataStore];
@@ -3772,14 +3804,14 @@ LABEL_44:
     {
       syd_shortDescription6 = [recordCopy syd_shortDescription];
       *buf = 138412290;
-      v110 = syd_shortDescription6;
+      v109 = syd_shortDescription6;
       _os_log_impl(&dword_26C384000, v34, OS_LOG_TYPE_INFO, "Manatee unavailable trying to save %@. Retrying eventually", buf, 0xCu);
     }
 
     recordID10 = [recordCopy recordID];
-    v103 = recordID10;
+    v102 = recordID10;
     v32 = MEMORY[0x277CBEA60];
-    v33 = &v103;
+    v33 = &v102;
     goto LABEL_44;
   }
 
@@ -3798,28 +3830,28 @@ LABEL_36:
 LABEL_97:
   if (!testConfiguration)
   {
-    v101[0] = zoneName;
-    v100[0] = @"storeIdentifier";
-    v100[1] = @"containerIdentifier";
+    v100[0] = zoneName;
+    v99[0] = @"storeIdentifier";
+    v99[1] = @"containerIdentifier";
     container = [(SYDSyncManager *)self container];
     containerIdentifier = [container containerIdentifier];
-    v101[1] = containerIdentifier;
-    v100[2] = @"containerEnvironment";
-    v94 = zoneName;
+    v100[1] = containerIdentifier;
+    v99[2] = @"containerEnvironment";
+    v93 = zoneName;
     v79 = v14;
     v80 = MEMORY[0x277CCABB0];
     container2 = [(SYDSyncManager *)self container];
     containerID = [container2 containerID];
     v82 = [v80 numberWithInteger:{objc_msgSend(containerID, "environment")}];
-    v101[2] = v82;
-    v100[3] = @"errorCode";
+    v100[2] = v82;
+    v99[3] = @"errorCode";
     v83 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(errorCopy, "code")}];
-    v101[3] = v83;
-    v84 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v101 forKeys:v100 count:4];
+    v100[3] = v83;
+    v84 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v100 forKeys:v99 count:4];
     AnalyticsSendEvent();
 
     v14 = v79;
-    zoneName = v94;
+    zoneName = v93;
 
     goto LABEL_99;
   }
@@ -3827,8 +3859,6 @@ LABEL_97:
 LABEL_101:
   [*(v14 + 32) deleteFilesForAssetsInKeyValueRecord:recordCopy];
   [SYDUserNotifications showUserNotificationIfEnabledForStoreIdentifier:zoneName format:@"Failed to save record: %@", errorCopy];
-
-  v85 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didDeleteRecordWithID:(id)d
@@ -3847,7 +3877,7 @@ LABEL_101:
 
 void __40__SYDSyncManager_didDeleteRecordWithID___block_invoke(uint64_t a1)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   v3 = [*(a1 + 32) recordName];
   v4 = [v3 isEqualToString:@"syncAnchor"];
@@ -3859,9 +3889,9 @@ void __40__SYDSyncManager_didDeleteRecordWithID___block_invoke(uint64_t a1)
 
     v7 = [*(a1 + 40) coreDataStore];
     v8 = [*(a1 + 32) recordName];
-    v22 = 0;
-    v9 = [v7 keyValueForRecordName:v8 inStoreWithIdentifier:v5 error:&v22];
-    v10 = v22;
+    v21 = 0;
+    v9 = [v7 keyValueForRecordName:v8 inStoreWithIdentifier:v5 error:&v21];
+    v10 = v21;
 
     v11 = SYDGetCloudKitLog();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
@@ -3869,13 +3899,13 @@ void __40__SYDSyncManager_didDeleteRecordWithID___block_invoke(uint64_t a1)
       v12 = [v9 key];
       v13 = [*v2 syd_shortDescription];
       *buf = 141558787;
-      v24 = 1752392040;
-      v25 = 2113;
-      v26 = v12;
-      v27 = 2112;
-      v28 = v5;
-      v29 = 2112;
-      v30 = v13;
+      v23 = 1752392040;
+      v24 = 2113;
+      v25 = v12;
+      v26 = 2112;
+      v27 = v5;
+      v28 = 2112;
+      v29 = v13;
       _os_log_impl(&dword_26C384000, v11, OS_LOG_TYPE_INFO, "Deleted keyValue record for key <(%{private, mask.hash}@)> in store <(%@)> %@", buf, 0x2Au);
     }
 
@@ -3903,13 +3933,13 @@ void __40__SYDSyncManager_didDeleteRecordWithID___block_invoke(uint64_t a1)
           __40__SYDSyncManager_didDeleteRecordWithID___block_invoke_cold_3();
         }
 
-        v18 = [*(a1 + 40) coreDataStore];
-        v19 = [*(a1 + 32) recordName];
-        v21 = 0;
-        v20 = [v18 removeKeyValueForRecordName:v19 inStoreWithIdentifier:v5 error:&v21];
-        v10 = v21;
+        v17 = [*(a1 + 40) coreDataStore];
+        v18 = [*(a1 + 32) recordName];
+        v20 = 0;
+        v19 = [v17 removeKeyValueForRecordName:v18 inStoreWithIdentifier:v5 error:&v20];
+        v10 = v20;
 
-        if (v20)
+        if (v19)
         {
           goto LABEL_17;
         }
@@ -3953,8 +3983,6 @@ LABEL_17:
   }
 
 LABEL_18:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didFailToDeleteRecordWithID:(id)d error:(id)error
@@ -3973,10 +4001,10 @@ LABEL_18:
   dispatch_sync(queue, v11);
 }
 
-void __52__SYDSyncManager_didFailToDeleteRecordWithID_error___block_invoke()
+void __52__SYDSyncManager_didFailToDeleteRecordWithID_error___block_invoke(uint64_t a1)
 {
-  v0 = SYDGetCloudKitLog();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = SYDGetCloudKitLog();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __52__SYDSyncManager_didFailToDeleteRecordWithID_error___block_invoke_cold_1();
   }
@@ -4020,7 +4048,7 @@ void __33__SYDSyncManager_didFetchRecord___block_invoke(uint64_t a1)
       v7 = SYDGetCloudKitLog();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
-        __33__SYDSyncManager_didFetchRecord___block_invoke_cold_1(v2);
+        __33__SYDSyncManager_didFetchRecord___block_invoke_cold_1();
       }
 
       [*(a1 + 40) saveSyncAnchorSystemFieldsRecord:*(a1 + 32)];
@@ -4181,38 +4209,38 @@ LABEL_7:
 
 void __57__SYDSyncManager_processFetchedRecords_deletedRecordIDs___block_invoke(uint64_t a1)
 {
-  v108 = *MEMORY[0x277D85DE8];
+  v107 = *MEMORY[0x277D85DE8];
   v2 = SYDGetCloudKitLog();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = [*(a1 + 32) count];
     *buf = 134217984;
-    v100 = v3;
+    v99 = v3;
     _os_log_impl(&dword_26C384000, v2, OS_LOG_TYPE_INFO, "Processing %ld fetched records", buf, 0xCu);
   }
 
-  v80 = objc_opt_new();
+  v79 = objc_opt_new();
+  v92 = 0u;
   v93 = 0u;
   v94 = 0u;
   v95 = 0u;
-  v96 = 0u;
-  v69 = a1;
+  v68 = a1;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v93 objects:v107 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v92 objects:v106 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v94;
+    v7 = *v93;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v94 != v7)
+        if (*v93 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v93 + 1) + 8 * i);
+        v9 = *(*(&v92 + 1) + 8 * i);
         v10 = [v9 recordID];
         v11 = [v10 zoneID];
         v12 = [v11 zoneName];
@@ -4223,32 +4251,32 @@ void __57__SYDSyncManager_processFetchedRecords_deletedRecordIDs___block_invoke(
         {
           v15 = [v9 syd_shortDescription];
           *buf = 138413059;
-          v100 = v15;
-          v101 = 2160;
-          v102 = 1752392040;
-          v103 = 2113;
-          v104 = v13;
-          v105 = 2112;
-          v106 = v12;
+          v99 = v15;
+          v100 = 2160;
+          v101 = 1752392040;
+          v102 = 2113;
+          v103 = v13;
+          v104 = 2112;
+          v105 = v12;
           _os_log_impl(&dword_26C384000, v14, OS_LOG_TYPE_INFO, "Record was fetched %@ for key <(%{private, mask.hash}@)> in store <(%@)>", buf, 0x2Au);
         }
 
         v16 = [[SYDKeyID alloc] initWithKey:v13 storeIdentifier:v12];
-        [v80 addObject:v16];
+        [v79 addObject:v16];
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v93 objects:v107 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v92 objects:v106 count:16];
     }
 
     while (v6);
   }
 
-  v81 = (v69 + 40);
-  v17 = [*(v69 + 40) coreDataStore];
-  v18 = [v80 allObjects];
-  v92 = 0;
-  v19 = [v17 keyValuesForKeyIDs:v18 createIfNecessary:1 error:&v92];
-  v20 = v92;
+  v80 = (v68 + 40);
+  v17 = [*(v68 + 40) coreDataStore];
+  v18 = [v79 allObjects];
+  v91 = 0;
+  v19 = [v17 keyValuesForKeyIDs:v18 createIfNecessary:1 error:&v91];
+  v20 = v91;
 
   if (!v19 || v20)
   {
@@ -4262,7 +4290,7 @@ void __57__SYDSyncManager_processFetchedRecords_deletedRecordIDs___block_invoke(
   else
   {
     v21 = [v19 count];
-    if (v21 != [v80 count])
+    if (v21 != [v79 count])
     {
       v22 = SYDGetCloudKitLog();
       if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
@@ -4272,33 +4300,33 @@ void __57__SYDSyncManager_processFetchedRecords_deletedRecordIDs___block_invoke(
     }
 
     v23 = objc_opt_new();
+    v87 = 0u;
     v88 = 0u;
     v89 = 0u;
     v90 = 0u;
-    v91 = 0u;
-    obj = *(v69 + 32);
-    v72 = v19;
-    v77 = v23;
-    v76 = [obj countByEnumeratingWithState:&v88 objects:v98 count:16];
-    if (v76)
+    obj = *(v68 + 32);
+    v71 = v19;
+    v76 = v23;
+    v75 = [obj countByEnumeratingWithState:&v87 objects:v97 count:16];
+    if (v75)
     {
-      v75 = *v89;
+      v74 = *v88;
       do
       {
-        for (j = 0; j != v76; ++j)
+        for (j = 0; j != v75; ++j)
         {
-          if (*v89 != v75)
+          if (*v88 != v74)
           {
             objc_enumerationMutation(obj);
           }
 
-          v25 = *(*(&v88 + 1) + 8 * j);
+          v25 = *(*(&v87 + 1) + 8 * j);
           v26 = [v25 recordID];
           v27 = [v26 zoneID];
           v28 = [v27 zoneName];
 
-          v78 = [SYDKeyValue keyFromKeyValueRecord:v25];
-          v29 = [[SYDKeyID alloc] initWithKey:v78 storeIdentifier:v28];
+          v77 = [SYDKeyValue keyFromKeyValueRecord:v25];
+          v29 = [[SYDKeyID alloc] initWithKey:v77 storeIdentifier:v28];
           v30 = [v19 objectForKeyedSubscript:v29];
           if (!v30)
           {
@@ -4314,7 +4342,7 @@ void __57__SYDSyncManager_processFetchedRecords_deletedRecordIDs___block_invoke(
             [v30 setRecordName:v33];
           }
 
-          [*v81 deduplicateRecordForKeyValue:v30 withNewlyFetchedRecord:v25];
+          [*v80 deduplicateRecordForKeyValue:v30 withNewlyFetchedRecord:v25];
           v34 = [v30 value];
           [v30 mergeDataFromRecord:v25];
           v35 = [v30 value];
@@ -4324,14 +4352,14 @@ void __57__SYDSyncManager_processFetchedRecords_deletedRecordIDs___block_invoke(
             v37 = SYDGetCloudKitLog();
             if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
             {
-              v71 = [(SYDKeyID *)v29 key];
-              v70 = [(SYDKeyID *)v29 storeIdentifier];
+              v70 = [(SYDKeyID *)v29 key];
+              v69 = [(SYDKeyID *)v29 storeIdentifier];
               *buf = 141558531;
-              v100 = 1752392040;
-              v101 = 2113;
-              v102 = v71;
-              v103 = 2112;
-              v104 = v70;
+              v99 = 1752392040;
+              v100 = 2113;
+              v101 = v70;
+              v102 = 2112;
+              v103 = v69;
               _os_log_debug_impl(&dword_26C384000, v37, OS_LOG_TYPE_DEBUG, "Value didn't change for key <(%{private, mask.hash}@)> in store <(%@)>", buf, 0x20u);
             }
           }
@@ -4349,30 +4377,30 @@ void __57__SYDSyncManager_processFetchedRecords_deletedRecordIDs___block_invoke(
             [v37 addObject:v38];
 
             v39 = [(SYDKeyID *)v29 key];
-            v23 = v77;
+            v23 = v76;
             [SYDUserNotifications showUserNotificationIfEnabledForStoreIdentifier:v28 format:@"Downloaded %@ = %@", v39, v36];
 
-            v19 = v72;
+            v19 = v71;
           }
 
           [SYDKeyValue deleteFilesForAssetsInKeyValueRecord:v25];
         }
 
-        v76 = [obj countByEnumeratingWithState:&v88 objects:v98 count:16];
+        v75 = [obj countByEnumeratingWithState:&v87 objects:v97 count:16];
       }
 
-      while (v76);
+      while (v75);
     }
 
     if ([v19 count])
     {
-      v40 = [*v81 coreDataStore];
+      v40 = [*v80 coreDataStore];
       v41 = [v19 allValues];
-      v87 = 0;
-      v42 = [v40 saveKeyValues:v41 excludeFromChangeTracking:0 enforceQuota:0 error:&v87];
-      v43 = v87;
+      v86 = 0;
+      v42 = [v40 saveKeyValues:v41 excludeFromChangeTracking:0 enforceQuota:0 error:&v86];
+      v43 = v86;
 
-      v44 = v69;
+      v44 = v68;
       obja = v43;
       if ((v42 & 1) == 0)
       {
@@ -4387,34 +4415,34 @@ void __57__SYDSyncManager_processFetchedRecords_deletedRecordIDs___block_invoke(
     else
     {
       obja = 0;
-      v44 = v69;
+      v44 = v68;
     }
 
-    v85 = 0u;
-    v86 = 0u;
-    v83 = 0u;
     v84 = 0u;
-    v79 = *(v44 + 48);
-    v47 = [v79 countByEnumeratingWithState:&v83 objects:v97 count:16];
+    v85 = 0u;
+    v82 = 0u;
+    v83 = 0u;
+    v78 = *(v44 + 48);
+    v47 = [v78 countByEnumeratingWithState:&v82 objects:v96 count:16];
     if (v47)
     {
       v48 = v47;
-      v49 = *v84;
+      v49 = *v83;
       do
       {
         for (k = 0; k != v48; ++k)
         {
-          if (*v84 != v49)
+          if (*v83 != v49)
           {
-            objc_enumerationMutation(v79);
+            objc_enumerationMutation(v78);
           }
 
-          v51 = *(*(&v83 + 1) + 8 * k);
+          v51 = *(*(&v82 + 1) + 8 * k);
           v52 = objc_autoreleasePoolPush();
           v53 = [v51 zoneID];
           v54 = [v53 zoneName];
 
-          v55 = [*v81 coreDataStore];
+          v55 = [*v80 coreDataStore];
           v56 = [v51 recordName];
           v57 = [v55 keyValueForRecordName:v56 inStoreWithIdentifier:v54 error:0];
 
@@ -4427,17 +4455,17 @@ void __57__SYDSyncManager_processFetchedRecords_deletedRecordIDs___block_invoke(
               v60 = [v57 key];
               v61 = [v51 syd_shortDescription];
               *buf = 141558787;
-              v100 = 1752392040;
-              v101 = 2113;
-              v102 = v60;
-              v103 = 2112;
-              v104 = v54;
-              v105 = 2112;
-              v106 = v61;
+              v99 = 1752392040;
+              v100 = 2113;
+              v101 = v60;
+              v102 = 2112;
+              v103 = v54;
+              v104 = 2112;
+              v105 = v61;
               _os_log_impl(&dword_26C384000, v59, OS_LOG_TYPE_INFO, "Record was deleted for key <(%{private, mask.hash}@)> in store <(%@)> %@", buf, 0x2Au);
             }
 
-            v62 = [v77 objectForKeyedSubscript:v54];
+            v62 = [v76 objectForKeyedSubscript:v54];
             v63 = v62;
             if (v62)
             {
@@ -4454,46 +4482,44 @@ void __57__SYDSyncManager_processFetchedRecords_deletedRecordIDs___block_invoke(
             v65 = [v57 key];
             [v59 addObject:v65];
 
-            [v77 setObject:v59 forKeyedSubscript:v54];
+            [v76 setObject:v59 forKeyedSubscript:v54];
           }
 
           else if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v100 = v51;
+            v99 = v51;
             _os_log_error_impl(&dword_26C384000, v59, OS_LOG_TYPE_ERROR, "Unable to find key-value to post notification for %@", buf, 0xCu);
           }
 
-          v66 = [*v81 coreDataStore];
+          v66 = [*v80 coreDataStore];
           v67 = [v51 recordName];
           [v66 removeKeyValueForRecordName:v67 inStoreWithIdentifier:v54 error:0];
 
           objc_autoreleasePoolPop(v52);
         }
 
-        v48 = [v79 countByEnumeratingWithState:&v83 objects:v97 count:16];
+        v48 = [v78 countByEnumeratingWithState:&v82 objects:v96 count:16];
       }
 
       while (v48);
     }
 
-    v82[0] = MEMORY[0x277D85DD0];
-    v82[1] = 3221225472;
-    v82[2] = __57__SYDSyncManager_processFetchedRecords_deletedRecordIDs___block_invoke_183;
-    v82[3] = &unk_279D2FCD8;
-    v82[4] = *v81;
-    v46 = v77;
-    [v77 enumerateKeysAndObjectsUsingBlock:v82];
-    v19 = v72;
+    v81[0] = MEMORY[0x277D85DD0];
+    v81[1] = 3221225472;
+    v81[2] = __57__SYDSyncManager_processFetchedRecords_deletedRecordIDs___block_invoke_183;
+    v81[3] = &unk_279D2FCD8;
+    v81[4] = *v80;
+    v46 = v76;
+    [v76 enumerateKeysAndObjectsUsingBlock:v81];
+    v19 = v71;
     v20 = obja;
   }
-
-  v68 = *MEMORY[0x277D85DE8];
 }
 
 void __57__SYDSyncManager_processFetchedRecords_deletedRecordIDs___block_invoke_183(uint64_t a1, void *a2, void *a3)
 {
-  v20[2] = *MEMORY[0x277D85DE8];
+  v19[2] = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277D6B888];
   v6 = a3;
   v7 = a2;
@@ -4513,23 +4539,21 @@ void __57__SYDSyncManager_processFetchedRecords_deletedRecordIDs___block_invoke_
   v14 = [*(a1 + 32) testConfiguration];
   [v8 setTestConfiguration:v14];
 
-  v19[0] = @"changedKeys";
+  v18[0] = @"changedKeys";
   v15 = [v6 allObjects];
 
-  v19[1] = @"storeID";
-  v20[0] = v15;
-  v20[1] = v8;
-  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
+  v18[1] = @"storeID";
+  v19[0] = v15;
+  v19[1] = v8;
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
 
   v17 = [MEMORY[0x277CCAB98] defaultCenter];
   [v17 postNotificationName:@"SYDSyncManagerNotificationValuesDidChange" object:*(a1 + 32) userInfo:v16];
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deduplicateRecordForKeyValue:(id)value withNewlyFetchedRecord:(id)record
 {
-  v65[1] = *MEMORY[0x277D85DE8];
+  v64[1] = *MEMORY[0x277D85DE8];
   valueCopy = value;
   recordCopy = record;
   recordName = [valueCopy recordName];
@@ -4648,7 +4672,7 @@ LABEL_23:
 LABEL_24:
   if (recordID4 | recordID5)
   {
-    v60 = v16;
+    v59 = v16;
     v41 = SYDGetCloudKitLog();
     if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
     {
@@ -4657,8 +4681,8 @@ LABEL_24:
 
     if (recordID5)
     {
-      v65[0] = recordID5;
-      v42 = [MEMORY[0x277CBEA60] arrayWithObjects:v65 count:1];
+      v64[0] = recordID5;
+      v42 = [MEMORY[0x277CBEA60] arrayWithObjects:v64 count:1];
     }
 
     else
@@ -4666,12 +4690,12 @@ LABEL_24:
       v42 = 0;
     }
 
-    v59 = v42;
+    v58 = v42;
     selfCopy = self;
     if (recordID4)
     {
-      v64 = recordID4;
-      v44 = [MEMORY[0x277CBEA60] arrayWithObjects:&v64 count:1];
+      v63 = recordID4;
+      v44 = [MEMORY[0x277CBEA60] arrayWithObjects:&v63 count:1];
     }
 
     else
@@ -4693,35 +4717,34 @@ LABEL_24:
       zoneName2 = [zoneID2 zoneName];
     }
 
-    [(SYDSyncManager *)selfCopy addKeyValueRecordIDsToSave:v59 recordIDsToDelete:v44 storeIdentifier:zoneName2];
+    [(SYDSyncManager *)selfCopy addKeyValueRecordIDsToSave:v58 recordIDsToDelete:v44 storeIdentifier:zoneName2];
     if (zoneName2)
     {
       testConfiguration = [(SYDSyncManager *)selfCopy testConfiguration];
 
       if (!testConfiguration)
       {
-        v63[0] = zoneName2;
-        v62[0] = @"storeIdentifier";
-        v62[1] = @"containerIdentifier";
+        v62[0] = zoneName2;
+        v61[0] = @"storeIdentifier";
+        v61[1] = @"containerIdentifier";
         container = [(SYDSyncManager *)selfCopy container];
         containerIdentifier = [container containerIdentifier];
-        v63[1] = containerIdentifier;
-        v62[2] = @"containerEnvironment";
+        v62[1] = containerIdentifier;
+        v61[2] = @"containerEnvironment";
         v51 = MEMORY[0x277CCABB0];
         container2 = [(SYDSyncManager *)selfCopy container];
         containerID = [container2 containerID];
         v53 = [v51 numberWithInteger:{objc_msgSend(containerID, "environment")}];
-        v63[2] = v53;
-        v54 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v63 forKeys:v62 count:3];
+        v62[2] = v53;
+        v54 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v62 forKeys:v61 count:3];
         AnalyticsSendEvent();
       }
     }
 
-    v16 = v60;
+    v16 = v59;
   }
 
 LABEL_41:
-  v55 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didFetchRecordDeletion:(id)deletion recordType:(id)type
@@ -4748,7 +4771,7 @@ void __52__SYDSyncManager_didFetchRecordDeletion_recordType___block_invoke(id *a
     v2 = SYDGetCloudKitLog();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
     {
-      __52__SYDSyncManager_didFetchRecordDeletion_recordType___block_invoke_cold_2(a1);
+      __52__SYDSyncManager_didFetchRecordDeletion_recordType___block_invoke_cold_2();
     }
 
     v3 = [a1[6] pendingDeletedRecordIDs];
@@ -4763,7 +4786,7 @@ LABEL_6:
     v4 = SYDGetCloudKitLog();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      __52__SYDSyncManager_didFetchRecordDeletion_recordType___block_invoke_cold_1(a1);
+      __52__SYDSyncManager_didFetchRecordDeletion_recordType___block_invoke_cold_1();
     }
 
     v3 = [a1[6] coreDataStore];
@@ -4839,26 +4862,24 @@ void __46__SYDSyncManager_handleSyncEngineStateUpdate___block_invoke(uint64_t a1
 
 void __44__SYDSyncManager_didDeleteRecordZoneWithID___block_invoke(uint64_t a1)
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v2 = SYDGetCloudKitLog();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    __44__SYDSyncManager_didDeleteRecordZoneWithID___block_invoke_cold_1(a1);
+    __44__SYDSyncManager_didDeleteRecordZoneWithID___block_invoke_cold_1();
   }
 
   v3 = [objc_alloc(MEMORY[0x277CBC5E8]) initWithZoneID:*(a1 + 32)];
   v4 = [*(a1 + 40) engine];
   v5 = [v4 state];
   v6 = [objc_alloc(MEMORY[0x277CBC728]) initWithZone:v3];
-  v11[0] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+  v10[0] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
   [v5 addPendingDatabaseChanges:v7];
 
   v8 = *(a1 + 40);
   v9 = [*(a1 + 32) zoneName];
   [v8 markAllKeyValuesAsNeedingToBeUploadedForStoreWithIdentifier:v9];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)zoneWithIDWasPurged:(id)purged
@@ -4877,26 +4898,24 @@ void __44__SYDSyncManager_didDeleteRecordZoneWithID___block_invoke(uint64_t a1)
 
 void __38__SYDSyncManager_zoneWithIDWasPurged___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = SYDGetCloudKitLog();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
-    v7 = 138412290;
-    v8 = v3;
-    _os_log_impl(&dword_26C384000, v2, OS_LOG_TYPE_INFO, "Zone was purged: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v3;
+    _os_log_impl(&dword_26C384000, v2, OS_LOG_TYPE_INFO, "Zone was purged: %@", &v6, 0xCu);
   }
 
   v4 = [*(a1 + 32) zoneName];
   v5 = [*(a1 + 40) coreDataStore];
   [v5 deleteDataForStoreWithIdentifier:v4 error:0];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)syncEngine:(id)engine nextFetchChangesOptionsForContext:(id)context
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   engineCopy = engine;
   options = [context options];
   engine = [(SYDSyncManager *)self engine];
@@ -4909,29 +4928,29 @@ void __38__SYDSyncManager_zoneWithIDWasPurged___block_invoke(uint64_t a1)
 
     if (v11)
     {
-      v38 = options;
+      v37 = options;
       v12 = objc_opt_new();
+      v44 = 0u;
       v45 = 0u;
       v46 = 0u;
       v47 = 0u;
-      v48 = 0u;
-      v39 = scope;
+      v38 = scope;
       zoneIDs2 = [scope zoneIDs];
-      v14 = [zoneIDs2 countByEnumeratingWithState:&v45 objects:v50 count:16];
+      v14 = [zoneIDs2 countByEnumeratingWithState:&v44 objects:v49 count:16];
       if (v14)
       {
         v15 = v14;
-        v16 = *v46;
+        v16 = *v45;
         do
         {
           for (i = 0; i != v15; ++i)
           {
-            if (*v46 != v16)
+            if (*v45 != v16)
             {
               objc_enumerationMutation(zoneIDs2);
             }
 
-            v18 = *(*(&v45 + 1) + 8 * i);
+            v18 = *(*(&v44 + 1) + 8 * i);
             zoneName = [v18 zoneName];
             v20 = [(SYDSyncManager *)self shouldSyncStoreWithIdentifier:zoneName];
 
@@ -4941,26 +4960,26 @@ void __38__SYDSyncManager_zoneWithIDWasPurged___block_invoke(uint64_t a1)
             }
           }
 
-          v15 = [zoneIDs2 countByEnumeratingWithState:&v45 objects:v50 count:16];
+          v15 = [zoneIDs2 countByEnumeratingWithState:&v44 objects:v49 count:16];
         }
 
         while (v15);
       }
 
-      scope = v39;
-      zoneIDs3 = [v39 zoneIDs];
+      scope = v38;
+      zoneIDs3 = [v38 zoneIDs];
       v22 = [v12 isEqual:zoneIDs3];
 
       if (v22)
       {
-        options = v38;
+        options = v37;
 LABEL_32:
 
         goto LABEL_33;
       }
 
       v35 = SYDGetCloudKitLog();
-      options = v38;
+      options = v37;
       if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
       {
         [SYDSyncManager syncEngine:nextFetchChangesOptionsForContext:];
@@ -4981,30 +5000,30 @@ LABEL_33:
         goto LABEL_34;
       }
 
-      v40 = scope;
+      v39 = scope;
       v12 = objc_opt_new();
+      v40 = 0u;
       v41 = 0u;
       v42 = 0u;
       v43 = 0u;
-      v44 = 0u;
       state = [engineCopy state];
       zoneIDsWithUnfetchedServerChanges = [state zoneIDsWithUnfetchedServerChanges];
 
-      v27 = [zoneIDsWithUnfetchedServerChanges countByEnumeratingWithState:&v41 objects:v49 count:16];
+      v27 = [zoneIDsWithUnfetchedServerChanges countByEnumeratingWithState:&v40 objects:v48 count:16];
       if (v27)
       {
         v28 = v27;
-        v29 = *v42;
+        v29 = *v41;
         do
         {
           for (j = 0; j != v28; ++j)
           {
-            if (*v42 != v29)
+            if (*v41 != v29)
             {
               objc_enumerationMutation(zoneIDsWithUnfetchedServerChanges);
             }
 
-            v31 = *(*(&v41 + 1) + 8 * j);
+            v31 = *(*(&v40 + 1) + 8 * j);
             zoneName2 = [v31 zoneName];
             if (![(SYDSyncManager *)self shouldSyncStoreWithIdentifier:zoneName2])
             {
@@ -5012,7 +5031,7 @@ LABEL_33:
             }
           }
 
-          v28 = [zoneIDsWithUnfetchedServerChanges countByEnumeratingWithState:&v41 objects:v49 count:16];
+          v28 = [zoneIDsWithUnfetchedServerChanges countByEnumeratingWithState:&v40 objects:v48 count:16];
         }
 
         while (v28);
@@ -5020,7 +5039,7 @@ LABEL_33:
 
       if (![v12 count])
       {
-        scope = v40;
+        scope = v39;
         goto LABEL_32;
       }
 
@@ -5031,81 +5050,79 @@ LABEL_33:
       }
 
       v34 = [objc_alloc(MEMORY[0x277CBC700]) initWithExcludedZoneIDs:v12];
-      scope = v40;
+      scope = v39;
     }
 
-    [options setScope:{v34, v38}];
+    [options setScope:{v34, v37}];
 
     goto LABEL_32;
   }
 
 LABEL_34:
 
-  v36 = *MEMORY[0x277D85DE8];
-
   return options;
 }
 
 - (id)syncEngine:(id)engine relatedApplicationBundleIdentifiersForZoneIDs:(id)ds recordIDs:(id)iDs
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   iDsCopy = iDs;
   v9 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
   v10 = dsCopy;
-  v11 = [v10 countByEnumeratingWithState:&v34 objects:v39 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v33 objects:v38 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v35;
+    v13 = *v34;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v35 != v13)
+        if (*v34 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        zoneName = [*(*(&v34 + 1) + 8 * i) zoneName];
+        zoneName = [*(*(&v33 + 1) + 8 * i) zoneName];
         [v9 addObject:zoneName];
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v34 objects:v39 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v33 objects:v38 count:16];
     }
 
     while (v12);
   }
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v16 = iDsCopy;
-  v17 = [v16 countByEnumeratingWithState:&v30 objects:v38 count:16];
+  v17 = [v16 countByEnumeratingWithState:&v29 objects:v37 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v31;
+    v19 = *v30;
     do
     {
       for (j = 0; j != v18; ++j)
       {
-        if (*v31 != v19)
+        if (*v30 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        zoneID = [*(*(&v30 + 1) + 8 * j) zoneID];
+        zoneID = [*(*(&v29 + 1) + 8 * j) zoneID];
         zoneName2 = [zoneID zoneName];
         [v9 addObject:zoneName2];
       }
 
-      v18 = [v16 countByEnumeratingWithState:&v30 objects:v38 count:16];
+      v18 = [v16 countByEnumeratingWithState:&v29 objects:v37 count:16];
     }
 
     while (v18);
@@ -5126,8 +5143,6 @@ LABEL_34:
     v27 = 0;
   }
 
-  v28 = *MEMORY[0x277D85DE8];
-
   return v27;
 }
 
@@ -5147,7 +5162,7 @@ void __36__SYDSyncManager_deleteDataFromDisk__block_invoke(uint64_t a1)
   v2 = SYDGetCloudKitLog();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    __36__SYDSyncManager_deleteDataFromDisk__block_invoke_cold_1(a1);
+    __36__SYDSyncManager_deleteDataFromDisk__block_invoke_cold_1();
   }
 
   v3 = [*(a1 + 32) coreDataStore];
@@ -5303,35 +5318,35 @@ void __70__SYDSyncManager_performOneTimeDataSeparatedLocalDataResetIfNecessary__
 
 + (BOOL)isDataSeparated
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   mEMORY[0x277D77BF8] = [MEMORY[0x277D77BF8] sharedManager];
   listAllPersonaWithAttributes = [mEMORY[0x277D77BF8] listAllPersonaWithAttributes];
 
-  v4 = [listAllPersonaWithAttributes countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [listAllPersonaWithAttributes countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
-    v5 = *v10;
+    v5 = *v9;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(listAllPersonaWithAttributes);
         }
 
-        if ([*(*(&v9 + 1) + 8 * i) isDataSeparatedPersona])
+        if ([*(*(&v8 + 1) + 8 * i) isDataSeparatedPersona])
         {
           LOBYTE(v4) = 1;
           goto LABEL_11;
         }
       }
 
-      v4 = [listAllPersonaWithAttributes countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [listAllPersonaWithAttributes countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (v4)
       {
         continue;
@@ -5343,7 +5358,6 @@ void __70__SYDSyncManager_performOneTimeDataSeparatedLocalDataResetIfNecessary__
 
 LABEL_11:
 
-  v7 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -5367,19 +5381,9 @@ LABEL_11:
 
 - (void)initWithContainer:coreDataStore:storeType:testConfiguration:.cold.3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_1_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initializeSyncEngineWithError:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4(&dword_26C384000, v0, v1, "Not initializing sync engine due to error getting sync engine state from database: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initializeSyncEngineWithError:.cold.2()
@@ -5391,21 +5395,19 @@ LABEL_11:
 
 - (void)engine
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
-  _os_log_fault_impl(&dword_26C384000, v0, OS_LOG_TYPE_FAULT, "Unable to initialize engine: %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_26C384000, v0, OS_LOG_TYPE_FAULT, "Unable to initialize engine: %@", v1, 0xCu);
 }
 
 void __117__SYDSyncManager_setObject_forKey_inStoreWithIdentifier_excludeFromChangeTracking_enforceQuota_didChangeValue_error___block_invoke_cold_1(void *a1, os_log_t log)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v4 = a1[4];
   if (v4)
   {
-    v6 = a1[4];
-    v7 = objc_opt_class();
-    v5 = NSStringFromClass(v7);
+    v6 = objc_opt_class();
+    v5 = NSStringFromClass(v6);
   }
 
   else
@@ -5413,57 +5415,50 @@ void __117__SYDSyncManager_setObject_forKey_inStoreWithIdentifier_excludeFromCha
     v5 = @"nil";
   }
 
-  v8 = a1[5];
-  v9 = a1[6];
-  v11 = 138413059;
-  v12 = v5;
-  v13 = 2160;
-  v14 = 1752392040;
-  v15 = 2113;
+  v7 = a1[5];
+  v8 = a1[6];
+  v9 = 138413059;
+  v10 = v5;
+  v11 = 2160;
+  v12 = 1752392040;
+  v13 = 2113;
+  v14 = v7;
+  v15 = 2112;
   v16 = v8;
-  v17 = 2112;
-  v18 = v9;
-  _os_log_debug_impl(&dword_26C384000, log, OS_LOG_TYPE_DEBUG, "Setting %@ for key <(%{private, mask.hash}@)> in store <(%@)>", &v11, 0x2Au);
+  _os_log_debug_impl(&dword_26C384000, log, OS_LOG_TYPE_DEBUG, "Setting %@ for key <(%{private, mask.hash}@)> in store <(%@)>", &v9, 0x2Au);
   if (v4)
   {
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
-void __117__SYDSyncManager_setObject_forKey_inStoreWithIdentifier_excludeFromChangeTracking_enforceQuota_didChangeValue_error___block_invoke_cold_2(uint64_t a1)
+void __117__SYDSyncManager_setObject_forKey_inStoreWithIdentifier_excludeFromChangeTracking_enforceQuota_didChangeValue_error___block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_5_0(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_5_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_4(&dword_26C384000, v1, v2, "Error fetching existing key value: %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_26C384000, v0, v1, "Error fetching existing key value: %@", v2, v3, v4, v5);
 }
 
-void __117__SYDSyncManager_setObject_forKey_inStoreWithIdentifier_excludeFromChangeTracking_enforceQuota_didChangeValue_error___block_invoke_cold_3(uint64_t *a1)
+void __117__SYDSyncManager_setObject_forKey_inStoreWithIdentifier_excludeFromChangeTracking_enforceQuota_didChangeValue_error___block_invoke_cold_3()
 {
-  OUTLINED_FUNCTION_13(a1, *MEMORY[0x277D85DE8]);
-  v2 = *v1;
+  OUTLINED_FUNCTION_13(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_10_0();
   OUTLINED_FUNCTION_1_0();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x20u);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-void __117__SYDSyncManager_setObject_forKey_inStoreWithIdentifier_excludeFromChangeTracking_enforceQuota_didChangeValue_error___block_invoke_cold_5(uint64_t *a1)
+void __117__SYDSyncManager_setObject_forKey_inStoreWithIdentifier_excludeFromChangeTracking_enforceQuota_didChangeValue_error___block_invoke_cold_5()
 {
-  OUTLINED_FUNCTION_13(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_13(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void __117__SYDSyncManager_setObject_forKey_inStoreWithIdentifier_excludeFromChangeTracking_enforceQuota_didChangeValue_error___block_invoke_cold_6(uint64_t a1)
+void __117__SYDSyncManager_setObject_forKey_inStoreWithIdentifier_excludeFromChangeTracking_enforceQuota_didChangeValue_error___block_invoke_cold_6()
 {
-  OUTLINED_FUNCTION_5_0(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_5_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_4(&dword_26C384000, v1, v2, "Error saving value for key: %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_26C384000, v0, v1, "Error saving value for key: %@", v2, v3, v4, v5);
 }
 
 void __117__SYDSyncManager_setObject_forKey_inStoreWithIdentifier_excludeFromChangeTracking_enforceQuota_didChangeValue_error___block_invoke_cold_7()
@@ -5480,43 +5475,35 @@ void __117__SYDSyncManager_setObject_forKey_inStoreWithIdentifier_excludeFromCha
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __117__SYDSyncManager_setObject_forKey_inStoreWithIdentifier_excludeFromChangeTracking_enforceQuota_didChangeValue_error___block_invoke_cold_9(uint64_t *a1)
+void __117__SYDSyncManager_setObject_forKey_inStoreWithIdentifier_excludeFromChangeTracking_enforceQuota_didChangeValue_error___block_invoke_cold_9()
 {
-  OUTLINED_FUNCTION_13(a1, *MEMORY[0x277D85DE8]);
-  v4 = 141558275;
-  v5 = 1752392040;
-  v6 = 2113;
-  v7 = v1;
-  _os_log_fault_impl(&dword_26C384000, v2, OS_LOG_TYPE_FAULT, "BUG IN CLIENT OF KVS: Trying to set a nil object for key <(%{private, mask.hash}@)>, but we should have early returned above", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_13(*MEMORY[0x277D85DE8]);
+  v2 = 141558275;
+  v3 = 1752392040;
+  v4 = 2113;
+  v5 = v0;
+  _os_log_fault_impl(&dword_26C384000, v1, OS_LOG_TYPE_FAULT, "BUG IN CLIENT OF KVS: Trying to set a nil object for key <(%{private, mask.hash}@)>, but we should have early returned above", &v2, 0x16u);
 }
 
-void __117__SYDSyncManager_setObject_forKey_inStoreWithIdentifier_excludeFromChangeTracking_enforceQuota_didChangeValue_error___block_invoke_cold_10(uint64_t *a1)
+void __117__SYDSyncManager_setObject_forKey_inStoreWithIdentifier_excludeFromChangeTracking_enforceQuota_didChangeValue_error___block_invoke_cold_10()
 {
-  OUTLINED_FUNCTION_13(a1, *MEMORY[0x277D85DE8]);
-  v2 = *v1;
+  OUTLINED_FUNCTION_13(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_6(&dword_26C384000, v3, v4, "Unable to get or create value for key %{private}@ in %@");
-  v5 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_6(&dword_26C384000, v0, v1, "Unable to get or create value for key %{private}@ in %@");
 }
 
-void __106__SYDSyncManager_removeObjectForKey_inStoreWithIdentifier_excludeFromChangeTracking_didRemoveValue_error___block_invoke_cold_1(uint64_t a1)
+void __106__SYDSyncManager_removeObjectForKey_inStoreWithIdentifier_excludeFromChangeTracking_didRemoveValue_error___block_invoke_cold_1()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
   OUTLINED_FUNCTION_10_0();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x20u);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-void __106__SYDSyncManager_removeObjectForKey_inStoreWithIdentifier_excludeFromChangeTracking_didRemoveValue_error___block_invoke_cold_2(uint64_t a1)
+void __106__SYDSyncManager_removeObjectForKey_inStoreWithIdentifier_excludeFromChangeTracking_didRemoveValue_error___block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_5_0(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_5_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_4(&dword_26C384000, v1, v2, "Error fetching while removing value for key: %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_26C384000, v0, v1, "Error fetching while removing value for key: %@", v2, v3, v4, v5);
 }
 
 void __106__SYDSyncManager_removeObjectForKey_inStoreWithIdentifier_excludeFromChangeTracking_didRemoveValue_error___block_invoke_cold_3()
@@ -5526,21 +5513,18 @@ void __106__SYDSyncManager_removeObjectForKey_inStoreWithIdentifier_excludeFromC
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __106__SYDSyncManager_removeObjectForKey_inStoreWithIdentifier_excludeFromChangeTracking_didRemoveValue_error___block_invoke_cold_4(uint64_t a1)
+void __106__SYDSyncManager_removeObjectForKey_inStoreWithIdentifier_excludeFromChangeTracking_didRemoveValue_error___block_invoke_cold_4()
 {
-  OUTLINED_FUNCTION_5_0(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_5_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_4(&dword_26C384000, v1, v2, "Error marking key-value as deleted: %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_26C384000, v0, v1, "Error marking key-value as deleted: %@", v2, v3, v4, v5);
 }
 
 - (void)synchronizeStoresWithIdentifiers:completionHandler:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __69__SYDSyncManager_synchronizeStoresWithIdentifiers_completionHandler___block_invoke_cold_1()
@@ -5559,13 +5543,10 @@ void __69__SYDSyncManager_synchronizeStoresWithIdentifiers_completionHandler___b
 
 - (void)savePendingChangesToCloudForStoreIdentifiers:(void *)a1 group:completionHandler:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 componentsJoinedByString:{@", "}];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_2();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)savePendingChangesToCloudForStoreIdentifiers:group:completionHandler:.cold.2()
@@ -5573,22 +5554,6 @@ void __69__SYDSyncManager_synchronizeStoresWithIdentifiers_completionHandler___b
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-- (void)savePendingChangesToCloudForStoreIdentifiers:group:completionHandler:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4(&dword_26C384000, v0, v1, "Failed to load engine when saving pending changes: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __87__SYDSyncManager_savePendingChangesToCloudForStoreIdentifiers_group_completionHandler___block_invoke_101_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4(&dword_26C384000, v0, v1, "Error modify pending records: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __87__SYDSyncManager_savePendingChangesToCloudForStoreIdentifiers_group_completionHandler___block_invoke_101_cold_2()
@@ -5600,13 +5565,10 @@ void __87__SYDSyncManager_savePendingChangesToCloudForStoreIdentifiers_group_com
 
 - (void)fetchChangesFromCloudForStoreIdentifiers:(void *)a1 group:completionHandler:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 componentsJoinedByString:{@", "}];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_2();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchChangesFromCloudForStoreIdentifiers:group:completionHandler:.cold.2()
@@ -5616,29 +5578,11 @@ void __87__SYDSyncManager_savePendingChangesToCloudForStoreIdentifiers_group_com
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-- (void)fetchChangesFromCloudForStoreIdentifiers:group:completionHandler:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4(&dword_26C384000, v0, v1, "Failed to load engine when fetching changes: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __83__SYDSyncManager_fetchChangesFromCloudForStoreIdentifiers_group_completionHandler___block_invoke_108_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4(&dword_26C384000, v0, v1, "Error fetching records: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 void __83__SYDSyncManager_fetchChangesFromCloudForStoreIdentifiers_group_completionHandler___block_invoke_108_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __83__SYDSyncManager_fetchChangesFromCloudForStoreIdentifiers_group_completionHandler___block_invoke_108_cold_3()
@@ -5648,22 +5592,6 @@ void __83__SYDSyncManager_fetchChangesFromCloudForStoreIdentifiers_group_complet
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __59__SYDSyncManager_deleteDataFromCloudWithCompletionHandler___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4(&dword_26C384000, v0, v1, "Error fetching all zones for deleting data from cloud: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __59__SYDSyncManager_deleteDataFromCloudWithCompletionHandler___block_invoke_115_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4(&dword_26C384000, v0, v1, "Error deleting deleting data from cloud: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 void __55__SYDSyncManager_markAllKeyValuesAsNeedingToBeUploaded__block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_7();
@@ -5671,296 +5599,150 @@ void __55__SYDSyncManager_markAllKeyValuesAsNeedingToBeUploaded__block_invoke_co
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __55__SYDSyncManager_markAllKeyValuesAsNeedingToBeUploaded__block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4(&dword_26C384000, v0, v1, "Error getting store identifiers from database while trying to mark key values as needing to be uploaded: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (void)markAllKeyValuesAsNeedingToBeUploadedForStoreWithIdentifier:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)markAllKeyValuesAsNeedingToBeUploadedForStoreWithIdentifier:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_6(&dword_26C384000, v0, v1, "Error fetching record names from database when marking key values as needing to be uploaded for %@: %@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addPendingDatabaseChanges:storeIdentifier:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addKeyValueRecordIDsToSave:recordIDsToDelete:storeIdentifier:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addSyncAnchorRecordIDToSaveIfNecessaryForStoreIdentifier:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void __47__SYDSyncManager_resetSyncEngineWithContainer___block_invoke_cold_1(uint64_t a1)
+void __47__SYDSyncManager_resetSyncEngineWithContainer___block_invoke_cold_1()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 - (void)syncEngine:handleEvent:.cold.1()
 {
   OUTLINED_FUNCTION_13_0();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = SYDStringForStoreType([v0 storeType]);
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_0_2();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)syncEngine:nextRecordZoneChangeBatchForContext:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)recordToSaveForRecordID:(void *)a1 error:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 syd_shortDescription];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_2();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-- (void)recordToSaveForRecordID:error:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_6(&dword_26C384000, v0, v1, "Error getting key value for %@ when returning record to sync engine: %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)recordToSaveForRecordID:error:.cold.3()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_6(&dword_26C384000, v0, v1, "Error getting sync anchor data for %@: %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)recordToSaveForRecordID:error:.cold.4()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4(&dword_26C384000, v0, v1, "Error unarchiving server sync anchor record: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)recordToSaveForRecordID:(void *)a1 error:.cold.5(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 syd_shortDescription];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_2();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __32__SYDSyncManager_didSaveRecord___block_invoke_cold_1(id *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [*a1 recordID];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_2();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didSaveKeyValueRecord:(void *)a1 .cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 syd_shortDescription];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_2();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-- (void)didSaveKeyValueRecord:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4(&dword_26C384000, v0, v1, "Error fetching key value after saving record: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)didSaveKeyValueRecord:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4(&dword_26C384000, v0, v1, "Error saving new server system fields record: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didSaveKeyValueRecord:(void *)a1 .cold.4(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 recordID];
   v2 = [v1 syd_shortDescription];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_9();
   _os_log_fault_impl(v3, v4, OS_LOG_TYPE_FAULT, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-- (void)failedToSaveKeyValueRecord:error:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_6(&dword_26C384000, v0, v1, "Error clearing server system fields for records in %@: %@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (void)failedToSaveKeyValueRecord:error:.cold.2()
 {
   OUTLINED_FUNCTION_13_0();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [v0 recordID];
   v2 = [v1 syd_shortDescription];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_9();
   _os_log_error_impl(v3, v4, OS_LOG_TYPE_ERROR, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-- (void)failedToSaveKeyValueRecord:error:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4(&dword_26C384000, v0, v1, "Unable to save key value to database when processing CKErrorUnknownItem: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)failedToSaveKeyValueRecord:(void *)a1 error:.cold.4(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 recordID];
   v2 = [v1 syd_shortDescription];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_2();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)failedToSaveKeyValueRecord:(void *)a1 error:.cold.5(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 syd_shortDescription];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_2();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)failedToSaveKeyValueRecord:(void *)a1 error:.cold.6(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 recordID];
   v2 = [v1 syd_shortDescription];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_2();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)failedToSaveKeyValueRecord:(void *)a1 error:.cold.7(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 recordID];
   v2 = [v1 syd_shortDescription];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_2();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-- (void)failedToSaveKeyValueRecord:error:.cold.8()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4(&dword_26C384000, v0, v1, "Error saving key value after taking server record: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)failedToSaveKeyValueRecord:error:.cold.9()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4(&dword_26C384000, v0, v1, "Error fetching key-value from database trying to resolve a conflict on a server record with an asset: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)failedToSaveKeyValueRecord:error:.cold.11()
 {
   OUTLINED_FUNCTION_13_0();
-  v7 = *MEMORY[0x277D85DE8];
   v1 = [v0 syd_shortDescription];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_9();
   _os_log_fault_impl(v2, v3, OS_LOG_TYPE_FAULT, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __40__SYDSyncManager_didDeleteRecordWithID___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4(&dword_26C384000, v0, v1, "Error fetching key-value after deleting record from the cloud: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __40__SYDSyncManager_didDeleteRecordWithID___block_invoke_cold_2()
@@ -5977,82 +5759,51 @@ void __40__SYDSyncManager_didDeleteRecordWithID___block_invoke_cold_3()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __40__SYDSyncManager_didDeleteRecordWithID___block_invoke_cold_4()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4(&dword_26C384000, v0, v1, "Error removing key-value from database after it was deleted in the cloud: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 void __40__SYDSyncManager_didDeleteRecordWithID___block_invoke_cold_5(id *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [*a1 syd_shortDescription];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_2();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __52__SYDSyncManager_didFailToDeleteRecordWithID_error___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_17();
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = [*(v1 + 32) syd_shortDescription];
-  v3 = *(v0 + 40);
+  v1 = [*(v0 + 32) syd_shortDescription];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_9();
-  _os_log_error_impl(v4, v5, OS_LOG_TYPE_ERROR, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v2, v3, OS_LOG_TYPE_ERROR, v4, v5, 0x16u);
 }
 
-void __33__SYDSyncManager_didFetchRecord___block_invoke_cold_1(uint64_t *a1)
+void __33__SYDSyncManager_didFetchRecord___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_13(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_13(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 - (void)saveSyncAnchorSystemFieldsRecord:(void *)a1 .cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 recordID];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_2();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-- (void)saveSyncAnchorSystemFieldsRecord:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4(&dword_26C384000, v0, v1, "Failed to save sync anchor system fields: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)saveSyncAnchorSystemFieldsRecord:(void *)a1 .cold.3(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   v1 = [a1 error];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_9();
   _os_log_fault_impl(v2, v3, OS_LOG_TYPE_FAULT, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processPendingFetchedRecordsWithReason:.cold.1()
 {
   OUTLINED_FUNCTION_13_0();
   v1 = v0;
-  v10 = *MEMORY[0x277D85DE8];
   v2 = [v0 pendingFetchedRecords];
   [v2 count];
   v3 = [v1 pendingDeletedRecordIDs];
@@ -6060,8 +5811,6 @@ void __33__SYDSyncManager_didFetchRecord___block_invoke_cold_1(uint64_t *a1)
   OUTLINED_FUNCTION_14();
   OUTLINED_FUNCTION_0_2();
   _os_log_debug_impl(v4, v5, v6, v7, v8, 0x20u);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processFetchedRecords:deletedRecordIDs:.cold.1()
@@ -6074,13 +5823,11 @@ void __33__SYDSyncManager_didFetchRecord___block_invoke_cold_1(uint64_t *a1)
 void __57__SYDSyncManager_processFetchedRecords_deletedRecordIDs___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_13_0();
-  v7 = *MEMORY[0x277D85DE8];
   [v1 count];
   [v0 count];
   OUTLINED_FUNCTION_14();
   OUTLINED_FUNCTION_9();
   _os_log_error_impl(v2, v3, OS_LOG_TYPE_ERROR, v4, v5, 0x20u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __57__SYDSyncManager_processFetchedRecords_deletedRecordIDs___block_invoke_cold_2()
@@ -6090,163 +5837,98 @@ void __57__SYDSyncManager_processFetchedRecords_deletedRecordIDs___block_invoke_
   [v2 handleFailureInMethod:*v1 object:*v0 file:@"SYDSyncManager.m" lineNumber:1591 description:@"Trying to process a record without a SYDKeyValue"];
 }
 
-void __57__SYDSyncManager_processFetchedRecords_deletedRecordIDs___block_invoke_cold_3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4(&dword_26C384000, v0, v1, "Failed to save key values from fetched records: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __57__SYDSyncManager_processFetchedRecords_deletedRecordIDs___block_invoke_cold_4()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4(&dword_26C384000, v0, v1, "Failed to get key values from database to process fetched records: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (void)deduplicateRecordForKeyValue:(NSObject *)a3 withNewlyFetchedRecord:.cold.1(void *a1, void *a2, NSObject *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v6 = [a1 recordName];
   v7 = [a2 recordID];
   v8 = [v7 recordName];
   v9 = [a1 key];
-  v11 = 138412803;
-  v12 = v6;
-  v13 = 2112;
-  v14 = v8;
-  v15 = 2113;
-  v16 = v9;
-  _os_log_debug_impl(&dword_26C384000, a3, OS_LOG_TYPE_DEBUG, "Local record name (%@) and fetched record name (%@) do not match for key (%{private}@)", &v11, 0x20u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v10 = 138412803;
+  v11 = v6;
+  v12 = 2112;
+  v13 = v8;
+  v14 = 2113;
+  v15 = v9;
+  _os_log_debug_impl(&dword_26C384000, a3, OS_LOG_TYPE_DEBUG, "Local record name (%@) and fetched record name (%@) do not match for key (%{private}@)", &v10, 0x20u);
 }
 
 - (void)deduplicateRecordForKeyValue:(void *)a1 withNewlyFetchedRecord:.cold.2(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 recordID];
   v2 = [v1 recordName];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_2();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deduplicateRecordForKeyValue:(void *)a1 withNewlyFetchedRecord:.cold.3(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 recordID];
   v2 = [v1 recordName];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_2();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deduplicateRecordForKeyValue:withNewlyFetchedRecord:.cold.4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_1_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void __52__SYDSyncManager_didFetchRecordDeletion_recordType___block_invoke_cold_1(uint64_t a1)
+void __52__SYDSyncManager_didFetchRecordDeletion_recordType___block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 40);
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void __52__SYDSyncManager_didFetchRecordDeletion_recordType___block_invoke_cold_2(uint64_t a1)
+void __52__SYDSyncManager_didFetchRecordDeletion_recordType___block_invoke_cold_2()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 40);
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void __46__SYDSyncManager_handleSyncEngineStateUpdate___block_invoke_cold_1()
+void __44__SYDSyncManager_didDeleteRecordZoneWithID___block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4(&dword_26C384000, v0, v1, "Error archiving metadata serialization: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __44__SYDSyncManager_didDeleteRecordZoneWithID___block_invoke_cold_1(uint64_t a1)
-{
-  OUTLINED_FUNCTION_8_0(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_8_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 - (void)syncEngine:nextFetchChangesOptionsForContext:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)syncEngine:nextFetchChangesOptionsForContext:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __39__SYDSyncManager_didEndFetchingChanges__block_invoke_cold_2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __39__SYDSyncManager_didEndFetchingChanges__block_invoke_cold_3(id *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [*a1 storeIdentifiersWithChangedValuesDuringFetchChanges];
   [v1 count];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_2();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
-void __36__SYDSyncManager_deleteDataFromDisk__block_invoke_cold_1(uint64_t a1)
+void __36__SYDSyncManager_deleteDataFromDisk__block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_8_0(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_8_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __64__SYDSyncManager_registerForFirstUnlockNotificationsIfNecessary__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4(&dword_26C384000, v0, v1, "Still unable to initialize engine after first unlock notification: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void __64__SYDSyncManager_registerForFirstUnlockNotificationsIfNecessary__block_invoke_cold_2()
@@ -6254,14 +5936,6 @@ void __64__SYDSyncManager_registerForFirstUnlockNotificationsIfNecessary__block_
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-void __70__SYDSyncManager_performOneTimeDataSeparatedLocalDataResetIfNecessary__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4(&dword_26C384000, v0, v1, "Error calling setHasPerformedOneTimeDataSeparatedLocalDataReset: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

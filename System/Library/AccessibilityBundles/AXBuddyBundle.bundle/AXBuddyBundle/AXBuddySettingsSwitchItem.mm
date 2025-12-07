@@ -1,7 +1,9 @@
 @interface AXBuddySettingsSwitchItem
 - (AXBuddySettingsSwitchItem)initWithName:(id)name delegate:(id)delegate;
 - (id)representativeCellForIndexPath:(id)path inTableView:(id)view;
+- (void)buddyBundleSwitchCell:(id)cell switchChangedTo:(BOOL)to;
 - (void)registerCellClassWithTableView:(id)view;
+- (void)setExtantSwitchesOn:(BOOL)on;
 @end
 
 @implementation AXBuddySettingsSwitchItem
@@ -55,6 +57,48 @@
   cellClass = [(AXBuddySettingsSwitchItem *)self cellClass];
   reuseIdentifier = [(AXBuddySettingsSwitchItem *)self reuseIdentifier];
   [viewCopy registerClass:cellClass forCellReuseIdentifier:reuseIdentifier];
+}
+
+- (void)buddyBundleSwitchCell:(id)cell switchChangedTo:(BOOL)to
+{
+  toCopy = to;
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  [WeakRetained switchItem:self switchChangedTo:toCopy];
+}
+
+- (void)setExtantSwitchesOn:(BOOL)on
+{
+  onCopy = on;
+  v9 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v4 = self->_extantCells;
+  v5 = [(NSHashTable *)v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  if (v5)
+  {
+    v6 = v5;
+    v7 = *v10;
+    do
+    {
+      v8 = 0;
+      do
+      {
+        if (*v10 != v7)
+        {
+          objc_enumerationMutation(v4);
+        }
+
+        [*(*(&v9 + 1) + 8 * v8) setSwitchValue:{onCopy, v9}];
+        v8 = v8 + 1;
+      }
+
+      while (v6 != v8);
+      v6 = [(NSHashTable *)v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
+    }
+
+    while (v6);
+  }
 }
 
 @end

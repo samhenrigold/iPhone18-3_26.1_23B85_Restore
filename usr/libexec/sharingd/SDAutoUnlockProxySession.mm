@@ -138,13 +138,13 @@
   [v5 timeIntervalSinceDate:startDate];
   [(SDAutoUnlockProxySession *)self setProxyDiscoveryTime:?];
 
-  if (sub_1001116DC(deviceCopy))
+  if (sub_1001116DC(deviceCopy, v7))
   {
-    v7 = auto_unlock_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v9 = auto_unlock_log();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      *v13 = 0;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Proxy available for unlock", v13, 2u);
+      *v15 = 0;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Proxy available for unlock", v15, 2u);
     }
 
     delegate = [(SDAutoUnlockPairingSession *)self delegate];
@@ -153,24 +153,24 @@
 
   else
   {
-    if (sub_10011170C(deviceCopy))
+    if (sub_10011170C(deviceCopy, v8))
     {
       delegate = SFLocalizedStringForKey();
-      v9 = 135;
+      v11 = 135;
     }
 
     else
     {
       delegate = @"Watch Not On Wrist";
-      v9 = 144;
+      v11 = 144;
     }
 
-    v10 = SFAutoUnlockErrorDomain;
-    v14 = NSLocalizedDescriptionKey;
-    v15 = delegate;
-    v11 = [NSDictionary dictionaryWithObjects:&v15 forKeys:&v14 count:1];
-    v12 = [NSError errorWithDomain:v10 code:v9 userInfo:v11];
-    [(SDAutoUnlockProxySession *)self notifyDelegateWithError:v12];
+    v12 = SFAutoUnlockErrorDomain;
+    v16 = NSLocalizedDescriptionKey;
+    v17 = delegate;
+    v13 = [NSDictionary dictionaryWithObjects:&v17 forKeys:&v16 count:1];
+    v14 = [NSError errorWithDomain:v12 code:v11 userInfo:v13];
+    [(SDAutoUnlockProxySession *)self notifyDelegateWithError:v14];
   }
 }
 

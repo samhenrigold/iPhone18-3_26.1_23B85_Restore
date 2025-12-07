@@ -141,7 +141,7 @@ LABEL_14:
   v10 = verdictCopy;
   if (self)
   {
-    if (verdictCopy && flowCopy && (*(verdictCopy + 104) & 1) != 0 && [flowCopy needRules])
+    if (verdictCopy && flowCopy && (verdictCopy[104] & 1) != 0 && [flowCopy needRules])
     {
       v11[0] = MEMORY[0x1E69E9820];
       v11[1] = 3221225472;
@@ -163,40 +163,40 @@ LABEL_14:
 
 void __81__NEFilterDataSavedMessageHandler_executeVerdictHandlerWithFlow_verdict_context___block_invoke(uint64_t a1, void *a2)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (nelog_is_debug_logging_enabled())
   {
     v4 = ne_log_obj();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      v23 = [*(a1 + 32) identifierString];
-      v24 = 138412546;
-      v25 = v23;
-      v26 = 2112;
-      v27 = v3;
-      _os_log_debug_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_DEBUG, "Control verdict for flow %@: %@", &v24, 0x16u);
+      v17 = [*(a1 + 32) identifierString];
+      v18 = 138412546;
+      v19 = v17;
+      v20 = 2112;
+      v21 = v3;
+      _os_log_debug_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_DEBUG, "Control verdict for flow %@: %@", &v18, 0x16u);
     }
   }
 
   if (!v3)
   {
-    v10 = [*(a1 + 40) _principalObject];
-    [v10 handleRulesChanged];
+    v9 = [*(a1 + 40) _principalObject];
+    [v9 handleRulesChanged];
 
 LABEL_13:
-    v11 = *(a1 + 48);
-    if (v11)
+    v10 = *(a1 + 48);
+    if (v10)
     {
-      v12 = *(v11 + 8);
+      v11 = *(v10 + 8);
     }
 
     else
     {
-      v12 = 0;
+      v11 = 0;
     }
 
-    v13 = (*(v12 + 16))();
+    v12 = (*(v11 + 16))();
     goto LABEL_16;
   }
 
@@ -212,85 +212,78 @@ LABEL_13:
   }
 
   v6 = [v3 drop];
-  v7 = *(a1 + 56);
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
   if (!v6)
   {
     if (isKindOfClass)
     {
-      v18 = NEFilterNewFlowVerdict;
+      v16 = NEFilterNewFlowVerdict;
     }
 
     else
     {
-      v20 = *(a1 + 56);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v18 = NEFilterDataVerdict;
+        v16 = NEFilterDataVerdict;
       }
 
       else
       {
-        v22 = *(a1 + 56);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
           goto LABEL_32;
         }
 
-        v18 = NEFilterRemediationVerdict;
+        v16 = NEFilterRemediationVerdict;
       }
     }
 
-    v13 = [(__objc2_class *)v18 allowVerdict];
+    v12 = [(__objc2_class *)v16 allowVerdict];
     goto LABEL_16;
   }
 
   if (isKindOfClass)
   {
-    v9 = NEFilterNewFlowVerdict;
+    v8 = NEFilterNewFlowVerdict;
 LABEL_28:
-    v13 = [(__objc2_class *)v9 dropVerdict];
+    v12 = [(__objc2_class *)v8 dropVerdict];
 LABEL_16:
-    v14 = v13;
+    v13 = v12;
     goto LABEL_17;
   }
 
-  v19 = *(a1 + 56);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v9 = NEFilterDataVerdict;
+    v8 = NEFilterDataVerdict;
     goto LABEL_28;
   }
 
-  v21 = *(a1 + 56);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v9 = NEFilterRemediationVerdict;
+    v8 = NEFilterRemediationVerdict;
     goto LABEL_28;
   }
 
 LABEL_32:
-  v14 = 0;
+  v13 = 0;
 LABEL_17:
-  v15 = *(a1 + 48);
-  if (v15)
+  v14 = *(a1 + 48);
+  if (v14)
   {
-    v16 = *(v15 + 16);
+    v15 = *(v14 + 16);
   }
 
   else
   {
-    v16 = 0;
+    v15 = 0;
   }
 
-  (*(v16 + 16))(v16, v14);
-
-  v17 = *MEMORY[0x1E69E9840];
+  (*(v15 + 16))(v15, v13);
 }
 
 @end

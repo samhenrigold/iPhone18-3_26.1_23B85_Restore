@@ -49,6 +49,7 @@
 - (BOOL)upgradeiCloudIdentity:(__OpaqueSOSCircle *)identity privKey:(__SecKey *)key;
 - (BOOL)valueSetContainsValue:(__CFString *)value value:(void *)a4;
 - (SOSAccountTrustClassic)init;
+- (SOSAccountTrustClassic)initWithRetirees:(id)retirees fpi:(__OpaqueSOSFullPeerInfo *)fpi circle:(__OpaqueSOSCircle *)circle departureCode:(int)code peerExpansion:(id)expansion;
 - (__CFArray)copyPeersToListenTo:(__SecKey *)to err:(__CFError *)err;
 - (__CFArray)copySortedPeerArray:(__CFError *)array action:(id)action;
 - (__CFDictionary)getRings:(__CFError *)rings;
@@ -261,7 +262,7 @@ LABEL_25:
     }
 
     v16 = ringCopy;
-    if (sub_100218428(v16))
+    if (sub_100218428(v16, err))
     {
       trust = [v16 trust];
       circle_transport = [v16 circle_transport];
@@ -460,7 +461,7 @@ LABEL_32:
   }
 
 LABEL_36:
-  if (!sub_100218428(ringCopy))
+  if (!sub_100218428(ringCopy, err))
   {
     goto LABEL_271;
   }
@@ -1177,7 +1178,7 @@ LABEL_176:
         }
 
         sub_100217A94(Instance);
-        if (!sub_100217C1C(Instance) || (v86 = sub_10022B78C(Instance, 0)) == 0)
+        if (!sub_100217C1C(Instance, 0) || (v86 = sub_10022B78C(Instance, 0)) == 0)
         {
           sub_10022BAB4(ringCopy, 0, err);
           if (v104)
@@ -1985,7 +1986,7 @@ LABEL_9:
 
 - (char)encodeToDER:(id)r err:(id *)err start:(const char *)start end:(char *)end
 {
-  v21 = 0;
+  v27 = 0;
   rCopy = r;
   gestalt = [rCopy gestalt];
   [(SOSAccountTrust *)self trustedCircle];
@@ -1999,17 +2000,17 @@ LABEL_9:
   backup_key = [rCopy backup_key];
 
   expansion = [(SOSAccountTrust *)self expansion];
-  sub_10000E1FC(expansion, &v21, 0);
+  v17 = sub_10000E1FC(expansion, &v27, 0, start, end);
   if (backup_key)
   {
-    sub_10001263C(backup_key, &v21);
+    sub_10001263C(backup_key, &v27, start, v17);
   }
 
   SOSPeerInfoSetEncodeToArrayDER();
-  der_encode_data_or_null();
-  sub_100216D80(previousAccountKey);
-  sub_100216D80(accountKey);
-  v22 = accountKeyIsTrusted;
+  v18 = der_encode_data_or_null();
+  v19 = sub_100216D80(previousAccountKey, &v27, start, v18);
+  sub_100216D80(accountKey, &v27, start, v19);
+  v28 = accountKeyIsTrusted;
   ccder_encode_body();
   ccder_encode_tl();
   ccder_encode_uint64();
@@ -2023,24 +2024,24 @@ LABEL_9:
     ccder_encode_tl();
   }
 
-  SOSCircleEncodeToDER();
-  sub_10000E1FC(gestalt, &v21, 0);
+  v20 = SOSCircleEncodeToDER();
+  sub_10000E1FC(gestalt, &v27, 0, start, v20);
   ccder_encode_uint64();
-  v15 = ccder_encode_constructed_tl();
+  v21 = ccder_encode_constructed_tl();
 
-  v16 = v21;
-  if (err && v21)
+  v22 = v27;
+  if (err && v27)
   {
-    *err = v21;
+    *err = v27;
   }
 
-  else if (v21)
+  else if (v27)
   {
-    v21 = 0;
-    CFRelease(v16);
+    v27 = 0;
+    CFRelease(v22);
   }
 
-  return v15;
+  return v21;
 }
 
 - (unint64_t)getDEREncodedSize:(id)size err:(id *)err
@@ -2088,12 +2089,12 @@ LABEL_9:
     goto LABEL_19;
   }
 
-  if (!sub_100216D24([sizeCopy accountKey]))
+  if (!sub_100216D24([sizeCopy accountKey], &v27))
   {
     goto LABEL_19;
   }
 
-  if (!sub_100216D24([sizeCopy previousAccountKey]))
+  if (!sub_100216D24([sizeCopy previousAccountKey], &v27))
   {
     goto LABEL_19;
   }
@@ -2775,7 +2776,7 @@ LABEL_14:
 - (int)viewStatus:(id)status name:(__CFString *)name err:(__CFError *)err
 {
   statusCopy = status;
-  if (!sub_100218428(statusCopy) || ![(SOSAccountTrust *)self trustedCircle]|| ![(SOSAccountTrust *)self fullPeerInfo]|| ![(SOSAccountTrustClassic *)self activeValidInCircle:statusCopy err:err])
+  if (!sub_100218428(statusCopy, err) || ![(SOSAccountTrust *)self trustedCircle]|| ![(SOSAccountTrust *)self fullPeerInfo]|| ![(SOSAccountTrustClassic *)self activeValidInCircle:statusCopy err:err])
   {
     SOSCreateError();
     v9 = 0;
@@ -2848,7 +2849,7 @@ LABEL_19:
   trustedCircle = [(SOSAccountTrust *)self trustedCircle];
   [(SOSAccountTrust *)self fullPeerInfo];
   PeerInfo = SOSFullPeerInfoGetPeerInfo();
-  v9 = sub_100218428(circleCopy);
+  v9 = sub_100218428(circleCopy, err);
 
   return _SOSCircleHasActiveValidPeer(trustedCircle, PeerInfo, v9, err);
 }
@@ -2856,7 +2857,7 @@ LABEL_19:
 - (int)updateView:(id)view name:(__CFString *)name code:(int)code err:(__CFError *)err
 {
   viewCopy = view;
-  v11 = sub_100220920(viewCopy);
+  v11 = sub_100220920(viewCopy, 2);
   v12 = SOSViewCopyViewSet();
   if (![(SOSAccountTrust *)self trustedCircle]|| ![(SOSAccountTrust *)self fullPeerInfo])
   {
@@ -3070,6 +3071,41 @@ LABEL_11:
   return v10;
 }
 
+- (SOSAccountTrustClassic)initWithRetirees:(id)retirees fpi:(__OpaqueSOSFullPeerInfo *)fpi circle:(__OpaqueSOSCircle *)circle departureCode:(int)code peerExpansion:(id)expansion
+{
+  v8 = *&code;
+  retireesCopy = retirees;
+  expansionCopy = expansion;
+  v18.receiver = self;
+  v18.super_class = SOSAccountTrustClassic;
+  v14 = [(SOSAccountTrust *)&v18 init];
+  if (v14)
+  {
+    v15 = [[NSMutableSet alloc] initWithSet:retireesCopy];
+    [(SOSAccountTrust *)v14 setRetirees:v15];
+
+    if (fpi)
+    {
+      CFRetain(fpi);
+    }
+
+    [(SOSAccountTrust *)v14 setFullPeerInfo:fpi];
+    if (circle)
+    {
+      CFRetain(circle);
+    }
+
+    [(SOSAccountTrust *)v14 setTrustedCircle:circle];
+    [(SOSAccountTrust *)v14 setDepartureCode:v8];
+    v16 = [[NSMutableDictionary alloc] initWithDictionary:expansionCopy];
+    [(SOSAccountTrust *)v14 setExpansion:v16];
+
+    [(SOSAccountTrustClassic *)v14 addRingDictionary];
+  }
+
+  return v14;
+}
+
 - (SOSAccountTrustClassic)init
 {
   v6.receiver = self;
@@ -3144,7 +3180,7 @@ LABEL_11:
         v18[7] = &v26;
         [(SOSAccountTrustClassic *)self modifyCircle:circle_transport err:err action:v18];
 
-        if (peerCopy || sub_100220920(v21[5]))
+        if (peerCopy || sub_100220920(v21[5], 2))
         {
           AllCurrent = SOSViewsGetAllCurrent();
           sub_100220C6C(circleCopy, AllCurrent);
@@ -3314,7 +3350,7 @@ LABEL_11:
 {
   withCopy = with;
   trust = [withCopy trust];
-  if ([trust trustedCircle] && (sub_10021A328(withCopy) & 1) != 0)
+  if ([trust trustedCircle] && (sub_10021A328(withCopy, key) & 1) != 0)
   {
     trust2 = [withCopy trust];
     [trust2 trustedCircle];
@@ -3368,7 +3404,7 @@ LABEL_21:
   }
 
   sub_100217E5C(identitiesCopy);
-  if (!sub_100217CE0(identitiesCopy) && !sub_100218648(identitiesCopy, 0))
+  if (!sub_100217CE0(identitiesCopy, 0) && !sub_100218648(identitiesCopy, 0))
   {
     v15 = +[SOSAnalytics logger];
     v16 = v15;
@@ -3376,7 +3412,7 @@ LABEL_21:
     goto LABEL_20;
   }
 
-  v8 = sub_100217CE0(identitiesCopy);
+  v8 = sub_100217CE0(identitiesCopy, 0);
   if (!v8)
   {
     v15 = +[SOSAnalytics logger];
@@ -3610,7 +3646,7 @@ LABEL_21:
       CFSetApplyFunction(retirees2, sub_100204A84, buf);
       if ((*(v113 + 24) & 1) != 0 && !SOSCircleCountPeers())
       {
-        v29 = sub_100217CE0(v108);
+        v29 = sub_100217CE0(v108, err);
         if (HasApplicant)
         {
           v30 = v29;
@@ -4296,7 +4332,7 @@ LABEL_188:
       _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_DEFAULT, "Key state: accountKey %@, previousAccountKey %@, old_circle_key %@", buf, 0x20u);
     }
 
-    v16 = sub_10020EED0(v108, v109);
+    v16 = sub_10020EED0(v108, v109, err);
     if (v16)
     {
       v53 = sub_100006274("circleOps");

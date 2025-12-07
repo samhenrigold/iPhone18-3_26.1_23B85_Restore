@@ -9,7 +9,7 @@
 
 + (HDPowerAssertion)powerAssertionWithIdentifier:(id)identifier timeout:(double)timeout timeoutHandler:(id)handler
 {
-  v34[1] = *MEMORY[0x277D85DE8];
+  v33[1] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   handlerCopy = handler;
   if (timeout <= 0.0)
@@ -49,12 +49,12 @@
       v14 = objc_msgSendSuper2(handler, sel_init);
       if (v14)
       {
-        v17 = [(__CFString *)v15 copy];
+        v17 = objc_msgSend_copy(v15);
         v18 = *(v14 + 5);
         *(v14 + 5) = v17;
 
         *(v14 + 6) = timeout;
-        v19 = [v16 copy];
+        v19 = objc_msgSend_copy(v16);
         v20 = *(v14 + 3);
         *(v14 + 3) = v19;
       }
@@ -74,15 +74,13 @@
     *handler = MEMORY[0x277D85DD0];
     *&handler[8] = 3221225472;
     *&handler[16] = __34__HDPowerAssertion__scheduleTimer__block_invoke;
-    v33 = &unk_278616F38;
-    objc_copyWeak(v34, &location);
+    v32 = &unk_278616F38;
+    objc_copyWeak(v33, &location);
     dispatch_source_set_event_handler(v26, handler);
     dispatch_resume(*(v14 + 2));
-    objc_destroyWeak(v34);
+    objc_destroyWeak(v33);
     objc_destroyWeak(&location);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -114,7 +112,7 @@
 - (void)invalidate
 {
   v2 = 0;
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   atomic_compare_exchange_strong(&self->_invalidated, &v2, 1u);
   if (!v2)
   {
@@ -138,21 +136,19 @@
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         identifier = self->_identifier;
-        v12 = 138412546;
-        v13 = identifier;
-        v14 = 1024;
-        v15 = v8;
-        _os_log_error_impl(&dword_228986000, v9, OS_LOG_TYPE_ERROR, "Failed to release power assertion %@: %d", &v12, 0x12u);
+        v11 = 138412546;
+        v12 = identifier;
+        v13 = 1024;
+        v14 = v8;
+        _os_log_error_impl(&dword_228986000, v9, OS_LOG_TYPE_ERROR, "Failed to release power assertion %@: %d", &v11, 0x12u);
       }
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __34__HDPowerAssertion__scheduleTimer__block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v4 = WeakRetained;
@@ -170,20 +166,18 @@ void __34__HDPowerAssertion__scheduleTimer__block_invoke(uint64_t a1)
       v6 = HKLogInfrastructure();
       if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
       {
-        v8 = v4[5];
-        v9 = v4[6];
-        v10 = 138412546;
-        v11 = v8;
-        v12 = 2048;
-        v13 = v9;
-        _os_log_fault_impl(&dword_228986000, v6, OS_LOG_TYPE_FAULT, "Power assertion %@ timed out after %f seconds", &v10, 0x16u);
+        v7 = v4[5];
+        v8 = v4[6];
+        v9 = 138412546;
+        v10 = v7;
+        v11 = 2048;
+        v12 = v8;
+        _os_log_fault_impl(&dword_228986000, v6, OS_LOG_TYPE_FAULT, "Power assertion %@ timed out after %f seconds", &v9, 0x16u);
       }
     }
 
     [v4 invalidate];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   objc_autoreleasePoolPop(v2);
 }

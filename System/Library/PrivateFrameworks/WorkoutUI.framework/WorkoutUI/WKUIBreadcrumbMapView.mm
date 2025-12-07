@@ -38,11 +38,11 @@
   viewCopy = view;
   swift_unknownObjectRetain();
   selfCopy = self;
-  v7 = specialized WKUIBreadcrumbMapView.mapView(_:rendererFor:)();
+  v8 = specialized WKUIBreadcrumbMapView.mapView(_:rendererFor:)(overlay);
 
   swift_unknownObjectRelease();
 
-  return v7;
+  return v8;
 }
 
 @end

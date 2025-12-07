@@ -1,5 +1,8 @@
 @interface SigX
 + (basic_string<char,)getVersion;
+- (BOOL)flowFloatSamples:(float *)samples sampleCount:(int)count channels:(int)channels error:(id *)error;
+- (BOOL)flowIntSamples:(signed __int16 *)samples sampleCount:(int)count channels:(int)channels error:(id *)error;
+- (BOOL)getSignature:(void *)signature signatureOptions:(int)options error:(id *)error;
 - (SigX)initWithSignatureType:(int)type sampleRate:(unsigned int)rate signatureOptions:(int)options error:(id *)error;
 - (id)ConvertGenericException:(const exception *)exception;
 - (id)ConvertSigException:(const SigException *)exception;
@@ -28,6 +31,82 @@
   v4.receiver = self;
   v4.super_class = SigX;
   [(SigX *)&v4 dealloc];
+}
+
+- (BOOL)getSignature:(void *)signature signatureOptions:(int)options error:(id *)error
+{
+  mySigX = self->mySigX;
+  *(signature + 1) = *signature;
+  (*(**mySigX + 32))(*mySigX, signature, *&options);
+  sub_100008B80(*signature, *(signature + 1));
+}
+
+- (BOOL)flowFloatSamples:(float *)samples sampleCount:(int)count channels:(int)channels error:(id *)error
+{
+  mySigX = self->mySigX;
+  if (channels >= 2 && count)
+  {
+    v7 = 0;
+    v8 = 1.0 / channels;
+    v9 = samples + 1;
+    do
+    {
+      v10 = v8 * samples[v7 * channels];
+      samples[v7] = v10;
+      v11 = v9;
+      v12 = channels - 1;
+      do
+      {
+        v13 = *v11++;
+        v10 = v10 + (v13 * v8);
+        samples[v7] = v10;
+        --v12;
+      }
+
+      while (v12);
+      ++v7;
+      v9 += channels;
+    }
+
+    while (v7 != count);
+  }
+
+  (*(**mySigX + 24))(*mySigX, samples, *&count);
+  return 1;
+}
+
+- (BOOL)flowIntSamples:(signed __int16 *)samples sampleCount:(int)count channels:(int)channels error:(id *)error
+{
+  mySigX = self->mySigX;
+  if (channels >= 2 && count)
+  {
+    v7 = 0;
+    v8 = 1.0 / channels;
+    v9 = samples + 1;
+    do
+    {
+      v10 = (v8 * samples[v7 * channels]);
+      samples[v7] = v10;
+      v11 = v9;
+      v12 = channels - 1;
+      do
+      {
+        v13 = *v11++;
+        v10 = (v10 + (v13 * v8));
+        samples[v7] = v10;
+        --v12;
+      }
+
+      while (v12);
+      ++v7;
+      v9 += channels;
+    }
+
+    while (v7 != count);
+  }
+
+  (*(**mySigX + 16))(*mySigX, samples, *&count);
+  return 1;
 }
 
 - (SigX)initWithSignatureType:(int)type sampleRate:(unsigned int)rate signatureOptions:(int)options error:(id *)error

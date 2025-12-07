@@ -55,7 +55,7 @@
   swift_getObjectType();
   swift_unknownObjectRetain();
   MEMORY[0x277D82BE0](self);
-  sub_225F7F848();
+  sub_225F7F848(delegate);
   MEMORY[0x277D82BD8](self);
 }
 
@@ -88,52 +88,51 @@
   v8 = selfCopy;
   if (sourceCopy)
   {
-    v37 = sourceCopy2;
-    v32 = sourceCopy2;
-    v33 = sub_226099A08();
-    v34 = v9;
+    v31 = sourceCopy2;
+    v26 = sourceCopy2;
+    v27 = sub_226099A08();
+    v28 = v9;
 
-    v35 = v33;
-    v36 = v34;
+    v29 = v27;
+    v30 = v28;
   }
 
   else
   {
-    v35 = 0;
-    v36 = 0;
+    v29 = 0;
+    v30 = 0;
   }
 
-  v27 = v36;
-  v28 = v35;
+  v21 = v30;
+  v22 = v29;
   v10 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D786978, &qword_2260A08D0) - 8) + 64);
-  v29 = &v20;
-  v30 = (v10 + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](&v20, v11, v12, v13);
-  v31 = &v20 - v30;
-  if (v14)
+  v23 = &v14;
+  v24 = (v10 + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](&v14);
+  v25 = &v14 - v24;
+  if (v11)
   {
-    v26 = lCopy2;
-    v25 = lCopy2;
-    v23 = sub_226098948();
-    v20 = *(v23 - 8);
-    v22 = v20;
-    v15 = *(v20 + 64);
-    v24 = &v20;
-    MEMORY[0x28223BE20](v25, &v20, v16, v17);
-    v21 = &v20 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v20 = lCopy2;
+    v19 = lCopy2;
+    v17 = sub_226098948();
+    v14 = *(v17 - 8);
+    v16 = v14;
+    v18 = &v14;
+    MEMORY[0x28223BE20](v19);
+    v15 = &v14 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
     sub_226098908();
-    (*(v22 + 32))(v31, v21, v23);
-    (*(v22 + 56))(v31, 0, 1, v23);
+    (*(v16 + 32))(v25, v15, v17);
+    (*(v16 + 56))(v25, 0, 1, v17);
   }
 
   else
   {
-    v19 = sub_226098948();
-    (*(*(v19 - 8) + 56))(v31, 1);
+    v13 = sub_226098948();
+    (*(*(v13 - 8) + 56))(v25, 1);
   }
 
-  CoreEmbeddedSpeechAnalyzer.preheatSpeechRecognition(with:preheatSource:modelOverrideURL:)(configCopy, v28, v27, v31);
-  sub_22601F334(v31);
+  CoreEmbeddedSpeechAnalyzer.preheatSpeechRecognition(with:preheatSource:modelOverrideURL:)(configCopy, v22, v21, v25);
+  sub_22601F334(v25);
 }
 
 - (void)startSpeechRecognitionWithParameters:(id)parameters didStartHandlerWithInfo:(id)info

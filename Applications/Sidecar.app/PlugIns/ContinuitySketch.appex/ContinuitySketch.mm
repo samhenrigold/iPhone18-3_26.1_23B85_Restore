@@ -1,19 +1,19 @@
-id sub_100001308()
+id sub_100001308(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_allocWithZone(swift_getObjCClassFromMetadata());
-  v1 = sub_1000033CC();
+  v2 = objc_allocWithZone(swift_getObjCClassFromMetadata());
+  v3 = sub_1000033CC();
 
-  v2 = [v0 initWithTitle:v1];
+  v4 = [v2 initWithTitle:v3];
 
-  return v2;
+  return v4;
 }
 
 void sub_1000013D8()
 {
   v1 = type metadata accessor for SketchViewController();
-  v39.receiver = v0;
-  v39.super_class = v1;
-  objc_msgSendSuper2(&v39, "viewDidLoad");
+  v42.receiver = v0;
+  v42.super_class = v1;
+  objc_msgSendSuper2(&v42, "viewDidLoad");
   v2 = [v0 view];
   if (v2)
   {
@@ -32,71 +32,71 @@ void sub_1000013D8()
 
     [v4 setTitle:v6];
 
-    *(&v38 + 1) = v1;
-    *&v37 = v0;
+    *(&v41 + 1) = v1;
+    *&v40 = v0;
     v7 = objc_allocWithZone(UIBarButtonItem);
     v8 = v0;
-    v9 = sub_100002768(1, &v37, "cancel:");
-    v10 = *&v8[OBJC_IVAR___SketchViewController_cancelButton];
-    *&v8[OBJC_IVAR___SketchViewController_cancelButton] = v9;
-    v11 = v9;
+    v10 = sub_100002768(1, &v40, "cancel:", v9);
+    v11 = *&v8[OBJC_IVAR___SketchViewController_cancelButton];
+    *&v8[OBJC_IVAR___SketchViewController_cancelButton] = v10;
+    v12 = v10;
 
-    *(&v38 + 1) = v1;
-    *&v37 = v8;
-    v12 = objc_allocWithZone(UIBarButtonItem);
-    v13 = v8;
-    v14 = sub_100002768(0, &v37, "done:");
-    v15 = *&v13[OBJC_IVAR___SketchViewController_doneButton];
-    *&v13[OBJC_IVAR___SketchViewController_doneButton] = v14;
-    v16 = v14;
+    *(&v41 + 1) = v1;
+    *&v40 = v8;
+    v13 = objc_allocWithZone(UIBarButtonItem);
+    v14 = v8;
+    v16 = sub_100002768(0, &v40, "done:", v15);
+    v17 = *&v14[OBJC_IVAR___SketchViewController_doneButton];
+    *&v14[OBJC_IVAR___SketchViewController_doneButton] = v16;
+    v18 = v16;
 
-    v37 = 0u;
-    v38 = 0u;
-    v17 = objc_allocWithZone(UIBarButtonItem);
-    v18 = sub_100002768(6, &v37, 0);
-    [v18 setWidth:40.0];
+    v40 = 0u;
+    v41 = 0u;
+    v19 = objc_allocWithZone(UIBarButtonItem);
+    v21 = sub_100002768(6, &v40, 0, v20);
+    [v21 setWidth:40.0];
     sub_1000029E0(&qword_10000CA30, &unk_100003AC0);
     sub_100002BE8();
-    v19 = swift_allocObject();
-    *(v19 + 16) = xmmword_100003A50;
-    *(v19 + 32) = v11;
-    v36 = v11;
-    sub_100002A8C(v19, v4, &selRef_setLeftBarButtonItems_);
+    v22 = swift_allocObject();
+    *(v22 + 16) = xmmword_100003A50;
+    *(v22 + 32) = v12;
+    v39 = v12;
+    sub_100002A8C(v22, v4, &selRef_setLeftBarButtonItems_);
     sub_100002BE8();
-    v20 = swift_allocObject();
-    *(v20 + 16) = xmmword_100003A50;
-    *(v20 + 32) = v16;
-    v21 = v16;
-    sub_100002A8C(v20, v4, &selRef_setRightBarButtonItems_);
-    v22 = *&v13[OBJC_IVAR___SketchViewController_canvas];
-    [v22 setDelegate:v13];
-    [v22 setTranslatesAutoresizingMaskIntoConstraints:0];
-    [v3 addSubview:v22];
-    v23 = objc_opt_self();
-    v24 = swift_allocObject();
-    *(v24 + 16) = xmmword_100003A60;
-    v25 = [v22 leftAnchor];
-    v26 = [v3 leftAnchor];
-    v27 = [v25 constraintEqualToAnchor:v26];
+    v23 = swift_allocObject();
+    *(v23 + 16) = xmmword_100003A50;
+    *(v23 + 32) = v18;
+    v24 = v18;
+    sub_100002A8C(v23, v4, &selRef_setRightBarButtonItems_);
+    v25 = *&v14[OBJC_IVAR___SketchViewController_canvas];
+    [v25 setDelegate:v14];
+    [v25 setTranslatesAutoresizingMaskIntoConstraints:0];
+    [v3 addSubview:v25];
+    v26 = objc_opt_self();
+    v27 = swift_allocObject();
+    *(v27 + 16) = xmmword_100003A60;
+    v28 = [v25 leftAnchor];
+    v29 = [v3 leftAnchor];
+    v30 = [v28 constraintEqualToAnchor:v29];
 
-    *(v24 + 32) = v27;
-    v28 = [v22 topAnchor];
-    v29 = sub_100002BF4([v3 topAnchor]);
+    *(v27 + 32) = v30;
+    v31 = [v25 topAnchor];
+    v32 = sub_100002BF4([v3 topAnchor]);
 
-    *(v24 + 40) = v29;
-    v30 = [v3 rightAnchor];
-    v31 = sub_100002BF4([v22 rightAnchor]);
+    *(v27 + 40) = v32;
+    v33 = [v3 rightAnchor];
+    v34 = sub_100002BF4([v25 rightAnchor]);
 
-    *(v24 + 48) = v31;
-    v32 = [v3 bottomAnchor];
-    v33 = [v22 bottomAnchor];
-    v34 = [v32 constraintEqualToAnchor:v33];
+    *(v27 + 48) = v34;
+    v35 = [v3 bottomAnchor];
+    v36 = [v25 bottomAnchor];
+    v37 = [v35 constraintEqualToAnchor:v36];
 
-    *(v24 + 56) = v34;
+    *(v27 + 56) = v37;
     sub_100002B18(0, &qword_10000CA38, NSLayoutConstraint_ptr);
     isa = sub_1000033FC().super.isa;
 
-    [v23 activateConstraints:isa];
+    [v26 activateConstraints:isa];
 
     [v3 layoutIfNeeded];
   }
@@ -141,72 +141,71 @@ void sub_100001A4C()
 {
   v1 = sub_1000033BC();
   v2 = *(v1 - 8);
-  v3 = *(v2 + 64);
-  __chkstk_darwin(v1, v4);
-  v6 = &v28 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v1, v3);
+  v5 = &v27 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v8 = Strong;
-    v9 = [Strong request];
-    if (v9)
+    v7 = Strong;
+    v8 = [Strong request];
+    if (v8)
     {
-      v10 = v9;
-      v11 = *(v0 + OBJC_IVAR___SketchViewController_canvas);
-      v12 = sub_100002544(v11);
+      v9 = v8;
+      v10 = *(v0 + OBJC_IVAR___SketchViewController_canvas);
+      v11 = sub_100002544(v10);
       sub_1000033AC();
 
-      v32.origin.x = sub_10000258C(v11);
-      x = v32.origin.x;
-      y = v32.origin.y;
-      width = v32.size.width;
-      height = v32.size.height;
-      if (CGRectIsEmpty(v32))
+      v31.origin.x = sub_10000258C(v10);
+      x = v31.origin.x;
+      y = v31.origin.y;
+      width = v31.size.width;
+      height = v31.size.height;
+      if (CGRectIsEmpty(v31))
       {
-        [v10 cancel];
+        [v9 cancel];
       }
 
       else
       {
-        v19 = sub_1000025F8(v11);
-        v20 = sub_10000335C();
-        v22 = v21;
+        v18 = sub_1000025F8(v10);
+        v19 = sub_10000335C();
+        v21 = v20;
 
-        v29 = [objc_allocWithZone(PKImageRenderer) initWithSize:width scale:{height, 1.0}];
+        v28 = [objc_allocWithZone(PKImageRenderer) initWithSize:width scale:{height, 1.0}];
         isa = sub_10000339C().super.isa;
         sub_100002BE8();
-        v24 = swift_allocObject();
-        v24[2] = v20;
-        v24[3] = v22;
-        v24[4] = v10;
+        v23 = swift_allocObject();
+        v23[2] = v19;
+        v23[3] = v21;
+        v23[4] = v9;
         aBlock[4] = sub_1000026EC;
-        aBlock[5] = v24;
+        aBlock[5] = v23;
         aBlock[0] = _NSConcreteStackBlock;
         aBlock[1] = 1107296256;
         aBlock[2] = sub_10000202C;
         aBlock[3] = &unk_100008338;
-        v25 = _Block_copy(aBlock);
-        sub_100002710(v20, v22);
-        v26 = v10;
+        v24 = _Block_copy(aBlock);
+        sub_100002710(v19, v21);
+        v25 = v9;
 
-        v27 = v29;
-        [v29 renderDrawing:isa clippedToStrokeSpaceRect:v25 scale:x completion:{y, width, height, 1.0}];
-        _Block_release(v25);
+        v26 = v28;
+        [v28 renderDrawing:isa clippedToStrokeSpaceRect:v24 scale:x completion:{y, width, height, 1.0}];
+        _Block_release(v24);
 
-        sub_100002694(v20, v22);
+        sub_100002694(v19, v21);
       }
 
-      (*(v2 + 8))(v6, v1);
+      (*(v2 + 8))(v5, v1);
       return;
     }
   }
 
-  v17 = swift_unknownObjectWeakLoadStrong();
-  if (v17)
+  v16 = swift_unknownObjectWeakLoadStrong();
+  if (v16)
   {
-    v29 = v17;
-    [v17 completeRequest:0];
-    v18 = v29;
+    v28 = v16;
+    [v16 completeRequest:0];
+    v17 = v28;
   }
 }
 
@@ -214,37 +213,37 @@ void sub_100001D74(void *a1, uint64_t a2, unint64_t a3, void *a4)
 {
   v8 = sub_10000338C();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  __chkstk_darwin(v8, v11);
-  v13 = &v23 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v24 = &_swiftEmptyArrayStorage;
+  __chkstk_darwin(v8, v10);
+  v12 = &v28 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v29 = &_swiftEmptyArrayStorage;
   if (a1)
   {
-    v14 = a1;
-    v15 = UIImagePNGRepresentation(v14);
-    if (v15)
+    v13 = a1;
+    v14 = UIImagePNGRepresentation(v13);
+    if (v14)
     {
-      v16 = v15;
-      v23 = a4;
-      v17 = sub_10000335C();
-      v19 = v18;
+      v15 = v14;
+      v28 = a4;
+      v16 = sub_10000335C();
+      v18 = v17;
 
-      sub_100002710(v17, v19);
+      sub_100002710(v16, v18);
       sub_10000337C();
-      sub_10000336C();
-      (*(v9 + 8))(v13, v8);
-      v20 = objc_allocWithZone(SidecarItem);
-      sub_1000028C0(v17, v19);
+      v19 = sub_10000336C();
+      v21 = v20;
+      (*(v9 + 8))(v12, v8);
+      v22 = objc_allocWithZone(SidecarItem);
+      sub_1000028C0(v16, v18, v19, v21);
       sub_1000033EC();
-      if (*((v24 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v24 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+      if (*((v29 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v29 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
       {
         sub_10000340C();
       }
 
       sub_10000341C();
 
-      sub_100002694(v17, v19);
-      a4 = v23;
+      sub_100002694(v16, v18);
+      a4 = v28;
     }
 
     else
@@ -252,12 +251,13 @@ void sub_100001D74(void *a1, uint64_t a2, unint64_t a3, void *a4)
     }
   }
 
-  sub_1000033DC();
+  v23 = sub_1000033DC();
+  v25 = v24;
   objc_allocWithZone(SidecarItem);
   sub_100002710(a2, a3);
-  v21 = sub_1000028C0(a2, a3);
+  v26 = sub_1000028C0(a2, a3, v23, v25);
   sub_1000033EC();
-  if (*((v24 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v24 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+  if (*((v29 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v29 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
   {
     sub_10000340C();
   }
@@ -271,11 +271,10 @@ void sub_100001D74(void *a1, uint64_t a2, unint64_t a3, void *a4)
 
 void sub_10000202C(uint64_t a1, void *a2)
 {
-  v4 = *(a1 + 32);
-  v3 = *(a1 + 40);
+  v3 = *(a1 + 32);
 
-  v5 = a2;
-  v4(a2);
+  v4 = a2;
+  v3(a2);
 }
 
 uint64_t sub_1000020B0(void *a1, uint64_t a2, uint64_t a3, void (*a4)(id))
@@ -307,7 +306,7 @@ id sub_10000212C(uint64_t a1, uint64_t a2, void *a3)
   *&v4[v7] = [objc_allocWithZone(NSUndoManager) init];
   v8 = OBJC_IVAR___SketchViewController__navigationItem;
   sub_100002B18(0, &qword_10000CA20, UINavigationItem_ptr);
-  *&v4[v8] = sub_100001308();
+  *&v4[v8] = sub_100001308(0, 0xE000000000000000);
   *&v4[OBJC_IVAR___SketchViewController_cancelButton] = 0;
   *&v4[OBJC_IVAR___SketchViewController_doneButton] = 0;
   *&v4[OBJC_IVAR___SketchViewController_fixedSpace] = 0;
@@ -339,7 +338,7 @@ id sub_1000022E8(void *a1)
   *&v2[v4] = [objc_allocWithZone(NSUndoManager) init];
   v5 = OBJC_IVAR___SketchViewController__navigationItem;
   sub_100002B18(0, &qword_10000CA20, UINavigationItem_ptr);
-  *&v2[v5] = sub_100001308();
+  *&v2[v5] = sub_100001308(0, 0xE000000000000000);
   *&v2[OBJC_IVAR___SketchViewController_cancelButton] = 0;
   *&v2[OBJC_IVAR___SketchViewController_doneButton] = 0;
   *&v2[OBJC_IVAR___SketchViewController_fixedSpace] = 0;
@@ -357,11 +356,11 @@ id sub_1000022E8(void *a1)
   return v7;
 }
 
-id sub_100002440()
+id sub_100002440(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for SketchViewController();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for SketchViewController();
+  return objc_msgSendSuper2(&v3, "dealloc");
 }
 
 id sub_100002544(void *a1)
@@ -397,10 +396,10 @@ uint64_t sub_100002658()
 
   sub_100002BE8();
 
-  return _swift_deallocObject();
+  return _swift_deallocObject(v1);
 }
 
-uint64_t sub_100002694(uint64_t a1, unint64_t a2)
+double sub_100002694(uint64_t a1, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
@@ -409,6 +408,8 @@ uint64_t sub_100002694(uint64_t a1, unint64_t a2)
       return result;
     }
   }
+
+  return result;
 }
 
 uint64_t sub_1000026F8(uint64_t a1, uint64_t a2)
@@ -418,31 +419,30 @@ uint64_t sub_1000026F8(uint64_t a1, uint64_t a2)
   *(a1 + 40) = v2;
 }
 
-uint64_t sub_100002710(uint64_t a1, unint64_t a2)
+uint64_t sub_100002710(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v2;
     }
   }
 }
 
-id sub_100002768(uint64_t a1, uint64_t *a2, uint64_t a3)
+id sub_100002768(uint64_t a1, void *a2, uint64_t a3, double a4)
 {
-  v6 = a2[3];
-  if (v6)
+  v7 = a2[3];
+  if (v7)
   {
-    v8 = sub_100002B58(a2, a2[3]);
-    v9 = *(v6 - 8);
-    v10 = *(v9 + 64);
-    __chkstk_darwin(v8, v8);
+    v9 = sub_100002B58(a2, a2[3]);
+    v10 = *(v7 - 8);
+    __chkstk_darwin(v9, v9);
     v12 = &v16 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-    (*(v9 + 16))(v12);
+    (*(v10 + 16))(v12);
     v13 = sub_10000343C();
-    (*(v9 + 8))(v12, v6);
-    sub_100002B9C(a2);
+    (*(v10 + 8))(v12, v7);
+    a4 = sub_100002B9C(a2);
   }
 
   else
@@ -450,12 +450,12 @@ id sub_100002768(uint64_t a1, uint64_t *a2, uint64_t a3)
     v13 = 0;
   }
 
-  v14 = [v3 initWithBarButtonSystemItem:a1 target:v13 action:a3];
+  v14 = [v4 initWithBarButtonSystemItem:a1 target:v13 action:{a3, a4}];
   swift_unknownObjectRelease();
   return v14;
 }
 
-id sub_1000028C0(uint64_t a1, unint64_t a2)
+id sub_1000028C0(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a2 >> 60 == 15)
   {
@@ -468,21 +468,21 @@ id sub_1000028C0(uint64_t a1, unint64_t a2)
     sub_100002964(a1, a2);
   }
 
-  v6 = sub_1000033CC();
+  v8 = sub_1000033CC();
 
-  v7 = [v2 initWithData:isa type:v6];
+  v9 = [v4 initWithData:isa type:v8];
 
-  return v7;
+  return v9;
 }
 
-uint64_t sub_100002964(uint64_t a1, unint64_t a2)
+double sub_100002964(uint64_t a1, unint64_t a2)
 {
   if (a2 >> 60 != 15)
   {
     return sub_100002694(a1, a2);
   }
 
-  return a1;
+  return result;
 }
 
 uint64_t sub_100002978(uint64_t a1)
@@ -497,7 +497,6 @@ uint64_t sub_1000029E0(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -527,12 +526,11 @@ void sub_100002A8C(uint64_t a1, void *a2, SEL *a3)
   [a2 *a3];
 }
 
-uint64_t sub_100002B18(uint64_t a1, unint64_t *a2, uint64_t *a3)
+uint64_t sub_100002B18(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
   {
-    v5 = *a3;
     objc_opt_self();
     result = swift_getObjCClassMetadata();
     atomic_store(result, a2);
@@ -551,15 +549,19 @@ void *sub_100002B58(void *result, uint64_t a2)
   return result;
 }
 
-uint64_t sub_100002B9C(uint64_t *a1)
+double sub_100002B9C(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
   {
-    return (*(v1 + 8))();
   }
 
-  v3 = *a1;
+  else
+  {
+    (*(v1 + 8))();
+  }
+
+  return result;
 }
 
 id sub_100002BF4(uint64_t a1)
@@ -678,11 +680,11 @@ id sub_1000030DC(void *a1)
   return v7;
 }
 
-id sub_1000031B4()
+id sub_1000031B4(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for SketchRootController();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for SketchRootController();
+  return objc_msgSendSuper2(&v3, "dealloc");
 }
 
 id sub_100003258(uint64_t a1, uint64_t a2, void *a3)

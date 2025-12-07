@@ -66,14 +66,11 @@
 
 - (NSString)role
 {
-  v2 = (self + OBJC_IVAR___STKStickerRepresentation_role);
   swift_beginAccess();
-  v4 = *v2;
-  v3 = v2[1];
 
-  v5 = sub_1B8A23EF4();
+  v2 = sub_1B8A23EF4();
 
-  return v5;
+  return v2;
 }
 
 - (void)setRole:(id)role
@@ -82,7 +79,6 @@
   v6 = v5;
   v7 = (self + OBJC_IVAR___STKStickerRepresentation_role);
   swift_beginAccess();
-  v8 = v7[1];
   *v7 = v4;
   v7[1] = v6;
 }

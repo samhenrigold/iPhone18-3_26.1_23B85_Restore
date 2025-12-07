@@ -37,10 +37,16 @@
   if (label)
   {
     sub_1D8190F14();
+    v5 = v4;
+  }
+
+  else
+  {
+    v5 = 0;
   }
 
   selfCopy = self;
-  ErrorView.accessibilityLabel.setter();
+  ErrorView.accessibilityLabel.setter(selfCopy, v5);
 }
 
 - (void)setAccessibilityElements:(id)elements

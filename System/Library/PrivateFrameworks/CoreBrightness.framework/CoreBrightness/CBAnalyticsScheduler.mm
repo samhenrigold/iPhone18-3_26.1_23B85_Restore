@@ -31,7 +31,7 @@
   return sharedInstance__sharedObject;
 }
 
-uint64_t __38__CBAnalyticsScheduler_sharedInstance__block_invoke(uint64_t a1)
+void *__38__CBAnalyticsScheduler_sharedInstance__block_invoke(uint64_t a1)
 {
   v4 = a1;
   v3 = a1;
@@ -135,7 +135,6 @@ uint64_t __38__CBAnalyticsScheduler_sharedInstance__block_invoke(uint64_t a1)
   objc_sync_exit(self);
   [v5 enumerateKeysAndObjectsUsingBlock:&__block_literal_global_1];
   MEMORY[0x1E69E5920](v5);
-  *MEMORY[0x1E69E9840];
 }
 
 uint64_t __27__CBAnalyticsScheduler_run__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)

@@ -8,16 +8,16 @@
 
 - (void)performRequestWithCompletion:(id)completion
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   v5 = completionCopy;
   if (self->_startRequestData)
   {
     *keys = xmmword_1E7348678;
-    v19 = "request_options";
+    v18 = "request_options";
     values = xpc_int64_create(4);
-    v16 = self->_startRequestData;
-    v17 = xpc_uint64_create(self->_requestOptions);
+    v15 = self->_startRequestData;
+    v16 = xpc_uint64_create(self->_requestOptions);
     v6 = xpc_dictionary_create(keys, &values, 3uLL);
     for (i = 16; i != -8; i -= 8)
     {
@@ -33,10 +33,10 @@
     }
 
     *keys = xmmword_1E7348690;
-    v19 = "request_options";
+    v18 = "request_options";
     values = xpc_int64_create(5);
-    v16 = self->_startLocalRequestData;
-    v17 = xpc_uint64_create(self->_requestOptions);
+    v15 = self->_startLocalRequestData;
+    v16 = xpc_uint64_create(self->_requestOptions);
     v6 = xpc_dictionary_create(keys, &values, 3uLL);
     for (j = 16; j != -8; j -= 8)
     {
@@ -51,9 +51,9 @@
     handler[1] = 3221225472;
     handler[2] = __49__AFSiriAceRequest_performRequestWithCompletion___block_invoke;
     handler[3] = &unk_1E7348638;
-    v14 = v5;
-    v13 = v10;
-    xpc_connection_send_message_with_reply(v13, v6, 0, handler);
+    v13 = v5;
+    v12 = v10;
+    xpc_connection_send_message_with_reply(v12, v6, 0, handler);
   }
 
   else
@@ -70,7 +70,6 @@
   }
 
 LABEL_16:
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __49__AFSiriAceRequest_performRequestWithCompletion___block_invoke(uint64_t a1, void *a2)

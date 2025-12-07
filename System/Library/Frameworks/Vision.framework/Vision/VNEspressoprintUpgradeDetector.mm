@@ -222,7 +222,7 @@ uint64_t __132__VNEspressoprintUpgradeDetector_processRegionOfInterest_croppedPi
   return 0;
 }
 
-BOOL __73__VNEspressoprintUpgradeDetector_completeInitializationForSession_error___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, int a4, void *a5)
+BOOL __73__VNEspressoprintUpgradeDetector_completeInitializationForSession_error___block_invoke(uint64_t a1, uint64_t a2, void *a3, int a4, void *a5)
 {
   *(a2 + 160) = 0x3030303030303030;
   *&v10 = 0x3030303030303030;

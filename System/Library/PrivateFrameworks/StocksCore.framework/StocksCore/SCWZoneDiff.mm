@@ -59,100 +59,98 @@
 
 - (id)applyToRecords:(id)records
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   recordsCopy = records;
   dictionary = [MEMORY[0x1E695DF90] dictionary];
+  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
   v6 = recordsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v36 objects:v42 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v35 objects:v41 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v37;
+    v9 = *v36;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v37 != v9)
+        if (*v36 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v36 + 1) + 8 * i);
+        v11 = *(*(&v35 + 1) + 8 * i);
         recordID = [v11 recordID];
         [dictionary setObject:v11 forKeyedSubscript:recordID];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v36 objects:v42 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v35 objects:v41 count:16];
     }
 
     while (v8);
   }
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   modifiedRecords = [(SCWZoneDiff *)self modifiedRecords];
-  v14 = [modifiedRecords countByEnumeratingWithState:&v32 objects:v41 count:16];
+  v14 = [modifiedRecords countByEnumeratingWithState:&v31 objects:v40 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v33;
+    v16 = *v32;
     do
     {
       for (j = 0; j != v15; ++j)
       {
-        if (*v33 != v16)
+        if (*v32 != v16)
         {
           objc_enumerationMutation(modifiedRecords);
         }
 
-        v18 = *(*(&v32 + 1) + 8 * j);
+        v18 = *(*(&v31 + 1) + 8 * j);
         recordID2 = [v18 recordID];
         [dictionary setObject:v18 forKeyedSubscript:recordID2];
       }
 
-      v15 = [modifiedRecords countByEnumeratingWithState:&v32 objects:v41 count:16];
+      v15 = [modifiedRecords countByEnumeratingWithState:&v31 objects:v40 count:16];
     }
 
     while (v15);
   }
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   deletedRecordIDs = [(SCWZoneDiff *)self deletedRecordIDs];
-  v21 = [deletedRecordIDs countByEnumeratingWithState:&v28 objects:v40 count:16];
+  v21 = [deletedRecordIDs countByEnumeratingWithState:&v27 objects:v39 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v29;
+    v23 = *v28;
     do
     {
       for (k = 0; k != v22; ++k)
       {
-        if (*v29 != v23)
+        if (*v28 != v23)
         {
           objc_enumerationMutation(deletedRecordIDs);
         }
 
-        [dictionary removeObjectForKey:*(*(&v28 + 1) + 8 * k)];
+        [dictionary removeObjectForKey:*(*(&v27 + 1) + 8 * k)];
       }
 
-      v22 = [deletedRecordIDs countByEnumeratingWithState:&v28 objects:v40 count:16];
+      v22 = [deletedRecordIDs countByEnumeratingWithState:&v27 objects:v39 count:16];
     }
 
     while (v22);
   }
 
   allValues = [dictionary allValues];
-
-  v26 = *MEMORY[0x1E69E9840];
 
   return allValues;
 }
@@ -172,7 +170,7 @@
 
 - (BOOL)hasSameBaseAsDiff:(id)diff
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   diffCopy = diff;
   v5 = MEMORY[0x1E695DFD8];
   deletedRecordIDs = [(SCWZoneDiff *)self deletedRecordIDs];
@@ -184,65 +182,65 @@
 
   if ([v7 isEqualToSet:v10])
   {
-    v42 = v10;
-    v43 = v7;
+    v41 = v10;
+    v42 = v7;
     dictionary = [MEMORY[0x1E695DF90] dictionary];
+    v52 = 0u;
     v53 = 0u;
     v54 = 0u;
     v55 = 0u;
-    v56 = 0u;
     modifiedRecords = [(SCWZoneDiff *)self modifiedRecords];
-    v13 = [modifiedRecords countByEnumeratingWithState:&v53 objects:v59 count:16];
+    v13 = [modifiedRecords countByEnumeratingWithState:&v52 objects:v58 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v54;
+      v15 = *v53;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v54 != v15)
+          if (*v53 != v15)
           {
             objc_enumerationMutation(modifiedRecords);
           }
 
-          v17 = *(*(&v53 + 1) + 8 * i);
+          v17 = *(*(&v52 + 1) + 8 * i);
           recordID = [v17 recordID];
           [dictionary setObject:v17 forKey:recordID];
         }
 
-        v14 = [modifiedRecords countByEnumeratingWithState:&v53 objects:v59 count:16];
+        v14 = [modifiedRecords countByEnumeratingWithState:&v52 objects:v58 count:16];
       }
 
       while (v14);
     }
 
     dictionary2 = [MEMORY[0x1E695DF90] dictionary];
+    v48 = 0u;
     v49 = 0u;
     v50 = 0u;
     v51 = 0u;
-    v52 = 0u;
     modifiedRecords2 = [diffCopy modifiedRecords];
-    v21 = [modifiedRecords2 countByEnumeratingWithState:&v49 objects:v58 count:16];
+    v21 = [modifiedRecords2 countByEnumeratingWithState:&v48 objects:v57 count:16];
     if (v21)
     {
       v22 = v21;
-      v23 = *v50;
+      v23 = *v49;
       do
       {
         for (j = 0; j != v22; ++j)
         {
-          if (*v50 != v23)
+          if (*v49 != v23)
           {
             objc_enumerationMutation(modifiedRecords2);
           }
 
-          v25 = *(*(&v49 + 1) + 8 * j);
+          v25 = *(*(&v48 + 1) + 8 * j);
           recordID2 = [v25 recordID];
           [dictionary2 setObject:v25 forKey:recordID2];
         }
 
-        v22 = [modifiedRecords2 countByEnumeratingWithState:&v49 objects:v58 count:16];
+        v22 = [modifiedRecords2 countByEnumeratingWithState:&v48 objects:v57 count:16];
       }
 
       while (v22);
@@ -251,28 +249,28 @@
     v27 = [dictionary count];
     if (v27 == [dictionary2 count])
     {
-      v47 = 0u;
-      v48 = 0u;
-      v45 = 0u;
       v46 = 0u;
+      v47 = 0u;
+      v44 = 0u;
+      v45 = 0u;
       v28 = dictionary;
-      v29 = [v28 countByEnumeratingWithState:&v45 objects:v57 count:16];
+      v29 = [v28 countByEnumeratingWithState:&v44 objects:v56 count:16];
       if (v29)
       {
         v30 = v29;
-        v41 = diffCopy;
-        v44 = *v46;
+        v40 = diffCopy;
+        v43 = *v45;
         while (2)
         {
           for (k = 0; k != v30; ++k)
           {
-            if (*v46 != v44)
+            if (*v45 != v43)
             {
               objc_enumerationMutation(v28);
             }
 
-            v32 = *(*(&v45 + 1) + 8 * k);
-            v33 = [v28 objectForKeyedSubscript:{v32, v41}];
+            v32 = *(*(&v44 + 1) + 8 * k);
+            v33 = [v28 objectForKeyedSubscript:{v32, v40}];
             v34 = [dictionary2 objectForKeyedSubscript:v32];
             v35 = MEMORY[0x1E69E58C0];
             recordChangeTag = [v33 recordChangeTag];
@@ -286,7 +284,7 @@
             }
           }
 
-          v30 = [v28 countByEnumeratingWithState:&v45 objects:v57 count:16];
+          v30 = [v28 countByEnumeratingWithState:&v44 objects:v56 count:16];
           if (v30)
           {
             continue;
@@ -297,7 +295,7 @@
 
         v38 = 1;
 LABEL_29:
-        diffCopy = v41;
+        diffCopy = v40;
       }
 
       else
@@ -311,9 +309,9 @@ LABEL_29:
       v38 = 0;
     }
 
-    v10 = v42;
+    v10 = v41;
 
-    v7 = v43;
+    v7 = v42;
   }
 
   else
@@ -321,7 +319,6 @@ LABEL_29:
     v38 = 0;
   }
 
-  v39 = *MEMORY[0x1E69E9840];
   return v38;
 }
 

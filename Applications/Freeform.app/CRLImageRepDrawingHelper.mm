@@ -346,12 +346,12 @@ LABEL_35:
   width = rect.size.width;
   y = rect.origin.y;
   x = rect.origin.x;
-  v10 = [(CRLImageRepDrawingHelper *)self rep];
-  v11 = v10;
-  if (v10)
+  v9 = [(CRLImageRepDrawingHelper *)self rep];
+  v10 = v9;
+  if (v9)
   {
-    memset(&v36, 0, sizeof(v36));
-    [v10 imageDrawingHelperImageTransformInRootForAntialiasingDefeat:self];
+    memset(&v35, 0, sizeof(v35));
+    objc_msgSend_imageDrawingHelperImageTransformInRootForAntialiasingDefeat_(v9);
   }
 
   else
@@ -372,62 +372,62 @@ LABEL_35:
       sub_10138A398();
     }
 
-    v12 = off_1019EDA68;
+    v11 = off_1019EDA68;
     if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
     {
-      sub_10130DA10(v12);
+      sub_10130DA10(v11);
     }
 
-    v13 = [NSString stringWithUTF8String:"[CRLImageRepDrawingHelper p_antialiasingDefeatedRectForRect:inContext:]"];
-    v14 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/BoardItems/CRLImageRepDrawingHelper.m"];
-    [CRLAssertionHandler handleFailureInFunction:v13 file:v14 lineNumber:184 isFatal:0 description:"invalid nil value for '%{public}s'", "rep"];
+    v12 = [NSString stringWithUTF8String:"[CRLImageRepDrawingHelper p_antialiasingDefeatedRectForRect:inContext:]"];
+    v13 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/BoardItems/CRLImageRepDrawingHelper.m"];
+    [CRLAssertionHandler handleFailureInFunction:v12 file:v13 lineNumber:184 isFatal:0 description:"invalid nil value for '%{public}s'", "rep"];
 
-    memset(&v36, 0, sizeof(v36));
+    memset(&v35, 0, sizeof(v35));
   }
 
-  v35 = v36;
-  if (sub_100139B5C(&v35.a))
+  v34 = v35;
+  if (sub_100139B5C(&v34.a))
   {
-    v35 = v36;
-    v37.origin.x = x;
-    v37.origin.y = y;
-    v37.size.width = width;
-    v37.size.height = height;
-    v38 = CGRectApplyAffineTransform(v37, &v35);
-    v15 = v38.origin.x;
-    v16 = v38.origin.y;
-    v17 = v38.size.width;
-    v18 = v38.size.height;
-    v19 = sub_100510A7C(context);
-    canvas = [v11 canvas];
+    v34 = v35;
+    v36.origin.x = x;
+    v36.origin.y = y;
+    v36.size.width = width;
+    v36.size.height = height;
+    v37 = CGRectApplyAffineTransform(v36, &v34);
+    v14 = v37.origin.x;
+    v15 = v37.origin.y;
+    v16 = v37.size.width;
+    v17 = v37.size.height;
+    v18 = sub_100510A7C(context);
+    canvas = [v10 canvas];
     [canvas viewScale];
-    v22 = v21;
+    v21 = v20;
 
-    v23 = sub_1001221E8(v15, v16, v17, v18, v19 * v22);
-    v25 = v24;
-    v27 = v26;
-    v29 = v28;
-    v34 = v36;
-    CGAffineTransformInvert(&v35, &v34);
-    v39.origin.x = v23;
-    v39.origin.y = v25;
-    v39.size.width = v27;
-    v39.size.height = v29;
-    v40 = CGRectApplyAffineTransform(v39, &v35);
-    x = v40.origin.x;
-    y = v40.origin.y;
-    width = v40.size.width;
-    height = v40.size.height;
+    v22 = sub_1001221E8(v14, v15, v16, v17, v18 * v21);
+    v24 = v23;
+    v26 = v25;
+    v28 = v27;
+    v33 = v35;
+    CGAffineTransformInvert(&v34, &v33);
+    v38.origin.x = v22;
+    v38.origin.y = v24;
+    v38.size.width = v26;
+    v38.size.height = v28;
+    v39 = CGRectApplyAffineTransform(v38, &v34);
+    x = v39.origin.x;
+    y = v39.origin.y;
+    width = v39.size.width;
+    height = v39.size.height;
   }
 
-  v30 = x;
-  v31 = y;
-  v32 = width;
-  v33 = height;
-  result.size.height = v33;
-  result.size.width = v32;
-  result.origin.y = v31;
-  result.origin.x = v30;
+  v29 = x;
+  v30 = y;
+  v31 = width;
+  v32 = height;
+  result.size.height = v32;
+  result.size.width = v31;
+  result.origin.y = v30;
+  result.origin.x = v29;
   return result;
 }
 

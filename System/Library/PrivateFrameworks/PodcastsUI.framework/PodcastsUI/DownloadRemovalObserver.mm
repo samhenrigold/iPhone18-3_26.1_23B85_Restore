@@ -6,7 +6,7 @@
 
 - (void)removeDownloadedEpisodeWithUuid:(id)uuid completion:(id)completion
 {
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD86EE0);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD86EE0, &qword_21B4D5680);
   MEMORY[0x28223BE20](v6 - 8);
   v8 = &v17 - v7;
   v9 = _Block_copy(completion);
@@ -24,7 +24,7 @@
     v13 = 0;
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD86AE0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD86AE0, &qword_21B4D56B0);
   v14 = swift_allocObject();
   *(v14 + 16) = xmmword_21B4D2830;
   *(v14 + 32) = v10;

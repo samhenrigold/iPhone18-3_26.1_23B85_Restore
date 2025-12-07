@@ -102,33 +102,31 @@ void sub_100034248(uint64_t a1)
 void sub_100034D74(id a1, NSArray *a2)
 {
   v2 = a2;
+  v7 = 0u;
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
-  v12 = 0u;
-  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v8;
     do
     {
-      for (i = 0; i != v4; i = i + 1)
+      for (i = 0; i != v4; ++i)
       {
-        if (*v10 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v9 + 1) + 8 * i);
         if (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 3)
         {
-          v8 = *(*(&v9 + 1) + 8 * i);
           MOLogWrite();
         }
       }
 
-      v4 = [(NSArray *)v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [(NSArray *)v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
@@ -243,9 +241,9 @@ void sub_1000354BC(uint64_t a1)
   if (![*(a1 + 48) _onQueue_installIsPendingForWatchApp:v3])
   {
     v8 = [ACXInstallQueueElement alloc];
-    LOBYTE(v21) = *(a1 + 105);
+    LOBYTE(v19) = *(a1 + 105);
     LOBYTE(v16) = *(a1 + 104);
-    v9 = [(ACXInstallQueueElement *)v8 initWithURL:*(a1 + 56) watchBundleID:v3 companionBundleID:v5 priority:*(a1 + 88) appPrefs:*(a1 + 64) provisioningProfileInfo:0 isUserInitiated:v16 requiredCapabilities:*(a1 + 72) isPlaceholder:v21 size:*(a1 + 96)];
+    v9 = [(ACXInstallQueueElement *)v8 initWithURL:*(a1 + 56) watchBundleID:v3 companionBundleID:v5 priority:*(a1 + 88) appPrefs:*(a1 + 64) provisioningProfileInfo:0 isUserInitiated:v16 requiredCapabilities:*(a1 + 72) isPlaceholder:v19 size:*(a1 + 96)];
     v10 = *(a1 + 48);
     if (*(a1 + 105) == 1)
     {
@@ -270,10 +268,9 @@ void sub_1000354BC(uint64_t a1)
     {
       if (qword_1000A4878 && *(qword_1000A4878 + 44) < 5)
       {
-        goto LABEL_24;
+        goto LABEL_23;
       }
 
-      v19 = *(a1 + 56);
       [*(a1 + 48) _onQueue_countPending];
     }
 
@@ -289,21 +286,19 @@ void sub_1000354BC(uint64_t a1)
       if (([*(a1 + 48) isSuspended] & 1) == 0)
       {
         [*(a1 + 48) _onQueue_startQueue];
-        goto LABEL_24;
+        goto LABEL_23;
       }
 
       if (qword_1000A4878 && *(qword_1000A4878 + 44) < 5)
       {
-        goto LABEL_24;
+        goto LABEL_23;
       }
-
-      v20 = *(a1 + 56);
     }
 
     MOLogWrite();
-LABEL_24:
+LABEL_23:
 
-    goto LABEL_25;
+    goto LABEL_24;
   }
 
   if (qword_1000A4878 && *(qword_1000A4878 + 44) >= 7)
@@ -313,14 +308,14 @@ LABEL_24:
 
   v6 = qos_class_self();
   v7 = dispatch_get_global_queue(v6, 0);
-  v22[0] = _NSConcreteStackBlock;
-  v22[1] = 3221225472;
-  v22[2] = sub_100035790;
-  v22[3] = &unk_10008D118;
-  v23 = *(a1 + 80);
-  sub_100005828(v7, v22);
+  v20[0] = _NSConcreteStackBlock;
+  v20[1] = 3221225472;
+  v20[2] = sub_100035790;
+  v20[3] = &unk_10008D118;
+  v21 = *(a1 + 80);
+  sub_100005828(v7, v20);
 
-LABEL_25:
+LABEL_24:
 }
 
 void sub_10003582C(uint64_t a1)
@@ -370,9 +365,9 @@ void sub_10003582C(uint64_t a1)
   }
 }
 
-void sub_100035AB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100035AB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -380,17 +375,7 @@ void sub_100035AB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void sub_100035AD0(uint64_t a1)
 {
   v2 = [*(a1 + 32) currentInstallOperation];
-  if (!v2)
-  {
-    goto LABEL_7;
-  }
-
-  v3 = v2;
-  v4 = [*(a1 + 32) currentInstallOperation];
-  v5 = [v4 watchAppBundleID];
-  v6 = [v5 isEqualToString:*(a1 + 40)];
-
-  if (v6)
+  if (v2 && (v3 = v2, [*(a1 + 32) currentInstallOperation], v4 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v4, "watchAppBundleID"), v5 = objc_claimAutoreleasedReturnValue(), v6 = objc_msgSend(v5, "isEqualToString:", *(a1 + 40)), v5, v4, v3, v6))
   {
     if (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 5)
     {
@@ -407,35 +392,13 @@ void sub_100035AD0(uint64_t a1)
 
   else
   {
-LABEL_7:
     v8 = *(a1 + 32);
     v9 = *(a1 + 40);
     v10 = [v8 placeholderInstallQueue];
     LOBYTE(v8) = [v8 _onQueue_removeInstallOperationWithWatchBundleID:v9 fromQueue:v10];
 
-    if (v8)
+    if (v8 & 1) != 0 || (v11 = *(a1 + 32), v12 = *(a1 + 40), [v11 highPriorityUpdateQueue], v13 = objc_claimAutoreleasedReturnValue(), LOBYTE(v11) = objc_msgSend(v11, "_onQueue_removeInstallOperationWithWatchBundleID:fromQueue:", v12, v13), v13, (v11) || (v14 = *(a1 + 32), v15 = *(a1 + 40), objc_msgSend(v14, "normalPriorityUpdateQueue"), v16 = objc_claimAutoreleasedReturnValue(), LOBYTE(v14) = objc_msgSend(v14, "_onQueue_removeInstallOperationWithWatchBundleID:fromQueue:", v15, v16), v16, (v14) || (v17 = *(a1 + 32), v18 = *(a1 + 40), objc_msgSend(v17, "normalPriorityNewAppUpdateQueue"), v19 = objc_claimAutoreleasedReturnValue(), LODWORD(v17) = objc_msgSend(v17, "_onQueue_removeInstallOperationWithWatchBundleID:fromQueue:", v18, v19), v19, v17))
     {
-      goto LABEL_11;
-    }
-
-    v11 = *(a1 + 32);
-    v12 = *(a1 + 40);
-    v13 = [v11 highPriorityUpdateQueue];
-    LOBYTE(v11) = [v11 _onQueue_removeInstallOperationWithWatchBundleID:v12 fromQueue:v13];
-
-    if (v11)
-    {
-      goto LABEL_11;
-    }
-
-    v14 = *(a1 + 32);
-    v15 = *(a1 + 40);
-    v16 = [v14 normalPriorityUpdateQueue];
-    LOBYTE(v14) = [v14 _onQueue_removeInstallOperationWithWatchBundleID:v15 fromQueue:v16];
-
-    if ((v14 & 1) != 0 || (v17 = *(a1 + 32), v18 = *(a1 + 40), [v17 normalPriorityNewAppUpdateQueue], v19 = objc_claimAutoreleasedReturnValue(), LODWORD(v17) = objc_msgSend(v17, "_onQueue_removeInstallOperationWithWatchBundleID:fromQueue:", v18, v19), v19, v17))
-    {
-LABEL_11:
       *(*(*(a1 + 48) + 8) + 24) = 1;
     }
 
@@ -642,9 +605,9 @@ LABEL_20:
   return [*(a1 + 40) _onQueue_deQueueNextOperation];
 }
 
-void sub_1000375D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000375D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -691,7 +654,7 @@ void sub_100038D7C(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5,
 
   else
   {
-    [*(a1 + 32) setAcquiredSocket:1];
+    [*(a1 + 32) setAcquiredSocket:{1, a4, a5, a6, a7, a8}];
     v9 = *(a1 + 32);
 
     [v9 _onQueue_doTransferAndInstall];
@@ -815,9 +778,9 @@ void sub_10003A9F0(uint64_t a1)
   objc_storeStrong(v3, v2);
 }
 
-void sub_10003AB84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10003AB84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -839,9 +802,9 @@ uint64_t sub_10003ABB4(uint64_t a1)
   return _objc_release_x1(v2, v4);
 }
 
-void sub_10003AD7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10003AD7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -855,9 +818,9 @@ void sub_10003AD94(uint64_t a1)
   *(v3 + 40) = v2;
 }
 
-void sub_10003AF78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10003AF78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -887,9 +850,9 @@ void sub_10003B034(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
   }
 }
 
-void sub_10003B288(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10003B288(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1166,12 +1129,11 @@ void sub_10003CC1C(id a1)
   qword_1000A4840 = v1;
 }
 
-uint64_t sub_10003D490(uint64_t a1)
+uint64_t sub_10003D490()
 {
   result = qword_1000A4878;
   if (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 5)
   {
-    v3 = *(a1 + 32);
     return MOLogWrite();
   }
 
@@ -1192,12 +1154,11 @@ id sub_10003D4F0(uint64_t a1)
   return [v2 _onQueue_reSync];
 }
 
-uint64_t sub_10003D88C(uint64_t a1)
+uint64_t sub_10003D88C()
 {
   result = qword_1000A4878;
   if (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 5)
   {
-    v3 = *(a1 + 32);
     return MOLogWrite();
   }
 
@@ -1208,7 +1169,6 @@ id sub_10003D8EC(uint64_t a1)
 {
   if (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 5)
   {
-    v4 = *(a1 + 32);
     MOLogWrite();
   }
 
@@ -1494,8 +1454,6 @@ id sub_10003FD98(uint64_t a1)
     result = qword_1000A4878;
     if (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 3)
     {
-      v9 = *(a1 + 40);
-      v11 = *(a1 + 48);
       return MOLogWrite();
     }
 
@@ -1511,7 +1469,7 @@ id sub_10003FD98(uint64_t a1)
     {
       v6 = *(a1 + 40);
       [*(a1 + 32) currentDBUUID];
-      v10 = v8 = v6;
+      v9 = v8 = v6;
       MOLogWrite();
     }
 
@@ -1523,7 +1481,6 @@ id sub_10003FD98(uint64_t a1)
     if (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 3)
     {
       [*(a1 + 32) lastSequenceNumber];
-      v12 = *(a1 + 48);
       MOLogWrite();
     }
 
@@ -1538,12 +1495,12 @@ id sub_10003FD98(uint64_t a1)
     if (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 3)
     {
       v8 = [*(a1 + 32) lastSequenceNumber];
-      v10 = *(a1 + 48);
+      v9 = *(a1 + 48);
       MOLogWrite();
     }
 
 LABEL_17:
-    [*(a1 + 32) setCurrentDBUUID:{*(a1 + 40), v8, v10}];
+    [*(a1 + 32) setCurrentDBUUID:{*(a1 + 40), v8, v9}];
     [*(a1 + 32) setLastSequenceNumber:0];
     [*(a1 + 32) _onQueue_stopSyncTimer];
     v7 = *(a1 + 32);
@@ -2511,7 +2468,6 @@ void sub_100041B78(uint64_t a1)
   {
     if (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 3)
     {
-      v19 = *(a1 + 40);
       MOLogWrite();
     }
   }
@@ -2524,32 +2480,32 @@ void sub_100041B78(uint64_t a1)
 
     if (v2)
     {
-      v22 = objc_opt_new();
+      v21 = objc_opt_new();
       v4 = [*(a1 + 32) appList];
       v5 = [v4 mutableCopy];
 
       v6 = [*(a1 + 32) lastSequenceNumber];
+      v22 = 0u;
       v23 = 0u;
       v24 = 0u;
       v25 = 0u;
-      v26 = 0u;
-      v21 = a1;
+      v20 = a1;
       v7 = *(a1 + 40);
-      v8 = [v7 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v24;
+        v10 = *v23;
         do
         {
           for (i = 0; i != v9; i = i + 1)
           {
-            if (*v24 != v10)
+            if (*v23 != v10)
             {
               objc_enumerationMutation(v7);
             }
 
-            v12 = *(*(&v23 + 1) + 8 * i);
+            v12 = *(*(&v22 + 1) + 8 * i);
             v13 = objc_autoreleasePoolPush();
             v14 = [v5 objectForKeyedSubscript:v12];
             if (v14)
@@ -2558,12 +2514,12 @@ void sub_100041B78(uint64_t a1)
               if (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 3)
               {
                 v18 = v12;
-                v20 = v6;
+                v19 = v6;
                 MOLogWrite();
               }
 
-              [v5 removeObjectForKey:{v12, v18, v20}];
-              [v22 addObject:v14];
+              [v5 removeObjectForKey:{v12, v18, v19}];
+              [v21 addObject:v14];
             }
 
             else if (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 3)
@@ -2575,39 +2531,39 @@ void sub_100041B78(uint64_t a1)
             objc_autoreleasePoolPop(v13);
           }
 
-          v9 = [v7 countByEnumeratingWithState:&v23 objects:v27 count:16];
+          v9 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
         }
 
         while (v9);
       }
 
       v15 = [v5 copy];
-      [*(v21 + 32) setAppList:v15];
+      [*(v20 + 32) setAppList:v15];
 
-      if (v6 == *(v21 + 56))
+      if (v6 == *(v20 + 56))
       {
-        [*(v21 + 32) setLastSequenceNumber:v6];
-        [*(v21 + 32) _onQueue_acknowledgeAppEvents];
-        v16 = v22;
+        [*(v20 + 32) setLastSequenceNumber:v6];
+        [*(v20 + 32) _onQueue_acknowledgeAppEvents];
+        v16 = v21;
       }
 
       else
       {
-        v16 = v22;
+        v16 = v21;
         if (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 3)
         {
-          v18 = *(v21 + 56);
-          v20 = v6;
+          v18 = *(v20 + 56);
+          v19 = v6;
           MOLogWrite();
         }
 
-        [*(v21 + 32) _onQueue_fetchOutstandingAppEvents];
+        [*(v20 + 32) _onQueue_fetchOutstandingAppEvents];
       }
 
-      [*(v21 + 32) _onQueue_saveData];
+      [*(v20 + 32) _onQueue_saveData];
       if ([v16 count])
       {
-        [*(v21 + 32) _onQueue_appsRemoved:v16];
+        [*(v20 + 32) _onQueue_appsRemoved:v16];
       }
     }
 
@@ -2625,9 +2581,9 @@ void sub_100041B78(uint64_t a1)
   }
 }
 
-void sub_100041FCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100041FCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2658,9 +2614,9 @@ void sub_100041FE4(uint64_t a1)
   }
 }
 
-void sub_1000421E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000421E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2672,11 +2628,11 @@ id sub_1000421FC(uint64_t a1)
   return result;
 }
 
-void sub_1000423AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000423AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 96), 8);
+  _Block_object_dispose((v16 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2711,11 +2667,11 @@ uint64_t sub_1000423E8(uint64_t a1)
   return _objc_release_x1(v6, v7);
 }
 
-void sub_10004264C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10004264C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 96), 8);
+  _Block_object_dispose((v16 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2750,14 +2706,14 @@ void sub_100042670(uint64_t a1)
   _objc_release_x1(v11, v13);
 }
 
-void sub_100042910(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100042910(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -2791,11 +2747,11 @@ void sub_100042934(uint64_t a1)
   _objc_release_x1(v8, v10);
 }
 
-void sub_100042BFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100042BFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 96), 8);
+  _Block_object_dispose((v16 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2851,14 +2807,14 @@ void sub_100042D94(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
   }
 }
 
-void sub_100042F94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100042F94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -2912,11 +2868,11 @@ void sub_10004312C(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
   }
 }
 
-void sub_100043360(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100043360(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 96), 8);
+  _Block_object_dispose((v16 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2972,14 +2928,14 @@ void sub_1000434F8(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
   }
 }
 
-void sub_1000436C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000436C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -3067,9 +3023,9 @@ void sub_100044C84(uint64_t a1, void *a2)
   [v4 addObject:v5];
 }
 
-void sub_100044F3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100044F3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3097,9 +3053,9 @@ uint64_t sub_100045000(uint64_t a1)
   return _objc_release_x1(v4, v5);
 }
 
-void sub_1000451B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000451B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3126,9 +3082,9 @@ uint64_t sub_1000451D0(uint64_t a1)
   return _objc_release_x1(v4, v3);
 }
 
-void sub_100045380(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100045380(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3157,9 +3113,9 @@ void sub_1000453B0(uint64_t a1)
   }
 }
 
-void sub_100045564(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100045564(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3236,9 +3192,9 @@ void sub_1000457B4(uint64_t a1)
 LABEL_14:
 }
 
-void sub_100045B74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100045B74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3346,9 +3302,9 @@ LABEL_25:
   }
 }
 
-void sub_100046048(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100046048(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3365,9 +3321,9 @@ id sub_100046060(uint64_t a1)
   return result;
 }
 
-void sub_1000461BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000461BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3545,9 +3501,9 @@ void sub_100046F44(uint64_t a1)
   }
 }
 
-void sub_100047150(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100047150(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3559,9 +3515,9 @@ id sub_100047168(uint64_t a1)
   return result;
 }
 
-void sub_1000478C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000478C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3846,9 +3802,9 @@ void *sub_100049CE0(uint64_t a1, void *a2, uint64_t a3, void *a4, void *a5)
   return v14;
 }
 
-void sub_10004A16C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_10004A16C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3964,10 +3920,10 @@ LABEL_34:
 void sub_10004AEE0(void *a1, void *a2)
 {
   v3 = a1;
-  v23 = a2;
+  v24 = a2;
   v4 = [v3 message];
   v5 = objc_opt_new();
-  v28 = 0;
+  v29 = 0;
   v6 = [v4 objectForKeyedSubscript:@"BL"];
   objc_opt_class();
   v7 = v6;
@@ -3977,54 +3933,54 @@ void sub_10004AEE0(void *a1, void *a2)
     v8 = v7;
   }
 
-  if (v8 && (objc_opt_class(), (sub_100005D2C(v8) & 1) != 0))
+  if (v8 && (v9 = objc_opt_class(), (sub_100005D2C(v8, v9) & 1) != 0))
   {
     if (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 5)
     {
-      v21 = [v8 count];
+      v22 = [v8 count];
       MOLogWrite();
     }
 
-    v9 = +[ACXLaunchServicesWatcher sharedWatcher];
-    v26 = 0;
+    v10 = +[ACXLaunchServicesWatcher sharedWatcher];
     v27 = 0;
-    v24[0] = _NSConcreteStackBlock;
-    v24[1] = 3221225472;
-    v24[2] = sub_10004B2E0;
-    v24[3] = &unk_10008E018;
-    v22 = v5;
-    v10 = v5;
-    v25 = v10;
-    v11 = [v9 enumerateApplicationsForBundleIDs:v8 currentDBUUID:&v27 currentLastSequenceNumber:&v28 error:&v26 enumerator:v24];
-    v12 = v27;
-    v13 = v26;
+    v28 = 0;
+    v25[0] = _NSConcreteStackBlock;
+    v25[1] = 3221225472;
+    v25[2] = sub_10004B2E0;
+    v25[3] = &unk_10008E018;
+    v23 = v5;
+    v11 = v5;
+    v26 = v11;
+    v12 = [v10 enumerateApplicationsForBundleIDs:v8 currentDBUUID:&v28 currentLastSequenceNumber:&v29 error:&v27 enumerator:v25];
+    v13 = v28;
+    v14 = v27;
 
-    v14 = v11 ^ 1;
-    if (v13)
+    v15 = v12 ^ 1;
+    if (v14)
     {
-      v15 = [v13 domain];
-      v16 = [v15 isEqualToString:@"ACXErrorDomain"];
+      v16 = [v14 domain];
+      v17 = [v16 isEqualToString:@"ACXErrorDomain"];
 
-      if (v16)
+      if (v17)
       {
-        v14 = [v13 code];
+        v15 = [v14 code];
       }
     }
 
-    v5 = v22;
-    if (!v14)
+    v5 = v23;
+    if (!v15)
     {
-      v29[0] = @"T";
-      v29[1] = @"IL";
-      v30[0] = &off_1000978D8;
-      v30[1] = v10;
-      v29[2] = @"DBU";
-      v17 = [v12 UUIDString];
-      v30[2] = v17;
-      v29[3] = @"DBS";
-      v18 = [NSNumber numberWithUnsignedInteger:v28];
-      v30[3] = v18;
-      v19 = [NSDictionary dictionaryWithObjects:v30 forKeys:v29 count:4];
+      v30[0] = @"T";
+      v30[1] = @"IL";
+      v31[0] = &off_1000978D8;
+      v31[1] = v11;
+      v30[2] = @"DBU";
+      v18 = [v13 UUIDString];
+      v31[2] = v18;
+      v30[3] = @"DBS";
+      v19 = [NSNumber numberWithUnsignedInteger:v29];
+      v31[3] = v19;
+      v20 = [NSDictionary dictionaryWithObjects:v31 forKeys:v30 count:4];
 
       goto LABEL_20;
     }
@@ -4037,26 +3993,26 @@ void sub_10004AEE0(void *a1, void *a2)
       MOLogWrite();
     }
 
-    v12 = 0;
     v13 = 0;
-    v14 = 20;
+    v14 = 0;
+    v15 = 20;
   }
 
-  v31[0] = @"T";
-  v31[1] = @"E";
-  v32[0] = &off_1000978D8;
-  v20 = [NSNumber numberWithInteger:v14];
-  v32[1] = v20;
-  v19 = [NSDictionary dictionaryWithObjects:v32 forKeys:v31 count:2];
+  v32[0] = @"T";
+  v32[1] = @"E";
+  v33[0] = &off_1000978D8;
+  v21 = [NSNumber numberWithInteger:v15];
+  v33[1] = v21;
+  v20 = [NSDictionary dictionaryWithObjects:v33 forKeys:v32 count:2];
 
   if (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 3)
   {
-    v21 = v19;
+    v22 = v20;
     MOLogWrite();
   }
 
 LABEL_20:
-  [v23 sendResponse:v19 toMessage:v3 withPriority:200 timeout:@"app info reply" logDescription:{120.0, v21}];
+  [v24 sendResponse:v20 toMessage:v3 withPriority:200 timeout:@"app info reply" logDescription:{120.0, v22}];
 }
 
 void sub_10004B2E0(uint64_t a1, void *a2)
@@ -4354,7 +4310,7 @@ LABEL_40:
 
 void sub_10004BD9C(void *a1, void *a2)
 {
-  v9 = a2;
+  v10 = a2;
   v3 = [a1 message];
   v4 = [v3 objectForKeyedSubscript:@"BL"];
   objc_opt_class();
@@ -4369,15 +4325,15 @@ void sub_10004BD9C(void *a1, void *a2)
     v6 = 0;
   }
 
-  if (v6 && (objc_opt_class(), (sub_100005D2C(v6) & 1) != 0))
+  if (v6 && (v7 = objc_opt_class(), (sub_100005D2C(v6, v7) & 1) != 0))
   {
-    v10 = 0;
     v11 = 0;
-    v7 = sub_10004BA18(v3, 0, &v10, &v11);
-    v8 = v10;
-    if (v7)
+    v12 = 0;
+    v8 = sub_10004BA18(v3, 0, &v11, &v12);
+    v9 = v11;
+    if (v8)
     {
-      [v9 appsRemoved:v6 currentRemoteDBUUID:v8 lastSequenceNumber:v11];
+      [v10 appsRemoved:v6 currentRemoteDBUUID:v9 lastSequenceNumber:v12];
     }
   }
 
@@ -4709,9 +4665,9 @@ LABEL_15:
 void sub_10004CD78(uint64_t a1)
 {
   v1 = *(a1 + 40);
-  v15 = *(a1 + 32);
+  v16 = *(a1 + 32);
   v2 = v1;
-  v3 = [v15 objectForKeyedSubscript:@"BL"];
+  v3 = [v16 objectForKeyedSubscript:@"BL"];
   objc_opt_class();
   v4 = v3;
   if (objc_opt_isKindOfClass())
@@ -4724,7 +4680,7 @@ void sub_10004CD78(uint64_t a1)
     v5 = 0;
   }
 
-  v6 = [v15 objectForKeyedSubscript:@"DBU"];
+  v6 = [v16 objectForKeyedSubscript:@"DBU"];
   objc_opt_class();
   v7 = v6;
   if (objc_opt_isKindOfClass())
@@ -4747,7 +4703,7 @@ void sub_10004CD78(uint64_t a1)
     v9 = 0;
   }
 
-  v10 = [v15 objectForKeyedSubscript:@"DBS"];
+  v10 = [v16 objectForKeyedSubscript:@"DBS"];
   objc_opt_class();
   v11 = v10;
   if (objc_opt_isKindOfClass())
@@ -4760,16 +4716,16 @@ void sub_10004CD78(uint64_t a1)
     v12 = 0;
   }
 
-  if (v5 && v9 && v12 && (objc_opt_class(), (sub_100005D2C(v5) & 1) != 0))
+  if (v5 && v9 && v12 && (v14 = objc_opt_class(), (sub_100005D2C(v5, v14) & 1) != 0))
   {
-    v14 = [NSSet setWithArray:v5];
-    [v2 updateBundleIDList:v14 currentRemoteDBUUID:v9 lastSequenceNumber:{objc_msgSend(v12, "unsignedIntegerValue")}];
+    v15 = [NSSet setWithArray:v5];
+    [v2 updateBundleIDList:v15 currentRemoteDBUUID:v9 lastSequenceNumber:{objc_msgSend(v12, "unsignedIntegerValue")}];
   }
 
   else
   {
-    v14 = sub_1000061DC("_ProcessBundleIDListMessage", 298, @"ACXErrorDomain", 1, 0, 0, @"Not all required information was present in bundle ID list response: %@", v13, v15);
-    [v2 reportTotalSyncFailureForError:v14];
+    v15 = sub_1000061DC("_ProcessBundleIDListMessage", 298, @"ACXErrorDomain", 1, 0, 0, @"Not all required information was present in bundle ID list response: %@", v13, v16);
+    [v2 reportTotalSyncFailureForError:v15];
   }
 }
 
@@ -4982,12 +4938,11 @@ void sub_10004D27C(uint64_t a1)
 
 uint64_t sub_10004E510(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = objc_alloc_init(objc_opt_class());
-  v3 = qword_1000A4848;
-  qword_1000A4848 = v2;
+  v1 = objc_alloc_init(objc_opt_class());
+  v2 = qword_1000A4848;
+  qword_1000A4848 = v1;
 
-  return _objc_release_x1(v2, v3);
+  return _objc_release_x1(v1, v2);
 }
 
 id sub_10004E7C4(id *a1)
@@ -5089,9 +5044,9 @@ LABEL_28:
   return result;
 }
 
-void sub_10004EDC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10004EDC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5235,9 +5190,9 @@ void sub_10004F2B4(uint64_t a1)
   }
 }
 
-void sub_10004F454(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10004F454(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5273,9 +5228,9 @@ void sub_10004F46C(uint64_t a1)
   }
 }
 
-void sub_10004F630(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10004F630(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5682,17 +5637,16 @@ void sub_100050398(uint64_t a1)
 
 uint64_t sub_100050560(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = qword_1000A4878;
+  v2 = a2;
+  v3 = qword_1000A4878;
   if (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 3)
   {
-    v6 = *(a1 + 32);
-    v7 = v3;
-    v4 = MOLogWrite();
-    v3 = v7;
+    v5 = v2;
+    v3 = MOLogWrite();
+    v2 = v5;
   }
 
-  return _objc_release_x1(v4, v3);
+  return _objc_release_x1(v3, v2);
 }
 
 void sub_100050694(double *a1)
@@ -5747,17 +5701,16 @@ void sub_100050694(double *a1)
 
 uint64_t sub_100050874(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = qword_1000A4878;
+  v2 = a2;
+  v3 = qword_1000A4878;
   if (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 3)
   {
-    v6 = *(a1 + 32);
-    v7 = v3;
-    v4 = MOLogWrite();
-    v3 = v7;
+    v5 = v2;
+    v3 = MOLogWrite();
+    v2 = v5;
   }
 
-  return _objc_release_x1(v4, v3);
+  return _objc_release_x1(v3, v2);
 }
 
 void sub_1000509B8(uint64_t a1)
@@ -5815,17 +5768,16 @@ void sub_1000509B8(uint64_t a1)
 
 uint64_t sub_100050B8C(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = qword_1000A4878;
+  v2 = a2;
+  v3 = qword_1000A4878;
   if (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 3)
   {
-    v6 = *(a1 + 32);
-    v7 = v3;
-    v4 = MOLogWrite();
-    v3 = v7;
+    v5 = v2;
+    v3 = MOLogWrite();
+    v2 = v5;
   }
 
-  return _objc_release_x1(v4, v3);
+  return _objc_release_x1(v3, v2);
 }
 
 void sub_100050CD0(uint64_t a1)
@@ -5883,17 +5835,16 @@ void sub_100050CD0(uint64_t a1)
 
 uint64_t sub_100050EA4(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = qword_1000A4878;
+  v2 = a2;
+  v3 = qword_1000A4878;
   if (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 3)
   {
-    v6 = *(a1 + 32);
-    v7 = v3;
-    v4 = MOLogWrite();
-    v3 = v7;
+    v5 = v2;
+    v3 = MOLogWrite();
+    v2 = v5;
   }
 
-  return _objc_release_x1(v4, v3);
+  return _objc_release_x1(v3, v2);
 }
 
 void sub_100050FE8(uint64_t a1)
@@ -5951,17 +5902,16 @@ void sub_100050FE8(uint64_t a1)
 
 uint64_t sub_1000511BC(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = qword_1000A4878;
+  v2 = a2;
+  v3 = qword_1000A4878;
   if (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 3)
   {
-    v6 = *(a1 + 32);
-    v7 = v3;
-    v4 = MOLogWrite();
-    v3 = v7;
+    v5 = v2;
+    v3 = MOLogWrite();
+    v2 = v5;
   }
 
-  return _objc_release_x1(v4, v3);
+  return _objc_release_x1(v3, v2);
 }
 
 void sub_1000512D8(uint64_t a1)
@@ -6014,17 +5964,16 @@ void sub_1000512D8(uint64_t a1)
 
 uint64_t sub_1000514A0(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = qword_1000A4878;
+  v2 = a2;
+  v3 = qword_1000A4878;
   if (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 3)
   {
-    v6 = *(a1 + 32);
-    v7 = v3;
-    v4 = MOLogWrite();
-    v3 = v7;
+    v5 = v2;
+    v3 = MOLogWrite();
+    v2 = v5;
   }
 
-  return _objc_release_x1(v4, v3);
+  return _objc_release_x1(v3, v2);
 }
 
 void sub_1000515E4(uint64_t a1)
@@ -6082,17 +6031,16 @@ void sub_1000515E4(uint64_t a1)
 
 uint64_t sub_1000517B8(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = qword_1000A4878;
+  v2 = a2;
+  v3 = qword_1000A4878;
   if (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 3)
   {
-    v6 = *(a1 + 32);
-    v7 = v3;
-    v4 = MOLogWrite();
-    v3 = v7;
+    v5 = v2;
+    v3 = MOLogWrite();
+    v2 = v5;
   }
 
-  return _objc_release_x1(v4, v3);
+  return _objc_release_x1(v3, v2);
 }
 
 void sub_100051E88(uint64_t a1)
@@ -6136,17 +6084,16 @@ void sub_100051F78(uint64_t a1)
 
 uint64_t sub_100052058(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = qword_1000A4878;
+  v2 = a2;
+  v3 = qword_1000A4878;
   if (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 3)
   {
-    v6 = *(a1 + 32);
-    v7 = v3;
-    v4 = MOLogWrite();
-    v3 = v7;
+    v5 = v2;
+    v3 = MOLogWrite();
+    v2 = v5;
   }
 
-  return _objc_release_x1(v4, v3);
+  return _objc_release_x1(v3, v2);
 }
 
 id sub_100052154(uint64_t a1)
@@ -6282,11 +6229,11 @@ uint64_t sub_100059314(void *a1, uint64_t a2, uint64_t a3)
   return v12;
 }
 
-void sub_1000594C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1000594C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 64), 8);
+  _Block_object_dispose((v18 - 64), 8);
   _Unwind_Resume(a1);
 }
 

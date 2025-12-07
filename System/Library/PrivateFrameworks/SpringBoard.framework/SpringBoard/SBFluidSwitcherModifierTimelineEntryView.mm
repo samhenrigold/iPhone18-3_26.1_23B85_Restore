@@ -125,18 +125,18 @@
   v12.super_class = SBFluidSwitcherModifierTimelineEntryView;
   [(SBFluidSwitcherModifierTimelineEntryView *)&v12 layoutSubviews];
   [(UILabel *)self->_nameLabel setFrame:0.0, 10.0, 250.0, 25.0];
-  [(UILabel *)self->_nameLabel frame];
+  objc_msgSend_frame(self->_nameLabel);
   v4 = v3 + 10.0 + 10.0;
   [(UILabel *)self->_postStackLabel sizeThatFits:1.79769313e308, 1.79769313e308];
   [(UILabel *)self->_postStackLabel setFrame:5.0, v4, 240.0, v5];
-  [(UILabel *)self->_postStackLabel frame];
+  objc_msgSend_frame(self->_postStackLabel);
   v7 = v4 + v6 + 10.0;
   [(UILabel *)self->_actionsLabel sizeThatFits:250.0, 1.79769313e308];
   [(UILabel *)self->_actionsLabel setFrame:5.0, v7, v8, v9];
-  [(UILabel *)self->_actionsLabel frame];
-  [(SBFluidSwitcherModifierTimelineEntryView *)self frame];
+  objc_msgSend_frame(self->_actionsLabel);
+  objc_msgSend_frame(self);
   v11 = v10;
-  [(SBFluidSwitcherModifierTimelineEntryView *)self frame];
+  objc_msgSend_frame(self);
   [(SBFluidSwitcherModifierTimelineEntryView *)self setFrame:v11];
 }
 

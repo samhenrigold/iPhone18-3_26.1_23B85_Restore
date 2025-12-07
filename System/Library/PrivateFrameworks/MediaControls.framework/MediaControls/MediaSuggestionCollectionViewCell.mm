@@ -8,7 +8,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_1A22A3930();
+  sub_1A22A3930(selfCopy, v2);
 }
 
 - (void)updateContentSizeCategory

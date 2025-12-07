@@ -141,8 +141,8 @@ LABEL_9:
     [MEMORY[0x1E69DC888] clearColor];
   }
   v10 = ;
-  contentView = [(UITableViewCell *)self->_cell contentView];
-  [contentView setBackgroundColor:v10];
+  v11 = objc_msgSend_contentView(self->_cell);
+  [v11 setBackgroundColor:v10];
 
   [(UITableViewCell *)self->_cell setContentConfiguration:plainFooterConfiguration];
   [(UITableViewCell *)self->_cell sizeToFit];
@@ -165,8 +165,8 @@ LABEL_9:
     [(UITableViewCell *)self->_cell setBackgroundColor:clearColor];
 
     clearColor2 = [MEMORY[0x1E69DC888] clearColor];
-    contentView = [(UITableViewCell *)self->_cell contentView];
-    [contentView setBackgroundColor:clearColor2];
+    v10 = objc_msgSend_contentView(self->_cell);
+    [v10 setBackgroundColor:clearColor2];
 
     [(EKCalendarSubscriptionSpamCheckEditItem *)self _updateUI];
     cell = self->_cell;

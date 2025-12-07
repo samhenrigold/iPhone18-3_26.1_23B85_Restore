@@ -1,5 +1,6 @@
 @interface NELaunchServices
 + (id)lookupIdentifier:(id)identifier plugins:(id *)plugins;
++ (id)pluginBundleProxyWithIdentifier:(id)identifier type:(id)type pluginClass:(int64_t)class extensionPoint:(id)point uid:(unsigned int)uid;
 + (id)pluginClassToExtensionPoint:(int64_t)point;
 + (id)pluginProxyWithIdentifier:(id)identifier type:(id)type pluginClass:(int64_t)class extensionPoint:(id)point;
 @end
@@ -8,7 +9,7 @@
 
 + (id)lookupIdentifier:(id)identifier plugins:(id *)plugins
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v6 = [MEMORY[0x1E6963618] bundleProxyForIdentifier:identifierCopy];
   v7 = v6;
@@ -27,27 +28,26 @@
     }
 
     [v7 entitlementValueForKey:@"com.apple.security.application-groups" ofClass:objc_opt_class()];
+    v47 = 0u;
+    v48 = 0u;
     v49 = 0u;
-    v50 = 0u;
-    v51 = 0u;
-    v9 = v52 = 0u;
-    v10 = [v9 countByEnumeratingWithState:&v49 objects:v54 count:16];
+    v9 = v50 = 0u;
+    v10 = [v9 countByEnumeratingWithState:&v47 objects:v52 count:16];
     v11 = v9;
     if (v10)
     {
       v12 = v10;
       v13 = v8;
-      v14 = *v50;
+      v14 = *v48;
       while (2)
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v50 != v14)
+          if (*v48 != v14)
           {
             objc_enumerationMutation(v9);
           }
 
-          v16 = *(*(&v49 + 1) + 8 * i);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
@@ -57,7 +57,7 @@
           }
         }
 
-        v12 = [v9 countByEnumeratingWithState:&v49 objects:v54 count:16];
+        v12 = [v9 countByEnumeratingWithState:&v47 objects:v52 count:16];
         if (v12)
         {
           continue;
@@ -71,11 +71,11 @@ LABEL_16:
       v8 = v13;
     }
 
-    v17 = [NEBundleProxy alloc];
+    v16 = [NEBundleProxy alloc];
     bundleIdentifier = [v7 bundleIdentifier];
     bundleURL = [v7 bundleURL];
     machOUUIDs = [v7 machOUUIDs];
-    v21 = [(NEBundleProxy *)v17 initWithIdentifier:bundleIdentifier url:bundleURL machOUUIDs:machOUUIDs name:v8 appGroups:v11];
+    v20 = [(NEBundleProxy *)v16 initWithIdentifier:bundleIdentifier url:bundleURL machOUUIDs:machOUUIDs name:v8 appGroups:v11];
 
     objc_opt_class();
     isKindOfClass = objc_opt_isKindOfClass();
@@ -84,57 +84,57 @@ LABEL_16:
       if (isKindOfClass)
       {
         plugInKitPlugins = [v7 plugInKitPlugins];
-        v24 = [plugInKitPlugins count];
+        v23 = [plugInKitPlugins count];
 
-        if (v24)
+        if (v23)
         {
-          v39 = v21;
-          v40 = v11;
-          v41 = v8;
-          v43 = identifierCopy;
-          v25 = objc_alloc_init(MEMORY[0x1E695DF70]);
+          v37 = v20;
+          v38 = v11;
+          v39 = v8;
+          v41 = identifierCopy;
+          v24 = objc_alloc_init(MEMORY[0x1E695DF70]);
+          v43 = 0u;
+          v44 = 0u;
           v45 = 0u;
           v46 = 0u;
-          v47 = 0u;
-          v48 = 0u;
-          v42 = v7;
+          v40 = v7;
           plugInKitPlugins2 = [v7 plugInKitPlugins];
-          v27 = [plugInKitPlugins2 countByEnumeratingWithState:&v45 objects:v53 count:16];
-          if (v27)
+          v26 = [plugInKitPlugins2 countByEnumeratingWithState:&v43 objects:v51 count:16];
+          if (v26)
           {
-            v28 = v27;
-            v29 = *v46;
+            v27 = v26;
+            v28 = *v44;
             do
             {
-              for (j = 0; j != v28; ++j)
+              for (j = 0; j != v27; ++j)
               {
-                if (*v46 != v29)
+                if (*v44 != v28)
                 {
                   objc_enumerationMutation(plugInKitPlugins2);
                 }
 
-                v31 = *(*(&v45 + 1) + 8 * j);
-                v32 = [NEBundleProxy alloc];
-                bundleIdentifier2 = [v31 bundleIdentifier];
-                bundleURL2 = [v31 bundleURL];
-                machOUUIDs2 = [v31 machOUUIDs];
-                v36 = [(NEBundleProxy *)v32 initWithIdentifier:bundleIdentifier2 url:bundleURL2 machOUUIDs:machOUUIDs2 name:0 appGroups:0];
+                v30 = *(*(&v43 + 1) + 8 * j);
+                v31 = [NEBundleProxy alloc];
+                bundleIdentifier2 = [v30 bundleIdentifier];
+                bundleURL2 = [v30 bundleURL];
+                machOUUIDs2 = [v30 machOUUIDs];
+                v35 = [(NEBundleProxy *)v31 initWithIdentifier:bundleIdentifier2 url:bundleURL2 machOUUIDs:machOUUIDs2 name:0 appGroups:0];
 
-                [v25 addObject:v36];
+                [v24 addObject:v35];
               }
 
-              v28 = [plugInKitPlugins2 countByEnumeratingWithState:&v45 objects:v53 count:16];
+              v27 = [plugInKitPlugins2 countByEnumeratingWithState:&v43 objects:v51 count:16];
             }
 
-            while (v28);
+            while (v27);
           }
 
-          *pluginsCopy = [objc_alloc(MEMORY[0x1E695DEC8]) initWithArray:v25];
-          v7 = v42;
-          identifierCopy = v43;
-          v11 = v40;
-          v8 = v41;
-          v21 = v39;
+          *pluginsCopy = [objc_alloc(MEMORY[0x1E695DEC8]) initWithArray:v24];
+          v7 = v40;
+          identifierCopy = v41;
+          v11 = v38;
+          v8 = v39;
+          v20 = v37;
         }
       }
     }
@@ -146,21 +146,39 @@ LABEL_16:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v56 = identifierCopy;
+      v54 = identifierCopy;
       _os_log_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_DEFAULT, "Failed to find %@ in LaunchServices", buf, 0xCu);
     }
 
-    v21 = 0;
+    v20 = 0;
   }
 
-  v37 = *MEMORY[0x1E69E9840];
+  return v20;
+}
 
-  return v21;
++ (id)pluginBundleProxyWithIdentifier:(id)identifier type:(id)type pluginClass:(int64_t)class extensionPoint:(id)point uid:(unsigned int)uid
+{
+  v7 = [NELaunchServices pluginProxyWithIdentifier:identifier type:type pluginClass:class extensionPoint:point, *&uid];
+  if (v7)
+  {
+    v8 = [NEBundleProxy alloc];
+    bundleIdentifier = [v7 bundleIdentifier];
+    bundleURL = [v7 bundleURL];
+    machOUUIDs = [v7 machOUUIDs];
+    v12 = [(NEBundleProxy *)v8 initWithIdentifier:bundleIdentifier url:bundleURL machOUUIDs:machOUUIDs name:0 appGroups:0];
+  }
+
+  else
+  {
+    v12 = 0;
+  }
+
+  return v12;
 }
 
 + (id)pluginProxyWithIdentifier:(id)identifier type:(id)type pluginClass:(int64_t)class extensionPoint:(id)point
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   typeCopy = type;
   pointCopy = point;
@@ -243,37 +261,37 @@ LABEL_21:
   }
 
   v21 = v20;
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   obj = [v14 plugInKitPlugins];
-  v12 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+  v12 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
   if (v12)
   {
-    v31 = v14;
-    v22 = *v34;
+    v30 = v14;
+    v22 = *v33;
     while (2)
     {
       for (i = 0; i != v12; i = i + 1)
       {
-        if (*v34 != v22)
+        if (*v33 != v22)
         {
           objc_enumerationMutation(obj);
         }
 
-        v24 = *(*(&v33 + 1) + 8 * i);
+        v24 = *(*(&v32 + 1) + 8 * i);
         protocol = [v24 protocol];
-        v26 = [protocol isEqualToString:v21];
+        isEqualToString = objc_msgSend_isEqualToString_(protocol);
 
-        if (v26)
+        if (isEqualToString)
         {
           v12 = v24;
           goto LABEL_27;
         }
       }
 
-      v12 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+      v12 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
       if (v12)
       {
         continue;
@@ -283,11 +301,10 @@ LABEL_21:
     }
 
 LABEL_27:
-    v14 = v31;
+    v14 = v30;
   }
 
 LABEL_23:
-  v29 = *MEMORY[0x1E69E9840];
 
   return v12;
 }

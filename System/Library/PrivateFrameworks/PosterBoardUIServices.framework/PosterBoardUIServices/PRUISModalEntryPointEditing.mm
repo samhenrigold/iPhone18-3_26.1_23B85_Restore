@@ -14,13 +14,13 @@
 
 - (PRUISModalEntryPointEditing)initWithType:(int64_t)type extensionIdentifier:(id)identifier configuration:(id)configuration updateSessionInfo:(id)info
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   configurationCopy = configuration;
   infoCopy = info;
-  v22.receiver = self;
-  v22.super_class = PRUISModalEntryPointEditing;
-  v13 = [(PRUISModalEntryPointEditing *)&v22 init];
+  v23.receiver = self;
+  v23.super_class = PRUISModalEntryPointEditing;
+  v13 = [(PRUISModalEntryPointEditing *)&v23 init];
   v14 = v13;
   if (v13)
   {
@@ -31,17 +31,17 @@
 
     objc_storeStrong(&v14->_configuration, configuration);
     objc_storeStrong(&v14->_updateSessionInfo, info);
-    v17 = PRUISLogCommon();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v18 = PRUISLogCommon(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       _path = [configurationCopy _path];
       contentsURL = [_path contentsURL];
       *buf = 138412290;
-      v24 = contentsURL;
-      _os_log_impl(&dword_1CAE63000, v17, OS_LOG_TYPE_DEFAULT, "PRUISModalEntryPointEditing: creating with poster path: %@", buf, 0xCu);
+      v25 = contentsURL;
+      _os_log_impl(&dword_1CAE63000, v18, OS_LOG_TYPE_DEFAULT, "PRUISModalEntryPointEditing: creating with poster path: %@", buf, 0xCu);
     }
 
-    v20 = v14;
+    v21 = v14;
   }
 
   return v14;
@@ -49,11 +49,11 @@
 
 - (PRUISModalEntryPointEditing)initWithServiceConfiguration:(id)configuration
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
-  v17.receiver = self;
-  v17.super_class = PRUISModalEntryPointEditing;
-  v6 = [(PRUISModalEntryPointEditing *)&v17 init];
+  v18.receiver = self;
+  v18.super_class = PRUISModalEntryPointEditing;
+  v6 = [(PRUISModalEntryPointEditing *)&v18 init];
   v7 = v6;
   if (v6)
   {
@@ -65,17 +65,17 @@
     v7->_extensionIdentifier = provider;
 
     objc_storeStrong(&v7->_serviceConfiguration, configuration);
-    v12 = PRUISLogCommon();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = PRUISLogCommon(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       _path2 = [configurationCopy _path];
       contentsURL = [_path2 contentsURL];
       *buf = 138412290;
-      v19 = contentsURL;
-      _os_log_impl(&dword_1CAE63000, v12, OS_LOG_TYPE_DEFAULT, "PRUISModalEntryPointEditing: editing with poster path: %@", buf, 0xCu);
+      v20 = contentsURL;
+      _os_log_impl(&dword_1CAE63000, v13, OS_LOG_TYPE_DEFAULT, "PRUISModalEntryPointEditing: editing with poster path: %@", buf, 0xCu);
     }
 
-    v15 = v7;
+    v16 = v7;
   }
 
   return v7;
@@ -83,7 +83,7 @@
 
 - (PRUISModalEntryPointEditing)initWithServiceConfiguration:(id)configuration updateSessionInfo:(id)info
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
   infoCopy = info;
   if (!configurationCopy)
@@ -97,9 +97,9 @@
     [PRUISModalEntryPointEditing initWithServiceConfiguration:a2 updateSessionInfo:?];
   }
 
-  v22.receiver = self;
-  v22.super_class = PRUISModalEntryPointEditing;
-  v11 = [(PRUISModalEntryPointEditing *)&v22 init];
+  v23.receiver = self;
+  v23.super_class = PRUISModalEntryPointEditing;
+  v11 = [(PRUISModalEntryPointEditing *)&v23 init];
   v12 = v11;
   if (v11)
   {
@@ -112,17 +112,17 @@
 
     objc_storeStrong(&v12->_serviceConfiguration, configuration);
     objc_storeStrong(&v12->_updateSessionInfo, info);
-    v17 = PRUISLogCommon();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v18 = PRUISLogCommon(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       _path2 = [configurationCopy _path];
       contentsURL = [_path2 contentsURL];
       *buf = 138412290;
-      v24 = contentsURL;
-      _os_log_impl(&dword_1CAE63000, v17, OS_LOG_TYPE_DEFAULT, "PRUISModalEntryPointEditing: editing with poster path: %@", buf, 0xCu);
+      v25 = contentsURL;
+      _os_log_impl(&dword_1CAE63000, v18, OS_LOG_TYPE_DEFAULT, "PRUISModalEntryPointEditing: editing with poster path: %@", buf, 0xCu);
     }
 
-    v20 = v12;
+    v21 = v12;
   }
 
   return v12;
@@ -242,7 +242,7 @@
     v18 = [coderCopy decodeStringForKey:@"extensionIdentifier"];
     if (!v18)
     {
-      v8 = PRUISLogCommon();
+      v8 = PRUISLogCommon(0);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_28;
@@ -255,7 +255,7 @@
     v13 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"posterPath"];
     if (!v13)
     {
-      v14 = PRUISLogCommon();
+      v14 = PRUISLogCommon(0);
       if (!os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_38;
@@ -283,7 +283,7 @@
         goto LABEL_48;
       }
 
-      v20 = PRUISLogCommon();
+      v20 = PRUISLogCommon(0);
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         [PRUISModalEntryPointEditing initWithBSXPCCoder:];
@@ -292,7 +292,7 @@
 
     else
     {
-      v20 = PRUISLogCommon();
+      v20 = PRUISLogCommon(0);
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         [PRUISModalEntryPointEditing initWithBSXPCCoder:];
@@ -311,7 +311,7 @@ LABEL_48:
     v12 = [coderCopy decodeStringForKey:@"extensionIdentifier"];
     if (!v12)
     {
-      v8 = PRUISLogCommon();
+      v8 = PRUISLogCommon(0);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_28;
@@ -339,7 +339,7 @@ LABEL_48:
         goto LABEL_49;
       }
 
-      v24 = PRUISLogCommon();
+      v24 = PRUISLogCommon(0);
       if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         [PRUISModalEntryPointEditing initWithBSXPCCoder:];
@@ -348,7 +348,7 @@ LABEL_48:
       goto LABEL_38;
     }
 
-    v14 = PRUISLogCommon();
+    v14 = PRUISLogCommon(0);
     if (!os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
 LABEL_38:
@@ -373,7 +373,7 @@ LABEL_30:
   v7 = [coderCopy decodeStringForKey:@"extensionIdentifier"];
   if (!v7)
   {
-    v8 = PRUISLogCommon();
+    v8 = PRUISLogCommon(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
 LABEL_28:
@@ -389,7 +389,7 @@ LABEL_44:
   v9 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"posterPath"];
   if (!v9)
   {
-    v23 = PRUISLogCommon();
+    v23 = PRUISLogCommon(0);
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       [PRUISModalEntryPointEditing initWithBSXPCCoder:];
@@ -401,7 +401,7 @@ LABEL_44:
   v10 = [objc_alloc(MEMORY[0x1E69C52C0]) _initWithPath:v9];
   if (!v10)
   {
-    v23 = PRUISLogCommon();
+    v23 = PRUISLogCommon(0);
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       [PRUISModalEntryPointEditing initWithBSXPCCoder:];
@@ -431,14 +431,14 @@ LABEL_50:
   {
     case 3:
       _path = [(PRSPosterConfiguration *)self->_serviceConfiguration _path];
-      v16 = 0;
-      v7 = [_path extendContentsReadAccessToAuditToken:0 error:&v16];
-      v8 = v16;
+      v19 = 0;
+      v7 = [_path extendContentsReadAccessToAuditToken:0 error:&v19];
+      v8 = v19;
 
       if (!v7)
       {
-        v15 = PRUISLogCommon();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        v18 = PRUISLogCommon(v17);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
           [PRUISModalEntryPointEditing encodeWithBSXPCCoder:];
         }
@@ -446,19 +446,19 @@ LABEL_50:
 
       [coderCopy encodeObject:v7 forKey:@"posterPath"];
       updateSessionInfo = self->_updateSessionInfo;
-      v11 = @"sessionInfo";
-      v12 = coderCopy;
+      v13 = @"sessionInfo";
+      v14 = coderCopy;
       goto LABEL_17;
     case 2:
       _path2 = [(PRSPosterConfiguration *)self->_serviceConfiguration _path];
-      v17 = 0;
-      v7 = [_path2 extendContentsReadAccessToAuditToken:0 error:&v17];
-      v8 = v17;
+      v20 = 0;
+      v7 = [_path2 extendContentsReadAccessToAuditToken:0 error:&v20];
+      v8 = v20;
 
       if (!v7)
       {
-        v9 = PRUISLogCommon();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+        v10 = PRUISLogCommon(v12);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
           [PRUISModalEntryPointEditing encodeWithBSXPCCoder:];
         }
@@ -467,23 +467,23 @@ LABEL_50:
       }
 
 LABEL_11:
-      v11 = @"posterPath";
-      v12 = coderCopy;
+      v13 = @"posterPath";
+      v14 = coderCopy;
       updateSessionInfo = v7;
 LABEL_17:
-      [v12 encodeObject:updateSessionInfo forKey:v11];
+      [v14 encodeObject:updateSessionInfo forKey:v13];
 
       break;
     case 1:
       _path3 = [(PRMutablePosterConfiguration *)self->_configuration _path];
-      v18 = 0;
-      v7 = [_path3 extendContentsReadAccessToAuditToken:0 error:&v18];
-      v8 = v18;
+      v21 = 0;
+      v7 = [_path3 extendContentsReadAccessToAuditToken:0 error:&v21];
+      v8 = v21;
 
       if (!v7)
       {
-        v9 = PRUISLogCommon();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+        v10 = PRUISLogCommon(v9);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
           [PRUISModalEntryPointEditing encodeWithBSXPCCoder:];
         }
@@ -502,7 +502,7 @@ LABEL_10:
 
 - (void)initWithServiceConfiguration:(char *)a1 updateSessionInfo:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"sessionInfo != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -510,7 +510,7 @@ LABEL_10:
     v3 = OUTLINED_FUNCTION_4();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"sessionInfo != nil", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -520,7 +520,7 @@ LABEL_10:
 
 - (void)initWithServiceConfiguration:(char *)a1 updateSessionInfo:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"serviceConfiguration != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -528,7 +528,7 @@ LABEL_10:
     v3 = OUTLINED_FUNCTION_4();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"serviceConfiguration != nil", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];

@@ -96,9 +96,9 @@
     _rtiSourceSession = [responderCopy _rtiSourceSession];
     uuidOfSessionEndedDuringLocalAuthentication = [(UIKBLocalAuthenticationObserver *)self uuidOfSessionEndedDuringLocalAuthentication];
     uuid = [_rtiSourceSession uuid];
-    v7 = [uuidOfSessionEndedDuringLocalAuthentication isEqual:uuid];
+    isEqual = objc_msgSend_isEqual_(uuidOfSessionEndedDuringLocalAuthentication);
 
-    if (v7)
+    if (isEqual)
     {
       [(UIKBLocalAuthenticationObserver *)self setIsRestoringPreLocalAuthenticationDelegate:1];
     }
@@ -113,9 +113,9 @@
     _rtiSourceSession = [responderCopy _rtiSourceSession];
     uuidOfSessionEndedDuringLocalAuthentication = [(UIKBLocalAuthenticationObserver *)self uuidOfSessionEndedDuringLocalAuthentication];
     uuid = [_rtiSourceSession uuid];
-    v7 = [uuidOfSessionEndedDuringLocalAuthentication isEqual:uuid];
+    isEqual = objc_msgSend_isEqual_(uuidOfSessionEndedDuringLocalAuthentication);
 
-    if (v7)
+    if (isEqual)
     {
       [(UIKBLocalAuthenticationObserver *)self setIsRestoringPreLocalAuthenticationDelegate:0];
     }

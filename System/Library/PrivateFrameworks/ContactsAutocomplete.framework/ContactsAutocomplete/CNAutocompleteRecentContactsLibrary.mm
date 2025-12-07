@@ -12,18 +12,18 @@
 
 + (id)library:(id)library recentContactsWithRequest:(id)request
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   libraryCopy = library;
   requestCopy = request;
   v8 = [self queryForRequest:requestCopy];
-  v9 = CNALoggingContextDebug();
+  v9 = CNALoggingContextDebug(v8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 138412546;
-    v17 = v8;
-    v18 = 2112;
-    v19 = libraryCopy;
-    _os_log_impl(&dword_2155FE000, v9, OS_LOG_TYPE_DEFAULT, "Performing recents query: %@ against library: %@", &v16, 0x16u);
+    v15 = 138412546;
+    v16 = v8;
+    v17 = 2112;
+    v18 = libraryCopy;
+    _os_log_impl(&dword_2155FE000, v9, OS_LOG_TYPE_DEFAULT, "Performing recents query: %@ against library: %@", &v15, 0x16u);
   }
 
   v10 = objc_alloc_init(MEMORY[0x277CFBE90]);
@@ -34,8 +34,6 @@
   [libraryCopy performRecentsSearch:v8 queue:0 completion:completionHandlerAdapter];
 
   future2 = [v10 future];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return future2;
 }
@@ -75,65 +73,63 @@
 
 + (void)addLoggingHandlersToFuture:(id)future request:(id)request
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   futureCopy = future;
   triageIdentifier = [request triageIdentifier];
   defaultProvider = [MEMORY[0x277CFBED0] defaultProvider];
   [defaultProvider timestamp];
   v9 = v8;
 
-  v10 = CNALoggingContextTriage();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = CNALoggingContextTriage(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v27 = triageIdentifier;
-    _os_log_impl(&dword_2155FE000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@] CoreRecents: Will search", buf, 0xCu);
+    v29 = triageIdentifier;
+    _os_log_impl(&dword_2155FE000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@] CoreRecents: Will search", buf, 0xCu);
   }
 
-  v11 = CNALoggingContextTriage();
-  v12 = os_signpost_id_generate(v11);
+  v13 = CNALoggingContextTriage(v12);
+  v14 = os_signpost_id_generate(v13);
 
-  v13 = CNALoggingContextPerformance();
-  v14 = v13;
-  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+  v16 = CNALoggingContextPerformance(v15);
+  v17 = v16;
+  if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_2155FE000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v12, "Searching CoreRecents", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_2155FE000, v17, OS_SIGNPOST_INTERVAL_BEGIN, v14, "Searching CoreRecents", "", buf, 2u);
   }
 
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __74__CNAutocompleteRecentContactsLibrary_addLoggingHandlersToFuture_request___block_invoke;
-  v22[3] = &unk_2781C3C80;
-  v24 = v12;
-  v25 = v9;
-  v15 = triageIdentifier;
-  v23 = v15;
-  [futureCopy addSuccessBlock:v22];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __74__CNAutocompleteRecentContactsLibrary_addLoggingHandlersToFuture_request___block_invoke_9;
-  v18[3] = &unk_2781C3CA8;
-  v21 = v9;
-  v19 = v15;
-  v20 = v12;
-  v16 = v15;
-  [futureCopy addFailureBlock:v18];
-
-  v17 = *MEMORY[0x277D85DE8];
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __74__CNAutocompleteRecentContactsLibrary_addLoggingHandlersToFuture_request___block_invoke;
+  v24[3] = &unk_2781C3C80;
+  v26 = v14;
+  v27 = v9;
+  v18 = triageIdentifier;
+  v25 = v18;
+  [futureCopy addSuccessBlock:v24];
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __74__CNAutocompleteRecentContactsLibrary_addLoggingHandlersToFuture_request___block_invoke_9;
+  v20[3] = &unk_2781C3CA8;
+  v23 = v9;
+  v21 = v18;
+  v22 = v14;
+  v19 = v18;
+  [futureCopy addFailureBlock:v20];
 }
 
 void __74__CNAutocompleteRecentContactsLibrary_addLoggingHandlersToFuture_request___block_invoke(uint64_t a1, void *a2)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = CNALoggingContextPerformance();
+  v4 = CNALoggingContextPerformance(v3);
   v5 = v4;
   v6 = *(a1 + 40);
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
-    LOWORD(v23) = 0;
-    _os_signpost_emit_with_name_impl(&dword_2155FE000, v5, OS_SIGNPOST_INTERVAL_END, v6, "Searching CoreRecents", "", &v23, 2u);
+    LOWORD(v24) = 0;
+    _os_signpost_emit_with_name_impl(&dword_2155FE000, v5, OS_SIGNPOST_INTERVAL_END, v6, "Searching CoreRecents", "", &v24, 2u);
   }
 
   v7 = [MEMORY[0x277CFBED0] defaultProvider];
@@ -141,67 +137,65 @@ void __74__CNAutocompleteRecentContactsLibrary_addLoggingHandlersToFuture_reques
   v9 = v8;
 
   v10 = [MEMORY[0x277CFBEC8] stringForTimeInterval:v9 - *(a1 + 48)];
-  v11 = CNALoggingContextTriage();
+  v11 = CNALoggingContextTriage(v10);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     v12 = *(a1 + 32);
     v13 = [v3 count];
     v14 = [v3 count];
     v15 = "results";
-    v23 = 138544130;
-    v24 = v12;
-    v25 = 2048;
+    v24 = 138544130;
+    v25 = v12;
+    v26 = 2048;
     if (v14 == 1)
     {
       v15 = "result";
     }
 
-    v26 = v13;
-    v27 = 2080;
-    v28 = v15;
-    v29 = 2114;
-    v30 = v10;
-    _os_log_impl(&dword_2155FE000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@] CoreRecents: Search complete (%lu %s, %{public}@)", &v23, 0x2Au);
+    v27 = v13;
+    v28 = 2080;
+    v29 = v15;
+    v30 = 2114;
+    v31 = v10;
+    _os_log_impl(&dword_2155FE000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@] CoreRecents: Search complete (%lu %s, %{public}@)", &v24, 0x2Au);
   }
 
-  v16 = CNALoggingContextPerformance();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+  v17 = CNALoggingContextPerformance(v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
   {
-    v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v3, "count")}];
-    v23 = 138412546;
-    v24 = v17;
-    v25 = 2114;
-    v26 = v10;
-    _os_log_impl(&dword_2155FE000, v16, OS_LOG_TYPE_INFO, "Time to fetch %@ recent contacts: %{public}@", &v23, 0x16u);
+    v18 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v3, "count")}];
+    v24 = 138412546;
+    v25 = v18;
+    v26 = 2114;
+    v27 = v10;
+    _os_log_impl(&dword_2155FE000, v17, OS_LOG_TYPE_INFO, "Time to fetch %@ recent contacts: %{public}@", &v24, 0x16u);
   }
 
-  v18 = CNALoggingContextDebug();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  v20 = CNALoggingContextDebug(v19);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v3, "count")}];
-    v20 = [v3 _cn_take:200];
-    v21 = [v20 _cn_map:&__block_literal_global];
-    v23 = 138412546;
-    v24 = v19;
-    v25 = 2112;
-    v26 = v21;
-    _os_log_impl(&dword_2155FE000, v18, OS_LOG_TYPE_DEFAULT, "CoreRecents results (first 200 out of %@): %@", &v23, 0x16u);
+    v21 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v3, "count")}];
+    v22 = [v3 _cn_take:200];
+    v23 = [v22 _cn_map:&__block_literal_global];
+    v24 = 138412546;
+    v25 = v21;
+    v26 = 2112;
+    v27 = v23;
+    _os_log_impl(&dword_2155FE000, v20, OS_LOG_TYPE_DEFAULT, "CoreRecents results (first 200 out of %@): %@", &v24, 0x16u);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __74__CNAutocompleteRecentContactsLibrary_addLoggingHandlersToFuture_request___block_invoke_9(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = CNALoggingContextPerformance();
+  v4 = CNALoggingContextPerformance(v3);
   v5 = v4;
   v6 = *(a1 + 40);
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
-    LOWORD(v16) = 0;
-    _os_signpost_emit_with_name_impl(&dword_2155FE000, v5, OS_SIGNPOST_INTERVAL_END, v6, "Searching CoreRecents", "", &v16, 2u);
+    LOWORD(v17) = 0;
+    _os_signpost_emit_with_name_impl(&dword_2155FE000, v5, OS_SIGNPOST_INTERVAL_END, v6, "Searching CoreRecents", "", &v17, 2u);
   }
 
   v7 = [MEMORY[0x277CFBED0] defaultProvider];
@@ -209,36 +203,34 @@ void __74__CNAutocompleteRecentContactsLibrary_addLoggingHandlersToFuture_reques
   v9 = v8;
 
   v10 = [MEMORY[0x277CFBEC8] stringForTimeInterval:v9 - *(a1 + 48)];
-  v11 = CNALoggingContextTriage();
+  v11 = CNALoggingContextTriage(v10);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     v12 = *(a1 + 32);
-    v16 = 138543874;
-    v17 = v12;
-    v18 = 2114;
-    v19 = v10;
-    v20 = 2114;
-    v21 = v3;
-    _os_log_impl(&dword_2155FE000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@] CoreRecents: Search failed (%{public}@): %{public}@", &v16, 0x20u);
+    v17 = 138543874;
+    v18 = v12;
+    v19 = 2114;
+    v20 = v10;
+    v21 = 2114;
+    v22 = v3;
+    _os_log_impl(&dword_2155FE000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@] CoreRecents: Search failed (%{public}@): %{public}@", &v17, 0x20u);
   }
 
-  v13 = CNALoggingContextPerformance();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+  v14 = CNALoggingContextPerformance(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
-    v16 = 138543362;
-    v17 = v10;
-    _os_log_impl(&dword_2155FE000, v13, OS_LOG_TYPE_INFO, "Failure fetching recent contacts after %{public}@", &v16, 0xCu);
+    v17 = 138543362;
+    v18 = v10;
+    _os_log_impl(&dword_2155FE000, v14, OS_LOG_TYPE_INFO, "Failure fetching recent contacts after %{public}@", &v17, 0xCu);
   }
 
-  v14 = CNALoggingContextDebug();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v16 = CNALoggingContextDebug(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 138412290;
-    v17 = v3;
-    _os_log_impl(&dword_2155FE000, v14, OS_LOG_TYPE_DEFAULT, "Failed to fetch recent contacts: %@", &v16, 0xCu);
+    v17 = 138412290;
+    v18 = v3;
+    _os_log_impl(&dword_2155FE000, v16, OS_LOG_TYPE_DEFAULT, "Failed to fetch recent contacts: %@", &v17, 0xCu);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 + (id)domainsForFetchRequest:(id)request
@@ -268,22 +260,22 @@ void __74__CNAutocompleteRecentContactsLibrary_addLoggingHandlersToFuture_reques
 
 + (id)domainsForSearchType:(unint64_t)type
 {
-  v29[1] = *MEMORY[0x277D85DE8];
+  v26[1] = *MEMORY[0x277D85DE8];
   if (type > 2)
   {
     if (type == 3)
     {
-      v23 = *MEMORY[0x277D00F08];
-      v9 = MEMORY[0x277CBEA60];
-      v10 = &v23;
+      v20 = *MEMORY[0x277D00F08];
+      v8 = MEMORY[0x277CBEA60];
+      v9 = &v20;
       goto LABEL_21;
     }
 
     if (type == 4)
     {
-      v28 = *MEMORY[0x277D00F20];
-      v9 = MEMORY[0x277CBEA60];
-      v10 = &v28;
+      v25 = *MEMORY[0x277D00F20];
+      v8 = MEMORY[0x277CBEA60];
+      v9 = &v25;
       goto LABEL_21;
     }
 
@@ -295,33 +287,32 @@ void __74__CNAutocompleteRecentContactsLibrary_addLoggingHandlersToFuture_reques
 LABEL_10:
     currentEnvironment = [MEMORY[0x277CFBE10] currentEnvironment];
     featureFlags = [currentEnvironment featureFlags];
-    v13 = [featureFlags isFeatureEnabled:19];
+    v12 = [featureFlags isFeatureEnabled:19];
 
-    v14 = *MEMORY[0x277D00F20];
-    if (v13)
+    if (v12)
     {
-      v15 = *MEMORY[0x277D00F00];
-      v26[0] = *MEMORY[0x277D00F20];
-      v26[1] = v15;
-      v9 = MEMORY[0x277CBEA60];
-      v10 = v26;
+      v13 = *MEMORY[0x277D00F00];
+      v23[0] = *MEMORY[0x277D00F20];
+      v23[1] = v13;
+      v8 = MEMORY[0x277CBEA60];
+      v9 = v23;
       goto LABEL_12;
     }
 
-    v27 = *MEMORY[0x277D00F20];
-    v9 = MEMORY[0x277CBEA60];
-    v10 = &v27;
+    v24 = *MEMORY[0x277D00F20];
+    v8 = MEMORY[0x277CBEA60];
+    v9 = &v24;
 LABEL_21:
-    v16 = 1;
+    v14 = 1;
     goto LABEL_22;
   }
 
   switch(type)
   {
     case 0uLL:
-      v29[0] = *MEMORY[0x277D00F18];
-      v9 = MEMORY[0x277CBEA60];
-      v10 = v29;
+      v26[0] = *MEMORY[0x277D00F18];
+      v8 = MEMORY[0x277CBEA60];
+      v9 = v26;
       goto LABEL_21;
     case 1uLL:
       goto LABEL_10;
@@ -330,46 +321,44 @@ LABEL_21:
       featureFlags2 = [currentEnvironment2 featureFlags];
       v6 = [featureFlags2 isFeatureEnabled:19];
 
-      v7 = *MEMORY[0x277D00F10];
       if (v6)
       {
-        v8 = *MEMORY[0x277D00F00];
-        v24[0] = *MEMORY[0x277D00F10];
-        v24[1] = v8;
-        v9 = MEMORY[0x277CBEA60];
-        v10 = v24;
+        v7 = *MEMORY[0x277D00F00];
+        v21[0] = *MEMORY[0x277D00F10];
+        v21[1] = v7;
+        v8 = MEMORY[0x277CBEA60];
+        v9 = v21;
 LABEL_12:
-        v16 = 2;
+        v14 = 2;
 LABEL_22:
-        v18 = [v9 arrayWithObjects:v10 count:v16];
+        v16 = [v8 arrayWithObjects:v9 count:v14];
         goto LABEL_23;
       }
 
-      v25 = *MEMORY[0x277D00F10];
-      v9 = MEMORY[0x277CBEA60];
-      v10 = &v25;
+      v22 = *MEMORY[0x277D00F10];
+      v8 = MEMORY[0x277CBEA60];
+      v9 = &v22;
       goto LABEL_21;
   }
 
 LABEL_15:
-  v17 = CNALoggingContextDebug();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  v15 = CNALoggingContextDebug(self);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    v21 = 134217984;
+    v18 = 134217984;
     typeCopy = type;
-    _os_log_impl(&dword_2155FE000, v17, OS_LOG_TYPE_DEFAULT, "No domain for searchType: %lu ", &v21, 0xCu);
+    _os_log_impl(&dword_2155FE000, v15, OS_LOG_TYPE_DEFAULT, "No domain for searchType: %lu ", &v18, 0xCu);
   }
 
-  v18 = 0;
+  v16 = 0;
 LABEL_23:
-  v19 = *MEMORY[0x277D85DE8];
 
-  return v18;
+  return v16;
 }
 
 + (id)addressKindsForSearchType:(unint64_t)type
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (type - 4 < 2)
   {
     goto LABEL_4;
@@ -378,10 +367,10 @@ LABEL_23:
   if (type == 2)
   {
     v7 = *MEMORY[0x277D00EE0];
-    v14 = *MEMORY[0x277D00EC0];
-    v15 = v7;
+    v13 = *MEMORY[0x277D00EC0];
+    v14 = v7;
     v4 = MEMORY[0x277CBEA60];
-    v5 = &v14;
+    v5 = &v13;
   }
 
   else
@@ -390,26 +379,25 @@ LABEL_23:
     {
 LABEL_4:
       v3 = *MEMORY[0x277D00EE0];
-      v16 = *MEMORY[0x277D00EC0];
-      v17 = v3;
-      v18 = *MEMORY[0x277D00EC8];
+      v15 = *MEMORY[0x277D00EC0];
+      v16 = v3;
+      v17 = *MEMORY[0x277D00EC8];
       v4 = MEMORY[0x277CBEA60];
-      v5 = &v16;
+      v5 = &v15;
       v6 = 3;
       goto LABEL_8;
     }
 
     v8 = *MEMORY[0x277D00EC8];
-    v12 = *MEMORY[0x277D00EC0];
-    v13 = v8;
+    v11 = *MEMORY[0x277D00EC0];
+    v12 = v8;
     v4 = MEMORY[0x277CBEA60];
-    v5 = &v12;
+    v5 = &v11;
   }
 
   v6 = 2;
 LABEL_8:
-  v9 = [v4 arrayWithObjects:v5 count:{v6, v12, v13, v14, v15, v16, v17, v18, v19}];
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = [v4 arrayWithObjects:v5 count:{v6, v11, v12, v13, v14, v15, v16, v17, v18}];
 
   return v9;
 }

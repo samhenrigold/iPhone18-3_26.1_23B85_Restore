@@ -2,6 +2,7 @@
 - (DeepFusionLaplacianPyramid)initWithMetalContext:(id)context;
 - (int)_performLaplacianPyramid:(id)pyramid inputTextures:(id)textures destinationTextures:(id)destinationTextures upsamplingFilter:(int)filter;
 - (int)_validateInputs:(id)inputs gaussianPyramid:(id)pyramid;
+- (int)computeUsing:(id)using gaussianPyramid:(id)pyramid upsamplingFilter:(int)filter;
 - (int)upsampleUsing:(id)using inputTex:(id)tex outputTexUpsampled:(id)upsampled upsamplingFilter:(int)filter;
 @end
 
@@ -129,7 +130,7 @@ LABEL_21:
       v16 = objc_msgSend_objectAtIndexedSubscript_(texturesCopy, v13, v15, v14);
       v19 = objc_msgSend_objectAtIndexedSubscript_(texturesCopy, v17, v15 + 1, v18);
       v22 = objc_msgSend_objectAtIndexedSubscript_(destinationTexturesCopy, v20, v15, v21);
-      v168 = 0;
+      v168[0] = 0;
       v26 = objc_msgSend_allocator(self->super._metal, v23, v24, v25);
       v30 = objc_msgSend_newTextureDescriptor(v26, v27, v28, v29);
 
@@ -156,8 +157,8 @@ LABEL_21:
       objc_msgSend_setLabel_(v30, v67, 0, v68);
       v72 = objc_msgSend_allocator(self->super._metal, v69, v70, v71);
       v75 = objc_msgSend_newTextureWithDescriptor_(v72, v73, v30, v74);
-      v76 = v168;
-      v168 = v75;
+      v76 = v168[0];
+      v168[0] = v75;
 
       v80 = objc_msgSend_computeCommandEncoder(v160, v77, v78, v79);
       if (!v80)
@@ -170,7 +171,7 @@ LABEL_21:
       objc_msgSend_setImageblockWidth_height_(v80, v81, 32, 32);
       objc_msgSend_setComputePipelineState_(v82, v83, v161, v84);
       objc_msgSend_setTexture_atIndex_(v82, v85, v19, 0);
-      objc_msgSend_setTexture_atIndex_(v82, v86, v168, 1);
+      objc_msgSend_setTexture_atIndex_(v82, v86, v168[0], 1);
       v90 = objc_msgSend_width(v19, v87, v88, v89);
       v94 = objc_msgSend_height(v19, v91, v92, v93);
       v165 = v90;
@@ -192,10 +193,10 @@ LABEL_21:
       objc_msgSend_setComputePipelineState_(v102, v104, v159, v105);
       objc_msgSend_setTexture_atIndex_(v102, v106, v16, 0);
       v107 = 1;
-      objc_msgSend_setTexture_atIndex_(v102, v108, v168, 1);
+      objc_msgSend_setTexture_atIndex_(v102, v108, v168[0], 1);
       objc_msgSend_setTexture_atIndex_(v102, v109, v22, 2);
       v113 = objc_msgSend_width(v22, v110, v111, v112);
-      v117 = objc_msgSend_height(v168, v114, v115, v116);
+      v117 = objc_msgSend_height(v168[0], v114, v115, v116);
       v165 = v113;
       v166 = v117;
       v167 = 1;
@@ -352,6 +353,32 @@ LABEL_21:
 LABEL_11:
 
   return v65;
+}
+
+- (int)computeUsing:(id)using gaussianPyramid:(id)pyramid upsamplingFilter:(int)filter
+{
+  v5 = *&filter;
+  usingCopy = using;
+  pyramidCopy = pyramid;
+  if (objc_msgSend__validateInputs_gaussianPyramid_(self, v10, usingCopy, pyramidCopy))
+  {
+    sub_2958C9E3C(&v18);
+    v16 = v18;
+  }
+
+  else
+  {
+    v14 = objc_msgSend_outputTextureArray(pyramidCopy, v11, v12, v13);
+    v16 = objc_msgSend__performLaplacianPyramid_inputTextures_destinationTextures_upsamplingFilter_(self, v15, usingCopy, v14, self->super._outputTextures, v5);
+
+    if (v16)
+    {
+      sub_2958C9ED8(&v19);
+      v16 = v19;
+    }
+  }
+
+  return v16;
 }
 
 @end

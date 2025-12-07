@@ -1,18 +1,18 @@
-uint64_t sub_10001263C(const __CFData *a1, CFTypeRef *a2)
+uint64_t sub_10001263C(const __CFData *a1, CFErrorRef *a2, uint64_t a3, uint64_t a4)
 {
   CFDataGetLength(a1);
   CFDataGetBytePtr(a1);
   ccder_encode_body();
-  v5 = ccder_encode_tl();
-  if (!v5)
+  v7 = ccder_encode_tl();
+  if (!v7)
   {
-    sub_1000111B4(-7, @"com.apple.security.cfder.error", 0, a2, v4, @"ccder failed to encode");
+    sub_1000111B4(-7, @"com.apple.security.cfder.error", 0, a2, v6, @"ccder failed to encode");
   }
 
-  return v5;
+  return v7;
 }
 
-unint64_t sub_1000126DC(CFTypeRef *a1, int a2, uint64_t a3, unint64_t a4, double a5)
+unint64_t sub_1000126DC(CFErrorRef *a1, int a2, uint64_t a3, unint64_t a4, double a5)
 {
   v44 = 0;
   v45 = 0;
@@ -72,7 +72,7 @@ unint64_t sub_1000126DC(CFTypeRef *a1, int a2, uint64_t a3, unint64_t a4, double
   if ((sub_100013144(HIDWORD(v45), v45, HIDWORD(v44), v44, HIDWORD(v43), v43, 0, &err) & 1) == 0)
   {
     v12 = CFErrorCopyDescription(err);
-    sub_100089FEC(v12, 1405091842);
+    sub_100089FEC(v12, 0x53C00002u);
     if (v12)
     {
       CFRelease(v12);
@@ -275,7 +275,7 @@ size_t sub_100012F3C(void *a1, const char *a2, const __CFString *a3, uint64_t a4
 {
   if (!a3)
   {
-    return sub_1000103CC(-50, a5, @"object for key %s is NULL", a2);
+    return sub_1000103CC(-50, a5, @"object for key %s is NULL", a4, a2);
   }
 
   result = sub_10000E384(a3, a5, a3, a4, a5);
@@ -383,7 +383,7 @@ LABEL_7:
   return 0;
 }
 
-char *sub_100013268(double *a1, CFTypeRef *a2, unsigned int a3, char *a4, unint64_t a5)
+char *sub_100013268(double *a1, CFErrorRef *a2, unsigned int a3, char *a4, char *a5)
 {
   v68 = a4;
   v65 = sub_100013718(&v68, a5, a2, a4, a5);
@@ -415,7 +415,7 @@ LABEL_24:
   v37 = *v68;
   if (v37 == 46)
   {
-    if ((v68 + 1) < a5)
+    if (v68 + 1 < a5)
     {
       v37 = v68[1];
       if ((v37 - 58) < 0xFFFFFFF6)
@@ -570,7 +570,7 @@ LABEL_25:
   return v34;
 }
 
-uint64_t sub_100013718(char **a1, unint64_t a2, CFTypeRef *a3, uint64_t a4, uint64_t a5)
+uint64_t sub_100013718(char **a1, unint64_t a2, CFErrorRef *a3, uint64_t a4, uint64_t a5)
 {
   v7 = *a1;
   if (*a1)
@@ -598,7 +598,7 @@ uint64_t sub_100013718(char **a1, unint64_t a2, CFTypeRef *a3, uint64_t a4, uint
   return 0xFFFFFFFFLL;
 }
 
-char *sub_1000137B4(double *a1, CFTypeRef *a2, uint64_t a3, unint64_t a4, uint64_t a5)
+char *sub_1000137B4(double *a1, CFErrorRef *a2, uint64_t a3, char *a4, uint64_t a5)
 {
   *v20 = a3;
   v8 = sub_100013718(v20, a4, a2, a4, a5);
@@ -610,7 +610,7 @@ char *sub_1000137B4(double *a1, CFTypeRef *a2, uint64_t a3, unint64_t a4, uint64
   return sub_100013268(a1, a2, v17, v18, a4);
 }
 
-uint64_t sub_100013ACC(const __CFAllocator *a1, CFNumberRef *a2, CFTypeRef *a3, uint64_t a4, uint64_t a5)
+char *sub_100013ACC(const __CFAllocator *a1, CFNumberRef *a2, CFErrorRef *a3, uint64_t a4, uint64_t a5)
 {
   v16 = 0;
   v9 = ccder_decode_tl();
@@ -629,10 +629,10 @@ uint64_t sub_100013ACC(const __CFAllocator *a1, CFNumberRef *a2, CFTypeRef *a3, 
     return 0;
   }
 
-  return v11 + v16;
+  return (v11 + v16);
 }
 
-char *sub_100013C84(const __CFAllocator *a1, CFDateRef *a2, CFTypeRef *a3, uint64_t a4, uint64_t a5)
+char *sub_100013C84(const __CFAllocator *a1, CFDateRef *a2, CFErrorRef *a3, uint64_t a4, uint64_t a5)
 {
   *v15 = a5;
   v8 = ccder_decode_constructed_tl();
@@ -686,7 +686,7 @@ const __CFData *sub_100013E34(const __CFData *result)
   return result;
 }
 
-uint64_t sub_100013F34(uint64_t a1, uint64_t a2, uint64_t a3, CFTypeRef *a4)
+uint64_t sub_100013F34(uint64_t a1, uint64_t a2, uint64_t a3, CFErrorRef *a4)
 {
   v22 = 0;
   v23 = &v22;
@@ -769,7 +769,7 @@ uint64_t sub_100014158(uint64_t a1, uint64_t a2)
   return sub_1000141DC(a2, 2, v2, v4);
 }
 
-uint64_t sub_1000141DC(uint64_t a1, uint64_t a2, CFTypeRef *a3, uint64_t a4)
+uint64_t sub_1000141DC(uint64_t a1, uint64_t a2, CFErrorRef *a3, uint64_t a4)
 {
   v7[0] = 0;
   v7[1] = v7;
@@ -786,7 +786,7 @@ uint64_t sub_1000141DC(uint64_t a1, uint64_t a2, CFTypeRef *a3, uint64_t a4)
   return v4;
 }
 
-uint64_t sub_100014280(uint64_t a1, sqlite3_stmt *pStmt, CFTypeRef *a3)
+uint64_t sub_100014280(uint64_t a1, sqlite3_stmt *pStmt, CFErrorRef *a3)
 {
   v6 = 0;
   while (1)
@@ -815,7 +815,8 @@ uint64_t sub_100014280(uint64_t a1, sqlite3_stmt *pStmt, CFTypeRef *a3)
       return 2;
     }
 
-    if (!sub_10001D288(a1, v9, @"step", v6++, a3))
+    v10 = sub_10001D288(a1, v9, @"step", v6++, a3);
+    if ((v10 & 1) == 0)
     {
       return 0;
     }
@@ -824,11 +825,11 @@ uint64_t sub_100014280(uint64_t a1, sqlite3_stmt *pStmt, CFTypeRef *a3)
   return 1;
 }
 
-__CFString *sub_1000143F0(CFDictionaryRef *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+__CFString *sub_1000143F0(CFStringRef **a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   Mutable = CFStringCreateMutable(kCFAllocatorDefault, 0);
   CFStringAppend(Mutable, @"SELECT ");
-  v8 = *(*a1 + 2);
+  v8 = (*a1)[2];
   if (!v8)
   {
     if ((a1[6] & 8) == 0)
@@ -840,7 +841,7 @@ __CFString *sub_1000143F0(CFDictionaryRef *a1, uint64_t a2, uint64_t a3, uint64_
   }
 
   v9 = 0;
-  v10 = (*a1 + 24);
+  v10 = (*a1 + 3);
   do
   {
     if ((*(a2 + 16))(a2, v8))
@@ -875,10 +876,10 @@ LABEL_13:
   CFStringAppend(Mutable, @" FROM ");
   CFStringAppend(Mutable, **a1);
   v31 = 1;
-  v13 = *(*a1 + 2);
+  v13 = (*a1)[2];
   if (v13)
   {
-    v14 = (*a1 + 24);
+    v14 = (*a1 + 3);
     do
     {
       if ((*(a3 + 16))(a3, v13))
@@ -992,7 +993,7 @@ LABEL_27:
   return Mutable;
 }
 
-uint64_t sub_100014718(CFDictionaryRef *a1, uint64_t a2, CFTypeRef *a3, Block_layout *a4, Block_layout *a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_100014718(CFStringRef **a1, uint64_t a2, CFErrorRef *a3, Block_layout *a4, Block_layout *a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v21 = 0;
   v22 = &v21;
@@ -1050,7 +1051,7 @@ uint64_t sub_100014718(CFDictionaryRef *a1, uint64_t a2, CFTypeRef *a3, Block_la
   return v18 & 1;
 }
 
-uint64_t sub_10001489C(uint64_t a1, uint64_t a2, CFTypeRef *a3, uint64_t a4)
+sqlite3_stmt *sub_10001489C(uint64_t a1, const __CFString *a2, CFErrorRef *a3, uint64_t a4)
 {
   result = sub_10000A434(a1, a2, 0, a3);
   if (result)
@@ -1309,23 +1310,21 @@ void sub_100014FB8(uint64_t a1)
   if (*(v1 + 144) == 1)
   {
     *(v1 + 144) = 0;
-    v3 = *(a1 + 40);
-    v4 = *(a1 + 48);
     if (((*(*(*(*(*(*(a1 + 32) + 8) + 24) + 16) + 136) + 16))() & 1) == 0)
     {
-      v5 = *(*(a1 + 32) + 8);
-      v6 = *(v5 + 24);
-      if (v6[40] != 1 || (sub_1000868E8(v6, 0, *(a1 + 48)) & 1) == 0 && (v5 = *(*(a1 + 32) + 8), (v6 = *(v5 + 24)) != 0))
+      v3 = *(*(a1 + 32) + 8);
+      v4 = *(v3 + 24);
+      if (v4[40] != 1 || (sub_1000868E8(v4, 0, *(a1 + 48)) & 1) == 0 && (v3 = *(*(a1 + 32) + 8), (v4 = *(v3 + 24)) != 0))
       {
-        *(v5 + 24) = 0;
+        *(v3 + 24) = 0;
 
-        CFRelease(v6);
+        CFRelease(v4);
       }
     }
   }
 }
 
-uint64_t sub_100015080(uint64_t a1, uint64_t a2, CFTypeRef *a3, uint64_t a4)
+uint64_t sub_100015080(uint64_t a1, uint64_t a2, CFErrorRef *a3, uint64_t a4)
 {
   v13 = 1;
   if (*(a1 + 25) != 1)
@@ -1415,7 +1414,7 @@ LABEL_16:
     goto LABEL_17;
   }
 
-  (*(a4 + 16))(a4, &v13);
+  (*(a4 + 16))(a4, &v13, a3);
   if ((v13 & 1) == 0)
   {
     v5 = sub_100006274("#SecDB");
@@ -1430,7 +1429,7 @@ LABEL_16:
   return v6 & v13 & 1;
 }
 
-uint64_t sub_1000152F0(uint64_t a1, const __CFString *cf, CFTypeRef *a3)
+uint64_t sub_1000152F0(uint64_t a1, const __CFString *cf, CFErrorRef *a3)
 {
   v4 = cf;
   CFRetain(cf);
@@ -1480,7 +1479,7 @@ uint64_t sub_1000153E0(uint64_t a1, _BYTE *a2)
   return result;
 }
 
-uint64_t sub_100015424(uint64_t a1, CFDictionaryRef theDict, uint64_t a3)
+uint64_t sub_100015424(uint64_t a1, CFDictionaryRef theDict, __CFString **a3)
 {
   v3 = *(a1 + 16);
   v4 = *(v3 + 16);
@@ -1705,7 +1704,7 @@ LABEL_19:
   return v8(a1);
 }
 
-const void *sub_100015814(void **a1, __CFString **a2)
+const void *sub_100015814(void *a1, __CFString **a2)
 {
   v4 = sub_100016514(a1[2], 15, a2);
   v5 = sub_100015BFC(a1, v4, a2);
@@ -1788,7 +1787,7 @@ LABEL_27:
           _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "SecDbItemCopyAccessControl accc %@ != pdmn %@, setting pdmn to accc value", &v22, 0x16u);
         }
 
-        sub_100089FEC(@"Corrupted item on decrypt accc != pdmn", 1405091842);
+        sub_100089FEC(@"Corrupted item on decrypt accc != pdmn", 0x53C00002u);
         v19 = sub_100016514(a1[2], 14, a2);
         if (!sub_1000154A0(a1, v19, Protection, a2))
         {
@@ -1881,14 +1880,14 @@ const void *sub_100015B5C(void *a1, CFTypeRef cf2)
   return result;
 }
 
-const void *sub_100015BFC(const void *a1, uint64_t a2, uint64_t a3)
+const void *sub_100015BFC(const void *a1, const void **a2, __CFString **a3)
 {
   if (!a2)
   {
     return 0;
   }
 
-  v6 = *(a2 + 16);
+  v6 = a2[2];
   if ((v6 & 0x20A0) != 0 && !sub_100016898(a1, (v6 >> 5) & 1, a3))
   {
     return 0;
@@ -1928,7 +1927,7 @@ uint64_t sub_100015D00(void **a1)
   return v3 & v5;
 }
 
-BOOL sub_100015DAC(uint64_t a1, sqlite3_stmt *pStmt, CFTypeRef *a3, uint64_t a4)
+BOOL sub_100015DAC(uint64_t a1, sqlite3_stmt *pStmt, CFErrorRef *a3, uint64_t a4)
 {
   while (1)
   {
@@ -1995,7 +1994,7 @@ void sub_100015EF4(uint64_t a1)
   }
 }
 
-uint64_t sub_100015FB4(const __CFAllocator *a1, void *a2, sqlite3_stmt *a3, int a4, uint64_t a5)
+uint64_t sub_100015FB4(const __CFAllocator *a1, void *a2, sqlite3_stmt *a3, uint64_t a4, uint64_t a5)
 {
   v8 = sub_1000160F4(a1, a2, a4, 0);
   v9 = a2[2];
@@ -2069,7 +2068,7 @@ uint64_t sub_1000160F4(const __CFAllocator *a1, uint64_t a2, int a3, uint64_t a4
   return Instance;
 }
 
-CFDataRef sub_10001620C(const __CFAllocator *a1, sqlite3_stmt *a2, uint64_t a3, int iCol)
+CFDateRef sub_10001620C(const __CFAllocator *a1, sqlite3_stmt *a2, uint64_t a3, int iCol)
 {
   result = 0;
   v9 = *(a3 + 8);
@@ -2255,13 +2254,13 @@ CFDataRef sub_100016580(const __CFAllocator *a1, sqlite3_stmt *a2, int iCol)
   return CFDataCreate(a1, v6, v7);
 }
 
-void sub_1000165E8(uint64_t a1, uint64_t a2)
+void sub_1000165E8(void *a1, uint64_t a2)
 {
-  if (*(*(a1 + 48) + 240))
+  if (*(a1[6] + 240))
   {
     v4 = sub_100016514(*(a2 + 16), 1, 0);
     v5 = sub_100015BFC(a2, v4, 0);
-    v6 = *(*(a1 + 48) + 240);
+    v6 = *(a1[6] + 240);
     if (v6)
     {
       if (!sub_10017A188(v6, v5))
@@ -2272,7 +2271,7 @@ void sub_1000165E8(uint64_t a1, uint64_t a2)
   }
 
   *(a2 + 64) = @"odel";
-  v7 = *(a1 + 56);
+  v7 = a1[7];
   err = 0;
   v8 = sub_100016898(a2, 1, &err);
   v9 = err;
@@ -2285,7 +2284,7 @@ void sub_1000165E8(uint64_t a1, uint64_t a2)
         *v7 = err;
       }
 
-      *(*(*(a1 + 32) + 8) + 24) = 1;
+      *(*(a1[4] + 8) + 24) = 1;
       return;
     }
 
@@ -2297,7 +2296,7 @@ void sub_1000165E8(uint64_t a1, uint64_t a2)
     CFRelease(v9);
   }
 
-  if (*(*(a1 + 48) + 116) == 1 && (v10 = sub_100015B5C(a2, kSecAttrSharingGroup)) != 0 && (v11 = v10, v12 = CFGetTypeID(v10), v12 == CFStringGetTypeID()) && CFStringCompare(v11, kSecAttrSharingGroupNone, 0))
+  if (*(a1[6] + 116) == 1 && (v10 = sub_100015B5C(a2, kSecAttrSharingGroup)) != 0 && (v11 = v10, v12 = CFGetTypeID(v10), v12 == CFStringGetTypeID()) && CFStringCompare(v11, kSecAttrSharingGroupNone, 0))
   {
     v13 = sub_100006274("SecError");
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
@@ -2328,8 +2327,8 @@ void sub_1000165E8(uint64_t a1, uint64_t a2)
       sub_1000154A0(a2, v14, 0, 0);
     }
 
-    v19 = *(a1 + 64);
-    v20 = *(*(a1 + 48) + 96);
+    v19 = a1[8];
+    v20 = *(a1[6] + 96);
     if (!v20)
     {
       if (v17 && !sub_10001A700(a2))
@@ -2343,10 +2342,10 @@ void sub_1000165E8(uint64_t a1, uint64_t a2)
       }
     }
 
-    *(*(*(a1 + 40) + 8) + 24) = sub_1000170C8(a2, v19, v20, *(*(a1 + 48) + 156), *(a1 + 56));
-    if (*(*(*(a1 + 40) + 8) + 24) == 1)
+    *(*(a1[5] + 8) + 24) = sub_1000170C8(a2, v19, v20, *(a1[6] + 156), a1[7]);
+    if (*(*(a1[5] + 8) + 24) == 1)
     {
-      v21 = *(a1 + 48);
+      v21 = a1[6];
       v21[113] = 1;
       if (v17)
       {
@@ -2697,7 +2696,7 @@ CFStringRef sub_100016F6C(uint64_t a1)
   return CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"<SecDbConnection %s %s>", v2, v3);
 }
 
-BOOL sub_100016FF0(const void *a1, uint64_t a2, BOOL *a3, uint64_t a4)
+BOOL sub_100016FF0(const void *a1, const void **a2, BOOL *a3, __CFString **a4)
 {
   v5 = sub_100015BFC(a1, a2, a4);
   v6 = v5;
@@ -2724,8 +2723,9 @@ const void *sub_100017084(void *a1)
   return result;
 }
 
-CFStringRef **sub_1000170C8(CFStringRef **a1, uint64_t a2, CFBooleanRef cf1, int a4, CFTypeRef *a5)
+CFStringRef **sub_1000170C8(CFStringRef **a1, uint64_t a2, CFBooleanRef cf1, uint64_t a4, CFErrorRef *a5)
 {
+  v6 = a4;
   if (cf1 && kCFBooleanFalse)
   {
     if (CFEqual(cf1, kCFBooleanFalse))
@@ -2741,7 +2741,7 @@ LABEL_4:
     goto LABEL_4;
   }
 
-  result = sub_100163CE0(a1, cf1, a4, a5);
+  result = sub_100163CE0(a1, cf1, v6, a5);
   if (result)
   {
     v11 = result;
@@ -2753,7 +2753,7 @@ LABEL_4:
   return result;
 }
 
-uint64_t sub_1000171B0(CFStringRef **a1, uint64_t a2, CFTypeRef *a3, uint64_t a4)
+uint64_t sub_1000171B0(CFStringRef **a1, uint64_t a2, CFErrorRef *a3, uint64_t a4)
 {
   v6 = sub_10001728C(a1, a2, a3, a4);
   if (v6)
@@ -2774,7 +2774,7 @@ uint64_t sub_1000171B0(CFStringRef **a1, uint64_t a2, CFTypeRef *a3, uint64_t a4
   return v6;
 }
 
-uint64_t sub_10001728C(CFStringRef **a1, uint64_t a2, CFTypeRef *a3, uint64_t a4)
+uint64_t sub_10001728C(CFStringRef **a1, uint64_t a2, CFErrorRef *a3, uint64_t a4)
 {
   v8 = CFGetAllocator(a1);
   Mutable = CFStringCreateMutable(v8, 0);
@@ -2830,7 +2830,7 @@ uint64_t sub_10001728C(CFStringRef **a1, uint64_t a2, CFTypeRef *a3, uint64_t a4
   return v15 & 1;
 }
 
-__CFData *sub_10001741C(void *a1, sqlite3_stmt *pStmt)
+const __CFString *sub_10001741C(void *a1, sqlite3_stmt *pStmt)
 {
   v5 = a1[6];
   v4 = a1[7];
@@ -2884,7 +2884,7 @@ LABEL_9:
   return result;
 }
 
-__CFData *sub_100017508(CFMutableDictionaryRef *a1, _BYTE *a2, __CFString **a3)
+const __CFString *sub_100017508(CFMutableDictionaryRef *a1, const void **a2, __CFString **a3)
 {
   v6 = sub_100016428(a2);
   if ((~*(a2 + 4) & 0xALL) != 0 || (Value = CFDictionaryGetValue(a1[6], v6)) == 0)
@@ -2893,7 +2893,7 @@ __CFData *sub_100017508(CFMutableDictionaryRef *a1, _BYTE *a2, __CFString **a3)
     if (v9)
     {
       v8 = sub_10001785C(a2, v9, a3);
-      if (v8 && (a2[16] & 8) != 0)
+      if (v8 && (a2[2] & 8) != 0)
       {
         CFDictionarySetValue(a1[6], v6, v8);
       }
@@ -2933,7 +2933,7 @@ CFDataRef sub_100017694(const void *a1, uint64_t a2)
   if (v2)
   {
 
-    return v2();
+    return v2(a1);
   }
 
   v4 = 0;
@@ -3054,7 +3054,7 @@ LABEL_30:
   return CFDateCreate(v7, Current);
 }
 
-__CFData *sub_10001785C(uint64_t a1, const __CFNull *a2, __CFString **a3)
+const __CFString *sub_10001785C(uint64_t a1, const __CFNull *a2, __CFString **a3)
 {
   if (a2)
   {
@@ -3300,7 +3300,7 @@ void sub_100017BC8(uint64_t a1)
   }
 }
 
-CFTypeID sub_100017E2C(const __CFArray *a1, CFTypeID *a2, const __CFArray **a3)
+const __CFArray *sub_100017E2C(const __CFArray *a1, CFTypeID *a2, const __CFArray **a3)
 {
   v5 = a1;
   v6 = CFGetTypeID(a1);
@@ -3527,7 +3527,7 @@ const void *sub_10001838C(void *a1, const char *a2, __CFString **a3)
   return v6;
 }
 
-unint64_t sub_100018424(const __CFAllocator *a1, CFMutableArrayRef *a2, CFTypeRef *a3, uint64_t a4, uint64_t a5)
+const UInt8 *sub_100018424(const __CFAllocator *a1, CFMutableArrayRef *a2, CFErrorRef *a3, uint64_t a4, uint64_t a5)
 {
   if (!a4)
   {
@@ -3535,7 +3535,6 @@ unint64_t sub_100018424(const __CFAllocator *a1, CFMutableArrayRef *a2, CFTypeRe
     return 0;
   }
 
-  v7 = a1;
   Mutable = CFArrayCreateMutable(a1, 0, &kCFTypeArrayCallBacks);
   v16 = 0xAAAAAAAAAAAAAAAALL;
   v9 = ccder_decode_sequence_tl();
@@ -3555,7 +3554,7 @@ LABEL_11:
   while (v11 < v16)
   {
     value = 0;
-    v12 = sub_1000068E0(v7, &value, a3);
+    v12 = sub_1000068E0(a1, &value, a3, v11, v16);
     if (!v12)
     {
       goto LABEL_11;
@@ -4257,7 +4256,7 @@ LABEL_61:
               goto LABEL_62;
             }
 
-            sub_100185528(@"add", Value, a2);
+            sub_100185528(@"add");
             v30[0] = _NSConcreteStackBlock;
             v30[1] = 0x40000000;
             v30[2] = sub_100019FE4;
@@ -4288,7 +4287,7 @@ LABEL_57:
   return 0;
 }
 
-void sub_100019C0C(const void *a1, const void *a2, uint64_t a3)
+void sub_100019C0C(const void *a1, const void *a2, __CFString **a3)
 {
   if (CFEqual(a1, kSecValueData))
   {
@@ -4300,18 +4299,18 @@ void sub_100019C0C(const void *a1, const void *a2, uint64_t a3)
   {
     if (_SecItemParsePersistentRef())
     {
-      sub_10000927C(a3, 0, (a3 + 40));
+      sub_10000927C(a3, 0, a3 + 5);
     }
 
     else
     {
-      sub_1000103CC(-50, (a3 + 40), @"add_value: value %@ is not a valid persitent ref", a2);
+      sub_1000103CC(-50, a3 + 5, @"add_value: value %@ is not a valid persitent ref", a2);
     }
   }
 
   else
   {
-    sub_1000103CC(-50, (a3 + 40), @"add_value: unknown key %@", a1);
+    sub_1000103CC(-50, a3 + 5, @"add_value: unknown key %@", a1);
   }
 }
 
@@ -4389,13 +4388,13 @@ uint64_t sub_100019FE4(void *a1, uint64_t a2)
   return sub_1000141DC(a2, 2, v2, v5);
 }
 
-uint64_t sub_10001A064(uint64_t a1)
+uint64_t sub_10001A064(void *a1)
 {
-  sub_10001A0A4(*(a1 + 32));
-  v3 = *(a1 + 32);
-  v2 = *(a1 + 40);
-  v4 = *(a1 + 48);
-  v5 = *(a1 + 56);
+  sub_10001A0A4(a1[4]);
+  v3 = a1[4];
+  v2 = a1[5];
+  v4 = a1[6];
+  v5 = a1[7];
 
   return sub_10001A2F4(v2, v3, v4, v5);
 }
@@ -4711,7 +4710,7 @@ LABEL_48:
   return 1;
 }
 
-const void *sub_10001A690(uint64_t a1, const __CFDictionary *a2, int a3, uint64_t a4)
+const void *sub_10001A690(uint64_t a1, const __CFDictionary *a2, int a3, __CFString **a4)
 {
   v6 = sub_1000160F4(kCFAllocatorDefault, a1, a3, 0);
   v7 = v6;
@@ -4732,7 +4731,7 @@ uint64_t sub_10001A700(void **a1)
   return v3 & v5;
 }
 
-uint64_t sub_10001A768(uint64_t a1, CFTypeRef cf2, uint64_t a3, uint64_t a4)
+uint64_t sub_10001A768(uint64_t a1, CFTypeRef cf2, const __CFData *a3, __CFString **a4)
 {
   v4 = *(a1 + 16);
   v5 = *(v4 + 16);
@@ -4846,7 +4845,7 @@ void sub_10001A9E8(uint64_t a1, CFTypeRef cf)
   }
 }
 
-uint64_t sub_10001AA4C(uint64_t a1, uint64_t a2, __CFString **a3, uint64_t a4)
+uint64_t sub_10001AA4C(CFStringRef **a1, uint64_t a2, CFErrorRef *a3, uint64_t a4)
 {
   v25 = 0;
   v26 = &v25;
@@ -4870,11 +4869,11 @@ uint64_t sub_10001AA4C(uint64_t a1, uint64_t a2, __CFString **a3, uint64_t a4)
           if (v10)
           {
             v11 = v10;
-            v12 = *(a1 + 56);
+            v12 = a1[7];
             v13 = v10[18];
             if (v13 != v12)
             {
-              if (!v12 || (CFRetain(*(a1 + 56)), (v13 = v11[18]) != 0))
+              if (!v12 || (CFRetain(a1[7]), (v13 = v11[18]) != 0))
               {
                 CFRelease(v13);
               }
@@ -4958,7 +4957,7 @@ LABEL_24:
   return v15 & v18;
 }
 
-uint64_t sub_10001AC7C(CFStringRef **a1, uint64_t a2, CFTypeRef *a3)
+uint64_t sub_10001AC7C(CFStringRef **a1, uint64_t a2, CFErrorRef *a3)
 {
   if (sub_100016898(a1, 1, a3))
   {
@@ -5018,24 +5017,7 @@ uint64_t sub_10001AC7C(CFStringRef **a1, uint64_t a2, CFTypeRef *a3)
     v24 = &v23;
     v25 = 0x2000000000;
     v26 = Mutable != 0;
-    if (!Mutable)
-    {
-      goto LABEL_30;
-    }
-
-    v22[0] = _NSConcreteStackBlock;
-    v22[1] = 0x40000000;
-    v22[2] = sub_10001AFB0;
-    v22[3] = &unk_100338848;
-    v22[6] = a1;
-    v22[7] = a3;
-    v22[4] = &stru_100338820;
-    v22[5] = &v23;
-    v22[8] = a2;
-    v17 = sub_10001489C(a2, Mutable, a3, v22);
-    *(v24 + 24) &= v17;
-    CFRelease(Mutable);
-    if (v24[3])
+    if (Mutable && (v22[0] = _NSConcreteStackBlock, v22[1] = 0x40000000, v22[2] = sub_10001AFB0, v22[3] = &unk_100338848, v22[6] = a1, v22[7] = a3, v22[4] = &stru_100338820, v22[5] = &v23, v22[8] = a2, v17 = sub_10001489C(a2, Mutable, a3, v22), *(v24 + 24) &= v17, CFRelease(Mutable), (v24[3] & 1) != 0))
     {
       v18 = sub_100006274("item");
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
@@ -5048,30 +5030,26 @@ uint64_t sub_10001AC7C(CFStringRef **a1, uint64_t a2, CFTypeRef *a3)
       sub_100018694(a2, 0, a1);
     }
 
-    else
+    else if ((sub_10001C8C4(a1) & 1) == 0)
     {
-LABEL_30:
-      if ((sub_10001C8C4(a1) & 1) == 0)
+      v19 = sub_100006274("item");
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
-        v19 = sub_100006274("item");
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+        if (a3)
         {
-          if (a3)
-          {
-            v20 = *a3;
-          }
-
-          else
-          {
-            v20 = 0;
-          }
-
-          *buf = 138478083;
-          v28 = a1;
-          v29 = 2112;
-          v30 = v20;
-          _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "insert failed for item %{private}@ with %@", buf, 0x16u);
+          v20 = *a3;
         }
+
+        else
+        {
+          v20 = 0;
+        }
+
+        *buf = 138478083;
+        v28 = a1;
+        v29 = 2112;
+        v30 = v20;
+        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "insert failed for item %{private}@ with %@", buf, 0x16u);
       }
     }
 
@@ -5219,15 +5197,15 @@ LABEL_12:
 
 __CFData *sub_10001B280(const __CFData *a1)
 {
-  CFDataGetLength(a1);
-  v2 = CFGetAllocator(a1);
-  CFDataGetBytePtr(a1);
-  v3 = ccsha1_di();
+  Length = CFDataGetLength(a1);
+  v3 = CFGetAllocator(a1);
+  BytePtr = CFDataGetBytePtr(a1);
+  v5 = ccsha1_di();
 
-  return sub_10001B2EC(v2, v3);
+  return sub_10001B2EC(v3, v5, Length, BytePtr);
 }
 
-__CFData *sub_10001B2EC(const __CFAllocator *a1, CFIndex *a2)
+__CFData *sub_10001B2EC(const __CFAllocator *a1, CFIndex *a2, uint64_t a3, uint64_t a4)
 {
   Mutable = CFDataCreateMutable(a1, *a2);
   CFDataSetLength(Mutable, *a2);
@@ -5472,7 +5450,7 @@ LABEL_15:
   return v22;
 }
 
-__CFDictionary *sub_10001B87C(void *a1, uint64_t a2, __CFString **a3)
+const __CFData *sub_10001B87C(void *a1, uint64_t a2, __CFString **a3)
 {
   result = sub_10001B8B8(a1, a2, a3);
   if (result)
@@ -5500,7 +5478,7 @@ __CFDictionary *sub_10001B8B8(void *a1, uint64_t a2, __CFString **a3)
   return result;
 }
 
-__CFData *sub_10001B910(const __CFString *a1, CFTypeRef *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+__CFData *sub_10001B910(const __CFString *a1, CFErrorRef *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v7 = sub_10000E384(a1, a2, a3, a4, a5);
   Mutable = CFDataCreateMutable(0, v7);
@@ -5523,7 +5501,7 @@ void sub_10001B9C4(uint64_t a1, const void *a2)
   CFDictionaryRemoveValue(v4, a2);
 }
 
-BOOL sub_10001BA08(uint64_t a1, uint64_t a2, const __CFData *a3, CFDictionaryRef theDict, void *a5, const __CFDictionary *a6, __CFData **a7, int a8, char a9, __CFString **a10)
+BOOL sub_10001BA08(uint64_t a1, uint64_t a2, const __CFData *a3, CFDictionaryRef theDict, void *a5, const __CFDictionary *a6, __CFData **a7, uint64_t a8, char a9, __CFString **a10)
 {
   if (dword_10039E2F8 == a1 && a9 == 0)
   {
@@ -5582,6 +5560,7 @@ BOOL sub_10001BA08(uint64_t a1, uint64_t a2, const __CFData *a3, CFDictionaryRef
 
   else
   {
+    v18 = a8;
     if ((a9 & 1) == 0)
     {
       if (qword_10039DFB8 != -1)
@@ -5601,7 +5580,7 @@ BOOL sub_10001BA08(uint64_t a1, uint64_t a2, const __CFData *a3, CFDictionaryRef
     context[3] = &unk_1003469D0;
     context[4] = MutableCopy;
     CFDictionaryApplyFunction(theDict, sub_100169384, context);
-    v22 = sub_100168BB8(a1, a2, a3, MutableCopy, a6, a7, a8, a9, a10);
+    v22 = sub_100168BB8(a1, a2, a3, MutableCopy, a6, a7, v18, a9, a10);
     if (MutableCopy)
     {
       CFRelease(MutableCopy);
@@ -5723,7 +5702,7 @@ void sub_10001C008(uint64_t a1)
   [WeakRetained _onQueueDropClassAKeys];
 }
 
-BOOL sub_10001C4BC(int a1, CFTypeRef *a2, CFStringRef format, ...)
+BOOL sub_10001C4BC(int a1, CFErrorRef *a2, CFStringRef format, ...)
 {
   va_start(va, format);
   if (a1 && a2)
@@ -5736,7 +5715,7 @@ BOOL sub_10001C4BC(int a1, CFTypeRef *a2, CFStringRef format, ...)
   return a1 == 0;
 }
 
-uint64_t sub_10001C528(__CFString ***a1, CFStringRef **a2, uint64_t a3, CFTypeRef *a4, uint64_t a5)
+uint64_t sub_10001C528(uint64_t *a1, CFStringRef **a2, uint64_t a3, CFErrorRef *a4, uint64_t a5)
 {
   v10 = sub_100015B5C(a1, kSecAttrPersistentReference);
   if (!v10 || CFDataGetLength(v10) != 16)
@@ -5799,10 +5778,10 @@ uint64_t sub_10001C528(__CFString ***a1, CFStringRef **a2, uint64_t a3, CFTypeRe
 
   bytes.byte0 = 1;
   v22 = a1[2];
-  v23 = v22[2];
+  v23 = *(v22 + 16);
   if (v23)
   {
-    v24 = (v22 + 3);
+    v24 = (v22 + 24);
     do
     {
       if ((*(a5 + 16))(a5, v23))
@@ -5821,25 +5800,7 @@ uint64_t sub_10001C528(__CFString ***a1, CFStringRef **a2, uint64_t a3, CFTypeRe
   *&bytes.byte8 = &bytes;
   v33 = 0x2000000000;
   v34 = Mutable != 0;
-  if (!Mutable)
-  {
-    goto LABEL_29;
-  }
-
-  v31[0] = _NSConcreteStackBlock;
-  v31[1] = 0x40000000;
-  v31[2] = sub_1001638DC;
-  v31[3] = &unk_100338938;
-  v31[6] = a1;
-  v31[7] = a2;
-  v31[4] = a5;
-  v31[5] = &bytes;
-  v31[8] = a4;
-  v31[9] = a3;
-  v26 = sub_10001489C(a3, Mutable, a4, v31);
-  *(*&bytes.byte8 + 24) &= v26;
-  CFRelease(Mutable);
-  if (*(*&bytes.byte8 + 24))
+  if (Mutable && (v31[0] = _NSConcreteStackBlock, v31[1] = 0x40000000, v31[2] = sub_1001638DC, v31[3] = &unk_100338938, v31[6] = a1, v31[7] = a2, v31[4] = a5, v31[5] = &bytes, v31[8] = a4, v31[9] = a3, v26 = sub_10001489C(a3, Mutable, a4, v31), *(*&bytes.byte8 + 24) &= v26, CFRelease(Mutable), (*(*&bytes.byte8 + 24) & 1) != 0))
   {
     if ((sub_10001C8C4(a1) & 1) == 0)
     {
@@ -5870,7 +5831,6 @@ uint64_t sub_10001C528(__CFString ***a1, CFStringRef **a2, uint64_t a3, CFTypeRe
 
   else
   {
-LABEL_29:
     v29 = 0;
   }
 
@@ -5878,7 +5838,7 @@ LABEL_29:
   return v29 & 1;
 }
 
-__CFString ***sub_10001C8C4(__CFString ***result)
+uint64_t *sub_10001C8C4(uint64_t *result)
 {
   if (result)
   {
@@ -5904,7 +5864,7 @@ __CFString ***sub_10001C8C4(__CFString ***result)
   return result;
 }
 
-BOOL sub_10001C958(uint64_t a1, uint64_t a2, CFTypeRef *a3, CFStringRef format, ...)
+BOOL sub_10001C958(uint64_t a1, uint64_t a2, CFErrorRef *a3, CFStringRef format, ...)
 {
   va_start(va, format);
   if (!a2 || a2 == 101)
@@ -6283,7 +6243,7 @@ LABEL_43:
   return v34;
 }
 
-BOOL sub_10001D288(uint64_t a1, uint64_t a2, uint64_t a3, int a4, CFTypeRef *a5)
+uint64_t sub_10001D288(uint64_t a1, uint64_t a2, uint64_t a3, int a4, CFErrorRef *a5)
 {
   if (a2 - 5 > 1)
   {
@@ -6555,7 +6515,7 @@ LABEL_55:
   }
 }
 
-BOOL sub_10001D8CC(uint64_t a1, sqlite3 *a2, CFTypeRef *a3, CFStringRef format, ...)
+BOOL sub_10001D8CC(uint64_t a1, sqlite3 *a2, CFErrorRef *a3, CFStringRef format, ...)
 {
   va_start(va, format);
   if (a1 && a3)
@@ -6599,7 +6559,7 @@ BOOL sub_10001D8CC(uint64_t a1, sqlite3 *a2, CFTypeRef *a3, CFStringRef format, 
   return a1 == 0;
 }
 
-void sub_10001D9F0(int a1, CFTypeRef *a2, CFStringRef format, ...)
+void sub_10001D9F0(int a1, CFErrorRef *a2, CFStringRef format, ...)
 {
   va_start(va, format);
   if (a2)
@@ -6706,7 +6666,7 @@ uint64_t sub_10001DC5C(uint64_t a1, const __CFArray *a2, uint64_t a3, __CFString
   v19 = 1;
   if (*(a1 + 64))
   {
-    v6 = sub_1000103CC(-50, a4, @"value ref not supported by queries");
+    v6 = sub_1000103CC(-50, a4, @"value ref not supported by queries", a4, a5);
   }
 
   else
@@ -6918,7 +6878,7 @@ LABEL_17:
       _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "error %@ reading item %{private}@ (corrupted)", buf, 0x16u);
     }
 
-    sub_100089FEC(@"Corrupted item found in keychain", 1405091842);
+    sub_100089FEC(@"Corrupted item found in keychain", 0x53C00002u);
     v14 = 0;
     goto LABEL_20;
   }
@@ -7067,7 +7027,7 @@ LABEL_23:
                   _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEFAULT, "error attribute %@: %@ item %{private}@ (corrupted)", buf, 0x20u);
                 }
 
-                sub_100089FEC(@"Corrupted item found in keychain", 1405091842);
+                sub_100089FEC(@"Corrupted item found in keychain", 0x53C00002u);
               }
 
               *a2 = 1;
@@ -7095,7 +7055,7 @@ LABEL_23:
               _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEFAULT, "error attribute %@ has NULL value in item %{private}@ (corrupted)", buf, 0x16u);
             }
 
-            sub_100089FEC(@"Corrupted item (attr NULL) found in keychain", 1405091842);
+            sub_100089FEC(@"Corrupted item (attr NULL) found in keychain", 0x53C00002u);
             *a2 = 1;
             break;
           }
@@ -7164,24 +7124,24 @@ LABEL_53:
 
 void sub_10001E738(uint64_t a1, uint64_t a2)
 {
-  v19 = 0;
-  *(*(*(a1 + 40) + 8) + 24) = sub_10001E0A4(a2, &v19, *(a1 + 56));
+  v18 = 0;
+  *(*(*(a1 + 40) + 8) + 24) = sub_10001E0A4(a2, &v18, *(a1 + 56));
   cf = 0;
-  v4 = v19;
-  if (v19 != 1)
+  v4 = v18;
+  if (v18 != 1)
   {
     if (*(*(*(a1 + 40) + 8) + 24) != 1)
     {
       return;
     }
 
-    v15 = *(a1 + 32);
-    if (!v15)
+    v14 = *(a1 + 32);
+    if (!v14)
     {
       return;
     }
 
-    (*(v15 + 16))(v15, a2, &cf);
+    (*(v14 + 16))(v14, a2, &cf);
     if (!cf)
     {
       return;
@@ -7194,7 +7154,6 @@ LABEL_8:
     {
       *(*(*(a1 + 40) + 8) + 24) = sub_1000154A0(cf, v10, v11, (*(*(a1 + 48) + 8) + 24));
       v12 = *(*(a1 + 40) + 8);
-      v13 = *(v12 + 24);
       if ((v4 & 1) != 0 || !*(v12 + 24))
       {
         if (!*(v12 + 24))
@@ -7210,31 +7169,31 @@ LABEL_8:
         if ((*(v12 + 24) & 1) == 0)
         {
 LABEL_12:
-          v14 = 0;
+          v13 = 0;
           goto LABEL_21;
         }
       }
 
-      v14 = sub_10001C528(a2, cf, *(a1 + 72), (*(*(a1 + 48) + 8) + 24), &stru_1003388C8);
+      v13 = sub_10001C528(a2, cf, *(a1 + 72), (*(*(a1 + 48) + 8) + 24), &stru_1003388C8);
     }
 
     else
     {
-      v14 = sub_1000103CC(-26276, (*(*(a1 + 48) + 8) + 24), @"no rowid for %@", a2);
+      v13 = sub_1000103CC(-26276, (*(*(a1 + 48) + 8) + 24), @"no rowid for %@", a2);
     }
 
     v12 = *(*(a1 + 40) + 8);
 LABEL_21:
-    *(v12 + 24) = v14;
+    *(v12 + 24) = v13;
     CFRelease(cf);
     if (*(*(*(a1 + 40) + 8) + 24) == 1)
     {
-      v16 = *(*(a1 + 48) + 8);
-      v17 = *(v16 + 24);
-      if (v17)
+      v15 = *(*(a1 + 48) + 8);
+      v16 = *(v15 + 24);
+      if (v16)
       {
-        *(v16 + 24) = 0;
-        CFRelease(v17);
+        *(v15 + 24) = 0;
+        CFRelease(v16);
       }
     }
 
@@ -7246,9 +7205,9 @@ LABEL_21:
   {
     v6 = *(a1 + 64);
     *buf = 138478083;
-    v21 = a2;
-    v22 = 2113;
-    v23 = v6;
+    v20 = a2;
+    v21 = 2113;
+    v22 = v6;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "replacing corrupted item %{private}@ with %{private}@", buf, 0x16u);
   }
 
@@ -8018,10 +7977,10 @@ LABEL_71:
     }
 
     v14 = v13;
-    v15 = *(v13 + 192);
+    v15 = *(v13 + 48);
     if (v15 == 2 || v15 == 1 && *(a3 + 36) == 1)
     {
-      v16 = *(v13 + 128);
+      v16 = v13[16];
       if (v16)
       {
         *(v14 + 128) = 0;
@@ -8033,7 +7992,7 @@ LABEL_71:
 
     else
     {
-      *(v13 + 192) = 0;
+      *(v13 + 48) = 0;
     }
 
     sub_100009B34(v14, v9);
@@ -8100,7 +8059,7 @@ LABEL_62:
           if (sub_1000103CC(v22, a4, v20))
           {
 LABEL_63:
-            sub_100185528(@"update", Value, a3);
+            sub_100185528(@"update");
             v29[0] = _NSConcreteStackBlock;
             v29[1] = 0x40000000;
             v29[2] = sub_10001FB04;
@@ -8447,7 +8406,6 @@ char *sub_100020FC8()
 
 uint64_t sub_100020FFC()
 {
-  v1 = *(v0 + 24);
 
   return _swift_deallocObject(v0, 32, 7);
 }
@@ -8468,7 +8426,6 @@ uint64_t sub_100021084()
 
 uint64_t sub_1000210C4()
 {
-  v1 = *(v0 + 40);
   swift_unknownObjectRelease();
   _Block_release(*(v0 + 48));
 
@@ -8504,7 +8461,7 @@ uint64_t sub_100021478(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
 
 uint64_t sub_1000214A4()
 {
-  v74 = v0;
+  v50 = v0;
   if (qword_10039B218 != -1)
   {
     swift_once();
@@ -8527,11 +8484,11 @@ uint64_t sub_1000214A4()
   v0[40] = OBJC_IVAR____TtC9securityd27KCSharingCloudCoreUtilities_stateMutex;
   v7 = (v5 + v6);
   os_unfair_lock_lock((v5 + v6));
-  sub_1000230FC(&v7[2], v0 + 28, &v72);
+  sub_1000230FC(&v7[2], v0 + 28, &v48);
   os_unfair_lock_unlock(v7);
-  v8 = v72;
-  v9 = v73;
-  v0[41] = v73;
+  v8 = v48;
+  v9 = v49;
+  v0[41] = v49;
   v10 = Logger.logObject.getter();
   v11 = static os_log_type_t.info.getter();
   v12 = os_log_type_enabled(v10, v11);
@@ -8564,460 +8521,416 @@ uint64_t sub_1000214A4()
 
     v18 = type metadata accessor for AuthenticatedSession.Configuration();
     v0[42] = v18;
-    v19 = *(v18 - 8);
-    v0[43] = v19;
-    v20 = *(v19 + 64) + 15;
+    v0[43] = *(v18 - 8);
     v0[44] = swift_task_alloc();
     static AuthenticatedSession.Configuration.standard.getter();
-    v21 = type metadata accessor for ContainerID();
-    v0[45] = v21;
-    v22 = *(v21 - 8);
-    v23 = v22;
-    v0[46] = v22;
-    v71 = *(v22 + 64) + 15;
+    v19 = type metadata accessor for ContainerID();
+    v0[45] = v19;
+    v20 = *(v19 - 8);
+    v0[46] = v20;
     v0[47] = swift_task_alloc();
-    v24 = Logger.logObject.getter();
-    v25 = static os_log_type_t.info.getter();
-    v26 = os_log_type_enabled(v24, v25);
+    v21 = Logger.logObject.getter();
+    v22 = static os_log_type_t.info.getter();
+    v23 = os_log_type_enabled(v21, v22);
     if (v17)
     {
-      if (v26)
+      if (v23)
       {
-        v27 = swift_slowAlloc();
-        *v27 = 0;
-        _os_log_impl(&_mh_execute_header, v24, v25, "In Testing mode, not setting up bundle IDs", v27, 2u);
+        v24 = swift_slowAlloc();
+        *v24 = 0;
+        _os_log_impl(&_mh_execute_header, v21, v22, "In Testing mode, not setting up bundle IDs", v24, 2u);
       }
 
-      v29 = v0[31];
-      v28 = v0[32];
-
-      v30 = *(type metadata accessor for ContainerID.Environment() - 8);
-      v31 = *(v30 + 64) + 15;
+      v25 = *(type metadata accessor for ContainerID.Environment() - 8);
       swift_task_alloc();
-      (*(v30 + 104))();
+      (*(v25 + 104))();
 
       ContainerID.init(name:environment:)();
 
-      v32 = *(*(type metadata accessor for AuthenticatedSession.Configuration.Application.PushRegistration() - 8) + 64) + 15;
+      type metadata accessor for AuthenticatedSession.Configuration.Application.PushRegistration();
       swift_task_alloc();
       static AuthenticatedSession.Configuration.Application.PushRegistration.noRegistration.getter();
-      v33 = AuthenticatedSession.Configuration.application.modify();
+      v26 = AuthenticatedSession.Configuration.application.modify();
       AuthenticatedSession.Configuration.Application.pushRegistration.setter();
-      v33(v0 + 24, 0);
+      v26(v0 + 24, 0);
     }
 
     else
     {
-      if (v26)
+      if (v23)
       {
-        v34 = swift_slowAlloc();
-        *v34 = 0;
-        _os_log_impl(&_mh_execute_header, v24, v25, "Setting up Bundle IDs", v34, 2u);
+        v27 = swift_slowAlloc();
+        *v27 = 0;
+        _os_log_impl(&_mh_execute_header, v21, v22, "Setting up Bundle IDs", v27, 2u);
       }
 
-      v36 = v0[33];
-      v35 = v0[34];
-      v69 = v0[32];
-      v70 = v0[31];
-
-      v68 = type metadata accessor for BundleID();
-      v37 = *(v68 - 8);
-      v38 = *(v37 + 64) + 15;
-      v39 = swift_task_alloc();
+      v47 = type metadata accessor for BundleID();
+      v28 = *(v47 - 8);
+      v29 = swift_task_alloc();
       static BundleID.custom(_:)();
       swift_task_alloc();
-      (*(v37 + 16))();
-      v40 = AuthenticatedSession.Configuration.application.modify();
+      (*(v28 + 16))();
+      v30 = AuthenticatedSession.Configuration.application.modify();
       AuthenticatedSession.Configuration.Application.bundleID.setter();
-      v40(v0 + 12, 0);
+      v30(v0 + 12, 0);
 
-      v41 = *(*(type metadata accessor for AuthenticatedSession.Configuration.Application.PushRegistration() - 8) + 64) + 15;
+      type metadata accessor for AuthenticatedSession.Configuration.Application.PushRegistration();
       swift_task_alloc();
       static AuthenticatedSession.Configuration.Application.PushRegistration.register(bundleID:)();
-      v42 = AuthenticatedSession.Configuration.application.modify();
+      v31 = AuthenticatedSession.Configuration.application.modify();
       AuthenticatedSession.Configuration.Application.pushRegistration.setter();
-      v42(v0 + 16, 0);
+      v31(v0 + 16, 0);
 
-      v43 = *(type metadata accessor for ContainerID.Environment() - 8);
-      v44 = *(v43 + 64) + 15;
+      v32 = *(type metadata accessor for ContainerID.Environment() - 8);
       swift_task_alloc();
-      (*(v43 + 104))();
+      (*(v32 + 104))();
 
       ContainerID.init(name:environment:)();
-      (*(v37 + 8))(v39, v68);
+      (*(v28 + 8))(v29, v47);
     }
 
-    v45 = v0[38];
-    v47 = v0[35];
-    v46 = v0[36];
+    v33 = v0[38];
 
     swift_task_alloc();
-    (*(v23 + 16))();
+    (*(v20 + 16))();
     AuthenticatedSession.Configuration.containerID.setter();
 
-    v48 = *(*(type metadata accessor for AuthenticatedSession.Configuration.Encryption.ServiceIdentity() - 8) + 64) + 15;
+    type metadata accessor for AuthenticatedSession.Configuration.Encryption.ServiceIdentity();
     swift_task_alloc();
     static AuthenticatedSession.Configuration.Encryption.ServiceIdentity.custom(serviceName:)();
-    v49 = AuthenticatedSession.Configuration.encryption.modify();
+    v34 = AuthenticatedSession.Configuration.encryption.modify();
     AuthenticatedSession.Configuration.Encryption.serviceIdentity.setter();
-    v49(v0 + 20, 0);
+    v34(v0 + 20, 0);
 
     type metadata accessor for AuthenticatedSession();
-    v50 = *(*(sub_10002ACB8(&qword_10039B300, &qword_100294290) - 8) + 64) + 15;
-    v51 = swift_task_alloc();
-    sub_1000232C4(v51);
-    *(swift_allocObject() + 16) = v45;
-    sub_10002C6AC(&qword_10039B240, &type metadata accessor for AuthenticatedSession);
-    v52 = v45;
+    sub_10002ACB8(&qword_10039B300, &qword_100294290);
+    v35 = swift_task_alloc();
+    sub_1000232C4(v35);
+    *(swift_allocObject() + 16) = v33;
+    sub_10002C6AC(&qword_10039B240, &type metadata accessor for AuthenticatedSession, &protocol conformance descriptor for AuthenticatedSession);
+    v36 = v33;
     static Session.acquire(configuration:previousInvalidationContext:onInvalidation:)();
 
-    sub_10002C6F4(v51, &qword_10039B300, &qword_100294290);
+    sub_10002C6F4(v35, &qword_10039B300, &qword_100294290);
 
-    v53 = v0[5];
-    v54 = sub_10002C528(v0 + 2, v53);
-    v55 = *(v53 - 8);
-    v56 = *(v55 + 64) + 15;
-    v57 = swift_task_alloc();
-    (*(v55 + 16))(v57, v54, v53);
+    v37 = v0[5];
+    v38 = sub_10002C528(v0 + 2, v37);
+    v39 = *(v37 - 8);
+    v40 = swift_task_alloc();
+    (*(v39 + 16))(v40, v38, v37);
     v0[10] = swift_getAssociatedTypeWitness();
     v0[11] = swift_getAssociatedConformanceWitness();
     sub_10002C56C(v0 + 7);
     dispatch thunk of AsyncSequence.makeAsyncIterator()();
 
-    v58 = *(*(sub_10002ACB8(&qword_10039B378, &qword_1002943C8) - 8) + 64) + 15;
+    sub_10002ACB8(&qword_10039B378, &qword_1002943C8);
     v0[48] = swift_task_alloc();
-    v59 = v0[10];
-    v60 = v0[11];
-    sub_10002C5D0((v0 + 7), v59);
-    v61 = type metadata accessor for CloudCoreError();
-    v0[49] = v61;
-    v62 = *(v61 - 8);
-    v0[50] = v62;
-    v63 = *(v62 + 64) + 15;
-    v64 = swift_task_alloc();
-    v0[51] = v64;
-    v65 = _sScI4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKFTjTu[1];
-    v66 = swift_task_alloc();
-    v0[52] = v66;
-    *v66 = v0;
-    v66[1] = sub_100021FB0;
-    v67 = v0[48];
+    v41 = v0[10];
+    v42 = v0[11];
+    sub_10002C5D0((v0 + 7), v41);
+    v43 = type metadata accessor for CloudCoreError();
+    v0[49] = v43;
+    v0[50] = *(v43 - 8);
+    v44 = swift_task_alloc();
+    v0[51] = v44;
+    v45 = swift_task_alloc();
+    v0[52] = v45;
+    *v45 = v0;
+    v45[1] = sub_100021FB0;
+    v46 = v0[48];
 
-    return __sScI4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKFTj(v67, 0, 0, v64, v59, v60);
+    return __sScI4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKFTj(v46, 0, 0, v44, v41, v42);
   }
 }
 
 uint64_t sub_100021FB0()
 {
-  v2 = *v1;
-  v3 = *(*v1 + 416);
-  v7 = *v1;
   *(*v1 + 424) = v0;
 
   if (v0)
   {
-    v4 = sub_100022E28;
+    v2 = sub_100022E28;
   }
 
   else
   {
-    v5 = *(v2 + 408);
 
-    v4 = sub_1000220CC;
+    v2 = sub_1000220CC;
   }
 
-  return _swift_task_switch(v4, 0, 0);
+  return _swift_task_switch(v2, 0, 0);
 }
 
 void sub_1000220CC()
 {
-  v107 = v0;
+  v90 = v0;
   v1 = *(v0 + 384);
   v2 = sub_10002ACB8(&qword_10039B388, &qword_1002943D0);
   v3 = *(v2 - 8);
-  v4 = (*(v3 + 48))(v1, 1, v2);
-  v5 = *(v0 + 312);
-  if (v4 == 1)
+  if ((*(v3 + 48))(v1, 1, v2) == 1)
   {
 
     sub_10002C620((v0 + 56));
-    v6 = Logger.logObject.getter();
-    v7 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v6, v7))
+    v4 = Logger.logObject.getter();
+    v5 = static os_log_type_t.error.getter();
+    if (os_log_type_enabled(v4, v5))
     {
-      v8 = swift_slowAlloc();
-      *v8 = 0;
-      _os_log_impl(&_mh_execute_header, v6, v7, "Trying task cancellation", v8, 2u);
+      v6 = swift_slowAlloc();
+      *v6 = 0;
+      _os_log_impl(&_mh_execute_header, v4, v5, "Trying task cancellation", v6, 2u);
     }
 
-    v9 = *(v0 + 424);
+    v7 = *(v0 + 424);
 
     static Task<>.checkCancellation()();
-    if (!v9)
+    if (!v7)
     {
       _assertionFailure(_:_:file:line:flags:)();
       return;
     }
 
-    v11 = *(v0 + 368);
-    v10 = *(v0 + 376);
-    v12 = *(v0 + 352);
-    v13 = *(v0 + 360);
-    v14 = *(v0 + 336);
-    v15 = *(v0 + 344);
+    v9 = *(v0 + 368);
+    v8 = *(v0 + 376);
+    v10 = *(v0 + 352);
+    v11 = *(v0 + 360);
+    v12 = *(v0 + 336);
+    v13 = *(v0 + 344);
     sub_10002C66C(0, *(v0 + 328));
-    (*(v11 + 8))(v10, v13);
-    (*(v15 + 8))(v12, v14);
+    (*(v9 + 8))(v8, v11);
+    (*(v13 + 8))(v10, v12);
     goto LABEL_6;
   }
 
-  v17 = *(v3 + 64) + 15;
-  v18 = swift_task_alloc();
-  (*(v3 + 32))(v18, v1, v2);
-  v19 = Logger.logObject.getter();
-  v20 = static os_log_type_t.info.getter();
-  if (os_log_type_enabled(v19, v20))
+  v15 = swift_task_alloc();
+  (*(v3 + 32))(v15, v1, v2);
+  v16 = Logger.logObject.getter();
+  v17 = static os_log_type_t.info.getter();
+  if (os_log_type_enabled(v16, v17))
   {
-    v21 = swift_slowAlloc();
-    *v21 = 0;
-    _os_log_impl(&_mh_execute_header, v19, v20, "Got some event while acquiring session", v21, 2u);
+    v18 = swift_slowAlloc();
+    *v18 = 0;
+    _os_log_impl(&_mh_execute_header, v16, v17, "Got some event while acquiring session", v18, 2u);
   }
 
-  v22 = swift_task_alloc();
-  (*(v3 + 16))(v22, v18, v2);
-  v23 = (*(v3 + 88))(v22, v2);
-  if (&enum case for SessionReadiness.ready<A>(_:) && v23 == enum case for SessionReadiness.ready<A>(_:))
+  v19 = swift_task_alloc();
+  (*(v3 + 16))(v19, v15, v2);
+  v20 = (*(v3 + 88))(v19, v2);
+  if (&enum case for SessionReadiness.ready<A>(_:) && v20 == enum case for SessionReadiness.ready<A>(_:))
   {
-    v24 = *(v0 + 424);
-    v25 = *(v0 + 304) + *(v0 + 320);
-    (*(v3 + 96))(v22, v2);
-    v26 = *v22;
-    os_unfair_lock_lock(v25);
-    sub_100024308((v25 + 8), v26, &v106);
-    os_unfair_lock_unlock(v25);
-    if (v24)
+    v21 = *(v0 + 424);
+    v22 = *(v0 + 304) + *(v0 + 320);
+    (*(v3 + 96))(v19, v2);
+    v23 = *v19;
+    os_unfair_lock_lock(v22);
+    sub_100024308((v22 + 8), v23, &v89);
+    os_unfair_lock_unlock(v22);
+    if (v21)
     {
       return;
     }
 
-    v104 = v106;
-    if (v106)
+    v87 = v89;
+    if (v89)
     {
-      v99 = v18;
-      v27 = type metadata accessor for AuthenticatedSession.ResolvedUser();
-      v28 = *(v27 - 8);
-      v29 = *(v28 + 64) + 15;
-      v30 = swift_task_alloc();
+      v83 = v15;
+      v24 = type metadata accessor for AuthenticatedSession.ResolvedUser();
+      v25 = *(v24 - 8);
+      v26 = swift_task_alloc();
       AuthenticatedSession.resolvedUser.getter();
-      v31 = AuthenticatedSession.ResolvedUser.userRecordID.getter();
-      (*(v28 + 8))(v30, v27);
-      v32 = [v31 recordName];
+      v27 = AuthenticatedSession.ResolvedUser.userRecordID.getter();
+      (*(v25 + 8))(v26, v24);
+      v28 = [v27 recordName];
 
-      if (!v32)
+      if (!v28)
       {
         static String._unconditionallyBridgeFromObjectiveC(_:)();
-        v32 = String._bridgeToObjectiveC()();
+        v28 = String._bridgeToObjectiveC()();
       }
 
-      v33 = *(v0 + 312);
+      [v87 accountChangedFromUserID:0 toUserID:v28 shouldWipeLocalState:1];
 
-      [v104 accountChangedFromUserID:0 toUserID:v32 shouldWipeLocalState:1];
-
-      v34 = Logger.logObject.getter();
-      v35 = static os_log_type_t.info.getter();
-      if (os_log_type_enabled(v34, v35))
+      v29 = Logger.logObject.getter();
+      v30 = static os_log_type_t.info.getter();
+      if (os_log_type_enabled(v29, v30))
       {
-        v36 = swift_slowAlloc();
-        *v36 = 0;
-        _os_log_impl(&_mh_execute_header, v34, v35, "Returning after successfully acquiring a session", v36, 2u);
+        v31 = swift_slowAlloc();
+        *v31 = 0;
+        _os_log_impl(&_mh_execute_header, v29, v30, "Returning after successfully acquiring a session", v31, 2u);
       }
 
-      v101 = *(v0 + 384);
-      v38 = *(v0 + 360);
-      v37 = *(v0 + 368);
-      v39 = *(v0 + 344);
-      v97 = *(v0 + 352);
-      v40 = *(v0 + 328);
-      v93 = *(v0 + 376);
-      v95 = *(v0 + 336);
+      v33 = *(v0 + 360);
+      v32 = *(v0 + 368);
+      v34 = *(v0 + 344);
+      v81 = *(v0 + 352);
+      v35 = *(v0 + 328);
+      v77 = *(v0 + 376);
+      v79 = *(v0 + 336);
 
       swift_unknownObjectRelease();
-      sub_10002C66C(0, v40);
-      (*(v3 + 8))(v99, v2);
-      (*(v37 + 8))(v93, v38);
-      (*(v39 + 8))(v97, v95);
+      sub_10002C66C(0, v35);
+      (*(v3 + 8))(v83, v2);
+      (*(v32 + 8))(v77, v33);
+      (*(v34 + 8))(v81, v79);
 
       sub_10002C620((v0 + 56));
       sub_10002C620((v0 + 16));
 
-      v16 = *(v0 + 8);
+      v14 = *(v0 + 8);
       goto LABEL_7;
     }
 
-    v67 = *(v0 + 312);
-    v68 = Logger.logObject.getter();
-    v69 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v68, v69))
+    v56 = Logger.logObject.getter();
+    v57 = static os_log_type_t.error.getter();
+    if (os_log_type_enabled(v56, v57))
     {
-      v70 = swift_slowAlloc();
-      *v70 = 0;
-      _os_log_impl(&_mh_execute_header, v68, v69, "After Successful Session Acquisition: Might be missing KCSharingCloudCoreDelegate reference", v70, 2u);
+      v58 = swift_slowAlloc();
+      *v58 = 0;
+      _os_log_impl(&_mh_execute_header, v56, v57, "After Successful Session Acquisition: Might be missing KCSharingCloudCoreDelegate reference", v58, 2u);
     }
 
     type metadata accessor for KCSharingError(0);
     *(v0 + 240) = 39;
     sub_10001196C(&_swiftEmptyArrayStorage);
-    sub_10002C07C(&qword_10039B310, type metadata accessor for KCSharingError);
+    sub_10002C07C(&qword_10039B310, type metadata accessor for KCSharingError, &unk_100294550);
     _BridgedStoredNSError.init(_:userInfo:)();
-    v71 = *(v0 + 232);
     swift_willThrow();
 
-    (*(v3 + 8))(v18, v2);
-
-    v72 = *(v0 + 384);
-    v73 = *(v0 + 312);
+    (*(v3 + 8))(v15, v2);
 
     sub_10002C620((v0 + 56));
     swift_errorRetain();
-    v74 = Logger.logObject.getter();
-    v75 = static os_log_type_t.error.getter();
+    v59 = Logger.logObject.getter();
+    v60 = static os_log_type_t.error.getter();
 
-    if (os_log_type_enabled(v74, v75))
+    if (os_log_type_enabled(v59, v60))
     {
-      v76 = swift_slowAlloc();
-      v77 = swift_slowAlloc();
-      *v76 = 138412290;
+      v61 = swift_slowAlloc();
+      v62 = swift_slowAlloc();
+      *v61 = 138412290;
       swift_errorRetain();
-      v78 = _swift_stdlib_bridgeErrorToNSError();
-      *(v76 + 4) = v78;
-      *v77 = v78;
-      _os_log_impl(&_mh_execute_header, v74, v75, "Got CKError while acquiring session: %@", v76, 0xCu);
-      sub_10002C6F4(v77, &qword_10039B248, &qword_1002941A8);
+      v63 = _swift_stdlib_bridgeErrorToNSError();
+      *(v61 + 4) = v63;
+      *v62 = v63;
+      _os_log_impl(&_mh_execute_header, v59, v60, "Got CKError while acquiring session: %@", v61, 0xCu);
+      sub_10002C6F4(v62, &qword_10039B248, &qword_1002941A8);
     }
 
-    v80 = *(v0 + 312);
-    v79 = *(v0 + 320);
-    v81 = *(v0 + 304);
+    v64 = *(v0 + 320);
+    v65 = *(v0 + 304);
 
-    os_unfair_lock_lock((v81 + v79));
-    v82 = Logger.logObject.getter();
-    v83 = static os_log_type_t.info.getter();
-    if (os_log_type_enabled(v82, v83))
+    os_unfair_lock_lock((v65 + v64));
+    v66 = Logger.logObject.getter();
+    v67 = static os_log_type_t.info.getter();
+    if (os_log_type_enabled(v66, v67))
     {
-      v84 = swift_slowAlloc();
-      *v84 = 67109120;
-      _os_log_impl(&_mh_execute_header, v82, v83, "Setting SessionAcquisitionProgress flag to: %{BOOL}d", v84, 8u);
+      v68 = swift_slowAlloc();
+      *v68 = 67109120;
+      _os_log_impl(&_mh_execute_header, v66, v67, "Setting SessionAcquisitionProgress flag to: %{BOOL}d", v68, 8u);
     }
 
-    v86 = *(v0 + 368);
-    v85 = *(v0 + 376);
-    v87 = *(v0 + 352);
-    v88 = *(v0 + 360);
-    v89 = *(v0 + 344);
-    v103 = *(v0 + 336);
-    v90 = *(v0 + 320);
-    v91 = *(v0 + 328);
-    v92 = *(v0 + 304);
+    v70 = *(v0 + 368);
+    v69 = *(v0 + 376);
+    v71 = *(v0 + 352);
+    v72 = *(v0 + 360);
+    v73 = *(v0 + 344);
+    v86 = *(v0 + 336);
+    v74 = *(v0 + 320);
+    v75 = *(v0 + 328);
+    v76 = *(v0 + 304);
 
-    *(v92 + v90 + 40) = 0;
-    os_unfair_lock_unlock((v92 + v90));
+    *(v76 + v74 + 40) = 0;
+    os_unfair_lock_unlock((v76 + v74));
     swift_willThrow();
-    sub_10002C66C(0, v91);
-    (*(v86 + 8))(v85, v88);
-    (*(v89 + 8))(v87, v103);
+    sub_10002C66C(0, v75);
+    (*(v70 + 8))(v69, v72);
+    (*(v73 + 8))(v71, v86);
 LABEL_6:
     sub_10002C620((v0 + 16));
 
-    v16 = *(v0 + 8);
+    v14 = *(v0 + 8);
 LABEL_7:
 
-    v16();
+    v14();
     return;
   }
 
-  if (&enum case for SessionReadiness.blocked<A>(_:) && v23 == enum case for SessionReadiness.blocked<A>(_:))
+  if (&enum case for SessionReadiness.blocked<A>(_:) && v20 == enum case for SessionReadiness.blocked<A>(_:))
   {
-    v41 = *(v0 + 312);
-    (*(v3 + 96))(v22, v2);
-    v42 = type metadata accessor for SessionReadinessError();
-    v43 = *(v42 - 8);
-    v44 = *(v43 + 64) + 15;
-    v45 = swift_task_alloc();
-    (*(v43 + 32))(v45, v22, v42);
-    v102 = swift_task_alloc();
-    v105 = v45;
-    v98 = *(v43 + 16);
-    v98(v102, v45, v42);
-    v46 = Logger.logObject.getter();
-    v47 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v46, v47))
+    (*(v3 + 96))(v19, v2);
+    v36 = type metadata accessor for SessionReadinessError();
+    v37 = *(v36 - 8);
+    v38 = swift_task_alloc();
+    (*(v37 + 32))(v38, v19, v36);
+    v85 = swift_task_alloc();
+    v88 = v38;
+    v82 = *(v37 + 16);
+    v82(v85, v38, v36);
+    v39 = Logger.logObject.getter();
+    v40 = static os_log_type_t.error.getter();
+    if (os_log_type_enabled(v39, v40))
     {
-      v96 = v46;
-      v48 = swift_slowAlloc();
-      v94 = swift_slowAlloc();
-      *v48 = 138412290;
-      sub_10002C6AC(&qword_10039B308, &type metadata accessor for SessionReadinessError);
+      v80 = v39;
+      v41 = swift_slowAlloc();
+      v78 = swift_slowAlloc();
+      *v41 = 138412290;
+      sub_10002C6AC(&qword_10039B308, &type metadata accessor for SessionReadinessError, &protocol conformance descriptor for SessionReadinessError);
       swift_allocError();
-      v100 = v18;
-      v98(v49, v102, v42);
-      v50 = _swift_stdlib_bridgeErrorToNSError();
-      v51 = *(v43 + 8);
-      v51(v102, v42);
+      v84 = v15;
+      v82(v42, v85, v36);
+      v43 = _swift_stdlib_bridgeErrorToNSError();
+      v44 = *(v37 + 8);
+      v44(v85, v36);
 
-      *(v48 + 4) = v50;
-      *v94 = v50;
-      _os_log_impl(&_mh_execute_header, v96, v47, "Session Acquisition Readiness error: %@", v48, 0xCu);
-      sub_10002C6F4(v94, &qword_10039B248, &qword_1002941A8);
+      *(v41 + 4) = v43;
+      *v78 = v43;
+      _os_log_impl(&_mh_execute_header, v80, v40, "Session Acquisition Readiness error: %@", v41, 0xCu);
+      sub_10002C6F4(v78, &qword_10039B248, &qword_1002941A8);
 
-      v51(v105, v42);
-      (*(v3 + 8))(v100, v2);
+      v44(v88, v36);
+      (*(v3 + 8))(v84, v2);
     }
 
     else
     {
 
-      v57 = *(v43 + 8);
-      v57(v102, v42);
-      v57(v105, v42);
-      (*(v3 + 8))(v18, v2);
+      v49 = *(v37 + 8);
+      v49(v85, v36);
+      v49(v88, v36);
+      (*(v3 + 8))(v15, v2);
     }
   }
 
   else
   {
-    v52 = *(v0 + 312);
-    v53 = Logger.logObject.getter();
-    v54 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v53, v54))
+    v45 = Logger.logObject.getter();
+    v46 = static os_log_type_t.error.getter();
+    if (os_log_type_enabled(v45, v46))
     {
-      v55 = swift_slowAlloc();
-      *v55 = 0;
-      _os_log_impl(&_mh_execute_header, v53, v54, "UNKNOWN SESSION READINESS EVENT", v55, 2u);
+      v47 = swift_slowAlloc();
+      *v47 = 0;
+      _os_log_impl(&_mh_execute_header, v45, v46, "UNKNOWN SESSION READINESS EVENT", v47, 2u);
     }
 
-    v56 = *(v3 + 8);
-    v56(v18, v2);
-    v56(v22, v2);
+    v48 = *(v3 + 8);
+    v48(v15, v2);
+    v48(v19, v2);
   }
 
-  v58 = *(v0 + 80);
-  v59 = *(v0 + 88);
-  sub_10002C5D0(v0 + 56, v58);
-  v60 = type metadata accessor for CloudCoreError();
-  *(v0 + 392) = v60;
-  v61 = *(v60 - 8);
-  *(v0 + 400) = v61;
-  v62 = *(v61 + 64) + 15;
-  v63 = swift_task_alloc();
-  *(v0 + 408) = v63;
-  v64 = _sScI4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKFTjTu[1];
-  v65 = swift_task_alloc();
-  *(v0 + 416) = v65;
-  *v65 = v0;
-  v65[1] = sub_100021FB0;
-  v66 = *(v0 + 384);
+  v50 = *(v0 + 80);
+  v51 = *(v0 + 88);
+  sub_10002C5D0(v0 + 56, v50);
+  v52 = type metadata accessor for CloudCoreError();
+  *(v0 + 392) = v52;
+  *(v0 + 400) = *(v52 - 8);
+  v53 = swift_task_alloc();
+  *(v0 + 408) = v53;
+  v54 = swift_task_alloc();
+  *(v0 + 416) = v54;
+  *v54 = v0;
+  v54[1] = sub_100021FB0;
+  v55 = *(v0 + 384);
 
-  __sScI4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKFTj(v66, 0, 0, v63, v58, v59);
+  __sScI4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKFTj(v55, 0, 0, v53, v50, v51);
 }
 
 uint64_t sub_100022E28()
@@ -9025,66 +8938,62 @@ uint64_t sub_100022E28()
   v2 = v0[50];
   v1 = v0[51];
   v3 = v0[49];
-  sub_10002C6AC(&qword_10039B380, &type metadata accessor for CloudCoreError);
+  sub_10002C6AC(&qword_10039B380, &type metadata accessor for CloudCoreError, &protocol conformance descriptor for CloudCoreError);
   swift_allocError();
   (*(v2 + 32))(v4, v1, v3);
-  v5 = v0[51];
-  v6 = v0[48];
-  v7 = v0[39];
 
   sub_10002C620(v0 + 7);
   swift_errorRetain();
-  v8 = Logger.logObject.getter();
-  v9 = static os_log_type_t.error.getter();
+  v5 = Logger.logObject.getter();
+  v6 = static os_log_type_t.error.getter();
 
-  if (os_log_type_enabled(v8, v9))
+  if (os_log_type_enabled(v5, v6))
   {
-    v10 = swift_slowAlloc();
-    v11 = swift_slowAlloc();
-    *v10 = 138412290;
+    v7 = swift_slowAlloc();
+    v8 = swift_slowAlloc();
+    *v7 = 138412290;
     swift_errorRetain();
-    v12 = _swift_stdlib_bridgeErrorToNSError();
-    *(v10 + 4) = v12;
-    *v11 = v12;
-    _os_log_impl(&_mh_execute_header, v8, v9, "Got CKError while acquiring session: %@", v10, 0xCu);
-    sub_10002C6F4(v11, &qword_10039B248, &qword_1002941A8);
+    v9 = _swift_stdlib_bridgeErrorToNSError();
+    *(v7 + 4) = v9;
+    *v8 = v9;
+    _os_log_impl(&_mh_execute_header, v5, v6, "Got CKError while acquiring session: %@", v7, 0xCu);
+    sub_10002C6F4(v8, &qword_10039B248, &qword_1002941A8);
   }
 
-  v13 = v0[39];
-  v14 = v0[40];
-  v15 = v0[38];
+  v10 = v0[40];
+  v11 = v0[38];
 
-  os_unfair_lock_lock((v15 + v14));
-  v16 = Logger.logObject.getter();
-  v17 = static os_log_type_t.info.getter();
-  if (os_log_type_enabled(v16, v17))
+  os_unfair_lock_lock((v11 + v10));
+  v12 = Logger.logObject.getter();
+  v13 = static os_log_type_t.info.getter();
+  if (os_log_type_enabled(v12, v13))
   {
-    v18 = swift_slowAlloc();
-    *v18 = 67109120;
-    _os_log_impl(&_mh_execute_header, v16, v17, "Setting SessionAcquisitionProgress flag to: %{BOOL}d", v18, 8u);
+    v14 = swift_slowAlloc();
+    *v14 = 67109120;
+    _os_log_impl(&_mh_execute_header, v12, v13, "Setting SessionAcquisitionProgress flag to: %{BOOL}d", v14, 8u);
   }
 
-  v20 = v0[46];
-  v19 = v0[47];
-  v22 = v0[44];
-  v21 = v0[45];
-  v23 = v0[43];
-  v29 = v0[42];
-  v24 = v0[40];
-  v25 = v0[41];
-  v26 = v0[38];
+  v16 = v0[46];
+  v15 = v0[47];
+  v18 = v0[44];
+  v17 = v0[45];
+  v19 = v0[43];
+  v25 = v0[42];
+  v20 = v0[40];
+  v21 = v0[41];
+  v22 = v0[38];
 
-  *(v26 + v24 + 40) = 0;
-  os_unfair_lock_unlock((v26 + v24));
+  *(v22 + v20 + 40) = 0;
+  os_unfair_lock_unlock((v22 + v20));
   swift_willThrow();
-  sub_10002C66C(0, v25);
-  (*(v20 + 8))(v19, v21);
-  (*(v23 + 8))(v22, v29);
+  sub_10002C66C(0, v21);
+  (*(v16 + 8))(v15, v17);
+  (*(v19 + 8))(v18, v25);
   sub_10002C620(v0 + 2);
 
-  v27 = v0[1];
+  v23 = v0[1];
 
-  return v27();
+  return v23();
 }
 
 uint64_t sub_1000230FC@<X0>(uint64_t result@<X0>, void *a2@<X2>, uint64_t *a3@<X8>)
@@ -9124,7 +9033,7 @@ uint64_t sub_1000230FC@<X0>(uint64_t result@<X0>, void *a2@<X2>, uint64_t *a3@<X
   {
     type metadata accessor for KCSharingError(0);
     sub_10001196C(&_swiftEmptyArrayStorage);
-    sub_10002C07C(&qword_10039B310, type metadata accessor for KCSharingError);
+    sub_10002C07C(&qword_10039B310, type metadata accessor for KCSharingError, &unk_100294550);
     _BridgedStoredNSError.init(_:userInfo:)();
     result = swift_willThrow();
     v3 = v13;
@@ -9144,10 +9053,10 @@ uint64_t sub_1000232C4@<X0>(uint64_t a1@<X8>)
   swift_getObjectType();
   v3 = (v1 + OBJC_IVAR____TtC9securityd27KCSharingCloudCoreUtilities_stateMutex);
   os_unfair_lock_lock(v3);
-  sub_100025DAC(&v34);
+  sub_100025DAC(&v31);
   os_unfair_lock_unlock(v3);
-  v4 = v34;
-  if (*(&v34 + 1) >> 60 == 15)
+  v4 = v31;
+  if (*(&v31 + 1) >> 60 == 15)
   {
     if (qword_10039B218 != -1)
     {
@@ -9179,58 +9088,56 @@ uint64_t sub_1000232C4@<X0>(uint64_t a1@<X8>)
     v13 = *(v12 - 8);
     v14 = *(v13 + 64);
     __chkstk_darwin(v12);
-    v15 = v30 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-    v16 = type metadata accessor for JSONDecoder();
-    v17 = *(v16 + 48);
-    v18 = *(v16 + 52);
+    v15 = v27 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+    type metadata accessor for JSONDecoder();
     swift_allocObject();
     JSONDecoder.init()();
-    sub_10002C6AC(&qword_10039B390, &type metadata accessor for SessionInvalidationContext);
+    sub_10002C6AC(&qword_10039B390, &type metadata accessor for SessionInvalidationContext, &protocol conformance descriptor for SessionInvalidationContext);
     dispatch thunk of JSONDecoder.decode<A>(_:from:)();
-    v33 = v4;
+    v30 = v4;
 
     if (qword_10039B218 != -1)
     {
       swift_once();
     }
 
-    v19 = type metadata accessor for Logger();
-    v20 = sub_100011920(v19, qword_10039B220);
-    v32 = v30;
-    __chkstk_darwin(v20);
-    v21 = v30 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-    (*(v13 + 16))(v21, v15, v12);
-    v22 = Logger.logObject.getter();
-    v23 = static os_log_type_t.info.getter();
-    if (os_log_type_enabled(v22, v23))
+    v16 = type metadata accessor for Logger();
+    v17 = sub_100011920(v16, qword_10039B220);
+    v29 = v27;
+    __chkstk_darwin(v17);
+    v18 = v27 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+    (*(v13 + 16))(v18, v15, v12);
+    v19 = Logger.logObject.getter();
+    v20 = static os_log_type_t.info.getter();
+    if (os_log_type_enabled(v19, v20))
     {
-      v24 = swift_slowAlloc();
-      v31 = a1;
+      v21 = swift_slowAlloc();
+      v28 = a1;
+      v22 = v21;
+      v27[0] = swift_slowAlloc();
+      *&v31 = v27[0];
+      *v22 = 136380675;
+      sub_10002C6AC(&qword_10039B320, &type metadata accessor for SessionInvalidationContext, &protocol conformance descriptor for SessionInvalidationContext);
+      v23 = dispatch thunk of CustomStringConvertible.description.getter();
+      v27[1] = v27;
       v25 = v24;
-      v30[0] = swift_slowAlloc();
-      *&v34 = v30[0];
-      *v25 = 136380675;
-      sub_10002C6AC(&qword_10039B320, &type metadata accessor for SessionInvalidationContext);
-      v26 = dispatch thunk of CustomStringConvertible.description.getter();
-      v30[1] = v30;
-      v28 = v27;
-      (*(v13 + 8))(v21, v12);
-      v29 = sub_10002A710(v26, v28, &v34);
+      (*(v13 + 8))(v18, v12);
+      v26 = sub_10002A710(v23, v25, &v31);
 
-      *(v25 + 4) = v29;
-      _os_log_impl(&_mh_execute_header, v22, v4, "Invalidation Context Get: Getting Invalidation Context as:  %{private}s", v25, 0xCu);
-      sub_10002C620(v30[0]);
+      *(v22 + 4) = v26;
+      _os_log_impl(&_mh_execute_header, v19, v4, "Invalidation Context Get: Getting Invalidation Context as:  %{private}s", v22, 0xCu);
+      sub_10002C620(v27[0]);
 
-      a1 = v31;
+      a1 = v28;
 
-      sub_10002BAD0(v33, *(&v4 + 1));
+      sub_10002BAD0(v30, *(&v4 + 1));
     }
 
     else
     {
-      sub_10002BAD0(v33, *(&v4 + 1));
+      sub_10002BAD0(v30, *(&v4 + 1));
 
-      (*(v13 + 8))(v21, v12);
+      (*(v13 + 8))(v18, v12);
     }
 
     (*(v13 + 32))(a1, v15, v12);
@@ -9258,58 +9165,56 @@ uint64_t sub_10002394C()
   sub_100011920(v2, qword_10039B220);
   v3 = type metadata accessor for SessionReadinessError();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64) + 15;
-  v6 = swift_task_alloc();
-  v7 = *(v4 + 16);
-  v7(v6, v1, v3);
-  v8 = Logger.logObject.getter();
-  v9 = static os_log_type_t.error.getter();
-  if (os_log_type_enabled(v8, v9))
+  v5 = swift_task_alloc();
+  v6 = *(v4 + 16);
+  v6(v5, v1, v3);
+  v7 = Logger.logObject.getter();
+  v8 = static os_log_type_t.error.getter();
+  if (os_log_type_enabled(v7, v8))
   {
-    v10 = swift_slowAlloc();
-    v22 = swift_slowAlloc();
-    *v10 = 138412290;
-    sub_10002C6AC(&qword_10039B308, &type metadata accessor for SessionReadinessError);
+    v9 = swift_slowAlloc();
+    v19 = swift_slowAlloc();
+    *v9 = 138412290;
+    sub_10002C6AC(&qword_10039B308, &type metadata accessor for SessionReadinessError, &protocol conformance descriptor for SessionReadinessError);
     swift_allocError();
-    v7(v11, v6, v3);
-    v12 = _swift_stdlib_bridgeErrorToNSError();
-    (*(v4 + 8))(v6, v3);
+    v6(v10, v5, v3);
+    v11 = _swift_stdlib_bridgeErrorToNSError();
+    (*(v4 + 8))(v5, v3);
 
-    *(v10 + 4) = v12;
-    *v22 = v12;
-    _os_log_impl(&_mh_execute_header, v8, v9, "Session Invalidation Handler: Session got invalid due to error: %@", v10, 0xCu);
-    sub_10002C6F4(v22, &qword_10039B248, &qword_1002941A8);
+    *(v9 + 4) = v11;
+    *v19 = v11;
+    _os_log_impl(&_mh_execute_header, v7, v8, "Session Invalidation Handler: Session got invalid due to error: %@", v9, 0xCu);
+    sub_10002C6F4(v19, &qword_10039B248, &qword_1002941A8);
   }
 
   else
   {
 
-    (*(v4 + 8))(v6, v3);
+    (*(v4 + 8))(v5, v3);
   }
 
-  v14 = v0[3];
-  v13 = v0[4];
-  v15 = v0[2];
-  v16 = *(*(sub_10002ACB8(&qword_10039B300, &qword_100294290) - 8) + 64) + 15;
-  v17 = swift_task_alloc();
-  v18 = type metadata accessor for SessionInvalidationContext();
-  v19 = *(v18 - 8);
-  (*(v19 + 16))(v17, v14, v18);
-  (*(v19 + 56))(v17, 0, 1, v18);
-  sub_100023CDC(v15, v17, 1);
-  sub_10002C6F4(v17, &qword_10039B300, &qword_100294290);
+  v12 = v0[3];
+  v13 = v0[2];
+  sub_10002ACB8(&qword_10039B300, &qword_100294290);
+  v14 = swift_task_alloc();
+  v15 = type metadata accessor for SessionInvalidationContext();
+  v16 = *(v15 - 8);
+  (*(v16 + 16))(v14, v12, v15);
+  (*(v16 + 56))(v14, 0, 1, v15);
+  sub_100023CDC(v13, v14, 1);
+  sub_10002C6F4(v14, &qword_10039B300, &qword_100294290);
 
-  v20 = v0[1];
+  v17 = v0[1];
 
-  return v20();
+  return v17();
 }
 
 void sub_100023CDC(uint64_t a1, uint64_t a2, int a3)
 {
   v5 = v3;
-  v9 = (v5 + OBJC_IVAR____TtC9securityd27KCSharingCloudCoreUtilities_stateMutex);
+  v9 = v5 + OBJC_IVAR____TtC9securityd27KCSharingCloudCoreUtilities_stateMutex;
   os_unfair_lock_lock((v5 + OBJC_IVAR____TtC9securityd27KCSharingCloudCoreUtilities_stateMutex));
-  sub_100025254(&v9[2], a2, &v47, &v48);
+  sub_100025254((v9 + 8), a2, &v47, &v48);
   if (v4)
   {
     os_unfair_lock_unlock(v9);
@@ -9398,7 +9303,7 @@ LABEL_10:
       v32 = swift_slowAlloc();
       v41 = swift_slowAlloc();
       *v32 = 138412290;
-      sub_10002C6AC(&qword_10039B308, &type metadata accessor for SessionReadinessError);
+      sub_10002C6AC(&qword_10039B308, &type metadata accessor for SessionReadinessError, &protocol conformance descriptor for SessionReadinessError);
       swift_allocError();
       v13(v33, v29, v10);
       v34 = _swift_stdlib_bridgeErrorToNSError();
@@ -9448,75 +9353,72 @@ LABEL_22:
 
 void sub_100024308(uint64_t *a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
 {
-  v32 = a3;
-  v31 = type metadata accessor for CKDatabaseConfiguration();
-  v5 = *(v31 - 8);
-  v6 = *(v5 + 64);
-  v7 = __chkstk_darwin(v31);
-  v9 = &v31 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v7);
-  v11 = &v31 - v10;
+  v29 = a3;
+  v28 = type metadata accessor for CKDatabaseConfiguration();
+  v5 = *(v28 - 8);
+  v6 = __chkstk_darwin(v28);
+  v8 = &v28 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v6);
+  v10 = &v28 - v9;
   if (qword_10039B218 != -1)
   {
     swift_once();
   }
 
-  v12 = type metadata accessor for Logger();
-  sub_100011920(v12, qword_10039B220);
-  v13 = Logger.logObject.getter();
-  v14 = static os_log_type_t.info.getter();
-  if (os_log_type_enabled(v13, v14))
+  v11 = type metadata accessor for Logger();
+  sub_100011920(v11, qword_10039B220);
+  v12 = Logger.logObject.getter();
+  v13 = static os_log_type_t.info.getter();
+  if (os_log_type_enabled(v12, v13))
   {
-    v15 = swift_slowAlloc();
-    *v15 = 0;
-    _os_log_impl(&_mh_execute_header, v13, v14, "In ready state, acquired a cloud core session", v15, 2u);
+    v14 = swift_slowAlloc();
+    *v14 = 0;
+    _os_log_impl(&_mh_execute_header, v12, v13, "In ready state, acquired a cloud core session", v14, 2u);
   }
 
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v17 = Strong;
+    v16 = Strong;
     static CKDatabaseConfiguration.standard(scope:)();
     static CKDatabaseConfiguration.standard(scope:)();
+    v17 = AuthenticatedSession.database(configuration:)();
     v18 = AuthenticatedSession.database(configuration:)();
-    v19 = AuthenticatedSession.database(configuration:)();
-    [v17 setupCKNotificationListenersAfterSessionAcquisitionWithPrivateDB:v18 sharedDB:v19];
+    [v16 setupCKNotificationListenersAfterSessionAcquisitionWithPrivateDB:v17 sharedDB:v18];
 
-    a1[1] = v18;
-    a1[2] = v19;
-    v20 = *a1;
+    a1[1] = v17;
+    a1[2] = v18;
 
     *a1 = a2;
     *(a1 + 32) = 0;
-    v21 = sub_10002ACB8(&qword_10039B300, &qword_100294290);
-    v22 = (*(*(v21 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-    __chkstk_darwin(v21 - 8);
-    v24 = &v31 - v23;
-    v25 = type metadata accessor for SessionInvalidationContext();
-    (*(*(v25 - 8) + 56))(v24, 1, 1, v25);
-    sub_10002B1E4(v17, v24);
-    sub_10002C6F4(v24, &qword_10039B300, &qword_100294290);
-    v26 = *(v5 + 8);
-    v27 = v31;
-    v26(v9, v31);
-    v26(v11, v27);
+    v19 = sub_10002ACB8(&qword_10039B300, &qword_100294290);
+    __chkstk_darwin(v19 - 8);
+    v21 = &v28 - v20;
+    v22 = type metadata accessor for SessionInvalidationContext();
+    (*(*(v22 - 8) + 56))(v21, 1, 1, v22);
+    sub_10002B1E4(v16, v21);
+    sub_10002C6F4(v21, &qword_10039B300, &qword_100294290);
+    v23 = *(v5 + 8);
+    v24 = v28;
+    v23(v8, v28);
+    v23(v10, v24);
   }
 
   else
   {
-    v28 = Logger.logObject.getter();
-    v29 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v28, v29))
+    v25 = Logger.logObject.getter();
+    v26 = static os_log_type_t.error.getter();
+    if (os_log_type_enabled(v25, v26))
     {
-      v30 = swift_slowAlloc();
-      *v30 = 0;
-      _os_log_impl(&_mh_execute_header, v28, v29, "Session Invalidation Handler: Might be missing KCSharingCloudCoreDelegate reference", v30, 2u);
+      v27 = swift_slowAlloc();
+      *v27 = 0;
+      _os_log_impl(&_mh_execute_header, v25, v26, "Session Invalidation Handler: Might be missing KCSharingCloudCoreDelegate reference", v27, 2u);
     }
 
-    v17 = 0;
+    v16 = 0;
   }
 
-  *v32 = v17;
+  *v29 = v16;
 }
 
 Swift::Void __swiftcall KCSharingCloudCoreUtilities.setSessionAcquisitionInProgress(_:)(Swift::Bool a1)
@@ -9528,7 +9430,7 @@ Swift::Void __swiftcall KCSharingCloudCoreUtilities.setSessionAcquisitionInProgr
   os_unfair_lock_unlock(v3);
 }
 
-uint64_t sub_1000248B8(int a1, int a2, int a3, uint64_t a4, void *aBlock, void *a6)
+uint64_t sub_1000248B8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *aBlock, void *a6)
 {
   v6[2] = a4;
   v6[3] = a6;
@@ -9557,33 +9459,28 @@ uint64_t sub_1000249F8()
   v2 = v0;
   v4 = *v1;
   v3 = *v1;
-  v5 = *(*v1 + 64);
-  v6 = *(*v1 + 56);
-  v7 = *(*v1 + 48);
-  v8 = *(*v1 + 40);
-  v9 = *(*v1 + 24);
-  v10 = *(*v1 + 16);
-  v11 = *v1;
+  v5 = *(*v1 + 24);
+  v6 = *v1;
 
   swift_unknownObjectRelease();
 
-  v12 = *(v3 + 32);
+  v7 = *(v3 + 32);
   if (v2)
   {
-    v13 = _convertErrorToNSError(_:)();
+    v8 = _convertErrorToNSError(_:)();
 
-    (*(v12 + 16))(v12, v13);
+    (*(v7 + 16))(v7, v8);
   }
 
   else
   {
-    (*(v12 + 16))(*(v3 + 32), 0);
+    (*(v7 + 16))(*(v3 + 32), 0);
   }
 
   _Block_release(*(v4 + 32));
-  v14 = *(v11 + 8);
+  v9 = *(v6 + 8);
 
-  return v14();
+  return v9();
 }
 
 id KCSharingCloudCoreUtilities.__allocating_init()()
@@ -9668,7 +9565,7 @@ void sub_100024FC4(const void *a1)
   {
     type metadata accessor for KCSharingError(0);
     sub_10001196C(&_swiftEmptyArrayStorage);
-    sub_10002C07C(&qword_10039B310, type metadata accessor for KCSharingError);
+    sub_10002C07C(&qword_10039B310, type metadata accessor for KCSharingError, &unk_100294550);
     _BridgedStoredNSError.init(_:userInfo:)();
     v10 = _convertErrorToNSError(_:)();
 
@@ -9677,14 +9574,14 @@ void sub_100024FC4(const void *a1)
   }
 }
 
-void sub_100025254(uint64_t a1@<X0>, uint64_t a2@<X2>, void *a3@<X3>, void *a4@<X8>)
+void sub_100025254(uint64_t *a1@<X0>, uint64_t a2@<X2>, void *a3@<X3>, void *a4@<X8>)
 {
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
     v10 = Strong;
-    v11 = *(a1 + 8);
-    v12 = *(a1 + 16);
+    v11 = a1[1];
+    v12 = a1[2];
     v13 = sub_10002AFB4(v11, v12);
     if (v4)
     {
@@ -9732,8 +9629,8 @@ void sub_100025254(uint64_t a1@<X0>, uint64_t a2@<X2>, void *a3@<X3>, void *a4@<
     sub_10002B1E4(v10, a2);
 
     *(a1 + 32) = 0;
-    *(a1 + 8) = 0;
-    *(a1 + 16) = 0;
+    a1[1] = 0;
+    a1[2] = 0;
     *a1 = 0;
     *a4 = v10;
   }
@@ -9758,9 +9655,36 @@ void sub_100025254(uint64_t a1@<X0>, uint64_t a2@<X2>, void *a3@<X3>, void *a4@<
 
     type metadata accessor for KCSharingError(0);
     sub_10001196C(&_swiftEmptyArrayStorage);
-    sub_10002C07C(&qword_10039B310, type metadata accessor for KCSharingError);
+    sub_10002C07C(&qword_10039B310, type metadata accessor for KCSharingError, &unk_100294550);
     _BridgedStoredNSError.init(_:userInfo:)();
     swift_willThrow();
     *a3 = v29;
+  }
+}
+
+uint64_t sub_1000255E0()
+{
+  v1 = v0[2] + OBJC_IVAR____TtC9securityd27KCSharingCloudCoreUtilities_stateMutex;
+  os_unfair_lock_lock(v1);
+  v2 = *(v1 + 8);
+  v0[3] = v2;
+
+  os_unfair_lock_unlock(v1);
+  if (v2)
+  {
+
+    v3 = swift_task_alloc();
+    v0[4] = v3;
+    *v3 = v0;
+    v3[1] = sub_1000256E0;
+
+    return AuthenticatedSession.quotaAvailable()();
+  }
+
+  else
+  {
+    v4 = v0[1];
+
+    return v4();
   }
 }

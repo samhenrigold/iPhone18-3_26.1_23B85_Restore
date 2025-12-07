@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)feedbackTypeAsString:(int)string;
 - (int)StringAsFeedbackType:(id)type;
 - (int)feedbackType;
 - (unint64_t)hash;
@@ -140,7 +141,6 @@ LABEL_9:
     }
   }
 
-  v6 = *(equalCopy + 48);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 48) & 2) == 0 || self->_feedbackType != *(equalCopy + 6))
@@ -152,7 +152,7 @@ LABEL_9:
   else if ((*(equalCopy + 48) & 2) != 0)
   {
 LABEL_18:
-    v9 = 0;
+    v8 = 0;
     goto LABEL_19;
   }
 
@@ -178,17 +178,17 @@ LABEL_18:
   variant = self->_variant;
   if (variant | *(equalCopy + 5))
   {
-    v9 = [(NSString *)variant isEqual:?];
+    v8 = [(NSString *)variant isEqual:?];
   }
 
   else
   {
-    v9 = 1;
+    v8 = 1;
   }
 
 LABEL_19:
 
-  return v9;
+  return v8;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -263,39 +263,37 @@ LABEL_19:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v8 = toCopy;
+  v6 = toCopy;
   if (self->_clientIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 2) != 0)
   {
-    feedbackType = self->_feedbackType;
     PBDataWriterWriteInt32Field();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if (has)
   {
-    feedbackCreationSecondsSinceReferenceDate = self->_feedbackCreationSecondsSinceReferenceDate;
     PBDataWriterWriteDoubleField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_highlight)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_variant)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 
@@ -428,6 +426,21 @@ LABEL_19:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)feedbackTypeAsString:(int)string
+{
+  if (string >= 0xC)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_2789714E0[string];
   }
 
   return v4;

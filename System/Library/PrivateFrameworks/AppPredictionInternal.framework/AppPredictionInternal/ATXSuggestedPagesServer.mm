@@ -34,60 +34,61 @@ void __41__ATXSuggestedPagesServer_sharedInstance__block_invoke()
 
 - (ATXSuggestedPagesServer)init
 {
-  v14.receiver = self;
-  v14.super_class = ATXSuggestedPagesServer;
-  v2 = [(ATXSuggestedPagesServer *)&v14 init];
+  v15.receiver = self;
+  v15.super_class = ATXSuggestedPagesServer;
+  v2 = [(ATXSuggestedPagesServer *)&v15 init];
+  v3 = v2;
   if (v2)
   {
-    v3 = __atxlog_handle_modes();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = __atxlog_handle_modes(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      *v13 = 0;
-      _os_log_impl(&dword_2263AA000, v3, OS_LOG_TYPE_DEFAULT, "ATXSuggestedPagesServer: launched", v13, 2u);
+      *v14 = 0;
+      _os_log_impl(&dword_2263AA000, v4, OS_LOG_TYPE_DEFAULT, "ATXSuggestedPagesServer: launched", v14, 2u);
     }
 
-    v4 = [objc_alloc(MEMORY[0x277CCAE98]) initWithMachServiceName:@"com.apple.proactive.SuggestedPages"];
-    listener = v2->_listener;
-    v2->_listener = v4;
+    v5 = [objc_alloc(MEMORY[0x277CCAE98]) initWithMachServiceName:@"com.apple.proactive.SuggestedPages"];
+    listener = v3->_listener;
+    v3->_listener = v5;
 
-    [(NSXPCListener *)v2->_listener setDelegate:v2];
-    [(NSXPCListener *)v2->_listener resume];
-    v6 = objc_opt_new();
-    uninstallNotification = v2->_uninstallNotification;
-    v2->_uninstallNotification = v6;
+    [(NSXPCListener *)v3->_listener setDelegate:v3];
+    [(NSXPCListener *)v3->_listener resume];
+    v7 = objc_opt_new();
+    uninstallNotification = v3->_uninstallNotification;
+    v3->_uninstallNotification = v7;
 
-    [(_ATXInternalUninstallNotification *)v2->_uninstallNotification registerForNotificationsWithUninstallBlock:&__block_literal_global_27];
-    v8 = objc_opt_new();
-    lockedOrHiddenAppNotification = v2->_lockedOrHiddenAppNotification;
-    v2->_lockedOrHiddenAppNotification = v8;
+    [(_ATXInternalUninstallNotification *)v3->_uninstallNotification registerForNotificationsWithUninstallBlock:&__block_literal_global_27];
+    v9 = objc_opt_new();
+    lockedOrHiddenAppNotification = v3->_lockedOrHiddenAppNotification;
+    v3->_lockedOrHiddenAppNotification = v9;
 
-    [(ATXInternalLockedOrHiddenAppNotification *)v2->_lockedOrHiddenAppNotification registerForNotificationsWithLockedOrHiddenAppBlock:&__block_literal_global_32_0];
-    v10 = objc_opt_new();
-    unlockedOrUnhiddenAppNotification = v2->_unlockedOrUnhiddenAppNotification;
-    v2->_unlockedOrUnhiddenAppNotification = v10;
+    [(ATXInternalLockedOrHiddenAppNotification *)v3->_lockedOrHiddenAppNotification registerForNotificationsWithLockedOrHiddenAppBlock:&__block_literal_global_32_0];
+    v11 = objc_opt_new();
+    unlockedOrUnhiddenAppNotification = v3->_unlockedOrUnhiddenAppNotification;
+    v3->_unlockedOrUnhiddenAppNotification = v11;
 
-    [(ATXInternalUnLockedOrUnHiddenAppNotification *)v2->_unlockedOrUnhiddenAppNotification registerForNotificationsWithUnLockedOrUnHiddenAppBlock:&__block_literal_global_36_0];
+    [(ATXInternalUnLockedOrUnHiddenAppNotification *)v3->_unlockedOrUnhiddenAppNotification registerForNotificationsWithUnLockedOrUnHiddenAppBlock:&__block_literal_global_36_0];
   }
 
-  return v2;
+  return v3;
 }
 
-void __31__ATXSuggestedPagesServer_init__block_invoke()
+void __31__ATXSuggestedPagesServer_init__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_new();
-  [v0 evictCachedSuggestedPages];
+  v2 = objc_opt_new();
+  [v2 evictCachedSuggestedPages];
 }
 
-void __31__ATXSuggestedPagesServer_init__block_invoke_2()
+void __31__ATXSuggestedPagesServer_init__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_new();
-  [v0 evictCachedSuggestedPages];
+  v2 = objc_opt_new();
+  [v2 evictCachedSuggestedPages];
 }
 
-void __31__ATXSuggestedPagesServer_init__block_invoke_3()
+void __31__ATXSuggestedPagesServer_init__block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_new();
-  [v0 evictCachedSuggestedPages];
+  v2 = objc_opt_new();
+  [v2 evictCachedSuggestedPages];
 }
 
 - (void)suggestedPagesWithFilter:(id)filter layoutOptions:(id)options completionHandler:(id)handler
@@ -108,11 +109,11 @@ LABEL_10:
       goto LABEL_11;
     }
 
-    v14 = __atxlog_handle_modes();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = __atxlog_handle_modes(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(v26) = 0;
-      _os_log_impl(&dword_2263AA000, v14, OS_LOG_TYPE_DEFAULT, "ATXSuggestedPagesServer: looking up mode type via DND", &v26, 2u);
+      _os_log_impl(&dword_2263AA000, v15, OS_LOG_TYPE_DEFAULT, "ATXSuggestedPagesServer: looking up mode type via DND", &v26, 2u);
     }
 
     modeUUID2 = [filterCopy modeUUID];
@@ -132,7 +133,7 @@ LABEL_10:
   v17 = objc_opt_new();
   v18 = [v17 cachedSuggestedPagesForPageType:pageType];
   v19 = [v18 count];
-  v20 = __atxlog_handle_modes();
+  v20 = __atxlog_handle_modes(v19);
   v21 = os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT);
   if (v19)
   {
@@ -164,7 +165,6 @@ LABEL_10:
   }
 
 LABEL_11:
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateSuggestedPagesWithCompletionHandler:(id)handler
@@ -186,13 +186,14 @@ LABEL_11:
   while (1)
   {
     v9 = objc_autoreleasePoolPush();
-    if ([activityCopy didDefer])
+    didDefer = [activityCopy didDefer];
+    if (didDefer)
     {
       break;
     }
 
-    v10 = [v5 generateSuggestedPagesForPageType:v8 layoutOptions:v6];
-    [v7 cacheSuggestedPages:v10 forPageType:v8];
+    v11 = [v5 generateSuggestedPagesForPageType:v8 layoutOptions:v6];
+    [v7 cacheSuggestedPages:v11 forPageType:v8];
 
     objc_autoreleasePoolPop(v9);
     if (++v8 == 13)
@@ -201,18 +202,16 @@ LABEL_11:
     }
   }
 
-  v11 = __atxlog_handle_modes();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = __atxlog_handle_modes(didDefer);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     v13 = 134217984;
     v14 = v8;
-    _os_log_impl(&dword_2263AA000, v11, OS_LOG_TYPE_DEFAULT, "Deferred caching suggested pages before processing: %ld", &v13, 0xCu);
+    _os_log_impl(&dword_2263AA000, v12, OS_LOG_TYPE_DEFAULT, "Deferred caching suggested pages before processing: %ld", &v13, 0xCu);
   }
 
   objc_autoreleasePoolPop(v9);
 LABEL_8:
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)_fetchPageTypeForModeUUID:(id)d
@@ -234,7 +233,7 @@ LABEL_7:
   semanticType = [v7 semanticType];
   if ((semanticType + 1) >= 0xB)
   {
-    v10 = __atxlog_handle_modes();
+    v10 = __atxlog_handle_modes(semanticType);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
       [(ATXSuggestedPagesServer *)v7 _fetchPageTypeForModeUUID:v10];
@@ -252,76 +251,75 @@ LABEL_8:
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
   connectionCopy = connection;
-  v6 = __atxlog_handle_modes();
+  v6 = __atxlog_handle_modes(connectionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    *v12 = 0;
-    _os_log_impl(&dword_2263AA000, v6, OS_LOG_TYPE_DEFAULT, "ATXSuggestedPagesServer: connection attempted", v12, 2u);
+    *v13 = 0;
+    _os_log_impl(&dword_2263AA000, v6, OS_LOG_TYPE_DEFAULT, "ATXSuggestedPagesServer: connection attempted", v13, 2u);
   }
 
   v7 = [connectionCopy valueForEntitlement:@"com.apple.proactive.SuggestedPages"];
-  if (v7 && (objc_opt_respondsToSelector() & 1) != 0 && ([v7 BOOLValue] & 1) != 0)
+  v8 = v7;
+  if (v7 && (v7 = objc_opt_respondsToSelector(), (v7 & 1) != 0) && (v7 = [v8 BOOLValue], (v7 & 1) != 0))
   {
-    v8 = ATXSuggestedPagesInterface();
-    [connectionCopy setExportedInterface:v8];
+    v9 = ATXSuggestedPagesInterface();
+    [connectionCopy setExportedInterface:v9];
 
     [connectionCopy setExportedObject:self];
     [connectionCopy setInterruptionHandler:&__block_literal_global_46_0];
     [connectionCopy setInvalidationHandler:&__block_literal_global_49_1];
     [connectionCopy resume];
-    v9 = 1;
+    v10 = 1;
   }
 
   else
   {
-    v10 = __atxlog_handle_modes();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = __atxlog_handle_modes(v7);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [ATXSuggestedPagesServer listener:connectionCopy shouldAcceptNewConnection:v10];
+      [ATXSuggestedPagesServer listener:connectionCopy shouldAcceptNewConnection:v11];
     }
 
-    v9 = 0;
+    v10 = 0;
   }
 
-  return v9;
+  return v10;
 }
 
-void __62__ATXSuggestedPagesServer_listener_shouldAcceptNewConnection___block_invoke()
+void __62__ATXSuggestedPagesServer_listener_shouldAcceptNewConnection___block_invoke(uint64_t a1)
 {
-  v0 = __atxlog_handle_modes();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = __atxlog_handle_modes(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    __62__ATXSuggestedPagesServer_listener_shouldAcceptNewConnection___block_invoke_cold_1(v0);
+    __62__ATXSuggestedPagesServer_listener_shouldAcceptNewConnection___block_invoke_cold_1(v1);
   }
 }
 
-void __62__ATXSuggestedPagesServer_listener_shouldAcceptNewConnection___block_invoke_47()
+void __62__ATXSuggestedPagesServer_listener_shouldAcceptNewConnection___block_invoke_47(uint64_t a1)
 {
-  v0 = __atxlog_handle_modes();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = __atxlog_handle_modes(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    __62__ATXSuggestedPagesServer_listener_shouldAcceptNewConnection___block_invoke_47_cold_1(v0);
+    __62__ATXSuggestedPagesServer_listener_shouldAcceptNewConnection___block_invoke_47_cold_1(v1);
   }
 }
 
 - (void)_fetchPageTypeForModeUUID:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v4 = 134217984;
-  v5 = [a1 semanticType];
-  _os_log_fault_impl(&dword_2263AA000, a2, OS_LOG_TYPE_FAULT, "fetchPageTypeForModeUUID: unhandled type: %ld", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
+  v3 = 134217984;
+  v4 = [a1 semanticType];
+  _os_log_fault_impl(&dword_2263AA000, a2, OS_LOG_TYPE_FAULT, "fetchPageTypeForModeUUID: unhandled type: %ld", &v3, 0xCu);
 }
 
 - (void)listener:(uint64_t)a1 shouldAcceptNewConnection:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 138412546;
-  v4 = a1;
-  v5 = 2112;
-  v6 = @"com.apple.proactive.SuggestedPages";
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXSuggestedPagesServer: rejecting connection %@ without entitlement %@", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 138412546;
+  v3 = a1;
+  v4 = 2112;
+  v5 = @"com.apple.proactive.SuggestedPages";
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXSuggestedPagesServer: rejecting connection %@ without entitlement %@", &v2, 0x16u);
 }
 
 @end

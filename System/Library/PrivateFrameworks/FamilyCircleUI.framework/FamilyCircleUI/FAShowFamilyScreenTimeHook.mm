@@ -51,7 +51,7 @@
   v9 = v8;
   _Block_object_dispose(&v15, 8);
   v10 = [v8 familyRootViewControllerPresentedAsModal:isKindOfClass & 1];
-  v11 = _FALogSystem();
+  v11 = _FALogSystem(v10);
   v12 = v11;
   if (v10)
   {

@@ -224,7 +224,6 @@ LABEL_23:
 
   if (appName)
   {
-    appName = self->_appName;
     PBDataWriterWriteStringField();
   }
 
@@ -232,7 +231,6 @@ LABEL_23:
 
   if (axSpokenName)
   {
-    axSpokenName = self->_axSpokenName;
     PBDataWriterWriteStringField();
   }
 
@@ -240,18 +238,16 @@ LABEL_23:
 
   if (displayName)
   {
-    displayName = self->_displayName;
     PBDataWriterWriteStringField();
   }
 
   spotlightName = [(_INPBAppNames *)self spotlightName];
 
-  v11 = toCopy;
+  v8 = toCopy;
   if (spotlightName)
   {
-    spotlightName = self->_spotlightName;
     PBDataWriterWriteStringField();
-    v11 = toCopy;
+    v8 = toCopy;
   }
 }
 

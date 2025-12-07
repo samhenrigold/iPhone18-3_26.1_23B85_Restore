@@ -42,7 +42,7 @@
 
 - (BOOL)_activateSpringBoardUIWithParams:(id)params
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   paramsCopy = params;
   uiMechanism = [paramsCopy uiMechanism];
   isRunning = [uiMechanism isRunning];
@@ -64,9 +64,9 @@
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       secondaryViewControllerClassName = [v10 secondaryViewControllerClassName];
-      v23 = 138543362;
-      v24 = secondaryViewControllerClassName;
-      _os_log_impl(&dword_238B95000, v11, OS_LOG_TYPE_DEFAULT, "Specifying secondary view controller class name %{public}@", &v23, 0xCu);
+      v22 = 138543362;
+      v23 = secondaryViewControllerClassName;
+      _os_log_impl(&dword_238B95000, v11, OS_LOG_TYPE_DEFAULT, "Specifying secondary view controller class name %{public}@", &v22, 0xCu);
     }
 
     v13 = objc_opt_new();
@@ -90,21 +90,20 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       uiMechanism3 = [paramsCopy uiMechanism];
-      v23 = 138543362;
-      v24 = uiMechanism3;
-      _os_log_impl(&dword_238B95000, v10, OS_LOG_TYPE_DEFAULT, "Aborting UI activation because %{public}@ is not running", &v23, 0xCu);
+      v22 = 138543362;
+      v23 = uiMechanism3;
+      _os_log_impl(&dword_238B95000, v10, OS_LOG_TYPE_DEFAULT, "Aborting UI activation because %{public}@ is not running", &v22, 0xCu);
     }
 
     v19 = 0;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
 - (void)_dispatchRemoteAlertHandle:(id)handle activationContext:(id)context params:(id)params
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   handleCopy = handle;
   contextCopy = context;
   paramsCopy = params;
@@ -112,28 +111,27 @@
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v23 = handleCopy;
+    v22 = handleCopy;
     _os_log_impl(&dword_238B95000, v11, OS_LOG_TYPE_DEFAULT, "Dispatching %{public}@", buf, 0xCu);
   }
 
   objc_initWeak(buf, self);
   activationQueue = self->_activationQueue;
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __80__RemoteUIActivator_Legacy__dispatchRemoteAlertHandle_activationContext_params___block_invoke;
-  v17[3] = &unk_278A62E88;
-  objc_copyWeak(&v21, buf);
-  v18 = handleCopy;
-  v19 = contextCopy;
-  v20 = paramsCopy;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __80__RemoteUIActivator_Legacy__dispatchRemoteAlertHandle_activationContext_params___block_invoke;
+  v16[3] = &unk_278A62E88;
+  objc_copyWeak(&v20, buf);
+  v17 = handleCopy;
+  v18 = contextCopy;
+  v19 = paramsCopy;
   v13 = paramsCopy;
   v14 = contextCopy;
   v15 = handleCopy;
-  dispatch_async(activationQueue, v17);
+  dispatch_async(activationQueue, v16);
 
-  objc_destroyWeak(&v21);
+  objc_destroyWeak(&v20);
   objc_destroyWeak(buf);
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_postNotificationsAndActivateRemoteAlertHandle:(id)handle activationContext:(id)context params:(id)params
@@ -155,7 +153,7 @@
 
 - (void)_activateRemoteAlertHandle:(id)handle activationContext:(id)context params:(id)params
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   handleCopy = handle;
   contextCopy = context;
   paramsCopy = params;
@@ -163,13 +161,13 @@
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     uiMechanism = [paramsCopy uiMechanism];
-    v18 = 138543874;
-    v19 = handleCopy;
-    v20 = 2114;
-    v21 = contextCopy;
-    v22 = 2114;
-    v23 = uiMechanism;
-    _os_log_impl(&dword_238B95000, v11, OS_LOG_TYPE_DEFAULT, "Activating %{public}@ with %{public}@ for %{public}@", &v18, 0x20u);
+    v17 = 138543874;
+    v18 = handleCopy;
+    v19 = 2114;
+    v20 = contextCopy;
+    v21 = 2114;
+    v22 = uiMechanism;
+    _os_log_impl(&dword_238B95000, v11, OS_LOG_TYPE_DEFAULT, "Activating %{public}@ with %{public}@ for %{public}@", &v17, 0x20u);
   }
 
   uiMechanism2 = [paramsCopy uiMechanism];
@@ -188,15 +186,13 @@
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       uiMechanism3 = [paramsCopy uiMechanism];
-      v18 = 138543362;
-      v19 = uiMechanism3;
-      _os_log_impl(&dword_238B95000, v15, OS_LOG_TYPE_DEFAULT, "Aborting UI activation because %{public}@ is not running", &v18, 0xCu);
+      v17 = 138543362;
+      v18 = uiMechanism3;
+      _os_log_impl(&dword_238B95000, v15, OS_LOG_TYPE_DEFAULT, "Aborting UI activation because %{public}@ is not running", &v17, 0xCu);
     }
 
     [(RemoteUIActivator_Legacy *)self _resumeActivationQueue];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_suspendActivationQueue
@@ -311,7 +307,7 @@
 
 - (BOOL)_activateFrontBoardUIWithParams:(id)params
 {
-  v31[1] = *MEMORY[0x277D85DE8];
+  v30[1] = *MEMORY[0x277D85DE8];
   paramsCopy = params;
   v5 = MEMORY[0x277CCACA8];
   uiMechanism = [paramsCopy uiMechanism];
@@ -321,9 +317,9 @@
   v9 = MEMORY[0x277D24100];
   uiMechanism2 = [paramsCopy uiMechanism];
   remoteAlertViewControllerName = [uiMechanism2 remoteAlertViewControllerName];
-  v30 = @"requestID";
-  v31[0] = v8;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:&v30 count:1];
+  v29 = @"requestID";
+  v30[0] = v8;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:&v29 count:1];
   v13 = [v9 applicationPayloadURLForBundleID:@"com.apple.CoreAuthUI" rootControllerName:remoteAlertViewControllerName parameters:v12];
 
   v14 = [MEMORY[0x277D24100] applicationOptionsForPayloadURL:v13 softwareUpdate:{objc_msgSend(paramsCopy, "forSoftwareUpdate")}];
@@ -343,22 +339,21 @@
   {
     uiMechanism3 = [paramsCopy uiMechanism];
     *buf = 138543618;
-    v27 = uiMechanism3;
-    v28 = 2114;
-    v29 = v15;
+    v26 = uiMechanism3;
+    v27 = 2114;
+    v28 = v15;
     _os_log_impl(&dword_238B95000, v19, OS_LOG_TYPE_DEFAULT, "Activating remote UI for %{public}@ via FB with options %{public}@", buf, 0x16u);
   }
 
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __60__RemoteUIActivator_Legacy__activateFrontBoardUIWithParams___block_invoke;
-  v24[3] = &unk_278A62EB0;
-  v24[4] = self;
-  v25 = serviceWithDefaultShellEndpoint;
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __60__RemoteUIActivator_Legacy__activateFrontBoardUIWithParams___block_invoke;
+  v23[3] = &unk_278A62EB0;
+  v23[4] = self;
+  v24 = serviceWithDefaultShellEndpoint;
   v21 = serviceWithDefaultShellEndpoint;
-  [v21 openApplication:@"com.apple.CoreAuthUI" withOptions:v15 completion:v24];
+  [v21 openApplication:@"com.apple.CoreAuthUI" withOptions:v15 completion:v23];
 
-  v22 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -386,14 +381,14 @@
 
 - (void)remoteAlertHandleDidActivate:(id)activate
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   activateCopy = activate;
   v5 = LALogForCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138543362;
-    v10 = activateCopy;
-    _os_log_impl(&dword_238B95000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ didActivate", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = activateCopy;
+    _os_log_impl(&dword_238B95000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ didActivate", &v8, 0xCu);
   }
 
   activatingHandle = [(RemoteUIActivator_Legacy *)self activatingHandle];
@@ -410,20 +405,18 @@
   [(RemoteUIActivator_Legacy *)self setActiveHandle:activateCopy];
   [(RemoteUIActivator_Legacy *)self setActivatingHandle:0];
   [(RemoteUIActivator_Legacy *)self _resumeActivationQueue];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remoteAlertHandleDidDeactivate:(id)deactivate
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   deactivateCopy = deactivate;
   v5 = LALogForCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138543362;
-    v13 = deactivateCopy;
-    _os_log_impl(&dword_238B95000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ didDeactivate", &v12, 0xCu);
+    v11 = 138543362;
+    v12 = deactivateCopy;
+    _os_log_impl(&dword_238B95000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ didDeactivate", &v11, 0xCu);
   }
 
   activeHandle = [(RemoteUIActivator_Legacy *)self activeHandle];
@@ -454,13 +447,11 @@
   }
 
 LABEL_8:
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remoteAlertHandle:(id)handle didInvalidateWithError:(id)error
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   handleCopy = handle;
   errorCopy = error;
   v8 = 1;
@@ -510,11 +501,11 @@ LABEL_8:
 
   if (os_log_type_enabled(v13, v14))
   {
-    v21 = 138543618;
-    v22 = handleCopy;
-    v23 = 2114;
-    v24 = errorCopy;
-    _os_log_impl(&dword_238B95000, v13, v14, "%{public}@ didInvalidateWithError: %{public}@", &v21, 0x16u);
+    v20 = 138543618;
+    v21 = handleCopy;
+    v22 = 2114;
+    v23 = errorCopy;
+    _os_log_impl(&dword_238B95000, v13, v14, "%{public}@ didInvalidateWithError: %{public}@", &v20, 0x16u);
   }
 
   if (v8)
@@ -543,8 +534,6 @@ LABEL_8:
   {
     [(RemoteUIActivator_Legacy *)self _resumeActivationQueue];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidateUIForRequest:(unsigned int)request
@@ -579,49 +568,40 @@ LABEL_8:
 
 - (void)_sbHandleWithDefinition:(os_log_t)log configurationContext:.cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_error_impl(&dword_238B95000, log, OS_LOG_TYPE_ERROR, "Failed to create remote alert handle with %{public}@ and %{public}@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 2114;
+  v6 = a2;
+  _os_log_error_impl(&dword_238B95000, log, OS_LOG_TYPE_ERROR, "Failed to create remote alert handle with %{public}@ and %{public}@", &v3, 0x16u);
 }
 
 - (void)remoteAlertHandleDidActivate:(uint64_t)a1 .cold.1(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v2 = [a2 activatingHandle];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3(&dword_238B95000, v3, v4, "Unexpected alert activated: %{public}@ Was expecting: %{public}@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_238B95000, v3, v4, "Unexpected alert activated: %{public}@ Was expecting: %{public}@", v5, v6, v7, v8);
 }
 
 - (void)remoteAlertHandleDidDeactivate:(uint64_t)a1 .cold.1(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v2 = [a2 activeHandle];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3(&dword_238B95000, v3, v4, "Ignoring deactivation of %{public}@ because %{public}@ is active", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_238B95000, v3, v4, "Ignoring deactivation of %{public}@ because %{public}@ is active", v5, v6, v7, v8);
 }
 
 - (void)remoteAlertHandle:(NSObject *)a3 didInvalidateWithError:.cold.1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v6 = [a2 activeHandle];
   v7 = [a2 activatingHandle];
-  v9 = 138543874;
-  v10 = a1;
-  v11 = 2114;
-  v12 = v6;
-  v13 = 2114;
-  v14 = v7;
-  _os_log_debug_impl(&dword_238B95000, a3, OS_LOG_TYPE_DEBUG, "Ignoring invalidation of %{public}@ because %{public}@ is active and %{public}@ is activating", &v9, 0x20u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v8 = 138543874;
+  v9 = a1;
+  v10 = 2114;
+  v11 = v6;
+  v12 = 2114;
+  v13 = v7;
+  _os_log_debug_impl(&dword_238B95000, a3, OS_LOG_TYPE_DEBUG, "Ignoring invalidation of %{public}@ because %{public}@ is active and %{public}@ is activating", &v8, 0x20u);
 }
 
 @end

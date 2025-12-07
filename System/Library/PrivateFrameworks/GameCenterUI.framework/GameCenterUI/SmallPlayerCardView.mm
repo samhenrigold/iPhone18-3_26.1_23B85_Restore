@@ -85,7 +85,7 @@
 {
   changeCopy = change;
   selfCopy = self;
-  sub_24DFD73DC(change);
+  sub_24DFD73DC(change, v6);
 }
 
 - (_TtC12GameCenterUI16DynamicTypeLabel)accessibilityTitleLabel

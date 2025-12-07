@@ -11,26 +11,27 @@
 - (CEGraphicIcon)initWithDictionary:(id)dictionary
 {
   dictionaryCopy = dictionary;
-  v10.receiver = self;
-  v10.super_class = CEGraphicIcon;
-  v5 = [(CEIcon *)&v10 initWithDictionary:dictionaryCopy];
+  v11.receiver = self;
+  v11.super_class = CEGraphicIcon;
+  v5 = [(CEIcon *)&v11 initWithDictionary:dictionaryCopy];
   if (v5)
   {
     v6 = [dictionaryCopy objectForKeyedSubscript:@"id"];
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v7 = v6;
+      v8 = v6;
       identifier = v5->_identifier;
-      v5->_identifier = v7;
+      v5->_identifier = v8;
     }
 
     else
     {
-      identifier = _CELogSystem();
+      identifier = _CELogSystem(isKindOfClass);
       if (os_log_type_enabled(identifier, OS_LOG_TYPE_DEBUG))
       {
-        [CESymbolIcon initWithDictionary:];
+        [CESymbolIcon initWithDictionary:v5];
       }
     }
   }

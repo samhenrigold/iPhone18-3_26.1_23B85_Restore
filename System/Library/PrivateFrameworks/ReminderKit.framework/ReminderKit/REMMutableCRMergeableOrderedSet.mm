@@ -169,7 +169,7 @@
 
 - (void)undo
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = objc_autoreleasePoolPush();
   undos = [(REMMutableCRMergeableOrderedSet *)self undos];
   lastObject = [undos lastObject];
@@ -179,34 +179,34 @@
 
   if (lastObject)
   {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     undoBlocks = [lastObject undoBlocks];
     reverseObjectEnumerator = [undoBlocks reverseObjectEnumerator];
 
-    v9 = [reverseObjectEnumerator countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v9 = [reverseObjectEnumerator countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v18;
+      v11 = *v17;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v18 != v11)
+          if (*v17 != v11)
           {
             objc_enumerationMutation(reverseObjectEnumerator);
           }
 
-          v13 = *(*(&v17 + 1) + 8 * i);
+          v13 = *(*(&v16 + 1) + 8 * i);
           documentToEdit = [(REMMutableCRMergeableOrderedSet *)self documentToEdit];
           rootObject = [documentToEdit rootObject];
           (*(v13 + 16))(v13, rootObject);
         }
 
-        v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v10);
@@ -223,12 +223,11 @@
   }
 
   objc_autoreleasePoolPop(v3);
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)undo:(id)undo
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   undoCopy = undo;
   undos = [(REMMutableCRMergeableOrderedSet *)self undos];
   v6 = [undos containsObject:undoCopy];
@@ -241,34 +240,34 @@
   v7 = objc_autoreleasePoolPush();
   if (undoCopy)
   {
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     undoBlocks = [undoCopy undoBlocks];
     reverseObjectEnumerator = [undoBlocks reverseObjectEnumerator];
 
-    v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v19;
+      v12 = *v18;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v19 != v12)
+          if (*v18 != v12)
           {
             objc_enumerationMutation(reverseObjectEnumerator);
           }
 
-          v14 = *(*(&v18 + 1) + 8 * i);
+          v14 = *(*(&v17 + 1) + 8 * i);
           documentToEdit = [(REMMutableCRMergeableOrderedSet *)self documentToEdit];
           rootObject = [documentToEdit rootObject];
           (*(v14 + 16))(v14, rootObject);
         }
 
-        v11 = [reverseObjectEnumerator countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v11 = [reverseObjectEnumerator countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v11);
@@ -285,7 +284,6 @@
   }
 
   objc_autoreleasePoolPop(v7);
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addUndoCommandsForObject:(id)object block:(id)block
@@ -317,17 +315,15 @@
 
 - (void)undo:(void *)a1 .cold.1(void *a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = +[REMLog crdt];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
   {
-    v4 = [a1 undos];
-    v5 = 138412290;
-    v6 = v4;
-    _os_log_fault_impl(&dword_19A0DB000, v2, OS_LOG_TYPE_FAULT, "rem_log_fault_if (![self.undos containsObject:undo]) -- Supplied undo is not found in undo stack. Normally, if the undo is obtained from this particular REMCRMergeableOrderedSet, the undo will also be present in self.undos, whose value is now: %@", &v5, 0xCu);
+    v3 = [a1 undos];
+    v4 = 138412290;
+    v5 = v3;
+    _os_log_fault_impl(&dword_19A0DB000, v2, OS_LOG_TYPE_FAULT, "rem_log_fault_if (![self.undos containsObject:undo]) -- Supplied undo is not found in undo stack. Normally, if the undo is obtained from this particular REMCRMergeableOrderedSet, the undo will also be present in self.undos, whose value is now: %@", &v4, 0xCu);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 @end

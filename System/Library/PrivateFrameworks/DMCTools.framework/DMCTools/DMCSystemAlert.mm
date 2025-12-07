@@ -59,7 +59,7 @@
   *v7 = v6;
   v7[1] = v4;
   selfCopy = self;
-  sub_247F081EC(v8);
+  sub_247F081EC(v8, v9);
 }
 
 - (NSString)description

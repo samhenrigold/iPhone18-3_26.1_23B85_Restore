@@ -3,6 +3,9 @@
 - (BOOL)getOOBInline;
 - (BOOL)getReuseAddress;
 - (BOOL)getTcpNoDelay;
+- (JavaNetSocket)initWithNSString:(id)string withInt:(int)int;
+- (JavaNetSocket)initWithNSString:(id)string withInt:(int)int withBoolean:(BOOL)boolean;
+- (JavaNetSocket)initWithNSString:(id)string withInt:(int)int withJavaNetInetAddress:(id)address withInt:(int)withInt;
 - (NSString)description;
 - (id)cacheLocalAddress;
 - (id)getFileDescriptor$;
@@ -21,8 +24,12 @@
 - (void)accepted;
 - (void)bindWithJavaNetSocketAddress:(id)address;
 - (void)close;
+- (void)connectWithJavaNetSocketAddress:(id)address withInt:(int)int;
 - (void)dealloc;
+- (void)onBindWithJavaNetInetAddress:(id)address withInt:(int)int;
 - (void)onClose;
+- (void)onConnectWithJavaNetInetAddress:(id)address withInt:(int)int;
+- (void)sendUrgentDataWithInt:(int)int;
 - (void)setKeepAliveWithBoolean:(BOOL)boolean;
 - (void)setOOBInlineWithBoolean:(BOOL)boolean;
 - (void)setReceiveBufferSizeWithInt:(int)int;
@@ -37,6 +44,32 @@
 @end
 
 @implementation JavaNetSocket
+
+- (JavaNetSocket)initWithNSString:(id)string withInt:(int)int
+{
+  v4 = *&int;
+  JavaNetSocket_init(self);
+  sub_1001501F8(self, string, v4, 0, 0, 1);
+  return self;
+}
+
+- (JavaNetSocket)initWithNSString:(id)string withInt:(int)int withJavaNetInetAddress:(id)address withInt:(int)withInt
+{
+  v6 = *&withInt;
+  v8 = *&int;
+  JavaNetSocket_init(self);
+  sub_1001501F8(self, string, v8, address, v6, 1);
+  return self;
+}
+
+- (JavaNetSocket)initWithNSString:(id)string withInt:(int)int withBoolean:(BOOL)boolean
+{
+  booleanCopy = boolean;
+  v6 = *&int;
+  JavaNetSocket_init(self);
+  sub_1001501F8(self, string, v6, 0, 0, booleanCopy);
+  return self;
+}
 
 - (void)close
 {
@@ -574,6 +607,120 @@ LABEL_10:
   return JreStrongAssign((self + 40), SocketLocalAddressWithJavaIoFileDescriptor);
 }
 
+- (void)onBindWithJavaNetInetAddress:(id)address withInt:(int)int
+{
+  v4 = *&int;
+  self->isBound_ = 1;
+  JreStrongAssign(&self->localAddress_, address);
+  impl = self->impl_;
+  if (!impl)
+  {
+    JreThrowNullPointerException();
+  }
+
+  [(JavaNetSocketImpl *)impl onBindWithJavaNetInetAddress:address withInt:v4];
+}
+
+- (void)connectWithJavaNetSocketAddress:(id)address withInt:(int)int
+{
+  v4 = *&int;
+  sub_10015092C(self, 1);
+  if ((v4 & 0x80000000) != 0)
+  {
+    v18 = @"timeout < 0";
+LABEL_24:
+    v19 = new_JavaLangIllegalArgumentException_initWithNSString_(v18);
+    goto LABEL_26;
+  }
+
+  if ([(JavaNetSocket *)self isConnected])
+  {
+    v19 = new_JavaNetSocketException_initWithNSString_(@"Already connected");
+    goto LABEL_26;
+  }
+
+  if (!address)
+  {
+    v18 = @"remoteAddr == null";
+    goto LABEL_24;
+  }
+
+  objc_opt_class();
+  if ((objc_opt_isKindOfClass() & 1) == 0)
+  {
+    [address getClass];
+    v18 = JreStrcat("$@", v20, v21, v22, v23, v24, v25, v26, @"Remote address not an InetSocketAddress: ");
+    goto LABEL_24;
+  }
+
+  objc_opt_class();
+  if ((objc_opt_isKindOfClass() & 1) == 0)
+  {
+    JreThrowClassCastException();
+  }
+
+  if (![address getAddress])
+  {
+    [address getHostName];
+    v34 = JreStrcat("$$", v27, v28, v29, v30, v31, v32, v33, @"Host is unresolved: ");
+    v19 = new_JavaNetUnknownHostException_initWithNSString_(v34);
+LABEL_26:
+    objc_exception_throw(v19);
+  }
+
+  getPort = [address getPort];
+  sub_100150728(getPort, v8, v9, v10, v11, v12, v13, v14);
+  connectLock = self->connectLock_;
+  objc_sync_enter(connectLock);
+  if (![(JavaNetSocket *)self isBound])
+  {
+    if ((sub_100151484(self) & 1) == 0)
+    {
+      impl = self->impl_;
+      if (!impl)
+      {
+        goto LABEL_18;
+      }
+
+      if ((atomic_load_explicit(JavaNetInet4Address__initialized, memory_order_acquire) & 1) == 0)
+      {
+        v35 = impl;
+        objc_opt_class();
+        impl = v35;
+      }
+
+      [(JavaNetSocketImpl *)impl bindWithJavaNetInetAddress:JavaNetInet4Address_ANY_ withInt:0];
+    }
+
+    self->isBound_ = 1;
+  }
+
+  v17 = self->impl_;
+  if (!v17)
+  {
+LABEL_18:
+    JreThrowNullPointerException();
+  }
+
+  [(JavaNetSocketImpl *)v17 connectWithJavaNetSocketAddress:address withInt:v4];
+  self->isConnected_ = 1;
+  [JavaNetSocket cacheLocalAddress]_0(self);
+
+  objc_sync_exit(connectLock);
+}
+
+- (void)onConnectWithJavaNetInetAddress:(id)address withInt:(int)int
+{
+  self->isConnected_ = 1;
+  impl = self->impl_;
+  if (!impl)
+  {
+    JreThrowNullPointerException();
+  }
+
+  [(JavaNetSocketImpl *)impl onConnectWithJavaNetInetAddress:address withInt:*&int];
+}
+
 - (void)setReuseAddressWithBoolean:(BOOL)boolean
 {
   booleanCopy = boolean;
@@ -674,6 +821,17 @@ LABEL_10:
   }
 
   return [v4 intValue];
+}
+
+- (void)sendUrgentDataWithInt:(int)int
+{
+  impl = self->impl_;
+  if (!impl)
+  {
+    JreThrowNullPointerException();
+  }
+
+  [(JavaNetSocketImpl *)impl sendUrgentDataWithInt:*&int];
 }
 
 - (void)accepted

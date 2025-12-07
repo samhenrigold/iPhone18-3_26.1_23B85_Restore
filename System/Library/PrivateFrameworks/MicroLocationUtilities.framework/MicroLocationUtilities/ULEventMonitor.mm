@@ -30,43 +30,42 @@
 
 - (void)dealloc
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   observersMap = [(ULEventMonitor *)self observersMap];
   allKeys = [observersMap allKeys];
 
-  v5 = [allKeys countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [allKeys countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       v8 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        [(ULEventMonitor *)self stopMonitoring:*(*(&v11 + 1) + 8 * v8++)];
+        [(ULEventMonitor *)self stopMonitoring:*(*(&v10 + 1) + 8 * v8++)];
       }
 
       while (v6 != v8);
-      v6 = [allKeys countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [allKeys countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
 
-  v10.receiver = self;
-  v10.super_class = ULEventMonitor;
-  [(ULEventMonitor *)&v10 dealloc];
-  v9 = *MEMORY[0x277D85DE8];
+  v9.receiver = self;
+  v9.super_class = ULEventMonitor;
+  [(ULEventMonitor *)&v9 dealloc];
 }
 
 - (void)addObserver:(const void *)observer eventName:(id)name handler:(id)handler
@@ -139,7 +138,7 @@ void __48__ULEventMonitor_addObserver_eventName_handler___block_invoke(uint64_t 
   _Block_object_dispose(&v10, 8);
 }
 
-uint64_t __48__ULEventMonitor_addObserver_eventName_handler___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__48__ULEventMonitor_addObserver_eventName_handler___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 observer];
   if (result == *(a1 + 40))
@@ -271,7 +270,7 @@ void __47__ULEventMonitor_removeObserver_fromEventName___block_invoke(uint64_t a
   _Block_object_dispose(&v11, 8);
 }
 
-uint64_t __47__ULEventMonitor_removeObserver_fromEventName___block_invoke_26(void *a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__47__ULEventMonitor_removeObserver_fromEventName___block_invoke_26(void *a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 observer];
   if (result == a1[6])

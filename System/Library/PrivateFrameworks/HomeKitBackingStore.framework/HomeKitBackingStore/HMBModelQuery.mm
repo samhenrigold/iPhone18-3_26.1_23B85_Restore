@@ -76,7 +76,7 @@
 
 - (id)prepareOnTable:(id)table
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   tableCopy = table;
   context = [tableCopy context];
   preparedQueries = [(HMBModelQuery *)self preparedQueries];
@@ -95,27 +95,27 @@
     v10 = [[HMBSQLQueryStatement alloc] initWithContext:context statement:v8];
     if (!v10)
     {
-      v30 = objc_autoreleasePoolPush();
+      v29 = objc_autoreleasePoolPush();
       selfCopy = self;
-      v32 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+      v31 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
-        v33 = HMFGetLogIdentifier();
+        v32 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v47 = v33;
-        v48 = 2112;
-        v49 = v8;
-        _os_log_impl(&dword_22AD27000, v32, OS_LOG_TYPE_ERROR, "%{public}@Failed to prepare statement: %@", buf, 0x16u);
+        v46 = v32;
+        v47 = 2112;
+        v48 = v8;
+        _os_log_impl(&dword_22AD27000, v31, OS_LOG_TYPE_ERROR, "%{public}@Failed to prepare statement: %@", buf, 0x16u);
       }
 
-      objc_autoreleasePoolPop(v30);
-      v34 = MEMORY[0x277CBEAD8];
-      v35 = *MEMORY[0x277CBE658];
-      v36 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to prepare statement: %@", v8];
-      v37 = [v34 exceptionWithName:v35 reason:v36 userInfo:0];
-      v38 = v37;
+      objc_autoreleasePoolPop(v29);
+      v33 = MEMORY[0x277CBEAD8];
+      v34 = *MEMORY[0x277CBE658];
+      v35 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to prepare statement: %@", v8];
+      v36 = [v33 exceptionWithName:v34 reason:v35 userInfo:0];
+      v37 = v36;
 
-      objc_exception_throw(v37);
+      objc_exception_throw(v36);
     }
 
     v7 = v10;
@@ -134,28 +134,28 @@
 
       hmbProperties = [(objc_class *)[(HMBModelQuery *)self modelClass] hmbProperties];
       arguments3 = [v7 arguments];
-      v42[0] = MEMORY[0x277D85DD0];
-      v42[1] = 3221225472;
-      v42[2] = __32__HMBModelQuery_prepareOnTable___block_invoke;
-      v42[3] = &unk_2786E1418;
-      v42[4] = self;
-      v43 = hmbProperties;
+      v41[0] = MEMORY[0x277D85DD0];
+      v41[1] = 3221225472;
+      v41[2] = __32__HMBModelQuery_prepareOnTable___block_invoke;
+      v41[3] = &unk_2786E1418;
+      v41[4] = self;
+      v42 = hmbProperties;
       v20 = v14;
-      v44 = v20;
+      v43 = v20;
       v21 = v17;
-      v45 = v21;
+      v44 = v21;
       v22 = hmbProperties;
-      [arguments3 enumerateKeysAndObjectsUsingBlock:v42];
+      [arguments3 enumerateKeysAndObjectsUsingBlock:v41];
 
       arguments4 = [(HMBModelQuery *)self arguments];
-      v39[0] = MEMORY[0x277D85DD0];
-      v39[1] = 3221225472;
-      v39[2] = __32__HMBModelQuery_prepareOnTable___block_invoke_42;
-      v39[3] = &unk_2786E1440;
+      v38[0] = MEMORY[0x277D85DD0];
+      v38[1] = 3221225472;
+      v38[2] = __32__HMBModelQuery_prepareOnTable___block_invoke_42;
+      v38[3] = &unk_2786E1440;
       v7 = v7;
-      v40 = v7;
+      v39 = v7;
       selfCopy2 = self;
-      [arguments4 enumerateKeysAndObjectsUsingBlock:v39];
+      [arguments4 enumerateKeysAndObjectsUsingBlock:v38];
 
       argumentFields = self->_argumentFields;
       self->_argumentFields = v20;
@@ -169,49 +169,47 @@
     }
   }
 
-  v28 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 void __32__HMBModelQuery_prepareOnTable___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v50 = *MEMORY[0x277D85DE8];
-  v41 = a2;
+  v49 = *MEMORY[0x277D85DE8];
+  v40 = a2;
   v5 = a3;
   v6 = [*(a1 + 32) arguments];
-  v7 = [v6 objectForKey:v41];
+  v7 = [v6 objectForKey:v40];
 
-  if ((![v41 isEqualToString:@"_sequence_offset"] || v7) && (objc_msgSend(v41, "hasPrefix:", @"_") & 1) == 0)
+  if ((![v40 isEqualToString:@"_sequence_offset"] || v7) && (objc_msgSend(v40, "hasPrefix:", @"_") & 1) == 0)
   {
     if (!v7)
     {
-      v15 = objc_autoreleasePoolPush();
-      v16 = *(a1 + 32);
-      v17 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v14 = objc_autoreleasePoolPush();
+      v15 = *(a1 + 32);
+      v16 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        v18 = HMFGetLogIdentifier();
-        v19 = [*(a1 + 32) arguments];
+        v17 = HMFGetLogIdentifier();
+        v18 = [*(a1 + 32) arguments];
         *buf = 138543874;
-        v43 = v18;
-        v44 = 2112;
-        v45 = v41;
-        v46 = 2112;
-        v47 = v19;
-        _os_log_impl(&dword_22AD27000, v17, OS_LOG_TYPE_ERROR, "%{public}@The query statement's SQL contains an argument named '%@' which does not exist as an argument in the query's argument dictionary: %@", buf, 0x20u);
+        v42 = v17;
+        v43 = 2112;
+        v44 = v40;
+        v45 = 2112;
+        v46 = v18;
+        _os_log_impl(&dword_22AD27000, v16, OS_LOG_TYPE_ERROR, "%{public}@The query statement's SQL contains an argument named '%@' which does not exist as an argument in the query's argument dictionary: %@", buf, 0x20u);
       }
 
-      objc_autoreleasePoolPop(v15);
-      v20 = MEMORY[0x277CBEAD8];
-      v21 = *MEMORY[0x277CBE658];
-      v22 = MEMORY[0x277CCACA8];
-      v23 = [*(a1 + 32) arguments];
-      v24 = [v22 stringWithFormat:@"The query statement's SQL contains an argument named '%@' which does not exist as an argument in the query's argument dictionary: %@", v41, v23];
-      v25 = [v20 exceptionWithName:v21 reason:v24 userInfo:0];
-      v26 = v25;
+      objc_autoreleasePoolPop(v14);
+      v19 = MEMORY[0x277CBEAD8];
+      v20 = *MEMORY[0x277CBE658];
+      v21 = MEMORY[0x277CCACA8];
+      v22 = [*(a1 + 32) arguments];
+      v23 = [v21 stringWithFormat:@"The query statement's SQL contains an argument named '%@' which does not exist as an argument in the query's argument dictionary: %@", v40, v22];
+      v24 = [v19 exceptionWithName:v20 reason:v23 userInfo:0];
+      v25 = v24;
 
-      objc_exception_throw(v25);
+      objc_exception_throw(v24);
     }
 
     v8 = *(a1 + 40);
@@ -220,39 +218,39 @@ void __32__HMBModelQuery_prepareOnTable___block_invoke(uint64_t a1, void *a2, vo
 
     if (!v10)
     {
-      v27 = objc_autoreleasePoolPush();
-      v28 = *(a1 + 32);
-      v29 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      v26 = objc_autoreleasePoolPush();
+      v27 = *(a1 + 32);
+      v28 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
-        v30 = HMFGetLogIdentifier();
-        v31 = [v7 propertyName];
-        v32 = [*(a1 + 32) modelClass];
-        v33 = *(a1 + 40);
+        v29 = HMFGetLogIdentifier();
+        v30 = [v7 propertyName];
+        v31 = [*(a1 + 32) modelClass];
+        v32 = *(a1 + 40);
         *buf = 138544130;
-        v43 = v30;
-        v44 = 2112;
-        v45 = v31;
-        v46 = 2112;
-        v47 = v32;
-        v48 = 2112;
-        v49 = v33;
-        _os_log_impl(&dword_22AD27000, v29, OS_LOG_TYPE_ERROR, "%{public}@The query statement's SQL contains an argument for a property named '%@' which does not exist as a property on %@: %@", buf, 0x2Au);
+        v42 = v29;
+        v43 = 2112;
+        v44 = v30;
+        v45 = 2112;
+        v46 = v31;
+        v47 = 2112;
+        v48 = v32;
+        _os_log_impl(&dword_22AD27000, v28, OS_LOG_TYPE_ERROR, "%{public}@The query statement's SQL contains an argument for a property named '%@' which does not exist as a property on %@: %@", buf, 0x2Au);
       }
 
-      objc_autoreleasePoolPop(v27);
-      v34 = MEMORY[0x277CBEAD8];
-      v35 = *MEMORY[0x277CBE658];
-      v36 = MEMORY[0x277CCACA8];
-      v37 = [v7 propertyName];
-      v38 = [v36 stringWithFormat:@"The query statement's SQL contains an argument for a property named '%@' which does not exist as a property on %@: %@", v37, objc_msgSend(*(a1 + 32), "modelClass"), *(a1 + 40)];
-      v39 = [v34 exceptionWithName:v35 reason:v38 userInfo:0];
-      v40 = v39;
+      objc_autoreleasePoolPop(v26);
+      v33 = MEMORY[0x277CBEAD8];
+      v34 = *MEMORY[0x277CBE658];
+      v35 = MEMORY[0x277CCACA8];
+      v36 = [v7 propertyName];
+      v37 = [v35 stringWithFormat:@"The query statement's SQL contains an argument for a property named '%@' which does not exist as a property on %@: %@", v36, objc_msgSend(*(a1 + 32), "modelClass"), *(a1 + 40)];
+      v38 = [v33 exceptionWithName:v34 reason:v37 userInfo:0];
+      v39 = v38;
 
-      objc_exception_throw(v39);
+      objc_exception_throw(v38);
     }
 
-    [*(a1 + 48) setObject:v10 forKey:v41];
+    [*(a1 + 48) setObject:v10 forKey:v40];
     v11 = [v7 defaultValue];
     if (v11)
     {
@@ -265,51 +263,47 @@ void __32__HMBModelQuery_prepareOnTable___block_invoke(uint64_t a1, void *a2, vo
       v13 = [MEMORY[0x277CBEB68] null];
     }
 
-    [*(a1 + 56) setObject:v13 forKeyedSubscript:v41];
+    [*(a1 + 56) setObject:v13 forKeyedSubscript:v40];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __32__HMBModelQuery_prepareOnTable___block_invoke_42(uint64_t a1, void *a2, void *a3)
 {
-  v28 = *MEMORY[0x277D85DE8];
-  v21 = a2;
+  v27 = *MEMORY[0x277D85DE8];
+  v20 = a2;
   v5 = a3;
   v6 = [*(a1 + 32) arguments];
-  v7 = [v6 objectForKey:v21];
+  v7 = [v6 objectForKey:v20];
 
   if (!v7)
   {
-    v9 = objc_autoreleasePoolPush();
-    v10 = *(a1 + 40);
-    v11 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v8 = objc_autoreleasePoolPush();
+    v9 = *(a1 + 40);
+    v10 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v12 = HMFGetLogIdentifier();
-      v13 = [*(a1 + 32) arguments];
+      v11 = HMFGetLogIdentifier();
+      v12 = [*(a1 + 32) arguments];
       *buf = 138543874;
-      v23 = v12;
-      v24 = 2112;
-      v25 = v21;
-      v26 = 2112;
-      v27 = v13;
-      _os_log_impl(&dword_22AD27000, v11, OS_LOG_TYPE_ERROR, "%{public}@The query's argument dictionary contains an argument named '%@' which does not exist as an argument in the query statement's SQL: %@", buf, 0x20u);
+      v22 = v11;
+      v23 = 2112;
+      v24 = v20;
+      v25 = 2112;
+      v26 = v12;
+      _os_log_impl(&dword_22AD27000, v10, OS_LOG_TYPE_ERROR, "%{public}@The query's argument dictionary contains an argument named '%@' which does not exist as an argument in the query statement's SQL: %@", buf, 0x20u);
     }
 
-    objc_autoreleasePoolPop(v9);
-    v14 = MEMORY[0x277CBEAD8];
-    v15 = *MEMORY[0x277CBE658];
-    v16 = MEMORY[0x277CCACA8];
-    v17 = [*(a1 + 32) arguments];
-    v18 = [v16 stringWithFormat:@"The query's argument dictionary contains an argument named '%@' which does not exist as an argument in the query statement's SQL: %@", v21, v17];
-    v19 = [v14 exceptionWithName:v15 reason:v18 userInfo:0];
-    v20 = v19;
+    objc_autoreleasePoolPop(v8);
+    v13 = MEMORY[0x277CBEAD8];
+    v14 = *MEMORY[0x277CBE658];
+    v15 = MEMORY[0x277CCACA8];
+    v16 = [*(a1 + 32) arguments];
+    v17 = [v15 stringWithFormat:@"The query's argument dictionary contains an argument named '%@' which does not exist as an argument in the query statement's SQL: %@", v20, v16];
+    v18 = [v13 exceptionWithName:v14 reason:v17 userInfo:0];
+    v19 = v18;
 
-    objc_exception_throw(v19);
+    objc_exception_throw(v18);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setModelClass:(Class)class

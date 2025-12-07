@@ -87,7 +87,7 @@
 + (id)getStateRelayFor:(unsigned __int8)for
 {
   forCopy = for;
-  *&v10[5] = *MEMORY[0x277D85DE8];
+  *&v9[5] = *MEMORY[0x277D85DE8];
   if (getStateRelayFor__onceToken != -1)
   {
     +[NetworkStateRelay getStateRelayFor:];
@@ -99,11 +99,11 @@
     v5 = netepochsLogHandle;
     if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEBUG))
     {
-      v9 = 67109378;
-      v10[0] = forCopy;
-      LOWORD(v10[1]) = 2112;
-      *(&v10[1] + 2) = v4;
-      _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEBUG, "StateRelay for type %d: %@", &v9, 0x12u);
+      v8 = 67109378;
+      v9[0] = forCopy;
+      LOWORD(v9[1]) = 2112;
+      *(&v9[1] + 2) = v4;
+      _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEBUG, "StateRelay for type %d: %@", &v8, 0x12u);
     }
   }
 
@@ -112,22 +112,20 @@
     v6 = netepochsLogHandle;
     if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR))
     {
-      v9 = 134217984;
-      *v10 = forCopy;
-      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, "StateRelay for interface type %ld is invalid", &v9, 0xCu);
+      v8 = 134217984;
+      *v9 = forCopy;
+      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, "StateRelay for interface type %ld is invalid", &v8, 0xCu);
     }
 
     v4 = 0;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 void __38__NetworkStateRelay_getStateRelayFor___block_invoke()
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v0 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v1 = getStateRelayFor___interfaceRelays;
   getStateRelayFor___interfaceRelays = v0;
@@ -165,18 +163,16 @@ void __38__NetworkStateRelay_getStateRelayFor___block_invoke()
     v14 = [getStateRelayFor___interfaceRelays objectAtIndexedSubscript:5];
     v15 = [getStateRelayFor___interfaceRelays objectAtIndexedSubscript:2];
     v16 = [getStateRelayFor___interfaceRelays objectAtIndexedSubscript:7];
-    v18 = 138413058;
-    v19 = v13;
-    v20 = 2112;
-    v21 = v14;
-    v22 = 2112;
-    v23 = v15;
-    v24 = 2112;
-    v25 = v16;
-    _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEFAULT, "State relays created, sr wifi: %@, sr cell: %@, sr wired: %@, sr companion link %@", &v18, 0x2Au);
+    v17 = 138413058;
+    v18 = v13;
+    v19 = 2112;
+    v20 = v14;
+    v21 = 2112;
+    v22 = v15;
+    v23 = 2112;
+    v24 = v16;
+    _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEFAULT, "State relays created, sr wifi: %@, sr cell: %@, sr wired: %@, sr companion link %@", &v17, 0x2Au);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)initForInternalType:(unsigned __int8)type
@@ -389,7 +385,7 @@ void __38__NetworkStateRelay_getStateRelayFor___block_invoke()
 
 - (void)registerDelegate:(id)delegate lowerRSSIThreshold:(int)threshold upperRSSIThreshold:(int)iThreshold lowerSNRThreshold:(int)rThreshold upperSNRThreshold:(int)nRThreshold
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
   v13 = netepochsLogHandle;
   if (delegateCopy)
@@ -397,29 +393,29 @@ void __38__NetworkStateRelay_getStateRelayFor___block_invoke()
     if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138413314;
-      v22 = delegateCopy;
-      v23 = 1024;
+      v21 = delegateCopy;
+      v22 = 1024;
       thresholdCopy = threshold;
-      v25 = 1024;
+      v24 = 1024;
       iThresholdCopy = iThreshold;
-      v27 = 1024;
+      v26 = 1024;
       rThresholdCopy = rThreshold;
-      v29 = 1024;
+      v28 = 1024;
       nRThresholdCopy = nRThreshold;
       _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_DEFAULT, "Registering delegate %@ for threshold crossed notifications (RSSI: %d %d) (SNR: %d %d)", buf, 0x24u);
     }
 
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __112__NetworkStateRelay_registerDelegate_lowerRSSIThreshold_upperRSSIThreshold_lowerSNRThreshold_upperSNRThreshold___block_invoke;
-    v15[3] = &unk_27898F7B0;
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __112__NetworkStateRelay_registerDelegate_lowerRSSIThreshold_upperRSSIThreshold_lowerSNRThreshold_upperSNRThreshold___block_invoke;
+    v14[3] = &unk_27898F7B0;
     rThresholdCopy2 = rThreshold;
     nRThresholdCopy2 = nRThreshold;
     thresholdCopy2 = threshold;
     iThresholdCopy2 = iThreshold;
-    v15[4] = self;
-    v16 = delegateCopy;
-    sf_synchronize(&configurableThresholdLock, v15);
+    v14[4] = self;
+    v15 = delegateCopy;
+    sf_synchronize(&configurableThresholdLock, v14);
   }
 
   else if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR))
@@ -427,8 +423,6 @@ void __38__NetworkStateRelay_getStateRelayFor___block_invoke()
     *buf = 0;
     _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_ERROR, "delegate is nil, not registering for notifications", buf, 2u);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __112__NetworkStateRelay_registerDelegate_lowerRSSIThreshold_upperRSSIThreshold_lowerSNRThreshold_upperSNRThreshold___block_invoke(uint64_t a1)
@@ -439,7 +433,7 @@ void __112__NetworkStateRelay_registerDelegate_lowerRSSIThreshold_upperRSSIThres
 
 - (void)unregisterDelegate:(id)delegate
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
   v5 = netepochsLogHandle;
   if (delegateCopy)
@@ -447,17 +441,17 @@ void __112__NetworkStateRelay_registerDelegate_lowerRSSIThreshold_upperRSSIThres
     if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v10 = delegateCopy;
+      v9 = delegateCopy;
       _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "Unregistering delegate %@", buf, 0xCu);
     }
 
-    v7[0] = MEMORY[0x277D85DD0];
-    v7[1] = 3221225472;
-    v7[2] = __40__NetworkStateRelay_unregisterDelegate___block_invoke;
-    v7[3] = &unk_27898A7D0;
-    v7[4] = self;
-    v8 = delegateCopy;
-    sf_synchronize(&configurableThresholdLock, v7);
+    v6[0] = MEMORY[0x277D85DD0];
+    v6[1] = 3221225472;
+    v6[2] = __40__NetworkStateRelay_unregisterDelegate___block_invoke;
+    v6[3] = &unk_27898A7D0;
+    v6[4] = self;
+    v7 = delegateCopy;
+    sf_synchronize(&configurableThresholdLock, v6);
   }
 
   else if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR))
@@ -465,8 +459,6 @@ void __112__NetworkStateRelay_registerDelegate_lowerRSSIThreshold_upperRSSIThres
     *buf = 0;
     _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_ERROR, "delegate is nil, not unregistering from notifications", buf, 2u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateSNR:(int)r RSSI:(int)i
@@ -489,31 +481,31 @@ void __112__NetworkStateRelay_registerDelegate_lowerRSSIThreshold_upperRSSIThres
 
 void __36__NetworkStateRelay_updateSNR_RSSI___block_invoke(uint64_t a1)
 {
-  v39 = *MEMORY[0x277D85DE8];
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
+  v38 = *MEMORY[0x277D85DE8];
   v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   obj = *(*(a1 + 32) + 16);
-  v2 = [obj countByEnumeratingWithState:&v32 objects:v38 count:16];
+  v2 = [obj countByEnumeratingWithState:&v31 objects:v37 count:16];
   if (v2)
   {
     v4 = v2;
-    v5 = *v33;
+    v5 = *v32;
     v6 = &netepochsLogHandle;
     *&v3 = 138412290;
-    v29 = v3;
+    v28 = v3;
     do
     {
       v7 = 0;
       do
       {
-        if (*v33 != v5)
+        if (*v32 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v32 + 1) + 8 * v7);
+        v8 = *(*(&v31 + 1) + 8 * v7);
         if (objc_opt_respondsToSelector())
         {
           v9 = [*(*(a1 + 32) + 16) objectForKey:v8];
@@ -523,8 +515,8 @@ void __36__NetworkStateRelay_updateSNR_RSSI___block_invoke(uint64_t a1)
             v21 = *v6;
             if (os_log_type_enabled(*v6, OS_LOG_TYPE_ERROR))
             {
-              *buf = v29;
-              v37 = v8;
+              *buf = v28;
+              v36 = v8;
               _os_log_impl(&dword_23255B000, v21, OS_LOG_TYPE_ERROR, "config is nil for delegate %@, moving to next delegate", buf, 0xCu);
             }
 
@@ -536,7 +528,7 @@ void __36__NetworkStateRelay_updateSNR_RSSI___block_invoke(uint64_t a1)
           v13 = v6;
           v14 = [v9 upperSNRThreshold];
           v15 = [v10 lowerSNRThreshold];
-          v30 = [v10 upperRSSIThreshold];
+          v29 = [v10 upperRSSIThreshold];
           v16 = [v10 lowerRSSIThreshold];
           v17 = *(a1 + 40);
           v18 = *(a1 + 44);
@@ -564,7 +556,7 @@ LABEL_31:
             }
 
 LABEL_44:
-            [v8 l2MetricsCrossedAThresholdWithNewRSSI:v29 oldRSSI:? newSNR:? oldSNR:?];
+            [v8 l2MetricsCrossedAThresholdWithNewRSSI:v28 oldRSSI:? newSNR:? oldSNR:?];
           }
 
           else
@@ -574,8 +566,8 @@ LABEL_44:
               goto LABEL_44;
             }
 
-            v26 = v24 > v30 || v25 <= v30;
-            if (!v26 || v24 >= v30 && v25 < v30 || v24 <= v16 && v25 > v16)
+            v26 = v24 > v29 || v25 <= v29;
+            if (!v26 || v24 >= v29 && v25 < v29 || v24 <= v16 && v25 > v16)
             {
               goto LABEL_44;
             }
@@ -604,8 +596,8 @@ LABEL_45:
         v20 = *v6;
         if (os_log_type_enabled(*v6, OS_LOG_TYPE_DEFAULT))
         {
-          *buf = v29;
-          v37 = v8;
+          *buf = v28;
+          v36 = v8;
           _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_DEFAULT, "skipping delegate %@", buf, 0xCu);
         }
 
@@ -614,14 +606,12 @@ LABEL_46:
       }
 
       while (v4 != v7);
-      v27 = [obj countByEnumeratingWithState:&v32 objects:v38 count:16];
+      v27 = [obj countByEnumeratingWithState:&v31 objects:v37 count:16];
       v4 = v27;
     }
 
     while (v27);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setInterfaceName:(id)name
@@ -1055,7 +1045,7 @@ LABEL_46:
 
 - (void)setLqmAsystole:(BOOL)asystole
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (self->_lqmAsystole != asystole)
   {
     asystoleCopy = asystole;
@@ -1063,19 +1053,17 @@ LABEL_46:
     if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       lqmAsystole = self->_lqmAsystole;
-      v8[0] = 67109376;
-      v8[1] = lqmAsystole;
-      v9 = 1024;
-      v10 = asystoleCopy;
-      _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "lqmAsystole %d -> %d", v8, 0xEu);
+      v7[0] = 67109376;
+      v7[1] = lqmAsystole;
+      v8 = 1024;
+      v9 = asystoleCopy;
+      _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "lqmAsystole %d -> %d", v7, 0xEu);
     }
 
     [(NetworkStateRelay *)self willChangeValueForKey:@"lqmAsystole"];
     self->_lqmAsystole = asystoleCopy;
     [(NetworkStateRelay *)self didChangeValueForKey:@"lqmAsystole"];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setLoi:(int64_t)loi
@@ -1091,7 +1079,7 @@ LABEL_46:
 
 - (void)updateSignalStrength:(id)strength
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   strengthCopy = strength;
   v5 = strengthCopy;
   if (strengthCopy)
@@ -1104,12 +1092,10 @@ LABEL_46:
   if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     v7 = v6;
-    v9[0] = 67109120;
-    v9[1] = [(NetworkStateRelay *)self signalBars];
-    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, "CT update signal bars: %d", v9, 8u);
+    v8[0] = 67109120;
+    v8[1] = [(NetworkStateRelay *)self signalBars];
+    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, "CT update signal bars: %d", v8, 8u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (NSSet)defaultGateways
@@ -1141,37 +1127,34 @@ LABEL_46:
 
 - (id)valueForUndefinedKey:(id)key
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   v5 = netepochsLogHandle;
   if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR))
   {
-    v8 = 134218242;
+    v7 = 134218242;
     selfCopy = self;
-    v10 = 2112;
-    v11 = keyCopy;
-    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_ERROR, "%p attempt to fetch non-existent property %@", &v8, 0x16u);
+    v9 = 2112;
+    v10 = keyCopy;
+    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_ERROR, "%p attempt to fetch non-existent property %@", &v7, 0x16u);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (void)setValue:(id)value forUndefinedKey:(id)key
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   v6 = netepochsLogHandle;
   if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR))
   {
-    v8 = 134218242;
+    v7 = 134218242;
     selfCopy = self;
-    v10 = 2112;
-    v11 = keyCopy;
-    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, "%p attempt to set non-existent property %@, drop request", &v8, 0x16u);
+    v9 = 2112;
+    v10 = keyCopy;
+    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, "%p attempt to set non-existent property %@, drop request", &v7, 0x16u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

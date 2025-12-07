@@ -34,20 +34,19 @@
 
 - (HFSwingModeControlItem)initWithValueSource:(id)source
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   sourceCopy = source;
   v5 = [HFValueTransformer transformerForValueClass:objc_opt_class() transformBlock:&__block_literal_global_65 reverseTransformBlock:&__block_literal_global_10_2];
-  v13 = @"title";
+  v12 = @"title";
   v6 = _HFLocalizedStringWithDefaultValue(@"HFControlShortTitleSwingMode", @"HFControlShortTitleSwingMode", 1);
-  v14[0] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v13[0] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
 
   v8 = *MEMORY[0x277CCFAF8];
-  v12.receiver = self;
-  v12.super_class = HFSwingModeControlItem;
-  v9 = [(HFPrimaryStateControlItem *)&v12 initWithValueSource:sourceCopy characteristicType:v8 valueTransformer:v5 displayResults:v7];
+  v11.receiver = self;
+  v11.super_class = HFSwingModeControlItem;
+  v9 = [(HFPrimaryStateControlItem *)&v11 initWithValueSource:sourceCopy characteristicType:v8 valueTransformer:v5 displayResults:v7];
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 

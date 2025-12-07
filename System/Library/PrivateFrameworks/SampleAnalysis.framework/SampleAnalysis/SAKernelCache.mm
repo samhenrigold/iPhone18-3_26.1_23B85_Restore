@@ -59,7 +59,7 @@ void __37__SAKernelCache__doKernelCachesWork___block_invoke()
 
 void __49__SAKernelCache_kernelCacheWithUUID_loadAddress___block_invoke(void *a1, void *a2)
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   v3 = [a2 objectForKeyedSubscript:a1[4]];
   if (!v3)
   {
@@ -67,26 +67,26 @@ void __49__SAKernelCache_kernelCacheWithUUID_loadAddress___block_invoke(void *a1
     [a2 setObject:v3 forKeyedSubscript:a1[4]];
   }
 
-  v48 = 0u;
-  v49 = 0u;
-  v46 = 0u;
   v47 = 0u;
+  v48 = 0u;
+  v45 = 0u;
+  v46 = 0u;
   v4 = v3;
-  v5 = [v4 countByEnumeratingWithState:&v46 objects:v52 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v45 objects:v51 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v47;
+    v7 = *v46;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v47 != v7)
+        if (*v46 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v46 + 1) + 8 * i);
+        v9 = *(*(&v45 + 1) + 8 * i);
         if ([v9 loadAddress] == a1[6])
         {
           objc_storeStrong((*(a1[5] + 8) + 40), v9);
@@ -95,7 +95,7 @@ void __49__SAKernelCache_kernelCacheWithUUID_loadAddress___block_invoke(void *a1
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v46 objects:v52 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v45 objects:v51 count:16];
       if (v6)
       {
         continue;
@@ -110,9 +110,9 @@ void __49__SAKernelCache_kernelCacheWithUUID_loadAddress___block_invoke(void *a1
   {
     v11 = a1[4];
     v12 = a1[6];
-    v50.receiver = v10;
-    v50.super_class = SAKernelCache;
-    v13 = objc_msgSendSuper2(&v50, sel_init);
+    v49.receiver = v10;
+    v49.super_class = SAKernelCache;
+    v13 = objc_msgSendSuper2(&v49, sel_init);
     v14 = v13;
     if (v13)
     {
@@ -137,29 +137,29 @@ void __49__SAKernelCache_kernelCacheWithUUID_loadAddress___block_invoke(void *a1
     v19 = [v17 binaryLoadInfos];
     if ([v19 count])
     {
-      v38 = v4;
-      v40 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v19, "count")}];
+      v37 = v4;
+      v39 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v19, "count")}];
+      v41 = 0u;
       v42 = 0u;
       v43 = 0u;
       v44 = 0u;
-      v45 = 0u;
-      v37 = v19;
+      v36 = v19;
       obj = v19;
-      v20 = [obj countByEnumeratingWithState:&v42 objects:v51 count:16];
+      v20 = [obj countByEnumeratingWithState:&v41 objects:v50 count:16];
       if (v20)
       {
         v21 = v20;
-        v22 = *v43;
+        v22 = *v42;
         do
         {
           for (j = 0; j != v21; ++j)
           {
-            if (*v43 != v22)
+            if (*v42 != v22)
             {
               objc_enumerationMutation(obj);
             }
 
-            v24 = *(*(&v42 + 1) + 8 * j);
+            v24 = *(*(&v41 + 1) + 8 * j);
             v25 = [v24 loadAddress];
             v26 = v18;
             v27 = v25 - [v18 loadAddress];
@@ -183,48 +183,40 @@ void __49__SAKernelCache_kernelCacheWithUUID_loadAddress___block_invoke(void *a1
             }
             v34 = ;
 
-            [v40 addObject:v34];
+            [v39 addObject:v34];
             v18 = v26;
           }
 
-          v21 = [obj countByEnumeratingWithState:&v42 objects:v51 count:16];
+          v21 = [obj countByEnumeratingWithState:&v41 objects:v50 count:16];
         }
 
         while (v21);
       }
 
-      v35 = [v40 copy];
+      v35 = [v39 copy];
       [*(*(a1[5] + 8) + 40) setBinaryLoadInfos:v35];
 
-      v19 = v37;
-      v4 = v38;
+      v19 = v36;
+      v4 = v37;
     }
   }
 
   [v4 addObject:*(*(a1[5] + 8) + 40)];
 LABEL_30:
-
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)matchesUUID:(unsigned __int8)d[16] loadAddress:(unint64_t)address
 {
-  v9 = *MEMORY[0x1E69E9840];
-  if (self->_loadAddress == address)
+  v8 = *MEMORY[0x1E69E9840];
+  if (self->_loadAddress != address)
   {
-    *uu1 = 0;
-    v8 = 0;
-    [(NSUUID *)self->_uuid getUUIDBytes:uu1];
-    result = uuid_compare(uu1, d) == 0;
+    return 0;
   }
 
-  else
-  {
-    result = 0;
-  }
-
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  *uu1 = 0;
+  v7 = 0;
+  [(NSUUID *)self->_uuid getUUIDBytes:uu1];
+  return uuid_compare(uu1, d) == 0;
 }
 
 - (unint64_t)startAddress
@@ -298,7 +290,7 @@ LABEL_30:
 
 - (BOOL)addSelfToBuffer:(id *)buffer bufferLength:(unint64_t)length withCompletedSerializationDictionary:(id)dictionary
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   *&buffer->var0 = 257;
   *(&buffer->var3 + 1) = self->_loadAddress;
   [(NSUUID *)self->_uuid getUUIDBytes:buffer->var2];
@@ -309,25 +301,24 @@ LABEL_30:
       v10 = [(NSArray *)self->_binaryLoadInfos count];
       buffer->var3 = v10;
       SASerializableFillSerializedIndicesWithCollectionOfSerializableInstances(&buffer->var4 + 4, v10, self->_binaryLoadInfos, dictionary);
-      goto LABEL_8;
+      return 1;
     }
 
     length = *__error();
-    v16 = _sa_logt();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v15 = _sa_logt();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       dictionary = [(SAKernelCache *)self debugDescription];
       *buf = 136315394;
       lengthCopy = [dictionary UTF8String];
-      v33 = 1024;
-      LODWORD(v34) = 0xFFFF;
-      _os_log_error_impl(&dword_1E0E2F000, v16, OS_LOG_TYPE_ERROR, "%s: more than %d binaries", buf, 0x12u);
+      v19 = 1024;
+      LODWORD(v20) = 0xFFFF;
+      _os_log_error_impl(&dword_1E0E2F000, v15, OS_LOG_TYPE_ERROR, "%s: more than %d binaries", buf, 0x12u);
     }
 
     *__error() = length;
-    v17 = [(SAKernelCache *)self debugDescription];
-    uTF8String = [v17 UTF8String];
-    _SASetCrashLogMessage(5434, "%s: more than %d binaries", v19, v20, v21, v22, v23, v24, uTF8String);
+    v16 = [(SAKernelCache *)self debugDescription];
+    _SASetCrashLogMessage(5434, "%s: more than %d binaries", [v16 UTF8String], 0xFFFF);
 
     v11 = _os_crash();
     __break(1u);
@@ -336,13 +327,13 @@ LABEL_12:
     {
       *buf = 134218240;
       lengthCopy = length;
-      v33 = 2048;
-      v34 = 28;
+      v19 = 2048;
+      v20 = 28;
       _os_log_error_impl(&dword_1E0E2F000, dictionary, OS_LOG_TYPE_ERROR, "bufferLength %lu != serialized SAKernelCache struct %lu", buf, 0x16u);
     }
 
     *__error() = v5;
-    _SASetCrashLogMessage(5440, "bufferLength %lu != serialized SAKernelCache struct %lu", v25, v26, v27, v28, v29, v30, length);
+    _SASetCrashLogMessage(5440, "bufferLength %lu != serialized SAKernelCache struct %lu", length, 28);
     _os_crash();
     __break(1u);
   }
@@ -361,63 +352,59 @@ LABEL_12:
     v13 = [(NSArray *)self->_binaryLoadInfos count];
     *buf = 138412546;
     lengthCopy = v12;
-    v33 = 2048;
-    v34 = v13;
+    v19 = 2048;
+    v20 = v13;
     _os_log_impl(&dword_1E0E2F000, dictionary, OS_LOG_TYPE_DEFAULT, "WARNING: SAKernelCache %@ got its %lu binaries after starting serialization!", buf, 0x16u);
   }
 
   *__error() = v5;
   buffer->var3 = 0;
-LABEL_8:
-  v14 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
 - (void)addSelfToSerializationDictionary:(id)dictionary
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   classDictionaryKey = [objc_opt_class() classDictionaryKey];
   v6 = SASerializableAddInstanceToSerializationDictionaryWithClassKey(dictionary, self, classDictionaryKey);
 
   if (v6)
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v7 = self->_binaryLoadInfos;
-    v8 = [(NSArray *)v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v8 = [(NSArray *)v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v14;
+      v10 = *v13;
       do
       {
         v11 = 0;
         do
         {
-          if (*v14 != v10)
+          if (*v13 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          [*(*(&v13 + 1) + 8 * v11++) addSelfToSerializationDictionary:{dictionary, v13}];
+          [*(*(&v12 + 1) + 8 * v11++) addSelfToSerializationDictionary:{dictionary, v12}];
         }
 
         while (v9 != v11);
-        v9 = [(NSArray *)v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v9 = [(NSArray *)v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v9);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 + (id)newInstanceWithoutReferencesFromSerializedBuffer:(const void *)buffer bufferLength:(unint64_t)length
 {
-  *&v31[13] = *MEMORY[0x1E69E9840];
+  *&v17[13] = *MEMORY[0x1E69E9840];
   if (*buffer >= 2u)
   {
     goto LABEL_11;
@@ -425,19 +412,19 @@ LABEL_8:
 
   if (length <= 0x1B)
   {
-    v10 = *__error();
+    v9 = *__error();
     bufferCopy = _sa_logt();
     if (os_log_type_enabled(bufferCopy, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218240;
       lengthCopy2 = length;
-      v30 = 2048;
-      *v31 = 28;
+      v16 = 2048;
+      *v17 = 28;
       _os_log_error_impl(&dword_1E0E2F000, bufferCopy, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAKernelCache struct %lu", buf, 0x16u);
     }
 
-    *__error() = v10;
-    _SASetCrashLogMessage(5463, "bufferLength %lu < serialized SAKernelCache struct %lu", v11, v12, v13, v14, v15, v16, length);
+    *__error() = v9;
+    _SASetCrashLogMessage(5463, "bufferLength %lu < serialized SAKernelCache struct %lu", length, 28);
     _os_crash();
     __break(1u);
     goto LABEL_8;
@@ -447,40 +434,38 @@ LABEL_8:
   if (8 * *(buffer + 9) + 28 > length)
   {
 LABEL_8:
-    v17 = *__error();
-    v18 = _sa_logt();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v10 = *__error();
+    v11 = _sa_logt();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v19 = *(bufferCopy + 18);
+      v12 = *(bufferCopy + 18);
       *buf = 134218496;
       lengthCopy2 = length;
-      v30 = 1024;
-      *v31 = v19;
-      v31[2] = 2048;
-      *&v31[3] = 8 * v19 + 28;
-      _os_log_error_impl(&dword_1E0E2F000, v18, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAKernelCache struct plus %u load infos %lu", buf, 0x1Cu);
+      v16 = 1024;
+      *v17 = v12;
+      v17[2] = 2048;
+      *&v17[3] = 8 * v12 + 28;
+      _os_log_error_impl(&dword_1E0E2F000, v11, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAKernelCache struct plus %u load infos %lu", buf, 0x1Cu);
     }
 
-    *__error() = v17;
-    v27 = *(bufferCopy + 18);
-    _SASetCrashLogMessage(5464, "bufferLength %lu < serialized SAKernelCache struct plus %u load infos %lu", v20, v21, v22, v23, v24, v25, length);
+    *__error() = v10;
+    _SASetCrashLogMessage(5464, "bufferLength %lu < serialized SAKernelCache struct plus %u load infos %lu", length, *(bufferCopy + 18), 8 * *(bufferCopy + 18) + 28);
     _os_crash();
     __break(1u);
 LABEL_11:
-    v26 = [SAException exceptionWithName:@"Decoding failure" reason:@"Unknown SAKernelCache version" userInfo:0];
-    objc_exception_throw(v26);
+    v13 = [SAException exceptionWithName:@"Decoding failure" reason:@"Unknown SAKernelCache version" userInfo:0];
+    objc_exception_throw(v13);
   }
 
   v6 = uuidForBytes(buffer + 2);
   v7 = [SAKernelCache kernelCacheWithUUID:v6 loadAddress:*(bufferCopy + 20)];
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (void)populateReferencesUsingBuffer:(const void *)buffer bufferLength:(unint64_t)length andDeserializationDictionary:(id)dictionary andDataBufferDictionary:(id)bufferDictionary
 {
-  *&v39[13] = *MEMORY[0x1E69E9840];
+  *&v24[13] = *MEMORY[0x1E69E9840];
   if (*buffer >= 2u)
   {
     goto LABEL_16;
@@ -488,19 +473,19 @@ LABEL_11:
 
   if (length <= 0x1B)
   {
-    v17 = *__error();
+    v15 = *__error();
     bufferCopy = _sa_logt();
     if (os_log_type_enabled(bufferCopy, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218240;
       lengthCopy2 = length;
-      v38 = 2048;
-      *v39 = 28;
+      v23 = 2048;
+      *v24 = 28;
       _os_log_error_impl(&dword_1E0E2F000, bufferCopy, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAKernelCache struct %lu", buf, 0x16u);
     }
 
-    *__error() = v17;
-    _SASetCrashLogMessage(5478, "bufferLength %lu < serialized SAKernelCache struct %lu", v18, v19, v20, v21, v22, v23, length);
+    *__error() = v15;
+    _SASetCrashLogMessage(5478, "bufferLength %lu < serialized SAKernelCache struct %lu", length, 28);
     _os_crash();
     __break(1u);
     goto LABEL_13;
@@ -510,44 +495,40 @@ LABEL_11:
   if (8 * *(buffer + 9) + 28 > length)
   {
 LABEL_13:
-    v24 = *__error();
-    v25 = _sa_logt();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    v16 = *__error();
+    v17 = _sa_logt();
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      v26 = *(bufferCopy + 18);
+      v18 = *(bufferCopy + 18);
       *buf = 134218496;
       lengthCopy2 = length;
-      v38 = 1024;
-      *v39 = v26;
-      v39[2] = 2048;
-      *&v39[3] = 8 * v26 + 28;
-      _os_log_error_impl(&dword_1E0E2F000, v25, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAKernelCache struct plus %u load infos %lu", buf, 0x1Cu);
+      v23 = 1024;
+      *v24 = v18;
+      v24[2] = 2048;
+      *&v24[3] = 8 * v18 + 28;
+      _os_log_error_impl(&dword_1E0E2F000, v17, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAKernelCache struct plus %u load infos %lu", buf, 0x1Cu);
     }
 
-    *__error() = v24;
-    v34 = *(bufferCopy + 18);
-    _SASetCrashLogMessage(5479, "bufferLength %lu < serialized SAKernelCache struct plus %u load infos %lu", v27, v28, v29, v30, v31, v32, length);
+    *__error() = v16;
+    _SASetCrashLogMessage(5479, "bufferLength %lu < serialized SAKernelCache struct plus %u load infos %lu", length, *(bufferCopy + 18), 8 * *(bufferCopy + 18) + 28);
     _os_crash();
     __break(1u);
 LABEL_16:
-    v33 = [SAException exceptionWithName:@"Decoding failure" reason:@"Unknown SAInstruction version" userInfo:0];
-    objc_exception_throw(v33);
+    v19 = [SAException exceptionWithName:@"Decoding failure" reason:@"Unknown SAInstruction version" userInfo:0];
+    objc_exception_throw(v19);
   }
 
-  if ([(NSArray *)self->_binaryLoadInfos count]|| (v12 = *(bufferCopy + 18), !*(bufferCopy + 18)))
+  if (![(NSArray *)self->_binaryLoadInfos count])
   {
-    v11 = *MEMORY[0x1E69E9840];
-  }
-
-  else
-  {
-    v13 = objc_opt_class();
-    v35 = SASerializableNewMutableArrayFromIndexList(bufferCopy + 28, v12, dictionary, bufferDictionary, v13);
-    v14 = [v35 copy];
-    binaryLoadInfos = self->_binaryLoadInfos;
-    self->_binaryLoadInfos = v14;
-
-    v16 = *MEMORY[0x1E69E9840];
+    v11 = *(bufferCopy + 18);
+    if (*(bufferCopy + 18))
+    {
+      v12 = objc_opt_class();
+      v20 = SASerializableNewMutableArrayFromIndexList(bufferCopy + 28, v11, dictionary, bufferDictionary, v12);
+      v13 = [v20 copy];
+      binaryLoadInfos = self->_binaryLoadInfos;
+      self->_binaryLoadInfos = v13;
+    }
   }
 }
 

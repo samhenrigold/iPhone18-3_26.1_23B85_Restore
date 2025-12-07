@@ -29,12 +29,16 @@
 - (void)_receivedSleepDetectionNotificationAction:(id)action forRequest:(id)request;
 - (void)_registerForWirelessSplitterStateChanges;
 - (void)_registerMediaPlaybackStateChangedNotifications;
+- (void)_sendMediaRemoteCommand:(unsigned int)command startRewindMediaTimer:(BOOL)timer;
 - (void)_sendSDConfidenceThresholdIfNeeded;
 - (void)_sendSleepDetectionConfidenceThreshold:(id)threshold;
+- (void)_sendSleepDetectionFailureMetric:(unsigned __int8)metric;
+- (void)_sendSleepDetectionMediaMetricWithMediaPaused:(BOOL)paused rewoundMediaInSeconds:(id)seconds mediaStreamingAfterRewinding:(BOOL)rewinding;
+- (void)_sendSleepDetectionMetricsForYesNo:(BOOL)no withUserInfo:(id)info;
 - (void)_sendSleepDetectionReset:(id)reset withResetReason:(unsigned __int8)reason;
+- (void)_sendSleepDetectionUserResumedMedia:(BOOL)media;
 - (void)_sendSleepDuration;
 - (void)_setSleepDetectedConfidenceLevel:(id)level;
-- (void)_setSleepDetectionState:(BOOL)state;
 - (void)_setSleepDetectionTimestamp;
 - (void)_showSleepDetectionInternalDataCollectionNotification;
 - (void)_sleepDetectionMessageReceived:(id)received;
@@ -173,7 +177,7 @@
     [(AAController *)v6 setSleepDetectionMessageHandler:v10];
     if (dword_1002F6550 <= 30 && (dword_1002F6550 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001D85B0();
+      sub_1001D85B0(v6);
     }
 
     v7[0] = _NSConcreteStackBlock;
@@ -203,40 +207,44 @@
   p_connectedDiscovery = &self->_connectedDiscovery;
   if (!self->_connectedDiscovery)
   {
-    if (dword_1002F6550 <= 30 && (dword_1002F6550 != -1 || _LogCategory_Initialize()))
+    selfCopy = self;
+    if (dword_1002F6550 <= 30)
     {
-      sub_1001D86C8();
+      if (dword_1002F6550 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_1001D86C8(self, a2, v2);
+      }
     }
 
-    v4 = objc_alloc_init(AADeviceManager);
-    [v4 setDispatchQueue:self->_dispatchQueue];
-    v5 = +[AAServicesDaemon sharedAAServicesDaemon];
-    [v4 setInternalServicesDaemon:v5];
+    v5 = objc_alloc_init(AADeviceManager);
+    [v5 setDispatchQueue:selfCopy->_dispatchQueue];
+    v6 = +[AAServicesDaemon sharedAAServicesDaemon];
+    [v5 setInternalServicesDaemon:v6];
 
-    [v4 setInterruptionHandler:&stru_1002B77D8];
-    [v4 setInvalidationHandler:&stru_1002B77F8];
+    [v5 setInterruptionHandler:&stru_1002B77D8];
+    [v5 setInvalidationHandler:&stru_1002B77F8];
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_10002ECF8;
+    v12[3] = &unk_1002B7820;
+    v12[4] = selfCopy;
+    [v5 setDeviceFoundHandler:v12];
     v11[0] = _NSConcreteStackBlock;
     v11[1] = 3221225472;
-    v11[2] = sub_10002ECF8;
+    v11[2] = sub_10002ED04;
     v11[3] = &unk_1002B7820;
-    v11[4] = self;
-    [v4 setDeviceFoundHandler:v11];
-    v10[0] = _NSConcreteStackBlock;
-    v10[1] = 3221225472;
-    v10[2] = sub_10002ED04;
-    v10[3] = &unk_1002B7820;
-    v10[4] = self;
-    [v4 setDeviceLostHandler:v10];
-    objc_storeStrong(p_connectedDiscovery, v4);
-    connectedDiscovery = self->_connectedDiscovery;
-    v8[0] = _NSConcreteStackBlock;
-    v8[1] = 3221225472;
-    v8[2] = sub_10002ED10;
-    v8[3] = &unk_1002B68A8;
-    v8[4] = self;
-    v9 = v4;
-    v7 = v4;
-    [(AADeviceManager *)connectedDiscovery activateWithCompletion:v8];
+    v11[4] = selfCopy;
+    [v5 setDeviceLostHandler:v11];
+    objc_storeStrong(p_connectedDiscovery, v5);
+    connectedDiscovery = selfCopy->_connectedDiscovery;
+    v9[0] = _NSConcreteStackBlock;
+    v9[1] = 3221225472;
+    v9[2] = sub_10002ED10;
+    v9[3] = &unk_1002B68A8;
+    v9[4] = selfCopy;
+    v10 = v5;
+    v8 = v5;
+    [(AADeviceManager *)connectedDiscovery activateWithCompletion:v9];
   }
 }
 
@@ -271,17 +279,21 @@
 
 - (void)_connectedDeviceDiscoveryEnsureStopped
 {
-  if (dword_1002F6550 <= 30 && (dword_1002F6550 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_1002F6550 <= 30)
   {
-    sub_1001D8824();
+    if (dword_1002F6550 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_1001D8824(self, a2, v2);
+    }
   }
 
-  connectedDiscovery = self->_connectedDiscovery;
+  connectedDiscovery = selfCopy->_connectedDiscovery;
   if (connectedDiscovery)
   {
     [(AADeviceManager *)connectedDiscovery invalidate];
-    v4 = self->_connectedDiscovery;
-    self->_connectedDiscovery = 0;
+    v5 = selfCopy->_connectedDiscovery;
+    selfCopy->_connectedDiscovery = 0;
   }
 }
 
@@ -295,12 +307,12 @@
       goto LABEL_6;
     }
 
-    if (dword_1002F6550 != -1 || _LogCategory_Initialize())
+    if (dword_1002F6550 != -1 || (splitterStateOnToken = _LogCategory_Initialize(), splitterStateOnToken))
     {
-      sub_1001D8840();
+      sub_1001D8840(splitterStateOnToken, a2, v2);
     }
 
-    splitterStateOnToken = self->_splitterStateOnToken;
+    LODWORD(splitterStateOnToken) = self->_splitterStateOnToken;
     if (splitterStateOnToken != -1)
     {
 LABEL_6:
@@ -317,7 +329,7 @@ LABEL_6:
   detectionCopy = detection;
   if (dword_1002F6550 <= 30 && (dword_1002F6550 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001D885C();
+    sub_1001D885C(detectionCopy);
   }
 
   sleepEventTimeStamp = self->_sleepEventTimeStamp;
@@ -453,19 +465,67 @@ LABEL_6:
   p_splitterStateOnToken = &self->_splitterStateOnToken;
   if (self->_splitterStateOnToken == -1)
   {
-    if (dword_1002F6550 <= 30 && (dword_1002F6550 != -1 || _LogCategory_Initialize()))
+    selfCopy = self;
+    if (dword_1002F6550 <= 30)
     {
-      sub_1001D88B4();
+      if (dword_1002F6550 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_1001D88B4(self, a2, v2);
+      }
     }
 
-    dispatchQueue = self->_dispatchQueue;
+    dispatchQueue = selfCopy->_dispatchQueue;
     handler[0] = _NSConcreteStackBlock;
     handler[1] = 3221225472;
     handler[2] = sub_10002F604;
     handler[3] = &unk_1002B6DF0;
-    handler[4] = self;
+    handler[4] = selfCopy;
     notify_register_dispatch("com.apple.bluetooth.WirelessSplitterOn", p_splitterStateOnToken, dispatchQueue, handler);
   }
+}
+
+- (void)_sendMediaRemoteCommand:(unsigned int)command startRewindMediaTimer:(BOOL)timer
+{
+  v5 = *&command;
+  [(AASleepDetectionManager *)self _refreshApp];
+  v7 = objc_alloc_init(MRNowPlayingRequest);
+  if (v5 == 24)
+  {
+    v17 = kMRMediaRemoteOptionPlaybackPosition;
+    v10 = [NSNumber numberWithDouble:self->_seekToPosition];
+    v18 = v10;
+    v8 = [NSDictionary dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+
+    v9 = @"SeekToPlaybackPosition";
+  }
+
+  else if (v5 == 1)
+  {
+    if (dword_1002F6550 <= 30 && (dword_1002F6550 != -1 || _LogCategory_Initialize()))
+    {
+      sub_1001D892C(timer);
+    }
+
+    v8 = 0;
+    v9 = @"PauseMedia";
+  }
+
+  else
+  {
+    v8 = 0;
+    v9 = &stru_1002C1358;
+  }
+
+  dispatchQueue = self->_dispatchQueue;
+  v12[0] = _NSConcreteStackBlock;
+  v12[1] = 3221225472;
+  v12[2] = sub_10002F878;
+  v12[3] = &unk_1002B7870;
+  v15 = v5;
+  v13 = v9;
+  selfCopy = self;
+  timerCopy = timer;
+  [v7 sendCommand:v5 options:v8 queue:dispatchQueue completion:v12];
 }
 
 - (void)_sendSDConfidenceThresholdIfNeeded
@@ -478,53 +538,53 @@ LABEL_6:
 
     if (allValues)
     {
-      v15 = 0u;
-      v16 = 0u;
-      v13 = 0u;
-      v14 = 0u;
-      v6 = allValues;
-      v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
-      if (v7)
+      v19 = 0u;
+      v20 = 0u;
+      v17 = 0u;
+      v18 = 0u;
+      v10 = allValues;
+      v11 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      if (v11)
       {
-        v8 = v7;
-        v9 = *v14;
+        v12 = v11;
+        v13 = *v18;
         do
         {
-          v10 = 0;
+          v14 = 0;
           do
           {
-            if (*v14 != v9)
+            if (*v18 != v13)
             {
-              objc_enumerationMutation(v6);
+              objc_enumerationMutation(v10);
             }
 
-            v11 = *(*(&v13 + 1) + 8 * v10);
-            if (v11 && [*(*(&v13 + 1) + 8 * v10) routed] && objc_msgSend(v11, "sleepDetectionCapability") == 2 && objc_msgSend(v11, "sleepDetectionEnabled") == 1)
+            v15 = *(*(&v17 + 1) + 8 * v14);
+            if (v15 && [*(*(&v17 + 1) + 8 * v14) routed] && objc_msgSend(v15, "sleepDetectionCapability") == 2 && objc_msgSend(v15, "sleepDetectionEnabled") == 1)
             {
-              identifier = [v11 identifier];
+              identifier = [v15 identifier];
               [(AASleepDetectionManager *)self _sendSleepDetectionConfidenceThreshold:identifier];
             }
 
-            v10 = v10 + 1;
+            v14 = v14 + 1;
           }
 
-          while (v8 != v10);
-          v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+          while (v12 != v14);
+          v12 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
         }
 
-        while (v8);
+        while (v12);
       }
     }
 
     else
     {
-      sub_1001D8AFC();
+      sub_1001D8AFC(v7, v8, v9);
     }
   }
 
   else
   {
-    sub_1001D8B5C();
+    sub_1001D8B5C(0, a2, v2);
   }
 }
 
@@ -535,26 +595,11 @@ LABEL_6:
   CFPrefs_SetValue();
 }
 
-- (void)_setSleepDetectionState:(BOOL)state
-{
-  self->_sleepDetected = state;
-  v3 = &kCFBooleanTrue;
-  if (!state)
-  {
-    v3 = &kCFBooleanFalse;
-  }
-
-  v4 = *v3;
-  CFPrefs_SetValue();
-}
-
 - (void)_setSleepDetectionTimestamp
 {
   v3 = +[NSDate date];
   sleepEventTimeStamp = self->_sleepEventTimeStamp;
   self->_sleepEventTimeStamp = v3;
-
-  v5 = self->_sleepEventTimeStamp;
 
   CFPrefs_SetValue();
 }
@@ -563,36 +608,40 @@ LABEL_6:
 {
   if (self->_isStreaming)
   {
+    selfCopy = self;
     if (!self->_isWirelessSplitterOn)
     {
-      LOBYTE(v3) = 1;
-      return v3;
+      LOBYTE(self) = 1;
+      return self;
     }
 
-    if (dword_1002F6550 <= 30 && (dword_1002F6550 != -1 || _LogCategory_Initialize()))
+    if (dword_1002F6550 <= 30)
     {
-      sub_1001D8BD8();
+      if (dword_1002F6550 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_1001D8BD8(self, a2, v2);
+      }
     }
 
-    [(AASleepDetectionManager *)self _setSleepDetectionState:0];
-    [(AASleepDetectionManager *)self _sendSleepDetectionFailureMetric:3];
+    [(AASleepDetectionManager *)selfCopy _setSleepDetectionState:0];
+    [(AASleepDetectionManager *)selfCopy _sendSleepDetectionFailureMetric:3];
     goto LABEL_11;
   }
 
   if (dword_1002F6550 > 30)
   {
 LABEL_11:
-    LOBYTE(v3) = 0;
-    return v3;
+    LOBYTE(self) = 0;
+    return self;
   }
 
-  if (dword_1002F6550 != -1 || (v3 = _LogCategory_Initialize()) != 0)
+  if (dword_1002F6550 != -1 || (self = _LogCategory_Initialize(), self))
   {
-    sub_1001D8BBC();
+    sub_1001D8BBC(self, a2, v2);
     goto LABEL_11;
   }
 
-  return v3;
+  return self;
 }
 
 - (void)_sendSleepDetectionConfidenceThreshold:(id)threshold
@@ -638,18 +687,19 @@ LABEL_11:
 - (void)_sleepDetectionMessageReceived:(id)received
 {
   receivedCopy = received;
-  if ([receivedCopy length] <= 6)
+  v5 = [receivedCopy length];
+  if (v5 <= 6)
   {
-    sub_1001D8DFC();
+    sub_1001D8DFC(v5, v6, v7);
     goto LABEL_16;
   }
 
-  *&v10[3] = 0;
-  *v10 = 0;
-  [receivedCopy getBytes:v10 length:7];
+  *&v12[3] = 0;
+  *v12 = 0;
+  [receivedCopy getBytes:v12 length:7];
   if (dword_1002F6550 <= 30 && (dword_1002F6550 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001D8CF4(v10);
+    sub_1001D8CF4(v12);
   }
 
   if ([(AudioAccessoryDevice *)self->_currentAudioDevice sleepDetectionCapability]!= 2 || [(AudioAccessoryDevice *)self->_currentAudioDevice sleepDetectionEnabled]!= 1)
@@ -658,34 +708,33 @@ LABEL_11:
     goto LABEL_16;
   }
 
-  if (v10[0] == 2)
+  if (v12[0] == 2)
   {
-    v5 = v10[1];
-    if (v10[6])
+    v8 = v12[1];
+    if (v12[6])
     {
-      v6 = [NSNumber numberWithUnsignedChar:?];
-      if (v5 != 1)
+      v9 = [NSNumber numberWithUnsignedChar:?];
+      if (v8 != 1)
       {
-        v7 = 184;
+        v10 = 184;
         goto LABEL_14;
       }
 
-      [(AASleepDetectionManager *)self _setSleepDetectedConfidenceLevel:v6];
+      [(AASleepDetectionManager *)self _setSleepDetectedConfidenceLevel:v9];
     }
 
-    else if (v10[1] != 1)
+    else if (v12[1] != 1)
     {
 LABEL_15:
-      dispatchQueue = self->_dispatchQueue;
       MRMediaRemoteGetNowPlayingApplicationIsPlaying();
       goto LABEL_16;
     }
 
-    v6 = [NSNumber numberWithInt:5 * v10[5]];
-    v7 = 120;
+    v9 = [NSNumber numberWithInt:5 * v12[5]];
+    v10 = 120;
 LABEL_14:
-    v8 = *(&self->super.isa + v7);
-    *(&self->super.isa + v7) = v6;
+    v11 = *(&self->super.isa + v10);
+    *(&self->super.isa + v10) = v9;
 
     goto LABEL_15;
   }
@@ -699,26 +748,30 @@ LABEL_16:
   internalSDCoolOffPeriod = self->_internalSDCoolOffPeriod;
   if (internalSDCoolOffPeriod)
   {
-    [(NSNumber *)internalSDCoolOffPeriod integerValue];
+    integerValue = [(NSNumber *)internalSDCoolOffPeriod integerValue];
+  }
+
+  else
+  {
+    integerValue = 600;
   }
 
   if (dword_1002F6550 <= 30 && (dword_1002F6550 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001D8E9C();
+    sub_1001D8E9C(integerValue);
   }
 
-  v4 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_dispatchQueue);
+  v5 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_dispatchQueue);
   sleepDetectionCoolOffTimer = self->_sleepDetectionCoolOffTimer;
-  self->_sleepDetectionCoolOffTimer = v4;
-  v6 = v4;
+  self->_sleepDetectionCoolOffTimer = v5;
+  v7 = v5;
 
   handler[0] = _NSConcreteStackBlock;
   handler[1] = 3221225472;
   handler[2] = sub_1000305F8;
   handler[3] = &unk_1002B6880;
   handler[4] = self;
-  dispatch_source_set_event_handler(v6, handler);
-  v7 = self->_sleepDetectionCoolOffTimer;
+  dispatch_source_set_event_handler(v7, handler);
   CUDispatchTimerSet();
   dispatch_activate(self->_sleepDetectionCoolOffTimer);
   [(AASleepDetectionManager *)self _startMonitoringSourceMotion];
@@ -727,23 +780,27 @@ LABEL_16:
 
 - (void)_stopCoolOffTimer
 {
-  if (dword_1002F6550 <= 30 && (dword_1002F6550 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_1002F6550 <= 30)
   {
-    sub_1001D8EF8();
+    if (dword_1002F6550 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_1001D8EF8(self, a2, v2);
+    }
   }
 
-  sleepDetectionCoolOffTimer = self->_sleepDetectionCoolOffTimer;
+  sleepDetectionCoolOffTimer = selfCopy->_sleepDetectionCoolOffTimer;
   if (sleepDetectionCoolOffTimer)
   {
-    v4 = sleepDetectionCoolOffTimer;
-    dispatch_source_cancel(v4);
-    v5 = self->_sleepDetectionCoolOffTimer;
-    self->_sleepDetectionCoolOffTimer = 0;
+    v5 = sleepDetectionCoolOffTimer;
+    dispatch_source_cancel(v5);
+    v6 = selfCopy->_sleepDetectionCoolOffTimer;
+    selfCopy->_sleepDetectionCoolOffTimer = 0;
   }
 
-  [(AASleepDetectionManager *)self _stopMonitoringSourceMotion];
+  [(AASleepDetectionManager *)selfCopy _stopMonitoringSourceMotion];
 
-  [(AASleepDetectionManager *)self _activityMonitorEnsureStopped];
+  [(AASleepDetectionManager *)selfCopy _activityMonitorEnsureStopped];
 }
 
 - (void)_startRewindMediaTimer
@@ -760,25 +817,28 @@ LABEL_16:
   handler[3] = &unk_1002B6880;
   handler[4] = self;
   dispatch_source_set_event_handler(v5, handler);
-  v6 = self->_sleepDetectionRewindMediaTimer;
   CUDispatchTimerSet();
   dispatch_activate(self->_sleepDetectionRewindMediaTimer);
 }
 
 - (void)_stopRewindMediaTimer
 {
-  if (dword_1002F6550 <= 30 && (dword_1002F6550 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_1002F6550 <= 30)
   {
-    sub_1001D8F30();
+    if (dword_1002F6550 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_1001D8F30(self, a2, v2);
+    }
   }
 
-  sleepDetectionRewindMediaTimer = self->_sleepDetectionRewindMediaTimer;
+  sleepDetectionRewindMediaTimer = selfCopy->_sleepDetectionRewindMediaTimer;
   if (sleepDetectionRewindMediaTimer)
   {
-    v5 = sleepDetectionRewindMediaTimer;
-    dispatch_source_cancel(v5);
-    v4 = self->_sleepDetectionRewindMediaTimer;
-    self->_sleepDetectionRewindMediaTimer = 0;
+    v6 = sleepDetectionRewindMediaTimer;
+    dispatch_source_cancel(v6);
+    v5 = selfCopy->_sleepDetectionRewindMediaTimer;
+    selfCopy->_sleepDetectionRewindMediaTimer = 0;
   }
 }
 
@@ -788,7 +848,7 @@ LABEL_16:
   statusCopy = status;
   if (dword_1002F6550 <= 30 && (dword_1002F6550 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001D8F4C(statusCopy);
+    sub_1001D8F4C(statusCopy, lostCopy);
   }
 
   if (statusCopy != 1)
@@ -797,7 +857,7 @@ LABEL_16:
     {
       if (dword_1002F6550 <= 30 && (dword_1002F6550 != -1 || _LogCategory_Initialize()))
       {
-        sub_1001D8FB8();
+        sub_1001D8FB8(statusCopy);
       }
 
       if (_os_feature_enabled_impl() && MGGetBoolAnswer() && !self->_disableSleepDetectionNotification && (self->_sleepDetectedConfidenceLevel || lostCopy))
@@ -812,17 +872,22 @@ LABEL_16:
     goto LABEL_24;
   }
 
-  if ([(NSNumber *)self->_sleepDetectedConfidenceLevel unsignedIntegerValue]<= 0x40)
+  unsignedIntegerValue = [(NSNumber *)self->_sleepDetectedConfidenceLevel unsignedIntegerValue];
+  if (unsignedIntegerValue <= 0x40)
   {
-    sub_1001D9024();
+    sub_1001D9024(unsignedIntegerValue);
     return;
   }
 
-  if (![(AASleepDetectionManager *)self _shouldRunPauseMediaOnSleep])
+  _shouldRunPauseMediaOnSleep = [(AASleepDetectionManager *)self _shouldRunPauseMediaOnSleep];
+  if (!_shouldRunPauseMediaOnSleep)
   {
-    if (dword_1002F6550 <= 30 && (dword_1002F6550 != -1 || _LogCategory_Initialize()))
+    if (dword_1002F6550 <= 30)
     {
-      sub_1001D90A4();
+      if (dword_1002F6550 != -1 || (_shouldRunPauseMediaOnSleep = _LogCategory_Initialize(), _shouldRunPauseMediaOnSleep))
+      {
+        sub_1001D90A4(_shouldRunPauseMediaOnSleep, v9, v10);
+      }
     }
 
     self->_pausedMediaOnSleep = 0;
@@ -836,7 +901,7 @@ LABEL_24:
     goto LABEL_31;
   }
 
-  v7 = +[NSDate date];
+  v11 = +[NSDate date];
   rewindMediaInSeconds = self->_rewindMediaInSeconds;
   if (rewindMediaInSeconds)
   {
@@ -848,12 +913,12 @@ LABEL_24:
     integerValue = 5;
   }
 
-  v10 = [v7 dateByAddingTimeInterval:-integerValue];
-  v11 = [(AASleepDetectionManager *)self _formattedTimestamp:v10];
+  v14 = [v11 dateByAddingTimeInterval:-integerValue];
+  v15 = [(AASleepDetectionManager *)self _formattedTimestamp:v14];
 
   if (dword_1002F6550 <= 30 && (dword_1002F6550 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001D90C0();
+    sub_1001D90C0(v15);
   }
 
   [(AASleepDetectionManager *)self _setSleepDetectionTimestamp];
@@ -879,23 +944,36 @@ LABEL_31:
 - (void)_deviceMotionFrom:(id)from
 {
   fromCopy = from;
-  v5 = ([(CMMotionActivity *)fromCopy walking]|| [(CMMotionActivity *)fromCopy running]|| [(CMMotionActivity *)fromCopy cycling]) && [(CMMotionActivity *)fromCopy confidence]== 2 || [(AASleepDetectionManager *)self _isDeviceIsMoving:fromCopy];
-  if (dword_1002F6550 <= 30 && (dword_1002F6550 != -1 || _LogCategory_Initialize()))
+  if (([(CMMotionActivity *)fromCopy walking]|| [(CMMotionActivity *)fromCopy running]|| [(CMMotionActivity *)fromCopy cycling]) && (v5 = [(CMMotionActivity *)fromCopy confidence], v5 == 2))
   {
-    v8 = v5;
-    stateChangedFromStationaryToMoving = self->_stateChangedFromStationaryToMoving;
-    v7 = fromCopy;
-    LogPrintF();
+    v8 = 1;
   }
 
-  if (v5)
+  else
   {
-    if (dword_1002F6550 <= 30 && (dword_1002F6550 != -1 || _LogCategory_Initialize()))
+    v5 = [(AASleepDetectionManager *)self _isDeviceIsMoving:fromCopy];
+    v8 = v5;
+  }
+
+  if (dword_1002F6550 <= 30)
+  {
+    if (dword_1002F6550 != -1 || (v5 = _LogCategory_Initialize(), v5))
     {
-      sub_1001D9100();
+      v5 = LogPrintF(&dword_1002F6550, "[AASleepDetectionManager _deviceMotionFrom:]", 30, "Activity changed from UpdatedActivity: %@ isUserAwake %d _stateChangedFromStationaryToMoving %d", fromCopy, v8, self->_stateChangedFromStationaryToMoving);
+    }
+  }
+
+  if (v8)
+  {
+    if (dword_1002F6550 <= 30)
+    {
+      if (dword_1002F6550 != -1 || (v5 = _LogCategory_Initialize(), v5))
+      {
+        sub_1001D9100(v5, v6, v7);
+      }
     }
 
-    [(AASleepDetectionManager *)self _sendSleepDetectionFailureMetric:1, v7, v8, stateChangedFromStationaryToMoving];
+    [(AASleepDetectionManager *)self _sendSleepDetectionFailureMetric:1];
     [(AASleepDetectionManager *)self _stopCoolOffTimer];
     [(AASleepDetectionManager *)self _sendSleepDetectionReset:self->_sleepDetectionDeviceIdentifier withResetReason:2];
   }
@@ -974,20 +1052,24 @@ LABEL_22:
 
 - (void)_stopMonitoringSourceMotion
 {
-  if (dword_1002F6550 <= 30 && (dword_1002F6550 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_1002F6550 <= 30)
   {
-    sub_1001D9198();
+    if (dword_1002F6550 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_1001D9198(self, a2, v2);
+    }
   }
 
-  motionActivityManager = self->_motionActivityManager;
+  motionActivityManager = selfCopy->_motionActivityManager;
   if (motionActivityManager)
   {
     [(CMMotionActivityManager *)motionActivityManager stopActivityUpdates];
   }
 
-  self->_stateChangedFromStationaryToMoving = 0;
-  previousMotionActivity = self->_previousMotionActivity;
-  self->_previousMotionActivity = 0;
+  selfCopy->_stateChangedFromStationaryToMoving = 0;
+  previousMotionActivity = selfCopy->_previousMotionActivity;
+  selfCopy->_previousMotionActivity = 0;
 }
 
 - (void)_activityMonitorEnsureStarted
@@ -995,19 +1077,23 @@ LABEL_22:
   p_activityLevelNotifyToken = &self->_activityLevelNotifyToken;
   if (self->_activityLevelNotifyToken == -1)
   {
-    if (dword_1002F6550 <= 30 && (dword_1002F6550 != -1 || _LogCategory_Initialize()))
+    selfCopy = self;
+    if (dword_1002F6550 <= 30)
     {
-      sub_1001D91B4();
+      if (dword_1002F6550 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_1001D91B4(self, a2, v2);
+      }
     }
 
-    dispatchQueue = self->_dispatchQueue;
+    dispatchQueue = selfCopy->_dispatchQueue;
     handler[0] = _NSConcreteStackBlock;
     handler[1] = 3221225472;
     handler[2] = sub_100031100;
     handler[3] = &unk_1002B6DF0;
-    handler[4] = self;
+    handler[4] = selfCopy;
     notify_register_dispatch("com.apple.sharing.activity-level-changed", p_activityLevelNotifyToken, dispatchQueue, handler);
-    [(AASleepDetectionManager *)self _processUserActivity];
+    [(AASleepDetectionManager *)selfCopy _processUserActivity];
   }
 }
 
@@ -1039,16 +1125,221 @@ LABEL_8:
     return;
   }
 
-  if (dword_1002F6550 != -1 || _LogCategory_Initialize())
+  if (dword_1002F6550 != -1 || (activityLevelNotifyToken = _LogCategory_Initialize(), activityLevelNotifyToken))
   {
-    sub_1001D92B0();
+    sub_1001D92B0(activityLevelNotifyToken, a2, v2);
   }
 
-  activityLevelNotifyToken = self->_activityLevelNotifyToken;
+  LODWORD(activityLevelNotifyToken) = self->_activityLevelNotifyToken;
   self->_activityLevel = 0;
   if (activityLevelNotifyToken != -1)
   {
     goto LABEL_8;
+  }
+}
+
+- (void)_sendSleepDetectionFailureMetric:(unsigned __int8)metric
+{
+  currentAudioDevice = self->_currentAudioDevice;
+  if (currentAudioDevice)
+  {
+    if (self->_sleepDetectedConfidenceLevel)
+    {
+      metricCopy = metric;
+      v12[0] = @"accessoryFW";
+      firmwareVersion = [(AudioAccessoryDevice *)currentAudioDevice firmwareVersion];
+      v13[0] = firmwareVersion;
+      v12[1] = @"accessoryProductID";
+      v7 = self->_currentAudioDevice;
+      if (v7)
+      {
+        v8 = [NSNumber numberWithUnsignedInt:[(AudioAccessoryDevice *)self->_currentAudioDevice productID]];
+      }
+
+      else
+      {
+        v8 = &off_1002CB690;
+      }
+
+      sleepDetectedConfidenceLevel = self->_sleepDetectedConfidenceLevel;
+      if (!sleepDetectedConfidenceLevel)
+      {
+        sleepDetectedConfidenceLevel = &off_1002CB690;
+      }
+
+      v13[1] = v8;
+      v13[2] = sleepDetectedConfidenceLevel;
+      v12[2] = @"confidenceLevel";
+      v12[3] = @"sleepDetectionFailedReason";
+      v10 = [NSNumber numberWithUnsignedChar:metricCopy];
+      v12[4] = @"sourceType";
+      v13[3] = v10;
+      v13[4] = &off_1002CB690;
+      v11 = [NSDictionary dictionaryWithObjects:v13 forKeys:v12 count:5];
+      CUMetricsLog();
+
+      if (v7)
+      {
+      }
+    }
+
+    else
+    {
+      sub_1001D92CC(currentAudioDevice, a2, metric);
+    }
+  }
+
+  else
+  {
+    sub_1001D932C(0, a2, metric);
+  }
+}
+
+- (void)_sendSleepDetectionMediaMetricWithMediaPaused:(BOOL)paused rewoundMediaInSeconds:(id)seconds mediaStreamingAfterRewinding:(BOOL)rewinding
+{
+  rewindingCopy = rewinding;
+  pausedCopy = paused;
+  secondsCopy = seconds;
+  currentAudioDevice = self->_currentAudioDevice;
+  if (currentAudioDevice)
+  {
+    if (self->_sleepDetectedConfidenceLevel)
+    {
+      v19[0] = @"accessoryFW";
+      firmwareVersion = [(AudioAccessoryDevice *)currentAudioDevice firmwareVersion];
+      v20[0] = firmwareVersion;
+      v19[1] = @"accessoryProductID";
+      v13 = self->_currentAudioDevice;
+      if (v13)
+      {
+        v14 = [NSNumber numberWithUnsignedInt:[(AudioAccessoryDevice *)self->_currentAudioDevice productID]];
+      }
+
+      else
+      {
+        v14 = &off_1002CB690;
+      }
+
+      sleepDetectedConfidenceLevel = self->_sleepDetectedConfidenceLevel;
+      if (!sleepDetectedConfidenceLevel)
+      {
+        sleepDetectedConfidenceLevel = &off_1002CB690;
+      }
+
+      v20[1] = v14;
+      v20[2] = sleepDetectedConfidenceLevel;
+      v19[2] = @"confidenceLevel";
+      v19[3] = @"mediaPaused";
+      v16 = [NSNumber numberWithBool:pausedCopy];
+      v20[3] = v16;
+      v19[4] = @"mediaStreamingAfterRewinding";
+      v17 = [NSNumber numberWithBool:rewindingCopy];
+      v20[4] = v17;
+      v20[5] = secondsCopy;
+      v19[5] = @"rewoundMediaInSeconds";
+      v19[6] = @"sourceType";
+      v20[6] = &off_1002CB690;
+      v18 = [NSDictionary dictionaryWithObjects:v20 forKeys:v19 count:7];
+      CUMetricsLog();
+
+      if (v13)
+      {
+      }
+    }
+
+    else
+    {
+      sub_1001D938C(currentAudioDevice, v8, v9);
+    }
+  }
+
+  else
+  {
+    sub_1001D93EC(0, v8, v9);
+  }
+}
+
+- (void)_sendSleepDetectionMetricsForYesNo:(BOOL)no withUserInfo:(id)info
+{
+  noCopy = no;
+  v13[0] = @"accessoryFW";
+  infoCopy = info;
+  v6 = [infoCopy objectForKeyedSubscript:@"accessoryFW"];
+  v14[0] = v6;
+  v13[1] = @"accessoryProductID";
+  v7 = [infoCopy objectForKeyedSubscript:?];
+  v14[1] = v7;
+  v13[2] = @"confidenceLevel";
+  v8 = [infoCopy objectForKeyedSubscript:?];
+  v14[2] = v8;
+  v13[3] = @"sleepDuration";
+  v9 = [infoCopy objectForKeyedSubscript:?];
+  v14[3] = v9;
+  v13[4] = @"sleepAccurateDetect";
+  v10 = [NSNumber numberWithBool:noCopy];
+  v14[4] = v10;
+  v13[5] = @"sourceType";
+  v11 = [infoCopy objectForKeyedSubscript:?];
+
+  v14[5] = v11;
+  v12 = [NSDictionary dictionaryWithObjects:v14 forKeys:v13 count:6];
+  CUMetricsLog();
+}
+
+- (void)_sendSleepDetectionUserResumedMedia:(BOOL)media
+{
+  currentAudioDevice = self->_currentAudioDevice;
+  if (currentAudioDevice)
+  {
+    if (self->_sleepDetectedConfidenceLevel)
+    {
+      mediaCopy = media;
+      v12[0] = @"accessoryFW";
+      firmwareVersion = [(AudioAccessoryDevice *)currentAudioDevice firmwareVersion];
+      v13[0] = firmwareVersion;
+      v12[1] = @"accessoryProductID";
+      v7 = self->_currentAudioDevice;
+      if (v7)
+      {
+        v8 = [NSNumber numberWithUnsignedInt:[(AudioAccessoryDevice *)self->_currentAudioDevice productID]];
+      }
+
+      else
+      {
+        v8 = &off_1002CB690;
+      }
+
+      sleepDetectedConfidenceLevel = self->_sleepDetectedConfidenceLevel;
+      if (!sleepDetectedConfidenceLevel)
+      {
+        sleepDetectedConfidenceLevel = &off_1002CB690;
+      }
+
+      v13[1] = v8;
+      v13[2] = sleepDetectedConfidenceLevel;
+      v12[2] = @"confidenceLevel";
+      v12[3] = @"audioResumedWithin30Seconds";
+      v10 = [NSNumber numberWithBool:mediaCopy];
+      v12[4] = @"sourceType";
+      v13[3] = v10;
+      v13[4] = &off_1002CB690;
+      v11 = [NSDictionary dictionaryWithObjects:v13 forKeys:v12 count:5];
+      CUMetricsLog();
+
+      if (v7)
+      {
+      }
+    }
+
+    else
+    {
+      sub_1001D944C(currentAudioDevice, a2, media);
+    }
+  }
+
+  else
+  {
+    sub_1001D94AC(0, a2, media);
   }
 }
 
@@ -1057,59 +1348,67 @@ LABEL_8:
   currentAudioDevice = self->_currentAudioDevice;
   if (currentAudioDevice)
   {
-    v9[0] = @"accessoryFW";
+    v10[0] = @"accessoryFW";
     firmwareVersion = [(AudioAccessoryDevice *)currentAudioDevice firmwareVersion];
-    v10[0] = firmwareVersion;
-    v9[1] = @"accessoryProductID";
-    v5 = self->_currentAudioDevice;
-    if (v5)
+    v11[0] = firmwareVersion;
+    v10[1] = @"accessoryProductID";
+    v6 = self->_currentAudioDevice;
+    if (v6)
     {
-      v6 = [NSNumber numberWithUnsignedInt:[(AudioAccessoryDevice *)self->_currentAudioDevice productID]];
+      v7 = [NSNumber numberWithUnsignedInt:[(AudioAccessoryDevice *)self->_currentAudioDevice productID]];
     }
 
     else
     {
-      v6 = &off_1002CB690;
+      v7 = &off_1002CB690;
     }
 
-    v10[1] = v6;
-    v9[2] = @"sleepDuration";
-    v7 = [NSNumber numberWithInteger:[(AASleepDetectionManager *)self _minutesSinceTimestamp:self->_sleepEventTimeStamp]];
-    v10[2] = v7;
-    v8 = [NSDictionary dictionaryWithObjects:v10 forKeys:v9 count:3];
+    v11[1] = v7;
+    v10[2] = @"sleepDuration";
+    v8 = [NSNumber numberWithInteger:[(AASleepDetectionManager *)self _minutesSinceTimestamp:self->_sleepEventTimeStamp]];
+    v11[2] = v8;
+    v9 = [NSDictionary dictionaryWithObjects:v11 forKeys:v10 count:3];
     CUMetricsLog();
 
-    if (v5)
+    if (v6)
     {
     }
   }
 
   else
   {
-    sub_1001D950C();
+    sub_1001D950C(0, a2, v2);
   }
 }
 
 - (void)_deregisterMediaPlaybackStateChangedNotifications
 {
-  if (dword_1002F6550 <= 30 && (dword_1002F6550 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_1002F6550 <= 30)
   {
-    sub_1001D956C();
+    if (dword_1002F6550 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_1001D956C(self, a2, v2);
+    }
   }
 
-  v3 = +[NSNotificationCenter defaultCenter];
-  [v3 removeObserver:self name:kMRMediaRemoteOriginNowPlayingApplicationPlaybackStateDidChangeNotification object:0];
+  v4 = +[NSNotificationCenter defaultCenter];
+  [v4 removeObserver:selfCopy name:kMRMediaRemoteOriginNowPlayingApplicationPlaybackStateDidChangeNotification object:0];
 }
 
 - (void)_registerMediaPlaybackStateChangedNotifications
 {
-  if (dword_1002F6550 <= 30 && (dword_1002F6550 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_1002F6550 <= 30)
   {
-    sub_1001D9764();
+    if (dword_1002F6550 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_1001D9764(self, a2, v2);
+    }
   }
 
-  v3 = +[NSNotificationCenter defaultCenter];
-  [v3 addObserver:self selector:"_handleNowPlayingStateChangedNotification" name:kMRMediaRemoteOriginNowPlayingApplicationPlaybackStateDidChangeNotification object:0];
+  v4 = +[NSNotificationCenter defaultCenter];
+  [v4 addObserver:selfCopy selector:"_handleNowPlayingStateChangedNotification" name:kMRMediaRemoteOriginNowPlayingApplicationPlaybackStateDidChangeNotification object:0];
 }
 
 - (void)_addSleepDetectionNotificationCategory
@@ -1175,7 +1474,7 @@ LABEL_8:
 
     if (dword_1002F6550 <= 30 && (dword_1002F6550 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001D98D0();
+      sub_1001D98D0(v11);
     }
 
     v12 = CULocalizedStringEx();
@@ -1270,7 +1569,7 @@ LABEL_8:
   userInfo = [content userInfo];
 
   v9 = actionCopy;
-  v23 = v9;
+  v29 = v9;
   if (UNNotificationDismissActionIdentifier == v9)
   {
 
@@ -1290,14 +1589,14 @@ LABEL_8:
 LABEL_6:
     if (dword_1002F6550 <= 30 && (dword_1002F6550 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001D9A58();
+      sub_1001D9A58(userInfo);
     }
 
     goto LABEL_28;
   }
 
 LABEL_11:
-  v11 = v23;
+  v11 = v29;
   v12 = v11;
   if (UNNotificationDefaultActionIdentifier == v11)
   {
@@ -1305,7 +1604,7 @@ LABEL_11:
     goto LABEL_16;
   }
 
-  if ((v23 != 0) != (UNNotificationDefaultActionIdentifier == 0))
+  if ((v29 != 0) != (UNNotificationDefaultActionIdentifier == 0))
   {
     v13 = [(NSString *)v11 isEqual:UNNotificationDefaultActionIdentifier];
 
@@ -1317,7 +1616,7 @@ LABEL_11:
 LABEL_16:
     if (dword_1002F6550 <= 30 && (dword_1002F6550 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001D9A18();
+      sub_1001D9A18(userInfo);
     }
 
     goto LABEL_28;
@@ -1330,32 +1629,38 @@ LABEL_21:
     goto LABEL_24;
   }
 
-  v15 = v14;
+  v17 = v14;
   if (!v14)
   {
     goto LABEL_52;
   }
 
-  v16 = [(__CFString *)v14 isEqual:@"SleepDetectionUserNotificationActionIDYes"];
+  v18 = [(__CFString *)v14 isEqual:@"SleepDetectionUserNotificationActionIDYes"];
 
-  if (v16)
+  if (v18)
   {
 LABEL_24:
-    if (dword_1002F6550 <= 30 && (dword_1002F6550 != -1 || _LogCategory_Initialize()))
+    if (dword_1002F6550 <= 30)
     {
-      sub_1001D99FC();
+      if (dword_1002F6550 != -1 || (v14 = _LogCategory_Initialize(), v14))
+      {
+        sub_1001D99FC(v14, v15, v16);
+      }
     }
 
     [(AASleepDetectionManager *)self _sendSleepDetectionMetricsForYesNo:1 withUserInfo:userInfo];
     goto LABEL_28;
   }
 
-  v17 = v15;
-  if (v17 == @"SleepDetectionUserNotificationActionIDNo" || (v18 = v17, v19 = [(__CFString *)v17 isEqual:@"SleepDetectionUserNotificationActionIDNo"], v18, v19))
+  v19 = v17;
+  if (v19 == @"SleepDetectionUserNotificationActionIDNo" || (v22 = v19, v23 = [(__CFString *)v19 isEqual:@"SleepDetectionUserNotificationActionIDNo"], v22, v23))
   {
-    if (dword_1002F6550 <= 30 && (dword_1002F6550 != -1 || _LogCategory_Initialize()))
+    if (dword_1002F6550 <= 30)
     {
-      sub_1001D99A0();
+      if (dword_1002F6550 != -1 || (v19 = _LogCategory_Initialize(), v19))
+      {
+        sub_1001D99A0(v19, v20, v21);
+      }
     }
 
     [(AASleepDetectionManager *)self _sendSleepDetectionMetricsForYesNo:0 withUserInfo:userInfo];
@@ -1363,12 +1668,15 @@ LABEL_24:
     goto LABEL_28;
   }
 
-  v20 = v18;
-  if (v20 == @"SleepDetectionUserNotificationActionIDDisable" || (v21 = v20, v22 = [(__CFString *)v20 isEqual:@"SleepDetectionUserNotificationActionIDDisable"], v21, v22))
+  v24 = v22;
+  if (v24 == @"SleepDetectionUserNotificationActionIDDisable" || (v27 = v24, v28 = [(__CFString *)v24 isEqual:@"SleepDetectionUserNotificationActionIDDisable"], v27, v28))
   {
-    if (dword_1002F6550 <= 30 && (dword_1002F6550 != -1 || _LogCategory_Initialize()))
+    if (dword_1002F6550 <= 30)
     {
-      sub_1001D9984();
+      if (dword_1002F6550 != -1 || (v24 = _LogCategory_Initialize(), v24))
+      {
+        sub_1001D9984(v24, v25, v26);
+      }
     }
 
     [(AASleepDetectionManager *)self _setDisableSleepDetectionNotification];
@@ -1379,7 +1687,7 @@ LABEL_24:
 LABEL_52:
     if (dword_1002F6550 <= 90 && (dword_1002F6550 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001D99BC();
+      sub_1001D99BC(v17);
     }
   }
 

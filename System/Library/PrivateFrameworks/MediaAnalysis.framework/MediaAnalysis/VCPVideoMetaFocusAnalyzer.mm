@@ -121,7 +121,7 @@
   mutableResults = self->_mutableResults;
   if (activeSegment)
   {
-    [(VCPMetaSegment *)activeSegment timeRange];
+    objc_msgSend_timeRange(activeSegment);
   }
 
   else
@@ -139,7 +139,7 @@
   v7 = self->_activeSegment;
   if (v7)
   {
-    [(VCPMetaSegment *)v7 timeRange];
+    objc_msgSend_timeRange(v7);
   }
 
   else

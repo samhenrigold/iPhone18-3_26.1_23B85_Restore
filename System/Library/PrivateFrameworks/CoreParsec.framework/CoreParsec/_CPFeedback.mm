@@ -29,7 +29,6 @@
   toCopy = to;
   if ([(_CPFeedback *)self timestamp])
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 }

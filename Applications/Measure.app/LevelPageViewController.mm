@@ -792,7 +792,7 @@ LABEL_43:
   v9 = 0.0;
   if (attitude)
   {
-    [attitude rotationMatrix];
+    objc_msgSend_rotationMatrix(attitude, 0.0, 0.0);
     v9 = *&v59;
     v8 = *(&v60 + 1);
     v7 = v62;

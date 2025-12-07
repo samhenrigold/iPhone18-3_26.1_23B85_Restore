@@ -150,9 +150,7 @@ LABEL_8:
 
 - (void)setAddress:(id)address
 {
-  v4 = [address copy];
-  address = self->_address;
-  self->_address = v4;
+  self->_address = [address copy];
 
   MEMORY[0x1EEE66BB8]();
 }

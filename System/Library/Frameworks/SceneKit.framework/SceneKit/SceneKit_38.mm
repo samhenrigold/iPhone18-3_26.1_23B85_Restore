@@ -1,3 +1,2317 @@
+void std::vector<OpenSubdiv::v3_1_1::Far::PatchTableFactory::BuilderContext::PatchTuple>::reserve(void *a1, unint64_t a2)
+{
+  if (a2 > (a1[2] - *a1) >> 3)
+  {
+    if (!(a2 >> 61))
+    {
+      std::__allocate_at_least[abi:nn200100]<std::allocator<double>>(a1, a2);
+    }
+
+    std::string::__throw_length_error[abi:nn200100]();
+  }
+}
+
+void std::vector<std::vector<int>>::resize(void *a1, unint64_t a2)
+{
+  v3 = a1[1];
+  v4 = 0xAAAAAAAAAAAAAAABLL * ((v3 - *a1) >> 3);
+  v5 = a2 >= v4;
+  v6 = a2 - v4;
+  if (v6 != 0 && v5)
+  {
+
+    std::vector<std::vector<int>>::__append(a1, v6);
+  }
+
+  else if (!v5)
+  {
+    v7 = *a1 + 24 * a2;
+    if (v3 != v7)
+    {
+      v8 = a1[1];
+      do
+      {
+        v10 = *(v8 - 24);
+        v8 -= 24;
+        v9 = v10;
+        if (v10)
+        {
+          *(v3 - 16) = v9;
+          operator delete(v9);
+        }
+
+        v3 = v8;
+      }
+
+      while (v8 != v7);
+    }
+
+    a1[1] = v7;
+  }
+}
+
+uint64_t OpenSubdiv::v3_1_1::Far::PatchTableFactory::BuilderContext::GatherIrregularPatchPoints<OpenSubdiv::v3_1_1::Far::EndCapGregoryBasisPatchFactory>(void *a1, uint64_t a2, _DWORD *a3, unsigned int *a4, uint64_t a5, unsigned int a6)
+{
+  if ((a6 & 0x80000000) != 0)
+  {
+    v7 = a1 + 12;
+    v8 = -1;
+  }
+
+  else
+  {
+    v7 = (a1[15] + 24 * a6);
+    v8 = *(a1[18] + 4 * a6);
+  }
+
+  PatchPoints = OpenSubdiv::v3_1_1::Far::EndCapGregoryBasisPatchFactory::GetPatchPoints(a2, *(*(*a1 + 40) + 8 * a4[1]), *a4, a5, *(*v7 + 4 * a4[1]), v8);
+  result = v9;
+  if (v9 >= 1)
+  {
+    v12 = v9 & 0x7FFFFFFF;
+    do
+    {
+      v13 = *PatchPoints++;
+      *a3++ = v13;
+      --v12;
+    }
+
+    while (v12);
+  }
+
+  return result;
+}
+
+uint64_t OpenSubdiv::v3_1_1::Far::PatchTableFactory::BuilderContext::GatherIrregularPatchPoints<OpenSubdiv::v3_1_1::Far::EndCapBSplineBasisPatchFactory>(void *a1, uint64_t a2, _DWORD *a3, unsigned int *a4, __int16 *a5, unsigned int a6)
+{
+  if ((a6 & 0x80000000) != 0)
+  {
+    v7 = a1 + 12;
+    v8 = -1;
+  }
+
+  else
+  {
+    v7 = (a1[15] + 24 * a6);
+    v8 = *(a1[18] + 4 * a6);
+  }
+
+  PatchPoints = OpenSubdiv::v3_1_1::Far::EndCapBSplineBasisPatchFactory::GetPatchPoints(a2, *(*(*a1 + 40) + 8 * a4[1]), *a4, a5, *(*v7 + 4 * a4[1]), v8);
+  result = v9;
+  if (v9 >= 1)
+  {
+    v12 = v9 & 0x7FFFFFFF;
+    do
+    {
+      v13 = *PatchPoints++;
+      *a3++ = v13;
+      --v12;
+    }
+
+    while (v12);
+  }
+
+  return result;
+}
+
+uint64_t OpenSubdiv::v3_1_1::Far::PatchTableFactory::BuilderContext::GatherIrregularPatchPoints<OpenSubdiv::v3_1_1::Far::EndCapLegacyGregoryPatchFactory>(void *a1, uint64_t a2, _DWORD *a3, int *a4, int a5, unsigned int a6)
+{
+  if ((a6 & 0x80000000) != 0)
+  {
+    v7 = a1 + 12;
+    v8 = -1;
+  }
+
+  else
+  {
+    v7 = (a1[15] + 24 * a6);
+    v8 = *(a1[18] + 4 * a6);
+  }
+
+  PatchPoints = OpenSubdiv::v3_1_1::Far::EndCapLegacyGregoryPatchFactory::GetPatchPoints(a2, *(*(*a1 + 40) + 8 * a4[1]), *a4, a5, *(*v7 + 4 * a4[1]), v8);
+  result = v9;
+  if (v9 >= 1)
+  {
+    v12 = v9 & 0x7FFFFFFF;
+    do
+    {
+      v13 = *PatchPoints++;
+      *a3++ = v13;
+      --v12;
+    }
+
+    while (v12);
+  }
+
+  return result;
+}
+
+void std::vector<OpenSubdiv::v3_1_1::Far::StencilTable const*>::resize(void *result, unint64_t a2)
+{
+  v2 = (result[1] - *result) >> 3;
+  if (a2 <= v2)
+  {
+    if (a2 < v2)
+    {
+      result[1] = *result + 8 * a2;
+    }
+  }
+
+  else
+  {
+    std::vector<OpenSubdiv::v3_1_1::Far::StencilTable const*>::__append(result, a2 - v2);
+  }
+}
+
+void OpenSubdiv::v3_1_1::Far::StencilTable::shrinkToFit(OpenSubdiv::v3_1_1::Far::StencilTable *this)
+{
+  std::vector<unsigned int>::vector[abi:nn200100](&v11, this + 2);
+  v2 = *(this + 2);
+  *(this + 1) = v11;
+  v3 = v12;
+  v4 = *(this + 4);
+  *&v11 = v2;
+  v12 = v4;
+  *(this + 4) = v3;
+  if (v2)
+  {
+    *(&v11 + 1) = v2;
+    operator delete(v2);
+  }
+
+  std::vector<unsigned int>::vector[abi:nn200100](&v11, this + 8);
+  v5 = *(this + 8);
+  *(this + 4) = v11;
+  v6 = v12;
+  v7 = *(this + 10);
+  *&v11 = v5;
+  v12 = v7;
+  *(this + 10) = v6;
+  if (v5)
+  {
+    *(&v11 + 1) = v5;
+    operator delete(v5);
+  }
+
+  std::vector<unsigned int>::vector[abi:nn200100](&v11, this + 11);
+  v8 = *(this + 11);
+  *(this + 88) = v11;
+  v9 = v12;
+  v10 = *(this + 13);
+  *&v11 = v8;
+  v12 = v10;
+  *(this + 13) = v9;
+  if (v8)
+  {
+    *(&v11 + 1) = v8;
+    operator delete(v8);
+  }
+}
+
+void **std::vector<int>::__assign_with_size[abi:nn200100]<int const*,int const*>(void **result, char *__src, char *a3, unint64_t a4)
+{
+  v6 = result;
+  v7 = result[2];
+  v8 = *result;
+  if (a4 > (v7 - *result) >> 2)
+  {
+    if (v8)
+    {
+      result[1] = v8;
+      operator delete(v8);
+      v7 = 0;
+      *v6 = 0;
+      v6[1] = 0;
+      v6[2] = 0;
+    }
+
+    if (!(a4 >> 62))
+    {
+      v9 = v7 >> 1;
+      if (v7 >> 1 <= a4)
+      {
+        v9 = a4;
+      }
+
+      if (v7 >= 0x7FFFFFFFFFFFFFFCLL)
+      {
+        v10 = 0x3FFFFFFFFFFFFFFFLL;
+      }
+
+      else
+      {
+        v10 = v9;
+      }
+
+      std::vector<float>::__vallocate[abi:nn200100](v6, v10);
+    }
+
+    std::string::__throw_length_error[abi:nn200100]();
+  }
+
+  v11 = result[1];
+  v12 = v11 - v8;
+  if (a4 <= (v11 - v8) >> 2)
+  {
+    v18 = a3 - __src;
+    if (v18)
+    {
+      result = memmove(*result, __src, v18);
+    }
+
+    v17 = &v8[v18];
+  }
+
+  else
+  {
+    v13 = &__src[v12];
+    if (v11 != v8)
+    {
+      result = memmove(*result, __src, v12);
+      v11 = v6[1];
+    }
+
+    v14 = v11;
+    if (v13 != a3)
+    {
+      v14 = v11;
+      v15 = v11;
+      do
+      {
+        v16 = *v13;
+        v13 += 4;
+        *v15++ = v16;
+        v14 += 4;
+      }
+
+      while (v13 != a3);
+    }
+
+    v17 = v14;
+  }
+
+  v6[1] = v17;
+  return result;
+}
+
+uint64_t **std::vector<OpenSubdiv::v3_1_1::Far::PatchTableFactory::BuilderContext::PatchTuple>::__swap_out_circular_buffer(uint64_t **result, void *a2)
+{
+  v2 = *result;
+  v3 = result[1];
+  v4 = (a2[1] + *result - v3);
+  if (v3 != *result)
+  {
+    v5 = *result;
+    v6 = (a2[1] + *result - v3);
+    do
+    {
+      v7 = *v5++;
+      *v6++ = v7;
+    }
+
+    while (v5 != v3);
+  }
+
+  a2[1] = v4;
+  v8 = *result;
+  *result = v4;
+  result[1] = v2;
+  a2[1] = v8;
+  v9 = result[1];
+  result[1] = a2[2];
+  a2[2] = v9;
+  v10 = result[2];
+  result[2] = a2[3];
+  a2[3] = v10;
+  *a2 = a2[1];
+  return result;
+}
+
+void std::vector<std::vector<int>>::__append(uint64_t a1, unint64_t a2)
+{
+  v5 = *(a1 + 8);
+  v4 = *(a1 + 16);
+  if (0xAAAAAAAAAAAAAAABLL * ((v4 - v5) >> 3) >= a2)
+  {
+    if (a2)
+    {
+      v10 = 24 * ((24 * a2 - 24) / 0x18) + 24;
+      bzero(*(a1 + 8), v10);
+      v5 += v10;
+    }
+
+    *(a1 + 8) = v5;
+  }
+
+  else
+  {
+    v6 = 0xAAAAAAAAAAAAAAABLL * ((v5 - *a1) >> 3);
+    v7 = v6 + a2;
+    if (v6 + a2 > 0xAAAAAAAAAAAAAAALL)
+    {
+      std::string::__throw_length_error[abi:nn200100]();
+    }
+
+    v8 = 0xAAAAAAAAAAAAAAABLL * ((v4 - *a1) >> 3);
+    if (2 * v8 > v7)
+    {
+      v7 = 2 * v8;
+    }
+
+    if (v8 >= 0x555555555555555)
+    {
+      v9 = 0xAAAAAAAAAAAAAAALL;
+    }
+
+    else
+    {
+      v9 = v7;
+    }
+
+    v18[4] = a1;
+    if (v9)
+    {
+      std::__allocate_at_least[abi:nn200100]<std::allocator<std::vector<int>>>(a1, v9);
+    }
+
+    v11 = 24 * v6;
+    v12 = 24 * ((24 * a2 - 24) / 0x18) + 24;
+    bzero(v11, v12);
+    v13 = v11 + v12;
+    v14 = *(a1 + 8) - *a1;
+    v15 = v11 - v14;
+    memcpy((v11 - v14), *a1, v14);
+    v16 = *a1;
+    *a1 = v15;
+    *(a1 + 8) = v13;
+    v17 = *(a1 + 16);
+    *(a1 + 16) = 0;
+    v18[2] = v16;
+    v18[3] = v17;
+    v18[0] = v16;
+    v18[1] = v16;
+    std::__split_buffer<std::vector<float>>::~__split_buffer(v18);
+  }
+}
+
+void std::__allocate_at_least[abi:nn200100]<std::allocator<std::vector<int>>>(uint64_t a1, unint64_t a2)
+{
+  if (a2 < 0xAAAAAAAAAAAAAABLL)
+  {
+    operator new();
+  }
+
+  std::string::__throw_length_error[abi:nn200100]();
+}
+
+void std::vector<OpenSubdiv::v3_1_1::Far::StencilTable const*>::__append(uint64_t a1, unint64_t a2)
+{
+  v5 = *(a1 + 8);
+  v4 = *(a1 + 16);
+  if (a2 <= (v4 - v5) >> 3)
+  {
+    if (a2)
+    {
+      bzero(*(a1 + 8), 8 * a2);
+      v5 += 8 * a2;
+    }
+
+    *(a1 + 8) = v5;
+  }
+
+  else
+  {
+    v6 = v5 - *a1;
+    v7 = a2 + (v6 >> 3);
+    if (v7 >> 61)
+    {
+      std::string::__throw_length_error[abi:nn200100]();
+    }
+
+    v8 = v4 - *a1;
+    if (v8 >> 2 > v7)
+    {
+      v7 = v8 >> 2;
+    }
+
+    if (v8 >= 0x7FFFFFFFFFFFFFF8)
+    {
+      v9 = 0x1FFFFFFFFFFFFFFFLL;
+    }
+
+    else
+    {
+      v9 = v7;
+    }
+
+    if (v9)
+    {
+      std::__allocate_at_least[abi:nn200100]<std::allocator<C3DSubdivCPUPrimvarInfo>>(a1, v9);
+    }
+
+    v10 = (8 * (v6 >> 3));
+    bzero(v10, 8 * a2);
+    v11 = &v10[8 * a2];
+    v12 = *(a1 + 8) - *a1;
+    v13 = &v10[-v12];
+    memcpy(&v10[-v12], *a1, v12);
+    v14 = *a1;
+    *a1 = v13;
+    *(a1 + 8) = v11;
+    *(a1 + 16) = 0;
+    if (v14)
+    {
+
+      operator delete(v14);
+    }
+  }
+}
+
+void OpenSubdiv::v3_1_1::Far::PatchTableFactory::createUniform()
+{
+  __assert_rtn("createUniform", "patchTableFactory.cpp", 952, "ptype!=PatchDescriptor::NON_PATCH");
+}
+
+{
+  __assert_rtn("createUniform", "patchTableFactory.cpp", 975, "npatches>=0");
+}
+
+{
+  __assert_rtn("createUniform", "patchTableFactory.cpp", 1038, "(levelVertOffset + fvalues[vert]) < (int)table->getFVarValues(fvc).size()");
+}
+
+{
+  __assert_rtn("createUniform", "patchTableFactory.cpp", 926, "refiner.IsUniform()");
+}
+
+void OpenSubdiv::v3_1_1::Far::PatchTableFactory::populateAdaptivePatches()
+{
+  __assert_rtn("populateAdaptivePatches", "patchTableFactory.cpp", 1445, "false");
+}
+
+{
+  __assert_rtn("populateAdaptivePatches", "patchTableFactory.cpp", 1527, "Unknown Descriptor for FVar patch == 0");
+}
+
+OpenSubdiv::v3_1_1::Osd::CpuPatchTable *OpenSubdiv::v3_1_1::Osd::CpuPatchTable::CpuPatchTable(OpenSubdiv::v3_1_1::Osd::CpuPatchTable *this, const OpenSubdiv::v3_1_1::Far::PatchTable *a2)
+{
+  *(this + 3) = 0u;
+  v4 = (this + 48);
+  *(this + 6) = 0u;
+  v44 = (this + 96);
+  *(this + 9) = 0u;
+  v5 = (this + 144);
+  *(this + 10) = 0u;
+  *(this + 11) = 0u;
+  *(this + 7) = 0u;
+  *(this + 8) = 0u;
+  *(this + 4) = 0u;
+  *(this + 5) = 0u;
+  *(this + 1) = 0u;
+  *(this + 2) = 0u;
+  *this = 0u;
+  NumPatchArrays = OpenSubdiv::v3_1_1::Far::PatchTable::GetNumPatchArrays(a2);
+  if (NumPatchArrays < 1)
+  {
+    v11 = 0;
+    v7 = 0;
+  }
+
+  else
+  {
+    v7 = 0;
+    v8 = 0;
+    v9 = 0;
+    do
+    {
+      NumPatches = OpenSubdiv::v3_1_1::Far::PatchTable::GetNumPatches(a2, v9);
+      OpenSubdiv::v3_1_1::Far::PatchTable::GetPatchArrayDescriptor(&v50, a2, v9);
+      v7 += NumPatches;
+      v8 += NumPatches * OpenSubdiv::v3_1_1::Far::PatchDescriptor::GetNumControlVertices(&v50);
+      v9 = (v9 + 1);
+    }
+
+    while (NumPatchArrays != v9);
+    v11 = v8;
+  }
+
+  v43 = NumPatchArrays;
+  v12 = NumPatchArrays;
+  std::vector<OpenSubdiv::v3_1_1::Osd::PatchArray>::reserve(this, NumPatchArrays);
+  std::vector<unsigned int>::reserve(this + 1, v11);
+  std::vector<OpenSubdiv::v3_1_1::Osd::PatchArray>::reserve(this + 9, NumPatchArrays);
+  OpenSubdiv::v3_1_1::Far::PatchTable::GetVaryingPatchDescriptor(&v50, a2);
+  NumControlVertices = OpenSubdiv::v3_1_1::Far::PatchDescriptor::GetNumControlVertices(&v50);
+  std::vector<unsigned int>::reserve(v44, v7 * NumControlVertices);
+  NumFVarChannels = OpenSubdiv::v3_1_1::Far::PatchTable::GetNumFVarChannels(a2);
+  std::vector<std::vector<OpenSubdiv::v3_1_1::Osd::PatchArray>>::resize(this + 15, NumFVarChannels);
+  v15 = OpenSubdiv::v3_1_1::Far::PatchTable::GetNumFVarChannels(a2);
+  std::vector<std::vector<int>>::resize(v5, v15);
+  v16 = OpenSubdiv::v3_1_1::Far::PatchTable::GetNumFVarChannels(a2);
+  std::vector<std::vector<OpenSubdiv::v3_1_1::Osd::PatchArray>>::resize(this + 21, v16);
+  if (OpenSubdiv::v3_1_1::Far::PatchTable::GetNumFVarChannels(a2) >= 1)
+  {
+    v17 = 0;
+    v18 = 0;
+    do
+    {
+      std::vector<OpenSubdiv::v3_1_1::Osd::PatchArray>::reserve((*(this + 15) + v17), v12);
+      v19 = *v5;
+      OpenSubdiv::v3_1_1::Far::PatchTable::GetFVarPatchDescriptor(&v50, a2, v18);
+      v20 = OpenSubdiv::v3_1_1::Far::PatchDescriptor::GetNumControlVertices(&v50);
+      std::vector<unsigned int>::reserve((v19 + v17), v7 * v20);
+      std::vector<OpenSubdiv::v3_1_1::Osd::PatchParam>::reserve((*(this + 21) + v17), v7);
+      ++v18;
+      v17 += 24;
+    }
+
+    while (v18 < OpenSubdiv::v3_1_1::Far::PatchTable::GetNumFVarChannels(a2));
+  }
+
+  std::vector<OpenSubdiv::v3_1_1::Osd::PatchParam>::reserve(v4, v7);
+  if (v43 >= 1)
+  {
+    v21 = 0;
+    v42 = v4;
+    do
+    {
+      OpenSubdiv::v3_1_1::Far::PatchTable::GetPatchArrayDescriptor(v49, a2, v21);
+      v22 = OpenSubdiv::v3_1_1::Far::PatchTable::GetNumPatches(a2, v21);
+      v23 = (*(this + 4) - *(this + 3)) >> 2;
+      v24 = -1431655765 * ((*(this + 7) - *(this + 6)) >> 2);
+      v50 = __PAIR64__(v22, v49[0]);
+      v51 = v23;
+      v52 = v24;
+      std::vector<OpenSubdiv::v3_1_1::Osd::PatchArray>::push_back[abi:nn200100](this, &v50);
+      PatchArrayVertices = OpenSubdiv::v3_1_1::Far::PatchTable::GetPatchArrayVertices(a2, v21);
+      std::vector<int>::__insert_with_size[abi:nn200100]<int const*,int const*>(this + 3, *(this + 4), PatchArrayVertices, &PatchArrayVertices[4 * v26], v26);
+      OpenSubdiv::v3_1_1::Far::PatchTable::GetVaryingPatchDescriptor(&v47, a2);
+      v49[0] = __PAIR64__(v7, v47);
+      v49[1] = 0;
+      std::vector<OpenSubdiv::v3_1_1::Osd::PatchArray>::push_back[abi:nn200100](this + 9, v49);
+      PatchArrayVaryingVertices = OpenSubdiv::v3_1_1::Far::PatchTable::GetPatchArrayVaryingVertices(a2, v21);
+      std::vector<int>::__insert_with_size[abi:nn200100]<int const*,int const*>(v44, *(this + 13), PatchArrayVaryingVertices, &PatchArrayVaryingVertices[4 * v28], v28);
+      if (OpenSubdiv::v3_1_1::Far::PatchTable::GetNumFVarChannels(a2) >= 1)
+      {
+        v29 = 0;
+        do
+        {
+          OpenSubdiv::v3_1_1::Far::PatchTable::GetFVarPatchDescriptor(&v45, a2, v29);
+          v47 = __PAIR64__(v7, v45);
+          v48 = 0;
+          std::vector<OpenSubdiv::v3_1_1::Osd::PatchArray>::push_back[abi:nn200100]((*(this + 15) + 24 * v29), &v47);
+          PatchArrayFVarValues = OpenSubdiv::v3_1_1::Far::PatchTable::GetPatchArrayFVarValues(a2, v21, v29);
+          std::vector<int>::__insert_with_size[abi:nn200100]<int const*,int const*>((*v5 + 24 * v29), *(*v5 + 24 * v29 + 8), PatchArrayFVarValues, &PatchArrayFVarValues[4 * v31], v31);
+          PatchArrayFVarPatchParams = OpenSubdiv::v3_1_1::Far::PatchTable::GetPatchArrayFVarPatchParams(a2, v21, v29);
+          if (v7 >= 1)
+          {
+            v33 = PatchArrayFVarPatchParams;
+            v34 = v7;
+            do
+            {
+              v45 = *v33;
+              v45 |= v33[1] << 32;
+              v46 = 0;
+              std::vector<vmesh::Triangle>::push_back[abi:nn200100](*(this + 21) + 24 * v29, &v45);
+              v33 += 2;
+              --v34;
+            }
+
+            while (v34);
+          }
+
+          ++v29;
+        }
+
+        while (v29 < OpenSubdiv::v3_1_1::Far::PatchTable::GetNumFVarChannels(a2));
+      }
+
+      v35 = OpenSubdiv::v3_1_1::Far::PatchTable::GetNumPatches(a2, v21);
+      if (v35 >= 1)
+      {
+        do
+        {
+          v36 = *(a2 + 28);
+          v37 = 0xAAAAAAAB00000000 * ((*(this + 7) - *(this + 6)) >> 2);
+          v38 = 0;
+          if ((-1431655765 * ((*(this + 7) - *(this + 6)) >> 2)) < ((*(a2 + 29) - v36) >> 2))
+          {
+            v39 = *(v36 + (v37 >> 30));
+            if ((v39 & 0x80000000) == 0)
+            {
+              v38 = *(*(a2 + 31) + 4 * v39);
+            }
+          }
+
+          v40 = (*(a2 + 7) + (v37 >> 29));
+          v47 = *v40;
+          v47 |= v40[1] << 32;
+          LODWORD(v48) = v38;
+          std::vector<vmesh::Triangle>::push_back[abi:nn200100](v42, &v47);
+          --v35;
+        }
+
+        while (v35);
+      }
+
+      v21 = (v21 + 1);
+    }
+
+    while (v21 != v43);
+  }
+
+  return this;
+}
+
+void std::vector<OpenSubdiv::v3_1_1::Osd::PatchArray>::reserve(void *a1, unint64_t a2)
+{
+  if (a2 > (a1[2] - *a1) >> 4)
+  {
+    if (!(a2 >> 60))
+    {
+      _ZNSt3__119__allocate_at_leastB8nn200100INS_9allocatorIDv3_fEEEENS_19__allocation_resultINS_16allocator_traitsIT_E7pointerEEERS6_m(a1, a2);
+    }
+
+    std::string::__throw_length_error[abi:nn200100]();
+  }
+}
+
+void std::vector<std::vector<OpenSubdiv::v3_1_1::Osd::PatchArray>>::resize(void *a1, unint64_t a2)
+{
+  v3 = a1[1];
+  v4 = 0xAAAAAAAAAAAAAAABLL * ((v3 - *a1) >> 3);
+  v5 = a2 >= v4;
+  v6 = a2 - v4;
+  if (v6 != 0 && v5)
+  {
+
+    std::vector<std::vector<OpenSubdiv::v3_1_1::Osd::PatchArray>>::__append(a1, v6);
+  }
+
+  else if (!v5)
+  {
+    v7 = *a1 + 24 * a2;
+    if (v3 != v7)
+    {
+      v8 = a1[1];
+      do
+      {
+        v10 = *(v8 - 24);
+        v8 -= 24;
+        v9 = v10;
+        if (v10)
+        {
+          *(v3 - 16) = v9;
+          operator delete(v9);
+        }
+
+        v3 = v8;
+      }
+
+      while (v8 != v7);
+    }
+
+    a1[1] = v7;
+  }
+}
+
+void std::vector<OpenSubdiv::v3_1_1::Osd::PatchParam>::reserve(void *a1, unint64_t a2)
+{
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 2) < a2)
+  {
+    if (a2 < 0x1555555555555556)
+    {
+      std::__allocate_at_least[abi:nn200100]<std::allocator<vmesh::Triangle>>(a1, a2);
+    }
+
+    std::string::__throw_length_error[abi:nn200100]();
+  }
+}
+
+void std::vector<OpenSubdiv::v3_1_1::Osd::PatchArray>::push_back[abi:nn200100](uint64_t *a1, uint64_t a2)
+{
+  v4 = a1[1];
+  v5 = a1[2];
+  if (v4 >= v5)
+  {
+    v8 = (v4 - *a1) >> 4;
+    v9 = v8 + 1;
+    if ((v8 + 1) >> 60)
+    {
+      std::string::__throw_length_error[abi:nn200100]();
+    }
+
+    v10 = v5 - *a1;
+    if (v10 >> 3 > v9)
+    {
+      v9 = v10 >> 3;
+    }
+
+    if (v10 >= 0x7FFFFFFFFFFFFFF0)
+    {
+      v11 = 0xFFFFFFFFFFFFFFFLL;
+    }
+
+    else
+    {
+      v11 = v9;
+    }
+
+    v18 = a1;
+    if (v11)
+    {
+      _ZNSt3__119__allocate_at_leastB8nn200100INS_9allocatorIDv3_fEEEENS_19__allocation_resultINS_16allocator_traitsIT_E7pointerEEERS6_m(a1, v11);
+    }
+
+    v12 = 16 * v8;
+    __p = 0;
+    v15 = v12;
+    v17 = 0;
+    *v12 = *a2;
+    v13 = *(a2 + 4);
+    *(v12 + 12) = *(a2 + 12);
+    *(v12 + 4) = v13;
+    v16 = 16 * v8 + 16;
+    std::vector<OpenSubdiv::v3_1_1::Osd::PatchArray>::__swap_out_circular_buffer(a1, &__p);
+    if (v16 != v15)
+    {
+      v16 += (v15 - v16 + 15) & 0xFFFFFFFFFFFFFFF0;
+    }
+
+    v7 = a1[1];
+    if (__p)
+    {
+      operator delete(__p);
+    }
+  }
+
+  else
+  {
+    *v4 = *a2;
+    v6 = *(a2 + 4);
+    *(v4 + 12) = *(a2 + 12);
+    *(v4 + 4) = v6;
+    v7 = v4 + 16;
+  }
+
+  a1[1] = v7;
+}
+
+uint64_t *std::vector<OpenSubdiv::v3_1_1::Osd::PatchArray>::__swap_out_circular_buffer(uint64_t *result, void *a2)
+{
+  v2 = *result;
+  v3 = result[1];
+  v4 = a2[1] + *result - v3;
+  if (v3 != *result)
+  {
+    v5 = a2[1] + *result - v3;
+    do
+    {
+      *v5 = *v2;
+      v6 = *(v2 + 4);
+      *(v5 + 12) = *(v2 + 12);
+      *(v5 + 4) = v6;
+      v2 += 16;
+      v5 += 16;
+    }
+
+    while (v2 != v3);
+    v2 = *result;
+  }
+
+  a2[1] = v4;
+  *result = v4;
+  result[1] = v2;
+  a2[1] = v2;
+  v7 = result[1];
+  result[1] = a2[2];
+  a2[2] = v7;
+  v8 = result[2];
+  result[2] = a2[3];
+  a2[3] = v8;
+  *a2 = a2[1];
+  return result;
+}
+
+void std::vector<std::vector<OpenSubdiv::v3_1_1::Osd::PatchArray>>::__append(uint64_t a1, unint64_t a2)
+{
+  v5 = *(a1 + 8);
+  v4 = *(a1 + 16);
+  if (0xAAAAAAAAAAAAAAABLL * ((v4 - v5) >> 3) >= a2)
+  {
+    if (a2)
+    {
+      v10 = 24 * ((24 * a2 - 24) / 0x18) + 24;
+      bzero(*(a1 + 8), v10);
+      v5 += v10;
+    }
+
+    *(a1 + 8) = v5;
+  }
+
+  else
+  {
+    v6 = 0xAAAAAAAAAAAAAAABLL * ((v5 - *a1) >> 3);
+    v7 = v6 + a2;
+    if (v6 + a2 > 0xAAAAAAAAAAAAAAALL)
+    {
+      std::string::__throw_length_error[abi:nn200100]();
+    }
+
+    v8 = 0xAAAAAAAAAAAAAAABLL * ((v4 - *a1) >> 3);
+    if (2 * v8 > v7)
+    {
+      v7 = 2 * v8;
+    }
+
+    if (v8 >= 0x555555555555555)
+    {
+      v9 = 0xAAAAAAAAAAAAAAALL;
+    }
+
+    else
+    {
+      v9 = v7;
+    }
+
+    v18[4] = a1;
+    if (v9)
+    {
+      std::__allocate_at_least[abi:nn200100]<std::allocator<std::vector<CFRange>>>(a1, v9);
+    }
+
+    v11 = 24 * v6;
+    v12 = 24 * ((24 * a2 - 24) / 0x18) + 24;
+    bzero(v11, v12);
+    v13 = v11 + v12;
+    v14 = *(a1 + 8) - *a1;
+    v15 = v11 - v14;
+    memcpy((v11 - v14), *a1, v14);
+    v16 = *a1;
+    *a1 = v15;
+    *(a1 + 8) = v13;
+    v17 = *(a1 + 16);
+    *(a1 + 16) = 0;
+    v18[2] = v16;
+    v18[3] = v17;
+    v18[0] = v16;
+    v18[1] = v16;
+    std::__split_buffer<std::vector<float>>::~__split_buffer(v18);
+  }
+}
+
+char *std::vector<int>::__insert_with_size[abi:nn200100]<int const*,int const*>(void *a1, char *__dst, char *__src, char *a4, uint64_t a5)
+{
+  v5 = __dst;
+  if (a5 < 1)
+  {
+    return v5;
+  }
+
+  v7 = __src;
+  v10 = a1[1];
+  v9 = a1[2];
+  if (a5 > (v9 - v10) >> 2)
+  {
+    v11 = *a1;
+    v12 = a5 + (&v10[-*a1] >> 2);
+    if (v12 >> 62)
+    {
+      std::string::__throw_length_error[abi:nn200100]();
+    }
+
+    v13 = __dst - v11;
+    v14 = v9 - v11;
+    if (v14 >> 1 > v12)
+    {
+      v12 = v14 >> 1;
+    }
+
+    if (v14 >= 0x7FFFFFFFFFFFFFFCLL)
+    {
+      v15 = 0x3FFFFFFFFFFFFFFFLL;
+    }
+
+    else
+    {
+      v15 = v12;
+    }
+
+    v16 = v13 >> 2;
+    if (v15)
+    {
+      std::__allocate_at_least[abi:nn200100]<std::allocator<float>>(a1, v15);
+    }
+
+    v33 = 4 * v16;
+    v34 = 4 * a5;
+    v35 = (4 * v16);
+    do
+    {
+      v36 = *v7;
+      v7 += 4;
+      *v35++ = v36;
+      v34 -= 4;
+    }
+
+    while (v34);
+    memcpy((v33 + 4 * a5), v5, a1[1] - v5);
+    v37 = *a1;
+    v38 = v33 + 4 * a5 + a1[1] - v5;
+    a1[1] = v5;
+    v39 = v5 - v37;
+    v40 = (v33 - (v5 - v37));
+    memcpy(v40, v37, v39);
+    v41 = *a1;
+    *a1 = v40;
+    a1[1] = v38;
+    a1[2] = 0;
+    if (v41)
+    {
+      operator delete(v41);
+    }
+
+    return (4 * v16);
+  }
+
+  v17 = (v10 - __dst) >> 2;
+  if (v17 >= a5)
+  {
+    v22 = &__dst[4 * a5];
+    v23 = &v10[-4 * a5];
+    v24 = a1[1];
+    while (v23 < v10)
+    {
+      v25 = *v23;
+      v23 += 4;
+      *v24++ = v25;
+    }
+
+    a1[1] = v24;
+    if (v10 != v22)
+    {
+      memmove(&__dst[4 * a5], __dst, v10 - v22);
+    }
+
+    v30 = 4 * a5;
+    v31 = v5;
+    v32 = v7;
+    goto LABEL_34;
+  }
+
+  v18 = &__src[v10 - __dst];
+  v19 = a1[1];
+  v20 = v19;
+  while (v18 != a4)
+  {
+    v21 = *v18;
+    v18 += 4;
+    *v20 = v21;
+    v20 += 4;
+    v19 += 4;
+  }
+
+  a1[1] = v19;
+  if (v17 >= 1)
+  {
+    v26 = &__dst[4 * a5];
+    v27 = &v19[-4 * a5];
+    v28 = v19;
+    while (v27 < v10)
+    {
+      v29 = *v27;
+      v27 += 4;
+      *v28 = v29;
+      v28 += 4;
+    }
+
+    a1[1] = v28;
+    if (v20 != v26)
+    {
+      memmove(&__dst[4 * a5], __dst, v19 - v26);
+    }
+
+    if (v10 != v5)
+    {
+      v31 = v5;
+      v32 = v7;
+      v30 = v10 - v5;
+LABEL_34:
+      memmove(v31, v32, v30);
+    }
+  }
+
+  return v5;
+}
+
+double OpenSubdiv::v3_1_1::Far::PatchTable::PatchTable(OpenSubdiv::v3_1_1::Far::PatchTable *this, int a2)
+{
+  *this = a2;
+  result = 0.0;
+  *(this + 8) = 0u;
+  *(this + 24) = 0u;
+  *(this + 40) = 0u;
+  *(this + 56) = 0u;
+  *(this + 72) = 0u;
+  *(this + 88) = 0u;
+  *(this + 104) = 0u;
+  *(this + 120) = 0u;
+  *(this + 17) = 0;
+  *(this + 36) = 3;
+  *(this + 152) = 0u;
+  *(this + 168) = 0u;
+  *(this + 184) = 0u;
+  *(this + 200) = 0u;
+  *(this + 216) = 0u;
+  *(this + 232) = 0u;
+  *(this + 248) = 0u;
+  *(this + 33) = 0;
+  return result;
+}
+
+void OpenSubdiv::v3_1_1::Far::PatchTable::~PatchTable(OpenSubdiv::v3_1_1::Far::PatchTable *this)
+{
+  v2 = *(this + 16);
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  v3 = *(this + 17);
+  if (v3)
+  {
+    (*(*v3 + 8))(v3);
+  }
+
+  v5 = *(this + 25);
+  v4 = *(this + 26);
+  if (((v4 - v5) >> 3) >= 1)
+  {
+    v6 = 0;
+    do
+    {
+      v7 = *(v5 + 8 * v6);
+      if (v7)
+      {
+        (*(*v7 + 8))(v7);
+        v5 = *(this + 25);
+        v4 = *(this + 26);
+      }
+
+      ++v6;
+    }
+
+    while (v6 < ((v4 - v5) >> 3));
+  }
+
+  v8 = *(this + 31);
+  if (v8)
+  {
+    *(this + 32) = v8;
+    operator delete(v8);
+  }
+
+  v9 = *(this + 28);
+  if (v9)
+  {
+    *(this + 29) = v9;
+    operator delete(v9);
+  }
+
+  v10 = *(this + 25);
+  if (v10)
+  {
+    *(this + 26) = v10;
+    operator delete(v10);
+  }
+
+  v17 = (this + 176);
+  std::vector<OpenSubdiv::v3_1_1::Far::PatchTable::FVarPatchChannel>::__destroy_vector::operator()[abi:nn200100](&v17);
+  v11 = *(this + 19);
+  if (v11)
+  {
+    *(this + 20) = v11;
+    operator delete(v11);
+  }
+
+  v12 = *(this + 13);
+  if (v12)
+  {
+    *(this + 14) = v12;
+    operator delete(v12);
+  }
+
+  v13 = *(this + 10);
+  if (v13)
+  {
+    *(this + 11) = v13;
+    operator delete(v13);
+  }
+
+  v14 = *(this + 7);
+  if (v14)
+  {
+    *(this + 8) = v14;
+    operator delete(v14);
+  }
+
+  v15 = *(this + 4);
+  if (v15)
+  {
+    *(this + 5) = v15;
+    operator delete(v15);
+  }
+
+  v16 = *(this + 1);
+  if (v16)
+  {
+    *(this + 2) = v16;
+    operator delete(v16);
+  }
+}
+
+void std::vector<OpenSubdiv::v3_1_1::Far::PatchTable::PatchArray>::reserve(void *a1, unint64_t a2)
+{
+  if (0xCCCCCCCCCCCCCCCDLL * ((a1[2] - *a1) >> 2) < a2)
+  {
+    if (a2 < 0xCCCCCCCCCCCCCCDLL)
+    {
+      std::__allocate_at_least[abi:nn200100]<std::allocator<OpenSubdiv::v3_1_1::Far::PatchTable::PatchArray>>(a1, a2);
+    }
+
+    std::string::__throw_length_error[abi:nn200100]();
+  }
+}
+
+void OpenSubdiv::v3_1_1::Far::PatchTable::allocateVaryingVertices(uint64_t a1, OpenSubdiv::v3_1_1::Far::PatchDescriptor *a2, int a3)
+{
+  *(a1 + 144) = *a2;
+  v4 = (OpenSubdiv::v3_1_1::Far::PatchDescriptor::GetNumControlVertices(a2) * a3);
+
+  std::vector<float>::resize((a1 + 152), v4);
+}
+
+void std::vector<OpenSubdiv::v3_1_1::Far::PatchTable::FVarPatchChannel>::resize(void *result, unint64_t a2)
+{
+  v3 = result[1];
+  v4 = 0x6DB6DB6DB6DB6DB7 * ((v3 - *result) >> 3);
+  v5 = a2 >= v4;
+  v6 = a2 - v4;
+  if (v6 != 0 && v5)
+  {
+
+    std::vector<OpenSubdiv::v3_1_1::Far::PatchTable::FVarPatchChannel>::__append(result, v6);
+  }
+
+  else if (!v5)
+  {
+    v7 = *result + 56 * a2;
+    while (v3 != v7)
+    {
+      v3 -= 7;
+      std::allocator<OpenSubdiv::v3_1_1::Far::PatchTable::FVarPatchChannel>::destroy[abi:nn200100](result, v3);
+    }
+
+    result[1] = v7;
+  }
+}
+
+void OpenSubdiv::v3_1_1::Far::PatchTable::allocateFVarPatchChannelValues(uint64_t a1, OpenSubdiv::v3_1_1::Far::PatchDescriptor *a2, int a3, signed int a4)
+{
+  if (a4 < 0 || (v4 = *(a1 + 176), (-1227133513 * ((*(a1 + 184) - v4) >> 3)) <= a4))
+  {
+    OpenSubdiv::v3_1_1::Far::PatchTable::allocateFVarPatchChannelValues();
+  }
+
+  v6 = v4 + 56 * a4;
+  *(v6 + 4) = *a2;
+  NumControlVertices = OpenSubdiv::v3_1_1::Far::PatchDescriptor::GetNumControlVertices(a2);
+  std::vector<float>::resize((v6 + 8), NumControlVertices * a3);
+
+  std::vector<ClippedCorner>::resize((v6 + 32), a3);
+}
+
+uint64_t OpenSubdiv::v3_1_1::Far::PatchTable::setFVarPatchChannelLinearInterpolation(uint64_t result, uint64_t a2, signed int a3)
+{
+  if (a3 < 0 || (v3 = *(result + 176), (-1227133513 * ((*(result + 184) - v3) >> 3)) <= a3))
+  {
+    OpenSubdiv::v3_1_1::Far::PatchTable::allocateFVarPatchChannelValues();
+  }
+
+  *(v3 + 56 * a3) = a2;
+  return result;
+}
+
+uint64_t *OpenSubdiv::v3_1_1::Far::PatchTable::pushPatchArray(uint64_t *result, int *a2, int a3, int *a4, int *a5, int *a6)
+{
+  if (a3 >= 1)
+  {
+    v11 = result;
+    if (a6)
+    {
+      v12 = *a6;
+    }
+
+    else
+    {
+      v12 = 0;
+    }
+
+    v13 = *a2;
+    v14 = *a4;
+    v15 = *a5;
+    v16 = result[2];
+    v17 = result[3];
+    if (v16 >= v17)
+    {
+      v19 = result[1];
+      v20 = 0xCCCCCCCCCCCCCCCDLL * ((v16 - v19) >> 2);
+      v21 = v20 + 1;
+      if (v20 + 1 > 0xCCCCCCCCCCCCCCCLL)
+      {
+        std::string::__throw_length_error[abi:nn200100]();
+      }
+
+      v22 = 0xCCCCCCCCCCCCCCCDLL * ((v17 - v19) >> 2);
+      if (2 * v22 > v21)
+      {
+        v21 = 2 * v22;
+      }
+
+      if (v22 >= 0x666666666666666)
+      {
+        v23 = 0xCCCCCCCCCCCCCCCLL;
+      }
+
+      else
+      {
+        v23 = v21;
+      }
+
+      v30 = result + 1;
+      if (v23)
+      {
+        std::__allocate_at_least[abi:nn200100]<std::allocator<OpenSubdiv::v3_1_1::Far::PatchTable::PatchArray>>((result + 1), v23);
+      }
+
+      v24 = 20 * v20;
+      __p = 0;
+      v27 = v24;
+      v29 = 0;
+      *v24 = v13;
+      *(v24 + 4) = a3;
+      *(v24 + 8) = v14;
+      *(v24 + 12) = v15;
+      *(v24 + 16) = v12;
+      v28 = 20 * v20 + 20;
+      std::vector<OpenSubdiv::v3_1_1::Far::PatchTable::PatchArray>::__swap_out_circular_buffer(result + 1, &__p);
+      if (v28 != v27)
+      {
+        v28 = (v28 - v27 - 20) % 0x14uLL + v27;
+      }
+
+      v18 = v11[2];
+      if (__p)
+      {
+        operator delete(__p);
+      }
+    }
+
+    else
+    {
+      *v16 = v13;
+      v16[1] = a3;
+      v16[2] = v14;
+      v16[3] = v15;
+      v18 = v16 + 5;
+      v16[4] = v12;
+    }
+
+    v11[2] = v18;
+    LODWORD(__p) = *a2;
+    result = OpenSubdiv::v3_1_1::Far::PatchDescriptor::GetNumControlVertices(&__p);
+    v25 = result * a3;
+    *a4 += result * a3;
+    *a5 += a3;
+    if (a6)
+    {
+      if (*a2 != 7)
+      {
+        v25 = 0;
+      }
+
+      *a6 += v25;
+    }
+  }
+
+  return result;
+}
+
+uint64_t OpenSubdiv::v3_1_1::Far::PatchTable::getPatchIndex(OpenSubdiv::v3_1_1::Far::PatchTable *this, signed int a2, int a3)
+{
+  v3 = *(this + 1);
+  if ((-858993459 * ((*(this + 2) - v3) >> 2)) <= a2)
+  {
+    OpenSubdiv::v3_1_1::Far::PatchTable::getPatchIndex();
+  }
+
+  v4 = v3 + 20 * a2;
+  if (*(v4 + 4) <= a3)
+  {
+    OpenSubdiv::v3_1_1::Far::PatchTable::getPatchIndex();
+  }
+
+  return (*(v4 + 12) + a3);
+}
+
+uint64_t OpenSubdiv::v3_1_1::Far::PatchTable::getSharpnessIndices(OpenSubdiv::v3_1_1::Far::PatchTable *this, uint64_t a2)
+{
+  v2 = *(this + 1);
+  if ((-858993459 * ((*(this + 2) - v2) >> 2)) <= a2)
+  {
+    OpenSubdiv::v3_1_1::Far::PatchTable::getSharpnessIndices();
+  }
+
+  return *(this + 28) + 4 * *(v2 + 20 * a2 + 12);
+}
+
+uint64_t *OpenSubdiv::v3_1_1::Far::PatchTable::GetPatchArrayDescriptor@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t *this@<X0>, uint64_t a3@<X1>)
+{
+  v3 = this[1];
+  if ((-858993459 * ((this[2] - v3) >> 2)) <= a3)
+  {
+    OpenSubdiv::v3_1_1::Far::PatchTable::getPatchIndex();
+  }
+
+  *a1 = *(v3 + 20 * a3);
+  return this;
+}
+
+uint64_t OpenSubdiv::v3_1_1::Far::PatchTable::GetNumPatches(OpenSubdiv::v3_1_1::Far::PatchTable *this, uint64_t a2)
+{
+  v2 = *(this + 1);
+  if ((-858993459 * ((*(this + 2) - v2) >> 2)) <= a2)
+  {
+    OpenSubdiv::v3_1_1::Far::PatchTable::getPatchIndex();
+  }
+
+  return *(v2 + 20 * a2 + 4);
+}
+
+uint64_t OpenSubdiv::v3_1_1::Far::PatchTable::GetNumControlVertices(OpenSubdiv::v3_1_1::Far::PatchTable *this, uint64_t a2)
+{
+  v2 = *(this + 1);
+  if ((-858993459 * ((*(this + 2) - v2) >> 2)) <= a2)
+  {
+    OpenSubdiv::v3_1_1::Far::PatchTable::getPatchIndex();
+  }
+
+  v3 = *(v2 + 20 * a2 + 4);
+  v5 = *(v2 + 20 * a2);
+  return v3 * OpenSubdiv::v3_1_1::Far::PatchDescriptor::GetNumControlVertices(&v5);
+}
+
+uint64_t OpenSubdiv::v3_1_1::Far::PatchTable::getPatchArrayVertices(OpenSubdiv::v3_1_1::Far::PatchTable *this, uint64_t a2)
+{
+  v2 = *(this + 1);
+  if ((-858993459 * ((*(this + 2) - v2) >> 2)) <= a2)
+  {
+    OpenSubdiv::v3_1_1::Far::PatchTable::getSharpnessIndices();
+  }
+
+  v4 = (v2 + 20 * a2);
+  v8 = *v4;
+  OpenSubdiv::v3_1_1::Far::PatchDescriptor::GetNumControlVertices(&v8);
+  v5 = v4[2];
+  v6 = *(this + 4);
+  if (v5 >= ((*(this + 5) - v6) >> 2))
+  {
+    OpenSubdiv::v3_1_1::Far::PatchTable::getPatchArrayVertices();
+  }
+
+  return v6 + 4 * v5;
+}
+
+uint64_t OpenSubdiv::v3_1_1::Far::PatchTable::GetPatchArrayVertices(OpenSubdiv::v3_1_1::Far::PatchTable *this, uint64_t a2)
+{
+  v2 = *(this + 1);
+  if ((-858993459 * ((*(this + 2) - v2) >> 2)) <= a2)
+  {
+    OpenSubdiv::v3_1_1::Far::PatchTable::getPatchIndex();
+  }
+
+  v4 = (v2 + 20 * a2);
+  v8 = *v4;
+  OpenSubdiv::v3_1_1::Far::PatchDescriptor::GetNumControlVertices(&v8);
+  v5 = v4[2];
+  v6 = *(this + 4);
+  if (v5 >= ((*(this + 5) - v6) >> 2))
+  {
+    OpenSubdiv::v3_1_1::Far::PatchTable::GetPatchArrayVertices();
+  }
+
+  return v6 + 4 * v5;
+}
+
+uint64_t OpenSubdiv::v3_1_1::Far::PatchTable::GetPatchVertices(OpenSubdiv::v3_1_1::Far::PatchTable *this, uint64_t a2, int a3)
+{
+  v3 = *(this + 1);
+  if ((-858993459 * ((*(this + 2) - v3) >> 2)) <= a2)
+  {
+    OpenSubdiv::v3_1_1::Far::PatchTable::getPatchIndex();
+  }
+
+  v5 = (v3 + 20 * a2);
+  v9 = *v5;
+  v6 = v5[2] + OpenSubdiv::v3_1_1::Far::PatchDescriptor::GetNumControlVertices(&v9) * a3;
+  v7 = *(this + 4);
+  if (v6 >= ((*(this + 5) - v7) >> 2))
+  {
+    OpenSubdiv::v3_1_1::Far::PatchTable::GetPatchVertices();
+  }
+
+  return v7 + 4 * v6;
+}
+
+uint64_t OpenSubdiv::v3_1_1::Far::PatchTable::getPatchParams(OpenSubdiv::v3_1_1::Far::PatchTable *this, uint64_t a2)
+{
+  v2 = *(this + 1);
+  if ((-858993459 * ((*(this + 2) - v2) >> 2)) <= a2)
+  {
+    OpenSubdiv::v3_1_1::Far::PatchTable::getSharpnessIndices();
+  }
+
+  return *(this + 7) + 8 * *(v2 + 20 * a2 + 12);
+}
+
+uint64_t OpenSubdiv::v3_1_1::Far::PatchTable::GetPatchArrayVaryingVertices(OpenSubdiv::v3_1_1::Far::PatchTable *this, uint64_t a2)
+{
+  if (*(this + 19) == *(this + 20))
+  {
+    return 0;
+  }
+
+  v2 = *(this + 1);
+  if ((-858993459 * ((*(this + 2) - v2) >> 2)) <= a2)
+  {
+    OpenSubdiv::v3_1_1::Far::PatchTable::getPatchIndex();
+  }
+
+  return *(this + 19) + 4 * (*(v2 + 20 * a2 + 12) * OpenSubdiv::v3_1_1::Far::PatchDescriptor::GetNumControlVertices((this + 144)));
+}
+
+_DWORD *OpenSubdiv::v3_1_1::Far::PatchTable::populateVaryingVertices(OpenSubdiv::v3_1_1::Far::PatchTable *this)
+{
+  result = OpenSubdiv::v3_1_1::Far::PatchDescriptor::GetNumControlVertices((this + 144));
+  v4 = *(this + 1);
+  v3 = *(this + 2);
+  if ((-858993459 * ((v3 - v4) >> 2)) >= 1)
+  {
+    v5 = result;
+    v6 = 0;
+    while (1)
+    {
+      if (v6 >= (-858993459 * ((v3 - v4) >> 2)))
+      {
+        OpenSubdiv::v3_1_1::Far::PatchTable::getSharpnessIndices();
+      }
+
+      v7 = (v4 + 20 * v6);
+      if (v7[1] >= 1)
+      {
+        break;
+      }
+
+LABEL_18:
+      if (++v6 >= (-858993459 * ((v3 - v4) >> 2)))
+      {
+        return result;
+      }
+    }
+
+    v8 = 0;
+    v9 = *v7;
+    while (1)
+    {
+      result = OpenSubdiv::v3_1_1::Far::PatchTable::GetPatchVertices(this, v6, v8);
+      v10 = (v8 + v7[3]) * v5;
+      if (v9 <= 5)
+      {
+        if (v9 != 3)
+        {
+          if (v9 == 4)
+          {
+            v11 = (*(this + 19) + 4 * v10);
+            *v11 = *result;
+            v11[1] = result[1];
+            v11[2] = result[2];
+          }
+
+          goto LABEL_16;
+        }
+
+        v12 = (*(this + 19) + 4 * v10);
+        *v12 = *result;
+        v12[1] = result[1];
+        v12[2] = result[2];
+        v13 = result[3];
+        goto LABEL_15;
+      }
+
+      if (v9 == 9)
+      {
+        break;
+      }
+
+      if (v9 == 6)
+      {
+        v12 = (*(this + 19) + 4 * v10);
+        *v12 = result[5];
+        v12[1] = result[6];
+        v12[2] = result[10];
+        v13 = result[9];
+LABEL_15:
+        v12[3] = v13;
+      }
+
+LABEL_16:
+      if (++v8 >= v7[1])
+      {
+        v4 = *(this + 1);
+        v3 = *(this + 2);
+        goto LABEL_18;
+      }
+    }
+
+    v12 = (*(this + 19) + 4 * v10);
+    *v12 = *result;
+    v12[1] = result[5];
+    v12[2] = result[10];
+    v13 = result[15];
+    goto LABEL_15;
+  }
+
+  return result;
+}
+
+uint64_t *OpenSubdiv::v3_1_1::Far::PatchTable::GetFVarPatchDescriptor@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t *this@<X0>, signed int a3@<W1>)
+{
+  if (a3 < 0 || (v3 = this[22], (-1227133513 * ((this[23] - v3) >> 3)) <= a3))
+  {
+    OpenSubdiv::v3_1_1::Far::PatchTable::GetFVarPatchDescriptor();
+  }
+
+  *a1 = *(v3 + 56 * a3 + 4);
+  return this;
+}
+
+uint64_t OpenSubdiv::v3_1_1::Far::PatchTable::getFVarValues(OpenSubdiv::v3_1_1::Far::PatchTable *this, uint64_t a2)
+{
+  if ((a2 & 0x80000000) != 0 || (v2 = *(this + 22), (-1227133513 * ((*(this + 23) - v2) >> 3)) <= a2))
+  {
+    OpenSubdiv::v3_1_1::Far::PatchTable::allocateFVarPatchChannelValues();
+  }
+
+  return *(v2 + 56 * a2 + 8);
+}
+
+uint64_t OpenSubdiv::v3_1_1::Far::PatchTable::GetPatchArrayFVarValues(OpenSubdiv::v3_1_1::Far::PatchTable *this, uint64_t a2, int a3)
+{
+  v3 = *(this + 1);
+  if ((-858993459 * ((*(this + 2) - v3) >> 2)) <= a2)
+  {
+    OpenSubdiv::v3_1_1::Far::PatchTable::getPatchIndex();
+  }
+
+  if (a3 < 0 || (v4 = *(this + 22), (-1227133513 * ((*(this + 23) - v4) >> 3)) <= a3))
+  {
+    OpenSubdiv::v3_1_1::Far::PatchTable::GetFVarPatchDescriptor();
+  }
+
+  return *(v4 + 56 * a3 + 8) + 4 * (*(v3 + 20 * a2 + 12) * OpenSubdiv::v3_1_1::Far::PatchDescriptor::GetNumControlVertices((v4 + 56 * a3 + 4)));
+}
+
+uint64_t OpenSubdiv::v3_1_1::Far::PatchTable::GetPatchArrayFVarPatchParams(OpenSubdiv::v3_1_1::Far::PatchTable *this, uint64_t a2, signed int a3)
+{
+  v3 = *(this + 1);
+  if ((-858993459 * ((*(this + 2) - v3) >> 2)) <= a2)
+  {
+    OpenSubdiv::v3_1_1::Far::PatchTable::getPatchIndex();
+  }
+
+  if (a3 < 0 || (v4 = *(this + 22), (-1227133513 * ((*(this + 23) - v4) >> 3)) <= a3))
+  {
+    OpenSubdiv::v3_1_1::Far::PatchTable::GetFVarPatchDescriptor();
+  }
+
+  return *(v4 + 56 * a3 + 32) + 8 * *(v3 + 20 * a2 + 12);
+}
+
+uint64_t OpenSubdiv::v3_1_1::Far::PatchTable::getFVarPatchParams(OpenSubdiv::v3_1_1::Far::PatchTable *this, uint64_t a2)
+{
+  if ((a2 & 0x80000000) != 0 || (v2 = *(this + 22), (-1227133513 * ((*(this + 23) - v2) >> 3)) <= a2))
+  {
+    OpenSubdiv::v3_1_1::Far::PatchTable::allocateFVarPatchChannelValues();
+  }
+
+  return *(v2 + 56 * a2 + 32);
+}
+
+void std::vector<OpenSubdiv::v3_1_1::Far::PatchTable::FVarPatchChannel>::__destroy_vector::operator()[abi:nn200100](void ***a1)
+{
+  v1 = *a1;
+  v2 = **a1;
+  if (v2)
+  {
+    v4 = v1[1];
+    v5 = **a1;
+    if (v4 != v2)
+    {
+      do
+      {
+        v4 -= 7;
+        std::allocator<OpenSubdiv::v3_1_1::Far::PatchTable::FVarPatchChannel>::destroy[abi:nn200100](v1, v4);
+      }
+
+      while (v4 != v2);
+      v5 = **a1;
+    }
+
+    v1[1] = v2;
+
+    operator delete(v5);
+  }
+}
+
+void std::allocator<OpenSubdiv::v3_1_1::Far::PatchTable::FVarPatchChannel>::destroy[abi:nn200100](uint64_t a1, void *a2)
+{
+  v3 = a2[4];
+  if (v3)
+  {
+    a2[5] = v3;
+    operator delete(v3);
+  }
+
+  v4 = a2[1];
+  if (v4)
+  {
+    a2[2] = v4;
+
+    operator delete(v4);
+  }
+}
+
+void std::__allocate_at_least[abi:nn200100]<std::allocator<OpenSubdiv::v3_1_1::Far::PatchTable::PatchArray>>(uint64_t a1, unint64_t a2)
+{
+  if (a2 < 0xCCCCCCCCCCCCCCDLL)
+  {
+    operator new();
+  }
+
+  std::string::__throw_length_error[abi:nn200100]();
+}
+
+void std::__allocate_at_least[abi:nn200100]<std::allocator<OpenSubdiv::v3_1_1::Far::PatchTable::FVarPatchChannel>>(uint64_t a1, unint64_t a2)
+{
+  if (a2 < 0x492492492492493)
+  {
+    operator new();
+  }
+
+  std::string::__throw_length_error[abi:nn200100]();
+}
+
+uint64_t *std::vector<OpenSubdiv::v3_1_1::Far::PatchTable::PatchArray>::__swap_out_circular_buffer(uint64_t *result, void *a2)
+{
+  v2 = *result;
+  v3 = result[1];
+  v4 = a2[1] + *result - v3;
+  if (v3 != *result)
+  {
+    v5 = a2[1] + *result - v3;
+    do
+    {
+      *v5 = *v2;
+      *(v5 + 4) = *(v2 + 4);
+      v2 += 20;
+      v5 += 20;
+    }
+
+    while (v2 != v3);
+    v2 = *result;
+  }
+
+  a2[1] = v4;
+  *result = v4;
+  result[1] = v2;
+  a2[1] = v2;
+  v6 = result[1];
+  result[1] = a2[2];
+  a2[2] = v6;
+  v7 = result[2];
+  result[2] = a2[3];
+  a2[3] = v7;
+  *a2 = a2[1];
+  return result;
+}
+
+void std::vector<OpenSubdiv::v3_1_1::Far::PatchTable::FVarPatchChannel>::__append(void *a1, unint64_t a2)
+{
+  v5 = a1[1];
+  v4 = a1[2];
+  if (0x6DB6DB6DB6DB6DB7 * ((v4 - v5) >> 3) >= a2)
+  {
+    if (a2)
+    {
+      v10 = 56 * ((56 * a2 - 56) / 0x38) + 56;
+      bzero(a1[1], v10);
+      v5 += v10;
+    }
+
+    a1[1] = v5;
+  }
+
+  else
+  {
+    v6 = 0x6DB6DB6DB6DB6DB7 * ((v5 - *a1) >> 3);
+    if (v6 + a2 > 0x492492492492492)
+    {
+      std::string::__throw_length_error[abi:nn200100]();
+    }
+
+    v7 = 0x6DB6DB6DB6DB6DB7 * ((v4 - *a1) >> 3);
+    v8 = 2 * v7;
+    if (2 * v7 <= v6 + a2)
+    {
+      v8 = v6 + a2;
+    }
+
+    if (v7 >= 0x249249249249249)
+    {
+      v9 = 0x492492492492492;
+    }
+
+    else
+    {
+      v9 = v8;
+    }
+
+    v18[4] = a1;
+    if (v9)
+    {
+      std::__allocate_at_least[abi:nn200100]<std::allocator<OpenSubdiv::v3_1_1::Far::PatchTable::FVarPatchChannel>>(a1, v9);
+    }
+
+    v11 = 56 * v6;
+    v12 = 56 * ((56 * a2 - 56) / 0x38) + 56;
+    bzero(v11, v12);
+    v13 = v11 + v12;
+    v14 = a1[1];
+    v15 = (v11 + *a1 - v14);
+    std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<OpenSubdiv::v3_1_1::Far::PatchTable::FVarPatchChannel>,OpenSubdiv::v3_1_1::Far::PatchTable::FVarPatchChannel*>(a1, *a1, v14, v15);
+    v16 = *a1;
+    *a1 = v15;
+    a1[1] = v13;
+    v17 = a1[2];
+    a1[2] = 0;
+    v18[2] = v16;
+    v18[3] = v17;
+    v18[0] = v16;
+    v18[1] = v16;
+    std::__split_buffer<OpenSubdiv::v3_1_1::Far::PatchTable::FVarPatchChannel>::~__split_buffer(v18);
+  }
+}
+
+void std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<OpenSubdiv::v3_1_1::Far::PatchTable::FVarPatchChannel>,OpenSubdiv::v3_1_1::Far::PatchTable::FVarPatchChannel*>(uint64_t a1, void *a2, void *a3, void *a4)
+{
+  if (a2 != a3)
+  {
+    v5 = a2;
+    v7 = a2;
+    do
+    {
+      *a4 = *v7;
+      a4[2] = 0;
+      a4[3] = 0;
+      a4[1] = 0;
+      *(a4 + 1) = *(v7 + 1);
+      a4[3] = v7[3];
+      v7[1] = 0;
+      v7[2] = 0;
+      v7[3] = 0;
+      a4[4] = 0;
+      a4[5] = 0;
+      a4[6] = 0;
+      *(a4 + 2) = *(v7 + 2);
+      a4[6] = v7[6];
+      v7[4] = 0;
+      v7[5] = 0;
+      v7[6] = 0;
+      v7 += 7;
+      a4 += 7;
+    }
+
+    while (v7 != a3);
+    while (v5 != a3)
+    {
+      std::allocator<OpenSubdiv::v3_1_1::Far::PatchTable::FVarPatchChannel>::destroy[abi:nn200100](a1, v5);
+      v5 += 7;
+    }
+  }
+}
+
+void **std::__split_buffer<OpenSubdiv::v3_1_1::Far::PatchTable::FVarPatchChannel>::~__split_buffer(void **a1)
+{
+  std::__split_buffer<OpenSubdiv::v3_1_1::Far::PatchTable::FVarPatchChannel>::clear[abi:nn200100](a1);
+  if (*a1)
+  {
+    operator delete(*a1);
+  }
+
+  return a1;
+}
+
+void std::__split_buffer<OpenSubdiv::v3_1_1::Far::PatchTable::FVarPatchChannel>::clear[abi:nn200100](void *a1)
+{
+  v2 = a1[1];
+  for (i = a1[2]; i != v2; i = a1[2])
+  {
+    v4 = a1[4];
+    a1[2] = i - 56;
+    std::allocator<OpenSubdiv::v3_1_1::Far::PatchTable::FVarPatchChannel>::destroy[abi:nn200100](v4, (i - 56));
+  }
+}
+
+void OpenSubdiv::v3_1_1::Far::PatchTable::getPatchIndex()
+{
+  __assert_rtn("getPatchArray", "patchTable.cpp", 121, "arrayIndex<(Index)GetNumPatchArrays()");
+}
+
+{
+  __assert_rtn("getPatchIndex", "patchTable.cpp", 228, "patchIndex<pa.numPatches");
+}
+
+uint64_t OpenSubdiv::v3_1_1::Far::TopologyRefinerFactoryBase::prepareComponentTopologySizing(OpenSubdiv::v3_1_1::Far::TopologyRefinerFactoryBase *this, OpenSubdiv::v3_1_1::Far::TopologyRefiner *a2)
+{
+  v2 = *(this + 5);
+  v3 = *v2;
+  end = (*v2)->__end_;
+  if (!end)
+  {
+    OpenSubdiv::v3_1_1::Far::Error(4, "Failure in TopologyRefinerFactory<>::Create() -- mesh contains no vertices.");
+    return 0;
+  }
+
+  begin = v3->__begin_;
+  if (!LODWORD(v3->__begin_))
+  {
+    OpenSubdiv::v3_1_1::Far::Error(4, "Failure in TopologyRefinerFactory<>::Create() -- meshes without faces not yet supported.");
+    return 0;
+  }
+
+  if (SHIDWORD(v3->__end_cap_.__value_) >= 0x10000)
+  {
+    OpenSubdiv::v3_1_1::Far::Error(4, "Failure in TopologyRefinerFactory<>::Create() -- face with %d vertices > %d max.");
+    return 0;
+  }
+
+  v6 = &v3[1].__begin_[2 * begin - 2];
+  v8 = *v6;
+  v7 = v6[1];
+  v9 = v7 + v8;
+  if (!(v7 + v8))
+  {
+    OpenSubdiv::v3_1_1::Far::Error(4, "Failure in TopologyRefinerFactory<>::Create() -- mesh contains no face-vertices.");
+    return 0;
+  }
+
+  if (*this == 2 && v9 != 3 * begin)
+  {
+    OpenSubdiv::v3_1_1::Far::Error(4, "Failure in TopologyRefinerFactory<>::Create() -- non-triangular faces not supported by Loop scheme.");
+    return 0;
+  }
+
+  std::vector<float>::resize(v3 + 2, v9);
+  begin_high = HIDWORD(v3->__begin_);
+  if (begin_high >= 1)
+  {
+    std::vector<float>::resize(v3 + 3, (v3[2].__end_ - v3[2].__begin_));
+    std::vector<float>::resize(v3 + 5, 2 * SHIDWORD(v3->__begin_));
+    v12 = &v3[6].__begin_[2 * begin_high - 2];
+    v13 = *v12;
+    v14 = v12[1];
+    std::vector<float>::resize(v3 + 7, v14 + v13);
+    std::vector<unsigned short>::resize(&v3[8].__begin_, v14 + v13);
+    v15 = 2 * end - 2;
+    v16 = v3[11].__begin_;
+    v17 = v16[v15];
+    v18 = (8 * (v15 >> 1)) | 4;
+    v19 = *(v16 + v18);
+    std::vector<float>::resize(v3 + 12, v19 + v17);
+    std::vector<unsigned short>::resize(&v3[13].__begin_, v19 + v17);
+    v20 = v3[14].__begin_;
+    v21 = v20[v15];
+    v22 = *(v20 + v18);
+    std::vector<float>::resize(v3 + 15, v22 + v21);
+    std::vector<unsigned short>::resize(&v3[16].__begin_, v22 + v21);
+    if (((v3[3].__end_ - v3[3].__begin_) >> 2) <= 0)
+    {
+      OpenSubdiv::v3_1_1::Far::TopologyRefinerFactoryBase::prepareComponentTopologySizing();
+    }
+
+    if (((v3[5].__end_ - v3[5].__begin_) >> 2) <= 0)
+    {
+      OpenSubdiv::v3_1_1::Far::TopologyRefinerFactoryBase::prepareComponentTopologySizing();
+    }
+
+    if (((v3[7].__end_ - v3[7].__begin_) >> 2) <= 0)
+    {
+      OpenSubdiv::v3_1_1::Far::TopologyRefinerFactoryBase::prepareComponentTopologySizing();
+    }
+
+    if (((v3[12].__end_ - v3[12].__begin_) >> 2) <= 0)
+    {
+      OpenSubdiv::v3_1_1::Far::TopologyRefinerFactoryBase::prepareComponentTopologySizing();
+    }
+
+    if (((v3[15].__end_ - v3[15].__begin_) >> 2) <= 0)
+    {
+      OpenSubdiv::v3_1_1::Far::TopologyRefinerFactoryBase::prepareComponentTopologySizing();
+    }
+  }
+
+  return 1;
+}
+
+uint64_t OpenSubdiv::v3_1_1::Far::TopologyRefinerFactoryBase::prepareComponentTopologyAssignment(OpenSubdiv::v3_1_1::Far::TopologyRefiner *this, uint64_t a2, void (*a3)(uint64_t, char *, uint64_t), uint64_t a4)
+{
+  v6 = a2;
+  v8 = *(this + 5);
+  v9 = *v8;
+  v10 = *(*v8 + 1);
+  if (v10)
+  {
+    if (!*(v9 + 5))
+    {
+      OpenSubdiv::v3_1_1::Far::Error(4, "Failure in TopologyRefinerFactory<>::Create() -- maximum valence not assigned.");
+      return 0;
+    }
+  }
+
+  else if (!OpenSubdiv::v3_1_1::Vtr::internal::Level::completeTopologyFromFaceVertices(*v8))
+  {
+    OpenSubdiv::v3_1_1::Far::Error(4, "Failure in TopologyRefinerFactory<>::Create() -- vertex with valence %d > %d max.");
+    return 0;
+  }
+
+  if (!v6 || (OpenSubdiv::v3_1_1::Vtr::internal::Level::validateTopology(v9, a3, a4) & 1) != 0)
+  {
+    OpenSubdiv::v3_1_1::Far::TopologyRefiner::initializeInventory(this, a2);
+    return 1;
+  }
+
+  if (v10)
+  {
+    OpenSubdiv::v3_1_1::Far::Error(4, "Failure in TopologyRefinerFactory<>::Create() -- invalid topology detected as fully specified.");
+  }
+
+  else
+  {
+    OpenSubdiv::v3_1_1::Far::Error(4, "Failure in TopologyRefinerFactory<>::Create() -- invalid topology detected from partial specification.");
+  }
+
+  return 0;
+}
+
+uint64_t OpenSubdiv::v3_1_1::Far::TopologyRefinerFactoryBase::prepareComponentTagsAndSharpness(OpenSubdiv::v3_1_1::Far::TopologyRefinerFactoryBase *this, OpenSubdiv::v3_1_1::Far::TopologyRefiner *a2)
+{
+  v3 = **(this + 5);
+  v4 = *(this + 1);
+  v65 = v4;
+  v59 = v4 & 3;
+  v62 = (v4 & 3) == 0 && OpenSubdiv::v3_1_1::Sdc::SchemeTypeTraits::GetLocalNeighborhoodSize(*this) > 0;
+  if (*(v3 + 4) >= 1)
+  {
+    v5 = 0;
+    v6 = 0;
+    do
+    {
+      v7 = *(v3 + 240);
+      v8 = *(v3 + 216);
+      v9 = *(*(v3 + 144) + v5) < 2;
+      v10 = *(v7 + v6);
+      v11 = v10 & 0xFD | (2 * v9);
+      *(v7 + v6) = v11;
+      if (v9 || (v10 & 1) != 0)
+      {
+        *(v8 + 4 * v6) = 1092616192;
+        v11 = *(v7 + v6);
+        v12 = 10.0;
+      }
+
+      else
+      {
+        v12 = *(v8 + 4 * v6);
+      }
+
+      v13 = v12 >= 10.0;
+      v14 = v11 & 0xFB | (4 * (v12 >= 10.0));
+      *(v7 + v6) = v14;
+      v15 = *(v8 + 4 * v6);
+      v16 = (8 * v13) ^ 8;
+      if (v15 <= 0.0)
+      {
+        v16 = 0;
+      }
+
+      *(v7 + v6++) = v16 | v14 & 0xF7;
+      v5 += 8;
+    }
+
+    while (v6 < *(v3 + 4));
+  }
+
+  RegularVertexValence = OpenSubdiv::v3_1_1::Sdc::SchemeTypeTraits::GetRegularVertexValence(*this);
+  if (*(v3 + 8) >= 1)
+  {
+    for (i = 0; i < *(v3 + 8); ++i)
+    {
+      v18 = *(v3 + 336);
+      v19 = (8 * i) | 4;
+      v20 = *(v3 + 360) + 4 * *(v18 + v19);
+      v21 = *(v18 + 8 * i);
+      if (v21 < 1)
+      {
+        v31 = 0;
+        v24 = 0;
+        v30 = 1;
+      }
+
+      else
+      {
+        v22 = 0;
+        v23 = 0;
+        v24 = 0;
+        v25 = v21;
+        v26 = v20;
+        do
+        {
+          v27 = *v26++;
+          v28 = *(*(v3 + 240) + v27);
+          v22 += (v28 >> 1) & 1;
+          v24 = vadd_s32(v24, (*&vshl_u32(vdup_n_s32(v28), 0xFFFFFFFEFFFFFFFDLL) & 0xFFFFFFC1FFFFFFC1));
+          v23 += v28 & 1;
+          --v25;
+        }
+
+        while (v25);
+        v29 = v23 == 2;
+        v30 = v22 == 0;
+        if (v22)
+        {
+          v31 = 0;
+        }
+
+        else
+        {
+          v31 = v29;
+        }
+      }
+
+      v32 = *(v3 + 432);
+      v33 = *(v3 + 408);
+      v34 = *(v3 + 264);
+      v35 = *(v34 + 8 * i);
+      v61 = v20;
+      v63 = *(v34 + v19);
+      v64 = *(v3 + 288);
+      if (v35 == 1)
+      {
+        v36 = v21 == 2;
+        if (v59 == 2 && v21 == 2)
+        {
+          v36 = 1;
+LABEL_32:
+          *(v33 + 4 * i) = 1092616192;
+          goto LABEL_33;
+        }
+      }
+
+      else
+      {
+        v36 = 0;
+      }
+
+      v37 = v35 > v21 && v31;
+      if ((*(v32 + 2 * i) & 1) != 0 && !v37)
+      {
+        goto LABEL_32;
+      }
+
+LABEL_33:
+      v38 = v24.i32[1];
+      v39 = v24.i32[0];
+      v40 = *(v32 + 2 * i) & 0xFFEF | (16 * (*(v33 + 4 * i) >= 10.0));
+      *(v32 + 2 * i) = v40;
+      v41 = *(v33 + 4 * i);
+      if (v41 < 10.0 && v41 > 0.0)
+      {
+        v43 = 32;
+      }
+
+      else
+      {
+        v43 = 0;
+      }
+
+      *(v32 + 2 * i) = v40 & 0xFF9F | ((v39 != 0) << 6) | v43;
+      v44 = OpenSubdiv::v3_1_1::Sdc::Crease::DetermineVertexVertexRule(&v65, *(v33 + 4 * i), v24.i32[1] + v39);
+      v45 = *(v32 + 2 * i);
+      if (v30)
+      {
+        v46 = 0;
+      }
+
+      else
+      {
+        v46 = 4;
+      }
+
+      if (v36 && (v45 & 0x10) != 0)
+      {
+        v47 = 8;
+      }
+
+      else
+      {
+        v47 = 2 * (v35 != RegularVertexValence);
+        if (!v30)
+        {
+          v47 = 2 * (v35 != RegularVertexValence / 2);
+        }
+      }
+
+      *(v32 + 2 * i) = ((v44 & 0xF) << 7) | v47 | v45 & 0x8071 | v46 | ((v38 != 0) << 12) | (((v38 | v45 & 0x10) != 0) << 14);
+      if (!v38)
+      {
+        goto LABEL_67;
+      }
+
+      v48 = *(v33 + 4 * i);
+      if ((v45 & 0x10) == 0)
+      {
+        v48 = 0.0;
+      }
+
+      v49 = OpenSubdiv::v3_1_1::Sdc::Crease::DetermineVertexVertexRule(&v65, v48, v38);
+      if (v49 == 8)
+      {
+        if (v38 != v21)
+        {
+          goto LABEL_67;
+        }
+
+        v54 = *(v32 + 2 * i);
+        if (v21 <= 2 && (v54 & 0x10) == 0)
+        {
+          goto LABEL_67;
+        }
+
+        LOWORD(v55) = v54 & 0xBFFF;
+      }
+
+      else
+      {
+        if (v49 != 4)
+        {
+          goto LABEL_67;
+        }
+
+        v50 = *(v32 + 2 * i);
+        v51 = v50 | 0x2000;
+        *(v32 + 2 * i) = v50 | 0x2000;
+        if ((v50 & 3) != 0)
+        {
+          goto LABEL_67;
+        }
+
+        if ((v50 & 4) != 0)
+        {
+          LOWORD(v55) = v50 & 0x9FFC | 0x2000;
+        }
+
+        else if (RegularVertexValence == 4)
+        {
+          v55 = v50 & 0x9FF8 | 0x2000 | ((((*(*(v3 + 240) + v61[2]) ^ *(*(v3 + 240) + *v61)) >> 2) & 1) << 14);
+        }
+
+        else
+        {
+          if (RegularVertexValence != 6)
+          {
+            OpenSubdiv::v3_1_1::Far::TopologyRefinerFactoryBase::prepareComponentTagsAndSharpness();
+          }
+
+          v52 = *(v3 + 240);
+          if (((*(v52 + v61[3]) ^ *(v52 + *v61)) & 4) != 0)
+          {
+            v53 = 0x4000;
+          }
+
+          else
+          {
+            v53 = ((*(v52 + v61[4]) ^ *(v52 + v61[1])) & 4) << 12;
+          }
+
+          LOWORD(v55) = v53 | v51 & 0xBFF8;
+        }
+      }
+
+      *(v32 + 2 * i) = v55;
+LABEL_67:
+      if (v62 && (*(v32 + 2 * i) & 4) != 0 && v35 >= 1)
+      {
+        v56 = (v64 + 4 * v63);
+        do
+        {
+          v57 = *v56++;
+          *(*(v3 + 96) + v57) |= 1u;
+          *(this + 8) |= 2u;
+          --v35;
+        }
+
+        while (v35);
+      }
+    }
+  }
+
+  return 1;
+}
+
+uint64_t OpenSubdiv::v3_1_1::Far::TopologyRefinerFactoryBase::prepareFaceVaryingChannels(OpenSubdiv::v3_1_1::Far::TopologyRefinerFactoryBase *this, OpenSubdiv::v3_1_1::Far::TopologyRefiner *a2)
+{
+  v3 = **(this + 5);
+  RegularVertexValence = OpenSubdiv::v3_1_1::Sdc::SchemeTypeTraits::GetRegularVertexValence(*this);
+  if (((*(**(this + 5) + 464) - *(**(this + 5) + 456)) >> 3) < 1)
+  {
+    return 1;
+  }
+
+  v5 = 0;
+  v6 = RegularVertexValence / 2;
+  while (OpenSubdiv::v3_1_1::Vtr::internal::Level::getNumFVarValues(v3, v5))
+  {
+    OpenSubdiv::v3_1_1::Vtr::internal::Level::completeFVarChannelTopology(v3, v5++, v6);
+    if (v5 >= ((*(**(this + 5) + 464) - *(**(this + 5) + 456)) >> 3))
+    {
+      return 1;
+    }
+  }
+
+  OpenSubdiv::v3_1_1::Far::Error(4, "Failure in TopologyRefinerFactory<>::Create() -- face-varying channel %d has no values.", v5);
+  return 0;
+}
+
 void OpenSubdiv::v3_1_1::Far::TopologyRefinerFactoryBase::prepareComponentTopologySizing()
 {
   __assert_rtn("prepareComponentTopologySizing", "topologyRefinerFactory.cpp", 113, "baseLevel.getNumVertexEdgesTotal() > 0");
@@ -78,7 +2392,7 @@ void OpenSubdiv::v3_1_1::Far::PtexIndices::~PtexIndices(OpenSubdiv::v3_1_1::Far:
   }
 }
 
-uint64_t OpenSubdiv::v3_1_1::Far::PtexIndices::GetFaceId(OpenSubdiv::v3_1_1::Far::PtexIndices *this, int a2)
+uint64_t OpenSubdiv::v3_1_1::Far::PtexIndices::GetFaceId(OpenSubdiv::v3_1_1::Far::PtexIndices *this, uint64_t a2)
 {
   if (((*(this + 1) - *this) >> 2) <= a2)
   {
@@ -213,7 +2527,7 @@ void sub_21C20AF60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t OpenSubdiv::v3_1_1::Osd::MTLPatchTable::allocate(char **this, const OpenSubdiv::v3_1_1::Far::PatchTable *a2, MTLContext *a3)
+uint64_t OpenSubdiv::v3_1_1::Osd::MTLPatchTable::allocate(OpenSubdiv::v3_1_1::Osd::MTLPatchTable *this, const OpenSubdiv::v3_1_1::Far::PatchTable *a2, MTLContext *a3)
 {
   OpenSubdiv::v3_1_1::Osd::CpuPatchTable::CpuPatchTable(&v24, a2);
   v5 = v25 - v24;
@@ -225,15 +2539,15 @@ uint64_t OpenSubdiv::v3_1_1::Osd::MTLPatchTable::allocate(char **this, const Ope
   std::vector<OpenSubdiv::v3_1_1::Osd::PatchArray>::__assign_with_size[abi:nn200100]<OpenSubdiv::v3_1_1::Osd::PatchArray const*,OpenSubdiv::v3_1_1::Osd::PatchArray const*>(this, v24, v25, v10);
   if (v6 == v7)
   {
-    v16 = 3;
+    v16 = 24;
 LABEL_14:
     v15 = 0;
-    this[v16] = 0;
+    *(this + v16) = 0;
     goto LABEL_15;
   }
 
   v11 = [a3->var0 newBufferWithBytes:v26 length:v6 - v7 options:0];
-  this[3] = v11;
+  *(this + 3) = v11;
   if (!v11)
   {
     goto LABEL_11;
@@ -242,12 +2556,12 @@ LABEL_14:
   [v11 setLabel:@"OSD PatchIndexBuffer"];
   if (v8 == v9)
   {
-    v16 = 4;
+    v16 = 32;
     goto LABEL_14;
   }
 
   v12 = [a3->var0 newBufferWithBytes:v28 length:v8 - v9 options:0];
-  this[4] = v12;
+  *(this + 4) = v12;
   if (v12)
   {
     [v12 setLabel:@"OSD PatchParamBuffer"];
@@ -264,13 +2578,13 @@ LABEL_14:
     std::vector<OpenSubdiv::v3_1_1::Osd::PatchArray>::__assign_with_size[abi:nn200100]<OpenSubdiv::v3_1_1::Osd::PatchArray const*,OpenSubdiv::v3_1_1::Osd::PatchArray const*>(this + 5, v13, (v13 + v5), v10);
     if (v33 == v32)
     {
-      this[8] = 0;
+      *(this + 8) = 0;
     }
 
     else
     {
       v14 = [a3->var0 newBufferWithBytes:v32 length:v33 - v32 options:0];
-      this[8] = v14;
+      *(this + 8) = v14;
       if (!v14 && v33 != v32)
       {
         goto LABEL_11;
@@ -292,17 +2606,17 @@ LABEL_14:
     v21 = v18 & 0x7FFFFFFF;
     while (1)
     {
-      std::vector<OpenSubdiv::v3_1_1::Osd::PatchArray>::__assign_with_size[abi:nn200100]<OpenSubdiv::v3_1_1::Osd::PatchArray const*,OpenSubdiv::v3_1_1::Osd::PatchArray const*>(&this[9][v19], *(v34 + v19), (*(v34 + v19) + v5), v10);
+      std::vector<OpenSubdiv::v3_1_1::Osd::PatchArray>::__assign_with_size[abi:nn200100]<OpenSubdiv::v3_1_1::Osd::PatchArray const*,OpenSubdiv::v3_1_1::Osd::PatchArray const*>((*(this + 9) + v19), *(v34 + v19), (*(v34 + v19) + v5), v10);
       v22 = *(v36 + v19 + 8) == *(v36 + v19) ? 0 : [a3->var0 newBufferWithBytes:? length:? options:?];
-      *&this[12][8 * v20] = v22;
-      if (!*&this[12][8 * v20])
+      *(*(this + 12) + 8 * v20) = v22;
+      if (!*(*(this + 12) + 8 * v20))
       {
         break;
       }
 
       v23 = *(v37 + v19 + 8) == *(v37 + v19) ? 0 : [a3->var0 newBufferWithBytes:? length:? options:?];
-      *&this[15][8 * v20] = v23;
-      if (!*&this[15][8 * v20])
+      *(*(this + 15) + 8 * v20) = v23;
+      if (!*(*(this + 15) + 8 * v20))
       {
         break;
       }
@@ -324,24 +2638,24 @@ LABEL_15:
   return v15;
 }
 
-void std::vector<objc_object  {objcproto9MTLBuffer}*>::resize(void *a1, unint64_t a2)
+void std::vector<objc_object  {objcproto9MTLBuffer}*>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 3;
+  v2 = (result[1] - *result) >> 3;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    std::vector<objc_object  {objcproto9MTLBuffer}*>::__append(a1, a2 - v2);
+    std::vector<objc_object  {objcproto9MTLBuffer}*>::__append(result, a2 - v2);
   }
 }
 
-char *std::vector<OpenSubdiv::v3_1_1::Osd::PatchArray>::__assign_with_size[abi:nn200100]<OpenSubdiv::v3_1_1::Osd::PatchArray const*,OpenSubdiv::v3_1_1::Osd::PatchArray const*>(char **a1, __int128 *a2, __int128 *a3, unint64_t a4)
+char *std::vector<OpenSubdiv::v3_1_1::Osd::PatchArray>::__assign_with_size[abi:nn200100]<OpenSubdiv::v3_1_1::Osd::PatchArray const*,OpenSubdiv::v3_1_1::Osd::PatchArray const*>(uint64_t *a1, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   v5 = a2;
   v7 = a1[2];
@@ -398,7 +2712,7 @@ char *std::vector<OpenSubdiv::v3_1_1::Osd::PatchArray>::__assign_with_size[abi:n
 
   else
   {
-    v13 = a2 + v12;
+    v13 = (a2 + v12);
     if (v11 != result)
     {
       do
@@ -424,7 +2738,7 @@ char *std::vector<OpenSubdiv::v3_1_1::Osd::PatchArray>::__assign_with_size[abi:n
         v17 = *(v13 + 4);
         *(v16 + 3) = *(v13 + 3);
         *(v16 + 4) = v17;
-        v13 += 16;
+        ++v13;
         v16 += 16;
         v15 += 16;
       }
@@ -501,7 +2815,7 @@ void std::vector<objc_object  {objcproto9MTLBuffer}*>::__append(uint64_t a1, uni
   }
 }
 
-void OpenSubdiv::v3_1_1::Osd::MTLPatchTable::Create(OpenSubdiv::v3_1_1::Osd::MTLPatchTable *a1)
+void OpenSubdiv::v3_1_1::Osd::MTLPatchTable::Create(id *a1)
 {
   OpenSubdiv::v3_1_1::Osd::MTLPatchTable::~MTLPatchTable(a1);
   MEMORY[0x21CF07610]();
@@ -521,7 +2835,7 @@ uint64_t OpenSubdiv::v3_1_1::Sdc::Crease::DetermineVertexVertexRule(OpenSubdiv::
   }
 }
 
-uint64_t OpenSubdiv::v3_1_1::Sdc::Crease::DetermineVertexVertexRule(OpenSubdiv::v3_1_1::Sdc::Crease *this, float a2, int a3, float *a4)
+uint64_t OpenSubdiv::v3_1_1::Sdc::Crease::DetermineVertexVertexRule(OpenSubdiv::v3_1_1::Sdc::Crease *this, float a2, unsigned int a3, float *a4)
 {
   if (a2 > 0.0)
   {
@@ -558,7 +2872,7 @@ uint64_t OpenSubdiv::v3_1_1::Sdc::Crease::DetermineVertexVertexRule(OpenSubdiv::
   }
 }
 
-double OpenSubdiv::v3_1_1::Sdc::Crease::ComputeFractionalWeightAtVertex(OpenSubdiv::v3_1_1::Sdc::Crease *this, float a2, float a3, int a4, float *a5, const float *a6)
+double OpenSubdiv::v3_1_1::Sdc::Crease::ComputeFractionalWeightAtVertex(OpenSubdiv::v3_1_1::Sdc::Crease *this, float a2, float a3, unsigned int a4, float *a5, const float *a6)
 {
   v6 = a2 > 0.0 && a3 <= 0.0;
   if (a2 <= 0.0 || a3 > 0.0)
@@ -621,7 +2935,7 @@ double OpenSubdiv::v3_1_1::Sdc::Crease::ComputeFractionalWeightAtVertex(OpenSubd
   return result;
 }
 
-float OpenSubdiv::v3_1_1::Sdc::Crease::SubdivideEdgeSharpnessAtVertex(OpenSubdiv::v3_1_1::Sdc::Crease *this, float a2, int a3, float *a4)
+float OpenSubdiv::v3_1_1::Sdc::Crease::SubdivideEdgeSharpnessAtVertex(OpenSubdiv::v3_1_1::Sdc::Crease *this, float a2, unsigned int a3, float *a4)
 {
   if (a3 >= 2 && (*this & 0x60) != 0)
   {
@@ -681,7 +2995,7 @@ float OpenSubdiv::v3_1_1::Sdc::Crease::SubdivideEdgeSharpnessAtVertex(OpenSubdiv
   return v4;
 }
 
-_WORD *OpenSubdiv::v3_1_1::Sdc::Crease::SubdivideEdgeSharpnessesAroundVertex(_WORD *this, int a2, float *a3, float *a4)
+_WORD *OpenSubdiv::v3_1_1::Sdc::Crease::SubdivideEdgeSharpnessesAroundVertex(_WORD *this, unsigned int a2, float *a3, float *a4)
 {
   if (a2 > 1 && (*this & 0x60) != 0)
   {
@@ -1745,7 +4059,7 @@ void *OpenSubdiv::v3_1_1::Vtr::internal::Level::getFaceETags(void *result, int a
   return result;
 }
 
-uint64_t OpenSubdiv::v3_1_1::Vtr::internal::Level::VTag::BitwiseOr(unsigned __int16 *a1, int a2)
+uint64_t OpenSubdiv::v3_1_1::Vtr::internal::Level::VTag::BitwiseOr(unsigned __int16 *a1, unsigned int a2)
 {
   result = *a1;
   if (a2 >= 2)
@@ -2042,13 +4356,14 @@ uint64_t OpenSubdiv::v3_1_1::Vtr::internal::Level::gatherQuadRegularPartialRingA
   return v21;
 }
 
-uint64_t OpenSubdiv::v3_1_1::Vtr::internal::Level::gatherQuadRegularInteriorPatchPoints(OpenSubdiv::v3_1_1::Vtr::internal::Level *this, int a2, int *a3, unsigned int a4, unsigned int a5)
+uint64_t OpenSubdiv::v3_1_1::Vtr::internal::Level::gatherQuadRegularInteriorPatchPoints(OpenSubdiv::v3_1_1::Vtr::internal::Level *this, uint64_t a2, int *a3, unsigned int a4, unsigned int a5)
 {
   if (a4 >= 4)
   {
     OpenSubdiv::v3_1_1::Vtr::internal::Level::gatherQuadRegularInteriorPatchPoints();
   }
 
+  v6 = a2;
   v8 = (&OpenSubdiv::v3_1_1::Vtr::internal::Level::gatherQuadRegularInteriorPatchPoints(int,int *,int,int)const::rotationSequence + 4 * a4);
   v9 = *(this + 6);
   v10 = (2 * a2) | 1;
@@ -2084,7 +4399,7 @@ uint64_t OpenSubdiv::v3_1_1::Vtr::internal::Level::gatherQuadRegularInteriorPatc
     v36 = v21;
     v22 = *(this + 39);
     v23 = *(v20 + 4);
-    v24 = OpenSubdiv::v3_1_1::Vtr::ConstArray<int>::FindIndexIn4Tuple(&v35, a2) & 3 ^ 2;
+    v24 = OpenSubdiv::v3_1_1::Vtr::ConstArray<int>::FindIndexIn4Tuple(&v35, v6) & 3 ^ 2;
     v25 = (2 * *(v35 + 4 * v24)) | 1;
     if ((a5 & 0x80000000) != 0)
     {
@@ -2387,7 +4702,7 @@ BOOL OpenSubdiv::v3_1_1::Vtr::internal::Level::completeTopologyFromFaceVertices(
 {
   v1 = *(this + 2);
   v2 = *this;
-  v3 = this + 4;
+  v3 = (this + 4);
   if (v1 < 1 || v2 < 1 || *(this + 1) != 0)
   {
     OpenSubdiv::v3_1_1::Vtr::internal::Level::completeTopologyFromFaceVertices();
@@ -2398,7 +4713,7 @@ BOOL OpenSubdiv::v3_1_1::Vtr::internal::Level::completeTopologyFromFaceVertices(
   std::vector<float>::resize(this + 11, 2 * v1);
   std::vector<float>::resize(v6 + 14, 2 * v1);
   std::vector<float>::resize(v6 + 17, v1);
-  std::vector<OpenSubdiv::v3_1_1::Vtr::internal::Level::VTag>::resize(v6 + 432, v1);
+  std::vector<OpenSubdiv::v3_1_1::Vtr::internal::Level::VTag>::resize(v6 + 54, v1);
   bzero(*(v6 + 54), 2 * *(v6 + 2));
   *v6 = v2;
   std::vector<float>::resize(v6 + 1, 2 * v2);
@@ -2414,7 +4729,7 @@ BOOL OpenSubdiv::v3_1_1::Vtr::internal::Level::completeTopologyFromFaceVertices(
 
   else
   {
-    std::vector<OpenSubdiv::v3_1_1::Vtr::internal::Level::FTag>::__append(v6 + 96, v2 - v9);
+    std::vector<OpenSubdiv::v3_1_1::Vtr::internal::Level::FTag>::__append(v6 + 12, v2 - v9);
     v8 = *(v6 + 12);
   }
 
@@ -2507,7 +4822,7 @@ BOOL OpenSubdiv::v3_1_1::Vtr::internal::Level::completeTopologyFromFaceVertices(
   v27 = v26 / 2;
   v98 = v26 / 2;
   v99 = 6;
-  v86 = v6 + 240;
+  v86 = (v6 + 240);
   v87 = (v6 + 144);
   if (v26 >= 2)
   {
@@ -2577,7 +4892,7 @@ BOOL OpenSubdiv::v3_1_1::Vtr::internal::Level::completeTopologyFromFaceVertices(
           else
           {
             v118[0] = &v117;
-            v43 = std::__tree<std::__value_type<int,std::vector<int>>,std::__map_value_compare<int,std::__value_type<int,std::vector<int>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::vector<int>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&v102, &v117);
+            v43 = std::__tree<std::__value_type<int,std::vector<int>>,std::__map_value_compare<int,std::__value_type<int,std::vector<int>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::vector<int>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&v102, &v117, &std::piecewise_construct, v118);
             v44 = v43[5];
             v42 = ((v43[6] - v44) >> 2);
           }
@@ -2622,7 +4937,7 @@ LABEL_42:
           else
           {
             v118[0] = &v117;
-            v48 = std::__tree<std::__value_type<int,std::vector<int>>,std::__map_value_compare<int,std::__value_type<int,std::vector<int>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::vector<int>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&v114, &v117);
+            v48 = std::__tree<std::__value_type<int,std::vector<int>>,std::__map_value_compare<int,std::__value_type<int,std::vector<int>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::vector<int>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&v114, &v117, &std::piecewise_construct, v118);
             v49 = v48[5];
             v47 = (v48[6] - v49) >> 2;
           }
@@ -2651,7 +4966,7 @@ LABEL_54:
             if (v54 >= v99)
             {
               v118[0] = &v117;
-              v56 = std::__tree<std::__value_type<int,std::vector<int>>,std::__map_value_compare<int,std::__value_type<int,std::vector<int>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::vector<int>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&v102, &v117);
+              v56 = std::__tree<std::__value_type<int,std::vector<int>>,std::__map_value_compare<int,std::__value_type<int,std::vector<int>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::vector<int>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&v102, &v117, &std::piecewise_construct, v118);
               v57 = v56;
               if (v54 <= v99)
               {
@@ -2681,7 +4996,7 @@ LABEL_54:
             if (v60 >= v99)
             {
               v118[0] = &v117;
-              v62 = std::__tree<std::__value_type<int,std::vector<int>>,std::__map_value_compare<int,std::__value_type<int,std::vector<int>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::vector<int>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&v102, &v117);
+              v62 = std::__tree<std::__value_type<int,std::vector<int>>,std::__map_value_compare<int,std::__value_type<int,std::vector<int>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::vector<int>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&v102, &v117, &std::piecewise_construct, v118);
               v63 = v62;
               if (v60 <= v99)
               {
@@ -2728,7 +5043,7 @@ LABEL_65:
         if (v64 >= v111)
         {
           v118[0] = &v117;
-          v66 = std::__tree<std::__value_type<int,std::vector<int>>,std::__map_value_compare<int,std::__value_type<int,std::vector<int>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::vector<int>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&v114, &v117);
+          v66 = std::__tree<std::__value_type<int,std::vector<int>>,std::__map_value_compare<int,std::__value_type<int,std::vector<int>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::vector<int>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&v114, &v117, &std::piecewise_construct, v118);
           v67 = v66;
           if (v64 <= v111)
           {
@@ -2756,7 +5071,7 @@ LABEL_65:
         if (v68 >= v105)
         {
           v118[0] = &v117;
-          v70 = std::__tree<std::__value_type<int,std::vector<int>>,std::__map_value_compare<int,std::__value_type<int,std::vector<int>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::vector<int>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&v108, &v117);
+          v70 = std::__tree<std::__value_type<int,std::vector<int>>,std::__map_value_compare<int,std::__value_type<int,std::vector<int>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::vector<int>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&v108, &v117, &std::piecewise_construct, v118);
           v71 = v70;
           if (v68 <= v105)
           {
@@ -2937,7 +5252,7 @@ uint64_t OpenSubdiv::v3_1_1::Vtr::internal::anonymous namespace::DynamicRelation
         else
         {
           v27 = &v25;
-          v20 = std::__tree<std::__value_type<int,std::vector<int>>,std::__map_value_compare<int,std::__value_type<int,std::vector<int>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::vector<int>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(this + 24, &v25)[5];
+          v20 = std::__tree<std::__value_type<int,std::vector<int>>,std::__map_value_compare<int,std::__value_type<int,std::vector<int>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::vector<int>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(this + 24, &v25, &std::piecewise_construct, &v27)[5];
           if (v8 <= v16)
           {
             v8 = v16;
@@ -3287,20 +5602,20 @@ uint64_t OpenSubdiv::v3_1_1::Vtr::internal::Level::orderVertexFacesAndEdges(Open
   return v15;
 }
 
-void std::vector<OpenSubdiv::v3_1_1::Vtr::internal::Level::VTag>::resize(uint64_t a1, unint64_t a2)
+void std::vector<OpenSubdiv::v3_1_1::Vtr::internal::Level::VTag>::resize(const void **result, unint64_t a2)
 {
-  v2 = (*(a1 + 8) - *a1) >> 1;
+  v2 = (result[1] - *result) >> 1;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      *(a1 + 8) = *a1 + 2 * a2;
+      result[1] = *result + 2 * a2;
     }
   }
 
   else
   {
-    std::vector<OpenSubdiv::v3_1_1::Vtr::internal::Level::VTag>::__append(a1, a2 - v2);
+    std::vector<OpenSubdiv::v3_1_1::Vtr::internal::Level::VTag>::__append(result, a2 - v2);
   }
 }
 
@@ -3365,13 +5680,13 @@ void std::__allocate_at_least[abi:nn200100]<std::allocator<OpenSubdiv::v3_1_1::V
   std::string::__throw_length_error[abi:nn200100]();
 }
 
-void std::vector<OpenSubdiv::v3_1_1::Vtr::internal::Level::FTag>::__append(uint64_t a1, unint64_t a2)
+void std::vector<OpenSubdiv::v3_1_1::Vtr::internal::Level::FTag>::__append(char **a1, unint64_t a2)
 {
-  v3 = *(a1 + 8);
-  v4 = *(a1 + 16);
+  v3 = a1[1];
+  v4 = a1[2];
   if (v4 - v3 >= a2)
   {
-    *(a1 + 8) = v3 + a2;
+    a1[1] = &v3[a2];
   }
 
   else
@@ -3405,11 +5720,11 @@ void std::vector<OpenSubdiv::v3_1_1::Vtr::internal::Level::FTag>::__append(uint6
       operator new();
     }
 
-    v10 = v6 + a2;
+    v10 = (v6 + a2);
     memcpy(0, *a1, v3 - *a1);
     *a1 = 0;
-    *(a1 + 8) = v10;
-    *(a1 + 16) = 0;
+    a1[1] = v10;
+    a1[2] = 0;
     if (v5)
     {
 
@@ -3418,13 +5733,13 @@ void std::vector<OpenSubdiv::v3_1_1::Vtr::internal::Level::FTag>::__append(uint6
   }
 }
 
-void std::vector<OpenSubdiv::v3_1_1::Vtr::internal::Level::ETag>::__append(uint64_t a1, unint64_t a2)
+void std::vector<OpenSubdiv::v3_1_1::Vtr::internal::Level::ETag>::__append(char **a1, unint64_t a2)
 {
-  v3 = *(a1 + 8);
-  v4 = *(a1 + 16);
+  v3 = a1[1];
+  v4 = a1[2];
   if (v4 - v3 >= a2)
   {
-    *(a1 + 8) = v3 + a2;
+    a1[1] = &v3[a2];
   }
 
   else
@@ -3458,11 +5773,11 @@ void std::vector<OpenSubdiv::v3_1_1::Vtr::internal::Level::ETag>::__append(uint6
       operator new();
     }
 
-    v10 = v6 + a2;
+    v10 = (v6 + a2);
     memcpy(0, *a1, v3 - *a1);
     *a1 = 0;
-    *(a1 + 8) = v10;
-    *(a1 + 16) = 0;
+    a1[1] = v10;
+    a1[2] = 0;
     if (v5)
     {
 
@@ -3471,41 +5786,41 @@ void std::vector<OpenSubdiv::v3_1_1::Vtr::internal::Level::ETag>::__append(uint6
   }
 }
 
-uint64_t *std::__tree<std::__value_type<int,std::vector<int>>,std::__map_value_compare<int,std::__value_type<int,std::vector<int>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::vector<int>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(uint64_t a1, int *a2)
+uint64_t *std::__tree<std::__value_type<int,std::vector<int>>,std::__map_value_compare<int,std::__value_type<int,std::vector<int>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::vector<int>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(uint64_t a1, int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = *(v4 + 32);
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
@@ -3521,7 +5836,7 @@ void OpenSubdiv::v3_1_1::Vtr::internal::Level::completeTopologyFromFaceVertices(
   __assert_rtn("completeTopologyFromFaceVertices", "level.cpp", 1665, "(vCount > 0) && (fCount > 0) && (eCount == 0)");
 }
 
-OpenSubdiv::v3_1_1::Osd::MTLStencilTable *OpenSubdiv::v3_1_1::Osd::MTLStencilTable::MTLStencilTable(OpenSubdiv::v3_1_1::Osd::MTLStencilTable *this, const OpenSubdiv::v3_1_1::Far::StencilTable *a2, MTLContext *a3)
+id *OpenSubdiv::v3_1_1::Osd::MTLStencilTable::MTLStencilTable(id *this, const OpenSubdiv::v3_1_1::Far::StencilTable *a2, MTLContext *a3)
 {
   if (!a3)
   {
@@ -3545,27 +5860,27 @@ OpenSubdiv::v3_1_1::Osd::MTLStencilTable *OpenSubdiv::v3_1_1::Osd::MTLStencilTab
   else
   {
     *this = [var0 newBufferWithBytes:? length:? options:?];
-    *(this + 1) = [a3->var0 newBufferWithBytes:*(a2 + 5) length:*(a2 + 6) - *(a2 + 5) options:0];
-    *(this + 2) = [a3->var0 newBufferWithBytes:*(a2 + 8) length:*(a2 + 9) - *(a2 + 8) options:0];
-    *(this + 3) = [a3->var0 newBufferWithBytes:*(a2 + 11) length:*(a2 + 12) - *(a2 + 11) options:0];
+    this[1] = [a3->var0 newBufferWithBytes:*(a2 + 5) length:*(a2 + 6) - *(a2 + 5) options:0];
+    this[2] = [a3->var0 newBufferWithBytes:*(a2 + 8) length:*(a2 + 9) - *(a2 + 8) options:0];
+    this[3] = [a3->var0 newBufferWithBytes:*(a2 + 11) length:*(a2 + 12) - *(a2 + 11) options:0];
     [*this setLabel:@"StencilTable Sizes"];
-    [*(this + 1) setLabel:@"StencilTable Offsets"];
-    [*(this + 2) setLabel:@"StencilTable Indices"];
-    [*(this + 3) setLabel:@"StencilTable Weights"];
+    [this[1] setLabel:@"StencilTable Offsets"];
+    [this[2] setLabel:@"StencilTable Indices"];
+    [this[3] setLabel:@"StencilTable Weights"];
   }
 
-  *(this + 4) = 0;
-  *(this + 5) = 0;
+  this[4] = 0;
+  this[5] = 0;
   return this;
 }
 
-void OpenSubdiv::v3_1_1::Osd::MTLComputeEvaluator::Create(OpenSubdiv::v3_1_1::Osd::MTLComputeEvaluator *this, const BufferDescriptor *a2, const BufferDescriptor *a3, const BufferDescriptor *a4, const BufferDescriptor *a5, MTLContext *a6)
+void OpenSubdiv::v3_1_1::Osd::MTLComputeEvaluator::Create(const BufferDescriptor *this, const BufferDescriptor *a2, const BufferDescriptor *a3, const BufferDescriptor *a4, MTLContext *a5, MTLContext *a6)
 {
   if (a5)
   {
-    if (*&a5->var0)
+    if (a5->var0)
     {
-      if (*&a5->var2)
+      if (a5->var1)
       {
         operator new();
       }
@@ -3579,7 +5894,7 @@ void OpenSubdiv::v3_1_1::Osd::MTLComputeEvaluator::Create(OpenSubdiv::v3_1_1::Os
 
 uint64_t OpenSubdiv::v3_1_1::Osd::MTLComputeEvaluator::Compile(id *this, const BufferDescriptor *a2, const BufferDescriptor *a3, const BufferDescriptor *a4, const BufferDescriptor *a5, MTLContext *a6)
 {
-  v56[21] = *MEMORY[0x277D85DE8];
+  v37[21] = *MEMORY[0x277D85DE8];
   if (!a6)
   {
     OpenSubdiv::v3_1_1::Osd::MTLComputeEvaluator::Compile();
@@ -3600,141 +5915,141 @@ uint64_t OpenSubdiv::v3_1_1::Osd::MTLComputeEvaluator::Compile(id *this, const B
     printf("Using OPENSUBDIV_MTL_COMPUTE_USE_DERIVATIVES");
   }
 
-  v55[0] = @"LENGTH";
-  v56[0] = [MEMORY[0x277CCABB0] numberWithInt:a2->var1];
-  v55[1] = @"SRC_STRIDE";
-  v56[1] = [MEMORY[0x277CCABB0] numberWithInt:a2->var2];
-  v55[2] = @"DST_STRIDE";
-  v56[2] = [MEMORY[0x277CCABB0] numberWithInt:a3->var2];
-  v55[3] = @"WORK_GROUP_SIZE";
-  v56[3] = [MEMORY[0x277CCABB0] numberWithInt:*(this + 6)];
-  v55[4] = @"OPENSUBDIV_MTL_COMPUTE_USE_DERIVATIVES";
-  v55[5] = @"PARAMETER_BUFFER_INDEX";
-  v55[6] = @"SIZES_BUFFER_INDEX";
-  v56[6] = &unk_282E0FA08;
-  v56[7] = &unk_282E0FA20;
-  v55[7] = @"OFFSETS_BUFFER_INDEX";
-  v55[8] = @"INDICES_BUFFER_INDEX";
-  v56[8] = &unk_282E0FA38;
-  v56[9] = &unk_282E0FA50;
-  v55[9] = @"WEIGHTS_BUFFER_INDEX";
-  v55[10] = @"SRC_VERTEX_BUFFER_INDEX";
-  v56[10] = &unk_282E0FA68;
-  v56[11] = &unk_282E0FA80;
-  v55[11] = @"DST_VERTEX_BUFFER_INDEX";
-  v55[12] = @"DU_WEIGHTS_BUFFER_INDEX";
-  v56[12] = &unk_282E0FA98;
-  v56[13] = &unk_282E0FAB0;
-  v55[13] = @"DV_WEIGHTS_BUFFER_INDEX";
-  v55[14] = @"DU_DERIVATIVE_BUFFER_INDEX";
-  v56[14] = &unk_282E0FAC8;
-  v56[15] = &unk_282E0FAE0;
-  v55[15] = @"DV_DERIVATIVE_BUFFER_INDEX";
-  v55[16] = @"PATCH_ARRAYS_BUFFER_INDEX";
-  v56[16] = &unk_282E0FAF8;
-  v56[17] = &unk_282E0FB10;
-  v55[17] = @"PATCH_COORDS_BUFFER_INDEX";
-  v55[18] = @"PATCH_INDICES_BUFFER_INDEX";
-  v56[18] = &unk_282E0FB28;
-  v56[19] = &unk_282E0FB40;
-  v56[4] = [MEMORY[0x277CCABB0] numberWithBool:v14];
-  v56[5] = &unk_282E0F9F0;
-  v55[19] = @"PATCH_PARAMS_BUFFER_INDEX";
-  v55[20] = @"C3D_OPTIMIZE_OPENSUBDIV_STORAGE";
-  v56[20] = &unk_282E0F9F0;
-  [v12 setPreprocessorMacros:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v56, v55, 21)}];
-  v15 = std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:nn200100](v49);
-  OpenSubdiv::v3_1_1::Osd::MTLPatchShaderSource::GetPatchBasisShaderSource(__p, v15);
-  if ((v48 & 0x80u) == 0)
+  v36[0] = @"LENGTH";
+  v37[0] = [MEMORY[0x277CCABB0] numberWithInt:a2->var1];
+  v36[1] = @"SRC_STRIDE";
+  v37[1] = [MEMORY[0x277CCABB0] numberWithInt:a2->var2];
+  v36[2] = @"DST_STRIDE";
+  v37[2] = [MEMORY[0x277CCABB0] numberWithInt:a3->var2];
+  v36[3] = @"WORK_GROUP_SIZE";
+  v37[3] = [MEMORY[0x277CCABB0] numberWithInt:*(this + 6)];
+  v36[4] = @"OPENSUBDIV_MTL_COMPUTE_USE_DERIVATIVES";
+  v36[5] = @"PARAMETER_BUFFER_INDEX";
+  v36[6] = @"SIZES_BUFFER_INDEX";
+  v37[6] = &unk_282E0FA08;
+  v37[7] = &unk_282E0FA20;
+  v36[7] = @"OFFSETS_BUFFER_INDEX";
+  v36[8] = @"INDICES_BUFFER_INDEX";
+  v37[8] = &unk_282E0FA38;
+  v37[9] = &unk_282E0FA50;
+  v36[9] = @"WEIGHTS_BUFFER_INDEX";
+  v36[10] = @"SRC_VERTEX_BUFFER_INDEX";
+  v37[10] = &unk_282E0FA68;
+  v37[11] = &unk_282E0FA80;
+  v36[11] = @"DST_VERTEX_BUFFER_INDEX";
+  v36[12] = @"DU_WEIGHTS_BUFFER_INDEX";
+  v37[12] = &unk_282E0FA98;
+  v37[13] = &unk_282E0FAB0;
+  v36[13] = @"DV_WEIGHTS_BUFFER_INDEX";
+  v36[14] = @"DU_DERIVATIVE_BUFFER_INDEX";
+  v37[14] = &unk_282E0FAC8;
+  v37[15] = &unk_282E0FAE0;
+  v36[15] = @"DV_DERIVATIVE_BUFFER_INDEX";
+  v36[16] = @"PATCH_ARRAYS_BUFFER_INDEX";
+  v37[16] = &unk_282E0FAF8;
+  v37[17] = &unk_282E0FB10;
+  v36[17] = @"PATCH_COORDS_BUFFER_INDEX";
+  v36[18] = @"PATCH_INDICES_BUFFER_INDEX";
+  v37[18] = &unk_282E0FB28;
+  v37[19] = &unk_282E0FB40;
+  v37[4] = [MEMORY[0x277CCABB0] numberWithBool:v14];
+  v37[5] = &unk_282E0F9F0;
+  v36[19] = @"PATCH_PARAMS_BUFFER_INDEX";
+  v36[20] = @"C3D_OPTIMIZE_OPENSUBDIV_STORAGE";
+  v37[20] = &unk_282E0F9F0;
+  [v12 setPreprocessorMacros:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v37, v36, 21)}];
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:nn200100](v30);
+  OpenSubdiv::v3_1_1::Osd::MTLPatchShaderSource::GetPatchBasisShaderSource();
+  if ((v29 & 0x80u) == 0)
   {
-    v16 = __p;
+    v15 = __p;
   }
 
   else
   {
-    v16 = __p[0];
+    v15 = __p[0];
   }
 
-  if ((v48 & 0x80u) == 0)
+  if ((v29 & 0x80u) == 0)
   {
-    v17 = v48;
+    v16 = v29;
   }
 
   else
   {
-    v17 = __p[1];
+    v16 = __p[1];
   }
 
-  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&v50, v16, v17);
-  if (v48 < 0)
+  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&v31, v15, v16);
+  if (v29 < 0)
   {
     operator delete(__p[0]);
   }
 
-  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&v50, aLine0OsdMtlcom, 9645);
-  v18 = objc_alloc(MEMORY[0x277CCACA8]);
+  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&v31, aLine0OsdMtlcom, 9645);
+  v17 = objc_alloc(MEMORY[0x277CCACA8]);
   std::stringbuf::str();
-  if ((v48 & 0x80u) == 0)
+  if ((v29 & 0x80u) == 0)
   {
-    v19 = __p;
+    v18 = __p;
   }
 
   else
   {
-    v19 = __p[0];
+    v18 = __p[0];
   }
 
-  v20 = [v18 initWithUTF8String:v19];
-  if (v48 < 0)
+  v19 = [v17 initWithUTF8String:v18];
+  if (v29 < 0)
   {
     operator delete(__p[0]);
   }
 
   __p[0] = 0;
-  *this = [a6->var0 newLibraryWithSource:v20 options:v12 error:__p];
+  *this = [a6->var0 newLibraryWithSource:v19 options:v12 error:__p];
 
   if (*this)
   {
-    v27 = [*this newFunctionWithName:@"eval_stencils"];
-    this[1] = [a6->var0 newComputePipelineStateWithFunction:v27 error:__p];
+    v20 = [*this newFunctionWithName:@"eval_stencils"];
+    this[1] = [a6->var0 newComputePipelineStateWithFunction:v20 error:__p];
 
     if (this[1])
     {
-      v34 = [*this newFunctionWithName:@"eval_patches"];
-      this[2] = [a6->var0 newComputePipelineStateWithFunction:v34 error:__p];
+      v21 = [*this newFunctionWithName:@"eval_patches"];
+      this[2] = [a6->var0 newComputePipelineStateWithFunction:v21 error:__p];
 
       if (this[2])
       {
-        v41 = 1;
+        v22 = 1;
         goto LABEL_42;
       }
 
       if (__p[0])
       {
-        LOBYTE(v44) = [objc_msgSend(__p[0] "localizedDescription")];
+        v25 = [objc_msgSend(__p[0] "localizedDescription")];
       }
 
       else
       {
-        v44 = "";
+        v25 = "";
       }
 
-      OpenSubdiv::v3_1_1::Far::Error(4, "Error compiling MTL Pipeline eval_patches:  %s\n", v35, v36, v37, v38, v39, v40, v44);
+      OpenSubdiv::v3_1_1::Far::Error(4, "Error compiling MTL Pipeline eval_patches:  %s\n", v25);
     }
 
     else
     {
       if (__p[0])
       {
-        LOBYTE(v43) = [objc_msgSend(__p[0] "localizedDescription")];
+        v24 = [objc_msgSend(__p[0] "localizedDescription")];
       }
 
       else
       {
-        v43 = "";
+        v24 = "";
       }
 
-      OpenSubdiv::v3_1_1::Far::Error(4, "Error compiling MTL Pipeline eval_stencils: %s\n", v28, v29, v30, v31, v32, v33, v43);
+      OpenSubdiv::v3_1_1::Far::Error(4, "Error compiling MTL Pipeline eval_stencils: %s\n", v24);
     }
   }
 
@@ -3742,45 +6057,45 @@ uint64_t OpenSubdiv::v3_1_1::Osd::MTLComputeEvaluator::Compile(id *this, const B
   {
     if (__p[0])
     {
-      LOBYTE(v42) = [objc_msgSend(__p[0] "localizedDescription")];
+      v23 = [objc_msgSend(__p[0] "localizedDescription")];
     }
 
     else
     {
-      v42 = "";
+      v23 = "";
     }
 
-    OpenSubdiv::v3_1_1::Far::Error(4, "Error compiling MTL Shader: %s\n", v21, v22, v23, v24, v25, v26, v42);
+    OpenSubdiv::v3_1_1::Far::Error(4, "Error compiling MTL Shader: %s\n", v23);
   }
 
-  v41 = 0;
+  v22 = 0;
 LABEL_42:
-  v49[0] = *MEMORY[0x277D82818];
-  v45 = *(MEMORY[0x277D82818] + 72);
-  *(v49 + *(v49[0] - 24)) = *(MEMORY[0x277D82818] + 64);
-  v50 = v45;
-  v51 = MEMORY[0x277D82878] + 16;
-  if (v53 < 0)
+  v30[0] = *MEMORY[0x277D82818];
+  v26 = *(MEMORY[0x277D82818] + 72);
+  *(v30 + *(v30[0] - 24)) = *(MEMORY[0x277D82818] + 64);
+  v31 = v26;
+  v32 = MEMORY[0x277D82878] + 16;
+  if (v34 < 0)
   {
-    operator delete(v52[7].__locale_);
+    operator delete(v33[7].__locale_);
   }
 
-  v51 = MEMORY[0x277D82868] + 16;
-  std::locale::~locale(v52);
+  v32 = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(v33);
   std::iostream::~basic_iostream();
-  MEMORY[0x21CF075C0](&v54);
-  return v41;
+  MEMORY[0x21CF075C0](&v35);
+  return v22;
 }
 
-void sub_21C20F450(_Unwind_Exception *a1, uint64_t a2, void *__p, uint64_t a4, int a5, __int16 a6, char a7, char a8, char a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
+void sub_21C20F450(_Unwind_Exception *a1, uint64_t a2, void *__p, uint64_t a4, int a5, __int16 a6, char a7, char a8, char a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
-  va_start(va, a24);
-  if (a8 < 0)
+  va_start(va, a28);
+  if (SHIBYTE(a12) < 0)
   {
-    operator delete(__p);
+    operator delete(a10);
   }
 
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a9, MEMORY[0x277D82818]);
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a13, MEMORY[0x277D82818]);
   MEMORY[0x21CF075C0](va);
   _Unwind_Resume(a1);
 }
@@ -3914,37 +6229,42 @@ void OpenSubdiv::v3_1_1::Osd::MTLComputeEvaluator::EvalStencils()
   __assert_rtn("EvalStencils", "mtlComputeEvaluator.mm", 403, "context != nullptr");
 }
 
-void OpenSubdiv::v3_1_1::Far::StencilTableFactory::Create(uint64_t a1, uint64_t a2)
+void OpenSubdiv::v3_1_1::Far::StencilTableFactory::Create(uint64_t a1, unint64_t a2)
 {
   v3 = a2;
   v4 = **(a1 + 88);
   if ((a2 & 3) == 2)
   {
-    OpenSubdiv::v3_1_1::Vtr::internal::Level::getNumFVarValues(v4, SHIDWORD(a2));
-  }
-
-  if (((*(a1 + 8) >> 2) & 0xFu) >= ((v3 >> 6) & 0xF))
-  {
-    v5 = (v3 >> 6) & 0xF;
+    NumFVarValues = OpenSubdiv::v3_1_1::Vtr::internal::Level::getNumFVarValues(v4, SHIDWORD(a2));
   }
 
   else
   {
-    v5 = (*(a1 + 8) >> 2) & 0xF;
+    NumFVarValues = *(v4 + 2);
   }
 
-  if (!(v3 & 8 | v5))
+  if (((*(a1 + 8) >> 2) & 0xFu) >= ((v3 >> 6) & 0xF))
+  {
+    v6 = (v3 >> 6) & 0xF;
+  }
+
+  else
+  {
+    v6 = (*(a1 + 8) >> 2) & 0xF;
+  }
+
+  if (!(v3 & 8 | v6))
   {
     operator new();
   }
 
-  OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::StencilBuilder(v6);
+  OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::StencilBuilder(&v7, NumFVarValues, 1, 1);
 }
 
-void OpenSubdiv::v3_1_1::Far::PrimvarRefiner::Interpolate<OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index,OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index>(uint64_t *a1, int a2, uint64_t a3, uint64_t a4)
+void OpenSubdiv::v3_1_1::Far::PrimvarRefiner::Interpolate<OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index,OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index>(int **a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
   v28 = *MEMORY[0x277D85DE8];
-  if (a2 < 1 || ((*(*a1 + 72) - *(*a1 + 64)) >> 3) < a2)
+  if (a2 < 1 || (v4 = a2, ((*(*a1 + 9) - *(*a1 + 8)) >> 3) < a2))
   {
     _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner11InterpolateIP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS6_NS8_9allocatorIS6_EEEEEEviRKT_RT0__cold_1();
   }
@@ -3955,26 +6275,26 @@ void OpenSubdiv::v3_1_1::Far::PrimvarRefiner::Interpolate<OpenSubdiv::v3_1_1::Fa
     if (v8 == 2)
     {
       OpenSubdiv::v3_1_1::Far::PrimvarRefiner::interpFromFaces<(OpenSubdiv::v3_1_1::Sdc::SchemeType)1,OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index,OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index>(a1, a2, a3, a4);
-      OpenSubdiv::v3_1_1::Far::PrimvarRefiner::interpFromEdges<(OpenSubdiv::v3_1_1::Sdc::SchemeType)2,OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index,OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index>(a1, a2, a3, a4);
+      OpenSubdiv::v3_1_1::Far::PrimvarRefiner::interpFromEdges<(OpenSubdiv::v3_1_1::Sdc::SchemeType)2,OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index,OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index>(a1, v4, a3, a4);
 
-      OpenSubdiv::v3_1_1::Far::PrimvarRefiner::interpFromVerts<(OpenSubdiv::v3_1_1::Sdc::SchemeType)2,OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index,OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index>(a1, a2, a3, a4, v9);
+      OpenSubdiv::v3_1_1::Far::PrimvarRefiner::interpFromVerts<(OpenSubdiv::v3_1_1::Sdc::SchemeType)2,OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index,OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index>(a1, v4, a3, a4, v9);
     }
 
     else if (v8 == 1)
     {
       OpenSubdiv::v3_1_1::Far::PrimvarRefiner::interpFromFaces<(OpenSubdiv::v3_1_1::Sdc::SchemeType)1,OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index,OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index>(a1, a2, a3, a4);
-      OpenSubdiv::v3_1_1::Far::PrimvarRefiner::interpFromEdges<(OpenSubdiv::v3_1_1::Sdc::SchemeType)1,OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index,OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index>(a1, a2, a3, a4);
+      OpenSubdiv::v3_1_1::Far::PrimvarRefiner::interpFromEdges<(OpenSubdiv::v3_1_1::Sdc::SchemeType)1,OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index,OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index>(a1, v4, a3, a4);
 
-      OpenSubdiv::v3_1_1::Far::PrimvarRefiner::interpFromVerts<(OpenSubdiv::v3_1_1::Sdc::SchemeType)1,OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index,OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index>(a1, a2, a3, a4);
+      OpenSubdiv::v3_1_1::Far::PrimvarRefiner::interpFromVerts<(OpenSubdiv::v3_1_1::Sdc::SchemeType)1,OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index,OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index>(a1, v4, a3, a4);
     }
   }
 
   else
   {
     OpenSubdiv::v3_1_1::Far::PrimvarRefiner::interpFromFaces<(OpenSubdiv::v3_1_1::Sdc::SchemeType)1,OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index,OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index>(a1, a2, a3, a4);
-    OpenSubdiv::v3_1_1::Far::PrimvarRefiner::interpFromEdges<(OpenSubdiv::v3_1_1::Sdc::SchemeType)0,OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index,OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index>(a1, a2, a3, a4);
+    OpenSubdiv::v3_1_1::Far::PrimvarRefiner::interpFromEdges<(OpenSubdiv::v3_1_1::Sdc::SchemeType)0,OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index,OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index>(a1, v4, a3, a4);
     v10 = 0;
-    v11 = *(*(*a1 + 64) + 8 * a2 - 8);
+    v11 = *(*(*a1 + 8) + 8 * v4 - 8);
     v12 = *(v11 + 8);
     v13 = 2 * *(v12 + 20);
     v23 = &v26;
@@ -3997,10 +6317,10 @@ void OpenSubdiv::v3_1_1::Far::PrimvarRefiner::Interpolate<OpenSubdiv::v3_1_1::Fa
         v16 = *(*(v11 + 240) + 4 * i);
         if (v16 != -1)
         {
-          v17 = *(a4 + 8);
+          v17 = *(a4 + 2);
           v21 = *a4;
           v22 = v17 + v16;
-          v18 = i + *(a3 + 8);
+          v18 = i + *(a3 + 2);
           v19 = *a3;
           v20 = v18;
           OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index::AddWithWeight(&v21, &v19, 1.0);
@@ -4015,9 +6335,9 @@ void OpenSubdiv::v3_1_1::Far::PrimvarRefiner::Interpolate<OpenSubdiv::v3_1_1::Fa
   }
 }
 
-void OpenSubdiv::v3_1_1::Far::PrimvarRefiner::InterpolateVarying<OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index,OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index>(uint64_t a1, int a2, uint64_t *a3, uint64_t *a4)
+void OpenSubdiv::v3_1_1::Far::PrimvarRefiner::InterpolateVarying<OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index,OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index>(uint64_t result, int a2, uint64_t *a3, uint64_t *a4)
 {
-  if (a2 < 1 || (v4 = *(*a1 + 64), ((*(*a1 + 72) - v4) >> 3) < a2))
+  if (a2 < 1 || (v4 = *(*result + 64), ((*(*result + 72) - v4) >> 3) < a2))
   {
     _ZN23C3DSubdivCPUPrimvarDataIDv3_fE11InterpolateEiPN10OpenSubdiv6v3_1_13Far14PrimvarRefinerEPNS4_15TopologyRefinerE_cold_2();
   }
@@ -4118,75 +6438,76 @@ void OpenSubdiv::v3_1_1::Far::PrimvarRefiner::InterpolateVarying<OpenSubdiv::v3_
   }
 }
 
-void OpenSubdiv::v3_1_1::Far::PrimvarRefiner::InterpolateFaceVarying<OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index,OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index>(int **a1, int a2, uint64_t *a3, uint64_t *a4, int a5)
+void OpenSubdiv::v3_1_1::Far::PrimvarRefiner::InterpolateFaceVarying<OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index,OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index>(int **result, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t a5)
 {
-  if (a2 < 1 || ((*(*a1 + 9) - *(*a1 + 8)) >> 3) < a2)
+  if (a2 < 1 || (v5 = a2, ((*(*result + 9) - *(*result + 8)) >> 3) < a2))
   {
     _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner22InterpolateFaceVaryingIP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS6_NS8_9allocatorIS6_EEEEEEviRKT_RT0_i_cold_1();
   }
 
-  v10 = **a1;
+  v7 = a5;
+  v10 = **result;
   if (v10)
   {
     if (v10 == 2)
     {
-      OpenSubdiv::v3_1_1::Far::PrimvarRefiner::interpFVarFromFaces<(OpenSubdiv::v3_1_1::Sdc::SchemeType)1,OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index,OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index>(a1, a2, a3, a4, a5);
-      OpenSubdiv::v3_1_1::Far::PrimvarRefiner::interpFVarFromEdges<(OpenSubdiv::v3_1_1::Sdc::SchemeType)2,OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index,OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index>(a1, a2, a3, a4, a5);
+      OpenSubdiv::v3_1_1::Far::PrimvarRefiner::interpFVarFromFaces<(OpenSubdiv::v3_1_1::Sdc::SchemeType)1,OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index,OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index>(result, a2, a3, a4, a5);
+      OpenSubdiv::v3_1_1::Far::PrimvarRefiner::interpFVarFromEdges<(OpenSubdiv::v3_1_1::Sdc::SchemeType)2,OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index,OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index>(result, v5, a3, a4, v7);
 
-      OpenSubdiv::v3_1_1::Far::PrimvarRefiner::interpFVarFromVerts<(OpenSubdiv::v3_1_1::Sdc::SchemeType)2,OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index,OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index>(a1, a2, a3, a4, a5, v11);
+      OpenSubdiv::v3_1_1::Far::PrimvarRefiner::interpFVarFromVerts<(OpenSubdiv::v3_1_1::Sdc::SchemeType)2,OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index,OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index>(result, v5, a3, a4, v7, v11);
     }
 
     else if (v10 == 1)
     {
-      OpenSubdiv::v3_1_1::Far::PrimvarRefiner::interpFVarFromFaces<(OpenSubdiv::v3_1_1::Sdc::SchemeType)1,OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index,OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index>(a1, a2, a3, a4, a5);
-      OpenSubdiv::v3_1_1::Far::PrimvarRefiner::interpFVarFromEdges<(OpenSubdiv::v3_1_1::Sdc::SchemeType)1,OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index,OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index>(a1, a2, a3, a4, a5);
+      OpenSubdiv::v3_1_1::Far::PrimvarRefiner::interpFVarFromFaces<(OpenSubdiv::v3_1_1::Sdc::SchemeType)1,OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index,OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index>(result, a2, a3, a4, a5);
+      OpenSubdiv::v3_1_1::Far::PrimvarRefiner::interpFVarFromEdges<(OpenSubdiv::v3_1_1::Sdc::SchemeType)1,OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index,OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index>(result, v5, a3, a4, v7);
 
-      OpenSubdiv::v3_1_1::Far::PrimvarRefiner::interpFVarFromVerts<(OpenSubdiv::v3_1_1::Sdc::SchemeType)1,OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index,OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index>(a1, a2, a3, a4, a5);
+      OpenSubdiv::v3_1_1::Far::PrimvarRefiner::interpFVarFromVerts<(OpenSubdiv::v3_1_1::Sdc::SchemeType)1,OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index,OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index>(result, v5, a3, a4, v7);
     }
   }
 
   else
   {
-    OpenSubdiv::v3_1_1::Far::PrimvarRefiner::interpFVarFromFaces<(OpenSubdiv::v3_1_1::Sdc::SchemeType)1,OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index,OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index>(a1, a2, a3, a4, a5);
-    OpenSubdiv::v3_1_1::Far::PrimvarRefiner::interpFVarFromEdges<(OpenSubdiv::v3_1_1::Sdc::SchemeType)0,OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index,OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index>(a1, a2, a3, a4, a5);
+    OpenSubdiv::v3_1_1::Far::PrimvarRefiner::interpFVarFromFaces<(OpenSubdiv::v3_1_1::Sdc::SchemeType)1,OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index,OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index>(result, a2, a3, a4, a5);
+    OpenSubdiv::v3_1_1::Far::PrimvarRefiner::interpFVarFromEdges<(OpenSubdiv::v3_1_1::Sdc::SchemeType)0,OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index,OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index>(result, v5, a3, a4, v7);
 
-    OpenSubdiv::v3_1_1::Far::PrimvarRefiner::interpFVarFromVerts<(OpenSubdiv::v3_1_1::Sdc::SchemeType)0,OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index,OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index>(a1, a2, a3, a4, a5);
+    OpenSubdiv::v3_1_1::Far::PrimvarRefiner::interpFVarFromVerts<(OpenSubdiv::v3_1_1::Sdc::SchemeType)0,OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index,OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::Index>(result, v5, a3, a4, v7);
   }
 }
 
-uint64_t OpenSubdiv::v3_1_1::Far::StencilTableFactory::appendLocalPointStencilTable(OpenSubdiv::v3_1_1::Far::StencilTableFactory *this, const OpenSubdiv::v3_1_1::Far::TopologyRefiner *a2, const OpenSubdiv::v3_1_1::Far::StencilTable *a3, const OpenSubdiv::v3_1_1::Far::StencilTable *a4)
+uint64_t OpenSubdiv::v3_1_1::Far::StencilTableFactory::appendLocalPointStencilTable(OpenSubdiv::v3_1_1::Far::StencilTableFactory *this, const OpenSubdiv::v3_1_1::Far::TopologyRefiner *a2, const OpenSubdiv::v3_1_1::Far::StencilTable *a3, const OpenSubdiv::v3_1_1::Far::StencilTable *a4, BOOL a5)
 {
   if (a2 && a3 && ((*(a3 + 3) - *(a3 + 2)) & 0x3FFFFFFFCLL) != 0)
   {
-    v4 = a4;
-    v7 = **(this + 11);
+    v6 = a4;
+    v9 = **(this + 11);
     if ((a4 & 0x80000000) != 0)
     {
-      NumFVarValues = *(v7 + 2);
+      NumFVarValues = *(v9 + 2);
     }
 
     else
     {
-      NumFVarValues = OpenSubdiv::v3_1_1::Vtr::internal::Level::getNumFVarValues(v7, a4);
+      NumFVarValues = OpenSubdiv::v3_1_1::Vtr::internal::Level::getNumFVarValues(v9, a4);
     }
 
-    v9 = (*(a2 + 3) - *(a2 + 2)) >> 2;
-    if (v4 < 0)
+    v11 = (*(a2 + 3) - *(a2 + 2)) >> 2;
+    if (v6 < 0)
     {
       NumFVarValuesTotal = *(this + 5);
     }
 
     else
     {
-      NumFVarValuesTotal = OpenSubdiv::v3_1_1::Far::TopologyRefiner::GetNumFVarValuesTotal(this, v4);
+      NumFVarValuesTotal = OpenSubdiv::v3_1_1::Far::TopologyRefiner::GetNumFVarValuesTotal(this, v6);
     }
 
-    if (NumFVarValuesTotal != v9 && NumFVarValuesTotal - NumFVarValues != v9)
+    if (NumFVarValuesTotal != v11 && NumFVarValuesTotal - NumFVarValues != v11)
     {
       OpenSubdiv::v3_1_1::Far::StencilTableFactory::appendLocalPointStencilTable();
     }
 
-    OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::StencilBuilder(v12);
+    OpenSubdiv::v3_1_1::Far::internal::StencilBuilder::StencilBuilder(&v14, NumFVarValues, 0, a5);
   }
 
   return 0;
@@ -6242,12 +8563,12 @@ uint64_t OpenSubdiv::v3_1_1::Far::GregoryBasis::ProtoBasis::ProtoBasis(uint64_t 
 {
   MEMORY[0x28223BE20](a1);
   v5 = v4;
-  v169 = v6;
-  v171 = v7;
+  v230 = v6;
+  v232 = v7;
   v8 = v2;
   v9 = v1;
   v10 = 0;
-  v212 = *MEMORY[0x277D85DE8];
+  v273 = *MEMORY[0x277D85DE8];
   do
   {
     v11 = v1 + v10;
@@ -6290,9 +8611,9 @@ uint64_t OpenSubdiv::v3_1_1::Far::GregoryBasis::ProtoBasis::ProtoBasis(uint64_t 
   }
 
   while (v17);
-  v167 = v1 + 1408;
-  v168 = v1 + 2816;
-  v165 = v1 + 4224;
+  v228 = v1 + 1408;
+  v229 = v1 + 2816;
+  v226 = v1 + 4224;
   v18 = v1 + 5632;
   v19 = 1408;
   do
@@ -6314,12 +8635,12 @@ uint64_t OpenSubdiv::v3_1_1::Far::GregoryBasis::ProtoBasis::ProtoBasis(uint64_t 
   }
 
   v21 = 0;
-  v164 = v9 + 5632;
+  v225 = v9 + 5632;
   v22 = *(v8 + 5);
   do
   {
-    v23 = &(&v192)[v21];
-    *v23 = &v195[v21 * 8];
+    v23 = &(&v253)[v21];
+    *v23 = &v256[v21 * 8];
     v23[1] = 0x2800000000;
     v23[22] = 0;
     v21 += 23;
@@ -6328,82 +8649,82 @@ uint64_t OpenSubdiv::v3_1_1::Far::GregoryBasis::ProtoBasis::ProtoBasis(uint64_t 
   while (v21 != 92);
   v24 = v22 + (v5 >= 0);
   v25 = 2 * v24;
-  v166 = v24;
+  v227 = v24;
   if (v24)
   {
-    if (v194 < v25)
+    if (v255 < v25)
     {
-      operator delete(v196);
-      v192 = v195;
-      v194 = 40;
-      v196 = operator new(4 * v25);
-      v192 = v196;
-      v194 = v25;
+      operator delete(v257);
+      v253 = v256;
+      v255 = 40;
+      v257 = operator new(4 * v25);
+      v253 = v257;
+      v255 = v25;
     }
 
-    v193 = v25;
-    if (v199 < v25)
+    v254 = v25;
+    if (v260 < v25)
     {
-      operator delete(v201);
-      v197 = v200;
-      v199 = 40;
-      v201 = operator new(4 * v25);
-      v197 = v201;
-      v199 = v25;
+      operator delete(v262);
+      v258 = v261;
+      v260 = 40;
+      v262 = operator new(4 * v25);
+      v258 = v262;
+      v260 = v25;
     }
 
-    v198 = v25;
-    if (v204 < v25)
+    v259 = v25;
+    if (v265 < v25)
     {
-      operator delete(v206);
-      v202 = v205;
-      v204 = 40;
-      v206 = operator new(4 * v25);
-      v202 = v206;
-      v204 = v25;
+      operator delete(v267);
+      v263 = v266;
+      v265 = 40;
+      v267 = operator new(4 * v25);
+      v263 = v267;
+      v265 = v25;
     }
 
-    v203 = v25;
-    if (v209 < v25)
+    v264 = v25;
+    if (v270 < v25)
     {
-      operator delete(v211);
-      v207 = v210;
-      v209 = 40;
-      v211 = operator new(4 * v25);
-      v207 = v211;
-      v209 = v25;
+      operator delete(v272);
+      v268 = v271;
+      v270 = 40;
+      v272 = operator new(4 * v25);
+      v268 = v272;
+      v270 = v25;
     }
   }
 
   else
   {
-    operator delete(v196);
-    v192 = v195;
-    v193 = v25;
-    v194 = 40;
-    operator delete(v201);
-    v197 = v200;
-    v198 = v25;
-    v199 = 40;
-    operator delete(v206);
-    v202 = v205;
-    v204 = 40;
-    v203 = v25;
-    operator delete(v211);
-    v207 = v210;
-    v209 = 40;
+    operator delete(v257);
+    v253 = v256;
+    v254 = v25;
+    v255 = 40;
+    operator delete(v262);
+    v258 = v261;
+    v259 = v25;
+    v260 = 40;
+    operator delete(v267);
+    v263 = v266;
+    v265 = 40;
+    v264 = v25;
+    operator delete(v272);
+    v268 = v271;
+    v270 = 40;
   }
 
   v26 = 0;
-  v208 = v25;
-  v170 = v9;
-  v174 = 4;
+  v269 = v25;
+  v231 = v9;
+  v235 = 4;
   do
   {
-    *(v9 + 7040 + 4 * v26) = *(v20 + 4 * v26) + v169;
-    v27 = (v171 + 6 * v26);
+    *(v9 + 7040 + 4 * v26) = *(v20 + 4 * v26) + v230;
+    v27 = (v232 + 6 * v26);
     v28 = *(v20 + 4 * v26);
-    v29 = &(&v192)[23 * v26];
+    v29 = &(&v253)[23 * v26];
     if (*v27)
     {
       v30 = OpenSubdiv::v3_1_1::Vtr::internal::Level::gatherQuadRegularPartialRingAroundVertex(v8, v28, v27, *v29, v5);
@@ -6434,10 +8755,10 @@ LABEL_28:
     *(*v29 + 4 * v30) = *(*v29 + 4 * v35);
     v31 = 1;
 LABEL_31:
-    v181[v26] = v31;
-    *(&v191[357] + v26) = v32;
-    *(&v191[359] + v26) = v34;
-    *(&v191[353] + v26) = v33;
+    v242[v26] = v31;
+    *(&v252[357] + v26) = v32;
+    *(&v252[359] + v26) = v34;
+    *(&v252[353] + v26) = v33;
     if (v34 < 1)
     {
 LABEL_128:
@@ -6445,7 +8766,7 @@ LABEL_128:
     }
 
     v36 = 0;
-    v174 = v174 + v30 - 3;
+    v235 = v235 + v30 - 3;
     v37 = v26 + 1;
     v34 = v34;
     v38 = 2;
@@ -6471,41 +8792,41 @@ LABEL_128:
       }
     }
 
-    *(&v191[355] + v26++) = v36;
+    *(&v252[355] + v26++) = v36;
   }
 
   while (v37 != 4);
   for (k = 0; k != 176; k += 44)
   {
-    v43 = &v191[k + 177];
+    v43 = &v252[k + 177];
     *v43 = 0;
-    v43[1] = &v191[k + 180];
+    v43[1] = &v252[k + 180];
     v43[43] = 0;
     v43[2] = 0x2800000028;
   }
 
   for (m = 0; m != 176; m += 44)
   {
-    v45 = &v191[m + 1];
+    v45 = &v252[m + 1];
     *v45 = 0;
-    v45[1] = &v191[m + 4];
+    v45[1] = &v252[m + 4];
     v45[43] = 0;
     v45[2] = 0x2800000028;
   }
 
-  v46 = v190;
-  v187 = v190;
-  v188 = v166;
-  v189 = 10;
-  v191[0] = 0;
-  LODWORD(v47) = v166;
-  if (v166 >= 0xB)
+  v46 = v251;
+  v248 = v251;
+  v249 = v227;
+  v250 = 10;
+  v252[0] = 0;
+  LODWORD(v47) = v227;
+  if (v227 >= 0xB)
   {
-    v46 = operator new(352 * v166);
-    v191[0] = v46;
-    v187 = v46;
-    v189 = v166;
-    LODWORD(v47) = v188;
+    v46 = operator new(352 * v227);
+    v252[0] = v46;
+    v248 = v46;
+    v250 = v227;
+    LODWORD(v47) = v249;
   }
 
   if (v47)
@@ -6524,19 +8845,19 @@ LABEL_128:
     while (v47);
   }
 
-  v48 = 4 * v166;
-  v49 = v185;
-  v182 = v185;
-  v183 = 4 * v166;
-  v184 = 40;
-  v186 = 0;
-  if ((4 * v166) >= 0x29)
+  v48 = 4 * v227;
+  v49 = v246;
+  v243 = v246;
+  v244 = 4 * v227;
+  v245 = 40;
+  v247 = 0;
+  if ((4 * v227) >= 0x29)
   {
     v49 = operator new(352 * v48);
-    v186 = v49;
-    v182 = v49;
-    v184 = 4 * v166;
-    v48 = v183;
+    v247 = v49;
+    v243 = v49;
+    v245 = 4 * v227;
+    v48 = v244;
   }
 
   if (v48)
@@ -6559,29 +8880,29 @@ LABEL_128:
   v52 = 0;
   do
   {
-    v177 = v51;
-    v178 = *(FaceFVarValues + 4 * v52);
-    v172 = v52;
-    v53 = *(&v191[359] + v52);
-    v179 = v53;
+    v238 = v51;
+    v239 = *(FaceFVarValues + 4 * v52);
+    v233 = v52;
+    v53 = *(&v252[359] + v52);
+    v240 = v53;
     if (v53 >= 1)
     {
       v54 = 0;
       v55 = 1.0 / (v53 + 5.0);
       v56 = v55 * v53;
-      v175 = 352 * v53;
-      v176 = &(&v192)[23 * v52];
+      v236 = 352 * v53;
+      v237 = &(&v253)[23 * v52];
       v57 = -1;
       v58 = 2;
       v59 = 4;
       do
       {
         v60 = (v53 + v57) % v53;
-        v61 = *v176;
-        v62 = (*v176 + v59);
+        v61 = *v237;
+        v62 = (*v237 + v59);
         v64 = *(v62 - 1);
         v63 = *v62;
-        if (v175 - 352 == v54)
+        if (v236 - 352 == v54)
         {
           v65 = 0;
         }
@@ -6594,96 +8915,120 @@ LABEL_128:
         v66 = *(v61 + 4 * v65);
         v67 = *(v61 + 8 * v60);
         v68 = *(v61 + 8 * v60 + 4);
-        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::Clear(&v187[v54], 4u);
-        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(&v187[v54], v178, v56);
-        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(&v187[v54], v66, v55 + v55);
-        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(&v187[v54], v64, v55 + v55);
-        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(&v187[v54], v63, v55);
-        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::Clear(&v182[v177 + v54], 4u);
-        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(&v182[v177 + v54], v66, 0.33333);
-        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(&v182[v177 + v54], v67, -0.33333);
-        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(&v182[v177 + v54], v63, 0.16667);
-        v69 = v68;
-        v53 = v179;
-        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(&v182[v177 + v54], v69, -0.16667);
+        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::Clear(&v248[v54], 4);
+        v69.n128_f32[0] = v56;
+        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(&v248[v54], v239, v69);
+        v70.n128_f32[0] = v55 + v55;
+        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(&v248[v54], v66, v70);
+        v71.n128_f32[0] = v55 + v55;
+        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(&v248[v54], v64, v71);
+        v72.n128_f32[0] = v55;
+        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(&v248[v54], v63, v72);
+        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::Clear(&v243[v238 + v54], 4);
+        v73.n128_u32[0] = 1051372203;
+        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(&v243[v238 + v54], v66, v73);
+        v74.n128_u32[0] = -1096111445;
+        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(&v243[v238 + v54], v67, v74);
+        v75.n128_u32[0] = 1042983595;
+        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(&v243[v238 + v54], v63, v75);
+        v76 = v68;
+        v53 = v240;
+        v77.n128_u32[0] = -1104500053;
+        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(&v243[v238 + v54], v76, v77);
         v54 += 352;
         v59 += 8;
         ++v57;
         v58 += 2;
       }
 
-      while (v175 != v54);
+      while (v236 != v54);
     }
 
-    v70 = v172;
-    if ((*(v171 + 6 * v172 + 4) & 2) != 0)
+    v78 = v233;
+    if ((*(v232 + 6 * v233 + 4) & 2) != 0)
     {
-      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::Clear((v170 + 352 * v172), v174);
-      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v170 + 352 * v172), v178, 1.0);
-      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::Clear(&v191[44 * v172 + 177], v174);
-      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(&v191[44 * v172 + 177], *(FaceFVarValues + 4 * v172), 0.66667);
-      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(&v191[44 * v172 + 177], *(FaceFVarValues + 4 * ((v172 + 1) & 3)), 0.33333);
-      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::Clear(&v191[44 * v172 + 1], v174);
-      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(&v191[44 * v172 + 1], *(FaceFVarValues + 4 * v172), 0.66667);
-      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(&v191[44 * v172 + 1], *(FaceFVarValues + 4 * ((v172 - 1) & 3)), 0.33333);
+      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::Clear((v231 + 352 * v233), v235);
+      v109.n128_u32[0] = 1.0;
+      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v231 + 352 * v233), v239, v109);
+      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::Clear(&v252[44 * v233 + 177], v235);
+      v110.n128_u32[0] = 1059760811;
+      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(&v252[44 * v233 + 177], *(FaceFVarValues + 4 * v233), v110);
+      v111.n128_u32[0] = 1051372203;
+      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(&v252[44 * v233 + 177], *(FaceFVarValues + 4 * ((v233 + 1) & 3)), v111);
+      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::Clear(&v252[44 * v233 + 1], v235);
+      v112.n128_u32[0] = 1059760811;
+      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(&v252[44 * v233 + 1], *(FaceFVarValues + 4 * v233), v112);
+      v113.n128_u32[0] = 1051372203;
+      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(&v252[44 * v233 + 1], *(FaceFVarValues + 4 * ((v233 - 1) & 3)), v113);
     }
 
-    else if (v181[v172])
+    else if (v242[v233])
     {
-      v71 = &(&v192)[23 * v172];
-      v72 = **v71;
-      v73 = (*v71)[2 * v53 - 1];
-      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::Clear((v170 + 352 * v172), v174);
-      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v170 + 352 * v172), v72, 0.16667);
-      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v170 + 352 * v172), v73, 0.16667);
-      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v170 + 352 * v172), v178, 0.66667);
-      v74 = *(&v191[357] + v172);
-      v75 = *(&v191[353] + v172);
-      v76 = __sincosf_stret(v75);
-      v77 = 1.0 / (v76.__cosval + (v74 * 3.0));
-      v78 = (*v71)[1];
-      v79 = (v77 * -(((v76.__cosval * 2.0) + 1.0) * sqrtf(v76.__cosval + 1.0))) / sqrtf(1.0 - v76.__cosval);
-      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::Clear(&v191[44 * v172 + 177], v174);
-      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(&v191[44 * v172 + 177], v72, 0.16667);
-      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(&v191[44 * v172 + 177], v73, -0.16667);
-      v80 = &v191[44 * v172 + 1];
-      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::Clear(v80, v174);
-      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(v80, v178, (v76.__sinval * -4.0) * v77);
-      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(v80, v72, v79);
-      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(v80, v78, v76.__sinval * v77);
-      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(v80, v73, v79);
-      if (v179 >= 3)
+      v79 = &(&v253)[23 * v233];
+      v80 = **v79;
+      v81 = (*v79)[2 * v53 - 1];
+      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::Clear((v231 + 352 * v233), v235);
+      v82.n128_u32[0] = 1042983595;
+      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v231 + 352 * v233), v80, v82);
+      v83.n128_u32[0] = 1042983595;
+      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v231 + 352 * v233), v81, v83);
+      v84.n128_u32[0] = 1059760811;
+      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v231 + 352 * v233), v239, v84);
+      v85 = *(&v252[357] + v233);
+      v86 = *(&v252[353] + v233);
+      v87 = __sincosf_stret(v86);
+      v88 = 1.0 / (v87.__cosval + (v85 * 3.0));
+      v89 = (*v79)[1];
+      v90 = (v88 * -(((v87.__cosval * 2.0) + 1.0) * sqrtf(v87.__cosval + 1.0))) / sqrtf(1.0 - v87.__cosval);
+      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::Clear(&v252[44 * v233 + 177], v235);
+      v91.n128_u32[0] = 1042983595;
+      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(&v252[44 * v233 + 177], v80, v91);
+      v92.n128_u32[0] = -1104500053;
+      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(&v252[44 * v233 + 177], v81, v92);
+      v93 = &v252[44 * v233 + 1];
+      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::Clear(v93, v235);
+      v94.n128_f32[0] = (v87.__sinval * -4.0) * v88;
+      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(v93, v239, v94);
+      v95.n128_f32[0] = v90;
+      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(v93, v80, v95);
+      v96.n128_f32[0] = v87.__sinval * v88;
+      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(v93, v89, v96);
+      v97.n128_f32[0] = v90;
+      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(v93, v81, v97);
+      if (v240 >= 3)
       {
-        v81 = 0;
-        v82 = 1;
+        v98 = 0;
+        v99 = 1;
         do
         {
-          v83 = sinf(v75 * v82);
-          v84 = v77 * (v83 * 4.0);
-          v85 = v77 * (v83 + sinf(v75 * ++v82));
-          v86 = &(*v71)[v81 / 4];
-          v87 = v86[3];
-          OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(v80, v86[2], v84);
-          OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(v80, v87, v85);
-          v81 += 8;
+          v100 = sinf(v86 * v99);
+          v101 = v88 * (v100 * 4.0);
+          v102 = v88 * (v100 + sinf(v86 * ++v99));
+          v103 = &(*v79)[v98 / 4];
+          v104 = v103[3];
+          v105.n128_f32[0] = v101;
+          OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(v93, v103[2], v105);
+          v106.n128_f32[0] = v102;
+          OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(v93, v104, v106);
+          v98 += 8;
         }
 
-        while (8 * (v179 - 1) - 8 != v81);
+        while (8 * (v240 - 1) - 8 != v98);
       }
 
-      v88 = *v80;
-      v70 = v172;
-      if (v88 >= 1)
+      v107 = *v93;
+      v78 = v233;
+      if (v107 >= 1)
       {
-        v89 = (v80[1] + 4);
+        v108 = (v93[1] + 4);
         do
         {
-          *v89 = *v89 * 0.33333;
-          v89 += 2;
-          --v88;
+          *v108 = *v108 * 0.33333;
+          v108 += 2;
+          --v107;
         }
 
-        while (v88);
+        while (v107);
       }
     }
 
@@ -6694,172 +9039,202 @@ LABEL_128:
         OpenSubdiv::v3_1_1::Far::GregoryBasis::ProtoBasis::ProtoBasis();
       }
 
-      v90 = *(&v191[353] + v172);
+      v114 = *(&v252[353] + v233);
       if (v53 > 0x1D)
       {
-        v93 = cosf(6.2832 / v53);
-        v92 = 1.0;
-        v91 = 1.0 / ((((v93 + 5.0) + sqrtf((v93 + 9.0) * (v93 + 1.0))) * v53) * 0.0625);
+        v117 = cosf(6.2832 / v53);
+        v116 = 1.0;
+        v115 = 1.0 / ((((v117 + 5.0) + sqrtf((v117 + 9.0) * (v117 + 1.0))) * v53) * 0.0625);
       }
 
       else
       {
-        v91 = OpenSubdiv::v3_1_1::Far::computeCoefficient(int)::efTable[v53];
-        v92 = 1.0;
+        v115 = OpenSubdiv::v3_1_1::Far::computeCoefficient(int)::efTable[v53];
+        v116 = 1.0;
       }
 
-      v94 = v92 / v53;
-      v95 = 44 * v172;
-      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::Clear((v170 + 352 * v172), v174);
-      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::Clear(&v191[44 * v172 + 177], v174);
-      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::Clear(&v191[44 * v172 + 1], v174);
-      v96 = 0;
-      v97 = 0;
-      v98 = v91 * 0.5;
-      v99 = v53 - 1;
+      v118 = v116 / v53;
+      v119 = 44 * v233;
+      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::Clear((v231 + 352 * v233), v235);
+      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::Clear(&v252[44 * v233 + 177], v235);
+      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::Clear(&v252[44 * v233 + 1], v235);
+      v121 = 0;
+      v122 = 0;
+      v123 = v115 * 0.5;
+      v124 = v53 - 1;
       do
       {
-        v100 = (v99 + v97) % v53;
-        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v170 + v95 * 8), &v187[v96], v94);
-        v101 = __sincosf_stret(v90 * v97);
-        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(&v191[v95 + 177], &v187[v96], v98 * v101.__cosval);
-        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(&v191[v95 + 177], &v187[352 * v100], v98 * v101.__cosval);
-        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(&v191[v95 + 1], &v187[v96], v98 * v101.__sinval);
-        LODWORD(v53) = v179;
-        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(&v191[v95 + 1], &v187[352 * v100], v98 * v101.__sinval);
-        ++v97;
-        v96 += 352;
+        v125 = (v124 + v122) % v53;
+        v120.n128_f32[0] = v118;
+        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v231 + v119 * 8), &v248[v121], v120);
+        v126 = __sincosf_stret(v114 * v122);
+        v127.n128_f32[0] = v123 * v126.__cosval;
+        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(&v252[v119 + 177], &v248[v121], v127);
+        v128.n128_f32[0] = v123 * v126.__cosval;
+        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(&v252[v119 + 177], &v248[352 * v125], v128);
+        v129.n128_f32[0] = v123 * v126.__sinval;
+        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(&v252[v119 + 1], &v248[v121], v129);
+        LODWORD(v53) = v240;
+        v130.n128_f32[0] = v123 * v126.__sinval;
+        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(&v252[v119 + 1], &v248[352 * v125], v130);
+        ++v122;
+        v121 += 352;
       }
 
-      while (v179 != v97);
+      while (v240 != v122);
     }
 
-    v52 = v70 + 1;
-    v51 = v177 + 352 * v166;
+    v52 = v78 + 1;
+    v51 = v238 + 352 * v227;
   }
 
   while (v52 != 4);
-  v102 = 0;
-  v103 = 0;
-  v104 = (v171 + 4);
-  v105 = v169;
+  v131 = 0;
+  v132 = 0;
+  v133 = (v232 + 4);
+  v134 = v230;
   do
   {
-    v106 = *v104;
-    v104 += 6;
-    if ((v106 & 2) != 0)
+    v135 = *v133;
+    v133 += 6;
+    if ((v135 & 2) != 0)
     {
-      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::operator=((v170 + v102 + 1408), &v191[v102 / 8 + 177]);
-      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::operator=((v170 + v102 + 2816), &v191[v102 / 8 + 1]);
+      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::operator=((v231 + v131 + 1408), &v252[v131 / 8 + 177]);
+      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::operator=((v231 + v131 + 2816), &v252[v131 / 8 + 1]);
     }
 
     else
     {
-      v107 = *(&v191[355] + v103);
-      v108 = *(&v191[353] + v103);
-      v109 = v108 * v107;
-      v110 = v108 * ((v107 + 1) % *(&v191[359] + v103));
-      if ((v181[v103] & 1) != 0 && *(&v191[357] + v103) < 2)
+      v136 = *(&v252[355] + v132);
+      v137 = *(&v252[353] + v132);
+      v138 = v137 * v136;
+      v139 = v137 * ((v136 + 1) % *(&v252[359] + v132));
+      if ((v242[v132] & 1) != 0 && *(&v252[357] + v132) < 2)
       {
-        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::Clear((v170 + v102 + 1408), v174);
-        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v170 + v102 + 1408), *(FaceFVarValues + 4 * v103), 0.66667);
-        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v170 + v102 + 1408), *(FaceFVarValues + 4 * ((v103 + 1) & 3)), 0.33333);
-        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::Clear((v170 + v102 + 2816), v174);
-        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v170 + v102 + 2816), *(FaceFVarValues + 4 * v103), 0.66667);
-        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v170 + v102 + 2816), *(FaceFVarValues + 4 * ((v103 - 1) & 3)), 0.33333);
+        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::Clear((v231 + v131 + 1408), v235);
+        v146.n128_u32[0] = 1059760811;
+        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v231 + v131 + 1408), *(FaceFVarValues + 4 * v132), v146);
+        v147.n128_u32[0] = 1051372203;
+        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v231 + v131 + 1408), *(FaceFVarValues + 4 * ((v132 + 1) & 3)), v147);
+        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::Clear((v231 + v131 + 2816), v235);
+        v148.n128_u32[0] = 1059760811;
+        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v231 + v131 + 2816), *(FaceFVarValues + 4 * v132), v148);
+        v149.n128_u32[0] = 1051372203;
+        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v231 + v131 + 2816), *(FaceFVarValues + 4 * ((v132 - 1) & 3)), v149);
       }
 
       else
       {
-        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::operator=((v170 + v102 + 1408), (v170 + v102));
-        v111 = __sincosf_stret(v109);
-        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v170 + v102 + 1408), &v191[v102 / 8 + 177], v111.__cosval);
-        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v170 + v102 + 1408), &v191[v102 / 8 + 1], v111.__sinval);
-        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::operator=((v170 + v102 + 2816), (v170 + v102));
-        v112 = __sincosf_stret(v110);
-        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v170 + v102 + 2816), &v191[v102 / 8 + 177], v112.__cosval);
-        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v170 + v102 + 2816), &v191[v102 / 8 + 1], v112.__sinval);
+        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::operator=((v231 + v131 + 1408), (v231 + v131));
+        v140 = __sincosf_stret(v138);
+        v141.n128_u32[0] = LODWORD(v140.__cosval);
+        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v231 + v131 + 1408), &v252[v131 / 8 + 177], v141);
+        v142.n128_u32[0] = LODWORD(v140.__sinval);
+        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v231 + v131 + 1408), &v252[v131 / 8 + 1], v142);
+        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::operator=((v231 + v131 + 2816), (v231 + v131));
+        v143 = __sincosf_stret(v139);
+        v144.n128_u32[0] = LODWORD(v143.__cosval);
+        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v231 + v131 + 2816), &v252[v131 / 8 + 177], v144);
+        v145.n128_u32[0] = LODWORD(v143.__sinval);
+        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v231 + v131 + 2816), &v252[v131 / 8 + 1], v145);
       }
     }
 
-    ++v103;
-    v102 += 352;
+    ++v132;
+    v131 += 352;
   }
 
-  while (v103 != 4);
-  v113 = 0;
-  v114 = 0;
-  v115 = -2.0;
-  v116 = v168;
+  while (v132 != 4);
+  v150 = 0;
+  v151 = 0;
+  v152 = -2.0;
+  v153 = v229;
   do
   {
-    v180 = v114 + 1;
-    v117 = (v114 + 1) & 3;
-    v118 = (v114 - 1) & 3;
-    v119 = *(&v191[355] + v114);
-    v120 = &v182[352 * v119];
-    v121 = &v182[352 * ((v119 + 1) % *(&v191[359] + v114))];
-    v122 = cosf(*(&v191[353] + v114));
-    v123 = cosf(*(&v191[353] + v118));
-    v124 = cosf(*(&v191[353] + v117));
-    v125 = (v122 * v115) + 3.0;
-    v126 = v125 - v124;
-    v127 = v122 + v122;
-    v128 = v125 - v123;
-    if (v181[v114])
+    v241 = v151 + 1;
+    v154 = (v151 + 1) & 3;
+    v155 = (v151 - 1) & 3;
+    v156 = *(&v252[355] + v151);
+    v157 = &v243[352 * v156];
+    v158 = &v243[352 * ((v156 + 1) % *(&v252[359] + v151))];
+    v159 = cosf(*(&v252[353] + v151));
+    v160 = cosf(*(&v252[353] + v155));
+    v161 = cosf(*(&v252[353] + v154));
+    v162 = (v159 * v152) + 3.0;
+    v163 = v162 - v161;
+    v164 = v159 + v159;
+    v165 = v162 - v160;
+    if (v242[v151])
     {
-      v129 = *(&v191[357] + v114);
-      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::Clear((v116 + 1408), v174);
-      if (v129 < 2)
+      v166 = *(&v252[357] + v151);
+      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::Clear((v153 + 1408), v235);
+      if (v166 < 2)
       {
-        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v116 + 1408), *(FaceFVarValues + 4 * v114), 0.44444);
-        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v116 + 1408), *(FaceFVarValues + 4 * (v114 ^ 2)), 0.11111);
-        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v116 + 1408), *(FaceFVarValues + 4 * v117), 0.22222);
-        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v116 + 1408), *(FaceFVarValues + 4 * v118), 0.22222);
-        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::operator=((v116 + 2816), (v116 + 1408));
-        v105 = v169;
+        v167.n128_u32[0] = 1055100473;
+        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v153 + 1408), *(FaceFVarValues + 4 * v151), v167);
+        v189.n128_u32[0] = 1038323257;
+        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v153 + 1408), *(FaceFVarValues + 4 * (v151 ^ 2)), v189);
+        v190.n128_u32[0] = 1046711865;
+        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v153 + 1408), *(FaceFVarValues + 4 * v154), v190);
+        v191.n128_u32[0] = 1046711865;
+        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v153 + 1408), *(FaceFVarValues + 4 * v155), v191);
+        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::operator=((v153 + 2816), (v153 + 1408));
+        v134 = v230;
       }
 
       else
       {
-        v130 = v124 / 3.0;
-        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v116 + 1408), (v116 - 2816), v124 / 3.0);
-        v131 = v126 / 3.0;
-        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v116 + 1408), (v116 - 1408), v126 / 3.0);
-        v132 = v127 / 3.0;
-        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v116 + 1408), (v168 + 352 * v117), v127 / 3.0);
-        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v116 + 1408), &v120[v113], 0.33333);
-        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::Clear((v116 + 2816), v174);
-        v133 = v123 / 3.0;
-        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v116 + 2816), (v116 - 2816), v133);
-        v134 = v128 / 3.0;
-        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v116 + 2816), v116, v134);
-        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v116 + 2816), (v167 + 352 * ((v114 - 1) & 3)), v127 / 3.0);
-        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v116 + 2816), &v121[v113], -0.33333);
-        if (v181[v118] == 1)
+        v167.n128_f32[0] = v161 / 3.0;
+        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v153 + 1408), (v153 - 2816), v167);
+        v168.n128_f32[0] = v163 / 3.0;
+        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v153 + 1408), (v153 - 1408), v168);
+        v169.n128_f32[0] = v164 / 3.0;
+        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v153 + 1408), (v229 + 352 * v154), v169);
+        v170.n128_u32[0] = 1051372203;
+        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v153 + 1408), &v157[v150], v170);
+        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::Clear((v153 + 2816), v235);
+        *&v171 = v160 / 3.0;
+        v172.n128_u32[0] = v171;
+        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v153 + 2816), (v153 - 2816), v172);
+        *&v173 = v165 / 3.0;
+        v174.n128_u32[0] = v173;
+        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v153 + 2816), v153, v174);
+        v175.n128_f32[0] = v164 / 3.0;
+        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v153 + 2816), (v228 + 352 * ((v151 - 1) & 3)), v175);
+        v176.n128_u32[0] = -1096111445;
+        OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v153 + 2816), &v158[v150], v176);
+        if (v242[v155] == 1)
         {
-          OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::Clear((v116 + 1408), v174);
-          OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v116 + 1408), (v116 - 2816), v130);
-          OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v116 + 1408), (v116 - 1408), v131);
-          OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v116 + 1408), (v168 + 352 * v117), v132);
-          OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v116 + 1408), &v120[v113], 0.33333);
-          OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::operator=((v116 + 2816), (v116 + 1408));
-          v105 = v169;
-          v115 = -2.0;
+          OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::Clear((v153 + 1408), v235);
+          v177.n128_f32[0] = v161 / 3.0;
+          OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v153 + 1408), (v153 - 2816), v177);
+          v178.n128_f32[0] = v163 / 3.0;
+          OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v153 + 1408), (v153 - 1408), v178);
+          v179.n128_f32[0] = v164 / 3.0;
+          OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v153 + 1408), (v229 + 352 * v154), v179);
+          v180.n128_u32[0] = 1051372203;
+          OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v153 + 1408), &v157[v150], v180);
+          OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::operator=((v153 + 2816), (v153 + 1408));
+          v134 = v230;
+          v152 = -2.0;
         }
 
         else
         {
-          v105 = v169;
-          v115 = -2.0;
-          if (v181[v117] == 1)
+          v134 = v230;
+          v152 = -2.0;
+          if (v242[v154] == 1)
           {
-            OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::Clear((v116 + 2816), v174);
-            OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v116 + 2816), (v116 - 2816), v133);
-            OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v116 + 2816), v116, v134);
-            OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v116 + 2816), (v167 + 352 * ((v114 - 1) & 3)), v132);
-            OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v116 + 2816), &v121[v113], -0.33333);
-            OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::operator=((v116 + 1408), (v116 + 2816));
+            OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::Clear((v153 + 2816), v235);
+            v192.n128_u32[0] = v171;
+            OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v153 + 2816), (v153 - 2816), v192);
+            v193.n128_u32[0] = v173;
+            OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v153 + 2816), v153, v193);
+            v194.n128_f32[0] = v164 / 3.0;
+            OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v153 + 2816), (v228 + 352 * ((v151 - 1) & 3)), v194);
+            v195.n128_u32[0] = -1096111445;
+            OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v153 + 2816), &v158[v150], v195);
+            OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::operator=((v153 + 1408), (v153 + 2816));
           }
         }
       }
@@ -6867,175 +9242,183 @@ LABEL_128:
 
     else
     {
-      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::Clear((v116 + 1408), v174);
-      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v116 + 1408), (v116 - 2816), v124 / 3.0);
-      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v116 + 1408), (v116 - 1408), v126 / 3.0);
-      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v116 + 1408), (v168 + 352 * v117), v127 / 3.0);
-      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v116 + 1408), &v120[v113], 0.33333);
-      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::Clear((v116 + 2816), v174);
-      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v116 + 2816), (v116 - 2816), v123 / 3.0);
-      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v116 + 2816), v116, v128 / 3.0);
-      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v116 + 2816), (v167 + 352 * ((v114 - 1) & 3)), v127 / 3.0);
-      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v116 + 2816), &v121[v113], -0.33333);
+      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::Clear((v153 + 1408), v235);
+      v181.n128_f32[0] = v161 / 3.0;
+      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v153 + 1408), (v153 - 2816), v181);
+      v182.n128_f32[0] = v163 / 3.0;
+      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v153 + 1408), (v153 - 1408), v182);
+      v183.n128_f32[0] = v164 / 3.0;
+      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v153 + 1408), (v229 + 352 * v154), v183);
+      v184.n128_u32[0] = 1051372203;
+      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v153 + 1408), &v157[v150], v184);
+      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::Clear((v153 + 2816), v235);
+      v185.n128_f32[0] = v160 / 3.0;
+      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v153 + 2816), (v153 - 2816), v185);
+      v186.n128_f32[0] = v165 / 3.0;
+      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v153 + 2816), v153, v186);
+      v187.n128_f32[0] = v164 / 3.0;
+      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v153 + 2816), (v228 + 352 * ((v151 - 1) & 3)), v187);
+      v188.n128_u32[0] = -1096111445;
+      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight((v153 + 2816), &v158[v150], v188);
     }
 
-    v113 += 352 * v166;
-    v116 += 352;
-    ++v114;
+    v150 += 352 * v227;
+    v153 += 352;
+    ++v151;
   }
 
-  while (v180 != 4);
+  while (v241 != 4);
   for (n = 0; n != 4; ++n)
   {
-    v136 = (v170 + 352 * n);
-    v137 = *v136;
-    if (v137 >= 1)
+    v197 = (v231 + 352 * n);
+    v198 = *v197;
+    if (v198 >= 1)
     {
-      v138 = *(v136 + 1);
+      v199 = *(v197 + 1);
       do
       {
-        *v138 += v105;
-        v138 += 2;
-        --v137;
+        *v199 += v134;
+        v199 += 2;
+        --v198;
       }
 
-      while (v137);
+      while (v198);
     }
 
-    v139 = (v167 + 352 * n);
-    v140 = *v139;
-    if (v140 >= 1)
+    v200 = (v228 + 352 * n);
+    v201 = *v200;
+    if (v201 >= 1)
     {
-      v141 = *(v139 + 1);
+      v202 = *(v200 + 1);
       do
       {
-        *v141 += v105;
-        v141 += 2;
-        --v140;
+        *v202 += v134;
+        v202 += 2;
+        --v201;
       }
 
-      while (v140);
+      while (v201);
     }
 
-    v142 = (v168 + 352 * n);
-    v143 = *v142;
-    if (v143 >= 1)
+    v203 = (v229 + 352 * n);
+    v204 = *v203;
+    if (v204 >= 1)
     {
-      v144 = *(v142 + 1);
+      v205 = *(v203 + 1);
       do
       {
-        *v144 += v105;
-        v144 += 2;
-        --v143;
+        *v205 += v134;
+        v205 += 2;
+        --v204;
       }
 
-      while (v143);
+      while (v204);
     }
 
-    v145 = (v165 + 352 * n);
-    v146 = *v145;
-    if (v146 >= 1)
+    v206 = (v226 + 352 * n);
+    v207 = *v206;
+    if (v207 >= 1)
     {
-      v147 = *(v145 + 1);
+      v208 = *(v206 + 1);
       do
       {
-        *v147 += v105;
-        v147 += 2;
-        --v146;
+        *v208 += v134;
+        v208 += 2;
+        --v207;
       }
 
-      while (v146);
+      while (v207);
     }
 
-    v148 = (v164 + 352 * n);
-    v149 = *v148;
-    if (v149 >= 1)
+    v209 = (v225 + 352 * n);
+    v210 = *v209;
+    if (v210 >= 1)
     {
-      v150 = *(v148 + 1);
+      v211 = *(v209 + 1);
       do
       {
-        *v150 += v105;
-        v150 += 2;
-        --v149;
+        *v211 += v134;
+        v211 += 2;
+        --v210;
       }
 
-      while (v149);
+      while (v210);
     }
   }
 
-  if (v183)
+  if (v244)
   {
-    v151 = 0;
-    v152 = 344;
+    v212 = 0;
+    v213 = 344;
     do
     {
-      v153 = &v182[v152];
-      v154 = &v182[v152 - 336];
-      operator delete(*&v182[v152]);
-      *v154 = v153 - 320;
-      *(v153 - 81) = 40;
-      ++v151;
-      v152 += 352;
+      v214 = &v243[v213];
+      v215 = &v243[v213 - 336];
+      operator delete(*&v243[v213]);
+      *v215 = v214 - 320;
+      *(v214 - 81) = 40;
+      ++v212;
+      v213 += 352;
     }
 
-    while (v151 < v183);
+    while (v212 < v244);
   }
 
-  operator delete(v186);
-  if (v188)
+  operator delete(v247);
+  if (v249)
   {
-    v155 = 0;
-    v156 = 344;
+    v216 = 0;
+    v217 = 344;
     do
     {
-      v157 = &v187[v156];
-      v158 = &v187[v156 - 336];
-      operator delete(*&v187[v156]);
-      *v158 = v157 - 320;
-      *(v157 - 81) = 40;
-      ++v155;
-      v156 += 352;
+      v218 = &v248[v217];
+      v219 = &v248[v217 - 336];
+      operator delete(*&v248[v217]);
+      *v219 = v218 - 320;
+      *(v218 - 81) = 40;
+      ++v216;
+      v217 += 352;
     }
 
-    while (v155 < v188);
+    while (v216 < v249);
   }
 
-  operator delete(v191[0]);
-  v159 = 1408;
+  operator delete(v252[0]);
+  v220 = 1408;
   do
   {
-    operator delete(v191[v159 / 8]);
-    *&v190[v159 + 3184] = &v190[v159 + 3200];
-    *&v190[v159 + 3196] = 40;
-    v159 -= 352;
+    operator delete(v252[v220 / 8]);
+    *&v251[v220 + 3184] = &v251[v220 + 3200];
+    *&v251[v220 + 3196] = 40;
+    v220 -= 352;
   }
 
-  while (v159);
-  v160 = 176;
+  while (v220);
+  v221 = 176;
   do
   {
-    operator delete(v191[v160 + 176]);
-    v191[v160 + 134] = &v191[v160 + 136];
-    HIDWORD(v191[v160 + 135]) = 40;
-    v160 -= 44;
+    operator delete(v252[v221 + 176]);
+    v252[v221 + 134] = &v252[v221 + 136];
+    HIDWORD(v252[v221 + 135]) = 40;
+    v221 -= 44;
   }
 
-  while (v160 * 8);
-  v161 = 92;
+  while (v221 * 8);
+  v222 = 92;
   do
   {
-    v162 = &(&v192)[v161];
-    operator delete(v191[v161 + 360]);
-    *(v162 - 23) = v162 - 168;
-    *(v162 - 43) = 40;
-    v161 -= 23;
+    v223 = &(&v253)[v222];
+    operator delete(v252[v222 + 360]);
+    *(v223 - 23) = v223 - 168;
+    *(v223 - 43) = 40;
+    v222 -= 23;
   }
 
-  while (v161 * 8);
-  return v170;
+  while (v222 * 8);
+  return v231;
 }
 
-void OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::Clear(void **this, unsigned int a2)
+void OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::Clear(void **this, signed int a2)
 {
   *this = 0;
   if (*(this + 4) < a2)
@@ -7065,7 +9448,7 @@ void OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::Clear(void **this, unsigned i
   }
 }
 
-float OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(OpenSubdiv::v3_1_1::Far::GregoryBasis::Point *this, int a2, float result)
+float OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(OpenSubdiv::v3_1_1::Far::GregoryBasis::Point *this, int a2, __n128 a3)
 {
   v3 = *this;
   if (*this < 1)
@@ -7076,9 +9459,9 @@ LABEL_5:
       OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight();
     }
 
-    v6 = *(this + 1) + 8 * v3;
+    v6 = (*(this + 1) + 8 * v3);
     *v6 = a2;
-    *(v6 + 4) = result;
+    v6[1] = a3.n128_u32[0];
     *this = v3 + 1;
   }
 
@@ -7095,22 +9478,25 @@ LABEL_5:
       }
     }
 
-    result = *v4 + result;
-    *v4 = result;
+    a3.n128_f32[0] = *v4 + a3.n128_f32[0];
+    *v4 = a3.n128_f32[0];
   }
 
-  return result;
+  return a3.n128_f32[0];
 }
 
-void OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(OpenSubdiv::v3_1_1::Far::GregoryBasis::Point *this, const OpenSubdiv::v3_1_1::Far::GregoryBasis::Point *a2, float a3)
+void OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(OpenSubdiv::v3_1_1::Far::GregoryBasis::Point *this, const OpenSubdiv::v3_1_1::Far::GregoryBasis::Point *a2, __n128 a3)
 {
   if (*a2 >= 1)
   {
+    v3 = a3.n128_f32[0];
     v6 = 0;
     v7 = 0;
     do
     {
-      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(this, *(*(a2 + 1) + v6), *(*(a2 + 1) + v6 + 4) * a3);
+      v8 = *(a2 + 1) + v6;
+      a3.n128_f32[0] = *(v8 + 4) * v3;
+      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(this, *v8, a3);
       ++v7;
       v6 += 8;
     }
@@ -7338,62 +9724,62 @@ void OpenSubdiv::v3_1_1::Vtr::internal::Refinement::~Refinement(OpenSubdiv::v3_1
   }
 }
 
-void OpenSubdiv::v3_1_1::Vtr::internal::Refinement::initializeSparseSelectionTags(OpenSubdiv::v3_1_1::Vtr::internal::Refinement *this)
+void OpenSubdiv::v3_1_1::Vtr::internal::Refinement::initializeSparseSelectionTags(void *this)
 {
-  v2 = *(this + 1);
+  v2 = this[1];
   v3 = *v2;
-  v4 = *(this + 51);
-  v5 = *(this + 52) - v4;
+  v4 = this[51];
+  v5 = this[52] - v4;
   if (v3 <= v5)
   {
     if (v3 < v5)
     {
-      *(this + 52) = v4 + v3;
+      this[52] = v4 + v3;
     }
   }
 
   else
   {
-    std::vector<OpenSubdiv::v3_1_1::Vtr::internal::Refinement::SparseTag>::__append(this + 408, v3 - v5);
-    v2 = *(this + 1);
+    std::vector<OpenSubdiv::v3_1_1::Vtr::internal::Refinement::SparseTag>::__append((this + 51), v3 - v5);
+    v2 = this[1];
   }
 
   v6 = v2[1];
-  v7 = *(this + 54);
-  v8 = *(this + 55) - v7;
+  v7 = this[54];
+  v8 = this[55] - v7;
   if (v6 <= v8)
   {
     if (v6 < v8)
     {
-      *(this + 55) = v7 + v6;
+      this[55] = v7 + v6;
     }
   }
 
   else
   {
-    std::vector<OpenSubdiv::v3_1_1::Vtr::internal::Refinement::SparseTag>::__append(this + 432, v6 - v8);
-    v2 = *(this + 1);
+    std::vector<OpenSubdiv::v3_1_1::Vtr::internal::Refinement::SparseTag>::__append((this + 54), v6 - v8);
+    v2 = this[1];
   }
 
   v9 = v2[2];
-  v10 = *(this + 57);
-  v11 = *(this + 58) - v10;
+  v10 = this[57];
+  v11 = this[58] - v10;
   if (v9 <= v11)
   {
     if (v9 < v11)
     {
-      *(this + 58) = v10 + v9;
+      this[58] = v10 + v9;
     }
   }
 
   else
   {
 
-    std::vector<OpenSubdiv::v3_1_1::Vtr::internal::Refinement::SparseTag>::__append(this + 456, v9 - v11);
+    std::vector<OpenSubdiv::v3_1_1::Vtr::internal::Refinement::SparseTag>::__append((this + 57), v9 - v11);
   }
 }
 
-void *OpenSubdiv::v3_1_1::Vtr::internal::Refinement::refine(std::vector<int> *this, char a2)
+void OpenSubdiv::v3_1_1::Vtr::internal::Refinement::refine(std::vector<int> *this, char a2)
 {
   end = this->__end_;
   if (!end || !this->__end_cap_.__value_)
@@ -7425,2479 +9811,24 @@ void *OpenSubdiv::v3_1_1::Vtr::internal::Refinement::refine(std::vector<int> *th
     v11 = -1;
   }
 
-  v17[0] = v11;
+  v16[0] = v11;
   if (v5 < 1)
   {
-    OpenSubdiv::v3_1_1::Vtr::internal::Refinement::subdivideTopology(this, v17);
-    OpenSubdiv::v3_1_1::Vtr::internal::Refinement::subdivideEdgeSharpness(this, v15);
-    OpenSubdiv::v3_1_1::Vtr::internal::Refinement::subdivideVertexSharpness(this, v16);
+    OpenSubdiv::v3_1_1::Vtr::internal::Refinement::subdivideTopology(this, v16);
+    OpenSubdiv::v3_1_1::Vtr::internal::Refinement::subdivideEdgeSharpness(this, v14);
+    OpenSubdiv::v3_1_1::Vtr::internal::Refinement::subdivideVertexSharpness(this, v15);
 
-    return OpenSubdiv::v3_1_1::Vtr::internal::Refinement::reclassifySemisharpVertices(this);
+    OpenSubdiv::v3_1_1::Vtr::internal::Refinement::reclassifySemisharpVertices(this);
   }
 
   else
   {
-    v17[0] = v11 | 0x10;
-    OpenSubdiv::v3_1_1::Vtr::internal::Refinement::subdivideTopology(this, v17);
+    v16[0] = v11 | 0x10;
+    OpenSubdiv::v3_1_1::Vtr::internal::Refinement::subdivideTopology(this, v16);
     OpenSubdiv::v3_1_1::Vtr::internal::Refinement::subdivideEdgeSharpness(this, v12);
     OpenSubdiv::v3_1_1::Vtr::internal::Refinement::subdivideVertexSharpness(this, v13);
     OpenSubdiv::v3_1_1::Vtr::internal::Refinement::reclassifySemisharpVertices(this);
 
-    return OpenSubdiv::v3_1_1::Vtr::internal::Refinement::subdivideFVarChannels(this);
-  }
-}
-
-uint64_t OpenSubdiv::v3_1_1::Vtr::internal::Refinement::populateParentToChildMapping(OpenSubdiv::v3_1_1::Vtr::internal::Refinement *this)
-{
-  (*(*this + 16))(this);
-  if ((*(this + 36) & 1) == 0)
-  {
-    if (*(this + 58) == *(this + 57))
-    {
-      OpenSubdiv::v3_1_1::Vtr::internal::Refinement::populateParentToChildMapping();
-    }
-
-    OpenSubdiv::v3_1_1::Vtr::internal::Refinement::markSparseVertexChildren(this);
-    OpenSubdiv::v3_1_1::Vtr::internal::Refinement::markSparseEdgeChildren(this);
-    (*(*this + 24))(this);
-  }
-
-  return OpenSubdiv::v3_1_1::Vtr::internal::Refinement::populateParentChildIndices(this);
-}
-
-uint64_t OpenSubdiv::v3_1_1::Vtr::internal::Refinement::populateChildToParentMapping(std::vector<int> *this, uint8x8_t a2, uint8x8_t a3)
-{
-  v7[1] = *MEMORY[0x277D85DE8];
-  a3.i32[0] = HIDWORD(v7[0]);
-  a2.i32[0] = v7[0];
-  v4 = vorr_s8((vmovl_u8(a2).u64[0] & 0xFFE0FFE0FFE0FFE0), 0x18001000080000);
-  v5 = vuzp1_s8(v4, v4);
-  v5.i32[1] = vuzp1_s8(vorr_s8((vmovl_u8(a3).u64[0] & 0xFFE0FFE0FFE0FFE0), 0x19001100090001), v5).u32[0];
-  v7[0] = v5;
-  OpenSubdiv::v3_1_1::Vtr::internal::Refinement::populateFaceParentVectors(this, v7);
-  OpenSubdiv::v3_1_1::Vtr::internal::Refinement::populateEdgeParentVectors(this, v7);
-  return OpenSubdiv::v3_1_1::Vtr::internal::Refinement::populateVertexParentVectors(this, v7);
-}
-
-uint64_t OpenSubdiv::v3_1_1::Vtr::internal::Refinement::subdivideTopology(uint64_t result, char *a2)
-{
-  v3 = result;
-  v4 = *a2;
-  if (*a2)
-  {
-    result = (*(*result + 32))(result);
-    v4 = *a2;
-    if ((*a2 & 2) == 0)
-    {
-LABEL_3:
-      if ((v4 & 4) == 0)
-      {
-        goto LABEL_4;
-      }
-
-      goto LABEL_16;
-    }
-  }
-
-  else if ((*a2 & 2) == 0)
-  {
-    goto LABEL_3;
-  }
-
-  result = (*(*v3 + 40))(v3);
-  v4 = *a2;
-  if ((*a2 & 4) == 0)
-  {
-LABEL_4:
-    if ((v4 & 8) == 0)
-    {
-      goto LABEL_5;
-    }
-
-    goto LABEL_17;
-  }
-
-LABEL_16:
-  result = (*(*v3 + 48))(v3);
-  v4 = *a2;
-  if ((*a2 & 8) == 0)
-  {
-LABEL_5:
-    if ((v4 & 0x10) == 0)
-    {
-      goto LABEL_6;
-    }
-
-    goto LABEL_18;
-  }
-
-LABEL_17:
-  result = (*(*v3 + 56))(v3);
-  v4 = *a2;
-  if ((*a2 & 0x10) == 0)
-  {
-LABEL_6:
-    if ((v4 & 0x20) == 0)
-    {
-      goto LABEL_8;
-    }
-
-    goto LABEL_7;
-  }
-
-LABEL_18:
-  result = (*(*v3 + 64))(v3);
-  if ((*a2 & 0x20) != 0)
-  {
-LABEL_7:
-    result = (*(*v3 + 72))(v3);
-  }
-
-LABEL_8:
-  if (*(v3 + 28))
-  {
-    v5 = 6;
-  }
-
-  else
-  {
-    v5 = 4;
-  }
-
-  if (*(*(v3 + 8) + 20) > v5)
-  {
-    v5 = *(*(v3 + 8) + 20);
-  }
-
-  *(*(v3 + 16) + 20) = v5;
-  return result;
-}
-
-void *OpenSubdiv::v3_1_1::Vtr::internal::Refinement::subdivideFVarChannels(void *this)
-{
-  if (*(this[2] + 464) != *(this[2] + 456))
-  {
-    OpenSubdiv::v3_1_1::Vtr::internal::Refinement::subdivideFVarChannels();
-  }
-
-  if (this[61] != this[60])
-  {
-    OpenSubdiv::v3_1_1::Vtr::internal::Refinement::subdivideFVarChannels();
-  }
-
-  if (((*(this[1] + 464) - *(this[1] + 456)) >> 3) >= 1)
-  {
-    operator new();
-  }
-
-  return this;
-}
-
-uint64_t OpenSubdiv::v3_1_1::Vtr::internal::Refinement::populateParentChildIndices(uint64_t this)
-{
-  v1 = *(this + 36);
-  *(this + 64) = 0;
-  v2 = *(this + 120);
-  v3 = *(this + 128) - v2;
-  v4 = v3 >> 2;
-  if (v1 == 1)
-  {
-    if (v4 >= 1)
-    {
-      v5 = 0;
-      v6 = vdupq_n_s64(((v3 >> 2) & 0x7FFFFFFF) - 1);
-      v7 = xmmword_21C27F630;
-      v8 = xmmword_21C27F640;
-      v9 = v2 + 2;
-      v10 = vdupq_n_s64(4uLL);
-      do
-      {
-        v11 = vmovn_s64(vcgeq_u64(v6, v8));
-        if (vuzp1_s16(v11, *v6.i8).u8[0])
-        {
-          *(v9 - 2) = v5;
-        }
-
-        if (vuzp1_s16(v11, *&v6).i8[2])
-        {
-          *(v9 - 1) = v5 + 1;
-        }
-
-        if (vuzp1_s16(*&v6, vmovn_s64(vcgeq_u64(v6, *&v7))).i32[1])
-        {
-          *v9 = v5 + 2;
-          v9[1] = v5 + 3;
-        }
-
-        v5 += 4;
-        v7 = vaddq_s64(v7, v10);
-        v8 = vaddq_s64(v8, v10);
-        v9 += 4;
-      }
-
-      while (((v4 + 3) & 0xFFFFFFFC) != v5);
-    }
-
-    *(this + 40) = v4;
-    *(this + 68) = 0;
-    v12 = *(this + 144);
-    v13 = *(this + 152) - v12;
-    v14 = v13 >> 2;
-    if ((v13 >> 2) >= 1)
-    {
-      v15 = 0;
-      v16 = vdupq_n_s64(((v13 >> 2) & 0x7FFFFFFF) - 1);
-      v17 = xmmword_21C27F630;
-      v18 = xmmword_21C27F640;
-      v19 = (v12 + 8);
-      v20 = vdupq_n_s64(4uLL);
-      do
-      {
-        v21 = vmovn_s64(vcgeq_u64(v16, v18));
-        if (vuzp1_s16(v21, *v16.i8).u8[0])
-        {
-          *(v19 - 2) = v15;
-        }
-
-        if (vuzp1_s16(v21, *&v16).i8[2])
-        {
-          *(v19 - 1) = v15 + 1;
-        }
-
-        if (vuzp1_s16(*&v16, vmovn_s64(vcgeq_u64(v16, *&v17))).i32[1])
-        {
-          *v19 = v15 + 2;
-          v19[1] = v15 + 3;
-        }
-
-        v15 += 4;
-        v17 = vaddq_s64(v17, v20);
-        v18 = vaddq_s64(v18, v20);
-        v19 += 4;
-      }
-
-      while (((v14 + 3) & 0xFFFFFFFC) != v15);
-    }
-
-    *(this + 44) = v14;
-    *(this + 72) = v14;
-    v22 = *(this + 192);
-    v23 = *(this + 200) - v22;
-    v24 = v23 >> 2;
-    if ((v23 >> 2) >= 1)
-    {
-      v25 = (v23 >> 2) & 0x7FFFFFFF;
-      v26 = (v24 + 3) & 0xFFFFFFFC;
-      v27 = vdupq_n_s64(v25 - 1);
-      v28 = xmmword_21C27F630;
-      v29 = xmmword_21C27F640;
-      v30 = (v22 + 8);
-      v31 = vdupq_n_s64(4uLL);
-      do
-      {
-        v32 = vmovn_s64(vcgeq_u64(v27, v29));
-        if (vuzp1_s16(v32, *v27.i8).u8[0])
-        {
-          *(v30 - 2) = v14;
-        }
-
-        if (vuzp1_s16(v32, *&v27).i8[2])
-        {
-          *(v30 - 1) = v14 + 1;
-        }
-
-        if (vuzp1_s16(*&v27, vmovn_s64(vcgeq_u64(v27, *&v28))).i32[1])
-        {
-          *v30 = v14 + 2;
-          v30[1] = v14 + 3;
-        }
-
-        v28 = vaddq_s64(v28, v31);
-        v29 = vaddq_s64(v29, v31);
-        LODWORD(v14) = v14 + 4;
-        v30 += 4;
-        v26 -= 4;
-      }
-
-      while (v26);
-    }
-
-    *(this + 48) = v24;
-    if (*(this + 37) == 1)
-    {
-      *(this + 76) = 0;
-      v33 = *(this + 168);
-      v34 = *(this + 176) - v33;
-      v35 = v34 >> 2;
-      if ((v34 >> 2) < 1)
-      {
-        v43 = 0;
-      }
-
-      else
-      {
-        v36 = 0;
-        v37 = vdupq_n_s64(((v34 >> 2) & 0x7FFFFFFF) - 1);
-        v38 = xmmword_21C27F630;
-        v39 = xmmword_21C27F640;
-        v40 = (v33 + 8);
-        v41 = vdupq_n_s64(4uLL);
-        do
-        {
-          v42 = vmovn_s64(vcgeq_u64(v37, v39));
-          if (vuzp1_s16(v42, *v37.i8).u8[0])
-          {
-            *(v40 - 2) = v36;
-          }
-
-          if (vuzp1_s16(v42, *&v37).i8[2])
-          {
-            *(v40 - 1) = v36 + 1;
-          }
-
-          if (vuzp1_s16(*&v37, vmovn_s64(vcgeq_u64(v37, *&v38))).i32[1])
-          {
-            *v40 = v36 + 2;
-            v40[1] = v36 + 3;
-          }
-
-          v36 += 4;
-          v38 = vaddq_s64(v38, v41);
-          v39 = vaddq_s64(v39, v41);
-          v40 += 4;
-        }
-
-        while (((v35 + 3) & 0xFFFFFFFC) != v36);
-        v43 = *(this + 76);
-      }
-
-      *(this + 52) = v35;
-      v81 = v43 + v35;
-      *(this + 80) = v81;
-      v82 = *(this + 216);
-      v83 = *(this + 224) - v82;
-      v84 = v83 >> 2;
-      if ((v83 >> 2) >= 1)
-      {
-        v85 = (v83 >> 2) & 0x7FFFFFFF;
-        v86 = (v84 + 3) & 0xFFFFFFFC;
-        v87 = vdupq_n_s64(v85 - 1);
-        v88 = xmmword_21C27F630;
-        v89 = xmmword_21C27F640;
-        v90 = (v82 + 8);
-        v91 = vdupq_n_s64(4uLL);
-        do
-        {
-          v92 = vmovn_s64(vcgeq_u64(v87, v89));
-          if (vuzp1_s16(v92, *v87.i8).u8[0])
-          {
-            *(v90 - 2) = v81;
-          }
-
-          if (vuzp1_s16(v92, *&v87).i8[2])
-          {
-            *(v90 - 1) = v81 + 1;
-          }
-
-          if (vuzp1_s16(*&v87, vmovn_s64(vcgeq_u64(v87, *&v88))).i32[1])
-          {
-            *v90 = v81 + 2;
-            v90[1] = v81 + 3;
-          }
-
-          v88 = vaddq_s64(v88, v91);
-          v89 = vaddq_s64(v89, v91);
-          v81 += 4;
-          v90 += 4;
-          v86 -= 4;
-        }
-
-        while (v86);
-        v81 = *(this + 80);
-      }
-
-      *(this + 56) = v84;
-      v93 = v81 + v84;
-      *(this + 84) = v93;
-      v94 = *(this + 240);
-      v95 = *(this + 248) - v94;
-      v96 = v95 >> 2;
-      if ((v95 >> 2) >= 1)
-      {
-        v97 = (v95 >> 2) & 0x7FFFFFFF;
-        v98 = (v96 + 3) & 0xFFFFFFFC;
-        v99 = vdupq_n_s64(v97 - 1);
-        v100 = xmmword_21C27F630;
-        v101 = xmmword_21C27F640;
-        v102 = (v94 + 8);
-        v103 = vdupq_n_s64(4uLL);
-        do
-        {
-          v104 = vmovn_s64(vcgeq_u64(v99, v101));
-          if (vuzp1_s16(v104, *v99.i8).u8[0])
-          {
-            *(v102 - 2) = v93;
-          }
-
-          if (vuzp1_s16(v104, *&v99).i8[2])
-          {
-            *(v102 - 1) = v93 + 1;
-          }
-
-          if (vuzp1_s16(*&v99, vmovn_s64(vcgeq_u64(v99, *&v100))).i32[1])
-          {
-            *v102 = v93 + 2;
-            v102[1] = v93 + 3;
-          }
-
-          v100 = vaddq_s64(v100, v103);
-          v101 = vaddq_s64(v101, v103);
-          v93 += 4;
-          v102 += 4;
-          v98 -= 4;
-        }
-
-        while (v98);
-      }
-
-      *(this + 60) = v96;
-    }
-
-    else
-    {
-      *(this + 84) = 0;
-      v47 = *(this + 240);
-      v48 = *(this + 248) - v47;
-      v49 = v48 >> 2;
-      if ((v48 >> 2) < 1)
-      {
-        v57 = 0;
-      }
-
-      else
-      {
-        v50 = 0;
-        v51 = vdupq_n_s64(((v48 >> 2) & 0x7FFFFFFF) - 1);
-        v52 = xmmword_21C27F630;
-        v53 = xmmword_21C27F640;
-        v54 = (v47 + 8);
-        v55 = vdupq_n_s64(4uLL);
-        do
-        {
-          v56 = vmovn_s64(vcgeq_u64(v51, v53));
-          if (vuzp1_s16(v56, *v51.i8).u8[0])
-          {
-            *(v54 - 2) = v50;
-          }
-
-          if (vuzp1_s16(v56, *&v51).i8[2])
-          {
-            *(v54 - 1) = v50 + 1;
-          }
-
-          if (vuzp1_s16(*&v51, vmovn_s64(vcgeq_u64(v51, *&v52))).i32[1])
-          {
-            *v54 = v50 + 2;
-            v54[1] = v50 + 3;
-          }
-
-          v50 += 4;
-          v52 = vaddq_s64(v52, v55);
-          v53 = vaddq_s64(v53, v55);
-          v54 += 4;
-        }
-
-        while (((v49 + 3) & 0xFFFFFFFC) != v50);
-        v57 = *(this + 84);
-      }
-
-      *(this + 60) = v49;
-      v105 = v57 + v49;
-      *(this + 76) = v105;
-      v106 = *(this + 168);
-      v107 = *(this + 176) - v106;
-      v108 = v107 >> 2;
-      if ((v107 >> 2) >= 1)
-      {
-        v109 = (v107 >> 2) & 0x7FFFFFFF;
-        v110 = (v108 + 3) & 0xFFFFFFFC;
-        v111 = vdupq_n_s64(v109 - 1);
-        v112 = xmmword_21C27F630;
-        v113 = xmmword_21C27F640;
-        v114 = (v106 + 8);
-        v115 = vdupq_n_s64(4uLL);
-        do
-        {
-          v116 = vmovn_s64(vcgeq_u64(v111, v113));
-          if (vuzp1_s16(v116, *v111.i8).u8[0])
-          {
-            *(v114 - 2) = v105;
-          }
-
-          if (vuzp1_s16(v116, *&v111).i8[2])
-          {
-            *(v114 - 1) = v105 + 1;
-          }
-
-          if (vuzp1_s16(*&v111, vmovn_s64(vcgeq_u64(v111, *&v112))).i32[1])
-          {
-            *v114 = v105 + 2;
-            v114[1] = v105 + 3;
-          }
-
-          v112 = vaddq_s64(v112, v115);
-          v113 = vaddq_s64(v113, v115);
-          v105 += 4;
-          v114 += 4;
-          v110 -= 4;
-        }
-
-        while (v110);
-        v105 = *(this + 76);
-      }
-
-      *(this + 52) = v108;
-      v117 = v105 + v108;
-      *(this + 80) = v117;
-      v118 = *(this + 216);
-      v119 = *(this + 224) - v118;
-      v120 = v119 >> 2;
-      if ((v119 >> 2) >= 1)
-      {
-        v121 = (v119 >> 2) & 0x7FFFFFFF;
-        v122 = (v120 + 3) & 0xFFFFFFFC;
-        v123 = vdupq_n_s64(v121 - 1);
-        v124 = xmmword_21C27F630;
-        v125 = xmmword_21C27F640;
-        v126 = (v118 + 8);
-        v127 = vdupq_n_s64(4uLL);
-        do
-        {
-          v128 = vmovn_s64(vcgeq_u64(v123, v125));
-          if (vuzp1_s16(v128, *v123.i8).u8[0])
-          {
-            *(v126 - 2) = v117;
-          }
-
-          if (vuzp1_s16(v128, *&v123).i8[2])
-          {
-            *(v126 - 1) = v117 + 1;
-          }
-
-          if (vuzp1_s16(*&v123, vmovn_s64(vcgeq_u64(v123, *&v124))).i32[1])
-          {
-            *v126 = v117 + 2;
-            v126[1] = v117 + 3;
-          }
-
-          v124 = vaddq_s64(v124, v127);
-          v125 = vaddq_s64(v125, v127);
-          v117 += 4;
-          v126 += 4;
-          v122 -= 4;
-        }
-
-        while (v122);
-      }
-
-      *(this + 56) = v120;
-    }
-  }
-
-  else
-  {
-    if (v4 < 1)
-    {
-      v46 = 0;
-    }
-
-    else
-    {
-      v44 = 0;
-      v45 = (v3 >> 2) & 0x7FFFFFFF;
-      do
-      {
-        if (*v2)
-        {
-          v46 = v44 + 1;
-        }
-
-        else
-        {
-          v46 = v44;
-        }
-
-        if (!*v2)
-        {
-          v44 = -1;
-        }
-
-        *v2++ = v44;
-        v44 = v46;
-        --v45;
-      }
-
-      while (v45);
-    }
-
-    *(this + 40) = v46;
-    *(this + 68) = 0;
-    v58 = *(this + 144);
-    v59 = *(this + 152) - v58;
-    if ((v59 >> 2) < 1)
-    {
-      v62 = 0;
-    }
-
-    else
-    {
-      v60 = 0;
-      v61 = (v59 >> 2) & 0x7FFFFFFF;
-      do
-      {
-        if (*v58)
-        {
-          v62 = v60 + 1;
-        }
-
-        else
-        {
-          v62 = v60;
-        }
-
-        if (!*v58)
-        {
-          v60 = -1;
-        }
-
-        *v58++ = v60;
-        v60 = v62;
-        --v61;
-      }
-
-      while (v61);
-    }
-
-    *(this + 44) = v62;
-    *(this + 72) = v62;
-    v63 = *(this + 192);
-    v64 = *(this + 200) - v63;
-    if ((v64 >> 2) < 1)
-    {
-      v65 = 0;
-    }
-
-    else
-    {
-      v65 = 0;
-      v66 = (v64 >> 2) & 0x7FFFFFFF;
-      do
-      {
-        v67 = v65 + v62;
-        if (*v63)
-        {
-          ++v65;
-          v68 = v67;
-        }
-
-        else
-        {
-          v68 = -1;
-        }
-
-        *v63++ = v68;
-        --v66;
-      }
-
-      while (v66);
-    }
-
-    *(this + 48) = v65;
-    if (*(this + 37) == 1)
-    {
-      *(this + 76) = 0;
-      v69 = *(this + 168);
-      v70 = *(this + 176) - v69;
-      if ((v70 >> 2) < 1)
-      {
-        v74 = 0;
-        v71 = 0;
-      }
-
-      else
-      {
-        v71 = 0;
-        v72 = (v70 >> 2) & 0x7FFFFFFF;
-        do
-        {
-          if (*v69)
-          {
-            v73 = v71;
-          }
-
-          else
-          {
-            v73 = -1;
-          }
-
-          if (*v69)
-          {
-            ++v71;
-          }
-
-          *v69++ = v73;
-          --v72;
-        }
-
-        while (v72);
-        v74 = *(this + 76);
-      }
-
-      *(this + 52) = v71;
-      v129 = v74 + v71;
-      *(this + 80) = v129;
-      v130 = *(this + 216);
-      v131 = *(this + 224) - v130;
-      if ((v131 >> 2) < 1)
-      {
-        v132 = 0;
-      }
-
-      else
-      {
-        v132 = 0;
-        v133 = (v131 >> 2) & 0x7FFFFFFF;
-        do
-        {
-          v134 = v132 + v129;
-          if (*v130)
-          {
-            ++v132;
-            v135 = v134;
-          }
-
-          else
-          {
-            v135 = -1;
-          }
-
-          *v130++ = v135;
-          --v133;
-        }
-
-        while (v133);
-        v129 = *(this + 80);
-      }
-
-      *(this + 56) = v132;
-      v143 = v129 + v132;
-      *(this + 84) = v143;
-      v144 = *(this + 240);
-      v145 = *(this + 248) - v144;
-      if ((v145 >> 2) < 1)
-      {
-        v146 = 0;
-      }
-
-      else
-      {
-        v146 = 0;
-        v147 = (v145 >> 2) & 0x7FFFFFFF;
-        do
-        {
-          v148 = v146 + v143;
-          if (*v144)
-          {
-            ++v146;
-            v149 = v148;
-          }
-
-          else
-          {
-            v149 = -1;
-          }
-
-          *v144++ = v149;
-          --v147;
-        }
-
-        while (v147);
-      }
-
-      *(this + 60) = v146;
-    }
-
-    else
-    {
-      *(this + 84) = 0;
-      v75 = *(this + 240);
-      v76 = *(this + 248) - v75;
-      if ((v76 >> 2) < 1)
-      {
-        v80 = 0;
-        v77 = 0;
-      }
-
-      else
-      {
-        v77 = 0;
-        v78 = (v76 >> 2) & 0x7FFFFFFF;
-        do
-        {
-          if (*v75)
-          {
-            v79 = v77;
-          }
-
-          else
-          {
-            v79 = -1;
-          }
-
-          if (*v75)
-          {
-            ++v77;
-          }
-
-          *v75++ = v79;
-          --v78;
-        }
-
-        while (v78);
-        v80 = *(this + 84);
-      }
-
-      *(this + 60) = v77;
-      v136 = v80 + v77;
-      *(this + 76) = v136;
-      v137 = *(this + 168);
-      v138 = *(this + 176) - v137;
-      if ((v138 >> 2) < 1)
-      {
-        v139 = 0;
-      }
-
-      else
-      {
-        v139 = 0;
-        v140 = (v138 >> 2) & 0x7FFFFFFF;
-        do
-        {
-          v141 = v139 + v136;
-          if (*v137)
-          {
-            ++v139;
-            v142 = v141;
-          }
-
-          else
-          {
-            v142 = -1;
-          }
-
-          *v137++ = v142;
-          --v140;
-        }
-
-        while (v140);
-        v136 = *(this + 76);
-      }
-
-      *(this + 52) = v139;
-      v150 = v136 + v139;
-      *(this + 80) = v150;
-      v151 = *(this + 216);
-      v152 = *(this + 224) - v151;
-      if ((v152 >> 2) < 1)
-      {
-        v153 = 0;
-      }
-
-      else
-      {
-        v153 = 0;
-        v154 = (v152 >> 2) & 0x7FFFFFFF;
-        do
-        {
-          v155 = v153 + v150;
-          if (*v151)
-          {
-            ++v153;
-            v156 = v155;
-          }
-
-          else
-          {
-            v156 = -1;
-          }
-
-          *v151++ = v156;
-          --v154;
-        }
-
-        while (v154);
-      }
-
-      *(this + 56) = v153;
-    }
-  }
-
-  return this;
-}
-
-uint64_t OpenSubdiv::v3_1_1::Vtr::internal::Refinement::populateFaceParentVectors(std::vector<int> *a1, _BYTE *a2)
-{
-  v4 = *a1->__end_cap_.__value_;
-  begin = a1[14].__begin_;
-  v6 = (a1[14].__end_ - begin);
-  v7 = v4 >= v6;
-  v8 = v4 - v6;
-  if (v8 != 0 && v7)
-  {
-    std::vector<OpenSubdiv::v3_1_1::Vtr::internal::Refinement::ChildTag>::__append(&a1[14], v8);
-    v4 = *a1->__end_cap_.__value_;
-  }
-
-  else if (!v7)
-  {
-    a1[14].__end_ = (begin + v4);
-  }
-
-  std::vector<float>::resize(a1 + 11, v4);
-
-  return OpenSubdiv::v3_1_1::Vtr::internal::Refinement::populateFaceParentFromParentFaces(a1, a2);
-}
-
-uint64_t OpenSubdiv::v3_1_1::Vtr::internal::Refinement::populateEdgeParentVectors(std::vector<int> *a1, _BYTE *a2)
-{
-  v4 = a1->__end_cap_.__value_[1];
-  begin = a1[15].__begin_;
-  v6 = (a1[15].__end_ - begin);
-  v7 = v4 >= v6;
-  v8 = v4 - v6;
-  if (v8 != 0 && v7)
-  {
-    std::vector<OpenSubdiv::v3_1_1::Vtr::internal::Refinement::ChildTag>::__append(&a1[15], v8);
-    v4 = a1->__end_cap_.__value_[1];
-  }
-
-  else if (!v7)
-  {
-    a1[15].__end_ = (begin + v4);
-  }
-
-  std::vector<float>::resize(a1 + 12, v4);
-  OpenSubdiv::v3_1_1::Vtr::internal::Refinement::populateEdgeParentFromParentFaces(a1, a2);
-
-  return OpenSubdiv::v3_1_1::Vtr::internal::Refinement::populateEdgeParentFromParentEdges(a1, a2);
-}
-
-uint64_t OpenSubdiv::v3_1_1::Vtr::internal::Refinement::populateVertexParentVectors(uint64_t a1, unsigned __int8 *a2)
-{
-  v4 = *(*(a1 + 16) + 8);
-  v5 = *(a1 + 384);
-  v6 = *(a1 + 392) - v5;
-  if (*(a1 + 36) == 1)
-  {
-    v7 = v4 >= v6;
-    v8 = v4 - v6;
-    if (v4 > v6)
-    {
-      v9 = (a1 + 384);
-      v10 = a2;
-LABEL_6:
-      std::vector<OpenSubdiv::v3_1_1::Vtr::internal::Refinement::ChildTag>::__append(v9, v8, v10);
-      goto LABEL_9;
-    }
-  }
-
-  else
-  {
-    v7 = v4 >= v6;
-    v8 = v4 - v6;
-    if (v4 > v6)
-    {
-      v9 = (a1 + 384);
-      v10 = a2 + 4;
-      goto LABEL_6;
-    }
-  }
-
-  if (!v7)
-  {
-    *(a1 + 392) = v5 + v4;
-  }
-
-LABEL_9:
-  std::vector<float>::resize((a1 + 312), *(*(a1 + 16) + 8));
-  OpenSubdiv::v3_1_1::Vtr::internal::Refinement::populateVertexParentFromParentFaces(a1, a2);
-  OpenSubdiv::v3_1_1::Vtr::internal::Refinement::populateVertexParentFromParentEdges(a1, a2);
-
-  return OpenSubdiv::v3_1_1::Vtr::internal::Refinement::populateVertexParentFromParentVertices(a1, a2);
-}
-
-uint64_t OpenSubdiv::v3_1_1::Vtr::internal::Refinement::populateFaceParentFromParentFaces(uint64_t result, _BYTE *a2)
-{
-  v2 = **(result + 8);
-  if (*(result + 36))
-  {
-    if (v2 >= 1)
-    {
-      v3 = 0;
-      LODWORD(v4) = *(result + 64);
-      do
-      {
-        v5 = *(*(result + 88) + 8 * v3);
-        if (v5 == 4)
-        {
-          *(*(result + 336) + v4) = *a2;
-          v6 = v4 + 1;
-          *(*(result + 336) + v6) = a2[1];
-          v7 = v4 + 2;
-          *(*(result + 336) + v7) = a2[2];
-          v8 = v4 + 3;
-          *(*(result + 336) + v8) = a2[3];
-          v9 = *(result + 264);
-          *(v9 + 4 * v4) = v3;
-          *(v9 + 4 * v6) = v3;
-          *(v9 + 4 * v7) = v3;
-          *(v9 + 4 * v8) = v3;
-          LODWORD(v4) = v4 + 4;
-        }
-
-        else if (v5 >= 1)
-        {
-          v10 = 0;
-          v4 = v4;
-          do
-          {
-            if (v5 <= 4)
-            {
-              v11 = v10;
-            }
-
-            else
-            {
-              v11 = 0;
-            }
-
-            *(*(result + 336) + v4) = a2[v11];
-            *(*(result + 264) + 4 * v4++) = v3;
-            ++v10;
-          }
-
-          while (v5 != v10);
-        }
-
-        ++v3;
-      }
-
-      while (v3 < **(result + 8));
-    }
-  }
-
-  else if (v2 >= 1)
-  {
-    v12 = 0;
-    do
-    {
-      v13 = (*(result + 88) + 8 * v12);
-      v14 = *v13;
-      v15 = (*(result + 120) + 4 * v13[1]);
-      if ((*(*(result + 408) + v12) & 1) != 0 && v14 == 4)
-      {
-        *(*(result + 336) + *v15) = *a2;
-        *(*(result + 336) + v15[1]) = a2[1];
-        *(*(result + 336) + v15[2]) = a2[2];
-        *(*(result + 336) + v15[3]) = a2[3];
-        v21 = *(result + 264);
-        *(v21 + 4 * *v15) = v12;
-        *(v21 + 4 * v15[1]) = v12;
-        *(v21 + 4 * v15[2]) = v12;
-        *(v21 + 4 * v15[3]) = v12;
-      }
-
-      else if (v14 >= 1)
-      {
-        v17 = 0;
-        v18 = &a2[4 * !(*(*(result + 408) + v12) & 1)];
-        do
-        {
-          v19 = v15[v17];
-          if (v19 != -1)
-          {
-            if (v14 <= 4)
-            {
-              v20 = v17;
-            }
-
-            else
-            {
-              v20 = 0;
-            }
-
-            *(*(result + 336) + v19) = v18[v20];
-            *(*(result + 264) + 4 * v15[v17]) = v12;
-          }
-
-          ++v17;
-        }
-
-        while (v14 != v17);
-      }
-
-      ++v12;
-    }
-
-    while (v12 < **(result + 8));
-  }
-
-  return result;
-}
-
-uint64_t OpenSubdiv::v3_1_1::Vtr::internal::Refinement::populateEdgeParentFromParentFaces(uint64_t result, _BYTE *a2)
-{
-  v2 = **(result + 8);
-  if (*(result + 36))
-  {
-    if (v2 >= 1)
-    {
-      v3 = 0;
-      LODWORD(v4) = *(result + 68);
-      do
-      {
-        v5 = *(*(result + 104) + 8 * v3);
-        if (v5 == 4)
-        {
-          *(*(result + 360) + v4) = *a2;
-          v6 = v4 + 1;
-          *(*(result + 360) + v6) = a2[1];
-          v7 = v4 + 2;
-          *(*(result + 360) + v7) = a2[2];
-          v8 = v4 + 3;
-          *(*(result + 360) + v8) = a2[3];
-          v9 = *(result + 288);
-          *(v9 + 4 * v4) = v3;
-          *(v9 + 4 * v6) = v3;
-          *(v9 + 4 * v7) = v3;
-          *(v9 + 4 * v8) = v3;
-          LODWORD(v4) = v4 + 4;
-        }
-
-        else if (v5 >= 1)
-        {
-          v10 = 0;
-          v4 = v4;
-          do
-          {
-            if (v5 <= 4)
-            {
-              v11 = v10;
-            }
-
-            else
-            {
-              v11 = 0;
-            }
-
-            *(*(result + 360) + v4) = a2[v11];
-            *(*(result + 288) + 4 * v4++) = v3;
-            ++v10;
-          }
-
-          while (v5 != v10);
-        }
-
-        ++v3;
-      }
-
-      while (v3 < **(result + 8));
-    }
-  }
-
-  else if (v2 >= 1)
-  {
-    v12 = 0;
-    do
-    {
-      v13 = (*(result + 104) + 8 * v12);
-      v14 = *v13;
-      v15 = (*(result + 144) + 4 * v13[1]);
-      if ((*(*(result + 408) + v12) & 1) != 0 && v14 == 4)
-      {
-        *(*(result + 360) + *v15) = *a2;
-        *(*(result + 360) + v15[1]) = a2[1];
-        *(*(result + 360) + v15[2]) = a2[2];
-        *(*(result + 360) + v15[3]) = a2[3];
-        v21 = *(result + 288);
-        *(v21 + 4 * *v15) = v12;
-        *(v21 + 4 * v15[1]) = v12;
-        *(v21 + 4 * v15[2]) = v12;
-        *(v21 + 4 * v15[3]) = v12;
-      }
-
-      else if (v14 >= 1)
-      {
-        v17 = 0;
-        v18 = &a2[4 * !(*(*(result + 408) + v12) & 1)];
-        do
-        {
-          v19 = v15[v17];
-          if (v19 != -1)
-          {
-            if (v14 <= 4)
-            {
-              v20 = v17;
-            }
-
-            else
-            {
-              v20 = 0;
-            }
-
-            *(*(result + 360) + v19) = v18[v20];
-            *(*(result + 288) + 4 * v15[v17]) = v12;
-          }
-
-          ++v17;
-        }
-
-        while (v14 != v17);
-      }
-
-      ++v12;
-    }
-
-    while (v12 < **(result + 8));
-  }
-
-  return result;
-}
-
-uint64_t OpenSubdiv::v3_1_1::Vtr::internal::Refinement::populateEdgeParentFromParentEdges(uint64_t result, _BYTE *a2)
-{
-  v2 = *(*(result + 8) + 4);
-  if (*(result + 36))
-  {
-    if (v2 >= 1)
-    {
-      v3 = 0;
-      v4 = *(result + 72);
-      do
-      {
-        *(*(result + 360) + v4) = *a2;
-        *(*(result + 360) + v4 + 1) = a2[1];
-        v5 = (*(result + 288) + 4 * v4);
-        *v5 = v3;
-        v5[1] = v3++;
-        v4 += 2;
-      }
-
-      while (v3 < *(*(result + 8) + 4));
-    }
-  }
-
-  else if (v2 >= 1)
-  {
-    v6 = 0;
-    do
-    {
-      v7 = (*(result + 192) + 8 * v6);
-      if (*(*(result + 432) + v6))
-      {
-        *(*(result + 360) + *v7) = *a2;
-        *(*(result + 360) + v7[1]) = a2[1];
-        v12 = *(result + 288);
-        *(v12 + 4 * *v7) = v6;
-        *(v12 + 4 * v7[1]) = v6;
-      }
-
-      else
-      {
-        v8 = 0;
-        v9 = 1;
-        do
-        {
-          v10 = v9;
-          v11 = v7[v8];
-          if (v11 != -1)
-          {
-            *(*(result + 360) + v11) = a2[v8 + 4];
-            *(*(result + 288) + 4 * v7[v8]) = v6;
-          }
-
-          v9 = 0;
-          v8 = 1;
-        }
-
-        while ((v10 & 1) != 0);
-      }
-
-      ++v6;
-    }
-
-    while (v6 < *(*(result + 8) + 4));
-  }
-
-  return result;
-}
-
-uint64_t OpenSubdiv::v3_1_1::Vtr::internal::Refinement::populateVertexParentFromParentFaces(uint64_t result, _BYTE *a2)
-{
-  if (*(result + 52))
-  {
-    v2 = *(result + 8);
-    v3 = *v2;
-    if (*(result + 36))
-    {
-      if (v3 >= 1)
-      {
-        v4 = 0;
-        v5 = *(result + 312) + 4 * *(result + 76);
-        do
-        {
-          *(v5 + 4 * v4) = v4;
-          ++v4;
-        }
-
-        while (v4 < *v2);
-      }
-    }
-
-    else if (v3 >= 1)
-    {
-      for (i = 0; i < v3; ++i)
-      {
-        v7 = *(*(result + 168) + 4 * i);
-        if (v7 != -1)
-        {
-          if (*(*(result + 408) + i))
-          {
-            *(*(result + 384) + v7) = *a2;
-            v2 = *(result + 8);
-          }
-
-          *(*(result + 312) + 4 * v7) = i;
-          v3 = *v2;
-        }
-      }
-    }
-  }
-
-  return result;
-}
-
-uint64_t OpenSubdiv::v3_1_1::Vtr::internal::Refinement::populateVertexParentFromParentEdges(uint64_t result, _BYTE *a2)
-{
-  v2 = *(result + 8);
-  v3 = *(v2 + 4);
-  if (*(result + 36))
-  {
-    if (v3 >= 1)
-    {
-      v4 = 0;
-      v5 = *(result + 312) + 4 * *(result + 80);
-      do
-      {
-        *(v5 + 4 * v4) = v4;
-        ++v4;
-      }
-
-      while (v4 < *(v2 + 4));
-    }
-  }
-
-  else if (v3 >= 1)
-  {
-    v6 = 0;
-    do
-    {
-      v7 = *(*(result + 216) + 4 * v6);
-      if (v7 != -1)
-      {
-        if (*(*(result + 432) + v6))
-        {
-          *(*(result + 384) + v7) = *a2;
-          v2 = *(result + 8);
-        }
-
-        *(*(result + 312) + 4 * v7) = v6;
-      }
-
-      ++v6;
-    }
-
-    while (v6 < *(v2 + 4));
-  }
-
-  return result;
-}
-
-uint64_t OpenSubdiv::v3_1_1::Vtr::internal::Refinement::populateVertexParentFromParentVertices(uint64_t result, _BYTE *a2)
-{
-  v2 = *(result + 8);
-  v3 = *(v2 + 8);
-  if (*(result + 36))
-  {
-    if (v3 >= 1)
-    {
-      v4 = 0;
-      v5 = *(result + 312) + 4 * *(result + 84);
-      do
-      {
-        *(v5 + 4 * v4) = v4;
-        ++v4;
-      }
-
-      while (v4 < *(v2 + 8));
-    }
-  }
-
-  else if (v3 >= 1)
-  {
-    v6 = 0;
-    do
-    {
-      v7 = *(*(result + 240) + 4 * v6);
-      if (v7 != -1)
-      {
-        if (*(*(result + 456) + v6))
-        {
-          *(*(result + 384) + v7) = *a2;
-          v2 = *(result + 8);
-        }
-
-        *(*(result + 312) + 4 * v7) = v6;
-      }
-
-      ++v6;
-    }
-
-    while (v6 < *(v2 + 8));
-  }
-
-  return result;
-}
-
-uint64_t OpenSubdiv::v3_1_1::Vtr::internal::Refinement::populateFaceTagVectors(OpenSubdiv::v3_1_1::Vtr::internal::Refinement *this)
-{
-  v2 = *(this + 2);
-  v3 = *(v2 + 12);
-  v4 = *v2;
-  v5 = *(v2 + 13) - v3;
-  if (v4 <= v5)
-  {
-    if (v4 < v5)
-    {
-      *(v2 + 13) = v3 + v4;
-    }
-  }
-
-  else
-  {
-    std::vector<OpenSubdiv::v3_1_1::Vtr::internal::Level::FTag>::__append((v2 + 24), v4 - v5);
-  }
-
-  return OpenSubdiv::v3_1_1::Vtr::internal::Refinement::populateFaceTagsFromParentFaces(this);
-}
-
-uint64_t OpenSubdiv::v3_1_1::Vtr::internal::Refinement::populateEdgeTagVectors(OpenSubdiv::v3_1_1::Vtr::internal::Refinement *this)
-{
-  v2 = *(this + 2);
-  v3 = *(v2 + 240);
-  v4 = *(v2 + 4);
-  v5 = *(v2 + 248) - v3;
-  if (v4 <= v5)
-  {
-    if (v4 < v5)
-    {
-      *(v2 + 248) = v3 + v4;
-    }
-  }
-
-  else
-  {
-    std::vector<OpenSubdiv::v3_1_1::Vtr::internal::Level::ETag>::__append(v2 + 240, v4 - v5);
-  }
-
-  v6 = *(this + 11);
-  if (v6 >= 1)
-  {
-    v7 = *(this + 17);
-    v8 = v7 + v6;
-    do
-    {
-      *(*(*(this + 2) + 240) + v7++) = 0;
-    }
-
-    while (v7 < v8);
-  }
-
-  return OpenSubdiv::v3_1_1::Vtr::internal::Refinement::populateEdgeTagsFromParentEdges(this);
-}
-
-uint64_t OpenSubdiv::v3_1_1::Vtr::internal::Refinement::populateVertexTagVectors(OpenSubdiv::v3_1_1::Vtr::internal::Refinement *this)
-{
-  std::vector<OpenSubdiv::v3_1_1::Vtr::internal::Level::VTag>::resize(*(this + 2) + 432, *(*(this + 2) + 8));
-  OpenSubdiv::v3_1_1::Vtr::internal::Refinement::populateVertexTagsFromParentFaces(this);
-  OpenSubdiv::v3_1_1::Vtr::internal::Refinement::populateVertexTagsFromParentEdges(this);
-  result = OpenSubdiv::v3_1_1::Vtr::internal::Refinement::populateVertexTagsFromParentVertices(this);
-  if ((*(this + 36) & 1) == 0)
-  {
-    v3 = *(this + 2);
-    if (*(v3 + 8) >= 1)
-    {
-      v4 = 0;
-      do
-      {
-        if (*(*(this + 48) + v4))
-        {
-          *(*(v3 + 432) + 2 * v4) |= 0x800u;
-          v3 = *(this + 2);
-        }
-
-        ++v4;
-      }
-
-      while (v4 < *(v3 + 8));
-    }
-  }
-
-  return result;
-}
-
-uint64_t OpenSubdiv::v3_1_1::Vtr::internal::Refinement::populateFaceTagsFromParentFaces(uint64_t this)
-{
-  v1 = *(this + 40);
-  if (v1 >= 1)
-  {
-    v2 = *(this + 64);
-    v3 = v1 + v2;
-    do
-    {
-      *(*(*(this + 16) + 96) + v2) = *(*(*(this + 8) + 96) + *(*(this + 264) + 4 * v2));
-      ++v2;
-    }
-
-    while (v2 < v3);
-  }
-
-  return this;
-}
-
-uint64_t OpenSubdiv::v3_1_1::Vtr::internal::Refinement::populateEdgeTagsFromParentEdges(uint64_t this)
-{
-  v1 = *(this + 48);
-  if (v1 >= 1)
-  {
-    v2 = *(this + 72);
-    v3 = v1 + v2;
-    do
-    {
-      *(*(*(this + 16) + 240) + v2) = *(*(*(this + 8) + 240) + *(*(this + 288) + 4 * v2));
-      ++v2;
-    }
-
-    while (v2 < v3);
-  }
-
-  return this;
-}
-
-uint64_t OpenSubdiv::v3_1_1::Vtr::internal::Refinement::populateVertexTagsFromParentFaces(uint64_t this)
-{
-  v1 = *(this + 52);
-  if (v1)
-  {
-    v2 = *(this + 76);
-    v3 = v2 + v1;
-    if (*(*(this + 8) + 12) <= 0)
-    {
-      if (v1 >= 1)
-      {
-        do
-        {
-          *(*(*(this + 16) + 432) + 2 * v2) = 128;
-          if (*(*(*(this + 8) + 24) + 8 * *(*(this + 312) + 4 * v2)) != *(this + 32))
-          {
-            *(*(*(this + 16) + 432) + 2 * v2) |= 2u;
-          }
-
-          ++v2;
-        }
-
-        while (v2 < v3);
-      }
-    }
-
-    else if (v1 >= 1)
-    {
-      do
-      {
-        *(*(*(this + 16) + 432) + 2 * v2++) = 128;
-      }
-
-      while (v2 < v3);
-    }
-  }
-
-  return this;
-}
-
-void *OpenSubdiv::v3_1_1::Vtr::internal::Refinement::populateVertexTagsFromParentEdges(void *this)
-{
-  v1 = this[1];
-  if (*(v1 + 4) >= 1)
-  {
-    v2 = 0;
-    v3 = 0;
-    do
-    {
-      v4 = *(this[27] + 4 * v2);
-      if (v4 != -1)
-      {
-        v5 = *(*(v1 + 240) + v2);
-        v6 = v5 & 1;
-        v7 = v3 & 0xFFFF883A | (4 * ((v5 >> 1) & 1)) & 0xFFFFFFBF | (((v5 >> 3) & 1) << 6);
-        v8 = v5 >> 2;
-        v9 = (v5 << 12) & (v6 << 14);
-        if ((v5 & 0xC) != 0)
-        {
-          v10 = 512;
-        }
-
-        else
-        {
-          v10 = 128;
-        }
-
-        v3 = (v7 | v10) & 0xFFFFCFFF | ((v8 & 1) << 12) & 0xDFFF | ((v8 & 1) << 13) | v9 | v6;
-        *(*(this[2] + 432) + 2 * v4) = v3;
-        v1 = this[1];
-      }
-
-      ++v2;
-    }
-
-    while (v2 < *(v1 + 4));
-  }
-
-  return this;
-}
-
-uint64_t OpenSubdiv::v3_1_1::Vtr::internal::Refinement::populateVertexTagsFromParentVertices(uint64_t this)
-{
-  v1 = *(this + 60);
-  if (v1 >= 1)
-  {
-    v2 = *(this + 84);
-    v3 = v1 + v2;
-    do
-    {
-      *(*(*(this + 16) + 432) + 2 * v2) = *(*(*(this + 8) + 432) + 2 * *(*(this + 312) + 4 * v2));
-      ++v2;
-    }
-
-    while (v2 < v3);
-  }
-
-  return this;
-}
-
-void OpenSubdiv::v3_1_1::Vtr::internal::Refinement::subdivideEdgeSharpness(OpenSubdiv::v3_1_1::Vtr::internal::Refinement *this, int16x4_t a2)
-{
-  v32 = *MEMORY[0x277D85DE8];
-  v27 = *(this + 6);
-  v3 = v27;
-  v4 = *(this + 2);
-  v5 = v4[27];
-  v4 += 27;
-  v4[1] = v5;
-  std::vector<float>::resize(v4, *(v4 - 53), &OpenSubdiv::v3_1_1::Sdc::Crease::SHARPNESS_SMOOTH, a2);
-  v28 = &v30;
-  v29 = 0x1000000000;
-  __p = 0;
-  if ((v3 & 0x60) != 0 && (v6 = *(*(this + 1) + 20), v6 >= 0x11))
-  {
-    operator delete(0);
-    v7 = operator new(4 * v6);
-    __p = v7;
-    v28 = v7;
-    HIDWORD(v29) = v6;
-  }
-
-  else
-  {
-    v7 = 0;
-  }
-
-  v8 = *(this + 12);
-  if (v8 >= 1)
-  {
-    v9 = *(this + 18);
-    v10 = v8 + v9;
-    while (1)
-    {
-      v11 = *(this + 2);
-      v12 = *(v11 + 216);
-      v13 = *(v11 + 240);
-      if ((*(v13 + v9) & 4) != 0)
-      {
-        *(v12 + 4 * v9) = 1092616192;
-      }
-
-      else if ((*(v13 + v9) & 8) != 0)
-      {
-        v14 = *(*(this + 36) + 4 * v9);
-        v15 = *(this + 1);
-        v16 = v15[27];
-        v17 = *(v16 + 4 * v14);
-        if ((v27 & 0x60) != 0)
-        {
-          v18 = *(v15[15] + 8 * v14 + 4 * ((*(*(this + 45) + v9) >> 3) & 3));
-          v19 = v15[42];
-          v20 = *(v19 + 8 * v18);
-          v21 = v28;
-          if (v20 >= 1)
-          {
-            v22 = (v15[45] + 4 * *(v19 + 8 * v18 + 4));
-            v23 = *(v19 + 8 * v18);
-            v24 = v28;
-            do
-            {
-              v25 = *v22++;
-              *v24++ = *(v16 + 4 * v25);
-              --v23;
-            }
-
-            while (v23);
-          }
-
-          v26 = OpenSubdiv::v3_1_1::Sdc::Crease::SubdivideEdgeSharpnessAtVertex(&v27, v17, v20, v21);
-          goto LABEL_14;
-        }
-
-        if (v17 <= 0.0)
-        {
-          goto LABEL_21;
-        }
-
-        v26 = 10.0;
-        if (v17 >= 10.0)
-        {
-LABEL_14:
-          *(v12 + 4 * v9) = v26;
-          if (v26 > 0.0)
-          {
-            goto LABEL_23;
-          }
-        }
-
-        else
-        {
-          if (v17 > 1.0)
-          {
-            v26 = v17 + -1.0;
-            goto LABEL_14;
-          }
-
-LABEL_21:
-          *(v12 + 4 * v9) = 0;
-        }
-
-        *(v13 + v9) &= ~8u;
-      }
-
-LABEL_23:
-      if (++v9 >= v10)
-      {
-        v7 = __p;
-        break;
-      }
-    }
-  }
-
-  operator delete(v7);
-}
-
-void OpenSubdiv::v3_1_1::Vtr::internal::Refinement::subdivideVertexSharpness(OpenSubdiv::v3_1_1::Vtr::internal::Refinement *this, int16x4_t a2)
-{
-  v3 = *(this + 2);
-  *(v3 + 416) = *(v3 + 408);
-  std::vector<float>::resize((v3 + 408), *(v3 + 8), &OpenSubdiv::v3_1_1::Sdc::Crease::SHARPNESS_SMOOTH, a2);
-  v4 = *(this + 15);
-  if (v4 >= 1)
-  {
-    v5 = *(this + 21);
-    v6 = v4 + v5;
-    do
-    {
-      v7 = *(this + 2);
-      v8 = *(v7 + 408);
-      v9 = *(v7 + 432);
-      v10 = *(v9 + 2 * v5);
-      if ((v10 & 0x10) != 0)
-      {
-        *(v8 + 4 * v5) = 1092616192;
-      }
-
-      else if ((v10 & 0x20) != 0)
-      {
-        v11 = *(*(*(this + 1) + 408) + 4 * *(*(this + 39) + 4 * v5));
-        if (v11 <= 0.0)
-        {
-          goto LABEL_12;
-        }
-
-        v12 = 10.0;
-        if (v11 >= 10.0)
-        {
-LABEL_9:
-          *(v8 + 4 * v5) = v12;
-          if (v12 > 0.0)
-          {
-            goto LABEL_14;
-          }
-        }
-
-        else
-        {
-          if (v11 > 1.0)
-          {
-            v12 = v11 + -1.0;
-            goto LABEL_9;
-          }
-
-LABEL_12:
-          *(v8 + 4 * v5) = 0;
-        }
-
-        *(v9 + 2 * v5) &= ~0x20u;
-      }
-
-LABEL_14:
-      ++v5;
-    }
-
-    while (v5 < v6);
-  }
-}
-
-uint64_t OpenSubdiv::v3_1_1::Vtr::internal::Refinement::reclassifySemisharpVertices(uint64_t this)
-{
-  v1 = this;
-  v44 = *(this + 24);
-  v2 = *(this + 56);
-  if (v2 >= 1)
-  {
-    v3 = *(this + 80);
-    v4 = v2 + v3;
-    while (1)
-    {
-      v5 = *(v1 + 16);
-      v6 = *(v5 + 432);
-      v7 = *(v6 + 2 * v3);
-      if ((v7 & 0x40) != 0)
-      {
-        break;
-      }
-
-LABEL_16:
-      if (++v3 >= v4)
-      {
-        goto LABEL_17;
-      }
-    }
-
-    v8 = (*(v1 + 192) + 8 * *(*(v1 + 312) + 4 * v3));
-    if ((*(*(v1 + 384) + v3) & 1) == 0)
-    {
-      v9 = ((*(*(v5 + 240) + v8[1]) >> 3) & 1) + ((*(*(v5 + 240) + *v8) >> 3) & 1);
-      *(v6 + 2 * v3) = v7 & 0xFFBF | ((v9 != 0) << 6);
-      this = OpenSubdiv::v3_1_1::Sdc::Crease::DetermineVertexVertexRule(&v44, 0.0, v9);
-      v10 = *(v6 + 2 * v3) & 0xF87F | ((this & 0xF) << 7);
-LABEL_15:
-      *(v6 + 2 * v3) = v10;
-      goto LABEL_16;
-    }
-
-    v11 = *v8;
-    if (v11 == -1 || (*(*(v5 + 240) + v11) & 8) == 0)
-    {
-      v12 = v8[1];
-      if (v12 == -1)
-      {
-        v14 = v7 & 0xF83F;
-      }
-
-      else
-      {
-        v13 = 8 * *(*(v5 + 240) + v12);
-        v14 = v7 & 0xF83F;
-        if ((v13 & 0x40) != 0)
-        {
-          v15 = v13 & 0x40;
-          v16 = 512;
-LABEL_14:
-          v10 = v15 | v16 | v14;
-          goto LABEL_15;
-        }
-      }
-
-      v15 = 0;
-      v16 = 128;
-      goto LABEL_14;
-    }
-
-    v14 = v7 & 0xF83F;
-    v16 = 512;
-    v15 = 64;
-    goto LABEL_14;
-  }
-
-LABEL_17:
-  v17 = *(v1 + 60);
-  if (v17 >= 1)
-  {
-    v18 = *(v1 + 84);
-    v19 = v17 + v18;
-    do
-    {
-      v20 = *(*(v1 + 312) + 4 * v18);
-      v21 = *(v1 + 8);
-      v22 = *(v21[54] + 2 * v20);
-      if ((v22 & 0x60) == 0)
-      {
-        goto LABEL_34;
-      }
-
-      v23 = *(v1 + 16);
-      v24 = v23[54];
-      v25 = *(v24 + 2 * v18);
-      if ((v22 & 0x40) == 0 && (((v25 & 0x20) == 0) & (v22 >> 5)) == 0)
-      {
-        goto LABEL_34;
-      }
-
-      v26 = v23[45];
-      if (((v23[46] - v26) >> 2) < 1)
-      {
-        v33 = v21[42];
-        v34 = *(v33 + 8 * v20);
-        if (v34 >= 1)
-        {
-          v35 = *(v33 + 8 * v20 + 4);
-          v36 = (v21[45] + 4 * v35);
-          v37 = (v21[48] + 2 * v35);
-          v30 = 0;
-          v38 = v23[30];
-          do
-          {
-            v39 = *v36++;
-            v40 = *(v1 + 192) + 8 * v39;
-            LODWORD(v39) = *v37++;
-            v30 = vadd_s32(v30, (*&vshl_u32(vand_s8(vdup_n_s32(*(v38 + *(v40 + 4 * v39))), 0xFF000000FFLL), 0xFFFFFFFEFFFFFFFDLL) & 0xFFFFFFC1FFFFFFC1));
-            --v34;
-          }
-
-          while (v34);
-          goto LABEL_30;
-        }
-      }
-
-      else
-      {
-        v27 = (v23[42] + 8 * v18);
-        v28 = *v27;
-        if (v28 >= 1)
-        {
-          v29 = (v26 + 4 * v27[1]);
-          v30 = 0;
-          v31 = v23[30];
-          do
-          {
-            v32 = *v29++;
-            v30 = vadd_s32(v30, (*&vshl_u32(vand_s8(vdup_n_s32(*(v31 + v32)), 0xFF000000FFLL), 0xFFFFFFFEFFFFFFFDLL) & 0xFFFFFFC1FFFFFFC1));
-            --v28;
-          }
-
-          while (v28);
-LABEL_30:
-          v41 = v30.i32[0];
-          v42 = (v30.i32[0] > 0) << 6;
-          v43 = v30.i32[1];
-          goto LABEL_32;
-        }
-      }
-
-      v43 = 0;
-      v41 = 0;
-      v42 = 0;
-LABEL_32:
-      *(v24 + 2 * v18) = v42 | v25 & 0xFFBF;
-      if ((v25 & 0x30) == 0)
-      {
-        this = OpenSubdiv::v3_1_1::Sdc::Crease::DetermineVertexVertexRule(&v44, 0.0, v43 + v41);
-        *(v24 + 2 * v18) = ((this & 0xF) << 7) | *(v24 + 2 * v18) & 0xF87F;
-      }
-
-LABEL_34:
-      ++v18;
-    }
-
-    while (v18 < v19);
-  }
-
-  return this;
-}
-
-void std::vector<float>::resize(void *a1, unint64_t a2, __int32 *a3, int16x4_t a4)
-{
-  v4 = (a1[1] - *a1) >> 2;
-  if (a2 <= v4)
-  {
-    if (a2 < v4)
-    {
-      a1[1] = *a1 + 4 * a2;
-    }
-  }
-
-  else
-  {
-    std::vector<float>::__append(a1, a2 - v4, a3, a4);
-  }
-}
-
-void *OpenSubdiv::v3_1_1::Vtr::internal::Refinement::markSparseVertexChildren(void *this)
-{
-  v1 = this[57];
-  if (this[58] == v1)
-  {
-    OpenSubdiv::v3_1_1::Vtr::internal::Refinement::markSparseVertexChildren();
-  }
-
-  v2 = this[1];
-  v3 = *(v2 + 8);
-  if (v3 >= 1)
-  {
-    for (i = 0; i < v3; ++i)
-    {
-      if (*(v1 + i))
-      {
-        *(this[30] + 4 * i) = 2;
-        v3 = *(v2 + 8);
-      }
-    }
-  }
-
-  return this;
-}
-
-void *OpenSubdiv::v3_1_1::Vtr::internal::Refinement::markSparseEdgeChildren(void *this)
-{
-  if (this[55] == this[54])
-  {
-    OpenSubdiv::v3_1_1::Vtr::internal::Refinement::markSparseEdgeChildren();
-  }
-
-  v1 = this[1];
-  if (*(v1 + 4) >= 1)
-  {
-    for (i = 0; i < *(v1 + 4); ++i)
-    {
-      v3 = (this[24] + 8 * i);
-      v4 = this[54];
-      if (*(v4 + i))
-      {
-        v7 = 2;
-        *v3 = 2;
-      }
-
-      else
-      {
-        v5 = (*(v1 + 120) + 8 * i);
-        v6 = this[57];
-        if (*(v6 + *v5))
-        {
-          *v3 = 1;
-          *(this[27] + 4 * i) = 1;
-        }
-
-        if ((*(v6 + v5[1]) & 1) == 0)
-        {
-          goto LABEL_11;
-        }
-
-        v7 = 1;
-      }
-
-      v3[1] = v7;
-      *(this[27] + 4 * i) = v7;
-LABEL_11:
-      v8 = *(v1 + 168);
-      v9 = (*(v1 + 144) + 8 * i);
-      v10 = *v9;
-      v11 = (v8 + 4 * v9[1]);
-      if (v10 == 2)
-      {
-        v12 = *(v4 + i) & 0xE1 | (2 * ((*(this[51] + v11[1]) ^ *(this[51] + *v11)) & 1));
-      }
-
-      else if (v10 > 1)
-      {
-        v14 = *v11;
-        v13 = v11 + 1;
-        v15 = *(this[51] + v14);
-        v16 = *(v4 + i) & 0xE1;
-        *(v4 + i) = v16;
-        v17 = v10 - 1;
-        while (1)
-        {
-          v18 = *v13++;
-          if ((*(this[51] + v18) ^ v15))
-          {
-            break;
-          }
-
-          if (!--v17)
-          {
-            goto LABEL_21;
-          }
-        }
-
-        v12 = v16 | 2;
-      }
-
-      else
-      {
-        v12 = *(v4 + i) & 0xE1;
-      }
-
-      *(v4 + i) = v12;
-LABEL_21:
-      v1 = this[1];
-    }
-  }
-
-  return this;
-}
-
-void std::vector<OpenSubdiv::v3_1_1::Vtr::internal::Refinement::SparseTag>::__append(uint64_t a1, unint64_t a2)
-{
-  v2 = a2;
-  v4 = *(a1 + 8);
-  v5 = *(a1 + 16);
-  if (v5 - v4 >= a2)
-  {
-    if (a2)
-    {
-      v10 = &v4[a2];
-      do
-      {
-        *v4++ &= 0xE0u;
-        --v2;
-      }
-
-      while (v2);
-      v4 = v10;
-    }
-
-    *(a1 + 8) = v4;
-  }
-
-  else
-  {
-    v6 = &v4[-*a1];
-    v7 = &v6[a2];
-    if (&v6[a2] < 0)
-    {
-      std::string::__throw_length_error[abi:nn200100]();
-    }
-
-    v8 = v5 - *a1;
-    if (2 * v8 > v7)
-    {
-      v7 = 2 * v8;
-    }
-
-    if (v8 >= 0x3FFFFFFFFFFFFFFFLL)
-    {
-      v9 = 0x7FFFFFFFFFFFFFFFLL;
-    }
-
-    else
-    {
-      v9 = v7;
-    }
-
-    if (v9)
-    {
-      operator new();
-    }
-
-    v11 = v6;
-    v12 = &v6[a2];
-    v13 = v11;
-    do
-    {
-      *v13++ &= 0xE0u;
-      --v2;
-    }
-
-    while (v2);
-    v15 = *a1;
-    v14 = *(a1 + 8);
-    v16 = &v11[*a1 - v14];
-    memcpy(v16, *a1, v14 - *a1);
-    *a1 = v16;
-    *(a1 + 8) = v12;
-    *(a1 + 16) = 0;
-    if (v15)
-    {
-
-      operator delete(v15);
-    }
-  }
-}
-
-void std::vector<OpenSubdiv::v3_1_1::Vtr::internal::Refinement::ChildTag>::__append(uint64_t a1, unint64_t a2)
-{
-  v3 = *(a1 + 8);
-  v4 = *(a1 + 16);
-  if (v4 - v3 >= a2)
-  {
-    *(a1 + 8) = v3 + a2;
-  }
-
-  else
-  {
-    v5 = *a1;
-    v6 = v3 - *a1;
-    v7 = v6 + a2;
-    if ((v6 + a2) < 0)
-    {
-      std::string::__throw_length_error[abi:nn200100]();
-    }
-
-    v8 = v4 - v5;
-    if (2 * v8 > v7)
-    {
-      v7 = 2 * v8;
-    }
-
-    if (v8 >= 0x3FFFFFFFFFFFFFFFLL)
-    {
-      v9 = 0x7FFFFFFFFFFFFFFFLL;
-    }
-
-    else
-    {
-      v9 = v7;
-    }
-
-    if (v9)
-    {
-      operator new();
-    }
-
-    v10 = v6 + a2;
-    memcpy(0, *a1, v3 - *a1);
-    *a1 = 0;
-    *(a1 + 8) = v10;
-    *(a1 + 16) = 0;
-    if (v5)
-    {
-
-      operator delete(v5);
-    }
-  }
-}
-
-void std::vector<OpenSubdiv::v3_1_1::Vtr::internal::Refinement::ChildTag>::__append(char **a1, size_t __len, unsigned __int8 *a3)
-{
-  v6 = a1[1];
-  v5 = a1[2];
-  if (v5 - v6 >= __len)
-  {
-    if (__len)
-    {
-      memset(a1[1], *a3, __len);
-      v6 += __len;
-    }
-
-    a1[1] = v6;
-  }
-
-  else
-  {
-    v7 = *a1;
-    v8 = (v6 - *a1);
-    v9 = &v8[__len];
-    if (&v8[__len] < 0)
-    {
-      std::string::__throw_length_error[abi:nn200100]();
-    }
-
-    v10 = v5 - v7;
-    if (2 * v10 > v9)
-    {
-      v9 = 2 * v10;
-    }
-
-    if (v10 >= 0x3FFFFFFFFFFFFFFFLL)
-    {
-      v11 = 0x7FFFFFFFFFFFFFFFLL;
-    }
-
-    else
-    {
-      v11 = v9;
-    }
-
-    if (v11)
-    {
-      operator new();
-    }
-
-    v12 = v6 - *a1;
-    memset(v8, *a3, __len);
-    memcpy(&v8[v7 - v6], v7, v12);
-    *a1 = &v8[v7 - v6];
-    a1[1] = &v8[__len];
-    a1[2] = 0;
-    if (v7)
-    {
-
-      operator delete(v7);
-    }
-  }
-}
-
-void std::vector<float>::__append(uint64_t a1, unint64_t a2, __int32 *a3, int16x4_t a4)
-{
-  v7 = *(a1 + 8);
-  v6 = *(a1 + 16);
-  if (a2 <= (v6 - v7) >> 2)
-  {
-    if (a2)
-    {
-      v13 = 0;
-      a4.i32[0] = *a3;
-      v14 = (a2 + 0x3FFFFFFFFFFFFFFFLL) & 0x3FFFFFFFFFFFFFFFLL;
-      v15 = vdupq_n_s64(v14);
-      v16 = v7 + 4 * a2;
-      v17 = v14 - ((a2 + 0x3FFFFFFFFFFFFFFFLL) & 3) + 4;
-      v18 = (v7 + 8);
-      do
-      {
-        v19 = vdupq_n_s64(v13);
-        v20 = vmovn_s64(vcgeq_u64(v15, vorrq_s8(v19, xmmword_21C27F640)));
-        if (vuzp1_s16(v20, a4).u8[0])
-        {
-          *(v18 - 2) = a4.i32[0];
-        }
-
-        if (vuzp1_s16(v20, a4).i8[2])
-        {
-          *(v18 - 1) = a4.i32[0];
-        }
-
-        if (vuzp1_s16(a4, vmovn_s64(vcgeq_u64(v15, vorrq_s8(v19, xmmword_21C27F630)))).i32[1])
-        {
-          *v18 = a4.i32[0];
-          v18[1] = a4.i32[0];
-        }
-
-        v13 += 4;
-        v18 += 4;
-      }
-
-      while (v17 != v13);
-    }
-
-    else
-    {
-      v16 = *(a1 + 8);
-    }
-
-    *(a1 + 8) = v16;
-  }
-
-  else
-  {
-    v8 = v7 - *a1;
-    v9 = a2 + (v8 >> 2);
-    if (v9 >> 62)
-    {
-      std::string::__throw_length_error[abi:nn200100]();
-    }
-
-    v10 = v8 >> 2;
-    v11 = v6 - *a1;
-    if (v11 >> 1 > v9)
-    {
-      v9 = v11 >> 1;
-    }
-
-    if (v11 >= 0x7FFFFFFFFFFFFFFCLL)
-    {
-      v12 = 0x3FFFFFFFFFFFFFFFLL;
-    }
-
-    else
-    {
-      v12 = v9;
-    }
-
-    if (v12)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<float>>(a1, v12);
-    }
-
-    v21 = 0;
-    v22 = 4 * v10;
-    a4.i32[0] = *a3;
-    v23 = 4 * v10 + 4 * a2;
-    v24 = (a2 + 0x3FFFFFFFFFFFFFFFLL) & 0x3FFFFFFFFFFFFFFFLL;
-    v25 = vdupq_n_s64(v24);
-    v26 = v24 - ((a2 + 0x3FFFFFFFFFFFFFFFLL) & 3) + 4;
-    v27 = (4 * v10 + 8);
-    do
-    {
-      v28 = vdupq_n_s64(v21);
-      v29 = vmovn_s64(vcgeq_u64(v25, vorrq_s8(v28, xmmword_21C27F640)));
-      if (vuzp1_s16(v29, a4).u8[0])
-      {
-        *(v27 - 2) = a4.i32[0];
-      }
-
-      if (vuzp1_s16(v29, a4).i8[2])
-      {
-        *(v27 - 1) = a4.i32[0];
-      }
-
-      if (vuzp1_s16(a4, vmovn_s64(vcgeq_u64(v25, vorrq_s8(v28, xmmword_21C27F630)))).i32[1])
-      {
-        *v27 = a4.i32[0];
-        v27[1] = a4.i32[0];
-      }
-
-      v21 += 4;
-      v27 += 4;
-    }
-
-    while (v26 != v21);
-    v30 = *(a1 + 8) - *a1;
-    v31 = v22 - v30;
-    memcpy((v22 - v30), *a1, v30);
-    v32 = *a1;
-    *a1 = v31;
-    *(a1 + 8) = v23;
-    *(a1 + 16) = 0;
-    if (v32)
-    {
-
-      operator delete(v32);
-    }
+    OpenSubdiv::v3_1_1::Vtr::internal::Refinement::subdivideFVarChannels(this);
   }
 }

@@ -56,45 +56,13 @@
   v15.receiver = self;
   v15.super_class = HPSConstrainedNumberSetting;
   v5 = [(HPSSetting *)&v15 initWithCoder:coderCopy];
-  if (!v5)
+  if (v5 && ((v6 = objc_opt_class(), [coderCopy containsValueForKey:@"setting.minimum"]) && (objc_msgSend(coderCopy, "decodeObjectOfClass:forKey:", v6, @"setting.minimum"), v7 = objc_claimAutoreleasedReturnValue(), minimumValue = v5->_minimumValue, v5->_minimumValue = v7, minimumValue, !v5->_minimumValue) || objc_msgSend(coderCopy, "containsValueForKey:", @"setting.maximum") && (objc_msgSend(coderCopy, "decodeObjectOfClass:forKey:", v6, @"setting.maximum"), v9 = objc_claimAutoreleasedReturnValue(), maximumValue = v5->_maximumValue, v5->_maximumValue = v9, maximumValue, !v5->_maximumValue) || objc_msgSend(coderCopy, "containsValueForKey:", @"setting.step") && (objc_msgSend(coderCopy, "decodeObjectOfClass:forKey:", v6, @"setting.step"), v11 = objc_claimAutoreleasedReturnValue(), stepValue = v5->_stepValue, v5->_stepValue = v11, stepValue, !v5->_stepValue)))
   {
-    goto LABEL_8;
-  }
-
-  v6 = objc_opt_class();
-  if ([coderCopy containsValueForKey:@"setting.minimum"])
-  {
-    v7 = [coderCopy decodeObjectOfClass:v6 forKey:@"setting.minimum"];
-    minimumValue = v5->_minimumValue;
-    v5->_minimumValue = v7;
-
-    if (!v5->_minimumValue)
-    {
-      goto LABEL_9;
-    }
-  }
-
-  if ([coderCopy containsValueForKey:@"setting.maximum"])
-  {
-    v9 = [coderCopy decodeObjectOfClass:v6 forKey:@"setting.maximum"];
-    maximumValue = v5->_maximumValue;
-    v5->_maximumValue = v9;
-
-    if (!v5->_maximumValue)
-    {
-      goto LABEL_9;
-    }
-  }
-
-  if ([coderCopy containsValueForKey:@"setting.step"] && (objc_msgSend(coderCopy, "decodeObjectOfClass:forKey:", v6, @"setting.step"), v11 = objc_claimAutoreleasedReturnValue(), stepValue = v5->_stepValue, v5->_stepValue = v11, stepValue, !v5->_stepValue))
-  {
-LABEL_9:
     v13 = 0;
   }
 
   else
   {
-LABEL_8:
     v13 = v5;
   }
 

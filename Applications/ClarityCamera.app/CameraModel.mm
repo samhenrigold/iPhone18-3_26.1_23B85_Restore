@@ -14,23 +14,22 @@
 - (void)dealloc
 {
   v3 = sub_100003998(&qword_100035540, &qword_100025230);
-  v4 = *(*(v3 - 8) + 64);
   __chkstk_darwin(v3 - 8);
-  v6 = &v12 - v5;
-  v7 = type metadata accessor for TaskPriority();
-  (*(*(v7 - 8) + 56))(v6, 1, 1, v7);
+  v5 = &v11 - v4;
+  v6 = type metadata accessor for TaskPriority();
+  (*(*(v6 - 8) + 56))(v5, 1, 1, v6);
   type metadata accessor for MainActor();
   selfCopy = self;
-  v9 = static MainActor.shared.getter();
-  v10 = swift_allocObject();
-  *(v10 + 16) = v9;
-  *(v10 + 24) = &protocol witness table for MainActor;
-  sub_100005F70(0, 0, v6, &unk_1000259E0, v10);
+  v8 = static MainActor.shared.getter();
+  v9 = swift_allocObject();
+  *(v9 + 16) = v8;
+  *(v9 + 24) = &protocol witness table for MainActor;
+  sub_100005F70(0, 0, v5, &unk_1000259E0, v9);
 
-  v11 = type metadata accessor for CameraModel();
-  v12.receiver = selfCopy;
-  v12.super_class = v11;
-  [(CameraModel *)&v12 dealloc];
+  v10 = type metadata accessor for CameraModel(0);
+  v11.receiver = selfCopy;
+  v11.super_class = v10;
+  [(CameraModel *)&v11 dealloc];
 }
 
 - (void)captureOutput:(id)output didFinishProcessingPhoto:(id)photo error:(id)error
@@ -55,16 +54,15 @@
 {
   v9 = type metadata accessor for URL();
   v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
   __chkstk_darwin(v9);
-  v13 = &v17 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = &v16 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   static URL._unconditionallyBridgeFromObjectiveC(_:)();
   outputCopy = output;
   selfCopy = self;
   errorCopy = error;
-  sub_10000B9E0(v13, error);
+  sub_10000B9E0(v12, error);
 
-  (*(v10 + 8))(v13, v9);
+  (*(v10 + 8))(v12, v9);
 }
 
 - (void)orientationChangedWithNotification:(id)notification

@@ -7,14 +7,11 @@
 
 - (NSString)encryptionKey
 {
-  v2 = self + OBJC_IVAR___BlastDoorFileTransferAttribute_AttachmentInfo_fileTransferAttribute_AttachmentInfo[0];
-  v3 = &v2[*(type metadata accessor for FileTransferAttribute.AttachmentInfo(0) + 32)];
-  v4 = *v3;
-  v5 = *(v3 + 1);
+  type metadata accessor for FileTransferAttribute.AttachmentInfo(0);
 
-  v6 = sub_2146D9588();
+  v2 = sub_2146D9588();
 
-  return v6;
+  return v2;
 }
 
 - (BlastDoorFileTransferAttribute_AttachmentInfo)init

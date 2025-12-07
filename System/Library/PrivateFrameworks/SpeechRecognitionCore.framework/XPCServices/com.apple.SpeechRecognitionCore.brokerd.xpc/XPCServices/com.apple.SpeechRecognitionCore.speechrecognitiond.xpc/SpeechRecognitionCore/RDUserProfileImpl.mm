@@ -41,7 +41,7 @@
 - (void)updateUserProfileWithPersonalData:(BOOL)data completion:(id)completion
 {
   completionCopy = completion;
-  v7 = RXOSLog();
+  v7 = RXOSLog(completionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     language = self->_language;
@@ -52,7 +52,7 @@
 
   v9 = objc_autoreleasePoolPush();
   readUserProfileFromCache = [(RDUserProfileImpl *)self readUserProfileFromCache];
-  v11 = RXOSLog();
+  v11 = RXOSLog(readUserProfileFromCache);
   v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
   if (readUserProfileFromCache)
   {
@@ -99,15 +99,15 @@
 - (id)readUserProfileFromCache
 {
   v2 = [(NSString *)self->_language copy];
-  v18 = 0;
-  v3 = sub_10004C874(v2, &v18);
+  v21 = 0;
+  v3 = sub_10004C874(v2, &v21);
   if (!v3)
   {
-    v5 = RXOSLog();
+    v5 = RXOSLog(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v20 = v18;
+      v23 = v21;
       v8 = "File path for SRC cache not found : %@";
 LABEL_12:
       _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, v8, buf, 0xCu);
@@ -118,14 +118,14 @@ LABEL_13:
     goto LABEL_14;
   }
 
-  v4 = [[NSData alloc] initWithContentsOfFile:v3 options:0 error:&v18];
+  v4 = [[NSData alloc] initWithContentsOfFile:v3 options:0 error:&v21];
   if (!v4)
   {
-    v5 = RXOSLog();
+    v5 = RXOSLog(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v20 = v18;
+      v23 = v21;
       v8 = "No SpeechProfile cached for SRC : %@";
       goto LABEL_12;
     }
@@ -134,7 +134,7 @@ LABEL_13:
   }
 
   v5 = v4;
-  v6 = [NSPropertyListSerialization propertyListWithData:v4 options:0 format:0 error:&v18];
+  v6 = [NSPropertyListSerialization propertyListWithData:v4 options:0 format:0 error:&v21];
   if (v6 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
     v7 = v6;
@@ -146,10 +146,10 @@ LABEL_13:
   }
 
 LABEL_14:
-  v9 = v18;
+  v9 = v21;
   if (!v7)
   {
-    v14 = 0;
+    v17 = 0;
     goto LABEL_29;
   }
 
@@ -158,41 +158,43 @@ LABEL_14:
 
   if ((v11 & 1) == 0)
   {
-    v12 = RXOSLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = RXOSLog(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "readUserProfileFromCache: Mismatch in speech profile language in content and filename", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "readUserProfileFromCache: Mismatch in speech profile language in content and filename", buf, 2u);
     }
   }
 
-  v13 = [v7 valueForKey:@"version"];
-  if (([v13 isEqual:@"4.0"] & 1) == 0)
+  v14 = [v7 valueForKey:@"version"];
+  v15 = [v14 isEqual:@"4.0"];
+  if ((v15 & 1) == 0)
   {
-    v15 = RXOSLog();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v18 = RXOSLog(v15);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v20 = v13;
-      v21 = 2112;
-      v22 = @"4.0";
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "readUserProfileFromCache: Profile version on disk (%@) does not match the expected version (%@)", buf, 0x16u);
+      v23 = v14;
+      v24 = 2112;
+      v25 = @"4.0";
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "readUserProfileFromCache: Profile version on disk (%@) does not match the expected version (%@)", buf, 0x16u);
     }
 
-    v14 = 0;
+    v17 = 0;
     goto LABEL_27;
   }
 
-  v14 = [v7 valueForKey:@"data"];
-  if (v14)
+  v16 = [v7 valueForKey:@"data"];
+  v17 = v16;
+  if (v16)
   {
-    v15 = RXOSLog();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v18 = RXOSLog(v16);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = [v14 length];
+      v19 = [v17 length];
       *buf = 134217984;
-      v20 = v16;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Deserialization of user profile done with size=%lu", buf, 0xCu);
+      v23 = v19;
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Deserialization of user profile done with size=%lu", buf, 0xCu);
     }
 
 LABEL_27:
@@ -200,7 +202,7 @@ LABEL_27:
 
 LABEL_29:
 
-  return v14;
+  return v17;
 }
 
 - (void)writeUserProfileToCache
@@ -210,114 +212,115 @@ LABEL_29:
   v5 = v4;
 
   v6 = [(NSString *)self->_language copy];
-  v28 = 0;
-  v7 = sub_10004C874(v6, &v28);
-  v8 = v28;
+  v32 = 0;
+  v7 = sub_10004C874(v6, &v32);
+  v8 = v32;
+  v9 = v8;
   if (v7)
   {
     dataProfile = [(RDUserProfileImpl *)self dataProfile];
-    v10 = dataProfile;
+    v11 = dataProfile;
     if (!dataProfile)
     {
-      v11 = RXOSLog();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = RXOSLog(0);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "Empty data profile", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "Empty data profile", buf, 2u);
       }
 
       goto LABEL_20;
     }
 
-    v33[0] = @"data";
-    v33[1] = @"version";
-    v34[0] = dataProfile;
-    v34[1] = @"4.0";
-    v33[2] = @"language";
-    v34[2] = v6;
-    v11 = [NSDictionary dictionaryWithObjects:v34 forKeys:v33 count:3];
-    v27 = 0;
-    v12 = [NSPropertyListSerialization dataWithPropertyList:v11 format:200 options:0 error:&v27];
-    v13 = v27;
+    v37[0] = @"data";
+    v37[1] = @"version";
+    v38[0] = dataProfile;
+    v38[1] = @"4.0";
+    v37[2] = @"language";
+    v38[2] = v6;
+    v12 = [NSDictionary dictionaryWithObjects:v38 forKeys:v37 count:3];
+    v31 = 0;
+    v13 = [NSPropertyListSerialization dataWithPropertyList:v12 format:200 options:0 error:&v31];
+    v14 = v31;
 
-    v14 = RXOSLog();
-    v15 = v14;
-    if (!v12)
+    v16 = RXOSLog(v15);
+    v17 = v16;
+    if (!v13)
     {
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v30 = v13;
-        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "Serialization of user profile failed with error=%@", buf, 0xCu);
+        v34 = v14;
+        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "Serialization of user profile failed with error=%@", buf, 0xCu);
       }
 
       goto LABEL_19;
     }
 
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = [v12 length];
+      v18 = [v13 length];
       *buf = 134217984;
-      v30 = v16;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Serialization of user profile done with size=%lu", buf, 0xCu);
+      v34 = v18;
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Serialization of user profile done with size=%lu", buf, 0xCu);
     }
 
-    v26 = v13;
-    v17 = [v12 writeToFile:v7 options:0x40000000 error:&v26];
-    v18 = v26;
+    v30 = v14;
+    v19 = [v13 writeToFile:v7 options:0x40000000 error:&v30];
+    v20 = v30;
 
-    if (v17)
+    if (v19)
     {
-      v19 = +[NSProcessInfo processInfo];
-      [v19 systemUptime];
-      v21 = v20;
+      v22 = +[NSProcessInfo processInfo];
+      [v22 systemUptime];
+      v24 = v23;
 
-      v15 = RXOSLog();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v17 = RXOSLog(v25);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v30 = v7;
-        v31 = 2048;
-        v32 = (v21 - v5) * 1000.0;
-        v22 = "Persisted user profile to path=%@ in %.2fms";
-        v23 = v15;
-        v24 = OS_LOG_TYPE_DEFAULT;
-        v25 = 22;
+        v34 = v7;
+        v35 = 2048;
+        v36 = (v24 - v5) * 1000.0;
+        v26 = "Persisted user profile to path=%@ in %.2fms";
+        v27 = v17;
+        v28 = OS_LOG_TYPE_DEFAULT;
+        v29 = 22;
 LABEL_17:
-        _os_log_impl(&_mh_execute_header, v23, v24, v22, buf, v25);
+        _os_log_impl(&_mh_execute_header, v27, v28, v26, buf, v29);
       }
     }
 
     else
     {
-      v15 = RXOSLog();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v17 = RXOSLog(v21);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v30 = v18;
-        v22 = "Persisting user profile to disk failed with error=%@";
-        v23 = v15;
-        v24 = OS_LOG_TYPE_ERROR;
-        v25 = 12;
+        v34 = v20;
+        v26 = "Persisting user profile to disk failed with error=%@";
+        v27 = v17;
+        v28 = OS_LOG_TYPE_ERROR;
+        v29 = 12;
         goto LABEL_17;
       }
     }
 
-    v13 = v18;
+    v14 = v20;
 LABEL_19:
 
-    v8 = v13;
+    v9 = v14;
 LABEL_20:
 
     goto LABEL_21;
   }
 
-  v10 = RXOSLog();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  v11 = RXOSLog(v8);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v30 = v8;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "writeUpdatedUserProfileToCache: Error in getting profile path: %@", buf, 0xCu);
+    v34 = v9;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "writeUpdatedUserProfileToCache: Error in getting profile path: %@", buf, 0xCu);
   }
 
 LABEL_21:
@@ -327,7 +330,7 @@ LABEL_21:
 {
   v3 = [NSString stringWithFormat:@"%@/mini.json", self->_assetPath];
   v4 = [(NSString *)self->_language copy];
-  v17 = 0;
+  v18 = 0;
   v5 = v4;
   v6 = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, 1uLL, 1);
   firstObject = [v6 firstObject];
@@ -336,7 +339,7 @@ LABEL_21:
   {
     v8 = [firstObject stringByAppendingPathComponent:@"/SpeechRecognitionCore"];
     v9 = +[NSFileManager defaultManager];
-    v10 = [v9 createDirectoryAtPath:v8 withIntermediateDirectories:1 attributes:0 error:&v17];
+    v10 = [v9 createDirectoryAtPath:v8 withIntermediateDirectories:1 attributes:0 error:&v18];
 
     v11 = 0;
     if (v10)
@@ -361,11 +364,12 @@ LABEL_21:
   else
   {
     [NSError errorWithDomain:NSPOSIXErrorDomain code:2 userInfo:0];
-    v17 = v11 = 0;
+    v18 = v11 = 0;
     v12 = v5;
   }
 
-  v15 = v17;
+  v15 = v18;
+  v16 = v15;
   if (v11)
   {
     [(_EARUserProfile *)self->_userProfile writeOutUserDataToJson:v11 withConfig:v3];
@@ -373,12 +377,12 @@ LABEL_21:
 
   else
   {
-    v16 = RXOSLog();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = RXOSLog(v15);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v19 = v15;
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "writeOutUserDataToJson: Error in getting json profile path: %@", buf, 0xCu);
+      v20 = v16;
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "writeOutUserDataToJson: Error in getting json profile path: %@", buf, 0xCu);
     }
   }
 }
@@ -484,18 +488,18 @@ LABEL_21:
   v16 = [NSSet setWithArray:arrayCopy];
   v17 = [v15 initWithOrthography:phraseCopy pronunciations:v16 tagName:tagCopy frequency:1];
 
-  v18 = RXOSLog();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+  v19 = RXOSLog(v18);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
   {
-    v19 = 138413058;
-    v20 = phraseCopy;
-    v21 = 2112;
-    v22 = arrayCopy;
-    v23 = 2112;
-    v24 = tagCopy;
-    v25 = 2048;
-    v26 = 1;
-    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEBUG, "Adding orthography %@ with IPA %@, wordTag: %@, frequency: %lu", &v19, 0x2Au);
+    v20 = 138413058;
+    v21 = phraseCopy;
+    v22 = 2112;
+    v23 = arrayCopy;
+    v24 = 2112;
+    v25 = tagCopy;
+    v26 = 2048;
+    v27 = 1;
+    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEBUG, "Adding orthography %@ with IPA %@, wordTag: %@, frequency: %lu", &v20, 0x2Au);
   }
 
   [v14 addObject:v17];

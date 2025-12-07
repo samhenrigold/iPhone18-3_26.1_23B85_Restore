@@ -7,7 +7,9 @@
 - (id)queryForStatusSubscriptionsWithIdentifiers:(id)identifiers;
 - (void)_handleConduitError;
 - (void)_processConduitErrorState:(signed __int16)state;
+- (void)_sendStatusQueryResultIfNeeded:(id)needed fullReport:(BOOL)report completionHandler:(id)handler;
 - (void)_setNeedsSyncing:(BOOL)syncing;
+- (void)_syncConduitOnlyIfNeeded:(BOOL)needed completionHandler:(id)handler;
 - (void)_syncIfNeeded;
 - (void)_syncOnlyIfNeeded:(BOOL)needed completionHandler:(id)handler;
 - (void)applyNowWithCompletionHandler:(id)handler;
@@ -334,6 +336,51 @@
   [(RMClient *)self _sendStatusQueryResultIfNeeded:v13 fullReport:!neededCopy completionHandler:v16];
 }
 
+- (void)_syncConduitOnlyIfNeeded:(BOOL)needed completionHandler:(id)handler
+{
+  neededCopy = needed;
+  handlerCopy = handler;
+  conduit = [(RMClient *)self conduit];
+  isSyncAllowed = [conduit isSyncAllowed];
+
+  if (isSyncAllowed)
+  {
+    if (![(RMClient *)self _haltSyncing])
+    {
+      conduit2 = [(RMClient *)self conduit];
+      v12[0] = _NSConcreteStackBlock;
+      v12[1] = 3221225472;
+      v12[2] = sub_10000E6CC;
+      v12[3] = &unk_1000D1128;
+      v12[4] = self;
+      v13 = handlerCopy;
+      [conduit2 syncOnlyIfNeeded:neededCopy completionHandler:v12];
+
+      goto LABEL_9;
+    }
+
+    v9 = +[RMLog client];
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    {
+      sub_10000FFF8();
+    }
+  }
+
+  else
+  {
+    v9 = +[RMLog client];
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    {
+      sub_10000FFBC();
+    }
+  }
+
+  v10 = +[RMErrorUtilities createStatePreventsSyncingError];
+  (*(handlerCopy + 2))(handlerCopy, 0, v10);
+
+LABEL_9:
+}
+
 - (void)applyNowWithCompletionHandler:(id)handler
 {
   handlerCopy = handler;
@@ -556,6 +603,64 @@ LABEL_9:
 
   [(RMClient *)self _sendStatusQueryResultIfNeeded:v14 fullReport:0 completionHandler:handlerCopy];
   os_activity_scope_leave(&v19);
+}
+
+- (void)_sendStatusQueryResultIfNeeded:(id)needed fullReport:(BOOL)report completionHandler:(id)handler
+{
+  reportCopy = report;
+  neededCopy = needed;
+  handlerCopy = handler;
+  statusByKeyPath = [neededCopy statusByKeyPath];
+  if ([statusByKeyPath count])
+  {
+
+LABEL_4:
+    v13 = [neededCopy protocolStatusReportWithFullReport:reportCopy];
+    v19 = 0;
+    v14 = [v13 serializeAsDataWithType:1 error:&v19];
+    v15 = v19;
+    v16 = +[RMLog client];
+    v17 = v16;
+    if (v14)
+    {
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+      {
+        sub_1000101F4();
+      }
+
+      [(RMClient *)self sendStatusData:v14 completionHandler:handlerCopy];
+    }
+
+    else
+    {
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      {
+        sub_100010228();
+      }
+
+      handlerCopy[2](handlerCopy, v15);
+    }
+
+    goto LABEL_12;
+  }
+
+  errorByKeyPath = [neededCopy errorByKeyPath];
+  v12 = [errorByKeyPath count];
+
+  if (v12)
+  {
+    goto LABEL_4;
+  }
+
+  v18 = +[RMLog client];
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+  {
+    *buf = 0;
+    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "There was no status report to send.", buf, 2u);
+  }
+
+  handlerCopy[2](handlerCopy, 0);
+LABEL_12:
 }
 
 - (BOOL)_haltSyncing

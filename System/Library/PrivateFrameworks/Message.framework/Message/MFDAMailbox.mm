@@ -101,10 +101,10 @@
 
 - (id)displayName
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v9.receiver = self;
-  v9.super_class = MFDAMailbox;
-  displayName = [(MFMailboxUid *)&v9 displayName];
+  v13 = *MEMORY[0x1E69E9840];
+  v8.receiver = self;
+  v8.super_class = MFDAMailbox;
+  displayName = [(MFMailboxUid *)&v8 displayName];
   if ([displayName isEqualToString:@"70FB9178-576E-4CAA-A08E-F68D57BFD01E"])
   {
     v4 = MFLogGeneral();
@@ -112,9 +112,9 @@
     {
       ef_publicDescription = [(MFMailboxUid *)self ef_publicDescription];
       *buf = 136315394;
-      v11 = "[MFDAMailbox displayName]";
-      v12 = 2114;
-      v13 = ef_publicDescription;
+      v10 = "[MFDAMailbox displayName]";
+      v11 = 2114;
+      v12 = ef_publicDescription;
       _os_log_impl(&dword_1B0389000, v4, OS_LOG_TYPE_DEFAULT, "%s [10463402] fixing bogus EAS inbox name for %{public}@", buf, 0x16u);
     }
 
@@ -122,8 +122,6 @@
 
     displayName = v6;
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return displayName;
 }

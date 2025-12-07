@@ -7,30 +7,30 @@
 
 + (void)addAttributes:(void *)attributes toPropertiesOfEntity:
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   objc_opt_self();
-  v16 = [objc_msgSend(attributes "properties")];
+  v15 = [objc_msgSend(attributes "properties")];
   objc_opt_self();
-  v17 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v16 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v5 = [a2 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v5 = [a2 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v19;
+    v7 = *v18;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v19 != v7)
+        if (*v18 != v7)
         {
           objc_enumerationMutation(a2);
         }
 
-        v9 = *(*(&v18 + 1) + 8 * i);
+        v9 = *(*(&v17 + 1) + 8 * i);
         v10 = [a2 objectForKey:v9];
         objc_opt_self();
         v11 = objc_alloc_init(NSAttributeDescription);
@@ -72,19 +72,17 @@
           }
         }
 
-        [v17 addObject:v11];
+        [v16 addObject:v11];
       }
 
-      v6 = [a2 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v6 = [a2 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v6);
   }
 
-  [v16 addObjectsFromArray:v17];
-  [attributes setProperties:v16];
-
-  v15 = *MEMORY[0x1E69E9840];
+  [v15 addObjectsFromArray:v16];
+  [attributes setProperties:v15];
 }
 
 + (void)addRelationships:(void *)relationships toPropertiesOfEntity:

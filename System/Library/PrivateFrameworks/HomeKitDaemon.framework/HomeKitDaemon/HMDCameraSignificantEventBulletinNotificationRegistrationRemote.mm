@@ -10,25 +10,23 @@
 
 - (id)attributeDescriptions
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   registration = [(HMDCameraSignificantEventBulletinNotificationRegistrationRemote *)self registration];
   v5 = [v3 initWithName:@"registration" value:registration];
-  v12[0] = v5;
+  v11[0] = v5;
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   source = [(HMDCameraSignificantEventBulletinNotificationRegistrationRemote *)self source];
   v8 = [v6 initWithName:@"source" value:source];
-  v12[1] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v11[1] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
 
   return v9;
 }
 
 - (HMDCameraSignificantEventBulletinNotificationRegistrationRemote)initWithCoder:(id)coder
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMDCSEBNRR.ck.r"];
   if (v5)
@@ -48,11 +46,11 @@
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         v14 = HMFGetLogIdentifier();
-        v17 = 138543618;
-        v18 = v14;
-        v19 = 2112;
-        v20 = 0;
-        _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded source: %@", &v17, 0x16u);
+        v16 = 138543618;
+        v17 = v14;
+        v18 = 2112;
+        v19 = 0;
+        _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded source: %@", &v16, 0x16u);
       }
 
       objc_autoreleasePoolPop(v12);
@@ -68,18 +66,17 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v11 = HMFGetLogIdentifier();
-      v17 = 138543618;
-      v18 = v11;
-      v19 = 2112;
-      v20 = 0;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded registration: %@", &v17, 0x16u);
+      v16 = 138543618;
+      v17 = v11;
+      v18 = 2112;
+      v19 = 0;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded registration: %@", &v16, 0x16u);
     }
 
     objc_autoreleasePoolPop(v9);
     v8 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

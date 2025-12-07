@@ -62,7 +62,7 @@
   }
 
   v6 = v5;
-  v7 = LogCategory_Crypto();
+  v7 = LogCategory_Crypto(v5);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     [(SPCrypto *)v6 importKey:v7 fromFormat:v8, v9, v10, v11, v12, v13];
@@ -79,7 +79,7 @@
   if (v5)
   {
     v6 = v5;
-    v7 = LogCategory_Crypto();
+    v7 = LogCategory_Crypto(v5);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [(SPCrypto *)v6 exportKey:v7 toFormat:v8, v9, v10, v11, v12, v13];
@@ -110,7 +110,7 @@
     if (v8)
     {
       v9 = v8;
-      v10 = LogCategory_Crypto();
+      v10 = LogCategory_Crypto(v8);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         [(SPCrypto *)v9 diversifyKey:v10 entropyData:v11, v12, v13, v14, v15, v16];
@@ -180,7 +180,7 @@
 
       else
       {
-        v11 = LogCategory_Crypto();
+        v11 = LogCategory_Crypto(0);
         if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
           [(SPCrypto *)&v13 ratchetSharedSecretKey:v14 ratchetCount:v11];
@@ -221,23 +221,23 @@
 
 + (void)importKey:(uint64_t)a3 fromFormat:(uint64_t)a4 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1(&dword_2643D0000, a2, a3, "Error running CCECCryptorImportKey. Code: %d.", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = a1;
+  OUTLINED_FUNCTION_0_1(&dword_2643D0000, a2, a3, "Error running CCECCryptorImportKey. Code: %d.", a5, a6, a7, a8, v8);
 }
 
 + (void)exportKey:(uint64_t)a3 toFormat:(uint64_t)a4 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1(&dword_2643D0000, a2, a3, "Error running CCECCryptorExportKey. Code: %d.", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = a1;
+  OUTLINED_FUNCTION_0_1(&dword_2643D0000, a2, a3, "Error running CCECCryptorExportKey. Code: %d.", a5, a6, a7, a8, v8);
 }
 
 + (void)diversifyKey:(uint64_t)a3 entropyData:(uint64_t)a4 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1(&dword_2643D0000, a2, a3, "Error running CCECCryptorTwinDiversifyKey. Code: %d.", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = a1;
+  OUTLINED_FUNCTION_0_1(&dword_2643D0000, a2, a3, "Error running CCECCryptorTwinDiversifyKey. Code: %d.", a5, a6, a7, a8, v8);
 }
 
 + (void)ratchetSharedSecretKey:(os_log_t)log ratchetCount:.cold.1(uint8_t *buf, _BYTE *a2, os_log_t log)

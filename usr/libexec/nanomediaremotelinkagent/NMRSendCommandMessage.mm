@@ -1,4 +1,5 @@
 @interface NMRSendCommandMessage
++ (id)messageWithCommand:(unsigned int)command bundleID:(id)d options:(id)options originIdentifier:(id)identifier;
 - (NMRSendCommandMessage)initWithCommand:(unsigned int)command bundleID:(id)d options:(id)options originIdentifier:(id)identifier;
 - (NMRSendCommandMessage)initWithProtobufData:(id)data;
 - (NSDate)serializationDate;
@@ -9,6 +10,17 @@
 @end
 
 @implementation NMRSendCommandMessage
+
++ (id)messageWithCommand:(unsigned int)command bundleID:(id)d options:(id)options originIdentifier:(id)identifier
+{
+  v8 = *&command;
+  identifierCopy = identifier;
+  optionsCopy = options;
+  dCopy = d;
+  v13 = [[self alloc] initWithCommand:v8 bundleID:dCopy options:optionsCopy originIdentifier:identifierCopy];
+
+  return v13;
+}
 
 - (NMRSendCommandMessage)initWithCommand:(unsigned int)command bundleID:(id)d options:(id)options originIdentifier:(id)identifier
 {

@@ -17,7 +17,7 @@
 - (void)layoutSublayers
 {
   selfCopy = self;
-  sub_100465210();
+  sub_100465210(selfCopy);
 }
 
 - (_TtC10FitnessApp14BarSeriesLayer)init

@@ -8,7 +8,7 @@
 
 - (BOOL)isEqual:(id)equal
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   equalCopy = equal;
   if (self == equalCopy)
   {
@@ -89,27 +89,27 @@ LABEL_29:
       goto LABEL_3;
     }
 
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     v16 = managedEndpointByLaunchIdentifier;
-    v17 = [(NSDictionary *)v16 countByEnumeratingWithState:&v27 objects:v31 count:16];
+    v17 = [(NSDictionary *)v16 countByEnumeratingWithState:&v26 objects:v30 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v28;
+      v19 = *v27;
       while (2)
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v28 != v19)
+          if (*v27 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          v21 = *(*(&v27 + 1) + 8 * i);
-          v22 = [(NSDictionary *)v16 objectForKey:v21, v27];
+          v21 = *(*(&v26 + 1) + 8 * i);
+          v22 = [(NSDictionary *)v16 objectForKey:v21, v26];
           v23 = [(__CFDictionary *)v14 objectForKey:v21];
           v24 = [v22 _isEquivalentToEndpoint:v23];
 
@@ -120,7 +120,7 @@ LABEL_29:
           }
         }
 
-        v18 = [(NSDictionary *)v16 countByEnumeratingWithState:&v27 objects:v31 count:16];
+        v18 = [(NSDictionary *)v16 countByEnumeratingWithState:&v26 objects:v30 count:16];
         if (v18)
         {
           continue;
@@ -136,7 +136,6 @@ LABEL_32:
 
 LABEL_30:
 
-  v25 = *MEMORY[0x1E69E9840];
   return v6;
 }
 

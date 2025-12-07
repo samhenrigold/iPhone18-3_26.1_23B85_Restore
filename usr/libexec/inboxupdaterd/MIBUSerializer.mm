@@ -330,8 +330,8 @@ LABEL_30:
 {
   valueCopy = value;
   tagCopy = tag;
-  v30[4] = 0;
-  *v30 = [tagCopy charValue];
+  v35[4] = 0;
+  *v35 = [tagCopy charValue];
   v7 = [MIBUSerializationUtil typeForTag:tagCopy];
   if (v7)
   {
@@ -343,11 +343,11 @@ LABEL_30:
         case 1u:
         case 3u:
         case 4u:
-          objc_opt_class();
-          if (sub_100038918())
+          v9 = objc_opt_class();
+          if (sub_100038918(v9))
           {
-            v9 = valueCopy;
-            longLongValue = [v9 longLongValue];
+            v10 = valueCopy;
+            longLongValue = [v10 longLongValue];
             goto LABEL_16;
           }
 
@@ -356,7 +356,7 @@ LABEL_30:
             dispatch_once(qword_1000B84A8, &stru_10009DE68);
           }
 
-          v24 = qword_1000B84A0;
+          v29 = qword_1000B84A0;
           if (!sub_1000203B0())
           {
             break;
@@ -364,12 +364,12 @@ LABEL_30:
 
           goto LABEL_53;
         case 2u:
-          objc_opt_class();
-          if (sub_100038918())
+          v12 = objc_opt_class();
+          if (sub_100038918(v12))
           {
-            v9 = valueCopy;
-            [v9 doubleValue];
-            v29 = v11;
+            v10 = valueCopy;
+            [v10 doubleValue];
+            v34 = v13;
             goto LABEL_17;
           }
 
@@ -378,7 +378,7 @@ LABEL_30:
             dispatch_once(qword_1000B84A8, &stru_10009DE88);
           }
 
-          v24 = qword_1000B84A0;
+          v29 = qword_1000B84A0;
           if (sub_1000203B0())
           {
             goto LABEL_53;
@@ -386,10 +386,10 @@ LABEL_30:
 
           break;
         case 5u:
-          objc_opt_class();
-          if (sub_100038918())
+          v20 = objc_opt_class();
+          if (sub_100038918(v20))
           {
-            v15 = [valueCopy dataUsingEncoding:4];
+            v18 = [valueCopy dataUsingEncoding:4];
             goto LABEL_20;
           }
 
@@ -398,7 +398,7 @@ LABEL_30:
             dispatch_once(qword_1000B84A8, &stru_10009DEA8);
           }
 
-          v24 = qword_1000B84A0;
+          v29 = qword_1000B84A0;
           if (sub_1000203B0())
           {
             goto LABEL_53;
@@ -406,12 +406,12 @@ LABEL_30:
 
           break;
         case 6u:
-          objc_opt_class();
-          if (sub_100038918())
+          v17 = objc_opt_class();
+          if (sub_100038918(v17))
           {
-            v15 = valueCopy;
+            v18 = valueCopy;
 LABEL_20:
-            v13 = v15;
+            v15 = v18;
             goto LABEL_21;
           }
 
@@ -420,7 +420,7 @@ LABEL_20:
             dispatch_once(qword_1000B84A8, &stru_10009DEC8);
           }
 
-          v24 = qword_1000B84A0;
+          v29 = qword_1000B84A0;
           if (!sub_1000203B0())
           {
             break;
@@ -428,53 +428,53 @@ LABEL_20:
 
           goto LABEL_53;
         case 7u:
-          objc_opt_class();
-          if (sub_100038918())
+          v19 = objc_opt_class();
+          if (sub_100038918(v19))
           {
-            v9 = valueCopy;
-            longLongValue = [v9 unsignedLongLongValue];
+            v10 = valueCopy;
+            longLongValue = [v10 unsignedLongLongValue];
 LABEL_16:
-            v29 = longLongValue;
+            v34 = longLongValue;
 LABEL_17:
-            v13 = +[NSData dataWithBytes:length:](NSData, "dataWithBytes:length:", &v29, [v8 unsignedIntValue]);
+            v15 = +[NSData dataWithBytes:length:](NSData, "dataWithBytes:length:", &v34, [v8 unsignedIntValue]);
 
 LABEL_21:
-            *&v30[1] = [v13 length];
-            if ([v8 unsignedIntValue] < *&v30[1])
+            *&v35[1] = [v15 length];
+            if ([v8 unsignedIntValue] < *&v35[1])
             {
               if (qword_1000B84A8[0] != -1)
               {
                 dispatch_once(qword_1000B84A8, &stru_10009DF28);
               }
 
-              v16 = qword_1000B84A0;
+              v21 = qword_1000B84A0;
               if (os_log_type_enabled(qword_1000B84A0, OS_LOG_TYPE_ERROR))
               {
-                v20 = v16;
+                v25 = v21;
                 charValue = [tagCopy charValue];
-                v22 = [v13 length];
+                v27 = [v15 length];
                 unsignedIntValue = [v8 unsignedIntValue];
                 *buf = 67109890;
                 unsignedIntValue2 = charValue;
-                v33 = 2114;
-                v34 = v13;
-                v35 = 2048;
-                v36 = v22;
-                v37 = 1024;
-                v38 = unsignedIntValue;
-                _os_log_error_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "Truncating tag 0x%X - %{public}@ with data length %ld to %d", buf, 0x22u);
+                v38 = 2114;
+                v39 = v15;
+                v40 = 2048;
+                v41 = v27;
+                v42 = 1024;
+                v43 = unsignedIntValue;
+                _os_log_error_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, "Truncating tag 0x%X - %{public}@ with data length %ld to %d", buf, 0x22u);
               }
 
-              v17 = +[NSData dataWithBytes:length:](NSData, "dataWithBytes:length:", [v13 bytes], objc_msgSend(v8, "unsignedIntValue"));
+              v22 = +[NSData dataWithBytes:length:](NSData, "dataWithBytes:length:", [v15 bytes], objc_msgSend(v8, "unsignedIntValue"));
 
-              *&v30[1] = [v17 length];
-              v13 = v17;
+              *&v35[1] = [v22 length];
+              v15 = v22;
             }
 
-            v14 = objc_opt_new();
-            [v14 appendBytes:v30 length:1];
-            [v14 appendBytes:&v30[1] length:4];
-            [v14 appendData:v13];
+            v16 = objc_opt_new();
+            [v16 appendBytes:v35 length:1];
+            [v16 appendBytes:&v35[1] length:4];
+            [v16 appendData:v15];
             goto LABEL_28;
           }
 
@@ -483,16 +483,16 @@ LABEL_21:
             dispatch_once(qword_1000B84A8, &stru_10009DEE8);
           }
 
-          v24 = qword_1000B84A0;
+          v29 = qword_1000B84A0;
           if (sub_1000203B0())
           {
 LABEL_53:
-            v25 = v24;
+            v30 = v29;
             sub_100038930();
-            v26 = sub_100038900();
-            v27 = sub_1000388E8();
-            v28 = sub_1000388A0(v27);
-            _os_log_error_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "Tag 0x%X - class %{public}@ != %{public}@", buf, 0x1Cu);
+            v31 = sub_100038900();
+            v32 = sub_1000388E8();
+            v33 = sub_1000388A0(v32);
+            _os_log_error_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, "Tag 0x%X - class %{public}@ != %{public}@", buf, 0x1Cu);
 
 LABEL_32:
           }
@@ -504,35 +504,35 @@ LABEL_32:
             dispatch_once(qword_1000B84A8, &stru_10009DF08);
           }
 
-          v12 = qword_1000B84A0;
+          v14 = qword_1000B84A0;
           if (!sub_1000203B0())
           {
             break;
           }
 
-          v24 = v12;
+          v29 = v14;
           *buf = 67109120;
           unsignedIntValue2 = [v7 unsignedIntValue];
-          _os_log_error_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "Unrecognized serialization data type: 0x%X", buf, 8u);
+          _os_log_error_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, "Unrecognized serialization data type: 0x%X", buf, 8u);
           goto LABEL_32;
       }
     }
 
-    v13 = 0;
-    v14 = 0;
+    v15 = 0;
+    v16 = 0;
   }
 
   else
   {
-    v13 = 0;
-    v14 = 0;
+    v15 = 0;
+    v16 = 0;
     v8 = 0;
   }
 
 LABEL_28:
-  v18 = v14;
+  v23 = v16;
 
-  return v18;
+  return v23;
 }
 
 @end

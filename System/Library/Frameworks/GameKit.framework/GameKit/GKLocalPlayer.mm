@@ -40,15 +40,13 @@ void __72__GKLocalPlayer_GameActivity__playerWantsToPlayGameActivity_completion_
 
 uint64_t __72__GKLocalPlayer_GameActivity__playerWantsToPlayGameActivity_completion___block_invoke_3(uint64_t a1)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCAB98] defaultCenter];
   v3 = *(a1 + 32);
-  v6 = @"activity";
-  v7[0] = v3;
-  [v2 postNotificationName:@"GKGameActivityDelivered" object:0 userInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v7, &v6, 1)}];
-  result = (*(*(a1 + 40) + 16))();
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  v5 = @"activity";
+  v6[0] = v3;
+  [v2 postNotificationName:@"GKGameActivityDelivered" object:0 userInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v6, &v5, 1)}];
+  return (*(*(a1 + 40) + 16))();
 }
 
 @end

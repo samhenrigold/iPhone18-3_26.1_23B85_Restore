@@ -35,7 +35,7 @@
 
 - (id)initWithQueue:(void *)queue tunnelProvider:
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v6 = a2;
   queueCopy = queue;
   v8 = queueCopy;
@@ -46,8 +46,8 @@
 
   if (!v6)
   {
-    v12 = ne_log_obj();
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+    v11 = ne_log_obj();
+    if (!os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
 LABEL_10:
 
@@ -56,30 +56,30 @@ LABEL_10:
     }
 
     *buf = 136315138;
-    v16 = "[NEIKEv2MOBIKE initWithQueue:tunnelProvider:]";
-    v13 = "%s called with null queue";
+    v15 = "[NEIKEv2MOBIKE initWithQueue:tunnelProvider:]";
+    v12 = "%s called with null queue";
 LABEL_12:
-    _os_log_fault_impl(&dword_1BA83C000, v12, OS_LOG_TYPE_FAULT, v13, buf, 0xCu);
+    _os_log_fault_impl(&dword_1BA83C000, v11, OS_LOG_TYPE_FAULT, v12, buf, 0xCu);
     goto LABEL_10;
   }
 
   if (!queueCopy)
   {
-    v12 = ne_log_obj();
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+    v11 = ne_log_obj();
+    if (!os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
       goto LABEL_10;
     }
 
     *buf = 136315138;
-    v16 = "[NEIKEv2MOBIKE initWithQueue:tunnelProvider:]";
-    v13 = "%s called with null tunnelProvider";
+    v15 = "[NEIKEv2MOBIKE initWithQueue:tunnelProvider:]";
+    v12 = "%s called with null tunnelProvider";
     goto LABEL_12;
   }
 
-  v14.receiver = self;
-  v14.super_class = NEIKEv2MOBIKE;
-  v9 = objc_msgSendSuper2(&v14, sel_init);
+  v13.receiver = self;
+  v13.super_class = NEIKEv2MOBIKE;
+  v9 = objc_msgSendSuper2(&v13, sel_init);
   self = v9;
   if (v9)
   {
@@ -89,7 +89,6 @@ LABEL_12:
 
 LABEL_6:
 
-  v10 = *MEMORY[0x1E69E9840];
   return self;
 }
 
@@ -126,7 +125,7 @@ LABEL_6:
   }
 }
 
-uint64_t __37__NEIKEv2MOBIKE_mobikeStartWaitTimer__block_invoke(uint64_t a1, const char *a2)
+void __37__NEIKEv2MOBIKE_mobikeStartWaitTimer__block_invoke(uint64_t a1, const char *a2)
 {
   v3 = *(a1 + 32);
   if (v3 && (*(v3 + 10) & 1) == 0)
@@ -149,9 +148,9 @@ uint64_t __37__NEIKEv2MOBIKE_mobikeStartWaitTimer__block_invoke(uint64_t a1, con
   }
 
   [(NEIKEv2MOBIKE *)v3 mobikeStopWaitTimer];
-  v6 = *(a1 + 32);
+  v7 = *(a1 + 32);
 
-  return [(NEIKEv2MOBIKE *)v6 mobikeStartWaitTimer];
+  [(NEIKEv2MOBIKE *)v7 mobikeStartWaitTimer];
 }
 
 void __37__NEIKEv2MOBIKE_mobikeStartWaitTimer__block_invoke_2(uint64_t a1, const char *a2)
@@ -193,7 +192,7 @@ void __31__NEIKEv2MOBIKE_mobikeReassert__block_invoke(uint64_t a1, void *a2)
 
 - (void)startMOBIKE:(uint64_t)e
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v5 = v3;
   if (e)
@@ -231,12 +230,12 @@ void __31__NEIKEv2MOBIKE_mobikeReassert__block_invoke(uint64_t a1, void *a2)
         v18 = objc_getProperty(WeakRetained, v17, 240, 1);
         v20 = [objc_getProperty(e v19];
         v22 = objc_getProperty(e, v21, 40, 1);
-        v24[0] = MEMORY[0x1E69E9820];
-        v24[1] = 3221225472;
-        v24[2] = __29__NEIKEv2MOBIKE_startMOBIKE___block_invoke;
-        v24[3] = &unk_1E7F08990;
-        v24[4] = e;
-        [v18 sendMOBIKEWithRetries:1 retryInterval:0 interfaceName:v20 invalidateTransport:v8 resetEndpoint:v12 callbackQueue:v22 callback:v24];
+        v23[0] = MEMORY[0x1E69E9820];
+        v23[1] = 3221225472;
+        v23[2] = __29__NEIKEv2MOBIKE_startMOBIKE___block_invoke;
+        v23[3] = &unk_1E7F08990;
+        v23[4] = e;
+        [v18 sendMOBIKEWithRetries:1 retryInterval:0 interfaceName:v20 invalidateTransport:v8 resetEndpoint:v12 callbackQueue:v22 callback:v23];
       }
     }
 
@@ -246,18 +245,16 @@ void __31__NEIKEv2MOBIKE_mobikeReassert__block_invoke(uint64_t a1, void *a2)
       if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315138;
-        v26 = "[NEIKEv2MOBIKE startMOBIKE:]";
+        v25 = "[NEIKEv2MOBIKE startMOBIKE:]";
         _os_log_fault_impl(&dword_1BA83C000, v12, OS_LOG_TYPE_FAULT, "%s called with null serverAddress", buf, 0xCu);
       }
     }
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void __29__NEIKEv2MOBIKE_startMOBIKE___block_invoke(uint64_t a1, void *a2, int a3, void *a4)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v9 = a4;
   v10 = *(a1 + 32);
@@ -315,12 +312,12 @@ LABEL_6:
   {
     if ((v11 & 1) == 0 && *(v13 + 72) < 4uLL)
     {
-      v19 = ne_log_obj();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+      v18 = ne_log_obj();
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
       {
-        v20 = 138412290;
-        v21 = v9;
-        _os_log_impl(&dword_1BA83C000, v19, OS_LOG_TYPE_INFO, "mobike failed with error %@", &v20, 0xCu);
+        v19 = 138412290;
+        v20 = v9;
+        _os_log_impl(&dword_1BA83C000, v18, OS_LOG_TYPE_INFO, "mobike failed with error %@", &v19, 0xCu);
       }
 
       goto LABEL_6;
@@ -329,34 +326,32 @@ LABEL_6:
     v17 = ne_log_obj();
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v20) = 0;
-      _os_log_error_impl(&dword_1BA83C000, v17, OS_LOG_TYPE_ERROR, "mobike failed after max retries", &v20, 2u);
+      LOWORD(v19) = 0;
+      _os_log_error_impl(&dword_1BA83C000, v17, OS_LOG_TYPE_ERROR, "mobike failed after max retries", &v19, 2u);
     }
 
     [(NEIKEv2MOBIKE *)*(a1 + 32) mobikeDisconnect];
   }
 
 LABEL_18:
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)initiateMOBIKE:(uint64_t)e pathStatus:(void *)status serverAddress:(char)address earlyDisconnect:
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   statusCopy = status;
   if (self)
   {
     v10 = ne_log_obj();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = 134218498;
+      v19 = 134218498;
       eCopy = e;
-      v22 = 2048;
-      v23 = a2;
-      v24 = 2112;
-      v25 = statusCopy;
-      _os_log_impl(&dword_1BA83C000, v10, OS_LOG_TYPE_DEFAULT, "initiate mobike - path status %ld ifIndex %lu server address %@", &v20, 0x20u);
+      v21 = 2048;
+      v22 = a2;
+      v23 = 2112;
+      v24 = statusCopy;
+      _os_log_impl(&dword_1BA83C000, v10, OS_LOG_TYPE_DEFAULT, "initiate mobike - path status %ld ifIndex %lu server address %@", &v19, 0x20u);
     }
 
     v12 = statusCopy;
@@ -378,8 +373,8 @@ LABEL_18:
         v16 = ne_log_obj();
         if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
         {
-          LOWORD(v20) = 0;
-          _os_log_impl(&dword_1BA83C000, v16, OS_LOG_TYPE_INFO, "mobike in progress", &v20, 2u);
+          LOWORD(v19) = 0;
+          _os_log_impl(&dword_1BA83C000, v16, OS_LOG_TYPE_INFO, "mobike in progress", &v19, 2u);
         }
       }
 
@@ -398,8 +393,6 @@ LABEL_18:
       [(NEIKEv2MOBIKE *)self mobikeStartWaitTimer];
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 @end

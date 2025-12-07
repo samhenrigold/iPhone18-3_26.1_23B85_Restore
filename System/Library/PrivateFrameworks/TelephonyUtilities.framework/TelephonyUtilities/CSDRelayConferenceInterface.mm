@@ -33,8 +33,11 @@
 - (void)sendData:(id)data throughConferenceForIdentifier:(id)identifier;
 - (void)sendingAudioChangedForConference:(id)conference;
 - (void)setConferenceActiveForIdentifier:(id)identifier;
+- (void)setMuted:(BOOL)muted forIdentifier:(id)identifier;
+- (void)setSendingAudio:(BOOL)audio forIdentifier:(id)identifier;
 - (void)startConferenceForIdentifier:(id)identifier usingTransport:(id)transport remoteInviteDictionary:(id)dictionary didStartHandler:(id)handler didStopHandler:(id)stopHandler;
 - (void)stopConferenceForIdentifier:(id)identifier;
+- (void)updateConferenceForIdentifier:(id)identifier isUsingBaseband:(BOOL)baseband disableAudio:(BOOL)audio isTinCan:(BOOL)can;
 - (void)uplinkMutedStatusChanged:(id)changed;
 @end
 
@@ -132,6 +135,58 @@
   return isMuted;
 }
 
+- (void)setMuted:(BOOL)muted forIdentifier:(id)identifier
+{
+  mutedCopy = muted;
+  identifierCopy = identifier;
+  queue = [(CSDRelayConferenceInterface *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  v8 = [(CSDRelayConferenceInterface *)self activeConferenceConnectionForIdentifier:identifierCopy];
+  v9 = [(CSDRelayConferenceInterface *)self isMutedForIdentifier:identifierCopy];
+  if (!v8)
+  {
+    conference = sub_100004778(v9);
+    if (os_log_type_enabled(conference, OS_LOG_TYPE_DEFAULT))
+    {
+      conferenceConnections = [(CSDRelayConferenceInterface *)self conferenceConnections];
+      v16 = 138412546;
+      *v17 = identifierCopy;
+      *&v17[8] = 2112;
+      *&v17[10] = conferenceConnections;
+      _os_log_impl(&_mh_execute_header, conference, OS_LOG_TYPE_DEFAULT, "[WARN] setMuted:forIdentifier: no conference connection found for identifier %@. All conference connections: %@", &v16, 0x16u);
+    }
+
+    goto LABEL_10;
+  }
+
+  if (v9 != mutedCopy)
+  {
+    v10 = sub_100004778(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    {
+      v16 = 67109378;
+      *v17 = mutedCopy;
+      *&v17[4] = 2112;
+      *&v17[6] = v8;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Setting muted to %d for %@", &v16, 0x12u);
+    }
+
+    featureFlags = [(CSDRelayConferenceInterface *)self featureFlags];
+    sessionBasedMutingEnabled = [featureFlags sessionBasedMutingEnabled];
+
+    if ((sessionBasedMutingEnabled & 1) == 0)
+    {
+      v13 = +[TUAudioSystemController sharedAudioSystemController];
+      [v13 setUplinkMuted:mutedCopy];
+    }
+
+    conference = [v8 conference];
+    [conference setMuted:mutedCopy];
+LABEL_10:
+  }
+}
+
 - (BOOL)isSendingAudioForIdentifier:(id)identifier
 {
   identifierCopy = identifier;
@@ -220,6 +275,52 @@
   return callID;
 }
 
+- (void)setSendingAudio:(BOOL)audio forIdentifier:(id)identifier
+{
+  audioCopy = audio;
+  identifierCopy = identifier;
+  queue = [(CSDRelayConferenceInterface *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  v8 = [(CSDRelayConferenceInterface *)self activeConferenceConnectionForIdentifier:identifierCopy];
+  v9 = v8;
+  if (!v8)
+  {
+    conference2 = sub_100004778(0);
+    if (os_log_type_enabled(conference2, OS_LOG_TYPE_DEFAULT))
+    {
+      conferenceConnections = [(CSDRelayConferenceInterface *)self conferenceConnections];
+      v16 = 138412546;
+      *v17 = identifierCopy;
+      *&v17[8] = 2112;
+      *&v17[10] = conferenceConnections;
+      _os_log_impl(&_mh_execute_header, conference2, OS_LOG_TYPE_DEFAULT, "[WARN] setSendingAudio:forIdentifier: no conference connection found for identifier %@. All conference connections: %@", &v16, 0x16u);
+    }
+
+    goto LABEL_8;
+  }
+
+  conference = [v8 conference];
+  isSendingAudio = [conference isSendingAudio];
+
+  if (isSendingAudio != audioCopy)
+  {
+    v13 = sub_100004778(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    {
+      v16 = 67109378;
+      *v17 = audioCopy;
+      *&v17[4] = 2112;
+      *&v17[6] = v9;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Setting sending audio to %d for %@", &v16, 0x12u);
+    }
+
+    conference2 = [v9 conference];
+    [conference2 setSendingAudio:audioCopy];
+LABEL_8:
+  }
+}
+
 - (void)prepareConferenceConnection:(id)connection remoteInviteDictionary:(id)dictionary completion:(id)completion
 {
   connectionCopy = connection;
@@ -228,81 +329,81 @@
   queue = [(CSDRelayConferenceInterface *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v12 = sub_100004778();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = sub_100004778(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     conferenceConnections = [(CSDRelayConferenceInterface *)self conferenceConnections];
     *buf = 138412802;
-    v41 = connectionCopy;
-    v42 = 2112;
-    v43 = dictionaryCopy;
-    v44 = 2112;
-    v45 = conferenceConnections;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Asked to prepare conference connection %@ remoteInviteDictionary %@, current conference connections: %@", buf, 0x20u);
+    v44 = connectionCopy;
+    v45 = 2112;
+    v46 = dictionaryCopy;
+    v47 = 2112;
+    v48 = conferenceConnections;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Asked to prepare conference connection %@ remoteInviteDictionary %@, current conference connections: %@", buf, 0x20u);
   }
 
-  v33 = completionCopy;
-  v34 = connectionCopy;
+  v36 = completionCopy;
+  v37 = connectionCopy;
 
-  v37 = 0u;
+  v40 = 0u;
+  v41 = 0u;
   v38 = 0u;
-  v35 = 0u;
-  v36 = 0u;
+  v39 = 0u;
   conferenceConnections2 = [(CSDRelayConferenceInterface *)self conferenceConnections];
-  v15 = [conferenceConnections2 countByEnumeratingWithState:&v35 objects:v39 count:16];
-  if (v15)
+  v16 = [conferenceConnections2 countByEnumeratingWithState:&v38 objects:v42 count:16];
+  if (v16)
   {
-    v16 = v15;
-    v17 = 0;
-    v18 = *v36;
+    v17 = v16;
+    v18 = 0;
+    v19 = *v39;
 LABEL_5:
-    v19 = 0;
+    v20 = 0;
     while (1)
     {
-      if (*v36 != v18)
+      if (*v39 != v19)
       {
         objc_enumerationMutation(conferenceConnections2);
       }
 
-      v20 = *(*(&v35 + 1) + 8 * v19);
-      if (([v20 isPreparedToStop] & 1) == 0)
+      v21 = *(*(&v38 + 1) + 8 * v20);
+      if (([v21 isPreparedToStop] & 1) == 0)
       {
-        conference = [v20 conference];
+        conference = [v21 conference];
         state = [conference state];
 
         if (state - 4 < 2)
         {
           if (dictionaryCopy)
           {
-            conference2 = [v20 conference];
-            v24 = v20;
+            conference2 = [v21 conference];
+            v25 = v21;
 
-            v17 = v24;
+            v18 = v25;
             if (conference2)
             {
 LABEL_18:
 
-              v25 = sub_100004778();
-              if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+              v27 = sub_100004778(v26);
+              if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412546;
-                v41 = conference2;
-                v42 = 2112;
-                v43 = v17;
-                _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Not preparing a new conference because another conference already exists: %@, relayConferenceConnectionToReuse: %@", buf, 0x16u);
+                v44 = conference2;
+                v45 = 2112;
+                v46 = v18;
+                _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Not preparing a new conference because another conference already exists: %@, relayConferenceConnectionToReuse: %@", buf, 0x16u);
               }
 
-              v26 = v34;
-              [v34 setConference:conference2];
-              v27 = v33;
-              [v34 setDidPrepareHandler:v33];
+              v28 = v37;
+              [v37 setConference:conference2];
+              v29 = v36;
+              [v37 setDidPrepareHandler:v36];
               conferenceConnections3 = [(CSDRelayConferenceInterface *)self conferenceConnections];
-              [conferenceConnections3 addObject:v34];
+              [conferenceConnections3 addObject:v37];
 
               if ([conference2 state] >= 3)
               {
                 localInviteDictionary = [conference2 localInviteDictionary];
-                [v34 invokeDidPrepareIfNecessary:localInviteDictionary];
+                [v37 invokeDidPrepareIfNecessary:localInviteDictionary];
                 goto LABEL_29;
               }
 
@@ -313,7 +414,7 @@ LABEL_18:
 
         else if (state - 2 <= 1)
         {
-          conference2 = [v20 conference];
+          conference2 = [v21 conference];
           if (conference2)
           {
             goto LABEL_18;
@@ -321,10 +422,10 @@ LABEL_18:
         }
       }
 
-      if (v16 == ++v19)
+      if (v17 == ++v20)
       {
-        v16 = [conferenceConnections2 countByEnumeratingWithState:&v35 objects:v39 count:16];
-        if (v16)
+        v17 = [conferenceConnections2 countByEnumeratingWithState:&v38 objects:v42 count:16];
+        if (v17)
         {
           goto LABEL_5;
         }
@@ -334,31 +435,31 @@ LABEL_18:
     }
   }
 
-  v17 = 0;
+  v18 = 0;
 LABEL_23:
 
-  v26 = v34;
-  identifier = [v34 identifier];
+  v28 = v37;
+  identifier = [v37 identifier];
   localInviteDictionary = [(CSDRelayConferenceInterface *)self activeConferenceConnectionForIdentifier:identifier];
 
   if (localInviteDictionary)
   {
-    v31 = sub_100004778();
-    v27 = v33;
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+    v34 = sub_100004778(v33);
+    v29 = v36;
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
     {
-      sub_100475E84(localInviteDictionary, v31);
+      sub_100475E84(localInviteDictionary, v34);
     }
   }
 
   else
   {
-    v27 = v33;
-    [v34 setDidPrepareHandler:v33];
+    v29 = v36;
+    [v37 setDidPrepareHandler:v36];
     conferenceConnections4 = [(CSDRelayConferenceInterface *)self conferenceConnections];
-    [conferenceConnections4 addObject:v34];
+    [conferenceConnections4 addObject:v37];
 
-    [(CSDRelayConferenceInterface *)self _prepareConferenceForConferenceConnection:v34 remoteInviteDictionary:dictionaryCopy];
+    [(CSDRelayConferenceInterface *)self _prepareConferenceForConferenceConnection:v37 remoteInviteDictionary:dictionaryCopy];
   }
 
   conference2 = 0;
@@ -389,94 +490,94 @@ LABEL_30:
   queue = [(CSDRelayConferenceInterface *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v18 = sub_100004778();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  v19 = sub_100004778(v18);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
-    v34 = 138412290;
-    v35 = identifierCopy;
-    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Asked to start conference for identifier %@", &v34, 0xCu);
+    v36 = 138412290;
+    v37 = identifierCopy;
+    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Asked to start conference for identifier %@", &v36, 0xCu);
   }
 
-  v19 = [(CSDRelayConferenceInterface *)self activeConferenceConnectionForIdentifier:identifierCopy];
-  v20 = v19;
-  if (v19)
+  v20 = [(CSDRelayConferenceInterface *)self activeConferenceConnectionForIdentifier:identifierCopy];
+  v21 = v20;
+  if (v20)
   {
-    [v19 setTransport:transportCopy];
+    [v20 setTransport:transportCopy];
     if (handlerCopy)
     {
-      v21 = handlerCopy;
+      v22 = handlerCopy;
     }
 
     else
     {
-      v21 = &stru_10061C510;
+      v22 = &stru_10061C510;
     }
 
-    [v20 setDidStartHandler:v21];
+    [v21 setDidStartHandler:v22];
     if (stopHandlerCopy)
     {
-      v22 = stopHandlerCopy;
+      v23 = stopHandlerCopy;
     }
 
     else
     {
-      v22 = &stru_10061C530;
+      v23 = &stru_10061C530;
     }
 
-    [v20 setDidStopHandler:v22];
+    [v21 setDidStopHandler:v23];
     activeConference = [(CSDRelayConferenceInterface *)self activeConference];
 
     if (activeConference)
     {
-      v24 = sub_100004778();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+      v26 = sub_100004778(v25);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v34) = 0;
-        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "We already have an active conference. Invoking this conference connection's didStart immediately", &v34, 2u);
+        LOWORD(v36) = 0;
+        _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "We already have an active conference. Invoking this conference connection's didStart immediately", &v36, 2u);
       }
 
       activeConference2 = [(CSDRelayConferenceInterface *)self activeConference];
-      [v20 setConference:activeConference2];
+      [v21 setConference:activeConference2];
 
-      identifier = [v20 identifier];
+      identifier = [v21 identifier];
       [(CSDRelayConferenceInterface *)self setConferenceActiveForIdentifier:identifier];
 
-      [v20 invokeDidStartIfNecessary:1 error:0];
+      [v21 invokeDidStartIfNecessary:1 error:0];
     }
 
     else
     {
-      conference = [v20 conference];
+      conference = [v21 conference];
       remoteInviteDictionary = [conference remoteInviteDictionary];
 
       if (!remoteInviteDictionary)
       {
         if (dictionaryCopy)
         {
-          conference2 = [v20 conference];
+          conference2 = [v21 conference];
           [conference2 setRemoteInviteDictionary:dictionaryCopy];
         }
 
         else
         {
-          isHost = [v20 isHost];
-          conference2 = [v20 conference];
+          isHost = [v21 isHost];
+          conference2 = [v21 conference];
           [conference2 setCaller:isHost];
         }
       }
 
-      conference3 = [v20 conference];
-      transport = [v20 transport];
+      conference3 = [v21 conference];
+      transport = [v21 transport];
       [conference3 startConnectionWithTransport:transport];
     }
   }
 
   else
   {
-    v27 = sub_100004778();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v29 = sub_100004778(0);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
-      sub_100475EFC(identifierCopy, self, v27);
+      sub_100475EFC(identifierCopy, self, v29);
     }
   }
 }
@@ -488,17 +589,85 @@ LABEL_30:
   queue = [(CSDRelayConferenceInterface *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v9 = sub_100004778();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = sub_100004778(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138412290;
-    v13 = identifierCopy;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Asked to send data to conference for identifier %@", &v12, 0xCu);
+    v13 = 138412290;
+    v14 = identifierCopy;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Asked to send data to conference for identifier %@", &v13, 0xCu);
   }
 
-  v10 = [(CSDRelayConferenceInterface *)self activeConferenceConnectionForIdentifier:identifierCopy];
-  conference = [v10 conference];
+  v11 = [(CSDRelayConferenceInterface *)self activeConferenceConnectionForIdentifier:identifierCopy];
+  conference = [v11 conference];
   [conference sendData:dataCopy];
+}
+
+- (void)updateConferenceForIdentifier:(id)identifier isUsingBaseband:(BOOL)baseband disableAudio:(BOOL)audio isTinCan:(BOOL)can
+{
+  canCopy = can;
+  audioCopy = audio;
+  basebandCopy = baseband;
+  identifierCopy = identifier;
+  queue = [(CSDRelayConferenceInterface *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  v13 = sub_100004778(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  {
+    v25 = 138413058;
+    v26 = identifierCopy;
+    v27 = 1024;
+    *v28 = basebandCopy;
+    *&v28[4] = 1024;
+    *&v28[6] = audioCopy;
+    v29 = 1024;
+    v30 = canCopy;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Asked to update conference for identifier %@ with isUsingBaseband=%d disableAudio=%d isTinCan=%d", &v25, 0x1Eu);
+  }
+
+  v14 = [(CSDRelayConferenceInterface *)self activeConferenceConnectionForIdentifier:identifierCopy];
+  v15 = v14;
+  if (v14)
+  {
+    [v14 setUsingBaseband:basebandCopy];
+    [v15 setAudioDisabled:audioCopy];
+    [v15 setTinCan:canCopy];
+    conference = [v15 conference];
+    capabilities = [v15 capabilities];
+    [conference updateCapabilities:capabilities];
+
+    deviceRole = [v15 deviceRole];
+    v19 = deviceRole;
+    v20 = sub_100004778(deviceRole);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    {
+      v25 = 138412546;
+      v26 = identifierCopy;
+      v27 = 1024;
+      *v28 = v19;
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Updating device role for identifier %@ to %d", &v25, 0x12u);
+    }
+
+    deviceRole2 = [v15 deviceRole];
+    conference2 = [v15 conference];
+    [conference2 setDeviceRole:deviceRole2];
+
+    -[CSDRelayConferenceInterface setSendingAudio:forIdentifier:](self, "setSendingAudio:forIdentifier:", [v15 isAudioDisabled] ^ 1, identifierCopy);
+  }
+
+  else
+  {
+    v23 = sub_100004778(0);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    {
+      conferenceConnections = [(CSDRelayConferenceInterface *)self conferenceConnections];
+      v25 = 138412546;
+      v26 = identifierCopy;
+      v27 = 2112;
+      *v28 = conferenceConnections;
+      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Did not find conference connection for identifier %@. All conference connections: %@", &v25, 0x16u);
+    }
+  }
 }
 
 - (void)setConferenceActiveForIdentifier:(id)identifier
@@ -511,12 +680,12 @@ LABEL_30:
 
   if (v6)
   {
-    v7 = sub_100004778();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100004778(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138412290;
-      v10 = v6;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Setting conference connection active: %@", &v9, 0xCu);
+      v10 = 138412290;
+      v11 = v6;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Setting conference connection active: %@", &v10, 0xCu);
     }
 
     identifier = [v6 identifier];
@@ -530,53 +699,53 @@ LABEL_30:
   queue = [(CSDRelayConferenceInterface *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v6 = sub_100004778();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_100004778(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v28 = identifierCopy;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Asked to prepare to stop conference for identifier %@", buf, 0xCu);
+    v30 = identifierCopy;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Asked to prepare to stop conference for identifier %@", buf, 0xCu);
   }
 
-  v7 = [(CSDRelayConferenceInterface *)self activeConferenceConnectionForIdentifier:identifierCopy];
-  v8 = v7;
-  if (v7)
+  v8 = [(CSDRelayConferenceInterface *)self activeConferenceConnectionForIdentifier:identifierCopy];
+  v9 = v8;
+  if (v8)
   {
-    [v7 setPreparedToStop:1];
+    [v8 setPreparedToStop:1];
+    v26 = 0u;
+    v27 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v22 = 0u;
-    v23 = 0u;
-    conference = [v8 conference];
-    v10 = [(CSDRelayConferenceInterface *)self _conferenceConnectionsForConference:conference];
+    conference = [v9 conference];
+    v11 = [(CSDRelayConferenceInterface *)self _conferenceConnectionsForConference:conference];
 
-    v11 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
-    if (v11)
+    v12 = [v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    if (v12)
     {
-      v12 = v11;
-      v13 = *v23;
+      v13 = v12;
+      v14 = *v25;
       while (2)
       {
-        v14 = 0;
+        v15 = 0;
         do
         {
-          if (*v23 != v13)
+          if (*v25 != v14)
           {
-            objc_enumerationMutation(v10);
+            objc_enumerationMutation(v11);
           }
 
-          if (![*(*(&v22 + 1) + 8 * v14) isPreparedToStop])
+          if (![*(*(&v24 + 1) + 8 * v15) isPreparedToStop])
           {
 
             goto LABEL_16;
           }
 
-          v14 = v14 + 1;
+          v15 = v15 + 1;
         }
 
-        while (v12 != v14);
-        v12 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
-        if (v12)
+        while (v13 != v15);
+        v13 = [v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        if (v13)
         {
           continue;
         }
@@ -585,27 +754,27 @@ LABEL_30:
       }
     }
 
-    v15 = sub_100004778();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v17 = sub_100004778(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v28 = v8;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Pausing audio and setting up timeout for conference connection: %@", buf, 0xCu);
+      v30 = v9;
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Pausing audio and setting up timeout for conference connection: %@", buf, 0xCu);
     }
 
-    conference2 = [v8 conference];
+    conference2 = [v9 conference];
     [conference2 setSendingAudio:0];
 
     [(CSDRelayConferenceInterface *)self prepareToStopTimeout];
-    v18 = dispatch_time(0, (v17 * 1000000000.0));
+    v20 = dispatch_time(0, (v19 * 1000000000.0));
     queue2 = [(CSDRelayConferenceInterface *)self queue];
-    v20[0] = _NSConcreteStackBlock;
-    v20[1] = 3221225472;
-    v20[2] = sub_10013E55C;
-    v20[3] = &unk_100619D88;
-    v20[4] = self;
-    v21 = v8;
-    dispatch_after(v18, queue2, v20);
+    v22[0] = _NSConcreteStackBlock;
+    v22[1] = 3221225472;
+    v22[2] = sub_10013E55C;
+    v22[3] = &unk_100619D88;
+    v22[4] = self;
+    v23 = v9;
+    dispatch_after(v20, queue2, v22);
   }
 
 LABEL_16:
@@ -617,31 +786,31 @@ LABEL_16:
   queue = [(CSDRelayConferenceInterface *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v6 = sub_100004778();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_100004778(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412290;
-    v11 = identifierCopy;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Asked to stop conference for identifier %@", &v10, 0xCu);
+    v11 = 138412290;
+    v12 = identifierCopy;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Asked to stop conference for identifier %@", &v11, 0xCu);
   }
 
-  v7 = [(CSDRelayConferenceInterface *)self conferenceConnectionForIdentifier:identifierCopy];
-  if (v7)
+  v8 = [(CSDRelayConferenceInterface *)self conferenceConnectionForIdentifier:identifierCopy];
+  if (v8)
   {
-    [(CSDRelayConferenceInterface *)self _cleanUpConferenceConnection:v7 error:0];
+    [(CSDRelayConferenceInterface *)self _cleanUpConferenceConnection:v8 error:0];
   }
 
   else
   {
-    v8 = sub_100004778();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_100004778(0);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       conferenceConnections = [(CSDRelayConferenceInterface *)self conferenceConnections];
-      v10 = 138412546;
-      v11 = identifierCopy;
-      v12 = 2112;
-      v13 = conferenceConnections;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Did not find conference connection for identifier %@. All conference connections: %@", &v10, 0x16u);
+      v11 = 138412546;
+      v12 = identifierCopy;
+      v13 = 2112;
+      v14 = conferenceConnections;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Did not find conference connection for identifier %@. All conference connections: %@", &v11, 0x16u);
     }
   }
 }
@@ -940,72 +1109,73 @@ LABEL_14:
     conferenceConnections2 = [(CSDRelayConferenceInterface *)self conferenceConnections];
     [conferenceConnections2 removeObject:connectionCopy];
 
-    v11 = sub_100004778();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = sub_100004778(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v37 = connectionCopy;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Cleaning up conference connection %@", buf, 0xCu);
+      v39 = connectionCopy;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Cleaning up conference connection %@", buf, 0xCu);
     }
 
     [connectionCopy invokeDidPrepareIfNecessary:0];
-    v34 = NSLocalizedFailureReasonErrorKey;
+    v36 = NSLocalizedFailureReasonErrorKey;
     errorCopy = [NSString stringWithFormat:@"Conference cleaned up before handling a didStart with error: %@", errorCopy];
-    v35 = errorCopy;
-    v13 = [NSDictionary dictionaryWithObjects:&v35 forKeys:&v34 count:1];
-    v14 = [NSError errorWithDomain:@"com.apple.telephonyutilities" code:1 userInfo:v13];
-    [connectionCopy invokeDidStartIfNecessary:0 error:v14];
+    v37 = errorCopy;
+    v14 = [NSDictionary dictionaryWithObjects:&v37 forKeys:&v36 count:1];
+    v15 = [NSError errorWithDomain:@"com.apple.telephonyutilities" code:1 userInfo:v14];
+    [connectionCopy invokeDidStartIfNecessary:0 error:v15];
 
     [connectionCopy invokeDidStopIfNecessary:errorCopy == 0 error:errorCopy];
     conference = [connectionCopy conference];
-    v16 = [(CSDRelayConferenceInterface *)self _conferenceConnectionsForConference:conference];
+    v17 = [(CSDRelayConferenceInterface *)self _conferenceConnectionsForConference:conference];
 
-    if ([v16 count] || (objc_msgSend(connectionCopy, "conference"), v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(v17, "state"), v17, v18 < 4))
+    if ([v17 count] || (objc_msgSend(connectionCopy, "conference"), v18 = objc_claimAutoreleasedReturnValue(), v19 = objc_msgSend(v18, "state"), v18, v19 < 4))
     {
+      v33 = 0u;
+      v34 = 0u;
       v31 = 0u;
       v32 = 0u;
-      v29 = 0u;
-      v30 = 0u;
-      conference2 = v16;
-      v20 = [conference2 countByEnumeratingWithState:&v29 objects:v33 count:16];
-      if (v20)
+      conference2 = v17;
+      v21 = [conference2 countByEnumeratingWithState:&v31 objects:v35 count:16];
+      if (v21)
       {
-        v21 = v20;
-        v26 = v16;
-        v27 = errorCopy;
-        v28 = connectionCopy;
-        v22 = *v30;
+        v22 = v21;
+        v28 = v17;
+        v29 = errorCopy;
+        v30 = connectionCopy;
+        v23 = *v32;
         do
         {
-          for (i = 0; i != v21; i = i + 1)
+          for (i = 0; i != v22; i = i + 1)
           {
-            if (*v30 != v22)
+            if (*v32 != v23)
             {
               objc_enumerationMutation(conference2);
             }
 
-            v24 = *(*(&v29 + 1) + 8 * i);
-            if ([v24 isPreparedToStop])
+            v25 = *(*(&v31 + 1) + 8 * i);
+            isPreparedToStop = [v25 isPreparedToStop];
+            if (isPreparedToStop)
             {
-              v25 = sub_100004778();
-              if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+              v27 = sub_100004778(isPreparedToStop);
+              if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412290;
-                v37 = v24;
-                _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Also cleaning up conference connection which is already prepared to stop %@", buf, 0xCu);
+                v39 = v25;
+                _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Also cleaning up conference connection which is already prepared to stop %@", buf, 0xCu);
               }
 
-              [(CSDRelayConferenceInterface *)self _cleanUpConferenceConnection:v24 error:0];
+              [(CSDRelayConferenceInterface *)self _cleanUpConferenceConnection:v25 error:0];
             }
           }
 
-          v21 = [conference2 countByEnumeratingWithState:&v29 objects:v33 count:16];
+          v22 = [conference2 countByEnumeratingWithState:&v31 objects:v35 count:16];
         }
 
-        while (v21);
-        errorCopy = v27;
-        connectionCopy = v28;
-        v16 = v26;
+        while (v22);
+        errorCopy = v29;
+        connectionCopy = v30;
+        v17 = v28;
       }
     }
 
@@ -1020,7 +1190,7 @@ LABEL_14:
 - (void)_stopConference:(id)conference
 {
   conferenceCopy = conference;
-  v5 = sub_100004778();
+  v5 = sub_100004778(conferenceCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 138412290;
@@ -1028,8 +1198,7 @@ LABEL_14:
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Calling stop on conference %@", &v9, 0xCu);
   }
 
-  [(__CFString *)conferenceCopy stop];
-  v6 = sub_100004778();
+  v6 = sub_100004778([(__CFString *)conferenceCopy stop]);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 138412290;
@@ -1061,7 +1230,7 @@ LABEL_14:
 
 - (void)_postDidCloseNotificationForConference:(id)conference
 {
-  v3 = sub_100004778();
+  v3 = sub_100004778(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 138412290;
@@ -1077,7 +1246,7 @@ LABEL_14:
 {
   conferenceCopy = conference;
   dataCopy = data;
-  v9 = sub_100004778();
+  v9 = sub_100004778(dataCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1126,7 +1295,7 @@ LABEL_14:
 - (void)conferenceFinishedPreparing:(id)preparing
 {
   preparingCopy = preparing;
-  v5 = sub_100004778();
+  v5 = sub_100004778(preparingCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1171,7 +1340,7 @@ LABEL_14:
 - (void)conferenceStarted:(id)started
 {
   startedCopy = started;
-  v5 = sub_100004778();
+  v5 = sub_100004778(startedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1214,25 +1383,25 @@ LABEL_14:
 {
   conferenceCopy = conference;
   errorCopy = error;
-  v10 = sub_100004778();
+  v10 = sub_100004778(errorCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218242;
     reasonCopy = reason;
-    v21 = 2112;
-    v22 = errorCopy;
+    v22 = 2112;
+    v23 = errorCopy;
     _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "reason: %ld error: %@", buf, 0x16u);
   }
 
-  [(CSDRelayConferenceInterface *)self _cleanUpAllConferenceConnectionsForConference:conferenceCopy withError:errorCopy];
+  v11 = [(CSDRelayConferenceInterface *)self _cleanUpAllConferenceConnectionsForConference:conferenceCopy withError:errorCopy];
   if (reason <= 7)
   {
     if (((1 << reason) & 0xFA) != 0)
     {
-      v11 = sub_100004778();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = sub_100004778(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        sub_100476084(errorCopy, reason, v11);
+        sub_100476084(errorCopy, reason, v12);
       }
 
       [(CSDRelayConferenceInterface *)self _postDidCloseNotificationForConference:conferenceCopy];
@@ -1240,26 +1409,26 @@ LABEL_14:
 
     else
     {
-      v12 = sub_100004778();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v13 = sub_100004778(v11);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Setting up close connection timeout because conference ended reason was normal", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Setting up close connection timeout because conference ended reason was normal", buf, 2u);
       }
 
       conferencesAwaitingConnectionClose = [(CSDRelayConferenceInterface *)self conferencesAwaitingConnectionClose];
       [conferencesAwaitingConnectionClose addObject:conferenceCopy];
 
       [(CSDRelayConferenceInterface *)self closeConnectionTimeout];
-      v15 = dispatch_time(0, (v14 * 1000000000.0));
+      v16 = dispatch_time(0, (v15 * 1000000000.0));
       queue = [(CSDRelayConferenceInterface *)self queue];
-      v17[0] = _NSConcreteStackBlock;
-      v17[1] = 3221225472;
-      v17[2] = sub_10013FD2C;
-      v17[3] = &unk_100619D88;
-      v17[4] = self;
-      v18 = conferenceCopy;
-      dispatch_after(v15, queue, v17);
+      v18[0] = _NSConcreteStackBlock;
+      v18[1] = 3221225472;
+      v18[2] = sub_10013FD2C;
+      v18[3] = &unk_100619D88;
+      v18[4] = self;
+      v19 = conferenceCopy;
+      dispatch_after(v16, queue, v18);
     }
   }
 }
@@ -1267,7 +1436,7 @@ LABEL_14:
 - (void)connectionClosedForConference:(id)conference
 {
   conferenceCopy = conference;
-  v5 = sub_100004778();
+  v5 = sub_100004778(conferenceCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -1280,7 +1449,7 @@ LABEL_14:
 
 - (void)mutedChangedForConference:(id)conference
 {
-  v3 = sub_100004778();
+  v3 = sub_100004778(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -1293,7 +1462,7 @@ LABEL_14:
 
 - (void)sendingAudioChangedForConference:(id)conference
 {
-  v3 = sub_100004778();
+  v3 = sub_100004778(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;

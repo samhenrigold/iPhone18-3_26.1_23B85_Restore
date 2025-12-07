@@ -3,7 +3,7 @@
 
 @implementation AXSDwellKeyboardContinuousPathEnabled
 
-uint64_t ___AXSDwellKeyboardContinuousPathEnabled_block_invoke()
+void *___AXSDwellKeyboardContinuousPathEnabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

@@ -84,33 +84,34 @@ LABEL_12:
   iterator = 0;
   if (IORegistryEntryCreateIterator([(LPStaticMedia *)self ioMedia], "IOService", 1u, &iterator))
   {
-    _os_log_pack_size();
-    *_os_log_pack_fill() = 0;
-    _LPLogPack(1);
-    v4 = __NSArray0__;
+    v4 = _os_log_pack_size();
+    v5 = &v10 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+    *_os_log_pack_fill(v5, v4, 0, &dword_0, "Failed to create partition media iterator.") = 0;
+    _LPLogPack(1, v5);
+    v6 = __NSArray0__;
   }
 
   else
   {
-    v5 = iterator;
-    v13[0] = _NSConcreteStackBlock;
-    v13[1] = 3254779904;
-    v13[2] = __34__LPStaticPartitionMedia_children__block_invoke;
-    v13[3] = &__block_descriptor_44_e8_32s_e8_v12__0I8l;
-    v15 = iterator;
-    v14 = v3;
-    v8 = _NSConcreteStackBlock;
-    v9 = 3254779904;
-    v10 = __34__LPStaticPartitionMedia_children__block_invoke_13;
-    v11 = &__block_descriptor_40_e8_32s_e5_v8__0l;
-    v6 = v14;
-    v12 = v6;
-    iterateSafely(v5, 3, v13, &v8);
+    v7 = iterator;
+    v15[0] = _NSConcreteStackBlock;
+    v15[1] = 3254779904;
+    v15[2] = __34__LPStaticPartitionMedia_children__block_invoke;
+    v15[3] = &__block_descriptor_44_e8_32s_e8_v12__0I8l;
+    v17 = iterator;
+    v16 = v3;
+    v10 = _NSConcreteStackBlock;
+    v11 = 3254779904;
+    v12 = __34__LPStaticPartitionMedia_children__block_invoke_13;
+    v13 = &__block_descriptor_40_e8_32s_e5_v8__0l;
+    v8 = v16;
+    v14 = v8;
+    iterateSafely(v7, 3, v15, &v10);
     IOObjectRelease(iterator);
-    v4 = [NSArray arrayWithArray:v6, v8, v9, v10, v11];
+    v6 = [NSArray arrayWithArray:v8, v10, v11, v12, v13];
   }
 
-  return v4;
+  return v6;
 }
 
 void __34__LPStaticPartitionMedia_children__block_invoke(uint64_t a1, uint64_t object)

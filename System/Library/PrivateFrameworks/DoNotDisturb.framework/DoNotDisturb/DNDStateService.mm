@@ -3,7 +3,6 @@
 - (BOOL)_queue_registerForStateUpdatesIfRequired;
 - (id)_initWithClientIdentifier:(id)identifier;
 - (id)queryCurrentStateWithError:(id *)error;
-- (void)_queue_registerForStateUpdatesIfRequired;
 - (void)addStateUpdateListener:(id)listener withCompletionHandler:(id)handler;
 - (void)queryCurrentStateWithCompletionHandler:(id)handler;
 - (void)remoteService:(id)service didReceiveDoNotDisturbStateUpdate:(id)update;
@@ -14,7 +13,7 @@
 
 - (BOOL)_queue_registerForStateUpdatesIfRequired
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   if ([(NSHashTable *)self->_stateUpdateListeners count]&& !self->_registeredForUpdates)
   {
@@ -31,49 +30,38 @@
       _os_log_impl(&dword_22002F000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Registering state update listener", &buf, 0xCu);
     }
 
-    v11 = 0;
-    v12 = &v11;
-    v13 = 0x2020000000;
-    v14 = 0;
+    v10 = 0;
+    v11 = &v10;
+    v12 = 0x2020000000;
+    v13 = 0;
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v17 = 0x3032000000;
-    v18 = __Block_byref_object_copy__5;
-    v19 = __Block_byref_object_dispose__5;
-    v20 = 0;
+    v16 = 0x3032000000;
+    v17 = __Block_byref_object_copy__5;
+    v18 = __Block_byref_object_dispose__5;
+    v19 = 0;
     v6 = +[DNDRemoteServiceConnection sharedInstance];
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __59__DNDStateService__queue_registerForStateUpdatesIfRequired__block_invoke;
-    v10[3] = &unk_27843A0A8;
-    v10[4] = &v11;
-    v10[5] = &buf;
-    [v6 registerForStateUpdatesWithRequestDetails:v4 completionHandler:v10];
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __59__DNDStateService__queue_registerForStateUpdatesIfRequired__block_invoke;
+    v9[3] = &unk_27843A0A8;
+    v9[4] = &v10;
+    v9[5] = &buf;
+    [v6 registerForStateUpdatesWithRequestDetails:v4 completionHandler:v9];
 
     if (*(*(&buf + 1) + 40) && os_log_type_enabled(DNDLogState, OS_LOG_TYPE_ERROR))
     {
-      [(DNDStateService *)v4 _queue_registerForStateUpdatesIfRequired];
+      [DNDStateService _queue_registerForStateUpdatesIfRequired];
     }
 
-    self->_registeredForUpdates = *(v12 + 24);
+    self->_registeredForUpdates = *(v11 + 24);
     _Block_object_dispose(&buf, 8);
 
-    _Block_object_dispose(&v11, 8);
+    _Block_object_dispose(&v10, 8);
     os_activity_scope_leave(&state);
   }
 
-  if ([(NSHashTable *)self->_stateUpdateListeners count])
-  {
-    registeredForUpdates = self->_registeredForUpdates;
-  }
-
-  else
-  {
-    registeredForUpdates = 1;
-  }
-
-  v8 = *MEMORY[0x277D85DE8];
-  return registeredForUpdates;
+  return ![(NSHashTable *)self->_stateUpdateListeners count]|| self->_registeredForUpdates;
 }
 
 void __59__DNDStateService__queue_registerForStateUpdatesIfRequired__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -209,7 +197,7 @@ void __46__DNDStateService_serviceForClientIdentifier___block_invoke_2(uint64_t 
 
 void __58__DNDStateService_queryCurrentStateWithCompletionHandler___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(*(a1 + 32), &state);
@@ -218,25 +206,24 @@ void __58__DNDStateService_queryCurrentStateWithCompletionHandler___block_invoke
   if (os_log_type_enabled(DNDLogState, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v15 = v2;
+    v14 = v2;
     _os_log_impl(&dword_22002F000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] Processing async state request", buf, 0xCu);
   }
 
   v4 = +[DNDRemoteServiceConnection sharedInstance];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __58__DNDStateService_queryCurrentStateWithCompletionHandler___block_invoke_8;
-  v9[3] = &unk_27843A8E0;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __58__DNDStateService_queryCurrentStateWithCompletionHandler___block_invoke_8;
+  v8[3] = &unk_27843A8E0;
   v5 = v2;
   v6 = *(a1 + 40);
   v7 = *(a1 + 48);
-  v10 = v5;
-  v11 = v6;
-  v12 = v7;
-  [v4 queryStateWithRequestDetails:v5 completionHandler:v9];
+  v9 = v5;
+  v10 = v6;
+  v11 = v7;
+  [v4 queryStateWithRequestDetails:v5 completionHandler:v8];
 
   os_activity_scope_leave(&state);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __58__DNDStateService_queryCurrentStateWithCompletionHandler___block_invoke_8(uint64_t a1, void *a2, void *a3)
@@ -269,29 +256,25 @@ void __58__DNDStateService_queryCurrentStateWithCompletionHandler___block_invoke
 
 uint64_t __58__DNDStateService_queryCurrentStateWithCompletionHandler___block_invoke_9(void *a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = DNDLogState;
   if (os_log_type_enabled(DNDLogState, OS_LOG_TYPE_DEFAULT))
   {
     v3 = a1[4];
     v4 = a1[5];
-    v9 = 138543619;
-    v10 = v3;
-    v11 = 2113;
-    v12 = v4;
-    _os_log_impl(&dword_22002F000, v2, OS_LOG_TYPE_DEFAULT, "[%{public}@] Got current state, state=%{private}@", &v9, 0x16u);
+    v6 = 138543619;
+    v7 = v3;
+    v8 = 2113;
+    v9 = v4;
+    _os_log_impl(&dword_22002F000, v2, OS_LOG_TYPE_DEFAULT, "[%{public}@] Got current state, state=%{private}@", &v6, 0x16u);
   }
 
-  v5 = a1[6];
-  v6 = a1[5];
-  result = (*(a1[7] + 16))();
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(a1[7] + 16))();
 }
 
 - (id)queryCurrentStateWithError:(id *)error
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v5 = _os_activity_create(&dword_22002F000, "com.apple.donotdisturb.DNDStateService.queryCurrentState", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
@@ -307,35 +290,35 @@ uint64_t __58__DNDStateService_queryCurrentStateWithCompletionHandler___block_in
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v24 = 0x3032000000;
-  v25 = __Block_byref_object_copy__5;
-  v26 = __Block_byref_object_dispose__5;
-  v27 = 0;
-  v15 = 0;
-  v16[0] = &v15;
-  v16[1] = 0x3032000000;
-  v16[2] = __Block_byref_object_copy__5;
-  v16[3] = __Block_byref_object_dispose__5;
-  v17 = 0;
+  v26 = 0x3032000000;
+  v27 = __Block_byref_object_copy__5;
+  v28 = __Block_byref_object_dispose__5;
+  v29 = 0;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = __Block_byref_object_copy__5;
+  v18 = __Block_byref_object_dispose__5;
+  v19 = 0;
   v8 = +[DNDRemoteServiceConnection sharedInstance];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __46__DNDStateService_queryCurrentStateWithError___block_invoke;
-  v14[3] = &unk_27843A908;
-  v14[4] = &buf;
-  v14[5] = &v15;
-  [v8 queryStateWithRequestDetails:v6 completionHandler:v14];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __46__DNDStateService_queryCurrentStateWithError___block_invoke;
+  v13[3] = &unk_27843A908;
+  v13[4] = &buf;
+  v13[5] = &v14;
+  [v8 queryStateWithRequestDetails:v6 completionHandler:v13];
 
-  if (*(v16[0] + 40))
+  if (v15[5])
   {
     if (os_log_type_enabled(DNDLogState, OS_LOG_TYPE_ERROR))
     {
-      [(DNDStateService *)v6 queryCurrentStateWithError:v16];
+      [DNDStateService queryCurrentStateWithError:];
     }
 
     if (error)
     {
-      *error = *(v16[0] + 40);
+      *error = v15[5];
     }
   }
 
@@ -343,20 +326,18 @@ uint64_t __58__DNDStateService_queryCurrentStateWithCompletionHandler___block_in
   if (os_log_type_enabled(DNDLogState, OS_LOG_TYPE_DEFAULT))
   {
     v10 = *(*(&buf + 1) + 40);
-    *v19 = 138543619;
-    v20 = v6;
-    v21 = 2113;
-    v22 = v10;
-    _os_log_impl(&dword_22002F000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] Got current state, state=%{private}@", v19, 0x16u);
+    *v21 = 138543619;
+    v22 = v6;
+    v23 = 2113;
+    v24 = v10;
+    _os_log_impl(&dword_22002F000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] Got current state, state=%{private}@", v21, 0x16u);
   }
 
   v11 = *(*(&buf + 1) + 40);
-  _Block_object_dispose(&v15, 8);
+  _Block_object_dispose(&v14, 8);
 
   _Block_object_dispose(&buf, 8);
   os_activity_scope_leave(&state);
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -400,13 +381,13 @@ void __46__DNDStateService_queryCurrentStateWithError___block_invoke(uint64_t a1
 
 void __64__DNDStateService_addStateUpdateListener_withCompletionHandler___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = DNDLogState;
   if (os_log_type_enabled(DNDLogState, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     *buf = 138543362;
-    v15 = v3;
+    v14 = v3;
     _os_log_impl(&dword_22002F000, v2, OS_LOG_TYPE_DEFAULT, "Adding state update listener: listener=%{public}@", buf, 0xCu);
   }
 
@@ -419,7 +400,7 @@ void __64__DNDStateService_addStateUpdateListener_withCompletionHandler___block_
     {
       v6 = *(a1 + 32);
       *buf = 138543362;
-      v15 = v6;
+      v14 = v6;
       _os_log_impl(&dword_22002F000, v5, OS_LOG_TYPE_DEFAULT, "Registered for state updates: listener=%{public}@", buf, 0xCu);
     }
   }
@@ -441,16 +422,14 @@ void __64__DNDStateService_addStateUpdateListener_withCompletionHandler___block_
   if (v8)
   {
     v9 = *(*(a1 + 40) + 16);
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __64__DNDStateService_addStateUpdateListener_withCompletionHandler___block_invoke_11;
-    v11[3] = &unk_27843A1C0;
-    v12 = v8;
-    v13 = v4;
-    dispatch_async(v9, v11);
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __64__DNDStateService_addStateUpdateListener_withCompletionHandler___block_invoke_11;
+    v10[3] = &unk_27843A1C0;
+    v11 = v8;
+    v12 = v4;
+    dispatch_async(v9, v10);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeStateUpdateListener:(id)listener
@@ -475,19 +454,17 @@ void __64__DNDStateService_addStateUpdateListener_withCompletionHandler___block_
 
 uint64_t __45__DNDStateService_removeStateUpdateListener___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = DNDLogState;
   if (os_log_type_enabled(DNDLogState, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_22002F000, v2, OS_LOG_TYPE_DEFAULT, "Removing state update listener: listener=%{public}@", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_impl(&dword_22002F000, v2, OS_LOG_TYPE_DEFAULT, "Removing state update listener: listener=%{public}@", &v5, 0xCu);
   }
 
-  result = [*(*(a1 + 40) + 32) removeObject:*(a1 + 32)];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(*(a1 + 40) + 32) removeObject:*(a1 + 32)];
 }
 
 - (void)remoteService:(id)service didReceiveDoNotDisturbStateUpdate:(id)update
@@ -523,76 +500,54 @@ void __67__DNDStateService_remoteService_didReceiveDoNotDisturbStateUpdate___blo
 
 void __67__DNDStateService_remoteService_didReceiveDoNotDisturbStateUpdate___block_invoke_2(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) stateService:*(a1 + 40) didReceiveDoNotDisturbStateUpdate:{*(a1 + 48), v8}];
+        [*(*(&v7 + 1) + 8 * v6++) stateService:*(a1 + 40) didReceiveDoNotDisturbStateUpdate:{*(a1 + 48), v7}];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __58__DNDStateService_queryCurrentStateWithCompletionHandler___block_invoke_8_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 138543618;
-  *&v4[4] = *(a1 + 32);
-  *&v4[12] = 2114;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_0(&dword_22002F000, a2, a3, "[%{public}@] Error when getting state, error='%{public}@'", *v4, *&v4[8], *&v4[16], *MEMORY[0x277D85DE8]);
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-- (void)queryCurrentStateWithError:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)
-{
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = *(*a2 + 40);
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_0(&dword_22002F000, v3, v4, "[%{public}@] Error when getting state, error='%{public}@'");
-  v5 = *MEMORY[0x277D85DE8];
+  *v3 = 138543618;
+  *&v3[4] = *(a1 + 32);
+  *&v3[12] = 2114;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_0(&dword_22002F000, a2, a3, "[%{public}@] Error when getting state, error='%{public}@'", *v3, *&v3[8], *&v3[16], *MEMORY[0x277D85DE8]);
 }
 
 void __64__DNDStateService_addStateUpdateListener_withCompletionHandler___block_invoke_cold_1(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = *a1;
-  v4 = 138543362;
-  v5 = v2;
-  _os_log_error_impl(&dword_22002F000, a2, OS_LOG_TYPE_ERROR, "Did not register for state updates, will remove listener: listener=%{public}@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_queue_registerForStateUpdatesIfRequired
-{
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = *(*a2 + 40);
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_0(&dword_22002F000, v3, v4, "[%{public}@] Error when registering state update listener, error='%{public}@'");
   v5 = *MEMORY[0x277D85DE8];
+  v2 = *a1;
+  v3 = 138543362;
+  v4 = v2;
+  _os_log_error_impl(&dword_22002F000, a2, OS_LOG_TYPE_ERROR, "Did not register for state updates, will remove listener: listener=%{public}@", &v3, 0xCu);
 }
 
 @end

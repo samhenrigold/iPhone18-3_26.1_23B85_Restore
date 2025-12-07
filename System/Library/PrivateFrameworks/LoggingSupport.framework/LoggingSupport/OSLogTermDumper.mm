@@ -24,11 +24,10 @@
 
 - (void)putUUID:(unsigned __int8)d[16]
 {
-  v6 = *MEMORY[0x277D85DE8];
-  memset(v5, 0, sizeof(v5));
-  uuid_unparse_upper(d, v5);
-  [(OSLogTermDumper *)self write:v5 size:36];
-  v4 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
+  memset(v4, 0, sizeof(v4));
+  uuid_unparse_upper(d, v4);
+  [(OSLogTermDumper *)self write:v4 size:36];
 }
 
 - (void)puts:(const char *)puts
@@ -40,16 +39,15 @@
 
 - (void)pad:(int)pad count:(unint64_t)count
 {
-  v8[1] = *MEMORY[0x277D85DE8];
-  v6 = v8 - ((count + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7[1] = *MEMORY[0x277D85DE8];
+  v6 = v7 - ((count + 15) & 0xFFFFFFFFFFFFFFF0);
   memset(v6, pad, count);
   [(OSLogTermDumper *)self write:v6 size:count];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)hexdump:(const void *)hexdump length:(unint64_t)length
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   if (length)
   {
     for (i = 0; i != length; ++i)
@@ -172,14 +170,8 @@
     }
   }
 
-  if (self->_ob.ob_len < 0x2000)
+  if (self->_ob.ob_len >= 0x2000)
   {
-    v25 = *MEMORY[0x277D85DE8];
-  }
-
-  else
-  {
-    v24 = *MEMORY[0x277D85DE8];
 
     [(OSLogTermDumper *)self flush:0];
   }
@@ -381,9 +373,6 @@
     [(OSLogTermDumper *)self _flushAttrs];
   }
 
-  fd = self->_fd;
-  ob_b = self->_ob.var0.ob_b;
-  ob_len = self->_ob.ob_len;
   _os_trace_write();
   self->_ob.ob_len = 0;
   if (!self->_ob.ob_binary)
@@ -461,11 +450,11 @@
         else
         {
           *&self->_ob.var0.ob_b[ob_len] = 1831885595;
-          v13 = self->_ob.ob_len + 4;
-          self->_ob.ob_len = v13;
+          v7 = self->_ob.ob_len + 4;
+          self->_ob.ob_len = v7;
           if (!self->_ob.ob_binary)
           {
-            self->_ob.var0.ob_b[v13] = 0;
+            self->_ob.var0.ob_b[v7] = 0;
           }
         }
       }
@@ -475,67 +464,67 @@ LABEL_56:
       return;
     }
 
-    v14 = cur_attrs ^ last_attrs;
+    v8 = cur_attrs ^ last_attrs;
     if ((ob_flags & 2) == 0)
     {
-      v15 = self->_ob.ob_len;
-      if (self->_ob.ob_size - v15 - !self->_ob.ob_binary <= 1)
+      v9 = self->_ob.ob_len;
+      if (self->_ob.ob_size - v9 - !self->_ob.ob_binary <= 1)
       {
         os_trace_blob_add_slow(&self->_ob, "\x1B[", 2uLL);
-        if ((v14 & 0x20) == 0)
+        if ((v8 & 0x20) == 0)
         {
           goto LABEL_21;
         }
 
 LABEL_12:
-        v17 = self->_ob.ob_flags;
+        v11 = self->_ob.ob_flags;
         if ((self->_cur_attrs & 0x20) != 0)
         {
-          if ((v17 & 2) != 0)
+          if ((v11 & 2) != 0)
           {
             goto LABEL_21;
           }
 
-          v21 = self->_ob.ob_len;
-          if (self->_ob.ob_size - v21 - !self->_ob.ob_binary > 1)
+          v15 = self->_ob.ob_len;
+          if (self->_ob.ob_size - v15 - !self->_ob.ob_binary > 1)
           {
-            *&self->_ob.var0.ob_b[v21] = 15153;
-            v20 = self->_ob.ob_len + 2;
+            *&self->_ob.var0.ob_b[v15] = 15153;
+            v14 = self->_ob.ob_len + 2;
 LABEL_19:
-            self->_ob.ob_len = v20;
+            self->_ob.ob_len = v14;
             if (!self->_ob.ob_binary)
             {
-              self->_ob.var0.ob_b[v20] = 0;
+              self->_ob.var0.ob_b[v14] = 0;
             }
 
 LABEL_21:
-            if ((v14 & 0x40) == 0)
+            if ((v8 & 0x40) == 0)
             {
               goto LABEL_31;
             }
 
-            v22 = self->_ob.ob_flags;
+            v16 = self->_ob.ob_flags;
             if ((self->_cur_attrs & 0x40) != 0)
             {
-              if ((v22 & 2) != 0)
+              if ((v16 & 2) != 0)
               {
                 goto LABEL_31;
               }
 
-              v26 = self->_ob.ob_len;
-              if (self->_ob.ob_size - v26 - !self->_ob.ob_binary > 1)
+              v20 = self->_ob.ob_len;
+              if (self->_ob.ob_size - v20 - !self->_ob.ob_binary > 1)
               {
-                *&self->_ob.var0.ob_b[v26] = 15155;
-                v25 = self->_ob.ob_len + 2;
+                *&self->_ob.var0.ob_b[v20] = 15155;
+                v19 = self->_ob.ob_len + 2;
 LABEL_29:
-                self->_ob.ob_len = v25;
+                self->_ob.ob_len = v19;
                 if (!self->_ob.ob_binary)
                 {
-                  self->_ob.var0.ob_b[v25] = 0;
+                  self->_ob.var0.ob_b[v19] = 0;
                 }
 
 LABEL_31:
-                if ((v14 & 0x80) == 0)
+                if ((v8 & 0x80) == 0)
                 {
                   goto LABEL_41;
                 }
@@ -543,109 +532,109 @@ LABEL_31:
                 goto LABEL_32;
               }
 
-              v41 = "3;";
+              v35 = "3;";
               p_ob = &self->_ob;
-              v43 = 2;
+              v37 = 2;
             }
 
             else
             {
-              if ((v22 & 2) != 0)
+              if ((v16 & 2) != 0)
               {
                 goto LABEL_31;
               }
 
-              v23 = self->_ob.ob_len;
-              if (self->_ob.ob_size - v23 - !self->_ob.ob_binary > 2)
+              v17 = self->_ob.ob_len;
+              if (self->_ob.ob_size - v17 - !self->_ob.ob_binary > 2)
               {
-                v24 = &self->_ob.var0.ob_b[v23];
-                v24[2] = 59;
-                *v24 = 13362;
-                v25 = self->_ob.ob_len + 3;
+                v18 = &self->_ob.var0.ob_b[v17];
+                v18[2] = 59;
+                *v18 = 13362;
+                v19 = self->_ob.ob_len + 3;
                 goto LABEL_29;
               }
 
-              v41 = "24;";
+              v35 = "24;";
               p_ob = &self->_ob;
-              v43 = 3;
+              v37 = 3;
             }
 
-            os_trace_blob_add_slow(p_ob, v41, v43);
-            if ((v14 & 0x80) == 0)
+            os_trace_blob_add_slow(p_ob, v35, v37);
+            if ((v8 & 0x80) == 0)
             {
               goto LABEL_41;
             }
 
 LABEL_32:
-            v27 = self->_ob.ob_flags;
+            v21 = self->_ob.ob_flags;
             if ((self->_cur_attrs & 0x80) != 0)
             {
-              if ((v27 & 2) == 0)
+              if ((v21 & 2) == 0)
               {
-                v31 = self->_ob.ob_len;
-                if (self->_ob.ob_size - v31 - !self->_ob.ob_binary > 1)
+                v25 = self->_ob.ob_len;
+                if (self->_ob.ob_size - v25 - !self->_ob.ob_binary > 1)
                 {
-                  *&self->_ob.var0.ob_b[v31] = 15156;
-                  v30 = self->_ob.ob_len + 2;
+                  *&self->_ob.var0.ob_b[v25] = 15156;
+                  v24 = self->_ob.ob_len + 2;
 LABEL_39:
-                  self->_ob.ob_len = v30;
+                  self->_ob.ob_len = v24;
                   if (!self->_ob.ob_binary)
                   {
-                    self->_ob.var0.ob_b[v30] = 0;
+                    self->_ob.var0.ob_b[v24] = 0;
                   }
 
                   goto LABEL_41;
                 }
 
-                v44 = "4;";
-                v45 = &self->_ob;
-                v46 = 2;
+                v38 = "4;";
+                v39 = &self->_ob;
+                v40 = 2;
                 goto LABEL_72;
               }
             }
 
-            else if ((v27 & 2) == 0)
+            else if ((v21 & 2) == 0)
             {
-              v28 = self->_ob.ob_len;
-              if (self->_ob.ob_size - v28 - !self->_ob.ob_binary > 2)
+              v22 = self->_ob.ob_len;
+              if (self->_ob.ob_size - v22 - !self->_ob.ob_binary > 2)
               {
-                v29 = &self->_ob.var0.ob_b[v28];
-                v29[2] = 59;
-                *v29 = 13362;
-                v30 = self->_ob.ob_len + 3;
+                v23 = &self->_ob.var0.ob_b[v22];
+                v23[2] = 59;
+                *v23 = 13362;
+                v24 = self->_ob.ob_len + 3;
                 goto LABEL_39;
               }
 
-              v44 = "24;";
-              v45 = &self->_ob;
-              v46 = 3;
+              v38 = "24;";
+              v39 = &self->_ob;
+              v40 = 3;
 LABEL_72:
-              os_trace_blob_add_slow(v45, v44, v46);
+              os_trace_blob_add_slow(v39, v38, v40);
             }
 
 LABEL_41:
-            if ((v14 & 0x1F) != 0)
+            if ((v8 & 0x1F) != 0)
             {
               if ((self->_cur_attrs & 0x1F) == 0x10)
               {
                 if ((self->_ob.ob_flags & 2) == 0)
                 {
-                  v32 = self->_ob.ob_len;
-                  if (self->_ob.ob_size - v32 - !self->_ob.ob_binary <= 2)
+                  v26 = self->_ob.ob_len;
+                  if (self->_ob.ob_size - v26 - !self->_ob.ob_binary <= 2)
                   {
                     os_trace_blob_add_slow(&self->_ob, "49;", 3uLL);
                   }
 
                   else
                   {
-                    v33 = &self->_ob.var0.ob_b[v32];
-                    v33[2] = 59;
-                    *v33 = 14644;
-                    v34 = self->_ob.ob_len + 3;
-                    self->_ob.ob_len = v34;
+                    v27 = &self->_ob.var0.ob_b[v26];
+                    v27[2] = 59;
+                    *v27 = 14644;
+                    v28 = self->_ob.ob_len + 3;
+                    self->_ob.ob_len = v28;
                     if (!self->_ob.ob_binary)
                     {
-                      self->_ob.var0.ob_b[v34] = 0;
+                      self->_ob.var0.ob_b[v28] = 0;
                     }
                   }
                 }
@@ -653,32 +642,32 @@ LABEL_41:
 
               else
               {
-                os_trace_blob_addf(&self->_ob, "48;5;%d;", v2, v3, v4, v5, v6, v7, self->_cur_attrs & 0x1F);
+                os_trace_blob_addf(&self->_ob, "48;5;%d;", self->_cur_attrs & 0x1F);
               }
             }
 
-            if ((v14 & 0x1F00) != 0)
+            if ((v8 & 0x1F00) != 0)
             {
               if ((HIBYTE(self->_cur_attrs) & 0x1F) == 0x10)
               {
                 if ((self->_ob.ob_flags & 2) == 0)
                 {
-                  v35 = self->_ob.ob_len;
-                  if (self->_ob.ob_size - v35 - !self->_ob.ob_binary <= 2)
+                  v29 = self->_ob.ob_len;
+                  if (self->_ob.ob_size - v29 - !self->_ob.ob_binary <= 2)
                   {
                     os_trace_blob_add_slow(&self->_ob, "39;", 3uLL);
                   }
 
                   else
                   {
-                    v36 = &self->_ob.var0.ob_b[v35];
-                    v36[2] = 59;
-                    *v36 = 14643;
-                    v37 = self->_ob.ob_len + 3;
-                    self->_ob.ob_len = v37;
+                    v30 = &self->_ob.var0.ob_b[v29];
+                    v30[2] = 59;
+                    *v30 = 14643;
+                    v31 = self->_ob.ob_len + 3;
+                    self->_ob.ob_len = v31;
                     if (!self->_ob.ob_binary)
                     {
-                      self->_ob.var0.ob_b[v37] = 0;
+                      self->_ob.var0.ob_b[v31] = 0;
                     }
                   }
                 }
@@ -686,7 +675,7 @@ LABEL_41:
 
               else
               {
-                os_trace_blob_addf(&self->_ob, "38;5;%d;", v2, v3, v4, v5, v6, v7, HIBYTE(self->_cur_attrs) & 0x1F);
+                os_trace_blob_addf(&self->_ob, "38;5;%d;", HIBYTE(self->_cur_attrs) & 0x1F);
               }
             }
 
@@ -694,47 +683,47 @@ LABEL_41:
             goto LABEL_56;
           }
 
-          v38 = "1;";
-          v39 = &self->_ob;
-          v40 = 2;
+          v32 = "1;";
+          v33 = &self->_ob;
+          v34 = 2;
         }
 
         else
         {
-          if ((v17 & 2) != 0)
+          if ((v11 & 2) != 0)
           {
             goto LABEL_21;
           }
 
-          v18 = self->_ob.ob_len;
-          if (self->_ob.ob_size - v18 - !self->_ob.ob_binary > 2)
+          v12 = self->_ob.ob_len;
+          if (self->_ob.ob_size - v12 - !self->_ob.ob_binary > 2)
           {
-            v19 = &self->_ob.var0.ob_b[v18];
-            v19[2] = 59;
-            *v19 = 12850;
-            v20 = self->_ob.ob_len + 3;
+            v13 = &self->_ob.var0.ob_b[v12];
+            v13[2] = 59;
+            *v13 = 12850;
+            v14 = self->_ob.ob_len + 3;
             goto LABEL_19;
           }
 
-          v38 = "22;";
-          v39 = &self->_ob;
-          v40 = 3;
+          v32 = "22;";
+          v33 = &self->_ob;
+          v34 = 3;
         }
 
-        os_trace_blob_add_slow(v39, v38, v40);
+        os_trace_blob_add_slow(v33, v32, v34);
         goto LABEL_21;
       }
 
-      *&self->_ob.var0.ob_b[v15] = 23323;
-      v16 = self->_ob.ob_len + 2;
-      self->_ob.ob_len = v16;
+      *&self->_ob.var0.ob_b[v9] = 23323;
+      v10 = self->_ob.ob_len + 2;
+      self->_ob.ob_len = v10;
       if (!self->_ob.ob_binary)
       {
-        self->_ob.var0.ob_b[v16] = 0;
+        self->_ob.var0.ob_b[v10] = 0;
       }
     }
 
-    if ((v14 & 0x20) == 0)
+    if ((v8 & 0x20) == 0)
     {
       goto LABEL_21;
     }
@@ -745,14 +734,14 @@ LABEL_41:
 
 - (void)startPager
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (!self->_fancy)
   {
-    goto LABEL_15;
+    return;
   }
 
-  v13 = 0;
-  ioctl(self->_fd, 0x40087468uLL, &v13);
+  v12 = 0;
+  ioctl(self->_fd, 0x40087468uLL, &v12);
   if (!getenv("LESS"))
   {
     putenv("LESS=FnRSX");
@@ -763,57 +752,57 @@ LABEL_41:
     putenv("LESSCHARSET=utf-8");
   }
 
-  if (pipe(v14) < 0)
+  if (pipe(v13) < 0)
   {
-    goto LABEL_15;
+    return;
   }
 
   v2 = fork();
   if (v2 < 0)
   {
-    goto LABEL_15;
+    return;
   }
 
   v3 = v2;
   if (v2)
   {
-    dup2(v14[1], 1);
-    if (close(v14[1]) == -1)
+    dup2(v13[1], 1);
+    if (close(v13[1]) == -1)
     {
+      v4 = *__error();
       v5 = *__error();
-      v6 = *__error();
-      if (v5 == 9)
+      if (v4 == 9)
       {
         qword_27DA52778 = "BUG IN CLIENT OF LIBTRACE: don't close random fds";
-        qword_27DA527A8 = v6;
+        qword_27DA527A8 = v5;
         __break(1u);
 LABEL_25:
         qword_27DA52778 = "BUG IN CLIENT OF LIBTRACE: don't close random fds";
-        qword_27DA527A8 = v6;
+        qword_27DA527A8 = v5;
         __break(1u);
-        goto LABEL_26;
+LABEL_26:
+        perror("execvp");
+        exit(1);
       }
 
       _os_assumes_log();
     }
 
-    if (close(v14[0]) != -1)
+    if (close(v13[0]) != -1)
     {
 LABEL_11:
-      v11[0] = MEMORY[0x277D85DD0];
-      v11[1] = 3221225472;
-      v11[2] = __29__OSLogTermDumper_startPager__block_invoke;
-      v11[3] = &__block_descriptor_36_e5_v8__0l;
-      v12 = v3;
-      atexit_b(v11);
-LABEL_15:
-      v4 = *MEMORY[0x277D85DE8];
+      v10[0] = MEMORY[0x277D85DD0];
+      v10[1] = 3221225472;
+      v10[2] = __29__OSLogTermDumper_startPager__block_invoke;
+      v10[3] = &__block_descriptor_36_e5_v8__0l;
+      v11 = v3;
+      atexit_b(v10);
       return;
     }
 
-    v7 = *__error();
     v6 = *__error();
-    if (v7 != 9)
+    v5 = *__error();
+    if (v6 != 9)
     {
       _os_assumes_log();
       goto LABEL_11;
@@ -822,15 +811,15 @@ LABEL_15:
     goto LABEL_25;
   }
 
-  dup2(v14[0], 0);
-  if (close(v14[0]) == -1)
+  dup2(v13[0], 0);
+  if (close(v13[0]) == -1)
   {
+    v7 = *__error();
     v8 = *__error();
-    v9 = *__error();
-    if (v8 == 9)
+    if (v7 == 9)
     {
       qword_27DA52778 = "BUG IN CLIENT OF LIBTRACE: don't close random fds";
-      qword_27DA527A8 = v9;
+      qword_27DA527A8 = v8;
       __break(1u);
       goto LABEL_28;
     }
@@ -838,31 +827,28 @@ LABEL_15:
     _os_assumes_log();
   }
 
-  if (close(v14[1]) != -1)
+  if (close(v13[1]) != -1)
   {
     goto LABEL_14;
   }
 
-  v10 = *__error();
   v9 = *__error();
-  if (v10 != 9)
+  v8 = *__error();
+  if (v9 == 9)
   {
-    _os_assumes_log();
-LABEL_14:
-    if ((execlp("less", "less", "-", 0) & 0x80000000) == 0)
-    {
-      goto LABEL_15;
-    }
-
-LABEL_26:
-    perror("execvp");
-    exit(1);
+LABEL_28:
+    qword_27DA52778 = "BUG IN CLIENT OF LIBTRACE: don't close random fds";
+    qword_27DA527A8 = v8;
+    __break(1u);
+    return;
   }
 
-LABEL_28:
-  qword_27DA52778 = "BUG IN CLIENT OF LIBTRACE: don't close random fds";
-  qword_27DA527A8 = v9;
-  __break(1u);
+  _os_assumes_log();
+LABEL_14:
+  if (execlp("less", "less", "-", 0) < 0)
+  {
+    goto LABEL_26;
+  }
 }
 
 void __29__OSLogTermDumper_startPager__block_invoke(uint64_t a1)

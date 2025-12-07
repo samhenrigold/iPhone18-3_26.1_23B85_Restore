@@ -13,6 +13,7 @@
 + (id)generateFindingDiscoveryTokenWithSharedSecret:(id)secret;
 + (id)localDevicePrintableState;
 + (id)observerSession;
++ (id)setLocalDeviceCanInteract:(BOOL)interact withDiscoveryTokens:(id)tokens;
 + (id)setLocalDeviceDebugParameters:(id)parameters;
 + (id)setLocalDeviceInteractableDiscoveryTokens:(id)tokens;
 + (void)_queryAndCacheCapabilities;
@@ -235,6 +236,87 @@
   v9 = v5;
   v12 = v9;
   [remoteObjectProxy getActivelyInteractingDiscoveryTokens:v10];
+}
+
++ (id)setLocalDeviceCanInteract:(BOOL)interact withDiscoveryTokens:(id)tokens
+{
+  interactCopy = interact;
+  tokensCopy = tokens;
+  v6 = [tokensCopy copy];
+  v7 = +[NISession _localDeviceLogger];
+  if (interactCopy)
+  {
+    v8 = "YES";
+  }
+
+  else
+  {
+    v8 = "NO";
+  }
+
+  if (+[NIPlatformInfo isInternalBuild])
+  {
+    v9 = v7;
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136315394;
+      *&buf[4] = v8;
+      *&buf[12] = 1024;
+      *&buf[14] = [v6 count];
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "setLocalDeviceCanInteract:%s with %d tokens", buf, 0x12u);
+    }
+  }
+
+  v10 = [NIServerConnection createOneShotConnectionAndResume:1];
+  remoteObjectProxy = [v10 remoteObjectProxy];
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x2020000000;
+  v27 = 0;
+  *buf = 0;
+  *&buf[8] = buf;
+  *&buf[16] = 0x3032000000;
+  v35 = sub_1002D78C0;
+  v36 = sub_1002D78D0;
+  v37 = 0;
+  v20[0] = _NSConcreteStackBlock;
+  v20[1] = 3221225472;
+  v20[2] = sub_1002D78D8;
+  v20[3] = &unk_1009A3710;
+  v22 = &v24;
+  v23 = buf;
+  v12 = dispatch_semaphore_create(0);
+  v21 = v12;
+  [remoteObjectProxy setLocalDeviceCanInteract:interactCopy withDiscoveryTokens:v6 reply:v20];
+  v13 = dispatch_time(0, 5000000000);
+  dispatch_semaphore_wait(v12, v13);
+  [v10 invalidate];
+  if ((v25[3] & 1) == 0)
+  {
+    v32 = NSLocalizedDescriptionKey;
+    v33 = @"Server did not reply.";
+    v14 = [NSDictionary dictionaryWithObjects:&v33 forKeys:&v32 count:1];
+    v15 = [NSError errorWithDomain:@"com.apple.NearbyInteraction" code:-10020 userInfo:v14];
+    v16 = *(*&buf[8] + 40);
+    *(*&buf[8] + 40) = v15;
+  }
+
+  if (+[NIPlatformInfo isInternalBuild]&& os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v17 = *(*&buf[8] + 40);
+    *v28 = 136315394;
+    v29 = v8;
+    v30 = 2112;
+    v31 = v17;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "setLocalDeviceCanInteract:%s return error: %@", v28, 0x16u);
+  }
+
+  v18 = *(*&buf[8] + 40);
+
+  _Block_object_dispose(buf, 8);
+  _Block_object_dispose(&v24, 8);
+
+  return v18;
 }
 
 + (id)setLocalDeviceDebugParameters:(id)parameters
@@ -1111,7 +1193,6 @@ LABEL_13:
     [(NISession *)self _handleARSession:internalCopy willRunWithConfiguration:configuration];
   }
 
-  currentConfiguration = self->_currentConfiguration;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -1127,8 +1208,8 @@ LABEL_13:
           log = self->_log;
           if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
           {
-            *v11 = 0;
-            _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEFAULT, "_setARSessionInternal: ARSession was interrupted, new ARSession created in uninterrupted state.", v11, 2u);
+            *v10 = 0;
+            _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEFAULT, "_setARSessionInternal: ARSession was interrupted, new ARSession created in uninterrupted state.", v10, 2u);
           }
         }
 
@@ -1328,9 +1409,9 @@ LABEL_13:
       internalID = self->_internalID;
       v5 = sub_10034A49C([(NISession *)self internalState]);
       *buf = 138412546;
-      v19 = internalID;
-      v20 = 2112;
-      v21 = v5;
+      v18 = internalID;
+      v19 = 2112;
+      v20 = v5;
       _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Server connection interrupted [%@]. State: %@.", buf, 0x16u);
     }
   }
@@ -1344,38 +1425,37 @@ LABEL_13:
     block[1] = 3221225472;
     block[2] = sub_10034B9B4;
     block[3] = &unk_10098AB18;
-    objc_copyWeak(&v15, buf);
+    objc_copyWeak(&v14, buf);
     dispatch_after(v6, queue, block);
-    objc_destroyWeak(&v15);
+    objc_destroyWeak(&v14);
     objc_destroyWeak(buf);
   }
 
   else
   {
-    currentConfiguration = self->_currentConfiguration;
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      LOWORD(v19) = 1026;
+      LOWORD(v18) = 1026;
       *buf = 33558787;
       [NSData dataWithBytes:buf length:6];
-      v12[0] = _NSConcreteStackBlock;
-      v12[1] = 3221225472;
-      v12[2] = sub_10034BB9C;
-      v12[3] = &unk_10098A2E8;
-      v13 = v12[4] = self;
-      v9 = v13;
-      [(NISession *)self _performBlockOnDelegateQueue:v12 ifRespondsToSelector:"session:relayDCKMessage:"];
+      v11[0] = _NSConcreteStackBlock;
+      v11[1] = 3221225472;
+      v11[2] = sub_10034BB9C;
+      v11[3] = &unk_10098A2E8;
+      v12 = v11[4] = self;
+      v8 = v12;
+      [(NISession *)self _performBlockOnDelegateQueue:v11 ifRespondsToSelector:"session:relayDCKMessage:"];
     }
 
-    v16[0] = NSLocalizedFailureReasonErrorKey;
-    v16[1] = NSLocalizedRecoverySuggestionErrorKey;
-    v17[0] = @"The session token has been invalidated. This session cannot be restarted.";
-    v17[1] = @"Create a new session and exchange token again.";
-    v10 = [NSDictionary dictionaryWithObjects:v17 forKeys:v16 count:2];
-    v11 = sub_1002069FC(-5887, v10);
+    v15[0] = NSLocalizedFailureReasonErrorKey;
+    v15[1] = NSLocalizedRecoverySuggestionErrorKey;
+    v16[0] = @"The session token has been invalidated. This session cannot be restarted.";
+    v16[1] = @"Create a new session and exchange token again.";
+    v9 = [NSDictionary dictionaryWithObjects:v16 forKeys:v15 count:2];
+    v10 = sub_1002069FC(-5887, v9);
 
-    [(NISession *)self _invalidateSessionAndNotifyError:v11];
+    [(NISession *)self _invalidateSessionAndNotifyError:v10];
   }
 }
 
@@ -1410,15 +1490,14 @@ LABEL_13:
     {
       *buf = 67109379;
       reasonCopy = reason;
-      v15 = 2113;
-      v16 = objectsCopy;
+      v13 = 2113;
+      v14 = objectsCopy;
       _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEFAULT, "DelegateProxy: removed objects with reason: %d. Objects: %{private}@", buf, 0x12u);
     }
   }
 
-  currentConfiguration = self->_currentConfiguration;
   objc_opt_class();
-  if (objc_opt_isKindOfClass() & 1) != 0 || (v9 = self->_currentConfiguration, objc_opt_class(), (objc_opt_isKindOfClass()))
+  if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
   {
     [(NISession *)self _pauseInternalARSessionIfNeeded];
     [(NISession *)self setInternalState:5];
@@ -1426,27 +1505,27 @@ LABEL_13:
 
   if (reason == 1)
   {
-    v10 = v11;
-    v11[0] = _NSConcreteStackBlock;
-    v11[1] = 3221225472;
-    v11[2] = sub_10034BFBC;
-    v11[3] = &unk_10098A2E8;
-    v11[4] = self;
-    v11[5] = objectsCopy;
-    [(NISession *)self _performBlockOnDelegateQueue:v11 ifRespondsToSelector:"session:didRemoveNearbyObjects:withReason:"];
+    v8 = v9;
+    v9[0] = _NSConcreteStackBlock;
+    v9[1] = 3221225472;
+    v9[2] = sub_10034BFBC;
+    v9[3] = &unk_10098A2E8;
+    v9[4] = self;
+    v9[5] = objectsCopy;
+    [(NISession *)self _performBlockOnDelegateQueue:v9 ifRespondsToSelector:"session:didRemoveNearbyObjects:withReason:"];
     goto LABEL_11;
   }
 
   if (!reason)
   {
-    v10 = v12;
-    v12[0] = _NSConcreteStackBlock;
-    v12[1] = 3221225472;
-    v12[2] = sub_10034BF50;
-    v12[3] = &unk_10098A2E8;
-    v12[4] = self;
-    v12[5] = objectsCopy;
-    [(NISession *)self _performBlockOnDelegateQueue:v12 ifRespondsToSelector:"session:didRemoveNearbyObjects:withReason:"];
+    v8 = v10;
+    v10[0] = _NSConcreteStackBlock;
+    v10[1] = 3221225472;
+    v10[2] = sub_10034BF50;
+    v10[3] = &unk_10098A2E8;
+    v10[4] = self;
+    v10[5] = objectsCopy;
+    [(NISession *)self _performBlockOnDelegateQueue:v10 ifRespondsToSelector:"session:didRemoveNearbyObjects:withReason:"];
 LABEL_11:
   }
 
@@ -1729,7 +1808,7 @@ LABEL_11:
 
   if (&self->_interruptions != buf)
   {
-    sub_100357D3C(&self->_interruptions.__begin_, *buf, v13, &v13[-*buf] >> 4);
+    sub_100357D3C(&self->_interruptions, *buf, v13, &v13[-*buf] >> 4);
     begin = self->_interruptions.__begin_;
     end = self->_interruptions.__end_;
   }
@@ -2198,7 +2277,6 @@ LABEL_11:
 - (void)didUpdateState:(int64_t)state forItem:(id)item
 {
   itemCopy = item;
-  currentConfiguration = self->_currentConfiguration;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
@@ -2207,8 +2285,8 @@ LABEL_11:
       log = self->_log;
       if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
       {
-        *v17 = 0;
-        _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEFAULT, "#item-loc, didUpdateState:forItem: Configuration not of item localizer type", v17, 2u);
+        *v16 = 0;
+        _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEFAULT, "#item-loc, didUpdateState:forItem: Configuration not of item localizer type", v16, 2u);
       }
     }
 
@@ -2225,24 +2303,24 @@ LABEL_13:
       state = 4;
       goto LABEL_13;
     case 1:
-      v8 = [(NIConfiguration *)self->_currentConfiguration copy];
-      if ([v8 preferredUpdateRate] == 3)
+      v7 = [(NIConfiguration *)self->_currentConfiguration copy];
+      if ([v7 preferredUpdateRate] == 3)
       {
         [(NISession *)self _sendRemoteDevice:itemCopy changedState:1];
         if (+[NIPlatformInfo isInternalBuild])
         {
-          v9 = self->_log;
-          if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+          v8 = self->_log;
+          if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "#item-loc, Remote device findable", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "#item-loc, Remote device findable", buf, 2u);
           }
         }
       }
 
       else
       {
-        if ([v8 preferredUpdateRate] != 2)
+        if ([v7 preferredUpdateRate] != 2)
         {
           if (+[NIPlatformInfo isInternalBuild]&& os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
           {
@@ -2256,33 +2334,33 @@ LABEL_13:
         {
           if (+[NIPlatformInfo isInternalBuild])
           {
-            v11 = self->_log;
-            if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+            v10 = self->_log;
+            if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
             {
-              *v14 = 0;
-              _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "#item-loc, Remote device Reconnected", v14, 2u);
+              *v13 = 0;
+              _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "#item-loc, Remote device Reconnected", v13, 2u);
             }
           }
 
-          v12 = 3;
+          v11 = 3;
         }
 
         else
         {
           if (+[NIPlatformInfo isInternalBuild])
           {
-            v13 = self->_log;
-            if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+            v12 = self->_log;
+            if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
             {
-              *v15 = 0;
-              _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "#item-loc, Remote device findable", v15, 2u);
+              *v14 = 0;
+              _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "#item-loc, Remote device findable", v14, 2u);
             }
           }
 
-          v12 = 1;
+          v11 = 1;
         }
 
-        [(NISession *)self _sendRemoteDevice:itemCopy changedState:v12];
+        [(NISession *)self _sendRemoteDevice:itemCopy changedState:v11];
       }
 
       self->_itemLocalizerDidPrewarmRanging = 1;
@@ -3452,14 +3530,12 @@ LABEL_6:
 
 - (BOOL)_configurationSupportsRetry
 {
-  currentConfiguration = self->_currentConfiguration;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     return 1;
   }
 
-  v5 = self->_currentConfiguration;
   objc_opt_class();
   return (objc_opt_isKindOfClass() & 1) != 0 && [(NIConfiguration *)self->_currentConfiguration discoveryTokenVariant]== 2;
 }

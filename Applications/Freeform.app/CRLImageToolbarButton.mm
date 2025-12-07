@@ -369,20 +369,20 @@ LABEL_52:
     imageView = [(CRLImageToolbarButton *)self imageView];
     [(CRLImageToolbarButton *)self insertSubview:self->_onBackgroundView belowSubview:imageView];
     widthAnchor = [(UIView *)self->_onBackgroundView widthAnchor];
-    v59 = [widthAnchor constraintEqualToConstant:v19];
-    v63[0] = v59;
+    v61 = [widthAnchor constraintEqualToConstant:v19];
+    v65[0] = v61;
     heightAnchor = [(UIView *)self->_onBackgroundView heightAnchor];
-    v57 = [heightAnchor constraintEqualToConstant:v21];
-    v63[1] = v57;
+    v59 = [heightAnchor constraintEqualToConstant:v21];
+    v65[1] = v59;
     centerXAnchor = [(UIView *)self->_onBackgroundView centerXAnchor];
     centerXAnchor2 = [(CRLImageToolbarButton *)self centerXAnchor];
     v30 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2 constant:-0.5];
-    v63[2] = v30;
+    v65[2] = v30;
     centerYAnchor = [(UIView *)self->_onBackgroundView centerYAnchor];
     centerYAnchor2 = [(CRLImageToolbarButton *)self centerYAnchor];
     v33 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2 constant:-0.5];
-    v63[3] = v33;
-    v34 = [NSArray arrayWithObjects:v63 count:4];
+    v65[3] = v33;
+    v34 = [NSArray arrayWithObjects:v65 count:4];
     [NSLayoutConstraint activateConstraints:v34];
   }
 
@@ -401,38 +401,38 @@ LABEL_29:
   }
 
 LABEL_32:
-  +[UIScreen crl_screenScale];
-  v37 = v36;
-  v38 = sub_100122128(11.0, v36);
-  v39 = sub_100122128(v14, v37);
-  [(CRLImageToolbarButton *)self additionalLeftPaddingForImageFrame:v38, v39, v10, v12];
-  v41 = v40;
-  [(CRLImageToolbarButton *)self additionalRightPaddingForImageFrame:v38, v39, v10, v12];
-  v43 = v13 + v41 + v42;
-  v44 = v38 + v41;
-  v64.origin.x = v44;
-  v64.origin.y = v39;
-  v64.size.width = v10;
-  v64.size.height = v12;
-  MaxY = CGRectGetMaxY(v64);
-  v65.origin.x = v44;
-  v65.origin.y = v39;
-  v65.size.width = v10;
-  v65.size.height = v12;
-  MaxX = CGRectGetMaxX(v65);
-  v47 = v43 - MaxX;
+  v36 = +[UIScreen crl_screenScale];
+  v38 = v37;
+  v39 = sub_100122128(v36, 11.0, v37);
+  v41 = sub_100122128(v40, v14, v38);
+  [(CRLImageToolbarButton *)self additionalLeftPaddingForImageFrame:v39, v41, v10, v12];
+  v43 = v42;
+  [(CRLImageToolbarButton *)self additionalRightPaddingForImageFrame:v39, v41, v10, v12];
+  v45 = v13 + v43 + v44;
+  v46 = v39 + v43;
+  v66.origin.x = v46;
+  v66.origin.y = v41;
+  v66.size.width = v10;
+  v66.size.height = v12;
+  MaxY = CGRectGetMaxY(v66);
+  v67.origin.x = v46;
+  v67.origin.y = v41;
+  v67.size.width = v10;
+  v67.size.height = v12;
+  MaxX = CGRectGetMaxX(v67);
+  v49 = v45 - MaxX;
   if (self->_shouldRemoveTrailingPadding)
   {
     effectiveUserInterfaceLayoutDirection = [(CRLImageToolbarButton *)self effectiveUserInterfaceLayoutDirection];
-    MaxX = v47 + -11.0;
+    MaxX = v49 + -11.0;
     if (effectiveUserInterfaceLayoutDirection)
     {
-      v44 = v44 + -11.0;
+      v46 = v46 + -11.0;
     }
 
     else
     {
-      v47 = v47 + -11.0;
+      v49 = v49 + -11.0;
     }
   }
 
@@ -440,17 +440,17 @@ LABEL_32:
 
   if (v3 != maxX)
   {
-    v62.receiver = self;
-    v62.super_class = CRLImageToolbarButton;
-    [(CRLImageToolbarButton *)&v62 setImage:v3 forState:0];
+    v64.receiver = self;
+    v64.super_class = CRLImageToolbarButton;
+    [(CRLImageToolbarButton *)&v64 setImage:v3 forState:0];
   }
 
   [(CRLImageToolbarButton *)self crl_deprecatedContentEdgeInsets];
-  if (v44 != v53 || v39 != v50 || v47 != v52 || v4 - MaxY != v51)
+  if (v46 != v55 || v41 != v52 || v49 != v54 || v4 - MaxY != v53)
   {
-    v61.receiver = self;
-    v61.super_class = CRLImageToolbarButton;
-    [(CRLImageToolbarButton *)&v61 setContentEdgeInsets:v39, v44, v4 - MaxY, v47];
+    v63.receiver = self;
+    v63.super_class = CRLImageToolbarButton;
+    [(CRLImageToolbarButton *)&v63 setContentEdgeInsets:v41, v46, v4 - MaxY, v49];
   }
 }
 

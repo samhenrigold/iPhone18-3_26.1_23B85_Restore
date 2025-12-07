@@ -102,7 +102,7 @@ BWAggdDataReporter *__36__BWAggdDataReporter_sharedInstance__block_invoke()
   dispatch_async(aggdDispatchQueue, block);
 }
 
-uint64_t __88__BWAggdDataReporter_reportCameraStreamingTimeInMilliseconds_deviceType_devicePosition___block_invoke(uint64_t a1)
+void *__88__BWAggdDataReporter_reportCameraStreamingTimeInMilliseconds_deviceType_devicePosition___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _aggdCameraStreamingTimeStringFromDeviceType:*(a1 + 48) devicePosition:*(a1 + 52)];
   if (result)
@@ -139,7 +139,7 @@ uint64_t __88__BWAggdDataReporter_reportCameraStreamingTimeInMilliseconds_device
   dispatch_async(aggdDispatchQueue, v7);
 }
 
-uint64_t __87__BWAggdDataReporter_reportPearlInfraredProjectorUptime_current_pattern_applicationID___block_invoke(uint64_t a1)
+void *__87__BWAggdDataReporter_reportPearlInfraredProjectorUptime_current_pattern_applicationID___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _aggdPearlInfraredProjectorUptimeStringFromCurrent:*(a1 + 56) pattern:*(a1 + 60) applicationID:*(a1 + 40)];
   if (result)
@@ -195,7 +195,7 @@ uint64_t __46__BWAggdDataReporter_reportISPCreateDuration___block_invoke(uint64_
   dispatch_async(aggdDispatchQueue, v4);
 }
 
-uint64_t __69__BWAggdDataReporter_reportGNRSampleBufferProcessorProcessingStatus___block_invoke(uint64_t a1)
+void *__69__BWAggdDataReporter_reportGNRSampleBufferProcessorProcessingStatus___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _aggdGNRProcessingStatusStringFromProcessingStatus:*(a1 + 40)];
   if (result)
@@ -233,7 +233,7 @@ uint64_t __69__BWAggdDataReporter_reportGNRSampleBufferProcessorProcessingStatus
   dispatch_async(aggdDispatchQueue, block);
 }
 
-uint64_t __145__BWAggdDataReporter_reportStereoFusionProcessingTypeForCaptureType_isStereoFusionCapture_wideSubCaptureType_teleSubCaptureType_isOriginalImage___block_invoke(uint64_t a1)
+void *__145__BWAggdDataReporter_reportStereoFusionProcessingTypeForCaptureType_isStereoFusionCapture_wideSubCaptureType_teleSubCaptureType_isOriginalImage___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _aggdStereoFusionProcessingTypeStringForCaptureType:*(a1 + 40) isStereoFusionCapture:*(a1 + 52) wideSubCaptureType:*(a1 + 44) teleSubCaptureType:*(a1 + 48) isOriginalImage:*(a1 + 53)];
   if (result)
@@ -267,7 +267,7 @@ uint64_t __145__BWAggdDataReporter_reportStereoFusionProcessingTypeForCaptureTyp
   dispatch_async(aggdDispatchQueue, v4);
 }
 
-uint64_t __78__BWAggdDataReporter_reportStereoFusionSampleBufferProcessorProcessingStatus___block_invoke(uint64_t a1)
+void *__78__BWAggdDataReporter_reportStereoFusionSampleBufferProcessorProcessingStatus___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _aggdStereoFusionProcessingStatusStringFromProcessingStatus:*(a1 + 40)];
   if (result)
@@ -301,7 +301,7 @@ uint64_t __78__BWAggdDataReporter_reportStereoFusionSampleBufferProcessorProcess
   dispatch_async(aggdDispatchQueue, v4);
 }
 
-uint64_t __70__BWAggdDataReporter_reportSDOFSampleBufferProcessorProcessingStatus___block_invoke(uint64_t a1)
+void *__70__BWAggdDataReporter_reportSDOFSampleBufferProcessorProcessingStatus___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _aggdSDOFProcessingStatusStringFromProcessingStatus:*(a1 + 40)];
   if (result)
@@ -341,7 +341,7 @@ uint64_t __70__BWAggdDataReporter_reportSDOFSampleBufferProcessorProcessingStatu
   dispatch_async(aggdDispatchQueue, block);
 }
 
-uint64_t __130__BWAggdDataReporter_reportLuxLevel_primaryCaptureType_secondaryCaptureType_captureFlags_sceneFlags_stillDuringVideo_frontCamera___block_invoke(uint64_t a1)
+void *__130__BWAggdDataReporter_reportLuxLevel_primaryCaptureType_secondaryCaptureType_captureFlags_sceneFlags_stillDuringVideo_frontCamera___block_invoke(uint64_t a1)
 {
   LOBYTE(v4) = *(a1 + 69);
   result = [*(a1 + 32) _aggdStringForPrefix:@"lux" primaryCaptureType:*(a1 + 56) secondaryCaptureType:*(a1 + 60) captureFlags:*(a1 + 40) sceneFlags:*(a1 + 48) stillDuringVideo:*(a1 + 68) frontCamera:v4];
@@ -382,7 +382,7 @@ uint64_t __130__BWAggdDataReporter_reportLuxLevel_primaryCaptureType_secondaryCa
   dispatch_async(aggdDispatchQueue, block);
 }
 
-uint64_t __132__BWAggdDataReporter_reportZoomFactor_primaryCaptureType_secondaryCaptureType_captureFlags_sceneFlags_stillDuringVideo_frontCamera___block_invoke(uint64_t a1)
+void *__132__BWAggdDataReporter_reportZoomFactor_primaryCaptureType_secondaryCaptureType_captureFlags_sceneFlags_stillDuringVideo_frontCamera___block_invoke(uint64_t a1)
 {
   LOBYTE(v4) = *(a1 + 69);
   result = [*(a1 + 32) _aggdStringForPrefix:@"zoom" primaryCaptureType:*(a1 + 56) secondaryCaptureType:*(a1 + 60) captureFlags:*(a1 + 40) sceneFlags:*(a1 + 48) stillDuringVideo:*(a1 + 68) frontCamera:v4];
@@ -422,7 +422,7 @@ uint64_t __132__BWAggdDataReporter_reportZoomFactor_primaryCaptureType_secondary
   dispatch_async(aggdDispatchQueue, block);
 }
 
-uint64_t __144__BWAggdDataReporter_reportNonCameraAppCaptureWithPrimaryCaptureType_secondaryCaptureType_captureFlags_sceneFlags_stillDuringVideo_frontCamera___block_invoke(uint64_t a1)
+void *__144__BWAggdDataReporter_reportNonCameraAppCaptureWithPrimaryCaptureType_secondaryCaptureType_captureFlags_sceneFlags_stillDuringVideo_frontCamera___block_invoke(uint64_t a1)
 {
   LOBYTE(v4) = *(a1 + 65);
   result = [*(a1 + 32) _aggdStringForPrefix:@"nca" primaryCaptureType:*(a1 + 56) secondaryCaptureType:*(a1 + 60) captureFlags:*(a1 + 40) sceneFlags:*(a1 + 48) stillDuringVideo:*(a1 + 64) frontCamera:v4];
@@ -480,7 +480,7 @@ uint64_t __82__BWAggdDataReporter_reportCameraAppCaptureForNonCameraAppLoggingWi
   dispatch_async(aggdDispatchQueue, v5);
 }
 
-uint64_t __50__BWAggdDataReporter_reportFaceCount_frontCamera___block_invoke(uint64_t result)
+uint64_t __50__BWAggdDataReporter_reportFaceCount_frontCamera___block_invoke(uint64_t result, double a2)
 {
   if (*(result + 44) == 1)
   {
@@ -506,7 +506,7 @@ uint64_t __50__BWAggdDataReporter_reportFaceCount_frontCamera___block_invoke(uin
   dispatch_async(aggdDispatchQueue, v5);
 }
 
-uint64_t __58__BWAggdDataReporter_reportSensorTemperature_frontCamera___block_invoke(uint64_t result)
+uint64_t __58__BWAggdDataReporter_reportSensorTemperature_frontCamera___block_invoke(uint64_t result, double a2)
 {
   if (*(result + 44) == 1)
   {
@@ -730,7 +730,7 @@ uint64_t __55__BWAggdDataReporter_reportCameraLaunchWithoutPrewarm___block_invok
   dispatch_async(aggdDispatchQueue, block);
 }
 
-uint64_t __59__BWAggdDataReporter_reportCameraLaunchWithPrewarm_reason___block_invoke(uint64_t a1)
+void *__59__BWAggdDataReporter_reportCameraLaunchWithPrewarm_reason___block_invoke(uint64_t a1)
 {
   v1 = *(a1 + 32);
   if (*(a1 + 40))
@@ -1110,7 +1110,7 @@ LABEL_9:
   dispatch_async(aggdDispatchQueue, v19);
 }
 
-uint64_t __208__BWAggdDataReporter_reportAutoFocusCalibrationForPosition_freqZ_deltaFreqZ_qZ_deltaQZ_gainZ_calibrationStatus_gelModelCoefficientD1_gelModelCoefficientD2_gelModelCoefficientP1_gelModelCoefficientP2_isValid___block_invoke(uint64_t a1)
+void *__208__BWAggdDataReporter_reportAutoFocusCalibrationForPosition_freqZ_deltaFreqZ_qZ_deltaQZ_gainZ_calibrationStatus_gelModelCoefficientD1_gelModelCoefficientD2_gelModelCoefficientP1_gelModelCoefficientP2_isValid___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   result = [MEMORY[0x1E696AEC0] stringWithFormat:@"com.apple.coremedia.camera.af.fieldcal.status.s.%d", *(a1 + 40)];
@@ -1247,7 +1247,7 @@ uint64_t __208__BWAggdDataReporter_reportAutoFocusCalibrationForPosition_freqZ_d
   dispatch_async(aggdDispatchQueue, v16);
 }
 
-uint64_t __151__BWAggdDataReporter_reportSphereCalibrationForPosition_freqX_deltaFreqX_qX_deltaQX_gainX_freqY_deltaFreqY_qY_deltaQY_gainY_calibrationStatus_isValid___block_invoke(uint64_t a1)
+void *__151__BWAggdDataReporter_reportSphereCalibrationForPosition_freqX_deltaFreqX_qX_deltaQX_gainX_freqY_deltaFreqY_qY_deltaQY_gainY_calibrationStatus_isValid___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   result = [MEMORY[0x1E696AEC0] stringWithFormat:@"com.apple.coremedia.camera.sph.fieldcal.status.s.%d", *(a1 + 40)];
@@ -1361,7 +1361,7 @@ uint64_t __151__BWAggdDataReporter_reportSphereCalibrationForPosition_freqX_delt
   dispatch_async(aggdDispatchQueue, block);
 }
 
-uint64_t __187__BWAggdDataReporter_reportAPSSphereInteractionCalibrationForPosition_residualErrorNeutral_calibrationZHeightNeutral_residualErrorMacro_calibrationZHeightMacro_calibrationStatus_isValid___block_invoke(uint64_t a1)
+void *__187__BWAggdDataReporter_reportAPSSphereInteractionCalibrationForPosition_residualErrorNeutral_calibrationZHeightNeutral_residualErrorMacro_calibrationZHeightMacro_calibrationStatus_isValid___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   result = [MEMORY[0x1E696AEC0] stringWithFormat:@"com.apple.coremedia.camera.aps.sphcal.status.s.%d", *(a1 + 40)];
@@ -1436,7 +1436,7 @@ uint64_t __187__BWAggdDataReporter_reportAPSSphereInteractionCalibrationForPosit
   dispatch_async(aggdDispatchQueue, v16);
 }
 
-uint64_t __270__BWAggdDataReporter_reportSphereEndStopCalibrationForPosition_oisPositiveX_oisNegativeX_oisPositiveY_oisNegativeY_maxPositiveXDriftFromNVM_maxNegativeXDriftFromNVM_maxPositiveYDriftFromNVM_maxNegativeYDriftFromNVM_sphereStrokeX_sphereStrokeY_calibrationStatus_isValid___block_invoke(uint64_t a1)
+void *__270__BWAggdDataReporter_reportSphereEndStopCalibrationForPosition_oisPositiveX_oisNegativeX_oisPositiveY_oisNegativeY_maxPositiveXDriftFromNVM_maxNegativeXDriftFromNVM_maxPositiveYDriftFromNVM_maxNegativeYDriftFromNVM_sphereStrokeX_sphereStrokeY_calibrationStatus_isValid___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   result = [MEMORY[0x1E696AEC0] stringWithFormat:@"com.apple.coremedia.camera.sph.endstopcal.status.s.%d", *(a1 + 40)];
@@ -1545,37 +1545,37 @@ uint64_t __270__BWAggdDataReporter_reportSphereEndStopCalibrationForPosition_ois
   dispatch_async(aggdDispatchQueue, block);
 }
 
-uint64_t __65__BWAggdDataReporter_reportAutoFocusPositionSensorMode_portType___block_invoke(uint64_t a1)
+void *__65__BWAggdDataReporter_reportAutoFocusPositionSensorMode_portType___block_invoke(uint64_t a1, const char *a2)
 {
-  if ([*(a1 + 32) isEqualToString:*off_1E798A0C0])
+  if (objc_msgSend_isEqualToString_(*(a1 + 32), a2, *off_1E798A0C0))
   {
-    v2 = 1;
+    v3 = 1;
   }
 
   else
   {
-    result = [*(a1 + 32) isEqualToString:*off_1E798A0D8];
+    result = objc_msgSend_isEqualToString_(*(a1 + 32));
     if (!result)
     {
       return result;
     }
 
-    v2 = 2;
+    v3 = 2;
   }
 
-  v4 = *(a1 + 40);
-  result = [MEMORY[0x1E696AEC0] stringWithFormat:@"com.apple.coremedia.camera.af.apsmode.%d", v2];
-  if (v4)
+  v5 = *(a1 + 40);
+  result = [MEMORY[0x1E696AEC0] stringWithFormat:@"com.apple.coremedia.camera.af.apsmode.%d", v3];
+  if (v5)
   {
-    v5 = result == 0;
+    v6 = result == 0;
   }
 
   else
   {
-    v5 = 1;
+    v6 = 1;
   }
 
-  if (!v5)
+  if (!v6)
   {
 
     return ADClientSetValueForScalarKey();
@@ -1586,14 +1586,14 @@ uint64_t __65__BWAggdDataReporter_reportAutoFocusPositionSensorMode_portType___b
 
 - (void)reportAPSOffsetEstimatorForPortType:(id)type accelMotion:(float)motion gyroMotion:(float)gyroMotion inSessionOffset:(float)offset deltaOffsetFC:(float)c deltaOffsetMI:(float)i deltaOffsetFATP:(float)p deltaOffsetLastSession:(float)self0 errorHeadroomViolated:(BOOL)self1 errorConvergenceFailed:(BOOL)self2 errorMotionTooLarge:(BOOL)self3 errorConfidenceTooLow:(BOOL)self4 errorOffsetTooLarge:(BOOL)self5 errorDeltaTooLarge:(BOOL)self6 errorSaturated:(BOOL)self7 errorCouldNotRun:(BOOL)self8 successRun:(BOOL)self9 startAPSVoltage:(int)voltage modeGCOL:(BOOL)l modeOL:(BOOL)oL
 {
-  if ([type isEqualToString:*off_1E798A0C0])
+  if (objc_msgSend_isEqualToString_(type, a2, *off_1E798A0C0))
   {
     v36 = 1;
   }
 
   else
   {
-    if (![type isEqualToString:*off_1E798A0D8])
+    if (!objc_msgSend_isEqualToString_(type))
     {
       return;
     }
@@ -1632,14 +1632,14 @@ uint64_t __65__BWAggdDataReporter_reportAutoFocusPositionSensorMode_portType___b
 
 - (void)reportStillImageAPSStatisticsForPortType:(id)type logicalFocusPosition:(int)position apsMotion:(float)motion sphereMotion:(float)sphereMotion accelMotion:(float)accelMotion gyroMotion:(float)gyroMotion subjectDistance:(float)distance luxLevel:(int)self0
 {
-  if ([type isEqualToString:*off_1E798A0C0])
+  if (objc_msgSend_isEqualToString_(type, a2, *off_1E798A0C0))
   {
     v19 = 1;
   }
 
   else
   {
-    if (![type isEqualToString:*off_1E798A0D8])
+    if (!objc_msgSend_isEqualToString_(type))
     {
       return;
     }
@@ -1689,14 +1689,14 @@ uint64_t __65__BWAggdDataReporter_reportAutoFocusPositionSensorMode_portType___b
 
 - (void)reportCriticalFocusErrorOccurredForPortType:(id)type
 {
-  if ([type isEqualToString:*off_1E798A0C0])
+  if (objc_msgSend_isEqualToString_(type, a2, *off_1E798A0C0))
   {
     v5 = 1;
   }
 
   else
   {
-    if (![type isEqualToString:*off_1E798A0D8])
+    if (!objc_msgSend_isEqualToString_(type))
     {
       return;
     }
@@ -1714,7 +1714,7 @@ uint64_t __65__BWAggdDataReporter_reportAutoFocusPositionSensorMode_portType___b
   dispatch_async(aggdDispatchQueue, v7);
 }
 
-uint64_t __66__BWAggdDataReporter_reportCriticalFocusErrorOccurredForPortType___block_invoke(uint64_t a1)
+void *__66__BWAggdDataReporter_reportCriticalFocusErrorOccurredForPortType___block_invoke(uint64_t a1)
 {
   v1 = *(a1 + 32);
   result = [MEMORY[0x1E696AEC0] stringWithFormat:@"com.apple.coremedia.camera.capture.focus_err.%d", *(a1 + 40)];
@@ -1739,7 +1739,7 @@ uint64_t __66__BWAggdDataReporter_reportCriticalFocusErrorOccurredForPortType___
 
 - (void)reportSphereJitterDetectionsForPortType:(id)type detectionAttemps:(int)attemps successfulDetections:(int)detections
 {
-  if ([type isEqualToString:*off_1E798A0C0])
+  if (objc_msgSend_isEqualToString_(type, a2, *off_1E798A0C0))
   {
     v9 = @"BackAccumulatedSuccessfulDetections";
     v10 = 1;
@@ -1748,7 +1748,7 @@ uint64_t __66__BWAggdDataReporter_reportCriticalFocusErrorOccurredForPortType___
 
   else
   {
-    if (![type isEqualToString:*off_1E798A0D8])
+    if (!objc_msgSend_isEqualToString_(type))
     {
       return;
     }
@@ -1772,7 +1772,7 @@ uint64_t __66__BWAggdDataReporter_reportCriticalFocusErrorOccurredForPortType___
   dispatch_async(aggdDispatchQueue, block);
 }
 
-uint64_t __100__BWAggdDataReporter_reportSphereJitterDetectionsForPortType_detectionAttemps_successfulDetections___block_invoke(uint64_t a1)
+void *__100__BWAggdDataReporter_reportSphereJitterDetectionsForPortType_detectionAttemps_successfulDetections___block_invoke(uint64_t a1)
 {
   v2 = *MEMORY[0x1E695E8B8];
   v3 = *MEMORY[0x1E695E898];
@@ -1897,21 +1897,21 @@ uint64_t __100__BWAggdDataReporter_reportSphereJitterDetectionsForPortType_detec
     v7 = @"lowpowersparse";
   }
 
-  if ([d isEqualToString:0x1F216ED50] & 1) != 0 || (objc_msgSend(d, "isEqualToString:", 0x1F2185210))
+  if (objc_msgSend_isEqualToString_(d, a2, 0x1F216ED50) & 1) != 0 || (objc_msgSend_isEqualToString_(d))
   {
     v8 = @"cameraapp";
   }
 
-  else if ([d isEqualToString:0x1F2185130])
+  else if (objc_msgSend_isEqualToString_(d))
   {
     v8 = @"jellyfish";
   }
 
   else
   {
-    v10 = [d isEqualToString:0x1F2185490];
+    isEqualToString = objc_msgSend_isEqualToString_(d);
     v8 = @"3rdparty";
-    if (v10)
+    if (isEqualToString)
     {
       v8 = @"facetime";
     }
@@ -2074,7 +2074,7 @@ uint64_t __72__BWAggdDataReporter_reportZeroShutterLagFirmwareTimeMachineInitFai
     result = ADClientAddValueForScalarKey();
     if (*(v1 + 32))
     {
-      return OUTLINED_FUNCTION_3_61();
+      return OUTLINED_FUNCTION_3_61(@"com.apple.coremedia.camera.zsl.init.failure.firmwaretimemachine");
     }
   }
 
@@ -2089,7 +2089,7 @@ uint64_t __71__BWAggdDataReporter_reportZeroShutterLagPreviewTimeMachineInitFail
     result = ADClientAddValueForScalarKey();
     if (*(v1 + 32))
     {
-      return OUTLINED_FUNCTION_3_61();
+      return OUTLINED_FUNCTION_3_61(@"com.apple.coremedia.camera.zsl.init.failure.previewtimemachine");
     }
   }
 
@@ -2104,7 +2104,7 @@ uint64_t __59__BWAggdDataReporter_reportZeroShutterLagSphereInitFailure__block_i
     result = ADClientAddValueForScalarKey();
     if (*(v1 + 32))
     {
-      return OUTLINED_FUNCTION_3_61();
+      return OUTLINED_FUNCTION_3_61(@"com.apple.coremedia.camera.zsl.init.failure.sphere");
     }
   }
 
@@ -2194,7 +2194,7 @@ LABEL_14:
   return result;
 }
 
-uint64_t __428__BWAggdDataReporter_reportAutoFocusPositionSensorCalibrationForPosition_iStopZEstimate_eSensorOutput_wSensorOutput_gravityZ_calibrationStatus_sensorTemp_successfulInfinityEndStopDelta_currentInfinityEndStopDelta_previousInfinityEndStopDelta_currentAngleDelta_previousAngleDelta_factoryCalibrationOffset_estimatedNeutralZ_deltaNeutralZFromNVM_estimatedSagZ_combinedSensorOutput_deltaSagFromNVM_isValid_dataWasRejectedByHistory___block_invoke(uint64_t a1)
+void *__428__BWAggdDataReporter_reportAutoFocusPositionSensorCalibrationForPosition_iStopZEstimate_eSensorOutput_wSensorOutput_gravityZ_calibrationStatus_sensorTemp_successfulInfinityEndStopDelta_currentInfinityEndStopDelta_previousInfinityEndStopDelta_currentAngleDelta_previousAngleDelta_factoryCalibrationOffset_estimatedNeutralZ_deltaNeutralZFromNVM_estimatedSagZ_combinedSensorOutput_deltaSagFromNVM_isValid_dataWasRejectedByHistory___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   result = [MEMORY[0x1E696AEC0] stringWithFormat:@"com.apple.coremedia.camera.aps.fieldcal.status.%d", *(a1 + 40)];
@@ -2341,7 +2341,7 @@ uint64_t __428__BWAggdDataReporter_reportAutoFocusPositionSensorCalibrationForPo
   return result;
 }
 
-uint64_t __365__BWAggdDataReporter_reportAPSOffsetEstimatorForPortType_accelMotion_gyroMotion_inSessionOffset_deltaOffsetFC_deltaOffsetMI_deltaOffsetFATP_deltaOffsetLastSession_errorHeadroomViolated_errorConvergenceFailed_errorMotionTooLarge_errorConfidenceTooLow_errorOffsetTooLarge_errorDeltaTooLarge_errorSaturated_errorCouldNotRun_successRun_startAPSVoltage_modeGCOL_modeOL___block_invoke(uint64_t a1)
+void *__365__BWAggdDataReporter_reportAPSOffsetEstimatorForPortType_accelMotion_gyroMotion_inSessionOffset_deltaOffsetFC_deltaOffsetMI_deltaOffsetFATP_deltaOffsetLastSession_errorHeadroomViolated_errorConvergenceFailed_errorMotionTooLarge_errorConfidenceTooLow_errorOffsetTooLarge_errorDeltaTooLarge_errorSaturated_errorCouldNotRun_successRun_startAPSVoltage_modeGCOL_modeOL___block_invoke(uint64_t a1)
 {
   if (*(a1 + 32) && (ADClientPushValueForDistributionKey(), *(a1 + 32)))
   {

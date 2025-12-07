@@ -16,7 +16,7 @@
   if (v10)
   {
     v11 = objc_alloc_init(HMIFeedbackSession);
-    v12 = [[HMIFeedbackSubmitClipOperation alloc] initWithFeedbackSession:v11 cameraProfileUUID:iDCopy clipUUID:uIDCopy];
+    v12 = [HMIFeedbackSubmitClipOperation initWithFeedbackSession:"initWithFeedbackSession:cameraProfileUUID:clipUUID:" cameraProfileUUID:? clipUUID:?];
     operation = v10->_operation;
     v10->_operation = &v12->super;
   }
@@ -28,16 +28,16 @@
 {
   v3 = self->_operation;
   objc_initWeak(&location, v3);
-  v4[0] = MEMORY[0x277D85DD0];
-  v4[1] = 3221225472;
-  v4[2] = __44__HMIFeedbackTask_mainInsideAutoreleasePool__block_invoke;
-  v4[3] = &unk_278752BB0;
-  objc_copyWeak(&v5, &location);
-  v4[4] = self;
-  [(HMFOperation *)v3 setCompletionBlock:v4];
-  [(HMFOperation *)v3 setQualityOfService:9];
+  v4 = MEMORY[0x277D85DD0];
+  v5 = 3221225472;
+  v6 = __44__HMIFeedbackTask_mainInsideAutoreleasePool__block_invoke;
+  v7 = &unk_278752BB0;
+  objc_copyWeak(&v9, &location);
+  selfCopy = self;
+  [(HMFOperation *)v3 setCompletionBlock:?];
+  [(HMFOperation *)v3 setQualityOfService:?];
   [(HMFOperation *)v3 start];
-  objc_destroyWeak(&v5);
+  objc_destroyWeak(&v9);
   objc_destroyWeak(&location);
 }
 
@@ -50,7 +50,7 @@ void __44__HMIFeedbackTask_mainInsideAutoreleasePool__block_invoke(uint64_t a1)
   if (v2)
   {
     v4 = [WeakRetained error];
-    [v3 cancelWithError:v4];
+    [v3 cancelWithError:?];
   }
 
   else

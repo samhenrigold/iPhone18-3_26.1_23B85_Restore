@@ -105,7 +105,7 @@
 
 - (void)setupFaceDetector
 {
-  if (self->faceDetector || !FaceCoreLibraryCore())
+  if (self->faceDetector || !FaceCoreLibraryCore(0))
   {
     return;
   }
@@ -1402,7 +1402,7 @@ LABEL_104:
       if (v99)
       {
 LABEL_101:
-        [v99 face];
+        objc_msgSend_face(v99);
         v106 = *(&v199 + 1);
         v105 = *&v199;
         v107 = *&v198 + 0.0;
@@ -1620,8 +1620,8 @@ LABEL_150:
       v156 = v153 * 0.300000012;
       if (v99)
       {
-        [v99 leftEye];
-        [v99 leftEye];
+        objc_msgSend_leftEye(v99);
+        objc_msgSend_leftEye(v99);
         v157 = -v156;
         v158 = -0.5;
         v159 = v192 + 0.0 + v156 * -0.5;
@@ -1642,8 +1642,8 @@ LABEL_150:
       [(CAMBurstFaceStat *)v115 setLeftEyeRect:v159, v160 + v161 * v158, v156, v161];
       if (v99)
       {
-        [v99 rightEye];
-        [v99 rightEye];
+        objc_msgSend_rightEye(v99);
+        objc_msgSend_rightEye(v99);
         v162 = v190 + 0.0 + v157 * 0.5;
         v163 = 0.5;
         v164 = *(&v189 + 1) + 0.0;
@@ -1697,8 +1697,8 @@ uint64_t __63__CAMBurstImageFaceAnalysisContext_findFacesInImage_imageStat___blo
 {
   if (a2)
   {
-    [a2 face];
-    [a2 face];
+    objc_msgSend_face(a2);
+    objc_msgSend_face(a2);
     v6 = *&v39 * *(&v36 + 1);
     if (a3)
     {
@@ -1742,8 +1742,8 @@ LABEL_7:
   }
 
 LABEL_3:
-  [a3 face];
-  [a3 face];
+  objc_msgSend_face(a3);
+  objc_msgSend_face(a3);
   v7 = *&v33 * *(&v30 + 1);
   if (!a2)
   {
@@ -1751,7 +1751,7 @@ LABEL_3:
   }
 
 LABEL_4:
-  [a2 face];
+  objc_msgSend_face(a2);
   v9 = *(&v26 + 1);
   v8 = *&v26;
   v11 = *(&v27 + 1);
@@ -1760,7 +1760,7 @@ LABEL_8:
   v12 = [*(a1 + 32) findOverlappingFaceStat:*(a1 + 40) imageStat:{v8 + *(a1 + 48), v9 + *(a1 + 56), v10, v11}];
   if (a3)
   {
-    [a3 face];
+    objc_msgSend_face(a3);
     v14 = *(&v23 + 1);
     v13 = *&v23;
     v16 = *(&v24 + 1);
@@ -3051,7 +3051,7 @@ LABEL_21:
   height = size.height;
   width = size.width;
   v138 = *MEMORY[0x1E69E9840];
-  [stat timestamp];
+  objc_msgSend_timestamp(stat, a2);
   v9 = v8;
   BurstLoggingMessage("addFacesToImageStat: timestamp = %.6f, lastFaceIndex=%d\n", v8, self->lastFaceIndex);
   if (v9 <= self->latestFaceTimestamp)
@@ -3453,7 +3453,7 @@ LABEL_21:
         }
 
         faceId = [(CAMBurstFaceStat *)v19 faceId];
-        [(CAMBurstFaceStat *)v19 timestamp];
+        objc_msgSend_timestamp(v19);
         BurstLoggingMessage("      found face id %d, timestamp=%.6f, x=%.3f,y=%.3f,w=%.3f,h=%.3f\n", faceId, v105, v132, v131, v130, v129);
         v106 = self->lastFaceIndex;
         self->lastFaceIndex = v106 + 1;
@@ -3482,13 +3482,13 @@ LABEL_21:
           }
 
           v112 = [v10 objectForKey:*(*(&v133 + 1) + 8 * i)];
-          [v112 timestamp];
+          objc_msgSend_timestamp(v112);
           *&v113 = v113 - v9;
           v114 = fabsf(*&v113);
           if (v114 <= 0.016)
           {
             faceId2 = [v112 faceId];
-            [v112 timestamp];
+            objc_msgSend_timestamp(v112);
             BurstLoggingMessage("    adding face id %d, timestamp %.6f\n", faceId2, v118);
             [v112 setIsSyncedWithImage:1];
             [objc_msgSend(stat "faceStatArray")];
@@ -3499,7 +3499,7 @@ LABEL_21:
             [v112 setIsSyncedWithImage:0];
             [objc_msgSend(stat "faceStatArray")];
             faceId3 = [v112 faceId];
-            [v112 timestamp];
+            objc_msgSend_timestamp(v112);
             BurstLoggingMessage("    face id %d, timestamp %.6f - delta = %.6f, perhaps should use FaceCore\n", faceId3, v116, v114);
           }
         }
@@ -3573,8 +3573,8 @@ LABEL_21:
 
 - (uint64_t)setupFaceDetector
 {
-  dlerror();
-  abort_report_np();
+  v0 = dlerror();
+  abort_report_np("%s", v0);
   return __getFaceCoreDetectorClass_block_invoke_cold_1();
 }
 

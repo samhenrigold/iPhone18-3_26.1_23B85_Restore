@@ -42,12 +42,7 @@
         v18 = [v11 localizedStringForKey:keyCopy value:valueCopy table:tableCopy localization:firstObject];
         if (dword_1002F6CC8 <= 10 && (dword_1002F6CC8 != -1 || _LogCategory_Initialize()))
         {
-          v23 = localizations;
-          v24 = v14;
-          v21 = keyCopy;
-          v22 = firstObject;
-          v20 = v18;
-          LogPrintF();
+          LogPrintF(&dword_1002F6CC8, "+[AADeviceLocalization localizedStringForKey:withDefaultValue:inTable:]", 10, "Loc string '%@' found for key '%@', with preferred loc '%@' based on localizations %@ and preferredLanguages %@", v18, keyCopy, firstObject, localizations, v14);
         }
 
         objc_autoreleasePoolPop(v15);
@@ -61,9 +56,7 @@
 
       if (dword_1002F6CC8 <= 90 && (dword_1002F6CC8 != -1 || _LogCategory_Initialize()))
       {
-        v20 = localizations;
-        v21 = v14;
-        LogPrintF();
+        LogPrintF(&dword_1002F6CC8, "+[AADeviceLocalization localizedStringForKey:withDefaultValue:inTable:]", 90, "No preferred Localization for localizations %@ and preferredLanguages %@", localizations, v14);
       }
 
       objc_autoreleasePoolPop(v15);
@@ -75,7 +68,7 @@
       {
         firstObject = 0;
 LABEL_33:
-        v18 = [v11 localizedStringForKey:keyCopy value:valueCopy table:{tableCopy, v20, v21, v22, v23, v24}];
+        v18 = [v11 localizedStringForKey:keyCopy value:valueCopy table:tableCopy];
 LABEL_34:
 
         goto LABEL_35;
@@ -83,9 +76,7 @@ LABEL_34:
 
       if (dword_1002F6CC8 != -1 || _LogCategory_Initialize())
       {
-        v20 = localizations;
-        v21 = v14;
-        LogPrintF();
+        LogPrintF(&dword_1002F6CC8, "+[AADeviceLocalization localizedStringForKey:withDefaultValue:inTable:]", 90, "Missing localizations %@ or preferredLanguages %@", localizations, v14);
       }
     }
 
@@ -93,9 +84,7 @@ LABEL_34:
 LABEL_29:
     if (dword_1002F6CC8 <= 90 && (dword_1002F6CC8 != -1 || _LogCategory_Initialize()))
     {
-      v20 = keyCopy;
-      v21 = valueCopy;
-      LogPrintF();
+      LogPrintF(&dword_1002F6CC8, "+[AADeviceLocalization localizedStringForKey:withDefaultValue:inTable:]", 90, "Failed to find localized string for key '%@' using default: '%@'", keyCopy, valueCopy);
     }
 
     goto LABEL_33;
@@ -103,7 +92,7 @@ LABEL_29:
 
   if (dword_1002F6CC8 <= 90 && (dword_1002F6CC8 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001F18D4();
+    sub_1001F18D4(valueCopy);
   }
 
   v18 = valueCopy;

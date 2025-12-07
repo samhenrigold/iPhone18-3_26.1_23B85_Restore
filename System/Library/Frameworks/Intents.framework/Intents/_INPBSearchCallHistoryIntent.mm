@@ -1,8 +1,13 @@
 @interface _INPBSearchCallHistoryIntent
 - (BOOL)isEqual:(id)equal;
 - (_INPBSearchCallHistoryIntent)initWithCoder:(id)coder;
+- (id)callCapabilitiesAsString:(int)string;
+- (id)callTypeAsString:(int)string;
+- (id)callTypesAsString:(int)string;
+- (id)capabilitiesAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)preferredCallProviderAsString:(int)string;
 - (int)StringAsCallCapabilities:(id)capabilities;
 - (int)StringAsCallType:(id)type;
 - (int)StringAsCallTypes:(id)types;
@@ -471,51 +476,46 @@ LABEL_34:
 
 - (void)writeTo:(id)to
 {
-  p_callCapabilities = &self->_callCapabilities;
   toCopy = to;
   if (self->_callCapabilities.count)
   {
-    v5 = 0;
+    v4 = 0;
     do
     {
-      v6 = p_callCapabilities->list[v5];
       PBDataWriterWriteInt32Field();
-      ++v5;
+      ++v4;
     }
 
-    while (v5 < self->_callCapabilities.count);
+    while (v4 < self->_callCapabilities.count);
   }
 
   if ([(_INPBSearchCallHistoryIntent *)self hasCallType])
   {
-    callType = self->_callType;
     PBDataWriterWriteInt32Field();
   }
 
   if (self->_callTypes.count)
   {
-    v8 = 0;
+    v5 = 0;
     do
     {
-      v9 = self->_callTypes.list[v8];
       PBDataWriterWriteInt32Field();
-      ++v8;
+      ++v5;
     }
 
-    while (v8 < self->_callTypes.count);
+    while (v5 < self->_callTypes.count);
   }
 
   if (self->_capabilities.count)
   {
-    v10 = 0;
+    v6 = 0;
     do
     {
-      v11 = self->_capabilities.list[v10];
       PBDataWriterWriteInt32Field();
-      ++v10;
+      ++v6;
     }
 
-    while (v10 < self->_capabilities.count);
+    while (v6 < self->_capabilities.count);
   }
 
   dateCreated = [(_INPBSearchCallHistoryIntent *)self dateCreated];
@@ -536,7 +536,6 @@ LABEL_34:
 
   if ([(_INPBSearchCallHistoryIntent *)self hasPreferredCallProvider])
   {
-    preferredCallProvider = self->_preferredCallProvider;
     PBDataWriterWriteInt32Field();
   }
 
@@ -558,7 +557,6 @@ LABEL_34:
 
   if ([(_INPBSearchCallHistoryIntent *)self hasUnseen])
   {
-    unseen = self->_unseen;
     PBDataWriterWriteBOOLField();
   }
 }
@@ -599,6 +597,21 @@ LABEL_34:
   else
   {
     v4 = 2;
+  }
+
+  return v4;
+}
+
+- (id)preferredCallProviderAsString:(int)string
+{
+  if ((string - 2) >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7282940[string - 2];
   }
 
   return v4;
@@ -649,6 +662,26 @@ LABEL_34:
     {
       v4 = 1;
     }
+  }
+
+  return v4;
+}
+
+- (id)capabilitiesAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"AUDIO_CALL";
+  }
+
+  else if (string == 2)
+  {
+    v4 = @"VIDEO_CALL";
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
   }
 
   return v4;
@@ -713,6 +746,22 @@ LABEL_34:
   return v4;
 }
 
+- (id)callTypesAsString:(int)string
+{
+  v4 = string - 2;
+  if (string - 2) < 9 && ((0x1EFu >> v4))
+  {
+    v5 = off_1E72828F8[v4];
+  }
+
+  else
+  {
+    v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v5;
+}
+
 - (void)addCallTypes:(int)types
 {
   if (types != 0x7FFFFFFF)
@@ -772,6 +821,22 @@ LABEL_34:
   return v4;
 }
 
+- (id)callTypeAsString:(int)string
+{
+  v4 = string - 2;
+  if (string - 2) < 9 && ((0x1EFu >> v4))
+  {
+    v5 = off_1E72828F8[v4];
+  }
+
+  else
+  {
+    v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v5;
+}
+
 - (void)setCallType:(int)type
 {
   has = self->_has;
@@ -802,6 +867,26 @@ LABEL_34:
     {
       v4 = 1;
     }
+  }
+
+  return v4;
+}
+
+- (id)callCapabilitiesAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"AUDIO_CALL";
+  }
+
+  else if (string == 2)
+  {
+    v4 = @"VIDEO_CALL";
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
   }
 
   return v4;

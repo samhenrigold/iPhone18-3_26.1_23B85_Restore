@@ -1,6 +1,7 @@
 @interface CRCarPlayOptionRadioCell
 - (CRCarPlayOptionRadioCell)initWithStyle:(int64_t)style reuseIdentifier:(id)identifier specifier:(id)specifier;
 - (void)refreshCellContentsWithSpecifier:(id)specifier;
+- (void)setChecked:(BOOL)checked;
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated;
 @end
 
@@ -156,6 +157,17 @@
   [drawingView setImage:v13];
 
 LABEL_6:
+}
+
+- (void)setChecked:(BOOL)checked
+{
+  checkedCopy = checked;
+  v6.receiver = self;
+  v6.super_class = CRCarPlayOptionRadioCell;
+  [(CRCarPlayOptionRadioCell *)&v6 setChecked:?];
+  [(CRCarPlayOptionRadioCell *)self setAccessoryType:0];
+  checkmarkView = [(CRCarPlayOptionRadioCell *)self checkmarkView];
+  [checkmarkView setChecked:checkedCopy];
 }
 
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated

@@ -13,7 +13,7 @@
   v7 = [(HDCloudSyncPipelineStage *)&v11 initWithConfiguration:configuration cloudState:0];
   if (v7)
   {
-    v8 = [entryCopy copy];
+    v8 = objc_msgSend_copy(entryCopy);
     codableEntry = v7->_codableEntry;
     v7->_codableEntry = v8;
   }

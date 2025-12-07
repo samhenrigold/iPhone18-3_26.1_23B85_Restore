@@ -26,7 +26,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_1BD89AD14();
+  sub_1BD89AD14(selfCopy);
 }
 
 - (CGSize)sizeThatFits:(CGSize)fits
@@ -47,7 +47,7 @@
 - (void)prepareForReuse
 {
   selfCopy = self;
-  sub_1BD89B7B8();
+  sub_1BD89B7B8(selfCopy);
 }
 
 @end

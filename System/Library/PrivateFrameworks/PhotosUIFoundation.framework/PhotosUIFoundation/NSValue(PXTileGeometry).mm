@@ -7,19 +7,19 @@
 
 - (uint64_t)PXTileGeometryValue
 {
-  x8_0[10] = 0u;
-  x8_0[11] = 0u;
-  x8_0[8] = 0u;
-  x8_0[9] = 0u;
-  x8_0[6] = 0u;
-  x8_0[7] = 0u;
-  x8_0[4] = 0u;
-  x8_0[5] = 0u;
-  x8_0[2] = 0u;
-  x8_0[3] = 0u;
-  *x8_0 = 0u;
-  x8_0[1] = 0u;
-  return [self getValue:x8_0];
+  a2[10] = 0u;
+  a2[11] = 0u;
+  a2[8] = 0u;
+  a2[9] = 0u;
+  a2[6] = 0u;
+  a2[7] = 0u;
+  a2[4] = 0u;
+  a2[5] = 0u;
+  a2[2] = 0u;
+  a2[3] = 0u;
+  *a2 = 0u;
+  a2[1] = 0u;
+  return [self getValue:a2];
 }
 
 + (id)valueWithPXTileGeometry:()PXTileGeometry

@@ -1,5 +1,5 @@
 @interface AVMediaSelectionOption(TVPAudioSubtitleAdditions)
-- (id)tvp_languageCodeFromLocale;
+- (__CFString)tvp_languageCodeFromLocale;
 - (id)tvp_localizedDisplayString;
 - (uint64_t)tvp_isSDHSubtitle;
 @end
@@ -89,7 +89,7 @@ LABEL_4:
   return displayName;
 }
 
-- (id)tvp_languageCodeFromLocale
+- (__CFString)tvp_languageCodeFromLocale
 {
   locale = [self locale];
   v3 = [locale objectForKey:*MEMORY[0x277CBE6C8]];

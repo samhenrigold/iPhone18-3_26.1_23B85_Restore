@@ -58,7 +58,7 @@
   }
 }
 
-uint64_t __34__C2SessionPool__cleanUp_schedule__block_invoke(uint64_t a1)
+void *__34__C2SessionPool__cleanUp_schedule__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _cleanUp_job];
   if (result)
@@ -73,7 +73,7 @@ uint64_t __34__C2SessionPool__cleanUp_schedule__block_invoke(uint64_t a1)
 
 - (BOOL)_cleanUp_job
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
   if (!v3)
   {
@@ -88,55 +88,55 @@ uint64_t __34__C2SessionPool__cleanUp_schedule__block_invoke(uint64_t a1)
     [currentHandler handleFailureInMethod:a2 object:selfCopy file:@"C2SessionPool.m" lineNumber:272 description:@"sanity check."];
   }
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   allValues = [(NSMutableDictionary *)selfCopy->_sessionGroupForSessionConfigurationName allValues];
-  v6 = [allValues countByEnumeratingWithState:&v30 objects:v37 count:16];
+  v6 = [allValues countByEnumeratingWithState:&v29 objects:v36 count:16];
   if (v6)
   {
-    v7 = *v31;
+    v7 = *v30;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v31 != v7)
+        if (*v30 != v7)
         {
           objc_enumerationMutation(allValues);
         }
 
-        sessions = [*(*(&v30 + 1) + 8 * i) sessions];
+        sessions = [*(*(&v29 + 1) + 8 * i) sessions];
         [v3 addObjectsFromArray:sessions];
       }
 
-      v6 = [allValues countByEnumeratingWithState:&v30 objects:v37 count:16];
+      v6 = [allValues countByEnumeratingWithState:&v29 objects:v36 count:16];
     }
 
     while (v6);
   }
 
   objc_sync_exit(selfCopy);
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v10 = v3;
-  v11 = [v10 countByEnumeratingWithState:&v26 objects:v36 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v25 objects:v35 count:16];
   if (v11)
   {
-    v12 = *v27;
+    v12 = *v26;
     do
     {
       v13 = 0;
       do
       {
-        if (*v27 != v12)
+        if (*v26 != v12)
         {
           objc_enumerationMutation(v10);
         }
 
-        v14 = *(*(&v26 + 1) + 8 * v13);
+        v14 = *(*(&v25 + 1) + 8 * v13);
         v15 = selfCopy;
         objc_sync_enter(v15);
         if ([(C2SessionPool *)v15 _unsafe_isCreating:v14])
@@ -150,7 +150,7 @@ uint64_t __34__C2SessionPool__cleanUp_schedule__block_invoke(uint64_t a1)
           if (os_log_type_enabled(C2_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            v35 = v14;
+            v34 = v14;
             _os_log_impl(&dword_242158000, v16, OS_LOG_TYPE_DEFAULT, "session (%{public}@) in use, not eligable for cleanup.", buf, 0xCu);
           }
         }
@@ -171,7 +171,7 @@ LABEL_25:
       }
 
       while (v11 != v13);
-      v11 = [v10 countByEnumeratingWithState:&v26 objects:v36 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v25 objects:v35 count:16];
     }
 
     while (v11);
@@ -197,7 +197,6 @@ LABEL_25:
   v20 = v19 != 0;
   objc_sync_exit(v17);
 
-  v21 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
@@ -394,7 +393,7 @@ uint64_t __21__C2SessionPool_init__block_invoke_22()
 
 - (id)createDataTaskWithRequestIdentifer:(id)identifer request:(id)request options:(id)options delegate:(id)delegate sessionHandle:(id *)handle
 {
-  v80 = *MEMORY[0x277D85DE8];
+  v79 = *MEMORY[0x277D85DE8];
   identiferCopy = identifer;
   requestCopy = request;
   optionsCopy = options;
@@ -414,7 +413,7 @@ uint64_t __21__C2SessionPool_init__block_invoke_22()
       {
         if (![optionsCopy allowRouting])
         {
-          v51 = host2;
+          v50 = host2;
           host2 = host;
           v21 = 0;
           goto LABEL_14;
@@ -424,8 +423,8 @@ uint64_t __21__C2SessionPool_init__block_invoke_22()
 
         if (requestCopy)
         {
-          v54 = [requestCopy URL];
-          host2 = [v54 host];
+          v53 = [requestCopy URL];
+          host2 = [v53 host];
           if (!host2)
           {
 LABEL_59:
@@ -433,10 +432,10 @@ LABEL_59:
             goto LABEL_60;
           }
 
-          v51 = requestCopy;
-          v21 = v54;
+          v50 = requestCopy;
+          v21 = v53;
 LABEL_14:
-          v54 = v21;
+          v53 = v21;
           if (v21)
           {
             v22 = v21;
@@ -448,74 +447,74 @@ LABEL_14:
           }
 
           [optionsCopy setInvokedURL:v22];
-          v50 = host2;
-          v52 = [optionsCopy sessionConfigurationNameWithRouteHost:host2];
-          v23 = v52;
-          if (!v52)
+          v49 = host2;
+          v51 = [optionsCopy sessionConfigurationNameWithRouteHost:host2];
+          v23 = v51;
+          if (!v51)
           {
             host2 = 0;
 LABEL_58:
 
-            requestCopy = v51;
+            requestCopy = v50;
             goto LABEL_59;
           }
 
-          v65 = 0;
-          v66 = &v65;
-          v67 = 0x3032000000;
-          v68 = __Block_byref_object_copy_;
-          v69 = __Block_byref_object_dispose_;
-          v70 = 0;
+          v64 = 0;
+          v65 = &v64;
+          v66 = 0x3032000000;
+          v67 = __Block_byref_object_copy_;
+          v68 = __Block_byref_object_dispose_;
+          v69 = 0;
           selfCopy = self;
           objc_sync_enter(selfCopy);
           obj = selfCopy;
-          v55 = [(NSMutableDictionary *)selfCopy->_sessionGroupForSessionConfigurationName objectForKeyedSubscript:v52];
-          if (!v55)
+          v54 = [(NSMutableDictionary *)selfCopy->_sessionGroupForSessionConfigurationName objectForKeyedSubscript:v51];
+          if (!v54)
           {
-            v55 = [[C2SessionGroup alloc] initWithConfigurationName:v52];
-            if (!v55)
+            v54 = [[C2SessionGroup alloc] initWithConfigurationName:v51];
+            if (!v54)
             {
               if (C2_DEFAULT_LOG_BLOCK_8 != -1)
               {
                 [C2SessionPool createDataTaskWithRequestIdentifer:request:options:delegate:sessionHandle:];
               }
 
-              v45 = C2_DEFAULT_LOG_INTERNAL_8;
+              v44 = C2_DEFAULT_LOG_INTERNAL_8;
               if (os_log_type_enabled(C2_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_ERROR))
               {
-                LODWORD(v77) = 138543362;
-                *(&v77 + 4) = obj;
-                _os_log_impl(&dword_242158000, v45, OS_LOG_TYPE_ERROR, "%{public}@ can't create a new session group", &v77, 0xCu);
+                LODWORD(v76) = 138543362;
+                *(&v76 + 4) = obj;
+                _os_log_impl(&dword_242158000, v44, OS_LOG_TYPE_ERROR, "%{public}@ can't create a new session group", &v76, 0xCu);
               }
 
               objc_sync_exit(obj);
 
-              v55 = 0;
+              v54 = 0;
               host2 = 0;
               goto LABEL_57;
             }
 
-            [(NSMutableDictionary *)selfCopy->_sessionGroupForSessionConfigurationName setObject:v55 forKeyedSubscript:v52];
+            [(NSMutableDictionary *)selfCopy->_sessionGroupForSessionConfigurationName setObject:v54 forKeyedSubscript:v51];
           }
 
-          configurationName = [(C2SessionGroup *)v55 configurationName];
-          v26 = [configurationName isEqual:v52];
+          configurationName = [(C2SessionGroup *)v54 configurationName];
+          v26 = [configurationName isEqual:v51];
 
           if ((v26 & 1) == 0)
           {
             currentHandler = [MEMORY[0x277CCA890] currentHandler];
-            configurationName2 = [(C2SessionGroup *)v55 configurationName];
-            [currentHandler handleFailureInMethod:a2 object:obj file:@"C2SessionPool.m" lineNumber:117 description:{@"Expected session group with configurationName (%@) but found (%@)", v52, configurationName2}];
+            configurationName2 = [(C2SessionGroup *)v54 configurationName];
+            [currentHandler handleFailureInMethod:a2 object:obj file:@"C2SessionPool.m" lineNumber:117 description:{@"Expected session group with configurationName (%@) but found (%@)", v51, configurationName2}];
           }
 
-          v27 = [(C2SessionGroup *)v55 sessionForOptions:optionsCopy];
-          v28 = v66[5];
-          v66[5] = v27;
+          v27 = [(C2SessionGroup *)v54 sessionForOptions:optionsCopy];
+          v28 = v65[5];
+          v65[5] = v27;
 
-          if (v66[5])
+          if (v65[5])
           {
             [(C2SessionPool *)obj _unsafe_willCreate:?];
-            if ([(C2SessionPool *)obj _unsafe_isCreating:v66[5]])
+            if ([(C2SessionPool *)obj _unsafe_isCreating:v65[5]])
             {
               goto LABEL_29;
             }
@@ -526,8 +525,8 @@ LABEL_58:
 
           else
           {
-            [(C2SessionPool *)obj _unsafe_willCreate:v55];
-            if ([(C2SessionPool *)obj _unsafe_isCreating:v55])
+            [(C2SessionPool *)obj _unsafe_willCreate:v54];
+            if ([(C2SessionPool *)obj _unsafe_isCreating:v54])
             {
               goto LABEL_29;
             }
@@ -547,11 +546,11 @@ LABEL_29:
             testBehavior_sessionGroupCreated2[2]();
           }
 
-          *&v77 = 0;
-          *(&v77 + 1) = &v77;
-          v78 = 0x2020000000;
-          v32 = v66[5];
-          v79 = v32 != 0;
+          *&v76 = 0;
+          *(&v76 + 1) = &v76;
+          v77 = 0x2020000000;
+          v32 = v65[5];
+          v78 = v32 != 0;
           if (!v32)
           {
             cleanUp_queue = obj->_cleanUp_queue;
@@ -562,22 +561,22 @@ LABEL_29:
             block[4] = obj;
             dispatch_async(cleanUp_queue, block);
             queue = obj->_sessionCreation_queue;
-            v56[0] = MEMORY[0x277D85DD0];
-            v56[1] = 3221225472;
-            v56[2] = __91__C2SessionPool_createDataTaskWithRequestIdentifer_request_options_delegate_sessionHandle___block_invoke_2;
-            v56[3] = &unk_278D408E8;
-            v56[4] = obj;
-            v57 = v55;
-            v34 = v52;
-            v63 = a2;
-            v58 = v34;
-            v61 = &v65;
-            v59 = optionsCopy;
-            v62 = &v77;
-            v60 = v50;
-            dispatch_sync(queue, v56);
+            v55[0] = MEMORY[0x277D85DD0];
+            v55[1] = 3221225472;
+            v55[2] = __91__C2SessionPool_createDataTaskWithRequestIdentifer_request_options_delegate_sessionHandle___block_invoke_2;
+            v55[3] = &unk_278D408E8;
+            v55[4] = obj;
+            v56 = v54;
+            v34 = v51;
+            v62 = a2;
+            v57 = v34;
+            v60 = &v64;
+            v58 = optionsCopy;
+            v61 = &v76;
+            v59 = v49;
+            dispatch_sync(queue, v55);
 
-            v32 = v66[5];
+            v32 = v65[5];
             if (!v32)
             {
               if (C2_DEFAULT_LOG_BLOCK_8 != -1)
@@ -585,14 +584,14 @@ LABEL_29:
                 [C2SessionPool createDataTaskWithRequestIdentifer:request:options:delegate:sessionHandle:];
               }
 
-              v46 = C2_DEFAULT_LOG_INTERNAL_8;
+              v45 = C2_DEFAULT_LOG_INTERNAL_8;
               if (os_log_type_enabled(C2_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138543618;
-                v72 = obj;
-                v73 = 2114;
-                v74 = v34;
-                _os_log_impl(&dword_242158000, v46, OS_LOG_TYPE_ERROR, "%{public}@ can't create a new session with name: %{public}@", buf, 0x16u);
+                v71 = obj;
+                v72 = 2114;
+                v73 = v34;
+                _os_log_impl(&dword_242158000, v45, OS_LOG_TYPE_ERROR, "%{public}@ can't create a new session with name: %{public}@", buf, 0x16u);
               }
 
               host2 = 0;
@@ -603,14 +602,14 @@ LABEL_29:
           v35 = [v32 createTaskWithOptions:optionsCopy delegate:v17];
           if (v35)
           {
-            host2 = [v66[5] addTask:v35 withDescription:identiferCopy request:v51];
+            host2 = [v65[5] addTask:v35 withDescription:identiferCopy request:v50];
             if (host2)
             {
               v36 = 0;
 LABEL_45:
               v39 = obj;
               objc_sync_enter(v39);
-              [(C2SessionPool *)v39 _unsafe_didCreate:v66[5]];
+              [(C2SessionPool *)v39 _unsafe_didCreate:v65[5]];
               objc_sync_exit(v39);
 
               if ((v36 & 1) == 0)
@@ -625,7 +624,7 @@ LABEL_45:
                 v41 = C2_DEFAULT_LOG_INTERNAL_8;
                 if (os_log_type_enabled(C2_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_DEFAULT))
                 {
-                  if (*(*(&v77 + 1) + 24))
+                  if (*(*(&v76 + 1) + 24))
                   {
                     v42 = @"T";
                   }
@@ -636,26 +635,26 @@ LABEL_45:
                   }
 
                   *buf = 138543874;
-                  v72 = identiferCopy;
-                  v73 = 2114;
-                  v74 = v42;
-                  v75 = 2114;
-                  v76 = v52;
+                  v71 = identiferCopy;
+                  v72 = 2114;
+                  v73 = v42;
+                  v74 = 2114;
+                  v75 = v51;
                   _os_log_impl(&dword_242158000, v41, OS_LOG_TYPE_DEFAULT, "created task (%{public}@). nsurlsessionCached (%{public}@). configurationName (%{public}@).", buf, 0x20u);
                 }
 
                 if (handle)
                 {
-                  *handle = [v66[5] session];
+                  *handle = [v65[5] session];
                 }
               }
 
 LABEL_56:
-              _Block_object_dispose(&v77, 8);
+              _Block_object_dispose(&v76, 8);
 LABEL_57:
-              _Block_object_dispose(&v65, 8);
+              _Block_object_dispose(&v64, 8);
 
-              v23 = v52;
+              v23 = v51;
               goto LABEL_58;
             }
           }
@@ -671,7 +670,7 @@ LABEL_57:
             if (os_log_type_enabled(C2_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_ERROR))
             {
               *buf = 138543362;
-              v72 = obj;
+              v71 = obj;
               _os_log_impl(&dword_242158000, v37, OS_LOG_TYPE_ERROR, "%{public}@ failed to create task", buf, 0xCu);
             }
           }
@@ -685,7 +684,7 @@ LABEL_57:
           if (os_log_type_enabled(C2_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543362;
-            v72 = obj;
+            v71 = obj;
             _os_log_impl(&dword_242158000, v38, OS_LOG_TYPE_ERROR, "%{public}@ failed to add task", buf, 0xCu);
           }
 
@@ -713,8 +712,6 @@ LABEL_57:
 
 LABEL_60:
   }
-
-  v43 = *MEMORY[0x277D85DE8];
 
   return host2;
 }
@@ -917,7 +914,7 @@ uint64_t __91__C2SessionPool_createDataTaskWithRequestIdentifer_request_options_
 
 - (void)_unsafe_removeSessionGroupIfEmpty:(id)empty
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   emptyCopy = empty;
   if ([(C2SessionPool *)self _unsafe_isCreating:emptyCopy])
   {
@@ -929,9 +926,9 @@ uint64_t __91__C2SessionPool_createDataTaskWithRequestIdentifer_request_options_
     v5 = C2_DEFAULT_LOG_INTERNAL_8;
     if (os_log_type_enabled(C2_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 138543362;
-      v13 = emptyCopy;
-      _os_log_impl(&dword_242158000, v5, OS_LOG_TYPE_DEFAULT, "session group (%{public}@) in use, not eligable for cleanup.", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = emptyCopy;
+      _os_log_impl(&dword_242158000, v5, OS_LOG_TYPE_DEFAULT, "session group (%{public}@) in use, not eligable for cleanup.", &v11, 0xCu);
     }
   }
 
@@ -950,8 +947,6 @@ uint64_t __91__C2SessionPool_createDataTaskWithRequestIdentifer_request_options_
       [C2SessionPool _unsafe_removeSessionGroupIfEmpty:emptyCopy];
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __51__C2SessionPool__unsafe_removeSessionGroupIfEmpty___block_invoke()
@@ -1016,7 +1011,7 @@ uint64_t __29__C2SessionPool__cleanUp_job__block_invoke()
 
 - (void)_cleanUpEmptySessionGroup_job_withThreshold:(unint64_t)threshold
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   if (!threshold)
   {
     [C2SessionPool _cleanUpEmptySessionGroup_job_withThreshold:];
@@ -1026,7 +1021,7 @@ uint64_t __29__C2SessionPool__cleanUp_job__block_invoke()
   objc_sync_enter(selfCopy);
   v5 = [(NSMutableDictionary *)selfCopy->_sessionGroupForSessionConfigurationName count];
   objc_sync_exit(selfCopy);
-  v31 = selfCopy;
+  v30 = selfCopy;
 
   if (v5 > threshold)
   {
@@ -1038,59 +1033,59 @@ uint64_t __29__C2SessionPool__cleanUp_job__block_invoke()
 
     obj = selfCopy;
     objc_sync_enter(obj);
-    v32 = [(NSMutableDictionary *)selfCopy->_sessionGroupForSessionConfigurationName count];
-    v41 = 0u;
-    v42 = 0u;
-    v39 = 0u;
+    v31 = [(NSMutableDictionary *)selfCopy->_sessionGroupForSessionConfigurationName count];
     v40 = 0u;
+    v41 = 0u;
+    v38 = 0u;
+    v39 = 0u;
     allValues = [(NSMutableDictionary *)selfCopy->_sessionGroupForSessionConfigurationName allValues];
-    v8 = [allValues countByEnumeratingWithState:&v39 objects:v51 count:16];
+    v8 = [allValues countByEnumeratingWithState:&v38 objects:v50 count:16];
     if (v8)
     {
-      v9 = *v40;
+      v9 = *v39;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v40 != v9)
+          if (*v39 != v9)
           {
             objc_enumerationMutation(allValues);
           }
 
-          v11 = *(*(&v39 + 1) + 8 * i);
+          v11 = *(*(&v38 + 1) + 8 * i);
+          v34 = 0u;
           v35 = 0u;
           v36 = 0u;
           v37 = 0u;
-          v38 = 0u;
           sessions = [v11 sessions];
-          v13 = [sessions countByEnumeratingWithState:&v35 objects:v50 count:16];
+          v13 = [sessions countByEnumeratingWithState:&v34 objects:v49 count:16];
           if (v13)
           {
-            v14 = *v36;
+            v14 = *v35;
             do
             {
               for (j = 0; j != v13; ++j)
               {
-                if (*v36 != v14)
+                if (*v35 != v14)
                 {
                   objc_enumerationMutation(sessions);
                 }
 
-                v16 = *(*(&v35 + 1) + 8 * j);
-                if (v16 && [*(*(&v35 + 1) + 8 * j) emptyTimestamp] != -1)
+                v16 = *(*(&v34 + 1) + 8 * j);
+                if (v16 && [*(*(&v34 + 1) + 8 * j) emptyTimestamp] != -1)
                 {
                   [v6 addObject:v16];
                 }
               }
 
-              v13 = [sessions countByEnumeratingWithState:&v35 objects:v50 count:16];
+              v13 = [sessions countByEnumeratingWithState:&v34 objects:v49 count:16];
             }
 
             while (v13);
           }
         }
 
-        v8 = [allValues countByEnumeratingWithState:&v39 objects:v51 count:16];
+        v8 = [allValues countByEnumeratingWithState:&v38 objects:v50 count:16];
       }
 
       while (v8);
@@ -1098,16 +1093,16 @@ uint64_t __29__C2SessionPool__cleanUp_job__block_invoke()
 
     objc_sync_exit(obj);
     v17 = [objc_alloc(MEMORY[0x277CCAC98]) initWithKey:@"emptyTimestamp" ascending:1];
-    v49 = v17;
-    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v49 count:1];
+    v48 = v17;
+    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v48 count:1];
     v19 = [v6 sortedArrayUsingDescriptors:v18];
 
-    if (v32 > threshold)
+    if (v31 > threshold)
     {
       v21 = 0;
       v22 = 0;
       *&v20 = 138543362;
-      v30 = v20;
+      v29 = v20;
       while (1)
       {
         if (v22 >= [v19 count])
@@ -1136,7 +1131,7 @@ uint64_t __29__C2SessionPool__cleanUp_job__block_invoke()
 LABEL_34:
 
         ++v22;
-        if (v32 - v21 <= threshold)
+        if (v31 - v21 <= threshold)
         {
           goto LABEL_35;
         }
@@ -1150,8 +1145,8 @@ LABEL_34:
       v25 = C2_DEFAULT_LOG_INTERNAL_8;
       if (os_log_type_enabled(C2_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_DEFAULT))
       {
-        *buf = v30;
-        v44 = v23;
+        *buf = v29;
+        v43 = v23;
         _os_log_impl(&dword_242158000, v25, OS_LOG_TYPE_DEFAULT, "session (%{public}@) in use, not eligable for cleanup.", buf, 0xCu);
       }
 
@@ -1164,7 +1159,7 @@ LABEL_33:
 LABEL_35:
     v26 = obj;
     objc_sync_enter(v26);
-    if ([(NSMutableDictionary *)v31->_sessionGroupForSessionConfigurationName count]> threshold)
+    if ([(NSMutableDictionary *)v30->_sessionGroupForSessionConfigurationName count]> threshold)
     {
       if (C2_DEFAULT_LOG_BLOCK_8 != -1)
       {
@@ -1174,21 +1169,19 @@ LABEL_35:
       v27 = C2_DEFAULT_LOG_INTERNAL_8;
       if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
       {
-        v28 = [(NSMutableDictionary *)v31->_sessionGroupForSessionConfigurationName count];
+        v28 = [(NSMutableDictionary *)v30->_sessionGroupForSessionConfigurationName count];
         *buf = 138543874;
-        v44 = v26;
-        v45 = 2048;
+        v43 = v26;
+        v44 = 2048;
         thresholdCopy = threshold;
-        v47 = 2048;
-        v48 = v28;
+        v46 = 2048;
+        v47 = v28;
         _os_log_impl(&dword_242158000, v27, OS_LOG_TYPE_DEBUG, "%{public}@ was unable to restrict number of C2SessionGroups to threshold of %llu. Current session group count is %llu.", buf, 0x20u);
       }
     }
 
     objc_sync_exit(v26);
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __61__C2SessionPool__cleanUpEmptySessionGroup_job_withThreshold___block_invoke()

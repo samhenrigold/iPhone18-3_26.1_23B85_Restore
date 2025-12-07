@@ -49,23 +49,23 @@
 
 - (BOOL)_removeFPDomain:(id)domain error:(id *)error
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   domainCopy = domain;
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x3032000000;
-  v34 = __Block_byref_object_copy__36;
-  v35 = __Block_byref_object_dispose__36;
-  v36 = 0;
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x3032000000;
+  v33 = __Block_byref_object_copy__36;
+  v34 = __Block_byref_object_dispose__36;
+  v35 = 0;
   v6 = dispatch_semaphore_create(0);
   v7 = brc_bread_crumbs();
   v8 = brc_default_log();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412546;
-    *v38 = domainCopy;
-    *&v38[8] = 2112;
-    *&v38[10] = v7;
+    *v37 = domainCopy;
+    *&v37[8] = 2112;
+    *&v37[10] = v7;
     _os_log_debug_impl(&dword_223E7A000, v8, OS_LOG_TYPE_DEBUG, "[DEBUG] Will remove domain: %@%@", buf, 0x16u);
   }
 
@@ -75,17 +75,17 @@
   {
     v11 = MEMORY[0x277CC64A8];
     extensionID = self->_extensionID;
-    v26[0] = v10;
-    v26[1] = 3221225472;
-    v26[2] = __40__BRCMiniCiconia__removeFPDomain_error___block_invoke;
-    v26[3] = &unk_278505280;
-    v30 = v9;
+    v25[0] = v10;
+    v25[1] = 3221225472;
+    v25[2] = __40__BRCMiniCiconia__removeFPDomain_error___block_invoke;
+    v25[3] = &unk_278505280;
+    v29 = v9;
     v13 = domainCopy;
-    v27 = v13;
-    v29 = &v31;
+    v26 = v13;
+    v28 = &v30;
     v14 = v6;
-    v28 = v14;
-    [v11 removeDomain:v13 forProviderIdentifier:extensionID completionHandler:v26];
+    v27 = v14;
+    [v11 removeDomain:v13 forProviderIdentifier:extensionID completionHandler:v25];
     v15 = dispatch_time(0, 900000000000);
     if (dispatch_semaphore_wait(v14, v15))
     {
@@ -94,20 +94,20 @@
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109634;
-        *v38 = v9;
-        *&v38[4] = 2112;
-        *&v38[6] = domainCopy;
-        *&v38[14] = 2112;
-        *&v38[16] = v16;
+        *v37 = v9;
+        *&v37[4] = 2112;
+        *&v37[6] = domainCopy;
+        *&v37[14] = 2112;
+        *&v37[16] = v16;
         _os_log_impl(&dword_223E7A000, v17, OS_LOG_TYPE_DEFAULT, "[WARNING] %d: removeDomain:%@ timed out%@", buf, 0x1Cu);
       }
 
       v18 = [MEMORY[0x277CCA9B8] br_errorWithPOSIXCode:60];
-      v19 = v32[5];
-      v32[5] = v18;
+      v19 = v31[5];
+      v31[5] = v18;
     }
 
-    v20 = v32[5];
+    v20 = v31[5];
     if (!v20 || ![v20 br_isNSXPCConnectionError])
     {
       break;
@@ -122,23 +122,22 @@
   }
 
 LABEL_13:
-  v21 = v32[5];
+  v21 = v31[5];
   if (error && v21)
   {
     *error = v21;
-    v21 = v32[5];
+    v21 = v31[5];
   }
 
   v22 = v21 == 0;
 
-  _Block_object_dispose(&v31, 8);
-  v23 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v30, 8);
   return v22;
 }
 
 void __40__BRCMiniCiconia__removeFPDomain_error___block_invoke(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -149,15 +148,15 @@ void __40__BRCMiniCiconia__removeFPDomain_error___block_invoke(uint64_t a1, void
       v6 = *(a1 + 56);
       v7 = *(a1 + 32);
       v8 = [v3 fp_prettyDescription];
-      v13[0] = 67109890;
-      v13[1] = v6;
-      v14 = 2112;
-      v15 = v7;
-      v16 = 2112;
-      v17 = v8;
-      v18 = 2112;
-      v19 = v4;
-      _os_log_impl(&dword_223E7A000, v5, OS_LOG_TYPE_DEFAULT, "[WARNING] %d: removeDomain:%@ failed: %@%@", v13, 0x26u);
+      v12[0] = 67109890;
+      v12[1] = v6;
+      v13 = 2112;
+      v14 = v7;
+      v15 = 2112;
+      v16 = v8;
+      v17 = 2112;
+      v18 = v4;
+      _os_log_impl(&dword_223E7A000, v5, OS_LOG_TYPE_DEFAULT, "[WARNING] %d: removeDomain:%@ failed: %@%@", v12, 0x26u);
     }
   }
 
@@ -167,12 +166,11 @@ void __40__BRCMiniCiconia__removeFPDomain_error___block_invoke(uint64_t a1, void
   v11 = v3;
 
   dispatch_semaphore_signal(*(a1 + 40));
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_cleanupOldCiconiaDomains:(id *)domains
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   v3 = brc_bread_crumbs();
   v4 = brc_default_log();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
@@ -180,18 +178,18 @@ void __40__BRCMiniCiconia__removeFPDomain_error___block_invoke(uint64_t a1, void
     [BRCMiniCiconia _cleanupOldCiconiaDomains:];
   }
 
-  v46 = 0;
-  v47 = &v46;
-  v48 = 0x3032000000;
-  v49 = __Block_byref_object_copy__36;
-  v50 = __Block_byref_object_dispose__36;
-  v51 = 0;
-  v40 = 0;
-  v41 = &v40;
-  v42 = 0x3032000000;
-  v43 = __Block_byref_object_copy__36;
-  v44 = __Block_byref_object_dispose__36;
   v45 = 0;
+  v46 = &v45;
+  v47 = 0x3032000000;
+  v48 = __Block_byref_object_copy__36;
+  v49 = __Block_byref_object_dispose__36;
+  v50 = 0;
+  v39 = 0;
+  v40 = &v39;
+  v41 = 0x3032000000;
+  v42 = __Block_byref_object_copy__36;
+  v43 = __Block_byref_object_dispose__36;
+  v44 = 0;
   v5 = dispatch_semaphore_create(0);
   v6 = 0;
   v7 = MEMORY[0x277D85DD0];
@@ -199,18 +197,18 @@ void __40__BRCMiniCiconia__removeFPDomain_error___block_invoke(uint64_t a1, void
   {
     v8 = MEMORY[0x277CC64A8];
     extensionID = self->_extensionID;
-    v35[0] = v7;
-    v35[1] = 3221225472;
-    v35[2] = __44__BRCMiniCiconia__cleanupOldCiconiaDomains___block_invoke;
-    v35[3] = &unk_2785052A8;
-    v39 = v6;
-    v37 = &v46;
-    v38 = &v40;
+    v34[0] = v7;
+    v34[1] = 3221225472;
+    v34[2] = __44__BRCMiniCiconia__cleanupOldCiconiaDomains___block_invoke;
+    v34[3] = &unk_2785052A8;
+    v38 = v6;
+    v36 = &v45;
+    v37 = &v39;
     dsema = v5;
-    v36 = dsema;
-    [v8 getDomainsForProviderIdentifier:extensionID completionHandler:v35];
+    v35 = dsema;
+    [v8 getDomainsForProviderIdentifier:extensionID completionHandler:v34];
     dispatch_semaphore_wait(dsema, 0xFFFFFFFFFFFFFFFFLL);
-    v10 = v47[5];
+    v10 = v46[5];
     if (!v10 || ([v10 br_isNSXPCConnectionError] & 1) == 0)
     {
       break;
@@ -225,25 +223,25 @@ void __40__BRCMiniCiconia__removeFPDomain_error___block_invoke(uint64_t a1, void
   }
 
 LABEL_9:
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
-  v11 = v41[5];
-  v12 = [v11 countByEnumeratingWithState:&v31 objects:v58 count:16];
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
+  v11 = v40[5];
+  v12 = [v11 countByEnumeratingWithState:&v30 objects:v57 count:16];
   if (v12)
   {
-    v13 = *v32;
+    v13 = *v31;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v32 != v13)
+        if (*v31 != v13)
         {
           objc_enumerationMutation(v11);
         }
 
-        v15 = *(*(&v31 + 1) + 8 * i);
+        v15 = *(*(&v30 + 1) + 8 * i);
         if ([v15 br_isCiconiaDomain])
         {
           v16 = brc_bread_crumbs();
@@ -251,17 +249,17 @@ LABEL_9:
           if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412546;
-            v53 = v15;
-            v54 = 2112;
-            v55 = v16;
+            v52 = v15;
+            v53 = 2112;
+            v54 = v16;
             _os_log_debug_impl(&dword_223E7A000, v17, OS_LOG_TYPE_DEBUG, "[DEBUG] Found old domain %@, dropping%@", buf, 0x16u);
           }
 
-          v30 = 0;
-          [(BRCMiniCiconia *)self _removeFPDomain:v15 error:&v30];
-          v18 = v30;
-          v19 = v30;
-          if (v19 && !v47[5])
+          v29 = 0;
+          [(BRCMiniCiconia *)self _removeFPDomain:v15 error:&v29];
+          v18 = v29;
+          v19 = v29;
+          if (v19 && !v46[5])
           {
             v20 = brc_bread_crumbs();
             v21 = brc_default_log();
@@ -269,26 +267,26 @@ LABEL_9:
             {
               fp_prettyDescription = [v19 fp_prettyDescription];
               *buf = 138412802;
-              v53 = v15;
-              v54 = 2112;
-              v55 = fp_prettyDescription;
-              v56 = 2112;
-              v57 = v20;
+              v52 = v15;
+              v53 = 2112;
+              v54 = fp_prettyDescription;
+              v55 = 2112;
+              v56 = v20;
               _os_log_impl(&dword_223E7A000, v21, OS_LOG_TYPE_DEFAULT, "[WARNING] Failed to remove old domain %@: %@%@", buf, 0x20u);
             }
 
-            objc_storeStrong(v47 + 5, v18);
+            objc_storeStrong(v46 + 5, v18);
           }
         }
       }
 
-      v12 = [v11 countByEnumeratingWithState:&v31 objects:v58 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v30 objects:v57 count:16];
     }
 
     while (v12);
   }
 
-  v23 = v47[5];
+  v23 = v46[5];
   if (domains && v23)
   {
     v23 = v23;
@@ -297,16 +295,15 @@ LABEL_9:
 
   v24 = v23 == 0;
 
-  _Block_object_dispose(&v40, 8);
-  _Block_object_dispose(&v46, 8);
+  _Block_object_dispose(&v39, 8);
+  _Block_object_dispose(&v45, 8);
 
-  v25 = *MEMORY[0x277D85DE8];
   return v24;
 }
 
 void __44__BRCMiniCiconia__cleanupOldCiconiaDomains___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -317,13 +314,13 @@ void __44__BRCMiniCiconia__cleanupOldCiconiaDomains___block_invoke(uint64_t a1, 
     {
       v9 = *(a1 + 56);
       v10 = [v6 fp_prettyDescription];
-      v15[0] = 67109634;
-      v15[1] = v9;
-      v16 = 2112;
-      v17 = v10;
-      v18 = 2112;
-      v19 = v7;
-      _os_log_impl(&dword_223E7A000, v8, OS_LOG_TYPE_DEFAULT, "[WARNING] %d: enumerating domains failed: %@%@", v15, 0x1Cu);
+      v14[0] = 67109634;
+      v14[1] = v9;
+      v15 = 2112;
+      v16 = v10;
+      v17 = 2112;
+      v18 = v7;
+      _os_log_impl(&dword_223E7A000, v8, OS_LOG_TYPE_DEFAULT, "[WARNING] %d: enumerating domains failed: %@%@", v14, 0x1Cu);
     }
 
     objc_storeStrong((*(*(a1 + 40) + 8) + 40), a3);
@@ -335,7 +332,6 @@ void __44__BRCMiniCiconia__cleanupOldCiconiaDomains___block_invoke(uint64_t a1, 
   v13 = v5;
 
   dispatch_semaphore_signal(*(a1 + 32));
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_removeDiagnosticsDirectoryAtURL:(id)l withError:(id *)error
@@ -518,64 +514,36 @@ void __71__BRCMiniCiconia_cleanupCiconiaAtURL_diagnosticsURL_completionHandler__
   }
 }
 
-- (void)_cleanupOldCiconiaDomains:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] Looking for old Ciconia domains%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_removeWorkDirectory:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] Removing work directory%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (void)_removeWorkDirectory:(NSObject *)a3 .cold.2(void *a1, uint64_t a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = [a1 path];
   v6 = [v5 fp_prettyPath];
   OUTLINED_FUNCTION_1();
-  v9 = 2112;
-  v10 = a2;
-  _os_log_debug_impl(&dword_223E7A000, a3, OS_LOG_TYPE_DEBUG, "[DEBUG] Removing FP domain on disk: %@%@", v8, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v8 = 2112;
+  v9 = a2;
+  _os_log_debug_impl(&dword_223E7A000, a3, OS_LOG_TYPE_DEBUG, "[DEBUG] Removing FP domain on disk: %@%@", v7, 0x16u);
 }
 
 - (void)_removeWorkDirectory:(os_log_t)log .cold.3(uint64_t a1, int a2, os_log_t log)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 67109378;
-  v4[1] = a2;
-  v5 = 2112;
-  v6 = a1;
-  _os_log_error_impl(&dword_223E7A000, log, 0x90u, "[ERROR] Failed removing domain %{errno}d%@", v4, 0x12u);
-  v3 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 67109378;
+  v3[1] = a2;
+  v4 = 2112;
+  v5 = a1;
+  _os_log_error_impl(&dword_223E7A000, log, 0x90u, "[ERROR] Failed removing domain %{errno}d%@", v3, 0x12u);
 }
 
 - (void)_removeWorkDirectory:(os_log_t)log .cold.4(uint64_t *a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v3 = *a1;
-  v5 = 134218242;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_error_impl(&dword_223E7A000, log, 0x90u, "[ERROR] Error: %lld%@", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_removeWorkDirectory:.cold.5()
-{
   v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] Retry removing work directory%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v3 = *a1;
+  v4 = 134218242;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_error_impl(&dword_223E7A000, log, 0x90u, "[ERROR] Error: %lld%@", &v4, 0x16u);
 }
 
 @end

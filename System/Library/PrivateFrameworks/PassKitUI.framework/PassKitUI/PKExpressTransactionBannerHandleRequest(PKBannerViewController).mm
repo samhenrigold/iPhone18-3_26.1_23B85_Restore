@@ -27,7 +27,7 @@
         v5 = v7;
         if (v7)
         {
-          objc_storeStrong(&v7->_pass, v3);
+          objc_storeStrong(v7 + 124, v3);
           paymentService = [MEMORY[0x1E69B8DB8] paymentService];
           paymentService = v5->_paymentService;
           v5->_paymentService = paymentService;

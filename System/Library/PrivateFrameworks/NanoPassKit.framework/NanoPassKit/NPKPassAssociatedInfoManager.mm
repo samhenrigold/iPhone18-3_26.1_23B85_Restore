@@ -170,22 +170,22 @@ LABEL_9:
 
 void __91__NPKPassAssociatedInfoManager_initWithPaymentService_accountService_precursorPassManager___block_invoke(uint64_t a1)
 {
-  v2 = pk_General_log();
+  v2 = pk_General_log(a1);
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
 
   if (v3)
   {
-    v4 = pk_General_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = pk_General_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_25B300000, v4, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: received pending add value updated notification", buf, 2u);
+      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: received pending add value updated notification", buf, 2u);
     }
   }
 
   objc_copyWeak(&to, (a1 + 32));
-  v5 = objc_loadWeakRetained(&to);
-  [v5 _updateAllPassesItemsFieldsPendingUpdateStatus];
+  v6 = objc_loadWeakRetained(&to);
+  [v6 _updateAllPassesItemsFieldsPendingUpdateStatus];
 
   objc_destroyWeak(&to);
 }
@@ -204,16 +204,16 @@ void __91__NPKPassAssociatedInfoManager_initWithPaymentService_accountService_pr
   dispatch_async(observerQueue, v7);
 }
 
-uint64_t __49__NPKPassAssociatedInfoManager_registerObserver___block_invoke(uint64_t result)
+void *__49__NPKPassAssociatedInfoManager_registerObserver___block_invoke(void *result)
 {
-  if (*(result + 32))
+  if (result[4])
   {
     v1 = result;
-    result = [*(*(result + 40) + 64) containsObject:?];
+    result = [*(result[5] + 64) containsObject:?];
     if ((result & 1) == 0)
     {
-      v2 = *(v1 + 32);
-      v3 = *(*(v1 + 40) + 64);
+      v2 = v1[4];
+      v3 = *(v1[5] + 64);
 
       return [v3 addObject:v2];
     }
@@ -236,16 +236,16 @@ uint64_t __49__NPKPassAssociatedInfoManager_registerObserver___block_invoke(uint
   dispatch_async(observerQueue, v7);
 }
 
-uint64_t __51__NPKPassAssociatedInfoManager_unregisterObserver___block_invoke(uint64_t result)
+void *__51__NPKPassAssociatedInfoManager_unregisterObserver___block_invoke(void *result)
 {
-  if (*(result + 32))
+  if (result[4])
   {
     v1 = result;
-    result = [*(*(result + 40) + 64) containsObject:?];
+    result = [*(result[5] + 64) containsObject:?];
     if (result)
     {
-      v2 = *(v1 + 32);
-      v3 = *(*(v1 + 40) + 64);
+      v2 = v1[4];
+      v3 = *(v1[5] + 64);
 
       return [v3 removeObject:v2];
     }
@@ -270,40 +270,37 @@ uint64_t __51__NPKPassAssociatedInfoManager_unregisterObserver___block_invoke(ui
 
 void __49__NPKPassAssociatedInfoManager__notifyObservers___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 64) allObjects];
+  v7 = 0u;
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
-  v12 = 0u;
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v9 + 1) + 8 * v6);
         (*(*(a1 + 40) + 16))();
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setPasses:(id)passes
@@ -333,50 +330,48 @@ void __42__NPKPassAssociatedInfoManager_setPasses___block_invoke_2(uint64_t a1)
 {
   v24 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) pk_setByApplyingBlock:&__block_literal_global_25];
-  v3 = pk_General_log();
+  v3 = pk_General_log(v2);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
   if (v4)
   {
-    v5 = pk_General_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = pk_General_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(a1 + 40);
+      v7 = *(a1 + 40);
       *buf = 138412546;
       v21 = v2;
       v22 = 2112;
-      v23 = v6;
-      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: setting Passes:%@ to:%@", buf, 0x16u);
+      v23 = v7;
+      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: setting Passes:%@ to:%@", buf, 0x16u);
     }
   }
 
-  v7 = [*(*(a1 + 40) + 24) allKeys];
-  v8 = [MEMORY[0x277CBEB58] setWithArray:v7];
-  [v8 minusSet:v2];
-  [*(a1 + 40) _internalQueue_removePassWithUniqueIDs:v8];
-  v9 = *(a1 + 40);
-  if (v9[9])
+  v8 = [*(*(a1 + 40) + 24) allKeys];
+  v9 = [MEMORY[0x277CBEB58] setWithArray:v8];
+  [v9 minusSet:v2];
+  [*(a1 + 40) _internalQueue_removePassWithUniqueIDs:v9];
+  v10 = *(a1 + 40);
+  if (v10[9])
   {
-    v10 = [v9 passUniqueIDsByAccountIdentifier];
-    [v10 removeAllObjects];
+    v11 = [v10 passUniqueIDsByAccountIdentifier];
+    [v11 removeAllObjects];
   }
 
-  v11 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v12 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v18[0] = MEMORY[0x277D85DD0];
   v18[1] = 3221225472;
   v18[2] = __42__NPKPassAssociatedInfoManager_setPasses___block_invoke_69;
   v18[3] = &unk_2799494D8;
-  v12 = *(a1 + 32);
+  v13 = *(a1 + 32);
   v18[4] = *(a1 + 40);
-  v13 = v11;
-  v19 = v13;
-  [v12 enumerateObjectsUsingBlock:v18];
-  v14 = *(a1 + 40);
-  v15 = *(v14 + 24);
-  *(v14 + 24) = v13;
-  v16 = v13;
-
-  v17 = *MEMORY[0x277D85DE8];
+  v14 = v12;
+  v19 = v14;
+  [v13 enumerateObjectsUsingBlock:v18];
+  v15 = *(a1 + 40);
+  v16 = *(v15 + 24);
+  *(v15 + 24) = v14;
+  v17 = v14;
 }
 
 - (void)addPass:(id)pass
@@ -398,27 +393,25 @@ void __42__NPKPassAssociatedInfoManager_setPasses___block_invoke_2(uint64_t a1)
 uint64_t __40__NPKPassAssociatedInfoManager_addPass___block_invoke(uint64_t a1)
 {
   v13 = *MEMORY[0x277D85DE8];
-  v2 = pk_General_log();
+  v2 = pk_General_log(a1);
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
 
   if (v3)
   {
-    v4 = pk_General_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = pk_General_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = [*(a1 + 32) uniqueID];
-      v6 = *(a1 + 40);
+      v6 = [*(a1 + 32) uniqueID];
+      v7 = *(a1 + 40);
       v9 = 138412546;
-      v10 = v5;
+      v10 = v6;
       v11 = 2112;
-      v12 = v6;
-      _os_log_impl(&dword_25B300000, v4, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: Adding pass with uniqueID:%@ to:%@", &v9, 0x16u);
+      v12 = v7;
+      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: Adding pass with uniqueID:%@ to:%@", &v9, 0x16u);
     }
   }
 
-  result = [*(a1 + 40) _internalQueue_regenerateAssociatedInfoModelForPass:*(a1 + 32) inModelsByID:*(*(a1 + 40) + 24)];
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 40) _internalQueue_regenerateAssociatedInfoModelForPass:*(a1 + 32) inModelsByID:*(*(a1 + 40) + 24)];
 }
 
 - (NSSet)passes
@@ -492,23 +485,23 @@ void __71__NPKPassAssociatedInfoManager__internalQueue_removePassWithUniqueIDs__
 {
   v23 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = pk_General_log();
+  v4 = pk_General_log(v3);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 
   if (v5)
   {
-    v6 = pk_General_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = pk_General_log(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       LODWORD(buf) = 138412290;
       *(&buf + 4) = v3;
-      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: Removing model for pass with unique ID %@", &buf, 0xCu);
+      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: Removing model for pass with unique ID %@", &buf, 0xCu);
     }
   }
 
   [*(*(a1 + 32) + 24) setObject:0 forKeyedSubscript:v3];
-  v7 = *(a1 + 32);
-  if (v7[9])
+  v8 = *(a1 + 32);
+  if (v8[9])
   {
     *&buf = 0;
     *(&buf + 1) = &buf;
@@ -516,29 +509,27 @@ void __71__NPKPassAssociatedInfoManager__internalQueue_removePassWithUniqueIDs__
     v20 = __Block_byref_object_copy__20;
     v21 = __Block_byref_object_dispose__20;
     v22 = 0;
-    v8 = [v7 passUniqueIDsByAccountIdentifier];
+    v9 = [v8 passUniqueIDsByAccountIdentifier];
     v12 = MEMORY[0x277D85DD0];
     v13 = 3221225472;
     v14 = __71__NPKPassAssociatedInfoManager__internalQueue_removePassWithUniqueIDs___block_invoke_73;
     v15 = &unk_279949528;
     v16 = v3;
     p_buf = &buf;
-    [v8 enumerateKeysAndObjectsUsingBlock:&v12];
+    [v9 enumerateKeysAndObjectsUsingBlock:&v12];
 
     if (*(*(&buf + 1) + 40))
     {
-      v9 = [*(a1 + 32) passUniqueIDsByAccountIdentifier];
-      [v9 setObject:0 forKeyedSubscript:*(*(&buf + 1) + 40)];
+      v10 = [*(a1 + 32) passUniqueIDsByAccountIdentifier];
+      [v10 setObject:0 forKeyedSubscript:*(*(&buf + 1) + 40)];
     }
 
     _Block_object_dispose(&buf, 8);
-    v7 = *(a1 + 32);
+    v8 = *(a1 + 32);
   }
 
-  v10 = [v7 precursorPassManager];
-  [v10 invalidateUpgradeControllerForPassWithUniqueID:v3];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v11 = [v8 precursorPassManager];
+  [v11 invalidateUpgradeControllerForPassWithUniqueID:v3];
 }
 
 void __71__NPKPassAssociatedInfoManager__internalQueue_removePassWithUniqueIDs___block_invoke_73(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
@@ -574,40 +565,38 @@ void __71__NPKPassAssociatedInfoManager__internalQueue_removePassWithUniqueIDs__
 void __82__NPKPassAssociatedInfoManager_setPendingAmount_forBalanceField_passWithUniqueID___block_invoke(uint64_t a1)
 {
   v18 = *MEMORY[0x277D85DE8];
-  v2 = pk_General_log();
+  v2 = pk_General_log(a1);
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
 
   if (v3)
   {
-    v4 = pk_General_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = pk_General_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = *(a1 + 32);
-      v6 = *(a1 + 40);
-      v7 = *(a1 + 48);
+      v6 = *(a1 + 32);
+      v7 = *(a1 + 40);
+      v8 = *(a1 + 48);
       v12 = 138412802;
-      v13 = v5;
+      v13 = v6;
       v14 = 2112;
-      v15 = v6;
+      v15 = v7;
       v16 = 2112;
-      v17 = v7;
-      _os_log_impl(&dword_25B300000, v4, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: setPendingAmount:%@ forBalanceField:%@ passWithUniqueID:%@", &v12, 0x20u);
+      v17 = v8;
+      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: setPendingAmount:%@ forBalanceField:%@ passWithUniqueID:%@", &v12, 0x20u);
     }
   }
 
-  v8 = [*(*(a1 + 56) + 24) objectForKeyedSubscript:*(a1 + 48)];
-  if (v8)
+  v9 = [*(*(a1 + 56) + 24) objectForKeyedSubscript:*(a1 + 48)];
+  if (v9)
   {
-    v9 = MEMORY[0x277D37F98];
-    v10 = [*(a1 + 32) amount];
-    [v9 npkHandleTransitValuePendingAmount:v10 forBalanceField:*(a1 + 40) passWithUniqueID:*(a1 + 48)];
+    v10 = MEMORY[0x277D37F98];
+    v11 = [*(a1 + 32) amount];
+    [v10 npkHandleTransitValuePendingAmount:v11 forBalanceField:*(a1 + 40) passWithUniqueID:*(a1 + 48)];
 
-    [v8 updateItemFields];
-    [*(a1 + 56) _notifyObserversOfUpdatedTransitPassInfoForModel:v8];
+    [v9 updateItemFields];
+    [*(a1 + 56) _notifyObserversOfUpdatedTransitPassInfoForModel:v9];
     notify_post([@"com.apple.nanopasskit.transitpassinformationmanager.pendingaddvalueupdated" UTF8String]);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setPendingExpirationDate:(id)date forCommutePlanField:(id)field passWithUniqueID:(id)d
@@ -633,51 +622,49 @@ void __82__NPKPassAssociatedInfoManager_setPendingAmount_forBalanceField_passWit
 void __94__NPKPassAssociatedInfoManager_setPendingExpirationDate_forCommutePlanField_passWithUniqueID___block_invoke(uint64_t a1)
 {
   v16 = *MEMORY[0x277D85DE8];
-  v2 = pk_General_log();
+  v2 = pk_General_log(a1);
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
 
   if (v3)
   {
-    v4 = pk_General_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = pk_General_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = *(a1 + 32);
-      v6 = *(a1 + 40);
-      v7 = *(a1 + 48);
+      v6 = *(a1 + 32);
+      v7 = *(a1 + 40);
+      v8 = *(a1 + 48);
       v10 = 138412802;
-      v11 = v5;
+      v11 = v6;
       v12 = 2112;
-      v13 = v6;
+      v13 = v7;
       v14 = 2112;
-      v15 = v7;
-      _os_log_impl(&dword_25B300000, v4, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: setExpirationDate:%@ forCommutePlanField:%@ passWithUniqueID:%@", &v10, 0x20u);
+      v15 = v8;
+      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: setExpirationDate:%@ forCommutePlanField:%@ passWithUniqueID:%@", &v10, 0x20u);
     }
   }
 
-  v8 = [*(*(a1 + 56) + 24) objectForKeyedSubscript:*(a1 + 48)];
-  if (v8)
+  v9 = [*(*(a1 + 56) + 24) objectForKeyedSubscript:*(a1 + 48)];
+  if (v9)
   {
     [MEMORY[0x277D37F98] npkHandleTransitValuePendingExpiryDate:*(a1 + 32) forCommutePlanField:*(a1 + 40) passWithUniqueID:*(a1 + 48)];
-    [v8 updateItemFields];
-    [*(a1 + 56) _notifyObserversOfUpdatedTransitPassInfoForModel:v8];
+    [v9 updateItemFields];
+    [*(a1 + 56) _notifyObserversOfUpdatedTransitPassInfoForModel:v9];
     notify_post([@"com.apple.nanopasskit.transitpassinformationmanager.pendingaddvalueupdated" UTF8String]);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)refreshAllPasses
 {
-  v3 = pk_General_log();
+  v3 = pk_General_log(self);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
   if (v4)
   {
-    v5 = pk_General_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = pk_General_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: Requested refresh all pass Balance", buf, 2u);
+      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: Requested refresh all pass Balance", buf, 2u);
     }
   }
 
@@ -707,43 +694,41 @@ void __48__NPKPassAssociatedInfoManager_refreshAllPasses__block_invoke_2(uint64_
   v15 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v7 = pk_General_log();
+  v7 = pk_General_log(v6);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
 
   if (v8)
   {
-    v9 = pk_General_log();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = pk_General_log(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       v13 = 138412290;
       v14 = v5;
-      _os_log_impl(&dword_25B300000, v9, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: Updating refresh balance for with uniqueID:%@", &v13, 0xCu);
+      _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: Updating refresh balance for with uniqueID:%@", &v13, 0xCu);
     }
   }
 
-  v10 = *(a1 + 32);
-  v11 = [v6 pass];
-  [v10 _fetchMostRecentInfoForPass:v11];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *(a1 + 32);
+  v12 = [v6 pass];
+  [v11 _fetchMostRecentInfoForPass:v12];
 }
 
 - (void)refreshInfoForPass:(id)pass
 {
   v18 = *MEMORY[0x277D85DE8];
   passCopy = pass;
-  v5 = pk_General_log();
+  v5 = pk_General_log(passCopy);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
   if (v6)
   {
-    v7 = pk_General_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = pk_General_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       uniqueID = [passCopy uniqueID];
       *buf = 138412290;
       v17 = uniqueID;
-      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: Requested refresh for pass with uniqueID %@", buf, 0xCu);
+      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: Requested refresh for pass with uniqueID %@", buf, 0xCu);
     }
   }
 
@@ -755,17 +740,15 @@ void __48__NPKPassAssociatedInfoManager_refreshAllPasses__block_invoke_2(uint64_
   v13[3] = &unk_2799454E0;
   v14 = paymentPass;
   selfCopy = self;
-  v11 = paymentPass;
+  v12 = paymentPass;
   dispatch_async(internalQueue, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __51__NPKPassAssociatedInfoManager_refreshInfoForPass___block_invoke(uint64_t result)
+id *__51__NPKPassAssociatedInfoManager_refreshInfoForPass___block_invoke(id *result)
 {
-  if (*(result + 32))
+  if (result[4])
   {
-    return [*(result + 40) _fetchMostRecentInfoForPass:?];
+    return [result[5] _fetchMostRecentInfoForPass:?];
   }
 
   return result;
@@ -773,16 +756,16 @@ uint64_t __51__NPKPassAssociatedInfoManager_refreshInfoForPass___block_invoke(ui
 
 - (void)markPerishableDataAsStale
 {
-  v3 = pk_General_log();
+  v3 = pk_General_log(self);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
   if (v4)
   {
-    v5 = pk_General_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = pk_General_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: Requested mark perishable values as stale", buf, 2u);
+      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: Requested mark perishable values as stale", buf, 2u);
     }
   }
 
@@ -872,90 +855,86 @@ void __60__NPKPassAssociatedInfoManager_passInfoForPassWithUniqueID___block_invo
 
 void __90__NPKPassAssociatedInfoManager_fetchHomeAccessoryForPass_withReaderIdentifier_completion___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
-  v2 = pk_General_log();
+  v24 = *MEMORY[0x277D85DE8];
+  v2 = pk_General_log(a1);
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
 
   if (v3)
   {
-    v4 = pk_General_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = pk_General_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_25B300000, v4, OS_LOG_TYPE_DEFAULT, "Notice: Creating home manager for initial fetch of accessory.", buf, 2u);
+      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: Creating home manager for initial fetch of accessory.", buf, 2u);
     }
   }
 
-  v5 = objc_alloc_init(MEMORY[0x277D37EF8]);
-  v6 = pk_General_log();
-  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+  v6 = objc_alloc_init(MEMORY[0x277D37EF8]);
+  v7 = pk_General_log(v6);
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
 
-  if (v7)
+  if (v8)
   {
-    v8 = pk_General_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v10 = pk_General_log(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = [*(a1 + 32) hexEncoding];
+      v11 = [*(a1 + 32) hexEncoding];
       *buf = 138412290;
-      v22 = v9;
-      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: Finished creating home manager. Now fetching lock for reader with identifier %@", buf, 0xCu);
+      v23 = v11;
+      _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: Finished creating home manager. Now fetching lock for reader with identifier %@", buf, 0xCu);
     }
   }
 
-  v10 = *(a1 + 32);
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __90__NPKPassAssociatedInfoManager_fetchHomeAccessoryForPass_withReaderIdentifier_completion___block_invoke_81;
-  v18[3] = &unk_279949570;
-  v17 = *(a1 + 40);
-  v11 = *(a1 + 48);
   v12 = *(a1 + 32);
-  v13 = *(a1 + 56);
-  *&v14 = v12;
-  *(&v14 + 1) = v13;
-  *&v15 = v17;
-  *(&v15 + 1) = v11;
-  v19 = v15;
-  v20 = v14;
-  [v5 fetchLockAccessoryWithTerminalReaderIdentifier:v10 withCompletion:v18];
-
-  v16 = *MEMORY[0x277D85DE8];
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __90__NPKPassAssociatedInfoManager_fetchHomeAccessoryForPass_withReaderIdentifier_completion___block_invoke_81;
+  v19[3] = &unk_279949570;
+  v18 = *(a1 + 40);
+  v13 = *(a1 + 48);
+  v14 = *(a1 + 32);
+  v15 = *(a1 + 56);
+  *&v16 = v14;
+  *(&v16 + 1) = v15;
+  *&v17 = v18;
+  *(&v17 + 1) = v13;
+  v20 = v17;
+  v21 = v16;
+  [v6 fetchLockAccessoryWithTerminalReaderIdentifier:v12 withCompletion:v19];
 }
 
 void __90__NPKPassAssociatedInfoManager_fetchHomeAccessoryForPass_withReaderIdentifier_completion___block_invoke_81(uint64_t a1, void *a2)
 {
   v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = pk_General_log();
+  v4 = pk_General_log(v3);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 
   if (v5)
   {
-    v6 = pk_General_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = pk_General_log(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = [v3 uniqueIdentifier];
+      v8 = [v3 uniqueIdentifier];
       *buf = 138412290;
-      v17 = v7;
-      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: Found lock: %@", buf, 0xCu);
+      v17 = v8;
+      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: Found lock: %@", buf, 0xCu);
     }
   }
 
-  v8 = *(a1 + 32);
-  v9 = [*(a1 + 40) uniqueID];
-  [v8 _updateModelWithAccessory:v3 forPassID:v9 withReaderID:*(a1 + 48)];
+  v9 = *(a1 + 32);
+  v10 = [*(a1 + 40) uniqueID];
+  [v9 _updateModelWithAccessory:v3 forPassID:v10 withReaderID:*(a1 + 48)];
 
   v13[0] = MEMORY[0x277D85DD0];
   v13[1] = 3221225472;
   v13[2] = __90__NPKPassAssociatedInfoManager_fetchHomeAccessoryForPass_withReaderIdentifier_completion___block_invoke_82;
   v13[3] = &unk_279946670;
-  v10 = *(a1 + 56);
+  v11 = *(a1 + 56);
   v14 = v3;
-  v15 = v10;
-  v11 = v3;
+  v15 = v11;
+  v12 = v3;
   NPKGuaranteeMainThread(v13);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __90__NPKPassAssociatedInfoManager_fetchHomeAccessoryForPass_withReaderIdentifier_completion___block_invoke_82(uint64_t a1)
@@ -1009,10 +988,10 @@ uint64_t __81__NPKPassAssociatedInfoManager__updateModelWithAccessory_forPassID_
       v9 = [v6 initWithCapacity:1];
     }
 
-    v15 = a1[4];
-    if (v15)
+    v16 = a1[4];
+    if (v16)
     {
-      [v9 setObject:v15 forKey:a1[5]];
+      [v9 setObject:v16 forKey:a1[5]];
     }
 
     else
@@ -1022,36 +1001,35 @@ uint64_t __81__NPKPassAssociatedInfoManager__updateModelWithAccessory_forPassID_
 
     [v4 setAccessories:v9];
 
-    v14 = 1;
+    v15 = 1;
   }
 
   else
   {
-    v10 = pk_General_log();
+    v10 = pk_General_log(0);
     v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
 
     if (v11)
     {
-      v12 = pk_General_log();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v13 = pk_General_log(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = a1[6];
+        v14 = a1[6];
         v18 = 138412290;
-        v19 = v13;
-        _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Warning: No existing model found for pass with ID %@", &v18, 0xCu);
+        v19 = v14;
+        _os_log_impl(&dword_25B300000, v13, OS_LOG_TYPE_DEFAULT, "Warning: No existing model found for pass with ID %@", &v18, 0xCu);
       }
     }
 
-    v14 = 0;
+    v15 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-  return v14;
+  return v15;
 }
 
 - (id)homeAccessoryForPass:(id)pass withReaderIdentifier:(id)identifier
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   passCopy = pass;
   identifierCopy = identifier;
   uniqueID = [passCopy uniqueID];
@@ -1064,18 +1042,18 @@ uint64_t __81__NPKPassAssociatedInfoManager__updateModelWithAccessory_forPassID_
 
     if (v11)
     {
-      v12 = pk_General_log();
-      v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+      v13 = pk_General_log(v12);
+      v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
 
-      if (v13)
+      if (v14)
       {
-        v14 = pk_General_log();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        v16 = pk_General_log(v15);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
           uniqueIdentifier = [v11 uniqueIdentifier];
-          v18 = 138412290;
-          v19 = uniqueIdentifier;
-          _os_log_impl(&dword_25B300000, v14, OS_LOG_TYPE_DEFAULT, "Notice: Found existing accessory with identifier %@.\n Performing fetch in background to update cache.", &v18, 0xCu);
+          v19 = 138412290;
+          v20 = uniqueIdentifier;
+          _os_log_impl(&dword_25B300000, v16, OS_LOG_TYPE_DEFAULT, "Notice: Found existing accessory with identifier %@.\n Performing fetch in background to update cache.", &v19, 0xCu);
         }
       }
 
@@ -1088,8 +1066,6 @@ uint64_t __81__NPKPassAssociatedInfoManager__updateModelWithAccessory_forPassID_
     v11 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
@@ -1097,22 +1073,20 @@ void __74__NPKPassAssociatedInfoManager_homeAccessoryForPass_withReaderIdentifie
 {
   v10 = *MEMORY[0x277D85DE8];
   v2 = a2;
-  v3 = pk_General_log();
+  v3 = pk_General_log(v2);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
   if (v4)
   {
-    v5 = pk_General_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = pk_General_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = [v2 uniqueIdentifier];
+      v7 = [v2 uniqueIdentifier];
       v8 = 138412290;
-      v9 = v6;
-      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: updated accessory %@", &v8, 0xCu);
+      v9 = v7;
+      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: updated accessory %@", &v8, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)readerIdentifierForAccessory:(id)accessory withPass:(id)pass
@@ -1145,30 +1119,28 @@ void __74__NPKPassAssociatedInfoManager_homeAccessoryForPass_withReaderIdentifie
     }
   }
 
-  v12 = pk_General_log();
+  v12 = pk_General_log(passCopy);
   v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
 
   if (v13)
   {
-    v14 = pk_General_log();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = pk_General_log(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = v24[5];
+      v16 = v24[5];
       uniqueIdentifier = [accessoryCopy uniqueIdentifier];
       *buf = 138412546;
-      v30 = v15;
+      v30 = v16;
       v31 = 2112;
       v32 = uniqueIdentifier;
-      _os_log_impl(&dword_25B300000, v14, OS_LOG_TYPE_DEFAULT, "Notice: Found reader identifer %@ for accessory %@", buf, 0x16u);
+      _os_log_impl(&dword_25B300000, v15, OS_LOG_TYPE_DEFAULT, "Notice: Found reader identifer %@ for accessory %@", buf, 0x16u);
     }
   }
 
-  v17 = v24[5];
+  v18 = v24[5];
   _Block_object_dispose(&v23, 8);
 
-  v18 = *MEMORY[0x277D85DE8];
-
-  return v17;
+  return v18;
 }
 
 void __70__NPKPassAssociatedInfoManager_readerIdentifierForAccessory_withPass___block_invoke(uint64_t a1, void *a2, void *a3, _BYTE *a4)
@@ -1248,33 +1220,31 @@ uint64_t __62__NPKPassAssociatedInfoManager__fetchHomeAccessStatusForPass___bloc
 
   if (v3 && v7 != v6)
   {
-    v8 = pk_General_log();
-    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+    v9 = pk_General_log(v8);
+    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
 
-    if (v9)
+    if (v10)
     {
-      v10 = pk_General_log();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v12 = pk_General_log(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = *(a1 + 40);
-        v12 = NSStringFromBOOL();
+        v13 = NSStringFromBOOL();
         v18 = 138412290;
-        v19 = v12;
-        _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: Access status fetched. Is restricted: %@", &v18, 0xCu);
+        v19 = v13;
+        _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Notice: Access status fetched. Is restricted: %@", &v18, 0xCu);
       }
     }
 
-    v13 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 40)];
-    v14 = [v3 restrictedGuestAccessState];
-    [v14 setValue:v13];
-
+    v14 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 40)];
     v15 = [v3 restrictedGuestAccessState];
-    [v15 setIsStale:0];
+    [v15 setValue:v14];
+
+    v16 = [v3 restrictedGuestAccessState];
+    [v16 setIsStale:0];
   }
 
   atomic_store(0, (*(a1 + 32) + 36));
 
-  v16 = *MEMORY[0x277D85DE8];
   return 2 * (v7 != v6);
 }
 
@@ -1355,28 +1325,28 @@ void __62__NPKPassAssociatedInfoManager_isHomeAccessRestrictedForPass___block_in
 
 void __72__NPKPassAssociatedInfoManager_canPerformRKEActionsForPassWithUniqueID___block_invoke(void *a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = [*(a1[4] + 24) objectForKeyedSubscript:a1[5]];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v3 = [v2 tiles];
-  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [*(*(&v12 + 1) + 8 * i) state];
+        v8 = [*(*(&v11 + 1) + 8 * i) state];
         v9 = [v8 action];
         v10 = [v9 type];
 
@@ -1387,7 +1357,7 @@ void __72__NPKPassAssociatedInfoManager_canPerformRKEActionsForPassWithUniqueID_
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v5)
       {
         continue;
@@ -1398,8 +1368,6 @@ void __72__NPKPassAssociatedInfoManager_canPerformRKEActionsForPassWithUniqueID_
   }
 
 LABEL_11:
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)rangingSuspensionReasonForPassWithUniqueID:(id)d
@@ -1436,19 +1404,19 @@ void __75__NPKPassAssociatedInfoManager_rangingSuspensionReasonForPassWithUnique
   v21 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   updateCopy = update;
-  v8 = pk_General_log();
+  v8 = pk_General_log(updateCopy);
   v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
 
   if (v9)
   {
-    v10 = pk_General_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = pk_General_log(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
       v18 = updateCopy;
       v19 = 2112;
       v20 = identifierCopy;
-      _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: didReceiveBalanceUpdate %@ for pass uniqueID %@", buf, 0x16u);
+      _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: didReceiveBalanceUpdate %@ for pass uniqueID %@", buf, 0x16u);
     }
   }
 
@@ -1458,16 +1426,14 @@ void __75__NPKPassAssociatedInfoManager_rangingSuspensionReasonForPassWithUnique
   v14[3] = &unk_279949630;
   v15 = updateCopy;
   v16 = identifierCopy;
-  v11 = identifierCopy;
-  v12 = updateCopy;
-  [(NPKPassAssociatedInfoManager *)self _updatePassInfoManagerForPassUniqueID:v11 updateBlock:v14];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = identifierCopy;
+  v13 = updateCopy;
+  [(NPKPassAssociatedInfoManager *)self _updatePassInfoManagerForPassUniqueID:v12 updateBlock:v14];
 }
 
 uint64_t __88__NPKPassAssociatedInfoManager_paymentPassWithUniqueIdentifier_didReceiveBalanceUpdate___block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 balances];
   v5 = NPKIsEqual(v4, *(a1 + 32));
@@ -1479,22 +1445,22 @@ uint64_t __88__NPKPassAssociatedInfoManager_paymentPassWithUniqueIdentifier_didR
 
     if (!v7)
     {
-      v12 = 0;
+      v14 = 0;
       goto LABEL_11;
     }
 
-    v8 = pk_General_log();
-    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+    v9 = pk_General_log(v8);
+    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
 
-    if (v9)
+    if (v10)
     {
-      v10 = pk_General_log();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v12 = pk_General_log(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = *(a1 + 40);
-        v15 = 138412290;
-        v16 = v11;
-        _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: pass with uniqueID:%@ has add value pending", &v15, 0xCu);
+        v13 = *(a1 + 40);
+        v16 = 138412290;
+        v17 = v13;
+        _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: pass with uniqueID:%@ has add value pending", &v16, 0xCu);
       }
     }
 
@@ -1506,11 +1472,10 @@ uint64_t __88__NPKPassAssociatedInfoManager_paymentPassWithUniqueIdentifier_didR
     [v3 setBalances:*(a1 + 32)];
   }
 
-  v12 = 1;
+  v14 = 1;
 LABEL_11:
 
-  v13 = *MEMORY[0x277D85DE8];
-  return v12;
+  return v14;
 }
 
 - (void)paymentPassWithUniqueIdentifier:(id)identifier didReceivePlanUpdate:(id)update
@@ -1518,19 +1483,19 @@ LABEL_11:
   v21 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   updateCopy = update;
-  v8 = pk_General_log();
+  v8 = pk_General_log(updateCopy);
   v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
 
   if (v9)
   {
-    v10 = pk_General_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = pk_General_log(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
       v18 = updateCopy;
       v19 = 2112;
       v20 = identifierCopy;
-      _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: didReceivePlanUpdate %@ for pass uniqueID %@", buf, 0x16u);
+      _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: didReceivePlanUpdate %@ for pass uniqueID %@", buf, 0x16u);
     }
   }
 
@@ -1540,16 +1505,14 @@ LABEL_11:
   v14[3] = &unk_279949630;
   v15 = updateCopy;
   v16 = identifierCopy;
-  v11 = identifierCopy;
-  v12 = updateCopy;
-  [(NPKPassAssociatedInfoManager *)self _updatePassInfoManagerForPassUniqueID:v11 updateBlock:v14];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = identifierCopy;
+  v13 = updateCopy;
+  [(NPKPassAssociatedInfoManager *)self _updatePassInfoManagerForPassUniqueID:v12 updateBlock:v14];
 }
 
 uint64_t __85__NPKPassAssociatedInfoManager_paymentPassWithUniqueIdentifier_didReceivePlanUpdate___block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 dynamicPlans];
   v5 = NPKIsEqual(v4, *(a1 + 32));
@@ -1561,22 +1524,22 @@ uint64_t __85__NPKPassAssociatedInfoManager_paymentPassWithUniqueIdentifier_didR
 
     if (!v7)
     {
-      v12 = 0;
+      v14 = 0;
       goto LABEL_11;
     }
 
-    v8 = pk_General_log();
-    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+    v9 = pk_General_log(v8);
+    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
 
-    if (v9)
+    if (v10)
     {
-      v10 = pk_General_log();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v12 = pk_General_log(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = *(a1 + 40);
-        v15 = 138412290;
-        v16 = v11;
-        _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: pass with uniqueID:%@ has add value pending", &v15, 0xCu);
+        v13 = *(a1 + 40);
+        v16 = 138412290;
+        v17 = v13;
+        _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: pass with uniqueID:%@ has add value pending", &v16, 0xCu);
       }
     }
 
@@ -1588,11 +1551,10 @@ uint64_t __85__NPKPassAssociatedInfoManager_paymentPassWithUniqueIdentifier_didR
     [v3 setDynamicPlans:*(a1 + 32)];
   }
 
-  v12 = 1;
+  v14 = 1;
 LABEL_11:
 
-  v13 = *MEMORY[0x277D85DE8];
-  return v12;
+  return v14;
 }
 
 - (void)paymentPassWithUniqueIdentifier:(id)identifier didUpdateWithTransitPassProperties:(id)properties
@@ -1600,24 +1562,24 @@ LABEL_11:
   v22 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   propertiesCopy = properties;
-  v8 = pk_General_log();
+  v8 = pk_General_log(propertiesCopy);
   v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
 
   if (v9)
   {
-    v10 = pk_General_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = pk_General_log(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
       v19 = propertiesCopy;
       v20 = 2112;
       v21 = identifierCopy;
-      _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: didUpdateWithTransitPassProperties:%@ for pass uniqueID:%@", buf, 0x16u);
+      _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: didUpdateWithTransitPassProperties:%@ for pass uniqueID:%@", buf, 0x16u);
     }
   }
 
-  v11 = [(NSMutableDictionary *)self->_passAssociatedInfoModelsByPassUniqueID objectForKey:identifierCopy];
-  pass = [v11 pass];
+  v12 = [(NSMutableDictionary *)self->_passAssociatedInfoModelsByPassUniqueID objectForKey:identifierCopy];
+  pass = [v12 pass];
   paymentPass = [pass paymentPass];
 
   if (paymentPass)
@@ -1635,13 +1597,11 @@ LABEL_11:
     v17 = identifierCopy;
     [(NPKPassAssociatedInfoManager *)self _updatePassInfoManagerForPassUniqueID:v17 updateBlock:v15];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __99__NPKPassAssociatedInfoManager_paymentPassWithUniqueIdentifier_didUpdateWithTransitPassProperties___block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 transitPassProperties];
   v5 = NPKIsEqual(v4, *(a1 + 32));
@@ -1653,22 +1613,22 @@ uint64_t __99__NPKPassAssociatedInfoManager_paymentPassWithUniqueIdentifier_didU
 
     if (!v7)
     {
-      v12 = 0;
+      v14 = 0;
       goto LABEL_11;
     }
 
-    v8 = pk_General_log();
-    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+    v9 = pk_General_log(v8);
+    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
 
-    if (v9)
+    if (v10)
     {
-      v10 = pk_General_log();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v12 = pk_General_log(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = *(a1 + 40);
-        v15 = 138412290;
-        v16 = v11;
-        _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: pass with uniqueID:%@ has add value pending", &v15, 0xCu);
+        v13 = *(a1 + 40);
+        v16 = 138412290;
+        v17 = v13;
+        _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: pass with uniqueID:%@ has add value pending", &v16, 0xCu);
       }
     }
 
@@ -1680,11 +1640,10 @@ uint64_t __99__NPKPassAssociatedInfoManager_paymentPassWithUniqueIdentifier_didU
     [v3 setTransitPassProperties:*(a1 + 32)];
   }
 
-  v12 = 1;
+  v14 = 1;
 LABEL_11:
 
-  v13 = *MEMORY[0x277D85DE8];
-  return v12;
+  return v14;
 }
 
 - (void)passWithUniqueIdentifier:(id)identifier didUpdateTiles:(id)tiles forContext:(int64_t)context
@@ -1692,13 +1651,13 @@ LABEL_11:
   v23 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   tilesCopy = tiles;
-  v10 = pk_General_log();
+  v10 = pk_General_log(tilesCopy);
   v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
 
   if (v11)
   {
-    v12 = pk_General_log();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = pk_General_log(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412802;
       v18 = tilesCopy;
@@ -1706,7 +1665,7 @@ LABEL_11:
       v20 = identifierCopy;
       v21 = 2048;
       contextCopy = context;
-      _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: didUpdateTiles %@ for pass uniqueID %@ for context %ld", buf, 0x20u);
+      _os_log_impl(&dword_25B300000, v13, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: didUpdateTiles %@ for pass uniqueID %@ for context %ld", buf, 0x20u);
     }
   }
 
@@ -1715,10 +1674,8 @@ LABEL_11:
   v15[2] = __83__NPKPassAssociatedInfoManager_passWithUniqueIdentifier_didUpdateTiles_forContext___block_invoke;
   v15[3] = &unk_279949658;
   v16 = tilesCopy;
-  v13 = tilesCopy;
+  v14 = tilesCopy;
   [(NPKPassAssociatedInfoManager *)self _updatePassInfoManagerForPassUniqueID:identifierCopy updateBlock:v15];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __83__NPKPassAssociatedInfoManager_passWithUniqueIdentifier_didUpdateTiles_forContext___block_invoke(uint64_t a1, void *a2)
@@ -1739,19 +1696,19 @@ uint64_t __83__NPKPassAssociatedInfoManager_passWithUniqueIdentifier_didUpdateTi
 {
   v22 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
-  v9 = pk_General_log();
+  v9 = pk_General_log(identifierCopy);
   v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
 
   if (v10)
   {
-    v11 = pk_General_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = pk_General_log(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218242;
       reasonsCopy = reasons;
       v20 = 2112;
       v21 = identifierCopy;
-      _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: didUpdateRangingSuspensionReasons (%lu) for pass with subcredential identifier %@", buf, 0x16u);
+      _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: didUpdateRangingSuspensionReasons (%lu) for pass with subcredential identifier %@", buf, 0x16u);
     }
   }
 
@@ -1763,10 +1720,8 @@ uint64_t __83__NPKPassAssociatedInfoManager_passWithUniqueIdentifier_didUpdateTi
   block[4] = self;
   v16 = identifierCopy;
   reasonsCopy2 = reasons;
-  v13 = identifierCopy;
+  v14 = identifierCopy;
   dispatch_async(internalQueue, block);
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __140__NPKPassAssociatedInfoManager_credentialIdentifier_paymentApplicationIdentifier_secureElementIdentifier_didUpdateRangingSuspensionReasons___block_invoke(uint64_t a1)
@@ -1799,31 +1754,31 @@ void __140__NPKPassAssociatedInfoManager_credentialIdentifier_paymentApplication
 
 void __140__NPKPassAssociatedInfoManager_credentialIdentifier_paymentApplicationIdentifier_secureElementIdentifier_didUpdateRangingSuspensionReasons___block_invoke_2(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v6 = [a3 pass];
   v7 = [v6 secureElementPass];
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v8 = [v7 npkSubcredentials];
-  v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v20;
+    v11 = *v19;
     do
     {
       v12 = 0;
       do
       {
-        if (*v20 != v11)
+        if (*v19 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = [*(*(&v19 + 1) + 8 * v12) identifier];
+        v13 = [*(*(&v18 + 1) + 8 * v12) identifier];
         v14 = [v13 isEqualToString:*(a1 + 32)];
 
         if (v14)
@@ -1840,13 +1795,11 @@ void __140__NPKPassAssociatedInfoManager_credentialIdentifier_paymentApplication
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v10);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __140__NPKPassAssociatedInfoManager_credentialIdentifier_paymentApplicationIdentifier_secureElementIdentifier_didUpdateRangingSuspensionReasons___block_invoke_3(uint64_t a1, void *a2)
@@ -1866,19 +1819,19 @@ BOOL __140__NPKPassAssociatedInfoManager_credentialIdentifier_paymentApplication
 {
   if (self->_paymentServiceWasInterrupted)
   {
-    v9 = v2;
-    v10 = v3;
+    v10 = v2;
+    v11 = v3;
     self->_paymentServiceWasInterrupted = 0;
-    v5 = pk_General_log();
+    v5 = pk_General_log(self);
     v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
     if (v6)
     {
-      v7 = pk_General_log();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v8 = pk_General_log(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        *v8 = 0;
-        _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: Refreshing all associated pass info following re-establishment of connection", v8, 2u);
+        *v9 = 0;
+        _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: Refreshing all associated pass info following re-establishment of connection", v9, 2u);
       }
     }
 
@@ -1890,24 +1843,22 @@ BOOL __140__NPKPassAssociatedInfoManager_credentialIdentifier_paymentApplication
 {
   v12 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
-  v5 = pk_General_log();
+  v5 = pk_General_log(changedCopy);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
   if (v6)
   {
-    v7 = pk_General_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = pk_General_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       accountIdentifier = [changedCopy accountIdentifier];
       v10 = 138412290;
       v11 = accountIdentifier;
-      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: received accountChanged for account with identifier %@", &v10, 0xCu);
+      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: received accountChanged for account with identifier %@", &v10, 0xCu);
     }
   }
 
   [(NPKPassAssociatedInfoManager *)self _handleReceivedAccountUpdateWithAccount:changedCopy];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)precursorPassRequestsManager:(id)manager didUpdateUpgradePrequestDescription:(id)description forPassUniqueID:(id)d
@@ -2065,7 +2016,7 @@ void __57__NPKPassAssociatedInfoManager__loadPassContentIfNeeded___block_invoke(
 
 void __57__NPKPassAssociatedInfoManager__loadPassContentIfNeeded___block_invoke_2(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 24);
   v3 = [*(a1 + 40) uniqueID];
   v4 = [v2 objectForKeyedSubscript:v3];
@@ -2073,38 +2024,37 @@ void __57__NPKPassAssociatedInfoManager__loadPassContentIfNeeded___block_invoke_
   if (v4)
   {
     v5 = [*(a1 + 32) _associatedInfoModelWithPass:*(a1 + 40) currentModel:v4];
-    if ((NPKIsEqual(v4, v5) & 1) == 0)
+    v6 = NPKIsEqual(v4, v5);
+    if ((v6 & 1) == 0)
     {
-      v6 = pk_General_log();
-      v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+      v7 = pk_General_log(v6);
+      v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
 
-      if (v7)
+      if (v8)
       {
-        v8 = pk_General_log();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+        v10 = pk_General_log(v9);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
-          v12 = 138412546;
-          v13 = v4;
-          v14 = 2112;
-          v15 = v5;
-          _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: transit pass model did change from:%@ to:%@", &v12, 0x16u);
+          v13 = 138412546;
+          v14 = v4;
+          v15 = 2112;
+          v16 = v5;
+          _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: transit pass model did change from:%@ to:%@", &v13, 0x16u);
         }
       }
 
-      v9 = *(*(a1 + 32) + 24);
-      v10 = [*(a1 + 40) uniqueID];
-      [v9 setObject:v5 forKeyedSubscript:v10];
+      v11 = *(*(a1 + 32) + 24);
+      v12 = [*(a1 + 40) uniqueID];
+      [v11 setObject:v5 forKeyedSubscript:v12];
 
       [*(a1 + 32) _notifyObserversOfUpdatedTransitPassInfoForModel:v5];
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_fetchMostRecentBalancesForPass:(id)pass
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   passCopy = pass;
   if ([(NPKPassAssociatedInfoManager *)self _isPassWithAccountBalanceForPass:passCopy])
   {
@@ -2115,67 +2065,63 @@ void __57__NPKPassAssociatedInfoManager__loadPassContentIfNeeded___block_invoke_
   {
     uniqueID = [passCopy uniqueID];
 
-    v6 = pk_General_log();
-    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+    v7 = pk_General_log(v6);
+    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
 
-    if (v7)
+    if (v8)
     {
-      v8 = pk_General_log();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v10 = pk_General_log(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v15 = uniqueID;
-        _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: Requested fetch most recent balances for pass with unique ID %@", buf, 0xCu);
+        v16 = uniqueID;
+        _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: Requested fetch most recent balances for pass with unique ID %@", buf, 0xCu);
       }
     }
 
     paymentService = [(NPKPassAssociatedInfoManager *)self paymentService];
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __64__NPKPassAssociatedInfoManager__fetchMostRecentBalancesForPass___block_invoke;
-    v11[3] = &unk_279947BD8;
-    v12 = uniqueID;
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __64__NPKPassAssociatedInfoManager__fetchMostRecentBalancesForPass___block_invoke;
+    v12[3] = &unk_279947BD8;
+    v13 = uniqueID;
     selfCopy = self;
     passCopy = uniqueID;
-    [paymentService balancesForPaymentPassWithUniqueIdentifier:passCopy completion:v11];
+    [paymentService balancesForPaymentPassWithUniqueIdentifier:passCopy completion:v12];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __64__NPKPassAssociatedInfoManager__fetchMostRecentBalancesForPass___block_invoke(uint64_t a1, void *a2)
 {
   v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = pk_General_log();
+  v4 = pk_General_log(v3);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 
   if (v5)
   {
-    v6 = pk_General_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = pk_General_log(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = *(a1 + 32);
+      v8 = *(a1 + 32);
       *buf = 138412546;
       v16 = v3;
       v17 = 2112;
-      v18 = v7;
-      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: received most recent balances %@ for pass with unique ID %@", buf, 0x16u);
+      v18 = v8;
+      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: received most recent balances %@ for pass with unique ID %@", buf, 0x16u);
     }
   }
 
-  v10 = a1 + 32;
-  v8 = *(a1 + 32);
-  v9 = *(v10 + 8);
+  v11 = a1 + 32;
+  v9 = *(a1 + 32);
+  v10 = *(v11 + 8);
   v13[0] = MEMORY[0x277D85DD0];
   v13[1] = 3221225472;
   v13[2] = __64__NPKPassAssociatedInfoManager__fetchMostRecentBalancesForPass___block_invoke_93;
   v13[3] = &unk_279949658;
   v14 = v3;
-  v11 = v3;
-  [v9 _updatePassInfoManagerForPassUniqueID:v8 updateBlock:v13];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v12 = v3;
+  [v10 _updatePassInfoManagerForPassUniqueID:v9 updateBlock:v13];
 }
 
 uint64_t __64__NPKPassAssociatedInfoManager__fetchMostRecentBalancesForPass___block_invoke_93(uint64_t a1, void *a2)
@@ -2196,17 +2142,17 @@ uint64_t __64__NPKPassAssociatedInfoManager__fetchMostRecentBalancesForPass___bl
 {
   v16 = *MEMORY[0x277D85DE8];
   uniqueID = [pass uniqueID];
-  v5 = pk_General_log();
+  v5 = pk_General_log(uniqueID);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
   if (v6)
   {
-    v7 = pk_General_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = pk_General_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       v15 = uniqueID;
-      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: Requested fetch most recent commute plans for pass with unique ID %@", buf, 0xCu);
+      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: Requested fetch most recent commute plans for pass with unique ID %@", buf, 0xCu);
     }
   }
 
@@ -2217,45 +2163,41 @@ uint64_t __64__NPKPassAssociatedInfoManager__fetchMostRecentBalancesForPass___bl
   v11[3] = &unk_2799496C8;
   v12 = uniqueID;
   selfCopy = self;
-  v9 = uniqueID;
-  [paymentService plansForPaymentPassWithUniqueIdentifier:v9 completion:v11];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v10 = uniqueID;
+  [paymentService plansForPaymentPassWithUniqueIdentifier:v10 completion:v11];
 }
 
 void __68__NPKPassAssociatedInfoManager__fetchMostRecentCommutePlansForPass___block_invoke(uint64_t a1, void *a2)
 {
   v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = pk_General_log();
+  v4 = pk_General_log(v3);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 
   if (v5)
   {
-    v6 = pk_General_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = pk_General_log(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = *(a1 + 32);
+      v8 = *(a1 + 32);
       *buf = 138412546;
       v16 = v3;
       v17 = 2112;
-      v18 = v7;
-      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: received most recent commute plans %@ for pass with unique ID %@", buf, 0x16u);
+      v18 = v8;
+      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: received most recent commute plans %@ for pass with unique ID %@", buf, 0x16u);
     }
   }
 
-  v10 = a1 + 32;
-  v8 = *(a1 + 32);
-  v9 = *(v10 + 8);
+  v11 = a1 + 32;
+  v9 = *(a1 + 32);
+  v10 = *(v11 + 8);
   v13[0] = MEMORY[0x277D85DD0];
   v13[1] = 3221225472;
   v13[2] = __68__NPKPassAssociatedInfoManager__fetchMostRecentCommutePlansForPass___block_invoke_95;
   v13[3] = &unk_279949658;
   v14 = v3;
-  v11 = v3;
-  [v9 _updatePassInfoManagerForPassUniqueID:v8 updateBlock:v13];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v12 = v3;
+  [v10 _updatePassInfoManagerForPassUniqueID:v9 updateBlock:v13];
 }
 
 uint64_t __68__NPKPassAssociatedInfoManager__fetchMostRecentCommutePlansForPass___block_invoke_95(uint64_t a1, void *a2)
@@ -2317,39 +2259,38 @@ void __70__NPKPassAssociatedInfoManager__fetchMostRecentAccountBalanceForPass___
 
 void __70__NPKPassAssociatedInfoManager__fetchMostRecentAccountBalanceForPass___block_invoke_2(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
-  v2 = pk_General_log();
+  v22 = *MEMORY[0x277D85DE8];
+  v2 = pk_General_log(a1);
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
 
   if (v3)
   {
-    v4 = pk_General_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = pk_General_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = *(a1 + 32);
-      if (v5)
+      v6 = *(a1 + 32);
+      if (v6)
       {
-        v6 = &stru_286C934F8;
+        v7 = &stru_286C934F8;
       }
 
       else
       {
-        v6 = @"not ";
+        v7 = @"not ";
       }
 
-      v7 = [v5 accountIdentifier];
-      v8 = *(a1 + 64);
+      v8 = [v6 accountIdentifier];
       v9 = PKFeatureIdentifierToString();
       v10 = *(a1 + 40);
-      v15 = 138413058;
-      v16 = v6;
-      v17 = 2112;
-      v18 = v7;
-      v19 = 2112;
-      v20 = v9;
-      v21 = 2112;
-      v22 = v10;
-      _os_log_impl(&dword_25B300000, v4, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: Did %@receive account with identifier %@ for feature identifier %@. Error?: %@", &v15, 0x2Au);
+      v14 = 138413058;
+      v15 = v7;
+      v16 = 2112;
+      v17 = v8;
+      v18 = 2112;
+      v19 = v9;
+      v20 = 2112;
+      v21 = v10;
+      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: Did %@receive account with identifier %@ for feature identifier %@. Error?: %@", &v14, 0x2Au);
     }
   }
 
@@ -2363,77 +2304,74 @@ void __70__NPKPassAssociatedInfoManager__fetchMostRecentAccountBalanceForPass___
     [*(a1 + 48) _internalQueue_processReceivedAccountUpdateWithAccount:*(a1 + 32)];
     [*(a1 + 48) _refreshAccountBalanceIfApplicableForPass:*(a1 + 56) withAccount:*(a1 + 32)];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_refreshAccountBalanceIfApplicableForPass:(id)pass withAccount:(id)account
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   passCopy = pass;
   accountCopy = account;
+  v8 = accountCopy;
   if (accountCopy)
   {
     date = [MEMORY[0x277CBEAA8] date];
-    lastUpdated = [accountCopy lastUpdated];
+    lastUpdated = [v8 lastUpdated];
     [date timeIntervalSinceDate:lastUpdated];
-    v11 = v10 > 300.0;
+    v12 = v11 > 300.0;
   }
 
   else
   {
-    v11 = 0;
+    v12 = 0;
   }
 
-  v12 = pk_General_log();
-  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+  v13 = pk_General_log(accountCopy);
+  v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
 
-  if (v13)
+  if (v14)
   {
-    v14 = pk_General_log();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v16 = pk_General_log(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      if (v11)
+      if (v12)
       {
-        v15 = &stru_286C934F8;
+        v17 = &stru_286C934F8;
       }
 
       else
       {
-        v15 = @"not ";
+        v17 = @"not ";
       }
 
-      accountIdentifier = [accountCopy accountIdentifier];
+      accountIdentifier = [v8 accountIdentifier];
       [passCopy associatedAccountFeatureIdentifier];
-      v17 = PKFeatureIdentifierToString();
+      v19 = PKFeatureIdentifierToString();
       *buf = 138412802;
-      v25 = v15;
-      v26 = 2112;
-      v27 = accountIdentifier;
-      v28 = 2112;
-      v29 = v17;
-      _os_log_impl(&dword_25B300000, v14, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: Will %@request refreshed account with identifier %@ for feature identifier %@.", buf, 0x20u);
+      v26 = v17;
+      v27 = 2112;
+      v28 = accountIdentifier;
+      v29 = 2112;
+      v30 = v19;
+      _os_log_impl(&dword_25B300000, v16, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: Will %@request refreshed account with identifier %@ for feature identifier %@.", buf, 0x20u);
     }
   }
 
-  if (v11)
+  if (v12)
   {
     objc_initWeak(buf, self);
     mEMORY[0x277D37CD0] = [MEMORY[0x277D37CD0] sharedInstance];
-    accountIdentifier2 = [accountCopy accountIdentifier];
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __86__NPKPassAssociatedInfoManager__refreshAccountBalanceIfApplicableForPass_withAccount___block_invoke;
-    v21[3] = &unk_279949718;
-    objc_copyWeak(&v23, buf);
-    v22 = passCopy;
-    [mEMORY[0x277D37CD0] updateAccountWithIdentifier:accountIdentifier2 extended:0 completion:v21];
+    accountIdentifier2 = [v8 accountIdentifier];
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __86__NPKPassAssociatedInfoManager__refreshAccountBalanceIfApplicableForPass_withAccount___block_invoke;
+    v22[3] = &unk_279949718;
+    objc_copyWeak(&v24, buf);
+    v23 = passCopy;
+    [mEMORY[0x277D37CD0] updateAccountWithIdentifier:accountIdentifier2 extended:0 completion:v22];
 
-    objc_destroyWeak(&v23);
+    objc_destroyWeak(&v24);
     objc_destroyWeak(buf);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __86__NPKPassAssociatedInfoManager__refreshAccountBalanceIfApplicableForPass_withAccount___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -2460,39 +2398,37 @@ void __86__NPKPassAssociatedInfoManager__refreshAccountBalanceIfApplicableForPas
 void __86__NPKPassAssociatedInfoManager__refreshAccountBalanceIfApplicableForPass_withAccount___block_invoke_2(uint64_t a1)
 {
   v18 = *MEMORY[0x277D85DE8];
-  v2 = pk_General_log();
+  v2 = pk_General_log(a1);
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
 
   if (v3)
   {
-    v4 = pk_General_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = pk_General_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = [*(a1 + 32) accountIdentifier];
+      v6 = [*(a1 + 32) accountIdentifier];
       [*(a1 + 40) associatedAccountFeatureIdentifier];
-      v6 = PKFeatureIdentifierToString();
-      v7 = *(a1 + 48);
+      v7 = PKFeatureIdentifierToString();
+      v8 = *(a1 + 48);
       v12 = 138412802;
-      v13 = v5;
+      v13 = v6;
       v14 = 2112;
-      v15 = v6;
+      v15 = v7;
       v16 = 2112;
-      v17 = v7;
-      _os_log_impl(&dword_25B300000, v4, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: received refreshed account with identifier %@ for feature identifier %@. Error?: %@", &v12, 0x20u);
+      v17 = v8;
+      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: received refreshed account with identifier %@ for feature identifier %@. Error?: %@", &v12, 0x20u);
     }
   }
 
   if (*(a1 + 32))
   {
-    v8 = [*(a1 + 56) passUniqueIDsByAccountIdentifier];
-    v9 = [*(a1 + 40) uniqueID];
-    v10 = [*(a1 + 32) accountIdentifier];
-    [v8 setObject:v9 forKey:v10];
+    v9 = [*(a1 + 56) passUniqueIDsByAccountIdentifier];
+    v10 = [*(a1 + 40) uniqueID];
+    v11 = [*(a1 + 32) accountIdentifier];
+    [v9 setObject:v10 forKey:v11];
 
     [*(a1 + 56) _internalQueue_processReceivedAccountUpdateWithAccount:*(a1 + 32)];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleReceivedAccountUpdateWithAccount:(id)account
@@ -2533,23 +2469,21 @@ void __86__NPKPassAssociatedInfoManager__refreshAccountBalanceIfApplicableForPas
 
   else
   {
-    v8 = pk_General_log();
+    v8 = pk_General_log(0);
     v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
 
     if (v9)
     {
-      v10 = pk_General_log();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = pk_General_log(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         accountIdentifier2 = [accountCopy accountIdentifier];
         v13 = 138412290;
         v14 = accountIdentifier2;
-        _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: Not processing balances for not-tracked account with identifier %@ ", &v13, 0xCu);
+        _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: Not processing balances for not-tracked account with identifier %@ ", &v13, 0xCu);
       }
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_processAccountBalancesForPassWithUniqueID:(id)d withAccount:(id)account
@@ -2557,19 +2491,19 @@ void __86__NPKPassAssociatedInfoManager__refreshAccountBalanceIfApplicableForPas
   v21 = *MEMORY[0x277D85DE8];
   dCopy = d;
   accountCopy = account;
-  v8 = pk_General_log();
+  v8 = pk_General_log(accountCopy);
   v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
 
   if (v9)
   {
-    v10 = pk_General_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = pk_General_log(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
       v18 = dCopy;
       v19 = 2112;
       v20 = accountCopy;
-      _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: Processing account balances for pass with uniqueID %@ with account %@", buf, 0x16u);
+      _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: Processing account balances for pass with uniqueID %@ with account %@", buf, 0x16u);
     }
   }
 
@@ -2580,30 +2514,29 @@ void __86__NPKPassAssociatedInfoManager__refreshAccountBalanceIfApplicableForPas
   v14[4] = self;
   v15 = accountCopy;
   v16 = dCopy;
-  v11 = dCopy;
-  v12 = accountCopy;
-  [(NPKPassAssociatedInfoManager *)self _updatePassInfoManagerForPassUniqueID:v11 updateBlock:v14];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = dCopy;
+  v13 = accountCopy;
+  [(NPKPassAssociatedInfoManager *)self _updatePassInfoManagerForPassUniqueID:v12 updateBlock:v14];
 }
 
 uint64_t __87__NPKPassAssociatedInfoManager__processAccountBalancesForPassWithUniqueID_withAccount___block_invoke(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  if ([*(a1 + 32) _shouldUseBalanceForAccount:*(a1 + 40)])
+  v4 = [*(a1 + 32) _shouldUseBalanceForAccount:*(a1 + 40)];
+  if (v4)
   {
     if ([*(a1 + 40) feature] == 4)
     {
-      v4 = [objc_opt_class() accountBalanceForAccount:*(a1 + 40)];
-      if (v4)
+      v5 = [objc_opt_class() accountBalanceForAccount:*(a1 + 40)];
+      if (v5)
       {
-        v5 = [MEMORY[0x277CBEB98] setWithObject:v4];
+        v6 = [MEMORY[0x277CBEB98] setWithObject:v5];
       }
 
       else
       {
-        v5 = 0;
+        v6 = 0;
       }
 
       goto LABEL_12;
@@ -2612,41 +2545,40 @@ uint64_t __87__NPKPassAssociatedInfoManager__processAccountBalancesForPassWithUn
 
   else
   {
-    v6 = pk_General_log();
-    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+    v7 = pk_General_log(v4);
+    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
 
-    if (v7)
+    if (v8)
     {
-      v8 = pk_General_log();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v10 = pk_General_log(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = *(a1 + 48);
-        v10 = [*(a1 + 40) accountIdentifier];
+        v11 = *(a1 + 48);
+        v12 = [*(a1 + 40) accountIdentifier];
         [*(a1 + 40) state];
-        v11 = PKAccountStateToString();
-        v16 = 138412802;
-        v17 = v9;
-        v18 = 2112;
-        v19 = v10;
-        v20 = 2112;
-        v21 = v11;
-        _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: Not using account balance for pass with unique ID %@. Account identifier %@ state %@", &v16, 0x20u);
+        v13 = PKAccountStateToString();
+        v17 = 138412802;
+        v18 = v11;
+        v19 = 2112;
+        v20 = v12;
+        v21 = 2112;
+        v22 = v13;
+        _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: Not using account balance for pass with unique ID %@. Account identifier %@ state %@", &v17, 0x20u);
       }
     }
   }
 
-  v5 = 0;
+  v6 = 0;
 LABEL_12:
-  v12 = [v3 balances];
-  v13 = NPKIsEqual(v12, v5);
+  v14 = [v3 balances];
+  v15 = NPKIsEqual(v14, v6);
 
-  if ((v13 & 1) == 0)
+  if ((v15 & 1) == 0)
   {
-    [v3 setBalances:v5];
+    [v3 setBalances:v6];
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-  return v13 ^ 1u;
+  return v15 ^ 1u;
 }
 
 - (void)_fetchMostRecentTransitPropertiesAndAppletStateForPass:(id)pass
@@ -2655,20 +2587,20 @@ LABEL_12:
   passCopy = pass;
   devicePrimaryPaymentApplication = [passCopy devicePrimaryPaymentApplication];
   uniqueID = [passCopy uniqueID];
-  v7 = pk_General_log();
+  v7 = pk_General_log(uniqueID);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
 
   if (v8)
   {
-    v9 = pk_General_log();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = pk_General_log(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       applicationIdentifier = [devicePrimaryPaymentApplication applicationIdentifier];
       *buf = 138412546;
       v22 = uniqueID;
       v23 = 2112;
       v24 = applicationIdentifier;
-      _os_log_impl(&dword_25B300000, v9, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: Requested fetch most recent transit pass properties for pass with unique ID %@ payment application %@", buf, 0x16u);
+      _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: Requested fetch most recent transit pass properties for pass with unique ID %@ payment application %@", buf, 0x16u);
     }
   }
 
@@ -2681,12 +2613,10 @@ LABEL_12:
   v18 = passCopy;
   v19 = uniqueID;
   selfCopy = self;
-  v12 = uniqueID;
-  v13 = passCopy;
-  v14 = devicePrimaryPaymentApplication;
-  [paymentService transitStateWithPassUniqueIdentifier:v12 paymentApplication:v14 completion:v16];
-
-  v15 = *MEMORY[0x277D85DE8];
+  v13 = uniqueID;
+  v14 = passCopy;
+  v15 = devicePrimaryPaymentApplication;
+  [paymentService transitStateWithPassUniqueIdentifier:v13 paymentApplication:v15 completion:v16];
 }
 
 void __87__NPKPassAssociatedInfoManager__fetchMostRecentTransitPropertiesAndAppletStateForPass___block_invoke(uint64_t a1, void *a2)
@@ -2694,40 +2624,38 @@ void __87__NPKPassAssociatedInfoManager__fetchMostRecentTransitPropertiesAndAppl
   v25 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 transitPassPropertiesWithPaymentApplication:*(a1 + 32) pass:*(a1 + 40)];
-  v5 = pk_General_log();
+  v5 = pk_General_log(v4);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
   if (v6)
   {
-    v7 = pk_General_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = pk_General_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(a1 + 48);
-      v9 = [*(a1 + 32) applicationIdentifier];
+      v9 = *(a1 + 48);
+      v10 = [*(a1 + 32) applicationIdentifier];
       *buf = 138412802;
       v20 = v4;
       v21 = 2112;
-      v22 = v8;
+      v22 = v9;
       v23 = 2112;
-      v24 = v9;
-      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: Received most recent transit pass properties: %@ for pass with unique ID %@ payment application %@", buf, 0x20u);
+      v24 = v10;
+      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: Received most recent transit pass properties: %@ for pass with unique ID %@ payment application %@", buf, 0x20u);
     }
   }
 
-  v12 = a1 + 48;
-  v10 = *(a1 + 48);
-  v11 = *(v12 + 8);
+  v13 = a1 + 48;
+  v11 = *(a1 + 48);
+  v12 = *(v13 + 8);
   v16[0] = MEMORY[0x277D85DD0];
   v16[1] = 3221225472;
   v16[2] = __87__NPKPassAssociatedInfoManager__fetchMostRecentTransitPropertiesAndAppletStateForPass___block_invoke_105;
   v16[3] = &unk_279949630;
   v17 = v3;
   v18 = v4;
-  v13 = v4;
-  v14 = v3;
-  [v11 _updatePassInfoManagerForPassUniqueID:v10 updateBlock:v16];
-
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = v4;
+  v15 = v3;
+  [v12 _updatePassInfoManagerForPassUniqueID:v11 updateBlock:v16];
 }
 
 uint64_t __87__NPKPassAssociatedInfoManager__fetchMostRecentTransitPropertiesAndAppletStateForPass___block_invoke_105(uint64_t a1, void *a2)
@@ -2763,17 +2691,17 @@ LABEL_6:
   v17 = *MEMORY[0x277D85DE8];
   passCopy = pass;
   uniqueID = [passCopy uniqueID];
-  v6 = pk_General_log();
+  v6 = pk_General_log(uniqueID);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
 
   if (v7)
   {
-    v8 = pk_General_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = pk_General_log(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       v16 = uniqueID;
-      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: Requested fetch most recent tiles for pass with unique ID %@", buf, 0xCu);
+      _os_log_impl(&dword_25B300000, v9, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: Requested fetch most recent tiles for pass with unique ID %@", buf, 0xCu);
     }
   }
 
@@ -2784,14 +2712,12 @@ LABEL_6:
   v12[2] = __61__NPKPassAssociatedInfoManager__fetchMostRecentTilesForPass___block_invoke;
   v12[3] = &unk_279949768;
   objc_copyWeak(&v14, buf);
-  v10 = uniqueID;
-  v13 = v10;
-  [paymentService tilesForPassWithUniqueIdentifier:v10 context:1 completion:v12];
+  v11 = uniqueID;
+  v13 = v11;
+  [paymentService tilesForPassWithUniqueIdentifier:v11 context:1 completion:v12];
 
   objc_destroyWeak(&v14);
   objc_destroyWeak(buf);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __61__NPKPassAssociatedInfoManager__fetchMostRecentTilesForPass___block_invoke(uint64_t a1, void *a2)
@@ -2799,33 +2725,31 @@ void __61__NPKPassAssociatedInfoManager__fetchMostRecentTilesForPass___block_inv
   v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v5 = pk_General_log();
+  v5 = pk_General_log(WeakRetained);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
   if (v6)
   {
-    v7 = pk_General_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = pk_General_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(a1 + 32);
+      v9 = *(a1 + 32);
       *buf = 138412546;
       v15 = v3;
       v16 = 2112;
-      v17 = v8;
-      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: Received most recent tiles: %@ for pass with unique ID %@", buf, 0x16u);
+      v17 = v9;
+      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: Received most recent tiles: %@ for pass with unique ID %@", buf, 0x16u);
     }
   }
 
-  v9 = *(a1 + 32);
+  v10 = *(a1 + 32);
   v12[0] = MEMORY[0x277D85DD0];
   v12[1] = 3221225472;
   v12[2] = __61__NPKPassAssociatedInfoManager__fetchMostRecentTilesForPass___block_invoke_107;
   v12[3] = &unk_279949658;
   v13 = v3;
-  v10 = v3;
-  [WeakRetained _updatePassInfoManagerForPassUniqueID:v9 updateBlock:v12];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v11 = v3;
+  [WeakRetained _updatePassInfoManagerForPassUniqueID:v10 updateBlock:v12];
 }
 
 uint64_t __61__NPKPassAssociatedInfoManager__fetchMostRecentTilesForPass___block_invoke_107(uint64_t a1, void *a2)
@@ -2847,29 +2771,27 @@ uint64_t __61__NPKPassAssociatedInfoManager__fetchMostRecentTilesForPass___block
   v14 = *MEMORY[0x277D85DE8];
   passCopy = pass;
   uniqueID = [passCopy uniqueID];
-  v6 = pk_General_log();
+  v6 = pk_General_log(uniqueID);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
 
   if (v7)
   {
-    v8 = pk_General_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = pk_General_log(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       v13 = uniqueID;
-      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: Requested fetch most recent secure ranging suspension reason for pass with unique ID %@", buf, 0xCu);
+      _os_log_impl(&dword_25B300000, v9, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: Requested fetch most recent secure ranging suspension reason for pass with unique ID %@", buf, 0xCu);
     }
   }
 
-  v9 = [(NPKPassAssociatedInfoManager *)self _rangingSuspensionReasonForPass:passCopy];
+  v10 = [(NPKPassAssociatedInfoManager *)self _rangingSuspensionReasonForPass:passCopy];
   v11[0] = MEMORY[0x277D85DD0];
   v11[1] = 3221225472;
   v11[2] = __79__NPKPassAssociatedInfoManager__fetchMostRecentRangingSuspensionReasonForPass___block_invoke;
   v11[3] = &__block_descriptor_40_e36_q16__0__NPKPassAssociatedInfoModel_8l;
-  v11[4] = v9;
+  v11[4] = v10;
   [(NPKPassAssociatedInfoManager *)self _updatePassInfoManagerForPassUniqueID:uniqueID updateBlock:v11];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __79__NPKPassAssociatedInfoManager__fetchMostRecentRangingSuspensionReasonForPass___block_invoke(uint64_t a1, void *a2)
@@ -2887,50 +2809,50 @@ BOOL __79__NPKPassAssociatedInfoManager__fetchMostRecentRangingSuspensionReasonF
 
 - (unint64_t)_rangingSuspensionReasonForPass:(id)pass
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   devicePaymentApplications = [pass devicePaymentApplications];
-  v21 = [devicePaymentApplications countByEnumeratingWithState:&v29 objects:v34 count:16];
-  if (v21)
+  v20 = [devicePaymentApplications countByEnumeratingWithState:&v28 objects:v33 count:16];
+  if (v20)
   {
-    v4 = *v30;
-    v23 = devicePaymentApplications;
-    v20 = *v30;
+    v4 = *v29;
+    v22 = devicePaymentApplications;
+    v19 = *v29;
     do
     {
       v5 = 0;
       do
       {
-        if (*v30 != v4)
+        if (*v29 != v4)
         {
           objc_enumerationMutation(devicePaymentApplications);
         }
 
-        v22 = v5;
-        v6 = *(*(&v29 + 1) + 8 * v5);
+        v21 = v5;
+        v6 = *(*(&v28 + 1) + 8 * v5);
+        v24 = 0u;
         v25 = 0u;
         v26 = 0u;
         v27 = 0u;
-        v28 = 0u;
         subcredentials = [v6 subcredentials];
-        v8 = [subcredentials countByEnumeratingWithState:&v25 objects:v33 count:16];
+        v8 = [subcredentials countByEnumeratingWithState:&v24 objects:v32 count:16];
         if (v8)
         {
           v9 = v8;
-          v10 = *v26;
+          v10 = *v25;
           while (2)
           {
             for (i = 0; i != v9; ++i)
             {
-              if (*v26 != v10)
+              if (*v25 != v10)
               {
                 objc_enumerationMutation(subcredentials);
               }
 
-              v12 = *(*(&v25 + 1) + 8 * i);
+              v12 = *(*(&v24 + 1) + 8 * i);
               paymentService = [(NPKPassAssociatedInfoManager *)self paymentService];
               identifier = [v12 identifier];
               applicationIdentifier = [v6 applicationIdentifier];
@@ -2940,12 +2862,12 @@ BOOL __79__NPKPassAssociatedInfoManager__fetchMostRecentRangingSuspensionReasonF
               if (v17)
               {
 
-                devicePaymentApplications = v23;
+                devicePaymentApplications = v22;
                 goto LABEL_19;
               }
             }
 
-            v9 = [subcredentials countByEnumeratingWithState:&v25 objects:v33 count:16];
+            v9 = [subcredentials countByEnumeratingWithState:&v24 objects:v32 count:16];
             if (v9)
             {
               continue;
@@ -2955,17 +2877,17 @@ BOOL __79__NPKPassAssociatedInfoManager__fetchMostRecentRangingSuspensionReasonF
           }
         }
 
-        v5 = v22 + 1;
-        devicePaymentApplications = v23;
-        v4 = v20;
+        v5 = v21 + 1;
+        devicePaymentApplications = v22;
+        v4 = v19;
       }
 
-      while (v22 + 1 != v21);
+      while (v21 + 1 != v20);
       v17 = 0;
-      v21 = [v23 countByEnumeratingWithState:&v29 objects:v34 count:16];
+      v20 = [v22 countByEnumeratingWithState:&v28 objects:v33 count:16];
     }
 
-    while (v21);
+    while (v20);
   }
 
   else
@@ -2975,7 +2897,6 @@ BOOL __79__NPKPassAssociatedInfoManager__fetchMostRecentRangingSuspensionReasonF
 
 LABEL_19:
 
-  v18 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
@@ -3008,22 +2929,22 @@ void __82__NPKPassAssociatedInfoManager__updatePassInfoManagerForPassUniqueID_up
   v15 = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 24) objectForKeyedSubscript:*(a1 + 40)];
   v3 = (*(*(a1 + 48) + 16))();
-  v4 = pk_General_log();
+  v4 = pk_General_log(v3);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 
   if (v5)
   {
-    v6 = pk_General_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = pk_General_log(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = *(a1 + 40);
+      v8 = *(a1 + 40);
       v9 = 136315650;
       v10 = "[NPKPassAssociatedInfoManager _updatePassInfoManagerForPassUniqueID:updateBlock:]_block_invoke";
       v11 = 2048;
       v12 = v3;
       v13 = 2112;
-      v14 = v7;
-      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: %s\nHandling update type %ld for pass unique ID %@", &v9, 0x20u);
+      v14 = v8;
+      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: %s\nHandling update type %ld for pass unique ID %@", &v9, 0x20u);
     }
   }
 
@@ -3036,77 +2957,73 @@ void __82__NPKPassAssociatedInfoManager__updatePassInfoManagerForPassUniqueID_up
   {
     [*(a1 + 32) _notifyObserversOfUpdatedTransitPassInfoForModel:v2];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateAllPassesItemsFieldsPendingUpdateStatus
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_internalQueue);
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   obj = [(NSMutableDictionary *)self->_passAssociatedInfoModelsByPassUniqueID allValues];
-  v3 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v3 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v3)
   {
-    v4 = *v22;
+    v4 = *v21;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v22 != v4)
+        if (*v21 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v21 + 1) + 8 * i);
-        v17 = 0;
-        v18 = &v17;
-        v19 = 0x2020000000;
-        v20 = 0;
+        v6 = *(*(&v20 + 1) + 8 * i);
+        v16 = 0;
+        v17 = &v16;
+        v18 = 0x2020000000;
+        v19 = 0;
         balanceFields = [v6 balanceFields];
-        v16[0] = MEMORY[0x277D85DD0];
-        v16[1] = 3221225472;
-        v16[2] = __78__NPKPassAssociatedInfoManager__updateAllPassesItemsFieldsPendingUpdateStatus__block_invoke;
-        v16[3] = &unk_279949790;
-        v16[4] = &v17;
-        [balanceFields enumerateObjectsUsingBlock:v16];
+        v15[0] = MEMORY[0x277D85DD0];
+        v15[1] = 3221225472;
+        v15[2] = __78__NPKPassAssociatedInfoManager__updateAllPassesItemsFieldsPendingUpdateStatus__block_invoke;
+        v15[3] = &unk_279949790;
+        v15[4] = &v16;
+        [balanceFields enumerateObjectsUsingBlock:v15];
 
         [v6 updateItemFields];
-        v12 = 0;
-        v13 = &v12;
-        v14 = 0x2020000000;
-        v15 = 0;
+        v11 = 0;
+        v12 = &v11;
+        v13 = 0x2020000000;
+        v14 = 0;
         balanceFields2 = [v6 balanceFields];
-        v11[0] = MEMORY[0x277D85DD0];
-        v11[1] = 3221225472;
-        v11[2] = __78__NPKPassAssociatedInfoManager__updateAllPassesItemsFieldsPendingUpdateStatus__block_invoke_2;
-        v11[3] = &unk_279949790;
-        v11[4] = &v12;
-        [balanceFields2 enumerateObjectsUsingBlock:v11];
+        v10[0] = MEMORY[0x277D85DD0];
+        v10[1] = 3221225472;
+        v10[2] = __78__NPKPassAssociatedInfoManager__updateAllPassesItemsFieldsPendingUpdateStatus__block_invoke_2;
+        v10[3] = &unk_279949790;
+        v10[4] = &v11;
+        [balanceFields2 enumerateObjectsUsingBlock:v10];
 
-        if (*(v18 + 24) != *(v13 + 24))
+        if (*(v17 + 24) != *(v12 + 24))
         {
           [(NPKPassAssociatedInfoManager *)self _notifyObserversOfUpdatedTransitPassInfoForModel:v6];
         }
 
-        _Block_object_dispose(&v12, 8);
-        _Block_object_dispose(&v17, 8);
+        _Block_object_dispose(&v11, 8);
+        _Block_object_dispose(&v16, 8);
       }
 
-      v3 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v3 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v3);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __78__NPKPassAssociatedInfoManager__updateAllPassesItemsFieldsPendingUpdateStatus__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__78__NPKPassAssociatedInfoManager__updateAllPassesItemsFieldsPendingUpdateStatus__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 hasPendingUpdate];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -3114,7 +3031,7 @@ uint64_t __78__NPKPassAssociatedInfoManager__updateAllPassesItemsFieldsPendingUp
   return result;
 }
 
-uint64_t __78__NPKPassAssociatedInfoManager__updateAllPassesItemsFieldsPendingUpdateStatus__block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__78__NPKPassAssociatedInfoManager__updateAllPassesItemsFieldsPendingUpdateStatus__block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 hasPendingUpdate];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -3230,36 +3147,35 @@ void __78__NPKPassAssociatedInfoManager__notifyObserversOfUpdatedRestrictedGuest
 
 - (BOOL)_isPassEligible:(id)eligible
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   eligibleCopy = eligible;
-  if ([eligibleCopy isStoredValuePass] & 1) != 0 || (objc_msgSend(eligibleCopy, "isAccessPass") & 1) != 0 || -[NPKPassAssociatedInfoManager _isPassWithAccountBalanceForPass:](self, "_isPassWithAccountBalanceForPass:", eligibleCopy) || (objc_msgSend(eligibleCopy, "npkIsPrecursorPass"))
+  if ([eligibleCopy isStoredValuePass] & 1) != 0 || (objc_msgSend(eligibleCopy, "isAccessPass") & 1) != 0 || -[NPKPassAssociatedInfoManager _isPassWithAccountBalanceForPass:](self, "_isPassWithAccountBalanceForPass:", eligibleCopy) || (v5 = objc_msgSend(eligibleCopy, "npkIsPrecursorPass"), (v5))
   {
-    v5 = 1;
+    v6 = 1;
   }
 
   else
   {
-    v8 = pk_General_log();
+    v8 = pk_General_log(v5);
     v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
 
-    v5 = 0;
+    v6 = 0;
     if (v9)
     {
-      v10 = pk_General_log();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = pk_General_log(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         uniqueID = [eligibleCopy uniqueID];
-        v12 = 138412290;
-        v13 = uniqueID;
-        _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: Pass is not eligible (non-transit, non-eMoney, non-Access, non-Apple Balance) with uniqueID:%@", &v12, 0xCu);
+        v13 = 138412290;
+        v14 = uniqueID;
+        _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassAssociatedInfoManager: Pass is not eligible (non-transit, non-eMoney, non-Access, non-Apple Balance) with uniqueID:%@", &v13, 0xCu);
       }
 
-      v5 = 0;
+      v6 = 0;
     }
   }
 
-  v6 = *MEMORY[0x277D85DE8];
-  return v5;
+  return v6;
 }
 
 - (BOOL)_shouldUseBalanceForAccount:(id)account

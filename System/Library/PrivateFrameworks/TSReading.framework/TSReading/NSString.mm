@@ -3,7 +3,7 @@
 
 @implementation NSString
 
-uint64_t __81__NSString_TSWPAdditions__stringForValue_withListNumberFormat_includeFormatting___block_invoke()
+void *__81__NSString_TSWPAdditions__stringForValue_withListNumberFormat_includeFormatting___block_invoke()
 {
   v0 = objc_alloc_init(MEMORY[0x277CCAB50]);
   [v0 addCharactersInRange:{46, 1}];

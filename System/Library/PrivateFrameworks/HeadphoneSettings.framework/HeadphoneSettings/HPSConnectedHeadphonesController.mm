@@ -7,6 +7,7 @@
 - (HPSConnectedHeadphonesController)init;
 - (id)_BTMPairedDevices;
 - (id)connectedHeadphoneInfo;
+- (id)getDeviceIcon:(unsigned int)icon;
 - (id)initPrivate;
 - (id)specifierFor:(id)for btsDevice:(id)device;
 - (id)topLevelSpecifiers;
@@ -160,13 +161,14 @@ BOOL __54__HPSConnectedHeadphonesController_topLevelSpecifiers__block_invoke(uin
 
 - (id)topLevelSpecifiersLegacey
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   selfCopy = self;
-  if (([objc_opt_class() _BTMAvailable] & 1) == 0)
+  _BTMAvailable = [objc_opt_class() _BTMAvailable];
+  if ((_BTMAvailable & 1) == 0)
   {
-    v26 = sharedBluetoothSettingsLogComponent();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    v28 = sharedBluetoothSettingsLogComponent(_BTMAvailable);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       [HPSConnectedHeadphonesController topLevelSpecifiersLegacey];
     }
@@ -174,188 +176,187 @@ BOOL __54__HPSConnectedHeadphonesController_topLevelSpecifiers__block_invoke(uin
     goto LABEL_29;
   }
 
-  v41 = 0u;
   v42 = 0u;
-  v39 = 0u;
+  v43 = 0u;
   v40 = 0u;
+  v41 = 0u;
   _BTMPairedDevices = [(HPSConnectedHeadphonesController *)self _BTMPairedDevices];
-  v4 = [_BTMPairedDevices countByEnumeratingWithState:&v39 objects:v47 count:16];
-  if (v4)
+  v5 = [_BTMPairedDevices countByEnumeratingWithState:&v40 objects:v48 count:16];
+  if (v5)
   {
-    v5 = v4;
-    v6 = *v40;
-    v36 = *MEMORY[0x277D3FE58];
-    v35 = *MEMORY[0x277D3FF08];
-    v34 = *MEMORY[0x277D400B8];
-    v33 = *MEMORY[0x277D40138];
-    v32 = *MEMORY[0x277D40170];
-    v7 = 0x2796B2000uLL;
-    v31 = *MEMORY[0x277D3FFB8];
-    v30 = *MEMORY[0x277D3FFC0];
-    v29 = _BTMPairedDevices;
+    v6 = v5;
+    v7 = *v41;
+    v37 = *MEMORY[0x277D3FE58];
+    v36 = *MEMORY[0x277D3FF08];
+    v35 = *MEMORY[0x277D400B8];
+    v34 = *MEMORY[0x277D40138];
+    v33 = *MEMORY[0x277D40170];
+    v8 = 0x2796B2000uLL;
+    v32 = *MEMORY[0x277D3FFB8];
+    v31 = *MEMORY[0x277D3FFC0];
+    v30 = _BTMPairedDevices;
     do
     {
-      for (i = 0; i != v5; ++i)
+      for (i = 0; i != v6; ++i)
       {
-        if (*v40 != v6)
+        if (*v41 != v7)
         {
           objc_enumerationMutation(_BTMPairedDevices);
         }
 
-        v9 = *(*(&v39 + 1) + 8 * i);
-        if ([v9 connected] && objc_msgSend(*(v7 + 2304), "isAppleHeadphone:", v9) && (objc_msgSend(v9, "isTemporaryPaired") & 1) == 0 && objc_msgSend(v9, "isGenuineAirPods"))
+        v10 = *(*(&v40 + 1) + 8 * i);
+        if ([v10 connected] && objc_msgSend(*(v8 + 2304), "isAppleHeadphone:", v10) && (objc_msgSend(v10, "isTemporaryPaired") & 1) == 0 && objc_msgSend(v10, "isGenuineAirPods"))
         {
-          v10 = [BTSDeviceClassic deviceWithDevice:v9];
-          productName = [v10 productName];
+          v11 = [BTSDeviceClassic deviceWithDevice:v10];
+          productName = [v11 productName];
           if ([(HPSConnectedHeadphonesController *)selfCopy nicknameEnabled])
           {
-            name = [v10 name];
+            name = [v11 name];
 
             productName = name;
           }
 
-          classicDevice = [v10 classicDevice];
+          classicDevice = [v11 classicDevice];
           if (classicDevice)
           {
-            v14 = classicDevice;
-            classicDevice2 = [v10 classicDevice];
+            v15 = classicDevice;
+            classicDevice2 = [v11 classicDevice];
             magicPaired = [classicDevice2 magicPaired];
 
             if (magicPaired)
             {
-              name2 = [v10 name];
+              name2 = [v11 name];
 
               productName = name2;
             }
 
-            _BTMPairedDevices = v29;
+            _BTMPairedDevices = v30;
           }
 
-          if (!productName || [(__CFString *)productName isEqualToString:&stru_28634F910])
+          if (!productName || (v19 = [(__CFString *)productName isEqualToString:&stru_28634F910], v19))
           {
 
             productName = @" ";
           }
 
-          v18 = sharedBluetoothSettingsLogComponent();
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+          v20 = sharedBluetoothSettingsLogComponent(v19);
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v46 = productName;
-            _os_log_impl(&dword_25126C000, v18, OS_LOG_TYPE_DEFAULT, "Connected Headphones: Adding device to specifiers: %@", buf, 0xCu);
+            v47 = productName;
+            _os_log_impl(&dword_25126C000, v20, OS_LOG_TYPE_DEFAULT, "Connected Headphones: Adding device to specifiers: %@", buf, 0xCu);
           }
 
-          v19 = objc_alloc(MEMORY[0x277CBEB38]);
-          v43[0] = v36;
-          v44[0] = objc_opt_class();
-          v44[1] = @"BTSPairSetup";
-          v43[1] = v35;
-          v43[2] = v34;
-          v43[3] = v33;
-          v44[2] = @"BTSPairController";
-          v44[3] = @"PSLinkCell";
-          v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:v43 count:4];
-          v21 = [v19 initWithDictionary:v20];
+          v21 = objc_alloc(MEMORY[0x277CBEB38]);
+          v44[0] = v37;
+          v45[0] = objc_opt_class();
+          v45[1] = @"BTSPairSetup";
+          v44[1] = v36;
+          v44[2] = v35;
+          v44[3] = v34;
+          v45[2] = @"BTSPairController";
+          v45[3] = @"PSLinkCell";
+          v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:v44 count:4];
+          v23 = [v21 initWithDictionary:v22];
 
-          [v21 setObject:productName forKey:v32];
-          identifier = [v10 identifier];
-          [v21 setObject:identifier forKey:v31];
+          [v23 setObject:productName forKey:v33];
+          identifier = [v11 identifier];
+          [v23 setObject:identifier forKey:v32];
 
-          [v21 setObject:@"BTSDeviceConfigController" forKey:v35];
-          v23 = -[HPSConnectedHeadphonesController getDeviceIcon:](selfCopy, "getDeviceIcon:", [v9 productId]);
-          [v21 setObject:v23 forKey:v30];
+          [v23 setObject:@"BTSDeviceConfigController" forKey:v36];
+          v25 = -[HPSConnectedHeadphonesController getDeviceIcon:](selfCopy, "getDeviceIcon:", [v10 productId]);
+          [v23 setObject:v25 forKey:v31];
 
-          v24 = objc_alloc_init(MEMORY[0x277CBEB38]);
-          [v24 setObject:v10 forKey:@"bt-device"];
-          v25 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:productName target:selfCopy set:0 get:0 detail:objc_opt_class() cell:2 edit:0];
-          [v25 setName:productName];
-          [v25 setProperties:v21];
-          [v25 setUserInfo:v24];
-          [array addObject:v25];
+          v26 = objc_alloc_init(MEMORY[0x277CBEB38]);
+          [v26 setObject:v11 forKey:@"bt-device"];
+          v27 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:productName target:selfCopy set:0 get:0 detail:objc_opt_class() cell:2 edit:0];
+          [v27 setName:productName];
+          [v27 setProperties:v23];
+          [v27 setUserInfo:v26];
+          [array addObject:v27];
 
-          v7 = 0x2796B2000;
+          v8 = 0x2796B2000;
         }
       }
 
-      v5 = [_BTMPairedDevices countByEnumeratingWithState:&v39 objects:v47 count:16];
+      v6 = [_BTMPairedDevices countByEnumeratingWithState:&v40 objects:v48 count:16];
     }
 
-    while (v5);
+    while (v6);
   }
 
   if ([array count])
   {
-    v26 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"DEVICE_TYPE_GROUP_ID"];
-    [array insertObject:v26 atIndex:0];
+    v28 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"DEVICE_TYPE_GROUP_ID"];
+    [array insertObject:v28 atIndex:0];
 LABEL_29:
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return array;
 }
 
 - (id)topLevelSpecifiersRedesign
 {
-  v89 = *MEMORY[0x277D85DE8];
+  v90 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
-  if (([objc_opt_class() _BTMAvailable] & 1) == 0)
+  _BTMAvailable = [objc_opt_class() _BTMAvailable];
+  if ((_BTMAvailable & 1) == 0)
   {
-    v2 = sharedBluetoothSettingsLogComponent();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v3 = sharedBluetoothSettingsLogComponent(_BTMAvailable);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       [HPSConnectedHeadphonesController topLevelSpecifiersLegacey];
     }
   }
 
   _BTMPairedDevices = [(HPSConnectedHeadphonesController *)self _BTMPairedDevices];
-  v4 = [MEMORY[0x277CBEC10] mutableCopy];
-  v5 = [_BTMPairedDevices bs_reduce:v4 block:&__block_literal_global_71];
+  v5 = [MEMORY[0x277CBEC10] mutableCopy];
+  v6 = [_BTMPairedDevices bs_reduce:v5 block:&__block_literal_global_71];
 
   obj = [MEMORY[0x277D0FC08] shared];
   objc_sync_enter(obj);
   mEMORY[0x277D0FC08] = [MEMORY[0x277D0FC08] shared];
   connectedHeadphones = [mEMORY[0x277D0FC08] connectedHeadphones];
   allValues = [connectedHeadphones allValues];
-  v78[0] = MEMORY[0x277D85DD0];
-  v78[1] = 3221225472;
-  v78[2] = __62__HPSConnectedHeadphonesController_topLevelSpecifiersRedesign__block_invoke_2;
-  v78[3] = &unk_2796B2CC8;
-  v53 = v5;
-  v79 = v53;
-  v9 = [allValues bs_map:v78];
-  [(HPSConnectedHeadphonesController *)self setDevices:v9];
+  v79[0] = MEMORY[0x277D85DD0];
+  v79[1] = 3221225472;
+  v79[2] = __62__HPSConnectedHeadphonesController_topLevelSpecifiersRedesign__block_invoke_2;
+  v79[3] = &unk_2796B2CC8;
+  v54 = v6;
+  v80 = v54;
+  v10 = [allValues bs_map:v79];
+  [(HPSConnectedHeadphonesController *)self setDevices:v10];
 
-  v76 = 0u;
   v77 = 0u;
-  v74 = 0u;
+  v78 = 0u;
   v75 = 0u;
+  v76 = 0u;
   devices = [(HPSConnectedHeadphonesController *)self devices];
-  v11 = [devices countByEnumeratingWithState:&v74 objects:v88 count:16];
-  if (v11)
+  v12 = [devices countByEnumeratingWithState:&v75 objects:v89 count:16];
+  if (v12)
   {
-    v73 = *v75;
-    v61 = *MEMORY[0x277D3FE58];
-    v63 = *MEMORY[0x277D3FF08];
-    v59 = *MEMORY[0x277D40138];
-    v60 = *MEMORY[0x277D400B8];
-    v57 = *MEMORY[0x277D3FFB8];
-    v58 = *MEMORY[0x277D40170];
-    v56 = *MEMORY[0x277D3FFC0];
-    v70 = devices;
+    v74 = *v76;
+    v62 = *MEMORY[0x277D3FE58];
+    v64 = *MEMORY[0x277D3FF08];
+    v60 = *MEMORY[0x277D40138];
+    v61 = *MEMORY[0x277D400B8];
+    v58 = *MEMORY[0x277D3FFB8];
+    v59 = *MEMORY[0x277D40170];
+    v57 = *MEMORY[0x277D3FFC0];
+    v71 = devices;
     do
     {
-      for (i = 0; i != v11; ++i)
+      for (i = 0; i != v12; ++i)
       {
-        if (*v75 != v73)
+        if (*v76 != v74)
         {
-          objc_enumerationMutation(v70);
+          objc_enumerationMutation(v71);
         }
 
-        v13 = *(*(&v74 + 1) + 8 * i);
-        if ([v13 connected] && +[HPSProductUtils isAppleHeadphone:](HPSProductUtils, "isAppleHeadphone:", v13) && (objc_msgSend(v13, "isTemporaryPaired") & 1) == 0 && (objc_msgSend(v13, "isGenuineAirPods") & 1) != 0)
+        v14 = *(*(&v75 + 1) + 8 * i);
+        if ([v14 connected] && +[HPSProductUtils isAppleHeadphone:](HPSProductUtils, "isAppleHeadphone:", v14) && (objc_msgSend(v14, "isTemporaryPaired") & 1) == 0 && (objc_msgSend(v14, "isGenuineAirPods") & 1) != 0)
         {
-          classicDevice = [v13 classicDevice];
+          classicDevice = [v14 classicDevice];
           productName = [classicDevice productName];
           if ([(HPSConnectedHeadphonesController *)self nicknameEnabled])
           {
@@ -364,11 +365,11 @@ LABEL_29:
             productName = name;
           }
 
-          v72ClassicDevice = [classicDevice classicDevice];
-          if (v72ClassicDevice)
+          v73ClassicDevice = [classicDevice classicDevice];
+          if (v73ClassicDevice)
           {
-            v72ClassicDevice2 = [classicDevice classicDevice];
-            magicPaired = [v72ClassicDevice2 magicPaired];
+            v73ClassicDevice2 = [classicDevice classicDevice];
+            magicPaired = [v73ClassicDevice2 magicPaired];
 
             if (magicPaired)
             {
@@ -378,74 +379,87 @@ LABEL_29:
             }
           }
 
-          v19 = productName;
-          if (!productName || (v20 = [(__CFString *)productName isEqualToString:&stru_28634F910], v19 = productName, v20))
+          v20 = productName;
+          if (!productName || (v21 = [(__CFString *)productName isEqualToString:&stru_28634F910], v20 = productName, v21))
           {
 
             productName = @" ";
           }
 
-          v21 = sharedBluetoothSettingsLogComponent();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+          v22 = sharedBluetoothSettingsLogComponent(v21);
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v83 = productName;
-            _os_log_impl(&dword_25126C000, v21, OS_LOG_TYPE_DEFAULT, "Connected Headphones: Adding device to specifiers: %@", buf, 0xCu);
+            v84 = productName;
+            _os_log_impl(&dword_25126C000, v22, OS_LOG_TYPE_DEFAULT, "Connected Headphones: Adding device to specifiers: %@", buf, 0xCu);
           }
 
-          v22 = objc_alloc(MEMORY[0x277CBEB38]);
-          v86[0] = v61;
-          v87[0] = objc_opt_class();
-          v87[1] = @"BTSPairSetup";
-          v86[1] = v63;
-          v86[2] = v60;
-          v86[3] = v59;
-          v87[2] = @"BTSPairController";
-          v87[3] = @"PSLinkCell";
-          v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v87 forKeys:v86 count:4];
-          v69 = [v22 initWithDictionary:v23];
+          v23 = objc_alloc(MEMORY[0x277CBEB38]);
+          v87[0] = v62;
+          v88[0] = objc_opt_class();
+          v88[1] = @"BTSPairSetup";
+          v87[1] = v64;
+          v87[2] = v61;
+          v87[3] = v60;
+          v88[2] = @"BTSPairController";
+          v88[3] = @"PSLinkCell";
+          v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v88 forKeys:v87 count:4];
+          v70 = [v23 initWithDictionary:v24];
 
-          [v69 setObject:productName forKey:v58];
+          [v70 setObject:productName forKey:v59];
           btsDevice = [classicDevice btsDevice];
           classicDevice2 = [btsDevice classicDevice];
           if (classicDevice2)
           {
-            v26 = MEMORY[0x277CCACA8];
+            v27 = MEMORY[0x277CCACA8];
             btsDevice2 = [classicDevice btsDevice];
             classicDevice3 = [btsDevice2 classicDevice];
-            v66 = [v26 stringWithFormat:@"%p", classicDevice3];
+            v67 = [v27 stringWithFormat:@"%p", classicDevice3];
           }
 
           else
           {
-            v66 = @"none";
+            v67 = @"none";
           }
 
-          v29 = MEMORY[0x277CCACA8];
+          v30 = MEMORY[0x277CCACA8];
           identifier = [classicDevice identifier];
-          v68 = [v29 stringWithFormat:@"%@-%@", identifier, v66];
+          v69 = [v30 stringWithFormat:@"%@-%@", identifier, v67];
 
-          [v69 setObject:v68 forKey:v57];
-          [v69 setObject:@"BTSDeviceConfigController" forKey:v63];
-          v31 = -[HPSConnectedHeadphonesController getDeviceIcon:](self, "getDeviceIcon:", [v13 productId]);
-          [v69 setObject:v31 forKey:v56];
+          [v70 setObject:v69 forKey:v58];
+          [v70 setObject:@"BTSDeviceConfigController" forKey:v64];
+          v32 = -[HPSConnectedHeadphonesController getDeviceIcon:](self, "getDeviceIcon:", [v14 productId]);
+          [v70 setObject:v32 forKey:v57];
 
-          v32 = objc_alloc_init(MEMORY[0x277CBEB38]);
+          v33 = objc_alloc_init(MEMORY[0x277CBEB38]);
           btsDevice3 = [classicDevice btsDevice];
 
           if (btsDevice3)
           {
             btsDevice4 = [classicDevice btsDevice];
-            [v32 setObject:btsDevice4 forKey:@"bt-device"];
+            [v33 setObject:btsDevice4 forKey:@"bt-device"];
           }
 
           deviceKey = [MEMORY[0x277D0FB78] deviceKey];
-          [v32 setObject:classicDevice forKey:deviceKey];
+          [v33 setObject:classicDevice forKey:deviceKey];
 
-          v36 = [v32 objectForKeyedSubscript:@"bt-device"];
-          if (v36)
+          v37 = [v33 objectForKeyedSubscript:@"bt-device"];
+          if (v37)
           {
-            v65 = [v32 objectForKeyedSubscript:@"bt-device"];
+            v66 = [v33 objectForKeyedSubscript:@"bt-device"];
+          }
+
+          else
+          {
+            v66 = @"NIL";
+          }
+
+          deviceKey2 = [MEMORY[0x277D0FB78] deviceKey];
+          v39 = [v33 objectForKeyedSubscript:deviceKey2];
+          if (v39)
+          {
+            deviceKey3 = [MEMORY[0x277D0FB78] deviceKey];
+            v65 = [v33 objectForKeyedSubscript:deviceKey3];
           }
 
           else
@@ -453,76 +467,62 @@ LABEL_29:
             v65 = @"NIL";
           }
 
-          deviceKey2 = [MEMORY[0x277D0FB78] deviceKey];
-          v38 = [v32 objectForKeyedSubscript:deviceKey2];
-          if (v38)
-          {
-            deviceKey3 = [MEMORY[0x277D0FB78] deviceKey];
-            v64 = [v32 objectForKeyedSubscript:deviceKey3];
-          }
-
-          else
-          {
-            v64 = @"NIL";
-          }
-
-          v40 = [MEMORY[0x277CCACA8] stringWithFormat:@"DEVICE_KEY %@, HPS_DEVICE_KEY: %@, PS_IDENTIFIER %@", v65, v64, v68];
-          [v32 setObject:v40 forKey:@"HPS_DeviceInfo"];
-          v41 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:productName target:self set:0 get:0 detail:objc_opt_class() cell:2 edit:0];
-          [v41 setName:productName];
-          [v41 setProperties:v69];
-          [v41 setUserInfo:v32];
+          v41 = [MEMORY[0x277CCACA8] stringWithFormat:@"DEVICE_KEY %@, HPS_DEVICE_KEY: %@, PS_IDENTIFIER %@", v66, v65, v69];
+          [v33 setObject:v41 forKey:@"HPS_DeviceInfo"];
+          v42 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:productName target:self set:0 get:0 detail:objc_opt_class() cell:2 edit:0];
+          [v42 setName:productName];
+          [v42 setProperties:v70];
+          [v42 setUserInfo:v33];
           headphoneDevice = [classicDevice headphoneDevice];
           if (headphoneDevice)
           {
             btsDevice5 = [classicDevice btsDevice];
-            v62 = btsDevice5;
+            v63 = btsDevice5;
             if (btsDevice5)
             {
 
 LABEL_41:
-              [array addObject:v41];
-              v48 = sharedBluetoothSettingsLogComponent();
-              if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
+              v50 = sharedBluetoothSettingsLogComponent([array addObject:v42]);
+              if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
               {
-                v49 = [v41 debugDescription];
+                v51 = [v42 debugDescription];
                 *buf = 138412546;
-                v83 = v49;
-                v84 = 2112;
-                v85 = v40;
-                _os_log_impl(&dword_25126C000, v48, OS_LOG_TYPE_DEFAULT, "Connected Headphones: Adding specifier %@ with connected devices %@", buf, 0x16u);
+                v84 = v51;
+                v85 = 2112;
+                v86 = v41;
+                _os_log_impl(&dword_25126C000, v50, OS_LOG_TYPE_DEFAULT, "Connected Headphones: Adding specifier %@ with connected devices %@", buf, 0x16u);
               }
 
               goto LABEL_46;
             }
 
-            v62 = 0;
+            v63 = 0;
           }
 
           headphoneDevice2 = [classicDevice headphoneDevice];
-          v45 = objc_opt_class();
-          v46 = NSStringFromClass(v45);
-          v47 = [v46 isEqualToString:@"HeadphoneManager.HeadphoneReplayDevice"];
+          v46 = objc_opt_class();
+          v47 = NSStringFromClass(v46);
+          v48 = [v47 isEqualToString:@"HeadphoneManager.HeadphoneReplayDevice"];
 
           if (headphoneDevice)
           {
 
-            if (v47)
+            if (v48)
             {
               goto LABEL_41;
             }
           }
 
-          else if (v47)
+          else if (v48)
           {
             goto LABEL_41;
           }
 
-          v48 = sharedBluetoothSettingsLogComponent();
-          if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+          v50 = sharedBluetoothSettingsLogComponent(v49);
+          if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
           {
-            v50 = [classicDevice debugDescription];
-            [(HPSConnectedHeadphonesController *)v50 topLevelSpecifiersRedesign:v80];
+            v52 = [classicDevice debugDescription];
+            [(HPSConnectedHeadphonesController *)v52 topLevelSpecifiersRedesign:v81];
           }
 
 LABEL_46:
@@ -531,15 +531,14 @@ LABEL_46:
         }
       }
 
-      devices = v70;
-      v11 = [v70 countByEnumeratingWithState:&v74 objects:v88 count:16];
+      devices = v71;
+      v12 = [v71 countByEnumeratingWithState:&v75 objects:v89 count:16];
     }
 
-    while (v11);
+    while (v12);
   }
 
   objc_sync_exit(obj);
-  v51 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -571,57 +570,57 @@ id __62__HPSConnectedHeadphonesController_topLevelSpecifiersRedesign__block_invo
 
 - (id)topLevelSpecifiersThirdParty
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   [MEMORY[0x277CBEB18] array];
-  v32 = v31 = self;
+  v31 = v30 = self;
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
   obj = [(HPSThirdPartyHeadphonesDatasource *)self->_thirdPartyDatasource routedThirdPartyHeadphones];
-  v3 = [obj countByEnumeratingWithState:&v33 objects:v39 count:16];
+  v3 = [obj countByEnumeratingWithState:&v32 objects:v38 count:16];
   if (v3)
   {
     v4 = v3;
-    v30 = *v34;
-    v29 = *MEMORY[0x277D3FE58];
+    v29 = *v33;
+    v28 = *MEMORY[0x277D3FE58];
     v5 = *MEMORY[0x277D3FF08];
-    v28 = *MEMORY[0x277D400B8];
-    v27 = *MEMORY[0x277D40138];
-    v26 = *MEMORY[0x277D40170];
+    v27 = *MEMORY[0x277D400B8];
+    v26 = *MEMORY[0x277D40138];
+    v25 = *MEMORY[0x277D40170];
     v6 = *MEMORY[0x277D3FFB8];
     v7 = *MEMORY[0x277D3FFC0];
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v34 != v30)
+        if (*v33 != v29)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v33 + 1) + 8 * i);
+        v9 = *(*(&v32 + 1) + 8 * i);
         v10 = MEMORY[0x277D3FAD8];
         name = [v9 name];
-        v12 = [v10 preferenceSpecifierNamed:name target:v31 set:0 get:0 detail:objc_opt_class() cell:2 edit:0];
+        v12 = [v10 preferenceSpecifierNamed:name target:v30 set:0 get:0 detail:objc_opt_class() cell:2 edit:0];
 
         name2 = [v9 name];
         [v12 setName:name2];
 
         v14 = objc_alloc(MEMORY[0x277CBEB38]);
-        v37[0] = v29;
-        v38[0] = objc_opt_class();
-        v38[1] = @"BTSPairSetup";
-        v37[1] = v5;
-        v37[2] = v28;
-        v37[3] = v27;
-        v38[2] = @"BTSPairController";
-        v38[3] = @"PSLinkCell";
-        v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:4];
+        v36[0] = v28;
+        v37[0] = objc_opt_class();
+        v37[1] = @"BTSPairSetup";
+        v36[1] = v5;
+        v36[2] = v27;
+        v36[3] = v26;
+        v37[2] = @"BTSPairController";
+        v37[3] = @"PSLinkCell";
+        v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:4];
         v16 = [v14 initWithDictionary:v15];
 
         name3 = [v9 name];
-        [v16 setObject:name3 forKey:v26];
+        [v16 setObject:name3 forKey:v25];
 
         identifier = [v9 identifier];
         [v16 setObject:identifier forKey:v6];
@@ -639,18 +638,16 @@ id __62__HPSConnectedHeadphonesController_topLevelSpecifiersRedesign__block_invo
         [v20 setObject:leDevice forKey:@"ctkd-device"];
 
         [v12 setUserInfo:v20];
-        [v32 addObject:v12];
+        [v31 addObject:v12];
       }
 
-      v4 = [obj countByEnumeratingWithState:&v33 objects:v39 count:16];
+      v4 = [obj countByEnumeratingWithState:&v32 objects:v38 count:16];
     }
 
     while (v4);
   }
 
-  v23 = *MEMORY[0x277D85DE8];
-
-  return v32;
+  return v31;
 }
 
 - (id)connectedHeadphoneInfo
@@ -684,28 +681,26 @@ void __58__HPSConnectedHeadphonesController_connectedHeadphoneInfo__block_invoke
     v10 = [v9 objectForKey:*MEMORY[0x277D3FFC0]];
 
     v11 = [[HPSConnectedHeadphoneInfo alloc] initWithID:v8 name:v6 image:v10 specifier:v4];
-    v12 = sharedBluetoothSettingsLogComponent();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = sharedBluetoothSettingsLogComponent(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = [(HPSConnectedHeadphoneInfo *)v11 deviceID];
-      v14 = [(HPSConnectedHeadphoneInfo *)v11 deviceName];
+      v14 = [(HPSConnectedHeadphoneInfo *)v11 deviceID];
+      v15 = [(HPSConnectedHeadphoneInfo *)v11 deviceName];
       v16 = 138412546;
-      v17 = v13;
+      v17 = v14;
       v18 = 2112;
-      v19 = v14;
-      _os_log_impl(&dword_25126C000, v12, OS_LOG_TYPE_DEFAULT, "Connected Headphones: Adding device, ID: %@, Name: %@", &v16, 0x16u);
+      v19 = v15;
+      _os_log_impl(&dword_25126C000, v13, OS_LOG_TYPE_DEFAULT, "Connected Headphones: Adding device, ID: %@, Name: %@", &v16, 0x16u);
     }
 
     [*(a1 + 32) addObject:v11];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setDeviceChangeHandler:(id)handler
 {
   handlerCopy = handler;
-  v5 = sharedBluetoothSettingsLogComponent();
+  v5 = sharedBluetoothSettingsLogComponent(handlerCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v8 = 0;
@@ -721,7 +716,7 @@ void __58__HPSConnectedHeadphonesController_connectedHeadphoneInfo__block_invoke
 {
   v13 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
-  v5 = sharedBluetoothSettingsLogComponent();
+  v5 = sharedBluetoothSettingsLogComponent(handlerCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     name = [handlerCopy name];
@@ -731,14 +726,14 @@ void __58__HPSConnectedHeadphonesController_connectedHeadphoneInfo__block_invoke
   }
 
   deviceChangeHandler = self->_deviceChangeHandler;
-  v8 = sharedBluetoothSettingsLogComponent();
-  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+  v9 = sharedBluetoothSettingsLogComponent(v8);
+  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
   if (deviceChangeHandler)
   {
-    if (v9)
+    if (v10)
     {
       LOWORD(v11) = 0;
-      _os_log_impl(&dword_25126C000, v8, OS_LOG_TYPE_DEFAULT, "Connected Headphones: Calling Device Change Handler", &v11, 2u);
+      _os_log_impl(&dword_25126C000, v9, OS_LOG_TYPE_DEFAULT, "Connected Headphones: Calling Device Change Handler", &v11, 2u);
     }
 
     (*(self->_deviceChangeHandler + 2))();
@@ -746,19 +741,27 @@ void __58__HPSConnectedHeadphonesController_connectedHeadphoneInfo__block_invoke
 
   else
   {
-    if (v9)
+    if (v10)
     {
       LOWORD(v11) = 0;
-      _os_log_impl(&dword_25126C000, v8, OS_LOG_TYPE_DEFAULT, "Connected Headphones: No Valid Device Change Handler", &v11, 2u);
+      _os_log_impl(&dword_25126C000, v9, OS_LOG_TYPE_DEFAULT, "Connected Headphones: No Valid Device Change Handler", &v11, 2u);
     }
   }
+}
 
-  v10 = *MEMORY[0x277D85DE8];
+- (id)getDeviceIcon:(unsigned int)icon
+{
+  v3 = MEMORY[0x277D755B8];
+  v4 = [HPSConnectedHeadphonesController getDeviceIconSymbolString:*&icon];
+  v5 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v6 = [v3 imageNamed:v4 inBundle:v5];
+
+  return v6;
 }
 
 + (id)getDeviceIconSymbolString:(unsigned int)string
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (string - 8194 > 0x2D)
   {
     v3 = @"beats.headphones";
@@ -769,15 +772,14 @@ void __58__HPSConnectedHeadphonesController_connectedHeadphoneInfo__block_invoke
     v3 = off_2796B2D60[string - 8194];
   }
 
-  v4 = sharedBluetoothSettingsLogComponent();
+  v4 = sharedBluetoothSettingsLogComponent(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = v3;
-    _os_log_impl(&dword_25126C000, v4, OS_LOG_TYPE_DEFAULT, "Connected Headphones: Icon Name: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v3;
+    _os_log_impl(&dword_25126C000, v4, OS_LOG_TYPE_DEFAULT, "Connected Headphones: Icon Name: %@", &v6, 0xCu);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -794,40 +796,40 @@ void __58__HPSConnectedHeadphonesController_connectedHeadphoneInfo__block_invoke
 
   else
   {
-    v19 = 0;
-    v20 = &v19;
-    v21 = 0x2020000000;
-    v22 = 0;
-    v15 = 0;
-    v16 = &v15;
-    v17 = 0x2020000000;
-    v18 = 1;
+    v20 = 0;
+    v21 = &v20;
+    v22 = 0x2020000000;
+    v23 = 0;
+    v16 = 0;
+    v17 = &v16;
+    v18 = 0x2020000000;
+    v19 = 1;
     v4 = dispatch_group_create();
     dispatch_group_enter(v4);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __49__HPSConnectedHeadphonesController__BTMAvailable__block_invoke;
     block[3] = &unk_2796B2D18;
-    v13 = &v19;
-    v14 = &v15;
+    v14 = &v20;
+    v15 = &v16;
     v5 = v4;
-    v12 = v5;
+    v13 = v5;
     dispatch_async(MEMORY[0x277D85CD0], block);
     v6 = dispatch_time(0, 1000000000);
-    dispatch_group_wait(v5, v6);
-    if (*(v16 + 24) == 1)
+    v7 = dispatch_group_wait(v5, v6);
+    if (*(v17 + 24) == 1)
     {
-      v7 = sharedBluetoothSettingsLogComponent();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = sharedBluetoothSettingsLogComponent(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         +[HPSConnectedHeadphonesController _BTMAvailable];
       }
     }
 
-    available = *(v20 + 24);
+    available = *(v21 + 24);
 
-    _Block_object_dispose(&v15, 8);
-    _Block_object_dispose(&v19, 8);
+    _Block_object_dispose(&v16, 8);
+    _Block_object_dispose(&v20, 8);
   }
 
   return available;
@@ -857,42 +859,42 @@ void __49__HPSConnectedHeadphonesController__BTMAvailable__block_invoke(void *a1
 
   else
   {
-    v19 = 0;
-    v20 = &v19;
-    v21 = 0x3032000000;
-    v22 = __Block_byref_object_copy_;
-    v23 = __Block_byref_object_dispose_;
-    v24 = 0;
-    v15 = 0;
-    v16 = &v15;
-    v17 = 0x2020000000;
-    v18 = 1;
+    v20 = 0;
+    v21 = &v20;
+    v22 = 0x3032000000;
+    v23 = __Block_byref_object_copy_;
+    v24 = __Block_byref_object_dispose_;
+    v25 = 0;
+    v16 = 0;
+    v17 = &v16;
+    v18 = 0x2020000000;
+    v19 = 1;
     v4 = dispatch_group_create();
     dispatch_group_enter(v4);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __53__HPSConnectedHeadphonesController__BTMPairedDevices__block_invoke;
     block[3] = &unk_2796B2D18;
-    v13 = &v19;
-    v14 = &v15;
+    v14 = &v20;
+    v15 = &v16;
     v5 = v4;
-    v12 = v5;
+    v13 = v5;
     dispatch_async(MEMORY[0x277D85CD0], block);
     v6 = dispatch_time(0, 1000000000);
-    dispatch_group_wait(v5, v6);
-    if (*(v16 + 24) == 1)
+    v7 = dispatch_group_wait(v5, v6);
+    if (*(v17 + 24) == 1)
     {
-      v7 = sharedBluetoothSettingsLogComponent();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = sharedBluetoothSettingsLogComponent(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         [HPSConnectedHeadphonesController _BTMPairedDevices];
       }
     }
 
-    pairedDevices = v20[5];
+    pairedDevices = v21[5];
 
-    _Block_object_dispose(&v15, 8);
-    _Block_object_dispose(&v19, 8);
+    _Block_object_dispose(&v16, 8);
+    _Block_object_dispose(&v20, 8);
   }
 
   return pairedDevices;

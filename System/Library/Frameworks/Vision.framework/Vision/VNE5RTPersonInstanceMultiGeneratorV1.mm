@@ -85,45 +85,45 @@ void __59__VNE5RTPersonInstanceMultiGeneratorV1_outputMaskBlobNames__block_invok
   return v2;
 }
 
-void __70__VNE5RTPersonInstanceMultiGeneratorV1_outputMaskBlobNameToRequestKey__block_invoke(uint64_t a1)
+void __70__VNE5RTPersonInstanceMultiGeneratorV1_outputMaskBlobNameToRequestKey__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
-  v4 = [*(a1 + 32) outputMaskBlobNames];
-  v5 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(v4, "count")}];
-  v14 = 0u;
+  v18 = *MEMORY[0x1E69E9840];
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
+  v5 = [*(a1 + 32) outputMaskBlobNames];
+  v6 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(v5, "count")}];
   v15 = 0u;
-  v12 = 0u;
+  v16 = 0u;
   v13 = 0u;
-  v6 = v4;
-  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
-  if (v7)
+  v14 = 0u;
+  v7 = v5;
+  v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  if (v8)
   {
-    v8 = *v13;
+    v9 = *v14;
     do
     {
-      v9 = 0;
+      v10 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v14 != v9)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v7);
         }
 
-        [v5 setObject:v3 forKey:{*(*(&v12 + 1) + 8 * v9++), v12}];
+        [v6 setObject:v4 forKey:{*(*(&v13 + 1) + 8 * v10++), v13}];
       }
 
-      while (v7 != v9);
-      v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      while (v8 != v10);
+      v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
-    while (v7);
+    while (v8);
   }
 
-  v10 = [v5 copy];
-  v11 = +[VNE5RTPersonInstanceMultiGeneratorV1 outputMaskBlobNameToRequestKey]::outputMaskBlobNameToRequestKey;
-  +[VNE5RTPersonInstanceMultiGeneratorV1 outputMaskBlobNameToRequestKey]::outputMaskBlobNameToRequestKey = v10;
+  v11 = [v6 copy];
+  v12 = +[VNE5RTPersonInstanceMultiGeneratorV1 outputMaskBlobNameToRequestKey]::outputMaskBlobNameToRequestKey;
+  +[VNE5RTPersonInstanceMultiGeneratorV1 outputMaskBlobNameToRequestKey]::outputMaskBlobNameToRequestKey = v11;
 }
 
 + (id)createE5RTFunctionDescriptorForConfigurationOptions:(id)options error:(id *)error

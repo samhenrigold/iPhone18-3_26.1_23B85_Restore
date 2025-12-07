@@ -207,7 +207,7 @@ LABEL_10:
 
 - (BOOL)packageBundleToPath:(id *)path filePrioritization:(id)prioritization
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   prioritizationCopy = prioritization;
   if (![(BRKSettings *)self->_settings isDataCollectionEnabled])
   {
@@ -219,37 +219,37 @@ LABEL_10:
   os_unfair_lock_lock(&self->_writersLock);
   v7 = [(NSMutableDictionary *)self->_writers copy];
   os_unfair_lock_unlock(&self->_writersLock);
-  v53 = 0u;
-  v54 = 0u;
-  v51 = 0u;
   v52 = 0u;
+  v53 = 0u;
+  v50 = 0u;
+  v51 = 0u;
   v8 = v7;
-  v9 = [v8 countByEnumeratingWithState:&v51 objects:v55 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v50 objects:v54 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v52;
+    v11 = *v51;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v52 != v11)
+        if (*v51 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        [(BRKDataCollectionBundle *)self closeWriterForFile:*(*(&v51 + 1) + 8 * i), pathCopy];
+        [(BRKDataCollectionBundle *)self closeWriterForFile:*(*(&v50 + 1) + 8 * i), pathCopy];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v51 objects:v55 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v50 objects:v54 count:16];
     }
 
     while (v10);
   }
 
-  v46 = prioritizationCopy;
+  v45 = prioritizationCopy;
   v13 = [prioritizationCopy mutableCopy];
-  for (j = 0; ; j = v48)
+  for (j = 0; ; j = v47)
   {
     allObjects = [(NSMutableSet *)self->_manifest allObjects];
     path = [allObjects componentsJoinedByString:@"\n"];
@@ -272,7 +272,7 @@ LABEL_25:
 
       v32 = 0;
 LABEL_26:
-      prioritizationCopy = v46;
+      prioritizationCopy = v45;
       goto LABEL_30;
     }
 
@@ -282,9 +282,9 @@ LABEL_26:
     }
 
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-    v50 = 0;
-    v22 = [defaultManager removeItemAtURL:v20 error:&v50];
-    v23 = v50;
+    v49 = 0;
+    v22 = [defaultManager removeItemAtURL:v20 error:&v49];
+    v23 = v49;
 
     if ((v22 & 1) == 0)
     {
@@ -304,16 +304,16 @@ LABEL_26:
 
     v24 = v13;
     v25 = v17;
-    v47 = path;
-    v48 = v20;
+    v46 = path;
+    v47 = v20;
     lastObject = [v24 lastObject];
     v27 = v24;
     [v24 removeLastObject];
     v28 = [(NSString *)self->_basePath stringByAppendingPathComponent:lastObject];
     defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
-    v49 = v23;
-    v30 = [defaultManager2 removeItemAtPath:v28 error:&v49];
-    v31 = v49;
+    v48 = v23;
+    v30 = [defaultManager2 removeItemAtPath:v28 error:&v48];
+    v31 = v48;
 
     if ((v30 & 1) == 0)
     {
@@ -324,10 +324,10 @@ LABEL_26:
       }
 
       v32 = 0;
-      prioritizationCopy = v46;
-      path = v47;
+      prioritizationCopy = v45;
+      path = v46;
       v13 = v27;
-      v20 = v48;
+      v20 = v47;
       goto LABEL_30;
     }
 
@@ -347,7 +347,7 @@ LABEL_26:
 
   v32 = 1;
   self->_isPackaged = 1;
-  prioritizationCopy = v46;
+  prioritizationCopy = v45;
   if (pathCopy)
   {
     v34 = path;
@@ -357,7 +357,6 @@ LABEL_26:
 LABEL_30:
 
 LABEL_31:
-  v43 = *MEMORY[0x277D85DE8];
   return v32;
 }
 
@@ -384,35 +383,33 @@ LABEL_31:
 
 - (void)_writeData:(uint64_t)a3 toFile:(uint64_t)a4 updateManifest:(uint64_t)a5 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_241ED9000, a2, a3, "Unable to write data to path %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&dword_241ED9000, a2, a3, "Unable to write data to path %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)packageBundleToPath:(uint64_t)a3 filePrioritization:(uint64_t)a4 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_241ED9000, a2, a3, "Unable to remove archive for resize %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&dword_241ED9000, a2, a3, "Unable to remove archive for resize %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)packageBundleToPath:(os_log_t)log filePrioritization:.cold.2(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_241ED9000, log, OS_LOG_TYPE_ERROR, "Unable to remove file %@ for resize %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_241ED9000, log, OS_LOG_TYPE_ERROR, "Unable to remove file %@ for resize %@", &v3, 0x16u);
 }
 
 - (void)removeBundle
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*self);
-  OUTLINED_FUNCTION_0_0(&dword_241ED9000, a2, a3, "Unable to remove bundle path %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *self;
+  OUTLINED_FUNCTION_0_0(&dword_241ED9000, a2, a3, "Unable to remove bundle path %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

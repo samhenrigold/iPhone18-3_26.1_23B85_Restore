@@ -183,20 +183,19 @@ void sub_100005730(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a3)
   {
-    v4 = *(a1 + 32);
-    v5 = *(*(a1 + 32) + 16);
+    v4 = *(*(a1 + 32) + 16);
 
-    v5();
+    v4();
   }
 
   else
   {
     MRPlaybackQueueGetContentItemAtOffset();
-    v7 = MRContentItemGetArtworkData();
-    if (v7)
+    v6 = MRContentItemGetArtworkData();
+    if (v6)
     {
-      v6 = +[NSMutableDictionary dictionary];
-      [v6 setValue:v7 forKey:@"kImageData"];
+      v5 = +[NSMutableDictionary dictionary];
+      [v5 setValue:v6 forKey:@"kImageData"];
       (*(*(a1 + 32) + 16))();
     }
 

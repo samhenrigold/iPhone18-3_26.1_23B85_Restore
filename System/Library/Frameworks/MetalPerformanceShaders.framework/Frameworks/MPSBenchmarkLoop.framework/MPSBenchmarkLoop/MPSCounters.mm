@@ -1,5 +1,7 @@
 @interface MPSCounters
 - (MPSCounters)initWithCommandQueue:(id)queue addQeueuPerfSampleHandler:(BOOL)handler;
+- (int)countEncodersInWorkload:(id)workload withExtraRequestedCounter:(id)counter forStatistics:(id)statistics userSpecifiedIterations:(BOOL)iterations includingBlitSamples:(BOOL)samples;
+- (int)enableCountersIncludingBlitSamples:(BOOL)samples;
 - (int)requestCountersWithExtraRequestedCounter:(id)counter;
 - (int)requestCountersWithExtraRequestedCounter:(id)counter fillStats:(id)stats;
 - (void)dealloc;
@@ -12,9 +14,9 @@
 - (MPSCounters)initWithCommandQueue:(id)queue addQeueuPerfSampleHandler:(BOOL)handler
 {
   handlerCopy = handler;
-  v86.receiver = self;
-  v86.super_class = MPSCounters;
-  v10 = [(MPSCounters *)&v86 init];
+  v69.receiver = self;
+  v69.super_class = MPSCounters;
+  v10 = [(MPSCounters *)&v69 init];
   if (v10)
   {
     v10->_device = objc_msgSend_device(queue, v6, v7, v8, v9);
@@ -22,11 +24,10 @@
     v10->_commandQueueSPI = queue;
     *&v10->_encoderCoalescing = 256;
     v10->_logEncoderInfo = 1;
-    v11 = off_2814650F0();
+    v11 = off_2814650F0("MPS_BENCHMARK_LOOP_ENABLE_ENCODER_COALESCING");
     if (v11 && *v11 == 49)
     {
-      off_2814650E0("MPS_BENCHMARK_LOOP_ENABLE_ENCODER_COALESCING environment variable set\n", v12, v13, v14, v15, v16, v17, v18);
-      device = v10->_device;
+      off_2814650E0("MPS_BENCHMARK_LOOP_ENABLE_ENCODER_COALESCING environment variable set\n");
       if ((*(MPSDevice::GetMPSDevice() + 1477) & 4) != 0)
       {
         *&v10->_encoderCoalescing = 1;
@@ -34,7 +35,7 @@
 
       else if (!v10->_encoderCoalescing)
       {
-        off_2814650E0("MPS_BENCHMARK_LOOP_ENABLE_ENCODER_COALESCING environment variable was ignored and encoder coalescing will not occur\n", v20, v21, v22, v23, v24, v25, v26);
+        off_2814650E0("MPS_BENCHMARK_LOOP_ENABLE_ENCODER_COALESCING environment variable was ignored and encoder coalescing will not occur\n");
       }
     }
 
@@ -44,68 +45,66 @@
     v10->_whileCountingData = 0;
     v10->_timePerEncode = 0.0;
     v10->_countingEncodersSemaphore = dispatch_semaphore_create(1);
-    v27 = off_2814650F0();
-    if (!v27 || strcmp(v27, "presilicon"))
+    v12 = off_2814650F0("ATFMTL_TEST_MODE");
+    if (!v12 || strcmp(v12, "presilicon"))
     {
       if (handlerCopy)
       {
         commandQueueSPI = v10->_commandQueueSPI;
-        v85[0] = MEMORY[0x277D85DD0];
-        v85[1] = 3221225472;
-        v85[2] = sub_23990DA64;
-        v85[3] = &unk_278AA8AC0;
-        v85[4] = v10;
-        objc_msgSend_addPerfSampleHandler_(commandQueueSPI, v28, v85, v29, v30);
+        v68[0] = MEMORY[0x277D85DD0];
+        v68[1] = 3221225472;
+        v68[2] = sub_23990DA64;
+        v68[3] = &unk_278AA8AC0;
+        v68[4] = v10;
+        objc_msgSend_addPerfSampleHandler_(commandQueueSPI, v13, v68, v14, v15);
       }
 
-      v32 = objc_msgSend_conformsToProtocol_(v10->_device, v28, &unk_284C7D428, v29, v30);
-      if (v32)
+      v17 = objc_msgSend_conformsToProtocol_(v10->_device, v13, &unk_284C7D428, v14, v15);
+      if (v17)
       {
-        LOBYTE(v32) = objc_msgSend_conformsToProtocol_(v10->_commandQueue, v33, &unk_284C7DA38, v34, v35);
+        LOBYTE(v17) = objc_msgSend_conformsToProtocol_(v10->_commandQueue, v18, &unk_284C7DA38, v19, v20);
       }
 
-      v10->_countersSupported = v32;
-      v36 = v10->_commandQueueSPI;
-      v37 = objc_opt_respondsToSelector();
-      v10->_supportsMultipass = v37 & 1;
-      if (v10->_countersSupported && (v37 & 1) != 0)
+      v10->_countersSupported = v17;
+      v21 = objc_opt_respondsToSelector();
+      v10->_supportsMultipass = v21 & 1;
+      if (v10->_countersSupported && (v21 & 1) != 0)
       {
-        v38 = v10->_device;
         if ((*(MPSDevice::GetMPSDevice() + 1477) & 4) != 0)
         {
-          v48 = 0;
+          v31 = 0;
           v10->_allCounters = 0;
         }
 
         else
         {
-          v43 = objc_msgSend_availableCounters(v10->_commandQueueSPI, v39, v40, v41, v42);
-          v10->_allCounters = v43;
-          v48 = objc_msgSend_count(v43, v44, v45, v46, v47);
+          v26 = objc_msgSend_availableCounters(v10->_commandQueueSPI, v22, v23, v24, v25);
+          v10->_allCounters = v26;
+          v31 = objc_msgSend_count(v26, v27, v28, v29, v30);
         }
 
-        v10->_nAvailableCounters = v48;
-        v49 = v10->_device;
-        v50 = objc_msgSend_vendorName(v49, v39, v40, v41, v42);
-        NSLog(&cfstr_DeviceVendor.isa, v50);
-        v55 = objc_msgSend_name(v49, v51, v52, v53, v54);
-        NSLog(&cfstr_DeviceName.isa, v55);
-        v60 = objc_msgSend_sharedMemorySize(v49, v56, v57, v58, v59);
-        NSLog(&cfstr_DeviceMemoryLl.isa, v60 >> 20);
-        if ((objc_msgSend_containsString_(v50, v61, @"INTEL", v62, v63) & 1) != 0 || (objc_msgSend_containsString_(v50, v64, @"Intel", v65, v66) & 1) != 0 || objc_msgSend_containsString_(v50, v64, @"intel", v65, v66))
+        v10->_nAvailableCounters = v31;
+        device = v10->_device;
+        v33 = objc_msgSend_vendorName(device, v22, v23, v24, v25);
+        NSLog(&cfstr_DeviceVendor.isa, v33);
+        v38 = objc_msgSend_name(device, v34, v35, v36, v37);
+        NSLog(&cfstr_DeviceName.isa, v38);
+        v43 = objc_msgSend_sharedMemorySize(device, v39, v40, v41, v42);
+        NSLog(&cfstr_DeviceMemoryLl.isa, v43 >> 20);
+        if ((objc_msgSend_containsString_(v33, v44, @"INTEL", v45, v46) & 1) != 0 || (objc_msgSend_containsString_(v33, v47, @"Intel", v48, v49) & 1) != 0 || objc_msgSend_containsString_(v33, v47, @"intel", v48, v49))
         {
           v10->_vendor = 1;
         }
 
-        if ((objc_msgSend_containsString_(v50, v64, @"AMD", v65, v66) & 1) != 0 || (objc_msgSend_containsString_(v50, v67, @"Amd", v68, v69) & 1) != 0 || objc_msgSend_containsString_(v50, v67, @"amd", v68, v69))
+        if ((objc_msgSend_containsString_(v33, v47, @"AMD", v48, v49) & 1) != 0 || (objc_msgSend_containsString_(v33, v50, @"Amd", v51, v52) & 1) != 0 || objc_msgSend_containsString_(v33, v50, @"amd", v51, v52))
         {
           v10->_vendor = 2;
         }
 
-        if ((objc_msgSend_containsString_(v50, v67, @"NVIDIA", v68, v69) & 1) != 0 || (objc_msgSend_containsString_(v50, v70, @"Nvidia", v71, v72) & 1) != 0 || objc_msgSend_containsString_(v50, v70, @"nvidia", v71, v72))
+        if ((objc_msgSend_containsString_(v33, v50, @"NVIDIA", v51, v52) & 1) != 0 || (objc_msgSend_containsString_(v33, v53, @"Nvidia", v54, v55) & 1) != 0 || objc_msgSend_containsString_(v33, v53, @"nvidia", v54, v55))
         {
           v10->_vendor = 3;
-          if (!objc_msgSend_supportsFamily_(v49, v70, 1001, v71, v72))
+          if (!objc_msgSend_supportsFamily_(device, v53, 1001, v54, v55))
           {
 LABEL_32:
             v10->_deviceHasCycleCounter = 0;
@@ -118,7 +117,7 @@ LABEL_32:
           }
         }
 
-        else if (!objc_msgSend_supportsFamily_(v49, v70, 1001, v71, v72))
+        else if (!objc_msgSend_supportsFamily_(device, v53, 1001, v54, v55))
         {
           goto LABEL_32;
         }
@@ -131,17 +130,17 @@ LABEL_36:
           for (i = 0; i < v10->_nAvailableCounters; ++i)
           {
             vendor = v10->_vendor;
-            v78 = objc_msgSend_objectAtIndexedSubscript_(v10->_allCounters, v73, i, v74, v75);
-            v83 = objc_msgSend_UTF8String(v78, v79, v80, v81, v82);
+            v61 = objc_msgSend_objectAtIndexedSubscript_(v10->_allCounters, v56, i, v57, v58);
+            v66 = objc_msgSend_UTF8String(v61, v62, v63, v64, v65);
             if (vendor == 2)
             {
-              if (!strcmp(v83, "AMDStat_GPU_Engine_Ticks"))
+              if (!strcmp(v66, "AMDStat_GPU_Engine_Ticks"))
               {
                 goto LABEL_42;
               }
             }
 
-            else if (!strcmp(v83, "MTLStatTotalGPUCycles"))
+            else if (!strcmp(v66, "MTLStatTotalGPUCycles"))
             {
 LABEL_42:
               v10->_deviceHasCycleCounter = 1;
@@ -159,6 +158,46 @@ LABEL_42:
   }
 
   return v10;
+}
+
+- (int)enableCountersIncludingBlitSamples:(BOOL)samples
+{
+  if (!self->_countersSupported)
+  {
+    return -1;
+  }
+
+  samplesCopy = samples;
+  if (objc_msgSend_isStatEnabled(self->_commandQueueSPI, a2, samples, v3, v4))
+  {
+    NSLog(&cfstr_StatsAlreadyEn.isa);
+    return 0;
+  }
+
+  objc_msgSend_setStatEnabled_(self->_commandQueueSPI, v7, 1, v8, v9);
+  commandQueueSPI = self->_commandQueueSPI;
+  if (samplesCopy)
+  {
+    objc_msgSend_setStatLocations_(commandQueueSPI, v11, 51, v12, v13);
+  }
+
+  else
+  {
+    objc_msgSend_setStatLocations_(commandQueueSPI, v11, 63, v12, v13);
+  }
+
+  v19 = self->_commandQueueSPI;
+  StatOptions = objc_msgSend_getStatOptions(v19, v15, v16, v17, v18);
+  objc_msgSend_setStatOptions_(v19, v21, StatOptions & 0xFFFFFFFFFFFFFFFELL, v22, v23);
+  if (!self->_encoderCoalescing)
+  {
+    return 0;
+  }
+
+  v28 = self->_commandQueueSPI;
+  v29 = objc_msgSend_getStatOptions(v28, v24, v25, v26, v27);
+  objc_msgSend_setStatOptions_(v28, v30, v29 | 0x40000000, v31, v32);
+  return 0;
 }
 
 - (int)requestCountersWithExtraRequestedCounter:(id)counter fillStats:(id)stats
@@ -333,6 +372,155 @@ LABEL_32:
   }
 
   return result;
+}
+
+- (int)countEncodersInWorkload:(id)workload withExtraRequestedCounter:(id)counter forStatistics:(id)statistics userSpecifiedIterations:(BOOL)iterations includingBlitSamples:(BOOL)samples
+{
+  samplesCopy = samples;
+  iterationsCopy = iterations;
+  dispatch_semaphore_wait(self->_countingEncodersSemaphore, 0xFFFFFFFFFFFFFFFFLL);
+  if (self->_useInterposer)
+  {
+    *(statistics + 34) = objc_alloc_init(MPSWorkloadInfoCapture);
+  }
+
+  self->_countingEncoders = 1;
+  self->_timePerEncode = 0.0;
+  *(statistics + 280) = self->_encoderCoalescing;
+  v168 = 0;
+  *(statistics + 36) = 0x3FF0000000000000;
+  *(statistics + 296) = 0;
+  if ((objc_opt_respondsToSelector() & 1) != 0 && (objc_msgSend_setupWithDevice_resourcesPointer_(workload, v13, self->_device, &v168, v14) & 1) == 0)
+  {
+    NSLog(&cfstr_Workloadprovid.isa);
+    dispatch_semaphore_signal(self->_countingEncodersSemaphore);
+    objc_msgSend_disableCounters(self, v37, v38, v39, v40);
+    return -3;
+  }
+
+  Current = CFAbsoluteTimeGetCurrent();
+  if (objc_msgSend_initializeWorkload(workload, v16, v17, v18, v19))
+  {
+    NSLog(&cfstr_WorkloadInitFa.isa);
+    dispatch_semaphore_signal(self->_countingEncodersSemaphore);
+    objc_msgSend_disableCounters(self, v23, v24, v25, v26);
+    return -4;
+  }
+
+  if (self->_useInterposer)
+  {
+    objc_msgSend_captureWithCommandQueue_workload_completionHandler_scheduleHanlder_(*(statistics + 34), v20, self->_commandQueue, workload, 0, 0);
+  }
+
+  objc_msgSend_enableCountersIncludingBlitSamples_(self, v20, samplesCopy, v21, v22);
+  v31 = objc_msgSend_requestCountersWithExtraRequestedCounter_(self, v28, counter, v29, v30);
+  if (v31)
+  {
+    v36 = v31;
+    objc_msgSend_disableCounters(self, v32, v33, v34, v35);
+    dispatch_semaphore_signal(self->_countingEncodersSemaphore);
+    return v36;
+  }
+
+  v41 = objc_autoreleasePoolPush();
+  self->_whileCountingData = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v46 = objc_msgSend_commandBuffer(self->_commandQueue, v42, v43, v44, v45);
+  objc_msgSend_setProfilingEnabled_(v46, v47, 1, v48, v49);
+  v50 = CFAbsoluteTimeGetCurrent();
+  objc_msgSend_encodeToCommandBuffer_withResources_(workload, v51, v46, v168, v52);
+  v53 = CFAbsoluteTimeGetCurrent();
+  v167[0] = MEMORY[0x277D85DD0];
+  v167[1] = 3221225472;
+  v167[2] = sub_23990E3B8;
+  v167[3] = &unk_278AA8A60;
+  v167[4] = workload;
+  v167[5] = v46;
+  objc_msgSend_addCompletedHandler_(v46, v54, v167, v55, v56);
+  v166[0] = MEMORY[0x277D85DD0];
+  v166[1] = 3221225472;
+  v166[2] = sub_23990E40C;
+  v166[3] = &unk_278AA8AE8;
+  v166[4] = v46;
+  objc_msgSend_addCompletedHandler_(v46, v57, v166, v58, v59);
+  objc_msgSend_commit(v46, v60, v61, v62, v63);
+  objc_msgSend_waitUntilCompleted(v46, v64, v65, v66, v67);
+  v68 = CFAbsoluteTimeGetCurrent();
+  v73 = objc_msgSend_profilingResults(v46, v69, v70, v71, v72);
+  v77 = objc_msgSend_valueForKey_(v73, v74, *MEMORY[0x277CD6930], v75, v76);
+  v82 = objc_msgSend_unsignedLongLongValue(v77, v78, v79, v80, v81);
+  v86 = objc_msgSend_valueForKey_(v73, v83, *MEMORY[0x277CD6950], v84, v85);
+  v91 = objc_msgSend_unsignedLongLongValue(v86, v87, v88, v89, v90);
+  v92 = *&qword_27DF851B8;
+  if (*&qword_27DF851B8 != 0.0)
+  {
+LABEL_15:
+    if ((objc_opt_respondsToSelector() & 1) == 0)
+    {
+      goto LABEL_19;
+    }
+
+    goto LABEL_16;
+  }
+
+  if (mach_timebase_info(&info))
+  {
+    v92 = *&qword_27DF851B8;
+    goto LABEL_15;
+  }
+
+  LODWORD(v93) = info.numer;
+  LODWORD(v94) = info.denom;
+  v92 = v93 * 0.000000001 / v94;
+  *&qword_27DF851B8 = v92;
+  if ((objc_opt_respondsToSelector() & 1) == 0)
+  {
+    goto LABEL_19;
+  }
+
+LABEL_16:
+  if (!objc_msgSend_purgeResources_(workload, v95, v168, v96, v97))
+  {
+    NSLog(&cfstr_Workloadprovid_0.isa);
+    dispatch_semaphore_signal(self->_countingEncodersSemaphore);
+    objc_msgSend_disableCounters(self, v98, v99, v100, v101);
+    objc_autoreleasePoolPop(v41);
+    return -5;
+  }
+
+LABEL_19:
+  v102 = v53 - v50;
+  self->_countingEncoders = 0;
+  objc_msgSend_initializeWithPassList_numberOfEncodersInCurrentWorkload_numEncodesPerCommandBuffer_extraRequestedCounter_userSpecifiedIterations_vendor_useGRC_(statistics, v95, self->_passList, self->_encodersInWorkload, self->_numEncodesPerCommandBuffer, counter, iterationsCopy, self->_vendor, 0);
+  if (objc_msgSend_count(self->_whileCountingData, v103, v104, v105, v106))
+  {
+    v110 = 0;
+    do
+    {
+      v111 = objc_msgSend_objectAtIndexedSubscript_(self->_whileCountingData, v107, v110, v108, v109);
+      objc_msgSend_addMPSCounterData_(statistics, v112, v111, v113, v114);
+      ++v110;
+    }
+
+    while (objc_msgSend_count(self->_whileCountingData, v115, v116, v117, v118) > v110);
+  }
+
+  self->_whileCountingData = 0;
+  *(statistics + 281) = self->_useInterposer;
+  *(statistics + 280) = self->_encoderCoalescing;
+  GeneralStatistics = objc_msgSend_getGeneralStatistics(statistics, v119, v120, v121, v122);
+  inited = objc_msgSend_InitTime(GeneralStatistics, v124, v125, v126, v127);
+  objc_msgSend_addValue_(inited, v129, v130, v131, v132, v50 - Current);
+  v137 = objc_msgSend_EncodeTime(GeneralStatistics, v133, v134, v135, v136);
+  objc_msgSend_addValue_(v137, v138, v139, v140, v141, v102);
+  v146 = objc_msgSend_QueueTime(GeneralStatistics, v142, v143, v144, v145);
+  objc_msgSend_addValue_(v146, v147, v148, v149, v150, v92 * (v91 - v82));
+  v155 = objc_msgSend_WallClockTime(GeneralStatistics, v151, v152, v153, v154);
+  objc_msgSend_addValue_(v155, v156, v157, v158, v159, v68 - v50);
+  objc_msgSend_updateNumberOfCommandBuffers_numberOfEncodesPerCommandBuffer_(GeneralStatistics, v160, 1, 1, v161);
+  objc_autoreleasePoolPop(v41);
+  objc_msgSend_disableCounters(self, v162, v163, v164, v165);
+  dispatch_semaphore_signal(self->_countingEncodersSemaphore);
+  return 0;
 }
 
 - (void)perfSampleHandlerWithCommandBuffer:(id)buffer data:(id)data numberOfSamples:(unint64_t)samples

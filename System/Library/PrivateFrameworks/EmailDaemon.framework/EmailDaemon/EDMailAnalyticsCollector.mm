@@ -29,7 +29,7 @@
 
 - (id)coreAnalyticsPeriodicEvent
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   em_userDefaults = [MEMORY[0x1E695E000] em_userDefaults];
   v4 = [em_userDefaults objectForKey:*MEMORY[0x1E699AB88]];
 
@@ -60,13 +60,12 @@
     v16 = [v4 ef_isLaterThanDate:v5];
   }
 
-  v22 = @"usesMail";
+  v21 = @"usesMail";
   v17 = [MEMORY[0x1E696AD98] numberWithBool:v16];
-  v23[0] = v17;
-  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+  v22[0] = v17;
+  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
 
   v19 = [objc_alloc(MEMORY[0x1E699AC78]) initWithEventName:@"com.apple.mail.usage" collectionData:v18];
-  v20 = *MEMORY[0x1E69E9840];
 
   return v19;
 }

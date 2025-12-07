@@ -155,7 +155,6 @@ LABEL_9:
 {
   if ((*&self->_has & 8) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -167,7 +166,6 @@ LABEL_9:
   has = self->_has;
   if ((has & 2) != 0)
   {
-    interfaceIndex = self->_interfaceIndex;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 4) == 0)
@@ -179,7 +177,6 @@ LABEL_7:
       }
 
 LABEL_12:
-      wwanPreferred = self->_wwanPreferred;
       PBDataWriterWriteBOOLField();
       if ((*&self->_has & 1) == 0)
       {
@@ -195,7 +192,6 @@ LABEL_12:
     goto LABEL_7;
   }
 
-  sendBufferSize = self->_sendBufferSize;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x10) != 0)
@@ -210,7 +206,6 @@ LABEL_8:
   }
 
 LABEL_13:
-  connectionTechnology = self->_connectionTechnology;
 
   PBDataWriterWriteUint64Field();
 }
@@ -348,7 +343,6 @@ LABEL_7:
   }
 
   has = self->_has;
-  v7 = *(equal + 52);
   if ((has & 8) != 0)
   {
     if ((*(equal + 52) & 8) == 0 || self->_timestamp != *(equal + 4))
@@ -404,7 +398,6 @@ LABEL_7:
   {
     if ((*(equal + 52) & 0x10) != 0)
     {
-      v9 = *(equal + 48);
       if (self->_wwanPreferred)
       {
         if ((*(equal + 48) & 1) == 0)

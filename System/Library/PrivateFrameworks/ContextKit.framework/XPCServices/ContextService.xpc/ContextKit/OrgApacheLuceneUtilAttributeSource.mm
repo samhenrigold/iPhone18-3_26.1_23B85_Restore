@@ -23,12 +23,12 @@
 - (id)getAttributeClassesIterator
 {
   attributes = self->attributes_;
-  if (!attributes || (v3 = JavaUtilCollections_unmodifiableSetWithJavaUtilSet_([(JavaUtilMap *)attributes keySet])) == 0)
+  if (!attributes || (v3 = [(JavaUtilMap *)attributes keySet], (v5 = JavaUtilCollections_unmodifiableSetWithJavaUtilSet_(v3, v4)) == 0))
   {
     JreThrowNullPointerException();
   }
 
-  return [(JavaUtilCollections_UnmodifiableCollection *)v3 iterator];
+  return [(JavaUtilCollections_UnmodifiableCollection *)v5 iterator];
 }
 
 - (id)getAttributeImplsIterator
@@ -36,23 +36,23 @@
   v2 = [OrgApacheLuceneUtilAttributeSource getCurrentState]_0(self);
   if (v2)
   {
-    v3 = v2;
-    v4 = [OrgApacheLuceneUtilAttributeSource__2 alloc];
-    JreStrongAssign(&v4->val$initState_, v3);
-    JreStrongAssign(&v4->state_, v4->val$initState_);
+    v4 = v2;
+    v5 = [OrgApacheLuceneUtilAttributeSource__2 alloc];
+    JreStrongAssign(&v5->val$initState_, v4);
+    JreStrongAssign(&v5->state_, v5->val$initState_);
 
-    return v4;
+    return v5;
   }
 
   else
   {
-    v6 = JavaUtilCollections_emptySet();
-    if (!v6)
+    v7 = JavaUtilCollections_emptySet(0, v3);
+    if (!v7)
     {
       JreThrowNullPointerException();
     }
 
-    return [v6 iterator];
+    return [v7 iterator];
   }
 }
 
@@ -132,12 +132,13 @@ LABEL_14:
   {
     if (class)
     {
-      if (![class isInterface] || (objc_msgSend(OrgApacheLuceneUtilAttribute_class_(), "isAssignableFrom:", class) & 1) == 0)
+      isInterface = [class isInterface];
+      if (!isInterface || ([OrgApacheLuceneUtilAttribute_class_(isInterface v9)] & 1) == 0)
       {
         [class getName];
-        v17 = JreStrcat("$$$", v10, v11, v12, v13, v14, v15, v16, @"addAttribute() only accepts an interface that extends Attribute, but ");
-        v18 = new_JavaLangIllegalArgumentException_initWithNSString_(v17);
-        objc_exception_throw(v18);
+        v19 = JreStrcat("$$$", v12, v13, v14, v15, v16, v17, v18, @"addAttribute() only accepts an interface that extends Attribute, but ");
+        v20 = new_JavaLangIllegalArgumentException_initWithNSString_(v19);
+        objc_exception_throw(v20);
       }
 
       factory = self->factory_;

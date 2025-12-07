@@ -172,10 +172,9 @@
 
 - (id)certificatePropertiesAtIndex:(unint64_t)index
 {
-  trust = self->_trust;
-  v4 = SecTrustCopyDetailedPropertiesAtIndex();
+  v3 = SecTrustCopyDetailedPropertiesAtIndex();
 
-  return v4;
+  return v3;
 }
 
 - (id)_expirationDate

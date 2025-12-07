@@ -21,10 +21,10 @@
 - (FRCFrameSynthesizer)initWithUsage:(int64_t)usage qualityMode:(int64_t)mode useLegacyNormalization:(BOOL)normalization
 {
   normalizationCopy = normalization;
-  v38 = *MEMORY[0x277D85DE8];
-  v31.receiver = self;
-  v31.super_class = FRCFrameSynthesizer;
-  v8 = [(FRCFrameSynthesizer *)&v31 init];
+  v37 = *MEMORY[0x277D85DE8];
+  v30.receiver = self;
+  v30.super_class = FRCFrameSynthesizer;
+  v8 = [(FRCFrameSynthesizer *)&v30 init];
   if (!v8)
   {
 LABEL_11:
@@ -79,18 +79,18 @@ LABEL_11:
       temporalFiltering = [(Synthesis *)v8->_synthesis temporalFiltering];
       *buf = 134219520;
       usageCopy2 = v8;
-      v34 = 1024;
-      *v35 = usage;
-      *&v35[4] = 2048;
-      *&v35[6] = width;
-      *&v35[14] = 2048;
-      *&v35[16] = height;
-      *&v35[24] = 1024;
-      *&v35[26] = mode;
-      LOWORD(v36) = 1024;
-      *(&v36 + 2) = synthesis;
-      HIWORD(v36) = 1024;
-      v37 = temporalFiltering;
+      v33 = 1024;
+      *v34 = usage;
+      *&v34[4] = 2048;
+      *&v34[6] = width;
+      *&v34[14] = 2048;
+      *&v34[16] = height;
+      *&v34[24] = 1024;
+      *&v34[26] = mode;
+      LOWORD(v35) = 1024;
+      *(&v35 + 2) = synthesis;
+      HIWORD(v35) = 1024;
+      v36 = temporalFiltering;
       _os_log_impl(&dword_24A8C8000, v20, OS_LOG_TYPE_DEFAULT, "Initialized successfully (%p) [usage:%d (%ldx%ld), mode:%d, synthesis mode:%d, temporal filtering:%d].", buf, 0x38u);
     }
 
@@ -100,28 +100,27 @@ LABEL_11:
   v23 = v8->_logger;
   if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
   {
-    v26 = v8->_width;
-    v27 = v8->_height;
-    v28 = v8->_synthesis;
-    v29 = v23;
-    synthesisMode = [(Synthesis *)v28 synthesisMode];
+    v25 = v8->_width;
+    v26 = v8->_height;
+    v27 = v8->_synthesis;
+    v28 = v23;
+    synthesisMode = [(Synthesis *)v27 synthesisMode];
     *buf = 134219008;
     usageCopy2 = usage;
-    v34 = 2048;
-    *v35 = v26;
-    *&v35[8] = 2048;
-    *&v35[10] = v27;
-    *&v35[18] = 2048;
-    *&v35[20] = mode;
-    *&v35[28] = 2048;
-    v36 = synthesisMode;
-    _os_log_error_impl(&dword_24A8C8000, v29, OS_LOG_TYPE_ERROR, "Initialization failed [usage:%ld (%ldx%ld), mode:%ld, synthesis mode:%ld].", buf, 0x34u);
+    v33 = 2048;
+    *v34 = v25;
+    *&v34[8] = 2048;
+    *&v34[10] = v26;
+    *&v34[18] = 2048;
+    *&v34[20] = mode;
+    *&v34[28] = 2048;
+    v35 = synthesisMode;
+    _os_log_error_impl(&dword_24A8C8000, v28, OS_LOG_TYPE_ERROR, "Initialization failed [usage:%ld (%ldx%ld), mode:%ld, synthesis mode:%ld].", buf, 0x34u);
   }
 
   v22 = 0;
 LABEL_15:
 
-  v24 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
@@ -211,7 +210,7 @@ LABEL_19:
 
 - (void)dealloc
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (self->_featureCreated)
   {
     [(Synthesis *)self->_synthesis releaseFeatures];
@@ -227,15 +226,14 @@ LABEL_19:
     usage = self->_usage;
     *buf = 134218240;
     selfCopy = self;
-    v10 = 2048;
-    v11 = usage;
+    v9 = 2048;
+    v10 = usage;
     _os_log_impl(&dword_24A8C8000, logger, OS_LOG_TYPE_DEFAULT, "Released (%p) [usage:%ld]", buf, 0x16u);
   }
 
-  v7.receiver = self;
-  v7.super_class = FRCFrameSynthesizer;
-  [(FRCFrameSynthesizer *)&v7 dealloc];
-  v6 = *MEMORY[0x277D85DE8];
+  v6.receiver = self;
+  v6.super_class = FRCFrameSynthesizer;
+  [(FRCFrameSynthesizer *)&v6 dealloc];
 }
 
 - (void)synthesizeFrameFromFirstFrame:(__CVBuffer *)frame secondFrame:(__CVBuffer *)secondFrame forwardFlow:(__CVBuffer *)flow backwardFlow:(__CVBuffer *)backwardFlow timeScale:(float)scale destination:(__CVBuffer *)destination
@@ -275,20 +273,20 @@ LABEL_19:
 
 - (void)setFirstFrame:(__CVBuffer *)frame secondFrame:(__CVBuffer *)secondFrame forwardFlow:(__CVBuffer *)flow backwardFlow:(__CVBuffer *)backwardFlow
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   logger = self->_logger;
   if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
   {
     v12 = logger;
-    v14 = 134218752;
+    v13 = 134218752;
     Width = CVPixelBufferGetWidth(frame);
-    v16 = 2048;
+    v15 = 2048;
     Height = CVPixelBufferGetHeight(frame);
-    v18 = 2048;
-    v19 = CVPixelBufferGetWidth(flow);
-    v20 = 2048;
-    v21 = CVPixelBufferGetHeight(flow);
-    _os_log_impl(&dword_24A8C8000, v12, OS_LOG_TYPE_DEFAULT, "New frame pair set: [frame size: %ldx %ld, flow Size : %ld x %ld]", &v14, 0x2Au);
+    v17 = 2048;
+    v18 = CVPixelBufferGetWidth(flow);
+    v19 = 2048;
+    v20 = CVPixelBufferGetHeight(flow);
+    _os_log_impl(&dword_24A8C8000, v12, OS_LOG_TYPE_DEFAULT, "New frame pair set: [frame size: %ldx %ld, flow Size : %ld x %ld]", &v13, 0x2Au);
   }
 
   if (self->_featureCreated)
@@ -305,18 +303,17 @@ LABEL_19:
   [(FRCImageProcessor *)self->_processor preProcessFirstInput:frame secondInput:secondFrame waitForCompletion:0];
   [(Synthesis *)self->_synthesis createFeaturesFromFirstImage:[(FRCImageProcessor *)self->_processor normalizedFirst] secondImage:[(FRCImageProcessor *)self->_processor normalizedSecond] flowForward:flow flowBackward:backwardFlow];
   self->_featureCreated = 1;
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)synthesizeFrameForTimeScale:(float)scale destination:(__CVBuffer *)destination
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   logger = self->_logger;
   if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 134217984;
+    v11 = 134217984;
     scaleCopy = scale;
-    _os_log_impl(&dword_24A8C8000, logger, OS_LOG_TYPE_DEFAULT, "Synthesize frame [Time Scale: %.2f]", &v12, 0xCu);
+    _os_log_impl(&dword_24A8C8000, logger, OS_LOG_TYPE_DEFAULT, "Synthesize frame [Time Scale: %.2f]", &v11, 0xCu);
   }
 
   if (self->_featureCreated)
@@ -332,8 +329,6 @@ LABEL_19:
   {
     NSLog(&cfstr_ErrorNeedToSet.isa);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)synthesizeFramesFromFirstFrame:(__CVBuffer *)frame secondFrame:(__CVBuffer *)secondFrame forwardFlow:(__CVBuffer *)flow backwardFlow:(__CVBuffer *)backwardFlow numberOfFrames:(unint64_t)frames withError:(id *)error

@@ -175,7 +175,7 @@ void __60__ACDKeychainCache_cacheData_forService_username_syncState___block_invo
 
 void __60__ACDKeychainCache_cacheData_forService_username_syncState___block_invoke_4(uint64_t a1)
 {
-  v2 = _ACDLogSystem();
+  v2 = _ACDLogSystem(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __60__ACDKeychainCache_cacheData_forService_username_syncState___block_invoke_4_cold_1(a1, v2);
@@ -388,34 +388,34 @@ LABEL_9:
 
 void __43__ACDKeychainCache_clearCacheForSyncState___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v2 = [*(a1 + 32) cachesByUsername];
   v3 = [v2 allValues];
 
-  v4 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v15;
+    v6 = *v14;
     do
     {
       v7 = 0;
       do
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v14 + 1) + 8 * v7);
+        v8 = *(*(&v13 + 1) + 8 * v7);
         v9 = *(a1 + 40);
         if (v9 == 2)
         {
-          v11 = [*(*(&v14 + 1) + 8 * v7) nonSyncableItems];
+          v11 = [*(*(&v13 + 1) + 8 * v7) nonSyncableItems];
           [v11 removeAllObjects];
 
 LABEL_11:
@@ -433,7 +433,7 @@ LABEL_11:
           goto LABEL_13;
         }
 
-        v10 = [*(*(&v14 + 1) + 8 * v7) nonSyncableItems];
+        v10 = [*(*(&v13 + 1) + 8 * v7) nonSyncableItems];
 LABEL_12:
         v12 = v10;
         [v10 removeAllObjects];
@@ -443,13 +443,11 @@ LABEL_13:
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v5);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __43__ACDKeychainCache_clearCacheForSyncState___block_invoke_2(uint64_t a1)
@@ -460,14 +458,11 @@ void __43__ACDKeychainCache_clearCacheForSyncState___block_invoke_2(uint64_t a1)
 
 void __60__ACDKeychainCache_cacheData_forService_username_syncState___block_invoke_4_cold_1(uint64_t a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v3 = *(a1 + 32);
-  v4 = ACHashedString();
-  v6 = 138412290;
-  v7 = v4;
-  _os_log_debug_impl(&dword_221D2F000, a2, OS_LOG_TYPE_DEBUG, "@Clearing keychain cache for %@", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v3 = ACHashedString();
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_debug_impl(&dword_221D2F000, a2, OS_LOG_TYPE_DEBUG, "@Clearing keychain cache for %@", &v4, 0xCu);
 }
 
 @end

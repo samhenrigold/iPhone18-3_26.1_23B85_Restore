@@ -55,20 +55,20 @@
   v10 = +[JSABridge sharedInstance];
   [v10 debugAssertRunningOnJSAThread];
 
-  v11 = JSALog();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = JSALog(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v27 = "[JSAUserDefaults registerOnDefaultsChange:keysToObserve:fromGroup:]";
-    v28 = 2048;
-    v29 = [observeCopy count];
-    _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "%{public}s %lu keys", buf, 0x16u);
+    v28 = "[JSAUserDefaults registerOnDefaultsChange:keysToObserve:fromGroup:]";
+    v29 = 2048;
+    v30 = [observeCopy count];
+    _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "%{public}s %lu keys", buf, 0x16u);
   }
 
   if (groupCopy)
   {
-    v12 = +[BUAppGroup books];
-    userDefaults = [v12 userDefaults];
+    v13 = +[BUAppGroup books];
+    userDefaults = [v13 userDefaults];
   }
 
   else
@@ -77,25 +77,25 @@
   }
 
   sub_7ED38(self, observeCopy, 1, groupCopy);
-  v21[0] = _NSConcreteStackBlock;
-  v21[1] = 3221225472;
-  v21[2] = sub_309C;
-  v21[3] = &unk_B2190;
-  v21[4] = self;
-  v22 = changeCopy;
-  v23 = userDefaults;
-  v14 = v24 = observeCopy;
-  v25 = v14;
-  v15 = observeCopy;
-  v16 = userDefaults;
-  v17 = changeCopy;
+  v22[0] = _NSConcreteStackBlock;
+  v22[1] = 3221225472;
+  v22[2] = sub_309C;
+  v22[3] = &unk_B2190;
+  v22[4] = self;
+  v23 = changeCopy;
+  v24 = userDefaults;
+  v15 = v25 = observeCopy;
+  v26 = v15;
+  v16 = observeCopy;
+  v17 = userDefaults;
+  v18 = changeCopy;
   os_unfair_lock_lock_with_options();
-  sub_309C(v21);
+  sub_309C(v22);
   os_unfair_lock_unlock(&self->_lock);
-  v18 = v25;
-  v19 = v14;
+  v19 = v26;
+  v20 = v15;
 
-  return v14;
+  return v15;
 }
 
 - (void)unregisterOnDefaultsChangeFromGroup:(BOOL)group

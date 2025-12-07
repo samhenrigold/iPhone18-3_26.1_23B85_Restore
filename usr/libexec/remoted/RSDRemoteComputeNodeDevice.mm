@@ -34,13 +34,13 @@ LABEL_6:
   }
 
   *__s1 = 0u;
-  memset(v15, 0, sizeof(v15));
+  memset(v14, 0, sizeof(v14));
   if (!inet_ntop(30, &self->remote_address_storage, __s1, 0x2Eu))
   {
-    v12 = __error();
+    __error();
     if (os_log_type_enabled(qword_100064438, OS_LOG_TYPE_ERROR))
     {
-      sub_10003DB3C(v12);
+      sub_10003DB3C();
     }
 
     goto LABEL_6;
@@ -65,7 +65,7 @@ LABEL_6:
     v11 = strdup(__s1);
     if (!v11)
     {
-      sub_10003DA8C(__s1, &v13, v16);
+      sub_10003DA8C(__s1, &v12, v15);
     }
   }
 
@@ -88,7 +88,7 @@ LABEL_7:
   if (!v12)
   {
 LABEL_8:
-    v16 = 0;
+    v15 = 0;
     goto LABEL_11;
   }
 
@@ -97,13 +97,13 @@ LABEL_8:
   v13->peerfd = -1;
   v13->remote_address_storage = *&nw_endpoint_get_address(endpointCopy)->sa_data[6];
   *__s1 = 0u;
-  memset(v20, 0, sizeof(v20));
+  memset(v19, 0, sizeof(v19));
   if (!inet_ntop(30, &v13->remote_address_storage, __s1, 0x2Eu))
   {
-    v15 = __error();
+    __error();
     if (os_log_type_enabled(qword_100064438, OS_LOG_TYPE_ERROR))
     {
-      sub_10003DB3C(v15);
+      sub_10003DB3C();
     }
 
     goto LABEL_8;
@@ -128,15 +128,15 @@ LABEL_8:
     v14 = strdup(__s1);
     if (!v14)
     {
-      sub_10003DA8C(__s1, &v18, v21);
+      sub_10003DA8C(__s1, &v17, v20);
     }
   }
 
   v13->_ipv6_str = v14;
-  v16 = v13;
+  v15 = v13;
 LABEL_11:
 
-  return v16;
+  return v15;
 }
 
 - (void)dealloc

@@ -106,8 +106,7 @@
 
 - (void)handleCallEvent:(id *)event
 {
-  [(AppleProxAnalytics *)self aggregateCallEvent:?];
-  v5 = LoggingProx();
+  v5 = LoggingProx([(AppleProxAnalytics *)self aggregateCallEvent:?]);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     var0 = event->var0;
@@ -289,7 +288,7 @@
 - (void)handleResidencyReport:(id *)report size:(unint64_t)size
 {
   v7 = [@"com.apple.aop.prox." stringByAppendingString:@"mode_residency"];
-  v8 = LoggingProx();
+  v8 = LoggingProx(v7);
   v9 = size - 1;
   v10 = (size - 1) >> 2;
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
@@ -335,7 +334,7 @@
 {
   p_var2 = &report->var2;
   v8 = report->var2 + 3 > size;
-  v9 = LoggingProx();
+  v9 = LoggingProx(self);
   v10 = v9;
   if (v8)
   {
@@ -388,23 +387,23 @@
   v7 = *&report->var0;
   LOBYTE(self->_lastActiveStats.pearl60HzTimeMsec) = report->var2;
   *&self->_lastActiveStats.reportID = v7;
-  v8 = LoggingProx();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = LoggingProx(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = *(&report->var0 + 1);
-    v10 = *(&report->var1 + 1);
-    v11[0] = 67109376;
-    v11[1] = v9;
-    v12 = 1024;
-    v13 = v10;
-    _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Active stats received: duration %u s, pearl60Hz %u msec", v11, 0xEu);
+    v10 = *(&report->var0 + 1);
+    v11 = *(&report->var1 + 1);
+    v12[0] = 67109376;
+    v12[1] = v10;
+    v13 = 1024;
+    v14 = v11;
+    _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "Active stats received: duration %u s, pearl60Hz %u msec", v12, 0xEu);
   }
 }
 
 - (void)handleCurrentReport:(id *)report
 {
   v5 = [@"com.apple.aop.prox." stringByAppendingString:@"supplyCurrent"];
-  v6 = LoggingProx();
+  v6 = LoggingProx(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = *(&report->var0 + 1);
@@ -433,18 +432,18 @@
   analyticsTestCallback = self->_analyticsTestCallback;
   if (analyticsTestCallback)
   {
-    analyticsTestCallback[2](analyticsTestCallback, eventCopy, v7);
+    v9 = analyticsTestCallback[2](analyticsTestCallback, eventCopy, v7);
   }
 
   else
   {
-    AnalyticsSendEvent();
+    v9 = AnalyticsSendEvent();
   }
 
-  v9 = LoggingProx();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  v10 = LoggingProx(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    sub_A3BC(eventCopy, v7, v9);
+    sub_A3BC(eventCopy, v7, v10);
   }
 
   return 1;
@@ -508,7 +507,7 @@
 
 - (void)sendDayEvent
 {
-  v3 = LoggingProx();
+  v3 = LoggingProx(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -595,7 +594,7 @@
 
 - (void)handleAtlantisProxReleaseEvent:(id *)event
 {
-  v5 = LoggingProx();
+  v5 = LoggingProx(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     var0 = event->var0;

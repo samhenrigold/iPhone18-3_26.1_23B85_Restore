@@ -8,7 +8,7 @@
 
 - (void)invalidate
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = IOPMAssertionRelease(self->_assertionID);
   v4 = CSLogContextFacilityCoreSpeech;
   if (v3)
@@ -16,25 +16,23 @@
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
       name = self->_name;
-      v8 = 136315394;
-      v9 = "[CSPowerAssertionAccessory invalidate]";
-      v10 = 2114;
-      v11 = name;
-      _os_log_error_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_ERROR, "%s Fail to release power assertion %{public}@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[CSPowerAssertionAccessory invalidate]";
+      v9 = 2114;
+      v10 = name;
+      _os_log_error_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_ERROR, "%s Fail to release power assertion %{public}@", &v7, 0x16u);
     }
   }
 
   else if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
     v6 = self->_name;
-    v8 = 136315394;
-    v9 = "[CSPowerAssertionAccessory invalidate]";
-    v10 = 2114;
-    v11 = v6;
-    _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s Successfully released power assertion %{public}@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[CSPowerAssertionAccessory invalidate]";
+    v9 = 2114;
+    v10 = v6;
+    _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s Successfully released power assertion %{public}@", &v7, 0x16u);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
@@ -51,13 +49,13 @@
 
 - (CSPowerAssertionAccessory)initWithName:(id)name timeout:(double)timeout
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   if (+[CSUtils deviceRequirePowerAssertionHeld])
   {
-    v26.receiver = self;
-    v26.super_class = CSPowerAssertionAccessory;
-    v8 = [(CSPowerAssertionAccessory *)&v26 init];
+    v25.receiver = self;
+    v25.super_class = CSPowerAssertionAccessory;
+    v8 = [(CSPowerAssertionAccessory *)&v25 init];
     v9 = v8;
     if (v8)
     {
@@ -87,8 +85,8 @@
         {
           name = v9->_name;
           *buf = 136315394;
-          v28 = "[CSPowerAssertionAccessory initWithName:timeout:]";
-          v29 = 2114;
+          v27 = "[CSPowerAssertionAccessory initWithName:timeout:]";
+          v28 = 2114;
           nameCopy2 = name;
           v15 = "%s Taking power assertion %{public}@";
           v16 = v13;
@@ -118,7 +116,7 @@ LABEL_16:
           if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
           {
             *buf = 136315138;
-            v28 = "[CSPowerAssertionAccessory initWithName:timeout:]";
+            v27 = "[CSPowerAssertionAccessory initWithName:timeout:]";
             _os_log_error_impl(&dword_1DDA4B000, v21, OS_LOG_TYPE_ERROR, "%s Could not take power assertion", buf, 0xCu);
           }
 
@@ -131,10 +129,10 @@ LABEL_16:
         {
           v23 = v9->_name;
           *buf = 136315650;
-          v28 = "[CSPowerAssertionAccessory initWithName:timeout:]";
-          v29 = 2114;
+          v27 = "[CSPowerAssertionAccessory initWithName:timeout:]";
+          v28 = 2114;
           nameCopy2 = v23;
-          v31 = 2050;
+          v30 = 2050;
           timeoutCopy = timeout;
           v15 = "%s Taking power assertion %{public}@ for a max of %{public}lf seconds";
           v16 = v22;
@@ -153,7 +151,6 @@ LABEL_22:
   selfCopy = 0;
 LABEL_23:
 
-  v24 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

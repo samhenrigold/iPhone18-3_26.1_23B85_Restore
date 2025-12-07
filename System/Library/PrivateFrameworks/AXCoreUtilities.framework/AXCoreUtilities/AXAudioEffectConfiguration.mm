@@ -22,44 +22,39 @@
 {
   v3 = sub_19166B1C8();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  MEMORY[0x1EEE9AC00](v3, v6);
-  v8 = &v13 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v3, v5);
+  v7 = &v12 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   selfCopy = self;
   _identifier = [(AXAudioEffectConfiguration *)selfCopy _identifier];
   sub_19166B1A8();
 
-  v11 = sub_19166B188();
-  (*(v4 + 8))(v8, v3);
+  v10 = sub_19166B188();
+  (*(v4 + 8))(v7, v3);
 
-  return v11;
+  return v10;
 }
 
 - (void)setIdentifier:(id)identifier
 {
   v4 = sub_19166B1C8();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x1EEE9AC00](v4, v7);
-  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v4, v6);
+  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_19166B1A8();
   selfCopy = self;
-  v11 = sub_19166B188();
-  [(AXAudioEffectConfiguration *)selfCopy set_identifier:v11];
+  v10 = sub_19166B188();
+  [(AXAudioEffectConfiguration *)selfCopy set_identifier:v10];
 
-  (*(v5 + 8))(v9, v4);
+  (*(v5 + 8))(v8, v4);
 }
 
 - (NSString)effectName
 {
-  v2 = (self + OBJC_IVAR___AXAudioEffectConfiguration_effectName);
   swift_beginAccess();
-  v4 = *v2;
-  v3 = v2[1];
 
-  v5 = sub_19166B718();
+  v2 = sub_19166B718();
 
-  return v5;
+  return v2;
 }
 
 - (void)setEffectName:(id)name
@@ -68,7 +63,6 @@
   v6 = v5;
   v7 = (self + OBJC_IVAR___AXAudioEffectConfiguration_effectName);
   swift_beginAccess();
-  v8 = v7[1];
   *v7 = v4;
   v7[1] = v6;
 }

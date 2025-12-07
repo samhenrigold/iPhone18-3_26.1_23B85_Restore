@@ -10,7 +10,6 @@
 + (BOOL)unzipFileAtPath:(id)path toDestination:(id)destination overwrite:(BOOL)overwrite password:(id)password progressHandler:(id)handler completionHandler:(id)completionHandler;
 + (BOOL)unzipFileAtPath:(id)path toDestination:(id)destination progressHandler:(id)handler completionHandler:(id)completionHandler;
 + (id)dateWithMicrosoftDOSFormat:(unsigned int)format;
-- (BOOL)open;
 - (BOOL)writeData:(id)data fileName:(id)name;
 - (BOOL)writeFile:(id)file;
 - (BOOL)writeFileAtPath:(id)path withFileName:(id)name;
@@ -291,14 +290,14 @@
 
             free(v104);
             v60 = v99;
-            v61 = [MEMORY[0x277CCA900] characterSetWithCharactersInString:@"/\\""];
+            v61 = [MEMORY[0x277CCA900] characterSetWithCharactersInString:@"/\"];
             v96 = [v60 rangeOfCharacterFromSet:?];
             v97 = v14;
             v62 = v96;
             MEMORY[0x277D82BD8](v61);
             if (v62 != 0x7FFFFFFFFFFFFFFFLL)
             {
-              v15 = [v99 stringByReplacingOccurrencesOfString:@"\\" withString:@"/""];
+              v15 = [v99 stringByReplacingOccurrencesOfString:@"\ withString:@"/""];
               v16 = v99;
               v99 = v15;
               MEMORY[0x277D82BD8](v16);
@@ -619,7 +618,6 @@
   objc_storeStrong(&v129, 0);
   objc_storeStrong(&v131, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   return v134 & 1;
 }
 
@@ -676,7 +674,6 @@
   objc_storeStrong(&v16, 0);
   objc_storeStrong(&v18, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   return v6 & 1;
 }
 
@@ -808,13 +805,6 @@
   objc_storeStrong(location, 0);
   objc_storeStrong(&selfCopy, 0);
   return v7;
-}
-
-- (BOOL)open
-{
-  [(NSString *)self->_path UTF8String];
-  self->_zip = zipOpen();
-  return self->_zip != 0;
 }
 
 - (void)zipInformation:(id *)information setDate:(id)date
@@ -998,7 +988,7 @@
   {
     if (location[0])
     {
-      memset(__b, 0, 0x30uLL);
+      memset(__b, 0, sizeof(__b));
       v7 = selfCopy;
       date = [MEMORY[0x277CBEAA8] date];
       [(Main *)v7 zipInformation:__b setDate:?];

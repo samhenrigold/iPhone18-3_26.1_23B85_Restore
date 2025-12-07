@@ -1,4 +1,4 @@
-uint64_t DLCSessionShouldLogLevel(uint64_t a1, uint64_t a2)
+uint64_t DLCSessionShouldLogLevel(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a2)
   {
@@ -58,7 +58,7 @@ LABEL_3:
   return MEMORY[0x2821738B0](a1, a2, a3, a4);
 }
 
-uint64_t DLCSessionNoteCheckpoint()
+uint64_t DLCSessionNoteCheckpoint(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   result = IMShouldLog();
   if (result)
@@ -69,7 +69,7 @@ uint64_t DLCSessionNoteCheckpoint()
   return result;
 }
 
-uint64_t DLCSessionLogWithLevel()
+uint64_t DLCSessionLogWithLevel(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   result = IMShouldLogCategory();
   if (result)
@@ -80,7 +80,7 @@ uint64_t DLCSessionLogWithLevel()
   return result;
 }
 
-uint64_t DLCSessionLogWithLevelV()
+uint64_t DLCSessionLogWithLevelV(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   result = IMShouldLogCategory();
   if (result)
@@ -167,7 +167,7 @@ uint64_t DLCSessionSetRecipient(uint64_t a1, uint64_t a2, uint64_t a3)
   return result;
 }
 
-uint64_t DLCShouldLogLevel(uint64_t a1, uint64_t a2)
+uint64_t DLCShouldLogLevel(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a2)
   {
@@ -180,24 +180,24 @@ uint64_t DLCShouldLogLevel(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t DLCCollectLogsWithCompletionHandler(uint64_t result, void *a2, void *a3)
+uint64_t DLCCollectLogsWithCompletionHandler(uint64_t result, void *a2, void *a3, uint64_t a4)
 {
   if (result)
   {
-    v5 = [MEMORY[0x277CBEB38] dictionaryWithObjectsAndKeys:{objc_msgSend(a2, "objectForKey:", @"DLCLogGatheringFlagsKey", @"collectionFlags", objc_msgSend(a2, "objectForKey:", @"DLCAlertTitleKey", @"title", objc_msgSend(a2, "objectForKey:", @"DLCGatheringDisplayFlagsKey", @"displayFlags", 0}];
-    v6 = [a2 objectForKey:@"DLCDefaultRadarComponentKey"];
-    if (v6)
-    {
-      CFDictionarySetValue(v5, @"radarComponent", v6);
-    }
-
+    v6 = [MEMORY[0x277CBEB38] dictionaryWithObjectsAndKeys:{objc_msgSend(a2, "objectForKey:", @"DLCLogGatheringFlagsKey", @"collectionFlags", objc_msgSend(a2, "objectForKey:", @"DLCAlertTitleKey", @"title", objc_msgSend(a2, "objectForKey:", @"DLCGatheringDisplayFlagsKey", @"displayFlags", 0}];
     v7 = [a2 objectForKey:@"DLCDefaultRadarComponentKey"];
     if (v7)
     {
-      CFDictionarySetValue(v5, @"radarComponentVersion", v7);
+      CFDictionarySetValue(v6, @"radarComponent", v7);
     }
 
-    v8 = [a3 copy];
+    v8 = [a2 objectForKey:@"DLCDefaultRadarComponentKey"];
+    if (v8)
+    {
+      CFDictionarySetValue(v6, @"radarComponentVersion", v8);
+    }
+
+    v9 = [a3 copy];
     return _IMLoggingActionWithUserInfo();
   }
 
@@ -236,7 +236,7 @@ uint64_t DLCCollectLogs(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   v8 = objc_alloc(MEMORY[0x277CBEAC0]);
   v9 = [MEMORY[0x277CCABB0] numberWithInteger:a3];
   v10 = [v8 initWithObjectsAndKeys:{v9, @"DLCGatheringDisplayFlagsKey", objc_msgSend(MEMORY[0x277CCABB0], "numberWithInteger:", a4), @"DLCLogGatheringFlagsKey", v7, @"DLCAlertTitleKey", 0}];
-  v11 = DLCCollectLogsWithCompletionHandler(a1, v10, 0);
+  v11 = DLCCollectLogsWithCompletionHandler(a1, v10, 0, 0);
 
   return v11;
 }

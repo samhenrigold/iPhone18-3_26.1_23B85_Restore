@@ -14,7 +14,7 @@
   if (LODWORD(v13.__r_.__value_.__l.__data_) != 2)
   {
     sub_100014A08(v11, "");
-    sub_1001D0C58("Can't create an input stream for something not a file @ ", &v13);
+    sub_1001D0C58(&v13, "Can't create an input stream for something not a file @ ");
     if (*(path + 23) < 0)
     {
       sub_100003228(&v14, *path, *(path + 1));

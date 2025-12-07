@@ -1,6 +1,7 @@
 @interface MTMediaTask
 - (MTMediaTask)initWithType:(int64_t)type;
 - (void)perform:(id)perform;
+- (void)setCharts:(BOOL)charts;
 @end
 
 @implementation MTMediaTask
@@ -37,6 +38,17 @@
   }
 
   return v4;
+}
+
+- (void)setCharts:(BOOL)charts
+{
+  chartsCopy = charts;
+  if (objc_opt_respondsToSelector())
+  {
+    mediaTask = self->_mediaTask;
+
+    [(AMSMediaTask *)mediaTask setCharts:chartsCopy];
+  }
 }
 
 - (void)perform:(id)perform

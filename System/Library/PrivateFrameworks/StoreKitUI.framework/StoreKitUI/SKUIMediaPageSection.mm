@@ -241,38 +241,38 @@ LABEL_6:
 
 - (void)mediaView:(id)view playbackStateDidChange:(int64_t)change
 {
-  v19[2] = *MEMORY[0x277D85DE8];
+  v20[2] = *MEMORY[0x277D85DE8];
   context = [(SKUIStorePageSection *)self context];
   metricsController = [context metricsController];
 
   if ([metricsController canRecordEventWithType:*MEMORY[0x277D6A488]])
   {
     v8 = objc_alloc_init(MEMORY[0x277D69BA8]);
-    v9 = SKUIMetricsMediaEventTypeForPlaybackState(change);
-    [v8 setMediaEventType:v9];
+    v10 = SKUIMetricsMediaEventTypeForPlaybackState(change, v9);
+    [v8 setMediaEventType:v10];
 
     pageComponent = [(SKUIStorePageSection *)self pageComponent];
     mediaIdentifier = [pageComponent mediaIdentifier];
     if (mediaIdentifier)
     {
-      v12 = [MEMORY[0x277CCABB0] numberWithLongLong:mediaIdentifier];
-      [v8 setItemIdentifier:v12];
+      v13 = [MEMORY[0x277CCABB0] numberWithLongLong:mediaIdentifier];
+      [v8 setItemIdentifier:v13];
     }
 
     mediaURLString = [pageComponent mediaURLString];
     [v8 setMediaURL:mediaURLString];
 
     pageComponent2 = [(SKUIStorePageSection *)self pageComponent];
-    v15 = [metricsController locationWithPageComponent:pageComponent2];
+    v16 = [metricsController locationWithPageComponent:pageComponent2];
 
-    v16 = [metricsController locationWithPageComponent:pageComponent];
-    v17 = v16;
-    if (v15 && v16)
+    v17 = [metricsController locationWithPageComponent:pageComponent];
+    v18 = v17;
+    if (v16 && v17)
     {
-      v19[0] = v16;
-      v19[1] = v15;
-      v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
-      [v8 setLocationWithEventLocations:v18];
+      v20[0] = v17;
+      v20[1] = v16;
+      v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
+      [v8 setLocationWithEventLocations:v19];
     }
 
     [metricsController recordEvent:v8];

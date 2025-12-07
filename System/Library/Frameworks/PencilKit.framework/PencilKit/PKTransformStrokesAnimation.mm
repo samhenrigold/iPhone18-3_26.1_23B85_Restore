@@ -1,6 +1,6 @@
 @interface PKTransformStrokesAnimation
 - (id)initWithStrokes:(double)strokes startTime:(double)time duration:(double)duration destinationFrame:(double)frame fadeOutDuration:(double)outDuration;
-- (void)newStrokesAtTime:(uint64_t)time;
+- (void)newStrokesAtTime:(double)time;
 @end
 
 @implementation PKTransformStrokesAnimation
@@ -88,87 +88,87 @@
   return self;
 }
 
-- (void)newStrokesAtTime:(uint64_t)time
+- (void)newStrokesAtTime:(double)time
 {
-  v36 = *MEMORY[0x1E69E9840];
-  if (!time)
+  v37 = *MEMORY[0x1E69E9840];
+  if (!self)
   {
     return 0;
   }
 
-  v3 = *(time + 24);
-  v4 = a2 - *(time + 16);
-  v5 = v4 / v3;
-  if (v4 / v3 > 1.0)
+  v4 = *(self + 24);
+  v5 = time - *(self + 16);
+  v6 = v5 / v4;
+  if (v5 / v4 > 1.0)
   {
-    v5 = 1.0;
+    v6 = 1.0;
   }
 
-  v6 = v5 * v5 * (v5 * -2.0 + 3.0);
-  v33 = 0u;
+  v7 = v6 * v6 * (v6 * -2.0 + 3.0);
   v34 = 0u;
-  v7 = *(time + 40);
-  if (*(time + 32) >= v3)
+  v35 = 0u;
+  v8 = *(self + 40);
+  if (*(self + 32) >= v4)
   {
-    v8 = v3;
+    v9 = v4;
   }
 
   else
   {
-    v8 = *(time + 32);
+    v9 = *(self + 32);
   }
 
-  v32 = 0uLL;
-  [PKMetalUtility transformConvertingRect:v7 toRect:*(time + 48) percent:*(time + 56), *(time + 64), *(time + 72), *(time + 80), *(time + 88), *(time + 96), *&v6];
-  v26 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(*(time + 8), "count")}];
-  v28 = 0u;
+  v33 = 0uLL;
+  objc_msgSend_transformConvertingRect_toRect_percent_(PKMetalUtility, a2, v8, *(self + 48), *(self + 56), *(self + 64), *(self + 72), *(self + 80), *(self + 88), *(self + 96), *&v7);
+  v27 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(*(self + 8), "count")}];
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  obj = *(time + 8);
-  v9 = [obj countByEnumeratingWithState:&v28 objects:v35 count:16];
-  if (v9)
+  v32 = 0u;
+  obj = *(self + 8);
+  v10 = [obj countByEnumeratingWithState:&v29 objects:v36 count:16];
+  if (v10)
   {
-    v10 = v9;
-    v11 = fmax(1.0 - v4 / v8, 0.0);
-    v12 = *v29;
+    v11 = v10;
+    v12 = fmax(1.0 - v5 / v9, 0.0);
+    v13 = *v30;
     do
     {
-      for (i = 0; i != v10; ++i)
+      for (i = 0; i != v11; ++i)
       {
-        if (*v29 != v12)
+        if (*v30 != v13)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v28 + 1) + 8 * i);
-        v15 = [v14 ink];
-        color = [v15 color];
+        v15 = *(*(&v29 + 1) + 8 * i);
+        v16 = [v15 ink];
+        color = [v16 color];
 
         [color alphaComponent];
-        v18 = [color colorWithAlphaComponent:v11 * v17];
-        v19 = [v14 mutableCopy];
-        v27[0] = v32;
-        v27[1] = v33;
-        v27[2] = v34;
-        [v19 _applyTransform:v27];
-        v20 = [v14 ink];
-        identifier = [v20 identifier];
-        v22 = [v14 ink];
-        [v22 weight];
-        v23 = [PKInk inkWithIdentifier:identifier color:v18 weight:?];
-        [v19 setInk:v23];
+        v19 = [color colorWithAlphaComponent:v12 * v18];
+        v20 = [v15 mutableCopy];
+        v28[0] = v33;
+        v28[1] = v34;
+        v28[2] = v35;
+        [v20 _applyTransform:v28];
+        v21 = [v15 ink];
+        identifier = [v21 identifier];
+        v23 = [v15 ink];
+        [v23 weight];
+        v24 = [PKInk inkWithIdentifier:identifier color:v19 weight:?];
+        [v20 setInk:v24];
 
-        [v26 addObject:v19];
+        [v27 addObject:v20];
       }
 
-      v10 = [obj countByEnumeratingWithState:&v28 objects:v35 count:16];
+      v11 = [obj countByEnumeratingWithState:&v29 objects:v36 count:16];
     }
 
-    while (v10);
+    while (v11);
   }
 
-  return v26;
+  return v27;
 }
 
 @end

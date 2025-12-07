@@ -8,7 +8,9 @@
 - (RWIProtocolCSSProperty)initWithName:(id)name value:(id)value;
 - (RWIProtocolCSSSourceRange)range;
 - (int64_t)status;
+- (void)setImplicit:(BOOL)implicit;
 - (void)setName:(id)name;
+- (void)setParsedOk:(BOOL)ok;
 - (void)setPriority:(id)priority;
 - (void)setRange:(id)range;
 - (void)setStatus:(int64_t)status;
@@ -93,6 +95,13 @@
   return v2;
 }
 
+- (void)setImplicit:(BOOL)implicit
+{
+  v3.receiver = self;
+  v3.super_class = RWIProtocolCSSProperty;
+  [(RWIProtocolJSONObject *)&v3 setBool:implicit forKey:@"implicit"];
+}
+
 - (BOOL)implicit
 {
   v3.receiver = self;
@@ -114,6 +123,13 @@
   v2 = [(RWIProtocolJSONObject *)&v4 stringForKey:@"text"];
 
   return v2;
+}
+
+- (void)setParsedOk:(BOOL)ok
+{
+  v3.receiver = self;
+  v3.super_class = RWIProtocolCSSProperty;
+  [(RWIProtocolJSONObject *)&v3 setBool:ok forKey:@"parsedOk"];
 }
 
 - (BOOL)parsedOk
@@ -209,7 +225,7 @@ LABEL_8:
     v11.receiver = self;
     v11.super_class = RWIProtocolCSSProperty;
     v5 = [(RWIProtocolJSONObject *)&v11 objectForKey:@"range"];
-    [v5 toJSONObject];
+    objc_msgSend_toJSONObject(v5);
     v6 = v12;
     ++*v12;
     v13 = v6;

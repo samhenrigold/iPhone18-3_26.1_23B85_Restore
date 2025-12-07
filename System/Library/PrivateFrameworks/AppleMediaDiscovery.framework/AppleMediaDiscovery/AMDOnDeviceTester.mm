@@ -189,7 +189,6 @@
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)testClient:(id *)client

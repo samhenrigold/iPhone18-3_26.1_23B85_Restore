@@ -3,6 +3,7 @@
 - (void)_updateIconImage;
 - (void)layoutSubviews;
 - (void)setIconSize:(unint64_t)size;
+- (void)updateWithIconDescriptor:(id)descriptor displayStyle:(unint64_t)style animated:(BOOL)animated;
 @end
 
 @implementation HUAlbumIconContentView
@@ -47,6 +48,47 @@
   v10 = v9;
   imageView = [(HUAlbumIconContentView *)self imageView];
   [imageView setFrame:{v4, v6, v8, v10}];
+}
+
+- (void)updateWithIconDescriptor:(id)descriptor displayStyle:(unint64_t)style animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  descriptorCopy = descriptor;
+  objc_opt_class();
+  v9 = descriptorCopy;
+  if (objc_opt_isKindOfClass())
+  {
+    v10 = v9;
+  }
+
+  else
+  {
+    v10 = 0;
+  }
+
+  v11 = v10;
+
+  if (v11)
+  {
+    imageData = [v11 imageData];
+    iconDescriptor = [(HUIconContentView *)self iconDescriptor];
+    imageData2 = [iconDescriptor imageData];
+    v15 = [imageData isEqual:imageData2];
+  }
+
+  else
+  {
+    v15 = 1;
+  }
+
+  displayStyle = [(HUIconContentView *)self displayStyle];
+  v17.receiver = self;
+  v17.super_class = HUAlbumIconContentView;
+  [(HUIconContentView *)&v17 updateWithIconDescriptor:v9 displayStyle:style animated:animatedCopy];
+  if (!v15 || displayStyle != style)
+  {
+    [(HUAlbumIconContentView *)self _updateIconImage];
+  }
 }
 
 - (void)setIconSize:(unint64_t)size

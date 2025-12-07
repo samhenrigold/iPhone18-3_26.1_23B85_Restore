@@ -84,10 +84,9 @@ LABEL_10:
 {
   v3 = objc_alloc(MEMORY[0x1E696AEC0]);
   v4 = [objc_opt_class() description];
-  condition = self->_condition;
-  v6 = [v3 initWithFormat:@"<%@| condition:%@ value:%lld>", v4, condition, self->_value];
+  v5 = [v3 initWithFormat:@"<%@| condition:%@ value:%lld>", v4, self->_condition, self->_value];
 
-  return v6;
+  return v5;
 }
 
 - (void)_initWithCondition:(uint64_t)condition value:

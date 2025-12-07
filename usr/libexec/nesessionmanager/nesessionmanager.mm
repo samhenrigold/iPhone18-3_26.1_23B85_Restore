@@ -1219,7 +1219,7 @@ LABEL_25:
   return v1;
 }
 
-uint64_t sub_100004488(uint64_t a1, const char *a2)
+uint64_t sub_100004488(void *a1, const char *a2)
 {
   if (!a1)
   {
@@ -1247,7 +1247,7 @@ LABEL_12:
 
   v4 = [NEProcessIdentity alloc];
   v5 = [v3 processIdentifier];
-  [v3 auditToken];
+  objc_msgSend_auditToken(v3);
   v6 = [v4 initWithPID:v5 auditToken:buf];
   objc_setProperty_atomic(a1, v7, v6, 64);
 
@@ -1269,8 +1269,8 @@ LABEL_12:
   v11 = [objc_getProperty(a1 v9];
   v16 = v11;
   v12 = [NSArray arrayWithObjects:&v16 count:1];
-  v13 = *(a1 + 72);
-  *(a1 + 72) = v12;
+  v13 = a1[9];
+  a1[9] = v12;
 
 LABEL_9:
   return v10;
@@ -1311,16 +1311,20 @@ id sub_10000464C(_DWORD *self, const char *a2)
 
 void sub_100004764(id a1)
 {
-  qword_1000FD4D8 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___NEHotspotPluginDriver];
+  v1 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___NEHotspotPluginDriver];
+  v2 = qword_1000FD4D8;
+  qword_1000FD4D8 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100004800(id a1)
 {
-  qword_1000FD4C8 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___NEHotspotPluginManager];
+  v1 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___NEHotspotPluginManager];
+  v2 = qword_1000FD4C8;
+  qword_1000FD4C8 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100004990(uint64_t a1, const char *a2)
@@ -1673,16 +1677,20 @@ void sub_10000699C(void *a1, uint64_t a2)
 
 void sub_100006DE8(id a1)
 {
-  qword_1000FD4F8 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___NEAppPushPluginDriver];
+  v1 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___NEAppPushPluginDriver];
+  v2 = qword_1000FD4F8;
+  qword_1000FD4F8 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100006E84(id a1)
 {
-  qword_1000FD4E8 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___NEAppPushPluginManager];
+  v1 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___NEAppPushPluginManager];
+  v2 = qword_1000FD4E8;
+  qword_1000FD4E8 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100007090(uint64_t a1, char a2, void *a3, void *a4)
@@ -2693,17 +2701,7 @@ NESMIKEv2VPNSession *sub_100009DCC(NESMIKEv2VPNSession *a1, void *a2)
   if (a1)
   {
     v4 = sub_10000A780(a1, v3);
-    if (!v4)
-    {
-      goto LABEL_9;
-    }
-
-    v5 = [(NESMSession *)a1 configuration];
-    v6 = [v5 alwaysOnVPN];
-    v7 = [v6 interfaceProtocolMapping];
-    v8 = [v7 objectForKeyedSubscript:v4];
-
-    if (v8)
+    if (v4 && (-[NESMSession configuration](a1, "configuration"), v5 = objc_claimAutoreleasedReturnValue(), [v5 alwaysOnVPN], v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "interfaceProtocolMapping"), v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "objectForKeyedSubscript:", v4), v8 = objc_claimAutoreleasedReturnValue(), v8, v7, v6, v5, v8))
     {
       v9 = [(NESMSession *)a1 configuration];
       v10 = [v9 copy];
@@ -2738,7 +2736,6 @@ NESMIKEv2VPNSession *sub_100009DCC(NESMIKEv2VPNSession *a1, void *a2)
 
     else
     {
-LABEL_9:
       a1 = 0;
     }
   }
@@ -3016,23 +3013,27 @@ LABEL_14:
 uint64_t sub_10000AC34(uint64_t a1)
 {
   v2 = [*(a1 + 32) copyExtendedStatus];
+  v3 = v2;
   if (v2)
   {
-    [*(a1 + 40) setObject:v2 forKeyedSubscript:*(a1 + 48)];
+    v5 = v2;
+    v2 = [*(a1 + 40) setObject:v2 forKeyedSubscript:*(a1 + 48)];
+    v3 = v5;
   }
 
-  return _objc_release_x1();
+  return _objc_release_x1(v2, v3);
 }
 
-void sub_10000B1A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41, uint64_t a42, uint64_t a43, uint64_t a44, char a45, uint64_t a46, uint64_t a47, uint64_t a48, char a49, uint64_t a50, uint64_t a51, uint64_t a52, char a53, uint64_t a54, uint64_t a55, uint64_t a56, char a57)
+void sub_10000B1A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, ...)
 {
+  va_start(va, a56);
   _Block_object_dispose(&a33, 8);
   _Block_object_dispose(&a37, 8);
   _Block_object_dispose(&a41, 8);
   _Block_object_dispose(&a45, 8);
   _Block_object_dispose(&a49, 8);
   _Block_object_dispose(&a53, 8);
-  _Block_object_dispose(&a57, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -3254,149 +3255,148 @@ void sub_10000CC60(uint64_t a1, const char *a2)
 {
   sub_10000A1D4(*(a1 + 32), a2);
   v3 = *(a1 + 32);
-  v4 = *(a1 + 48);
-  v5 = NEVirtualInterfaceCopyName();
-  sub_10008FBD4(v3, v5);
+  v4 = NEVirtualInterfaceCopyName();
+  sub_10008FBD4(v3, v4);
 
-  v6 = *(a1 + 32);
-  v7 = *(a1 + 40);
-  v8 = v7;
-  if (!v6)
+  v5 = *(a1 + 32);
+  v6 = *(a1 + 40);
+  v7 = v6;
+  if (!v5)
   {
     goto LABEL_10;
   }
 
-  if (![v7 virtualInterface])
+  if (![v6 virtualInterface])
   {
-    v18 = ne_log_obj();
-    if (!os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v17 = ne_log_obj();
+    if (!os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
 LABEL_9:
 
 LABEL_10:
 LABEL_21:
-      v28 = ne_log_obj();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+      v27 = ne_log_obj();
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
-        v29 = *(a1 + 32);
-        v30 = [*(a1 + 40) interfaceName];
+        v28 = *(a1 + 32);
+        v29 = [*(a1 + 40) interfaceName];
         *buf = 138412802;
-        *&buf[4] = v29;
+        *&buf[4] = v28;
         *&buf[12] = 2112;
-        *&buf[14] = v30;
+        *&buf[14] = v29;
         *&buf[22] = 2080;
-        v43 = "[NESMAlwaysOnSession installForSession:]_block_invoke";
-        _os_log_error_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, "%@[%@]:%s: applyTunnelDataPolicy failed", buf, 0x20u);
+        v42 = "[NESMAlwaysOnSession installForSession:]_block_invoke";
+        _os_log_error_impl(&_mh_execute_header, v27, OS_LOG_TYPE_ERROR, "%@[%@]:%s: applyTunnelDataPolicy failed", buf, 0x20u);
       }
 
       goto LABEL_24;
     }
 
-    v19 = [v8 interfaceName];
+    v18 = [v7 interfaceName];
     *buf = 138412802;
-    *&buf[4] = v6;
+    *&buf[4] = v5;
     *&buf[12] = 2112;
-    *&buf[14] = v19;
+    *&buf[14] = v18;
     *&buf[22] = 2080;
-    v43 = "[NESMAlwaysOnSession applyTunnelDataPolicyForSession:]";
-    v20 = "%@[%@]:%s: NULL virtual interface";
+    v42 = "[NESMAlwaysOnSession applyTunnelDataPolicyForSession:]";
+    v19 = "%@[%@]:%s: NULL virtual interface";
 LABEL_26:
-    _os_log_error_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, v20, buf, 0x20u);
+    _os_log_error_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, v19, buf, 0x20u);
 
     goto LABEL_9;
   }
 
-  v9 = NEVirtualInterfaceCopyName();
-  if (!v9)
+  v8 = NEVirtualInterfaceCopyName();
+  if (!v8)
   {
-    v18 = ne_log_obj();
-    if (!os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v17 = ne_log_obj();
+    if (!os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_9;
     }
 
-    v19 = [v8 interfaceName];
+    v18 = [v7 interfaceName];
     *buf = 138412802;
-    *&buf[4] = v6;
+    *&buf[4] = v5;
     *&buf[12] = 2112;
-    *&buf[14] = v19;
+    *&buf[14] = v18;
     *&buf[22] = 2080;
-    v43 = "[NESMAlwaysOnSession applyTunnelDataPolicyForSession:]";
-    v20 = "%@[%@]:%s: NULL virtual interface name";
+    v42 = "[NESMAlwaysOnSession applyTunnelDataPolicyForSession:]";
+    v19 = "%@[%@]:%s: NULL virtual interface name";
     goto LABEL_26;
   }
 
-  v10 = v9;
-  v11 = [v6 configuration];
-  v37 = sub_100062878(NEPolicySession, v11);
+  v9 = v8;
+  v10 = [v5 configuration];
+  v36 = sub_100062878(NEPolicySession, v10);
 
-  v12 = [v6 configuration];
-  v36 = sub_1000627E0(NEPolicySession, v12);
+  v11 = [v5 configuration];
+  v35 = sub_1000627E0(NEPolicySession, v11);
 
-  v13 = [v6 configuration];
-  sub_100062910(NEPolicySession, v13);
+  v12 = [v5 configuration];
+  sub_100062910(NEPolicySession, v12);
 
-  v41 = [v6 policySession];
-  v14 = [v8 interfaceName];
-  v35 = [v8 isSecondaryConnection];
-  v40 = [v8 pluginConfigurationEntities];
-  v15 = [v40 DNSSettings];
-  v38 = [v8 pluginConfigurationEntities];
-  v16 = [v38 proxySettings];
-  v17 = [v16 enabled];
-  if (v17)
+  v40 = [v5 policySession];
+  v13 = [v7 interfaceName];
+  v34 = [v7 isSecondaryConnection];
+  v39 = [v7 pluginConfigurationEntities];
+  v14 = [v39 DNSSettings];
+  v37 = [v7 pluginConfigurationEntities];
+  v15 = [v37 proxySettings];
+  v16 = [v15 enabled];
+  if (v16)
   {
-    v34 = 1;
+    v33 = 1;
   }
 
   else
   {
-    v32 = [v8 protocol];
-    v31 = [v32 proxySettings];
-    v34 = [v31 enabled];
+    v31 = [v7 protocol];
+    v30 = [v31 proxySettings];
+    v33 = [v30 enabled];
   }
 
-  v39 = v15;
-  v33 = v15 != 0;
-  v21 = [v6 configuration];
-  v22 = [v21 alwaysOnVPN];
-  v23 = [v22 applicationExceptions];
-  v24 = v10;
-  v25 = v14;
-  v26 = v23;
-  v27 = v41;
-  if (v41)
+  v38 = v14;
+  v32 = v14 != 0;
+  v20 = [v5 configuration];
+  v21 = [v20 alwaysOnVPN];
+  v22 = [v21 applicationExceptions];
+  v23 = v9;
+  v24 = v13;
+  v25 = v22;
+  v26 = v40;
+  if (v40)
   {
-    if (isa_nsstring() && isa_nsstring() && v41[2] == 3)
+    if (isa_nsstring() && isa_nsstring() && v40[2] == 3)
     {
       *buf = _NSConcreteStackBlock;
       *&buf[8] = 3221225472;
       *&buf[16] = sub_100049384;
-      v43 = &unk_1000EA120;
-      v44 = v41;
-      v50 = v35;
+      v42 = &unk_1000EA120;
+      v43 = v40;
+      v49 = v34;
+      v44 = v24;
+      v47 = v36;
+      v48 = v35;
       v45 = v25;
-      v48 = v37;
-      v49 = v36;
-      v46 = v26;
-      v51 = v34;
-      v47 = v24;
-      v52 = v33;
-      v27 = sub_100031500(NESMPolicyMasterSession, buf);
+      v50 = v33;
+      v46 = v23;
+      v51 = v32;
+      v26 = sub_100031500(NESMPolicyMasterSession, buf);
     }
 
     else
     {
-      v27 = 0;
+      v26 = 0;
     }
   }
 
-  if ((v17 & 1) == 0)
+  if ((v16 & 1) == 0)
   {
   }
 
   myCFRelease();
-  if ((v27 & 1) == 0)
+  if ((v26 & 1) == 0)
   {
     goto LABEL_21;
   }
@@ -3415,41 +3415,40 @@ void sub_10000D168(uint64_t a1, const char *a2)
   sub_100031444(v4, *(a1 + 40));
 
   v5 = *(a1 + 32);
-  v6 = *(a1 + 48);
-  v7 = NEVirtualInterfaceCopyName();
+  v6 = NEVirtualInterfaceCopyName();
   if (v5)
   {
-    v8 = ne_log_obj();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v7 = ne_log_obj();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v9 = @"[nil]";
-      if (v7)
+      v8 = @"[nil]";
+      if (v6)
       {
-        v9 = v7;
+        v8 = v6;
       }
 
-      v14 = 138412546;
-      v15 = v5;
-      v16 = 2112;
-      v17 = v9;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "%@: Request to remove network agent from %@", &v14, 0x16u);
+      v13 = 138412546;
+      v14 = v5;
+      v15 = 2112;
+      v16 = v8;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "%@: Request to remove network agent from %@", &v13, 0x16u);
     }
 
-    v10 = [v5 networkAgentInterfaces];
-    v11 = isa_nsarray();
+    v9 = [v5 networkAgentInterfaces];
+    v10 = isa_nsarray();
 
-    if (v11)
+    if (v10)
     {
-      v12 = [v5 networkAgentInterfaces];
-      [v12 removeObject:v7];
+      v11 = [v5 networkAgentInterfaces];
+      [v11 removeObject:v6];
 
       sub_10008C510(v5);
     }
   }
 
-  v13 = *(a1 + 48);
+  v12 = *(a1 + 48);
 
-  CFRelease(v13);
+  CFRelease(v12);
 }
 
 void sub_10000D2F4(uint64_t a1)
@@ -3602,19 +3601,21 @@ id sub_10000DA38()
 
 void sub_10000DA90(id a1)
 {
-  qword_1000FD508 = objc_alloc_init(NESMProviderManager);
+  v1 = objc_alloc_init(NESMProviderManager);
+  v2 = qword_1000FD508;
+  qword_1000FD508 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10000DACC(uint64_t a1)
 {
-  v9[0] = 0;
-  v9[1] = v9;
-  v9[2] = 0x3032000000;
-  v9[3] = sub_10000DC64;
-  v9[4] = sub_10000DC90;
-  v10 = objc_retainBlock(*(a1 + 40));
+  v8[0] = 0;
+  v8[1] = v8;
+  v8[2] = 0x3032000000;
+  v8[3] = sub_10000DC64;
+  v8[4] = sub_10000DC90;
+  v9 = objc_retainBlock(*(a1 + 40));
   v2 = *(a1 + 32);
   if (v2)
   {
@@ -3622,7 +3623,6 @@ void sub_10000DACC(uint64_t a1)
   }
 
   v3 = v2;
-  v8 = *(a1 + 32);
   xpc_event_publisher_set_handler();
 
   v4 = *(a1 + 32);
@@ -3643,12 +3643,12 @@ void sub_10000DACC(uint64_t a1)
   v7 = v6;
   xpc_event_publisher_activate();
 
-  _Block_object_dispose(v9, 8);
+  _Block_object_dispose(v8, 8);
 }
 
-void sub_10000DC4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_10000DC4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3846,23 +3846,23 @@ void sub_10000DC98(uint64_t a1, int a2, char *a3, void *a4)
   }
 }
 
-void sub_10000E284(uint64_t a1)
+void sub_10000E284(uint64_t a1, uint64_t a2)
 {
-  v2 = ne_log_obj();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+  v3 = ne_log_obj();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
-    v6 = 136315138;
-    v7 = xpc_strerror();
-    _os_log_fault_impl(&_mh_execute_header, v2, OS_LOG_TYPE_FAULT, "Event publisher encountered an error: %s", &v6, 0xCu);
+    v7 = 136315138;
+    v8 = xpc_strerror();
+    _os_log_fault_impl(&_mh_execute_header, v3, OS_LOG_TYPE_FAULT, "Event publisher encountered an error: %s", &v7, 0xCu);
   }
 
-  v3 = *(*(*(a1 + 32) + 8) + 40);
-  if (v3)
+  v4 = *(*(*(a1 + 32) + 8) + 40);
+  if (v4)
   {
-    (*(v3 + 16))();
-    v4 = *(*(a1 + 32) + 8);
-    v5 = *(v4 + 40);
-    *(v4 + 40) = 0;
+    (*(v4 + 16))();
+    v5 = *(*(a1 + 32) + 8);
+    v6 = *(v5 + 40);
+    *(v5 + 40) = 0;
   }
 }
 
@@ -3973,7 +3973,7 @@ LABEL_13:
       [v22 addObject:v23];
     }
 
-    v24 = sub_10005750C();
+    v24 = sub_10005750C(NESMServer);
     v35[0] = _NSConcreteStackBlock;
     v35[1] = 3221225472;
     v35[2] = sub_10000E8E0;
@@ -4153,17 +4153,17 @@ void sub_10000EC60(uint64_t a1, void *a2, id a3, void *a4, void *a5, void *a6)
       {
         if (v13)
         {
-          v25 = v13[6];
+          v21 = v13[6];
         }
 
         else
         {
-          v25 = 0;
+          v21 = 0;
         }
 
-        v26 = v25;
+        v22 = v21;
         *buf = 138412290;
-        v32 = v26;
+        v28 = v22;
         _os_log_error_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "Failed to launch %@", buf, 0xCu);
       }
 
@@ -4172,28 +4172,22 @@ void sub_10000EC60(uint64_t a1, void *a2, id a3, void *a4, void *a5, void *a6)
 
     else
     {
-      v16 = [v12 objectAtIndexedSubscript:a3];
-      if (v16)
-      {
-        v17 = v16[1];
-      }
+      [v12 objectAtIndexedSubscript:a3];
 
       Property = [v12 objectAtIndexedSubscript:a3];
-      v20 = Property;
+      v18 = Property;
       if (Property)
       {
-        Property = objc_getProperty(Property, v19, 16, 1);
+        Property = objc_getProperty(Property, v17, 16, 1);
       }
 
-      v21 = Property;
+      v19 = Property;
 
-      v22 = *(a1 + 8);
-      v23 = *(a1 + 16);
-      v27 = v11;
-      v28 = v12;
-      v29 = v13;
-      v30 = v14;
-      v24 = v21;
+      v23 = v11;
+      v24 = v12;
+      v25 = v13;
+      v26 = v14;
+      v20 = v19;
       xpc_event_publisher_fire_with_reply();
     }
   }
@@ -4254,7 +4248,7 @@ void sub_10000EED0(uint64_t a1, void *a2)
           _os_log_error_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "Rejecting agent %@ because it does not satisfy the code signature requirements", &v16, 0xCu);
         }
 
-        sub_10000EC60(*(a1 + 32), *(a1 + 40), *(a1 + 80) + 1, *(a1 + 48), *(a1 + 56), *(a1 + 72));
+        sub_10000EC60(*(a1 + 32), *(a1 + 40), (*(a1 + 80) + 1), *(a1 + 48), *(a1 + 56), *(a1 + 72));
       }
     }
 
@@ -4280,7 +4274,7 @@ void sub_10000EED0(uint64_t a1, void *a2)
       _os_log_error_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "Got an invalid event reply", &v16, 2u);
     }
 
-    sub_10000EC60(*(a1 + 32), *(a1 + 40), *(a1 + 80) + 1, *(a1 + 48), *(a1 + 56), *(a1 + 72));
+    sub_10000EC60(*(a1 + 32), *(a1 + 40), (*(a1 + 80) + 1), *(a1 + 48), *(a1 + 56), *(a1 + 72));
   }
 }
 
@@ -4346,9 +4340,9 @@ uint64_t sub_10000F1CC(uint64_t a1, void *a2, uint64_t a3)
   return a1;
 }
 
-void sub_10000F428(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_10000F428(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4871,39 +4865,7 @@ LABEL_7:
       _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%@ The device %s supervised", buf, 0x16u);
     }
 
-    if (!v14)
-    {
-      goto LABEL_33;
-    }
-
-    if (*(a1 + 408) != 1)
-    {
-      goto LABEL_33;
-    }
-
-    if (!objc_getProperty(a1, v17, 384, 1))
-    {
-      goto LABEL_33;
-    }
-
-    Property = objc_getProperty(a1, v17, 384, 1);
-    if (nw_interface_get_type(Property) != nw_interface_type_cellular)
-    {
-      goto LABEL_33;
-    }
-
-    v19 = objc_getProperty(a1, v17, 416, 1);
-    if (!v19)
-    {
-      goto LABEL_33;
-    }
-
-    v20 = v19;
-    v21 = [a1 configuration];
-    v22 = [v21 appPush];
-    v23 = [v22 matchPrivateLTENetworks];
-
-    if (v23)
+    if (v14 && *(a1 + 408) == 1 && objc_getProperty(a1, v17, 384, 1) && (Property = objc_getProperty(a1, v17, 384, 1), nw_interface_get_type(Property) == nw_interface_type_cellular) && (v19 = objc_getProperty(a1, v17, 416, 1)) != 0 && (v20 = v19, [a1 configuration], v21 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v21, "appPush"), v22 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v22, "matchPrivateLTENetworks"), v23 = objc_claimAutoreleasedReturnValue(), v23, v22, v21, v20, v23))
     {
       v24 = [objc_getProperty(a1 v17];
       v52 = [objc_getProperty(a1 v25];
@@ -4978,7 +4940,6 @@ LABEL_64:
 
     else
     {
-LABEL_33:
       LODWORD(v31) = 0;
     }
 
@@ -5049,7 +5010,7 @@ LABEL_33:
             _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_INFO, "%@ enabling Wi-Fi WoW", buf, 0xCu);
           }
 
-          v46 = sub_100094870();
+          v46 = sub_100094870(NEWiFiManager);
           v47 = v46;
           if (v46)
           {
@@ -5127,24 +5088,24 @@ LABEL_10:
   }
 }
 
-void sub_100011E44(_BYTE *a1)
+void sub_100011E44(_BYTE *result)
 {
-  if (a1 && a1[354] == 1)
+  if (result && result[354] == 1)
   {
     v2 = ne_log_obj();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
     {
       v6 = 138412290;
-      v7 = a1;
+      v7 = result;
       _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "%@ exiting session", &v6, 0xCu);
     }
 
-    a1[354] = 0;
-    sub_100011F48(a1);
-    [objc_getProperty(a1 v3];
-    sub_10001201C(a1, v4);
-    sub_1000120FC(a1, v5);
-    sub_100012248(a1);
+    result[354] = 0;
+    sub_100011F48(result);
+    [objc_getProperty(result v3];
+    sub_10001201C(result, v4);
+    sub_1000120FC(result, v5);
+    sub_100012248(result);
   }
 }
 
@@ -5221,7 +5182,7 @@ void sub_100012248(uint64_t a1)
       _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "%@ disabling Wi-Fi WoW", &v5, 0xCu);
     }
 
-    v3 = sub_100094870();
+    v3 = sub_100094870(NEWiFiManager);
     v4 = v3;
     if (v3)
     {
@@ -5485,18 +5446,18 @@ void sub_100013804(uint64_t a1)
     if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v7 = self;
+      v8 = self;
       _os_log_debug_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEBUG, "%@: waking provider", buf, 0xCu);
     }
 
     Property = objc_getProperty(self, v2, 392, 1);
     if (Property)
     {
-      v4 = [Property remotePluginObject];
-      [v4 sendTimerEvent];
+      v5 = [Property remotePluginObject];
+      [v5 sendTimerEvent];
     }
 
-    sub_1000135E4(self);
+    sub_1000135E4(self, v4);
   }
 }
 
@@ -5518,21 +5479,21 @@ void sub_100013A2C(uint64_t a1, const char *a2)
   }
 }
 
-void sub_100013D18(uint64_t a1)
+void sub_100013D18(uint64_t result)
 {
-  v1 = *(a1 + 32);
+  v1 = *(result + 32);
   if (v1 && (*(v1 + 354) & 1) != 0)
   {
     v3 = ne_log_obj();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      v4 = *(a1 + 32);
+      v4 = *(result + 32);
       v5 = 138412290;
       v6 = v4;
       _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "%@: re-trying to start the provider", &v5, 0xCu);
     }
 
-    sub_100013DE0(*(a1 + 32));
+    sub_100013DE0(*(result + 32));
   }
 }
 
@@ -5639,9 +5600,9 @@ void sub_100013DE0(_BYTE *a1)
   }
 }
 
-void sub_100014594(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100014594(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6519,134 +6480,133 @@ void sub_100018B0C(uint64_t a1, void *a2, void *a3)
 
     v12 = [Property isLocal];
     v13 = *(a1 + 32);
-    v60 = v9;
+    v59 = v9;
     if (v12)
     {
       v15 = v6;
       if (v13 && (v16 = objc_getProperty(v13, v14, 24, 1)) != 0 && (v17 = v16[7] - 2, v17 <= 8) && ((0x1BFu >> v17) & 1) != 0)
       {
-        v18 = *off_1000E9A70[v17];
-        v19 = objc_alloc(objc_opt_class());
-        v21 = objc_getProperty(v13, v20, 24, 1);
-        v58 = v15;
-        if (v21)
+        v18 = objc_alloc(objc_opt_class());
+        v20 = objc_getProperty(v13, v19, 24, 1);
+        v57 = v15;
+        if (v20)
         {
-          v22 = v21[6];
+          v21 = v20[6];
         }
 
         else
         {
-          v22 = 0;
+          v21 = 0;
         }
 
-        v23 = v22;
-        v25 = objc_getProperty(v13, v24, 24, 1);
-        if (v25)
+        v22 = v21;
+        v24 = objc_getProperty(v13, v23, 24, 1);
+        if (v24)
         {
-          v27 = v25[7];
+          v26 = v24[7];
         }
 
         else
         {
-          v27 = 0;
+          v26 = 0;
         }
 
-        v28 = objc_getProperty(v13, v26, 24, 1);
-        v29 = v19;
-        if (v28)
+        v27 = objc_getProperty(v13, v25, 24, 1);
+        v28 = v18;
+        if (v27)
         {
-          v30 = v28[9];
+          v29 = v27[9];
         }
 
         else
         {
-          v30 = 0;
+          v29 = 0;
         }
 
-        v31 = v30;
-        v32 = [v31 firstObject];
-        v33 = [v13 delegateQueue];
-        v34 = [v29 initWithPluginType:v23 pluginClass:v27 pluginEndpoint:v58 pluginProcessIdentity:v32 queue:v33 factory:v13];
+        v30 = v29;
+        v31 = [v30 firstObject];
+        v32 = [v13 delegateQueue];
+        v33 = [v28 initWithPluginType:v22 pluginClass:v26 pluginEndpoint:v57 pluginProcessIdentity:v31 queue:v32 factory:v13];
 
-        if (v34)
+        if (v33)
         {
           if ([objc_opt_class() conformsToProtocol:&OBJC_PROTOCOL___NEPluginDriver])
           {
-            objc_storeStrong((v13 + 8), v34);
+            objc_storeStrong((v13 + 8), v33);
 
 LABEL_24:
-            v42 = *(a1 + 32);
-            v63[0] = _NSConcreteStackBlock;
-            v63[1] = 3221225472;
-            v63[2] = sub_1000191BC;
-            v63[3] = &unk_1000EADC0;
-            v63[4] = v42;
-            v43 = v60;
-            v64 = v43;
-            v44 = [v42 remotePluginObjectWithErrorHandler:v63];
-            v45 = *(a1 + 40);
-            v61[0] = _NSConcreteStackBlock;
-            v61[1] = 3221225472;
-            v61[2] = sub_100019298;
-            v61[3] = &unk_1000E9960;
-            v61[4] = *(a1 + 32);
-            v62 = v43;
-            [v44 startWithConfiguration:v45 completionHandler:v61];
+            v41 = *(a1 + 32);
+            v62[0] = _NSConcreteStackBlock;
+            v62[1] = 3221225472;
+            v62[2] = sub_1000191BC;
+            v62[3] = &unk_1000EADC0;
+            v62[4] = v41;
+            v42 = v59;
+            v63 = v42;
+            v43 = [v41 remotePluginObjectWithErrorHandler:v62];
+            v44 = *(a1 + 40);
+            v60[0] = _NSConcreteStackBlock;
+            v60[1] = 3221225472;
+            v60[2] = sub_100019298;
+            v60[3] = &unk_1000E9960;
+            v60[4] = *(a1 + 32);
+            v61 = v42;
+            [v43 startWithConfiguration:v44 completionHandler:v60];
 
 LABEL_29:
-            v9 = v60;
+            v9 = v59;
             goto LABEL_30;
           }
 
-          v47 = ne_log_obj();
-          if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+          v46 = ne_log_obj();
+          if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
           {
-            v55 = objc_opt_class();
-            v56 = NSStringFromClass(v55);
-            v57 = NSStringFromProtocol(&OBJC_PROTOCOL___NEPluginDriver);
+            v54 = objc_opt_class();
+            v55 = NSStringFromClass(v54);
+            v56 = NSStringFromProtocol(&OBJC_PROTOCOL___NEPluginDriver);
             *buf = 138412546;
-            *&buf[4] = v56;
+            *&buf[4] = v55;
             *&buf[12] = 2112;
-            *&buf[14] = v57;
-            _os_log_error_impl(&_mh_execute_header, v47, OS_LOG_TYPE_ERROR, "Driver class (%@) does not conform to protocol %@", buf, 0x16u);
+            *&buf[14] = v56;
+            _os_log_error_impl(&_mh_execute_header, v46, OS_LOG_TYPE_ERROR, "Driver class (%@) does not conform to protocol %@", buf, 0x16u);
           }
         }
 
         else
         {
-          v47 = ne_log_obj();
-          if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+          v46 = ne_log_obj();
+          if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
           {
-            v49 = objc_getProperty(v13, v48, 24, 1);
-            if (v49)
+            v48 = objc_getProperty(v13, v47, 24, 1);
+            if (v48)
             {
-              v50 = v49[6];
+              v49 = v48[6];
             }
 
             else
             {
-              v50 = 0;
+              v49 = 0;
             }
 
-            v51 = v50;
-            v53 = objc_getProperty(v13, v52, 24, 1);
-            if (v53)
+            v50 = v49;
+            v52 = objc_getProperty(v13, v51, 24, 1);
+            if (v52)
             {
-              v54 = v53[7];
+              v53 = v52[7];
             }
 
             else
             {
-              v54 = 0;
+              v53 = 0;
             }
 
             *buf = 138412802;
-            *&buf[4] = v51;
+            *&buf[4] = v50;
             *&buf[12] = 2048;
-            *&buf[14] = v54;
+            *&buf[14] = v53;
             *&buf[22] = 2048;
-            v67 = v58;
-            _os_log_error_impl(&_mh_execute_header, v47, OS_LOG_TYPE_ERROR, "Failed to create a plugin driver, type = %@, class = %ld, endpoint = %p", buf, 0x20u);
+            v66 = v57;
+            _os_log_error_impl(&_mh_execute_header, v46, OS_LOG_TYPE_ERROR, "Failed to create a plugin driver, type = %@, class = %ld, endpoint = %p", buf, 0x20u);
           }
         }
       }
@@ -6658,50 +6618,50 @@ LABEL_29:
 
     else
     {
-      v59 = v6;
+      v58 = v6;
       if (v13)
       {
         objc_initWeak(&location, v13);
         *buf = _NSConcreteStackBlock;
         *&buf[8] = 3221225472;
         *&buf[16] = sub_100019790;
-        v67 = &unk_1000E9C50;
-        objc_copyWeak(v68, &location);
-        v35 = objc_retainBlock(buf);
-        v36 = [[NSXPCConnection alloc] initWithListenerEndpoint:v59];
-        v37 = [v13 managerInterface];
-        if (v37)
+        v66 = &unk_1000E9C50;
+        objc_copyWeak(v67, &location);
+        v34 = objc_retainBlock(buf);
+        v35 = [[NSXPCConnection alloc] initWithListenerEndpoint:v58];
+        v36 = [v13 managerInterface];
+        if (v36)
         {
-          [v36 setExportedInterface:v37];
-          [v36 setExportedObject:v13];
+          [v35 setExportedInterface:v36];
+          [v35 setExportedObject:v13];
         }
 
-        v38 = [v13 remotePluginInterface];
-        v39 = objc_opt_class();
-        v40 = [NSSet setWithObjects:v39, objc_opt_class(), 0];
-        [v38 setClasses:v40 forSelector:"startWithConfiguration:completionHandler:" argumentIndex:1 ofReply:1];
-        [v36 setRemoteObjectInterface:v38];
-        [v36 setInterruptionHandler:v35];
-        [v36 setInvalidationHandler:v35];
-        [v36 resume];
-        v41 = *(v13 + 48);
-        *(v13 + 48) = v36;
+        v37 = [v13 remotePluginInterface];
+        v38 = objc_opt_class();
+        v39 = [NSSet setWithObjects:v38, objc_opt_class(), 0];
+        [v37 setClasses:v39 forSelector:"startWithConfiguration:completionHandler:" argumentIndex:1 ofReply:1];
+        [v35 setRemoteObjectInterface:v37];
+        [v35 setInterruptionHandler:v34];
+        [v35 setInvalidationHandler:v34];
+        [v35 resume];
+        v40 = *(v13 + 48);
+        *(v13 + 48) = v35;
 
-        objc_destroyWeak(v68);
+        objc_destroyWeak(v67);
         objc_destroyWeak(&location);
 
         goto LABEL_24;
       }
     }
 
-    v46 = ne_log_obj();
-    if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+    v45 = ne_log_obj();
+    if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_error_impl(&_mh_execute_header, v46, OS_LOG_TYPE_ERROR, "Failed to create the plugin driver", buf, 2u);
+      _os_log_error_impl(&_mh_execute_header, v45, OS_LOG_TYPE_ERROR, "Failed to create the plugin driver", buf, 2u);
     }
 
-    [v60 plugin:*(a1 + 32) didStartWithPID:0 error:0];
+    [v59 plugin:*(a1 + 32) didStartWithPID:0 error:0];
     goto LABEL_29;
   }
 
@@ -7168,11 +7128,11 @@ void sub_10001A254(void *a1)
   }
 }
 
-void sub_10001A29C(void *a1, const char *a2)
+void sub_10001A29C(void *result, const char *a2)
 {
-  if (a1)
+  if (result)
   {
-    Property = objc_getProperty(a1, a2, 24, 1);
+    Property = objc_getProperty(result, a2, 24, 1);
 
     sub_100093DB0(Property, v3);
   }
@@ -7639,7 +7599,7 @@ void sub_10001BF94(void *a1, void *a2, uint64_t a3, void *a4, void *a5)
     _os_log_debug_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEBUG, v26, v28, 0x2Au);
 LABEL_19:
 
-    sub_10001C2F0(a1, (flags & 4) != 0, v13, v10);
+    sub_10001C2F0(a1, (flags >> 2) & 1, v13, v10);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -7652,8 +7612,10 @@ LABEL_21:
   }
 }
 
-void sub_10001C2F0(void *a1, char a2, char a3, void *a4)
+void sub_10001C2F0(void *a1, uint64_t a2, uint64_t a3, void *a4)
 {
+  v4 = a3;
+  v5 = a2;
   v51 = a4;
   if (!a1)
   {
@@ -7683,8 +7645,8 @@ void sub_10001C2F0(void *a1, char a2, char a3, void *a4)
         v56 = v23;
         v57 = v33;
         v58 = v24;
-        LOBYTE(v59) = a2;
-        BYTE1(v59) = a3;
+        LOBYTE(v59) = v5;
+        BYTE1(v59) = v4;
         sub_100031500(NESMPolicyMasterSession, &v52);
       }
     }
@@ -7714,7 +7676,7 @@ void sub_10001C2F0(void *a1, char a2, char a3, void *a4)
       v19 = [a1 server];
       v20 = [v19 primaryPhysicalInterface];
       v21 = [v20 interfaceName];
-      sub_100039EE0(v12, v18, v21, a2, a3);
+      sub_100039EE0(v12, v18, v21, v5, v4);
     }
   }
 
@@ -7743,14 +7705,14 @@ LABEL_18:
       v30 = [a1 server];
       v31 = [v30 primaryPhysicalInterface];
       v32 = [v31 interfaceName];
-      sub_100039EE0(v23, v29, v32, a2, a3);
+      sub_100039EE0(v23, v29, v32, v5, v4);
 
       goto LABEL_18;
     }
   }
 
 LABEL_19:
-  if ([a1 type] == 1)
+  if (objc_msgSend_type(a1) == 1)
   {
     v36 = [a1 configuration];
     v37 = [v36 VPN];
@@ -7816,19 +7778,8 @@ void sub_10001DC34(void *a1)
 {
   if (a1)
   {
-    if ([a1 stopped])
+    if (([a1 stopped] & 1) != 0 || (objc_msgSend(a1, "configuration"), v2 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v2, "VPN"), v3 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v3, "protocol"), v4 = objc_claimAutoreleasedReturnValue(), v5 = objc_msgSend(v4, "includeAllNetworks"), v4, v3, v2, !v5))
     {
-      goto LABEL_34;
-    }
-
-    v2 = [a1 configuration];
-    v3 = [v2 VPN];
-    v4 = [v3 protocol];
-    v5 = [v4 includeAllNetworks];
-
-    if (!v5)
-    {
-LABEL_34:
 
       sub_10001E1D8(a1);
     }
@@ -7973,17 +7924,17 @@ LABEL_34:
   }
 }
 
-void sub_10001E1D8(void *a1)
+void sub_10001E1D8(void *result)
 {
-  if (a1)
+  if (result)
   {
-    [a1 setDefaultDropType:0];
-    [a1 setIsDropPersistent:0];
+    [result setDefaultDropType:0];
+    [result setIsDropPersistent:0];
     v2 = ne_log_obj();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = [a1 defaultDropType];
-      v4 = [a1 isDropPersistent];
+      v3 = [result defaultDropType];
+      v4 = [result isDropPersistent];
       v5 = "Non-Persistent";
       *&v16[4] = "[NESMVPNSession unsetDefaultDropAll]";
       *v16 = 136315650;
@@ -7999,13 +7950,13 @@ void sub_10001E1D8(void *a1)
       _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%s: VPN setting IP Drop-All to %d (%s)", v16, 0x1Cu);
     }
 
-    v6 = [a1 server];
+    v6 = [result server];
     sub_10005A708(v6, 0, 0);
 
-    v7 = [a1 controlPolicySession];
+    v7 = [result controlPolicySession];
     [v7 removeAllPolicies];
 
-    v8 = [a1 controlPolicySession];
+    v8 = [result controlPolicySession];
     v9 = [v8 apply];
 
     if ((v9 & 1) == 0)
@@ -8018,10 +7969,10 @@ void sub_10001E1D8(void *a1)
       }
     }
 
-    v11 = [a1 highPolicySession];
+    v11 = [result highPolicySession];
     [v11 removeAllPolicies];
 
-    v12 = [a1 highPolicySession];
+    v12 = [result highPolicySession];
     v13 = [v12 apply];
 
     if ((v13 & 1) == 0)
@@ -8034,7 +7985,7 @@ void sub_10001E1D8(void *a1)
       }
     }
 
-    sub_10001E410(a1, v14);
+    sub_10001E410(result, v14);
   }
 }
 
@@ -8344,7 +8295,6 @@ id sub_100020390(uint64_t a1)
     [*(a1 + 32) virtualInterface];
     NEVirtualInterfaceSetProxies();
     [*(a1 + 32) virtualInterface];
-    v3 = *(a1 + 40);
     if (NEVirtualInterfaceUpdateAdHocServiceReturnChanges())
     {
       return 0;
@@ -8823,7 +8773,7 @@ void sub_1000213D8(void *a1, int a2)
 
   if (a2 && [a1 resetPerAppPolicy])
   {
-    if ([a1 type] == 1)
+    if (objc_msgSend_type(a1) == 1)
     {
       if ([a1 tunnelKind] == 2)
       {
@@ -9030,7 +8980,7 @@ LABEL_17:
   if ([a1 parentType] == 2)
   {
     v11 = [a1 parent];
-    if (v10 && [a1 type] == 1)
+    if (v10 && objc_msgSend_type(a1) == 1)
     {
       [a1 virtualInterface];
       v12 = NEVirtualInterfaceCopyName();

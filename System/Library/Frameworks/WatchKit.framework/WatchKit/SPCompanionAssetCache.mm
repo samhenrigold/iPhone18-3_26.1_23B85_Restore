@@ -120,7 +120,8 @@ uint64_t __39__SPCompanionAssetCache_sharedInstance__block_invoke()
   assetCopy = asset;
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  if (![assetCopy error])
+  error = [assetCopy error];
+  if (!error)
   {
     if ([assetCopy cacheType] == 1)
     {
@@ -144,8 +145,8 @@ uint64_t __39__SPCompanionAssetCache_sharedInstance__block_invoke()
     goto LABEL_10;
   }
 
-  v6 = wk_default_log();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  v7 = wk_default_log(error);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     assetKey2 = [assetCopy assetKey];
     [(SPCompanionAssetCache *)assetKey2 addedAsset:v12];
@@ -153,8 +154,6 @@ uint64_t __39__SPCompanionAssetCache_sharedInstance__block_invoke()
 
 LABEL_10:
   objc_sync_exit(selfCopy);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deletedAsset:(id)asset
@@ -163,7 +162,8 @@ LABEL_10:
   assetCopy = asset;
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  if (![assetCopy error])
+  error = [assetCopy error];
+  if (!error)
   {
     if ([assetCopy cacheType] == 1)
     {
@@ -187,8 +187,8 @@ LABEL_10:
     goto LABEL_10;
   }
 
-  v6 = wk_default_log();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  v7 = wk_default_log(error);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     assetKey2 = [assetCopy assetKey];
     [(SPCompanionAssetCache *)assetKey2 deletedAsset:v12];
@@ -196,8 +196,6 @@ LABEL_10:
 
 LABEL_10:
   objc_sync_exit(selfCopy);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clearedCache:(id)cache
@@ -206,11 +204,12 @@ LABEL_10:
   cacheCopy = cache;
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  if (![cacheCopy error])
+  error = [cacheCopy error];
+  if (!error)
   {
     if ([cacheCopy cacheType] == 1)
     {
-      v7 = 8;
+      v8 = 8;
     }
 
     else
@@ -220,23 +219,21 @@ LABEL_10:
         goto LABEL_10;
       }
 
-      v7 = 16;
+      v8 = 16;
     }
 
-    [*(&selfCopy->super.isa + v7) clearedCache];
+    [*(&selfCopy->super.isa + v8) clearedCache];
     goto LABEL_10;
   }
 
-  v6 = wk_default_log();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  v7 = wk_default_log(error);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    -[SPCompanionAssetCache clearedCache:].cold.1(v9, [cacheCopy cacheType], v6);
+    -[SPCompanionAssetCache clearedCache:].cold.1(v9, [cacheCopy cacheType], v7);
   }
 
 LABEL_10:
   objc_sync_exit(selfCopy);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)syncCache:(id)cache
@@ -244,9 +241,10 @@ LABEL_10:
   cacheCopy = cache;
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  if ([cacheCopy error])
+  error = [cacheCopy error];
+  if (error)
   {
-    syncData2 = wk_default_log();
+    syncData2 = wk_default_log(error);
     if (os_log_type_enabled(syncData2, OS_LOG_TYPE_ERROR))
     {
       [SPCompanionAssetCache syncCache:];
@@ -341,7 +339,7 @@ LABEL_10:
 
 - (id)keyFromImageData:(id)data
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   CC_MD5([dataCopy bytes], objc_msgSend(dataCopy, "length"), md);
   v4 = [MEMORY[0x277CCAB68] stringWithCapacity:32];
@@ -349,8 +347,6 @@ LABEL_10:
   {
     [v4 appendFormat:@"%02x", md[i]];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -386,12 +382,11 @@ LABEL_10:
 
 - (void)syncCache:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136446466;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136446466;
   OUTLINED_FUNCTION_3();
-  *(&v2[3] + 2) = 419;
-  _os_log_error_impl(&dword_23B338000, v0, OS_LOG_TYPE_ERROR, "%{public}s:%d: sync cache error", v2, 0x12u);
-  v1 = *MEMORY[0x277D85DE8];
+  *(&v1[3] + 2) = 419;
+  _os_log_error_impl(&dword_23B338000, v0, OS_LOG_TYPE_ERROR, "%{public}s:%d: sync cache error", v1, 0x12u);
 }
 
 @end

@@ -14,14 +14,14 @@
 
 - (TAReplay)initWithLogArchive:(id)archive outputPath:(id)path inputPersistencePath:(id)persistencePath settings:(id)settings
 {
-  v48[3] = *MEMORY[0x277D85DE8];
+  v47[3] = *MEMORY[0x277D85DE8];
   archiveCopy = archive;
   pathCopy = path;
   persistencePathCopy = persistencePath;
   settingsCopy = settings;
-  v46.receiver = self;
-  v46.super_class = TAReplay;
-  v14 = [(TAReplay *)&v46 init];
+  v45.receiver = self;
+  v45.super_class = TAReplay;
+  v14 = [(TAReplay *)&v45 init];
   v15 = v14;
   if (v14)
   {
@@ -45,16 +45,16 @@
     [(OSLogPersistence *)v15->_persistence setLogArchive:archiveCopy];
     [(OSLogPersistence *)v15->_persistence setOptions:3];
     [(OSLogPersistence *)v15->_persistence setDelegate:v15];
-    v45 = archiveCopy;
-    v43 = [MEMORY[0x277CCAC30] predicateWithFormat:@"process == 'locationd'"];
+    v44 = archiveCopy;
+    v42 = [MEMORY[0x277CCAC30] predicateWithFormat:@"process == 'locationd'"];
     v24 = [MEMORY[0x277CCAC30] predicateWithFormat:@"subsystem == 'com.apple.tracking-avoidance'"];
     v25 = [MEMORY[0x277CCAC30] predicateWithFormat:@"category == 'Events'"];
     v26 = MEMORY[0x277CCA920];
-    v48[0] = v43;
-    v48[1] = v24;
-    v48[2] = v25;
-    [MEMORY[0x277CBEA60] arrayWithObjects:v48 count:3];
-    v27 = v44 = pathCopy;
+    v47[0] = v42;
+    v47[1] = v24;
+    v47[2] = v25;
+    [MEMORY[0x277CBEA60] arrayWithObjects:v47 count:3];
+    v27 = v43 = pathCopy;
     v28 = [v26 andPredicateWithSubpredicates:v27];
     [(OSLogPersistence *)v15->_persistence setPredicate:v28];
 
@@ -74,36 +74,35 @@
     v36 = [MEMORY[0x277CCAC30] predicateWithFormat:@"subsystem == 'com.apple.tracking-avoidance'"];
     v37 = [MEMORY[0x277CCAC30] predicateWithFormat:@"category == 'Status'"];
     v38 = MEMORY[0x277CCA920];
-    v47[0] = v35;
-    v47[1] = v36;
-    v47[2] = v37;
-    v39 = [MEMORY[0x277CBEA60] arrayWithObjects:v47 count:3];
+    v46[0] = v35;
+    v46[1] = v36;
+    v46[2] = v37;
+    v39 = [MEMORY[0x277CBEA60] arrayWithObjects:v46 count:3];
     v40 = [v38 andPredicateWithSubpredicates:v39];
     [(OSActivityStream *)v15->_stream setPredicate:v40];
 
-    archiveCopy = v45;
+    archiveCopy = v44;
     persistencePathCopy = v33;
     settingsCopy = v32;
 
-    pathCopy = v44;
+    pathCopy = v43;
   }
 
-  v41 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
 - (BOOL)activityStream:(id)stream results:(id)results
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   streamCopy = stream;
   resultsCopy = results;
   v8 = resultsCopy;
   outputPath = self->_outputPath;
   if (outputPath)
   {
-    v38 = 0;
-    v10 = [MEMORY[0x277CCA9F8] fileHandleForWritingToURL:outputPath error:&v38];
-    v11 = v38;
+    v37 = 0;
+    v10 = [MEMORY[0x277CCA9F8] fileHandleForWritingToURL:outputPath error:&v37];
+    v11 = v37;
     if (v11)
     {
       v12 = v11;
@@ -115,34 +114,34 @@
 
     else
     {
-      v29 = streamCopy;
+      v28 = streamCopy;
       [v10 seekToEndOfFile];
+      v33 = 0u;
       v34 = 0u;
       v35 = 0u;
       v36 = 0u;
-      v37 = 0u;
       v19 = v8;
-      v20 = [v19 countByEnumeratingWithState:&v34 objects:v40 count:16];
+      v20 = [v19 countByEnumeratingWithState:&v33 objects:v39 count:16];
       if (v20)
       {
         v21 = v20;
-        v22 = *v35;
+        v22 = *v34;
         do
         {
           for (i = 0; i != v21; ++i)
           {
-            if (*v35 != v22)
+            if (*v34 != v22)
             {
               objc_enumerationMutation(v19);
             }
 
-            eventMessage = [*(*(&v34 + 1) + 8 * i) eventMessage];
+            eventMessage = [*(*(&v33 + 1) + 8 * i) eventMessage];
             v25 = [eventMessage stringByAppendingString:@"\n"];
             v26 = [v25 dataUsingEncoding:4];
             [v10 writeData:v26];
           }
 
-          v21 = [v19 countByEnumeratingWithState:&v34 objects:v40 count:16];
+          v21 = [v19 countByEnumeratingWithState:&v33 objects:v39 count:16];
         }
 
         while (v21);
@@ -150,35 +149,35 @@
 
       [v10 closeFile];
       v13 = 1;
-      streamCopy = v29;
+      streamCopy = v28;
     }
   }
 
   else
   {
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
     v31 = 0u;
-    v14 = [resultsCopy countByEnumeratingWithState:&v30 objects:v39 count:16];
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
+    v14 = [resultsCopy countByEnumeratingWithState:&v29 objects:v38 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v31;
+      v16 = *v30;
       do
       {
         for (j = 0; j != v15; ++j)
         {
-          if (*v31 != v16)
+          if (*v30 != v16)
           {
             objc_enumerationMutation(v8);
           }
 
-          eventMessage2 = [*(*(&v30 + 1) + 8 * j) eventMessage];
+          eventMessage2 = [*(*(&v29 + 1) + 8 * j) eventMessage];
           NSLog(&cfstr_ReplaystatusS.isa, [eventMessage2 UTF8String]);
         }
 
-        v15 = [v8 countByEnumeratingWithState:&v30 objects:v39 count:16];
+        v15 = [v8 countByEnumeratingWithState:&v29 objects:v38 count:16];
       }
 
       while (v15);
@@ -187,7 +186,6 @@
     v13 = 1;
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -225,7 +223,7 @@
 
 - (TAReplay)replayWithStartDate:(id)date endDate:(id)endDate
 {
-  v43[1] = *MEMORY[0x277D85DE8];
+  v42[1] = *MEMORY[0x277D85DE8];
   dateCopy = date;
   endDateCopy = endDate;
   currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
@@ -262,13 +260,13 @@
     {
       v19 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:?];
       v20 = MEMORY[0x277CBEB98];
-      v43[0] = objc_opt_class();
-      v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:1];
+      v42[0] = objc_opt_class();
+      v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:1];
       v22 = [v20 setWithArray:v21];
 
-      v42 = 0;
-      v23 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:v22 fromData:v19 error:&v42];
-      v24 = v42;
+      v41 = 0;
+      v23 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:v22 fromData:v19 error:&v41];
+      v24 = v41;
       v25 = v24;
       if (v24)
       {
@@ -320,40 +318,39 @@
     self->_streamWait = 0;
   }
 
-  v41 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (void)replaySingleEventLogString:(id)string
 {
-  v16[15] = *MEMORY[0x277D85DE8];
+  v15[15] = *MEMORY[0x277D85DE8];
   stringCopy = string;
   v5 = [stringCopy stringByReplacingOccurrencesOfString:@"'" withString:&stru_287F632C0];
   v6 = [v5 stringByReplacingOccurrencesOfString:@" " withString:&stru_287F632C0];
 
   v7 = [MEMORY[0x277CBEA90] dataWithHexString:v6];
   v8 = MEMORY[0x277CBEB98];
-  v16[0] = objc_opt_class();
-  v16[1] = objc_opt_class();
-  v16[2] = objc_opt_class();
-  v16[3] = objc_opt_class();
-  v16[4] = objc_opt_class();
-  v16[5] = objc_opt_class();
-  v16[6] = objc_opt_class();
-  v16[7] = objc_opt_class();
-  v16[8] = objc_opt_class();
-  v16[9] = objc_opt_class();
-  v16[10] = objc_opt_class();
-  v16[11] = objc_opt_class();
-  v16[12] = objc_opt_class();
-  v16[13] = objc_opt_class();
-  v16[14] = objc_opt_class();
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:15];
+  v15[0] = objc_opt_class();
+  v15[1] = objc_opt_class();
+  v15[2] = objc_opt_class();
+  v15[3] = objc_opt_class();
+  v15[4] = objc_opt_class();
+  v15[5] = objc_opt_class();
+  v15[6] = objc_opt_class();
+  v15[7] = objc_opt_class();
+  v15[8] = objc_opt_class();
+  v15[9] = objc_opt_class();
+  v15[10] = objc_opt_class();
+  v15[11] = objc_opt_class();
+  v15[12] = objc_opt_class();
+  v15[13] = objc_opt_class();
+  v15[14] = objc_opt_class();
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:15];
   v10 = [v8 setWithArray:v9];
 
-  v15 = 0;
-  v11 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:v10 fromData:v7 error:&v15];
-  v12 = v15;
+  v14 = 0;
+  v11 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:v10 fromData:v7 error:&v14];
+  v12 = v14;
   v13 = v12;
   if (v12)
   {
@@ -364,13 +361,11 @@
   {
     [(TATrackingAvoidanceService *)self->_service ingestTAEvent:v11];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)persistence:(id)persistence results:(id)results error:(id)error
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   resultsCopy = results;
   errorCopy = error;
   NSLog(&cfstr_GotActivityEve.isa);
@@ -381,41 +376,40 @@
 
   else
   {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v9 = resultsCopy;
-    v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v18;
+      v12 = *v17;
       do
       {
         v13 = 0;
         do
         {
-          if (*v18 != v12)
+          if (*v17 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          eventMessage = [*(*(&v17 + 1) + 8 * v13) eventMessage];
+          eventMessage = [*(*(&v16 + 1) + 8 * v13) eventMessage];
           [(TAReplay *)self replaySingleEventLogString:eventMessage];
 
           ++v13;
         }
 
         while (v11 != v13);
-        v11 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v11);
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return errorCopy == 0;
 }
 

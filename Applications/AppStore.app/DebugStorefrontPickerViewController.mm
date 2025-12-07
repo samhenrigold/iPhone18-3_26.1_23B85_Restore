@@ -52,7 +52,7 @@
 {
   viewCopy = view;
   selfCopy = self;
-  v7 = sub_1002CD9E8();
+  v7 = sub_1002CD9E8(viewCopy);
 
   return v7;
 }
@@ -64,7 +64,7 @@
   if (view)
   {
     v7 = view;
-    sub_100005744(0, &qword_100972EB0);
+    sub_100005744(0, &qword_100972EB0, UIView_ptr);
     LayoutMarginsAware<>.layoutFrame.getter();
     v9 = v8;
     v11 = v10;
@@ -92,27 +92,27 @@
 {
   viewCopy = view;
   selfCopy = self;
-  sub_1002CDA8C();
-  v9 = v8;
+  sub_1002CDA8C(viewCopy, row);
+  v10 = v9;
 
-  if (v9)
+  if (v10)
   {
-    v10 = String._bridgeToObjectiveC()();
+    v11 = String._bridgeToObjectiveC()();
   }
 
   else
   {
-    v10 = 0;
+    v11 = 0;
   }
 
-  return v10;
+  return v11;
 }
 
 - (void)pickerView:(id)view didSelectRow:(int64_t)row inComponent:(int64_t)component
 {
   viewCopy = view;
   selfCopy = self;
-  sub_1002CDB48();
+  sub_1002CDB48(viewCopy, row);
 }
 
 - (_TtC8AppStore35DebugStorefrontPickerViewController)initWithNibName:(id)name bundle:(id)bundle

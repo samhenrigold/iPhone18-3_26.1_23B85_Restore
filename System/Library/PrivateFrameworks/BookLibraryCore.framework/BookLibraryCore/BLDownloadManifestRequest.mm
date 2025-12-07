@@ -25,30 +25,28 @@
 
 - (void)startWithManifestResponseBlock:(id)block
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   blockCopy = block;
-  v5 = BLServiceLog();
+  v5 = BLServiceLog(blockCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     uRLRequest = [(BLDownloadManifestRequest *)self URLRequest];
     *buf = 134218242;
     selfCopy = self;
-    v14 = 2112;
-    v15 = uRLRequest;
+    v13 = 2112;
+    v14 = uRLRequest;
     _os_log_impl(&dword_241D1F000, v5, OS_LOG_TYPE_DEFAULT, "[DownloadManifestRequest] Start download manifest request %p: urlRequest=%@", buf, 0x16u);
   }
 
   v7 = +[BLDownloadQueueNonUI sharedInstance];
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = sub_241D4E20C;
-  v10[3] = &unk_278D179B8;
-  v10[4] = self;
-  v11 = blockCopy;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = sub_241D4E20C;
+  v9[3] = &unk_278D179B8;
+  v9[4] = self;
+  v10 = blockCopy;
   v8 = blockCopy;
-  [v7 addDownloadsWithManifestRequest:self completion:v10];
-
-  v9 = *MEMORY[0x277D85DE8];
+  [v7 addDownloadsWithManifestRequest:self completion:v9];
 }
 
 - (BLDownloadManifestRequest)initWithCoder:(id)coder

@@ -188,7 +188,7 @@ LABEL_22:
 
 - (id)originalArgv
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if ([(NSString *)self->_option length])
   {
     if ([(NSString *)self->_option length]<= 1)
@@ -206,30 +206,28 @@ LABEL_22:
     if (self->_hasValue)
     {
       optionValue = self->_optionValue;
-      v14 = v4;
-      v15 = optionValue;
+      v13 = v4;
+      v14 = optionValue;
       v7 = MEMORY[0x277CBEA60];
-      v8 = &v14;
+      v8 = &v13;
       v9 = 2;
     }
 
     else
     {
-      v13 = v4;
+      v12 = v4;
       v7 = MEMORY[0x277CBEA60];
-      v8 = &v13;
+      v8 = &v12;
       v9 = 1;
     }
 
-    v10 = [v7 arrayWithObjects:v8 count:{v9, v13, v14, v15}];
+    v10 = [v7 arrayWithObjects:v8 count:{v9, v12, v13, v14}];
   }
 
   else
   {
     v10 = MEMORY[0x277CBEBF8];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

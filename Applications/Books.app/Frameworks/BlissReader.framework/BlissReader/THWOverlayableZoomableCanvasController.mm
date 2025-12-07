@@ -1213,7 +1213,7 @@ LABEL_19:
 {
   if (self)
   {
-    [(THWOverlayableZoomableCanvasController *)self p_contentBoundsToUnscaledTransform];
+    objc_msgSend_p_contentBoundsToUnscaledTransform(self, a3);
   }
 
   else
@@ -1252,7 +1252,7 @@ LABEL_19:
 {
   if (self)
   {
-    [(THWOverlayableZoomableCanvasController *)self p_contentBoundsToContainerBoundsTransform];
+    objc_msgSend_p_contentBoundsToContainerBoundsTransform(self, a3);
   }
 
   else
@@ -1269,14 +1269,14 @@ LABEL_19:
   x = point.x;
   if (self)
   {
-    [(THWOverlayableZoomableCanvasController *)self p_contentUnscaledToBoundsTransform];
+    objc_msgSend_p_contentUnscaledToBoundsTransform(self, a2);
     v7 = v20.f64[1];
     v6 = v20.f64[0];
     v9 = v21.f64[1];
     v8 = v21.f64[0];
     v11 = v22.f64[1];
     v10 = v22.f64[0];
-    [(THWOverlayableZoomableCanvasController *)self p_contentBoundsToContainerBoundsTransform];
+    objc_msgSend_p_contentBoundsToContainerBoundsTransform(self);
     v12 = v20;
     v13 = v21;
     v14 = v22;
@@ -1324,7 +1324,7 @@ LABEL_19:
   v11 = v10;
   if (self)
   {
-    [(THWOverlayableZoomableCanvasController *)self p_containerBoundsToContentBoundsTransform];
+    objc_msgSend_p_containerBoundsToContentBoundsTransform(self);
   }
 
   else
@@ -1343,7 +1343,7 @@ LABEL_19:
   height = v18.size.height;
   if (self)
   {
-    [(THWOverlayableZoomableCanvasController *)self p_contentBoundsToUnscaledTransform];
+    objc_msgSend_p_contentBoundsToUnscaledTransform(self);
   }
 
   else
@@ -1367,7 +1367,7 @@ LABEL_19:
   v11 = v10;
   if (self)
   {
-    [(THWOverlayableZoomableCanvasController *)self p_contentUnscaledToBoundsTransform];
+    objc_msgSend_p_contentUnscaledToBoundsTransform(self);
   }
 
   else

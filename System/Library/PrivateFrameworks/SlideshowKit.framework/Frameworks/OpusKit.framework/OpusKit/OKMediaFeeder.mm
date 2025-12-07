@@ -141,7 +141,7 @@
   [v4 defineProperty:@"items" descriptor:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v7, v6, 3)}];
 }
 
-id __40__OKMediaFeeder_setupJavascriptContext___block_invoke()
+OKCollectionProxy *__40__OKMediaFeeder_setupJavascriptContext___block_invoke()
 {
   v0 = objc_opt_new();
   [v0 setTag:1];
@@ -511,7 +511,7 @@ intptr_t __27__OKMediaFeeder_reloadData__block_invoke(uint64_t a1, void *a2)
   return v3;
 }
 
-uint64_t __35__OKMediaFeeder_numberOfMediaItems__block_invoke(uint64_t a1)
+void *__35__OKMediaFeeder_numberOfMediaItems__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _numberOfMediaItems];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -778,7 +778,7 @@ id __36__OKMediaFeeder_mediaURLsAtIndexes___block_invoke(uint64_t a1)
   return v4;
 }
 
-uint64_t __35__OKMediaFeeder_indexForMediaItem___block_invoke(uint64_t a1)
+void *__35__OKMediaFeeder_indexForMediaItem___block_invoke(uint64_t a1)
 {
   v4[1] = *MEMORY[0x277D85DE8];
   result = [*(a1 + 32) mediaObject];
@@ -807,7 +807,7 @@ uint64_t __35__OKMediaFeeder_indexForMediaItem___block_invoke(uint64_t a1)
   return [MEMORY[0x277CBEA60] arrayWithArray:array];
 }
 
-uint64_t __29__OKMediaFeeder_allMediaURLs__block_invoke(uint64_t a1)
+void *__29__OKMediaFeeder_allMediaURLs__block_invoke(uint64_t a1)
 {
   v2 = [MEMORY[0x277CCAA78] indexSetWithIndexesInRange:{0, objc_msgSend(*(a1 + 32), "numberOfMediaItems")}];
   result = [v2 firstIndex];
@@ -891,7 +891,7 @@ uint64_t __44__OKMediaFeeder_enumerateObjectsUsingBlock___block_invoke(uint64_t 
   dispatch_sync(processingQueue, block);
 }
 
-uint64_t __54__OKMediaFeeder_enumerateObjectsAtIndexes_usingBlock___block_invoke(uint64_t a1)
+void *__54__OKMediaFeeder_enumerateObjectsAtIndexes_usingBlock___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) firstIndex];
   if (result != 0x7FFFFFFFFFFFFFFFLL)

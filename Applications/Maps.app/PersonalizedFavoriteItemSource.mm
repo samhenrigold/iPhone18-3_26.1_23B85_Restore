@@ -15,10 +15,10 @@
 - (NSArray)allItems
 {
   selfCopy = self;
-  sub_1000CE6B8(&qword_101917C40);
+  sub_1000CE6B8(&qword_101917C40, &qword_1011F7BF8);
   OS_dispatch_queue.sync<A>(execute:)();
 
-  sub_1000CE6B8(&unk_101917C48);
+  sub_1000CE6B8(&unk_101917C48, qword_1011F7C00);
   v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v3.super.isa;
@@ -34,7 +34,7 @@
 - (NSArray)storeSubscriptionTypes
 {
 
-  sub_1000CE6B8(&qword_1019083F0);
+  sub_1000CE6B8(&qword_1019083F0, &qword_1011E2EC0);
   v2.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v2.super.isa;
@@ -42,7 +42,7 @@
 
 - (void)setStoreSubscriptionTypes:(id)types
 {
-  sub_1000CE6B8(&qword_1019083F0);
+  sub_1000CE6B8(&qword_1019083F0, &qword_1011E2EC0);
   *(self + OBJC_IVAR____TtC4Maps30PersonalizedFavoriteItemSource_storeSubscriptionTypes) = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 }
 

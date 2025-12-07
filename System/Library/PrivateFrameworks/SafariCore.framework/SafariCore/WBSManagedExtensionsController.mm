@@ -37,10 +37,9 @@
 
 void __50__WBSManagedExtensionsController_sharedController__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = objc_alloc_init(objc_opt_class());
-  v3 = sharedController_sharedController_0;
-  sharedController_sharedController_0 = v2;
+  v1 = objc_alloc_init(objc_opt_class());
+  v2 = sharedController_sharedController_0;
+  sharedController_sharedController_0 = v1;
 }
 
 - (WBSManagedExtensionsController)init

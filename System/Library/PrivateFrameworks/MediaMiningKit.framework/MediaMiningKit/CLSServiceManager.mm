@@ -673,7 +673,7 @@ LABEL_10:
   v3 = v2;
   if (v2)
   {
-    [v2 statistics];
+    objc_msgSend_statistics(v2);
   }
 
   return 0.0;
@@ -686,7 +686,7 @@ LABEL_10:
   v3 = v2;
   if (v2)
   {
-    [v2 statistics];
+    objc_msgSend_statistics(v2);
   }
 
   else
@@ -703,7 +703,7 @@ LABEL_10:
   v3 = v2;
   if (v2)
   {
-    [v2 statistics];
+    objc_msgSend_statistics(v2);
   }
 
   return 0;
@@ -716,7 +716,7 @@ LABEL_10:
   v3 = v2;
   if (v2)
   {
-    [v2 statistics];
+    objc_msgSend_statistics(v2);
   }
 
   else
@@ -733,7 +733,7 @@ LABEL_10:
   v3 = v2;
   if (v2)
   {
-    [v2 statistics];
+    objc_msgSend_statistics(v2);
   }
 
   return 0;
@@ -745,7 +745,7 @@ LABEL_10:
   v3 = v2;
   if (v2)
   {
-    [v2 statistics];
+    objc_msgSend_statistics(v2);
   }
 
   return 0;
@@ -758,7 +758,7 @@ LABEL_10:
   v3 = routineService;
   if (routineService)
   {
-    [routineService statistics];
+    objc_msgSend_statistics(routineService);
   }
 
   else
@@ -775,7 +775,7 @@ LABEL_10:
   v3 = routineService;
   if (routineService)
   {
-    [routineService statistics];
+    objc_msgSend_statistics(routineService);
   }
 
   return 0;

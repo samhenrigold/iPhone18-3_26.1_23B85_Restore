@@ -443,13 +443,13 @@
 
 - (id)signalUnifiedAccessStepUpWithEventDictionary:(id)dictionary
 {
-  v47[1] = *MEMORY[0x277D85DE8];
+  v46[1] = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v5 = _os_activity_create(&dword_2644F6000, "signalUnifiedAccessStepUpWithEventDictionary:", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_IF_NONE_PRESENT);
-  v46.opaque[0] = 0;
-  v46.opaque[1] = 0;
-  os_activity_scope_enter(v5, &v46);
-  os_activity_scope_leave(&v46);
+  v45.opaque[0] = 0;
+  v45.opaque[1] = 0;
+  os_activity_scope_enter(v5, &v45);
+  os_activity_scope_leave(&v45);
 
   if (objc_msgSend_type(self, v6, v7) == 2)
   {
@@ -470,7 +470,7 @@
 
           else
           {
-            sub_2645010D8(OS_LOG_TYPE_ERROR, 0, "[STSHelperLibrary signalUnifiedAccessStepUpWithEventDictionary:]", 435, self, @"Invalid protocol version. Will assume legacy", v21, v22, v46.opaque[0]);
+            sub_2645010D8(OS_LOG_TYPE_ERROR, 0, "[STSHelperLibrary signalUnifiedAccessStepUpWithEventDictionary:]", 435, self, @"Invalid protocol version. Will assume legacy", v21, v22, v45.opaque[0]);
             v24 = &unk_2875FC4E8;
           }
 
@@ -485,33 +485,33 @@
 
         else
         {
-          sub_2645010D8(OS_LOG_TYPE_ERROR, 0, "[STSHelperLibrary signalUnifiedAccessStepUpWithEventDictionary:]", 428, self, @"Invalid identifier.", v17, v18, v46.opaque[0]);
+          sub_2645010D8(OS_LOG_TYPE_ERROR, 0, "[STSHelperLibrary signalUnifiedAccessStepUpWithEventDictionary:]", 428, self, @"Invalid identifier.", v17, v18, v45.opaque[0]);
           v37 = MEMORY[0x277CCA9B8];
-          v47[0] = *MEMORY[0x277CCA450];
-          v46.opaque[0] = off_27FF71A78;
-          v39 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v38, &v46, v47, 1);
+          v46[0] = *MEMORY[0x277CCA450];
+          v45.opaque[0] = off_27FF71A78;
+          v39 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v38, &v45, v46, 1);
           v28 = objc_msgSend_errorWithDomain_code_userInfo_(v37, v40, @"STSXPCHelperErrorDomain", 5, v39);
         }
       }
 
       else
       {
-        sub_2645010D8(OS_LOG_TYPE_ERROR, 0, "[STSHelperLibrary signalUnifiedAccessStepUpWithEventDictionary:]", 423, self, @"Invalid shared data.", v13, v14, v46.opaque[0]);
+        sub_2645010D8(OS_LOG_TYPE_ERROR, 0, "[STSHelperLibrary signalUnifiedAccessStepUpWithEventDictionary:]", 423, self, @"Invalid shared data.", v13, v14, v45.opaque[0]);
         v33 = MEMORY[0x277CCA9B8];
-        v47[0] = *MEMORY[0x277CCA450];
-        v46.opaque[0] = off_27FF71A78;
-        v35 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v34, &v46, v47, 1);
+        v46[0] = *MEMORY[0x277CCA450];
+        v45.opaque[0] = off_27FF71A78;
+        v35 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v34, &v45, v46, 1);
         v28 = objc_msgSend_errorWithDomain_code_userInfo_(v33, v36, @"STSXPCHelperErrorDomain", 5, v35);
       }
     }
 
     else
     {
-      sub_2645010D8(OS_LOG_TYPE_ERROR, 0, "[STSHelperLibrary signalUnifiedAccessStepUpWithEventDictionary:]", 418, self, @"Invalid endpointID.", v9, v10, v46.opaque[0]);
+      sub_2645010D8(OS_LOG_TYPE_ERROR, 0, "[STSHelperLibrary signalUnifiedAccessStepUpWithEventDictionary:]", 418, self, @"Invalid endpointID.", v9, v10, v45.opaque[0]);
       v29 = MEMORY[0x277CCA9B8];
-      v47[0] = *MEMORY[0x277CCA450];
-      v46.opaque[0] = off_27FF71A78;
-      v31 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v30, &v46, v47, 1);
+      v46[0] = *MEMORY[0x277CCA450];
+      v45.opaque[0] = off_27FF71A78;
+      v31 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v30, &v45, v46, 1);
       v28 = objc_msgSend_errorWithDomain_code_userInfo_(v29, v32, @"STSXPCHelperErrorDomain", 5, v31);
     }
   }
@@ -519,13 +519,11 @@
   else
   {
     v25 = MEMORY[0x277CCA9B8];
-    v47[0] = *MEMORY[0x277CCA450];
-    v46.opaque[0] = off_27FF71A60;
-    v26 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v8, &v46, v47, 1);
+    v46[0] = *MEMORY[0x277CCA450];
+    v45.opaque[0] = off_27FF71A60;
+    v26 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v8, &v45, v46, 1);
     v28 = objc_msgSend_errorWithDomain_code_userInfo_(v25, v27, @"STSXPCHelperErrorDomain", 2, v26);
   }
-
-  v44 = *MEMORY[0x277D85DE8];
 
   return v28;
 }
@@ -568,7 +566,7 @@
 
 - (id)synchronousRemoteObjectProxyWithErrorHandler:(id)handler
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -581,9 +579,9 @@
   else
   {
     v13 = MEMORY[0x277CCA9B8];
-    v19 = *MEMORY[0x277CCA450];
-    v20[0] = off_27FF71A70;
-    v14 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v8, v20, &v19, 1);
+    v18 = *MEMORY[0x277CCA450];
+    v19[0] = off_27FF71A70;
+    v14 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v8, v19, &v18, 1);
     v16 = objc_msgSend_errorWithDomain_code_userInfo_(v13, v15, @"STSXPCHelperErrorDomain", 4, v14);
 
     handlerCopy[2](handlerCopy, v16);
@@ -592,14 +590,12 @@
 
   objc_sync_exit(selfCopy);
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v12;
 }
 
 - (id)asynchronousRemoteObjectProxyWithErrorHandler:(id)handler
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -612,9 +608,9 @@
   else
   {
     v13 = MEMORY[0x277CCA9B8];
-    v19 = *MEMORY[0x277CCA450];
-    v20[0] = off_27FF71A70;
-    v14 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v8, v20, &v19, 1);
+    v18 = *MEMORY[0x277CCA450];
+    v19[0] = off_27FF71A70;
+    v14 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v8, v19, &v18, 1);
     v16 = objc_msgSend_errorWithDomain_code_userInfo_(v13, v15, @"STSXPCHelperErrorDomain", 4, v14);
 
     handlerCopy[2](handlerCopy, v16);
@@ -622,8 +618,6 @@
   }
 
   objc_sync_exit(selfCopy);
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -754,7 +748,7 @@
 
 - (id)startBTReaderWithServiceUUID:(id)d peripheralAddress:(id)address centralRole:(BOOL)role
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   dCopy = d;
   addressCopy = address;
   v10 = _os_activity_create(&dword_2644F6000, "startBTReaderWithServiceUUID:peripheralAddrss:centralRole:", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_IF_NONE_PRESENT);
@@ -765,34 +759,32 @@
 
   if (dCopy | addressCopy)
   {
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = sub_2644FF504;
-    v18[3] = &unk_279B600A0;
-    v18[4] = self;
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = sub_2644FF504;
+    v17[3] = &unk_279B600A0;
+    v17[4] = self;
     roleCopy = role;
-    v19 = dCopy;
-    v20 = addressCopy;
-    v15 = sub_2644FB7E4(v18);
+    v18 = dCopy;
+    v19 = addressCopy;
+    v15 = sub_2644FB7E4(v17);
   }
 
   else
   {
     v12 = MEMORY[0x277CCA9B8];
-    v23[0] = *MEMORY[0x277CCA450];
+    v22[0] = *MEMORY[0x277CCA450];
     state.opaque[0] = off_27FF71A78;
-    v13 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v11, &state, v23, 1);
+    v13 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v11, &state, v22, 1);
     v15 = objc_msgSend_errorWithDomain_code_userInfo_(v12, v14, @"STSXPCHelperErrorDomain", 5, v13);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
 
 - (id)startBTDeviceWithServiceUUID:(id)d peripheralAddress:(id)address centralRole:(BOOL)role
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   dCopy = d;
   addressCopy = address;
   v10 = _os_activity_create(&dword_2644F6000, "startBTDeviceWithServiceUUID:peripheralAddrss:centralRole:", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_IF_NONE_PRESENT);
@@ -803,27 +795,25 @@
 
   if (dCopy | addressCopy)
   {
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = sub_2644FF864;
-    v18[3] = &unk_279B600A0;
-    v18[4] = self;
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = sub_2644FF864;
+    v17[3] = &unk_279B600A0;
+    v17[4] = self;
     roleCopy = role;
-    v19 = dCopy;
-    v20 = addressCopy;
-    v15 = sub_2644FB7E4(v18);
+    v18 = dCopy;
+    v19 = addressCopy;
+    v15 = sub_2644FB7E4(v17);
   }
 
   else
   {
     v12 = MEMORY[0x277CCA9B8];
-    v23[0] = *MEMORY[0x277CCA450];
+    v22[0] = *MEMORY[0x277CCA450];
     state.opaque[0] = off_27FF71A78;
-    v13 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v11, &state, v23, 1);
+    v13 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v11, &state, v22, 1);
     v15 = objc_msgSend_errorWithDomain_code_userInfo_(v12, v14, @"STSXPCHelperErrorDomain", 5, v13);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }

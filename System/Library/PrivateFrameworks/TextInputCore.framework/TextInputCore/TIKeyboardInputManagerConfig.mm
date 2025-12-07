@@ -7,8 +7,8 @@
 
 - (id)propertyList
 {
-  v45[24] = *MEMORY[0x277D85DE8];
-  v44[0] = @"normalizedInputMode";
+  v44[24] = *MEMORY[0x277D85DE8];
+  v43[0] = @"normalizedInputMode";
   inputMode = [(TIKeyboardInputManagerConfig *)self inputMode];
   if (inputMode)
   {
@@ -21,11 +21,11 @@
     normalizedIdentifier = &stru_283FDFAF8;
   }
 
-  v28 = normalizedIdentifier;
-  v45[0] = normalizedIdentifier;
-  v44[1] = @"staticDictionaryPath";
+  v27 = normalizedIdentifier;
+  v44[0] = normalizedIdentifier;
+  v43[1] = @"staticDictionaryPath";
   staticDictionaryPath = [(TIKeyboardInputManagerConfig *)self staticDictionaryPath];
-  v42 = staticDictionaryPath;
+  v41 = staticDictionaryPath;
   if (staticDictionaryPath)
   {
     v5 = staticDictionaryPath;
@@ -36,10 +36,10 @@
     v5 = &stru_283FDFAF8;
   }
 
-  v45[1] = v5;
-  v44[2] = @"dynamicResourcePath";
+  v44[1] = v5;
+  v43[2] = @"dynamicResourcePath";
   dynamicResourcePath = [(TIKeyboardInputManagerConfig *)self dynamicResourcePath];
-  v41 = dynamicResourcePath;
+  v40 = dynamicResourcePath;
   if (dynamicResourcePath)
   {
     v7 = dynamicResourcePath;
@@ -50,10 +50,10 @@
     v7 = &stru_283FDFAF8;
   }
 
-  v45[2] = v7;
-  v44[3] = @"ngramModelPath";
+  v44[2] = v7;
+  v43[3] = @"ngramModelPath";
   ngramModelPath = [(TIKeyboardInputManagerConfig *)self ngramModelPath];
-  v40 = ngramModelPath;
+  v39 = ngramModelPath;
   if (ngramModelPath)
   {
     v9 = ngramModelPath;
@@ -64,52 +64,52 @@
     v9 = &stru_283FDFAF8;
   }
 
-  v45[3] = v9;
-  v44[4] = @"allowsSpaceCorrections";
-  v39 = [MEMORY[0x277CCABB0] numberWithBool:{-[TIKeyboardInputManagerConfig allowsSpaceCorrections](self, "allowsSpaceCorrections")}];
-  v45[4] = v39;
-  v44[5] = @"usesTextChecker";
-  v38 = [MEMORY[0x277CCABB0] numberWithBool:{-[TIKeyboardInputManagerConfig usesTextChecker](self, "usesTextChecker")}];
-  v45[5] = v38;
-  v44[6] = @"usesRetrocorrection";
-  v37 = [MEMORY[0x277CCABB0] numberWithBool:{-[TIKeyboardInputManagerConfig usesRetrocorrection](self, "usesRetrocorrection")}];
-  v45[6] = v37;
-  v44[7] = @"usesWordNgramModel";
-  v36 = [MEMORY[0x277CCABB0] numberWithBool:{-[TIKeyboardInputManagerConfig usesWordNgramModel](self, "usesWordNgramModel")}];
-  v45[7] = v36;
-  v44[8] = @"usesAdaptation";
-  v35 = [MEMORY[0x277CCABB0] numberWithBool:{-[TIKeyboardInputManagerConfig usesAdaptation](self, "usesAdaptation")}];
-  v45[8] = v35;
-  v44[9] = @"maxWordsPerPrediction";
-  v34 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[TIKeyboardInputManagerConfig maxWordsPerPrediction](self, "maxWordsPerPrediction")}];
-  v45[9] = v34;
-  v44[10] = @"completionsShouldSharePrefix";
-  v33 = [MEMORY[0x277CCABB0] numberWithBool:{-[TIKeyboardInputManagerConfig completionsShouldSharePrefix](self, "completionsShouldSharePrefix")}];
-  v45[10] = v33;
-  v44[11] = @"usesContinuousPath";
-  v32 = [MEMORY[0x277CCABB0] numberWithBool:{-[TIKeyboardInputManagerConfig usesContinuousPath](self, "usesContinuousPath")}];
-  v45[11] = v32;
-  v44[12] = @"usesContinuousPathForAccessibility";
-  v31 = [MEMORY[0x277CCABB0] numberWithBool:{-[TIKeyboardInputManagerConfig usesContinuousPathForAccessibility](self, "usesContinuousPathForAccessibility")}];
-  v45[12] = v31;
-  v44[13] = @"usesContinuousPathProgressiveCandidates";
-  v30 = [MEMORY[0x277CCABB0] numberWithBool:{-[TIKeyboardInputManagerConfig usesContinuousPathProgressiveCandidates](self, "usesContinuousPathProgressiveCandidates")}];
-  v45[13] = v30;
-  v44[14] = @"continuousPathCompletesWords";
+  v44[3] = v9;
+  v43[4] = @"allowsSpaceCorrections";
+  v38 = [MEMORY[0x277CCABB0] numberWithBool:{-[TIKeyboardInputManagerConfig allowsSpaceCorrections](self, "allowsSpaceCorrections")}];
+  v44[4] = v38;
+  v43[5] = @"usesTextChecker";
+  v37 = [MEMORY[0x277CCABB0] numberWithBool:{-[TIKeyboardInputManagerConfig usesTextChecker](self, "usesTextChecker")}];
+  v44[5] = v37;
+  v43[6] = @"usesRetrocorrection";
+  v36 = [MEMORY[0x277CCABB0] numberWithBool:{-[TIKeyboardInputManagerConfig usesRetrocorrection](self, "usesRetrocorrection")}];
+  v44[6] = v36;
+  v43[7] = @"usesWordNgramModel";
+  v35 = [MEMORY[0x277CCABB0] numberWithBool:{-[TIKeyboardInputManagerConfig usesWordNgramModel](self, "usesWordNgramModel")}];
+  v44[7] = v35;
+  v43[8] = @"usesAdaptation";
+  v34 = [MEMORY[0x277CCABB0] numberWithBool:{-[TIKeyboardInputManagerConfig usesAdaptation](self, "usesAdaptation")}];
+  v44[8] = v34;
+  v43[9] = @"maxWordsPerPrediction";
+  v33 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[TIKeyboardInputManagerConfig maxWordsPerPrediction](self, "maxWordsPerPrediction")}];
+  v44[9] = v33;
+  v43[10] = @"completionsShouldSharePrefix";
+  v32 = [MEMORY[0x277CCABB0] numberWithBool:{-[TIKeyboardInputManagerConfig completionsShouldSharePrefix](self, "completionsShouldSharePrefix")}];
+  v44[10] = v32;
+  v43[11] = @"usesContinuousPath";
+  v31 = [MEMORY[0x277CCABB0] numberWithBool:{-[TIKeyboardInputManagerConfig usesContinuousPath](self, "usesContinuousPath")}];
+  v44[11] = v31;
+  v43[12] = @"usesContinuousPathForAccessibility";
+  v30 = [MEMORY[0x277CCABB0] numberWithBool:{-[TIKeyboardInputManagerConfig usesContinuousPathForAccessibility](self, "usesContinuousPathForAccessibility")}];
+  v44[12] = v30;
+  v43[13] = @"usesContinuousPathProgressiveCandidates";
+  v29 = [MEMORY[0x277CCABB0] numberWithBool:{-[TIKeyboardInputManagerConfig usesContinuousPathProgressiveCandidates](self, "usesContinuousPathProgressiveCandidates")}];
+  v44[13] = v29;
+  v43[14] = @"continuousPathCompletesWords";
   v10 = [MEMORY[0x277CCABB0] numberWithBool:{-[TIKeyboardInputManagerConfig continuousPathCompletesWords](self, "continuousPathCompletesWords")}];
-  v45[14] = v10;
-  v44[15] = @"continuousPathLanguageWeight";
+  v44[14] = v10;
+  v43[15] = @"continuousPathLanguageWeight";
   v11 = MEMORY[0x277CCABB0];
   [(TIKeyboardInputManagerConfig *)self continuousPathLanguageWeight];
   v12 = [v11 numberWithDouble:?];
-  v45[15] = v12;
-  v44[16] = *MEMORY[0x277D6F830];
+  v44[15] = v12;
+  v43[16] = *MEMORY[0x277D6F830];
   v13 = [MEMORY[0x277CCABB0] numberWithBool:{-[TIKeyboardInputManagerConfig continuousPathDeleteWholeWord](self, "continuousPathDeleteWholeWord")}];
-  v45[16] = v13;
-  v44[17] = *MEMORY[0x277D6F838];
+  v44[16] = v13;
+  v43[17] = *MEMORY[0x277D6F838];
   v14 = [MEMORY[0x277CCABB0] numberWithBool:{-[TIKeyboardInputManagerConfig continuousPathDetectPause](self, "continuousPathDetectPause")}];
-  v45[17] = v14;
-  v44[18] = @"continuousPathParameters";
+  v44[17] = v14;
+  v43[18] = @"continuousPathParameters";
   continuousPathParams = [(TIKeyboardInputManagerConfig *)self continuousPathParams];
   v16 = continuousPathParams;
   v17 = MEMORY[0x277CBEC10];
@@ -118,20 +118,20 @@
     v17 = continuousPathParams;
   }
 
-  v45[18] = v17;
-  v44[19] = @"insertsSpaceAfterPredictiveInput";
+  v44[18] = v17;
+  v43[19] = @"insertsSpaceAfterPredictiveInput";
   v18 = [MEMORY[0x277CCABB0] numberWithBool:{-[TIKeyboardInputManagerConfig insertsSpaceAfterPredictiveInput](self, "insertsSpaceAfterPredictiveInput")}];
-  v45[19] = v18;
-  v44[20] = @"usesCJContinuousPath";
+  v44[19] = v18;
+  v43[20] = @"usesCJContinuousPath";
   v19 = [MEMORY[0x277CCABB0] numberWithBool:{-[TIKeyboardInputManagerConfig usesCJContinuousPath](self, "usesCJContinuousPath")}];
-  v45[20] = v19;
-  v44[21] = @"testing";
+  v44[20] = v19;
+  v43[21] = @"testing";
   v20 = [MEMORY[0x277CCABB0] numberWithBool:{-[TIKeyboardInputManagerConfig isTesting](self, "isTesting")}];
-  v45[21] = v20;
-  v44[22] = @"usesDODMLLogging";
+  v44[21] = v20;
+  v43[22] = @"usesDODMLLogging";
   v21 = [MEMORY[0x277CCABB0] numberWithBool:{-[TIKeyboardInputManagerConfig usesDODMLLogging](self, "usesDODMLLogging")}];
-  v45[22] = v21;
-  v44[23] = @"shapeStoreResourceDir";
+  v44[22] = v21;
+  v43[23] = @"shapeStoreResourceDir";
   shapeStoreResourceDir = [(TIKeyboardInputManagerConfig *)self shapeStoreResourceDir];
   v23 = shapeStoreResourceDir;
   v24 = &stru_283FDFAF8;
@@ -140,16 +140,14 @@
     v24 = shapeStoreResourceDir;
   }
 
-  v45[23] = v24;
-  v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:v44 count:24];
+  v44[23] = v24;
+  v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:v43 count:24];
 
   if (inputMode)
   {
   }
 
-  v25 = *MEMORY[0x277D85DE8];
-
-  return v29;
+  return v28;
 }
 
 + (id)configurationForInputMode:(id)mode

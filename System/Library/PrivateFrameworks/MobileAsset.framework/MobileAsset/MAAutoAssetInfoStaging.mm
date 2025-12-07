@@ -33,41 +33,41 @@
 
 - (MAAutoAssetInfoStaging)initWithCoder:(id)coder
 {
-  v28[4] = *MEMORY[0x1E69E9840];
+  v27[4] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v25.receiver = self;
-  v25.super_class = MAAutoAssetInfoStaging;
-  v5 = [(MAAutoAssetInfoStaging *)&v25 init];
+  v24.receiver = self;
+  v24.super_class = MAAutoAssetInfoStaging;
+  v5 = [(MAAutoAssetInfoStaging *)&v24 init];
   if (v5)
   {
     v6 = MEMORY[0x1E695DFD8];
-    v28[0] = objc_opt_class();
-    v28[1] = objc_opt_class();
-    v28[2] = objc_opt_class();
-    v28[3] = objc_opt_class();
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:4];
-    v8 = [v6 setWithArray:v7];
-
-    v9 = MEMORY[0x1E695DFD8];
     v27[0] = objc_opt_class();
     v27[1] = objc_opt_class();
     v27[2] = objc_opt_class();
     v27[3] = objc_opt_class();
-    v27[4] = objc_opt_class();
-    v27[5] = objc_opt_class();
-    v27[6] = objc_opt_class();
-    v27[7] = objc_opt_class();
-    v27[8] = objc_opt_class();
-    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:9];
-    v11 = [v9 setWithArray:v10];
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:4];
+    v8 = [v6 setWithArray:v7];
 
-    v12 = MEMORY[0x1E695DFD8];
+    v9 = MEMORY[0x1E695DFD8];
     v26[0] = objc_opt_class();
     v26[1] = objc_opt_class();
     v26[2] = objc_opt_class();
     v26[3] = objc_opt_class();
     v26[4] = objc_opt_class();
-    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:5];
+    v26[5] = objc_opt_class();
+    v26[6] = objc_opt_class();
+    v26[7] = objc_opt_class();
+    v26[8] = objc_opt_class();
+    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:9];
+    v11 = [v9 setWithArray:v10];
+
+    v12 = MEMORY[0x1E695DFD8];
+    v25[0] = objc_opt_class();
+    v25[1] = objc_opt_class();
+    v25[2] = objc_opt_class();
+    v25[3] = objc_opt_class();
+    v25[4] = objc_opt_class();
+    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:5];
     v14 = [v12 setWithArray:v13];
 
     v15 = [coderCopy decodeObjectOfClasses:v8 forKey:@"updateAttributes"];
@@ -89,7 +89,6 @@
     v5->_totalExpectedBytes = [coderCopy decodeIntegerForKey:@"totalExpectedBytes"];
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -185,7 +184,7 @@
 
 - (id)summary
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   updateAttributes = [(MAAutoAssetInfoStaging *)self updateAttributes];
   v4 = [updateAttributes safeObjectForKey:@"OSVersion" ofClass:objc_opt_class()];
 
@@ -201,36 +200,36 @@
   updateAttributes5 = [(MAAutoAssetInfoStaging *)self updateAttributes];
   v12 = [updateAttributes5 safeObjectForKey:@"GroupNames" ofClass:objc_opt_class()];
 
-  v35 = v12;
+  v34 = v12;
   if (v12)
   {
-    v31 = v10;
-    v32 = v8;
-    v33 = v6;
-    v34 = v4;
+    v30 = v10;
+    v31 = v8;
+    v32 = v6;
+    v33 = v4;
     v13 = objc_alloc_init(MEMORY[0x1E696AD60]);
     v14 = objc_alloc_init(MEMORY[0x1E696AD60]);
+    v37 = 0u;
     v38 = 0u;
     v39 = 0u;
     v40 = 0u;
-    v41 = 0u;
     obj = v12;
-    v15 = [obj countByEnumeratingWithState:&v38 objects:v42 count:16];
+    v15 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
     if (v15)
     {
       v16 = v15;
       v17 = 1;
-      v37 = *v39;
+      v36 = *v38;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v39 != v37)
+          if (*v38 != v36)
           {
             objc_enumerationMutation(obj);
           }
 
-          v19 = *(*(&v38 + 1) + 8 * i);
+          v19 = *(*(&v37 + 1) + 8 * i);
           byGroupAvailableForStagingAttributes = [(MAAutoAssetInfoStaging *)self byGroupAvailableForStagingAttributes];
           v21 = [byGroupAvailableForStagingAttributes safeObjectForKey:v19 ofClass:objc_opt_class()];
 
@@ -257,18 +256,18 @@
           v17 = 0;
         }
 
-        v16 = [obj countByEnumeratingWithState:&v38 objects:v42 count:16];
+        v16 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
         v17 = 0;
       }
 
       while (v16);
     }
 
-    v10 = v31;
-    v8 = v32;
-    v6 = v33;
-    v4 = v34;
-    v26 = [MEMORY[0x1E696AEC0] stringWithFormat:@"staging[BY-GROUP]|osVersion:%@|build:%@|trainName:%@|restoreVersion:%@|byGroupAttributes:%@|byGroupExpectedBytes:%@", v34, v33, v32, v31, v13, v14];
+    v10 = v30;
+    v8 = v31;
+    v6 = v32;
+    v4 = v33;
+    v26 = [MEMORY[0x1E696AEC0] stringWithFormat:@"staging[BY-GROUP]|osVersion:%@|build:%@|trainName:%@|restoreVersion:%@|byGroupAttributes:%@|byGroupExpectedBytes:%@", v33, v32, v31, v30, v13, v14];
   }
 
   else
@@ -278,14 +277,12 @@
     v26 = [v27 stringWithFormat:@"staging[ALL]|osVersion:%@|build:%@|trainName:%@|restoreVersion:%@|allAvailableForStaging:%ld|totalExpectedBytes:%llu", v4, v6, v8, v10, objc_msgSend(allAvailableForStagingAttributes, "count"), -[MAAutoAssetInfoStaging totalExpectedBytes](self, "totalExpectedBytes")];
   }
 
-  v29 = *MEMORY[0x1E69E9840];
-
   return v26;
 }
 
 - (void)fullDescription:(id)description usingLogger:(id)logger
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   descriptionCopy = description;
   if ([MEMORY[0x1E69D3880] stringIsEqual:descriptionCopy to:@"MA-AUTO-STAGE:DETERMINE_GROUPS_AVAILABLE_FOR_UPDATE"])
   {
@@ -340,11 +337,11 @@
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       updateAttributes2 = [(MAAutoAssetInfoStaging *)self updateAttributes];
-      v29 = 138543618;
-      v30 = v6;
-      v31 = 2114;
-      v32 = updateAttributes2;
-      _os_log_impl(&dword_197AD5000, v8, OS_LOG_TYPE_DEFAULT, "\n>%{public}@> updateAttributes:\n%{public}@", &v29, 0x16u);
+      v28 = 138543618;
+      v29 = v6;
+      v30 = 2114;
+      v31 = updateAttributes2;
+      _os_log_impl(&dword_197AD5000, v8, OS_LOG_TYPE_DEFAULT, "\n>%{public}@> updateAttributes:\n%{public}@", &v28, 0x16u);
     }
   }
 
@@ -364,11 +361,11 @@
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         safeSummary = [v12 safeSummary];
-        v29 = 138543618;
-        v30 = v6;
-        v31 = 2114;
-        v32 = safeSummary;
-        _os_log_impl(&dword_197AD5000, v15, OS_LOG_TYPE_DEFAULT, "\n>%{public}@> byGroupAvailableForStaging[REQUIRED]:\n%{public}@", &v29, 0x16u);
+        v28 = 138543618;
+        v29 = v6;
+        v30 = 2114;
+        v31 = safeSummary;
+        _os_log_impl(&dword_197AD5000, v15, OS_LOG_TYPE_DEFAULT, "\n>%{public}@> byGroupAvailableForStaging[REQUIRED]:\n%{public}@", &v28, 0x16u);
       }
     }
 
@@ -377,9 +374,9 @@
       v15 = _MAClientLog(@"AutoStager");
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        v29 = 138543362;
-        v30 = v6;
-        _os_log_impl(&dword_197AD5000, v15, OS_LOG_TYPE_DEFAULT, "\n>%{public}@> byGroupAvailableForStaging[REQUIRED]:NONE", &v29, 0xCu);
+        v28 = 138543362;
+        v29 = v6;
+        _os_log_impl(&dword_197AD5000, v15, OS_LOG_TYPE_DEFAULT, "\n>%{public}@> byGroupAvailableForStaging[REQUIRED]:NONE", &v28, 0xCu);
       }
     }
 
@@ -389,11 +386,11 @@
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         safeSummary2 = [v14 safeSummary];
-        v29 = 138543618;
-        v30 = v6;
-        v31 = 2114;
-        v32 = safeSummary2;
-        _os_log_impl(&dword_197AD5000, v17, OS_LOG_TYPE_DEFAULT, "\n>%{public}@> byGroupAvailableForStaging[OPTIONAL]:\n%{public}@", &v29, 0x16u);
+        v28 = 138543618;
+        v29 = v6;
+        v30 = 2114;
+        v31 = safeSummary2;
+        _os_log_impl(&dword_197AD5000, v17, OS_LOG_TYPE_DEFAULT, "\n>%{public}@> byGroupAvailableForStaging[OPTIONAL]:\n%{public}@", &v28, 0x16u);
       }
     }
 
@@ -402,9 +399,9 @@
       v17 = _MAClientLog(@"AutoStager");
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
-        v29 = 138543362;
-        v30 = v6;
-        _os_log_impl(&dword_197AD5000, v17, OS_LOG_TYPE_DEFAULT, "\n>%{public}@> byGroupAvailableForStaging[OPTIONAL]:NONE", &v29, 0xCu);
+        v28 = 138543362;
+        v29 = v6;
+        _os_log_impl(&dword_197AD5000, v17, OS_LOG_TYPE_DEFAULT, "\n>%{public}@> byGroupAvailableForStaging[OPTIONAL]:NONE", &v28, 0xCu);
       }
     }
   }
@@ -418,11 +415,11 @@
     {
       allAvailableForStagingAttributes2 = [(MAAutoAssetInfoStaging *)self allAvailableForStagingAttributes];
       safeSummary3 = [allAvailableForStagingAttributes2 safeSummary];
-      v29 = 138543618;
-      v30 = v6;
-      v31 = 2114;
-      v32 = safeSummary3;
-      _os_log_impl(&dword_197AD5000, v20, OS_LOG_TYPE_DEFAULT, "\n>%{public}@> allAvailableForStagingAttributes:\n%{public}@", &v29, 0x16u);
+      v28 = 138543618;
+      v29 = v6;
+      v30 = 2114;
+      v31 = safeSummary3;
+      _os_log_impl(&dword_197AD5000, v20, OS_LOG_TYPE_DEFAULT, "\n>%{public}@> allAvailableForStagingAttributes:\n%{public}@", &v28, 0x16u);
     }
   }
 
@@ -434,11 +431,11 @@
     if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
       byGroupTotalExpectedBytes2 = [(MAAutoAssetInfoStaging *)self byGroupTotalExpectedBytes];
-      v29 = 138543618;
-      v30 = v6;
-      v31 = 2114;
-      v32 = byGroupTotalExpectedBytes2;
-      _os_log_impl(&dword_197AD5000, v24, OS_LOG_TYPE_DEFAULT, "\n>%{public}@> byGroupTotalExpectedBytes:\n%{public}@", &v29, 0x16u);
+      v28 = 138543618;
+      v29 = v6;
+      v30 = 2114;
+      v31 = byGroupTotalExpectedBytes2;
+      _os_log_impl(&dword_197AD5000, v24, OS_LOG_TYPE_DEFAULT, "\n>%{public}@> byGroupTotalExpectedBytes:\n%{public}@", &v28, 0x16u);
     }
   }
 
@@ -446,14 +443,12 @@
   if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
   {
     totalExpectedBytes = [(MAAutoAssetInfoStaging *)self totalExpectedBytes];
-    v29 = 138543618;
-    v30 = v6;
-    v31 = 2048;
-    v32 = totalExpectedBytes;
-    _os_log_impl(&dword_197AD5000, v26, OS_LOG_TYPE_DEFAULT, "\n>%{public}@> totalExpectedBytes:%llu", &v29, 0x16u);
+    v28 = 138543618;
+    v29 = v6;
+    v30 = 2048;
+    v31 = totalExpectedBytes;
+    _os_log_impl(&dword_197AD5000, v26, OS_LOG_TYPE_DEFAULT, "\n>%{public}@> totalExpectedBytes:%llu", &v28, 0x16u);
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 @end

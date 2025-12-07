@@ -8,28 +8,26 @@
 
 - (void)reset
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (unlink([(NSString *)self->_path UTF8String]) && *__error() != 2 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     path = self->_path;
-    v5 = *__error();
-    v6 = __error();
-    v7 = strerror(*v6);
-    v8 = 138412802;
-    v9 = path;
-    v10 = 1024;
-    v11 = v5;
-    v12 = 2080;
-    v13 = v7;
-    _os_log_error_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Error unlinking %@: [%i] %s", &v8, 0x1Cu);
+    v4 = *__error();
+    v5 = __error();
+    v6 = strerror(*v5);
+    v7 = 138412802;
+    v8 = path;
+    v9 = 1024;
+    v10 = v4;
+    v11 = 2080;
+    v12 = v6;
+    _os_log_error_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Error unlinking %@: [%i] %s", &v7, 0x1Cu);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (NSUUID)UUID
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v3 = open([(NSString *)self->_path UTF8String], 0);
   if ((v3 & 0x80000000) == 0)
   {
@@ -50,7 +48,7 @@
       {
         path = self->_path;
         *buf = 138412290;
-        v23 = path;
+        v22 = path;
         _os_log_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "Removing truncated device id file: %@", buf, 0xCu);
       }
 
@@ -71,16 +69,16 @@ LABEL_12:
     {
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v14 = self->_path;
-        v15 = *__error();
-        v16 = __error();
-        v17 = strerror(*v16);
+        v13 = self->_path;
+        v14 = *__error();
+        v15 = __error();
+        v16 = strerror(*v15);
         *buf = 138412802;
-        v23 = v14;
-        v24 = 1024;
-        v25 = v15;
-        v26 = 2080;
-        v27 = v17;
+        v22 = v13;
+        v23 = 1024;
+        v24 = v14;
+        v25 = 2080;
+        v26 = v16;
         _os_log_error_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Error writing device identifier file %@: [%i] %s", buf, 0x1Cu);
       }
 
@@ -112,22 +110,21 @@ LABEL_12:
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v18 = self->_path;
-    v19 = *__error();
-    v20 = __error();
-    v21 = strerror(*v20);
+    v17 = self->_path;
+    v18 = *__error();
+    v19 = __error();
+    v20 = strerror(*v19);
     *buf = 138412802;
-    v23 = v18;
-    v24 = 1024;
-    v25 = v19;
-    v26 = 2080;
-    v27 = v21;
+    v22 = v17;
+    v23 = 1024;
+    v24 = v18;
+    v25 = 2080;
+    v26 = v20;
     _os_log_error_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Error opening device identifier file %@: [%i] %s", buf, 0x1Cu);
   }
 
   uUID2 = [MEMORY[0x1E696AFB0] UUID];
 LABEL_20:
-  v12 = *MEMORY[0x1E69E9840];
 
   return uUID2;
 }

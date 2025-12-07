@@ -114,8 +114,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v11[2] = *MEMORY[0x1E69E9840];
-  v10[0] = @"code";
+  v10[2] = *MEMORY[0x1E69E9840];
+  v9[0] = @"code";
   v3 = INSearchForMessagesIntentResponseCodeGetName([(INSearchForMessagesIntentResponse *)self code]);
   null = v3;
   if (!v3)
@@ -123,8 +123,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v10[1] = @"messages";
-  v11[0] = null;
+  v9[1] = @"messages";
+  v10[0] = null;
   messages = [(INSearchForMessagesIntentResponse *)self messages];
   null2 = messages;
   if (!messages)
@@ -132,8 +132,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v11[1] = null2;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v10[1] = null2;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:2];
   if (!messages)
   {
   }
@@ -141,8 +141,6 @@
   if (!v3)
   {
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -257,7 +255,7 @@
 
 - (INSearchForMessagesIntentResponse)initWithCode:(INSearchForMessagesIntentResponseCode)code userActivity:(NSUserActivity *)userActivity
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v6 = userActivity;
   v7 = INSiriLogContextIntents;
   if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
@@ -265,21 +263,20 @@
     v8 = v7;
     v9 = INSearchForMessagesIntentResponseCodeGetName(code);
     *buf = 136315906;
-    v15 = "[INSearchForMessagesIntentResponse initWithCode:userActivity:]";
-    v16 = 2048;
-    v17 = code;
-    v18 = 2112;
-    v19 = v9;
-    v20 = 2112;
-    v21 = v6;
+    v14 = "[INSearchForMessagesIntentResponse initWithCode:userActivity:]";
+    v15 = 2048;
+    v16 = code;
+    v17 = 2112;
+    v18 = v9;
+    v19 = 2112;
+    v20 = v6;
     _os_log_impl(&dword_18E991000, v8, OS_LOG_TYPE_INFO, "%s code = %zd (%@), userActivity = %@", buf, 0x2Au);
   }
 
-  v13.receiver = self;
-  v13.super_class = INSearchForMessagesIntentResponse;
-  v10 = [(INIntentResponse *)&v13 _initWithCode:code userActivity:v6];
+  v12.receiver = self;
+  v12.super_class = INSearchForMessagesIntentResponse;
+  v10 = [(INIntentResponse *)&v12 _initWithCode:code userActivity:v6];
 
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

@@ -21,11 +21,11 @@
 
 + (id)contextFromDictionary:(id)dictionary
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v3 = [dictionary objectForKeyedSubscript:@"contextData"];
-  v13 = 0;
-  v4 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v3 error:&v13];
-  v5 = v13;
+  v17 = *MEMORY[0x277D85DE8];
+  v3 = objc_msgSend_objectForKeyedSubscript_(dictionary, a2, @"contextData");
+  v12 = 0;
+  v4 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v3 error:&v12];
+  v5 = v12;
   v6 = _ICQGetLogSystem();
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
   if (v5)
@@ -36,9 +36,9 @@
     }
 
     *buf = 138412546;
-    v15 = v5;
-    v16 = 2112;
-    v17 = v3;
+    v14 = v5;
+    v15 = 2112;
+    v16 = v3;
     v8 = "Caught error (%@) deserializing context data (%@)";
     v9 = v6;
     v10 = 22;
@@ -52,7 +52,7 @@
     }
 
     *buf = 138412290;
-    v15 = v4;
+    v14 = v4;
     v8 = "Successfully formed context: %@";
     v9 = v6;
     v10 = 12;
@@ -60,8 +60,6 @@
 
   _os_log_impl(&dword_275572000, v9, OS_LOG_TYPE_DEFAULT, v8, buf, v10);
 LABEL_7:
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -112,10 +110,10 @@ LABEL_7:
 
 - (id)_serializedData
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v10 = 0;
-  v3 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:self requiringSecureCoding:1 error:&v10];
-  v4 = v10;
+  v12 = *MEMORY[0x277D85DE8];
+  v9 = 0;
+  v3 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:self requiringSecureCoding:1 error:&v9];
+  v4 = v9;
   v5 = _ICQGetLogSystem();
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
   if (v4)
@@ -145,20 +143,16 @@ LABEL_7:
   _os_log_impl(&dword_275572000, v5, OS_LOG_TYPE_DEFAULT, v7, buf, 0xCu);
 LABEL_7:
 
-  v8 = *MEMORY[0x277D85DE8];
-
   return v3;
 }
 
 - (id)toDictionary
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"contextData";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"contextData";
   _serializedData = [(ICQRemoteContext *)self _serializedData];
-  v7[0] = _serializedData;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = _serializedData;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }

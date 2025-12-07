@@ -20,40 +20,40 @@ uint64_t sub_100002EA0(uint64_t a1)
   v4 = *(v3 + 40);
   *(v3 + 40) = WeakRetained;
 
-  return _objc_release_x1();
+  return _objc_release_x1(WeakRetained, v4);
 }
 
-uint64_t sub_10000312C(uint64_t a1)
+uint64_t sub_10000312C(void *a1)
 {
-  v2 = *(a1 + 32);
+  v2 = a1[4];
   if (*(v2 + 84) == 1)
   {
-    v3 = *(*(a1 + 40) + 8);
+    v3 = *(a1[5] + 8);
     v4 = *(v3 + 40);
     *(v3 + 40) = 0;
   }
 
   else
   {
-    v5 = *(*(a1 + 40) + 8);
-    v6 = *(v2 + 96);
-    v7 = *(v5 + 40);
-    *(v5 + 40) = v6;
+    v5 = *(a1[5] + 8);
+    a1 = *(v2 + 96);
+    v4 = *(v5 + 40);
+    *(v5 + 40) = a1;
   }
 
-  return _objc_release_x1();
+  return _objc_release_x1(a1, v4);
 }
 
-id sub_1000034AC()
+id sub_1000034AC(uint64_t a1)
 {
   if (qword_1001B39E0 != -1)
   {
     sub_10010273C();
   }
 
-  v1 = qword_1001B39D8;
+  v2 = qword_1001B39D8;
 
-  return v1;
+  return v2;
 }
 
 void sub_100003C74(uint64_t a1)
@@ -69,16 +69,16 @@ void sub_100003C74(uint64_t a1)
     {
       [*(*v2 + 5) addObject:v8];
       objc_initWeak(&location, *v2);
-      v25 = _NSConcreteStackBlock;
-      v26 = 3221225472;
-      v27 = sub_100004048;
-      v28 = &unk_100175548;
-      v29 = *v2;
-      objc_copyWeak(&v31, &location);
+      v24 = _NSConcreteStackBlock;
+      v25 = 3221225472;
+      v26 = sub_100004048;
+      v27 = &unk_100175548;
+      v28 = *v2;
+      objc_copyWeak(&v30, &location);
       v8 = v8;
-      v30 = v8;
-      v9 = objc_retainBlock(&v25);
-      [*v3 setInvalidationHandler:{v9, v25, v26, v27, v28, v29}];
+      v29 = v8;
+      v9 = objc_retainBlock(&v24);
+      [*v3 setInvalidationHandler:{v9, v24, v25, v26, v27, v28}];
       [*v3 setInterruptionHandler:v9];
       v10 = *(*v2 + 2);
       if (!v10)
@@ -116,16 +116,15 @@ void sub_100003C74(uint64_t a1)
           v19 = [v8 appPath];
           v20 = [v8 pid];
           *buf = 138412802;
-          v34 = v18;
-          v35 = 2114;
-          v36 = v19;
-          v37 = 2048;
-          v38 = v20;
+          v33 = v18;
+          v34 = 2114;
+          v35 = v19;
+          v36 = 2048;
+          v37 = v20;
           _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "NRXPCServer: %@ connection from %{public}@.%ld accepted", buf, 0x20u);
         }
       }
 
-      v21 = *(*v2 + 8);
       if (objc_opt_respondsToSelector())
       {
         [*(*v2 + 8) xpcServer:*v2 proxyWillConnect:v8];
@@ -135,21 +134,21 @@ void sub_100003C74(uint64_t a1)
       [*v3 resume];
       *(*(*(a1 + 48) + 8) + 24) = 1;
 
-      objc_destroyWeak(&v31);
+      objc_destroyWeak(&v30);
       objc_destroyWeak(&location);
     }
 
     else
     {
-      v22 = nr_daemon_log();
-      v23 = os_log_type_enabled(v22, OS_LOG_TYPE_ERROR);
+      v21 = nr_daemon_log();
+      v22 = os_log_type_enabled(v21, OS_LOG_TYPE_ERROR);
 
-      if (v23)
+      if (v22)
       {
-        v24 = nr_daemon_log();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+        v23 = nr_daemon_log();
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
-          sub_1000FCB78(v2, v2 + 1, v24);
+          sub_1000FCB78(v2, v2 + 1, v23);
         }
       }
     }
@@ -244,19 +243,17 @@ void sub_100004EC0(uint64_t a1)
       {
         v6 = *(a1 + 40);
         v7 = *(a1 + 48);
-        v8 = *(a1 + 49);
-        v9 = NSStringFromRBSTaskState();
-        v16 = 138412802;
-        v17 = v6;
-        v18 = 1024;
-        v19 = v7;
-        v20 = 2112;
-        v21 = v9;
-        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "NRXPCServer: Notifying of application: %@; running: %{BOOL}d; state: %@", &v16, 0x1Cu);
+        v8 = NSStringFromRBSTaskState();
+        v13 = 138412802;
+        v14 = v6;
+        v15 = 1024;
+        v16 = v7;
+        v17 = 2112;
+        v18 = v8;
+        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "NRXPCServer: Notifying of application: %@; running: %{BOOL}d; state: %@", &v13, 0x1Cu);
       }
     }
 
-    v10 = *(*(a1 + 32) + 64);
     if (*(a1 + 48) == 1)
     {
       if (objc_opt_respondsToSelector())
@@ -273,20 +270,19 @@ void sub_100004EC0(uint64_t a1)
 
   else if (v4)
   {
-    v11 = nr_daemon_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v9 = nr_daemon_log();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = *(a1 + 40);
-      v13 = *(a1 + 48);
-      v14 = *(a1 + 49);
-      v15 = NSStringFromRBSTaskState();
-      v16 = 138412802;
-      v17 = v12;
-      v18 = 1024;
-      v19 = v13;
-      v20 = 2112;
-      v21 = v15;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "NRXPCServer: Ignoring notification of application: %@; running: %{BOOL}d; state: %@", &v16, 0x1Cu);
+      v10 = *(a1 + 40);
+      v11 = *(a1 + 48);
+      v12 = NSStringFromRBSTaskState();
+      v13 = 138412802;
+      v14 = v10;
+      v15 = 1024;
+      v16 = v11;
+      v17 = 2112;
+      v18 = v12;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "NRXPCServer: Ignoring notification of application: %@; running: %{BOOL}d; state: %@", &v13, 0x1Cu);
     }
   }
 }
@@ -336,16 +332,18 @@ void sub_100005514(uint64_t a1)
 
 uint64_t sub_100005D18(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  qword_1001B3700 = objc_opt_new();
+  v1 = objc_opt_new();
+  v2 = qword_1001B3700;
+  qword_1001B3700 = v1;
 
-  return _objc_release_x1();
+  return _objc_release_x1(v1, v2);
 }
 
-void sub_10000602C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30)
+void sub_10000602C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, ...)
 {
+  va_start(va, a29);
   _Block_object_dispose(&a24, 8);
-  _Block_object_dispose(&a30, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -370,10 +368,11 @@ void sub_10000607C(void *a1)
   *(v4 + 8) = 0;
 }
 
-void sub_100006330(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30)
+void sub_100006330(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, ...)
 {
+  va_start(va, a29);
   _Block_object_dispose(&a24, 8);
-  _Block_object_dispose(&a30, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -512,9 +511,9 @@ void sub_1000067D8(uint64_t a1)
   }
 }
 
-void sub_100006C90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100006C90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -739,10 +738,11 @@ void sub_100007374(uint64_t a1)
   [v22 addTransaction:v16];
 }
 
-void sub_10000770C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10000770C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_100007778(id a1)
@@ -766,9 +766,9 @@ void sub_100007778(id a1)
   qword_1001B3710 = v1;
 }
 
-void sub_100007D40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100007D40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -800,16 +800,16 @@ void sub_100007D70(uint64_t a1)
   *(v3 + 40) = v2;
 }
 
-void sub_100008C90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100008C90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_100008DD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100008DD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -884,7 +884,7 @@ void sub_10000E630(uint64_t a1, void *a2)
 {
   v3 = a2;
   v4 = v3 == 0;
-  v5 = sub_1000034AC();
+  v5 = sub_1000034AC(v3);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
   if (!v3)
@@ -895,16 +895,16 @@ void sub_10000E630(uint64_t a1, void *a2)
       goto LABEL_12;
     }
 
-    v7 = sub_1000034AC();
-    if (!os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_1000034AC(v7);
+    if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_9;
     }
 
-    *v13 = 0;
-    v8 = "EPMobileAssetAutoTrigger: updateCompatibilityIndexAsset completed successfully";
-    v9 = v7;
-    v10 = 2;
+    *v14 = 0;
+    v9 = "EPMobileAssetAutoTrigger: updateCompatibilityIndexAsset completed successfully";
+    v10 = v8;
+    v11 = 2;
     goto LABEL_8;
   }
 
@@ -914,29 +914,29 @@ void sub_10000E630(uint64_t a1, void *a2)
     goto LABEL_12;
   }
 
-  v7 = sub_1000034AC();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = sub_1000034AC(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    *v13 = 138543362;
-    *&v13[4] = v3;
-    v8 = "EPMobileAssetAutoTrigger: updateCompatibilityIndexAsset failed with error: %{public}@";
-    v9 = v7;
-    v10 = 12;
+    *v14 = 138543362;
+    *&v14[4] = v3;
+    v9 = "EPMobileAssetAutoTrigger: updateCompatibilityIndexAsset failed with error: %{public}@";
+    v10 = v8;
+    v11 = 12;
 LABEL_8:
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, v8, v13, v10);
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, v9, v14, v11);
   }
 
 LABEL_9:
 
 LABEL_12:
-  v11 = *(a1 + 32);
-  v12 = +[NSDate date];
-  [v11 setLastAssetUpdateCheckDate:v12 withSuccess:v4];
+  v12 = *(a1 + 32);
+  v13 = [NSDate date:*v14];
+  [v12 setLastAssetUpdateCheckDate:v13 withSuccess:v4];
 }
 
-void sub_10000EEA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_10000EEA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -996,9 +996,9 @@ void sub_10000EFA8(uint64_t a1, void *a2)
   _Block_object_dispose(v16, 8);
 }
 
-void sub_10000F0D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_10000F0D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1345,9 +1345,11 @@ uint64_t sub_10000FE9C(uint64_t a1)
 
 uint64_t sub_1000103EC(uint64_t a1)
 {
-  qword_1001B3728 = objc_alloc_init(*(a1 + 32));
+  v1 = objc_alloc_init(*(a1 + 32));
+  v2 = qword_1001B3728;
+  qword_1001B3728 = v1;
 
-  return _objc_release_x1();
+  return _objc_release_x1(v1, v2);
 }
 
 id sub_1000107C4(uint64_t a1)
@@ -1360,18 +1362,17 @@ id sub_1000107C4(uint64_t a1)
     v4 = *(v3 + 24);
     *(v3 + 24) = v2;
 
-    v5 = *(a1 + 32);
     [objc_opt_class() createKeepAliveFile];
-    v6 = nr_daemon_log();
-    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+    v5 = nr_daemon_log();
+    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
-    if (v7)
+    if (v6)
     {
-      v8 = nr_daemon_log();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v7 = nr_daemon_log();
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        *v10 = 0;
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "NROSTransaction master os_transaction created", v10, 2u);
+        *v9 = 0;
+        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "NROSTransaction master os_transaction created", v9, 2u);
       }
     }
   }
@@ -1389,24 +1390,23 @@ void sub_100010964(uint64_t a1)
     [*(*(a1 + 32) + 8) removeObjectForKey:*(a1 + 40)];
     if (![*(*(a1 + 32) + 8) count])
     {
-      v3 = *(a1 + 32);
       [objc_opt_class() deleteKeepAliveFile];
-      v4 = nr_daemon_log();
-      v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+      v3 = nr_daemon_log();
+      v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
-      if (v5)
+      if (v4)
       {
-        v6 = nr_daemon_log();
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+        v5 = nr_daemon_log();
+        if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
         {
-          *v9 = 0;
-          _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "NROSTransaction master os_transaction dropped", v9, 2u);
+          *v8 = 0;
+          _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "NROSTransaction master os_transaction dropped", v8, 2u);
         }
       }
 
-      v7 = *(a1 + 32);
-      v8 = *(v7 + 24);
-      *(v7 + 24) = 0;
+      v6 = *(a1 + 32);
+      v7 = *(v6 + 24);
+      *(v6 + 24) = 0;
     }
   }
 }
@@ -1456,7 +1456,7 @@ Class sub_1000112E0(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -1476,7 +1476,6 @@ LABEL_4:
 
 uint64_t sub_100011424(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_1001B3740 = result;
   return result;
@@ -1545,32 +1544,7 @@ void sub_100011820(uint64_t a1, void *a2, void *a3)
   v46 = sub_100011DF8;
   v47 = sub_100011E08;
   v48 = 0;
-  if (v6)
-  {
-    goto LABEL_12;
-  }
-
-  if (!*(a1 + 32))
-  {
-    goto LABEL_12;
-  }
-
-  v10 = [v5 members];
-  v39[0] = _NSConcreteStackBlock;
-  v39[1] = 3221225472;
-  v39[2] = sub_100011E10;
-  v39[3] = &unk_100175B68;
-  v41 = &v43;
-  v40 = *(a1 + 32);
-  p_buf = &buf;
-  [v10 enumerateObjectsUsingBlock:v39];
-
-  if (!*(*(&buf + 1) + 40))
-  {
-    goto LABEL_12;
-  }
-
-  if (v44[5])
+  if (!v6 && *(a1 + 32) && ([v5 members], v10 = objc_claimAutoreleasedReturnValue(), v39[0] = _NSConcreteStackBlock, v39[1] = 3221225472, v39[2] = sub_100011E10, v39[3] = &unk_100175B68, v41 = &v43, v40 = *(a1 + 32), p_buf = &buf, objc_msgSend(v10, "enumerateObjectsUsingBlock:", v39), v10, v40, *(*(&buf + 1) + 40)) && v44[5])
   {
     v36 = objc_opt_new();
     v35 = [[HKSecondaryDevicePairingAgent alloc] initWithHealthStore:v36];
@@ -1617,7 +1591,6 @@ void sub_100011820(uint64_t a1, void *a2, void *a3)
 
   else
   {
-LABEL_12:
     v26 = nr_daemon_log();
     v27 = os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT);
 
@@ -1658,11 +1631,11 @@ LABEL_12:
   _Block_object_dispose(&buf, 8);
 }
 
-void sub_100011DA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_100011DA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v17 - 160), 8);
+  _Block_object_dispose((v24 - 160), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1794,7 +1767,7 @@ uint64_t sub_100012474(uint64_t a1)
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return _objc_release_x1();
+  return _objc_release_x1(v2, v4);
 }
 
 void sub_100012B74(uint64_t a1)
@@ -1805,9 +1778,11 @@ void sub_100012B74(uint64_t a1)
 
 uint64_t sub_100012CF4(uint64_t a1)
 {
-  qword_1001B3750 = objc_alloc_init(*(a1 + 32));
+  v1 = objc_alloc_init(*(a1 + 32));
+  v2 = qword_1001B3750;
+  qword_1001B3750 = v1;
 
-  return _objc_release_x1();
+  return _objc_release_x1(v1, v2);
 }
 
 void sub_1000136E8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15)
@@ -2361,14 +2336,15 @@ uint64_t sub_100016794(uint64_t a1)
   return result;
 }
 
-void sub_100016D24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35)
+void sub_100016D24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
 {
+  va_start(va, a34);
   _Block_object_dispose(&a29, 8);
-  _Block_object_dispose(&a35, 8);
-  _Block_object_dispose((v35 - 200), 8);
-  _Block_object_dispose((v35 - 168), 8);
-  _Block_object_dispose((v35 - 136), 8);
-  _Block_object_dispose((v35 - 104), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v34 - 200), 8);
+  _Block_object_dispose((v34 - 168), 8);
+  _Block_object_dispose((v34 - 136), 8);
+  _Block_object_dispose((v34 - 104), 8);
   _Unwind_Resume(a1);
 }
 
@@ -3014,9 +2990,9 @@ void sub_100019184(uint64_t a1)
   }
 }
 
-void sub_100019754(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_100019754(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3139,7 +3115,7 @@ void sub_100019A00()
   v0 = v1[0];
   if (!qword_1001B3760)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
@@ -3152,7 +3128,6 @@ LABEL_7:
 
 uint64_t sub_100019AFC(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_1001B3760 = result;
   return result;
@@ -3169,22 +3144,20 @@ void sub_100019B70(uint64_t a1)
 
   else
   {
-    v2 = sub_1000FDA50();
+    sub_1000FDA50();
     [(EPSagaTransactionPairIDSDevice *)v2 beginTransactionWithRoutingSlipEntry:v3 serviceRegistry:v4, v5];
   }
 }
 
 void sub_10001A070(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 40);
-  v4 = *(a1 + 48);
-  v8 = *(a1 + 56);
-  v5 = *(&v8 + 1);
-  *&v6 = v3;
-  *(&v6 + 1) = v4;
-  v9 = v6;
-  v7 = *(a1 + 72);
+  v2 = *(a1 + 40);
+  v3 = *(a1 + 48);
+  v6 = *(a1 + 56);
+  v4 = *(&v6 + 1);
+  *&v5 = v2;
+  *(&v5 + 1) = v3;
+  v7 = v5;
   IDSLocalPairingAddPairedDeviceWithInfo();
 }
 
@@ -3202,7 +3175,7 @@ void sub_10001A144(uint64_t a1, void *a2)
       v7 = nr_daemon_log();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        sub_1000FDA78(a1);
+        sub_1000FDA78();
       }
     }
 
@@ -3211,16 +3184,16 @@ void sub_10001A144(uint64_t a1, void *a2)
     block[1] = 3221225472;
     block[2] = sub_10001A3DC;
     block[3] = &unk_1001756F8;
-    v9 = &v27;
-    v27 = *(a1 + 40);
-    v10 = v28;
+    v9 = &v26;
+    v26 = *(a1 + 40);
+    v10 = v27;
     v11 = v3;
     v12 = *(a1 + 48);
     v13 = *(a1 + 56);
-    v28[0] = v11;
-    v28[1] = v12;
-    v14 = &v29;
-    v29 = v13;
+    v27[0] = v11;
+    v27[1] = v12;
+    v14 = &v28;
+    v28 = v13;
     dispatch_async(v8, block);
   }
 
@@ -3235,23 +3208,22 @@ void sub_10001A144(uint64_t a1, void *a2)
       {
         v17 = *(a1 + 32);
         *buf = 138412290;
-        v31 = v17;
+        v30 = v17;
         _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "IDSLocalPairingAddPairedDeviceWithInfo %@ completed, calling IDSLocalPairingConnectPairedDevice", buf, 0xCu);
       }
     }
 
-    v18 = *(*(a1 + 48) + 32);
-    v9 = &v24;
-    v10 = &v24 + 1;
-    v14 = &v25 + 1;
-    v19 = *(a1 + 32);
-    v20 = *(a1 + 40);
-    v23 = *(a1 + 48);
-    v21 = *(&v23 + 1);
-    *&v22 = v19;
-    *(&v22 + 1) = v20;
+    v9 = &v23;
+    v10 = &v23 + 1;
+    v14 = &v24 + 1;
+    v18 = *(a1 + 32);
+    v19 = *(a1 + 40);
+    v22 = *(a1 + 48);
+    v20 = *(&v22 + 1);
+    *&v21 = v18;
+    *(&v21 + 1) = v19;
+    v23 = v21;
     v24 = v22;
-    v25 = v23;
     v8 = [*(a1 + 40) queue];
     IDSLocalPairingConnectPairedDevice();
   }
@@ -3285,7 +3257,7 @@ void sub_10001A4EC(uint64_t a1, void *a2)
       v7 = nr_daemon_log();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        sub_1000FDAE4(a1);
+        sub_1000FDAE4();
       }
     }
 
@@ -3322,7 +3294,7 @@ void sub_10001A4EC(uint64_t a1, void *a2)
   }
 }
 
-void sub_10001A6DC(uint64_t a1)
+void sub_10001A6DC(id *a1)
 {
   v2 = nr_daemon_log();
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
@@ -3332,18 +3304,16 @@ void sub_10001A6DC(uint64_t a1)
     v4 = nr_daemon_log();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = *(a1 + 32);
+      v5 = a1[4];
       *buf = 138412290;
-      v12 = v5;
+      v10 = v5;
       _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Calling IDSLocalPairingStopForDevice %@", buf, 0xCu);
     }
   }
 
-  v6 = *(*(a1 + 40) + 32);
-  v8 = *(a1 + 32);
-  v9 = *(a1 + 48);
-  v10 = *(a1 + 64);
-  v7 = *(a1 + 56);
+  v6 = a1[4];
+  v7 = a1[6];
+  v8 = a1[8];
   IDSLocalPairingStopForDevice();
 }
 
@@ -3405,19 +3375,18 @@ void sub_10001AF6C(id *a1)
     {
       v5 = [a1[4] UUIDString];
       *buf = 138412290;
-      v12 = v5;
+      v11 = v5;
       _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Calling IDSLocalPairingUnpairStartForDevice %@", buf, 0xCu);
     }
   }
 
-  v7 = a1[4];
-  objc_copyWeak(&v10, a1 + 7);
-  v8 = a1[5];
-  v9 = a1[6];
-  v6 = a1[6];
+  v6 = a1[4];
+  objc_copyWeak(&v9, a1 + 7);
+  v7 = a1[5];
+  v8 = a1[6];
   IDSLocalPairingUnpairStartForDevice();
 
-  objc_destroyWeak(&v10);
+  objc_destroyWeak(&v9);
 }
 
 void sub_10001B110(id *a1, void *a2)
@@ -3455,7 +3424,7 @@ void sub_10001B110(id *a1, void *a2)
     {
       v9 = [a1[4] UUIDString];
       *buf = 138412290;
-      v20 = v9;
+      v19 = v9;
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "IDSLocalPairingUnpairStartForDevice %@ completed", buf, 0xCu);
     }
   }
@@ -3471,22 +3440,21 @@ LABEL_9:
     {
       v13 = [a1[4] UUIDString];
       *buf = 138412290;
-      v20 = v13;
+      v19 = v13;
       _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Calling IDSLocalPairingStopForDevice %@", buf, 0xCu);
     }
   }
 
-  v15 = a1[4];
-  objc_copyWeak(&v18, a1 + 7);
-  v16 = a1[5];
-  v17 = a1[6];
-  v14 = a1[6];
+  v14 = a1[4];
+  objc_copyWeak(&v17, a1 + 7);
+  v15 = a1[5];
+  v16 = a1[6];
   IDSLocalPairingDeletePairedDevice();
 
-  objc_destroyWeak(&v18);
+  objc_destroyWeak(&v17);
 }
 
-void sub_10001B390(uint64_t a1, void *a2)
+void sub_10001B390(id *a1, void *a2)
 {
   v3 = a2;
   v4 = nr_daemon_log();
@@ -3519,9 +3487,9 @@ void sub_10001B390(uint64_t a1, void *a2)
     v7 = nr_daemon_log();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = [*(a1 + 32) UUIDString];
+      v9 = [a1[4] UUIDString];
       *buf = 138412290;
-      v19 = v9;
+      v18 = v9;
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "IDSLocalPairingDeletePairedDevice %@ completed", buf, 0xCu);
     }
   }
@@ -3535,20 +3503,19 @@ LABEL_9:
     v12 = nr_daemon_log();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = [*(a1 + 32) UUIDString];
+      v13 = [a1[4] UUIDString];
       *buf = 138412290;
-      v19 = v13;
+      v18 = v13;
       _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Calling IDSLocalPairingStopForDevice %@", buf, 0xCu);
     }
   }
 
-  v15 = *(a1 + 32);
-  objc_copyWeak(&v17, (a1 + 56));
-  v16 = *(a1 + 40);
-  v14 = *(a1 + 48);
+  v14 = a1[4];
+  objc_copyWeak(&v16, a1 + 7);
+  v15 = a1[5];
   IDSLocalPairingStopForDevice();
 
-  objc_destroyWeak(&v17);
+  objc_destroyWeak(&v16);
 }
 
 void sub_10001B5FC(id *a1, void *a2)
@@ -3802,15 +3769,14 @@ LABEL_34:
 
 id sub_10001C9DC(uint64_t a1, uint64_t a2)
 {
-  v4 = *(a1 + 32);
-  v5 = objc_opt_class();
-  v8[0] = _NSConcreteStackBlock;
-  v8[1] = 3221225472;
-  v8[2] = sub_10001CA68;
-  v8[3] = &unk_100175660;
-  v6 = *(a1 + 40);
-  v8[4] = *(a1 + 32);
-  return [v5 enableDaemons:a2 serviceRegistry:v6 completion:v8];
+  v4 = objc_opt_class();
+  v7[0] = _NSConcreteStackBlock;
+  v7[1] = 3221225472;
+  v7[2] = sub_10001CA68;
+  v7[3] = &unk_100175660;
+  v5 = *(a1 + 40);
+  v7[4] = *(a1 + 32);
+  return [v4 enableDaemons:a2 serviceRegistry:v5 completion:v7];
 }
 
 void sub_10001CA68(uint64_t a1)
@@ -3827,15 +3793,14 @@ void sub_10001CABC(uint64_t a1)
 
 id sub_10001CCF4(uint64_t a1, uint64_t a2)
 {
-  v4 = *(a1 + 32);
-  v5 = objc_opt_class();
-  v8[0] = _NSConcreteStackBlock;
-  v8[1] = 3221225472;
-  v8[2] = sub_10001CD80;
-  v8[3] = &unk_100175660;
-  v6 = *(a1 + 40);
-  v8[4] = *(a1 + 32);
-  return [v5 enableDaemons:a2 serviceRegistry:v6 completion:v8];
+  v4 = objc_opt_class();
+  v7[0] = _NSConcreteStackBlock;
+  v7[1] = 3221225472;
+  v7[2] = sub_10001CD80;
+  v7[3] = &unk_100175660;
+  v5 = *(a1 + 40);
+  v7[4] = *(a1 + 32);
+  return [v4 enableDaemons:a2 serviceRegistry:v5 completion:v7];
 }
 
 void sub_10001CD80(uint64_t a1)
@@ -3929,29 +3894,28 @@ LABEL_15:
 
 uint64_t sub_10001D188(uint64_t a1)
 {
-  v2 = *(a1 + 57);
   if (*(a1 + 56) == 1)
   {
     if ((*(a1 + 57) & 1) == 0)
     {
-      v3 = 0;
+      v2 = 0;
       goto LABEL_12;
     }
   }
 
   else if ((*(a1 + 57) & 1) == 0)
   {
-    v4 = nr_daemon_log();
-    v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+    v3 = nr_daemon_log();
+    v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
-    if (v5)
+    if (v4)
     {
-      v6 = nr_daemon_log();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v5 = nr_daemon_log();
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = 136315138;
-        v12 = "+[EPSagaTransactionSetDaemonsEnabled getNormalDaemonValueWith:serviceRegistry:forceEnableWhenPairedOrActive:completion:]_block_invoke";
-        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%s: Setting daemons to NRDaemonEnableNone", &v11, 0xCu);
+        v10 = 136315138;
+        v11 = "+[EPSagaTransactionSetDaemonsEnabled getNormalDaemonValueWith:serviceRegistry:forceEnableWhenPairedOrActive:completion:]_block_invoke";
+        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%s: Setting daemons to NRDaemonEnableNone", &v10, 0xCu);
       }
 
       goto LABEL_23;
@@ -3962,48 +3926,48 @@ uint64_t sub_10001D188(uint64_t a1)
 
   if ([*(a1 + 32) isPaired])
   {
-    v3 = 1;
+    v2 = 1;
   }
 
   else
   {
-    v3 = [*(a1 + 32) isActive];
+    v2 = [*(a1 + 32) isActive];
   }
 
 LABEL_12:
   if ([*(a1 + 32) isPaired])
   {
-    v3 |= [*(a1 + 32) isActive];
+    v2 |= [*(a1 + 32) isActive];
   }
 
-  v7 = [*(a1 + 40) BOOLValue];
-  v8 = nr_daemon_log();
-  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+  v6 = [*(a1 + 40) BOOLValue];
+  v7 = nr_daemon_log();
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
 
-  if (v7 || (v3 & 1) == 0)
+  if (v6 || (v2 & 1) == 0)
   {
-    if (v9)
+    if (v8)
     {
-      v6 = nr_daemon_log();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v5 = nr_daemon_log();
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = 136315138;
-        v12 = "+[EPSagaTransactionSetDaemonsEnabled getNormalDaemonValueWith:serviceRegistry:forceEnableWhenPairedOrActive:completion:]_block_invoke";
-        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%s: Setting daemons to NRDaemonEnableAltAccountDaemons", &v11, 0xCu);
+        v10 = 136315138;
+        v11 = "+[EPSagaTransactionSetDaemonsEnabled getNormalDaemonValueWith:serviceRegistry:forceEnableWhenPairedOrActive:completion:]_block_invoke";
+        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%s: Setting daemons to NRDaemonEnableAltAccountDaemons", &v10, 0xCu);
       }
 
       goto LABEL_23;
     }
   }
 
-  else if (v9)
+  else if (v8)
   {
-    v6 = nr_daemon_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v5 = nr_daemon_log();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 136315138;
-      v12 = "+[EPSagaTransactionSetDaemonsEnabled getNormalDaemonValueWith:serviceRegistry:forceEnableWhenPairedOrActive:completion:]_block_invoke_2";
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%s: Setting daemons to NRDaemonEnableNanoLaunchAndAltAccountDaemons", &v11, 0xCu);
+      v10 = 136315138;
+      v11 = "+[EPSagaTransactionSetDaemonsEnabled getNormalDaemonValueWith:serviceRegistry:forceEnableWhenPairedOrActive:completion:]_block_invoke_2";
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%s: Setting daemons to NRDaemonEnableNanoLaunchAndAltAccountDaemons", &v10, 0xCu);
     }
 
 LABEL_23:
@@ -4099,16 +4063,16 @@ void sub_10001DA6C(id *a1, void *a2, void *a3)
 
 void sub_10001DE84(void *a1)
 {
-  v155 = +[NSMutableArray array];
+  v159 = +[NSMutableArray array];
   v2 = [EPRoutingSlipEntry alloc];
   v3 = objc_opt_class();
-  v196[0] = @"switchToNRDeviceUUID";
+  v200[0] = @"switchToNRDeviceUUID";
   v4 = [[EPSagaOperandUUID alloc] initWithUUID:a1[4]];
-  v197[0] = v4;
-  v196[1] = @"shouldWaitForConnectivity";
+  v201[0] = v4;
+  v200[1] = @"shouldWaitForConnectivity";
   v5 = [[EPSagaOperandNumber alloc] initWithNumber:&__kCFBooleanTrue];
-  v197[1] = v5;
-  v196[2] = @"destinationIsAltAccount";
+  v201[1] = v5;
+  v200[2] = @"destinationIsAltAccount";
   v6 = [EPSagaOperandNumber alloc];
   if (a1[5])
   {
@@ -4121,322 +4085,324 @@ void sub_10001DE84(void *a1)
   }
 
   v8 = [(EPSagaOperandNumber *)v6 initWithNumber:v7];
-  v197[2] = v8;
-  v9 = [NSDictionary dictionaryWithObjects:v197 forKeys:v196 count:3];
+  v201[2] = v8;
+  v9 = [NSDictionary dictionaryWithObjects:v201 forKeys:v200 count:3];
   v10 = [(EPRoutingSlipEntry *)v2 initWithName:@"assertion" transactionClass:v3 operands:v9];
 
-  [v155 addObject:v10];
+  [v159 addObject:v10];
   v11 = [EPRoutingSlipEntry alloc];
   v12 = objc_opt_class();
-  v194[0] = @"idsDeviceIdentifier";
+  v198[0] = @"idsDeviceIdentifier";
   v13 = [[EPSagaOperandString alloc] initWithString:a1[6]];
-  v195[0] = v13;
-  v194[1] = @"destinationIsAltAccount";
+  v199[0] = v13;
+  v198[1] = @"destinationIsAltAccount";
   v14 = [[EPSagaOperandNumber alloc] initWithNumber:a1[5]];
-  v195[1] = v14;
-  v194[2] = @"discoverableCoreBluetoothID";
-  v156 = a1;
+  v199[1] = v14;
+  v198[2] = @"discoverableCoreBluetoothID";
+  v160 = a1;
   v15 = [[EPSagaOperandUUID alloc] initWithUUID:a1[7]];
-  v195[2] = v15;
-  v16 = [NSDictionary dictionaryWithObjects:v195 forKeys:v194 count:3];
+  v199[2] = v15;
+  v16 = [NSDictionary dictionaryWithObjects:v199 forKeys:v198 count:3];
   v17 = [(EPRoutingSlipEntry *)v11 initWithName:@"startAdvertising" transactionClass:v12 operands:v16];
 
-  [v155 addObject:v17];
-  if (CFPreferencesGetAppBooleanValue(@"AlwaysFailMigration", @"com.apple.nanoregistryd", 0))
+  [v159 addObject:v17];
+  AppBooleanValue = CFPreferencesGetAppBooleanValue(@"AlwaysFailMigration", @"com.apple.nanoregistryd", 0);
+  if (AppBooleanValue)
   {
-    v18 = sub_1000034AC();
-    v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
+    v19 = sub_1000034AC(AppBooleanValue);
+    v20 = os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
 
-    if (v19)
+    if (v20)
     {
-      v20 = sub_1000034AC();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      v22 = sub_1000034AC(v21);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Always Fail migration set", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Always Fail migration set", buf, 2u);
       }
     }
 
-    v21 = [[EPRoutingSlipEntry alloc] initWithName:@"FakeError" transactionClass:objc_opt_class() operands:&__NSDictionary0__struct];
+    v23 = [[EPRoutingSlipEntry alloc] initWithName:@"FakeError" transactionClass:objc_opt_class() operands:&__NSDictionary0__struct];
 
-    v22 = v155;
-    [v155 addObject:v21];
-    v17 = v21;
+    v24 = v159;
+    [v159 addObject:v23];
+    v17 = v23;
   }
 
   else
   {
-    v22 = v155;
+    v24 = v159;
   }
 
-  v192[0] = @"iAmACompanionDevice";
-  v23 = [[EPSagaOperandNumber alloc] initWithNumber:&__kCFBooleanTrue];
-  v193[0] = v23;
-  v192[1] = @"discoverableCoreBluetoothID";
-  v24 = [[EPSagaOperandUUID alloc] initWithUUID:v156[7]];
-  v193[1] = v24;
-  v192[2] = @"useNetworkRelayPairing";
-  v25 = [EPSagaOperandNumber alloc];
-  v26 = [NSNumber numberWithBool:*(v156 + 112)];
-  v27 = [(EPSagaOperandNumber *)v25 initWithNumber:v26];
-  v193[2] = v27;
-  v192[3] = @"destinationIsAltAccount";
-  v28 = [[EPSagaOperandNumber alloc] initWithNumber:v156[5]];
-  v193[3] = v28;
-  v29 = [NSDictionary dictionaryWithObjects:v193 forKeys:v192 count:4];
-  v30 = [NSMutableDictionary dictionaryWithDictionary:v29];
+  v196[0] = @"iAmACompanionDevice";
+  v25 = [[EPSagaOperandNumber alloc] initWithNumber:&__kCFBooleanTrue];
+  v197[0] = v25;
+  v196[1] = @"discoverableCoreBluetoothID";
+  v26 = [[EPSagaOperandUUID alloc] initWithUUID:v160[7]];
+  v197[1] = v26;
+  v196[2] = @"useNetworkRelayPairing";
+  v27 = [EPSagaOperandNumber alloc];
+  v28 = [NSNumber numberWithBool:*(v160 + 112)];
+  v29 = [(EPSagaOperandNumber *)v27 initWithNumber:v28];
+  v197[2] = v29;
+  v196[3] = @"destinationIsAltAccount";
+  v30 = [[EPSagaOperandNumber alloc] initWithNumber:v160[5]];
+  v197[3] = v30;
+  v31 = [NSDictionary dictionaryWithObjects:v197 forKeys:v196 count:4];
+  v32 = [NSMutableDictionary dictionaryWithDictionary:v31];
 
-  v31 = v30;
-  if (*(v156 + 112) == 1)
+  v33 = v32;
+  if (*(v160 + 112) == 1)
   {
-    v32 = [EPSagaOperandUUID alloc];
-    v33 = [v156[8] objectForKeyedSubscript:_NRDevicePropertyNetworkRelayIdentifier];
-    v34 = [v33 value];
-    v35 = [(EPSagaOperandUUID *)v32 initWithUUID:v34];
-    [v31 setObject:v35 forKeyedSubscript:@"networkRelayID"];
+    v34 = [EPSagaOperandUUID alloc];
+    v35 = [v160[8] objectForKeyedSubscript:_NRDevicePropertyNetworkRelayIdentifier];
+    v36 = [v35 value];
+    v37 = [(EPSagaOperandUUID *)v34 initWithUUID:v36];
+    [v33 setObject:v37 forKeyedSubscript:@"networkRelayID"];
   }
 
-  v152 = v31;
-  v36 = [[EPRoutingSlipEntry alloc] initWithName:@"pairBluetooth" transactionClass:objc_opt_class() operands:v31];
+  v156 = v33;
+  v38 = [[EPRoutingSlipEntry alloc] initWithName:@"pairBluetooth" transactionClass:objc_opt_class() operands:v33];
 
-  [v22 addObject:v36];
-  v37 = [EPRoutingSlipEntry alloc];
-  v38 = objc_opt_class();
-  v190[0] = @"setDaemonsEnabled";
-  v39 = [[EPSagaOperandNumber alloc] initWithNumber:&off_100186B98];
-  v191[0] = v39;
-  v190[1] = @"setDaemonsEnabledRollbackNormalizeDeviceID";
-  v40 = [[EPSagaOperandUUID alloc] initWithUUID:v156[9]];
-  v191[1] = v40;
-  v41 = [NSDictionary dictionaryWithObjects:v191 forKeys:v190 count:2];
-  v42 = [(EPRoutingSlipEntry *)v37 initWithName:@"disableDaemons" transactionClass:v38 operands:v41];
+  [v24 addObject:v38];
+  v39 = [EPRoutingSlipEntry alloc];
+  v40 = objc_opt_class();
+  v194[0] = @"setDaemonsEnabled";
+  v41 = [[EPSagaOperandNumber alloc] initWithNumber:&off_100186B98];
+  v195[0] = v41;
+  v194[1] = @"setDaemonsEnabledRollbackNormalizeDeviceID";
+  v42 = [[EPSagaOperandUUID alloc] initWithUUID:v160[9]];
+  v195[1] = v42;
+  v43 = [NSDictionary dictionaryWithObjects:v195 forKeys:v194 count:2];
+  v44 = [(EPRoutingSlipEntry *)v39 initWithName:@"disableDaemons" transactionClass:v40 operands:v43];
 
-  [v22 addObject:v42];
-  v43 = [EPRoutingSlipEntry alloc];
-  v44 = objc_opt_class();
-  v188 = @"nrDeviceIdentifier";
-  v45 = [[EPSagaOperandUUID alloc] initWithUUID:v156[4]];
-  v189 = v45;
-  v46 = [NSDictionary dictionaryWithObjects:&v189 forKeys:&v188 count:1];
-  v47 = [(EPRoutingSlipEntry *)v43 initWithName:@"quarantine" transactionClass:v44 operands:v46];
+  [v24 addObject:v44];
+  v45 = [EPRoutingSlipEntry alloc];
+  v46 = objc_opt_class();
+  v192 = @"nrDeviceIdentifier";
+  v47 = [[EPSagaOperandUUID alloc] initWithUUID:v160[4]];
+  v193 = v47;
+  v48 = [NSDictionary dictionaryWithObjects:&v193 forKeys:&v192 count:1];
+  v49 = [(EPRoutingSlipEntry *)v45 initWithName:@"quarantine" transactionClass:v46 operands:v48];
 
-  [v22 addObject:v47];
-  v48 = [EPRoutingSlipEntry alloc];
-  v49 = objc_opt_class();
-  v186[0] = @"coreBluetoothID";
-  v50 = [[EPSagaOperandDynamic alloc] initWithEntryName:@"pairBluetooth" operandName:?];
-  v186[1] = @"nrDeviceIdentifier";
-  v187[0] = v50;
-  v51 = [[EPSagaOperandUUID alloc] initWithUUID:v156[4]];
-  v187[1] = v51;
-  v52 = [NSDictionary dictionaryWithObjects:v187 forKeys:v186 count:2];
-  v53 = [(EPRoutingSlipEntry *)v48 initWithName:@"createUpdateDiff" transactionClass:v49 operands:v52];
+  [v24 addObject:v49];
+  v50 = [EPRoutingSlipEntry alloc];
+  v51 = objc_opt_class();
+  v190[0] = @"coreBluetoothID";
+  v52 = [[EPSagaOperandDynamic alloc] initWithEntryName:@"pairBluetooth" operandName:?];
+  v190[1] = @"nrDeviceIdentifier";
+  v191[0] = v52;
+  v53 = [[EPSagaOperandUUID alloc] initWithUUID:v160[4]];
+  v191[1] = v53;
+  v54 = [NSDictionary dictionaryWithObjects:v191 forKeys:v190 count:2];
+  v55 = [(EPRoutingSlipEntry *)v50 initWithName:@"createUpdateDiff" transactionClass:v51 operands:v54];
 
-  [v22 addObject:v53];
-  v54 = [EPRoutingSlipEntry alloc];
-  v55 = objc_opt_class();
-  v184 = @"transactionDiff";
-  v56 = [[EPSagaOperandDynamic alloc] initWithEntryName:@"createUpdateDiff" operandName:@"transactionDiff"];
-  v185 = v56;
-  v57 = [NSDictionary dictionaryWithObjects:&v185 forKeys:&v184 count:1];
-  v58 = [(EPRoutingSlipEntry *)v54 initWithName:@"updateDevice" transactionClass:v55 operands:v57];
+  [v24 addObject:v55];
+  v56 = [EPRoutingSlipEntry alloc];
+  v57 = objc_opt_class();
+  v188 = @"transactionDiff";
+  v58 = [[EPSagaOperandDynamic alloc] initWithEntryName:@"createUpdateDiff" operandName:@"transactionDiff"];
+  v189 = v58;
+  v59 = [NSDictionary dictionaryWithObjects:&v189 forKeys:&v188 count:1];
+  v60 = [(EPRoutingSlipEntry *)v56 initWithName:@"updateDevice" transactionClass:v57 operands:v59];
 
-  [v22 addObject:v58];
-  if (*(v156 + 112) == 1)
+  [v24 addObject:v60];
+  if (*(v160 + 112) == 1)
   {
-    v59 = [EPRoutingSlipEntry alloc];
-    v60 = objc_opt_class();
-    v182[0] = @"networkRelayID";
-    v61 = [[EPSagaOperandDynamic alloc] initWithEntryName:@"pairBluetooth" operandName:@"newlyPairedNetworkRelayID"];
-    v182[1] = @"nrDeviceIdentifier";
-    v183[0] = v61;
-    v62 = v156;
-    v63 = [[EPSagaOperandUUID alloc] initWithUUID:v156[4]];
-    v183[1] = v63;
-    [NSDictionary dictionaryWithObjects:v183 forKeys:v182 count:2];
-    v65 = v64 = v22;
-    v66 = [(EPRoutingSlipEntry *)v59 initWithName:@"createUpdateNetworkRelayDiff" transactionClass:v60 operands:v65];
+    v61 = [EPRoutingSlipEntry alloc];
+    v62 = objc_opt_class();
+    v186[0] = @"networkRelayID";
+    v63 = [[EPSagaOperandDynamic alloc] initWithEntryName:@"pairBluetooth" operandName:@"newlyPairedNetworkRelayID"];
+    v186[1] = @"nrDeviceIdentifier";
+    v187[0] = v63;
+    v64 = v160;
+    v65 = [[EPSagaOperandUUID alloc] initWithUUID:v160[4]];
+    v187[1] = v65;
+    [NSDictionary dictionaryWithObjects:v187 forKeys:v186 count:2];
+    v67 = v66 = v24;
+    v68 = [(EPRoutingSlipEntry *)v61 initWithName:@"createUpdateNetworkRelayDiff" transactionClass:v62 operands:v67];
 
-    [v22 addObject:v66];
-    v67 = [EPRoutingSlipEntry alloc];
-    v68 = objc_opt_class();
-    v180 = @"transactionDiff";
-    v69 = [[EPSagaOperandDynamic alloc] initWithEntryName:@"createUpdateNetworkRelayDiff" operandName:@"transactionDiff"];
-    v181 = v69;
-    v70 = [NSDictionary dictionaryWithObjects:&v181 forKeys:&v180 count:1];
-    v71 = [(EPRoutingSlipEntry *)v67 initWithName:@"updateDeviceNetworkRelay" transactionClass:v68 operands:v70];
+    [v24 addObject:v68];
+    v69 = [EPRoutingSlipEntry alloc];
+    v70 = objc_opt_class();
+    v184 = @"transactionDiff";
+    v71 = [[EPSagaOperandDynamic alloc] initWithEntryName:@"createUpdateNetworkRelayDiff" operandName:@"transactionDiff"];
+    v185 = v71;
+    v72 = [NSDictionary dictionaryWithObjects:&v185 forKeys:&v184 count:1];
+    v73 = [(EPRoutingSlipEntry *)v69 initWithName:@"updateDeviceNetworkRelay" transactionClass:v70 operands:v72];
 
-    v151 = v71;
-    [v64 addObject:v71];
+    v155 = v73;
+    [v66 addObject:v73];
   }
 
   else
   {
-    v62 = v156;
-    v151 = v58;
+    v64 = v160;
+    v155 = v60;
   }
 
-  v150 = [EPRoutingSlipEntry alloc];
-  v72 = objc_opt_class();
-  v178[0] = @"coreBluetoothID";
-  v73 = [[EPSagaOperandDynamic alloc] initWithEntryName:@"pairBluetooth" operandName:@"newlyPairedCoreBluetoothID"];
-  v179[0] = v73;
-  v178[1] = @"destinationIsAltAccount";
-  v74 = [[EPSagaOperandNumber alloc] initWithNumber:v62[5]];
-  v179[1] = v74;
-  v178[2] = @"supportsDirectIPSecPairing";
-  v75 = [EPSagaOperandNumber alloc];
-  v76 = v62[8];
-  v77 = [[NSUUID alloc] initWithUUIDString:@"6B4C8BB6-D411-406E-BD9B-9CA0F2296C96"];
-  v78 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [v76 supportsCapability:v77]);
-  v79 = [(EPSagaOperandNumber *)v75 initWithNumber:v78];
-  v179[2] = v79;
-  v178[3] = @"useNetworkRelayPairing";
-  v80 = [EPSagaOperandNumber alloc];
-  v81 = [NSNumber numberWithBool:*(v62 + 112)];
-  v82 = [(EPSagaOperandNumber *)v80 initWithNumber:v81];
-  v179[3] = v82;
-  v83 = [NSDictionary dictionaryWithObjects:v179 forKeys:v178 count:4];
-  v84 = [(EPRoutingSlipEntry *)v150 initWithName:@"pairIDS" transactionClass:v72 operands:v83];
+  v154 = [EPRoutingSlipEntry alloc];
+  v74 = objc_opt_class();
+  v182[0] = @"coreBluetoothID";
+  v75 = [[EPSagaOperandDynamic alloc] initWithEntryName:@"pairBluetooth" operandName:@"newlyPairedCoreBluetoothID"];
+  v183[0] = v75;
+  v182[1] = @"destinationIsAltAccount";
+  v76 = [[EPSagaOperandNumber alloc] initWithNumber:v64[5]];
+  v183[1] = v76;
+  v182[2] = @"supportsDirectIPSecPairing";
+  v77 = [EPSagaOperandNumber alloc];
+  v78 = v64[8];
+  v79 = [[NSUUID alloc] initWithUUIDString:@"6B4C8BB6-D411-406E-BD9B-9CA0F2296C96"];
+  v80 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [v78 supportsCapability:v79]);
+  v81 = [(EPSagaOperandNumber *)v77 initWithNumber:v80];
+  v183[2] = v81;
+  v182[3] = @"useNetworkRelayPairing";
+  v82 = [EPSagaOperandNumber alloc];
+  v83 = [NSNumber numberWithBool:*(v64 + 112)];
+  v84 = [(EPSagaOperandNumber *)v82 initWithNumber:v83];
+  v183[3] = v84;
+  v85 = [NSDictionary dictionaryWithObjects:v183 forKeys:v182 count:4];
+  v86 = [(EPRoutingSlipEntry *)v154 initWithName:@"pairIDS" transactionClass:v74 operands:v85];
 
-  [v155 addObject:v84];
-  v85 = [EPRoutingSlipEntry alloc];
-  v86 = objc_opt_class();
-  v176[0] = @"notificationName";
-  v87 = [[EPSagaOperandString alloc] initWithString:@"EPSagaTransactionMigrationCompletionRequestNotification"];
-  v177[0] = v87;
-  v176[1] = @"isDarwinNotification";
-  v88 = [[EPSagaOperandNumber alloc] initWithNumber:&__kCFBooleanFalse];
-  v177[1] = v88;
-  v176[2] = @"notificationTimeoutSeconds";
-  v89 = [[EPSagaOperandNumber alloc] initWithNumber:&off_100186BB0];
-  v177[2] = v89;
-  v90 = [NSDictionary dictionaryWithObjects:v177 forKeys:v176 count:3];
-  v91 = [(EPRoutingSlipEntry *)v85 initWithName:@"wait4Watch2Pair" transactionClass:v86 operands:v90];
+  [v159 addObject:v86];
+  v87 = [EPRoutingSlipEntry alloc];
+  v88 = objc_opt_class();
+  v180[0] = @"notificationName";
+  v89 = [[EPSagaOperandString alloc] initWithString:@"EPSagaTransactionMigrationCompletionRequestNotification"];
+  v181[0] = v89;
+  v180[1] = @"isDarwinNotification";
+  v90 = [[EPSagaOperandNumber alloc] initWithNumber:&__kCFBooleanFalse];
+  v181[1] = v90;
+  v180[2] = @"notificationTimeoutSeconds";
+  v91 = [[EPSagaOperandNumber alloc] initWithNumber:&off_100186BB0];
+  v181[2] = v91;
+  v92 = [NSDictionary dictionaryWithObjects:v181 forKeys:v180 count:3];
+  v93 = [(EPRoutingSlipEntry *)v87 initWithName:@"wait4Watch2Pair" transactionClass:v88 operands:v92];
 
-  [v155 addObject:v91];
-  v92 = [v156[10] _deviceCollectionDiffWithPairingID:v156[4]];
-  v93 = [EPRoutingSlipEntry alloc];
-  v94 = objc_opt_class();
-  v174 = @"transactionDiff";
-  v154 = v92;
-  v95 = [[EPSagaOperandDiff alloc] initWithDiff:v92];
-  v175 = v95;
-  v96 = [NSDictionary dictionaryWithObjects:&v175 forKeys:&v174 count:1];
-  v97 = [(EPRoutingSlipEntry *)v93 initWithName:@"pair" transactionClass:v94 operands:v96];
+  [v159 addObject:v93];
+  v94 = [v160[10] _deviceCollectionDiffWithPairingID:v160[4]];
+  v95 = [EPRoutingSlipEntry alloc];
+  v96 = objc_opt_class();
+  v178 = @"transactionDiff";
+  v158 = v94;
+  v97 = [[EPSagaOperandDiff alloc] initWithDiff:v94];
+  v179 = v97;
+  v98 = [NSDictionary dictionaryWithObjects:&v179 forKeys:&v178 count:1];
+  v99 = [(EPRoutingSlipEntry *)v95 initWithName:@"pair" transactionClass:v96 operands:v98];
 
-  [v155 addObject:v97];
-  v98 = +[NRFeatureFlags sharedInstance];
-  LODWORD(v94) = [v98 watchTransfer];
+  [v159 addObject:v99];
+  v100 = +[NRFeatureFlags sharedInstance];
+  LODWORD(v96) = [v100 watchTransfer];
 
-  if (v94)
+  if (v96)
   {
-    v99 = [EPRoutingSlipEntry alloc];
-    v100 = objc_opt_class();
-    v172 = @"nrDeviceIdentifier";
-    v101 = [[EPSagaOperandUUID alloc] initWithUUID:v156[4]];
-    v173 = v101;
-    v102 = [NSDictionary dictionaryWithObjects:&v173 forKeys:&v172 count:1];
-    v103 = [(EPRoutingSlipEntry *)v99 initWithName:@"unstageWatch" transactionClass:v100 operands:v102];
+    v101 = [EPRoutingSlipEntry alloc];
+    v102 = objc_opt_class();
+    v176 = @"nrDeviceIdentifier";
+    v103 = [[EPSagaOperandUUID alloc] initWithUUID:v160[4]];
+    v177 = v103;
+    v104 = [NSDictionary dictionaryWithObjects:&v177 forKeys:&v176 count:1];
+    v105 = [(EPRoutingSlipEntry *)v101 initWithName:@"unstageWatch" transactionClass:v102 operands:v104];
 
-    [v155 addObject:v103];
-    v97 = v103;
+    [v159 addObject:v105];
+    v99 = v105;
   }
 
-  v104 = [EPRoutingSlipEntry alloc];
-  v105 = objc_opt_class();
-  v170 = @"nrDeviceIdentifier";
-  v106 = [[EPSagaOperandUUID alloc] initWithUUID:v156[4]];
-  v171 = v106;
-  v107 = [NSDictionary dictionaryWithObjects:&v171 forKeys:&v170 count:1];
-  v108 = [(EPRoutingSlipEntry *)v104 initWithName:@"delete" transactionClass:v105 operands:v107];
+  v106 = [EPRoutingSlipEntry alloc];
+  v107 = objc_opt_class();
+  v174 = @"nrDeviceIdentifier";
+  v108 = [[EPSagaOperandUUID alloc] initWithUUID:v160[4]];
+  v175 = v108;
+  v109 = [NSDictionary dictionaryWithObjects:&v175 forKeys:&v174 count:1];
+  v110 = [(EPRoutingSlipEntry *)v106 initWithName:@"delete" transactionClass:v107 operands:v109];
 
-  [v155 addObject:v108];
-  if (CFPreferencesGetAppBooleanValue(@"SleepAfterIDS", @"com.apple.nanoregistryd", 0))
+  [v159 addObject:v110];
+  v111 = CFPreferencesGetAppBooleanValue(@"SleepAfterIDS", @"com.apple.nanoregistryd", 0);
+  if (v111)
   {
-    v109 = sub_1000034AC();
-    v110 = os_log_type_enabled(v109, OS_LOG_TYPE_DEFAULT);
+    v112 = sub_1000034AC(v111);
+    v113 = os_log_type_enabled(v112, OS_LOG_TYPE_DEFAULT);
 
-    if (v110)
+    if (v113)
     {
-      v111 = sub_1000034AC();
-      if (os_log_type_enabled(v111, OS_LOG_TYPE_DEFAULT))
+      v115 = sub_1000034AC(v114);
+      if (os_log_type_enabled(v115, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v111, OS_LOG_TYPE_DEFAULT, "Waiting 5 minutes to allow for metric testing", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v115, OS_LOG_TYPE_DEFAULT, "Waiting 5 minutes to allow for metric testing", buf, 2u);
       }
     }
 
-    v112 = [[EPRoutingSlipEntry alloc] initWithName:@"SleepAfterIDS" transactionClass:objc_opt_class() operands:&__NSDictionary0__struct];
+    v116 = [[EPRoutingSlipEntry alloc] initWithName:@"SleepAfterIDS" transactionClass:objc_opt_class() operands:&__NSDictionary0__struct];
 
-    [v155 addObject:v112];
-    v153 = v112;
+    [v159 addObject:v116];
+    v157 = v116;
   }
 
   else
   {
-    v153 = v108;
+    v157 = v110;
   }
 
-  v113 = [EPRoutingSlipEntry alloc];
-  v114 = objc_opt_class();
-  v168[0] = @"setDaemonsEnabledNormalizeDeviceID";
-  v115 = [[EPSagaOperandUUID alloc] initWithUUID:v156[4]];
-  v169[0] = v115;
-  v168[1] = @"setDaemonsEnabledRollback";
-  v116 = [[EPSagaOperandNumber alloc] initWithNumber:&off_100186B98];
-  v169[1] = v116;
-  v168[2] = @"forceEnableIfPairedOrActive";
-  v117 = [[EPSagaOperandNumber alloc] initWithNumber:&__kCFBooleanTrue];
-  v169[2] = v117;
-  v118 = [NSDictionary dictionaryWithObjects:v169 forKeys:v168 count:3];
-  v119 = [(EPRoutingSlipEntry *)v113 initWithName:@"enableDaemons" transactionClass:v114 operands:v118];
+  v117 = [EPRoutingSlipEntry alloc];
+  v118 = objc_opt_class();
+  v172[0] = @"setDaemonsEnabledNormalizeDeviceID";
+  v119 = [[EPSagaOperandUUID alloc] initWithUUID:v160[4]];
+  v173[0] = v119;
+  v172[1] = @"setDaemonsEnabledRollback";
+  v120 = [[EPSagaOperandNumber alloc] initWithNumber:&off_100186B98];
+  v173[1] = v120;
+  v172[2] = @"forceEnableIfPairedOrActive";
+  v121 = [[EPSagaOperandNumber alloc] initWithNumber:&__kCFBooleanTrue];
+  v173[2] = v121;
+  v122 = [NSDictionary dictionaryWithObjects:v173 forKeys:v172 count:3];
+  v123 = [(EPRoutingSlipEntry *)v117 initWithName:@"enableDaemons" transactionClass:v118 operands:v122];
 
-  [v155 addObject:v119];
-  v120 = [EPRoutingSlipEntry alloc];
-  v121 = objc_opt_class();
-  v166 = @"timeoutDuration";
-  v122 = [[EPSagaOperandNumber alloc] initWithNumber:&off_100187828];
-  v167 = v122;
-  v123 = [NSDictionary dictionaryWithObjects:&v167 forKeys:&v166 count:1];
-  v124 = [(EPRoutingSlipEntry *)v120 initWithName:@"wallClockWaitForDaemonsToEnable" transactionClass:v121 operands:v123];
+  [v159 addObject:v123];
+  v124 = [EPRoutingSlipEntry alloc];
+  v125 = objc_opt_class();
+  v170 = @"timeoutDuration";
+  v126 = [[EPSagaOperandNumber alloc] initWithNumber:&off_100187828];
+  v171 = v126;
+  v127 = [NSDictionary dictionaryWithObjects:&v171 forKeys:&v170 count:1];
+  v128 = [(EPRoutingSlipEntry *)v124 initWithName:@"wallClockWaitForDaemonsToEnable" transactionClass:v125 operands:v127];
 
-  [v155 addObject:v124];
-  if ([v156[5] BOOLValue])
+  [v159 addObject:v128];
+  if ([v160[5] BOOLValue])
   {
-    v125 = &NRPairedDeviceRegistryPairedDeviceDidChangeCapabilitiesDarwinNotification_ptr;
+    v129 = &NRPairedDeviceRegistryPairedDeviceDidChangeCapabilitiesDarwinNotification_ptr;
   }
 
   else
   {
-    v126 = [EPRoutingSlipEntry alloc];
-    v127 = objc_opt_class();
-    v164 = @"nrDeviceIdentifier";
-    v128 = [[EPSagaOperandUUID alloc] initWithUUID:v156[4]];
-    v165 = v128;
-    v125 = &NRPairedDeviceRegistryPairedDeviceDidChangeCapabilitiesDarwinNotification_ptr;
-    v129 = [NSDictionary dictionaryWithObjects:&v165 forKeys:&v164 count:1];
-    v130 = [(EPRoutingSlipEntry *)v126 initWithName:@"pairedsync" transactionClass:v127 operands:v129];
+    v130 = [EPRoutingSlipEntry alloc];
+    v131 = objc_opt_class();
+    v168 = @"nrDeviceIdentifier";
+    v132 = [[EPSagaOperandUUID alloc] initWithUUID:v160[4]];
+    v169 = v132;
+    v129 = &NRPairedDeviceRegistryPairedDeviceDidChangeCapabilitiesDarwinNotification_ptr;
+    v133 = [NSDictionary dictionaryWithObjects:&v169 forKeys:&v168 count:1];
+    v134 = [(EPRoutingSlipEntry *)v130 initWithName:@"pairedsync" transactionClass:v131 operands:v133];
 
-    [v155 addObject:v130];
-    v124 = v130;
+    [v159 addObject:v134];
+    v128 = v134;
   }
 
-  if ([v156[11] BOOLValue])
+  if ([v160[11] BOOLValue])
   {
     p_info = &OBJC_METACLASS___NRPBRTCMigrationMetricSessionID.info;
-    if ([v156[12] integerValue] == 2)
+    if ([v160[12] integerValue] == 2)
     {
-      v132 = [EPRoutingSlipEntry alloc];
-      v133 = objc_opt_class();
-      v162 = @"coreBluetoothID";
-      v134 = [[EPSagaOperandDynamic alloc] initWithEntryName:@"pairBluetooth" operandName:@"newlyPairedCoreBluetoothID"];
-      v163 = v134;
-      v135 = [v125[127] dictionaryWithObjects:&v163 forKeys:&v162 count:1];
-      v136 = [(EPRoutingSlipEntry *)v132 initWithName:@"addTellWatchToGraduateTransaction" transactionClass:v133 operands:v135];
+      v136 = [EPRoutingSlipEntry alloc];
+      v137 = objc_opt_class();
+      v166 = @"coreBluetoothID";
+      v138 = [[EPSagaOperandDynamic alloc] initWithEntryName:@"pairBluetooth" operandName:@"newlyPairedCoreBluetoothID"];
+      v167 = v138;
+      v139 = [v129[127] dictionaryWithObjects:&v167 forKeys:&v166 count:1];
+      v140 = [(EPRoutingSlipEntry *)v136 initWithName:@"addTellWatchToGraduateTransaction" transactionClass:v137 operands:v139];
 
-      [v155 addObject:v136];
-      v124 = v136;
+      [v159 addObject:v140];
+      v128 = v140;
       p_info = &OBJC_METACLASS___NRPBRTCMigrationMetricSessionID.info;
     }
   }
@@ -4446,41 +4412,41 @@ void sub_10001DE84(void *a1)
     p_info = &OBJC_METACLASS___NRPBRTCMigrationMetricSessionID.info;
   }
 
-  if ([v156[5] BOOLValue])
+  if ([v160[5] BOOLValue])
   {
-    v137 = [EPRoutingSlipEntry alloc];
-    v138 = objc_opt_class();
-    v160[0] = @"nrDeviceIdentifier";
-    v139 = [[EPSagaOperandUUID alloc] initWithUUID:v156[4]];
-    v160[1] = v149;
-    v161[0] = v139;
-    v140 = [[EPSagaOperandString alloc] initWithString:v156[6]];
-    v161[1] = v140;
-    v141 = [v125[127] dictionaryWithObjects:v161 forKeys:v160 count:2];
-    v142 = [(EPRoutingSlipEntry *)v137 initWithName:@"healthSharingSetup" transactionClass:v138 operands:v141];
+    v141 = [EPRoutingSlipEntry alloc];
+    v142 = objc_opt_class();
+    v164[0] = @"nrDeviceIdentifier";
+    v143 = [[EPSagaOperandUUID alloc] initWithUUID:v160[4]];
+    v164[1] = v153;
+    v165[0] = v143;
+    v144 = [[EPSagaOperandString alloc] initWithString:v160[6]];
+    v165[1] = v144;
+    v145 = [v129[127] dictionaryWithObjects:v165 forKeys:v164 count:2];
+    v146 = [(EPRoutingSlipEntry *)v141 initWithName:@"healthSharingSetup" transactionClass:v142 operands:v145];
 
-    v125 = &NRPairedDeviceRegistryPairedDeviceDidChangeCapabilitiesDarwinNotification_ptr;
-    v143 = v155;
-    [v155 addObject:v142];
-    v124 = v142;
+    v129 = &NRPairedDeviceRegistryPairedDeviceDidChangeCapabilitiesDarwinNotification_ptr;
+    v147 = v159;
+    [v159 addObject:v146];
+    v128 = v146;
     p_info = (&OBJC_METACLASS___NRPBRTCMigrationMetricSessionID + 32);
   }
 
   else
   {
-    v143 = v155;
+    v147 = v159;
   }
 
-  v144 = objc_alloc((p_info + 401));
-  v145 = objc_opt_class();
-  v158 = @"nrDeviceIdentifier";
-  v146 = [[EPSagaOperandUUID alloc] initWithUUID:v156[4]];
-  v159 = v146;
-  v147 = [v125[127] dictionaryWithObjects:&v159 forKeys:&v158 count:1];
-  v148 = [v144 initWithName:@"tellIDSLocalPairingSetupCompleted" transactionClass:v145 operands:v147];
+  v148 = objc_alloc((p_info + 401));
+  v149 = objc_opt_class();
+  v162 = @"nrDeviceIdentifier";
+  v150 = [[EPSagaOperandUUID alloc] initWithUUID:v160[4]];
+  v163 = v150;
+  v151 = [v129[127] dictionaryWithObjects:&v163 forKeys:&v162 count:1];
+  v152 = [v148 initWithName:@"tellIDSLocalPairingSetupCompleted" transactionClass:v149 operands:v151];
 
-  [v143 addObject:v148];
-  (*(v156[13] + 16))();
+  [v147 addObject:v152];
+  (*(v160[13] + 16))();
 }
 
 uint64_t sub_10001F5D8(uint64_t a1, void *a2)
@@ -4727,9 +4693,9 @@ uint64_t sub_10002019C(void *a1)
   return v1 & 1;
 }
 
-void sub_10002024C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10002024C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4757,9 +4723,9 @@ uint64_t sub_100020298(void *a1)
   return v1;
 }
 
-void sub_100020348(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100020348(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4767,29 +4733,28 @@ void sub_100020348(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void sub_10002048C(uint64_t a1)
 {
   [*(*(a1 + 32) + 24) invalidate];
-  v2 = *(a1 + 32);
-  v3 = [objc_msgSend(objc_opt_class() "proxyClass")];
-  v4 = nr_framework_log();
-  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+  v2 = [objc_msgSend(objc_opt_class() "proxyClass")];
+  v3 = nr_framework_log();
+  v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
-  if (v5)
+  if (v4)
   {
-    v6 = nr_framework_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v5 = nr_framework_log();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v10 = v3;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Stopped listening to %@", buf, 0xCu);
+      v9 = v2;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Stopped listening to %@", buf, 0xCu);
     }
   }
 
-  v7 = *(a1 + 32);
-  v8[0] = _NSConcreteStackBlock;
-  v8[1] = 3221225472;
-  v8[2] = sub_1000205DC;
-  v8[3] = &unk_100175660;
-  v8[4] = v7;
-  [v7 enqueueAsync:v8];
+  v6 = *(a1 + 32);
+  v7[0] = _NSConcreteStackBlock;
+  v7[1] = 3221225472;
+  v7[2] = sub_1000205DC;
+  v7[3] = &unk_100175660;
+  v7[4] = v6;
+  [v6 enqueueAsync:v7];
 }
 
 uint64_t sub_1000205DC(uint64_t a1)
@@ -5208,19 +5173,18 @@ uint64_t sub_10002208C(uint64_t a1, void *a2)
 {
   v3 = a2;
   v4 = [v3 activeDeviceID];
-  v5 = *(a1 + 40) != 0;
-  v6 = [*(a1 + 32) _makeActiveDeviceCollection:v3 diffWithPairingID:? activate:?];
-  v7 = [v3 applyDiff:v6];
-  v8 = [*(a1 + 48) queue];
+  v5 = [*(a1 + 32) _makeActiveDeviceCollection:v3 diffWithPairingID:? activate:?];
+  v6 = [v3 applyDiff:v5];
+  v7 = [*(a1 + 48) queue];
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_1000221A8;
   block[3] = &unk_1001758F8;
-  v12 = *(a1 + 48);
-  v13 = v4;
-  v14 = *(a1 + 32);
-  v9 = v4;
-  dispatch_async(v8, block);
+  v11 = *(a1 + 48);
+  v12 = v4;
+  v13 = *(a1 + 32);
+  v8 = v4;
+  dispatch_async(v7, block);
 
   return 0;
 }
@@ -5412,17 +5376,19 @@ LABEL_30:
 
 void sub_100022CF0(id a1)
 {
-  qword_1001B3780 = objc_alloc_init(NRPairingDaemon);
+  v1 = objc_alloc_init(NRPairingDaemon);
+  v2 = qword_1001B3780;
+  qword_1001B3780 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
-void sub_100023018(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100023018(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
-  objc_destroyWeak((v9 + 48));
+  va_start(va, a16);
+  objc_destroyWeak((v16 + 48));
   _Block_object_dispose(va, 8);
-  objc_destroyWeak((v10 - 56));
+  objc_destroyWeak((v17 - 56));
   _Unwind_Resume(a1);
 }
 
@@ -5504,8 +5470,7 @@ void sub_100023354(uint64_t a1, void *a2, void *a3, void *a4)
   v12 = *(v11 + 40);
   *(v11 + 40) = v10;
 
-  [*(a1 + 32) removeSecurePropertiesObserver:v9];
-  v13 = sub_10005F208();
+  v13 = sub_10005F208([*(a1 + 32) removeSecurePropertiesObserver:v9]);
   [NRRegistry fixSecurePropertiesWithCollection:v7 secureProperties:v8 insecurePropertyNames:v13];
 
   v14 = +[NRQueue registryDaemonQueue];
@@ -5571,9 +5536,9 @@ void sub_1000238E8(id a1)
   }
 }
 
-void sub_100023B14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100023B14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6146,14 +6111,12 @@ uint64_t sub_100028940(uint64_t a1)
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = [*(a1 + 32) UUIDString];
-      v9 = 138412290;
-      v10 = v5;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Calling IDSLocalPairingDeletePairedDevice %@", &v9, 0xCu);
+      v7 = 138412290;
+      v8 = v5;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Calling IDSLocalPairingDeletePairedDevice %@", &v7, 0xCu);
     }
   }
 
-  v6 = *(a1 + 32);
-  v7 = *(a1 + 40);
   return IDSLocalPairingDeletePairedDevice();
 }
 
@@ -6221,9 +6184,9 @@ void sub_100028FC8(uint64_t a1)
   _Block_object_dispose(v23, 8);
 }
 
-void sub_10002920C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_10002920C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7255,9 +7218,9 @@ void sub_10002B29C(uint64_t a1, void *a2, void *a3)
   [*(a1 + 32) unpairDeviceWithPairingID:v5 obliterationString:@"createUnpairTransactionsWithCompletion" shouldBrick:&__kCFBooleanFalse storeUnpair:&__kCFBooleanFalse migrationUnpair:&__kCFBooleanFalse shouldPreserveESim:&__kCFBooleanFalse pairingReport:v6 remoteUnpairRequestUUID:0 shouldConnectionWithDevice:v7];
 }
 
-void sub_10002B8F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10002B8F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7330,9 +7293,9 @@ void sub_10002C2D0(id a1)
   [v1 sigTerm];
 }
 
-void sub_10002C824(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_10002C824(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7389,19 +7352,19 @@ uint64_t sub_10002C9EC(uint64_t a1)
   return result;
 }
 
-void sub_10002CCA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_10002CCA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va1, a10);
-  va_start(va, a10);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
+  va_start(va1, a17);
+  va_start(va, a17);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
-  _Block_object_dispose((v10 - 120), 8);
+  _Block_object_dispose((v17 - 120), 8);
   _Unwind_Resume(a1);
 }
 
@@ -7465,9 +7428,9 @@ void sub_10002CD1C(uint64_t a1, void *a2)
   _Block_object_dispose(&v22, 8);
 }
 
-void sub_10002CF40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_10002CF40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7675,40 +7638,38 @@ void sub_10002DBA0(uint64_t a1, int a2)
 {
   if (a2)
   {
-    v3 = *(a1 + 32);
-    v4 = objc_opt_class();
-    v18[0] = _NSConcreteStackBlock;
-    v18[1] = 3221225472;
-    v18[2] = sub_10002DD7C;
-    v18[3] = &unk_100175D58;
-    v19 = *(a1 + 40);
-    v5 = [v4 countdown:2 toCompletion:v18];
-    v6 = *(a1 + 32);
-    v7 = objc_opt_class();
+    v3 = objc_opt_class();
     v16[0] = _NSConcreteStackBlock;
     v16[1] = 3221225472;
-    v16[2] = sub_10002DD94;
+    v16[2] = sub_10002DD7C;
     v16[3] = &unk_100175D58;
-    v8 = v5;
-    v17 = v8;
-    [v6 initIDSService:v7 block:v16];
-    v9 = *(a1 + 32);
-    v10 = objc_opt_class();
+    v17 = *(a1 + 40);
+    v4 = [v3 countdown:2 toCompletion:v16];
+    v5 = *(a1 + 32);
+    v6 = objc_opt_class();
     v14[0] = _NSConcreteStackBlock;
     v14[1] = 3221225472;
-    v14[2] = sub_10002DDAC;
+    v14[2] = sub_10002DD94;
     v14[3] = &unk_100175D58;
-    v15 = v8;
-    v11 = v8;
-    [v9 initIDSService:v10 block:v14];
+    v7 = v4;
+    v15 = v7;
+    [v5 initIDSService:v6 block:v14];
+    v8 = *(a1 + 32);
+    v9 = objc_opt_class();
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_10002DDAC;
+    v12[3] = &unk_100175D58;
+    v13 = v7;
+    v10 = v7;
+    [v8 initIDSService:v9 block:v12];
   }
 
   else
   {
-    v12 = *(a1 + 40);
-    v13 = *(*(a1 + 40) + 16);
+    v11 = *(*(a1 + 40) + 16);
 
-    v13();
+    v11();
   }
 }
 
@@ -8335,9 +8296,9 @@ void sub_100030700(uint64_t a1, void *a2)
   [*(a1 + 40) setLastActivePairingIDThatFailed:v5];
 }
 
-void sub_100030A38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100030A38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8353,47 +8314,46 @@ void sub_100030A54(uint64_t a1, char a2)
 
   else
   {
-    v4 = *(a1 + 32);
-    v5 = objc_opt_class();
-    v23[0] = _NSConcreteStackBlock;
-    v23[1] = 3221225472;
-    v23[2] = sub_100030CA8;
-    v23[3] = &unk_100176950;
-    v6 = *(a1 + 40);
-    v7 = *(a1 + 48);
+    v4 = objc_opt_class();
+    v22[0] = _NSConcreteStackBlock;
+    v22[1] = 3221225472;
+    v22[2] = sub_100030CA8;
+    v22[3] = &unk_100176950;
+    v5 = *(a1 + 40);
+    v6 = *(a1 + 48);
+    v23 = v5;
     v24 = v6;
-    v25 = v7;
-    v8 = [v5 countdown:3 toCompletion:v23];
-    v9 = *(a1 + 32);
-    v21[0] = _NSConcreteStackBlock;
-    v21[1] = 3221225472;
-    v21[2] = sub_100030CF0;
-    v21[3] = &unk_100175D58;
-    v10 = v8;
-    v22 = v10;
-    [v9 purgeDiscoveredDevices:v21];
-    v11 = +[NRRepeatingAlertEngine sharedInstance];
-    [v11 presentAlertsIfNeeded];
+    v7 = [v4 countdown:3 toCompletion:v22];
+    v8 = *(a1 + 32);
+    v20[0] = _NSConcreteStackBlock;
+    v20[1] = 3221225472;
+    v20[2] = sub_100030CF0;
+    v20[3] = &unk_100175D58;
+    v9 = v7;
+    v21 = v9;
+    [v8 purgeDiscoveredDevices:v20];
+    v10 = +[NRRepeatingAlertEngine sharedInstance];
+    [v10 presentAlertsIfNeeded];
 
-    v12 = *(a1 + 32);
-    v13 = *(v12 + 144);
-    v19[0] = _NSConcreteStackBlock;
-    v19[1] = 3221225472;
-    v19[2] = sub_100030D08;
-    v19[3] = &unk_100176AB8;
-    v19[4] = v12;
-    v14 = v10;
-    v20 = v14;
-    [EPSagaTransactionSetDaemonsEnabled getNormalDaemonValueWith:0 serviceRegistry:v13 forceEnableWhenPairedOrActive:0 completion:v19];
-    v15 = *(a1 + 32);
-    v17[0] = _NSConcreteStackBlock;
-    v17[1] = 3221225472;
-    v17[2] = sub_100030DD4;
-    v17[3] = &unk_100176AE0;
-    v17[4] = v15;
-    v18 = v14;
-    v16 = v14;
-    [v15 grabRegistryWithWriteBlockAsync:v17];
+    v11 = *(a1 + 32);
+    v12 = *(v11 + 144);
+    v18[0] = _NSConcreteStackBlock;
+    v18[1] = 3221225472;
+    v18[2] = sub_100030D08;
+    v18[3] = &unk_100176AB8;
+    v18[4] = v11;
+    v13 = v9;
+    v19 = v13;
+    [EPSagaTransactionSetDaemonsEnabled getNormalDaemonValueWith:0 serviceRegistry:v12 forceEnableWhenPairedOrActive:0 completion:v18];
+    v14 = *(a1 + 32);
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = sub_100030DD4;
+    v16[3] = &unk_100176AE0;
+    v16[4] = v14;
+    v17 = v13;
+    v15 = v13;
+    [v14 grabRegistryWithWriteBlockAsync:v16];
   }
 }
 
@@ -8482,11 +8442,12 @@ uint64_t sub_100030FB8(uint64_t a1, void *a2)
   return 0;
 }
 
-void sub_100031534(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_100031534(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
-  _Block_object_dispose(&a33, 8);
-  _Block_object_dispose((v33 - 144), 8);
-  _Block_object_dispose((v33 - 96), 8);
+  va_start(va, a32);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v32 - 144), 8);
+  _Block_object_dispose((v32 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -8544,9 +8505,9 @@ void sub_100031754(uint64_t a1)
   *(v1 + 40) = 0;
 }
 
-void sub_10003194C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10003194C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8680,9 +8641,9 @@ uint64_t sub_100031DB0(uint64_t a1)
   return result;
 }
 
-void sub_100032124(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100032124(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8713,9 +8674,9 @@ void sub_100032148(void *a1)
   *(v7 + 40) = 0;
 }
 
-void sub_10003248C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_10003248C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8804,11 +8765,21 @@ void sub_1000324F0(uint64_t a1, void *a2)
   }
 }
 
-void sub_100032814(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100032814(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
+}
+
+void sub_10003282C(id a1, BOOL a2)
+{
+  v2 = a2;
+  v3 = +[NRRepeatingAlertEngine sharedInstance];
+  [v3 setEnabled:v2 withName:@"TinkerWatchFoundInAccount"];
+
+  v4 = +[NRRepeatingAlertEngine sharedInstance];
+  [v4 presentAlertIfEnabledWithName:@"TinkerWatchFoundInAccount"];
 }
 
 void sub_1000328B8(uint64_t a1)
@@ -8833,4 +8804,33 @@ void sub_100032914(uint64_t a1, uint64_t a2, uint64_t a3)
     v5[4] = *(a1 + 32);
     [v4 dispatchAsync:v5];
   }
+}
+
+void sub_1000329B0(uint64_t a1)
+{
+  v2 = *(a1 + 32);
+  v3 = +[NRQueue registryDaemonQueue];
+  v4 = [v3 queue];
+  v5[0] = _NSConcreteStackBlock;
+  v5[1] = 3221225472;
+  v5[2] = sub_100032A68;
+  v5[3] = &unk_100175660;
+  v5[4] = *(a1 + 32);
+  [v2 debounceOnQueue:v4 block:v5];
+}
+
+id sub_100032A68(uint64_t a1)
+{
+  v2 = +[EPNanoRegistryStatusCodeElection sharedInstance];
+  v3 = [v2 statusCode];
+
+  result = [*(a1 + 32) managedConfigurationWatchDisabled];
+  if (v3 == 2 && result != 0)
+  {
+    v6 = *(a1 + 32);
+
+    return [v6 createUnpairTransactionsWithCompletion:0];
+  }
+
+  return result;
 }

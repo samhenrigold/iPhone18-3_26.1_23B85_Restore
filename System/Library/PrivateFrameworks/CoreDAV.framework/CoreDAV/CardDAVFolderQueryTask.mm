@@ -23,58 +23,58 @@
 
 - (void)addFiltersToXMLData:(id)data
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v5 = @"urn:ietf:params:xml:ns:carddav";
   [dataCopy startElement:@"anyof" inNamespace:0 withAttributeNamesAndValues:?];
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   obj = [MEMORY[0x277CBEB98] setWithObjects:{@"NICKNAME", @"FN", @"EMAIL", @"ADR", @"IMPP", @"ORG", @"TEL", 0}];
-  v20 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
-  if (v20)
+  v19 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
+  if (v19)
   {
-    v18 = *v27;
+    v17 = *v26;
     selfCopy = self;
     do
     {
       v6 = 0;
       do
       {
-        if (*v27 != v18)
+        if (*v26 != v17)
         {
           objc_enumerationMutation(obj);
         }
 
-        v21 = v6;
-        v16 = *(*(&v26 + 1) + 8 * v6);
+        v20 = v6;
+        v15 = *(*(&v25 + 1) + 8 * v6);
         v7 = dataCopy;
         v8 = v5;
-        [dataCopy startElement:@"prop-filter" inNamespace:v5 withAttributeNamesAndValues:{@"name", v16, @"test", @"allof", 0}];
-        v24 = 0u;
-        v25 = 0u;
-        v22 = 0u;
+        [dataCopy startElement:@"prop-filter" inNamespace:v5 withAttributeNamesAndValues:{@"name", v15, @"test", @"allof", 0}];
         v23 = 0u;
+        v24 = 0u;
+        v21 = 0u;
+        v22 = 0u;
         v9 = self->super._searchTerms;
-        v10 = [(NSSet *)v9 countByEnumeratingWithState:&v22 objects:v30 count:16];
+        v10 = [(NSSet *)v9 countByEnumeratingWithState:&v21 objects:v29 count:16];
         if (v10)
         {
           v11 = v10;
-          v12 = *v23;
+          v12 = *v22;
           do
           {
             for (i = 0; i != v11; ++i)
             {
-              if (*v23 != v12)
+              if (*v22 != v12)
               {
                 objc_enumerationMutation(v9);
               }
 
-              [v7 appendElement:@"text-match" inNamespace:v8 withStringContent:*(*(&v22 + 1) + 8 * i) withAttributeNamesAndValues:{@"collation", @"i;unicode-casemap", @"match-type", @"contains", 0}];
+              [v7 appendElement:@"text-match" inNamespace:v8 withStringContent:*(*(&v21 + 1) + 8 * i) withAttributeNamesAndValues:{@"collation", @"i;unicode-casemap", @"match-type", @"contains", 0}];
             }
 
-            v11 = [(NSSet *)v9 countByEnumeratingWithState:&v22 objects:v30 count:16];
+            v11 = [(NSSet *)v9 countByEnumeratingWithState:&v21 objects:v29 count:16];
           }
 
           while (v11);
@@ -83,15 +83,15 @@
         dataCopy = v7;
         v5 = v8;
         [v7 endElement:@"prop-filter" inNamespace:v8];
-        v6 = v21 + 1;
+        v6 = v20 + 1;
         self = selfCopy;
       }
 
-      while (v21 + 1 != v20);
-      v20 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
+      while (v20 + 1 != v19);
+      v19 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
     }
 
-    while (v20);
+    while (v19);
   }
 
   [dataCopy endElement:@"filter" inNamespace:v5];
@@ -103,8 +103,6 @@
 
     [dataCopy endElement:@"limit" inNamespace:v5];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -43,41 +43,42 @@ void __47__VUILibraryFamilyMembersDataSource_startFetch__block_invoke(uint64_t a
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v8 = WeakRetained;
   if (v6)
   {
-    v8 = VUIDefaultLogObject();
-    if (os_log_type_enabled(&v8->super, OS_LOG_TYPE_ERROR))
+    v9 = VUIDefaultLogObject(WeakRetained);
+    if (os_log_type_enabled(&v9->super, OS_LOG_TYPE_ERROR))
     {
-      __47__VUILibraryFamilyMembersDataSource_startFetch__block_invoke_cold_1(v6, &v8->super);
+      __47__VUILibraryFamilyMembersDataSource_startFetch__block_invoke_cold_1(v6, &v9->super);
     }
   }
 
   else
   {
-    v8 = objc_alloc_init(VUIFamilyMembersRequestResponseParser);
-    v9 = [(VUIFamilyMembersRequestResponseParser *)v8 parseAMSURLResult:v5];
-    [WeakRetained setFamilyMembers:v9];
-    [WeakRetained _orderFamilyMembersByFirstName];
+    v9 = objc_alloc_init(VUIFamilyMembersRequestResponseParser);
+    v10 = [(VUIFamilyMembersRequestResponseParser *)v9 parseAMSURLResult:v5];
+    [v8 setFamilyMembers:v10];
+    [v8 _orderFamilyMembersByFirstName];
   }
 
-  [WeakRetained setHasCompletedInitialFetch:1];
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v12 = __47__VUILibraryFamilyMembersDataSource_startFetch__block_invoke_3;
-  v13 = &unk_1E872E4B8;
-  objc_copyWeak(&v14, (a1 + 32));
-  v10 = v11;
+  [v8 setHasCompletedInitialFetch:1];
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v13 = __47__VUILibraryFamilyMembersDataSource_startFetch__block_invoke_3;
+  v14 = &unk_1E872E4B8;
+  objc_copyWeak(&v15, (a1 + 32));
+  v11 = v12;
   if ([MEMORY[0x1E696AF00] isMainThread])
   {
-    v12(v10);
+    v13(v11);
   }
 
   else
   {
-    dispatch_async(MEMORY[0x1E69E96A0], v10);
+    dispatch_async(MEMORY[0x1E69E96A0], v11);
   }
 
-  objc_destroyWeak(&v14);
+  objc_destroyWeak(&v15);
 }
 
 void __47__VUILibraryFamilyMembersDataSource_startFetch__block_invoke_3(uint64_t a1)

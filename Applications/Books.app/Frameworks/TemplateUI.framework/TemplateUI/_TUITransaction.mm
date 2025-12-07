@@ -235,7 +235,7 @@ LABEL_20:
   if (onCopy != self)
   {
     v6 = [(_TUITransaction *)onCopy _isDependentOn:self];
-    v7 = TUITransactionLog();
+    v7 = TUITransactionLog(v6);
     v8 = v7;
     if (v6)
     {

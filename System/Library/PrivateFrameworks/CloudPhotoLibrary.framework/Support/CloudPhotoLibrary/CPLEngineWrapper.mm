@@ -81,38 +81,38 @@
 
   if ((v6 & 0x80000000) == 0)
   {
-    v13 = dispatch_source_create(&_dispatch_source_type_vnode, v6, 1uLL, self->_queue);
+    v14 = dispatch_source_create(&_dispatch_source_type_vnode, v6, 1uLL, self->_queue);
     watchCPLLibrarySource = self->_watchCPLLibrarySource;
-    self->_watchCPLLibrarySource = v13;
+    self->_watchCPLLibrarySource = v14;
 
-    v15 = self->_watchCPLLibrarySource;
+    v16 = self->_watchCPLLibrarySource;
     handler[0] = _NSConcreteStackBlock;
     handler[1] = 3221225472;
     handler[2] = sub_100011E98;
     handler[3] = &unk_100271F40;
     handler[4] = self;
-    dispatch_source_set_event_handler(v15, handler);
-    v16 = self->_watchCPLLibrarySource;
-    v22[0] = _NSConcreteStackBlock;
-    v22[1] = 3221225472;
-    v22[2] = sub_100188FBC;
-    v22[3] = &unk_100271F40;
-    v22[4] = self;
-    dispatch_source_set_cancel_handler(v16, v22);
+    dispatch_source_set_event_handler(v16, handler);
+    v17 = self->_watchCPLLibrarySource;
+    v24[0] = _NSConcreteStackBlock;
+    v24[1] = 3221225472;
+    v24[2] = sub_100188FBC;
+    v24[3] = &unk_100271F40;
+    v24[4] = self;
+    dispatch_source_set_cancel_handler(v17, v24);
     dispatch_resume(self->_watchCPLLibrarySource);
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v17 = sub_100011E54();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v19 = sub_100011E54(v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
-        v18 = self->_watchCPLLibrarySource;
+        v20 = self->_watchCPLLibrarySource;
         *buf = 138412802;
         selfCopy2 = self;
-        v26 = 1024;
-        *v27 = v6;
-        *&v27[4] = 2112;
-        *&v27[6] = v18;
-        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Started watching %@ (fd: %i / source: %@)", buf, 0x1Cu);
+        v28 = 1024;
+        *v29 = v6;
+        *&v29[4] = 2112;
+        *&v29[6] = v20;
+        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Started watching %@ (fd: %i / source: %@)", buf, 0x1Cu);
       }
     }
 
@@ -130,43 +130,43 @@
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v19 = sub_100011E54();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v21 = sub_100011E54(v11);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
         selfCopy2 = self;
-        v26 = 2112;
-        *v27 = v8;
-        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "Unable to watch %@: %@", buf, 0x16u);
+        v28 = 2112;
+        *v29 = v8;
+        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "Unable to watch %@: %@", buf, 0x16u);
       }
     }
 
 LABEL_17:
-    sub_100189650(self, &v21);
-    v12 = 1;
+    sub_100189650(self, v23);
+    v13 = 1;
     goto LABEL_18;
   }
 
   if ((_CPLSilentLogging & 1) == 0)
   {
-    sub_10018973C();
+    sub_10018973C(self);
   }
 
   if (error)
   {
-    v11 = v8;
-    v12 = 0;
+    v12 = v8;
+    v13 = 0;
     *error = v8;
   }
 
   else
   {
-    v12 = 0;
+    v13 = 0;
   }
 
 LABEL_18:
 
-  return v12;
+  return v13;
 }
 
 - (void)_emergencyExit
@@ -549,19 +549,18 @@ LABEL_18:
   {
     isCameraRunning = [(PFCameraViewfinderSessionWatcher *)stateCopy isCameraRunning];
     p_disabledEngineBecauseOfCamera = &self->_disabledEngineBecauseOfCamera;
-    disabledEngineBecauseOfCamera = self->_disabledEngineBecauseOfCamera;
     if (isCameraRunning)
     {
       if (!self->_disabledEngineBecauseOfCamera)
       {
-        sub_100189C04(p_disabledEngineBecauseOfCamera, self, &v9);
+        sub_100189C04(p_disabledEngineBecauseOfCamera, self, &v8);
 LABEL_11:
       }
     }
 
     else if (self->_disabledEngineBecauseOfCamera)
     {
-      sub_100189B20(p_disabledEngineBecauseOfCamera, self, &v9);
+      sub_100189B20(p_disabledEngineBecauseOfCamera, self, &v8);
       goto LABEL_11;
     }
   }
@@ -596,7 +595,7 @@ LABEL_11:
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v3 = sub_100011E54();
+    v3 = sub_100011E54(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       sub_100013984();
@@ -621,42 +620,43 @@ LABEL_11:
   self->_unpausedWatchers = v6;
 
   clientLibraryBaseURL = [(CPLEngineWrapper *)self clientLibraryBaseURL];
+  v9 = clientLibraryBaseURL;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v9 = sub_100011E54();
-    if (sub_100003424(v9))
+    v10 = sub_100011E54(clientLibraryBaseURL);
+    if (sub_100003424(v10))
     {
       libraryIdentifier = [(CPLEngineWrapper *)self libraryIdentifier];
-      path = [clientLibraryBaseURL path];
+      path = [v9 path];
       stringByAbbreviatingWithTildeInPath = [path stringByAbbreviatingWithTildeInPath];
-      *v26 = 138543618;
-      *&v26[4] = libraryIdentifier;
+      *v27 = 138543618;
+      *&v27[4] = libraryIdentifier;
       sub_1000033B4();
-      *&v26[14] = v13;
+      *&v27[14] = v14;
       sub_100013990();
-      _os_log_impl(v14, v15, v16, v17, v18, 0x16u);
+      _os_log_impl(v15, v16, v17, v18, v19, 0x16u);
     }
   }
 
-  v19 = [clientLibraryBaseURL URLByAppendingPathComponent:@"pauseSyncMarker" isDirectory:{0, *v26, *&v26[16]}];
-  [(CPLEngineWrapper *)self _startWatchingURL:v19 forPauseReason:@"test pause marker"];
-  v20 = [clientLibraryBaseURL URLByAppendingPathComponent:@"pauseICloudPhotos" isDirectory:0];
-  [(CPLEngineWrapper *)self _startWatchingURL:v20 forPauseReason:@"user pause marker"];
+  v20 = [v9 URLByAppendingPathComponent:@"pauseSyncMarker" isDirectory:{0, *v27, *&v27[16]}];
+  [(CPLEngineWrapper *)self _startWatchingURL:v20 forPauseReason:@"test pause marker"];
+  v21 = [v9 URLByAppendingPathComponent:@"pauseICloudPhotos" isDirectory:0];
+  [(CPLEngineWrapper *)self _startWatchingURL:v21 forPauseReason:@"user pause marker"];
   _deactivateMarkerURL = [(CPLEngineWrapper *)self _deactivateMarkerURL];
   if (_deactivateMarkerURL)
   {
     [(CPLEngineWrapper *)self _startWatchingURL:_deactivateMarkerURL forPauseReason:@"deactivation marker"];
   }
 
-  v22 = [[PFCameraViewfinderSessionWatcher alloc] initWithDispatchQueue:self->_queue delegate:self];
+  v23 = [[PFCameraViewfinderSessionWatcher alloc] initWithDispatchQueue:self->_queue delegate:self];
   cameraWatcher = self->_cameraWatcher;
-  self->_cameraWatcher = v22;
+  self->_cameraWatcher = v23;
 
   [(PFCameraViewfinderSessionWatcher *)self->_cameraWatcher startWatching];
   [(CPLEngineWrapper *)self cameraWatcherDidChangeState:self->_cameraWatcher];
-  v24 = [[CPLBatterySaverWatcher alloc] initWithDispatchQueue:self->_queue delegate:self];
+  v25 = [[CPLBatterySaverWatcher alloc] initWithDispatchQueue:self->_queue delegate:self];
   batterySaverWatcher = self->_batterySaverWatcher;
-  self->_batterySaverWatcher = v24;
+  self->_batterySaverWatcher = v25;
 
   [(CPLBatterySaverWatcher *)self->_batterySaverWatcher startWatching];
 }
@@ -667,12 +667,13 @@ LABEL_11:
   v6 = stateCopy;
   if (!self->_deactivated && !self->_stopping && !self->_stopped && self->_batterySaverWatcher == stateCopy)
   {
-    if ([(CPLBatterySaverWatcher *)stateCopy inBatterySaverMode])
+    inBatterySaverMode = [(CPLBatterySaverWatcher *)stateCopy inBatterySaverMode];
+    if (inBatterySaverMode)
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v7 = sub_100011E54();
-        if (sub_100003424(v7))
+        v8 = sub_100011E54(inBatterySaverMode);
+        if (sub_100003424(v8))
         {
           *buf = 0;
           _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Low Power Mode enabled - stopping CPL Override", buf, 2u);
@@ -689,11 +690,11 @@ LABEL_14:
 
     if ((_CPLSilentLogging & 1) == 0)
     {
-      engine = sub_100011E54();
+      engine = sub_100011E54(inBatterySaverMode);
       if (os_log_type_enabled(engine, OS_LOG_TYPE_DEFAULT))
       {
         sub_100013984();
-        _os_log_impl(v10, v11, OS_LOG_TYPE_DEFAULT, v12, v13, 2u);
+        _os_log_impl(v11, v12, OS_LOG_TYPE_DEFAULT, v13, v14, 2u);
       }
 
       goto LABEL_14;

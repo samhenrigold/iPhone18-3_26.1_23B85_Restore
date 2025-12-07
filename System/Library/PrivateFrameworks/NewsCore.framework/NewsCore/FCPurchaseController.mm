@@ -20,9 +20,9 @@
 - (id)subscriptionNotSupportedChannelIDs;
 - (id)webAccessEntryForTagID:(void *)d;
 - (id)webAccessOptedInTagIDs;
-- (uint64_t)_removeFromPurchasedChannelsListWithTagIDs:(uint64_t)result;
 - (uint64_t)atleastOneValidAppStorePurchase;
 - (void)_enumerateValidPurchasesUsingBlock:(void *)block;
+- (void)_removeFromPurchasedChannelsListWithTagIDs:(void *)result;
 - (void)activityObservingApplicationDidEnterBackground;
 - (void)addToPurchasedChannelsListWithTagID:(uint64_t)d purchaseID:(void *)iD purchaseType:(void *)type purchaseValidationState:(uint64_t)state isNewsAppPurchase:(char)purchase lastVerificationTime:(void *)time;
 - (void)addToWebAccessOptedInListWithTagID:(id)d;
@@ -37,6 +37,7 @@
 - (void)performEntitlementCheckWithIgnoreCache:(BOOL)cache callbackQueue:(id)queue completion:(id)completion;
 - (void)removeFromPurchasedChannelsListWithTagIDs:(id)ds;
 - (void)removeFromPurchasesDiscoveredList:(id)list completion:(id)completion;
+- (void)removeWebPurchaseForTagID:(id)d userInitiated:(BOOL)initiated;
 - (void)renewalNoticeShownForPurchasedChannelsListWithTagIDs:(id)ds;
 - (void)setPurchasesDiscoveredTagIDs:(uint64_t)ds;
 - (void)shouldShowSignedInWithDifferentiTunesAccountAlertWithiTunesAccountName:(id)name iTunesAccountDSID:(id)d isUserSignedIntoiTunes:(BOOL)tunes isBundleSubscriber:(BOOL)subscriber completion:(id)completion;
@@ -230,7 +231,7 @@
 
 - (FCPurchaseController)initWithCloudContext:(id)context entitlementService:(id)service
 {
-  v111 = *MEMORY[0x1E69E9840];
+  v108 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   serviceCopy = service;
   if (contextCopy)
@@ -249,16 +250,16 @@ LABEL_51:
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v77 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "cloudContext != nil"];
-      *v95 = 136315906;
-      v96 = "[FCPurchaseController initWithCloudContext:entitlementService:]";
-      v97 = 2080;
-      v98 = "FCPurchaseController.m";
-      v99 = 1024;
-      v100 = 168;
-      v101 = 2114;
-      v102 = v77;
-      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v95, 0x26u);
+      v74 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "cloudContext != nil"];
+      *v92 = 136315906;
+      v93 = "[FCPurchaseController initWithCloudContext:entitlementService:]";
+      v94 = 2080;
+      v95 = "FCPurchaseController.m";
+      v96 = 1024;
+      v97 = 168;
+      v98 = 2114;
+      v99 = v74;
+      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v92, 0x26u);
     }
 
     v11 = serviceCopy;
@@ -269,185 +270,181 @@ LABEL_51:
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v78 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "cloudContext != nil"];
-      *v95 = 136315906;
-      v96 = "[FCPurchaseController initWithCloudContext:entitlementService:keyValueStoreOption:]";
-      v97 = 2080;
-      v98 = "FCPurchaseController.m";
-      v99 = 1024;
-      v100 = 178;
-      v101 = 2114;
-      v102 = v78;
-      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v95, 0x26u);
+      v75 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "cloudContext != nil"];
+      *v92 = 136315906;
+      v93 = "[FCPurchaseController initWithCloudContext:entitlementService:keyValueStoreOption:]";
+      v94 = 2080;
+      v95 = "FCPurchaseController.m";
+      v96 = 1024;
+      v97 = 178;
+      v98 = 2114;
+      v99 = v75;
+      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v92, 0x26u);
     }
   }
 
-  v88.receiver = self;
-  v88.super_class = FCPurchaseController;
-  v12 = [(FCPurchaseController *)&v88 init];
+  v85.receiver = self;
+  v85.super_class = FCPurchaseController;
+  v12 = [(FCPurchaseController *)&v85 init];
   v13 = v12;
   if (!v12)
   {
     goto LABEL_50;
   }
 
-  v81 = serviceCopy;
+  v78 = serviceCopy;
   objc_storeStrong(&v12->_cloudContext, context);
   objc_storeStrong(&v13->_entitlementService, service);
   userInfo = [contextCopy userInfo];
   [userInfo addObserver:v13];
 
-  v93[0] = @"newssubscription.subscriptions.metered_count_duration";
-  v93[1] = @"newssubscription.a_la_carte_subscriptions.metered_count_maximum_limit";
-  v94[0] = &unk_1F2E6FDC8;
-  v94[1] = &unk_1F2E6FDC8;
-  v93[2] = @"newssubscription.bundle_subscriptions.metered_count_maximum_limit";
-  v94[2] = &unk_1F2E6FDC8;
-  v15 = 0x1E695D000uLL;
-  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v94 forKeys:v93 count:3];
+  v90[0] = @"newssubscription.subscriptions.metered_count_duration";
+  v90[1] = @"newssubscription.a_la_carte_subscriptions.metered_count_maximum_limit";
+  v91[0] = &unk_1F2E6FDC8;
+  v91[1] = &unk_1F2E6FDC8;
+  v90[2] = @"newssubscription.bundle_subscriptions.metered_count_maximum_limit";
+  v91[2] = &unk_1F2E6FDC8;
+  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v91 forKeys:v90 count:3];
   standardUserDefaults = [MEMORY[0x1E695E000] standardUserDefaults];
-  v80 = v16;
-  [standardUserDefaults registerDefaults:v16];
+  v77 = v15;
+  [standardUserDefaults registerDefaults:v15];
 
   privateDataDirectory = [contextCopy privateDataDirectory];
-  v18 = [[FCKeyValueStore alloc] initWithName:@"PurchasedChannelList" directory:privateDataDirectory version:1 options:0 classRegistry:0];
+  v17 = [[FCKeyValueStore alloc] initWithName:@"PurchasedChannelList" directory:privateDataDirectory version:1 options:0 classRegistry:0];
   localStore = v13->_localStore;
-  v13->_localStore = v18;
+  v13->_localStore = v17;
 
-  v20 = [[FCPurchaseLookUpEntriesManager alloc] initWithLocalStore:?];
+  v19 = [[FCPurchaseLookUpEntriesManager alloc] initWithLocalStore:?];
   purchaseLookupEntriesManager = v13->_purchaseLookupEntriesManager;
-  v13->_purchaseLookupEntriesManager = v20;
+  v13->_purchaseLookupEntriesManager = v19;
 
-  v82 = contextCopy;
+  v79 = contextCopy;
   appActivityMonitor = [contextCopy appActivityMonitor];
   [appActivityMonitor addObserver:v13];
 
-  v23 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-  v24 = dispatch_queue_attr_make_with_qos_class(v23, QOS_CLASS_BACKGROUND, 0);
-  v25 = dispatch_queue_create("FCPurchaseLookUpData.purchasedChannelsAccessQueue", v24);
+  v22 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+  v23 = dispatch_queue_attr_make_with_qos_class(v22, QOS_CLASS_BACKGROUND, 0);
+  v24 = dispatch_queue_create("FCPurchaseLookUpData.purchasedChannelsAccessQueue", v23);
   accessQueue = v13->_accessQueue;
-  v13->_accessQueue = v25;
+  v13->_accessQueue = v24;
 
-  v27 = objc_opt_new();
+  v26 = objc_opt_new();
   entitlementQueue = v13->_entitlementQueue;
-  v13->_entitlementQueue = v27;
+  v13->_entitlementQueue = v26;
 
-  v29 = [objc_alloc(MEMORY[0x1E69B68D8]) initWithConstructor:&__block_literal_global_14];
+  v28 = [objc_alloc(MEMORY[0x1E69B68D8]) initWithConstructor:&__block_literal_global_14];
   session = v13->_session;
-  v13->_session = v29;
+  v13->_session = v28;
 
-  objc_setProperty_atomic_copy(v13, v31, MEMORY[0x1E695E0F8], 64);
+  objc_setProperty_atomic_copy(v13, v30, MEMORY[0x1E695E0F8], 64);
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   webAccessEntriesByTagID = v13->_webAccessEntriesByTagID;
   v13->_webAccessEntriesByTagID = dictionary;
 
-  v34 = [MEMORY[0x1E695DFA8] set];
+  v33 = [MEMORY[0x1E695DFA8] set];
   purchasesDiscoveredTagIDs = v13->_purchasesDiscoveredTagIDs;
-  v13->_purchasesDiscoveredTagIDs = v34;
+  v13->_purchasesDiscoveredTagIDs = v33;
 
-  v36 = v13->_localStore;
+  v35 = v13->_localStore;
+  v86 = 0u;
+  v87 = 0u;
+  v88 = 0u;
   v89 = 0u;
-  v90 = 0u;
-  v91 = 0u;
-  v92 = 0u;
-  obj = [(FCKeyValueStore *)v36 allKeys];
-  v37 = [obj countByEnumeratingWithState:&v89 objects:v95 count:16];
-  if (!v37)
+  obj = [(FCKeyValueStore *)v35 allKeys];
+  v36 = [obj countByEnumeratingWithState:&v86 objects:v92 count:16];
+  if (!v36)
   {
     goto LABEL_43;
   }
 
-  v38 = v37;
-  v39 = *v90;
-  v84 = v36;
-  v85 = v13;
-  v83 = *v90;
+  v37 = v36;
+  v38 = *v87;
+  v81 = v35;
+  v82 = v13;
+  v80 = *v87;
   do
   {
-    v40 = 0;
-    v86 = v38;
+    v39 = 0;
+    v83 = v37;
     do
     {
-      if (*v90 != v39)
+      if (*v87 != v38)
       {
         objc_enumerationMutation(obj);
       }
 
-      v41 = *(*(&v89 + 1) + 8 * v40);
-      v42 = *(v15 + 3872);
+      v40 = *(*(&v86 + 1) + 8 * v39);
       objc_opt_class();
-      v43 = [(FCKeyValueStore *)v36 objectForKey:v41];
-      if (v43)
+      v41 = [(FCKeyValueStore *)v35 objectForKey:v40];
+      if (v41)
       {
         if (objc_opt_isKindOfClass())
         {
-          v44 = v43;
+          v42 = v41;
         }
 
         else
         {
-          v44 = 0;
+          v42 = 0;
         }
       }
 
       else
       {
-        v44 = 0;
+        v42 = 0;
       }
 
-      v45 = v44;
+      v43 = v42;
 
-      if (v45)
+      if (v43)
       {
-        if (![v41 hasPrefix:@"wa-"])
+        if (![v40 hasPrefix:@"wa-"])
         {
           goto LABEL_39;
         }
 
-        v46 = [FCWebAccessEntry alloc];
-        webAccessEntriesByTagID = v41;
-        v48 = v45;
-        v49 = v48;
-        if (v46)
+        v44 = [FCWebAccessEntry alloc];
+        webAccessEntriesByTagID = v40;
+        v46 = v43;
+        v47 = v46;
+        if (v44)
         {
           if (!webAccessEntriesByTagID && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
           {
-            v60 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"web access entry must have an identifier"];
+            v58 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"web access entry must have an identifier"];
             *buf = 136315906;
-            v104 = "[FCWebAccessEntry initWithEntryID:dictionaryRepresentation:]";
-            v105 = 2080;
-            v106 = "FCPurchaseController.m";
-            v107 = 1024;
-            v108 = 1829;
-            v109 = 2114;
-            v110 = v60;
+            v101 = "[FCWebAccessEntry initWithEntryID:dictionaryRepresentation:]";
+            v102 = 2080;
+            v103 = "FCPurchaseController.m";
+            v104 = 1024;
+            v105 = 1829;
+            v106 = 2114;
+            v107 = v58;
             _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
           }
 
-          v50 = [v49 objectForKeyedSubscript:@"WebAccessEntryLastRetryAttemptTime"];
-          v51 = [v49 objectForKeyedSubscript:@"WebAccessEntryEmail"];
-          v52 = [v49 objectForKeyedSubscript:@"WebAccessEntryPurchaseReceipt"];
-          v53 = [v49 objectForKeyedSubscript:@"WebAccessEntryTagID"];
-          v54 = [v49 objectForKeyedSubscript:@"WebAccessEntryPurchaseID"];
-          v46 = [(FCWebAccessEntry *)v46 initWithEntryID:webAccessEntriesByTagID tagID:v53 purchaseID:v54 lastRetryAttemptTime:v50 email:v51 purchaseReceipt:v52];
+          v48 = [v47 objectForKeyedSubscript:@"WebAccessEntryLastRetryAttemptTime"];
+          v49 = [v47 objectForKeyedSubscript:@"WebAccessEntryEmail"];
+          v50 = [v47 objectForKeyedSubscript:@"WebAccessEntryPurchaseReceipt"];
+          v51 = [v47 objectForKeyedSubscript:@"WebAccessEntryTagID"];
+          v52 = [v47 objectForKeyedSubscript:@"WebAccessEntryPurchaseID"];
+          v44 = [(FCWebAccessEntry *)v44 initWithEntryID:webAccessEntriesByTagID tagID:v51 purchaseID:v52 lastRetryAttemptTime:v48 email:v49 purchaseReceipt:v50];
 
-          if (!v46)
+          if (!v44)
           {
-            v36 = v84;
-            v13 = v85;
-            v15 = 0x1E695D000;
-            v38 = v86;
-            v39 = v83;
+            v35 = v81;
+            v13 = v82;
+            v37 = v83;
+            v38 = v80;
             goto LABEL_38;
           }
 
-          v13 = v85;
-          webAccessEntriesByTagID = [(FCPurchaseController *)v85 webAccessEntriesByTagID];
-          [webAccessEntriesByTagID setObject:v46 forKey:v46->_tagID];
-          v15 = 0x1E695D000;
-          v39 = v83;
-          v36 = v84;
-          v38 = v86;
+          v13 = v82;
+          webAccessEntriesByTagID = [(FCPurchaseController *)v82 webAccessEntriesByTagID];
+          [webAccessEntriesByTagID setObject:v44 forKey:v44->_tagID];
+          v38 = v80;
+          v35 = v81;
+          v37 = v83;
         }
 
         else
@@ -458,93 +455,92 @@ LABEL_51:
       else
       {
         objc_opt_class();
-        v55 = [(FCKeyValueStore *)v36 objectForKey:v41];
-        if (v55)
+        v53 = [(FCKeyValueStore *)v35 objectForKey:v40];
+        if (v53)
         {
           if (objc_opt_isKindOfClass())
           {
-            v56 = v55;
+            v54 = v53;
           }
 
           else
           {
-            v56 = 0;
+            v54 = 0;
           }
         }
 
         else
         {
-          v56 = 0;
+          v54 = 0;
         }
 
-        v46 = v56;
+        v44 = v54;
 
-        if (!v46 || ![v41 isEqualToString:@"SubscriptionsDiscoveredList"])
+        if (!v44 || ![v40 isEqualToString:@"SubscriptionsDiscoveredList"])
         {
           goto LABEL_38;
         }
 
-        v57 = MEMORY[0x1E695DFD8];
-        webAccessEntriesByTagID = [(FCWebAccessEntry *)v46 copy];
-        v58 = [v57 setWithArray:webAccessEntriesByTagID];
-        v59 = v13->_purchasesDiscoveredTagIDs;
-        v13->_purchasesDiscoveredTagIDs = v58;
+        v55 = MEMORY[0x1E695DFD8];
+        webAccessEntriesByTagID = [(FCWebAccessEntry *)v44 copy];
+        v56 = [v55 setWithArray:webAccessEntriesByTagID];
+        v57 = v13->_purchasesDiscoveredTagIDs;
+        v13->_purchasesDiscoveredTagIDs = v56;
       }
 
 LABEL_38:
 LABEL_39:
 
-      ++v40;
+      ++v39;
     }
 
-    while (v38 != v40);
-    v61 = [obj countByEnumeratingWithState:&v89 objects:v95 count:16];
-    v38 = v61;
+    while (v37 != v39);
+    v59 = [obj countByEnumeratingWithState:&v86 objects:v92 count:16];
+    v37 = v59;
   }
 
-  while (v61);
+  while (v59);
 LABEL_43:
 
   lookupEntriesByTagID = [(FCPurchaseLookUpEntriesManager *)&v13->_purchaseLookupEntriesManager->super.isa lookupEntriesByTagID];
-  v63 = [lookupEntriesByTagID copy];
-  objc_setProperty_atomic_copy(v13, v64, v63, 64);
+  v61 = [lookupEntriesByTagID copy];
+  objc_setProperty_atomic_copy(v13, v62, v61, 64);
 
-  serviceCopy = v81;
+  serviceCopy = v78;
   if (NFInternalBuild())
   {
     standardUserDefaults2 = [MEMORY[0x1E695E000] standardUserDefaults];
-    v66 = [standardUserDefaults2 BOOLForKey:@"simulate_subscription_detection_enabled"];
+    v64 = [standardUserDefaults2 BOOLForKey:@"simulate_subscription_detection_enabled"];
 
-    if (v66)
+    if (v64)
     {
-      v67 = arc4random_uniform(5u);
+      v65 = arc4random_uniform(5u);
       array = [MEMORY[0x1E695DF70] array];
-      if (v67 <= 0x7FFFFFFE)
+      if (v65 <= 0x7FFFFFFE)
       {
-        v69 = 0;
+        v67 = 0;
         do
         {
-          v70 = [&unk_1F2E6F720 objectAtIndexedSubscript:v69];
-          [array addObject:v70];
+          v68 = [&unk_1F2E6F720 objectAtIndexedSubscript:v67];
+          [array addObject:v68];
 
-          ++v69;
+          ++v67;
         }
 
-        while (v67 + 1 != v69);
+        while (v65 + 1 != v67);
       }
 
-      v71 = MEMORY[0x1E695DFD8];
-      v72 = [array copy];
-      v73 = [v71 setWithArray:v72];
-      v74 = v13->_purchasesDiscoveredTagIDs;
-      v13->_purchasesDiscoveredTagIDs = v73;
+      v69 = MEMORY[0x1E695DFD8];
+      v70 = [array copy];
+      v71 = [v69 setWithArray:v70];
+      v72 = v13->_purchasesDiscoveredTagIDs;
+      v13->_purchasesDiscoveredTagIDs = v71;
     }
   }
 
-  contextCopy = v82;
+  contextCopy = v79;
 LABEL_50:
 
-  v75 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -617,16 +613,15 @@ void __31__FCPurchaseController_dealloc__block_invoke_2(uint64_t a1)
 
 void __54__FCPurchaseController_notifyPurchaseAddedWithTagIDs___block_invoke_2(uint64_t a1)
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
-  v6 = FCPurchaseAddedTagIDsKey;
-  v7[0] = v2;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v5 = FCPurchaseAddedTagIDsKey;
+  v6[0] = v2;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
   v4 = [MEMORY[0x1E696AD88] defaultCenter];
   [v4 postNotificationName:FCPurchaseAddedNotificationName object:0 userInfo:v3];
 
   [(FCPurchaseController *)*(a1 + 40) notifyPurchaseListChanged];
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notifyPurchaseListChanged
@@ -660,29 +655,26 @@ void __54__FCPurchaseController_notifyPurchaseAddedWithTagIDs___block_invoke_2(u
 
 void __56__FCPurchaseController_notifyPurchaseRemovedWithTagIDs___block_invoke_2(uint64_t a1)
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
-  v6 = FCPurchaseRemovedTagIDsKey;
-  v7[0] = v2;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v5 = FCPurchaseRemovedTagIDsKey;
+  v6[0] = v2;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
   v4 = [MEMORY[0x1E696AD88] defaultCenter];
   [v4 postNotificationName:FCPurchaseRemovedNotificationName object:0 userInfo:v3];
 
   [(FCPurchaseController *)*(a1 + 40) notifyPurchaseListChanged];
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __49__FCPurchaseController_notifyPurchaseListChanged__block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   v1 = [(FCPurchaseController *)*(a1 + 32) _allPurchasedTagIDs];
-  v5 = FCPurchasedTagIDsKey;
-  v6[0] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
+  v4 = FCPurchasedTagIDsKey;
+  v5[0] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
   v3 = [MEMORY[0x1E696AD88] defaultCenter];
   [v3 postNotificationName:FCPurchaseListChangedNotificationName object:0 userInfo:v2];
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __57__FCPurchaseController_notifyWebAccessOptedInListChanged__block_invoke()
@@ -708,15 +700,13 @@ void __57__FCPurchaseController_notifyWebAccessOptedInListChanged__block_invoke(
 
 void __60__FCPurchaseController_notifyPurchasesDiscoveredWithTagIDs___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
-  v5 = FCPurchasedTagIDsKey;
-  v6[0] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
+  v4 = FCPurchasedTagIDsKey;
+  v5[0] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
   v3 = [MEMORY[0x1E696AD88] defaultCenter];
   [v3 postNotificationName:FCPurchasesDiscoveredNotificationName object:0 userInfo:v2];
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addToWebAccessOptedInListWithTagID:(id)d
@@ -1353,30 +1343,27 @@ void __49__FCPurchaseController_expiredPurchaseChannelIDs__block_invoke(uint64_t
 
 void __58__FCPurchaseController_subscriptionNotSupportedChannelIDs__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v4 = a3;
   if ([v4 purchaseValidationState] == 4)
   {
     v5 = FCPurchaseLog;
     if (os_log_type_enabled(FCPurchaseLog, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(a1 + 32);
-      v7 = v5;
-      v8 = objc_opt_class();
-      v9 = [v4 tagID];
-      v13 = 138412546;
+      v6 = v5;
+      v7 = objc_opt_class();
+      v8 = [v4 tagID];
+      v11 = 138412546;
+      v12 = v7;
+      v13 = 2114;
       v14 = v8;
-      v15 = 2114;
-      v16 = v9;
-      _os_log_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_DEFAULT, "%@ found a purchaseLookupEntry with not supported validation state for tagID %{public}@", &v13, 0x16u);
+      _os_log_impl(&dword_1B63EF000, v6, OS_LOG_TYPE_DEFAULT, "%@ found a purchaseLookupEntry with not supported validation state for tagID %{public}@", &v11, 0x16u);
     }
 
-    v10 = *(a1 + 40);
-    v11 = [v4 tagID];
-    [v10 addObject:v11];
+    v9 = *(a1 + 40);
+    v10 = [v4 tagID];
+    [v9 addObject:v10];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)performEntitlementCheckWithIgnoreCache:(BOOL)cache callbackQueue:(id)queue completion:(id)completion
@@ -1431,28 +1418,26 @@ void __58__FCPurchaseController_subscriptionNotSupportedChannelIDs__block_invoke
 
 uint64_t __88__FCPurchaseController_performEntitlementCheckWithIgnoreCache_callbackQueue_completion___block_invoke(void *a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v2 = FCPurchaseLog;
   if (os_log_type_enabled(FCPurchaseLog, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = a1[4];
-    v4 = v2;
-    v5 = objc_opt_class();
-    v6 = a1[5];
-    v9 = 138412546;
+    v3 = v2;
+    v4 = objc_opt_class();
+    v5 = a1[5];
+    v7 = 138412546;
+    v8 = v4;
+    v9 = 2114;
     v10 = v5;
-    v11 = 2114;
-    v12 = v6;
-    _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "%@ ignoring alacarte entitlement check for bundleID=%{public}@", &v9, 0x16u);
+    _os_log_impl(&dword_1B63EF000, v3, OS_LOG_TYPE_DEFAULT, "%@ ignoring alacarte entitlement check for bundleID=%{public}@", &v7, 0x16u);
   }
 
   result = a1[6];
   if (result)
   {
-    result = (*(result + 16))(result, 0, 0);
+    return (*(result + 16))(result, 0, 0);
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -1537,40 +1522,39 @@ void __88__FCPurchaseController_performEntitlementCheckWithIgnoreCache_callbackQ
 
 void __120__FCPurchaseController__entitlementCheckWithIgnoreCache_restorableBundleIAPs_callbackQueue_completion_serialCompletion___block_invoke(id *a1, void *a2, uint64_t a3, void *a4)
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   v6 = a2;
   v7 = a4;
   v8 = FCPurchaseLog;
   if (os_log_type_enabled(FCPurchaseLog, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = a1[4];
-    v10 = v8;
+    v9 = v8;
     *buf = 138412802;
-    v44 = objc_opt_class();
+    v42 = objc_opt_class();
+    v43 = 2114;
+    v44 = v6;
     v45 = 2114;
-    v46 = v6;
-    v47 = 2114;
-    v48 = v7;
-    _os_log_impl(&dword_1B63EF000, v10, OS_LOG_TYPE_DEFAULT, "%@ Entitlements response received with entitlements:%{public}@ error:%{public}@", buf, 0x20u);
+    v46 = v7;
+    _os_log_impl(&dword_1B63EF000, v9, OS_LOG_TYPE_DEFAULT, "%@ Entitlements response received with entitlements:%{public}@ error:%{public}@", buf, 0x20u);
   }
 
-  v11 = NewsCoreUserDefaults();
-  if ([v11 BOOLForKey:@"running_ui_automation"])
+  v10 = NewsCoreUserDefaults();
+  if ([v10 BOOLForKey:@"running_ui_automation"])
   {
-    v12 = NFInternalBuild();
+    v11 = NFInternalBuild();
 
-    if (v12)
+    if (v11)
     {
-      v39[0] = MEMORY[0x1E69E9820];
-      v39[1] = 3221225472;
-      v39[2] = __120__FCPurchaseController__entitlementCheckWithIgnoreCache_restorableBundleIAPs_callbackQueue_completion_serialCompletion___block_invoke_193;
-      v39[3] = &unk_1E7C390B8;
-      v40 = a1[5];
-      v41 = a1[7];
-      v42 = a1[8];
-      __120__FCPurchaseController__entitlementCheckWithIgnoreCache_restorableBundleIAPs_callbackQueue_completion_serialCompletion___block_invoke_193(v39);
+      v37[0] = MEMORY[0x1E69E9820];
+      v37[1] = 3221225472;
+      v37[2] = __120__FCPurchaseController__entitlementCheckWithIgnoreCache_restorableBundleIAPs_callbackQueue_completion_serialCompletion___block_invoke_193;
+      v37[3] = &unk_1E7C390B8;
+      v38 = a1[5];
+      v39 = a1[7];
+      v40 = a1[8];
+      __120__FCPurchaseController__entitlementCheckWithIgnoreCache_restorableBundleIAPs_callbackQueue_completion_serialCompletion___block_invoke_193(v37);
 
-      v13 = v40;
+      v12 = v38;
       goto LABEL_19;
     }
   }
@@ -1579,73 +1563,72 @@ void __120__FCPurchaseController__entitlementCheckWithIgnoreCache_restorableBund
   {
   }
 
-  v13 = [v6 fc_arrayByTransformingWithBlock:&__block_literal_global_196];
-  v14 = [a1[4] entitlementsOverrideProvider];
+  v12 = [v6 fc_arrayByTransformingWithBlock:&__block_literal_global_196];
+  v13 = [a1[4] entitlementsOverrideProvider];
 
-  if (v14)
+  if (v13)
   {
-    v15 = [a1[4] entitlementsOverrideProvider];
-    v16 = [v15 entitlementsOverrideWithDefaultEntitlements:v13];
+    v14 = [a1[4] entitlementsOverrideProvider];
+    v15 = [v14 entitlementsOverrideWithDefaultEntitlements:v12];
 
-    if (v16)
+    if (v15)
     {
-      v17 = FCPurchaseLog;
+      v16 = FCPurchaseLog;
       if (os_log_type_enabled(FCPurchaseLog, OS_LOG_TYPE_DEFAULT))
       {
-        v18 = v17;
-        v19 = [v16 entitlements];
+        v17 = v16;
+        v18 = [v15 entitlements];
         *buf = 138543618;
-        v44 = v19;
-        v45 = 2114;
-        v46 = v7;
-        _os_log_impl(&dword_1B63EF000, v18, OS_LOG_TYPE_DEFAULT, "Overriding entitlements response with entitlements:%{public}@ error:%{public}@", buf, 0x16u);
+        v42 = v18;
+        v43 = 2114;
+        v44 = v7;
+        _os_log_impl(&dword_1B63EF000, v17, OS_LOG_TYPE_DEFAULT, "Overriding entitlements response with entitlements:%{public}@ error:%{public}@", buf, 0x16u);
       }
 
-      v20 = [v16 entitlements];
+      v19 = [v15 entitlements];
 
-      v21 = [v16 error];
+      v20 = [v15 error];
 
-      v13 = v20;
-      v7 = v21;
+      v12 = v19;
+      v7 = v20;
     }
   }
 
-  if (v13 && (!v7 || [v13 count]))
+  if (v12 && (!v7 || [v12 count]))
   {
     WeakRetained = objc_loadWeakRetained(a1 + 9);
-    v29[0] = MEMORY[0x1E69E9820];
-    v29[1] = 3221225472;
-    v29[2] = __120__FCPurchaseController__entitlementCheckWithIgnoreCache_restorableBundleIAPs_callbackQueue_completion_serialCompletion___block_invoke_2_199;
-    v29[3] = &unk_1E7C392B8;
-    v23 = &v30;
-    v30 = a1[6];
-    v24 = &v31;
-    v31 = v13;
-    v25 = a1[5];
-    v26 = a1[4];
-    v32 = v25;
-    v33 = v26;
-    v34 = a1[7];
-    v35 = a1[8];
-    FCPerformIfNonNil(WeakRetained, v29);
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = __120__FCPurchaseController__entitlementCheckWithIgnoreCache_restorableBundleIAPs_callbackQueue_completion_serialCompletion___block_invoke_2_199;
+    v27[3] = &unk_1E7C392B8;
+    v22 = &v28;
+    v28 = a1[6];
+    v23 = &v29;
+    v29 = v12;
+    v24 = a1[5];
+    v25 = a1[4];
+    v30 = v24;
+    v31 = v25;
+    v32 = a1[7];
+    v33 = a1[8];
+    FCPerformIfNonNil(WeakRetained, v27);
   }
 
   else
   {
-    v27 = a1[5];
+    v26 = a1[5];
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __120__FCPurchaseController__entitlementCheckWithIgnoreCache_restorableBundleIAPs_callbackQueue_completion_serialCompletion___block_invoke_198;
     block[3] = &unk_1E7C39090;
-    v23 = &v37;
-    v37 = a1[7];
-    v24 = &v38;
-    v38 = a1[8];
-    dispatch_async(v27, block);
+    v22 = &v35;
+    v35 = a1[7];
+    v23 = &v36;
+    v36 = a1[8];
+    dispatch_async(v26, block);
   }
 
 LABEL_19:
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 void __120__FCPurchaseController__entitlementCheckWithIgnoreCache_restorableBundleIAPs_callbackQueue_completion_serialCompletion___block_invoke_193(uint64_t a1)
@@ -1708,7 +1691,7 @@ uint64_t __120__FCPurchaseController__entitlementCheckWithIgnoreCache_restorable
 
 void __120__FCPurchaseController__entitlementCheckWithIgnoreCache_restorableBundleIAPs_callbackQueue_completion_serialCompletion___block_invoke_2_199(uint64_t a1, void *a2)
 {
-  v67 = *MEMORY[0x1E69E9840];
+  v66 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = dispatch_group_create();
   dispatch_group_enter(v4);
@@ -1732,76 +1715,76 @@ void __120__FCPurchaseController__entitlementCheckWithIgnoreCache_restorableBund
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v63 = 0x3032000000;
-  v64 = __Block_byref_object_copy__10;
-  v65 = __Block_byref_object_dispose__10;
-  v66 = [MEMORY[0x1E695DF90] dictionary];
-  v52[0] = MEMORY[0x1E69E9820];
-  v52[1] = 3221225472;
-  v52[2] = __120__FCPurchaseController__entitlementCheckWithIgnoreCache_restorableBundleIAPs_callbackQueue_completion_serialCompletion___block_invoke_200;
-  v52[3] = &unk_1E7C39100;
+  v62 = 0x3032000000;
+  v63 = __Block_byref_object_copy__10;
+  v64 = __Block_byref_object_dispose__10;
+  v65 = [MEMORY[0x1E695DF90] dictionary];
+  v51[0] = MEMORY[0x1E69E9820];
+  v51[1] = 3221225472;
+  v51[2] = __120__FCPurchaseController__entitlementCheckWithIgnoreCache_restorableBundleIAPs_callbackQueue_completion_serialCompletion___block_invoke_200;
+  v51[3] = &unk_1E7C39100;
   v8 = *(a1 + 40);
-  v53 = *(a1 + 32);
+  v52 = *(a1 + 32);
   p_buf = &buf;
-  v9 = [v8 fc_arrayByTransformingWithBlock:v52];
+  v9 = [v8 fc_arrayByTransformingWithBlock:v51];
   v10 = FCPurchaseLog;
   if (os_log_type_enabled(FCPurchaseLog, OS_LOG_TYPE_DEFAULT))
   {
-    LODWORD(v57) = 138412290;
-    *(&v57 + 4) = v9;
-    _os_log_impl(&dword_1B63EF000, v10, OS_LOG_TYPE_DEFAULT, "entitled PurchaseIDs:%@", &v57, 0xCu);
+    LODWORD(v56) = 138412290;
+    *(&v56 + 4) = v9;
+    _os_log_impl(&dword_1B63EF000, v10, OS_LOG_TYPE_DEFAULT, "entitled PurchaseIDs:%@", &v56, 0xCu);
   }
 
-  *&v57 = 0;
-  *(&v57 + 1) = &v57;
-  v58 = 0x3032000000;
-  v59 = __Block_byref_object_copy__10;
-  v60 = __Block_byref_object_dispose__10;
-  v61 = [MEMORY[0x1E695DFA8] set];
-  v50[0] = 0;
-  v50[1] = v50;
-  v50[2] = 0x3032000000;
-  v50[3] = __Block_byref_object_copy__10;
-  v50[4] = __Block_byref_object_dispose__10;
-  v51 = [MEMORY[0x1E695DFA8] set];
-  v48[0] = 0;
-  v48[1] = v48;
-  v48[2] = 0x3032000000;
-  v48[3] = __Block_byref_object_copy__10;
-  v48[4] = __Block_byref_object_dispose__10;
-  v49 = [MEMORY[0x1E695DFA8] set];
-  v46[0] = 0;
-  v46[1] = v46;
-  v46[2] = 0x3032000000;
-  v46[3] = __Block_byref_object_copy__10;
-  v46[4] = __Block_byref_object_dispose__10;
-  v47 = [MEMORY[0x1E695DF90] dictionary];
-  v44[0] = 0;
-  v44[1] = v44;
-  v44[2] = 0x3032000000;
-  v44[3] = __Block_byref_object_copy__10;
-  v44[4] = __Block_byref_object_dispose__10;
-  v45 = [MEMORY[0x1E695DF70] array];
-  v33[0] = MEMORY[0x1E69E9820];
-  v33[1] = 3221225472;
-  v33[2] = __120__FCPurchaseController__entitlementCheckWithIgnoreCache_restorableBundleIAPs_callbackQueue_completion_serialCompletion___block_invoke_202;
-  v33[3] = &unk_1E7C39240;
+  *&v56 = 0;
+  *(&v56 + 1) = &v56;
+  v57 = 0x3032000000;
+  v58 = __Block_byref_object_copy__10;
+  v59 = __Block_byref_object_dispose__10;
+  v60 = [MEMORY[0x1E695DFA8] set];
+  v49[0] = 0;
+  v49[1] = v49;
+  v49[2] = 0x3032000000;
+  v49[3] = __Block_byref_object_copy__10;
+  v49[4] = __Block_byref_object_dispose__10;
+  v50 = [MEMORY[0x1E695DFA8] set];
+  v47[0] = 0;
+  v47[1] = v47;
+  v47[2] = 0x3032000000;
+  v47[3] = __Block_byref_object_copy__10;
+  v47[4] = __Block_byref_object_dispose__10;
+  v48 = [MEMORY[0x1E695DFA8] set];
+  v45[0] = 0;
+  v45[1] = v45;
+  v45[2] = 0x3032000000;
+  v45[3] = __Block_byref_object_copy__10;
+  v45[4] = __Block_byref_object_dispose__10;
+  v46 = [MEMORY[0x1E695DF90] dictionary];
+  v43[0] = 0;
+  v43[1] = v43;
+  v43[2] = 0x3032000000;
+  v43[3] = __Block_byref_object_copy__10;
+  v43[4] = __Block_byref_object_dispose__10;
+  v44 = [MEMORY[0x1E695DF70] array];
+  v32[0] = MEMORY[0x1E69E9820];
+  v32[1] = 3221225472;
+  v32[2] = __120__FCPurchaseController__entitlementCheckWithIgnoreCache_restorableBundleIAPs_callbackQueue_completion_serialCompletion___block_invoke_202;
+  v32[3] = &unk_1E7C39240;
   v11 = *(a1 + 48);
-  v33[4] = *(a1 + 56);
-  v38 = &v57;
-  v39 = v46;
+  v32[4] = *(a1 + 56);
+  v37 = &v56;
+  v38 = v45;
   v12 = v9;
-  v34 = v12;
-  v40 = v48;
+  v33 = v12;
+  v39 = v47;
   v13 = v5;
-  v35 = v13;
-  v36 = v3;
-  v41 = &buf;
-  v42 = v44;
-  v43 = v50;
+  v34 = v13;
+  v35 = v3;
+  v40 = &buf;
+  v41 = v43;
+  v42 = v49;
   v14 = v4;
-  v37 = v14;
-  v15 = v33;
+  v36 = v14;
+  v15 = v32;
   if (v3)
   {
     v16 = v11;
@@ -1812,43 +1795,41 @@ void __120__FCPurchaseController__entitlementCheckWithIgnoreCache_restorableBund
     [(FCOperation *)v18 setRelativePriority:1];
     [(FCFetchOperation *)v18 setFetchCompletionQueue:v16];
 
-    v55[0] = MEMORY[0x1E69E9820];
-    v55[1] = 3221225472;
-    v55[2] = __79__FCPurchaseController_fetchChannelIDsForPurchaseIDs_callbackQueue_completion___block_invoke;
-    v55[3] = &unk_1E7C37A38;
-    v56 = v15;
-    [(FCFetchOperation *)v18 setFetchCompletionBlock:v55];
+    v54[0] = MEMORY[0x1E69E9820];
+    v54[1] = 3221225472;
+    v54[2] = __79__FCPurchaseController_fetchChannelIDsForPurchaseIDs_callbackQueue_completion___block_invoke;
+    v54[3] = &unk_1E7C37A38;
+    v55 = v15;
+    [(FCFetchOperation *)v18 setFetchCompletionBlock:v54];
     v19 = [MEMORY[0x1E696ADC8] fc_sharedConcurrentQueue];
     [v19 addOperation:v18];
   }
 
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __120__FCPurchaseController__entitlementCheckWithIgnoreCache_restorableBundleIAPs_callbackQueue_completion_serialCompletion___block_invoke_2_217;
-  v22[3] = &unk_1E7C39290;
-  v29 = &v57;
-  v30 = v50;
-  v23 = v13;
-  v24 = v3;
-  v31 = v48;
-  v25 = *(a1 + 48);
-  v27 = *(a1 + 64);
-  v26 = *(a1 + 40);
-  v32 = v44;
-  v28 = *(a1 + 72);
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __120__FCPurchaseController__entitlementCheckWithIgnoreCache_restorableBundleIAPs_callbackQueue_completion_serialCompletion___block_invoke_2_217;
+  v21[3] = &unk_1E7C39290;
+  v28 = &v56;
+  v29 = v49;
+  v22 = v13;
+  v23 = v3;
+  v30 = v47;
+  v24 = *(a1 + 48);
+  v26 = *(a1 + 64);
+  v25 = *(a1 + 40);
+  v31 = v43;
+  v27 = *(a1 + 72);
   v20 = v13;
-  dispatch_group_notify(v14, MEMORY[0x1E69E96A0], v22);
+  dispatch_group_notify(v14, MEMORY[0x1E69E96A0], v21);
 
-  _Block_object_dispose(v44, 8);
-  _Block_object_dispose(v46, 8);
+  _Block_object_dispose(v43, 8);
+  _Block_object_dispose(v45, 8);
 
-  _Block_object_dispose(v48, 8);
-  _Block_object_dispose(v50, 8);
+  _Block_object_dispose(v47, 8);
+  _Block_object_dispose(v49, 8);
 
-  _Block_object_dispose(&v57, 8);
+  _Block_object_dispose(&v56, 8);
   _Block_object_dispose(&buf, 8);
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 id __120__FCPurchaseController__entitlementCheckWithIgnoreCache_restorableBundleIAPs_callbackQueue_completion_serialCompletion___block_invoke_200(uint64_t a1, void *a2)
@@ -1873,7 +1854,7 @@ id __120__FCPurchaseController__entitlementCheckWithIgnoreCache_restorableBundle
 
 void __120__FCPurchaseController__entitlementCheckWithIgnoreCache_restorableBundleIAPs_callbackQueue_completion_serialCompletion___block_invoke_202(uint64_t a1, void *a2)
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1 + 32);
   if (v4)
@@ -1883,8 +1864,8 @@ void __120__FCPurchaseController__entitlementCheckWithIgnoreCache_restorableBund
     *buf = MEMORY[0x1E69E9820];
     *&buf[8] = 3221225472;
     *&buf[16] = __62__FCPurchaseController_allAppStorePurchasedTagIDsByPurchaseID__block_invoke;
-    v56 = &unk_1E7C38FA0;
-    v57 = v5;
+    v54 = &unk_1E7C38FA0;
+    v55 = v5;
     v8 = v5;
     [Property enumerateKeysAndObjectsUsingBlock:buf];
     v4 = [v8 copy];
@@ -1895,25 +1876,25 @@ void __120__FCPurchaseController__entitlementCheckWithIgnoreCache_restorableBund
   if (!v9)
   {
     v17 = [v3 channelIDsByPurchaseID];
-    v53[0] = MEMORY[0x1E69E9820];
-    v53[1] = 3221225472;
-    v53[2] = __120__FCPurchaseController__entitlementCheckWithIgnoreCache_restorableBundleIAPs_callbackQueue_completion_serialCompletion___block_invoke_2_203;
-    v53[3] = &unk_1E7C39150;
-    v54 = *(a1 + 72);
-    [v17 enumerateKeysAndObjectsUsingBlock:v53];
+    v51[0] = MEMORY[0x1E69E9820];
+    v51[1] = 3221225472;
+    v51[2] = __120__FCPurchaseController__entitlementCheckWithIgnoreCache_restorableBundleIAPs_callbackQueue_completion_serialCompletion___block_invoke_2_203;
+    v51[3] = &unk_1E7C39150;
+    v52 = *(a1 + 72);
+    [v17 enumerateKeysAndObjectsUsingBlock:v51];
 
     v18 = *(a1 + 40);
-    v49[0] = MEMORY[0x1E69E9820];
-    v49[1] = 3221225472;
-    v49[2] = __120__FCPurchaseController__entitlementCheckWithIgnoreCache_restorableBundleIAPs_callbackQueue_completion_serialCompletion___block_invoke_4;
-    v49[3] = &unk_1E7C391A0;
+    v47[0] = MEMORY[0x1E69E9820];
+    v47[1] = 3221225472;
+    v47[2] = __120__FCPurchaseController__entitlementCheckWithIgnoreCache_restorableBundleIAPs_callbackQueue_completion_serialCompletion___block_invoke_4;
+    v47[3] = &unk_1E7C391A0;
     v19 = v4;
     v20 = *(a1 + 72);
-    v50 = v19;
-    v51 = v20;
-    v52 = *(a1 + 88);
-    [v18 enumerateObjectsUsingBlock:v49];
-    v16 = v50;
+    v48 = v19;
+    v49 = v20;
+    v50 = *(a1 + 88);
+    [v18 enumerateObjectsUsingBlock:v47];
+    v16 = v48;
 LABEL_10:
 
     goto LABEL_11;
@@ -1931,19 +1912,18 @@ LABEL_10:
       v14 = FCPurchaseLog;
       if (os_log_type_enabled(FCPurchaseLog, OS_LOG_TYPE_ERROR))
       {
-        v37 = *(a1 + 32);
-        v38 = v14;
-        v39 = objc_opt_class();
-        v40 = NSStringFromClass(v39);
-        v41 = *(a1 + 32);
-        v42 = [v3 error];
+        v36 = v14;
+        v37 = objc_opt_class();
+        v38 = NSStringFromClass(v37);
+        v39 = *(a1 + 32);
+        v40 = [v3 error];
         *buf = 138543874;
-        *&buf[4] = v40;
+        *&buf[4] = v38;
         *&buf[12] = 2048;
-        *&buf[14] = v41;
+        *&buf[14] = v39;
         *&buf[22] = 2114;
-        v56 = v42;
-        _os_log_error_impl(&dword_1B63EF000, v38, OS_LOG_TYPE_ERROR, "<%{public}@ %p> fetchChannelIDsForPurchaseIDs failed with error: %{public}@", buf, 0x20u);
+        v54 = v40;
+        _os_log_error_impl(&dword_1B63EF000, v36, OS_LOG_TYPE_ERROR, "<%{public}@ %p> fetchChannelIDsForPurchaseIDs failed with error: %{public}@", buf, 0x20u);
       }
 
       v15 = *(*(*(a1 + 72) + 8) + 40);
@@ -1987,25 +1967,23 @@ LABEL_11:
 
   v29 = v28;
   v30 = [v29 tagController];
-  v43[0] = MEMORY[0x1E69E9820];
-  v43[1] = 3221225472;
-  v43[2] = __120__FCPurchaseController__entitlementCheckWithIgnoreCache_restorableBundleIAPs_callbackQueue_completion_serialCompletion___block_invoke_207;
-  v43[3] = &unk_1E7C39218;
+  v41[0] = MEMORY[0x1E69E9820];
+  v41[1] = 3221225472;
+  v41[2] = __120__FCPurchaseController__entitlementCheckWithIgnoreCache_restorableBundleIAPs_callbackQueue_completion_serialCompletion___block_invoke_207;
+  v41[3] = &unk_1E7C39218;
   v31 = *(a1 + 72);
   v32 = *(a1 + 64);
-  v43[4] = *(a1 + 56);
+  v41[4] = *(a1 + 56);
   v33 = *(a1 + 96);
-  v45 = v31;
-  v46 = v33;
+  v43 = v31;
+  v44 = v33;
   v34 = *(a1 + 112);
-  v47 = *(a1 + 88);
-  v48 = v34;
+  v45 = *(a1 + 88);
+  v46 = v34;
   v35 = v32;
 
-  v44 = v35;
-  [v30 fetchTagsForTagIDs:v26 maximumCachedAge:9 qualityOfService:v43 completionHandler:0.0];
-
-  v36 = *MEMORY[0x1E69E9840];
+  v42 = v35;
+  [v30 fetchTagsForTagIDs:v26 maximumCachedAge:9 qualityOfService:v41 completionHandler:0.0];
 }
 
 void __120__FCPurchaseController__entitlementCheckWithIgnoreCache_restorableBundleIAPs_callbackQueue_completion_serialCompletion___block_invoke_2_203(uint64_t a1, void *a2, void *a3)
@@ -2104,7 +2082,7 @@ void __120__FCPurchaseController__entitlementCheckWithIgnoreCache_restorableBund
 
 void __120__FCPurchaseController__entitlementCheckWithIgnoreCache_restorableBundleIAPs_callbackQueue_completion_serialCompletion___block_invoke_3_209(uint64_t a1, uint64_t a2, void *a3)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v4 = a3;
   v5 = [v4 identifier];
   if (![*(*(*(a1 + 40) + 8) + 40) containsObject:v5])
@@ -2121,8 +2099,8 @@ void __120__FCPurchaseController__entitlementCheckWithIgnoreCache_restorableBund
       [*(*(*(a1 + 80) + 8) + 40) addObject:v6];
       [*(*(*(a1 + 72) + 8) + 40) removeObject:v7];
       v8 = *(a1 + 32);
-      v20 = v7;
-      v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v20 count:1];
+      v19 = v7;
+      v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v19 count:1];
       v10 = v9;
       if (v8)
       {
@@ -2130,9 +2108,9 @@ void __120__FCPurchaseController__entitlementCheckWithIgnoreCache_restorableBund
         *block = MEMORY[0x1E69E9820];
         *&block[8] = 3221225472;
         *&block[16] = __72__FCPurchaseController_silentRemoveFromPurchasedChannelsListWithTagIDs___block_invoke;
-        v22 = &unk_1E7C36C58;
-        v23 = v8;
-        v24 = v9;
+        v21 = &unk_1E7C36C58;
+        v22 = v8;
+        v23 = v9;
         dispatch_sync(v11, block);
       }
 
@@ -2180,10 +2158,10 @@ LABEL_19:
         *block = MEMORY[0x1E69E9820];
         *&block[8] = 3221225472;
         *&block[16] = __64__FCPurchaseController_updatePurchaseEntryToValid_purchaseType___block_invoke;
-        v22 = &unk_1E7C393F8;
-        v24 = v13;
-        v25 = 1;
-        v23 = v14;
+        v21 = &unk_1E7C393F8;
+        v23 = v13;
+        v24 = 1;
+        v22 = v14;
         dispatch_sync(v15, block);
       }
 
@@ -2197,8 +2175,6 @@ LABEL_15:
 
   [*(*(*(a1 + 40) + 8) + 40) removeObject:v5];
 LABEL_20:
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 BOOL __120__FCPurchaseController__entitlementCheckWithIgnoreCache_restorableBundleIAPs_callbackQueue_completion_serialCompletion___block_invoke_213(uint64_t a1, uint64_t a2)
@@ -2211,7 +2187,7 @@ BOOL __120__FCPurchaseController__entitlementCheckWithIgnoreCache_restorableBund
 
 void __120__FCPurchaseController__entitlementCheckWithIgnoreCache_restorableBundleIAPs_callbackQueue_completion_serialCompletion___block_invoke_2_217(uint64_t a1)
 {
-  v56 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   v2 = [*(*(*(a1 + 80) + 8) + 40) allObjects];
   v3 = [*(a1 + 32) allObjects];
   v4 = [v2 fc_arrayByRemovingObjectsInArray:v3];
@@ -2235,9 +2211,9 @@ void __120__FCPurchaseController__entitlementCheckWithIgnoreCache_restorableBund
     v11 = [v9 tagController];
     *&buf = MEMORY[0x1E69E9820];
     *(&buf + 1) = 3221225472;
-    v53 = __65__FCPurchaseController_addAppStoreDiscoveredChannelsToFavorites___block_invoke;
-    v54 = &unk_1E7C39358;
-    v55 = v8;
+    v52 = __65__FCPurchaseController_addAppStoreDiscoveredChannelsToFavorites___block_invoke;
+    v53 = &unk_1E7C39358;
+    v54 = v8;
     [v11 fetchTagsForTagIDs:v10 qualityOfService:9 callbackQueue:MEMORY[0x1E69E96A0] completionHandler:&buf];
   }
 
@@ -2286,12 +2262,12 @@ void __120__FCPurchaseController__entitlementCheckWithIgnoreCache_restorableBund
   }
 
   v28 = [*(*(*(a1 + 96) + 8) + 40) allObjects];
-  v51[0] = MEMORY[0x1E69E9820];
-  v51[1] = 3221225472;
-  v51[2] = __120__FCPurchaseController__entitlementCheckWithIgnoreCache_restorableBundleIAPs_callbackQueue_completion_serialCompletion___block_invoke_218;
-  v51[3] = &unk_1E7C389E0;
-  v51[4] = *(a1 + 40);
-  [v28 enumerateObjectsUsingBlock:v51];
+  v50[0] = MEMORY[0x1E69E9820];
+  v50[1] = 3221225472;
+  v50[2] = __120__FCPurchaseController__entitlementCheckWithIgnoreCache_restorableBundleIAPs_callbackQueue_completion_serialCompletion___block_invoke_218;
+  v50[3] = &unk_1E7C389E0;
+  v50[4] = *(a1 + 40);
+  [v28 enumerateObjectsUsingBlock:v50];
 
   v29 = *(a1 + 40);
   if (v29)
@@ -2302,11 +2278,11 @@ void __120__FCPurchaseController__entitlementCheckWithIgnoreCache_restorableBund
     v33 = [v32 copy];
     *&buf = MEMORY[0x1E69E9820];
     *(&buf + 1) = 3221225472;
-    v53 = __50__FCPurchaseController_allAppStorePurchasedTagIDs__block_invoke;
-    v54 = &unk_1E7C38FA0;
+    v52 = __50__FCPurchaseController_allAppStorePurchasedTagIDs__block_invoke;
+    v53 = &unk_1E7C38FA0;
     v34 = v30;
 
-    v55 = v34;
+    v54 = v34;
     [v33 enumerateKeysAndObjectsUsingBlock:&buf];
   }
 
@@ -2330,26 +2306,24 @@ void __120__FCPurchaseController__entitlementCheckWithIgnoreCache_restorableBund
     _os_log_impl(&dword_1B63EF000, v40, OS_LOG_TYPE_DEFAULT, "expiredPurchaseIDs:%@", &buf, 0xCu);
   }
 
-  v50[0] = MEMORY[0x1E69E9820];
-  v50[1] = 3221225472;
-  v50[2] = __120__FCPurchaseController__entitlementCheckWithIgnoreCache_restorableBundleIAPs_callbackQueue_completion_serialCompletion___block_invoke_219;
-  v50[3] = &unk_1E7C389E0;
-  v50[4] = *(a1 + 40);
-  [v39 enumerateObjectsUsingBlock:v50];
+  v49[0] = MEMORY[0x1E69E9820];
+  v49[1] = 3221225472;
+  v49[2] = __120__FCPurchaseController__entitlementCheckWithIgnoreCache_restorableBundleIAPs_callbackQueue_completion_serialCompletion___block_invoke_219;
+  v49[3] = &unk_1E7C389E0;
+  v49[4] = *(a1 + 40);
+  [v39 enumerateObjectsUsingBlock:v49];
   v41 = *(a1 + 48);
-  v45[0] = MEMORY[0x1E69E9820];
-  v45[1] = 3221225472;
-  v45[2] = __120__FCPurchaseController__entitlementCheckWithIgnoreCache_restorableBundleIAPs_callbackQueue_completion_serialCompletion___block_invoke_2_220;
-  v45[3] = &unk_1E7C39268;
-  v47 = *(a1 + 64);
+  v44[0] = MEMORY[0x1E69E9820];
+  v44[1] = 3221225472;
+  v44[2] = __120__FCPurchaseController__entitlementCheckWithIgnoreCache_restorableBundleIAPs_callbackQueue_completion_serialCompletion___block_invoke_2_220;
+  v44[3] = &unk_1E7C39268;
+  v46 = *(a1 + 64);
   v42 = *(a1 + 56);
   v43 = *(a1 + 104);
-  v46 = v42;
-  v49 = v43;
-  v48 = *(a1 + 72);
-  dispatch_async(v41, v45);
-
-  v44 = *MEMORY[0x1E69E9840];
+  v45 = v42;
+  v48 = v43;
+  v47 = *(a1 + 72);
+  dispatch_async(v41, v44);
 }
 
 void __120__FCPurchaseController__entitlementCheckWithIgnoreCache_restorableBundleIAPs_callbackQueue_completion_serialCompletion___block_invoke_218(uint64_t a1, void *a2)
@@ -2435,7 +2409,7 @@ uint64_t __120__FCPurchaseController__entitlementCheckWithIgnoreCache_restorable
 
 void __65__FCPurchaseController_addAppStoreDiscoveredChannelsToFavorites___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -2444,28 +2418,26 @@ void __65__FCPurchaseController_addAppStoreDiscoveredChannelsToFavorites___block
     {
       v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Couldn't add the subscriptions detected channels to favorites"];
       *buf = 136315906;
-      v11 = "[FCPurchaseController addAppStoreDiscoveredChannelsToFavorites:]_block_invoke";
-      v12 = 2080;
-      v13 = "FCPurchaseController.m";
-      v14 = 1024;
-      v15 = 1035;
-      v16 = 2114;
-      v17 = v7;
+      v10 = "[FCPurchaseController addAppStoreDiscoveredChannelsToFavorites:]_block_invoke";
+      v11 = 2080;
+      v12 = "FCPurchaseController.m";
+      v13 = 1024;
+      v14 = 1035;
+      v15 = 2114;
+      v16 = v7;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
     }
   }
 
   else
   {
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __65__FCPurchaseController_addAppStoreDiscoveredChannelsToFavorites___block_invoke_225;
-    v9[3] = &unk_1E7C39330;
-    v9[4] = *(a1 + 32);
-    [v5 enumerateKeysAndObjectsUsingBlock:v9];
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __65__FCPurchaseController_addAppStoreDiscoveredChannelsToFavorites___block_invoke_225;
+    v8[3] = &unk_1E7C39330;
+    v8[4] = *(a1 + 32);
+    [v5 enumerateKeysAndObjectsUsingBlock:v8];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __65__FCPurchaseController_addAppStoreDiscoveredChannelsToFavorites___block_invoke_225(uint64_t a1, uint64_t a2, void *a3)
@@ -2603,35 +2575,33 @@ void __62__FCPurchaseController_allAppStorePurchasedTagIDsByPurchaseID__block_in
 
 - (void)_enumerateValidPurchasesUsingBlock:(void *)block
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v5 = v3;
   if (block)
   {
     if (!v3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "block != nil"];
+      v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "block != nil"];
       *buf = 136315906;
-      v12 = "[FCPurchaseController _enumerateValidPurchasesUsingBlock:]";
-      v13 = 2080;
-      v14 = "FCPurchaseController.m";
-      v15 = 1024;
-      v16 = 1150;
-      v17 = 2114;
-      v18 = v8;
+      v11 = "[FCPurchaseController _enumerateValidPurchasesUsingBlock:]";
+      v12 = 2080;
+      v13 = "FCPurchaseController.m";
+      v14 = 1024;
+      v15 = 1150;
+      v16 = 2114;
+      v17 = v7;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
     }
 
     Property = objc_getProperty(block, v4, 64, 1);
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __59__FCPurchaseController__enumerateValidPurchasesUsingBlock___block_invoke;
-    v9[3] = &unk_1E7C39380;
-    v10 = v5;
-    [Property enumerateKeysAndObjectsUsingBlock:v9];
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __59__FCPurchaseController__enumerateValidPurchasesUsingBlock___block_invoke;
+    v8[3] = &unk_1E7C39380;
+    v9 = v5;
+    [Property enumerateKeysAndObjectsUsingBlock:v8];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (NSSet)allPurchaseIDs
@@ -2973,7 +2943,7 @@ void __64__FCPurchaseController_updatePurchaseEntryToValid_purchaseType___block_
   dispatch_async(accessQueue, v7);
 }
 
-- (uint64_t)_removeFromPurchasedChannelsListWithTagIDs:(uint64_t)result
+- (void)_removeFromPurchasedChannelsListWithTagIDs:(void *)result
 {
   if (result)
   {
@@ -3084,6 +3054,24 @@ uint64_t __69__FCPurchaseController_removeFromPurchasesDiscoveredList_completion
   return result;
 }
 
+- (void)removeWebPurchaseForTagID:(id)d userInitiated:(BOOL)initiated
+{
+  initiatedCopy = initiated;
+  if (self)
+  {
+    cloudContext = self->_cloudContext;
+  }
+
+  else
+  {
+    cloudContext = 0;
+  }
+
+  dCopy = d;
+  tagSettings = [(FCCloudContext *)cloudContext tagSettings];
+  [tagSettings setAccessTokenForTagID:dCopy accessToken:0 userInitiated:initiatedCopy];
+}
+
 void __67__FCPurchaseController_cleanupExpiredPurchaseLookupEntriesIfNeeded__block_invoke(uint64_t a1, const char *a2)
 {
   Property = *(a1 + 32);
@@ -3168,7 +3156,7 @@ void __67__FCPurchaseController_cleanupExpiredPurchaseLookupEntriesIfNeeded__blo
 
 - (void)handleAccessTokenChangeWithTagID:(uint64_t)d userInitiated:(void *)initiated
 {
-  v38[1] = *MEMORY[0x1E69E9840];
+  v37[1] = *MEMORY[0x1E69E9840];
   initiatedCopy = initiated;
   if (d)
   {
@@ -3176,63 +3164,63 @@ void __67__FCPurchaseController_cleanupExpiredPurchaseLookupEntriesIfNeeded__blo
     tagSettings = [v4 tagSettings];
     v6 = [tagSettings accessTokenForTagID:initiatedCopy];
 
-    v32 = 0;
-    v33 = &v32;
-    v34 = 0x3032000000;
-    v35 = __Block_byref_object_copy__10;
-    v36 = __Block_byref_object_dispose__10;
-    v37 = [d purchaseLookUpEntryForTagID:initiatedCopy];
+    v31 = 0;
+    v32 = &v31;
+    v33 = 0x3032000000;
+    v34 = __Block_byref_object_copy__10;
+    v35 = __Block_byref_object_dispose__10;
+    v36 = [d purchaseLookUpEntryForTagID:initiatedCopy];
     if (v6)
     {
       objc_initWeak(&location, d);
       v7 = *(d + 32);
       tagController = [v7 tagController];
       v9 = MEMORY[0x1E69E96A0];
-      v26[0] = MEMORY[0x1E69E9820];
-      v26[1] = 3221225472;
-      v26[2] = __71__FCPurchaseController_handleAccessTokenChangeWithTagID_userInitiated___block_invoke;
-      v26[3] = &unk_1E7C39448;
-      objc_copyWeak(&v30, &location);
+      v25[0] = MEMORY[0x1E69E9820];
+      v25[1] = 3221225472;
+      v25[2] = __71__FCPurchaseController_handleAccessTokenChangeWithTagID_userInitiated___block_invoke;
+      v25[3] = &unk_1E7C39448;
+      objc_copyWeak(&v29, &location);
       dCopy = d;
-      v29 = &v32;
-      v27 = initiatedCopy;
-      [tagController fetchTagForTagID:v27 qualityOfService:9 callbackQueue:MEMORY[0x1E69E96A0] completionHandler:v26];
+      v28 = &v31;
+      v26 = initiatedCopy;
+      [tagController fetchTagForTagID:v26 qualityOfService:9 callbackQueue:MEMORY[0x1E69E96A0] completionHandler:v25];
 
-      objc_destroyWeak(&v30);
+      objc_destroyWeak(&v29);
       objc_destroyWeak(&location);
     }
 
     else
     {
-      v11 = v33[5];
-      if (v11)
+      v10 = v32[5];
+      if (v10)
       {
-        if ([v11 purchaseType] == 2)
+        if ([v10 purchaseType] == 2)
         {
-          v38[0] = initiatedCopy;
-          v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v38 count:1];
-          [d removeFromPurchasedChannelsListWithTagIDs:v12];
+          v37[0] = initiatedCopy;
+          v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v37 count:1];
+          [d removeFromPurchasedChannelsListWithTagIDs:v11];
 
           purchasesDiscoveredTagIDs = [d purchasesDiscoveredTagIDs];
-          v14 = [purchasesDiscoveredTagIDs containsObject:initiatedCopy];
+          v13 = [purchasesDiscoveredTagIDs containsObject:initiatedCopy];
 
-          if (v14)
+          if (v13)
           {
             purchasesDiscoveredTagIDs2 = [d purchasesDiscoveredTagIDs];
             allObjects = [purchasesDiscoveredTagIDs2 allObjects];
-            v17 = [allObjects mutableCopy];
+            v16 = [allObjects mutableCopy];
 
-            [v17 removeObject:initiatedCopy];
-            v18 = MEMORY[0x1E695DFD8];
-            v19 = [v17 copy];
-            v20 = [v18 setWithArray:v19];
-            v21 = *(d + 8);
-            *(d + 8) = v20;
+            [v16 removeObject:initiatedCopy];
+            v17 = MEMORY[0x1E695DFD8];
+            v18 = [v16 copy];
+            v19 = [v17 setWithArray:v18];
+            v20 = *(d + 8);
+            *(d + 8) = v19;
 
-            v22 = *(d + 48);
+            v21 = *(d + 48);
             purchasesDiscoveredTagIDs3 = [d purchasesDiscoveredTagIDs];
             allObjects2 = [purchasesDiscoveredTagIDs3 allObjects];
-            [v22 setObject:allObjects2 forKey:@"SubscriptionsDiscoveredList"];
+            [v21 setObject:allObjects2 forKey:@"SubscriptionsDiscoveredList"];
 
             purchasesDiscoveredTagIDs4 = [d purchasesDiscoveredTagIDs];
             [(FCPurchaseController *)d notifyPurchasesDiscoveredWithTagIDs:purchasesDiscoveredTagIDs4];
@@ -3241,10 +3229,8 @@ void __67__FCPurchaseController_cleanupExpiredPurchaseLookupEntriesIfNeeded__blo
       }
     }
 
-    _Block_object_dispose(&v32, 8);
+    _Block_object_dispose(&v31, 8);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __71__FCPurchaseController_handleAccessTokenChangeWithTagID_userInitiated___block_invoke(uint64_t a1, void *a2)
@@ -3339,19 +3325,17 @@ void __71__FCPurchaseController_handleAccessTokenChangeWithTagID_userInitiated__
 
 uint64_t __71__FCPurchaseController_handleAccessTokenChangeWithTagID_userInitiated___block_invoke_3(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = FCPurchaseLog;
   if (os_log_type_enabled(FCPurchaseLog, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_DEFAULT, "Nil tag returned in handleAccessTokenChange for tagID:%@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_DEFAULT, "Nil tag returned in handleAccessTokenChange for tagID:%@", &v5, 0xCu);
   }
 
-  result = [*(a1 + 40) removeWebPurchaseForTagID:*(a1 + 32) userInitiated:0];
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 40) removeWebPurchaseForTagID:*(a1 + 32) userInitiated:0];
 }
 
 void __93__FCPurchaseController_handleAccessTokenVerificationSuccessWithTagID_subscribed_accessToken___block_invoke(uint64_t a1, void *a2)
@@ -3458,17 +3442,15 @@ void __93__FCPurchaseController_handleAccessTokenVerificationSuccessWithTagID_su
 
 void __93__FCPurchaseController_handleAccessTokenVerificationSuccessWithTagID_subscribed_accessToken___block_invoke_3(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = FCPurchaseLog;
   if (os_log_type_enabled(FCPurchaseLog, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v5 = 138412290;
-    v6 = v3;
-    _os_log_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_DEFAULT, "Nil tag returned in handleAccessTokenVerification for tagID:%@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v3;
+    _os_log_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_DEFAULT, "Nil tag returned in handleAccessTokenVerification for tagID:%@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __93__FCPurchaseController_handleAccessTokenVerificationSuccessWithTagID_subscribed_accessToken___block_invoke_235(uint64_t a1)
@@ -3577,7 +3559,7 @@ void __70__FCPurchaseController_handleAccessTokenVerificationFailureWithTagID___
 
 - (void)verifyAccessTokenWithTagID:(id)d accessToken:(id)token consumedArticleCount:(unint64_t)count serialCompletion:(id)completion callbackQueue:(id)queue completion:(id)a8
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   dCopy = d;
   tokenCopy = token;
   completionCopy = completion;
@@ -3610,22 +3592,22 @@ void __70__FCPurchaseController_handleAccessTokenVerificationFailureWithTagID___
 
     v23 = v22;
     tagController = [(FCCloudContext *)v23 tagController];
-    v38[0] = MEMORY[0x1E69E9820];
-    v38[1] = 3221225472;
-    v38[2] = __126__FCPurchaseController_verifyAccessTokenWithTagID_accessToken_consumedArticleCount_serialCompletion_callbackQueue_completion___block_invoke;
-    v38[3] = &unk_1E7C39588;
-    v38[4] = self;
-    v39 = dCopy;
-    v40 = queueCopy;
-    v42 = v18;
-    v43 = completionCopy;
-    v41 = tokenCopy;
+    v37[0] = MEMORY[0x1E69E9820];
+    v37[1] = 3221225472;
+    v37[2] = __126__FCPurchaseController_verifyAccessTokenWithTagID_accessToken_consumedArticleCount_serialCompletion_callbackQueue_completion___block_invoke;
+    v37[3] = &unk_1E7C39588;
+    v37[4] = self;
+    v38 = dCopy;
+    v39 = queueCopy;
+    v41 = v18;
+    v42 = completionCopy;
+    v40 = tokenCopy;
     countCopy = count;
     v25 = completionCopy;
     v26 = v18;
-    [tagController fetchTagForTagID:v39 qualityOfService:9 callbackQueue:MEMORY[0x1E69E96A0] completionHandler:v38];
+    [tagController fetchTagForTagID:v38 qualityOfService:9 callbackQueue:MEMORY[0x1E69E96A0] completionHandler:v37];
 
-    v27 = v39;
+    v27 = v38;
   }
 
   else
@@ -3637,8 +3619,8 @@ void __70__FCPurchaseController_handleAccessTokenVerificationFailureWithTagID___
       v30 = objc_opt_class();
       v31 = NSStringFromClass(v30);
       *buf = 138543618;
-      v46 = v31;
-      v47 = 2048;
+      v45 = v31;
+      v46 = 2048;
       selfCopy = self;
       _os_log_impl(&dword_1B63EF000, v29, OS_LOG_TYPE_DEFAULT, "<%{public}@ %p> verifyAccessTokenWithTagID failed because the network is not reachable", buf, 0x16u);
     }
@@ -3647,195 +3629,191 @@ void __70__FCPurchaseController_handleAccessTokenVerificationFailureWithTagID___
     block[1] = 3221225472;
     block[2] = __126__FCPurchaseController_verifyAccessTokenWithTagID_accessToken_consumedArticleCount_serialCompletion_callbackQueue_completion___block_invoke_254;
     block[3] = &unk_1E7C39090;
-    v36 = v18;
-    v37 = completionCopy;
+    v35 = v18;
+    v36 = completionCopy;
     v32 = completionCopy;
     v33 = v18;
     dispatch_async(queueCopy, block);
 
-    v27 = v36;
+    v27 = v35;
   }
-
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 void __126__FCPurchaseController_verifyAccessTokenWithTagID_accessToken_consumedArticleCount_serialCompletion_callbackQueue_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v86[1] = *MEMORY[0x1E69E9840];
-  v68 = a2;
+  v82[1] = *MEMORY[0x1E69E9840];
+  v64 = a2;
   v5 = a3;
   if (v5)
   {
     v6 = FCPurchaseLog;
     if (os_log_type_enabled(FCPurchaseLog, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = *(a1 + 32);
-      v8 = v6;
-      v9 = objc_opt_class();
-      v10 = NSStringFromClass(v9);
-      v11 = *(a1 + 32);
-      v12 = *(a1 + 40);
+      v7 = v6;
+      v8 = objc_opt_class();
+      v9 = NSStringFromClass(v8);
+      v10 = *(a1 + 32);
+      v11 = *(a1 + 40);
       *buf = 138544130;
-      *&buf[4] = v10;
+      *&buf[4] = v9;
       *&buf[12] = 2048;
-      *&buf[14] = v11;
+      *&buf[14] = v10;
       *&buf[22] = 2114;
-      *v84 = v12;
-      *&v84[8] = 2114;
-      *&v84[10] = v5;
-      _os_log_impl(&dword_1B63EF000, v8, OS_LOG_TYPE_DEFAULT, "<%{public}@ %p> verifyAccessTokenWithTagID failed to fetch tagID: %{public}@ error: %{public}@", buf, 0x2Au);
+      *v80 = v11;
+      *&v80[8] = 2114;
+      *&v80[10] = v5;
+      _os_log_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_DEFAULT, "<%{public}@ %p> verifyAccessTokenWithTagID failed to fetch tagID: %{public}@ error: %{public}@", buf, 0x2Au);
     }
 
-    v13 = *(a1 + 48);
+    v12 = *(a1 + 48);
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __126__FCPurchaseController_verifyAccessTokenWithTagID_accessToken_consumedArticleCount_serialCompletion_callbackQueue_completion___block_invoke_236;
     block[3] = &unk_1E7C39090;
-    v81 = *(a1 + 64);
-    v82 = *(a1 + 72);
-    dispatch_async(v13, block);
+    v77 = *(a1 + 64);
+    v78 = *(a1 + 72);
+    dispatch_async(v12, block);
 
-    v14 = v81;
+    v13 = v77;
   }
 
   else
   {
-    v15 = NewsCoreUserDefaults();
-    v16 = [v15 stringForKey:@"web_authentication_local_server_ip_address"];
+    v14 = NewsCoreUserDefaults();
+    v15 = [v14 stringForKey:@"web_authentication_local_server_ip_address"];
 
-    if (NFInternalBuild() && v16)
+    if (NFInternalBuild() && v15)
     {
-      v17 = NewsCoreUserDefaults();
-      v18 = [v17 stringForKey:@"web_authentication_local_server_ip_address"];
+      v16 = NewsCoreUserDefaults();
+      v17 = [v16 stringForKey:@"web_authentication_local_server_ip_address"];
 
-      v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%@%@", @"http://", v18, @":3000/verify_authorization"];
+      v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%@%@", @"http://", v17, @":3000/verify_authorization"];
     }
 
     else
     {
-      v19 = [v68 publisherPaidVerificationURL];
+      v18 = [v64 publisherPaidVerificationURL];
     }
 
-    v20 = FCPurchaseLog;
+    v19 = FCPurchaseLog;
     if (os_log_type_enabled(FCPurchaseLog, OS_LOG_TYPE_DEFAULT))
     {
-      v21 = *(a1 + 32);
-      v22 = v20;
-      v23 = objc_opt_class();
-      v24 = NSStringFromClass(v23);
-      v25 = *(a1 + 32);
+      v20 = v19;
+      v21 = objc_opt_class();
+      v22 = NSStringFromClass(v21);
+      v23 = *(a1 + 32);
       *buf = 138543874;
-      *&buf[4] = v24;
+      *&buf[4] = v22;
       *&buf[12] = 2048;
-      *&buf[14] = v25;
+      *&buf[14] = v23;
       *&buf[22] = 2114;
-      *v84 = v19;
-      _os_log_impl(&dword_1B63EF000, v22, OS_LOG_TYPE_DEFAULT, "<%{public}@ %p> verifyAccessTokenWithTagID will use verificationURL: %{public}@", buf, 0x20u);
+      *v80 = v18;
+      _os_log_impl(&dword_1B63EF000, v20, OS_LOG_TYPE_DEFAULT, "<%{public}@ %p> verifyAccessTokenWithTagID will use verificationURL: %{public}@", buf, 0x20u);
     }
 
-    if (v19)
+    if (v18)
     {
       objc_initWeak(&location, *(a1 + 32));
-      v26 = *(a1 + 32);
-      v27 = *(a1 + 56);
-      v28 = *(a1 + 80);
-      v69[0] = MEMORY[0x1E69E9820];
-      v69[1] = 3221225472;
-      v69[2] = __126__FCPurchaseController_verifyAccessTokenWithTagID_accessToken_consumedArticleCount_serialCompletion_callbackQueue_completion___block_invoke_2;
-      v69[3] = &unk_1E7C39560;
-      objc_copyWeak(&v75, &location);
-      v66 = *(a1 + 32);
-      v29 = *(a1 + 40);
-      v30 = *(a1 + 56);
-      v31 = *(a1 + 48);
-      *&v32 = v30;
-      *(&v32 + 1) = v31;
-      v70 = v66;
-      v71 = v32;
-      v73 = *(a1 + 64);
-      v72 = v68;
-      v74 = *(a1 + 72);
-      v14 = v19;
-      v67 = v27;
-      v65 = v69;
-      if (v26)
+      v24 = *(a1 + 32);
+      v25 = *(a1 + 56);
+      v26 = *(a1 + 80);
+      v65[0] = MEMORY[0x1E69E9820];
+      v65[1] = 3221225472;
+      v65[2] = __126__FCPurchaseController_verifyAccessTokenWithTagID_accessToken_consumedArticleCount_serialCompletion_callbackQueue_completion___block_invoke_2;
+      v65[3] = &unk_1E7C39560;
+      objc_copyWeak(&v71, &location);
+      v62 = *(a1 + 32);
+      v27 = *(a1 + 40);
+      v28 = *(a1 + 56);
+      v29 = *(a1 + 48);
+      *&v30 = v28;
+      *(&v30 + 1) = v29;
+      v66 = v62;
+      v67 = v30;
+      v69 = *(a1 + 64);
+      v68 = v64;
+      v70 = *(a1 + 72);
+      v13 = v18;
+      v63 = v25;
+      v61 = v65;
+      if (v24)
       {
-        if (!v67 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+        if (!v63 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
-          v64 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "accessToken"];
+          v60 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "accessToken"];
           *buf = 136315906;
           *&buf[4] = "[FCPurchaseController performHTTPRequestForVerifyAccessTokenWithURL:accessToken:consumedArticleCount:completion:]";
           *&buf[12] = 2080;
           *&buf[14] = "FCPurchaseController.m";
           *&buf[22] = 1024;
-          *v84 = 1624;
-          *&v84[4] = 2114;
-          *&v84[6] = v64;
+          *v80 = 1624;
+          *&v80[4] = 2114;
+          *&v80[6] = v60;
           _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
         }
 
-        v33 = FCPurchaseLog;
+        v31 = FCPurchaseLog;
         if (os_log_type_enabled(FCPurchaseLog, OS_LOG_TYPE_DEBUG))
         {
-          v58 = v33;
-          v59 = objc_opt_class();
-          v60 = NSStringFromClass(v59);
+          v54 = v31;
+          v55 = objc_opt_class();
+          v56 = NSStringFromClass(v55);
           *buf = 138543874;
-          *&buf[4] = v60;
+          *&buf[4] = v56;
           *&buf[12] = 2048;
-          *&buf[14] = v26;
+          *&buf[14] = v24;
           *&buf[22] = 2114;
-          *v84 = v14;
-          _os_log_debug_impl(&dword_1B63EF000, v58, OS_LOG_TYPE_DEBUG, "<%{public}@ %p> performHTTPRequestForVerifyAccessTokenWithURL: %{public}@", buf, 0x20u);
+          *v80 = v13;
+          _os_log_debug_impl(&dword_1B63EF000, v54, OS_LOG_TYPE_DEBUG, "<%{public}@ %p> performHTTPRequestForVerifyAccessTokenWithURL: %{public}@", buf, 0x20u);
         }
 
-        v34 = [MEMORY[0x1E696AF20] componentsWithString:v14];
-        v35 = [MEMORY[0x1E696AB08] URLQueryAllowedCharacterSet];
-        v36 = [v35 mutableCopy];
+        v32 = [MEMORY[0x1E696AF20] componentsWithString:v13];
+        v33 = [MEMORY[0x1E696AB08] URLQueryAllowedCharacterSet];
+        v34 = [v33 mutableCopy];
 
-        [v36 removeCharactersInString:@"?=&+/"];
-        v37 = [v67 stringByAddingPercentEncodingWithAllowedCharacters:v36];
-        v38 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@=%@&%@=%lu", @"access_token", v37, @"read_article_count", v28];
-        [v34 setPercentEncodedQuery:v38];
+        [v34 removeCharactersInString:@"?=&+/"];
+        v35 = [v63 stringByAddingPercentEncodingWithAllowedCharacters:v34];
+        v36 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@=%@&%@=%lu", @"access_token", v35, @"read_article_count", v26];
+        [v32 setPercentEncodedQuery:v36];
 
-        v39 = MEMORY[0x1E695AC18];
-        v40 = [v34 URL];
-        v41 = [v39 requestWithURL:v40];
+        v37 = MEMORY[0x1E695AC18];
+        v38 = [v32 URL];
+        v39 = [v37 requestWithURL:v38];
 
-        v85 = @"Accept";
-        v86[0] = @"application/json";
-        v42 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v86 forKeys:&v85 count:1];
-        [v41 setAllHTTPHeaderFields:v42];
-        [v41 setHTTPMethod:@"GET"];
-        v43 = FCPurchaseLog;
+        v81 = @"Accept";
+        v82[0] = @"application/json";
+        v40 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v82 forKeys:&v81 count:1];
+        [v39 setAllHTTPHeaderFields:v40];
+        [v39 setHTTPMethod:@"GET"];
+        v41 = FCPurchaseLog;
         if (os_log_type_enabled(FCPurchaseLog, OS_LOG_TYPE_DEFAULT))
         {
-          v44 = v43;
-          v45 = objc_opt_class();
-          v46 = NSStringFromClass(v45);
+          v42 = v41;
+          v43 = objc_opt_class();
+          v44 = NSStringFromClass(v43);
           *buf = 138543874;
-          *&buf[4] = v46;
+          *&buf[4] = v44;
           *&buf[12] = 2048;
-          *&buf[14] = v26;
+          *&buf[14] = v24;
           *&buf[22] = 2114;
-          *v84 = v41;
-          _os_log_impl(&dword_1B63EF000, v44, OS_LOG_TYPE_DEFAULT, "<%{public}@ %p> performHTTPRequestForVerifyAccessTokenWithURL request: %{public}@", buf, 0x20u);
+          *v80 = v39;
+          _os_log_impl(&dword_1B63EF000, v42, OS_LOG_TYPE_DEFAULT, "<%{public}@ %p> performHTTPRequestForVerifyAccessTokenWithURL request: %{public}@", buf, 0x20u);
         }
 
-        v47 = *(v26 + 40);
-        v48 = [v47 value];
+        v45 = *(v24 + 40);
+        v46 = [v45 value];
         *buf = MEMORY[0x1E69E9820];
         *&buf[8] = 3221225472;
         *&buf[16] = __114__FCPurchaseController_performHTTPRequestForVerifyAccessTokenWithURL_accessToken_consumedArticleCount_completion___block_invoke;
-        *v84 = &unk_1E7C395B0;
-        *&v84[8] = v26;
-        *&v84[16] = v65;
-        v49 = [v48 dataTaskWithRequest:v41 completionHandler:buf];
+        *v80 = &unk_1E7C395B0;
+        *&v80[8] = v24;
+        *&v80[16] = v61;
+        v47 = [v46 dataTaskWithRequest:v39 completionHandler:buf];
 
-        [v49 resume];
+        [v47 resume];
       }
 
-      objc_destroyWeak(&v75);
+      objc_destroyWeak(&v71);
       objc_destroyWeak(&location);
     }
 
@@ -3843,61 +3821,58 @@ void __126__FCPurchaseController_verifyAccessTokenWithTagID_accessToken_consumed
     {
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v61 = objc_alloc(MEMORY[0x1E696AEC0]);
-        v62 = [v68 identifier];
-        v63 = [v61 initWithFormat:@"Verification URL is nil for publisher : %@", v62];
+        v57 = objc_alloc(MEMORY[0x1E696AEC0]);
+        v58 = [v64 identifier];
+        v59 = [v57 initWithFormat:@"Verification URL is nil for publisher : %@", v58];
         *buf = 136315906;
         *&buf[4] = "[FCPurchaseController verifyAccessTokenWithTagID:accessToken:consumedArticleCount:serialCompletion:callbackQueue:completion:]_block_invoke";
         *&buf[12] = 2080;
         *&buf[14] = "FCPurchaseController.m";
         *&buf[22] = 1024;
-        *v84 = 1570;
-        *&v84[4] = 2114;
-        *&v84[6] = v63;
+        *v80 = 1570;
+        *&v80[4] = 2114;
+        *&v80[6] = v59;
         _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
       }
 
-      v50 = FCPurchaseLog;
+      v48 = FCPurchaseLog;
       if (os_log_type_enabled(FCPurchaseLog, OS_LOG_TYPE_DEFAULT))
       {
-        v51 = *(a1 + 32);
-        v52 = v50;
-        v53 = objc_opt_class();
-        v54 = NSStringFromClass(v53);
-        v55 = *(a1 + 32);
+        v49 = v48;
+        v50 = objc_opt_class();
+        v51 = NSStringFromClass(v50);
+        v52 = *(a1 + 32);
         *buf = 138543618;
-        *&buf[4] = v54;
+        *&buf[4] = v51;
         *&buf[12] = 2048;
-        *&buf[14] = v55;
-        _os_log_impl(&dword_1B63EF000, v52, OS_LOG_TYPE_DEFAULT, "<%{public}@ %p> verifyAccessTokenWithTagID failed to get a verificationURL", buf, 0x16u);
+        *&buf[14] = v52;
+        _os_log_impl(&dword_1B63EF000, v49, OS_LOG_TYPE_DEFAULT, "<%{public}@ %p> verifyAccessTokenWithTagID failed to get a verificationURL", buf, 0x16u);
       }
 
-      v56 = *(a1 + 48);
-      v77[0] = MEMORY[0x1E69E9820];
-      v77[1] = 3221225472;
-      v77[2] = __126__FCPurchaseController_verifyAccessTokenWithTagID_accessToken_consumedArticleCount_serialCompletion_callbackQueue_completion___block_invoke_250;
-      v77[3] = &unk_1E7C39090;
-      v78 = *(a1 + 64);
-      v79 = *(a1 + 72);
-      dispatch_async(v56, v77);
+      v53 = *(a1 + 48);
+      v73[0] = MEMORY[0x1E69E9820];
+      v73[1] = 3221225472;
+      v73[2] = __126__FCPurchaseController_verifyAccessTokenWithTagID_accessToken_consumedArticleCount_serialCompletion_callbackQueue_completion___block_invoke_250;
+      v73[3] = &unk_1E7C39090;
+      v74 = *(a1 + 64);
+      v75 = *(a1 + 72);
+      dispatch_async(v53, v73);
 
-      v14 = 0;
+      v13 = 0;
     }
   }
-
-  v57 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __126__FCPurchaseController_verifyAccessTokenWithTagID_accessToken_consumedArticleCount_serialCompletion_callbackQueue_completion___block_invoke_236(uint64_t a1)
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   if (v2)
   {
     v3 = MEMORY[0x1E696ABC0];
-    v8 = @"error_message";
-    v9[0] = @"CloudKit error while fetching channel information";
-    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+    v7 = @"error_message";
+    v8[0] = @"CloudKit error while fetching channel information";
+    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
     v5 = [v3 errorWithDomain:@"FCTokenVerificationErrorDomain" code:5002 userInfo:v4];
     (*(v2 + 16))(v2, 0, 0, v5);
   }
@@ -3905,23 +3880,22 @@ uint64_t __126__FCPurchaseController_verifyAccessTokenWithTagID_accessToken_cons
   result = *(a1 + 40);
   if (result)
   {
-    result = (*(result + 16))();
+    return (*(result + 16))();
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __126__FCPurchaseController_verifyAccessTokenWithTagID_accessToken_consumedArticleCount_serialCompletion_callbackQueue_completion___block_invoke_250(uint64_t a1)
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   if (v2)
   {
     v3 = MEMORY[0x1E696ABC0];
-    v8 = @"error_message";
-    v9[0] = @"URL not found";
-    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+    v7 = @"error_message";
+    v8[0] = @"URL not found";
+    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
     v5 = [v3 errorWithDomain:@"FCTokenVerificationErrorDomain" code:5001 userInfo:v4];
     (*(v2 + 16))(v2, 0, 0, v5);
   }
@@ -3929,10 +3903,9 @@ uint64_t __126__FCPurchaseController_verifyAccessTokenWithTagID_accessToken_cons
   result = *(a1 + 40);
   if (result)
   {
-    result = (*(result + 16))();
+    return (*(result + 16))();
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -3966,51 +3939,48 @@ void __126__FCPurchaseController_verifyAccessTokenWithTagID_accessToken_consumed
 
 void __126__FCPurchaseController_verifyAccessTokenWithTagID_accessToken_consumedArticleCount_serialCompletion_callbackQueue_completion___block_invoke_3(uint64_t a1, void *a2)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = FCPurchaseLog;
   if (os_log_type_enabled(FCPurchaseLog, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = *(a1 + 32);
-    v6 = v4;
-    v7 = objc_opt_class();
-    v8 = NSStringFromClass(v7);
-    v9 = *(a1 + 96);
-    v10 = *(a1 + 32);
-    v11 = *(a1 + 40);
+    v5 = v4;
+    v6 = objc_opt_class();
+    v7 = NSStringFromClass(v6);
+    v8 = *(a1 + 96);
+    v9 = *(a1 + 32);
+    v10 = *(a1 + 40);
     *buf = 138544130;
-    v28 = v8;
-    v29 = 2048;
-    v30 = v10;
-    v31 = 1024;
-    v32 = v9;
-    v33 = 2114;
-    v34 = v11;
-    _os_log_impl(&dword_1B63EF000, v6, OS_LOG_TYPE_DEFAULT, "<%{public}@ %p> verifyAccessTokenWithTagID isSubscribed: %d verificationError: %{public}@", buf, 0x26u);
+    v26 = v7;
+    v27 = 2048;
+    v28 = v9;
+    v29 = 1024;
+    v30 = v8;
+    v31 = 2114;
+    v32 = v10;
+    _os_log_impl(&dword_1B63EF000, v5, OS_LOG_TYPE_DEFAULT, "<%{public}@ %p> verifyAccessTokenWithTagID isSubscribed: %d verificationError: %{public}@", buf, 0x26u);
   }
 
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __126__FCPurchaseController_verifyAccessTokenWithTagID_accessToken_consumedArticleCount_serialCompletion_callbackQueue_completion___block_invoke_251;
-  v19[3] = &unk_1E7C39510;
-  v20 = *(a1 + 40);
-  v21 = v3;
-  v12 = *(a1 + 48);
-  v26 = *(a1 + 96);
-  v13 = *(a1 + 56);
-  v14 = *(a1 + 64);
-  v24 = *(a1 + 80);
-  v15 = *(a1 + 72);
-  *&v16 = v14;
-  *(&v16 + 1) = v15;
-  *&v17 = v12;
-  *(&v17 + 1) = v13;
-  v22 = v17;
-  v23 = v16;
-  v25 = *(a1 + 88);
-  FCPerformBlockOnMainThread(v19);
-
-  v18 = *MEMORY[0x1E69E9840];
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __126__FCPurchaseController_verifyAccessTokenWithTagID_accessToken_consumedArticleCount_serialCompletion_callbackQueue_completion___block_invoke_251;
+  v17[3] = &unk_1E7C39510;
+  v18 = *(a1 + 40);
+  v19 = v3;
+  v11 = *(a1 + 48);
+  v24 = *(a1 + 96);
+  v12 = *(a1 + 56);
+  v13 = *(a1 + 64);
+  v22 = *(a1 + 80);
+  v14 = *(a1 + 72);
+  *&v15 = v13;
+  *(&v15 + 1) = v14;
+  *&v16 = v11;
+  *(&v16 + 1) = v12;
+  v20 = v16;
+  v21 = v15;
+  v23 = *(a1 + 88);
+  FCPerformBlockOnMainThread(v17);
 }
 
 void __126__FCPurchaseController_verifyAccessTokenWithTagID_accessToken_consumedArticleCount_serialCompletion_callbackQueue_completion___block_invoke_251(uint64_t a1)
@@ -4100,14 +4070,14 @@ uint64_t __126__FCPurchaseController_verifyAccessTokenWithTagID_accessToken_cons
 
 uint64_t __126__FCPurchaseController_verifyAccessTokenWithTagID_accessToken_consumedArticleCount_serialCompletion_callbackQueue_completion___block_invoke_254(uint64_t a1)
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   if (v2)
   {
     v3 = MEMORY[0x1E696ABC0];
-    v8 = @"error_message";
-    v9[0] = @"Device in offline";
-    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+    v7 = @"error_message";
+    v8[0] = @"Device in offline";
+    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
     v5 = [v3 errorWithDomain:@"FCTokenVerificationErrorDomain" code:5000 userInfo:v4];
     (*(v2 + 16))(v2, 0, 0, v5);
   }
@@ -4115,16 +4085,15 @@ uint64_t __126__FCPurchaseController_verifyAccessTokenWithTagID_accessToken_cons
   result = *(a1 + 40);
   if (result)
   {
-    result = (*(result + 16))();
+    return (*(result + 16))();
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 void __114__FCPurchaseController_performHTTPRequestForVerifyAccessTokenWithURL_accessToken_consumedArticleCount_completion___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v108 = *MEMORY[0x1E69E9840];
+  v100 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -4132,58 +4101,56 @@ void __114__FCPurchaseController_performHTTPRequestForVerifyAccessTokenWithURL_a
   v11 = FCPurchaseLog;
   if (os_log_type_enabled(FCPurchaseLog, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = *(a1 + 32);
-    v13 = v11;
-    v14 = objc_opt_class();
-    v15 = NSStringFromClass(v14);
-    v16 = *(a1 + 32);
+    v12 = v11;
+    v13 = objc_opt_class();
+    v14 = NSStringFromClass(v13);
+    v15 = *(a1 + 32);
     *buf = 138544130;
-    v101 = v15;
-    v102 = 2048;
-    v103 = v16;
-    v104 = 2114;
-    v105 = v10;
-    v106 = 2114;
-    v107 = v9;
-    _os_log_impl(&dword_1B63EF000, v13, OS_LOG_TYPE_DEFAULT, "<%{public}@ %p> performHTTPRequestForVerifyAccessTokenWithURL response: %{public}@ error: %{public}@", buf, 0x2Au);
+    v93 = v14;
+    v94 = 2048;
+    v95 = v15;
+    v96 = 2114;
+    v97 = v10;
+    v98 = 2114;
+    v99 = v9;
+    _os_log_impl(&dword_1B63EF000, v12, OS_LOG_TYPE_DEFAULT, "<%{public}@ %p> performHTTPRequestForVerifyAccessTokenWithURL response: %{public}@ error: %{public}@", buf, 0x2Au);
   }
 
   if (!v9)
   {
-    v87 = 0;
-    v21 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v7 options:0 error:&v87];
-    v20 = v87;
-    if (v20)
+    v79 = 0;
+    v20 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v7 options:0 error:&v79];
+    v19 = v79;
+    if (v19)
     {
-      v23 = FCPurchaseLog;
+      v22 = FCPurchaseLog;
       if (os_log_type_enabled(FCPurchaseLog, OS_LOG_TYPE_ERROR))
       {
-        v78 = *(a1 + 32);
-        v79 = v23;
-        v80 = objc_opt_class();
-        v81 = NSStringFromClass(v80);
-        v82 = *(a1 + 32);
+        v71 = v22;
+        v72 = objc_opt_class();
+        v73 = NSStringFromClass(v72);
+        v74 = *(a1 + 32);
         *buf = 138543874;
-        v101 = v81;
-        v102 = 2048;
-        v103 = v82;
-        v104 = 2114;
-        v105 = v20;
-        _os_log_error_impl(&dword_1B63EF000, v79, OS_LOG_TYPE_ERROR, "<%{public}@ %p> performHTTPRequestForVerifyAccessTokenWithURL failed to parse with error: %{public}@", buf, 0x20u);
+        v93 = v73;
+        v94 = 2048;
+        v95 = v74;
+        v96 = 2114;
+        v97 = v19;
+        _os_log_error_impl(&dword_1B63EF000, v71, OS_LOG_TYPE_ERROR, "<%{public}@ %p> performHTTPRequestForVerifyAccessTokenWithURL failed to parse with error: %{public}@", buf, 0x20u);
       }
 
-      v24 = *(a1 + 40);
-      v25 = MEMORY[0x1E696ABC0];
-      v26 = [v10 statusCode];
-      v96 = @"error_message";
-      v97 = @"JSON parsing error";
-      v27 = MEMORY[0x1E695DF20];
-      v28 = &v97;
-      v29 = &v96;
+      v23 = *(a1 + 40);
+      v24 = MEMORY[0x1E696ABC0];
+      v25 = [v10 statusCode];
+      v88 = @"error_message";
+      v89 = @"JSON parsing error";
+      v26 = MEMORY[0x1E695DF20];
+      v27 = &v89;
+      v28 = &v88;
 LABEL_20:
-      v22 = [v27 dictionaryWithObjects:v28 forKeys:v29 count:1];
-      v45 = [v25 errorWithDomain:@"FCTokenVerificationErrorDomain" code:v26 userInfo:v22];
-      (*(v24 + 16))(v24, 0, v45);
+      v21 = [v26 dictionaryWithObjects:v27 forKeys:v28 count:1];
+      v42 = [v24 errorWithDomain:@"FCTokenVerificationErrorDomain" code:v25 userInfo:v21];
+      (*(v23 + 16))(v23, 0, v42);
 LABEL_21:
 
       goto LABEL_22;
@@ -4192,192 +4159,185 @@ LABEL_21:
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v39 = FCPurchaseLog;
+      v37 = FCPurchaseLog;
       if (os_log_type_enabled(FCPurchaseLog, OS_LOG_TYPE_DEFAULT))
       {
-        v40 = *(a1 + 32);
-        v41 = v39;
-        v42 = objc_opt_class();
-        v43 = NSStringFromClass(v42);
-        v44 = *(a1 + 32);
+        v38 = v37;
+        v39 = objc_opt_class();
+        v40 = NSStringFromClass(v39);
+        v41 = *(a1 + 32);
         *buf = 138543618;
-        v101 = v43;
-        v102 = 2048;
-        v103 = v44;
-        _os_log_impl(&dword_1B63EF000, v41, OS_LOG_TYPE_DEFAULT, "<%{public}@ %p> performHTTPRequestForVerifyAccessTokenWithURL invalid JSON response format", buf, 0x16u);
+        v93 = v40;
+        v94 = 2048;
+        v95 = v41;
+        _os_log_impl(&dword_1B63EF000, v38, OS_LOG_TYPE_DEFAULT, "<%{public}@ %p> performHTTPRequestForVerifyAccessTokenWithURL invalid JSON response format", buf, 0x16u);
       }
 
-      v24 = *(a1 + 40);
-      v25 = MEMORY[0x1E696ABC0];
-      v26 = [v10 statusCode];
-      v88 = @"error_message";
-      v89 = @"Invalid JSON format found";
-      v27 = MEMORY[0x1E695DF20];
-      v28 = &v89;
-      v29 = &v88;
+      v23 = *(a1 + 40);
+      v24 = MEMORY[0x1E696ABC0];
+      v25 = [v10 statusCode];
+      v80 = @"error_message";
+      v81 = @"Invalid JSON format found";
+      v26 = MEMORY[0x1E695DF20];
+      v27 = &v81;
+      v28 = &v80;
       goto LABEL_20;
     }
 
-    v22 = v21;
-    v30 = FCPurchaseLog;
+    v21 = v20;
+    v29 = FCPurchaseLog;
     if (os_log_type_enabled(FCPurchaseLog, OS_LOG_TYPE_DEFAULT))
     {
-      v31 = *(a1 + 32);
-      v32 = v30;
-      v33 = objc_opt_class();
-      v34 = NSStringFromClass(v33);
-      v35 = *(a1 + 32);
+      v30 = v29;
+      v31 = objc_opt_class();
+      v32 = NSStringFromClass(v31);
+      v33 = *(a1 + 32);
       *buf = 138543874;
-      v101 = v34;
-      v102 = 2048;
-      v103 = v35;
-      v104 = 2114;
-      v105 = v22;
-      _os_log_impl(&dword_1B63EF000, v32, OS_LOG_TYPE_DEFAULT, "<%{public}@ %p> performHTTPRequestForVerifyAccessTokenWithURL validResponseJSON: %{public}@", buf, 0x20u);
+      v93 = v32;
+      v94 = 2048;
+      v95 = v33;
+      v96 = 2114;
+      v97 = v21;
+      _os_log_impl(&dword_1B63EF000, v30, OS_LOG_TYPE_DEFAULT, "<%{public}@ %p> performHTTPRequestForVerifyAccessTokenWithURL validResponseJSON: %{public}@", buf, 0x20u);
     }
 
-    v36 = [v22 objectForKey:@"status"];
+    v34 = [v21 objectForKey:@"status"];
 
-    if (v36)
+    if (v34)
     {
       objc_opt_class();
-      v37 = [v22 objectForKey:@"status"];
-      if (v37)
+      v35 = [v21 objectForKey:@"status"];
+      if (v35)
       {
         if (objc_opt_isKindOfClass())
         {
-          v38 = v37;
+          v36 = v35;
         }
 
         else
         {
-          v38 = 0;
+          v36 = 0;
         }
       }
 
       else
       {
-        v38 = 0;
+        v36 = 0;
       }
 
-      v45 = v38;
+      v42 = v36;
 
-      v69 = FCPurchaseLog;
+      v63 = FCPurchaseLog;
       if (os_log_type_enabled(FCPurchaseLog, OS_LOG_TYPE_DEFAULT))
       {
-        v70 = *(a1 + 32);
-        v71 = v69;
-        v72 = objc_opt_class();
-        v73 = NSStringFromClass(v72);
-        v74 = *(a1 + 32);
+        v64 = v63;
+        v65 = objc_opt_class();
+        v66 = NSStringFromClass(v65);
+        v67 = *(a1 + 32);
         *buf = 138543874;
-        v101 = v73;
-        v102 = 2048;
-        v103 = v74;
-        v104 = 2114;
-        v105 = v45;
-        _os_log_impl(&dword_1B63EF000, v71, OS_LOG_TYPE_DEFAULT, "<%{public}@ %p> performHTTPRequestForVerifyAccessTokenWithURL status: %{public}@", buf, 0x20u);
+        v93 = v66;
+        v94 = 2048;
+        v95 = v67;
+        v96 = 2114;
+        v97 = v42;
+        _os_log_impl(&dword_1B63EF000, v64, OS_LOG_TYPE_DEFAULT, "<%{public}@ %p> performHTTPRequestForVerifyAccessTokenWithURL status: %{public}@", buf, 0x20u);
       }
 
-      if (![v45 caseInsensitiveCompare:@"subscribed"])
+      if (![v42 caseInsensitiveCompare:@"subscribed"])
       {
         (*(*(a1 + 40) + 16))(*(a1 + 40), 1, 0);
         goto LABEL_21;
       }
 
-      v75 = [v45 caseInsensitiveCompare:@"not_subscribed"];
-      v76 = *(a1 + 40);
-      if (!v75)
+      v68 = [v42 caseInsensitiveCompare:@"not_subscribed"];
+      v69 = *(a1 + 40);
+      if (!v68)
       {
-        (*(v76 + 16))(v76, 0, 0);
+        (*(v69 + 16))(v69, 0, 0);
         goto LABEL_21;
       }
 
-      v83 = MEMORY[0x1E696ABC0];
-      v77 = [v10 statusCode];
-      v94 = @"error_message";
-      v95 = @"Invalid response.Response structure did not meet agreement";
-      v58 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v95 forKeys:&v94 count:1];
-      v59 = [v83 errorWithDomain:@"FCTokenVerificationErrorDomain" code:v77 userInfo:v58];
-      (*(v76 + 16))(v76, 0, v59);
+      v75 = MEMORY[0x1E696ABC0];
+      v70 = [v10 statusCode];
+      v86 = @"error_message";
+      v87 = @"Invalid response.Response structure did not meet agreement";
+      v53 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v87 forKeys:&v86 count:1];
+      v54 = [v75 errorWithDomain:@"FCTokenVerificationErrorDomain" code:v70 userInfo:v53];
+      (*(v69 + 16))(v69, 0, v54);
     }
 
     else
     {
-      v47 = [v22 objectForKey:@"error"];
-      if (!v47 || (v48 = v47, [v22 objectForKey:@"error"], v49 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), log = objc_opt_isKindOfClass(), v49, v48, (log & 1) == 0))
+      v43 = [v21 objectForKey:@"error"];
+      if (!v43 || (v44 = v43, [v21 objectForKey:@"error"], v45 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), log = objc_opt_isKindOfClass(), v45, v44, (log & 1) == 0))
       {
-        v60 = FCPurchaseLog;
+        v55 = FCPurchaseLog;
         if (os_log_type_enabled(FCPurchaseLog, OS_LOG_TYPE_DEFAULT))
         {
-          v61 = *(a1 + 32);
-          v62 = v60;
-          v63 = objc_opt_class();
-          v64 = NSStringFromClass(v63);
-          v65 = *(a1 + 32);
+          v56 = v55;
+          v57 = objc_opt_class();
+          v58 = NSStringFromClass(v57);
+          v59 = *(a1 + 32);
           *buf = 138543618;
-          v101 = v64;
-          v102 = 2048;
-          v103 = v65;
-          _os_log_impl(&dword_1B63EF000, v62, OS_LOG_TYPE_DEFAULT, "<%{public}@ %p> performHTTPRequestForVerifyAccessTokenWithURL missing status and error", buf, 0x16u);
+          v93 = v58;
+          v94 = 2048;
+          v95 = v59;
+          _os_log_impl(&dword_1B63EF000, v56, OS_LOG_TYPE_DEFAULT, "<%{public}@ %p> performHTTPRequestForVerifyAccessTokenWithURL missing status and error", buf, 0x16u);
         }
 
-        v66 = *(a1 + 40);
-        v67 = MEMORY[0x1E696ABC0];
-        v68 = [v10 statusCode];
-        v90 = @"error_message";
-        v91 = @"Invalid response.Response structure did not meet agreement";
-        v45 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v91 forKeys:&v90 count:1];
-        v58 = [v67 errorWithDomain:@"FCTokenVerificationErrorDomain" code:v68 userInfo:v45];
-        (*(v66 + 16))(v66, 0, v58);
+        v60 = *(a1 + 40);
+        v61 = MEMORY[0x1E696ABC0];
+        v62 = [v10 statusCode];
+        v82 = @"error_message";
+        v83 = @"Invalid response.Response structure did not meet agreement";
+        v42 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v83 forKeys:&v82 count:1];
+        v53 = [v61 errorWithDomain:@"FCTokenVerificationErrorDomain" code:v62 userInfo:v42];
+        (*(v60 + 16))(v60, 0, v53);
         goto LABEL_38;
       }
 
-      v50 = FCPurchaseLog;
+      v46 = FCPurchaseLog;
       if (os_log_type_enabled(FCPurchaseLog, OS_LOG_TYPE_DEFAULT))
       {
-        v51 = *(a1 + 32);
-        loga = v50;
-        v52 = objc_opt_class();
-        v53 = NSStringFromClass(v52);
-        v54 = *(a1 + 32);
-        v55 = [v22 objectForKey:@"error"];
+        loga = v46;
+        v47 = objc_opt_class();
+        v48 = NSStringFromClass(v47);
+        v49 = *(a1 + 32);
+        v50 = [v21 objectForKey:@"error"];
         *buf = 138543874;
-        v101 = v53;
-        v102 = 2048;
-        v103 = v54;
-        v104 = 2114;
-        v105 = v55;
+        v93 = v48;
+        v94 = 2048;
+        v95 = v49;
+        v96 = 2114;
+        v97 = v50;
         _os_log_impl(&dword_1B63EF000, loga, OS_LOG_TYPE_DEFAULT, "<%{public}@ %p> performHTTPRequestForVerifyAccessTokenWithURL error: %{public}@", buf, 0x20u);
       }
 
-      v56 = *(a1 + 40);
+      v51 = *(a1 + 40);
       logb = MEMORY[0x1E696ABC0];
-      v57 = [v10 statusCode];
-      v92 = @"error_message";
-      v45 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@", v22];
-      v93 = v45;
-      v58 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v93 forKeys:&v92 count:1];
-      v59 = [logb errorWithDomain:@"FCTokenVerificationErrorDomain" code:v57 userInfo:v58];
-      (*(v56 + 16))(v56, 0, v59);
+      v52 = [v10 statusCode];
+      v84 = @"error_message";
+      v42 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@", v21];
+      v85 = v42;
+      v53 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v85 forKeys:&v84 count:1];
+      v54 = [logb errorWithDomain:@"FCTokenVerificationErrorDomain" code:v52 userInfo:v53];
+      (*(v51 + 16))(v51, 0, v54);
     }
 
 LABEL_38:
     goto LABEL_21;
   }
 
-  v17 = *(a1 + 40);
-  v18 = MEMORY[0x1E696ABC0];
-  v19 = [v9 code];
-  v98 = @"error_message";
-  v20 = [v9 localizedDescription];
-  v99 = v20;
-  v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v99 forKeys:&v98 count:1];
-  v22 = [v18 errorWithDomain:@"FCTokenVerificationErrorDomain" code:v19 userInfo:v21];
-  (*(v17 + 16))(v17, 0, v22);
+  v16 = *(a1 + 40);
+  v17 = MEMORY[0x1E696ABC0];
+  v18 = [v9 code];
+  v90 = @"error_message";
+  v19 = [v9 localizedDescription];
+  v91 = v19;
+  v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v91 forKeys:&v90 count:1];
+  v21 = [v17 errorWithDomain:@"FCTokenVerificationErrorDomain" code:v18 userInfo:v20];
+  (*(v16 + 16))(v16, 0, v21);
 LABEL_22:
-
-  v46 = *MEMORY[0x1E69E9840];
 }
 
 - (id)webAccessEntryForTagID:(void *)d
@@ -4391,7 +4351,7 @@ LABEL_22:
 
 - (void)submitWebAccessWithTagID:(id)d purchaseID:(id)iD emailAddress:(id)address purchaseReceipt:(id)receipt serialCompletion:(id)completion completion:(id)a8
 {
-  v47[1] = *MEMORY[0x1E69E9840];
+  v46[1] = *MEMORY[0x1E69E9840];
   dCopy = d;
   iDCopy = iD;
   addressCopy = address;
@@ -4418,10 +4378,10 @@ LABEL_22:
     v21 = [currentLocale objectForKey:*MEMORY[0x1E695D9B0]];
 
     currentLocale2 = [MEMORY[0x1E695DF58] currentLocale];
-    v33 = [currentLocale2 objectForKey:*MEMORY[0x1E695D978]];
+    v32 = [currentLocale2 objectForKey:*MEMORY[0x1E695D978]];
 
     v23 = [receiptCopy dataUsingEncoding:4];
-    v32 = [v23 base64EncodedStringWithOptions:0];
+    v31 = [v23 base64EncodedStringWithOptions:0];
     if (self)
     {
       v24 = self->_cloudContext;
@@ -4435,20 +4395,20 @@ LABEL_22:
     v25 = v24;
     endpointConnection = [(FCCloudContext *)v25 endpointConnection];
     v27 = MEMORY[0x1E69E96A0];
-    v37[0] = MEMORY[0x1E69E9820];
-    v37[1] = 3221225472;
-    v37[2] = __117__FCPurchaseController_submitWebAccessWithTagID_purchaseID_emailAddress_purchaseReceipt_serialCompletion_completion___block_invoke;
-    v37[3] = &unk_1E7C39600;
-    objc_copyWeak(&v44, &location);
-    v38 = dCopy;
-    v39 = iDCopy;
-    v40 = addressCopy;
-    v41 = receiptCopy;
-    v42 = v16;
-    v43 = completionCopy;
-    [endpointConnection submitWebAccessWithTagID:v38 purchaseID:v39 emailAddress:v40 purchaseReceipt:v32 countryCode:v33 languageCode:v21 callbackQueue:MEMORY[0x1E69E96A0] completion:v37];
+    v36[0] = MEMORY[0x1E69E9820];
+    v36[1] = 3221225472;
+    v36[2] = __117__FCPurchaseController_submitWebAccessWithTagID_purchaseID_emailAddress_purchaseReceipt_serialCompletion_completion___block_invoke;
+    v36[3] = &unk_1E7C39600;
+    objc_copyWeak(&v43, &location);
+    v37 = dCopy;
+    v38 = iDCopy;
+    v39 = addressCopy;
+    v40 = receiptCopy;
+    v41 = v16;
+    v42 = completionCopy;
+    [endpointConnection submitWebAccessWithTagID:v37 purchaseID:v38 emailAddress:v39 purchaseReceipt:v31 countryCode:v32 languageCode:v21 callbackQueue:MEMORY[0x1E69E96A0] completion:v36];
 
-    objc_destroyWeak(&v44);
+    objc_destroyWeak(&v43);
     objc_destroyWeak(&location);
   }
 
@@ -4457,9 +4417,9 @@ LABEL_22:
     if (v16)
     {
       v28 = MEMORY[0x1E696ABC0];
-      v46 = @"error_message";
-      v47[0] = @"Device in offline";
-      v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v47 forKeys:&v46 count:1];
+      v45 = @"error_message";
+      v46[0] = @"Device in offline";
+      v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v46 forKeys:&v45 count:1];
       v30 = [v28 errorWithDomain:@"FCWebAccessErrorDomain" code:5000 userInfo:v29];
       (*(v16 + 2))(v16, 0, v30);
     }
@@ -4469,8 +4429,6 @@ LABEL_22:
       completionCopy[2](completionCopy);
     }
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 void __117__FCPurchaseController_submitWebAccessWithTagID_purchaseID_emailAddress_purchaseReceipt_serialCompletion_completion___block_invoke(id *a1, char a2, void *a3)

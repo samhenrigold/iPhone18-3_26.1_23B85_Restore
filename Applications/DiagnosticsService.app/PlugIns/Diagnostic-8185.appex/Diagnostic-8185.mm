@@ -1,13 +1,15 @@
-void sub_10000219C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10000219C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
-void sub_1000021C4(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000021C4(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_100002EE4(uint64_t a1, void *a2)
@@ -31,6 +33,20 @@ void sub_100002EE4(uint64_t a1, void *a2)
 
   [*(a1 + 40) invalidate];
   dispatch_semaphore_signal(*(a1 + 48));
+}
+
+void sub_100003180(void *a1)
+{
+  LODWORD(v7) = 134217984;
+  *(&v7 + 4) = [a1 length];
+  sub_1000021C4(&_mh_execute_header, v1, v2, "partSPC is too short, length = %lu", v3, v4, v5, v6, v7, DWORD2(v7));
+}
+
+void sub_1000031FC(id *a1)
+{
+  LODWORD(v7) = 134217984;
+  *(&v7 + 4) = [*a1 count];
+  sub_1000021C4(&_mh_execute_header, v1, v2, "partSPC count %lu", v3, v4, v5, v6, v7, DWORD2(v7));
 }
 
 void sub_1000032B0(os_log_t log)

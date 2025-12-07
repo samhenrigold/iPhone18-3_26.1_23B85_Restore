@@ -33,13 +33,12 @@
 
 - (void)setAxis:(unint64_t)axis
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   self->_axis = axis;
 
   v5 = objc_alloc(MEMORY[0x277CBEA60]);
-  v7[0] = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:axis];
-  self->_axes = [v5 initWithArray:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v7, 1)}];
-  v6 = *MEMORY[0x277D85DE8];
+  v6[0] = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:axis];
+  self->_axes = [v5 initWithArray:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v6, 1)}];
 }
 
 - (unint64_t)kernelDimensionalityForSourceArrays:(id)arrays
@@ -55,17 +54,17 @@
 
 - (MPSNDArrayReduction)initWithDevice:(id)device axis:(unint64_t)axis operation:(int)operation
 {
-  v14[1] = *MEMORY[0x277D85DE8];
-  v13.receiver = self;
-  v13.super_class = MPSNDArrayReduction;
-  result = [(MPSNDArrayUnaryKernel *)&v13 initWithDevice:?];
+  v13[1] = *MEMORY[0x277D85DE8];
+  v12.receiver = self;
+  v12.super_class = MPSNDArrayReduction;
+  result = [(MPSNDArrayUnaryKernel *)&v12 initWithDevice:?];
   if (result)
   {
     result->_axis = axis;
     v9 = result;
     v10 = objc_alloc(MEMORY[0x277CBEA60]);
-    v14[0] = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:axis];
-    v9->_axes = [v10 initWithArray:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v14, 1)}];
+    v13[0] = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:axis];
+    v9->_axes = [v10 initWithArray:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v13, 1)}];
     v9->_operation = operation;
     v9->super.super._encode = EncodeReduction;
     v11 = [[MPSNDArrayIdentity alloc] initWithDevice:device];
@@ -73,7 +72,6 @@
     v9->_identity = v11;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return result;
 }
 

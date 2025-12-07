@@ -224,7 +224,7 @@ LABEL_58:
 
 + (id)labelRegionForField:(id)field inRegions:(id)regions
 {
-  [self labelRegionsForField:field inRegions:regions];
+  objc_msgSend_labelRegionsForField_inRegions_(self, a2, field, regions);
   if (v6[0] == v6[1])
   {
     v4 = 0;
@@ -327,7 +327,7 @@ LABEL_58:
           *v18 = v14;
           v18[1] = v41;
           v18[2] = v15;
-          v19 = v18 - (v10 - v9);
+          v19 = (v18 - (v10 - v9));
           if (v9 != v10)
           {
             v20 = v9;
@@ -336,10 +336,10 @@ LABEL_58:
             do
             {
               *v22 = *v21;
-              v23 = v21[2];
-              v21[2] = 0;
-              *(v22 + 2) = v23;
-              v21 += 3;
+              v23 = *(v21 + 16);
+              *(v21 + 16) = 0;
+              *(v22 + 16) = v23;
+              v21 += 24;
               v22 += 24;
             }
 
@@ -347,13 +347,13 @@ LABEL_58:
             do
             {
 
-              v20 += 3;
+              v20 += 24;
             }
 
             while (v20 != v10);
           }
 
-          v10 = v18 + 3;
+          v10 = (v18 + 3);
           v32->var0 = v19;
           v32->var1 = v18 + 3;
           v32->var2 = 0;
@@ -440,7 +440,7 @@ LABEL_37:
     }
   }
 
-  [CRFormLabelFinder labelRegionsForField:fieldCopy inRegions:regionsCopy];
+  objc_msgSend_labelRegionsForField_inRegions_(CRFormLabelFinder);
   v14 = *labelRegions;
   if (*labelRegions)
   {

@@ -22,7 +22,7 @@
     self->super._type = type;
     normalizedValue = self->super._normalizedValue;
     self->super._normalizedValue = 0;
-    MEMORY[0x2821F96F8]();
+    MEMORY[0x2821F96F8](self, normalizedValue);
   }
 }
 

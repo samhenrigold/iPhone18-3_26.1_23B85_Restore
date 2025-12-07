@@ -30,7 +30,7 @@
   result = *self;
   if (!result)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSDySS9WorkoutUI22DemoTrainingLoadValuesVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSDySS9WorkoutUI22DemoTrainingLoadValuesVGMd, &_sSDySS9WorkoutUI22DemoTrainingLoadValuesVGMR);
     a2();
     result = swift_getWitnessTable();
     atomic_store(result, self);

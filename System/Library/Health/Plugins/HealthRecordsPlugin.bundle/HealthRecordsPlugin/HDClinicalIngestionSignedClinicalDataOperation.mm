@@ -233,7 +233,7 @@ LABEL_19:
   v10 = HKLogHealthRecords;
   if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_DEBUG))
   {
-    sub_A0118(v10);
+    sub_A0118(v10, self);
   }
 
   profileExtension = [(HDClinicalIngestionOperation *)self profileExtension];
@@ -314,7 +314,7 @@ LABEL_17:
   v40 = HKLogHealthRecords;
   if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_DEBUG))
   {
-    sub_A02A4(v40);
+    sub_A02A4(v40, self);
   }
 
 LABEL_20:

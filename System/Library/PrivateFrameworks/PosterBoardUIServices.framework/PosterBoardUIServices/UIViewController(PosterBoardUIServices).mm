@@ -11,13 +11,13 @@
   v21 = a6;
   if (!v19)
   {
-    [UIViewController(PosterBoardUIServices) pruis_snapshotRequestForDefinition:a2 interfaceOrientation:? bounds:? screen:? posterContents:?];
+    [UIViewController(PosterBoardUIServices) pruis_snapshotRequestForDefinition:a2 interfaceOrientation:self bounds:? screen:? posterContents:?];
   }
 
   v22 = v21;
   if (!v21)
   {
-    [UIViewController(PosterBoardUIServices) pruis_snapshotRequestForDefinition:a2 interfaceOrientation:? bounds:? screen:? posterContents:?];
+    [UIViewController(PosterBoardUIServices) pruis_snapshotRequestForDefinition:a2 interfaceOrientation:self bounds:? screen:? posterContents:?];
   }
 
   v41.origin.x = a7;
@@ -80,46 +80,46 @@
   return v38;
 }
 
-- (void)pruis_snapshotRequestForDefinition:()PosterBoardUIServices interfaceOrientation:bounds:screen:posterContents:.cold.1(const char *a1)
+- (void)pruis_snapshotRequestForDefinition:()PosterBoardUIServices interfaceOrientation:bounds:screen:posterContents:.cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"posterContents"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"posterContents"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    v8 = @"UIViewController+PosterBoardUIServices.m";
-    v9 = 1024;
-    v10 = 28;
-    v11 = v6;
-    v12 = v2;
+    v9 = @"UIViewController+PosterBoardUIServices.m";
+    v10 = 1024;
+    v11 = 28;
+    v12 = v7;
+    v13 = v3;
     _os_log_error_impl(&dword_1CAE63000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
-- (void)pruis_snapshotRequestForDefinition:()PosterBoardUIServices interfaceOrientation:bounds:screen:posterContents:.cold.2(const char *a1)
+- (void)pruis_snapshotRequestForDefinition:()PosterBoardUIServices interfaceOrientation:bounds:screen:posterContents:.cold.2(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"snapshotDefinition"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"snapshotDefinition"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    v8 = @"UIViewController+PosterBoardUIServices.m";
-    v9 = 1024;
-    v10 = 27;
-    v11 = v6;
-    v12 = v2;
+    v9 = @"UIViewController+PosterBoardUIServices.m";
+    v10 = 1024;
+    v11 = 27;
+    v12 = v7;
+    v13 = v3;
     _os_log_error_impl(&dword_1CAE63000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }

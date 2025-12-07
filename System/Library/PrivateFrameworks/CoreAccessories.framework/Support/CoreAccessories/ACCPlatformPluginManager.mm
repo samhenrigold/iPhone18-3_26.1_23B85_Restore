@@ -512,7 +512,7 @@ uint64_t __41__ACCPlatformPluginManager_sharedManager__block_invoke(uint64_t a1)
 {
   pluginBundleSearchPaths = [self pluginBundleSearchPaths];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_6_8(&_mh_execute_header, v2, v3, "Added bundle search paths: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_6_8(&_mh_execute_header, v2, v3, "Added bundle search paths: %@", v4, v5, v6, v7);
 }
 
 - (void)loadAllBundles
@@ -521,7 +521,7 @@ uint64_t __41__ACCPlatformPluginManager_sharedManager__block_invoke(uint64_t a1)
   a2->super_class = ACCPlatformPluginManager;
   pluginBundles = [(objc_super *)a2 pluginBundles];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_6_8(&_mh_execute_header, v3, v4, "ACCPlatformPluginManager.pluginBundles: %@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_6_8(&_mh_execute_header, v3, v4, "ACCPlatformPluginManager.pluginBundles: %@", v5, v6, v7, v8);
 }
 
 - (void)initAllPlugIns
@@ -530,28 +530,28 @@ uint64_t __41__ACCPlatformPluginManager_sharedManager__block_invoke(uint64_t a1)
   a2->super_class = ACCPlatformPluginManager;
   pluginInstances = [(objc_super *)a2 pluginInstances];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_6_8(&_mh_execute_header, v3, v4, "ACCPlatformPluginManager.pluginInstances: %@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_6_8(&_mh_execute_header, v3, v4, "ACCPlatformPluginManager.pluginInstances: %@", v5, v6, v7, v8);
 }
 
 - (void)pluginInstanceWithProtocol:(Protocol *)a1 fallbackToTransportPlugins:.cold.2(Protocol *a1)
 {
   v1 = NSStringFromProtocol(a1);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_5(&_mh_execute_header, v2, v3, "Multiple platform plugins found with protocol: %@\nChoosing one at random...", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_5(&_mh_execute_header, v2, v3, "Multiple platform plugins found with protocol: %@\nChoosing one at random...", v4, v5, v6, v7);
 }
 
 - (void)pluginInstanceWithProtocol:(Protocol *)a1 fallbackToTransportPlugins:.cold.4(Protocol *a1)
 {
   v1 = NSStringFromProtocol(a1);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_6_8(&_mh_execute_header, v2, v3, "Couldn't find a platform plugin conforming to protocol: %@\nFalling back to searching transport plugins...", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_6_8(&_mh_execute_header, v2, v3, "Couldn't find a platform plugin conforming to protocol: %@\nFalling back to searching transport plugins...", v4, v5, v6, v7);
 }
 
 - (void)pluginInstanceWithProtocol:(Protocol *)a1 fallbackToTransportPlugins:.cold.6(Protocol *a1)
 {
   v1 = NSStringFromProtocol(a1);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_5(&_mh_execute_header, v2, v3, "Multiple transport plugins found with protocol: %@\nChoosing one at random...", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_5(&_mh_execute_header, v2, v3, "Multiple transport plugins found with protocol: %@\nChoosing one at random...", v4, v5, v6, v7);
 }
 
 @end

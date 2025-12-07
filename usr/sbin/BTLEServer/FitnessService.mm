@@ -18,6 +18,7 @@
 - (void)receiveDeviceInfoUpdateNotification:(id)notification;
 - (void)recordDatum:(double)datum start:(id)start end:(id)end quantityType:(id)type;
 - (void)recordDatum:(id)datum forType:(id)type;
+- (void)setNotify:(BOOL)notify forCharacteristic:(id)characteristic;
 - (void)start;
 - (void)stop;
 - (void)storeAllDatums;
@@ -160,6 +161,28 @@
 
   LOBYTE(typeCopy) = [peripheral hasTag:identifier];
   return typeCopy;
+}
+
+- (void)setNotify:(BOOL)notify forCharacteristic:(id)characteristic
+{
+  notifyCopy = notify;
+  characteristicCopy = characteristic;
+  v7 = characteristicCopy;
+  if (characteristicCopy)
+  {
+    v9 = characteristicCopy;
+    characteristicCopy = [characteristicCopy properties];
+    v7 = v9;
+    if ((characteristicCopy & 0x10) != 0)
+    {
+      peripheral = [(ClientService *)self peripheral];
+      [peripheral setNotifyValue:notifyCopy forCharacteristic:v9];
+
+      v7 = v9;
+    }
+  }
+
+  _objc_release_x1(characteristicCopy, v7);
 }
 
 - (void)featuresReadComplete

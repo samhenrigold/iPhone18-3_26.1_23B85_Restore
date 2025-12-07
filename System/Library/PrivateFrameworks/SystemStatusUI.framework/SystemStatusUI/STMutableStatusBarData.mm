@@ -3,13 +3,13 @@
 
 @implementation STMutableStatusBarData
 
-void __68__STMutableStatusBarData_Testing__subsetOfEntryKeys_withPercentage___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void __68__STMutableStatusBarData_Testing__subsetOfEntryKeys_withPercentage___block_invoke(id *a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   v6 = a2;
-  if ([*(a1 + 32) containsObject:?])
+  if ([a1[4] containsObject:?])
   {
-    [*(a1 + 40) addObject:v6];
-    if ([*(a1 + 40) count] == *(a1 + 48))
+    [a1[5] addObject:v6];
+    if ([a1[5] count] == a1[6])
     {
       *a4 = 1;
     }

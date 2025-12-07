@@ -87,7 +87,7 @@
 
 - (id)description
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   memset(out, 0, 37);
   if ([(RemoteDeviceQuery *)self uuid])
   {
@@ -133,7 +133,6 @@
   }
 
   v9 = [v3 stringWithFormat:@"(name~='%s', type='%s', uuid='%s', '%s' in services)", name, description, v8, availableService];
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

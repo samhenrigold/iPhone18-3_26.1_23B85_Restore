@@ -59,10 +59,11 @@
 {
   length = range.length;
   location = range.location;
-  sub_228392000();
+  v9 = sub_228392000();
+  v11 = v10;
   fieldCopy = field;
   selfCopy = self;
-  LOBYTE(length) = _s19HealthMedicationsUI24DosageCollectionViewCellC9textField_24shouldChangeCharactersIn17replacementStringSbSo06UITextI0C_So8_NSRangeVSStF_0(fieldCopy, location, length);
+  LOBYTE(length) = _s19HealthMedicationsUI24DosageCollectionViewCellC9textField_24shouldChangeCharactersIn17replacementStringSbSo06UITextI0C_So8_NSRangeVSStF_0(fieldCopy, location, length, v9, v11);
 
   return length & 1;
 }

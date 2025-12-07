@@ -310,78 +310,78 @@ LABEL_33:
 
 - (void)_sendRecordBatch:(id)batch recursed:(BOOL)recursed completion:(id)completion
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   batchCopy = batch;
   completionCopy = completion;
-  v20 = batchCopy;
+  v19 = batchCopy;
   if ([batchCopy count])
   {
     recursedCopy = recursed;
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
     v9 = batchCopy;
-    v10 = [v9 countByEnumeratingWithState:&v31 objects:v39 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v30 objects:v38 count:16];
     if (v10)
     {
-      v11 = *v32;
+      v11 = *v31;
       v12 = MEMORY[0x277CBEC38];
       do
       {
         v13 = 0;
         do
         {
-          if (*v32 != v11)
+          if (*v31 != v11)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v31 + 1) + 8 * v13);
-          v37 = @"br_pcsChainingUpdate";
-          v38 = v12;
-          v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
+          v14 = *(*(&v30 + 1) + 8 * v13);
+          v36 = @"br_pcsChainingUpdate";
+          v37 = v12;
+          v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
           [v14 setPluginFields:v15];
 
           ++v13;
         }
 
         while (v10 != v13);
-        v10 = [v9 countByEnumeratingWithState:&v31 objects:v39 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v30 objects:v38 count:16];
       }
 
       while (v10);
     }
 
-    v29[0] = 0;
-    v29[1] = v29;
-    v29[2] = 0x3032000000;
-    v29[3] = __Block_byref_object_copy__40;
-    v29[4] = __Block_byref_object_dispose__40;
-    v30 = 0;
+    v28[0] = 0;
+    v28[1] = v28;
+    v28[2] = 0x3032000000;
+    v28[3] = __Block_byref_object_copy__40;
+    v28[4] = __Block_byref_object_dispose__40;
+    v29 = 0;
     v16 = [objc_alloc(MEMORY[0x277CBC4A0]) initWithRecordsToSave:v9 recordIDsToDelete:0];
     [v16 setSavePolicy:0];
     [v16 setAtomic:1];
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __64__BRCPCSChainingOperation__sendRecordBatch_recursed_completion___block_invoke_194;
-    v25[3] = &unk_278505980;
-    v28 = recursedCopy;
-    v25[4] = self;
-    v27 = v29;
-    v26 = v9;
-    [v16 setPerRecordCompletionBlock:v25];
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __64__BRCPCSChainingOperation__sendRecordBatch_recursed_completion___block_invoke_197;
-    v22[3] = &unk_2785059A8;
-    v24 = v29;
-    v22[4] = self;
-    v23 = completionCopy;
-    [v16 setModifyRecordsCompletionBlock:v22];
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __64__BRCPCSChainingOperation__sendRecordBatch_recursed_completion___block_invoke_194;
+    v24[3] = &unk_278505980;
+    v27 = recursedCopy;
+    v24[4] = self;
+    v26 = v28;
+    v25 = v9;
+    [v16 setPerRecordCompletionBlock:v24];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __64__BRCPCSChainingOperation__sendRecordBatch_recursed_completion___block_invoke_197;
+    v21[3] = &unk_2785059A8;
+    v23 = v28;
+    v21[4] = self;
+    v22 = completionCopy;
+    [v16 setModifyRecordsCompletionBlock:v21];
     [(_BRCOperation *)self addSubOperation:v16];
 
-    _Block_object_dispose(v29, 8);
+    _Block_object_dispose(v28, 8);
   }
 
   else
@@ -391,16 +391,14 @@ LABEL_33:
     block[1] = 3221225472;
     block[2] = __64__BRCPCSChainingOperation__sendRecordBatch_recursed_completion___block_invoke;
     block[3] = &unk_278501520;
-    v36 = completionCopy;
+    v35 = completionCopy;
     dispatch_async(callbackQueue, block);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __64__BRCPCSChainingOperation__sendRecordBatch_recursed_completion___block_invoke_194(uint64_t a1, void *a2, void *a3)
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [*(*(a1 + 32) + 504) defaultClientZone];
@@ -408,9 +406,9 @@ void __64__BRCPCSChainingOperation__sendRecordBatch_recursed_completion___block_
   v9 = [v8 serialQueue];
   dispatch_assert_queue_not_V2(v9);
 
-  v55 = 0;
-  LODWORD(v9) = [v6 brc_isCloudKitErrorReparentedToNewParent:&v55];
-  v10 = v55;
+  v54 = 0;
+  LODWORD(v9) = [v6 brc_isCloudKitErrorReparentedToNewParent:&v54];
+  v10 = v54;
   v11 = v10;
   if (v9 && (*(a1 + 56) & 1) == 0 && v10)
   {
@@ -425,29 +423,29 @@ void __64__BRCPCSChainingOperation__sendRecordBatch_recursed_completion___block_
       v12 = *(*(*(a1 + 48) + 8) + 40);
     }
 
-    v53 = 0u;
-    v54 = 0u;
-    v51 = 0u;
     v52 = 0u;
+    v53 = 0u;
+    v50 = 0u;
+    v51 = 0u;
     v16 = v12;
-    v17 = [v16 countByEnumeratingWithState:&v51 objects:v62 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v50 objects:v61 count:16];
     if (v17)
     {
       v18 = v17;
-      v44 = v7;
-      v45 = v6;
-      v46 = v11;
-      v19 = *v52;
+      v43 = v7;
+      v44 = v6;
+      v45 = v11;
+      v19 = *v51;
       while (2)
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v52 != v19)
+          if (*v51 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          v21 = *(*(&v51 + 1) + 8 * i);
+          v21 = *(*(&v50 + 1) + 8 * i);
           v22 = [v21 recordID];
           v23 = [v5 recordID];
           v24 = [v22 isEqual:v23];
@@ -459,35 +457,35 @@ void __64__BRCPCSChainingOperation__sendRecordBatch_recursed_completion___block_
             if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412802;
-              v57 = v21;
-              v58 = 2112;
-              v59 = v46;
-              v60 = 2112;
-              v61 = v31;
+              v56 = v21;
+              v57 = 2112;
+              v58 = v45;
+              v59 = 2112;
+              v60 = v31;
               _os_log_impl(&dword_223E7A000, v32, OS_LOG_TYPE_DEFAULT, "[WARNING] Got an error indicating we need to reparent %@ to %@%@", buf, 0x20u);
             }
 
-            v7 = v44;
-            v42 = [v44 serverZone];
-            v6 = v45;
-            if (([v46 hasPrefix:@"directory/"] & 1) == 0)
+            v7 = v43;
+            v41 = [v43 serverZone];
+            v6 = v44;
+            if (([v45 hasPrefix:@"directory/"] & 1) == 0)
             {
               __64__BRCPCSChainingOperation__sendRecordBatch_recursed_completion___block_invoke_194_cold_1();
             }
 
-            v33 = [v46 substringFromIndex:{objc_msgSend(@"directory/", "length")}];
-            v41 = [BRCItemID alloc];
+            v33 = [v45 substringFromIndex:{objc_msgSend(@"directory/", "length")}];
+            v40 = [BRCItemID alloc];
             v34 = [*(*(a1 + 32) + 504) dbRowID];
-            v35 = [v42 dbRowID];
-            v43 = v33;
-            v36 = [(BRCItemID *)v41 initWithString:v33 libraryRowID:v34 sharedZoneRowID:v35];
+            v35 = [v41 dbRowID];
+            v42 = v33;
+            v36 = [(BRCItemID *)v40 initWithString:v33 libraryRowID:v34 sharedZoneRowID:v35];
 
-            v37 = [(BRCItemID *)v36 validatingDirectoryReferenceInZone:v42];
+            v37 = [(BRCItemID *)v36 validatingDirectoryReferenceInZone:v41];
             v38 = [v21 parent];
 
             if (v38)
             {
-              v39 = [(BRCItemID *)v36 pcsChainParentReferenceInZone:v42];
+              v39 = [(BRCItemID *)v36 pcsChainParentReferenceInZone:v41];
               [v21 setParent:v39];
             }
 
@@ -497,7 +495,7 @@ void __64__BRCPCSChainingOperation__sendRecordBatch_recursed_completion___block_
           }
         }
 
-        v18 = [v16 countByEnumeratingWithState:&v51 objects:v62 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v50 objects:v61 count:16];
         if (v18)
         {
           continue;
@@ -506,10 +504,10 @@ void __64__BRCPCSChainingOperation__sendRecordBatch_recursed_completion___block_
         break;
       }
 
-      v7 = v44;
-      v6 = v45;
+      v7 = v43;
+      v6 = v44;
 LABEL_29:
-      v11 = v46;
+      v11 = v45;
     }
 
     goto LABEL_30;
@@ -525,12 +523,12 @@ LABEL_29:
     block[3] = &unk_2784FF4A0;
     v27 = v7;
     v28 = *(a1 + 32);
-    v48 = v27;
-    v49 = v28;
-    v50 = v5;
+    v47 = v27;
+    v48 = v28;
+    v49 = v5;
     dispatch_sync(v26, block);
 
-    v16 = v48;
+    v16 = v47;
 LABEL_30:
 
     goto LABEL_31;
@@ -544,11 +542,11 @@ LABEL_30:
     {
       v30 = [v6 brc_telemetryReportableErrorWithRecordName:0];
       *buf = 138412802;
-      v57 = v30;
-      v58 = 2112;
-      v59 = v5;
-      v60 = 2112;
-      v61 = v16;
+      v56 = v30;
+      v57 = 2112;
+      v58 = v5;
+      v59 = 2112;
+      v60 = v16;
       _os_log_impl(&dword_223E7A000, v29, OS_LOG_TYPE_DEFAULT, "[WARNING] Encountered pcs chaining error %@ for record %@%@", buf, 0x20u);
     }
 
@@ -556,13 +554,11 @@ LABEL_30:
   }
 
 LABEL_31:
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 void __64__BRCPCSChainingOperation__sendRecordBatch_recursed_completion___block_invoke_195(void *a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = a1[4];
   v3 = [*(a1[5] + 512) itemID];
   v4 = [v2 itemByItemID:v3];
@@ -573,14 +569,14 @@ void __64__BRCPCSChainingOperation__sendRecordBatch_recursed_completion___block_
     v6 = brc_default_log();
     if (os_log_type_enabled(v6, 0x90u))
     {
-      v11 = a1[6];
-      v12 = 138412802;
-      v13 = v4;
-      v14 = 2112;
-      v15 = v11;
-      v16 = 2112;
-      v17 = v5;
-      _os_log_error_impl(&dword_223E7A000, v6, 0x90u, "[ERROR] Blocking %@ from sync up until it is next modified because the server failed to pcs chain %@ with a permanent error%@", &v12, 0x20u);
+      v10 = a1[6];
+      v11 = 138412802;
+      v12 = v4;
+      v13 = 2112;
+      v14 = v10;
+      v15 = 2112;
+      v16 = v5;
+      _os_log_error_impl(&dword_223E7A000, v6, 0x90u, "[ERROR] Blocking %@ from sync up until it is next modified because the server failed to pcs chain %@ with a permanent error%@", &v11, 0x20u);
     }
 
     v7 = a1[4];
@@ -588,13 +584,11 @@ void __64__BRCPCSChainingOperation__sendRecordBatch_recursed_completion___block_
     v9 = [v7 dbRowID];
     [v8 blockSyncUpCallback:v4 inZone:v9];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __64__BRCPCSChainingOperation__sendRecordBatch_recursed_completion___block_invoke_197(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (*(*(*(a1 + 48) + 8) + 40))
   {
     v2 = brc_bread_crumbs();
@@ -602,27 +596,22 @@ uint64_t __64__BRCPCSChainingOperation__sendRecordBatch_recursed_completion___bl
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v4 = *(*(*(a1 + 48) + 8) + 40);
-      v10 = 138412546;
-      v11 = v4;
-      v12 = 2112;
-      v13 = v2;
-      _os_log_impl(&dword_223E7A000, v3, OS_LOG_TYPE_DEFAULT, "[WARNING] Retrying with new record batch because we were told about a new parent - %@%@", &v10, 0x16u);
+      v7 = 138412546;
+      v8 = v4;
+      v9 = 2112;
+      v10 = v2;
+      _os_log_impl(&dword_223E7A000, v3, OS_LOG_TYPE_DEFAULT, "[WARNING] Retrying with new record batch because we were told about a new parent - %@%@", &v7, 0x16u);
     }
 
-    result = [*(a1 + 32) _sendRecordBatch:*(*(*(a1 + 48) + 8) + 40) recursed:1 completion:*(a1 + 40)];
-    v6 = *MEMORY[0x277D85DE8];
+    return [*(a1 + 32) _sendRecordBatch:*(*(*(a1 + 48) + 8) + 40) recursed:1 completion:*(a1 + 40)];
   }
 
   else
   {
-    v7 = *(a1 + 40);
-    v8 = *(*(a1 + 40) + 16);
-    v9 = *MEMORY[0x277D85DE8];
+    v6 = *(*(a1 + 40) + 16);
 
-    return v8();
+    return v6();
   }
-
-  return result;
 }
 
 - (void)_chainRecords
@@ -761,29 +750,29 @@ void __40__BRCPCSChainingOperation__chainRecords__block_invoke_201(uint64_t a1, 
 
 uint64_t __40__BRCPCSChainingOperation__chainRecords__block_invoke_202(uint64_t a1)
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) should2PhasePCSChain])
   {
-    v58 = 0u;
-    v59 = 0u;
-    v56 = 0u;
     v57 = 0u;
+    v58 = 0u;
+    v55 = 0u;
+    v56 = 0u;
     obj = [*(a1 + 40) objectEnumerator];
-    v2 = [obj countByEnumeratingWithState:&v56 objects:v65 count:16];
+    v2 = [obj countByEnumeratingWithState:&v55 objects:v64 count:16];
     if (v2)
     {
       v3 = v2;
-      v4 = *v57;
+      v4 = *v56;
       do
       {
         for (i = 0; i != v3; ++i)
         {
-          if (*v57 != v4)
+          if (*v56 != v4)
           {
             objc_enumerationMutation(obj);
           }
 
-          v6 = *(*(&v56 + 1) + 8 * i);
+          v6 = *(*(&v55 + 1) + 8 * i);
           v7 = [v6 record];
           v8 = brc_bread_crumbs();
           v9 = brc_default_log();
@@ -791,9 +780,9 @@ uint64_t __40__BRCPCSChainingOperation__chainRecords__block_invoke_202(uint64_t 
           {
             v10 = [v7 recordID];
             *buf = 138412546;
-            v62 = v10;
-            v63 = 2112;
-            v64 = v8;
+            v61 = v10;
+            v62 = 2112;
+            v63 = v8;
             _os_log_impl(&dword_223E7A000, v9, OS_LOG_TYPE_DEFAULT, "[WARNING] Learning etag in the server truth for half chained parent %@%@", buf, 0x16u);
           }
 
@@ -817,7 +806,7 @@ uint64_t __40__BRCPCSChainingOperation__chainRecords__block_invoke_202(uint64_t 
             if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v62 = v20;
+              v61 = v20;
               _os_log_impl(&dword_223E7A000, v21, OS_LOG_TYPE_DEFAULT, "[WARNING] Uh oh... the record changed server side while we were mid pcs chain batch.  We might have oplock conflicts%@", buf, 0xCu);
             }
           }
@@ -832,36 +821,36 @@ uint64_t __40__BRCPCSChainingOperation__chainRecords__block_invoke_202(uint64_t 
           }
         }
 
-        v3 = [obj countByEnumeratingWithState:&v56 objects:v65 count:16];
+        v3 = [obj countByEnumeratingWithState:&v55 objects:v64 count:16];
       }
 
       while (v3);
     }
   }
 
-  v54 = 0u;
-  v55 = 0u;
-  v52 = 0u;
   v53 = 0u;
+  v54 = 0u;
+  v51 = 0u;
+  v52 = 0u;
   obja = *(a1 + 64);
-  v25 = [obja countByEnumeratingWithState:&v52 objects:v60 count:16];
+  v25 = [obja countByEnumeratingWithState:&v51 objects:v59 count:16];
   if (v25)
   {
     v26 = v25;
-    v27 = *v53;
+    v27 = *v52;
     v28 = &OBJC_IVAR____BRCOperation__sessionContext;
     do
     {
       v29 = 0;
-      v49 = v26;
+      v48 = v26;
       do
       {
-        if (*v53 != v27)
+        if (*v52 != v27)
         {
           objc_enumerationMutation(obja);
         }
 
-        v30 = *(*(&v52 + 1) + 8 * v29);
+        v30 = *(*(&v51 + 1) + 8 * v29);
         v31 = [v30 recordID];
         v32 = [*(*(a1 + 48) + *v28) zoneAppRetriever];
         v33 = [v31 brc_itemIDWithZoneAppRetriever:v32];
@@ -908,60 +897,59 @@ uint64_t __40__BRCPCSChainingOperation__chainRecords__block_invoke_202(uint64_t 
 
           v28 = v38;
           v27 = v37;
-          v26 = v49;
+          v26 = v48;
         }
 
         ++v29;
       }
 
       while (v26 != v29);
-      v26 = [obja countByEnumeratingWithState:&v52 objects:v60 count:16];
+      v26 = [obja countByEnumeratingWithState:&v51 objects:v59 count:16];
     }
 
     while (v26);
   }
 
-  v47 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 uint64_t __40__BRCPCSChainingOperation__chainRecords__block_invoke_210(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 504) defaultClientZone];
   [v2 learnCKInfosFromSavedRecords:*(a1 + 40) isOutOfBandModifyRecords:1];
 
   if ([*(a1 + 48) count] && objc_msgSend(*(a1 + 56), "should2PhasePCSChain"))
   {
     v3 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(*(a1 + 48), "count")}];
+    v12 = 0u;
     v13 = 0u;
     v14 = 0u;
     v15 = 0u;
-    v16 = 0u;
     v4 = [*(a1 + 48) objectEnumerator];
-    v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v14;
+      v7 = *v13;
       do
       {
         v8 = 0;
         do
         {
-          if (*v14 != v7)
+          if (*v13 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = [*(*(&v13 + 1) + 8 * v8) record];
+          v9 = [*(*(&v12 + 1) + 8 * v8) record];
           [v3 addObject:v9];
 
           ++v8;
         }
 
         while (v6 != v8);
-        v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v6);
@@ -971,13 +959,12 @@ uint64_t __40__BRCPCSChainingOperation__chainRecords__block_invoke_210(uint64_t 
     [v10 learnCKInfosFromSavedRecords:v3 isOutOfBandModifyRecords:1];
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 - (void)main
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   ++self->_tryCount;
   self->_completed = 0;
   if (self->_canSyncDownBeforeRetry && self->_syncDownBeforeRetry)
@@ -988,24 +975,22 @@ uint64_t __40__BRCPCSChainingOperation__chainRecords__block_invoke_210(uint64_t 
     {
       *buf = 138412546;
       selfCopy = self;
-      v11 = 2112;
-      v12 = v3;
+      v9 = 2112;
+      v10 = v3;
       _os_log_impl(&dword_223E7A000, v4, OS_LOG_TYPE_DEFAULT, "[WARNING] Syncing down before retrying %@%@", buf, 0x16u);
     }
 
     sessionContext = self->super._sessionContext;
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __31__BRCPCSChainingOperation_main__block_invoke;
-    v8[3] = &unk_278500F30;
-    v8[4] = self;
-    [(BRCSessionContext *)sessionContext performAsyncOnClientReadWriteDatabaseWorkloop:v8];
-    v6 = *MEMORY[0x277D85DE8];
+    v6[0] = MEMORY[0x277D85DD0];
+    v6[1] = 3221225472;
+    v6[2] = __31__BRCPCSChainingOperation_main__block_invoke;
+    v6[3] = &unk_278500F30;
+    v6[4] = self;
+    [(BRCSessionContext *)sessionContext performAsyncOnClientReadWriteDatabaseWorkloop:v6];
   }
 
   else
   {
-    v7 = *MEMORY[0x277D85DE8];
 
     [(BRCPCSChainingOperation *)self _chainRecords];
   }
@@ -1037,7 +1022,7 @@ uint64_t __31__BRCPCSChainingOperation_main__block_invoke_2(uint64_t a1)
 
 void __31__BRCPCSChainingOperation_main__block_invoke_3(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 512) clientZone];
   v3 = [*(*(a1 + 32) + 512) itemID];
   v4 = [v2 itemByItemID:v3];
@@ -1055,11 +1040,11 @@ void __31__BRCPCSChainingOperation_main__block_invoke_3(uint64_t a1)
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       v10 = *(*(a1 + 32) + 512);
-      v12 = 138412546;
-      v13 = v10;
-      v14 = 2112;
-      v15 = v8;
-      _os_log_debug_impl(&dword_223E7A000, v9, OS_LOG_TYPE_DEBUG, "[DEBUG] Refreshed root item from db %@%@", &v12, 0x16u);
+      v11 = 138412546;
+      v12 = v10;
+      v13 = 2112;
+      v14 = v8;
+      _os_log_debug_impl(&dword_223E7A000, v9, OS_LOG_TYPE_DEBUG, "[DEBUG] Refreshed root item from db %@%@", &v11, 0x16u);
     }
   }
 
@@ -1069,19 +1054,17 @@ void __31__BRCPCSChainingOperation_main__block_invoke_3(uint64_t a1)
     v9 = brc_default_log();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 138412290;
-      v13 = v8;
-      _os_log_impl(&dword_223E7A000, v9, OS_LOG_TYPE_DEFAULT, "[WARNING] Couldn't refresh item from the database%@", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = v8;
+      _os_log_impl(&dword_223E7A000, v9, OS_LOG_TYPE_DEFAULT, "[WARNING] Couldn't refresh item from the database%@", &v11, 0xCu);
     }
   }
 
   [*(a1 + 32) _chainRecords];
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithRootItem:appLibrary:sessionContext:syncUpCallback:.cold.1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -1089,22 +1072,19 @@ void __31__BRCPCSChainingOperation_main__block_invoke_3(uint64_t a1)
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: rootItem%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: rootItem%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_buildRecordListWithCompletion:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_2(&dword_223E7A000, a2, a3, "[CRIT] UNREACHABLE: Can't PCS chain to documents, trash, or root%@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_2_2(&dword_223E7A000, a2, a3, "[CRIT] UNREACHABLE: Can't PCS chain to documents, trash, or root%@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __58__BRCPCSChainingOperation__buildRecordListWithCompletion___block_invoke_cold_1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -1112,15 +1092,12 @@ void __58__BRCPCSChainingOperation__buildRecordListWithCompletion___block_invoke
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: si%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: si%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void __58__BRCPCSChainingOperation__buildRecordListWithCompletion___block_invoke_cold_2()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -1128,24 +1105,19 @@ void __58__BRCPCSChainingOperation__buildRecordListWithCompletion___block_invoke
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: listOp%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: listOp%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void __58__BRCPCSChainingOperation__buildRecordListWithCompletion___block_invoke_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_8(v0, v1, v2, v3, v4);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __64__BRCPCSChainingOperation__sendRecordBatch_recursed_completion___block_invoke_194_cold_1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -1153,37 +1125,29 @@ void __64__BRCPCSChainingOperation__sendRecordBatch_recursed_completion___block_
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: [newParent hasPrefix:kBRRecordIDPrefixDirectoryStructure]%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: [newParent hasPrefix:kBRRecordIDPrefixDirectoryStructure]%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void __40__BRCPCSChainingOperation__chainRecords__block_invoke_cold_1()
 {
-  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_9();
   _os_log_error_impl(v0, v1, 0x90u, v2, v3, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __40__BRCPCSChainingOperation__chainRecords__block_invoke_200_cold_1()
 {
-  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_9();
   _os_log_error_impl(v0, v1, 0x90u, v2, v3, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __40__BRCPCSChainingOperation__chainRecords__block_invoke_201_cold_1()
 {
-  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_9();
   _os_log_error_impl(v0, v1, 0x90u, v2, v3, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __40__BRCPCSChainingOperation__chainRecords__block_invoke_202_cold_1()

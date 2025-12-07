@@ -63,11 +63,11 @@ uint64_t fst::SingleShortestPathBacktrace<fst::ArcTpl<fst::LatticeWeightWithStat
       v15 = (*(*v24[0] + 32))(v24[0]);
 LABEL_12:
       v19[0] = *v15;
-      v19[1] = v15[1];
+      v19[1] = *(v15 + 8);
       v21 = 0;
       v22 = 0;
       v20 = 0;
-      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v20, v15[2], v15[3], (v15[3] - v15[2]) >> 2);
+      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v20, *(v15 + 16), *(v15 + 24), (*(v15 + 24) - *(v15 + 16)) >> 2);
       v23 = v13;
       (*(*a2 + 208))(a2, v12, v19);
       if (v20)
@@ -97,7 +97,7 @@ LABEL_18:
 
     v26 = *(*a3 + 16 * v10 + 8);
 LABEL_11:
-    v15 = (v24[1] + 48 * v14);
+    v15 = v24[1] + 48 * v14;
     goto LABEL_12;
   }
 
@@ -124,7 +124,7 @@ void sub_1B55FE3AC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t fst::ShortestDistance<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>,fst::AutoQueue<int>,fst::AnyArcFilter<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>(uint64_t a1, uint64_t *a2, uint64_t a3)
+void *fst::ShortestDistance<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>,fst::AutoQueue<int>,fst::AnyArcFilter<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   v10[0] = a1;
   v10[1] = a2;
@@ -156,7 +156,7 @@ uint64_t fst::ShortestDistance<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::L
   return fst::ShortestDistanceState<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,fst::AutoQueue<int>,fst::AnyArcFilter<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>::~ShortestDistanceState(v10);
 }
 
-void sub_1B55FE4F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13, char a14)
+void sub_1B55FE4F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13, uint64_t a14)
 {
   if (__p)
   {
@@ -305,7 +305,7 @@ LABEL_29:
     v70 = 0;
     v71 = 0;
     v72 = &v75;
-    fst::DfsVisit<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>,fst::SccVisitor<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::AnyArcFilter<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>(a1, &v69);
+    fst::DfsVisit<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>,fst::SccVisitor<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::AnyArcFilter<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>(a1, &v69, 0);
   }
 
   v19 = 0;
@@ -596,7 +596,7 @@ void sub_1B55FF340(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-char *std::vector<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>::insert(uint64_t *a1, uint64_t a2, char *a3)
+void *std::vector<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>::insert(uint64_t *a1, void *a2, unint64_t a3)
 {
   v4 = a2;
   v6 = a1[1];
@@ -651,7 +651,7 @@ char *std::vector<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,fl
 
   else
   {
-    std::vector<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>::__move_range(a1, a2, v6, (a2 + 32));
+    std::vector<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>::__move_range(a1, a2, v6, (a2 + 4));
     v8 = a1[1] <= a3 || v4 > a3;
     v9 = 32;
     if (v8)
@@ -659,15 +659,15 @@ char *std::vector<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,fl
       v9 = 0;
     }
 
-    fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>::operator=(v4, &a3[v9]);
+    fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>::operator=(v4, a3 + v9);
   }
 
   return v4;
 }
 
-void sub_1B55FF660(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B55FF660(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -973,11 +973,11 @@ LABEL_80:
               v60 = *(__p + v59);
               if (v60 == a4)
               {
-                v61 = (v92 + 32 * v59);
+                v61 = v92 + 32 * v59;
                 *v61 = v88;
                 if (v61 != &v88)
                 {
-                  std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>(&v61[1], v89, v90, (v90 - v89) >> 2);
+                  std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>((v61 + 8), v89, v90, (v90 - v89) >> 2);
                   v54 = LODWORD(v87);
                 }
               }
@@ -1223,10 +1223,10 @@ void sub_1B5600714(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>::push_back[abi:ne200100](uint64_t a1, void *a2)
+uint64_t std::vector<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>::push_back[abi:ne200100](void *a1, uint64_t a2)
 {
-  v3 = *(a1 + 8);
-  if (v3 >= *(a1 + 16))
+  v3 = a1[1];
+  if (v3 >= a1[2])
   {
     result = std::vector<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>::__emplace_back_slow_path<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>(a1, a2);
   }
@@ -1237,32 +1237,32 @@ uint64_t std::vector<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>
     result = v3 + 32;
   }
 
-  *(a1 + 8) = result;
+  a1[1] = result;
   return result;
 }
 
-uint64_t std::vector<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>::__construct_one_at_end[abi:ne200100]<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>(uint64_t a1, void *a2)
+uint64_t *std::vector<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>::__construct_one_at_end[abi:ne200100]<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>(uint64_t a1, uint64_t a2)
 {
   v3 = *(a1 + 8);
   *v3 = *a2;
   v3[2] = 0;
   v3[3] = 0;
   v3[1] = 0;
-  result = std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((v3 + 1), a2[1], a2[2], (a2[2] - a2[1]) >> 2);
+  result = std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v3 + 1, *(a2 + 8), *(a2 + 16), (*(a2 + 16) - *(a2 + 8)) >> 2);
   *(a1 + 8) = v3 + 4;
   return result;
 }
 
-uint64_t std::vector<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>::__emplace_back_slow_path<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>(uint64_t a1, void *a2)
+uint64_t std::vector<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>::__emplace_back_slow_path<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>(void *a1, uint64_t a2)
 {
-  v2 = (*(a1 + 8) - *a1) >> 5;
+  v2 = (a1[1] - *a1) >> 5;
   v3 = v2 + 1;
   if ((v2 + 1) >> 59)
   {
     std::vector<int>::__throw_length_error[abi:ne200100]();
   }
 
-  v6 = *(a1 + 16) - *a1;
+  v6 = a1[2] - *a1;
   if (v6 >> 4 > v3)
   {
     v3 = v6 >> 4;
@@ -1292,16 +1292,16 @@ uint64_t std::vector<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>
   v8[2] = 0;
   v8[3] = 0;
   v8[1] = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(32 * v2 + 8, a2[1], a2[2], (a2[2] - a2[1]) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((32 * v2 + 8), *(a2 + 8), *(a2 + 16), (*(a2 + 16) - *(a2 + 8)) >> 2);
   *&v17 = v17 + 32;
-  v9 = *(a1 + 8);
+  v9 = a1[1];
   v10 = (v16 + *a1 - v9);
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>,fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>*>(a1, *a1, v9, v10);
   v11 = *a1;
   *a1 = v10;
-  v12 = *(a1 + 16);
+  v12 = a1[2];
   v14 = v17;
-  *(a1 + 8) = v17;
+  *(a1 + 1) = v17;
   *&v17 = v11;
   *(&v17 + 1) = v12;
   v15 = v11;
@@ -1310,9 +1310,9 @@ uint64_t std::vector<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>
   return v14;
 }
 
-void sub_1B5600AFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1B5600AFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -1327,7 +1327,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<fst::LatticeWeightWit
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>,fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>*>(uint64_t a1, void *a2, void *a3, void *a4)
+uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>,fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>*>(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
   v12 = a4;
   v13 = a4;
@@ -1351,8 +1351,8 @@ uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<fs
       v4[2] = 0;
       v4[3] = 0;
       v4[1] = 0;
-      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((v4 + 1), v7[1], v7[2], (v7[2] - v7[1]) >> 2);
-      v7 += 4;
+      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v4 + 1, *(v7 + 8), *(v7 + 16), (*(v7 + 16) - *(v7 + 8)) >> 2);
+      v7 += 32;
       v4 = v13 + 4;
       v13 += 4;
     }
@@ -1361,14 +1361,14 @@ uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<fs
     v11 = 1;
     while (v6 != a3)
     {
-      v8 = v6[1];
+      v8 = *(v6 + 8);
       if (v8)
       {
-        v6[2] = v8;
+        *(v6 + 16) = v8;
         operator delete(v8);
       }
 
-      v6 += 4;
+      v6 += 32;
     }
   }
 
@@ -1434,7 +1434,7 @@ void fst::ShortestDistanceState<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::
       v69 = 0;
       v70 = 0;
       __p = 0;
-      std::vector<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>::push_back[abi:ne200100]((a1 + 5), &v67);
+      std::vector<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>::push_back[abi:ne200100](a1 + 5, &v67);
       if (__p)
       {
         v69 = __p;
@@ -1465,7 +1465,7 @@ void fst::ShortestDistanceState<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::
       v6 = *a1[1];
     }
 
-    *(v8 + a2) = *(a1 + 28);
+    *(v8 + 4 * a2) = *(a1 + 28);
   }
 
   v9 = (v6 + 32 * a2);
@@ -1508,7 +1508,7 @@ void fst::ShortestDistanceState<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::
       v69 = 0;
       v70 = 0;
       __p = 0;
-      std::vector<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>::push_back[abi:ne200100]((a1 + 5), &v67);
+      std::vector<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>::push_back[abi:ne200100](a1 + 5, &v67);
       if (__p)
       {
         v69 = __p;
@@ -1609,7 +1609,7 @@ LABEL_40:
         v65 = 0;
         v66 = 0;
         v64 = 0;
-        std::vector<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>::push_back[abi:ne200100]((a1 + 5), &v63);
+        std::vector<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>::push_back[abi:ne200100](a1 + 5, &v63);
         if (v64)
         {
           v65 = v64;
@@ -1636,7 +1636,7 @@ LABEL_40:
         }
 
         v28 = a1[1];
-        if (*(v30 + j) != *(a1 + 28))
+        if (*(v30 + 4 * j) != *(a1 + 28))
         {
           v31 = (*v28 + 32 * j);
           *v31 = v15;
@@ -1655,7 +1655,7 @@ LABEL_40:
       }
 
       v35 = j;
-      v36 = (*v28 + 32 * j);
+      v36 = *v28 + 32 * j;
       v37 = *v10;
       v38 = vadd_f32(v72, v27[1]);
       v63 = v38;
@@ -1695,10 +1695,10 @@ LABEL_55:
       v61 = 0;
       v62 = 0;
       v60 = 0;
-      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v60, *&v42[1], *&v42[2], (*&v42[2] - *&v42[1]) >> 2);
-      v24.n128_u32[0] = v36->i32[0];
-      v25.n128_u32[0] = v36->u32[1];
-      if (*v36->i32 == v59.f32[0] && v25.n128_f32[0] == v59.f32[1])
+      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v60, v42[1], v42[2], (v42[2] - v42[1]) >> 2);
+      v24.n128_u32[0] = *v36;
+      v25.n128_u32[0] = *(v36 + 4);
+      if (*v36 == v59.f32[0] && v25.n128_f32[0] == v59.f32[1])
       {
         v45 = 1;
       }
@@ -1757,11 +1757,11 @@ LABEL_75:
       v61 = 0;
       v62 = 0;
       v60 = 0;
-      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v60, *&v50[1], *&v50[2], (*&v50[2] - *&v50[1]) >> 2);
+      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v60, v50[1], v50[2], (v50[2] - v50[1]) >> 2);
       *v36 = v59;
       if (v36 != &v59)
       {
-        std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>(&v36[1], v60, v61, (v61 - v60) >> 2);
+        std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>((v36 + 8), v60, v61, (v61 - v60) >> 2);
       }
 
       if (v60)
@@ -1770,7 +1770,7 @@ LABEL_75:
         operator delete(v60);
       }
 
-      v51 = (v37 + 32 * v35);
+      v51 = v37 + 32 * v35;
       v52 = *v51;
       v53 = vaddv_f32(*v51);
       if (v53 < v41)
@@ -1807,7 +1807,7 @@ LABEL_83:
       *v51 = v59;
       if (v51 != &v59)
       {
-        std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>(&v51[1], v60, v61, (v61 - v60) >> 2);
+        std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>((v51 + 8), v60, v61, (v61 - v60) >> 2);
       }
 
       if (v60)
@@ -1910,7 +1910,7 @@ void sub_1B560176C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>::resize(void *a1, unint64_t a2, void *a3)
+void std::vector<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>::resize(uint64_t *a1, unint64_t a2, uint64_t a3)
 {
   v4 = a1[1];
   v5 = (v4 - *a1) >> 5;
@@ -1943,7 +1943,7 @@ void std::vector<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,flo
   }
 }
 
-void *std::vector<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>::__append(void *result, unint64_t a2, void *a3)
+uint64_t *std::vector<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>::__append(uint64_t *result, unint64_t a2, uint64_t a3)
 {
   v5 = result;
   v6 = result[1];
@@ -1961,7 +1961,7 @@ void *std::vector<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,fl
         v13[1] = 0;
         v13[2] = 0;
         *v13 = 0;
-        result = std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v13, a3[1], a3[2], (a3[2] - a3[1]) >> 2);
+        result = std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v13, *(a3 + 8), *(a3 + 16), (*(a3 + 16) - *(a3 + 8)) >> 2);
         v13 += 4;
         v14 -= 32;
       }
@@ -1974,7 +1974,7 @@ void *std::vector<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,fl
       v15 = result[1];
     }
 
-    *(v5 + 8) = v15;
+    v5[1] = v15;
   }
 
   else
@@ -2013,13 +2013,13 @@ void *std::vector<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,fl
     v21 = 32 * v10;
     v22 = (32 * v10);
     std::__split_buffer<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>::__construct_at_end(&v20, a2, a3);
-    v16 = *(v5 + 8);
+    v16 = v5[1];
     v17 = (v21 + *v5 - v16);
     std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>,fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>*>(v5, *v5, v16, v17);
     v18 = *v5;
     *v5 = v17;
-    v19 = *(v5 + 16);
-    *(v5 + 8) = v22;
+    v19 = v5[2];
+    *(v5 + 1) = v22;
     *&v22 = v18;
     *(&v22 + 1) = v19;
     v20 = v18;
@@ -2030,17 +2030,17 @@ void *std::vector<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,fl
   return result;
 }
 
-void sub_1B5601A48(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B5601A48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::__split_buffer<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>::__construct_at_end(uint64_t result, uint64_t a2, void *a3)
+uint64_t *std::__split_buffer<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>::__construct_at_end(uint64_t *result, uint64_t a2, uint64_t a3)
 {
   v3 = result;
-  v4 = *(result + 16);
+  v4 = result[2];
   if (a2)
   {
     v6 = (v4 + 8);
@@ -2052,7 +2052,7 @@ uint64_t std::__split_buffer<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTp
       v6[1] = 0;
       v6[2] = 0;
       *v6 = 0;
-      result = std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v6, a3[1], a3[2], (a3[2] - a3[1]) >> 2);
+      result = std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v6, *(a3 + 8), *(a3 + 16), (*(a3 + 16) - *(a3 + 8)) >> 2);
       v6 += 4;
       v7 -= 32;
     }
@@ -2060,7 +2060,7 @@ uint64_t std::__split_buffer<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTp
     while (v7);
   }
 
-  *(v3 + 16) = v4;
+  v3[2] = v4;
   return result;
 }
 
@@ -2071,17 +2071,17 @@ void fst::VectorFst<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<f
   JUMPOUT(0x1B8C85350);
 }
 
-uint64_t fst::ImplToFst<fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>>,fst::MutableFst<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>::Final@<X0>(uint64_t a1@<X0>, int a2@<W1>, void *a3@<X8>)
+uint64_t *fst::ImplToFst<fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>>,fst::MutableFst<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>::Final@<X0>(uint64_t a1@<X0>, int a2@<W1>, void *a3@<X8>)
 {
   v3 = *(*(*(a1 + 8) + 64) + 8 * a2);
   *a3 = *v3;
   a3[2] = 0;
   a3[3] = 0;
   a3[1] = 0;
-  return std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((a3 + 1), v3[1], v3[2], (v3[2] - v3[1]) >> 2);
+  return std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a3 + 1, *(v3 + 8), *(v3 + 16), (*(v3 + 16) - *(v3 + 8)) >> 2);
 }
 
-uint64_t fst::ImplToFst<fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>>,fst::MutableFst<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>::Properties(uint64_t a1, uint64_t a2, int a3)
+unint64_t fst::ImplToFst<fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>>,fst::MutableFst<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>::Properties(uint64_t a1, uint64_t a2, int a3)
 {
   if (a3)
   {
@@ -2125,14 +2125,14 @@ uint64_t fst::VectorFst<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateT
   return result;
 }
 
-uint64_t fst::VectorFst<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>>::operator=(uint64_t result, uint64_t a2)
+uint64_t fst::VectorFst<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>>::operator=(uint64_t a1, uint64_t a2)
 {
-  if (result != a2)
+  if (a1 != a2)
   {
     operator new();
   }
 
-  return result;
+  return a1;
 }
 
 unint64_t fst::ImplToMutableFst<fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>>,fst::MutableFst<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>::SetStart(uint64_t a1, int a2)
@@ -2145,8 +2145,9 @@ unint64_t fst::ImplToMutableFst<fst::VectorFstImpl<fst::VectorState<fst::Reverse
   return result;
 }
 
-void fst::ImplToMutableFst<fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>>,fst::MutableFst<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>::SetFinal(uint64_t a1, int a2, uint64_t *a3)
+void fst::ImplToMutableFst<fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>>,fst::MutableFst<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>::SetFinal(uint64_t a1, uint64_t a2, uint64_t *a3)
 {
+  v4 = a2;
   fst::ImplToMutableFst<fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>>,fst::MutableFst<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>::MutateCheck(a1);
   v6 = *(a1 + 8);
   v7 = *a3;
@@ -2154,7 +2155,7 @@ void fst::ImplToMutableFst<fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<f
   v10 = 0;
   __p = 0;
   std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&__p, a3[1], a3[2], (a3[2] - a3[1]) >> 2);
-  fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>>::SetFinal(v6, a2, &v7);
+  fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>>::SetFinal(v6, v4, &v7);
   if (__p)
   {
     v9 = __p;
@@ -2185,12 +2186,13 @@ uint64_t fst::ImplToMutableFst<fst::VectorFstImpl<fst::VectorState<fst::ReverseA
   return result;
 }
 
-uint64_t fst::ImplToMutableFst<fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>>,fst::MutableFst<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>::AddArc(uint64_t a1, int a2, float *a3)
+uint64_t fst::ImplToMutableFst<fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>>,fst::MutableFst<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>::AddArc(uint64_t a1, uint64_t a2, float *a3)
 {
+  v4 = a2;
   fst::ImplToMutableFst<fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>>,fst::MutableFst<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>::MutateCheck(a1);
   v6 = *(a1 + 8);
 
-  return fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>>::AddArc(v6, a2, a3);
+  return fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>>::AddArc(v6, v4, a3);
 }
 
 uint64_t fst::ImplToMutableFst<fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>>,fst::MutableFst<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>::DeleteStates(uint64_t a1, char **a2)
@@ -2236,15 +2238,15 @@ uint64_t fst::ImplToMutableFst<fst::VectorFstImpl<fst::VectorState<fst::ReverseA
   return result;
 }
 
-void *fst::VectorFst<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>>::ReserveStates(uint64_t a1, int a2)
+void fst::VectorFst<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>>::ReserveStates(uint64_t a1, int a2)
 {
   fst::ImplToMutableFst<fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>>,fst::MutableFst<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>::MutateCheck(a1);
   v4 = (*(a1 + 8) + 64);
 
-  return std::vector<fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>> *,std::allocator<fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>> *>>::reserve(v4, a2);
+  std::vector<fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>> *,std::allocator<fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>> *>>::reserve(v4, a2);
 }
 
-void *fst::VectorFst<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>>::ReserveArcs(uint64_t a1, int a2, unint64_t a3)
+uint64_t *fst::VectorFst<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>>::ReserveArcs(uint64_t a1, int a2, unint64_t a3)
 {
   fst::ImplToMutableFst<fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>>,fst::MutableFst<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>::MutateCheck(a1);
   v6 = (*(*(*(a1 + 8) + 64) + 8 * a2) + 48);
@@ -2559,7 +2561,7 @@ uint64_t fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::La
       }
 
 LABEL_10:
-      fst::VectorFstBaseImpl<fst::VectorState<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>,std::allocator<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>::AddState();
+      fst::VectorFstBaseImpl<fst::VectorState<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>,std::allocator<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>::AddState(a1);
     }
 
     if (v9)
@@ -2666,7 +2668,7 @@ void sub_1B5603458(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>::reserve(void *result, unint64_t a2)
+uint64_t *std::vector<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>::reserve(uint64_t *result, unint64_t a2)
 {
   if (0xAAAAAAAAAAAAAAABLL * ((result[2] - *result) >> 4) < a2)
   {
@@ -2681,9 +2683,9 @@ void *std::vector<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst
   return result;
 }
 
-void sub_1B560353C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B560353C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -2714,7 +2716,7 @@ uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<fs
       *(v4 + 8) = v8;
       *(v4 + 24) = 0;
       *(v4 + 32) = 0;
-      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v4 + 16, *(v7 + 16), *(v7 + 24), (*(v7 + 24) - *(v7 + 16)) >> 2);
+      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((v4 + 16), *(v7 + 16), *(v7 + 24), (*(v7 + 24) - *(v7 + 16)) >> 2);
       *(v4 + 40) = *(v7 + 40);
       v7 += 48;
       v4 = v14 + 48;
@@ -2782,7 +2784,7 @@ uint64_t std::vector<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<
   return result;
 }
 
-uint64_t std::vector<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>::__construct_one_at_end[abi:ne200100]<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>> const&>(uint64_t a1, uint64_t a2)
+uint64_t *std::vector<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>::__construct_one_at_end[abi:ne200100]<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>> const&>(uint64_t a1, uint64_t a2)
 {
   v4 = *(a1 + 8);
   *v4 = *a2;
@@ -2790,7 +2792,7 @@ uint64_t std::vector<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<
   *(v4 + 24) = 0;
   *(v4 + 32) = 0;
   *(v4 + 16) = 0;
-  result = std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v4 + 16, *(a2 + 16), *(a2 + 24), (*(a2 + 24) - *(a2 + 16)) >> 2);
+  result = std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((v4 + 16), *(a2 + 16), *(a2 + 24), (*(a2 + 24) - *(a2 + 16)) >> 2);
   *(v4 + 40) = *(a2 + 40);
   *(a1 + 8) = v4 + 48;
   return result;
@@ -2835,7 +2837,7 @@ uint64_t std::vector<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<
   *(v7 + 24) = 0;
   *(v7 + 32) = 0;
   *(v7 + 16) = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v7 + 16, *(a2 + 16), *(a2 + 24), (*(a2 + 24) - *(a2 + 16)) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((v7 + 16), *(a2 + 16), *(a2 + 24), (*(a2 + 24) - *(a2 + 16)) >> 2);
   *(v7 + 40) = *(a2 + 40);
   *&v16 = v16 + 48;
   v8 = a1[1];
@@ -2854,9 +2856,9 @@ uint64_t std::vector<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<
   return v13;
 }
 
-void sub_1B56038A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1B56038A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -2917,7 +2919,7 @@ unint64_t fst::ComputeProperties<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightW
       v47 = 0;
       v48 = 0;
       v49 = &v52;
-      fst::DfsVisit<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::SccVisitor<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>,fst::AnyArcFilter<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>(v7, &v46);
+      fst::DfsVisit<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::SccVisitor<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>,fst::AnyArcFilter<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>(v7, &v46, 0);
     }
 
     if ((a2 & 0xFFFFF0C3FFFFFFF8) != 0)
@@ -3285,25 +3287,25 @@ void sub_1B56042A8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_1B5604B54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B5604B54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
   v19 = va_arg(va1, void);
-  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
+  v26 = va_arg(va1, void);
+  v27 = va_arg(va1, void);
   fst::MemoryPool<fst::DfsState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>::~MemoryPool(va);
   std::deque<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>> *,std::allocator<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>> *>>::~deque[abi:ne200100](va1);
-  v11 = *(v9 - 112);
-  if (v11)
+  v18 = *(v16 - 112);
+  if (v18)
   {
-    *(v9 - 104) = v11;
-    operator delete(v11);
+    *(v16 - 104) = v18;
+    operator delete(v18);
   }
 
   _Unwind_Resume(a1);
@@ -3435,14 +3437,14 @@ LABEL_21:
 void fst::MemoryPool<fst::DfsState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>::~MemoryPool(quasar::Bitmap *a1)
 {
   *a1 = &unk_1F2D207C0;
-  fst::MemoryArena<fst::MemoryPool<fst::DfsState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>::Link>::~MemoryArena(a1 + 1);
+  fst::MemoryArena<fst::MemoryPool<fst::DfsState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>::Link>::~MemoryArena((a1 + 8));
 
   quasar::Bitmap::~Bitmap(a1);
 }
 
 {
   *a1 = &unk_1F2D207C0;
-  fst::MemoryArena<fst::MemoryPool<fst::DfsState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>::Link>::~MemoryArena(a1 + 1);
+  fst::MemoryArena<fst::MemoryPool<fst::DfsState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>::Link>::~MemoryArena((a1 + 8));
   quasar::Bitmap::~Bitmap(a1);
 
   JUMPOUT(0x1B8C85350);
@@ -3466,7 +3468,7 @@ void sub_1B5605134(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void fst::MemoryArena<fst::MemoryPool<fst::DfsState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>::Link>::~MemoryArena(void *a1)
+void fst::MemoryArena<fst::MemoryPool<fst::DfsState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>::Link>::~MemoryArena(quasar::Bitmap *a1)
 {
   fst::MemoryArena<fst::MemoryPool<fst::DfsState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>::Link>::~MemoryArena(a1);
 
@@ -3475,9 +3477,9 @@ void fst::MemoryArena<fst::MemoryPool<fst::DfsState<fst::ReverseArc<fst::ArcTpl<
 
 {
   *a1 = &unk_1F2D20800;
-  v2 = a1 + 3;
-  v3 = a1[4];
-  if (v3 != a1 + 3)
+  v2 = (a1 + 24);
+  v3 = *(a1 + 4);
+  if (v3 != (a1 + 24))
   {
     do
     {
@@ -3498,9 +3500,8 @@ void fst::MemoryArena<fst::MemoryPool<fst::DfsState<fst::ReverseArc<fst::ArcTpl<
   quasar::Bitmap::~Bitmap(a1);
 }
 
-void *std::deque<fst::DfsState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>> *,std::allocator<fst::DfsState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>> *>>::push_back(void *result, void *a2)
+void std::deque<fst::DfsState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>> *,std::allocator<fst::DfsState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>> *>>::push_back(unint64_t *result, void *a2)
 {
-  v3 = result;
   v4 = result[2];
   v5 = result[1];
   if (v4 == v5)
@@ -3517,30 +3518,29 @@ void *std::deque<fst::DfsState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWit
   v8 = v7 + result[4];
   if (v6 == v8)
   {
-    result = std::deque<fst::DfsState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>> *,std::allocator<fst::DfsState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>> *>>::__add_back_capacity(result);
-    v5 = v3[1];
-    v7 = v3[5];
-    v8 = v3[4] + v7;
+    std::deque<fst::DfsState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>> *,std::allocator<fst::DfsState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>> *>>::__add_back_capacity(result);
+    v5 = result[1];
+    v7 = result[5];
+    v8 = result[4] + v7;
   }
 
   *(*(v5 + ((v8 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v8 & 0x1FF)) = *a2;
-  v3[5] = v7 + 1;
-  return result;
+  result[5] = v7 + 1;
 }
 
-void *std::deque<fst::DfsState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>> *,std::allocator<fst::DfsState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>> *>>::__add_back_capacity(void *a1)
+void std::deque<fst::DfsState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>> *,std::allocator<fst::DfsState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>> *>>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x200;
   v3 = v1 - 512;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -3548,25 +3548,25 @@ void *std::deque<fst::DfsState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWit
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    std::__allocate_at_least[abi:ne200100]<std::allocator<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>> **>>(a1, v9);
+    v10 = a1;
+    std::__allocate_at_least[abi:ne200100]<std::allocator<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>> **>>(a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>> **,std::allocator<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>> **>>::emplace_back<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>> **&>(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>> **,std::allocator<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>> **>>::emplace_back<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>> **&>(a1, &v9);
 }
 
 void sub_1B5605440(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -3697,7 +3697,7 @@ void sub_1B560571C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t fst::VectorFst<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>>::WriteFst<fst::VectorFst<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>>>(void *a1, void *a2, uint64_t a3)
+uint64_t fst::VectorFst<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>>::WriteFst<fst::VectorFst<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>>>(void *a1, void *a2, uint64_t **a3)
 {
   v41 = *MEMORY[0x1E69E9840];
   v34 = 0u;
@@ -3804,7 +3804,7 @@ LABEL_6:
           std::ostream::write();
           LODWORD(__p[0].__r_.__value_.__l.__data_) = v17[1];
           std::ostream::write();
-          fst::LatticeWeightTpl<float>::Write((v17 + 2), a2);
+          fst::LatticeWeightTpl<float>::Write(v17 + 2, a2);
           LODWORD(__p[0].__r_.__value_.__l.__data_) = v17[10];
           std::ostream::write();
           v17 += 12;
@@ -3846,7 +3846,7 @@ LABEL_6:
 
     else
     {
-      v24 = *(a3 + 8);
+      v24 = a3[1];
     }
 
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v21, v23, v24);
@@ -3950,7 +3950,7 @@ uint64_t fst::FstImpl<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl
     }
 
     *(a7 + 60) = v16;
-    fst::FstHeader::Write();
+    fst::FstHeader::Write(a7, a2);
   }
 
   if ((*(*a1 + 112))(a1) && a3[25] == 1)
@@ -3970,7 +3970,7 @@ uint64_t fst::FstImpl<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl
   return result;
 }
 
-uint64_t fst::FstImpl<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>::UpdateFstHeader(uint64_t a1, void *a2, uint64_t a3, int a4, std::string *a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t fst::FstImpl<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>::UpdateFstHeader(uint64_t a1, void *a2, uint64_t **a3, int a4, std::string *a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v43 = *MEMORY[0x1E69E9840];
   MEMORY[0x1B8C84B80](v32);
@@ -4019,7 +4019,7 @@ uint64_t fst::FstImpl<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl
 
     else
     {
-      v23 = *(a3 + 8);
+      v23 = a3[1];
     }
   }
 
@@ -4050,7 +4050,7 @@ uint64_t fst::FstImpl<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl
 
       else
       {
-        v23 = *(a3 + 8);
+        v23 = a3[1];
       }
     }
 
@@ -4095,7 +4095,7 @@ uint64_t fst::FstImpl<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl
 
       else
       {
-        v23 = *(a3 + 8);
+        v23 = a3[1];
       }
     }
   }
@@ -4121,38 +4121,40 @@ uint64_t fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::Lattice
 
 uint64_t fst::Fst<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>::WriteFile(fst *a1, uint64_t a2)
 {
+  v2 = a2;
   v25[19] = *MEMORY[0x1E69E9840];
   if (*(a2 + 23) < 0)
   {
     if (*(a2 + 8))
     {
-LABEL_5:
-      std::ofstream::basic_ofstream(&v20);
+      a2 = *a2;
+LABEL_6:
+      std::ofstream::basic_ofstream(&v20, a2, 20);
       if ((v24[*(v20.__r_.__value_.__r.__words[0] - 24)] & 5) != 0)
       {
         std::string::basic_string[abi:ne200100]<0>(&__p, "ERROR");
         v4 = fst::LogMessage::LogMessage(&v19, &__p);
         v5 = fst::cerr(v4);
         v6 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, "Fst::Write: Can't open file: ", 29);
-        v7 = *(a2 + 23);
+        v7 = *(v2 + 23);
         if (v7 >= 0)
         {
-          v8 = a2;
+          v8 = v2;
         }
 
         else
         {
-          v8 = *a2;
+          v8 = *v2;
         }
 
         if (v7 >= 0)
         {
-          v9 = *(a2 + 23);
+          v9 = *(v2 + 23);
         }
 
         else
         {
-          v9 = *(a2 + 8);
+          v9 = *(v2 + 8);
         }
 
         std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, v8, v9);
@@ -4168,14 +4170,14 @@ LABEL_5:
       else
       {
         v13 = FLAGS_fst_align;
-        if (*(a2 + 23) < 0)
+        if (*(v2 + 23) < 0)
         {
-          std::string::__init_copy_ctor_external(&__p, *a2, *(a2 + 8));
+          std::string::__init_copy_ctor_external(&__p, *v2, *(v2 + 8));
         }
 
         else
         {
-          __p = *a2;
+          __p = *v2;
         }
 
         v16 = 257;
@@ -4199,7 +4201,7 @@ LABEL_5:
 
   else if (*(a2 + 23))
   {
-    goto LABEL_5;
+    goto LABEL_6;
   }
 
   v11 = fst::cout(a1);
@@ -4232,7 +4234,7 @@ LABEL_5:
   return v10;
 }
 
-void fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>>::SetFinal(void *a1, int a2, uint64_t *a3)
+void fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>>::SetFinal(void *a1, int a2, uint64_t a3)
 {
   v6 = *(a1[8] + 8 * a2);
   v20 = *v6;
@@ -4244,7 +4246,7 @@ void fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::Lattic
   v18 = 0;
   v19 = 0;
   __p = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&__p, a3[1], a3[2], (a3[2] - a3[1]) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&__p, *(a3 + 8), *(a3 + 16), (*(a3 + 16) - *(a3 + 8)) >> 2);
   fst::VectorFstBaseImpl<fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>>::SetFinal(a1, a2, &v16);
   if (__p)
   {
@@ -4262,7 +4264,7 @@ void fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::Lattic
   v10 = 0;
   v11 = 0;
   v9 = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v9, a3[1], a3[2], (a3[2] - a3[1]) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v9, *(a3 + 8), *(a3 + 16), (*(a3 + 16) - *(a3 + 8)) >> 2);
   a1[1] = a1[1] & 4 | fst::SetFinalProperties<fst::LatticeWeightTpl<float>>(v7, &v12, &v8);
   if (v9)
   {
@@ -4328,153 +4330,154 @@ uint64_t fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::La
 void fst::VectorFstBaseImpl<fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>>::DeleteStates(uint64_t a1, char **a2)
 {
   v4 = (a1 + 64);
-  std::vector<int>::vector[abi:ne200100](__p, (*(a1 + 72) - *(a1 + 64)) >> 3);
-  v5 = *a2;
-  v6 = a2[1] - *a2;
-  if (v6)
+  v5 = (*(a1 + 72) - *(a1 + 64)) >> 3;
+  v36 = 0;
+  std::vector<int>::vector[abi:ne200100](__p, v5, &v36);
+  v6 = *a2;
+  v7 = a2[1] - *a2;
+  if (v7)
   {
-    v7 = v6 >> 2;
-    v8 = __p[0];
-    if (v7 <= 1)
+    v8 = v7 >> 2;
+    v9 = __p[0];
+    if (v8 <= 1)
     {
-      v7 = 1;
+      v8 = 1;
     }
 
     do
     {
-      v9 = *v5;
-      v5 += 4;
-      v8[v9] = -1;
-      --v7;
+      v10 = *v6++;
+      v9[v10] = -1;
+      --v8;
     }
 
-    while (v7);
+    while (v8);
   }
 
-  v10 = *(a1 + 64);
-  if (*(a1 + 72) == v10)
+  v11 = *(a1 + 64);
+  if (*(a1 + 72) == v11)
   {
-    v13 = 0;
+    v14 = 0;
   }
 
   else
   {
-    v11 = 0;
     v12 = 0;
+    v13 = 0;
     do
     {
-      if (*(__p[0] + v11) == -1)
+      if (*(__p[0] + v12) == -1)
       {
-        fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>>::Destroy(*(v10 + 8 * v11));
+        fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>>::Destroy(*(v11 + 8 * v12));
       }
 
       else
       {
-        *(__p[0] + v11) = v12;
-        if (v11 != v12)
+        *(__p[0] + v12) = v13;
+        if (v12 != v13)
         {
-          *(v10 + 8 * v12) = *(v10 + 8 * v11);
+          *(v11 + 8 * v13) = *(v11 + 8 * v12);
         }
 
-        ++v12;
+        ++v13;
       }
 
-      ++v11;
-      v10 = *(a1 + 64);
+      ++v12;
+      v11 = *(a1 + 64);
     }
 
-    while (v11 < (*(a1 + 72) - v10) >> 3);
-    v13 = v12;
+    while (v12 < (*(a1 + 72) - v11) >> 3);
+    v14 = v13;
   }
 
-  std::vector<fst::QueueBase<int> *,std::allocator<fst::QueueBase<int> *>>::resize(v4, v13);
-  v14 = *(a1 + 64);
-  if (*(a1 + 72) != v14)
+  std::vector<fst::QueueBase<int> *,std::allocator<fst::QueueBase<int> *>>::resize(v4, v14);
+  v15 = *(a1 + 64);
+  if (*(a1 + 72) != v15)
   {
-    v15 = 0;
+    v16 = 0;
     do
     {
-      v16 = *(v14 + 8 * v15);
-      v17 = v16[2];
-      v18 = v16[3].i64[1] - v16[3].i64[0];
-      if (v18)
+      v17 = *(v15 + 8 * v16);
+      v18 = v17[2];
+      v19 = v17[3].i64[1] - v17[3].i64[0];
+      if (v19)
       {
-        v19 = v16[3].i64[0];
+        v20 = v17[3].i64[0];
       }
 
       else
       {
-        v19 = 0;
+        v20 = 0;
       }
 
-      if (v18)
+      if (v19)
       {
-        v20 = 0;
         v21 = 0;
-        v22 = (v19 + 40);
+        v22 = 0;
+        v23 = (v20 + 40);
         do
         {
-          v23 = *(__p[0] + *v22);
-          if (v23 == -1)
+          v24 = *(__p[0] + *v23);
+          if (v24 == -1)
           {
-            v25 = *(v22 - 5);
-            v26.i64[0] = v25;
-            v26.i64[1] = HIDWORD(v25);
-            v17 = vaddq_s64(v17, vceqzq_s64(v26));
+            v26 = *(v23 - 5);
+            v27.i64[0] = v26;
+            v27.i64[1] = HIDWORD(v26);
+            v18 = vaddq_s64(v18, vceqzq_s64(v27));
           }
 
           else
           {
-            *v22 = v23;
-            if (v20 != v21)
+            *v23 = v24;
+            if (v21 != v22)
             {
-              v34 = v17;
-              v24 = (v19 + 48 * v21);
-              *v24 = *(v22 - 5);
-              fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>::operator=(v24 + 1, (v22 - 8));
-              *(v19 + 48 * v21 + 40) = *v22;
-              v14 = *v4;
-              v17 = v34;
+              v35 = v18;
+              v25 = (v20 + 48 * v22);
+              *v25 = *(v23 - 5);
+              fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>::operator=(v25 + 1, (v23 - 8));
+              *(v20 + 48 * v22 + 40) = *v23;
+              v15 = *v4;
+              v18 = v35;
             }
 
-            ++v21;
+            ++v22;
           }
 
-          ++v20;
-          v16 = *(v14 + 8 * v15);
-          v27 = 0xAAAAAAAAAAAAAAABLL * ((v16[3].i64[1] - v16[3].i64[0]) >> 4);
-          v22 += 12;
+          ++v21;
+          v17 = *(v15 + 8 * v16);
+          v28 = 0xAAAAAAAAAAAAAAABLL * ((v17[3].i64[1] - v17[3].i64[0]) >> 4);
+          v23 += 12;
         }
 
-        while (v20 < v27);
-        v28 = v17.i64[1];
-        v29 = v17.i64[0];
+        while (v21 < v28);
+        v29 = v18.i64[1];
+        v30 = v18.i64[0];
       }
 
       else
       {
-        v21 = 0;
-        v27 = 0;
-        v28 = v16[2].i64[1];
-        v29 = v16[2].i64[0];
+        v22 = 0;
+        v28 = 0;
+        v29 = v17[2].i64[1];
+        v30 = v17[2].i64[0];
       }
 
-      fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>>::DeleteArcs(v16, v27 - v21);
-      v14 = *(a1 + 64);
-      v30 = *(a1 + 72);
-      v31 = *(v14 + 8 * v15);
-      *(v31 + 32) = v29;
-      *(v31 + 40) = v28;
-      ++v15;
+      fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>>::DeleteArcs(v17, v28 - v22);
+      v15 = *(a1 + 64);
+      v31 = *(a1 + 72);
+      v32 = *(v15 + 8 * v16);
+      *(v32 + 32) = v30;
+      *(v32 + 40) = v29;
+      ++v16;
     }
 
-    while (v15 < (v30 - v14) >> 3);
+    while (v16 < (v31 - v15) >> 3);
   }
 
-  v32 = *(a1 + 88);
-  if (v32 == -1)
+  v33 = *(a1 + 88);
+  if (v33 == -1)
   {
-    v33 = __p[0];
+    v34 = __p[0];
     if (!__p[0])
     {
       return;
@@ -4483,12 +4486,12 @@ void fst::VectorFstBaseImpl<fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::La
 
   else
   {
-    v33 = __p[0];
-    *(a1 + 88) = *(__p[0] + v32);
+    v34 = __p[0];
+    *(a1 + 88) = *(__p[0] + v33);
   }
 
-  __p[1] = v33;
-  operator delete(v33);
+  __p[1] = v34;
+  operator delete(v34);
 }
 
 void sub_1B5606C24(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13)
@@ -4501,52 +4504,52 @@ void sub_1B5606C24(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>::__construct_one_at_end[abi:ne200100]<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>> const&>(uint64_t a1, void *a2)
+uint64_t *std::vector<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>::__construct_one_at_end[abi:ne200100]<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>> const&>(uint64_t a1, uint64_t a2)
 {
   v3 = *(a1 + 8);
   *v3 = *a2;
   v3[2] = 0;
   v3[3] = 0;
   v3[1] = 0;
-  result = std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((v3 + 1), a2[1], a2[2], (a2[2] - a2[1]) >> 2);
+  result = std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v3 + 1, *(a2 + 8), *(a2 + 16), (*(a2 + 16) - *(a2 + 8)) >> 2);
   *(a1 + 8) = v3 + 4;
   return result;
 }
 
-uint64_t std::vector<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>::__move_range(uint64_t result, uint64_t a2, unint64_t a3, char *a4)
+uint64_t *std::vector<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>::__move_range(uint64_t *result, uint64_t a2, unint64_t a3, uint64_t a4)
 {
   v6 = result;
-  v7 = *(result + 8);
-  v8 = (a2 + v7 - a4);
+  v7 = result[1];
+  v8 = a2 + v7 - a4;
   v9 = v7;
   if (v8 < a3)
   {
-    v11 = v7 + 8;
+    v11 = (v7 + 8);
     do
     {
       *(v11 - 1) = *v8;
       v11[1] = 0;
       v11[2] = 0;
       *v11 = 0;
-      result = std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v11, v8[1], v8[2], (v8[2] - v8[1]) >> 2);
-      v8 += 4;
+      result = std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v11, *(v8 + 8), *(v8 + 16), (*(v8 + 16) - *(v8 + 8)) >> 2);
+      v8 += 32;
       v11 += 4;
     }
 
     while (v8 < a3);
-    v9 = (v11 - 1);
+    v9 = v11 - 1;
   }
 
-  *(v6 + 8) = v9;
+  v6[1] = v9;
   if (v7 != a4)
   {
-    v12 = v7 - 32;
+    v12 = (v7 - 32);
     v13 = a4 - v7;
     v14 = a2 + v7 - 32 - a4;
     do
     {
       result = fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>::operator=(v12, v14);
-      v12 -= 32;
+      v12 -= 4;
       v14 -= 32;
       v13 += 32;
     }
@@ -4557,7 +4560,7 @@ uint64_t std::vector<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>
   return result;
 }
 
-uint64_t std::__split_buffer<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>::emplace_back<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>> const&>(void *a1, void *a2)
+uint64_t *std::__split_buffer<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>::emplace_back<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>> const&>(void *a1, uint64_t a2)
 {
   v4 = a1[2];
   v5 = v4;
@@ -4605,40 +4608,40 @@ uint64_t std::__split_buffer<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTp
   v5[2] = 0;
   v5[3] = 0;
   v5[1] = 0;
-  result = std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((v5 + 1), a2[1], a2[2], (a2[2] - a2[1]) >> 2);
+  result = std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v5 + 1, *(a2 + 8), *(a2 + 16), (*(a2 + 16) - *(a2 + 8)) >> 2);
   a1[2] += 32;
   return result;
 }
 
-uint64_t std::vector<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>::__swap_out_circular_buffer(uint64_t a1, uint64_t a2, char *a3)
+uint64_t std::vector<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>::__swap_out_circular_buffer(uint64_t *a1, uint64_t a2, uint64_t a3)
 {
   v6 = *(a2 + 8);
-  std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>,fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>*>(a1, a3, *(a1 + 8), *(a2 + 16));
+  std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>,fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>*>(a1, a3, a1[1], *(a2 + 16));
   v7 = *a1;
   v8 = *(a2 + 8);
-  *(a2 + 16) += *(a1 + 8) - a3;
-  *(a1 + 8) = a3;
+  *(a2 + 16) += a1[1] - a3;
+  a1[1] = a3;
   v9 = (v8 + v7 - a3);
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>,fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>*>(a1, v7, a3, v9);
   *(a2 + 8) = v9;
   v10 = *a1;
-  *(a1 + 8) = *a1;
+  a1[1] = *a1;
   *a1 = *(a2 + 8);
   *(a2 + 8) = v10;
-  v11 = *(a1 + 8);
-  *(a1 + 8) = *(a2 + 16);
+  v11 = a1[1];
+  a1[1] = *(a2 + 16);
   *(a2 + 16) = v11;
-  v12 = *(a1 + 16);
-  *(a1 + 16) = *(a2 + 24);
+  v12 = a1[2];
+  a1[2] = *(a2 + 24);
   *(a2 + 24) = v12;
   *a2 = *(a2 + 8);
   return v6;
 }
 
-uint64_t std::__split_buffer<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>::__construct_at_end_with_size<std::move_iterator<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>*>>(uint64_t result, void *a2, uint64_t a3)
+uint64_t *std::__split_buffer<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>::__construct_at_end_with_size<std::move_iterator<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>*>>(uint64_t *result, uint64_t a2, uint64_t a3)
 {
   v3 = result;
-  v4 = *(result + 16);
+  v4 = result[2];
   if (a3)
   {
     v6 = (v4 + 8);
@@ -4650,8 +4653,8 @@ uint64_t std::__split_buffer<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTp
       v6[1] = 0;
       v6[2] = 0;
       *v6 = 0;
-      result = std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v6, a2[1], a2[2], (a2[2] - a2[1]) >> 2);
-      a2 += 4;
+      result = std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v6, *(a2 + 8), *(a2 + 16), (*(a2 + 16) - *(a2 + 8)) >> 2);
+      a2 += 32;
       v6 += 4;
       v7 -= 32;
     }
@@ -4659,11 +4662,11 @@ uint64_t std::__split_buffer<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTp
     while (v7);
   }
 
-  *(v3 + 16) = v4;
+  v3[2] = v4;
   return result;
 }
 
-uint64_t std::vector<std::pair<int,fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>>::push_back[abi:ne200100](uint64_t *a1, uint64_t a2)
+uint64_t std::vector<std::pair<int,fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>>::push_back[abi:ne200100](unint64_t *a1, uint64_t a2)
 {
   v3 = a1[1];
   if (v3 >= a1[2])
@@ -4690,7 +4693,7 @@ void fst::Connect<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightT
   v1[1] = v4;
   v1[2] = v3;
   v1[3] = &v2;
-  fst::DfsVisit<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>,fst::SccVisitor<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::AnyArcFilter<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>(a1, v1);
+  fst::DfsVisit<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>,fst::SccVisitor<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::AnyArcFilter<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>(a1, v1, 0);
 }
 
 void sub_1B5607240(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
@@ -4710,7 +4713,7 @@ void sub_1B5607240(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<std::pair<int,fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>>::__construct_one_at_end[abi:ne200100]<std::pair<int,fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>>(uint64_t a1, uint64_t a2)
+uint64_t *std::vector<std::pair<int,fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>>::__construct_one_at_end[abi:ne200100]<std::pair<int,fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>>(uint64_t a1, uint64_t a2)
 {
   v3 = *(a1 + 8);
   *v3 = *a2;
@@ -4718,12 +4721,12 @@ uint64_t std::vector<std::pair<int,fst::LatticeWeightWithStateTpl<fst::LatticeWe
   *(v3 + 24) = 0;
   *(v3 + 32) = 0;
   *(v3 + 16) = 0;
-  result = std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v3 + 16, *(a2 + 16), *(a2 + 24), (*(a2 + 24) - *(a2 + 16)) >> 2);
+  result = std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((v3 + 16), *(a2 + 16), *(a2 + 24), (*(a2 + 24) - *(a2 + 16)) >> 2);
   *(a1 + 8) = v3 + 40;
   return result;
 }
 
-uint64_t std::vector<std::pair<int,fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>>::__emplace_back_slow_path<std::pair<int,fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>>(uint64_t *a1, uint64_t a2)
+uint64_t std::vector<std::pair<int,fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>>::__emplace_back_slow_path<std::pair<int,fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>>(unint64_t *a1, uint64_t a2)
 {
   v2 = 0xCCCCCCCCCCCCCCCDLL * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
@@ -4762,7 +4765,7 @@ uint64_t std::vector<std::pair<int,fst::LatticeWeightWithStateTpl<fst::LatticeWe
   *(v7 + 24) = 0;
   *(v7 + 32) = 0;
   *(v7 + 16) = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(40 * v2 + 16, *(a2 + 16), *(a2 + 24), (*(a2 + 24) - *(a2 + 16)) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((40 * v2 + 16), *(a2 + 16), *(a2 + 24), (*(a2 + 24) - *(a2 + 16)) >> 2);
   *&v16 = v16 + 40;
   v8 = a1[1];
   v9 = v15 + *a1 - v8;
@@ -4780,9 +4783,9 @@ uint64_t std::vector<std::pair<int,fst::LatticeWeightWithStateTpl<fst::LatticeWe
   return v13;
 }
 
-void sub_1B5607420(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1B5607420(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<std::pair<int,fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -4822,7 +4825,7 @@ uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<st
       *(v4 + 24) = 0;
       *(v4 + 32) = 0;
       *(v4 + 16) = 0;
-      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v4 + 16, *(v7 + 16), *(v7 + 24), (*(v7 + 24) - *(v7 + 16)) >> 2);
+      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((v4 + 16), *(v7 + 16), *(v7 + 24), (*(v7 + 24) - *(v7 + 16)) >> 2);
       v7 += 40;
       v4 = v13 + 40;
       v13 += 40;
@@ -5063,7 +5066,7 @@ void sub_1B560794C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void fst::DeterminizeFst<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>::DeterminizeFst<fst::DefaultCommonDivisor<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>,fst::DefaultDeterminizeFilter<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>,fst::DefaultDeterminizeStateTable<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>>>(void *a1, uint64_t a2)
+void fst::DeterminizeFst<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>::DeterminizeFst<fst::DefaultCommonDivisor<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>,fst::DefaultDeterminizeFilter<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>,fst::DefaultDeterminizeStateTable<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>>>(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   *a1 = &unk_1F2D208F0;
   a1[1] = 0;
@@ -5079,12 +5082,12 @@ void fst::DeterminizeFst<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithState
       std::string::basic_string[abi:ne200100]<0>(__p, "ERROR");
     }
 
-    v3 = fst::LogMessage::LogMessage(&v8, __p);
-    v4 = fst::cerr(v3);
-    v5 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, "DeterminizeFst:", 15);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, " distance to final states computed for acceptors only", 53);
-    fst::LogMessage::~LogMessage(&v8);
-    if (v7 < 0)
+    v6 = fst::LogMessage::LogMessage(&v11, __p);
+    v7 = fst::cerr(v6);
+    v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, "DeterminizeFst:", 15);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, " distance to final states computed for acceptors only", 53);
+    fst::LogMessage::~LogMessage(&v11);
+    if (v10 < 0)
     {
       operator delete(__p[0]);
     }
@@ -5153,7 +5156,7 @@ void fst::DeterminizeFst<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithState
   JUMPOUT(0x1B8C85350);
 }
 
-uint64_t fst::ImplToFst<fst::DeterminizeFstImplBase<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>,fst::Fst<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>::Properties(uint64_t a1, uint64_t a2, int a3)
+unint64_t fst::ImplToFst<fst::DeterminizeFstImplBase<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>,fst::Fst<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>::Properties(uint64_t a1, uint64_t a2, int a3)
 {
   if (a3)
   {
@@ -5212,7 +5215,7 @@ uint64_t fst::DeterminizeFsaImpl<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightW
   return *(a1 + 8) & a2;
 }
 
-void fst::DeterminizeFsaImpl<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::DefaultCommonDivisor<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>,fst::DefaultDeterminizeFilter<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>,fst::DefaultDeterminizeStateTable<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>>>::Expand(void *a1, int a2)
+void fst::DeterminizeFsaImpl<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::DefaultCommonDivisor<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>,fst::DefaultDeterminizeFilter<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>,fst::DefaultDeterminizeStateTable<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>>>::Expand(void *a1, uint64_t a2)
 {
   v9[0] = 0;
   v9[1] = 0;
@@ -5438,24 +5441,6 @@ void fst::CacheBaseImpl<fst::CacheState<fst::ReverseArc<fst::ArcTpl<fst::Lattice
   operator new();
 }
 
-{
-  *a1 = &unk_1F2D20648;
-  *(a1 + 8) = 0;
-  std::string::basic_string[abi:ne200100]<0>((a1 + 16), "null");
-  *(a1 + 40) = 0;
-  *(a1 + 48) = 0;
-  *(a1 + 56) = 1;
-  *a1 = &unk_1F2D20B90;
-  *(a1 + 60) = 0;
-  *(a1 + 64) = -1;
-  *(a1 + 68) = 0u;
-  *(a1 + 84) = 0u;
-  *(a1 + 100) = -1;
-  *(a1 + 104) = *(a2 + 104);
-  *(a1 + 112) = *(a2 + 112);
-  operator new();
-}
-
 void sub_1B5608AC8(_Unwind_Exception *a1)
 {
   MEMORY[0x1B8C85350](v2, 0x10A0C407A9BBF1FLL);
@@ -5671,6 +5656,25 @@ void sub_1B5609218(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
+void fst::CacheBaseImpl<fst::CacheState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>,fst::DefaultCacheStore<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>::CacheBaseImpl(uint64_t a1, uint64_t a2, int a3)
+{
+  *a1 = &unk_1F2D20648;
+  *(a1 + 8) = 0;
+  std::string::basic_string[abi:ne200100]<0>((a1 + 16), "null");
+  *(a1 + 40) = 0;
+  *(a1 + 48) = 0;
+  *(a1 + 56) = 1;
+  *a1 = &unk_1F2D20B90;
+  *(a1 + 60) = 0;
+  *(a1 + 64) = -1;
+  *(a1 + 68) = 0u;
+  *(a1 + 84) = 0u;
+  *(a1 + 100) = -1;
+  *(a1 + 104) = *(a2 + 104);
+  *(a1 + 112) = *(a2 + 112);
+  operator new();
+}
+
 void sub_1B56093D4(_Unwind_Exception *a1)
 {
   MEMORY[0x1B8C85350](v2, 0x10A0C407A9BBF1FLL);
@@ -5816,7 +5820,7 @@ uint64_t fst::CacheState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithState
   *(a1 + 8) = 0;
   *(a1 + 16) = 0;
   *(a1 + 24) = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1 + 8, *(a2 + 8), *(a2 + 16), (*(a2 + 16) - *(a2 + 8)) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((a1 + 8), *(a2 + 8), *(a2 + 16), (*(a2 + 16) - *(a2 + 8)) >> 2);
   v4 = *(a2 + 32);
   v5 = *(a2 + 48);
   v6 = *(a2 + 56);
@@ -5824,7 +5828,7 @@ uint64_t fst::CacheState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithState
   *(a1 + 32) = v4;
   *(a1 + 56) = 0;
   *(a1 + 64) = 0;
-  std::vector<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>::__init_with_size[abi:ne200100]<std::__wrap_iter<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>> const*>,std::__wrap_iter<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>> const*>>(a1 + 48, v5, v6, 0xAAAAAAAAAAAAAAABLL * ((v6 - v5) >> 4));
+  std::vector<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>::__init_with_size[abi:ne200100]<std::__wrap_iter<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>> const*>,std::__wrap_iter<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>> const*>>((a1 + 48), v5, v6, 0xAAAAAAAAAAAAAAABLL * ((v6 - v5) >> 4));
   *(a1 + 72) = *(a2 + 72);
   return a1;
 }
@@ -5841,7 +5845,7 @@ void sub_1B56097B4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>::__init_with_size[abi:ne200100]<std::__wrap_iter<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>> const*>,std::__wrap_iter<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>> const*>>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>::__init_with_size[abi:ne200100]<std::__wrap_iter<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>> const*>,std::__wrap_iter<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>> const*>>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -5858,7 +5862,7 @@ void sub_1B5609838(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x555555555555556)
   {
@@ -5888,7 +5892,7 @@ uint64_t std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<f
       *(v4 + 8) = v7;
       *(v4 + 24) = 0;
       *(v4 + 32) = 0;
-      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v4 + 16, *(v6 + 16), *(v6 + 24), (*(v6 + 24) - *(v6 + 16)) >> 2);
+      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((v4 + 16), *(v6 + 16), *(v6 + 24), (*(v6 + 24) - *(v6 + 16)) >> 2);
       *(v4 + 40) = *(v6 + 40);
       v6 += 48;
       v4 = v12 + 48;
@@ -5903,15 +5907,15 @@ uint64_t std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<f
   return v4;
 }
 
-void fst::DeterminizeFsaImpl<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::DefaultCommonDivisor<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>,fst::DefaultDeterminizeFilter<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>,fst::DefaultDeterminizeStateTable<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>>>::GetLabelMap(void *a1, int a2, void *a3)
+void fst::DeterminizeFsaImpl<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::DefaultCommonDivisor<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>,fst::DefaultDeterminizeFilter<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>,fst::DefaultDeterminizeStateTable<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>>>::GetLabelMap(void *result, int a2, void *a3)
 {
-  v5 = **(*(a1[23] + 88) + 8 * a2);
+  v5 = **(*(result[23] + 88) + 8 * a2);
   if (v5)
   {
     while (1)
     {
       v6 = v5[1].u32[0];
-      v7 = a1[17];
+      v7 = result[17];
       v20 = 0;
       (*(*v7 + 136))(v7, v6, v18);
       if (!v18[0])
@@ -5936,7 +5940,7 @@ LABEL_7:
         v16 = vadd_f32(v5[2], v8[1]);
         memset(__p, 0, sizeof(__p));
         std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(__p, 0, 0, 0);
-        fst::DefaultDeterminizeFilter<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>::FilterArc(a1[22], v8, &v5[1], &v15, a3);
+        fst::DefaultDeterminizeFilter<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>::FilterArc(result[22], v8, &v5[1], &v15, a3);
       }
 
       if (!v18[0])
@@ -5975,7 +5979,7 @@ LABEL_14:
   {
     do
     {
-      fst::DeterminizeFsaImpl<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::DefaultCommonDivisor<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>,fst::DefaultDeterminizeFilter<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>,fst::DefaultDeterminizeStateTable<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>>>::NormArc(a1, (v10 + 5));
+      fst::DeterminizeFsaImpl<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::DefaultCommonDivisor<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>,fst::DefaultDeterminizeFilter<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>,fst::DefaultDeterminizeStateTable<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>>>::NormArc(result, (v10 + 5));
       v12 = v10[1];
       if (v12)
       {
@@ -6007,11 +6011,11 @@ LABEL_14:
   }
 }
 
-void sub_1B5609BC0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, _DWORD *a17)
+void sub_1B5609BC0(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, _DWORD *a17)
 {
   if (a14)
   {
-    (*(*a14 + 8))(a14);
+    (*(*a14 + 8))(a14, a2, a3, a4, a5, a6, a7, a8);
   }
 
   else if (a17)
@@ -6022,8 +6026,9 @@ void sub_1B5609BC0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void fst::DeterminizeFsaImpl<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::DefaultCommonDivisor<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>,fst::DefaultDeterminizeFilter<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>,fst::DefaultDeterminizeStateTable<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>>>::AddArc(uint64_t a1, int a2, uint64_t a3)
+void fst::DeterminizeFsaImpl<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::DefaultCommonDivisor<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>,fst::DefaultDeterminizeFilter<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>,fst::DefaultDeterminizeStateTable<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>>>::AddArc(void *a1, uint64_t a2, uint64_t a3)
 {
+  v4 = a2;
   __p = 0;
   v10 = 0;
   v11 = 0;
@@ -6031,7 +6036,7 @@ void fst::DeterminizeFsaImpl<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithS
   v7[1] = v7[0];
   fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>::operator=(&v8, a3 + 8);
   State = fst::DeterminizeFsaImpl<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::DefaultCommonDivisor<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>,fst::DefaultDeterminizeFilter<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>,fst::DefaultDeterminizeStateTable<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>>>::FindState(a1, *(a3 + 40));
-  MutableState = fst::GCCacheStore<fst::FirstCacheStore<fst::VectorCacheStore<fst::CacheState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>>>>::GetMutableState(*(a1 + 120), a2);
+  MutableState = fst::GCCacheStore<fst::FirstCacheStore<fst::VectorCacheStore<fst::CacheState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>>>>::GetMutableState(a1[15], v4);
   std::vector<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>::push_back[abi:ne200100]((MutableState + 48), v7);
   if (__p)
   {
@@ -6050,8 +6055,9 @@ void sub_1B5609CC0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t fst::CacheBaseImpl<fst::CacheState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>,fst::DefaultCacheStore<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>::SetArcs(uint64_t a1, int a2)
+void fst::CacheBaseImpl<fst::CacheState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>,fst::DefaultCacheStore<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>::SetArcs(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   MutableState = fst::GCCacheStore<fst::FirstCacheStore<fst::VectorCacheStore<fst::CacheState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>>>>::GetMutableState(*(a1 + 120), a2);
   fst::GCCacheStore<fst::FirstCacheStore<fst::VectorCacheStore<fst::CacheState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>>>>::SetArcs(*(a1 + 120), MutableState);
   v5 = *(MutableState + 48);
@@ -6083,20 +6089,20 @@ uint64_t fst::CacheBaseImpl<fst::CacheState<fst::ReverseArc<fst::ArcTpl<fst::Lat
     while (v7);
   }
 
-  result = fst::CacheBaseImpl<fst::CacheState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>>,fst::DefaultCacheStore<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>>::SetExpandedState(a1, a2);
+  fst::CacheBaseImpl<fst::CacheState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>>,fst::DefaultCacheStore<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>>::SetExpandedState(a1, v2);
   *(MutableState + 72) |= 0xAu;
-  return result;
 }
 
-void fst::DefaultDeterminizeFilter<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>::FilterArc(uint64_t a1, __int32 *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void fst::DefaultDeterminizeFilter<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>::FilterArc(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v6 = a2;
-  if (*(std::__tree<std::__value_type<int,fst::DeterminizeArc<fst::DeterminizeStateTuple<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>>>>,std::__map_value_compare<int,std::__value_type<int,fst::DeterminizeArc<fst::DeterminizeStateTuple<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>>>>,std::less<int>,true>,std::allocator<std::__value_type<int,fst::DeterminizeArc<fst::DeterminizeStateTuple<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>>>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(a5, a2) + 10) == -1)
+  v8 = a2;
+  v7 = std::__tree<std::__value_type<int,fst::DeterminizeArc<fst::DeterminizeStateTuple<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>>>>,std::__map_value_compare<int,std::__value_type<int,fst::DeterminizeArc<fst::DeterminizeStateTuple<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>>>>,std::less<int>,true>,std::allocator<std::__value_type<int,fst::DeterminizeArc<fst::DeterminizeStateTuple<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>>>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(a5, a2, &std::piecewise_construct, &v8);
+  if (*(v7 + 10) == -1)
   {
-    fst::DeterminizeArc<fst::DeterminizeStateTuple<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>>>::DeterminizeArc(&v6, a2);
+    fst::DeterminizeArc<fst::DeterminizeStateTuple<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>>>::DeterminizeArc(&v8, a2);
   }
 
-  std::__forward_list_base<fst::DeterminizeElement<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>::__create_node[abi:ne200100]<fst::DeterminizeElement<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>> const&>();
+  std::__forward_list_base<fst::DeterminizeElement<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>::__create_node[abi:ne200100]<fst::DeterminizeElement<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>> const&>(v7[10], *v7[10], a4);
 }
 
 void sub_1B5609E64(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13)
@@ -6227,74 +6233,66 @@ LABEL_30:
   }
 
   while (v20);
-  v22 = *v4;
-  if (*v4)
+  for (i = *v4; i; i = *i)
   {
-    do
+    v23 = vsub_f32(i[2], v6->__locale_);
+    *v24.f32 = v23;
+    *&v24.u32[2] = v23;
+    v25.i32[0] = vmovn_s32(vceqq_f32(v24, xmmword_1B5AE39F0)).u32[0];
+    v25.i32[1] = vmovn_s32(vmvnq_s8(vceqq_f32(v24, v24))).i32[1];
+    if (vmaxv_u16(v25))
     {
-      v23 = vsub_f32(v22[2], v6->__locale_);
-      *v24.f32 = v23;
-      *&v24.u32[2] = v23;
-      v25.i32[0] = vmovn_s32(vceqq_f32(v24, xmmword_1B5AE39F0)).u32[0];
-      v25.i32[1] = vmovn_s32(vmvnq_s8(vceqq_f32(v24, v24))).i32[1];
-      if (vmaxv_u16(v25))
+      if ((kaldi::g_kaldi_verbose_level & 0x80000000) == 0)
       {
-        if ((kaldi::g_kaldi_verbose_level & 0x80000000) == 0)
-        {
-          kaldi::KaldiWarnMessage::KaldiWarnMessage(&v31);
-          v26 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v31, "LatticeWeightTpl::Divide, NaN or invalid number produced. ", 58);
-          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v26, "[dividing by zero?]  Returning zero.", 36);
-          kaldi::KaldiLogMessage::~KaldiLogMessage(&v31);
-        }
+        kaldi::KaldiWarnMessage::KaldiWarnMessage(&v31);
+        v26 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v31, "LatticeWeightTpl::Divide, NaN or invalid number produced. ", 58);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v26, "[dividing by zero?]  Returning zero.", 36);
+        kaldi::KaldiLogMessage::~KaldiLogMessage(&v31);
+      }
 
+      v27 = INFINITY;
+      v28 = INFINITY;
+    }
+
+    else
+    {
+      if (v23.f32[1] == INFINITY || v23.f32[0] == INFINITY)
+      {
         v27 = INFINITY;
+      }
+
+      else
+      {
+        v27 = v23.f32[0];
+      }
+
+      if (v23.f32[0] == INFINITY)
+      {
         v28 = INFINITY;
       }
 
       else
       {
-        if (v23.f32[1] == INFINITY || v23.f32[0] == INFINITY)
-        {
-          v27 = INFINITY;
-        }
-
-        else
-        {
-          v27 = v23.f32[0];
-        }
-
-        if (v23.f32[0] == INFINITY)
-        {
-          v28 = INFINITY;
-        }
-
-        else
-        {
-          v28 = v23.f32[1];
-        }
+        v28 = v23.f32[1];
       }
-
-      v22[2].f32[0] = v27;
-      v22[2].f32[1] = v28;
-      std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>(&v22[3], 0, 0, 0);
-      LODWORD(v30) = *(a1 + 144);
-      fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>::Quantize(&v22[2], &v31, v30);
-      v22[2] = v31.__locale_;
-      if (&v22[2] != &v31)
-      {
-        std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>(&v22[3], __p, v33, (v33 - __p) >> 2);
-      }
-
-      if (__p)
-      {
-        v33 = __p;
-        operator delete(__p);
-      }
-
-      v22 = *v22;
     }
 
-    while (v22);
+    *(i + 4) = v27;
+    *(i + 5) = v28;
+    std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>(i + 3, 0, 0, 0);
+    LODWORD(v30) = *(a1 + 144);
+    fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>::Quantize((i + 2), &v31, v30);
+    i[2] = v31.__locale_;
+    if (i + 2 != &v31)
+    {
+      std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>(i + 3, __p, v33, (v33 - __p) >> 2);
+    }
+
+    if (__p)
+    {
+      v33 = __p;
+      operator delete(__p);
+    }
   }
 }
 
@@ -6308,41 +6306,41 @@ void sub_1B560A1BC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *std::__tree<std::__value_type<int,fst::DeterminizeArc<fst::DeterminizeStateTuple<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>>>>,std::__map_value_compare<int,std::__value_type<int,fst::DeterminizeArc<fst::DeterminizeStateTuple<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>>>>,std::less<int>,true>,std::allocator<std::__value_type<int,fst::DeterminizeArc<fst::DeterminizeStateTuple<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>>>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(uint64_t a1, int *a2)
+uint64_t *std::__tree<std::__value_type<int,fst::DeterminizeArc<fst::DeterminizeStateTuple<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>>>>,std::__map_value_compare<int,std::__value_type<int,fst::DeterminizeArc<fst::DeterminizeStateTuple<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>>>>,std::less<int>,true>,std::allocator<std::__value_type<int,fst::DeterminizeArc<fst::DeterminizeStateTuple<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>>>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(uint64_t a1, int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = *(v4 + 32);
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
@@ -6415,13 +6413,13 @@ void sub_1B560A4DC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t fst::DeterminizeFsaImpl<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::DefaultCommonDivisor<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>,fst::DefaultDeterminizeFilter<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>,fst::DefaultDeterminizeStateTable<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>>>::FindState(uint64_t a1, float32x2_t **a2)
+uint64_t fst::DeterminizeFsaImpl<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::DefaultCommonDivisor<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>,fst::DefaultDeterminizeFilter<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>,fst::DefaultDeterminizeStateTable<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>>>::FindState(void *a1, float32x2_t **a2)
 {
-  State = fst::DefaultDeterminizeStateTable<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>>::FindState(*(a1 + 184), a2);
+  State = fst::DefaultDeterminizeStateTable<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>>::FindState(a1[23], a2);
   v5 = State;
-  if (*(a1 + 152))
+  if (a1[19])
   {
-    v6 = *(a1 + 160);
+    v6 = a1[20];
     if (State >= ((v6[1] - *v6) >> 5))
     {
       fst::DeterminizeFsaImpl<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::DefaultCommonDivisor<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>,fst::DefaultDeterminizeFilter<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>,fst::DefaultDeterminizeStateTable<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>>>::ComputeDistance(a1, a2, &v8);
@@ -6473,7 +6471,7 @@ void fst::DeterminizeFsaImpl<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithS
   *a3 = v3;
   a3[3] = 0;
   a3[2] = 0;
-  v5 = &a3[2];
+  v5 = a3 + 2;
   v6 = *a2;
   if (*a2)
   {
@@ -6492,12 +6490,12 @@ void fst::DeterminizeFsaImpl<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithS
 
       else
       {
-        v11 = (v10 + 32 * v9);
+        v11 = v10 + 32 * v9;
         v24 = *v11;
         v26 = 0;
         v27 = 0;
         v25 = 0;
-        std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v25, *&v11[1], *&v11[2], (*&v11[2] - *&v11[1]) >> 2);
+        std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v25, *(v11 + 8), *(v11 + 16), (*(v11 + 16) - *(v11 + 8)) >> 2);
         v12 = v24;
       }
 
@@ -6650,11 +6648,11 @@ uint64_t fst::CompactHashBiTable<int,fst::DeterminizeStateTuple<fst::ReverseArc<
   }
 
   a1[11] = v12;
-  std::__hash_table<int,fst::CompactHashBiTable<int,fst::DeterminizeStateTuple<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>> *,fst::DefaultDeterminizeStateTable<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>>::StateTupleKey,fst::DefaultDeterminizeStateTable<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>>::StateTupleEqual,(fst::HSType)0>::HashFunc,fst::CompactHashBiTable<int,fst::DeterminizeStateTuple<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>> *,fst::DefaultDeterminizeStateTable<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>>::StateTupleKey,fst::DefaultDeterminizeStateTable<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>>::StateTupleEqual,(fst::HSType)0>::HashEqual,std::allocator<int>>::__emplace_unique_key_args<int,int const&>(a1 + 3, &v20);
+  std::__hash_table<int,fst::CompactHashBiTable<int,fst::DeterminizeStateTuple<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>> *,fst::DefaultDeterminizeStateTable<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>>::StateTupleKey,fst::DefaultDeterminizeStateTable<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>>::StateTupleEqual,(fst::HSType)0>::HashFunc,fst::CompactHashBiTable<int,fst::DeterminizeStateTuple<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>> *,fst::DefaultDeterminizeStateTable<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>>::StateTupleKey,fst::DefaultDeterminizeStateTable<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>>::StateTupleEqual,(fst::HSType)0>::HashEqual,std::allocator<int>>::__emplace_unique_key_args<int,int const&>(a1 + 3, &v20, &v20);
   return v20;
 }
 
-uint64_t *std::__hash_table<int,fst::CompactHashBiTable<int,fst::DeterminizeStateTuple<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>> *,fst::DefaultDeterminizeStateTable<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>>::StateTupleKey,fst::DefaultDeterminizeStateTable<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>>::StateTupleEqual,(fst::HSType)0>::HashFunc,fst::CompactHashBiTable<int,fst::DeterminizeStateTuple<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>> *,fst::DefaultDeterminizeStateTable<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>>::StateTupleKey,fst::DefaultDeterminizeStateTable<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>>::StateTupleEqual,(fst::HSType)0>::HashEqual,std::allocator<int>>::find<int>(void *a1, int *a2)
+uint64_t **std::__hash_table<int,fst::CompactHashBiTable<int,fst::DeterminizeStateTuple<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>> *,fst::DefaultDeterminizeStateTable<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>>::StateTupleKey,fst::DefaultDeterminizeStateTable<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>>::StateTupleEqual,(fst::HSType)0>::HashFunc,fst::CompactHashBiTable<int,fst::DeterminizeStateTuple<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>> *,fst::DefaultDeterminizeStateTable<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>>::StateTupleKey,fst::DefaultDeterminizeStateTable<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>>::StateTupleEqual,(fst::HSType)0>::HashEqual,std::allocator<int>>::find<int>(void *a1, unsigned int *a2)
 {
   v4 = *a2;
   if (v4 < -1)
@@ -6743,7 +6741,7 @@ uint64_t *std::__hash_table<int,fst::CompactHashBiTable<int,fst::DeterminizeStat
   return i;
 }
 
-uint64_t fst::CompactHashBiTable<int,fst::DeterminizeStateTuple<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>> *,fst::DefaultDeterminizeStateTable<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>>::StateTupleKey,fst::DefaultDeterminizeStateTable<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>>::StateTupleEqual,(fst::HSType)0>::HashEqual::operator()(uint64_t *a1, int a2, int a3)
+uint64_t fst::CompactHashBiTable<int,fst::DeterminizeStateTuple<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>> *,fst::DefaultDeterminizeStateTable<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>>::StateTupleKey,fst::DefaultDeterminizeStateTable<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>>::StateTupleEqual,(fst::HSType)0>::HashEqual::operator()(uint64_t *a1, unsigned int a2, unsigned int a3)
 {
   if (a2 < -1 || a3 < -1)
   {
@@ -6828,55 +6826,55 @@ uint64_t std::operator==[abi:ne200100]<fst::DeterminizeElement<fst::ReverseArc<f
   return (a1 == 0) ^ (a2 != 0);
 }
 
-uint64_t *std::__hash_table<int,fst::CompactHashBiTable<int,fst::DeterminizeStateTuple<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>> *,fst::DefaultDeterminizeStateTable<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>>::StateTupleKey,fst::DefaultDeterminizeStateTable<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>>::StateTupleEqual,(fst::HSType)0>::HashFunc,fst::CompactHashBiTable<int,fst::DeterminizeStateTuple<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>> *,fst::DefaultDeterminizeStateTable<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>>::StateTupleKey,fst::DefaultDeterminizeStateTable<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>>::StateTupleEqual,(fst::HSType)0>::HashEqual,std::allocator<int>>::__emplace_unique_key_args<int,int const&>(void *a1, int *a2)
+uint64_t *std::__hash_table<int,fst::CompactHashBiTable<int,fst::DeterminizeStateTuple<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>> *,fst::DefaultDeterminizeStateTable<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>>::StateTupleKey,fst::DefaultDeterminizeStateTable<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>>::StateTupleEqual,(fst::HSType)0>::HashFunc,fst::CompactHashBiTable<int,fst::DeterminizeStateTuple<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>> *,fst::DefaultDeterminizeStateTable<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>>::StateTupleKey,fst::DefaultDeterminizeStateTable<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>>::StateTupleEqual,(fst::HSType)0>::HashEqual,std::allocator<int>>::__emplace_unique_key_args<int,int const&>(void *a1, unsigned int *a2, _DWORD *a3)
 {
-  v4 = *a2;
-  if (v4 < -1)
+  v5 = *a2;
+  if (v5 < -1)
   {
-    v7 = 0;
+    v8 = 0;
   }
 
   else
   {
-    v5 = a1[4];
-    if (v4 == -1)
+    v6 = a1[4];
+    if (v5 == -1)
     {
-      v6 = *(v5 + 104);
+      v7 = *(v6 + 104);
     }
 
     else
     {
-      v6 = (*(v5 + 80) + 8 * v4);
+      v7 = (*(v6 + 80) + 8 * v5);
     }
 
-    v7 = fst::DefaultDeterminizeStateTable<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>>::StateTupleKey::operator()(v5, *v6);
+    v8 = fst::DefaultDeterminizeStateTable<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>>::StateTupleKey::operator()(v6, *v7);
   }
 
-  v8 = a1[1];
-  if (!*&v8)
+  v9 = a1[1];
+  if (!*&v9)
   {
     goto LABEL_24;
   }
 
-  v9 = vcnt_s8(v8);
-  v9.i16[0] = vaddlv_u8(v9);
-  v10 = v9.u32[0];
-  if (v9.u32[0] > 1uLL)
+  v10 = vcnt_s8(v9);
+  v10.i16[0] = vaddlv_u8(v10);
+  v11 = v10.u32[0];
+  if (v10.u32[0] > 1uLL)
   {
-    v11 = v7;
-    if (v7 >= *&v8)
+    v12 = v8;
+    if (v8 >= *&v9)
     {
-      v11 = v7 % *&v8;
+      v12 = v8 % *&v9;
     }
   }
 
   else
   {
-    v11 = (*&v8 - 1) & v7;
+    v12 = (*&v9 - 1) & v8;
   }
 
-  v12 = *(*a1 + 8 * v11);
-  if (!v12 || (v13 = *v12) == 0)
+  v13 = *(*a1 + 8 * v12);
+  if (!v13 || (v14 = *v13) == 0)
   {
 LABEL_24:
     operator new();
@@ -6884,44 +6882,44 @@ LABEL_24:
 
   while (1)
   {
-    v14 = v13[1];
-    if (v14 == v7)
+    v15 = v14[1];
+    if (v15 == v8)
     {
       break;
     }
 
-    if (v10 > 1)
+    if (v11 > 1)
     {
-      if (v14 >= *&v8)
+      if (v15 >= *&v9)
       {
-        v14 %= *&v8;
+        v15 %= *&v9;
       }
     }
 
     else
     {
-      v14 &= *&v8 - 1;
+      v15 &= *&v9 - 1;
     }
 
-    if (v14 != v11)
+    if (v15 != v12)
     {
       goto LABEL_24;
     }
 
 LABEL_23:
-    v13 = *v13;
-    if (!v13)
+    v14 = *v14;
+    if (!v14)
     {
       goto LABEL_24;
     }
   }
 
-  if ((fst::CompactHashBiTable<int,fst::DeterminizeStateTuple<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>> *,fst::DefaultDeterminizeStateTable<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>>::StateTupleKey,fst::DefaultDeterminizeStateTable<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>>::StateTupleEqual,(fst::HSType)0>::HashEqual::operator()(a1 + 6, *(v13 + 4), *a2) & 1) == 0)
+  if ((fst::CompactHashBiTable<int,fst::DeterminizeStateTuple<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>> *,fst::DefaultDeterminizeStateTable<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>>::StateTupleKey,fst::DefaultDeterminizeStateTable<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::IntegerFilterState<signed char>>::StateTupleEqual,(fst::HSType)0>::HashEqual::operator()(a1 + 6, *(v14 + 4), *a2) & 1) == 0)
   {
     goto LABEL_23;
   }
 
-  return v13;
+  return v14;
 }
 
 uint64_t fst::GCCacheStore<fst::FirstCacheStore<fst::VectorCacheStore<fst::CacheState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>>>>::GetMutableState(uint64_t a1, int a2)
@@ -7195,7 +7193,7 @@ uint64_t fst::DeterminizeFstImplBase<fst::ReverseArc<fst::ArcTpl<fst::LatticeWei
   return *(a1 + 64);
 }
 
-uint64_t fst::DeterminizeFstImplBase<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>::Final@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+uint64_t *fst::DeterminizeFstImplBase<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>::Final@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
 {
   if ((fst::CacheBaseImpl<fst::CacheState<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>>,fst::DefaultCacheStore<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>>::HasFinal(a1, a2) & 1) == 0)
   {
@@ -7237,7 +7235,7 @@ void sub_1B560B60C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void fst::CacheBaseImpl<fst::CacheState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>,fst::DefaultCacheStore<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>::SetFinal(uint64_t a1, int a2, uint64_t *a3)
+void fst::CacheBaseImpl<fst::CacheState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>,fst::DefaultCacheStore<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>::SetFinal(uint64_t a1, uint64_t a2, uint64_t *a3)
 {
   MutableState = fst::GCCacheStore<fst::FirstCacheStore<fst::VectorCacheStore<fst::CacheState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>>>>::GetMutableState(*(a1 + 120), a2);
   v5 = *a3;
@@ -7270,7 +7268,7 @@ void sub_1B560B6E8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t fst::CacheBaseImpl<fst::CacheState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>,fst::DefaultCacheStore<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>::Final@<X0>(uint64_t a1@<X0>, int a2@<W1>, void *a3@<X8>)
+uint64_t *fst::CacheBaseImpl<fst::CacheState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>,fst::DefaultCacheStore<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>::Final@<X0>(uint64_t a1@<X0>, int a2@<W1>, void *a3@<X8>)
 {
   v5 = *(a1 + 120);
   if (*(v5 + 76) == a2)
@@ -7288,7 +7286,7 @@ uint64_t fst::CacheBaseImpl<fst::CacheState<fst::ReverseArc<fst::ArcTpl<fst::Lat
   a3[2] = 0;
   a3[3] = 0;
   a3[1] = 0;
-  return std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((a3 + 1), v7[1], v7[2], (v7[2] - v7[1]) >> 2);
+  return std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a3 + 1, *(v7 + 8), *(v7 + 16), (*(v7 + 16) - *(v7 + 8)) >> 2);
 }
 
 unint64_t fst::DeterminizeFstImplBase<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>::NumArcs(void *a1, uint64_t a2)
@@ -7384,7 +7382,7 @@ void *fst::DeterminizeFst<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStat
   return a1;
 }
 
-uint64_t fst::CacheStateIterator<fst::DeterminizeFst<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>::Done(uint64_t a1)
+BOOL fst::CacheStateIterator<fst::DeterminizeFst<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>::Done(uint64_t a1)
 {
   v2 = *(a1 + 24);
   v3 = *(a1 + 16);
@@ -7489,14 +7487,14 @@ void *fst::ImplToFst<fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::Ar
   return a1;
 }
 
-void fst::ShortestDistance<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>(uint64_t a1, uint64_t a2, char a3)
+void fst::ShortestDistance<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>(uint64_t a1, uint64_t *a2, char a3, float a4)
 {
   if (a3)
   {
-    fst::VectorFst<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>>::VectorFst();
+    fst::VectorFst<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::VectorState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,std::allocator<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>>::VectorFst(&v4);
   }
 
-  fst::AutoQueue<int>::AutoQueue<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>,fst::AnyArcFilter<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>(v3, a1);
+  fst::AutoQueue<int>::AutoQueue<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>,fst::AnyArcFilter<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>(v5, a1, a2);
 }
 
 void sub_1B560BEDC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, char *a22)
@@ -7513,7 +7511,7 @@ void sub_1B560BEDC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t fst::ShortestDistance<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::AutoQueue<int>,fst::AnyArcFilter<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>(uint64_t a1, uint64_t *a2, uint64_t a3)
+void *fst::ShortestDistance<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::AutoQueue<int>,fst::AnyArcFilter<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   v10[0] = a1;
   v10[1] = a2;
@@ -7545,7 +7543,7 @@ uint64_t fst::ShortestDistance<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWit
   return fst::ShortestDistanceState<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,fst::AutoQueue<int>,fst::AnyArcFilter<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>::~ShortestDistanceState(v10);
 }
 
-void sub_1B560C008(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13, char a14)
+void sub_1B560C008(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13, uint64_t a14)
 {
   if (__p)
   {
@@ -7556,28 +7554,28 @@ void sub_1B560C008(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void fst::AutoQueue<int>::AutoQueue<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::AnyArcFilter<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>(uint64_t a1, uint64_t a2)
+void fst::AutoQueue<int>::AutoQueue<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::AnyArcFilter<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   *(a1 + 8) = 7;
   *(a1 + 12) = 0;
   *a1 = &unk_1F2CFB668;
   *(a1 + 24) = 0u;
-  v3 = a1 + 48;
+  v4 = (a1 + 48);
   *(a1 + 40) = 0u;
   *(a1 + 56) = 0u;
-  v4 = (*(*a2 + 64))(a2, 0x4E00000000, 0);
-  if ((v4 & 0x4000000000) == 0 && (*(*a2 + 24))(a2) != -1)
+  v5 = (*(*a2 + 64))(a2, 0x4E00000000, 0);
+  if ((v5 & 0x4000000000) == 0 && (*(*a2 + 24))(a2) != -1)
   {
-    if ((v4 & 0x800000000) == 0)
+    if ((v5 & 0x800000000) == 0)
     {
-      if ((v4 & 0x200000000) == 0)
+      if ((v5 & 0x200000000) == 0)
       {
-        v6 = 0;
-        v5[0] = v3;
-        v5[1] = 0;
-        v5[2] = 0;
-        v5[3] = &v6;
-        fst::DfsVisit<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::SccVisitor<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>,fst::AnyArcFilter<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>(a2, v5);
+        v7 = 0;
+        v6[0] = v4;
+        v6[1] = 0;
+        v6[2] = 0;
+        v6[3] = &v7;
+        fst::DfsVisit<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::SccVisitor<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>,fst::AnyArcFilter<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>(a2, v6, 0);
       }
 
       operator new();
@@ -7787,17 +7785,17 @@ LABEL_46:
   return result;
 }
 
-void sub_1B560CE0C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
+void sub_1B560CE0C(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
 {
   if (a14)
   {
-    (*(*a14 + 8))(a14);
+    (*(*a14 + 8))(a14, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void fst::TopOrderQueue<int>::TopOrderQueue<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::AnyArcFilter<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>(uint64_t a1)
+void fst::TopOrderQueue<int>::TopOrderQueue<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::AnyArcFilter<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>(uint64_t a1, uint64_t a2)
 {
   *(a1 + 8) = 4;
   *(a1 + 12) = 0;
@@ -7807,9 +7805,9 @@ void fst::TopOrderQueue<int>::TopOrderQueue<fst::ReverseArc<fst::ArcTpl<fst::Lat
   *(a1 + 40) = 0u;
   *(a1 + 56) = 0u;
   v3 = 0;
-  v1 = a1 + 24;
-  v2 = &v3;
-  fst::DfsVisit<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::TopOrderVisitor<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>,fst::AnyArcFilter<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>();
+  v2[0] = a1 + 24;
+  v2[1] = &v3;
+  fst::DfsVisit<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>,fst::TopOrderVisitor<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>,fst::AnyArcFilter<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>(a2, v2, 0);
 }
 
 void sub_1B560CFE0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, int a15, __int16 a16, char a17, char a18)
@@ -7837,25 +7835,25 @@ void sub_1B560CFE0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1B560D7FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B560D7FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
   v19 = va_arg(va1, void);
-  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
+  v26 = va_arg(va1, void);
+  v27 = va_arg(va1, void);
   fst::MemoryPool<fst::DfsState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>::~MemoryPool(va);
   std::deque<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>> *,std::allocator<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>> *>>::~deque[abi:ne200100](va1);
-  v11 = *(v9 - 112);
-  if (v11)
+  v18 = *(v16 - 112);
+  if (v18)
   {
-    *(v9 - 104) = v11;
-    operator delete(v11);
+    *(v16 - 104) = v18;
+    operator delete(v18);
   }
 
   _Unwind_Resume(a1);
@@ -7910,7 +7908,7 @@ void fst::ShortestDistanceState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWi
       v69 = 0;
       v70 = 0;
       __p = 0;
-      std::vector<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>::push_back[abi:ne200100]((a1 + 5), &v67);
+      std::vector<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>::push_back[abi:ne200100](a1 + 5, &v67);
       if (__p)
       {
         v69 = __p;
@@ -7941,7 +7939,7 @@ void fst::ShortestDistanceState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWi
       v6 = *a1[1];
     }
 
-    *(v8 + a2) = *(a1 + 28);
+    *(v8 + 4 * a2) = *(a1 + 28);
   }
 
   v9 = (v6 + 32 * a2);
@@ -7984,7 +7982,7 @@ void fst::ShortestDistanceState<fst::ReverseArc<fst::ArcTpl<fst::LatticeWeightWi
       v69 = 0;
       v70 = 0;
       __p = 0;
-      std::vector<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>::push_back[abi:ne200100]((a1 + 5), &v67);
+      std::vector<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>::push_back[abi:ne200100](a1 + 5, &v67);
       if (__p)
       {
         v69 = __p;
@@ -8085,7 +8083,7 @@ LABEL_40:
         v65 = 0;
         v66 = 0;
         v64 = 0;
-        std::vector<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>::push_back[abi:ne200100]((a1 + 5), &v63);
+        std::vector<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>>::push_back[abi:ne200100](a1 + 5, &v63);
         if (v64)
         {
           v65 = v64;
@@ -8112,7 +8110,7 @@ LABEL_40:
         }
 
         v28 = a1[1];
-        if (*(v30 + j) != *(a1 + 28))
+        if (*(v30 + 4 * j) != *(a1 + 28))
         {
           v31 = (*v28 + 32 * j);
           *v31 = v15;
@@ -8131,7 +8129,7 @@ LABEL_40:
       }
 
       v35 = j;
-      v36 = (*v28 + 32 * j);
+      v36 = *v28 + 32 * j;
       v37 = *v10;
       v38 = vadd_f32(v72, v27[1]);
       v63 = v38;
@@ -8171,10 +8169,10 @@ LABEL_55:
       v61 = 0;
       v62 = 0;
       v60 = 0;
-      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v60, *&v42[1], *&v42[2], (*&v42[2] - *&v42[1]) >> 2);
-      v24.n128_u32[0] = v36->i32[0];
-      v25.n128_u32[0] = v36->u32[1];
-      if (*v36->i32 == v59.f32[0] && v25.n128_f32[0] == v59.f32[1])
+      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v60, v42[1], v42[2], (v42[2] - v42[1]) >> 2);
+      v24.n128_u32[0] = *v36;
+      v25.n128_u32[0] = *(v36 + 4);
+      if (*v36 == v59.f32[0] && v25.n128_f32[0] == v59.f32[1])
       {
         v45 = 1;
       }
@@ -8233,11 +8231,11 @@ LABEL_75:
       v61 = 0;
       v62 = 0;
       v60 = 0;
-      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v60, *&v50[1], *&v50[2], (*&v50[2] - *&v50[1]) >> 2);
+      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v60, v50[1], v50[2], (v50[2] - v50[1]) >> 2);
       *v36 = v59;
       if (v36 != &v59)
       {
-        std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>(&v36[1], v60, v61, (v61 - v60) >> 2);
+        std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>((v36 + 8), v60, v61, (v61 - v60) >> 2);
       }
 
       if (v60)
@@ -8246,7 +8244,7 @@ LABEL_75:
         operator delete(v60);
       }
 
-      v51 = (v37 + 32 * v35);
+      v51 = v37 + 32 * v35;
       v52 = *v51;
       v53 = vaddv_f32(*v51);
       if (v53 < v41)
@@ -8283,7 +8281,7 @@ LABEL_83:
       *v51 = v59;
       if (v51 != &v59)
       {
-        std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>(&v51[1], v60, v61, (v61 - v60) >> 2);
+        std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>((v51 + 8), v60, v61, (v61 - v60) >> 2);
       }
 
       if (v60)
@@ -8386,7 +8384,7 @@ void sub_1B560E38C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>,std::allocator<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>>::reserve(void *result, unint64_t a2)
+uint64_t *std::vector<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>,std::allocator<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>>::reserve(uint64_t *result, unint64_t a2)
 {
   if (a2 > (result[2] - *result) >> 4)
   {
@@ -8401,9 +8399,9 @@ void *std::vector<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst:
   return result;
 }
 
-void sub_1B560E528(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B560E528(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>,std::allocator<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -8511,31 +8509,32 @@ void *std::vector<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst:
   v2 = result[2];
   if (a2 > (v2 - v3) >> 4)
   {
-    v4 = a2 + ((v3 - *result) >> 4);
-    if (!(v4 >> 60))
+    v4 = v3 - *result;
+    v5 = a2 + (v4 >> 4);
+    if (!(v5 >> 60))
     {
-      v5 = v2 - *result;
-      if (v5 >> 3 > v4)
+      v6 = v2 - *result;
+      if (v6 >> 3 > v5)
       {
-        v4 = v5 >> 3;
+        v5 = v6 >> 3;
       }
 
-      if (v5 >= 0x7FFFFFFFFFFFFFF0)
+      if (v6 >= 0x7FFFFFFFFFFFFFF0)
       {
-        v6 = 0xFFFFFFFFFFFFFFFLL;
+        v7 = 0xFFFFFFFFFFFFFFFLL;
       }
 
       else
       {
-        v6 = v4;
+        v7 = v5;
       }
 
-      if (v6)
+      if (v7)
       {
-        std::__allocate_at_least[abi:ne200100]<std::allocator<fst::VectorFst<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,fst::VectorState<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,std::allocator<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>>>>(result, v6);
+        std::__allocate_at_least[abi:ne200100]<std::allocator<fst::VectorFst<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,fst::VectorState<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,std::allocator<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>>>>(result, v7);
       }
 
-      fst::VectorFst<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>,std::allocator<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>::VectorFst();
+      fst::VectorFst<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>,std::allocator<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>::VectorFst((16 * (v4 >> 4)));
     }
 
     std::vector<int>::__throw_length_error[abi:ne200100]();
@@ -8543,16 +8542,16 @@ void *std::vector<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst:
 
   if (a2)
   {
-    fst::VectorFst<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>,std::allocator<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>::VectorFst();
+    fst::VectorFst<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>,std::allocator<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>::VectorFst(v3);
   }
 
   result[1] = v3;
   return result;
 }
 
-void sub_1B560E870(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B560E870(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>,std::allocator<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -8597,8 +8596,8 @@ void std::vector<kaldi::quasar::TranslationUtil::PathElement>::__assign_with_siz
       do
       {
         kaldi::quasar::TranslationUtil::PathElement::operator=(v8, v6);
-        v6 += 240;
-        v8 = (v8 + 240);
+        v6 = (v6 + 240);
+        v8 += 240;
       }
 
       while (v6 != a3);
@@ -8623,8 +8622,8 @@ void std::vector<kaldi::quasar::TranslationUtil::PathElement>::__assign_with_siz
       do
       {
         kaldi::quasar::TranslationUtil::PathElement::operator=(v8, v14);
-        v14 += 240;
-        v8 = (v8 + 240);
+        v14 = (v14 + 240);
+        v8 += 240;
         v13 -= 240;
       }
 
@@ -8636,7 +8635,7 @@ void std::vector<kaldi::quasar::TranslationUtil::PathElement>::__assign_with_siz
   }
 }
 
-void std::vector<kaldi::quasar::TranslationUtil::PathElement>::__vdeallocate(void **a1)
+void std::vector<kaldi::quasar::TranslationUtil::PathElement>::__vdeallocate(char **a1)
 {
   v1 = *a1;
   if (*a1)
@@ -8739,9 +8738,9 @@ uint64_t std::vector<kaldi::quasar::TranslationUtil::NbestElement>::__emplace_ba
   return v12;
 }
 
-void sub_1B560ECB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1B560ECB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<kaldi::quasar::TranslationUtil::NbestElement>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -8815,15 +8814,15 @@ void std::vector<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::
     v5 = **a1;
     if (v4 != v2)
     {
-      v6 = v4 - 16;
-      v7 = v4 - 16;
-      v8 = v4 - 16;
+      v6 = v4 - 2;
+      v7 = v4 - 2;
+      v8 = v4 - 2;
       do
       {
         v9 = *v8;
-        v8 -= 16;
+        v8 -= 2;
         (*v9)(v7);
-        v6 -= 16;
+        v6 -= 2;
         v10 = v7 == v2;
         v7 = v8;
       }
@@ -8928,7 +8927,7 @@ uint64_t kaldi::quasar::DecodeOptions<fst::BackoffDeterministicOnDemandFst<fst::
   *(a1 + 160) = v15;
   *(a1 + 248) = 0;
   *(a1 + 256) = 0;
-  std::vector<std::shared_ptr<kaldi::quasar::PhraseBook>>::__init_with_size[abi:ne200100]<std::shared_ptr<kaldi::quasar::PhraseBook>*,std::shared_ptr<kaldi::quasar::PhraseBook>*>(a1 + 240, a2[30], a2[31], (a2[31] - a2[30]) >> 4);
+  std::vector<std::shared_ptr<kaldi::quasar::PhraseBook>>::__init_with_size[abi:ne200100]<std::shared_ptr<kaldi::quasar::PhraseBook>*,std::shared_ptr<kaldi::quasar::PhraseBook>*>((a1 + 240), a2[30], a2[31], (a2[31] - a2[30]) >> 4);
   if (*(a2 + 287) < 0)
   {
     std::string::__init_copy_ctor_external((a1 + 264), a2[33], a2[34]);
@@ -8949,48 +8948,48 @@ uint64_t kaldi::quasar::DecodeOptions<fst::BackoffDeterministicOnDemandFst<fst::
   *(a1 + 336) = 0;
   *(a1 + 344) = 0;
   *(a1 + 328) = 0;
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(a1 + 328, a2[41], a2[42], 0xAAAAAAAAAAAAAAABLL * ((a2[42] - a2[41]) >> 3));
+  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>((a1 + 328), a2[41], a2[42], 0xAAAAAAAAAAAAAAABLL * ((a2[42] - a2[41]) >> 3));
   return a1;
 }
 
-void sub_1B560F058(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B560F058(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<std::shared_ptr<quasar::LmeContainer>>::__destroy_vector::operator()[abi:ne200100](va);
-  if (*(v2 + 159) < 0)
+  if (*(v3 + 159) < 0)
   {
-    operator delete(*(v2 + 136));
+    operator delete(*(v3 + 136));
   }
 
-  if (*(v2 + 135) < 0)
+  if (*(v3 + 135) < 0)
   {
-    operator delete(*(v2 + 112));
+    operator delete(*(v3 + 112));
   }
 
-  if (*(v2 + 111) < 0)
+  if (*(v3 + 111) < 0)
   {
-    operator delete(*(v2 + 88));
+    operator delete(*(v3 + 88));
   }
 
-  if (*(v2 + 87) < 0)
+  if (*(v3 + 87) < 0)
   {
-    operator delete(*(v2 + 64));
+    operator delete(*(v3 + 64));
   }
 
-  if (*(v2 + 63) < 0)
+  if (*(v3 + 63) < 0)
   {
-    operator delete(*(v2 + 40));
+    operator delete(*(v3 + 40));
   }
 
-  if (*(v2 + 39) < 0)
+  if (*(v3 + 39) < 0)
   {
-    operator delete(*(v2 + 16));
+    operator delete(*(v3 + 16));
   }
 
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<std::shared_ptr<kaldi::quasar::PhraseBook>>::__init_with_size[abi:ne200100]<std::shared_ptr<kaldi::quasar::PhraseBook>*,std::shared_ptr<kaldi::quasar::PhraseBook>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::shared_ptr<kaldi::quasar::PhraseBook>>::__init_with_size[abi:ne200100]<std::shared_ptr<kaldi::quasar::PhraseBook>*,std::shared_ptr<kaldi::quasar::PhraseBook>*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -9214,19 +9213,19 @@ uint64_t kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::NbestCompa
   return a1;
 }
 
-void sub_1B560F5F8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B560F5F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   kaldi::KaldiVlogMessage::~KaldiVlogMessage(va);
   _Unwind_Resume(a1);
 }
 
-void kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::AddInitialHypToCurrent<fst::BackoffDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>(uint64_t a1, uint64_t a2)
+void kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::AddInitialHypToCurrent<fst::BackoffDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>(uint64_t a1, uint64_t a2, int a3, float a4)
 {
-  v3 = *(a2 + 200);
-  if (v3)
+  v5 = *(a2 + 200);
+  if (v5)
   {
-    (**v3)(v3);
+    (**v5)(v5, a4);
   }
 
   if (*(a2 + 184) == 2)
@@ -9253,7 +9252,7 @@ void std::vector<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::Sc
   a1[1] = v2;
 }
 
-uint64_t std::vector<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement,std::allocator<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement>>::push_back[abi:ne200100](uint64_t *a1, uint64_t a2)
+uint64_t std::vector<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement,std::allocator<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement>>::push_back[abi:ne200100](unint64_t *a1, uint64_t a2)
 {
   v3 = a1[1];
   if (v3 >= a1[2])
@@ -9340,33 +9339,33 @@ uint64_t std::vector<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>
   return result;
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<int,std::vector<unsigned long>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<unsigned long>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<unsigned long>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<unsigned long>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(void *a1, int *a2)
+uint64_t *std::__hash_table<std::__hash_value_type<int,std::vector<unsigned long>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<unsigned long>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<unsigned long>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<unsigned long>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(void *a1, int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -9374,54 +9373,54 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v9 + 4) != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-uint64_t std::vector<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement,std::allocator<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement>>::__construct_one_at_end[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement const&>(uint64_t a1, uint64_t a2)
+uint64_t *std::vector<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement,std::allocator<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement>>::__construct_one_at_end[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement const&>(uint64_t a1, uint64_t a2)
 {
   v4 = *(a1 + 8);
   *v4 = *a2;
   *(v4 + 16) = 0;
   *(v4 + 24) = 0;
   *(v4 + 8) = 0;
-  result = std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v4 + 8, *(a2 + 8), *(a2 + 16), (*(a2 + 16) - *(a2 + 8)) >> 2);
+  result = std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((v4 + 8), *(a2 + 8), *(a2 + 16), (*(a2 + 16) - *(a2 + 8)) >> 2);
   v6 = *(a2 + 32);
   *(v4 + 40) = *(a2 + 40);
   *(v4 + 32) = v6;
@@ -9429,7 +9428,7 @@ uint64_t std::vector<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>
   return result;
 }
 
-uint64_t std::vector<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement,std::allocator<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement>>::__emplace_back_slow_path<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement const&>(uint64_t *a1, uint64_t a2)
+uint64_t std::vector<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement,std::allocator<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement>>::__emplace_back_slow_path<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement const&>(unint64_t *a1, uint64_t a2)
 {
   v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 4);
   v3 = v2 + 1;
@@ -9467,7 +9466,7 @@ uint64_t std::vector<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>
   *(v7 + 16) = 0;
   *(v7 + 24) = 0;
   *(v7 + 8) = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v7 + 8, *(a2 + 8), *(a2 + 16), (*(a2 + 16) - *(a2 + 8)) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((v7 + 8), *(a2 + 8), *(a2 + 16), (*(a2 + 16) - *(a2 + 8)) >> 2);
   v8 = *(a2 + 32);
   *(v7 + 40) = *(a2 + 40);
   *(v7 + 32) = v8;
@@ -9488,9 +9487,9 @@ uint64_t std::vector<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>
   return v14;
 }
 
-void sub_1B560FDEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1B560FDEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement,std::allocator<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement> &>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -9740,26 +9739,26 @@ uint64_t std::vector<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>
   return v14;
 }
 
-void sub_1B56102B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1B56102B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement,std::allocator<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement> &>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::MinHeapCompare,std::__wrap_iter<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *>>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::MinHeapCompare,std::__wrap_iter<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *>>(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a4 >= 2)
   {
     v8 = *a1;
-    v7 = *(a1 + 8);
-    v10 = *(a1 + 16);
-    v9 = *(a1 + 24);
-    *(a1 + 16) = 0;
-    *(a1 + 24) = 0;
-    *(a1 + 8) = 0;
-    v18 = *(a1 + 32);
-    v19 = *(a1 + 40);
+    v7 = a1[1];
+    v10 = a1[2];
+    v9 = a1[3];
+    a1[2] = 0;
+    a1[3] = 0;
+    a1[1] = 0;
+    v18 = a1[4];
+    v19 = *(a1 + 10);
     v11 = std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::MinHeapCompare &,std::__wrap_iter<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *>>(a1, a3, a4);
     v12 = v11;
     if ((a2 - 48) == v11)

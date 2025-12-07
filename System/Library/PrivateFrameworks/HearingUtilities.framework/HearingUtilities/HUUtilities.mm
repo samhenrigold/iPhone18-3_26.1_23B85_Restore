@@ -324,14 +324,16 @@
 
 uint64_t __30__HUUtilities_sharedUtilities__block_invoke()
 {
-  sharedUtilities_UtilityProvider = objc_alloc_init(HUUtilities);
+  v0 = objc_alloc_init(HUUtilities);
+  v1 = sharedUtilities_UtilityProvider;
+  sharedUtilities_UtilityProvider = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (void)updateWirelessSplitterState
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   state64 = -1;
   notify_get_state(self->_wirelessSplitterNotifyToken, &state64);
   self->_wirelessSplitterEnabled = state64 & 1;
@@ -340,12 +342,11 @@ uint64_t __30__HUUtilities_sharedUtilities__block_invoke()
   {
     wirelessSplitterEnabled = self->_wirelessSplitterEnabled;
     *buf = 67109120;
-    v8 = wirelessSplitterEnabled;
+    v7 = wirelessSplitterEnabled;
     _os_log_impl(&dword_1DA5E2000, v3, OS_LOG_TYPE_DEFAULT, "Wireless splitter updated %d", buf, 8u);
   }
 
   [(HUUtilities *)self clearAudioRoutes];
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (HUUtilities)init
@@ -468,18 +469,17 @@ uint64_t __45__HUUtilities_hearingAidRouteAvailableAsync___block_invoke(uint64_t
 
 - (BOOL)hearingAidRouteAvailableForAvailableRoutes:(id)routes
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   routesCopy = routes;
   v4 = [routesCopy valueForKey:@"AXSHARouteHearingAid"];
   v5 = HCLogHearingAids();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = routesCopy;
-    _os_log_impl(&dword_1DA5E2000, v5, OS_LOG_TYPE_DEFAULT, "%@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = routesCopy;
+    _os_log_impl(&dword_1DA5E2000, v5, OS_LOG_TYPE_DEFAULT, "%@", &v7, 0xCu);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return v4 != 0;
 }
 
@@ -521,7 +521,7 @@ uint64_t __44__HUUtilities_liveListenRouteSelectedAsync___block_invoke(uint64_t 
 
 - (BOOL)liveListenRouteSelectedForAvailableRoutes:(id)routes
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   routesCopy = routes;
   if ([(HUUtilities *)self _shouldBypassLiveListenRouteCheck])
   {
@@ -538,19 +538,18 @@ uint64_t __44__HUUtilities_liveListenRouteSelectedAsync___block_invoke(uint64_t 
     v10 = HCLogHearingAids();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v13[0] = 67109634;
-      v13[1] = v6;
-      v14 = 1024;
-      v15 = bOOLValue;
-      v16 = 2112;
-      v17 = v7;
-      _os_log_impl(&dword_1DA5E2000, v10, OS_LOG_TYPE_DEFAULT, "%d, %d %@", v13, 0x18u);
+      v12[0] = 67109634;
+      v12[1] = v6;
+      v13 = 1024;
+      v14 = bOOLValue;
+      v15 = 2112;
+      v16 = v7;
+      _os_log_impl(&dword_1DA5E2000, v10, OS_LOG_TYPE_DEFAULT, "%d, %d %@", v12, 0x18u);
     }
 
     v5 = v6 | bOOLValue;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v5 & 1;
 }
 
@@ -629,90 +628,89 @@ uint64_t __44__HUUtilities_liveListenRouteSelectedAsync___block_invoke(uint64_t 
 
 void __55__HUUtilities_pauseNowPlaying_withQueue_andCompletion___block_invoke(int8x16_t *a1, char a2)
 {
-  v30 = *MEMORY[0x1E69E9840];
-  v3 = a1[3].i8[8];
+  v27 = *MEMORY[0x1E69E9840];
   if (a2)
   {
     if (a1[3].i8[8])
     {
-      v24 = 0;
-      v25 = &v24;
-      v26 = 0x2020000000;
-      v27 = MRMediaRemoteSendCommandToApp() != 0;
-      v4 = dispatch_time(0, 500000000);
+      v21 = 0;
+      v22 = &v21;
+      v23 = 0x2020000000;
+      v24 = MRMediaRemoteSendCommandToApp() != 0;
+      v3 = dispatch_time(0, 500000000);
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = __55__HUUtilities_pauseNowPlaying_withQueue_andCompletion___block_invoke_2;
       block[3] = &unk_1E85CC858;
-      v16 = a1[2];
-      v22 = vextq_s8(v16, v16, 8uLL);
-      v23 = &v24;
-      dispatch_after(v4, v16.i64[0], block);
-      v5 = HCLogHearingAids();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v13 = a1[2];
+      v19 = vextq_s8(v13, v13, 8uLL);
+      v20 = &v21;
+      dispatch_after(v3, v13.i64[0], block);
+      v4 = HCLogHearingAids();
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
-        if (*(v25 + 24))
+        if (*(v22 + 24))
         {
-          v6 = @"success";
+          v5 = @"success";
         }
 
         else
         {
-          v6 = @"fail";
+          v5 = @"fail";
         }
 
         *buf = 138412290;
-        v29 = v6;
-        _os_log_impl(&dword_1DA5E2000, v5, OS_LOG_TYPE_DEFAULT, "Media Pause command %@", buf, 0xCu);
+        v26 = v5;
+        _os_log_impl(&dword_1DA5E2000, v4, OS_LOG_TYPE_DEFAULT, "Media Pause command %@", buf, 0xCu);
       }
 
-      v7 = a1[3].i64[0];
-      if (v7)
+      v6 = a1[3].i64[0];
+      if (v6)
       {
-        (*(v7 + 16))(v7, *(v25 + 24));
+        (*(v6 + 16))(v6, *(v22 + 24));
       }
 
 LABEL_24:
-      _Block_object_dispose(&v24, 8);
-      goto LABEL_25;
+      _Block_object_dispose(&v21, 8);
+      return;
     }
 
 LABEL_16:
-    v24 = 0;
-    v25 = &v24;
-    v26 = 0x2020000000;
-    v27 = MRMediaRemoteSendCommandToApp() != 0;
-    v11 = dispatch_time(0, 500000000);
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __55__HUUtilities_pauseNowPlaying_withQueue_andCompletion___block_invoke_25;
-    v18[3] = &unk_1E85CC858;
-    v17 = a1[2];
-    v19 = vextq_s8(v17, v17, 8uLL);
-    v20 = &v24;
-    dispatch_after(v11, v17.i64[0], v18);
-    v12 = HCLogHearingAids();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v21 = 0;
+    v22 = &v21;
+    v23 = 0x2020000000;
+    v24 = MRMediaRemoteSendCommandToApp() != 0;
+    v9 = dispatch_time(0, 500000000);
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __55__HUUtilities_pauseNowPlaying_withQueue_andCompletion___block_invoke_25;
+    v15[3] = &unk_1E85CC858;
+    v14 = a1[2];
+    v16 = vextq_s8(v14, v14, 8uLL);
+    v17 = &v21;
+    dispatch_after(v9, v14.i64[0], v15);
+    v10 = HCLogHearingAids();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      if (*(v25 + 24))
+      if (*(v22 + 24))
       {
-        v13 = @"success";
+        v11 = @"success";
       }
 
       else
       {
-        v13 = @"fail";
+        v11 = @"fail";
       }
 
       *buf = 138412290;
-      v29 = v13;
-      _os_log_impl(&dword_1DA5E2000, v12, OS_LOG_TYPE_DEFAULT, "Media Play command %@", buf, 0xCu);
+      v26 = v11;
+      _os_log_impl(&dword_1DA5E2000, v10, OS_LOG_TYPE_DEFAULT, "Media Play command %@", buf, 0xCu);
     }
 
-    v14 = a1[3].i64[0];
-    if (v14)
+    v12 = a1[3].i64[0];
+    if (v12)
     {
-      (*(v14 + 16))(v14, *(v25 + 24));
+      (*(v12 + 16))(v12, *(v22 + 24));
     }
 
     goto LABEL_24;
@@ -723,18 +721,13 @@ LABEL_16:
     goto LABEL_16;
   }
 
-  v8 = a1[3].i64[0];
-  if (!v8)
+  v7 = a1[3].i64[0];
+  if (v7)
   {
-LABEL_25:
-    v15 = *MEMORY[0x1E69E9840];
-    return;
+    v8 = *(v7 + 16);
+
+    v8();
   }
-
-  v9 = *(v8 + 16);
-  v10 = *MEMORY[0x1E69E9840];
-
-  v9();
 }
 
 uint64_t __55__HUUtilities_pauseNowPlaying_withQueue_andCompletion___block_invoke_2(void *a1)
@@ -751,7 +744,7 @@ uint64_t __55__HUUtilities_pauseNowPlaying_withQueue_andCompletion___block_invok
 
 void __55__HUUtilities_pauseNowPlaying_withQueue_andCompletion___block_invoke_3(uint64_t a1, int a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if (a2)
   {
     *(*(*(a1 + 32) + 8) + 24) = MRMediaRemoteSendCommandToApp() != 0;
@@ -768,13 +761,11 @@ void __55__HUUtilities_pauseNowPlaying_withQueue_andCompletion___block_invoke_3(
         v4 = @"fail";
       }
 
-      v6 = 138412290;
-      v7 = v4;
-      _os_log_impl(&dword_1DA5E2000, v3, OS_LOG_TYPE_DEFAULT, "Retried media pause, %@", &v6, 0xCu);
+      v5 = 138412290;
+      v6 = v4;
+      _os_log_impl(&dword_1DA5E2000, v3, OS_LOG_TYPE_DEFAULT, "Retried media pause, %@", &v5, 0xCu);
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __55__HUUtilities_pauseNowPlaying_withQueue_andCompletion___block_invoke_25(void *a1)
@@ -791,7 +782,7 @@ uint64_t __55__HUUtilities_pauseNowPlaying_withQueue_andCompletion___block_invok
 
 void __55__HUUtilities_pauseNowPlaying_withQueue_andCompletion___block_invoke_2_26(uint64_t a1, char a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if ((a2 & 1) == 0)
   {
     *(*(*(a1 + 32) + 8) + 24) = MRMediaRemoteSendCommandToApp() != 0;
@@ -808,13 +799,11 @@ void __55__HUUtilities_pauseNowPlaying_withQueue_andCompletion___block_invoke_2_
         v4 = @"fail";
       }
 
-      v6 = 138412290;
-      v7 = v4;
-      _os_log_impl(&dword_1DA5E2000, v3, OS_LOG_TYPE_DEFAULT, "Retried media play, %@", &v6, 0xCu);
+      v5 = 138412290;
+      v6 = v4;
+      _os_log_impl(&dword_1DA5E2000, v3, OS_LOG_TYPE_DEFAULT, "Retried media play, %@", &v5, 0xCu);
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addHearingFeatureUsage:(unint64_t)usage
@@ -998,11 +987,10 @@ void __35__HUUtilities_objectFromXDCObject___block_invoke_2(uint64_t a1, uint64_
 
 - (void)headphoneStreamSelected
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_debug_impl(&dword_1DA5E2000, a2, OS_LOG_TYPE_DEBUG, "headphoneStreamSelected selectedRoute: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1DA5E2000, a2, OS_LOG_TYPE_DEBUG, "headphoneStreamSelected selectedRoute: %@", &v2, 0xCu);
 }
 
 @end

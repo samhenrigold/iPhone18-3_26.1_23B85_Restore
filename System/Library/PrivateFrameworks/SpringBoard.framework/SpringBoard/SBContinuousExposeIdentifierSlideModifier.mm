@@ -453,20 +453,20 @@ id __90__SBContinuousExposeIdentifierSlideModifier_adjustedSpaceAccessoryViewFra
       }
 
       _beginAnimation = [(SBContinuousExposeIdentifierSlideModifier *)self _beginAnimation];
-      v12 = SBAppendSwitcherModifierResponse(_beginAnimation, v5);
+      v12 = SBAppendSwitcherModifierResponse();
       goto LABEL_9;
     }
 
     if (!direction && !self->_isWaitingToPrepareLayout && !self->_isWaitingToBeginAnimation)
     {
       _beginAnimation = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:2 updateMode:2];
-      v9 = SBAppendSwitcherModifierResponse(_beginAnimation, v5);
+      v9 = SBAppendSwitcherModifierResponse();
 
       v10 = [SBTimerEventSwitcherEventResponse alloc];
       _waitingToPrepareLayoutReason = [(SBContinuousExposeIdentifierSlideModifier *)self _waitingToPrepareLayoutReason];
       v5 = [(SBTimerEventSwitcherEventResponse *)v10 initWithDelay:0 validator:_waitingToPrepareLayoutReason reason:0.0];
 
-      v12 = SBAppendSwitcherModifierResponse(v5, v9);
+      v12 = SBAppendSwitcherModifierResponse();
 
       self->_isWaitingToPrepareLayout = 1;
 LABEL_9:
@@ -490,7 +490,7 @@ LABEL_10:
   {
     self->_isWaitingToPrepareLayout = 0;
     _beginAnimation = [(SBContinuousExposeIdentifierSlideModifier *)self _beginAnimation];
-    v10 = SBAppendSwitcherModifierResponse(_beginAnimation, v5);
+    v10 = SBAppendSwitcherModifierResponse();
 
     v5 = v10;
   }
@@ -524,7 +524,7 @@ LABEL_10:
   _waitingToAnimateReason = [(SBContinuousExposeIdentifierSlideModifier *)self _waitingToAnimateReason];
   v11 = [(SBTimerEventSwitcherEventResponse *)v9 initWithDelay:0 validator:_waitingToAnimateReason reason:v8];
 
-  v12 = SBAppendSwitcherModifierResponse(v11, v3);
+  v12 = SBAppendSwitcherModifierResponse();
 
   self->_isWaitingToBeginAnimation = 1;
 

@@ -17,77 +17,71 @@
 
 + (id)entryEventPointDefinitions
 {
-  v9[2] = *MEMORY[0x277D85DE8];
-  v8[0] = @"SmartTrigger";
+  v8[2] = *MEMORY[0x277D85DE8];
+  v7[0] = @"SmartTrigger";
   entryEventPointDefinitionSmartTrigger = [self entryEventPointDefinitionSmartTrigger];
-  v8[1] = @"Sample";
-  v9[0] = entryEventPointDefinitionSmartTrigger;
+  v7[1] = @"Sample";
+  v8[0] = entryEventPointDefinitionSmartTrigger;
   entryEventPointDefinitionSample = [self entryEventPointDefinitionSample];
-  v9[1] = entryEventPointDefinitionSample;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v8[1] = entryEventPointDefinitionSample;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
 
   return v5;
 }
 
 + (id)entryEventPointDefinitionSmartTrigger
 {
-  v17[2] = *MEMORY[0x277D85DE8];
-  v16[0] = *MEMORY[0x277D3F4E8];
+  v16[2] = *MEMORY[0x277D85DE8];
+  v15[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F498];
-  v14[0] = *MEMORY[0x277D3F568];
-  v14[1] = v2;
-  v15[0] = &unk_2870FEE60;
-  v15[1] = MEMORY[0x277CBEC38];
-  v14[2] = *MEMORY[0x277D3F550];
-  v15[2] = MEMORY[0x277CBEC28];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:3];
-  v17[0] = v3;
-  v16[1] = *MEMORY[0x277D3F540];
-  v12[0] = @"Helper";
+  v13[0] = *MEMORY[0x277D3F568];
+  v13[1] = v2;
+  v14[0] = &unk_2870FEE60;
+  v14[1] = MEMORY[0x277CBEC38];
+  v13[2] = *MEMORY[0x277D3F550];
+  v14[2] = MEMORY[0x277CBEC28];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:3];
+  v16[0] = v3;
+  v15[1] = *MEMORY[0x277D3F540];
+  v11[0] = @"Helper";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat = [mEMORY[0x277D3F198] commonTypeDict_StringFormat];
-  v12[1] = @"Reason";
-  v13[0] = commonTypeDict_StringFormat;
+  v11[1] = @"Reason";
+  v12[0] = commonTypeDict_StringFormat;
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat2 = [mEMORY[0x277D3F198]2 commonTypeDict_StringFormat];
-  v13[1] = commonTypeDict_StringFormat2;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
-  v17[1] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v12[1] = commonTypeDict_StringFormat2;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v16[1] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
 
   return v9;
 }
 
 + (id)entryEventPointDefinitionSample
 {
-  v18[2] = *MEMORY[0x277D85DE8];
-  v17[0] = *MEMORY[0x277D3F4E8];
-  v15 = *MEMORY[0x277D3F568];
-  v16 = &unk_2870FEE60;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
-  v18[0] = v2;
-  v17[1] = *MEMORY[0x277D3F540];
-  v13[0] = @"PID";
+  v17[2] = *MEMORY[0x277D85DE8];
+  v16[0] = *MEMORY[0x277D3F4E8];
+  v14 = *MEMORY[0x277D3F568];
+  v15 = &unk_2870FEE60;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
+  v17[0] = v2;
+  v16[1] = *MEMORY[0x277D3F540];
+  v12[0] = @"PID";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-  v14[0] = commonTypeDict_IntegerFormat;
-  v13[1] = @"ProcessName";
+  v13[0] = commonTypeDict_IntegerFormat;
+  v12[1] = @"ProcessName";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat = [mEMORY[0x277D3F198]2 commonTypeDict_StringFormat];
-  v14[1] = commonTypeDict_StringFormat;
-  v13[2] = @"Sample";
+  v13[1] = commonTypeDict_StringFormat;
+  v12[2] = @"Sample";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat2 = [mEMORY[0x277D3F198]3 commonTypeDict_StringFormat];
-  v14[2] = commonTypeDict_StringFormat2;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:3];
-  v18[1] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v13[2] = commonTypeDict_StringFormat2;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:3];
+  v17[1] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
 
   return v10;
 }
@@ -212,14 +206,14 @@
   }
 }
 
-uint64_t __53__PLSmartPLService_logEventPointStackShotWithReason___block_invoke(uint64_t a1)
+void *__53__PLSmartPLService_logEventPointStackShotWithReason___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) defaultLongForKey:@"StackShotCount"];
   logEventPointStackShotWithReason__objectForKey = result;
   return result;
 }
 
-uint64_t __53__PLSmartPLService_logEventPointStackShotWithReason___block_invoke_2(uint64_t a1)
+void *__53__PLSmartPLService_logEventPointStackShotWithReason___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) defaultLongForKey:@"StackShotDelay"];
   logEventPointStackShotWithReason__objectForKey_80 = result;
@@ -423,42 +417,42 @@ uint64_t __53__PLSmartPLService_logEventPointStackShotWithReason___block_invoke_
   objc_autoreleasePoolPop(v5);
 }
 
-uint64_t __54__PLSmartPLService_logEventPointSampleForProcessName___block_invoke(uint64_t a1)
+void *__54__PLSmartPLService_logEventPointSampleForProcessName___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   logEventPointSampleForProcessName__classDebugEnabled = result;
   return result;
 }
 
-uint64_t __54__PLSmartPLService_logEventPointSampleForProcessName___block_invoke_89(uint64_t a1)
+void *__54__PLSmartPLService_logEventPointSampleForProcessName___block_invoke_89(uint64_t a1)
 {
   result = [*(a1 + 32) defaultLongForKey:@"SampleDuration"];
   logEventPointSampleForProcessName__objectForKey = result;
   return result;
 }
 
-uint64_t __54__PLSmartPLService_logEventPointSampleForProcessName___block_invoke_2(uint64_t a1)
+void *__54__PLSmartPLService_logEventPointSampleForProcessName___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) defaultLongForKey:@"SampleInterval"];
   logEventPointSampleForProcessName__objectForKey_91 = result;
   return result;
 }
 
-uint64_t __54__PLSmartPLService_logEventPointSampleForProcessName___block_invoke_3(uint64_t a1)
+void *__54__PLSmartPLService_logEventPointSampleForProcessName___block_invoke_3(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   logEventPointSampleForProcessName__classDebugEnabled_93 = result;
   return result;
 }
 
-uint64_t __54__PLSmartPLService_logEventPointSampleForProcessName___block_invoke_102(uint64_t a1)
+void *__54__PLSmartPLService_logEventPointSampleForProcessName___block_invoke_102(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   logEventPointSampleForProcessName__classDebugEnabled_101 = result;
   return result;
 }
 
-uint64_t __54__PLSmartPLService_logEventPointSampleForProcessName___block_invoke_111(uint64_t a1)
+void *__54__PLSmartPLService_logEventPointSampleForProcessName___block_invoke_111(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   logEventPointSampleForProcessName__classDebugEnabled_110 = result;

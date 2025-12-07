@@ -8,6 +8,8 @@
 - (void)enqueueSpeechSynthesisRequest:(id)request;
 - (void)enqueueText:(id)text identifier:(id)identifier sessionId:(id)id preferredVoice:(id)voice language:(id)language gender:(id)gender promptStyle:(id)style isPhonetic:(BOOL)self0 provisionally:(BOOL)self1 eligibleAfterDuration:(double)self2 delayed:(BOOL)self3 canUseServerTTS:(BOOL)self4 preparationIdentifier:(id)self5 completion:(id)self6 analyticsContext:(id)self7 speakableContextInfo:(id)self8;
 - (void)isSynthesisQueueEmpty:(id)empty;
+- (void)prewarmIfNeededKeepActive:(BOOL)active;
+- (void)setAudioSessionID:(unsigned int)d;
 - (void)speechSynthesisDidFinish:(id)finish withIdentifier:(id)identifier;
 - (void)speechSynthesisDidStopSpeakingWithIdentifier:(id)identifier queueIsEmpty:(BOOL)empty;
 - (void)speechSynthesisDidUpdatePowerLevelTo:(float)to;
@@ -24,6 +26,14 @@
   audioSessionID = [(SRUIFSpeechSynthesizer *)synthesizer audioSessionID];
 
   return audioSessionID;
+}
+
+- (void)setAudioSessionID:(unsigned int)d
+{
+  v3 = *&d;
+  selfCopy = self;
+  synthesizer = [(SRUIFMarkerCapableSpeechSynthesizer *)selfCopy synthesizer];
+  [(SRUIFSpeechSynthesizer *)synthesizer setAudioSessionID:v3];
 }
 
 - (void)enqueueSpeechSynthesisRequest:(id)request
@@ -53,13 +63,21 @@
 
   selfCopy = self;
   SRUIFMarkerCapableSpeechSynthesizer.enqueuePhatic(completion:)(v7, v6);
-  sub_269525B8C(v7);
+  sub_269525B8C(v7, v6);
 }
 
 - (void)cancel
 {
   selfCopy = self;
   SRUIFMarkerCapableSpeechSynthesizer.cancel()();
+}
+
+- (void)prewarmIfNeededKeepActive:(BOOL)active
+{
+  activeCopy = active;
+  selfCopy = self;
+  synthesizer = [(SRUIFMarkerCapableSpeechSynthesizer *)selfCopy synthesizer];
+  [(SRUIFSpeechSynthesizer *)synthesizer prewarmIfNeededKeepActive:activeCopy];
 }
 
 - (void)duckTTSVolumeTo:(float)to rampTime:(double)time completion:(id)completion
@@ -81,7 +99,7 @@
 
   selfCopy = self;
   SRUIFMarkerCapableSpeechSynthesizer.duckTTSVolume(to:rampTime:completion:)(v11, v10, to, time);
-  sub_269525B8C(v11);
+  sub_269525B8C(v11, v10);
 }
 
 - (void)isSynthesisQueueEmpty:(id)empty
@@ -103,7 +121,7 @@
 
   selfCopy = self;
   SRUIFMarkerCapableSpeechSynthesizer.isSynthesisQueueEmpty(_:)(v7, v6);
-  sub_269525B8C(v7);
+  sub_269525B8C(v7, v6);
 }
 
 - (void)enqueueAudioData:(id)data identifier:(id)identifier sessionId:(id)id provisionally:(BOOL)provisionally eligibleAfterDuration:(double)duration completion:(id)completion
@@ -151,25 +169,29 @@ LABEL_7:
 LABEL_8:
   dataCopy = data;
   selfCopy = self;
-  SRUIFMarkerCapableSpeechSynthesizer.enqueue(_:identifier:sessionId:provisionally:eligibleAfterDuration:completion:)(data, duration, v15, identifier, v17, id, provisionally, v14, v19);
-  sub_269525B8C(v14);
+  SRUIFMarkerCapableSpeechSynthesizer.enqueue(_:identifier:sessionId:provisionally:eligibleAfterDuration:completion:)(data, v15, identifier, v17, id, provisionally, v14, v19, duration);
+  sub_269525B8C(v14, v19);
+
+  id, v22, v23, v24, v25, v26, v27, v28;
+
+  identifier, v29, v30, v31, v32, v33, v34, v35;
 }
 
 - (void)enqueueText:(id)text identifier:(id)identifier sessionId:(id)id preferredVoice:(id)voice language:(id)language gender:(id)gender promptStyle:(id)style isPhonetic:(BOOL)self0 provisionally:(BOOL)self1 eligibleAfterDuration:(double)self2 delayed:(BOOL)self3 canUseServerTTS:(BOOL)self4 preparationIdentifier:(id)self5 completion:(id)self6 analyticsContext:(id)self7 speakableContextInfo:(id)self8
 {
-  v50 = _Block_copy(completion);
+  v113 = _Block_copy(completion);
   if (text)
   {
-    v56 = sub_269562BB0();
-    v59 = v26;
+    v119 = sub_269562BB0();
+    v122 = v26;
     if (identifier)
     {
       goto LABEL_3;
     }
 
 LABEL_6:
-    v55 = 0;
-    v58 = 0;
+    v118 = 0;
+    v121 = 0;
     if (id)
     {
       goto LABEL_4;
@@ -178,27 +200,27 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  v56 = 0;
-  v59 = 0;
+  v119 = 0;
+  v122 = 0;
   if (!identifier)
   {
     goto LABEL_6;
   }
 
 LABEL_3:
-  v55 = sub_269562BB0();
-  v58 = v27;
+  v118 = sub_269562BB0();
+  v121 = v27;
   if (id)
   {
 LABEL_4:
-    v53 = sub_269562BB0();
-    v57 = v28;
+    v116 = sub_269562BB0();
+    v120 = v28;
     goto LABEL_8;
   }
 
 LABEL_7:
-  v53 = 0;
-  v57 = 0;
+  v116 = 0;
+  v120 = 0;
 LABEL_8:
   voiceCopy = voice;
   languageCopy = language;
@@ -210,8 +232,8 @@ LABEL_8:
   selfCopy = self;
   if (languageCopy)
   {
-    v49 = sub_269562BB0();
-    v52 = v35;
+    v112 = sub_269562BB0();
+    v115 = v35;
 
     if (genderCopy)
     {
@@ -221,15 +243,15 @@ LABEL_8:
 
   else
   {
-    v49 = 0;
-    v52 = 0;
+    v112 = 0;
+    v115 = 0;
     if (genderCopy)
     {
 LABEL_10:
-      v48 = sub_269562BB0();
+      v111 = sub_269562BB0();
       v37 = v36;
 
-      v38 = v50;
+      v38 = v113;
       if (styleCopy)
       {
         goto LABEL_11;
@@ -239,9 +261,9 @@ LABEL_10:
     }
   }
 
-  v48 = 0;
+  v111 = 0;
   v37 = 0;
-  v38 = v50;
+  v38 = v113;
   if (styleCopy)
   {
 LABEL_11:
@@ -318,42 +340,53 @@ LABEL_15:
 LABEL_22:
   v47 = 0;
 LABEL_23:
-  SRUIFMarkerCapableSpeechSynthesizer.enqueueText(_:identifier:sessionId:preferredVoice:language:gender:promptStyle:isPhonetic:provisionally:eligibleAfterDuration:delayed:canUseServerTTS:preparationIdentifier:completion:analyticsContext:speakableContextInfo:)(v56, v59, v55, v58, v53, v57, voiceCopy, v49, duration, v52, v48, v37, v39, v41, phonetic, provisionally, delayed, s, v42, v44, v38, v45, v46, v47);
+  SRUIFMarkerCapableSpeechSynthesizer.enqueueText(_:identifier:sessionId:preferredVoice:language:gender:promptStyle:isPhonetic:provisionally:eligibleAfterDuration:delayed:canUseServerTTS:preparationIdentifier:completion:analyticsContext:speakableContextInfo:)(v119, v122, v118, v121, v116, v120, voiceCopy, v112, duration, v115, v111, v37, v39, v41, phonetic, provisionally, delayed, s, v42, v44, v38, v45, v46, v47);
+  v47, v48, v49, v50, v51, v52, v53, v54;
+  v46, v55, v56, v57, v58, v59, v60, v61;
+  sub_269525B8C(v38, v45);
 
-  sub_269525B8C(v38);
+  v44, v62, v63, v64, v65, v66, v67, v68;
+  v41, v69, v70, v71, v72, v73, v74, v75;
+  v37, v76, v77, v78, v79, v80, v81, v82;
+  v115, v83, v84, v85, v86, v87, v88, v89;
+  v120, v90, v91, v92, v93, v94, v95, v96;
+  v121, v97, v98, v99, v100, v101, v102, v103;
+
+  v122, v104, v105, v106, v107, v108, v109, v110;
 }
 
 - (void)speechSynthesisDidFinish:(id)finish withIdentifier:(id)identifier
 {
   v7 = sub_269562B00();
   v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
   MEMORY[0x28223BE20](v7);
-  v11 = v18 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = v24 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (identifier)
   {
     identifier = sub_269562BB0();
-    v13 = v12;
+    v12 = v11;
   }
 
   else
   {
-    v13 = 0;
+    v12 = 0;
   }
 
-  v18[0] = finish;
+  v24[0] = finish;
   selfCopy = self;
   queue = [(SRUIFMarkerCapableSpeechSynthesizer *)selfCopy queue];
   sub_269562AF0();
-  v16 = swift_allocObject();
-  v17 = swift_unknownObjectWeakInit();
-  MEMORY[0x28223BE20](v17);
-  v18[-4] = v16;
-  v18[-3] = finish;
-  v18[-2] = identifier;
-  v18[-1] = v13;
+  v15 = swift_allocObject();
+  v16 = swift_unknownObjectWeakInit();
+  MEMORY[0x28223BE20](v16);
+  v24[-4] = v15;
+  v24[-3] = finish;
+  v24[-2] = identifier;
+  v24[-1] = v12;
   sub_269562CE0();
-  (*(v8 + 8))(v11, v7);
+  (*(v8 + 8))(v10, v7);
+
+  v12, v17, v18, v19, v20, v21, v22, v23;
 }
 
 - (void)speechSynthesisDidStopSpeakingWithIdentifier:(id)identifier queueIsEmpty:(BOOL)empty
@@ -374,6 +407,8 @@ LABEL_23:
   v10.value._countAndFlagsBits = v6;
   v10.value._object = v8;
   SRUIFMarkerCapableSpeechSynthesizer.speechSynthesisDidStopSpeaking(withIdentifier:queueIsEmpty:)(v10, empty);
+
+  v8, v11, v12, v13, v14, v15, v16, v17;
 }
 
 - (void)speechSynthesisDidUpdatePowerLevelTo:(float)to
@@ -419,7 +454,9 @@ LABEL_3:
 LABEL_6:
   selfCopy = self;
   sub_26955E570(v8, identifier, v7, v10);
-  sub_269525B8C(v7);
+  sub_269525B8C(v7, v10);
+
+  identifier, v12, v13, v14, v15, v16, v17, v18;
 }
 
 - (void)speechSynthesisRequestsForceAudioSessionActiveWithCompletion:(id)completion
@@ -441,7 +478,7 @@ LABEL_6:
 
   selfCopy = self;
   SRUIFMarkerCapableSpeechSynthesizer.speechSynthesisRequestsForceAudioSessionActive(completion:)(v7, v6);
-  sub_269525B8C(v7);
+  sub_269525B8C(v7, v6);
 }
 
 - (SRUIFMarkerCapableSpeechSynthesizer)init

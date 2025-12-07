@@ -51,8 +51,8 @@
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_alloc(objc_opt_class());
-  home = [(HFRoomSuggestionItemProvider *)self home];
-  v6 = [v4 initWithHome:home];
+  v5 = objc_msgSend_home(self);
+  v6 = [v4 initWithHome:v5];
 
   return v6;
 }
@@ -161,7 +161,7 @@ HFRoomBuilderItem *__43__HFRoomSuggestionItemProvider_reloadItems__block_invoke_
   if (!v4)
   {
     v5 = [HFRoomBuilder alloc];
-    v6 = [*(a1 + 40) home];
+    v6 = objc_msgSend_home(*(a1 + 40));
     v4 = [(HFItemBuilder *)v5 initWithHome:v6];
 
     [(HFRoomBuilder *)v4 setName:v3];
@@ -229,7 +229,7 @@ uint64_t __52__HFRoomSuggestionItemProvider__filteredSuggestions__block_invoke(u
   v8 = [v7 na_map:v21];
 
   v9 = MEMORY[0x277CBEB58];
-  v10 = [*(a1 + 32) home];
+  v10 = objc_msgSend_home(*(a1 + 32));
   v11 = [v10 rooms];
   v12 = [v11 na_map:&__block_literal_global_31_7];
   v13 = [v9 setWithArray:v12];

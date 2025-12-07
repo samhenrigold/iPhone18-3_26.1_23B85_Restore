@@ -19,7 +19,7 @@
   if (v6)
   {
     objc_storeStrong(&v6->_source, source);
-    v8 = objc_alloc_init(getMKMapServiceClass[0]());
+    v8 = objc_alloc_init(getMKMapServiceClass());
     service = v7->_service;
     v7->_service = v8;
 
@@ -133,9 +133,9 @@ void __53__PKMerchantLookupRequest_startLookupWithCompletion___block_invoke_2(ui
   v6 = a3;
   v7 = [v6 domain];
   v8 = GEOErrorDomain();
-  v9 = [v7 isEqualToString:v8];
+  isEqualToString = objc_msgSend_isEqualToString_(v7);
 
-  if (v9)
+  if (isEqualToString)
   {
     v10 = [v6 code];
   }
@@ -244,8 +244,8 @@ void __53__PKMerchantLookupRequest_startLookupWithCompletion___block_invoke_33(u
     aBlock[1] = 3221225472;
     aBlock[2] = __74__PKMerchantLookupRequest__mapsDataWithResponse_searchMapItem_completion___block_invoke;
     aBlock[3] = &unk_1E79D86D0;
-    v50 = v13;
-    v49 = completionCopy;
+    v52 = v13;
+    v51 = completionCopy;
     v14 = _Block_copy(aBlock);
     if (responseCopy)
     {
@@ -267,27 +267,27 @@ void __53__PKMerchantLookupRequest_startLookupWithCompletion___block_invoke_33(u
       goto LABEL_27;
     }
 
-    v37 = v16;
-    v36 = mapsCategoryIdentifier;
+    v39 = v16;
+    v38 = mapsCategoryIdentifier;
     if ([mapItem _isMapItemTypeBrand])
     {
       v18 = [(PKMerchantLookupRequest *)self _brandFromMapItem:mapItem];
       [v18 setCategory:v13];
-      [v18 setDetailedCategory:mapsCategoryIdentifier];
+      v19 = [v18 setDetailedCategory:mapsCategoryIdentifier];
       if (responseCopy)
       {
         placeStyling = [responseCopy placeStyling];
         if (!placeStyling)
         {
 LABEL_14:
-          [v18 setHeroImageURL:v37];
+          [v18 setHeroImageURL:v39];
           [v18 setHeroImageAttributionName:v17];
           date = [MEMORY[0x1E695DF00] date];
           [v18 setLastProcessedDate:date];
 
           (*(v14 + 2))(v14, 1, 0, 0, v18, 0);
-          v16 = v37;
-          mapsCategoryIdentifier = v36;
+          v16 = v39;
+          mapsCategoryIdentifier = v38;
 LABEL_27:
 
           goto LABEL_28;
@@ -296,9 +296,9 @@ LABEL_27:
 
       else
       {
-        v29 = objc_alloc(getMKWalletMerchantStylingInfoClass_0[0]());
+        v31 = objc_alloc(getMKWalletMerchantStylingInfoClass_0(v19));
         _walletPlaceStyling = [_geoMapItem _walletPlaceStyling];
-        placeStyling = [v29 initWithStyleAttributes:_walletPlaceStyling];
+        placeStyling = [v31 initWithStyleAttributes:_walletPlaceStyling];
 
         if (!placeStyling)
         {
@@ -306,78 +306,78 @@ LABEL_27:
         }
       }
 
-      v20 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:placeStyling requiringSecureCoding:1 error:0];
-      [v18 setStylingInfoData:v20];
+      v21 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:placeStyling requiringSecureCoding:1 error:0];
+      [v18 setStylingInfoData:v21];
 
       goto LABEL_14;
     }
 
-    v35 = v14;
+    v37 = v14;
     placemark = [mapItem placemark];
-    v22 = [(PKMerchantLookupRequest *)self _merchantFromMapItem:mapItem];
-    [v22 setCategory:v13];
-    [v22 setDetailedCategory:mapsCategoryIdentifier];
+    v23 = [(PKMerchantLookupRequest *)self _merchantFromMapItem:mapItem];
+    [v23 setCategory:v13];
+    v24 = [v23 setDetailedCategory:mapsCategoryIdentifier];
     if (responseCopy)
     {
       placeStyling2 = [responseCopy placeStyling];
       if (!placeStyling2)
       {
 LABEL_19:
-        [v22 setHeroImageURL:v37];
-        [v22 setHeroImageAttributionName:v17];
+        [v23 setHeroImageURL:v39];
+        [v23 setHeroImageAttributionName:v17];
         date2 = [MEMORY[0x1E695DF00] date];
-        [v22 setLastProcessedDate:date2];
+        [v23 setLastProcessedDate:date2];
 
         _brandMUID = [mapItem _brandMUID];
         if (_brandMUID)
         {
-          v27 = _brandMUID;
-          v39[0] = MEMORY[0x1E69E9820];
-          v39[1] = 3221225472;
-          v39[2] = __74__PKMerchantLookupRequest__mapsDataWithResponse_searchMapItem_completion___block_invoke_2;
-          v39[3] = &unk_1E79D86F8;
-          v39[4] = self;
-          v47 = v13;
-          v40 = v36;
-          v41 = responseCopy;
-          v42 = _geoMapItem;
-          v43 = mapItem;
-          v46 = v35;
-          v28 = placemark;
-          v44 = placemark;
-          v45 = v22;
-          [(PKMerchantLookupRequest *)self _mapItemBrandWithMUID:v27 completion:v39];
+          v29 = _brandMUID;
+          v41[0] = MEMORY[0x1E69E9820];
+          v41[1] = 3221225472;
+          v41[2] = __74__PKMerchantLookupRequest__mapsDataWithResponse_searchMapItem_completion___block_invoke_2;
+          v41[3] = &unk_1E79D86F8;
+          v41[4] = self;
+          v49 = v13;
+          v42 = v38;
+          v43 = responseCopy;
+          v44 = _geoMapItem;
+          v45 = mapItem;
+          v48 = v37;
+          v30 = placemark;
+          v46 = placemark;
+          v47 = v23;
+          [(PKMerchantLookupRequest *)self _mapItemBrandWithMUID:v29 completion:v41];
         }
 
         else
         {
-          v28 = placemark;
-          (v35)[2](v35, 1, placemark, v22, 0, 0);
+          v30 = placemark;
+          (v37)[2](v37, 1, placemark, v23, 0, 0);
         }
 
-        mapsCategoryIdentifier = v36;
-        v16 = v37;
-        v14 = v35;
+        mapsCategoryIdentifier = v38;
+        v16 = v39;
+        v14 = v37;
         goto LABEL_27;
       }
     }
 
     else
     {
-      v31 = objc_alloc(getMKWalletMerchantStylingInfoClass_0[0]());
+      v33 = objc_alloc(getMKWalletMerchantStylingInfoClass_0(v24));
       [_geoMapItem _walletPlaceStyling];
-      v32 = v33 = v17;
-      placeStyling2 = [v31 initWithStyleAttributes:v32];
+      v34 = v35 = v17;
+      placeStyling2 = [v33 initWithStyleAttributes:v34];
 
-      v17 = v33;
+      v17 = v35;
       if (!placeStyling2)
       {
         goto LABEL_19;
       }
     }
 
-    v24 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:placeStyling2 requiringSecureCoding:1 error:0];
-    [v22 setStylingInfoData:v24];
+    v26 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:placeStyling2 requiringSecureCoding:1 error:0];
+    [v23 setStylingInfoData:v26];
 
     goto LABEL_19;
   }
@@ -427,7 +427,7 @@ void __74__PKMerchantLookupRequest__mapsDataWithResponse_searchMapItem_completio
   v5 = *(a1 + 48);
   if (!v5)
   {
-    v11 = objc_alloc(getMKWalletMerchantStylingInfoClass_0[0]());
+    v11 = objc_alloc(getMKWalletMerchantStylingInfoClass_0(0));
     v12 = [*(a1 + 56) _walletPlaceStyling];
     v6 = [v11 initWithStyleAttributes:v12];
 

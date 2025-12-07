@@ -1,6 +1,7 @@
 @interface NTKSiderealAuxiliaryDialLabels
 - (NTKSiderealAuxiliaryDialLabels)initWithFrame:(CGRect)frame device:(id)device;
 - (id)_curvedLabel;
+- (void)_layoutLabel:(id)label text:(id)text monospaced:(BOOL)monospaced offset:(CGPoint)offset useCache:(BOOL)cache;
 - (void)_layoutTopLabel;
 - (void)_setFontSize:(double)size monospaced:(BOOL)monospaced offset:(CGPoint)offset onLabel:(id)label;
 - (void)applyTransitionFraction:(double)fraction;
@@ -170,6 +171,83 @@
   v6 = v9;
 
   [(NTKSiderealAuxiliaryDialLabels *)self _layoutLabel:topLabel text:topText monospaced:0 offset:1 useCache:v5, v6];
+}
+
+- (void)_layoutLabel:(id)label text:(id)text monospaced:(BOOL)monospaced offset:(CGPoint)offset useCache:(BOOL)cache
+{
+  cacheCopy = cache;
+  y = offset.y;
+  x = offset.x;
+  monospacedCopy = monospaced;
+  labelCopy = label;
+  textCopy = text;
+  v14 = [CLKSimpleTextProvider textProviderWithText:textCopy];
+  [labelCopy setTextProvider:v14];
+
+  v15 = [(NSMutableDictionary *)self->_fontSizeCache objectForKey:textCopy];
+  v16 = v15;
+  if (cacheCopy && v15)
+  {
+    [v15 floatValue];
+    [(NTKSiderealAuxiliaryDialLabels *)self _setFontSize:monospacedCopy monospaced:labelCopy offset:v17 onLabel:x, y];
+  }
+
+  else
+  {
+    sub_BF58(self->_device, v29);
+    v18 = v30;
+    sub_BF58(self->_device, v27);
+    v19 = v28;
+    [(NTKSiderealAuxiliaryDialLabels *)self _setFontSize:monospacedCopy monospaced:labelCopy offset:v18 onLabel:x, y];
+    if ([labelCopy isTextTruncated])
+    {
+      if (v18 - v19 <= 1.0)
+      {
+        v22 = labelCopy;
+      }
+
+      else
+      {
+        do
+        {
+          v20 = (v18 + v19) * 0.5;
+          [(NTKSiderealAuxiliaryDialLabels *)self _setFontSize:monospacedCopy monospaced:labelCopy offset:v20 onLabel:x, y];
+          isTextTruncated = [labelCopy isTextTruncated];
+          v22 = labelCopy;
+          if (isTextTruncated)
+          {
+            v18 = (v18 + v19) * 0.5;
+          }
+
+          else
+          {
+            v19 = v20;
+          }
+        }
+
+        while (v18 - v19 > 1.0);
+      }
+
+      v23 = v19;
+      [(NTKSiderealAuxiliaryDialLabels *)self _setFontSize:monospacedCopy monospaced:v22 offset:ceilf(v23) onLabel:x, y];
+      if ([labelCopy isTextTruncated])
+      {
+        [(NTKSiderealAuxiliaryDialLabels *)self _setFontSize:monospacedCopy monospaced:labelCopy offset:floorf(v23) onLabel:x, y];
+      }
+    }
+
+    else
+    {
+      v19 = v18;
+    }
+
+    if (cacheCopy)
+    {
+      fontSizeCache = self->_fontSizeCache;
+      v25 = [NSNumber numberWithDouble:v19];
+      [(NSMutableDictionary *)fontSizeCache setValue:v25 forKey:textCopy];
+    }
+  }
 }
 
 - (void)_setFontSize:(double)size monospaced:(BOOL)monospaced offset:(CGPoint)offset onLabel:(id)label

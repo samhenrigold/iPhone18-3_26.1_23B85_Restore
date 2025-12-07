@@ -12,7 +12,7 @@
 - (BOOL)hf_isMultiServiceAccessory;
 - (BOOL)hf_isSingleSensorAccessory;
 - (BOOL)hf_isSprinkler;
-- (id)_hf_categoryType;
+- (__CFString)_hf_categoryType;
 - (id)hf_allConnectedHomeToCHIPAccessoryPairingFuture;
 - (id)hf_bridgedAccessories;
 - (id)hf_categoryOrPrimaryServiceType;
@@ -54,36 +54,36 @@
 - (uint64_t)hf_isIdentifiable;
 - (uint64_t)hf_isMatterOnlyAccessory;
 - (uint64_t)hf_isNetworkRouter;
-- (uint64_t)hf_isNetworkRouterSatellite;
 - (uint64_t)hf_isNonServiceBasedAccessory;
 - (uint64_t)hf_isNotificationSupportedCamera;
 - (uint64_t)hf_isPowerStrip;
 - (uint64_t)hf_isProgrammableSwitch;
 - (uint64_t)hf_isPureBridge;
-- (uint64_t)hf_isPureProgrammableSwitch;
 - (uint64_t)hf_isRemoteControl;
 - (uint64_t)hf_isRestrictedGuestAllowedAccessory;
 - (uint64_t)hf_isSensorAccessory;
 - (uint64_t)hf_isSingleServiceAccessory;
-- (uint64_t)hf_isSingleServiceLikeAccessory;
 - (uint64_t)hf_isSupportedAccessory;
 - (uint64_t)hf_isSuspended;
 - (uint64_t)hf_isTelevision;
 - (uint64_t)hf_isVisibleAccessory;
 - (uint64_t)hf_isVisibleAsBridge;
-- (uint64_t)hf_isVisibleAsBridgedAccessory;
 - (uint64_t)hf_needsOnboarding;
 - (uint64_t)hf_needsReprovisioningCheck;
 - (uint64_t)hf_numberOfProgrammableSwitches;
 - (uint64_t)hf_requiresFirmwareUpdate;
 - (uint64_t)hf_shouldHideNearbyAccessoryService:()HFAdditions;
 - (uint64_t)hf_shouldSeparateAccessoryName;
-- (uint64_t)hf_shouldShowPresetConfiguration;
 - (uint64_t)hf_showAsAccessoryTile;
-- (uint64_t)hf_showAsIndividualServices;
 - (uint64_t)hf_showsAsAccessoryInControlCentre;
 - (uint64_t)hf_supportsSuspendedState;
+- (void)hf_isNetworkRouterSatellite;
+- (void)hf_isPureProgrammableSwitch;
+- (void)hf_isSingleServiceLikeAccessory;
+- (void)hf_isVisibleAsBridgedAccessory;
 - (void)hf_onboardSiriEndpointIfNeededWithSettingKeyPath:()HFAdditions settingValue:;
+- (void)hf_shouldShowPresetConfiguration;
+- (void)hf_showAsIndividualServices;
 - (void)hf_siriEndpointProfile;
 @end
 
@@ -112,18 +112,18 @@
 
 - (uint64_t)hf_isSuspended
 {
-  v2 = objc_opt_class();
+  v3 = objc_opt_class();
   suspendedState = [self suspendedState];
 
-  return [v2 hf_isSuspendedStateSuspended:suspendedState];
+  return [v3 hf_isSuspendedStateSuspended:suspendedState];
 }
 
 - (uint64_t)hf_supportsSuspendedState
 {
-  v2 = objc_opt_class();
+  v3 = objc_opt_class();
   suspendedState = [self suspendedState];
 
-  return [v2 hf_isSuspendedStateSupported:suspendedState];
+  return [v3 hf_isSuspendedStateSupported:suspendedState];
 }
 
 - (uint64_t)hf_canSyncExternalSettings
@@ -190,7 +190,7 @@
   return v3;
 }
 
-- (uint64_t)hf_isPureProgrammableSwitch
+- (void)hf_isPureProgrammableSwitch
 {
   result = [self hf_isProgrammableSwitch];
   if (result)
@@ -214,12 +214,12 @@
   return [self hf_isPureBridge];
 }
 
-- (uint64_t)hf_isVisibleAsBridgedAccessory
+- (void)hf_isVisibleAsBridgedAccessory
 {
   result = [self isBridged];
   if (result)
   {
-    return [self hf_isNetworkRouterSatellite] ^ 1;
+    return ([self hf_isNetworkRouterSatellite] ^ 1);
   }
 
   return result;
@@ -316,7 +316,7 @@
   return v4;
 }
 
-- (uint64_t)hf_isNetworkRouterSatellite
+- (void)hf_isNetworkRouterSatellite
 {
   result = [self hf_isNetworkRouter];
   if (result)
@@ -487,12 +487,12 @@
   return v3;
 }
 
-- (uint64_t)hf_isSingleServiceLikeAccessory
+- (void)hf_isSingleServiceLikeAccessory
 {
   result = [self hf_isSingleServiceAccessory];
   if (result)
   {
-    return [self hf_isCategorizedAsBridge] ^ 1;
+    return ([self hf_isCategorizedAsBridge] ^ 1);
   }
 
   return result;
@@ -514,21 +514,18 @@
   }
 
   siriEndpointProfile = [self siriEndpointProfile];
-  if (!siriEndpointProfile)
+  if (siriEndpointProfile)
   {
-    goto LABEL_4;
+    v3 = siriEndpointProfile;
+    category = [self category];
+    hf_isMediaAccessory = [category hf_isMediaAccessory];
+
+    if (!hf_isMediaAccessory)
+    {
+      return 0;
+    }
   }
 
-  v3 = siriEndpointProfile;
-  category = [self category];
-  hf_isMediaAccessory = [category hf_isMediaAccessory];
-
-  if (!hf_isMediaAccessory)
-  {
-    return 0;
-  }
-
-LABEL_4:
   hf_visibleServices = [self hf_visibleServices];
   v7 = [hf_visibleServices na_filter:&__block_literal_global_31_3];
 
@@ -578,15 +575,15 @@ LABEL_4:
 
 - (uint64_t)hf_isRestrictedGuestAllowedAccessory
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   hf_primaryService = [self hf_primaryService];
   serviceType = [hf_primaryService serviceType];
 
   if (serviceType)
   {
     v3 = MEMORY[0x277CD1D80];
-    v8[0] = serviceType;
-    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+    v7[0] = serviceType;
+    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
     v5 = [v3 doesAccessoryHaveRestrictedGuestCapableServiceTypes:v4];
   }
 
@@ -595,7 +592,6 @@ LABEL_4:
     v5 = 0;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -680,7 +676,7 @@ LABEL_4:
   }
 }
 
-- (uint64_t)hf_showAsIndividualServices
+- (void)hf_showAsIndividualServices
 {
   result = [self hf_canShowAsIndividualServices];
   if (result)
@@ -782,8 +778,8 @@ LABEL_4:
 
   if (device)
   {
-    home = [self home];
-    residentDevices = [home residentDevices];
+    v3 = objc_msgSend_home(self);
+    residentDevices = [v3 residentDevices];
     v7[0] = MEMORY[0x277D85DD0];
     v7[1] = 3221225472;
     v7[2] = __51__HMAccessory_HFAdditions__hf_linkedResidentDevice__block_invoke;
@@ -1056,8 +1052,8 @@ LABEL_4:
   uniqueIdentifiersForBridgedAccessories = [self uniqueIdentifiersForBridgedAccessories];
   v4 = [v2 setWithArray:uniqueIdentifiersForBridgedAccessories];
 
-  home = [self home];
-  accessories = [home accessories];
+  v5 = objc_msgSend_home(self);
+  accessories = [v5 accessories];
   v10[0] = MEMORY[0x277D85DD0];
   v10[1] = 3221225472;
   v10[2] = __49__HMAccessory_HFAdditions__hf_bridgedAccessories__block_invoke;
@@ -1115,8 +1111,8 @@ LABEL_4:
     return 0;
   }
 
-  home = [self home];
-  if ([home hf_isUserAtHome])
+  v2 = objc_msgSend_home(self);
+  if ([v2 hf_isUserAtHome])
   {
     v3 = [self transportTypes] & 1;
   }
@@ -1226,7 +1222,7 @@ LABEL_4:
   return _hf_categoryType;
 }
 
-- (id)_hf_categoryType
+- (__CFString)_hf_categoryType
 {
   category = [self category];
   categoryType = [category categoryType];
@@ -1302,15 +1298,15 @@ LABEL_12:
 
 + (uint64_t)hf_isSuspendedStateSuspended:()HFAdditions
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (a3 >= 4)
   {
     v5 = HFLogForCategory(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v8 = 134217984;
-      v9 = a3;
-      _os_log_error_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_ERROR, "Unknown HMAccessorySuspendedState %lu", &v8, 0xCu);
+      v7 = 134217984;
+      v8 = a3;
+      _os_log_error_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_ERROR, "Unknown HMAccessorySuspendedState %lu", &v7, 0xCu);
     }
 
     LOBYTE(v4) = 0;
@@ -1321,21 +1317,20 @@ LABEL_12:
     v4 = 0xCu >> (a3 & 0xF);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v4 & 1;
 }
 
 + (uint64_t)hf_isSuspendedStateSupported:()HFAdditions
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (a3 >= 4)
   {
     v5 = HFLogForCategory(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v8 = 134217984;
-      v9 = a3;
-      _os_log_error_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_ERROR, "Unknown HMAccessorySuspendedState %lu", &v8, 0xCu);
+      v7 = 134217984;
+      v8 = a3;
+      _os_log_error_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_ERROR, "Unknown HMAccessorySuspendedState %lu", &v7, 0xCu);
     }
 
     LOBYTE(v4) = 1;
@@ -1346,7 +1341,6 @@ LABEL_12:
     v4 = 0xEu >> (a3 & 0xF);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v4 & 1;
 }
 
@@ -1382,7 +1376,7 @@ LABEL_12:
 
 - (id)hf_errorForCurrentSessionState
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   hf_needsOnboarding = [self hf_needsOnboarding];
   if ((hf_needsOnboarding & 1) != 0 || ([self hf_siriEndpointProfile], v3 = objc_claimAutoreleasedReturnValue(), v4 = objc_msgSend(v3, "supportsOnboarding"), v3, !v4))
   {
@@ -1400,15 +1394,15 @@ LABEL_12:
   {
     v8 = hf_needsOnboarding ^ 1;
     hf_siriEndpointProfile2 = [self hf_siriEndpointProfile];
-    v14[0] = 67109890;
-    v14[1] = v8;
-    v15 = 1024;
+    v13[0] = 67109890;
+    v13[1] = v8;
+    v14 = 1024;
     supportsOnboarding = [hf_siriEndpointProfile2 supportsOnboarding];
-    v17 = 2112;
+    v16 = 2112;
     selfCopy = self;
-    v19 = 2048;
-    v20 = sessionState;
-    _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, "accessoryIsOnboarded %{BOOL}d supportsOnBoarding %{BOOL}d sessionState from accessory [%@] = %ld", v14, 0x22u);
+    v18 = 2048;
+    v19 = sessionState;
+    _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, "accessoryIsOnboarded %{BOOL}d supportsOnBoarding %{BOOL}d sessionState from accessory [%@] = %ld", v13, 0x22u);
   }
 
   switch(sessionState)
@@ -1428,14 +1422,13 @@ LABEL_13:
 
   v11 = 0;
 LABEL_15:
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 - (void)hf_onboardSiriEndpointIfNeededWithSettingKeyPath:()HFAdditions settingValue:
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = a4;
   hf_siriEndpointProfile = [self hf_siriEndpointProfile];
@@ -1531,23 +1524,21 @@ LABEL_15:
   {
     hf_needsOnboarding = [self hf_needsOnboarding];
     hf_siriEndpointProfile4 = [self hf_siriEndpointProfile];
-    v22 = 138412802;
+    v21 = 138412802;
     selfCopy = self;
-    v24 = 1024;
-    v25 = hf_needsOnboarding;
-    v26 = 1024;
+    v23 = 1024;
+    v24 = hf_needsOnboarding;
+    v25 = 1024;
     supportsOnboarding2 = [hf_siriEndpointProfile4 supportsOnboarding];
-    _os_log_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_DEFAULT, "NOT Implicitly Onboarding accessory:[%@], hf_needsOnboarding = %{BOOL}d, supportsOnboarding = %{BOOL}d", &v22, 0x18u);
+    _os_log_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_DEFAULT, "NOT Implicitly Onboarding accessory:[%@], hf_needsOnboarding = %{BOOL}d, supportsOnboarding = %{BOOL}d", &v21, 0x18u);
   }
 
 LABEL_38:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (uint64_t)hf_shouldHideNearbyAccessoryService:()HFAdditions
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v4 = a3;
   accessory = [v4 accessory];
   if ([accessory hf_isFirstPartyAccessory])
@@ -1560,11 +1551,11 @@ LABEL_38:
     v7 = HFLogForCategory(0x33uLL);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      v14 = 138412546;
-      v15 = accessory;
-      v16 = 2112;
-      v17 = v4;
-      _os_log_debug_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEBUG, "Camera-associated filtering for camera:%@ services:%@", &v14, 0x16u);
+      v13 = 138412546;
+      v14 = accessory;
+      v15 = 2112;
+      v16 = v4;
+      _os_log_debug_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEBUG, "Camera-associated filtering for camera:%@ services:%@", &v13, 0x16u);
     }
 
     hf_isInGroup = [v4 hf_isDisplayableSensor] ^ 1;
@@ -1572,7 +1563,7 @@ LABEL_38:
 
   else
   {
-    if ([accessory hf_isCamera] & 1) != 0 || (objc_msgSend(v4, "serviceType"), v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v10, "isEqual:", *MEMORY[0x277CD0EC0]), v10, (v11))
+    if ([accessory hf_isCamera] & 1) != 0 || (objc_msgSend(v4, "serviceType"), v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v9, "isEqual:", *MEMORY[0x277CD0EC0]), v9, (v10))
     {
 LABEL_2:
       hf_isInGroup = 1;
@@ -1580,9 +1571,9 @@ LABEL_2:
     }
 
     serviceType = [v4 serviceType];
-    v13 = [serviceType isEqualToString:*MEMORY[0x277CD0ED8]];
+    v12 = [serviceType isEqualToString:*MEMORY[0x277CD0ED8]];
 
-    if (v13)
+    if (v12)
     {
       hf_isInGroup = 0;
     }
@@ -1595,7 +1586,6 @@ LABEL_2:
 
 LABEL_7:
 
-  v8 = *MEMORY[0x277D85DE8];
   return hf_isInGroup;
 }
 
@@ -1646,7 +1636,7 @@ LABEL_7:
   return v5;
 }
 
-- (uint64_t)hf_shouldShowPresetConfiguration
+- (void)hf_shouldShowPresetConfiguration
 {
   result = [self supportsAdaptiveTemperatureAutomations];
   if (result)

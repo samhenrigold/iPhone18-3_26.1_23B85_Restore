@@ -70,58 +70,56 @@ void __35__IKJSNavigationDocument_documents__block_invoke(uint64_t a1)
 
 - (void)setDocuments:(id)documents :(id)a4
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   documentsCopy = documents;
   v7 = a4;
   if (self->_delegateSelectors.hasSetDocuments)
   {
     v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
     v9 = documentsCopy;
-    v10 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v22;
+      v12 = *v21;
       do
       {
         v13 = 0;
         do
         {
-          if (*v22 != v12)
+          if (*v21 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = [(IKJSNavigationDocument *)self _makeAppDocumentWithDocument:*(*(&v21 + 1) + 8 * v13)];
+          v14 = [(IKJSNavigationDocument *)self _makeAppDocumentWithDocument:*(*(&v20 + 1) + 8 * v13)];
           [v8 addObject:v14];
 
           ++v13;
         }
 
         while (v11 != v13);
-        v11 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v11);
     }
 
     appContext = [(IKJSObject *)self appContext];
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __40__IKJSNavigationDocument_setDocuments::__block_invoke;
-    v18[3] = &unk_279799B40;
-    v18[4] = self;
-    v19 = v8;
-    v20 = v7;
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __40__IKJSNavigationDocument_setDocuments::__block_invoke;
+    v17[3] = &unk_279799B40;
+    v17[4] = self;
+    v18 = v8;
+    v19 = v7;
     v16 = v8;
-    [appContext evaluateDelegateBlockSync:v18];
+    [appContext evaluateDelegateBlockSync:v17];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __40__IKJSNavigationDocument_setDocuments::__block_invoke(uint64_t a1)
@@ -277,30 +275,30 @@ void __38__IKJSNavigationDocument_dismissModal__block_invoke(uint64_t a1)
 
 void __49__IKJSNavigationDocument_insertBeforeDocument_::__block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) navigationControllerDelegate];
   v3 = [v2 documents];
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v4 = v3;
-  v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
 LABEL_3:
     v8 = 0;
     while (1)
     {
-      if (*v17 != v7)
+      if (*v16 != v7)
       {
         objc_enumerationMutation(v4);
       }
 
-      v9 = *(*(&v16 + 1) + 8 * v8);
+      v9 = *(*(&v15 + 1) + 8 * v8);
       v10 = [v9 jsDocument];
       v11 = [v10 isEqual:*(a1 + 40)];
 
@@ -311,7 +309,7 @@ LABEL_3:
 
       if (v6 == ++v8)
       {
-        v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
         if (v6)
         {
           goto LABEL_3;
@@ -341,8 +339,6 @@ LABEL_12:
     v12 = *(v14 + 40);
     *(v14 + 40) = @"Before document not found on stack";
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)replaceDocument:(id)document :(id)a4 :(id)a5
@@ -399,30 +395,30 @@ LABEL_12:
 
 void __44__IKJSNavigationDocument_replaceDocument_::__block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) navigationControllerDelegate];
   v3 = [v2 documents];
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v4 = v3;
-  v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
 LABEL_3:
     v8 = 0;
     while (1)
     {
-      if (*v17 != v7)
+      if (*v16 != v7)
       {
         objc_enumerationMutation(v4);
       }
 
-      v9 = *(*(&v16 + 1) + 8 * v8);
+      v9 = *(*(&v15 + 1) + 8 * v8);
       v10 = [v9 jsDocument];
       v11 = [v10 isEqual:*(a1 + 40)];
 
@@ -433,7 +429,7 @@ LABEL_3:
 
       if (v6 == ++v8)
       {
-        v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
         if (v6)
         {
           goto LABEL_3;
@@ -463,8 +459,6 @@ LABEL_12:
     v12 = *(v14 + 40);
     *(v14 + 40) = @"Document not found on stack";
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)popDocument
@@ -500,31 +494,31 @@ void __37__IKJSNavigationDocument_popDocument__block_invoke(uint64_t a1)
 
 void __40__IKJSNavigationDocument_popToDocument___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) navigationControllerDelegate];
   v3 = [v2 documents];
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v4 = v3;
-  v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
   v6 = v4;
   if (v5)
   {
     v7 = v5;
-    v8 = *v16;
+    v8 = *v15;
 LABEL_3:
     v9 = 0;
     while (1)
     {
-      if (*v16 != v8)
+      if (*v15 != v8)
       {
         objc_enumerationMutation(v4);
       }
 
-      v10 = *(*(&v15 + 1) + 8 * v9);
+      v10 = *(*(&v14 + 1) + 8 * v9);
       v11 = [v10 jsDocument];
       v12 = [v11 isEqual:*(a1 + 40)];
 
@@ -535,7 +529,7 @@ LABEL_3:
 
       if (v7 == ++v9)
       {
-        v7 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v7 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
         if (v7)
         {
           goto LABEL_3;
@@ -560,7 +554,6 @@ LABEL_3:
 LABEL_12:
 
 LABEL_13:
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)popToRootDocument
@@ -611,30 +604,30 @@ void __43__IKJSNavigationDocument_popToRootDocument__block_invoke(uint64_t a1)
 
 void __41__IKJSNavigationDocument_removeDocument___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) navigationControllerDelegate];
   v3 = [v2 documents];
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v4 = v3;
-  v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
 LABEL_3:
     v8 = 0;
     while (1)
     {
-      if (*v17 != v7)
+      if (*v16 != v7)
       {
         objc_enumerationMutation(v4);
       }
 
-      v9 = *(*(&v16 + 1) + 8 * v8);
+      v9 = *(*(&v15 + 1) + 8 * v8);
       v10 = [v9 jsDocument];
       v11 = [v10 isEqual:*(a1 + 40)];
 
@@ -645,7 +638,7 @@ LABEL_3:
 
       if (v6 == ++v8)
       {
-        v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
         if (v6)
         {
           goto LABEL_3;
@@ -675,8 +668,6 @@ LABEL_12:
     v12 = *(v14 + 40);
     *(v14 + 40) = @"Document not found on stack";
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clear

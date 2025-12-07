@@ -6,16 +6,16 @@ void sub_100001C60(uint64_t a1)
   dispatch_async(&_dispatch_main_q, &stru_100028730);
 }
 
-void sub_100002010(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100002010(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_100002318(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_100002318(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -26,42 +26,43 @@ void sub_1000023AC(uint64_t a1)
   [v1 deactivate];
 }
 
-void sub_1000028BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1000028BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-id sub_1000028D4()
+id sub_1000028D4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v0 = off_100031890;
-  v8 = off_100031890;
+  v10 = 0;
+  v11 = &v10;
+  v12 = 0x2020000000;
+  v4 = off_100031890;
+  v13 = off_100031890;
   if (!off_100031890)
   {
-    v1 = sub_100002AC0();
-    v6[3] = dlsym(v1, "CACLogAccessibility");
-    off_100031890 = v6[3];
-    v0 = v6[3];
+    v5 = sub_100002AC0();
+    v11[3] = dlsym(v5, "CACLogAccessibility");
+    off_100031890 = v11[3];
+    v4 = v11[3];
   }
 
-  _Block_object_dispose(&v5, 8);
-  if (!v0)
+  _Block_object_dispose(&v10, 8);
+  if (!v4)
   {
-    v4 = sub_100012D7C();
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    sub_100012D7C();
+    v9 = v8;
+    _Block_object_dispose(&v10, 8);
+    _Unwind_Resume(v9);
   }
 
-  v2 = v0();
+  v6 = v4();
 
-  return v2;
+  return v6;
 }
 
-Class sub_100002A68(uint64_t a1)
+Class sub_100002A68(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   sub_100002AC0();
   result = objc_getClass("CACCustomCommandEditorViewController");
@@ -99,7 +100,7 @@ uint64_t sub_100002AC0()
   v1 = v3[0];
   if (!qword_100031870)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     goto LABEL_7;
   }
 
@@ -114,7 +115,6 @@ LABEL_7:
 
 uint64_t sub_100002BC0(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100031870 = result;
   return result;
@@ -199,16 +199,18 @@ void sub_100002DE8(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
   _os_log_error_impl(a1, log, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-void sub_100003C90(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100003C90(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, v9, OS_LOG_TYPE_FAULT, a4, &a9, 0xCu);
+  _os_log_fault_impl(a1, v8, OS_LOG_TYPE_FAULT, a4, va, 0xCu);
 }
 
-void sub_100003CB0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100003CB0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0x20u);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0x20u);
 }
 
 uint64_t start(int a1, char **a2)
@@ -222,9 +224,9 @@ uint64_t start(int a1, char **a2)
   return v7;
 }
 
-void sub_100004540(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100004540(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -284,7 +286,7 @@ void sub_100004B9C()
   v0 = v1[0];
   if (!qword_1000318A8)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
@@ -297,7 +299,6 @@ LABEL_7:
 
 uint64_t sub_100004C98(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_1000318A8 = result;
   return result;
@@ -315,7 +316,7 @@ VOTQuickSettingsListViewController *sub_100004D0C(uint64_t a1)
 
   else
   {
-    v3 = sub_1000133BC();
+    sub_1000133BC();
     return [(VOTQuickSettingsListViewController *)v3 initWithNibName:v4 bundle:v5, v6];
   }
 
@@ -387,11 +388,12 @@ void sub_100006804(uint64_t a1)
   dispatch_async(&_dispatch_main_q, &stru_1000288B8);
 }
 
-void sub_100006FF8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id location, char a27)
+void sub_100006FF8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id location, ...)
 {
+  va_start(va, location);
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a27, 8);
-  _Block_object_dispose((v27 - 128), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v26 - 128), 8);
   _Unwind_Resume(a1);
 }
 
@@ -466,27 +468,26 @@ void sub_100007334(uint64_t a1, void *a2)
 {
   v3 = a2;
   +[NSDate timeIntervalSinceReferenceDate];
-  v5 = v4;
-  v6 = VOTLogImageExplorer();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v4 = VOTLogImageExplorer();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     sub_100013AFC();
   }
 
-  v7 = VOTLogImageExplorer();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v5 = VOTLogImageExplorer();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    sub_100013B98(a1, v5);
+    sub_100013B98(a1);
   }
 
-  v8 = UIAccessibilityAnnouncementNotification;
-  v9 = sub_10000CCD4(@"VoiceOverImageExplorer.image.and.features.updated");
-  UIAccessibilityPostNotification(v8, v9);
+  v6 = UIAccessibilityAnnouncementNotification;
+  v7 = sub_10000CCD4(@"VoiceOverImageExplorer.image.and.features.updated");
+  UIAccessibilityPostNotification(v6, v7);
 
-  v10 = *(*(a1 + 56) + 8);
-  v11 = *(v10 + 40);
-  *(v10 + 40) = v3;
-  v12 = v3;
+  v8 = *(*(a1 + 56) + 8);
+  v9 = *(v8 + 40);
+  *(v8 + 40) = v3;
+  v10 = v3;
 
   objc_storeStrong((*(*(a1 + 64) + 8) + 40), *(a1 + 40));
   dispatch_semaphore_signal(*(a1 + 48));
@@ -529,14 +530,14 @@ BOOL sub_100008360(id a1, id a2, NSDictionary *a3)
   return v8;
 }
 
-void sub_10000A3B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10000A3B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -551,70 +552,54 @@ uint64_t sub_10000A3D4(uint64_t result, uint64_t a2)
 
 void sub_10000A3EC(uint64_t a1, void *a2)
 {
-  v29 = a2;
-  v4 = *(a1 + 32);
+  v27 = a2;
   [*(a1 + 40) normalizedFrame];
   [*(a1 + 32) frame];
   UIAccessibilityFrameForBounds();
-  v6 = v5;
-  v8 = v7;
-  v10 = v9;
-  v12 = v11;
-  v13 = *(a1 + 32);
-  [v29 normalizedFrame];
+  v5 = v4;
+  v7 = v6;
+  v9 = v8;
+  v11 = v10;
+  [v27 normalizedFrame];
   [*(a1 + 32) frame];
   UIAccessibilityFrameForBounds();
+  v13 = v12;
   v15 = v14;
   v17 = v16;
   v19 = v18;
-  v21 = v20;
-  v31.origin.x = v6;
-  v31.origin.y = v8;
-  v31.size.width = v10;
-  v31.size.height = v12;
-  v36.origin.x = v15;
-  v36.origin.y = v17;
-  v36.size.width = v19;
-  v36.size.height = v21;
-  if (CGRectIntersectsRect(v31, v36))
+  v29.origin.x = v5;
+  v29.origin.y = v7;
+  v29.size.width = v9;
+  v29.size.height = v11;
+  v34.origin.x = v13;
+  v34.origin.y = v15;
+  v34.size.width = v17;
+  v34.size.height = v19;
+  if (CGRectIntersectsRect(v29, v34) || (v30.origin.x = v13, v30.origin.y = v15, v30.size.width = v17, v30.size.height = v19, v35.origin.x = v5, v35.origin.y = v7, v35.size.width = v9, v35.size.height = v11, CGRectContainsRect(v30, v35)))
   {
-    goto LABEL_10;
-  }
-
-  v32.origin.x = v15;
-  v32.origin.y = v17;
-  v32.size.width = v19;
-  v32.size.height = v21;
-  v37.origin.x = v6;
-  v37.origin.y = v8;
-  v37.size.width = v10;
-  v37.size.height = v12;
-  if (CGRectContainsRect(v32, v37))
-  {
-LABEL_10:
-    v33.origin.x = v15;
-    v33.origin.y = v17;
-    v33.size.width = v19;
-    v33.size.height = v21;
-    v38.origin.x = v6;
-    v38.origin.y = v8;
-    v38.size.width = v10;
-    v38.size.height = v12;
-    v34 = CGRectIntersection(v33, v38);
-    x = v34.origin.x;
-    y = v34.origin.y;
-    width = v34.size.width;
-    height = v34.size.height;
-    v26 = CGRectGetWidth(v34);
-    v35.origin.x = x;
-    v35.origin.y = y;
-    v35.size.width = width;
-    v35.size.height = height;
-    v27 = v26 * CGRectGetHeight(v35);
-    v28 = *(*(a1 + 48) + 8);
-    if (v27 > *(v28 + 24))
+    v31.origin.x = v13;
+    v31.origin.y = v15;
+    v31.size.width = v17;
+    v31.size.height = v19;
+    v36.origin.x = v5;
+    v36.origin.y = v7;
+    v36.size.width = v9;
+    v36.size.height = v11;
+    v32 = CGRectIntersection(v31, v36);
+    x = v32.origin.x;
+    y = v32.origin.y;
+    width = v32.size.width;
+    height = v32.size.height;
+    v24 = CGRectGetWidth(v32);
+    v33.origin.x = x;
+    v33.origin.y = y;
+    v33.size.width = width;
+    v33.size.height = height;
+    v25 = v24 * CGRectGetHeight(v33);
+    v26 = *(*(a1 + 48) + 8);
+    if (v25 > *(v26 + 24))
     {
-      *(v28 + 24) = v27;
+      *(v26 + 24) = v25;
       objc_storeStrong((*(*(a1 + 56) + 8) + 40), a2);
     }
   }
@@ -842,107 +827,111 @@ void sub_10000B450(uint64_t a1, void *a2)
   }
 }
 
-void sub_10000B6C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10000B6C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void sub_10000B6DC(uint64_t a1, void *a2, void *a3)
 {
-  v37 = a2;
-  v39 = a3;
-  v48 = 0;
-  v49 = &v48;
-  v50 = 0x3032000000;
-  v51 = sub_10000A3D4;
-  v52 = sub_10000A3E4;
-  v53 = +[NSString string];
-  v4 = [v39 axFilterObjectsUsingBlock:&stru_100028B00];
-  v38 = [v4 axFilterObjectsUsingBlock:&stru_100028B20];
-  v35 = v4;
+  v34 = a2;
+  v36 = a3;
+  v45 = 0;
+  v46 = &v45;
+  v47 = 0x3032000000;
+  v48 = sub_10000A3D4;
+  v49 = sub_10000A3E4;
+  v50 = +[NSString string];
+  v4 = [v36 axFilterObjectsUsingBlock:&stru_100028B00];
+  v35 = [v4 axFilterObjectsUsingBlock:&stru_100028B20];
+  v32 = v4;
   v5 = [v4 count];
   if (v5)
   {
-    v6 = v49[5];
-    v7 = sub_10000CCD4(@"VoiceOverImageExplorer.maybe.x.people");
-    v31 = [NSString stringWithFormat:v7, v5];
-    v8 = __UIAXStringForVariables();
-    v9 = v49[5];
-    v49[5] = v8;
+    v6 = sub_10000CCD4(@"VoiceOverImageExplorer.maybe.x.people");
+    v28 = [NSString stringWithFormat:v6, v5];
+    v7 = __UIAXStringForVariables();
+    v8 = v46[5];
+    v46[5] = v7;
 
-    if ([v38 count])
+    if ([v35 count])
     {
-      v10 = v49[5];
-      v11 = sub_10000CCD4(@"VoiceOverImageExplorer.relations.including.people.names");
-      v12 = [v38 valueForKeyPath:@"@distinctUnionOfObjects.value"];
-      v13 = UIAXLabelForElements();
-      v30 = [NSString stringWithFormat:v11, v13];
-      v33 = @"__AXStringForVariablesSentinel";
-      v14 = __UIAXStringForVariables();
-      v15 = v49[5];
-      v49[5] = v14;
+      v9 = sub_10000CCD4(@"VoiceOverImageExplorer.relations.including.people.names");
+      v10 = [v35 valueForKeyPath:@"@distinctUnionOfObjects.value"];
+      v11 = UIAXLabelForElements();
+      v27 = [NSString stringWithFormat:v9, v11];
+      v30 = @"__AXStringForVariablesSentinel";
+      v12 = __UIAXStringForVariables();
+      v13 = v46[5];
+      v46[5] = v12;
     }
   }
 
-  v42 = [v39 axFilterObjectsUsingBlock:{&stru_100028B40, v30, v33}];
-  v41 = objc_opt_new();
-  [v42 valueForKeyPath:@"@distinctUnionOfObjects.value"];
-  v46 = 0u;
-  v47 = 0u;
+  v39 = [v36 axFilterObjectsUsingBlock:{&stru_100028B40, v27, v30}];
+  v38 = objc_opt_new();
+  [v39 valueForKeyPath:@"@distinctUnionOfObjects.value"];
+  v43 = 0u;
   v44 = 0u;
-  obj = v45 = 0u;
-  v16 = [obj countByEnumeratingWithState:&v44 objects:v54 count:16];
-  if (v16)
+  v41 = 0u;
+  obj = v42 = 0u;
+  v14 = [obj countByEnumeratingWithState:&v41 objects:v51 count:16];
+  if (v14)
   {
-    v17 = *v45;
+    v15 = *v42;
     do
     {
-      for (i = 0; i != v16; i = i + 1)
+      for (i = 0; i != v14; i = i + 1)
       {
-        if (*v45 != v17)
+        if (*v42 != v15)
         {
           objc_enumerationMutation(obj);
         }
 
-        v19 = *(*(&v44 + 1) + 8 * i);
-        v20 = [NSPredicate predicateWithFormat:@"value = %@", v19];
-        v21 = [v42 filteredArrayUsingPredicate:v20];
-        v22 = [v21 count];
+        v17 = *(*(&v41 + 1) + 8 * i);
+        v18 = [NSPredicate predicateWithFormat:@"value = %@", v17];
+        v19 = [v39 filteredArrayUsingPredicate:v18];
+        v20 = [v19 count];
 
-        v23 = [NSNumber numberWithUnsignedInteger:v22];
-        [v41 setObject:v23 forKey:v19];
+        v21 = [NSNumber numberWithUnsignedInteger:v20];
+        [v38 setObject:v21 forKey:v17];
       }
 
-      v16 = [obj countByEnumeratingWithState:&v44 objects:v54 count:16];
+      v14 = [obj countByEnumeratingWithState:&v41 objects:v51 count:16];
     }
 
-    while (v16);
+    while (v14);
   }
 
-  v43[0] = _NSConcreteStackBlock;
-  v43[1] = 3221225472;
-  v43[2] = sub_10000BCB0;
-  v43[3] = &unk_100028B68;
-  v43[4] = &v48;
-  [v41 enumerateKeysAndObjectsUsingBlock:v43];
-  v24 = [v39 axFilterObjectsUsingBlock:&stru_100028B88];
-  if ([v24 count])
+  v40[0] = _NSConcreteStackBlock;
+  v40[1] = 3221225472;
+  v40[2] = sub_10000BCB0;
+  v40[3] = &unk_100028B68;
+  v40[4] = &v45;
+  [v38 enumerateKeysAndObjectsUsingBlock:v40];
+  v22 = [v36 axFilterObjectsUsingBlock:&stru_100028B88];
+  if ([v22 count])
   {
-    v25 = v49[5];
-    v26 = [v24 valueForKeyPath:@"@distinctUnionOfObjects.value"];
-    v32 = UIAXLabelForElements();
-    v34 = @"__AXStringForVariablesSentinel";
-    v27 = __UIAXStringForVariables();
-    v28 = v49[5];
-    v49[5] = v27;
+    v23 = [v22 valueForKeyPath:@"@distinctUnionOfObjects.value"];
+    v29 = UIAXLabelForElements();
+    v31 = @"__AXStringForVariablesSentinel";
+    v24 = __UIAXStringForVariables();
+    v25 = v46[5];
+    v46[5] = v24;
   }
 
-  v29 = [AXCustomContent customContentWithLabel:v37 value:v49[5], v32, v34];
-  [*(*(*(a1 + 32) + 8) + 40) axSafelyAddObject:v29];
+  v26 = [AXCustomContent customContentWithLabel:v34 value:v46[5], v29, v31];
+  [*(*(*(a1 + 32) + 8) + 40) axSafelyAddObject:v26];
 
-  _Block_object_dispose(&v48, 8);
+  _Block_object_dispose(&v45, 8);
+}
+
+void sub_10000BB94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
+{
+  va_start(va, a32);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 BOOL sub_10000BBE4(id a1, VOTImageExplorerCustomContentValue *a2, unint64_t a3)
@@ -971,28 +960,27 @@ BOOL sub_10000BC6C(id a1, VOTImageExplorerCustomContentValue *a2, unint64_t a3)
 
 void sub_10000BCB0(uint64_t a1, void *a2, void *a3)
 {
-  v12 = a2;
+  v11 = a2;
   v5 = [a3 unsignedIntegerValue];
-  v6 = v12;
+  v6 = v11;
   if (v5)
   {
-    v7 = *(*(*(a1 + 32) + 8) + 40);
-    v8 = v12;
+    v7 = v11;
     if (v5 != 1)
     {
-      v8 = [NSString stringWithFormat:@"%lu %@", v5, v12];
+      v7 = [NSString stringWithFormat:@"%lu %@", v5, v11];
     }
 
-    v9 = __UIAXStringForVariables();
-    v10 = *(*(a1 + 32) + 8);
-    v11 = *(v10 + 40);
-    *(v10 + 40) = v9;
+    v8 = __UIAXStringForVariables();
+    v9 = *(*(a1 + 32) + 8);
+    v10 = *(v9 + 40);
+    *(v9 + 40) = v8;
 
-    v6 = v12;
+    v6 = v11;
     if (v5 != 1)
     {
 
-      v6 = v12;
+      v6 = v11;
     }
   }
 }
@@ -1014,20 +1002,20 @@ void sub_10000CA10(uint64_t a1, void *a2)
 
 void sub_10000CAF8(id a1)
 {
-  v8 = 0;
-  v9 = &v8;
-  v10 = 0x2020000000;
+  v9 = 0;
+  v10 = &v9;
+  v11 = 0x2020000000;
   v1 = qword_1000318D8;
-  v11 = qword_1000318D8;
+  v12 = qword_1000318D8;
   if (!qword_1000318D8)
   {
     v2 = sub_10000CDB8();
-    v9[3] = dlsym(v2, "kTCCServicePhotos");
-    qword_1000318D8 = v9[3];
-    v1 = v9[3];
+    v10[3] = dlsym(v2, "kTCCServicePhotos");
+    qword_1000318D8 = v10[3];
+    v1 = v10[3];
   }
 
-  _Block_object_dispose(&v8, 8);
+  _Block_object_dispose(&v9, 8);
   if (!v1)
   {
     sub_100012D7C();
@@ -1036,26 +1024,27 @@ void sub_10000CAF8(id a1)
 
   v3 = *v1;
   v4 = *v1;
-  v8 = 0;
-  v9 = &v8;
-  v10 = 0x2020000000;
+  v9 = 0;
+  v10 = &v9;
+  v11 = 0x2020000000;
   v5 = off_1000318C8;
-  v11 = off_1000318C8;
+  v12 = off_1000318C8;
   if (!off_1000318C8)
   {
     v6 = sub_10000CDB8();
-    v9[3] = dlsym(v6, "TCCAccessPreflight");
-    off_1000318C8 = v9[3];
-    v5 = v9[3];
+    v10[3] = dlsym(v6, "TCCAccessPreflight");
+    off_1000318C8 = v10[3];
+    v5 = v10[3];
   }
 
-  _Block_object_dispose(&v8, 8);
+  _Block_object_dispose(&v9, 8);
   if (!v5)
   {
 LABEL_9:
-    v7 = sub_100012D7C();
-    _Block_object_dispose(&v8, 8);
-    _Unwind_Resume(v7);
+    sub_100012D7C();
+    v8 = v7;
+    _Block_object_dispose(&v9, 8);
+    _Unwind_Resume(v8);
   }
 
   byte_1000318B8 = v5(v3, 0) == 0;
@@ -1098,7 +1087,7 @@ uint64_t sub_10000CDB8()
   v1 = v3[0];
   if (!qword_1000318D0)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     goto LABEL_7;
   }
 
@@ -1113,7 +1102,6 @@ LABEL_7:
 
 uint64_t sub_10000CEB8(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_1000318D0 = result;
   return result;
@@ -1358,8 +1346,6 @@ void sub_100012694(uint64_t a1)
 {
   v2 = [*(a1 + 32) _remoteViewControllerProxy];
   [v2 deactivate];
-  v4 = *(a1 + 48);
-  v5 = *(a1 + 56);
   v3 = *(a1 + 40);
   AXPerformBlockOnMainThreadAfterDelay();
 }
@@ -1411,11 +1397,11 @@ void sub_100012C90(uint64_t a1, NSObject *a2)
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "Could not decode settings data: %@", &v2, 0xCu);
 }
 
-uint64_t sub_100012D7C()
+void sub_100012D7C()
 {
-  dlerror();
-  v0 = abort_report_np();
-  return sub_100012DA0(v0);
+  v0 = dlerror();
+  v1 = abort_report_np("%s", v0);
+  sub_100012DA0(v1, v2);
 }
 
 void sub_100012DA0(void *a1, NSObject *a2)
@@ -1432,7 +1418,7 @@ void sub_100013078(void *a1)
   v4 = [a1 image];
   v5 = [a1 features];
   sub_100003C70();
-  sub_100003CB0(&_mh_execute_header, v6, v7, "%@ - Before update : image : %@ features : %@", v8, v9, v10, v11, v12);
+  sub_100003CB0(&_mh_execute_header, v6, v7, "%@ - Before update : image : %@ features : %@", v8, v9, v10, v11);
 }
 
 void sub_100013134(void *a1)
@@ -1442,28 +1428,34 @@ void sub_100013134(void *a1)
   v4 = [a1 image];
   v5 = [a1 features];
   sub_100003C70();
-  sub_100003CB0(&_mh_execute_header, v6, v7, "%@ - After update : image : %@ features : %@", v8, v9, v10, v11, v12);
+  sub_100003CB0(&_mh_execute_header, v6, v7, "%@ - After update : image : %@ features : %@", v8, v9, v10, v11);
 }
 
-void sub_1000131F0()
+void sub_1000131F0(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
-  sub_100003C90(&_mh_execute_header, v2, v3, "%@ - image is nil", v4, v5, v6, v7, 2u);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
+  LODWORD(v9) = 138412290;
+  *(&v9 + 4) = v2;
+  sub_100003C90(&_mh_execute_header, v3, v4, "%@ - image is nil", v5, v6, v7, v8, v9, DWORD2(v9));
 }
 
-void sub_10001327C()
+void sub_10001327C(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
-  sub_100003C90(&_mh_execute_header, v2, v3, "%@ - features not found", v4, v5, v6, v7, 2u);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
+  LODWORD(v9) = 138412290;
+  *(&v9 + 4) = v2;
+  sub_100003C90(&_mh_execute_header, v3, v4, "%@ - features not found", v5, v6, v7, v8, v9, DWORD2(v9));
 }
 
-void sub_100013308()
+void sub_100013308(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
-  sub_100003C90(&_mh_execute_header, v2, v3, "%@ - detail data not found", v4, v5, v6, v7, 2u);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
+  LODWORD(v9) = 138412290;
+  *(&v9 + 4) = v2;
+  sub_100003C90(&_mh_execute_header, v3, v4, "%@ - detail data not found", v5, v6, v7, v8, v9, DWORD2(v9));
 }
 
 void sub_1000133E4()
@@ -1510,22 +1502,22 @@ void sub_1000135FC()
   _os_log_fault_impl(v5, v6, v7, v8, v9, 0x20u);
 }
 
-void sub_1000136B8()
+void sub_1000136B8(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   sub_100002DDC();
   sub_100007E0C();
-  _os_log_fault_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_fault_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
-void sub_100013748()
+void sub_100013748(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   sub_100002DDC();
   sub_100007E0C();
-  _os_log_fault_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_fault_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
 void sub_1000137D8()
@@ -1540,13 +1532,13 @@ void sub_1000137D8()
   _os_log_debug_impl(v5, v6, v7, v8, v9, 0x20u);
 }
 
-void sub_100013894()
+void sub_100013894(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   sub_100002DDC();
   sub_100007E0C();
-  _os_log_fault_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_fault_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
 void sub_100013924()
@@ -1562,12 +1554,11 @@ void sub_100013924()
 void sub_1000139BC()
 {
   sub_100007E1C();
-  v1 = objc_opt_class();
-  v2 = NSStringFromClass(v1);
-  v3 = *(v0 + 32);
+  v0 = objc_opt_class();
+  v1 = NSStringFromClass(v0);
   sub_100002DDC();
   sub_100007DE4();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
 void sub_100013A64()
@@ -1583,22 +1574,19 @@ void sub_100013A64()
 void sub_100013AFC()
 {
   sub_100007E1C();
-  v1 = *(v0 + 32);
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
+  v0 = objc_opt_class();
+  v1 = NSStringFromClass(v0);
   sub_100007DF4();
   sub_100007DE4();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
-void sub_100013B98(uint64_t a1, double a2)
+void sub_100013B98(uint64_t a1)
 {
-  v4 = *(a1 + 32);
-  v5 = objc_opt_class();
-  v11 = NSStringFromClass(v5);
-  v12 = a2 - *(a1 + 72);
+  v1 = objc_opt_class();
+  v7 = NSStringFromClass(v1);
   sub_100007DE4();
-  _os_log_debug_impl(v6, v7, v8, v9, v10, 0x16u);
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
 void sub_100013C5C(void *a1)

@@ -24,24 +24,24 @@
 
 - (SISceneUnderstandingResult)initWithModel:(id)model
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   modelCopy = model;
-  v15.receiver = self;
-  v15.super_class = SISceneUnderstandingResult;
-  v5 = [(SISceneUnderstandingResult *)&v15 init];
+  v14.receiver = self;
+  v14.super_class = SISceneUnderstandingResult;
+  v5 = [(SISceneUnderstandingResult *)&v14 init];
   if (v5)
   {
     v6 = 0uLL;
     v7 = 0uLL;
     if (modelCopy)
     {
-      [modelCopy labelTensorDimensions];
+      objc_msgSend_labelTensorDimensions(modelCopy);
       v7 = 0u;
       v6 = 0u;
     }
 
-    v20 = vextq_s8(v6, v6, 8uLL);
-    v21 = vextq_s8(v7, v7, 8uLL);
+    v19 = vextq_s8(v6, v6, 8uLL);
+    v20 = vextq_s8(v7, v7, 8uLL);
     espresso_buffer_pack_tensor_shape();
     v5->_labelsTensor.data = malloc_type_malloc(0, 0x100004052888210uLL);
     v5->_labelsTensor.storage_type = 65568;
@@ -49,13 +49,13 @@
     v9 = 0uLL;
     if (modelCopy)
     {
-      [modelCopy normalTensorDimensions];
+      objc_msgSend_normalTensorDimensions(modelCopy);
       v9 = 0u;
       v8 = 0u;
     }
 
-    v18 = vextq_s8(v8, v8, 8uLL);
-    v19 = vextq_s8(v9, v9, 8uLL);
+    v17 = vextq_s8(v8, v8, 8uLL);
+    v18 = vextq_s8(v9, v9, 8uLL);
     espresso_buffer_pack_tensor_shape();
     v5->_normalsTensor.data = malloc_type_malloc(0, 0x100004052888210uLL);
     v5->_normalsTensor.storage_type = 65568;
@@ -63,13 +63,13 @@
     v11 = 0uLL;
     if (modelCopy)
     {
-      [modelCopy probabilitiesTensorDimensions];
+      objc_msgSend_probabilitiesTensorDimensions(modelCopy);
       v11 = 0u;
       v10 = 0u;
     }
 
-    v16 = vextq_s8(v10, v10, 8uLL);
-    v17 = vextq_s8(v11, v11, 8uLL);
+    v15 = vextq_s8(v10, v10, 8uLL);
+    v16 = vextq_s8(v11, v11, 8uLL);
     espresso_buffer_pack_tensor_shape();
     v5->_probabilitiesTensor.data = malloc_type_malloc(0, 0x100004052888210uLL);
     v5->_probabilitiesTensor.storage_type = 65568;
@@ -77,7 +77,6 @@
     v12 = v5;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -93,7 +92,7 @@
 
 - (int64_t)writeNormals:(__CVBuffer *)normals orientation:(int64_t)orientation
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   width = self->_normalsTensor.width;
   height = self->_normalsTensor.height;
   stride_channels = self->_normalsTensor.stride_channels;
@@ -103,7 +102,7 @@
   BaseAddress = IOSurfaceGetBaseAddress(IOSurface);
   buffer = IOSurface;
   BytesPerRow = IOSurfaceGetBytesPerRow(IOSurface);
-  v30 = height;
+  v29 = height;
   if (height)
   {
     v14 = 0;
@@ -111,23 +110,23 @@
     v16 = &data[4 * stride_channels];
     v17 = &data[8 * stride_channels];
     v18 = BaseAddress + 8;
-    v28 = 4 * (BytesPerRow >> 2);
-    v29 = 4 * width;
+    v27 = 4 * (BytesPerRow >> 2);
+    v28 = 4 * width;
     while (1)
     {
-      v31 = v14;
+      v30 = v14;
       if (width)
       {
         break;
       }
 
 LABEL_18:
-      v14 = v31 + 1;
-      data += v29;
-      v16 += v29;
-      v17 += v29;
-      v18 = (v18 + v28);
-      if (v31 + 1 == v30)
+      v14 = v30 + 1;
+      data += v28;
+      v16 += v28;
+      v17 += v28;
+      v18 = (v18 + v27);
+      if (v30 + 1 == v29)
       {
         goto LABEL_19;
       }
@@ -189,18 +188,18 @@ LABEL_17:
       if (orientation != 3)
       {
 LABEL_12:
-        v32 = v23;
-        v24 = __SceneIntelligenceLogSharedInstance();
+        v31 = v23;
+        v24 = __SceneIntelligenceLogSharedInstance(BytesPerRow);
         if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
         {
           *buf = 136380931;
-          v34 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Features/SceneUnderstanding/SISceneUnderstanding.mm";
-          v35 = 1025;
-          v36 = 191;
+          v33 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Features/SceneUnderstanding/SISceneUnderstanding.mm";
+          v34 = 1025;
+          v35 = 191;
           _os_log_impl(&dword_21DE0D000, v24, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Unknown orientation! ***", buf, 0x12u);
         }
 
-        v23 = v32;
+        v23 = v31;
         goto LABEL_17;
       }
 
@@ -213,7 +212,6 @@ LABEL_12:
 LABEL_19:
   IOSurfaceUnlock(buffer, 0, 0);
   kdebug_trace();
-  v25 = *MEMORY[0x277D85DE8];
   return 0;
 }
 

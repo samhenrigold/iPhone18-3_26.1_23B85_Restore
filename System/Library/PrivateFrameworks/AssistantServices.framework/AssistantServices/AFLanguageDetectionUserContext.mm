@@ -144,56 +144,53 @@ LABEL_6:
 
 - (id)userContextLanguageCodeForKeyboardLangauge:(id)langauge overrideLanguageCode:(id)code
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   langaugeCopy = langauge;
   codeCopy = code;
   if (langaugeCopy)
   {
-    dictationLanguageMappingCache = self->_dictationLanguageMappingCache;
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
       [(AFLanguageDetectionUserContext *)self _setDictationLanguageCodeMappingCache:self->_dictationLanguageMappingCache];
     }
 
-    v9 = [(NSMutableDictionary *)self->_dictationLanguageMappingCache objectForKey:langaugeCopy];
-    if (!v9)
+    v8 = [(NSMutableDictionary *)self->_dictationLanguageMappingCache objectForKey:langaugeCopy];
+    if (!v8)
     {
-      v9 = AFOverrideLanguageCode(langaugeCopy, codeCopy);
-      if (v9)
+      v8 = AFOverrideLanguageCode(langaugeCopy, codeCopy);
+      if (v8)
       {
-        [(NSMutableDictionary *)self->_dictationLanguageMappingCache setObject:v9 forKey:langaugeCopy];
+        [(NSMutableDictionary *)self->_dictationLanguageMappingCache setObject:v8 forKey:langaugeCopy];
       }
     }
 
-    v10 = AFSiriLogContextConnection;
+    v9 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
-      v13 = 136315906;
-      v14 = "[AFLanguageDetectionUserContext userContextLanguageCodeForKeyboardLangauge:overrideLanguageCode:]";
+      v11 = 136315906;
+      v12 = "[AFLanguageDetectionUserContext userContextLanguageCodeForKeyboardLangauge:overrideLanguageCode:]";
+      v13 = 2112;
+      v14 = langaugeCopy;
       v15 = 2112;
-      v16 = langaugeCopy;
+      v16 = v8;
       v17 = 2112;
-      v18 = v9;
-      v19 = 2112;
-      v20 = codeCopy;
-      _os_log_impl(&dword_1912FE000, v10, OS_LOG_TYPE_INFO, "%s User context language code mapping %@ -> %@ (override: %@)", &v13, 0x2Au);
+      v18 = codeCopy;
+      _os_log_impl(&dword_1912FE000, v9, OS_LOG_TYPE_INFO, "%s User context language code mapping %@ -> %@ (override: %@)", &v11, 0x2Au);
     }
   }
 
   else
   {
-    v9 = 0;
+    v8 = 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
-
-  return v9;
+  return v8;
 }
 
 - (id)getDictationLanguagesForSupportedLocales:(id)locales error:(id *)error
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   localesCopy = locales;
   languageDetectorUserContext = [(AFLanguageDetectionUserContext *)self languageDetectorUserContext];
   v8 = [languageDetectorUserContext objectForKey:@"DictationLanguages"];
@@ -219,26 +216,26 @@ LABEL_6:
   errorCopy = error;
   v12 = dictationLanguages;
   v13 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
   v14 = v12;
-  v15 = [(NSArray *)v14 countByEnumeratingWithState:&v39 objects:v48 count:16];
+  v15 = [(NSArray *)v14 countByEnumeratingWithState:&v38 objects:v47 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v40;
+    v17 = *v39;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v40 != v17)
+        if (*v39 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = *(*(&v39 + 1) + 8 * i);
+        v19 = *(*(&v38 + 1) + 8 * i);
         errorCopy = [(NSDictionary *)self->_languageCodeOverrides objectForKey:v19, errorCopy];
         v21 = [(AFLanguageDetectionUserContext *)self userContextLanguageCodeForKeyboardLangauge:v19 overrideLanguageCode:errorCopy];
 
@@ -248,36 +245,36 @@ LABEL_6:
         }
       }
 
-      v16 = [(NSArray *)v14 countByEnumeratingWithState:&v39 objects:v48 count:16];
+      v16 = [(NSArray *)v14 countByEnumeratingWithState:&v38 objects:v47 count:16];
     }
 
     while (v16);
   }
 
   v22 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
   v23 = v13;
-  v24 = [v23 countByEnumeratingWithState:&v35 objects:v47 count:16];
+  v24 = [v23 countByEnumeratingWithState:&v34 objects:v46 count:16];
   if (v24)
   {
     v25 = v24;
-    v26 = *v36;
+    v26 = *v35;
     do
     {
       for (j = 0; j != v25; ++j)
       {
-        if (*v36 != v26)
+        if (*v35 != v26)
         {
           objc_enumerationMutation(v23);
         }
 
-        [v22 addObject:{*(*(&v35 + 1) + 8 * j), errorCopy}];
+        [v22 addObject:{*(*(&v34 + 1) + 8 * j), errorCopy}];
       }
 
-      v25 = [v23 countByEnumeratingWithState:&v35 objects:v47 count:16];
+      v25 = [v23 countByEnumeratingWithState:&v34 objects:v46 count:16];
     }
 
     while (v25);
@@ -299,17 +296,15 @@ LABEL_6:
       if (os_log_type_enabled(AFSiriLogContextUtility, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v44 = "[AFLanguageDetectionUserContext getDictationLanguagesForSupportedLocales:error:]";
-        v45 = 2112;
-        v46 = v29;
+        v43 = "[AFLanguageDetectionUserContext getDictationLanguagesForSupportedLocales:error:]";
+        v44 = 2112;
+        v45 = v29;
         _os_log_error_impl(&dword_1912FE000, v30, OS_LOG_TYPE_ERROR, "%s %@", buf, 0x16u);
       }
     }
 
     v28 = 0;
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 
   return v28;
 }
@@ -336,34 +331,33 @@ LABEL_6:
 
 - (id)languageDetectorUserContext
 {
-  lidUserContext = self->_lidUserContext;
   if (!self->_userContextChangeBit)
   {
-    v7 = [(NSMutableDictionary *)self->_lidUserContext copy];
+    v6 = [(NSMutableDictionary *)self->_lidUserContext copy];
     goto LABEL_42;
   }
 
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
-  v5 = self->_lidUserContext;
+  lidUserContext = self->_lidUserContext;
   if (isKindOfClass)
   {
-    v6 = v5;
+    v5 = lidUserContext;
   }
 
   else
   {
-    v6 = [(NSMutableDictionary *)v5 mutableCopy];
+    v5 = [(NSMutableDictionary *)lidUserContext mutableCopy];
   }
 
-  v8 = v6;
+  v7 = v5;
   userContextChangeBit = self->_userContextChangeBit;
   if (userContextChangeBit)
   {
     self->_userContextChangeBit = userContextChangeBit & 0xFFFFFFFE;
-    [(AFLanguageDetectionUserContext *)self _removeContextValueForKey:@"WasLanguageToggled" context:v6];
-    v10 = [MEMORY[0x1E696AD98] numberWithBool:self->_languageToggled];
-    [(NSMutableDictionary *)v8 setObject:v10 forKey:@"WasLanguageToggled"];
+    [(AFLanguageDetectionUserContext *)self _removeContextValueForKey:@"WasLanguageToggled" context:v5];
+    v9 = [MEMORY[0x1E696AD98] numberWithBool:self->_languageToggled];
+    [(NSMutableDictionary *)v7 setObject:v9 forKey:@"WasLanguageToggled"];
 
     userContextChangeBit = self->_userContextChangeBit;
     if ((userContextChangeBit & 2) == 0)
@@ -384,11 +378,11 @@ LABEL_8:
   }
 
   self->_userContextChangeBit = userContextChangeBit & 0xFFFFFFFD;
-  [(AFLanguageDetectionUserContext *)self _removeContextValueForKey:@"CurrentKeyboard" context:v8];
-  v11 = [(AFLanguageDetectionUserContext *)self siriDictationLanguageForLanguage:self->_primaryLanguageCode];
-  if (v11)
+  [(AFLanguageDetectionUserContext *)self _removeContextValueForKey:@"CurrentKeyboard" context:v7];
+  v10 = [(AFLanguageDetectionUserContext *)self siriDictationLanguageForLanguage:self->_primaryLanguageCode];
+  if (v10)
   {
-    [(NSMutableDictionary *)v8 setObject:v11 forKey:@"CurrentKeyboard"];
+    [(NSMutableDictionary *)v7 setObject:v10 forKey:@"CurrentKeyboard"];
   }
 
   userContextChangeBit = self->_userContextChangeBit;
@@ -405,11 +399,11 @@ LABEL_9:
 
 LABEL_20:
   self->_userContextChangeBit = userContextChangeBit & 0xFFFFFFFB;
-  [(AFLanguageDetectionUserContext *)self _removeContextValueForKey:@"LastMessageLanguage" context:v8];
-  v12 = [(AFLanguageDetectionUserContext *)self siriDictationLanguageForLanguage:self->_prevMessageLanguage];
-  if (v12)
+  [(AFLanguageDetectionUserContext *)self _removeContextValueForKey:@"LastMessageLanguage" context:v7];
+  v11 = [(AFLanguageDetectionUserContext *)self siriDictationLanguageForLanguage:self->_prevMessageLanguage];
+  if (v11)
   {
-    [(NSMutableDictionary *)v8 setObject:v12 forKey:@"LastMessageLanguage"];
+    [(NSMutableDictionary *)v7 setObject:v11 forKey:@"LastMessageLanguage"];
   }
 
   userContextChangeBit = self->_userContextChangeBit;
@@ -426,11 +420,11 @@ LABEL_10:
 
 LABEL_23:
   self->_userContextChangeBit = userContextChangeBit & 0xFFFFFFF7;
-  [(AFLanguageDetectionUserContext *)self _removeContextValueForKey:@"GlobalLastUsedKeyboard" context:v8];
-  v13 = [(AFLanguageDetectionUserContext *)self siriDictationLanguageForLanguage:self->_globalLastUsedKeyboard];
-  if (v13)
+  [(AFLanguageDetectionUserContext *)self _removeContextValueForKey:@"GlobalLastUsedKeyboard" context:v7];
+  v12 = [(AFLanguageDetectionUserContext *)self siriDictationLanguageForLanguage:self->_globalLastUsedKeyboard];
+  if (v12)
   {
-    [(NSMutableDictionary *)v8 setObject:v13 forKey:@"GlobalLastUsedKeyboard"];
+    [(NSMutableDictionary *)v7 setObject:v12 forKey:@"GlobalLastUsedKeyboard"];
   }
 
   userContextChangeBit = self->_userContextChangeBit;
@@ -447,13 +441,13 @@ LABEL_11:
 
 LABEL_26:
   self->_userContextChangeBit = userContextChangeBit & 0xFFFFFFEF;
-  [(AFLanguageDetectionUserContext *)self _removeContextValueForKey:@"MultilingualKeyboardLanguages" context:v8];
-  v14 = [(AFLanguageDetectionUserContext *)self getSiriDictationLanguagesFromLanguages:self->_multiLingualKeyboardLanguages];
-  allValues = [v14 allValues];
+  [(AFLanguageDetectionUserContext *)self _removeContextValueForKey:@"MultilingualKeyboardLanguages" context:v7];
+  v13 = [(AFLanguageDetectionUserContext *)self getSiriDictationLanguagesFromLanguages:self->_multiLingualKeyboardLanguages];
+  allValues = [v13 allValues];
 
   if (allValues)
   {
-    [(NSMutableDictionary *)v8 setObject:allValues forKey:@"MultilingualKeyboardLanguages"];
+    [(NSMutableDictionary *)v7 setObject:allValues forKey:@"MultilingualKeyboardLanguages"];
   }
 
   userContextChangeBit = self->_userContextChangeBit;
@@ -470,11 +464,11 @@ LABEL_12:
 
 LABEL_29:
   self->_userContextChangeBit = userContextChangeBit & 0xFFFFFFDF;
-  [(AFLanguageDetectionUserContext *)self _removeContextValueForKey:@"RecentConversationalMessages" context:v8];
+  [(AFLanguageDetectionUserContext *)self _removeContextValueForKey:@"RecentConversationalMessages" context:v7];
   keyboardConvoRecentMessages = self->_keyboardConvoRecentMessages;
   if (keyboardConvoRecentMessages)
   {
-    [(NSMutableDictionary *)v8 setObject:keyboardConvoRecentMessages forKey:@"RecentConversationalMessages"];
+    [(NSMutableDictionary *)v7 setObject:keyboardConvoRecentMessages forKey:@"RecentConversationalMessages"];
   }
 
   userContextChangeBit = self->_userContextChangeBit;
@@ -488,11 +482,11 @@ LABEL_13:
 
 LABEL_35:
     self->_userContextChangeBit = userContextChangeBit & 0xFFFFFF7F;
-    [(AFLanguageDetectionUserContext *)self _removeContextValueForKey:@"KeyboardConversationLanguagePriors" context:v8];
-    v19 = [(AFLanguageDetectionUserContext *)self priorsByReplacingKeyboardLanguage:self->_keyboardConversationLanguagePriors];
-    if (v19)
+    [(AFLanguageDetectionUserContext *)self _removeContextValueForKey:@"KeyboardConversationLanguagePriors" context:v7];
+    v18 = [(AFLanguageDetectionUserContext *)self priorsByReplacingKeyboardLanguage:self->_keyboardConversationLanguagePriors];
+    if (v18)
     {
-      [(NSMutableDictionary *)v8 setObject:v19 forKey:@"KeyboardConversationLanguagePriors"];
+      [(NSMutableDictionary *)v7 setObject:v18 forKey:@"KeyboardConversationLanguagePriors"];
     }
 
     userContextChangeBit = self->_userContextChangeBit;
@@ -506,13 +500,13 @@ LABEL_35:
 
 LABEL_32:
   self->_userContextChangeBit = userContextChangeBit & 0xFFFFFFBF;
-  [(AFLanguageDetectionUserContext *)self _removeContextValueForKey:@"DictationLanguages" context:v8];
-  v17 = [(AFLanguageDetectionUserContext *)self getSiriDictationLanguagesFromLanguages:self->_dictationLanguages];
-  allValues2 = [v17 allValues];
+  [(AFLanguageDetectionUserContext *)self _removeContextValueForKey:@"DictationLanguages" context:v7];
+  v16 = [(AFLanguageDetectionUserContext *)self getSiriDictationLanguagesFromLanguages:self->_dictationLanguages];
+  allValues2 = [v16 allValues];
 
   if (allValues2)
   {
-    [(NSMutableDictionary *)v8 setObject:allValues2 forKey:@"DictationLanguages"];
+    [(NSMutableDictionary *)v7 setObject:allValues2 forKey:@"DictationLanguages"];
   }
 
   userContextChangeBit = self->_userContextChangeBit;
@@ -526,23 +520,23 @@ LABEL_14:
   {
 LABEL_38:
     self->_userContextChangeBit = userContextChangeBit & 0xFFFFFEFF;
-    [(AFLanguageDetectionUserContext *)self _removeContextValueForKey:@"KeyboardGlobalLanguagePriors" context:v8];
-    v20 = [(AFLanguageDetectionUserContext *)self priorsByReplacingKeyboardLanguage:self->_keyboardGlobalLanguagePriors];
-    if (v20)
+    [(AFLanguageDetectionUserContext *)self _removeContextValueForKey:@"KeyboardGlobalLanguagePriors" context:v7];
+    v19 = [(AFLanguageDetectionUserContext *)self priorsByReplacingKeyboardLanguage:self->_keyboardGlobalLanguagePriors];
+    if (v19)
     {
-      [(NSMutableDictionary *)v8 setObject:v20 forKey:@"KeyboardGlobalLanguagePriors"];
+      [(NSMutableDictionary *)v7 setObject:v19 forKey:@"KeyboardGlobalLanguagePriors"];
     }
   }
 
 LABEL_41:
-  v21 = self->_lidUserContext;
-  self->_lidUserContext = v8;
-  v22 = v8;
+  v20 = self->_lidUserContext;
+  self->_lidUserContext = v7;
+  v21 = v7;
 
-  v7 = [(NSMutableDictionary *)v22 copy];
+  v6 = [(NSMutableDictionary *)v21 copy];
 LABEL_42:
 
-  return v7;
+  return v6;
 }
 
 - (id)context
@@ -808,11 +802,11 @@ void __73__AFLanguageDetectionUserContext_getSiriDictationLanguagesFromLanguages
 
 - (AFLanguageDetectionUserContext)initWithCoder:(id)coder
 {
-  v56[2] = *MEMORY[0x1E69E9840];
+  v55[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v51.receiver = self;
-  v51.super_class = AFLanguageDetectionUserContext;
-  v5 = [(AFLanguageDetectionUserContext *)&v51 init];
+  v50.receiver = self;
+  v50.super_class = AFLanguageDetectionUserContext;
+  v5 = [(AFLanguageDetectionUserContext *)&v50 init];
   if (v5)
   {
     v5->_languageToggled = [coderCopy decodeBoolForKey:@"_languageToggled"];
@@ -835,45 +829,45 @@ void __73__AFLanguageDetectionUserContext_getSiriDictationLanguagesFromLanguages
 
     v5->_userContextChangeBit = [coderCopy decodeInt32ForKey:@"_userContextChangeBit"];
     v14 = MEMORY[0x1E695DFD8];
-    v56[0] = objc_opt_class();
-    v56[1] = objc_opt_class();
-    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v56 count:2];
+    v55[0] = objc_opt_class();
+    v55[1] = objc_opt_class();
+    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v55 count:2];
     v16 = [v14 setWithArray:v15];
     v17 = [coderCopy decodeObjectOfClasses:v16 forKey:@"_multiLingualKeyboardLanguages"];
     multiLingualKeyboardLanguages = v5->_multiLingualKeyboardLanguages;
     v5->_multiLingualKeyboardLanguages = v17;
 
     v19 = MEMORY[0x1E695DFD8];
-    v55[0] = objc_opt_class();
-    v55[1] = objc_opt_class();
-    v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v55 count:2];
+    v54[0] = objc_opt_class();
+    v54[1] = objc_opt_class();
+    v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v54 count:2];
     v21 = [v19 setWithArray:v20];
     v22 = [coderCopy decodeObjectOfClasses:v21 forKey:@"_keyboardConvoRecentMessages"];
     keyboardConvoRecentMessages = v5->_keyboardConvoRecentMessages;
     v5->_keyboardConvoRecentMessages = v22;
 
     v24 = MEMORY[0x1E695DFD8];
-    v54[0] = objc_opt_class();
-    v54[1] = objc_opt_class();
-    v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:v54 count:2];
+    v53[0] = objc_opt_class();
+    v53[1] = objc_opt_class();
+    v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:v53 count:2];
     v26 = [v24 setWithArray:v25];
     v27 = [coderCopy decodeObjectOfClasses:v26 forKey:@"_dictationLanguages"];
     dictationLanguages = v5->_dictationLanguages;
     v5->_dictationLanguages = v27;
 
     v29 = MEMORY[0x1E695DFD8];
-    v53[0] = objc_opt_class();
-    v53[1] = objc_opt_class();
-    v30 = [MEMORY[0x1E695DEC8] arrayWithObjects:v53 count:2];
+    v52[0] = objc_opt_class();
+    v52[1] = objc_opt_class();
+    v30 = [MEMORY[0x1E695DEC8] arrayWithObjects:v52 count:2];
     v31 = [v29 setWithArray:v30];
     v32 = [coderCopy decodeObjectOfClasses:v31 forKey:@"_simulatingLanguageCodes"];
     simulatingLanguageCodes = v5->_simulatingLanguageCodes;
     v5->_simulatingLanguageCodes = v32;
 
     v34 = MEMORY[0x1E695DFD8];
-    v52[0] = objc_opt_class();
-    v52[1] = objc_opt_class();
-    v35 = [MEMORY[0x1E695DEC8] arrayWithObjects:v52 count:2];
+    v51[0] = objc_opt_class();
+    v51[1] = objc_opt_class();
+    v35 = [MEMORY[0x1E695DEC8] arrayWithObjects:v51 count:2];
     v36 = [v34 setWithArray:v35];
     v37 = [coderCopy decodeObjectOfClasses:v36 forKey:@"_finalDictationLanguages"];
     finalDictationLanguages = v5->_finalDictationLanguages;
@@ -900,7 +894,6 @@ void __73__AFLanguageDetectionUserContext_getSiriDictationLanguagesFromLanguages
     v5->_dictationLanguageMappingCache = v47;
   }
 
-  v49 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -967,7 +960,7 @@ void __73__AFLanguageDetectionUserContext_getSiriDictationLanguagesFromLanguages
 
 + (id)defaultContextWithPrimaryLanguage:(id)language
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   languageCopy = language;
   v4 = objc_alloc_init(AFLanguageDetectionUserContext);
   v5 = v4;
@@ -975,12 +968,10 @@ void __73__AFLanguageDetectionUserContext_getSiriDictationLanguagesFromLanguages
   {
     [(AFLanguageDetectionUserContext *)v4 setPrimaryLanguageCode:languageCopy];
     primaryLanguageCode = [(AFLanguageDetectionUserContext *)v5 primaryLanguageCode];
-    v10[0] = primaryLanguageCode;
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
+    v9[0] = primaryLanguageCode;
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
     [(AFLanguageDetectionUserContext *)v5 setDictationLanguages:v7];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

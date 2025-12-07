@@ -12,9 +12,9 @@
     +[HKHealthStore(FitnessUI) fiui_sharedHealthStoreForCarousel];
   }
 
-  v1 = fiui_sharedHealthStoreForCarousel___healthStore;
+  v2 = fiui_sharedHealthStoreForCarousel___healthStore;
 
-  return v1;
+  return v2;
 }
 
 + (__CFString)fiui_localizationStringSuffixForWheelchairUser:()FitnessUI

@@ -8,6 +8,7 @@
 - (CSAudioCircularBuffer)audioBuffer;
 - (CSVoiceTriggerDelegate)delegate;
 - (CSVoiceTriggerSecondPass)initWithFirstPassSource:(unint64_t)source phsEnabled:(BOOL)enabled speechManager:(id)manager supportsMphDetection:(BOOL)detection secondPassQueue:(id)queue;
+- (id)_constructVTEIFromExclaveKeywordResult:(unint64_t)result speakerDetectionResult:(unint64_t)detectionResult phraseId:(unsigned int)id triggerTimestamp:(unint64_t)timestamp triggerStartSampleCount:(unint64_t)count triggerEndSampleCount:(unint64_t)sampleCount;
 - (id)_fetchSiriLocale;
 - (id)_getAudioTimeConverter;
 - (id)_getExclaveAudioTimeConverter;
@@ -36,6 +37,7 @@
 - (void)_getDidWakeAP:(id)p;
 - (void)_handleAudioChunk:(id)chunk shouldPreprocessedByZeroFilter:(BOOL)filter;
 - (void)_handlePHSResults:(id)results voiceTriggerEventInfo:(id)info forPhId:(unint64_t)id;
+- (void)_handleResultCompletion:(unint64_t)completion voiceTriggerInfo:(id)info isSecondChanceCandidate:(BOOL)candidate error:(id)error;
 - (void)_handleSecondPassSuccess:(id)success;
 - (void)_handleVoiceTriggerFirstPassFromAOP:(id)p audioProviderUUID:(id)d completion:(id)completion;
 - (void)_handleVoiceTriggerFirstPassFromAP:(id)p audioProviderUUID:(id)d completion:(id)completion;
@@ -49,6 +51,7 @@
 - (void)_logSecondPassResult:(unint64_t)result withVTEI:(id)i;
 - (void)_logUptimeWithVTSwitchChanged:(BOOL)changed VTEnabled:(BOOL)enabled;
 - (void)_mmapModelForPreWarm;
+- (void)_notifySecondPassReject:(id)reject result:(unint64_t)result isSecondChanceCandidate:(BOOL)candidate;
 - (void)_prepareStartAudioStream;
 - (void)_processSecondPassInExclave:(id)exclave rejectBlock:(id)block;
 - (void)_reportDiagnosticsForDelayedVTLaunchIfNeeded:(float)needed;
@@ -346,6 +349,23 @@
 
   objc_destroyWeak(&v12);
   objc_destroyWeak(&location);
+}
+
+- (void)_handleResultCompletion:(unint64_t)completion voiceTriggerInfo:(id)info isSecondChanceCandidate:(BOOL)candidate error:(id)error
+{
+  candidateCopy = candidate;
+  infoCopy = info;
+  errorCopy = error;
+  [(CSVoiceTriggerSecondPass *)self _logSecondPassResult:completion withVTEI:infoCopy];
+  resultCompletion = self->_resultCompletion;
+  if (resultCompletion)
+  {
+    v12 = [[CSVoiceTriggerSecondPassResultHolder alloc] initWithResult:completion voiceTriggerEventInfo:infoCopy isSecondChanceCandidate:candidateCopy];
+    resultCompletion[2](resultCompletion, v12, errorCopy);
+
+    v13 = self->_resultCompletion;
+    self->_resultCompletion = 0;
+  }
 }
 
 - (void)_setStartAnalyzeTime:(unint64_t)time
@@ -903,16 +923,7 @@
   v9 = kSSRSpeakerRecognitionKnownUserScoresKey;
   v10 = [infoCopy objectForKeyedSubscript:kSSRSpeakerRecognitionKnownUserScoresKey];
 
-  if (!v10)
-  {
-    goto LABEL_38;
-  }
-
-  v11 = [infoCopy objectForKeyedSubscript:v9];
-  allKeys = [v11 allKeys];
-  firstObject = [allKeys firstObject];
-
-  if (firstObject)
+  if (v10 && ([infoCopy objectForKeyedSubscript:v9], v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v11, "allKeys"), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v12, "firstObject"), v13 = objc_claimAutoreleasedReturnValue(), v12, v11, v13))
   {
     v14 = kSSRSpeakerRecognitionKnownUserPSRScoresKey;
     v15 = [infoCopy objectForKeyedSubscript:kSSRSpeakerRecognitionKnownUserPSRScoresKey];
@@ -923,16 +934,16 @@
       v17 = v16;
       if (v16)
       {
-        v18 = [v16 objectForKeyedSubscript:firstObject];
+        v18 = [v16 objectForKeyedSubscript:v13];
 
         if (v18)
         {
           v19 = [infoCopy objectForKeyedSubscript:v9];
-          v20 = [v19 objectForKeyedSubscript:firstObject];
+          v20 = [v19 objectForKeyedSubscript:v13];
           [v20 floatValue];
           v22 = v21;
 
-          v23 = [v17 objectForKeyedSubscript:firstObject];
+          v23 = [v17 objectForKeyedSubscript:v13];
           [v23 floatValue];
           v25 = v24;
 
@@ -968,11 +979,11 @@
       v40 = v39;
       if (v39)
       {
-        v41 = [v39 objectForKeyedSubscript:firstObject];
+        v41 = [v39 objectForKeyedSubscript:v13];
 
         if (v41)
         {
-          v42 = [v40 objectForKeyedSubscript:firstObject];
+          v42 = [v40 objectForKeyedSubscript:v13];
           [v42 floatValue];
           v44 = v43;
 
@@ -997,11 +1008,11 @@
       v53 = v52;
       if (v52)
       {
-        v54 = [v52 objectForKeyedSubscript:firstObject];
+        v54 = [v52 objectForKeyedSubscript:v13];
 
         if (v54)
         {
-          v55 = [v53 objectForKeyedSubscript:firstObject];
+          v55 = [v53 objectForKeyedSubscript:v13];
           unsignedIntegerValue = [v55 unsignedIntegerValue];
 
           v57 = [NSNumber numberWithUnsignedInteger:unsignedIntegerValue];
@@ -1020,11 +1031,11 @@
       v62 = v61;
       if (v61)
       {
-        v63 = [v61 objectForKeyedSubscript:firstObject];
+        v63 = [v61 objectForKeyedSubscript:v13];
 
         if (v63)
         {
-          v64 = [v62 objectForKeyedSubscript:firstObject];
+          v64 = [v62 objectForKeyedSubscript:v13];
           unsignedIntegerValue2 = [v64 unsignedIntegerValue];
 
           v66 = [NSNumber numberWithUnsignedInteger:unsignedIntegerValue2];
@@ -1042,11 +1053,11 @@
       v70 = v69;
       if (v69)
       {
-        v71 = [v69 objectForKeyedSubscript:firstObject];
+        v71 = [v69 objectForKeyedSubscript:v13];
 
         if (v71)
         {
-          v72 = [v70 objectForKeyedSubscript:firstObject];
+          v72 = [v70 objectForKeyedSubscript:v13];
           unsignedIntegerValue3 = [v72 unsignedIntegerValue];
 
           v74 = [NSNumber numberWithUnsignedInteger:unsignedIntegerValue3];
@@ -1064,11 +1075,11 @@
       v78 = v77;
       if (v77)
       {
-        v79 = [v77 objectForKeyedSubscript:firstObject];
+        v79 = [v77 objectForKeyedSubscript:v13];
 
         if (v79)
         {
-          v80 = [v78 objectForKeyedSubscript:firstObject];
+          v80 = [v78 objectForKeyedSubscript:v13];
           [v80 floatValue];
           v82 = v81;
 
@@ -1088,11 +1099,11 @@
       v88 = v87;
       if (v87)
       {
-        v89 = [v87 objectForKeyedSubscript:firstObject];
+        v89 = [v87 objectForKeyedSubscript:v13];
 
         if (v89)
         {
-          v90 = [v88 objectForKeyedSubscript:firstObject];
+          v90 = [v88 objectForKeyedSubscript:v13];
           [v90 floatValue];
           v92 = v91;
 
@@ -1106,7 +1117,6 @@
 
   else
   {
-LABEL_38:
     v95 = CSLogCategoryVT;
     if (os_log_type_enabled(CSLogCategoryVT, OS_LOG_TYPE_ERROR))
     {
@@ -1117,7 +1127,7 @@ LABEL_38:
       _os_log_error_impl(&_mh_execute_header, v95, OS_LOG_TYPE_ERROR, "%s ERR: No known voice profile reported in %@", &v96, 0x16u);
     }
 
-    firstObject = 0;
+    v13 = 0;
   }
 }
 
@@ -1899,19 +1909,18 @@ LABEL_10:
       v14 = CSLogCategoryVT;
       if (os_log_type_enabled(CSLogCategoryVT, OS_LOG_TYPE_DEFAULT))
       {
-        v32 = 136315394;
-        v33 = "[CSVoiceTriggerSecondPass _analyzeForChannel:keywordDetectorResult:losingPhraseResults:]";
-        v34 = 2048;
-        v35 = v13;
-        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%s Asset config supports %lu phrase(s)", &v32, 0x16u);
+        v31 = 136315394;
+        v32 = "[CSVoiceTriggerSecondPass _analyzeForChannel:keywordDetectorResult:losingPhraseResults:]";
+        v33 = 2048;
+        v34 = v13;
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%s Asset config supports %lu phrase(s)", &v31, 0x16u);
       }
 
-      supportsMph = self->_supportsMph;
-      v16 = v13 > 1 && self->_supportsMph;
-      if (v16 || !phId)
+      v15 = v13 > 1 && self->_supportsMph;
+      if (v15 || !phId)
       {
-        v18 = [(CSVoiceTriggerSecondPass *)self _getVoiceTriggerInfoWithKeywordDetectorResult:resultCopy];
-        [(CSVoiceTriggerSecondPass *)self _addLosingPhraseResultstoVTEI:v18 withLosingPhraseResults:resultsCopy];
+        v17 = [(CSVoiceTriggerSecondPass *)self _getVoiceTriggerInfoWithKeywordDetectorResult:resultCopy];
+        [(CSVoiceTriggerSecondPass *)self _addLosingPhraseResultstoVTEI:v17 withLosingPhraseResults:resultsCopy];
         [(CSPhraseDetector *)self->_phraseDetector reset];
         speakerRecognitionController = self->_speakerRecognitionController;
         if (speakerRecognitionController)
@@ -1924,28 +1933,28 @@ LABEL_10:
           }
 
           getLatestSpeakerInfo = [(SSRSpeakerRecognitionController *)speakerRecognitionController getLatestSpeakerInfo];
-          v25 = [getLatestSpeakerInfo objectForKeyedSubscript:kSSRSpeakerRecognitionKnownUserScoresKey];
+          v24 = [getLatestSpeakerInfo objectForKeyedSubscript:kSSRSpeakerRecognitionKnownUserScoresKey];
 
-          if (v25)
+          if (v24)
           {
-            -[CSVoiceTriggerSecondPass _handlePHSResults:voiceTriggerEventInfo:forPhId:](self, "_handlePHSResults:voiceTriggerEventInfo:forPhId:", getLatestSpeakerInfo, v18, [resultCopy phId]);
+            -[CSVoiceTriggerSecondPass _handlePHSResults:voiceTriggerEventInfo:forPhId:](self, "_handlePHSResults:voiceTriggerEventInfo:forPhId:", getLatestSpeakerInfo, v17, [resultCopy phId]);
           }
 
           else
           {
-            v29 = CSLogCategoryVT;
+            v28 = CSLogCategoryVT;
             if (os_log_type_enabled(CSLogCategoryVT, OS_LOG_TYPE_DEFAULT))
             {
-              v30 = v29;
+              v29 = v28;
               uUID = [(CSVoiceTriggerSecondPass *)self UUID];
-              v32 = 136315394;
-              v33 = "[CSVoiceTriggerSecondPass _analyzeForChannel:keywordDetectorResult:losingPhraseResults:]";
-              v34 = 2114;
-              v35 = uUID;
-              _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "%s CSVoiceTriggerSecondPass[%{public}@]:PHS Scores not available, ignoring for now !", &v32, 0x16u);
+              v31 = 136315394;
+              v32 = "[CSVoiceTriggerSecondPass _analyzeForChannel:keywordDetectorResult:losingPhraseResults:]";
+              v33 = 2114;
+              v34 = uUID;
+              _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "%s CSVoiceTriggerSecondPass[%{public}@]:PHS Scores not available, ignoring for now !", &v31, 0x16u);
             }
 
-            [(CSVoiceTriggerSecondPass *)self _handleSecondPassSuccess:v18];
+            [(CSVoiceTriggerSecondPass *)self _handleSecondPassSuccess:v17];
           }
 
           goto LABEL_31;
@@ -1953,10 +1962,10 @@ LABEL_10:
 
         if (!+[CSUtils supportRemoraVoiceTrigger]|| (os_unfair_lock_lock(&self->_secondpassTriggerCancellationLock), cancelSecondPassTrigger = self->_cancelSecondPassTrigger, self->_cancelSecondPassTrigger = 0, os_unfair_lock_unlock(&self->_secondpassTriggerCancellationLock), !cancelSecondPassTrigger))
         {
-          v28 = +[CSVoiceTriggerStatistics sharedInstance];
-          [v28 resetPHSRejectCount];
+          v27 = +[CSVoiceTriggerStatistics sharedInstance];
+          [v27 resetPHSRejectCount];
 
-          [(CSVoiceTriggerSecondPass *)self _handleSecondPassSuccess:v18];
+          [(CSVoiceTriggerSecondPass *)self _handleSecondPassSuccess:v17];
           goto LABEL_31;
         }
 
@@ -1964,37 +1973,37 @@ LABEL_10:
         self->_secondPassTimeout = 0;
         isSecondChanceCandidate = [resultCopy isSecondChanceCandidate];
         selfCopy3 = self;
-        v21 = v18;
-        v22 = 6;
+        v20 = v17;
+        v21 = 6;
         goto LABEL_22;
       }
 
-      v17 = CSLogCategoryVT;
+      v16 = CSLogCategoryVT;
       if (os_log_type_enabled(CSLogCategoryVT, OS_LOG_TYPE_DEFAULT))
       {
-        v32 = 136315138;
-        v33 = "[CSVoiceTriggerSecondPass _analyzeForChannel:keywordDetectorResult:losingPhraseResults:]";
-        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "%s Report as rejection since the detected phId is not the default", &v32, 0xCu);
+        v31 = 136315138;
+        v32 = "[CSVoiceTriggerSecondPass _analyzeForChannel:keywordDetectorResult:losingPhraseResults:]";
+        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "%s Report as rejection since the detected phId is not the default", &v31, 0xCu);
       }
 
-      v18 = [(CSVoiceTriggerSecondPass *)self _getVoiceTriggerInfoWithKeywordDetectorResult:resultCopy];
-      [(CSVoiceTriggerSecondPass *)self _addLosingPhraseResultstoVTEI:v18 withLosingPhraseResults:resultsCopy];
+      v17 = [(CSVoiceTriggerSecondPass *)self _getVoiceTriggerInfoWithKeywordDetectorResult:resultCopy];
+      [(CSVoiceTriggerSecondPass *)self _addLosingPhraseResultstoVTEI:v17 withLosingPhraseResults:resultsCopy];
     }
 
     else
     {
-      v18 = [(CSVoiceTriggerSecondPass *)self _getVoiceTriggerInfoWithKeywordDetectorResult:resultCopy];
-      [(CSVoiceTriggerSecondPass *)self _addLosingPhraseResultstoVTEI:v18 withLosingPhraseResults:resultsCopy];
+      v17 = [(CSVoiceTriggerSecondPass *)self _getVoiceTriggerInfoWithKeywordDetectorResult:resultCopy];
+      [(CSVoiceTriggerSecondPass *)self _addLosingPhraseResultstoVTEI:v17 withLosingPhraseResults:resultsCopy];
       if (v10 == 2)
       {
         [(CSPhraseDetector *)self->_phraseDetector reset];
-        v26 = +[CSVoiceTriggerDataCollector sharedInstance];
-        [v26 addVTRejectEntry:v18 truncateData:1];
+        v25 = +[CSVoiceTriggerDataCollector sharedInstance];
+        [v25 addVTRejectEntry:v17 truncateData:1];
 
         isSecondChanceCandidate = [resultCopy isSecondChanceCandidate];
         selfCopy3 = self;
-        v21 = v18;
-        v22 = 3;
+        v20 = v17;
+        v21 = 3;
         goto LABEL_22;
       }
 
@@ -2011,10 +2020,10 @@ LABEL_31:
     self->_secondPassTimeout = 0;
     isSecondChanceCandidate = [resultCopy isSecondChanceCandidate];
     selfCopy3 = self;
-    v21 = v18;
-    v22 = 2;
+    v20 = v17;
+    v21 = 2;
 LABEL_22:
-    [(CSVoiceTriggerSecondPass *)selfCopy3 _notifySecondPassReject:v21 result:v22 isSecondChanceCandidate:isSecondChanceCandidate];
+    [(CSVoiceTriggerSecondPass *)selfCopy3 _notifySecondPassReject:v20 result:v21 isSecondChanceCandidate:isSecondChanceCandidate];
     goto LABEL_31;
   }
 
@@ -2119,247 +2128,245 @@ LABEL_32:
 {
   resultCopy = result;
   phId = [resultCopy phId];
-  v144 = [(CSPhraseDetector *)self->_phraseDetector phraseDetectorInfoFromPhId:phId];
-  phraseConfig = [v144 phraseConfig];
+  v142 = [(CSPhraseDetector *)self->_phraseDetector phraseDetectorInfoFromPhId:phId];
+  phraseConfig = [v142 phraseConfig];
   ndapiResult = [resultCopy ndapiResult];
   [resultCopy combinedScore];
-  v139 = v6;
+  v137 = v6;
   samplesFed = [ndapiResult samplesFed];
-  v137 = samplesFed;
+  v135 = samplesFed;
   bestStart = [ndapiResult bestStart];
   bestEnd = [ndapiResult bestEnd];
   v10 = [ndapiResult samplesAtFire] + self->_processedSampleCountsInPending;
-  v134 = v10;
-  v143 = ndapiResult;
+  v132 = v10;
+  v141 = ndapiResult;
   startSampleCount = [ndapiResult startSampleCount];
-  numAnalyzedSamples = self->_numAnalyzedSamples;
   extraSamplesAtStart = self->_extraSamplesAtStart;
-  v135 = numAnalyzedSamples;
+  numAnalyzedSamples = self->_numAnalyzedSamples;
   secondPassAnalyzerStartSampleCount = self->_secondPassAnalyzerStartSampleCount;
   if (extraSamplesAtStart >= bestStart)
   {
     extraSamplesAtStart = bestStart;
   }
 
-  v138 = extraSamplesAtStart;
-  v14 = &bestStart[-extraSamplesAtStart];
-  v15 = (bestEnd - &bestStart[-extraSamplesAtStart]);
+  v136 = extraSamplesAtStart;
+  v13 = &bestStart[-extraSamplesAtStart];
+  v14 = (bestEnd - &bestStart[-extraSamplesAtStart]);
   +[CSConfig inputRecordingSampleRate];
-  v17 = (v15 / v16);
+  v16 = (v14 / v15);
   +[CSConfig inputRecordingSampleRate];
-  v19 = ((v10 - v14) / v18);
+  v18 = ((v10 - v13) / v17);
   _getAudioTimeConverter = [(CSVoiceTriggerSecondPass *)self _getAudioTimeConverter];
-  v140 = [_getAudioTimeConverter hostTimeFromSampleCount:v14];
+  v138 = [_getAudioTimeConverter hostTimeFromSampleCount:v13];
 
   _getAudioTimeConverter2 = [(CSVoiceTriggerSecondPass *)self _getAudioTimeConverter];
-  v141 = [_getAudioTimeConverter2 hostTimeFromSampleCount:bestEnd];
+  v139 = [_getAudioTimeConverter2 hostTimeFromSampleCount:bestEnd];
 
-  v22 = +[CSBatteryMonitor sharedInstance];
-  v145 = [v22 batteryState] == 2;
+  v21 = +[CSBatteryMonitor sharedInstance];
+  v143 = [v21 batteryState] == 2;
 
   [(CSVoiceTriggerSecondPass *)self _logUptimeWithVTSwitchChanged:0 VTEnabled:1];
-  v130 = [NSNumber numberWithDouble:self->_cumulativeUptime];
-  v133 = [NSNumber numberWithDouble:self->_cumulativeDowntime];
+  v128 = [NSNumber numberWithDouble:self->_cumulativeUptime];
+  v131 = [NSNumber numberWithDouble:self->_cumulativeDowntime];
   +[CSUtils systemUpTime];
-  v24 = v23;
+  v23 = v22;
   +[CSConfig inputRecordingSampleRate];
-  v26 = ((&samplesFed[startSampleCount] - v14) / v25);
+  v25 = ((&samplesFed[startSampleCount] - v13) / v24);
   +[CSConfig inputRecordingSampleRate];
-  v28 = v24 - v26;
-  v29 = v24 - ((&samplesFed[startSampleCount] - bestEnd) / v27);
+  v27 = v23 - v25;
+  v28 = v23 - ((&samplesFed[startSampleCount] - bestEnd) / v26);
   configPathNDAPI = [(CSVoiceTriggerSecondPassConfig *)self->_config configPathNDAPI];
-  v31 = configPathNDAPI;
+  v30 = configPathNDAPI;
   if (configPathNDAPI)
   {
-    v32 = configPathNDAPI;
+    v31 = configPathNDAPI;
   }
 
   else
   {
-    v32 = @"n/a";
+    v31 = @"n/a";
   }
 
-  v33 = v32;
+  v32 = v31;
 
   hashFromResourcePath = [(CSAsset *)self->_currentAsset hashFromResourcePath];
-  v35 = hashFromResourcePath;
+  v34 = hashFromResourcePath;
   if (hashFromResourcePath)
   {
-    v36 = hashFromResourcePath;
+    v35 = hashFromResourcePath;
   }
 
   else
   {
-    v36 = @"n/a";
+    v35 = @"n/a";
   }
 
-  v37 = v36;
+  v36 = v35;
 
   _fetchSiriLocale = [(CSVoiceTriggerSecondPass *)self _fetchSiriLocale];
-  earlyDetectFiredMachTime = self->_earlyDetectFiredMachTime;
   CSMachAbsoluteTimeGetTimeInterval();
-  v41 = v40;
-  v42 = self->_secondPassAnalyzerStartSampleCount;
+  v39 = v38;
+  v40 = self->_secondPassAnalyzerStartSampleCount;
   [phraseConfig preTriggerSilenceOffset];
-  v44 = v43;
+  v42 = v41;
   +[CSConfig inputRecordingSampleRate];
-  v131 = (v42 + (v44 * v45));
-  v46 = +[NSMutableDictionary dictionary];
+  v129 = (v40 + (v42 * v43));
+  v44 = +[NSMutableDictionary dictionary];
   configVersion = [(CSAsset *)self->_currentAsset configVersion];
-  [v46 setObject:configVersion forKey:kVTEIconfigVersion];
+  [v44 setObject:configVersion forKey:kVTEIconfigVersion];
 
-  v48 = +[CSUtils deviceBuildVersion];
-  [v46 setObject:v48 forKey:kVTEIbuildVersion];
+  v46 = +[CSUtils deviceBuildVersion];
+  [v44 setObject:v46 forKey:kVTEIbuildVersion];
 
-  [v46 setObject:v33 forKey:kVTEIconfigPath];
-  [v46 setObject:v37 forKey:kVTEIConfigDataHash];
+  [v44 setObject:v32 forKey:kVTEIconfigPath];
+  [v44 setObject:v36 forKey:kVTEIConfigDataHash];
 
-  v49 = [NSNumber numberWithBool:v145];
-  [v46 setObject:v49 forKey:kVTEIOnBatteryPower];
+  v47 = [NSNumber numberWithBool:v143];
+  [v44 setObject:v47 forKey:kVTEIOnBatteryPower];
 
-  v50 = [NSNumber numberWithBool:self->_didWakeAP];
-  [v46 setObject:v50 forKey:kVTEIDidWakeAP];
+  v48 = [NSNumber numberWithBool:self->_didWakeAP];
+  [v44 setObject:v48 forKey:kVTEIDidWakeAP];
 
-  [v46 setObject:&__kCFBooleanFalse forKey:kVTEISatBeingTrained];
-  v51 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [resultCopy isSecondChance]);
-  [v46 setObject:v51 forKey:kVTEIisSecondChance];
+  [v44 setObject:&__kCFBooleanFalse forKey:kVTEISatBeingTrained];
+  v49 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [resultCopy isSecondChance]);
+  [v44 setObject:v49 forKey:kVTEIisSecondChance];
 
-  [v46 setObject:_fetchSiriLocale forKey:kVTEILanguageCode];
+  [v44 setObject:_fetchSiriLocale forKey:kVTEILanguageCode];
   +[CSConfig inputRecordingSampleRate];
-  v52 = [NSNumber numberWithFloat:?];
-  [v46 setObject:v52 forKey:kVTEIhardwareSamplerate];
+  v50 = [NSNumber numberWithFloat:?];
+  [v44 setObject:v50 forKey:kVTEIhardwareSamplerate];
 
-  v53 = [NSNumber numberWithUnsignedLongLong:v131];
-  [v46 setObject:v53 forKey:kVTEIclientStartSampleCount];
+  v51 = [NSNumber numberWithUnsignedLongLong:v129];
+  [v44 setObject:v51 forKey:kVTEIclientStartSampleCount];
 
-  v54 = [NSNumber numberWithUnsignedInteger:v14];
-  [v46 setObject:v54 forKey:kVTEItriggerStartSampleCount];
+  v52 = [NSNumber numberWithUnsignedInteger:v13];
+  [v44 setObject:v52 forKey:kVTEItriggerStartSampleCount];
 
-  v55 = [NSNumber numberWithUnsignedInteger:bestEnd];
-  [v46 setObject:v55 forKey:kVTEItriggerEndSampleCount];
+  v53 = [NSNumber numberWithUnsignedInteger:bestEnd];
+  [v44 setObject:v53 forKey:kVTEItriggerEndSampleCount];
 
-  v56 = [NSNumber numberWithUnsignedInteger:v134];
-  [v46 setObject:v56 forKey:kVTEItriggerFireSampleCount];
+  v54 = [NSNumber numberWithUnsignedInteger:v132];
+  [v44 setObject:v54 forKey:kVTEItriggerFireSampleCount];
 
-  v57 = [NSNumber numberWithUnsignedLongLong:self->_secondPassAnalyzerStartSampleCount];
-  [v46 setObject:v57 forKey:kVTEIsecondPassAnalyzerStartSampleCount];
+  v55 = [NSNumber numberWithUnsignedLongLong:self->_secondPassAnalyzerStartSampleCount];
+  [v44 setObject:v55 forKey:kVTEIsecondPassAnalyzerStartSampleCount];
 
-  secondPassAnalyzerStartSampleCount = [NSNumber numberWithUnsignedInteger:v135 + secondPassAnalyzerStartSampleCount];
-  [v46 setObject:secondPassAnalyzerStartSampleCount forKey:kVTEIsecondPassAnalyzerEndSampleCount];
+  secondPassAnalyzerStartSampleCount = [NSNumber numberWithUnsignedInteger:numAnalyzedSamples + secondPassAnalyzerStartSampleCount];
+  [v44 setObject:secondPassAnalyzerStartSampleCount forKey:kVTEIsecondPassAnalyzerEndSampleCount];
 
-  [v46 setObject:&off_10025E9B8 forKey:kVTEItriggerStartSeconds];
-  v59 = [NSNumber numberWithDouble:v17];
-  [v46 setObject:v59 forKey:kVTEItriggerEndSeconds];
+  [v44 setObject:&off_10025E9B8 forKey:kVTEItriggerStartSeconds];
+  v57 = [NSNumber numberWithDouble:v16];
+  [v44 setObject:v57 forKey:kVTEItriggerEndSeconds];
 
-  v60 = [NSNumber numberWithDouble:v19];
-  [v46 setObject:v60 forKey:kVTEItriggerFireSeconds];
+  v58 = [NSNumber numberWithDouble:v18];
+  [v44 setObject:v58 forKey:kVTEItriggerFireSeconds];
 
-  v61 = [NSNumber numberWithDouble:v28];
-  [v46 setObject:v61 forKey:kVTEItriggerStartTime];
+  v59 = [NSNumber numberWithDouble:v27];
+  [v44 setObject:v59 forKey:kVTEItriggerStartTime];
 
-  v62 = [NSNumber numberWithDouble:v29];
-  [v46 setObject:v62 forKey:kVTEItriggerEndTime];
+  v60 = [NSNumber numberWithDouble:v28];
+  [v44 setObject:v60 forKey:kVTEItriggerEndTime];
 
-  v63 = [NSNumber numberWithDouble:v29 - v28];
-  [v46 setObject:v63 forKey:kVTEItriggerDuration];
+  v61 = [NSNumber numberWithDouble:v28 - v27];
+  [v44 setObject:v61 forKey:kVTEItriggerDuration];
 
-  v64 = [NSNumber numberWithDouble:v24];
-  [v46 setObject:v64 forKey:kVTEItriggerFiredTime];
+  v62 = [NSNumber numberWithDouble:v23];
+  [v44 setObject:v62 forKey:kVTEItriggerFiredTime];
 
-  v65 = [NSNumber numberWithUnsignedInteger:v137];
-  [v46 setObject:v65 forKey:kVTEItotalSamplesAtEndOfCapture];
+  v63 = [NSNumber numberWithUnsignedInteger:v135];
+  [v44 setObject:v63 forKey:kVTEItotalSamplesAtEndOfCapture];
 
-  v66 = [NSNumber numberWithUnsignedInteger:v14];
-  [v46 setObject:v66 forKey:kVTEItotalSamplesAtTriggerStart];
+  v64 = [NSNumber numberWithUnsignedInteger:v13];
+  [v44 setObject:v64 forKey:kVTEItotalSamplesAtTriggerStart];
 
-  v67 = [NSNumber numberWithUnsignedInteger:bestEnd];
-  [v46 setObject:v67 forKey:kVTEItotalSamplesAtTriggerEnd];
+  v65 = [NSNumber numberWithUnsignedInteger:bestEnd];
+  [v44 setObject:v65 forKey:kVTEItotalSamplesAtTriggerEnd];
 
-  [v130 doubleValue];
-  v68 = [NSNumber numberWithDouble:?];
-  [v46 setObject:v68 forKey:kVTEIVTuptime];
+  [v128 doubleValue];
+  v66 = [NSNumber numberWithDouble:?];
+  [v44 setObject:v66 forKey:kVTEIVTuptime];
 
-  [v133 doubleValue];
-  v69 = [NSNumber numberWithDouble:?];
-  [v46 setObject:v69 forKey:kVTEIVTdowntime];
+  [v131 doubleValue];
+  v67 = [NSNumber numberWithDouble:?];
+  [v44 setObject:v67 forKey:kVTEIVTdowntime];
 
-  v70 = [NSNumber numberWithDouble:v41];
-  [v46 setObject:v70 forKey:kVTEIearlyDetectFiredTime];
+  v68 = [NSNumber numberWithDouble:v39];
+  [v44 setObject:v68 forKey:kVTEIearlyDetectFiredTime];
 
-  LODWORD(v71) = v139;
-  v72 = [NSNumber numberWithFloat:v71];
-  [v46 setObject:v72 forKey:kVTEItriggerScore];
+  LODWORD(v69) = v137;
+  v70 = [NSNumber numberWithFloat:v69];
+  [v44 setObject:v70 forKey:kVTEItriggerScore];
 
-  v73 = [NSNumber numberWithUnsignedInteger:v138];
-  [v46 setObject:v73 forKey:kVTEIextraSamplesAtStart];
+  v71 = [NSNumber numberWithUnsignedInteger:v136];
+  [v44 setObject:v71 forKey:kVTEIextraSamplesAtStart];
 
-  v74 = [NSNumber numberWithUnsignedInteger:self->_analyzerPrependingSamples];
-  [v46 setObject:v74 forKey:kVTEIanalyzerPrependingSamples];
+  v72 = [NSNumber numberWithUnsignedInteger:self->_analyzerPrependingSamples];
+  [v44 setObject:v72 forKey:kVTEIanalyzerPrependingSamples];
 
-  v75 = [NSNumber numberWithUnsignedInteger:self->_analyzerTrailingSamples];
-  v76 = kVTEIanalyzerTrailingSamples;
-  [v46 setObject:v75 forKey:kVTEIanalyzerTrailingSamples];
+  v73 = [NSNumber numberWithUnsignedInteger:self->_analyzerTrailingSamples];
+  v74 = kVTEIanalyzerTrailingSamples;
+  [v44 setObject:v73 forKey:kVTEIanalyzerTrailingSamples];
 
-  [v144 effectiveKeywordThreshold];
-  v77 = [NSNumber numberWithFloat:?];
-  [v46 setObject:v77 forKey:kVTEIeffectiveThreshold];
+  [v142 effectiveKeywordThreshold];
+  v75 = [NSNumber numberWithFloat:?];
+  [v44 setObject:v75 forKey:kVTEIeffectiveThreshold];
 
-  [v144 effectiveKeywordThreshold];
-  v78 = [NSNumber numberWithFloat:?];
-  [v46 setObject:v78 forKey:kVTEIthreshold];
+  [v142 effectiveKeywordThreshold];
+  v76 = [NSNumber numberWithFloat:?];
+  [v44 setObject:v76 forKey:kVTEIthreshold];
 
-  v79 = [NSNumber numberWithUnsignedLongLong:self->_earlyDetectFiredMachTime];
-  [v46 setObject:v79 forKey:kVTEIearlyDetectFiredMachTime];
+  v77 = [NSNumber numberWithUnsignedLongLong:self->_earlyDetectFiredMachTime];
+  [v44 setObject:v77 forKey:kVTEIearlyDetectFiredMachTime];
 
-  v80 = [NSNumber numberWithUnsignedLongLong:v140];
-  [v46 setObject:v80 forKey:kVTEItriggerStartMachTime];
+  v78 = [NSNumber numberWithUnsignedLongLong:v138];
+  [v44 setObject:v78 forKey:kVTEItriggerStartMachTime];
 
-  v81 = [NSNumber numberWithUnsignedLongLong:v141];
-  [v46 setObject:v81 forKey:kVTEItriggerEndMachTime];
+  v79 = [NSNumber numberWithUnsignedLongLong:v139];
+  [v44 setObject:v79 forKey:kVTEItriggerEndMachTime];
 
-  [v46 setObject:&__kCFBooleanFalse forKey:kVTEIisContinuous];
-  v82 = [NSNumber numberWithUnsignedInteger:phId];
-  [v46 setObject:v82 forKey:kVTEITriggeredPhId];
+  [v44 setObject:&__kCFBooleanFalse forKey:kVTEIisContinuous];
+  v80 = [NSNumber numberWithUnsignedInteger:phId];
+  [v44 setObject:v80 forKey:kVTEITriggeredPhId];
 
   name = [phraseConfig name];
 
   if (name)
   {
     name2 = [phraseConfig name];
-    [v46 setObject:name2 forKey:kVTEITriggeredPh];
+    [v44 setObject:name2 forKey:kVTEITriggeredPh];
   }
 
   _shouldRequestSingleChannelFromAudioProvider = [(CSVoiceTriggerSecondPass *)self _shouldRequestSingleChannelFromAudioProvider];
-  v86 = 224;
+  v84 = 224;
   if (_shouldRequestSingleChannelFromAudioProvider)
   {
-    v86 = 232;
+    v84 = 232;
   }
 
-  v87 = [NSNumber numberWithUnsignedInteger:*(&self->super.isa + v86)];
-  [v46 setObject:v87 forKey:kVTEIactiveChannel];
+  v85 = [NSNumber numberWithUnsignedInteger:*(&self->super.isa + v84)];
+  [v44 setObject:v85 forKey:kVTEIactiveChannel];
 
-  [v130 doubleValue];
-  v88 = [NSNumber numberWithDouble:?];
-  [v46 setObject:v88 forKey:kVTEIuptime];
+  [v128 doubleValue];
+  v86 = [NSNumber numberWithDouble:?];
+  [v44 setObject:v86 forKey:kVTEIuptime];
 
-  [v133 doubleValue];
-  v89 = [NSNumber numberWithDouble:?];
-  [v46 setObject:v89 forKey:kVTEIdowntime];
+  [v131 doubleValue];
+  v87 = [NSNumber numberWithDouble:?];
+  [v44 setObject:v87 forKey:kVTEIdowntime];
 
   if ([resultCopy isRunningQuasar])
   {
     [resultCopy recognizerScore];
-    v90 = [NSNumber numberWithFloat:?];
-    [v46 setObject:v90 forKey:kVTEIrecognizerScore];
+    v88 = [NSNumber numberWithFloat:?];
+    [v44 setObject:v88 forKey:kVTEIrecognizerScore];
 
     [phraseConfig recognizerScoreOffset];
-    v91 = [NSNumber numberWithFloat:?];
-    [v46 setObject:v91 forKey:kVTEIrecognizerThresholdOffset];
+    v89 = [NSNumber numberWithFloat:?];
+    [v44 setObject:v89 forKey:kVTEIrecognizerThresholdOffset];
 
     [phraseConfig recognizerScoreScaleFactor];
-    v92 = [NSNumber numberWithFloat:?];
-    [v46 setObject:v92 forKey:kVTEIrecognizerScaleFactor];
+    v90 = [NSNumber numberWithFloat:?];
+    [v44 setObject:v90 forKey:kVTEIrecognizerScaleFactor];
   }
 
   if (CSIsHorseman())
@@ -2369,52 +2376,52 @@ LABEL_32:
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        [v46 setObject:self->_firstPassChannelSelectionScores forKey:kVTEIfirstPassChannelSelectionScores];
+        [v44 setObject:self->_firstPassChannelSelectionScores forKey:kVTEIfirstPassChannelSelectionScores];
       }
     }
 
-    v93 = [NSNumber numberWithUnsignedInteger:self->_firstPassTriggerStartSampleCount];
-    [v46 setObject:v93 forKey:kVTEIfirstPassStartSampleCount];
+    v91 = [NSNumber numberWithUnsignedInteger:self->_firstPassTriggerStartSampleCount];
+    [v44 setObject:v91 forKey:kVTEIfirstPassStartSampleCount];
 
-    v94 = [NSNumber numberWithUnsignedInteger:self->_firstPassTriggerFireSampleCount];
-    [v46 setObject:v94 forKey:kVTEIfirstPassFireSampleCount];
+    v92 = [NSNumber numberWithUnsignedInteger:self->_firstPassTriggerFireSampleCount];
+    [v44 setObject:v92 forKey:kVTEIfirstPassFireSampleCount];
 
-    *&v95 = self->_firstPassChannelSelectionDelaySeconds;
+    *&v93 = self->_firstPassChannelSelectionDelaySeconds;
+    v94 = [NSNumber numberWithFloat:v93];
+    [v44 setObject:v94 forKey:kVTEIfirstPassChannelSelectionDelaySeconds];
+
+    *&v95 = self->_firstPassMasterChannelScoreBoost;
     v96 = [NSNumber numberWithFloat:v95];
-    [v46 setObject:v96 forKey:kVTEIfirstPassChannelSelectionDelaySeconds];
+    [v44 setObject:v96 forKey:kVTEIfirstPassMasterChannelScoreBoost];
 
-    *&v97 = self->_firstPassMasterChannelScoreBoost;
-    v98 = [NSNumber numberWithFloat:v97];
-    [v46 setObject:v98 forKey:kVTEIfirstPassMasterChannelScoreBoost];
+    v97 = [NSNumber numberWithUnsignedInteger:self->_firstPassOnsetChannel];
+    [v44 setObject:v97 forKey:kVTEIfirstPassOnsetChannel];
 
-    v99 = [NSNumber numberWithUnsignedInteger:self->_firstPassOnsetChannel];
-    [v46 setObject:v99 forKey:kVTEIfirstPassOnsetChannel];
-
-    *&v100 = self->_firstPassOnsetScore;
-    v101 = [NSNumber numberWithFloat:v100];
-    [v46 setObject:v101 forKey:kVTEIfirstPassOnsetScore];
+    *&v98 = self->_firstPassOnsetScore;
+    v99 = [NSNumber numberWithFloat:v98];
+    [v44 setObject:v99 forKey:kVTEIfirstPassOnsetScore];
   }
 
-  v102 = [(CSVoiceTriggerSecondPass *)self _getFirstPassTriggerSourceAsString:self->_firstPassSource];
-  [v46 setObject:v102 forKey:kVTEIfirstPassTriggerSource];
+  v100 = [(CSVoiceTriggerSecondPass *)self _getFirstPassTriggerSourceAsString:self->_firstPassSource];
+  [v44 setObject:v100 forKey:kVTEIfirstPassTriggerSource];
 
   firstpassMetrics = self->_firstpassMetrics;
   if (firstpassMetrics)
   {
     firstPassInfoGeneratedTime = [(CSVoiceTriggerFirstPassMetrics *)firstpassMetrics firstPassInfoGeneratedTime];
-    [v46 setObject:firstPassInfoGeneratedTime forKey:kVTEIFirstPassInfoGeneratedTime];
+    [v44 setObject:firstPassInfoGeneratedTime forKey:kVTEIFirstPassInfoGeneratedTime];
 
     firstPassInfoProcessedTime = [(CSVoiceTriggerFirstPassMetrics *)self->_firstpassMetrics firstPassInfoProcessedTime];
-    [v46 setObject:firstPassInfoProcessedTime forKey:kVTEIFirstPassInfoProcessedTime];
+    [v44 setObject:firstPassInfoProcessedTime forKey:kVTEIFirstPassInfoProcessedTime];
   }
 
-  v106 = +[CSUtils supportJarvisVoiceTrigger];
+  v104 = +[CSUtils supportJarvisVoiceTrigger];
   firstPassSource = self->_firstPassSource;
-  if (v106 && firstPassSource == 4)
+  if (v104 && firstPassSource == 4)
   {
     +[CSConfig inputRecordingSampleRate];
-    v109 = [NSNumber numberWithUnsignedInteger:(v108 * 0.5)];
-    [v46 setObject:v109 forKey:v76];
+    v107 = [NSNumber numberWithUnsignedInteger:(v106 * 0.5)];
+    [v44 setObject:v107 forKey:v74];
 
     firstPassSource = self->_firstPassSource;
   }
@@ -2422,14 +2429,14 @@ LABEL_32:
   if ([(CSVoiceTriggerSecondPass *)self _shouldLogMediaplayState:firstPassSource])
   {
     mediaPlayingState = self->_mediaPlayingState;
-    v111 = [NSNumber numberWithBool:mediaPlayingState == 1];
-    [v46 setObject:v111 forKey:kVTEIisMediaPlaying];
+    v109 = [NSNumber numberWithBool:mediaPlayingState == 1];
+    [v44 setObject:v109 forKey:kVTEIisMediaPlaying];
 
     if (mediaPlayingState == 1)
     {
-      *&v112 = self->_mediaVolume;
-      v113 = [NSNumber numberWithFloat:v112];
-      [v46 setObject:v113 forKey:kVTEImediaVolume];
+      *&v110 = self->_mediaVolume;
+      v111 = [NSNumber numberWithFloat:v110];
+      [v44 setObject:v111 forKey:kVTEImediaVolume];
     }
   }
 
@@ -2438,48 +2445,48 @@ LABEL_32:
   if (audioProviderUUID)
   {
     audioProviderUUID2 = [(CSVoiceTriggerSecondPass *)self audioProviderUUID];
-    [v46 setObject:audioProviderUUID2 forKey:kVTEIAudioProviderUUID];
+    [v44 setObject:audioProviderUUID2 forKey:kVTEIAudioProviderUUID];
   }
 
-  v116 = +[NSUUID UUID];
-  uUIDString = [v116 UUIDString];
-  [v46 setObject:uUIDString forKey:kVTEISelfLoggingUUID];
+  v114 = +[NSUUID UUID];
+  uUIDString = [v114 UUIDString];
+  [v44 setObject:uUIDString forKey:kVTEISelfLoggingUUID];
 
   secondPassLatencyMetrics = self->_secondPassLatencyMetrics;
   if (secondPassLatencyMetrics)
   {
-    v119 = [NSNumber numberWithUnsignedLongLong:[CSFTimeUtils hostTimeToNs:[(CSVTSecondPassLatencyMetrics *)secondPassLatencyMetrics secondPassAssetQueryStartTime]]];
-    [v46 setObject:v119 forKey:kVTEISecondPassAssetQueryStartTime];
+    v117 = [NSNumber numberWithUnsignedLongLong:[CSFTimeUtils hostTimeToNs:[(CSVTSecondPassLatencyMetrics *)secondPassLatencyMetrics secondPassAssetQueryStartTime]]];
+    [v44 setObject:v117 forKey:kVTEISecondPassAssetQueryStartTime];
 
-    v120 = [NSNumber numberWithUnsignedLongLong:[CSFTimeUtils hostTimeToNs:[(CSVTSecondPassLatencyMetrics *)self->_secondPassLatencyMetrics secondPassAssetQueryCompleteTime]]];
-    [v46 setObject:v120 forKey:kVTEISecondPassAssetQueryCompleteTime];
+    v118 = [NSNumber numberWithUnsignedLongLong:[CSFTimeUtils hostTimeToNs:[(CSVTSecondPassLatencyMetrics *)self->_secondPassLatencyMetrics secondPassAssetQueryCompleteTime]]];
+    [v44 setObject:v118 forKey:kVTEISecondPassAssetQueryCompleteTime];
 
-    v121 = [NSNumber numberWithUnsignedLongLong:[CSFTimeUtils hostTimeToNs:[(CSVTSecondPassLatencyMetrics *)self->_secondPassLatencyMetrics secondPassAssetLoadStartTime]]];
-    [v46 setObject:v121 forKey:kVTEISecondPassAssetLoadStartTime];
+    v119 = [NSNumber numberWithUnsignedLongLong:[CSFTimeUtils hostTimeToNs:[(CSVTSecondPassLatencyMetrics *)self->_secondPassLatencyMetrics secondPassAssetLoadStartTime]]];
+    [v44 setObject:v119 forKey:kVTEISecondPassAssetLoadStartTime];
 
-    v122 = [NSNumber numberWithUnsignedLongLong:[CSFTimeUtils hostTimeToNs:[(CSVTSecondPassLatencyMetrics *)self->_secondPassLatencyMetrics secondPassAssetLoadCompleteTime]]];
-    [v46 setObject:v122 forKey:kVTEISecondPassAssetLoadCompleteTime];
+    v120 = [NSNumber numberWithUnsignedLongLong:[CSFTimeUtils hostTimeToNs:[(CSVTSecondPassLatencyMetrics *)self->_secondPassLatencyMetrics secondPassAssetLoadCompleteTime]]];
+    [v44 setObject:v120 forKey:kVTEISecondPassAssetLoadCompleteTime];
 
-    v123 = [NSNumber numberWithUnsignedLongLong:[CSFTimeUtils hostTimeToNs:[(CSVTSecondPassLatencyMetrics *)self->_secondPassLatencyMetrics secondPassAudioStreamStartTime]]];
-    [v46 setObject:v123 forKey:kVTEISecondPassAudioStreamStartTime];
+    v121 = [NSNumber numberWithUnsignedLongLong:[CSFTimeUtils hostTimeToNs:[(CSVTSecondPassLatencyMetrics *)self->_secondPassLatencyMetrics secondPassAudioStreamStartTime]]];
+    [v44 setObject:v121 forKey:kVTEISecondPassAudioStreamStartTime];
 
-    v124 = [NSNumber numberWithUnsignedLongLong:[CSFTimeUtils hostTimeToNs:[(CSVTSecondPassLatencyMetrics *)self->_secondPassLatencyMetrics secondPassAudioStreamReadyTime]]];
-    [v46 setObject:v124 forKey:kVTEISecondPassAudioStreamReadyTime];
+    v122 = [NSNumber numberWithUnsignedLongLong:[CSFTimeUtils hostTimeToNs:[(CSVTSecondPassLatencyMetrics *)self->_secondPassLatencyMetrics secondPassAudioStreamReadyTime]]];
+    [v44 setObject:v122 forKey:kVTEISecondPassAudioStreamReadyTime];
 
-    v125 = [NSNumber numberWithUnsignedLongLong:[CSFTimeUtils hostTimeToNs:[(CSVTSecondPassLatencyMetrics *)self->_secondPassLatencyMetrics secondPassFirstAudioPacketReceptionTime]]];
-    [v46 setObject:v125 forKey:kVTEISecondPassFirstAudioPacketReceptionTime];
+    v123 = [NSNumber numberWithUnsignedLongLong:[CSFTimeUtils hostTimeToNs:[(CSVTSecondPassLatencyMetrics *)self->_secondPassLatencyMetrics secondPassFirstAudioPacketReceptionTime]]];
+    [v44 setObject:v123 forKey:kVTEISecondPassFirstAudioPacketReceptionTime];
 
-    v126 = [NSNumber numberWithUnsignedLongLong:[CSFTimeUtils hostTimeToNs:[(CSVTSecondPassLatencyMetrics *)self->_secondPassLatencyMetrics secondPassLastAudioPacketReceptionTime]]];
-    [v46 setObject:v126 forKey:kVTEISecondPassLastAudioPacketReceptionTime];
+    v124 = [NSNumber numberWithUnsignedLongLong:[CSFTimeUtils hostTimeToNs:[(CSVTSecondPassLatencyMetrics *)self->_secondPassLatencyMetrics secondPassLastAudioPacketReceptionTime]]];
+    [v44 setObject:v124 forKey:kVTEISecondPassLastAudioPacketReceptionTime];
 
-    v127 = [NSNumber numberWithUnsignedLongLong:[CSFTimeUtils hostTimeToNs:[(CSVTSecondPassLatencyMetrics *)self->_secondPassLatencyMetrics secondPassCheckerModelKeywordDetectionStartTime]]];
-    [v46 setObject:v127 forKey:kVTEISecondPassCheckerModelKeywordDetectionStartTime];
+    v125 = [NSNumber numberWithUnsignedLongLong:[CSFTimeUtils hostTimeToNs:[(CSVTSecondPassLatencyMetrics *)self->_secondPassLatencyMetrics secondPassCheckerModelKeywordDetectionStartTime]]];
+    [v44 setObject:v125 forKey:kVTEISecondPassCheckerModelKeywordDetectionStartTime];
 
-    v128 = [NSNumber numberWithUnsignedLongLong:[CSFTimeUtils hostTimeToNs:[(CSVTSecondPassLatencyMetrics *)self->_secondPassLatencyMetrics secondPassCheckerModelKeywordDetectionEndTime]]];
-    [v46 setObject:v128 forKey:kVTEISecondPassCheckerModelKeywordDetectionEndTime];
+    v126 = [NSNumber numberWithUnsignedLongLong:[CSFTimeUtils hostTimeToNs:[(CSVTSecondPassLatencyMetrics *)self->_secondPassLatencyMetrics secondPassCheckerModelKeywordDetectionEndTime]]];
+    [v44 setObject:v126 forKey:kVTEISecondPassCheckerModelKeywordDetectionEndTime];
   }
 
-  return v46;
+  return v44;
 }
 
 - (id)_runRecognizersWithChunk:(id)chunk
@@ -2697,6 +2704,118 @@ LABEL_13:
   }
 }
 
+- (id)_constructVTEIFromExclaveKeywordResult:(unint64_t)result speakerDetectionResult:(unint64_t)detectionResult phraseId:(unsigned int)id triggerTimestamp:(unint64_t)timestamp triggerStartSampleCount:(unint64_t)count triggerEndSampleCount:(unint64_t)sampleCount
+{
+  v11 = *&id;
+  v15 = +[NSMutableDictionary dictionary];
+  currentAsset = self->_currentAsset;
+  if (currentAsset && ([(CSAsset *)currentAsset configVersion], v17 = objc_claimAutoreleasedReturnValue(), v17, v17))
+  {
+    configVersion = [(CSAsset *)self->_currentAsset configVersion];
+    [v15 setObject:configVersion forKey:kVTEIconfigVersion];
+
+    v19 = [NSNumber numberWithUnsignedInt:v11];
+    [v15 setObject:v19 forKey:kVTEITriggeredPhId];
+
+    v20 = [NSNumber numberWithUnsignedLongLong:count];
+    [v15 setObject:v20 forKey:kVTEItriggerStartSampleCount];
+
+    v21 = [NSNumber numberWithUnsignedLongLong:sampleCount];
+    [v15 setObject:v21 forKey:kVTEItriggerEndSampleCount];
+
+    v22 = [NSNumber numberWithUnsignedLongLong:timestamp];
+    [v15 setObject:v22 forKey:kVTEItriggerEndTime];
+
+    phraseConfigs = [(CSVoiceTriggerSecondPassConfig *)self->_config phraseConfigs];
+    v24 = [phraseConfigs count];
+    v25 = v11;
+
+    if (v24 > v11)
+    {
+      phraseConfigs2 = [(CSVoiceTriggerSecondPassConfig *)self->_config phraseConfigs];
+      v27 = [phraseConfigs2 objectAtIndex:v11];
+
+      [(CSAsset *)self->_currentAsset satScoreThresholdForPhId:v25];
+      v29 = LODWORD(v28);
+      if (result == 1)
+      {
+        *&v28 = 1000.0;
+      }
+
+      else
+      {
+        *&v28 = -1000.0;
+      }
+
+      if (detectionResult - 1 >= 2)
+      {
+        v30 = -1000.0;
+      }
+
+      else
+      {
+        v30 = 1000.0;
+      }
+
+      v31 = [NSNumber numberWithFloat:v28];
+      [v15 setObject:v31 forKey:kVTEItriggerScore];
+
+      [v27 threshold];
+      v32 = [NSNumber numberWithFloat:?];
+      [v15 setObject:v32 forKey:kVTEIthreshold];
+
+      *&v33 = v30;
+      v34 = [NSNumber numberWithFloat:v33];
+      [v15 setObject:v34 forKey:kVTEItdsrCombinedScore];
+
+      LODWORD(v35) = v29;
+      v36 = [NSNumber numberWithFloat:v35];
+      [v15 setObject:v36 forKey:kVTEItdsrCombinedThreshold];
+
+      v37 = v15;
+      goto LABEL_16;
+    }
+
+    v42 = CSLogContextFacilityCoreSpeech;
+    if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
+    {
+      config = self->_config;
+      v45 = v42;
+      phraseConfigs3 = [(CSVoiceTriggerSecondPassConfig *)config phraseConfigs];
+      v47 = 136315650;
+      v48 = "[CSVoiceTriggerSecondPass _constructVTEIFromExclaveKeywordResult:speakerDetectionResult:phraseId:triggerTimestamp:triggerStartSampleCount:triggerEndSampleCount:]";
+      v49 = 2048;
+      v50 = v11;
+      v51 = 2048;
+      v52 = [phraseConfigs3 count];
+      _os_log_error_impl(&_mh_execute_header, v45, OS_LOG_TYPE_ERROR, "%s Got unexpected phrase id: %lu with phrase count: %lu, not constructing VTEI", &v47, 0x20u);
+    }
+  }
+
+  else
+  {
+    v38 = CSLogContextFacilityCoreSpeech;
+    if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
+    {
+      v39 = self->_currentAsset;
+      v40 = v38;
+      configVersion2 = [(CSAsset *)v39 configVersion];
+      v47 = 136315650;
+      v48 = "[CSVoiceTriggerSecondPass _constructVTEIFromExclaveKeywordResult:speakerDetectionResult:phraseId:triggerTimestamp:triggerStartSampleCount:triggerEndSampleCount:]";
+      v49 = 2112;
+      v50 = v39;
+      v51 = 2112;
+      v52 = configVersion2;
+      _os_log_error_impl(&_mh_execute_header, v40, OS_LOG_TYPE_ERROR, "%s Asset isn't set or the version is unknown, asset:%@ version:%@", &v47, 0x20u);
+    }
+  }
+
+  v37 = 0;
+LABEL_16:
+
+  return v37;
+}
+
 - (unint64_t)_getSecondPassRejectReasonFromExclaveKeywordResult:(unint64_t)result speakerDetectionResult:(unint64_t)detectionResult
 {
   switch(result)
@@ -2857,6 +2976,77 @@ LABEL_13:
   {
     v9 = self->_audioFileWriter;
     self->_audioFileWriter = 0;
+  }
+}
+
+- (void)_notifySecondPassReject:(id)reject result:(unint64_t)result isSecondChanceCandidate:(BOOL)candidate
+{
+  candidateCopy = candidate;
+  rejectCopy = reject;
+  v9 = CSLogCategoryVT;
+  if (os_log_type_enabled(CSLogCategoryVT, OS_LOG_TYPE_DEFAULT))
+  {
+    v10 = v9;
+    uUID = [(CSVoiceTriggerSecondPass *)self UUID];
+    *buf = 136315394;
+    v29 = "[CSVoiceTriggerSecondPass _notifySecondPassReject:result:isSecondChanceCandidate:]";
+    v30 = 2114;
+    v31 = uUID;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%s CSVoiceTriggerSecondPass[%{public}@]:", buf, 0x16u);
+  }
+
+  v12 = [rejectCopy mutableCopy];
+  [(CSVoiceTriggerSecondPass *)self _addDeviceStatusInfoToDict:v12];
+  uUIDString = [(NSUUID *)self->_secondPassRejectionMHUUID UUIDString];
+  [v12 setObject:uUIDString forKey:kVTEISecondPassRejectionMHUUID];
+
+  v14 = v12;
+  [(CSVoiceTriggerSecondPass *)self _reportModelProcessingLatency];
+  self->_secondPassHasMadeDecision = 1;
+  audioStream = [(CSVoiceTriggerSecondPass *)self audioStream];
+
+  if (audioStream)
+  {
+    audioStream2 = [(CSVoiceTriggerSecondPass *)self audioStream];
+    v20 = _NSConcreteStackBlock;
+    v21 = 3221225472;
+    v22 = sub_1000B3B1C;
+    v23 = &unk_1002506A0;
+    selfCopy = self;
+    resultCopy = result;
+    v25 = v14;
+    v27 = candidateCopy;
+    [audioStream2 stopAudioStreamWithOption:0 completion:&v20];
+  }
+
+  else
+  {
+    v17 = CSLogCategoryVT;
+    if (os_log_type_enabled(CSLogCategoryVT, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136315138;
+      v29 = "[CSVoiceTriggerSecondPass _notifySecondPassReject:result:isSecondChanceCandidate:]";
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "%s audioStream not existing", buf, 0xCu);
+    }
+
+    [(CSVoiceTriggerSecondPass *)self _handleResultCompletion:result voiceTriggerInfo:v14 isSecondChanceCandidate:candidateCopy error:0];
+  }
+
+  if (CSIsInternalBuild())
+  {
+    if (result == 9)
+    {
+      v18 = 4705;
+    }
+
+    else
+    {
+      v18 = 4704;
+    }
+
+    [(CSVoiceTriggerSecondPass *)self _logRejectionEventToSELF:v14 result:result, v20, v21, v22, v23, selfCopy];
+    v19 = +[AFAnalytics sharedAnalytics];
+    [v19 logEventWithType:v18 context:v14];
   }
 }
 

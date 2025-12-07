@@ -1,18 +1,18 @@
-void sub_25D4C8610(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25D4C8610(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va1, a3);
-  va_start(va, a3);
-  v4 = va_arg(va1, SsrwOOStorage *);
+  va_start(va1, a5);
+  va_start(va, a5);
+  v6 = va_arg(va1, SsrwOOStorage *);
   ChAutoPtr<SsrwOOStorage>::~ChAutoPtr(va);
   ChAutoPtr<SsrwOOStorage>::~ChAutoPtr(va1);
   _Unwind_Resume(a1);
 }
 
-void OcBinaryWriter::copyStreamUsingTempBuffer(OcBinaryWriter *this, SsrwOOStream *a2, SsrwOOStream *a3, unsigned int a4, char **a5)
+void OcBinaryWriter::copyStreamUsingTempBuffer(OcBinaryWriter *this, SsrwOOStream *a2, SsrwOOStream *a3, uint64_t *a4, char **a5)
 {
   v5 = 4000;
   v6 = a3;
-  operator new[](4000);
+  operator new[](4000, 0x1000C8077774924);
 }
 
 void sub_25D4C891C(void *a1)
@@ -477,23 +477,23 @@ void OcMailRecordParserVisitor::visit(OcMailRecordParserVisitor *this, MR_Unicod
 {
   v2 = (*(**(this + 1) + 72))(*(this + 1));
   v3 = v2 >> 1;
-  operator new[]((v2 & 0xFFFFFFFE) + 2);
+  operator new[]((v2 & 0xFFFFFFFE) + 2, 0x1000C80BDFB0063);
 }
 
 void OcMailRecordParserVisitor::visit(OcMailRecordParserVisitor *this, MR_Blob *a2)
 {
   v3 = (*(**(this + 1) + 72))(*(this + 1));
   *(a2 + 12) = v3;
-  operator new[](v3);
+  operator new[](v3, 0x1000C8077774924);
 }
 
-void OCChRectI4WithCGRect(CGRect a1@<0:D0, 8:D1, 16:D2, 24:D3>, _DWORD *a2@<X8>)
+void OCChRectI4WithCGRect(uint64_t *__return_ptr a1@<X8>, CGRect a2@<0:D0, 8:D1, 16:D2, 24:D3>)
 {
-  height = a1.size.height;
-  width = a1.size.width;
-  y = a1.origin.y;
-  x = a1.origin.x;
-  v7 = llround(CGRectGetMinX(a1));
+  height = a2.size.height;
+  width = a2.size.width;
+  y = a2.origin.y;
+  x = a2.origin.x;
+  v7 = llround(CGRectGetMinX(a2));
   v11.origin.x = x;
   v11.origin.y = y;
   v11.size.width = width;
@@ -509,10 +509,10 @@ void OCChRectI4WithCGRect(CGRect a1@<0:D0, 8:D1, 16:D2, 24:D3>, _DWORD *a2@<X8>)
   v13.size.width = width;
   v13.size.height = height;
   MaxY = CGRectGetMaxY(v13);
-  *a2 = v7;
-  a2[1] = v8;
-  a2[2] = v9;
-  a2[3] = llround(MaxY);
+  *a1 = v7;
+  *(a1 + 1) = v8;
+  *(a1 + 2) = v9;
+  *(a1 + 3) = llround(MaxY);
 }
 
 void OcParser::~OcParser(OcParser *this)
@@ -534,7 +534,7 @@ CsString *OcParser::makeStringFromStream(OcParser *this, CsString *a2, SsrwOOStr
     v10[0] = v6;
     if (a5)
     {
-      operator new[]((v6 + 1));
+      operator new[]((v6 + 1), 0x1000C8077774924);
     }
 
     (*(a3->var0 + 17))(a3, v10, a2->var1);
@@ -695,7 +695,7 @@ void sub_25D4CAB30(_Unwind_Exception *a1, int a2)
   _Unwind_Resume(a1);
 }
 
-uint64_t OcParser::parseContactCollection(OcParser *this, OcContactCollection *a2, SsrwOOStream *a3)
+OcParser *OcParser::parseContactCollection(OcParser *this, OcContactCollection *a2, SsrwOOStream *a3)
 {
   v4 = (*(a3->var0 + 12))(a3);
   result = (*(a3->var0 + 6))(a3);
@@ -744,12 +744,12 @@ uint64_t OcParser::parseMailRecord(OcParser *this, OcContact *a2, SsrwOOStream *
   return (*(*MailRecord + 16))(MailRecord, v11);
 }
 
-uint64_t OcParser::parsePointI4FromStream@<X0>(OcParser *this@<X0>, SsrwOOStream *a2@<X1>, _DWORD *a3@<X8>)
+uint64_t *OcParser::parsePointI4FromStream@<X0>(uint64_t *__return_ptr a1@<X8>, OcParser *this@<X0>, SsrwOOStream *a3@<X1>)
 {
-  v5 = (*(*this + 96))(this, a2);
+  v5 = (*(*this + 96))(this, a3);
   result = (*(*this + 96))(this);
-  *a3 = v5;
-  a3[1] = result;
+  *a1 = v5;
+  *(a1 + 1) = result;
   return result;
 }
 
@@ -1002,7 +1002,7 @@ void XmlBase64EncoderStream::~XmlBase64EncoderStream(XmlBase64EncoderStream *thi
   JUMPOUT(0x25F897000);
 }
 
-XmlBase64EncoderStream *XmlBase64EncoderStream::write(XmlBase64EncoderStream *this, char *a2, int a3)
+XmlBase64EncoderStream *XmlBase64EncoderStream::write(XmlBase64EncoderStream *this, char *a2, unsigned int a3)
 {
   if (a3 >= 1)
   {
@@ -1044,17 +1044,17 @@ uint64_t XmlBase64EncoderStream::flush(XmlBase64EncoderStream *this, uint64_t a2
   return (*(**(this + 1) + 24))(*(this + 1), v6, a2);
 }
 
-_BYTE *XmlBase64EncoderStream::Terminate(_BYTE *this)
+XmlBase64EncoderStream *XmlBase64EncoderStream::Terminate(XmlBase64EncoderStream *this)
 {
   v1 = this;
-  v2 = this[20];
-  if (this[20])
+  v2 = *(this + 20);
+  if (*(this + 20))
   {
     if (v2 == 2)
     {
-      this[18] = 0;
+      *(this + 18) = 0;
       XmlBase64EncoderStream::flush(this, 3);
-      v3 = v1 + 8;
+      v3 = (v1 + 8);
     }
 
     else
@@ -1065,16 +1065,16 @@ _BYTE *XmlBase64EncoderStream::Terminate(_BYTE *this)
         *exception = 5100;
       }
 
-      this[17] = 0;
+      *(this + 17) = 0;
       XmlBase64EncoderStream::flush(this, 2);
-      v3 = v1 + 8;
+      v3 = (v1 + 8);
       (*(**(v1 + 1) + 32))(*(v1 + 1), 61);
     }
 
     this = (*(**v3 + 32))(*v3, 61);
   }
 
-  v1[20] = 0;
+  *(v1 + 20) = 0;
   return this;
 }
 
@@ -1083,7 +1083,7 @@ void XmlHexEncoderStream::XmlHexEncoderStream(uint64_t a1, uint64_t a2)
   *a1 = &unk_286EC8CF8;
   *(a1 + 8) = a2;
   *(a1 + 16) = 0;
-  operator new[](64);
+  operator new[](64, 0x1000C8077774924);
 }
 
 void XmlHexEncoderStream::~XmlHexEncoderStream(XmlHexEncoderStream *this)
@@ -1113,7 +1113,7 @@ void XmlHexEncoderStream::~XmlHexEncoderStream(XmlHexEncoderStream *this)
   JUMPOUT(0x25F897000);
 }
 
-uint64_t XmlHexEncoderStream::write(uint64_t this, const char *a2, int a3)
+uint64_t XmlHexEncoderStream::write(uint64_t this, const char *a2, unsigned int a3)
 {
   if (a3 >= 1)
   {
@@ -1148,7 +1148,7 @@ uint64_t XmlHexEncoderStream::write(uint64_t this, const char *a2, int a3)
       }
 
       v9 = (v8 & 0xFFFFFFF0) - v7 + 16;
-      if (a3 - v6 >= v9)
+      if ((a3 - v6) >= v9)
       {
         v10 = v9;
       }
@@ -1170,7 +1170,7 @@ uint64_t XmlHexEncoderStream::write(uint64_t this, const char *a2, int a3)
   return this;
 }
 
-uint64_t XmlHexEncoderStream::flushChunk(XmlHexEncoderStream *this, const char *a2, int a3, int a4)
+uint64_t XmlHexEncoderStream::flushChunk(XmlHexEncoderStream *this, const char *a2, int a3, unsigned int a4)
 {
   v5 = *(this + 3);
   if (a4 >= 1)
@@ -1200,7 +1200,7 @@ uint64_t XmlHexEncoderStream::flushChunk(XmlHexEncoderStream *this, const char *
   return v11();
 }
 
-uint64_t XmlOutputStream::createStreamOfType(int a1)
+XmlUTF8EncoderStream *XmlOutputStream::createStreamOfType(int a1, XmlOutputStream *a2)
 {
   switch(a1)
   {
@@ -1222,7 +1222,7 @@ void *XmlUTF8EncoderStream::XmlUTF8EncoderStream(void *result, uint64_t a2)
   return result;
 }
 
-uint64_t XmlUTF8EncoderStream::write(uint64_t this, const char *a2, int a3)
+uint64_t XmlUTF8EncoderStream::write(uint64_t this, const char *a2, unsigned int a3)
 {
   v10 = 0;
   v8 = 6;
@@ -1251,7 +1251,7 @@ uint64_t XmlUTF8EncoderStream::write(uint64_t this, const char *a2, int a3)
   return this;
 }
 
-uint64_t XmlUTF8EncoderStream::write(uint64_t this, const unsigned __int16 *a2, int a3)
+uint64_t XmlUTF8EncoderStream::write(uint64_t this, const unsigned __int16 *a2, unsigned int a3)
 {
   v10 = 0;
   __dst = 0;
@@ -1319,7 +1319,7 @@ void XmlWriter::XmlWriter(XmlWriter *this, XmlOutputStream *a2, int a3)
     v5 = 0;
   }
 
-  *(this + 1) = XmlOutputStream::createStreamOfType(v5);
+  *(this + 1) = XmlOutputStream::createStreamOfType(v5, *(this + 3));
   XmlWriter::setIDPrefix(this, "_id");
 }
 
@@ -1344,35 +1344,35 @@ void XmlWriter::setIDPrefix(XmlWriter *this, const char *__s)
     v6 = v5 >> 32;
   }
 
-  operator new[](v6);
+  operator new[](v6, 0x1000C8077774924);
 }
 
-void XmlWriter::~XmlWriter(XmlWriter *this)
+void XmlWriter::~XmlWriter(CsString *this)
 {
-  *this = &unk_286EC8DA8;
-  v2 = *(this + 4);
-  if (v2)
+  this->var0 = &unk_286EC8DA8;
+  var1 = this[1].var1;
+  if (var1)
   {
-    MEMORY[0x25F896FE0](v2, 0x1000C8077774924);
+    MEMORY[0x25F896FE0](var1, 0x1000C8077774924);
   }
 
-  *(this + 4) = 0;
-  v3 = *(this + 1);
+  this[1].var1 = 0;
+  v3 = this->var1;
   if (v3)
   {
     (*(*v3 + 8))(v3);
   }
 
-  *(this + 1) = 0;
-  v4 = *(this + 11);
+  this->var1 = 0;
+  v4 = *&this[3].var2;
   if (v4)
   {
     MEMORY[0x25F896FE0](v4, 0x1000C8077774924);
   }
 
-  *(this + 11) = 0;
+  *&this[3].var2 = 0;
   CsString::~CsString(this + 4);
-  ChStack<CsString>::~ChStack(this + 6);
+  ChStack<CsString>::~ChStack(&this[2]);
 }
 
 {
@@ -1593,7 +1593,7 @@ uint64_t XmlWriter::closeAttribute(XmlWriter *this)
   return result;
 }
 
-uint64_t XmlWriter::escapeText(XmlWriter *this, const char *a2, int a3, char a4, char a5)
+uint64_t XmlWriter::escapeText(XmlWriter *this, const char *a2, unsigned int a3, char a4, char a5)
 {
   result = *(this + 2);
   if (result)
@@ -1640,7 +1640,7 @@ uint64_t XmlWriter::writeIndent(uint64_t this, int a2)
   return this;
 }
 
-uint64_t XmlWriter::escapeText(XmlWriter *this, const unsigned __int16 *a2, int a3, char a4, char a5)
+uint64_t XmlWriter::escapeText(XmlWriter *this, unsigned __int16 *a2, unsigned int a3, char a4, char a5)
 {
   result = *(this + 2);
   if (result)
@@ -1735,10 +1735,10 @@ LABEL_15:
   return v5();
 }
 
-_DWORD *XmlWriter::closeCurrentElement(_DWORD *this, int a2)
+XmlWriter *XmlWriter::closeCurrentElement(XmlWriter *this, int a2)
 {
   v2 = this;
-  v3 = this[30];
+  v3 = *(this + 30);
   if (v3)
   {
     v4 = v3 == 4;
@@ -1754,7 +1754,7 @@ _DWORD *XmlWriter::closeCurrentElement(_DWORD *this, int a2)
     if (v3 == 5)
     {
       XmlWriter::closeAttribute(this);
-      v3 = v2[30];
+      v3 = *(v2 + 30);
     }
 
     if (v3 == 2)
@@ -1763,13 +1763,13 @@ _DWORD *XmlWriter::closeCurrentElement(_DWORD *this, int a2)
     }
 
     this = (*(**(v2 + 3) + 32))(*(v2 + 3), 62);
-    if (a2 && (v2[31] & 1) == 0)
+    if (a2 && (*(v2 + 124) & 1) == 0)
     {
       this = (*(**(v2 + 3) + 32))(*(v2 + 3), 10);
     }
   }
 
-  v2[30] = 0;
+  *(v2 + 30) = 0;
   return this;
 }
 
@@ -1918,7 +1918,7 @@ uint64_t XmlWriter::openAttribute(XmlWriter *this, const char *a2, uint64_t a3)
   return result;
 }
 
-uint64_t XmlWriter::appendAttribute(XmlWriter *this, const unsigned __int16 *a2, int a3, int a4)
+uint64_t XmlWriter::appendAttribute(XmlWriter *this, unsigned __int16 *a2, unsigned int a3, int a4)
 {
   if (*(this + 30) != 5)
   {
@@ -2157,22 +2157,22 @@ XmlWriter *XmlWriter::appendAttributeHex(XmlWriter *this, const unsigned __int8 
   return this;
 }
 
-CsString *ChStack<CsString>::push(uint64_t a1, const CsString *a2)
+CsString *ChStack<CsString>::push(uint64_t *a1, const CsString *a2)
 {
-  v4 = *(a1 + 16);
-  v5 = *(a1 + 20);
+  v4 = *(a1 + 4);
+  v5 = *(a1 + 5);
   if (v4 + 1 > v5)
   {
-    v6 = *(a1 + 24) + v5;
-    *(a1 + 20) = v6;
-    operator new[](24 * v6 + 16);
+    v6 = *(a1 + 6) + v5;
+    *(a1 + 5) = v6;
+    operator new[](24 * v6 + 16, 0x1091C803BDA009ALL);
   }
 
   v7 = (*a1 + 24 * v4);
   v7->var2 = 0;
   bzero(v7->var1, 2 * v7->var3);
   result = CsString::append(v7, a2);
-  ++*(a1 + 16);
+  ++*(a1 + 4);
   return result;
 }
 
@@ -2485,7 +2485,7 @@ uint64_t SsrwOOPropertyStorage::getNumberOfProperties(uint64_t **this)
   return v5;
 }
 
-BOOL SsrwOOPropertyStorage::getPropertyNameAndIDByIndex(uint64_t **this, unsigned int a2, char **a3, unsigned int *a4)
+BOOL SsrwOOPropertyStorage::getPropertyNameAndIDByIndex(uint64_t **this, uint64_t a2, char **a3, unsigned int *a4)
 {
   PropertyNameAndIDByIndex = propertyStorageGetPropertyNameAndIDByIndex(this[1], a2, a3, a4);
   if (PropertyNameAndIDByIndex)
@@ -2554,7 +2554,7 @@ LABEL_6:
   return result;
 }
 
-uint64_t SsrwOORootStorage::openInStream(void *a1, uint64_t a2, int a3)
+uint64_t SsrwOORootStorage::openInStream(char **a1, uint64_t a2, uint64_t a3)
 {
   LODWORD(result) = openStructuredStorageInStream(a2, a3, a1 + 10);
   if (result || (result = getStorageFromRoot(a1[10], a1), result))
@@ -2650,10 +2650,10 @@ __n128 SsrwOOStgInfo::getCLSID(SsrwOOStgInfo *this, _SsrwOO_GUID *a2)
   return result;
 }
 
-uint64_t SsrwOOStgStream::readUInt64(SsrwOOStgStream *this)
+uint64_t SsrwOOStgStream::readUInt64(uint64_t **this)
 {
   v5 = 0;
-  v1 = readUInt64(*(this + 24), &v5);
+  v1 = readUInt64(this[24], &v5);
   if (v1)
   {
     v3 = v1;
@@ -2731,27 +2731,27 @@ uint64_t SsrwOOStgStream::writeUInt32(SsrwOOStgStream *this, uint64_t a2)
   return result;
 }
 
-uint64_t SsrwOOStgStream::writeFloat32(SsrwOOStgStream *this, float a2)
+uint64_t SsrwOOStgStream::writeFloat32(SsrwOOStgStream *this, float a2, uint64_t a3)
 {
   result = writeFloat32(*(this + 24), a2);
   if (result)
   {
-    v3 = result;
+    v4 = result;
     exception = __cxa_allocate_exception(4uLL);
-    *exception = v3;
+    *exception = v4;
   }
 
   return result;
 }
 
-uint64_t SsrwOOStgStream::writeFloat64(SsrwOOStgStream *this, double a2)
+uint64_t SsrwOOStgStream::writeFloat64(SsrwOOStgStream *this, double a2, uint64_t a3)
 {
   result = writeFloat64(*(this + 24), a2);
   if (result)
   {
-    v3 = result;
+    v4 = result;
     exception = __cxa_allocate_exception(4uLL);
-    *exception = v3;
+    *exception = v4;
   }
 
   return result;
@@ -3125,7 +3125,7 @@ uint64_t setDefaultDocumentProperties(uint64_t a1)
     result = createStream(v9, SUMMARY_INFO_NAME, v6 + 3);
     if (!result)
     {
-      result = propertySetConstruct(SSRW_FMTID_SummaryInformation, 1, v6);
+      result = propertySetConstruct(&SSRW_FMTID_SummaryInformation, 1, v6);
       if (!result)
       {
         LOWORD(v7) = 30;
@@ -3150,7 +3150,7 @@ uint64_t setDefaultDocumentProperties(uint64_t a1)
   return result;
 }
 
-uint64_t propertyStorageGetPropertyNameAndIDByIndex(uint64_t *a1, unsigned int a2, char **a3, int *a4)
+uint64_t propertyStorageGetPropertyNameAndIDByIndex(uint64_t *a1, uint64_t a2, char **a3, int *a4)
 {
   if (a1 && a3 && (v4 = *a1) != 0)
   {
@@ -4139,7 +4139,7 @@ LABEL_7:
   return v12;
 }
 
-uint64_t readGUID(uint64_t a1, uint64_t a2)
+uint64_t readGUID(uint64_t *a1, uint64_t a2)
 {
   result = readSInt32(a1, a2);
   if (!result)
@@ -4215,8 +4215,9 @@ uint64_t propertySetReadSizePrefixedBlob(uint64_t a1, _DWORD *a2, uint64_t *a3)
   return result;
 }
 
-uint64_t openStructuredStorage(const char *a1, int a2, uint64_t *a3)
+uint64_t openStructuredStorage(const char *a1, uint64_t a2, char **a3)
 {
+  v4 = a2;
   v6 = strlen(a1);
   v7 = smalloc_typed(v6 + 1, 2uLL, 0x1000040BDFB0063uLL);
   if (!v7)
@@ -4226,12 +4227,12 @@ uint64_t openStructuredStorage(const char *a1, int a2, uint64_t *a3)
 
   v8 = v7;
   SsrwStrToStr2(v7, a1, v6 + 1);
-  v9 = openStructuredStorageEx(v8, a2, a3);
+  v9 = openStructuredStorageEx(v8, v4, a3);
   free(v8);
   return v9;
 }
 
-uint64_t openStructuredStorageEx(_WORD *a1, int a2, uint64_t *a3)
+uint64_t openStructuredStorageEx(_WORD *a1, int a2, char **a3)
 {
   if (!a1)
   {
@@ -4276,7 +4277,7 @@ uint64_t openStructuredStorageEx(_WORD *a1, int a2, uint64_t *a3)
   return v4;
 }
 
-uint64_t openStructuredStorageInStream(uint64_t a1, int a2, uint64_t *a3)
+uint64_t openStructuredStorageInStream(uint64_t a1, int a2, char **a3)
 {
   v3 = 6;
   if (a1 && a3)
@@ -4322,8 +4323,9 @@ uint64_t rootStorageGetDocProperties(uint64_t a1)
   }
 }
 
-uint64_t createStructuredStorage(const char *a1, int a2, uint64_t *a3)
+uint64_t createStructuredStorage(const char *a1, uint64_t a2, uint64_t *a3)
 {
+  v4 = a2;
   v6 = strlen(a1);
   v7 = smalloc_typed(v6 + 1, 2uLL, 0x1000040BDFB0063uLL);
   if (!v7)
@@ -4333,7 +4335,7 @@ uint64_t createStructuredStorage(const char *a1, int a2, uint64_t *a3)
 
   v8 = v7;
   SsrwStrToStr2(v7, a1, v6 + 1);
-  StructuredStorage = createStructuredStorageEx(v8, a2, a3, 0, v9);
+  StructuredStorage = createStructuredStorageEx(v8, v4, a3, 0, v9);
   free(v8);
   return StructuredStorage;
 }
@@ -4730,7 +4732,7 @@ uint64_t streamUpgradeMiniToRegular(uint64_t *a1)
 
     else
     {
-      v13 = -1;
+      v13 = 0xFFFFFFFFLL;
     }
 
     *(v11 + 16) = 0;
@@ -4867,7 +4869,7 @@ uint64_t convertToSmallStream(uint64_t a1)
   return result;
 }
 
-uint64_t readUInt64(uint64_t a1, void *a2)
+uint64_t readUInt64(uint64_t *a1, void *a2)
 {
   v7 = *MEMORY[0x277D85DE8];
   v5 = 8;
@@ -4996,12 +4998,12 @@ uint64_t tocInvalidateEntry(uint64_t a1, unsigned int a2)
   return directoryInvalidate(v5);
 }
 
-void OCCBinaryStreamer::replaceGarbledBytes(OCCBinaryStreamer *this, SsrwOOStream *a2, SsrwOOStream *a3, uint64_t a4)
+void OCCBinaryStreamer::replaceGarbledBytes(OCCBinaryStreamer *this, SsrwOOStream *a2, SsrwOOStream *a3, uint64_t a4, unsigned int a5)
 {
   SsrwOOStream::seekFromStart(a2, a4);
-  v7 = SsrwOOStream::seekFromStart(a3, a4);
+  v9 = SsrwOOStream::seekFromStart(a3, a4);
 
-  OCCBinaryStreamer::replaceGarbledBytes(v7, a2, a3);
+  OCCBinaryStreamer::replaceGarbledBytes(v9, a2, a3, a5);
 }
 
 uint64_t sub_25D4D1684(void *a1)
@@ -5074,7 +5076,7 @@ void sub_25D4D192C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void OCCBinaryStreamer::cryptoAPI_decryptEncryptedSummaryStream(OCCBinaryStreamer *this, SsrwOORootStorage *a2)
+void OCCBinaryStreamer::cryptoAPI_decryptEncryptedSummaryStream(OCCBinaryStreamer *this, SsrwOOStorage *a2)
 {
   v6 = 0;
   v3 = (*(this->var0 + 3))(this);
@@ -5109,16 +5111,16 @@ void sub_25D4D22CC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_25D4D23FC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25D4D23FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   SsrwOORootStorage::~SsrwOORootStorage(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25D4D253C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25D4D253C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   SsrwOORootStorage::~SsrwOORootStorage(va);
   _Unwind_Resume(a1);
 }
@@ -5141,7 +5143,7 @@ void OCCCryptoAPICryptoKey::~OCCCryptoAPICryptoKey(OCCCryptoKey *this)
   JUMPOUT(0x25F897000);
 }
 
-uint64_t OCCCryptoAPICryptoKey::create(OCCCryptoAPICryptoKey *this, const void *a2)
+OCCCryptoAPICryptoKey *OCCCryptoAPICryptoKey::create(OCCCryptoAPICryptoKey *this, const void *a2)
 {
   v2 = a2;
   OCCEncryptionHeader::OCCEncryptionHeader(v8, this, a2);
@@ -5160,14 +5162,14 @@ uint64_t OCCCryptoAPICryptoKey::create(OCCCryptoAPICryptoKey *this, const void *
   return 0;
 }
 
-void sub_25D4D26FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25D4D26FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   OCCEncryptionHeader::~OCCEncryptionHeader(va);
   _Unwind_Resume(a1);
 }
 
-void OCCCryptoAPICryptoKey::OCCCryptoAPICryptoKey(OCCCryptoAPICryptoKey *this, unsigned __int8 *a2, char *a3, char *a4, int a5, char a6)
+void OCCCryptoAPICryptoKey::OCCCryptoAPICryptoKey(OCCCryptoAPICryptoKey *this, void **a2, char *a3, char *a4, int a5, char a6)
 {
   OCCCryptoKey::OCCCryptoKey(this, a3, a4, 0x10u, 0x14u, 0x10u);
   *v10 = &unk_286EC91F0;
@@ -5370,7 +5372,7 @@ void OCCCryptoKey::OCCCryptoKey(OCCCryptoKey *this, char *a2, char *a3, unsigned
   this->var6 = a6;
 }
 
-xmlDoc *OCCCryptoKey::createUsingEncryptionInfoStream(OCCCryptoKey *this, SsrwOOStream *a2, SsrwOOStream *a3, const void *a4)
+OCCCryptoAPICryptoKey *OCCCryptoKey::createUsingEncryptionInfoStream(OCCCryptoKey *this, SsrwOOStream *a2, SsrwOOStream *a3, const void *a4)
 {
   v8 = (*(a2->var0 + 5))(a2);
   __p = 0;
@@ -5414,12 +5416,12 @@ void sub_25D4D308C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-xmlDoc *OCCCryptoKey::createUsingEncryptionInfoBuffer(OCCCryptoKey *this, unsigned __int16 *a2, const void *a3)
+OCCCryptoAPICryptoKey *OCCCryptoKey::createUsingEncryptionInfoBuffer(OCCCryptoKey *this, OCCRC4CryptoKey *a2, const void *a3)
 {
   if (a3 >= 4)
   {
     v5 = *a2;
-    v6 = a2[1];
+    v6 = *(a2 + 1);
     if (!this)
     {
 LABEL_3:
@@ -5453,7 +5455,7 @@ LABEL_4:
   if (OCCAgileCryptoKey::isVersionValid(v5, v6))
   {
 
-    return OCCAgileCryptoKey::create(a2, a3);
+    return OCCAgileCryptoKey::create(a2, a3, v8);
   }
 
   else
@@ -6319,7 +6321,7 @@ const void **OCCEncryptionHeader::writeHeader(const void **this, _DWORD *a2)
   return this;
 }
 
-uint64_t OCCHash::createFromName(OCCHash *this, const char *a2)
+void *OCCHash::createFromName(OCCHash *this, const char *a2)
 {
   if (!strcmp(this, "SHA1") || !strcmp(this, "SHA-1"))
   {
@@ -6377,7 +6379,7 @@ void OCCRC4CryptoKey::~OCCRC4CryptoKey(OCCCryptoKey *this)
   JUMPOUT(0x25F897000);
 }
 
-uint64_t OCCRC4CryptoKey::create(OCCRC4CryptoKey *this, const void *a2)
+OCCRC4CryptoKey *OCCRC4CryptoKey::create(OCCRC4CryptoKey *this, const void *a2)
 {
   if (a2 >= 0x34)
   {
@@ -6836,7 +6838,7 @@ void OCCStandardCryptoKey::OCCStandardCryptoKey(OCCStandardCryptoKey *this, unsi
   OCCCryptoKey::OCCCryptoKey(this, a3, a4, 0x10u, a5, 0x10u);
   *v9 = &unk_286EC9810;
   v9[6] = a2;
-  OCCAESCryptor::OCCAESCryptor(v9 + 7, a6, 0);
+  OCCAESCryptor::OCCAESCryptor((v9 + 7), a6, 0);
   *(this + 10) = &unk_286EC9500;
   *(this + 11) = 0;
   if (a6 > 0x20 || ((1 << a6) & 0x101010000) == 0)
@@ -6846,7 +6848,7 @@ void OCCStandardCryptoKey::OCCStandardCryptoKey(OCCStandardCryptoKey *this, unsi
   }
 }
 
-uint64_t OCCStandardCryptoKey::create(OCCStandardCryptoKey *this, const void *a2)
+OCCStandardCryptoKey *OCCStandardCryptoKey::create(OCCStandardCryptoKey *this, const void *a2)
 {
   v2 = a2;
   OCCEncryptionHeader::OCCEncryptionHeader(v8, this, a2);
@@ -6865,10 +6867,10 @@ uint64_t OCCStandardCryptoKey::create(OCCStandardCryptoKey *this, const void *a2
   return 0;
 }
 
-void sub_25D4D5FB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25D4D5FB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
-  MEMORY[0x25F897000](v5, 0x1091C40A2FA867FLL);
+  va_start(va, a9);
+  MEMORY[0x25F897000](v9, 0x1091C40A2FA867FLL, a3, a4, a5);
   OCCEncryptionHeader::~OCCEncryptionHeader(va);
   _Unwind_Resume(a1);
 }
@@ -7155,7 +7157,7 @@ void sub_25D4D6B9C(void *a1)
   JUMPOUT(0x25D4D6B90);
 }
 
-char *OCCUtilities::resizeData(char *this, char *a2, unint64_t a3, unint64_t __c, _BYTE *a5, void *a6)
+char *OCCUtilities::resizeData(char *this, char *a2, char *a3, unint64_t __c, _BYTE *a5, void *a6)
 {
   if (a2 >= a3)
   {
@@ -7273,7 +7275,7 @@ void OCCXmlStreamer::createUsingInputBuffer(OCCStreamer *a1, const void **a2, _D
   OCCStreamer::openInputBuf(a1, a2, &v4, a4);
 }
 
-uint64_t OCCXmlStreamer::setDefaultPassphrase(OCCXmlStreamer *this, const char *__s)
+char *OCCXmlStreamer::setDefaultPassphrase(OCCXmlStreamer *this, const char *__s)
 {
   result = *(this + 6);
   if (result)
@@ -7311,9 +7313,9 @@ uint64_t OCCXmlStreamer::encryptIntoFile(OCCStreamer *this, __sFILE *a2)
   return v5;
 }
 
-void sub_25D4D7184(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25D4D7184(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   SsrwOORootStorage::~SsrwOORootStorage(va);
   _Unwind_Resume(a1);
 }
@@ -7379,12 +7381,13 @@ void sub_25D4D9D54(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_25D4DA0F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37)
+void sub_25D4DA0F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
 {
-  v44 = v41;
+  va_start(va, a36);
+  v43 = v40;
 
   XlChartTextFrame::~XlChartTextFrame(&a10);
-  XlChartParent::~XlChartParent(&a37);
+  XlChartParent::~XlChartParent(va);
 
   _Unwind_Resume(a1);
 }
@@ -7690,9 +7693,9 @@ void sub_25D5036C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_25D503934(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25D503934(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
 
   CsSimpleHeapVector<XlRecord>::~CsSimpleHeapVector(va);
   _Unwind_Resume(a1);
@@ -7756,9 +7759,9 @@ void sub_25D504AB8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_25D50558C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25D50558C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   XlFontTable::~XlFontTable(va);
 
   _Unwind_Resume(a1);
@@ -7876,9 +7879,9 @@ void sub_25D5068C4()
   JUMPOUT(0x25D506824);
 }
 
-void sub_25D506FCC(_Unwind_Exception *a1, void *a2, ...)
+void sub_25D506FCC(_Unwind_Exception *a1, void *a2, void *a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
 
   XlGraphicsInfo::~XlGraphicsInfo(va);
   _Unwind_Resume(a1);
@@ -7905,9 +7908,9 @@ void sub_25D507554(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_25D5077D0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25D5077D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   CsSimpleHeapVector<XlRecord>::~CsSimpleHeapVector(va);
 
   _Unwind_Resume(a1);
@@ -7926,9 +7929,9 @@ void XlNoteTable::~XlNoteTable(void **this)
   JUMPOUT(0x25F897000);
 }
 
-void sub_25D507E00(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25D507E00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
 
   CsSimpleHeapVector<XlRecord>::~CsSimpleHeapVector(va);
   _Unwind_Resume(a1);
@@ -8071,41 +8074,41 @@ void sub_25D50A79C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t *std::__tree<std::__value_type<int,unsigned long>,std::__map_value_compare<int,std::__value_type<int,unsigned long>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned long>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(uint64_t a1, int *a2)
+uint64_t *std::__tree<std::__value_type<int,unsigned long>,std::__map_value_compare<int,std::__value_type<int,unsigned long>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned long>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(uint64_t a1, int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = *(v4 + 32);
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
@@ -8136,15 +8139,15 @@ void std::vector<OcText,ChAllocator<OcText>>::__destroy_vector::operator()[abi:n
     v5 = **a1;
     if (v4 != v2)
     {
-      v6 = v4 - 48;
-      v7 = v4 - 48;
-      v8 = v4 - 48;
+      v6 = v4 - 6;
+      v7 = v4 - 6;
+      v8 = v4 - 6;
       do
       {
         v9 = *v8;
-        v8 -= 48;
+        v8 -= 6;
         (*v9)(v7);
-        v6 -= 48;
+        v6 -= 6;
         v10 = v7 == v2;
         v7 = v8;
       }
@@ -8244,17 +8247,17 @@ void sub_25D50C7EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_25D50CF2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, ...)
+void sub_25D50CF2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
 
   XlPivotInfoTable::~XlPivotInfoTable(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25D50D2E4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25D50D2E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
 
   XlDocumentProperties::~XlDocumentProperties(va);
   _Unwind_Resume(a1);
@@ -8318,9 +8321,9 @@ uint64_t std::vector<OcText,ChAllocator<OcText>>::__emplace_back_slow_path<OcTex
   return v12;
 }
 
-void sub_25D50D670(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25D50D670(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<OcText,ChAllocator<OcText> &>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -8335,7 +8338,7 @@ void std::__allocate_at_least[abi:ne200100]<ChAllocator<OcText>>(uint64_t a1, un
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-OcText *std::__uninitialized_allocator_relocate[abi:ne200100]<ChAllocator<OcText>,OcText*>(int a1, OcText *a2, OcText *a3, uint64_t a4)
+void std::__uninitialized_allocator_relocate[abi:ne200100]<ChAllocator<OcText>,OcText*>(int a1, OcText *a2, OcText *a3, uint64_t a4)
 {
   if (a2 != a3)
   {
@@ -8344,29 +8347,27 @@ OcText *std::__uninitialized_allocator_relocate[abi:ne200100]<ChAllocator<OcText
     v8 = a2;
     do
     {
-      result = OcText::OcText((a4 + v7), v8++);
+      OcText::OcText((a4 + v7), v8++);
       v7 += 48;
     }
 
     while (v8 != a3);
     if (v6 != a3)
     {
+      v9 = v6;
       v10 = v6;
-      v11 = v6;
       do
       {
-        var0 = v11->var0;
-        ++v11;
-        result = (*var0)(v6);
+        var0 = v10->var0;
         ++v10;
-        v6 = v11;
+        (*var0)(v6);
+        ++v9;
+        v6 = v10;
       }
 
-      while (v11 != a3);
+      while (v10 != a3);
     }
   }
-
-  return result;
 }
 
 void sub_25D50D788(_Unwind_Exception *exception_object)
@@ -8404,10 +8405,10 @@ void sub_25D50D988(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_25D50DC1C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25D50DC1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  v6 = v4;
+  va_start(va, a3);
+  v7 = v5;
 
   XlSheetPresentationTable::~XlSheetPresentationTable(va);
   _Unwind_Resume(a1);
@@ -8422,10 +8423,10 @@ void sub_25D50FDA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_25D5109B8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_25D5109B8(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = ECMappingContext;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -8437,41 +8438,41 @@ void sub_25D510AE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void *std::__tree<std::__value_type<unsigned long,unsigned long>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,unsigned long>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,unsigned long>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(uint64_t a1, unint64_t *a2)
+void *std::__tree<std::__value_type<unsigned long,unsigned long>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,unsigned long>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,unsigned long>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(uint64_t a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = v4[4];
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
@@ -8571,7 +8572,7 @@ void sub_25D51849C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<unsigned int>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
+void std::vector<unsigned int>::push_back[abi:ne200100](const void **a1, int *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -8620,7 +8621,7 @@ void std::vector<unsigned int>::push_back[abi:ne200100](const void **a1, _DWORD 
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 4;
   }
 
   a1[1] = v6;
@@ -8762,66 +8763,66 @@ id EDValue::nsStringValue(EDValue *this)
   return v2;
 }
 
-void EDValue::makeFromCell(EDValue *this@<X0>, uint64_t a2@<X8>)
+void EDValue::makeFromCell(uint64_t *__return_ptr a1@<X8>, EDCellHeader *this@<X0>)
 {
-  *(a2 + 8) = 0;
-  v5 = typeForEDCell(this);
-  *a2 = v5;
-  if (v5 <= 1)
+  a1[1] = 0;
+  v4 = typeForEDCell(this);
+  *a1 = v4;
+  if (v4 <= 1)
   {
-    if (v5)
+    if (v4)
     {
-      if (v5 == 1)
+      if (v4 == 1)
       {
-        *(a2 + 8) = BOOLValueForEDCell(this);
+        *(a1 + 8) = BOOLValueForEDCell(this);
       }
     }
 
     else
     {
-      *(a2 + 8) = 0;
+      a1[1] = 0;
     }
   }
 
   else
   {
-    switch(v5)
+    switch(v4)
     {
       case 2:
-        *(a2 + 8) = numberValueForEDCell(this);
+        *(a1 + 1) = numberValueForEDCell(this);
         break;
       case 3:
-        *a2 = 6;
-        *(a2 + 8) = stringIndexValueForEDCell(this);
+        *a1 = 6;
+        a1[1] = stringIndexValueForEDCell(this);
         break;
       case 5:
-        *(a2 + 8) = errorValueForEDCell(this);
+        *(a1 + 2) = errorValueForEDCell(this);
         break;
     }
   }
 }
 
-void EDValue::makeWithNSString(EDValue *this@<X0>, uint64_t a2@<X8>)
+void EDValue::makeWithNSString(uint64_t *__return_ptr a1@<X8>, EDValue *this@<X0>)
 {
-  v4 = this;
-  *(a2 + 8) = 0;
-  *a2 = 3;
-  if (v4)
+  v3 = this;
+  a1[1] = 0;
+  *a1 = 3;
+  if (v3)
   {
-    v6 = v4;
-    v5 = [(EDValue *)v6 UTF8String];
-    if (v5)
+    v5 = v3;
+    v4 = [(EDValue *)v5 UTF8String];
+    if (v4)
     {
-      *(a2 + 8) = strdup(v5);
+      a1[1] = strdup(v4);
     }
 
     else
     {
-      *a2 = 5;
-      *(a2 + 8) = 2;
+      *a1 = 5;
+      *(a1 + 2) = 2;
     }
 
-    v4 = v6;
+    v3 = v5;
   }
 }
 
@@ -8942,15 +8943,15 @@ void sub_25D52D2EC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t **std::__tree<unsigned int>::__assign_multi<std::__tree_const_iterator<unsigned int,std::__tree_node<unsigned int,void *> *,long>>(uint64_t **result, void *a2, void *a3)
+void *std::__tree<unsigned int>::__assign_multi<std::__tree_const_iterator<unsigned int,std::__tree_node<unsigned int,void *> *,long>>(void *result, unsigned int *a2, unsigned int *a3)
 {
   v5 = result;
   if (result[2])
   {
     v6 = *result;
     v7 = result[1];
-    *result = (result + 1);
-    v7[2] = 0;
+    *result = result + 1;
+    *(v7 + 16) = 0;
     result[1] = 0;
     result[2] = 0;
     if (v6[1])
@@ -8974,7 +8975,7 @@ uint64_t **std::__tree<unsigned int>::__assign_multi<std::__tree_const_iterator<
         v9 = a2;
         do
         {
-          *(v8 + 7) = *(v9 + 7);
+          *(v8 + 7) = v9[7];
           std::__tree<unsigned int>::__node_insert_multi(v5, v8);
           v8 = v13;
           v14 = v13;
@@ -8983,7 +8984,7 @@ uint64_t **std::__tree<unsigned int>::__assign_multi<std::__tree_const_iterator<
             v13 = std::__tree<unsigned int>::_DetachedTreeCache::__detach_next(v13);
           }
 
-          v10 = v9[1];
+          v10 = *(v9 + 1);
           if (v10)
           {
             do
@@ -8999,7 +9000,7 @@ uint64_t **std::__tree<unsigned int>::__assign_multi<std::__tree_const_iterator<
           {
             do
             {
-              a2 = v9[2];
+              a2 = *(v9 + 2);
               v11 = *a2 == v9;
               v9 = a2;
             }
@@ -9024,23 +9025,23 @@ uint64_t **std::__tree<unsigned int>::__assign_multi<std::__tree_const_iterator<
 
   if (a2 != a3)
   {
-    std::__tree<unsigned int>::__emplace_multi<unsigned int const&>();
+    std::__tree<unsigned int>::__emplace_multi<unsigned int const&>(v5, a2 + 7);
   }
 
   return result;
 }
 
-void sub_25D531F6C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25D531F6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__tree<unsigned int>::_DetachedTreeCache::~_DetachedTreeCache[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::__tree<unsigned int>::__node_insert_multi(uint64_t **a1, uint64_t a2)
+uint64_t std::__tree<unsigned int>::__node_insert_multi(uint64_t a1, uint64_t a2)
 {
-  v3 = a1 + 1;
-  v4 = a1[1];
+  v3 = (a1 + 8);
+  v4 = *(a1 + 8);
   if (v4)
   {
     do
@@ -9070,7 +9071,7 @@ uint64_t std::__tree<unsigned int>::__node_insert_multi(uint64_t **a1, uint64_t 
 
   else
   {
-    v5 = a1 + 1;
+    v5 = (a1 + 8);
   }
 
 LABEL_8:
@@ -9148,41 +9149,41 @@ uint64_t std::__tree<unsigned int>::_DetachedTreeCache::~_DetachedTreeCache[abi:
   return a1;
 }
 
-uint64_t *std::__tree<unsigned int>::__emplace_unique_key_args<unsigned int,unsigned int const&>(uint64_t a1, unsigned int *a2)
+uint64_t *std::__tree<unsigned int>::__emplace_unique_key_args<unsigned int,unsigned int const&>(uint64_t a1, unsigned int *a2, _DWORD *a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 28);
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = *(v3 + 28);
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
@@ -9295,20 +9296,20 @@ void sub_25D53FBE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void *std::vector<EDReference * {__strong}>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<EDReference * {__strong}>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<EDReference * {__strong}>::__vallocate[abi:ne200100](result, a2);
+    std::vector<EDReference * {__strong}>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
-void std::vector<EDReference * {__strong}>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<EDReference * {__strong}>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -9368,12 +9369,12 @@ void sub_25D549D18(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_25D549E50(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_25D549E50(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = EDCellIterator;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 

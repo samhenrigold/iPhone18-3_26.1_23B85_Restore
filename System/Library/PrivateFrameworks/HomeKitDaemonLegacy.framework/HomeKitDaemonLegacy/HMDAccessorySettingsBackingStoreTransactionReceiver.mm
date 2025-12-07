@@ -121,7 +121,7 @@ LABEL_17:
 
 void __88__HMDAccessorySettingsBackingStoreTransactionReceiver_transactionObjectRemoved_message___block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -132,13 +132,13 @@ void __88__HMDAccessorySettingsBackingStoreTransactionReceiver_transactionObject
     {
       v7 = HMFGetLogIdentifier();
       v8 = *(a1 + 40);
-      v11 = 138543874;
-      v12 = v7;
-      v13 = 2112;
-      v14 = v3;
-      v15 = 2112;
-      v16 = v8;
-      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@There was an error %@ removing a setting %@.", &v11, 0x20u);
+      v10 = 138543874;
+      v11 = v7;
+      v12 = 2112;
+      v13 = v3;
+      v14 = 2112;
+      v15 = v8;
+      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@There was an error %@ removing a setting %@.", &v10, 0x20u);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -152,13 +152,11 @@ void __88__HMDAccessorySettingsBackingStoreTransactionReceiver_transactionObject
 
     [*(a1 + 48) respondWithSuccess];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __88__HMDAccessorySettingsBackingStoreTransactionReceiver_transactionObjectRemoved_message___block_invoke_7(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -169,13 +167,13 @@ void __88__HMDAccessorySettingsBackingStoreTransactionReceiver_transactionObject
     {
       v7 = HMFGetLogIdentifier();
       v8 = *(a1 + 40);
-      v11 = 138543874;
-      v12 = v7;
-      v13 = 2112;
-      v14 = v3;
-      v15 = 2112;
-      v16 = v8;
-      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@There was an error %@ removing a group %@.", &v11, 0x20u);
+      v10 = 138543874;
+      v11 = v7;
+      v12 = 2112;
+      v13 = v3;
+      v14 = 2112;
+      v15 = v8;
+      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@There was an error %@ removing a group %@.", &v10, 0x20u);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -189,13 +187,11 @@ void __88__HMDAccessorySettingsBackingStoreTransactionReceiver_transactionObject
 
     [*(a1 + 48) respondWithSuccess];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __88__HMDAccessorySettingsBackingStoreTransactionReceiver_transactionObjectRemoved_message___block_invoke_8(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -206,13 +202,13 @@ void __88__HMDAccessorySettingsBackingStoreTransactionReceiver_transactionObject
     {
       v7 = HMFGetLogIdentifier();
       v8 = *(a1 + 40);
-      v11 = 138543874;
-      v12 = v7;
-      v13 = 2112;
-      v14 = v3;
-      v15 = 2112;
-      v16 = v8;
-      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@There was an error %@ removing the constraint %@.", &v11, 0x20u);
+      v10 = 138543874;
+      v11 = v7;
+      v12 = 2112;
+      v13 = v3;
+      v14 = 2112;
+      v15 = v8;
+      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@There was an error %@ removing the constraint %@.", &v10, 0x20u);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -226,8 +222,6 @@ void __88__HMDAccessorySettingsBackingStoreTransactionReceiver_transactionObject
 
     [*(a1 + 48) respondWithSuccess];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)transactionObjectUpdated:(id)updated newValues:(id)values message:(id)message
@@ -337,7 +331,7 @@ LABEL_17:
 
 void __98__HMDAccessorySettingsBackingStoreTransactionReceiver_transactionObjectUpdated_newValues_message___block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -348,13 +342,13 @@ void __98__HMDAccessorySettingsBackingStoreTransactionReceiver_transactionObject
     {
       v7 = HMFGetLogIdentifier();
       v8 = *(a1 + 40);
-      v11 = 138543874;
-      v12 = v7;
-      v13 = 2112;
-      v14 = v3;
-      v15 = 2112;
-      v16 = v8;
-      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@There was an error %@ adding a group %@.", &v11, 0x20u);
+      v10 = 138543874;
+      v11 = v7;
+      v12 = 2112;
+      v13 = v3;
+      v14 = 2112;
+      v15 = v8;
+      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@There was an error %@ adding a group %@.", &v10, 0x20u);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -368,13 +362,11 @@ void __98__HMDAccessorySettingsBackingStoreTransactionReceiver_transactionObject
 
     [*(a1 + 48) respondWithSuccess];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __98__HMDAccessorySettingsBackingStoreTransactionReceiver_transactionObjectUpdated_newValues_message___block_invoke_2(uint64_t a1, int a2, void *a3, void *a4)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a4;
   if (v7)
@@ -386,13 +378,13 @@ void __98__HMDAccessorySettingsBackingStoreTransactionReceiver_transactionObject
     {
       v12 = HMFGetLogIdentifier();
       v13 = *(a1 + 40);
-      v16 = 138543874;
-      v17 = v12;
-      v18 = 2112;
-      v19 = v7;
-      v20 = 2112;
-      v21 = v13;
-      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_ERROR, "%{public}@There was an error %@ adding a setting %@.", &v16, 0x20u);
+      v15 = 138543874;
+      v16 = v12;
+      v17 = 2112;
+      v18 = v7;
+      v19 = 2112;
+      v20 = v13;
+      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_ERROR, "%{public}@There was an error %@ adding a setting %@.", &v15, 0x20u);
     }
 
     objc_autoreleasePoolPop(v9);
@@ -409,13 +401,11 @@ void __98__HMDAccessorySettingsBackingStoreTransactionReceiver_transactionObject
 
     [*(a1 + 48) respondWithSuccess];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __98__HMDAccessorySettingsBackingStoreTransactionReceiver_transactionObjectUpdated_newValues_message___block_invoke_5(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -426,13 +416,13 @@ void __98__HMDAccessorySettingsBackingStoreTransactionReceiver_transactionObject
     {
       v7 = HMFGetLogIdentifier();
       v8 = *(a1 + 40);
-      v11 = 138543874;
-      v12 = v7;
-      v13 = 2112;
-      v14 = v3;
-      v15 = 2112;
-      v16 = v8;
-      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@There was an error %@ adding a constraint %@.", &v11, 0x20u);
+      v10 = 138543874;
+      v11 = v7;
+      v12 = 2112;
+      v13 = v3;
+      v14 = 2112;
+      v15 = v8;
+      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@There was an error %@ adding a constraint %@.", &v10, 0x20u);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -446,8 +436,6 @@ void __98__HMDAccessorySettingsBackingStoreTransactionReceiver_transactionObject
 
     [*(a1 + 48) respondWithSuccess];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDAccessorySettingsBackingStoreTransactionReceiver)initWithDelegate:(id)delegate

@@ -3,6 +3,7 @@
 - (id)_axLabelForBatterView;
 - (id)_axLabelForCellWithVehicle:(id)vehicle;
 - (id)_lableForLprPowerTYpe:(id)ype;
+- (void)setupWithVehicle:(id)vehicle cellStyle:(int64_t)style isSelected:(BOOL)selected;
 @end
 
 @implementation VehicleCellAccessibility
@@ -20,6 +21,18 @@
   [validationsCopy validateClass:@"VehicleBatteryView" hasInstanceMethod:@"vehicle" withFullSignature:{"@", 0}];
   [validationsCopy validateClass:@"VGVehicle" hasInstanceMethod:@"licensePlate" withFullSignature:{"@", 0}];
   [validationsCopy validateClass:@"VGVehicle" hasInstanceMethod:@"lprPowerType" withFullSignature:{"@", 0}];
+}
+
+- (void)setupWithVehicle:(id)vehicle cellStyle:(int64_t)style isSelected:(BOOL)selected
+{
+  selectedCopy = selected;
+  v10.receiver = self;
+  v10.super_class = VehicleCellAccessibility;
+  vehicleCopy = vehicle;
+  [(VehicleCellAccessibility *)&v10 setupWithVehicle:vehicleCopy cellStyle:style isSelected:selectedCopy];
+  v9 = [(VehicleCellAccessibility *)self _axLabelForCellWithVehicle:vehicleCopy, v10.receiver, v10.super_class];
+
+  [(VehicleCellAccessibility *)self setAccessibilityLabel:v9];
 }
 
 - (id)_axLabelForCellWithVehicle:(id)vehicle
@@ -143,15 +156,15 @@ LABEL_8:
   return v5;
 }
 
-uint64_t __49__VehicleCellAccessibility__axLabelForBatterView__block_invoke()
+uint64_t __49__VehicleCellAccessibility__axLabelForBatterView__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_new();
-  v1 = _axLabelForBatterView_Formatter;
-  _axLabelForBatterView_Formatter = v0;
+  v2 = objc_opt_new();
+  v3 = _axLabelForBatterView_Formatter;
+  _axLabelForBatterView_Formatter = v2;
 
-  v2 = _axLabelForBatterView_Formatter;
+  v4 = _axLabelForBatterView_Formatter;
 
-  return [v2 setDateTimeStyle:1];
+  return [v4 setDateTimeStyle:1];
 }
 
 @end

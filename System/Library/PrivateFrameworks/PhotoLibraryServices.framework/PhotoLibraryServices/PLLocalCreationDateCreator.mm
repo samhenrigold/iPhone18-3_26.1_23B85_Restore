@@ -164,11 +164,11 @@ LABEL_28:
   }
 }
 
-void __40__PLLocalCreationDateCreator_initialize__block_invoke()
+void __40__PLLocalCreationDateCreator_initialize__block_invoke(uint64_t a1)
 {
-  v0 = [objc_opt_class() _gmtTranslationDictionary];
-  v1 = _gmtTranslationDictionary;
-  _gmtTranslationDictionary = v0;
+  v1 = [objc_opt_class() _gmtTranslationDictionary];
+  v2 = _gmtTranslationDictionary;
+  _gmtTranslationDictionary = v1;
 }
 
 @end

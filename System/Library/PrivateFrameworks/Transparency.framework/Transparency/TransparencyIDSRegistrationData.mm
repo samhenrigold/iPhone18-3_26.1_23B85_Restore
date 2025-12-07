@@ -159,18 +159,18 @@
 
 - (id)diagnosticsJsonDictionary
 {
-  v36[10] = *MEMORY[0x1E69E9840];
-  v35[0] = @"app";
+  v35[10] = *MEMORY[0x1E69E9840];
+  v34[0] = @"app";
   application = [(TransparencyIDSRegistrationData *)self application];
-  v36[0] = application;
-  v35[1] = @"signature";
+  v35[0] = application;
+  v34[1] = @"signature";
   signature = [(TransparencyIDSRegistrationData *)self signature];
   kt_hexString = [signature kt_hexString];
-  v36[1] = kt_hexString;
-  v35[2] = @"tbs";
+  v35[1] = kt_hexString;
+  v34[2] = @"tbs";
   tbsKTIDSRegistrationData = [(TransparencyIDSRegistrationData *)self tbsKTIDSRegistrationData];
   kt_hexString2 = [tbsKTIDSRegistrationData kt_hexString];
-  v30 = kt_hexString2;
+  v29 = kt_hexString2;
   if (kt_hexString2)
   {
     v4 = kt_hexString2;
@@ -181,8 +181,8 @@
     v4 = @"-";
   }
 
-  v36[2] = v4;
-  v35[3] = @"createdAt";
+  v35[2] = v4;
+  v34[3] = @"createdAt";
   createdAt = [(TransparencyIDSRegistrationData *)self createdAt];
   v5 = [createdAt description];
   v6 = v5;
@@ -196,8 +196,8 @@
     v7 = @"-";
   }
 
-  v36[3] = v7;
-  v35[4] = @"signedAt";
+  v35[3] = v7;
+  v34[4] = @"signedAt";
   signedAt = [(TransparencyIDSRegistrationData *)self signedAt];
   v8 = [signedAt description];
   v9 = v8;
@@ -211,8 +211,8 @@
     v10 = @"-";
   }
 
-  v36[4] = v10;
-  v35[5] = @"uploadedToCKAt";
+  v35[4] = v10;
+  v34[5] = @"uploadedToCKAt";
   uploadedToCKAt = [(TransparencyIDSRegistrationData *)self uploadedToCKAt];
   v12 = [uploadedToCKAt description];
   v13 = v12;
@@ -226,12 +226,12 @@
     v14 = @"-";
   }
 
-  v36[5] = v14;
-  v35[6] = @"publicKey";
+  v35[5] = v14;
+  v34[6] = @"publicKey";
   publicKey = [(TransparencyIDSRegistrationData *)self publicKey];
   kt_hexString3 = [publicKey kt_hexString];
-  v36[6] = kt_hexString3;
-  v35[7] = @"altDSID";
+  v35[6] = kt_hexString3;
+  v34[7] = @"altDSID";
   altDSID = [(TransparencyIDSRegistrationData *)self altDSID];
   v18 = altDSID;
   if (altDSID)
@@ -244,8 +244,8 @@
     v19 = @"-";
   }
 
-  v36[7] = v19;
-  v35[8] = @"dsid";
+  v35[7] = v19;
+  v34[8] = @"dsid";
   dsid = [(TransparencyIDSRegistrationData *)self dsid];
   v21 = dsid;
   if (dsid)
@@ -258,16 +258,14 @@
     v22 = @"-";
   }
 
-  v36[8] = v22;
-  v35[9] = @"pushToken";
+  v35[8] = v22;
+  v34[9] = @"pushToken";
   pushToken = [(TransparencyIDSRegistrationData *)self pushToken];
   kt_hexString4 = [pushToken kt_hexString];
-  v36[9] = kt_hexString4;
-  v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:v35 count:10];
+  v35[9] = kt_hexString4;
+  v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v35 forKeys:v34 count:10];
 
-  v25 = *MEMORY[0x1E69E9840];
-
-  return v27;
+  return v26;
 }
 
 @end

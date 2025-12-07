@@ -71,17 +71,11 @@
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
   if (stateCopy)
   {
-    maxPeriodicAVTCPFlowBusyInterval = self->_maxPeriodicAVTCPFlowBusyInterval;
-    maxPeriodicAVTCPFlowCycleTime = self->_maxPeriodicAVTCPFlowCycleTime;
-    minPeriodicAVTCPFlowCyclesToConsider = self->_minPeriodicAVTCPFlowCyclesToConsider;
-    v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"StrictlyPeriodicAVFlowDetector config TCP max busy %.1f cycle time min %.1f max %.1f var %.1f periods min %d max %d", *&maxPeriodicAVTCPFlowBusyInterval, *&self->_minPeriodicAVTCPFlowCycleTime, *&maxPeriodicAVTCPFlowCycleTime, *&self->_maxPeriodicAVTCPFlowCycleVariance, minPeriodicAVTCPFlowCyclesToConsider, self->_maxPeriodicAVTCPFlowCyclesToConsider];
-    [v5 addObject:v9];
-    maxPeriodicAVUDPFlowBusyInterval = self->_maxPeriodicAVUDPFlowBusyInterval;
-    maxPeriodicAVUDPFlowCycleTime = self->_maxPeriodicAVUDPFlowCycleTime;
-    minPeriodicAVUDPFlowCyclesToConsider = self->_minPeriodicAVUDPFlowCyclesToConsider;
-    v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"StrictlyPeriodicAVFlowDetector config UDP max busy %.1f cycle time min %.1f max %.1f var %.1f periods min %d max %d", *&maxPeriodicAVUDPFlowBusyInterval, *&self->_minPeriodicAVUDPFlowCycleTime, *&maxPeriodicAVUDPFlowCycleTime, *&self->_maxPeriodicAVUDPFlowCycleVariance, minPeriodicAVUDPFlowCyclesToConsider, self->_maxPeriodicAVUDPFlowCyclesToConsider];
+    v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"StrictlyPeriodicAVFlowDetector config TCP max busy %.1f cycle time min %.1f max %.1f var %.1f periods min %d max %d", *&self->_maxPeriodicAVTCPFlowBusyInterval, *&self->_minPeriodicAVTCPFlowCycleTime, *&self->_maxPeriodicAVTCPFlowCycleTime, *&self->_maxPeriodicAVTCPFlowCycleVariance, self->_minPeriodicAVTCPFlowCyclesToConsider, self->_maxPeriodicAVTCPFlowCyclesToConsider];
+    [v5 addObject:v6];
+    v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"StrictlyPeriodicAVFlowDetector config UDP max busy %.1f cycle time min %.1f max %.1f var %.1f periods min %d max %d", *&self->_maxPeriodicAVUDPFlowBusyInterval, *&self->_minPeriodicAVUDPFlowCycleTime, *&self->_maxPeriodicAVUDPFlowCycleTime, *&self->_maxPeriodicAVUDPFlowCycleVariance, self->_minPeriodicAVUDPFlowCyclesToConsider, self->_maxPeriodicAVUDPFlowCyclesToConsider];
 
-    [v5 addObject:v13];
+    [v5 addObject:v7];
   }
 
   return v5;
@@ -89,7 +83,7 @@
 
 - (int)possibleAVFlowScore:(id)score result:(AVFlowDetectionResult *)result
 {
-  v109 = *MEMORY[0x277D85DE8];
+  v108 = *MEMORY[0x277D85DE8];
   scoreCopy = score;
   maxPeriodicAVUDPFlowBusyInterval = self->_maxPeriodicAVUDPFlowBusyInterval;
   minPeriodicAVUDPFlowCycleTime = self->_minPeriodicAVUDPFlowCycleTime;
@@ -138,7 +132,7 @@
     if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      *v99 = scoreCopy;
+      *v98 = scoreCopy;
       v21 = "ContinuousAVFlowDetector screened out %@";
       v22 = v20;
       v23 = 12;
@@ -164,15 +158,15 @@
     }
 
     *buf = 67110146;
-    *v99 = v16;
-    *&v99[4] = 1024;
-    *&v99[6] = v16 / 2;
-    *&v99[10] = 1024;
-    *&v99[12] = v26;
-    *&v99[16] = 1024;
-    *&v99[18] = minPeriodicAVUDPFlowCyclesToConsider;
-    *&v99[22] = 2112;
-    *&v99[24] = scoreCopy;
+    *v98 = v16;
+    *&v98[4] = 1024;
+    *&v98[6] = v16 / 2;
+    *&v98[10] = 1024;
+    *&v98[12] = v26;
+    *&v98[16] = 1024;
+    *&v98[18] = minPeriodicAVUDPFlowCyclesToConsider;
+    *&v98[22] = 2112;
+    *&v98[24] = scoreCopy;
     _os_log_impl(&dword_23255B000, v24, OS_LOG_TYPE_DEBUG, "ContinuousAVFlowDetector considering periods %d with %d from current cycles %d limit %d %@", buf, 0x24u);
     if (nonIdleSamples3)
     {
@@ -180,41 +174,41 @@
   }
 
   nonIdleSamples5 = [scoreCopy nonIdleSamples];
-  v93 = scoreCopy;
+  v92 = scoreCopy;
   if (nonIdleSamples5 && (v28 = nonIdleSamples5, [scoreCopy nonIdleSamples], v29 = objc_claimAutoreleasedReturnValue(), v30 = objc_msgSend(v29, "count"), v29, v28, v30))
   {
-    v91 = maxPeriodicAVUDPFlowCyclesToConsider;
+    v90 = maxPeriodicAVUDPFlowCyclesToConsider;
     resultCopy2 = result;
-    v96 = 0u;
-    v97 = 0u;
-    v94 = 0u;
     v95 = 0u;
+    v96 = 0u;
+    v93 = 0u;
+    v94 = 0u;
     nonIdleSamples6 = [scoreCopy nonIdleSamples];
-    v32 = [nonIdleSamples6 countByEnumeratingWithState:&v94 objects:v108 count:16];
+    v32 = [nonIdleSamples6 countByEnumeratingWithState:&v93 objects:v107 count:16];
     if (v32)
     {
       v33 = v32;
       v34 = 0;
       v35 = 0;
-      v36 = *v95;
+      v36 = *v94;
       v37 = 0.0;
       do
       {
         for (i = 0; i != v33; ++i)
         {
-          if (*v95 != v36)
+          if (*v94 != v36)
           {
             objc_enumerationMutation(nonIdleSamples6);
           }
 
-          v39 = *(*(&v94 + 1) + 8 * i);
+          v39 = *(*(&v93 + 1) + 8 * i);
           [v39 elapsedTime];
           v37 = v37 + v40;
           v35 += [v39 totalObservedRxBytes];
           v34 += [v39 totalObservedTxBytes];
         }
 
-        v33 = [nonIdleSamples6 countByEnumeratingWithState:&v94 objects:v108 count:16];
+        v33 = [nonIdleSamples6 countByEnumeratingWithState:&v93 objects:v107 count:16];
       }
 
       while (v33);
@@ -231,13 +225,13 @@
     {
       v52 = flowScrutinyLogHandle;
       v48 = 0.0;
-      scoreCopy = v93;
+      scoreCopy = v92;
       if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEBUG))
       {
         *buf = 134218240;
-        *v99 = v37;
-        *&v99[8] = 2048;
-        *&v99[10] = maxPeriodicAVUDPFlowBusyInterval;
+        *v98 = v37;
+        *&v98[8] = 2048;
+        *&v98[10] = maxPeriodicAVUDPFlowBusyInterval;
         _os_log_impl(&dword_23255B000, v52, OS_LOG_TYPE_DEBUG, "ContinuousAVFlowDetector FAIL excess recent busy period %.3f max %.3f", buf, 0x16u);
       }
 
@@ -249,8 +243,8 @@
       goto LABEL_79;
     }
 
-    scoreCopy = v93;
-    alternatingIdleNonIdlePeriods3 = [v93 alternatingIdleNonIdlePeriods];
+    scoreCopy = v92;
+    alternatingIdleNonIdlePeriods3 = [v92 alternatingIdleNonIdlePeriods];
     lastObject = [alternatingIdleNonIdlePeriods3 lastObject];
 
     v48 = mbpsThroughput(v35, v37);
@@ -265,7 +259,7 @@
 
     v47 = 1;
     v50 = v51;
-    maxPeriodicAVUDPFlowCyclesToConsider = v91;
+    maxPeriodicAVUDPFlowCyclesToConsider = v90;
   }
 
   else
@@ -282,9 +276,9 @@
         v45 = v44;
         [lastObject elapsedTime];
         *buf = 134218240;
-        *v99 = v46;
-        *&v99[8] = 2048;
-        *&v99[10] = maxPeriodicAVUDPFlowCycleTime;
+        *v98 = v46;
+        *&v98[8] = 2048;
+        *&v98[10] = maxPeriodicAVUDPFlowCycleTime;
         _os_log_impl(&dword_23255B000, v45, OS_LOG_TYPE_DEBUG, "ContinuousAVFlowDetector FAIL excess recent idle period %.3f max cycle time %.3f", buf, 0x16u);
       }
 
@@ -305,7 +299,7 @@
     v48 = 0.0;
   }
 
-  v90 = minPeriodicAVUDPFlowCycleTime;
+  v89 = minPeriodicAVUDPFlowCycleTime;
 
   alternatingIdleNonIdlePeriods5 = [scoreCopy alternatingIdleNonIdlePeriods];
   v57 = [alternatingIdleNonIdlePeriods5 count];
@@ -316,7 +310,7 @@
     goto LABEL_78;
   }
 
-  v92 = maxPeriodicAVUDPFlowCyclesToConsider;
+  v91 = maxPeriodicAVUDPFlowCyclesToConsider;
   if (maxPeriodicAVUDPFlowCyclesToConsider <= v47 + 1)
   {
     v58 = v47 + 1;
@@ -327,7 +321,7 @@
     v58 = maxPeriodicAVUDPFlowCyclesToConsider;
   }
 
-  v88 = v58;
+  v87 = v58;
   v59 = (v57 & 0x7FFFFFFF) + 2;
   v60 = v50;
   while (1)
@@ -391,22 +385,22 @@ LABEL_68:
       }
     }
 
-    if (v47 + 1 >= v92)
+    if (v47 + 1 >= v91)
     {
-      v47 = v88;
+      v47 = v87;
       goto LABEL_77;
     }
 
     v59 -= 2;
     ++v47;
-    scoreCopy = v93;
+    scoreCopy = v92;
     if (v59 <= 4)
     {
       goto LABEL_78;
     }
   }
 
-  if (v49 > v90 && v49 < maxPeriodicAVUDPFlowCycleTime && v74 < maxPeriodicAVUDPFlowCycleVariance)
+  if (v49 > v89 && v49 < maxPeriodicAVUDPFlowCycleTime && v74 < maxPeriodicAVUDPFlowCycleVariance)
   {
     goto LABEL_68;
   }
@@ -418,22 +412,22 @@ LABEL_74:
     v79 = v78;
     [v62 elapsedTime];
     *buf = 67109888;
-    *v99 = v59 - 4;
-    *&v99[4] = 2048;
-    *&v99[6] = v47;
-    *&v99[14] = 2048;
-    *&v99[16] = v80;
-    *&v99[24] = 2048;
-    *&v99[26] = maxPeriodicAVUDPFlowBusyInterval;
+    *v98 = v59 - 4;
+    *&v98[4] = 2048;
+    *&v98[6] = v47;
+    *&v98[14] = 2048;
+    *&v98[16] = v80;
+    *&v98[24] = 2048;
+    *&v98[26] = maxPeriodicAVUDPFlowBusyInterval;
     _os_log_impl(&dword_23255B000, v79, OS_LOG_TYPE_DEBUG, "ContinuousAVFlowDetector stop iterating at index %d cycle count %zu busy period %.3f max %.3f", buf, 0x26u);
   }
 
 LABEL_77:
-  scoreCopy = v93;
+  scoreCopy = v92;
 
 LABEL_78:
   result = resultCopy2;
-  minPeriodicAVUDPFlowCycleTime = v90;
+  minPeriodicAVUDPFlowCycleTime = v89;
 LABEL_79:
   v81 = flowScrutinyLogHandle;
   v82 = os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEBUG);
@@ -442,38 +436,38 @@ LABEL_79:
     if (v82)
     {
       *buf = 134219776;
-      *v99 = v47;
-      *&v99[8] = 2048;
-      *&v99[10] = v49;
-      *&v99[18] = 2048;
-      *&v99[20] = v51;
-      *&v99[28] = 2048;
-      *&v99[30] = v50;
-      v100 = 2048;
-      v101 = v50 - v51;
-      v102 = 2048;
-      v103 = minPeriodicAVUDPFlowCycleTime;
-      v104 = 2048;
-      v105 = maxPeriodicAVUDPFlowCycleTime;
-      v106 = 2048;
-      v107 = maxPeriodicAVUDPFlowCycleVariance;
+      *v98 = v47;
+      *&v98[8] = 2048;
+      *&v98[10] = v49;
+      *&v98[18] = 2048;
+      *&v98[20] = v51;
+      *&v98[28] = 2048;
+      *&v98[30] = v50;
+      v99 = 2048;
+      v100 = v50 - v51;
+      v101 = 2048;
+      v102 = minPeriodicAVUDPFlowCycleTime;
+      v103 = 2048;
+      v104 = maxPeriodicAVUDPFlowCycleTime;
+      v105 = 2048;
+      v106 = maxPeriodicAVUDPFlowCycleVariance;
       _os_log_impl(&dword_23255B000, v81, OS_LOG_TYPE_DEBUG, "ContinuousAVFlowDetector PASS numCycles %zd cycle time avg %.3f min %.3f max %.3f diff %.3f bounds min %.3f max %.3f variance %.3f", buf, 0x52u);
     }
 
-    v86 = self->_scoreBaselinePass + self->_scorePerCycleIncrement * v47;
+    v85 = self->_scoreBaselinePass + self->_scorePerCycleIncrement * v47;
     if ([scoreCopy trafficClassIsAudioVideo])
     {
-      v86 += self->_scoreTCIncrement;
+      v85 += self->_scoreTCIncrement;
     }
 
-    if (v86 >= self->_scoreMax)
+    if (v85 >= self->_scoreMax)
     {
       scoreMax = self->_scoreMax;
     }
 
     else
     {
-      scoreMax = v86;
+      scoreMax = v85;
     }
 
     if (result && scoreMax > result->var0)
@@ -490,21 +484,21 @@ LABEL_79:
     if (v82)
     {
       *buf = 134219776;
-      *v99 = v47;
-      *&v99[8] = 2048;
-      *&v99[10] = v49;
-      *&v99[18] = 2048;
-      *&v99[20] = v51;
-      *&v99[28] = 2048;
-      *&v99[30] = v50;
-      v100 = 2048;
-      v101 = v50 - v51;
-      v102 = 2048;
-      v103 = minPeriodicAVUDPFlowCycleTime;
-      v104 = 2048;
-      v105 = maxPeriodicAVUDPFlowCycleTime;
-      v106 = 2048;
-      v107 = maxPeriodicAVUDPFlowCycleVariance;
+      *v98 = v47;
+      *&v98[8] = 2048;
+      *&v98[10] = v49;
+      *&v98[18] = 2048;
+      *&v98[20] = v51;
+      *&v98[28] = 2048;
+      *&v98[30] = v50;
+      v99 = 2048;
+      v100 = v50 - v51;
+      v101 = 2048;
+      v102 = minPeriodicAVUDPFlowCycleTime;
+      v103 = 2048;
+      v104 = maxPeriodicAVUDPFlowCycleTime;
+      v105 = 2048;
+      v106 = maxPeriodicAVUDPFlowCycleVariance;
       v21 = "ContinuousAVFlowDetector FAIL numCycles %zd cycle times avg %.3f min %.3f max %.3f diff %.3f bounds min %.3f max %.3f variance %.3f";
       v22 = v81;
       v23 = 82;
@@ -516,7 +510,6 @@ LABEL_83:
     scoreMax = 0;
   }
 
-  v84 = *MEMORY[0x277D85DE8];
   return scoreMax;
 }
 

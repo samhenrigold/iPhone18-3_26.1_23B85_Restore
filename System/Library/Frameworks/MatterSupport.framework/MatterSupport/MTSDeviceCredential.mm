@@ -23,7 +23,7 @@
 
 - (MTSDeviceCredential)initWithCoder:(id)coder
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"MTSDC.ck.certificationDeclaration"];
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"MTSDC.ck.deviceAttestationCertificate"];
@@ -47,15 +47,15 @@
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       v13 = HMFGetLogIdentifier();
-      v18 = 138544130;
-      v19 = v13;
-      v20 = 2112;
-      v21 = v5;
-      v22 = 2112;
-      v23 = v6;
-      v24 = 2112;
-      v25 = v8;
-      _os_log_impl(&dword_239824000, v12, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded certificationDeclaration: %@, deviceAttestationCertificate: %@, productAttestationIntermediateCertificate: %@", &v18, 0x2Au);
+      v17 = 138544130;
+      v18 = v13;
+      v19 = 2112;
+      v20 = v5;
+      v21 = 2112;
+      v22 = v6;
+      v23 = 2112;
+      v24 = v8;
+      _os_log_impl(&dword_239824000, v12, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded certificationDeclaration: %@, deviceAttestationCertificate: %@, productAttestationIntermediateCertificate: %@", &v17, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v11);
@@ -68,7 +68,6 @@
     v15 = selfCopy;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 

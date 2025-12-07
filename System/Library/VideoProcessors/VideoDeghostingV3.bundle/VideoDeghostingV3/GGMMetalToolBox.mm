@@ -2592,9 +2592,9 @@ LABEL_16:
   contextCopy = context;
   if (contextCopy)
   {
-    v19.receiver = self;
-    v19.super_class = GGMMetalToolBox;
-    v6 = [(GGMMetalToolBox *)&v19 init];
+    v21.receiver = self;
+    v21.super_class = GGMMetalToolBox;
+    v6 = [(GGMMetalToolBox *)&v21 init];
     self = v6;
     if (v6)
     {
@@ -2621,13 +2621,14 @@ LABEL_16:
           {
             fig_log_get_emitter();
             OUTLINED_FUNCTION_1_0();
+            FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
             goto LABEL_11;
           }
         }
 
-        v17 = kCVMetalTextureCacheMaximumTextureAgeKey;
-        v18 = &off_4A030;
-        v14 = [NSDictionary dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+        v19 = kCVMetalTextureCacheMaximumTextureAgeKey;
+        v20 = &off_4A030;
+        v14 = [NSDictionary dictionaryWithObjects:&v20 forKeys:&v19 count:1];
         if (!CVMetalTextureCacheCreate(kCFAllocatorDefault, v14, self->_device, 0, &self->_cvMetalTextureCacheRef))
         {
 
@@ -2637,7 +2638,7 @@ LABEL_16:
         }
 
         fig_log_get_emitter();
-        FigSignalErrorAtGM();
+        FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v17, v18, v19);
       }
     }
   }
@@ -2646,10 +2647,10 @@ LABEL_16:
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_1_0();
-LABEL_11:
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
   }
 
+LABEL_11:
   selfCopy = 0;
 LABEL_9:
 
@@ -2680,10 +2681,10 @@ LABEL_9:
 {
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *self = result;
   return result;
 }
@@ -2692,40 +2693,12 @@ LABEL_9:
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v8, v9, a4.n128_u64[0], a4.n128_u64[1], v12, v13, v14, v15);
 
-  result = a4;
-  *a2 = a4.n128_u32[0];
-  *a3 = a4.n128_u32[1];
+  result = v11;
+  *a2 = v11.n128_u32[0];
+  *a3 = v11.n128_u32[1];
   return result;
-}
-
-- (uint64_t)generateMetaContainerArrayBufFromMetaContainerBuf:imageRect:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)generateMetaContainerArrayBufFromMetaContainerBuf:imageRect:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)encodeDilate3ProbMapsHardR2SoftR2:input0:input1:input2:output0:output1:output2:meta:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)encodeConditionalDilate2ProbMapsYUVHardR2SoftR2Simd:inputYUV:probMap0:probMap1:dilatedProbMap0:dilatedProbMap1:meta:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
 }
 
 @end

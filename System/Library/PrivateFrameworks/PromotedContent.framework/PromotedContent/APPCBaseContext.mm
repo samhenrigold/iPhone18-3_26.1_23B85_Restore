@@ -14,50 +14,47 @@
 {
   v3 = sub_1C1B945F8();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x1EEE9AC00](v3);
-  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = OBJC_IVAR___APPCBaseContext_identifier;
+  v6 = &v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = OBJC_IVAR___APPCBaseContext_identifier;
   swift_beginAccess();
-  (*(v4 + 16))(v7, self + v8, v3);
-  v9 = sub_1C1B945B8();
-  (*(v4 + 8))(v7, v3);
+  (*(v4 + 16))(v6, self + v7, v3);
+  v8 = sub_1C1B945B8();
+  (*(v4 + 8))(v6, v3);
 
-  return v9;
+  return v8;
 }
 
 - (NSString)requestedAd
 {
-  v2 = (self + OBJC_IVAR___APPCBaseContext_requestedAd);
+  v2 = self + OBJC_IVAR___APPCBaseContext_requestedAd;
   swift_beginAccess();
-  if (v2[1])
+  if (*(v2 + 1))
   {
-    v3 = *v2;
 
-    v4 = sub_1C1B94D78();
+    v3 = sub_1C1B94D78();
   }
 
   else
   {
-    v4 = 0;
+    v3 = 0;
   }
 
-  return v4;
+  return v3;
 }
 
 - (void)setIdentifier:(id)identifier
 {
   v4 = sub_1C1B945F8();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x1EEE9AC00](v4);
-  v8 = &v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1C1B945D8();
-  v9 = OBJC_IVAR___APPCBaseContext_identifier;
+  v8 = OBJC_IVAR___APPCBaseContext_identifier;
   swift_beginAccess();
-  v10 = *(v5 + 40);
+  v9 = *(v5 + 40);
   selfCopy = self;
-  v10(self + v9, v8, v4);
+  v9(self + v8, v7, v4);
   swift_endAccess();
 }
 
@@ -72,10 +69,9 @@
 
 - (APPCPromotableContentDepiction)current
 {
-  v2 = *(self + OBJC_IVAR___APPCBaseContext_current);
-  v3 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v3;
+  return v2;
 }
 
 - (void)setRequestedAd:(id)ad
@@ -94,7 +90,6 @@
 
   v7 = (self + OBJC_IVAR___APPCBaseContext_requestedAd);
   swift_beginAccess();
-  v8 = v7[1];
   *v7 = v4;
   v7[1] = v6;
 }

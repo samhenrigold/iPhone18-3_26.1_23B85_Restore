@@ -72,18 +72,18 @@
     dispatch_once(&_MergedGlobals_155, &__block_literal_global_64);
   }
 
-  v0 = qword_1ED6A5290;
+  v1 = qword_1ED6A5290;
 
-  return v0;
+  return v1;
 }
 
-void __64__PKHandwritingSynthesisLogger_sharedHandwritingSynthesisLogger__block_invoke()
+void __64__PKHandwritingSynthesisLogger_sharedHandwritingSynthesisLogger__block_invoke(uint64_t a1, uint64_t a2)
 {
   if (os_variant_has_internal_diagnostics())
   {
-    v0 = objc_alloc_init(PKHandwritingSynthesisLogger);
-    v1 = qword_1ED6A5290;
-    qword_1ED6A5290 = v0;
+    v2 = objc_alloc_init(PKHandwritingSynthesisLogger);
+    v3 = qword_1ED6A5290;
+    qword_1ED6A5290 = v2;
   }
 }
 

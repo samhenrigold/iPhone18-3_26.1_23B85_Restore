@@ -131,157 +131,148 @@
 
 - (void)logStartOfWrite
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v3 = DMCLogObjects()[3];
+  v12 = *MEMORY[0x1E69E9840];
+  v3 = DMCLogObjects(self, a2)[3];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = v3;
     dictionary = [(DMCDictionaryWriter *)self dictionary];
     v6 = [dictionary count];
     path = [(DMCDictionaryWriter *)self path];
-    v9 = 134218242;
-    v10 = v6;
-    v11 = 2114;
-    v12 = path;
-    _os_log_impl(&dword_1B1630000, v4, OS_LOG_TYPE_DEFAULT, "Attempting to write dictionary with %lu entries to path %{public}@...", &v9, 0x16u);
+    v8 = 134218242;
+    v9 = v6;
+    v10 = 2114;
+    v11 = path;
+    _os_log_impl(&dword_1B1630000, v4, OS_LOG_TYPE_DEFAULT, "Attempting to write dictionary with %lu entries to path %{public}@...", &v8, 0x16u);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)logResultOfWrite
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   serializeError = [(DMCDictionaryWriter *)self serializeError];
 
   if (serializeError)
   {
-    v4 = DMCLogObjects()[3];
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = DMCLogObjects(v4, v5)[3];
+    if (!os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v5 = v4;
-      path = [(DMCDictionaryWriter *)self path];
-      serializeError2 = [(DMCDictionaryWriter *)self serializeError];
-      v20 = 138543618;
-      v21 = path;
-      v22 = 2114;
-      v23 = serializeError2;
-      v8 = "Dictionary could not be written to %{public}@, could not serialize data: %{public}@";
-LABEL_4:
-      _os_log_impl(&dword_1B1630000, v5, OS_LOG_TYPE_ERROR, v8, &v20, 0x16u);
-
-LABEL_13:
-LABEL_14:
-
-      goto LABEL_15;
+      return;
     }
 
-    goto LABEL_15;
+    v7 = v6;
+    path = [(DMCDictionaryWriter *)self path];
+    serializeError2 = [(DMCDictionaryWriter *)self serializeError];
+    v25 = 138543618;
+    v26 = path;
+    v27 = 2114;
+    v28 = serializeError2;
+    v10 = "Dictionary could not be written to %{public}@, could not serialize data: %{public}@";
+    goto LABEL_4;
   }
 
   beforeWriteRepairError = [(DMCDictionaryWriter *)self beforeWriteRepairError];
 
   writeError = [(DMCDictionaryWriter *)self writeError];
 
-  if (!beforeWriteRepairError)
+  if (beforeWriteRepairError)
   {
-    if (!writeError)
+    v15 = DMCLogObjects(v13, v14)[3];
+    v16 = os_log_type_enabled(v15, OS_LOG_TYPE_ERROR);
+    if (writeError)
     {
-      afterWriteRepairError = [(DMCDictionaryWriter *)self afterWriteRepairError];
-
-      v18 = DMCLogObjects()[3];
-      if (!afterWriteRepairError)
+      if (!v16)
       {
-        if (!os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
-        {
-          goto LABEL_15;
-        }
-
-        v5 = v18;
-        path2 = [(DMCDictionaryWriter *)self path];
-        v20 = 138543362;
-        v21 = path2;
-        _os_log_impl(&dword_1B1630000, v5, OS_LOG_TYPE_DEFAULT, "Dictionary successfully written to %{public}@", &v20, 0xCu);
-
-        goto LABEL_14;
+        return;
       }
 
-      if (!os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
-      {
-        goto LABEL_15;
-      }
-
-      v5 = v18;
+      v7 = v15;
       path = [(DMCDictionaryWriter *)self path];
-      serializeError2 = [(DMCDictionaryWriter *)self afterWriteRepairError];
-      v20 = 138543618;
-      v21 = path;
-      v22 = 2114;
-      v23 = serializeError2;
-      v8 = "Dictionary successfully written to %{public}@, could not make file readable after write: %{public}@";
-      goto LABEL_4;
-    }
+      beforeWriteRepairError2 = [(DMCDictionaryWriter *)self beforeWriteRepairError];
+      writeError2 = [(DMCDictionaryWriter *)self writeError];
+      v25 = 138543874;
+      v26 = path;
+      v27 = 2114;
+      v28 = beforeWriteRepairError2;
+      v29 = 2114;
+      options = writeError2;
+      _os_log_impl(&dword_1B1630000, v7, OS_LOG_TYPE_ERROR, "Dictionary could not be written to %{public}@, file could not be repaired before writing: %{public}@ and could not write data: %{public}@", &v25, 0x20u);
 
-    v15 = DMCLogObjects()[3];
-    if (!os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_15;
-    }
-
-    v5 = v15;
-    path = [(DMCDictionaryWriter *)self path];
-    writeError2 = [(DMCDictionaryWriter *)self writeError];
-    v20 = 138543874;
-    v21 = path;
-    v22 = 2114;
-    v23 = writeError2;
-    v24 = 2048;
-    options = [(DMCDictionaryWriter *)self options];
-    _os_log_impl(&dword_1B1630000, v5, OS_LOG_TYPE_ERROR, "Dictionary could not be written to %{public}@, could not write data: %{public}@. Write Options: %lu", &v20, 0x20u);
 LABEL_12:
-
-    goto LABEL_13;
-  }
-
-  v11 = DMCLogObjects()[3];
-  v12 = os_log_type_enabled(v11, OS_LOG_TYPE_ERROR);
-  if (!writeError)
-  {
-    if (!v12)
-    {
-      goto LABEL_15;
+      goto LABEL_13;
     }
 
-    v5 = v11;
-    path = [(DMCDictionaryWriter *)self path];
-    serializeError2 = [(DMCDictionaryWriter *)self beforeWriteRepairError];
-    v20 = 138543618;
-    v21 = path;
-    v22 = 2114;
-    v23 = serializeError2;
-    v8 = "Dictionary successfully written to %{public}@, but there was a problem repairing the file before writing: %{public}@";
-    goto LABEL_4;
+    if (v16)
+    {
+      v7 = v15;
+      path = [(DMCDictionaryWriter *)self path];
+      serializeError2 = [(DMCDictionaryWriter *)self beforeWriteRepairError];
+      v25 = 138543618;
+      v26 = path;
+      v27 = 2114;
+      v28 = serializeError2;
+      v10 = "Dictionary successfully written to %{public}@, but there was a problem repairing the file before writing: %{public}@";
+LABEL_4:
+      _os_log_impl(&dword_1B1630000, v7, OS_LOG_TYPE_ERROR, v10, &v25, 0x16u);
+
+LABEL_13:
+LABEL_14:
+    }
   }
 
-  if (v12)
+  else
   {
-    v5 = v11;
-    path = [(DMCDictionaryWriter *)self path];
-    writeError2 = [(DMCDictionaryWriter *)self beforeWriteRepairError];
-    writeError3 = [(DMCDictionaryWriter *)self writeError];
-    v20 = 138543874;
-    v21 = path;
-    v22 = 2114;
-    v23 = writeError2;
-    v24 = 2114;
-    options = writeError3;
-    _os_log_impl(&dword_1B1630000, v5, OS_LOG_TYPE_ERROR, "Dictionary could not be written to %{public}@, file could not be repaired before writing: %{public}@ and could not write data: %{public}@", &v20, 0x20u);
+    if (writeError)
+    {
+      v19 = DMCLogObjects(v13, v14)[3];
+      if (!os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      {
+        return;
+      }
 
-    goto LABEL_12;
+      v7 = v19;
+      path = [(DMCDictionaryWriter *)self path];
+      beforeWriteRepairError2 = [(DMCDictionaryWriter *)self writeError];
+      v25 = 138543874;
+      v26 = path;
+      v27 = 2114;
+      v28 = beforeWriteRepairError2;
+      v29 = 2048;
+      options = [(DMCDictionaryWriter *)self options];
+      _os_log_impl(&dword_1B1630000, v7, OS_LOG_TYPE_ERROR, "Dictionary could not be written to %{public}@, could not write data: %{public}@. Write Options: %lu", &v25, 0x20u);
+      goto LABEL_12;
+    }
+
+    afterWriteRepairError = [(DMCDictionaryWriter *)self afterWriteRepairError];
+
+    v23 = DMCLogObjects(v21, v22)[3];
+    if (afterWriteRepairError)
+    {
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      {
+        v7 = v23;
+        path = [(DMCDictionaryWriter *)self path];
+        serializeError2 = [(DMCDictionaryWriter *)self afterWriteRepairError];
+        v25 = 138543618;
+        v26 = path;
+        v27 = 2114;
+        v28 = serializeError2;
+        v10 = "Dictionary successfully written to %{public}@, could not make file readable after write: %{public}@";
+        goto LABEL_4;
+      }
+    }
+
+    else if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    {
+      v7 = v23;
+      path2 = [(DMCDictionaryWriter *)self path];
+      v25 = 138543362;
+      v26 = path2;
+      _os_log_impl(&dword_1B1630000, v7, OS_LOG_TYPE_DEFAULT, "Dictionary successfully written to %{public}@", &v25, 0xCu);
+
+      goto LABEL_14;
+    }
   }
-
-LABEL_15:
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)serializeDataAndWriteToStorage

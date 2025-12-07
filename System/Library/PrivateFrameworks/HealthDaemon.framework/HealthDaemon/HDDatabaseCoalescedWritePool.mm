@@ -32,7 +32,7 @@
   if (v11)
   {
     objc_storeWeak(&v11->_profile, profileCopy);
-    v13 = [nameCopy copy];
+    v13 = objc_msgSend_copy(nameCopy);
     name = v12->_name;
     v12->_name = v13;
 
@@ -67,13 +67,13 @@
 
 void __69__HDDatabaseCoalescedWritePool_initWithProfile_name_loggingCategory___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
-    v10 = 0;
+    v9 = 0;
     v1 = [(HDDatabaseCoalescedWritePool *)WeakRetained _queue_performPendingWriteOperationsWithError:?];
-    v2 = v10;
+    v2 = v9;
     _HKInitializeLogging();
     v3 = WeakRetained[2];
     v4 = os_log_type_enabled(v3, OS_LOG_TYPE_INFO);
@@ -82,7 +82,7 @@ void __69__HDDatabaseCoalescedWritePool_initWithProfile_name_loggingCategory___b
       if (v4)
       {
         *buf = 138543362;
-        v12 = WeakRetained;
+        v11 = WeakRetained;
         v5 = "%{public}@: Completed scheduled pending write operation.";
         v6 = v3;
         v7 = 12;
@@ -94,185 +94,178 @@ LABEL_7:
     else if (v4)
     {
       *buf = 138543618;
-      v12 = WeakRetained;
-      v13 = 2114;
-      v14 = v2;
+      v11 = WeakRetained;
+      v12 = 2114;
+      v13 = v2;
       v5 = "%{public}@: Scheduled pending write operation failed with error: %{public}@";
       v6 = v3;
       v7 = 22;
       goto LABEL_7;
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (uint64_t)_queue_performPendingWriteOperationsWithError:(uint64_t)error
 {
-  v61 = *MEMORY[0x277D85DE8];
-  if (error)
+  v59 = *MEMORY[0x277D85DE8];
+  if (!error)
   {
-    dispatch_assert_queue_V2(*(error + 24));
-    os_unfair_lock_lock((error + 32));
-    v4 = *(error + 48);
-    v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v6 = *(error + 48);
-    *(error + 48) = v5;
+    return 0;
+  }
 
-    if ([v4 count])
+  dispatch_assert_queue_V2(*(error + 24));
+  os_unfair_lock_lock((error + 32));
+  v4 = *(error + 48);
+  v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v6 = *(error + 48);
+  *(error + 48) = v5;
+
+  if ([v4 count])
+  {
+    [*(error + 64) consumeQuota];
+  }
+
+  os_unfair_lock_unlock((error + 32));
+  if ([v4 count])
+  {
+    v7 = MEMORY[0x277CCC298];
+    v8 = _HKLogSignpostIDGenerate();
+    _HKInitializeLogging();
+    v9 = *v7;
+    if (os_signpost_enabled(v9))
     {
-      [*(error + 64) consumeQuota];
+      v10 = v9;
+      v11 = v10;
+      if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+      {
+        *buf = 134217984;
+        errorCopy = [v4 count];
+        _os_signpost_emit_with_name_impl(&dword_228986000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v8, "coalesced-write", "count=%ld", buf, 0xCu);
+      }
     }
 
-    os_unfair_lock_unlock((error + 32));
-    if ([v4 count])
+    v42 = a2;
+    v12 = [(HKDaemonTransaction *)HDDaemonTransaction transactionWithOwner:error activityName:*(error + 8), v8];
+    Current = CFAbsoluteTimeGetCurrent();
+    databaseAssertion = [error databaseAssertion];
+    v15 = [HDDatabaseTransactionContext contextForAccessibilityAssertion:databaseAssertion];
+
+    copyForWritingProtectedData = [v15 copyForWritingProtectedData];
+    WeakRetained = objc_loadWeakRetained((error + 56));
+    database = [WeakRetained database];
+    v51 = 0;
+    v49[0] = MEMORY[0x277D85DD0];
+    v49[1] = 3221225472;
+    v49[2] = __78__HDDatabaseCoalescedWritePool__queue_performPendingWriteOperationsWithError___block_invoke;
+    v49[3] = &unk_278613218;
+    v49[4] = error;
+    v50 = v4;
+    v47[0] = MEMORY[0x277D85DD0];
+    v47[1] = 3221225472;
+    v47[2] = __78__HDDatabaseCoalescedWritePool__queue_performPendingWriteOperationsWithError___block_invoke_2;
+    v47[3] = &unk_278616F88;
+    v47[4] = error;
+    v19 = v50;
+    v48 = v19;
+    v20 = [database performTransactionWithContext:copyForWritingProtectedData error:&v51 block:v49 inaccessibilityHandler:v47];
+    v21 = v51;
+
+    v45 = 0u;
+    v46 = 0u;
+    v43 = 0u;
+    v44 = 0u;
+    v22 = v19;
+    v23 = [v22 countByEnumeratingWithState:&v43 objects:v58 count:16];
+    if (v23)
     {
-      v7 = MEMORY[0x277CCC298];
-      v8 = *MEMORY[0x277CCC298];
-      v9 = _HKLogSignpostIDGenerate();
-      _HKInitializeLogging();
-      v10 = *v7;
-      if (os_signpost_enabled(v10))
+      v24 = v23;
+      v25 = *v44;
+      do
       {
-        v11 = v10;
-        v12 = v11;
-        if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
-        {
-          *buf = 134217984;
-          errorCopy = [v4 count];
-          _os_signpost_emit_with_name_impl(&dword_228986000, v12, OS_SIGNPOST_INTERVAL_BEGIN, v9, "coalesced-write", "count=%ld", buf, 0xCu);
-        }
-      }
-
-      v44 = a2;
-      v13 = [(HKDaemonTransaction *)HDDaemonTransaction transactionWithOwner:error activityName:*(error + 8), v9];
-      Current = CFAbsoluteTimeGetCurrent();
-      databaseAssertion = [error databaseAssertion];
-      v16 = [HDDatabaseTransactionContext contextForAccessibilityAssertion:databaseAssertion];
-
-      copyForWritingProtectedData = [v16 copyForWritingProtectedData];
-      WeakRetained = objc_loadWeakRetained((error + 56));
-      database = [WeakRetained database];
-      v53 = 0;
-      v51[0] = MEMORY[0x277D85DD0];
-      v51[1] = 3221225472;
-      v51[2] = __78__HDDatabaseCoalescedWritePool__queue_performPendingWriteOperationsWithError___block_invoke;
-      v51[3] = &unk_278613218;
-      v51[4] = error;
-      v52 = v4;
-      v49[0] = MEMORY[0x277D85DD0];
-      v49[1] = 3221225472;
-      v49[2] = __78__HDDatabaseCoalescedWritePool__queue_performPendingWriteOperationsWithError___block_invoke_2;
-      v49[3] = &unk_278616F88;
-      v49[4] = error;
-      v20 = v52;
-      v50 = v20;
-      v21 = [database performTransactionWithContext:copyForWritingProtectedData error:&v53 block:v51 inaccessibilityHandler:v49];
-      v22 = v53;
-
-      v47 = 0u;
-      v48 = 0u;
-      v45 = 0u;
-      v46 = 0u;
-      v23 = v20;
-      v24 = [v23 countByEnumeratingWithState:&v45 objects:v60 count:16];
-      if (v24)
-      {
-        v25 = v24;
-        v26 = *v46;
+        v26 = 0;
         do
         {
-          v27 = 0;
-          do
+          if (*v44 != v25)
           {
-            if (*v46 != v26)
-            {
-              objc_enumerationMutation(v23);
-            }
-
-            v28 = *(*(&v45 + 1) + 8 * v27);
-            if (v28)
-            {
-              v29 = *(v28 + 16);
-            }
-
-            else
-            {
-              v29 = 0;
-            }
-
-            (*(v29 + 16))(v29, v21, v22);
-            ++v27;
+            objc_enumerationMutation(v22);
           }
 
-          while (v25 != v27);
-          v30 = [v23 countByEnumeratingWithState:&v45 objects:v60 count:16];
-          v25 = v30;
+          v27 = *(*(&v43 + 1) + 8 * v26);
+          if (v27)
+          {
+            v28 = *(v27 + 16);
+          }
+
+          else
+          {
+            v28 = 0;
+          }
+
+          (*(v28 + 16))(v28, v20, v21);
+          ++v26;
         }
 
-        while (v30);
+        while (v24 != v26);
+        v29 = [v22 countByEnumeratingWithState:&v43 objects:v58 count:16];
+        v24 = v29;
       }
 
-      _HKInitializeLogging();
-      v31 = *MEMORY[0x277CCC298];
-      if (os_signpost_enabled(*MEMORY[0x277CCC298]))
-      {
-        v32 = v31;
-        v33 = v32;
-        if (v43 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v32))
-        {
-          *buf = 0;
-          _os_signpost_emit_with_name_impl(&dword_228986000, v33, OS_SIGNPOST_INTERVAL_END, v43, "coalesced-write", "", buf, 2u);
-        }
-      }
+      while (v29);
+    }
 
-      _HKInitializeLogging();
-      v34 = *(error + 16);
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+    _HKInitializeLogging();
+    v30 = *MEMORY[0x277CCC298];
+    if (os_signpost_enabled(*MEMORY[0x277CCC298]))
+    {
+      v31 = v30;
+      v32 = v31;
+      if (v41 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v31))
       {
-        v35 = v34;
-        v36 = [v23 count];
-        v37 = CFAbsoluteTimeGetCurrent();
-        *buf = 138543874;
-        errorCopy = error;
-        v56 = 2048;
-        v57 = v36;
-        v58 = 2048;
-        v59 = v37 - Current;
-        _os_log_impl(&dword_228986000, v35, OS_LOG_TYPE_DEFAULT, "%{public}@: Completed %ld pending writes in %0.3lfs.", buf, 0x20u);
-      }
-
-      [v13 invalidate];
-      v38 = v22;
-      v39 = v38;
-      if (v38)
-      {
-        if (v44)
-        {
-          v40 = v38;
-          *v44 = v39;
-        }
-
-        else
-        {
-          _HKLogDroppedError();
-        }
+        *buf = 0;
+        _os_signpost_emit_with_name_impl(&dword_228986000, v32, OS_SIGNPOST_INTERVAL_END, v41, "coalesced-write", "", buf, 2u);
       }
     }
 
-    else
+    _HKInitializeLogging();
+    v33 = *(error + 16);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
     {
-      v21 = 1;
+      v34 = v33;
+      v35 = [v22 count];
+      v36 = CFAbsoluteTimeGetCurrent();
+      *buf = 138543874;
+      errorCopy = error;
+      v54 = 2048;
+      v55 = v35;
+      v56 = 2048;
+      v57 = v36 - Current;
+      _os_log_impl(&dword_228986000, v34, OS_LOG_TYPE_DEFAULT, "%{public}@: Completed %ld pending writes in %0.3lfs.", buf, 0x20u);
+    }
+
+    [v12 invalidate];
+    v37 = v21;
+    v38 = v37;
+    if (v37)
+    {
+      if (v42)
+      {
+        v39 = v37;
+        *v42 = v38;
+      }
+
+      else
+      {
+        _HKLogDroppedError();
+      }
     }
   }
 
   else
   {
-    v21 = 0;
+    v20 = 1;
   }
 
-  v41 = *MEMORY[0x277D85DE8];
-  return v21;
+  return v20;
 }
 
 - (void)performWriteWithMaximumLatency:(double)latency block:(id)block completion:(id)completion
@@ -289,11 +282,11 @@ LABEL_7:
     v10 = [(HDDatabaseCoalescedWritePool *)&v27 init];
     if (v10)
     {
-      v13 = [v11 copy];
+      v13 = objc_msgSend_copy(v11);
       writeBlock = v10->_writeBlock;
       v10->_writeBlock = v13;
 
-      v15 = [v12 copy];
+      v15 = objc_msgSend_copy(v12);
       completion = v10->_completion;
       v10->_completion = v15;
     }
@@ -334,7 +327,7 @@ LABEL_7:
 
 uint64_t __80__HDDatabaseCoalescedWritePool_performWriteWithMaximumLatency_block_completion___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v2 = *(a1 + 32);
   v3 = *(v2 + 16);
@@ -345,23 +338,21 @@ uint64_t __80__HDDatabaseCoalescedWritePool_performWriteWithMaximumLatency_block
     v6 = *(v2 + 64);
     v7 = v3;
     [v6 timeUntilNextAvailableTrigger];
-    v11 = 138544130;
-    v12 = v2;
-    v13 = 2048;
-    v14 = v4;
-    v15 = 2048;
-    v16 = v5;
-    v17 = 2048;
-    v18 = v8;
-    _os_log_impl(&dword_228986000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@:Pending Write with requested latency=%0.3lfs, adjusted latency=%0.3lfs, quota=%0.3lfs", &v11, 0x2Au);
+    v10 = 138544130;
+    v11 = v2;
+    v12 = 2048;
+    v13 = v4;
+    v14 = 2048;
+    v15 = v5;
+    v16 = 2048;
+    v17 = v8;
+    _os_log_impl(&dword_228986000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@:Pending Write with requested latency=%0.3lfs, adjusted latency=%0.3lfs, quota=%0.3lfs", &v10, 0x2Au);
 
     v2 = *(a1 + 32);
   }
 
   [*(v2 + 40) executeWithDelay:*(a1 + 56)];
-  result = [*(a1 + 40) invalidate];
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 40) invalidate];
 }
 
 - (void)flushPendingWriteQueueWithCompletion:(id)completion
@@ -389,33 +380,33 @@ void __69__HDDatabaseCoalescedWritePool_flushPendingWriteQueueWithCompletion___b
 
 - (uint64_t)_performPendingWriteRecords:(void *)records transaction:(void *)transaction accessibilityError:(uint64_t)error error:
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v9 = a2;
   recordsCopy = records;
   transactionCopy = transaction;
   if (self)
   {
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     v12 = v9;
-    v13 = [v12 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v24;
+      v15 = *v23;
       do
       {
         v16 = 0;
         do
         {
-          if (*v24 != v15)
+          if (*v23 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v17 = *(*(&v23 + 1) + 8 * v16);
+          v17 = *(*(&v22 + 1) + 8 * v16);
           if (v17)
           {
             v18 = *(v17 + 8);
@@ -436,7 +427,7 @@ void __69__HDDatabaseCoalescedWritePool_flushPendingWriteQueueWithCompletion___b
         }
 
         while (v14 != v16);
-        v19 = [v12 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v19 = [v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
         v14 = v19;
       }
 
@@ -452,7 +443,6 @@ LABEL_16:
     v20 = 0;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v20;
 }
 

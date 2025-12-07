@@ -64,16 +64,12 @@
 {
   v3 = type metadata accessor for WKAnalyticsEvent.LatencyMetric();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  MEMORY[0x28223BE20](v3);
-  v7 = &v12 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v3, v5);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   (*(v4 + 104))(v7, *MEMORY[0x277CE4078], v3);
-  v8 = OBJC_IVAR___NLSessionActivityCyclingCadenceAccumulator_latencyAnalytics;
-  v9 = *(&self->super.super.super.isa + OBJC_IVAR___NLSessionActivityCyclingCadenceAccumulator_latencyAnalytics);
   selfCopy = self;
   static WKAnalyticsEvent.latency(metric:analytics:)();
   (*(v4 + 8))(v7, v3);
-  v11 = *(&self->super.super.super.isa + v8);
   dispatch thunk of WKPercentileAnalytics.reset()();
 }
 

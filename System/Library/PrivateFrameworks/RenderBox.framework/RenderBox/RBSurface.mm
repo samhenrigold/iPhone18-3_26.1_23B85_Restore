@@ -205,20 +205,20 @@ uint64_t __36__RBSurface_copyCGImageUsingDevice___block_invoke(void *a1)
 
 - (uint64_t)_updateWithDevice:(RB:(int)device :RenderFrame *)a3 frame:synchronized:
 {
-  v38 = a3;
+  v37 = a3;
   selfCopy = self;
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   if (self)
   {
     v7 = *(self + 8);
-    RB::ColorMode::ColorMode(&v45, *(selfCopy + 68));
+    RB::ColorMode::ColorMode(&v44, *(selfCopy + 68));
     if (!v7)
     {
       v8 = objc_opt_new();
 
       [v8 setProfile:2];
       v7 = v8;
-      [v8 setDefaultColorSpace:rb_color_space(v46 | 0x100u)];
+      [v8 setDefaultColorSpace:rb_color_space(v45 | 0x100u)];
     }
 
     if (!*(selfCopy + 16))
@@ -239,11 +239,11 @@ uint64_t __36__RBSurface_copyCGImageUsingDevice___block_invoke(void *a1)
     }
 
     v11 = *(selfCopy + 65);
-    v44 = 0;
-    v12 = RB::ColorMode::pixel_format(&v45, a2, v11 ^ 1u, &v44);
+    v43 = 0;
+    v12 = RB::ColorMode::pixel_format(&v44, a2, v11 ^ 1u, &v43);
     v14 = v12;
     v15 = *(selfCopy + 32);
-    if (*&v15 && *(*&v15 + 56) == v12)
+    if (v15 && *(v15 + 56) == v12)
     {
       v16 = *(selfCopy + 40) == 0;
     }
@@ -252,11 +252,11 @@ uint64_t __36__RBSurface_copyCGImageUsingDevice___block_invoke(void *a1)
     {
       v17 = vcvtq_s64_f64(*(selfCopy + 80));
       v17.n128_u64[0] = vmovn_s64(v17);
-      RB::Texture::alloc(a2, v12, 0, 1, 0, &v39, v17);
+      RB::Texture::alloc(a2, v12, 0, 1, 0, &v38, v17);
       v18 = *(selfCopy + 32);
-      v15 = v39;
-      *(selfCopy + 32) = v39;
-      v39 = v18;
+      v15 = v38;
+      *(selfCopy + 32) = v38;
+      v38 = v18;
       if (v18)
       {
         v19 = v18[2] - 1;
@@ -269,7 +269,7 @@ uint64_t __36__RBSurface_copyCGImageUsingDevice___block_invoke(void *a1)
         v15 = *(selfCopy + 32);
       }
 
-      if (!*&v15)
+      if (!v15)
       {
         selfCopy = 0;
 LABEL_35:
@@ -277,9 +277,9 @@ LABEL_35:
         return selfCopy;
       }
 
-      if ((v44 & 4) != 0)
+      if ((v43 & 4) != 0)
       {
-        *(*&v15 + 77) |= 8u;
+        *(v15 + 77) |= 8u;
         v15 = *(selfCopy + 32);
       }
 
@@ -289,14 +289,14 @@ LABEL_35:
       v16 = 1;
     }
 
-    v43[0] = MEMORY[0x1E69E9820];
-    v43[1] = 3221225472;
-    v43[2] = __50__RBSurface__updateWithDevice_frame_synchronized___block_invoke;
-    v43[3] = &__block_descriptor_40_e19____MTLTexture__8__0l;
-    v43[4] = v15;
-    v20 = *(*&v15 + 64);
-    v41 = 0;
-    v42 = v20;
+    v42[0] = MEMORY[0x1E69E9820];
+    v42[1] = 3221225472;
+    v42[2] = __50__RBSurface__updateWithDevice_frame_synchronized___block_invoke;
+    v42[3] = &__block_descriptor_40_e19____MTLTexture__8__0l;
+    v42[4] = v15;
+    v20 = *(v15 + 64);
+    v40 = 0;
+    v41 = v20;
     v21 = 1;
     if (v16)
     {
@@ -310,55 +310,55 @@ LABEL_35:
         v21 = 1;
       }
 
-      RB::Bounds::intersect(&v41, *(selfCopy + 48), *(selfCopy + 56));
+      RB::Bounds::intersect(&v40, *(selfCopy + 48), *(selfCopy + 56));
     }
 
     v13.i64[0] = *(selfCopy + 96);
     v13.i32[2] = *(selfCopy + 104);
-    v37 = v13;
-    v13.i32[0] = *(selfCopy + 108);
     v36 = v13;
-    v22 = v38;
-    if (!v38)
+    v13.i32[0] = *(selfCopy + 108);
+    v35 = v13;
+    v22 = v37;
+    if (!v37)
     {
       v23 = RB::Drawable::begin_frame(*(selfCopy + 16));
-      MEMORY[0x1EEE9AC00](v23, v24);
-      v22 = v34;
-      v35 = 0;
-      memset(v34, 0, sizeof(v34));
-      RB::RenderFrame::RenderFrame(v34, a2, *(selfCopy + 16), 3, 0, 0);
+      MEMORY[0x1EEE9AC00](v23);
+      v22 = v33;
+      v34 = 0;
+      memset(v33, 0, sizeof(v33));
+      RB::RenderFrame::RenderFrame(v33, a2, *(selfCopy + 16), 3, 0, 0);
     }
 
-    v25 = *(*&v15 + 64);
-    v26 = v47;
-    v27 = v46;
-    v28 = v45;
+    v24 = *(v15 + 64);
+    v25 = v46;
+    v26 = v45;
+    v27 = v44;
     HasExtendedRange = RBColorModeHasExtendedRange(*(selfCopy + 68));
-    RB::RenderParams::RenderParams(&v39, v22, v14, v26, v27, v28, HasExtendedRange, v25);
-    v40 = (2 * v44) & 8 | v40 & 0xF7;
+    RB::RenderParams::RenderParams(&v38, v22, v14, v25, v26, v27, HasExtendedRange, v24);
+    v39 = (2 * v43) & 8 | v39 & 0xF7;
     _rb_contents = [v7 _rb_contents];
-    v31 = _rb_contents;
+    v30 = _rb_contents;
     if (_rb_contents)
     {
-      v32 = v37;
-      v32.i32[3] = 1.0;
-      RB::DisplayList::render(_rb_contents, &v39, v43, v21, *(selfCopy + 40), v41, v42, 0.0, vmulq_n_f32(v32, v36.f32[0]));
-      *(selfCopy + 40) = *(v31 + 43);
+      v31 = v36;
+      v31.i32[3] = 1.0;
+      RB::DisplayList::render(_rb_contents, &v38, v42, v21, *(selfCopy + 40), v40, v41, 0.0, vmulq_n_f32(v31, v35.f32[0]));
+      *(selfCopy + 40) = *(v30 + 43);
     }
 
     if (device)
     {
-      RBStrokeRef::clip(v22);
+      RBStrokeRef::clip();
     }
 
-    if (!v38)
+    if (!v37)
     {
       RB::RenderFrame::~RenderFrame(v22);
     }
 
     *(selfCopy + 48) = 0;
     *(selfCopy + 56) = 0;
-    RBXMLRecorderMarkFrame(selfCopy, v7, v47, *(selfCopy + 80), *(selfCopy + 88));
+    RBXMLRecorderMarkFrame(selfCopy, v7, v46, *(selfCopy + 80), *(selfCopy + 88));
     selfCopy = 1;
     goto LABEL_35;
   }

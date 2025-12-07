@@ -36,8 +36,8 @@
 {
   v4 = objc_alloc_init(MEMORY[0x277D2C900]);
   v5 = [HFCameraItemProvider alloc];
-  home = [(HFCameraListItem *)self home];
-  v7 = [(HFCameraItemProvider *)v5 initWithHome:home];
+  v6 = objc_msgSend_home(self);
+  v7 = [(HFCameraItemProvider *)v5 initWithHome:v6];
 
   room = [(HFCameraListItem *)self room];
   [(HFCameraItemProvider *)v7 setRoom:room];
@@ -93,7 +93,7 @@ void __48__HFCameraListItem__subclass_updateWithOptions___block_invoke_2(uint64_
     [v3 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"hidden"];
   }
 
-  v11 = [*(a1 + 32) home];
+  v11 = objc_msgSend_home(*(a1 + 32));
   v12 = [v11 hf_shouldBlockCurrentUserFromHome];
 
   if (v12)
@@ -101,7 +101,7 @@ void __48__HFCameraListItem__subclass_updateWithOptions___block_invoke_2(uint64_
     [v3 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"hidden"];
   }
 
-  v13 = [*(a1 + 32) home];
+  v13 = objc_msgSend_home(*(a1 + 32));
   [v4 addObject:v13];
 
   v14 = [*(a1 + 32) room];

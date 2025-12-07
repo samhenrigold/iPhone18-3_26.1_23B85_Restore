@@ -40,9 +40,9 @@
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v10.receiver = self;
-    v10.super_class = MPSCNNUpsamplingBilinearGradientNode;
-    result = [(MPSNNGradientFilterNode *)&v10 initWithGradientImages:images forwardFilter:filter];
+    v14.receiver = self;
+    v14.super_class = MPSCNNUpsamplingBilinearGradientNode;
+    result = [(MPSNNGradientFilterNode *)&v14 initWithGradientImages:images forwardFilter:filter];
     result->_scaleFactorX = *(filter + 7);
     result->_scaleFactorY = *(filter + 8);
   }
@@ -55,7 +55,7 @@
       NSStringFromClass(v8);
       v9 = objc_opt_class();
       NSStringFromClass(v9);
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Graph/MPSCNNUpsamplingNodes.mm", 0x13C, @"[%@ initWithGradientImages:forwardFilter:] filter %@ <%p>must be of class MPSCNNUpsamplingBilinearNode", v10, v11, v12, v13);
     }
 
     return 0;

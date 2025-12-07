@@ -11,7 +11,7 @@
   v4.super_class = type metadata accessor for QRCodeOverlayViewController.ContainerView();
   v2 = v4.receiver;
   [(QRCodeOverlayViewController.ContainerView *)&v4 layoutSubviews];
-  sub_100006F10(0, &qword_100644298);
+  sub_100006F10(0, &qword_100644298, CATransaction_ptr);
   *(swift_allocObject() + 16) = v2;
   v3 = v2;
   static CATransaction.performWithoutAnimation(_:)(sub_1003BBCA0);

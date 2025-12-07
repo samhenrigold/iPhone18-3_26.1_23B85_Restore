@@ -14,14 +14,15 @@
   sub_269D9A8E0();
   sub_269D9A8D0();
   sub_269D9A880();
-  if ((swift_task_isCurrentExecutor() & 1) == 0)
+  isCurrentExecutor = swift_task_isCurrentExecutor();
+  if ((isCurrentExecutor & 1) == 0)
   {
-    swift_task_reportUnexpectedExecutor();
+    isCurrentExecutor = swift_task_reportUnexpectedExecutor();
   }
 
-  v7 = ScheduleOccurrenceHeaderView.init(frame:)(x, y, width, height);
+  v8 = ScheduleOccurrenceHeaderView.init(frame:)(isCurrentExecutor, x, y, width, height);
 
-  return v7;
+  return v8;
 }
 
 - (_TtC13SleepHealthUI28ScheduleOccurrenceHeaderView)initWithCoder:(id)coder

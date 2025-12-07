@@ -5,9 +5,11 @@
 
 uint64_t ___INParameterCombinationsWithDictionary_block_invoke()
 {
-  _INParameterCombinationsWithDictionary_predicate = [MEMORY[0x1E696AE18] predicateWithFormat:@"self.length > 0"];
+  v0 = [MEMORY[0x1E696AE18] predicateWithFormat:@"self.length > 0"];
+  v1 = _INParameterCombinationsWithDictionary_predicate;
+  _INParameterCombinationsWithDictionary_predicate = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

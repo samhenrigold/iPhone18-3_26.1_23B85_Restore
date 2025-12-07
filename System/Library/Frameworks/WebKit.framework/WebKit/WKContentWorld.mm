@@ -63,8 +63,8 @@
   }
 
   checkContentWorldOptions(v13, 0);
-  v6 = *(v13 + 8);
-  if (!v6)
+  var1 = v13->var1;
+  if (!var1)
   {
     v10 = 0;
     v13 = 0;
@@ -74,19 +74,19 @@
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v7 = v6;
-    v8 = v6;
+    v7 = var1;
+    v8 = var1;
     v9 = v13;
     v13 = 0;
     if (!v9)
     {
-      return v6;
+      return var1;
     }
 
-    v10 = *(v9 + 8);
+    v10 = v9->var1;
 LABEL_9:
     CFRelease(v10);
-    return v6;
+    return var1;
   }
 
   result = 117;
@@ -177,8 +177,8 @@ LABEL_9:
   }
 
   checkContentWorldOptions(v15, configuration);
-  v8 = *(v15 + 8);
-  if (!v8)
+  var1 = v15->var1;
+  if (!var1)
   {
     v12 = 0;
     v15 = 0;
@@ -188,19 +188,19 @@ LABEL_9:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v9 = v8;
-    v10 = v8;
+    v9 = var1;
+    v10 = var1;
     v11 = v15;
     v15 = 0;
     if (!v11)
     {
-      return v8;
+      return var1;
     }
 
-    v12 = *(v11 + 8);
+    v12 = v11->var1;
 LABEL_15:
     CFRelease(v12);
-    return v8;
+    return var1;
   }
 
   result = 117;

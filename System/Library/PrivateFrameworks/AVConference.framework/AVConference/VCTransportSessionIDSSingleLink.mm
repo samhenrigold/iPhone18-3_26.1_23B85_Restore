@@ -90,21 +90,22 @@ LABEL_7:
 
 - (int)updateTransportStream:(OpaqueVCTransportStream *)stream
 {
-  v24 = *MEMORY[0x1E69E9840];
-  v13 = 0;
-  CMBaseObject = VCPacketFilterGetCMBaseObject(stream, a2);
-  v6 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-  if (v6)
+  v26 = *MEMORY[0x1E69E9840];
+  v15 = 0;
+  VCPacketFilterGetCMBaseObject();
+  v6 = v5;
+  v7 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+  if (v7)
   {
-    v7 = v6(CMBaseObject, @"UnderlyingVFD", *MEMORY[0x1E695E480], &v13);
-    if ((v7 & 0x80000000) == 0)
+    v8 = v7(v6, @"UnderlyingVFD", *MEMORY[0x1E695E480], &v15);
+    if ((v8 & 0x80000000) == 0)
     {
-      intValue = [v13 intValue];
-      v9 = VCDatagramChannelIDS_Token(self->super._datagramChannel);
-      if (VTP_SetSourceDestinationWithToken(intValue, v9) == -1)
+      intValue = [v15 intValue];
+      v11 = VCDatagramChannelIDS_Token(self->super._datagramChannel, v10);
+      if (VTP_SetSourceDestinationWithToken(intValue, v11) == -1)
       {
         [VCTransportSessionIDSSingleLink updateTransportStream:buf];
-        v7 = *buf;
+        v8 = *buf;
       }
 
       goto LABEL_9;
@@ -113,32 +114,32 @@ LABEL_7:
 
   else
   {
-    v7 = -12782;
+    v8 = -12782;
   }
 
   if (VRTraceGetErrorLogLevelForModule() >= 3)
   {
-    v10 = VRTraceErrorLogLevelToCSTR();
-    v11 = *MEMORY[0x1E6986650];
+    v12 = VRTraceErrorLogLevelToCSTR();
+    v13 = *MEMORY[0x1E6986650];
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
     {
       *buf = 136316162;
-      v15 = v10;
-      v16 = 2080;
-      v17 = "[VCTransportSessionIDSSingleLink updateTransportStream:]";
-      v18 = 1024;
-      v19 = 96;
-      v20 = 2112;
-      v21 = @"UnderlyingVFD";
+      v17 = v12;
+      v18 = 2080;
+      v19 = "[VCTransportSessionIDSSingleLink updateTransportStream:]";
+      v20 = 1024;
+      v21 = 96;
       v22 = 2112;
+      v23 = @"UnderlyingVFD";
+      v24 = 2112;
       streamCopy = stream;
-      _os_log_error_impl(&dword_1DB56E000, v11, OS_LOG_TYPE_ERROR, " [%s] %s:%d Could not get property '%@' for transport stream '%@'", buf, 0x30u);
+      _os_log_error_impl(&dword_1DB56E000, v13, OS_LOG_TYPE_ERROR, " [%s] %s:%d Could not get property '%@' for transport stream '%@'", buf, 0x30u);
     }
   }
 
 LABEL_9:
 
-  return v7;
+  return v8;
 }
 
 - (id)copyActiveConnection
@@ -150,16 +151,16 @@ LABEL_9:
 
 - (void)handleLinkConnectedWithInfo:(id)info
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (VRTraceGetErrorLogLevelForModule() >= 6)
   {
     VRTraceErrorLogLevelToCSTR();
     if (OUTLINED_FUNCTION_23_7())
     {
       OUTLINED_FUNCTION_0_30();
-      v11 = 1024;
-      v12 = 37;
-      _os_log_impl(&dword_1DB56E000, v3, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d IDS channel connected", v10, 0x1Cu);
+      v13 = 1024;
+      v14 = 37;
+      _os_log_impl(&dword_1DB56E000, v3, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d IDS channel connected", v12, 0x1Cu);
     }
   }
 
@@ -178,61 +179,62 @@ LABEL_9:
         }
 
         OUTLINED_FUNCTION_0_30();
-        v11 = 1024;
-        v12 = 42;
-        v13 = v8;
-        v14 = v9;
-        _os_log_impl(&dword_1DB56E000, v3, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d HandoverReport: new link established with link context=%s", v10, 0x26u);
+        v13 = 1024;
+        v14 = 42;
+        v15 = v8;
+        v16 = v9;
+        _os_log_impl(&dword_1DB56E000, v3, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d HandoverReport: new link established with link context=%s", v12, 0x26u);
       }
     }
 
     if (firstObject)
     {
-      self->_connection = [[VCConnectionIDS alloc] initWithLinkContext:firstObject dataChannelToken:VCDatagramChannelIDS_Token(self->super._datagramChannel)];
+      v10 = [VCConnectionIDS alloc];
+      self->_connection = [(VCConnectionIDS *)v10 initWithLinkContext:firstObject dataChannelToken:VCDatagramChannelIDS_Token(self->super._datagramChannel, v11)];
     }
   }
 }
 
 - (int)createVFD:(int *)d forStreamType:(unsigned int)type
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v4 = -2144665599;
-  v18 = -1;
+  v19 = -1;
   if (d)
   {
     v7 = [VCTransportSession vtpPacketTypeForStreamType:*&type];
     if (v7)
     {
-      v4 = VCCreateVFDForIDS(v7, 43, &v18);
+      v4 = VCCreateVFDForIDS(v7, 43, &v19);
       if ((v4 & 0x80000000) == 0)
       {
-        v8 = v18;
-        v9 = VCDatagramChannelIDS_Token(self->super._datagramChannel);
-        if (VTP_SetSourceDestinationWithToken(v8, v9) != -1)
+        v9 = v19;
+        v10 = VCDatagramChannelIDS_Token(self->super._datagramChannel, v8);
+        if (VTP_SetSourceDestinationWithToken(v9, v10) != -1)
         {
-          *d = v18;
-          v18 = -1;
+          *d = v19;
+          v19 = -1;
           goto LABEL_6;
         }
 
         v4 = *__error() | 0xC02B0000;
         if (VRTraceGetErrorLogLevelForModule() >= 3)
         {
-          v16 = VRTraceErrorLogLevelToCSTR();
-          v17 = *MEMORY[0x1E6986650];
+          v17 = VRTraceErrorLogLevelToCSTR();
+          v18 = *MEMORY[0x1E6986650];
           if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
           {
             *buf = 136315906;
-            v20 = v16;
-            v21 = 2080;
-            v22 = "[VCTransportSessionIDSSingleLink createVFD:forStreamType:]";
-            v23 = 1024;
-            v24 = 84;
-            v25 = 1024;
-            v26 = v4;
-            v13 = " [%s] %s:%d VTP_SetSourceDestinationWithToken failed %x";
-            v14 = v17;
-            v15 = 34;
+            v21 = v17;
+            v22 = 2080;
+            v23 = "[VCTransportSessionIDSSingleLink createVFD:forStreamType:]";
+            v24 = 1024;
+            v25 = 84;
+            v26 = 1024;
+            v27 = v4;
+            v14 = " [%s] %s:%d VTP_SetSourceDestinationWithToken failed %x";
+            v15 = v18;
+            v16 = 34;
             goto LABEL_13;
           }
         }
@@ -242,26 +244,26 @@ LABEL_9:
 
   else if (VRTraceGetErrorLogLevelForModule() >= 3)
   {
-    v11 = VRTraceErrorLogLevelToCSTR();
-    v12 = *MEMORY[0x1E6986650];
+    v12 = VRTraceErrorLogLevelToCSTR();
+    v13 = *MEMORY[0x1E6986650];
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v20 = v11;
-      v21 = 2080;
-      v22 = "[VCTransportSessionIDSSingleLink createVFD:forStreamType:]";
-      v23 = 1024;
-      v24 = 75;
-      v13 = " [%s] %s:%d NULL vfd";
-      v14 = v12;
-      v15 = 28;
+      v21 = v12;
+      v22 = 2080;
+      v23 = "[VCTransportSessionIDSSingleLink createVFD:forStreamType:]";
+      v24 = 1024;
+      v25 = 75;
+      v14 = " [%s] %s:%d NULL vfd";
+      v15 = v13;
+      v16 = 28;
 LABEL_13:
-      _os_log_error_impl(&dword_1DB56E000, v14, OS_LOG_TYPE_ERROR, v13, buf, v15);
+      _os_log_error_impl(&dword_1DB56E000, v15, OS_LOG_TYPE_ERROR, v14, buf, v16);
     }
   }
 
 LABEL_6:
-  VCCloseVFDIfValid(v18);
+  VCCloseVFDIfValid(v19);
   return v4;
 }
 

@@ -38,7 +38,7 @@
 
 - (void)mainWithCompletionHandler:(id)handler
 {
-  v5 = sub_100085D40(&qword_10059C3E0);
+  v5 = sub_100085D40(&qword_10059C3E0, &qword_1004344C0);
   __chkstk_darwin(v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);

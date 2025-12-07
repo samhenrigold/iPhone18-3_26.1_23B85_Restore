@@ -27,25 +27,24 @@
 
 - (void)resetConfig
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     v6 = HMFGetLogIdentifier();
-    v8 = 138543362;
-    v9 = v6;
-    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_ERROR, "%{public}@- (void)resetConfig is only useful on a Client", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v6;
+    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_ERROR, "%{public}@- (void)resetConfig is only useful on a Client", &v7, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)beginPairingWithCompletionHandler:(id)handler
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -53,16 +52,14 @@
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     v8 = HMFGetLogIdentifier();
-    v11 = 138543362;
-    v12 = v8;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_ERROR, "%{public}@- (void)beginPairingWithCompletionHandler: may only be called on an Server.", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = v8;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_ERROR, "%{public}@- (void)beginPairingWithCompletionHandler: may only be called on an Server.", &v10, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
   v9 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCFD28] code:10 userInfo:0];
   handlerCopy[2](handlerCopy, v9);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDKeyTransferAgent)initWithHomeManager:(id)manager
@@ -110,12 +107,11 @@
 
 uint64_t __34__HMDKeyTransferAgent_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v3_97486;
-  logCategory__hmf_once_v3_97486 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v3_97486;
+  logCategory__hmf_once_v3_97486 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

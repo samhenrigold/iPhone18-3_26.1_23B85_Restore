@@ -333,11 +333,14 @@ void __31__ICCRDocument_walkGraph_root___block_invoke(uint64_t a1, void *a2)
 
 - (void)realizeLocalChanges
 {
-  [self replicaClock];
+  replicaClock = [self replicaClock];
   version = [self version];
   replica = [self replica];
-  [version clockForUUID:replica];
-  OUTLINED_FUNCTION_3_1(&dword_214D51000, v4, v5, "Version clock should equal cached replica clock: %ld => %ld", v6, v7, v8, v9, 0);
+  *v11 = 134218240;
+  *&v11[4] = replicaClock;
+  *&v11[12] = 2048;
+  *&v11[14] = [version clockForUUID:replica];
+  OUTLINED_FUNCTION_3_1(&dword_214D51000, v5, v6, "Version clock should equal cached replica clock: %ld => %ld", v7, v8, v9, v10, *v11, *&v11[8], *&v11[16]);
 }
 
 - (void)updateGraphDocumentPointers
@@ -441,9 +444,11 @@ void __32__ICCRDocument_updateObjectsSet__block_invoke(uint64_t a1, void *a2)
 {
   v2 = [a1 version];
   v3 = [a1 replica];
-  [v2 clockForUUID:v3];
-  [a1 replicaClock];
-  OUTLINED_FUNCTION_3_1(&dword_214D51000, v4, v5, "Merging should not modify local replica clock: %ld => %ld", v6, v7, v8, v9, 0);
+  *v10 = 134218240;
+  *&v10[4] = [v2 clockForUUID:v3];
+  *&v10[12] = 2048;
+  *&v10[14] = [a1 replicaClock];
+  OUTLINED_FUNCTION_3_1(&dword_214D51000, v4, v5, "Merging should not modify local replica clock: %ld => %ld", v6, v7, v8, v9, *v10, *&v10[8], *&v10[16]);
 }
 
 @end

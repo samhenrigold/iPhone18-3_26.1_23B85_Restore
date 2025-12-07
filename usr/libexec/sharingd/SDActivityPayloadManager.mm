@@ -9,17 +9,20 @@
 - (id)requestFromProtobufData:(id)data;
 - (void)activityPayloadReplySuccess:(id)success;
 - (void)clearPersistedKeyRequests;
+- (void)handleEncryptionKeyReply:(id)reply forRequestRecord:(id)record fromDevice:(id)device transportLinkType:(int)type;
 - (void)handleEncryptionKeyReplyRapport:(id)rapport options:(id)options forRequestRecord:(id)record fromDevice:(id)device;
 - (void)handleEncryptionKeyReplyRequestProtobuf:(id)protobuf service:(id)service account:(id)account fromID:(id)d context:(id)context;
 - (void)handleEncryptionKeyRequestProtobuf:(id)protobuf service:(id)service account:(id)account fromID:(id)d context:(id)context;
 - (void)handleEncryptionKeyRequestRapport:(id)rapport options:(id)options responseHandler:(id)handler;
 - (void)handleEncyptionKeyRequest:(id)request fromIDSDevice:(id)device withRequestIdentifier:(id)identifier transportType:(id)type completionHandler:(id)handler;
 - (void)handleNewAdvertisementWithpayloadRequestProtobuf:(id)protobuf service:(id)service account:(id)account fromID:(id)d context:(id)context;
+- (void)handlePayloadReply:(id)reply forRequestRecord:(id)record fromDevice:(id)device transportLinkType:(int)type;
 - (void)handlePayloadReplyProtobuf:(id)protobuf service:(id)service account:(id)account fromID:(id)d context:(id)context;
 - (void)handlePayloadReplyRapport:(id)rapport options:(id)options forRequestRecord:(id)record fromDevice:(id)device;
 - (void)handlePayloadRequest:(id)request fromIDSDevice:(id)device withRequestIdentifier:(id)identifier transportType:(id)type completionHandler:(id)handler;
 - (void)handlePayloadRequestProtobuf:(id)protobuf service:(id)service account:(id)account fromID:(id)d context:(id)context;
 - (void)handlePayloadRequestRapport:(id)rapport options:(id)options responseHandler:(id)handler;
+- (void)logDashboardHandoffRequestViaTransportLinkType:(int)type type:(id)a4 success:(BOOL)success rtt:(double)rtt;
 - (void)messageWithIdentifier:(id)identifier didSendWithSuccess:(BOOL)success error:(id)error;
 - (void)requestTimedOut:(id)out;
 - (void)sendActivityPayloadRequestMessageToDevice:(id)device withRequestRecord:(id)record withDestinationDevice:(id)destinationDevice completionHandler:(id)handler;
@@ -32,6 +35,7 @@
 - (void)sendIDSEncryptionKeyRequest:(id)request withRequestRecord:(id)record desiredTimeout:(double)timeout;
 - (void)sendRapportActivityPayloadRequest:(id)request withRequestRecord:(id)record completionHandler:(id)handler;
 - (void)sendRapportEncryptionKeyRequest:(id)request withRequestRecord:(id)record completionHandler:(id)handler;
+- (void)service:(id)service account:(id)account identifier:(id)identifier didSendWithSuccess:(BOOL)success error:(id)error;
 - (void)service:(id)service account:(id)account incomingData:(id)data fromID:(id)d context:(id)context;
 - (void)service:(id)service account:(id)account incomingMessage:(id)message fromID:(id)d;
 - (void)service:(id)service account:(id)account incomingUnhandledProtobuf:(id)protobuf fromID:(id)d context:(id)context;
@@ -57,59 +61,64 @@
 
 - (NSString)state
 {
+  v33 = 0;
   v3 = objc_opt_class();
-  v20 = NSStringFromClass(v3);
-  NSAppendPrintF();
-  v4 = 0;
+  v4 = NSStringFromClass(v3);
+  NSAppendPrintF(&v33, "%@\n", v4);
+  v5 = v33;
 
-  NSAppendPrintF();
-  v5 = v4;
+  v32 = v5;
+  NSAppendPrintF(&v32, "-------------\n");
+  v6 = v32;
 
+  v31 = v6;
   if (self->_restrictionsDisabled)
   {
-    v6 = @"YES";
+    v7 = @"YES";
   }
 
   else
   {
-    v6 = @"NO";
+    v7 = @"NO";
   }
 
-  v21 = v6;
-  NSAppendPrintF();
-  v7 = v5;
+  NSAppendPrintF(&v31, "Budget Restrictions Disabled: %@\n", v7);
+  v8 = v31;
 
+  v30 = v8;
   activityService = self->_activityService;
   devices = [(IDSService *)activityService devices];
-  v10 = [devices valueForKeyPath:@"@unionOfObjects.uniqueIDOverride"];
-  SFCompactStringFromCollection();
-  v27 = v22 = activityService;
-  NSAppendPrintF();
-  v11 = v7;
+  v11 = [devices valueForKeyPath:@"@unionOfObjects.uniqueIDOverride"];
+  v12 = SFCompactStringFromCollection();
+  NSAppendPrintF(&v30, "Activity Service: %@, devices: \n", activityService, v12);
+  v13 = v30;
 
-  v12 = [(IDSService *)self->_encryptionService devices:v22];
-  v13 = [v12 valueForKeyPath:@"@unionOfObjects.uniqueIDOverride"];
-  v28 = SFCompactStringFromCollection();
-  NSAppendPrintF();
-  v14 = v11;
+  v29 = v13;
+  encryptionService = self->_encryptionService;
+  devices2 = [(IDSService *)encryptionService devices];
+  v16 = [devices2 valueForKeyPath:@"@unionOfObjects.uniqueIDOverride"];
+  v17 = SFCompactStringFromCollection();
+  NSAppendPrintF(&v29, "Encryption Service: %@, devices: %@\n", encryptionService, v17);
+  v18 = v29;
 
-  uniqueIDToKeyReplyDate = self->_uniqueIDToKeyReplyDate;
-  NSAppendPrintF();
-  v15 = v14;
+  v28 = v18;
+  NSAppendPrintF(&v28, "Unique ID To Key Reply Date: %@\n", self->_uniqueIDToKeyReplyDate);
+  v19 = v28;
 
-  messageIdentifierToKeyRequestRecords = self->_messageIdentifierToKeyRequestRecords;
-  NSAppendPrintF();
-  v16 = v15;
+  v27 = v19;
+  NSAppendPrintF(&v27, "Message Identifier To KeyRequest Records: %@\n", self->_messageIdentifierToKeyRequestRecords);
+  v20 = v27;
 
-  messageIdentifierToRequestRecords = self->_messageIdentifierToRequestRecords;
-  NSAppendPrintF();
-  v17 = v16;
+  v26 = v20;
+  NSAppendPrintF(&v26, "Message Identifier To Request Records: %@\n", self->_messageIdentifierToRequestRecords);
+  v21 = v26;
 
-  messageIdentifierToReplyRecords = self->_messageIdentifierToReplyRecords;
-  NSAppendPrintF();
-  v18 = v17;
+  v25 = v21;
+  NSAppendPrintF(&v25, "Message Identifier To Reply Records: %@\n", self->_messageIdentifierToReplyRecords);
+  v22 = v25;
+  v23 = v25;
 
-  return v17;
+  return v22;
 }
 
 - (SDActivityPayloadManager)init
@@ -1443,7 +1452,7 @@ LABEL_18:
   {
     firstObject = 0;
 LABEL_11:
-    v21 = NSErrorWithOSStatusF();
+    v21 = NSErrorWithOSStatusF(4294960588, "IDS device not found");
     (*(handlerCopy + 2))(handlerCopy, 0, 0, v21);
 
     goto LABEL_12;
@@ -1610,6 +1619,67 @@ LABEL_12:
   [(SDActivityPayloadManager *)self handleEncryptionKeyReply:v18 forRequestRecord:v19 fromDevice:v13 transportLinkType:0xFFFFFFFFLL];
 }
 
+- (void)handleEncryptionKeyReply:(id)reply forRequestRecord:(id)record fromDevice:(id)device transportLinkType:(int)type
+{
+  v6 = *&type;
+  recordCopy = record;
+  deviceCopy = device;
+  replyCopy = reply;
+  uniqueIDOverride = [deviceCopy uniqueIDOverride];
+  v14 = [replyCopy objectForKeyedSubscript:@"rKeyDataRepresentation"];
+
+  requestIdentifier = [recordCopy requestIdentifier];
+  if (recordCopy && deviceCopy)
+  {
+    [(NSMutableDictionary *)self->_messageIdentifierToKeyRequestRecords removeObjectForKey:requestIdentifier];
+    timeoutTimer = [recordCopy timeoutTimer];
+    [timeoutTimer invalidate];
+
+    deviceIdentifier = [recordCopy deviceIdentifier];
+    v18 = [deviceIdentifier isEqual:uniqueIDOverride];
+
+    if ((v18 & 1) == 0)
+    {
+      v19 = handoff_log();
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      {
+        sub_10017095C();
+      }
+    }
+
+    sub_10010903C(1, 1, 0, 0);
+    requestCreatedDate = [recordCopy requestCreatedDate];
+    [requestCreatedDate timeIntervalSinceNow];
+    [(SDActivityPayloadManager *)self logDashboardHandoffRequestViaTransportLinkType:v6 type:@"EncryptionKey" success:1 rtt:?];
+
+    completionHandler = [recordCopy completionHandler];
+    (completionHandler)[2](completionHandler, v14, 0);
+  }
+
+  else
+  {
+    v22 = handoff_log();
+    v23 = os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG);
+    if (v14 && uniqueIDOverride)
+    {
+      if (v23)
+      {
+        sub_1001708AC();
+      }
+
+      [(SDActivityPayloadManager *)self setDecryptionKeyDataRepresentation:v14 forDeviceIdentifier:uniqueIDOverride];
+    }
+
+    else
+    {
+      if (v23)
+      {
+        sub_100170814();
+      }
+    }
+  }
+}
+
 - (void)handlePayloadRequestRapport:(id)rapport options:(id)options responseHandler:(id)handler
 {
   rapportCopy = rapport;
@@ -1630,7 +1700,7 @@ LABEL_12:
   {
     firstObject = 0;
 LABEL_11:
-    v21 = NSErrorWithOSStatusF();
+    v21 = NSErrorWithOSStatusF(4294960588, "IDS device not found");
     (*(handlerCopy + 2))(handlerCopy, 0, 0, v21);
 
     goto LABEL_12;
@@ -1964,6 +2034,138 @@ LABEL_12:
   }
 }
 
+- (void)handlePayloadReply:(id)reply forRequestRecord:(id)record fromDevice:(id)device transportLinkType:(int)type
+{
+  v6 = *&type;
+  replyCopy = reply;
+  recordCopy = record;
+  deviceCopy = device;
+  if ((v6 & 0x80000000) != 0)
+  {
+    v41 = @"IDS";
+    if (!replyCopy)
+    {
+      goto LABEL_11;
+    }
+  }
+
+  else
+  {
+    if (v6 > 0xB)
+    {
+      v12 = "?";
+    }
+
+    else
+    {
+      v12 = off_1008D1DF0[v6];
+    }
+
+    v41 = [NSString stringWithFormat:@"Rapport (%s)", v12];
+    if (!replyCopy)
+    {
+      goto LABEL_11;
+    }
+  }
+
+  if (recordCopy)
+  {
+    messageIdentifierToRequestRecords = self->_messageIdentifierToRequestRecords;
+    requestIdentifier = [recordCopy requestIdentifier];
+    [(NSMutableDictionary *)messageIdentifierToRequestRecords removeObjectForKey:requestIdentifier];
+
+    timeoutTimer = [recordCopy timeoutTimer];
+    [timeoutTimer invalidate];
+
+    v16 = [replyCopy objectForKeyedSubscript:@"rAdvPayload"];
+    v17 = [replyCopy objectForKeyedSubscript:@"rActPayload"];
+    v18 = [replyCopy objectForKeyedSubscript:@"rActPayloadErrorDomain"];
+
+    if (v18)
+    {
+      v19 = [replyCopy objectForKeyedSubscript:@"rActPayloadErrorDomain"];
+      [replyCopy objectForKeyedSubscript:@"rActPayloadErrorCode"];
+      v21 = v20 = v17;
+      v39 = +[NSError errorWithDomain:code:userInfo:](NSError, "errorWithDomain:code:userInfo:", v19, [v21 integerValue], 0);
+
+      v17 = v20;
+    }
+
+    else
+    {
+      v39 = 0;
+    }
+
+    requestCreatedDate = [recordCopy requestCreatedDate];
+    [requestCreatedDate timeIntervalSinceNow];
+    v26 = SFStringFromTimeInterval();
+
+    v27 = handoff_log();
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+    {
+      [deviceCopy name];
+      v28 = v38 = v16;
+      uniqueIDOverride = [deviceCopy uniqueIDOverride];
+      v35 = SFHexStringForData();
+      v30 = [v17 length];
+      [recordCopy requestIdentifier];
+      v31 = v36 = v17;
+      [v31 UUIDString];
+      v32 = v37 = v26;
+      *buf = 138414082;
+      v43 = v41;
+      v44 = 2112;
+      v45 = v28;
+      v46 = 2112;
+      v47 = uniqueIDOverride;
+      v48 = 2112;
+      v49 = v35;
+      v50 = 2048;
+      v51 = v30;
+      v52 = 2112;
+      v53 = v32;
+      v54 = 2112;
+      v55 = v39;
+      v56 = 2112;
+      v57 = v37;
+      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Received requested Handoff payload via %@ from %@ (%@) for %@ with activity payload of size %ld for requestIdentifier %@ (%@). RTT:%@", buf, 0x52u);
+
+      v17 = v36;
+      v16 = v38;
+
+      v26 = v37;
+    }
+
+    kdebug_trace();
+    requestCreatedDate2 = [recordCopy requestCreatedDate];
+    [requestCreatedDate2 timeIntervalSinceNow];
+    [(SDActivityPayloadManager *)self logDashboardHandoffRequestViaTransportLinkType:v6 type:@"Request" success:1 rtt:?];
+
+    completionHandler = [recordCopy completionHandler];
+    (completionHandler)[2](completionHandler, v17, v39);
+
+    goto LABEL_17;
+  }
+
+LABEL_11:
+  v16 = handoff_log();
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+  {
+    requestIdentifier2 = [recordCopy requestIdentifier];
+    uUIDString = [requestIdentifier2 UUIDString];
+    uniqueIDOverride2 = [deviceCopy uniqueIDOverride];
+    *buf = 138412802;
+    v43 = v41;
+    v44 = 2112;
+    v45 = uUIDString;
+    v46 = 2112;
+    v47 = uniqueIDOverride2;
+    _os_log_error_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "Activity payload received via %@ for requestIdentifier %@ not/no longer wanted from %@", buf, 0x20u);
+  }
+
+LABEL_17:
+}
+
 - (void)service:(id)service account:(id)account incomingUnhandledProtobuf:(id)protobuf fromID:(id)d context:(id)context
 {
   protobufCopy = protobuf;
@@ -1993,6 +2195,16 @@ LABEL_12:
   {
     sub_100170EA8();
   }
+}
+
+- (void)service:(id)service account:(id)account identifier:(id)identifier didSendWithSuccess:(BOOL)success error:(id)error
+{
+  successCopy = success;
+  errorCopy = error;
+  identifierCopy = identifier;
+  v12 = [[NSUUID alloc] initWithUUIDString:identifierCopy];
+
+  [(SDActivityPayloadManager *)self messageWithIdentifier:v12 didSendWithSuccess:successCopy error:errorCopy];
 }
 
 - (void)messageWithIdentifier:(id)identifier didSendWithSuccess:(BOOL)success error:(id)error
@@ -2190,6 +2402,46 @@ LABEL_14:
   }
 
 LABEL_17:
+}
+
+- (void)logDashboardHandoffRequestViaTransportLinkType:(int)type type:(id)a4 success:(BOOL)success rtt:(double)rtt
+{
+  successCopy = success;
+  v8 = *&type;
+  v19[0] = @"_cat";
+  v19[1] = @"_op";
+  v20[0] = @"Handoff";
+  v20[1] = a4;
+  v19[2] = @"rapportTransport";
+  v10 = a4;
+  v11 = [NSNumber numberWithInt:v8];
+  v20[2] = v11;
+  v19[3] = @"success";
+  v12 = [NSNumber numberWithBool:successCopy];
+  v20[3] = v12;
+  v19[4] = @"wasRapport";
+  v13 = [NSNumber numberWithInt:v8 >= 0];
+  v20[4] = v13;
+  v19[5] = @"RTT";
+  v14 = (rtt * 1000.0);
+  if (v14 >= 0)
+  {
+    v15 = v14;
+  }
+
+  else
+  {
+    v15 = -v14;
+  }
+
+  v16 = [NSNumber numberWithInt:v15];
+  v20[5] = v16;
+  v19[6] = @"d2dEncryptionAvailable";
+  v17 = [NSNumber numberWithBool:self->_d2dEncryptionAvailable];
+  v20[6] = v17;
+  v18 = [NSDictionary dictionaryWithObjects:v20 forKeys:v19 count:7];
+
+  SFDashboardLogJSON();
 }
 
 - (id)createRapportClientWithDestinationDevice:(id)device

@@ -463,36 +463,4 @@ uint64_t __85__HDMedicationScheduleDailyAnalytics__allActiveMedicationSchedulesW
   return 1;
 }
 
-- (void)_makeHasUnavailableSchedulesPayloadForSchedulesWithProfile:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_25181C000, v0, v1, "[%{public}@] Error loading a count of unavailable scheduled medications with error: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_makeMedicationCountPayloadForSchedulesWithProfile:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_25181C000, v0, v1, "[%{public}@] Error loading a count of scheduled medications, continuing daily analytics submission: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_makeMedicationCountPayloadForSchedulesWithProfile:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_25181C000, v0, v1, "[%{public}@] Error loading a count of unavailable scheduled medications, continuing daily analytics submission: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_makeMedicationPayloadForNewScheduleTypesWithProfile:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_25181C000, v0, v1, "%{public}@ Fetching all non-deleted schedules failed with error: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
 @end

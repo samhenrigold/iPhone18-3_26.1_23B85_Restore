@@ -1,6 +1,7 @@
 @interface PGTitleSpecPublicEventArgument
 + (id)_cleanUpEventName:(id)name;
 + (id)argumentWithPublicEventType:(unint64_t)type;
++ (id)argumentWithPublicEventType:(unint64_t)type shouldUseLongPublicEventTitle:(BOOL)title;
 - (PGTitleSpecPublicEventArgument)initWithPublicEventType:(unint64_t)type;
 - (PGTitleSpecPublicEventArgument)initWithPublicEventType:(unint64_t)type shouldUseLongPublicEventTitle:(BOOL)title;
 - (id)_commonPublicEventNodeForMomentNodes:(id)nodes;
@@ -17,33 +18,33 @@
 
 - (id)_generateTitleWithCategoryNameForPublicEventNode:(id)node
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   nodeCopy = node;
   preciseLocalizedCategoryNames = [nodeCopy preciseLocalizedCategoryNames];
   if ([preciseLocalizedCategoryNames count])
   {
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v5 = preciseLocalizedCategoryNames;
-    v6 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v6)
     {
       v7 = v6;
       v8 = 0;
-      v9 = *v20;
+      v9 = *v19;
       v10 = -1;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v20 != v9)
+          if (*v19 != v9)
           {
             objc_enumerationMutation(v5);
           }
 
-          v12 = *(*(&v19 + 1) + 8 * i);
+          v12 = *(*(&v18 + 1) + 8 * i);
           v13 = [v12 length];
           if (v13 - 1 <= 0x19 && v13 < v10)
           {
@@ -55,7 +56,7 @@
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v7);
@@ -72,26 +73,24 @@
     v8 = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 - (id)_generateTitleWithPerformerNamesForPublicEventNode:(id)node
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   nodeCopy = node;
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x2020000000;
-  v23 = 0;
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __85__PGTitleSpecPublicEventArgument__generateTitleWithPerformerNamesForPublicEventNode___block_invoke;
-  v19[3] = &unk_278880090;
-  v19[4] = &v20;
-  [nodeCopy enumeratePublicEventCategoryNodesUsingBlock:v19];
-  if (!*(v21 + 24))
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x2020000000;
+  v22 = 0;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __85__PGTitleSpecPublicEventArgument__generateTitleWithPerformerNamesForPublicEventNode___block_invoke;
+  v18[3] = &unk_278880090;
+  v18[4] = &v19;
+  [nodeCopy enumeratePublicEventCategoryNodesUsingBlock:v18];
+  if (!*(v20 + 24))
   {
     v9 = 0;
     goto LABEL_15;
@@ -101,8 +100,8 @@
   if ([performers count])
   {
     v5 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:0 ascending:1 selector:sel_localizedCompare_];
-    v24[0] = v5;
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
+    v23[0] = v5;
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
     v7 = [performers sortedArrayUsingDescriptors:v6];
 
     v8 = [v7 count];
@@ -150,9 +149,7 @@ LABEL_13:
 LABEL_14:
 
 LABEL_15:
-  _Block_object_dispose(&v20, 8);
-
-  v17 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v19, 8);
 
   return v9;
 }
@@ -207,74 +204,74 @@ void __85__PGTitleSpecPublicEventArgument__generateTitleWithPerformerNamesForPub
 
 - (id)_commonPublicEventNodeForMomentNodes:(id)nodes
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
   v4 = [MEMORY[0x277CCAB00] mapTableWithKeyOptions:0 valueOptions:0];
+  v51 = 0u;
   v52 = 0u;
   v53 = 0u;
   v54 = 0u;
-  v55 = 0u;
   obj = nodesCopy;
-  v41 = [obj countByEnumeratingWithState:&v52 objects:v60 count:16];
-  if (v41)
+  v40 = [obj countByEnumeratingWithState:&v51 objects:v59 count:16];
+  if (v40)
   {
     v5 = 0;
-    v40 = *v53;
+    v39 = *v52;
     do
     {
       v6 = 0;
       do
       {
-        v43 = v5;
-        if (*v53 != v40)
+        v42 = v5;
+        if (*v52 != v39)
         {
           objc_enumerationMutation(obj);
         }
 
-        v42 = v6;
-        v7 = *(*(&v52 + 1) + 8 * v6);
+        v41 = v6;
+        v7 = *(*(&v51 + 1) + 8 * v6);
         numberOfAssets = [v7 numberOfAssets];
         publicEventNodes = [v7 publicEventNodes];
+        v47 = 0u;
         v48 = 0u;
         v49 = 0u;
         v50 = 0u;
-        v51 = 0u;
-        v10 = [publicEventNodes countByEnumeratingWithState:&v48 objects:v59 count:16];
+        v10 = [publicEventNodes countByEnumeratingWithState:&v47 objects:v58 count:16];
         if (v10)
         {
           v11 = v10;
-          v12 = *v49;
+          v12 = *v48;
           do
           {
             for (i = 0; i != v11; ++i)
             {
-              if (*v49 != v12)
+              if (*v48 != v12)
               {
                 objc_enumerationMutation(publicEventNodes);
               }
 
-              v14 = *(*(&v48 + 1) + 8 * i);
+              v14 = *(*(&v47 + 1) + 8 * i);
               v15 = [v4 objectForKey:v14];
               v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v15, "unsignedIntegerValue") + numberOfAssets}];
               [v4 setObject:v16 forKey:v14];
             }
 
-            v11 = [publicEventNodes countByEnumeratingWithState:&v48 objects:v59 count:16];
+            v11 = [publicEventNodes countByEnumeratingWithState:&v47 objects:v58 count:16];
           }
 
           while (v11);
         }
 
-        v5 = numberOfAssets + v43;
+        v5 = numberOfAssets + v42;
 
-        v6 = v42 + 1;
+        v6 = v41 + 1;
       }
 
-      while (v42 + 1 != v41);
-      v41 = [obj countByEnumeratingWithState:&v52 objects:v60 count:16];
+      while (v41 + 1 != v40);
+      v40 = [obj countByEnumeratingWithState:&v51 objects:v59 count:16];
     }
 
-    while (v41);
+    while (v40);
     v17 = v5;
   }
 
@@ -287,26 +284,26 @@ void __85__PGTitleSpecPublicEventArgument__generateTitleWithPerformerNamesForPub
   keyEnumerator = [v4 keyEnumerator];
   allObjects = [keyEnumerator allObjects];
 
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
   v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   v21 = allObjects;
-  v22 = [v21 countByEnumeratingWithState:&v44 objects:v58 count:16];
+  v22 = [v21 countByEnumeratingWithState:&v43 objects:v57 count:16];
   if (v22)
   {
     v23 = v22;
-    v24 = *v45;
+    v24 = *v44;
     do
     {
       for (j = 0; j != v23; ++j)
       {
-        if (*v45 != v24)
+        if (*v44 != v24)
         {
           objc_enumerationMutation(v21);
         }
 
-        v26 = *(*(&v44 + 1) + 8 * j);
+        v26 = *(*(&v43 + 1) + 8 * j);
         v27 = [v4 objectForKey:v26];
         [v27 doubleValue];
         if (v28 / v17 >= 0.75)
@@ -315,7 +312,7 @@ void __85__PGTitleSpecPublicEventArgument__generateTitleWithPerformerNamesForPub
         }
       }
 
-      v23 = [v21 countByEnumeratingWithState:&v44 objects:v58 count:16];
+      v23 = [v21 countByEnumeratingWithState:&v43 objects:v57 count:16];
     }
 
     while (v23);
@@ -337,7 +334,7 @@ void __85__PGTitleSpecPublicEventArgument__generateTitleWithPerformerNamesForPub
       {
         name = [anyObject name];
         *buf = 138412290;
-        v57 = name;
+        v56 = name;
         _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_INFO, "Public event node has an unsupported category for titles %@", buf, 0xCu);
       }
 
@@ -354,8 +351,6 @@ void __85__PGTitleSpecPublicEventArgument__generateTitleWithPerformerNamesForPub
   {
     v36 = 0;
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 
   return v36;
 }
@@ -430,32 +425,32 @@ LABEL_17:
 
 - (id)_resolvedStringWithMomentNodes:(id)nodes features:(id)features argumentEvaluationContext:(id)context
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
   featuresCopy = features;
   anyObject = [nodesCopy anyObject];
   graph = [anyObject graph];
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v11 = featuresCopy;
-  v12 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v22;
+    v14 = *v21;
     while (2)
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v22 != v14)
+        if (*v21 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v21 + 1) + 8 * i);
+        v16 = *(*(&v20 + 1) + 8 * i);
         if ([v16 type] == 21)
         {
           v18 = [v16 nodeInGraph:graph];
@@ -465,7 +460,7 @@ LABEL_17:
         }
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
       if (v13)
       {
         continue;
@@ -477,8 +472,6 @@ LABEL_17:
 
   v17 = 0;
 LABEL_11:
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -535,6 +528,13 @@ LABEL_11:
   }
 
   return pg_stringByRemovingDates;
+}
+
++ (id)argumentWithPublicEventType:(unint64_t)type shouldUseLongPublicEventTitle:(BOOL)title
+{
+  v4 = [[PGTitleSpecPublicEventArgument alloc] initWithPublicEventType:type shouldUseLongPublicEventTitle:title];
+
+  return v4;
 }
 
 + (id)argumentWithPublicEventType:(unint64_t)type

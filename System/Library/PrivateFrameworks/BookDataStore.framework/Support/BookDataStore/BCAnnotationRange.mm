@@ -33,10 +33,8 @@
 
 - (void)writeTo:(id)to
 {
-  location = self->_location;
   toCopy = to;
   PBDataWriterWriteUint64Field();
-  length = self->_length;
   PBDataWriterWriteUint64Field();
 }
 

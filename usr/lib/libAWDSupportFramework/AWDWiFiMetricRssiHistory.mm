@@ -167,104 +167,95 @@
 {
   if (*&self->_has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
   if (self->_rssiHistorys.count)
   {
-    v5 = 0;
+    v4 = 0;
     do
     {
-      v6 = self->_rssiHistorys.list[v5];
       PBDataWriterWriteInt32Field();
-      ++v5;
+      ++v4;
     }
 
-    while (v5 < self->_rssiHistorys.count);
+    while (v4 < self->_rssiHistorys.count);
   }
 
   if (self->_txPerHistorys.count)
   {
-    v7 = 0;
+    v5 = 0;
     do
     {
-      v8 = self->_txPerHistorys.list[v7];
       PBDataWriterWriteInt32Field();
-      ++v7;
+      ++v5;
     }
 
-    while (v7 < self->_txPerHistorys.count);
+    while (v5 < self->_txPerHistorys.count);
   }
 
   if (self->_txFrmsHistorys.count)
   {
-    v9 = 0;
+    v6 = 0;
     do
     {
-      v10 = self->_txFrmsHistorys.list[v9];
       PBDataWriterWriteInt32Field();
-      ++v9;
+      ++v6;
     }
 
-    while (v9 < self->_txFrmsHistorys.count);
+    while (v6 < self->_txFrmsHistorys.count);
   }
 
   if (self->_fwTxPerHistorys.count)
   {
-    v11 = 0;
+    v7 = 0;
     do
     {
-      v12 = self->_fwTxPerHistorys.list[v11];
       PBDataWriterWriteInt32Field();
-      ++v11;
+      ++v7;
     }
 
-    while (v11 < self->_fwTxPerHistorys.count);
+    while (v7 < self->_fwTxPerHistorys.count);
   }
 
   if (self->_fwTxFrmsHistorys.count)
   {
-    v13 = 0;
+    v8 = 0;
     do
     {
-      v14 = self->_fwTxFrmsHistorys.list[v13];
       PBDataWriterWriteInt32Field();
-      ++v13;
+      ++v8;
     }
 
-    while (v13 < self->_fwTxFrmsHistorys.count);
+    while (v8 < self->_fwTxFrmsHistorys.count);
   }
 
   if (self->_bcnPerHistorys.count)
   {
-    v15 = 0;
+    v9 = 0;
     do
     {
-      v16 = self->_bcnPerHistorys.list[v15];
       PBDataWriterWriteInt32Field();
-      ++v15;
+      ++v9;
     }
 
-    while (v15 < self->_bcnPerHistorys.count);
+    while (v9 < self->_bcnPerHistorys.count);
   }
 
   if (self->_bcnFrmsHistorys.count)
   {
-    v17 = 0;
+    v10 = 0;
     do
     {
-      v18 = self->_bcnFrmsHistorys.list[v17];
       PBDataWriterWriteInt32Field();
-      ++v17;
+      ++v10;
     }
 
-    while (v17 < self->_bcnFrmsHistorys.count);
+    while (v10 < self->_bcnFrmsHistorys.count);
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    gatewayARPHistory = self->_gatewayARPHistory;
 
     PBDataWriterWriteUint32Field();
   }
@@ -414,7 +405,6 @@
   IsEqual = [equal isMemberOfClass:objc_opt_class()];
   if (IsEqual)
   {
-    v6 = *(equal + 188);
     if (*&self->_has)
     {
       if ((*(equal + 188) & 1) == 0 || self->_timestamp != *(equal + 22))

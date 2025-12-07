@@ -52,14 +52,14 @@
 
 + (id)imageForNavAudioType:(unint64_t)type
 {
-  v3 = sub_100176E44(type);
+  v3 = sub_100176E44(type, a2);
 
   return v3;
 }
 
 + (id)imageForNavAudioType:(unint64_t)type imageConfiguration:(id)configuration
 {
-  v4 = sub_100176E44(type);
+  v4 = sub_100176E44(type, a2);
 
   return v4;
 }

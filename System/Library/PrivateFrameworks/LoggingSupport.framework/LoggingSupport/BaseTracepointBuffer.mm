@@ -158,7 +158,7 @@ void __90___BaseTracepointBuffer_insertTracepoints_chunkOffset_chunkSetStartAddr
 
 uint64_t __75___BaseTracepointBuffer_insertTimesyncPoints_forBoot_oldestContinuousTime___block_invoke(uint64_t a1, __int128 *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (*(a2 + 1) >= *(a1 + 40))
   {
     snprintf(__str, 0x1AuLL, "%016llx.timesync", *(*(a1 + 48) + 24));
@@ -191,7 +191,6 @@ uint64_t __75___BaseTracepointBuffer_insertTimesyncPoints_forBoot_oldestContinuo
     *(v5 + 40) = **(a1 + 56);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return 1;
 }
 

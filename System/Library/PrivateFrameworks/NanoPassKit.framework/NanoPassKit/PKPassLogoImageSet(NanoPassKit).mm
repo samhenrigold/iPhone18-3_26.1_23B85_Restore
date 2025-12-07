@@ -144,53 +144,51 @@ LABEL_5:
 {
   v24 = *MEMORY[0x277D85DE8];
   v10 = a6;
-  v11 = pk_General_log();
+  v11 = pk_General_log(v10);
   v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
 
   if (v12)
   {
-    v13 = pk_General_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = pk_General_log(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       v22 = 138412290;
       v23 = v10;
-      _os_log_impl(&dword_25B300000, v13, OS_LOG_TYPE_DEFAULT, "Notice: Load PDF art from bundle: %@", &v22, 0xCu);
+      _os_log_impl(&dword_25B300000, v14, OS_LOG_TYPE_DEFAULT, "Notice: Load PDF art from bundle: %@", &v22, 0xCu);
     }
   }
 
-  v14 = *MEMORY[0x277CBF3A8];
-  v15 = *(MEMORY[0x277CBF3A8] + 8);
-  v16 = NPKGetPDFImageFromBundle(v10, *MEMORY[0x277D38668], *MEMORY[0x277CBF3A8], v15, a4);
-  if (v16)
-  {
-    [self setBankLogoImage:v16];
-  }
-
-  v17 = NPKGetPDFImageFromBundle(v10, *MEMORY[0x277D38690], v14, v15, a4);
+  v15 = *MEMORY[0x277CBF3A8];
+  v16 = *(MEMORY[0x277CBF3A8] + 8);
+  v17 = NPKGetPDFImageFromBundle(v10, *MEMORY[0x277D38668], *MEMORY[0x277CBF3A8], v16, a4);
   if (v17)
   {
-    [self setNetworkLogoImage:v17];
+    [self setBankLogoImage:v17];
   }
 
-  v18 = NPKGetPDFImageFromBundle(v10, *MEMORY[0x277D38680], v14, v15, a4);
+  v18 = NPKGetPDFImageFromBundle(v10, *MEMORY[0x277D38690], v15, v16, a4);
   if (v18)
   {
-    [self setCobrandLogoImage:v18];
+    [self setNetworkLogoImage:v18];
   }
 
-  v19 = NPKGetPDFImageFromBundle(v10, *MEMORY[0x277D38678], a2, a3, a4);
+  v19 = NPKGetPDFImageFromBundle(v10, *MEMORY[0x277D38680], v15, v16, a4);
   if (v19)
   {
-    [self setCardBackgroundImage:v19];
+    [self setCobrandLogoImage:v19];
   }
 
-  v20 = NPKGetPDFImageFromBundle(v10, *MEMORY[0x277D38670], a2, a3, a4);
+  v20 = NPKGetPDFImageFromBundle(v10, *MEMORY[0x277D38678], a2, a3, a4);
   if (v20)
   {
-    [self setCardBackgroundCombinedImage:v20];
+    [self setCardBackgroundImage:v20];
   }
 
-  v21 = *MEMORY[0x277D85DE8];
+  v21 = NPKGetPDFImageFromBundle(v10, *MEMORY[0x277D38670], a2, a3, a4);
+  if (v21)
+  {
+    [self setCardBackgroundCombinedImage:v21];
+  }
 }
 
 - (BOOL)npkHasValidPaymentCardAssets

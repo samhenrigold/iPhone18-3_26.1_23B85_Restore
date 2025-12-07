@@ -12,23 +12,23 @@
     +[NSKeyedUnarchiver(SYAdditions) sy_whitelistedClasses];
   }
 
-  v1 = sy_whitelistedClasses_supportedClasses;
+  v2 = sy_whitelistedClasses_supportedClasses;
 
-  return v1;
+  return v2;
 }
 
 + (id)sy_unarchivedObjectFromData:()SYAdditions
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (a3)
   {
     v3 = MEMORY[0x1E696ACD0];
     v4 = a3;
     sy_whitelistedClasses = [objc_opt_class() sy_whitelistedClasses];
-    v11 = 0;
-    v6 = [v3 unarchivedObjectOfClasses:sy_whitelistedClasses fromData:v4 error:&v11];
+    v10 = 0;
+    v6 = [v3 unarchivedObjectOfClasses:sy_whitelistedClasses fromData:v4 error:&v10];
 
-    v7 = v11;
+    v7 = v10;
     if (v7)
     {
       if (_sync_log_facilities_pred != -1)
@@ -40,7 +40,7 @@
       if (os_log_type_enabled(_sync_log_facilities, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v13 = v7;
+        v12 = v7;
         _os_log_impl(&dword_1DF835000, v8, OS_LOG_TYPE_DEFAULT, "Failed to unarchive object. %{public}@", buf, 0xCu);
       }
     }
@@ -50,8 +50,6 @@
   {
     v6 = 0;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

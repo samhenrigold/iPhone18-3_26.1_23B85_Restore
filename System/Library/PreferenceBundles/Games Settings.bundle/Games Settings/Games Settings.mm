@@ -21,9 +21,7 @@ uint64_t sub_1510()
 
 uint64_t sub_158C@<X0>(uint64_t *a1@<X8>)
 {
-  v2 = sub_17AC();
-  v3 = *(v2 + 48);
-  v4 = *(v2 + 52);
+  sub_17AC();
   swift_allocObject();
   result = sub_179C();
   *a1 = result;
@@ -76,7 +74,6 @@ uint64_t sub_1754(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }

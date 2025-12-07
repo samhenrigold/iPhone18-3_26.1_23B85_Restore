@@ -629,7 +629,7 @@ void __55__UIKeyboardMediaController__displayiMessageAppWithID___block_invoke(ui
       [defaultCenter2 addObserver:self selector:sel__keyboardDidChangeFrame_ name:@"UIKeyboardDidChangeFrameNotification" object:0];
 
       v11 = +[UIKeyboard keyboardBundleIdentifier];
-      if ([v11 isEqualToString:@"com.apple.MobileSMS"] && (+[UITextInputPayloadController sharedInstance](UITextInputPayloadController, "sharedInstance"), v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v6, "supportsStickerTapbackPayload"), v6, (v7 & 1) == 0))
+      if (objc_msgSend_isEqualToString_(v11) && (+[UITextInputPayloadController sharedInstance](UITextInputPayloadController, "sharedInstance"), v6 = objc_claimAutoreleasedReturnValue(), v7 = [v6 supportsStickerTapbackPayload], v6, (v7 & 1) == 0))
       {
         [(UIKeyboardMediaController *)self _presentiMessageApp];
       }

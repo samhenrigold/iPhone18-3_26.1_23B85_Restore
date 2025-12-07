@@ -131,7 +131,7 @@
   array = [MEMORY[0x1E695DF70] array];
   if (DOCDebugMenuEnabled())
   {
-    v15 = [MEMORY[0x1E69DCBA0] commandWithTitle:&stru_1F5F4AEF8 image:0 action:sel_performShowDebugMenu_ input:@"\\"" modifierFlags:0x100000 propertyList:MEMORY[0x1E695E0F8]];
+    v15 = [MEMORY[0x1E69DCBA0] commandWithTitle:&stru_1F5F4AEF8 image:0 action:sel_performShowDebugMenu_ input:@"\" modifierFlags:0x100000 propertyList:MEMORY[0x1E695E0F8]];
     [v15 setDiscoverabilityTitle:&stru_1F5F4AEF8];
     [v15 setAttributes:4];
     [array addObject:v15];

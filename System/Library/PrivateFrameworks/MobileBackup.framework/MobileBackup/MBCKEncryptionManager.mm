@@ -28,7 +28,7 @@
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "=encryption key= Asking the UEA plugin to wake backupd on next unlock", buf, 2u);
-      _MBLog();
+      _MBLog(@"I ", "=encryption key= Asking the UEA plugin to wake backupd on next unlock");
     }
 
     CFPreferencesSetValue(@"NotifyDaemonNextTimeKeyBagIsUnlocked", &__kCFBooleanTrue, @"com.apple.MobileBackup", @"mobile", kCFPreferencesCurrentHost);
@@ -45,7 +45,7 @@
       }
 
       persona2 = [accountCopy persona];
-      _MBLog();
+      _MBLog(@"I ", "=encryption key= Requesting backupd to fetch encryption keys for persona %@ on net unlock", persona2);
     }
 
     persona3 = [accountCopy persona];
@@ -70,7 +70,7 @@
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "=encryption key= Asking the UEA plugin to not wake backupd on next unlock", buf, 2u);
-      _MBLog();
+      _MBLog(@"I ", "=encryption key= Asking the UEA plugin to not wake backupd on next unlock");
     }
 
     CFPreferencesSetValue(@"NotifyDaemonNextTimeKeyBagIsUnlocked", &__kCFBooleanFalse, @"com.apple.MobileBackup", @"mobile", kCFPreferencesCurrentHost);
@@ -83,7 +83,7 @@
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "=encryption key= Requesting backupd to not fetch encryption keys for persona %@ on next unlock", buf, 0xCu);
 
       persona2 = [accountCopy persona];
-      _MBLog();
+      _MBLog(@"I ", "=encryption key= Requesting backupd to not fetch encryption keys for persona %@ on next unlock", persona2);
     }
   }
 
@@ -149,46 +149,30 @@
 
   v8 = managerCopy;
   v9 = atomic_exchange(dword_1004217A8, 0);
-  if (v9)
+  if (v9 || (buf[0] = 0, objc_opt_class(), v10 = objc_claimAutoreleasedReturnValue(), objc_sync_enter(v10), [accountCopy persona], v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v11, "getBooleanValueForKey:keyExists:", @"FetchMissingKeysAtNextUnlock", buf), v11, objc_sync_exit(v10), v10, buf[0]) && v12)
   {
-    goto LABEL_5;
-  }
-
-  buf[0] = 0;
-  v10 = objc_opt_class();
-  objc_sync_enter(v10);
-  persona = [accountCopy persona];
-  v12 = [persona getBooleanValueForKey:@"FetchMissingKeysAtNextUnlock" keyExists:buf];
-
-  objc_sync_exit(v10);
-  if (buf[0])
-  {
-    if (v12)
+    v13 = MBGetDefaultLog();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
-LABEL_5:
-      v13 = MBGetDefaultLog();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
-      {
-        *buf = 134218498;
-        v20 = v9;
-        v21 = 2112;
-        v22 = @"FetchMissingKeysAtNextUnlock";
-        v23 = 1024;
-        v24 = 0;
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "=encryption key= Forcing missing encryption keys lookup, count:%lu, %@:%d", buf, 0x1Cu);
-        _MBLog();
-      }
-
-      v14 = dispatch_get_global_queue(9, 0);
-      block[0] = _NSConcreteStackBlock;
-      block[1] = 3221225472;
-      block[2] = sub_10012A3B4;
-      block[3] = &unk_1003BDB10;
-      selfCopy = self;
-      v16 = accountCopy;
-      v17 = v8;
-      dispatch_sync(v14, block);
+      *buf = 134218498;
+      v20 = v9;
+      v21 = 2112;
+      v22 = @"FetchMissingKeysAtNextUnlock";
+      v23 = 1024;
+      v24 = 0;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "=encryption key= Forcing missing encryption keys lookup, count:%lu, %@:%d", buf, 0x1Cu);
+      _MBLog(@"I ", "=encryption key= Forcing missing encryption keys lookup, count:%lu, %@:%d", v9, @"FetchMissingKeysAtNextUnlock", 0);
     }
+
+    v14 = dispatch_get_global_queue(9, 0);
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = sub_10012A3B4;
+    block[3] = &unk_1003BDB10;
+    selfCopy = self;
+    v16 = accountCopy;
+    v17 = v8;
+    dispatch_sync(v14, block);
   }
 }
 
@@ -223,38 +207,38 @@ LABEL_5:
 
   if (v6)
   {
-    v46 = 0;
-    v7 = [MBFileOperation symbolicLinkTargetWithPath:v4 error:&v46];
-    v8 = v46;
+    v42 = 0;
+    v7 = [MBFileOperation symbolicLinkTargetWithPath:v4 error:&v42];
+    v8 = v42;
     if (v7)
     {
       if (MBSnapshotDirectoryExists(snapshotDatabaseDirectory, v7))
       {
-        v45 = 0;
-        v43 = snapshotDatabaseDirectory;
-        v44 = v7;
+        v41 = 0;
+        v39 = snapshotDatabaseDirectory;
+        v40 = v7;
         v9 = MBGetDefaultLog();
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          *&buf[4] = v44;
+          *&buf[4] = v40;
           _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "=encryption key= Finding missed encryption keys for pending commitID: %@", buf, 0xCu);
-          _MBLog();
+          _MBLog(@"Df", "=encryption key= Finding missed encryption keys for pending commitID: %@", v40);
         }
 
-        v48 = 0;
-        v10 = [MBMissedEncryptionKeysDB openDatabaseIn:v43 commitID:v44 readOnly:1 error:&v48];
-        v11 = v48;
+        v44 = 0;
+        v10 = [MBMissedEncryptionKeysDB openDatabaseIn:v39 commitID:v40 readOnly:1 error:&v44];
+        v11 = v44;
         if (v10)
         {
-          v47 = v11;
-          v12 = [MBMissedEncryptionKeysDB openDatabaseIn:v43 commitID:v44 readOnly:0 error:&v47];
-          v13 = v47;
+          v43 = v11;
+          v12 = [MBMissedEncryptionKeysDB openDatabaseIn:v39 commitID:v40 readOnly:0 error:&v43];
+          v13 = v43;
 
           if (v12)
           {
-            v42 = v13;
-            v14 = [v12 countMissedEncryptionKeysWithError:&v45];
+            v38 = v13;
+            v14 = [v12 countMissedEncryptionKeysWithError:&v41];
             if (v14 == 0x7FFFFFFFFFFFFFFFLL)
             {
               v15 = 0;
@@ -264,57 +248,55 @@ LABEL_5:
             {
               v21 = v10;
               v22 = v12;
-              v39 = v44;
-              v40 = +[NSDate now];
-              v37 = v14;
-              v54 = 0;
-              v55 = &v54;
-              v56 = 0x2020000000;
-              v57 = 0;
+              v35 = v40;
+              v36 = +[NSDate now];
+              v33 = v14;
               v50 = 0;
               v51 = &v50;
               v52 = 0x2020000000;
               v53 = 0;
+              v46 = 0;
+              v47 = &v46;
+              v48 = 0x2020000000;
               v49 = 0;
+              v45 = 0;
               *buf = _NSConcreteStackBlock;
               *&buf[8] = 3221225472;
               *&buf[16] = sub_10012DE70;
-              v69 = &unk_1003BF648;
+              v65 = &unk_1003BF648;
               v12 = v22;
-              v70 = v12;
-              v71 = &v50;
-              v72 = &v54;
-              v38 = v21;
-              LOBYTE(v22) = [v21 enumerateInodesMissingEncryptionKeys:&v49 block:buf];
-              v41 = v49;
-              v13 = v42;
+              v66 = v12;
+              v67 = &v46;
+              v68 = &v50;
+              v34 = v21;
+              LOBYTE(v22) = [v21 enumerateInodesMissingEncryptionKeys:&v45 block:buf];
+              v37 = v45;
+              v13 = v38;
               if (v22)
               {
 
-                [v40 timeIntervalSinceNow];
+                [v36 timeIntervalSinceNow];
                 v24 = -v23;
-                if (v55[3] + v51[3] >= v14)
+                if (v51[3] + v47[3] >= v14)
                 {
                   v25 = MBGetDefaultLog();
                   v15 = 1;
                   if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
                   {
-                    v30 = v55[3];
-                    v31 = v51[3];
-                    *v58 = 134219010;
-                    v59 = v30;
-                    v60 = 2048;
-                    v61 = v37;
+                    v30 = v51[3];
+                    v31 = v47[3];
+                    *v54 = 134219010;
+                    v55 = v30;
+                    v56 = 2048;
+                    v57 = v33;
+                    v58 = 2048;
+                    v59 = v31;
+                    v60 = 2112;
+                    v61 = v35;
                     v62 = 2048;
-                    v63 = v31;
-                    v64 = 2112;
-                    v65 = v39;
-                    v66 = 2048;
-                    v67 = v24;
-                    _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_INFO, "=encryption key= Found %llu/%llu encryption keys (%llu deleted) for pending commitID %@ in %.2fs", v58, 0x34u);
-                    v36 = v51[3];
-                    v34 = v55[3];
-                    _MBLog();
+                    v63 = v24;
+                    _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_INFO, "=encryption key= Found %llu/%llu encryption keys (%llu deleted) for pending commitID %@ in %.2fs", v54, 0x34u);
+                    _MBLog(@"I ", "=encryption key= Found %llu/%llu encryption keys (%llu deleted) for pending commitID %@ in %.2fs", v51[3], v33, v47[3], v35, *&v24);
                   }
                 }
 
@@ -323,22 +305,20 @@ LABEL_5:
                   v25 = MBGetDefaultLog();
                   if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
                   {
-                    v26 = v55[3];
-                    v27 = v51[3];
-                    *v58 = 134219010;
-                    v59 = v26;
-                    v60 = 2048;
-                    v61 = v14;
+                    v26 = v51[3];
+                    v27 = v47[3];
+                    *v54 = 134219010;
+                    v55 = v26;
+                    v56 = 2048;
+                    v57 = v14;
+                    v58 = 2048;
+                    v59 = v27;
+                    v60 = 2112;
+                    v61 = v35;
                     v62 = 2048;
-                    v63 = v27;
-                    v64 = 2112;
-                    v65 = v39;
-                    v66 = 2048;
-                    v67 = v24;
-                    _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_INFO, "=encryption key= Partially found %llu/%llu encryption keys (%llu deleted) for pending commitID %@ in %.2fs", v58, 0x34u);
-                    v35 = v51[3];
-                    v33 = v55[3];
-                    _MBLog();
+                    v63 = v24;
+                    _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_INFO, "=encryption key= Partially found %llu/%llu encryption keys (%llu deleted) for pending commitID %@ in %.2fs", v54, 0x34u);
+                    _MBLog(@"I ", "=encryption key= Partially found %llu/%llu encryption keys (%llu deleted) for pending commitID %@ in %.2fs", v51[3], v14, v47[3], v35, *&v24);
                   }
 
                   v15 = 0;
@@ -350,20 +330,20 @@ LABEL_5:
                 v28 = MBGetDefaultLog();
                 if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
                 {
-                  *v58 = 138412290;
-                  v59 = v41;
-                  _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, "=encryption key= Error enumerating missed encryption keys: %@", v58, 0xCu);
-                  _MBLog();
+                  *v54 = 138412290;
+                  v55 = v37;
+                  _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, "=encryption key= Error enumerating missed encryption keys: %@", v54, 0xCu);
+                  _MBLog(@"E ", "=encryption key= Error enumerating missed encryption keys: %@", v37);
                 }
 
-                v29 = v41;
+                v29 = v37;
                 v15 = 0;
-                v45 = v41;
-                v25 = v70;
+                v41 = v37;
+                v25 = v66;
               }
 
+              _Block_object_dispose(&v46, 8);
               _Block_object_dispose(&v50, 8);
-              _Block_object_dispose(&v54, 8);
             }
           }
 
@@ -375,13 +355,13 @@ LABEL_5:
               *buf = 138412290;
               *&buf[4] = v13;
               _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "=encryption key= Failed to open r/w missed encryption keys db: %@", buf, 0xCu);
-              _MBLog();
+              _MBLog(@"E ", "=encryption key= Failed to open r/w missed encryption keys db: %@", v13);
             }
 
             v20 = v13;
             v12 = 0;
             v15 = 0;
-            v45 = v13;
+            v41 = v13;
           }
         }
 
@@ -393,13 +373,13 @@ LABEL_5:
             *buf = 138412290;
             *&buf[4] = v11;
             _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "=encryption key= Failed to open r/o missed encryption keys db: %@", buf, 0xCu);
-            _MBLog();
+            _MBLog(@"E ", "=encryption key= Failed to open r/o missed encryption keys db: %@", v11);
           }
 
           v18 = v11;
           v12 = 0;
           v15 = 0;
-          v45 = v11;
+          v41 = v11;
           v13 = v11;
         }
 
@@ -424,7 +404,7 @@ LABEL_5:
         *&buf[12] = 2112;
         *&buf[14] = snapshotDatabaseDirectory;
         _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_FAULT, "=encryption key= Snapshot directory for commitID %@ does not exist under %@", buf, 0x16u);
-        _MBLog();
+        _MBLog(@"F ", "=encryption key= Snapshot directory for commitID %@ does not exist under %@", v7, snapshotDatabaseDirectory);
       }
     }
 
@@ -438,7 +418,7 @@ LABEL_5:
         *&buf[12] = 2112;
         *&buf[14] = v8;
         _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_FAULT, "=encryption key= Failed to resolve symlink target at %@: %@", buf, 0x16u);
-        _MBLog();
+        _MBLog(@"F ", "=encryption key= Failed to resolve symlink target at %@: %@", v4, v8);
       }
     }
 
@@ -455,7 +435,7 @@ LABEL_41:
     *buf = 138543362;
     *&buf[4] = v4;
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "=encryption key= Pending snapshot directory does not exist at %{public}@", buf, 0xCu);
-    _MBLog();
+    _MBLog(@"I ", "=encryption key= Pending snapshot directory does not exist at %{public}@", v4);
   }
 
 LABEL_42:
@@ -479,51 +459,51 @@ LABEL_42:
     LODWORD(buf) = 138412290;
     *(&buf + 4) = accountCopy;
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "=encryption key= Finding missing encryption keys from MBCKCache for:%@", &buf, 0xCu);
-    _MBLog();
+    _MBLog(@"I ", "=encryption key= Finding missing encryption keys from MBCKCache for:%@", accountCopy);
   }
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v41 = 0x3032000000;
-  v42 = sub_10012B1F4;
-  v43 = sub_10012B204;
-  v44 = 0;
-  v34 = 0;
-  v35 = &v34;
-  v36 = 0x2020000000;
+  v44 = 0x3032000000;
+  v45 = sub_10012B1F4;
+  v46 = sub_10012B204;
+  v47 = 0;
   v37 = 0;
-  v30 = 0;
-  v31 = &v30;
-  v32 = 0x2020000000;
-  v33 = 1;
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x3032000000;
-  v27 = sub_10012B1F4;
-  v28 = sub_10012B204;
-  v29 = 0;
+  v38 = &v37;
+  v39 = 0x2020000000;
+  v40 = 0;
+  v33 = 0;
+  v34 = &v33;
+  v35 = 0x2020000000;
+  v36 = 1;
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x3032000000;
+  v30 = sub_10012B1F4;
+  v31 = sub_10012B204;
+  v32 = 0;
   obj = 0;
   v9 = [v7 openCacheWithAccount:accountCopy accessType:2 error:&obj];
-  objc_storeStrong(&v29, obj);
+  objc_storeStrong(&v32, obj);
   if (v9)
   {
-    v16[0] = _NSConcreteStackBlock;
-    v16[1] = 3221225472;
-    v16[2] = sub_10012B20C;
-    v16[3] = &unk_1003BF620;
-    v19 = &v30;
-    v20 = &v24;
+    v16 = _NSConcreteStackBlock;
+    v17 = 3221225472;
+    v18 = sub_10012B20C;
+    v19 = &unk_1003BF620;
+    v22 = &v33;
+    v23 = &v27;
     p_buf = &buf;
-    v17 = v7;
-    v18 = accountCopy;
-    v22 = &v34;
-    v10 = [v9 enumerateFilesMissingEncryptionKeys:v16];
-    if (*(v35 + 24) == 1)
+    v20 = v7;
+    v21 = accountCopy;
+    v25 = &v37;
+    v10 = [v9 enumerateFilesMissingEncryptionKeys:&v16];
+    if (*(v38 + 24) == 1)
     {
       [*(*(&buf + 1) + 40) flush];
     }
 
-    v11 = v25[5];
+    v11 = v28[5];
     if (v11)
     {
       v12 = v11;
@@ -534,7 +514,7 @@ LABEL_42:
     else if (!v10)
     {
 LABEL_14:
-      v13 = *(v31 + 24);
+      v13 = *(v34 + 24);
 
       goto LABEL_15;
     }
@@ -542,10 +522,10 @@ LABEL_14:
     v14 = MBGetDefaultLog();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      *v38 = 138412290;
-      v39 = v10;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "=encryption key= Failed to enumerate files missing encryption keys: %@", v38, 0xCu);
-      _MBLog();
+      *v41 = 138412290;
+      v42 = v10;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "=encryption key= Failed to enumerate files missing encryption keys: %@", v41, 0xCu);
+      _MBLog(@"E ", "=encryption key= Failed to enumerate files missing encryption keys: %@", v10, v16, v17, v18, v19, v20);
     }
 
     goto LABEL_14;
@@ -554,9 +534,9 @@ LABEL_14:
   v13 = 0;
 LABEL_15:
 
-  _Block_object_dispose(&v24, 8);
-  _Block_object_dispose(&v30, 8);
-  _Block_object_dispose(&v34, 8);
+  _Block_object_dispose(&v27, 8);
+  _Block_object_dispose(&v33, 8);
+  _Block_object_dispose(&v37, 8);
   _Block_object_dispose(&buf, 8);
 
   return v13 & 1;
@@ -578,7 +558,7 @@ LABEL_15:
       _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "=encryption key= Error exporting keychain: %@", buf, 0xCu);
 
       v6 = [MBError descriptionForError:v3];
-      _MBLog();
+      _MBLog(@"Df", "=encryption key= Error exporting keychain: %@", v6);
     }
   }
 }
@@ -591,7 +571,7 @@ LABEL_15:
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "=encryption key= Tearing down backup keybag", buf, 2u);
-    _MBLog();
+    _MBLog(@"Df", "=encryption key= Tearing down backup keybag");
   }
 
   v7 = MBGetDefaultLog();
@@ -600,7 +580,7 @@ LABEL_15:
     *buf = 138412290;
     v14 = volumeCopy;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "=encryption key= Unregistering keybag for %@", buf, 0xCu);
-    _MBLog();
+    _MBLog(@"Df", "=encryption key= Unregistering keybag for %@", volumeCopy);
   }
 
   v12 = 0;
@@ -621,7 +601,7 @@ LABEL_15:
       v15 = 2114;
       v16 = v9;
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "=encryption key= Failed to unregister OTA keybag for %@: %{public}@", buf, 0x16u);
-      _MBLog();
+      _MBLog(@"E ", "=encryption key= Failed to unregister OTA keybag for %@: %{public}@", volumeCopy, v9);
     }
 
     if (error)
@@ -651,7 +631,7 @@ LABEL_15:
     *buf = 138543362;
     v49 = restoreKeyBagsPath;
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "=encryption key= Loading restore keybags at %{public}@", buf, 0xCu);
-    _MBLog();
+    _MBLog(@"Df", "=encryption key= Loading restore keybags at %{public}@", restoreKeyBagsPath);
   }
 
   v46 = 0;
@@ -721,7 +701,7 @@ LABEL_15:
               *buf = 138543362;
               v49 = v18;
               _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "=encryption key= Loaded secret for keybag %{public}@", buf, 0xCu);
-              _MBLog();
+              _MBLog(@"Df", "=encryption key= Loaded secret for keybag %{public}@", v18);
             }
 
             error = errorCopy;
@@ -745,8 +725,7 @@ LABEL_15:
         *buf = 134217984;
         v49 = v29;
         _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "=encryption key= Loaded %ld keybag secrets from the keychain", buf, 0xCu);
-        [v40 count];
-        _MBLog();
+        _MBLog(@"Df", "=encryption key= Loaded %ld keybag secrets from the keychain", [v40 count]);
       }
 
       v30 = v40;
@@ -766,7 +745,7 @@ LABEL_24:
         *buf = 138543362;
         v49 = v13;
         _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_ERROR, "=encryption key= Failed to deserialize the restore keybags: %{public}@", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"E ", "=encryption key= Failed to deserialize the restore keybags: %{public}@", v13);
       }
 
       v30 = 0;
@@ -788,7 +767,7 @@ LABEL_24:
       v50 = 2114;
       v51 = v11;
       _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_ERROR, "=encryption key= Failed to load the restore keybags from %{public}@: %{public}@", buf, 0x16u);
-      _MBLog();
+      _MBLog(@"E ", "=encryption key= Failed to load the restore keybags from %{public}@: %{public}@", restoreKeyBagsPath, v11);
     }
 
     if (error)
@@ -825,7 +804,7 @@ LABEL_24:
 
   errorCopy = error;
   [self removeRestoreKeyBagsWithAccount:accountCopy device:deviceCopy];
-  v68 = accountCopy;
+  v67 = accountCopy;
   persona = [accountCopy persona];
   restoreKeyBagsPath = [persona restoreKeyBagsPath];
 
@@ -833,84 +812,83 @@ LABEL_24:
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v88 = restoreKeyBagsPath;
+    v87 = restoreKeyBagsPath;
     _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "=encryption key= Saving restore keybags at %{public}@", buf, 0xCu);
-    v63 = restoreKeyBagsPath;
-    _MBLog();
+    _MBLog(@"Df", "=encryption key= Saving restore keybags at %{public}@", restoreKeyBagsPath);
   }
 
-  v69 = restoreKeyBagsPath;
+  v68 = restoreKeyBagsPath;
 
   v14 = [NSMutableDictionary alloc];
   keybagManager = [v10 keybagManager];
   keybagsByUUIDString = [keybagManager keybagsByUUIDString];
-  v73 = [v14 initWithCapacity:{objc_msgSend(keybagsByUUIDString, "count")}];
+  v72 = [v14 initWithCapacity:{objc_msgSend(keybagsByUUIDString, "count")}];
 
-  v84 = 0u;
-  v85 = 0u;
-  v82 = 0u;
   v83 = 0u;
-  v72 = v10;
+  v84 = 0u;
+  v81 = 0u;
+  v82 = 0u;
+  v71 = v10;
   keybagManager2 = [v10 keybagManager];
   keybagsByUUIDString2 = [keybagManager2 keybagsByUUIDString];
 
-  v19 = [keybagsByUUIDString2 countByEnumeratingWithState:&v82 objects:v93 count:16];
+  v19 = [keybagsByUUIDString2 countByEnumeratingWithState:&v81 objects:v92 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v83;
+    v21 = *v82;
     do
     {
       for (i = 0; i != v20; i = i + 1)
       {
-        if (*v83 != v21)
+        if (*v82 != v21)
         {
           objc_enumerationMutation(keybagsByUUIDString2);
         }
 
-        v23 = *(*(&v82 + 1) + 8 * i);
-        keybagManager3 = [v72 keybagManager];
+        v23 = *(*(&v81 + 1) + 8 * i);
+        keybagManager3 = [v71 keybagManager];
         keybagsByUUIDString3 = [keybagManager3 keybagsByUUIDString];
         v26 = [keybagsByUUIDString3 objectForKeyedSubscript:v23];
 
-        v91 = @"keybagData";
+        v90 = @"keybagData";
         keybagData = [v26 keybagData];
-        v92 = keybagData;
-        v28 = [NSDictionary dictionaryWithObjects:&v92 forKeys:&v91 count:1];
+        v91 = keybagData;
+        v28 = [NSDictionary dictionaryWithObjects:&v91 forKeys:&v90 count:1];
 
-        [v73 setObject:v28 forKeyedSubscript:v23];
+        [v72 setObject:v28 forKeyedSubscript:v23];
       }
 
-      v20 = [keybagsByUUIDString2 countByEnumeratingWithState:&v82 objects:v93 count:16];
+      v20 = [keybagsByUUIDString2 countByEnumeratingWithState:&v81 objects:v92 count:16];
     }
 
     while (v20);
   }
 
-  v81 = 0;
-  v29 = [NSPropertyListSerialization dataWithPropertyList:v73 format:100 options:0 error:&v81];
-  v30 = v81;
+  v80 = 0;
+  v29 = [NSPropertyListSerialization dataWithPropertyList:v72 format:100 options:0 error:&v80];
+  v30 = v80;
   if (v29)
   {
-    v31 = v69;
-    stringByDeletingLastPathComponent = [v69 stringByDeletingLastPathComponent];
+    v31 = v68;
+    stringByDeletingLastPathComponent = [v68 stringByDeletingLastPathComponent];
     v33 = +[NSFileManager defaultManager];
-    v80 = v30;
-    v34 = [v33 createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v80];
-    v35 = v80;
+    v79 = v30;
+    v34 = [v33 createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v79];
+    v35 = v79;
 
     if ((v34 & 1) == 0)
     {
       v58 = MBGetDefaultLog();
-      v37 = v72;
+      v37 = v71;
       if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543618;
-        v88 = stringByDeletingLastPathComponent;
-        v89 = 2114;
-        v90 = v35;
+        v87 = stringByDeletingLastPathComponent;
+        v88 = 2114;
+        v89 = v35;
         _os_log_impl(&_mh_execute_header, v58, OS_LOG_TYPE_ERROR, "=encryption key= Failed create the directory at %{public}@: %{public}@", buf, 0x16u);
-        _MBLog();
+        _MBLog(@"E ", "=encryption key= Failed create the directory at %{public}@: %{public}@", stringByDeletingLastPathComponent, v35);
       }
 
       if (errorCopy)
@@ -928,27 +906,27 @@ LABEL_24:
       goto LABEL_56;
     }
 
-    v79 = v35;
-    v36 = [v29 writeToFile:v69 options:1073741825 error:&v79];
-    v30 = v79;
+    v78 = v35;
+    v36 = [v29 writeToFile:v68 options:1073741825 error:&v78];
+    v30 = v78;
 
-    v37 = v72;
+    v37 = v71;
     if ((v36 & 1) == 0)
     {
       v59 = MBGetDefaultLog();
       if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543618;
-        v88 = v69;
-        v89 = 2114;
-        v90 = v30;
+        v87 = v68;
+        v88 = 2114;
+        v89 = v30;
         _os_log_impl(&_mh_execute_header, v59, OS_LOG_TYPE_ERROR, "=encryption key= Failed serialize restore keybags plist at %{public}@: %{public}@", buf, 0x16u);
-        _MBLog();
+        _MBLog(@"E ", "=encryption key= Failed serialize restore keybags plist at %{public}@: %{public}@", v68, v30);
       }
 
       if (errorCopy)
       {
-        [MBError errorWithCode:100 error:v30 path:v69 format:@"Error writing restore keybag plist"];
+        [MBError errorWithCode:100 error:v30 path:v68 format:@"Error writing restore keybag plist"];
         *errorCopy = v56 = 0;
       }
 
@@ -960,52 +938,52 @@ LABEL_24:
       goto LABEL_56;
     }
 
-    v70 = +[NSMutableArray array];
-    keybagManager4 = [v72 keybagManager];
+    v69 = +[NSMutableArray array];
+    keybagManager4 = [v71 keybagManager];
     keybagsByUUIDString4 = [keybagManager4 keybagsByUUIDString];
 
-    v77 = 0u;
-    v78 = 0u;
-    v75 = 0u;
     v76 = 0u;
+    v77 = 0u;
+    v74 = 0u;
+    v75 = 0u;
     v40 = keybagsByUUIDString4;
-    v41 = [v40 countByEnumeratingWithState:&v75 objects:v86 count:16];
+    v41 = [v40 countByEnumeratingWithState:&v74 objects:v85 count:16];
     if (v41)
     {
       v42 = v41;
       obj = v40;
-      v64 = v30;
-      v65 = stringByDeletingLastPathComponent;
-      v66 = v29;
+      v63 = v30;
+      v64 = stringByDeletingLastPathComponent;
+      v65 = v29;
       v43 = 1;
-      v44 = *v76;
+      v44 = *v75;
       do
       {
         for (j = 0; j != v42; j = j + 1)
         {
-          if (*v76 != v44)
+          if (*v75 != v44)
           {
             objc_enumerationMutation(obj);
           }
 
-          v46 = *(*(&v75 + 1) + 8 * j);
+          v46 = *(*(&v74 + 1) + 8 * j);
           v47 = MBGetDefaultLog();
           if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            v88 = v46;
+            v87 = v46;
             _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "=encryption key= Saving secret for keybag %{public}@ into keychain", buf, 0xCu);
-            _MBLog();
+            _MBLog(@"Df", "=encryption key= Saving secret for keybag %{public}@ into keychain", v46);
           }
 
-          keybagManager5 = [v72 keybagManager];
+          keybagManager5 = [v71 keybagManager];
           keybagsByUUIDString5 = [keybagManager5 keybagsByUUIDString];
           v50 = [keybagsByUUIDString5 objectForKeyedSubscript:v46];
 
           secret = [v50 secret];
-          v74 = 0;
-          v52 = [MBKeychainManager addKeybagSecret:secret forUUID:v46 error:&v74];
-          v53 = v74;
+          v73 = 0;
+          v52 = [MBKeychainManager addKeybagSecret:secret forUUID:v46 error:&v73];
+          v53 = v73;
 
           if ((v52 & 1) == 0)
           {
@@ -1013,11 +991,11 @@ LABEL_24:
             if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
             {
               *buf = 138543618;
-              v88 = v46;
-              v89 = 2114;
-              v90 = v53;
+              v87 = v46;
+              v88 = 2114;
+              v89 = v53;
               _os_log_impl(&_mh_execute_header, v54, OS_LOG_TYPE_ERROR, "=encryption key= Failed to save secret for keybag %{public}@ into keychain: %{public}@", buf, 0x16u);
-              _MBLog();
+              _MBLog(@"E ", "=encryption key= Failed to save secret for keybag %{public}@ into keychain: %{public}@", v46, v53);
             }
 
             if (v53)
@@ -1030,13 +1008,13 @@ LABEL_24:
               [MBError errorWithCode:1 format:@"Failed to save secret for keybag %@ into keychain", v46];
             }
             v55 = ;
-            [v70 addObject:v55];
+            [v69 addObject:v55];
 
             v43 = 0;
           }
         }
 
-        v42 = [obj countByEnumeratingWithState:&v75 objects:v86 count:16];
+        v42 = [obj countByEnumeratingWithState:&v74 objects:v85 count:16];
       }
 
       while (v42);
@@ -1044,19 +1022,19 @@ LABEL_24:
 
       if (!((errorCopy == 0) | v43 & 1))
       {
-        [MBError errorWithErrors:v70];
+        [MBError errorWithErrors:v69];
         *errorCopy = v56 = 0;
-        stringByDeletingLastPathComponent = v65;
-        v29 = v66;
-        v30 = v64;
-        v31 = v69;
+        stringByDeletingLastPathComponent = v64;
+        v29 = v65;
+        v30 = v63;
+        v31 = v68;
         goto LABEL_55;
       }
 
-      stringByDeletingLastPathComponent = v65;
-      v29 = v66;
-      v30 = v64;
-      v31 = v69;
+      stringByDeletingLastPathComponent = v64;
+      v29 = v65;
+      v30 = v63;
+      v31 = v68;
       if ((v43 & 1) == 0)
       {
         v56 = 0;
@@ -1076,10 +1054,9 @@ LABEL_56:
     {
       v61 = [v40 count];
       *buf = 134217984;
-      v88 = v61;
+      v87 = v61;
       _os_log_impl(&_mh_execute_header, v60, OS_LOG_TYPE_DEFAULT, "=encryption key= Saved %ld keybag secrets into keychain", buf, 0xCu);
-      [v40 count];
-      _MBLog();
+      _MBLog(@"Df", "=encryption key= Saved %ld keybag secrets into keychain", [v40 count]);
     }
 
     v56 = 1;
@@ -1087,19 +1064,19 @@ LABEL_56:
   }
 
   v57 = MBGetDefaultLog();
-  v31 = v69;
+  v31 = v68;
   if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
   {
     *buf = 138543362;
-    v88 = v30;
+    v87 = v30;
     _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_ERROR, "=encryption key= Failed serialize restore keybags plist: %{public}@", buf, 0xCu);
-    _MBLog();
+    _MBLog(@"E ", "=encryption key= Failed serialize restore keybags plist: %{public}@", v30);
   }
 
-  v37 = v72;
+  v37 = v71;
   if (errorCopy)
   {
-    [MBError errorForNSError:v30 path:v69 format:@"Error serializing restore keybag plist"];
+    [MBError errorForNSError:v30 path:v68 format:@"Error serializing restore keybag plist"];
     *errorCopy = v56 = 0;
   }
 
@@ -1175,8 +1152,7 @@ LABEL_57:
     *buf = 134217984;
     v29 = [keybagsByUUIDString count];
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "=encryption key= Removing secrets for %ld keybags", buf, 0xCu);
-    [keybagsByUUIDString count];
-    _MBLog();
+    _MBLog(@"Df", "=encryption key= Removing secrets for %ld keybags", [keybagsByUUIDString count]);
   }
 
   v26 = 0u;
@@ -1205,7 +1181,7 @@ LABEL_57:
           *buf = 138543362;
           v29 = v15;
           _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "=encryption key= Removing the secret for keybag %{public}@", buf, 0xCu);
-          _MBLog();
+          _MBLog(@"Df", "=encryption key= Removing the secret for keybag %{public}@", v15);
         }
 
         v23 = 0;
@@ -1221,7 +1197,7 @@ LABEL_57:
             v30 = 2114;
             v31 = v18;
             _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "=encryption key= Failed to remove the secret for keybag %{public}@: %{public}@", buf, 0x16u);
-            _MBLog();
+            _MBLog(@"E ", "=encryption key= Failed to remove the secret for keybag %{public}@: %{public}@", v15, v18);
           }
         }
       }

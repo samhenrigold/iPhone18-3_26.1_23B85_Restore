@@ -52,29 +52,28 @@
 + (id)decodeSyncObjectWithData:(id)data
 {
   v4 = sub_38F8(&qword_8EB18, &qword_7A950);
-  v5 = *(*(v4 - 8) + 64);
   __chkstk_darwin(v4 - 8);
-  v7 = &v18 - v6;
+  v6 = &v17 - v5;
   dataCopy = data;
-  v9 = sub_748C8();
-  v11 = v10;
+  v8 = sub_748C8();
+  v10 = v9;
 
-  v12 = type metadata accessor for PropertyRecordCheckpointEntity.EntityWrapper();
-  v13 = objc_allocWithZone(v12);
-  v14 = sub_751D8();
-  sub_398C(v9, v11);
+  v11 = type metadata accessor for PropertyRecordCheckpointEntity.EntityWrapper(0);
+  v12 = objc_allocWithZone(v11);
+  v13 = sub_751D8();
+  sub_398C(v8, v10);
   sub_39E0();
   sub_74F88();
-  (*(*(v14 - 8) + 56))(v7, 0, 1, v14);
-  sub_3A38(v7, &v13[OBJC_IVAR____TtCC25FitnessIntelligencePlugin30PropertyRecordCheckpointEntity13EntityWrapper_entry]);
-  v15 = &v13[OBJC_IVAR____TtCC25FitnessIntelligencePlugin30PropertyRecordCheckpointEntity13EntityWrapper_serializedEntity];
-  *v15 = v9;
-  v15[1] = v11;
-  v19.receiver = v13;
-  v19.super_class = v12;
-  v16 = objc_msgSendSuper2(&v19, "init");
+  (*(*(v13 - 8) + 56))(v6, 0, 1, v13);
+  sub_3A38(v6, &v12[OBJC_IVAR____TtCC25FitnessIntelligencePlugin30PropertyRecordCheckpointEntity13EntityWrapper_entry]);
+  v14 = &v12[OBJC_IVAR____TtCC25FitnessIntelligencePlugin30PropertyRecordCheckpointEntity13EntityWrapper_serializedEntity];
+  *v14 = v8;
+  v14[1] = v10;
+  v18.receiver = v12;
+  v18.super_class = v11;
+  v15 = objc_msgSendSuper2(&v18, "init");
 
-  return v16;
+  return v15;
 }
 
 + (id)databaseTable

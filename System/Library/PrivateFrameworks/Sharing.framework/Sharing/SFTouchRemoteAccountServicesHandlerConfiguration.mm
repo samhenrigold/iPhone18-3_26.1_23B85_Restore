@@ -7,25 +7,24 @@
 
 - (SFTouchRemoteAccountServicesHandlerConfiguration)init
 {
-  v9.receiver = self;
-  v9.super_class = SFTouchRemoteAccountServicesHandlerConfiguration;
-  v2 = [(SFTouchRemoteAccountServicesHandlerConfiguration *)&v9 init];
-  v3 = v2;
+  v8.receiver = self;
+  v8.super_class = SFTouchRemoteAccountServicesHandlerConfiguration;
+  v2 = [(SFTouchRemoteAccountServicesHandlerConfiguration *)&v8 init];
   if (v2)
   {
-    v4 = SFMainQueue(v2);
-    dispatchQueue = v3->_dispatchQueue;
-    v3->_dispatchQueue = v4;
+    v3 = SFMainQueue();
+    dispatchQueue = v2->_dispatchQueue;
+    v2->_dispatchQueue = v3;
 
-    v6 = [MEMORY[0x1E695DFD8] setWithArray:&unk_1F1D7D868];
-    supportedTRAccountServices = v3->_supportedTRAccountServices;
-    v3->_supportedTRAccountServices = v6;
+    v5 = [MEMORY[0x1E695DFD8] setWithArray:&unk_1F1D7D868];
+    supportedTRAccountServices = v2->_supportedTRAccountServices;
+    v2->_supportedTRAccountServices = v5;
 
-    *&v3->_isPrimaryAppleAccount = 16842753;
-    v3->_isHomeSharingSetupNeeded = 0;
+    *&v2->_isPrimaryAppleAccount = 16842753;
+    v2->_isHomeSharingSetupNeeded = 0;
   }
 
-  return v3;
+  return v2;
 }
 
 - (id)copyWithZone:(_NSZone *)zone

@@ -1,4 +1,5 @@
 @interface ASContactDataHandler
+- (BOOL)closeDBAndSave:(BOOL)save;
 - (BOOL)saveContainer;
 - (BOOL)wipeServerIds;
 - (id)copyOfAllLocalObjectsInContainer;
@@ -69,13 +70,12 @@
 
 - (void)drainContainer
 {
-  v3 = +[ASLocalDBHelper sharedInstance];
-  [v3 abDB];
-  v4 = *&self->super.ESDataHandler_opaque[OBJC_IVAR___ESDataHandler__container];
+  v2 = +[ASLocalDBHelper sharedInstance];
+  [v2 abDB];
   ABAddressBookDeleteAllRecordsWithStore();
 
-  v5 = +[ASLocalDBHelper sharedInstance];
-  [v5 abSaveDB];
+  v3 = +[ASLocalDBHelper sharedInstance];
+  [v3 abSaveDB];
 }
 
 - (void)openDB
@@ -83,6 +83,15 @@
   v4 = +[ASLocalDBHelper sharedInstance];
   changeTrackingID = [(ASContactDataHandler *)self changeTrackingID];
   [v4 abOpenDBWithClientIdentifier:changeTrackingID];
+}
+
+- (BOOL)closeDBAndSave:(BOOL)save
+{
+  saveCopy = save;
+  v4 = +[ASLocalDBHelper sharedInstance];
+  LOBYTE(saveCopy) = [v4 abCloseDBAndSave:saveCopy];
+
+  return saveCopy;
 }
 
 @end

@@ -42,31 +42,20 @@ uint64_t __35__AACertificatePinner_sharedPinner__block_invoke()
   authenticationMethod = [protectionSpace authenticationMethod];
   v7 = [authenticationMethod isEqualToString:*MEMORY[0x1E695AB80]];
 
-  if ((v7 & 1) == 0)
+  if ((v7 & 1) == 0 || (v8 = objc_opt_class(), [challengeCopy protectionSpace], v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "host"), v10 = objc_claimAutoreleasedReturnValue(), LOBYTE(v8) = objc_msgSend(v8, "isSetupServiceHost:", v10), v10, v9, (v8 & 1) == 0))
   {
-    goto LABEL_6;
-  }
-
-  v8 = objc_opt_class();
-  protectionSpace2 = [challengeCopy protectionSpace];
-  host = [protectionSpace2 host];
-  LOBYTE(v8) = [v8 isSetupServiceHost:host];
-
-  if ((v8 & 1) == 0)
-  {
-LABEL_6:
     sender = [challengeCopy sender];
     [sender performDefaultHandlingForAuthenticationChallenge:challengeCopy];
     goto LABEL_7;
   }
 
-  protectionSpace3 = [challengeCopy protectionSpace];
-  serverTrust = [protectionSpace3 serverTrust];
+  protectionSpace2 = [challengeCopy protectionSpace];
+  serverTrust = [protectionSpace2 serverTrust];
 
   if (!serverTrust)
   {
-    v15 = _AALogSystem();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v17 = _AALogSystem(v13);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       [AACertificatePinner(NSURLUtilities) connection:willSendRequestForAuthenticationChallenge:];
     }
@@ -74,10 +63,11 @@ LABEL_6:
     goto LABEL_12;
   }
 
-  if (([objc_opt_class() isValidCertificateTrust:serverTrust] & 1) == 0)
+  v14 = [objc_opt_class() isValidCertificateTrust:serverTrust];
+  if ((v14 & 1) == 0)
   {
-    v15 = _AALogSystem();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v17 = _AALogSystem(v14);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       [AACertificatePinner(NSURLUtilities) connection:willSendRequestForAuthenticationChallenge:];
     }
@@ -90,8 +80,8 @@ LABEL_12:
   }
 
   sender = [challengeCopy sender];
-  v14 = [MEMORY[0x1E695AC48] credentialForTrust:serverTrust];
-  [sender useCredential:v14 forAuthenticationChallenge:challengeCopy];
+  v16 = [MEMORY[0x1E695AC48] credentialForTrust:serverTrust];
+  [sender useCredential:v16 forAuthenticationChallenge:challengeCopy];
 
 LABEL_7:
 }
@@ -104,30 +94,19 @@ LABEL_7:
   authenticationMethod = [protectionSpace authenticationMethod];
   v10 = [authenticationMethod isEqualToString:*MEMORY[0x1E695AB80]];
 
-  if ((v10 & 1) == 0)
+  if ((v10 & 1) == 0 || (v11 = objc_opt_class(), [challengeCopy protectionSpace], v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v12, "host"), v13 = objc_claimAutoreleasedReturnValue(), LOBYTE(v11) = objc_msgSend(v11, "isSetupServiceHost:", v13), v13, v12, (v11 & 1) == 0))
   {
-    goto LABEL_6;
-  }
-
-  v11 = objc_opt_class();
-  protectionSpace2 = [challengeCopy protectionSpace];
-  host = [protectionSpace2 host];
-  LOBYTE(v11) = [v11 isSetupServiceHost:host];
-
-  if ((v11 & 1) == 0)
-  {
-LABEL_6:
     handlerCopy[2](handlerCopy, 1, 0);
     goto LABEL_7;
   }
 
-  protectionSpace3 = [challengeCopy protectionSpace];
-  serverTrust = [protectionSpace3 serverTrust];
+  protectionSpace2 = [challengeCopy protectionSpace];
+  serverTrust = [protectionSpace2 serverTrust];
 
   if (!serverTrust)
   {
-    v17 = _AALogSystem();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v19 = _AALogSystem(v16);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       [AACertificatePinner(NSURLUtilities) connection:willSendRequestForAuthenticationChallenge:];
     }
@@ -135,10 +114,11 @@ LABEL_6:
     goto LABEL_12;
   }
 
-  if (([objc_opt_class() isValidCertificateTrust:serverTrust] & 1) == 0)
+  v17 = [objc_opt_class() isValidCertificateTrust:serverTrust];
+  if ((v17 & 1) == 0)
   {
-    v17 = _AALogSystem();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v19 = _AALogSystem(v17);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       [AACertificatePinner(NSURLUtilities) connection:willSendRequestForAuthenticationChallenge:];
     }
@@ -149,8 +129,8 @@ LABEL_12:
     goto LABEL_7;
   }
 
-  v16 = [MEMORY[0x1E695AC48] credentialForTrust:serverTrust];
-  (handlerCopy)[2](handlerCopy, 0, v16);
+  v18 = [MEMORY[0x1E695AC48] credentialForTrust:serverTrust];
+  (handlerCopy)[2](handlerCopy, 0, v18);
 
 LABEL_7:
 }
@@ -163,19 +143,18 @@ LABEL_7:
     [currentHandler handleFailureInMethod:a2 object:self file:@"AACertificatePinner.m" lineNumber:40 description:{@"Invalid parameter not satisfying: %@", @"trustRef"}];
   }
 
-  v4 = *MEMORY[0x1E697B2B8];
   if (SecTrustSetPinningPolicyName())
   {
     return 0;
   }
 
-  v10 = 0;
-  if (MEMORY[0x1B8C9F960](trust, &v10))
+  v9 = 0;
+  if (MEMORY[0x1B8C9F960](trust, &v9))
   {
     return 0;
   }
 
-  return v10 == 4 || v10 == 1;
+  return v9 == 4 || v9 == 1;
 }
 
 @end

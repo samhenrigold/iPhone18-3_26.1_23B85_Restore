@@ -98,11 +98,11 @@
   testCoordinator = [(MapsAppTest *)self testCoordinator];
   [testCoordinator pptTestResetForLaunchURL];
 
-  options = [(MapsAppTest *)self options];
-  _mapstest_mapType = [options _mapstest_mapType];
+  v4 = objc_msgSend_options(self);
+  _mapstest_mapType = [v4 _mapstest_mapType];
 
-  options2 = [(MapsAppTest *)self options];
-  _mapstest_mapRegion = [options2 _mapstest_mapRegion];
+  v6 = objc_msgSend_options(self);
+  _mapstest_mapRegion = [v6 _mapstest_mapRegion];
 
   [(MapsAppTest *)self switchToMapType:_mapstest_mapType];
   mainVKMapView = [(MapsAppTest *)self mainVKMapView];

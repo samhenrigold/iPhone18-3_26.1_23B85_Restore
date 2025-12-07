@@ -130,28 +130,28 @@
 
 + (id)mtLatest:()MTUtilities
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = a3;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v3);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
+        v9 = *(*(&v12 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) != 0 && (!v6 || [v9 mtIsAfterDate:v6]))
         {
@@ -161,7 +161,7 @@
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v5);
@@ -172,35 +172,33 @@
     v6 = 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return v6;
 }
 
 + (id)mtEarliest:()MTUtilities
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = a3;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v3);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
+        v9 = *(*(&v12 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) != 0 && (!v6 || [v9 mtIsBeforeDate:v6]))
         {
@@ -210,7 +208,7 @@
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v5);
@@ -220,8 +218,6 @@
   {
     v6 = 0;
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

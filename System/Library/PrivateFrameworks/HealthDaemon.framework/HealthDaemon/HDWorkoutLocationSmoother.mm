@@ -2,8 +2,8 @@
 + (id)_saveNewRouteSeriesWithProfile:(id)profile sourceEntity:(id)entity forWorkout:(id)workout locations:(id)locations routes:(id)routes associateWithWorkout:(BOOL)withWorkout error:(id *)error;
 - (HDWorkoutLocationSmoother)initWithProfile:(id)profile;
 - (id)_queue_saveLocations:(void *)locations forTask:(void *)task activity:(uint64_t)activity saveError:;
+- (id)_shouldObserveWorkouts;
 - (id)_workoutWithUUIDString:(uint64_t *)string error:;
-- (uint64_t)_shouldObserveWorkouts;
 - (void)_associationsSyncedForWorkout:(id)workout;
 - (void)_finishSmoothingSampleWithTask:(void *)task;
 - (void)_queue_cancelTimeout;
@@ -71,7 +71,7 @@
   processStateManager = [daemon processStateManager];
   [processStateManager unregisterForegroundClientProcessObserver:self];
 
-  if ([(HDWorkoutLocationSmoother *)self _shouldObserveWorkouts])
+  if ([(HDWorkoutLocationSmoother *)&self->super.isa _shouldObserveWorkouts])
   {
     v9 = objc_loadWeakRetained(&self->_profile);
     dataManager = [v9 dataManager];
@@ -84,11 +84,11 @@
   [(HDWorkoutLocationSmoother *)&v12 dealloc];
 }
 
-- (uint64_t)_shouldObserveWorkouts
+- (id)_shouldObserveWorkouts
 {
   if (result)
   {
-    WeakRetained = objc_loadWeakRetained((result + 16));
+    WeakRetained = objc_loadWeakRetained(result + 2);
     daemon = [WeakRetained daemon];
     behavior = [daemon behavior];
     routeSmoothingEnabled = [behavior routeSmoothingEnabled];
@@ -139,58 +139,58 @@ void __59__HDWorkoutLocationSmoother__associationsSyncedForWorkout___block_invok
 
 - (void)_queue_smoothAllUnsmoothedLocationSeries
 {
-  v48[1] = *MEMORY[0x277D85DE8];
+  v47[1] = *MEMORY[0x277D85DE8];
   if (self)
   {
     selfCopy = self;
     v2 = [MEMORY[0x277CCD8D8] dataTypeWithCode:102];
     WeakRetained = objc_loadWeakRetained((selfCopy + 16));
-    v34 = v2;
+    v33 = v2;
     v4 = [HDSampleEntity entityEnumeratorWithType:v2 profile:WeakRetained];
 
     v5 = objc_loadWeakRetained((selfCopy + 16));
     metadataManager = [v5 metadataManager];
     v7 = [metadataManager predicateWithMetadataKey:*MEMORY[0x277CCE118] value:0 operatorType:5];
 
-    v32 = v7;
+    v31 = v7;
     [v4 setPredicate:v7];
     v8 = [MEMORY[0x277D10B68] orderingTermWithProperty:@"end_date" entityClass:objc_opt_class() ascending:1];
-    v48[0] = v8;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v48 count:1];
+    v47[0] = v8;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v47 count:1];
     [v4 setOrderingTerms:v9];
 
     v10 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    v42 = 0;
-    v40[0] = MEMORY[0x277D85DD0];
-    v40[1] = 3221225472;
-    v40[2] = __69__HDWorkoutLocationSmoother__queue_smoothAllUnsmoothedLocationSeries__block_invoke;
-    v40[3] = &unk_27861D470;
-    v40[4] = selfCopy;
+    v41 = 0;
+    v39[0] = MEMORY[0x277D85DD0];
+    v39[1] = 3221225472;
+    v39[2] = __69__HDWorkoutLocationSmoother__queue_smoothAllUnsmoothedLocationSeries__block_invoke;
+    v39[3] = &unk_27861D470;
+    v39[4] = selfCopy;
     v11 = v10;
-    v41 = v11;
-    v33 = v4;
-    v30 = [v4 enumerateWithError:&v42 handler:v40];
-    v31 = v42;
+    v40 = v11;
+    v32 = v4;
+    v29 = [v4 enumerateWithError:&v41 handler:v39];
+    v30 = v41;
+    v35 = 0u;
     v36 = 0u;
     v37 = 0u;
     v38 = 0u;
-    v39 = 0u;
     obj = v11;
-    v12 = [obj countByEnumeratingWithState:&v36 objects:v47 count:16];
+    v12 = [obj countByEnumeratingWithState:&v35 objects:v46 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v37;
+      v14 = *v36;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v37 != v14)
+          if (*v36 != v14)
           {
             objc_enumerationMutation(obj);
           }
 
-          v16 = *(*(&v36 + 1) + 8 * i);
+          v16 = *(*(&v35 + 1) + 8 * i);
           v17 = [HDSmoothingTask alloc];
           v18 = [obj objectForKeyedSubscript:v16];
           v19 = objc_loadWeakRetained((selfCopy + 16));
@@ -203,7 +203,7 @@ void __59__HDWorkoutLocationSmoother__associationsSyncedForWorkout___block_invok
           [*(v21 + 24) addObject:v23];
         }
 
-        v13 = [obj countByEnumeratingWithState:&v36 objects:v47 count:16];
+        v13 = [obj countByEnumeratingWithState:&v35 objects:v46 count:16];
       }
 
       while (v13);
@@ -214,11 +214,11 @@ void __59__HDWorkoutLocationSmoother__associationsSyncedForWorkout___block_invok
       [(HDWorkoutLocationSmoother *)selfCopy _queue_smoothNextSample];
     }
 
-    if (v30)
+    if (v29)
     {
       v24 = 0;
-      v26 = v33;
-      v25 = v34;
+      v26 = v32;
+      v25 = v33;
     }
 
     else
@@ -226,39 +226,37 @@ void __59__HDWorkoutLocationSmoother__associationsSyncedForWorkout___block_invok
       v27 = selfCopy;
       _HKInitializeLogging();
       v28 = *MEMORY[0x277CCC330];
-      v26 = v33;
+      v26 = v32;
       if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
       {
         *buf = 138543618;
-        v44 = v31;
-        v45 = 2112;
-        v46 = v33;
+        v43 = v30;
+        v44 = 2112;
+        v45 = v32;
         _os_log_error_impl(&dword_228986000, v28, OS_LOG_TYPE_ERROR, "[routes] Error occurred in enumerator: %{public}@ %@", buf, 0x16u);
       }
 
       v24 = 1;
-      v25 = v34;
+      v25 = v33;
       selfCopy = v27;
     }
 
     *(selfCopy + 48) = v24;
     *(selfCopy + 49) = 0;
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __69__HDWorkoutLocationSmoother__queue_smoothAllUnsmoothedLocationSeries__block_invoke(uint64_t a1, void *a2)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 metadata];
   v5 = [v4 objectForKeyedSubscript:*MEMORY[0x277CCE118]];
 
   v6 = *(a1 + 32);
-  v23 = 0;
-  v7 = [(HDWorkoutLocationSmoother *)v6 _workoutWithUUIDString:v5 error:&v23];
-  v8 = v23;
+  v22 = 0;
+  v7 = [(HDWorkoutLocationSmoother *)v6 _workoutWithUUIDString:v5 error:&v22];
+  v8 = v22;
   if (v7)
   {
     _HKInitializeLogging();
@@ -268,9 +266,9 @@ uint64_t __69__HDWorkoutLocationSmoother__queue_smoothAllUnsmoothedLocationSerie
       v10 = v9;
       v11 = [v3 UUID];
       *buf = 138412546;
-      v25 = v11;
-      v26 = 2112;
-      v27 = v5;
+      v24 = v11;
+      v25 = 2112;
+      v26 = v5;
       _os_log_impl(&dword_228986000, v10, OS_LOG_TYPE_DEFAULT, "[routes] Will smooth route: %@, workout: %@", buf, 0x16u);
     }
 
@@ -301,11 +299,11 @@ uint64_t __69__HDWorkoutLocationSmoother__queue_smoothAllUnsmoothedLocationSerie
       v14 = v15;
       v17 = [v3 UUID];
       *buf = 138412802;
-      v25 = v5;
-      v26 = 2112;
-      v27 = v17;
-      v28 = 2112;
-      v29 = v8;
+      v24 = v5;
+      v25 = 2112;
+      v26 = v17;
+      v27 = 2112;
+      v28 = v8;
       v18 = "[routes] Unable to fetch workout %@ for route %@. Error: %@";
       v19 = v14;
       v20 = 32;
@@ -321,9 +319,9 @@ uint64_t __69__HDWorkoutLocationSmoother__queue_smoothAllUnsmoothedLocationSerie
       v14 = v15;
       v17 = [v3 UUID];
       *buf = 138412546;
-      v25 = v17;
-      v26 = 2112;
-      v27 = v5;
+      v24 = v17;
+      v25 = 2112;
+      v26 = v5;
       v18 = "[routes] Route %@ is orphaned, workout %@ doesn't exist.";
       v19 = v14;
       v20 = 22;
@@ -333,13 +331,12 @@ uint64_t __69__HDWorkoutLocationSmoother__queue_smoothAllUnsmoothedLocationSerie
   }
 
 LABEL_12:
-  v21 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 - (id)_workoutWithUUIDString:(uint64_t *)string error:
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a2;
   if (self)
   {
@@ -353,106 +350,101 @@ LABEL_12:
       v8 = *MEMORY[0x277CCC330];
       if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
       {
-        v11 = *string;
-        v12 = 138412546;
-        v13 = v5;
-        v14 = 2114;
-        v15 = v11;
-        _os_log_error_impl(&dword_228986000, v8, OS_LOG_TYPE_ERROR, "[routes] Failed to find workout with UUID=%@: %{public}@", &v12, 0x16u);
+        v10 = *string;
+        v11 = 138412546;
+        v12 = v5;
+        v13 = 2114;
+        v14 = v10;
+        _os_log_error_impl(&dword_228986000, v8, OS_LOG_TYPE_ERROR, "[routes] Failed to find workout with UUID=%@: %{public}@", &v11, 0x16u);
       }
 
       self = 0;
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-
   return self;
 }
 
 - (void)_queue_smoothNextSample
 {
-  v28 = *MEMORY[0x277D85DE8];
-  if (self && (v2 = (self + 32), !*(self + 32)))
+  v26 = *MEMORY[0x277D85DE8];
+  if (self)
   {
-    hk_dequeue = [*(self + 24) hk_dequeue];
-    obj = hk_dequeue;
-    if (hk_dequeue)
+    v2 = self + 4;
+    if (!self[4])
     {
-      v5 = hk_dequeue;
-      v6 = [(HKDaemonTransaction *)HDDaemonTransaction transactionWithOwner:self];
-      [(HDSmoothingTask *)v5 setTransaction:v6];
-
-      standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
-      v8 = [standardUserDefaults hk_BOOLForKey:@"HDLocationSmootherSmoothWithZeroLocations" defaultValue:0];
-
-      metadata = [v5[2] metadata];
-      v10 = [metadata objectForKeyedSubscript:*MEMORY[0x277CCE1A0]];
-
-      if (v5[4] || v10 || (v8 & 1) != 0)
+      hk_dequeue = [self[3] hk_dequeue];
+      obj = hk_dequeue;
+      if (hk_dequeue)
       {
-        v5[7] = 1;
-        objc_storeStrong(v2, obj);
-        _HKInitializeLogging();
-        v22 = *MEMORY[0x277CCC330];
-        if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
+        v4 = hk_dequeue;
+        v5 = [(HKDaemonTransaction *)HDDaemonTransaction transactionWithOwner:self];
+        [(HDSmoothingTask *)v4 setTransaction:v5];
+
+        standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
+        v7 = [standardUserDefaults hk_BOOLForKey:@"HDLocationSmootherSmoothWithZeroLocations" defaultValue:0];
+
+        metadata = [v4[2] metadata];
+        v9 = [metadata objectForKeyedSubscript:*MEMORY[0x277CCE1A0]];
+
+        if (v4[4] || v9 || (v7 & 1) != 0)
         {
-          *buf = 138543362;
-          v27 = v5;
-          _os_log_impl(&dword_228986000, v22, OS_LOG_TYPE_DEFAULT, "[routes] New smoothing task will run: %{public}@", buf, 0xCu);
+          v4[7] = 1;
+          objc_storeStrong(v2, obj);
+          _HKInitializeLogging();
+          v21 = *MEMORY[0x277CCC330];
+          if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 138543362;
+            v25 = v4;
+            _os_log_impl(&dword_228986000, v21, OS_LOG_TYPE_DEFAULT, "[routes] New smoothing task will run: %{public}@", buf, 0xCu);
+          }
+
+          v22 = [MEMORY[0x277CBEAA8] now];
+          objc_storeStrong(v4 + 15, v22);
+
+          [(HDWorkoutLocationSmoother *)self _queue_startSmoothingCurrentTask];
         }
 
-        v23 = [MEMORY[0x277CBEAA8] now];
-        objc_storeStrong(v5 + 15, v23);
+        else
+        {
+          _HKInitializeLogging();
+          v10 = *MEMORY[0x277CCC330];
+          if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
+          {
+            v11 = v4[2];
+            v12 = v10;
+            uUID = [v11 UUID];
+            *buf = 138543362;
+            v25 = uUID;
+            _os_log_impl(&dword_228986000, v12, OS_LOG_TYPE_DEFAULT, "[routes] Workout %{public}@ has 0 locations; deleting it.", buf, 0xCu);
+          }
 
-        [(HDWorkoutLocationSmoother *)self _queue_startSmoothingCurrentTask];
+          [(HDWorkoutLocationSmoother *)self _queue_deleteRoutesForTask:v4];
+          [(HDWorkoutLocationSmoother *)self _finishSmoothingSampleWithTask:v4];
+        }
       }
 
       else
       {
-        _HKInitializeLogging();
-        v11 = *MEMORY[0x277CCC330];
-        if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
+        didCompleteAllPendingSmoothingTasksHandler = [self didCompleteAllPendingSmoothingTasksHandler];
+        v4 = didCompleteAllPendingSmoothingTasksHandler;
+        if (didCompleteAllPendingSmoothingTasksHandler)
         {
-          v12 = v5[2];
-          v13 = v11;
-          uUID = [v12 UUID];
-          *buf = 138543362;
-          v27 = uUID;
-          _os_log_impl(&dword_228986000, v13, OS_LOG_TYPE_DEFAULT, "[routes] Workout %{public}@ has 0 locations; deleting it.", buf, 0xCu);
+          (*(didCompleteAllPendingSmoothingTasksHandler + 16))(didCompleteAllPendingSmoothingTasksHandler);
         }
 
-        [(HDWorkoutLocationSmoother *)self _queue_deleteRoutesForTask:v5];
-        [(HDWorkoutLocationSmoother *)self _finishSmoothingSampleWithTask:v5];
+        WeakRetained = objc_loadWeakRetained(self + 2);
+        nanoSyncManager = [WeakRetained nanoSyncManager];
+        [nanoSyncManager syncHealthDataWithOptions:0 reason:@"Workout route smoothed" completion:&__block_literal_global_73];
+
+        v17 = [objc_alloc(MEMORY[0x277CCD0C8]) initWithPush:1 pull:0 lite:1];
+        v18 = objc_loadWeakRetained(self + 2);
+        cloudSyncManager = [v18 cloudSyncManager];
+        v20 = [objc_alloc(MEMORY[0x277CCD140]) initWithChangesSyncRequest:v17];
+        [cloudSyncManager syncWithRequest:v20 reason:@"Workout route smoothed" completion:&__block_literal_global_395];
       }
     }
-
-    else
-    {
-      didCompleteAllPendingSmoothingTasksHandler = [self didCompleteAllPendingSmoothingTasksHandler];
-      v5 = didCompleteAllPendingSmoothingTasksHandler;
-      if (didCompleteAllPendingSmoothingTasksHandler)
-      {
-        (*(didCompleteAllPendingSmoothingTasksHandler + 16))(didCompleteAllPendingSmoothingTasksHandler);
-      }
-
-      WeakRetained = objc_loadWeakRetained((self + 16));
-      nanoSyncManager = [WeakRetained nanoSyncManager];
-      [nanoSyncManager syncHealthDataWithOptions:0 reason:@"Workout route smoothed" completion:&__block_literal_global_73];
-
-      v18 = [objc_alloc(MEMORY[0x277CCD0C8]) initWithPush:1 pull:0 lite:1];
-      v19 = objc_loadWeakRetained((self + 16));
-      cloudSyncManager = [v19 cloudSyncManager];
-      v21 = [objc_alloc(MEMORY[0x277CCD140]) initWithChangesSyncRequest:v18];
-      [cloudSyncManager syncWithRequest:v21 reason:@"Workout route smoothed" completion:&__block_literal_global_395];
-    }
-
-    v24 = *MEMORY[0x277D85DE8];
-  }
-
-  else
-  {
-    v3 = *MEMORY[0x277D85DE8];
   }
 }
 
@@ -515,7 +507,7 @@ LABEL_12:
     [processStateManager registerForegroundClientProcessObserver:self];
   }
 
-  if ([(HDWorkoutLocationSmoother *)self _shouldObserveWorkouts])
+  if ([(HDWorkoutLocationSmoother *)&self->super.isa _shouldObserveWorkouts])
   {
     v25 = objc_loadWeakRetained(&self->_profile);
     database3 = [v25 database];
@@ -615,7 +607,7 @@ LABEL_9:
 
 - (void)_queue_locationManagerDidSmoothRoutes:(void *)routes forTask:(void *)task error:
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v7 = a2;
   routesCopy = routes;
   taskCopy = task;
@@ -625,9 +617,9 @@ LABEL_9:
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
   {
     v12 = v11;
-    v42 = 134217984;
-    v43 = [v7 count];
-    _os_log_impl(&dword_228986000, v12, OS_LOG_TYPE_DEFAULT, "[routes] Successfully smoothed %lu routes", &v42, 0xCu);
+    v41 = 134217984;
+    v42 = [v7 count];
+    _os_log_impl(&dword_228986000, v12, OS_LOG_TYPE_DEFAULT, "[routes] Successfully smoothed %lu routes", &v41, 0xCu);
   }
 
   if (routesCopy && (*(routesCopy + 9) & 1) != 0)
@@ -639,9 +631,9 @@ LABEL_9:
       v14 = routesCopy[2];
       v15 = v13;
       uUID = [v14 UUID];
-      v42 = 138543362;
-      v43 = uUID;
-      _os_log_error_impl(&dword_228986000, v15, OS_LOG_TYPE_ERROR, "[routes] Did finish smoothing locations after timeout for workout %{public}@, locations will be ignored.", &v42, 0xCu);
+      v41 = 138543362;
+      v42 = uUID;
+      _os_log_error_impl(&dword_228986000, v15, OS_LOG_TYPE_ERROR, "[routes] Did finish smoothing locations after timeout for workout %{public}@, locations will be ignored.", &v41, 0xCu);
     }
   }
 
@@ -688,9 +680,9 @@ LABEL_9:
       v25 = v24;
       v26 = v23;
       uUID2 = [v25 UUID];
-      v42 = 138543362;
-      v43 = uUID2;
-      _os_log_impl(&dword_228986000, v26, OS_LOG_TYPE_DEFAULT, "[routes] Did finish smoothing locations for workout %{public}@", &v42, 0xCu);
+      v41 = 138543362;
+      v42 = uUID2;
+      _os_log_impl(&dword_228986000, v26, OS_LOG_TYPE_DEFAULT, "[routes] Did finish smoothing locations for workout %{public}@", &v41, 0xCu);
     }
 
     if (![v7 count] && (!routesCopy || !routesCopy[4]))
@@ -712,9 +704,9 @@ LABEL_9:
         v30 = v29;
         v31 = v28;
         uUID3 = [v30 UUID];
-        v42 = 138543362;
-        v43 = uUID3;
-        _os_log_impl(&dword_228986000, v31, OS_LOG_TYPE_DEFAULT, "[routes] Smoothed route has 0 locations for workout %{public}@, deleting it", &v42, 0xCu);
+        v41 = 138543362;
+        v42 = uUID3;
+        _os_log_impl(&dword_228986000, v31, OS_LOG_TYPE_DEFAULT, "[routes] Smoothed route has 0 locations for workout %{public}@, deleting it", &v41, 0xCu);
       }
     }
 
@@ -736,9 +728,9 @@ LABEL_9:
       v36 = v33;
       uUID4 = [v35 UUID];
       uUIDString = [uUID4 UUIDString];
-      v42 = 138543362;
-      v43 = uUIDString;
-      _os_log_impl(&dword_228986000, v36, OS_LOG_TYPE_DEFAULT, "[routes] Deleting old routes for workout %{public}@", &v42, 0xCu);
+      v41 = 138543362;
+      v42 = uUIDString;
+      _os_log_impl(&dword_228986000, v36, OS_LOG_TYPE_DEFAULT, "[routes] Deleting old routes for workout %{public}@", &v41, 0xCu);
     }
 
     [(HDWorkoutLocationSmoother *)self _queue_deleteRoutesForTask:routesCopy];
@@ -754,13 +746,11 @@ LABEL_9:
 
     [(HDWorkoutLocationSmoother *)self _finishSmoothingSampleWithTask:routesCopy];
   }
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_smoothingDidFailForTask:(void *)task error:(int)error shouldRetry:
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   v7 = a2;
   taskCopy = task;
   if (!self)
@@ -794,18 +784,18 @@ LABEL_9:
       isAppleWatch = [behavior isAppleWatch];
       v34 = @"Phone";
       *buf = 138544130;
-      v46 = 2048;
-      v45 = uUID;
-      v47 = 3;
+      v45 = 2048;
+      v44 = uUID;
+      v46 = 3;
       if (isAppleWatch)
       {
         v34 = @"Watch";
       }
 
-      v48 = 2112;
-      v49 = v34;
-      v50 = 2112;
-      v51 = taskCopy;
+      v47 = 2112;
+      v48 = v34;
+      v49 = 2112;
+      v50 = taskCopy;
       _os_log_fault_impl(&dword_228986000, v28, OS_LOG_TYPE_FAULT, "[routes] Couldn't smooth routes for workout %{public}@ after %ld attempts on device %@, marking as v2. Error: %@", buf, 0x2Au);
 
       if (!v7)
@@ -821,9 +811,9 @@ LABEL_9:
 
     if (*(v7 + 4))
     {
-      v42 = 0;
-      v16 = [(HDWorkoutLocationSmoother *)self _queue_saveLocations:v7 forTask:0 activity:&v42 saveError:?];
-      v17 = v42;
+      v41 = 0;
+      v16 = [(HDWorkoutLocationSmoother *)self _queue_saveLocations:v7 forTask:0 activity:&v41 saveError:?];
+      v17 = v41;
       _HKInitializeLogging();
       v18 = *v14;
       v19 = *v14;
@@ -836,7 +826,7 @@ LABEL_9:
           uUID2 = [v20 UUID];
           uUIDString = [uUID2 UUIDString];
           *buf = 138543362;
-          v45 = uUIDString;
+          v44 = uUIDString;
           _os_log_impl(&dword_228986000, v21, OS_LOG_TYPE_DEFAULT, "[routes] Deleting old routes for workout %{public}@", buf, 0xCu);
         }
 
@@ -847,8 +837,8 @@ LABEL_9:
           goto LABEL_36;
         }
 
-        v43 = v16;
-        v24 = [MEMORY[0x277CBEA60] arrayWithObjects:&v43 count:1];
+        v42 = v16;
+        v24 = [MEMORY[0x277CBEA60] arrayWithObjects:&v42 count:1];
         v25 = *(v7 + 5);
       }
 
@@ -857,7 +847,7 @@ LABEL_9:
         if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          v45 = v17;
+          v44 = v17;
           _os_log_error_impl(&dword_228986000, v18, OS_LOG_TYPE_ERROR, "[routes] An error occurred marking routes as V2: %{public}@", buf, 0xCu);
         }
 
@@ -900,7 +890,7 @@ LABEL_29:
       v38 = v35;
       uUID3 = [v37 UUID];
       *buf = 138543362;
-      v45 = uUID3;
+      v44 = uUID3;
       _os_log_impl(&dword_228986000, v38, OS_LOG_TYPE_DEFAULT, "[routes] v2 route has 0 locations for workout %{public}@, deleting it", buf, 0xCu);
     }
 
@@ -939,9 +929,9 @@ LABEL_29:
     v12 = v9;
     uUID4 = [v11 UUID];
     *buf = 138543618;
-    v45 = uUID4;
-    v46 = 2112;
-    v47 = taskCopy;
+    v44 = uUID4;
+    v45 = 2112;
+    v46 = taskCopy;
     _os_log_impl(&dword_228986000, v12, OS_LOG_TYPE_DEFAULT, "[routes] Smoothing did fail for workout %{public}@ with error: %@", buf, 0x16u);
   }
 
@@ -952,8 +942,6 @@ LABEL_29:
 
   [(HDWorkoutLocationSmoother *)self _queue_startSmoothingCurrentTask];
 LABEL_37:
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_deleteRoutesForTask:(uint64_t)task
@@ -1053,7 +1041,7 @@ LABEL_37:
 
 void __52__HDWorkoutLocationSmoother__queue_smoothNextSample__block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = a3;
   _HKInitializeLogging();
   v5 = *MEMORY[0x277CCC330];
@@ -1062,24 +1050,22 @@ void __52__HDWorkoutLocationSmoother__queue_smoothNextSample__block_invoke(uint6
   {
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v8) = 0;
-      _os_log_impl(&dword_228986000, v5, OS_LOG_TYPE_DEFAULT, "[routes] Successfully synced smoothed route", &v8, 2u);
+      LOWORD(v7) = 0;
+      _os_log_impl(&dword_228986000, v5, OS_LOG_TYPE_DEFAULT, "[routes] Successfully synced smoothed route", &v7, 2u);
     }
   }
 
   else if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    v8 = 138543362;
-    v9 = v4;
-    _os_log_error_impl(&dword_228986000, v5, OS_LOG_TYPE_ERROR, "[routes] Failed to sync smoothed workout route with error: %{public}@", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v4;
+    _os_log_error_impl(&dword_228986000, v5, OS_LOG_TYPE_ERROR, "[routes] Failed to sync smoothed workout route with error: %{public}@", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __52__HDWorkoutLocationSmoother__queue_smoothNextSample__block_invoke_393(uint64_t a1, char a2, void *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = a3;
   if ((a2 & 1) == 0)
   {
@@ -1087,20 +1073,18 @@ void __52__HDWorkoutLocationSmoother__queue_smoothNextSample__block_invoke_393(u
     v5 = *MEMORY[0x277CCC330];
     if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
     {
-      v7 = v5;
-      v8 = [v4 localizedDescription];
-      v9 = 138543362;
-      v10 = v8;
-      _os_log_error_impl(&dword_228986000, v7, OS_LOG_TYPE_ERROR, "Failed to cloud sync after route smoothing: %{public}@", &v9, 0xCu);
+      v6 = v5;
+      v7 = [v4 localizedDescription];
+      v8 = 138543362;
+      v9 = v7;
+      _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "Failed to cloud sync after route smoothing: %{public}@", &v8, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_startSmoothingCurrentTask
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v2 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
@@ -1116,11 +1100,11 @@ void __52__HDWorkoutLocationSmoother__queue_smoothNextSample__block_invoke_393(u
       v4 = 0;
     }
 
-    v10 = 134218242;
-    v11 = v4;
-    v12 = 2114;
-    v13 = v3;
-    _os_log_impl(&dword_228986000, v2, OS_LOG_TYPE_DEFAULT, "[routes]: Starting smoothing task attempt %lu for Task: %{public}@ ", &v10, 0x16u);
+    v9 = 134218242;
+    v10 = v4;
+    v11 = 2114;
+    v12 = v3;
+    _os_log_impl(&dword_228986000, v2, OS_LOG_TYPE_DEFAULT, "[routes]: Starting smoothing task attempt %lu for Task: %{public}@ ", &v9, 0x16u);
   }
 
   [(HDWorkoutLocationSmoother *)self _submitWorkoutPerformanceTask:@"HDWorkoutAnalyticsPerformanceEventNameRouteSmoothingTaskBegin" event:0 failure:?];
@@ -1136,7 +1120,7 @@ void __52__HDWorkoutLocationSmoother__queue_smoothNextSample__block_invoke_393(u
   }
 
   v7 = v5;
-  v8 = [v6 copy];
+  v8 = objc_msgSend_copy(v6);
   if (v5)
   {
     objc_storeStrong(v7 + 16, v8);
@@ -1144,7 +1128,6 @@ void __52__HDWorkoutLocationSmoother__queue_smoothNextSample__block_invoke_393(u
 
   [(HDSmoothingTask *)v7 setSmoothingError:?];
   [(HDWorkoutLocationSmoother *)self _queue_smoothNextActivityForCurrentTask];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_submitWorkoutPerformanceTask:(void *)task event:(char)event failure:
@@ -1242,7 +1225,7 @@ void __52__HDWorkoutLocationSmoother__queue_smoothNextSample__block_invoke_393(u
 
 - (void)_queue_smoothNextActivityForCurrentTask
 {
-  v94[8] = *MEMORY[0x277D85DE8];
+  v93[8] = *MEMORY[0x277D85DE8];
   if (self)
   {
     v2 = *(self + 32);
@@ -1266,17 +1249,17 @@ void __52__HDWorkoutLocationSmoother__queue_smoothNextSample__block_invoke_393(u
           inited = objc_initWeak(&location, v3);
           objc_initWeak(&from, self);
           v10 = inited;
-          v68[0] = MEMORY[0x277D85DD0];
-          v68[1] = 3221225472;
-          v69 = __68__HDWorkoutLocationSmoother__queue_smoothNextActivityForCurrentTask__block_invoke;
-          v70 = &unk_27861D498;
-          objc_copyWeak(&v73, &from);
-          objc_copyWeak(&v74, &location);
-          v71 = v8;
+          v67[0] = MEMORY[0x277D85DD0];
+          v67[1] = 3221225472;
+          v68 = __68__HDWorkoutLocationSmoother__queue_smoothNextActivityForCurrentTask__block_invoke;
+          v69 = &unk_27861D498;
+          objc_copyWeak(&v72, &from);
+          objc_copyWeak(&v73, &location);
+          v70 = v8;
           selfCopy = self;
-          v11 = v71;
-          v67 = v3;
-          v65 = v68;
+          v11 = v70;
+          v66 = v3;
+          v64 = v67;
           _HKInitializeLogging();
           v12 = *MEMORY[0x277CCC330];
           if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
@@ -1299,8 +1282,8 @@ void __52__HDWorkoutLocationSmoother__queue_smoothNextSample__block_invoke_393(u
             startDate = 0;
           }
 
-          v16 = v3[11];
-          if ([v16 count] - 1 <= v6)
+          v15 = v3[11];
+          if ([v15 count] - 1 <= v6)
           {
             endDate = 0;
           }
@@ -1310,207 +1293,207 @@ void __52__HDWorkoutLocationSmoother__queue_smoothNextSample__block_invoke_393(u
             endDate = [v11 endDate];
           }
 
-          v18 = v67[3];
-          v77 = 0;
-          v19 = v18;
-          v20 = startDate;
-          v66 = endDate;
+          v17 = v66[3];
+          v76 = 0;
+          v18 = v17;
+          v19 = startDate;
+          v65 = endDate;
+          v82 = 0u;
           v83 = 0u;
           v84 = 0u;
           v85 = 0u;
-          v86 = 0u;
-          v21 = 0;
-          v22 = [v19 countByEnumeratingWithState:&v83 objects:buf count:16];
-          if (v22)
+          v20 = 0;
+          v21 = [v18 countByEnumeratingWithState:&v82 objects:buf count:16];
+          if (v21)
           {
-            v23 = *v84;
+            v22 = *v83;
             do
             {
-              for (i = 0; i != v22; ++i)
+              for (i = 0; i != v21; ++i)
               {
-                if (*v84 != v23)
+                if (*v83 != v22)
                 {
-                  objc_enumerationMutation(v19);
+                  objc_enumerationMutation(v18);
                 }
 
-                v21 += [*(*(&v83 + 1) + 8 * i) count];
+                v20 += [*(*(&v82 + 1) + 8 * i) count];
               }
 
-              v22 = [v19 countByEnumeratingWithState:&v83 objects:buf count:16];
+              v21 = [v18 countByEnumeratingWithState:&v82 objects:buf count:16];
             }
 
-            while (v22);
+            while (v21);
           }
 
-          if (v20)
+          if (v19)
           {
-            if (v66)
+            if (v65)
             {
-              [v66 timeIntervalSinceDate:v20];
-              if (v25 > 0.0 && v25 < v21)
+              [v65 timeIntervalSinceDate:v19];
+              if (v24 > 0.0 && v24 < v20)
               {
-                v21 = vcvtad_u64_f64(v25);
+                v20 = vcvtad_u64_f64(v24);
               }
             }
           }
 
           standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
-          v27 = [standardUserDefaults hk_BOOLForKey:@"HDLocationSmootherSmoothWithOverMaxRouteLength" defaultValue:0];
+          v26 = [standardUserDefaults hk_BOOLForKey:@"HDLocationSmootherSmoothWithOverMaxRouteLength" defaultValue:0];
 
-          if ((v21 < 0x8CA1) | v27 & 1)
+          if ((v20 < 0x8CA1) | v26 & 1)
           {
-            v28 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:v21];
+            v27 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:v20];
             WeakRetained = objc_loadWeakRetained((self + 16));
             database = [WeakRetained database];
-            v78[0] = MEMORY[0x277D85DD0];
-            v78[1] = 3221225472;
-            v78[2] = __73__HDWorkoutLocationSmoother__locationsForRoutes_startDate_endDate_error___block_invoke;
-            v78[3] = &unk_27861B120;
+            v77[0] = MEMORY[0x277D85DD0];
+            v77[1] = 3221225472;
+            v77[2] = __73__HDWorkoutLocationSmoother__locationsForRoutes_startDate_endDate_error___block_invoke;
+            v77[3] = &unk_27861B120;
+            v78 = v18;
             v79 = v19;
-            v80 = v20;
-            v81 = v66;
-            v82 = v28;
-            v31 = v28;
-            v32 = [(HDHealthEntity *)HDLocationSeriesSampleEntity performReadTransactionWithHealthDatabase:database error:&v77 block:v78];
+            v80 = v65;
+            v81 = v27;
+            v30 = v27;
+            v31 = [(HDHealthEntity *)HDLocationSeriesSampleEntity performReadTransactionWithHealthDatabase:database error:&v76 block:v77];
 
-            if (v32)
+            if (v31)
             {
-              v33 = v31;
+              v32 = v30;
             }
 
             else
             {
-              v33 = 0;
+              v32 = 0;
             }
 
-            v34 = v33;
+            v33 = v32;
           }
 
           else
           {
-            [MEMORY[0x277CCA9B8] hk_assignError:&v77 code:130 format:{@"Cannot smooth route with estimated length %ld", v21}];
-            v34 = 0;
+            [MEMORY[0x277CCA9B8] hk_assignError:&v76 code:130 format:{@"Cannot smooth route with estimated length %ld", v20}];
+            v33 = 0;
           }
 
-          v64 = v77;
-          if (v34)
+          v63 = v76;
+          if (v33)
           {
-            v35 = objc_alloc(MEMORY[0x277CCA970]);
+            v34 = objc_alloc(MEMORY[0x277CCA970]);
             startDate2 = [v11 startDate];
             endDate2 = [v11 endDate];
-            v38 = [v35 initWithStartDate:startDate2 endDate:endDate2];
+            v37 = [v34 initWithStartDate:startDate2 endDate:endDate2];
 
-            v39 = v67[9];
-            *&v83 = MEMORY[0x277D85DD0];
-            *(&v83 + 1) = 3221225472;
-            *&v84 = __84__HDWorkoutLocationSmoother__queue_smoothActivity_activityIndex_forTask_completion___block_invoke;
-            *(&v84 + 1) = &unk_27861D4C0;
-            v61 = v38;
-            *&v85 = v61;
-            v63 = [v39 hk_map:&v83];
-            if ([v34 count] || objc_msgSend(v63, "count"))
+            v38 = v66[9];
+            *&v82 = MEMORY[0x277D85DD0];
+            *(&v82 + 1) = 3221225472;
+            *&v83 = __84__HDWorkoutLocationSmoother__queue_smoothActivity_activityIndex_forTask_completion___block_invoke;
+            *(&v83 + 1) = &unk_27861D4C0;
+            v60 = v37;
+            *&v84 = v60;
+            v62 = [v38 hk_map:&v82];
+            if ([v33 count] || objc_msgSend(v62, "count"))
             {
-              v40 = [v67 _newLocationSmootherWithWorkoutActivityType:activityType shouldReconstructEntireRoute:*(v67 + 8) timeIntervalsThatNeedPopulating:v63];
-              objc_storeWeak((self + 56), v40);
-              -[HDWorkoutLocationSmoother _submitWorkoutPerformanceTask:event:activity:locations:failure:](self, v67, @"HDWorkoutAnalyticsPerformanceEventNameRouteSmoothingTaskSmoothBegin", v11, [v34 count], 0);
-              v41 = v67;
+              v39 = [v66 _newLocationSmootherWithWorkoutActivityType:activityType shouldReconstructEntireRoute:*(v66 + 8) timeIntervalsThatNeedPopulating:v62];
+              objc_storeWeak((self + 56), v39);
+              -[HDWorkoutLocationSmoother _submitWorkoutPerformanceTask:event:activity:locations:failure:](self, v66, @"HDWorkoutAnalyticsPerformanceEventNameRouteSmoothingTaskSmoothBegin", v11, [v33 count], 0);
+              v40 = v66;
               [(HDWorkoutLocationSmoother *)self _queue_cancelTimeout];
-              v41[9] = 0;
+              v40[9] = 0;
 
-              v42 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, *(self + 8));
+              v41 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, *(self + 8));
+              v42 = *(self + 40);
+              *(self + 40) = v41;
+
+              objc_initWeak(v77, self);
               v43 = *(self + 40);
-              *(self + 40) = v42;
-
-              objc_initWeak(v78, self);
-              v44 = *(self + 40);
-              v45 = dispatch_time(0, (*(v41 + 8) * 1000000000.0));
-              dispatch_source_set_timer(v44, v45, 0xFFFFFFFFFFFFFFFFLL, 0);
-              v46 = *(self + 40);
+              v44 = dispatch_time(0, (*(v40 + 8) * 1000000000.0));
+              dispatch_source_set_timer(v43, v44, 0xFFFFFFFFFFFFFFFFLL, 0);
+              v45 = *(self + 40);
               *buf = MEMORY[0x277D85DD0];
               *&buf[8] = 3221225472;
               *&buf[16] = __73__HDWorkoutLocationSmoother__queue_scheduleSmoothingTimeoutTimerForTask___block_invoke;
-              v88 = &unk_2786177F8;
-              v47 = v41;
-              v89 = v47;
-              objc_copyWeak(&v90, v78);
-              dispatch_source_set_event_handler(v46, buf);
+              v87 = &unk_2786177F8;
+              v46 = v40;
+              v88 = v46;
+              objc_copyWeak(&v89, v77);
+              dispatch_source_set_event_handler(v45, buf);
               dispatch_resume(*(self + 40));
-              objc_destroyWeak(&v90);
+              objc_destroyWeak(&v89);
 
-              objc_destroyWeak(v78);
+              objc_destroyWeak(v77);
               _HKInitializeLogging();
-              v48 = *MEMORY[0x277CCC330];
+              v47 = *MEMORY[0x277CCC330];
               if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
               {
-                v49 = v48;
-                v50 = [v34 count];
+                v48 = v47;
+                v49 = [v33 count];
                 *buf = 138543874;
-                *&buf[4] = v40;
+                *&buf[4] = v39;
                 *&buf[12] = 2114;
                 *&buf[14] = v11;
                 *&buf[22] = 2048;
-                v88 = v50;
-                _os_log_impl(&dword_228986000, v49, OS_LOG_TYPE_DEFAULT, "[routes]: Calling smoother (%{public}@) for activity %{public}@ with %lu location points", buf, 0x20u);
+                v87 = v49;
+                _os_log_impl(&dword_228986000, v48, OS_LOG_TYPE_DEFAULT, "[routes]: Calling smoother (%{public}@) for activity %{public}@ with %lu location points", buf, 0x20u);
               }
 
-              objc_initWeak(v78, self);
+              objc_initWeak(v77, self);
               *buf = MEMORY[0x277D85DD0];
               *&buf[8] = 3221225472;
               *&buf[16] = __84__HDWorkoutLocationSmoother__queue_smoothActivity_activityIndex_forTask_completion___block_invoke_400;
-              v88 = &unk_27861D510;
-              objc_copyWeak(v94, v78);
-              v51 = v40;
-              v89 = v51;
-              v90 = v11;
-              v91 = v47;
-              v52 = v34;
-              v92 = v52;
-              v93 = v65;
-              [v51 smoothLocations:v52 batchType:0 handler:buf];
+              v87 = &unk_27861D510;
+              objc_copyWeak(v93, v77);
+              v50 = v39;
+              v88 = v50;
+              v89 = v11;
+              v90 = v46;
+              v51 = v33;
+              v91 = v51;
+              v92 = v64;
+              [v50 smoothLocations:v51 batchType:0 handler:buf];
 
-              objc_destroyWeak(v94);
-              objc_destroyWeak(v78);
+              objc_destroyWeak(v93);
+              objc_destroyWeak(v77);
             }
 
             else
             {
               _HKInitializeLogging();
-              v57 = *MEMORY[0x277CCC330];
+              v56 = *MEMORY[0x277CCC330];
               if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
               {
-                v58 = v67[2];
-                v59 = v57;
-                uUID = [v58 UUID];
+                v57 = v66[2];
+                v58 = v56;
+                uUID = [v57 UUID];
                 *buf = 138412290;
                 *&buf[4] = uUID;
-                _os_log_impl(&dword_228986000, v59, OS_LOG_TYPE_DEFAULT, "[routes] No locations or activity intervals to smooth for route with UUID=%@:", buf, 0xCu);
+                _os_log_impl(&dword_228986000, v58, OS_LOG_TYPE_DEFAULT, "[routes] No locations or activity intervals to smooth for route with UUID=%@:", buf, 0xCu);
               }
 
-              v69(v65, 0, v64);
+              v68(v64, 0, v63);
             }
           }
 
           else
           {
             _HKInitializeLogging();
-            v53 = *MEMORY[0x277CCC330];
+            v52 = *MEMORY[0x277CCC330];
             if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
             {
-              v54 = v67[2];
-              v55 = v53;
-              uUID2 = [v54 UUID];
+              v53 = v66[2];
+              v54 = v52;
+              uUID2 = [v53 UUID];
               *buf = 138412546;
               *&buf[4] = uUID2;
               *&buf[12] = 2114;
-              *&buf[14] = v64;
-              _os_log_impl(&dword_228986000, v55, OS_LOG_TYPE_DEFAULT, "[routes] Failed to fetch locations for route with UUID=%@: %{public}@", buf, 0x16u);
+              *&buf[14] = v63;
+              _os_log_impl(&dword_228986000, v54, OS_LOG_TYPE_DEFAULT, "[routes] Failed to fetch locations for route with UUID=%@: %{public}@", buf, 0x16u);
             }
 
-            v69(v65, 0, v64);
+            v68(v64, 0, v63);
           }
 
-          objc_destroyWeak(&v74);
           objc_destroyWeak(&v73);
+          objc_destroyWeak(&v72);
           objc_destroyWeak(&from);
           objc_destroyWeak(&location);
 
@@ -1523,13 +1506,11 @@ void __52__HDWorkoutLocationSmoother__queue_smoothNextSample__block_invoke_393(u
 
 LABEL_11:
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_finishTaskAttempt:(id *)attempt
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (attempt)
   {
@@ -1562,15 +1543,15 @@ LABEL_11:
         v9 = 0;
       }
 
-      v14 = 134218754;
-      v15 = v5;
-      v16 = 2114;
-      v17 = v3;
-      v18 = 2048;
-      v19 = v8;
-      v20 = 2114;
-      v21 = v9;
-      _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_DEFAULT, "[routes]: Finished smoothing task attempt %lu for Task: %{public}@. Routes smoothed: %lu. Error: %{public}@", &v14, 0x2Au);
+      v13 = 134218754;
+      v14 = v5;
+      v15 = 2114;
+      v16 = v3;
+      v17 = 2048;
+      v18 = v8;
+      v19 = 2114;
+      v20 = v9;
+      _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_DEFAULT, "[routes]: Finished smoothing task attempt %lu for Task: %{public}@. Routes smoothed: %lu. Error: %{public}@", &v13, 0x2Au);
     }
 
     if (v3)
@@ -1599,8 +1580,6 @@ LABEL_11:
   }
 
 LABEL_13:
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __68__HDWorkoutLocationSmoother__queue_smoothNextActivityForCurrentTask__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1856,7 +1835,7 @@ void __68__HDWorkoutLocationSmoother__queue_smoothNextActivityForCurrentTask__bl
 
 void __84__HDWorkoutLocationSmoother__queue_smoothActivity_activityIndex_forTask_completion___block_invoke_400(uint64_t a1, void *a2, void *a3)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 72));
@@ -1877,29 +1856,29 @@ void __84__HDWorkoutLocationSmoother__queue_smoothActivity_activityIndex_forTask
         v14 = *(a1 + 32);
         v15 = *(a1 + 40);
         *buf = 138543874;
-        v26 = v14;
-        v27 = 2114;
-        v28 = v15;
-        v29 = 2114;
-        v30 = v6;
+        v25 = v14;
+        v26 = 2114;
+        v27 = v15;
+        v28 = 2114;
+        v29 = v6;
         _os_log_impl(&dword_228986000, v13, OS_LOG_TYPE_DEFAULT, "[routes]: Smoother (%{public}@) did finish for activity %{public}@ with error: %{public}@", buf, 0x20u);
       }
 
       -[HDWorkoutLocationSmoother _submitWorkoutPerformanceTask:event:activity:locations:failure:](v8, *(a1 + 48), @"HDWorkoutAnalyticsPerformanceEventNameRouteSmoothingTaskSmoothEnd", *(a1 + 40), [*(a1 + 56) count], v6 != 0);
       v16 = *(v8 + 1);
-      v18[0] = MEMORY[0x277D85DD0];
-      v18[1] = 3221225472;
-      v18[2] = __84__HDWorkoutLocationSmoother__queue_smoothActivity_activityIndex_forTask_completion___block_invoke_401;
-      v18[3] = &unk_27861D4E8;
-      objc_copyWeak(&v24, (a1 + 72));
-      v19 = *(a1 + 48);
-      v20 = *(a1 + 40);
-      v23 = *(a1 + 64);
-      v21 = v5;
-      v22 = v6;
-      dispatch_async(v16, v18);
+      v17[0] = MEMORY[0x277D85DD0];
+      v17[1] = 3221225472;
+      v17[2] = __84__HDWorkoutLocationSmoother__queue_smoothActivity_activityIndex_forTask_completion___block_invoke_401;
+      v17[3] = &unk_27861D4E8;
+      objc_copyWeak(&v23, (a1 + 72));
+      v18 = *(a1 + 48);
+      v19 = *(a1 + 40);
+      v22 = *(a1 + 64);
+      v20 = v5;
+      v21 = v6;
+      dispatch_async(v16, v17);
 
-      objc_destroyWeak(&v24);
+      objc_destroyWeak(&v23);
     }
 
     else
@@ -1910,13 +1889,11 @@ void __84__HDWorkoutLocationSmoother__queue_smoothActivity_activityIndex_forTask
       {
         v12 = *(a1 + 32);
         *buf = 138543362;
-        v26 = v12;
+        v25 = v12;
         _os_log_impl(&dword_228986000, v11, OS_LOG_TYPE_DEFAULT, "[routes]: Previously timed out smoother (%{public}@) eventually returned, igorning result", buf, 0xCu);
       }
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __84__HDWorkoutLocationSmoother__queue_smoothActivity_activityIndex_forTask_completion___block_invoke_401(uint64_t a1)
@@ -1929,15 +1906,13 @@ void __84__HDWorkoutLocationSmoother__queue_smoothActivity_activityIndex_forTask
     [(HDWorkoutLocationSmoother *)v3 _queue_clearSmoothingTimeoutTimerForTask:?];
 
     v4 = objc_loadWeakRetained((a1 + 72));
-    v7 = [v4 unitTest_didSmoothActivityForTask];
+    v5 = [v4 unitTest_didSmoothActivityForTask];
 
-    if (v7)
+    if (v5)
     {
-      (*(v7 + 2))(v7, *(a1 + 40), *(a1 + 32));
+      (*(v5 + 2))(v5, *(a1 + 40), *(a1 + 32));
     }
 
-    v5 = *(a1 + 56);
-    v6 = *(a1 + 48);
     (*(*(a1 + 64) + 16))();
   }
 }
@@ -1977,7 +1952,7 @@ void __56__HDWorkoutLocationSmoother__queue_deleteRoutesForTask___block_invoke(u
 
 void __56__HDWorkoutLocationSmoother__queue_deleteRoutesForTask___block_invoke_2(uint64_t a1, char a2, void *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = a3;
   if ((a2 & 1) == 0)
   {
@@ -1985,18 +1960,16 @@ void __56__HDWorkoutLocationSmoother__queue_deleteRoutesForTask___block_invoke_2
     v5 = *MEMORY[0x277CCC330];
     if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
     {
-      v7 = 138543362;
-      v8 = v4;
-      _os_log_error_impl(&dword_228986000, v5, OS_LOG_TYPE_ERROR, "[routes] An error occurred deleting old route series %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v4;
+      _os_log_error_impl(&dword_228986000, v5, OS_LOG_TYPE_ERROR, "[routes] An error occurred deleting old route series %{public}@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __77__HDWorkoutLocationSmoother__queue_saveLocations_forTask_activity_saveError___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v5 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
@@ -2008,7 +1981,7 @@ BOOL __77__HDWorkoutLocationSmoother__queue_saveLocations_forTask_activity_saveE
   v6 = *(a1 + 32);
   v7 = *(a1 + 48);
   v8 = *(a1 + 40);
-  v33 = v7;
+  v32 = v7;
   if (!v6)
   {
     v24 = 0;
@@ -2030,9 +2003,9 @@ BOOL __77__HDWorkoutLocationSmoother__queue_saveLocations_forTask_activity_saveE
   v12 = v11;
   v13 = [v12 _source];
   v14 = [v13 bundleIdentifier];
-  v34 = 0;
-  v15 = [v10 localSourceForBundleIdentifier:v14 copyIfNecessary:1 error:&v34];
-  v32 = v34;
+  v33 = 0;
+  v15 = [v10 localSourceForBundleIdentifier:v14 copyIfNecessary:1 error:&v33];
+  v31 = v33;
 
   if (v15)
   {
@@ -2050,28 +2023,28 @@ BOOL __77__HDWorkoutLocationSmoother__queue_saveLocations_forTask_activity_saveE
     }
 
     v19 = v18;
-    v20 = v33;
+    v20 = v32;
     v21 = v17;
     v22 = v15;
     v23 = v16;
     objc_opt_self();
     v24 = [HDWorkoutLocationSmoother _saveNewRouteSeriesWithProfile:v23 sourceEntity:v22 forWorkout:v21 locations:v20 routes:v19 associateWithWorkout:1 error:a3];
 
-    v25 = v32;
+    v25 = v31;
     goto LABEL_17;
   }
 
   _HKInitializeLogging();
   v26 = *MEMORY[0x277CCC330];
-  v25 = v32;
+  v25 = v31;
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
   {
     *buf = 138543362;
-    v36 = v32;
+    v35 = v31;
     _os_log_error_impl(&dword_228986000, v26, OS_LOG_TYPE_ERROR, "[routes] Could not fetch local device source. %{public}@", buf, 0xCu);
   }
 
-  v23 = v32;
+  v23 = v31;
   if (!v23)
   {
     goto LABEL_16;
@@ -2095,15 +2068,13 @@ LABEL_18:
   v29 = *(v28 + 40);
   *(v28 + 40) = v24;
 
-  result = *(*(*(a1 + 56) + 8) + 40) != 0;
-  v31 = *MEMORY[0x277D85DE8];
-  return result;
+  return *(*(*(a1 + 56) + 8) + 40) != 0;
 }
 
 + (id)_saveNewRouteSeriesWithProfile:(id)profile sourceEntity:(id)entity forWorkout:(id)workout locations:(id)locations routes:(id)routes associateWithWorkout:(BOOL)withWorkout error:(id *)error
 {
   withWorkoutCopy = withWorkout;
-  v74 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   profileCopy = profile;
   workoutCopy = workout;
   v15 = MEMORY[0x277CBEB38];
@@ -2111,19 +2082,19 @@ LABEL_18:
   locationsCopy = locations;
   entityCopy = entity;
   v18 = [v15 alloc];
-  v64[0] = *MEMORY[0x277CCC520];
+  v63[0] = *MEMORY[0x277CCC520];
   uUID = [MEMORY[0x277CCAD78] UUID];
   uUIDString = [uUID UUIDString];
-  v65[0] = uUIDString;
-  v64[1] = *MEMORY[0x277CCE108];
-  v62 = workoutCopy;
+  v64[0] = uUIDString;
+  v63[1] = *MEMORY[0x277CCE108];
+  v61 = workoutCopy;
   uUID2 = [workoutCopy UUID];
   uUIDString2 = [uUID2 UUIDString];
-  v65[1] = uUIDString2;
-  v64[2] = *MEMORY[0x277CCC528];
+  v64[1] = uUIDString2;
+  v63[2] = *MEMORY[0x277CCC528];
   v23 = [MEMORY[0x277CCABB0] numberWithInteger:*MEMORY[0x277CCE5D0]];
-  v65[2] = v23;
-  v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v65 forKeys:v64 count:3];
+  v64[2] = v23;
+  v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v64 forKeys:v63 count:3];
   v25 = [v18 initWithDictionary:v24];
 
   v26 = profileCopy;
@@ -2137,13 +2108,13 @@ LABEL_18:
   *buf = MEMORY[0x277D85DD0];
   *&buf[8] = 3221225472;
   *&buf[16] = __105__HDWorkoutLocationSmoother__createWorkoutRouteWithProfile_metadata_sourceEntity_locations_routes_error___block_invoke;
-  v67 = &unk_2786199D0;
-  v68 = v26;
-  v69 = v31;
-  v70 = v28;
-  v71 = v29;
-  v72 = v30;
-  v73 = v27;
+  v66 = &unk_2786199D0;
+  v67 = v26;
+  v68 = v31;
+  v69 = v28;
+  v70 = v29;
+  v71 = v30;
+  v72 = v27;
   v33 = v27;
   v34 = v30;
   v35 = v29;
@@ -2159,7 +2130,7 @@ LABEL_18:
   if (!v40)
   {
     v50 = 0;
-    v43 = v62;
+    v43 = v61;
     goto LABEL_17;
   }
 
@@ -2170,15 +2141,15 @@ LABEL_18:
   if (!withWorkoutCopy)
   {
     v46 = 0;
-    v43 = v62;
+    v43 = v61;
     goto LABEL_11;
   }
 
-  v43 = v62;
-  uUID5 = [v62 UUID];
-  v63 = 0;
-  v45 = [HDAssociationEntity insertEntriesWithAssociationUUID:uUID5 objectUUIDsData:v41 type:0 behavior:0 destinationSubObjectReference:0 profile:v38 error:&v63];
-  v46 = v63;
+  v43 = v61;
+  uUID5 = [v61 UUID];
+  v62 = 0;
+  v45 = [HDAssociationEntity insertEntriesWithAssociationUUID:uUID5 objectUUIDsData:v41 type:0 behavior:0 destinationSubObjectReference:0 profile:v38 error:&v62];
+  v46 = v62;
 
   if (v45)
   {
@@ -2205,16 +2176,16 @@ LABEL_11:
   v47 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
   {
-    v57 = v47;
+    v56 = v47;
     uUID8 = [v40 UUID];
-    uUID9 = [v62 UUID];
+    uUID9 = [v61 UUID];
     *buf = 138543874;
     *&buf[4] = uUID8;
     *&buf[12] = 2114;
     *&buf[14] = uUID9;
     *&buf[22] = 2114;
-    v67 = v46;
-    _os_log_error_impl(&dword_228986000, v57, OS_LOG_TYPE_ERROR, "[routes] Failed to associate route %{public}@ with workout %{public}@ %{public}@", buf, 0x20u);
+    v66 = v46;
+    _os_log_error_impl(&dword_228986000, v56, OS_LOG_TYPE_ERROR, "[routes] Failed to associate route %{public}@ with workout %{public}@ %{public}@", buf, 0x20u);
   }
 
   v48 = v46;
@@ -2237,7 +2208,6 @@ LABEL_11:
 LABEL_16:
 
 LABEL_17:
-  v55 = *MEMORY[0x277D85DE8];
 
   return v50;
 }
@@ -2268,8 +2238,8 @@ void __60__HDWorkoutLocationSmoother__finishSmoothingSampleWithTask___block_invo
 
 uint64_t __105__HDWorkoutLocationSmoother__createWorkoutRouteWithProfile_metadata_sourceEntity_locations_routes_error___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v66[1] = *MEMORY[0x277D85DE8];
-  v52 = a2;
+  v65[1] = *MEMORY[0x277D85DE8];
+  v51 = a2;
   _HKInitializeLogging();
   v5 = MEMORY[0x277CCC330];
   v6 = *MEMORY[0x277CCC330];
@@ -2280,12 +2250,12 @@ uint64_t __105__HDWorkoutLocationSmoother__createWorkoutRouteWithProfile_metadat
   }
 
   v7 = [*(a1 + 32) dataManager];
-  v66[0] = *(a1 + 40);
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v66 count:1];
+  v65[0] = *(a1 + 40);
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v65 count:1];
   v9 = *(a1 + 48);
-  v60 = 0;
-  v10 = [v7 insertDataObjects:v8 sourceEntity:v9 deviceEntity:0 sourceVersion:0 creationDate:&v60 error:CFAbsoluteTimeGetCurrent()];
-  v11 = v60;
+  v59 = 0;
+  v10 = [v7 insertDataObjects:v8 sourceEntity:v9 deviceEntity:0 sourceVersion:0 creationDate:&v59 error:CFAbsoluteTimeGetCurrent()];
+  v11 = v59;
 
   if ((v10 & 1) == 0)
   {
@@ -2294,7 +2264,7 @@ uint64_t __105__HDWorkoutLocationSmoother__createWorkoutRouteWithProfile_metadat
     if (os_log_type_enabled(*v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v63 = v11;
+      v62 = v11;
       _os_log_error_impl(&dword_228986000, v20, OS_LOG_TYPE_ERROR, "[routes] Error occurred while saving new series sample: %{public}@", buf, 0xCu);
     }
 
@@ -2319,33 +2289,33 @@ LABEL_15:
   v12 = *(a1 + 56);
   if (!v12)
   {
-    v51 = a3;
-    v57 = 0u;
-    v58 = 0u;
-    v55 = 0u;
+    v50 = a3;
     v56 = 0u;
+    v57 = 0u;
+    v54 = 0u;
+    v55 = 0u;
     v18 = *(a1 + 64);
-    v23 = [v18 countByEnumeratingWithState:&v55 objects:v61 count:16];
+    v23 = [v18 countByEnumeratingWithState:&v54 objects:v60 count:16];
     if (v23)
     {
       v24 = v23;
-      v25 = *v56;
+      v25 = *v55;
       while (2)
       {
         v26 = 0;
         v27 = v11;
         do
         {
-          if (*v56 != v25)
+          if (*v55 != v25)
           {
             objc_enumerationMutation(v18);
           }
 
-          v28 = [*(*(&v55 + 1) + 8 * v26) UUID];
+          v28 = [*(*(&v54 + 1) + 8 * v26) UUID];
           v29 = [*(a1 + 40) UUID];
-          v54 = v27;
-          v30 = [HDLocationSeriesSampleEntity copyLocationDataFromSeriesIdentifier:v28 toSeriesIdentifier:v29 transaction:v52 error:&v54];
-          v11 = v54;
+          v53 = v27;
+          v30 = [HDLocationSeriesSampleEntity copyLocationDataFromSeriesIdentifier:v28 toSeriesIdentifier:v29 transaction:v51 error:&v53];
+          v11 = v53;
 
           if (!v30)
           {
@@ -2353,23 +2323,23 @@ LABEL_15:
             v36 = *MEMORY[0x277CCC330];
             if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
             {
-              v45 = *(a1 + 40);
-              v46 = v36;
-              v47 = [v45 UUID];
+              v44 = *(a1 + 40);
+              v45 = v36;
+              v46 = [v44 UUID];
               *buf = 138543618;
-              v63 = v47;
-              v64 = 2114;
-              v65 = v11;
-              _os_log_error_impl(&dword_228986000, v46, OS_LOG_TYPE_ERROR, "[routes] Couldn't copy location data for series sample %{public}@: %{public}@", buf, 0x16u);
+              v62 = v46;
+              v63 = 2114;
+              v64 = v11;
+              _os_log_error_impl(&dword_228986000, v45, OS_LOG_TYPE_ERROR, "[routes] Couldn't copy location data for series sample %{public}@: %{public}@", buf, 0x16u);
             }
 
             v22 = v11;
             if (v22)
             {
-              if (v51)
+              if (v50)
               {
                 v37 = v22;
-                *v51 = v22;
+                *v50 = v22;
               }
 
               else
@@ -2386,7 +2356,7 @@ LABEL_15:
         }
 
         while (v24 != v26);
-        v24 = [v18 countByEnumeratingWithState:&v55 objects:v61 count:16];
+        v24 = [v18 countByEnumeratingWithState:&v54 objects:v60 count:16];
         if (v24)
         {
           continue;
@@ -2397,16 +2367,16 @@ LABEL_15:
     }
 
     v16 = v11;
-    a3 = v51;
+    a3 = v50;
     v5 = MEMORY[0x277CCC330];
     goto LABEL_27;
   }
 
   v13 = [*(a1 + 40) UUID];
   v14 = *(a1 + 32);
-  v59 = v11;
-  v15 = [HDLocationSeriesSampleEntity insertLocationData:v12 seriesIdentifier:v13 assertion:0 profile:v14 error:&v59];
-  v16 = v59;
+  v58 = v11;
+  v15 = [HDLocationSeriesSampleEntity insertLocationData:v12 seriesIdentifier:v13 assertion:0 profile:v14 error:&v58];
+  v16 = v58;
 
   if (v15)
   {
@@ -2417,9 +2387,9 @@ LABEL_27:
     v33 = [*(a1 + 40) UUID];
     v34 = *(a1 + 72);
     v35 = *(a1 + 32);
-    v53 = v16;
-    v18 = [v32 freezeSeriesWithIdentifier:v33 metadata:v34 profile:v35 error:&v53];
-    v22 = v53;
+    v52 = v16;
+    v18 = [v32 freezeSeriesWithIdentifier:v33 metadata:v34 profile:v35 error:&v52];
+    v22 = v52;
 
     if (v18)
     {
@@ -2431,14 +2401,14 @@ LABEL_27:
     v38 = *v5;
     if (os_log_type_enabled(*v5, OS_LOG_TYPE_ERROR))
     {
-      v48 = *(a1 + 40);
-      v49 = v38;
-      v50 = [v48 UUID];
+      v47 = *(a1 + 40);
+      v48 = v38;
+      v49 = [v47 UUID];
       *buf = 138543618;
-      v63 = v50;
-      v64 = 2114;
-      v65 = v22;
-      _os_log_error_impl(&dword_228986000, v49, OS_LOG_TYPE_ERROR, "[routes] Couldn't freeze series %{public}@: %{public}@", buf, 0x16u);
+      v62 = v49;
+      v63 = 2114;
+      v64 = v22;
+      _os_log_error_impl(&dword_228986000, v48, OS_LOG_TYPE_ERROR, "[routes] Couldn't freeze series %{public}@: %{public}@", buf, 0x16u);
     }
 
     v22 = v22;
@@ -2466,14 +2436,14 @@ LABEL_43:
   v17 = *v5;
   if (os_log_type_enabled(*v5, OS_LOG_TYPE_ERROR))
   {
-    v42 = *(a1 + 40);
-    v43 = v17;
-    v44 = [v42 UUID];
+    v41 = *(a1 + 40);
+    v42 = v17;
+    v43 = [v41 UUID];
     *buf = 138543618;
-    v63 = v44;
-    v64 = 2114;
-    v65 = v16;
-    _os_log_error_impl(&dword_228986000, v43, OS_LOG_TYPE_ERROR, "[routes] Couldn't insert location data for series sample %{public}@: %{public}@", buf, 0x16u);
+    v62 = v43;
+    v63 = 2114;
+    v64 = v16;
+    _os_log_error_impl(&dword_228986000, v42, OS_LOG_TYPE_ERROR, "[routes] Couldn't insert location data for series sample %{public}@: %{public}@", buf, 0x16u);
   }
 
   v18 = v16;
@@ -2496,21 +2466,20 @@ LABEL_16:
   v22 = v18;
 LABEL_44:
 
-  v40 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
 void __55__HDWorkoutLocationSmoother__deleteSamples_completion___block_invoke(void *a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(HDDataDeletionConfiguration);
   [(HDDataDeletionConfiguration *)v2 setNotifyObservers:0];
   WeakRetained = objc_loadWeakRetained((a1[4] + 16));
   v4 = [WeakRetained dataManager];
   v5 = a1[5];
-  v11 = 0;
-  v6 = [v4 deleteObjectsWithUUIDCollection:v5 configuration:v2 error:&v11];
-  v7 = v11;
+  v10 = 0;
+  v6 = [v4 deleteObjectsWithUUIDCollection:v5 configuration:v2 error:&v10];
+  v7 = v10;
 
   if ((v6 & 1) == 0)
   {
@@ -2518,63 +2487,61 @@ void __55__HDWorkoutLocationSmoother__deleteSamples_completion___block_invoke(vo
     v8 = *MEMORY[0x277CCC330];
     if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
     {
-      v10 = a1[5];
+      v9 = a1[5];
       *buf = 138543618;
-      v13 = v10;
-      v14 = 2114;
-      v15 = v7;
+      v12 = v9;
+      v13 = 2114;
+      v14 = v7;
       _os_log_error_impl(&dword_228986000, v8, OS_LOG_TYPE_ERROR, "[routes] Error deleting route samples <%{public}@>, error=%{public}@", buf, 0x16u);
     }
   }
 
   (*(a1[6] + 16))();
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __73__HDWorkoutLocationSmoother__locationsForRoutes_startDate_endDate_error___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v45 = *MEMORY[0x277D85DE8];
-  v34 = a2;
-  v35 = [v34 databaseForEntityClass:objc_opt_class()];
+  v44 = *MEMORY[0x277D85DE8];
+  v33 = a2;
+  v34 = [v33 databaseForEntityClass:objc_opt_class()];
+  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
   v42 = 0u;
-  v43 = 0u;
   obj = *(a1 + 32);
-  v5 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
+  v5 = [obj countByEnumeratingWithState:&v39 objects:v43 count:16];
   if (v5)
   {
     v6 = v5;
-    v30 = a3;
-    v33 = *v41;
+    v29 = a3;
+    v32 = *v40;
     v7 = off_27860E000;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v41 != v33)
+        if (*v40 != v32)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v40 + 1) + 8 * i);
+        v9 = *(*(&v39 + 1) + 8 * i);
         v10 = [v9 UUID];
         v11 = HDDataEntityPredicateForDataUUID();
 
         v12 = v7[451];
-        v39 = 0;
-        v13 = [(__objc2_class *)v12 anyInDatabase:v35 predicate:v11 error:&v39];
-        v14 = v39;
+        v38 = 0;
+        v13 = [(__objc2_class *)v12 anyInDatabase:v34 predicate:v11 error:&v38];
+        v14 = v38;
         v15 = v14;
         if (!v13)
         {
           if (v14)
           {
-            if (v30)
+            if (v29)
             {
               v25 = v14;
-              *v30 = v15;
+              *v29 = v15;
             }
 
             else
@@ -2587,7 +2554,7 @@ uint64_t __73__HDWorkoutLocationSmoother__locationsForRoutes_startDate_endDate_e
           {
             v26 = MEMORY[0x277CCA9B8];
             v27 = [v9 UUID];
-            [v26 hk_assignError:v30 code:100 format:{@"Did not find the expected route sample with UUID=%@", v27}];
+            [v26 hk_assignError:v29 code:100 format:{@"Did not find the expected route sample with UUID=%@", v27}];
           }
 
           v24 = 0;
@@ -2596,26 +2563,26 @@ uint64_t __73__HDWorkoutLocationSmoother__locationsForRoutes_startDate_endDate_e
 
         v16 = *(a1 + 40);
         v17 = *(a1 + 48);
-        v38 = 0;
-        v36[0] = MEMORY[0x277D85DD0];
-        v36[1] = 3221225472;
-        v36[2] = __73__HDWorkoutLocationSmoother__locationsForRoutes_startDate_endDate_error___block_invoke_2;
-        v36[3] = &unk_27861D588;
-        v37 = *(a1 + 56);
-        v18 = [v13 enumerateLocationDataInTransaction:v34 startDate:v16 endDate:v17 error:&v38 handler:v36];
-        v19 = v38;
+        v37 = 0;
+        v35[0] = MEMORY[0x277D85DD0];
+        v35[1] = 3221225472;
+        v35[2] = __73__HDWorkoutLocationSmoother__locationsForRoutes_startDate_endDate_error___block_invoke_2;
+        v35[3] = &unk_27861D588;
+        v36 = *(a1 + 56);
+        v18 = [v13 enumerateLocationDataInTransaction:v33 startDate:v16 endDate:v17 error:&v37 handler:v35];
+        v19 = v37;
         v20 = v19;
         if ((v18 & 1) == 0)
         {
           v21 = v19;
           v22 = v21;
-          v31 = v21 == 0;
+          v30 = v21 == 0;
           if (v21)
           {
-            if (v30)
+            if (v29)
             {
               v23 = v21;
-              *v30 = v22;
+              *v29 = v22;
             }
 
             else
@@ -2629,12 +2596,12 @@ uint64_t __73__HDWorkoutLocationSmoother__locationsForRoutes_startDate_endDate_e
 
         if (!v18)
         {
-          v24 = v31;
+          v24 = v30;
           goto LABEL_26;
         }
       }
 
-      v6 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
+      v6 = [obj countByEnumeratingWithState:&v39 objects:v43 count:16];
       v24 = 1;
       if (v6)
       {
@@ -2652,13 +2619,12 @@ uint64_t __73__HDWorkoutLocationSmoother__locationsForRoutes_startDate_endDate_e
 
 LABEL_26:
 
-  v28 = *MEMORY[0x277D85DE8];
   return v24 & 1;
 }
 
 void __73__HDWorkoutLocationSmoother__queue_scheduleSmoothingTimeoutTimerForTask___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v2 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
@@ -2678,11 +2644,11 @@ void __73__HDWorkoutLocationSmoother__queue_scheduleSmoothingTimeoutTimerForTask
       v7 = *(v7 + 64);
     }
 
-    v12 = 138543618;
-    v13 = v5;
-    v14 = 2048;
-    v15 = v7;
-    _os_log_impl(&dword_228986000, v2, OS_LOG_TYPE_DEFAULT, "[routes] Smoothing did timeout for workout %{public}@ after %f sec", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v5;
+    v13 = 2048;
+    v14 = v7;
+    _os_log_impl(&dword_228986000, v2, OS_LOG_TYPE_DEFAULT, "[routes] Smoothing did timeout for workout %{public}@ after %f sec", &v11, 0x16u);
   }
 
   v8 = [MEMORY[0x277CCA9B8] hk_error:103 description:@"Smoothing task timed out"];
@@ -2695,13 +2661,11 @@ void __73__HDWorkoutLocationSmoother__queue_scheduleSmoothingTimeoutTimerForTask
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   objc_storeWeak(WeakRetained + 7, 0);
   [(HDWorkoutLocationSmoother *)WeakRetained _queue_smoothingDidFailForTask:v8 error:1 shouldRetry:?];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __59__HDWorkoutLocationSmoother__showTTRAlertForTask_duration___block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v7 = a4;
   v8 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -2719,7 +2683,7 @@ void __59__HDWorkoutLocationSmoother__showTTRAlertForTask_duration___block_invok
       if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v42 = WeakRetained;
+        v41 = WeakRetained;
         _os_log_impl(&dword_228986000, v34, OS_LOG_TYPE_DEFAULT, "%{public}@: Smoothing TTR alert: 'Not Now' button pressed", buf, 0xCu);
       }
     }
@@ -2731,11 +2695,11 @@ void __59__HDWorkoutLocationSmoother__showTTRAlertForTask_duration___block_invok
       if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v42 = WeakRetained;
+        v41 = WeakRetained;
         _os_log_impl(&dword_228986000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@: Route smoothing TTR alert: 'Tap-to-Radar' button pressed", buf, 0xCu);
       }
 
-      v38 = MEMORY[0x277CCACA8];
+      v37 = MEMORY[0x277CCACA8];
       if (v12)
       {
         v15 = *(v12 + 2);
@@ -2746,9 +2710,9 @@ void __59__HDWorkoutLocationSmoother__showTTRAlertForTask_duration___block_invok
         v15 = 0;
       }
 
-      v39 = v11;
-      v36 = v15;
-      v37 = [v36 device];
+      v38 = v11;
+      v35 = v15;
+      v36 = [v35 device];
       if (v12)
       {
         v16 = MEMORY[0x277CCACA8];
@@ -2773,7 +2737,7 @@ void __59__HDWorkoutLocationSmoother__showTTRAlertForTask_duration___block_invok
       }
 
       v28 = [v27 _detailedDescriptionString];
-      v29 = [v38 stringWithFormat:@"TimeOut: %f seconds \nTaskDuration: %f seconds \n\nDevice: %@ \n\nTask:\n%@ \n\nWorkout: %@", 0x403E000000000000, v10, v37, v26, v28];
+      v29 = [v37 stringWithFormat:@"TimeOut: %f seconds \nTaskDuration: %f seconds \n\nDevice: %@ \n\nTask:\n%@ \n\nWorkout: %@", 0x403E000000000000, v10, v36, v26, v28];
 
       v30 = MEMORY[0x277CBEBC0];
       v31 = [MEMORY[0x277CCACA8] stringWithFormat:@"Route Smoothing took %f seconds to complete", v10];
@@ -2782,16 +2746,14 @@ void __59__HDWorkoutLocationSmoother__showTTRAlertForTask_duration___block_invok
       v33 = [MEMORY[0x277CC1E80] defaultWorkspace];
       [v33 openURL:v32 configuration:0 completionHandler:&__block_literal_global_461_0];
 
-      v11 = v39;
+      v11 = v38;
     }
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 void __85__HDWorkoutLocationSmoother__handleAlertResponse_selectedButton_task_duration_error___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = a3;
   if (!a2)
   {
@@ -2799,13 +2761,11 @@ void __85__HDWorkoutLocationSmoother__handleAlertResponse_selectedButton_task_du
     v5 = *MEMORY[0x277CCC330];
     if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
     {
-      v7 = 138543362;
-      v8 = v4;
-      _os_log_error_impl(&dword_228986000, v5, OS_LOG_TYPE_ERROR, "Could not open Tap-to-Radar URL %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v4;
+      _os_log_error_impl(&dword_228986000, v5, OS_LOG_TYPE_ERROR, "Could not open Tap-to-Radar URL %{public}@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)samplesAdded:(id)added anchor:(id)anchor
@@ -2928,32 +2888,32 @@ void __49__HDWorkoutLocationSmoother_samplesAdded_anchor___block_invoke(uint64_t
 
 void __67__HDWorkoutLocationSmoother_smoothRouteWithWorkoutUUID_completion___block_invoke(uint64_t a1)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   obj = *(a1 + 32);
-  v2 = [obj countByEnumeratingWithState:&v22 objects:v27 count:16];
+  v2 = [obj countByEnumeratingWithState:&v21 objects:v26 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v23;
+    v4 = *v22;
     do
     {
       v5 = 0;
       do
       {
-        if (*v23 != v4)
+        if (*v22 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v22 + 1) + 8 * v5);
+        v6 = *(*(&v21 + 1) + 8 * v5);
         v7 = [HDSmoothingTask alloc];
         v8 = *(a1 + 40);
-        v26 = v6;
-        v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v26 count:1];
+        v25 = v6;
+        v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v25 count:1];
         WeakRetained = objc_loadWeakRetained((*(a1 + 48) + 16));
         v11 = [WeakRetained daemon];
         v12 = [v11 analyticsSubmissionCoordinator];
@@ -2964,7 +2924,7 @@ void __67__HDWorkoutLocationSmoother_smoothRouteWithWorkoutUUID_completion___blo
       }
 
       while (v3 != v5);
-      v3 = [obj countByEnumeratingWithState:&v22 objects:v27 count:16];
+      v3 = [obj countByEnumeratingWithState:&v21 objects:v26 count:16];
     }
 
     while (v3);
@@ -2972,12 +2932,12 @@ void __67__HDWorkoutLocationSmoother_smoothRouteWithWorkoutUUID_completion___blo
 
   if ([*(*(a1 + 48) + 24) count])
   {
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __67__HDWorkoutLocationSmoother_smoothRouteWithWorkoutUUID_completion___block_invoke_2;
-    v20[3] = &unk_278613658;
-    v21 = *(a1 + 56);
-    [*(a1 + 48) setDidCompleteAllPendingSmoothingTasksHandler:v20];
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __67__HDWorkoutLocationSmoother_smoothRouteWithWorkoutUUID_completion___block_invoke_2;
+    v19[3] = &unk_278613658;
+    v20 = *(a1 + 56);
+    [*(a1 + 48) setDidCompleteAllPendingSmoothingTasksHandler:v19];
     v14 = objc_loadWeakRetained((*(a1 + 48) + 16));
     v15 = [v14 database];
     v16 = [v15 isProtectedDataAvailable];
@@ -2998,8 +2958,6 @@ void __67__HDWorkoutLocationSmoother_smoothRouteWithWorkoutUUID_completion___blo
   {
     (*(*(a1 + 56) + 16))();
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unitTest_smoothRouteForTask:(id)task completion:(id)completion
@@ -3021,7 +2979,7 @@ void __67__HDWorkoutLocationSmoother_smoothRouteWithWorkoutUUID_completion___blo
 
 void __68__HDWorkoutLocationSmoother_unitTest_smoothRouteForTask_completion___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v2 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
@@ -3036,9 +2994,9 @@ void __68__HDWorkoutLocationSmoother_unitTest_smoothRouteForTask_completion___bl
     v6 = v2;
     v7 = [v5 firstObject];
     v8 = [v7 UUID];
-    v13 = 138412290;
-    v14 = v8;
-    _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_DEFAULT, "[routes] Will smooth sample %@", &v13, 0xCu);
+    v12 = 138412290;
+    v13 = v8;
+    _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_DEFAULT, "[routes] Will smooth sample %@", &v12, 0xCu);
   }
 
   v9 = *(a1 + 32);
@@ -3055,7 +3013,6 @@ void __68__HDWorkoutLocationSmoother_unitTest_smoothRouteForTask_completion___bl
 
   [*(*(a1 + 40) + 24) addObject:v11];
   [(HDWorkoutLocationSmoother *)*(a1 + 40) _queue_smoothNextSample];
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 @end

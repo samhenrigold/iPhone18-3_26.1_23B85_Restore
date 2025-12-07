@@ -172,16 +172,15 @@
 
   else
   {
-    viewCell = self->_viewCell;
-    v12 = ICProtocolCast();
-    v13 = -[NSMutableArray objectAtIndexedSubscript:](self->_notes, "objectAtIndexedSubscript:", [pathCopy row]);
-    [v12 setNote:v13];
+    v11 = ICProtocolCast();
+    v12 = -[NSMutableArray objectAtIndexedSubscript:](self->_notes, "objectAtIndexedSubscript:", [pathCopy row]);
+    [v11 setNote:v12];
 
     if ([(NSMutableArray *)self->_notes count]== &dword_0 + 1)
     {
       [(SiriUIContentCollectionViewCell *)self->_viewCell sizeThatFits:width, 1.79769313e308];
-      width = v14;
-      height = v15;
+      width = v13;
+      height = v14;
     }
 
     else
@@ -190,10 +189,10 @@
     }
   }
 
-  v17 = width;
-  v18 = height;
-  result.height = v18;
-  result.width = v17;
+  v16 = width;
+  v17 = height;
+  result.height = v17;
+  result.width = v16;
   return result;
 }
 

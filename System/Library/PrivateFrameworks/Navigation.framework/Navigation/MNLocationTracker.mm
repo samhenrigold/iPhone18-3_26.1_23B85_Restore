@@ -6,6 +6,7 @@
 - (id)matchedLocationForLocation:(id)location;
 - (int)transportType;
 - (void)_roadFeaturesForFeature:(id)feature outRoadName:(id *)name outShieldText:(id *)text outShieldType:(int64_t *)type;
+- (void)_setState:(int)state;
 - (void)_setTargetLegIndex:(unint64_t)index;
 - (void)_updateArrivalInfo:(id)info previousState:(int64_t)state;
 - (void)dealloc;
@@ -34,7 +35,7 @@
 
 - (void)_roadFeaturesForFeature:(id)feature outRoadName:(id *)name outShieldText:(id *)text outShieldType:(int64_t *)type
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   featureCopy = feature;
   v11 = featureCopy;
   if (featureCopy)
@@ -118,11 +119,11 @@ LABEL_45:
               if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
               {
                 *buf = 136315650;
-                v31 = "[MNLocationTracker _roadFeaturesForFeature:outRoadName:outShieldText:outShieldType:]";
-                v32 = 2080;
-                v33 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Location/LocationTracking/MNLocationTracker.m";
-                v34 = 1024;
-                v35 = 335;
+                v30 = "[MNLocationTracker _roadFeaturesForFeature:outRoadName:outShieldText:outShieldType:]";
+                v31 = 2080;
+                v32 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Location/LocationTracking/MNLocationTracker.m";
+                v33 = 1024;
+                v34 = 335;
                 _os_log_impl(&dword_1D311E000, v26, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: Hit an unreachable code path", buf, 0x1Cu);
               }
             }
@@ -168,11 +169,11 @@ LABEL_44:
               if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
               {
                 *buf = 136315650;
-                v31 = "[MNLocationTracker _roadFeaturesForFeature:outRoadName:outShieldText:outShieldType:]";
-                v32 = 2080;
-                v33 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Location/LocationTracking/MNLocationTracker.m";
-                v34 = 1024;
-                v35 = 319;
+                v30 = "[MNLocationTracker _roadFeaturesForFeature:outRoadName:outShieldText:outShieldType:]";
+                v31 = 2080;
+                v32 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Location/LocationTracking/MNLocationTracker.m";
+                v33 = 1024;
+                v34 = 319;
                 _os_log_impl(&dword_1D311E000, v25, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: Hit an unreachable code path", buf, 0x1Cu);
               }
             }
@@ -184,11 +185,11 @@ LABEL_44:
             if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
             {
               *buf = 136315650;
-              v31 = "[MNLocationTracker _roadFeaturesForFeature:outRoadName:outShieldText:outShieldType:]";
-              v32 = 2080;
-              v33 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Location/LocationTracking/MNLocationTracker.m";
-              v34 = 1024;
-              v35 = 314;
+              v30 = "[MNLocationTracker _roadFeaturesForFeature:outRoadName:outShieldText:outShieldType:]";
+              v31 = 2080;
+              v32 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Location/LocationTracking/MNLocationTracker.m";
+              v33 = 1024;
+              v34 = 314;
               _os_log_impl(&dword_1D311E000, v18, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: Hit an unreachable code path", buf, 0x1Cu);
             }
 
@@ -217,8 +218,6 @@ LABEL_44:
   }
 
 LABEL_52:
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateArrivalInfo:(id)info previousState:(int64_t)state
@@ -243,39 +242,48 @@ LABEL_52:
 
 - (void)_setTargetLegIndex:(unint64_t)index
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (self->_targetLegIndex != index)
   {
     v5 = GEOFindOrCreateLog();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       targetLegIndex = self->_targetLegIndex;
-      v9[0] = 67109376;
-      v9[1] = targetLegIndex;
-      v10 = 1024;
+      v8[0] = 67109376;
+      v8[1] = targetLegIndex;
+      v9 = 1024;
       indexCopy = index;
-      _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_DEFAULT, "Changing target leg index from %d to %d.", v9, 0xEu);
+      _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_DEFAULT, "Changing target leg index from %d to %d.", v8, 0xEu);
     }
 
     self->_targetLegIndex = index;
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
     [WeakRetained locationTracker:self didUpdateTargetLegIndex:index];
   }
+}
 
-  v8 = *MEMORY[0x1E69E9840];
+- (void)_setState:(int)state
+{
+  if (self->_state != state)
+  {
+    v4 = *&state;
+    self->_state = state;
+    WeakRetained = objc_loadWeakRetained(&self->_delegate);
+    [WeakRetained locationTracker:self didChangeState:v4];
+  }
 }
 
 - (id)matchedLocationForLocation:(id)location
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   locationCopy = location;
   v5 = MNGetPuckTrackingLog();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     uuid = [locationCopy uuid];
-    v19 = 138412290;
-    v20 = uuid;
-    _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_INFO, "[MN] [%@] - Processing - in MNLocationTracker::matchedLocationForLocation:", &v19, 0xCu);
+    v18 = 138412290;
+    v19 = uuid;
+    _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_INFO, "[MN] [%@] - Processing - in MNLocationTracker::matchedLocationForLocation:", &v18, 0xCu);
   }
 
   v7 = MNGetMNLocationTrackerLog();
@@ -284,8 +292,8 @@ LABEL_52:
   v10 = v9;
   if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
   {
-    LOWORD(v19) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1D311E000, v10, OS_SIGNPOST_INTERVAL_BEGIN, v8, "MatchedLocationForLocation", "", &v19, 2u);
+    LOWORD(v18) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1D311E000, v10, OS_SIGNPOST_INTERVAL_BEGIN, v8, "MatchedLocationForLocation", "", &v18, 2u);
   }
 
   v11 = [(MNLocationTracker *)self _matchedLocationForLocation:locationCopy];
@@ -295,9 +303,9 @@ LABEL_52:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       uuid2 = [v11 uuid];
-      v19 = 138412290;
-      v20 = uuid2;
-      _os_log_impl(&dword_1D311E000, v12, OS_LOG_TYPE_INFO, "[MN] [%@] - Processing - calling didUpdateMatchedLocation:", &v19, 0xCu);
+      v18 = 138412290;
+      v19 = uuid2;
+      _os_log_impl(&dword_1D311E000, v12, OS_LOG_TYPE_INFO, "[MN] [%@] - Processing - calling didUpdateMatchedLocation:", &v18, 0xCu);
     }
 
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -308,11 +316,9 @@ LABEL_52:
   v16 = v15;
   if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
   {
-    LOWORD(v19) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1D311E000, v16, OS_SIGNPOST_INTERVAL_END, v8, "MatchedLocationForLocation", "", &v19, 2u);
+    LOWORD(v18) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1D311E000, v16, OS_SIGNPOST_INTERVAL_END, v8, "MatchedLocationForLocation", "", &v18, 2u);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -367,26 +373,25 @@ LABEL_52:
 
 - (int)transportType
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = GEOFindOrCreateLog();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     v4 = objc_opt_class();
     v5 = NSStringFromSelector(a2);
-    v8 = 136316162;
-    v9 = "[MNLocationTracker transportType]";
-    v10 = 2080;
-    v11 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Location/LocationTracking/MNLocationTracker.m";
-    v12 = 1024;
-    v13 = 74;
-    v14 = 2112;
-    v15 = v4;
-    v16 = 2112;
-    v17 = v5;
-    _os_log_impl(&dword_1D311E000, v3, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: %@ must implement '%@'", &v8, 0x30u);
+    v7 = 136316162;
+    v8 = "[MNLocationTracker transportType]";
+    v9 = 2080;
+    v10 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Location/LocationTracking/MNLocationTracker.m";
+    v11 = 1024;
+    v12 = 74;
+    v13 = 2112;
+    v14 = v4;
+    v15 = 2112;
+    v16 = v5;
+    _os_log_impl(&dword_1D311E000, v3, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: %@ must implement '%@'", &v7, 0x30u);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return 4;
 }
 

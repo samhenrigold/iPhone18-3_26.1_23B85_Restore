@@ -11,7 +11,7 @@
   [objc_msgSend(v3 "sharedInstance")];
   swift_unknownObjectRelease();
   v5.receiver = selfCopy;
-  v5.super_class = type metadata accessor for ProfileRestrictions();
+  v5.super_class = type metadata accessor for ProfileRestrictions(0);
   [(ProfileRestrictions *)&v5 dealloc];
 }
 

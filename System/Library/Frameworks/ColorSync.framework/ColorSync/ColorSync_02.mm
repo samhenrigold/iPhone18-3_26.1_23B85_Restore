@@ -1,85 +1,3 @@
-uint64_t __current_or_newer_sdk_block_invoke()
-{
-  current_or_newer_sdk_linked_on_glow_or_later = dyld_program_sdk_at_least();
-  current_or_newer_sdk_linked_on_crystal_or_later = dyld_program_sdk_at_least();
-  current_or_newer_sdk_linked_on_sapphire_or_later = dyld_program_sdk_at_least();
-  current_or_newer_sdk_linked_on_moonstone_or_later = dyld_program_sdk_at_least();
-  result = dyld_program_sdk_at_least();
-  current_or_newer_sdk_linked_on_constellation_or_later = result;
-  return result;
-}
-
-const UInt8 *___ZL14sRGBTRCDataPtrv_block_invoke()
-{
-  v0 = ColorSyncProfileCreateWithName(kColorSyncSRGBProfile);
-  sRGBTRCDataPtr(void)::sRGBTRCDataRef = ColorSyncProfileCopyTag(v0, @"rTRC");
-  result = CFDataGetBytePtr(sRGBTRCDataPtr(void)::sRGBTRCDataRef);
-  sRGBTRCDataPtr(void)::ptr = (result + 12);
-  return result;
-}
-
-void ___ZL27CMMInitializeSRGBGammaTablev_block_invoke()
-{
-  v24 = 0;
-  CMMMemMgr::CMMMemMgr(&v24);
-  v2 = CMMBase::NewInternal(0x28, &v24, v0, v1);
-  v2[2] = 0;
-  v2[3] = &ksRGBGammaData;
-  *v2 = &unk_1F0E09180;
-  v2[1] = 0;
-  v2[4] = 21512;
-  CMMsRGBGammaTable = v2;
-  v5 = CMMBase::NewInternal(0x28, &v24, v3, v4);
-  v5[2] = 0;
-  v5[3] = &kInvsRGBGammaData;
-  *v5 = &unk_1F0E09180;
-  v5[1] = 0;
-  v5[4] = 21512;
-  CMMInvsRGBGammaTable = v5;
-  v8 = CMMBase::NewInternal(0x38, &v24, v6, v7);
-  CMMsRGBGammaFloatLutInfo = v8;
-  *v8 = 0x100000001;
-  *(v8 + 3) = 3;
-  v8[2] = 0;
-  *(v8 + 8) = 0;
-  *(v8 + 3) = xmmword_19A96E270;
-  *(v8 + 5) = xmmword_19A96E280;
-  v11 = CMMBase::NewInternal(0x38, &v24, v9, v10);
-  CMMInvsRGBGammaFloatLutInfo = v11;
-  v12 = *(CMMsRGBGammaFloatLutInfo + 28);
-  v23 = *(CMMsRGBGammaFloatLutInfo + 24);
-  v13 = *(CMMsRGBGammaFloatLutInfo + 32);
-  v14 = *(CMMsRGBGammaFloatLutInfo + 36);
-  v15 = *(CMMsRGBGammaFloatLutInfo + 40);
-  *v11 = 0x400000001;
-  v11[1].i32[1] = 4;
-  v11[2] = 0;
-  v11[1].i8[0] = 0;
-  v16 = __PAIR64__(COERCE_UNSIGNED_INT(powf(v12, v23)), LODWORD(v23));
-  __asm { FMOV            V0.2S, #1.0 }
-
-  v11[3] = vdiv_f32(_D0, v16);
-  v11[4].i32[0] = 0;
-  v22 = 1.0 / v14;
-  if (v14 == 0.0)
-  {
-    v22 = 0.0;
-  }
-
-  v11[4].f32[1] = v22;
-  v11[5].f32[0] = v14 * v15;
-  v11[5].f32[1] = -v13 / v12;
-  v11[6] = 0;
-  CMMMemMgr::ReleaseMemList(&v24);
-}
-
-void sub_19A92BE20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
-{
-  va_start(va, a4);
-  CMMMemMgr::ReleaseMemList(va);
-  _Unwind_Resume(a1);
-}
-
 BOOL IsSRGBGammaCurve(unsigned int a1, unsigned __int16 *__s1)
 {
   if (a1 == 26)
@@ -160,7 +78,7 @@ BOOL IsSRGBGammaCurve(unsigned int a1, unsigned __int16 *__s1)
   return result;
 }
 
-uint64_t CMMConvInvertedTRC::CMMConvInvertedTRC(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, __int128 *a6, uint64_t a7, int a8, char a9)
+uint64_t CMMConvInvertedTRC::CMMConvInvertedTRC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, __int128 *a6, uint64_t a7, uint64_t a8, char a9)
 {
   result = CMMConvTRC::CMMConvTRC(a1, a2, a3, a4, a6, a7, a8, 1, 1.0, 1, a9);
   *result = &unk_1F0E06EB0;
@@ -256,7 +174,7 @@ CMMConvNode *CMMConvNode::RemoveNOPs(CMMConvNode *this, unint64_t *a2, _BOOL4 a3
       *(this + 2) = v10;
       if (v10)
       {
-        *(v10 + 24) = this;
+        *(v10 + 3) = this;
       }
     }
   }
@@ -459,18 +377,36 @@ BOOL CMMProfile::UseNamedColor(uint64_t a1, uint64_t a2, int a3)
     Tag = CMMProfile::GetTag(a1, 1852009522);
     if (Tag)
     {
-      v7 = **Tag;
     }
 
     else
     {
-      v8 = 0;
+      v7 = 0;
     }
 
-    v9 = CMMProfile::GetTag(a2, 1852009522);
+    v8 = CMMProfile::GetTag(a2, 1852009522);
+    if (v8)
+    {
+    }
+
+    else
+    {
+      v9 = 0;
+    }
+
     if (v9)
     {
-      v10 = **v9;
+      v10 = v7 == 0;
+    }
+
+    else
+    {
+      v10 = 1;
+    }
+
+    if (v10)
+    {
+      v11 = 4294967126;
     }
 
     else
@@ -478,59 +414,39 @@ BOOL CMMProfile::UseNamedColor(uint64_t a1, uint64_t a2, int a3)
       v11 = 0;
     }
 
-    if (v11)
+    CMMThrowExceptionOnError(v11);
+    v13 = *(a1 + 48);
+    if (v13 <= 1296255029)
     {
-      v12 = v8 == 0;
-    }
-
-    else
-    {
-      v12 = 1;
-    }
-
-    if (v12)
-    {
-      v13 = 4294967126;
-    }
-
-    else
-    {
-      v13 = 0;
-    }
-
-    CMMThrowExceptionOnError(v13);
-    v15 = *(a1 + 48);
-    if (v15 <= 1296255029)
-    {
-      if (v15 == 1281450528)
+      if (v13 == 1281450528)
       {
-        v15 = 1145856354;
+        v13 = 1145856354;
       }
 
-      else if (v15 == 1296255029)
+      else if (v13 == 1296255029)
       {
-        v15 = 893602898;
+        v13 = 893602898;
       }
     }
 
     else
     {
-      switch(v15)
+      switch(v13)
       {
         case 1296255030:
-          v15 = 910380114;
+          v13 = 910380114;
           break;
         case 1296255031:
-          v15 = 927157330;
+          v13 = 927157330;
           break;
         case 1296255032:
-          v15 = 943934546;
+          v13 = 943934546;
           break;
       }
     }
 
-    v14 = v8[22];
-    if (CMMGetChannelCountFromCMMSpace(v15) == v14 && *(v8 + 92) && *(v8 + 124) && !strcmp(v8 + 92, v11 + 92) && !strcmp(v8 + 124, v11 + 124))
+    v12 = v7[22];
+    if (CMMGetChannelCountFromCMMSpace(v13) == v12 && *(v7 + 92) && *(v7 + 124) && !strcmp(v7 + 92, v9 + 92) && !strcmp(v7 + 124, v9 + 124))
     {
       return 1;
     }
@@ -861,181 +777,177 @@ void CMMConvMatrix::CMMConvMatrix(CMMConvMatrix *this, const CMMMatrix *a2, CMMC
   *(this + 35) = 0;
 }
 
-CMMTable *CMMCurveTag::MakeInvertedTRC()
+CMMTable *CMMCurveTag::MakeInvertedTRC(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v0 = MEMORY[0x1EEE9AC00]();
-  v2 = v1;
-  v4 = v3;
-  v6 = v5;
-  v7 = v0;
-  v43 = *MEMORY[0x1E69E9840];
-  v8 = (*(*v0 + 48))(v0);
-  v9 = (*(*v7 + 40))(v7);
-  if ((*(*v7 + 40))(v7) == 1)
+  v3 = MEMORY[0x1EEE9AC00](a1, a2, a3);
+  v5 = v4;
+  v7 = v6;
+  v9 = v8;
+  v10 = v3;
+  v45 = *MEMORY[0x1E69E9840];
+  v11 = (*(*v3 + 48))(v3);
+  v12 = (*(*v10 + 40))(v10);
+  if ((*(*v10 + 40))(v10) == 1)
   {
-    v10 = *(*(*v7 + 48))(v7);
-    if (v10 == 1)
+    v13 = *(*(*v10 + 48))(v10);
+    if (v13 == 1)
     {
       if (CMMInitializeLinearGammaTable(void)::predicate != -1)
       {
         dispatch_once(&CMMInitializeLinearGammaTable(void)::predicate, &__block_literal_global_1015);
       }
 
-      v11 = CMMLinearGammaTable;
-      v12 = *(CMMLinearGammaTable + 8);
-      if (v12)
+      v14 = CMMLinearGammaTable;
+      v15 = *(CMMLinearGammaTable + 8);
+      if (v15)
       {
-        *(CMMLinearGammaTable + 8) = ++v12;
+        *(CMMLinearGammaTable + 8) = ++v15;
       }
 
-      *v2 = v11;
-      if (!v6)
+      *v5 = v14;
+      if (!v9)
       {
         goto LABEL_28;
       }
 
-      v14 = *(CMMLinearGammaFloatLutInfo + 16);
-      v13 = *(CMMLinearGammaFloatLutInfo + 32);
-      v15 = *CMMLinearGammaFloatLutInfo;
-      *(v6 + 48) = *(CMMLinearGammaFloatLutInfo + 48);
-      *(v6 + 16) = v14;
-      *(v6 + 32) = v13;
-      *v6 = v15;
+      v17 = *(CMMLinearGammaFloatLutInfo + 16);
+      v16 = *(CMMLinearGammaFloatLutInfo + 32);
+      v18 = *CMMLinearGammaFloatLutInfo;
+      *(v9 + 48) = *(CMMLinearGammaFloatLutInfo + 48);
+      *(v9 + 16) = v17;
+      *(v9 + 32) = v16;
+      *v9 = v18;
 LABEL_27:
-      v12 = *(v11 + 1);
+      v15 = *(v14 + 1);
 LABEL_28:
-      if (v12)
+      if (v15)
       {
-        *(v11 + 1) = v12 + 1;
+        *(v14 + 1) = v15 + 1;
       }
 
-      goto LABEL_30;
+      return v14;
     }
 
-    if ((v10 & 0xFFFFFEFF) == 0xCC01)
+    if ((v13 & 0xFFFFFEFF) == 0xCC01)
     {
       if (CMMInitializeOnePointEightGammaTable(void)::predicate != -1)
       {
         dispatch_once(&CMMInitializeOnePointEightGammaTable(void)::predicate, &__block_literal_global_1018);
       }
 
-      *v2 = CMMOnePointEightGammaTable;
-      if (v6)
+      *v5 = CMMOnePointEightGammaTable;
+      if (v9)
       {
-        v17 = *(CMMInvOnePointEightGammaFloatLutInfo + 16);
-        v16 = *(CMMInvOnePointEightGammaFloatLutInfo + 32);
-        v18 = *CMMInvOnePointEightGammaFloatLutInfo;
-        *(v6 + 48) = *(CMMInvOnePointEightGammaFloatLutInfo + 48);
-        *(v6 + 16) = v17;
-        *(v6 + 32) = v16;
-        *v6 = v18;
+        v20 = *(CMMInvOnePointEightGammaFloatLutInfo + 16);
+        v19 = *(CMMInvOnePointEightGammaFloatLutInfo + 32);
+        v21 = *CMMInvOnePointEightGammaFloatLutInfo;
+        *(v9 + 48) = *(CMMInvOnePointEightGammaFloatLutInfo + 48);
+        *(v9 + 16) = v20;
+        *(v9 + 32) = v19;
+        *v9 = v21;
       }
 
-      v11 = CMMInvOnePointEightGammaTable;
+      v14 = CMMInvOnePointEightGammaTable;
       goto LABEL_27;
     }
 
-    if (v10 == 13058)
+    if (v13 == 13058)
     {
       if (CMMInitializeTwoPointTwoGammaTable(void)::predicate != -1)
       {
         dispatch_once(&CMMInitializeTwoPointTwoGammaTable(void)::predicate, &__block_literal_global_1008);
       }
 
-      *v2 = CMMTwoPointTwoGammaTable;
-      if (v6)
+      *v5 = CMMTwoPointTwoGammaTable;
+      if (v9)
       {
-        v20 = *(CMMInvTwoPointTwoGammaFloatLutInfo + 16);
-        v19 = *(CMMInvTwoPointTwoGammaFloatLutInfo + 32);
-        v21 = *CMMInvTwoPointTwoGammaFloatLutInfo;
-        *(v6 + 48) = *(CMMInvTwoPointTwoGammaFloatLutInfo + 48);
-        *(v6 + 16) = v20;
-        *(v6 + 32) = v19;
-        *v6 = v21;
+        v23 = *(CMMInvTwoPointTwoGammaFloatLutInfo + 16);
+        v22 = *(CMMInvTwoPointTwoGammaFloatLutInfo + 32);
+        v24 = *CMMInvTwoPointTwoGammaFloatLutInfo;
+        *(v9 + 48) = *(CMMInvTwoPointTwoGammaFloatLutInfo + 48);
+        *(v9 + 16) = v23;
+        *(v9 + 32) = v22;
+        *v9 = v24;
       }
 
-      v11 = CMMInvTwoPointTwoGammaTable;
+      v14 = CMMInvTwoPointTwoGammaTable;
       goto LABEL_27;
     }
   }
 
-  if (IsSRGBGammaCurve(v9, v8))
+  if (IsSRGBGammaCurve(v12, v11))
   {
     if (CMMInitializeSRGBGammaTable(void)::predicate != -1)
     {
       dispatch_once(&CMMInitializeSRGBGammaTable(void)::predicate, &__block_literal_global_1012);
     }
 
-    *v2 = CMMsRGBGammaTable;
-    if (v6)
+    *v5 = CMMsRGBGammaTable;
+    if (v9)
     {
-      v25 = *(CMMInvsRGBGammaFloatLutInfo + 16);
-      v24 = *(CMMInvsRGBGammaFloatLutInfo + 32);
-      v26 = *CMMInvsRGBGammaFloatLutInfo;
-      *(v6 + 48) = *(CMMInvsRGBGammaFloatLutInfo + 48);
-      *(v6 + 16) = v25;
-      *(v6 + 32) = v24;
-      *v6 = v26;
+      v28 = *(CMMInvsRGBGammaFloatLutInfo + 16);
+      v27 = *(CMMInvsRGBGammaFloatLutInfo + 32);
+      v29 = *CMMInvsRGBGammaFloatLutInfo;
+      *(v9 + 48) = *(CMMInvsRGBGammaFloatLutInfo + 48);
+      *(v9 + 16) = v28;
+      *(v9 + 32) = v27;
+      *v9 = v29;
     }
 
-    v11 = CMMInvsRGBGammaTable;
+    v14 = CMMInvsRGBGammaTable;
     goto LABEL_27;
   }
 
-  v29 = CMMBase::NewInternal(0x28, v4, v22, v23);
-  *v29 = &unk_1F0E09180;
-  *(v29 + 1) = 1;
-  *(v29 + 3) = 0;
-  *(v29 + 4) = 21512;
-  *(v29 + 2) = CMMBase::NewInternal(0x5408, v4, v30, v31);
-  *v2 = v29;
-  v32 = CMMTable::UInt8Data(*(v29 + 2), *(v29 + 3));
-  CMMCurveTag::MakeLut(v7, v6, v32, 0);
-  v11 = CMMBase::NewInternal(0x28, v4, v33, v34);
-  *v11 = &unk_1F0E09180;
-  *(v11 + 1) = 1;
-  *(v11 + 3) = 0;
-  *(v11 + 4) = 21512;
-  v37 = CMMBase::NewInternal(0x5408, v4, v35, v36);
-  *(v11 + 2) = v37;
-  v38 = CMMTable::UInt8Data(v37, *(v11 + 3));
-  memcpy(v38, v32, 0x5408uLL);
-  bzero(v42, 0x4004uLL);
-  InvertLUT(v38, v42);
-  MakeLookups(v38);
-  if (v6)
+  v31 = CMMBase::NewInternal(0x28, v7, v25, v26);
+  *v31 = &unk_1F0E09180;
+  *(v31 + 1) = 1;
+  *(v31 + 3) = 0;
+  *(v31 + 4) = 21512;
+  *(v31 + 2) = CMMBase::NewInternal(0x5408, v7, v32, v33);
+  *v5 = v31;
+  v34 = CMMTable::UInt8Data(*(v31 + 2), *(v31 + 3));
+  CMMCurveTag::MakeLut(v10, v9, v34, 0);
+  v14 = CMMBase::NewInternal(0x28, v7, v35, v36);
+  *v14 = &unk_1F0E09180;
+  *(v14 + 1) = 1;
+  *(v14 + 3) = 0;
+  *(v14 + 4) = 21512;
+  v39 = CMMBase::NewInternal(0x5408, v7, v37, v38);
+  *(v14 + 2) = v39;
+  v40 = CMMTable::UInt8Data(v39, *(v14 + 3));
+  memcpy(v40, v34, 0x5408uLL);
+  bzero(v44, 0x4004uLL);
+  InvertLUT(v40, v44);
+  MakeLookups(v40);
+  if (v9)
   {
-    if (*v6)
+    if (*v9)
     {
-      CMMCurveTag::InvertFloatParametricLUT(v6, v41);
+      CMMCurveTag::InvertFloatParametricLUT(v9, v43);
     }
 
     else
     {
-      *(v6 + 16) = CMMTable::MakeFloatCopy(v11, v4, v39, v40);
+      *(v9 + 16) = CMMTable::MakeFloatCopy(v14, v7, v41, v42);
     }
   }
 
-LABEL_30:
-  v27 = *MEMORY[0x1E69E9840];
-  return v11;
+  return v14;
 }
 
 CFMutableArrayRef AppleCMMCreateTransformProperty(const __CFData **a1, __CFArray *a2, const __CFDictionary *a3)
 {
   Mutable = a2;
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   if (!a2)
   {
-    goto LABEL_8;
+    return Mutable;
   }
 
   CMMStorage = GetCMMStorage(a1);
   if (!CMMStorage)
   {
-LABEL_7:
-    Mutable = 0;
-    goto LABEL_8;
+    return 0;
   }
 
   v7 = CMMStorage;
@@ -1044,14 +956,14 @@ LABEL_7:
     Mutable = CFArrayCreateMutable(0, 0, MEMORY[0x1E695E9C0]);
     if (!Mutable)
     {
-      goto LABEL_8;
+      return Mutable;
     }
 
     if (DoFlattenParametricConversion(v7, Mutable, a3))
     {
 LABEL_6:
       CFRelease(Mutable);
-      goto LABEL_7;
+      return 0;
     }
 
     goto LABEL_30;
@@ -1062,7 +974,7 @@ LABEL_6:
     Mutable = CFArrayCreateMutable(0, 0, MEMORY[0x1E695E9C0]);
     if (!Mutable)
     {
-      goto LABEL_8;
+      return Mutable;
     }
 
     if (!collect_flattened_conversion(*(v7 + 72), 1, a3, Mutable))
@@ -1071,8 +983,8 @@ LABEL_6:
     }
 
     ValueAtIndex = CFArrayGetValueAtIndex(Mutable, 0);
-    v11 = CFGetTypeID(ValueAtIndex);
-    if (v11 == CFDictionaryGetTypeID())
+    v10 = CFGetTypeID(ValueAtIndex);
+    if (v10 == CFDictionaryGetTypeID())
     {
       CFDictionarySetValue(ValueAtIndex, kColorSyncTransformCodeFragmentType, kColorSyncTransformFullConversionData);
     }
@@ -1085,7 +997,7 @@ LABEL_6:
     Mutable = CFArrayCreateMutable(0, 0, MEMORY[0x1E695E9C0]);
     if (!Mutable)
     {
-      goto LABEL_8;
+      return Mutable;
     }
 
     valuePtr.A = 0;
@@ -1097,23 +1009,23 @@ LABEL_6:
         CFNumberGetValue(Value, kCFNumberSInt32Type, &valuePtr);
       }
 
-      v13 = CFDictionaryGetValue(a3, kColorSyncNxMFormat);
+      v12 = CFDictionaryGetValue(a3, kColorSyncNxMFormat);
       A = valuePtr.A;
-      v15 = v7;
-      v16 = Mutable;
-      v17 = a3;
+      v14 = v7;
+      v15 = Mutable;
+      v16 = a3;
     }
 
     else
     {
-      v15 = v7;
-      v16 = Mutable;
-      v17 = 0;
-      v13 = 0;
+      v14 = v7;
+      v15 = Mutable;
+      v16 = 0;
+      v12 = 0;
       A = 0;
     }
 
-    if (!DoFlattenCompactConversion(v15, v16, v17, v13, A))
+    if (!DoFlattenCompactConversion(v14, v15, v16, v12, A))
     {
       goto LABEL_29;
     }
@@ -1123,35 +1035,35 @@ LABEL_6:
   {
     if (!CFEqual(Mutable, kColorSyncTransformIteratorSimplifiedType))
     {
-      goto LABEL_7;
+      return 0;
     }
 
     Mutable = CFArrayCreateMutable(0, 0, MEMORY[0x1E695E9C0]);
     if (!Mutable)
     {
-      goto LABEL_8;
+      return Mutable;
     }
 
     valuePtr.A = 0;
     if (a3)
     {
-      v18 = CFDictionaryGetValue(a3, kColorSyncConversionGridPoints);
-      if (v18)
+      v17 = CFDictionaryGetValue(a3, kColorSyncConversionGridPoints);
+      if (v17)
       {
-        CFNumberGetValue(v18, kCFNumberSInt32Type, &valuePtr);
+        CFNumberGetValue(v17, kCFNumberSInt32Type, &valuePtr);
       }
 
-      v19 = CFDictionaryGetValue(a3, kColorSyncNxMFormat);
-      v20 = valuePtr.A;
+      v18 = CFDictionaryGetValue(a3, kColorSyncNxMFormat);
+      v19 = valuePtr.A;
     }
 
     else
     {
-      v20 = 0;
       v19 = 0;
+      v18 = 0;
     }
 
-    if (!DoFlattenSimplifiedConversion(v7, Mutable, v19, v20))
+    if (!DoFlattenSimplifiedConversion(v7, Mutable, v18, v19))
     {
       goto LABEL_29;
     }
@@ -1162,78 +1074,78 @@ LABEL_6:
 LABEL_29:
   if (!Mutable)
   {
-    goto LABEL_8;
+    return Mutable;
   }
 
 LABEL_30:
-  v21 = CFGetTypeID(Mutable);
-  if (v21 == CFArrayGetTypeID())
+  v20 = CFGetTypeID(Mutable);
+  if (v20 == CFArrayGetTypeID())
   {
-    v22 = CFArrayGetValueAtIndex(Mutable, 0);
-    if (v22)
+    v21 = CFArrayGetValueAtIndex(Mutable, 0);
+    if (v21)
     {
-      v23 = v22;
-      v24 = CFGetTypeID(v22);
-      if (v24 == CFDictionaryGetTypeID())
+      v22 = v21;
+      v23 = CFGetTypeID(v21);
+      if (v23 == CFDictionaryGetTypeID())
       {
-        v25 = 0;
+        v24 = 0;
         Count = 0;
-        while (v25 < CFArrayGetCount(Mutable))
+        while (v24 < CFArrayGetCount(Mutable))
         {
-          v27 = CFArrayGetValueAtIndex(Mutable, 0);
-          if (v27)
+          v26 = CFArrayGetValueAtIndex(Mutable, 0);
+          if (v26)
           {
-            v28 = v27;
-            if (Count <= CFDictionaryGetCount(v27))
+            v27 = v26;
+            if (Count <= CFDictionaryGetCount(v26))
             {
-              Count = CFDictionaryGetCount(v28);
+              Count = CFDictionaryGetCount(v27);
             }
           }
 
-          ++v25;
+          ++v24;
         }
 
         if (Count)
         {
-          v29 = 16 * Count;
-          v30 = malloc_type_malloc(16 * Count, 0x80040B8603338uLL);
-          if (v30)
+          v28 = 16 * Count;
+          v29 = malloc_type_malloc(16 * Count, 0x80040B8603338uLL);
+          if (v29)
           {
-            v31 = v30;
+            v30 = v29;
             *md = 0;
-            v44 = 0;
+            v43 = 0;
             memset(&valuePtr, 0, sizeof(valuePtr));
             CC_MD5_Init(&valuePtr);
-            v32 = 0;
-            v33 = &v31[8 * Count];
-            while (v32 < CFArrayGetCount(Mutable))
+            v31 = 0;
+            v32 = &v30[8 * Count];
+            while (v31 < CFArrayGetCount(Mutable))
             {
-              v34 = CFArrayGetValueAtIndex(Mutable, 0);
-              bzero(v31, v29);
-              CFDictionaryGetKeysAndValues(v34, v31, v33);
-              CC_MD5_Update(&valuePtr, v31, v29);
-              ++v32;
+              v33 = CFArrayGetValueAtIndex(Mutable, 0);
+              bzero(v30, v28);
+              CFDictionaryGetKeysAndValues(v33, v30, v32);
+              CC_MD5_Update(&valuePtr, v30, v28);
+              ++v31;
             }
 
             CC_MD5_Final(md, &valuePtr);
-            free(v31);
-            v35 = CFDataCreate(0, md, 16);
-            if (v35)
+            free(v30);
+            v34 = CFDataCreate(0, md, 16);
+            if (v34)
             {
-              v36 = v35;
-              MutableCopy = CFDictionaryCreateMutableCopy(0, 0, v23);
+              v35 = v34;
+              MutableCopy = CFDictionaryCreateMutableCopy(0, 0, v22);
               newValues = MutableCopy;
               if (MutableCopy)
               {
-                v38 = MutableCopy;
-                CFDictionarySetValue(MutableCopy, kColorSyncTransformCodeFragmentMD5, v36);
-                CFRelease(v36);
-                v39 = kColorSyncTransformProfileSequnce;
+                v37 = MutableCopy;
+                CFDictionarySetValue(MutableCopy, kColorSyncTransformCodeFragmentMD5, v35);
+                CFRelease(v35);
+                v38 = kColorSyncTransformProfileSequnce;
                 ProfileSequence = ColorSyncTransformGetProfileSequence(a1);
-                CFDictionarySetValue(v38, v39, ProfileSequence);
-                v46.location = 0;
-                v46.length = 1;
-                CFArrayReplaceValues(Mutable, v46, &newValues, 1);
+                CFDictionarySetValue(v37, v38, ProfileSequence);
+                v45.location = 0;
+                v45.length = 1;
+                CFArrayReplaceValues(Mutable, v45, &newValues, 1);
                 CFRelease(newValues);
               }
             }
@@ -1243,8 +1155,6 @@ LABEL_30:
     }
   }
 
-LABEL_8:
-  v8 = *MEMORY[0x1E69E9840];
   return Mutable;
 }
 
@@ -1271,7 +1181,7 @@ double get_float_value(const void *a1)
   return result;
 }
 
-uint64_t get_properties(const __CFDictionary *a1, int a2)
+uint64_t get_properties(const __CFDictionary *a1, unsigned int a2)
 {
   Value = CFDictionaryGetValue(a1, @"com.apple.cmm.FunctionDoesSignedReflection");
   v5 = *MEMORY[0x1E695E4D0];
@@ -1311,9 +1221,9 @@ int8x16_t ColorSyncMatrixCreate(float64x2_t *a1, unsigned int a2)
     *(Instance + 32) = a1[1];
     *(Instance + 48) = v7;
     *(Instance + 16) = v6;
-    *&v6.f64[0] = vceqz_s32(vand_s8(vdup_n_s32(a2), 0x200000004));
-    v8.i64[0] = SLODWORD(v6.f64[0]);
-    v8.i64[1] = SHIDWORD(v6.f64[0]);
+    *&v6 = vceqz_s32(vand_s8(vdup_n_s32(a2), 0x200000004));
+    v8.i64[0] = v6;
+    v8.i64[1] = SDWORD1(v6);
     v7.f64[0] = 2.84809454e-306;
     v7.f64[1] = 2.84809454e-306;
     result = vbslq_s8(v8, vnegq_f64(v7), vdupq_n_s64(0x3F80000000000000uLL));
@@ -1326,11 +1236,11 @@ int8x16_t ColorSyncMatrixCreate(float64x2_t *a1, unsigned int a2)
 
 __CFDictionary *CMMConvTRC::FlattenConversion(CMMConvTRC *this, const __CFDictionary *a2)
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
   if (!Mutable)
   {
-    goto LABEL_60;
+    return Mutable;
   }
 
   v5 = CFNumberCreate(0, kCFNumberSInt32Type, this + 72);
@@ -1374,10 +1284,10 @@ __CFDictionary *CMMConvTRC::FlattenConversion(CMMConvTRC *this, const __CFDictio
       goto LABEL_45;
     }
 
-    v47 = 0;
+    v46 = 0;
     if (*(this + 34))
     {
-      v16 = &v47;
+      v16 = &v46;
     }
 
     else
@@ -1388,7 +1298,7 @@ __CFDictionary *CMMConvTRC::FlattenConversion(CMMConvTRC *this, const __CFDictio
     v17 = CFNumberCreate(0, kCFNumberFloat32Type, v16);
     if (*(this + 34))
     {
-      v18 = &v47;
+      v18 = &v46;
     }
 
     else
@@ -1398,7 +1308,7 @@ __CFDictionary *CMMConvTRC::FlattenConversion(CMMConvTRC *this, const __CFDictio
 
     v19 = CFNumberCreate(0, kCFNumberFloat32Type, v18);
     values = v17;
-    v51 = v19;
+    v50 = v19;
     v20 = CFArrayCreate(0, &values, 2, MEMORY[0x1E695E9C0]);
     CFRelease(v17);
     CFRelease(v19);
@@ -1410,9 +1320,9 @@ __CFDictionary *CMMConvTRC::FlattenConversion(CMMConvTRC *this, const __CFDictio
 
     v21 = CFNumberCreate(0, kCFNumberFloat32Type, this + 152);
     v22 = CFNumberCreate(0, kCFNumberFloat32Type, this + 156);
-    v49[0] = v21;
-    v49[1] = v22;
-    v23 = CFArrayCreate(0, v49, 2, MEMORY[0x1E695E9C0]);
+    v48[0] = v21;
+    v48[1] = v22;
+    v23 = CFArrayCreate(0, v48, 2, MEMORY[0x1E695E9C0]);
     if (v23)
     {
       v24 = v23;
@@ -1538,13 +1448,13 @@ LABEL_45:
     v36 = *(this + 10);
     v35 = *(this + 11);
     valuePtr = LODWORD(v35);
-    *v49 = v36;
+    *v48 = v36;
     if (v36 != 0.0 || v35 != 1.0)
     {
-      v37 = CFNumberCreate(0, kCFNumberFloat32Type, v49);
+      v37 = CFNumberCreate(0, kCFNumberFloat32Type, v48);
       v38 = CFNumberCreate(0, kCFNumberFloat32Type, &valuePtr);
       values = v37;
-      v51 = v38;
+      v50 = v38;
       v39 = CFArrayCreate(0, &values, 2, MEMORY[0x1E695E9C0]);
       CFRelease(v37);
       CFRelease(v38);
@@ -1561,13 +1471,13 @@ LABEL_45:
     v41 = *(this + 10);
     v40 = *(this + 11);
     valuePtr = LODWORD(v40);
-    *v49 = v41;
+    *v48 = v41;
     if (v41 != 0.0 || v40 != 1.0)
     {
-      v42 = CFNumberCreate(0, kCFNumberFloat32Type, v49);
+      v42 = CFNumberCreate(0, kCFNumberFloat32Type, v48);
       v43 = CFNumberCreate(0, kCFNumberFloat32Type, &valuePtr);
       values = v42;
-      v51 = v43;
+      v50 = v43;
       v44 = CFArrayCreate(0, &values, 2, MEMORY[0x1E695E9C0]);
       CFRelease(v42);
       CFRelease(v43);
@@ -1579,8 +1489,6 @@ LABEL_45:
     }
   }
 
-LABEL_60:
-  v45 = *MEMORY[0x1E69E9840];
   return Mutable;
 }
 
@@ -1707,7 +1615,7 @@ __n128 ColorSyncTRCGetFunction@<Q0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   return result;
 }
 
-float ColorSyncTRCGetInputRange(uint64_t a1)
+float ColorSyncTRCGetInputRange(float *a1)
 {
   v2 = CFGetTypeID(a1);
   if (ColorSyncTRCGetTypeID_predicate != -1)
@@ -1720,12 +1628,10 @@ float ColorSyncTRCGetInputRange(uint64_t a1)
     __assert_rtn("ColorSyncTRCGetInputRange", "ColorSyncTransformFunctions.c", 416, "CFGetTypeID(ref) == ColorSyncTRCGetTypeID()");
   }
 
-  result = *(a1 + 68);
-  v4 = *(a1 + 72);
-  return result;
+  return a1[17];
 }
 
-BOOL trc_equal_trc(unsigned int *cf, uint64_t a2)
+uint64_t trc_equal_trc(unsigned int *cf, uint64_t a2)
 {
   if (cf == a2)
   {
@@ -1895,7 +1801,7 @@ uint64_t ColorSyncTRCGetProperties(unsigned int *a1)
   return a1[16];
 }
 
-float ColorSyncTRCGetOutputRange(uint64_t a1)
+float ColorSyncTRCGetOutputRange(float *a1)
 {
   v2 = CFGetTypeID(a1);
   if (ColorSyncTRCGetTypeID_predicate != -1)
@@ -1908,9 +1814,7 @@ float ColorSyncTRCGetOutputRange(uint64_t a1)
     __assert_rtn("ColorSyncTRCGetOutputRange", "ColorSyncTransformFunctions.c", 423, "CFGetTypeID(ref) == ColorSyncTRCGetTypeID()");
   }
 
-  result = *(a1 + 76);
-  v4 = *(a1 + 80);
-  return result;
+  return a1[19];
 }
 
 uint64_t ColorSyncTRCGetTypeID()
@@ -2050,7 +1954,7 @@ LABEL_161:
   Instance[2] = 0u;
   Instance[3] = 0u;
   Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-  v250 = (v16 + 1);
+  v244 = (v16 + 1);
   *(v16 + 4) = Mutable;
   if (!Mutable)
   {
@@ -2089,7 +1993,7 @@ LABEL_31:
 
   value = v24;
   v29 = ColorSyncTransformInternalCopyProperty(a1, v24, v28);
-  *v250 = v29;
+  *v244 = v29;
   if (!v29 || (Count = CFArrayGetCount(v29)) == 0 || (v31 = Count, v32 = malloc_type_calloc(1uLL, 56 * Count, 0x100004089CA3EB1uLL), (*(v16 + 18) = v32) == 0) || (v33 = malloc_type_calloc(1uLL, 152 * v31, 0x100004075DCBCB7uLL), (*(v16 + 19) = v33) == 0))
   {
 LABEL_160:
@@ -2107,23 +2011,23 @@ LABEL_160:
   *(v16 + 60) = *(a1 + 96);
   if (*(v16 + 3) < 1)
   {
-    v212 = 0;
-    v204 = value;
+    v206 = 0;
+    v198 = value;
     goto LABEL_222;
   }
 
-  v238 = v13;
-  v239 = a3;
-  v240 = a6;
+  v232 = v13;
+  v233 = a3;
+  v234 = a6;
   v36 = 0;
-  v246 = *MEMORY[0x1E695E4D0];
+  v240 = *MEMORY[0x1E695E4D0];
   v37 = &kColorSyncTransformInfo;
   v38.f64[0] = 2.84809454e-306;
   v38.f64[1] = 2.84809454e-306;
-  v241 = vnegq_f64(v38);
+  v235 = vnegq_f64(v38);
   do
   {
-    ValueAtIndex = CFArrayGetValueAtIndex(*v250, v36);
+    ValueAtIndex = CFArrayGetValueAtIndex(*v244, v36);
     if (!ValueAtIndex)
     {
       __assert_rtn("get_step_type", "ColorSyncTransformIteration.c", 172, "stepInfo != NULL");
@@ -2136,7 +2040,7 @@ LABEL_160:
       __assert_rtn("get_step_type", "ColorSyncTransformIteration.c", 173, "CFGetTypeID(stepInfo) == CFDictionaryGetTypeID()");
     }
 
-    v251 = v36;
+    v245 = v36;
     if (CFDictionaryContainsKey(v40, v37[180]) == 1)
     {
       v42 = 5;
@@ -2216,7 +2120,7 @@ LABEL_160:
           __assert_rtn("create_matrix", "ColorSyncTransformIteration.c", 517, "CFGetTypeID(stepInfo) == CFDictionaryGetTypeID()");
         }
 
-        memset(v258, 0, sizeof(v258));
+        memset(v252, 0, sizeof(v252));
         v151 = CFDictionaryGetValue(v40, kColorSyncConversionMatrix);
         if (!v151)
         {
@@ -2236,7 +2140,7 @@ LABEL_160:
         }
 
         v154 = 0;
-        v155 = v258 + 2;
+        v155 = v252 + 2;
         do
         {
           v156 = CFArrayGetValueAtIndex(v152, v154);
@@ -2274,11 +2178,11 @@ LABEL_160:
         }
 
         while (v154 != 3);
-        properties = get_properties(v40, 1);
-        v260[0] = v258[0];
-        v260[1] = v258[1];
-        v260[2] = v258[2];
-        ColorSyncMatrixCreate(v260, properties);
+        properties = get_properties(v40, 1u);
+        v254[0] = v252[0];
+        v254[1] = v252[1];
+        v254[2] = v252[2];
+        ColorSyncMatrixCreate(v254, properties);
         if (v168)
         {
           v169 = v168;
@@ -2306,8 +2210,8 @@ LABEL_156:
             }
           }
 
-          v108 = v251;
-          *(*(v16 + 18) + 32 * v251 + 24) = v172;
+          v108 = v245;
+          *(*(v16 + 18) + 32 * v245 + 24) = v172;
           *(v16 + 76) = v170;
 LABEL_158:
           CFRelease(v169);
@@ -2344,26 +2248,26 @@ LABEL_158:
           __assert_rtn("create_nxm", "ColorSyncTransformIteration.c", 545, "CFGetTypeID(data) == CFDataGetTypeID()");
         }
 
-        v255 = CFDictionaryGetValue(v40, kColorSyncConversionGridPoints);
+        v249 = CFDictionaryGetValue(v40, kColorSyncConversionGridPoints);
         v178 = CFDictionaryGetValue(v40, kColorSyncConversionInpChan);
-        v243 = CFDictionaryGetValue(v40, kColorSyncConversionOutChan);
+        v237 = CFDictionaryGetValue(v40, kColorSyncConversionOutChan);
         v179 = CFDictionaryGetValue(v40, kColorSyncNxMFormat);
         v180 = CFDictionaryGetValue(v40, kColorSyncNxMFormatVersion);
         BytePtr = CFDataGetBytePtr(v176);
-        int32_value = get_int32_value(v255);
-        v249 = get_int32_value(v178);
-        v244 = get_int32_value(v243);
+        int32_value = get_int32_value(v249);
+        v243 = get_int32_value(v178);
+        v238 = get_int32_value(v237);
         LODWORD(v178) = get_int32_value(v179);
-        v237 = get_int32_value(v180);
+        v231 = get_int32_value(v180);
         LODWORD(v180) = get_properties(v40, 0);
         v182 = CFDictionaryGetValue(v40, @"com.apple.cmm.FunctionInputRange");
         v183 = CFDictionaryGetValue(v40, @"com.apple.cmm.FunctionOutputRange");
-        LODWORD(v258[0]) = v178;
-        *(v258 + 4) = v249;
-        *(v258 + 12) = v244;
-        *(&v258[1] + 4) = int32_value;
-        *(&v258[1] + 12) = BytePtr;
-        v184 = ColorSyncNxMCreate(v176, v237, v258, v180, v182, v183);
+        LODWORD(v252[0]) = v178;
+        *(v252 + 4) = v243;
+        *(v252 + 12) = v238;
+        *(&v252[1] + 4) = int32_value;
+        *(&v252[1] + 12) = BytePtr;
+        v184 = ColorSyncNxMCreate(v176, v231, v252, v180, v182, v183);
         if (v184)
         {
           v169 = v184;
@@ -2391,15 +2295,15 @@ LABEL_153:
             }
           }
 
-          v108 = v251;
-          *(*(v16 + 18) + 32 * v251 + 24) = v187;
+          v108 = v245;
+          *(*(v16 + 18) + 32 * v245 + 24) = v187;
           *(v16 + 84) = v185;
           goto LABEL_158;
         }
       }
 
-      v108 = v251;
-      *(*(v16 + 18) + 32 * v251 + 24) = -1;
+      v108 = v245;
+      *(*(v16 + 18) + 32 * v245 + 24) = -1;
 LABEL_159:
       v37 = &kColorSyncTransformInfo;
       goto LABEL_123;
@@ -2432,7 +2336,7 @@ LABEL_65:
       __assert_rtn("create_trc", "ColorSyncTransformIteration.c", 474, "CFGetTypeID(stepInfo) == CFDictionaryGetTypeID()");
     }
 
-    v252 = v42;
+    v246 = v42;
     if (v42 <= 4)
     {
       v49 = 0;
@@ -2456,10 +2360,10 @@ LABEL_108:
           v135 = CFDictionaryGetValue(v40, kColorSyncTransformGammaID);
           v136 = CFDictionaryGetValue(v40, kColorSyncTransformPureGammaOriginalTRC);
           v137 = get_int32_value(v135);
-          v248 = v136 == v246;
+          v242 = v136 == v240;
           v138 = CFDictionaryGetValue(v40, @"com.apple.cmm.FunctionInputRange");
           v139 = CFDictionaryGetValue(v40, @"com.apple.cmm.FunctionOutputRange");
-          if (v252 > 0xA || v252 == 5)
+          if (v246 > 0xA || v246 == 5)
           {
             __assert_rtn("ColorSyncTRCCreateWithParams", "ColorSyncTransformFunctions.c", 365, "(trcType >= kColorSyncTRCParametricType0 && trcType <= kColorSyncTRCParametricType4) || (trcType == kColorSyncTRCParametricPQ_EOTF_Type || trcType == kColorSyncTRCParametricPQ_InvOETF_Type) || (trcType == kColorSyncTRCParametricHLG_InvOETF_Type || trcType == kColorSyncTRCParametricHLG_OETF_Type) || (trcType == kColorSyncTRCParametricEXRToneMappingGamma)");
           }
@@ -2476,7 +2380,7 @@ LABEL_108:
             }
 
             *(v141 + 68) = v142;
-            *(v141 + 16) = v252;
+            *(v141 + 16) = v246;
             *(v141 + 20) = v124;
             *(v141 + 24) = v85;
             *(v141 + 28) = v71;
@@ -2510,7 +2414,7 @@ LABEL_108:
             }
 
             *(v102 + 64) = v134;
-            *(v102 + 88) = v248;
+            *(v102 + 88) = v242;
           }
 
           goto LABEL_120;
@@ -2663,7 +2567,7 @@ LABEL_101:
     v86 = CFDictionaryGetValue(v40, v37[180]);
     v87 = CFDictionaryGetValue(v40, kColorSyncConversionGridPoints);
     v88 = CFDictionaryGetValue(v40, kColorSyncTransformGammaID);
-    v253 = CFDictionaryGetValue(v40, kColorSyncTransformPureGammaOriginalTRC);
+    v247 = CFDictionaryGetValue(v40, kColorSyncTransformPureGammaOriginalTRC);
     if (!v86)
     {
       __assert_rtn("create_trc_table", "ColorSyncTransformIteration.c", 341, "data != NULL");
@@ -2686,7 +2590,7 @@ LABEL_101:
     }
 
     v95 = 0.0;
-    v247 = v90;
+    v241 = v90;
     if ((v90 & 4) == 0)
     {
       v95 = get_boundary_extension(v40, @"com.apple.cmm.FunctionNegBoundary");
@@ -2694,8 +2598,8 @@ LABEL_101:
     }
 
     v97 = get_int32_value(v87);
-    v242 = get_int32_value(v88);
-    v254 = v253 == v246;
+    v236 = get_int32_value(v88);
+    v248 = v247 == v240;
     v98 = CFDictionaryGetValue(v40, @"com.apple.cmm.FunctionInputRange");
     v99 = CFDictionaryGetValue(v40, @"com.apple.cmm.FunctionOutputRange");
     v100 = CFGetTypeID(v86);
@@ -2711,19 +2615,19 @@ LABEL_101:
       *(v101 + 56) = CFRetain(v86);
       *(v102 + 16) = 5;
       v103 = CFDataGetBytePtr(v86);
-      v104 = vceqz_s32(vand_s8(vdup_n_s32(v247), 0x200000004));
+      v104 = vceqz_s32(vand_s8(vdup_n_s32(v241), 0x200000004));
       v105.i64[0] = v104.i32[0];
       v105.i64[1] = v104.i32[1];
-      *(v102 + 68) = vbslq_s8(v105, v241, vdupq_n_s64(0x3F80000000000000uLL));
+      *(v102 + 68) = vbslq_s8(v105, v235, vdupq_n_s64(0x3F80000000000000uLL));
       *(v102 + 20) = v97;
       *(v102 + 28) = v103;
-      *(v102 + 84) = v242;
-      *(v102 + 64) = v247;
+      *(v102 + 84) = v236;
+      *(v102 + 64) = v241;
       *(v102 + 36) = boundary_extension;
       *(v102 + 40) = v91;
       *(v102 + 44) = v95;
       *(v102 + 48) = v92;
-      *(v102 + 88) = v254;
+      *(v102 + 88) = v248;
       if (v98)
       {
         v106 = CFArrayGetValueAtIndex(v98, 0);
@@ -2732,7 +2636,7 @@ LABEL_101:
         CFNumberGetValue(v107, kCFNumberFloat32Type, (v102 + 72));
       }
 
-      v108 = v251;
+      v108 = v245;
       v37 = &kColorSyncTransformInfo;
       if (v99)
       {
@@ -2746,12 +2650,12 @@ LABEL_101:
     }
 
 LABEL_120:
-    v108 = v251;
+    v108 = v245;
     v37 = &kColorSyncTransformInfo;
 LABEL_121:
-    *&v258[0] = *(v16 + 68);
-    *(*(v16 + 18) + 32 * v108 + 24) = add_trc(v102, *(v16 + 15), v258);
-    *(v16 + 68) = *&v258[0];
+    *&v252[0] = *(v16 + 68);
+    *(*(v16 + 18) + 32 * v108 + 24) = add_trc(v102, *(v16 + 15), v252);
+    *(v16 + 68) = *&v252[0];
     if (v102)
     {
       CFRelease(v102);
@@ -2763,174 +2667,174 @@ LABEL_123:
   }
 
   while (v36 < v148);
-  v204 = value;
+  v198 = value;
   if (v148 < 1)
   {
-    v212 = 0;
+    v206 = 0;
     goto LABEL_220;
   }
 
-  v205 = 0;
-  v206 = *(v16 + 19);
-  v207 = 24;
-  *&v208 = -1;
-  *(&v208 + 1) = -1;
+  v199 = 0;
+  v200 = *(v16 + 19);
+  v201 = 24;
+  *&v202 = -1;
+  *(&v202 + 1) = -1;
   do
   {
-    v209 = (v206 + v207);
-    v209[6] = v208;
-    v209[7] = v208;
-    v209[4] = v208;
-    v209[5] = v208;
-    v209[2] = v208;
-    v209[3] = v208;
-    *v209 = v208;
-    v209[1] = v208;
-    ++v205;
-    v210 = *(v16 + 3);
-    v207 += 152;
+    v203 = (v200 + v201);
+    v203[6] = v202;
+    v203[7] = v202;
+    v203[4] = v202;
+    v203[5] = v202;
+    v203[2] = v202;
+    v203[3] = v202;
+    *v203 = v202;
+    v203[1] = v202;
+    ++v199;
+    v204 = *(v16 + 3);
+    v201 += 152;
   }
 
-  while (v205 < v210);
-  a3 = v239;
-  a6 = v240;
-  v13 = v238;
-  if (v210 < 1)
+  while (v199 < v204);
+  a3 = v233;
+  a6 = v234;
+  v13 = v232;
+  if (v204 < 1)
   {
-    v212 = 0;
+    v206 = 0;
   }
 
   else
   {
-    v211 = 0;
-    v212 = 0;
-    v213 = (*(v16 + 18) + 24);
-    v214 = -1;
+    v205 = 0;
+    v206 = 0;
+    v207 = (*(v16 + 18) + 24);
+    v208 = -1;
     do
     {
-      v215 = *(v213 - 6);
-      if ((v215 - 2) >= 2)
+      v209 = *(v207 - 6);
+      if ((v209 - 2) >= 2)
       {
-        if (v215 != 1)
+        if (v209 != 1)
         {
           __assert_rtn("initialize_stages", "ColorSyncTransformIteration.c", 752, "0");
         }
 
-        if (v214 != 1 || v211 && *(v213 - 2) <= *(v213 - 6))
+        if (v208 != 1 || v205 && *(v207 - 2) <= *(v207 - 6))
         {
-          v218 = 152 * v212++;
-          *(v206 + v218) = 1;
+          v212 = 152 * v206++;
+          *(v200 + v212) = 1;
         }
 
-        v219 = v206 + 152 * v212;
-        v220 = v219 + 8 * *(v213 - 2);
-        ++*(v219 - 144);
-        *(v220 - 128) = *v213;
-        *(v219 - 136) = *(v213 - 1);
+        v213 = v200 + 152 * v206;
+        v214 = v213 + 8 * *(v207 - 2);
+        ++*(v213 - 144);
+        *(v214 - 128) = *v207;
+        *(v213 - 136) = *(v207 - 1);
       }
 
       else
       {
-        v216 = v206 + 152 * v212++;
-        *v216 = v215;
-        v217 = *(v216 + 8);
-        *(v216 + 8) = v217 + 1;
-        *(v216 + 8 * v217 + 24) = *v213;
+        v210 = v200 + 152 * v206++;
+        *v210 = v209;
+        v211 = *(v210 + 8);
+        *(v210 + 8) = v211 + 1;
+        *(v210 + 8 * v211 + 24) = *v207;
       }
 
-      ++v211;
-      v213 += 4;
-      v214 = v215;
+      ++v205;
+      v207 += 4;
+      v208 = v209;
     }
 
-    while (v211 < *(v16 + 3));
-    if (v212 >= 1)
+    while (v205 < *(v16 + 3));
+    if (v206 >= 1)
     {
-      v221 = 0;
-      v222 = 24;
+      v215 = 0;
+      v216 = 24;
       do
       {
-        v223 = v206 + 152 * v221;
-        v257 = v212;
-        if (*v223 == 1)
+        v217 = v200 + 152 * v215;
+        v251 = v206;
+        if (*v217 == 1)
         {
-          v224 = *(v223 + 16);
-          if (v224 < 1)
+          v218 = *(v217 + 16);
+          if (v218 < 1)
           {
 LABEL_205:
-            v228 = 0;
+            v222 = 0;
           }
 
           else
           {
-            v225 = (v206 + v222);
+            v219 = (v200 + v216);
             while (1)
             {
-              v227 = *v225++;
-              v226 = v227;
-              if (v227 != -1)
+              v221 = *v219++;
+              v220 = v221;
+              if (v221 != -1)
               {
                 break;
               }
 
-              if (!--v224)
+              if (!--v218)
               {
                 goto LABEL_205;
               }
             }
 
-            v228 = (ColorSyncTRCGetProperties(*(*(v16 + 15) + 8 * v226)) & 6) != 0;
-            v206 = *(v16 + 19);
+            v222 = (ColorSyncTRCGetProperties(*(*(v16 + 15) + 8 * v220)) & 6) != 0;
+            v200 = *(v16 + 19);
           }
 
-          if (*(v206 + 152 * v221 + 16) >= 1)
+          if (*(v200 + 152 * v215 + 16) >= 1)
           {
-            v229 = 0;
+            v223 = 0;
             do
             {
-              if (*(v206 + v222 + 8 * v229) == -1)
+              if (*(v200 + v216 + 8 * v223) == -1)
               {
                 if (linear_trc_predicate[0] != -1)
                 {
                   dispatch_once(linear_trc_predicate, &__block_literal_global_68);
                 }
 
-                v230 = &linear_trc_linear_clamp;
-                if (!v228)
+                v224 = &linear_trc_linear_clamp;
+                if (!v222)
                 {
-                  v230 = &linear_trc_linear_no_clamp;
+                  v224 = &linear_trc_linear_no_clamp;
                 }
 
-                v231 = *v230;
-                CFRetain(*v230);
-                v232 = add_trc(v231, *(v16 + 15), (v16 + 68));
-                v206 = *(v16 + 19);
-                *(v206 + v222 + 8 * v229) = v232;
+                v225 = *v224;
+                CFRetain(*v224);
+                v226 = add_trc(v225, *(v16 + 15), (v16 + 68));
+                v200 = *(v16 + 19);
+                *(v200 + v216 + 8 * v223) = v226;
               }
 
-              ++v229;
+              ++v223;
             }
 
-            while (v229 < *(v206 + 152 * v221 + 16));
+            while (v223 < *(v200 + 152 * v215 + 16));
           }
         }
 
-        ++v221;
-        v222 += 152;
-        v212 = v257;
-        v204 = value;
+        ++v215;
+        v216 += 152;
+        v206 = v251;
+        v198 = value;
       }
 
-      while (v221 != v257);
+      while (v215 != v251);
 LABEL_220:
-      a3 = v239;
-      a6 = v240;
-      v13 = v238;
+      a3 = v233;
+      a6 = v234;
+      v13 = v232;
     }
   }
 
 LABEL_222:
-  *(v16 + 44) = v212;
+  *(v16 + 44) = v206;
   if (*(v16 + 68) >= 1)
   {
     *(v16 + 92) = *(v16 + 15);
@@ -2946,13 +2850,13 @@ LABEL_222:
     *(v16 + 108) = *(v16 + 17);
   }
 
-  CFDictionarySetValue(*(v16 + 4), kColorSyncTransformIterationType, v204);
-  v233 = ColorSyncTransformInternalCopyProperty(a1, kColorSyncTransformDstSpace, 0);
-  CFDictionarySetValue(*(v16 + 4), kColorSyncTransformDstSpace, v233);
-  CFRelease(v233);
-  v234 = ColorSyncTransformInternalCopyProperty(a1, kColorSyncTransformSrcSpace, 0);
-  CFDictionarySetValue(*(v16 + 4), kColorSyncTransformSrcSpace, v234);
-  CFRelease(v234);
+  CFDictionarySetValue(*(v16 + 4), kColorSyncTransformIterationType, v198);
+  v227 = ColorSyncTransformInternalCopyProperty(a1, kColorSyncTransformDstSpace, 0);
+  CFDictionarySetValue(*(v16 + 4), kColorSyncTransformDstSpace, v227);
+  CFRelease(v227);
+  v228 = ColorSyncTransformInternalCopyProperty(a1, kColorSyncTransformSrcSpace, 0);
+  CFDictionarySetValue(*(v16 + 4), kColorSyncTransformSrcSpace, v228);
+  CFRelease(v228);
   ProfileSequence = ColorSyncTransformGetProfileSequence(a1);
   if (ProfileSequence)
   {
@@ -2998,12 +2902,12 @@ LABEL_168:
   v190 = *(a3 + 16);
   v191 = *(v16 + 56);
   v192 = *(v16 + 88);
-  v258[2] = *(v16 + 72);
-  v259[0] = v192;
-  *(v259 + 12) = *(v16 + 100);
-  v258[0] = *(v16 + 40);
-  v258[1] = v191;
-  if (!v190(a3, v258, v189))
+  v252[2] = *(v16 + 72);
+  v253[0] = v192;
+  *(v253 + 12) = *(v16 + 100);
+  v252[0] = *(v16 + 40);
+  v252[1] = v191;
+  if (!v190(a3, v252, v189))
   {
     goto LABEL_182;
   }
@@ -3011,42 +2915,42 @@ LABEL_168:
   if (*(v16 + 44) < 1)
   {
 LABEL_180:
-    v203 = 1;
+    v197 = 1;
     goto LABEL_183;
   }
 
-  v199 = 0;
-  v200 = 0;
+  v193 = 0;
+  v194 = 0;
   while (2)
   {
-    v201 = *(v16 + 19);
-    v202 = *(v201 + v199);
-    switch(v202)
+    v195 = *(v16 + 19);
+    v196 = *(v195 + v193);
+    switch(v196)
     {
       case 1:
-        if (!(*(a4 + 16))(a4, v200, *(v201 + v199 + 16), v201 + v199 + 24))
+        if (!(*(a4 + 16))(a4, v194, *(v195 + v193 + 16), v195 + v193 + 24))
         {
           goto LABEL_182;
         }
 
 LABEL_179:
-        ++v200;
-        v199 += 152;
-        if (v200 >= *(v16 + 44))
+        ++v194;
+        v193 += 152;
+        if (v194 >= *(v16 + 44))
         {
           goto LABEL_180;
         }
 
         continue;
       case 3:
-        if (((*(a6 + 16))(a6, v200, *(v201 + v199 + 24)) & 1) == 0)
+        if (((*(a6 + 16))(a6, v194, *(v195 + v193 + 24)) & 1) == 0)
         {
           goto LABEL_182;
         }
 
         goto LABEL_179;
       case 2:
-        if (((*(a5 + 16))(a5, v200, *(v201 + v199 + 24)) & 1) == 0)
+        if (((*(a5 + 16))(a5, v194, *(v195 + v193 + 24)) & 1) == 0)
         {
           goto LABEL_182;
         }
@@ -3055,12 +2959,12 @@ LABEL_179:
     }
   }
 
-  ColorSyncLog(2, "ColorSyncTransform or ColorSyncTransformIterator is invalid (stage type = %d)", v193, v194, v195, v196, v197, v198, *(v201 + v199));
+  ColorSyncLog(2, "ColorSyncTransform or ColorSyncTransformIterator is invalid (stage type = %d)", *(v195 + v193));
 LABEL_182:
-  v203 = 0;
+  v197 = 0;
 LABEL_183:
   CFRelease(v16);
-  return v203;
+  return v197;
 }
 
 const UInt8 *GetCMMStorage(const __CFData **a1)
@@ -3135,12 +3039,12 @@ CFIndex collect_flattened_conversion(CMMConvNode *a1, char a2, const __CFDiction
 void CMMConvNode::AddFixedPointClippingRange(CMMConvNode *this, __CFDictionary *a2, float a3, float a4)
 {
   values[2] = *MEMORY[0x1E69E9840];
-  v10 = a4;
+  v9 = a4;
   valuePtr = a3;
   if (a3 != 0.0 || a4 != 1.0)
   {
     v6 = CFNumberCreate(0, kCFNumberFloat32Type, &valuePtr);
-    v7 = CFNumberCreate(0, kCFNumberFloat32Type, &v10);
+    v7 = CFNumberCreate(0, kCFNumberFloat32Type, &v9);
     values[0] = v6;
     values[1] = v7;
     v8 = CFArrayCreate(0, values, 2, MEMORY[0x1E695E9C0]);
@@ -3160,8 +3064,6 @@ void CMMConvNode::AddFixedPointClippingRange(CMMConvNode *this, __CFDictionary *
       CFRelease(v8);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void CMMConvNode::AddClampingInfo(CMMConvNode *this, CFMutableDictionaryRef theDict)
@@ -3277,7 +3179,7 @@ uint64_t ColorSyncMatrixGetProperties(unsigned int *a1)
   return a1[16];
 }
 
-float ColorSyncMatrixGetInputRange(uint64_t a1)
+float ColorSyncMatrixGetInputRange(float *a1)
 {
   v2 = CFGetTypeID(a1);
   if (ColorSyncMatrixGetTypeID_predicate != -1)
@@ -3290,12 +3192,10 @@ float ColorSyncMatrixGetInputRange(uint64_t a1)
     __assert_rtn("ColorSyncMatrixGetInputRange", "ColorSyncTransformFunctions.c", 596, "CFGetTypeID(ref) == ColorSyncMatrixGetTypeID()");
   }
 
-  result = *(a1 + 68);
-  v4 = *(a1 + 72);
-  return result;
+  return a1[17];
 }
 
-float ColorSyncMatrixGetOutputRange(uint64_t a1)
+float ColorSyncMatrixGetOutputRange(float *a1)
 {
   v2 = CFGetTypeID(a1);
   if (ColorSyncMatrixGetTypeID_predicate != -1)
@@ -3308,9 +3208,7 @@ float ColorSyncMatrixGetOutputRange(uint64_t a1)
     __assert_rtn("ColorSyncMatrixGetOutputRange", "ColorSyncTransformFunctions.c", 603, "CFGetTypeID(ref) == ColorSyncMatrixGetTypeID()");
   }
 
-  result = *(a1 + 76);
-  v4 = *(a1 + 80);
-  return result;
+  return a1[19];
 }
 
 __CFDictionary *CMMConvMatrixTemplate<CMMMtxOnly,CMMConvGrayToRGBMatrix>::FlattenConversion(uint64_t a1)
@@ -3757,7 +3655,7 @@ void std::vector<CMMProfileInfo,TAllocator<CMMProfileInfo>>::__destroy_vector::o
       {
         v9 = *v8;
         v8 -= 5;
-        (v9->__sig)(v7);
+        (*v9)(v7);
         v6 -= 5;
         v10 = v7 == v2;
         v7 = v8;
@@ -3853,9 +3751,9 @@ void ___ZL29CMMInitializeLinearGammaTablev_block_invoke()
   CMMMemMgr::ReleaseMemList(&v6);
 }
 
-void sub_19A93159C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_19A93159C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   CMMMemMgr::ReleaseMemList(va);
   _Unwind_Resume(a1);
 }
@@ -3913,9 +3811,9 @@ void ___ZL36CMMInitializeOnePointEightGammaTablev_block_invoke()
   CMMMemMgr::ReleaseMemList(&v12);
 }
 
-void sub_19A931794(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_19A931794(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   CMMMemMgr::ReleaseMemList(va);
   _Unwind_Resume(a1);
 }
@@ -4061,12 +3959,10 @@ ColorSyncProfileRef __getSRGBProfile_block_invoke()
   return result;
 }
 
-void vm_allocator_deallocate(unint64_t a1, uint64_t a2)
+void vm_allocator_deallocate(void *a1, uint64_t a2)
 {
   if (a2)
   {
-    v2 = *MEMORY[0x1E69E9A60];
-    v3 = -*MEMORY[0x1E69E9AC8] & a1;
     JUMPOUT(0x19EAE4B60);
   }
 
@@ -4075,12 +3971,9 @@ void vm_allocator_deallocate(unint64_t a1, uint64_t a2)
 
 BOOL colorSyncProfileEqual(const ColorSyncProfile *a1, const ColorSyncProfile *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
   MD5 = ColorSyncProfileGetMD5(a1);
   v4 = ColorSyncProfileGetMD5(a2);
-  result = *MD5.digest == *v4.digest && *&MD5.digest[8] == *&v4.digest[8];
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return *MD5.digest == *v4.digest && *&MD5.digest[8] == *&v4.digest[8];
 }
 
 __CFData *ColorSyncProfileGetData(uint64_t a1)
@@ -4199,9 +4092,9 @@ LABEL_31:
 
             *a2 = v23;
             v24 = this[21];
-            v25 = v24[1];
-            v26 = v24[6];
-            for (j = v24[2]; ; j = v24[2])
+            v25 = *(v24 + 1);
+            v26 = *(v24 + 6);
+            for (j = *(v24 + 2); ; j = *(v24 + 2))
             {
               v28 = 0xAAAAAAAAAAAAAAABLL * ((j - v25) >> 3);
               if (v26 < v28)
@@ -4209,12 +4102,12 @@ LABEL_31:
                 break;
               }
 
-              std::vector<CMMTagInfo,TAllocator<CMMTagInfo>>::resize((v24 + 1), v28 + 10, v6, v7);
-              v26 = v24[6];
-              v25 = v24[1];
+              std::vector<CMMTagInfo,TAllocator<CMMTagInfo>>::resize(v24 + 8, v28 + 10, v6, v7);
+              v26 = *(v24 + 6);
+              v25 = *(v24 + 1);
             }
 
-            v24[6] = v26 + 1;
+            *(v24 + 6) = v26 + 1;
             v29 = v25 + 24 * v26;
             *(v29 + 8) = v18;
             *(v29 + 16) = 0;
@@ -4426,7 +4319,7 @@ void std::vector<CMMTagInfo,TAllocator<CMMTagInfo>>::resize(uint64_t a1, unint64
   }
 }
 
-BOOL CMMProfileInfoContainer::ProfilesIdentical(CMMProfileInfoContainer *this, CMMProfile *a2, CMMProfile *a3, CMMMemMgr *a4)
+uint64_t CMMProfileInfoContainer::ProfilesIdentical(CMMProfileInfoContainer *this, CMMProfile *a2, CMMProfile *a3, CMMMemMgr *a4)
 {
   v4 = *(this + 11);
   if (v4 == 1852662636)
@@ -4515,9 +4408,9 @@ void *TVector<CMMTagInfo,TAllocator<CMMTagInfo>>::TVector(void *a1, unint64_t a2
   return a1;
 }
 
-void sub_19A9323DC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_19A9323DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<CMMTagInfo,TAllocator<CMMTagInfo>>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -4760,50 +4653,48 @@ LABEL_28:
   return v14;
 }
 
-uint64_t CMMParaCurveTag::SameCurve(CMMParaCurveTag *this, char **lpsrc, char **a3)
+uint64_t CMMParaCurveTag::SameCurve(CMMParaCurveTag *this, CMMCurveTag *lpsrc, CMMCurveTag *a3)
 {
   if (lpsrc)
   {
-    v5 = **lpsrc;
     if (a3)
     {
 LABEL_3:
-      v7 = **a3;
       goto LABEL_6;
     }
   }
 
   else
   {
-    v6 = 0;
+    v5 = 0;
     if (a3)
     {
       goto LABEL_3;
     }
   }
 
-  v8 = 0;
+  v6 = 0;
 LABEL_6:
-  if (v6 | v8)
+  if (v5 | v6)
   {
     result = 0;
-    if (v6 && v8)
+    if (v5 && v6)
     {
-      return *(v6 + 56) == *(v8 + 56) && memcmp((v6 + 64), (v8 + 64), 4 * *(v8 + 60)) == 0;
+      return *(v5 + 56) == *(v6 + 56) && memcmp((v5 + 64), (v6 + 64), 4 * *(v6 + 60)) == 0;
     }
   }
 
   else
   {
-    v9 = *(*lpsrc + 7);
+    v7 = *(*lpsrc + 56);
 
-    return v9(lpsrc, lpsrc, a3);
+    return v7(lpsrc, lpsrc, a3);
   }
 
   return result;
 }
 
-CFTypeRef ColorSyncProfileCopyASCIIDescriptionString(CFTypeRef result)
+CFStringRef ColorSyncProfileCopyASCIIDescriptionString(CFStringRef result)
 {
   if (!result)
   {
@@ -4822,14 +4713,14 @@ CFTypeRef ColorSyncProfileCopyASCIIDescriptionString(CFTypeRef result)
     return 0;
   }
 
-  result = *(v1 + 12);
+  result = v1[3].isa;
   if (!result)
   {
     return result;
   }
 
   Value = CFDictionaryGetValue(result, @"desc");
-  if (Value && ((v4 = Value, v5 = CFGetTypeID(Value), v5 != CFStringGetTypeID()) || (v4 = CFDictionaryGetValue(*(v1 + 12), v4)) != 0) && (v6 = CFGetTypeID(v4), v6 == CFDataGetTypeID()) && CFDataGetLength(v4) >= 9 && (v7 = CFDataGetBytePtr(v4)) != 0)
+  if (Value && ((v4 = Value, v5 = CFGetTypeID(Value), v5 != CFStringGetTypeID()) || (v4 = CFDictionaryGetValue(v1[3].isa, v4)) != 0) && (v6 = CFGetTypeID(v4), v6 == CFDataGetTypeID()) && CFDataGetLength(v4) >= 9 && (v7 = CFDataGetBytePtr(v4)) != 0)
   {
     if (*v7 == 1668506980)
     {
@@ -4865,12 +4756,12 @@ CFTypeRef ColorSyncProfileCopyASCIIDescriptionString(CFTypeRef result)
     v8 = 0;
   }
 
-  v13 = CFDictionaryGetValue(*(v1 + 12), @"dscm");
+  v13 = CFDictionaryGetValue(v1[3].isa, @"dscm");
   if (v13)
   {
     v14 = v13;
     v15 = CFGetTypeID(v13);
-    if (v15 != CFStringGetTypeID() || (v14 = CFDictionaryGetValue(*(v1 + 12), v14)) != 0)
+    if (v15 != CFStringGetTypeID() || (v14 = CFDictionaryGetValue(v1[3].isa, v14)) != 0)
     {
       v16 = CFGetTypeID(v14);
       if (v16 == CFDataGetTypeID() && CFDataGetLength(v14) >= 9)
@@ -4899,12 +4790,12 @@ CFTypeRef ColorSyncProfileCopyASCIIDescriptionString(CFTypeRef result)
     }
   }
 
-  v17 = CFDictionaryGetValue(*(v1 + 12), @"desc");
+  v17 = CFDictionaryGetValue(v1[3].isa, @"desc");
   if (v17)
   {
     v18 = v17;
     v19 = CFGetTypeID(v17);
-    if (v19 != CFStringGetTypeID() || (v18 = CFDictionaryGetValue(*(v1 + 12), v18)) != 0)
+    if (v19 != CFStringGetTypeID() || (v18 = CFDictionaryGetValue(v1[3].isa, v18)) != 0)
     {
       v20 = CFGetTypeID(v18);
       if (v20 == CFDataGetTypeID() && CFDataGetLength(v18) >= 9)
@@ -5577,9 +5468,9 @@ ColorSyncProfile *makeCalRGB(uint64_t a1, const __CFDictionary *a2)
 
 unint64_t icXYZFromDictionary(const __CFDictionary *a1, const void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   Value = CFDictionaryGetValue(a1, a2);
-  if (Value && (v3 = Value, v4 = CFGetTypeID(Value), v4 == CFArrayGetTypeID()) && (v13 = 0, valuePtr = 0, ValueAtIndex = CFArrayGetValueAtIndex(v3, 0), CFNumberGetValue(ValueAtIndex, kCFNumberFloatType, &valuePtr)) && (v6 = CFArrayGetValueAtIndex(v3, 1), CFNumberGetValue(v6, kCFNumberFloatType, &valuePtr + 4)) && (v7 = CFArrayGetValueAtIndex(v3, 2), CFNumberGetValue(v7, kCFNumberFloatType, &v13)))
+  if (Value && (v3 = Value, v4 = CFGetTypeID(Value), v4 == CFArrayGetTypeID()) && (v12 = 0, valuePtr = 0, ValueAtIndex = CFArrayGetValueAtIndex(v3, 0), CFNumberGetValue(ValueAtIndex, kCFNumberFloatType, &valuePtr)) && (v6 = CFArrayGetValueAtIndex(v3, 1), CFNumberGetValue(v6, kCFNumberFloatType, &valuePtr + 4)) && (v7 = CFArrayGetValueAtIndex(v3, 2), CFNumberGetValue(v7, kCFNumberFloatType, &v12)))
   {
     v8 = ((*&valuePtr * 65536.0) + 0.5);
     v9 = ((*(&valuePtr + 1) * 65536.0) + 0.5) << 32;
@@ -5591,7 +5482,6 @@ unint64_t icXYZFromDictionary(const __CFDictionary *a1, const void *a2)
     v8 = 0;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v8 | v9;
 }
 
@@ -5612,63 +5502,22 @@ void addXYZTag(ColorSyncProfile *a1, const __CFString *a2, uint64_t a3, unsigned
 unint64_t icXYZD50FromDictionary(const __CFDictionary *a1, const void *a2)
 {
   Value = CFDictionaryGetValue(a1, a2);
-  if (!Value)
+  if (Value && (v4 = Value, v5 = CFGetTypeID(Value), v5 == CFArrayGetTypeID()) && (valuePtr = 0uLL, v26 = 0, ValueAtIndex = CFArrayGetValueAtIndex(v4, 0), CFNumberGetValue(ValueAtIndex, kCFNumberDoubleType, &valuePtr)) && (v7 = CFArrayGetValueAtIndex(v4, 1), CFNumberGetValue(v7, kCFNumberDoubleType, &valuePtr + 8)) && (v8 = CFArrayGetValueAtIndex(v4, 2), CFNumberGetValue(v8, kCFNumberDoubleType, &v26)) && (v9 = CFDictionaryGetValue(a1, @"wtpt")) != 0 && (v10 = v9, v11 = CFGetTypeID(v9), v11 == CFArrayGetTypeID()) && (v23 = 0uLL, v24 = 0, v12 = CFArrayGetValueAtIndex(v10, 0), CFNumberGetValue(v12, kCFNumberDoubleType, &v23)) && (v13 = CFArrayGetValueAtIndex(v10, 1), CFNumberGetValue(v13, kCFNumberDoubleType, &v23.f64[1])) && (v14 = CFArrayGetValueAtIndex(v10, 2), CFNumberGetValue(v14, kCFNumberDoubleType, &v24)))
   {
-    goto LABEL_12;
-  }
-
-  v4 = Value;
-  v5 = CFGetTypeID(Value);
-  if (v5 != CFArrayGetTypeID())
-  {
-    goto LABEL_12;
-  }
-
-  valuePtr = 0uLL;
-  v23 = 0;
-  ValueAtIndex = CFArrayGetValueAtIndex(v4, 0);
-  if (!CFNumberGetValue(ValueAtIndex, kCFNumberDoubleType, &valuePtr))
-  {
-    goto LABEL_12;
-  }
-
-  v7 = CFArrayGetValueAtIndex(v4, 1);
-  if (!CFNumberGetValue(v7, kCFNumberDoubleType, &valuePtr + 8))
-  {
-    goto LABEL_12;
-  }
-
-  v8 = CFArrayGetValueAtIndex(v4, 2);
-  if (!CFNumberGetValue(v8, kCFNumberDoubleType, &v23))
-  {
-    goto LABEL_12;
-  }
-
-  v9 = CFDictionaryGetValue(a1, @"wtpt");
-  if (!v9)
-  {
-    goto LABEL_12;
-  }
-
-  v10 = v9;
-  v11 = CFGetTypeID(v9);
-  if (v11 == CFArrayGetTypeID() && (v20 = 0uLL, v21 = 0, v12 = CFArrayGetValueAtIndex(v10, 0), CFNumberGetValue(v12, kCFNumberDoubleType, &v20)) && (v13 = CFArrayGetValueAtIndex(v10, 1), CFNumberGetValue(v13, kCFNumberDoubleType, &v20.f64[1])) && (v14 = CFArrayGetValueAtIndex(v10, 2), CFNumberGetValue(v14, kCFNumberDoubleType, &v21)))
-  {
-    v18 = 0uLL;
-    v19 = 0;
-    ColorSyncConvertDoubleXYZToD50(&valuePtr, &v20, &v18, 3, 0);
-    v15 = (*&v18 * 65536.0 + 0.5);
-    v16 = (*(&v18 + 1) * 65536.0 + 0.5) << 32;
+    v21 = 0uLL;
+    v22 = 0;
+    ColorSyncConvertDoubleXYZToD50(&valuePtr, &v23, &v21, 3, 0, v15, v16, v17);
+    v18 = (*&v21 * 65536.0 + 0.5);
+    v19 = (*(&v21 + 1) * 65536.0 + 0.5) << 32;
   }
 
   else
   {
-LABEL_12:
-    v16 = 0;
-    v15 = 0;
+    v19 = 0;
+    v18 = 0;
   }
 
-  return v15 | v16;
+  return v18 | v19;
 }
 
 uint64_t CMMLutTag::InitializeCurveTable(uint64_t result, _DWORD *a2, CMMMemMgr *a3, const char *a4, int a5, uint64_t a6, _DWORD *a7)
@@ -5855,7 +5704,7 @@ LABEL_17:
     }
   }
 
-  if ((*(*this + 48))(this) == v6)
+  if ((*(*this + 48))(this, a2, a3) == v6)
   {
     v7 = 0;
   }
@@ -5972,9 +5821,9 @@ CFTypeRef create_ITUR2020_PQProfile()
   return CFRetain(v1);
 }
 
-void TVector<CMMTagInfo,TAllocator<CMMTagInfo>>::~TVector(uint64_t a1)
+void TVector<CMMTagInfo,TAllocator<CMMTagInfo>>::~TVector(pthread_mutex_t **a1)
 {
-  v2 = (a1 + 8);
+  v2 = (a1 + 1);
   std::vector<CMMTagInfo,TAllocator<CMMTagInfo>>::__destroy_vector::operator()[abi:ne200100](&v2);
 
   CMMBase::operator delete(a1);
@@ -5997,7 +5846,7 @@ void std::vector<CMMTagInfo,TAllocator<CMMTagInfo>>::__destroy_vector::operator(
       {
         v9 = *v8;
         v8 -= 3;
-        (v9->__sig)(v7);
+        (*v9)(v7);
         v6 -= 3;
         v10 = v7 == v2;
         v7 = v8;
@@ -6037,186 +5886,184 @@ CFTypeRef create_ITUR709_PQProfile()
   return CFRetain(v1);
 }
 
-CMMTable *CMMParaCurveTag::MakeInvertedTRC()
+CMMTable *CMMParaCurveTag::MakeInvertedTRC(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v0 = MEMORY[0x1EEE9AC00]();
-  v3 = v2;
-  v4 = v1;
+  v3 = MEMORY[0x1EEE9AC00](a1, a2, a3);
   v6 = v5;
-  v7 = v0;
-  v45 = *MEMORY[0x1E69E9840];
-  if (*(v0 + 56) == 3)
+  v7 = v4;
+  v9 = v8;
+  v10 = v3;
+  v47 = *MEMORY[0x1E69E9840];
+  if (*(v3 + 56) == 3)
   {
-    if (*(v0 + 64) == 157286 && *(v0 + 68) == 62119 && *(v0 + 72) == 3417 && *(v0 + 76) == 5072 && !*(v0 + 84) && !*(v0 + 88))
+    if (*(v3 + 64) == 157286 && *(v3 + 68) == 62119 && *(v3 + 72) == 3417 && *(v3 + 76) == 5072 && !*(v3 + 84) && !*(v3 + 88))
     {
       if (CMMInitializeSRGBGammaTable(void)::predicate != -1)
       {
         dispatch_once(&CMMInitializeSRGBGammaTable(void)::predicate, &__block_literal_global_1012);
       }
 
-      v14 = CMMsRGBGammaTable;
-      v15 = *(CMMsRGBGammaTable + 8);
-      if (v15)
+      v17 = CMMsRGBGammaTable;
+      v18 = *(CMMsRGBGammaTable + 8);
+      if (v18)
       {
-        *(CMMsRGBGammaTable + 8) = v15 + 1;
+        *(CMMsRGBGammaTable + 8) = v18 + 1;
       }
 
-      *v3 = v14;
-      if (v6)
+      *v6 = v17;
+      if (v9)
       {
-        v17 = *(CMMInvsRGBGammaFloatLutInfo + 16);
-        v16 = *(CMMInvsRGBGammaFloatLutInfo + 32);
-        v18 = *CMMInvsRGBGammaFloatLutInfo;
-        *(v6 + 48) = *(CMMInvsRGBGammaFloatLutInfo + 48);
-        *(v6 + 16) = v17;
-        *(v6 + 32) = v16;
-        *v6 = v18;
+        v20 = *(CMMInvsRGBGammaFloatLutInfo + 16);
+        v19 = *(CMMInvsRGBGammaFloatLutInfo + 32);
+        v21 = *CMMInvsRGBGammaFloatLutInfo;
+        *(v9 + 48) = *(CMMInvsRGBGammaFloatLutInfo + 48);
+        *(v9 + 16) = v20;
+        *(v9 + 32) = v19;
+        *v9 = v21;
       }
 
-      v9 = CMMInvsRGBGammaTable;
+      v12 = CMMInvsRGBGammaTable;
       goto LABEL_39;
     }
   }
 
-  else if (!*(v0 + 56))
+  else if (!*(v3 + 56))
   {
-    v8 = *(v0 + 64);
-    if (v8 == 0x10000)
+    v11 = *(v3 + 64);
+    if (v11 == 0x10000)
     {
       if (CMMInitializeLinearGammaTable(void)::predicate != -1)
       {
         dispatch_once(&CMMInitializeLinearGammaTable(void)::predicate, &__block_literal_global_1015);
       }
 
-      v9 = CMMLinearGammaTable;
-      v10 = *(CMMLinearGammaTable + 8);
-      if (v10)
+      v12 = CMMLinearGammaTable;
+      v13 = *(CMMLinearGammaTable + 8);
+      if (v13)
       {
-        *(CMMLinearGammaTable + 8) = ++v10;
+        *(CMMLinearGammaTable + 8) = ++v13;
       }
 
-      *v3 = v9;
-      if (!v6)
+      *v6 = v12;
+      if (!v9)
       {
         goto LABEL_40;
       }
 
-      v12 = *(CMMLinearGammaFloatLutInfo + 16);
-      v11 = *(CMMLinearGammaFloatLutInfo + 32);
-      v13 = *CMMLinearGammaFloatLutInfo;
-      *(v6 + 48) = *(CMMLinearGammaFloatLutInfo + 48);
-      *(v6 + 16) = v12;
-      *(v6 + 32) = v11;
-      *v6 = v13;
+      v15 = *(CMMLinearGammaFloatLutInfo + 16);
+      v14 = *(CMMLinearGammaFloatLutInfo + 32);
+      v16 = *CMMLinearGammaFloatLutInfo;
+      *(v9 + 48) = *(CMMLinearGammaFloatLutInfo + 48);
+      *(v9 + 16) = v15;
+      *(v9 + 32) = v14;
+      *v9 = v16;
 LABEL_39:
-      v10 = *(v9 + 1);
+      v13 = *(v12 + 1);
 LABEL_40:
-      if (v10)
+      if (v13)
       {
-        *(v9 + 1) = v10 + 1;
+        *(v12 + 1) = v13 + 1;
       }
 
-      goto LABEL_46;
+      return v12;
     }
 
-    if (v8 >> 1 == 58982)
+    if (v11 >> 1 == 58982)
     {
       if (CMMInitializeOnePointEightGammaTable(void)::predicate != -1)
       {
         dispatch_once(&CMMInitializeOnePointEightGammaTable(void)::predicate, &__block_literal_global_1018);
       }
 
-      v19 = CMMOnePointEightGammaTable;
-      v20 = *(CMMOnePointEightGammaTable + 8);
-      if (v20)
+      v22 = CMMOnePointEightGammaTable;
+      v23 = *(CMMOnePointEightGammaTable + 8);
+      if (v23)
       {
-        *(CMMOnePointEightGammaTable + 8) = v20 + 1;
+        *(CMMOnePointEightGammaTable + 8) = v23 + 1;
       }
 
-      *v3 = v19;
-      if (v6)
+      *v6 = v22;
+      if (v9)
       {
-        v22 = *(CMMInvOnePointEightGammaFloatLutInfo + 16);
-        v21 = *(CMMInvOnePointEightGammaFloatLutInfo + 32);
-        v23 = *CMMInvOnePointEightGammaFloatLutInfo;
-        *(v6 + 48) = *(CMMInvOnePointEightGammaFloatLutInfo + 48);
-        *(v6 + 16) = v22;
-        *(v6 + 32) = v21;
-        *v6 = v23;
+        v25 = *(CMMInvOnePointEightGammaFloatLutInfo + 16);
+        v24 = *(CMMInvOnePointEightGammaFloatLutInfo + 32);
+        v26 = *CMMInvOnePointEightGammaFloatLutInfo;
+        *(v9 + 48) = *(CMMInvOnePointEightGammaFloatLutInfo + 48);
+        *(v9 + 16) = v25;
+        *(v9 + 32) = v24;
+        *v9 = v26;
       }
 
-      v9 = CMMInvOnePointEightGammaTable;
+      v12 = CMMInvOnePointEightGammaTable;
       goto LABEL_39;
     }
 
-    if (v8 == 144179)
+    if (v11 == 144179)
     {
       if (CMMInitializeTwoPointTwoGammaTable(void)::predicate != -1)
       {
         dispatch_once(&CMMInitializeTwoPointTwoGammaTable(void)::predicate, &__block_literal_global_1008);
       }
 
-      v24 = CMMTwoPointTwoGammaTable;
-      v25 = *(CMMTwoPointTwoGammaTable + 8);
-      if (v25)
+      v27 = CMMTwoPointTwoGammaTable;
+      v28 = *(CMMTwoPointTwoGammaTable + 8);
+      if (v28)
       {
-        *(CMMTwoPointTwoGammaTable + 8) = v25 + 1;
+        *(CMMTwoPointTwoGammaTable + 8) = v28 + 1;
       }
 
-      *v3 = v24;
-      if (v6)
+      *v6 = v27;
+      if (v9)
       {
-        v27 = *(CMMInvTwoPointTwoGammaFloatLutInfo + 16);
-        v26 = *(CMMInvTwoPointTwoGammaFloatLutInfo + 32);
-        v28 = *CMMInvTwoPointTwoGammaFloatLutInfo;
-        *(v6 + 48) = *(CMMInvTwoPointTwoGammaFloatLutInfo + 48);
-        *(v6 + 16) = v27;
-        *(v6 + 32) = v26;
-        *v6 = v28;
+        v30 = *(CMMInvTwoPointTwoGammaFloatLutInfo + 16);
+        v29 = *(CMMInvTwoPointTwoGammaFloatLutInfo + 32);
+        v31 = *CMMInvTwoPointTwoGammaFloatLutInfo;
+        *(v9 + 48) = *(CMMInvTwoPointTwoGammaFloatLutInfo + 48);
+        *(v9 + 16) = v30;
+        *(v9 + 32) = v29;
+        *v9 = v31;
       }
 
-      v9 = CMMInvTwoPointTwoGammaTable;
+      v12 = CMMInvTwoPointTwoGammaTable;
       goto LABEL_39;
     }
   }
 
-  v29 = CMMBase::NewInternal(0x28, v1, v1, v2);
-  *v29 = &unk_1F0E09180;
-  v29[1] = 1;
-  v29[3] = 0;
-  v29[4] = 21512;
-  v29[2] = CMMBase::NewInternal(0x5408, v4, v30, v31);
-  *v3 = v29;
-  v32 = CMMTable::UInt8Data(v29[2], v29[3]);
-  CMMParaCurveTag::MakeLut(v7, v6, v32, 0, 1.0);
-  v9 = CMMBase::NewInternal(0x28, v4, v33, v34);
-  *v9 = &unk_1F0E09180;
-  *(v9 + 1) = 1;
-  *(v9 + 3) = 0;
-  *(v9 + 4) = 21512;
-  v37 = CMMBase::NewInternal(0x5408, v4, v35, v36);
-  *(v9 + 2) = v37;
-  v38 = CMMTable::UInt8Data(v37, *(v9 + 3));
-  memcpy(v38, v32, 0x5408uLL);
-  bzero(v44, 0x4004uLL);
-  InvertLUT(v38, v44);
-  MakeLookups(v38);
-  if (v6)
+  v32 = CMMBase::NewInternal(0x28, v4, v4, v5);
+  *v32 = &unk_1F0E09180;
+  v32[1] = 1;
+  v32[3] = 0;
+  v32[4] = 21512;
+  v32[2] = CMMBase::NewInternal(0x5408, v7, v33, v34);
+  *v6 = v32;
+  v35 = CMMTable::UInt8Data(v32[2], v32[3]);
+  CMMParaCurveTag::MakeLut(v10, v9, v35, 0, 1.0);
+  v12 = CMMBase::NewInternal(0x28, v7, v36, v37);
+  *v12 = &unk_1F0E09180;
+  *(v12 + 1) = 1;
+  *(v12 + 3) = 0;
+  *(v12 + 4) = 21512;
+  v40 = CMMBase::NewInternal(0x5408, v7, v38, v39);
+  *(v12 + 2) = v40;
+  v41 = CMMTable::UInt8Data(v40, *(v12 + 3));
+  memcpy(v41, v35, 0x5408uLL);
+  bzero(v46, 0x4004uLL);
+  InvertLUT(v41, v46);
+  MakeLookups(v41);
+  if (v9)
   {
-    if (*v6)
+    if (*v9)
     {
-      CMMCurveTag::InvertFloatParametricLUT(v6, v41);
+      CMMCurveTag::InvertFloatParametricLUT(v9, v44);
     }
 
     else
     {
-      *(v6 + 16) = CMMTable::MakeFloatCopy(v9, v4, v39, v40);
+      *(v9 + 16) = CMMTable::MakeFloatCopy(v12, v7, v42, v43);
     }
   }
 
-LABEL_46:
-  v42 = *MEMORY[0x1E69E9840];
-  return v9;
+  return v12;
 }
 
 double __ColorSyncProfileGetBT709RedPrimary_block_invoke()
@@ -6394,9 +6241,9 @@ void ___ZL34CMMInitializeTwoPointTwoGammaTablev_block_invoke()
   CMMMemMgr::ReleaseMemList(&v12);
 }
 
-void sub_19A935380(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_19A935380(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   CMMMemMgr::ReleaseMemList(va);
   _Unwind_Resume(a1);
 }
@@ -6489,9 +6336,9 @@ pthread_mutex_t *DoCMMDisposeStorage(pthread_mutex_t *result)
   return result;
 }
 
-void sub_19A93550C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_19A93550C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   CMMMemMgr::ReleaseMemList(va);
   _Unwind_Resume(a1);
 }
@@ -6630,7 +6477,7 @@ void addGammaTag(ColorSyncProfile *a1, const __CFString *a2, float a3)
   }
 }
 
-uint64_t DoFlattenCompactConversion(uint64_t a1, uint64_t a2, const __CFDictionary *a3, void *a4, unint64_t a5)
+uint64_t DoFlattenCompactConversion(uint64_t a1, uint64_t a2, const __CFDictionary *a3, void *a4, uint64_t a5)
 {
   if ((*(a1 + 120) & 2) != 0)
   {
@@ -6648,11 +6495,11 @@ uint64_t DoFlattenCompactConversion(uint64_t a1, uint64_t a2, const __CFDictiona
       __assert_rtn("flatten_device_to_compact_conversion", "CMMTransform.cpp", 1147, "dynamic_cast <CMMConvGrayToRGB *> (devConv) != NULL");
     }
 
-    v14 = (*(v12 + 26))(v11, a3);
-    if (v14)
+    v13 = (*(v12 + 208))(v11, a3);
+    if (v13)
     {
-      CFArrayAppendValue(a2, v14);
-      CFRelease(v14);
+      CFArrayAppendValue(a2, v13);
+      CFRelease(v13);
       return 0;
     }
 
@@ -6663,56 +6510,54 @@ uint64_t DoFlattenCompactConversion(uint64_t a1, uint64_t a2, const __CFDictiona
     }
   }
 
-  v52 = *(a1 + 64);
-  CMMMemMgr::RetainMemList(&v52);
-  v48 = a5;
-  v49 = a4;
+  v45 = *(a1 + 64);
+  CMMMemMgr::RetainMemList(&v45);
+  v41 = a5;
+  v42 = a4;
   if (v11)
   {
-    v15 = -1;
+    v14 = -1;
     while (1)
     {
       while (1)
       {
-        v16 = (*(*v11 + 27))(v11);
-        v17 = *v11;
-        v18 = *v11;
-        if (v16 == 1)
+        v15 = (*(*v11 + 216))(v11);
+        v16 = *v11;
+        if (v15 == 1)
         {
           break;
         }
 
-        if ((*(v17 + 27))(v11) != 4)
+        if ((*(*v11 + 216))(v11) != 4)
         {
           goto LABEL_22;
         }
 
-        v11 = (*(*v11 + 29))(v11);
+        v11 = (*(*v11 + 232))(v11);
         if (!v11)
         {
           goto LABEL_19;
         }
       }
 
-      v19 = *v17;
-      if (v15 != -1 && v20 < v15)
+      if (v14 != -1 && v17 < v14)
       {
 LABEL_22:
         lpsrc = v11;
         goto LABEL_23;
       }
 
-      v21 = (*(v18 + 26))(v11, a3);
-      if (!v21)
+      v18 = (*(v16 + 208))(v11, a3);
+      if (!v18)
       {
         break;
       }
 
-      CFArrayAppendValue(a2, v21);
-      CFRelease(v21);
+      CFArrayAppendValue(a2, v18);
+      CFRelease(v18);
       lpsrc = 0;
       v11 = v11[2];
-      v15 = v20;
+      v14 = v17;
       if (!v11)
       {
         goto LABEL_23;
@@ -6731,140 +6576,138 @@ LABEL_19:
 
 LABEL_23:
   Count = CFArrayGetCount(a2);
-  v23 = lpsrc;
+  v20 = lpsrc;
   if (lpsrc)
   {
-    v24 = Count;
-    v25 = 0;
-    v26 = -1;
+    v21 = Count;
+    v22 = 0;
+    v23 = -1;
     while (1)
     {
-      v50 = v25;
-      v27 = *(v23 + 16);
-      v28 = v23;
+      v43 = v22;
+      v24 = *(v20 + 16);
+      v25 = v20;
       do
       {
-        v29 = v28;
-        v28 = v28[2];
+        v26 = v25;
+        v25 = v25[2];
       }
 
-      while (v28);
+      while (v25);
       while (1)
       {
-        v33 = (*(*v29 + 216))(v29);
-        v34 = *v29;
-        v35 = *v29;
-        if (v33 != 1)
+        v29 = (*(*v26 + 216))(v26);
+        v30 = *v26;
+        if (v29 != 1)
         {
           break;
         }
 
-        v30 = *v34;
-        if (v26 != -1 && v31 > v26)
+        if (v23 != -1 && v27 > v23)
         {
           goto LABEL_45;
         }
 
-        v32 = (*(v35 + 26))(v29, a3);
-        if (!v32)
+        v28 = (*(v30 + 208))(v26, a3);
+        if (!v28)
         {
           CFArrayRemoveAllValues(a2);
 LABEL_45:
-          if ((v50 & 1) == 0)
+          if ((v43 & 1) == 0)
           {
             goto LABEL_47;
           }
 
 LABEL_46:
-          v27 = v47;
+          v24 = v40;
           goto LABEL_47;
         }
 
-        CFArrayInsertValueAtIndex(a2, v24, v32);
-        CFRelease(v32);
-        if (v29 == v23)
+        CFArrayInsertValueAtIndex(a2, v21, v28);
+        CFRelease(v28);
+        if (v26 == v20)
         {
-          v27 = v29;
+          v24 = v26;
           goto LABEL_45;
         }
 
-        v29 = v29[3];
-        v26 = v31;
-        if (!v29)
+        v26 = v26[3];
+        v23 = v27;
+        if (!v26)
         {
           goto LABEL_45;
         }
       }
 
-      if ((*(v34 + 27))(v29) != 4)
+      if ((*(*v26 + 216))(v26) != 4)
       {
         break;
       }
 
-      v36 = (*(*v29 + 232))(v29);
-      v23 = v36;
-      v37 = v47;
-      if ((v50 & 1) == 0)
+      v31 = (*(*v26 + 232))(v26);
+      v20 = v31;
+      v32 = v40;
+      if ((v43 & 1) == 0)
       {
-        v37 = v27;
+        v32 = v24;
       }
 
-      v47 = v37;
-      v25 = 1;
-      if (!v36)
+      v40 = v32;
+      v22 = 1;
+      if (!v31)
       {
         goto LABEL_46;
       }
     }
 
-    if (v50)
+    if (v43)
     {
       goto LABEL_46;
     }
 
-    v27 = v29[2];
+    v24 = v26[2];
 LABEL_47:
-    v39 = lpsrc;
-    if (v27 == lpsrc)
+    v34 = lpsrc;
+    if (v24 == lpsrc)
     {
       goto LABEL_57;
     }
 
-    v40 = -1;
+    v35 = -1;
     do
     {
-      v39 = *(v39 + 2);
-      ++v40;
+      v34 = *(v34 + 2);
+      ++v35;
     }
 
-    while (v39 != v27);
-    v39 = lpsrc;
+    while (v34 != v24);
+    v34 = lpsrc;
     {
-      v41 = v42[26](lpsrc, a3);
+      v36 = (*(v37 + 208))(lpsrc, a3);
     }
 
     else
     {
-      v41 = compact_and_flatten_sequence(a1, lpsrc, v27, &v52, *(a1 + 84), *(a1 + 88), kColorSyncTransformIteratorCompactType, v49, v48);
+      v36 = compact_and_flatten_sequence(a1, lpsrc, v24, &v45, *(a1 + 84), *(a1 + 88), kColorSyncTransformIteratorCompactType, v42, v41);
     }
 
-    v45 = v41;
-    if (v41)
+    v38 = v36;
+    if (v36)
     {
-      CFArrayInsertValueAtIndex(a2, v24, v41);
-      CFRelease(v45);
+      CFArrayInsertValueAtIndex(a2, v21, v36);
+      CFRelease(v38);
 LABEL_57:
-      v38 = 0;
+      v33 = 0;
       goto LABEL_59;
     }
 
     CFArrayRemoveAllValues(a2);
-    v38 = 4294967126;
+    v33 = 4294967126;
   }
 
   else
   {
-    v38 = 4294967126;
+    v33 = 4294967126;
     if (CFArrayGetCount(a2) <= 0)
     {
       a2 = 4294967126;
@@ -6875,22 +6718,22 @@ LABEL_57:
       a2 = 0;
     }
 
-    v39 = 0;
+    v34 = 0;
   }
 
 LABEL_59:
-  CMMMemMgr::ReleaseMemList(&v52);
-  if (v39)
+  CMMMemMgr::ReleaseMemList(&v45);
+  if (v34)
   {
-    return v38;
+    return v33;
   }
 
   return a2;
 }
 
-void sub_19A935FC4(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_19A935FC4(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   CMMMemMgr::ReleaseMemList(va);
   __cxa_begin_catch(a1);
   __cxa_end_catch();
@@ -7203,9 +7046,9 @@ CFTypeRef create_ROMMRGBProfile()
   return CFRetain(v1);
 }
 
-CFTypeRef ColorSyncProfileCreateSanitizedCopy(ColorSyncProfileRef prof, CFErrorRef *a2, CFErrorRef *a3)
+ColorSyncProfile *ColorSyncProfileCreateSanitizedCopy(ColorSyncProfileRef prof, CFErrorRef *a2, CFErrorRef *a3)
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   if (a2)
   {
     *a2 = 0;
@@ -7213,11 +7056,7 @@ CFTypeRef ColorSyncProfileCreateSanitizedCopy(ColorSyncProfileRef prof, CFErrorR
 
   if (!ColorSyncProfileVerify(prof, a2, a3))
   {
-LABEL_61:
-    Profile = 0;
-LABEL_62:
-    v36 = *MEMORY[0x1E69E9840];
-    return Profile;
+    return 0;
   }
 
   if (getSRGBData_predicate != -1)
@@ -7358,7 +7197,6 @@ LABEL_45:
     }
 
     v26 = getSRGBProfile_sRGBProfile;
-    v27 = *MEMORY[0x1E69E9840];
     goto LABEL_58;
   }
 
@@ -7366,15 +7204,15 @@ LABEL_49:
   MutableCopy = ColorSyncProfileCreateMutableCopy(prof);
   if (!MutableCopy)
   {
-    goto LABEL_61;
+    return 0;
   }
 
-  v29 = MutableCopy;
-  v30 = copyHeaderData(MutableCopy);
-  if (v30)
+  v28 = MutableCopy;
+  v29 = copyHeaderData(MutableCopy);
+  if (v29)
   {
-    v31 = v30;
-    MutableBytePtr = CFDataGetMutableBytePtr(v30);
+    v30 = v29;
+    MutableBytePtr = CFDataGetMutableBytePtr(v29);
     if (MutableBytePtr)
     {
       if (!(*(MutableBytePtr + 2) >> 26))
@@ -7386,37 +7224,36 @@ LABEL_49:
 
       *(MutableBytePtr + 19) = 54061;
       *(MutableBytePtr + 68) = 0x100000000F6D6;
-      ColorSyncProfileSetHeader(v29, v31);
+      ColorSyncProfileSetHeader(v28, v30);
     }
 
-    CFRelease(v31);
+    CFRelease(v30);
   }
 
-  if (!colorSyncProfileEqual(prof, v29))
+  if (!colorSyncProfileEqual(prof, v28))
   {
     *keys = xmmword_1E7523500;
-    v40 = 0;
+    v37 = 0;
     values[0] = @"appleCopy";
-    values[1] = v29;
+    values[1] = v28;
     values[2] = 0;
-    v37 = CFDictionaryCreate(0, keys, values, 2, 0, 0);
-    Profile = ColorSyncMakeProfile(v37);
-    if (v37)
+    v34 = CFDictionaryCreate(0, keys, values, 2, 0, 0);
+    Profile = ColorSyncMakeProfile(v34);
+    if (v34)
     {
-      CFRelease(v37);
+      CFRelease(v34);
     }
 
-    CFRelease(v29);
+    CFRelease(v28);
     if (!Profile)
     {
-      Profile = CFRetain(prof);
+      return CFRetain(prof);
     }
 
-    goto LABEL_62;
+    return Profile;
   }
 
-  CFRelease(v29);
-  v33 = *MEMORY[0x1E69E9840];
+  CFRelease(v28);
   v26 = prof;
 LABEL_58:
 
@@ -7429,14 +7266,13 @@ _DWORD *CMMConvTRC::SetInputClamp(CMMConvTRC *this)
   result = *(this + 2);
   if (result)
   {
-    v3 = **result;
     if (result)
     {
       if (result[18] > *(this + 18))
       {
-        v4 = *(*result + 24);
+        v3 = *(*result + 24);
 
-        return v4();
+        return v3();
       }
     }
   }
@@ -7444,12 +7280,14 @@ _DWORD *CMMConvTRC::SetInputClamp(CMMConvTRC *this)
   return result;
 }
 
-CFTypeRef copy_description_from_DSCMTag(const __CFData *a1, int a2, int a3)
+CFTypeRef copy_description_from_DSCMTag(const __CFData *a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a3;
+  v4 = a2;
   if (CFDataGetLength(a1) >= 0x11)
   {
-    v6 = a3 | a2;
-    if (!(a3 | a2) || (v7 = CFBundleCopyLocalizationForLocalizationInfo()) == 0)
+    v6 = v3 | v4;
+    if (!(v3 | v4) || (v7 = CFBundleCopyLocalizationForLocalizationInfo()) == 0)
     {
       v7 = CFRetain(@"en_US");
     }
@@ -7590,18 +7428,18 @@ LABEL_31:
 
 __CFDictionary *copy_description_dict_from_DSCMTag(const __CFData *a1)
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   BytePtr = CFDataGetBytePtr(a1);
   Length = CFDataGetLength(a1);
   if (Length < 0x1C)
   {
-    goto LABEL_51;
+    return 0;
   }
 
   v4 = *(BytePtr + 2);
   if (!v4)
   {
-    goto LABEL_51;
+    return 0;
   }
 
   v5 = Length;
@@ -7609,12 +7447,12 @@ __CFDictionary *copy_description_dict_from_DSCMTag(const __CFData *a1)
   v7 = 4 * (v6 + 2 * v6);
   if (v7 > Length - 8)
   {
-    goto LABEL_51;
+    return 0;
   }
 
   if (v7 > Length - 12 || *(BytePtr + 3) != 201326592)
   {
-    goto LABEL_51;
+    return 0;
   }
 
   Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
@@ -7653,12 +7491,12 @@ __CFDictionary *copy_description_dict_from_DSCMTag(const __CFData *a1)
 
       v22 = *(v16 + 1);
       v23 = *v16;
-      v41 = 0;
+      v40 = 0;
       chars = v23;
       if (v22)
       {
-        LOBYTE(v41) = 95;
-        *(&v41 + 1) = v22;
+        LOBYTE(v40) = 95;
+        *(&v40 + 1) = v22;
       }
 
       v24 = CFStringCreateWithFormat(0, 0, @"%s", &chars);
@@ -7763,11 +7601,9 @@ LABEL_48:
   if (!CFDictionaryGetCount(Mutable))
   {
     CFRelease(Mutable);
-LABEL_51:
-    Mutable = 0;
+    return 0;
   }
 
-  v38 = *MEMORY[0x1E69E9840];
   return Mutable;
 }
 
@@ -8035,8 +7871,9 @@ LABEL_17:
   return v5;
 }
 
-double CMMProfile::GetLutTagsGeneric(uint64_t a1, int a2, unsigned int a3)
+double CMMProfile::GetLutTagsGeneric(uint64_t a1, int a2, uint64_t a3)
 {
+  v3 = a3;
   v4 = a1;
   if (a2 <= 2)
   {
@@ -8295,7 +8132,7 @@ LABEL_98:
   v27 = *(v4 + 48);
 LABEL_79:
   v39 = v27;
-  LODWORD(v38) = CMMProfile::GetBToATagSignature(a3);
+  LODWORD(v38) = CMMProfile::GetBToATagSignature(v3);
   v29 = *(v4 + 48);
   if (v29 <= 1296255029)
   {
@@ -8400,24 +8237,25 @@ void *CMMProfile::SingleTagContainer(uint64_t a1, int a2, CMMMemMgr *a3, const c
   return result;
 }
 
-unsigned __int8 *CMMProfile::GetTagByArbitration(uint64_t a1, int a2)
+unsigned __int8 *CMMProfile::GetTagByArbitration(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   result = CMMProfile::GetTag(a1, a2);
   if (!result)
   {
-    if ((a2 - 1093812785) < 2)
+    if ((v2 - 1093812785) < 2)
     {
       v5 = 1093812784;
     }
 
-    else if ((a2 - 1886545201) < 2)
+    else if ((v2 - 1886545201) < 2)
     {
       v5 = 1886545200;
     }
 
     else
     {
-      if ((a2 - 1110589745) > 1)
+      if ((v2 - 1110589745) > 1)
       {
         return 0;
       }
@@ -8431,11 +8269,11 @@ unsigned __int8 *CMMProfile::GetTagByArbitration(uint64_t a1, int a2)
   return result;
 }
 
-uint64_t CMMThrowExceptionWithLog(uint64_t result, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CMMThrowExceptionWithLog(uint64_t result, const char *a2)
 {
   if ((result & 1) == 0)
   {
-    ColorSyncLog(2, "ColorSync: %s\n", a3, a4, a5, a6, a7, a8, a2);
+    ColorSyncLog(2, "ColorSync: %s\n", a2);
     exception = __cxa_allocate_exception(4uLL);
     *exception = -171;
   }
@@ -8673,229 +8511,229 @@ LABEL_12:
 
   v6 = CMMBase::NewInternal(0x88, *(v5 + 8), a3, a4);
   v40 = *(v5 + 8);
-  v106 = v5;
+  v96 = v5;
   CMMConvCLUTBase::CMMConvCLUTBase(v6, a2, v40, *(v5 + 24));
   *v41 = &unk_1F0E0C1D0;
-  v48 = (*(*a2 + 48))(a2);
-  if (v48)
+  v44 = (*(*a2 + 48))(a2);
+  if (v44)
   {
-    v49 = 1;
+    v45 = 1;
     do
     {
-      v50 = v49;
-      v49 *= 2;
-      v52 = v50 >= 0 && v49 != 0;
-      CMMThrowExceptionWithLog(v52, "Overflow in Power", v42, v43, v44, v45, v46, v47);
-      --v48;
+      v46 = v45;
+      v45 *= 2;
+      v48 = v46 >= 0 && v45 != 0;
+      CMMThrowExceptionWithLog(v48, "Overflow in Power");
+      --v44;
     }
 
-    while (v48);
-    v53 = 8 * v50;
+    while (v44);
+    v49 = 8 * v46;
   }
 
   else
   {
-    v53 = 4;
+    v49 = 4;
   }
 
   *(v6 + 12) = &unk_1F0E09180;
   *(v6 + 13) = 1;
   *(v6 + 15) = 0;
-  *(v6 + 16) = v53;
-  *(v6 + 14) = CMMBase::NewInternal(v53, v40, v42, v43);
+  *(v6 + 16) = v49;
+  *(v6 + 14) = CMMBase::NewInternal(v49, v40, v42, v43);
   *(v6 + 12) = &unk_1F0E0C2D8;
   if (*(v6 + 8) <= 0xFuLL)
   {
-    v54 = 0;
+    v50 = 0;
   }
 
   else
   {
-    v54 = 4294967125;
+    v50 = 4294967125;
   }
 
-  CMMThrowExceptionOnError(v54);
+  CMMThrowExceptionOnError(v50);
   result = CMMTable::UInt8Data(*(v6 + 14), *(v6 + 15));
-  v61 = result;
-  v62 = *(v6 + 8);
+  v51 = result;
+  v52 = *(v6 + 8);
   *result = *(v6 + 9);
-  v63 = result - 4;
-  if (v62 < 2)
+  v53 = result - 4;
+  if (v52 < 2)
   {
     goto LABEL_110;
   }
 
-  v64 = 0;
-  LODWORD(v65) = 1;
-  v109 = result;
+  v54 = 0;
+  LODWORD(v55) = 1;
+  v99 = result;
   do
   {
-    if (v65 == 1)
+    if (v55 == 1)
     {
-      v71 = *v61 * *(v6 + 14);
+      v61 = *v51 * *(v6 + 14);
     }
 
     else
     {
-      v66 = 1;
-      v67 = v64;
+      v56 = 1;
+      v57 = v54;
       do
       {
-        v68 = v66 < 0;
-        v66 *= 2;
-        v70 = !v68 && v66 != 0;
-        result = CMMThrowExceptionWithLog(v70, "Overflow in Power", v55, v56, v57, v58, v59, v60);
-        --v67;
+        v58 = v56 < 0;
+        v56 *= 2;
+        v60 = !v58 && v56 != 0;
+        result = CMMThrowExceptionWithLog(v60, "Overflow in Power");
+        --v57;
       }
 
-      while (v67);
-      v71 = *(v63 + 4 * v66) * *(v6 + 14);
-      if (!v65)
+      while (v57);
+      v61 = *(v53 + 4 * v56) * *(v6 + 14);
+      if (!v55)
       {
-        v72 = 1;
+        v62 = 1;
         goto LABEL_60;
       }
     }
 
-    v73 = 1;
-    v74 = v65;
+    v63 = 1;
+    v64 = v55;
     do
     {
-      v72 = (2 * v73);
-      v76 = v73 >= 0 && v72 != 0;
-      result = CMMThrowExceptionWithLog(v76, "Overflow in Power", v55, v56, v57, v58, v59, v60);
-      v73 = v72;
-      --v74;
+      v62 = (2 * v63);
+      v66 = v63 >= 0 && v62 != 0;
+      result = CMMThrowExceptionWithLog(v66, "Overflow in Power");
+      v63 = v62;
+      --v64;
     }
 
-    while (v74);
+    while (v64);
 LABEL_60:
-    *(v63 + 4 * v72) = v71;
-    v65 = (v65 + 1);
-    v77 = *(v6 + 8);
-    ++v64;
-    v61 = v109;
+    *(v53 + 4 * v62) = v61;
+    v55 = (v55 + 1);
+    v67 = *(v6 + 8);
+    ++v54;
+    v51 = v99;
   }
 
-  while (v77 > v65);
-  if (v77 >= 2)
+  while (v67 > v55);
+  if (v67 >= 2)
   {
-    v78 = 1;
-    v79 = 2;
+    v68 = 1;
+    v69 = 2;
     while (1)
     {
-      v80 = v78;
-      v81 = 1;
+      v70 = v68;
+      v71 = 1;
       do
       {
-        v68 = v81 < 0;
-        v81 *= 2;
-        v83 = !v68 && v81 != 0;
-        CMMThrowExceptionWithLog(v83, "Overflow in Power", v55, v56, v57, v58, v59, v60);
-        --v80;
+        v58 = v71 < 0;
+        v71 *= 2;
+        v73 = !v58 && v71 != 0;
+        CMMThrowExceptionWithLog(v73, "Overflow in Power");
+        --v70;
       }
 
-      while (v80);
-      v84 = v78 + 1;
-      v108 = v79;
-      v85 = v79;
-      v86 = 1;
+      while (v70);
+      v74 = v68 + 1;
+      v98 = v69;
+      v75 = v69;
+      v76 = 1;
       do
       {
-        v87 = 2 * v86;
-        v89 = v86 >= 0 && v87 != 0;
-        result = CMMThrowExceptionWithLog(v89, "Overflow in Power", v55, v56, v57, v58, v59, v60);
-        v86 = v87;
-        --v85;
+        v77 = 2 * v76;
+        v79 = v76 >= 0 && v77 != 0;
+        result = CMMThrowExceptionWithLog(v79, "Overflow in Power");
+        v76 = v77;
+        --v75;
       }
 
-      while (v85);
-      v107 = v84;
-      v90 = v81 | 1;
-      v91 = *(v6 + 8);
-      if ((v81 | 1uLL) < v87)
+      while (v75);
+      v97 = v74;
+      v80 = v71 | 1;
+      v81 = *(v6 + 8);
+      if ((v71 | 1uLL) < v77)
       {
         break;
       }
 
 LABEL_109:
-      v78 = v107;
-      v79 = v108 + 1;
-      if (v107 >= v91)
+      v68 = v97;
+      v69 = v98 + 1;
+      if (v97 >= v81)
       {
         goto LABEL_110;
       }
     }
 
-    v92 = *(v6 + 8);
+    v82 = *(v6 + 8);
     while (1)
     {
-      v93 = v90;
-      if (v92)
+      v83 = v80;
+      if (v82)
       {
         break;
       }
 
-      v95 = 0;
+      v85 = 0;
 LABEL_108:
-      v61[v81] = v95;
-      v90 = v93 + 1;
-      v81 = v93;
-      if (v93 + 1 == v87)
+      v51[v71] = v85;
+      v80 = v83 + 1;
+      v71 = v83;
+      if (v83 + 1 == v77)
       {
         goto LABEL_109;
       }
     }
 
-    LODWORD(v94) = 0;
-    v95 = 0;
+    LODWORD(v84) = 0;
+    v85 = 0;
     while (2)
     {
-      if (v94)
+      if (v84)
       {
-        v96 = 1;
-        v97 = v94;
+        v86 = 1;
+        v87 = v84;
         do
         {
-          v98 = (2 * v96);
-          v100 = v96 >= 0 && v98 != 0;
-          result = CMMThrowExceptionWithLog(v100, "Overflow in Power", v55, v56, v57, v58, v59, v60);
-          v96 = v98;
-          --v97;
+          v88 = (2 * v86);
+          v90 = v86 >= 0 && v88 != 0;
+          result = CMMThrowExceptionWithLog(v90, "Overflow in Power");
+          v86 = v88;
+          --v87;
         }
 
-        while (v97);
-        if ((v93 & v98) != 0)
+        while (v87);
+        if ((v83 & v88) != 0)
         {
-          v101 = 1;
-          v102 = v94;
+          v91 = 1;
+          v92 = v84;
           do
           {
-            v103 = (2 * v101);
-            v105 = v101 >= 0 && v103 != 0;
-            result = CMMThrowExceptionWithLog(v105, "Overflow in Power", v55, v56, v57, v58, v59, v60);
-            v101 = v103;
-            --v102;
+            v93 = (2 * v91);
+            v95 = v91 >= 0 && v93 != 0;
+            result = CMMThrowExceptionWithLog(v95, "Overflow in Power");
+            v91 = v93;
+            --v92;
           }
 
-          while (v102);
+          while (v92);
 LABEL_104:
-          v95 += *(v63 + 4 * v103);
+          v85 += *(v53 + 4 * v93);
         }
       }
 
-      else if ((v81 & 1) == 0)
+      else if ((v71 & 1) == 0)
       {
-        v103 = 1;
+        v93 = 1;
         goto LABEL_104;
       }
 
-      v94 = (v94 + 1);
-      v91 = *(v6 + 8);
-      if (v91 <= v94)
+      v84 = (v84 + 1);
+      v81 = *(v6 + 8);
+      if (v81 <= v84)
       {
-        v92 = *(v6 + 8);
-        v61 = v109;
+        v82 = *(v6 + 8);
+        v51 = v99;
         goto LABEL_108;
       }
 
@@ -8905,7 +8743,7 @@ LABEL_104:
 
 LABEL_110:
   *v6 = &unk_1F0E0C068;
-  v5 = v106;
+  v5 = v96;
 LABEL_111:
   *(v5 + 24) = v6;
   if (!*(v5 + 16))
@@ -8916,108 +8754,108 @@ LABEL_111:
   return result;
 }
 
-unint64_t CMMLut8Tag::InterpolationProtectionZone(CMMLut8Tag *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+unint64_t CMMLut8Tag::InterpolationProtectionZone(CMMLut8Tag *this, uint64_t a2, uint64_t a3, unint64_t a4)
 {
-  v8 = *(this + 50);
-  if ((v8 - 3) > 1)
+  v4 = *(this + 50);
+  if ((v4 - 3) > 1)
   {
     return 0;
   }
 
   else
   {
-    return CMMLutTagBase::CalculateProtectionZone(*(this + 52), v8, *(this + 51), a4, a5, a6, a7, a8);
+    return CMMLutTagBase::CalculateProtectionZone(*(this + 52), v4, *(this + 51));
   }
 }
 
-unint64_t CMMLutTagBase::CalculateProtectionZone(unint64_t this, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+unint64_t CMMLutTagBase::CalculateProtectionZone(unint64_t this, uint64_t a2, unint64_t a3)
 {
   if (!a2)
   {
     return 0;
   }
 
-  v11 = 0;
+  v6 = 0;
   for (i = 0; i != a2; ++i)
   {
     if (i)
     {
-      v13 = i;
-      v14 = 1;
+      v8 = i;
+      v9 = 1;
       do
       {
-        v15 = v14 * this;
-        v16 = v14 * this >= v14 && v15 >= this;
-        v17 = v16;
-        CMMThrowExceptionWithLog(v17, "Overflow in Power", a3, a4, a5, a6, a7, a8);
-        v14 = v15;
-        --v13;
+        v10 = v9 * this;
+        v11 = v9 * this >= v9 && v10 >= this;
+        v12 = v11;
+        CMMThrowExceptionWithLog(v12, "Overflow in Power");
+        v9 = v10;
+        --v8;
       }
 
-      while (v13);
+      while (v8);
     }
 
     else
     {
-      v15 = 1;
+      v10 = 1;
     }
 
-    if (is_mul_ok(a3, v15))
+    if (is_mul_ok(a3, v10))
     {
-      v18 = 0;
+      v13 = 0;
     }
 
     else
     {
-      v18 = -170;
+      v13 = -170;
     }
 
     if (a3)
     {
-      v19 = v18;
+      v14 = v13;
     }
 
     else
     {
-      v19 = 0;
+      v14 = 0;
     }
 
     if (a3)
     {
-      v20 = v15 * a3;
+      v15 = v10 * a3;
     }
 
     else
     {
-      v20 = 0;
+      v15 = 0;
     }
 
-    CMMThrowExceptionOnError(v19);
-    v16 = __CFADD__(v20, v11);
-    v11 += v20;
-    if (v16)
+    CMMThrowExceptionOnError(v14);
+    v11 = __CFADD__(v15, v6);
+    v6 += v15;
+    if (v11)
     {
-      v21 = 4294967126;
+      v16 = 4294967126;
     }
 
     else
     {
-      v21 = 0;
+      v16 = 0;
     }
 
-    CMMThrowExceptionOnError(v21);
+    CMMThrowExceptionOnError(v16);
   }
 
-  if (v11 > 0x20000000)
+  if (v6 > 0x20000000)
   {
     exception = __cxa_allocate_exception(4uLL);
     *exception = -171;
   }
 
-  return v11;
+  return v6;
 }
 
-CMMTable *CMMLut8Tag::MakeOutputLutTable(CMMLut8Tag **a1, uint64_t a2, uint64_t a3, char *a4, int a5)
+CMMTable *CMMLut8Tag::MakeOutputLutTable(void (***a1)(CMMLut8Tag **, uint64_t, uint64_t, BOOL), uint64_t a2, uint64_t a3, char *a4, int a5)
 {
   v10 = CMMBase::NewInternal(0x28, a4, a3, a4);
   *v10 = &unk_1F0E09180;
@@ -9027,7 +8865,7 @@ CMMTable *CMMLut8Tag::MakeOutputLutTable(CMMLut8Tag **a1, uint64_t a2, uint64_t 
   v13 = CMMBase::NewInternal(0x5408, a4, v11, v12);
   *(v10 + 2) = v13;
   v14 = CMMTable::UInt8Data(v13, *(v10 + 3));
-  (*(*a1 + 13))(a1, a2, v14, a5 == 1347182946);
+  (*a1)[13](a1, a2, v14, a5 == 1347182946);
   if (a3)
   {
     v24 = 0;
@@ -9060,23 +8898,23 @@ uint64_t CMMLut8Tag::MakeOutputLut(CMMLut8Tag *this, uint64_t a2, int *a3)
   v5 = v4;
   v7 = v6;
   v9 = v8;
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   InputTable = CMMLut8Tag::GetInputTable(*(v3 + 112), v8);
   v11 = InputTable;
   if ((v9 - 1) <= 1 && v5)
   {
-    bzero(&v18, 0x4004uLL);
+    bzero(&v17, 0x4004uLL);
     memset(v7, 255, 0x4004uLL);
-    CMMLut8Tag::EncodeLut(v11, &v18, 0);
+    CMMLut8Tag::EncodeLut(v11, &v17, 0);
     v12 = (65792 * *v11 + 0x8000 + 0x101000000 * *v11) >> 16;
     v13 = (65792 * v11[128] + 0x8000 + 0x101000000 * v11[128]) >> 16;
     v14 = (65792 * v11[255] + 0x8000 + 0x101000000 * v11[255]) >> 16;
     *v7 = v12;
-    memcpy(v7 + 1, v19, 0x2018uLL);
+    memcpy(v7 + 1, v18, 0x2018uLL);
     v7[2057] = v13;
     v7[2056] = v13;
     v7[2055] = v13;
-    result = memcpy(v7 + 2058, v20, 0x1FD8uLL);
+    result = memcpy(v7 + 2058, v19, 0x1FD8uLL);
     v7[4096] = v14;
   }
 
@@ -9088,11 +8926,10 @@ uint64_t CMMLut8Tag::MakeOutputLut(CMMLut8Tag *this, uint64_t a2, int *a3)
     v7[4095] = v16;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-CMMTable *CMMLut8Tag::MakeInputLutTable(CMMLut8Tag **a1, uint64_t a2, uint64_t a3, char *a4, int a5)
+CMMTable *CMMLut8Tag::MakeInputLutTable(void (***a1)(CMMLut8Tag **, uint64_t, uint64_t, BOOL), uint64_t a2, uint64_t a3, char *a4, int a5)
 {
   v10 = CMMBase::NewInternal(0x28, a4, a3, a4);
   *v10 = &unk_1F0E09180;
@@ -9102,7 +8939,7 @@ CMMTable *CMMLut8Tag::MakeInputLutTable(CMMLut8Tag **a1, uint64_t a2, uint64_t a
   v13 = CMMBase::NewInternal(0x5408, a4, v11, v12);
   *(v10 + 2) = v13;
   v14 = CMMTable::UInt8Data(v13, *(v10 + 3));
-  (*(*a1 + 12))(a1, a2, v14, a5 == 1347182946);
+  (*a1)[12](a1, a2, v14, a5 == 1347182946);
   if (a3)
   {
     v23 = 0;
@@ -9135,23 +8972,23 @@ uint64_t CMMLut8Tag::MakeInputLut(CMMLut8Tag *this, uint64_t a2, int *a3)
   v5 = v4;
   v7 = v6;
   v9 = v8;
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   InputTable = CMMLut8Tag::GetInputTable(*(v3 + 104), v8);
   v11 = InputTable;
   if ((v9 - 1) <= 1 && v5)
   {
-    bzero(&v18, 0x4004uLL);
+    bzero(&v17, 0x4004uLL);
     memset(v7, 255, 0x4004uLL);
-    CMMLut8Tag::EncodeLut(v11, &v18, 1);
+    CMMLut8Tag::EncodeLut(v11, &v17, 1);
     v12 = (65792 * *v11 + 0x8000 + 0x101000000 * *v11) >> 16;
     v13 = v11[128] << 16;
     v14 = (65792 * v11[255] + 0x8000 + 0x101000000 * v11[255]) >> 16;
     *v7 = v12;
-    memcpy(v7 + 1, v19, 0x2018uLL);
+    memcpy(v7 + 1, v18, 0x2018uLL);
     v7[2057] = v13;
     v7[2056] = v13;
     v7[2055] = v13;
-    result = memcpy(v7 + 2058, v20, 0x1FD8uLL);
+    result = memcpy(v7 + 2058, v19, 0x1FD8uLL);
     v7[4096] = v14;
   }
 
@@ -9163,7 +9000,6 @@ uint64_t CMMLut8Tag::MakeInputLut(CMMLut8Tag *this, uint64_t a2, int *a3)
     v7[4095] = v16;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -9280,49 +9116,49 @@ void *CMMLut8Tag::CopyClut(CMMLut8Tag *this, CMMMemMgr *a2)
   v16 = CMMBase::NewInternal((2 * v7), a2, v14, v15);
   v12[2] = v16;
   v17 = CMMTable::UInt8Data(v16, v12[3]);
-  v24 = CMMTable::UInt8Data(*(*(this + 12) + 16), *(*(this + 12) + 24));
-  v25 = *(this + 50);
+  v18 = CMMTable::UInt8Data(*(*(this + 12) + 16), *(*(this + 12) + 24));
+  v19 = *(this + 50);
   if (!*(this + 50))
   {
     goto LABEL_20;
   }
 
-  v26 = *(this + 52);
+  v20 = *(this + 52);
   v13 = 1;
   do
   {
-    v27 = v13;
-    v13 *= v26;
-    v29 = v13 >= v27 && v13 >= v26;
-    CMMThrowExceptionWithLog(v29, "Overflow in Power", v18, v19, v20, v21, v22, v23);
-    --v25;
+    v21 = v13;
+    v13 *= v20;
+    v23 = v13 >= v21 && v13 >= v20;
+    CMMThrowExceptionWithLog(v23, "Overflow in Power");
+    --v19;
   }
 
-  while (v25);
+  while (v19);
   if (v13)
   {
 LABEL_20:
-    v30 = 0;
-    v31 = *(this + 51);
+    v24 = 0;
+    v25 = *(this + 51);
     do
     {
-      v32 = v31;
-      if (v31)
+      v26 = v25;
+      if (v25)
       {
         do
         {
-          v33 = *v24++;
-          *v17++ = v33 | (v33 << 8);
-          --v32;
+          v27 = *v18++;
+          *v17++ = v27 | (v27 << 8);
+          --v26;
         }
 
-        while (v32);
+        while (v26);
       }
 
-      ++v30;
+      ++v24;
     }
 
-    while (v30 != v13);
+    while (v24 != v13);
   }
 
   return v12;
@@ -9352,45 +9188,45 @@ void CMMConvCLUTBase::CMMConvCLUTBase(CMMConvCLUTBase *this, CMMLutTagBase *a2, 
 
 void ConversionManager::AddLabToXYZ(uint64_t a1)
 {
-  v67 = *MEMORY[0x1E69E9840];
-  v51 = 1065353216;
-  v41 = &unk_1F0E071F8;
-  v42 = xmmword_19A96E360;
-  v43 = xmmword_19A96E370;
-  v44 = -48464;
-  v48 = 4292476157;
-  LODWORD(v49) = 6227719;
-  v62 = 0u;
-  v63 = 0u;
-  v64 = 0;
-  memset(&v65[8], 0, 32);
-  v60 = 0u;
+  v66 = *MEMORY[0x1E69E9840];
+  v50 = 1065353216;
+  v40 = &unk_1F0E071F8;
+  v41 = xmmword_19A96E360;
+  v42 = xmmword_19A96E370;
+  v43 = -48464;
+  v47 = 4292476157;
+  LODWORD(v48) = 6227719;
   v61 = 0u;
-  v59 = 0x3FF0000000000000;
-  *&v62 = 0x3FF0000000000000;
-  *&v63 = 0xBFE0000000000000;
-  *v65 = xmmword_19A96E380;
-  v66 = 0x3FF0000000000000;
-  v57 = 0u;
-  v58 = 0u;
-  v55 = 0u;
+  v62 = 0u;
+  v63 = 0;
+  memset(&v64[8], 0, 32);
+  v59 = 0u;
+  v60 = 0u;
+  v58 = 0x3FF0000000000000;
+  *&v61 = 0x3FF0000000000000;
+  *&v62 = 0xBFE0000000000000;
+  *v64 = xmmword_19A96E380;
+  v65 = 0x3FF0000000000000;
   v56 = 0u;
-  memset(v54, 0, sizeof(v54));
+  v57 = 0u;
+  v54 = 0u;
+  v55 = 0u;
+  memset(v53, 0, sizeof(v53));
+  v51 = 0u;
   v52 = 0u;
-  v53 = 0u;
-  MatrixMatrix4x4<double>(v52.f64, dbl_19A9B05B8, &v59);
-  *&v2.f64[0] = v53;
-  *&v2.f64[1] = v54[0];
-  v45 = vcvt_hight_f32_f64(vcvt_f32_f64(v52), v2);
-  v46 = vcvt_hight_f32_f64(vcvt_f32_f64(*&v54[1]), v55);
-  *v2.f64 = *&v56;
-  v3 = *(&v53 + 1);
-  v47 = LODWORD(v2.f64[0]);
-  *v2.f64 = *&v54[3];
-  *&v4 = *(&v56 + 1);
-  *(&v49 + 1) = v3;
-  v50 = __PAIR64__(v4, LODWORD(v2.f64[0]));
-  CMMMatrix::MakeMatrixConv(&v41, *(a1 + 8), *(a1 + 24), v5);
+  MatrixMatrix4x4<double>(v51.f64, dbl_19A9B05B8, &v58);
+  *&v2.f64[0] = v52;
+  *&v2.f64[1] = v53[0];
+  v44 = vcvt_hight_f32_f64(vcvt_f32_f64(v51), v2);
+  v45 = vcvt_hight_f32_f64(vcvt_f32_f64(*&v53[1]), v54);
+  *v2.f64 = *&v55;
+  v3 = *(&v52 + 1);
+  v46 = LODWORD(v2.f64[0]);
+  *v2.f64 = *&v53[3];
+  *&v4 = *(&v55 + 1);
+  *(&v48 + 1) = v3;
+  v49 = __PAIR64__(v4, LODWORD(v2.f64[0]));
+  CMMMatrix::MakeMatrixConv(&v40, *(a1 + 8), *(a1 + 24), v5);
   v6 = 0;
   *(a1 + 24) = v7;
   do
@@ -9398,11 +9234,11 @@ void ConversionManager::AddLabToXYZ(uint64_t a1)
     pthread_mutex_lock(&ConversionManager::CreateLabToXYZLut(icXYZNumber const&,unsigned int)::cmmLock);
     if (!labDecodeTableChan0)
     {
-      *&v37 = 0;
-      CMMMemMgr::CMMMemMgr(&v37);
-      labDecodeDataChan0Ptr = CMMBase::NewInternal(0x5408, &v37, v8, v9);
-      labDecodeDataChan1Ptr = CMMBase::NewInternal(0x5408, &v37, v10, v11);
-      labDecodeDataChan2Ptr = CMMBase::NewInternal(0x5408, &v37, v12, v13);
+      *&v36 = 0;
+      CMMMemMgr::CMMMemMgr(&v36);
+      labDecodeDataChan0Ptr = CMMBase::NewInternal(0x5408, &v36, v8, v9);
+      labDecodeDataChan1Ptr = CMMBase::NewInternal(0x5408, &v36, v10, v11);
+      labDecodeDataChan2Ptr = CMMBase::NewInternal(0x5408, &v36, v12, v13);
       ConversionManager::InitLabToXYZLut(labDecodeDataChan0Ptr, 0);
       ConversionManager::InitLabToXYZLut(labDecodeDataChan1Ptr, 1);
       ConversionManager::InitLabToXYZLut(labDecodeDataChan2Ptr, 2);
@@ -9414,7 +9250,7 @@ void ConversionManager::AddLabToXYZ(uint64_t a1)
       v17 = *(labDecodeDataChan2Ptr + 8160);
       *(labDecodeDataChan2Ptr + 8164) = v17;
       *(v16 + 8156) = v17;
-      v20 = CMMBase::NewInternal(0x28, &v37, v18, v19);
+      v20 = CMMBase::NewInternal(0x28, &v36, v18, v19);
       v21 = labDecodeDataChan0Ptr;
       v20[2] = 0;
       v20[3] = v21;
@@ -9422,7 +9258,7 @@ void ConversionManager::AddLabToXYZ(uint64_t a1)
       v20[1] = 0;
       v20[4] = 21512;
       labDecodeTableChan0 = v20;
-      v24 = CMMBase::NewInternal(0x28, &v37, v22, v23);
+      v24 = CMMBase::NewInternal(0x28, &v36, v22, v23);
       v25 = labDecodeDataChan1Ptr;
       v24[2] = 0;
       v24[3] = v25;
@@ -9430,7 +9266,7 @@ void ConversionManager::AddLabToXYZ(uint64_t a1)
       v24[1] = 0;
       v24[4] = 21512;
       labDecodeTableChan1 = v24;
-      v28 = CMMBase::NewInternal(0x28, &v37, v26, v27);
+      v28 = CMMBase::NewInternal(0x28, &v36, v26, v27);
       v29 = labDecodeDataChan2Ptr;
       v28[2] = 0;
       v28[3] = v29;
@@ -9438,7 +9274,7 @@ void ConversionManager::AddLabToXYZ(uint64_t a1)
       v28[1] = 0;
       v28[4] = 21512;
       labDecodeTableChan2 = v28;
-      CMMMemMgr::ReleaseMemList(&v37);
+      CMMMemMgr::ReleaseMemList(&v36);
     }
 
     pthread_mutex_unlock(&ConversionManager::CreateLabToXYZLut(icXYZNumber const&,unsigned int)::cmmLock);
@@ -9465,31 +9301,30 @@ void ConversionManager::AddLabToXYZ(uint64_t a1)
       v32 = labDecodeTableChan0;
     }
 
-    *(&v37 + 1) = 0x400000000;
-    v38 = 0;
-    *&v37 = 1;
-    v39 = xmmword_19A96E390;
-    v40 = xmmword_19A96E3A0;
+    *(&v36 + 1) = 0x400000000;
+    v37 = 0;
+    *&v36 = 1;
+    v38 = xmmword_19A96E390;
+    v39 = xmmword_19A96E3A0;
     v33 = CMMBase::NewInternal(0xA8, *(a1 + 8), v30, v31);
-    CMMConvTRC::CMMConvTRC(v33, v6, v32, 21512, &v37, *(a1 + 24), 3, 1, 2.0, 0, 0);
+    CMMConvTRC::CMMConvTRC(v33, v6, v32, 21512, &v36, *(a1 + 24), 3, 1, 2.0, 0, 0);
     *(a1 + 24) = v33;
     ++v6;
   }
 
   while (v6 != 3);
+  v41 = xmmword_19A96E3B0;
   v42 = xmmword_19A96E3B0;
-  v43 = xmmword_19A96E3B0;
-  v44 = 0x10000;
+  v43 = 0x10000;
+  v47 = 0;
   v48 = 0;
+  v44 = xmmword_19A96E3C0;
+  v45 = xmmword_19A96E3D0;
+  v46 = 1062415525;
   v49 = 0;
-  v45 = xmmword_19A96E3C0;
-  v46 = xmmword_19A96E3D0;
-  v47 = 1062415525;
-  v50 = 0;
-  CMMMatrix::MakeMatrixConv(&v41, *(a1 + 8), v33, v34);
+  CMMMatrix::MakeMatrixConv(&v40, *(a1 + 8), v33, v34);
   *(a1 + 24) = v35;
   *(a1 + 36) = 1482250784;
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 void sub_19A93974C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16)
@@ -9540,78 +9375,78 @@ double MatrixMatrix4x4<double>(double *a1, double *a2, double *a3)
   return result;
 }
 
-uint64_t CMMConvCLUTBase::IsNOP(CMMConvCLUTBase *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CMMConvCLUTBase::IsNOP(CMMConvCLUTBase *this)
 {
-  v8 = *(this + 7);
-  if (v8)
+  v1 = *(this + 7);
+  if (v1)
   {
-    if (v8 != 2)
+    if (v1 != 2)
     {
       return 0;
     }
 
-    v10 = *(this + 8);
-    if (v10 != *(this + 9))
+    v3 = *(this + 8);
+    if (v3 != *(this + 9))
     {
       return 0;
     }
 
-    v11 = 1;
-    if (!v10)
+    v4 = 1;
+    if (!v3)
     {
       goto LABEL_15;
     }
 
-    v12 = *(this + 8);
+    v5 = *(this + 8);
     do
     {
-      v13 = v11 < 0;
-      v11 *= 2;
-      v15 = !v13 && v11 != 0;
-      CMMThrowExceptionWithLog(v15, "Overflow in Power", a3, a4, a5, a6, a7, a8);
-      --v12;
+      v6 = v4 < 0;
+      v4 *= 2;
+      v8 = !v6 && v4 != 0;
+      CMMThrowExceptionWithLog(v8, "Overflow in Power");
+      --v5;
     }
 
-    while (v12);
-    if (v10 >= 0x10)
+    while (v5);
+    if (v3 >= 0x10)
     {
       exception = __cxa_allocate_exception(4uLL);
       *exception = -171;
     }
 
-    if (v11)
+    if (v4)
     {
 LABEL_15:
       for (i = 0; ; ++i)
       {
-        v17 = CMMTable::UInt8Data(*(*(this + 10) + 16), *(*(this + 10) + 24));
-        v18 = i + 1;
-        if (v10)
+        v10 = CMMTable::UInt8Data(*(*(this + 10) + 16), *(*(this + 10) + 24));
+        v11 = i + 1;
+        if (v3)
         {
           break;
         }
 
 LABEL_23:
         result = 1;
-        if (v11 <= v18)
+        if (v4 <= v11)
         {
           return result;
         }
       }
 
-      v19 = 0;
-      v20 = 0;
+      v12 = 0;
+      v13 = 0;
       while (1)
       {
-        v21 = *(v17 + 2 * v10 * v18 - 2 - 2 * v19);
-        v22 = ((i >> v20) & 1) != 0 ? 0xFFFF : 0;
-        if (v22 != v21)
+        v14 = *(v10 + 2 * v3 * v11 - 2 - 2 * v12);
+        v15 = ((i >> v13) & 1) != 0 ? 0xFFFF : 0;
+        if (v15 != v14)
         {
           return 0;
         }
 
-        v19 = ++v20;
-        if (v10 <= v20)
+        v12 = ++v13;
+        if (v3 <= v13)
         {
           goto LABEL_23;
         }
@@ -9731,32 +9566,32 @@ __CFDictionary *CMMConvCLUTBase::FlattenConversion(CMMConvCLUTBase *this, const 
       CFRelease(v10);
     }
 
-    v20 = 0;
+    v18 = 0;
     if (a2)
     {
       v11 = CFGetTypeID(a2);
       if (v11 == CFDictionaryGetTypeID())
       {
         Value = CFDictionaryGetValue(a2, kColorSyncNxMFormat);
-        v20 = NxMTransformFormatFromValue(Value);
+        v18 = NxMTransformFormatFromValue(Value);
       }
     }
 
-    v13 = CFNumberCreate(0, kCFNumberSInt32Type, &v20);
+    v13 = CFNumberCreate(0, kCFNumberSInt32Type, &v18);
     if (v13)
     {
-      v16 = v13;
+      v14 = v13;
       CFDictionaryAddValue(Mutable, kColorSyncNxMFormat, v13);
-      CFRelease(v16);
+      CFRelease(v14);
     }
 
-    v17 = NxMLUTCreateData(v20, *(this + 11), 0, *(this + 7), *(this + 8), *(this + 9), v14, v15);
-    if (v17)
+    v15 = NxMLUTCreateData(v18, *(this + 11), 0, *(this + 7), *(this + 8), *(this + 9));
+    if (v15)
     {
-      v18 = v17;
-      CFDictionaryAddValue(Mutable, kColorSyncConversion3DLut, v17);
-      CFDictionaryAddValue(Mutable, kColorSyncConversionNDLut, v18);
-      CFRelease(v18);
+      v16 = v15;
+      CFDictionaryAddValue(Mutable, kColorSyncConversion3DLut, v15);
+      CFDictionaryAddValue(Mutable, kColorSyncConversionNDLut, v16);
+      CFRelease(v16);
     }
 
     if (CFDictionaryGetCount(Mutable) > 5)
@@ -9828,4 +9663,1198 @@ uint64_t NxMTransformFormatFromValue(const void *a1)
   }
 
   return 2;
+}
+
+CFDataRef NxMLUTCreateData(int a1, unsigned __int16 *a2, int a3, unint64_t a4, uint64_t a5, uint64_t a6)
+{
+  if (a5)
+  {
+    v12 = 1;
+    v13 = a5;
+    do
+    {
+      v14 = v12 * a4;
+      v16 = v12 * a4 >= v12 && v14 >= a4;
+      CMMThrowExceptionWithLog(v16, "Overflow in Power");
+      v12 = v14;
+      --v13;
+    }
+
+    while (v13);
+  }
+
+  else
+  {
+    v14 = 1;
+  }
+
+  v17 = 0;
+  if (a1 > 2)
+  {
+    if (a1 <= 4)
+    {
+      if (a1 == 3)
+      {
+        if (a3)
+        {
+          __assert_rtn("NxMLUTCreateData", "CMMNxMUtils.cpp", 819, "dataIsFloat == false");
+        }
+
+        switch(a5)
+        {
+          case 4:
+            if (a6 != 3)
+            {
+              __assert_rtn("nxm_copy_CMYK_to_RGBX8_data", "CMMNxMUtils.cpp", 164, "inpChannels == 4 && outChannels == 3");
+            }
+
+            v92 = a4 * a4;
+            Mutable = CFDataCreateMutable(0, 4 * v92 * v92);
+            v17 = Mutable;
+            if (Mutable)
+            {
+              CFDataSetLength(Mutable, 4 * v92 * v92);
+              MutableBytePtr = CFDataGetMutableBytePtr(v17);
+              if (a4)
+              {
+                if (MutableBytePtr)
+                {
+                  v95 = 0;
+                  v96 = MutableBytePtr + 3;
+                  v97 = a2 + 2;
+                  do
+                  {
+                    v98 = 0;
+                    v99 = v97;
+                    v100 = v96;
+                    do
+                    {
+                      v101 = 0;
+                      v102 = v99;
+                      v103 = v100;
+                      do
+                      {
+                        v104 = v102;
+                        v105 = v103;
+                        v106 = a4;
+                        do
+                        {
+                          v107 = (*(v104 - 2) + 128) >> 8;
+                          if (v107 >= 0xFF)
+                          {
+                            LOBYTE(v107) = -1;
+                          }
+
+                          *(v105 - 3) = v107;
+                          v108 = (*(v104 - 1) + 128) >> 8;
+                          if (v108 >= 0xFF)
+                          {
+                            LOBYTE(v108) = -1;
+                          }
+
+                          *(v105 - 2) = v108;
+                          v109 = (*v104 + 128) >> 8;
+                          if (v109 >= 0xFF)
+                          {
+                            LOBYTE(v109) = -1;
+                          }
+
+                          *(v105 - 1) = v109;
+                          *v105 = -1;
+                          v105 += 4;
+                          v104 += 3 * a4 * v92;
+                          --v106;
+                        }
+
+                        while (v106);
+                        ++v101;
+                        v103 += 4 * a4;
+                        v102 += 3 * v92;
+                      }
+
+                      while (v101 != a4);
+                      ++v98;
+                      v100 += 4 * v92;
+                      v99 += 3 * a4;
+                    }
+
+                    while (v98 != a4);
+                    ++v95;
+                    v96 += 4 * a4 * v92;
+                    v97 += 3;
+                  }
+
+                  while (v95 != a4);
+                }
+              }
+            }
+
+            break;
+          case 3:
+            if (a6 != 3)
+            {
+              __assert_rtn("nxm_copy_RGB_to_RGBX8_data", "CMMNxMUtils.cpp", 134, "inpChannels == 3 && outChannels == 3");
+            }
+
+            v77 = a4 * a4;
+            v78 = CFDataCreateMutable(0, 4 * a4 * a4 * a4);
+            v17 = v78;
+            if (v78)
+            {
+              CFDataSetLength(v78, 4 * a4 * a4 * a4);
+              v79 = CFDataGetMutableBytePtr(v17);
+              if (a4)
+              {
+                if (v79)
+                {
+                  v80 = 0;
+                  v81 = v79 + 3;
+                  v82 = a2 + 2;
+                  do
+                  {
+                    v83 = 0;
+                    v84 = v82;
+                    v85 = v81;
+                    do
+                    {
+                      v86 = v84;
+                      v87 = v85;
+                      v88 = a4;
+                      do
+                      {
+                        v89 = (*(v86 - 2) + 128) >> 8;
+                        if (v89 >= 0xFF)
+                        {
+                          LOBYTE(v89) = -1;
+                        }
+
+                        *(v87 - 3) = v89;
+                        v90 = (*(v86 - 1) + 128) >> 8;
+                        if (v90 >= 0xFF)
+                        {
+                          LOBYTE(v90) = -1;
+                        }
+
+                        *(v87 - 2) = v90;
+                        v91 = (*v86 + 128) >> 8;
+                        if (v91 >= 0xFF)
+                        {
+                          LOBYTE(v91) = -1;
+                        }
+
+                        *(v87 - 1) = v91;
+                        *v87 = -1;
+                        v87 += 4;
+                        v86 += 3 * v77;
+                        --v88;
+                      }
+
+                      while (v88);
+                      ++v83;
+                      v85 += 4 * a4;
+                      v84 += 3 * a4;
+                    }
+
+                    while (v83 != a4);
+                    ++v80;
+                    v81 += 4 * v77;
+                    v82 += 3;
+                  }
+
+                  while (v80 != a4);
+                }
+              }
+            }
+
+            break;
+          case 1:
+            if (a6 != 3)
+            {
+              __assert_rtn("nxm_copy_GRAY_to_RGBX8_data", "CMMNxMUtils.cpp", 109, "inpChannels == 1 && outChannels == 3");
+            }
+
+            v37 = CFDataCreateMutable(0, 4 * a4);
+            v17 = v37;
+            if (v37)
+            {
+              CFDataSetLength(v37, 4 * a4);
+              v38 = CFDataGetMutableBytePtr(v17);
+              if (a4)
+              {
+                if (v38)
+                {
+                  v39 = v38 + 3;
+                  v40 = a2 + 2;
+                  do
+                  {
+                    v41 = (*(v40 - 2) + 128) >> 8;
+                    if (v41 >= 0xFF)
+                    {
+                      LOBYTE(v41) = -1;
+                    }
+
+                    *(v39 - 3) = v41;
+                    v42 = (*(v40 - 1) + 128) >> 8;
+                    if (v42 >= 0xFF)
+                    {
+                      LOBYTE(v42) = -1;
+                    }
+
+                    *(v39 - 2) = v42;
+                    v43 = *v40;
+                    v40 += 3;
+                    v44 = (v43 + 128) >> 8;
+                    if (v44 >= 0xFF)
+                    {
+                      LOBYTE(v44) = -1;
+                    }
+
+                    *(v39 - 1) = v44;
+                    *v39 = -1;
+                    v39 += 4;
+                    --a4;
+                  }
+
+                  while (a4);
+                }
+              }
+            }
+
+            break;
+          default:
+            __assert_rtn("nxm_create_NxM_to_RGBX8_from_fixed16", "CMMNxMUtils.cpp", 204, "0");
+        }
+      }
+
+      else
+      {
+        if (a3)
+        {
+          __assert_rtn("NxMLUTCreateData", "CMMNxMUtils.cpp", 823, "dataIsFloat == false");
+        }
+
+        switch(a5)
+        {
+          case 4:
+            if (a6 != 3)
+            {
+              __assert_rtn("nxm_copy_CMYK_to_RGBX16_data", "CMMNxMUtils.cpp", 352, "inpChannels == 4 && outChannels == 3");
+            }
+
+            v112 = CFDataCreateMutable(0, 8 * a4 * a4 * a4 * a4);
+            v17 = v112;
+            if (v112)
+            {
+              CFDataSetLength(v112, 8 * a4 * a4 * a4 * a4);
+              v113 = CFDataGetMutableBytePtr(v17);
+              repackage_CMYK16_to_RGBX16(v113, a2, a4);
+            }
+
+            break;
+          case 3:
+            if (a6 != 3)
+            {
+              __assert_rtn("nxm_copy_RGB_to_RGBX16_data", "CMMNxMUtils.cpp", 294, "inpChannels == 3 && outChannels == 3");
+            }
+
+            v110 = CFDataCreateMutable(0, 8 * a4 * a4 * a4);
+            v17 = v110;
+            if (v110)
+            {
+              CFDataSetLength(v110, 8 * a4 * a4 * a4);
+              v111 = CFDataGetMutableBytePtr(v17);
+              repackage_RGB16_to_RGBX16(v111, a2, a4);
+            }
+
+            break;
+          case 1:
+            if (a6 != 3)
+            {
+              __assert_rtn("nxm_copy_GRAY_to_RGBX16_data", "CMMNxMUtils.cpp", 240, "inpChannels == 1 && outChannels == 3");
+            }
+
+            v18 = CFDataCreateMutable(0, 8 * a4);
+            v17 = v18;
+            if (v18)
+            {
+              CFDataSetLength(v18, 8 * a4);
+              v19 = CFDataGetMutableBytePtr(v17);
+              if (a4)
+              {
+                if (v19)
+                {
+                  v20 = (v19 + 4);
+                  v21 = a2 + 2;
+                  do
+                  {
+                    *(v20 - 2) = *(v21 - 2);
+                    *(v20 - 1) = *(v21 - 1);
+                    v22 = *v21;
+                    v21 += 3;
+                    *v20 = v22;
+                    v20[1] = -1;
+                    v20 += 4;
+                    --a4;
+                  }
+
+                  while (a4);
+                }
+              }
+            }
+
+            break;
+          default:
+            __assert_rtn("nxm_create_NxM_to_RGBX16_from_fixed16", "CMMNxMUtils.cpp", 376, "0");
+        }
+      }
+
+      return v17;
+    }
+
+    if (a1 != 5)
+    {
+      if (a1 == 6)
+      {
+        if (a3)
+        {
+          switch(a5)
+          {
+            case 4:
+              if (a6 != 3)
+              {
+                __assert_rtn("nxm_copy_CMYK_float_to_RGBX_float32", "CMMNxMUtils.cpp", 727, "inpChannels == 4 && outChannels == 3");
+              }
+
+              v181 = a4 * a4;
+              v182 = CFDataCreateMutable(0, 16 * v181 * v181);
+              v17 = v182;
+              if (v182)
+              {
+                CFDataSetLength(v182, 16 * v181 * v181);
+                v183 = CFDataGetMutableBytePtr(v17);
+                if (a4)
+                {
+                  if (v183)
+                  {
+                    v184 = 0;
+                    v185 = v183 + 8;
+                    v186 = a2 + 4;
+                    do
+                    {
+                      v187 = 0;
+                      v188 = v186;
+                      v189 = v185;
+                      do
+                      {
+                        v190 = 0;
+                        v191 = v188;
+                        v192 = v189;
+                        do
+                        {
+                          v193 = v191;
+                          v194 = v192;
+                          v195 = a4;
+                          do
+                          {
+                            *(v194 - 2) = *(v193 - 2);
+                            *(v194 - 1) = *(v193 - 1);
+                            *v194 = *v193;
+                            *(v194 + 1) = 1065353216;
+                            v194 += 16;
+                            v193 += 6 * a4 * v181;
+                            --v195;
+                          }
+
+                          while (v195);
+                          ++v190;
+                          v192 += 16 * a4;
+                          v191 += 6 * v181;
+                        }
+
+                        while (v190 != a4);
+                        ++v187;
+                        v189 += 16 * v181;
+                        v188 += 6 * a4;
+                      }
+
+                      while (v187 != a4);
+                      ++v184;
+                      v185 += 16 * a4 * v181;
+                      v186 += 6;
+                    }
+
+                    while (v184 != a4);
+                  }
+                }
+              }
+
+              break;
+            case 3:
+              if (a6 != 3)
+              {
+                __assert_rtn("nxm_copy_RGB_float_to_RGBX_float32", "CMMNxMUtils.cpp", 697, "inpChannels == 3 && outChannels == 3");
+              }
+
+              v151 = a4 * a4;
+              v152 = CFDataCreateMutable(0, 16 * a4 * a4 * a4);
+              v17 = v152;
+              if (v152)
+              {
+                CFDataSetLength(v152, 16 * a4 * a4 * a4);
+                v153 = CFDataGetMutableBytePtr(v17);
+                if (a4)
+                {
+                  if (v153)
+                  {
+                    v154 = 0;
+                    v155 = v153 + 8;
+                    v156 = a2 + 4;
+                    do
+                    {
+                      v157 = 0;
+                      v158 = v156;
+                      v159 = v155;
+                      do
+                      {
+                        v160 = v158;
+                        v161 = v159;
+                        v162 = a4;
+                        do
+                        {
+                          *(v161 - 2) = *(v160 - 2);
+                          *(v161 - 1) = *(v160 - 1);
+                          *v161 = *v160;
+                          *(v161 + 1) = 1065353216;
+                          v161 += 16;
+                          v160 += 6 * v151;
+                          --v162;
+                        }
+
+                        while (v162);
+                        ++v157;
+                        v159 += 16 * a4;
+                        v158 += 6 * a4;
+                      }
+
+                      while (v157 != a4);
+                      ++v154;
+                      v155 += 16 * v151;
+                      v156 += 6;
+                    }
+
+                    while (v154 != a4);
+                  }
+                }
+              }
+
+              break;
+            case 1:
+              if (a6 != 3)
+              {
+                __assert_rtn("nxm_copy_GRAY_float_to_RGBX_float32", "CMMNxMUtils.cpp", 672, "inpChannels == 1 && outChannels == 3");
+              }
+
+              v28 = CFDataCreateMutable(0, 16 * a4);
+              v17 = v28;
+              if (v28)
+              {
+                CFDataSetLength(v28, 16 * a4);
+                v29 = CFDataGetMutableBytePtr(v17);
+                if (a4)
+                {
+                  if (v29)
+                  {
+                    v30 = v29 + 8;
+                    v31 = a2 + 4;
+                    do
+                    {
+                      *(v30 - 2) = *(v31 - 2);
+                      *(v30 - 1) = *(v31 - 1);
+                      v32 = *v31;
+                      v31 += 6;
+                      *v30 = v32;
+                      v30[1] = 1065353216;
+                      v30 += 4;
+                      --a4;
+                    }
+
+                    while (a4);
+                  }
+                }
+              }
+
+              break;
+            default:
+              __assert_rtn("nxm_copy_NxM_to_RGBX_float32_from_float", "CMMNxMUtils.cpp", 767, "0");
+          }
+        }
+
+        else
+        {
+          switch(a5)
+          {
+            case 4:
+              if (a6 != 3)
+              {
+                __assert_rtn("nxm_copy_CMYK_fixed16_to_RGBX_float32", "CMMNxMUtils.cpp", 624, "inpChannels == 4 && outChannels == 3");
+              }
+
+              v196 = a4 * a4;
+              v197 = CFDataCreateMutable(0, 16 * v196 * v196);
+              v17 = v197;
+              if (v197)
+              {
+                CFDataSetLength(v197, 16 * v196 * v196);
+                v198 = CFDataGetMutableBytePtr(v17);
+                if (a4)
+                {
+                  if (v198)
+                  {
+                    v199 = 0;
+                    v200 = a2 + 2;
+                    v201 = v198 + 12;
+                    v202 = vdup_n_s32(0x477FFF00u);
+                    __asm { FMOV            V1.2S, #1.0 }
+
+                    do
+                    {
+                      v204 = 0;
+                      v205 = v201;
+                      v206 = v200;
+                      do
+                      {
+                        v207 = 0;
+                        v208 = v205;
+                        v209 = v206;
+                        do
+                        {
+                          v210 = v208;
+                          v211 = v209;
+                          v212 = a4;
+                          do
+                          {
+                            v213.i32[0] = *(v211 - 2);
+                            v213.i32[1] = *(v211 - 1);
+                            v214 = vdiv_f32(vcvt_f32_u32(v213), v202);
+                            v215 = vbsl_s8(vcgt_f32(v214, _D1), _D1, v214);
+                            *(v210 - 3) = v215;
+                            v215.i16[0] = *v211;
+                            v216 = v215.u32[0] / 65535.0;
+                            if (v216 > 1.0)
+                            {
+                              v216 = 1.0;
+                            }
+
+                            *(v210 - 1) = v216;
+                            *v210 = 1.0;
+                            v210 += 4;
+                            v211 += 3 * a4 * v196;
+                            --v212;
+                          }
+
+                          while (v212);
+                          ++v207;
+                          v209 += 3 * v196;
+                          v208 += 4 * a4;
+                        }
+
+                        while (v207 != a4);
+                        ++v204;
+                        v206 += 3 * a4;
+                        v205 += 16 * v196;
+                      }
+
+                      while (v204 != a4);
+                      ++v199;
+                      v200 += 3;
+                      v201 += 16 * a4 * v196;
+                    }
+
+                    while (v199 != a4);
+                  }
+                }
+              }
+
+              break;
+            case 3:
+              if (a6 != 3)
+              {
+                __assert_rtn("nxm_copy_RGB_fixed16_to_RGBX_float32", "CMMNxMUtils.cpp", 594, "inpChannels == 3 && outChannels == 3");
+              }
+
+              v163 = a4 * a4;
+              v164 = CFDataCreateMutable(0, 16 * a4 * a4 * a4);
+              v17 = v164;
+              if (v164)
+              {
+                CFDataSetLength(v164, 16 * a4 * a4 * a4);
+                v165 = CFDataGetMutableBytePtr(v17);
+                if (a4)
+                {
+                  if (v165)
+                  {
+                    v166 = 0;
+                    v167 = a2 + 2;
+                    v168 = v165 + 8;
+                    v169 = vdup_n_s32(0x477FFF00u);
+                    __asm { FMOV            V1.2S, #1.0 }
+
+                    do
+                    {
+                      v171 = 0;
+                      v172 = v168;
+                      v173 = v167;
+                      do
+                      {
+                        v174 = v172;
+                        v175 = v173;
+                        v176 = a4;
+                        do
+                        {
+                          v177.i32[0] = *(v175 - 2);
+                          v177.i32[1] = *(v175 - 1);
+                          v178 = vdiv_f32(vcvt_f32_u32(v177), v169);
+                          v179 = vbsl_s8(vcgt_f32(v178, _D1), _D1, v178);
+                          *(v174 - 1) = v179;
+                          v179.i16[0] = *v175;
+                          v180 = v179.u32[0] / 65535.0;
+                          if (v180 > 1.0)
+                          {
+                            v180 = 1.0;
+                          }
+
+                          *v174 = v180;
+                          *(v174 + 1) = 1065353216;
+                          v175 += 3 * v163;
+                          v174 += 16;
+                          --v176;
+                        }
+
+                        while (v176);
+                        ++v171;
+                        v173 += 3 * a4;
+                        v172 += 16 * a4;
+                      }
+
+                      while (v171 != a4);
+                      ++v166;
+                      v167 += 3;
+                      v168 += 16 * v163;
+                    }
+
+                    while (v166 != a4);
+                  }
+                }
+              }
+
+              break;
+            case 1:
+              if (a6 != 3)
+              {
+                __assert_rtn("nxm_copy_GRAY_fixed16_to_RGBX_float32", "CMMNxMUtils.cpp", 569, "inpChannels == 1 && outChannels == 3");
+              }
+
+              v63 = CFDataCreateMutable(0, 16 * a4);
+              v17 = v63;
+              if (v63)
+              {
+                CFDataSetLength(v63, 16 * a4);
+                v64 = CFDataGetMutableBytePtr(v17);
+                if (a4)
+                {
+                  if (v64)
+                  {
+                    v65 = a2 + 2;
+                    v66 = vdup_n_s32(0x477FFF00u);
+                    v67 = (v64 + 12);
+                    __asm { FMOV            V1.2S, #1.0 }
+
+                    do
+                    {
+                      v72.i32[0] = *(v65 - 2);
+                      v72.i32[1] = *(v65 - 1);
+                      v73 = vdiv_f32(vcvt_f32_u32(v72), v66);
+                      v74 = vbsl_s8(vcgt_f32(v73, _D1), _D1, v73);
+                      *(v67 - 3) = v74;
+                      v74.i16[0] = *v65;
+                      v75 = v74.u32[0] / 65535.0;
+                      if (v75 > 1.0)
+                      {
+                        v75 = 1.0;
+                      }
+
+                      *(v67 - 1) = v75;
+                      *v67 = 1.0;
+                      v67 += 4;
+                      v65 += 3;
+                      --a4;
+                    }
+
+                    while (a4);
+                  }
+                }
+              }
+
+              break;
+            default:
+              __assert_rtn("nxm_copy_NxM_to_RGBX_float32_from_fixed16", "CMMNxMUtils.cpp", 664, "0");
+          }
+        }
+      }
+
+      return v17;
+    }
+
+    if (a3)
+    {
+      if (a5 == 4)
+      {
+        if (a6 != 3)
+        {
+          __assert_rtn("nxm_copy_CMYK_float_to_RGBX_float16", "CMMNxMUtils.cpp", 523, "inpChannels == 4 && outChannels == 3");
+        }
+
+        v132 = a4 * a4;
+        v133 = v132 * v132;
+        v45 = 8 * v132 * v132;
+        v134 = CFDataCreateMutable(0, v45);
+        v17 = v134;
+        if (!v134)
+        {
+          return v17;
+        }
+
+        v47 = 4 * v133;
+        CFDataSetLength(v134, 8 * v132 * v132);
+        v48 = 16 * v133;
+        if (((v133 >> 58) & 3) != 0)
+        {
+          v135 = -1;
+        }
+
+        else
+        {
+          v135 = v133 << 6;
+        }
+
+        v136 = operator new[](v135, MEMORY[0x1E69E5398]);
+        v51 = v136;
+        if (a4 && v136)
+        {
+          v137 = 0;
+          v138 = a2 + 4;
+          v139 = v136 + 12;
+          do
+          {
+            v140 = 0;
+            v141 = v139;
+            v142 = v138;
+            do
+            {
+              v143 = 0;
+              v144 = v141;
+              v145 = v142;
+              do
+              {
+                v146 = v144;
+                v147 = v145;
+                v148 = a4;
+                do
+                {
+                  *(v146 - 3) = *(v147 - 1);
+                  *(v146 - 1) = *v147;
+                  *v146 = 1065353216;
+                  v146 += 4;
+                  v147 += 6 * a4 * v132;
+                  --v148;
+                }
+
+                while (v148);
+                ++v143;
+                v145 += 6 * v132;
+                v144 += 4 * a4;
+              }
+
+              while (v143 != a4);
+              ++v140;
+              v142 += 6 * a4;
+              v141 += 4 * v132;
+            }
+
+            while (v140 != a4);
+            ++v137;
+            v138 += 6;
+            v139 += 16 * a4 * v132;
+          }
+
+          while (v137 != a4);
+        }
+
+        goto LABEL_192;
+      }
+
+      if (a5 != 3)
+      {
+        if (a5 != 1)
+        {
+          __assert_rtn("nxm_create_NxM_to_RGBX_float16_from_float", "CMMNxMUtils.cpp", 561, "0");
+        }
+
+        if (a6 != 3)
+        {
+          __assert_rtn("nxm_copy_GRAY_float_to_RGBX_float16", "CMMNxMUtils.cpp", 468, "inpChannels == 1 && outChannels == 3");
+        }
+
+        v45 = 8 * a4;
+        v46 = CFDataCreateMutable(0, 8 * a4);
+        v17 = v46;
+        if (!v46)
+        {
+          return v17;
+        }
+
+        v47 = 4 * a4;
+        CFDataSetLength(v46, 8 * a4);
+        v48 = 16 * a4;
+        if (((a4 >> 58) & 3) != 0)
+        {
+          v49 = -1;
+        }
+
+        else
+        {
+          v49 = a4 << 6;
+        }
+
+        v50 = operator new[](v49, MEMORY[0x1E69E5398]);
+        v51 = v50;
+        if (a4 && v50)
+        {
+          v52 = a2 + 4;
+          v53 = v50 + 12;
+          do
+          {
+            *(v53 - 3) = *(v52 - 1);
+            v54 = *v52;
+            v52 += 6;
+            *(v53 - 1) = v54;
+            *v53 = 1065353216;
+            v53 += 4;
+            --a4;
+          }
+
+          while (a4);
+        }
+
+        goto LABEL_192;
+      }
+
+      if (a6 != 3)
+      {
+        return 0;
+      }
+
+      v114 = a4 * a4;
+      v115 = a4 * a4 * a4;
+      v45 = 8 * v115;
+      v116 = CFDataCreateMutable(0, 8 * v115);
+      v17 = v116;
+      if (v116)
+      {
+        v47 = 4 * v115;
+        CFDataSetLength(v116, 8 * v115);
+        v48 = 16 * v115;
+        if (((v115 >> 58) & 3) != 0)
+        {
+          v117 = -1;
+        }
+
+        else
+        {
+          v117 = v115 << 6;
+        }
+
+        v118 = operator new[](v117, MEMORY[0x1E69E5398]);
+        v51 = v118;
+        if (a4 && v118)
+        {
+          v119 = 0;
+          v120 = a2 + 4;
+          v121 = v118 + 8;
+          do
+          {
+            v122 = 0;
+            v123 = v121;
+            v124 = v120;
+            do
+            {
+              v125 = v123;
+              v126 = v124;
+              v127 = a4;
+              do
+              {
+                *(v125 - 1) = *(v126 - 1);
+                *v125 = *v126;
+                v125[1] = 1065353216;
+                v126 += 6 * v114;
+                v125 += 4;
+                --v127;
+              }
+
+              while (v127);
+              ++v122;
+              v124 += 6 * a4;
+              v123 += 4 * a4;
+            }
+
+            while (v122 != a4);
+            ++v119;
+            v120 += 6;
+            v121 += 16 * v114;
+          }
+
+          while (v119 != a4);
+        }
+
+LABEL_192:
+        v221 = v51;
+        v222 = 1;
+        v223 = v47;
+        v224 = v48;
+        v217 = CFDataGetMutableBytePtr(v17);
+        v218 = 1;
+        v219 = v47;
+        v220 = v45;
+        ColorSync_vImageConvert_Fto16F(&v221, &v217);
+        if (v51)
+        {
+          MEMORY[0x19EAE45F0](v51, 0x1000C8052888210);
+        }
+      }
+
+      return v17;
+    }
+
+    switch(a5)
+    {
+      case 4:
+        if (a6 != 3)
+        {
+          __assert_rtn("nxm_copy_CMYK_fixed16_to_RGBX_float16", "CMMNxMUtils.cpp", 430, "inpChannels == 4 && outChannels == 3");
+        }
+
+        v149 = a4 * a4 * a4 * a4;
+        v56 = 8 * v149;
+        v150 = CFDataCreateMutable(0, 8 * v149);
+        v17 = v150;
+        if (!v150)
+        {
+          return v17;
+        }
+
+        v130 = 4 * v149;
+        CFDataSetLength(v150, v56);
+        v131 = CFDataGetMutableBytePtr(v17);
+        repackage_CMYK16_to_RGBX16(v131, a2, a4);
+        break;
+      case 3:
+        if (a6 != 3)
+        {
+          __assert_rtn("nxm_copy_RGB_fixed16_to_RGBX_float16", "CMMNxMUtils.cpp", 407, "inpChannels == 3 && outChannels == 3");
+        }
+
+        v128 = a4 * a4 * a4;
+        v56 = 8 * v128;
+        v129 = CFDataCreateMutable(0, 8 * v128);
+        v17 = v129;
+        if (!v129)
+        {
+          return v17;
+        }
+
+        v130 = 4 * v128;
+        CFDataSetLength(v129, 8 * v128);
+        v131 = CFDataGetMutableBytePtr(v17);
+        repackage_RGB16_to_RGBX16(v131, a2, a4);
+        break;
+      case 1:
+        if (a6 != 3)
+        {
+          __assert_rtn("nxm_copy_GRAY_fixed16_to_RGBX_float16", "CMMNxMUtils.cpp", 384, "inpChannels == 1 && outChannels == 3");
+        }
+
+        v56 = 8 * a4;
+        v57 = CFDataCreateMutable(0, 8 * a4);
+        v17 = v57;
+        if (!v57)
+        {
+          return v17;
+        }
+
+        v58 = 4 * a4;
+        CFDataSetLength(v57, 8 * a4);
+        v59 = CFDataGetMutableBytePtr(v17);
+        if (a4 && v59)
+        {
+          v60 = (v59 + 4);
+          v61 = a2 + 2;
+          do
+          {
+            *(v60 - 2) = *(v61 - 2);
+            *(v60 - 1) = *(v61 - 1);
+            v62 = *v61;
+            v61 += 3;
+            *v60 = v62;
+            v60[1] = -1;
+            v60 += 4;
+            --a4;
+          }
+
+          while (a4);
+        }
+
+        v221 = v59;
+        v222 = 1;
+        v223 = v58;
+        goto LABEL_198;
+      default:
+        __assert_rtn("nxm_create_NxM_to_RGBX_float16_from_fixed16", "CMMNxMUtils.cpp", 460, "0");
+    }
+
+    v221 = v131;
+    v222 = 1;
+    v223 = v130;
+LABEL_198:
+    v224 = v56;
+    v76 = &v221;
+    goto LABEL_199;
+  }
+
+  v23 = v14 * a6;
+  if (a1)
+  {
+    if (a1 == 1)
+    {
+      v55 = CFDataCreateMutable(0, 2 * v23);
+      v17 = v55;
+      if (a3)
+      {
+        if (v55)
+        {
+          CFDataSetLength(v55, 2 * v23);
+          v221 = a2;
+          v222 = 1;
+          v223 = v23;
+          v224 = 4 * v23;
+          v217 = CFDataGetMutableBytePtr(v17);
+          v218 = 1;
+          v219 = v23;
+          v220 = 2 * v23;
+          ColorSync_vImageConvert_Fto16F(&v221, &v217);
+        }
+
+        return v17;
+      }
+
+      if (!v55)
+      {
+        return v17;
+      }
+
+      CFDataSetLength(v55, 2 * v23);
+      v221 = a2;
+      v222 = 1;
+      v223 = v23;
+      v224 = 2 * v23;
+      v217 = CFDataGetMutableBytePtr(v17);
+      v218 = 1;
+      v219 = v23;
+      v220 = 2 * v23;
+      v76 = &v217;
+LABEL_199:
+      ColorSync_vImageConvert_16Uto16F(&v221, v76);
+      return v17;
+    }
+
+    if (a1 != 2)
+    {
+      return v17;
+    }
+
+    v24 = 4 * v23;
+    if (!a3)
+    {
+      v25 = CFDataCreateMutable(0, 4 * v23);
+      v17 = v25;
+      if (v25)
+      {
+        CFDataSetLength(v25, 4 * v23);
+        v221 = a2;
+        v222 = 1;
+        v223 = v23;
+        v224 = 2 * v23;
+        v217 = CFDataGetMutableBytePtr(v17);
+        v218 = 1;
+        v219 = v23;
+        v220 = 4 * v23;
+        ColorSync_vImageConvert_16UToF(&v221, &v217, v26, v27);
+      }
+
+      return v17;
+    }
+  }
+
+  else
+  {
+    v24 = 2 * v23;
+    if (a3)
+    {
+      v33 = CFDataCreateMutable(0, 2 * v23);
+      v17 = v33;
+      if (v33)
+      {
+        CFDataSetLength(v33, 2 * v23);
+        v221 = a2;
+        v222 = 1;
+        v223 = v23;
+        v224 = 4 * v23;
+        v217 = CFDataGetMutableBytePtr(v17);
+        v218 = 1;
+        v219 = v23;
+        v220 = 2 * v23;
+        v34 = ColorSync_vImageConvert_Fto16U_ptr__;
+        if (!ColorSync_vImageConvert_Fto16U_ptr__)
+        {
+          if (ColorSyncLoadvImageDYLD_once != -1)
+          {
+            dispatch_once(&ColorSyncLoadvImageDYLD_once, &__block_literal_global_1547);
+          }
+
+          v35 = ColorSyncLoadvImageDYLD_handle;
+          if (ColorSyncLoadvImageDYLD_handle)
+          {
+            v35 = dlsym(ColorSyncLoadvImageDYLD_handle, "vImageConvert_FTo16U");
+          }
+
+          if (v35)
+          {
+            v34 = v35;
+          }
+
+          else
+          {
+            v34 = vImage_smart_null;
+          }
+
+          ColorSync_vImageConvert_Fto16U_ptr__ = v34;
+        }
+
+        (v34)(&v221, &v217, 0, 0.0, 0.000015259);
+      }
+
+      return v17;
+    }
+  }
+
+  return CFDataCreate(0, a2, v24);
 }

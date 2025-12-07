@@ -8,6 +8,8 @@
 - (void)secItemDeleteForAppClipApplicationIdentifier:(id)identifier completion:(id)completion;
 - (void)secItemDigest:(id)digest accessGroup:(id)group complete:(id)complete;
 - (void)secItemFetchCurrentItemAcrossAllDevices:(id)devices identifier:(id)identifier viewHint:(id)hint fetchCloudValue:(BOOL)value complete:(id)complete;
+- (void)secItemFetchCurrentItemOutOfBand:(id)band forceFetch:(BOOL)fetch complete:(id)complete;
+- (void)secItemFetchPCSIdentityByKeyOutOfBand:(id)band forceFetch:(BOOL)fetch complete:(id)complete;
 - (void)secItemPersistKeychainWritesAtHighPerformanceCost:(id)cost;
 - (void)secItemPromoteItemsForAppClip:(id)clip toParentApp:(id)app completion:(id)completion;
 - (void)secItemSetCurrentItemAcrossAllDevices:(id)devices newCurrentItemHash:(id)hash accessGroup:(id)group identifier:(id)identifier viewHint:(id)hint oldCurrentItemReference:(id)reference oldCurrentItemHash:(id)itemHash complete:(id)self0;
@@ -627,6 +629,217 @@ LABEL_17:
   }
 }
 
+- (void)secItemFetchPCSIdentityByKeyOutOfBand:(id)band forceFetch:(BOOL)fetch complete:(id)complete
+{
+  fetchCopy = fetch;
+  bandCopy = band;
+  v28[0] = _NSConcreteStackBlock;
+  v28[1] = 3221225472;
+  v28[2] = sub_10008273C;
+  v28[3] = &unk_100337C78;
+  completeCopy = complete;
+  v29 = completeCopy;
+  v10 = objc_retainBlock(v28);
+  cf = 0;
+  if (![(SecuritydXPCServer *)self clientHasBooleanEntitlement:@"com.apple.private.keychain.deny"])
+  {
+    if ([bandCopy count])
+    {
+      v12 = [bandCopy objectAtIndexedSubscript:0];
+      accessGroup = [v12 accessGroup];
+
+      if (accessGroup && (sub_1000091A8(self->_client.accessGroups, accessGroup, &self->_client) & 1) == 0)
+      {
+        sub_1000103CC(-34018, &cf, @"secItemFetchPCSIdentityByKeyOutOfBand: client is missing access-group %@: %@", accessGroup, self->_client.task);
+        (v10[2])(v10, 0, cf);
+        v14 = cf;
+        if (cf)
+        {
+          cf = 0;
+          CFRelease(v14);
+        }
+
+LABEL_20:
+
+        goto LABEL_21;
+      }
+    }
+
+    else
+    {
+      accessGroup = 0;
+    }
+
+    v15 = +[CKKSViewManager manager];
+    completedSecCKKSInitialize = [v15 completedSecCKKSInitialize];
+    v17 = [completedSecCKKSInitialize wait:10];
+
+    if (v17)
+    {
+      v18 = sub_100006274("SecError");
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "secItemFetchPCSIdentityByKeyOutOfBand: CKKSViewManager not initialized?", buf, 2u);
+      }
+
+      v19 = [NSError errorWithDomain:@"CKKSErrorDomain" code:9 description:@"CKKS not yet initialized"];
+      (v10[2])(v10, 0, v19);
+    }
+
+    else
+    {
+      if (qword_10039E108 != -1)
+      {
+        dispatch_once(&qword_10039E108, &stru_1003420B8);
+      }
+
+      if (byte_10039E100 == 1)
+      {
+        p_client = malloc_type_malloc(0x40uLL, 0x1060040B1A58C1AuLL);
+        SecSecurityFixUpClientWithPersona();
+      }
+
+      else
+      {
+        p_client = &self->_client;
+      }
+
+      v21 = +[CKKSViewManager manager];
+      v22[0] = _NSConcreteStackBlock;
+      v22[1] = 3221225472;
+      v22[2] = sub_1000827B8;
+      v22[3] = &unk_100335378;
+      v23 = bandCopy;
+      v24 = v10;
+      v25 = p_client;
+      [v21 fetchPCSIdentityOutOfBand:v23 forceFetch:fetchCopy complete:v22];
+    }
+
+    goto LABEL_20;
+  }
+
+  sub_1000103CC(-25291, &cf, @"secItemFetchPCSIdentityByKeyOutOfBand: %@ has entitlement %@", self->_client.task, @"com.apple.private.keychain.deny");
+  (v10[2])(v10, 0, cf);
+  v11 = cf;
+  if (cf)
+  {
+    cf = 0;
+    CFRelease(v11);
+  }
+
+LABEL_21:
+}
+
+- (void)secItemFetchCurrentItemOutOfBand:(id)band forceFetch:(BOOL)fetch complete:(id)complete
+{
+  fetchCopy = fetch;
+  bandCopy = band;
+  v28[0] = _NSConcreteStackBlock;
+  v28[1] = 3221225472;
+  v28[2] = sub_100082CE0;
+  v28[3] = &unk_100337C78;
+  completeCopy = complete;
+  v29 = completeCopy;
+  v10 = objc_retainBlock(v28);
+  cf = 0;
+  if ([(SecuritydXPCServer *)self clientHasBooleanEntitlement:@"com.apple.private.keychain.deny"])
+  {
+    sub_1000103CC(-25291, &cf, @"secItemFetchCurrentItemOutOfBand: %@ has entitlement %@", self->_client.task, @"com.apple.private.keychain.deny");
+    goto LABEL_10;
+  }
+
+  if ([(SecuritydXPCServer *)self clientHasBooleanEntitlement:@"com.apple.private.ckks.currentitempointers_read"])
+  {
+    if ([bandCopy count])
+    {
+      v11 = [bandCopy objectAtIndexedSubscript:0];
+      accessGroup = [v11 accessGroup];
+
+      if (accessGroup && (sub_1000091A8(self->_client.accessGroups, accessGroup, &self->_client) & 1) == 0)
+      {
+        sub_1000103CC(-34018, &cf, @"secItemFetchCurrentItemOutOfBand: client is missing access-group %@: %@", accessGroup, self->_client.task);
+        (v10[2])(v10, 0, cf);
+        v13 = cf;
+        if (cf)
+        {
+          cf = 0;
+          CFRelease(v13);
+        }
+
+LABEL_23:
+
+        goto LABEL_24;
+      }
+    }
+
+    else
+    {
+      accessGroup = 0;
+    }
+
+    v15 = +[CKKSViewManager manager];
+    completedSecCKKSInitialize = [v15 completedSecCKKSInitialize];
+    v17 = [completedSecCKKSInitialize wait:10];
+
+    if (v17)
+    {
+      v18 = sub_100006274("SecError");
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "secItemFetchCurrentItemOutOfBand: CKKSViewManager not initialized?", buf, 2u);
+      }
+
+      v19 = [NSError errorWithDomain:@"CKKSErrorDomain" code:9 description:@"CKKS not yet initialized"];
+      (v10[2])(v10, 0, v19);
+    }
+
+    else
+    {
+      if (qword_10039E108 != -1)
+      {
+        dispatch_once(&qword_10039E108, &stru_1003420B8);
+      }
+
+      if (byte_10039E100 == 1)
+      {
+        p_client = malloc_type_malloc(0x40uLL, 0x1060040B1A58C1AuLL);
+        SecSecurityFixUpClientWithPersona();
+      }
+
+      else
+      {
+        p_client = &self->_client;
+      }
+
+      v21 = +[CKKSViewManager manager];
+      v22[0] = _NSConcreteStackBlock;
+      v22[1] = 3221225472;
+      v22[2] = sub_100082D5C;
+      v22[3] = &unk_100335378;
+      v23 = bandCopy;
+      v24 = v10;
+      v25 = p_client;
+      [v21 getCurrentItemOutOfBand:v23 forceFetch:fetchCopy complete:v22];
+    }
+
+    goto LABEL_23;
+  }
+
+  sub_1000103CC(-25291, &cf, @"secItemFetchCurrentItemOutOfBand: %@ does not have entitlement %@", self->_client.task, @"com.apple.private.ckks.currentitempointers_read");
+LABEL_10:
+  (v10[2])(v10, 0, cf);
+  v14 = cf;
+  if (cf)
+  {
+    cf = 0;
+    CFRelease(v14);
+  }
+
+LABEL_24:
+}
+
 - (void)secItemFetchCurrentItemAcrossAllDevices:(id)devices identifier:(id)identifier viewHint:(id)hint fetchCloudValue:(BOOL)value complete:(id)complete
 {
   valueCopy = value;
@@ -959,15 +1172,8 @@ LABEL_12:
 
 LABEL_8:
   v15 = [syncCopy objectForKeyedSubscript:kSecDataInetExtraNotes];
-  if (v15)
+  if (v15 || ([syncCopy objectForKeyedSubscript:kSecDataInetExtraHistory], (v15 = objc_claimAutoreleasedReturnValue()) != 0) || (objc_msgSend(syncCopy, "objectForKeyedSubscript:", kSecDataInetExtraClientDefined0), (v15 = objc_claimAutoreleasedReturnValue()) != 0) || (objc_msgSend(syncCopy, "objectForKeyedSubscript:", kSecDataInetExtraClientDefined1), (v15 = objc_claimAutoreleasedReturnValue()) != 0) || (objc_msgSend(syncCopy, "objectForKeyedSubscript:", kSecDataInetExtraClientDefined2), (v15 = objc_claimAutoreleasedReturnValue()) != 0))
   {
-    goto LABEL_13;
-  }
-
-  v15 = [syncCopy objectForKeyedSubscript:kSecDataInetExtraHistory];
-  if (v15 || ([syncCopy objectForKeyedSubscript:kSecDataInetExtraClientDefined0], (v15 = objc_claimAutoreleasedReturnValue()) != 0) || (objc_msgSend(syncCopy, "objectForKeyedSubscript:", kSecDataInetExtraClientDefined1), (v15 = objc_claimAutoreleasedReturnValue()) != 0) || (objc_msgSend(syncCopy, "objectForKeyedSubscript:", kSecDataInetExtraClientDefined2), (v15 = objc_claimAutoreleasedReturnValue()) != 0))
-  {
-LABEL_13:
   }
 
   else
@@ -1226,7 +1432,7 @@ LABEL_23:
   effectiveUserIdentifier = [connectionCopy effectiveUserIdentifier];
   if (connectionCopy)
   {
-    [connectionCopy auditToken];
+    objc_msgSend_auditToken(connectionCopy);
   }
 
   else

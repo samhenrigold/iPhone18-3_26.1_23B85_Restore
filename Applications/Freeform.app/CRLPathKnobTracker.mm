@@ -581,7 +581,7 @@ LABEL_13:
   v25 = layout;
   if (layout)
   {
-    [layout transformInRoot];
+    objc_msgSend_transformInRoot(layout);
   }
 
   else
@@ -593,7 +593,7 @@ LABEL_13:
   v27 = pathRep;
   if (pathRep)
   {
-    [pathRep naturalToEditablePathSpaceTransform];
+    objc_msgSend_naturalToEditablePathSpaceTransform(pathRep);
   }
 
   else
@@ -1027,7 +1027,7 @@ LABEL_9:
   v30 = pathRep;
   if (pathRep)
   {
-    [pathRep naturalToEditablePathSpaceTransform];
+    objc_msgSend_naturalToEditablePathSpaceTransform(pathRep);
   }
 
   else
@@ -1047,7 +1047,7 @@ LABEL_9:
     v33 = layout;
     if (layout)
     {
-      [layout transformInRoot];
+      objc_msgSend_transformInRoot(layout);
     }
 
     else

@@ -50,7 +50,7 @@
   IntegerValue = IOHIDEventGetIntegerValue();
   v5 = IOHIDEventGetIntegerValue();
   v6 = IOHIDEventGetIntegerValue();
-  v7 = sub_10000A054();
+  v7 = sub_10000A054(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v10[0] = 67109632;
@@ -136,7 +136,7 @@
 
 - (void)_lockButtonLongPress
 {
-  v3 = sub_10000A054();
+  v3 = sub_10000A054(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v8 = 0;

@@ -1,40 +1,3 @@
-uint64_t TIInputManager::does_need_spell_check(TIInputManager *this, const KB::String *a2)
-{
-  v4 = *(a2 + 2);
-  if (!*(a2 + 2))
-  {
-    KB::String::compute_length(a2);
-    v4 = *(a2 + 2);
-  }
-
-  if (v4 < 3)
-  {
-    return 0;
-  }
-
-  KB::DictionaryContainer::lookup(*(this + 33), &v9);
-  v6 = *(this + 73);
-  if (v6)
-  {
-    v7 = 0;
-  }
-
-  else
-  {
-    v7 = v9 == v10;
-  }
-
-  v5 = v7;
-  if (v6 && v9 == v10)
-  {
-    v5 = (*(*v6 + 24))(v6, a2);
-  }
-
-  v11 = &v9;
-  std::vector<KB::Word>::__destroy_vector::operator()[abi:nn200100](&v11);
-  return v5;
-}
-
 BOOL TIInputManager::is_autoshift(TIInputManager *this)
 {
   v1 = *(this + 24);
@@ -197,7 +160,6 @@ void std::vector<unsigned int>::reserve(std::vector<unsigned int> *this, std::ve
   {
     if (!(__n >> 62))
     {
-      v2 = this->__end_ - this->__begin_;
       std::__allocate_at_least[abi:nn200100]<std::allocator<unsigned int>>(__n);
     }
 
@@ -205,7 +167,7 @@ void std::vector<unsigned int>::reserve(std::vector<unsigned int> *this, std::ve
   }
 }
 
-void std::vector<unsigned int>::push_back[abi:nn200100](uint64_t a1, _DWORD *a2)
+void std::vector<unsigned int>::push_back[abi:nn200100](uint64_t a1, int *a2)
 {
   v5 = *(a1 + 8);
   v4 = *(a1 + 16);
@@ -263,14 +225,14 @@ void std::vector<unsigned int>::push_back[abi:nn200100](uint64_t a1, _DWORD *a2)
   *(a1 + 8) = v6;
 }
 
-BOOL std::string::starts_with[abi:nn200100](uint64_t a1, void *__s2, size_t a3)
+BOOL std::string::starts_with[abi:nn200100](uint64_t **a1, void *__s2, size_t a3)
 {
   v4 = *(a1 + 23);
   if ((v4 & 0x8000000000000000) != 0)
   {
     v5 = a1;
     a1 = *a1;
-    v4 = *(v5 + 8);
+    v4 = v5[1];
   }
 
   return v4 >= a3 && std::string_view::compare[abi:nn200100](a1, v4, 0, a3, __s2, a3) == 0;
@@ -292,7 +254,7 @@ uint64_t std::__function::__value_func<void ()(KB::CandidateCollection &,KB::Can
   return a1;
 }
 
-void std::vector<KB::Candidate>::__assign_with_size[abi:nn200100]<KB::Candidate*,KB::Candidate*>(uint64_t a1, uint64_t a2, const KB::Candidate *a3, unint64_t a4)
+void std::vector<KB::Candidate>::__assign_with_size[abi:nn200100]<KB::Candidate*,KB::Candidate*>(uint64_t a1, unint64_t *a2, unint64_t *a3, unint64_t a4)
 {
   v6 = a2;
   v8 = *a1;
@@ -332,8 +294,8 @@ void std::vector<KB::Candidate>::__assign_with_size[abi:nn200100]<KB::Candidate*
       do
       {
         KB::Candidate::operator=(v8, v6);
-        v6 += 1000;
-        v8 = (v8 + 1000);
+        v6 += 125;
+        v8 += 1000;
       }
 
       while (v6 != a3);
@@ -357,8 +319,8 @@ void std::vector<KB::Candidate>::__assign_with_size[abi:nn200100]<KB::Candidate*
       do
       {
         KB::Candidate::operator=(v8, v6);
-        v6 += 1000;
-        v8 = (v8 + 1000);
+        v6 += 125;
+        v8 += 1000;
         v12 -= 1000;
       }
 
@@ -384,11 +346,11 @@ void std::vector<KB::Candidate>::__assign_with_size[abi:nn200100]<KB::Candidate*
   }
 }
 
-void std::__function::__func<TIInputManager::lookup_static_dynamic_candidates(KB::CandidateCollection &,KB::LookupType,KB::String const&,void({block_pointer})(KB::CandidateCollection &,__CFString *),unsigned int)::$_0,std::allocator<TIInputManager::lookup_static_dynamic_candidates(KB::CandidateCollection &,KB::LookupType,KB::String const&,void({block_pointer})(KB::CandidateCollection &,__CFString *),unsigned int)::$_0>,void ()(KB::CandidateCollection &,KB::CandidateFilterFlags,BOOL)>::operator()(uint64_t a1, const KB::CandidateCollection *a2, uint64_t a3, unsigned __int8 *a4)
+void std::__function::__func<TIInputManager::lookup_static_dynamic_candidates(KB::CandidateCollection &,KB::LookupType,KB::String const&,void({block_pointer})(KB::CandidateCollection &,__CFString *),unsigned int)::$_0,std::allocator<TIInputManager::lookup_static_dynamic_candidates(KB::CandidateCollection &,KB::LookupType,KB::String const&,void({block_pointer})(KB::CandidateCollection &,__CFString *),unsigned int)::$_0>,void ()(KB::CandidateCollection &,KB::CandidateFilterFlags,BOOL)>::operator()(uint64_t a1, const KB::Candidate **a2, uint64_t a3, unsigned __int8 *a4)
 {
-  v44[5] = *MEMORY[0x277D85DE8];
+  v42[5] = *MEMORY[0x277D85DE8];
   v6 = *a3;
-  v28 = *(a3 + 8);
+  v26 = *(a3 + 8);
   *(a3 + 8) = 0;
   *(a3 + 16) = 0;
   *a3 = 0;
@@ -404,8 +366,8 @@ void std::__function::__func<TIInputManager::lookup_static_dynamic_candidates(KB
     Mutable = 0;
   }
 
-  v29 = v7;
-  KB::CandidateCollection::CandidateCollection(v35, a2);
+  v27 = v7;
+  KB::CandidateCollection::CandidateCollection(v33, a2);
   kdebug_trace();
   log = kac_get_log();
   v10 = os_signpost_id_make_with_pointer(log, (v8 ^ 0x15));
@@ -423,27 +385,27 @@ void std::__function::__func<TIInputManager::lookup_static_dynamic_candidates(KB
   v13 = *(a1 + 24);
   v14 = **(a1 + 32);
   __dst = 0;
-  v34 = 0;
   v32 = 0;
-  v15 = v28 - v6;
-  if (v28 != v6)
+  v30 = 0;
+  v15 = v26 - v6;
+  if (v26 != v6)
   {
-    std::vector<KB::FilterFlag>::__vallocate[abi:nn200100](&v32, v15 >> 3);
+    std::vector<KB::FilterFlag>::__vallocate[abi:nn200100](&v30, v15 >> 3);
   }
 
   TIInputManager::filter_raw_candidates(v8, a2, v12, v13, v14);
   KB::CandidateCollection::operator=(a2, buf);
-  cf = v44;
+  cf = v42;
   std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&cf);
-  cf = &v43;
+  cf = &v41;
   std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&cf);
-  cf = &v42;
+  cf = &v40;
   std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&cf);
   cf = buf;
   std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&cf);
   if (v15)
   {
-    __dst = (v28 - v6);
+    __dst = (v26 - v6);
     operator delete(v15);
   }
 
@@ -460,54 +422,53 @@ void std::__function::__func<TIInputManager::lookup_static_dynamic_candidates(KB
     }
   }
 
-  if (v29)
+  if (v27)
   {
     (*(**(a1 + 40) + 16))();
   }
 
   if (*(v8 + 608))
   {
-    v19 = **(a1 + 32);
     (*(**(v8 + 224) + 488))(&cf);
-    v20 = KB::CandidateFilterFlags::candidate_filter_flag_type(v6, v28);
-    v21 = &kGenericFlagDesc;
-    if (v20 == 1)
+    v19 = KB::CandidateFilterFlags::candidate_filter_flag_type(v6, v26);
+    v20 = &kGenericFlagDesc;
+    if (v19 == 1)
     {
-      v21 = &kPostLMFlagDesc;
+      v20 = &kPostLMFlagDesc;
     }
 
-    if (v20)
+    if (v19)
     {
-      v22 = v21;
+      v21 = v20;
     }
 
     else
     {
-      v22 = &kPreLMFlagDesc;
+      v21 = &kPreLMFlagDesc;
     }
 
-    KB::String::String(buf, v22);
-    v23 = *(v8 + 608);
-    v24 = *(a1 + 16);
-    v25 = **(a1 + 32);
-    v26 = cf;
-    v31 = cf;
+    KB::String::String(buf, v21);
+    v22 = *(v8 + 608);
+    v23 = *(a1 + 16);
+    v24 = **(a1 + 32);
+    v25 = cf;
+    v29 = cf;
     if (cf)
     {
       CFRetain(cf);
-      v31 = v26;
+      v29 = v25;
     }
 
-    (*(*v23 + 24))(v23, v24, v25, buf, v35, Mutable, a2, &v31);
-    if (v31)
+    (*(*v22 + 24))(v22, v23, v24, buf, v33, Mutable, a2, &v29);
+    if (v29)
     {
-      CFRelease(v31);
+      CFRelease(v29);
     }
 
-    v31 = 0;
-    if (v41 && buf[6] == 1)
+    v29 = 0;
+    if (v39 && buf[6] == 1)
     {
-      free(v41);
+      free(v39);
     }
 
     if (cf)
@@ -516,13 +477,13 @@ void std::__function::__func<TIInputManager::lookup_static_dynamic_candidates(KB
     }
   }
 
-  *buf = &v38;
-  std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](buf);
-  *buf = &v37;
-  std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](buf);
   *buf = &v36;
   std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](buf);
-  *buf = v35;
+  *buf = &v35;
+  std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](buf);
+  *buf = &v34;
+  std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](buf);
+  *buf = v33;
   std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](buf);
   if (Mutable)
   {
@@ -533,8 +494,6 @@ void std::__function::__func<TIInputManager::lookup_static_dynamic_candidates(KB
   {
     operator delete(v6);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void TIInputManager::filter_raw_candidates(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
@@ -548,35 +507,35 @@ void TIInputManager::filter_raw_candidates(uint64_t a1, uint64_t a2, uint64_t a3
   v17 = v16;
   v18 = v5;
   v20 = v19;
-  v79 = *MEMORY[0x277D85DE8];
+  v76 = *MEMORY[0x277D85DE8];
   KB::CandidateCollection::CandidateCollection(v19, v21);
   std::vector<KB::FilterFlag>::vector[abi:nn200100](__p, v11);
-  (*(*v18 + 48))(&v51, v18, v13, __p);
+  (*(*v18 + 48))(&v50, v18, v13, __p);
   if (__p[0])
   {
     __p[1] = __p[0];
     operator delete(__p[0]);
   }
 
-  if (v51)
+  if (v50)
   {
-    v36 = v9;
-    (*(*v18 + 72))(&v76, v18, v17);
-    KB::Candidate::Candidate(v75, v17, *(v18 + 288));
-    if (v78 == 1)
+    v35 = v9;
+    (*(*v18 + 72))(&v73, v18, v17);
+    KB::Candidate::Candidate(v72, v17, *(v18 + 288));
+    if (v75 == 1)
     {
-      KB::Candidate::Candidate(v73, &v76, *(v18 + 288));
+      KB::Candidate::Candidate(v70, &v73, *(v18 + 288));
       v22 = 1;
     }
 
     else
     {
       v22 = 0;
-      v73[0] = 0;
+      v70[0] = 0;
     }
 
-    v74 = v22;
-    KB::Candidate::Candidate(v72, (v18 + 232), 0);
+    v71 = v22;
+    KB::Candidate::Candidate(v69, (v18 + 232), 0);
     v23 = KB::String::last((v18 + 440));
     v24 = KB::String::last((v18 + 440));
     {
@@ -593,22 +552,22 @@ void TIInputManager::filter_raw_candidates(uint64_t a1, uint64_t a2, uint64_t a3
         v27 = v18 + 456;
       }
 
-      *&v40 = v27;
-      DWORD2(v40) = v25;
-      HIDWORD(v40) = v25;
-      LODWORD(v41) = 0;
-      KB::String::iterator::initialize(&v40);
-      v64 = v40;
-      *v65 = v41;
+      *&v39 = v27;
+      DWORD2(v39) = v25;
+      HIDWORD(v39) = v25;
+      LODWORD(v40) = 0;
+      KB::String::iterator::initialize(&v39);
+      v61 = v39;
+      *v62 = v40;
       v28 = 2;
       do
       {
-        KB::String::iterator::operator--(&v64);
+        KB::String::iterator::operator--(&v61);
         --v28;
       }
 
       while (v28);
-      v26 = !KB::String::contains(&TIInputManager::filter_raw_candidates(KB::CandidateCollection const&,KB::String const&,KB::String const&,KB::LookupType,KB::CandidateFilterFlags,BOOL,__CFString *)const::disallowed_domain_characters, v65[0]);
+      v26 = !KB::String::contains(&TIInputManager::filter_raw_candidates(KB::CandidateCollection const&,KB::String const&,KB::String const&,KB::LookupType,KB::CandidateFilterFlags,BOOL,__CFString *)const::disallowed_domain_characters, v62[0]);
     }
 
     else
@@ -616,53 +575,53 @@ void TIInputManager::filter_raw_candidates(uint64_t a1, uint64_t a2, uint64_t a3
       v26 = 1;
     }
 
-    KB::Candidate::Candidate(v63, v75);
-    v61[0] = 0;
-    v62 = 0;
-    if (v74 == 1)
+    KB::Candidate::Candidate(v60, v72);
+    v58[0] = 0;
+    v59 = 0;
+    if (v71 == 1)
     {
-      KB::Candidate::Candidate(v61, v73);
-      v62 = 1;
+      KB::Candidate::Candidate(v58, v70);
+      v59 = 1;
     }
 
-    TIInputManager::input_flags_vector(v18, &v49);
-    KB::LanguageModelContext::LanguageModelContext(v42, (v18 + 472));
-    KB::String::String(v59, v15);
-    KB::Candidate::Candidate(v58, v72);
-    KB::CandidateFilterLookupContext::CandidateFilterLookupContext(&v64, v63, v61, &v49, v42, v59, v58, v13);
-    KB::Candidate::~Candidate(v58);
-    if (v60 && v59[6] == 1)
+    TIInputManager::input_flags_vector(v18, &v48);
+    KB::LanguageModelContext::LanguageModelContext(v41, (v18 + 472));
+    KB::String::String(v56, v15);
+    KB::Candidate::Candidate(v55, v69);
+    KB::CandidateFilterLookupContext::CandidateFilterLookupContext(&v61, v60, v58, &v48, v41, v56, v55, v13);
+    KB::Candidate::~Candidate(v55);
+    if (v57 && v56[6] == 1)
     {
-      free(v60);
+      free(v57);
     }
 
-    *&v40 = &v48;
-    std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](&v40);
-    language_modeling::v1::LinguisticContext::~LinguisticContext(&v47);
+    *&v39 = &v47;
+    std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](&v39);
     language_modeling::v1::LinguisticContext::~LinguisticContext(&v46);
-    if (v44)
-    {
-      v45 = v44;
-      operator delete(v44);
-    }
-
+    language_modeling::v1::LinguisticContext::~LinguisticContext(&v45);
     if (v43)
     {
-      std::__shared_weak_count::__release_shared[abi:nn200100](v43);
+      v44 = v43;
+      operator delete(v43);
     }
 
-    if (v49.__begin_)
+    if (v42)
     {
-      v49.__end_ = v49.__begin_;
-      operator delete(v49.__begin_);
+      std::__shared_weak_count::__release_shared[abi:nn200100](v42);
     }
 
-    if (v62 == 1)
+    if (v48.__begin_)
     {
-      KB::Candidate::~Candidate(v61);
+      v48.__end_ = v48.__begin_;
+      operator delete(v48.__begin_);
     }
 
-    KB::Candidate::~Candidate(v63);
+    if (v59 == 1)
+    {
+      KB::Candidate::~Candidate(v58);
+    }
+
+    KB::Candidate::~Candidate(v60);
     v29 = *(v18 + 8);
     if (-858993459 * ((*(v18 + 16) - v29) >> 3))
     {
@@ -674,88 +633,86 @@ void TIInputManager::filter_raw_candidates(uint64_t a1, uint64_t a2, uint64_t a3
       v30 = 0;
     }
 
-    v66 = v30;
-    v67 = v23 == 45;
-    v68 = v24 == 46;
-    v70 = v26;
-    v69 = KB::SetInputHasSupplementalPrefixForScope::s_inputHasSupplementalPrefix;
-    v71 = *(v18 + 200) != 0;
+    v63 = v30;
+    v64 = v23 == 45;
+    v65 = v24 == 46;
+    v67 = v26;
+    v66 = KB::SetInputHasSupplementalPrefixForScope::s_inputHasSupplementalPrefix;
+    v68 = *(v18 + 200) != 0;
     v31 = *(v18 + 136);
     v32 = *(v18 + 288);
     v33 = *(v18 + 264);
-    v39 = v33;
+    v38 = v33;
     if (v33)
     {
       atomic_fetch_add(v33, 1u);
     }
 
     v34 = *(v18 + 280);
-    v37 = *(v18 + 272);
-    v38 = v34;
+    v36 = *(v18 + 272);
+    v37 = v34;
     if (v34)
     {
       atomic_fetch_add_explicit(&v34->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    KB::CandidateFilterResources::CandidateFilterResources(&v40, v31, v32, &v39, &v37, *(v18 + 600), v18 + 632, v7);
+    KB::CandidateFilterResources::CandidateFilterResources(&v39, v31, v32, &v38, &v36, *(v18 + 600), v18 + 632, v7);
+    if (v37)
+    {
+      std::__shared_weak_count::__release_shared[abi:nn200100](v37);
+    }
+
     if (v38)
     {
-      std::__shared_weak_count::__release_shared[abi:nn200100](v38);
+      WTF::RefCounted<KB::DictionaryContainer>::deref(v38);
     }
 
-    if (v39)
-    {
-      WTF::RefCounted<KB::DictionaryContainer>::deref(v39);
-    }
-
-    (*(*v51 + 24))(v51, v20, &v64, &v40);
-    if (!v13 && v36)
+    (*(*v50 + 24))(v50, v20, &v61, &v39);
+    if (!v13 && v35)
     {
       if (*v20 == *(v20 + 1))
       {
-        v53 = 0x100000;
+        LODWORD(v52) = 0x100000;
+        WORD2(v52) = 0;
+        BYTE6(v52) = 0;
+        v53 = 0;
         v54 = 0;
-        v55 = 0;
-        v56 = 0;
-        v57 = 0;
       }
 
       else
       {
-        KB::Candidate::capitalized_string(*v20, &v53);
+        KB::Candidate::capitalized_string(&v52, *v20);
       }
 
-      KB::String::operator=(v18 + 232, &v53);
-      if (v56)
+      KB::String::operator=(v18 + 232, &v52);
+      if (v53)
       {
-        if (v55 == 1)
+        if (BYTE6(v52) == 1)
         {
-          free(v56);
+          free(v53);
         }
       }
     }
 
-    KB::CandidateFilterResources::~CandidateFilterResources(&v40);
-    KB::CandidateFilterLookupContext::~CandidateFilterLookupContext(&v64);
+    KB::CandidateFilterResources::~CandidateFilterResources(&v39);
+    KB::CandidateFilterLookupContext::~CandidateFilterLookupContext(&v61);
+    KB::Candidate::~Candidate(v69);
+    if (v71 == 1)
+    {
+      KB::Candidate::~Candidate(v70);
+    }
+
     KB::Candidate::~Candidate(v72);
-    if (v74 == 1)
+    if (v75 == 1 && v74 && BYTE6(v73) == 1)
     {
-      KB::Candidate::~Candidate(v73);
-    }
-
-    KB::Candidate::~Candidate(v75);
-    if (v78 == 1 && v77 && BYTE6(v76) == 1)
-    {
-      free(v77);
+      free(v74);
     }
   }
 
-  if (v52)
+  if (v51)
   {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v52);
+    std::__shared_weak_count::__release_shared[abi:nn200100](v51);
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 __n128 std::__function::__func<TIInputManager::lookup_static_dynamic_candidates(KB::CandidateCollection &,KB::LookupType,KB::String const&,void({block_pointer})(KB::CandidateCollection &,__CFString *),unsigned int)::$_0,std::allocator<TIInputManager::lookup_static_dynamic_candidates(KB::CandidateCollection &,KB::LookupType,KB::String const&,void({block_pointer})(KB::CandidateCollection &,__CFString *),unsigned int)::$_0>,void ()(KB::CandidateCollection &,KB::CandidateFilterFlags,BOOL)>::__clone(uint64_t a1, uint64_t a2)
@@ -823,11 +780,11 @@ uint64_t std::string_view::compare[abi:nn200100](uint64_t a1, unint64_t a2, unin
   }
 }
 
-void TIInputManager::create_autocorrection_engine_with_synthetic_typing(TIInputManager *this, const KB::String *a2)
+void TIInputManager::create_autocorrection_engine_with_synthetic_typing(const KB::String **this)
 {
   v3 = *MEMORY[0x277D85DE8];
   KB::system_uptime(this);
-  TIInputManager::create_autocorrection_engine(this);
+  TIInputManager::create_autocorrection_engine();
 }
 
 uint64_t TIInputManager::favonius_layout(TIInputManager *this)
@@ -848,15 +805,15 @@ uint64_t TIInputManager::favonius_layout(TIInputManager *this)
   return this + 360;
 }
 
-void std::__function::__func<TIInputManager::lookup_revision_candidates(KB::CandidateCollection &,KB::LookupType,void({block_pointer})(KB::CandidateCollection &,__CFString *),unsigned int,KB::String const&)::$_0,std::allocator<TIInputManager::lookup_revision_candidates(KB::CandidateCollection &,KB::LookupType,void({block_pointer})(KB::CandidateCollection &,__CFString *),unsigned int,KB::String const&)::$_0>,void ()(KB::CandidateCollection &,KB::CandidateFilterFlags,BOOL)>::operator()(uint64_t a1, const KB::CandidateCollection *a2, uint64_t a3, unsigned __int8 *a4)
+void std::__function::__func<TIInputManager::lookup_revision_candidates(KB::CandidateCollection &,KB::LookupType,void({block_pointer})(KB::CandidateCollection &,__CFString *),unsigned int,KB::String const&)::$_0,std::allocator<TIInputManager::lookup_revision_candidates(KB::CandidateCollection &,KB::LookupType,void({block_pointer})(KB::CandidateCollection &,__CFString *),unsigned int,KB::String const&)::$_0>,void ()(KB::CandidateCollection &,KB::CandidateFilterFlags,BOOL)>::operator()(uint64_t a1, const KB::Candidate **a2, uint64_t a3, unsigned __int8 *a4)
 {
-  v40[4] = *MEMORY[0x277D85DE8];
+  v38[4] = *MEMORY[0x277D85DE8];
   v6 = *a3;
-  v24 = *(a3 + 8);
+  v22 = *(a3 + 8);
   *(a3 + 8) = 0;
   *(a3 + 16) = 0;
   *a3 = 0;
-  v25 = *a4;
+  v23 = *a4;
   v7 = *(a1 + 8);
   if (*(v7 + 608))
   {
@@ -869,37 +826,37 @@ void std::__function::__func<TIInputManager::lookup_revision_candidates(KB::Cand
   }
 
   v9 = a2;
-  KB::CandidateCollection::CandidateCollection(v31, a2);
+  KB::CandidateCollection::CandidateCollection(v29, a2);
   v10 = *(a1 + 16);
   v11 = *(a1 + 24);
   v12 = **(a1 + 32);
   __dst = 0;
-  v30 = 0;
   v28 = 0;
-  v13 = v24 - v6;
-  v26 = v6;
-  if (v24 != v6)
+  v26 = 0;
+  v13 = v22 - v6;
+  v24 = v6;
+  if (v22 != v6)
   {
-    std::vector<KB::FilterFlag>::__vallocate[abi:nn200100](&v28, v13 >> 3);
+    std::vector<KB::FilterFlag>::__vallocate[abi:nn200100](&v26, v13 >> 3);
   }
 
   TIInputManager::filter_raw_candidates(v7, v9, v10, v11, v12);
-  KB::CandidateCollection::operator=(v9, &v36);
-  cf = v40;
+  KB::CandidateCollection::operator=(v9, &v34);
+  cf = v38;
   std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&cf);
-  cf = &v39;
-  std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&cf);
-  cf = &v38;
+  cf = &v37;
   std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&cf);
   cf = &v36;
   std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&cf);
+  cf = &v34;
+  std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&cf);
   if (v13)
   {
-    __dst = (v24 - v6);
+    __dst = (v22 - v6);
     operator delete(v13);
   }
 
-  if (v25)
+  if (v23)
   {
     (*(**(a1 + 40) + 16))();
   }
@@ -908,47 +865,46 @@ void std::__function::__func<TIInputManager::lookup_revision_candidates(KB::Cand
   if (v14)
   {
     (*(*v14 + 16))(v14, **(a1 + 48), *(v7 + 264) != 0);
-    v15 = **(a1 + 32);
     (*(***(a1 + 48) + 488))(&cf);
-    v16 = KB::CandidateFilterFlags::candidate_filter_flag_type(v6, v24);
-    v17 = &kGenericFlagDesc;
-    if (v16 == 1)
+    v15 = KB::CandidateFilterFlags::candidate_filter_flag_type(v6, v22);
+    v16 = &kGenericFlagDesc;
+    if (v15 == 1)
     {
-      v17 = &kPostLMFlagDesc;
+      v16 = &kPostLMFlagDesc;
     }
 
-    if (v16)
+    if (v15)
     {
-      v18 = v17;
+      v17 = v16;
     }
 
     else
     {
-      v18 = &kPreLMFlagDesc;
+      v17 = &kPreLMFlagDesc;
     }
 
-    KB::String::String(&v36, v18);
-    v19 = *(v7 + 608);
-    v20 = *(a1 + 16);
-    v21 = **(a1 + 32);
-    v22 = cf;
-    v27 = cf;
+    KB::String::String(&v34, v17);
+    v18 = *(v7 + 608);
+    v19 = *(a1 + 16);
+    v20 = **(a1 + 32);
+    v21 = cf;
+    v25 = cf;
     if (cf)
     {
       CFRetain(cf);
-      v27 = v22;
+      v25 = v21;
     }
 
-    (*(*v19 + 24))(v19, v20, v21, &v36, v31, Mutable, v9, &v27);
-    if (v27)
+    (*(*v18 + 24))(v18, v19, v20, &v34, v29, Mutable, v9, &v25);
+    if (v25)
     {
-      CFRelease(v27);
+      CFRelease(v25);
     }
 
-    v27 = 0;
-    if (v37 && BYTE6(v36) == 1)
+    v25 = 0;
+    if (v35 && BYTE6(v34) == 1)
     {
-      free(v37);
+      free(v35);
     }
 
     if (cf)
@@ -957,25 +913,23 @@ void std::__function::__func<TIInputManager::lookup_revision_candidates(KB::Cand
     }
   }
 
-  v36 = &v34;
-  std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v36);
-  v36 = &v33;
-  std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v36);
-  v36 = &v32;
-  std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v36);
-  v36 = v31;
-  std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v36);
+  v34 = &v32;
+  std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v34);
+  v34 = &v31;
+  std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v34);
+  v34 = &v30;
+  std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v34);
+  v34 = v29;
+  std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v34);
   if (Mutable)
   {
     CFRelease(Mutable);
   }
 
-  if (v26)
+  if (v24)
   {
-    operator delete(v26);
+    operator delete(v24);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 __n128 std::__function::__func<TIInputManager::lookup_revision_candidates(KB::CandidateCollection &,KB::LookupType,void({block_pointer})(KB::CandidateCollection &,__CFString *),unsigned int,KB::String const&)::$_0,std::allocator<TIInputManager::lookup_revision_candidates(KB::CandidateCollection &,KB::LookupType,void({block_pointer})(KB::CandidateCollection &,__CFString *),unsigned int,KB::String const&)::$_0>,void ()(KB::CandidateCollection &,KB::CandidateFilterFlags,BOOL)>::__clone(uint64_t a1, uint64_t a2)
@@ -1057,7 +1011,7 @@ uint64_t std::__function::__func<TIInputManager::create_autocorrection_engine_wi
   return result;
 }
 
-void *KB::String::find_last_of(KB::String *this, const KB::String *a2, const KB::String *a3)
+uint64_t *KB::String::find_last_of(KB::String *this, const KB::String *a2, const KB::String *a3)
 {
   v6 = *a2;
   v7 = *(a2 + 1);
@@ -1089,7 +1043,7 @@ uint64_t repeating_character_threshold(const __CFLocale *a1)
 
 void std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,KB::Candidate *,false>(unint64_t a1, uint64_t *a2, uint64_t a3, char a4)
 {
-  v99 = *MEMORY[0x277D85DE8];
+  v98 = *MEMORY[0x277D85DE8];
 LABEL_2:
   v8 = a1;
   while (1)
@@ -1103,7 +1057,7 @@ LABEL_2:
 
     if (v10 < 2)
     {
-      goto LABEL_140;
+      return;
     }
 
     if (v10 == 2)
@@ -1111,7 +1065,7 @@ LABEL_2:
       v74 = expf(*(a2 - 64));
       if (v74 <= expf(*(v8 + 744)))
       {
-        goto LABEL_140;
+        return;
       }
 
       v75 = a2 - 125;
@@ -1138,7 +1092,7 @@ LABEL_10:
               v84 = expf(*(v83 + 1744));
               if (v84 > expf(*(v83 + 744)))
               {
-                KB::Candidate::Candidate(v97, v82);
+                KB::Candidate::Candidate(v96, v82);
                 v85 = v81;
                 while (1)
                 {
@@ -1148,7 +1102,7 @@ LABEL_10:
                     break;
                   }
 
-                  v86 = expf(v98);
+                  v86 = expf(v97);
                   v87 = expf(*(v8 + v85 - 256));
                   v85 -= 1000;
                   if (v86 <= v87)
@@ -1160,8 +1114,8 @@ LABEL_10:
 
                 v88 = v8;
 LABEL_120:
-                KB::Candidate::operator=(v88, v97);
-                KB::Candidate::~Candidate(v97);
+                KB::Candidate::operator=(v88, v96);
+                KB::Candidate::~Candidate(v96);
               }
 
               v80 = v82 + 1000;
@@ -1182,18 +1136,18 @@ LABEL_120:
           v92 = expf(*(v8 + 1744));
           if (v92 > expf(*(v8 + 744)))
           {
-            KB::Candidate::Candidate(v97, v91);
+            KB::Candidate::Candidate(v96, v91);
             do
             {
               v93 = v8;
               KB::Candidate::operator=((v8 + 1000), v8);
               v8 -= 1000;
-              v94 = expf(v98);
+              v94 = expf(v97);
             }
 
             while (v94 > expf(*(v93 - 64)));
-            KB::Candidate::operator=(v93, v97);
-            KB::Candidate::~Candidate(v97);
+            KB::Candidate::operator=(v93, v96);
+            KB::Candidate::~Candidate(v96);
           }
 
           v90 = (v91 + 1000);
@@ -1201,7 +1155,7 @@ LABEL_120:
         }
       }
 
-      goto LABEL_140;
+      return;
     }
 
     if (!a3)
@@ -1211,7 +1165,7 @@ LABEL_120:
         std::__partial_sort_impl[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,KB::Candidate *,KB::Candidate *>(v8, a2, a2);
       }
 
-      goto LABEL_140;
+      return;
     }
 
     v11 = v10 >> 1;
@@ -1373,10 +1327,10 @@ LABEL_57:
         }
       }
 
-      KB::Candidate::Candidate(v97, v8);
+      KB::Candidate::Candidate(v96, v8);
       KB::Candidate::operator=(v8, (v8 + 1000 * v11));
-      KB::Candidate::operator=((v8 + 1000 * v11), v97);
-      KB::Candidate::~Candidate(v97);
+      KB::Candidate::operator=((v8 + 1000 * v11), v96);
+      KB::Candidate::~Candidate(v96);
       v8 = a1;
       goto LABEL_59;
     }
@@ -1424,8 +1378,8 @@ LABEL_59:
       v49 = expf(*(v8 - 256));
       if (v49 <= expf(*(v8 + 744)))
       {
-        KB::Candidate::Candidate(v97, v8);
-        v63 = expf(v98);
+        KB::Candidate::Candidate(v96, v8);
+        v63 = expf(v97);
         if (v63 <= expf(*(a2 - 64)))
         {
           v66 = v8 + 1000;
@@ -1474,7 +1428,7 @@ LABEL_59:
         while (a1 < v68)
         {
           std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<KB::Candidate *&,KB::Candidate *&>(a1, v68);
-          v71 = expf(v98);
+          v71 = expf(v97);
           do
           {
             v72 = *(a1 + 1744);
@@ -1496,15 +1450,15 @@ LABEL_59:
           KB::Candidate::operator=(v8, (a1 - 1000));
         }
 
-        KB::Candidate::operator=((a1 - 1000), v97);
-        KB::Candidate::~Candidate(v97);
+        KB::Candidate::operator=((a1 - 1000), v96);
+        KB::Candidate::~Candidate(v96);
         a4 = 0;
         goto LABEL_2;
       }
     }
 
-    KB::Candidate::Candidate(v97, v8);
-    v50 = expf(v98);
+    KB::Candidate::Candidate(v96, v8);
+    v50 = expf(v97);
     v51 = v8;
     do
     {
@@ -1551,7 +1505,7 @@ LABEL_71:
       do
       {
         std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<KB::Candidate *&,KB::Candidate *&>(v59, v58);
-        v60 = expf(v98);
+        v60 = expf(v97);
         do
         {
           v52 = v59;
@@ -1576,8 +1530,8 @@ LABEL_71:
       KB::Candidate::operator=(v8, v52);
     }
 
-    KB::Candidate::operator=(v52, v97);
-    KB::Candidate::~Candidate(v97);
+    KB::Candidate::operator=(v52, v96);
+    KB::Candidate::~Candidate(v96);
     if (v51 < v54)
     {
       goto LABEL_84;
@@ -1602,7 +1556,7 @@ LABEL_84:
     a2 = v52;
     if (v62)
     {
-      goto LABEL_140;
+      return;
     }
   }
 
@@ -1611,13 +1565,13 @@ LABEL_84:
     if (v10 == 4)
     {
       std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,KB::Candidate *,0>(v8, v8 + 1000, v8 + 2000, (a2 - 125));
-      goto LABEL_140;
+      return;
     }
 
     if (v10 == 5)
     {
       std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,KB::Candidate *,0>(v8, v8 + 1000, v8 + 2000, v8 + 3000, (a2 - 125));
-      goto LABEL_140;
+      return;
     }
 
     goto LABEL_10;
@@ -1634,7 +1588,7 @@ LABEL_84:
       v95 = expf(*(a2 - 64));
       if (v95 <= expf(*(v8 + 1744)))
       {
-        goto LABEL_140;
+        return;
       }
 
       v76 = (v8 + 1000);
@@ -1661,185 +1615,198 @@ LABEL_139:
       std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<KB::Candidate *&,KB::Candidate *&>(v76, v75);
     }
   }
-
-LABEL_140:
-  v96 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t TIInputManager::inject_supplemental_candidate(size_t a1, int a2, uint64_t *a3)
+void TIInputManager::inject_supplemental_candidate(size_t a1, int a2, KB::Candidate **a3)
 {
-  v41 = *MEMORY[0x277D85DE8];
-  if (!TITransientLexiconManagerGetActiveSupplementalLexiconWords() || a2 != 1 && (a2 || !*(a1 + 576) || (v6 = *(a1 + 264)) != 0 && **(v6 + 8) != *(*(v6 + 8) + 8)))
+  v42 = *MEMORY[0x277D85DE8];
+  if (!TITransientLexiconManagerGetActiveSupplementalLexiconWords())
   {
-    v7 = 0;
-    goto LABEL_8;
+    return;
   }
 
-  TIInputManager::legacy_input_stem(a1, v39);
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 0x40000000;
-  v29 = ___ZN14TIInputManager29inject_supplemental_candidateEN2KB10LookupTypeERNS0_19CandidateCollectionE_block_invoke;
-  v30 = &__block_descriptor_tmp_5_5172;
-  v31 = a1;
-  v34[0] = MEMORY[0x277D85DD0];
-  v34[1] = 0x40000000;
-  v34[2] = ___ZN14TIInputManager30word_from_supplemental_lexiconERN2KB6StringE_block_invoke;
-  v34[3] = &__block_descriptor_tmp_5173;
-  v34[4] = a1;
-  KB::DynamicDictionary::word_from_supplemental_lexicon(*(*(a1 + 264) + 24), v39, v37);
-  v11 = *a3;
-  v10 = a3[1];
-  if ((v38 & 1) == 0)
+  if (a2 != 1)
   {
-    if (v10 == *a3)
+    if (a2)
     {
-      v7 = 0;
-      goto LABEL_49;
+      return;
     }
 
-    v16 = 0;
-    v7 = 0;
+    if (!*(a1 + 576))
+    {
+      return;
+    }
+
+    v6 = *(a1 + 264);
+    if (v6)
+    {
+      if (**(v6 + 8) != *(*(v6 + 8) + 8))
+      {
+        return;
+      }
+    }
+  }
+
+  TIInputManager::legacy_input_stem(&v40, a1);
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 0x40000000;
+  v30 = ___ZN14TIInputManager29inject_supplemental_candidateEN2KB10LookupTypeERNS0_19CandidateCollectionE_block_invoke;
+  v31 = &__block_descriptor_tmp_5_5172;
+  v32 = a1;
+  v35[0] = MEMORY[0x277D85DD0];
+  v35[1] = 0x40000000;
+  v35[2] = ___ZN14TIInputManager30word_from_supplemental_lexiconERN2KB6StringE_block_invoke;
+  v35[3] = &__block_descriptor_tmp_5173;
+  v35[4] = a1;
+  KB::DynamicDictionary::word_from_supplemental_lexicon(*(*(a1 + 264) + 24), &v40, v35, v38);
+  v8 = *a3;
+  v7 = a3[1];
+  if ((v39 & 1) == 0)
+  {
+    if (v7 == *a3)
+    {
+      goto LABEL_45;
+    }
+
+    v14 = 0;
     while (1)
     {
-      v17 = (v11 + 1000 * v16);
-      v18 = *v17;
-      if (*v17)
+      v15 = (v8 + 1000 * v14);
+      v16 = *v15;
+      if (*v15)
       {
-        v19 = *(v17 + 1);
-        v20 = 240 * v18;
-        v21 = v19 + 240 * v18;
-        v22 = v20 - 240;
-        v23 = (v19 + 224);
+        v17 = *(v15 + 1);
+        v18 = 240 * v16;
+        v19 = v17 + 240 * v16;
+        v20 = v18 - 240;
+        v21 = (v17 + 224);
         do
         {
-          v25 = *v23;
-          v23 += 30;
-          v24 = v25;
-          if (v25)
+          v23 = *v21;
+          v21 += 30;
+          v22 = v23;
+          if (v23)
           {
-            v26 = 1;
+            v24 = 1;
           }
 
           else
           {
-            v26 = v22 == 0;
+            v24 = v20 == 0;
           }
 
-          v22 -= 240;
+          v20 -= 240;
         }
 
-        while (!v26);
-        if (!v24)
+        while (!v24);
+        if (!v22)
         {
-          KB::DynamicDictionary::word_from_supplemental_lexicon(*(*(a1 + 264) + 24), v21 - 240, v34);
-          if (v35 == 1)
+          KB::DynamicDictionary::word_from_supplemental_lexicon(*(*(a1 + 264) + 24), (v19 - 240), v29, v35);
+          if (v36 == 1)
           {
-            KB::Candidate::pop_last_word(v17);
-            if ((v35 & 1) == 0)
+            KB::Candidate::pop_last_word(v15);
+            if ((v36 & 1) == 0)
             {
-              goto LABEL_54;
+              goto LABEL_50;
             }
 
-            KB::Candidate::append(v17, v34);
-            if (v35)
+            KB::Candidate::append(v15, v35);
+            if (v36)
             {
-              KB::Word::~Word(v34);
+              KB::Word::~Word(v35);
             }
-
-            v7 = 1;
           }
 
-          v11 = *a3;
-          v10 = a3[1];
+          v8 = *a3;
+          v7 = a3[1];
         }
       }
 
-      if (++v16 >= (0x1CAC083126E978D5 * ((v10 - v11) >> 3)))
+      if (++v14 >= (0x1CAC083126E978D5 * ((v7 - v8) >> 3)))
       {
-        goto LABEL_49;
+        goto LABEL_45;
       }
     }
   }
 
-  if (v10 == *a3)
+  if (v7 == *a3)
   {
-LABEL_40:
-    TIInputManager::input_substring((a1 + 8), 0, *(a1 + 96), v32);
-    KB::Candidate::Candidate(v34, v32, 0);
-    if (v33 && v32[6] == 1)
+LABEL_38:
+    TIInputManager::input_substring((a1 + 8), 0, *(a1 + 96), v33);
+    KB::Candidate::Candidate(v35, v33, 0);
+    if (v34 && v33[6] == 1)
     {
-      free(v33);
+      free(v34);
     }
 
-    if (v34[0])
+    if (v35[0])
     {
-      KB::Candidate::pop_last_word(v34);
+      KB::Candidate::pop_last_word(v35);
     }
 
-    if (v38)
+    if (v39)
     {
-      KB::Candidate::append(v34, v37);
-      v36 = 1065353216;
-      std::vector<KB::Candidate>::push_back[abi:nn200100](a3, v34);
-      KB::Candidate::~Candidate(v34);
-LABEL_47:
-      v7 = 1;
-      goto LABEL_49;
+      KB::Candidate::append(v35, v38);
+      v37 = 1065353216;
+      std::vector<KB::Candidate>::push_back[abi:nn200100](a3, v35);
+      KB::Candidate::~Candidate(v35);
+      goto LABEL_45;
     }
 
-LABEL_54:
-    v27 = std::__throw_bad_optional_access[abi:nn200100]();
-    return TIInputManager::apply_case_insensitive_constraints(v27);
+LABEL_50:
+    v25 = std::__throw_bad_optional_access[abi:nn200100]();
+    TIInputManager::apply_case_insensitive_constraints(v25, v26, v27, v28);
+    return;
   }
 
-  v7 = 0;
-  v12 = 0;
+  v9 = 0;
+  v10 = 0;
   while (2)
   {
-    v13 = 1000 * v12;
+    v11 = 1000 * v10;
     while (1)
     {
-      v14 = v11 + v13;
-      v15 = *(v11 + v13);
-      if (v15)
+      v12 = v8 + v11;
+      v13 = *(v8 + v11);
+      if (v13)
       {
         break;
       }
 
-LABEL_16:
-      ++v12;
-      v13 += 1000;
-      if (v12 >= 0x1CAC083126E978D5 * ((v10 - v11) >> 3))
+LABEL_15:
+      ++v10;
+      v11 += 1000;
+      if (v10 >= 0x1CAC083126E978D5 * ((v7 - v8) >> 3))
       {
-        if (v7)
+        if (v9)
         {
-          goto LABEL_47;
+          goto LABEL_45;
         }
 
-        goto LABEL_40;
+        goto LABEL_38;
       }
     }
 
-    if (((v29)(v28, v39, *(v14 + 8) + 240 * v15 - 240) & 1) == 0)
+    if (((v30)(v29, &v40, *(v12 + 1) + 240 * v13 - 240) & 1) == 0)
     {
-      v11 = *a3;
-      v10 = a3[1];
-      goto LABEL_16;
+      v8 = *a3;
+      v7 = a3[1];
+      goto LABEL_15;
     }
 
-    KB::Candidate::pop_last_word(v14);
-    if ((v38 & 1) == 0)
+    KB::Candidate::pop_last_word(v12);
+    if ((v39 & 1) == 0)
     {
-      goto LABEL_54;
+      goto LABEL_50;
     }
 
-    KB::Candidate::append(v14, v37);
-    *(v14 + 744) = 1065353216;
-    ++v12;
-    v11 = *a3;
-    v10 = a3[1];
-    v7 = 1;
-    if (v12 < 0x1CAC083126E978D5 * ((v10 - *a3) >> 3))
+    KB::Candidate::append(v12, v38);
+    *(v12 + 186) = 1065353216;
+    ++v10;
+    v8 = *a3;
+    v7 = a3[1];
+    v9 = 1;
+    if (v10 < 0x1CAC083126E978D5 * ((v7 - *a3) >> 3))
     {
       continue;
     }
@@ -1847,116 +1814,113 @@ LABEL_16:
     break;
   }
 
-LABEL_49:
-  if (v38 == 1)
+LABEL_45:
+  if (v39 == 1)
   {
-    KB::Word::~Word(v37);
+    KB::Word::~Word(v38);
   }
 
-  if (v40)
+  if (v41)
   {
-    if (v39[6] == 1)
+    if (BYTE6(v40) == 1)
     {
-      free(v40);
+      free(v41);
     }
   }
-
-LABEL_8:
-  v8 = *MEMORY[0x277D85DE8];
-  return v7 & 1;
 }
 
-void TIInputManager::apply_case_insensitive_constraints(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
+void TIInputManager::apply_case_insensitive_constraints(int *a1, uint64_t a2, int a3, uint64_t a4)
 {
-  v32 = *MEMORY[0x277D85DE8];
-  if (*(a1 + 216) <= *(a1 + 220))
+  v31 = *MEMORY[0x277D85DE8];
+  if (a1[54] <= a1[55])
   {
-    v8 = *(a1 + 220);
+    v8 = a1[55];
   }
 
   else
   {
-    v8 = *(a1 + 216);
+    v8 = a1[54];
   }
 
-  TIInputManager::input_substring((a1 + 8), 0, v8, v30);
-  TIInputManager::input_substring((a1 + 8), 0, *(a1 + 216), v28);
-  TIInputManager::input_substring((a1 + 8), 0, *(a1 + 96), v26);
+  TIInputManager::input_substring((a1 + 2), 0, v8, v29);
+  TIInputManager::input_substring((a1 + 2), 0, a1[54], v27);
+  TIInputManager::input_substring((a1 + 2), 0, a1[24], v25);
   v9 = 0;
-  v16[0] = a2;
-  v16[1] = a2 + 24;
-  v16[2] = a2 + 48;
-  v16[3] = a2 + 72;
+  v15[0] = a2;
+  v15[1] = a2 + 24;
+  v15[2] = a2 + 48;
+  v15[3] = a2 + 72;
   v10 = MEMORY[0x277D85DD0];
   do
   {
-    v11 = v16[v9];
+    v11 = v15[v9];
     v12 = *v11;
     v13 = *(v11 + 8);
-    v17[0] = v10;
-    v17[1] = 1174405120;
-    v17[2] = ___ZN14TIInputManager34apply_case_insensitive_constraintsERN2KB19CandidateCollectionENS0_10LookupTypeEP10__CFString_block_invoke;
-    v17[3] = &__block_descriptor_tmp_13;
-    v17[4] = a1;
-    KB::String::String(v18, v30);
-    KB::String::String(v20, v28);
-    KB::String::String(v22, v26);
-    v25 = a3;
-    v24 = a4;
-    v14 = std::remove_if[abi:nn200100]<std::__wrap_iter<KB::Candidate *>,BOOL({block_pointer})(KB::Candidate const&)>(v12, v13, v17);
+    v16[0] = v10;
+    v16[1] = 1174405120;
+    v16[2] = ___ZN14TIInputManager34apply_case_insensitive_constraintsERN2KB19CandidateCollectionENS0_10LookupTypeEP10__CFString_block_invoke;
+    v16[3] = &__block_descriptor_tmp_13;
+    v16[4] = a1;
+    KB::String::String(v17, v29);
+    KB::String::String(v19, v27);
+    KB::String::String(v21, v25);
+    v24 = a3;
+    v23 = a4;
+    v14 = std::remove_if[abi:nn200100]<std::__wrap_iter<KB::Candidate *>,BOOL({block_pointer})(KB::Candidate const&)>(v12, v13, v16);
     std::vector<KB::Candidate>::erase(v11, v14, *(v11 + 8));
-    if (v23 && v22[6] == 1)
+    if (v22 && v21[6] == 1)
     {
-      free(v23);
+      free(v22);
     }
 
-    if (v21 && v20[6] == 1)
+    if (v20 && v19[6] == 1)
     {
-      free(v21);
+      free(v20);
     }
 
-    if (v19 && v18[6] == 1)
+    if (v18 && v17[6] == 1)
     {
-      free(v19);
+      free(v18);
     }
 
     ++v9;
   }
 
   while (v9 != 4);
-  if (v27 && v26[6] == 1)
+  if (v26 && v25[6] == 1)
   {
-    free(v27);
+    free(v26);
   }
 
-  if (v29 && v28[6] == 1)
+  if (v28 && v27[6] == 1)
   {
-    free(v29);
+    free(v28);
   }
 
-  if (v31 && v30[6] == 1)
+  if (v30)
   {
-    free(v31);
+    if (v29[6] == 1)
+    {
+      free(v30);
+    }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
-void TIInputManager::apply_case_changes(uint64_t a1, uint64_t a2, unsigned __int16 *a3, std::vector<unsigned int>::size_type a4, uint64_t a5, __CFString *a6)
+void TIInputManager::apply_case_changes(uint64_t a1, uint64_t a2, KB::String *a3, std::vector<unsigned int>::size_type a4, uint64_t a5, __CFString *a6)
 {
   v8 = a4;
   v9 = a3;
   v11 = 0;
-  v38[2] = *MEMORY[0x277D85DE8];
-  v30[0] = a2;
-  v30[1] = a2 + 24;
-  v30[2] = a2 + 48;
-  v30[3] = a2 + 72;
-  v28 = a4;
+  v35[2] = *MEMORY[0x277D85DE8];
+  v29[0] = a2;
+  v29[1] = a2 + 24;
+  v29[2] = a2 + 48;
+  v29[3] = a2 + 72;
+  v27 = a4;
   do
   {
-    v27 = v11;
-    v12 = *(v30 + v11);
+    v26 = v11;
+    v12 = *(v29 + v11);
     v13 = *v12;
     if (v12[1] != *v12)
     {
@@ -1976,14 +1940,14 @@ void TIInputManager::apply_case_changes(uint64_t a1, uint64_t a2, unsigned __int
           if (a6)
           {
             v18 = (*v12 + 1000 * v14);
-            KB::Candidate::capitalized_string(v18, v35);
-            v19 = v37;
-            if (!v37)
+            KB::Candidate::capitalized_string(&v33, v18);
+            v19 = v34;
+            if (!v34)
             {
-              v19 = v38;
+              v19 = v35;
             }
 
-            if (v35[0])
+            if (v33)
             {
               v20 = v19;
             }
@@ -1993,14 +1957,14 @@ void TIInputManager::apply_case_changes(uint64_t a1, uint64_t a2, unsigned __int
               v20 = "";
             }
 
-            KB::Candidate::token_ids_as_string(v18, v31);
-            v22 = v33;
-            if (!v33)
+            KB::Candidate::token_ids_as_string(&v30, v18);
+            v22 = v31;
+            if (!v31)
             {
-              v22 = &v34;
+              v22 = &v32;
             }
 
-            if (v31[0])
+            if (v30)
             {
               v23 = v22;
             }
@@ -2011,14 +1975,14 @@ void TIInputManager::apply_case_changes(uint64_t a1, uint64_t a2, unsigned __int
             }
 
             KB::append_format(a6, "[%s] {%s} removed by %s\n", v21, v20, v23, "apply_case_changes");
-            if (v33 && v32 == 1)
+            if (v31 && BYTE6(v30) == 1)
             {
-              free(v33);
+              free(v31);
             }
 
-            if (v37 && v36 == 1)
+            if (v34 && BYTE6(v33) == 1)
             {
-              free(v37);
+              free(v34);
             }
           }
 
@@ -2044,7 +2008,7 @@ void TIInputManager::apply_case_changes(uint64_t a1, uint64_t a2, unsigned __int
 
           v12[1] = v16;
           a5 = v17;
-          v8 = v28;
+          v8 = v27;
           v9 = a3;
         }
 
@@ -2055,27 +2019,26 @@ void TIInputManager::apply_case_changes(uint64_t a1, uint64_t a2, unsigned __int
       while (0x1CAC083126E978D5 * ((v16 - *v12) >> 3) > v15);
     }
 
-    v11 = v27 + 8;
+    v11 = v26 + 8;
   }
 
-  while (v27 != 24);
-  v26 = *MEMORY[0x277D85DE8];
+  while (v26 != 24);
 }
 
 void TIInputManager::apply_apostrophe_changes(TIInputManager *this, KB::CandidateCollection *a2, const KB::String *a3, __CFString *a4)
 {
-  v39[2] = *MEMORY[0x277D85DE8];
+  v34[2] = *MEMORY[0x277D85DE8];
   if (KB::String::contains(a3, 0x2019u))
   {
     v6 = 0;
-    v26[0] = a2;
-    v26[1] = a2 + 24;
-    v26[2] = a2 + 48;
-    v26[3] = a2 + 72;
+    v25[0] = a2;
+    v25[1] = a2 + 24;
+    v25[2] = a2 + 48;
+    v25[3] = a2 + 72;
     do
     {
-      v25 = v6;
-      v7 = *(v26 + v6);
+      v24 = v6;
+      v7 = *(v25 + v6);
       v8 = *v7;
       v9 = v7[1];
       while (v8 != v9)
@@ -2121,33 +2084,33 @@ void TIInputManager::apply_apostrophe_changes(TIInputManager *this, KB::Candidat
                 break;
               }
 
-              KB::Word::capitalized_string(v11, v32);
-              v28 = 0;
-              v29 = 0;
-              v30 = "’";
-              v27 = 1048579;
-              v31[1] = 0;
-              KB::String::replace_char(v32, &v27, 39, v36);
-              if (v30 && v29 == 1)
+              KB::Word::capitalized_string(&v29, v11);
+              WORD2(v26) = 0;
+              BYTE6(v26) = 0;
+              v27 = "’";
+              LODWORD(v26) = 1048579;
+              v28[1] = 0;
+              KB::String::replace_char(&v32, &v29, &v26, 39);
+              if (v27 && BYTE6(v26) == 1)
+              {
+                free(v27);
+              }
+
+              if (v30 && BYTE6(v29) == 1)
               {
                 free(v30);
               }
 
-              if (v34 && v33 == 1)
-              {
-                free(v34);
-              }
-
               if (a4)
               {
-                KB::Candidate::capitalized_string(v8, v32);
-                v17 = v34;
-                if (!v34)
+                KB::Candidate::capitalized_string(&v29, v8);
+                v17 = v30;
+                if (!v30)
                 {
-                  v17 = &v35;
+                  v17 = &v31;
                 }
 
-                if (v32[0])
+                if (v29)
                 {
                   v18 = v17;
                 }
@@ -2157,14 +2120,14 @@ void TIInputManager::apply_apostrophe_changes(TIInputManager *this, KB::Candidat
                   v18 = "";
                 }
 
-                KB::Word::capitalized_string(v11, &v27);
-                v20 = v30;
-                if (!v30)
+                KB::Word::capitalized_string(&v26, v11);
+                v20 = v27;
+                if (!v27)
                 {
-                  v20 = v31;
+                  v20 = v28;
                 }
 
-                if (v27)
+                if (v26)
                 {
                   v21 = v20;
                 }
@@ -2174,13 +2137,13 @@ void TIInputManager::apply_apostrophe_changes(TIInputManager *this, KB::Candidat
                   v21 = "";
                 }
 
-                v22 = v38;
-                if (!v38)
+                v22 = v33;
+                if (!v33)
                 {
-                  v22 = v39;
+                  v22 = v34;
                 }
 
-                if (v36[0])
+                if (v32)
                 {
                   v23 = v22;
                 }
@@ -2191,23 +2154,23 @@ void TIInputManager::apply_apostrophe_changes(TIInputManager *this, KB::Candidat
                 }
 
                 KB::append_format(a4, "[%s] converted [%s] to [%s] by %s\n", v19, v18, v21, v23, "apply_apostrophe_changes");
-                if (v30 && v29 == 1)
+                if (v27 && BYTE6(v26) == 1)
+                {
+                  free(v27);
+                }
+
+                if (v30 && BYTE6(v29) == 1)
                 {
                   free(v30);
                 }
-
-                if (v34 && v33 == 1)
-                {
-                  free(v34);
-                }
               }
 
-              KB::String::operator=(v11, v36);
-              if (v38)
+              KB::String::operator=(v11, &v32);
+              if (v33)
               {
-                if (v37 == 1)
+                if (BYTE6(v32) == 1)
                 {
-                  free(v38);
+                  free(v33);
                 }
               }
 
@@ -2236,152 +2199,149 @@ LABEL_53:
         v8 = (v8 + 1000);
       }
 
-      v6 = v25 + 8;
+      v6 = v24 + 8;
     }
 
-    while (v25 != 24);
+    while (v24 != 24);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
-void TIInputManager::apply_shortcut_conversions(TIInputManager *this, KB::CandidateCollection *a2, const KB::String *a3, __CFString *a4)
+void TIInputManager::apply_shortcut_conversions(TIInputManager *this, KB::CandidateCollection *a2, const KB::String *a3, __CFString *a4, uint64_t a5)
 {
-  v6 = 0;
-  v36 = *MEMORY[0x277D85DE8];
+  v7 = 0;
+  v32[30] = *MEMORY[0x277D85DE8];
   v22[0] = a2;
   v22[1] = a2 + 24;
   v22[2] = a2 + 48;
   v22[3] = a2 + 72;
   do
   {
-    v7 = *(v22 + v6);
-    v9 = *v7;
-    v8 = v7[1];
-    v20 = v6;
-    v21 = v8;
-    while (v9 != v8)
+    v8 = *(v22 + v7);
+    v10 = *v8;
+    v9 = v8[1];
+    v20 = v7;
+    v21 = v9;
+    while (v10 != v9)
     {
-      if (*v9)
+      if (*v10)
       {
-        v10 = *(v9 + 1);
-        v11 = 240 * *v9;
+        v11 = *(v10 + 1);
+        v12 = 240 * *v10;
         do
         {
-          if (*(v10 + 106))
+          if (*(v11 + 106))
           {
-            TIInputManager::conversion_for_shortcut(this, v10, v35);
-            if (v35[0])
+            TIInputManager::conversion_for_shortcut(v32, this, v11, a3, a4, a5);
+            if (LOWORD(v32[0]))
             {
               if (a4)
               {
-                KB::Candidate::capitalized_string(v9, v31);
-                v12 = v33;
-                if (!v33)
+                KB::Candidate::capitalized_string(&v29, v10);
+                v13 = v30;
+                if (!v30)
                 {
-                  v12 = &v34;
+                  v13 = &v31;
                 }
 
-                if (v31[0])
+                if (v29)
                 {
-                  v13 = v12;
-                }
-
-                else
-                {
-                  v13 = "";
-                }
-
-                KB::Word::capitalized_string(v10, v27);
-                v14 = v29;
-                if (!v29)
-                {
-                  v14 = &v30;
-                }
-
-                if (v27[0])
-                {
-                  v15 = v14;
+                  v14 = v13;
                 }
 
                 else
                 {
-                  v15 = "";
+                  v14 = "";
                 }
 
-                KB::Word::capitalized_string(v35, v23);
-                v17 = v25;
-                if (!v25)
+                KB::Word::capitalized_string(&v26, v11);
+                v15 = v27;
+                if (!v27)
                 {
-                  v17 = &v26;
+                  v15 = &v28;
                 }
 
-                if (v23[0])
+                if (v26)
                 {
-                  v18 = v17;
+                  v16 = v15;
                 }
 
                 else
                 {
-                  v18 = "";
+                  v16 = "";
                 }
 
-                KB::append_format(a4, "[%s] converted [%s] to [%s] by %s\n", v16, v13, v15, v18, "apply_shortcut_conversions");
-                if (v25 && v24 == 1)
+                KB::Word::capitalized_string(&v23, v32);
+                v18 = v24;
+                if (!v24)
                 {
-                  free(v25);
+                  v18 = &v25;
                 }
 
-                if (v29 && v28 == 1)
+                if (v23)
                 {
-                  free(v29);
+                  v19 = v18;
                 }
 
-                if (v33)
+                else
                 {
-                  if (v32 == 1)
+                  v19 = "";
+                }
+
+                KB::append_format(a4, "[%s] converted [%s] to [%s] by %s\n", v17, v14, v16, v19, "apply_shortcut_conversions");
+                if (v24 && BYTE6(v23) == 1)
+                {
+                  free(v24);
+                }
+
+                if (v27 && BYTE6(v26) == 1)
+                {
+                  free(v27);
+                }
+
+                if (v30)
+                {
+                  if (BYTE6(v29) == 1)
                   {
-                    free(v33);
+                    free(v30);
                   }
                 }
               }
 
-              KB::String::operator=(v10, v35);
-              KB::Candidate::compute_string(v9);
+              KB::String::operator=(v11, v32);
+              KB::Candidate::compute_string(v10);
             }
 
-            KB::Word::~Word(v35);
+            KB::Word::~Word(v32);
           }
 
-          v10 = (v10 + 240);
-          v11 -= 240;
+          v11 = (v11 + 240);
+          v12 -= 240;
         }
 
-        while (v11);
+        while (v12);
       }
 
-      v9 = (v9 + 1000);
-      v8 = v21;
+      v10 = (v10 + 1000);
+      v9 = v21;
     }
 
-    v6 = v20 + 8;
+    v7 = v20 + 8;
   }
 
   while (v20 != 24);
-  v19 = *MEMORY[0x277D85DE8];
 }
 
-void TIInputManager::remove_text_replacement_from_top(TIInputManager *this, const KB::Candidate **a2)
+void TIInputManager::remove_text_replacement_from_top(TIInputManager *this, unint64_t **a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = *a2;
-  if ((0x1CAC083126E978D5 * ((a2[1] - v3) >> 3)) >= 2)
+  if ((0x1CAC083126E978D5 * (a2[1] - v3)) >= 2)
   {
-    KB::Candidate::Candidate(&v8, v3);
-    if (v8)
+    KB::Candidate::Candidate(&v7, v3);
+    if (v7)
     {
-      v5 = 240 * v8;
-      v6 = v9;
+      v5 = 240 * v7;
+      v6 = v8;
       while ((*(v6 + 106) & 1) == 0)
       {
         v6 += 240;
@@ -2395,80 +2355,78 @@ void TIInputManager::remove_text_replacement_from_top(TIInputManager *this, cons
 
     else
     {
-      v6 = v9;
+      v6 = v8;
     }
 
-    if (v6 != v9 + 240 * v8)
+    if (v6 != v8 + 240 * v7)
     {
-      KB::Candidate::operator=(*a2, *a2 + 1000);
-      KB::Candidate::operator=(*a2 + 1000, &v8);
+      KB::Candidate::operator=(*a2, *a2 + 125);
+      KB::Candidate::operator=(*a2 + 125, &v7);
     }
 
 LABEL_10:
-    KB::Candidate::~Candidate(&v8);
+    KB::Candidate::~Candidate(&v7);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
-void TIInputManager::conversion_for_shortcut(TIInputManager *this@<X0>, const KB::String *a2@<X1>, KB::Word *a3@<X8>)
+void TIInputManager::conversion_for_shortcut(void *__return_ptr a1@<X8>, TIInputManager *this@<X0>, const KB::String *a3@<X1>, const __CFLocale *a4@<X2>, uint64_t a5@<X3>, uint64_t a6@<X4>)
 {
-  v51 = *MEMORY[0x277D85DE8];
-  v4 = *(*(*(this + 33) + 24) + 24);
-  if (v4 && (v5 = *v4) != 0 && *a2 < 0x41u)
+  v54 = *MEMORY[0x277D85DE8];
+  v7 = *(*(*(this + 33) + 24) + 24);
+  if (v7 && (v8 = *v7) != 0 && *a3 < 0x41u)
   {
-    v41 = 0;
-    v42 = 0;
-    v43 = 0;
-    KB::lower_string(a2, 0, &v47);
-    if (v48)
+    v44 = 0;
+    v45 = 0;
+    v46 = 0;
+    KB::lower_string(&v50, a3, 0, a4, a5, a6);
+    if (v51)
     {
-      v8 = v48;
+      v10 = v51;
     }
 
     else
     {
-      v8 = v49;
+      v10 = v52;
     }
 
-    v9 = KB::String::hash(v8, v47);
-    v11 = *(v5 + 16);
-    if (v11)
+    v11 = KB::String::hash(v10, v50);
+    v15 = *(v8 + 16);
+    if (v15)
     {
-      v12 = v9;
-      v13 = vcnt_s8(v11);
-      v13.i16[0] = vaddlv_u8(v13);
-      v14 = v13.u32[0];
-      if (v13.u32[0] > 1uLL)
+      v16 = v11;
+      v17 = vcnt_s8(v15);
+      v17.i16[0] = vaddlv_u8(v17);
+      v18 = v17.u32[0];
+      if (v17.u32[0] > 1uLL)
       {
-        v15 = v9;
-        if (v11 <= v9)
+        v19 = v11;
+        if (v15 <= v11)
         {
-          v15 = v9 % v11;
+          v19 = v11 % v15;
         }
       }
 
       else
       {
-        v15 = (v11 - 1) & v9;
+        v19 = (v15 - 1) & v11;
       }
 
-      v16 = *(*(v5 + 8) + 8 * v15);
-      if (v16)
+      v20 = *(*(v8 + 8) + 8 * v19);
+      if (v20)
       {
-        v17 = *v16;
-        if (*v16)
+        v21 = *v20;
+        if (*v20)
         {
           do
           {
-            v18 = v17[1];
-            if (v18 == v12)
+            v22 = v21[1];
+            if (v22 == v16)
             {
-              if (v17 + 2 == &v47 || KB::String::equal((v17 + 2), &v47, 1))
+              if (v21 + 2 == &v50 || KB::String::equal((v21 + 2), &v50, 1, v13, v14))
               {
-                if (v17 + 6 != &v41)
+                if (v21 + 6 != &v44)
                 {
-                  std::vector<KB::String>::__assign_with_size[abi:nn200100]<KB::String*,KB::String*>(&v41, v17[6], v17[7], (v17[7] - v17[6]) >> 5);
+                  std::vector<KB::String>::__assign_with_size[abi:nn200100]<KB::String*,KB::String*>(&v44, v21[6], v21[7], (v21[7] - v21[6]) >> 5);
                 }
 
                 break;
@@ -2477,200 +2435,198 @@ void TIInputManager::conversion_for_shortcut(TIInputManager *this@<X0>, const KB
 
             else
             {
-              if (v14 > 1)
+              if (v18 > 1)
               {
-                if (v18 >= v11)
+                if (v22 >= v15)
                 {
-                  v18 %= v11;
+                  v22 %= v15;
                 }
               }
 
               else
               {
-                v18 &= v11 - 1;
+                v22 &= v15 - 1;
               }
 
-              if (v18 != v15)
+              if (v22 != v19)
               {
                 break;
               }
             }
 
-            v17 = *v17;
+            v21 = *v21;
           }
 
-          while (v17);
+          while (v21);
         }
       }
     }
 
-    if (v48 && BYTE6(v47) == 1)
+    if (v51 && BYTE6(v50) == 1)
     {
-      free(v48);
+      free(v51);
     }
 
-    v19 = v41;
-    if (v42 == v41)
+    v23 = v44;
+    if (v45 == v44)
     {
-      *(a3 + 13) = 0u;
-      *(a3 + 14) = 0u;
-      *(a3 + 11) = 0u;
-      *(a3 + 12) = 0u;
-      *(a3 + 9) = 0u;
-      *(a3 + 10) = 0u;
-      *(a3 + 7) = 0u;
-      *(a3 + 8) = 0u;
-      *(a3 + 5) = 0u;
-      *(a3 + 6) = 0u;
-      *(a3 + 3) = 0u;
-      *(a3 + 4) = 0u;
-      *(a3 + 1) = 0u;
-      *(a3 + 2) = 0u;
-      *a3 = 0u;
-      KB::Word::Word(a3);
+      *(a1 + 13) = 0u;
+      *(a1 + 14) = 0u;
+      *(a1 + 11) = 0u;
+      *(a1 + 12) = 0u;
+      *(a1 + 9) = 0u;
+      *(a1 + 10) = 0u;
+      *(a1 + 7) = 0u;
+      *(a1 + 8) = 0u;
+      *(a1 + 5) = 0u;
+      *(a1 + 6) = 0u;
+      *(a1 + 3) = 0u;
+      *(a1 + 4) = 0u;
+      *(a1 + 1) = 0u;
+      *(a1 + 2) = 0u;
+      *a1 = 0u;
+      KB::Word::Word(a1);
     }
 
     else
     {
-      if (*a2 && *v41)
+      if (*a3 && *v44)
       {
-        v20 = KB::ns_string(v41, v10);
-        if (v20)
+        v24 = KB::ns_string(v44, v12);
+        if (v24)
         {
-          v21 = [MEMORY[0x277CCA900] lowercaseLetterCharacterSet];
-          v22 = [MEMORY[0x277CCA900] uppercaseLetterCharacterSet];
-          [v20 rangeOfCharacterFromSet:v21];
-          if (v23 && ([v20 rangeOfCharacterFromSet:v22], !v24))
+          v25 = [MEMORY[0x277CCA900] lowercaseLetterCharacterSet];
+          v26 = [MEMORY[0x277CCA900] uppercaseLetterCharacterSet];
+          [v24 rangeOfCharacterFromSet:v25];
+          if (v27 && ([v24 rangeOfCharacterFromSet:v26], !v28))
           {
-            v25 = KB::ns_string(a2, 0);
-            v26 = v25;
-            if (v25 && ([v25 rangeOfCharacterFromSet:v22], v27) && ((objc_msgSend(v26, "rangeOfCharacterFromSet:", v21), v28) || objc_msgSend(v26, "length") < 2) && (objc_msgSend(v26, "capitalizedString", v41), v29 = objc_claimAutoreleasedReturnValue(), v30 = objc_msgSend(v26, "isEqualToString:", v29), v29, (v30 & 1) != 0))
+            v29 = KB::ns_string(a3, 0);
+            v30 = v29;
+            if (v29 && ([v29 rangeOfCharacterFromSet:v26], v31) && ((objc_msgSend(v30, "rangeOfCharacterFromSet:", v25), v32) || objc_msgSend(v30, "length") < 2) && (objc_msgSend(v30, "capitalizedString", v44), v33 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(v30), v33, (isEqualToString & 1) != 0))
             {
-              v47 = 0;
-              v48 = &v47;
-              v49[0] = 0x4012000000;
-              v49[1] = __Block_byref_object_copy__12949;
-              v49[2] = __Block_byref_object_dispose__12950;
-              v49[3] = "";
-              v50 = xmmword_22CC889D0;
-              v31 = [v20 length];
-              v44[0] = MEMORY[0x277D85DD0];
-              v44[1] = 3221225472;
-              v44[2] = ___ZN2KB41match_shortcut_conversion_case_with_inputERKNS_6StringES2__block_invoke;
-              v44[3] = &unk_278732850;
-              v44[4] = &v47;
-              [v20 enumerateSubstringsInRange:0 options:v31 usingBlock:{515, v44}];
-              v32 = *(v48 + 6);
-              if (v32 == 0x7FFFFFFFFFFFFFFFLL || (v33 = *(v48 + 7)) == 0)
+              v50 = 0;
+              v51 = &v50;
+              v52[0] = 0x4012000000;
+              v52[1] = __Block_byref_object_copy__12949;
+              v52[2] = __Block_byref_object_dispose__12950;
+              v52[3] = "";
+              v53 = xmmword_22CC889D0;
+              v35 = [v24 length];
+              v47[0] = MEMORY[0x277D85DD0];
+              v47[1] = 3221225472;
+              v47[2] = ___ZN2KB41match_shortcut_conversion_case_with_inputERKNS_6StringES2__block_invoke;
+              v47[3] = &unk_278732850;
+              v47[4] = &v50;
+              [v24 enumerateSubstringsInRange:0 options:v35 usingBlock:{515, v47}];
+              v36 = *(v51 + 6);
+              if (v36 == 0x7FFFFFFFFFFFFFFFLL || (v37 = *(v51 + 7)) == 0)
               {
-                KB::String::String(v45, v19);
+                KB::String::String(v48, v23);
               }
 
               else
               {
-                if (v32 || v33 != [v20 length])
+                if (v36 || v37 != [v24 length])
                 {
-                  v35 = [MEMORY[0x277CCAB68] stringWithString:v20];
-                  v37 = *(v48 + 6);
-                  v38 = *(v48 + 7);
-                  v39 = [v20 substringWithRange:{v37, v38}];
-                  v40 = [v39 capitalizedString];
-                  [v35 replaceCharactersInRange:v37 withString:{v38, v40}];
+                  v39 = [MEMORY[0x277CCAB68] stringWithString:v24];
+                  v40 = *(v51 + 6);
+                  v41 = *(v51 + 7);
+                  v42 = [v24 substringWithRange:{v40, v41}];
+                  v43 = [v42 capitalizedString];
+                  [v39 replaceCharactersInRange:v40 withString:{v41, v43}];
 
-                  v34 = v35;
+                  v38 = v39;
                 }
 
                 else
                 {
-                  v34 = [v20 capitalizedString];
-                  v35 = v34;
+                  v38 = [v24 capitalizedString];
+                  v39 = v38;
                 }
 
-                KB::utf8_string(v34, v45);
+                KB::utf8_string(v38, v48);
               }
 
-              _Block_object_dispose(&v47, 8);
+              _Block_object_dispose(&v50, 8);
             }
 
             else
             {
-              KB::String::String(v45, v19);
+              KB::String::String(v48, v23);
             }
           }
 
           else
           {
-            KB::String::String(v45, v19);
+            KB::String::String(v48, v23);
           }
         }
 
         else
         {
-          KB::String::String(v45, v19);
+          KB::String::String(v48, v23);
         }
       }
 
       else
       {
-        KB::String::String(v45, v41);
+        KB::String::String(v48, v44);
       }
 
-      KB::Word::Word(a3, v45, &kTITokenIDUNK, 0);
-      if (v46 && v45[6] == 1)
+      KB::Word::Word(a1, v48, &kTITokenIDUNK, 0);
+      if (v49 && v48[6] == 1)
       {
-        free(v46);
+        free(v49);
       }
     }
 
-    v47 = &v41;
-    std::vector<KB::String>::__destroy_vector::operator()[abi:nn200100](&v47);
-    v36 = *MEMORY[0x277D85DE8];
+    v50 = &v44;
+    std::vector<KB::String>::__destroy_vector::operator()[abi:nn200100](&v50);
   }
 
   else
   {
-    *(a3 + 13) = 0u;
-    *(a3 + 14) = 0u;
-    *(a3 + 11) = 0u;
-    *(a3 + 12) = 0u;
-    *(a3 + 9) = 0u;
-    *(a3 + 10) = 0u;
-    *(a3 + 7) = 0u;
-    *(a3 + 8) = 0u;
-    *(a3 + 5) = 0u;
-    *(a3 + 6) = 0u;
-    *(a3 + 3) = 0u;
-    *(a3 + 4) = 0u;
-    *(a3 + 1) = 0u;
-    *(a3 + 2) = 0u;
-    *a3 = 0u;
-    v7 = *MEMORY[0x277D85DE8];
+    *(a1 + 13) = 0u;
+    *(a1 + 14) = 0u;
+    *(a1 + 11) = 0u;
+    *(a1 + 12) = 0u;
+    *(a1 + 9) = 0u;
+    *(a1 + 10) = 0u;
+    *(a1 + 7) = 0u;
+    *(a1 + 8) = 0u;
+    *(a1 + 5) = 0u;
+    *(a1 + 6) = 0u;
+    *(a1 + 3) = 0u;
+    *(a1 + 4) = 0u;
+    *(a1 + 1) = 0u;
+    *(a1 + 2) = 0u;
+    *a1 = 0u;
 
-    KB::Word::Word(a3);
+    KB::Word::Word(a1);
   }
 }
 
-uint64_t TIInputManager::apply_case_changes(uint64_t a1, unint64_t *a2, unsigned __int16 *a3, std::vector<unsigned int>::size_type a4, int a5, char a6, uint64_t a7, uint64_t a8)
+uint64_t TIInputManager::apply_case_changes(uint64_t a1, unint64_t *a2, KB::String *a3, std::vector<unsigned int>::size_type a4, int a5, char a6, uint64_t a7, uint64_t a8)
 {
-  v108[2] = *MEMORY[0x277D85DE8];
-  v82 = a6;
-  v81 = a8;
-  TIInputManager::input_substring(a3, 0, a4, v104);
-  TIInputManager::input_flags_subvector(a4, a3, 0, &v80);
-  v78 = 0;
+  v109[2] = *MEMORY[0x277D85DE8];
+  v83 = a6;
+  v82 = a8;
+  TIInputManager::input_substring(a3, 0, a4, v105);
+  TIInputManager::input_flags_subvector(v81, a4, a3, 0);
   v79 = 0;
-  v77 = 0;
+  v80 = 0;
+  v78 = 0;
   if (a4)
   {
     std::__allocate_at_least[abi:nn200100]<std::allocator<unsigned int>>(a4);
   }
 
-  begin = v80.__begin_;
-  v12 = v105;
-  if (!v105)
+  v53 = v81[0];
+  v12 = v106;
+  if (!v106)
   {
-    KB::String::compute_length(v104);
-    v12 = v105;
+    KB::String::compute_length(v105);
+    v12 = v106;
   }
 
   if (v12)
@@ -2678,11 +2634,11 @@ uint64_t TIInputManager::apply_case_changes(uint64_t a1, unint64_t *a2, unsigned
     std::__allocate_at_least[abi:nn200100]<std::allocator<unsigned int>>(v12);
   }
 
-  KB::word_ranges(v104, 0, &v74);
-  v71 = 0;
+  KB::word_ranges(&v75, v105, 0);
   v72 = 0;
   v73 = 0;
-  v76 = 0;
+  v74 = 0;
+  v77 = 0;
   v13 = *a2;
   v14 = a1;
   if (*a2)
@@ -2693,17 +2649,17 @@ uint64_t TIInputManager::apply_case_changes(uint64_t a1, unint64_t *a2, unsigned
     {
       if ((*(a2[1] + 240 * v15 + 135) & 4) == 0)
       {
-        std::vector<unsigned int>::push_back[abi:nn200100](&v71, &v76);
+        std::vector<unsigned int>::push_back[abi:nn200100](&v72, &v77);
         v13 = *a2;
       }
 
-      v76 = v16;
+      v77 = v16;
       v15 = v16;
       v17 = v13 > v16++;
     }
 
     while (v17);
-    if ((v82 & 1) == 0 && v13)
+    if ((v83 & 1) == 0 && v13)
     {
       v18 = a2[1];
       v19 = 240 * v13;
@@ -2727,11 +2683,11 @@ uint64_t TIInputManager::apply_case_changes(uint64_t a1, unint64_t *a2, unsigned
           v20 = "";
         }
 
-        KB::string_to_lowercase(v18, v20, &v89);
-        KB::String::operator=(v18, &v89);
-        if (*(&v89 + 1))
+        KB::string_to_lowercase(&v90, v18, v20);
+        KB::String::operator=(v18, &v90);
+        if (*(&v90 + 1))
         {
-          v21 = BYTE6(v89) == 1;
+          v21 = BYTE6(v90) == 1;
         }
 
         else
@@ -2741,7 +2697,7 @@ uint64_t TIInputManager::apply_case_changes(uint64_t a1, unint64_t *a2, unsigned
 
         if (v21)
         {
-          free(*(&v89 + 1));
+          free(*(&v90 + 1));
         }
 
         v18 = (v18 + 240);
@@ -2766,21 +2722,21 @@ uint64_t TIInputManager::apply_case_changes(uint64_t a1, unint64_t *a2, unsigned
     }
   }
 
-  v24 = v71;
-  v25 = v72;
-  v26 = v74;
-  v53 = (v75 - v74) >> 3;
-  v70 = v53;
-  v69 = v53 == (v72 - v71) >> 2;
-  v68 = 0;
-  if (v75 == v74)
+  v24 = v72;
+  v25 = v73;
+  v26 = v75;
+  v54 = (v76 - v75) >> 3;
+  v71 = v54;
+  v70 = v54 == (v73 - v72) >> 2;
+  v69 = 0;
+  if (v76 == v75)
   {
 LABEL_70:
-    v48 = begin;
+    v50 = v53;
     while (v24 != v25)
     {
-      v49 = *v24++;
-      TIInputManager::apply_shift_context_to_prediction(v14, a5, (a2[1] + 240 * v49));
+      v51 = *v24++;
+      TIInputManager::apply_shift_context_to_prediction(v14, a5, (a2[1] + 240 * v51));
       if (a5 == 2)
       {
         a5 = 0;
@@ -2788,7 +2744,7 @@ LABEL_70:
     }
 
     KB::Candidate::commit_custom_capitalization(a2);
-    v47 = 1;
+    v49 = 1;
   }
 
   else
@@ -2799,40 +2755,40 @@ LABEL_70:
       v28 = &v26[8 * v27];
       v29 = *v28;
       v30 = *(v28 + 1) + v29;
-      if (v107)
-      {
-        v31 = v107;
-      }
-
-      else
+      if (v108)
       {
         v31 = v108;
       }
 
-      *&v85 = v31;
-      v32 = v104[0];
-      DWORD2(v85) = 0;
-      HIDWORD(v85) = v104[0];
-      LODWORD(v86) = 0;
-      KB::String::iterator::initialize(&v85);
-      v89 = v85;
+      else
+      {
+        v31 = v109;
+      }
+
+      *&v86 = v31;
+      v32 = v105[0];
+      DWORD2(v86) = 0;
+      HIDWORD(v86) = v105[0];
+      LODWORD(v87) = 0;
+      KB::String::iterator::initialize(&v86);
       v90 = v86;
+      v91 = v87;
       v33 = v29;
-      std::__advance[abi:nn200100]<KB::String::iterator>(&v89, v29);
-      *&v64 = v31;
-      DWORD2(v64) = 0;
-      HIDWORD(v64) = v32;
-      LODWORD(v65) = 0;
-      KB::String::iterator::initialize(&v64);
-      *__p = v64;
-      v67 = v65;
+      std::__advance[abi:nn200100]<KB::String::iterator>(&v90, v29);
+      *&v65 = v31;
+      DWORD2(v65) = 0;
+      HIDWORD(v65) = v32;
+      LODWORD(v66) = 0;
+      KB::String::iterator::initialize(&v65);
+      *__p = v65;
+      v68 = v66;
       v34 = v30;
       std::__advance[abi:nn200100]<KB::String::iterator>(__p, v30);
-      KB::String::String(v101, &v89, __p);
+      KB::String::String(v102, &v90, __p);
       v35 = 4 * v30;
       __p[0] = 0;
       __p[1] = 0;
-      v67 = 0;
+      v68 = 0;
       if (v35 != 4 * v29)
       {
         v36 = (v35 - 4 * v29) >> 2;
@@ -2844,102 +2800,102 @@ LABEL_70:
         std::vector<unsigned long>::__throw_length_error[abi:nn200100]();
       }
 
-      v62 = 0;
       v63 = 0;
-      *&v89 = &v63;
-      *(&v89 + 1) = a1;
-      v90 = &v69;
+      v64 = 0;
+      *&v90 = &v64;
+      *(&v90 + 1) = a1;
       v91 = &v70;
-      v92 = &v68;
-      v93 = &v71;
-      v94 = a2;
-      v95 = a7;
-      v96 = &v81;
-      v97 = v104;
-      v98 = &v62;
-      v99 = __p;
-      v100 = &v82;
-      KB::String::String(v87, v101);
-      v39 = TIInputManager::apply_case_changes(KB::Candidate &,std::vector<KB::Input> const&,unsigned int,TIShiftContext,BOOL,WTF::RefPtr<KB::DictionaryContainer> const&,__CFString *)const::$_0::operator()(&v89, v87, v37, v38);
-      if (v88 && v87[6] == 1)
+      v92 = &v71;
+      v93 = &v69;
+      v94 = &v72;
+      v95 = a2;
+      v96 = a7;
+      v97 = &v82;
+      v98 = v105;
+      v99 = &v63;
+      v100 = __p;
+      v101 = &v83;
+      KB::String::String(v88, v102);
+      v39 = TIInputManager::apply_case_changes(KB::Candidate &,std::vector<KB::Input> const&,unsigned int,TIShiftContext,BOOL,WTF::RefPtr<KB::DictionaryContainer> const&,__CFString *)const::$_0::operator()(&v90, v88, v37, v38);
+      if (v89 && v88[6] == 1)
       {
-        free(v88);
+        free(v89);
       }
 
       if (*(a1 + 200) && v39)
       {
-        if (v107)
-        {
-          v40 = v107;
-        }
-
-        else
+        if (v108)
         {
           v40 = v108;
         }
 
-        *&v60 = v40;
-        v41 = v104[0];
-        DWORD2(v60) = 0;
-        HIDWORD(v60) = v104[0];
-        LODWORD(v61) = 0;
-        KB::String::iterator::initialize(&v60);
-        v64 = v60;
-        v65 = v61;
-        std::__advance[abi:nn200100]<KB::String::iterator>(&v64, v33);
-        *&v56 = v40;
-        DWORD2(v56) = 0;
-        HIDWORD(v56) = v41;
-        LODWORD(v57) = 0;
-        KB::String::iterator::initialize(&v56);
-        v58 = v56;
-        v59 = v57;
-        std::__advance[abi:nn200100]<KB::String::iterator>(&v58, v34);
-        KB::String::String(&v85, &v64, &v58);
-        KB::String::operator=(v101, &v85);
-        if (*(&v85 + 1) && BYTE6(v85) == 1)
+        else
         {
-          free(*(&v85 + 1));
+          v40 = v109;
         }
 
-        KB::String::convert_via_map(v101, (a1 + 176), &v85);
-        v39 = 1;
-        if (!KB::String::equal(&v85, v101, 1))
+        *&v61 = v40;
+        v41 = v105[0];
+        DWORD2(v61) = 0;
+        HIDWORD(v61) = v105[0];
+        LODWORD(v62) = 0;
+        KB::String::iterator::initialize(&v61);
+        v65 = v61;
+        v66 = v62;
+        std::__advance[abi:nn200100]<KB::String::iterator>(&v65, v33);
+        *&v57 = v40;
+        DWORD2(v57) = 0;
+        HIDWORD(v57) = v41;
+        LODWORD(v58) = 0;
+        KB::String::iterator::initialize(&v57);
+        v59 = v57;
+        v60 = v58;
+        std::__advance[abi:nn200100]<KB::String::iterator>(&v59, v34);
+        KB::String::String(&v86, &v65, &v59);
+        KB::String::operator=(v102, &v86);
+        if (*(&v86 + 1) && BYTE6(v86) == 1)
         {
-          v72 = v71;
-          v76 = 0;
-          v42 = *a2;
+          free(*(&v86 + 1));
+        }
+
+        KB::String::convert_via_map(v102, (a1 + 176), &v86);
+        v39 = 1;
+        if (!KB::String::equal(&v86, v102, 1, v42, v43))
+        {
+          v73 = v72;
+          v77 = 0;
+          v44 = *a2;
           if (*a2)
           {
-            v43 = 0;
-            v44 = 1;
+            v45 = 0;
+            v46 = 1;
             do
             {
-              if ((*(a2[1] + 240 * v43 + 135) & 4) == 0)
+              if ((*(a2[1] + 240 * v45 + 135) & 4) == 0)
               {
-                std::vector<unsigned int>::push_back[abi:nn200100](&v71, &v76);
-                v42 = *a2;
+                std::vector<unsigned int>::push_back[abi:nn200100](&v72, &v77);
+                v44 = *a2;
               }
 
-              v76 = v44;
-              v43 = v44;
-              v17 = v42 > v44++;
+              v77 = v46;
+              v45 = v46;
+              v17 = v44 > v46++;
             }
 
             while (v17);
           }
 
-          KB::String::String(v83, &v85);
-          v39 = TIInputManager::apply_case_changes(KB::Candidate &,std::vector<KB::Input> const&,unsigned int,TIShiftContext,BOOL,WTF::RefPtr<KB::DictionaryContainer> const&,__CFString *)const::$_0::operator()(&v89, v83, v45, v46);
-          if (v84 && v83[6] == 1)
+          KB::String::String(v84, &v86);
+          v39 = TIInputManager::apply_case_changes(KB::Candidate &,std::vector<KB::Input> const&,unsigned int,TIShiftContext,BOOL,WTF::RefPtr<KB::DictionaryContainer> const&,__CFString *)const::$_0::operator()(&v90, v84, v47, v48);
+          if (v85 && v84[6] == 1)
           {
-            free(v84);
+            free(v85);
           }
         }
 
-        if (*(&v85 + 1) && BYTE6(v85) == 1)
+        if (*(&v86 + 1) && BYTE6(v86) == 1)
         {
-          free(*(&v85 + 1));
+          free(*(&v86 + 1));
         }
       }
 
@@ -2949,9 +2905,9 @@ LABEL_70:
         operator delete(__p[0]);
       }
 
-      if (v103 && v102 == 1)
+      if (v104 && v103 == 1)
       {
-        free(v103);
+        free(v104);
       }
 
       if (v39 == 1)
@@ -2959,24 +2915,24 @@ LABEL_70:
         break;
       }
 
-      v27 = ++v68;
-      if (v53 <= v68)
+      v27 = ++v69;
+      if (v54 <= v69)
       {
-        v24 = v71;
-        v25 = v72;
+        v24 = v72;
+        v25 = v73;
         v14 = a1;
         goto LABEL_70;
       }
     }
 
-    v47 = 0;
-    v48 = begin;
+    v49 = 0;
+    v50 = v53;
   }
 
-  if (v71)
+  if (v72)
   {
-    v72 = v71;
-    operator delete(v71);
+    v73 = v72;
+    operator delete(v72);
   }
 
   if (v26)
@@ -2984,39 +2940,38 @@ LABEL_70:
     operator delete(v26);
   }
 
-  if (v77)
+  if (v78)
   {
-    operator delete(v77);
+    operator delete(v78);
   }
 
-  if (v48)
+  if (v50)
   {
-    operator delete(v48);
+    operator delete(v50);
   }
 
-  if (v107 && v106 == 1)
+  if (v108 && v107 == 1)
   {
-    free(v107);
+    free(v108);
   }
 
-  v50 = *MEMORY[0x277D85DE8];
-  return v47;
+  return v49;
 }
 
-void TIInputManager::input_flags_subvector(std::vector<unsigned int>::size_type __n@<X2>, void *a2@<X0>, unsigned int a3@<W1>, std::vector<unsigned int> *a4@<X8>)
+void TIInputManager::input_flags_subvector(std::vector<unsigned int> *__return_ptr a1@<X8>, std::vector<unsigned int>::size_type __n@<X2>, void *a3@<X0>, unsigned int a4@<W1>)
 {
   v4 = __n;
-  a4->__begin_ = 0;
-  a4->__end_ = 0;
-  a4->__end_cap_.__value_ = 0;
-  std::vector<unsigned int>::reserve(a4, __n);
-  if (v4 + a3 > a3)
+  a1->__begin_ = 0;
+  a1->__end_ = 0;
+  a1->__end_cap_.__value_ = 0;
+  std::vector<unsigned int>::reserve(a1, __n);
+  if (v4 + a4 > a4)
   {
-    v8 = 40 * a3 + 32;
+    v8 = 40 * a4 + 32;
     do
     {
-      v9 = *(*a2 + v8);
-      std::vector<unsigned int>::push_back[abi:nn200100](a4, &v9);
+      v9 = *(*a3 + v8);
+      std::vector<unsigned int>::push_back[abi:nn200100](a1, &v9);
       v8 += 40;
       --v4;
     }
@@ -3025,7 +2980,7 @@ void TIInputManager::input_flags_subvector(std::vector<unsigned int>::size_type 
   }
 }
 
-void *std::vector<unsigned int>::__assign_with_size[abi:nn200100]<unsigned int *,unsigned int *>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<unsigned int>::__assign_with_size[abi:nn200100]<unsigned int *,unsigned int *>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -3100,10 +3055,10 @@ void *std::vector<unsigned int>::__assign_with_size[abi:nn200100]<unsigned int *
   return result;
 }
 
-uint64_t TIInputManager::apply_case_changes(KB::Candidate &,std::vector<KB::Input> const&,unsigned int,TIShiftContext,BOOL,WTF::RefPtr<KB::DictionaryContainer> const&,__CFString *)const::$_0::operator()(int **a1, KB::String *a2, uint64_t a3, const KB::String *a4)
+uint64_t TIInputManager::apply_case_changes(KB::Candidate &,std::vector<KB::Input> const&,unsigned int,TIShiftContext,BOOL,WTF::RefPtr<KB::DictionaryContainer> const&,__CFString *)const::$_0::operator()(int **a1, KB::String *a2, const KB::String *a3, const KB::String *a4)
 {
   result = 0;
-  v155[2] = *MEMORY[0x277D85DE8];
+  v152[2] = *MEMORY[0x277D85DE8];
   v6 = a1[1];
   v7 = **a1;
   if (v7 <= 2)
@@ -3111,98 +3066,98 @@ uint64_t TIInputManager::apply_case_changes(KB::Candidate &,std::vector<KB::Inpu
     switch(v7)
     {
       case 0:
-        v47 = a1[5];
-        v65 = *v47;
-        v64 = v47[1];
-        if (*v47 != v64)
+        v45 = a1[5];
+        v63 = *v45;
+        v62 = *(v45 + 1);
+        if (*v45 != v62)
         {
-          v66 = v64 - (v65 + 4);
-          if (v64 != v65 + 4)
+          v64 = v62 - (v63 + 4);
+          if (v62 != v63 + 4)
           {
-            memmove(*v47, v65 + 4, v64 - (v65 + 4));
+            memmove(*v45, v63 + 4, v62 - (v63 + 4));
           }
 
           result = 0;
-          v52 = &v65[v66];
+          v50 = &v63[v64];
           goto LABEL_66;
         }
 
-        goto LABEL_119;
+        return 0;
       case 1:
-        v67 = a1[5];
-        v69 = *v67;
-        v68 = v67[1];
-        if (*v67 != v68)
+        v65 = a1[5];
+        v67 = *v65;
+        v66 = *(v65 + 1);
+        if (*v65 != v66)
         {
-          v70 = (*(a1[6] + 1) + 240 * *v69);
-          if ((*(v70 + 104) & 0x20) == 0)
+          v68 = (*(a1[6] + 1) + 240 * *v67);
+          if ((*(v68 + 104) & 0x20) == 0)
           {
-            TIInputManager::capitalize_first_letter(a1[1], v70, 0);
-            v67 = a1[5];
-            v69 = *v67;
-            v68 = v67[1];
+            TIInputManager::capitalize_first_letter(a1[1], v68, 0);
+            v65 = a1[5];
+            v67 = *v65;
+            v66 = *(v65 + 1);
           }
 
-          v71 = v68 - (v69 + 4);
-          if (v68 != (v69 + 4))
+          v69 = v66 - (v67 + 4);
+          if (v66 != (v67 + 4))
           {
-            memmove(v69, v69 + 4, v68 - (v69 + 4));
+            memmove(v67, v67 + 4, v66 - (v67 + 4));
           }
 
           result = 0;
-          v67[1] = &v69[v71];
-          goto LABEL_145;
+          *(v65 + 1) = &v67[v69];
+          return result;
         }
 
-        v81 = *a1[8];
-        if (v81)
+        v79 = *a1[8];
+        if (v79)
         {
-          v82 = a1[9];
-          if (*v82)
+          v80 = a1[9];
+          if (*v80)
           {
-            v83 = *(v82 + 1);
-            v84 = (v82 + 4);
-            if (v83)
+            v81 = *(v80 + 1);
+            v82 = (v80 + 4);
+            if (v81)
             {
-              v85 = v83;
+              v83 = v81;
             }
 
             else
             {
-              v85 = v84;
+              v83 = v82;
             }
           }
 
           else
           {
-            v85 = "";
+            v83 = "";
           }
 
-          KB::Candidate::capitalized_string(a1[6], &__p);
-          v125 = v154;
-          if (!v154)
+          KB::Candidate::capitalized_string(&__p, a1[6]);
+          v123 = v151;
+          if (!v151)
           {
-            v125 = v155;
+            v123 = v152;
           }
 
           if (__p)
           {
-            v126 = v125;
+            v124 = v123;
           }
 
           else
           {
-            v126 = "";
+            v124 = "";
           }
 
-          KB::append_format(v81, "input [%s] was considered to have capitalization type WordCapitalizationTypeAutoshift and candidate [%s] was not accepted; will be filtered out\n", v124, v85, v126);
+          KB::append_format(v79, "input [%s] was considered to have capitalization type WordCapitalizationTypeAutoshift and candidate [%s] was not accepted; will be filtered out\n", v122, v83, v124);
           goto LABEL_141;
         }
 
         break;
       case 2:
         v8 = a1[5];
-        if (*v8 != v8[1])
+        if (*v8 != *(v8 + 1))
         {
           v9 = *(a1[6] + 1) + 240 * **v8;
           v10 = *(v9 + 4);
@@ -3212,15 +3167,15 @@ uint64_t TIInputManager::apply_case_changes(KB::Candidate &,std::vector<KB::Inpu
             v10 = *(v9 + 4);
           }
 
-          LOBYTE(v148.var0.var0.var0) = 1;
-          std::vector<BOOL>::vector(&__p, v10);
-          if (v154)
+          LOBYTE(v145.var0.var0.var0) = 1;
+          std::vector<BOOL>::vector(&__p, v10, &v145);
+          if (v151)
           {
             v12 = 0;
             v13 = 32;
-            if (v154 < 0x20)
+            if (v151 < 0x20)
             {
-              v13 = v154;
+              v13 = v151;
             }
 
             v14 = vdupq_n_s64(v13 - 1);
@@ -3286,92 +3241,88 @@ uint64_t TIInputManager::apply_case_changes(KB::Candidate &,std::vector<KB::Inpu
           }
 
           *(v9 + 120) = v32;
-          v113 = v32 == 1;
-          v114 = *(v9 + 104) & 0xFFFFFFFE;
-          if (v113)
+          v111 = v32 == 1;
+          v112 = *(v9 + 104) & 0xFFFFFFFE;
+          if (v111)
           {
-            ++v114;
+            ++v112;
           }
 
-          *(v9 + 104) = v114;
-          v115 = a1[5];
-          v117 = *v115;
-          v116 = *(v115 + 1);
-          v118 = (*v115 + 4);
-          v119 = v116 - v118;
-          if (v116 != v118)
+          *(v9 + 104) = v112;
+          v113 = a1[5];
+          v115 = *v113;
+          v114 = *(v113 + 1);
+          v116 = (*v113 + 4);
+          v117 = v114 - v116;
+          if (v114 != v116)
           {
-            memmove(*v115, v118, v116 - v118);
+            memmove(*v113, v116, v114 - v116);
           }
 
-          *(v115 + 1) = &v117[v119];
+          *(v113 + 1) = &v115[v117];
           if (__p)
           {
             operator delete(__p);
           }
 
-LABEL_119:
-          result = 0;
-          goto LABEL_145;
+          return 0;
         }
 
-        v76 = *a1[8];
-        if (v76)
+        v74 = *a1[8];
+        if (v74)
         {
-          v77 = a1[9];
-          if (*v77)
+          v75 = a1[9];
+          if (*v75)
           {
-            v78 = *(v77 + 1);
-            v79 = (v77 + 4);
-            if (v78)
+            v76 = *(v75 + 1);
+            v77 = (v75 + 4);
+            if (v76)
             {
-              v80 = v78;
+              v78 = v76;
             }
 
             else
             {
-              v80 = v79;
+              v78 = v77;
             }
           }
 
           else
           {
-            v80 = "";
+            v78 = "";
           }
 
-          KB::Candidate::capitalized_string(a1[6], &__p);
-          v122 = v154;
-          if (!v154)
+          KB::Candidate::capitalized_string(&__p, a1[6]);
+          v120 = v151;
+          if (!v151)
           {
-            v122 = v155;
+            v120 = v152;
           }
 
           if (__p)
           {
-            v123 = v122;
+            v121 = v120;
           }
 
           else
           {
-            v123 = "";
+            v121 = "";
           }
 
-          KB::append_format(v76, "input [%s] was considered to have capitalization type WordCapitalizationTypeAutoshiftAllCharacters and candidate [%s] was not accepted; will be filtered out\n", v121, v80, v123);
+          KB::append_format(v74, "input [%s] was considered to have capitalization type WordCapitalizationTypeAutoshiftAllCharacters and candidate [%s] was not accepted; will be filtered out\n", v119, v78, v121);
 LABEL_141:
-          if (v154 && BYTE6(__p) == 1)
+          if (v151 && BYTE6(__p) == 1)
           {
-            free(v154);
+            free(v151);
           }
         }
 
         break;
       default:
-        goto LABEL_145;
+        return result;
     }
 
-LABEL_144:
-    result = 1;
-    goto LABEL_145;
+    return 1;
   }
 
   if ((v7 - 4) < 2)
@@ -3381,140 +3332,157 @@ LABEL_144:
 
   if (v7 != 3)
   {
-    goto LABEL_145;
+    return result;
   }
 
-  v53 = *(v6 + 73);
-  if ((!v53 || (*(*v53 + 40))(v53)) && *a1[2] == 1)
+  v51 = *(v6 + 73);
+  if ((!v51 || (*(*v51 + 40))(v51, a2, a3)) && *a1[2] == 1)
   {
-    v54 = *a1[5];
-    if (*a1[3] - *a1[4] == (*(a1[5] + 1) - v54) >> 2)
+    v52 = *a1[5];
+    if (*a1[3] - *a1[4] == (*(a1[5] + 1) - v52) >> 2)
     {
-      v55 = *(a1[6] + 1) + 240 * *v54;
-      if ((*(v55 + 104) & 1) == 0)
+      v53 = *(a1[6] + 1) + 240 * *v52;
+      if ((*(v53 + 104) & 1) == 0)
       {
-        v56 = *a1[7];
-        if (!v56)
+        v54 = *a1[7];
+        if (!v54)
         {
 LABEL_147:
-          v128 = KB::String::first(a2);
-          KB::String::String(&__p, v128);
-          KB::CollatorWrapper::sortkey_for_string((*(*(v6 + 33) + 8) + 72), v55, &v148);
-          KB::CollatorWrapper::sortkey_for_string((*(*(v6 + 33) + 8) + 72), &__p, &v147);
+          v125 = KB::String::first(a2);
+          KB::String::String(&__p, v125);
+          KB::CollatorWrapper::sortkey_for_string(&v145, (*(*(v6 + 33) + 8) + 72), v53);
+          KB::CollatorWrapper::sortkey_for_string(&v144, (*(*(v6 + 33) + 8) + 72), &__p);
           goto LABEL_158;
         }
 
-        KB::DictionaryContainer::lookup(v56, &__p);
-        v57 = __p;
-        v58 = v154;
-        v149[0] = MEMORY[0x277D85DD0];
-        v149[1] = 0x40000000;
-        v150 = ___ZZNK14TIInputManager18apply_case_changesERN2KB9CandidateERKNSt3__16vectorINS0_5InputENS3_9allocatorIS5_EEEEj14TIShiftContextbRKN3WTF6RefPtrINS0_19DictionaryContainerEEEP10__CFStringENK3__0clENS0_6StringE_block_invoke;
-        v151 = &__block_descriptor_tmp_34;
-        v152 = v55;
+        KB::DictionaryContainer::lookup(&__p, v54, v53);
+        v55 = __p;
+        v56 = v151;
+        v146[0] = MEMORY[0x277D85DD0];
+        v146[1] = 0x40000000;
+        v147 = ___ZZNK14TIInputManager18apply_case_changesERN2KB9CandidateERKNSt3__16vectorINS0_5InputENS3_9allocatorIS5_EEEEj14TIShiftContextbRKN3WTF6RefPtrINS0_19DictionaryContainerEEEP10__CFStringENK3__0clENS0_6StringE_block_invoke;
+        v148 = &__block_descriptor_tmp_34;
+        v149 = v53;
         while (1)
         {
-          if (v57 == v58)
+          if (v55 == v56)
           {
-            *&v148.var0.var0.var0 = &__p;
-            std::vector<KB::Word>::__destroy_vector::operator()[abi:nn200100](&v148);
+            *&v145.var0.var0.var0 = &__p;
+            std::vector<KB::Word>::__destroy_vector::operator()[abi:nn200100](&v145);
             goto LABEL_147;
           }
 
-          if ((v150)(v149, v57))
+          if ((v147)(v146, v55))
           {
             break;
           }
 
-          v57 += 240;
+          v55 += 240;
         }
 
-        *&v148.var0.var0.var0 = &__p;
-        std::vector<KB::Word>::__destroy_vector::operator()[abi:nn200100](&v148);
+        *&v145.var0.var0.var0 = &__p;
+        std::vector<KB::Word>::__destroy_vector::operator()[abi:nn200100](&v145);
       }
 
-      v129 = *(v55 + 4);
-      if (!*(v55 + 4))
+      v126 = *(v53 + 4);
+      if (!*(v53 + 4))
       {
-        KB::String::compute_length(v55);
-        v129 = *(v55 + 4);
+        KB::String::compute_length(v53);
+        v126 = *(v53 + 4);
       }
 
-      v130 = *(a2 + 2);
+      v127 = *(a2 + 2);
       if (!*(a2 + 2))
       {
         KB::String::compute_length(a2);
-        v130 = *(a2 + 2);
+        v127 = *(a2 + 2);
       }
 
-      v131 = v130 - 1;
-      v132 = KB::String::first(a2);
-      KB::String::String(&__p, v132);
-      KB::CollatorWrapper::sortkey_for_string((*(*(v6 + 33) + 8) + 72), v55, &v148);
-      KB::CollatorWrapper::sortkey_for_string((*(*(v6 + 33) + 8) + 72), &__p, &v147);
-      if (v131 <= v129 && KB::ByteString::starts_with(&v148, &v147))
+      v128 = v127 - 1;
+      v129 = KB::String::first(a2);
+      KB::String::String(&__p, v129);
+      KB::CollatorWrapper::sortkey_for_string(&v145, (*(*(v6 + 33) + 8) + 72), v53);
+      KB::CollatorWrapper::sortkey_for_string(&v144, (*(*(v6 + 33) + 8) + 72), &__p);
+      if (v128 <= v126 && KB::ByteString::starts_with(&v145, &v144))
       {
-        TIInputManager::capitalize_first_letter(v6, v55, 1);
-        v133 = a1[5];
-        v135 = *v133;
-        v134 = *(v133 + 1);
-        v136 = (*v133 + 4);
-        v137 = v134 - v136;
-        if (v134 != v136)
+        TIInputManager::capitalize_first_letter(v6, v53, 1);
+        v130 = a1[5];
+        v132 = *v130;
+        v131 = *(v130 + 1);
+        v133 = (*v130 + 4);
+        v134 = v131 - v133;
+        if (v131 != v133)
         {
-          memmove(*v133, v136, v134 - v136);
+          memmove(*v130, v133, v131 - v133);
         }
 
-        v138 = 0;
-        *(v133 + 1) = &v135[v137];
+        v135 = 0;
+        *(v130 + 1) = &v132[v134];
 LABEL_159:
-        if (v147.var0.var0.var0 >= 0xFu && v147.var0.var0.var1)
+        if (v144.var0.var0.var0 >= 0xFu && v144.var0.var0.var1)
         {
-          MEMORY[0x2318BE250](v147.var0.var0.var1, 0x1000C8077774924);
+          MEMORY[0x2318BE250](v144.var0.var0.var1, 0x1000C8077774924);
         }
 
-        if (v148.var0.var0.var0 >= 0xFu && v148.var0.var0.var1)
+        if (v145.var0.var0.var0 >= 0xFu && v145.var0.var0.var1)
         {
-          MEMORY[0x2318BE250](v148.var0.var0.var1, 0x1000C8077774924);
+          MEMORY[0x2318BE250](v145.var0.var0.var1, 0x1000C8077774924);
         }
 
-        if (v154 && BYTE6(__p) == 1)
+        if (v151 && BYTE6(__p) == 1)
         {
-          free(v154);
+          free(v151);
         }
 
-        if (!v138)
+        if (!v135)
         {
-          goto LABEL_119;
+          return 0;
         }
 
         goto LABEL_169;
       }
 
 LABEL_158:
-      v138 = 1;
+      v135 = 1;
       goto LABEL_159;
     }
   }
 
 LABEL_169:
-  v139 = *a1[8];
-  if (v139)
+  v136 = *a1[8];
+  if (v136)
   {
-    v140 = a1[9];
-    if (*v140)
+    v137 = a1[9];
+    if (*v137)
     {
-      v141 = *(v140 + 1);
-      v142 = (v140 + 4);
-      if (v141)
+      v138 = *(v137 + 1);
+      v139 = (v137 + 4);
+      if (v138)
       {
-        v143 = v141;
+        v140 = v138;
       }
 
       else
       {
-        v143 = v142;
+        v140 = v139;
       }
+    }
+
+    else
+    {
+      v140 = "";
+    }
+
+    KB::Candidate::capitalized_string(&__p, a1[6]);
+    v142 = v151;
+    if (!v151)
+    {
+      v142 = v152;
+    }
+
+    if (__p)
+    {
+      v143 = v142;
     }
 
     else
@@ -3522,27 +3490,10 @@ LABEL_169:
       v143 = "";
     }
 
-    KB::Candidate::capitalized_string(a1[6], &__p);
-    v145 = v154;
-    if (!v154)
+    KB::append_format(v136, "input [%s] was considered to have capitalization type WordCapitalizationTypeExplicitShift and candidate [%s] was not accepted; falling through to WordCapitalizationTypeAllCaps/WordCapitalizationTypeMixedCase\n", v141, v140, v143);
+    if (v151 && BYTE6(__p) == 1)
     {
-      v145 = v155;
-    }
-
-    if (__p)
-    {
-      v146 = v145;
-    }
-
-    else
-    {
-      v146 = "";
-    }
-
-    KB::append_format(v139, "input [%s] was considered to have capitalization type WordCapitalizationTypeExplicitShift and candidate [%s] was not accepted; falling through to WordCapitalizationTypeAllCaps/WordCapitalizationTypeMixedCase\n", v144, v143, v146);
-    if (v154 && BYTE6(__p) == 1)
-    {
-      free(v154);
+      free(v151);
     }
   }
 
@@ -3567,20 +3518,20 @@ LABEL_23:
 
     if (*v37 - 1 == v36)
     {
-      KB::CollatorWrapper::sortkey_for_string((*(*(v6 + 33) + 8) + 72), v38, &__p);
-      KB::CollatorWrapper::sortkey_for_string((*(*(v6 + 33) + 8) + 72), a2, &v148);
-      v41 = KB::ByteString::starts_with(&__p, &v148);
-      if (v148.var0.var0.var0 >= 0xFu && v148.var0.var0.var1)
+      KB::CollatorWrapper::sortkey_for_string(&__p, (*(*(v6 + 33) + 8) + 72), v38);
+      KB::CollatorWrapper::sortkey_for_string(&v145, (*(*(v6 + 33) + 8) + 72), a2);
+      v39 = KB::ByteString::starts_with(&__p, &v145);
+      if (v145.var0.var0.var0 >= 0xFu && v145.var0.var0.var1)
       {
-        MEMORY[0x2318BE250](v148.var0.var0.var1, 0x1000C8077774924);
+        MEMORY[0x2318BE250](v145.var0.var0.var1, 0x1000C8077774924);
       }
 
-      if (__p >= 0xFu && v154)
+      if (__p >= 0xFu && v151)
       {
-        MEMORY[0x2318BE250](v154, 0x1000C8077774924);
+        MEMORY[0x2318BE250](v151, 0x1000C8077774924);
       }
 
-      if (!v41)
+      if (!v39)
       {
         goto LABEL_41;
       }
@@ -3592,26 +3543,26 @@ LABEL_23:
     }
 
     __p = &unk_283FDCF10;
-    v154 = 1;
+    v151 = 1;
     if (KB::InputSegmentFilter::string_preserves_surface_form_features(&__p, v38, a2, 0, 0))
     {
-      v72 = **a1;
-      if (v72 != 4)
+      v70 = **a1;
+      if (v70 != 4)
       {
         goto LABEL_73;
       }
 
-      v43 = KB::count_word_medial_punctuation(v38, v42);
-      if (v43 <= KB::count_word_medial_punctuation(a2, v44))
+      v41 = KB::count_word_medial_punctuation(v38, v40);
+      if (v41 <= KB::count_word_medial_punctuation(a2, v42))
       {
         goto LABEL_96;
       }
     }
 
 LABEL_41:
-    v45 = a1[10];
-    v35 = (*v45 + 1);
-    *v45 = v35;
+    v43 = a1[10];
+    v35 = (*v43 + 1);
+    *v43 = v35;
     v34 = *a1[5];
     if (v35 >= (*(a1[5] + 1) - v34) >> 2)
     {
@@ -3619,199 +3570,195 @@ LABEL_41:
     }
   }
 
-  v39 = a1[11];
-  v40 = *a1[12];
   if (!(*(*v6 + 40))(v6))
   {
     goto LABEL_41;
   }
 
-  v72 = **a1;
+  v70 = **a1;
 LABEL_73:
-  if (v72 == 3)
+  if (v70 == 3)
   {
-    v73 = v6;
-    v74 = v38;
-    v75 = 1;
+    v71 = v6;
+    v72 = v38;
+    v73 = 1;
     goto LABEL_121;
   }
 
-  if (v72 == 4)
+  if (v70 == 4)
   {
 LABEL_96:
-    v89 = *(v38 + 4);
+    v87 = *(v38 + 4);
     if (!*(v38 + 4))
     {
       KB::String::compute_length(v38);
-      v89 = *(v38 + 4);
+      v87 = *(v38 + 4);
     }
 
-    LOBYTE(v148.var0.var0.var0) = 1;
-    std::vector<BOOL>::vector(&__p, v89);
-    v91 = __p;
-    v92 = v154;
-    if (v154)
+    LOBYTE(v145.var0.var0.var0) = 1;
+    std::vector<BOOL>::vector(&__p, v87, &v145);
+    v89 = __p;
+    v90 = v151;
+    if (v151)
     {
-      v93 = 0;
-      if (v154 >= 0x20)
+      v91 = 0;
+      if (v151 >= 0x20)
       {
-        v92 = 32;
+        v90 = 32;
       }
 
-      v94 = vdupq_n_s64(v92 - 1);
-      v95 = xmmword_22CC88A90;
-      v96 = xmmword_22CC88AA0;
-      v97 = vdupq_n_s64(1uLL);
-      v98 = vdupq_n_s64(4uLL);
-      v99 = xmmword_22CC889B0;
-      v100 = (v92 + 3) & 0x7C;
-      v101 = 0uLL;
-      v102.i64[0] = 0x100000001;
-      v102.i64[1] = 0x100000001;
-      v103.i64[0] = 0x400000004;
-      v103.i64[1] = 0x400000004;
+      v92 = vdupq_n_s64(v90 - 1);
+      v93 = xmmword_22CC88A90;
+      v94 = xmmword_22CC88AA0;
+      v95 = vdupq_n_s64(1uLL);
+      v96 = vdupq_n_s64(4uLL);
+      v97 = xmmword_22CC889B0;
+      v98 = (v90 + 3) & 0x7C;
+      v99 = 0uLL;
+      v100.i64[0] = 0x100000001;
+      v100.i64[1] = 0x100000001;
+      v101.i64[0] = 0x400000004;
+      v101.i64[1] = 0x400000004;
       do
       {
-        v104 = v101;
-        v105 = vcgeq_u64(v94, v96);
-        v106 = vmovn_s64(v105);
-        *v101.i8 = vuzp1_s16(v106, *v94.i8);
-        if (v101.i8[0])
+        v102 = v99;
+        v103 = vcgeq_u64(v92, v94);
+        v104 = vmovn_s64(v103);
+        *v99.i8 = vuzp1_s16(v104, *v92.i8);
+        if (v99.i8[0])
         {
-          v101.i64[0] = *(__p + ((v93 >> 3) & 0x1FFFFFFFFFFFFFF8));
+          v99.i64[0] = *(__p + ((v91 >> 3) & 0x1FFFFFFFFFFFFFF8));
         }
 
-        v107 = v93 >> 6;
-        if (vuzp1_s16(v106, *&v94).i8[2])
+        v105 = v91 >> 6;
+        if (vuzp1_s16(v104, *&v92).i8[2])
         {
-          v101.i64[1] = *(__p + v107);
+          v99.i64[1] = *(__p + v105);
         }
 
-        v108 = vcgeq_u64(v94, v95);
-        v109 = vmovn_s64(v108);
-        *v90.i8 = vuzp1_s16(*v94.i8, v109);
-        if (v90.i8[4])
+        v106 = vcgeq_u64(v92, v93);
+        v107 = vmovn_s64(v106);
+        *v88.i8 = vuzp1_s16(*v92.i8, v107);
+        if (v88.i8[4])
         {
-          v90.i64[0] = *(__p + v107);
+          v88.i64[0] = *(__p + v105);
         }
 
-        if (vuzp1_s16(*&v94, v109).i8[6])
+        if (vuzp1_s16(*&v92, v107).i8[6])
         {
-          v90.i64[1] = *(__p + v107);
+          v88.i64[1] = *(__p + v105);
         }
 
-        v110 = vuzp1q_s32(vceqzq_s64(vandq_s8(v101, vshlq_u64(v97, v96))), vceqzq_s64(vandq_s8(v90, vshlq_u64(v97, v95))));
-        v90 = vshlq_u32(v102, v99);
-        v101 = vorrq_s8(vbicq_s8(v90, v110), v104);
-        v93 += 4;
-        v95 = vaddq_s64(v95, v98);
-        v96 = vaddq_s64(v96, v98);
-        v99 = vaddq_s32(v99, v103);
+        v108 = vuzp1q_s32(vceqzq_s64(vandq_s8(v99, vshlq_u64(v95, v94))), vceqzq_s64(vandq_s8(v88, vshlq_u64(v95, v93))));
+        v88 = vshlq_u32(v100, v97);
+        v99 = vorrq_s8(vbicq_s8(v88, v108), v102);
+        v91 += 4;
+        v93 = vaddq_s64(v93, v96);
+        v94 = vaddq_s64(v94, v96);
+        v97 = vaddq_s32(v97, v101);
       }
 
-      while (v100 != v93);
-      v111 = vbslq_s8(vuzp1q_s32(v105, v108), v101, v104);
-      *v111.i8 = vorr_s8(*v111.i8, *&vextq_s8(v111, v111, 8uLL));
-      v112 = v111.i32[0] | v111.i32[1];
+      while (v98 != v91);
+      v109 = vbslq_s8(vuzp1q_s32(v103, v106), v99, v102);
+      *v109.i8 = vorr_s8(*v109.i8, *&vextq_s8(v109, v109, 8uLL));
+      v110 = v109.i32[0] | v109.i32[1];
     }
 
     else
     {
-      v112 = 0;
+      v110 = 0;
     }
 
-    *(v38 + 120) = v112;
-    v113 = v112 == 1;
-    v120 = *(v38 + 104) & 0xFFFFFFFE;
-    if (v113)
+    *(v38 + 120) = v110;
+    v111 = v110 == 1;
+    v118 = *(v38 + 104) & 0xFFFFFFFE;
+    if (v111)
     {
-      ++v120;
+      ++v118;
     }
 
-    *(v38 + 104) = v120;
-    if (v91)
+    *(v38 + 104) = v118;
+    if (v89)
     {
-      operator delete(v91);
+      operator delete(v89);
     }
   }
 
-  else if (v72 == 5 && (**a1[11] & 1) != 0 && (*(v38 + 104) & 0x20) == 0)
+  else if (v70 == 5 && (**a1[11] & 1) != 0 && (*(v38 + 104) & 0x20) == 0)
   {
-    v73 = v6;
-    v74 = v38;
-    v75 = 0;
+    v71 = v6;
+    v72 = v38;
+    v73 = 0;
 LABEL_121:
-    TIInputManager::capitalize_first_letter(v73, v74, v75);
+    TIInputManager::capitalize_first_letter(v71, v72, v73);
   }
 
 LABEL_42:
-  v46 = *a1[10];
-  v47 = a1[5];
-  v49 = *v47;
-  v48 = v47[1];
-  if (v46 >= (v48 - *v47) >> 2)
+  v44 = *a1[10];
+  v45 = a1[5];
+  v47 = *v45;
+  v46 = *(v45 + 1);
+  if (v44 >= &v46[-*v45] >> 2)
   {
-    v59 = *a1[8];
-    if (v59)
+    v57 = *a1[8];
+    if (v57)
     {
-      v60 = a1[9];
-      if (*v60)
+      v58 = a1[9];
+      if (*v58)
       {
-        v61 = *(v60 + 1);
-        v62 = (v60 + 4);
-        if (v61)
+        v59 = *(v58 + 1);
+        v60 = (v58 + 4);
+        if (v59)
         {
-          v63 = v61;
+          v61 = v59;
         }
 
         else
         {
-          v63 = v62;
+          v61 = v60;
         }
       }
 
       else
       {
-        v63 = "";
+        v61 = "";
       }
 
-      KB::Candidate::capitalized_string(a1[6], &__p);
-      v87 = v154;
-      if (!v154)
+      KB::Candidate::capitalized_string(&__p, a1[6]);
+      v85 = v151;
+      if (!v151)
       {
-        v87 = v155;
+        v85 = v152;
       }
 
       if (__p)
       {
-        v88 = v87;
+        v86 = v85;
       }
 
       else
       {
-        v88 = "";
+        v86 = "";
       }
 
-      KB::append_format(v59, "input [%s] was considered to have capitalization type WordCapitalizationTypeAllCaps/WordCapitalizationTypeMixedCase and candidate [%s] was not accepted; will be filtered out\n", v86, v63, v88);
+      KB::append_format(v57, "input [%s] was considered to have capitalization type WordCapitalizationTypeAllCaps/WordCapitalizationTypeMixedCase and candidate [%s] was not accepted; will be filtered out\n", v84, v61, v86);
       goto LABEL_141;
     }
 
-    goto LABEL_144;
+    return 1;
   }
 
-  v50 = &v49[4 * v46];
-  v51 = v48 - (v50 + 4);
-  if (v48 != v50 + 4)
+  v48 = &v47[4 * v44];
+  v49 = v46 - (v48 + 4);
+  if (v46 != v48 + 4)
   {
-    memmove(*v47, v50 + 4, v48 - (v50 + 4));
+    memmove(*v45, v48 + 4, v46 - (v48 + 4));
   }
 
   result = 0;
-  v52 = &v49[v51];
+  v50 = &v47[v49];
 LABEL_66:
-  v47[1] = v52;
-LABEL_145:
-  v127 = *MEMORY[0x277D85DE8];
+  *(v45 + 1) = v50;
   return result;
 }
 
@@ -3836,13 +3783,14 @@ void TIInputManager::apply_shift_context_to_prediction(TIInputManager *a1, int a
         v4 = *(a3 + 2);
       }
 
-      std::vector<BOOL>::vector(&v29, v4);
-      v6 = v29;
-      v7 = v30;
-      if (v30)
+      v29 = 1;
+      std::vector<BOOL>::vector(&v30, v4, &v29);
+      v6 = v30;
+      v7 = v31;
+      if (v31)
       {
         v8 = 0;
-        if (v30 >= 0x20)
+        if (v31 >= 0x20)
         {
           v7 = 32;
         }
@@ -3867,12 +3815,12 @@ void TIInputManager::apply_shift_context_to_prediction(TIInputManager *a1, int a
           *v16.i8 = vuzp1_s16(v21, *v9.i8);
           if (v16.i8[0])
           {
-            v16.i64[0] = *&v29[(v8 >> 3) & 0x1FFFFFFFFFFFFFF8];
+            v16.i64[0] = *&v30[(v8 >> 3) & 0x1FFFFFFFFFFFFFF8];
           }
 
           if (vuzp1_s16(v21, *&v9).i8[2])
           {
-            v16.i64[1] = *&v29[8 * (v8 >> 6)];
+            v16.i64[1] = *&v30[8 * (v8 >> 6)];
           }
 
           v22 = vcgeq_u64(v9, v10);
@@ -3880,12 +3828,12 @@ void TIInputManager::apply_shift_context_to_prediction(TIInputManager *a1, int a
           *v5.i8 = vuzp1_s16(*v9.i8, v23);
           if (v5.i8[4])
           {
-            v5.i64[0] = *&v29[8 * (v8 >> 6)];
+            v5.i64[0] = *&v30[8 * (v8 >> 6)];
           }
 
           if (vuzp1_s16(*&v9, v23).i8[6])
           {
-            v5.i64[1] = *&v29[8 * (v8 >> 6)];
+            v5.i64[1] = *&v30[8 * (v8 >> 6)];
           }
 
           v24 = vuzp1q_s32(vceqzq_s64(vandq_s8(v16, vshlq_u64(v12, v11))), vceqzq_s64(vandq_s8(v5, vshlq_u64(v12, v10))));
@@ -3934,12 +3882,12 @@ void TIInputManager::apply_shift_context_to_prediction(TIInputManager *a1, int a
   TIInputManager::capitalize_first_letter(a1, a3, 0);
 }
 
-uint64_t TIInputManager::capitalize_first_letter(TIInputManager *this, KB::Word *a2, int a3)
+uint64_t TIInputManager::capitalize_first_letter(TIInputManager *this, KB::Word *a2, uint64_t a3)
 {
   v3 = *(this + 73);
   if (v3)
   {
-    return (*(*v3 + 72))(v3, a2);
+    return (*(*v3 + 72))(v3, a2, a3);
   }
 
   else
@@ -3948,11 +3896,11 @@ uint64_t TIInputManager::capitalize_first_letter(TIInputManager *this, KB::Word 
   }
 }
 
-void *std::vector<BOOL>::vector(void *result, uint64_t a2)
+uint64_t *std::vector<BOOL>::vector(uint64_t *a1, unint64_t a2, unsigned __int8 *a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
     if ((a2 & 0x8000000000000000) == 0)
@@ -3963,7 +3911,7 @@ void *std::vector<BOOL>::vector(void *result, uint64_t a2)
     std::vector<unsigned long>::__throw_length_error[abi:nn200100]();
   }
 
-  return result;
+  return a1;
 }
 
 void *std::__fill_n_BOOL[abi:nn200100]<true,std::vector<BOOL>>(void *result, unint64_t a2)
@@ -4041,23 +3989,23 @@ void std::__fill_n_BOOL[abi:nn200100]<false,std::vector<BOOL>>(uint64_t a1, unin
   }
 }
 
-BOOL ___ZN14TIInputManager34apply_case_insensitive_constraintsERN2KB19CandidateCollectionENS0_10LookupTypeEP10__CFString_block_invoke(uint64_t a1, KB::Candidate *a2)
+BOOL ___ZN14TIInputManager34apply_case_insensitive_constraintsERN2KB19CandidateCollectionENS0_10LookupTypeEP10__CFString_block_invoke(void *a1, KB::Candidate *a2)
 {
-  v20[2] = *MEMORY[0x277D85DE8];
-  v4 = TIInputManager::matches_case_insensitive_constraints(*(a1 + 32), a2, (a1 + 40), (a1 + 72), (a1 + 104), *(a1 + 144));
+  v17[2] = *MEMORY[0x277D85DE8];
+  v4 = TIInputManager::matches_case_insensitive_constraints(a1[4], a2, (a1 + 5), (a1 + 9), (a1 + 13), *(a1 + 36));
   if (!v4)
   {
-    v5 = *(a1 + 136);
+    v5 = a1[17];
     if (v5)
     {
-      KB::Candidate::capitalized_string(a2, v17);
-      v6 = v19;
-      if (!v19)
+      KB::Candidate::capitalized_string(&v15, a2);
+      v6 = v16;
+      if (!v16)
       {
-        v6 = v20;
+        v6 = v17;
       }
 
-      if (v17[0])
+      if (v15)
       {
         v7 = v6;
       }
@@ -4067,14 +4015,14 @@ BOOL ___ZN14TIInputManager34apply_case_insensitive_constraintsERN2KB19CandidateC
         v7 = "";
       }
 
-      KB::Candidate::token_ids_as_string(a2, v13);
-      v9 = v15;
-      if (!v15)
+      KB::Candidate::token_ids_as_string(&v12, a2);
+      v9 = v13;
+      if (!v13)
       {
-        v9 = &v16;
+        v9 = &v14;
       }
 
-      if (v13[0])
+      if (v12)
       {
         v10 = v9;
       }
@@ -4085,19 +4033,18 @@ BOOL ___ZN14TIInputManager34apply_case_insensitive_constraintsERN2KB19CandidateC
       }
 
       KB::append_format(v5, "[%s] {%s} removed by %s\n", v8, v7, v10, "apply_case_insensitive_constraints");
-      if (v15 && v14 == 1)
+      if (v13 && BYTE6(v12) == 1)
       {
-        free(v15);
+        free(v13);
       }
 
-      if (v19 && v18 == 1)
+      if (v16 && BYTE6(v15) == 1)
       {
-        free(v19);
+        free(v16);
       }
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return !v4;
 }
 
@@ -4133,7 +4080,7 @@ KB::String *__copy_helper_block_8_40c17_ZTSKN2KB6StringE72c17_ZTSKN2KB6StringE10
 
 BOOL TIInputManager::matches_case_insensitive_constraints(uint64_t a1, uint64_t a2, _LXLexicon *a3, _LXLexicon *a4, KB::String *this, int a6)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   if (*(a2 + 888))
   {
     if (a6)
@@ -4160,220 +4107,203 @@ BOOL TIInputManager::matches_case_insensitive_constraints(uint64_t a1, uint64_t 
   {
     if (*a4)
     {
-      KB::CollatorWrapper::sortkey_for_string((*(*(a1 + 264) + 8) + 72), (a2 + 888), v35);
-      KB::CollatorWrapper::sortkey_for_string((*(*(a1 + 264) + 8) + 72), a4, &v34);
-      v13 = KB::ByteString::starts_with(v35, &v34);
-      if (v34.var0.var0.var0 >= 0xFu && v34.var0.var0.var1)
+      KB::CollatorWrapper::sortkey_for_string(&v37, (*(*(a1 + 264) + 8) + 72), (a2 + 888));
+      KB::CollatorWrapper::sortkey_for_string(&v36, (*(*(a1 + 264) + 8) + 72), a4);
+      v13 = KB::ByteString::starts_with(&v37, &v36);
+      if (v36.var0.var0.var0 >= 0xFu && v36.var0.var0.var1)
       {
-        MEMORY[0x2318BE250](v34.var0.var0.var1, 0x1000C8077774924);
+        MEMORY[0x2318BE250](v36.var0.var0.var1, 0x1000C8077774924);
       }
 
-      if (v35[0] >= 0xFu && v37)
+      if (v37 >= 0xFu && v38)
       {
-        MEMORY[0x2318BE250](v37, 0x1000C8077774924);
+        MEMORY[0x2318BE250](v38, 0x1000C8077774924);
       }
 
       if (!v13)
       {
-        goto LABEL_56;
+        return 0;
       }
     }
   }
 
   else
   {
-    KB::CollatorWrapper::sortkey_for_string((*(*(a1 + 264) + 8) + 72), (a2 + 888), v35);
-    KB::CollatorWrapper::sortkey_for_string((*(*(a1 + 264) + 8) + 72), a3, &v34);
-    v14 = KB::ByteString::starts_with(v35, &v34);
-    if (v34.var0.var0.var0 >= 0xFu && v34.var0.var0.var1)
+    KB::CollatorWrapper::sortkey_for_string(&v37, (*(*(a1 + 264) + 8) + 72), (a2 + 888));
+    KB::CollatorWrapper::sortkey_for_string(&v36, (*(*(a1 + 264) + 8) + 72), a3);
+    v14 = KB::ByteString::starts_with(&v37, &v36);
+    v15 = v14;
+    if (v36.var0.var0.var0 >= 0xFu && v36.var0.var0.var1)
     {
-      MEMORY[0x2318BE250](v34.var0.var0.var1, 0x1000C8077774924);
+      MEMORY[0x2318BE250](v36.var0.var0.var1, 0x1000C8077774924);
     }
 
-    if (v35[0] >= 0xFu && v37)
+    if (v37 >= 0xFu && v38)
     {
-      MEMORY[0x2318BE250](v37, 0x1000C8077774924);
+      MEMORY[0x2318BE250](v38, 0x1000C8077774924);
     }
 
-    if (!v14)
+    if (!v15)
     {
-      goto LABEL_56;
+      return 0;
     }
   }
 
   if (*(a1 + 728) == 1)
   {
-    v15 = *(a2 + 892);
+    v16 = *(a2 + 892);
     if (!*(a2 + 892))
     {
       KB::String::compute_length((a2 + 888));
-      v15 = *(a2 + 892);
+      v16 = *(a2 + 892);
     }
 
-    v16 = *(this + 2);
+    v17 = *(this + 2);
     if (!*(this + 2))
     {
       KB::String::compute_length(this);
-      v16 = *(this + 2);
+      v17 = *(this + 2);
     }
 
-    if (v15 > v16)
+    if (v16 > v17)
     {
-      goto LABEL_56;
+      return 0;
     }
   }
 
 LABEL_34:
   if (*a2)
   {
-    v17 = 240 * *a2 - 240;
-    v18 = (*(a2 + 8) + 224);
+    v18 = 240 * *a2 - 240;
+    v19 = (*(a2 + 8) + 224);
     do
     {
-      v20 = *v18;
-      v18 += 30;
-      v19 = v20;
-      if (v20)
+      v21 = *v19;
+      v19 += 30;
+      v20 = v21;
+      if (v21)
       {
-        v21 = 1;
+        v22 = 1;
       }
 
       else
       {
-        v21 = v17 == 0;
+        v22 = v18 == 0;
       }
 
-      v17 -= 240;
+      v18 -= 240;
     }
 
-    while (!v21);
-    if (v19)
+    while (!v22);
+    if (v20)
     {
-      goto LABEL_57;
+      return 1;
     }
   }
 
   if (*(a1 + 32))
   {
-    KB::String::String(v35, (a1 + 32));
-    if (KB::String::contains(v35, 0x2019u))
+    KB::String::String(&v37, (a1 + 32));
+    if (KB::String::contains(&v37, 0x2019u))
     {
-      v30 = 0;
-      v31 = 0;
-      v32 = "'";
-      v29 = 1048577;
+      v32 = 0;
       v33 = 0;
-      KB::String::replace_char(v35, &v29, 8217, &v34);
-      KB::String::operator=(v35, &v34);
-      if (v34.var0.var0.var1 && v34.var0.var1.var1[4] == 1)
+      v34 = "'";
+      v31 = 1048577;
+      v35 = 0;
+      KB::String::replace_char(&v36, &v37, &v31, 8217);
+      KB::String::operator=(&v37, &v36);
+      if (v36.var0.var0.var1 && v36.var0.var1.var1[4] == 1)
       {
-        free(v34.var0.var0.var1);
+        free(v36.var0.var0.var1);
       }
 
-      if (v32 && v31 == 1)
+      if (v34 && v33 == 1)
       {
-        free(v32);
+        free(v34);
       }
     }
 
-    v22 = KB::String::equal((a2 + 888), v35, 0);
-    if (v37 && v36 == 1)
+    v25 = KB::String::equal((a2 + 888), &v37, 0, v23, v24);
+    if (v38 && BYTE6(v37) == 1)
     {
-      free(v37);
+      free(v38);
     }
 
-    if (v22)
+    if (v25)
     {
-      goto LABEL_56;
+      return 0;
     }
   }
 
-  v23 = *(*(a1 + 264) + 24);
-  if (!KB::String::equal((a2 + 888), (v23 + 56), 0))
+  v26 = *(*(a1 + 264) + 24);
+  if (!KB::String::equal((a2 + 888), (v26 + 56), 0, a4, this))
   {
-LABEL_57:
-    result = 1;
-    goto LABEL_58;
+    return 1;
   }
 
-  v24 = *this;
-  if (v24 > *(v23 + 56))
+  v27 = *this;
+  if (v27 > *(v26 + 56))
   {
-LABEL_56:
-    result = 0;
-    goto LABEL_58;
+    return 0;
   }
 
-  if (*(v23 + 64))
+  if (*(v26 + 64))
   {
-    v27 = *(v23 + 64);
+    v29 = *(v26 + 64);
   }
 
   else
   {
-    v27 = (v23 + 72);
+    v29 = (v26 + 72);
   }
 
   if (*(this + 1))
   {
-    v28 = *(this + 1);
+    v30 = *(this + 1);
   }
 
   else
   {
-    v28 = this + 16;
+    v30 = this + 16;
   }
 
-  result = strncasecmp(v27, v28, v24) == 0;
-LABEL_58:
-  v26 = *MEMORY[0x277D85DE8];
-  return result;
+  return strncasecmp(v29, v30, v27) == 0;
 }
 
-BOOL ___ZN14TIInputManager29inject_supplemental_candidateEN2KB10LookupTypeERNS0_19CandidateCollectionE_block_invoke(uint64_t a1, const KB::String *a2, const KB::String *a3, const KB::String *a4)
+BOOL ___ZN14TIInputManager29inject_supplemental_candidateEN2KB10LookupTypeERNS0_19CandidateCollectionE_block_invoke(uint64_t a1, _LXLexicon *a2, const KB::String *a3, const KB::String *a4)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v6 = *(a1 + 32);
-  if (KB::CollatorWrapper::sortkey_compare_strings((*(*(v6 + 264) + 8) + 72), a2, a3, a4))
+  if (!KB::CollatorWrapper::sortkey_compare_strings((*(*(v6 + 264) + 8) + 72), a2, a3, a4))
   {
-    if ((*(**(v6 + 272) + 16))(*(v6 + 272)) && (*(**(v6 + 272) + 64))(*(v6 + 272)))
+    return 1;
+  }
+
+  if (!(*(**(v6 + 272) + 16))(*(v6 + 272)) || !(*(**(v6 + 272) + 64))(*(v6 + 272)))
+  {
+    return 0;
+  }
+
+  KB::String::String(v17, "'s");
+  v7 = *(*(v6 + 264) + 8);
+  KB::String::String(v14, a2);
+  KB::String::append(v14, v17);
+  v9 = KB::CollatorWrapper::sortkey_compare_strings((v7 + 72), v14, a3, v8);
+  if (v16 && v15 == 1)
+  {
+    free(v16);
+  }
+
+  if (v9)
+  {
+    v10 = *(*(v6 + 264) + 8);
+    KB::String::String(v14, a3);
+    KB::String::append(v14, v17);
+    v12 = KB::CollatorWrapper::sortkey_compare_strings((v10 + 72), a2, v14, v11) == 0;
+    if (v16 && v15 == 1)
     {
-      KB::String::String(v18, "'s");
-      v7 = *(*(v6 + 264) + 8);
-      KB::String::String(v15, a2);
-      KB::String::append(v15, v18);
-      v9 = KB::CollatorWrapper::sortkey_compare_strings((v7 + 72), v15, a3, v8);
-      if (v17 && v16 == 1)
-      {
-        free(v17);
-      }
-
-      if (v9)
-      {
-        v10 = *(*(v6 + 264) + 8);
-        KB::String::String(v15, a3);
-        KB::String::append(v15, v18);
-        v12 = KB::CollatorWrapper::sortkey_compare_strings((v10 + 72), a2, v15, v11) == 0;
-        if (v17 && v16 == 1)
-        {
-          free(v17);
-        }
-      }
-
-      else
-      {
-        v12 = 1;
-      }
-
-      if (v19 && v18[6] == 1)
-      {
-        free(v19);
-      }
-    }
-
-    else
-    {
-      v12 = 0;
+      free(v16);
     }
   }
 
@@ -4382,7 +4312,11 @@ BOOL ___ZN14TIInputManager29inject_supplemental_candidateEN2KB10LookupTypeERNS0_
     v12 = 1;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
+  if (v18 && v17[6] == 1)
+  {
+    free(v18);
+  }
+
   return v12;
 }
 
@@ -4474,7 +4408,7 @@ void std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,
 
 void std::__partial_sort_impl[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,KB::Candidate *,KB::Candidate *>(uint64_t a1, uint64_t *a2, uint64_t *a3)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   if (a1 != a2)
   {
     v4 = a2;
@@ -4518,7 +4452,7 @@ void std::__partial_sort_impl[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<v
       v13 = 0x1CAC083126E978D5 * (v6 >> 3);
       do
       {
-        KB::Candidate::Candidate(v29, a1);
+        KB::Candidate::Candidate(v28, a1);
         v14 = 0;
         v15 = a1;
         do
@@ -4546,13 +4480,13 @@ void std::__partial_sort_impl[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<v
         v4 -= 125;
         if (v15 == v4)
         {
-          KB::Candidate::operator=(v15, v29);
+          KB::Candidate::operator=(v15, v28);
         }
 
         else
         {
           KB::Candidate::operator=(v15, v4);
-          KB::Candidate::operator=(v4, v29);
+          KB::Candidate::operator=(v4, v28);
           v21 = v15 - a1 + 1000;
           if (v21 >= 1001)
           {
@@ -4561,7 +4495,7 @@ void std::__partial_sort_impl[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<v
             v24 = expf(*(v23 + 744));
             if (v24 > expf(*(v15 + 744)))
             {
-              KB::Candidate::Candidate(v30, v15);
+              KB::Candidate::Candidate(v29, v15);
               do
               {
                 v25 = v23;
@@ -4577,26 +4511,24 @@ void std::__partial_sort_impl[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<v
                 v15 = v25;
               }
 
-              while (v26 > expf(v31));
-              KB::Candidate::operator=(v25, v30);
-              KB::Candidate::~Candidate(v30);
+              while (v26 > expf(v30));
+              KB::Candidate::operator=(v25, v29);
+              KB::Candidate::~Candidate(v29);
             }
           }
         }
 
-        KB::Candidate::~Candidate(v29);
+        KB::Candidate::~Candidate(v28);
       }
 
       while (v13-- > 2);
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 BOOL std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,KB::Candidate *>(uint64_t a1, uint64_t a2)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v4 = 0x1CAC083126E978D5 * ((a2 - a1) >> 3);
   if (v4 > 2)
   {
@@ -4610,14 +4542,14 @@ BOOL std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,std::
         {
           if (v10 <= v8)
           {
-            goto LABEL_43;
+            return 1;
           }
 
           std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<KB::Candidate *&,KB::Candidate *&>((a1 + 1000), (a2 - 1000));
           v16 = expf(*(a1 + 1744));
           if (v16 <= expf(*(a1 + 744)))
           {
-            goto LABEL_43;
+            return 1;
           }
 
           v6 = (a1 + 1000);
@@ -4630,7 +4562,7 @@ BOOL std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,std::
           v19 = expf(*(a2 - 256));
           if (v19 <= expf(*(a1 + 1744)))
           {
-            goto LABEL_43;
+            return 1;
           }
 
           v7 = (a1 + 1000);
@@ -4645,10 +4577,10 @@ BOOL std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,std::
         goto LABEL_27;
       case 4:
         std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,KB::Candidate *,0>(a1, a1 + 1000, a1 + 2000, a2 - 1000);
-        goto LABEL_43;
+        return 1;
       case 5:
         std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,KB::Candidate *,0>(a1, a1 + 1000, a1 + 2000, a1 + 3000, a2 - 1000);
-        goto LABEL_43;
+        return 1;
     }
 
     goto LABEL_14;
@@ -4656,7 +4588,7 @@ BOOL std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,std::
 
   if (v4 < 2)
   {
-    goto LABEL_43;
+    return 1;
   }
 
   if (v4 != 2)
@@ -4681,7 +4613,7 @@ LABEL_32:
             v24 = expf(*(v21 + 744));
             if (v24 > expf(*(v11 + 744)))
             {
-              KB::Candidate::Candidate(v32, v21);
+              KB::Candidate::Candidate(v31, v21);
               v25 = v22;
               while (1)
               {
@@ -4691,7 +4623,7 @@ LABEL_32:
                   break;
                 }
 
-                v26 = expf(v33);
+                v26 = expf(v32);
                 v27 = expf(*(a1 + v25 + 1744));
                 v25 -= 1000;
                 if (v26 <= v27)
@@ -4703,15 +4635,15 @@ LABEL_32:
 
               v28 = a1;
 LABEL_40:
-              KB::Candidate::operator=(v28, v32);
+              KB::Candidate::operator=(v28, v31);
               if (++v23 == 8)
               {
                 v29 = v21 + 1000 == a2;
-                KB::Candidate::~Candidate(v32);
-                goto LABEL_44;
+                KB::Candidate::~Candidate(v31);
+                return v29;
               }
 
-              KB::Candidate::~Candidate(v32);
+              KB::Candidate::~Candidate(v31);
             }
 
             v11 = v21;
@@ -4719,12 +4651,12 @@ LABEL_40:
             v21 += 1000;
             if (v21 == a2)
             {
-              goto LABEL_43;
+              return 1;
             }
           }
         }
 
-        goto LABEL_43;
+        return 1;
       }
 
       v18 = (a1 + 1000);
@@ -4767,16 +4699,12 @@ LABEL_27:
     std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<KB::Candidate *&,KB::Candidate *&>(v7, v6);
   }
 
-LABEL_43:
-  v29 = 1;
-LABEL_44:
-  v30 = *MEMORY[0x277D85DE8];
-  return v29;
+  return 1;
 }
 
 void std::__sift_down[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,KB::Candidate *>(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a2 - 2;
   if (a2 >= 2)
   {
@@ -4800,7 +4728,7 @@ void std::__sift_down[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void
       v12 = expf(*(v9 + 744));
       if (v12 <= expf(*(v4 + 744)))
       {
-        KB::Candidate::Candidate(v19, v4);
+        KB::Candidate::Candidate(v18, v4);
         do
         {
           v13 = v9;
@@ -4828,51 +4756,49 @@ void std::__sift_down[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void
           v4 = v13;
         }
 
-        while (v17 <= expf(v20));
-        KB::Candidate::operator=(v13, v19);
-        KB::Candidate::~Candidate(v19);
+        while (v17 <= expf(v19));
+        KB::Candidate::operator=(v13, v18);
+        KB::Candidate::~Candidate(v18);
       }
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void TIInputManager::autocorrections(TIInputManager *this@<X0>, int a2@<W1>, uint64_t a3@<X8>)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (!*(this + 144))
   {
     if (*(this + 728) != 1)
     {
-      v7 = this + 32;
+      v6 = (this + 32);
       if (!*(this + 16))
       {
         goto LABEL_13;
       }
 
-      TIInputManager::legacy_input_stem(this, v10);
-      if (v7 == v10)
+      TIInputManager::legacy_input_stem(&v10, this);
+      if (v6 == &v10)
       {
-        if (v12 && v11 == 1)
+        if (v11 && BYTE6(v10) == 1)
         {
-          free(v12);
+          free(v11);
         }
 
         goto LABEL_6;
       }
 
-      v8 = KB::String::equal((this + 32), v10, 1);
-      if (v12 && v11 == 1)
+      v9 = KB::String::equal((this + 32), &v10, 1, v7, v8);
+      if (v11 && BYTE6(v10) == 1)
       {
-        free(v12);
+        free(v11);
       }
 
-      if (!v8)
+      if (!v9)
       {
 LABEL_13:
         TIInputManager::lookup(this, 0, 1, a2, a3);
-        goto LABEL_14;
+        return;
       }
     }
 
@@ -4888,12 +4814,8 @@ LABEL_6:
     *(a3 + 110) = 0;
     *(a3 + 112) = 0;
     *(a3 + 120) = 0;
-LABEL_14:
-    v9 = *MEMORY[0x277D85DE8];
     return;
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 
   TIInputManager::lookup(this, 0, 1, a2, a3);
 }
@@ -4920,126 +4842,125 @@ void TIInputManager::~TIInputManager(TIInputManager *this)
   }
 
   std::__tree<std::__value_type<KB::String const,std::unique_ptr<KB::LRUCache<KB::String,std::shared_ptr<KB::CandidateFilter>>::Node,std::default_delete<KB::LRUCache<KB::String,std::shared_ptr<KB::CandidateFilter>>::Node>>>,std::__map_value_compare<KB::String const,std::__value_type<KB::String const,std::unique_ptr<KB::LRUCache<KB::String,std::shared_ptr<KB::CandidateFilter>>::Node,std::default_delete<KB::LRUCache<KB::String,std::shared_ptr<KB::CandidateFilter>>::Node>>>,std::less<KB::String const>,true>,std::allocator<std::__value_type<KB::String const,std::unique_ptr<KB::LRUCache<KB::String,std::shared_ptr<KB::CandidateFilter>>::Node,std::default_delete<KB::LRUCache<KB::String,std::shared_ptr<KB::CandidateFilter>>::Node>>>>>::destroy(*(this + 89));
-  v4 = *(this + 79);
   LXVulgarWordUsageDatabasePerformMaintenance();
-  v22 = (this + 648);
-  std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](&v22);
-  v5 = *(this + 80);
+  v21 = (this + 648);
+  std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](&v21);
+  v4 = *(this + 80);
+  if (v4)
+  {
+    CFRelease(v4);
+  }
+
+  *(this + 80) = 0;
+  v5 = *(this + 79);
   if (v5)
   {
     CFRelease(v5);
   }
 
-  *(this + 80) = 0;
-  v6 = *(this + 79);
+  *(this + 79) = 0;
+  v6 = *(this + 77);
   if (v6)
   {
-    CFRelease(v6);
+    std::__shared_weak_count::__release_shared[abi:nn200100](v6);
   }
 
-  *(this + 79) = 0;
-  v7 = *(this + 77);
+  v7 = *(this + 74);
   if (v7)
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v7);
   }
 
-  v8 = *(this + 74);
-  if (v8)
-  {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v8);
-  }
-
-  v22 = (this + 552);
-  std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](&v22);
+  v21 = (this + 552);
+  std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](&v21);
   language_modeling::v1::LinguisticContext::~LinguisticContext((this + 544));
   language_modeling::v1::LinguisticContext::~LinguisticContext((this + 536));
-  v9 = *(this + 61);
+  v8 = *(this + 61);
+  if (v8)
+  {
+    *(this + 62) = v8;
+    operator delete(v8);
+  }
+
+  v9 = *(this + 60);
   if (v9)
   {
-    *(this + 62) = v9;
-    operator delete(v9);
+    std::__shared_weak_count::__release_shared[abi:nn200100](v9);
   }
 
-  v10 = *(this + 60);
-  if (v10)
+  v10 = *(this + 56);
+  if (v10 && *(this + 446) == 1)
   {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v10);
-  }
-
-  v11 = *(this + 56);
-  if (v11 && *(this + 446) == 1)
-  {
-    free(v11);
+    free(v10);
   }
 
   std::__tree<std::__value_type<int,KB::ContinuousPathDetector::AnnotatedPath>,std::__map_value_compare<int,std::__value_type<int,KB::ContinuousPathDetector::AnnotatedPath>,std::less<int>,true>,std::allocator<std::__value_type<int,KB::ContinuousPathDetector::AnnotatedPath>>>::destroy(*(this + 47));
-  v12 = *(this + 45);
-  if (v12)
+  v11 = *(this + 45);
+  if (v11)
   {
-    WTF::RefCounted<TI::Favonius::KeyboardLayout>::deref(v12);
+    WTF::RefCounted<TI::Favonius::KeyboardLayout>::deref(v11);
   }
 
-  v13 = *(this + 42);
-  if (v13 && *(this + 334) == 1)
+  v12 = *(this + 42);
+  if (v12 && *(this + 334) == 1)
   {
-    free(v13);
+    free(v12);
   }
 
   WTF::Vector<WTF::RefPtr<TI::Favonius::LayoutKey>,0ul>::~Vector(this + 37);
-  v14 = *(this + 35);
+  v13 = *(this + 35);
+  if (v13)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v13);
+  }
+
+  v14 = *(this + 33);
   if (v14)
   {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v14);
+    WTF::RefCounted<KB::DictionaryContainer>::deref(v14);
   }
 
-  v15 = *(this + 33);
-  if (v15)
+  v15 = *(this + 30);
+  if (v15 && *(this + 238) == 1)
   {
-    WTF::RefCounted<KB::DictionaryContainer>::deref(v15);
+    free(v15);
   }
 
-  v16 = *(this + 30);
-  if (v16 && *(this + 238) == 1)
-  {
-    free(v16);
-  }
-
-  v17 = *(this + 28);
+  v16 = *(this + 28);
   *(this + 28) = 0;
+  if (v16)
+  {
+    (*(*v16 + 8))(v16);
+  }
+
+  std::__hash_table<std::__hash_value_type<KB::String,KB::String>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,KB::String>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,KB::String>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,KB::String>>>::~__hash_table(this + 22);
+  v17 = *(this + 17);
   if (v17)
   {
-    (*(*v17 + 8))(v17);
-  }
-
-  std::__hash_table<std::__hash_value_type<KB::String,KB::String>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,KB::String>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,KB::String>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,KB::String>>>::~__hash_table(this + 176);
-  v18 = *(this + 17);
-  if (v18)
-  {
-    CFRelease(v18);
+    CFRelease(v17);
   }
 
   *(this + 17) = 0;
-  v19 = *(this + 14);
-  if (v19 && *(this + 110) == 1)
+  v18 = *(this + 14);
+  if (v18 && *(this + 110) == 1)
+  {
+    free(v18);
+  }
+
+  v19 = *(this + 9);
+  if (v19 && *(this + 70) == 1)
   {
     free(v19);
   }
 
-  v20 = *(this + 9);
-  if (v20 && *(this + 70) == 1)
+  v20 = *(this + 5);
+  if (v20 && *(this + 38) == 1)
   {
     free(v20);
   }
 
-  v21 = *(this + 5);
-  if (v21 && *(this + 38) == 1)
-  {
-    free(v21);
-  }
-
-  v22 = (this + 8);
-  std::vector<KB::Input>::__destroy_vector::operator()[abi:nn200100](&v22);
+  v21 = (this + 8);
+  std::vector<KB::Input>::__destroy_vector::operator()[abi:nn200100](&v21);
 }
 
 void std::__tree<std::__value_type<KB::String const,std::unique_ptr<KB::LRUCache<KB::String,std::shared_ptr<KB::CandidateFilter>>::Node,std::default_delete<KB::LRUCache<KB::String,std::shared_ptr<KB::CandidateFilter>>::Node>>>,std::__map_value_compare<KB::String const,std::__value_type<KB::String const,std::unique_ptr<KB::LRUCache<KB::String,std::shared_ptr<KB::CandidateFilter>>::Node,std::default_delete<KB::LRUCache<KB::String,std::shared_ptr<KB::CandidateFilter>>::Node>>>,std::less<KB::String const>,true>,std::allocator<std::__value_type<KB::String const,std::unique_ptr<KB::LRUCache<KB::String,std::shared_ptr<KB::CandidateFilter>>::Node,std::default_delete<KB::LRUCache<KB::String,std::shared_ptr<KB::CandidateFilter>>::Node>>>>>::destroy(void *a1)
@@ -5084,9 +5005,9 @@ void std::__tree<std::__value_type<int,KB::ContinuousPathDetector::AnnotatedPath
   }
 }
 
-uint64_t std::__hash_table<std::__hash_value_type<KB::String,KB::String>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,KB::String>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,KB::String>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,KB::String>>>::~__hash_table(uint64_t a1)
+void **std::__hash_table<std::__hash_value_type<KB::String,KB::String>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,KB::String>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,KB::String>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,KB::String>>>::~__hash_table(void **a1)
 {
-  std::__hash_table<std::__hash_value_type<KB::String,KB::String>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,KB::String>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,KB::String>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,KB::String>>>::__deallocate_node(*(a1 + 16));
+  std::__hash_table<std::__hash_value_type<KB::String,KB::String>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,KB::String>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,KB::String>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,KB::String>>>::__deallocate_node(a1[2]);
   v2 = *a1;
   *a1 = 0;
   if (v2)
@@ -5222,7 +5143,7 @@ uint32x2_t TIInputManager::LockedInput::drop_input_prefix_of_length(uint32x2_t *
   return result;
 }
 
-void TIInputManager::TIInputManager(uint64_t a1)
+void TIInputManager::TIInputManager(uint64_t a1, uint64_t a2)
 {
   *a1 = &unk_283FD9060;
   *(a1 + 8) = 0;
@@ -5256,20 +5177,20 @@ void TIInputManager::TIInputManager(uint64_t a1)
   *(a1 + 238) = 0;
   *(a1 + 240) = 0;
   *(a1 + 248) = 0;
-  v2 = 0;
+  v3 = 0;
   *__p = 0u;
   operator new();
 }
 
-void TIInputManager::load_dictionaries(uint64_t a1, const __CFString *a2)
+void TIInputManager::load_dictionaries(uint64_t a1, const __CFString *a2, int a3, uint64_t a4, int a5)
 {
-  v3 = *(*(a1 + 264) + 24);
-  v4 = *(v3 + 32);
-  *(v3 + 24) = 0;
-  *(v3 + 32) = 0;
-  if (v4)
+  v6 = *(*(a1 + 264) + 24);
+  v7 = *(v6 + 32);
+  *(v6 + 24) = 0;
+  *(v6 + 32) = 0;
+  if (v7)
   {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v4);
+    std::__shared_weak_count::__release_shared[abi:nn200100](v7);
   }
 
   if ((*(a1 + 738) & 1) == 0)
@@ -5283,76 +5204,76 @@ void TIInputManager::load_dictionaries(uint64_t a1, const __CFString *a2)
     {
       if (TI_IS_INTERNAL_INSTALL::is_internal_install)
       {
-        v25 = KB::ContinuousPathDetector::Parameters::user_value_for_key(@"CPDetectorDecayRate", a2, -0.347, -10.0, -0.001);
-        v22 = KB::ContinuousPathDetector::Parameters::user_value_for_key(@"CPDetectorPathWeight", v5, 5.0, 0.01, 100.0);
-        v20 = KB::ContinuousPathDetector::Parameters::user_value_for_key(@"CPDetectorTotalPseudoWeight", v6, 5.0, 0.01, 100.0);
-        v8 = KB::ContinuousPathDetector::Parameters::user_value_for_key(@"CPDetectorMinThreshold", v7, 1.0, 0.01, 100.0);
-        v21 = v8;
-        *&v9 = __PAIR64__(LODWORD(v22), LODWORD(v25));
-        *(&v9 + 1) = __PAIR64__(LODWORD(v8), LODWORD(v20));
-        v26 = v9;
-        v23 = KB::ContinuousPathDetector::Parameters::user_value_for_key(@"CPDetectorNeutralThreshold", v10, 2.0, 0.01, 100.0);
-        v12 = KB::ContinuousPathDetector::Parameters::user_value_for_key(@"CPDetectorMaxThreshold", v11, 5.0, 0.01, 100.0);
-        v13 = __PAIR64__(LODWORD(v12), LODWORD(v23));
-        if (v23 < v21 || v12 < v23)
+        v28 = KB::ContinuousPathDetector::Parameters::user_value_for_key(@"CPDetectorDecayRate", a2, -0.347, -10.0, -0.001);
+        v25 = KB::ContinuousPathDetector::Parameters::user_value_for_key(@"CPDetectorPathWeight", v8, 5.0, 0.01, 100.0);
+        v23 = KB::ContinuousPathDetector::Parameters::user_value_for_key(@"CPDetectorTotalPseudoWeight", v9, 5.0, 0.01, 100.0);
+        v11 = KB::ContinuousPathDetector::Parameters::user_value_for_key(@"CPDetectorMinThreshold", v10, 1.0, 0.01, 100.0);
+        v24 = v11;
+        *&v12 = __PAIR64__(LODWORD(v25), LODWORD(v28));
+        *(&v12 + 1) = __PAIR64__(LODWORD(v11), LODWORD(v23));
+        v29 = v12;
+        v26 = KB::ContinuousPathDetector::Parameters::user_value_for_key(@"CPDetectorNeutralThreshold", v13, 2.0, 0.01, 100.0);
+        v15 = KB::ContinuousPathDetector::Parameters::user_value_for_key(@"CPDetectorMaxThreshold", v14, 5.0, 0.01, 100.0);
+        v16 = __PAIR64__(LODWORD(v15), LODWORD(v26));
+        if (v26 < v24 || v15 < v26)
         {
-          v14 = v23 * 0.5;
-          if ((v23 * 0.5) >= v21)
+          v17 = v26 * 0.5;
+          if ((v26 * 0.5) >= v24)
           {
-            v14 = v21;
+            v17 = v24;
           }
 
-          v15 = v26;
-          *(&v15 + 3) = v14;
-          v26 = v15;
-          if (v12 < (v23 + v23))
+          v18 = v29;
+          *(&v18 + 3) = v17;
+          v29 = v18;
+          if (v15 < (v26 + v26))
           {
-            v12 = v23 + v23;
+            v15 = v26 + v26;
           }
 
-          *(&v13 + 1) = v12;
+          *(&v16 + 1) = v15;
         }
 
-        v24 = v13;
+        v27 = v16;
       }
 
       else
       {
-        v26 = xmmword_22CC88AC0;
-        v24 = 0x40A0000040000000;
+        v29 = xmmword_22CC88AC0;
+        v27 = 0x40A0000040000000;
       }
 
-      v27 = 0;
-      v28 = 0;
-      v29 = v26;
-      *&v30 = v24;
-      *(&v30 + 1) = CFAbsoluteTimeGetCurrent();
+      v30 = 0;
       v31 = 0;
-      v16 = a1 + 376;
+      v32 = v29;
+      *&v33 = v27;
+      *(&v33 + 1) = CFAbsoluteTimeGetCurrent();
+      v34 = 0;
+      v19 = a1 + 376;
       std::__tree<std::__value_type<int,KB::ContinuousPathDetector::AnnotatedPath>,std::__map_value_compare<int,std::__value_type<int,KB::ContinuousPathDetector::AnnotatedPath>,std::less<int>,true>,std::allocator<std::__value_type<int,KB::ContinuousPathDetector::AnnotatedPath>>>::destroy(*(a1 + 376));
-      v17 = v27;
-      *(a1 + 368) = &v27;
-      *(a1 + 376) = v17;
-      v18 = v28;
-      *(a1 + 384) = v28;
-      if (v18)
+      v20 = v30;
+      *(a1 + 368) = &v30;
+      *(a1 + 376) = v20;
+      v21 = v31;
+      *(a1 + 384) = v31;
+      if (v21)
       {
-        v17[2] = v16;
-        v27 = 0;
-        v28 = 0;
-        v17 = 0;
+        v20[2] = v19;
+        v30 = 0;
+        v31 = 0;
+        v20 = 0;
       }
 
       else
       {
-        *(a1 + 368) = v16;
+        *(a1 + 368) = v19;
       }
 
-      v19 = v30;
-      *(a1 + 392) = v29;
-      *(a1 + 408) = v19;
-      *(a1 + 424) = v31;
-      std::__tree<std::__value_type<int,KB::ContinuousPathDetector::AnnotatedPath>,std::__map_value_compare<int,std::__value_type<int,KB::ContinuousPathDetector::AnnotatedPath>,std::less<int>,true>,std::allocator<std::__value_type<int,KB::ContinuousPathDetector::AnnotatedPath>>>::destroy(v17);
+      v22 = v33;
+      *(a1 + 392) = v32;
+      *(a1 + 408) = v22;
+      *(a1 + 424) = v34;
+      std::__tree<std::__value_type<int,KB::ContinuousPathDetector::AnnotatedPath>,std::__map_value_compare<int,std::__value_type<int,KB::ContinuousPathDetector::AnnotatedPath>,std::less<int>,true>,std::allocator<std::__value_type<int,KB::ContinuousPathDetector::AnnotatedPath>>>::destroy(v20);
     }
   }
 
@@ -5477,7 +5398,7 @@ uint64_t TIInputManager::legacy_input_end_index(TIInputManager *this)
 
 void TIInputManager::add_input(TIInputManager *this, const KB::String *a2, unsigned int a3)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v6 = TIInputManager::favonius_layout(this);
   v7 = *(*v6 + 200);
   if (((*(*v6 + 16) - *(*v6 + 8)) >> 3) >> 1 < v7 || v7 > 0xB)
@@ -5490,8 +5411,8 @@ void TIInputManager::add_input(TIInputManager *this, const KB::String *a2, unsig
     v9 = a3;
   }
 
-  KB::String::String(v35, a2);
-  v37 = v9;
+  KB::String::String(v34, a2);
+  v36 = v9;
   v10 = *(this + 1);
   v11 = *(this + 24);
   v12 = (v10 + 40 * v11);
@@ -5522,48 +5443,48 @@ void TIInputManager::add_input(TIInputManager *this, const KB::String *a2, unsig
       v24 = v23;
     }
 
-    v34 = this + 8;
+    v33 = this + 8;
     if (v24)
     {
       std::__allocate_at_least[abi:nn200100]<std::allocator<KB::Input>>(v24);
     }
 
     v25 = 40 * v11;
-    v30 = 0;
+    v29 = 0;
+    v30 = v25;
     v31 = v25;
-    v32 = v25;
-    v33 = 0;
+    v32 = 0;
     if (!v11)
     {
       if (!v25)
       {
-        v40 = this + 8;
+        v39 = this + 8;
         std::__allocate_at_least[abi:nn200100]<std::allocator<KB::Input>>(1uLL);
       }
 
-      v31 = 40 * v11;
-      v32 = v31;
+      v30 = 40 * v11;
+      v31 = v30;
     }
 
-    KB::String::String(v25, v35);
-    *(40 * v11 + 0x20) = v37;
-    v32 += 40;
-    std::vector<KB::Input>::__swap_out_circular_buffer(this + 8, &v30, v12);
-    std::__split_buffer<KB::Input>::~__split_buffer(&v30);
+    KB::String::String(v25, v34);
+    *(40 * v11 + 0x20) = v36;
+    v31 += 40;
+    std::vector<KB::Input>::__swap_out_circular_buffer(this + 8, &v29, v12);
+    std::__split_buffer<KB::Input>::~__split_buffer(&v29);
   }
 
   else if (v12 == v14)
   {
-    KB::String::String(*(this + 2), v35);
-    *(v14 + 8) = v37;
+    KB::String::String(*(this + 2), v34);
+    *(v14 + 8) = v36;
     *(this + 2) = v14 + 40;
   }
 
   else
   {
     std::vector<KB::Input>::__move_range(this + 8, v10 + 40 * v11, *(this + 2), v12 + 40);
-    v15 = v12 <= v35;
-    v16 = *(this + 2) > v35;
+    v15 = v12 <= v34;
+    v16 = *(this + 2) > v34;
     v18 = v15 && v16;
     v17 = !v15 || !v16;
     v19 = 40;
@@ -5572,16 +5493,16 @@ void TIInputManager::add_input(TIInputManager *this, const KB::String *a2, unsig
       v19 = 0;
     }
 
-    if (v12 != &v35[v19])
+    if (v12 != &v34[v19])
     {
-      KB::String::operator=(v12, &v35[v19]);
+      KB::String::operator=(v12, &v34[v19]);
       v20 = 32;
       if (v18)
       {
         v20 = 72;
       }
 
-      *(v12 + 8) = *&v35[v20];
+      *(v12 + 8) = *&v34[v20];
     }
   }
 
@@ -5604,23 +5525,24 @@ void TIInputManager::add_input(TIInputManager *this, const KB::String *a2, unsig
   {
     (*(**(this + 28) + 136))(*(this + 28));
     v28 = *(this + 28);
-    TIInputManager::input_substring(this + 4, 0, *(this + 24), &v38);
-    (*(*v28 + 144))(v28, this + 472, &v38, *(this + 24), -858993459 * ((*(this + 2) - *(this + 1)) >> 3));
-    if (v39[0])
+    TIInputManager::input_substring((this + 8), 0, *(this + 24), &v37);
+    (*(*v28 + 144))(v28, this + 472, &v37, *(this + 24), -858993459 * ((*(this + 2) - *(this + 1)) >> 3));
+    if (v38[0])
     {
-      if (BYTE6(v38) == 1)
+      if (BYTE6(v37) == 1)
       {
-        free(v39[0]);
+        free(v38[0]);
       }
     }
   }
 
-  if (v36 && v35[6] == 1)
+  if (v35)
   {
-    free(v36);
+    if (v34[6] == 1)
+    {
+      free(v35);
+    }
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 KB::String *std::vector<KB::Input>::__move_range(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4)
@@ -5770,50 +5692,50 @@ void std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<KB::In
 
 void TIInputManager::set_input(TIInputManager *this, const KB::String *a2)
 {
-  v84 = *MEMORY[0x277D85DE8];
+  v83 = *MEMORY[0x277D85DE8];
   v4 = (this + 8);
-  TIInputManager::input_substring(this + 4, 0, *(this + 24), v76);
-  if (KB::String::contains(v76, 0x2019u))
+  TIInputManager::input_substring((this + 8), 0, *(this + 24), v75);
+  if (KB::String::contains(v75, 0x2019u))
   {
-    WORD2(v73[0]) = 0;
-    BYTE6(v73[0]) = 0;
-    v73[1] = "'";
-    LODWORD(v73[0]) = 1048577;
-    BYTE1(v74) = 0;
-    KB::String::replace_char(v76, v73, 8217, &v80);
-    KB::String::operator=(v76, &v80);
-    if (*(&v80 + 1) && BYTE6(v80) == 1)
+    WORD2(v72[0]) = 0;
+    BYTE6(v72[0]) = 0;
+    v72[1] = "'";
+    LODWORD(v72[0]) = 1048577;
+    BYTE1(v73) = 0;
+    KB::String::replace_char(&v79, v75, v72, 8217);
+    KB::String::operator=(v75, &v79);
+    if (*(&v79 + 1) && BYTE6(v79) == 1)
     {
-      free(*(&v80 + 1));
+      free(*(&v79 + 1));
     }
 
-    if (v73[1] && BYTE6(v73[0]) == 1)
+    if (v72[1] && BYTE6(v72[0]) == 1)
     {
-      free(v73[1]);
+      free(v72[1]);
     }
   }
 
+  v64 = 0;
   v65 = 0;
   v66 = 0;
-  v67 = 0;
   v5 = *a2;
-  v6 = v76[0];
-  if (v5 <= v76[0])
+  v6 = v75[0];
+  if (v5 <= v75[0])
   {
-    v7 = v78 ? v78 : &v79;
+    v7 = v77 ? v77 : &v78;
     v8 = *(a2 + 1) ? *(a2 + 1) : a2 + 16;
-    if (!strncmp(v7 + v76[0] - v5, v8, v5))
+    if (!strncmp(v7 + v75[0] - v5, v8, v5))
     {
-      v73[0] = v7;
-      LODWORD(v73[1]) = 0;
-      HIDWORD(v73[1]) = v6;
-      LODWORD(v74) = 0;
-      KB::String::iterator::initialize(v73);
-      KB::String::find(v76, a2, v68);
-      v80 = *v73;
-      v81 = v74;
-      v43 = v69;
-      if (LODWORD(v73[1]) == v69)
+      v72[0] = v7;
+      LODWORD(v72[1]) = 0;
+      HIDWORD(v72[1]) = v6;
+      LODWORD(v73) = 0;
+      KB::String::iterator::initialize(v72);
+      KB::String::find(&v67, v75, a2);
+      v79 = *v72;
+      v80 = v73;
+      v43 = v68;
+      if (LODWORD(v72[1]) == v68)
       {
         v44 = 0;
       }
@@ -5824,10 +5746,10 @@ void TIInputManager::set_input(TIInputManager *this, const KB::String *a2)
         do
         {
           ++v44;
-          KB::String::iterator::operator++(&v80);
+          KB::String::iterator::operator++(&v79);
         }
 
-        while (DWORD2(v80) != v43);
+        while (DWORD2(v79) != v43);
       }
 
       v50 = 0;
@@ -5848,21 +5770,21 @@ void TIInputManager::set_input(TIInputManager *this, const KB::String *a2)
 
         v54 = *v4;
         v55 = (*v4 + i);
-        if (v50 >= v67)
+        if (v50 >= v66)
         {
-          v56 = 0xCCCCCCCCCCCCCCCDLL * ((v50 - v65) >> 3);
+          v56 = 0xCCCCCCCCCCCCCCCDLL * ((v50 - v64) >> 3);
           v57 = v56 + 1;
           if (v56 + 1 > 0x666666666666666)
           {
             goto LABEL_112;
           }
 
-          if (0x999999999999999ALL * ((v67 - v65) >> 3) > v57)
+          if (0x999999999999999ALL * ((v66 - v64) >> 3) > v57)
           {
-            v57 = 0x999999999999999ALL * ((v67 - v65) >> 3);
+            v57 = 0x999999999999999ALL * ((v66 - v64) >> 3);
           }
 
-          if (0xCCCCCCCCCCCCCCCDLL * ((v67 - v65) >> 3) >= 0x333333333333333)
+          if (0xCCCCCCCCCCCCCCCDLL * ((v66 - v64) >> 3) >= 0x333333333333333)
           {
             v58 = 0x666666666666666;
           }
@@ -5872,7 +5794,7 @@ void TIInputManager::set_input(TIInputManager *this, const KB::String *a2)
             v58 = v57;
           }
 
-          v83 = &v65;
+          v82 = &v64;
           if (v58)
           {
             std::__allocate_at_least[abi:nn200100]<std::allocator<KB::Input>>(v58);
@@ -5882,18 +5804,18 @@ void TIInputManager::set_input(TIInputManager *this, const KB::String *a2)
           KB::String::String((40 * v56), v55);
           *(v59 + 32) = *(v54 + i + 32);
           v50 = (40 * v56 + 40);
-          v60 = (v59 + v65 - v66);
-          std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<KB::Input>,KB::Input*>(v65, v66, v60);
-          v61 = v65;
-          v62 = v67;
-          v65 = v60;
-          v66 = (v59 + 40);
-          v67 = 0;
-          v81 = v61;
-          v82 = v62;
-          *&v80 = v61;
-          *(&v80 + 1) = v61;
-          std::__split_buffer<KB::Input>::~__split_buffer(&v80);
+          v60 = (v59 + v64 - v65);
+          std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<KB::Input>,KB::Input*>(v64, v65, v60);
+          v61 = v64;
+          v62 = v66;
+          v64 = v60;
+          v65 = (v59 + 40);
+          v66 = 0;
+          v80 = v61;
+          v81 = v62;
+          *&v79 = v61;
+          *(&v79 + 1) = v61;
+          std::__split_buffer<KB::Input>::~__split_buffer(&v79);
         }
 
         else
@@ -5903,7 +5825,7 @@ void TIInputManager::set_input(TIInputManager *this, const KB::String *a2)
           v50 += 40;
         }
 
-        v66 = v50;
+        v65 = v50;
         ++v51;
       }
     }
@@ -5932,13 +5854,13 @@ void TIInputManager::set_input(TIInputManager *this, const KB::String *a2)
   }
 
   std::vector<KB::Input>::reserve(v4, v12);
-  v13 = v65;
-  v14 = v66;
-  v15 = v66 - v65;
-  v16 = 0xCCCCCCCCCCCCCCCDLL * ((v66 - v65) >> 3);
+  v13 = v64;
+  v14 = v65;
+  v15 = v65 - v64;
+  v16 = 0xCCCCCCCCCCCCCCCDLL * ((v65 - v64) >> 3);
   if (v16 == *a2)
   {
-    if (v4 != &v65)
+    if (v4 != &v64)
     {
       v17 = *(this + 3);
       v18 = *(this + 1);
@@ -6003,7 +5925,7 @@ LABEL_112:
       v46 = v45 - v18;
       if (v45 - v18 >= v15)
       {
-        if (v65 != v66)
+        if (v64 != v65)
         {
           do
           {
@@ -6037,7 +5959,7 @@ LABEL_112:
 
       else
       {
-        v47 = (v65 + v46);
+        v47 = (v64 + v46);
         if (v45 != v18)
         {
           do
@@ -6079,11 +6001,11 @@ LABEL_112:
 
   else
   {
-    KB::String::String(v73, a2);
-    v75 = 0;
+    KB::String::String(v72, a2);
+    v74 = 0;
     while (1)
     {
-      v25 = KB::UTF8Iterator::next(v73);
+      v25 = KB::UTF8Iterator::next(v72);
       if (!v25)
       {
         break;
@@ -6091,9 +6013,9 @@ LABEL_112:
 
       v26 = v25;
       v27 = u_isupper(v25) != 0;
-      KB::String::String(v71, v26);
-      KB::String::String(v68, v71);
-      v70 = v27;
+      KB::String::String(v70, v26);
+      KB::String::String(&v67, v70);
+      v69 = v27;
       v28 = *(this + 2);
       v29 = *(this + 3);
       if (v28 >= v29)
@@ -6121,15 +6043,15 @@ LABEL_112:
           v35 = v33;
         }
 
-        v83 = v4;
+        v82 = v4;
         if (v35)
         {
           std::__allocate_at_least[abi:nn200100]<std::allocator<KB::Input>>(v35);
         }
 
         v36 = 40 * v32;
-        KB::String::String(v36, v68);
-        *(v36 + 32) = v70;
+        KB::String::String(v36, &v67);
+        *(v36 + 32) = v69;
         v31 = (v36 + 40);
         v37 = *(this + 1);
         v38 = *(this + 2);
@@ -6140,35 +6062,35 @@ LABEL_112:
         *(this + 2) = v31;
         v41 = *(this + 3);
         *(this + 3) = 0;
-        v81 = v40;
-        v82 = v41;
-        *&v80 = v40;
-        *(&v80 + 1) = v40;
-        std::__split_buffer<KB::Input>::~__split_buffer(&v80);
+        v80 = v40;
+        v81 = v41;
+        *&v79 = v40;
+        *(&v79 + 1) = v40;
+        std::__split_buffer<KB::Input>::~__split_buffer(&v79);
       }
 
       else
       {
-        v30 = KB::String::String(v28, v68);
-        *(v30 + 8) = v70;
+        v30 = KB::String::String(v28, &v67);
+        *(v30 + 8) = v69;
         v31 = v30 + 40;
       }
 
       *(this + 2) = v31;
-      if (v69 && v68[6] == 1)
+      if (v68 && BYTE6(v67) == 1)
       {
-        free(v69);
+        free(v68);
       }
 
-      if (v72 && v71[6] == 1)
+      if (v71 && v70[6] == 1)
       {
-        free(v72);
+        free(v71);
       }
     }
 
-    if (v73[1])
+    if (v72[1])
     {
-      v42 = BYTE6(v73[0]) == 1;
+      v42 = BYTE6(v72[0]) == 1;
     }
 
     else
@@ -6178,7 +6100,7 @@ LABEL_112:
 
     if (v42)
     {
-      free(v73[1]);
+      free(v72[1]);
     }
   }
 
@@ -6187,29 +6109,18 @@ LABEL_112:
   *(this + 728) = 0;
   *(this + 27) = 0;
   (*(**(this + 28) + 136))(*(this + 28));
-  *&v80 = &v65;
-  std::vector<KB::Input>::__destroy_vector::operator()[abi:nn200100](&v80);
-  if (v78 && v77 == 1)
+  *&v79 = &v64;
+  std::vector<KB::Input>::__destroy_vector::operator()[abi:nn200100](&v79);
+  if (v77 && v76 == 1)
   {
-    free(v78);
+    free(v77);
   }
-
-  v64 = *MEMORY[0x277D85DE8];
 }
 
-void *std::vector<KB::Input>::reserve(void *result, unint64_t a2)
+KB::String **std::vector<KB::Input>::reserve(KB::String **result, unint64_t a2)
 {
-  v8 = *result;
   if (0xCCCCCCCCCCCCCCCDLL * ((result[2] - *result) >> 3) < a2)
   {
-    v11 = v5;
-    v12 = v4;
-    v13 = v3;
-    v14 = v2;
-    v15 = v6;
-    v16 = v7;
-    v9 = result[1] - v8;
-    v10 = result;
     std::__allocate_at_least[abi:nn200100]<std::allocator<KB::Input>>(a2);
   }
 
@@ -6218,14 +6129,14 @@ void *std::vector<KB::Input>::reserve(void *result, unint64_t a2)
 
 void TIInputManager::or_input_flags_from_input(TIInputManager *this, const KB::String *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  KB::String::String(v9, a2);
-  v13 = 0;
-  v3 = v10;
-  if (!v10)
+  v13 = *MEMORY[0x277D85DE8];
+  KB::String::String(v8, a2);
+  v12 = 0;
+  v3 = v9;
+  if (!v9)
   {
-    KB::String::compute_length(v9);
-    v3 = v10;
+    KB::String::compute_length(v8);
+    v3 = v9;
   }
 
   v4 = *(this + 1);
@@ -6233,7 +6144,7 @@ void TIInputManager::or_input_flags_from_input(TIInputManager *this, const KB::S
   {
     for (i = (v4 + 32); ; i += 10)
     {
-      v6 = KB::UTF8Iterator::next(v9);
+      v6 = KB::UTF8Iterator::next(v8);
       if (!v6)
       {
         break;
@@ -6243,9 +6154,9 @@ void TIInputManager::or_input_flags_from_input(TIInputManager *this, const KB::S
     }
   }
 
-  if (v12)
+  if (v11)
   {
-    v7 = v11 == 1;
+    v7 = v10 == 1;
   }
 
   else
@@ -6255,20 +6166,18 @@ void TIInputManager::or_input_flags_from_input(TIInputManager *this, const KB::S
 
   if (v7)
   {
-    free(v12);
+    free(v11);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void TIInputManager::delete_suffix_from_input(TIInputManager *this, const KB::String *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v15 = 0x100000;
-  v16 = 0;
+  v21 = *MEMORY[0x277D85DE8];
+  v16 = 0x100000;
   v17 = 0;
   v18 = 0;
   v19 = 0;
+  v20 = 0;
   v3 = *(this + 24);
   if (v3)
   {
@@ -6276,82 +6185,80 @@ void TIInputManager::delete_suffix_from_input(TIInputManager *this, const KB::St
     v6 = -1;
     do
     {
-      TIInputManager::input_substring(this + 4, v3 + v6, ++v5, v13);
-      KB::String::operator=(&v15, v13);
-      if (v14)
+      TIInputManager::input_substring((this + 8), v3 + v6, ++v5, v14);
+      KB::String::operator=(&v16, v14);
+      if (v15)
       {
-        v7 = v13[6] == 1;
+        v9 = v14[6] == 1;
       }
 
       else
       {
-        v7 = 0;
+        v9 = 0;
       }
 
-      if (v7)
+      if (v9)
       {
-        free(v14);
+        free(v15);
       }
 
-      v8 = KB::String::equal(a2, &v15, 1);
+      v10 = KB::String::equal(a2, &v16, 1, v7, v8);
       v3 = *(this + 24);
       --v6;
     }
 
-    while (v5 < v3 && !v8);
-    if (v8)
+    while (v5 < v3 && !v10);
+    if (v10)
     {
-      v10 = v5;
+      v12 = v5;
     }
 
     else
     {
-      v10 = 1;
+      v12 = 1;
     }
   }
 
   else
   {
-    v10 = 1;
+    v12 = 1;
   }
 
   do
   {
     TIInputManager::delete_from_input(this);
-    --v10;
+    --v12;
   }
 
-  while (v10);
-  if (v18)
+  while (v12);
+  if (v19)
   {
-    v11 = v17 == 1;
+    v13 = v18 == 1;
   }
 
   else
   {
-    v11 = 0;
+    v13 = 0;
   }
 
-  if (v11)
+  if (v13)
   {
-    free(v18);
+    free(v19);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void TIInputManager::delete_from_input(TIInputManager *this)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v1 = *(this + 24);
   if (v1)
   {
     v3 = *(this + 28);
-    TIInputManager::input_substring(this + 4, 0, v1, v11);
-    (*(*v3 + 144))(v3, this + 472, v11, *(this + 24), -858993459 * ((*(this + 2) - *(this + 1)) >> 3));
-    if (v12 && v11[6] == 1)
+    TIInputManager::input_substring((this + 8), 0, v1, v10);
+    (*(*v3 + 144))(v3, this + 472, v10, *(this + 24), -858993459 * ((*(this + 2) - *(this + 1)) >> 3));
+    if (v11 && v10[6] == 1)
     {
-      free(v12);
+      free(v11);
     }
 
     if (*(this + 24) && -858993459 * ((*(this + 2) - *(this + 1)) >> 3))
@@ -6399,8 +6306,6 @@ void TIInputManager::delete_from_input(TIInputManager *this)
       (*(**(this + 28) + 56))(*(this + 28));
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 _DWORD *TIInputManager::lock_input(_DWORD *this)
@@ -6422,10 +6327,10 @@ _DWORD *TIInputManager::lock_input(_DWORD *this)
   return this;
 }
 
-void TIInputManager::drop_input_prefix(KB::String **this, unsigned int a2)
+void TIInputManager::drop_input_prefix(uint32x2_t *this, unsigned int a2)
 {
-  v3 = (this + 1);
-  std::vector<KB::Input>::erase((this + 1), this[1], (this[1] + 40 * a2));
+  v3 = this + 1;
+  std::vector<KB::Input>::erase(&this[1], *&this[1], (*&this[1] + 40 * a2));
   v3[11].i32[0] -= a2;
   v3[26] = vqsub_u32(v3[26], vdup_n_s32(a2));
 
@@ -6476,7 +6381,7 @@ KB::String *std::vector<KB::Input>::erase(uint64_t a1, KB::String *this, KB::Str
 
 void TIInputManager::accept_input(TIInputManager *this)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = *(this + 24);
   v3 = *(this + 54);
   if (v3 <= v2)
@@ -6491,11 +6396,11 @@ void TIInputManager::accept_input(TIInputManager *this)
 
   *(this + 54) = v3;
   *(this + 55) = v2;
-  TIInputManager::legacy_input_stem(this, v6);
-  KB::String::operator=(this + 64, v6);
-  if (v7)
+  TIInputManager::legacy_input_stem(&v5, this);
+  KB::String::operator=(this + 64, &v5);
+  if (v6)
   {
-    v4 = v6[6] == 1;
+    v4 = BYTE6(v5) == 1;
   }
 
   else
@@ -6505,10 +6410,8 @@ void TIInputManager::accept_input(TIInputManager *this)
 
   if (v4)
   {
-    free(v7);
+    free(v6);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t TIInputManager::set_input_index(TIInputManager *this, unsigned int a2)
@@ -6534,269 +6437,269 @@ uint64_t TIInputManager::set_input_index(TIInputManager *this, unsigned int a2)
 
 void TIInputManager::text_accepted(uint64_t a1, unsigned __int16 *a2, unsigned __int16 *a3, unsigned int a4, int a5, uint64_t a6)
 {
-  v77 = *MEMORY[0x277D85DE8];
+  v78 = *MEMORY[0x277D85DE8];
   v12 = (a1 + 8);
-  TIInputManager::input_substring((a1 + 8), 0, *(a1 + 96), v69);
-  if (a2 != a3 && !KB::String::equal(a2, a3, 1))
+  TIInputManager::input_substring((a1 + 8), 0, *(a1 + 96), v70);
+  if (a2 != a3 && !KB::String::equal(a2, a3, 1, v13, v14))
   {
-    KB::String::operator=((a1 + 64), v69);
+    KB::String::operator=((a1 + 64), v70);
     TIInputManager::input_flags_vector(a1, &__p);
-    v14 = a3[2];
+    v16 = a3[2];
     if (!a3[2])
     {
       KB::String::compute_length(a3);
-      v14 = a3[2];
+      v16 = a3[2];
     }
 
-    v15 = *(a1 + 96);
-    v49 = a4;
-    if (v15 >= v14)
+    v17 = *(a1 + 96);
+    v50 = a4;
+    if (v17 >= v16)
     {
-      v17 = *(a1 + 96);
-      if (!v14)
+      v19 = *(a1 + 96);
+      if (!v16)
       {
         KB::String::compute_length(a3);
-        v14 = a3[2];
-        v17 = *(a1 + 96);
+        v16 = a3[2];
+        v19 = *(a1 + 96);
       }
 
-      v16 = v15 - v14;
-      v15 = v17;
+      v18 = v17 - v16;
+      v17 = v19;
     }
 
     else
     {
-      v16 = 0;
+      v18 = 0;
     }
 
-    std::vector<KB::Input>::erase(v12, (*(a1 + 8) + 40 * v16), (*(a1 + 8) + 40 * v15));
-    *(a1 + 96) = v16;
+    std::vector<KB::Input>::erase(v12, (*(a1 + 8) + 40 * v18), (*(a1 + 8) + 40 * v17));
+    *(a1 + 96) = v18;
     if (*(a2 + 1))
     {
-      v18 = *(a2 + 1);
+      v20 = *(a2 + 1);
     }
 
     else
     {
-      v18 = (a2 + 8);
+      v20 = a2 + 8;
     }
 
-    v54 = v18;
-    v19 = *a2;
-    v55 = 0;
-    v56 = v19;
-    v57 = 0;
-    KB::String::iterator::initialize(&v54);
-    v50 = v18;
-    v51 = v19;
-    v52 = v19;
-    v53 = 0;
-    KB::String::iterator::initialize(&v50);
-    v48 = v16;
-    v20 = v16;
-    if (v55 != v51)
+    v55 = v20;
+    v21 = *a2;
+    v56 = 0;
+    v57 = v21;
+    v58 = 0;
+    KB::String::iterator::initialize(&v55);
+    v51 = v20;
+    v52 = v21;
+    v53 = v21;
+    v54 = 0;
+    KB::String::iterator::initialize(&v51);
+    v49 = v18;
+    v22 = v18;
+    if (v56 != v52)
     {
       do
       {
-        KB::String::String(v67, v57);
-        v21 = (*(a1 + 8) + 40 * *(a1 + 96));
-        KB::String::String(v64, v67);
-        v66 = 0;
-        v23 = *(a1 + 16);
-        v22 = *(a1 + 24);
-        if (v23 >= v22)
+        KB::String::String(v68, v58);
+        v23 = (*(a1 + 8) + 40 * *(a1 + 96));
+        KB::String::String(v65, v68);
+        v67 = 0;
+        v25 = *(a1 + 16);
+        v24 = *(a1 + 24);
+        if (v25 >= v24)
         {
-          v24 = *(a1 + 8);
-          v25 = 1 - 0x3333333333333333 * ((v23 - v24) >> 3);
-          if (v25 > 0x666666666666666)
+          v26 = *(a1 + 8);
+          v27 = 1 - 0x3333333333333333 * ((v25 - v26) >> 3);
+          if (v27 > 0x666666666666666)
           {
             std::vector<unsigned long>::__throw_length_error[abi:nn200100]();
           }
 
-          v26 = 0xCCCCCCCCCCCCCCCDLL * ((v22 - v24) >> 3);
-          if (2 * v26 > v25)
+          v28 = 0xCCCCCCCCCCCCCCCDLL * ((v24 - v26) >> 3);
+          if (2 * v28 > v27)
           {
-            v25 = 2 * v26;
+            v27 = 2 * v28;
           }
 
-          if (v26 >= 0x333333333333333)
+          if (v28 >= 0x333333333333333)
           {
-            v27 = 0x666666666666666;
+            v29 = 0x666666666666666;
           }
 
           else
           {
-            v27 = v25;
+            v29 = v27;
           }
 
-          v63 = v12;
-          if (v27)
+          v64 = v12;
+          if (v29)
           {
-            std::__allocate_at_least[abi:nn200100]<std::allocator<KB::Input>>(v27);
+            std::__allocate_at_least[abi:nn200100]<std::allocator<KB::Input>>(v29);
           }
 
-          v28 = (8 * ((v21 - v24) >> 3));
-          v60 = 0;
-          v61[0] = v28;
-          v61[1] = v28;
-          v62 = 0;
-          if (!(0xCCCCCCCCCCCCCCCDLL * ((v21 - v24) >> 3)))
+          v30 = (8 * ((v23 - v26) >> 3));
+          v61 = 0;
+          v62[0] = v30;
+          v62[1] = v30;
+          v63 = 0;
+          if (!(0xCCCCCCCCCCCCCCCDLL * ((v23 - v26) >> 3)))
           {
-            if (!v28)
+            if (!v30)
             {
-              if (v21 == v24)
+              if (v23 == v26)
               {
-                v29 = 1;
+                v31 = 1;
               }
 
               else
               {
-                v29 = 0x999999999999999ALL * ((v21 - v24) >> 3);
+                v31 = 0x999999999999999ALL * ((v23 - v26) >> 3);
               }
 
-              v76 = v63;
-              std::__allocate_at_least[abi:nn200100]<std::allocator<KB::Input>>(v29);
+              v77 = v64;
+              std::__allocate_at_least[abi:nn200100]<std::allocator<KB::Input>>(v31);
             }
 
-            v61[0] = (8 * ((v21 - v24) >> 3));
-            v61[1] = v61[0];
+            v62[0] = (8 * ((v23 - v26) >> 3));
+            v62[1] = v62[0];
           }
 
-          v30 = KB::String::String(v28, v64);
-          *(v30 + 8) = v66;
-          v61[1] = (v61[1] + 40);
-          std::vector<KB::Input>::__swap_out_circular_buffer(v12, &v60, v21);
-          std::__split_buffer<KB::Input>::~__split_buffer(&v60);
+          v32 = KB::String::String(v30, v65);
+          *(v32 + 8) = v67;
+          v62[1] = (v62[1] + 40);
+          std::vector<KB::Input>::__swap_out_circular_buffer(v12, &v61, v23);
+          std::__split_buffer<KB::Input>::~__split_buffer(&v61);
         }
 
-        else if (v21 == v23)
+        else if (v23 == v25)
         {
-          KB::String::String(*(a1 + 16), v64);
-          *(v23 + 8) = v66;
-          *(a1 + 16) = v23 + 40;
+          KB::String::String(*(a1 + 16), v65);
+          *(v25 + 8) = v67;
+          *(a1 + 16) = v25 + 40;
         }
 
         else
         {
-          std::vector<KB::Input>::__move_range(v12, v21, *(a1 + 16), v21 + 40);
-          if (v21 != v64)
+          std::vector<KB::Input>::__move_range(v12, v23, *(a1 + 16), v23 + 40);
+          if (v23 != v65)
           {
-            KB::String::operator=(v21, v64);
-            *(v21 + 8) = v66;
+            KB::String::operator=(v23, v65);
+            *(v23 + 8) = v67;
           }
         }
 
-        if (v65 && v64[6] == 1)
+        if (v66 && v65[6] == 1)
         {
-          free(v65);
+          free(v66);
         }
 
         ++*(a1 + 96);
-        if (v68 && v67[6] == 1)
+        if (v69 && v68[6] == 1)
         {
-          free(v68);
+          free(v69);
         }
 
-        KB::String::iterator::operator++(&v54);
+        KB::String::iterator::operator++(&v55);
       }
 
-      while (v55 != v51);
-      v20 = *(a1 + 96);
+      while (v56 != v52);
+      v22 = *(a1 + 96);
     }
 
-    v31 = *(a1 + 224);
-    TIInputManager::input_substring(v12, 0, v20, &v71);
-    (*(*v31 + 104))(&v60, v31, &v71, a3, v69, v49, a2, a6);
-    if (v74 && v73 == 1)
+    v33 = *(a1 + 224);
+    TIInputManager::input_substring(v12, 0, v22, &v72);
+    (*(*v33 + 104))(&v61, v33, &v72, a3, v70, v50, a2, a6);
+    if (v75 && v74 == 1)
     {
-      free(v74);
+      free(v75);
     }
 
-    if ((a6 & 1) == 0 && (v61[0] - v60) >= 5 && *(v61[0] - 1) == -1 && *(v61[0] - 2) == -1)
+    if ((a6 & 1) == 0 && (v62[0] - v61) >= 5 && *(v62[0] - 1) == -1 && *(v62[0] - 2) == -1)
     {
       (*(**(a1 + 224) + 136))(*(a1 + 224));
     }
 
-    if (v48 >= *(a1 + 96))
+    if (v49 >= *(a1 + 96))
     {
-      v42 = v60;
-      if (v60)
+      v44 = v61;
+      if (v61)
       {
 LABEL_74:
-        v61[0] = v42;
-        operator delete(v42);
+        v62[0] = v44;
+        operator delete(v44);
       }
     }
 
     else
     {
-      v33 = v48;
-      v34 = a5 & 0xFFFFFFFE;
-      v35 = *v12;
-      v36 = 40 * v48;
+      v35 = v49;
+      v36 = a5 & 0xFFFFFFFE;
+      v37 = *v12;
+      v38 = 40 * v49;
       do
       {
-        has_uppercase_characters = KB::string_has_uppercase_characters((v35 + v36), v32);
-        v38 = has_uppercase_characters;
-        if (v36)
+        has_uppercase_characters = KB::string_has_uppercase_characters((v37 + v38), v34);
+        v40 = has_uppercase_characters;
+        if (v38)
         {
-          v39 = 0;
+          v41 = 0;
         }
 
         else
         {
-          v39 = v34 == 2;
+          v41 = v36 == 2;
         }
 
-        v40 = v39 && has_uppercase_characters;
-        if ((v40 & a6) != 0)
+        v42 = v41 && has_uppercase_characters;
+        if ((v42 & a6) != 0)
         {
-          v41 = has_uppercase_characters | 2;
+          v43 = has_uppercase_characters | 2;
         }
 
         else
         {
-          v41 = has_uppercase_characters;
+          v43 = has_uppercase_characters;
         }
 
-        v42 = v60;
-        if (v33 < (v61[0] - v60) >> 2)
+        v44 = v61;
+        if (v35 < (v62[0] - v61) >> 2)
         {
-          v43 = *(v60 + v33);
-          if (v43 != -1)
+          v45 = *(v61 + v35);
+          if (v45 != -1)
           {
-            v44 = __p.__begin_[v43];
-            if (v38)
+            v46 = __p.__begin_[v45];
+            if (v40)
             {
-              v45 = v44 & 0x12;
+              v47 = v46 & 0x12;
             }
 
             else
             {
-              v45 = 0;
+              v47 = 0;
             }
 
-            v46 = v44 & 0x2C | v41 | v45;
-            if ((v41 & ((v44 & 1) == 0)) != 0)
+            v48 = v46 & 0x2C | v43 | v47;
+            if ((v43 & ((v46 & 1) == 0)) != 0)
             {
-              v41 = v46 | 0x10;
+              v43 = v48 | 0x10;
             }
 
             else
             {
-              v41 = v46;
+              v43 = v48;
             }
           }
         }
 
-        v35 = *(a1 + 8);
-        *(v35 + v36 + 32) = v41;
-        ++v33;
-        v36 += 40;
+        v37 = *(a1 + 8);
+        *(v37 + v38 + 32) = v43;
+        ++v35;
+        v38 += 40;
       }
 
-      while (v33 < *(a1 + 96));
-      if (v42)
+      while (v35 < *(a1 + 96));
+      if (v44)
       {
         goto LABEL_74;
       }
@@ -6811,44 +6714,45 @@ LABEL_74:
     goto LABEL_77;
   }
 
-  (*(**(a1 + 224) + 104))(v59);
-  begin = v59[0];
-  if (v59[0])
+  (*(**(a1 + 224) + 104))(v60);
+  begin = v60[0];
+  if (v60[0])
   {
-    v59[1] = v59[0];
+    v60[1] = v60[0];
 LABEL_76:
     operator delete(begin);
   }
 
 LABEL_77:
-  v71 = 0x100000;
-  v72 = 0;
+  v72 = 0x100000;
   v73 = 0;
   v74 = 0;
   v75 = 0;
-  KB::String::operator=((*(*(a1 + 264) + 24) + 56), &v71);
-  if (v74 && v73 == 1)
+  v76 = 0;
+  KB::String::operator=((*(*(a1 + 264) + 24) + 56), &v72);
+  if (v75 && v74 == 1)
   {
-    free(v74);
+    free(v75);
   }
 
-  v71 = 0x100000;
-  v72 = 0;
+  v72 = 0x100000;
   v73 = 0;
   v74 = 0;
   v75 = 0;
-  KB::String::operator=((a1 + 32), &v71);
-  if (v74 && v73 == 1)
+  v76 = 0;
+  KB::String::operator=((a1 + 32), &v72);
+  if (v75 && v74 == 1)
   {
-    free(v74);
+    free(v75);
   }
 
-  if (v70 && v69[6] == 1)
+  if (v71)
   {
-    free(v70);
+    if (v70[6] == 1)
+    {
+      free(v71);
+    }
   }
-
-  v47 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t TIInputManager::set_autoshift(uint64_t this, int a2)
@@ -6929,9 +6833,9 @@ LABEL_9:
 
 void TIInputManager::autocorrection(uint64_t a1@<X0>, void *a2@<X8>)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  (*(*a1 + 16))(v6);
-  if (v6[1] == v6[0])
+  v10 = *MEMORY[0x277D85DE8];
+  (*(*a1 + 16))(v5);
+  if (v5[1] == v5[0])
   {
     bzero(a2, 0x3E8uLL);
     KB::Candidate::Candidate(a2);
@@ -6939,12 +6843,12 @@ void TIInputManager::autocorrection(uint64_t a1@<X0>, void *a2@<X8>)
 
   else
   {
-    KB::Candidate::Candidate(a2, v6[0]);
+    KB::Candidate::Candidate(a2, v5[0]);
   }
 
-  if (v10)
+  if (v9)
   {
-    v3 = v9[38] == 1;
+    v3 = v8[38] == 1;
   }
 
   else
@@ -6954,18 +6858,17 @@ void TIInputManager::autocorrection(uint64_t a1@<X0>, void *a2@<X8>)
 
   if (v3)
   {
-    free(v10);
+    free(v9);
   }
 
-  v5 = v9;
-  std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v5);
-  v5 = &v8;
-  std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v5);
-  v5 = &v7;
-  std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v5);
-  v5 = v6;
-  std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v5);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = v8;
+  std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v4);
+  v4 = &v7;
+  std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v4);
+  v4 = &v6;
+  std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v4);
+  v4 = v5;
+  std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v4);
 }
 
 uint64_t TIInputManager::user_dictionary(TIInputManager *this)
@@ -6982,31 +6885,31 @@ uint64_t TIInputManager::user_dictionary(TIInputManager *this)
   }
 }
 
-KB::String *TIInputManager::single_character_completions_for_shortcut_prefix@<X0>(KB::String *this@<X0>, const KB::String *a2@<X1>, uint64_t a3@<X8>)
+KB::String *TIInputManager::single_character_completions_for_shortcut_prefix@<X0>(KB::String *this@<X0>, const KB::String *a2@<X1>, unsigned int a3@<W2>, uint64_t a4@<X8>)
 {
-  v4 = *(*(*(this + 33) + 24) + 24);
-  if (v4 && (v5 = *v4) != 0)
+  v5 = *(*(*(this + 33) + 24) + 24);
+  if (v5 && (v6 = *v5) != 0)
   {
-    *a3 = 0x100000;
-    *(a3 + 4) = 0;
-    *(a3 + 6) = 0;
-    *(a3 + 8) = 0;
-    *(a3 + 16) = 0;
-    this = std::__hash_table<std::__hash_value_type<KB::String,unsigned long>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,unsigned long>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,unsigned long>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,unsigned long>>>::find<KB::String>((v5 + 48), a2);
+    *a4 = 0x100000;
+    *(a4 + 4) = 0;
+    *(a4 + 6) = 0;
+    *(a4 + 8) = 0;
+    *(a4 + 16) = 0;
+    this = std::__hash_table<std::__hash_value_type<KB::String,unsigned long>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,unsigned long>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,unsigned long>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,unsigned long>>>::find<KB::String>((v6 + 48), a2, a3);
     if (this)
     {
 
-      return KB::String::operator=(a3, (this + 48));
+      return KB::String::operator=(a4, (this + 48));
     }
   }
 
   else
   {
-    *a3 = 0x100000;
-    *(a3 + 4) = 0;
-    *(a3 + 6) = 0;
-    *(a3 + 8) = 0;
-    *(a3 + 16) = 0;
+    *a4 = 0x100000;
+    *(a4 + 4) = 0;
+    *(a4 + 6) = 0;
+    *(a4 + 8) = 0;
+    *(a4 + 16) = 0;
   }
 
   return this;
@@ -7049,6 +6952,16 @@ BOOL TIInputManager::has_user_explicit_shift(uint64_t *a1)
   return result;
 }
 
+void TIInputManager::word_from_supplemental_lexicon(TIInputManager *this@<X0>, KB::String *a2@<X1>, _BYTE *a3@<X8>)
+{
+  v3[0] = MEMORY[0x277D85DD0];
+  v3[1] = 0x40000000;
+  v3[2] = ___ZN14TIInputManager30word_from_supplemental_lexiconERN2KB6StringE_block_invoke;
+  v3[3] = &__block_descriptor_tmp_5173;
+  v3[4] = this;
+  KB::DynamicDictionary::word_from_supplemental_lexicon(*(*(this + 33) + 24), a2, v3, a3);
+}
+
 uint64_t TIInputManager::apply_custom_conversions(TIInputManager *this, CandidateCollection *a2)
 {
   result = *(this + 73);
@@ -7087,28 +7000,29 @@ uint64_t TIInputManager::should_promote_case_variants_of_top_candidate(TIInputMa
 
 void TIInputManager::drop_input_prefix_and_update_autocorrection_engine(uint32x2_t *a1, uint64_t a2, uint64_t a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v6 = a1[28];
-  TIInputManager::input_substring(&a1[1], 0, a1[12].i32[0], v8);
-  (*(**&v6 + 144))(v6, a1 + 59, v8, a1[12].u32[0], -858993459 * ((*&a1[2] - *&a1[1]) >> 3));
-  if (v10 && v9 == 1)
+  TIInputManager::input_substring(&a1[1], 0, a1[12].i32[0], v7);
+  (*(**&v6 + 144))(v6, a1 + 59, v7, a1[12].u32[0], -858993459 * ((*&a1[2] - *&a1[1]) >> 3));
+  if (v9 && v8 == 1)
   {
-    free(v10);
+    free(v9);
   }
 
-  TIInputManager::input_substring(&a1[1], 0, a2, v8);
+  TIInputManager::input_substring(&a1[1], 0, a2, v7);
   std::vector<KB::Input>::erase(&a1[1], *&a1[1], (*&a1[1] + 40 * a2));
   a1[12].i32[0] -= a2;
   a1[27] = vqsub_u32(a1[27], vdup_n_s32(a2));
   KB::String::clear(&a1[8]);
   (*(a3 + 16))(a3);
-  (*(**&a1[28] + 128))(*&a1[28], a1 + 59, a2, v8);
-  if (v10 && v9 == 1)
+  (*(**&a1[28] + 128))(*&a1[28], a1 + 59, a2, v7);
+  if (v9)
   {
-    free(v10);
+    if (v8 == 1)
+    {
+      free(v9);
+    }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t TIInputManager::set_input_context(TIInputManager *this, const KB::String *a2, const KB::LanguageModelContext *a3)
@@ -7120,19 +7034,20 @@ uint64_t TIInputManager::set_input_context(TIInputManager *this, const KB::Strin
 
 void TIInputManager::sync_with_input_from_UI(TIInputManager *this)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *(this + 28);
-  TIInputManager::input_substring(this + 4, 0, *(this + 24), v4);
-  (*(*v2 + 144))(v2, this + 472, v4, *(this + 24), -858993459 * ((*(this + 2) - *(this + 1)) >> 3));
-  if (v5 && v4[6] == 1)
+  TIInputManager::input_substring((this + 8), 0, *(this + 24), v3);
+  (*(*v2 + 144))(v2, this + 472, v3, *(this + 24), -858993459 * ((*(this + 2) - *(this + 1)) >> 3));
+  if (v4)
   {
-    free(v5);
+    if (v3[6] == 1)
+    {
+      free(v4);
+    }
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
-void TIInputManager::tokenize_input_context(const KB::String *a1@<X1>, void *a2@<X8>)
+void TIInputManager::tokenize_input_context(const KB::String *a2@<X1>, void *x8_0@<X8>)
 {
   v10 = *MEMORY[0x277D85DE8];
   v6 = 0;
@@ -7140,23 +7055,21 @@ void TIInputManager::tokenize_input_context(const KB::String *a1@<X1>, void *a2@
   v8 = " \n\t";
   v5 = 1048579;
   v9 = 0;
-  KB::string_split_after(a1, &v5, a2);
+  KB::string_split_after(a2, &v5, x8_0);
   if (v8)
   {
-    v3 = v7 == 1;
+    v4 = v7 == 1;
   }
 
   else
   {
-    v3 = 0;
+    v4 = 0;
   }
 
-  if (v3)
+  if (v4)
   {
     free(v8);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 unsigned int *TIInputManager::set_typing_model(TIInputManager *this, unsigned int **a2)
@@ -7216,7 +7129,7 @@ unsigned int *TIInputManager::set_typing_model(TIInputManager *this, unsigned in
   return result;
 }
 
-uint64_t TIInputManager::set_candidate_generator(uint64_t a1, unsigned int **a2)
+unsigned int *TIInputManager::set_candidate_generator(uint64_t a1, unsigned int **a2)
 {
   v2 = *(a1 + 224);
   v3 = *a2;
@@ -7259,7 +7172,7 @@ void TIInputManager::set_candidate_refinery(uint64_t a1, uint64_t *a2)
   }
 }
 
-uint64_t TIInputManager::set_search_algorithm(uint64_t a1, unsigned int **a2)
+unsigned int *TIInputManager::set_search_algorithm(uint64_t a1, unsigned int **a2)
 {
   v2 = *(a1 + 224);
   v3 = *a2;
@@ -7342,9 +7255,9 @@ BOOL TIInputManager::candidate_contains_space(TIInputManager *this, const KB::Ca
   return v5 - v4 != v3;
 }
 
-uint64_t TIInputManager::period_ends_sentence_after_word(TIInputManager *this, const KB::String *a2, uint64_t a3)
+uint64_t TIInputManager::period_ends_sentence_after_word(KB::DictionaryContainer **this, const KB::String *a2, uint64_t a3)
 {
-  KB::DictionaryContainer::lookup(*(this + 33), &v27);
+  KB::DictionaryContainer::lookup(&v27, this[33], a2);
   v6 = v27;
   v7 = v28;
   if (v27 != v28)
@@ -7358,7 +7271,7 @@ uint64_t TIInputManager::period_ends_sentence_after_word(TIInputManager *this, c
         break;
       }
 
-      v6 += 240;
+      v6 = (v6 + 240);
       if (v6 == v7)
       {
         v6 = v7;
@@ -7368,29 +7281,29 @@ uint64_t TIInputManager::period_ends_sentence_after_word(TIInputManager *this, c
 
     if (v6 != v7)
     {
-      for (i = v6 + 240; i != v7; i += 240)
+      for (i = (v6 + 240); i != v7; i = (i + 240))
       {
         v29 = &unk_283FDCF10;
         v30 = 1;
         if (KB::InputSegmentFilter::string_preserves_surface_form_features(&v29, i, a2, 0, 0))
         {
           KB::String::operator=(v6, i);
-          KB::ByteString::operator=((v6 + 32), (i + 32));
-          v9 = *(i + 48);
-          *(v6 + 56) = *(i + 56);
-          *(v6 + 48) = v9;
+          KB::ByteString::operator=(v6 + 16, i + 16);
+          v9 = *(i + 6);
+          *(v6 + 14) = *(i + 14);
+          *(v6 + 6) = v9;
           KB::String::operator=(v6 + 64, (i + 64));
-          v10 = *(i + 96);
-          v11 = *(i + 112);
-          v12 = *(i + 144);
-          *(v6 + 128) = *(i + 128);
-          *(v6 + 144) = v12;
-          *(v6 + 96) = v10;
-          *(v6 + 112) = v11;
+          v10 = *(i + 6);
+          v11 = *(i + 7);
+          v12 = *(i + 9);
+          *(v6 + 8) = *(i + 8);
+          *(v6 + 9) = v12;
+          *(v6 + 6) = v10;
+          *(v6 + 7) = v11;
           KB::String::operator=(v6 + 160, (i + 160));
           *(v6 + 192) = *(i + 192);
-          std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__move_assign(v6 + 200, (i + 200));
-          v6 += 240;
+          std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__move_assign(v6 + 200, i + 25);
+          v6 = (v6 + 240);
         }
       }
     }
@@ -7444,7 +7357,7 @@ LABEL_10:
     }
   }
 
-  v24 = *(this + 73);
+  v24 = this[73];
   v25 = (v24 == 0) & v23;
   if (v24 && (v23 & 1) != 0)
   {
@@ -7477,9 +7390,9 @@ TIInputManager *TIInputManager::clear_continuous_path(TIInputManager *this)
   {
     do
     {
-      if ((*(v3 + 108) - 2) > 3)
+      if ((*(v3 + 27) - 2) > 3)
       {
-        v4 = *(v3 + 8);
+        v4 = *(v3 + 1);
         if (v4)
         {
           do
@@ -7495,7 +7408,7 @@ TIInputManager *TIInputManager::clear_continuous_path(TIInputManager *this)
         {
           do
           {
-            result = *(v3 + 16);
+            result = *(v3 + 2);
             v5 = *result == v3;
             v3 = result;
           }
@@ -7518,19 +7431,19 @@ TIInputManager *TIInputManager::clear_continuous_path(TIInputManager *this)
   return result;
 }
 
-uint64_t TIInputManager::add_touch(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t TIInputManager::add_touch(uint64_t a1, unsigned int a2, uint64_t a3, int a4, uint64_t a5, int a6, uint64_t a7, double a8, double a9, double a10, float a11)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  if (*(a1 + 296) || (v7 = *(a1 + 360)) == 0 || ((*(v7 + 16) - *(v7 + 8)) & 0x7FFFFFFF8) != 0)
+  v17 = *MEMORY[0x277D85DE8];
+  if (*(a1 + 296) || (v13 = *(a1 + 360)) == 0 || ((*(v13 + 16) - *(v13 + 8)) & 0x7FFFFFFF8) != 0)
   {
-    v6 = *(a1 + 224);
+    v12 = *(a1 + 224);
     TIInputManager::input_substring((a1 + 8), 0, *(a1 + 96), &appendedString);
-    (*(*v6 + 144))(v6, a1 + 472, &appendedString, *(a1 + 96), -858993459 * ((*(a1 + 16) - *(a1 + 8)) >> 3));
-    if (v11)
+    (*(*v12 + 144))(v12, a1 + 472, &appendedString, *(a1 + 96), -858993459 * ((*(a1 + 16) - *(a1 + 8)) >> 3));
+    if (v16)
     {
       if (BYTE6(appendedString) == 1)
       {
-        free(v11);
+        free(v16);
       }
     }
 
@@ -7538,7 +7451,6 @@ uint64_t TIInputManager::add_touch(uint64_t a1, uint64_t a2, uint64_t a3, uint64
     operator new();
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return a5;
 }
 
@@ -7589,52 +7501,53 @@ uint64_t TIInputManager::set_layout_uses_two_hands(uint64_t this, char a2)
   return this;
 }
 
-KB::String *TIInputManager::set_primary2secondary_character_map_entry(uint64_t a1, void *a2, KB::String *a3)
+KB::String *TIInputManager::set_primary2secondary_character_map_entry(uint64_t a1, const KB::String *a2, KB::String *a3)
 {
-  v4 = (std::__hash_table<std::__hash_value_type<KB::String,KB::String>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,KB::String>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,KB::String>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,KB::String>>>::__emplace_unique_key_args<KB::String,std::piecewise_construct_t const&,std::tuple<KB::String const&>,std::tuple<>>((a1 + 176), a2) + 6);
+  v6 = a2;
+  v4 = (std::__hash_table<std::__hash_value_type<KB::String,KB::String>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,KB::String>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,KB::String>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,KB::String>>>::__emplace_unique_key_args<KB::String,std::piecewise_construct_t const&,std::tuple<KB::String const&>,std::tuple<>>((a1 + 176), a2, &v6) + 6);
 
   return KB::String::operator=(v4, a3);
 }
 
-void *std::__hash_table<std::__hash_value_type<KB::String,KB::String>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,KB::String>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,KB::String>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,KB::String>>>::__emplace_unique_key_args<KB::String,std::piecewise_construct_t const&,std::tuple<KB::String const&>,std::tuple<>>(void *a1, void *a2)
+void *std::__hash_table<std::__hash_value_type<KB::String,KB::String>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,KB::String>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,KB::String>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,KB::String>>>::__emplace_unique_key_args<KB::String,std::piecewise_construct_t const&,std::tuple<KB::String const&>,std::tuple<>>(float *a1, const KB::String *a2, const KB::String **a3)
 {
-  if (a2[1])
+  if (*(a2 + 1))
   {
-    v4 = a2[1];
+    v5 = *(a2 + 1);
   }
 
   else
   {
-    v4 = (a2 + 2);
+    v5 = (a2 + 16);
   }
 
-  v5 = KB::String::hash(v4, *a2);
-  v6 = v5;
-  v7 = a1[1];
-  if (!v7)
+  v6 = KB::String::hash(v5, *a2);
+  v9 = v6;
+  v10 = *(a1 + 1);
+  if (!v10)
   {
     goto LABEL_22;
   }
 
-  v8 = vcnt_s8(v7);
-  v8.i16[0] = vaddlv_u8(v8);
-  v9 = v8.u32[0];
-  if (v8.u32[0] > 1uLL)
+  v11 = vcnt_s8(v10);
+  v11.i16[0] = vaddlv_u8(v11);
+  v12 = v11.u32[0];
+  if (v11.u32[0] > 1uLL)
   {
-    v10 = v5;
-    if (v7 <= v5)
+    v13 = v6;
+    if (v10 <= v6)
     {
-      v10 = v5 % v7;
+      v13 = v6 % v10;
     }
   }
 
   else
   {
-    v10 = (v7 - 1) & v5;
+    v13 = (v10 - 1) & v6;
   }
 
-  v11 = *(*a1 + 8 * v10);
-  if (!v11 || (v12 = *v11) == 0)
+  v14 = *(*a1 + 8 * v13);
+  if (!v14 || (v15 = *v14) == 0)
   {
 LABEL_22:
     operator new();
@@ -7642,51 +7555,51 @@ LABEL_22:
 
   while (1)
   {
-    v13 = v12[1];
-    if (v13 == v6)
+    v16 = v15[1];
+    if (v16 == v9)
     {
       break;
     }
 
-    if (v9 > 1)
+    if (v12 > 1)
     {
-      if (v13 >= v7)
+      if (v16 >= v10)
       {
-        v13 %= v7;
+        v16 %= v10;
       }
     }
 
     else
     {
-      v13 &= v7 - 1;
+      v16 &= v10 - 1;
     }
 
-    if (v13 != v10)
+    if (v16 != v13)
     {
       goto LABEL_22;
     }
 
 LABEL_21:
-    v12 = *v12;
-    if (!v12)
+    v15 = *v15;
+    if (!v15)
     {
       goto LABEL_22;
     }
   }
 
-  if (v12 + 2 != a2 && !KB::String::equal((v12 + 2), a2, 1))
+  if (v15 + 2 != a2 && !KB::String::equal((v15 + 2), a2, 1, v7, v8))
   {
     goto LABEL_21;
   }
 
-  return v12;
+  return v15;
 }
 
-void TIInputManager::candidates_for_string(TIInputManager *a1, const KB::String *a2, int a3)
+void TIInputManager::candidates_for_string(const KB::String **a1, const KB::String *a2, int a3)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3 = a3;
-  TIInputManager::create_autocorrection_engine_with_synthetic_typing(a1, a2);
+  v5 = *MEMORY[0x277D85DE8];
+  v4 = a3;
+  TIInputManager::create_autocorrection_engine_with_synthetic_typing(a1);
 }
 
 void std::__function::__func<TIInputManager::candidates_for_string(KB::String const&,TIShiftContext)::$_0,std::allocator<TIInputManager::candidates_for_string(KB::String const&,TIShiftContext)::$_0>,void ()(KB::CandidateCollection &,KB::CandidateFilterFlags,BOOL)>::operator()(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
@@ -7845,31 +7758,31 @@ void std::__function::__func<TIInputManager::candidates_for_string(KB::String co
     TIInputManager::apply_case_changes(v12, v7, &v59, 0, **(v8 + 32), 0);
     cf = &v59;
     std::vector<KB::Input>::__destroy_vector::operator()[abi:nn200100](&cf);
-    TIInputManager::apply_shortcut_conversions(v12, v7, v21, 0);
+    TIInputManager::apply_shortcut_conversions(v12, v7, v21, 0, v22);
     if (*(v12 + 76))
     {
-      v22 = KB::CandidateFilterFlags::candidate_filter_flag_type(v10, v11);
-      v23 = &kGenericFlagDesc;
-      if (v22 == 1)
+      v23 = KB::CandidateFilterFlags::candidate_filter_flag_type(v10, v11);
+      v24 = &kGenericFlagDesc;
+      if (v23 == 1)
       {
-        v23 = &kPostLMFlagDesc;
+        v24 = &kPostLMFlagDesc;
       }
 
-      if (v22)
+      if (v23)
       {
-        v24 = v23;
+        v25 = v24;
       }
 
       else
       {
-        v24 = &kPreLMFlagDesc;
+        v25 = &kPreLMFlagDesc;
       }
 
-      KB::String::String(&v59, v24);
-      v25 = *(v12 + 76);
-      v26 = *(v8 + 16);
+      KB::String::String(&v59, v25);
+      v26 = *(v12 + 76);
+      v27 = *(v8 + 16);
       cf = 0;
-      (*(*v25 + 24))(v25, v26, 4, &v59, v42, Mutable, v7, &cf, v28);
+      (*(*v26 + 24))(v26, v27, 4, &v59, v42, Mutable, v7, &cf, v28);
       if (cf)
       {
         CFRelease(cf);
@@ -7934,8 +7847,6 @@ void std::__function::__func<TIInputManager::candidates_for_string(KB::String co
   {
     operator delete(v10);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 __n128 std::__function::__func<TIInputManager::candidates_for_string(KB::String const&,TIShiftContext)::$_0,std::allocator<TIInputManager::candidates_for_string(KB::String const&,TIShiftContext)::$_0>,void ()(KB::CandidateCollection &,KB::CandidateFilterFlags,BOOL)>::__clone(uint64_t a1, uint64_t a2)
@@ -7947,11 +7858,11 @@ __n128 std::__function::__func<TIInputManager::candidates_for_string(KB::String 
   return result;
 }
 
-void TIInputManager::predictions_for_string(TIInputManager *a1, uint64_t a2, int a3)
+void TIInputManager::predictions_for_string(TIInputManager *a1, unsigned __int16 *a2, uint64_t a3)
 {
   v4 = *MEMORY[0x277D85DE8];
   v3 = a3;
-  TIInputManager::create_autocorrection_engine(a1);
+  TIInputManager::create_autocorrection_engine();
 }
 
 void std::__function::__func<TIInputManager::predictions_for_string(KB::String const&,KB::LookupType)::$_0,std::allocator<TIInputManager::predictions_for_string(KB::String const&,KB::LookupType)::$_0>,void ()(KB::CandidateCollection &,KB::CandidateFilterFlags,BOOL)>::operator()(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
@@ -8247,41 +8158,41 @@ void std::__function::__func<TIInputManager::predictions_for_string(KB::String c
     }
 
     TIInputManager::apply_case_changes(v11, v51, &v60, -858993459 * ((v61 - v39) >> 3), 0, 0);
-    TIInputManager::apply_shortcut_conversions(v11, v51, v40, 0);
+    TIInputManager::apply_shortcut_conversions(v11, v51, v40, 0, v41);
     if (*(v11 + 608))
     {
-      v41 = Mutable;
-      v42 = KB::CandidateFilterFlags::candidate_filter_flag_type(v10, v49);
-      v43 = &kGenericFlagDesc;
-      if (v42 == 1)
+      v42 = Mutable;
+      v43 = KB::CandidateFilterFlags::candidate_filter_flag_type(v10, v49);
+      v44 = &kGenericFlagDesc;
+      if (v43 == 1)
       {
-        v43 = &kPostLMFlagDesc;
+        v44 = &kPostLMFlagDesc;
       }
 
-      if (v42)
+      if (v43)
       {
-        v44 = v43;
+        v45 = v44;
       }
 
       else
       {
-        v44 = &kPreLMFlagDesc;
+        v45 = &kPreLMFlagDesc;
       }
 
-      KB::String::String(&v111, v44);
+      KB::String::String(&v111, v45);
       (*(**(v11 + 224) + 488))(&cf);
-      v45 = *(v11 + 608);
-      v46 = *(v7 + 24);
-      v47 = cf;
+      v46 = *(v11 + 608);
+      v47 = *(v7 + 24);
+      v48 = cf;
       v56 = cf;
       if (cf)
       {
         CFRetain(cf);
-        v56 = v47;
+        v56 = v48;
       }
 
-      Mutable = v41;
-      (*(*v45 + 24))(v45, v46, 0, &v111, v80, v41, v51, &v56);
+      Mutable = v42;
+      (*(*v46 + 24))(v46, v47, 0, &v111, v80, v42, v51, &v56);
       if (v56)
       {
         CFRelease(v56);
@@ -8353,8 +8264,6 @@ void std::__function::__func<TIInputManager::predictions_for_string(KB::String c
   {
     operator delete(v10);
   }
-
-  v48 = *MEMORY[0x277D85DE8];
 }
 
 __n128 std::__function::__func<TIInputManager::predictions_for_string(KB::String const&,KB::LookupType)::$_0,std::allocator<TIInputManager::predictions_for_string(KB::String const&,KB::LookupType)::$_0>,void ()(KB::CandidateCollection &,KB::CandidateFilterFlags,BOOL)>::__clone(uint64_t a1, uint64_t a2)
@@ -8368,45 +8277,43 @@ __n128 std::__function::__func<TIInputManager::predictions_for_string(KB::String
 
 void TIInputManager::phrase_candidates_for_string(TIInputManager *this@<X0>, const KB::String *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
 {
-  KB::StaticDictionary::candidates_for_string(*(*(this + 33) + 16), a2, 0, a4);
+  KB::StaticDictionary::candidates_for_string(a4, *(*(this + 33) + 16), a2, 0);
   if (!a3 || KB::SetOnlySearchSupplementalLexiconForScope::s_shouldOnlySearchSupplementalLexicon == 1 && *(this + 144))
   {
     v8 = *(a4 + 8) - *a4;
-    v9 = *(this + 33);
-    v10 = *(v9 + 8);
-    KB::DynamicDictionary::retrieve_phrase_candidates(*(v9 + 24), a2);
-    v11 = *(a4 + 8);
-    v12 = (v8 + *a4);
-    if (v12 != v11)
+    KB::DynamicDictionary::retrieve_phrase_candidates(*(*(this + 33) + 24), a2, *(*(this + 33) + 8), a3 ^ 1, a4);
+    v9 = *(a4 + 8);
+    v10 = (v8 + *a4);
+    if (v10 != v9)
     {
-      v14 = *(this + 33);
+      v12 = *(this + 33);
       while (2)
       {
-        KB::DictionaryContainer::lookup(v14, &v31);
-        for (i = v31; i != v32; i += 120)
+        KB::DictionaryContainer::lookup(&v29, v12, v10);
+        for (i = v29; i != v30; i = (i + 240))
         {
           if (!*(i + 28))
           {
             goto LABEL_50;
           }
 
-          v16 = *(i + 1);
-          if (!v16)
+          v14 = *(i + 1);
+          if (!v14)
           {
-            v16 = i + 8;
+            v14 = i + 16;
           }
 
-          v17 = *i;
+          v15 = *i;
           if (*i)
           {
-            v18 = *i;
-            v19 = v16;
-            while (*v19 != 45)
+            v16 = *i;
+            v17 = v14;
+            while (*v17 != 45)
             {
-              ++v19;
-              if (!--v18)
+              ++v17;
+              if (!--v16)
               {
-                v19 = &v17[v16];
+                v17 = &v15[v14];
                 break;
               }
             }
@@ -8414,55 +8321,55 @@ void TIInputManager::phrase_candidates_for_string(TIInputManager *this@<X0>, con
 
           else
           {
-            v19 = v16;
+            v17 = v14;
           }
 
-          if ((v19 - v16) == v17)
+          if ((v17 - v14) == v15)
           {
 LABEL_50:
-            if ((i[53] & 4) != 0 || *(i + 31))
+            if ((*(i + 106) & 4) != 0 || *(i + 31))
             {
-              v33 = &v31;
-              std::vector<KB::Word>::__destroy_vector::operator()[abi:nn200100](&v33);
-              v13 = v11;
-              if (v12 != v11)
+              v31 = &v29;
+              std::vector<KB::Word>::__destroy_vector::operator()[abi:nn200100](&v31);
+              v11 = v9;
+              if (v10 != v9)
               {
-                v20 = (v12 + 240);
-                if ((v12 + 240) == v11)
+                v18 = (v10 + 240);
+                if ((v10 + 240) == v9)
                 {
-                  v13 = v12;
+                  v11 = v10;
                 }
 
                 else
                 {
-                  v13 = v12;
+                  v11 = v10;
                   do
                   {
-                    v21 = v20;
-                    KB::DictionaryContainer::lookup(v14, &v31);
-                    for (j = v31; ; j += 120)
+                    v19 = v18;
+                    KB::DictionaryContainer::lookup(&v29, v12, v18);
+                    for (j = v29; ; j = (j + 240))
                     {
-                      if (j == v32)
+                      if (j == v30)
                       {
-                        v33 = &v31;
-                        std::vector<KB::Word>::__destroy_vector::operator()[abi:nn200100](&v33);
-                        KB::String::operator=(v13, v21);
-                        KB::ByteString::operator=((v13 + 32), v12 + 136);
-                        v27 = *(v12 + 36);
-                        *(v13 + 56) = *(v12 + 74);
-                        *(v13 + 48) = v27;
-                        KB::String::operator=(v13 + 64, (v12 + 304));
-                        v28 = *(v12 + 21);
-                        v29 = *(v12 + 22);
-                        v30 = *(v12 + 24);
-                        *(v13 + 128) = *(v12 + 23);
-                        *(v13 + 144) = v30;
-                        *(v13 + 96) = v28;
-                        *(v13 + 112) = v29;
-                        KB::String::operator=(v13 + 160, (v12 + 400));
-                        *(v13 + 192) = *(v12 + 432);
-                        std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__move_assign(v13 + 200, v12 + 55);
-                        v13 += 240;
+                        v31 = &v29;
+                        std::vector<KB::Word>::__destroy_vector::operator()[abi:nn200100](&v31);
+                        KB::String::operator=(v11, v19);
+                        KB::ByteString::operator=((v11 + 32), v10 + 136);
+                        v25 = *(v10 + 36);
+                        *(v11 + 56) = *(v10 + 74);
+                        *(v11 + 48) = v25;
+                        KB::String::operator=(v11 + 64, (v10 + 304));
+                        v26 = *(v10 + 21);
+                        v27 = *(v10 + 22);
+                        v28 = *(v10 + 24);
+                        *(v11 + 128) = *(v10 + 23);
+                        *(v11 + 144) = v28;
+                        *(v11 + 96) = v26;
+                        *(v11 + 112) = v27;
+                        KB::String::operator=(v11 + 160, (v10 + 400));
+                        *(v11 + 192) = *(v10 + 432);
+                        std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__move_assign(v11 + 200, v10 + 55);
+                        v11 += 240;
                         goto LABEL_44;
                       }
 
@@ -8471,23 +8378,23 @@ LABEL_50:
                         goto LABEL_51;
                       }
 
-                      v23 = *(j + 1);
-                      if (!v23)
+                      v21 = *(j + 1);
+                      if (!v21)
                       {
-                        v23 = j + 8;
+                        v21 = j + 16;
                       }
 
-                      v24 = *j;
+                      v22 = *j;
                       if (*j)
                       {
-                        v25 = *j;
-                        v26 = v23;
-                        while (*v26 != 45)
+                        v23 = *j;
+                        v24 = v21;
+                        while (*v24 != 45)
                         {
-                          ++v26;
-                          if (!--v25)
+                          ++v24;
+                          if (!--v23)
                           {
-                            v26 = &v24[v23];
+                            v24 = &v22[v21];
                             break;
                           }
                         }
@@ -8495,27 +8402,27 @@ LABEL_50:
 
                       else
                       {
-                        v26 = v23;
+                        v24 = v21;
                       }
 
-                      if ((v26 - v23) == v24)
+                      if ((v24 - v21) == v22)
                       {
 LABEL_51:
-                        if ((j[53] & 4) != 0 || *(j + 31))
+                        if ((*(j + 106) & 4) != 0 || *(j + 31))
                         {
                           break;
                         }
                       }
                     }
 
-                    v33 = &v31;
-                    std::vector<KB::Word>::__destroy_vector::operator()[abi:nn200100](&v33);
+                    v31 = &v29;
+                    std::vector<KB::Word>::__destroy_vector::operator()[abi:nn200100](&v31);
 LABEL_44:
-                    v20 = (v21 + 240);
-                    v12 = v21;
+                    v18 = (v19 + 240);
+                    v10 = v19;
                   }
 
-                  while ((v21 + 240) != v11);
+                  while ((v19 + 240) != v9);
                 }
               }
 
@@ -8524,10 +8431,10 @@ LABEL_44:
           }
         }
 
-        v33 = &v31;
-        std::vector<KB::Word>::__destroy_vector::operator()[abi:nn200100](&v33);
-        v12 = (v12 + 240);
-        if (v12 != v11)
+        v31 = &v29;
+        std::vector<KB::Word>::__destroy_vector::operator()[abi:nn200100](&v31);
+        v10 = (v10 + 240);
+        if (v10 != v9)
         {
           continue;
         }
@@ -8536,9 +8443,9 @@ LABEL_44:
       }
     }
 
-    v13 = v11;
+    v11 = v9;
 LABEL_47:
-    std::vector<KB::Word>::erase(a4, v13, *(a4 + 8));
+    std::vector<KB::Word>::erase(a4, v11, *(a4 + 8));
   }
 }
 
@@ -8548,214 +8455,213 @@ void TIInputManager::phrase_completed_by_word(uint64_t a1@<X0>, KB::String *a2@<
   if (!*a2)
   {
     bzero(a7, 0x3E8uLL);
-    v13 = *MEMORY[0x277D85DE8];
 
     KB::Candidate::Candidate(a7);
     return;
   }
 
   TIInputManager::input_substring((a1 + 8), 0, *(a1 + 96), buf);
-  v12 = buf == a2 || KB::String::equal(a2, buf, 1);
+  v14 = buf == a2 || KB::String::equal(a2, buf, 1, v12, v13);
   if (*&buf[8] && buf[6] == 1)
   {
     free(*&buf[8]);
   }
 
-  TIInputManager::tokenize_input_context(a2, &v74);
-  v73 = 0.0;
-  v66 = a7;
-  if ((KB::LanguageModelContext::is_linguistically_void((a1 + 472)) & 1) == 0 && (v14 = *(a1 + 272)) != 0 && (*(*v14 + 16))(v14))
+  TIInputManager::tokenize_input_context(a2, &v76);
+  v75 = 0.0;
+  v68 = a7;
+  if ((KB::LanguageModelContext::is_linguistically_void((a1 + 472)) & 1) == 0 && (v15 = *(a1 + 272)) != 0 && (*(*v15 + 16))(v15))
   {
-    v15 = (*(**(a1 + 272) + 448))(*(a1 + 272), a1 + 472, &v73);
+    v16 = (*(**(a1 + 272) + 448))(*(a1 + 272), a1 + 472, &v75);
   }
 
   else
   {
-    v15 = 0;
+    v16 = 0;
   }
 
-  TIInputManager::tokenize_input_context((a1 + 440), &v71);
-  v16 = *(a1 + 576);
-  v17 = v71;
-  if (v16)
+  TIInputManager::tokenize_input_context((a1 + 440), &v73);
+  v17 = *(a1 + 576);
+  v18 = v73;
+  if (v17)
   {
-    v18 = v72[0];
-    KB::String::String(buf, v16);
-    if (v17 != v18 && v17 != buf)
+    v19 = v74[0];
+    KB::String::String(buf, v17);
+    if (v18 != v19 && v18 != buf)
     {
       do
       {
-        if (KB::String::equal(v17, buf, 1))
+        if (KB::String::equal(v18, buf, 1, v20, v21))
         {
           break;
         }
 
-        v17 = (v17 + 32);
-        if (v17 == v18)
+        v18 = (v18 + 32);
+        if (v18 == v19)
         {
           break;
         }
       }
 
-      while (v17 != buf);
+      while (v18 != buf);
     }
 
-    if (v17 != v18)
+    if (v18 != v19)
     {
-      for (i = (v17 + 32); i != v18; i = (i + 32))
+      for (i = (v18 + 32); i != v19; i = (i + 32))
       {
-        if (i != buf && !KB::String::equal(i, buf, 1))
+        if (i != buf && !KB::String::equal(i, buf, 1, v20, v21))
         {
-          KB::String::operator=(v17, i);
-          v17 = (v17 + 32);
+          KB::String::operator=(v18, i);
+          v18 = (v18 + 32);
         }
       }
     }
 
-    v20 = v72[0];
-    if (v17 != v72[0])
+    v23 = v74[0];
+    if (v18 != v74[0])
     {
-      while (v20 != v17)
+      while (v23 != v18)
       {
-        v21 = *(v20 - 3);
-        if (v21 && *(v20 - 26) == 1)
+        v24 = *(v23 - 3);
+        if (v24 && *(v23 - 26) == 1)
         {
-          free(v21);
+          free(v24);
         }
 
-        v20 = (v20 - 32);
+        v23 = (v23 - 32);
       }
 
-      v72[0] = v17;
+      v74[0] = v18;
     }
 
     if (*&buf[8])
     {
-      v22 = buf[6] == 1;
+      v25 = buf[6] == 1;
     }
 
     else
     {
-      v22 = 0;
+      v25 = 0;
     }
 
-    if (v22)
+    if (v25)
     {
       free(*&buf[8]);
     }
 
-    v17 = v71;
+    v18 = v73;
   }
 
-  v24 = v74;
-  v23 = v75;
-  v25 = v75 - v74;
-  v26 = (v75 - v74) >> 5;
-  if (v26 >= 1)
+  v27 = v76;
+  v26 = v77;
+  v28 = v77 - v76;
+  v29 = (v77 - v76) >> 5;
+  if (v29 >= 1)
   {
-    v27 = a5;
-    v28 = v72[0];
-    if (v72[1] - v72[0] >= v25)
+    v30 = a5;
+    v31 = v74[0];
+    if (v74[1] - v74[0] >= v28)
     {
-      while (v24 != v23)
+      while (v27 != v26)
       {
-        KB::String::String(v28, v24);
-        v24 = (v24 + 32);
-        v28 = (v28 + 32);
+        KB::String::String(v31, v27);
+        v27 = (v27 + 32);
+        v31 = (v31 + 32);
       }
 
-      v72[0] = v28;
+      v74[0] = v31;
     }
 
     else
     {
-      v29 = v26 + ((v72[0] - v17) >> 5);
-      if (v29 >> 59)
+      v32 = v29 + ((v74[0] - v18) >> 5);
+      if (v32 >> 59)
       {
         std::vector<unsigned long>::__throw_length_error[abi:nn200100]();
       }
 
-      v30 = v72[1] - v17;
-      if ((v72[1] - v17) >> 4 > v29)
+      v33 = v74[1] - v18;
+      if ((v74[1] - v18) >> 4 > v32)
       {
-        v29 = v30 >> 4;
+        v32 = v33 >> 4;
       }
 
-      if (v30 >= 0x7FFFFFFFFFFFFFE0)
+      if (v33 >= 0x7FFFFFFFFFFFFFE0)
       {
-        v31 = 0x7FFFFFFFFFFFFFFLL;
+        v34 = 0x7FFFFFFFFFFFFFFLL;
       }
 
       else
       {
-        v31 = v29;
+        v34 = v32;
       }
 
-      *&buf[32] = &v71;
-      if (v31)
+      *&buf[32] = &v73;
+      if (v34)
       {
-        std::__allocate_at_least[abi:nn200100]<std::allocator<KB::String>>(v31);
+        std::__allocate_at_least[abi:nn200100]<std::allocator<KB::String>>(v34);
       }
 
-      v32 = (32 * ((v72[0] - v17) >> 5));
+      v35 = (32 * ((v74[0] - v18) >> 5));
       *buf = 0;
-      *&buf[8] = v32;
+      *&buf[8] = v35;
       *&buf[24] = 0;
-      v33 = v32 + v25;
+      v36 = v35 + v28;
       do
       {
-        v32 = (KB::String::String(v32, v24) + 32);
-        v24 = (v24 + 32);
-        v25 -= 32;
+        v35 = (KB::String::String(v35, v27) + 32);
+        v27 = (v27 + 32);
+        v28 -= 32;
       }
 
-      while (v25);
-      *&buf[16] = v33;
-      std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<KB::String>,KB::String*>(v28, v72[0], v33);
-      *&buf[16] += v72[0] - v28;
-      v72[0] = v28;
-      v34 = (*&buf[8] + v71 - v28);
-      std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<KB::String>,KB::String*>(v71, v28, v34);
-      v35 = v71;
-      v36 = v72[1];
-      v71 = v34;
-      *v72 = *&buf[16];
-      *&buf[16] = v35;
-      *&buf[24] = v36;
-      *buf = v35;
-      *&buf[8] = v35;
+      while (v28);
+      *&buf[16] = v36;
+      std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<KB::String>,KB::String*>(v31, v74[0], v36);
+      *&buf[16] += v74[0] - v31;
+      v74[0] = v31;
+      v37 = (*&buf[8] + v73 - v31);
+      std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<KB::String>,KB::String*>(v73, v31, v37);
+      v38 = v73;
+      v39 = v74[1];
+      v73 = v37;
+      *v74 = *&buf[16];
+      *&buf[16] = v38;
+      *&buf[24] = v39;
+      *buf = v38;
+      *&buf[8] = v38;
       std::__split_buffer<KB::String>::~__split_buffer(buf);
     }
 
-    a5 = v27;
+    a5 = v30;
   }
 
-  v63 = a6;
-  v65 = v12;
-  if (v12)
+  v65 = a6;
+  v67 = v14;
+  if (v14)
   {
-    v37 = 1;
+    v40 = 1;
   }
 
   else
   {
-    v37 = (v75 - v74) >> 5;
+    v40 = (v77 - v76) >> 5;
   }
 
-  if (v37 > 4)
+  if (v40 > 4)
   {
 LABEL_134:
-    bzero(v66, 0x3E8uLL);
-    KB::Candidate::Candidate(v66);
+    bzero(v68, 0x3E8uLL);
+    KB::Candidate::Candidate(v68);
     goto LABEL_135;
   }
 
-  v38 = 4;
-  v64 = a5;
-  while (v38 > (v72[0] - v71) >> 5 || v38 == 1 && !a5)
+  v41 = 4;
+  v66 = a5;
+  while (v41 > (v74[0] - v73) >> 5 || v41 == 1 && !a5)
   {
 LABEL_133:
-    if (v37 > --v38)
+    if (v40 > --v41)
     {
       goto LABEL_134;
     }
@@ -8766,7 +8672,7 @@ LABEL_133:
   buf[6] = 0;
   *&buf[8] = 0;
   buf[16] = 0;
-  KB::string_join(v72[0] - 16 * v38, v72[0], buf, v102);
+  KB::string_join(&v103, v74[0] - 4 * v41, v74[0], buf);
   if (*&buf[8] && buf[6] == 1)
   {
     free(*&buf[8]);
@@ -8774,24 +8680,24 @@ LABEL_133:
 
   if (v104)
   {
-    v39 = v104;
+    v42 = v104;
   }
 
   else
   {
-    v39 = v105;
+    v42 = v105;
   }
 
-  if (v102[0])
+  if (v103)
   {
-    v40 = v102[0];
-    v41 = v39;
-    while (*v41 != 10)
+    v43 = v103;
+    v44 = v42;
+    while (*v44 != 10)
     {
-      ++v41;
-      if (!--v40)
+      ++v44;
+      if (!--v43)
       {
-        v41 = v39 + v102[0];
+        v44 = v42 + v103;
         break;
       }
     }
@@ -8799,12 +8705,12 @@ LABEL_133:
 
   else
   {
-    v41 = v39;
+    v44 = v42;
   }
 
-  if (v41 - v39 != v102[0])
+  if (v44 - v42 != v103)
   {
-    if (v104 && v103 == 1)
+    if (v104 && BYTE6(v103) == 1)
     {
       free(v104);
     }
@@ -8812,66 +8718,66 @@ LABEL_133:
     goto LABEL_133;
   }
 
-  TIInputManager::phrase_candidates_for_string(a1, v102, a5, &v69);
-  if (v69 == v70)
+  TIInputManager::phrase_candidates_for_string(a1, &v103, a5, &v71);
+  if (v71 == v72)
   {
     goto LABEL_129;
   }
 
-  if (v65)
+  if (v67)
   {
-    KB::String::operator=(a3, v102);
+    KB::String::operator=(a3, &v103);
   }
 
   else
   {
-    v96.lexicon_id = 0x100000;
-    LOWORD(v96.word_id) = 0;
-    BYTE2(v96.word_id) = 0;
-    v97 = 0;
-    v98 = 0;
-    KB::string_join(v72[0] - 16 * v38, (v74 + v72[0] - v75), &v96, v99);
-    TIInputManager::input_substring((a1 + 8), 0, *(a1 + 96), v93);
-    KB::String::String(buf, v99);
-    KB::String::append(buf, v93);
+    v98.lexicon_id = 0x100000;
+    LOWORD(v98.word_id) = 0;
+    BYTE2(v98.word_id) = 0;
+    v99 = 0;
+    v100 = 0;
+    KB::string_join(&v101, v74[0] - 4 * v41, (v76 + v74[0] - v77), &v98);
+    TIInputManager::input_substring((a1 + 8), 0, *(a1 + 96), v95);
+    KB::String::String(buf, &v101);
+    KB::String::append(buf, v95);
     KB::String::operator=(a3, buf);
     if (*&buf[8] && buf[6] == 1)
     {
       free(*&buf[8]);
     }
 
-    if (v95 && v94 == 1)
-    {
-      free(v95);
-    }
-
-    if (v101 && v100 == 1)
-    {
-      free(v101);
-    }
-
-    if (v97 && BYTE2(v96.word_id) == 1)
+    if (v97 && v96 == 1)
     {
       free(v97);
     }
+
+    if (v102 && BYTE6(v101) == 1)
+    {
+      free(v102);
+    }
+
+    if (v99 && BYTE2(v98.word_id) == 1)
+    {
+      free(v99);
+    }
   }
 
-  v43 = v69;
-  v42 = v70;
-  if (v69 == v70)
+  v46 = v71;
+  v45 = v72;
+  if (v71 == v72)
   {
 LABEL_129:
-    *buf = &v69;
+    *buf = &v71;
     std::vector<KB::Word>::__destroy_vector::operator()[abi:nn200100](buf);
     if (v104)
     {
-      if (v103 == 1)
+      if (BYTE6(v103) == 1)
       {
         free(v104);
       }
     }
 
-    a5 = v64;
+    a5 = v66;
     goto LABEL_133;
   }
 
@@ -8879,62 +8785,62 @@ LABEL_129:
   {
     *buf = &unk_283FDCF10;
     *&buf[8] = 1;
-    if (!KB::InputSegmentFilter::string_preserves_surface_form_features(buf, v43, v102, 0, 0))
+    if (!KB::InputSegmentFilter::string_preserves_surface_form_features(buf, v46, &v103, 0, 0))
     {
       goto LABEL_123;
     }
 
-    v45 = *(v43 + 136);
-    if (v15 != v45 && v45 != 0 && v15 != 0)
+    v48 = *(v46 + 136);
+    if (v16 != v48 && v48 != 0 && v16 != 0)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
       {
-        v52 = "";
-        if (*v43)
+        v55 = "";
+        if (*v46)
         {
-          v52 = *(v43 + 8);
-          if (!v52)
+          v55 = *(v46 + 8);
+          if (!v55)
           {
-            v52 = (v43 + 16);
+            v55 = (v46 + 16);
           }
         }
 
         *buf = 136316162;
         *&buf[4] = "phrase_completed_by_word";
         *&buf[12] = 2080;
-        *&buf[14] = v52;
+        *&buf[14] = v55;
         *&buf[22] = 1024;
-        *&buf[24] = v45;
+        *&buf[24] = v48;
         *&buf[28] = 1024;
-        *&buf[30] = v15;
+        *&buf[30] = v16;
         *&buf[34] = 2048;
-        *&buf[36] = v73;
+        *&buf[36] = v75;
         _os_log_debug_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%s  Phrase candidate  %s was found but is not from the most probable lexicon (word.lexicon_id = %d, current_lexicon_id = %d; language confidence = %f)", buf, 0x2Cu);
       }
 
       goto LABEL_123;
     }
 
-    v48 = *(v43 + 104);
-    if ((v48 & 0x800012) != 0 || (*(v43 + 104) & 0x2080) == 0x80 || (v48 & 0x2042000) == 0x2000000)
+    v51 = *(v46 + 104);
+    if ((v51 & 0x800012) != 0 || (*(v46 + 104) & 0x2080) == 0x80 || (v51 & 0x2042000) == 0x2000000)
     {
       if (a4)
       {
-        KB::String::String(v76, a3);
-        v78 = 1;
-        create_candidate_from_word(v66, v43, v76);
-        if (v78 != 1)
+        KB::String::String(v78, a3);
+        v80 = 1;
+        create_candidate_from_word(v68, v46, v78);
+        if (v80 != 1)
         {
           goto LABEL_178;
         }
 
-        v58 = v77;
-        if (!v77)
+        v60 = v79;
+        if (!v79)
         {
           goto LABEL_178;
         }
 
-        v59 = v76[6];
+        v61 = v78[6];
         goto LABEL_160;
       }
 
@@ -8943,192 +8849,191 @@ LABEL_129:
 
     if (*(a1 + 731) != 1)
     {
-      v54 = TILocaleIdentifierForLexiconID(*(v43 + 136));
-      KB::string_to_lowercase(v43, v54, v99);
-      v96 = *(v43 + 136);
-      KB::Word::Word(buf, v99, &v96, 0);
-      if (v101 && v100 == 1)
+      v56 = TILocaleIdentifierForLexiconID(*(v46 + 136));
+      KB::string_to_lowercase(&v101, v46, v56);
+      v98 = *(v46 + 136);
+      KB::Word::Word(buf, &v101, &v98, 0);
+      if (v102 && BYTE6(v101) == 1)
       {
-        free(v101);
+        free(v102);
       }
 
-      v56 = KB::string_capitalization(a3, v55);
-      v57 = v85 & 0xFFFFFFFE;
-      if (v56 == 1)
+      v58 = KB::string_capitalization(a3, v57);
+      v59 = v87 & 0xFFFFFFFE;
+      if (v58 == 1)
       {
-        ++v57;
+        ++v59;
       }
 
-      v86 = v56;
-      v85 = v57;
-      KB::Word::capitalized_string(buf, v99);
-      v79 = 0x100000;
-      v80 = 0;
-      v81 = 0;
+      v88 = v58;
+      v87 = v59;
+      KB::Word::capitalized_string(&v101, buf);
+      v81 = 0x100000;
       v82 = 0;
-      KB::String::operator=(&v79, v99);
-      v83 = 1;
-      create_candidate_from_word(v66, v43, &v79);
-      if (v83 == 1 && v82 && v81 == 1)
+      v83 = 0;
+      v84 = 0;
+      KB::String::operator=(&v81, &v101);
+      v85 = 1;
+      create_candidate_from_word(v68, v46, &v81);
+      if (v85 == 1 && v84 && v83 == 1)
       {
-        free(v82);
+        free(v84);
       }
 
-      if (v101 && v100 == 1)
+      if (v102 && BYTE6(v101) == 1)
       {
-        free(v101);
+        free(v102);
       }
 
       KB::Word::~Word(buf);
       goto LABEL_178;
     }
 
-    if (*(v43 + 224) && KB::CollatorWrapper::sortkey_starts_with((*(*(a1 + 264) + 8) + 72), v43, a3))
+    if (*(v46 + 224) && KB::CollatorWrapper::sortkey_starts_with((*(*(a1 + 264) + 8) + 72), v46, a3))
     {
       break;
     }
 
-    if (v38 == 1 && !*a3)
+    if (v41 == 1 && !*a3)
     {
-      TIInputManager::apply_shift_context_to_prediction(a1, v63, v43);
+      TIInputManager::apply_shift_context_to_prediction(a1, v65, v46);
       goto LABEL_157;
     }
 
-    v49 = KB::string_capitalization(a3, v44);
-    v50 = *(v43 + 120);
-    if ((v49 & ~v50) == 0)
+    v52 = KB::string_capitalization(a3, v47);
+    v53 = *(v46 + 120);
+    if ((v52 & ~v53) == 0)
     {
       goto LABEL_157;
     }
 
-    if ((v49 & ~v50) == 1)
+    if ((v52 & ~v53) == 1)
     {
-      v60 = *(v43 + 104);
-      if ((v60 & 0x20) == 0)
+      v62 = *(v46 + 104);
+      if ((v62 & 0x20) == 0)
       {
-        *(v43 + 120) = v50 | 1;
-        v61 = v50 >= 2;
-        v62 = v60 & 0xFFFFFFDE;
-        if (!v61)
+        *(v46 + 120) = v53 | 1;
+        v63 = v53 >= 2;
+        v64 = v62 & 0xFFFFFFDE;
+        if (!v63)
         {
-          ++v62;
+          ++v64;
         }
 
-        *(v43 + 104) = v62;
+        *(v46 + 104) = v64;
       }
 
 LABEL_157:
-      v87[0] = 0;
-      v89 = 0;
-      create_candidate_from_word(v66, v43, v87);
-      if (v89 != 1)
+      v89[0] = 0;
+      v91 = 0;
+      create_candidate_from_word(v68, v46, v89);
+      if (v91 != 1)
       {
         goto LABEL_178;
       }
 
-      v58 = v88;
-      if (!v88)
+      v60 = v90;
+      if (!v90)
       {
         goto LABEL_178;
       }
 
-      v59 = v87[6];
+      v61 = v89[6];
 LABEL_160:
-      if (v59 == 1)
+      if (v61 == 1)
       {
-        free(v58);
+        free(v60);
       }
 
       goto LABEL_178;
     }
 
 LABEL_123:
-    v43 += 240;
-    if (v43 == v42)
+    v46 += 240;
+    if (v46 == v45)
     {
       goto LABEL_129;
     }
   }
 
-  if (!v65)
+  if (!v67)
   {
-    v96.lexicon_id = 0x100000;
-    LOWORD(v96.word_id) = 0;
-    BYTE2(v96.word_id) = 0;
-    v97 = 0;
-    v98 = 0;
-    KB::string_join(v72[0] - 16 * v38, (v74 + v72[0] - v75), &v96, v99);
-    TIInputManager::input_substring((a1 + 8), 0, -858993459 * ((*(a1 + 16) - *(a1 + 8)) >> 3), v93);
-    KB::String::String(buf, v99);
-    KB::String::append(buf, v93);
+    v98.lexicon_id = 0x100000;
+    LOWORD(v98.word_id) = 0;
+    BYTE2(v98.word_id) = 0;
+    v99 = 0;
+    v100 = 0;
+    KB::string_join(&v101, v74[0] - 4 * v41, (v76 + v74[0] - v77), &v98);
+    TIInputManager::input_substring((a1 + 8), 0, -858993459 * ((*(a1 + 16) - *(a1 + 8)) >> 3), v95);
+    KB::String::String(buf, &v101);
+    KB::String::append(buf, v95);
     KB::String::operator=(a3, buf);
     if (*&buf[8] && buf[6] == 1)
     {
       free(*&buf[8]);
     }
 
-    if (v95 && v94 == 1)
-    {
-      free(v95);
-    }
-
-    if (v101 && v100 == 1)
-    {
-      free(v101);
-    }
-
-    if (v97 && BYTE2(v96.word_id) == 1)
+    if (v97 && v96 == 1)
     {
       free(v97);
     }
+
+    if (v102 && BYTE6(v101) == 1)
+    {
+      free(v102);
+    }
+
+    if (v99 && BYTE2(v98.word_id) == 1)
+    {
+      free(v99);
+    }
   }
 
-  v90[0] = 0;
-  v92 = 0;
-  create_candidate_from_word(v66, v43, v90);
-  if (v92 == 1)
+  v92[0] = 0;
+  v94 = 0;
+  create_candidate_from_word(v68, v46, v92);
+  if (v94 == 1)
   {
-    v58 = v91;
-    if (v91)
+    v60 = v93;
+    if (v93)
     {
-      v59 = v90[6];
+      v61 = v92[6];
       goto LABEL_160;
     }
   }
 
 LABEL_178:
-  *buf = &v69;
+  *buf = &v71;
   std::vector<KB::Word>::__destroy_vector::operator()[abi:nn200100](buf);
-  if (v104 && v103 == 1)
+  if (v104 && BYTE6(v103) == 1)
   {
     free(v104);
   }
 
 LABEL_135:
-  *buf = &v71;
+  *buf = &v73;
   std::vector<KB::String>::__destroy_vector::operator()[abi:nn200100](buf);
-  *buf = &v74;
+  *buf = &v76;
   std::vector<KB::String>::__destroy_vector::operator()[abi:nn200100](buf);
-  v53 = *MEMORY[0x277D85DE8];
 }
 
 void create_candidate_from_word(KB::Candidate *a1, uint64_t a2, KB::String *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (*(a3 + 32) == 1)
   {
-    KB::String::String(v12, a3);
+    KB::String::String(&v11, a3);
   }
 
   else
   {
-    KB::Word::capitalized_string(a2, v12);
+    KB::Word::capitalized_string(&v11, a2);
   }
 
-  KB::Candidate::Candidate(a1, v12, 0);
-  if (v13)
+  KB::Candidate::Candidate(a1, &v11, 0);
+  if (v12)
   {
-    v5 = v12[6] == 1;
+    v5 = BYTE6(v11) == 1;
   }
 
   else
@@ -9138,7 +9043,7 @@ void create_candidate_from_word(KB::Candidate *a1, uint64_t a2, KB::String *a3)
 
   if (v5)
   {
-    free(v13);
+    free(v12);
   }
 
   if ((*(a2 + 105) & 1) != 0 && *a1)
@@ -9177,8 +9082,6 @@ void create_candidate_from_word(KB::Candidate *a1, uint64_t a2, KB::String *a3)
       while (v10);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t std::__split_buffer<KB::String>::~__split_buffer(uint64_t a1)
@@ -9248,9 +9151,9 @@ void std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<KB::St
   }
 }
 
-uint64_t TIInputManager::word_has_surface_form(TIInputManager *this, const KB::Word *a2)
+BOOL TIInputManager::word_has_surface_form(TIInputManager *this, const KB::Word *a2)
 {
-  v30[2] = *MEMORY[0x277D85DE8];
+  v28[2] = *MEMORY[0x277D85DE8];
   {
     KB::String::String(&TIInputManager::word_has_surface_form(KB::Word const&)const::ko, "ko");
     __cxa_atexit(KB::String::~String, &TIInputManager::word_has_surface_form(KB::Word const&)const::ko, &dword_22CA55000);
@@ -9267,40 +9170,45 @@ uint64_t TIInputManager::word_has_surface_form(TIInputManager *this, const KB::W
   }
 
   v4 = *(this + 52);
-  if (TIInputManager::word_has_surface_form(KB::Word const&)const::ko <= v4 && (*(this + 14) ? (v5 = *(this + 14)) : (v5 = this + 120), qword_280FAC2C8 ? (v6 = qword_280FAC2C8) : (v6 = algn_280FAC2D0), !strncmp(v5, v6, TIInputManager::word_has_surface_form(KB::Word const&)const::ko)))
+  if (TIInputManager::word_has_surface_form(KB::Word const&)const::ko <= v4)
   {
-    is_tamil_script = 0;
+    v5 = *(this + 14) ? *(this + 14) : this + 120;
+    v6 = qword_280FAC2C8 ? qword_280FAC2C8 : algn_280FAC2D0;
+    if (!strncmp(v5, v6, TIInputManager::word_has_surface_form(KB::Word const&)const::ko))
+    {
+      return 0;
+    }
   }
 
-  else if (TIInputManager::word_has_surface_form(KB::Word const&)const::ta <= v4 && (*(this + 14) ? (v7 = *(this + 14)) : (v7 = this + 120), qword_280FAC2A8 ? (v8 = qword_280FAC2A8) : (v8 = algn_280FAC2B0), !strncmp(v7, v8, TIInputManager::word_has_surface_form(KB::Word const&)const::ta)))
+  if (TIInputManager::word_has_surface_form(KB::Word const&)const::ta <= v4 && (*(this + 14) ? (v7 = *(this + 14)) : (v7 = this + 120), qword_280FAC2A8 ? (v8 = qword_280FAC2A8) : (v8 = algn_280FAC2B0), !strncmp(v7, v8, TIInputManager::word_has_surface_form(KB::Word const&)const::ta)))
   {
-    KB::Word::capitalized_string(a2, v27);
-    v12 = v29;
-    if (v29)
+    KB::Word::capitalized_string(&v26, a2);
+    v12 = v27;
+    if (v27)
     {
-      v13 = v29;
+      v13 = v27;
     }
 
     else
     {
-      v13 = v30;
+      v13 = v28;
     }
 
-    *&v23 = v13;
-    v14 = v27[0];
-    DWORD2(v23) = 0;
-    HIDWORD(v23) = v27[0];
-    LODWORD(v24) = 0;
-    KB::String::iterator::initialize(&v23);
-    v19 = v13;
+    *&v22 = v13;
+    v14 = v26;
+    DWORD2(v22) = 0;
+    HIDWORD(v22) = v26;
+    LODWORD(v23) = 0;
+    KB::String::iterator::initialize(&v22);
+    v18 = v13;
+    v19 = v14;
     v20 = v14;
-    v21 = v14;
-    v22 = 0;
-    KB::String::iterator::initialize(&v19);
+    v21 = 0;
+    KB::String::iterator::initialize(&v18);
+    v24 = v22;
     v25 = v23;
-    v26 = v24;
-    v15 = v20;
-    if (DWORD2(v23) == v20)
+    v15 = v19;
+    if (DWORD2(v22) == v19)
     {
       is_tamil_script = 0;
     }
@@ -9315,16 +9223,16 @@ uint64_t TIInputManager::word_has_surface_form(TIInputManager *this, const KB::W
           break;
         }
 
-        KB::String::iterator::operator++(&v25);
+        KB::String::iterator::operator++(&v24);
       }
 
-      while (DWORD2(v25) != v15);
-      v12 = v29;
+      while (DWORD2(v24) != v15);
+      v12 = v27;
     }
 
     if (v12)
     {
-      v16 = v28 == 1;
+      v16 = BYTE6(v26) == 1;
     }
 
     else
@@ -9360,15 +9268,14 @@ uint64_t TIInputManager::word_has_surface_form(TIInputManager *this, const KB::W
       v11 = algn_280FAC290;
     }
 
-    is_tamil_script = strncmp(v10, v11, TIInputManager::word_has_surface_form(KB::Word const&)const::chr) != 0;
+    return strncmp(v10, v11, TIInputManager::word_has_surface_form(KB::Word const&)const::chr) != 0;
   }
 
   else
   {
-    is_tamil_script = 1;
+    return 1;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return is_tamil_script;
 }
 
@@ -9380,7 +9287,7 @@ uint64_t TIInputManager::dictionary_contains_word(TIInputManager *this, const KB
     return 0;
   }
 
-  KB::DictionaryContainer::lookup(v5, &v20);
+  KB::DictionaryContainer::lookup(&v20, v5, a2);
   v9 = v21;
   v10 = v20;
   if (v20 == v21)
@@ -9406,7 +9313,7 @@ uint64_t TIInputManager::dictionary_contains_word(TIInputManager *this, const KB
         break;
       }
 
-      v10 += 240;
+      v10 = (v10 + 240);
     }
 
     while (v10 != v9);
@@ -9430,11 +9337,11 @@ BOOL ___ZNK14TIInputManager24dictionary_contains_wordERKN2KB6StringES3_b_block_i
 
   v7 = *(a1 + v6);
   v8 = *(*(v4 + 33) + 8);
-  KB::Word::capitalized_string(a2, v18);
-  v10 = KB::CollatorWrapper::sortkey_compare_strings((v8 + 72), v18, v7, v9);
+  KB::Word::capitalized_string(&v19, a2);
+  v10 = KB::CollatorWrapper::sortkey_compare_strings((v8 + 72), &v19, v7, v9);
   if (v20)
   {
-    v11 = v19 == 1;
+    v11 = BYTE6(v19) == 1;
   }
 
   else
@@ -9447,83 +9354,78 @@ BOOL ___ZNK14TIInputManager24dictionary_contains_wordERKN2KB6StringES3_b_block_i
     free(v20);
   }
 
-  v16 = 0;
+  v17 = 0;
   if (v10)
   {
-    goto LABEL_15;
+    return 0;
   }
 
-  KB::Word::capitalized_string(a2, v18);
-  v17[1] = 1;
-  v17[0] = &unk_283FDCF10;
-  v12 = KB::InputSegmentFilter::string_preserves_surface_form_features(v17, v18, v7, &v16, 0);
-  if (v20 && v19 == 1)
+  KB::Word::capitalized_string(&v19, a2);
+  v18[1] = 1;
+  v18[0] = &unk_283FDCF10;
+  v12 = KB::InputSegmentFilter::string_preserves_surface_form_features(v18, &v19, v7, &v17, 0);
+  if (v20 && BYTE6(v19) == 1)
   {
     free(v20);
   }
 
-  if (!v12 || (v16 & 1) != 0)
+  if (!v12 || (v17 & 1) != 0)
   {
-LABEL_15:
-    v13 = 0;
+    return 0;
   }
 
-  else if (*(a1 + 56) == 1)
+  if (*(a1 + 56) != 1)
   {
-    KB::Word::capitalized_string(a2, v18);
-    v13 = v18 == v7 || KB::String::equal(v18, v7, 1);
-    if (v20 && v19 == 1)
-    {
-      free(v20);
-    }
+    return 1;
   }
 
-  else
+  KB::Word::capitalized_string(&v19, a2);
+  v13 = &v19 == v7 || KB::String::equal(&v19, v7, 1, v15, v16);
+  if (v20 && BYTE6(v19) == 1)
   {
-    v13 = 1;
+    free(v20);
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 void TIInputManager::matching_words_from_dictionary(TIInputManager *this@<X0>, const KB::String *a2@<X1>, const KB::String *a3@<X2>, char a4@<W3>, void *a5@<X8>)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   *a5 = 0;
   a5[1] = 0;
   a5[2] = 0;
   v7 = *(this + 33);
   if (v7)
   {
-    KB::DictionaryContainer::lookup(v7, &v22);
-    v11 = v23;
-    v12 = v22;
-    if (v22 != v23)
+    KB::DictionaryContainer::lookup(&v23, v7, a2);
+    v11 = v24;
+    v12 = v23;
+    if (v23 != v24)
     {
-      v26 = this;
-      KB::String::String(v27, a3);
-      KB::String::String(v29, a2);
-      v31 = a4;
+      v27 = this;
+      KB::String::String(v28, a3);
+      KB::String::String(v30, a2);
+      v32 = a4;
       do
       {
-        v13 = v26;
-        if (TIInputManager::word_has_surface_form(v26, v12))
+        v13 = v27;
+        if (TIInputManager::word_has_surface_form(v27, v12))
         {
-          v14 = v27;
+          v14 = v28;
         }
 
         else
         {
-          v14 = v29;
+          v14 = v30;
         }
 
         v15 = *(*(v13 + 33) + 8);
-        KB::Word::capitalized_string(v12, &v32);
-        v17 = KB::CollatorWrapper::sortkey_compare_strings((v15 + 72), &v32, v14, v16);
-        if (v33)
+        KB::Word::capitalized_string(&v33, v12);
+        v17 = KB::CollatorWrapper::sortkey_compare_strings((v15 + 72), &v33, v14, v16);
+        if (v34)
         {
-          v18 = BYTE6(v32) == 1;
+          v18 = BYTE6(v33) == 1;
         }
 
         else
@@ -9533,36 +9435,36 @@ void TIInputManager::matching_words_from_dictionary(TIInputManager *this@<X0>, c
 
         if (v18)
         {
-          free(v33);
+          free(v34);
         }
 
-        v24 = 0;
+        v25 = 0;
         if (!v17)
         {
-          KB::Word::capitalized_string(v12, &v32);
-          v25[0] = &unk_283FDCF10;
-          v25[1] = 1;
-          v19 = KB::InputSegmentFilter::string_preserves_surface_form_features(v25, &v32, v14, &v24, 0);
-          if (v33 && BYTE6(v32) == 1)
+          KB::Word::capitalized_string(&v33, v12);
+          v26[0] = &unk_283FDCF10;
+          v26[1] = 1;
+          v19 = KB::InputSegmentFilter::string_preserves_surface_form_features(v26, &v33, v14, &v25, 0);
+          if (v34 && BYTE6(v33) == 1)
           {
-            free(v33);
+            free(v34);
           }
 
-          if (v19 && (v24 & 1) == 0)
+          if (v19 && (v25 & 1) == 0)
           {
-            if ((v31 & 1) == 0)
+            if ((v32 & 1) == 0)
             {
               goto LABEL_24;
             }
 
-            KB::Word::capitalized_string(v12, &v32);
-            v20 = KB::String::equal(&v32, v14, 1);
-            if (v33 && BYTE6(v32) == 1)
+            KB::Word::capitalized_string(&v33, v12);
+            v22 = KB::String::equal(&v33, v14, 1, v20, v21);
+            if (v34 && BYTE6(v33) == 1)
             {
-              free(v33);
+              free(v34);
             }
 
-            if (v20)
+            if (v22)
             {
 LABEL_24:
               std::vector<KB::Word>::push_back[abi:nn200100](a5, v12);
@@ -9574,25 +9476,26 @@ LABEL_24:
       }
 
       while (v12 != v11);
-      if (v30 && v29[6] == 1)
+      if (v31 && v30[6] == 1)
       {
-        free(v30);
+        free(v31);
       }
 
-      if (v28 && v27[6] == 1)
+      if (v29)
       {
-        free(v28);
+        if (v28[6] == 1)
+        {
+          free(v29);
+        }
       }
     }
 
-    v32 = &v22;
-    std::vector<KB::Word>::__destroy_vector::operator()[abi:nn200100](&v32);
+    v33 = &v23;
+    std::vector<KB::Word>::__destroy_vector::operator()[abi:nn200100](&v33);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
-BOOL TIInputManager::is_input_hit_test_corrected(TIInputManager *this, unsigned int a2, unsigned int a3)
+uint64_t TIInputManager::is_input_hit_test_corrected(TIInputManager *this, unsigned int a2, unsigned int a3)
 {
   if (*(this + 24) >= a3)
   {
@@ -9628,19 +9531,17 @@ BOOL TIInputManager::is_input_hit_test_corrected(TIInputManager *this, unsigned 
   return v4 < v3;
 }
 
-uint64_t KB::FilterZeroProbability::filter_candidates(KB::FilterZeroProbability *this, KB::CandidateCollection *a2, const KB::CandidateFilterLookupContext *a3, const KB::CandidateFilterResources *a4)
+uint64_t KB::FilterZeroProbability::filter_candidates(KB::FilterZeroProbability *this, KB::Candidate **a2, const KB::CandidateFilterLookupContext *a3, const KB::CandidateFilterResources *a4)
 {
-  v8[4] = *MEMORY[0x277D85DE8];
+  v7[4] = *MEMORY[0x277D85DE8];
   v5 = *(a4 + 7);
-  v8[0] = &unk_283FD96F0;
-  v8[3] = v8;
-  KB::CandidateFilter::remove_candidates_satisfying_predicate(a2, v5, "FilterZeroProbability", v8);
-  result = std::__function::__value_func<BOOL ()(KB::Candidate const&,KB::String *)>::~__value_func[abi:nn200100](v8);
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  v7[0] = &unk_283FD96F0;
+  v7[3] = v7;
+  KB::CandidateFilter::remove_candidates_satisfying_predicate(a2, v5, "FilterZeroProbability", v7);
+  return std::__function::__value_func<BOOL ()(KB::Candidate const&,KB::String *)>::~__value_func[abi:nn200100](v7);
 }
 
-BOOL std::__function::__func<KB::FilterZeroProbability::filter_candidates(KB::CandidateCollection &,KB::CandidateFilterLookupContext const&,KB::CandidateFilterResources const&)::$_0,std::allocator<KB::FilterZeroProbability::filter_candidates(KB::CandidateCollection &,KB::CandidateFilterLookupContext const&,KB::CandidateFilterResources const&)::$_0>,BOOL ()(KB::Candidate const&,KB::String *)>::operator()(uint64_t a1, uint64_t a2, unsigned __int16 **a3)
+BOOL std::__function::__func<KB::FilterZeroProbability::filter_candidates(KB::CandidateCollection &,KB::CandidateFilterLookupContext const&,KB::CandidateFilterResources const&)::$_0,std::allocator<KB::FilterZeroProbability::filter_candidates(KB::CandidateCollection &,KB::CandidateFilterLookupContext const&,KB::CandidateFilterResources const&)::$_0>,BOOL ()(KB::Candidate const&,KB::String *)>::operator()(uint64_t a1, uint64_t a2, KB::String **a3)
 {
   v3 = *a3;
   v4 = expf(*(a2 + 744));
@@ -9653,19 +9554,17 @@ BOOL std::__function::__func<KB::FilterZeroProbability::filter_candidates(KB::Ca
   return v5 == 0.0;
 }
 
-uint64_t KB::FilterIncomplete::filter_candidates(KB::FilterIncomplete *this, KB::CandidateCollection *a2, const KB::CandidateFilterLookupContext *a3, const KB::CandidateFilterResources *a4)
+uint64_t KB::FilterIncomplete::filter_candidates(KB::FilterIncomplete *this, KB::Candidate **a2, const KB::CandidateFilterLookupContext *a3, const KB::CandidateFilterResources *a4)
 {
-  v8[4] = *MEMORY[0x277D85DE8];
+  v7[4] = *MEMORY[0x277D85DE8];
   v5 = *(a4 + 7);
-  v8[0] = &unk_283FD9738;
-  v8[3] = v8;
-  KB::CandidateFilter::remove_candidates_satisfying_predicate(a2, v5, "FilterIncomplete", v8);
-  result = std::__function::__value_func<BOOL ()(KB::Candidate const&,KB::String *)>::~__value_func[abi:nn200100](v8);
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  v7[0] = &unk_283FD9738;
+  v7[3] = v7;
+  KB::CandidateFilter::remove_candidates_satisfying_predicate(a2, v5, "FilterIncomplete", v7);
+  return std::__function::__value_func<BOOL ()(KB::Candidate const&,KB::String *)>::~__value_func[abi:nn200100](v7);
 }
 
-uint64_t std::__function::__func<KB::FilterIncomplete::filter_candidates(KB::CandidateCollection &,KB::CandidateFilterLookupContext const&,KB::CandidateFilterResources const&)::$_0,std::allocator<KB::FilterIncomplete::filter_candidates(KB::CandidateCollection &,KB::CandidateFilterLookupContext const&,KB::CandidateFilterResources const&)::$_0>,BOOL ()(KB::Candidate const&,KB::String *)>::operator()(uint64_t a1, void *a2, KB::String **a3)
+BOOL std::__function::__func<KB::FilterIncomplete::filter_candidates(KB::CandidateCollection &,KB::CandidateFilterLookupContext const&,KB::CandidateFilterResources const&)::$_0,std::allocator<KB::FilterIncomplete::filter_candidates(KB::CandidateCollection &,KB::CandidateFilterLookupContext const&,KB::CandidateFilterResources const&)::$_0>,BOOL ()(KB::Candidate const&,KB::String *)>::operator()(uint64_t a1, void *a2, KB::String **a3)
 {
   if (*a2)
   {
@@ -9711,16 +9610,14 @@ uint64_t std::__function::__func<KB::FilterIncomplete::filter_candidates(KB::Can
   return v3;
 }
 
-uint64_t KB::FilterControlCharacters::filter_candidates(KB::FilterControlCharacters *this, KB::CandidateCollection *a2, const KB::CandidateFilterLookupContext *a3, const KB::CandidateFilterResources *a4)
+uint64_t KB::FilterControlCharacters::filter_candidates(KB::FilterControlCharacters *this, KB::Candidate **a2, const KB::CandidateFilterLookupContext *a3, const KB::CandidateFilterResources *a4)
 {
-  v8[4] = *MEMORY[0x277D85DE8];
+  v7[4] = *MEMORY[0x277D85DE8];
   v5 = *(a4 + 7);
-  v8[0] = &unk_283FD9780;
-  v8[3] = v8;
-  KB::CandidateFilter::remove_candidates_satisfying_predicate(a2, v5, "FilterControlCharacters", v8);
-  result = std::__function::__value_func<BOOL ()(KB::Candidate const&,KB::String *)>::~__value_func[abi:nn200100](v8);
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  v7[0] = &unk_283FD9780;
+  v7[3] = v7;
+  KB::CandidateFilter::remove_candidates_satisfying_predicate(a2, v5, "FilterControlCharacters", v7);
+  return std::__function::__value_func<BOOL ()(KB::Candidate const&,KB::String *)>::~__value_func[abi:nn200100](v7);
 }
 
 BOOL std::__function::__func<KB::FilterControlCharacters::filter_candidates(KB::CandidateCollection &,KB::CandidateFilterLookupContext const&,KB::CandidateFilterResources const&)::$_0,std::allocator<KB::FilterControlCharacters::filter_candidates(KB::CandidateCollection &,KB::CandidateFilterLookupContext const&,KB::CandidateFilterResources const&)::$_0>,BOOL ()(KB::Candidate const&,KB::String *)>::operator()(uint64_t a1, uint64_t a2, KB::String **a3)
@@ -9751,66 +9648,87 @@ BOOL std::__function::__func<KB::FilterControlCharacters::filter_candidates(KB::
   return v6;
 }
 
-uint64_t KB::FilterNotSuggestibleForInput::filter_candidates(KB::FilterNotSuggestibleForInput *this, KB::CandidateCollection *a2, const KB::CandidateFilterLookupContext *a3, const KB::CandidateFilterResources *a4)
+void KB::FilterNotSuggestibleForInput::filter_candidates(KB::FilterNotSuggestibleForInput *this, KB::Candidate **a2, const KB::CandidateFilterLookupContext *a3, const KB::CandidateFilterResources *a4)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (*(this + 9) != 1)
   {
     goto LABEL_9;
   }
 
-  v8 = *(a4 + 2);
-  if (v8)
+  v7 = *(a4 + 2);
+  if (v7)
   {
-    atomic_fetch_add(v8, 1u);
+    atomic_fetch_add(v7, 1u);
   }
 
-  v9 = *(v8 + 8);
-  result = WTF::RefCounted<KB::DictionaryContainer>::deref(v8);
-  v11 = *a2;
-  v12 = *(a2 + 1);
-  if (*a2 != v12)
+  v8 = *(v7 + 8);
+  WTF::RefCounted<KB::DictionaryContainer>::deref(v7);
+  v9 = *a2;
+  v10 = a2[1];
+  if (*a2 != v10)
   {
-    while (1)
+    while ((*(*(v9 + 1) + 240 * *v9 - 134) & 0x80) != 0 || (KB::CandidateFilter::candidate_matches_input(v9, a3, v8 + 144) & 1) == 0)
     {
-      if ((*(*(v11 + 8) + 240 * *v11 - 134) & 0x80) == 0)
+      v9 = (v9 + 1000);
+      if (v9 == v10)
       {
-        result = KB::CandidateFilter::candidate_matches_input(v11, a3, v9 + 144);
-        if (result)
-        {
-          break;
-        }
-      }
-
-      v11 += 1000;
-      if (v11 == v12)
-      {
-        goto LABEL_12;
+        return;
       }
     }
 
 LABEL_9:
-    KB::Candidate::Candidate(v24, a3);
-    v13 = *(a4 + 2);
-    if (v13)
+    KB::Candidate::Candidate(v14, a3);
+    v11 = *(a4 + 2);
+    if (v11)
     {
-      atomic_fetch_add(v13, 1u);
+      atomic_fetch_add(v11, 1u);
     }
 
-    v14 = *(v13 + 8);
-    WTF::RefCounted<KB::DictionaryContainer>::deref(v13);
-    std::__function::__value_func<int ()(KB::String const&,KB::String const&)>::__value_func[abi:nn200100](v23, v14 + 144);
-    v15 = *(this + 8);
-    v18 = *(this + 8);
-    v19 = *(this + 3);
-    v20 = 0;
-    v21 = 0;
-    v22 = 0;
-    v16 = *(a4 + 7);
+    v12 = *(v11 + 8);
+    WTF::RefCounted<KB::DictionaryContainer>::deref(v11);
+    std::__function::__value_func<int ()(KB::String const&,KB::String const&)>::__value_func[abi:nn200100](v13, v12 + 144);
     operator new();
   }
+}
 
-LABEL_12:
-  v17 = *MEMORY[0x277D85DE8];
-  return result;
+uint64_t std::__function::__value_func<int ()(KB::String const&,KB::String const&)>::__value_func[abi:nn200100](uint64_t a1, uint64_t a2)
+{
+  v3 = *(a2 + 24);
+  if (v3)
+  {
+    if (v3 == a2)
+    {
+      *(a1 + 24) = a1;
+      (*(**(a2 + 24) + 24))(*(a2 + 24), a1);
+    }
+
+    else
+    {
+      *(a1 + 24) = (*(*v3 + 16))(v3);
+    }
+  }
+
+  else
+  {
+    *(a1 + 24) = 0;
+  }
+
+  return a1;
+}
+
+uint64_t std::__function::__value_func<int ()(KB::String const&,KB::String const&)>::~__value_func[abi:nn200100](uint64_t a1)
+{
+  v2 = *(a1 + 24);
+  if (v2 == a1)
+  {
+    (*(*v2 + 32))(v2);
+  }
+
+  else if (v2)
+  {
+    (*(*v2 + 40))(v2);
+  }
+
+  return a1;
 }

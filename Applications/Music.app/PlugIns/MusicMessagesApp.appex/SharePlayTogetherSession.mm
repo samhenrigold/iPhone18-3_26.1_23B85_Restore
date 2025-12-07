@@ -25,7 +25,7 @@
 
   v6 = SharePlayTogetherSession.isEqual(_:)(v8);
 
-  sub_10001074C(v8, &qword_100638E60);
+  sub_10001074C(v8, &qword_100638E60, &unk_10051A920);
   return v6 & 1;
 }
 
@@ -38,44 +38,44 @@
 
 - (void)groupSessionDidConnect:(id)connect
 {
-  v5 = sub_100004CB8(&qword_100635240);
-  __chkstk_darwin(v5 - 8);
-  v7 = &v12 - v6;
-  v8 = sub_1004DDA8C();
-  (*(*(v8 - 8) + 56))(v7, 1, 1, v8);
+  sub_100004CB8(&qword_100635240, &qword_1005171A0);
+  __chkstk_darwin();
+  v6 = &v11 - v5;
+  v7 = sub_1004DDA8C();
+  (*(*(v7 - 8) + 56))(v6, 1, 1, v7);
   sub_1004DDA4C();
   swift_unknownObjectRetain_n();
   selfCopy = self;
-  v10 = sub_1004DDA3C();
-  v11 = swift_allocObject();
-  v11[2] = v10;
-  v11[3] = &protocol witness table for MainActor;
-  v11[4] = connect;
-  v11[5] = selfCopy;
-  sub_10011F560(0, 0, v7, &unk_100524608, v11);
+  v9 = sub_1004DDA3C();
+  v10 = swift_allocObject();
+  v10[2] = v9;
+  v10[3] = &protocol witness table for MainActor;
+  v10[4] = connect;
+  v10[5] = selfCopy;
+  sub_10011F560(0, 0, v6, &unk_100524608, v10);
 
   swift_unknownObjectRelease();
 }
 
 - (void)groupSession:(id)session didInvalidateWithError:(id)error
 {
-  v6 = sub_100004CB8(&qword_100635240);
-  __chkstk_darwin(v6 - 8);
-  v8 = &v16 - v7;
-  v9 = sub_1004DDA8C();
-  (*(*(v9 - 8) + 56))(v8, 1, 1, v9);
+  sub_100004CB8(&qword_100635240, &qword_1005171A0);
+  __chkstk_darwin();
+  v7 = &v15 - v6;
+  v8 = sub_1004DDA8C();
+  (*(*(v8 - 8) + 56))(v7, 1, 1, v8);
   sub_1004DDA4C();
   errorCopy = error;
   selfCopy = self;
-  v12 = errorCopy;
-  v13 = selfCopy;
-  v14 = sub_1004DDA3C();
-  v15 = swift_allocObject();
-  v15[2] = v14;
-  v15[3] = &protocol witness table for MainActor;
-  v15[4] = v12;
-  v15[5] = v13;
-  sub_10011F560(0, 0, v8, &unk_100524600, v15);
+  v11 = errorCopy;
+  v12 = selfCopy;
+  v13 = sub_1004DDA3C();
+  v14 = swift_allocObject();
+  v14[2] = v13;
+  v14[3] = &protocol witness table for MainActor;
+  v14[4] = v11;
+  v14[5] = v12;
+  sub_10011F560(0, 0, v7, &unk_100524600, v14);
 }
 
 @end

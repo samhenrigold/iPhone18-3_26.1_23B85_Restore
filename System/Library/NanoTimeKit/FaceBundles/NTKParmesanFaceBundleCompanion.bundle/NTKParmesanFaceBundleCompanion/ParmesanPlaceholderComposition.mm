@@ -29,14 +29,14 @@
     selfCopy2 = self;
   }
 
-  sub_23BF4B33C(v11, v9, &qword_27E1E0530);
+  sub_23BF4B33C(v11, v9, &qword_27E1E0530, &qword_23C001D50);
   if (!v10)
   {
-    sub_23BF4B2D4(v9, &qword_27E1E0530);
+    sub_23BF4B2D4(v9, &qword_27E1E0530, &qword_23C001D50);
     goto LABEL_8;
   }
 
-  type metadata accessor for ParmesanPlaceholderComposition();
+  type metadata accessor for ParmesanPlaceholderComposition(0);
   if ((swift_dynamicCast() & 1) == 0)
   {
 LABEL_8:
@@ -48,7 +48,7 @@ LABEL_8:
   v6 = sub_23BF8DC34(self, v8);
 
 LABEL_9:
-  sub_23BF4B2D4(v11, &qword_27E1E0530);
+  sub_23BF4B2D4(v11, &qword_27E1E0530, &qword_23C001D50);
   return v6 & 1;
 }
 

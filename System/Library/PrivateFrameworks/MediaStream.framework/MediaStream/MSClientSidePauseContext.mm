@@ -9,19 +9,17 @@
 
 - (void)timerQueuePing
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v6 = 134217984;
+    v5 = 134217984;
     selfCopy = self;
-    _os_log_debug_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Pause context %p pinging server.", &v6, 0xCu);
+    _os_log_debug_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Pause context %p pinging server.", &v5, 0xCu);
   }
 
   server = [(MSClientSidePauseContext *)self server];
   remoteObjectProxy = [server remoteObjectProxy];
   [remoteObjectProxy pauseForUUID:self->_UUID];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)timerQueueTimerFired
@@ -53,7 +51,7 @@ void __48__MSClientSidePauseContext_timerQueueTimerFired__block_invoke(uint64_t 
 
 - (void)resume
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
     *buf = 134217984;
@@ -68,7 +66,6 @@ void __48__MSClientSidePauseContext_timerQueueTimerFired__block_invoke(uint64_t 
   block[3] = &unk_2798A5010;
   block[4] = self;
   dispatch_async(timerQueue, block);
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __34__MSClientSidePauseContext_resume__block_invoke(uint64_t a1)
@@ -85,17 +82,17 @@ void __34__MSClientSidePauseContext_resume__block_invoke(uint64_t a1)
 
 - (MSClientSidePauseContext)initWithServer:(id)server
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   serverCopy = server;
-  v25.receiver = self;
-  v25.super_class = MSClientSidePauseContext;
-  v6 = [(MSClientSidePauseContext *)&v25 init];
+  v24.receiver = self;
+  v24.super_class = MSClientSidePauseContext;
+  v6 = [(MSClientSidePauseContext *)&v24 init];
   if (v6)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
       *buf = 134217984;
-      v27 = v6;
+      v26 = v6;
       _os_log_debug_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Pause context %p started.", buf, 0xCu);
     }
 
@@ -123,18 +120,17 @@ void __34__MSClientSidePauseContext_resume__block_invoke(uint64_t a1)
     block[2] = __43__MSClientSidePauseContext_initWithServer___block_invoke;
     block[3] = &unk_2798A5010;
     v17 = v6;
-    v24 = v17;
+    v23 = v17;
     dispatch_after(v15, v16, block);
     v18 = v6->_timerQueue;
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __43__MSClientSidePauseContext_initWithServer___block_invoke_2;
-    v21[3] = &unk_2798A5010;
-    v22 = v17;
-    dispatch_async(v18, v21);
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __43__MSClientSidePauseContext_initWithServer___block_invoke_2;
+    v20[3] = &unk_2798A5010;
+    v21 = v17;
+    dispatch_async(v18, v20);
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

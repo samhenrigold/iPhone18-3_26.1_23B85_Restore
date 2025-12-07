@@ -5,24 +5,24 @@
 
 void __70___GCKeyboardAndMouseManager_activateWithSession_environment_options___block_invoke(uint64_t a1, void *a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(*(a1 + 32) + 24) registerServicesChangedObserver:*(a1 + 32) notifyExisting:0];
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v5 = [*(*(a1 + 32) + 24) services];
-  v6 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v6)
   {
-    v7 = *v22;
+    v7 = *v21;
     do
     {
       v8 = 0;
       do
       {
-        if (*v22 != v7)
+        if (*v21 != v7)
         {
           objc_enumerationMutation(v5);
         }
@@ -31,7 +31,7 @@ void __70___GCKeyboardAndMouseManager_activateWithSession_environment_options___
       }
 
       while (v6 != v8);
-      v6 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v6);
@@ -39,12 +39,12 @@ void __70___GCKeyboardAndMouseManager_activateWithSession_environment_options___
 
   objc_initWeak(&location, *(a1 + 32));
   v9 = *(*(a1 + 32) + 32);
-  v15 = MEMORY[0x277D85DD0];
-  v16 = 3221225472;
-  v17 = __70___GCKeyboardAndMouseManager_activateWithSession_environment_options___block_invoke_2;
-  v18 = &unk_277E1DD58;
-  objc_copyWeak(&v19, &location);
-  v10 = [v9 observeHIDEvents:&v15];
+  v14 = MEMORY[0x277D85DD0];
+  v15 = 3221225472;
+  v16 = __70___GCKeyboardAndMouseManager_activateWithSession_environment_options___block_invoke_2;
+  v17 = &unk_277E1DD58;
+  objc_copyWeak(&v18, &location);
+  v10 = [v9 observeHIDEvents:&v14];
   v11 = *(a1 + 32);
   v12 = *(v11 + 40);
   *(v11 + 40) = v10;
@@ -52,10 +52,8 @@ void __70___GCKeyboardAndMouseManager_activateWithSession_environment_options___
   v13 = [MEMORY[0x277CBEB68] null];
   [v3 succeedWithResult:v13];
 
-  objc_destroyWeak(&v19);
+  objc_destroyWeak(&v18);
   objc_destroyWeak(&location);
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __70___GCKeyboardAndMouseManager_activateWithSession_environment_options___block_invoke_2(uint64_t a1, uint64_t a2)

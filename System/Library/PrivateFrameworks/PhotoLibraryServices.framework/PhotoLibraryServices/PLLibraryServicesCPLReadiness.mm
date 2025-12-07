@@ -106,7 +106,7 @@ void __70__PLLibraryServicesCPLReadiness_processCloudPhotosLibraryStateChange___
   dispatch_async(sharedUtilityQueue, v8);
 }
 
-uint64_t __72__PLLibraryServicesCPLReadiness_performOnceLibraryIsReadyForCPLManager___block_invoke(uint64_t a1)
+void *__72__PLLibraryServicesCPLReadiness_performOnceLibraryIsReadyForCPLManager___block_invoke(uint64_t a1)
 {
   v2 = *(*(a1 + 32) + 24);
   v3 = _Block_copy(*(a1 + 40));

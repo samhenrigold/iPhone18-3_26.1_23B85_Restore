@@ -101,7 +101,7 @@ void __48__PUSwipedDownTileTracker_tileControllerToTrack__block_invoke(uint64_t 
   v22 = v21;
   if (_swipeDownTracker)
   {
-    [_swipeDownTracker trackedTransform];
+    objc_msgSend_trackedTransform(_swipeDownTracker);
   }
 
   else
@@ -144,9 +144,9 @@ void __48__PUSwipedDownTileTracker_tileControllerToTrack__block_invoke(uint64_t 
   tilingView = [(PUInteractiveTileTracker *)self tilingView];
   presentationLayoutInfo = [trackedTileController presentationLayoutInfo];
   layout = [tilingView layout];
-  indexPath = [presentationLayoutInfo indexPath];
+  v8 = objc_msgSend_indexPath(presentationLayoutInfo);
   tileKind = [presentationLayoutInfo tileKind];
-  v10 = [layout layoutInfoForTileWithIndexPath:indexPath kind:tileKind];
+  v10 = [layout layoutInfoForTileWithIndexPath:v8 kind:tileKind];
 
   _swipeDownTracker = [(PUSwipedDownTileTracker *)self _swipeDownTracker];
   if (!_swipeDownTracker)
@@ -180,7 +180,7 @@ void __48__PUSwipedDownTileTracker_tileControllerToTrack__block_invoke(uint64_t 
   v31 = v30;
   if (v10)
   {
-    [v10 transform];
+    objc_msgSend_transform(v10);
   }
 
   else

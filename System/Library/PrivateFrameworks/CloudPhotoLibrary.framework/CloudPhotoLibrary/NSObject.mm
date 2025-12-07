@@ -28,7 +28,7 @@ void __52__NSObject_CPLCodingProxy___cplPropertyAttributeMap__block_invoke_2(uin
 
 void __77__NSObject_CPLCodingProxy___cplCopyProperties_fromOtherObject_withCopyBlock___block_invoke(void *a1, void *a2, void *a3)
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -82,10 +82,10 @@ void __77__NSObject_CPLCodingProxy___cplCopyProperties_fromOtherObject_withCopyB
 
           else
           {
-            v37 = [v7 ivarAddrForObject:a1[4]];
-            if (v37)
+            v36 = [v7 ivarAddrForObject:a1[4]];
+            if (v36)
             {
-              *v37 = v10;
+              *v36 = v10;
             }
           }
         }
@@ -149,10 +149,10 @@ void __77__NSObject_CPLCodingProxy___cplCopyProperties_fromOtherObject_withCopyB
         goto LABEL_37;
       }
 
-      v36 = [v7 ivarAddrForObject:a1[4]];
-      if (v36)
+      v35 = [v7 ivarAddrForObject:a1[4]];
+      if (v35)
       {
-        *v36 = v19;
+        *v35 = v19;
       }
 
       goto LABEL_56;
@@ -168,27 +168,27 @@ void __77__NSObject_CPLCodingProxy___cplCopyProperties_fromOtherObject_withCopyB
     {
       if (([v12 isEqualToString:@"CGRect"] & 1) != 0 || objc_msgSend(v12, "isEqualToString:", @"NSRect"))
       {
-        v28 = ([v7 propertyGetterIMP])(a1[5], objc_msgSend(v7, "propertyGetter"));
-        v30 = v29;
-        v32 = v31;
-        v34 = v33;
+        v27 = ([v7 propertyGetterIMP])(a1[5], objc_msgSend(v7, "propertyGetter"));
+        v29 = v28;
+        v31 = v30;
+        v33 = v32;
         if (([v7 isReadOnly] & 1) == 0)
         {
-          v35 = [v7 propertySetter];
-          if (v35)
+          v34 = [v7 propertySetter];
+          if (v34)
           {
-            ([v7 propertySetterIMP])(a1[4], v35, v28, v30, v32, v34);
+            ([v7 propertySetterIMP])(a1[4], v34, v27, v29, v31, v33);
           }
 
           else
           {
-            v41 = [v7 ivarAddrForObject:a1[4]];
-            if (v41)
+            v40 = [v7 ivarAddrForObject:a1[4]];
+            if (v40)
             {
-              *v41 = v28;
-              v41[1] = v30;
-              v41[2] = v32;
-              v41[3] = v34;
+              *v40 = v27;
+              v40[1] = v29;
+              v40[2] = v31;
+              v40[3] = v33;
             }
           }
         }
@@ -200,14 +200,14 @@ void __77__NSObject_CPLCodingProxy___cplCopyProperties_fromOtherObject_withCopyB
       {
         if ((_CPLSilentLogging & 1) == 0)
         {
-          v40 = __CPLCodingOSLogDomain();
-          if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+          v39 = __CPLCodingOSLogDomain();
+          if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
           {
-            v42 = 138412546;
-            v43 = v5;
-            v44 = 2112;
-            v45 = v12;
-            _os_log_impl(&dword_1DC05A000, v40, OS_LOG_TYPE_ERROR, "Ignoring unknown struct for %@: %@", &v42, 0x16u);
+            v41 = 138412546;
+            v42 = v5;
+            v43 = 2112;
+            v44 = v12;
+            _os_log_impl(&dword_1DC05A000, v39, OS_LOG_TYPE_ERROR, "Ignoring unknown struct for %@: %@", &v41, 0x16u);
           }
         }
 
@@ -227,11 +227,11 @@ void __77__NSObject_CPLCodingProxy___cplCopyProperties_fromOtherObject_withCopyB
 
       else
       {
-        v39 = [v7 ivarAddrForObject:a1[4]];
-        if (v39)
+        v38 = [v7 ivarAddrForObject:a1[4]];
+        if (v38)
         {
-          *v39 = v13;
-          v39[1] = v15;
+          *v38 = v13;
+          v38[1] = v15;
         }
       }
     }
@@ -255,10 +255,10 @@ LABEL_55:
 
         else
         {
-          v38 = [v7 ivarAddrForObject:a1[4]];
-          if (v38)
+          v37 = [v7 ivarAddrForObject:a1[4]];
+          if (v37)
           {
-            *v38 = v24;
+            *v37 = v24;
           }
         }
       }
@@ -314,11 +314,11 @@ LABEL_48:
         v26 = __CPLCodingOSLogDomain();
         if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
         {
-          v42 = 138412546;
-          v43 = v5;
-          v44 = 1024;
-          LODWORD(v45) = [v7 propertyType];
-          _os_log_impl(&dword_1DC05A000, v26, OS_LOG_TYPE_ERROR, "Ignoring unknown property type for %@: %c", &v42, 0x12u);
+          v41 = 138412546;
+          v42 = v5;
+          v43 = 1024;
+          LODWORD(v44) = [v7 propertyType];
+          _os_log_impl(&dword_1DC05A000, v26, OS_LOG_TYPE_ERROR, "Ignoring unknown property type for %@: %c", &v41, 0x12u);
         }
       }
 
@@ -326,8 +326,6 @@ LABEL_48:
   }
 
 LABEL_56:
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 void __77__NSObject_CPLCodingProxy___cplCopyProperties_fromOtherObject_withCopyBlock___block_invoke_2(void *a1, void *a2, uint64_t a3)
@@ -344,7 +342,7 @@ void __77__NSObject_CPLCodingProxy___cplCopyProperties_fromOtherObject_withCopyB
 
 void __47__NSObject_CPLCodingProxy__cplClearProperties___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = __tolower([v6 propertyType]);
@@ -360,11 +358,11 @@ LABEL_42:
           v15 = __CPLCodingOSLogDomain();
           if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
           {
-            v31 = 138412546;
-            v32 = v5;
-            v33 = 1024;
-            LODWORD(v34) = [v6 propertyType];
-            _os_log_impl(&dword_1DC05A000, v15, OS_LOG_TYPE_ERROR, "Ignoring unknown property type for %@: %c", &v31, 0x12u);
+            v30 = 138412546;
+            v31 = v5;
+            v32 = 1024;
+            LODWORD(v33) = [v6 propertyType];
+            _os_log_impl(&dword_1DC05A000, v15, OS_LOG_TYPE_ERROR, "Ignoring unknown property type for %@: %c", &v30, 0x12u);
           }
         }
 
@@ -569,11 +567,11 @@ LABEL_59:
           v29 = __CPLCodingOSLogDomain();
           if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
           {
-            v31 = 138412546;
-            v32 = v5;
-            v33 = 2112;
-            v34 = v9;
-            _os_log_impl(&dword_1DC05A000, v29, OS_LOG_TYPE_ERROR, "Ignoring unknown struct for %@: %@", &v31, 0x16u);
+            v30 = 138412546;
+            v31 = v5;
+            v32 = 2112;
+            v33 = v9;
+            _os_log_impl(&dword_1DC05A000, v29, OS_LOG_TYPE_ERROR, "Ignoring unknown struct for %@: %@", &v30, 0x16u);
           }
         }
 
@@ -625,8 +623,6 @@ LABEL_71:
   }
 
 LABEL_72:
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 void __47__NSObject_CPLCodingProxy__cplClearProperties___block_invoke_2(void *a1, void *a2, uint64_t a3)
@@ -643,7 +639,7 @@ void __47__NSObject_CPLCodingProxy__cplClearProperties___block_invoke_2(void *a1
 
 void __35__NSObject_CPLCodingProxy__cplHash__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (([*(a1 + 48) cplShouldIgnorePropertyForEquality:v5] & 1) == 0)
@@ -737,14 +733,14 @@ LABEL_25:
 LABEL_28:
           if ((_CPLSilentLogging & 1) == 0)
           {
-            v21 = __CPLCodingOSLogDomain();
-            if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+            v20 = __CPLCodingOSLogDomain();
+            if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
             {
-              v22 = 138412546;
-              v23 = v5;
-              v24 = 1024;
-              v25 = [v6 propertyType];
-              _os_log_impl(&dword_1DC05A000, v21, OS_LOG_TYPE_ERROR, "Ignoring unknown property type for %@: %c", &v22, 0x12u);
+              v21 = 138412546;
+              v22 = v5;
+              v23 = 1024;
+              v24 = [v6 propertyType];
+              _os_log_impl(&dword_1DC05A000, v20, OS_LOG_TYPE_ERROR, "Ignoring unknown property type for %@: %c", &v21, 0x12u);
             }
           }
         }
@@ -766,13 +762,11 @@ LABEL_24:
   }
 
 LABEL_27:
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __95__NSObject_CPLCodingProxy__cplProperties_areEqualToPropertiesOf_diffTracker_withEqualityBlock___block_invoke(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = *(a1 + 32);
@@ -882,41 +876,41 @@ LABEL_35:
         {
           v15 = ([v8 propertyGetterIMP])(*(a1 + 40), objc_msgSend(v8, "propertyGetter"));
           v17 = v16;
-          v51.width = ([v8 propertyGetterIMP])(*(a1 + 48), objc_msgSend(v8, "propertyGetter"));
-          v51.height = v18;
-          v49.width = v15;
-          v49.height = v17;
-          v19 = NSEqualSizes(v49, v51);
+          v50.width = ([v8 propertyGetterIMP])(*(a1 + 48), objc_msgSend(v8, "propertyGetter"));
+          v50.height = v18;
+          v48.width = v15;
+          v48.height = v17;
+          v19 = NSEqualSizes(v48, v50);
           goto LABEL_25;
         }
 
         if (([v14 isEqualToString:@"CGRect"] & 1) != 0 || objc_msgSend(v14, "isEqualToString:", @"NSRect"))
         {
-          v29 = ([v8 propertyGetterIMP])(*(a1 + 40), objc_msgSend(v8, "propertyGetter"));
-          v31 = v30;
-          v33 = v32;
-          v35 = v34;
-          v54.origin.x = ([v8 propertyGetterIMP])(*(a1 + 48), objc_msgSend(v8, "propertyGetter"));
-          v54.origin.y = v36;
-          v54.size.width = v37;
-          v54.size.height = v38;
-          v53.origin.x = v29;
-          v53.origin.y = v31;
-          v53.size.width = v33;
-          v53.size.height = v35;
-          v19 = NSEqualRects(v53, v54);
+          v28 = ([v8 propertyGetterIMP])(*(a1 + 40), objc_msgSend(v8, "propertyGetter"));
+          v30 = v29;
+          v32 = v31;
+          v34 = v33;
+          v53.origin.x = ([v8 propertyGetterIMP])(*(a1 + 48), objc_msgSend(v8, "propertyGetter"));
+          v53.origin.y = v35;
+          v53.size.width = v36;
+          v53.size.height = v37;
+          v52.origin.x = v28;
+          v52.origin.y = v30;
+          v52.size.width = v32;
+          v52.size.height = v34;
+          v19 = NSEqualRects(v52, v53);
           goto LABEL_25;
         }
 
         if ([v14 isEqualToString:@"CGPoint"] & 1) != 0 || (objc_msgSend(v14, "isEqualToString:", @"NSPoint"))
         {
-          v39 = ([v8 propertyGetterIMP])(*(a1 + 40), objc_msgSend(v8, "propertyGetter"));
-          v41 = v40;
-          v52.x = ([v8 propertyGetterIMP])(*(a1 + 48), objc_msgSend(v8, "propertyGetter"));
-          v52.y = v42;
-          v50.x = v39;
-          v50.y = v41;
-          v19 = NSEqualPoints(v50, v52);
+          v38 = ([v8 propertyGetterIMP])(*(a1 + 40), objc_msgSend(v8, "propertyGetter"));
+          v40 = v39;
+          v51.x = ([v8 propertyGetterIMP])(*(a1 + 48), objc_msgSend(v8, "propertyGetter"));
+          v51.y = v41;
+          v49.x = v38;
+          v49.y = v40;
+          v19 = NSEqualPoints(v49, v51);
 LABEL_25:
           v20 = v19;
 
@@ -930,14 +924,14 @@ LABEL_25:
 
         if ((_CPLSilentLogging & 1) == 0)
         {
-          v43 = __CPLCodingOSLogDomain();
-          if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+          v42 = __CPLCodingOSLogDomain();
+          if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
           {
-            v44 = 138412546;
-            v45 = v7;
-            v46 = 2112;
-            v47 = v14;
-            _os_log_impl(&dword_1DC05A000, v43, OS_LOG_TYPE_ERROR, "Ignoring unknown struct for %@: %@", &v44, 0x16u);
+            v43 = 138412546;
+            v44 = v7;
+            v45 = 2112;
+            v46 = v14;
+            _os_log_impl(&dword_1DC05A000, v42, OS_LOG_TYPE_ERROR, "Ignoring unknown struct for %@: %@", &v43, 0x16u);
           }
         }
 
@@ -962,8 +956,8 @@ LABEL_27:
   switch(v12)
   {
     case 'f':
-      v27 = ([v8 propertyGetterIMP])(*(a1 + 40), objc_msgSend(v8, "propertyGetter"));
-      if (v27 == ([v8 propertyGetterIMP])(*(a1 + 48), objc_msgSend(v8, "propertyGetter")))
+      v26 = ([v8 propertyGetterIMP])(*(a1 + 40), objc_msgSend(v8, "propertyGetter"));
+      if (v26 == ([v8 propertyGetterIMP])(*(a1 + 48), objc_msgSend(v8, "propertyGetter")))
       {
         goto LABEL_37;
       }
@@ -978,25 +972,23 @@ LABEL_27:
 LABEL_40:
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v28 = __CPLCodingOSLogDomain();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    v27 = __CPLCodingOSLogDomain();
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
-      v44 = 138412546;
-      v45 = v7;
-      v46 = 1024;
-      LODWORD(v47) = [v8 propertyType];
-      _os_log_impl(&dword_1DC05A000, v28, OS_LOG_TYPE_ERROR, "Ignoring unknown property type for %@: %c", &v44, 0x12u);
+      v43 = 138412546;
+      v44 = v7;
+      v45 = 1024;
+      LODWORD(v46) = [v8 propertyType];
+      _os_log_impl(&dword_1DC05A000, v27, OS_LOG_TYPE_ERROR, "Ignoring unknown property type for %@: %c", &v43, 0x12u);
     }
   }
 
 LABEL_37:
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 void __57__NSObject_CPLCodingProxy__cplDecodePropertiesFromCoder___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
@@ -1019,10 +1011,10 @@ void __57__NSObject_CPLCodingProxy__cplDecodePropertiesFromCoder___block_invoke(
 
           else
           {
-            v50 = [v6 ivarAddrForObject:*(a1 + 40)];
-            if (v50)
+            v49 = [v6 ivarAddrForObject:*(a1 + 40)];
+            if (v49)
             {
-              *v50 = v31;
+              *v49 = v31;
             }
           }
         }
@@ -1061,11 +1053,11 @@ LABEL_54:
           v33 = __CPLCodingOSLogDomain();
           if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
           {
-            v54 = 138412546;
-            v55 = v5;
-            v56 = 1024;
-            LODWORD(v57) = [v6 propertyType];
-            _os_log_impl(&dword_1DC05A000, v33, OS_LOG_TYPE_ERROR, "Ignoring unknown property type for %@: %c", &v54, 0x12u);
+            v53 = 138412546;
+            v54 = v5;
+            v55 = 1024;
+            LODWORD(v56) = [v6 propertyType];
+            _os_log_impl(&dword_1DC05A000, v33, OS_LOG_TYPE_ERROR, "Ignoring unknown property type for %@: %c", &v53, 0x12u);
           }
         }
 
@@ -1092,10 +1084,10 @@ LABEL_29:
         goto LABEL_65;
       }
 
-      v38 = [v6 ivarAddrForObject:*(a1 + 40)];
-      if (v38)
+      v37 = [v6 ivarAddrForObject:*(a1 + 40)];
+      if (v37)
       {
-        *v38 = v20;
+        *v37 = v20;
       }
 
       goto LABEL_65;
@@ -1114,10 +1106,10 @@ LABEL_29:
 
         else
         {
-          v48 = [v6 ivarAddrForObject:*(a1 + 40)];
-          if (v48)
+          v47 = [v6 ivarAddrForObject:*(a1 + 40)];
+          if (v47)
           {
-            *v48 = v28;
+            *v47 = v28;
           }
         }
       }
@@ -1141,27 +1133,27 @@ LABEL_29:
       if (([v12 isEqualToString:@"CGRect"] & 1) != 0 || objc_msgSend(v12, "isEqualToString:", @"NSRect"))
       {
         [*(a1 + 32) decodeRectForKey:v5];
-        v40 = v39;
-        v42 = v41;
-        v44 = v43;
-        v46 = v45;
+        v39 = v38;
+        v41 = v40;
+        v43 = v42;
+        v45 = v44;
         if (([v6 isReadOnly] & 1) == 0)
         {
-          v47 = [v6 propertySetter];
-          if (v47)
+          v46 = [v6 propertySetter];
+          if (v46)
           {
-            ([v6 propertySetterIMP])(*(a1 + 40), v47, v40, v42, v44, v46);
+            ([v6 propertySetterIMP])(*(a1 + 40), v46, v39, v41, v43, v45);
           }
 
           else
           {
-            v52 = [v6 ivarAddrForObject:*(a1 + 40)];
-            if (v52)
+            v51 = [v6 ivarAddrForObject:*(a1 + 40)];
+            if (v51)
             {
-              *v52 = v40;
-              v52[1] = v42;
-              v52[2] = v44;
-              v52[3] = v46;
+              *v51 = v39;
+              v51[1] = v41;
+              v51[2] = v43;
+              v51[3] = v45;
             }
           }
         }
@@ -1173,14 +1165,14 @@ LABEL_29:
       {
         if ((_CPLSilentLogging & 1) == 0)
         {
-          v53 = __CPLCodingOSLogDomain();
-          if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
+          v52 = __CPLCodingOSLogDomain();
+          if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
           {
-            v54 = 138412546;
-            v55 = v5;
-            v56 = 2112;
-            v57 = v12;
-            _os_log_impl(&dword_1DC05A000, v53, OS_LOG_TYPE_ERROR, "Ignoring unknown struct for %@: %@", &v54, 0x16u);
+            v53 = 138412546;
+            v54 = v5;
+            v55 = 2112;
+            v56 = v12;
+            _os_log_impl(&dword_1DC05A000, v52, OS_LOG_TYPE_ERROR, "Ignoring unknown struct for %@: %@", &v53, 0x16u);
           }
         }
 
@@ -1202,11 +1194,11 @@ LABEL_29:
 
       else
       {
-        v51 = [v6 ivarAddrForObject:*(a1 + 40)];
-        if (v51)
+        v50 = [v6 ivarAddrForObject:*(a1 + 40)];
+        if (v50)
         {
-          *v51 = v15;
-          v51[1] = v16;
+          *v50 = v15;
+          v50[1] = v16;
         }
       }
     }
@@ -1266,11 +1258,11 @@ LABEL_59:
         v24 = __CPLCodingOSLogDomain();
         if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
         {
-          v54 = 138412546;
-          v55 = v12;
-          v56 = 2112;
-          v57 = v5;
-          _os_log_impl(&dword_1DC05A000, v24, OS_LOG_TYPE_ERROR, "Unable to find class %@ for %@", &v54, 0x16u);
+          v53 = 138412546;
+          v54 = v12;
+          v55 = 2112;
+          v56 = v5;
+          _os_log_impl(&dword_1DC05A000, v24, OS_LOG_TYPE_ERROR, "Unable to find class %@ for %@", &v53, 0x16u);
         }
       }
     }
@@ -1312,10 +1304,10 @@ LABEL_37:
 
         else
         {
-          v49 = [v6 ivarAddrForObject:*(a1 + 40)];
-          if (v49)
+          v48 = [v6 ivarAddrForObject:*(a1 + 40)];
+          if (v48)
           {
-            *v49 = v10;
+            *v48 = v10;
           }
         }
       }
@@ -1337,21 +1329,19 @@ LABEL_37:
     goto LABEL_29;
   }
 
-  v37 = [v6 ivarAddrForObject:*(a1 + 40)];
-  if (v37)
+  v36 = [v6 ivarAddrForObject:*(a1 + 40)];
+  if (v36)
   {
-    *v37 = v20;
+    *v36 = v20;
   }
 
 LABEL_65:
   objc_autoreleasePoolPop(v7);
-
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 void __57__NSObject_CPLCodingProxy__cplEncodePropertiesWithCoder___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
@@ -1420,14 +1410,14 @@ LABEL_22:
 
     else if ((_CPLSilentLogging & 1) == 0)
     {
-      v15 = __CPLCodingOSLogDomain();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v14 = __CPLCodingOSLogDomain();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        v16 = 138412546;
-        v17 = v5;
-        v18 = 2112;
-        v19 = v9;
-        _os_log_impl(&dword_1DC05A000, v15, OS_LOG_TYPE_ERROR, "Ignoring unknown struct for %@: %@", &v16, 0x16u);
+        v15 = 138412546;
+        v16 = v5;
+        v17 = 2112;
+        v18 = v9;
+        _os_log_impl(&dword_1DC05A000, v14, OS_LOG_TYPE_ERROR, "Ignoring unknown struct for %@: %@", &v15, 0x16u);
       }
     }
 
@@ -1486,18 +1476,16 @@ LABEL_30:
     v13 = __CPLCodingOSLogDomain();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v16 = 138412546;
-      v17 = v5;
-      v18 = 1024;
-      LODWORD(v19) = [v6 propertyType];
-      _os_log_impl(&dword_1DC05A000, v13, OS_LOG_TYPE_ERROR, "Ignoring unknown property type for %@: %c", &v16, 0x12u);
+      v15 = 138412546;
+      v16 = v5;
+      v17 = 1024;
+      LODWORD(v18) = [v6 propertyType];
+      _os_log_impl(&dword_1DC05A000, v13, OS_LOG_TYPE_ERROR, "Ignoring unknown property type for %@: %c", &v15, 0x12u);
     }
   }
 
 LABEL_34:
   objc_autoreleasePoolPop(v7);
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __47__NSObject_CPLCodingProxy__cplAllPropertyNames__block_invoke_2(uint64_t a1)

@@ -224,7 +224,7 @@
       [defaultCenter addObserver:v60 selector:sel_keyboardWillHide_ name:*MEMORY[0x1E69DE078] object:0];
     }
 
-    v64 = objc_alloc_init(getFHSearchSuggestionControllerClass[0]());
+    v64 = objc_alloc_init(getFHSearchSuggestionControllerClass());
     searchSuggestionController = v60->_searchSuggestionController;
     v60->_searchSuggestionController = v64;
 
@@ -4327,48 +4327,48 @@ uint64_t __74__PKSearchResultsViewController__updateUIWithResults_forQuery_compl
   }
 }
 
-uint64_t __81__PKSearchResultsViewController__updateUIIfPossibleWithResults_query_completion___block_invoke(uint64_t a1)
+uint64_t __81__PKSearchResultsViewController__updateUIIfPossibleWithResults_query_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = PKLogFacilityTypeGetObject();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = PKLogFacilityTypeGetObject();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_DEFAULT, "First set of results presented", buf, 2u);
+    _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "First set of results presented", buf, 2u);
   }
 
-  v3 = [*(a1 + 32) collectionView];
-  [v3 layoutIfNeeded];
+  v4 = [*(a1 + 32) collectionView];
+  [v4 layoutIfNeeded];
 
-  v4 = *(a1 + 32);
-  v5 = *(v4 + 1560);
-  if (v5)
+  v5 = *(a1 + 32);
+  v6 = *(v5 + 1560);
+  if (v6)
   {
-    (*(v5 + 16))();
-    v6 = *(a1 + 32);
-    v7 = *(v6 + 1560);
-    *(v6 + 1560) = 0;
+    (*(v6 + 16))();
+    v7 = *(a1 + 32);
+    v8 = *(v7 + 1560);
+    *(v7 + 1560) = 0;
 
-    v4 = *(a1 + 32);
+    v5 = *(a1 + 32);
   }
 
-  if (*(v4 + 1568) == 1)
+  if (*(v5 + 1568) == 1)
   {
-    *(v4 + 1568) = 0;
-    v8 = [*(a1 + 40) identifier];
-    v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"PKSearchResultsViewController Preflight: %@", v8];
-    v10 = PKLogFacilityTypeGetObject();
-    v11 = os_signpost_id_make_with_pointer(v10, *(a1 + 32));
-    if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+    *(v5 + 1568) = 0;
+    v9 = [*(a1 + 40) identifier];
+    v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"PKSearchResultsViewController Preflight: %@", v9];
+    v11 = PKLogFacilityTypeGetObject();
+    v12 = os_signpost_id_make_with_pointer(v11, *(a1 + 32));
+    if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
     {
-      v12 = v11;
-      if (os_signpost_enabled(v10))
+      v13 = v12;
+      if (os_signpost_enabled(v11))
       {
-        *v15 = 0;
-        _os_signpost_emit_with_name_impl(&dword_1BD026000, v10, OS_SIGNPOST_INTERVAL_END, v12, "search:preflight", "", v15, 2u);
+        *v16 = 0;
+        _os_signpost_emit_with_name_impl(&dword_1BD026000, v11, OS_SIGNPOST_INTERVAL_END, v13, "search:preflight", "", v16, 2u);
       }
     }
 
-    v13 = PKTimeProfileEnd();
+    v14 = PKTimeProfileEnd();
   }
 
   result = *(a1 + 48);

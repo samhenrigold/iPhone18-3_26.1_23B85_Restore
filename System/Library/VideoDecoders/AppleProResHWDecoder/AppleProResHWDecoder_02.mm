@@ -1,398 +1,55 @@
-uint64_t allocateProResFrame()
-{
-  if (malloc_type_calloc(0x168uLL, 1uLL, 0x10100406F847EBDuLL))
-  {
-    operator new[]();
-  }
-
-  return 0;
-}
-
-uint64_t ProResFrameReceiver::RegisterCallback(ProResFrameReceiver *this)
-{
-  v17 = *MEMORY[0x277D85DE8];
-  inputStruct[0] = ProResFrameReceiver::FrameDone;
-  inputStruct[1] = this;
-  *reference = 0u;
-  v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v2 = IOConnectCallAsyncMethod(*(this + 8), 1u, *(this + 4), reference, 8u, 0, 0, inputStruct, 0x10uLL, 0, 0, 0, 0);
-  if (v2)
-  {
-    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-    {
-      v3 = *(this + 78);
-      *buf = 67109634;
-      v8 = v3;
-      v9 = 2080;
-      v10 = "RegisterCallback";
-      v11 = 1024;
-      v12 = v2;
-      _os_log_impl(&dword_277780000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AppleProResHW (0x%x): %s(): IOConnectCallAsyncMethod failed -> Dispatcher cannot be installed err 0x%x\n", buf, 0x18u);
-    }
-
-    ProResFrameReceiver::RemoveIODispatcherFromRunLoop(this);
-  }
-
-  v4 = *MEMORY[0x277D85DE8];
-  return v2;
-}
-
-void ProResFrameReceiver::FrameDone(ProResFrameReceiver *this, void *a2, int32x4_t *a3, unint64_t *a4)
-{
-  v15 = *MEMORY[0x277D85DE8];
-  v13 = 0uLL;
-  v14 = 0;
-  if (a3)
-  {
-    v4 = a4;
-    v6 = a3->i32[0];
-    v7 = a3->u32[2];
-    v8 = a3[1].i32[0];
-    v12 = a3[1].i64[1];
-    v9 = a3[2].i32[0];
-    v10 = a3[2].i32[2];
-    if (v4 >= 8)
-    {
-      v13 = vuzp1q_s32(a3[3], a3[4]);
-      v14 = a3[5].i64[0];
-    }
-
-    ProResFrameReceiver::ProcessFrameDone(this, v7, v6, v8, v9, &v12, v10);
-  }
-
-  else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-  {
-    ProResFrameReceiver::FrameDone();
-  }
-
-  v11 = *MEMORY[0x277D85DE8];
-}
-
-uint64_t ProResFrameReceiver::Setup(mach_port_t *this)
-{
-  Current = CFRunLoopGetCurrent();
-  *this = Current;
-  if (!Current)
-  {
-    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-    {
-      ProResFrameReceiver::Setup(this);
-    }
-
-    return 3758097085;
-  }
-
-  v3 = ProResFrameReceiver::AddIODispatcherToRunLoop(this);
-  if (v3)
-  {
-    v4 = 3758097084;
-    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-    {
-      ProResFrameReceiver::Setup(this);
-    }
-
-    return v4;
-  }
-
-  if (*(this + 64) == 1)
-  {
-    setpriority(3, 0, 4096);
-  }
-
-  else
-  {
-    ProResFrameReceiver::MakeCurrentThreadTimeConstraintThread(v3);
-  }
-
-  return ProResFrameReceiver::RegisterCallback(this);
-}
-
-uint64_t ProResFrameReceiver::AddIODispatcherToRunLoop(mach_port_t *this)
-{
-  v18 = *MEMORY[0x277D85DE8];
-  if (!IOCreateReceivePort(0x39u, this + 4))
-  {
-    buf.version = 1;
-    buf.info = this;
-    memset(&buf.retain, 0, 24);
-    v4 = *MEMORY[0x277CBECE8];
-    v5 = CFMachPortCreateWithPort(*MEMORY[0x277CBECE8], this[4], MEMORY[0x277CD27F0], &buf, 0);
-    *(this + 3) = v5;
-    if (v5)
-    {
-      RunLoopSource = CFMachPortCreateRunLoopSource(v4, v5, 0);
-      *(this + 1) = RunLoopSource;
-      if (RunLoopSource)
-      {
-        CFRunLoopAddSource(*this, RunLoopSource, *MEMORY[0x277CBF058]);
-        v2 = 0;
-        goto LABEL_13;
-      }
-
-      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-      {
-        v8 = this[78];
-        v11 = 67109378;
-        v12 = v8;
-        v13 = 2080;
-        v14 = "AddIODispatcherToRunLoop";
-        _os_log_impl(&dword_277780000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AppleProResHW (0x%x): %s(): ERROR: CFMachPortCreateRunLoopSource failed -> Dispatcher cannot be installed\n", &v11, 0x12u);
-      }
-    }
-
-    else
-    {
-      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-      {
-        v7 = this[78];
-        v11 = 67109634;
-        v12 = v7;
-        v13 = 2080;
-        v14 = "AddIODispatcherToRunLoop";
-        v15 = 2048;
-        v16 = 0;
-        _os_log_impl(&dword_277780000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AppleProResHW (0x%x): %s(): ERROR: CFMachPortCreateWithPort failed m_CFAsyncPort %p\n", &v11, 0x1Cu);
-      }
-
-      *(this + 3) = 0;
-    }
-
-    ProResFrameReceiver::RemoveIODispatcherFromRunLoop(this);
-    v2 = 3758097085;
-    goto LABEL_13;
-  }
-
-  v2 = 3758097084;
-  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-  {
-    v3 = this[78];
-    LODWORD(buf.version) = 67109378;
-    HIDWORD(buf.version) = v3;
-    LOWORD(buf.info) = 2080;
-    *(&buf.info + 2) = "AddIODispatcherToRunLoop";
-    _os_log_impl(&dword_277780000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AppleProResHW (0x%x): %s(): ERROR: IOCreateReceivePort failed -> Dispatcher cannot be installed\n", &buf, 0x12u);
-  }
-
-LABEL_13:
-  v9 = *MEMORY[0x277D85DE8];
-  return v2;
-}
-
-uint64_t ProResFrameReceiver::ChangeBackgroundPolicy(uint64_t this, int a2)
-{
-  if (*(this + 64) != a2)
-  {
-    *(this + 64) = a2;
-  }
-
-  return this;
-}
-
-uint64_t stitchCallback(unsigned __int8 *a1, size_t offsetIntoDestination, size_t dataLength, CMBlockBufferRef *a4)
-{
-  v4 = CMBlockBufferReplaceDataBytes(a1, *a4, offsetIntoDestination, dataLength);
-  if (v4 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-  {
-    stitchCallback();
-  }
-
-  return v4;
-}
-
-uint64_t ProResFrameReceiver::EmitPendingFrames(ProResFrameReceiver *this)
-{
-  v29 = *MEMORY[0x277D85DE8];
-  v1 = *(this + 48);
-  v2 = *(this + 25) + 32 * (v1 % *(this + 33));
-  v3 = 1;
-  if (*v2 == 1)
-  {
-    v5 = (this + 312);
-    v6 = MEMORY[0x277D86220];
-    while (*(v2 + 4) == v1)
-    {
-      v7 = *(v2 + 16);
-      v8 = *(v2 + 8);
-      if (v7 && os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
-      {
-        v9 = *v5;
-        v10 = *(v8 + 56);
-        *buf = 67109890;
-        v22 = v9;
-        v23 = 2080;
-        v24 = "EmitPendingFrames";
-        v25 = 1024;
-        v26 = v7;
-        v27 = 1024;
-        v28 = v10;
-        _os_log_impl(&dword_277780000, v6, OS_LOG_TYPE_ERROR, "AppleProResHW (0x%x): %s(): Emit to client status=0x%x for subFrameId=%d \n", buf, 0x1Eu);
-      }
-
-      v11 = *(v2 + 24);
-      if (*(v8 + 4) > 3)
-      {
-        ProResFrameReceiver::EmitEncodedFrame(this, v8, v11, v1);
-        v15 = *(v2 + 24);
-        if (v15)
-        {
-          CFRelease(v15);
-        }
-
-        v16 = *(v8 + 72);
-        if (v16)
-        {
-          CVPixelBufferRelease(v16);
-        }
-
-        v17 = *(v8 + 80);
-        if (v17)
-        {
-          CFRelease(v17);
-        }
-      }
-
-      else
-      {
-        ProResFrameReceiver::EmitDecodedFrame(this, v8, v11, v1, v7, 0);
-        v12 = *(v2 + 24);
-        if (v12)
-        {
-          CVPixelBufferRelease(v12);
-        }
-
-        v13 = *(v8 + 40);
-        if (v13)
-        {
-          CFRelease(v13);
-        }
-
-        v14 = *(this + 5);
-        VTDecoderSessionCleanUpAfterDecode();
-      }
-
-      ++*(this + 48);
-      pthread_mutex_lock(*(this + 13));
-      bzero(v8, 0x320uLL);
-      **(this + 12) = 1;
-      pthread_cond_signal(*(this + 14));
-      pthread_mutex_unlock(*(this + 13));
-      atomic_fetch_add(*(this + 9), 0xFFFFFFFF);
-      pthread_mutex_lock(*(this + 10));
-      if (!atomic_load(*(this + 9)))
-      {
-        pthread_cond_signal(*(this + 11));
-      }
-
-      pthread_mutex_unlock(*(this + 10));
-      *v2 = 0u;
-      *(v2 + 16) = 0u;
-      v1 = *(this + 48);
-      v2 = *(this + 25) + 32 * (v1 % *(this + 33));
-      if ((*v2 & 1) == 0)
-      {
-        v3 = 1;
-        goto LABEL_26;
-      }
-    }
-
-    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-    {
-      ProResFrameReceiver::EmitPendingFrames(v5);
-    }
-
-    v3 = 0;
-  }
-
-LABEL_26:
-  v19 = *MEMORY[0x277D85DE8];
-  return v3;
-}
-
-uint64_t ProResFrameReceiver::EmitDecodedFrame(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6)
+uint64_t ProResFrameReceiver::EmitDecodedFrame(void *a1, uint64_t a2, uint64_t a3, unsigned int a4, uint64_t a5, int a6)
 {
   if (a6)
   {
-    v10 = *(a1 + 316);
-    v11 = *(a1 + 312);
-    v12 = *(a1 + 56);
-    v13 = *(v12 + 32);
-    v14 = *(v12 + 40);
     kdebug_trace();
   }
 
-  if (*(a1 + 40) == 1)
+  if (a1[5] == 1)
   {
-    v23 = *(a1 + 144);
-    if (v23)
+    v11 = a1[18];
+    if (v11)
     {
-      v24 = *(a1 + 160);
-      if (v24)
+      v12 = a1[20];
+      if (v12)
       {
-        v25 = *(a2 + 24);
-        v26 = *MEMORY[0x277CC0898];
-        v27 = *(MEMORY[0x277CC0898] + 16);
-        v24(v23, *(a2 + 16), a5);
+        v12(v11, *(a2 + 16), a5);
       }
     }
   }
 
   else
   {
-    v15 = *(a2 + 16);
-    v16 = *(a2 + 24);
     VTDecoderSessionEmitDecodedFrame();
   }
 
   if (a6)
   {
-    v17 = *(a1 + 316);
-    v18 = *(a1 + 312);
-    v19 = *(a1 + 56);
-    v20 = *(v19 + 32);
-    v21 = *(v19 + 40);
     kdebug_trace();
   }
 
   return 1;
 }
 
-uint64_t ProResFrameReceiver::EmitEncodedFrame(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4)
+uint64_t ProResFrameReceiver::EmitEncodedFrame(void *a1, uint64_t a2, uint64_t a3, unsigned int a4, uint64_t a5)
 {
-  v6 = *(a1 + 312);
-  v7 = *(a1 + 56);
-  v8 = *(v7 + 32);
-  v9 = a4;
-  v10 = *(a1 + 316) | 0x1300000000;
-  v11 = *(v7 + 40) | a4;
   kdebug_trace();
-  if (*(a1 + 48) == 2)
+  if (a1[6] == 2)
   {
-    if (*(a1 + 168))
+    if (a1[21])
     {
-      v20 = *(a1 + 184);
-      if (v20)
+      v7 = a1[23];
+      if (v7)
       {
-        v21 = *(a2 + 16);
-        v22 = *(a2 + 24);
-        v20();
+        v7();
       }
     }
   }
 
   else
   {
-    v12 = *(a2 + 16);
-    v13 = *(a2 + 24);
     VTEncoderSessionEmitEncodedFrame();
   }
-
-  v14 = *(a1 + 312);
-  v15 = *(a1 + 56);
-  v16 = *(v15 + 32);
-  v17 = *(a1 + 316) | 0x1400000000;
-  v18 = *(v15 + 40) | v9;
 
   return kdebug_trace();
 }
@@ -540,7 +197,7 @@ uint64_t ProResFrameReceiver::SWSwapBRRaw(ProResFrameReceiver *this, CVPixelBuff
 
 uint64_t ProResFrameReceiver::PerformAlphaUpscaling(uint64_t a1, CVPixelBufferRef pixelBuffer, uint64_t a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   extraRowsOnTop = 0;
   extraColumnsOnLeft = 0;
   if (*(a3 + 33) == 2)
@@ -550,7 +207,7 @@ uint64_t ProResFrameReceiver::PerformAlphaUpscaling(uint64_t a1, CVPixelBufferRe
       v3 = 3758097084;
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        ProResFrameReceiver::PerformAlphaUpscaling(a1);
+        ProResFrameReceiver::PerformAlphaUpscaling();
       }
     }
 
@@ -567,43 +224,43 @@ uint64_t ProResFrameReceiver::PerformAlphaUpscaling(uint64_t a1, CVPixelBufferRe
         operator new();
       }
 
-      pthread_cond_init(&v19, 0);
-      pthread_mutex_init(&v18, 0);
+      pthread_cond_init(&v18, 0);
+      pthread_mutex_init(&v17, 0);
       if ((HeightOfPlane + 15) >= 0x10)
       {
         operator new();
       }
 
-      pthread_mutex_lock(&v18);
-      gettimeofday(&v10, 0);
-      v11.tv_sec = v10.tv_sec + 3;
-      v11.tv_nsec = 1000 * v10.tv_usec;
+      pthread_mutex_lock(&v17);
+      gettimeofday(&v9, 0);
+      v10.tv_sec = v9.tv_sec + 3;
+      v10.tv_nsec = 1000 * v9.tv_usec;
       if ((HeightOfPlane + 15) >> 4)
       {
           ;
         }
 
-        pthread_mutex_unlock(&v18);
+        pthread_mutex_unlock(&v17);
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
           v6 = *(a1 + 312);
           *buf = 67109378;
-          v15 = v6;
-          v16 = 2080;
-          v17 = "PerformAlphaUpscaling";
+          v14 = v6;
+          v15 = 2080;
+          v16 = "PerformAlphaUpscaling";
           _os_log_impl(&dword_277780000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AppleProResHW (0x%x): %s(): ERROR: threadpool couldn't complete AlphaScalingTask", buf, 0x12u);
         }
       }
 
       else
       {
-        pthread_mutex_unlock(&v18);
+        pthread_mutex_unlock(&v17);
       }
 
-      pthread_cond_destroy(&v19);
-      pthread_mutex_destroy(&v18);
+      pthread_cond_destroy(&v18);
+      pthread_mutex_destroy(&v17);
       CVPixelBufferUnlockBaseAddress(pixelBuffer, 0);
-      v3 = 0;
+      return 0;
     }
   }
 
@@ -612,17 +269,16 @@ uint64_t ProResFrameReceiver::PerformAlphaUpscaling(uint64_t a1, CVPixelBufferRe
     v3 = 3758097084;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      ProResFrameReceiver::PerformAlphaUpscaling(a1);
+      ProResFrameReceiver::PerformAlphaUpscaling();
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 uint64_t ProResFrameReceiver::QueueOutOfOrderFrame(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4, uint64_t a5, int a6)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v7 = *(a1 + 200) + 32 * (a4 % *(a1 + 132));
   if (*v7)
   {
@@ -630,13 +286,13 @@ uint64_t ProResFrameReceiver::QueueOutOfOrderFrame(uint64_t a1, uint64_t a2, uin
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       v10 = *(a1 + 312);
-      v13[0] = 67109634;
-      v13[1] = v10;
-      v14 = 2080;
-      v15 = "QueueOutOfOrderFrame";
-      v16 = 1024;
-      v17 = a4;
-      _os_log_impl(&dword_277780000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AppleProResHW (0x%x): %s(): Spot isn't empty for frame %d, do you need to increase size?", v13, 0x18u);
+      v12[0] = 67109634;
+      v12[1] = v10;
+      v13 = 2080;
+      v14 = "QueueOutOfOrderFrame";
+      v15 = 1024;
+      v16 = a4;
+      _os_log_impl(&dword_277780000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AppleProResHW (0x%x): %s(): Spot isn't empty for frame %d, do you need to increase size?", v12, 0x18u);
     }
   }
 
@@ -650,71 +306,63 @@ uint64_t ProResFrameReceiver::QueueOutOfOrderFrame(uint64_t a1, uint64_t a2, uin
     *(v7 + 24) = a3;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
-void ProResFrameReceiver::DoubleEncodeFrame(uint64_t a1, uint64_t a2, uint64_t a3, BOOL *a4)
+void ProResFrameReceiver::DoubleEncodeFrame(uint64_t a1, uint64_t a2, uint64_t a3, BOOL *a4, uint64_t a5, _BYTE *a6)
 {
-  v4 = *(a2 + 216);
-  v6 = 134610945;
-  v5 = a2 + 216;
-  *a4 = (v4 & 1) == 0;
+  v6 = *(a2 + 216);
+  v8 = 134610945;
+  v7 = a2 + 216;
+  *a4 = (v6 & 1) == 0;
   *(a2 + 706) = 0;
   operator new();
 }
 
 uint64_t ProResFrameReceiver::P1ParseFrame(uint64_t a1, unsigned int **a2, uint64_t a3, uint64_t *a4, uint64_t a5)
 {
-  v10 = *(a1 + 316);
-  v11 = *(a1 + 312);
-  v12 = **a2;
   kdebug_trace();
-  v13 = *(a1 + 264);
-  if ((v13 - 2) < 2)
+  v10 = *(a1 + 264);
+  if ((v10 - 2) < 2)
   {
-    v20 = 0;
-    v21 = 0;
-    getEncodeStatsPtrs((a3 + 344), a4 + 2, &v21, &v20, a4, a4 + 1);
-    ProResHWAnalyzer::parseHWStats(*(a1 + 232), *(a1 + 216), v21, v20, *a4, *(a1 + 284), *(a3 + 284), *(a3 + 288), *(a3 + 240), *(a3 + 564));
+    v13 = 0;
+    v14 = 0;
+    getEncodeStatsPtrs((a3 + 344), a4 + 2, &v14, &v13, a4, a4 + 1);
+    ProResHWAnalyzer::parseHWStats(*(a1 + 232), *(a1 + 216), v14, v13, *a4, *(a1 + 284), *(a3 + 284), *(a3 + 288), *(a3 + 240), *(a3 + 564));
 LABEL_5:
-    v15 = 0;
+    v11 = 0;
     goto LABEL_8;
   }
 
-  if (v13 == 1)
+  if (v10 == 1)
   {
-    v14 = *(a2 + 10);
-    ProResHWAnalyzer::parseProResFrame(*(a1 + 232), a5, *(a1 + 216), 1);
+    ProResHWAnalyzer::parseProResFrame(*(a1 + 232), a5, *(a1 + 216), 1, *(a2 + 10));
     goto LABEL_5;
   }
 
-  v15 = 3758097084;
+  v11 = 3758097084;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    ProResFrameReceiver::P1ParseFrame((a1 + 312));
+    ProResFrameReceiver::P1ParseFrame();
   }
 
 LABEL_8:
-  v16 = *(a1 + 316);
-  v17 = *(a1 + 312);
-  v18 = **a2;
   kdebug_trace();
-  return v15;
+  return v11;
 }
 
 uint64_t ProResFrameReceiver::P1AnalyzeFrame(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, unsigned int a5, __int16 *a6)
 {
-  v55[0] = a5;
-  v53 = 0u;
-  v54 = 0u;
-  v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
+  v52[0] = a5;
   v50 = 0u;
-  v47 = 0u;
+  v51 = 0u;
   v48 = 0u;
+  v49 = 0u;
   v46 = 0u;
+  v47 = 0u;
+  v44 = 0u;
+  v45 = 0u;
+  v43 = 0u;
   if (a5 > 0xF)
   {
     v16 = 0;
@@ -725,7 +373,7 @@ uint64_t ProResFrameReceiver::P1AnalyzeFrame(uint64_t a1, uint64_t *a2, uint64_t
     v11 = 0;
     do
     {
-      v12 = ProResHWAnalyzer::analyzeProResFrame(*(a1 + 232), *(a1 + 216), &v46, v55);
+      v12 = ProResHWAnalyzer::analyzeProResFrame(*(a1 + 232), *(a1 + 216), &v43, v52);
       if (*(a2 + 8) == 1)
       {
         v13 = *(a2 + 11);
@@ -734,7 +382,7 @@ uint64_t ProResFrameReceiver::P1AnalyzeFrame(uint64_t a1, uint64_t *a2, uint64_t
           v13 = *(a2 + 10);
         }
 
-        if (v55[0] <= v13)
+        if (v52[0] <= v13)
         {
           v14 = 127 - 127 * **(a1 + 216) / v12;
           if (v14 >= 0x28)
@@ -751,12 +399,12 @@ uint64_t ProResFrameReceiver::P1AnalyzeFrame(uint64_t a1, uint64_t *a2, uint64_t
         break;
       }
 
-      ++v55[0];
+      ++v52[0];
       v11 = v12;
     }
 
-    while (v55[0] < 0x10u);
-    v16 = ((v51 - *(&v50 + 1)) >> 2) + ((*(&v46 + 1) - v46) >> 2) + ((v48 - *(&v47 + 1)) >> 2) + ((*(&v52 + 1) - v52) >> 2);
+    while (v52[0] < 0x10u);
+    v16 = ((v48 - *(&v47 + 1)) >> 2) + ((*(&v43 + 1) - v43) >> 2) + ((v45 - *(&v44 + 1)) >> 2) + ((*(&v49 + 1) - v49) >> 2);
   }
 
   *(a1 + 280) = v16;
@@ -773,21 +421,21 @@ uint64_t ProResFrameReceiver::P1AnalyzeFrame(uint64_t a1, uint64_t *a2, uint64_t
 
   if (v16 || *(a3 + 176) == 1)
   {
-    v42 = a4;
+    v39 = a4;
     v18 = 0;
     v19 = 0;
-    v20 = v43;
+    v20 = v40;
     do
     {
       v21 = v18;
-      v22 = &v46 + 9 * v19 + 1;
+      v22 = &v43 + 9 * v19 + 1;
       v23 = 3;
       do
       {
         *v20 = 0;
         v20[1] = 0;
         v20[2] = 0;
-        std::vector<std::pair<unsigned short,unsigned short>>::__init_with_size[abi:ne200100]<std::pair<unsigned short,unsigned short>*,std::pair<unsigned short,unsigned short>*>(v20, *(v22 - 1), *v22, (*v22 - *(v22 - 1)) >> 2);
+        std::vector<std::pair<unsigned short,unsigned short>>::__init_with_size[abi:ne200100]<std::pair<unsigned short,unsigned short>*,std::pair<unsigned short,unsigned short>*>(v20, *(v22 - 1), *v22, *v22 - *(v22 - 1));
         v22 += 3;
         v20 += 3;
         --v23;
@@ -795,13 +443,13 @@ uint64_t ProResFrameReceiver::P1AnalyzeFrame(uint64_t a1, uint64_t *a2, uint64_t
 
       while (v23);
       v18 = 1;
-      v20 = &v44;
+      v20 = &v41;
       v19 = 1;
     }
 
     while ((v21 & 1) == 0);
-    ProResFrameReceiver::P1FixSlicesQp(a1, a2, a3, v42, v43, v55[0]);
-    v24 = &v45;
+    ProResFrameReceiver::P1FixSlicesQp(a1, a2, a3, v39, v40, v52[0]);
+    v24 = &v42;
     v25 = -144;
     do
     {
@@ -823,35 +471,35 @@ uint64_t ProResFrameReceiver::P1AnalyzeFrame(uint64_t a1, uint64_t *a2, uint64_t
   else if ((*(a1 + 264) - 1) > 2)
   {
     v27 = 0;
-    v35 = *a2;
-    v36 = vshr_n_u32(vadd_s32(*(*a2 + 68), 0xF0000000FLL), 4uLL);
-    v37 = 8 * *(*(a1 + 216) + 40) * v36.i32[1] + 8;
-    v38 = *(*a2 + 472) - v37;
-    if (v38 <= 1)
+    v32 = *a2;
+    v33 = vshr_n_u32(vadd_s32(*(*a2 + 68), 0xF0000000FLL), 4uLL);
+    v34 = 8 * *(*(a1 + 216) + 40) * v33.i32[1] + 8;
+    v35 = *(*a2 + 472) - v34;
+    if (v35 <= 1)
     {
-      v38 = 1;
+      v35 = 1;
     }
 
-    v39 = 8 * (v38 / (v36.i32[1] * v36.i32[0]));
-    v40 = v35[119] - v37;
-    if (v39 >= 0x10000)
+    v36 = 8 * (v35 / (v33.i32[1] * v33.i32[0]));
+    v37 = v32[119] - v34;
+    if (v36 >= 0x10000)
     {
-      v39 = 0x3FFF;
+      v36 = 0x3FFF;
     }
 
-    if (v40 <= 1)
+    if (v37 <= 1)
     {
-      v40 = 1;
+      v37 = 1;
     }
 
-    v41 = 8 * (v40 / (v36.i32[1] * v36.i32[0]));
-    if (v41 >= 0x10000)
+    v38 = 8 * (v37 / (v33.i32[1] * v33.i32[0]));
+    if (v38 >= 0x10000)
     {
-      v41 = 0x3FFF;
+      v38 = 0x3FFF;
     }
 
-    v35[51] = v41;
-    v35[52] = v39;
+    v32[51] = v38;
+    v32[52] = v36;
   }
 
   else
@@ -867,19 +515,16 @@ uint64_t ProResFrameReceiver::P1AnalyzeFrame(uint64_t a1, uint64_t *a2, uint64_t
       pthread_mutex_unlock(*(a1 + 248));
     }
 
-    v32 = *(a1 + 316);
-    v33 = *(a1 + 312);
-    v34 = **a2;
     kdebug_trace();
     v27 = 1;
   }
 
   for (i = 0; i != -144; i -= 24)
   {
-    v29 = *(&v53 + i + 8);
+    v29 = *(&v50 + i + 8);
     if (v29)
     {
-      *&v55[i - 9] = v29;
+      *&v52[i - 9] = v29;
       operator delete(v29);
     }
   }
@@ -931,29 +576,23 @@ LABEL_7:
     v5[12] = v8;
     *(*a2 + 11) = v9;
     atomic_fetch_add(*(a1 + 72), 1u);
-    v10 = *(a1 + 316);
-    v11 = *(a1 + 312);
-    v12 = **a2;
     kdebug_trace();
-    v13 = IOConnectCallStructMethod(*(a1 + 32), 3u, *a2, 0x200uLL, 0, 0);
-    v14 = *(a1 + 316);
-    v15 = *(a1 + 312);
-    v16 = **a2;
+    v10 = IOConnectCallStructMethod(*(a1 + 32), 3u, *a2, 0x200uLL, 0, 0);
     kdebug_trace();
     ++*(a1 + 288);
-    if (!v13)
+    if (!v10)
     {
       return 0;
     }
 
-    v17 = 3758097084;
+    v11 = 3758097084;
     atomic_fetch_add(*(a1 + 72), 0xFFFFFFFF);
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      ProResFrameReceiver::P2Encode((a1 + 312));
+      ProResFrameReceiver::P2Encode();
     }
 
-    return v17;
+    return v11;
   }
 
   if (v7 == 2)
@@ -963,68 +602,61 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  v17 = 3758097084;
+  v11 = 3758097084;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    ProResFrameReceiver::P2Encode(a1);
+    ProResFrameReceiver::P2Encode();
   }
 
-  return v17;
+  return v11;
 }
 
 uint64_t ProResFrameReceiver::P2PrepareFrame(uint64_t a1, _BYTE *a2, uint64_t a3, uint64_t *a4, uint64_t a5, unint64_t *a6)
 {
   if (a2[9] == 2 || !*(a1 + 280))
   {
-    v18 = 0;
-    v19 = (a5 + (*(a3 + 28) >> 2));
-    *a6 = (*v19 << 24) | (v19[1] << 16) | (v19[2] << 8) | v19[3];
+    v14 = 0;
+    v15 = (a5 + (*(a3 + 28) >> 2));
+    *a6 = (*v15 << 24) | (v15[1] << 16) | (v15[2] << 8) | v15[3];
   }
 
   else
   {
-    v26 = 0;
+    v19 = 0;
     v12 = *(*a2 + 476);
-    v13 = *(a1 + 316);
-    v14 = *(a1 + 312);
-    v15 = **a2;
     kdebug_trace();
-    v16 = *(a1 + 264);
-    if (v16 == 2)
+    v13 = *(a1 + 264);
+    if (v13 == 2)
     {
-      v24 = 0;
-      v25 = 0;
-      getEncodeStatsPtrs((a3 + 344), a4 + 2, &v25, &v24, a4, a4 + 1);
-      ProResHWAnalyzer::parseHWStats(*(a1 + 232), *(a1 + 224), v25, v24, *a4, *(a1 + 284), *(a3 + 284), *(a3 + 288), *(a3 + 240), *(a3 + 564));
+      v17 = 0;
+      v18 = 0;
+      getEncodeStatsPtrs((a3 + 344), a4 + 2, &v18, &v17, a4, a4 + 1);
+      ProResHWAnalyzer::parseHWStats(*(a1 + 232), *(a1 + 224), v18, v17, *a4, *(a1 + 284), *(a3 + 284), *(a3 + 288), *(a3 + 240), *(a3 + 564));
       goto LABEL_8;
     }
 
-    if (v16 == 1)
+    if (v13 == 1)
     {
-      v17 = a2[10];
-      ProResHWAnalyzer::parseProResFrame(*(a1 + 232), a5 + (*(a3 + 28) >> 2), *(a1 + 224), 0);
+      ProResHWAnalyzer::parseProResFrame(*(a1 + 232), a5 + (*(a3 + 28) >> 2), *(a1 + 224), 0, a2[10]);
 LABEL_8:
-      *a6 = ProResHWAnalyzer::getSliceToFix(*(a1 + 232), v12 + 156, *(a1 + 216), *(a1 + 224), *(a1 + 272), &v26);
-      v20 = *(a1 + 316);
-      v21 = *(a1 + 312);
-      v22 = **a2;
+      *a6 = ProResHWAnalyzer::getSliceToFix(*(a1 + 232), v12 + 156, *(a1 + 216), *(a1 + 224), *(a1 + 272), &v19);
       kdebug_trace();
       return 0;
     }
 
-    v18 = 3758097084;
+    v14 = 3758097084;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      ProResFrameReceiver::P2PrepareFrame((a1 + 312));
+      ProResFrameReceiver::P2PrepareFrame();
     }
   }
 
-  return v18;
+  return v14;
 }
 
-uint64_t ProResFrameReceiver::CopyBitstreamToBlockBuffer(uint64_t a1, uint64_t a2, uint64_t a3, char *sourceBytes, uint64_t a5, int a6)
+uint64_t ProResFrameReceiver::CopyBitstreamToBlockBuffer(uint64_t a1, uint64_t a2, uint64_t a3, char *sourceBytes, int a5, int a6)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v10 = *(a1 + 264);
   if ((v10 - 1) >= 2)
   {
@@ -1033,7 +665,7 @@ uint64_t ProResFrameReceiver::CopyBitstreamToBlockBuffer(uint64_t a1, uint64_t a
       v11 = CMBlockBufferReplaceDataBytes(sourceBytes, *a3, 0, *(a3 + 40));
       if (v11 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        ProResFrameReceiver::CopyBitstreamToBlockBuffer(a1);
+        ProResFrameReceiver::CopyBitstreamToBlockBuffer();
       }
     }
 
@@ -1042,34 +674,34 @@ uint64_t ProResFrameReceiver::CopyBitstreamToBlockBuffer(uint64_t a1, uint64_t a
       v11 = CMBlockBufferReplaceDataBytes(sourceBytes, *a3, 0, *(a3 + 40));
       if (v11 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        ProResFrameReceiver::CopyBitstreamToBlockBuffer(a1);
+        ProResFrameReceiver::CopyBitstreamToBlockBuffer();
       }
 
-      v16 = *(a3 + 8);
-      if (v16)
+      v12 = *(a3 + 8);
+      if (v12)
       {
-        v17 = CMBlockBufferReplaceDataBytes(*(a2 + 184), *a3, *(a3 + 40), v16);
-        if (v17)
+        v13 = CMBlockBufferReplaceDataBytes(*(a2 + 184), *a3, *(a3 + 40), v12);
+        if (v13)
         {
-          v18 = v17;
+          v14 = v13;
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
           {
-            v27 = *(a1 + 312);
-            v28 = *(a3 + 40);
-            v29 = *(a3 + 8);
-            v30 = 67110402;
-            v31 = v27;
-            v32 = 1024;
-            v33 = 1475;
-            v34 = 2080;
-            v35 = "CopyBitstreamToBlockBuffer";
-            v36 = 1024;
-            v37 = v18;
-            v38 = 2048;
-            v39 = v28;
-            v40 = 2048;
-            v41 = v29;
-            _os_log_error_impl(&dword_277780000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "ERROR: AppleProResHW (0x%x): %d: %s(): failed Non DoubleEnc metadata extension CMBlockBufferReplaceDataBytes (0x%x) offset=%lu length=%zu\n", &v30, 0x32u);
+            v22 = *(a1 + 312);
+            v23 = *(a3 + 40);
+            v24 = *(a3 + 8);
+            v25 = 67110402;
+            v26 = v22;
+            v27 = 1024;
+            v28 = 1475;
+            v29 = 2080;
+            v30 = "CopyBitstreamToBlockBuffer";
+            v31 = 1024;
+            v32 = v14;
+            v33 = 2048;
+            v34 = v23;
+            v35 = 2048;
+            v36 = v24;
+            _os_log_error_impl(&dword_277780000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "ERROR: AppleProResHW (0x%x): %d: %s(): failed Non DoubleEnc metadata extension CMBlockBufferReplaceDataBytes (0x%x) offset=%lu length=%zu\n", &v25, 0x32u);
           }
         }
 
@@ -1080,7 +712,7 @@ uint64_t ProResFrameReceiver::CopyBitstreamToBlockBuffer(uint64_t a1, uint64_t a
         v11 = CMBlockBufferReplaceDataBytes(sourceBytes, *a3, 0, 4uLL);
         if (v11 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
-          ProResFrameReceiver::CopyBitstreamToBlockBuffer(a1);
+          ProResFrameReceiver::CopyBitstreamToBlockBuffer();
         }
       }
     }
@@ -1091,23 +723,19 @@ uint64_t ProResFrameReceiver::CopyBitstreamToBlockBuffer(uint64_t a1, uint64_t a
     v11 = CMBlockBufferReplaceDataBytes(sourceBytes, *a3, 0, *(a3 + 40));
     if (v11 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      ProResFrameReceiver::CopyBitstreamToBlockBuffer(a1);
+      ProResFrameReceiver::CopyBitstreamToBlockBuffer();
     }
   }
 
   else if (*(a1 + 280))
   {
-    v12 = *(a1 + 316);
-    v13 = *(a1 + 312);
     kdebug_trace();
     v11 = ProResHWAnalyzer::stitchProResFrame(*(a1 + 232), *(a1 + 216), sourceBytes, *(a1 + 224), &sourceBytes[*(a2 + 28) >> 2], (a3 + 40), stitchCallback, a3);
     if (v11 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      ProResFrameReceiver::CopyBitstreamToBlockBuffer((a1 + 312));
+      ProResFrameReceiver::CopyBitstreamToBlockBuffer();
     }
 
-    v14 = *(a1 + 316);
-    v15 = *(a1 + 312);
     kdebug_trace();
   }
 
@@ -1116,35 +744,35 @@ uint64_t ProResFrameReceiver::CopyBitstreamToBlockBuffer(uint64_t a1, uint64_t a
     v11 = CMBlockBufferReplaceDataBytes(&sourceBytes[*(a2 + 28) >> 2], *a3, 0, *(a3 + 40));
     if (v11 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      ProResFrameReceiver::CopyBitstreamToBlockBuffer(a1);
+      ProResFrameReceiver::CopyBitstreamToBlockBuffer();
     }
   }
 
-  v19 = *(a3 + 32);
-  if (v19)
+  v15 = *(a3 + 32);
+  if (v15)
   {
-    v20 = CMBlockBufferFillDataBytes(0, *a3, *(a3 + 16), v19);
-    if (v20)
+    v16 = CMBlockBufferFillDataBytes(0, *a3, *(a3 + 16), v15);
+    if (v16)
     {
-      v21 = v20;
+      v17 = v16;
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        v24 = *(a1 + 312);
-        v25 = *(a3 + 16);
-        v26 = *(a3 + 32);
-        v30 = 67110402;
-        v31 = v24;
-        v32 = 1024;
-        v33 = 1494;
-        v34 = 2080;
-        v35 = "CopyBitstreamToBlockBuffer";
-        v36 = 1024;
-        v37 = v21;
-        v38 = 2048;
-        v39 = v25;
-        v40 = 2048;
-        v41 = v26;
-        _os_log_error_impl(&dword_277780000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "ERROR: AppleProResHW (0x%x): %d: %s(): failed adding stuffing value(0x0) CMBlockBufferFillDataBytes (0x%x) offset=%zu length=%zu\n", &v30, 0x32u);
+        v19 = *(a1 + 312);
+        v20 = *(a3 + 16);
+        v21 = *(a3 + 32);
+        v25 = 67110402;
+        v26 = v19;
+        v27 = 1024;
+        v28 = 1494;
+        v29 = 2080;
+        v30 = "CopyBitstreamToBlockBuffer";
+        v31 = 1024;
+        v32 = v17;
+        v33 = 2048;
+        v34 = v20;
+        v35 = 2048;
+        v36 = v21;
+        _os_log_error_impl(&dword_277780000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "ERROR: AppleProResHW (0x%x): %d: %s(): failed adding stuffing value(0x0) CMBlockBufferFillDataBytes (0x%x) offset=%zu length=%zu\n", &v25, 0x32u);
       }
     }
 
@@ -1155,11 +783,10 @@ uint64_t ProResFrameReceiver::CopyBitstreamToBlockBuffer(uint64_t a1, uint64_t a
     v11 = CMBlockBufferReplaceDataBytes(sourceBytes, *a3, 0, 4uLL);
     if (v11 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      ProResFrameReceiver::CopyBitstreamToBlockBuffer(a1);
+      ProResFrameReceiver::CopyBitstreamToBlockBuffer();
     }
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -1227,22 +854,22 @@ void ProResFrameReceiver::P1FixSlicesQp(uint64_t a1, uint64_t *a2, uint64_t a3, 
   *(a3 + 176) = 0;
 }
 
-uint64_t ProResFrameReceiver::ProcessFrameDone(ProResFrameReceiver *this, uint64_t a2, unsigned int a3, int a4, int a5, UInt8 *a6, int a7)
+uint64_t ProResFrameReceiver::ProcessFrameDone(ProResFrameReceiver *this, unsigned int a2, unsigned int a3, int a4, int a5, UInt8 *a6, int a7)
 {
-  v101 = *MEMORY[0x277D85DE8];
+  v91 = *MEMORY[0x277D85DE8];
   sbuf = 0;
   v9 = *(*(this + 7) + 16) + 800 * a3;
   v11 = *(v9 + 56);
   v10 = *(v9 + 60);
-  v72 = v10;
-  v73 = v11 + 1;
+  v61 = v10;
+  v62 = v11 + 1;
   v12 = (v9 + 8);
   if (a2 >> (*(this + 66) != 0) != *(v9 + 8))
   {
-    v25 = 3758097084;
+    v23 = 3758097084;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      ProResFrameReceiver::ProcessFrameDone(this);
+      ProResFrameReceiver::ProcessFrameDone();
     }
 
     goto LABEL_143;
@@ -1250,19 +877,17 @@ uint64_t ProResFrameReceiver::ProcessFrameDone(ProResFrameReceiver *this, uint64
 
   if (*(v9 + 4) <= 3 && v11 > v10)
   {
-    v25 = 3758097084;
+    v23 = 3758097084;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      ProResFrameReceiver::ProcessFrameDone(this);
+      ProResFrameReceiver::ProcessFrameDone();
     }
 
     goto LABEL_143;
   }
 
-  if (v73 == v10)
+  if (v62 == v10)
   {
-    v18 = *(this + 79);
-    v19 = *(this + 78);
     kdebug_trace();
   }
 
@@ -1275,16 +900,16 @@ uint64_t ProResFrameReceiver::ProcessFrameDone(ProResFrameReceiver *this, uint64
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v20 = *(this + 78);
-      v21 = *v12;
+      v18 = *(this + 78);
+      v19 = *v12;
       buf = 67109890;
-      v89 = v20;
-      v90 = 2080;
-      *v91 = "ProcessFrameDone";
-      *&v91[8] = 1024;
-      *&v91[10] = v21;
-      v92 = 1024;
-      v93 = 55;
+      v79 = v18;
+      v80 = 2080;
+      *v81 = "ProcessFrameDone";
+      *&v81[8] = 1024;
+      *&v81[10] = v19;
+      v82 = 1024;
+      v83 = 55;
       _os_log_impl(&dword_277780000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AppleProResHW (0x%x): %s(): Bad RecDecoderHW error, frame %d HWErrorCode=0x%x", &buf, 0x1Eu);
     }
 
@@ -1293,73 +918,73 @@ uint64_t ProResFrameReceiver::ProcessFrameDone(ProResFrameReceiver *this, uint64
 
   if (*(v9 + 4) <= 3)
   {
-    v22 = *(v9 + 56);
-    if (v22 + 1 != *(v9 + 60))
+    v20 = *(v9 + 56);
+    if (v20 + 1 != *(v9 + 60))
     {
-      v29 = *a6;
+      v27 = *a6;
       cf = *(v9 + 40);
-      if (v22)
+      if (v20)
       {
-        v29 += *(this + 77);
+        v27 += *(this + 77);
       }
 
-      v30 = 0;
-      v26 = 0;
-      *(this + 77) = v29;
+      v28 = 0;
+      v24 = 0;
+      *(this + 77) = v27;
       if (a4 && a4 != 6)
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
-          v41 = *(this + 78);
+          v39 = *(this + 78);
           buf = 67109634;
-          v89 = v41;
-          v90 = 2080;
-          *v91 = "ProcessFrameDone";
-          *&v91[8] = 1024;
-          *&v91[10] = v22;
+          v79 = v39;
+          v80 = 2080;
+          *v81 = "ProcessFrameDone";
+          *&v81[8] = 1024;
+          *&v81[10] = v20;
           _os_log_impl(&dword_277780000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AppleProResHW (0x%x): %s(): DecoderHW error in subFrameId=%d\n", &buf, 0x18u);
         }
 
-        v30 = 0;
-        v26 = 0;
+        v28 = 0;
+        v24 = 0;
+        v21 = 0;
         v23 = 0;
-        v25 = 0;
         *(this + 130) = 1;
       }
 
       else
       {
+        v21 = 0;
         v23 = 0;
-        v25 = 0;
       }
 
       goto LABEL_128;
     }
 
-    v23 = *(v9 + 48);
+    v21 = *(v9 + 48);
     cf = *(v9 + 40);
     if ((a4 == 6 || !a4) && *(this + 130) != 1)
     {
-      if (!v23)
+      if (!v21)
       {
         goto LABEL_113;
       }
 
-      PixelFormatType = CVPixelBufferGetPixelFormatType(v23);
-      v35 = APR_ImgFmt_4CC(PixelFormatType);
-      v36 = v35;
-      v37 = *a6;
-      v38 = (this + 308);
+      PixelFormatType = CVPixelBufferGetPixelFormatType(v21);
+      v33 = APR_ImgFmt_4CC(PixelFormatType);
+      v34 = v33;
+      v35 = *a6;
+      v36 = (this + 308);
       if (*(v9 + 56))
       {
-        v37 += *v38;
+        v35 += *v36;
       }
 
-      *v38 = v37;
-      v39 = *(v9 + 32);
-      if ((v39 & 0x100000000) != 0)
+      *v36 = v35;
+      v37 = *(v9 + 32);
+      if ((v37 & 0x100000000) != 0)
       {
-        if (v37 == v39)
+        if (v35 == v37)
         {
           *(v9 + 24) |= 0x10000u;
         }
@@ -1367,29 +992,29 @@ uint64_t ProResFrameReceiver::ProcessFrameDone(ProResFrameReceiver *this, uint64
 
       else
       {
-        if (a7 && *(v35 + 33))
+        if (a7 && *(v33 + 33))
         {
-          CVBufferSetAttachment(v23, *MEMORY[0x277CC4B68], *MEMORY[0x277CBED28], kCVAttachmentMode_ShouldPropagate);
+          CVBufferSetAttachment(v21, *MEMORY[0x277CC4B68], *MEMORY[0x277CBED28], kCVAttachmentMode_ShouldPropagate);
         }
 
-        v40 = CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberSInt32Type, this + 308);
-        CVBufferSetAttachment(v23, @"ProResHW_CheckValue", v40, kCVAttachmentMode_ShouldPropagate);
-        CFRelease(v40);
+        v38 = CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberSInt32Type, this + 308);
+        CVBufferSetAttachment(v21, @"ProResHW_CheckValue", v38, kCVAttachmentMode_ShouldPropagate);
+        CFRelease(v38);
       }
 
       if (*(v9 + 65) == 1 && (PixelFormatType == 1651521076 || PixelFormatType == 1651520304))
       {
-        ProResFrameReceiver::SWSwapBRRaw(v35, v23, PixelFormatType);
+        ProResFrameReceiver::SWSwapBRRaw(v33, v21, PixelFormatType);
       }
 
       if (*(v9 + 64) == 1)
       {
-        v25 = ProResFrameReceiver::PerformAlphaUpscaling(this, v23, v36);
-        if (v25)
+        v23 = ProResFrameReceiver::PerformAlphaUpscaling(this, v21, v34);
+        if (v23)
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
           {
-            ProResFrameReceiver::ProcessFrameDone(this);
+            ProResFrameReceiver::ProcessFrameDone();
           }
 
           goto LABEL_119;
@@ -1399,57 +1024,57 @@ uint64_t ProResFrameReceiver::ProcessFrameDone(ProResFrameReceiver *this, uint64
       else
       {
 LABEL_113:
-        v25 = 0;
+        v23 = 0;
       }
 
 LABEL_114:
       if (*(this + 48) == a2 || *(this + 208) != 1)
       {
-        if (v25 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+        if (v23 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
-          v54 = *(this + 78);
-          v55 = *(v9 + 56);
+          v48 = *(this + 78);
+          v49 = *(v9 + 56);
           buf = 67109890;
-          v89 = v54;
-          v90 = 2080;
-          *v91 = "ProcessFrameDone";
-          *&v91[8] = 1024;
-          *&v91[10] = v25;
-          v92 = 1024;
-          v93 = v55;
+          v79 = v48;
+          v80 = 2080;
+          *v81 = "ProcessFrameDone";
+          *&v81[8] = 1024;
+          *&v81[10] = v23;
+          v82 = 1024;
+          v83 = v49;
           _os_log_impl(&dword_277780000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AppleProResHW (0x%x): %s(): Emit to client status=0x%x for subFrameId=%d \n", &buf, 0x1Eu);
         }
 
-        ProResFrameReceiver::EmitDecodedFrame(this, v9, v23, a2, v25, v73 == v72);
+        ProResFrameReceiver::EmitDecodedFrame(this, v9, v21, a2, v23, v62 == v61);
         ++*(this + 48);
         if (*(this + 208) == 1 && (ProResFrameReceiver::EmitPendingFrames(this) & 1) == 0)
         {
-          v25 = 3758097084;
+          v23 = 3758097084;
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
           {
-            ProResFrameReceiver::ProcessFrameDone(this);
+            ProResFrameReceiver::ProcessFrameDone();
           }
         }
 
-        v26 = 0;
-        v30 = 1;
+        v24 = 0;
+        v28 = 1;
         goto LABEL_128;
       }
 
-      v25 = ProResFrameReceiver::QueueOutOfOrderFrame(this, v9, v23, a2, 0, v25);
-      if (!v25)
+      v23 = ProResFrameReceiver::QueueOutOfOrderFrame(this, v9, v21, a2, 0, v23);
+      if (!v23)
       {
         goto LABEL_143;
       }
 
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        ProResFrameReceiver::ProcessFrameDone(this);
+        ProResFrameReceiver::ProcessFrameDone();
       }
 
 LABEL_119:
-      v30 = 0;
-      v26 = 0;
+      v28 = 0;
+      v24 = 0;
 LABEL_128:
       if (sbuf)
       {
@@ -1461,14 +1086,13 @@ LABEL_128:
         CFRelease(cf);
       }
 
-      if (v23)
+      if (v21)
       {
-        CVPixelBufferRelease(v23);
+        CVPixelBufferRelease(v21);
       }
 
-      if (v30)
+      if (v28)
       {
-        v56 = *(this + 5);
         VTDecoderSessionCleanUpAfterDecode();
       }
 
@@ -1482,9 +1106,9 @@ LABEL_128:
       **(this + 12) = 1;
       pthread_cond_signal(*(this + 14));
       pthread_mutex_unlock(*(this + 13));
-      if (v26)
+      if (v24)
       {
-        CFRelease(v26);
+        CFRelease(v24);
       }
 
       atomic_fetch_add(*(this + 9), 0xFFFFFFFF);
@@ -1500,89 +1124,89 @@ LABEL_128:
 
     if (a4 == 4)
     {
-      v24 = -536870173;
+      v22 = -536870173;
     }
 
     else
     {
-      v24 = -12911;
+      v22 = -12911;
     }
 
     if (a4 == 3)
     {
-      v25 = 3758097110;
+      v23 = 3758097110;
     }
 
     else
     {
-      v25 = v24;
+      v23 = v22;
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v65 = *(this + 78);
+      v55 = *(this + 78);
       buf = 67110402;
-      v89 = v65;
-      v90 = 1024;
-      *v91 = 2068;
-      *&v91[4] = 2080;
-      *&v91[6] = "ProcessFrameDone";
-      v92 = 1024;
-      v93 = a4;
-      v94 = 1024;
-      v95 = a5;
-      v96 = 1024;
-      v97 = v25;
+      v79 = v55;
+      v80 = 1024;
+      *v81 = 2068;
+      *&v81[4] = 2080;
+      *&v81[6] = "ProcessFrameDone";
+      v82 = 1024;
+      v83 = a4;
+      v84 = 1024;
+      v85 = a5;
+      v86 = 1024;
+      v87 = v23;
       _os_log_error_impl(&dword_277780000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "ERROR: AppleProResHW (0x%x): %d: %s(): failed decoding proresStatus=%d HWErrorCode=0x%x convertedForEmit=0x%x\n", &buf, 0x2Au);
-      if (!v23)
+      if (!v21)
       {
         goto LABEL_30;
       }
     }
 
-    else if (!v23)
+    else if (!v21)
     {
 LABEL_30:
-      v23 = 0;
+      v21 = 0;
       *(this + 130) = 0;
       goto LABEL_114;
     }
 
-    CVPixelBufferRelease(v23);
+    CVPixelBufferRelease(v21);
     goto LABEL_30;
   }
 
-  v98 = 0;
-  v99 = 0;
-  v100 = 0;
-  v23 = *(v9 + 72);
+  v88 = 0;
+  v89 = 0;
+  v90 = 0;
+  v21 = *(v9 + 72);
   cf = *(v9 + 80);
   *(this + 129) &= a7 != 0;
   if (!a4 || a4 == 5)
   {
-    v26 = IOSurfaceLookup(*(v9 + 104));
-    BaseAddress = IOSurfaceGetBaseAddress(v26);
-    v28 = _byteswap_ulong(*BaseAddress);
-    v75 = (*BaseAddress << 24) | (*(BaseAddress + 1) << 16) | (*(BaseAddress + 2) << 8) | *(BaseAddress + 3);
+    v24 = IOSurfaceLookup(*(v9 + 104));
+    BaseAddress = IOSurfaceGetBaseAddress(v24);
+    v26 = _byteswap_ulong(*BaseAddress);
+    v65 = (*BaseAddress << 24) | (*(BaseAddress + 1) << 16) | (*(BaseAddress + 2) << 8) | *(BaseAddress + 3);
     if (*(v9 + 176))
     {
-      v75 = 148;
-      if (v28)
+      v65 = 148;
+      if (v26)
       {
 LABEL_163:
-        ProResFrameReceiver::ProcessFrameDone(this, (v9 + 8));
+        ProResFrameReceiver::ProcessFrameDone();
         snprintf(&dataBuffer, 0xB4uLL, "ERROR: AppleProResHW (0x%x): %s(): F# %d: FrameParse error, the bitstream is corrupted, crashing system\n", *(this + 78), "ProcessFrameDone", *v12);
-        v69 = _os_crash();
-        ProResFrameReceiver::ProcessFrameDone(v69);
+        _os_crash();
+        ProResFrameReceiver::ProcessFrameDone();
       }
     }
 
     else
     {
-      v32 = parseFrameHeader(&buf, BaseAddress + 4, a7 != 0, *(this + 79), *(this + 78));
-      if (v32)
+      v30 = parseFrameHeader(&buf, BaseAddress + 4, a7 != 0, *(this + 79), *(this + 78));
+      if (v30)
       {
-        if (v32 != -536870191)
+        if (v30 != -536870191)
         {
           goto LABEL_163;
         }
@@ -1595,7 +1219,8 @@ LABEL_163:
     {
       if (*(this + 66))
       {
-        v74 = 1;
+        v64 = 1;
+        v63 = 0;
         goto LABEL_74;
       }
 
@@ -1604,44 +1229,43 @@ LABEL_163:
       *(v9 + 392) = 0u;
       *(v9 + 344) = 0u;
       *(v9 + 360) = 0u;
-      v33 = 20;
+      v31 = 20;
     }
 
     else
     {
-      v33 = 4;
+      v31 = 4;
     }
 
-    length = v33;
-    v42 = *(this + 66);
-    v74 = 1;
-    if (v42)
+    length = v31;
+    v40 = *(this + 66);
+    v64 = 1;
+    v63 = 0;
+    if (v40)
     {
 LABEL_74:
-      ProResFrameReceiver::DoubleEncodeFrame(this, v9, BaseAddress, &v74);
+      ProResFrameReceiver::DoubleEncodeFrame(this, v9, BaseAddress, &v64, &v65, &v63);
     }
 
-    v44 = *(this + 79);
-    v45 = *(this + 78);
     kdebug_trace();
     dataBuffer = 0;
-    *(&v87 + 1) = v75;
-    v46 = (*(v9 + 192) - *(v9 + 184) + v75);
-    v84 = *(v9 + 192) - *(v9 + 184);
-    v85 = v46;
-    v47 = *(v9 + 208);
-    if (v46 > v47)
+    *(&v77 + 1) = v65;
+    v42 = (*(v9 + 192) - *(v9 + 184) + v65);
+    v74 = *(v9 + 192) - *(v9 + 184);
+    v75 = v42;
+    v43 = *(v9 + 208);
+    if (v42 > v43)
     {
-      *(this + 76) = ((&v46[-v47] / v47) * 100.0) + *(this + 76);
+      *(this + 76) = ((&v42[-v43] / v43) * 100.0) + *(this + 76);
       ++*(this + 75);
     }
 
-    v48 = (v46 + 15) & 0xFFFFFFFFFFFFFFF0;
-    v86 = v48;
-    *&v87 = v48 - v46;
+    v44 = (v42 + 15) & 0xFFFFFFFFFFFFFFF0;
+    v76 = v44;
+    *&v77 = v44 - v42;
     if (*(this + 6) == 2)
     {
-      CMBlockBuffer = CMBlockBufferCreateWithMemoryBlock(*MEMORY[0x277CBECE8], 0, v48, *MEMORY[0x277CBECE8], 0, 0, v48, 1u, &dataBuffer);
+      CMBlockBuffer = CMBlockBufferCreateWithMemoryBlock(*MEMORY[0x277CBECE8], 0, v44, *MEMORY[0x277CBECE8], 0, 0, v44, 1u, &dataBuffer);
     }
 
     else
@@ -1649,14 +1273,14 @@ LABEL_74:
       CMBlockBuffer = VTEncoderSessionCreateCMBlockBuffer();
     }
 
-    v25 = CMBlockBuffer;
+    v23 = CMBlockBuffer;
     if (CMBlockBuffer)
     {
       goto LABEL_84;
     }
 
-    v25 = ProResFrameReceiver::CopyBitstreamToBlockBuffer(this, v9, &dataBuffer, BaseAddress, a2, v74);
-    if (v25)
+    v23 = ProResFrameReceiver::CopyBitstreamToBlockBuffer(this, v9, &dataBuffer, BaseAddress, a2, v64);
+    if (v23)
     {
 LABEL_83:
       CFRelease(dataBuffer);
@@ -1668,18 +1292,16 @@ LABEL_84:
         setDataForProperty(ValueAtIndex, @"ProResHW_CheckValue", a6, length);
       }
 
-      v52 = *(this + 79);
-      v53 = *(this + 78);
       kdebug_trace();
       goto LABEL_87;
     }
 
-    v62 = *(v9 + 4);
-    if (!a7 || v62 == 4)
+    v52 = *(v9 + 4);
+    if (!a7 || v52 == 4)
     {
-      v63 = *MEMORY[0x277CBECE8];
-      v64 = dataBuffer;
-      if (v62 == 4)
+      v53 = *MEMORY[0x277CBECE8];
+      v54 = dataBuffer;
+      if (v52 == 4)
       {
         goto LABEL_156;
       }
@@ -1689,134 +1311,131 @@ LABEL_84:
     {
       if (*(this + 129) == 1)
       {
-        v63 = *MEMORY[0x277CBECE8];
-        v64 = dataBuffer;
+        v53 = *MEMORY[0x277CBECE8];
+        v54 = dataBuffer;
 LABEL_156:
-        v67 = (v9 + 88);
+        v57 = (v9 + 88);
 LABEL_160:
-        v25 = CMSampleBufferCreateReady(v63, v64, *v67, 1, 1, (v9 + 728), 1, &v86, &sbuf);
-        if (v25 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+        v23 = CMSampleBufferCreateReady(v53, v54, *v57, 1, 1, (v9 + 728), 1, &v76, &sbuf);
+        if (v23 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
-          v68 = *(this + 78);
-          *v77 = 67109634;
-          v78 = v68;
-          v79 = 2080;
-          v80 = "ProcessFrameDone";
-          v81 = 1024;
-          v82 = v25;
-          _os_log_impl(&dword_277780000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AppleProResHW (0x%x): %s(): ERROR: CMSampleBufferCreateReady failed 0x%0x\n", v77, 0x18u);
+          v58 = *(this + 78);
+          *v67 = 67109634;
+          v68 = v58;
+          v69 = 2080;
+          v70 = "ProcessFrameDone";
+          v71 = 1024;
+          v72 = v23;
+          _os_log_impl(&dword_277780000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AppleProResHW (0x%x): %s(): ERROR: CMSampleBufferCreateReady failed 0x%0x\n", v67, 0x18u);
         }
 
         goto LABEL_83;
       }
 
-      v63 = *MEMORY[0x277CBECE8];
-      v64 = dataBuffer;
+      v53 = *MEMORY[0x277CBECE8];
+      v54 = dataBuffer;
       if (*(this + 128))
       {
-        v67 = (v9 + 88);
+        v57 = (v9 + 88);
         goto LABEL_160;
       }
     }
 
-    v67 = (v9 + 96);
+    v57 = (v9 + 96);
     goto LABEL_160;
   }
 
   if (a4 == 4)
   {
-    v31 = -536870173;
+    v29 = -536870173;
   }
 
   else
   {
-    v31 = -12912;
+    v29 = -12912;
   }
 
   if (a4 == 3)
   {
-    v25 = 3758097110;
+    v23 = 3758097110;
   }
 
   else
   {
-    v25 = v31;
+    v23 = v29;
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v66 = *(this + 78);
+    v56 = *(this + 78);
     LODWORD(dataBuffer) = 67110402;
-    HIDWORD(dataBuffer) = v66;
-    v84 = 0x820000008880400;
-    v85 = "ProcessFrameDone";
-    LOWORD(v86) = 1024;
-    *(&v86 + 2) = a4;
-    HIWORD(v86) = 1024;
-    LODWORD(v87) = a5;
-    WORD2(v87) = 1024;
-    *(&v87 + 6) = v25;
+    HIDWORD(dataBuffer) = v56;
+    v74 = 0x820000008880400;
+    v75 = "ProcessFrameDone";
+    LOWORD(v76) = 1024;
+    *(&v76 + 2) = a4;
+    HIWORD(v76) = 1024;
+    LODWORD(v77) = a5;
+    WORD2(v77) = 1024;
+    *(&v77 + 6) = v23;
     _os_log_error_impl(&dword_277780000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "ERROR: AppleProResHW (0x%x): %d: %s(): failed encoding: proresStatus=%d HWErrorCode=0x%x convertedForEmit=0x%x\n", &dataBuffer, 0x2Au);
   }
 
-  v26 = 0;
+  v24 = 0;
 LABEL_87:
   if (*(this + 48) == a2 || *(this + 208) != 1 || *(this + 66))
   {
-    ProResFrameReceiver::EmitEncodedFrame(this, v9, sbuf, a2);
+    ProResFrameReceiver::EmitEncodedFrame(this, v9, sbuf, a2, v23);
     ++*(this + 48);
     if (*(this + 208) != 1 || *(this + 66) || (ProResFrameReceiver::EmitPendingFrames(this) & 1) != 0)
     {
-      v43 = 0;
+      v41 = 0;
       goto LABEL_94;
     }
 
-    v25 = 3758097084;
+    v23 = 3758097084;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      ProResFrameReceiver::ProcessFrameDone(this);
+      ProResFrameReceiver::ProcessFrameDone();
     }
 
 LABEL_75:
-    v43 = 3;
+    v41 = 3;
     goto LABEL_94;
   }
 
-  v25 = ProResFrameReceiver::QueueOutOfOrderFrame(this, v9, sbuf, a2, 0, v25);
-  if (v25)
+  v23 = ProResFrameReceiver::QueueOutOfOrderFrame(this, v9, sbuf, a2, 0, v23);
+  if (v23)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      ProResFrameReceiver::ProcessFrameDone(this);
+      ProResFrameReceiver::ProcessFrameDone();
     }
 
     goto LABEL_75;
   }
 
-  v43 = 2;
+  v41 = 2;
 LABEL_94:
-  if (v98)
+  if (v88)
   {
-    v99 = v98;
-    operator delete(v98);
+    v89 = v88;
+    operator delete(v88);
   }
 
-  v30 = 0;
-  if (v43 > 2 || !v43)
+  v28 = 0;
+  if (v41 > 2 || !v41)
   {
     goto LABEL_128;
   }
 
 LABEL_143:
-  if (v73 == v72)
+  if (v62 == v61)
   {
-    v58 = *(this + 79);
-    v59 = *(this + 78);
     kdebug_trace();
   }
 
-  v60 = *MEMORY[0x277D85DE8];
-  return v25;
+  return v23;
 }
 
 void sub_27779E200(_Unwind_Exception *exception_object)
@@ -1833,7 +1452,7 @@ void sub_27779E200(_Unwind_Exception *exception_object)
 
 uint64_t DestroyProResFrameReceiver(CFTypeRef *a1, pthread_attr_t *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (a1)
   {
     v4 = *a1;
@@ -1852,11 +1471,11 @@ uint64_t DestroyProResFrameReceiver(CFTypeRef *a1, pthread_attr_t *a2)
       v5 = 3758097084;
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        v8[0] = 67109378;
-        v8[1] = -1;
-        v9 = 2080;
-        v10 = "DestroyProResFrameReceiver";
-        _os_log_impl(&dword_277780000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AppleProResHW (0x%x): %s(): ERROR: runLoopRef NULL\n", v8, 0x12u);
+        v7[0] = 67109378;
+        v7[1] = -1;
+        v8 = 2080;
+        v9 = "DestroyProResFrameReceiver";
+        _os_log_impl(&dword_277780000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AppleProResHW (0x%x): %s(): ERROR: runLoopRef NULL\n", v7, 0x12u);
       }
     }
 
@@ -1875,67 +1494,66 @@ uint64_t DestroyProResFrameReceiver(CFTypeRef *a1, pthread_attr_t *a2)
     }
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
-uint64_t CreateProResFrameReceiver(void *a1, uint64_t a2, pthread_attr_t *a3, pthread_t *a4, int a5, unsigned int a6)
+uint64_t CreateProResFrameReceiver(void *a1, uint64_t a2, pthread_attr_t *a3, pthread_t *a4, int a5, int a6)
 {
-  v21 = *MEMORY[0x277D85DE8];
-  v14[0] = 0;
-  v15 = 0;
-  v16 = a2;
-  v17 = a5;
-  v20 = a6;
-  pthread_mutex_init(&v18, 0);
-  pthread_cond_init(&v19, 0);
+  v20 = *MEMORY[0x277D85DE8];
+  v13[0] = 0;
+  v14 = 0;
+  v15 = a2;
+  v16 = a5;
+  v19 = a6;
+  pthread_mutex_init(&v17, 0);
+  pthread_cond_init(&v18, 0);
   pthread_attr_init(a3);
   pthread_attr_setdetachstate(a3, 2);
   if (pthread_attr_setschedpolicy(a3, 2))
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      CreateProResFrameReceiver_cold_1(&v20);
+      CreateProResFrameReceiver_cold_1();
     }
   }
 
-  else if (pthread_attr_getschedparam(a3, &v13))
+  else if (pthread_attr_getschedparam(a3, &v12))
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      CreateProResFrameReceiver_cold_2(&v20);
+      CreateProResFrameReceiver_cold_2();
     }
   }
 
   else
   {
-    v13.sched_priority = 53;
-    if (pthread_attr_setschedparam(a3, &v13))
+    v12.sched_priority = 53;
+    if (pthread_attr_setschedparam(a3, &v12))
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        CreateProResFrameReceiver_cold_3(&v20);
+        CreateProResFrameReceiver_cold_3();
       }
     }
 
     else
     {
-      pthread_create(a4, a3, ProResFrameReceiverEntry, v14);
-      pthread_mutex_lock(&v18);
-      if ((v14[0] & 1) == 0)
+      pthread_create(a4, a3, ProResFrameReceiverEntry, v13);
+      pthread_mutex_lock(&v17);
+      if ((v13[0] & 1) == 0)
       {
         do
         {
-          pthread_cond_wait(&v19, &v18);
+          pthread_cond_wait(&v18, &v17);
         }
 
-        while (!v14[0]);
+        while (!v13[0]);
       }
 
-      pthread_mutex_unlock(&v18);
-      v12 = v15;
-      *a1 = v15;
-      if (v12)
+      pthread_mutex_unlock(&v17);
+      v11 = v14;
+      *a1 = v14;
+      if (v11)
       {
         v9 = 0;
         goto LABEL_11;
@@ -1946,13 +1564,12 @@ uint64_t CreateProResFrameReceiver(void *a1, uint64_t a2, pthread_attr_t *a3, pt
   pthread_attr_destroy(a3);
   v9 = 3758097084;
 LABEL_11:
-  pthread_cond_destroy(&v19);
-  pthread_mutex_destroy(&v18);
-  v10 = *MEMORY[0x277D85DE8];
+  pthread_cond_destroy(&v18);
+  pthread_mutex_destroy(&v17);
   return v9;
 }
 
-uint64_t std::vector<std::pair<unsigned short,unsigned short>>::__init_with_size[abi:ne200100]<std::pair<unsigned short,unsigned short>*,std::pair<unsigned short,unsigned short>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::pair<unsigned short,unsigned short>>::__init_with_size[abi:ne200100]<std::pair<unsigned short,unsigned short>*,std::pair<unsigned short,unsigned short>*>(uint64_t *result, int *a2, int *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1974,7 +1591,7 @@ void sub_27779E6A8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<std::pair<unsigned short,unsigned short>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::pair<unsigned short,unsigned short>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 62))
   {
@@ -1982,13 +1599,6 @@ void std::vector<std::pair<unsigned short,unsigned short>>::__vallocate[abi:ne20
   }
 
   std::vector<unsigned char>::__throw_length_error[abi:ne200100]();
-}
-
-uint64_t OUTLINED_FUNCTION_8@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *(result + 312);
-  return result;
 }
 
 void ProResDecoderRegister()
@@ -2187,1639 +1797,1374 @@ void interchange_compression::decompressor::decompressor()
 
 void AppleProResHW_CheckPlatform()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void GetMaxCompressionSizeExcludingAlpha()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void GetCompressedFrameSize()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void GetEmptySpotInFrameInfoArray()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void createConnection()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void checkFrameHeader(uint64_t a1, uint64_t a2)
-{
-  v9 = *MEMORY[0x277D85DE8];
-  v8 = *(a2 + 10);
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x24u);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void checkFrameHeader()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x24u);
+}
+
+{
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Eu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Eu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Eu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Eu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Eu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Eu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void parseFrameHeader()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void createEncodeStatsBuffers()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x36u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ProResDecoder_CreateInstance_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void ProResDecoder_CreateInstance_cold_2(unsigned int *a1)
+void ProResDecoder_CreateInstance_cold_2()
 {
-  OUTLINED_FUNCTION_10(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_10(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
 }
 
 void ProResDecoder_CreateInstance_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ProResDecoder_CreateInstance_cold_4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ProResDecoder_ParseMetadataExtension()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Eu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Eu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ProResDecoder_Invalidate()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ProResDecoder_CopyProperty()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_14(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_3();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
+}
+
+{
+  OUTLINED_FUNCTION_14(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_3();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
+}
+
+{
+  OUTLINED_FUNCTION_14(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_3();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
+}
+
+{
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void ProResDecoder_CopyProperty(uint64_t a1)
-{
-  OUTLINED_FUNCTION_14(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-{
-  OUTLINED_FUNCTION_14(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-{
-  OUTLINED_FUNCTION_14(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void ProResDecoder_SetProperty()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_6();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_6();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void ProResDecoder_SetProperty(uint64_t a1)
-{
-  OUTLINED_FUNCTION_14(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_14(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x2Cu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Cu);
 }
 
 {
-  OUTLINED_FUNCTION_14(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_14(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
 }
 
 {
-  OUTLINED_FUNCTION_14(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_14(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Eu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Eu);
 }
 
 {
-  OUTLINED_FUNCTION_14(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_14(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Eu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Eu);
+}
+
+{
+  OUTLINED_FUNCTION_6();
+  OUTLINED_FUNCTION_3();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
+}
+
+{
+  OUTLINED_FUNCTION_6();
+  OUTLINED_FUNCTION_3();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
+}
+
+void ProResDecoder_WaitForAsynchronousFrames()
+{
+  OUTLINED_FUNCTION_0();
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_3();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
+}
+
+{
+  OUTLINED_FUNCTION_0();
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_3();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
 }
 
 void ProResDecoder_StartSession()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_6_0();
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x24u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Eu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_10(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_4_0();
+  OUTLINED_FUNCTION_5_0();
+  OUTLINED_FUNCTION_3();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Eu);
+}
+
+{
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x30u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Eu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Eu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Eu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Eu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void ProResDecoder_StartSession(unsigned int *a1)
-{
-  OUTLINED_FUNCTION_10(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Eu);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void ProResDecoder_DecodeFrame(unsigned int *a1)
-{
-  OUTLINED_FUNCTION_10(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_15();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Eu);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-{
-  OUTLINED_FUNCTION_10(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-{
-  OUTLINED_FUNCTION_10(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-{
-  OUTLINED_FUNCTION_10(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-{
-  OUTLINED_FUNCTION_10(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-{
-  OUTLINED_FUNCTION_10(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Eu);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-{
-  OUTLINED_FUNCTION_10(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x24u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-{
-  OUTLINED_FUNCTION_10(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_16();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x24u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-{
-  OUTLINED_FUNCTION_10(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Eu);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-{
-  OUTLINED_FUNCTION_10(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Eu);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-{
-  OUTLINED_FUNCTION_10(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Eu);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-{
-  OUTLINED_FUNCTION_10(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Eu);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-{
-  OUTLINED_FUNCTION_10(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Eu);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-{
-  OUTLINED_FUNCTION_10(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_12();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x22u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-{
-  OUTLINED_FUNCTION_10(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_16();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x24u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-{
-  OUTLINED_FUNCTION_10(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Eu);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-{
-  OUTLINED_FUNCTION_10(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Eu);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-{
-  OUTLINED_FUNCTION_10(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Eu);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-{
-  OUTLINED_FUNCTION_10(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Eu);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-{
-  OUTLINED_FUNCTION_10(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_12();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x22u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-{
-  OUTLINED_FUNCTION_10(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_16();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x24u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-{
-  OUTLINED_FUNCTION_10(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_12();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x22u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-{
-  OUTLINED_FUNCTION_10(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_12();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x22u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-{
-  OUTLINED_FUNCTION_10(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Eu);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-{
-  OUTLINED_FUNCTION_10(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-{
-  OUTLINED_FUNCTION_10(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Eu);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-{
-  OUTLINED_FUNCTION_10(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-{
-  OUTLINED_FUNCTION_10(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-{
-  OUTLINED_FUNCTION_10(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-{
-  OUTLINED_FUNCTION_10(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-{
-  OUTLINED_FUNCTION_10(a1, *MEMORY[0x277D85DE8]);
-  v2 = *v1;
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_15();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x1Eu);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-{
-  OUTLINED_FUNCTION_10(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-{
-  OUTLINED_FUNCTION_10(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-{
-  OUTLINED_FUNCTION_10(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_15();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Eu);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-{
-  OUTLINED_FUNCTION_10(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Eu);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-{
-  OUTLINED_FUNCTION_10(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-{
-  OUTLINED_FUNCTION_10(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-{
-  OUTLINED_FUNCTION_10(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x28u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-{
-  OUTLINED_FUNCTION_10(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-{
-  OUTLINED_FUNCTION_10(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void ProResDecoder_DecodeFrame()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_10(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_5();
+  OUTLINED_FUNCTION_15();
+  OUTLINED_FUNCTION_3();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Eu);
+}
+
+{
+  OUTLINED_FUNCTION_10(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_3();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
+}
+
+{
+  OUTLINED_FUNCTION_10(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_3();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
+}
+
+{
+  OUTLINED_FUNCTION_10(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_3();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
+}
+
+{
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_10(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_3();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
+}
+
+{
+  OUTLINED_FUNCTION_10(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_4_0();
+  OUTLINED_FUNCTION_5_0();
+  OUTLINED_FUNCTION_3();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Eu);
+}
+
+{
+  OUTLINED_FUNCTION_10(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_4_0();
+  OUTLINED_FUNCTION_5_0();
+  OUTLINED_FUNCTION_3();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x24u);
+}
+
+{
+  OUTLINED_FUNCTION_10(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_4_0();
+  OUTLINED_FUNCTION_5_0();
+  OUTLINED_FUNCTION_16();
+  OUTLINED_FUNCTION_3();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x24u);
+}
+
+{
+  OUTLINED_FUNCTION_10(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_4_0();
+  OUTLINED_FUNCTION_5_0();
+  OUTLINED_FUNCTION_3();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Eu);
+}
+
+{
+  OUTLINED_FUNCTION_10(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_4_0();
+  OUTLINED_FUNCTION_5_0();
+  OUTLINED_FUNCTION_3();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Eu);
+}
+
+{
+  OUTLINED_FUNCTION_10(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_4_0();
+  OUTLINED_FUNCTION_5_0();
+  OUTLINED_FUNCTION_3();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Eu);
+}
+
+{
+  OUTLINED_FUNCTION_10(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_4_0();
+  OUTLINED_FUNCTION_5_0();
+  OUTLINED_FUNCTION_3();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Eu);
+}
+
+{
+  OUTLINED_FUNCTION_10(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_4_0();
+  OUTLINED_FUNCTION_5_0();
+  OUTLINED_FUNCTION_3();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Eu);
+}
+
+{
+  OUTLINED_FUNCTION_10(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_12();
+  OUTLINED_FUNCTION_3();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
+}
+
+{
+  OUTLINED_FUNCTION_10(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_4_0();
+  OUTLINED_FUNCTION_5_0();
+  OUTLINED_FUNCTION_16();
+  OUTLINED_FUNCTION_3();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x24u);
+}
+
+{
+  OUTLINED_FUNCTION_10(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_4_0();
+  OUTLINED_FUNCTION_5_0();
+  OUTLINED_FUNCTION_3();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Eu);
+}
+
+{
+  OUTLINED_FUNCTION_10(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_4_0();
+  OUTLINED_FUNCTION_5_0();
+  OUTLINED_FUNCTION_3();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Eu);
+}
+
+{
+  OUTLINED_FUNCTION_10(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_4_0();
+  OUTLINED_FUNCTION_5_0();
+  OUTLINED_FUNCTION_3();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Eu);
+}
+
+{
+  OUTLINED_FUNCTION_10(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_4_0();
+  OUTLINED_FUNCTION_5_0();
+  OUTLINED_FUNCTION_3();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Eu);
+}
+
+{
+  OUTLINED_FUNCTION_10(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_12();
+  OUTLINED_FUNCTION_3();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
+}
+
+{
+  OUTLINED_FUNCTION_10(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_4_0();
+  OUTLINED_FUNCTION_5_0();
+  OUTLINED_FUNCTION_16();
+  OUTLINED_FUNCTION_3();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x24u);
+}
+
+{
+  OUTLINED_FUNCTION_10(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_12();
+  OUTLINED_FUNCTION_3();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
+}
+
+{
+  OUTLINED_FUNCTION_10(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_12();
+  OUTLINED_FUNCTION_3();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
+}
+
+{
+  OUTLINED_FUNCTION_10(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_4_0();
+  OUTLINED_FUNCTION_5_0();
+  OUTLINED_FUNCTION_3();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Eu);
+}
+
+{
+  OUTLINED_FUNCTION_10(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_3();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
+}
+
+{
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_4_0();
+  OUTLINED_FUNCTION_11();
+  OUTLINED_FUNCTION_3();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Eu);
+}
+
+{
+  OUTLINED_FUNCTION_10(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_4_0();
+  OUTLINED_FUNCTION_5_0();
+  OUTLINED_FUNCTION_3();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Eu);
+}
+
+{
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_4_0();
+  OUTLINED_FUNCTION_11();
+  OUTLINED_FUNCTION_3();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Eu);
+}
+
+{
+  OUTLINED_FUNCTION_10(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_3();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
+}
+
+{
+  OUTLINED_FUNCTION_10(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_3();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
+}
+
+{
+  OUTLINED_FUNCTION_10(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_3();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
+}
+
+{
+  OUTLINED_FUNCTION_10(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_3();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
+}
+
+{
+  OUTLINED_FUNCTION_10(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_5();
+  OUTLINED_FUNCTION_15();
+  OUTLINED_FUNCTION_3();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Eu);
+}
+
+{
+  OUTLINED_FUNCTION_10(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_3();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
+}
+
+{
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void ProResDecoder_DecodeFrame(uint64_t a1, unsigned int *a2)
-{
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_11();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x1Eu);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
+  OUTLINED_FUNCTION_10(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_3();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
+}
+
+{
+  OUTLINED_FUNCTION_10(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_5();
+  OUTLINED_FUNCTION_15();
+  OUTLINED_FUNCTION_3();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Eu);
+}
+
+{
+  OUTLINED_FUNCTION_10(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_11();
+  OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x1Eu);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Eu);
+}
+
+{
+  OUTLINED_FUNCTION_10(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_3();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
+}
+
+{
+  OUTLINED_FUNCTION_10(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_3();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
+}
+
+{
+  OUTLINED_FUNCTION_10(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_4_0();
+  OUTLINED_FUNCTION_5_0();
+  OUTLINED_FUNCTION_3();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x28u);
+}
+
+{
+  OUTLINED_FUNCTION_10(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_3();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
+}
+
+{
+  OUTLINED_FUNCTION_10(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_3();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
 }
 
 void ProResDecoder_CopySupportedPropertyDictionary()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ProResDecoder_CanAcceptFormatDescription()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ProResDecoder_GetLargestDCQSS()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ProResDecoder_CheckDecodeCmd()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_6_0();
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x24u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_13();
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x24u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_13();
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x24u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_6_0();
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x24u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_13();
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x24u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x24u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_6_0();
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x24u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Eu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_11();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x24u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_11();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x24u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5();
+  OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x24u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x24u);
+}
+
+{
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x24u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_13();
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x24u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void ProResDecoder_CheckDecodeCmd(uint64_t a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 19);
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x24u);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void ProResDecoder_GetInputMaxSize()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void ProResDecoder_prepareInputFrame(uint64_t a1)
+void ProResDecoder_prepareInputFrame()
 {
-  OUTLINED_FUNCTION_14(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_14(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
 }
 
 {
-  OUTLINED_FUNCTION_14(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_14(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
 }
 
-void ProResFrameReceiver::InitializeDoubleEncode(uint64_t a1)
+void ProResFrameReceiver::InitializeDoubleEncode()
 {
-  OUTLINED_FUNCTION_8(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_8(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
 }
 
 {
-  OUTLINED_FUNCTION_8(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_8(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
 }
 
 {
-  OUTLINED_FUNCTION_8(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_8(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_3_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, v6);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, v5);
 }
 
 void ProResFrameReceiver::FrameDone()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void ProResFrameReceiver::Setup(uint64_t a1)
+void ProResFrameReceiver::Setup()
 {
-  OUTLINED_FUNCTION_8(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_8(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
 }
 
 {
-  OUTLINED_FUNCTION_8(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_8(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
 }
 
 void stitchCallback()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x24u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void ProResFrameReceiver::EmitPendingFrames(unsigned int *a1)
+void ProResFrameReceiver::EmitPendingFrames()
 {
-  OUTLINED_FUNCTION_10(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_10(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x24u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x24u);
 }
 
-void ProResFrameReceiver::PerformAlphaUpscaling(uint64_t a1)
+void ProResFrameReceiver::PerformAlphaUpscaling()
 {
-  OUTLINED_FUNCTION_8(a1, *MEMORY[0x277D85DE8]);
-  v2 = *v1;
+  OUTLINED_FUNCTION_8(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_11_0();
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x28u);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x28u);
 }
 
 {
-  OUTLINED_FUNCTION_8(a1, *MEMORY[0x277D85DE8]);
-  v2 = *v1;
+  OUTLINED_FUNCTION_8(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_11_0();
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x28u);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x28u);
 }
 
-void ProResFrameReceiver::DoubleEncodeFrame(uint64_t a1)
+void ProResFrameReceiver::DoubleEncodeFrame()
 {
-  OUTLINED_FUNCTION_8(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_8(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
 }
 
 {
-  OUTLINED_FUNCTION_8(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_8(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
 }
 
 {
-  OUTLINED_FUNCTION_8(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_8(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
 }
 
 {
-  OUTLINED_FUNCTION_8(a1, *MEMORY[0x277D85DE8]);
-  v2 = *v1;
+  OUTLINED_FUNCTION_8(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_15();
   OUTLINED_FUNCTION_3_0();
-  _os_log_error_impl(v3, v4, v5, v6, v7, v8);
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, v5);
 }
 
-void ProResFrameReceiver::DoubleEncodeFrame(unsigned int *a1)
 {
-  OUTLINED_FUNCTION_10(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_10(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
 }
 
-void ProResFrameReceiver::P1ParseFrame(unsigned int *a1)
+void ProResFrameReceiver::P1ParseFrame()
 {
-  OUTLINED_FUNCTION_10(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_10(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_3_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, v6);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, v5);
 }
 
-void ProResFrameReceiver::P2Encode(uint64_t a1)
+void ProResFrameReceiver::P2Encode()
 {
-  OUTLINED_FUNCTION_8(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_8(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_3_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, v6);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, v5);
 }
 
-void ProResFrameReceiver::P2Encode(unsigned int *a1)
 {
-  OUTLINED_FUNCTION_10(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_10(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_3_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, v6);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, v5);
 }
 
-void ProResFrameReceiver::P2PrepareFrame(unsigned int *a1)
+void ProResFrameReceiver::P2PrepareFrame()
 {
-  OUTLINED_FUNCTION_10(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_10(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_3_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, v6);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, v5);
 }
 
-void ProResFrameReceiver::CopyBitstreamToBlockBuffer(uint64_t a1)
+void ProResFrameReceiver::CopyBitstreamToBlockBuffer()
 {
-  OUTLINED_FUNCTION_8(a1, *MEMORY[0x277D85DE8]);
-  v2 = *v1;
+  OUTLINED_FUNCTION_8(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x2Eu);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Eu);
 }
 
 {
-  OUTLINED_FUNCTION_8(a1, *MEMORY[0x277D85DE8]);
-  v2 = *v1;
+  OUTLINED_FUNCTION_10(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x2Eu);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Eu);
 }
 
 {
-  OUTLINED_FUNCTION_8(a1, *MEMORY[0x277D85DE8]);
-  v2 = *v1;
+  OUTLINED_FUNCTION_8(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x2Eu);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Eu);
 }
 
 {
-  OUTLINED_FUNCTION_8(a1, *MEMORY[0x277D85DE8]);
-  v2 = *v1;
+  OUTLINED_FUNCTION_8(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x2Eu);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Eu);
 }
 
 {
-  OUTLINED_FUNCTION_8(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_8(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_5();
+  OUTLINED_FUNCTION_1_0();
+  OUTLINED_FUNCTION_3();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Eu);
+}
+
+{
+  OUTLINED_FUNCTION_8(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_13_0();
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x2Au);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Au);
 }
 
 {
-  OUTLINED_FUNCTION_8(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_8(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_13_0();
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x2Au);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Au);
 }
 
-void ProResFrameReceiver::CopyBitstreamToBlockBuffer(unsigned int *a1)
+void ProResFrameReceiver::ProcessFrameDone()
 {
-  OUTLINED_FUNCTION_10(a1, *MEMORY[0x277D85DE8]);
-  v2 = *v1;
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x2Eu);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-void ProResFrameReceiver::ProcessFrameDone(uint64_t a1)
-{
-  OUTLINED_FUNCTION_8(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_8(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_3_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, v6);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, v5);
 }
 
 {
-  OUTLINED_FUNCTION_8(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_8(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
 }
 
 {
-  OUTLINED_FUNCTION_8(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-{
-  OUTLINED_FUNCTION_8(a1, *MEMORY[0x277D85DE8]);
-  v2 = *v1;
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_15();
-  OUTLINED_FUNCTION_3_0();
-  _os_log_error_impl(v3, v4, v5, v6, v7, v8);
-  v9 = *MEMORY[0x277D85DE8];
-}
-
-{
-  OUTLINED_FUNCTION_8(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-{
-  OUTLINED_FUNCTION_8(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-{
-  OUTLINED_FUNCTION_8(a1, *MEMORY[0x277D85DE8]);
-  v2 = *v1;
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_15();
-  OUTLINED_FUNCTION_3_0();
-  _os_log_error_impl(v3, v4, v5, v6, v7, v8);
-  v9 = *MEMORY[0x277D85DE8];
-}
-
-{
-  OUTLINED_FUNCTION_8(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_3_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, v6);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-void ProResFrameReceiver::ProcessFrameDone(uint64_t a1, unsigned int *a2)
-{
-  v13 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v4 = *(a1 + 312);
-    v5 = *a2;
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3_0();
-    _os_log_impl(v6, v7, v8, v9, v10, v11);
+    _os_log_impl(v0, v1, v2, v3, v4, v5);
   }
+}
 
-  v12 = *MEMORY[0x277D85DE8];
+{
+  OUTLINED_FUNCTION_8(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_3();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
+}
+
+{
+  OUTLINED_FUNCTION_8(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_5();
+  OUTLINED_FUNCTION_15();
+  OUTLINED_FUNCTION_3_0();
+  _os_log_error_impl(v0, v1, v2, v3, v4, v5);
+}
+
+{
+  OUTLINED_FUNCTION_8(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_3();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
+}
+
+{
+  OUTLINED_FUNCTION_8(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_3();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
+}
+
+{
+  OUTLINED_FUNCTION_8(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_5();
+  OUTLINED_FUNCTION_15();
+  OUTLINED_FUNCTION_3_0();
+  _os_log_error_impl(v0, v1, v2, v3, v4, v5);
+}
+
+{
+  OUTLINED_FUNCTION_8(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_4_0();
+  OUTLINED_FUNCTION_5_0();
+  OUTLINED_FUNCTION_3_0();
+  _os_log_error_impl(v0, v1, v2, v3, v4, v5);
 }
 
 void DestroyProResFrameReceiver_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void CreateProResFrameReceiver_cold_1(unsigned int *a1)
+void CreateProResFrameReceiver_cold_1()
 {
-  OUTLINED_FUNCTION_10(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_10(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
 }
 
-void CreateProResFrameReceiver_cold_2(unsigned int *a1)
+void CreateProResFrameReceiver_cold_2()
 {
-  OUTLINED_FUNCTION_10(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_10(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
 }
 
-void CreateProResFrameReceiver_cold_3(unsigned int *a1)
+void CreateProResFrameReceiver_cold_3()
 {
-  OUTLINED_FUNCTION_10(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_10(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
 }
 
-void ProResFrameReceiverEntry(unsigned int *a1)
+void ProResFrameReceiverEntry()
 {
-  OUTLINED_FUNCTION_10(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_10(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
 }
 
 CFUUIDBytes CFUUIDGetUUIDBytes(CFUUIDRef uuid)

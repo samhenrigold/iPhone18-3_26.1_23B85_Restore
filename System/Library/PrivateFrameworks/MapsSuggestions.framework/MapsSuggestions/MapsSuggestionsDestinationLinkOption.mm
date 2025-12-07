@@ -145,60 +145,60 @@ LABEL_3:
 {
   locationCopy = location;
   v5 = self->_route;
-  objc_sync_enter(v5);
+  v6 = objc_sync_enter(v5);
   if (locationCopy && self->_route)
   {
-    v6 = [[GEORouteMatcher alloc] initWithRoute:self->_route auditToken:0];
+    v8 = [[GEORouteMatcher alloc] initWithRoute:self->_route auditToken:0];
     [locationCopy coordinate];
-    [v6 distanceToRouteFrom:?];
-    v8 = v7;
-    v9 = MapsSuggestionsConfidenceDefinitelyTrue();
-    v10 = v9 - v8 * v8 / MapsSuggestionsDistanceToRouteConfidenceFactor();
-    if (v10 <= 0.0)
+    v9 = [v8 distanceToRouteFrom:?];
+    v11 = v10;
+    v13 = MapsSuggestionsConfidenceDefinitelyTrue(v9, v12);
+    v18 = v13 - v11 * v11 / MapsSuggestionsDistanceToRouteConfidenceFactor(v14, v15);
+    if (v18 <= 0.0)
     {
-      v10 = MapsSuggestionsConfidenceDefinitelyFalse();
+      v18 = MapsSuggestionsConfidenceDefinitelyFalse(v16, v17);
     }
   }
 
   else
   {
-    v10 = MapsSuggestionsConfidenceDontKnow();
+    v18 = MapsSuggestionsConfidenceDontKnow(v6, v7);
   }
 
   objc_sync_exit(v5);
 
-  return v10;
+  return v18;
 }
 
 - (double)containsTime:(id)time
 {
   timeCopy = time;
   v6 = self->_eta;
-  objc_sync_enter(v6);
+  v7 = objc_sync_enter(v6);
   if (!timeCopy || !self->_eta)
   {
-    v12 = MapsSuggestionsConfidenceDontKnow();
+    v18 = MapsSuggestionsConfidenceDontKnow(v7, v8);
     goto LABEL_8;
   }
 
-  v7 = objc_autoreleasePoolPush();
+  v9 = objc_autoreleasePoolPush();
   time = [(MapsSuggestionsETA *)self->_eta time];
   [(MapsSuggestionsETA *)self->_eta seconds];
-  v9 = [time dateByAddingTimeInterval:?];
-  [v9 timeIntervalSinceDate:timeCopy];
-  v11 = v10;
+  v11 = [time dateByAddingTimeInterval:?];
+  [v11 timeIntervalSinceDate:timeCopy];
+  v13 = v12;
 
-  if (v11 > 0.0)
+  if (v13 > 0.0)
   {
-    v3 = MapsSuggestionsConfidenceDefinitelyTrue();
+    v3 = MapsSuggestionsConfidenceDefinitelyTrue(v14, v15);
   }
 
-  objc_autoreleasePoolPop(v7);
-  if (v11 <= 0.0)
+  objc_autoreleasePoolPop(v9);
+  if (v13 <= 0.0)
   {
-    v12 = MapsSuggestionsConfidenceDefinitelyFalse();
+    v18 = MapsSuggestionsConfidenceDefinitelyFalse(v16, v17);
 LABEL_8:
-    v3 = v12;
+    v3 = v18;
   }
 
   objc_sync_exit(v6);

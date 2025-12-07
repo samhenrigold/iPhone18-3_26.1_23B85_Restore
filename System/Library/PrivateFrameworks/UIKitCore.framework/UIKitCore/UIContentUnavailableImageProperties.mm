@@ -1,5 +1,5 @@
 @interface UIContentUnavailableImageProperties
-- (BOOL)_isEqualToProperties:(int)properties compareImage:;
+- (BOOL)_isEqualToProperties:(uint64_t)properties compareImage:;
 - (BOOL)_isEqualToPropertiesQuick:(int)quick compareImage:;
 - (BOOL)isEqual:(id)equal;
 - (CGSize)maximumSize;
@@ -228,21 +228,22 @@
   return v6;
 }
 
-- (BOOL)_isEqualToProperties:(int)properties compareImage:
+- (BOOL)_isEqualToProperties:(uint64_t)properties compareImage:
 {
+  propertiesCopy = properties;
   v5 = a2;
   if (!self)
   {
     goto LABEL_25;
   }
 
-  if ([(UIContentUnavailableImageProperties *)self _isEqualToPropertiesQuick:v5 compareImage:properties])
+  if ([(UIContentUnavailableImageProperties *)self _isEqualToPropertiesQuick:v5 compareImage:propertiesCopy])
   {
     v6 = 1;
     goto LABEL_26;
   }
 
-  if (properties)
+  if (propertiesCopy)
   {
     v7 = *(v5 + 2);
     v8 = *(self + 16);
@@ -259,9 +260,9 @@
         goto LABEL_22;
       }
 
-      v11 = [v8 isEqual:v9];
+      isEqual = objc_msgSend_isEqual_(v8);
 
-      if (!v11)
+      if (!isEqual)
       {
         goto LABEL_25;
       }
@@ -283,7 +284,7 @@
       goto LABEL_22;
     }
 
-    v14 = [v8 isEqual:v13];
+    v14 = objc_msgSend_isEqual_(v8);
 
     if (!v14)
     {
@@ -310,7 +311,7 @@ LABEL_25:
     goto LABEL_26;
   }
 
-  v17 = [v8 isEqual:v16];
+  v17 = objc_msgSend_isEqual_(v8);
 
   if (!v17)
   {
@@ -373,9 +374,9 @@ LABEL_18:
         goto LABEL_19;
       }
 
-      v11 = [v8 isEqual:v9];
+      isEqual = objc_msgSend_isEqual_(v8);
 
-      if (!v11)
+      if (!isEqual)
       {
         goto LABEL_18;
       }

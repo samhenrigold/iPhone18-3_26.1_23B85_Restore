@@ -14,11 +14,9 @@
 
 - (id)description
 {
-  v3 = objc_alloc(MEMORY[0x1E696AEC0]);
-  v4 = *&self->_city;
-  v5 = [v3 initWithFormat:@"%@/%@/%@/%@/%@/%@/%@/%@", self->_street, self->_subLocality, self->_city, self->_subAdministrativeArea, self->_state, self->_postalCode, self->_country, self->_isoCountryCode];
+  v2 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@/%@/%@/%@/%@/%@/%@/%@", self->_street, self->_subLocality, self->_city, self->_subAdministrativeArea, self->_state, self->_postalCode, self->_country, self->_isoCountryCode];
 
-  return v5;
+  return v2;
 }
 
 - (unint64_t)hash

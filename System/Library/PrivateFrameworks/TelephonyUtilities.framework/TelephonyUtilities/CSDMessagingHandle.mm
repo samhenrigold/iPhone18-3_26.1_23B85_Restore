@@ -5,6 +5,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)typeAsString:(int)string;
 - (int)StringAsType:(id)type;
 - (int)type;
 - (unint64_t)hash;
@@ -127,6 +128,21 @@ LABEL_16:
   }
 }
 
+- (id)typeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_10061AEB0 + string);
+  }
+
+  return v4;
+}
+
 - (int)StringAsType:(id)type
 {
   typeCopy = type;
@@ -172,30 +188,29 @@ LABEL_16:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (*&self->_has)
   {
-    type = self->_type;
     PBDataWriterWriteInt32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_value)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_isoCountryCode)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_siriDisplayName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -261,7 +276,6 @@ LABEL_16:
     goto LABEL_13;
   }
 
-  v5 = *(equalCopy + 40);
   if (*&self->_has)
   {
     if ((*(equalCopy + 40) & 1) == 0 || self->_type != *(equalCopy + 6))
@@ -273,7 +287,7 @@ LABEL_16:
   else if (*(equalCopy + 40))
   {
 LABEL_13:
-    v9 = 0;
+    v8 = 0;
     goto LABEL_14;
   }
 
@@ -295,17 +309,17 @@ LABEL_13:
   siriDisplayName = self->_siriDisplayName;
   if (siriDisplayName | *(equalCopy + 2))
   {
-    v9 = [(NSString *)siriDisplayName isEqual:?];
+    v8 = [(NSString *)siriDisplayName isEqual:?];
   }
 
   else
   {
-    v9 = 1;
+    v8 = 1;
   }
 
 LABEL_14:
 
-  return v9;
+  return v8;
 }
 
 - (unint64_t)hash

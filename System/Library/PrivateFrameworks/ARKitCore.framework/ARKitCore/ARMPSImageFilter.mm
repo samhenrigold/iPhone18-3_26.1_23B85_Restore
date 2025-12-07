@@ -44,7 +44,7 @@
 
 - (__CVBuffer)processPixelBuffer:(__CVBuffer *)buffer format:(unint64_t)format
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   if (buffer)
   {
     Width = CVPixelBufferGetWidth(buffer);
@@ -60,26 +60,27 @@
   PixelFormatType = CVPixelBufferGetPixelFormatType(buffer);
   ARRecreatePixelBufferPoolOnConfigurationChanges(&self->_pixelBufferPool, PixelFormatType, Width, Height);
   pixelBufferOut = 0;
-  if (!CVPixelBufferPoolCreatePixelBuffer(*MEMORY[0x1E695E480], self->_pixelBufferPool, &pixelBufferOut))
+  v10 = CVPixelBufferPoolCreatePixelBuffer(*MEMORY[0x1E695E480], self->_pixelBufferPool, &pixelBufferOut);
+  if (!v10)
   {
-    v18 = MEMORY[0x1E69741C0];
-    v19 = CVPixelBufferGetWidth(buffer);
-    v20 = [v18 texture2DDescriptorWithPixelFormat:format width:v19 height:CVPixelBufferGetHeight(buffer) mipmapped:0];
-    v12 = [(MTLDevice *)self->_device newTextureWithDescriptor:v20 iosurface:CVPixelBufferGetIOSurface(buffer) plane:0];
+    v19 = MEMORY[0x1E69741C0];
+    v20 = CVPixelBufferGetWidth(buffer);
+    v21 = [v19 texture2DDescriptorWithPixelFormat:format width:v20 height:CVPixelBufferGetHeight(buffer) mipmapped:0];
+    v13 = [(MTLDevice *)self->_device newTextureWithDescriptor:v21 iosurface:CVPixelBufferGetIOSurface(buffer) plane:0];
 
-    v21 = MEMORY[0x1E69741C0];
-    v22 = CVPixelBufferGetWidth(pixelBufferOut);
-    v23 = [v21 texture2DDescriptorWithPixelFormat:format width:v22 height:CVPixelBufferGetHeight(pixelBufferOut) mipmapped:0];
-    [v23 setUsage:{objc_msgSend(v23, "usage") | 2}];
-    v24 = [(MTLDevice *)self->_device newTextureWithDescriptor:v23 iosurface:CVPixelBufferGetIOSurface(pixelBufferOut) plane:0];
+    v22 = MEMORY[0x1E69741C0];
+    v23 = CVPixelBufferGetWidth(pixelBufferOut);
+    v24 = [v22 texture2DDescriptorWithPixelFormat:format width:v23 height:CVPixelBufferGetHeight(pixelBufferOut) mipmapped:0];
+    [v24 setUsage:{objc_msgSend(v24, "usage") | 2}];
+    v25 = [(MTLDevice *)self->_device newTextureWithDescriptor:v24 iosurface:CVPixelBufferGetIOSurface(pixelBufferOut) plane:0];
 
-    if (v12 && v24)
+    if (v13 && v25)
     {
       commandBuffer = [(MTLCommandQueue *)self->_commandQueue commandBuffer];
-      [(MPSUnaryImageKernel *)self->_kernel encodeToCommandBuffer:commandBuffer sourceTexture:v12 destinationTexture:v24];
+      [(MPSUnaryImageKernel *)self->_kernel encodeToCommandBuffer:commandBuffer sourceTexture:v13 destinationTexture:v25];
       [commandBuffer commit];
       [commandBuffer waitUntilCompleted];
-      v26 = pixelBufferOut;
+      v28 = pixelBufferOut;
 LABEL_26:
 
       goto LABEL_27;
@@ -90,42 +91,42 @@ LABEL_26:
       [ARMPSImageFilter processPixelBuffer:format:];
     }
 
-    v28 = ARShouldUseLogTypeError_internalOSVersion_20;
-    v29 = _ARLogGeneral_8();
-    commandBuffer = v29;
-    if (v28 == 1)
+    v30 = ARShouldUseLogTypeError_internalOSVersion_20;
+    v31 = _ARLogGeneral_8(v26);
+    commandBuffer = v31;
+    if (v30 == 1)
     {
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
-        v30 = objc_opt_class();
-        v31 = NSStringFromClass(v30);
+        v32 = objc_opt_class();
+        v33 = NSStringFromClass(v32);
         *buf = 138543618;
-        v39 = v31;
-        v40 = 2048;
+        v41 = v33;
+        v42 = 2048;
         selfCopy4 = self;
-        v32 = "%{public}@ <%p>: Could not allocate create textures for processing";
-        v33 = commandBuffer;
-        v34 = OS_LOG_TYPE_ERROR;
+        v34 = "%{public}@ <%p>: Could not allocate create textures for processing";
+        v35 = commandBuffer;
+        v36 = OS_LOG_TYPE_ERROR;
 LABEL_24:
-        _os_log_impl(&dword_1C241C000, v33, v34, v32, buf, 0x16u);
+        _os_log_impl(&dword_1C241C000, v35, v36, v34, buf, 0x16u);
       }
     }
 
-    else if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
     {
-      v35 = objc_opt_class();
-      v31 = NSStringFromClass(v35);
+      v37 = objc_opt_class();
+      v33 = NSStringFromClass(v37);
       *buf = 138543618;
-      v39 = v31;
-      v40 = 2048;
+      v41 = v33;
+      v42 = 2048;
       selfCopy4 = self;
-      v32 = "Error: %{public}@ <%p>: Could not allocate create textures for processing";
-      v33 = commandBuffer;
-      v34 = OS_LOG_TYPE_INFO;
+      v34 = "Error: %{public}@ <%p>: Could not allocate create textures for processing";
+      v35 = commandBuffer;
+      v36 = OS_LOG_TYPE_INFO;
       goto LABEL_24;
     }
 
-    v26 = 0;
+    v28 = 0;
     goto LABEL_26;
   }
 
@@ -134,45 +135,45 @@ LABEL_24:
     [ARMPSImageFilter processPixelBuffer:format:];
   }
 
-  v10 = ARShouldUseLogTypeError_internalOSVersion_20;
-  v11 = _ARLogGeneral_8();
-  v12 = v11;
-  if (v10 == 1)
+  v11 = ARShouldUseLogTypeError_internalOSVersion_20;
+  v12 = _ARLogGeneral_8(v10);
+  v13 = v12;
+  if (v11 == 1)
   {
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v13 = objc_opt_class();
-      v14 = NSStringFromClass(v13);
+      v14 = objc_opt_class();
+      v15 = NSStringFromClass(v14);
       *buf = 138543618;
-      v39 = v14;
-      v40 = 2048;
+      v41 = v15;
+      v42 = 2048;
       selfCopy4 = self;
-      v15 = "%{public}@ <%p>: Could not allocate pixel buffer";
-      v16 = v12;
-      v17 = OS_LOG_TYPE_ERROR;
+      v16 = "%{public}@ <%p>: Could not allocate pixel buffer";
+      v17 = v13;
+      v18 = OS_LOG_TYPE_ERROR;
 LABEL_15:
-      _os_log_impl(&dword_1C241C000, v16, v17, v15, buf, 0x16u);
+      _os_log_impl(&dword_1C241C000, v17, v18, v16, buf, 0x16u);
     }
   }
 
-  else if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
-    v27 = objc_opt_class();
-    v14 = NSStringFromClass(v27);
+    v29 = objc_opt_class();
+    v15 = NSStringFromClass(v29);
     *buf = 138543618;
-    v39 = v14;
-    v40 = 2048;
+    v41 = v15;
+    v42 = 2048;
     selfCopy4 = self;
-    v15 = "Error: %{public}@ <%p>: Could not allocate pixel buffer";
-    v16 = v12;
-    v17 = OS_LOG_TYPE_INFO;
+    v16 = "Error: %{public}@ <%p>: Could not allocate pixel buffer";
+    v17 = v13;
+    v18 = OS_LOG_TYPE_INFO;
     goto LABEL_15;
   }
 
-  v26 = 0;
+  v28 = 0;
 LABEL_27:
 
-  return v26;
+  return v28;
 }
 
 @end

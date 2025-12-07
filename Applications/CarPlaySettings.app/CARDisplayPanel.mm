@@ -92,37 +92,37 @@
     screens = [configuration screens];
     v8 = [screens bs_containsObjectPassingTest:&stru_1000DAEB0];
 
-    v9 = sub_10001C784();
-    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG);
+    v10 = sub_10001C784(v9);
+    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG);
     if (v8)
     {
-      if (v10)
+      if (v11)
       {
-        sub_100091504(v9);
+        sub_100091504(v10);
       }
 
-      v11 = [CARSettingsCellSpecifierSection alloc];
-      v9 = sub_10001C80C(@"SMART_DISPLAY_ZOOM_FOOTER");
+      v12 = [CARSettingsCellSpecifierSection alloc];
+      v10 = sub_10001C80C(@"SMART_DISPLAY_ZOOM_FOOTER");
       smartZoomCellSpecifier = [(CARDisplayPanel *)self smartZoomCellSpecifier];
-      v20 = smartZoomCellSpecifier;
-      v13 = [NSArray arrayWithObjects:&v20 count:1];
-      v14 = [(CARSettingsCellSpecifierSection *)v11 initWithFooter:v9 specifiers:v13];
-      [v3 addObject:v14];
+      v21 = smartZoomCellSpecifier;
+      v14 = [NSArray arrayWithObjects:&v21 count:1];
+      v15 = [(CARSettingsCellSpecifierSection *)v12 initWithFooter:v10 specifiers:v14];
+      [v3 addObject:v15];
     }
 
-    else if (v10)
+    else if (v11)
     {
-      sub_1000914C0(v9);
+      sub_1000914C0(v10);
     }
   }
 
   if (+[CARNowPlayingAlbumArtSpecifier userSettingControlAvailable])
   {
-    v15 = [CARSettingsCellSpecifierSection alloc];
+    v16 = [CARSettingsCellSpecifierSection alloc];
     albumArtSpecifier = self->_albumArtSpecifier;
-    v16 = [NSArray arrayWithObjects:&albumArtSpecifier count:1];
-    v17 = [(CARSettingsCellSpecifierSection *)v15 initWithSpecifiers:v16];
-    [v3 addObject:v17];
+    v17 = [NSArray arrayWithObjects:&albumArtSpecifier count:1];
+    v18 = [(CARSettingsCellSpecifierSection *)v16 initWithSpecifiers:v17];
+    [v3 addObject:v18];
   }
 
   return v3;

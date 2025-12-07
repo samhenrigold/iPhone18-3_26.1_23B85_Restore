@@ -4,6 +4,7 @@
 + (id)categoricalValueForExperimentAllocationStatus:(unsigned __int8)status;
 + (id)categoricalValueForRolloutAllocationStatus:(unsigned __int8)status;
 + (id)internalToExternalStatusMapping;
++ (id)notificationNameForDeploymentEnvironment:(int)environment;
 + (id)sampleAllocationStatuses:(id)statuses correlationId:(id)id nrSamples:(unsigned int)samples;
 + (id)syncProxyWithErrorHandler:(id)handler;
 + (void)resetDefaultProvider;
@@ -72,6 +73,25 @@
   _sharedDefaultProvider = 0;
 
   objc_sync_exit(obj);
+}
+
++ (id)notificationNameForDeploymentEnvironment:(int)environment
+{
+  v3 = *&environment;
+  v4 = TRIDeploymentEnvironment_EnumDescriptor();
+  v5 = [v4 textFormatNameForValue:v3];
+
+  if (v5)
+  {
+    v6 = [@"com.apple.trial.status." stringByAppendingString:v5];
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  return v6;
 }
 
 + (id)syncProxyWithErrorHandler:(id)handler
@@ -160,15 +180,14 @@
 
 + (id)internalToExternalStatusMapping
 {
-  v6[3] = *MEMORY[0x277D85DE8];
+  v5[3] = *MEMORY[0x277D85DE8];
+  v4[0] = &unk_28436F9E0;
+  v4[1] = &unk_28436F9F8;
   v5[0] = &unk_28436F9E0;
   v5[1] = &unk_28436F9F8;
-  v6[0] = &unk_28436F9E0;
-  v6[1] = &unk_28436F9F8;
+  v4[2] = &unk_28436FA10;
   v5[2] = &unk_28436FA10;
-  v6[2] = &unk_28436FA10;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:3];
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:3];
 
   return v2;
 }

@@ -35,11 +35,11 @@
 
 - (void)syncStatusOfInstalledProfiles
 {
-  v3 = sub_100030FE4();
+  v3 = sub_100030FE4(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v20) = 0;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Fetching Installed Profiles", &v20, 2u);
+    LOWORD(v23) = 0;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Fetching Installed Profiles", &v23, 2u);
   }
 
   fetchInstalledMediaSetupProfilesManagedDefaults = [objc_opt_class() fetchInstalledMediaSetupProfilesManagedDefaults];
@@ -52,64 +52,64 @@
 
   if (v5)
   {
-    v9 = +[MSDDefaultsManager sharedManager];
-    profilesEverInstalled = [v9 profilesEverInstalled];
+    v10 = +[MSDDefaultsManager sharedManager];
+    profilesEverInstalled = [v10 profilesEverInstalled];
 
-    v11 = sub_100030FE4();
-    v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+    v13 = sub_100030FE4(v12);
+    v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
     if (!profilesEverInstalled || v5 >= developerProfilesCount)
     {
-      if (v12)
+      if (v14)
       {
-        v19 = [fetchInstalledMediaSetupProfilesManagedDefaults count];
-        v20 = 134217984;
-        v21 = v19;
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Found %lu matching profiles installed on device", &v20, 0xCu);
+        v22 = [fetchInstalledMediaSetupProfilesManagedDefaults count];
+        v23 = 134217984;
+        v24 = v22;
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Found %lu matching profiles installed on device", &v23, 0xCu);
       }
 
       delegate = [(MSDProfilesManager *)self delegate];
-      v18 = [fetchInstalledMediaSetupProfilesManagedDefaults copy];
-      [delegate profilesManager:self didAddProfiles:v18];
+      v21 = [fetchInstalledMediaSetupProfilesManagedDefaults copy];
+      [delegate profilesManager:self didAddProfiles:v21];
       goto LABEL_18;
     }
 
-    if (v12)
+    if (v14)
     {
-      LOWORD(v20) = 0;
-      v13 = "A profile was removed from the device";
+      LOWORD(v23) = 0;
+      v15 = "A profile was removed from the device";
 LABEL_13:
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, v13, &v20, 2u);
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, v15, &v23, 2u);
       goto LABEL_14;
     }
 
     goto LABEL_14;
   }
 
-  v14 = sub_100030FE4();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v16 = sub_100030FE4(v9);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v20) = 0;
-    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "No Profiles matching com.apple.mediasetup.developer domain", &v20, 2u);
+    LOWORD(v23) = 0;
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "No Profiles matching com.apple.mediasetup.developer domain", &v23, 2u);
   }
 
-  v15 = +[MSDDefaultsManager sharedManager];
-  profilesEverInstalled2 = [v15 profilesEverInstalled];
+  v17 = +[MSDDefaultsManager sharedManager];
+  profilesEverInstalled2 = [v17 profilesEverInstalled];
 
   if (profilesEverInstalled2)
   {
-    v11 = sub_100030FE4();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = sub_100030FE4(v19);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v20) = 0;
-      v13 = "Profile was installed on device, and we received a state change";
+      LOWORD(v23) = 0;
+      v15 = "Profile was installed on device, and we received a state change";
       goto LABEL_13;
     }
 
 LABEL_14:
 
     delegate = [(MSDProfilesManager *)self delegate];
-    v18 = [fetchInstalledMediaSetupProfilesManagedDefaults copy];
-    [delegate profilesManager:self didUpdateProfiles:v18];
+    v21 = [fetchInstalledMediaSetupProfilesManagedDefaults copy];
+    [delegate profilesManager:self didUpdateProfiles:v21];
 LABEL_18:
   }
 }
@@ -235,7 +235,7 @@ LABEL_18:
 {
   notificationCopy = notification;
   infoCopy = info;
-  v8 = sub_100030FE4();
+  v8 = sub_100030FE4(infoCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 138412546;

@@ -67,11 +67,10 @@
 
 + (void)initialize
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = self;
-  _os_log_error_impl(&dword_25BA3A000, a2, OS_LOG_TYPE_ERROR, "mach_timebase_info failed %d", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = self;
+  _os_log_error_impl(&dword_25BA3A000, a2, OS_LOG_TYPE_ERROR, "mach_timebase_info failed %d", v2, 8u);
 }
 
 @end

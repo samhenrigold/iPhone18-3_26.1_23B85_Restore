@@ -71,35 +71,32 @@
 
 + (BOOL)toHeaderEncryptionMode:(unint64_t)mode headerEncMode:(void *)encMode error:(id *)error
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   if (mode - 1 < 2)
   {
-    v11[0] = 0x8000000100000005;
+    v9[0] = 0x8000000100000005;
     v6 = 5;
     v7 = 5;
 LABEL_5:
-    smart_enums::validators::value<unsigned int>("encryption_mode", v7, v11, 2);
+    smart_enums::validators::value<unsigned int>("encryption_mode", v7, v9, 2);
     *encMode = v6;
-    v8 = *MEMORY[0x277D85DE8];
     return 1;
   }
 
   if (mode == 3)
   {
-    v11[0] = 0x8000000100000005;
+    v9[0] = 0x8000000100000005;
     v6 = -2147483647;
     v7 = -2147483647;
     goto LABEL_5;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return [DIError failWithPOSIXCode:22 verboseInfo:@"Invalid encryption method" error:error];
 }
 
 - (BOOL)createEncryptionWithXPCHandler:(id)handler error:(id *)error
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   if ([(DICreateParams *)self encryptionMethod])
   {
@@ -108,17 +105,17 @@ LABEL_5:
     v9 = backendXPC;
     if (backendXPC)
     {
-      [backendXPC getCryptoHeaderBackend];
+      objc_msgSend_getCryptoHeaderBackend(backendXPC);
     }
 
     else
     {
+      v14 = 0;
       v15 = 0;
       v16 = 0;
-      v17 = 0;
     }
 
-    if (v17)
+    if (v16)
     {
       if ([(DICreateParams *)self encryptionMethod]== 2)
       {
@@ -130,10 +127,10 @@ LABEL_5:
         v11 = 128;
       }
 
-      v18[0] = 0x10000000080;
-      smart_enums::validators::value<unsigned int>("encryption_key_bits_size_t", v11, v18, 2);
-      v14 = 0;
-      if ([DICreateParams toHeaderEncryptionMode:[(DICreateParams *)self encryptionMethod] headerEncMode:&v14 error:error])
+      v17[0] = 0x10000000080;
+      smart_enums::validators::value<unsigned int>("encryption_key_bits_size_t", v11, v17, 2);
+      v13 = 0;
+      if ([DICreateParams toHeaderEncryptionMode:[(DICreateParams *)self encryptionMethod] headerEncMode:&v13 error:error])
       {
         [(DIBaseParams *)self blockSize];
         operator new();
@@ -144,12 +141,12 @@ LABEL_5:
 
     else
     {
-      error = [DIError failWithUnexpected:v15 verboseInfo:v16 error:@"Failed to open crypto header", error];
+      error = [DIError failWithUnexpected:v14 verboseInfo:v15 error:@"Failed to open crypto header", error];
     }
 
-    if (v17 == 1 && v16)
+    if (v16 == 1 && v15)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v16);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v15);
     }
   }
 
@@ -158,7 +155,6 @@ LABEL_5:
     error = 1;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return error;
 }
 
@@ -170,72 +166,80 @@ LABEL_5:
 
 - (BOOL)createDiskImageParamsWithError:(id *)error
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   inputURL = [(DIBaseParams *)self inputURL];
   isFileURL = [inputURL isFileURL];
 
   if (isFileURL)
   {
     v7 = *__error();
-    if (DIForwardLogs())
+    v8 = DIForwardLogs();
+    if (v8)
     {
-      v8 = getDIOSLog();
-      os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
-      [(DIBaseParams *)self inputURL];
-      *buf = 68158211;
-      v20 = 49;
-      v21 = 2080;
-      v22 = "[DICreateParams createDiskImageParamsWithError:]";
-      v24 = v23 = 2113;
-      v9 = _os_log_send_and_compose_impl();
-
-      if (v9)
+      v22 = 0;
+      v10 = getDIOSLog(v8, v9);
+      v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+      inputURL2 = [(DIBaseParams *)self inputURL];
+      if (v11)
       {
-        fprintf(*MEMORY[0x277D85DF8], "%s\n", v9);
-        free(v9);
+        v13 = 3;
+      }
+
+      else
+      {
+        v13 = 2;
+      }
+
+      *buf = 68158211;
+      v24 = 49;
+      v25 = 2080;
+      v26 = "[DICreateParams createDiskImageParamsWithError:]";
+      v27 = 2113;
+      v28 = inputURL2;
+      v14 = _os_log_send_and_compose_impl(v13, &v22, 0, 0, &dword_248DE0000, v10, 0, "%.*s: entry with %{private}@", buf, 28);
+
+      if (v14)
+      {
+        fprintf(*MEMORY[0x277D85DF8], "%s\n", v14);
+        free(v14);
       }
     }
 
     else
     {
-      v12 = getDIOSLog();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v16 = getDIOSLog(v8, v9);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        inputURL2 = [(DIBaseParams *)self inputURL];
+        inputURL3 = [(DIBaseParams *)self inputURL];
         *buf = 68158211;
-        v20 = 49;
-        v21 = 2080;
-        v22 = "[DICreateParams createDiskImageParamsWithError:]";
-        v23 = 2113;
-        v24 = inputURL2;
-        _os_log_impl(&dword_248DE0000, v12, OS_LOG_TYPE_DEFAULT, "%.*s: entry with %{private}@", buf, 0x1Cu);
+        v24 = 49;
+        v25 = 2080;
+        v26 = "[DICreateParams createDiskImageParamsWithError:]";
+        v27 = 2113;
+        v28 = inputURL3;
+        _os_log_impl(&dword_248DE0000, v16, OS_LOG_TYPE_DEFAULT, "%.*s: entry with %{private}@", buf, 0x1Cu);
       }
     }
 
     *__error() = v7;
-    v14 = objc_opt_class();
-    inputURL3 = [(DIBaseParams *)self inputURL];
-    LOBYTE(v14) = [v14 eraseIfExistingWithURL:inputURL3 error:error];
+    v18 = objc_opt_class();
+    inputURL4 = [(DIBaseParams *)self inputURL];
+    LOBYTE(v18) = [v18 eraseIfExistingWithURL:inputURL4 error:error];
 
-    if (v14)
+    if ((v18 & 1) == 0)
     {
-      [(DICreateParams *)self createDiskImageParamsXPC];
-      diskImageParamsXPC = [(DIBaseParams *)self diskImageParamsXPC];
-      v17 = [diskImageParamsXPC setBlockSize:-[DIBaseParams blockSize](self error:{"blockSize"), error}];
+      return 0;
     }
 
-    else
-    {
-      v17 = 0;
-    }
+    [(DICreateParams *)self createDiskImageParamsXPC];
+    diskImageParamsXPC = [(DIBaseParams *)self diskImageParamsXPC];
+    v21 = [diskImageParamsXPC setBlockSize:-[DIBaseParams blockSize](self error:{"blockSize"), error}];
 
-    v18 = *MEMORY[0x277D85DE8];
-    return v17;
+    return v21;
   }
 
   else
   {
-    v10 = *MEMORY[0x277D85DE8];
 
     return [DIError failWithPOSIXCode:22 verboseInfo:@"URL must have a file scheme" error:error];
   }
@@ -252,38 +256,38 @@ LABEL_5:
 
     diskImageParamsXPC = [(DIBaseParams *)self diskImageParamsXPC];
     shadowChain = [(DIBaseParams *)self shadowChain];
-    shouldValidate = [shadowChain shouldValidate];
+    [shadowChain shouldValidate];
     if (diskImageParamsXPC)
     {
-      [diskImageParamsXPC createDiskImageWithCache:0 shadowValidation:shouldValidate];
-      v11 = v14;
+      objc_msgSend_createDiskImageWithCache_shadowValidation_(diskImageParamsXPC);
+      v10 = v13;
     }
 
     else
     {
-      v11 = 0;
+      v10 = 0;
     }
 
-    v12.var0 = [(DICreateParams *)self resizeWithDiskImage:v11 numberOfBlocks:[(DICreateParams *)self numBlocks] error:error];
-    if (LODWORD(v12.var0))
+    v11.var0 = [(DICreateParams *)self resizeWithDiskImage:v10 numberOfBlocks:[(DICreateParams *)self numBlocks] error:error];
+    if (LODWORD(v11.var0))
     {
-      *v6 = v11;
+      *v6 = v10;
     }
 
     else
     {
       *v6 = 0;
-      if (v11)
+      if (v10)
       {
-        return (*(*v11 + 16))(v11);
+        return (*(*v10 + 16))(v10);
       }
     }
 
-    return v12;
+    return v11;
   }
 
-  v13 = objc_alloc_init(DIClient2Controller_XPCHandler);
-  if ([(DIClient2Controller_XPCHandler *)v13 connectWithError:error]&& [(DICreateParams *)self createEncryptionWithXPCHandler:v13 error:error])
+  v12 = objc_alloc_init(DIClient2Controller_XPCHandler);
+  if ([(DIClient2Controller_XPCHandler *)v12 connectWithError:error]&& [(DICreateParams *)self createEncryptionWithXPCHandler:v12 error:error])
   {
 
     goto LABEL_5;
@@ -291,7 +295,7 @@ LABEL_5:
 
   *v6 = 0;
 
-  return v12;
+  return v11;
 }
 
 - (id)createWithError:(id *)error
@@ -300,7 +304,7 @@ LABEL_5:
   {
     if ([(DICreateParams *)self createDiskImageParamsWithError:error])
     {
-      [(DICreateParams *)self createInternalWithError:error];
+      objc_msgSend_createInternalWithError_(self);
       if (v8)
       {
         diskimage_uio::details::diskimage_impl::create_diskimage();
@@ -329,7 +333,7 @@ LABEL_5:
 
 - (BOOL)resizeWithDiskImage:(void *)image numberOfBlocks:(unint64_t)blocks error:(id *)error
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   [(DICreateParams *)self setNumBlocks:blocks];
   v9 = (*(*image + 24))(image);
   diskImageParamsXPC = [(DIBaseParams *)self diskImageParamsXPC];
@@ -339,68 +343,76 @@ LABEL_5:
   {
     [(DICreateParams *)self setNumBlocks:(*(*image + 32))(image)];
     numBlocks = [(DICreateParams *)self numBlocks];
-    v15 = (*(*image + 24))(image) * numBlocks;
-    v16 = *__error();
-    if (DIForwardLogs())
+    v14 = (*(*image + 24))(image) * numBlocks;
+    v15 = *__error();
+    v16 = DIForwardLogs();
+    if (v16)
     {
-      v17 = getDIOSLog();
-      os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
-      *buf = 0x3B04100302;
-      v25 = 2080;
-      v26 = "[DICreateParams resizeWithDiskImage:numberOfBlocks:error:]";
-      v27 = 2048;
-      v28 = v15;
-      v18 = _os_log_send_and_compose_impl();
-
-      if (v18)
+      v27 = 0;
+      v18 = getDIOSLog(v16, v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        fprintf(*MEMORY[0x277D85DF8], "%s\n", v18);
-        free(v18);
+        v19 = 3;
+      }
+
+      else
+      {
+        v19 = 2;
+      }
+
+      *buf = 0x3B04100302;
+      v29 = 2080;
+      v30 = "[DICreateParams resizeWithDiskImage:numberOfBlocks:error:]";
+      v31 = 2048;
+      v32 = v14;
+      LODWORD(v25) = 28;
+      v20 = _os_log_send_and_compose_impl(v19, &v27, 0, 0, &dword_248DE0000, v18, 0, "%.*s: Disk image resized to %llu bytes", buf, v25, v26);
+
+      if (v20)
+      {
+        fprintf(*MEMORY[0x277D85DF8], "%s\n", v20);
+        free(v20);
       }
     }
 
     else
     {
-      v19 = getDIOSLog();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v21 = getDIOSLog(v16, v17);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0x3B04100302;
-        v25 = 2080;
-        v26 = "[DICreateParams resizeWithDiskImage:numberOfBlocks:error:]";
-        v27 = 2048;
-        v28 = v15;
-        _os_log_impl(&dword_248DE0000, v19, OS_LOG_TYPE_DEFAULT, "%.*s: Disk image resized to %llu bytes", buf, 0x1Cu);
+        v29 = 2080;
+        v30 = "[DICreateParams resizeWithDiskImage:numberOfBlocks:error:]";
+        v31 = 2048;
+        v32 = v14;
+        _os_log_impl(&dword_248DE0000, v21, OS_LOG_TYPE_DEFAULT, "%.*s: Disk image resized to %llu bytes", buf, 0x1Cu);
       }
     }
 
-    *__error() = v16;
-    v20 = (*(*image + 144))(image);
-    v21 = DiskImage::Context::flush(v20);
-    if (v21)
+    *__error() = v15;
+    v22 = (*(*image + 144))(image);
+    v23 = DiskImage::Context::flush(v22);
+    if (v23)
     {
-      v22 = [DIError failWithPOSIXCode:v21 error:error];
-      if (!v20)
+      v24 = [DIError failWithPOSIXCode:v23 error:error];
+      if (!v22)
       {
-LABEL_14:
-        v23 = *MEMORY[0x277D85DE8];
-        return v22;
+        return v24;
       }
     }
 
     else
     {
-      v22 = 1;
-      if (!v20)
+      v24 = 1;
+      if (!v22)
       {
-        goto LABEL_14;
+        return v24;
       }
     }
 
-    (*(*v20 + 40))(v20);
-    goto LABEL_14;
+    (*(*v22 + 40))(v22);
+    return v24;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return [DIError failWithPOSIXCode:blocks verboseInfo:@"Failed to resize the image" error:error];
 }
@@ -409,35 +421,35 @@ LABEL_14:
 {
   diskImageParamsXPC = [(DIBaseParams *)self diskImageParamsXPC];
   shadowChain = [(DIBaseParams *)self shadowChain];
-  shouldValidate = [shadowChain shouldValidate];
+  [shadowChain shouldValidate];
   if (diskImageParamsXPC)
   {
-    [diskImageParamsXPC createDiskImageWithCache:0 shadowValidation:shouldValidate];
-    v10 = v13;
+    objc_msgSend_createDiskImageWithCache_shadowValidation_(diskImageParamsXPC);
+    v9 = v12;
   }
 
   else
   {
-    v10 = 0;
+    v9 = 0;
   }
 
-  v11 = [(DICreateParams *)self resizeWithDiskImage:v10 numberOfBlocks:blocks error:error];
-  if (v10)
+  v10 = [(DICreateParams *)self resizeWithDiskImage:v9 numberOfBlocks:blocks error:error];
+  if (v9)
   {
-    (*(*v10 + 16))(v10);
+    (*(*v9 + 16))(v9);
   }
 
-  return v11;
+  return v10;
 }
 
 + (BOOL)eraseIfExistingWithURL:(id)l error:(id *)error
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   lCopy = l;
-  v26 = 0;
+  v30 = 0;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   path = [lCopy path];
-  v8 = [defaultManager fileExistsAtPath:path isDirectory:&v26];
+  v8 = [defaultManager fileExistsAtPath:path isDirectory:&v30];
 
   if (v8)
   {
@@ -447,137 +459,159 @@ LABEL_14:
 
     if (v11)
     {
-      if ([objc_opt_class() checkExistingFileWithURL:lCopy isDirectory:v26 error:error])
+      if ([objc_opt_class() checkExistingFileWithURL:lCopy isDirectory:v30 error:error])
       {
         defaultManager3 = [MEMORY[0x277CCAA00] defaultManager];
         path3 = [lCopy path];
         v14 = [defaultManager3 attributesOfItemAtPath:path3 error:0];
 
-        if ((v26 & 1) == 0 && v14)
+        if ((v30 & 1) == 0 && v14)
         {
           v15 = [v14 objectForKeyedSubscript:*MEMORY[0x277CCA1C0]];
           defaultManager4 = v15;
           if (v15 && ![v15 longLongValue])
           {
-            v21 = 1;
-LABEL_19:
+            v25 = 1;
+LABEL_22:
 
-            goto LABEL_20;
+            goto LABEL_23;
           }
         }
 
         v17 = *__error();
-        if (DIForwardLogs())
+        v18 = DIForwardLogs();
+        if (v18)
         {
-          v18 = getDIOSLog();
-          os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
+          v29 = 0;
+          v20 = getDIOSLog(v18, v19);
+          v21 = os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT);
           path4 = [lCopy path];
-          *buf = 68158211;
-          v28 = 47;
-          v29 = 2080;
-          v30 = "+[DICreateParams eraseIfExistingWithURL:error:]";
-          v31 = 2113;
-          v32 = path4;
-          v20 = _os_log_send_and_compose_impl();
-
-          if (v20)
+          if (v21)
           {
-            fprintf(*MEMORY[0x277D85DF8], "%s\n", v20);
-            free(v20);
+            v23 = 3;
+          }
+
+          else
+          {
+            v23 = 2;
+          }
+
+          *buf = 68158211;
+          v32 = 47;
+          v33 = 2080;
+          v34 = "+[DICreateParams eraseIfExistingWithURL:error:]";
+          v35 = 2113;
+          v36 = path4;
+          v24 = _os_log_send_and_compose_impl(v23, &v29, 0, 0, &dword_248DE0000, v20, 0, "%.*s: Erasing %{private}@", buf, 28);
+
+          if (v24)
+          {
+            fprintf(*MEMORY[0x277D85DF8], "%s\n", v24);
+            free(v24);
           }
         }
 
         else
         {
-          v22 = getDIOSLog();
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+          v26 = getDIOSLog(v18, v19);
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
           {
             path5 = [lCopy path];
             *buf = 68158211;
-            v28 = 47;
-            v29 = 2080;
-            v30 = "+[DICreateParams eraseIfExistingWithURL:error:]";
-            v31 = 2113;
-            v32 = path5;
-            _os_log_impl(&dword_248DE0000, v22, OS_LOG_TYPE_DEFAULT, "%.*s: Erasing %{private}@", buf, 0x1Cu);
+            v32 = 47;
+            v33 = 2080;
+            v34 = "+[DICreateParams eraseIfExistingWithURL:error:]";
+            v35 = 2113;
+            v36 = path5;
+            _os_log_impl(&dword_248DE0000, v26, OS_LOG_TYPE_DEFAULT, "%.*s: Erasing %{private}@", buf, 0x1Cu);
           }
         }
 
         *__error() = v17;
         defaultManager4 = [MEMORY[0x277CCAA00] defaultManager];
-        v21 = [defaultManager4 removeItemAtURL:lCopy error:error];
-        goto LABEL_19;
+        v25 = [defaultManager4 removeItemAtURL:lCopy error:error];
+        goto LABEL_22;
       }
 
-      v21 = 0;
+      v25 = 0;
     }
 
     else
     {
-      v21 = [DIError failWithPOSIXCode:13 verboseInfo:@"Image does not have write permissions" error:error];
+      v25 = [DIError failWithPOSIXCode:13 verboseInfo:@"Image does not have write permissions" error:error];
     }
   }
 
   else
   {
-    v21 = 1;
+    v25 = 1;
   }
 
-LABEL_20:
+LABEL_23:
 
-  v24 = *MEMORY[0x277D85DE8];
-  return v21;
+  return v25;
 }
 
 - (BOOL)onErrorCleanup
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   [(DIBaseParams *)self setDiskImageParamsXPC:0];
   v3 = *__error();
-  if (DIForwardLogs())
+  v4 = DIForwardLogs();
+  if (v4)
   {
-    v4 = getDIOSLog();
-    os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
-    inputURL = [(DIBaseParams *)self inputURL];
-    [inputURL path];
-    *buf = 68158211;
-    v16 = 32;
-    v17 = 2080;
-    v18 = "[DICreateParams onErrorCleanup]";
-    v20 = v19 = 2113;
-    v6 = _os_log_send_and_compose_impl();
-
-    if (v6)
+    v18 = 0;
+    v6 = getDIOSLog(v4, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      fprintf(*MEMORY[0x277D85DF8], "%s\n", v6);
-      free(v6);
+      v7 = 3;
+    }
+
+    else
+    {
+      v7 = 2;
+    }
+
+    inputURL = [(DIBaseParams *)self inputURL];
+    path = [inputURL path];
+    *buf = 68158211;
+    v20 = 32;
+    v21 = 2080;
+    v22 = "[DICreateParams onErrorCleanup]";
+    v23 = 2113;
+    v24 = path;
+    v10 = _os_log_send_and_compose_impl(v7, &v18, 0, 0, &dword_248DE0000, v6, 0, "%.*s: Creation failed, erasing %{private}@", buf, 28);
+
+    if (v10)
+    {
+      fprintf(*MEMORY[0x277D85DF8], "%s\n", v10);
+      free(v10);
     }
   }
 
   else
   {
-    v7 = getDIOSLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v11 = getDIOSLog(v4, v5);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       inputURL2 = [(DIBaseParams *)self inputURL];
-      path = [inputURL2 path];
+      path2 = [inputURL2 path];
       *buf = 68158211;
-      v16 = 32;
-      v17 = 2080;
-      v18 = "[DICreateParams onErrorCleanup]";
-      v19 = 2113;
-      v20 = path;
-      _os_log_impl(&dword_248DE0000, v7, OS_LOG_TYPE_DEFAULT, "%.*s: Creation failed, erasing %{private}@", buf, 0x1Cu);
+      v20 = 32;
+      v21 = 2080;
+      v22 = "[DICreateParams onErrorCleanup]";
+      v23 = 2113;
+      v24 = path2;
+      _os_log_impl(&dword_248DE0000, v11, OS_LOG_TYPE_DEFAULT, "%.*s: Creation failed, erasing %{private}@", buf, 0x1Cu);
     }
   }
 
   *__error() = v3;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   inputURL3 = [(DIBaseParams *)self inputURL];
-  v12 = [defaultManager removeItemAtURL:inputURL3 error:0];
+  v16 = [defaultManager removeItemAtURL:inputURL3 error:0];
 
-  v13 = *MEMORY[0x277D85DE8];
-  return v12;
+  return v16;
 }
 
 - (BOOL)setPassphrase:(const char *)passphrase encryptionMethod:(unint64_t)method error:(id *)error

@@ -35,29 +35,29 @@
 
 - (id)assignWindow:(id)window input:(id)input
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   windowCopy = window;
   v6 = (*(self->_timestamp + 2))();
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   v7 = windowCopy;
-  v8 = [v7 countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v30;
+    v10 = *v29;
 LABEL_3:
     v11 = 0;
     while (1)
     {
-      if (*v30 != v10)
+      if (*v29 != v10)
       {
         objc_enumerationMutation(v7);
       }
 
-      v12 = *(*(&v29 + 1) + 8 * v11);
+      v12 = *(*(&v28 + 1) + 8 * v11);
       dateInterval = [v12 dateInterval];
       v14 = [dateInterval containsDate:v6];
 
@@ -68,7 +68,7 @@ LABEL_3:
 
       if (v9 == ++v11)
       {
-        v9 = [v7 countByEnumeratingWithState:&v29 objects:v33 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v28 objects:v32 count:16];
         if (v9)
         {
           goto LABEL_3;
@@ -112,40 +112,38 @@ LABEL_9:
 LABEL_14:
   v26 = [MEMORY[0x1E695DFD8] setWithObject:v15];
 
-  v27 = *MEMORY[0x1E69E9840];
-
   return v26;
 }
 
 - (id)updateAndReturnNewWindowStates:(id)states input:(id)input
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   statesCopy = states;
   selfCopy = self;
   inputCopy = input;
   v8 = (*(self->_timestamp + 2))();
+  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
   v42 = 0u;
-  v43 = 0u;
   v9 = statesCopy;
-  v10 = [v9 countByEnumeratingWithState:&v40 objects:v44 count:16];
-  v38 = v9;
+  v10 = [v9 countByEnumeratingWithState:&v39 objects:v43 count:16];
+  v37 = v9;
   if (v10)
   {
     v11 = v10;
     v12 = 0;
-    v13 = *v41;
+    v13 = *v40;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v41 != v13)
+        if (*v40 != v13)
         {
           objc_enumerationMutation(v9);
         }
 
-        v15 = *(*(&v40 + 1) + 8 * i);
+        v15 = *(*(&v39 + 1) + 8 * i);
         dateInterval = [v15 dateInterval];
         v17 = [dateInterval containsDate:v8];
 
@@ -156,7 +154,7 @@ LABEL_14:
           v20 = (closure)[2](closure, aggregate, inputCopy);
           [v15 setAggregate:v20];
 
-          v9 = v38;
+          v9 = v37;
           v21 = v15;
 
           v12 = v21;
@@ -168,7 +166,7 @@ LABEL_14:
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v40 objects:v44 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v39 objects:v43 count:16];
     }
 
     while (v11);
@@ -205,12 +203,10 @@ LABEL_14:
     v35 = (closure2)[2](closure2, aggregate2, inputCopy);
     [(BPSWindowState *)v12 setAggregate:v35];
 
-    v9 = v38;
+    v9 = v37;
     [v22 addObject:v12];
     ++selfCopy->_identifier;
   }
-
-  v36 = *MEMORY[0x1E69E9840];
 
   return v22;
 }

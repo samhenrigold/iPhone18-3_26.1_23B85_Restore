@@ -28,9 +28,8 @@
 {
   v6 = sub_25B0E24A0();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x28223BE20](v6);
-  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_25B0E3900();
   sub_25B0E38F0();
   sub_25B0E3850();
@@ -41,20 +40,19 @@
 
   sub_25B0E2480();
   faceCopy = face;
-  v12 = sub_25B0E2470();
-  v13 = [(NFGReplicatedSnapshotViewController *)self initWithFace:faceCopy uuid:v12 index:100];
+  v11 = sub_25B0E2470();
+  v12 = [(NFGReplicatedSnapshotViewController *)self initWithFace:faceCopy uuid:v11 index:100];
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 
-  return v13;
+  return v12;
 }
 
 - (NFGReplicatedSnapshotViewController)initWithFace:(id)face uuid:(id)uuid index:(unint64_t)index
 {
   v7 = sub_25B0E24A0();
-  v8 = *(*(v7 - 8) + 64);
   MEMORY[0x28223BE20](v7 - 8);
-  v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_25B0E3900();
   sub_25B0E38F0();
   sub_25B0E3850();
@@ -64,9 +62,9 @@
   }
 
   sub_25B0E2480();
-  v11 = NFGReplicatedSnapshotViewController.init(face:uuid:index:)(face, v10, index);
+  v10 = NFGReplicatedSnapshotViewController.init(face:uuid:index:)(face, v9, index);
 
-  return v11;
+  return v10;
 }
 
 - (NFGReplicatedSnapshotViewController)initWithCoder:(id)coder

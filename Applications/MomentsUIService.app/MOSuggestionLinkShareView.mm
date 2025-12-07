@@ -30,7 +30,7 @@
 
 - (_TtC16MomentsUIService25MOSuggestionLinkShareView)initWithPresentationProperties:(id)properties URL:(id)l
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
   __chkstk_darwin(v5 - 8);
   v7 = &v12 - v6;
   if (l)

@@ -199,7 +199,8 @@
   dataCopy = data;
   topotext::VectorTimestamp::VectorTimestamp(v12);
   bytes = [dataCopy bytes];
-  v8 = ICTTBoundedCheckedCastNSUIntegerToUInt32([dataCopy length]);
+  [dataCopy length];
+  ICTTBoundedCheckedCastNSUIntegerToUInt32();
   if (google::protobuf::MessageLite::ParseFromArray(v12, bytes, v8))
   {
     self = [(ICTTVectorMultiTimestamp *)self initWithArchive:v12 andCapacity:capacity];
@@ -362,7 +363,7 @@ LABEL_29:
         {
           if (v8 == *(archive + 14))
           {
-            google::protobuf::internal::RepeatedPtrFieldBase::Reserve(archive + 40, v8 + 1);
+            google::protobuf::internal::RepeatedPtrFieldBase::Reserve(archive + 10, v8 + 1);
           }
 
           google::protobuf::internal::GenericTypeHandler<topotext::VectorTimestamp_Clock>::New();
@@ -412,7 +413,7 @@ LABEL_29:
             {
               if (v17 == *(v11 + 64))
               {
-                google::protobuf::internal::RepeatedPtrFieldBase::Reserve(v11 + 48, v17 + 1);
+                google::protobuf::internal::RepeatedPtrFieldBase::Reserve((v11 + 48), v17 + 1);
               }
 
               google::protobuf::internal::GenericTypeHandler<topotext::VectorTimestamp_Clock_ReplicaClock>::New();
@@ -423,14 +424,16 @@ LABEL_29:
             v20 = *(v19 + 8 * v18);
             if ([v16 clock])
             {
-              v21 = ICTTBoundedCheckedCastNSUIntegerToUInt32([v16 clock]);
+              [v16 clock];
+              ICTTBoundedCheckedCastNSUIntegerToUInt32();
               v20[8] |= 1u;
               v20[10] = v21;
             }
 
             if ([v16 subclock])
             {
-              v22 = ICTTBoundedCheckedCastNSUIntegerToUInt32([v16 subclock]);
+              [v16 subclock];
+              ICTTBoundedCheckedCastNSUIntegerToUInt32();
               v20[8] |= 2u;
               v20[11] = v22;
             }
@@ -450,7 +453,8 @@ LABEL_29:
   [(ICTTVectorMultiTimestamp *)self saveToArchive:v6, topotext::VectorTimestamp::VectorTimestamp(v6)];
   v2 = [objc_alloc(MEMORY[0x277CBEB28]) initWithLength:topotext::VectorTimestamp::ByteSize(v6)];
   mutableBytes = [v2 mutableBytes];
-  v4 = ICTTBoundedCheckedCastNSUIntegerToUInt32([v2 length]);
+  [v2 length];
+  ICTTBoundedCheckedCastNSUIntegerToUInt32();
   google::protobuf::MessageLite::SerializeToArray(v6, mutableBytes, v4);
   topotext::VectorTimestamp::~VectorTimestamp(v6);
 

@@ -1,8 +1,12 @@
 @interface AWDMETRICSKCellularPowerLogSleepStatesMBin
 - (BOOL)isEqual:(id)equal;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)deploymentAsString:(int)string;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)ratAsString:(int)string;
+- (id)rrcStateAsString:(int)string;
+- (id)socSleepStateAsString:(int)string;
 - (int)StringAsDeployment:(id)deployment;
 - (int)StringAsRat:(id)rat;
 - (int)StringAsRrcState:(id)state;
@@ -50,6 +54,21 @@
   }
 
   *&self->_has = *&self->_has & 0xF7 | v3;
+}
+
+- (id)ratAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_279A0FFE0[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsRat:(id)rat
@@ -116,6 +135,29 @@
   *&self->_has = *&self->_has & 0xEF | v3;
 }
 
+- (id)rrcStateAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"CONNECTED";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"IDLE";
+  }
+
+  return v4;
+}
+
 - (int)StringAsRrcState:(id)state
 {
   stateCopy = state;
@@ -158,6 +200,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)deploymentAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_279A10008[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsDeployment:(id)deployment
@@ -212,6 +269,21 @@
   }
 
   *&self->_has = *&self->_has & 0xDF | v3;
+}
+
+- (id)socSleepStateAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_279A10020[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsSocSleepState:(id)state
@@ -400,7 +472,6 @@ LABEL_24:
   has = self->_has;
   if ((has & 8) != 0)
   {
-    rat = self->_rat;
     PBDataWriterWriteInt32Field();
     has = self->_has;
     if ((has & 0x10) == 0)
@@ -420,7 +491,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  rrcState = self->_rrcState;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -435,7 +505,6 @@ LABEL_4:
   }
 
 LABEL_13:
-  deployment = self->_deployment;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -450,7 +519,6 @@ LABEL_5:
   }
 
 LABEL_14:
-  socSleepState = self->_socSleepState;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -465,12 +533,10 @@ LABEL_6:
   }
 
 LABEL_15:
-  durationMs = self->_durationMs;
   PBDataWriterWriteUint32Field();
   if (*&self->_has)
   {
 LABEL_7:
-    count = self->_count;
     PBDataWriterWriteUint32Field();
   }
 

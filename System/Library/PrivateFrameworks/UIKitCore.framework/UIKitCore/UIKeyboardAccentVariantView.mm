@@ -76,7 +76,7 @@
   }
 }
 
-void __53__UIKeyboardAccentVariantView_updateForKeyplane_key___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void __53__UIKeyboardAccentVariantView_updateForKeyplane_key___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = [UIKeyboardAccentVariantViewCell alloc];
@@ -170,7 +170,7 @@ void __53__UIKeyboardAccentVariantView_updateForKeyplane_key___block_invoke(uint
   return v12;
 }
 
-uint64_t __72__UIKeyboardAccentVariantView_updateSelectedVariantIndexForKey_atPoint___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void *__72__UIKeyboardAccentVariantView_updateSelectedVariantIndexForKey_atPoint___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   v5 = *(a1 + 48);
   result = [a2 center];

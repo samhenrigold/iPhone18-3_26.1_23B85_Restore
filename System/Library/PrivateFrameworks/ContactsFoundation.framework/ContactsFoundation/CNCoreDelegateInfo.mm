@@ -71,7 +71,7 @@
   memberCopy = member;
   v4 = objc_alloc_init(MEMORY[0x1E696ADF0]);
   firstName = [memberCopy firstName];
-  v6 = (off_1EF440728)(&__block_literal_global_122, firstName);
+  v6 = off_1EF440728(&__block_literal_global_122, firstName);
 
   if (v6)
   {
@@ -80,7 +80,7 @@
   }
 
   lastName = [memberCopy lastName];
-  v9 = (off_1EF440728)(&__block_literal_global_122, lastName);
+  v9 = off_1EF440728(&__block_literal_global_122, lastName);
 
   if (v9)
   {

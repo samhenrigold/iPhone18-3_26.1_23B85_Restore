@@ -1,4 +1,5 @@
 @interface SCDADevice
++ (id)debugStringForSCDADeviceClass:(unsigned __int8)class andProductType:(unsigned __int8)type;
 + (int)cdaDeviceClassForSCDADeviceClass:(unsigned __int8)class andProducType:(unsigned __int8)type;
 - (SCDADevice)initWithDeviceClass:(unsigned __int8)class deviceClassName:(id)name productType:(unsigned __int8)type productTypeName:(id)typeName;
 - (SCDADevice)initWithSelfID:(id)d;
@@ -392,6 +393,20 @@ LABEL_19:
   else
   {
     return v6;
+  }
+}
+
++ (id)debugStringForSCDADeviceClass:(unsigned __int8)class andProductType:(unsigned __int8)type
+{
+  v4 = [SCDADevice cdaDeviceClassForSCDADeviceClass:class andProducType:type];
+  if (v4 > 0xC)
+  {
+    return @"iPhone";
+  }
+
+  else
+  {
+    return off_1E85D3720[v4];
   }
 }
 

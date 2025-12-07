@@ -351,7 +351,7 @@ uint64_t __59__IRCandidateDO_Extensions__candidateForIdentifier_within___block_i
 
 - (id)exportAsDictionary
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v4 = objc_alloc_init(MEMORY[0x277CCA968]);
   [v4 setDateFormat:@"yyyy-MMM-dd HH:mm:ss.SSSSSS"];
@@ -363,37 +363,36 @@ uint64_t __59__IRCandidateDO_Extensions__candidateForIdentifier_within___block_i
   candidateIdentifier = [(IRCandidateDO *)self candidateIdentifier];
   [v3 setObject:candidateIdentifier forKeyedSubscript:@"candidateIdentifier"];
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   nodes = [(IRCandidateDO *)self nodes];
-  v10 = [nodes countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v10 = [nodes countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v18;
+    v12 = *v17;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v18 != v12)
+        if (*v17 != v12)
         {
           objc_enumerationMutation(nodes);
         }
 
-        exportAsDictionary = [*(*(&v17 + 1) + 8 * i) exportAsDictionary];
+        exportAsDictionary = [*(*(&v16 + 1) + 8 * i) exportAsDictionary];
         [v5 addObject:exportAsDictionary];
       }
 
-      v11 = [nodes countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v11 = [nodes countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v11);
   }
 
   [v3 setObject:v5 forKeyedSubscript:@"nodes"];
-  v15 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -434,27 +433,27 @@ uint64_t __57__IRCandidateDO_Extensions__isSameICloudWithSystemState___block_inv
 
 - (BOOL)isFirstPartyDevice
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   nodes = [(IRCandidateDO *)self nodes];
-  v3 = [nodes countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v3 = [nodes countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v13;
+    v5 = *v12;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v13 != v5)
+        if (*v12 != v5)
         {
           objc_enumerationMutation(nodes);
         }
 
-        avOutputDevice = [*(*(&v12 + 1) + 8 * i) avOutputDevice];
+        avOutputDevice = [*(*(&v11 + 1) + 8 * i) avOutputDevice];
         v8 = avOutputDevice;
         if (avOutputDevice && ([avOutputDevice deviceSubType] == 13 || objc_msgSend(v8, "deviceSubType") == 18 || objc_msgSend(v8, "deviceSubType") == 19 || objc_msgSend(v8, "deviceSubType") == 12))
         {
@@ -464,7 +463,7 @@ uint64_t __57__IRCandidateDO_Extensions__isSameICloudWithSystemState___block_inv
         }
       }
 
-      v4 = [nodes countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [nodes countByEnumeratingWithState:&v11 objects:v15 count:16];
       v9 = 0;
       if (v4)
       {
@@ -482,7 +481,6 @@ uint64_t __57__IRCandidateDO_Extensions__isSameICloudWithSystemState___block_inv
 
 LABEL_16:
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -613,39 +611,8 @@ BOOL __54__IRCandidateDO_Extensions__containsUnknownAVODTarget__block_invoke(uin
 {
   oCopy = o;
   v5 = oCopy;
-  if (!oCopy)
+  if (!oCopy || (v6 = self->_candidateIdentifier == 0, [oCopy candidateIdentifier], v7 = objc_claimAutoreleasedReturnValue(), v8 = v7 != 0, v7, v6 == v8) || (candidateIdentifier = self->_candidateIdentifier) != 0 && (objc_msgSend(v5, "candidateIdentifier"), v10 = objc_claimAutoreleasedReturnValue(), v11 = -[NSString isEqual:](candidateIdentifier, "isEqual:", v10), v10, !v11) || (v12 = self->_nodes == 0, objc_msgSend(v5, "nodes"), v13 = objc_claimAutoreleasedReturnValue(), v14 = v13 != 0, v13, v12 == v14))
   {
-    goto LABEL_8;
-  }
-
-  v6 = self->_candidateIdentifier == 0;
-  candidateIdentifier = [oCopy candidateIdentifier];
-  v8 = candidateIdentifier != 0;
-
-  if (v6 == v8)
-  {
-    goto LABEL_8;
-  }
-
-  candidateIdentifier = self->_candidateIdentifier;
-  if (candidateIdentifier)
-  {
-    candidateIdentifier2 = [v5 candidateIdentifier];
-    v11 = [(NSString *)candidateIdentifier isEqual:candidateIdentifier2];
-
-    if (!v11)
-    {
-      goto LABEL_8;
-    }
-  }
-
-  v12 = self->_nodes == 0;
-  nodes = [v5 nodes];
-  v14 = nodes != 0;
-
-  if (v12 == v14)
-  {
-LABEL_8:
     v17 = 0;
   }
 
@@ -654,8 +621,8 @@ LABEL_8:
     nodes = self->_nodes;
     if (nodes)
     {
-      nodes2 = [v5 nodes];
-      v17 = [(NSSet *)nodes isEqual:nodes2];
+      nodes = [v5 nodes];
+      v17 = [(NSSet *)nodes isEqual:nodes];
     }
 
     else
@@ -686,7 +653,7 @@ LABEL_8:
 
 - (IRCandidateDO)initWithCoder:(id)coder
 {
-  v45[1] = *MEMORY[0x277D85DE8];
+  v44[1] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"lastSeenDate"];
   if (v5)
@@ -699,9 +666,9 @@ LABEL_8:
       v8 = objc_opt_class();
       v9 = NSStringFromClass(v8);
       v10 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for IRCandidateDO key lastSeenDate (expected %@, decoded %@)", v7, v9, 0];
-      v44 = *MEMORY[0x277CCA450];
-      v45[0] = v10;
-      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:&v44 count:1];
+      v43 = *MEMORY[0x277CCA450];
+      v44[0] = v10;
+      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:&v43 count:1];
       v12 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"IRCandidateDOOCNTErrorDomain" code:3 userInfo:v11];
       [coderCopy failWithError:v12];
 LABEL_15:
@@ -726,9 +693,9 @@ LABEL_6:
         v16 = objc_opt_class();
         v10 = NSStringFromClass(v16);
         v11 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for IRCandidateDO key lastUsedDate (expected %@, decoded %@)", v9, v10, 0];
-        v42 = *MEMORY[0x277CCA450];
-        v43 = v11;
-        v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
+        v41 = *MEMORY[0x277CCA450];
+        v42 = v11;
+        v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
         v17 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"IRCandidateDOOCNTErrorDomain" code:3 userInfo:v12];
         [coderCopy failWithError:v17];
 LABEL_14:
@@ -761,9 +728,9 @@ LABEL_19:
         v20 = objc_opt_class();
         v11 = NSStringFromClass(v20);
         v12 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for IRCandidateDO key firstSeenDate (expected %@, decoded %@)", v10, v11, 0];
-        v40 = *MEMORY[0x277CCA450];
-        v41 = v12;
-        v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
+        v39 = *MEMORY[0x277CCA450];
+        v40 = v12;
+        v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
         v21 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"IRCandidateDOOCNTErrorDomain" code:3 userInfo:v17];
         [coderCopy failWithError:v21];
 
@@ -788,16 +755,16 @@ LABEL_19:
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
+        v24 = objc_opt_class();
+        v36 = NSStringFromClass(v24);
         v25 = objc_opt_class();
-        v37 = NSStringFromClass(v25);
-        v26 = objc_opt_class();
-        v27 = NSStringFromClass(v26);
-        v28 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for IRCandidateDO key candidateIdentifier (expected %@, decoded %@)", v37, v27, 0];
-        v38 = *MEMORY[0x277CCA450];
-        v39 = v28;
-        v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
-        v30 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"IRCandidateDOOCNTErrorDomain" code:3 userInfo:v29];
-        [coderCopy failWithError:v30];
+        v26 = NSStringFromClass(v25);
+        v27 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for IRCandidateDO key candidateIdentifier (expected %@, decoded %@)", v36, v26, 0];
+        v37 = *MEMORY[0x277CCA450];
+        v38 = v27;
+        v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
+        v29 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"IRCandidateDOOCNTErrorDomain" code:3 userInfo:v28];
+        [coderCopy failWithError:v29];
 
         goto LABEL_16;
       }
@@ -813,14 +780,14 @@ LABEL_19:
       }
     }
 
-    v32 = objc_alloc(MEMORY[0x277CBEB98]);
-    v33 = objc_opt_class();
-    v34 = [v32 initWithObjects:{v33, objc_opt_class(), 0}];
-    v35 = [coderCopy decodeObjectOfClasses:v34 forKey:@"nodes"];
+    v31 = objc_alloc(MEMORY[0x277CBEB98]);
+    v32 = objc_opt_class();
+    v33 = [v31 initWithObjects:{v32, objc_opt_class(), 0}];
+    v34 = [coderCopy decodeObjectOfClasses:v33 forKey:@"nodes"];
 
-    if (v35 || ([coderCopy error], v36 = objc_claimAutoreleasedReturnValue(), v36, !v36))
+    if (v34 || ([coderCopy error], v35 = objc_claimAutoreleasedReturnValue(), v35, !v35))
     {
-      self = [(IRCandidateDO *)self initWithLastSeenDate:v5 lastUsedDate:v7 firstSeenDate:v9 candidateIdentifier:v10 nodes:v35];
+      self = [(IRCandidateDO *)self initWithLastSeenDate:v5 lastUsedDate:v7 firstSeenDate:v9 candidateIdentifier:v10 nodes:v34];
       selfCopy = self;
     }
 
@@ -842,7 +809,6 @@ LABEL_19:
   selfCopy = 0;
 LABEL_20:
 
-  v22 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -888,11 +854,9 @@ LABEL_20:
 
 - (id)description
 {
-  v3 = objc_alloc(MEMORY[0x277CCACA8]);
-  v4 = *&self->_lastSeenDate;
-  v5 = [v3 initWithFormat:@"<IRCandidateDO | lastSeenDate:%@ lastUsedDate:%@ firstSeenDate:%@ candidateIdentifier:%@ nodes:%@>", self->_lastSeenDate, self->_lastUsedDate, self->_firstSeenDate, self->_candidateIdentifier, self->_nodes];
+  v2 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"<IRCandidateDO | lastSeenDate:%@ lastUsedDate:%@ firstSeenDate:%@ candidateIdentifier:%@ nodes:%@>", self->_lastSeenDate, self->_lastUsedDate, self->_firstSeenDate, self->_candidateIdentifier, self->_nodes];
 
-  return v5;
+  return v2;
 }
 
 @end

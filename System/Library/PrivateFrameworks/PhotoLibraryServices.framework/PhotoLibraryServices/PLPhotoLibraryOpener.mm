@@ -544,7 +544,7 @@ LABEL_34:
     }
 
     v14 = [fileManager contentsOfDirectoryAtURL:libraryURL includingPropertiesForKeys:0 options:0 error:0];
-    if ([v14 count])
+    if (objc_msgSend_count(v14))
     {
       errorCopy = error;
       v16 = PLLibraryServicesGetLog();
@@ -872,9 +872,9 @@ LABEL_5:
     if ([v12 code] == 513)
     {
       domain = [v12 domain];
-      v15 = [domain isEqualToString:*MEMORY[0x1E696A250]];
+      isEqualToString = objc_msgSend_isEqualToString_(domain);
 
-      if (v15)
+      if (isEqualToString)
       {
         userInfo = [v12 userInfo];
         v17 = [userInfo objectForKeyedSubscript:*MEMORY[0x1E696AA08]];
@@ -882,7 +882,7 @@ LABEL_5:
         if ([v17 code] == 66)
         {
           domain2 = [v17 domain];
-          v19 = [domain2 isEqualToString:*MEMORY[0x1E696A798]];
+          v19 = objc_msgSend_isEqualToString_(domain2);
 
           if (v19)
           {
@@ -1628,7 +1628,7 @@ LABEL_16:
 
   v8 = [[PLPhotoLibraryFinder alloc] initWithSearchCriteria:v4];
   v9 = [(PLPhotoLibraryFinder *)v8 findMatchingPhotoLibraryIdentifiersWithOptions:1 error:0];
-  v10 = [v9 count];
+  v10 = objc_msgSend_count(v9);
   if (v10)
   {
     v11 = PLLibraryServicesGetLog();

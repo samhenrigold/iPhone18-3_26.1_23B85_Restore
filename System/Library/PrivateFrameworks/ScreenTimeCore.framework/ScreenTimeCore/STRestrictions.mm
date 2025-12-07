@@ -274,25 +274,7 @@ LABEL_49:
       }
 
       allowExplicitBooks = [(STRestrictions *)self allowExplicitBooks];
-      if (allowExplicitBooks != [(STRestrictions *)v9 allowExplicitBooks])
-      {
-        goto LABEL_44;
-      }
-
-      allowExplicitMediaContent = [(STRestrictions *)self allowExplicitMediaContent];
-      if (allowExplicitMediaContent != [(STRestrictions *)v9 allowExplicitMediaContent])
-      {
-        goto LABEL_44;
-      }
-
-      webFilterState = [(STRestrictions *)self webFilterState];
-      if (webFilterState != [(STRestrictions *)v9 webFilterState])
-      {
-        goto LABEL_44;
-      }
-
-      allowPrivateMessaging = [(STRestrictions *)self allowPrivateMessaging];
-      if (allowPrivateMessaging == [(STRestrictions *)v9 allowPrivateMessaging]&& (v29 = [(STRestrictions *)self allowAvatarAndNicknameChanges], v29 == [(STRestrictions *)v9 allowAvatarAndNicknameChanges]) && (v30 = [(STRestrictions *)self allowProfilePrivacyChanges], v30 == [(STRestrictions *)v9 allowProfilePrivacyChanges]) && (v31 = [(STRestrictions *)self allowWebContentSearchInSiri], v31 == [(STRestrictions *)v9 allowWebContentSearchInSiri]) && (v32 = [(STRestrictions *)self allowExplicitLanguageInSiri], v32 == [(STRestrictions *)v9 allowExplicitLanguageInSiri]) && (v33 = [(STRestrictions *)self allowExternalIntelligenceIntegrations], v33 == [(STRestrictions *)v9 allowExternalIntelligenceIntegrations]) && (v34 = [(STRestrictions *)self allowWritingTools], v34 == [(STRestrictions *)v9 allowWritingTools]))
+      if (allowExplicitBooks == [(STRestrictions *)v9 allowExplicitBooks]&& (v26 = [(STRestrictions *)self allowExplicitMediaContent], v26 == [(STRestrictions *)v9 allowExplicitMediaContent]) && (v27 = [(STRestrictions *)self webFilterState], v27 == [(STRestrictions *)v9 webFilterState]) && (v28 = [(STRestrictions *)self allowPrivateMessaging], v28 == [(STRestrictions *)v9 allowPrivateMessaging]) && (v29 = [(STRestrictions *)self allowAvatarAndNicknameChanges], v29 == [(STRestrictions *)v9 allowAvatarAndNicknameChanges]) && (v30 = [(STRestrictions *)self allowProfilePrivacyChanges], v30 == [(STRestrictions *)v9 allowProfilePrivacyChanges]) && (v31 = [(STRestrictions *)self allowWebContentSearchInSiri], v31 == [(STRestrictions *)v9 allowWebContentSearchInSiri]) && (v32 = [(STRestrictions *)self allowExplicitLanguageInSiri], v32 == [(STRestrictions *)v9 allowExplicitLanguageInSiri]) && (v33 = [(STRestrictions *)self allowExternalIntelligenceIntegrations], v33 == [(STRestrictions *)v9 allowExternalIntelligenceIntegrations]) && (v34 = [(STRestrictions *)self allowWritingTools], v34 == [(STRestrictions *)v9 allowWritingTools]))
       {
         allowImageCreation = [(STRestrictions *)self allowImageCreation];
         v18 = allowImageCreation == [(STRestrictions *)v9 allowImageCreation];
@@ -356,7 +338,6 @@ LABEL_51:
 
       else
       {
-LABEL_44:
         v18 = 0;
         v6 = v39;
         if (!v38)

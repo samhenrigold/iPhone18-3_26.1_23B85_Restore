@@ -7,30 +7,28 @@
 
 - (id)attributeDescriptions
 {
-  v20[4] = *MEMORY[0x277D85DE8];
+  v19[4] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   user = [(HMDHomeActivityHomeAwayUserStateDetail *)self user];
   shortDescription = [user shortDescription];
   v5 = [v3 initWithName:@"user" value:shortDescription];
-  v20[0] = v5;
+  v19[0] = v5;
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   deviceWhichUpdatedUserPresence = [(HMDHomeActivityHomeAwayUserStateDetail *)self deviceWhichUpdatedUserPresence];
   shortDescription2 = [deviceWhichUpdatedUserPresence shortDescription];
   v9 = [v6 initWithName:@"device" value:shortDescription2];
-  v20[1] = v9;
+  v19[1] = v9;
   v10 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDHomeActivityHomeAwayUserStateDetail *)self isAtHome];
   v11 = HMFBooleanToString();
   v12 = [v10 initWithName:@"atHome" value:v11];
-  v20[2] = v12;
+  v19[2] = v12;
   v13 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDHomeActivityHomeAwayUserStateDetail *)self isNotAtHome];
   v14 = HMFBooleanToString();
   v15 = [v13 initWithName:@"notAtHome" value:v14];
-  v20[3] = v15;
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:4];
-
-  v17 = *MEMORY[0x277D85DE8];
+  v19[3] = v15;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:4];
 
   return v16;
 }

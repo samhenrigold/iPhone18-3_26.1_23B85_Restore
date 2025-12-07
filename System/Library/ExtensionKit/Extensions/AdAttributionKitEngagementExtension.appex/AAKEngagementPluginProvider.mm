@@ -7,28 +7,28 @@
 
 + (void)performRequestWithObject:(id)object completion:(id)completion
 {
-  v7 = (*(*(sub_100001BD0(&qword_10000C420, &qword_100003C98) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  sub_100001BD0(&qword_10000C420, &qword_100003C98);
   __chkstk_darwin();
-  v9 = &v15 - v8;
-  v10 = _Block_copy(completion);
-  v11 = swift_allocObject();
-  v11[2] = object;
-  v11[3] = v10;
-  v11[4] = self;
-  v12 = sub_100003684();
-  (*(*(v12 - 8) + 56))(v9, 1, 1, v12);
+  v8 = &v14 - v7;
+  v9 = _Block_copy(completion);
+  v10 = swift_allocObject();
+  v10[2] = object;
+  v10[3] = v9;
+  v10[4] = self;
+  v11 = sub_100003684();
+  (*(*(v11 - 8) + 56))(v8, 1, 1, v11);
+  v12 = swift_allocObject();
+  v12[2] = 0;
+  v12[3] = 0;
+  v12[4] = &unk_100003CA8;
+  v12[5] = v10;
   v13 = swift_allocObject();
   v13[2] = 0;
   v13[3] = 0;
-  v13[4] = &unk_100003CA8;
-  v13[5] = v11;
-  v14 = swift_allocObject();
-  v14[2] = 0;
-  v14[3] = 0;
-  v14[4] = &unk_100003CB8;
-  v14[5] = v13;
+  v13[4] = &unk_100003CB8;
+  v13[5] = v12;
   swift_unknownObjectRetain();
-  sub_100002690(0, 0, v9, &unk_100003CC8, v14);
+  sub_100002690(0, 0, v8, &unk_100003CC8, v13);
 }
 
 - (_TtC35AdAttributionKitEngagementExtension27AAKEngagementPluginProvider)init

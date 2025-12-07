@@ -41,7 +41,7 @@
   if ((*(&self->observers + OBJC_IVAR____TtC4Maps30UserProfileLinkLibraryProvider_lastTotalCount) & 1) == 0)
   {
     v3 = *(&self->super.isa + OBJC_IVAR____TtC4Maps30UserProfileLinkLibraryProvider_lastTotalCount);
-    sub_1000CE6B8(&unk_10190D5C0);
+    sub_1000CE6B8(&unk_10190D5C0, &unk_1011EA240);
     v4 = swift_allocObject();
     *(v4 + 16) = xmmword_1011E1D30;
     *(v4 + 56) = &type metadata for Int;

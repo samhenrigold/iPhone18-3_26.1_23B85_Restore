@@ -10,9 +10,11 @@ uint64_t ____CPLPredictorOSLogDomain_block_invoke()
     dispatch_once(&_CPLOSLogSubsystem_onceToken, &__block_literal_global_40);
   }
 
-  __CPLPredictorOSLogDomain_result = os_log_create("com.apple.photos.cpl", "engine.scheduler.predictor");
+  v0 = os_log_create("com.apple.photos.cpl", "engine.scheduler.predictor");
+  v1 = __CPLPredictorOSLogDomain_result;
+  __CPLPredictorOSLogDomain_result = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

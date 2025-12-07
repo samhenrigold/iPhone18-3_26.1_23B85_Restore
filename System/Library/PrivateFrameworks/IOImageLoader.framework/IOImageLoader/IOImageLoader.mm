@@ -165,11 +165,11 @@ BOOL IOImageLoaderImageDictionary::setAttributeWithString(IOImageLoaderImageDict
 
 uint64_t IOImageLoaderImageDictionary::setAttributeWithNumber(IOImageLoaderImageDictionary *this, __CFDictionary *a2, const char *a3)
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   v6 = *MEMORY[0x277CBECE8];
   v7 = CFStringCreateWithCString(*MEMORY[0x277CBECE8], a2, 0x8000100u);
-  v17[0] = a3;
-  v8 = CFNumberCreate(v6, kCFNumberLongLongType, v17);
+  v16[0] = a3;
+  v8 = CFNumberCreate(v6, kCFNumberLongLongType, v16);
   v9 = v8;
   if (v7)
   {
@@ -190,7 +190,7 @@ uint64_t IOImageLoaderImageDictionary::setAttributeWithNumber(IOImageLoaderImage
       v14 = 0;
       if (!v7)
       {
-        goto LABEL_17;
+        return v14;
       }
 
       goto LABEL_16;
@@ -210,8 +210,6 @@ LABEL_16:
     CFRelease(v7);
   }
 
-LABEL_17:
-  v15 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -221,73 +219,58 @@ uint64_t IOImageLoaderImageDictionary::setAttributeWithNumber(IOImageLoaderImage
   valuePtr[0] = 0;
   printf("DEBUG: %s:%d\n", "setAttributeWithNumber", 258);
   result = 0;
-  if (this)
+  if (this && a2 && a3)
   {
-    if (a2)
+    result = CFNumberGetValue(a3, kCFNumberLongLongType, valuePtr);
+    if (result)
     {
-      if (a3)
-      {
-        result = CFNumberGetValue(a3, kCFNumberLongLongType, valuePtr);
-        if (result)
-        {
-          CStringPtr = CFStringGetCStringPtr(a2, 0x8000100u);
-          result = IOImageLoaderImageDictionary::setAttributeWithNumber(this, CStringPtr, valuePtr[0]);
-        }
-      }
+      CStringPtr = CFStringGetCStringPtr(a2, 0x8000100u);
+      return IOImageLoaderImageDictionary::setAttributeWithNumber(this, CStringPtr, valuePtr[0]);
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t IOImageLoaderImageDictionary::setAttributeWithNumber(IOImageLoaderImageDictionary *this, const __CFString *a2, const __CFString *a3)
 {
-  v11[1] = *MEMORY[0x277D85DE8];
-  v11[0] = a3;
-  v5 = CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberLongLongType, v11);
+  v10[1] = *MEMORY[0x277D85DE8];
+  v10[0] = a3;
+  v5 = CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberLongLongType, v10);
   v6 = v5;
   if (this && a2 && v5)
   {
     CStringPtr = CFStringGetCStringPtr(a2, 0x8000100u);
-    v8 = IOImageLoaderImageDictionary::setAttributeWithNumber(this, CStringPtr, v11[0]);
+    v8 = IOImageLoaderImageDictionary::setAttributeWithNumber(this, CStringPtr, v10[0]);
+LABEL_5:
+    CFRelease(v6);
+    return v8;
   }
 
-  else
+  v8 = 0;
+  result = 0;
+  if (v6)
   {
-    v8 = 0;
-    result = 0;
-    if (!v6)
-    {
-      goto LABEL_6;
-    }
+    goto LABEL_5;
   }
 
-  CFRelease(v6);
-  result = v8;
-LABEL_6:
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t IOImageLoaderImageDictionary::setAttributeWithNumber(IOImageLoaderImageDictionary *this, __CFDictionary *a2, CFNumberRef number, const __CFNumber *a4)
 {
-  v8[1] = *MEMORY[0x277D85DE8];
-  v8[0] = 0;
-  if (number)
+  v7[1] = *MEMORY[0x277D85DE8];
+  v7[0] = 0;
+  if (!number)
   {
-    result = CFNumberGetValue(number, kCFNumberLongLongType, v8);
-    if (result)
-    {
-      result = IOImageLoaderImageDictionary::setAttributeWithNumber(this, a2, v8[0]);
-    }
+    return 0;
   }
 
-  else
+  result = CFNumberGetValue(number, kCFNumberLongLongType, v7);
+  if (result)
   {
-    result = 0;
+    return IOImageLoaderImageDictionary::setAttributeWithNumber(this, a2, v7[0]);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }

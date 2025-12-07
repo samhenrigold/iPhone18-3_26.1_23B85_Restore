@@ -34,14 +34,20 @@
   v6 = _Block_copy(completion);
   if (v6)
   {
-    *(swift_allocObject() + 16) = v6;
+    v7 = swift_allocObject();
+    *(v7 + 16) = v6;
     v6 = sub_B5A4C;
+  }
+
+  else
+  {
+    v7 = 0;
   }
 
   responseCopy = response;
   selfCopy = self;
   sub_220F6C(response, v6);
-  sub_17654(v6);
+  sub_17654(v6, v7);
 }
 
 - (_TtC16MusicApplication28JSLiveRadioCaseModelResponse)initWithRequest:(id)request
@@ -54,21 +60,22 @@
 - (BOOL)hasVideoArtwork
 {
   selfCopy = self;
-  v3 = sub_38D778();
+  sub_38D778();
+  v4 = v3;
 
-  return v3 & 1;
+  return v4 & 1;
 }
 
 - (BOOL)hasVideoArtworkAt:(id)at
 {
   v5 = sub_AB3820();
   v6 = *(v5 - 8);
-  __chkstk_darwin(v5);
+  __chkstk_darwin();
   v8 = &v13 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_AB3790();
   atCopy = at;
   selfCopy = self;
-  v11 = sub_38D9BC();
+  v11 = sub_38D9BC(v8);
 
   (*(v6 + 8))(v8, v5);
   return v11 & 1;

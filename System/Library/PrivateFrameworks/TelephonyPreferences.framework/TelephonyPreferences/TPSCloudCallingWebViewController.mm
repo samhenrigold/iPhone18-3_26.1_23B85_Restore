@@ -72,19 +72,19 @@
 - (void)loadWebViewWithSpinner:(id)spinner
 {
   spinnerCopy = spinner;
-  v5 = TPSLog();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = TPSLog(spinnerCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_21B8E9000, v5, OS_LOG_TYPE_DEFAULT, "loadWebViewWithSpinner", buf, 2u);
+    _os_log_impl(&dword_21B8E9000, v6, OS_LOG_TYPE_DEFAULT, "loadWebViewWithSpinner", buf, 2u);
   }
 
   [(TPSCloudCallingWebViewController *)self setCompletionBlock:spinnerCopy];
   if (!self->_activityIndicator)
   {
-    v6 = [objc_alloc(MEMORY[0x277D750E8]) initWithActivityIndicatorStyle:2];
+    v7 = [objc_alloc(MEMORY[0x277D750E8]) initWithActivityIndicatorStyle:2];
     activityIndicator = self->_activityIndicator;
-    self->_activityIndicator = v6;
+    self->_activityIndicator = v7;
 
     [(UIActivityIndicatorView *)self->_activityIndicator setAutoresizingMask:45];
     view = [(TPSCloudCallingWebViewController *)self view];
@@ -95,26 +95,26 @@
     [(UIWebView *)self->_webView addSubview:self->_activityIndicator];
   }
 
-  v9 = dispatch_time(0, 10000000000);
+  v10 = dispatch_time(0, 10000000000);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __59__TPSCloudCallingWebViewController_loadWebViewWithSpinner___block_invoke;
   block[3] = &unk_2782E3960;
   block[4] = self;
-  dispatch_after(v9, MEMORY[0x277D85CD0], block);
+  dispatch_after(v10, MEMORY[0x277D85CD0], block);
   [(UIActivityIndicatorView *)self->_activityIndicator startAnimating];
 }
 
 void __59__TPSCloudCallingWebViewController_loadWebViewWithSpinner___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) url];
-  if (!v2 || (v3 = v2, [*(a1 + 32) body], v4 = objc_claimAutoreleasedReturnValue(), v4, v3, !v4))
+  if (!v2 || (v4 = v2, [*(a1 + 32) body], v5 = objc_claimAutoreleasedReturnValue(), v5, v4, !v5))
   {
-    v5 = TPSLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = TPSLog(v2, v3);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_21B8E9000, v5, OS_LOG_TYPE_DEFAULT, "Timed out trying to load carrier URL", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_21B8E9000, v6, OS_LOG_TYPE_DEFAULT, "Timed out trying to load carrier URL", v7, 2u);
     }
 
     [*(a1 + 32) doWebViewTimedOut];
@@ -123,27 +123,27 @@ void __59__TPSCloudCallingWebViewController_loadWebViewWithSpinner___block_invok
 
 - (void)loadURL:(id)l body:(id)body completion:(id)completion
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   lCopy = l;
   bodyCopy = body;
   completionCopy = completion;
-  v11 = TPSLog();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = TPSLog(completionCopy, v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v26 = lCopy;
-    v27 = 2112;
-    v28 = bodyCopy;
-    _os_log_impl(&dword_21B8E9000, v11, OS_LOG_TYPE_DEFAULT, "LoadURL: %@ body: %@", buf, 0x16u);
+    v28 = lCopy;
+    v29 = 2112;
+    v30 = bodyCopy;
+    _os_log_impl(&dword_21B8E9000, v12, OS_LOG_TYPE_DEFAULT, "LoadURL: %@ body: %@", buf, 0x16u);
   }
 
   url = self->_url;
   self->_url = lCopy;
-  v13 = lCopy;
+  v14 = lCopy;
 
   body = self->_body;
   self->_body = bodyCopy;
-  v15 = bodyCopy;
+  v16 = bodyCopy;
 
   [(UIActivityIndicatorView *)self->_activityIndicator stopAnimating];
   [(UIActivityIndicatorView *)self->_activityIndicator removeFromSuperview];
@@ -151,44 +151,42 @@ void __59__TPSCloudCallingWebViewController_loadWebViewWithSpinner___block_invok
   self->_activityIndicator = 0;
 
   [(TPSCloudCallingWebViewController *)self setCompletionBlock:completionCopy];
-  v17 = [objc_alloc(MEMORY[0x277CCAB70]) initWithURL:v13 cachePolicy:1 timeoutInterval:30.0];
-  [(NSURL *)v17 setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+  v18 = [objc_alloc(MEMORY[0x277CCAB70]) initWithURL:v14 cachePolicy:1 timeoutInterval:30.0];
+  [(NSURL *)v18 setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
   preferredLanguages = [MEMORY[0x277CBEAF8] preferredLanguages];
   firstObject = [preferredLanguages firstObject];
 
   if (firstObject)
   {
-    v20 = firstObject;
+    v21 = firstObject;
   }
 
   else
   {
-    v20 = @"en";
+    v21 = @"en";
   }
 
-  [(NSURL *)v17 setValue:v20 forHTTPHeaderField:@"Accept-Language"];
-  [(NSURL *)v17 setHTTPMethod:@"POST"];
-  [(NSURL *)v17 setHTTPBody:v15];
-  v21 = [MEMORY[0x277CCACA8] stringWithFormat:@"%lu", -[NSData length](v15, "length")];
+  [(NSURL *)v18 setValue:v21 forHTTPHeaderField:@"Accept-Language"];
+  [(NSURL *)v18 setHTTPMethod:@"POST"];
+  [(NSURL *)v18 setHTTPBody:v16];
+  v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"%lu", -[NSData length](v16, "length")];
 
-  [(NSURL *)v17 setValue:v21 forHTTPHeaderField:@"Content-Length"];
-  v22 = TPSLog();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+  [(NSURL *)v18 setValue:v22 forHTTPHeaderField:@"Content-Length"];
+  v25 = TPSLog(v23, v24);
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v26 = v17;
-    _os_log_impl(&dword_21B8E9000, v22, OS_LOG_TYPE_DEFAULT, "Loading URL request: %@", buf, 0xCu);
+    v28 = v18;
+    _os_log_impl(&dword_21B8E9000, v25, OS_LOG_TYPE_DEFAULT, "Loading URL request: %@", buf, 0xCu);
   }
 
   webView = [(TPSCloudCallingWebViewController *)self webView];
-  [webView loadRequest:v17];
-
-  v24 = *MEMORY[0x277D85DE8];
+  [webView loadRequest:v18];
 }
 
 - (void)cancelWebView
 {
-  v3 = TPSLog();
+  v3 = TPSLog(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -200,7 +198,7 @@ void __59__TPSCloudCallingWebViewController_loadWebViewWithSpinner___block_invok
 
 - (void)_cancelButtonClicked:(id)clicked
 {
-  v4 = TPSLog();
+  v4 = TPSLog(self, a2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -212,7 +210,7 @@ void __59__TPSCloudCallingWebViewController_loadWebViewWithSpinner___block_invok
 
 - (void)doProvisioningDone
 {
-  v3 = TPSLog();
+  v3 = TPSLog(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -245,7 +243,7 @@ uint64_t __54__TPSCloudCallingWebViewController_doProvisioningDone__block_invoke
 
 - (void)doProvisioningCanceled
 {
-  v3 = TPSLog();
+  v3 = TPSLog(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -278,7 +276,7 @@ uint64_t __58__TPSCloudCallingWebViewController_doProvisioningCanceled__block_in
 
 - (void)doProvisioningFailed
 {
-  v3 = TPSLog();
+  v3 = TPSLog(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     [(TPSCloudCallingWebViewController *)v3 doProvisioningFailed];
@@ -310,7 +308,7 @@ uint64_t __56__TPSCloudCallingWebViewController_doProvisioningFailed__block_invo
 
 - (void)doWebViewTimedOut
 {
-  v3 = TPSLog();
+  v3 = TPSLog(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -344,10 +342,10 @@ uint64_t __53__TPSCloudCallingWebViewController_doWebViewTimedOut__block_invoke(
 - (void)webView:(id)view didFailLoadWithError:(id)error
 {
   errorCopy = error;
-  v6 = TPSLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  v7 = TPSLog(errorCopy, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    [TPSCloudCallingWebViewController webView:errorCopy didFailLoadWithError:v6];
+    [TPSCloudCallingWebViewController webView:errorCopy didFailLoadWithError:v7];
   }
 
   if ([errorCopy code] != -999)
@@ -394,11 +392,10 @@ uint64_t __53__TPSCloudCallingWebViewController_doWebViewTimedOut__block_invoke(
 
 - (void)webView:(uint64_t)a1 didFailLoadWithError:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_21B8E9000, a2, OS_LOG_TYPE_ERROR, "didFailLoadWithError: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_21B8E9000, a2, OS_LOG_TYPE_ERROR, "didFailLoadWithError: %@", &v2, 0xCu);
 }
 
 @end

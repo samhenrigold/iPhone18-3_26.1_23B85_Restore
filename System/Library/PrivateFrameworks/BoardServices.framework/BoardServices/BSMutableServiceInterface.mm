@@ -11,34 +11,34 @@
 
 + (id)interfaceWithIdentifier:(id)identifier
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   NSClassFromString(&cfstr_Nsstring.isa);
   if (!identifierCopy)
   {
-    v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
+    v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v13 = NSStringFromSelector(a2);
-      v14 = objc_opt_class();
-      v15 = NSStringFromClass(v14);
+      v12 = NSStringFromSelector(a2);
+      v13 = objc_opt_class();
+      v14 = NSStringFromClass(v13);
       *buf = 138544642;
-      v23 = v13;
-      v24 = 2114;
-      v25 = v15;
-      v26 = 2048;
+      v22 = v12;
+      v23 = 2114;
+      v24 = v14;
+      v25 = 2048;
       selfCopy2 = self;
-      v28 = 2114;
-      v29 = @"BSServiceInterface.m";
-      v30 = 1024;
-      v31 = 469;
-      v32 = 2114;
-      v33 = v12;
+      v27 = 2114;
+      v28 = @"BSServiceInterface.m";
+      v29 = 1024;
+      v30 = 469;
+      v31 = 2114;
+      v32 = v11;
       _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v16 = v12;
-    [v12 UTF8String];
+    v15 = v11;
+    [v11 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x19A859E2CLL);
@@ -46,29 +46,29 @@
 
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSStringClass]"];
+    v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSStringClass]"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v18 = NSStringFromSelector(a2);
-      v19 = objc_opt_class();
-      v20 = NSStringFromClass(v19);
+      v17 = NSStringFromSelector(a2);
+      v18 = objc_opt_class();
+      v19 = NSStringFromClass(v18);
       *buf = 138544642;
-      v23 = v18;
-      v24 = 2114;
-      v25 = v20;
-      v26 = 2048;
+      v22 = v17;
+      v23 = 2114;
+      v24 = v19;
+      v25 = 2048;
       selfCopy2 = self;
-      v28 = 2114;
-      v29 = @"BSServiceInterface.m";
-      v30 = 1024;
-      v31 = 469;
-      v32 = 2114;
-      v33 = v17;
+      v27 = 2114;
+      v28 = @"BSServiceInterface.m";
+      v29 = 1024;
+      v30 = 469;
+      v31 = 2114;
+      v32 = v16;
       _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v21 = v17;
-    [v17 UTF8String];
+    v20 = v16;
+    [v16 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x19A859F30);
@@ -79,41 +79,39 @@
   v8 = __emptyProtocol();
   v9 = [(BSServiceInterface *)v6 _initWithIdentifier:identifierCopy server:v7 client:v8 clientWaitsForActivation:0];
 
-  v10 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
 - (void)setIdentifier:(id)identifier
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   NSClassFromString(&cfstr_Nsstring.isa);
   if (!identifierCopy)
   {
-    v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
+    v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v9 = NSStringFromSelector(a2);
-      v10 = objc_opt_class();
-      v11 = NSStringFromClass(v10);
+      v8 = NSStringFromSelector(a2);
+      v9 = objc_opt_class();
+      v10 = NSStringFromClass(v9);
       *buf = 138544642;
-      v20 = v9;
-      v21 = 2114;
-      v22 = v11;
-      v23 = 2048;
+      v19 = v8;
+      v20 = 2114;
+      v21 = v10;
+      v22 = 2048;
       selfCopy2 = self;
-      v25 = 2114;
-      v26 = @"BSServiceInterface.m";
-      v27 = 1024;
-      v28 = 475;
-      v29 = 2114;
-      v30 = v8;
+      v24 = 2114;
+      v25 = @"BSServiceInterface.m";
+      v26 = 1024;
+      v27 = 475;
+      v28 = 2114;
+      v29 = v7;
       _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v12 = v8;
-    [v8 UTF8String];
+    v11 = v7;
+    [v7 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x19A85A16CLL);
@@ -121,29 +119,29 @@
 
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSStringClass]"];
+    v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSStringClass]"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v14 = NSStringFromSelector(a2);
-      v15 = objc_opt_class();
-      v16 = NSStringFromClass(v15);
+      v13 = NSStringFromSelector(a2);
+      v14 = objc_opt_class();
+      v15 = NSStringFromClass(v14);
       *buf = 138544642;
-      v20 = v14;
-      v21 = 2114;
-      v22 = v16;
-      v23 = 2048;
+      v19 = v13;
+      v20 = 2114;
+      v21 = v15;
+      v22 = 2048;
       selfCopy2 = self;
-      v25 = 2114;
-      v26 = @"BSServiceInterface.m";
-      v27 = 1024;
-      v28 = 475;
-      v29 = 2114;
-      v30 = v13;
+      v24 = 2114;
+      v25 = @"BSServiceInterface.m";
+      v26 = 1024;
+      v27 = 475;
+      v28 = 2114;
+      v29 = v12;
       _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v17 = v13;
-    [v13 UTF8String];
+    v16 = v12;
+    [v12 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x19A85A270);
@@ -152,42 +150,40 @@
   v5 = [identifierCopy copy];
   identifier = self->super._identifier;
   self->super._identifier = v5;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setServer:(id)server
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   serverCopy = server;
   if (serverCopy)
   {
     NSClassFromString(&cfstr_Bsobjcprotocol.isa);
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:BSObjCProtocolClass]"];
+      v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:BSObjCProtocolClass]"];
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v14 = NSStringFromSelector(a2);
-        v15 = objc_opt_class();
-        v16 = NSStringFromClass(v15);
+        v11 = NSStringFromSelector(a2);
+        v12 = objc_opt_class();
+        v13 = NSStringFromClass(v12);
         *buf = 138544642;
-        v20 = v14;
-        v21 = 2114;
-        v22 = v16;
-        v23 = 2048;
+        v17 = v11;
+        v18 = 2114;
+        v19 = v13;
+        v20 = 2048;
         selfCopy = self;
-        v25 = 2114;
-        v26 = @"BSServiceInterface.m";
-        v27 = 1024;
-        v28 = 481;
-        v29 = 2114;
-        v30 = v13;
+        v22 = 2114;
+        v23 = @"BSServiceInterface.m";
+        v24 = 1024;
+        v25 = 481;
+        v26 = 2114;
+        v27 = v10;
         _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      v17 = v13;
-      [v13 UTF8String];
+      v14 = v10;
+      [v10 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x19A85A500);
@@ -197,61 +193,57 @@
     v6 = [serverCopy flattenWithIgnoredInheritedProtocols:v5];
 
     __vetProtocol(v6);
-    server = self->super._server;
     p_server = &self->super._server;
-    v9 = BSEqualObjects();
+    v8 = BSEqualObjects();
   }
 
   else
   {
     v6 = __emptyProtocol();
-    v10 = self->super._server;
     p_server = &self->super._server;
-    v9 = BSEqualObjects();
+    v8 = BSEqualObjects();
   }
 
-  if ((v9 & 1) == 0)
+  if ((v8 & 1) == 0)
   {
     v6 = v6;
-    v11 = *p_server;
+    v9 = *p_server;
     *p_server = v6;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setClient:(id)client
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   clientCopy = client;
   if (clientCopy)
   {
     NSClassFromString(&cfstr_Bsobjcprotocol.isa);
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:BSObjCProtocolClass]"];
+      v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:BSObjCProtocolClass]"];
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v14 = NSStringFromSelector(a2);
-        v15 = objc_opt_class();
-        v16 = NSStringFromClass(v15);
+        v11 = NSStringFromSelector(a2);
+        v12 = objc_opt_class();
+        v13 = NSStringFromClass(v12);
         *buf = 138544642;
-        v20 = v14;
-        v21 = 2114;
-        v22 = v16;
-        v23 = 2048;
+        v17 = v11;
+        v18 = 2114;
+        v19 = v13;
+        v20 = 2048;
         selfCopy = self;
-        v25 = 2114;
-        v26 = @"BSServiceInterface.m";
-        v27 = 1024;
-        v28 = 498;
-        v29 = 2114;
-        v30 = v13;
+        v22 = 2114;
+        v23 = @"BSServiceInterface.m";
+        v24 = 1024;
+        v25 = 498;
+        v26 = 2114;
+        v27 = v10;
         _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      v17 = v13;
-      [v13 UTF8String];
+      v14 = v10;
+      [v10 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x19A85A780);
@@ -261,27 +253,23 @@
     v6 = [clientCopy flattenWithIgnoredInheritedProtocols:v5];
 
     __vetProtocol(v6);
-    client = self->super._client;
     p_client = &self->super._client;
-    v9 = BSEqualObjects();
+    v8 = BSEqualObjects();
   }
 
   else
   {
     v6 = __emptyProtocol();
-    v10 = self->super._client;
     p_client = &self->super._client;
-    v9 = BSEqualObjects();
+    v8 = BSEqualObjects();
   }
 
-  if ((v9 & 1) == 0)
+  if ((v8 & 1) == 0)
   {
     v6 = v6;
-    v11 = *p_client;
+    v9 = *p_client;
     *p_client = v6;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setClientMessagingExpectation:(int64_t)expectation

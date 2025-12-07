@@ -100,14 +100,14 @@ LABEL_9:
   coderCopy = coder;
   v5 = MEMORY[0x277D42620];
   v6 = objc_opt_class();
-  v7 = __atxlog_handle_blending_ecosystem();
+  v7 = __atxlog_handle_blending_ecosystem(v6);
   v8 = [v5 robustDecodeObjectOfClass:v6 forKey:@"loggingContext" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.duetexpertd.ATXProactiveSuggestionShadowLoggingContextEventTuple" errorCode:-1 logHandle:v7];
 
   if (v8)
   {
     v9 = MEMORY[0x277D42620];
     v10 = objc_opt_class();
-    v11 = __atxlog_handle_blending_ecosystem();
+    v11 = __atxlog_handle_blending_ecosystem(v10);
     v12 = [v9 robustDecodeObjectOfClass:v10 forKey:@"event" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.duetexpertd.ATXProactiveSuggestionShadowLoggingContextEventTuple" errorCode:-1 logHandle:v11];
 
     self = [(ATXProactiveSuggestionShadowLoggingContextEventTuple *)self initWithEvent:v12 shadowLoggingContext:v8];

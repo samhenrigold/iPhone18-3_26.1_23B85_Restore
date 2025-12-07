@@ -36,7 +36,7 @@
 
 - (void)_prepareToSaveRecords
 {
-  v88 = *MEMORY[0x277D85DE8];
+  v87 = *MEMORY[0x277D85DE8];
   callbackQueue = [(_BRCOperation *)self callbackQueue];
   dispatch_assert_queue_V2(callbackQueue);
 
@@ -49,41 +49,41 @@
 
   [(BRCServerZone *)self->_serverZone handleMovedZoneNames:self->_movedZoneNames];
   [(NSMutableSet *)self->_movedZoneNames removeAllObjects];
+  v64 = objc_opt_new();
   v65 = objc_opt_new();
-  v66 = objc_opt_new();
   do
   {
     allValues = [(NSMutableDictionary *)self->_subResourceRecordsByID allValues];
-    v83[0] = MEMORY[0x277D85DD0];
-    v83[1] = 3221225472;
-    v83[2] = __60__BRCFetchRecordSubResourcesOperation__prepareToSaveRecords__block_invoke;
-    v83[3] = &unk_278508170;
-    v83[4] = self;
-    v7 = [allValues sortedArrayUsingComparator:v83];
+    v82[0] = MEMORY[0x277D85DD0];
+    v82[1] = 3221225472;
+    v82[2] = __60__BRCFetchRecordSubResourcesOperation__prepareToSaveRecords__block_invoke;
+    v82[3] = &unk_278508170;
+    v82[4] = self;
+    v7 = [allValues sortedArrayUsingComparator:v82];
 
-    v81 = 0u;
-    v82 = 0u;
-    v79 = 0u;
     v80 = 0u;
+    v81 = 0u;
+    v78 = 0u;
+    v79 = 0u;
     obj = v7;
-    v8 = [obj countByEnumeratingWithState:&v79 objects:v87 count:16];
+    v8 = [obj countByEnumeratingWithState:&v78 objects:v86 count:16];
     if (!v8)
     {
       goto LABEL_32;
     }
 
-    v9 = *v80;
+    v9 = *v79;
     do
     {
       v10 = 0;
       do
       {
-        if (*v80 != v9)
+        if (*v79 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v79 + 1) + 8 * v10);
+        v11 = *(*(&v78 + 1) + 8 * v10);
         if ([v11 isWaitingOnShareIDFetch])
         {
           recordIDNeedingFetch = [v11 recordIDNeedingFetch];
@@ -105,7 +105,7 @@
             v31 = [recordID brc_itemIDWithZoneAppRetriever:zoneAppRetriever];
 
             recordID2 = [v11 recordID];
-            [v65 setObject:recordID2 forKeyedSubscript:v31];
+            [v64 setObject:recordID2 forKeyedSubscript:v31];
           }
 
           else
@@ -122,7 +122,7 @@ LABEL_13:
               *&buf[12] = 2112;
               *&buf[14] = name;
               *&buf[22] = 2112;
-              v86 = v14;
+              v85 = v14;
               _os_log_debug_impl(&dword_223E7A000, v15, OS_LOG_TYPE_DEBUG, "[DEBUG] %@ no longer needs to fetch shareID in %@ because it's fetched in pending changes stream%@", buf, 0x20u);
             }
 
@@ -155,7 +155,7 @@ LABEL_13:
             v24 = [recordIDBlockingSave2 brc_itemIDWithZoneAppRetriever:zoneAppRetriever2];
 
             recordID4 = [v11 recordID];
-            [v66 setObject:recordID4 forKeyedSubscript:v24];
+            [v65 setObject:recordID4 forKeyedSubscript:v24];
           }
 
           goto LABEL_24;
@@ -172,7 +172,7 @@ LABEL_13:
           *&buf[12] = 2112;
           *&buf[14] = name2;
           *&buf[22] = 2112;
-          v86 = v19;
+          v85 = v19;
           _os_log_debug_impl(&dword_223E7A000, v20, OS_LOG_TYPE_DEBUG, "[DEBUG] %@ is no longer blocked from save in %@ because the blocker is fetched in pending changes stream%@", buf, 0x20u);
         }
 
@@ -185,7 +185,7 @@ LABEL_25:
       }
 
       while (v8 != v10);
-      v37 = [obj countByEnumeratingWithState:&v79 objects:v87 count:16];
+      v37 = [obj countByEnumeratingWithState:&v78 objects:v86 count:16];
       v8 = v37;
     }
 
@@ -195,8 +195,8 @@ LABEL_32:
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
-    LOBYTE(v86) = 0;
-    if ([v65 count] || objc_msgSend(v66, "count"))
+    LOBYTE(v85) = 0;
+    if ([v64 count] || objc_msgSend(v65, "count"))
     {
       clientZone = [(BRCServerZone *)self->_serverZone clientZone];
       clientReadWriteDatabaseFacade = [(BRCSessionContext *)self->super._sessionContext clientReadWriteDatabaseFacade];
@@ -205,14 +205,14 @@ LABEL_32:
       block[1] = 3221225472;
       block[2] = __60__BRCFetchRecordSubResourcesOperation__prepareToSaveRecords__block_invoke_53;
       block[3] = &unk_2785081E8;
-      v41 = v65;
-      v74 = v41;
+      v41 = v64;
+      v73 = v41;
       v42 = clientZone;
-      v75 = v42;
+      v74 = v42;
       selfCopy = self;
-      v78 = buf;
-      v43 = v66;
-      v77 = v43;
+      v77 = buf;
+      v43 = v65;
+      v76 = v43;
       dispatch_async_and_wait(workloop, block);
 
       [v41 removeAllObjects];
@@ -224,25 +224,25 @@ LABEL_32:
   }
 
   while ((v44 & 1) != 0);
-  v71 = 0u;
-  v72 = 0u;
-  v69 = 0u;
   v70 = 0u;
+  v71 = 0u;
+  v68 = 0u;
+  v69 = 0u;
   objectEnumerator = [(NSMutableDictionary *)self->_subResourceRecordsByID objectEnumerator];
-  v46 = [objectEnumerator countByEnumeratingWithState:&v69 objects:v84 count:16];
+  v46 = [objectEnumerator countByEnumeratingWithState:&v68 objects:v83 count:16];
   if (v46)
   {
-    v47 = *v70;
+    v47 = *v69;
 LABEL_38:
     v48 = 0;
     while (1)
     {
-      if (*v70 != v47)
+      if (*v69 != v47)
       {
         objc_enumerationMutation(objectEnumerator);
       }
 
-      v49 = *(*(&v69 + 1) + 8 * v48);
+      v49 = *(*(&v68 + 1) + 8 * v48);
       if (self->_xattrFetchingGroup)
       {
         if (self->_deserializeGroup)
@@ -251,7 +251,7 @@ LABEL_38:
         }
       }
 
-      xattrSignature = [*(*(&v69 + 1) + 8 * v48) xattrSignature];
+      xattrSignature = [*(*(&v68 + 1) + 8 * v48) xattrSignature];
       if (xattrSignature)
       {
         v51 = self->_xattrFetchingGroup == 0;
@@ -267,7 +267,7 @@ LABEL_38:
             *&buf[4] = name3;
             *&buf[12] = 2112;
             *&buf[14] = v52;
-            v67 = name3;
+            v66 = name3;
             _os_log_debug_impl(&dword_223E7A000, v53, OS_LOG_TYPE_DEBUG, "[DEBUG] %@ starting to wait for xattr fetches%@", buf, 0x16u);
           }
 
@@ -310,7 +310,7 @@ LABEL_38:
 
       if (v46 == ++v48)
       {
-        v46 = [objectEnumerator countByEnumeratingWithState:&v69 objects:v84 count:16];
+        v46 = [objectEnumerator countByEnumeratingWithState:&v68 objects:v83 count:16];
         if (v46)
         {
           goto LABEL_38;
@@ -322,7 +322,6 @@ LABEL_38:
   }
 
   [(BRCFetchRecordSubResourcesOperation *)self _createSubResourceGroupsFromPendingChangesStreamIfNecessary];
-  v64 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_createSubResourceGroupsFromPendingChangesStreamIfNecessary
@@ -391,34 +390,34 @@ LABEL_38:
 - (void)_fetchRecordsBlockingSaveIfNecessary
 {
   selfCopy = self;
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   callbackQueue = [(_BRCOperation *)self callbackQueue];
   dispatch_assert_queue_V2(callbackQueue);
 
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
   v46 = 0u;
+  v47 = 0u;
+  v44 = 0u;
+  v45 = 0u;
   objectEnumerator = [(NSMutableDictionary *)selfCopy->_subResourceRecordsByID objectEnumerator];
-  v5 = [objectEnumerator countByEnumeratingWithState:&v45 objects:v55 count:16];
+  v5 = [objectEnumerator countByEnumeratingWithState:&v44 objects:v54 count:16];
   if (v5)
   {
     v7 = v5;
-    v8 = *v46;
+    v8 = *v45;
     *&v6 = 138412290;
-    v43 = v6;
+    v42 = v6;
     do
     {
       v9 = 0;
-      v44 = v7;
+      v43 = v7;
       do
       {
-        if (*v46 != v8)
+        if (*v45 != v8)
         {
           objc_enumerationMutation(objectEnumerator);
         }
 
-        v10 = *(*(&v45 + 1) + 8 * v9);
+        v10 = *(*(&v44 + 1) + 8 * v9);
         recordIDNeedingFetch = [v10 recordIDNeedingFetch];
         if (recordIDNeedingFetch)
         {
@@ -442,7 +441,7 @@ LABEL_38:
               selfCopy = v16;
               objectEnumerator = v15;
               v8 = v14;
-              v7 = v44;
+              v7 = v43;
             }
 
             else
@@ -454,7 +453,7 @@ LABEL_38:
               selfCopy = v16;
               objectEnumerator = v15;
               v8 = v14;
-              v7 = v44;
+              v7 = v43;
               if ((pendingChangesStream & 1) == 0)
               {
                 v22 = brc_bread_crumbs();
@@ -464,11 +463,11 @@ LABEL_38:
                   recordIDBlockingSave4 = [v10 recordIDBlockingSave];
                   recordID = [v10 recordID];
                   *buf = 138412802;
-                  v50 = recordIDBlockingSave4;
-                  v51 = 2112;
-                  v52 = recordID;
-                  v53 = 2112;
-                  v54 = v22;
+                  v49 = recordIDBlockingSave4;
+                  v50 = 2112;
+                  v51 = recordID;
+                  v52 = 2112;
+                  v53 = v22;
                   _os_log_impl(&dword_223E7A000, v23, OS_LOG_TYPE_DEFAULT, "[WARNING] We need to fetch %@ to unblock %@ from saving, but it wasn't found.  Forcing fetch%@", buf, 0x20u);
                 }
 
@@ -481,8 +480,8 @@ LABEL_38:
                   v28 = brc_default_log();
                   if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
                   {
-                    *buf = v43;
-                    v50 = v27;
+                    *buf = v42;
+                    v49 = v27;
                     _os_log_debug_impl(&dword_223E7A000, v28, OS_LOG_TYPE_DEBUG, "[DEBUG] Creating _deserializeGroup because we have more records to deserialize in memory%@", buf, 0xCu);
                   }
 
@@ -502,7 +501,7 @@ LABEL_38:
       }
 
       while (v7 != v9);
-      v31 = [objectEnumerator countByEnumeratingWithState:&v45 objects:v55 count:16];
+      v31 = [objectEnumerator countByEnumeratingWithState:&v44 objects:v54 count:16];
       v7 = v31;
     }
 
@@ -521,11 +520,11 @@ LABEL_38:
     {
       name = [(BRCFetchRecordSubResourcesOperation *)selfCopy name];
       *buf = 134218498;
-      v50 = v34;
-      v51 = 2112;
-      v52 = name;
-      v53 = 2112;
-      v54 = v35;
+      v49 = v34;
+      v50 = 2112;
+      v51 = name;
+      v52 = 2112;
+      v53 = v35;
       _os_log_error_impl(&dword_223E7A000, v36, 0x90u, "[ERROR] We need to fetch %llu records in the pending changes stream to allow saving for %@.  Forcing fetch%@", buf, 0x20u);
     }
 
@@ -546,8 +545,6 @@ LABEL_38:
       dispatch_source_merge_data(selfCopy->_deserializeSource, 1uLL);
     }
   }
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stop
@@ -623,12 +620,9 @@ uint64_t __43__BRCFetchRecordSubResourcesOperation_main__block_invoke(uint64_t a
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(self + 512);
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3_1();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x20u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
 - (void)main
@@ -826,56 +820,52 @@ LABEL_10:
 
 void __171__BRCFetchRecordSubResourcesOperation_initAndScheduleWithServerZone_parentOperation_pendingChangesStream_contentRecordsFetchedInline_fetchResourcesHandler_sessionContext___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  memset(v7, 0, sizeof(v7));
-  __brc_create_section(0, "[BRCFetchRecordSubResourcesOperation initAndScheduleWithServerZone:parentOperation:pendingChangesStream:contentRecordsFetchedInline:fetchResourcesHandler:sessionContext:]_block_invoke", 152, 0, v7);
+  memset(v6, 0, sizeof(v6));
+  __brc_create_section(0, "[BRCFetchRecordSubResourcesOperation initAndScheduleWithServerZone:parentOperation:pendingChangesStream:contentRecordsFetchedInline:fetchResourcesHandler:sessionContext:]_block_invoke", 152, 0, v6);
   v2 = brc_bread_crumbs();
   v3 = brc_default_log();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    v5 = v7[0];
-    v6 = [WeakRetained name];
+    v4 = v6[0];
+    v5 = [WeakRetained name];
     *buf = 134218498;
-    v9 = v5;
-    v10 = 2112;
-    v11 = v6;
-    v12 = 2112;
-    v13 = v2;
+    v8 = v4;
+    v9 = 2112;
+    v10 = v5;
+    v11 = 2112;
+    v12 = v2;
     _os_log_debug_impl(&dword_223E7A000, v3, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx %@ scheduling xattr fetch%@", buf, 0x20u);
   }
 
   [WeakRetained _scheduleXattrFetch];
-  __brc_leave_section(v7);
-
-  v4 = *MEMORY[0x277D85DE8];
+  __brc_leave_section(v6);
 }
 
 void __171__BRCFetchRecordSubResourcesOperation_initAndScheduleWithServerZone_parentOperation_pendingChangesStream_contentRecordsFetchedInline_fetchResourcesHandler_sessionContext___block_invoke_7(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  memset(v7, 0, sizeof(v7));
-  __brc_create_section(0, "[BRCFetchRecordSubResourcesOperation initAndScheduleWithServerZone:parentOperation:pendingChangesStream:contentRecordsFetchedInline:fetchResourcesHandler:sessionContext:]_block_invoke", 158, 0, v7);
+  memset(v6, 0, sizeof(v6));
+  __brc_create_section(0, "[BRCFetchRecordSubResourcesOperation initAndScheduleWithServerZone:parentOperation:pendingChangesStream:contentRecordsFetchedInline:fetchResourcesHandler:sessionContext:]_block_invoke", 158, 0, v6);
   v2 = brc_bread_crumbs();
   v3 = brc_default_log();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    v5 = v7[0];
-    v6 = [WeakRetained name];
+    v4 = v6[0];
+    v5 = [WeakRetained name];
     *buf = 134218498;
-    v9 = v5;
-    v10 = 2112;
-    v11 = v6;
-    v12 = 2112;
-    v13 = v2;
+    v8 = v4;
+    v9 = 2112;
+    v10 = v5;
+    v11 = 2112;
+    v12 = v2;
     _os_log_debug_impl(&dword_223E7A000, v3, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx %@ scheduling deserialize%@", buf, 0x20u);
   }
 
   [WeakRetained _scheduleDeserialize];
-  __brc_leave_section(v7);
-
-  v4 = *MEMORY[0x277D85DE8];
+  __brc_leave_section(v6);
 }
 
 - (BOOL)shouldRetryForError:(id)error
@@ -898,7 +888,7 @@ void __171__BRCFetchRecordSubResourcesOperation_initAndScheduleWithServerZone_pa
 
 - (void)addRecord:(id)record
 {
-  v132 = *MEMORY[0x277D85DE8];
+  v131 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   callbackQueue = [(_BRCOperation *)self callbackQueue];
   dispatch_assert_queue_V2(callbackQueue);
@@ -926,11 +916,11 @@ void __171__BRCFetchRecordSubResourcesOperation_initAndScheduleWithServerZone_pa
         recordID = [recordCopy recordID];
         recordName = [recordID recordName];
         *buf = 138412802;
-        v127 = name;
-        v128 = 2112;
-        v129 = recordName;
-        v130 = 2112;
-        v131 = recordID3;
+        v126 = name;
+        v127 = 2112;
+        v128 = recordName;
+        v129 = 2112;
+        v130 = recordID3;
         _os_log_impl(&dword_223E7A000, v21, OS_LOG_TYPE_DEFAULT, "[WARNING] %@ got a record we're not interested in: '%@'%@", buf, 0x20u);
       }
 
@@ -948,11 +938,11 @@ void __171__BRCFetchRecordSubResourcesOperation_initAndScheduleWithServerZone_pa
         recordID2 = [recordCopy recordID];
         recordName2 = [recordID2 recordName];
         *buf = 138412802;
-        v127 = name2;
-        v128 = 2112;
-        v129 = recordName2;
-        v130 = 2112;
-        v131 = v25;
+        v126 = name2;
+        v127 = 2112;
+        v128 = recordName2;
+        v129 = 2112;
+        v130 = v25;
         _os_log_debug_impl(&dword_223E7A000, v26, OS_LOG_TYPE_DEBUG, "[DEBUG] %@ ignoring record we're not interested in saving named: %@%@", buf, 0x20u);
       }
 
@@ -988,7 +978,7 @@ void __171__BRCFetchRecordSubResourcesOperation_initAndScheduleWithServerZone_pa
 
     if (!share)
     {
-      v124 = 0;
+      v123 = 0;
       goto LABEL_24;
     }
 
@@ -1008,19 +998,19 @@ void __171__BRCFetchRecordSubResourcesOperation_initAndScheduleWithServerZone_pa
       {
         name3 = [(BRCFetchRecordSubResourcesOperation *)self name];
         *buf = 138412802;
-        v127 = name3;
-        v128 = 2112;
-        v129 = recordID6;
-        v130 = 2112;
-        v131 = v83;
+        v126 = name3;
+        v127 = 2112;
+        v128 = recordID6;
+        v129 = 2112;
+        v130 = v83;
         _os_log_debug_impl(&dword_223E7A000, v84, OS_LOG_TYPE_DEBUG, "[DEBUG] %@ needs to fetch shareID %@%@", buf, 0x20u);
       }
 
-      v124 = recordID6;
+      v123 = recordID6;
       goto LABEL_23;
     }
 
-    v124 = 0;
+    v123 = 0;
 LABEL_23:
 
 LABEL_24:
@@ -1029,8 +1019,8 @@ LABEL_24:
     v30 = [encryptedValues objectForKeyedSubscript:@"xattrSignature"];
 
     objc_opt_class();
-    v122 = v30;
-    v123 = v28;
+    v121 = v30;
+    v122 = v28;
     if (objc_opt_isKindOfClass())
     {
       if (v30)
@@ -1051,25 +1041,25 @@ LABEL_24:
       if ([v36 checkResourceIsReachableAndReturnError:0])
       {
         v37 = v35;
-        v125 = 0;
-        v32 = v124;
+        v124 = 0;
+        v32 = v123;
       }
 
       else
       {
-        v125 = v35;
+        v124 = v35;
         v37 = brc_bread_crumbs();
         v38 = brc_default_log();
-        v32 = v124;
+        v32 = v123;
         if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
         {
           name4 = [(BRCFetchRecordSubResourcesOperation *)self name];
           *buf = 138412802;
-          v127 = name4;
-          v128 = 2112;
-          v129 = v125;
-          v130 = 2112;
-          v131 = v37;
+          v126 = name4;
+          v127 = 2112;
+          v128 = v124;
+          v129 = 2112;
+          v130 = v37;
           _os_log_debug_impl(&dword_223E7A000, v38, OS_LOG_TYPE_DEBUG, "[DEBUG] %@ needs to fetch xattr signature %@%@", buf, 0x20u);
         }
       }
@@ -1077,8 +1067,8 @@ LABEL_24:
 
     else
     {
-      v125 = 0;
-      v32 = v124;
+      v124 = 0;
+      v32 = v123;
     }
 
     recordType = [recordCopy recordType];
@@ -1098,7 +1088,7 @@ LABEL_24:
 
       v44 = objc_alloc(MEMORY[0x277CBC5D0]);
       zoneID2 = [(BRCFetchSubResourceRecord *)recordID3 zoneID];
-      v119 = v43;
+      v118 = v43;
       v46 = [v44 initWithRecordName:v43 zoneID:zoneID2];
 
       v47 = [(NSMutableDictionary *)self->_subResourceRecordsByID objectForKeyedSubscript:v46];
@@ -1112,12 +1102,12 @@ LABEL_24:
           recordID7 = [recordCopy recordID];
           recordName6 = [recordID7 recordName];
           *buf = 138412802;
-          v127 = recordName5;
-          v128 = 2112;
-          v129 = recordName6;
-          v105 = recordName6;
-          v130 = 2112;
-          v131 = v48;
+          v126 = recordName5;
+          v127 = 2112;
+          v128 = recordName6;
+          v104 = recordName6;
+          v129 = 2112;
+          v130 = v48;
           _os_log_debug_impl(&dword_223E7A000, v49, OS_LOG_TYPE_DEBUG, "[DEBUG] Release block %@ on %@%@", buf, 0x20u);
         }
 
@@ -1140,17 +1130,17 @@ LABEL_24:
             recordID9 = [recordCopy recordID];
             recordName7 = [recordID9 recordName];
             [v47 recordIDBlockingSave];
-            v74 = v116 = v71;
+            v74 = v115 = v71;
             recordName8 = [v74 recordName];
             *buf = 138412802;
-            v127 = recordName7;
-            v128 = 2112;
-            v129 = recordName8;
-            v130 = 2112;
-            v131 = v116;
+            v126 = recordName7;
+            v127 = 2112;
+            v128 = recordName8;
+            v129 = 2112;
+            v130 = v115;
             _os_log_impl(&dword_223E7A000, v72, OS_LOG_TYPE_DEFAULT, "[WARNING] Expected recordIDBlockingSave %@ got %@%@", buf, 0x20u);
 
-            v71 = v116;
+            v71 = v115;
           }
         }
       }
@@ -1163,7 +1153,7 @@ LABEL_24:
       {
 
         v63 = 0;
-        v64 = v125;
+        v64 = v124;
         v65 = &OBJC_IVAR___BRCAccountSession__serverDB;
       }
 
@@ -1171,15 +1161,15 @@ LABEL_24:
       {
         v65 = &OBJC_IVAR___BRCAccountSession__serverDB;
         v79 = [(NSMutableDictionary *)self->_recordsByID objectForKeyedSubscript:v46];
-        v61 = v119;
+        v61 = v118;
         if (v79)
         {
 
           v63 = 0;
-          v64 = v125;
+          v64 = v124;
 LABEL_83:
 
-          v32 = v124;
+          v32 = v123;
           goto LABEL_84;
         }
 
@@ -1188,25 +1178,25 @@ LABEL_83:
         if (v82)
         {
           v63 = 0;
-          v64 = v125;
+          v64 = v124;
         }
 
         else
         {
           v86 = brc_bread_crumbs();
           v87 = brc_default_log();
-          v64 = v125;
+          v64 = v124;
           if (os_log_type_enabled(v87, OS_LOG_TYPE_DEBUG))
           {
             recordID11 = [recordCopy recordID];
             recordName9 = [recordID11 recordName];
             recordName10 = [v46 recordName];
             *buf = 138412802;
-            v127 = recordName9;
-            v128 = 2112;
-            v129 = recordName10;
-            v130 = 2112;
-            v131 = v86;
+            v126 = recordName9;
+            v127 = 2112;
+            v128 = recordName10;
+            v129 = 2112;
+            v130 = v86;
             _os_log_debug_impl(&dword_223E7A000, v87, OS_LOG_TYPE_DEBUG, "[DEBUG] Block %@ on %@%@", buf, 0x20u);
 
             v65 = &OBJC_IVAR___BRCAccountSession__serverDB;
@@ -1216,7 +1206,7 @@ LABEL_83:
         }
       }
 
-      v61 = v119;
+      v61 = v118;
       goto LABEL_83;
     }
 
@@ -1241,14 +1231,14 @@ LABEL_83:
         {
 
           v63 = 0;
-          v64 = v125;
+          v64 = v124;
           v65 = &OBJC_IVAR___BRCAccountSession__serverDB;
         }
 
         else
         {
           v85 = [(NSMutableDictionary *)self->_subResourceRecordsByID objectForKeyedSubscript:v61];
-          v64 = v125;
+          v64 = v124;
           v65 = &OBJC_IVAR___BRCAccountSession__serverDB;
           if (v85)
           {
@@ -1256,28 +1246,28 @@ LABEL_83:
 
           else
           {
-            v101 = [(BRCPendingChangesStream *)self->_pendingChangesStream hasRecordIDBlockedOnSubResources:v61];
+            v100 = [(BRCPendingChangesStream *)self->_pendingChangesStream hasRecordIDBlockedOnSubResources:v61];
 
-            if (!v101)
+            if (!v100)
             {
-              v106 = brc_bread_crumbs();
-              v107 = brc_default_log();
-              if (os_log_type_enabled(v107, OS_LOG_TYPE_DEBUG))
+              v105 = brc_bread_crumbs();
+              v106 = brc_default_log();
+              if (os_log_type_enabled(v106, OS_LOG_TYPE_DEBUG))
               {
                 [recordCopy recordID];
-                v112 = v120 = v61;
-                recordName13 = [v112 recordName];
-                recordName14 = [v120 recordName];
+                v111 = v119 = v61;
+                recordName13 = [v111 recordName];
+                recordName14 = [v119 recordName];
                 *buf = 138412802;
-                v127 = recordName13;
-                v128 = 2112;
-                v129 = recordName14;
-                v130 = 2112;
-                v131 = v106;
-                _os_log_debug_impl(&dword_223E7A000, v107, OS_LOG_TYPE_DEBUG, "[DEBUG] Block %@ on %@%@", buf, 0x20u);
+                v126 = recordName13;
+                v127 = 2112;
+                v128 = recordName14;
+                v129 = 2112;
+                v130 = v105;
+                _os_log_debug_impl(&dword_223E7A000, v106, OS_LOG_TYPE_DEBUG, "[DEBUG] Block %@ on %@%@", buf, 0x20u);
 
                 v65 = &OBJC_IVAR___BRCAccountSession__serverDB;
-                v61 = v120;
+                v61 = v119;
               }
 
               v61 = v61;
@@ -1323,11 +1313,11 @@ LABEL_85:
           {
             name5 = [(BRCFetchRecordSubResourcesOperation *)self name];
             *buf = 138412802;
-            v127 = name5;
-            v128 = 2112;
-            v129 = v90;
-            v130 = 2112;
-            v131 = v91;
+            v126 = name5;
+            v127 = 2112;
+            v128 = v90;
+            v129 = 2112;
+            v130 = v91;
             _os_log_debug_impl(&dword_223E7A000, v96, OS_LOG_TYPE_DEBUG, "[DEBUG] %@ record changed %@ which needs subResources fetched%@", buf, 0x20u);
           }
         }
@@ -1363,11 +1353,11 @@ LABEL_85:
             name6 = [(BRCFetchRecordSubResourcesOperation *)self name];
             v93 = [recordCopy debugDescription];
             *buf = 138412802;
-            v127 = name6;
-            v128 = 2112;
-            v129 = v93;
-            v130 = 2112;
-            v131 = v90;
+            v126 = name6;
+            v127 = 2112;
+            v128 = v93;
+            v129 = 2112;
+            v130 = v90;
             _os_log_debug_impl(&dword_223E7A000, v91, OS_LOG_TYPE_DEBUG, "[DEBUG] %@ record changed %@%@", buf, 0x20u);
           }
         }
@@ -1387,7 +1377,7 @@ LABEL_106:
     if (!v67)
     {
       v63 = 0;
-      v64 = v125;
+      v64 = v124;
       v65 = &OBJC_IVAR___BRCAccountSession__serverDB;
       goto LABEL_85;
     }
@@ -1401,9 +1391,9 @@ LABEL_106:
       if (os_log_type_enabled(v69, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v127 = recordCopy;
-        v128 = 2112;
-        v129 = v68;
+        v126 = recordCopy;
+        v127 = 2112;
+        v128 = v68;
         _os_log_impl(&dword_223E7A000, v69, OS_LOG_TYPE_DEFAULT, "[WARNING] Couldn't determine record type for root share record %@%@", buf, 0x16u);
       }
     }
@@ -1422,7 +1412,7 @@ LABEL_106:
 
     v65 = &OBJC_IVAR___BRCAccountSession__serverDB;
     v81 = [(NSMutableDictionary *)self->_recordsByID objectForKeyedSubscript:v70];
-    v64 = v125;
+    v64 = v124;
     if (v81)
     {
     }
@@ -1440,13 +1430,11 @@ LABEL_78:
   }
 
 LABEL_107:
-
-  v97 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addRecordIDToDeserialize:(id)deserialize recordType:(int64_t)type
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   deserializeCopy = deserialize;
   callbackQueue = [(_BRCOperation *)self callbackQueue];
   dispatch_assert_queue_V2(callbackQueue);
@@ -1475,16 +1463,16 @@ LABEL_107:
         [BRCFetchRecordSubResourcesOperation addRecordIDToDeserialize:recordType:];
       }
 
-      v13 = [(NSMutableDictionary *)self->_recordsByID objectForKeyedSubscript:deserializeCopy];
+      v12 = [(NSMutableDictionary *)self->_recordsByID objectForKeyedSubscript:deserializeCopy];
 
-      if (v13)
+      if (v12)
       {
         [BRCFetchRecordSubResourcesOperation addRecordIDToDeserialize:recordType:];
       }
 
-      v14 = [(NSMutableDictionary *)self->_subResourceRecordsByID objectForKeyedSubscript:deserializeCopy];
+      v13 = [(NSMutableDictionary *)self->_subResourceRecordsByID objectForKeyedSubscript:deserializeCopy];
 
-      if (v14)
+      if (v13)
       {
         [BRCFetchRecordSubResourcesOperation addRecordIDToDeserialize:recordType:];
       }
@@ -1495,17 +1483,17 @@ LABEL_107:
       [(NSMutableArray *)self->_deletedRecordIDs removeObject:deserializeCopy];
       [(NSMutableDictionary *)self->_recordsByID removeObjectForKey:deserializeCopy];
       v10 = brc_bread_crumbs();
-      v15 = brc_default_log();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+      v14 = brc_default_log();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
         name = [(BRCFetchRecordSubResourcesOperation *)self name];
-        v17 = 138412802;
-        v18 = name;
-        v19 = 2112;
-        v20 = deserializeCopy;
-        v21 = 2112;
-        v22 = v10;
-        _os_log_debug_impl(&dword_223E7A000, v15, OS_LOG_TYPE_DEBUG, "[DEBUG] %@ scheduling recordID deserialize for %@%@", &v17, 0x20u);
+        v16 = 138412802;
+        v17 = name;
+        v18 = 2112;
+        v19 = deserializeCopy;
+        v20 = 2112;
+        v21 = v10;
+        _os_log_debug_impl(&dword_223E7A000, v14, OS_LOG_TYPE_DEBUG, "[DEBUG] %@ scheduling recordID deserialize for %@%@", &v16, 0x20u);
       }
 
       goto LABEL_8;
@@ -1516,24 +1504,22 @@ LABEL_107:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       name2 = [(BRCFetchRecordSubResourcesOperation *)self name];
-      v17 = 138412802;
-      v18 = name2;
-      v19 = 2112;
-      v20 = deserializeCopy;
-      v21 = 2112;
-      v22 = v9;
-      _os_log_impl(&dword_223E7A000, v10, OS_LOG_TYPE_DEFAULT, "[WARNING] %@ has no need to deserialize %@ because we've already fetch it%@", &v17, 0x20u);
+      v16 = 138412802;
+      v17 = name2;
+      v18 = 2112;
+      v19 = deserializeCopy;
+      v20 = 2112;
+      v21 = v9;
+      _os_log_impl(&dword_223E7A000, v10, OS_LOG_TYPE_DEFAULT, "[WARNING] %@ has no need to deserialize %@ because we've already fetch it%@", &v16, 0x20u);
     }
 
 LABEL_8:
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)recordIDWasDeleted:(id)deleted
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   deletedCopy = deleted;
   callbackQueue = [(_BRCOperation *)self callbackQueue];
   dispatch_assert_queue_V2(callbackQueue);
@@ -1553,11 +1539,11 @@ LABEL_8:
       {
         name = [(BRCFetchRecordSubResourcesOperation *)self name];
         *buf = 138412802;
-        v24 = name;
-        v25 = 2112;
-        v26 = deletedCopy;
-        v27 = 2112;
-        v28 = v6;
+        v23 = name;
+        v24 = 2112;
+        v25 = deletedCopy;
+        v26 = 2112;
+        v27 = v6;
         _os_log_impl(&dword_223E7A000, v7, OS_LOG_TYPE_DEFAULT, "[WARNING] %@ Zone root record ID was deleted %@%@", buf, 0x20u);
       }
 
@@ -1573,23 +1559,23 @@ LABEL_8:
       {
         name2 = [(BRCFetchRecordSubResourcesOperation *)self name];
         *buf = 138412802;
-        v24 = name2;
-        v25 = 2112;
-        v26 = deletedCopy;
-        v27 = 2112;
-        v28 = v10;
+        v23 = name2;
+        v24 = 2112;
+        v25 = deletedCopy;
+        v26 = 2112;
+        v27 = v10;
         _os_log_impl(&dword_223E7A000, v11, OS_LOG_TYPE_DEFAULT, "[WARNING] %@ App library root record ID was deleted %@%@", buf, 0x20u);
       }
 
       clientReadWriteDatabaseFacade = [(BRCSessionContext *)self->super._sessionContext clientReadWriteDatabaseFacade];
       workloop = [clientReadWriteDatabaseFacade workloop];
-      v21[0] = MEMORY[0x277D85DD0];
-      v21[1] = 3221225472;
-      v21[2] = __58__BRCFetchRecordSubResourcesOperation_recordIDWasDeleted___block_invoke;
-      v21[3] = &unk_2784FF478;
-      v21[4] = self;
-      v22 = deletedCopy;
-      dispatch_async_and_wait(workloop, v21);
+      v20[0] = MEMORY[0x277D85DD0];
+      v20[1] = 3221225472;
+      v20[2] = __58__BRCFetchRecordSubResourcesOperation_recordIDWasDeleted___block_invoke;
+      v20[3] = &unk_2784FF478;
+      v20[4] = self;
+      v21 = deletedCopy;
+      dispatch_async_and_wait(workloop, v20);
     }
 
     else
@@ -1622,17 +1608,15 @@ LABEL_8:
       {
         name3 = [(BRCFetchRecordSubResourcesOperation *)self name];
         *buf = 138412802;
-        v24 = name3;
-        v25 = 2112;
-        v26 = deletedCopy;
-        v27 = 2112;
-        v28 = v17;
+        v23 = name3;
+        v24 = 2112;
+        v25 = deletedCopy;
+        v26 = 2112;
+        v27 = v17;
         _os_log_debug_impl(&dword_223E7A000, v18, OS_LOG_TYPE_DEBUG, "[DEBUG] %@ record ID was deleted %@%@", buf, 0x20u);
       }
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __58__BRCFetchRecordSubResourcesOperation_recordIDWasDeleted___block_invoke(uint64_t a1)
@@ -1646,7 +1630,7 @@ void __58__BRCFetchRecordSubResourcesOperation_recordIDWasDeleted___block_invoke
 
 - (void)shareIDWasDeleted:(id)deleted
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   deletedCopy = deleted;
   callbackQueue = [(_BRCOperation *)self callbackQueue];
   dispatch_assert_queue_V2(callbackQueue);
@@ -1672,17 +1656,15 @@ void __58__BRCFetchRecordSubResourcesOperation_recordIDWasDeleted___block_invoke
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       name = [(BRCFetchRecordSubResourcesOperation *)self name];
-      v11 = 138412802;
-      v12 = name;
-      v13 = 2112;
-      v14 = deletedCopy;
-      v15 = 2112;
-      v16 = v7;
-      _os_log_debug_impl(&dword_223E7A000, v8, OS_LOG_TYPE_DEBUG, "[DEBUG] %@ share ID was deleted %@%@", &v11, 0x20u);
+      v10 = 138412802;
+      v11 = name;
+      v12 = 2112;
+      v13 = deletedCopy;
+      v14 = 2112;
+      v15 = v7;
+      _os_log_debug_impl(&dword_223E7A000, v8, OS_LOG_TYPE_DEBUG, "[DEBUG] %@ share ID was deleted %@%@", &v10, 0x20u);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_notifyWhenRecordsAreFetched:(id)fetched
@@ -1824,7 +1806,7 @@ uint64_t __89__BRCFetchRecordSubResourcesOperation_notifyWhenCaughtUp_whenRecord
 
 - (void)stopWithError:(id)error
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   callbackQueue = [(_BRCOperation *)self callbackQueue];
   dispatch_assert_queue_V2(callbackQueue);
@@ -1841,13 +1823,13 @@ uint64_t __89__BRCFetchRecordSubResourcesOperation_notifyWhenCaughtUp_whenRecord
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       name = [(BRCFetchRecordSubResourcesOperation *)self name];
-      v13 = 138412802;
-      v14 = name;
-      v15 = 2112;
-      v16 = errorCopy;
-      v17 = 2112;
-      v18 = v7;
-      _os_log_debug_impl(&dword_223E7A000, v8, OS_LOG_TYPE_DEBUG, "[DEBUG] %@ stopping fetching records with error %@%@", &v13, 0x20u);
+      v12 = 138412802;
+      v13 = name;
+      v14 = 2112;
+      v15 = errorCopy;
+      v16 = 2112;
+      v17 = v7;
+      _os_log_debug_impl(&dword_223E7A000, v8, OS_LOG_TYPE_DEBUG, "[DEBUG] %@ stopping fetching records with error %@%@", &v12, 0x20u);
     }
 
     dispatch_group_leave(self->_operationGroup);
@@ -1866,8 +1848,6 @@ uint64_t __89__BRCFetchRecordSubResourcesOperation_notifyWhenCaughtUp_whenRecord
     self->_deserializeState = 0;
     dispatch_resume(self->_deserializeSource);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancel
@@ -1900,7 +1880,7 @@ void __45__BRCFetchRecordSubResourcesOperation_cancel__block_invoke(uint64_t a1)
 
 - (void)finishWithResult:(id)result error:(id)error
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   resultCopy = result;
   callbackQueue = [(_BRCOperation *)self callbackQueue];
@@ -1913,20 +1893,20 @@ void __45__BRCFetchRecordSubResourcesOperation_cancel__block_invoke(uint64_t a1)
     name = [(BRCFetchRecordSubResourcesOperation *)self name];
     operationID = [(_BRCOperation *)self operationID];
     brc_isCloudKitCancellationError = [errorCopy brc_isCloudKitCancellationError];
-    v17 = &stru_2837504F0;
+    v16 = &stru_2837504F0;
     *buf = 138413058;
-    v20 = name;
-    v21 = 2112;
+    v19 = name;
+    v20 = 2112;
     if (brc_isCloudKitCancellationError)
     {
-      v17 = @" operation cancelled.";
+      v16 = @" operation cancelled.";
     }
 
-    v22 = operationID;
-    v23 = 2112;
-    v24 = v17;
-    v25 = 2112;
-    v26 = v9;
+    v21 = operationID;
+    v22 = 2112;
+    v23 = v16;
+    v24 = 2112;
+    v25 = v9;
     _os_log_debug_impl(&dword_223E7A000, v10, OS_LOG_TYPE_DEBUG, "[DEBUG] %@ %@ finished record fetcher.%@%@", buf, 0x2Au);
   }
 
@@ -1959,11 +1939,9 @@ void __45__BRCFetchRecordSubResourcesOperation_cancel__block_invoke(uint64_t a1)
   queryFinishedClientTruthCallback = self->_queryFinishedClientTruthCallback;
   self->_queryFinishedClientTruthCallback = 0;
 
-  v18.receiver = self;
-  v18.super_class = BRCFetchRecordSubResourcesOperation;
-  [(_BRCOperation *)&v18 finishWithResult:resultCopy error:errorCopy];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v17.receiver = self;
+  v17.super_class = BRCFetchRecordSubResourcesOperation;
+  [(_BRCOperation *)&v17 finishWithResult:resultCopy error:errorCopy];
 }
 
 - (BOOL)_willFetchRecordForDeserialize:(id)deserialize
@@ -1997,7 +1975,7 @@ void __45__BRCFetchRecordSubResourcesOperation_cancel__block_invoke(uint64_t a1)
 
 - (void)_scheduleDeserialize
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   callbackQueue = [(_BRCOperation *)self callbackQueue];
   dispatch_assert_queue_V2(callbackQueue);
 
@@ -2010,21 +1988,21 @@ void __45__BRCFetchRecordSubResourcesOperation_cancel__block_invoke(uint64_t a1)
       name = [(BRCFetchRecordSubResourcesOperation *)self name];
       error = self->_error;
       *buf = 138412802;
-      v46 = name;
+      v45 = name;
       if (error)
       {
-        v29 = @"Operation had an error";
+        v28 = @"Operation had an error";
       }
 
       else
       {
-        v29 = @"Operation canceled";
+        v28 = @"Operation canceled";
       }
 
-      v47 = 2112;
-      v48 = v29;
-      v49 = 2112;
-      v50 = v4;
+      v46 = 2112;
+      v47 = v28;
+      v48 = 2112;
+      v49 = v4;
       _os_log_debug_impl(&dword_223E7A000, v5, OS_LOG_TYPE_DEBUG, "[DEBUG] %@ leaving deserialize group. %@%@", buf, 0x20u);
     }
 
@@ -2045,45 +2023,45 @@ void __45__BRCFetchRecordSubResourcesOperation_cancel__block_invoke(uint64_t a1)
       [BRCFetchRecordSubResourcesOperation _scheduleDeserialize];
     }
 
-    v8 = objc_opt_new();
+    v7 = objc_opt_new();
     mangledID = [(BRCServerZone *)self->_serverZone mangledID];
-    v10 = [BRCUserDefaults defaultsForMangledID:mangledID];
+    v9 = [BRCUserDefaults defaultsForMangledID:mangledID];
 
-    maxRecordCountInFetchRecordsOperation = [v10 maxRecordCountInFetchRecordsOperation];
+    maxRecordCountInFetchRecordsOperation = [v9 maxRecordCountInFetchRecordsOperation];
     pendingChangesStream = self->_pendingChangesStream;
-    v42[0] = MEMORY[0x277D85DD0];
-    v42[1] = 3221225472;
-    v42[2] = __59__BRCFetchRecordSubResourcesOperation__scheduleDeserialize__block_invoke;
-    v42[3] = &unk_2785080A8;
-    deserializeGroup = v8;
-    v43 = deserializeGroup;
-    v44 = maxRecordCountInFetchRecordsOperation;
-    [(BRCPendingChangesStream *)pendingChangesStream enumerateRecordsNeedingMetadataFetchWithBlock:v42];
-    v40 = 0u;
-    v41 = 0u;
-    v38 = 0u;
+    v41[0] = MEMORY[0x277D85DD0];
+    v41[1] = 3221225472;
+    v41[2] = __59__BRCFetchRecordSubResourcesOperation__scheduleDeserialize__block_invoke;
+    v41[3] = &unk_2785080A8;
+    deserializeGroup = v7;
+    v42 = deserializeGroup;
+    v43 = maxRecordCountInFetchRecordsOperation;
+    [(BRCPendingChangesStream *)pendingChangesStream enumerateRecordsNeedingMetadataFetchWithBlock:v41];
     v39 = 0u;
+    v40 = 0u;
+    v37 = 0u;
+    v38 = 0u;
     objectEnumerator = [(NSMutableDictionary *)self->_subResourceRecordsByID objectEnumerator];
-    v14 = [objectEnumerator countByEnumeratingWithState:&v38 objects:v53 count:16];
-    if (v14)
+    v13 = [objectEnumerator countByEnumeratingWithState:&v37 objects:v52 count:16];
+    if (v13)
     {
-      v15 = *v39;
+      v14 = *v38;
 LABEL_12:
-      v16 = 0;
+      v15 = 0;
       while (1)
       {
-        if (*v39 != v15)
+        if (*v38 != v14)
         {
           objc_enumerationMutation(objectEnumerator);
         }
 
-        v17 = *(*(&v38 + 1) + 8 * v16);
+        v16 = *(*(&v37 + 1) + 8 * v15);
         if ([(OS_dispatch_group *)deserializeGroup count]>= maxRecordCountInFetchRecordsOperation)
         {
           break;
         }
 
-        recordIDNeedingFetch = [v17 recordIDNeedingFetch];
+        recordIDNeedingFetch = [v16 recordIDNeedingFetch];
         if (recordIDNeedingFetch)
         {
           if (![(BRCFetchRecordSubResourcesOperation *)self _willFetchRecordForDeserialize:recordIDNeedingFetch])
@@ -2095,10 +2073,10 @@ LABEL_12:
           [(OS_dispatch_group *)deserializeGroup addObject:recordIDNeedingFetch];
         }
 
-        if (v14 == ++v16)
+        if (v13 == ++v15)
         {
-          v14 = [objectEnumerator countByEnumeratingWithState:&v38 objects:v53 count:16];
-          if (v14)
+          v13 = [objectEnumerator countByEnumeratingWithState:&v37 objects:v52 count:16];
+          if (v13)
           {
             goto LABEL_12;
           }
@@ -2111,84 +2089,82 @@ LABEL_12:
     if ([(OS_dispatch_group *)deserializeGroup count])
     {
       dispatch_suspend(self->_deserializeSource);
-      v36[0] = 0;
-      v36[1] = v36;
-      v36[2] = 0x2020000000;
-      v37 = 1;
-      v34[0] = 0;
-      v34[1] = v34;
-      v34[2] = 0x2020000000;
-      v35 = 0;
-      v19 = brc_bread_crumbs();
-      v20 = brc_default_log();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+      v35[0] = 0;
+      v35[1] = v35;
+      v35[2] = 0x2020000000;
+      v36 = 1;
+      v33[0] = 0;
+      v33[1] = v33;
+      v33[2] = 0x2020000000;
+      v34 = 0;
+      v18 = brc_bread_crumbs();
+      v19 = brc_default_log();
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
       {
         name2 = [(BRCFetchRecordSubResourcesOperation *)self name];
-        v31 = [(OS_dispatch_group *)deserializeGroup count];
+        v30 = [(OS_dispatch_group *)deserializeGroup count];
         *buf = 138413058;
-        v46 = name2;
-        v47 = 2048;
-        v48 = v31;
-        v49 = 2112;
-        v50 = deserializeGroup;
-        v51 = 2112;
-        v52 = v19;
-        _os_log_debug_impl(&dword_223E7A000, v20, OS_LOG_TYPE_DEBUG, "[DEBUG] %@ fetching %lu records to deserialize - %@%@", buf, 0x2Au);
+        v45 = name2;
+        v46 = 2048;
+        v47 = v30;
+        v48 = 2112;
+        v49 = deserializeGroup;
+        v50 = 2112;
+        v51 = v18;
+        _os_log_debug_impl(&dword_223E7A000, v19, OS_LOG_TYPE_DEBUG, "[DEBUG] %@ fetching %lu records to deserialize - %@%@", buf, 0x2Au);
       }
 
-      v21 = [[BRFetchRecordsOperation alloc] initWithRecordIDs:deserializeGroup];
-      [(BRFetchRecordsOperation *)v21 setShouldFetchAssetContent:0];
+      v20 = [[BRFetchRecordsOperation alloc] initWithRecordIDs:deserializeGroup];
+      [(BRFetchRecordsOperation *)v20 setShouldFetchAssetContent:0];
       callbackQueue2 = [(_BRCOperation *)self callbackQueue];
-      [(BRFetchRecordsOperation *)v21 setCallbackQueue:callbackQueue2];
+      [(BRFetchRecordsOperation *)v20 setCallbackQueue:callbackQueue2];
 
-      v23 = [MEMORY[0x277CBC5A0] desiredKeysWithMask:185];
-      [(BRFetchRecordsOperation *)v21 setDesiredKeys:v23];
+      v22 = [MEMORY[0x277CBC5A0] desiredKeysWithMask:185];
+      [(BRFetchRecordsOperation *)v20 setDesiredKeys:v22];
 
-      v33[0] = MEMORY[0x277D85DD0];
-      v33[1] = 3221225472;
-      v33[2] = __59__BRCFetchRecordSubResourcesOperation__scheduleDeserialize__block_invoke_39;
-      v33[3] = &unk_2785080D0;
-      v33[4] = self;
-      v33[5] = v34;
-      v33[6] = v36;
-      [(BRFetchRecordsOperation *)v21 setPerRecordCompletionBlock:v33];
       v32[0] = MEMORY[0x277D85DD0];
       v32[1] = 3221225472;
-      v32[2] = __59__BRCFetchRecordSubResourcesOperation__scheduleDeserialize__block_invoke_41;
-      v32[3] = &unk_2785080F8;
+      v32[2] = __59__BRCFetchRecordSubResourcesOperation__scheduleDeserialize__block_invoke_39;
+      v32[3] = &unk_2785080D0;
       v32[4] = self;
-      v32[5] = v34;
-      v32[6] = v36;
-      [(BRFetchRecordsOperation *)v21 setFetchRecordsCompletionBlock:v32];
-      [(_BRCOperation *)self addSubOperation:v21];
+      v32[5] = v33;
+      v32[6] = v35;
+      [(BRFetchRecordsOperation *)v20 setPerRecordCompletionBlock:v32];
+      v31[0] = MEMORY[0x277D85DD0];
+      v31[1] = 3221225472;
+      v31[2] = __59__BRCFetchRecordSubResourcesOperation__scheduleDeserialize__block_invoke_41;
+      v31[3] = &unk_2785080F8;
+      v31[4] = self;
+      v31[5] = v33;
+      v31[6] = v35;
+      [(BRFetchRecordsOperation *)v20 setFetchRecordsCompletionBlock:v31];
+      [(_BRCOperation *)self addSubOperation:v20];
 
-      _Block_object_dispose(v34, 8);
-      _Block_object_dispose(v36, 8);
+      _Block_object_dispose(v33, 8);
+      _Block_object_dispose(v35, 8);
     }
 
     else
     {
-      v24 = brc_bread_crumbs();
-      v25 = brc_default_log();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+      v23 = brc_bread_crumbs();
+      v24 = brc_default_log();
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
       {
         [(BRCFetchRecordSubResourcesOperation *)self _scheduleDeserialize];
       }
 
       dispatch_group_leave(self->_deserializeGroup);
-      v26 = self->_deserializeGroup;
+      v25 = self->_deserializeGroup;
       self->_deserializeGroup = 0;
     }
 
 LABEL_33:
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __59__BRCFetchRecordSubResourcesOperation__scheduleDeserialize__block_invoke_39(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -2203,9 +2179,9 @@ LABEL_4:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v59 = v8;
-      v60 = 2112;
-      v61 = v12;
+      v58 = v8;
+      v59 = 2112;
+      v60 = v12;
       _os_log_impl(&dword_223E7A000, v13, OS_LOG_TYPE_DEFAULT, "[WARNING] We deserialized record id %@ which was useless because it came later%@", buf, 0x16u);
     }
 
@@ -2226,29 +2202,29 @@ LABEL_4:
 
   if (v7)
   {
-    v47 = v10;
-    v48 = v9;
-    v49 = v7;
-    v56 = 0u;
-    v57 = 0u;
-    v54 = 0u;
+    v46 = v10;
+    v47 = v9;
+    v48 = v7;
     v55 = 0u;
+    v56 = 0u;
+    v53 = 0u;
+    v54 = 0u;
     v15 = [*(*(a1 + 32) + 528) allValues];
-    v16 = [v15 countByEnumeratingWithState:&v54 objects:v67 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v53 objects:v66 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v55;
+      v18 = *v54;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v55 != v18)
+          if (*v54 != v18)
           {
             objc_enumerationMutation(v15);
           }
 
-          v20 = *(*(&v54 + 1) + 8 * i);
+          v20 = *(*(&v53 + 1) + 8 * i);
           v21 = [v20 recordIDNeedingFetch];
           if (v21)
           {
@@ -2264,25 +2240,25 @@ LABEL_4:
           }
         }
 
-        v17 = [v15 countByEnumeratingWithState:&v54 objects:v67 count:16];
+        v17 = [v15 countByEnumeratingWithState:&v53 objects:v66 count:16];
       }
 
       while (v17);
     }
 
-    v7 = v49;
-    [*(a1 + 32) addRecord:v49];
+    v7 = v48;
+    [*(a1 + 32) addRecord:v48];
 LABEL_37:
-    v10 = v47;
-    v9 = v48;
+    v10 = v46;
+    v9 = v47;
     goto LABEL_38;
   }
 
   if ([v9 brc_isCloudKitUnknownItemError])
   {
-    v46 = 512;
-    v47 = v10;
-    v48 = v9;
+    v45 = 512;
+    v46 = v10;
+    v47 = v9;
     v25 = brc_bread_crumbs();
     v26 = brc_default_log();
     if (os_log_type_enabled(v26, 0x90u))
@@ -2290,26 +2266,26 @@ LABEL_37:
       __59__BRCFetchRecordSubResourcesOperation__scheduleDeserialize__block_invoke_39_cold_1();
     }
 
-    v52 = 0u;
-    v53 = 0u;
-    v50 = 0u;
     v51 = 0u;
+    v52 = 0u;
+    v49 = 0u;
+    v50 = 0u;
     v27 = [*(*(a1 + 32) + 528) allValues];
-    v28 = [v27 countByEnumeratingWithState:&v50 objects:v66 count:16];
+    v28 = [v27 countByEnumeratingWithState:&v49 objects:v65 count:16];
     if (v28)
     {
       v29 = v28;
-      v30 = *v51;
+      v30 = *v50;
       do
       {
         for (j = 0; j != v29; ++j)
         {
-          if (*v51 != v30)
+          if (*v50 != v30)
           {
             objc_enumerationMutation(v27);
           }
 
-          v32 = *(*(&v50 + 1) + 8 * j);
+          v32 = *(*(&v49 + 1) + 8 * j);
           v33 = [v32 recordIDNeedingFetch];
           if (v33)
           {
@@ -2339,13 +2315,13 @@ LABEL_37:
           }
         }
 
-        v29 = [v27 countByEnumeratingWithState:&v50 objects:v66 count:16];
+        v29 = [v27 countByEnumeratingWithState:&v49 objects:v65 count:16];
       }
 
       while (v29);
     }
 
-    [*(*(a1 + 32) + v46) unblockRecordSavesWaitingOnRecordID:v8];
+    [*(*(a1 + 32) + v45) unblockRecordSavesWaitingOnRecordID:v8];
     *(*(*(a1 + 40) + 8) + 24) = 1;
     v7 = 0;
     goto LABEL_37;
@@ -2353,37 +2329,35 @@ LABEL_37:
 
   if (v9)
   {
-    v42 = v10;
-    v43 = brc_bread_crumbs();
-    v44 = brc_default_log();
-    if (os_log_type_enabled(v44, 0x90u))
+    v41 = v10;
+    v42 = brc_bread_crumbs();
+    v43 = brc_default_log();
+    if (os_log_type_enabled(v43, 0x90u))
     {
-      v45 = [*(a1 + 32) name];
+      v44 = [*(a1 + 32) name];
       *buf = 138413058;
-      v59 = v45;
-      v60 = 2112;
-      v61 = v8;
-      v62 = 2112;
-      v63 = v9;
-      v64 = 2112;
-      v65 = v43;
-      _os_log_error_impl(&dword_223E7A000, v44, 0x90u, "[ERROR] %@ Deserialize record failed for %@ - %@%@", buf, 0x2Au);
+      v58 = v44;
+      v59 = 2112;
+      v60 = v8;
+      v61 = 2112;
+      v62 = v9;
+      v63 = 2112;
+      v64 = v42;
+      _os_log_error_impl(&dword_223E7A000, v43, 0x90u, "[ERROR] %@ Deserialize record failed for %@ - %@%@", buf, 0x2Au);
     }
 
     *(*(*(a1 + 40) + 8) + 24) = 1;
     *(*(*(a1 + 48) + 8) + 24) = 0;
-    v10 = v42;
+    v10 = v41;
   }
 
 LABEL_38:
   objc_autoreleasePoolPop(v10);
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 void __59__BRCFetchRecordSubResourcesOperation__scheduleDeserialize__block_invoke_41(uint64_t a1, uint64_t a2, void *a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v4 = a3;
   dispatch_source_merge_data(*(*(a1 + 32) + 592), 1uLL);
   if ([v4 brc_isCloudKitCancellationError])
@@ -2393,13 +2367,13 @@ void __59__BRCFetchRecordSubResourcesOperation__scheduleDeserialize__block_invok
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       v7 = [*(a1 + 32) name];
-      v17 = 138412802;
-      v18 = v7;
-      v19 = 2112;
-      v20 = v4;
-      v21 = 2112;
-      v22 = v5;
-      _os_log_debug_impl(&dword_223E7A000, v6, OS_LOG_TYPE_DEBUG, "[DEBUG] failed to deserialize records for %@: %@%@", &v17, 0x20u);
+      v16 = 138412802;
+      v17 = v7;
+      v18 = 2112;
+      v19 = v4;
+      v20 = 2112;
+      v21 = v5;
+      _os_log_debug_impl(&dword_223E7A000, v6, OS_LOG_TYPE_DEBUG, "[DEBUG] failed to deserialize records for %@: %@%@", &v16, 0x20u);
 LABEL_22:
     }
   }
@@ -2411,13 +2385,13 @@ LABEL_22:
     if (os_log_type_enabled(v6, 0x90u))
     {
       v7 = [*(a1 + 32) name];
-      v17 = 138412802;
-      v18 = v7;
-      v19 = 2112;
-      v20 = v4;
-      v21 = 2112;
-      v22 = v5;
-      _os_log_error_impl(&dword_223E7A000, v6, 0x90u, "[ERROR] failed to deserialize records for %@: %@%@", &v17, 0x20u);
+      v16 = 138412802;
+      v17 = v7;
+      v18 = 2112;
+      v19 = v4;
+      v20 = 2112;
+      v21 = v5;
+      _os_log_error_impl(&dword_223E7A000, v6, 0x90u, "[ERROR] failed to deserialize records for %@: %@%@", &v16, 0x20u);
       goto LABEL_22;
     }
   }
@@ -2449,14 +2423,14 @@ LABEL_16:
     v13 = brc_default_log();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      v15 = [*(a1 + 32) name];
-      v17 = 138412802;
-      v18 = v15;
-      v19 = 2080;
-      v20 = v11;
-      v21 = 2112;
-      v22 = v12;
-      _os_log_debug_impl(&dword_223E7A000, v13, OS_LOG_TYPE_DEBUG, "[DEBUG] %@ finished fetching record batch to deserialize%s%@", &v17, 0x20u);
+      v14 = [*(a1 + 32) name];
+      v16 = 138412802;
+      v17 = v14;
+      v18 = 2080;
+      v19 = v11;
+      v20 = 2112;
+      v21 = v12;
+      _os_log_debug_impl(&dword_223E7A000, v13, OS_LOG_TYPE_DEBUG, "[DEBUG] %@ finished fetching record batch to deserialize%s%@", &v16, 0x20u);
     }
 
     goto LABEL_19;
@@ -2466,27 +2440,25 @@ LABEL_16:
   v10 = brc_default_log();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    v16 = [*(a1 + 32) name];
-    v17 = 138412802;
-    v18 = v16;
-    v19 = 2112;
-    v20 = v4;
-    v21 = 2112;
-    v22 = v9;
-    _os_log_debug_impl(&dword_223E7A000, v10, OS_LOG_TYPE_DEBUG, "[DEBUG] %@ encountered an operation error so we should stop %@%@", &v17, 0x20u);
+    v15 = [*(a1 + 32) name];
+    v16 = 138412802;
+    v17 = v15;
+    v18 = 2112;
+    v19 = v4;
+    v20 = 2112;
+    v21 = v9;
+    _os_log_debug_impl(&dword_223E7A000, v10, OS_LOG_TYPE_DEBUG, "[DEBUG] %@ encountered an operation error so we should stop %@%@", &v16, 0x20u);
   }
 
   *(*(a1 + 32) + 624) = 0;
   [*(a1 + 32) stopWithError:v4];
   dispatch_resume(*(*(a1 + 32) + 592));
 LABEL_19:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_markSubResourceRecordAsFetchedIfNecessary:(id)necessary
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   necessaryCopy = necessary;
   recordIDNeedingFetch = [necessaryCopy recordIDNeedingFetch];
   if (recordIDNeedingFetch || ([necessaryCopy xattrSignature], (recordIDNeedingFetch = objc_claimAutoreleasedReturnValue()) != 0))
@@ -2506,21 +2478,21 @@ LABEL_4:
 
   recordID = [necessaryCopy recordID];
   record = [necessaryCopy record];
-  v12 = brc_bread_crumbs();
-  v13 = brc_default_log();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+  v11 = brc_bread_crumbs();
+  v12 = brc_default_log();
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     name = [(BRCFetchRecordSubResourcesOperation *)self name];
-    v15 = [record debugDescription];
-    v16 = 138413058;
-    v17 = name;
-    v18 = 2112;
-    v19 = recordID;
-    v20 = 2112;
-    v21 = v15;
-    v22 = 2112;
-    v23 = v12;
-    _os_log_debug_impl(&dword_223E7A000, v13, OS_LOG_TYPE_DEBUG, "[DEBUG] %@ has sub resource that no longer has info to fetch %@ -> %@%@", &v16, 0x2Au);
+    v14 = [record debugDescription];
+    v15 = 138413058;
+    v16 = name;
+    v17 = 2112;
+    v18 = recordID;
+    v19 = 2112;
+    v20 = v14;
+    v21 = 2112;
+    v22 = v11;
+    _os_log_debug_impl(&dword_223E7A000, v12, OS_LOG_TYPE_DEBUG, "[DEBUG] %@ has sub resource that no longer has info to fetch %@ -> %@%@", &v15, 0x2Au);
   }
 
   [(NSMutableDictionary *)self->_subResourceRecordsByID removeObjectForKey:recordID];
@@ -2532,42 +2504,41 @@ LABEL_4:
   v6 = 1;
 LABEL_5:
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (void)_dump
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   allValues = [(NSMutableDictionary *)self->_subResourceRecordsByID allValues];
-  v3 = [allValues countByEnumeratingWithState:&v20 objects:v29 count:16];
+  v3 = [allValues countByEnumeratingWithState:&v19 objects:v28 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v21;
+    v5 = *v20;
     do
     {
       v6 = 0;
       do
       {
-        if (*v21 != v5)
+        if (*v20 != v5)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v7 = *(*(&v20 + 1) + 8 * v6);
+        v7 = *(*(&v19 + 1) + 8 * v6);
         v8 = brc_bread_crumbs();
         v9 = brc_default_log();
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412546;
-          v26 = v7;
-          v27 = 2112;
-          v28 = v8;
+          v25 = v7;
+          v26 = 2112;
+          v27 = v8;
           _os_log_debug_impl(&dword_223E7A000, v9, OS_LOG_TYPE_DEBUG, "[DEBUG] %@%@", buf, 0x16u);
         }
 
@@ -2575,32 +2546,32 @@ LABEL_5:
       }
 
       while (v4 != v6);
-      v4 = [allValues countByEnumeratingWithState:&v20 objects:v29 count:16];
+      v4 = [allValues countByEnumeratingWithState:&v19 objects:v28 count:16];
     }
 
     while (v4);
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   allValues2 = [(NSMutableDictionary *)self->_recordsByID allValues];
-  v11 = [allValues2 countByEnumeratingWithState:&v16 objects:v24 count:16];
+  v11 = [allValues2 countByEnumeratingWithState:&v15 objects:v23 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v17;
+    v13 = *v16;
     while (1)
     {
-      if (*v17 != v13)
+      if (*v16 != v13)
       {
         objc_enumerationMutation(allValues2);
       }
 
       if (!--v12)
       {
-        v12 = [allValues2 countByEnumeratingWithState:&v16 objects:v24 count:16];
+        v12 = [allValues2 countByEnumeratingWithState:&v15 objects:v23 count:16];
         if (!v12)
         {
           break;
@@ -2608,13 +2579,11 @@ LABEL_5:
       }
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_scheduleXattrFetch
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   callbackQueue = [(_BRCOperation *)self callbackQueue];
   dispatch_assert_queue_V2(callbackQueue);
 
@@ -2631,18 +2600,18 @@ LABEL_5:
       *&buf[4] = name;
       if (error)
       {
-        v40 = @"Operation had an error";
+        v39 = @"Operation had an error";
       }
 
       else
       {
-        v40 = @"Operation canceled";
+        v39 = @"Operation canceled";
       }
 
       *&buf[12] = 2112;
-      *&buf[14] = v40;
+      *&buf[14] = v39;
       *&buf[22] = 2112;
-      v63 = v4;
+      v62 = v4;
       _os_log_debug_impl(&dword_223E7A000, v5, OS_LOG_TYPE_DEBUG, "[DEBUG] %@ leaving xattr fetch group. %@%@", buf, 0x20u);
     }
 
@@ -2660,69 +2629,69 @@ LABEL_5:
     }
 
     dispatch_suspend(selfCopy2->_xattrFetchingSource);
+    v7 = objc_opt_new();
     v8 = objc_opt_new();
-    v9 = objc_opt_new();
     mangledID = [(BRCServerZone *)self->_serverZone mangledID];
-    v43 = [BRCUserDefaults defaultsForMangledID:mangledID];
+    v42 = [BRCUserDefaults defaultsForMangledID:mangledID];
 
-    maxRecordCountInFetchRecordsOperation = [v43 maxRecordCountInFetchRecordsOperation];
+    maxRecordCountInFetchRecordsOperation = [v42 maxRecordCountInFetchRecordsOperation];
     pendingChangesStream = self->_pendingChangesStream;
-    v57[0] = MEMORY[0x277D85DD0];
-    v57[1] = 3221225472;
-    v57[2] = __58__BRCFetchRecordSubResourcesOperation__scheduleXattrFetch__block_invoke;
-    v57[3] = &unk_278508120;
-    xattrFetchingGroup = v8;
-    v58 = xattrFetchingGroup;
-    v44 = v9;
-    v59 = v44;
-    v60 = maxRecordCountInFetchRecordsOperation;
-    [(BRCPendingChangesStream *)pendingChangesStream enumerateRecordsNeedingXattrFetchWithBlock:v57];
-    v55 = 0u;
-    v56 = 0u;
+    v56[0] = MEMORY[0x277D85DD0];
+    v56[1] = 3221225472;
+    v56[2] = __58__BRCFetchRecordSubResourcesOperation__scheduleXattrFetch__block_invoke;
+    v56[3] = &unk_278508120;
+    xattrFetchingGroup = v7;
+    v57 = xattrFetchingGroup;
+    v43 = v8;
+    v58 = v43;
+    v59 = maxRecordCountInFetchRecordsOperation;
+    [(BRCPendingChangesStream *)pendingChangesStream enumerateRecordsNeedingXattrFetchWithBlock:v56];
     v54 = 0u;
+    v55 = 0u;
     v53 = 0u;
+    v52 = 0u;
     objectEnumerator = [(NSMutableDictionary *)self->_subResourceRecordsByID objectEnumerator];
-    v14 = [objectEnumerator countByEnumeratingWithState:&v53 objects:v66 count:16];
-    if (v14)
+    v13 = [objectEnumerator countByEnumeratingWithState:&v52 objects:v65 count:16];
+    if (v13)
     {
-      v15 = *v54;
+      v14 = *v53;
 LABEL_10:
-      v16 = 0;
+      v15 = 0;
       while (1)
       {
-        if (*v54 != v15)
+        if (*v53 != v14)
         {
           objc_enumerationMutation(objectEnumerator);
         }
 
-        v17 = *(*(&v53 + 1) + 8 * v16);
+        v16 = *(*(&v52 + 1) + 8 * v15);
         if ([(OS_dispatch_group *)xattrFetchingGroup count]>= maxRecordCountInFetchRecordsOperation)
         {
           break;
         }
 
-        xattrSignature = [v17 xattrSignature];
+        xattrSignature = [v16 xattrSignature];
         if (xattrSignature)
         {
-          xattrSignature2 = [v17 xattrSignature];
-          v20 = [v44 containsObject:xattrSignature2];
+          xattrSignature2 = [v16 xattrSignature];
+          v19 = [v43 containsObject:xattrSignature2];
 
-          if ((v20 & 1) == 0)
+          if ((v19 & 1) == 0)
           {
-            xattrSignature3 = [v17 xattrSignature];
-            [v44 addObject:xattrSignature3];
+            xattrSignature3 = [v16 xattrSignature];
+            [v43 addObject:xattrSignature3];
 
-            record = [v17 record];
+            record = [v16 record];
             etag = [record etag];
-            recordID = [v17 recordID];
+            recordID = [v16 recordID];
             [(OS_dispatch_group *)xattrFetchingGroup setObject:etag forKeyedSubscript:recordID];
           }
         }
 
-        if (v14 == ++v16)
+        if (v13 == ++v15)
         {
-          v14 = [objectEnumerator countByEnumeratingWithState:&v53 objects:v66 count:16];
-          if (v14)
+          v13 = [objectEnumerator countByEnumeratingWithState:&v52 objects:v65 count:16];
+          if (v13)
           {
             goto LABEL_10;
           }
@@ -2732,84 +2701,82 @@ LABEL_10:
       }
     }
 
-    v25 = [(OS_dispatch_group *)xattrFetchingGroup count];
-    if (v25)
+    v24 = [(OS_dispatch_group *)xattrFetchingGroup count];
+    if (v24)
     {
-      memset(v52, 0, sizeof(v52));
-      __brc_create_section(0, "[BRCFetchRecordSubResourcesOperation _scheduleXattrFetch]", 808, 0, v52);
-      v26 = brc_bread_crumbs();
-      v27 = brc_default_log();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+      memset(v51, 0, sizeof(v51));
+      __brc_create_section(0, "[BRCFetchRecordSubResourcesOperation _scheduleXattrFetch]", 808, 0, v51);
+      v25 = brc_bread_crumbs();
+      v26 = brc_default_log();
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
       {
-        v41 = v52[0];
+        v40 = v51[0];
         name2 = [(BRCFetchRecordSubResourcesOperation *)self name];
         *buf = 134218754;
-        *&buf[4] = v41;
+        *&buf[4] = v40;
         *&buf[12] = 2112;
         *&buf[14] = name2;
         *&buf[22] = 2048;
-        v63 = v25;
-        v64 = 2112;
-        v65 = v26;
-        _os_log_debug_impl(&dword_223E7A000, v27, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx %@ fetching %lu xattrs%@", buf, 0x2Au);
+        v62 = v24;
+        v63 = 2112;
+        v64 = v25;
+        _os_log_debug_impl(&dword_223E7A000, v26, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx %@ fetching %lu xattrs%@", buf, 0x2Au);
       }
 
-      v50 = 0uLL;
-      v51 = 0;
-      __brc_create_section(0, "[BRCFetchRecordSubResourcesOperation _scheduleXattrFetch]", 809, 0, &v50);
-      v28 = brc_bread_crumbs();
-      v29 = brc_default_log();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+      v49 = 0uLL;
+      v50 = 0;
+      __brc_create_section(0, "[BRCFetchRecordSubResourcesOperation _scheduleXattrFetch]", 809, 0, &v49);
+      v27 = brc_bread_crumbs();
+      v28 = brc_default_log();
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
       {
-        [(BRCFetchRecordSubResourcesOperation *)&v50 _scheduleXattrFetch];
+        [BRCFetchRecordSubResourcesOperation _scheduleXattrFetch];
       }
 
-      *buf = v50;
-      *&buf[16] = v51;
-      v30 = objc_alloc(MEMORY[0x277CBC3E0]);
+      *buf = v49;
+      *&buf[16] = v50;
+      v29 = objc_alloc(MEMORY[0x277CBC3E0]);
       allKeys = [(OS_dispatch_group *)xattrFetchingGroup allKeys];
-      v32 = [v30 initWithRecordIDs:allKeys];
+      v31 = [v29 initWithRecordIDs:allKeys];
 
-      v61[0] = @"xattr";
-      v61[1] = @"xattrSignature";
-      v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v61 count:2];
-      [v32 setDesiredKeys:v33];
+      v60[0] = @"xattr";
+      v60[1] = @"xattrSignature";
+      v32 = [MEMORY[0x277CBEA60] arrayWithObjects:v60 count:2];
+      [v31 setDesiredKeys:v32];
 
-      [v32 setRecordIDsToVersionETags:xattrFetchingGroup];
+      [v31 setRecordIDsToVersionETags:xattrFetchingGroup];
       callbackQueue2 = [(_BRCOperation *)self callbackQueue];
-      [v32 setCallbackQueue:callbackQueue2];
+      [v31 setCallbackQueue:callbackQueue2];
 
-      v46[0] = MEMORY[0x277D85DD0];
-      v46[1] = 3221225472;
-      v46[2] = __58__BRCFetchRecordSubResourcesOperation__scheduleXattrFetch__block_invoke_48;
-      v46[3] = &unk_278508148;
-      v47 = *buf;
-      v46[4] = self;
-      v48 = *&buf[16];
-      v49 = v25;
-      [v32 setFetchRecordsCompletionBlock:v46];
-      [(_BRCOperation *)self addSubOperation:v32];
+      v45[0] = MEMORY[0x277D85DD0];
+      v45[1] = 3221225472;
+      v45[2] = __58__BRCFetchRecordSubResourcesOperation__scheduleXattrFetch__block_invoke_48;
+      v45[3] = &unk_278508148;
+      v46 = *buf;
+      v45[4] = self;
+      v47 = *&buf[16];
+      v48 = v24;
+      [v31 setFetchRecordsCompletionBlock:v45];
+      [(_BRCOperation *)self addSubOperation:v31];
 
-      __brc_leave_section(v52);
+      __brc_leave_section(v51);
     }
 
     else
     {
-      v35 = brc_bread_crumbs();
-      v36 = brc_default_log();
-      if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
+      v34 = brc_bread_crumbs();
+      v35 = brc_default_log();
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
       {
         [BRCFetchRecordSubResourcesOperation _scheduleXattrFetch];
       }
 
       dispatch_resume(self->_xattrFetchingSource);
       dispatch_group_leave(self->_xattrFetchingGroup);
-      v37 = self->_xattrFetchingGroup;
+      v36 = self->_xattrFetchingGroup;
       self->_xattrFetchingGroup = 0;
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __58__BRCFetchRecordSubResourcesOperation__scheduleXattrFetch__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
@@ -2824,23 +2791,23 @@ BOOL __58__BRCFetchRecordSubResourcesOperation__scheduleXattrFetch__block_invoke
 
 void __58__BRCFetchRecordSubResourcesOperation__scheduleXattrFetch__block_invoke_48(uint64_t a1, void *a2, void *a3)
 {
-  v81 = *MEMORY[0x277D85DE8];
-  v54 = a2;
+  v80 = *MEMORY[0x277D85DE8];
+  v53 = a2;
   v5 = a3;
-  v69 = *(a1 + 40);
-  v59 = a1;
-  v70 = *(a1 + 56);
+  v68 = *(a1 + 40);
+  v58 = a1;
+  v69 = *(a1 + 56);
   v6 = brc_bread_crumbs();
   v7 = brc_default_log();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v43 = [*(a1 + 32) name];
+    v42 = [*(a1 + 32) name];
     *buf = 134218498;
-    v74 = v69;
-    v75 = 2112;
-    v76 = v43;
-    v77 = 2112;
-    v78 = v6;
+    v73 = v68;
+    v74 = 2112;
+    v75 = v42;
+    v76 = 2112;
+    v77 = v6;
     _os_log_debug_impl(&dword_223E7A000, v7, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx %@ finished fetching xattrs%@", buf, 0x20u);
   }
 
@@ -2854,11 +2821,11 @@ void __58__BRCFetchRecordSubResourcesOperation__scheduleXattrFetch__block_invoke
       {
         v10 = [*(a1 + 32) name];
         *buf = 138412802;
-        v74 = v10;
-        v75 = 2112;
-        v76 = v5;
-        v77 = 2112;
-        v78 = v8;
+        v73 = v10;
+        v74 = 2112;
+        v75 = v5;
+        v76 = 2112;
+        v77 = v8;
         _os_log_debug_impl(&dword_223E7A000, v9, OS_LOG_TYPE_DEBUG, "[DEBUG] failed to fetch xattr assets for %@: %@%@", buf, 0x20u);
       }
     }
@@ -2869,13 +2836,13 @@ void __58__BRCFetchRecordSubResourcesOperation__scheduleXattrFetch__block_invoke
       v9 = brc_default_log();
       if (os_log_type_enabled(v9, 0x90u))
       {
-        v44 = [*(a1 + 32) name];
+        v43 = [*(a1 + 32) name];
         *buf = 138412802;
-        v74 = v44;
-        v75 = 2112;
-        v76 = v5;
-        v77 = 2112;
-        v78 = v8;
+        v73 = v43;
+        v74 = 2112;
+        v75 = v5;
+        v76 = 2112;
+        v77 = v8;
         _os_log_error_impl(&dword_223E7A000, v9, 0x90u, "[ERROR] failed to fetch xattr assets for %@: %@%@", buf, 0x20u);
       }
     }
@@ -2884,29 +2851,29 @@ void __58__BRCFetchRecordSubResourcesOperation__scheduleXattrFetch__block_invoke
     goto LABEL_46;
   }
 
-  if ([v54 count] == *(a1 + 64))
+  if ([v53 count] == *(a1 + 64))
   {
-    v58 = objc_opt_new();
-    v67 = 0u;
-    v68 = 0u;
-    v65 = 0u;
+    v57 = objc_opt_new();
     v66 = 0u;
-    v11 = [v54 objectEnumerator];
-    v12 = [v11 countByEnumeratingWithState:&v65 objects:v72 count:16];
+    v67 = 0u;
+    v64 = 0u;
+    v65 = 0u;
+    v11 = [v53 objectEnumerator];
+    v12 = [v11 countByEnumeratingWithState:&v64 objects:v71 count:16];
     if (v12)
     {
-      v13 = *v66;
+      v13 = *v65;
       obj = v11;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v66 != v13)
+          if (*v65 != v13)
           {
             objc_enumerationMutation(obj);
           }
 
-          v15 = *(*(&v65 + 1) + 8 * i);
+          v15 = *(*(&v64 + 1) + 8 * i);
           v16 = [v15 objectForKeyedSubscript:@"xattr"];
           v17 = [v15 encryptedValues];
           v18 = [v17 objectForKeyedSubscript:@"xattrSignature"];
@@ -2924,10 +2891,10 @@ void __58__BRCFetchRecordSubResourcesOperation__scheduleXattrFetch__block_invoke
 
             if (!v20)
             {
-              v64 = 0;
-              v21 = [*(*(v59 + 32) + 256) xattrStager];
+              v63 = 0;
+              v21 = [*(*(v58 + 32) + 256) xattrStager];
               v22 = [v16 fileURL];
-              v23 = [v21 saveXattrAtURL:v22 forSignature:v18 error:&v64];
+              v23 = [v21 saveXattrAtURL:v22 forSignature:v18 error:&v63];
 
               if (v23)
               {
@@ -2935,21 +2902,21 @@ void __58__BRCFetchRecordSubResourcesOperation__scheduleXattrFetch__block_invoke
                 v25 = brc_default_log();
                 if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
                 {
-                  v55 = [*(v59 + 32) name];
+                  v54 = [*(v58 + 32) name];
                   v28 = [v18 brc_hexadecimalString];
                   v29 = [v16 size];
                   *buf = 138413058;
-                  v74 = v55;
-                  v75 = 2112;
-                  v76 = v28;
-                  v77 = 2048;
-                  v78 = v29;
-                  v79 = 2112;
-                  v80 = v24;
+                  v73 = v54;
+                  v74 = 2112;
+                  v75 = v28;
+                  v76 = 2048;
+                  v77 = v29;
+                  v78 = 2112;
+                  v79 = v24;
                   _os_log_debug_impl(&dword_223E7A000, v25, OS_LOG_TYPE_DEBUG, "[DEBUG] %@ saved xattr for signature: %@ sz:%lld%@", buf, 0x2Au);
                 }
 
-                [v58 addObject:v18];
+                [v57 addObject:v18];
               }
 
               else
@@ -2958,72 +2925,72 @@ void __58__BRCFetchRecordSubResourcesOperation__scheduleXattrFetch__block_invoke
                 v27 = brc_default_log();
                 if (os_log_type_enabled(v27, 0x90u))
                 {
-                  v30 = [*(v59 + 32) name];
+                  v30 = [*(v58 + 32) name];
                   v31 = [v18 brc_hexadecimalString];
                   *buf = 138413058;
-                  v74 = v30;
-                  v75 = 2112;
-                  v76 = v31;
-                  v77 = 2112;
-                  v78 = v64;
-                  v79 = 2112;
-                  v80 = v26;
-                  v56 = v31;
+                  v73 = v30;
+                  v74 = 2112;
+                  v75 = v31;
+                  v76 = 2112;
+                  v77 = v63;
+                  v78 = 2112;
+                  v79 = v26;
+                  v55 = v31;
                   _os_log_error_impl(&dword_223E7A000, v27, 0x90u, "[ERROR] %@ failed to store xattr for signature: %@ - %@%@", buf, 0x2Au);
                 }
 
-                [*(v59 + 32) stopWithError:v64];
+                [*(v58 + 32) stopWithError:v63];
               }
 
-              *(*(v59 + 32) + 656) += [v16 size];
+              *(*(v58 + 32) + 656) += [v16 size];
             }
           }
         }
 
         v11 = obj;
-        v12 = [obj countByEnumeratingWithState:&v65 objects:v72 count:16];
+        v12 = [obj countByEnumeratingWithState:&v64 objects:v71 count:16];
       }
 
       while (v12);
     }
 
-    [*(*(v59 + 32) + 512) finishedFetchingXattrSignatures:v58];
-    v62 = 0u;
-    v63 = 0u;
-    v60 = 0u;
+    [*(*(v58 + 32) + 512) finishedFetchingXattrSignatures:v57];
     v61 = 0u;
-    v32 = [*(*(v59 + 32) + 528) allValues];
-    v33 = [v32 countByEnumeratingWithState:&v60 objects:v71 count:16];
+    v62 = 0u;
+    v59 = 0u;
+    v60 = 0u;
+    v32 = [*(*(v58 + 32) + 528) allValues];
+    v33 = [v32 countByEnumeratingWithState:&v59 objects:v70 count:16];
     if (v33)
     {
       v34 = 0;
-      v35 = *v61;
+      v35 = *v60;
       do
       {
         for (j = 0; j != v33; ++j)
         {
-          if (*v61 != v35)
+          if (*v60 != v35)
           {
             objc_enumerationMutation(v32);
           }
 
-          v37 = *(*(&v60 + 1) + 8 * j);
+          v37 = *(*(&v59 + 1) + 8 * j);
           v38 = [v37 xattrSignature];
           if (v38)
           {
             v39 = [v37 xattrSignature];
-            v40 = [v58 containsObject:v39];
+            v40 = [v57 containsObject:v39];
 
             if (v40)
             {
               [v37 setXattrSignature:0];
-              [*(v59 + 32) _markSubResourceRecordAsFetchedIfNecessary:v37];
+              [*(v58 + 32) _markSubResourceRecordAsFetchedIfNecessary:v37];
               ++v34;
             }
           }
         }
 
-        v33 = [v32 countByEnumeratingWithState:&v60 objects:v71 count:16];
+        v33 = [v32 countByEnumeratingWithState:&v59 objects:v70 count:16];
       }
 
       while (v33);
@@ -3046,37 +3013,35 @@ LABEL_42:
     goto LABEL_46;
   }
 
-  v45 = brc_bread_crumbs();
-  v46 = brc_default_log();
-  if (os_log_type_enabled(v46, OS_LOG_TYPE_FAULT))
+  v44 = brc_bread_crumbs();
+  v45 = brc_default_log();
+  if (os_log_type_enabled(v45, OS_LOG_TYPE_FAULT))
   {
-    v51 = [v54 count];
-    v52 = *(v59 + 64);
-    v53 = [*(v59 + 32) name];
+    v50 = [v53 count];
+    v51 = *(v58 + 64);
+    v52 = [*(v58 + 32) name];
     *buf = 134218754;
-    v74 = v51;
-    v75 = 2048;
-    v76 = v52;
-    v77 = 2112;
-    v78 = v53;
-    v79 = 2112;
-    v80 = v45;
-    _os_log_fault_impl(&dword_223E7A000, v46, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: Received %lu xattr records instead of expected %lu records for %@%@", buf, 0x2Au);
+    v73 = v50;
+    v74 = 2048;
+    v75 = v51;
+    v76 = 2112;
+    v77 = v52;
+    v78 = 2112;
+    v79 = v44;
+    _os_log_fault_impl(&dword_223E7A000, v45, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: Received %lu xattr records instead of expected %lu records for %@%@", buf, 0x2Au);
   }
 
-  v47 = MEMORY[0x277CCA9B8];
-  v48 = [v54 count];
-  v49 = *(v59 + 64);
-  v50 = [*(v59 + 32) name];
-  v5 = [v47 br_errorWithDomain:*MEMORY[0x277CFACB0] code:15 description:{@"unreachable: Received %lu xattr records instead of expected %lu records for %@", v48, v49, v50}];
+  v46 = MEMORY[0x277CCA9B8];
+  v47 = [v53 count];
+  v48 = *(v58 + 64);
+  v49 = [*(v58 + 32) name];
+  v5 = [v46 br_errorWithDomain:*MEMORY[0x277CFACB0] code:15 description:{@"unreachable: Received %lu xattr records instead of expected %lu records for %@", v47, v48, v49}];
 
-  [*(v59 + 32) stopWithError:v5];
+  [*(v58 + 32) stopWithError:v5];
 LABEL_46:
-  dispatch_resume(*(*(v59 + 32) + 576));
-  dispatch_source_merge_data(*(*(v59 + 32) + 576), 1uLL);
-  __brc_leave_section(&v69);
-
-  v42 = *MEMORY[0x277D85DE8];
+  dispatch_resume(*(*(v58 + 32) + 576));
+  dispatch_source_merge_data(*(*(v58 + 32) + 576), 1uLL);
+  __brc_leave_section(&v68);
 }
 
 - (int64_t)_compareRecordsForSaveWithFirstRecord:(id)record secondRecord:(id)secondRecord
@@ -3143,7 +3108,7 @@ void __60__BRCFetchRecordSubResourcesOperation__prepareToSaveRecords__block_invo
 
 void __60__BRCFetchRecordSubResourcesOperation__prepareToSaveRecords__block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [*(a1 + 32) serverItemByItemID:v5];
@@ -3155,15 +3120,15 @@ void __60__BRCFetchRecordSubResourcesOperation__prepareToSaveRecords__block_invo
     v10 = brc_default_log();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      v22 = [v8 recordID];
-      v23 = [*(a1 + 40) name];
-      v26 = 138412802;
-      v27 = v22;
-      v28 = 2112;
-      v29 = v23;
-      v30 = 2112;
-      v31 = v9;
-      _os_log_debug_impl(&dword_223E7A000, v10, OS_LOG_TYPE_DEBUG, "[DEBUG] %@ no longer needs to fetch shareID in %@ from server truth check%@", &v26, 0x20u);
+      v21 = [v8 recordID];
+      v22 = [*(a1 + 40) name];
+      v25 = 138412802;
+      v26 = v21;
+      v27 = 2112;
+      v28 = v22;
+      v29 = 2112;
+      v30 = v9;
+      _os_log_debug_impl(&dword_223E7A000, v10, OS_LOG_TYPE_DEBUG, "[DEBUG] %@ no longer needs to fetch shareID in %@ from server truth check%@", &v25, 0x20u);
     }
 
     v11 = [*(a1 + 40) _markSubResourceRecordAsFetchedIfNecessary:v8];
@@ -3193,15 +3158,15 @@ void __60__BRCFetchRecordSubResourcesOperation__prepareToSaveRecords__block_invo
       v17 = brc_default_log();
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
       {
-        v24 = [v15 recordID];
-        v25 = [*(a1 + 40) name];
-        v26 = 138412802;
-        v27 = v24;
-        v28 = 2112;
-        v29 = v25;
-        v30 = 2112;
-        v31 = v16;
-        _os_log_debug_impl(&dword_223E7A000, v17, OS_LOG_TYPE_DEBUG, "[DEBUG] %@ is no longer blocked for save in %@ from server truth check%@", &v26, 0x20u);
+        v23 = [v15 recordID];
+        v24 = [*(a1 + 40) name];
+        v25 = 138412802;
+        v26 = v23;
+        v27 = 2112;
+        v28 = v24;
+        v29 = 2112;
+        v30 = v16;
+        _os_log_debug_impl(&dword_223E7A000, v17, OS_LOG_TYPE_DEBUG, "[DEBUG] %@ is no longer blocked for save in %@ from server truth check%@", &v25, 0x20u);
       }
 
       v18 = [*(a1 + 40) _markSubResourceRecordAsFetchedIfNecessary:v15];
@@ -3219,13 +3184,11 @@ void __60__BRCFetchRecordSubResourcesOperation__prepareToSaveRecords__block_invo
       *(v19 + 24) = v20 & 1;
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __60__BRCFetchRecordSubResourcesOperation__prepareToSaveRecords__block_invoke_56(uint64_t a1, uint64_t a2, void *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = [*(a1 + 32) serverItemByItemID:a2];
   if (v6)
@@ -3236,15 +3199,15 @@ void __60__BRCFetchRecordSubResourcesOperation__prepareToSaveRecords__block_invo
     v9 = brc_default_log();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      v14 = [v7 recordID];
-      v15 = [*(a1 + 40) name];
-      v16 = 138412802;
-      v17 = v14;
-      v18 = 2112;
-      v19 = v15;
-      v20 = 2112;
-      v21 = v8;
-      _os_log_debug_impl(&dword_223E7A000, v9, OS_LOG_TYPE_DEBUG, "[DEBUG] %@ is no longer blocked for save in %@ from server truth check%@", &v16, 0x20u);
+      v13 = [v7 recordID];
+      v14 = [*(a1 + 40) name];
+      v15 = 138412802;
+      v16 = v13;
+      v17 = 2112;
+      v18 = v14;
+      v19 = 2112;
+      v20 = v8;
+      _os_log_debug_impl(&dword_223E7A000, v9, OS_LOG_TYPE_DEBUG, "[DEBUG] %@ is no longer blocked for save in %@ from server truth check%@", &v15, 0x20u);
     }
 
     v10 = [*(a1 + 40) _markSubResourceRecordAsFetchedIfNecessary:v7];
@@ -3261,8 +3224,6 @@ void __60__BRCFetchRecordSubResourcesOperation__prepareToSaveRecords__block_invo
 
     *(v11 + 24) = v12 & 1;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_saveRecordsToPendingChangesWithServerChangeToken:(id)token clientChangeToken:(int64_t)changeToken
@@ -3279,7 +3240,7 @@ void __60__BRCFetchRecordSubResourcesOperation__prepareToSaveRecords__block_invo
 
 - (BOOL)saveRecordsWithServerChangeToken:(id)token clientChangeToken:(int64_t)changeToken syncStatus:(int64_t)status
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   tokenCopy = token;
   callbackQueue = [(_BRCOperation *)self callbackQueue];
   dispatch_assert_queue_V2(callbackQueue);
@@ -3304,18 +3265,35 @@ void __60__BRCFetchRecordSubResourcesOperation__prepareToSaveRecords__block_invo
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       name = [(BRCFetchRecordSubResourcesOperation *)self name];
-      v24 = [tokenCopy descriptionWithContext:0];
-      v25 = v24;
+      v23 = [tokenCopy descriptionWithContext:0];
+      v24 = v23;
       canSaveDirectly = self->_canSaveDirectly;
       *buf = 138413570;
-      v32 = name;
-      v27 = "YES";
-      v33 = 2112;
-      v28 = status == 3 || canSaveDirectly;
-      v35 = 2048;
+      v31 = name;
+      v26 = "YES";
+      v32 = 2112;
+      v27 = status == 3 || canSaveDirectly;
+      v34 = 2048;
       if (status == 3)
       {
-        v29 = "YES";
+        v28 = "YES";
+      }
+
+      else
+      {
+        v28 = "NO";
+      }
+
+      v33 = v23;
+      if (_hasRecordsPendingSubResources)
+      {
+        v26 = "NO";
+      }
+
+      changeTokenCopy = changeToken;
+      if (v27)
+      {
+        v29 = v26;
       }
 
       else
@@ -3323,29 +3301,12 @@ void __60__BRCFetchRecordSubResourcesOperation__prepareToSaveRecords__block_invo
         v29 = "NO";
       }
 
-      v34 = v24;
-      if (_hasRecordsPendingSubResources)
-      {
-        v27 = "NO";
-      }
-
-      changeTokenCopy = changeToken;
-      if (v28)
-      {
-        v30 = v27;
-      }
-
-      else
-      {
-        v30 = "NO";
-      }
-
-      v37 = 2080;
-      v38 = v29;
-      v39 = 2080;
-      v40 = v30;
-      v41 = 2112;
-      v42 = v12;
+      v36 = 2080;
+      v37 = v28;
+      v38 = 2080;
+      v39 = v29;
+      v40 = 2112;
+      v41 = v12;
       _os_log_debug_impl(&dword_223E7A000, v13, OS_LOG_TYPE_DEBUG, "[DEBUG] %@ saving records with server change token:%@ requestID:%llu caught up:%s directly:%s%@", buf, 0x3Eu);
     }
 
@@ -3385,9 +3346,9 @@ void __60__BRCFetchRecordSubResourcesOperation__prepareToSaveRecords__block_invo
         {
           name2 = [(BRCFetchRecordSubResourcesOperation *)self name];
           *buf = 138412546;
-          v32 = name2;
-          v33 = 2112;
-          v34 = v18;
+          v31 = name2;
+          v32 = 2112;
+          v33 = v18;
           _os_log_impl(&dword_223E7A000, v19, OS_LOG_TYPE_DEFAULT, "[WARNING] %@ Allocating ranks failed when not caught up.  We'll save to pending changes from now on%@", buf, 0x16u);
         }
 
@@ -3401,13 +3362,12 @@ LABEL_20:
     [(BRCFetchRecordSubResourcesOperation *)self _cleanUpAfterSavingRecords];
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return error == 0;
 }
 
 - (BOOL)saveRecordsWithQueryCursor:(id)cursor
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   cursorCopy = cursor;
   callbackQueue = [(_BRCOperation *)self callbackQueue];
   dispatch_assert_queue_V2(callbackQueue);
@@ -3426,21 +3386,21 @@ LABEL_20:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       name = [(BRCFetchRecordSubResourcesOperation *)self name];
-      v39 = "NO";
-      *v51 = 138413058;
-      *&v51[4] = name;
-      *&v51[12] = 2112;
+      v38 = "NO";
+      *v50 = 138413058;
+      *&v50[4] = name;
+      *&v50[12] = 2112;
       if (canSaveDirectly)
       {
-        v39 = "YES";
+        v38 = "YES";
       }
 
-      *&v51[14] = cursorCopy;
-      *&v51[22] = 2080;
-      v52 = v39;
-      v53 = 2112;
-      v54 = v8;
-      _os_log_debug_impl(&dword_223E7A000, v9, OS_LOG_TYPE_DEBUG, "[DEBUG] %@ saving records with query cursor:%@ directly:%s%@", v51, 0x2Au);
+      *&v50[14] = cursorCopy;
+      *&v50[22] = 2080;
+      v51 = v38;
+      v52 = 2112;
+      v53 = v8;
+      _os_log_debug_impl(&dword_223E7A000, v9, OS_LOG_TYPE_DEBUG, "[DEBUG] %@ saving records with query cursor:%@ directly:%s%@", v50, 0x2Au);
     }
 
     if (!canSaveDirectly && cursorCopy != 0)
@@ -3448,8 +3408,8 @@ LABEL_20:
       pendingChangesStream = self->_pendingChangesStream;
       if (!pendingChangesStream)
       {
-        [(BRCFetchRecordSubResourcesOperation *)&self->_pendingChangesStream saveRecordsWithQueryCursor:v51];
-        pendingChangesStream = *v51;
+        [(BRCFetchRecordSubResourcesOperation *)&self->_pendingChangesStream saveRecordsWithQueryCursor:v50];
+        pendingChangesStream = *v50;
       }
 
       objectEnumerator = [(NSMutableDictionary *)self->_recordsByID objectEnumerator];
@@ -3460,10 +3420,10 @@ LABEL_20:
       goto LABEL_32;
     }
 
-    *v51 = 0;
-    *&v51[8] = v51;
-    *&v51[16] = 0x2020000000;
-    v52 = 0;
+    *v50 = 0;
+    *&v50[8] = v50;
+    *&v50[16] = 0x2020000000;
+    v51 = 0;
     if (cursorCopy)
     {
       v10 = 0;
@@ -3476,28 +3436,28 @@ LABEL_20:
 
     v14 = self->_serverZone;
     serverReadWriteDatabaseFacade = [(BRCSessionContext *)self->super._sessionContext serverReadWriteDatabaseFacade];
-    v43[0] = MEMORY[0x277D85DD0];
-    v43[1] = 3221225472;
-    v43[2] = __66__BRCFetchRecordSubResourcesOperation_saveRecordsWithQueryCursor___block_invoke;
-    v43[3] = &unk_278508210;
-    v43[4] = self;
-    v45 = v51;
+    v42[0] = MEMORY[0x277D85DD0];
+    v42[1] = 3221225472;
+    v42[2] = __66__BRCFetchRecordSubResourcesOperation_saveRecordsWithQueryCursor___block_invoke;
+    v42[3] = &unk_278508210;
+    v42[4] = self;
+    v44 = v50;
     v16 = v14;
-    v44 = v16;
-    v46 = v10;
-    [serverReadWriteDatabaseFacade performWithFlags:25 action:v43];
+    v43 = v16;
+    v45 = v10;
+    [serverReadWriteDatabaseFacade performWithFlags:25 action:v42];
 
-    if (*(*&v51[8] + 24))
+    if (*(*&v50[8] + 24))
     {
       clientReadWriteDatabaseFacade = [(BRCSessionContext *)self->super._sessionContext clientReadWriteDatabaseFacade];
-      v41[0] = MEMORY[0x277D85DD0];
-      v41[1] = 3221225472;
-      v41[2] = __66__BRCFetchRecordSubResourcesOperation_saveRecordsWithQueryCursor___block_invoke_2;
-      v41[3] = &unk_278508238;
-      v41[4] = self;
-      v41[5] = v51;
-      v42 = v10;
-      [clientReadWriteDatabaseFacade performWithFlags:41 action:v41];
+      v40[0] = MEMORY[0x277D85DD0];
+      v40[1] = 3221225472;
+      v40[2] = __66__BRCFetchRecordSubResourcesOperation_saveRecordsWithQueryCursor___block_invoke_2;
+      v40[3] = &unk_278508238;
+      v40[4] = self;
+      v40[5] = v50;
+      v41 = v10;
+      [clientReadWriteDatabaseFacade performWithFlags:41 action:v40];
 
       if (v10)
       {
@@ -3547,20 +3507,20 @@ LABEL_20:
         {
           name3 = [(BRCFetchRecordSubResourcesOperation *)self name];
           *buf = 138412546;
-          v48 = name3;
-          v49 = 2112;
-          v50 = v27;
+          v47 = name3;
+          v48 = 2112;
+          v49 = v27;
           _os_log_impl(&dword_223E7A000, v28, OS_LOG_TYPE_DEFAULT, "[WARNING] %@ got a (temporary) broken structure while listing directory contents%@", buf, 0x16u);
         }
 
         clientReadWriteDatabaseFacade2 = [(BRCSessionContext *)self->super._sessionContext clientReadWriteDatabaseFacade];
         workloop = [clientReadWriteDatabaseFacade2 workloop];
-        v40[0] = MEMORY[0x277D85DD0];
-        v40[1] = 3221225472;
-        v40[2] = __66__BRCFetchRecordSubResourcesOperation_saveRecordsWithQueryCursor___block_invoke_61;
-        v40[3] = &unk_2784FF450;
-        v40[4] = self;
-        dispatch_async(workloop, v40);
+        v39[0] = MEMORY[0x277D85DD0];
+        v39[1] = 3221225472;
+        v39[2] = __66__BRCFetchRecordSubResourcesOperation_saveRecordsWithQueryCursor___block_invoke_61;
+        v39[3] = &unk_2784FF450;
+        v39[4] = self;
+        dispatch_async(workloop, v39);
 
         v6 = 0;
         goto LABEL_31;
@@ -3571,7 +3531,7 @@ LABEL_20:
       if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v48 = v34;
+        v47 = v34;
         _os_log_impl(&dword_223E7A000, v35, OS_LOG_TYPE_DEFAULT, "[WARNING] Allocating ranks failed when not caught up and listing.  We'll save to pending changes from now on%@", buf, 0xCu);
       }
     }
@@ -3579,7 +3539,7 @@ LABEL_20:
     v6 = 1;
 LABEL_31:
 
-    _Block_object_dispose(v51, 8);
+    _Block_object_dispose(v50, 8);
 LABEL_32:
     [(BRCFetchRecordSubResourcesOperation *)self _cleanUpAfterSavingRecords];
     goto LABEL_33;
@@ -3588,7 +3548,6 @@ LABEL_32:
   v6 = 0;
 LABEL_33:
 
-  v36 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

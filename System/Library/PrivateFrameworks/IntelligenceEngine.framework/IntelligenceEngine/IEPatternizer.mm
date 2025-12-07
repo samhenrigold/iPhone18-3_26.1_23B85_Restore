@@ -21,21 +21,21 @@
   v11 = v10;
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
   {
-    *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_254C81000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v9, "generatePatterns(flowFile:noOverwrite:deleteText:userParamTypes:)", "", buf, 2u);
+    LOWORD(buf.__r_.__value_.__l.__data_) = 0;
+    _os_signpost_emit_with_name_impl(&dword_254C81000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v9, "generatePatterns(flowFile:noOverwrite:deleteText:userParamTypes:)", "", &buf, 2u);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(buf, "generatePatterns(flowFile:noOverwrite:deleteText:userParamTypes:)");
-  siri::intelligence::Timer::Timer(&v14);
+  std::string::basic_string[abi:ne200100]<0>(&buf, "generatePatterns(flowFile:noOverwrite:deleteText:userParamTypes:)");
+  siri::intelligence::Timer::Timer(&v14, &buf);
 }
 
-void __72__IEPatternizer_generatePatterns_noOverwrite_deleteText_userParamTypes___block_invoke(siri::intelligence::Utils *a1)
+void __72__IEPatternizer_generatePatterns_noOverwrite_deleteText_userParamTypes___block_invoke(os_signpost_id_t *a1)
 {
-  siri::intelligence::Utils::GetSecsSinceStart(a1);
-  siri::intelligence::Log::Info("< Exiting function 'generatePatterns(flowFile:noOverwrite:deleteText:userParamTypes:)' (took %1.1f ms)", v3, (v2 - *(*(a1 + 5) + 24)) * 10000.0);
+  SecsSinceStart = siri::intelligence::Utils::GetSecsSinceStart(a1);
+  siri::intelligence::Log::Info("< Exiting function 'generatePatterns(flowFile:noOverwrite:deleteText:userParamTypes:)' (took %1.1f ms)", v3, (SecsSinceStart - *(a1[5] + 24)) * 10000.0);
   v4 = _MergedGlobals_11;
   v5 = v4;
-  v6 = *(a1 + 6);
+  v6 = a1[6];
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
     *buf = 0;
@@ -58,21 +58,21 @@ void __72__IEPatternizer_generatePatterns_noOverwrite_deleteText_userParamTypes_
   v11 = v10;
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
   {
-    *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_254C81000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v9, "generateCATs(flowFile:noOverwrite:deleteText:userParamTypes:)", "", buf, 2u);
+    LOWORD(buf.__r_.__value_.__l.__data_) = 0;
+    _os_signpost_emit_with_name_impl(&dword_254C81000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v9, "generateCATs(flowFile:noOverwrite:deleteText:userParamTypes:)", "", &buf, 2u);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(buf, "generateCATs(flowFile:noOverwrite:deleteText:userParamTypes:)");
-  siri::intelligence::Timer::Timer(&v14);
+  std::string::basic_string[abi:ne200100]<0>(&buf, "generateCATs(flowFile:noOverwrite:deleteText:userParamTypes:)");
+  siri::intelligence::Timer::Timer(&v14, &buf);
 }
 
-void __68__IEPatternizer_generateCATs_noOverwrite_deleteText_userParamTypes___block_invoke(siri::intelligence::Utils *a1)
+void __68__IEPatternizer_generateCATs_noOverwrite_deleteText_userParamTypes___block_invoke(os_signpost_id_t *a1)
 {
-  siri::intelligence::Utils::GetSecsSinceStart(a1);
-  siri::intelligence::Log::Info("< Exiting function 'generateCATs(flowFile:noOverwrite:deleteText:userParamTypes:)' (took %1.1f ms)", v3, (v2 - *(*(a1 + 5) + 24)) * 10000.0);
+  SecsSinceStart = siri::intelligence::Utils::GetSecsSinceStart(a1);
+  siri::intelligence::Log::Info("< Exiting function 'generateCATs(flowFile:noOverwrite:deleteText:userParamTypes:)' (took %1.1f ms)", v3, (SecsSinceStart - *(a1[5] + 24)) * 10000.0);
   v4 = qword_280AF4430;
   v5 = v4;
-  v6 = *(a1 + 6);
+  v6 = a1[6];
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
     *buf = 0;
@@ -95,21 +95,21 @@ void __68__IEPatternizer_generateCATs_noOverwrite_deleteText_userParamTypes___bl
   v9 = v8;
   if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
   {
-    *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_254C81000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v7, "updateCATMetadata(flowFile:meta:)", "", buf, 2u);
+    LOWORD(buf.__r_.__value_.__l.__data_) = 0;
+    _os_signpost_emit_with_name_impl(&dword_254C81000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v7, "updateCATMetadata(flowFile:meta:)", "", &buf, 2u);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(buf, "updateCATMetadata(flowFile:meta:)");
-  siri::intelligence::Timer::Timer(&v12);
+  std::string::basic_string[abi:ne200100]<0>(&buf, "updateCATMetadata(flowFile:meta:)");
+  siri::intelligence::Timer::Timer(&v12, &buf);
 }
 
-void __44__IEPatternizer_updateCATMetadata_withMeta___block_invoke(siri::intelligence::Utils *a1)
+void __44__IEPatternizer_updateCATMetadata_withMeta___block_invoke(os_signpost_id_t *a1)
 {
-  siri::intelligence::Utils::GetSecsSinceStart(a1);
-  siri::intelligence::Log::Info("< Exiting function 'updateCATMetadata(flowFile:meta:)' (took %1.1f ms)", v3, (v2 - *(*(a1 + 5) + 24)) * 10000.0);
+  SecsSinceStart = siri::intelligence::Utils::GetSecsSinceStart(a1);
+  siri::intelligence::Log::Info("< Exiting function 'updateCATMetadata(flowFile:meta:)' (took %1.1f ms)", v3, (SecsSinceStart - *(a1[5] + 24)) * 10000.0);
   v4 = qword_280AF4440;
   v5 = v4;
-  v6 = *(a1 + 6);
+  v6 = a1[6];
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
     *buf = 0;

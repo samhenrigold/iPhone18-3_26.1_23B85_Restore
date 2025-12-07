@@ -4,7 +4,7 @@
 + (BOOL)insertSyncRequest:(id)request reason:(id)reason date:(id)date profile:(id)profile error:(id *)error;
 + (BOOL)markInProgressRequestsAsPending:(id)pending error:(id *)error;
 + (BOOL)markPendingRequestsAsInProgress:(id)progress error:(id *)error;
-+ (id)_extractRequest:;
++ (id)_extractRequest:(uint64_t)request;
 + (id)fetchAllInProgressSyncRequests:(id)requests error:(id *)error;
 + (id)fetchAllSyncRequests:(id)requests error:(id *)error;
 + (uint64_t)_enumerateOverAllSyncRequests:(uint64_t)requests error:(void *)error enumerationHandler:;
@@ -162,9 +162,7 @@ uint64_t __73__HDCachedSyncRequestEntity_insertSyncRequest_reason_date_profile_e
   v21 = [v20 UUIDString];
   HDSQLiteBindFoundationValueToStatement();
 
-  v22 = *(a1 + 40);
   HDSQLiteBindFoundationValueToStatement();
-  v23 = *(a1 + 48);
 
   return HDSQLiteBindFoundationValueToStatement();
 }
@@ -242,32 +240,32 @@ uint64_t __67__HDCachedSyncRequestEntity_markInProgressRequestsAsPending_error__
 
 + (BOOL)fetchCoalescedSyncRequest:(id *)request transaction:(id)transaction error:(id *)error
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   transactionCopy = transaction;
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x3032000000;
-  v25 = __Block_byref_object_copy__0;
-  v26 = __Block_byref_object_dispose__0;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x3032000000;
+  v24 = __Block_byref_object_copy__0;
+  v25 = __Block_byref_object_dispose__0;
   emptySyncRequest = [MEMORY[0x277CCD140] emptySyncRequest];
   v9 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __73__HDCachedSyncRequestEntity_fetchCoalescedSyncRequest_transaction_error___block_invoke;
-  v18[3] = &unk_2786135B8;
-  v20 = &v22;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __73__HDCachedSyncRequestEntity_fetchCoalescedSyncRequest_transaction_error___block_invoke;
+  v17[3] = &unk_2786135B8;
+  v19 = &v21;
   selfCopy = self;
   v10 = v9;
-  v19 = v10;
-  v11 = [(HDCachedSyncRequestEntity *)self _enumerateOverAllSyncRequests:transactionCopy error:error enumerationHandler:v18];
+  v18 = v10;
+  v11 = [(HDCachedSyncRequestEntity *)self _enumerateOverAllSyncRequests:transactionCopy error:error enumerationHandler:v17];
   _HKInitializeLogging();
   v12 = MEMORY[0x277CCC2B0];
   v13 = *MEMORY[0x277CCC2B0];
   if (os_log_type_enabled(*MEMORY[0x277CCC2B0], OS_LOG_TYPE_DEFAULT))
   {
-    v14 = v23[5];
+    v14 = v22[5];
     *buf = 138543362;
-    v29 = v14;
+    v28 = v14;
     _os_log_impl(&dword_228986000, v13, OS_LOG_TYPE_DEFAULT, "Coalesced sync request: \n%{public}@", buf, 0xCu);
   }
 
@@ -276,82 +274,59 @@ uint64_t __67__HDCachedSyncRequestEntity_markInProgressRequestsAsPending_error__
   if (os_log_type_enabled(*v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v29 = v10;
+    v28 = v10;
     _os_log_impl(&dword_228986000, v15, OS_LOG_TYPE_DEFAULT, "List of Requests: %{public}@", buf, 0xCu);
   }
 
   if (request)
   {
-    *request = v23[5];
+    *request = v22[5];
   }
 
-  _Block_object_dispose(&v22, 8);
-  v16 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v21, 8);
   return v11;
 }
 
-uint64_t __73__HDCachedSyncRequestEntity_fetchCoalescedSyncRequest_transaction_error___block_invoke(uint64_t a1)
+uint64_t __73__HDCachedSyncRequestEntity_fetchCoalescedSyncRequest_transaction_error___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v3 = *(a1 + 40);
-  v2 = *(a1 + 48);
-  v4 = *(*(v3 + 8) + 40);
-  v5 = +[HDCachedSyncRequestEntity _extractRequest:];
-  v6 = [v4 requestByMergingRequest:v5];
-  v7 = *(*(a1 + 40) + 8);
-  v8 = *(v7 + 40);
-  *(v7 + 40) = v6;
+  v3 = *(*(*(a1 + 40) + 8) + 40);
+  v4 = [(HDCachedSyncRequestEntity *)*(a1 + 48) _extractRequest:a2];
+  v5 = [v3 requestByMergingRequest:v4];
+  v6 = *(*(a1 + 40) + 8);
+  v7 = *(v6 + 40);
+  *(v6 + 40) = v5;
 
+  v8 = HDSQLiteColumnWithNameAsString();
   v9 = HDSQLiteColumnWithNameAsString();
-  v10 = HDSQLiteColumnWithNameAsString();
-  if (v10 && v9)
+  if (v9 && v8)
   {
-    [*(a1 + 32) setObject:v10 forKeyedSubscript:v9];
+    [*(a1 + 32) setObject:v9 forKeyedSubscript:v8];
   }
 
   return 1;
 }
 
-+ (id)_extractRequest:
++ (id)_extractRequest:(uint64_t)request
 {
   objc_opt_self();
-  v0 = HDSQLiteColumnWithNameAsInt64();
-  v1 = HDSQLiteColumnWithNameAsInt64();
-  v18 = HDSQLiteColumnWithNameAsInt64();
   v2 = HDSQLiteColumnWithNameAsInt64();
   v3 = HDSQLiteColumnWithNameAsInt64();
-  v22 = HDSQLiteColumnWithNameAsInt64();
-  v21 = HDSQLiteColumnWithNameAsInt64();
+  v20 = HDSQLiteColumnWithNameAsInt64();
   v4 = HDSQLiteColumnWithNameAsInt64();
   v5 = HDSQLiteColumnWithNameAsInt64();
-  v19 = HDSQLiteColumnWithNameAsInt64();
-  v20 = HDSQLiteColumnWithNameAsInt64();
-  v6 = objc_alloc(MEMORY[0x277CCAD78]);
-  v7 = HDSQLiteColumnWithNameAsString();
-  v8 = [v6 initWithUUIDString:v7];
-
-  if (v0 | v1)
-  {
-    v9 = [objc_alloc(MEMORY[0x277CCD0C8]) initWithPush:v0 != 0 pull:v1 != 0 lite:v18 != 0];
-  }
-
-  else
-  {
-    v9 = 0;
-  }
+  v24 = HDSQLiteColumnWithNameAsInt64();
+  v23 = HDSQLiteColumnWithNameAsInt64();
+  v6 = HDSQLiteColumnWithNameAsInt64();
+  v7 = HDSQLiteColumnWithNameAsInt64();
+  v21 = HDSQLiteColumnWithNameAsInt64();
+  v22 = HDSQLiteColumnWithNameAsInt64();
+  v8 = objc_alloc(MEMORY[0x277CCAD78]);
+  v9 = HDSQLiteColumnWithNameAsString();
+  v10 = [v8 initWithUUIDString:v9];
 
   if (v2 | v3)
   {
-    v10 = [objc_alloc(MEMORY[0x277CCD220]) initWithPush:v2 != 0 pull:v3 != 0];
-  }
-
-  else
-  {
-    v10 = 0;
-  }
-
-  if (v5 | v4)
-  {
-    v11 = [objc_alloc(MEMORY[0x277CCDA80]) initWithPush:v5 != 0 pull:v4 != 0];
+    v11 = [objc_alloc(MEMORY[0x277CCD0C8]) initWithPush:v2 != 0 pull:v3 != 0 lite:v20 != 0];
   }
 
   else
@@ -359,10 +334,19 @@ uint64_t __73__HDCachedSyncRequestEntity_fetchCoalescedSyncRequest_transaction_e
     v11 = 0;
   }
 
-  v12 = objc_alloc(MEMORY[0x277CCD140]);
-  if (v22)
+  if (v4 | v5)
   {
-    v13 = objc_alloc_init(MEMORY[0x277CCDA40]);
+    v12 = [objc_alloc(MEMORY[0x277CCD220]) initWithPush:v4 != 0 pull:v5 != 0];
+  }
+
+  else
+  {
+    v12 = 0;
+  }
+
+  if (v7 | v6)
+  {
+    v13 = [objc_alloc(MEMORY[0x277CCDA80]) initWithPush:v7 != 0 pull:v6 != 0];
   }
 
   else
@@ -370,13 +354,24 @@ uint64_t __73__HDCachedSyncRequestEntity_fetchCoalescedSyncRequest_transaction_e
     v13 = 0;
   }
 
-  if (v21)
+  v14 = objc_alloc(MEMORY[0x277CCD140]);
+  if (v24)
   {
-    v14 = objc_alloc_init(MEMORY[0x277CCD5F0]);
-    LOBYTE(v17) = v19 != 0;
-    v15 = [v12 initWithIdentifier:v8 changesSyncRequest:v9 contextSyncRequest:v10 stateSyncRequest:v13 medicalIDSyncRequest:v14 summarySharingSyncRequest:v11 allowCellular:v17 qualityOfService:v20];
+    v15 = objc_alloc_init(MEMORY[0x277CCDA40]);
+  }
 
-    if (!v22)
+  else
+  {
+    v15 = 0;
+  }
+
+  if (v23)
+  {
+    v16 = objc_alloc_init(MEMORY[0x277CCD5F0]);
+    LOBYTE(v19) = v21 != 0;
+    v17 = [v14 initWithIdentifier:v10 changesSyncRequest:v11 contextSyncRequest:v12 stateSyncRequest:v15 medicalIDSyncRequest:v16 summarySharingSyncRequest:v13 allowCellular:v19 qualityOfService:v22];
+
+    if (!v24)
     {
       goto LABEL_16;
     }
@@ -384,16 +379,16 @@ uint64_t __73__HDCachedSyncRequestEntity_fetchCoalescedSyncRequest_transaction_e
     goto LABEL_15;
   }
 
-  LOBYTE(v17) = v19 != 0;
-  v15 = [v12 initWithIdentifier:v8 changesSyncRequest:v9 contextSyncRequest:v10 stateSyncRequest:v13 medicalIDSyncRequest:0 summarySharingSyncRequest:v11 allowCellular:v17 qualityOfService:v20];
-  if (v22)
+  LOBYTE(v19) = v21 != 0;
+  v17 = [v14 initWithIdentifier:v10 changesSyncRequest:v11 contextSyncRequest:v12 stateSyncRequest:v15 medicalIDSyncRequest:0 summarySharingSyncRequest:v13 allowCellular:v19 qualityOfService:v22];
+  if (v24)
   {
 LABEL_15:
   }
 
 LABEL_16:
 
-  return v15;
+  return v17;
 }
 
 + (uint64_t)_enumerateOverAllSyncRequests:(uint64_t)requests error:(void *)error enumerationHandler:
@@ -444,13 +439,11 @@ LABEL_16:
   return v8;
 }
 
-uint64_t __56__HDCachedSyncRequestEntity_fetchAllSyncRequests_error___block_invoke(uint64_t a1)
+uint64_t __56__HDCachedSyncRequestEntity_fetchAllSyncRequests_error___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
-  v1 = *(a1 + 40);
-  v3 = *(*(v2 + 8) + 40);
-  v4 = +[HDCachedSyncRequestEntity _extractRequest:];
-  [v3 addObject:v4];
+  v2 = *(*(*(a1 + 32) + 8) + 40);
+  v3 = [(HDCachedSyncRequestEntity *)*(a1 + 40) _extractRequest:a2];
+  [v2 addObject:v3];
 
   return 1;
 }
@@ -502,13 +495,11 @@ id __66__HDCachedSyncRequestEntity_fetchAllInProgressSyncRequests_error___block_
   return v3;
 }
 
-uint64_t __66__HDCachedSyncRequestEntity_fetchAllInProgressSyncRequests_error___block_invoke_3(uint64_t a1)
+uint64_t __66__HDCachedSyncRequestEntity_fetchAllInProgressSyncRequests_error___block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
-  v1 = *(a1 + 40);
-  v3 = *(*(v2 + 8) + 40);
-  v4 = +[HDCachedSyncRequestEntity _extractRequest:];
-  [v3 addObject:v4];
+  v2 = *(*(*(a1 + 32) + 8) + 40);
+  v3 = [(HDCachedSyncRequestEntity *)*(a1 + 40) _extractRequest:a2];
+  [v2 addObject:v3];
 
   return 1;
 }

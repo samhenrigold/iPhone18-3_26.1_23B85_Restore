@@ -2,6 +2,7 @@
 + (id)entryEventForwardDefinitionLpmSourceInformation;
 - (PLDuetServiceLpmSource)init;
 - (PLService)duetService;
+- (void)didReceiveLpmSourceInfoWithPayload:(id)payload withFlag:(signed __int16)flag;
 - (void)initOperatorDependanciesLpmSource:(id)source;
 @end
 
@@ -27,26 +28,24 @@
 
 + (id)entryEventForwardDefinitionLpmSourceInformation
 {
-  v16[2] = *MEMORY[0x277D85DE8];
-  v15[0] = *MEMORY[0x277D3F4E8];
-  v13 = *MEMORY[0x277D3F568];
-  v14 = &unk_282C1C1B8;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
-  v16[0] = v2;
-  v15[1] = *MEMORY[0x277D3F540];
-  v11[0] = @"Source";
+  v15[2] = *MEMORY[0x277D85DE8];
+  v14[0] = *MEMORY[0x277D3F4E8];
+  v12 = *MEMORY[0x277D3F568];
+  v13 = &unk_282C1C1B8;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
+  v15[0] = v2;
+  v14[1] = *MEMORY[0x277D3F540];
+  v10[0] = @"Source";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat = [mEMORY[0x277D3F198] commonTypeDict_StringFormat];
-  v11[1] = @"LpmEnabled";
-  v12[0] = commonTypeDict_StringFormat;
+  v10[1] = @"LpmEnabled";
+  v11[0] = commonTypeDict_StringFormat;
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat];
-  v12[1] = commonTypeDict_IntegerFormat;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
-  v16[1] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v11[1] = commonTypeDict_IntegerFormat;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v15[1] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
 
   return v8;
 }
@@ -76,6 +75,74 @@
     v11[4] = self;
     v10 = [v8 initWithOperator:duetService2 withRegistration:&unk_282C17D10 withBlock:v11];
     [(PLDuetServiceLpmSource *)self setLpmDisabledXPCListener:v10];
+  }
+}
+
+- (void)didReceiveLpmSourceInfoWithPayload:(id)payload withFlag:(signed __int16)flag
+{
+  flagCopy = flag;
+  v24 = *MEMORY[0x277D85DE8];
+  payloadCopy = payload;
+  if (payloadCopy)
+  {
+    duetService = [(PLDuetServiceLpmSource *)self duetService];
+
+    if (duetService)
+    {
+      v8 = PLLogDuetServiceLpmSource();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+      {
+        *buf = 138412290;
+        v23 = payloadCopy;
+        _os_log_debug_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_DEBUG, "didReceiveLpmSourceInfoWithPayload payload=%@", buf, 0xCu);
+      }
+
+      v9 = objc_alloc(MEMORY[0x277D3F190]);
+      v10 = [(PLOperator *)PLDuetService entryKeyForType:*MEMORY[0x277D3F5D0] andName:@"LpmSourceInformation"];
+      v11 = [v9 initWithEntryKey:v10];
+
+      v12 = [payloadCopy objectForKeyedSubscript:@"source"];
+      [v11 setObject:v12 forKeyedSubscript:@"Source"];
+      v13 = [MEMORY[0x277CCABB0] numberWithShort:flagCopy];
+      [v11 setObject:v13 forKeyedSubscript:@"LpmEnabled"];
+
+      duetService2 = [(PLDuetServiceLpmSource *)self duetService];
+
+      if (duetService2)
+      {
+        duetService3 = [(PLDuetServiceLpmSource *)self duetService];
+        [duetService3 logEntry:v11];
+      }
+
+      v16 = objc_opt_new();
+      if (flagCopy == 1)
+      {
+        v17 = @"lpm.enabledCount.";
+      }
+
+      else
+      {
+        v17 = @"lpm.disabledCount.";
+      }
+
+      if (flagCopy == 1)
+      {
+        v18 = @"enabled";
+      }
+
+      else
+      {
+        v18 = @"disabled";
+      }
+
+      v19 = [@"com.apple.power." stringByAppendingString:v17];
+      [v16 setObject:v18 forKeyedSubscript:@"state"];
+      MEMORY[0x21CEDCD40]([v19 stringByAppendingString:v12], 1);
+      [v16 setObject:v12 forKeyedSubscript:@"source"];
+      v21 = v16;
+      v20 = v16;
+      AnalyticsSendEventLazy();
+    }
   }
 }
 

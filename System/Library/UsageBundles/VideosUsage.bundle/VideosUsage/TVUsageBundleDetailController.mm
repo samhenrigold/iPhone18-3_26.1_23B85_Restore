@@ -10,9 +10,73 @@
 - (void)tableView:(id)view commitEditingStyle:(int64_t)style forRowAtIndexPath:(id)path;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)updateFileSize;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation TVUsageBundleDetailController
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v5 = objc_alloc_init(NSMutableArray);
+  specifier = [(TVUsageBundleDetailController *)self specifier];
+  v7 = [specifier propertyForKey:PSUsageBundleAppKey];
+
+  usageBundleStorageReporter = [v7 usageBundleStorageReporter];
+  categories = [v7 categories];
+  v23 = 0u;
+  v24 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  v10 = [categories countByEnumeratingWithState:&v23 objects:v27 count:16];
+  if (v10)
+  {
+    v11 = v10;
+    v12 = *v24;
+    do
+    {
+      for (i = 0; i != v11; i = i + 1)
+      {
+        if (*v24 != v12)
+        {
+          objc_enumerationMutation(categories);
+        }
+
+        v14 = *(*(&v23 + 1) + 8 * i);
+        [usageBundleStorageReporter sizeForCategory:v14];
+        if (v15 > 0.00000011921)
+        {
+          [v5 addObject:v14];
+        }
+      }
+
+      v11 = [categories countByEnumeratingWithState:&v23 objects:v27 count:16];
+    }
+
+    while (v11);
+  }
+
+  v21[0] = _NSConcreteStackBlock;
+  v21[1] = 3221225472;
+  v21[2] = sub_4B98;
+  v21[3] = &unk_C5B0;
+  v16 = usageBundleStorageReporter;
+  v22 = v16;
+  v17 = [v5 sortedArrayUsingComparator:v21];
+  sortedVideoCategories = self->_sortedVideoCategories;
+  self->_sortedVideoCategories = v17;
+
+  v20.receiver = self;
+  v20.super_class = TVUsageBundleDetailController;
+  [(TVUsageBundleDetailController *)&v20 viewWillAppear:appearCopy];
+  table = [(TVUsageBundleDetailController *)self table];
+  [table reloadData];
+
+  if ((+[UIApplication isRunningInStoreDemoMode]& 1) == 0)
+  {
+    [(TVUsageBundleDetailController *)self setEditingButtonHidden:0 animated:0];
+  }
+}
 
 - (id)specifiers
 {

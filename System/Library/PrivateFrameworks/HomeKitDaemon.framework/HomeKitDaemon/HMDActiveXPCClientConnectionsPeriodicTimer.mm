@@ -24,7 +24,7 @@
 
 - (void)timerDidFire:(id)fire
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   fireCopy = fire;
   workQueue = [(HMDActiveXPCClientConnectionsPeriodicTimer *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -39,17 +39,15 @@
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       v10 = HMFGetLogIdentifier();
-      v13 = 138543362;
-      v14 = v10;
-      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Notifying delegate of timer firing", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = v10;
+      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Notifying delegate of timer firing", &v12, 0xCu);
     }
 
     objc_autoreleasePoolPop(v7);
     delegate = [(HMDActiveXPCClientConnectionsPeriodicTimer *)selfCopy delegate];
     [delegate clientConnectionsTimerDidFire:selfCopy];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clientConnectionsManager:(id)manager didHandleDeactivationForClientConnection:(id)connection
@@ -70,7 +68,7 @@
 
 - (void)_updateTimer
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDActiveXPCClientConnectionsPeriodicTimer *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -86,9 +84,9 @@
     if (v9)
     {
       v10 = HMFGetLogIdentifier();
-      v15 = 138543362;
-      v16 = v10;
-      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Starting timer", &v15, 0xCu);
+      v14 = 138543362;
+      v15 = v10;
+      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Starting timer", &v14, 0xCu);
     }
 
     objc_autoreleasePoolPop(v6);
@@ -104,17 +102,15 @@
     if (v9)
     {
       v13 = HMFGetLogIdentifier();
-      v15 = 138543362;
-      v16 = v13;
-      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Suspending timer", &v15, 0xCu);
+      v14 = 138543362;
+      v15 = v13;
+      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Suspending timer", &v14, 0xCu);
     }
 
     objc_autoreleasePoolPop(v6);
     delegate = [(HMDActiveXPCClientConnectionsPeriodicTimer *)selfCopy timer];
     [delegate suspend];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_configure
@@ -215,7 +211,7 @@ LABEL_11:
   if (v16)
   {
     objc_storeStrong(&v16->_timer, timer);
-    v18 = [identifierCopy copy];
+    v18 = objc_msgSend_copy(identifierCopy);
     logIdentifier = v17->_logIdentifier;
     v17->_logIdentifier = v18;
 
@@ -252,10 +248,9 @@ LABEL_11:
 
 void __57__HMDActiveXPCClientConnectionsPeriodicTimer_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v3_132835;
-  logCategory__hmf_once_v3_132835 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v3_132835;
+  logCategory__hmf_once_v3_132835 = v0;
 }
 
 @end

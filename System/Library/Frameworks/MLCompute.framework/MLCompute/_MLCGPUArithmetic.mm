@@ -1,8 +1,44 @@
 @interface _MLCGPUArithmetic
 + (BOOL)compileWithDevice:(id)device deviceOps:(id)ops sourceTensors:(id)tensors resultTensor:(id)tensor;
++ (id)layerWithDevice:(id)device operation:(int)operation activationDescriptor:(id)descriptor;
+- (_MLCGPUArithmetic)initWithDevice:(id)device operation:(int)operation activationDescriptor:(id)descriptor;
 @end
 
 @implementation _MLCGPUArithmetic
+
+- (_MLCGPUArithmetic)initWithDevice:(id)device operation:(int)operation activationDescriptor:(id)descriptor
+{
+  v6 = *&operation;
+  deviceCopy = device;
+  descriptorCopy = descriptor;
+  v18.receiver = self;
+  v18.super_class = _MLCGPUArithmetic;
+  v10 = [(_MLCGPUArithmetic *)&v18 init];
+  if (v10)
+  {
+    deviceList = [deviceCopy deviceList];
+    v12 = [deviceList count];
+
+    for (i = [MEMORY[0x277CBEBF8] mutableCopy]; v12; --v12)
+    {
+      v14 = +[MLCGPUDeviceOps deviceOps];
+      if (v14)
+      {
+        [v14 setLayer:objc_opt_class()];
+        [v14 setArithmeticOp:v6];
+        [v14 setNeuronDescriptor:descriptorCopy];
+        [i addObject:v14];
+      }
+    }
+
+    v15 = [i copy];
+    v17.receiver = v10;
+    v17.super_class = _MLCGPUArithmetic;
+    [(_MLCGPULayer *)&v17 setDeviceOps:v15];
+  }
+
+  return v10;
+}
 
 + (BOOL)compileWithDevice:(id)device deviceOps:(id)ops sourceTensors:(id)tensors resultTensor:(id)tensor
 {
@@ -135,6 +171,16 @@
   }
 
   return 1;
+}
+
++ (id)layerWithDevice:(id)device operation:(int)operation activationDescriptor:(id)descriptor
+{
+  v5 = *&operation;
+  descriptorCopy = descriptor;
+  deviceCopy = device;
+  v10 = [[self alloc] initWithDevice:deviceCopy operation:v5 activationDescriptor:descriptorCopy];
+
+  return v10;
 }
 
 @end

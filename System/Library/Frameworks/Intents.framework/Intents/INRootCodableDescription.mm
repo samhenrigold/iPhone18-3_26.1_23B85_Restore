@@ -70,36 +70,36 @@
 
 - (NSDictionary)_referencedCodableDescriptionsByClassName
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_lock);
   if (!self->_referencedCodableDescriptionsByClassName)
   {
     v3 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{-[NSArray count](self->_referencedCodableDescriptions, "count")}];
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
     v4 = self->_referencedCodableDescriptions;
-    v5 = [(NSArray *)v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v5 = [(NSArray *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v16;
+      v7 = *v15;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v16 != v7)
+          if (*v15 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = *(*(&v15 + 1) + 8 * i);
+          v9 = *(*(&v14 + 1) + 8 * i);
           className = [v9 className];
           [(NSDictionary *)v3 setObject:v9 forKey:className];
         }
 
-        v6 = [(NSArray *)v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v6 = [(NSArray *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v6);
@@ -111,7 +111,6 @@
 
   os_unfair_lock_unlock(&self->_lock);
   v12 = self->_referencedCodableDescriptionsByClassName;
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -324,13 +323,13 @@ void __125__INRootCodableDescription_recursivelyAssignCodableDescriptionsFor_ref
 
 + (id)makeFromWidgetPlistableRepresentation:(id)representation error:(id *)error
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   representationCopy = representation;
-  v47.receiver = self;
-  v47.super_class = &OBJC_METACLASS___INRootCodableDescription;
-  v48 = 0;
-  v7 = objc_msgSendSuper2(&v47, sel_makeFromWidgetPlistableRepresentation_error_, representationCopy, &v48);
-  v8 = v48;
+  v46.receiver = self;
+  v46.super_class = &OBJC_METACLASS___INRootCodableDescription;
+  v47 = 0;
+  v7 = objc_msgSendSuper2(&v46, sel_makeFromWidgetPlistableRepresentation_error_, representationCopy, &v47);
+  v8 = v47;
   if (v8)
   {
     v9 = v8;
@@ -352,28 +351,28 @@ void __125__INRootCodableDescription_recursivelyAssignCodableDescriptionsFor_ref
   selfCopy = self;
   errorCopy = error;
   array = [MEMORY[0x1E695DF70] array];
-  v35 = representationCopy;
+  v34 = representationCopy;
   [representationCopy intents_safeObjectForKey:@"referencedCodableDescriptions" ofType:objc_opt_class()];
+  v42 = 0u;
   v43 = 0u;
   v44 = 0u;
-  v45 = 0u;
-  v12 = v46 = 0u;
-  v13 = [v12 countByEnumeratingWithState:&v43 objects:v49 count:16];
+  v12 = v45 = 0u;
+  v13 = [v12 countByEnumeratingWithState:&v42 objects:v48 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v44;
-    v37 = v12;
+    v15 = *v43;
+    v36 = v12;
 LABEL_6:
     v16 = 0;
     while (1)
     {
-      if (*v44 != v15)
+      if (*v43 != v15)
       {
         objc_enumerationMutation(v12);
       }
 
-      v17 = *(*(&v43 + 1) + 8 * v16);
+      v17 = *(*(&v42 + 1) + 8 * v16);
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) != 0 && [v17 count] == 2)
       {
@@ -389,20 +388,20 @@ LABEL_6:
             v21 = INCodableDescriptionClassFromType([v19 integerValue]);
             if (v21)
             {
-              v42 = 0;
-              v22 = [v21 makeFromWidgetPlistableRepresentation:v20 error:&v42];
-              v23 = v42;
+              v41 = 0;
+              v22 = [v21 makeFromWidgetPlistableRepresentation:v20 error:&v41];
+              v23 = v41;
               if (v23)
               {
                 v9 = v23;
                 if (errorCopy)
                 {
-                  v32 = v23;
+                  v31 = v23;
                   *errorCopy = v9;
                 }
 
                 v11 = 0;
-                v12 = v37;
+                v12 = v36;
                 goto LABEL_26;
               }
 
@@ -410,14 +409,14 @@ LABEL_6:
               {
                 [array addObject:v22];
 
-                v12 = v37;
+                v12 = v36;
                 goto LABEL_19;
               }
             }
           }
         }
 
-        v12 = v37;
+        v12 = v36;
       }
 
       v24 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Wrong types found for relationship codable description"];
@@ -439,7 +438,7 @@ LABEL_6:
 
 LABEL_26:
         v28 = v12;
-        representationCopy = v35;
+        representationCopy = v34;
         v25 = array;
         goto LABEL_27;
       }
@@ -447,7 +446,7 @@ LABEL_26:
 LABEL_19:
       if (v14 == ++v16)
       {
-        v14 = [v12 countByEnumeratingWithState:&v43 objects:v49 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v42 objects:v48 count:16];
         if (v14)
         {
           goto LABEL_6;
@@ -462,23 +461,22 @@ LABEL_19:
   [v7 _setReferencedCodableDescriptions:array];
   strongToStrongObjectsMapTable = [MEMORY[0x1E696AD18] strongToStrongObjectsMapTable];
   attributes = [v7 attributes];
-  v38[0] = MEMORY[0x1E69E9820];
-  v38[1] = 3221225472;
-  v38[2] = __72__INRootCodableDescription_makeFromWidgetPlistableRepresentation_error___block_invoke;
-  v38[3] = &unk_1E72810A8;
-  v41 = selfCopy;
-  v39 = array;
-  v40 = strongToStrongObjectsMapTable;
+  v37[0] = MEMORY[0x1E69E9820];
+  v37[1] = 3221225472;
+  v37[2] = __72__INRootCodableDescription_makeFromWidgetPlistableRepresentation_error___block_invoke;
+  v37[3] = &unk_1E72810A8;
+  v40 = selfCopy;
+  v38 = array;
+  v39 = strongToStrongObjectsMapTable;
   v28 = strongToStrongObjectsMapTable;
-  [attributes enumerateKeysAndObjectsUsingBlock:v38];
+  [attributes enumerateKeysAndObjectsUsingBlock:v37];
 
   v11 = v7;
   v9 = 0;
-  representationCopy = v35;
+  representationCopy = v34;
 LABEL_27:
 
 LABEL_28:
-  v30 = *MEMORY[0x1E69E9840];
 
   return v11;
 }

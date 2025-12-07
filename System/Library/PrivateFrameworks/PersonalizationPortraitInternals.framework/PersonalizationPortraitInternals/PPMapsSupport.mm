@@ -10,7 +10,7 @@
 + (BOOL)harvestMapItem:(id)item documentIdentifier:(id)identifier groupIdentifier:(id)groupIdentifier includingPostalAddress:(BOOL)address localNamedEntityStore:(id)store localLocationStore:(id)locationStore error:(id *)error
 {
   addressCopy = address;
-  v94[1] = *MEMORY[0x277D85DE8];
+  v93[1] = *MEMORY[0x277D85DE8];
   itemCopy = item;
   identifierCopy = identifier;
   groupIdentifierCopy = groupIdentifier;
@@ -20,11 +20,11 @@
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
-    v87 = identifierCopy;
-    v88 = 2112;
-    v89 = groupIdentifierCopy;
-    v90 = 1024;
-    LODWORD(v91) = addressCopy;
+    v86 = identifierCopy;
+    v87 = 2112;
+    v88 = groupIdentifierCopy;
+    v89 = 1024;
+    LODWORD(v90) = addressCopy;
     _os_log_impl(&dword_23224A000, v18, OS_LOG_TYPE_DEFAULT, "PPMapsSupport: harvesting map item for document: %@ group: %@ includingPostalAddress:%d", buf, 0x1Cu);
   }
 
@@ -35,69 +35,69 @@
   v22 = +[PPConfiguration sharedInstance];
   v23 = [v22 extractionAlgorithmsForBundleId:v20 sourceLanguage:0 conservative:0 domain:2];
 
-  v80 = v21;
+  v79 = v21;
   v24 = [v21 containsObject:&unk_284784728];
   v25 = [v23 containsObject:&unk_284784740];
-  v82 = itemCopy;
+  v81 = itemCopy;
   if (v24 & 1) != 0 || (v25)
   {
-    v73 = v25;
+    v72 = v25;
     geoAddress = [itemCopy geoAddress];
     structuredAddress = [geoAddress structuredAddress];
-    v78 = structuredAddress;
-    v79 = objc_opt_new();
-    v76 = identifierCopy;
-    v77 = storeCopy;
-    v75 = locationStoreCopy;
+    v77 = structuredAddress;
+    v78 = objc_opt_new();
+    v75 = identifierCopy;
+    v76 = storeCopy;
+    v74 = locationStoreCopy;
     if (addressCopy)
     {
       if ([structuredAddress hasThoroughfare])
       {
         v29 = objc_alloc(MEMORY[0x277D3A420]);
-        thoroughfare = [v78 thoroughfare];
+        thoroughfare = [v77 thoroughfare];
         currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
         languageCode = [currentLocale languageCode];
         v33 = [v29 initWithName:thoroughfare category:8 language:languageCode];
 
-        identifierCopy = v76;
-        storeCopy = v77;
+        identifierCopy = v75;
+        storeCopy = v76;
         v34 = [objc_alloc(MEMORY[0x277D3A498]) initWithItem:v33 score:0.5];
-        [v79 addObject:v34];
+        [v78 addObject:v34];
 
-        structuredAddress = v78;
+        structuredAddress = v77;
       }
 
       if ([structuredAddress hasLocality])
       {
         v35 = objc_alloc(MEMORY[0x277D3A420]);
-        locality = [v78 locality];
+        locality = [v77 locality];
         currentLocale2 = [MEMORY[0x277CBEAF8] currentLocale];
         languageCode2 = [currentLocale2 languageCode];
         v39 = [v35 initWithName:locality category:9 language:languageCode2];
 
-        identifierCopy = v76;
-        storeCopy = v77;
+        identifierCopy = v75;
+        storeCopy = v76;
 
         v40 = [objc_alloc(MEMORY[0x277D3A498]) initWithItem:v39 score:0.5];
-        [v79 addObject:v40];
+        [v78 addObject:v40];
 
-        structuredAddress = v78;
+        structuredAddress = v77;
       }
     }
 
     if ([structuredAddress hasAdministrativeArea])
     {
       v41 = objc_alloc(MEMORY[0x277D3A420]);
-      administrativeArea = [v78 administrativeArea];
+      administrativeArea = [v77 administrativeArea];
       currentLocale3 = [MEMORY[0x277CBEAF8] currentLocale];
       languageCode3 = [currentLocale3 languageCode];
       v45 = [v41 initWithName:administrativeArea category:10 language:languageCode3];
 
-      identifierCopy = v76;
-      storeCopy = v77;
+      identifierCopy = v75;
+      storeCopy = v76;
 
       v46 = [objc_alloc(MEMORY[0x277D3A498]) initWithItem:v45 score:0.5];
-      [v79 addObject:v46];
+      [v78 addObject:v46];
     }
 
     name = [itemCopy name];
@@ -110,29 +110,29 @@
       languageCode4 = [currentLocale4 languageCode];
       v52 = [v48 initWithName:name2 category:3 language:languageCode4];
 
-      identifierCopy = v76;
-      storeCopy = v77;
+      identifierCopy = v75;
+      storeCopy = v76;
 
       v53 = [objc_alloc(MEMORY[0x277D3A498]) initWithItem:v52 score:0.5];
-      [v79 addObject:v53];
+      [v78 addObject:v53];
     }
 
-    if (![v79 count])
+    if (![v78 count])
     {
       v56 = pp_default_log_handle();
       if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412802;
-        v87 = identifierCopy;
-        v88 = 2112;
-        v89 = groupIdentifierCopy;
-        v90 = 1024;
-        LODWORD(v91) = addressCopy;
+        v86 = identifierCopy;
+        v87 = 2112;
+        v88 = groupIdentifierCopy;
+        v89 = 1024;
+        LODWORD(v90) = addressCopy;
         _os_log_impl(&dword_23224A000, v56, OS_LOG_TYPE_DEFAULT, "PPMapsSupport: harvested 0 entities from map item for document: %@ group: %@ includingPostalAddress:%d", buf, 0x1Cu);
       }
 
       v27 = 1;
-      locationStoreCopy = v75;
+      locationStoreCopy = v74;
       goto LABEL_47;
     }
 
@@ -142,18 +142,18 @@
 
     if (v24)
     {
-      v85 = 0;
-      v57 = [storeCopy donateNamedEntities:v79 source:v56 algorithm:7 cloudSync:1 sentimentScore:&v85 error:0.0];
-      v58 = v85;
+      v84 = 0;
+      v57 = [storeCopy donateNamedEntities:v78 source:v56 algorithm:7 cloudSync:1 sentimentScore:&v84 error:0.0];
+      v58 = v84;
       v59 = v58;
-      locationStoreCopy = v75;
+      locationStoreCopy = v74;
       if ((v57 & 1) == 0)
       {
         v62 = pp_default_log_handle();
         if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v87 = v59;
+          v86 = v59;
           _os_log_error_impl(&dword_23224A000, v62, OS_LOG_TYPE_ERROR, "PPMapsSupport failed to donate Maps interaction structured location to PPLocalNamedEntityStore: %@", buf, 0xCu);
         }
 
@@ -167,7 +167,7 @@
     else
     {
       v61 = pp_default_log_handle();
-      locationStoreCopy = v75;
+      locationStoreCopy = v74;
       if (os_log_type_enabled(v61, OS_LOG_TYPE_DEBUG))
       {
         *buf = 0;
@@ -177,34 +177,34 @@
       v60 = 0;
     }
 
-    if (v73)
+    if (v72)
     {
-      v62 = [PPLocalLocationStore locationFromMapItem:v82];
+      v62 = [PPLocalLocationStore locationFromMapItem:v81];
       v63 = [objc_alloc(MEMORY[0x277D3A4A8]) initWithLocation:v62 score:1.0 sentimentScore:0.0];
-      v94[0] = v63;
-      v64 = [MEMORY[0x277CBEA60] arrayWithObjects:v94 count:1];
-      v84 = v60;
-      v65 = [locationStoreCopy donateLocations:v64 source:v56 contextualNamedEntities:0 algorithm:7 cloudSync:1 error:&v84];
-      v59 = v84;
+      v93[0] = v63;
+      v64 = [MEMORY[0x277CBEA60] arrayWithObjects:v93 count:1];
+      v83 = v60;
+      v65 = [locationStoreCopy donateLocations:v64 source:v56 contextualNamedEntities:0 algorithm:7 cloudSync:1 error:&v83];
+      v59 = v83;
 
       if ((v65 & 1) == 0)
       {
         v70 = pp_default_log_handle();
-        storeCopy = v77;
+        storeCopy = v76;
         if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v87 = v59;
+          v86 = v59;
           _os_log_error_impl(&dword_23224A000, v70, OS_LOG_TYPE_ERROR, "PPMapsSupport failed to donate Maps interaction structured location to PPLocalLocationStore: %@", buf, 0xCu);
         }
 
         v27 = 0;
-        locationStoreCopy = v75;
+        locationStoreCopy = v74;
         goto LABEL_46;
       }
 
-      storeCopy = v77;
-      locationStoreCopy = v75;
+      storeCopy = v76;
+      locationStoreCopy = v74;
     }
 
     else
@@ -217,19 +217,19 @@
       }
 
       v59 = v60;
-      storeCopy = v77;
+      storeCopy = v76;
     }
 
-    v83 = 0;
-    v66 = [storeCopy flushDonationsWithError:&v83];
-    v62 = v83;
+    v82 = 0;
+    v66 = [storeCopy flushDonationsWithError:&v82];
+    v62 = v82;
     if ((v66 & 1) == 0)
     {
       v67 = pp_default_log_handle();
       if (os_log_type_enabled(v67, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v87 = v62;
+        v86 = v62;
         _os_log_impl(&dword_23224A000, v67, OS_LOG_TYPE_DEFAULT, "PPMapsSupport warning: failed to flush named entities: %@", buf, 0xCu);
       }
     }
@@ -237,15 +237,15 @@
     v68 = pp_default_log_handle();
     if (os_log_type_enabled(v68, OS_LOG_TYPE_DEFAULT))
     {
-      v69 = [v79 count];
+      v69 = [v78 count];
       *buf = 134218754;
-      v87 = v69;
-      v88 = 2112;
-      v89 = identifierCopy;
-      v90 = 2112;
-      v91 = groupIdentifierCopy;
-      v92 = 1024;
-      v93 = addressCopy;
+      v86 = v69;
+      v87 = 2112;
+      v88 = identifierCopy;
+      v89 = 2112;
+      v90 = groupIdentifierCopy;
+      v91 = 1024;
+      v92 = addressCopy;
       _os_log_impl(&dword_23224A000, v68, OS_LOG_TYPE_DEFAULT, "PPMapsSupport: completed harvesting %lu entities from map item for document: %@ group: %@ includingPostalAddress:%d", buf, 0x26u);
     }
 
@@ -268,7 +268,6 @@ LABEL_47:
   v27 = 1;
 LABEL_48:
 
-  v71 = *MEMORY[0x277D85DE8];
   return v27;
 }
 
@@ -305,37 +304,37 @@ LABEL_48:
 
 void __112__PPMapsSupport_importMapsDataWithFavoriteRequest_localNamedEntityStore_localLocationStore_shouldContinueBlock___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v5 = a2;
-  v20 = a3;
+  v19 = a3;
   v6 = pp_default_log_handle();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v27 = [v5 count];
+    v26 = [v5 count];
     _os_log_impl(&dword_23224A000, v6, OS_LOG_TYPE_DEFAULT, "PPMapsSupport: MSFavoriteItemRequest fetchContents called with %tu places", buf, 0xCu);
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v7 = v5;
-  v8 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v8)
   {
-    v9 = *v22;
+    v9 = *v21;
     v10 = *MEMORY[0x277D3A6F8];
 LABEL_5:
     v11 = 0;
     while (1)
     {
-      if (*v22 != v9)
+      if (*v21 != v9)
       {
         objc_enumerationMutation(v7);
       }
 
-      v12 = *(*(&v21 + 1) + 8 * v11);
+      v12 = *(*(&v20 + 1) + 8 * v11);
       if (((*(*(a1 + 56) + 16))() & 1) == 0)
       {
         break;
@@ -362,7 +361,7 @@ LABEL_5:
         {
           v17 = [v12 identifier];
           v18 = [v17 UUIDString];
-          [PPMapsSupport harvestMapItem:v16 documentIdentifier:v18 groupIdentifier:v10 includingPostalAddress:1 localNamedEntityStore:*(a1 + 32) localLocationStore:*(a1 + 40) error:0, v20, v21];
+          [PPMapsSupport harvestMapItem:v16 documentIdentifier:v18 groupIdentifier:v10 includingPostalAddress:1 localNamedEntityStore:*(a1 + 32) localLocationStore:*(a1 + 40) error:0, v19, v20];
         }
 
         else
@@ -378,7 +377,7 @@ LABEL_5:
 
       if (v8 == ++v11)
       {
-        v8 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
         if (v8)
         {
           goto LABEL_5;
@@ -390,7 +389,6 @@ LABEL_5:
   }
 
   dispatch_semaphore_signal(*(a1 + 48));
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 + (void)importMapsDataWithCollectionRequest:(id)request localNamedEntityStore:(id)store localLocationStore:(id)locationStore shouldContinueBlock:(id)block
@@ -426,37 +424,37 @@ LABEL_5:
 
 void __114__PPMapsSupport_importMapsDataWithCollectionRequest_localNamedEntityStore_localLocationStore_shouldContinueBlock___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v5 = a2;
-  v20 = a3;
+  v19 = a3;
   v6 = pp_default_log_handle();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v27 = [v5 count];
+    v26 = [v5 count];
     _os_log_impl(&dword_23224A000, v6, OS_LOG_TYPE_DEFAULT, "PPMapsSupport: MSCollectionPlaceItemRequest fetchContents called with %tu locations", buf, 0xCu);
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v7 = v5;
-  v8 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v8)
   {
-    v9 = *v22;
+    v9 = *v21;
     v10 = *MEMORY[0x277D3A6F0];
 LABEL_5:
     v11 = 0;
     while (1)
     {
-      if (*v22 != v9)
+      if (*v21 != v9)
       {
         objc_enumerationMutation(v7);
       }
 
-      v12 = *(*(&v21 + 1) + 8 * v11);
+      v12 = *(*(&v20 + 1) + 8 * v11);
       if (((*(*(a1 + 56) + 16))() & 1) == 0)
       {
         break;
@@ -483,7 +481,7 @@ LABEL_5:
         {
           v17 = [v12 identifier];
           v18 = [v17 UUIDString];
-          [PPMapsSupport harvestMapItem:v16 documentIdentifier:v18 groupIdentifier:v10 includingPostalAddress:1 localNamedEntityStore:*(a1 + 32) localLocationStore:*(a1 + 40) error:0, v20, v21];
+          [PPMapsSupport harvestMapItem:v16 documentIdentifier:v18 groupIdentifier:v10 includingPostalAddress:1 localNamedEntityStore:*(a1 + 32) localLocationStore:*(a1 + 40) error:0, v19, v20];
         }
 
         else
@@ -499,7 +497,7 @@ LABEL_5:
 
       if (v8 == ++v11)
       {
-        v8 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
         if (v8)
         {
           goto LABEL_5;
@@ -511,7 +509,6 @@ LABEL_5:
   }
 
   dispatch_semaphore_signal(*(a1 + 48));
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 + (void)importMapsDataWithShouldContinueBlock:(id)block

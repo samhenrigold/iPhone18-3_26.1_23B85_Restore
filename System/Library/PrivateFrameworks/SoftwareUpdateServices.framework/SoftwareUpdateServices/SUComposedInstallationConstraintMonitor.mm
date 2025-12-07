@@ -2,7 +2,6 @@
 - (SUComposedInstallationConstraintMonitor)initWithInternalQueue:(id)queue withInstallationConstraintMonitors:(id)monitors;
 - (SUInstallationConstraintMonitorDelegate)delegate;
 - (id)_queue_delegate;
-- (unint64_t)_queue_representedConstraints;
 - (unint64_t)_queue_unsatisfiedConstraints;
 - (unint64_t)_queue_unsatisfiedConstraintsWithIgnorableConstraints:(unint64_t)constraints;
 - (unint64_t)unsatisfiedConstraints;
@@ -46,38 +45,36 @@
 
 void __100__SUComposedInstallationConstraintMonitor_initWithInternalQueue_withInstallationConstraintMonitors___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v11 = 0u;
-  v12 = 0u;
-  v9 = 0u;
+  v13 = *MEMORY[0x277D85DE8];
   v10 = 0u;
+  v11 = 0u;
+  v8 = 0u;
+  v9 = 0u;
   v2 = *(*(a1 + 32) + 16);
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v9 + 1) + 8 * i);
+        v7 = *(*(&v8 + 1) + 8 * i);
         *(*(a1 + 32) + 32) |= [v7 representedConstraints];
         [v7 setDelegate:*(a1 + 32)];
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -106,38 +103,36 @@ void __100__SUComposedInstallationConstraintMonitor_initWithInternalQueue_withIn
 
 void __50__SUComposedInstallationConstraintMonitor_dealloc__block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
+  v6 = 0u;
   v7 = 0u;
   v8 = 0u;
   v9 = 0u;
-  v10 = 0u;
   v1 = *(a1 + 32);
-  v2 = [v1 countByEnumeratingWithState:&v7 objects:v11 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v8;
+    v4 = *v7;
     do
     {
       v5 = 0;
       do
       {
-        if (*v8 != v4)
+        if (*v7 != v4)
         {
           objc_enumerationMutation(v1);
         }
 
-        [*(*(&v7 + 1) + 8 * v5++) setDelegate:{0, v7}];
+        [*(*(&v6 + 1) + 8 * v5++) setDelegate:{0, v6}];
       }
 
       while (v3 != v5);
-      v3 = [v1 countByEnumeratingWithState:&v7 objects:v11 count:16];
+      v3 = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
     }
 
     while (v3);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (SUInstallationConstraintMonitorDelegate)delegate
@@ -170,7 +165,7 @@ uint64_t __51__SUComposedInstallationConstraintMonitor_delegate__block_invoke(ui
   v4 = *(v3 + 40);
   *(v3 + 40) = WeakRetained;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](WeakRetained, v4);
 }
 
 - (void)setDelegate:(id)delegate
@@ -208,7 +203,7 @@ uint64_t __51__SUComposedInstallationConstraintMonitor_delegate__block_invoke(ui
   return v4;
 }
 
-uint64_t __65__SUComposedInstallationConstraintMonitor_unsatisfiedConstraints__block_invoke(uint64_t a1)
+void *__65__SUComposedInstallationConstraintMonitor_unsatisfiedConstraints__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _queue_unsatisfiedConstraints];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -236,7 +231,7 @@ uint64_t __65__SUComposedInstallationConstraintMonitor_unsatisfiedConstraints__b
   return v6;
 }
 
-uint64_t __90__SUComposedInstallationConstraintMonitor_unsatisfiedConstraintsWithIgnorableConstraints___block_invoke(uint64_t a1)
+void *__90__SUComposedInstallationConstraintMonitor_unsatisfiedConstraintsWithIgnorableConstraints___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _queue_unsatisfiedConstraintsWithIgnorableConstraints:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -245,7 +240,6 @@ uint64_t __90__SUComposedInstallationConstraintMonitor_unsatisfiedConstraintsWit
 
 - (void)_queue_noteInstallationConstraintMonitor:(id)monitor constraintsDidChange:(unint64_t)change
 {
-  queue = self->_queue;
   BSDispatchQueueAssert();
   WeakRetained = objc_loadWeakRetained(&self->_queue_delegate);
   [WeakRetained installationConstraintMonitor:self constraintsDidChange:change];
@@ -253,7 +247,6 @@ uint64_t __90__SUComposedInstallationConstraintMonitor_unsatisfiedConstraintsWit
 
 - (id)_queue_delegate
 {
-  queue = self->_queue;
   BSDispatchQueueAssert();
   WeakRetained = objc_loadWeakRetained(&self->_queue_delegate);
 
@@ -262,103 +255,92 @@ uint64_t __90__SUComposedInstallationConstraintMonitor_unsatisfiedConstraintsWit
 
 - (void)_queue_clearDelegate
 {
-  queue = self->_queue;
   BSDispatchQueueAssert();
 
   [(SUComposedInstallationConstraintMonitor *)self _queue_setDelegate:0];
 }
 
-- (unint64_t)_queue_representedConstraints
-{
-  queue = self->_queue;
-  BSDispatchQueueAssert();
-  return self->_queue_representedConstraints;
-}
-
 - (unint64_t)_queue_unsatisfiedConstraints
 {
-  v17 = *MEMORY[0x277D85DE8];
-  queue = self->_queue;
+  v15 = *MEMORY[0x277D85DE8];
   BSDispatchQueueAssert();
-  v14 = 0u;
-  v15 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v4 = self->_queue_installationConstraintMonitors;
-  v5 = [(NSSet *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
-  if (v5)
+  v10 = 0u;
+  v11 = 0u;
+  v3 = self->_queue_installationConstraintMonitors;
+  v4 = [(NSSet *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v4)
   {
-    v6 = v5;
-    v7 = 0;
-    v8 = *v13;
+    v5 = v4;
+    v6 = 0;
+    v7 = *v11;
     do
     {
-      for (i = 0; i != v6; ++i)
+      for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v8)
+        if (*v11 != v7)
         {
-          objc_enumerationMutation(v4);
+          objc_enumerationMutation(v3);
         }
 
-        v7 |= [*(*(&v12 + 1) + 8 * i) unsatisfiedConstraints];
+        v6 |= [*(*(&v10 + 1) + 8 * i) unsatisfiedConstraints];
       }
 
-      v6 = [(NSSet *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [(NSSet *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
-    while (v6);
+    while (v5);
   }
 
   else
   {
-    v7 = 0;
+    v6 = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-  return v7;
+  return v6;
 }
 
 - (unint64_t)_queue_unsatisfiedConstraintsWithIgnorableConstraints:(unint64_t)constraints
 {
-  v29 = *MEMORY[0x277D85DE8];
-  queue = self->_queue;
+  v27 = *MEMORY[0x277D85DE8];
   BSDispatchQueueAssert();
-  if (+[SUUtility currentReleaseTypeIsInternal](SUUtility, "currentReleaseTypeIsInternal") && (+[SUPreferences sharedInstance](SUPreferences, "sharedInstance"), v6 = objc_claimAutoreleasedReturnValue(), [v6 unmetConstraints], v7 = objc_claimAutoreleasedReturnValue(), v7, v6, v7))
+  if (+[SUUtility currentReleaseTypeIsInternal](SUUtility, "currentReleaseTypeIsInternal") && (+[SUPreferences sharedInstance](SUPreferences, "sharedInstance"), v5 = objc_claimAutoreleasedReturnValue(), [v5 unmetConstraints], v6 = objc_claimAutoreleasedReturnValue(), v6, v5, v6))
   {
-    v8 = +[SUPreferences sharedInstance];
-    unmetConstraints = [(NSSet *)v8 unmetConstraints];
+    v7 = +[SUPreferences sharedInstance];
+    unmetConstraints = [(NSSet *)v7 unmetConstraints];
     unsignedIntegerValue = [unmetConstraints unsignedIntegerValue];
   }
 
   else
   {
-    v26 = 0u;
-    v27 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v8 = self->_queue_installationConstraintMonitors;
-    v11 = [(NSSet *)v8 countByEnumeratingWithState:&v24 objects:v28 count:16];
-    if (v11)
+    v22 = 0u;
+    v23 = 0u;
+    v7 = self->_queue_installationConstraintMonitors;
+    v10 = [(NSSet *)v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    if (v10)
     {
-      v12 = v11;
+      v11 = v10;
       unsignedIntegerValue = 0;
-      v13 = *v25;
+      v12 = *v23;
       do
       {
-        for (i = 0; i != v12; ++i)
+        for (i = 0; i != v11; ++i)
         {
-          if (*v25 != v13)
+          if (*v23 != v12)
           {
-            objc_enumerationMutation(v8);
+            objc_enumerationMutation(v7);
           }
 
-          unsignedIntegerValue |= [*(*(&v24 + 1) + 8 * i) unsatisfiedConstraints];
+          unsignedIntegerValue |= [*(*(&v22 + 1) + 8 * i) unsatisfiedConstraints];
         }
 
-        v12 = [(NSSet *)v8 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v11 = [(NSSet *)v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
-      while (v12);
+      while (v11);
     }
 
     else
@@ -367,47 +349,43 @@ uint64_t __90__SUComposedInstallationConstraintMonitor_unsatisfiedConstraintsWit
     }
   }
 
-  SULogInfo(@"unsatisfiedConstraints = %lu, ignorableConstraints = %lu, realUnsatisfiedConstraints = %lu", v15, v16, v17, v18, v19, v20, v21, unsignedIntegerValue);
-  v22 = *MEMORY[0x277D85DE8];
+  SULogInfo(@"unsatisfiedConstraints = %lu, ignorableConstraints = %lu, realUnsatisfiedConstraints = %lu", v14, v15, v16, v17, v18, v19, v20, unsignedIntegerValue);
   return unsignedIntegerValue & ~constraints;
 }
 
 - (void)_queue_invalidateChildConstraintMonitors
 {
-  v15 = *MEMORY[0x277D85DE8];
-  queue = self->_queue;
+  v13 = *MEMORY[0x277D85DE8];
   BSDispatchQueueAssert();
-  v12 = 0u;
-  v13 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v4 = self->_queue_installationConstraintMonitors;
-  v5 = [(NSSet *)v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
-  if (v5)
+  v8 = 0u;
+  v9 = 0u;
+  v3 = self->_queue_installationConstraintMonitors;
+  v4 = [(NSSet *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  if (v4)
   {
-    v6 = v5;
-    v7 = *v11;
+    v5 = v4;
+    v6 = *v9;
     do
     {
-      v8 = 0;
+      v7 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v9 != v6)
         {
-          objc_enumerationMutation(v4);
+          objc_enumerationMutation(v3);
         }
 
-        [*(*(&v10 + 1) + 8 * v8++) setDelegate:{0, v10}];
+        [*(*(&v8 + 1) + 8 * v7++) setDelegate:{0, v8}];
       }
 
-      while (v6 != v8);
-      v6 = [(NSSet *)v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      while (v5 != v7);
+      v5 = [(NSSet *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
-    while (v6);
+    while (v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)installationConstraintMonitor:(id)monitor constraintsDidChange:(unint64_t)change
@@ -428,15 +406,14 @@ uint64_t __90__SUComposedInstallationConstraintMonitor_unsatisfiedConstraintsWit
 - (void)_queue_setDelegate:(id)delegate
 {
   obj = delegate;
-  queue = self->_queue;
   BSDispatchQueueAssert();
   WeakRetained = objc_loadWeakRetained(&self->_queue_delegate);
 
-  v6 = obj;
+  v5 = obj;
   if (WeakRetained != obj)
   {
     objc_storeWeak(&self->_queue_delegate, obj);
-    v6 = obj;
+    v5 = obj;
   }
 }
 

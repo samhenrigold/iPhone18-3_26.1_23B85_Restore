@@ -7,7 +7,7 @@
 - (BOOL)_shouldAnimatePropertyWithKey:(id)key
 {
   keyCopy = key;
-  if ([keyCopy isEqualToString:@"cornerRadius"])
+  if (objc_msgSend_isEqualToString_(keyCopy))
   {
     v5 = 1;
   }

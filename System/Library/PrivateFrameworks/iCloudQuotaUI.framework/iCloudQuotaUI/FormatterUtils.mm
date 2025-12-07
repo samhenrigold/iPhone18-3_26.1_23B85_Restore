@@ -8,12 +8,12 @@
 
 + (id)localizedSizeStringFor:(double)for unitStyle:(int64_t)style
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2809FF858);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2809FF858, &qword_2757AC4C8);
   v6 = *(v5 - 8);
   MEMORY[0x28223BE20](v5);
   v8 = &v12 - v7;
   bytes = [objc_opt_self() bytes];
-  sub_2756C557C(0, &qword_2809FF868);
+  sub_2756C557C(0, &qword_2809FF868, 0x277CCAE18);
   sub_275795B00();
   if (qword_280A0D050 != -1)
   {
@@ -30,7 +30,7 @@
 
 + (id)totalSizeStringFor:(id)for
 {
-  sub_2756C557C(0, &qword_2809FD6A0);
+  sub_2756C557C(0, &qword_2809FD6A0, 0x277CC63E8);
   v3 = sub_2757980E0();
   sub_27578360C(v3);
 

@@ -55,7 +55,7 @@
   result = self->rawType_;
   if (!result)
   {
-    v5 = IOSClass_forName_initialize_classLoader_(self->rawTypeName_, 0, self->loader_);
+    v5 = IOSClass_forName_initialize_classLoader_(self->rawTypeName_);
     JreStrongAssign(p_rawType, v5);
     return *p_rawType;
   }
@@ -81,19 +81,20 @@
 
 - (BOOL)isEqual:(id)equal
 {
-  if (![JavaLangReflectParameterizedType_class_() isInstance:equal])
+  v5 = [JavaLangReflectParameterizedType_class_(self a2)];
+  if (!v5)
   {
     return 0;
   }
 
-  v5 = JavaLangReflectParameterizedType_class_();
+  v7 = JavaLangReflectParameterizedType_class_(v5, v6);
   if (!equal)
   {
     [(LibcoreReflectParameterizedTypeImpl *)self getRawType];
     JreThrowNullPointerException();
   }
 
-  if (([v5 isInstance:equal] & 1) == 0)
+  if (([v7 isInstance:equal] & 1) == 0)
   {
     JreThrowClassCastException();
   }

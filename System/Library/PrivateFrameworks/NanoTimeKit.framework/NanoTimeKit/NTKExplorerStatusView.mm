@@ -457,7 +457,7 @@ void __42__NTKExplorerStatusView_noServiceDotColor__block_invoke()
 
   v20 = v19;
 
-  v21 = NTKInterpolateBetweenColors();
+  v21 = NTKInterpolateBetweenColors(fraction);
   cGColor = [v21 CGColor];
   noServicePillLayer2 = [v7 noServicePillLayer];
   [noServicePillLayer2 setBackgroundColor:cGColor];

@@ -71,7 +71,6 @@
 {
   if (*&self->_has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -80,15 +79,14 @@
     PBDataWriterPlaceMark();
     if (self->_querySizeCounts.count)
     {
-      v5 = 0;
+      v4 = 0;
       do
       {
-        v6 = self->_querySizeCounts.list[v5];
         PBDataWriterWriteUint32Field();
-        ++v5;
+        ++v4;
       }
 
-      while (v5 < self->_querySizeCounts.count);
+      while (v4 < self->_querySizeCounts.count);
     }
 
     PBDataWriterRecallMark();
@@ -100,15 +98,14 @@
     PBDataWriterPlaceMark();
     if (p_responseSizeCounts->count)
     {
-      v8 = 0;
+      v6 = 0;
       do
       {
-        v9 = p_responseSizeCounts->list[v8];
         PBDataWriterWriteUint32Field();
-        ++v8;
+        ++v6;
       }
 
-      while (v8 < p_responseSizeCounts->count);
+      while (v6 < p_responseSizeCounts->count);
     }
 
     PBDataWriterRecallMark();
@@ -174,7 +171,6 @@
     return 0;
   }
 
-  v5 = *(equal + 64);
   if (*&self->_has)
   {
     if ((*(equal + 64) & 1) == 0 || self->_timestamp != *(equal + 7))

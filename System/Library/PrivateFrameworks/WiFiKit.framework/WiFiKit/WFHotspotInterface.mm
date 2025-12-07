@@ -61,37 +61,37 @@ LABEL_6:
 
 - (void)updateNetworksWithHotspots:(id)hotspots
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   hotspotsCopy = hotspots;
   v5 = [MEMORY[0x277CBEB58] set];
-  v22 = 0u;
-  v23 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   v6 = hotspotsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v22 objects:v30 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v25 objects:v33 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v23;
+    v9 = *v26;
     do
     {
       v10 = 0;
       do
       {
-        if (*v23 != v9)
+        if (*v26 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [[WFHotspotDevice alloc] initWithHotspotDevice:*(*(&v22 + 1) + 8 * v10)];
+        v11 = [[WFHotspotDevice alloc] initWithHotspotDevice:*(*(&v25 + 1) + 8 * v10)];
         [v5 addObject:v11];
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v22 objects:v30 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v25 objects:v33 count:16];
     }
 
     while (v8);
@@ -104,42 +104,42 @@ LABEL_6:
   {
     delegate = WFLogForCategory(0);
     v15 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() >= 3 && delegate && os_log_type_enabled(delegate, v15))
+    v16 = v15;
+    if (WFCurrentLogLevel(v15, v17) >= 3 && delegate && os_log_type_enabled(delegate, v16))
     {
       *buf = 0;
-      _os_log_impl(&dword_273ECD000, delegate, v15, "Instant HS scan finished-> No new networks found.", buf, 2u);
+      _os_log_impl(&dword_273ECD000, delegate, v16, "Instant HS scan finished-> No new networks found.", buf, 2u);
     }
   }
 
   else
   {
     [(WFHotspotInterface *)self setNetworks:v5];
-    v16 = WFLogForCategory(0);
-    v17 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() >= 3 && v16 && os_log_type_enabled(v16, v17))
+    v18 = WFLogForCategory(0);
+    v19 = OSLogForWFLogLevel(3uLL);
+    v20 = v19;
+    if (WFCurrentLogLevel(v19, v21) >= 3 && v18 && os_log_type_enabled(v18, v20))
     {
       *buf = 136315394;
-      v27 = "[WFHotspotInterface updateNetworksWithHotspots:]";
-      v28 = 2112;
-      v29 = v5;
-      _os_log_impl(&dword_273ECD000, v16, v17, "%s: new hotspots %@", buf, 0x16u);
+      v30 = "[WFHotspotInterface updateNetworksWithHotspots:]";
+      v31 = 2112;
+      v32 = v5;
+      _os_log_impl(&dword_273ECD000, v18, v20, "%s: new hotspots %@", buf, 0x16u);
     }
 
     delegate = [(WFHotspotInterface *)self delegate];
     if (delegate && (objc_opt_respondsToSelector() & 1) != 0)
     {
-      v19[0] = MEMORY[0x277D85DD0];
-      v19[1] = 3221225472;
-      v19[2] = __49__WFHotspotInterface_updateNetworksWithHotspots___block_invoke;
-      v19[3] = &unk_279EBD290;
+      v22[0] = MEMORY[0x277D85DD0];
+      v22[1] = 3221225472;
+      v22[2] = __49__WFHotspotInterface_updateNetworksWithHotspots___block_invoke;
+      v22[3] = &unk_279EBD290;
       delegate = delegate;
-      v20 = delegate;
+      v23 = delegate;
       selfCopy = self;
-      dispatch_async(MEMORY[0x277D85CD0], v19);
+      dispatch_async(MEMORY[0x277D85CD0], v22);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)enableHotspot:(id)hotspot error:(id *)error
@@ -150,43 +150,43 @@ LABEL_6:
   if (hotspotDevice)
   {
     *buf = 0;
-    v28 = buf;
-    v29 = 0x3032000000;
-    v30 = __Block_byref_object_copy__7;
-    v31 = __Block_byref_object_dispose__7;
-    v32 = 0;
-    v21 = 0;
-    v22 = &v21;
-    v23 = 0x3032000000;
-    v24 = __Block_byref_object_copy__7;
-    v25 = __Block_byref_object_dispose__7;
-    v26 = 0;
+    v30 = buf;
+    v31 = 0x3032000000;
+    v32 = __Block_byref_object_copy__7;
+    v33 = __Block_byref_object_dispose__7;
+    v34 = 0;
+    v23 = 0;
+    v24 = &v23;
+    v25 = 0x3032000000;
+    v26 = __Block_byref_object_copy__7;
+    v27 = __Block_byref_object_dispose__7;
+    v28 = 0;
     v8 = dispatch_semaphore_create(0);
     hotspotSession = [(WFHotspotInterface *)self hotspotSession];
     hotspotDevice2 = [hotspotCopy hotspotDevice];
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __42__WFHotspotInterface_enableHotspot_error___block_invoke;
-    v17[3] = &unk_279EBE410;
-    v19 = &v21;
-    v20 = buf;
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __42__WFHotspotInterface_enableHotspot_error___block_invoke;
+    v19[3] = &unk_279EBE410;
+    v21 = &v23;
+    v22 = buf;
     v11 = v8;
-    v18 = v11;
-    [hotspotSession enableRemoteHotspotForDevice:hotspotDevice2 withCompletionHandler:v17];
+    v20 = v11;
+    [hotspotSession enableRemoteHotspotForDevice:hotspotDevice2 withCompletionHandler:v19];
 
     dispatch_semaphore_wait(v11, 0xFFFFFFFFFFFFFFFFLL);
     if (error)
     {
-      v12 = v22[5];
+      v12 = v24[5];
       if (v12)
       {
         *error = v12;
       }
     }
 
-    v13 = *(v28 + 5);
+    v13 = *(v30 + 5);
 
-    _Block_object_dispose(&v21, 8);
+    _Block_object_dispose(&v23, 8);
     _Block_object_dispose(buf, 8);
   }
 
@@ -194,10 +194,11 @@ LABEL_6:
   {
     v14 = WFLogForCategory(0);
     v15 = OSLogForWFLogLevel(1uLL);
-    if (WFCurrentLogLevel() && v14 && os_log_type_enabled(v14, v15))
+    v16 = v15;
+    if (WFCurrentLogLevel(v15, v17) && v14 && os_log_type_enabled(v14, v16))
     {
       *buf = 0;
-      _os_log_impl(&dword_273ECD000, v14, v15, "Cannot enable hotspot, WFHotspotDevice missing SFRemoteHotspotDevice", buf, 2u);
+      _os_log_impl(&dword_273ECD000, v14, v16, "Cannot enable hotspot, WFHotspotDevice missing SFRemoteHotspotDevice", buf, 2u);
     }
 
     v13 = 0;
@@ -208,33 +209,32 @@ LABEL_6:
 
 void __42__WFHotspotInterface_enableHotspot_error___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a3;
   if (v7)
   {
     v8 = WFLogForCategory(0);
     v9 = OSLogForWFLogLevel(1uLL);
-    if (WFCurrentLogLevel() && v8 && os_log_type_enabled(v8, v9))
+    v10 = v9;
+    if (WFCurrentLogLevel(v9, v11) && v8 && os_log_type_enabled(v8, v10))
     {
-      v12 = 138543362;
-      v13 = v7;
-      _os_log_impl(&dword_273ECD000, v8, v9, "error enabling hotspot: %{public}@", &v12, 0xCu);
+      v13 = 138543362;
+      v14 = v7;
+      _os_log_impl(&dword_273ECD000, v8, v10, "error enabling hotspot: %{public}@", &v13, 0xCu);
     }
 
-    v10 = 40;
+    v12 = 40;
   }
 
   else
   {
-    v10 = 48;
+    v12 = 48;
     a3 = a2;
   }
 
-  objc_storeStrong((*(*(a1 + v10) + 8) + 40), a3);
+  objc_storeStrong((*(*(a1 + v12) + 8) + 40), a3);
   dispatch_semaphore_signal(*(a1 + 32));
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isScanning
@@ -262,10 +262,11 @@ void __42__WFHotspotInterface_enableHotspot_error___block_invoke(uint64_t a1, vo
   {
     v3 = WFLogForCategory(0);
     v4 = OSLogForWFLogLevel(1uLL);
-    if (WFCurrentLogLevel() && v3 && os_log_type_enabled(v3, v4))
+    v5 = v4;
+    if (WFCurrentLogLevel(v4, v6) && v3 && os_log_type_enabled(v3, v5))
     {
       *buf = 0;
-      _os_log_impl(&dword_273ECD000, v3, v4, "Starting hotspot browsing", buf, 2u);
+      _os_log_impl(&dword_273ECD000, v3, v5, "Starting hotspot browsing", buf, 2u);
     }
 
     internalQueue = self->_internalQueue;
@@ -300,53 +301,52 @@ uint64_t __35__WFHotspotInterface_startBrowsing__block_invoke(uint64_t a1)
   dispatch_sync(internalQueue, v4);
 }
 
-uint64_t __47__WFHotspotInterface__stopBrowsingRemoveCache___block_invoke(uint64_t a1)
+void *__47__WFHotspotInterface__stopBrowsingRemoveCache___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = WFLogForCategory(0);
   v3 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v2 && os_log_type_enabled(v2, v3))
+  v4 = v3;
+  if (WFCurrentLogLevel(v3, v5) && v2 && os_log_type_enabled(v2, v4))
   {
-    v4 = *(*(a1 + 32) + 8);
-    v5 = *(a1 + 40);
-    v9[0] = 67109376;
-    v9[1] = v4;
-    v10 = 1024;
-    v11 = v5;
-    _os_log_impl(&dword_273ECD000, v2, v3, "Stopping hotspot browsing (isBrowsing %d removeCache %d)", v9, 0xEu);
+    v6 = *(*(a1 + 32) + 8);
+    v7 = *(a1 + 40);
+    v10[0] = 67109376;
+    v10[1] = v6;
+    v11 = 1024;
+    v12 = v7;
+    _os_log_impl(&dword_273ECD000, v2, v4, "Stopping hotspot browsing (isBrowsing %d removeCache %d)", v10, 0xEu);
   }
 
-  v6 = [*(a1 + 32) hotspotSession];
-  [v6 stopBrowsing];
+  v8 = [*(a1 + 32) hotspotSession];
+  [v8 stopBrowsing];
 
   result = [*(a1 + 32) setScanning:0];
   if (*(a1 + 40) == 1)
   {
-    result = [*(a1 + 32) updateNetworksWithHotspots:0];
+    return [*(a1 + 32) updateNetworksWithHotspots:0];
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (void)session:(id)session updatedFoundDevices:(id)devices
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   devicesCopy = devices;
   v6 = WFLogForCategory(0);
   v7 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v6 && os_log_type_enabled(v6, v7))
+  v8 = v7;
+  if (WFCurrentLogLevel(v7, v9) >= 3 && v6 && os_log_type_enabled(v6, v8))
   {
-    v10 = 138412290;
-    v11 = devicesCopy;
-    _os_log_impl(&dword_273ECD000, v6, v7, "Found hotspots %@", &v10, 0xCu);
+    v11 = 138412290;
+    v12 = devicesCopy;
+    _os_log_impl(&dword_273ECD000, v6, v8, "Found hotspots %@", &v11, 0xCu);
   }
 
-  v8 = [MEMORY[0x277CBEB58] set];
-  [v8 addObjectsFromArray:devicesCopy];
-  [(WFHotspotInterface *)self updateNetworksWithHotspots:v8];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v10 = [MEMORY[0x277CBEB58] set];
+  [v10 addObjectsFromArray:devicesCopy];
+  [(WFHotspotInterface *)self updateNetworksWithHotspots:v10];
 }
 
 - (WFHotspotInterfaceDelegate)delegate
@@ -360,10 +360,11 @@ uint64_t __47__WFHotspotInterface__stopBrowsingRemoveCache___block_invoke(uint64
 {
   v0 = WFLogForCategory(0);
   v1 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v0 && os_log_type_enabled(v0, v1))
+  v2 = v1;
+  if (WFCurrentLogLevel(v1, v3) && v0 && os_log_type_enabled(v0, v2))
   {
-    *v2 = 0;
-    _os_log_impl(&dword_273ECD000, v0, v1, "failed to create SFRemoteHotspotSession", v2, 2u);
+    *v4 = 0;
+    _os_log_impl(&dword_273ECD000, v0, v2, "failed to create SFRemoteHotspotSession", v4, 2u);
   }
 }
 

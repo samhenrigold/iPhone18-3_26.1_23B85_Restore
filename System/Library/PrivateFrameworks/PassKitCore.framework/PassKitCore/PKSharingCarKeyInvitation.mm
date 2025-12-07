@@ -270,9 +270,9 @@ LABEL_11:
 
     else
     {
-      v9 = [(__CFString *)firstObject isEqualToString:@"DevicePIN"];
+      isEqualToString = objc_msgSend_isEqualToString_(firstObject);
 
-      if (v9)
+      if (isEqualToString)
       {
         goto LABEL_12;
       }

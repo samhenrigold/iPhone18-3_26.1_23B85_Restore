@@ -174,7 +174,7 @@
 
 + (id)getConfigurationForRevision_v7_0_Tier0WithError:(id *)error
 {
-  v44[11] = *MEMORY[0x1E69E9840];
+  v43[11] = *MEMORY[0x1E69E9840];
   v5 = MEMORY[0x1E696AAE8];
   v6 = objc_opt_class();
   v10 = objc_msgSend_bundleForClass_(v5, v7, v6, v8, v9);
@@ -191,35 +191,35 @@
       {
         v26 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v22, @"file://%@", v23, v24, v25);
 
-        v43[0] = @"contextLength";
-        v43[1] = @"maxSeqLen";
-        v44[0] = &unk_1F20DEC80;
-        v44[1] = &unk_1F20DEC98;
-        v43[2] = @"tokenEmbedLen";
-        v43[3] = @"numCustomTokens";
-        v44[2] = &unk_1F20DECE0;
-        v44[3] = &unk_1F20DECB0;
-        v43[4] = @"text_embed_shape";
-        v43[5] = @"text_embed_width";
-        v44[4] = &unk_1F20DEEA8;
-        v44[5] = &unk_1F20DEC98;
-        v43[6] = @"text_embed_height";
-        v43[7] = @"usePrecompiledBundleForMacOS";
-        v44[6] = &unk_1F20DECC8;
-        v44[7] = MEMORY[0x1E695E110];
-        v44[8] = @"main_ctx_77";
-        v43[8] = @"e5function";
-        v43[9] = @"e5functionsAvailable";
-        v41[0] = &unk_1F20DEC98;
-        v41[1] = &unk_1F20DEC80;
-        v42[0] = @"main_ctx_512";
-        v42[1] = @"main_ctx_77";
-        v28 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v27, v42, v41, 2);
-        v44[9] = v28;
-        v43[10] = @"default_compute_units";
+        v42[0] = @"contextLength";
+        v42[1] = @"maxSeqLen";
+        v43[0] = &unk_1F20DEC80;
+        v43[1] = &unk_1F20DEC98;
+        v42[2] = @"tokenEmbedLen";
+        v42[3] = @"numCustomTokens";
+        v43[2] = &unk_1F20DECE0;
+        v43[3] = &unk_1F20DECB0;
+        v42[4] = @"text_embed_shape";
+        v42[5] = @"text_embed_width";
+        v43[4] = &unk_1F20DEEA8;
+        v43[5] = &unk_1F20DEC98;
+        v42[6] = @"text_embed_height";
+        v42[7] = @"usePrecompiledBundleForMacOS";
+        v43[6] = &unk_1F20DECC8;
+        v43[7] = MEMORY[0x1E695E110];
+        v43[8] = @"main_ctx_77";
+        v42[8] = @"e5function";
+        v42[9] = @"e5functionsAvailable";
+        v40[0] = &unk_1F20DEC98;
+        v40[1] = &unk_1F20DEC80;
+        v41[0] = @"main_ctx_512";
+        v41[1] = @"main_ctx_77";
+        v28 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v27, v41, v40, 2);
+        v43[9] = v28;
+        v42[10] = @"default_compute_units";
         v32 = objc_msgSend_numberWithInt_(MEMORY[0x1E696AD98], v29, 0, v30, v31);
-        v44[10] = v32;
-        v34 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v33, v44, v43, 11);
+        v43[10] = v32;
+        v34 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v33, v43, v42, 11);
 
         v35 = [self alloc];
         inited = objc_msgSend_initTextEncoderV1ConfigurationForRevision_vocabularyModelPath_tokenEmbeddingNetworkPath_textEncoderNetworkPath_encoderParams_(v35, v36, 7, v14, v19, v26, v34);
@@ -261,49 +261,47 @@ LABEL_11:
 
 LABEL_14:
 
-  v39 = *MEMORY[0x1E69E9840];
-
   return inited;
 }
 
 + (id)getConfigurationFromModelCatalogForRevision_ADM_v10Revision_v1WithError:(id *)error
 {
-  v30[11] = *MEMORY[0x1E69E9840];
+  v29[11] = *MEMORY[0x1E69E9840];
   v5 = MEMORY[0x1E696AAE8];
   v6 = objc_opt_class();
   v10 = objc_msgSend_bundleForClass_(v5, v7, v6, v8, v9);
   v14 = objc_msgSend_pathForResource_ofType_inDirectory_(v10, v11, @"spm_omnie_md6_v01_100k_mmap", @"model", @"VisualGeneration/v10-revision1/");
   if (v14)
   {
-    v29[0] = @"contextLength";
-    v29[1] = @"maxSeqLen";
-    v30[0] = &unk_1F20DECF8;
-    v30[1] = &unk_1F20DECF8;
-    v29[2] = @"tokenEmbedLen";
-    v29[3] = @"numCustomTokens";
-    v30[2] = &unk_1F20DECE0;
-    v30[3] = &unk_1F20DECB0;
-    v29[4] = @"text_embed_shape";
-    v29[5] = @"text_embed_width";
-    v30[4] = &unk_1F20DEEC0;
-    v30[5] = &unk_1F20DEC98;
-    v29[6] = @"text_embed_height";
-    v29[7] = @"usePrecompiledBundleForMacOS";
-    v30[6] = &unk_1F20DECC8;
-    v30[7] = MEMORY[0x1E695E118];
-    v30[8] = @"main_ctx_128";
-    v29[8] = @"e5function";
-    v29[9] = @"e5functionsAvailable";
-    v27[0] = &unk_1F20DECF8;
-    v27[1] = &unk_1F20DEC80;
-    v28[0] = @"main_ctx_128";
-    v28[1] = @"main_ctx_77";
-    v15 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v12, v28, v27, 2);
-    v30[9] = v15;
-    v29[10] = @"default_compute_units";
+    v28[0] = @"contextLength";
+    v28[1] = @"maxSeqLen";
+    v29[0] = &unk_1F20DECF8;
+    v29[1] = &unk_1F20DECF8;
+    v28[2] = @"tokenEmbedLen";
+    v28[3] = @"numCustomTokens";
+    v29[2] = &unk_1F20DECE0;
+    v29[3] = &unk_1F20DECB0;
+    v28[4] = @"text_embed_shape";
+    v28[5] = @"text_embed_width";
+    v29[4] = &unk_1F20DEEC0;
+    v29[5] = &unk_1F20DEC98;
+    v28[6] = @"text_embed_height";
+    v28[7] = @"usePrecompiledBundleForMacOS";
+    v29[6] = &unk_1F20DECC8;
+    v29[7] = MEMORY[0x1E695E118];
+    v29[8] = @"main_ctx_128";
+    v28[8] = @"e5function";
+    v28[9] = @"e5functionsAvailable";
+    v26[0] = &unk_1F20DECF8;
+    v26[1] = &unk_1F20DEC80;
+    v27[0] = @"main_ctx_128";
+    v27[1] = @"main_ctx_77";
+    v15 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v12, v27, v26, 2);
+    v29[9] = v15;
+    v28[10] = @"default_compute_units";
     v19 = objc_msgSend_numberWithInt_(MEMORY[0x1E696AD98], v16, 0, v17, v18);
-    v30[10] = v19;
-    v21 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v20, v30, v29, 11);
+    v29[10] = v19;
+    v21 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v20, v29, v28, 11);
 
     v22 = [self alloc];
     inited = objc_msgSend_initTextEncoderV1ConfigurationForRevision_vocabularyModelPath_tokenEmbeddingNetworkPath_textEncoderNetworkPath_encoderParams_(v22, v23, 8, v14, @"token_ADM_md6.mlmodelc", @"text_ADM_md6_ctx_128_77.mlmodelc", v21);
@@ -319,8 +317,6 @@ LABEL_14:
   {
     inited = 0;
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 
   return inited;
 }
@@ -422,107 +418,107 @@ LABEL_12:
     obj = objc_msgSend_overrideWithSideLoadedPathForTokenEmbeddingModel_TextEmbeddingModel_(v49, v50, *(v208 + 9), *(v208 + 11), v51);
     objc_storeStrong(v208 + 10, obj);
     objc_storeStrong(v208 + 8, obj);
-    v52 = v208;
+    v53 = v208;
     *(v208 + 8) = 0;
     if (obj)
     {
-      v53 = sub_1AC090E50();
-      if (os_log_type_enabled(v53, OS_LOG_TYPE_INFO))
+      v54 = sub_1AC090E50(v52);
+      if (os_log_type_enabled(v54, OS_LOG_TYPE_INFO))
       {
-        v58 = objc_msgSend_absoluteString(obj, v54, v55, v56, v57);
+        v59 = objc_msgSend_absoluteString(obj, v55, v56, v57, v58);
         *buf = 138412290;
-        v220 = v58;
-        _os_log_impl(&dword_1AC05D000, v53, OS_LOG_TYPE_INFO, "Models side loaded from %@", buf, 0xCu);
+        v220 = v59;
+        _os_log_impl(&dword_1AC05D000, v54, OS_LOG_TYPE_INFO, "Models side loaded from %@", buf, 0xCu);
       }
 
-      v52 = v208;
+      v53 = v208;
       *(v208 + 8) = 1;
     }
 
-    v59 = v52[21];
-    v52[21] = @"token_embed";
+    v60 = v53[21];
+    v53[21] = @"token_embed";
 
-    v63 = objc_msgSend_objectForKeyedSubscript_(paramsCopy, v60, @"tokenEmbedLen", v61, v62);
-    *(v208 + 13) = objc_msgSend_unsignedLongValue(v63, v64, v65, v66, v67);
+    v64 = objc_msgSend_objectForKeyedSubscript_(paramsCopy, v61, @"tokenEmbedLen", v62, v63);
+    *(v208 + 13) = objc_msgSend_unsignedLongValue(v64, v65, v66, v67, v68);
 
-    v71 = objc_msgSend_objectForKeyedSubscript_(paramsCopy, v68, @"numCustomTokens", v69, v70);
-    *(v208 + 14) = objc_msgSend_unsignedLongValue(v71, v72, v73, v74, v75);
+    v72 = objc_msgSend_objectForKeyedSubscript_(paramsCopy, v69, @"numCustomTokens", v70, v71);
+    *(v208 + 14) = objc_msgSend_unsignedLongValue(v72, v73, v74, v75, v76);
 
-    v79 = objc_msgSend_objectForKeyedSubscript_(paramsCopy, v76, @"usePrecompiledBundleForMacOS", v77, v78);
-    *(v208 + 9) = objc_msgSend_BOOLValue(v79, v80, v81, v82, v83);
+    v80 = objc_msgSend_objectForKeyedSubscript_(paramsCopy, v77, @"usePrecompiledBundleForMacOS", v78, v79);
+    *(v208 + 9) = objc_msgSend_BOOLValue(v80, v81, v82, v83, v84);
 
-    v84 = objc_opt_new();
-    v85 = *(v208 + 17);
-    *(v208 + 17) = v84;
+    v85 = objc_opt_new();
+    v86 = *(v208 + 17);
+    *(v208 + 17) = v85;
 
-    v89 = objc_msgSend_objectForKeyedSubscript_(paramsCopy, v86, @"text_embed_shape", v87, v88);
-    objc_msgSend_setObject_forKeyedSubscript_(*(v208 + 17), v90, v89, @"text_embed", v91);
+    v90 = objc_msgSend_objectForKeyedSubscript_(paramsCopy, v87, @"text_embed_shape", v88, v89);
+    objc_msgSend_setObject_forKeyedSubscript_(*(v208 + 17), v91, v90, @"text_embed", v92);
 
-    v92 = objc_opt_new();
-    v93 = *(v208 + 18);
-    *(v208 + 18) = v92;
+    v93 = objc_opt_new();
+    v94 = *(v208 + 18);
+    *(v208 + 18) = v93;
 
-    v97 = objc_msgSend_objectForKeyedSubscript_(paramsCopy, v94, @"text_embed_width", v95, v96);
-    objc_msgSend_setObject_forKeyedSubscript_(*(v208 + 18), v98, v97, @"text_embed", v99);
+    v98 = objc_msgSend_objectForKeyedSubscript_(paramsCopy, v95, @"text_embed_width", v96, v97);
+    objc_msgSend_setObject_forKeyedSubscript_(*(v208 + 18), v99, v98, @"text_embed", v100);
 
-    v100 = objc_opt_new();
-    v101 = *(v208 + 19);
-    *(v208 + 19) = v100;
+    v101 = objc_opt_new();
+    v102 = *(v208 + 19);
+    *(v208 + 19) = v101;
 
-    v105 = objc_msgSend_objectForKeyedSubscript_(paramsCopy, v102, @"text_embed_height", v103, v104);
-    objc_msgSend_setObject_forKeyedSubscript_(*(v208 + 19), v106, v105, @"text_embed", v107);
+    v106 = objc_msgSend_objectForKeyedSubscript_(paramsCopy, v103, @"text_embed_height", v104, v105);
+    objc_msgSend_setObject_forKeyedSubscript_(*(v208 + 19), v107, v106, @"text_embed", v108);
 
     v213 = 0u;
     v214 = 0u;
     v211 = 0u;
     v212 = 0u;
     v207 = *(v208 + 3);
-    v112 = objc_msgSend_countByEnumeratingWithState_objects_count_(v207, v108, &v211, v218, 16);
-    if (v112)
+    v113 = objc_msgSend_countByEnumeratingWithState_objects_count_(v207, v109, &v211, v218, 16);
+    if (v113)
     {
       v209 = *v212;
       do
       {
-        for (i = 0; i != v112; ++i)
+        for (i = 0; i != v113; ++i)
         {
           if (*v212 != v209)
           {
             objc_enumerationMutation(v207);
           }
 
-          v114 = *(*(&v211 + 1) + 8 * i);
-          v115 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v109, @"%@_shape", v110, v111, v114);
-          v122 = objc_msgSend_objectForKey_(paramsCopy, v116, v115, v117, v118);
-          if (!v122)
+          v115 = *(*(&v211 + 1) + 8 * i);
+          v116 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v110, @"%@_shape", v111, v112, v115);
+          v123 = objc_msgSend_objectForKey_(paramsCopy, v117, v116, v118, v119);
+          if (!v123)
           {
             goto LABEL_10;
           }
 
-          v123 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v119, @"%@_width", v120, v121, v114);
-          v130 = objc_msgSend_objectForKey_(paramsCopy, v124, v123, v125, v126);
-          if (!v130)
+          v124 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v120, @"%@_width", v121, v122, v115);
+          v131 = objc_msgSend_objectForKey_(paramsCopy, v125, v124, v126, v127);
+          if (!v131)
           {
 
             goto LABEL_9;
           }
 
-          v131 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v127, @"%@_height", v128, v129, v114);
-          v135 = objc_msgSend_objectForKey_(paramsCopy, v132, v131, v133, v134);
-          v136 = v135 == 0;
+          v132 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v128, @"%@_height", v129, v130, v115);
+          v136 = objc_msgSend_objectForKey_(paramsCopy, v133, v132, v134, v135);
+          v137 = v136 == 0;
 
-          if (!v136)
+          if (!v137)
           {
-            v137 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v109, @"%@_shape", v110, v111, v114);
-            v141 = objc_msgSend_objectForKeyedSubscript_(paramsCopy, v138, v137, v139, v140);
-            objc_msgSend_setObject_forKeyedSubscript_(*(v208 + 17), v142, v141, v114, v143);
+            v138 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v110, @"%@_shape", v111, v112, v115);
+            v142 = objc_msgSend_objectForKeyedSubscript_(paramsCopy, v139, v138, v140, v141);
+            objc_msgSend_setObject_forKeyedSubscript_(*(v208 + 17), v143, v142, v115, v144);
 
-            v147 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v144, @"%@_width", v145, v146, v114);
-            v151 = objc_msgSend_objectForKeyedSubscript_(paramsCopy, v148, v147, v149, v150);
-            objc_msgSend_setObject_forKeyedSubscript_(*(v208 + 18), v152, v151, v114, v153);
+            v148 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v145, @"%@_width", v146, v147, v115);
+            v152 = objc_msgSend_objectForKeyedSubscript_(paramsCopy, v149, v148, v150, v151);
+            objc_msgSend_setObject_forKeyedSubscript_(*(v208 + 18), v153, v152, v115, v154);
 
-            v115 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v154, @"%@_height", v155, v156, v114);
-            v122 = objc_msgSend_objectForKeyedSubscript_(paramsCopy, v157, v115, v158, v159);
-            objc_msgSend_setObject_forKeyedSubscript_(*(v208 + 19), v160, v122, v114, v161);
+            v116 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v155, @"%@_height", v156, v157, v115);
+            v123 = objc_msgSend_objectForKeyedSubscript_(paramsCopy, v158, v116, v159, v160);
+            objc_msgSend_setObject_forKeyedSubscript_(*(v208 + 19), v161, v123, v115, v162);
 LABEL_9:
 
 LABEL_10:
@@ -530,83 +526,82 @@ LABEL_10:
           }
         }
 
-        v112 = objc_msgSend_countByEnumeratingWithState_objects_count_(v207, v109, &v211, v218, 16);
+        v113 = objc_msgSend_countByEnumeratingWithState_objects_count_(v207, v110, &v211, v218, 16);
       }
 
-      while (v112);
+      while (v113);
     }
 
-    v162 = *(v208 + 22);
+    v163 = *(v208 + 22);
     *(v208 + 22) = @"token_embed";
 
-    v163 = *(v208 + 23);
+    v164 = *(v208 + 23);
     *(v208 + 23) = @"indices";
 
-    v164 = *(v208 + 24);
+    v165 = *(v208 + 24);
     *(v208 + 24) = @"text_embed";
 
-    v165 = *(v208 + 25);
+    v166 = *(v208 + 25);
     *(v208 + 25) = @"input_tranpose";
 
-    v169 = objc_msgSend_objectForKey_(paramsCopy, v166, @"e5function", v167, v168);
-    v170 = v169 == 0;
+    v170 = objc_msgSend_objectForKey_(paramsCopy, v167, @"e5function", v168, v169);
+    v171 = v170 == 0;
 
-    if (v170)
+    if (v171)
     {
       *(v208 + 4) = @"main";
     }
 
     else
     {
-      v174 = objc_msgSend_objectForKeyedSubscript_(paramsCopy, v171, @"e5function", v172, v173);
-      *(v208 + 4) = v174;
+      v175 = objc_msgSend_objectForKeyedSubscript_(paramsCopy, v172, @"e5function", v173, v174);
+      *(v208 + 4) = v175;
     }
 
-    v175 = objc_msgSend_objectForKey_(paramsCopy, v171, @"e5functionsAvailable", v172, v173);
-    v176 = v175 == 0;
+    v176 = objc_msgSend_objectForKey_(paramsCopy, v172, @"e5functionsAvailable", v173, v174);
+    v177 = v176 == 0;
 
-    if (v176)
+    if (v177)
     {
-      v181 = objc_msgSend_numberWithUnsignedLong_(MEMORY[0x1E696AD98], v177, *(v208 + 12), v178, v179);
-      v182 = *(v208 + 4);
-      v216 = v181;
-      v217 = v182;
-      v184 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v183, &v217, &v216, 1);
-      *(v208 + 5) = v184;
+      v182 = objc_msgSend_numberWithUnsignedLong_(MEMORY[0x1E696AD98], v178, *(v208 + 12), v179, v180);
+      v183 = *(v208 + 4);
+      v216 = v182;
+      v217 = v183;
+      v185 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v184, &v217, &v216, 1);
+      *(v208 + 5) = v185;
 
-      v180 = v181;
+      v181 = v182;
     }
 
     else
     {
-      v180 = objc_msgSend_objectForKeyedSubscript_(paramsCopy, v177, @"e5functionsAvailable", v178, v179);
-      *(v208 + 5) = v180;
+      v181 = objc_msgSend_objectForKeyedSubscript_(paramsCopy, v178, @"e5functionsAvailable", v179, v180);
+      *(v208 + 5) = v181;
     }
 
-    v188 = objc_msgSend_objectForKey_(paramsCopy, v185, @"default_compute_units", v186, v187);
-    v189 = v188 == 0;
+    v189 = objc_msgSend_objectForKey_(paramsCopy, v186, @"default_compute_units", v187, v188);
+    v190 = v189 == 0;
 
-    if (v189)
+    if (v190)
     {
-      v198 = 1;
-      v199 = v208;
+      v199 = 1;
+      v200 = v208;
       *(v208 + 16) = 1;
     }
 
     else
     {
-      v193 = objc_msgSend_objectForKeyedSubscript_(paramsCopy, v190, @"default_compute_units", v191, v192);
-      *(v208 + 16) = objc_msgSend_integerValue(v193, v194, v195, v196, v197);
+      v194 = objc_msgSend_objectForKeyedSubscript_(paramsCopy, v191, @"default_compute_units", v192, v193);
+      *(v208 + 16) = objc_msgSend_integerValue(v194, v195, v196, v197, v198);
 
-      v198 = *(v208 + 16);
-      v199 = v208;
+      v199 = *(v208 + 16);
+      v200 = v208;
     }
 
-    v199[15] = v198;
-    v200 = v199;
+    v200[15] = v199;
+    v201 = v200;
   }
 
-  v201 = *MEMORY[0x1E69E9840];
   return v208;
 }
 

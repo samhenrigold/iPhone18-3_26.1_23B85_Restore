@@ -121,19 +121,17 @@ void __53__FCFeedPersonalizedItemScoreProfile_setDebugFields___block_invoke(uint
 
 void __50__FCFeedPersonalizedItemScoreProfile_sortingScore__block_invoke()
 {
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
   v0 = NewsCoreUserDefaults();
   _MergedGlobals_186 = [v0 BOOLForKey:@"news.features.scoreExclusivelyUsingTabi"];
 
   v1 = FCDefaultLog;
   if (os_log_type_enabled(FCDefaultLog, OS_LOG_TYPE_DEFAULT))
   {
-    v3[0] = 67109120;
-    v3[1] = _MergedGlobals_186;
-    _os_log_impl(&dword_1B63EF000, v1, OS_LOG_TYPE_DEFAULT, "Configuring sortingScore with scoreExclusivelyUsingTabi=%d", v3, 8u);
+    v2[0] = 67109120;
+    v2[1] = _MergedGlobals_186;
+    _os_log_impl(&dword_1B63EF000, v1, OS_LOG_TYPE_DEFAULT, "Configuring sortingScore with scoreExclusivelyUsingTabi=%d", v2, 8u);
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 @end

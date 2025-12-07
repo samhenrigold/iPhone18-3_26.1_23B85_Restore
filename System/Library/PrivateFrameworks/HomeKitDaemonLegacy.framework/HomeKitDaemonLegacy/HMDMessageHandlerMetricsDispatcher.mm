@@ -10,14 +10,12 @@
 
 - (id)attributeDescriptions
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   identifier = [(HMDMessageHandlerMetricsDispatcher *)self identifier];
   v5 = [v3 initWithName:@"identifier" value:identifier];
-  v9[0] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v8[0] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
 
   return v6;
 }
@@ -32,7 +30,7 @@
 
 - (void)submitFailureEventOfType:(unint64_t)type message:(id)message
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   v7 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -51,13 +49,13 @@
       v12 = off_27972BB10[type];
     }
 
-    v18 = 138543874;
-    v19 = v10;
-    v20 = 2112;
-    v21 = v12;
-    v22 = 2112;
-    v23 = messageCopy;
-    _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Submitting failure event: %@ for message: %@", &v18, 0x20u);
+    v17 = 138543874;
+    v18 = v10;
+    v19 = 2112;
+    v20 = v12;
+    v21 = 2112;
+    v22 = messageCopy;
+    _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Submitting failure event: %@ for message: %@", &v17, 0x20u);
   }
 
   objc_autoreleasePoolPop(v7);
@@ -67,8 +65,6 @@
 
   logEventSubmitter = [(HMDMessageHandlerMetricsDispatcher *)selfCopy logEventSubmitter];
   [logEventSubmitter submitLogEvent:v15];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDMessageHandlerMetricsDispatcher)initWithIdentifier:(id)identifier logEventSubmitter:(id)submitter
@@ -116,12 +112,11 @@ LABEL_7:
 
 uint64_t __49__HMDMessageHandlerMetricsDispatcher_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v2_117256;
-  logCategory__hmf_once_v2_117256 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v2_117256;
+  logCategory__hmf_once_v2_117256 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

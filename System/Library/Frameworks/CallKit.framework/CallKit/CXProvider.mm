@@ -138,24 +138,24 @@
 void __36__CXProvider_initWithConfiguration___block_invoke()
 {
   v0 = [MEMORY[0x1E6958460] sharedInstance];
-  v6 = 0;
-  v1 = [v0 setInterruptionPriority:0 error:&v6];
-  v2 = v6;
+  v7 = 0;
+  v1 = [v0 setInterruptionPriority:0 error:&v7];
+  v2 = v7;
 
-  v3 = CXDefaultLog();
-  v4 = v3;
+  v4 = CXDefaultLog(v3);
+  v5 = v4;
   if (v1)
   {
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      *v5 = 0;
-      _os_log_impl(&dword_1B47F3000, v4, OS_LOG_TYPE_DEFAULT, "Successfully reset audio session interruption priority to Normal", v5, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_1B47F3000, v5, OS_LOG_TYPE_DEFAULT, "Successfully reset audio session interruption priority to Normal", v6, 2u);
     }
   }
 
-  else if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __36__CXProvider_initWithConfiguration___block_invoke_cold_1(v2, v4);
+    __36__CXProvider_initWithConfiguration___block_invoke_cold_1(v2, v5);
   }
 }
 
@@ -202,10 +202,7 @@ void __36__CXProvider_initWithConfiguration___block_invoke()
 
 uint64_t __27__CXProvider_configuration__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 8) copy];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 8) copy];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -232,17 +229,17 @@ uint64_t __27__CXProvider_configuration__block_invoke(uint64_t a1)
 
 uint64_t __31__CXProvider_setConfiguration___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v2 = CXDefaultLog();
+  v13 = *MEMORY[0x1E69E9840];
+  v2 = CXDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
-    v10 = 138412546;
-    v11 = v3;
-    v12 = 2112;
-    v13 = v4;
-    _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Provider %@ was notified that configuration was set to %@", &v10, 0x16u);
+    v9 = 138412546;
+    v10 = v3;
+    v11 = 2112;
+    v12 = v4;
+    _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Provider %@ was notified that configuration was set to %@", &v9, 0x16u);
   }
 
   v5 = [*(a1 + 40) copy];
@@ -250,59 +247,57 @@ uint64_t __31__CXProvider_setConfiguration___block_invoke(uint64_t a1)
   v7 = *(v6 + 8);
   *(v6 + 8) = v5;
 
-  result = [*(a1 + 32) registerCurrentConfiguration];
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) registerCurrentConfiguration];
 }
 
 - (NSArray)pendingCallActionsOfClass:(Class)callActionClass withCallUUID:(NSUUID *)callUUID
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v6 = callUUID;
   array = [MEMORY[0x1E695DF70] array];
   if ([(objc_class *)callActionClass isSubclassOfClass:objc_opt_class()])
   {
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     obj = [(CXProvider *)self pendingTransactions];
-    v23 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
-    if (v23)
+    v22 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
+    if (v22)
     {
-      v22 = *v30;
+      v21 = *v29;
       do
       {
         v8 = 0;
         do
         {
-          if (*v30 != v22)
+          if (*v29 != v21)
           {
             objc_enumerationMutation(obj);
           }
 
-          v24 = v8;
-          v9 = *(*(&v29 + 1) + 8 * v8);
+          v23 = v8;
+          v9 = *(*(&v28 + 1) + 8 * v8);
+          v24 = 0u;
           v25 = 0u;
           v26 = 0u;
           v27 = 0u;
-          v28 = 0u;
           actions = [v9 actions];
-          v11 = [actions countByEnumeratingWithState:&v25 objects:v33 count:16];
+          v11 = [actions countByEnumeratingWithState:&v24 objects:v32 count:16];
           if (v11)
           {
             v12 = v11;
-            v13 = *v26;
+            v13 = *v25;
             do
             {
               for (i = 0; i != v12; ++i)
               {
-                if (*v26 != v13)
+                if (*v25 != v13)
                 {
                   objc_enumerationMutation(actions);
                 }
 
-                v15 = *(*(&v25 + 1) + 8 * i);
+                v15 = *(*(&v24 + 1) + 8 * i);
                 if (objc_opt_isKindOfClass())
                 {
                   callUUID = [v15 callUUID];
@@ -315,26 +310,24 @@ uint64_t __31__CXProvider_setConfiguration___block_invoke(uint64_t a1)
                 }
               }
 
-              v12 = [actions countByEnumeratingWithState:&v25 objects:v33 count:16];
+              v12 = [actions countByEnumeratingWithState:&v24 objects:v32 count:16];
             }
 
             while (v12);
           }
 
-          v8 = v24 + 1;
+          v8 = v23 + 1;
         }
 
-        while (v24 + 1 != v23);
-        v23 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
+        while (v23 + 1 != v22);
+        v22 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
       }
 
-      while (v23);
+      while (v22);
     }
   }
 
   v18 = [array copy];
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v18;
 }
@@ -401,34 +394,32 @@ LABEL_5:
 
 void __62__CXProvider_reportNewIncomingCallWithUUID_update_completion___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v2 = CXDefaultLog();
+  v17 = *MEMORY[0x1E69E9840];
+  v2 = CXDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = [*(a1 + 40) UUIDString];
     v5 = *(a1 + 48);
     *buf = 138412802;
-    v13 = v3;
-    v14 = 2112;
-    v15 = v4;
-    v16 = 2112;
-    v17 = v5;
+    v12 = v3;
+    v13 = 2112;
+    v14 = v4;
+    v15 = 2112;
+    v16 = v5;
     _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Provider %@ was asked to report a new incoming call with UUID: %@ update: %@", buf, 0x20u);
   }
 
   v6 = [*(a1 + 32) callProviderHostDelegate];
   v7 = *(a1 + 40);
   v8 = *(a1 + 48);
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __62__CXProvider_reportNewIncomingCallWithUUID_update_completion___block_invoke_162;
-  v10[3] = &unk_1E7C073D8;
-  v10[4] = *(a1 + 32);
-  v11 = *(a1 + 56);
-  [v6 reportNewIncomingCallWithUUID:v7 update:v8 reply:v10];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __62__CXProvider_reportNewIncomingCallWithUUID_update_completion___block_invoke_162;
+  v9[3] = &unk_1E7C073D8;
+  v9[4] = *(a1 + 32);
+  v10 = *(a1 + 56);
+  [v6 reportNewIncomingCallWithUUID:v7 update:v8 reply:v9];
 }
 
 void __62__CXProvider_reportNewIncomingCallWithUUID_update_completion___block_invoke_162(uint64_t a1, void *a2)
@@ -488,51 +479,49 @@ LABEL_4:
 
 void __41__CXProvider_reportCallWithUUID_updated___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v2 = CXDefaultLog();
+  v13 = *MEMORY[0x1E69E9840];
+  v2 = CXDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = [*(a1 + 40) UUIDString];
     v5 = *(a1 + 48);
-    v8 = 138412802;
-    v9 = v3;
-    v10 = 2112;
-    v11 = v4;
-    v12 = 2112;
-    v13 = v5;
-    _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Provider %@ was asked to report that call with UUID %@ updated with update %@", &v8, 0x20u);
+    v7 = 138412802;
+    v8 = v3;
+    v9 = 2112;
+    v10 = v4;
+    v11 = 2112;
+    v12 = v5;
+    _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Provider %@ was asked to report that call with UUID %@ updated with update %@", &v7, 0x20u);
   }
 
   v6 = [*(a1 + 32) callProviderHostDelegate];
   [v6 reportCallWithUUID:*(a1 + 40) updated:*(a1 + 48)];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)reportCallWithUUID:(NSUUID *)UUID endedAtDate:(NSDate *)dateEnded reason:(CXCallEndedReason)endedReason
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v8 = UUID;
   v9 = dateEnded;
   v10 = dyld_program_sdk_at_least();
   if (!v8 && v10)
   {
-    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D940] format:{@"%s: parameter '%@' cannot be nil", "-[CXProvider reportCallWithUUID:endedAtDate:reason:]", @"UUID"}];
+    v10 = [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D940] format:{@"%s: parameter '%@' cannot be nil", "-[CXProvider reportCallWithUUID:endedAtDate:reason:]", @"UUID"}];
   }
 
-  v11 = CXDefaultLog();
+  v11 = CXDefaultLog(v10);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     uUIDString = [(NSUUID *)v8 UUIDString];
     *buf = 138413058;
     selfCopy = self;
-    v17 = 2112;
-    v18 = uUIDString;
-    v19 = 2112;
-    v20 = v9;
-    v21 = 2048;
-    v22 = endedReason;
+    v16 = 2112;
+    v17 = uUIDString;
+    v18 = 2112;
+    v19 = v9;
+    v20 = 2048;
+    v21 = endedReason;
     _os_log_impl(&dword_1B47F3000, v11, OS_LOG_TYPE_DEFAULT, "Provider %@ was asked to report that call with UUID %@ ended at date %@ with reason %ld", buf, 0x2Au);
   }
 
@@ -547,38 +536,35 @@ void __41__CXProvider_reportCallWithUUID_updated___block_invoke(uint64_t a1)
   }
 
   [(CXProvider *)self reportCallWithUUID:v8 endedAtDate:v9 privateReason:v13];
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)reportCallWithUUID:(id)d endedAtDate:(id)date privateReason:(int64_t)reason
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   dCopy = d;
   dateCopy = date;
   v10 = dyld_program_sdk_at_least();
   if (!dCopy && v10)
   {
-    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D940] format:{@"%s: parameter '%@' cannot be nil", "-[CXProvider reportCallWithUUID:endedAtDate:privateReason:]", @"UUID"}];
+    v10 = [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D940] format:{@"%s: parameter '%@' cannot be nil", "-[CXProvider reportCallWithUUID:endedAtDate:privateReason:]", @"UUID"}];
   }
 
-  v11 = CXDefaultLog();
+  v11 = CXDefaultLog(v10);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     uUIDString = [dCopy UUIDString];
     *buf = 138413058;
     selfCopy = self;
-    v16 = 2112;
-    v17 = uUIDString;
-    v18 = 2112;
-    v19 = dateCopy;
-    v20 = 2048;
+    v15 = 2112;
+    v16 = uUIDString;
+    v17 = 2112;
+    v18 = dateCopy;
+    v19 = 2048;
     reasonCopy = reason;
     _os_log_impl(&dword_1B47F3000, v11, OS_LOG_TYPE_DEFAULT, "Provider %@ was notified that call with UUID %@ ended at date %@ with private reason %ld", buf, 0x2Au);
   }
 
   [(CXProvider *)self reportCallWithUUID:dCopy endedAtDate:dateCopy privateReason:reason failureContext:0];
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)reportCallWithUUID:(id)d failedAtDate:(id)date withContext:(id)context
@@ -587,7 +573,8 @@ void __41__CXProvider_reportCallWithUUID_updated___block_invoke(uint64_t a1)
   dCopy = d;
   dateCopy = date;
   contextCopy = context;
-  if (dyld_program_sdk_at_least())
+  v11 = dyld_program_sdk_at_least();
+  if (v11)
   {
     if (dCopy)
     {
@@ -599,19 +586,19 @@ void __41__CXProvider_reportCallWithUUID_updated___block_invoke(uint64_t a1)
 
     else
     {
-      [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D940] format:{@"%s: parameter '%@' cannot be nil", "-[CXProvider reportCallWithUUID:failedAtDate:withContext:]", @"UUID"}];
+      v11 = [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D940] format:{@"%s: parameter '%@' cannot be nil", "-[CXProvider reportCallWithUUID:failedAtDate:withContext:]", @"UUID"}];
       if (contextCopy)
       {
         goto LABEL_4;
       }
     }
 
-    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D940] format:{@"%s: parameter '%@' cannot be nil", "-[CXProvider reportCallWithUUID:failedAtDate:withContext:]", @"failureContext"}];
+    v11 = [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D940] format:{@"%s: parameter '%@' cannot be nil", "-[CXProvider reportCallWithUUID:failedAtDate:withContext:]", @"failureContext"}];
   }
 
 LABEL_4:
-  v11 = CXDefaultLog();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = CXDefaultLog(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     uUIDString = [dCopy UUIDString];
     *buf = 138413058;
@@ -622,11 +609,10 @@ LABEL_4:
     v19 = dateCopy;
     v20 = 2112;
     v21 = contextCopy;
-    _os_log_impl(&dword_1B47F3000, v11, OS_LOG_TYPE_DEFAULT, "Provider %@ was notified that call with UUID %@ failed at date %@ with context %@", buf, 0x2Au);
+    _os_log_impl(&dword_1B47F3000, v12, OS_LOG_TYPE_DEFAULT, "Provider %@ was notified that call with UUID %@ failed at date %@ with context %@", buf, 0x2Au);
   }
 
   [(CXProvider *)self reportCallWithUUID:dCopy endedAtDate:dateCopy privateReason:1 failureContext:contextCopy];
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)reportCallWithUUID:(id)d endedAtDate:(id)date privateReason:(int64_t)reason failureContext:(id)context
@@ -658,8 +644,8 @@ LABEL_4:
 
 void __74__CXProvider_reportCallWithUUID_endedAtDate_privateReason_failureContext___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
-  v2 = CXDefaultLog();
+  v19 = *MEMORY[0x1E69E9840];
+  v2 = CXDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -667,23 +653,21 @@ void __74__CXProvider_reportCallWithUUID_endedAtDate_privateReason_failureContex
     v6 = *(a1 + 56);
     v5 = *(a1 + 64);
     v7 = *(a1 + 48);
-    v10 = 138413314;
-    v11 = v3;
-    v12 = 2112;
-    v13 = v4;
-    v14 = 2112;
-    v15 = v7;
-    v16 = 2048;
-    v17 = v5;
-    v18 = 2112;
-    v19 = v6;
-    _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Provider %@ was notified that call with UUID %@ ended at date %@ with private reason %ld and failure context %@", &v10, 0x34u);
+    v9 = 138413314;
+    v10 = v3;
+    v11 = 2112;
+    v12 = v4;
+    v13 = 2112;
+    v14 = v7;
+    v15 = 2048;
+    v16 = v5;
+    v17 = 2112;
+    v18 = v6;
+    _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Provider %@ was notified that call with UUID %@ ended at date %@ with private reason %ld and failure context %@", &v9, 0x34u);
   }
 
   v8 = [*(a1 + 32) callProviderHostDelegate];
   [v8 reportCallWithUUID:*(a1 + 40) endedAtDate:*(a1 + 48) privateReason:*(a1 + 64) failureContext:*(a1 + 56)];
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)reportAudioFinishedForCallWithUUID:(id)d
@@ -708,23 +692,21 @@ void __74__CXProvider_reportCallWithUUID_endedAtDate_privateReason_failureContex
 
 void __49__CXProvider_reportAudioFinishedForCallWithUUID___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v2 = CXDefaultLog();
+  v10 = *MEMORY[0x1E69E9840];
+  v2 = CXDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = [*(a1 + 40) UUIDString];
-    v7 = 138412546;
-    v8 = v3;
-    v9 = 2112;
-    v10 = v4;
-    _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Provider %@ was notified that call with UUID %@ finished audio", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = v3;
+    v8 = 2112;
+    v9 = v4;
+    _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Provider %@ was notified that call with UUID %@ finished audio", &v6, 0x16u);
   }
 
   v5 = [*(a1 + 32) callProviderHostDelegate];
   [v5 reportAudioFinishedForCallWithUUID:*(a1 + 40)];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)reportOutgoingCallWithUUID:(id)d sentInvitationAtDate:(id)date
@@ -752,26 +734,24 @@ void __49__CXProvider_reportAudioFinishedForCallWithUUID___block_invoke(uint64_t
 
 void __62__CXProvider_reportOutgoingCallWithUUID_sentInvitationAtDate___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v2 = CXDefaultLog();
+  v13 = *MEMORY[0x1E69E9840];
+  v2 = CXDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = [*(a1 + 40) UUIDString];
     v5 = *(a1 + 48);
-    v8 = 138412802;
-    v9 = v3;
-    v10 = 2112;
-    v11 = v4;
-    v12 = 2112;
-    v13 = v5;
-    _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Provider %@ was notified that outgoing call with UUID %@ sent invitation at date %@", &v8, 0x20u);
+    v7 = 138412802;
+    v8 = v3;
+    v9 = 2112;
+    v10 = v4;
+    v11 = 2112;
+    v12 = v5;
+    _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Provider %@ was notified that outgoing call with UUID %@ sent invitation at date %@", &v7, 0x20u);
   }
 
   v6 = [*(a1 + 32) callProviderHostDelegate];
   [v6 reportOutgoingCallWithUUID:*(a1 + 40) sentInvitationAtDate:*(a1 + 48)];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)reportCallWithUUID:(id)d changedFrequencyData:(id)data forDirection:(int64_t)direction
@@ -876,29 +856,27 @@ LABEL_4:
 
 void __78__CXProvider_reportCallWithUUID_crossDeviceIdentifier_changedBytesOfDataUsed___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
-  v2 = CXDefaultLog();
+  v16 = *MEMORY[0x1E69E9840];
+  v2 = CXDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = [*(a1 + 40) UUIDString];
     v5 = *(a1 + 48);
     v6 = *(a1 + 56);
-    v9 = 138413058;
-    v10 = v3;
-    v11 = 2112;
-    v12 = v4;
-    v13 = 2112;
-    v14 = v5;
-    v15 = 2048;
-    v16 = v6;
-    _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Provider %@ was notified that call with UUID %@ and cross device identifier %@ changed bytes of data used %ld", &v9, 0x2Au);
+    v8 = 138413058;
+    v9 = v3;
+    v10 = 2112;
+    v11 = v4;
+    v12 = 2112;
+    v13 = v5;
+    v14 = 2048;
+    v15 = v6;
+    _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Provider %@ was notified that call with UUID %@ and cross device identifier %@ changed bytes of data used %ld", &v8, 0x2Au);
   }
 
   v7 = [*(a1 + 32) callProviderHostDelegate];
   [v7 reportCallWithUUID:*(a1 + 40) crossDeviceIdentifier:*(a1 + 48) changedBytesOfDataUsed:*(a1 + 56)];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)reportOutgoingCallWithUUID:(NSUUID *)UUID startedConnectingAtDate:(NSDate *)dateStartedConnecting
@@ -926,26 +904,24 @@ void __78__CXProvider_reportCallWithUUID_crossDeviceIdentifier_changedBytesOfDat
 
 void __65__CXProvider_reportOutgoingCallWithUUID_startedConnectingAtDate___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v2 = CXDefaultLog();
+  v13 = *MEMORY[0x1E69E9840];
+  v2 = CXDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = [*(a1 + 40) UUIDString];
     v5 = *(a1 + 48);
-    v8 = 138412802;
-    v9 = v3;
-    v10 = 2112;
-    v11 = v4;
-    v12 = 2112;
-    v13 = v5;
-    _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Provider %@ was notified that outgoing call with UUID %@ started connecting at date %@", &v8, 0x20u);
+    v7 = 138412802;
+    v8 = v3;
+    v9 = 2112;
+    v10 = v4;
+    v11 = 2112;
+    v12 = v5;
+    _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Provider %@ was notified that outgoing call with UUID %@ started connecting at date %@", &v7, 0x20u);
   }
 
   v6 = [*(a1 + 32) callProviderHostDelegate];
   [v6 reportOutgoingCallWithUUID:*(a1 + 40) startedConnectingAtDate:*(a1 + 48)];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)reportOutgoingCallWithUUID:(NSUUID *)UUID connectedAtDate:(NSDate *)dateConnected
@@ -973,26 +949,24 @@ void __65__CXProvider_reportOutgoingCallWithUUID_startedConnectingAtDate___block
 
 void __57__CXProvider_reportOutgoingCallWithUUID_connectedAtDate___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v2 = CXDefaultLog();
+  v13 = *MEMORY[0x1E69E9840];
+  v2 = CXDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = [*(a1 + 40) UUIDString];
     v5 = *(a1 + 48);
-    v8 = 138412802;
-    v9 = v3;
-    v10 = 2112;
-    v11 = v4;
-    v12 = 2112;
-    v13 = v5;
-    _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Provider %@ was notified that outgoing call with UUID %@ connected at date %@", &v8, 0x20u);
+    v7 = 138412802;
+    v8 = v3;
+    v9 = 2112;
+    v10 = v4;
+    v11 = 2112;
+    v12 = v5;
+    _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Provider %@ was notified that outgoing call with UUID %@ connected at date %@", &v7, 0x20u);
   }
 
   v6 = [*(a1 + 32) callProviderHostDelegate];
   [v6 reportOutgoingCallWithUUID:*(a1 + 40) connectedAtDate:*(a1 + 48)];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)reportNewOutgoingCallWithUUID:(id)d update:(id)update
@@ -1014,23 +988,21 @@ void __57__CXProvider_reportOutgoingCallWithUUID_connectedAtDate___block_invoke(
 
 void __51__CXProvider_reportNewOutgoingCallWithUUID_update___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v2 = CXDefaultLog();
+  v10 = *MEMORY[0x1E69E9840];
+  v2 = CXDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = [*(a1 + 40) UUIDString];
-    v7 = 138412546;
-    v8 = v3;
-    v9 = 2112;
-    v10 = v4;
-    _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Provider %@ was notified that outgoing call with UUID %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = v3;
+    v8 = 2112;
+    v9 = v4;
+    _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Provider %@ was notified that outgoing call with UUID %@", &v6, 0x16u);
   }
 
   v5 = [*(a1 + 32) callProviderHostDelegate];
   [v5 reportNewOutgoingCallWithUUID:*(a1 + 40) update:*(a1 + 48)];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)requestTransaction:(id)transaction completion:(id)completion
@@ -1075,23 +1047,21 @@ LABEL_4:
 
 void __44__CXProvider_requestTransaction_completion___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v2 = CXDefaultLog();
+  v10 = *MEMORY[0x1E69E9840];
+  v2 = CXDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
-    v7 = 138412546;
-    v8 = v3;
-    v9 = 2112;
-    v10 = v4;
-    _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Provider %@ requested transaction %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = v3;
+    v8 = 2112;
+    v9 = v4;
+    _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Provider %@ requested transaction %@", &v6, 0x16u);
   }
 
   v5 = [*(a1 + 32) callProviderHostDelegate];
   [v5 requestTransaction:*(a1 + 40) completionHandler:*(a1 + 48)];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)reportCallWithUUID:(id)d receivedDTMFUpdate:(id)update
@@ -1133,26 +1103,24 @@ LABEL_3:
 
 void __52__CXProvider_reportCallWithUUID_receivedDTMFUpdate___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v2 = CXDefaultLog();
+  v13 = *MEMORY[0x1E69E9840];
+  v2 = CXDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
     v5 = [*(a1 + 48) UUIDString];
-    v8 = 138412802;
-    v9 = v3;
-    v10 = 2112;
-    v11 = v4;
-    v12 = 2112;
-    v13 = v5;
-    _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Provider %@ was notified receivedDTMFUpdate %@ from call with UUID %@", &v8, 0x20u);
+    v7 = 138412802;
+    v8 = v3;
+    v9 = 2112;
+    v10 = v4;
+    v11 = 2112;
+    v12 = v5;
+    _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Provider %@ was notified receivedDTMFUpdate %@ from call with UUID %@", &v7, 0x20u);
   }
 
   v6 = [*(a1 + 32) callProviderHostDelegate];
   [v6 reportCallWithUUID:*(a1 + 48) receivedDTMFUpdate:*(a1 + 40)];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (CXFeatures)featureFlags
@@ -1193,52 +1161,49 @@ void __42__CXProvider_registerCurrentConfiguration__block_invoke(uint64_t a1)
 {
   v16 = *MEMORY[0x1E69E9840];
   v2 = *(*(a1 + 32) + 8);
-  if ([*(a1 + 32) requiresProxyingAVAudioSessionState])
+  v3 = [*(a1 + 32) requiresProxyingAVAudioSessionState];
+  if (v3)
   {
-    v3 = [MEMORY[0x1E6958460] sharedInstance];
-    [v2 setAudioSessionID:{objc_msgSend(v3, "opaqueSessionID")}];
+    v4 = [MEMORY[0x1E6958460] sharedInstance];
+    [v2 setAudioSessionID:{objc_msgSend(v4, "opaqueSessionID")}];
 
-    v4 = [*(a1 + 32) featureFlags];
-    v5 = [v4 callManagementMuteControl];
+    v5 = [*(a1 + 32) featureFlags];
+    v6 = [v5 callManagementMuteControl];
 
-    if (v5)
+    if (v6)
     {
-      v6 = [MEMORY[0x1E696AD88] defaultCenter];
-      v7 = *(a1 + 32);
-      v8 = *MEMORY[0x1E6958000];
-      v9 = [MEMORY[0x1E69583C0] sharedInstance];
-      [v6 addObserver:v7 selector:sel_handleMuteStatusChangedNotification_ name:v8 object:v9];
+      v7 = [MEMORY[0x1E696AD88] defaultCenter];
+      v8 = *(a1 + 32);
+      v9 = *MEMORY[0x1E6958000];
+      v10 = [MEMORY[0x1E69583C0] sharedInstance];
+      [v7 addObserver:v8 selector:sel_handleMuteStatusChangedNotification_ name:v9 object:v10];
     }
   }
 
-  v10 = CXDefaultLog();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = CXDefaultLog(v3);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     v14 = 138412290;
     v15 = v2;
-    _os_log_impl(&dword_1B47F3000, v10, OS_LOG_TYPE_DEFAULT, "Registering configuration %@", &v14, 0xCu);
+    _os_log_impl(&dword_1B47F3000, v11, OS_LOG_TYPE_DEFAULT, "Registering configuration %@", &v14, 0xCu);
   }
 
-  v11 = [*(a1 + 32) callProviderHostDelegate];
-  v12 = [v2 copy];
-  [v11 registerWithConfiguration:v12];
-
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = [*(a1 + 32) callProviderHostDelegate];
+  v13 = [v2 copy];
+  [v12 registerWithConfiguration:v13];
 }
 
 - (void)handleMuteStatusChangedNotification:(id)notification
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
-  v4 = CXDefaultLog();
+  v4 = CXDefaultLog(notificationCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
-    v7 = notificationCopy;
-    _os_log_impl(&dword_1B47F3000, v4, OS_LOG_TYPE_DEFAULT, "Handling notification %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = notificationCopy;
+    _os_log_impl(&dword_1B47F3000, v4, OS_LOG_TYPE_DEFAULT, "Handling notification %@", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)performCompletionBlock:(id)block
@@ -1277,7 +1242,7 @@ void __37__CXProvider_performCompletionBlock___block_invoke(uint64_t a1)
 
 - (void)performAction:(id)action
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   actionCopy = action;
   abstractProvider = [(CXProvider *)self abstractProvider];
   delegateQueue = [abstractProvider delegateQueue];
@@ -1291,19 +1256,20 @@ void __37__CXProvider_performCompletionBlock___block_invoke(uint64_t a1)
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v10 = actionCopy;
-      if (objc_opt_respondsToSelector())
+      v11 = actionCopy;
+      v12 = objc_opt_respondsToSelector();
+      if (v12)
       {
-        [delegate provider:self performAnswerCallAction:v10];
+        [delegate provider:self performAnswerCallAction:v11];
         goto LABEL_39;
       }
 
-      v11 = CXDefaultLog();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v13 = CXDefaultLog(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = NSStringFromSelector(sel_provider_performAnswerCallAction_);
-        v24 = 138412290;
-        v25 = v12;
+        v14 = NSStringFromSelector(sel_provider_performAnswerCallAction_);
+        v47 = 138412290;
+        v48 = v14;
         goto LABEL_37;
       }
     }
@@ -1313,19 +1279,20 @@ void __37__CXProvider_performCompletionBlock___block_invoke(uint64_t a1)
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v13 = actionCopy;
-        if (objc_opt_respondsToSelector())
+        v15 = actionCopy;
+        v16 = objc_opt_respondsToSelector();
+        if (v16)
         {
-          [delegate provider:self performEndCallAction:v13];
+          [delegate provider:self performEndCallAction:v15];
           goto LABEL_39;
         }
 
-        v11 = CXDefaultLog();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        v13 = CXDefaultLog(v16);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
-          v12 = NSStringFromSelector(sel_provider_performEndCallAction_);
-          v24 = 138412290;
-          v25 = v12;
+          v14 = NSStringFromSelector(sel_provider_performEndCallAction_);
+          v47 = 138412290;
+          v48 = v14;
           goto LABEL_37;
         }
       }
@@ -1335,19 +1302,20 @@ void __37__CXProvider_performCompletionBlock___block_invoke(uint64_t a1)
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v14 = actionCopy;
-          if (objc_opt_respondsToSelector())
+          v17 = actionCopy;
+          v18 = objc_opt_respondsToSelector();
+          if (v18)
           {
-            [delegate provider:self performSetHeldCallAction:v14];
+            [delegate provider:self performSetHeldCallAction:v17];
             goto LABEL_39;
           }
 
-          v11 = CXDefaultLog();
-          if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+          v13 = CXDefaultLog(v18);
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
           {
-            v12 = NSStringFromSelector(sel_provider_performSetHeldCallAction_);
-            v24 = 138412290;
-            v25 = v12;
+            v14 = NSStringFromSelector(sel_provider_performSetHeldCallAction_);
+            v47 = 138412290;
+            v48 = v14;
             goto LABEL_37;
           }
         }
@@ -1357,19 +1325,20 @@ void __37__CXProvider_performCompletionBlock___block_invoke(uint64_t a1)
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v15 = actionCopy;
-            if (objc_opt_respondsToSelector())
+            v19 = actionCopy;
+            v20 = objc_opt_respondsToSelector();
+            if (v20)
             {
-              [delegate provider:self performSetMutedCallAction:v15];
+              [delegate provider:self performSetMutedCallAction:v19];
               goto LABEL_39;
             }
 
-            v11 = CXDefaultLog();
-            if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+            v13 = CXDefaultLog(v20);
+            if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
             {
-              v12 = NSStringFromSelector(sel_provider_performSetMutedCallAction_);
-              v24 = 138412290;
-              v25 = v12;
+              v14 = NSStringFromSelector(sel_provider_performSetMutedCallAction_);
+              v47 = 138412290;
+              v48 = v14;
               goto LABEL_37;
             }
           }
@@ -1379,19 +1348,20 @@ void __37__CXProvider_performCompletionBlock___block_invoke(uint64_t a1)
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v16 = actionCopy;
-              if (objc_opt_respondsToSelector())
+              v21 = actionCopy;
+              v22 = objc_opt_respondsToSelector();
+              if (v22)
               {
-                [delegate provider:self performSetGroupCallAction:v16];
+                [delegate provider:self performSetGroupCallAction:v21];
                 goto LABEL_39;
               }
 
-              v11 = CXDefaultLog();
-              if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+              v13 = CXDefaultLog(v22);
+              if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
               {
-                v12 = NSStringFromSelector(sel_provider_performSetGroupCallAction_);
-                v24 = 138412290;
-                v25 = v12;
+                v14 = NSStringFromSelector(sel_provider_performSetGroupCallAction_);
+                v47 = 138412290;
+                v48 = v14;
                 goto LABEL_37;
               }
             }
@@ -1401,23 +1371,24 @@ void __37__CXProvider_performCompletionBlock___block_invoke(uint64_t a1)
               objc_opt_class();
               if ((objc_opt_isKindOfClass() & 1) == 0)
               {
-                v18 = 0;
+                v25 = 0;
                 goto LABEL_40;
               }
 
-              v17 = actionCopy;
-              if (objc_opt_respondsToSelector())
+              v23 = actionCopy;
+              v24 = objc_opt_respondsToSelector();
+              if (v24)
               {
-                [delegate provider:self performPlayDTMFCallAction:v17];
+                [delegate provider:self performPlayDTMFCallAction:v23];
                 goto LABEL_39;
               }
 
-              v11 = CXDefaultLog();
-              if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+              v13 = CXDefaultLog(v24);
+              if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
               {
-                v12 = NSStringFromSelector(sel_provider_performPlayDTMFCallAction_);
-                v24 = 138412290;
-                v25 = v12;
+                v14 = NSStringFromSelector(sel_provider_performPlayDTMFCallAction_);
+                v47 = 138412290;
+                v48 = v14;
                 goto LABEL_37;
               }
             }
@@ -1432,16 +1403,17 @@ LABEL_38:
   }
 
   v9 = actionCopy;
-  if ((objc_opt_respondsToSelector() & 1) == 0)
+  v10 = objc_opt_respondsToSelector();
+  if ((v10 & 1) == 0)
   {
-    v11 = CXDefaultLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = CXDefaultLog(v10);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = NSStringFromSelector(sel_provider_performStartCallAction_);
-      v24 = 138412290;
-      v25 = v12;
+      v14 = NSStringFromSelector(sel_provider_performStartCallAction_);
+      v47 = 138412290;
+      v48 = v14;
 LABEL_37:
-      _os_log_impl(&dword_1B47F3000, v11, OS_LOG_TYPE_DEFAULT, "[WARN] Delegate does not respond to %@. Action will not be performed", &v24, 0xCu);
+      _os_log_impl(&dword_1B47F3000, v13, OS_LOG_TYPE_DEFAULT, "[WARN] Delegate does not respond to %@. Action will not be performed", &v47, 0xCu);
 
       goto LABEL_38;
     }
@@ -1452,7 +1424,7 @@ LABEL_37:
   [delegate provider:self performStartCallAction:v9];
 LABEL_39:
 
-  v18 = 1;
+  v25 = 1;
 LABEL_40:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -1460,18 +1432,19 @@ LABEL_40:
     goto LABEL_45;
   }
 
-  if (isInternalInstall())
+  v26 = isInternalInstall();
+  if (v26)
   {
-    v19 = CXDefaultLog();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v27 = CXDefaultLog(v26);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v24) = 0;
-      _os_log_impl(&dword_1B47F3000, v19, OS_LOG_TYPE_DEFAULT, "fulfill CXSetTranslatingCallAction", &v24, 2u);
+      LOWORD(v47) = 0;
+      _os_log_impl(&dword_1B47F3000, v27, OS_LOG_TYPE_DEFAULT, "fulfill CXSetTranslatingCallAction", &v47, 2u);
     }
 
     [actionCopy fulfill];
 LABEL_45:
-    if ((v18 & 1) == 0)
+    if ((v25 & 1) == 0)
     {
       goto LABEL_46;
     }
@@ -1479,24 +1452,25 @@ LABEL_45:
     goto LABEL_127;
   }
 
-  if ((v18 & 1) == 0)
+  if ((v25 & 1) == 0)
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v20 = actionCopy;
-      if (objc_opt_respondsToSelector())
+      v28 = actionCopy;
+      v30 = objc_opt_respondsToSelector();
+      if (v30)
       {
-        [delegate provider:self performSetTranslatingCallAction:v20];
+        [delegate provider:self performSetTranslatingCallAction:v28];
         goto LABEL_126;
       }
 
-      v21 = CXDefaultLog();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v32 = CXDefaultLog(v30);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
       {
-        v22 = NSStringFromSelector(sel_provider_performSetTranslatingCallAction_);
-        v24 = 138412290;
-        v25 = v22;
+        v33 = NSStringFromSelector(sel_provider_performSetTranslatingCallAction_);
+        v47 = 138412290;
+        v48 = v33;
         goto LABEL_124;
       }
 
@@ -1507,23 +1481,24 @@ LABEL_46:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v20 = actionCopy;
-      if (objc_opt_respondsToSelector())
+      v28 = actionCopy;
+      v29 = objc_opt_respondsToSelector();
+      if (v29)
       {
-        [privateDelegate provider:self performSendMMIOrUSSDCodeAction:v20];
+        [privateDelegate provider:self performSendMMIOrUSSDCodeAction:v28];
 LABEL_126:
 
         goto LABEL_127;
       }
 
-      v21 = CXDefaultLog();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v32 = CXDefaultLog(v29);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
       {
-        v22 = NSStringFromSelector(sel_provider_performSendMMIOrUSSDCodeAction_);
-        v24 = 138412290;
-        v25 = v22;
+        v33 = NSStringFromSelector(sel_provider_performSendMMIOrUSSDCodeAction_);
+        v47 = 138412290;
+        v48 = v33;
 LABEL_124:
-        _os_log_impl(&dword_1B47F3000, v21, OS_LOG_TYPE_DEFAULT, "[WARN] Delegate does not respond to %@. Action will not be performed", &v24, 0xCu);
+        _os_log_impl(&dword_1B47F3000, v32, OS_LOG_TYPE_DEFAULT, "[WARN] Delegate does not respond to %@. Action will not be performed", &v47, 0xCu);
       }
     }
 
@@ -1532,19 +1507,20 @@ LABEL_124:
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v20 = actionCopy;
-        if (objc_opt_respondsToSelector())
+        v28 = actionCopy;
+        v31 = objc_opt_respondsToSelector();
+        if (v31)
         {
-          [privateDelegate provider:self performJoinCallAction:v20];
+          [privateDelegate provider:self performJoinCallAction:v28];
           goto LABEL_126;
         }
 
-        v21 = CXDefaultLog();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+        v32 = CXDefaultLog(v31);
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
         {
-          v22 = NSStringFromSelector(sel_provider_performJoinCallAction_);
-          v24 = 138412290;
-          v25 = v22;
+          v33 = NSStringFromSelector(sel_provider_performJoinCallAction_);
+          v47 = 138412290;
+          v48 = v33;
           goto LABEL_124;
         }
       }
@@ -1554,19 +1530,20 @@ LABEL_124:
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v20 = actionCopy;
-          if (objc_opt_respondsToSelector())
+          v28 = actionCopy;
+          v34 = objc_opt_respondsToSelector();
+          if (v34)
           {
-            [privateDelegate provider:self performSetTTYTypeCallAction:v20];
+            [privateDelegate provider:self performSetTTYTypeCallAction:v28];
             goto LABEL_126;
           }
 
-          v21 = CXDefaultLog();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+          v32 = CXDefaultLog(v34);
+          if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
           {
-            v22 = NSStringFromSelector(sel_provider_performSetTTYTypeCallAction_);
-            v24 = 138412290;
-            v25 = v22;
+            v33 = NSStringFromSelector(sel_provider_performSetTTYTypeCallAction_);
+            v47 = 138412290;
+            v48 = v33;
             goto LABEL_124;
           }
         }
@@ -1576,19 +1553,20 @@ LABEL_124:
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v20 = actionCopy;
-            if (objc_opt_respondsToSelector())
+            v28 = actionCopy;
+            v35 = objc_opt_respondsToSelector();
+            if (v35)
             {
-              [privateDelegate provider:self performSetSendingVideoCallAction:v20];
+              [privateDelegate provider:self performSetSendingVideoCallAction:v28];
               goto LABEL_126;
             }
 
-            v21 = CXDefaultLog();
-            if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+            v32 = CXDefaultLog(v35);
+            if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
             {
-              v22 = NSStringFromSelector(sel_provider_performSetSendingVideoCallAction_);
-              v24 = 138412290;
-              v25 = v22;
+              v33 = NSStringFromSelector(sel_provider_performSetSendingVideoCallAction_);
+              v47 = 138412290;
+              v48 = v33;
               goto LABEL_124;
             }
           }
@@ -1598,19 +1576,20 @@ LABEL_124:
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v20 = actionCopy;
-              if (objc_opt_respondsToSelector())
+              v28 = actionCopy;
+              v36 = objc_opt_respondsToSelector();
+              if (v36)
               {
-                [privateDelegate provider:self performSetRelayingCallAction:v20];
+                [privateDelegate provider:self performSetRelayingCallAction:v28];
                 goto LABEL_126;
               }
 
-              v21 = CXDefaultLog();
-              if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+              v32 = CXDefaultLog(v36);
+              if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
               {
-                v22 = NSStringFromSelector(sel_provider_performSetRelayingCallAction_);
-                v24 = 138412290;
-                v25 = v22;
+                v33 = NSStringFromSelector(sel_provider_performSetRelayingCallAction_);
+                v47 = 138412290;
+                v48 = v33;
                 goto LABEL_124;
               }
             }
@@ -1620,19 +1599,20 @@ LABEL_124:
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v20 = actionCopy;
-                if (objc_opt_respondsToSelector())
+                v28 = actionCopy;
+                v37 = objc_opt_respondsToSelector();
+                if (v37)
                 {
-                  [privateDelegate provider:self performSetScreeningCallAction:v20];
+                  [privateDelegate provider:self performSetScreeningCallAction:v28];
                   goto LABEL_126;
                 }
 
-                v21 = CXDefaultLog();
-                if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+                v32 = CXDefaultLog(v37);
+                if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
                 {
-                  v22 = NSStringFromSelector(sel_provider_performSetScreeningCallAction_);
-                  v24 = 138412290;
-                  v25 = v22;
+                  v33 = NSStringFromSelector(sel_provider_performSetScreeningCallAction_);
+                  v47 = 138412290;
+                  v48 = v33;
                   goto LABEL_124;
                 }
               }
@@ -1642,19 +1622,20 @@ LABEL_124:
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  v20 = actionCopy;
-                  if (objc_opt_respondsToSelector())
+                  v28 = actionCopy;
+                  v38 = objc_opt_respondsToSelector();
+                  if (v38)
                   {
-                    [privateDelegate provider:self performSetAllowUplinkAudioInjectionAction:v20];
+                    [privateDelegate provider:self performSetAllowUplinkAudioInjectionAction:v28];
                     goto LABEL_126;
                   }
 
-                  v21 = CXDefaultLog();
-                  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+                  v32 = CXDefaultLog(v38);
+                  if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
                   {
-                    v22 = NSStringFromSelector(sel_provider_performSetAllowUplinkAudioInjectionAction_);
-                    v24 = 138412290;
-                    v25 = v22;
+                    v33 = NSStringFromSelector(sel_provider_performSetAllowUplinkAudioInjectionAction_);
+                    v47 = 138412290;
+                    v48 = v33;
                     goto LABEL_124;
                   }
                 }
@@ -1664,19 +1645,20 @@ LABEL_124:
                   objc_opt_class();
                   if (objc_opt_isKindOfClass())
                   {
-                    v20 = actionCopy;
-                    if (objc_opt_respondsToSelector())
+                    v28 = actionCopy;
+                    v39 = objc_opt_respondsToSelector();
+                    if (v39)
                     {
-                      [privateDelegate provider:self performPullCallAction:v20];
+                      [privateDelegate provider:self performPullCallAction:v28];
                       goto LABEL_126;
                     }
 
-                    v21 = CXDefaultLog();
-                    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+                    v32 = CXDefaultLog(v39);
+                    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
                     {
-                      v22 = NSStringFromSelector(sel_provider_performPullCallAction_);
-                      v24 = 138412290;
-                      v25 = v22;
+                      v33 = NSStringFromSelector(sel_provider_performPullCallAction_);
+                      v47 = 138412290;
+                      v48 = v33;
                       goto LABEL_124;
                     }
                   }
@@ -1686,19 +1668,20 @@ LABEL_124:
                     objc_opt_class();
                     if (objc_opt_isKindOfClass())
                     {
-                      v20 = actionCopy;
-                      if (objc_opt_respondsToSelector())
+                      v28 = actionCopy;
+                      v40 = objc_opt_respondsToSelector();
+                      if (v40)
                       {
-                        [privateDelegate provider:self performSetVideoPresentationSizeCallAction:v20];
+                        [privateDelegate provider:self performSetVideoPresentationSizeCallAction:v28];
                         goto LABEL_126;
                       }
 
-                      v21 = CXDefaultLog();
-                      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+                      v32 = CXDefaultLog(v40);
+                      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
                       {
-                        v22 = NSStringFromSelector(sel_provider_performSetVideoPresentationSizeCallAction_);
-                        v24 = 138412290;
-                        v25 = v22;
+                        v33 = NSStringFromSelector(sel_provider_performSetVideoPresentationSizeCallAction_);
+                        v47 = 138412290;
+                        v48 = v33;
                         goto LABEL_124;
                       }
                     }
@@ -1708,19 +1691,20 @@ LABEL_124:
                       objc_opt_class();
                       if (objc_opt_isKindOfClass())
                       {
-                        v20 = actionCopy;
-                        if (objc_opt_respondsToSelector())
+                        v28 = actionCopy;
+                        v41 = objc_opt_respondsToSelector();
+                        if (v41)
                         {
-                          [privateDelegate provider:self performSetVideoPresentationStateCallAction:v20];
+                          [privateDelegate provider:self performSetVideoPresentationStateCallAction:v28];
                           goto LABEL_126;
                         }
 
-                        v21 = CXDefaultLog();
-                        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+                        v32 = CXDefaultLog(v41);
+                        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
                         {
-                          v22 = NSStringFromSelector(sel_provider_performSetVideoPresentationStateCallAction_);
-                          v24 = 138412290;
-                          v25 = v22;
+                          v33 = NSStringFromSelector(sel_provider_performSetVideoPresentationStateCallAction_);
+                          v47 = 138412290;
+                          v48 = v33;
                           goto LABEL_124;
                         }
                       }
@@ -1730,19 +1714,20 @@ LABEL_124:
                         objc_opt_class();
                         if (objc_opt_isKindOfClass())
                         {
-                          v20 = actionCopy;
-                          if (objc_opt_respondsToSelector())
+                          v28 = actionCopy;
+                          v42 = objc_opt_respondsToSelector();
+                          if (v42)
                           {
-                            [privateDelegate provider:self performSetSharingScreenCallAction:v20];
+                            [privateDelegate provider:self performSetSharingScreenCallAction:v28];
                             goto LABEL_126;
                           }
 
-                          v21 = CXDefaultLog();
-                          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+                          v32 = CXDefaultLog(v42);
+                          if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
                           {
-                            v22 = NSStringFromSelector(sel_provider_performSetSharingScreenCallAction_);
-                            v24 = 138412290;
-                            v25 = v22;
+                            v33 = NSStringFromSelector(sel_provider_performSetSharingScreenCallAction_);
+                            v47 = 138412290;
+                            v48 = v33;
                             goto LABEL_124;
                           }
                         }
@@ -1752,19 +1737,20 @@ LABEL_124:
                           objc_opt_class();
                           if (objc_opt_isKindOfClass())
                           {
-                            v20 = actionCopy;
-                            if (objc_opt_respondsToSelector())
+                            v28 = actionCopy;
+                            v43 = objc_opt_respondsToSelector();
+                            if (v43)
                             {
-                              [privateDelegate provider:self performSetScreenShareAttributesCallAction:v20];
+                              [privateDelegate provider:self performSetScreenShareAttributesCallAction:v28];
                               goto LABEL_126;
                             }
 
-                            v21 = CXDefaultLog();
-                            if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+                            v32 = CXDefaultLog(v43);
+                            if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
                             {
-                              v22 = NSStringFromSelector(sel_provider_performSetScreenShareAttributesCallAction_);
-                              v24 = 138412290;
-                              v25 = v22;
+                              v33 = NSStringFromSelector(sel_provider_performSetScreenShareAttributesCallAction_);
+                              v47 = 138412290;
+                              v48 = v33;
                               goto LABEL_124;
                             }
                           }
@@ -1774,19 +1760,20 @@ LABEL_124:
                             objc_opt_class();
                             if (objc_opt_isKindOfClass())
                             {
-                              v20 = actionCopy;
-                              if (objc_opt_respondsToSelector())
+                              v28 = actionCopy;
+                              v44 = objc_opt_respondsToSelector();
+                              if (v44)
                               {
-                                [privateDelegate provider:self performEnableVideoCallAction:v20];
+                                [privateDelegate provider:self performEnableVideoCallAction:v28];
                                 goto LABEL_126;
                               }
 
-                              v21 = CXDefaultLog();
-                              if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+                              v32 = CXDefaultLog(v44);
+                              if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
                               {
-                                v22 = NSStringFromSelector(sel_provider_performEnableVideoCallAction_);
-                                v24 = 138412290;
-                                v25 = v22;
+                                v33 = NSStringFromSelector(sel_provider_performEnableVideoCallAction_);
+                                v47 = 138412290;
+                                v48 = v33;
                                 goto LABEL_124;
                               }
                             }
@@ -1794,30 +1781,32 @@ LABEL_124:
                             else
                             {
                               objc_opt_class();
-                              if ((objc_opt_isKindOfClass() & 1) == 0)
+                              isKindOfClass = objc_opt_isKindOfClass();
+                              if ((isKindOfClass & 1) == 0)
                               {
-                                v20 = CXDefaultLog();
-                                if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+                                v28 = CXDefaultLog(isKindOfClass);
+                                if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
                                 {
-                                  [(CXProvider *)actionCopy performAction:v20];
+                                  [(CXProvider *)actionCopy performAction:v28];
                                 }
 
                                 goto LABEL_126;
                               }
 
-                              v20 = actionCopy;
-                              if (objc_opt_respondsToSelector())
+                              v28 = actionCopy;
+                              v46 = objc_opt_respondsToSelector();
+                              if (v46)
                               {
-                                [privateDelegate provider:self performShareIdentityCallAction:v20];
+                                [privateDelegate provider:self performShareIdentityCallAction:v28];
                                 goto LABEL_126;
                               }
 
-                              v21 = CXDefaultLog();
-                              if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+                              v32 = CXDefaultLog(v46);
+                              if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
                               {
-                                v22 = NSStringFromSelector(sel_provider_performShareIdentityCallAction_);
-                                v24 = 138412290;
-                                v25 = v22;
+                                v33 = NSStringFromSelector(sel_provider_performShareIdentityCallAction_);
+                                v47 = 138412290;
+                                v48 = v33;
                                 goto LABEL_124;
                               }
                             }
@@ -1840,8 +1829,6 @@ LABEL_125:
   }
 
 LABEL_127:
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setDelegate:(id)delegate queue:(dispatch_queue_t)queue
@@ -1896,75 +1883,73 @@ LABEL_127:
 
 void __57__CXProvider_handleAudioSessionActivationStateChangedTo___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) BOOLValue];
-  v3 = CXDefaultLog();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v3 = v2;
+  v4 = CXDefaultLog(v2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 67109120;
-    v13 = v2;
-    _os_log_impl(&dword_1B47F3000, v3, OS_LOG_TYPE_DEFAULT, "Notified that audio session activation state changed to: %d", &v12, 8u);
+    v14 = 67109120;
+    v15 = v3;
+    _os_log_impl(&dword_1B47F3000, v4, OS_LOG_TYPE_DEFAULT, "Notified that audio session activation state changed to: %d", &v14, 8u);
   }
 
-  v4 = [MEMORY[0x1E6958460] sharedInstance];
-  v5 = [*(a1 + 40) delegate];
-  if (v2)
+  v5 = [MEMORY[0x1E6958460] sharedInstance];
+  v6 = [*(a1 + 40) delegate];
+  if (v3)
   {
-    v6 = objc_opt_respondsToSelector();
+    v7 = objc_opt_respondsToSelector();
 
-    if (v6)
+    if (v7)
     {
-      v7 = CXDefaultLog();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v9 = CXDefaultLog(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = 67109120;
-        v13 = 1;
-        _os_log_impl(&dword_1B47F3000, v7, OS_LOG_TYPE_DEFAULT, "Notifying delegate that audio session activation state changed to: %d", &v12, 8u);
+        v14 = 67109120;
+        v15 = 1;
+        _os_log_impl(&dword_1B47F3000, v9, OS_LOG_TYPE_DEFAULT, "Notifying delegate that audio session activation state changed to: %d", &v14, 8u);
       }
 
-      v8 = [*(a1 + 40) delegate];
-      [v8 provider:*(a1 + 40) didActivateAudioSession:v4];
+      v10 = [*(a1 + 40) delegate];
+      [v10 provider:*(a1 + 40) didActivateAudioSession:v5];
 LABEL_12:
     }
   }
 
   else
   {
-    v9 = objc_opt_respondsToSelector();
+    v11 = objc_opt_respondsToSelector();
 
-    if (v9)
+    if (v11)
     {
-      v10 = CXDefaultLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v13 = CXDefaultLog(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = 67109120;
-        v13 = 0;
-        _os_log_impl(&dword_1B47F3000, v10, OS_LOG_TYPE_DEFAULT, "Notifying delegate that audio session activation state changed to: %d", &v12, 8u);
+        v14 = 67109120;
+        v15 = 0;
+        _os_log_impl(&dword_1B47F3000, v13, OS_LOG_TYPE_DEFAULT, "Notifying delegate that audio session activation state changed to: %d", &v14, 8u);
       }
 
-      v8 = [*(a1 + 40) delegate];
-      [v8 provider:*(a1 + 40) didDeactivateAudioSession:v4];
+      v10 = [*(a1 + 40) delegate];
+      [v10 provider:*(a1 + 40) didDeactivateAudioSession:v5];
       goto LABEL_12;
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleMediaServicesWereResetNotification:(id)notification
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
-  v5 = CXDefaultLog();
+  v5 = CXDefaultLog(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = notificationCopy;
-    _os_log_impl(&dword_1B47F3000, v5, OS_LOG_TYPE_DEFAULT, "%@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = notificationCopy;
+    _os_log_impl(&dword_1B47F3000, v5, OS_LOG_TYPE_DEFAULT, "%@", &v6, 0xCu);
   }
 
   [(CXProvider *)self registerCurrentConfiguration];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 + (void)reportNewIncomingVoIPPushPayload:(NSDictionary *)dictionaryPayload completion:(void *)completion
@@ -1977,20 +1962,18 @@ LABEL_12:
 
 void __36__CXProvider_initWithConfiguration___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B47F3000, a2, OS_LOG_TYPE_ERROR, "Error resetting audio session interruption priority to Normal: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B47F3000, a2, OS_LOG_TYPE_ERROR, "Error resetting audio session interruption priority to Normal: %@", &v2, 0xCu);
 }
 
 - (void)performAction:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B47F3000, a2, OS_LOG_TYPE_ERROR, "Unknown action class in transaction: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B47F3000, a2, OS_LOG_TYPE_ERROR, "Unknown action class in transaction: %@", &v2, 0xCu);
 }
 
 @end

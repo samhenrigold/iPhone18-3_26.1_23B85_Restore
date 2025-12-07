@@ -2,7 +2,6 @@
 - (id)_initWithCameraTuningDictionary:(id)dictionary sensorIDDictionary:(id)dDictionary sbpCreationFunction:(void *)function fusionScheme:(int)scheme allowExperimentalOverrides:(BOOL)overrides;
 - (uint64_t)_setupSampleBufferProcessor;
 - (uint64_t)_unpackSISOptions;
-- (uint64_t)prepareForCurrentConfigurationToBecomeLive;
 - (void)_clearCaptureRequestState;
 - (void)_sampleBufferProcessorOutputReady:(const void *)ready sampleBuffer:;
 - (void)dealloc;
@@ -58,16 +57,16 @@
     objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"StillImageStabilization node supports only SeparateFusionAndNoiseReduction and TemporalMultiBandNoiseReduction fusion schemes!" userInfo:0]);
   }
 
-  v20.receiver = self;
-  v20.super_class = BWSISNode;
-  v11 = [(BWNode *)&v20 init];
+  v27.receiver = self;
+  v27.super_class = BWSISNode;
+  v11 = [(BWNode *)&v27 init];
   if (v11)
   {
     v11->_cameraTuningDictionary = dictionary;
     v11->_sensorIDDictionary = dDictionary;
     v11->_fusionScheme = scheme;
     v11->_allowExperimentalOverrides = 0;
-    if ([(BWSISNode *)v11 _unpackSISOptions])
+    if ([(BWSISNode *)v11 _unpackSISOptions:v13])
     {
 
       return 0;
@@ -76,32 +75,32 @@
     else
     {
       v11->_createSampleBufferProcessorFunction = function;
-      v13 = [[BWNodeInput alloc] initWithMediaType:1986618469 node:v11];
-      v14 = objc_alloc_init(BWVideoFormatRequirements);
-      [(BWVideoFormatRequirements *)v14 setSupportedPixelFormats:&unk_1F2248D48];
-      [(BWNodeInput *)v13 setFormatRequirements:v14];
-      v15 = v11->_oisBracketCount + 1;
+      v20 = [[BWNodeInput alloc] initWithMediaType:1986618469 node:v11];
+      v21 = objc_alloc_init(BWVideoFormatRequirements);
+      [(BWVideoFormatRequirements *)v21 setSupportedPixelFormats:&unk_1F2248D48];
+      [(BWNodeInput *)v20 setFormatRequirements:v21];
+      v22 = v11->_oisBracketCount + 1;
       sisBracketCount = v11->_sisBracketCount;
-      if (v15 <= sisBracketCount + 1)
+      if (v22 <= sisBracketCount + 1)
       {
-        v17 = (sisBracketCount + 1);
+        v24 = (sisBracketCount + 1);
       }
 
       else
       {
-        v17 = v15;
+        v24 = v22;
       }
 
-      [(BWNodeInput *)v13 setRetainedBufferCount:v17];
+      [(BWNodeInput *)v20 setRetainedBufferCount:v24];
 
-      [(BWNode *)v11 addInput:v13];
-      v18 = [[BWNodeOutput alloc] initWithMediaType:1986618469 node:v11];
-      v19 = objc_alloc_init(BWVideoFormatRequirements);
-      [(BWVideoFormatRequirements *)v19 setSupportedPixelFormats:&unk_1F2248D60];
-      [(BWNodeOutput *)v18 setProvidesPixelBufferPool:0];
-      [(BWNodeOutput *)v18 setFormatRequirements:v19];
+      [(BWNode *)v11 addInput:v20];
+      v25 = [[BWNodeOutput alloc] initWithMediaType:1986618469 node:v11];
+      v26 = objc_alloc_init(BWVideoFormatRequirements);
+      [(BWVideoFormatRequirements *)v26 setSupportedPixelFormats:&unk_1F2248D60];
+      [(BWNodeOutput *)v25 setProvidesPixelBufferPool:0];
+      [(BWNodeOutput *)v25 setFormatRequirements:v26];
 
-      [(BWNode *)v11 addOutput:v18];
+      [(BWNode *)v11 addOutput:v25];
       v11->_lastFusionTypeUsed = 0;
     }
   }
@@ -180,8 +179,8 @@
     return;
   }
 
-  v6 = CMGetAttachment(buffer, @"StillImageSettings", 0);
-  if (!v6)
+  v7 = CMGetAttachment(buffer, @"StillImageSettings", 0);
+  if (!v7)
   {
     [BWSISNode renderSampleBuffer:forInput:];
     return;
@@ -189,86 +188,89 @@
 
   if (!self->_currentCaptureSettings)
   {
-    self->_currentCaptureSettings = v6;
+    self->_currentCaptureSettings = v7;
   }
 
-  v7 = CMGetAttachment(buffer, *off_1E798A3C8, 0);
-  if (!v7)
+  v8 = CMGetAttachment(buffer, *off_1E798A3C8, 0);
+  if (!v8)
   {
     fig_log_get_emitter();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v4, v34, v35, v36, v37, v38, v39);
     FrameworkRadarComponent = FigCaptureGetFrameworkRadarComponent();
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
-    v30 = _os_log_send_and_compose_impl();
-    FigCapturePleaseFileRadar(FrameworkRadarComponent, v30, 0, 0, "/Library/Caches/com.apple.xbs/Sources/CameraCapture/CMCapture/Sources/Graph/Nodes/BWSISNode.m", 282, @"LastShownDate:BWSISNode.m:282", @"LastShownBuild:BWSISNode.m:282", 0);
+    v33 = _os_log_send_and_compose_impl();
+    FigCapturePleaseFileRadar(FrameworkRadarComponent, v33, 0, 0, "/Library/Caches/com.apple.xbs/Sources/CameraCapture/CMCapture/Sources/Graph/Nodes/BWSISNode.m", 282, @"LastShownDate:BWSISNode.m:282", @"LastShownBuild:BWSISNode.m:282", 0);
 LABEL_40:
-    free(v30);
+    free(v33);
     return;
   }
 
-  v8 = v7;
-  v9 = [objc_msgSend(v7 objectForKeyedSubscript:{*off_1E798B1B8), "intValue"}];
-  v10 = [objc_msgSend(v8 objectForKeyedSubscript:{*off_1E798B558), "BOOLValue"}];
-  v11 = [objc_msgSend(CMGetAttachment(buffer @"BWStillImageCaptureSettings"];
-  if (!v11)
+  v9 = v8;
+  v10 = [objc_msgSend(v8 objectForKeyedSubscript:{*off_1E798B1B8), "intValue"}];
+  v11 = [objc_msgSend(v9 objectForKeyedSubscript:{*off_1E798B558), "BOOLValue"}];
+  v12 = [objc_msgSend(CMGetAttachment(buffer @"BWStillImageCaptureSettings"];
+  if (!v12)
   {
     fig_log_get_emitter();
-    FigDebugAssert3();
-    v28 = FigCaptureGetFrameworkRadarComponent();
-    v29 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT);
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v4, v34, v35, v36, v37, v38, v39);
+    v31 = FigCaptureGetFrameworkRadarComponent();
+    v32 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
-    v30 = _os_log_send_and_compose_impl();
-    FigCapturePleaseFileRadar(v28, v30, 0, 0, "/Library/Caches/com.apple.xbs/Sources/CameraCapture/CMCapture/Sources/Graph/Nodes/BWSISNode.m", 296, @"LastShownDate:BWSISNode.m:296", @"LastShownBuild:BWSISNode.m:296", 0);
+    v33 = _os_log_send_and_compose_impl();
+    FigCapturePleaseFileRadar(v31, v33, 0, 0, "/Library/Caches/com.apple.xbs/Sources/CameraCapture/CMCapture/Sources/Graph/Nodes/BWSISNode.m", 296, @"LastShownDate:BWSISNode.m:296", @"LastShownBuild:BWSISNode.m:296", 0);
     goto LABEL_40;
   }
 
-  v12 = v11;
-  providePreBracketedEV0 = [v11 providePreBracketedEV0];
-  bracketFrameCount = [v12 bracketFrameCount];
-  v15 = [CMGetAttachment(buffer @"StillImageCaptureType"];
-  if (v15 == 4)
+  v13 = v12;
+  providePreBracketedEV0 = [v12 providePreBracketedEV0];
+  bracketFrameCount = [v13 bracketFrameCount];
+  v16 = [CMGetAttachment(buffer @"StillImageCaptureType"];
+  if (v16 == 4)
   {
-    v16 = 1;
+    v17 = 1;
   }
 
   else
   {
-    v16 = 2;
+    v17 = 2;
   }
 
-  if (v15 == 5)
+  if (v16 == 5)
   {
     providePreBracketedEV0 &= !self->_alwaysRequestsPreBracketedEV0;
   }
 
-  if ((self->_lastFusionTypeUsed & ~v16) != 0)
+  if ((self->_lastFusionTypeUsed & ~v17) != 0)
   {
-    [BWSISNode renderSampleBuffer:self forInput:?];
+    v16 = [BWSISNode renderSampleBuffer:self forInput:?];
   }
 
-  self->_lastFusionTypeUsed = v16;
+  self->_lastFusionTypeUsed = v17;
   if (!self->_numberFramesReceived)
   {
-    v21 = [MEMORY[0x1E696AD98] numberWithInt:v16];
+    v22 = [MEMORY[0x1E696AD98] numberWithInt:v17];
     FigBaseObject = FigSampleBufferProcessorGetFigBaseObject();
-    v23 = *(*(CMBaseObjectGetVTable() + 8) + 56);
-    if (v23)
+    VTable = CMBaseObjectGetVTable();
+    v25 = *(VTable + 8);
+    v16 = VTable + 8;
+    v26 = *(v25 + 56);
+    if (v26)
     {
-      v23(FigBaseObject, *off_1E798D3B0, v21);
+      v16 = v26(FigBaseObject, *off_1E798D3B0, v22);
     }
   }
 
-  if (v10)
+  if (v11)
   {
     if (providePreBracketedEV0 & 1 | !self->_alwaysRequestsPreBracketedEV0)
     {
       self->_preBracketedFrameReceived = 1;
       sampleBufferProcessor = self->_sampleBufferProcessor;
-      v18 = *(*(CMBaseObjectGetVTable() + 16) + 16);
-      if (!v18 || v18(sampleBufferProcessor, buffer))
+      v19 = *(*(CMBaseObjectGetVTable() + 16) + 16);
+      if (!v19 || v19(sampleBufferProcessor, buffer))
       {
         [BWSISNode renderSampleBuffer:forInput:];
       }
@@ -277,19 +279,19 @@ LABEL_40:
     return;
   }
 
-  if (v9 < 1 || v9 > bracketFrameCount)
+  if (v10 < 1 || v10 > bracketFrameCount)
   {
     return;
   }
 
-  v19 = self->_numberFramesReceived + 1;
-  self->_numberFramesReceived = v19;
-  if (v9 == bracketFrameCount)
+  v20 = self->_numberFramesReceived + 1;
+  self->_numberFramesReceived = v20;
+  if (v10 == bracketFrameCount)
   {
-    v20 = (providePreBracketedEV0 & 1) == 0 || self->_preBracketedFrameReceived;
-    if (v19 != v9 || !v20)
+    v21 = (providePreBracketedEV0 & 1) == 0 || self->_preBracketedFrameReceived;
+    if (v20 != v10 || !v21)
     {
-      [BWSISNode renderSampleBuffer:forInput:];
+      [BWSISNode renderSampleBuffer:v16 forInput:?];
 LABEL_42:
 
       [(BWSISNode *)self _clearCaptureRequestState];
@@ -299,14 +301,14 @@ LABEL_42:
     CMSetAttachment(buffer, *off_1E798A3A0, *MEMORY[0x1E695E4D0], 0);
   }
 
-  v24 = self->_sampleBufferProcessor;
-  v25 = *(*(CMBaseObjectGetVTable() + 16) + 16);
-  if (!v25 || v25(v24, buffer))
+  v27 = self->_sampleBufferProcessor;
+  v28 = *(*(CMBaseObjectGetVTable() + 16) + 16);
+  if (!v28 || v28(v27, buffer))
   {
     [BWSISNode renderSampleBuffer:forInput:];
   }
 
-  if (v9 == bracketFrameCount)
+  if (v10 == bracketFrameCount)
   {
     goto LABEL_42;
   }
@@ -338,114 +340,150 @@ LABEL_42:
 
 - (uint64_t)_unpackSISOptions
 {
-  if (result)
+  if (!result)
   {
-    v1 = result;
-    if (*(result + 152))
+    return result;
+  }
+
+  v10 = result;
+  if (!*(result + 152))
+  {
+    fig_log_get_emitter();
+    OUTLINED_FUNCTION_1_11();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v28, v29, v30, v31, v32, v33, v34, v35);
+    return 4294954516;
+  }
+
+  *(result + 216) = 4;
+  *(result + 184) = 0;
+  v11 = [*(result + 152) objectForKeyedSubscript:{@"StillImageStabilization", a4, a5, a6, a7, a8}];
+  if (v11)
+  {
+    v12 = v11;
+    v13 = [v11 objectForKeyedSubscript:*off_1E798BC50];
+    if (v13)
     {
-      *(result + 216) = 4;
-      *(result + 184) = 0;
-      v2 = [*(result + 152) objectForKeyedSubscript:@"StillImageStabilization"];
-      if (!v2)
+      v14 = *(v10 + 208);
+      *(v10 + 208) = v13;
+      CFRetain(v13);
+      if (v14)
       {
-        goto LABEL_21;
+        CFRelease(v14);
       }
 
-      v3 = v2;
-      v4 = [v2 objectForKeyedSubscript:*off_1E798BC50];
-      if (!v4)
+      v15 = [v12 objectForKeyedSubscript:@"MaxGain"];
+      if (v15)
       {
-        goto LABEL_21;
-      }
-
-      v5 = *(v1 + 208);
-      *(v1 + 208) = v4;
-      CFRetain(v4);
-      if (v5)
-      {
-        CFRelease(v5);
-      }
-
-      v6 = [v3 objectForKeyedSubscript:@"MaxGain"];
-      if (!v6)
-      {
-        goto LABEL_21;
-      }
-
-      intValue = [v6 intValue];
-      v8 = [v3 objectForKeyedSubscript:*off_1E798D388];
-      if (!v8)
-      {
-        goto LABEL_21;
-      }
-
-      *(v1 + 184) = [v8 intValue];
-      v9 = [*(v1 + 152) objectForKeyedSubscript:*off_1E798D390];
-      *(v1 + 160) = v9;
-      if (!*(v1 + 176) && !v9)
-      {
-        goto LABEL_21;
-      }
-
-      *(v1 + 168) = [*(v1 + 152) objectForKeyedSubscript:*off_1E798D380];
-      *(v1 + 192) = vcvts_n_f32_s32(intValue, 8uLL);
-      *(v1 + 188) = 67;
-      if (*(v1 + 200))
-      {
-        goto LABEL_16;
-      }
-
-      v10 = objc_alloc_init(MEMORY[0x1E695DF70]);
-      if (*(v1 + 216) >= 1)
-      {
-        v11 = 0;
-        do
+        intValue = [v15 intValue];
+        v17 = [v12 objectForKeyedSubscript:*off_1E798D388];
+        if (v17)
         {
-          [v10 addObject:&unk_1F224A880];
-          ++v11;
-        }
+          *(v10 + 184) = [v17 intValue];
+          v18 = [*(v10 + 152) objectForKeyedSubscript:*off_1E798D390];
+          *(v10 + 160) = v18;
+          if (*(v10 + 176) || v18)
+          {
+            *(v10 + 168) = [*(v10 + 152) objectForKeyedSubscript:*off_1E798D380];
+            *(v10 + 192) = vcvts_n_f32_s32(intValue, 8uLL);
+            *(v10 + 188) = 67;
+            if (*(v10 + 200))
+            {
+              goto LABEL_16;
+            }
 
-        while (v11 < *(v1 + 216));
-      }
+            v19 = objc_alloc_init(MEMORY[0x1E695DF70]);
+            if (*(v10 + 216) >= 1)
+            {
+              v20 = 0;
+              do
+              {
+                [v19 addObject:&unk_1F224A880];
+                ++v20;
+              }
 
-      *(v1 + 200) = v10;
-      if (v10)
-      {
+              while (v20 < *(v10 + 216));
+            }
+
+            *(v10 + 200) = v19;
+            if (v19)
+            {
 LABEL_16:
-        v12 = *(v1 + 224);
-        if (!v12)
-        {
-          v12 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithObjects:{&unk_1F2244EA8, &unk_1F2244EC0, 0}];
-          *(v1 + 224) = v12;
+              v21 = *(v10 + 224);
+              if (!v21)
+              {
+                v21 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithObjects:{&unk_1F2244EA8, &unk_1F2244EC0, 0}];
+                *(v10 + 224) = v21;
+              }
+
+              v22 = [v21 count];
+              result = 0;
+              *(v10 + 232) = v22;
+              return result;
+            }
+
+            OUTLINED_FUNCTION_2();
+            OUTLINED_FUNCTION_0_2();
+            FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v28, v29, v30, v31, v32, v33, v34, v35);
+            v23 = OUTLINED_FUNCTION_2();
+            v26 = 4294954510;
+            v27 = 567;
+          }
+
+          else
+          {
+            OUTLINED_FUNCTION_2();
+            OUTLINED_FUNCTION_0_2();
+            FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v28, v29, v30, v31, v32, v33, v34, v35);
+            v23 = OUTLINED_FUNCTION_2();
+            v26 = 4294954516;
+            v27 = 545;
+          }
         }
 
-        v13 = [v12 count];
-        result = 0;
-        *(v1 + 232) = v13;
+        else
+        {
+          OUTLINED_FUNCTION_2();
+          OUTLINED_FUNCTION_0_2();
+          FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v28, v29, v30, v31, v32, v33, v34, v35);
+          v23 = OUTLINED_FUNCTION_2();
+          v26 = 4294954516;
+          v27 = 538;
+        }
       }
 
       else
       {
-LABEL_21:
         OUTLINED_FUNCTION_2();
         OUTLINED_FUNCTION_0_2();
-        FigDebugAssert3();
-        OUTLINED_FUNCTION_2();
-
-        return FigSignalErrorAtGM();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v28, v29, v30, v31, v32, v33, v34, v35);
+        v23 = OUTLINED_FUNCTION_2();
+        v26 = 4294954516;
+        v27 = 534;
       }
     }
 
     else
     {
-      fig_log_get_emitter();
-      OUTLINED_FUNCTION_1_11();
-      FigDebugAssert3();
-      return 4294954516;
+      OUTLINED_FUNCTION_2();
+      OUTLINED_FUNCTION_0_2();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v28, v29, v30, v31, v32, v33, v34, v35);
+      v23 = OUTLINED_FUNCTION_2();
+      v26 = 4294954516;
+      v27 = 529;
     }
   }
 
-  return result;
+  else
+  {
+    OUTLINED_FUNCTION_2();
+    OUTLINED_FUNCTION_0_2();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v28, v29, v30, v31, v32, v33, v34, v35);
+    v23 = OUTLINED_FUNCTION_2();
+    v26 = 4294954516;
+    v27 = 524;
+  }
+
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v23, v26, "<<<< BWSISNode >>>>", v27, v9, v24, v25, a9);
 }
 
 - (uint64_t)_setupSampleBufferProcessor
@@ -455,101 +493,101 @@ LABEL_21:
     return 0;
   }
 
-  v15 = 0;
-  v2 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v3 = v2;
+  v22 = 0;
+  v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v4 = v3;
   if (!*(self + 144))
   {
     fig_log_get_emitter();
-    FigDebugAssert3();
-    fig_log_get_emitter();
-    v13 = FigSignalErrorAtGM();
-    goto LABEL_21;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v1, v21, v22, v23, v24, v25, v26);
+    emitter = fig_log_get_emitter();
+    v14 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE14, "<<<< BWSISNode >>>>", 0x2BC, v1, v17, v18, v19);
+    goto LABEL_20;
   }
 
-  v4 = *(self + 176);
-  if (v4 == 1)
+  v5 = *(self + 176);
+  if (v5 == 1)
   {
-    [v2 setObject:? forKeyedSubscript:?];
-    [v3 setObject:&unk_1F2244ED8 forKeyedSubscript:*off_1E798D398];
-    v7 = *off_1E798D3A0;
-    v6 = &unk_1F2244EF0;
+    [v3 setObject:? forKeyedSubscript:?];
+    [v4 setObject:&unk_1F2244ED8 forKeyedSubscript:*off_1E798D398];
+    v8 = *off_1E798D3A0;
+    v7 = &unk_1F2244EF0;
   }
 
   else
   {
-    if (v4)
+    if (v5)
     {
       goto LABEL_10;
     }
 
-    [v2 setObject:&unk_1F2244ED8 forKeyedSubscript:*off_1E798D398];
-    [v3 setObject:&unk_1F2244EF0 forKeyedSubscript:*off_1E798D3A0];
-    [v3 setObject:*(self + 160) forKeyedSubscript:*off_1E798D390];
-    v5 = *(self + 168);
-    if (v5)
+    [v3 setObject:&unk_1F2244ED8 forKeyedSubscript:*off_1E798D398];
+    [v4 setObject:&unk_1F2244EF0 forKeyedSubscript:*off_1E798D3A0];
+    [v4 setObject:*(self + 160) forKeyedSubscript:*off_1E798D390];
+    v6 = *(self + 168);
+    if (v6)
     {
-      [v3 setObject:v5 forKeyedSubscript:*off_1E798D380];
+      [v4 setObject:v6 forKeyedSubscript:*off_1E798D380];
     }
 
-    v6 = [MEMORY[0x1E696AD98] numberWithInt:*(self + 184)];
-    v7 = *off_1E798D388;
+    v7 = [MEMORY[0x1E696AD98] numberWithInt:*(self + 184)];
+    v8 = *off_1E798D388;
   }
 
-  [v3 setObject:v6 forKeyedSubscript:v7];
+  [v4 setObject:v7 forKeyedSubscript:v8];
 LABEL_10:
-  v8 = *(self + 128);
-  if (!v8)
+  v9 = *(self + 128);
+  if (!v9)
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_1_8();
-    FigDebugAssert3();
-    v13 = 0;
-    goto LABEL_21;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v20, v21, v22, v23, v24, v25, v26);
+    v14 = 0;
+    goto LABEL_20;
   }
 
   if (*(self + 176))
   {
-    v9 = @"TMBNR";
+    v10 = @"TMBNR";
   }
 
   else
   {
-    v9 = @"SIS";
+    v10 = @"SIS";
   }
 
-  v10 = v8(*MEMORY[0x1E695E480], v9, v3, &v15);
-  if (v10)
+  v11 = v9(*MEMORY[0x1E695E480], v10, v4, &v22);
+  if (v11)
   {
-    v13 = v10;
+    v14 = v11;
     fig_log_get_emitter();
     OUTLINED_FUNCTION_1_8();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v14);
     goto LABEL_20;
   }
 
-  v11 = v15;
-  *(self + 136) = v15;
-  v12 = *(*(CMBaseObjectGetVTable() + 16) + 8);
-  if (!v12)
+  v12 = v22;
+  *(self + 136) = v22;
+  v13 = *(*(CMBaseObjectGetVTable() + 16) + 8);
+  if (!v13)
   {
-    v13 = 4294954514;
+    v14 = 4294954514;
 LABEL_19:
     fig_log_get_emitter();
     OUTLINED_FUNCTION_1_8();
-LABEL_20:
-    FigDebugAssert3();
-    goto LABEL_21;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0);
+    goto LABEL_20;
   }
 
-  v13 = v12(v11, sisn_processorOutputReadyCallback, self);
-  if (v13)
+  v14 = v13(v12, sisn_processorOutputReadyCallback, self);
+  if (v14)
   {
     goto LABEL_19;
   }
 
-LABEL_21:
+LABEL_20:
 
-  return v13;
+  return v14;
 }
 
 - (void)_sampleBufferProcessorOutputReady:(const void *)ready sampleBuffer:
@@ -566,7 +604,7 @@ LABEL_21:
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_1_8();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v14, value, cf, v17, v18, v19, v20);
     goto LABEL_19;
   }
 
@@ -628,13 +666,6 @@ LABEL_13:
   }
 }
 
-- (uint64_t)prepareForCurrentConfigurationToBecomeLive
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
 - (uint64_t)renderSampleBuffer:(CFTypeRef *)a1 forInput:(uint64_t)a2 .cold.1(CFTypeRef *a1, uint64_t a2)
 {
   v3 = *a1;
@@ -665,34 +696,6 @@ LABEL_13:
   }
 
   return [(BWSISNode *)a2 _setupSampleBufferProcessor];
-}
-
-- (uint64_t)renderSampleBuffer:forInput:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)renderSampleBuffer:forInput:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)renderSampleBuffer:forInput:.cold.4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)renderSampleBuffer:forInput:.cold.5()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
 }
 
 - (uint64_t)handleNodeError:(uint64_t)a1 forInput:.cold.1(uint64_t a1)

@@ -765,7 +765,7 @@ uint64_t __62__SBPPTRunner_SiriPPTSupport__assistantDidAppear_windowScene___bloc
     +[SBPPTRunner(FocusModePPTSupport) isFocusModeTest:];
   }
 
-  v5 = [isFocusModeTest__focusModePPTTests containsObject:testCopy];
+  v5 = objc_msgSend_containsObject_(isFocusModeTest__focusModePPTTests);
 
   return v5;
 }
@@ -818,7 +818,7 @@ void __52__SBPPTRunner_FocusModePPTSupport__isFocusModeTest___block_invoke()
     +[SBPPTRunner(PageManagementPPTSupport) isPageManagementTest:];
   }
 
-  v5 = [isPageManagementTest__pageManagementPPTTests containsObject:testCopy];
+  v5 = objc_msgSend_containsObject_(isPageManagementTest__pageManagementPPTTests);
 
   return v5;
 }
@@ -1276,7 +1276,7 @@ void __53__SBPPTRunner_PIPPPTs___operationToUnstashStashedPIP__block_invoke(uint
     +[SBPPTRunner(AppLibraryPPTSupport) isAppLibraryTest:];
   }
 
-  v5 = [isAppLibraryTest__appLibraryTests containsObject:testCopy];
+  v5 = objc_msgSend_containsObject_(isAppLibraryTest__appLibraryTests);
 
   return v5;
 }
@@ -1602,7 +1602,7 @@ id __80__SBPPTRunner_AppLibraryPPTSupport___runScrollWithinExpandedPodTestWithOp
   [window bounds];
   containerViewController = [_libraryViewController containerViewController];
   searchBar = [containerViewController searchBar];
-  [searchBar frame];
+  objc_msgSend_frame(searchBar);
   CGRectGetMaxY(v27);
   UIRectInset();
 
@@ -1682,7 +1682,7 @@ void __29__SBPPTRunner_sharedInstance__block_invoke(uint64_t a1)
   v21 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   optionsCopy = options;
-  v8 = SBLogPPT();
+  v8 = SBLogPPT(optionsCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;

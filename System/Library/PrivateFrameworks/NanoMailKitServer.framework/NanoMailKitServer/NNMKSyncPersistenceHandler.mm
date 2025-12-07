@@ -22,34 +22,34 @@
 
 - (id)persistAccounts:(id)accounts
 {
-  v93 = *MEMORY[0x277D85DE8];
+  v92 = *MEMORY[0x277D85DE8];
   accountsCopy = accounts;
   v5 = objc_alloc_init(NNMKProtoInitialAccountsSync);
+  v77 = 0u;
   v78 = 0u;
   v79 = 0u;
   v80 = 0u;
-  v81 = 0u;
   v6 = accountsCopy;
-  v64 = [v6 countByEnumeratingWithState:&v78 objects:v92 count:16];
-  if (v64)
+  v63 = [v6 countByEnumeratingWithState:&v77 objects:v91 count:16];
+  if (v63)
   {
-    v61 = *v79;
+    v60 = *v78;
     v7 = &__logCategories;
     v8 = &dword_25B19F000;
-    v62 = v6;
-    v63 = v5;
+    v61 = v6;
+    v62 = v5;
     do
     {
       v9 = 0;
       do
       {
-        if (*v79 != v61)
+        if (*v78 != v60)
         {
           objc_enumerationMutation(v6);
         }
 
-        v66 = v9;
-        v10 = *(*(&v78 + 1) + 8 * v9);
+        v65 = v9;
+        v10 = *(*(&v77 + 1) + 8 * v9);
         v11 = objc_alloc_init(NNMKProtoAccountAdditionOrUpdate);
         accountId = [v10 accountId];
         [(NNMKProtoAccountAdditionOrUpdate *)v11 setAccountId:accountId];
@@ -82,55 +82,55 @@
         pccEmailAddress = [v10 pccEmailAddress];
         [(NNMKProtoAccountAdditionOrUpdate *)v11 setPccEmailAddress:pccEmailAddress];
 
-        v76 = 0u;
-        v77 = 0u;
-        v74 = 0u;
         v75 = 0u;
+        v76 = 0u;
+        v73 = 0u;
+        v74 = 0u;
         emailAddresses = [v10 emailAddresses];
-        v23 = [emailAddresses countByEnumeratingWithState:&v74 objects:v91 count:16];
+        v23 = [emailAddresses countByEnumeratingWithState:&v73 objects:v90 count:16];
         if (v23)
         {
           v24 = v23;
-          v25 = *v75;
+          v25 = *v74;
           do
           {
             for (i = 0; i != v24; ++i)
             {
-              if (*v75 != v25)
+              if (*v74 != v25)
               {
                 objc_enumerationMutation(emailAddresses);
               }
 
-              [(NNMKProtoAccountAdditionOrUpdate *)v11 addEmail:*(*(&v74 + 1) + 8 * i), v61];
+              [(NNMKProtoAccountAdditionOrUpdate *)v11 addEmail:*(*(&v73 + 1) + 8 * i), v60];
             }
 
-            v24 = [emailAddresses countByEnumeratingWithState:&v74 objects:v91 count:16];
+            v24 = [emailAddresses countByEnumeratingWithState:&v73 objects:v90 count:16];
           }
 
           while (v24);
         }
 
-        v72 = 0u;
-        v73 = 0u;
-        v70 = 0u;
         v71 = 0u;
-        v65 = v10;
+        v72 = 0u;
+        v69 = 0u;
+        v70 = 0u;
+        v64 = v10;
         mailboxes = [v10 mailboxes];
-        v69 = [mailboxes countByEnumeratingWithState:&v70 objects:v90 count:16];
-        if (v69)
+        v68 = [mailboxes countByEnumeratingWithState:&v69 objects:v89 count:16];
+        if (v68)
         {
-          v28 = *v71;
-          v68 = v11;
+          v28 = *v70;
+          v67 = v11;
           do
           {
-            for (j = 0; j != v69; ++j)
+            for (j = 0; j != v68; ++j)
             {
-              if (*v71 != v28)
+              if (*v70 != v28)
               {
                 objc_enumerationMutation(mailboxes);
               }
 
-              v30 = *(*(&v70 + 1) + 8 * j);
+              v30 = *(*(&v69 + 1) + 8 * j);
               syncController = [(NNMKSyncPersistenceHandler *)self syncController];
               v32 = [syncController canSyncMailbox:v30];
 
@@ -151,18 +151,18 @@
                   filterType = [v30 filterType];
                   syncEnabled = [v30 syncEnabled];
                   *buf = 138544130;
-                  v83 = mailboxId;
-                  v84 = 2048;
-                  v85 = type;
-                  v86 = 2048;
-                  v87 = filterType;
+                  v82 = mailboxId;
+                  v83 = 2048;
+                  v84 = type;
+                  v85 = 2048;
+                  v86 = filterType;
                   v7 = v41;
                   v8 = v40;
                   self = selfCopy;
                   mailboxes = v38;
                   v28 = v37;
-                  v88 = 2048;
-                  v89 = syncEnabled;
+                  v87 = 2048;
+                  v88 = syncEnabled;
                   _os_log_impl(v8, log, OS_LOG_TYPE_DEFAULT, "Mailbox received. (Mailbox id: %{public}@, Type: %lu, Filter: %lu, Sync enabled: %lu)", buf, 0x2Au);
                 }
 
@@ -182,8 +182,8 @@
                 [currentDeviceRegistry2 addOrUpdateMailbox:v30];
 
                 v48 = [NNMKProtoMailbox protoMailboxFromMailbox:v30];
-                v11 = v68;
-                [(NNMKProtoAccountAdditionOrUpdate *)v68 addMailboxes:v48];
+                v11 = v67;
+                [(NNMKProtoAccountAdditionOrUpdate *)v67 addMailboxes:v48];
               }
 
               else
@@ -197,36 +197,36 @@
                 mailboxId2 = [v30 mailboxId];
                 type2 = [v30 type];
                 *buf = 138543618;
-                v83 = mailboxId2;
-                v84 = 2048;
-                v85 = type2;
+                v82 = mailboxId2;
+                v83 = 2048;
+                v84 = type2;
                 _os_log_impl(v8, v48, OS_LOG_TYPE_DEFAULT, "Mailbox will not be synced. (Id: %{public}@, Type: %lu)", buf, 0x16u);
               }
 
 LABEL_27:
             }
 
-            v69 = [mailboxes countByEnumeratingWithState:&v70 objects:v90 count:16];
+            v68 = [mailboxes countByEnumeratingWithState:&v69 objects:v89 count:16];
           }
 
-          while (v69);
+          while (v68);
         }
 
-        v5 = v63;
-        [(NNMKProtoInitialAccountsSync *)v63 addInitialAccount:v11];
+        v5 = v62;
+        [(NNMKProtoInitialAccountsSync *)v62 addInitialAccount:v11];
         currentDeviceRegistry3 = [(NNMKSyncPersistenceHandler *)self currentDeviceRegistry];
-        v52 = [[NNMKSyncedAccount alloc] initWithAccount:v65];
+        v52 = [[NNMKSyncedAccount alloc] initWithAccount:v64];
         [currentDeviceRegistry3 addOrUpdateSyncedAccount:v52];
 
-        v9 = v66 + 1;
-        v6 = v62;
+        v9 = v65 + 1;
+        v6 = v61;
       }
 
-      while (v66 + 1 != v64);
-      v64 = [v62 countByEnumeratingWithState:&v78 objects:v92 count:16];
+      while (v65 + 1 != v63);
+      v63 = [v61 countByEnumeratingWithState:&v77 objects:v91 count:16];
     }
 
-    while (v64);
+    while (v63);
   }
 
   delegate2 = [(NNMKSyncPersistenceHandler *)self delegate];
@@ -244,8 +244,6 @@ LABEL_27:
   date = [MEMORY[0x277CBEAA8] date];
   v58 = [v56 archivedDataWithRootObject:date requiringSecureCoding:1 error:0];
   [(NNMKProtoInitialAccountsSync *)v5 setDateSynced:v58];
-
-  v59 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -304,7 +302,7 @@ LABEL_27:
 
 - (id)updateMailboxListForAccount:(id)account mailboxListChanged:(BOOL *)changed
 {
-  v113 = *MEMORY[0x277D85DE8];
+  v112 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   delegate = [(NNMKSyncPersistenceHandler *)self delegate];
   pairedDeviceSupportsMultipleMailboxes = [delegate pairedDeviceSupportsMultipleMailboxes];
@@ -313,71 +311,71 @@ LABEL_27:
   {
     changedCopy = changed;
     currentDeviceRegistry = [(NNMKSyncPersistenceHandler *)self currentDeviceRegistry];
-    v81 = accountCopy;
+    v80 = accountCopy;
     accountId = [accountCopy accountId];
     v11 = [currentDeviceRegistry mailboxesForAccountId:accountId];
 
     v12 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v11, "count")}];
+    v97 = 0u;
     v98 = 0u;
     v99 = 0u;
     v100 = 0u;
-    v101 = 0u;
     obj = v11;
-    v13 = [obj countByEnumeratingWithState:&v98 objects:v112 count:16];
+    v13 = [obj countByEnumeratingWithState:&v97 objects:v111 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v99;
+      v15 = *v98;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v99 != v15)
+          if (*v98 != v15)
           {
             objc_enumerationMutation(obj);
           }
 
-          v17 = *(*(&v98 + 1) + 8 * i);
+          v17 = *(*(&v97 + 1) + 8 * i);
           mailboxId = [v17 mailboxId];
           [v12 setObject:v17 forKeyedSubscript:mailboxId];
         }
 
-        v14 = [obj countByEnumeratingWithState:&v98 objects:v112 count:16];
+        v14 = [obj countByEnumeratingWithState:&v97 objects:v111 count:16];
       }
 
       while (v14);
     }
 
     v19 = MEMORY[0x277CBEB18];
-    mailboxes = [v81 mailboxes];
-    v86 = [v19 arrayWithCapacity:{objc_msgSend(mailboxes, "count")}];
+    mailboxes = [v80 mailboxes];
+    v85 = [v19 arrayWithCapacity:{objc_msgSend(mailboxes, "count")}];
 
-    v96 = 0u;
-    v97 = 0u;
-    v94 = 0u;
     v95 = 0u;
-    mailboxes2 = [v81 mailboxes];
-    v21 = [mailboxes2 countByEnumeratingWithState:&v94 objects:v111 count:16];
+    v96 = 0u;
+    v93 = 0u;
+    v94 = 0u;
+    mailboxes2 = [v80 mailboxes];
+    v21 = [mailboxes2 countByEnumeratingWithState:&v93 objects:v110 count:16];
     selfCopy = self;
     if (v21)
     {
       v22 = v21;
-      v85 = 0;
-      v23 = *v95;
-      v82 = *v95;
-      v83 = v12;
+      v84 = 0;
+      v23 = *v94;
+      v81 = *v94;
+      v82 = v12;
       do
       {
         v24 = 0;
-        v84 = v22;
+        v83 = v22;
         do
         {
-          if (*v95 != v23)
+          if (*v94 != v23)
           {
             objc_enumerationMutation(mailboxes2);
           }
 
-          v25 = *(*(&v94 + 1) + 8 * v24);
+          v25 = *(*(&v93 + 1) + 8 * v24);
           syncController = [(NNMKSyncPersistenceHandler *)self syncController];
           v27 = [syncController canSyncMailbox:v25];
 
@@ -423,13 +421,13 @@ LABEL_27:
                   v52 = v51;
                   mailboxId4 = [v25 mailboxId];
                   *buf = 138544130;
-                  v104 = mailboxId4;
-                  v105 = 2048;
-                  v106 = v49;
-                  v107 = 2048;
-                  v108 = v50;
-                  v109 = 2048;
-                  v110 = v39;
+                  v103 = mailboxId4;
+                  v104 = 2048;
+                  v105 = v49;
+                  v106 = 2048;
+                  v107 = v50;
+                  v108 = 2048;
+                  v109 = v39;
                   _os_log_impl(&dword_25B19F000, v52, OS_LOG_TYPE_DEFAULT, "Mailbox updated. (Id: %{public}@, customNameChanged: %lu, syncEnabledChanged: %lu, urlChanged: %lu)", buf, 0x2Au);
                 }
 
@@ -445,11 +443,11 @@ LABEL_27:
                     v59 = [v25 url];
                     absoluteString2 = [v59 absoluteString];
                     *buf = 138543874;
-                    v104 = mailboxId5;
-                    v105 = 2114;
-                    v106 = absoluteString;
-                    v107 = 2114;
-                    v108 = absoluteString2;
+                    v103 = mailboxId5;
+                    v104 = 2114;
+                    v105 = absoluteString;
+                    v106 = 2114;
+                    v107 = absoluteString2;
                     _os_log_impl(&dword_25B19F000, v55, OS_LOG_TYPE_DEFAULT, "Mailbox URL changed. (Id: %{public}@, old URL: %{public}@, new URL: %{public}@)", buf, 0x20u);
 
                     self = selfCopy;
@@ -466,15 +464,15 @@ LABEL_27:
                 currentDeviceRegistry2 = [(NNMKSyncPersistenceHandler *)self currentDeviceRegistry];
                 [currentDeviceRegistry2 addOrUpdateMailbox:v29];
 
-                v85 = 1;
+                v84 = 1;
               }
 
               v64 = [NNMKProtoMailbox protoMailboxFromMailbox:v29];
-              [v86 addObject:v64];
+              [v85 addObject:v64];
 
-              v23 = v82;
-              v12 = v83;
-              v22 = v84;
+              v23 = v81;
+              v12 = v82;
+              v22 = v83;
             }
 
             else
@@ -483,7 +481,7 @@ LABEL_27:
               [currentDeviceRegistry3 addOrUpdateMailbox:v25];
 
               v45 = [NNMKProtoMailbox protoMailboxFromMailbox:v25];
-              [v86 addObject:v45];
+              [v85 addObject:v45];
 
               v46 = qword_28144D620;
               if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
@@ -491,11 +489,11 @@ LABEL_27:
                 v47 = v46;
                 mailboxId6 = [v25 mailboxId];
                 *buf = 138543362;
-                v104 = mailboxId6;
+                v103 = mailboxId6;
                 _os_log_impl(&dword_25B19F000, v47, OS_LOG_TYPE_DEFAULT, "Mailbox added. (Id: %{public}@)", buf, 0xCu);
               }
 
-              v85 = 1;
+              v84 = 1;
             }
           }
 
@@ -508,9 +506,9 @@ LABEL_27:
               mailboxId7 = [v25 mailboxId];
               type = [v25 type];
               *buf = 138543618;
-              v104 = mailboxId7;
-              v105 = 2048;
-              v106 = type;
+              v103 = mailboxId7;
+              v104 = 2048;
+              v105 = type;
               _os_log_impl(&dword_25B19F000, v41, OS_LOG_TYPE_DEFAULT, "Mailbox will not be synced. (Id: %{public}@, Type: %lu)", buf, 0x16u);
             }
           }
@@ -519,7 +517,7 @@ LABEL_27:
         }
 
         while (v22 != v24);
-        v22 = [mailboxes2 countByEnumeratingWithState:&v94 objects:v111 count:16];
+        v22 = [mailboxes2 countByEnumeratingWithState:&v93 objects:v110 count:16];
       }
 
       while (v22);
@@ -527,31 +525,31 @@ LABEL_27:
 
     else
     {
-      v85 = 0;
+      v84 = 0;
     }
 
-    v92 = 0u;
-    v93 = 0u;
-    v90 = 0u;
     v91 = 0u;
+    v92 = 0u;
+    v89 = 0u;
+    v90 = 0u;
     allValues = [v12 allValues];
-    v66 = [allValues countByEnumeratingWithState:&v90 objects:v102 count:16];
-    v67 = v85;
+    v66 = [allValues countByEnumeratingWithState:&v89 objects:v101 count:16];
+    v67 = v84;
     if (v66)
     {
       v68 = v66;
       v69 = v12;
-      v70 = *v91;
+      v70 = *v90;
       do
       {
         for (j = 0; j != v68; ++j)
         {
-          if (*v91 != v70)
+          if (*v90 != v70)
           {
             objc_enumerationMutation(allValues);
           }
 
-          v72 = *(*(&v90 + 1) + 8 * j);
+          v72 = *(*(&v89 + 1) + 8 * j);
           currentDeviceRegistry4 = [(NNMKSyncPersistenceHandler *)self currentDeviceRegistry];
           mailboxId8 = [v72 mailboxId];
           [currentDeviceRegistry4 deleteMailboxWithId:mailboxId8];
@@ -562,14 +560,14 @@ LABEL_27:
             v76 = v75;
             mailboxId9 = [v72 mailboxId];
             *buf = 138543362;
-            v104 = mailboxId9;
+            v103 = mailboxId9;
             _os_log_impl(&dword_25B19F000, v76, OS_LOG_TYPE_DEFAULT, "Mailbox deleted. (Id: %{public}@)", buf, 0xCu);
           }
 
           self = selfCopy;
         }
 
-        v68 = [allValues countByEnumeratingWithState:&v90 objects:v102 count:16];
+        v68 = [allValues countByEnumeratingWithState:&v89 objects:v101 count:16];
       }
 
       while (v68);
@@ -577,7 +575,7 @@ LABEL_27:
       v12 = v69;
     }
 
-    accountCopy = v81;
+    accountCopy = v80;
     if (changedCopy)
     {
       *changedCopy = v67 & 1;
@@ -586,16 +584,14 @@ LABEL_27:
 
   else
   {
-    v86 = 0;
+    v85 = 0;
     if (changed)
     {
       *changed = 0;
     }
   }
 
-  v78 = *MEMORY[0x277D85DE8];
-
-  return v86;
+  return v85;
 }
 
 - (id)addStandaloneAccountIdentity:(id)identity
@@ -693,7 +689,7 @@ LABEL_17:
 - (id)addMessages:(id)messages containsNewMessages:(BOOL)newMessages mailbox:(id)mailbox
 {
   newMessagesCopy = newMessages;
-  v121 = *MEMORY[0x277D85DE8];
+  v120 = *MEMORY[0x277D85DE8];
   messagesCopy = messages;
   mailboxCopy = mailbox;
   v10 = objc_opt_new();
@@ -706,38 +702,23 @@ LABEL_17:
   {
     firstObject = [v13 firstObject];
     v15 = firstObject;
-    v104 = newMessagesCopy;
-    v97 = firstObject;
-    if (!newMessagesCopy)
+    v103 = newMessagesCopy;
+    v96 = firstObject;
+    if (newMessagesCopy && ([firstObject dateReceived], v16 = objc_claimAutoreleasedReturnValue(), -[NNMKSyncPersistenceHandler currentDeviceRegistry](self, "currentDeviceRegistry"), v17 = objc_claimAutoreleasedReturnValue(), objc_msgSend(mailboxCopy, "mailboxId"), v18 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v17, "oldestDateReceivedForMailboxId:", v18), v19 = mailboxCopy, v20 = objc_claimAutoreleasedReturnValue(), v21 = objc_msgSend(v16, "compare:", v20), v20, mailboxCopy = v19, v18, v15 = v96, v17, v16, v21 == -1))
     {
-      goto LABEL_4;
-    }
-
-    dateReceived = [firstObject dateReceived];
-    currentDeviceRegistry = [(NNMKSyncPersistenceHandler *)self currentDeviceRegistry];
-    mailboxId = [mailboxCopy mailboxId];
-    [currentDeviceRegistry oldestDateReceivedForMailboxId:mailboxId];
-    v20 = v19 = mailboxCopy;
-    v21 = [dateReceived compare:v20];
-
-    mailboxCopy = v19;
-    v15 = v97;
-
-    if (v21 == -1)
-    {
-      v89 = qword_28144D620;
+      v88 = qword_28144D620;
       if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
       {
-        v90 = v89;
-        v91 = [messagesCopy count];
-        dateReceived2 = [v97 dateReceived];
+        v89 = v88;
+        v90 = [messagesCopy count];
+        dateReceived = [v96 dateReceived];
         *buf = 134218242;
-        v111 = v91;
-        v112 = 2114;
-        v113 = dateReceived2;
-        _os_log_impl(&dword_25B19F000, v90, OS_LOG_TYPE_DEFAULT, "Dropping messages. Receiving an old batch of messages from MobileMail. Ignoring so we don't create a gap between the current messages we have and the old batch. (Count: %lu, Newest message received date: %{public}@", buf, 0x16u);
+        v110 = v90;
+        v111 = 2114;
+        v112 = dateReceived;
+        _os_log_impl(&dword_25B19F000, v89, OS_LOG_TYPE_DEFAULT, "Dropping messages. Receiving an old batch of messages from MobileMail. Ignoring so we don't create a gap between the current messages we have and the old batch. (Count: %lu, Newest message received date: %{public}@", buf, 0x16u);
 
-        v15 = v97;
+        v15 = v96;
       }
 
       [v10 setReceivedOldMessages:1];
@@ -745,17 +726,16 @@ LABEL_17:
 
     else
     {
-LABEL_4:
+      currentDeviceRegistry = [(NNMKSyncPersistenceHandler *)self currentDeviceRegistry];
+      [currentDeviceRegistry beginUpdates];
+
+      v98 = objc_alloc_init(NNMKProtoMessageAdditions);
+      v101 = objc_alloc_init(NNMKProtoMessageAdditions);
       currentDeviceRegistry2 = [(NNMKSyncPersistenceHandler *)self currentDeviceRegistry];
-      [currentDeviceRegistry2 beginUpdates];
+      mailboxId = [mailboxCopy mailboxId];
+      dateReceived2 = [currentDeviceRegistry2 oldestDateReceivedForMailboxId:mailboxId];
 
-      v99 = objc_alloc_init(NNMKProtoMessageAdditions);
-      v102 = objc_alloc_init(NNMKProtoMessageAdditions);
-      currentDeviceRegistry3 = [(NNMKSyncPersistenceHandler *)self currentDeviceRegistry];
-      mailboxId2 = [mailboxCopy mailboxId];
-      dateReceived3 = [currentDeviceRegistry3 oldestDateReceivedForMailboxId:mailboxId2];
-
-      if (!dateReceived3)
+      if (!dateReceived2)
       {
         v26 = [v13 count];
         if ((v26 - 1) >= 0x13)
@@ -769,89 +749,89 @@ LABEL_4:
         }
 
         v28 = [v13 objectAtIndexedSubscript:v27];
-        dateReceived3 = [v28 dateReceived];
-        v29 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:dateReceived3 requiringSecureCoding:1 error:0];
-        [(NNMKProtoMessageAdditions *)v99 setDateForRequestingMoreMessages:v29];
+        dateReceived2 = [v28 dateReceived];
+        v29 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:dateReceived2 requiringSecureCoding:1 error:0];
+        [(NNMKProtoMessageAdditions *)v98 setDateForRequestingMoreMessages:v29];
 
-        v30 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:dateReceived3 requiringSecureCoding:1 error:0];
-        [(NNMKProtoMessageAdditions *)v102 setDateForRequestingMoreMessages:v30];
+        v30 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:dateReceived2 requiringSecureCoding:1 error:0];
+        [(NNMKProtoMessageAdditions *)v101 setDateForRequestingMoreMessages:v30];
 
         v31 = qword_28144D620;
         if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
         {
           v32 = v31;
           [v28 dateReceived];
-          v33 = dateReceived3;
+          v33 = dateReceived2;
           v35 = v34 = v15;
           *buf = 138543362;
-          v111 = v35;
+          v110 = v35;
           _os_log_impl(&dword_25B19F000, v32, OS_LOG_TYPE_DEFAULT, "New received messages changed date cap (New date: %{public}@).", buf, 0xCu);
 
           v15 = v34;
-          dateReceived3 = v33;
+          dateReceived2 = v33;
         }
       }
 
       v36 = [v13 count];
       syncController2 = [(NNMKSyncPersistenceHandler *)self syncController];
-      v38 = [syncController2 filterMessages:v13 receivedBeforeDate:dateReceived3];
+      v38 = [syncController2 filterMessages:v13 receivedBeforeDate:dateReceived2];
 
       if ([v38 count] < v36)
       {
         [v10 setReceivedOldMessages:1];
       }
 
-      v39 = v102;
+      v39 = v101;
       if ([v38 count])
       {
-        v94 = mailboxCopy;
-        v95 = v10;
-        v96 = messagesCopy;
-        v98 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v38, "count")}];
-        v101 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v38, "count")}];
+        v93 = mailboxCopy;
+        v94 = v10;
+        v95 = messagesCopy;
+        v97 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v38, "count")}];
+        v100 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v38, "count")}];
+        v105 = 0u;
         v106 = 0u;
         v107 = 0u;
         v108 = 0u;
-        v109 = 0u;
-        v93 = v38;
+        v92 = v38;
         obj = v38;
-        v105 = [obj countByEnumeratingWithState:&v106 objects:v120 count:16];
-        if (!v105)
+        v104 = [obj countByEnumeratingWithState:&v105 objects:v119 count:16];
+        if (!v104)
         {
           goto LABEL_41;
         }
 
-        v103 = *v107;
+        v102 = *v106;
         while (1)
         {
-          for (i = 0; i != v105; ++i)
+          for (i = 0; i != v104; ++i)
           {
-            if (*v107 != v103)
+            if (*v106 != v102)
             {
               objc_enumerationMutation(obj);
             }
 
-            v41 = dateReceived3;
-            v42 = *(*(&v106 + 1) + 8 * i);
+            v41 = dateReceived2;
+            v42 = *(*(&v105 + 1) + 8 * i);
             v43 = qword_28144D620;
             if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
             {
               v44 = v43;
               messageId = [v42 messageId];
               accountId = [v42 accountId];
-              dateReceived4 = [v42 dateReceived];
+              dateReceived3 = [v42 dateReceived];
               v48 = +[NNMKMessage stringFromMailboxItemState:](NNMKMessage, "stringFromMailboxItemState:", [v42 status]);
               messageIdHeader = [v42 messageIdHeader];
               *buf = 138544386;
-              v111 = messageId;
-              v112 = 2114;
-              v113 = accountId;
-              v114 = 2114;
-              v115 = dateReceived4;
-              v116 = 2112;
-              v117 = v48;
-              v118 = 2114;
-              v119 = messageIdHeader;
+              v110 = messageId;
+              v111 = 2114;
+              v112 = accountId;
+              v113 = 2114;
+              v114 = dateReceived3;
+              v115 = 2112;
+              v116 = v48;
+              v117 = 2114;
+              v118 = messageIdHeader;
               _os_log_impl(&dword_25B19F000, v44, OS_LOG_TYPE_DEFAULT, "Message ADDED (Id: %{public}@ - Account Id: %{public}@ - Date Received: %{public}@ - Status: %@ - Message ID Header %{public}@ - Reason: New)", buf, 0x34u);
             }
 
@@ -862,9 +842,9 @@ LABEL_4:
             sessionController = [(NNMKSyncPersistenceHandler *)self sessionController];
             if ([sessionController deviceInStandalone])
             {
-              currentDeviceRegistry4 = [(NNMKSyncPersistenceHandler *)self currentDeviceRegistry];
+              currentDeviceRegistry3 = [(NNMKSyncPersistenceHandler *)self currentDeviceRegistry];
               accountId2 = [v42 accountId];
-              v56 = [currentDeviceRegistry4 accountSourceTypeForAccountId:accountId2] == 0;
+              v56 = [currentDeviceRegistry3 accountSourceTypeForAccountId:accountId2] == 0;
             }
 
             else
@@ -872,7 +852,7 @@ LABEL_4:
               v56 = 1;
             }
 
-            if (v104)
+            if (v103)
             {
               syncStateManager = [(NNMKSyncPersistenceHandler *)self syncStateManager];
               v58 = [syncStateManager willPresentNotificationForMessage:v42];
@@ -880,22 +860,22 @@ LABEL_4:
               v59 = v58 | v56;
               if (v58)
               {
-                v60 = v99;
+                v60 = v98;
               }
 
               else
               {
-                v60 = v102;
+                v60 = v101;
               }
 
               if (v58)
               {
-                v61 = v98;
+                v61 = v97;
               }
 
               else
               {
-                v61 = v101;
+                v61 = v100;
               }
 
               if (v59)
@@ -907,8 +887,8 @@ LABEL_4:
             else if (v56)
             {
               v58 = 0;
-              v61 = v101;
-              v60 = v102;
+              v61 = v100;
+              v60 = v101;
 LABEL_35:
               v62 = [(NNMKSyncPersistenceHandler *)self protoMessageFromMessage:v42];
               [(NNMKProtoMessageAdditions *)v60 addMessageAddition:v62];
@@ -917,8 +897,8 @@ LABEL_35:
               [v61 addObject:messageId2];
 
               [(NNMKSyncedMessage *)v52 setUsedNotificationPriorityForMessageSync:v58];
-              currentDeviceRegistry5 = [(NNMKSyncPersistenceHandler *)self currentDeviceRegistry];
-              [currentDeviceRegistry5 addOrUpdateSyncedMessage:v52];
+              currentDeviceRegistry4 = [(NNMKSyncPersistenceHandler *)self currentDeviceRegistry];
+              [currentDeviceRegistry4 addOrUpdateSyncedMessage:v52];
 
               sessionController2 = [(NNMKSyncPersistenceHandler *)self sessionController];
               messageIdsToIgnoreStatusUpdates = [sessionController2 messageIdsToIgnoreStatusUpdates];
@@ -940,86 +920,84 @@ LABEL_35:
             accountId3 = [v42 accountId];
             messageId4 = [v42 messageId];
             *buf = 138543618;
-            v111 = accountId3;
-            v112 = 2114;
-            v113 = messageId4;
+            v110 = accountId3;
+            v111 = 2114;
+            v112 = messageId4;
             _os_log_impl(&dword_25B19F000, batchRequestHandler, OS_LOG_TYPE_DEFAULT, "Dropping message added because account source type does not allow sync. Account Id: %{public}@, Message Id: %{public}@", buf, 0x16u);
 
 LABEL_38:
 LABEL_39:
 
-            dateReceived3 = v41;
+            dateReceived2 = v41;
           }
 
-          v105 = [obj countByEnumeratingWithState:&v106 objects:v120 count:16];
-          if (!v105)
+          v104 = [obj countByEnumeratingWithState:&v105 objects:v119 count:16];
+          if (!v104)
           {
 LABEL_41:
 
-            mailboxCopy = v94;
-            if ([(NNMKProtoMessageAdditions *)v99 messageAdditionsCount])
+            mailboxCopy = v93;
+            if ([(NNMKProtoMessageAdditions *)v98 messageAdditionsCount])
             {
-              mailboxId3 = [v94 mailboxId];
-              [(NNMKProtoMessageAdditions *)v99 setMailboxId:mailboxId3];
+              mailboxId2 = [v93 mailboxId];
+              [(NNMKProtoMessageAdditions *)v98 setMailboxId:mailboxId2];
 
+              currentDeviceRegistry5 = [(NNMKSyncPersistenceHandler *)self currentDeviceRegistry];
+              mailboxId3 = [v93 mailboxId];
+              -[NNMKProtoMessageAdditions setMailboxSyncVersion:](v98, "setMailboxSyncVersion:", [currentDeviceRegistry5 syncVersionForMailboxId:mailboxId3]);
+
+              [(NNMKProtoMessageAdditions *)v98 setMessagesAreNew:v103];
               currentDeviceRegistry6 = [(NNMKSyncPersistenceHandler *)self currentDeviceRegistry];
-              mailboxId4 = [v94 mailboxId];
-              -[NNMKProtoMessageAdditions setMailboxSyncVersion:](v99, "setMailboxSyncVersion:", [currentDeviceRegistry6 syncVersionForMailboxId:mailboxId4]);
-
-              [(NNMKProtoMessageAdditions *)v99 setMessagesAreNew:v104];
-              currentDeviceRegistry7 = [(NNMKSyncPersistenceHandler *)self currentDeviceRegistry];
-              -[NNMKProtoMessageAdditions setFullSyncVersion:](v99, "setFullSyncVersion:", [currentDeviceRegistry7 fullSyncVersion]);
+              -[NNMKProtoMessageAdditions setFullSyncVersion:](v98, "setFullSyncVersion:", [currentDeviceRegistry6 fullSyncVersion]);
 
               v76 = MEMORY[0x277CCAAB0];
               date = [MEMORY[0x277CBEAA8] date];
               v78 = [v76 archivedDataWithRootObject:date requiringSecureCoding:1 error:0];
-              [(NNMKProtoMessageAdditions *)v99 setDateSynced:v78];
+              [(NNMKProtoMessageAdditions *)v98 setDateSynced:v78];
             }
 
-            v39 = v102;
-            v10 = v95;
-            messagesCopy = v96;
-            v15 = v97;
-            if ([(NNMKProtoMessageAdditions *)v102 messageAdditionsCount])
+            v39 = v101;
+            v10 = v94;
+            messagesCopy = v95;
+            v15 = v96;
+            if ([(NNMKProtoMessageAdditions *)v101 messageAdditionsCount])
             {
-              mailboxId5 = [v94 mailboxId];
-              [(NNMKProtoMessageAdditions *)v102 setMailboxId:mailboxId5];
+              mailboxId4 = [v93 mailboxId];
+              [(NNMKProtoMessageAdditions *)v101 setMailboxId:mailboxId4];
 
+              currentDeviceRegistry7 = [(NNMKSyncPersistenceHandler *)self currentDeviceRegistry];
+              mailboxId5 = [v93 mailboxId];
+              -[NNMKProtoMessageAdditions setMailboxSyncVersion:](v101, "setMailboxSyncVersion:", [currentDeviceRegistry7 syncVersionForMailboxId:mailboxId5]);
+
+              [(NNMKProtoMessageAdditions *)v101 setMessagesAreNew:v103];
               currentDeviceRegistry8 = [(NNMKSyncPersistenceHandler *)self currentDeviceRegistry];
-              mailboxId6 = [v94 mailboxId];
-              -[NNMKProtoMessageAdditions setMailboxSyncVersion:](v102, "setMailboxSyncVersion:", [currentDeviceRegistry8 syncVersionForMailboxId:mailboxId6]);
-
-              [(NNMKProtoMessageAdditions *)v102 setMessagesAreNew:v104];
-              currentDeviceRegistry9 = [(NNMKSyncPersistenceHandler *)self currentDeviceRegistry];
-              -[NNMKProtoMessageAdditions setFullSyncVersion:](v102, "setFullSyncVersion:", [currentDeviceRegistry9 fullSyncVersion]);
+              -[NNMKProtoMessageAdditions setFullSyncVersion:](v101, "setFullSyncVersion:", [currentDeviceRegistry8 fullSyncVersion]);
 
               v83 = MEMORY[0x277CCAAB0];
               date2 = [MEMORY[0x277CBEAA8] date];
               v85 = [v83 archivedDataWithRootObject:date2 requiringSecureCoding:1 error:0];
-              [(NNMKProtoMessageAdditions *)v102 setDateSynced:v85];
+              [(NNMKProtoMessageAdditions *)v101 setDateSynced:v85];
 
-              v39 = v102;
+              v39 = v101;
             }
 
-            [v95 setMessageIdsWithNotificationPriority:v98];
-            [v95 setMessageIdsWithDefaultPriority:v101];
-            [v95 setProtoMessagesWithNotificationPriority:v99];
-            [v95 setProtoMessagesWithDefaultPriority:v39];
+            [v94 setMessageIdsWithNotificationPriority:v97];
+            [v94 setMessageIdsWithDefaultPriority:v100];
+            [v94 setProtoMessagesWithNotificationPriority:v98];
+            [v94 setProtoMessagesWithDefaultPriority:v39];
 
-            v38 = v93;
+            v38 = v92;
             break;
           }
         }
       }
 
-      currentDeviceRegistry10 = [(NNMKSyncPersistenceHandler *)self currentDeviceRegistry];
-      [currentDeviceRegistry10 endUpdates];
+      currentDeviceRegistry9 = [(NNMKSyncPersistenceHandler *)self currentDeviceRegistry];
+      [currentDeviceRegistry9 endUpdates];
 
       v13 = v38;
     }
   }
-
-  v87 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -1036,7 +1014,7 @@ uint64_t __70__NNMKSyncPersistenceHandler_addMessages_containsNewMessages_mailbo
 
 - (id)addMoreMessages:(id)messages mailbox:(id)mailbox
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   messagesCopy = messages;
   mailboxCopy = mailbox;
   currentDeviceRegistry = [(NNMKSyncPersistenceHandler *)self currentDeviceRegistry];
@@ -1055,7 +1033,7 @@ uint64_t __70__NNMKSyncPersistenceHandler_addMessages_containsNewMessages_mailbo
   [(NNMKProtoMoreMessages *)v9 setMailboxId:mailboxId];
 
   currentDeviceRegistry3 = [(NNMKSyncPersistenceHandler *)self currentDeviceRegistry];
-  v46 = mailboxCopy;
+  v45 = mailboxCopy;
   mailboxId2 = [mailboxCopy mailboxId];
   -[NNMKProtoMoreMessages setMailboxSyncVersion:](v9, "setMailboxSyncVersion:", [currentDeviceRegistry3 syncVersionForMailboxId:mailboxId2]);
 
@@ -1071,32 +1049,32 @@ uint64_t __70__NNMKSyncPersistenceHandler_addMessages_containsNewMessages_mailbo
   }
 
   v20 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(messagesCopy, "count")}];
+  v51 = 0u;
   v52 = 0u;
   v53 = 0u;
   v54 = 0u;
-  v55 = 0u;
   obj = messagesCopy;
-  v21 = [obj countByEnumeratingWithState:&v52 objects:v66 count:16];
+  v21 = [obj countByEnumeratingWithState:&v51 objects:v65 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v53;
+    v23 = *v52;
     v24 = &__logCategories;
-    v48 = *v53;
+    v47 = *v52;
     selfCopy = self;
-    v47 = v20;
+    v46 = v20;
     do
     {
       v25 = 0;
-      v50 = v22;
+      v49 = v22;
       do
       {
-        if (*v53 != v23)
+        if (*v52 != v23)
         {
           objc_enumerationMutation(obj);
         }
 
-        v26 = *(*(&v52 + 1) + 8 * v25);
+        v26 = *(*(&v51 + 1) + 8 * v25);
         v27 = v24[1];
         if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
         {
@@ -1109,24 +1087,24 @@ uint64_t __70__NNMKSyncPersistenceHandler_addMessages_containsNewMessages_mailbo
           v34 = +[NNMKMessage stringFromMailboxItemState:](NNMKMessage, "stringFromMailboxItemState:", [v26 status]);
           messageIdHeader = [v26 messageIdHeader];
           *buf = 138544386;
-          v57 = messageId;
-          v58 = 2114;
-          v59 = v31;
-          v60 = 2114;
-          v61 = v33;
-          v62 = 2112;
-          v63 = v34;
-          v64 = 2114;
-          v65 = messageIdHeader;
+          v56 = messageId;
+          v57 = 2114;
+          v58 = v31;
+          v59 = 2114;
+          v60 = v33;
+          v61 = 2112;
+          v62 = v34;
+          v63 = 2114;
+          v64 = messageIdHeader;
           _os_log_impl(&dword_25B19F000, v28, OS_LOG_TYPE_DEFAULT, "Message ADDED (Id: %{public}@ - Account Id: %{public}@ - Date Received: %{public}@ - Status: %@ - Message ID Header %{public}@ - Reason: #LOAD_MORE_MESSAGES)", buf, 0x34u);
 
           v24 = v32;
           v9 = v30;
-          v20 = v47;
+          v20 = v46;
           self = selfCopy;
 
-          v23 = v48;
-          v22 = v50;
+          v23 = v47;
+          v22 = v49;
         }
 
         v36 = [(NNMKSyncPersistenceHandler *)self protoMessageFromMessage:v26];
@@ -1149,7 +1127,7 @@ uint64_t __70__NNMKSyncPersistenceHandler_addMessages_containsNewMessages_mailbo
       }
 
       while (v22 != v25);
-      v22 = [obj countByEnumeratingWithState:&v52 objects:v66 count:16];
+      v22 = [obj countByEnumeratingWithState:&v51 objects:v65 count:16];
     }
 
     while (v22);
@@ -1158,14 +1136,12 @@ uint64_t __70__NNMKSyncPersistenceHandler_addMessages_containsNewMessages_mailbo
   currentDeviceRegistry5 = [(NNMKSyncPersistenceHandler *)self currentDeviceRegistry];
   [currentDeviceRegistry5 endUpdates];
 
-  v44 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 - (id)addMoreConversationSpecificMessages:(id)messages conversationId:(id)id mailbox:(id)mailbox
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   messagesCopy = messages;
   idCopy = id;
   mailboxCopy = mailbox;
@@ -1181,42 +1157,42 @@ uint64_t __70__NNMKSyncPersistenceHandler_addMessages_containsNewMessages_mailbo
   v16 = [v14 archivedDataWithRootObject:date requiringSecureCoding:1 error:0];
   [(NNMKProtoMoreMessagesForConversation *)v12 setDateSynced:v16];
 
-  v46 = idCopy;
+  v45 = idCopy;
   [(NNMKProtoMoreMessagesForConversation *)v12 setConversationId:idCopy];
   mailboxId = [mailboxCopy mailboxId];
   [(NNMKProtoMoreMessagesForConversation *)v12 setMailboxId:mailboxId];
 
   currentDeviceRegistry3 = [(NNMKSyncPersistenceHandler *)self currentDeviceRegistry];
-  v45 = mailboxCopy;
+  v44 = mailboxCopy;
   mailboxId2 = [mailboxCopy mailboxId];
   -[NNMKProtoMoreMessagesForConversation setMailboxSyncVersion:](v12, "setMailboxSyncVersion:", [currentDeviceRegistry3 syncVersionForMailboxId:mailboxId2]);
 
   v20 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(messagesCopy, "count")}];
+  v52 = 0u;
   v53 = 0u;
   v54 = 0u;
   v55 = 0u;
-  v56 = 0u;
   obj = messagesCopy;
-  v21 = [obj countByEnumeratingWithState:&v53 objects:v67 count:16];
+  v21 = [obj countByEnumeratingWithState:&v52 objects:v66 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v54;
+    v23 = *v53;
     v24 = &__logCategories;
-    v47 = *v54;
-    v48 = v12;
+    v46 = *v53;
+    v47 = v12;
     do
     {
       v25 = 0;
-      v49 = v22;
+      v48 = v22;
       do
       {
-        if (*v54 != v23)
+        if (*v53 != v23)
         {
           objc_enumerationMutation(obj);
         }
 
-        v26 = *(*(&v53 + 1) + 8 * v25);
+        v26 = *(*(&v52 + 1) + 8 * v25);
         v27 = v24[1];
         if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
         {
@@ -1230,25 +1206,25 @@ uint64_t __70__NNMKSyncPersistenceHandler_addMessages_containsNewMessages_mailbo
           selfCopy = self;
           v34 = v33 = v20;
           *buf = 138544386;
-          v58 = messageId;
-          v59 = 2114;
-          v60 = accountId;
-          v61 = 2114;
-          v62 = dateReceived;
-          v63 = 2112;
-          v64 = v30;
-          v65 = 2114;
-          v66 = v34;
+          v57 = messageId;
+          v58 = 2114;
+          v59 = accountId;
+          v60 = 2114;
+          v61 = dateReceived;
+          v62 = 2112;
+          v63 = v30;
+          v64 = 2114;
+          v65 = v34;
           _os_log_impl(&dword_25B19F000, log, OS_LOG_TYPE_DEFAULT, "Message ADDED (Id: %{public}@ - Account Id: %{public}@ - Date Received: %{public}@ - Status: %@ - Message ID Header %{public}@ - Reason: #LOAD_MORE_MESSAGES for Conversation)", buf, 0x34u);
 
           v20 = v33;
           self = selfCopy;
           v24 = v31;
 
-          v22 = v49;
-          v12 = v48;
+          v22 = v48;
+          v12 = v47;
 
-          v23 = v47;
+          v23 = v46;
         }
 
         v35 = [(NNMKSyncPersistenceHandler *)self protoMessageFromMessage:v26];
@@ -1271,7 +1247,7 @@ uint64_t __70__NNMKSyncPersistenceHandler_addMessages_containsNewMessages_mailbo
       }
 
       while (v22 != v25);
-      v22 = [obj countByEnumeratingWithState:&v53 objects:v67 count:16];
+      v22 = [obj countByEnumeratingWithState:&v52 objects:v66 count:16];
     }
 
     while (v22);
@@ -1280,21 +1256,19 @@ uint64_t __70__NNMKSyncPersistenceHandler_addMessages_containsNewMessages_mailbo
   currentDeviceRegistry5 = [(NNMKSyncPersistenceHandler *)self currentDeviceRegistry];
   [currentDeviceRegistry5 endUpdates];
 
-  v43 = *MEMORY[0x277D85DE8];
-
   return v12;
 }
 
 - (id)addMessagesToResend:(id)resend mailbox:(id)mailbox
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   resendCopy = resend;
   mailboxCopy = mailbox;
   currentDeviceRegistry = [(NNMKSyncPersistenceHandler *)self currentDeviceRegistry];
   [currentDeviceRegistry beginUpdates];
 
-  v43 = objc_alloc_init(NNMKAdditionResult);
-  v47 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(resendCopy, "count")}];
+  v42 = objc_alloc_init(NNMKAdditionResult);
+  v46 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(resendCopy, "count")}];
   v9 = objc_alloc_init(NNMKProtoMessageAdditions);
   [(NNMKProtoMessageAdditions *)v9 setMessagesAreNew:0];
   currentDeviceRegistry2 = [(NNMKSyncPersistenceHandler *)self currentDeviceRegistry];
@@ -1309,35 +1283,35 @@ uint64_t __70__NNMKSyncPersistenceHandler_addMessages_containsNewMessages_mailbo
   [(NNMKProtoMessageAdditions *)v9 setMailboxId:mailboxId];
 
   currentDeviceRegistry3 = [(NNMKSyncPersistenceHandler *)self currentDeviceRegistry];
-  v44 = mailboxCopy;
+  v43 = mailboxCopy;
   mailboxId2 = [mailboxCopy mailboxId];
-  v48 = v9;
+  v47 = v9;
   -[NNMKProtoMessageAdditions setMailboxSyncVersion:](v9, "setMailboxSyncVersion:", [currentDeviceRegistry3 syncVersionForMailboxId:mailboxId2]);
 
-  v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
   v50 = 0u;
+  v51 = 0u;
+  v48 = 0u;
+  v49 = 0u;
   v17 = resendCopy;
-  v18 = [v17 countByEnumeratingWithState:&v49 objects:v61 count:16];
+  v18 = [v17 countByEnumeratingWithState:&v48 objects:v60 count:16];
   if (v18)
   {
     v19 = v18;
     resendInterval = 0;
-    v21 = *v50;
+    v21 = *v49;
     selfCopy = self;
     do
     {
       v22 = 0;
-      v46 = v19;
+      v45 = v19;
       do
       {
-        if (*v50 != v21)
+        if (*v49 != v21)
         {
           objc_enumerationMutation(v17);
         }
 
-        v23 = *(*(&v49 + 1) + 8 * v22);
+        v23 = *(*(&v48 + 1) + 8 * v22);
         currentDeviceRegistry4 = [(NNMKSyncPersistenceHandler *)self currentDeviceRegistry];
         messageId = [v23 messageId];
         v26 = [currentDeviceRegistry4 syncedMessageForMessageWithId:messageId];
@@ -1365,11 +1339,11 @@ uint64_t __70__NNMKSyncPersistenceHandler_addMessages_containsNewMessages_mailbo
           [currentDeviceRegistry5 addOrUpdateSyncedMessage:v26];
 
           messageId2 = [v23 messageId];
-          [v47 addObject:messageId2];
+          [v46 addObject:messageId2];
 
           [v23 setStatusVersion:{objc_msgSend(v26, "statusVersion")}];
           v30 = [(NNMKSyncPersistenceHandler *)self protoMessageFromMessage:v23];
-          [(NNMKProtoMessageAdditions *)v48 addMessageAddition:v30];
+          [(NNMKProtoMessageAdditions *)v47 addMessageAddition:v30];
 
           v31 = qword_28144D620;
           if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
@@ -1383,19 +1357,19 @@ uint64_t __70__NNMKSyncPersistenceHandler_addMessages_containsNewMessages_mailbo
             v38 = +[NNMKMessage stringFromMailboxItemState:](NNMKMessage, "stringFromMailboxItemState:", [v23 status]);
             statusVersion = [v23 statusVersion];
             *buf = 138544130;
-            v54 = messageId3;
-            v55 = 2114;
-            v56 = v37;
-            v57 = 2112;
-            v58 = v38;
-            v59 = 2048;
-            v60 = statusVersion;
+            v53 = messageId3;
+            v54 = 2114;
+            v55 = v37;
+            v56 = 2112;
+            v57 = v38;
+            v58 = 2048;
+            v59 = statusVersion;
             _os_log_impl(&dword_25B19F000, v32, OS_LOG_TYPE_DEFAULT, "Message being RESENT (Id: %{public}@ - Date Received: %{public}@ - Status: %@ - StatusVersion: %lu).", buf, 0x2Au);
 
             v17 = v36;
             resendInterval = v35;
             v21 = v34;
-            v19 = v46;
+            v19 = v45;
 
             self = selfCopy;
           }
@@ -1405,7 +1379,7 @@ uint64_t __70__NNMKSyncPersistenceHandler_addMessages_containsNewMessages_mailbo
       }
 
       while (v19 != v22);
-      v19 = [v17 countByEnumeratingWithState:&v49 objects:v61 count:16];
+      v19 = [v17 countByEnumeratingWithState:&v48 objects:v60 count:16];
     }
 
     while (v19);
@@ -1419,52 +1393,50 @@ uint64_t __70__NNMKSyncPersistenceHandler_addMessages_containsNewMessages_mailbo
   currentDeviceRegistry6 = [(NNMKSyncPersistenceHandler *)self currentDeviceRegistry];
   [currentDeviceRegistry6 endUpdates];
 
-  [(NNMKAdditionResult *)v43 setProtoMessagesWithDefaultPriority:v48];
-  [(NNMKAdditionResult *)v43 setMessageIdsWithDefaultPriority:v47];
-  [(NNMKAdditionResult *)v43 setResendInterval:resendInterval];
+  [(NNMKAdditionResult *)v42 setProtoMessagesWithDefaultPriority:v47];
+  [(NNMKAdditionResult *)v42 setMessageIdsWithDefaultPriority:v46];
+  [(NNMKAdditionResult *)v42 setResendInterval:resendInterval];
 
-  v41 = *MEMORY[0x277D85DE8];
-
-  return v43;
+  return v42;
 }
 
 - (id)updateMessagesStatus:(id)status mailbox:(id)mailbox
 {
-  v110 = *MEMORY[0x277D85DE8];
+  v109 = *MEMORY[0x277D85DE8];
   statusCopy = status;
   mailboxCopy = mailbox;
   currentDeviceRegistry = [(NNMKSyncPersistenceHandler *)self currentDeviceRegistry];
   [currentDeviceRegistry beginUpdates];
 
-  v91 = objc_alloc_init(NNMKProtoMessageStatusUpdates);
   v90 = objc_alloc_init(NNMKProtoMessageStatusUpdates);
+  v89 = objc_alloc_init(NNMKProtoMessageStatusUpdates);
   array = [MEMORY[0x277CBEB18] array];
   array2 = [MEMORY[0x277CBEB18] array];
-  v87 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(statusCopy, "count")}];
   v86 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(statusCopy, "count")}];
+  v85 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(statusCopy, "count")}];
+  v96 = 0u;
   v97 = 0u;
   v98 = 0u;
   v99 = 0u;
-  v100 = 0u;
   obj = statusCopy;
-  v9 = [obj countByEnumeratingWithState:&v97 objects:v109 count:16];
+  v9 = [obj countByEnumeratingWithState:&v96 objects:v108 count:16];
   if (v9)
   {
     v11 = v9;
-    v12 = *v98;
+    v12 = *v97;
     *&v10 = 138544130;
-    v85 = v10;
-    v92 = *v98;
+    v84 = v10;
+    v91 = *v97;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v98 != v12)
+        if (*v97 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v97 + 1) + 8 * i);
+        v14 = *(*(&v96 + 1) + 8 * i);
         sessionController = [(NNMKSyncPersistenceHandler *)self sessionController];
         messageIdsToIgnoreStatusUpdates = [sessionController messageIdsToIgnoreStatusUpdates];
         messageId = [v14 messageId];
@@ -1483,11 +1455,11 @@ uint64_t __70__NNMKSyncPersistenceHandler_addMessages_containsNewMessages_mailbo
           dateReceived = [v14 dateReceived];
           v23 = +[NNMKMessage stringFromMailboxItemState:](NNMKMessage, "stringFromMailboxItemState:", [v14 status]);
           *buf = 138543874;
-          v102 = messageId2;
-          v103 = 2114;
-          v104 = dateReceived;
-          v105 = 2112;
-          v106 = v23;
+          v101 = messageId2;
+          v102 = 2114;
+          v103 = dateReceived;
+          v104 = 2112;
+          v105 = v23;
           _os_log_impl(&dword_25B19F000, v20, OS_LOG_TYPE_DEFAULT, "Message Status UPDATED but updates are being ignored for it. Dropping... (Id: %{public}@ - Date Received: %{public}@ - Status: %@).", buf, 0x20u);
         }
 
@@ -1512,7 +1484,7 @@ uint64_t __70__NNMKSyncPersistenceHandler_addMessages_containsNewMessages_mailbo
               syncController3 = [(NNMKSyncPersistenceHandler *)self syncController];
               v27 = [syncController3 isValidMessageStatus:objc_msgSend(v14 forMailbox:{"status"), mailboxCopy}];
 
-              v12 = v92;
+              v12 = v91;
             }
           }
 
@@ -1530,17 +1502,17 @@ LABEL_26:
                 messageId4 = [v14 messageId];
                 dateReceived2 = [v14 dateReceived];
                 v51 = +[NNMKMessage stringFromMailboxItemState:](NNMKMessage, "stringFromMailboxItemState:", [v14 status]);
-                *buf = v85;
-                v102 = messageId4;
-                v103 = 2114;
-                v104 = dateReceived2;
-                v105 = 2112;
-                v106 = v51;
-                v107 = 2114;
-                v108 = v20;
+                *buf = v84;
+                v101 = messageId4;
+                v102 = 2114;
+                v103 = dateReceived2;
+                v104 = 2112;
+                v105 = v51;
+                v106 = 2114;
+                v107 = v20;
                 _os_log_debug_impl(&dword_25B19F000, v48, OS_LOG_TYPE_DEBUG, "Dropping Message Status UPDATE. Message is not being tracked. (Id: %{public}@ - Date Received: %{public}@ - Status: %@ - MessageSynced: %{public}@).", buf, 0x2Au);
 
-                v12 = v92;
+                v12 = v91;
               }
 
               goto LABEL_42;
@@ -1549,7 +1521,7 @@ LABEL_26:
             syncController5 = [(NNMKSyncPersistenceHandler *)self syncController];
             v36 = [syncController5 canSyncMessage:v14 forMailbox:mailboxCopy];
 
-            v12 = v92;
+            v12 = v91;
             if (!v36)
             {
               goto LABEL_26;
@@ -1563,11 +1535,11 @@ LABEL_26:
               dateReceived3 = [v14 dateReceived];
               v41 = +[NNMKMessage stringFromMailboxItemState:](NNMKMessage, "stringFromMailboxItemState:", [v14 status]);
               *buf = 138543874;
-              v102 = messageId5;
-              v103 = 2114;
-              v104 = dateReceived3;
-              v105 = 2112;
-              v106 = v41;
+              v101 = messageId5;
+              v102 = 2114;
+              v103 = dateReceived3;
+              v104 = 2112;
+              v105 = v41;
               _os_log_impl(&dword_25B19F000, v38, OS_LOG_TYPE_DEFAULT, "Received Message Status UPDATE, but it still hadn't been synced or it is about to be removed on the client. Will try to re-add message if not too old. (Id: %{public}@ - Date Received: %{public}@ - Status: %@).", buf, 0x20u);
             }
 
@@ -1580,7 +1552,7 @@ LABEL_26:
             messageId7 = [v14 messageId];
             [currentDeviceRegistry3 removeSyncedMessageForMessageWithId:messageId7];
 
-            [v87 addObject:v14];
+            [v86 addObject:v14];
           }
 
           else
@@ -1594,7 +1566,7 @@ LABEL_26:
                 v32 = v31;
                 messageId8 = [v14 messageId];
                 *buf = 138543362;
-                v102 = messageId8;
+                v101 = messageId8;
                 _os_log_impl(&dword_25B19F000, v32, OS_LOG_TYPE_DEFAULT, "Dropping Message Status UPDATE because status did not change. %{public}@", buf, 0xCu);
               }
 
@@ -1615,11 +1587,11 @@ LABEL_26:
                 v58 = +[NNMKMessage stringFromMailboxItemState:](NNMKMessage, "stringFromMailboxItemState:", [v14 status]);
                 dateReceived4 = [v14 dateReceived];
                 *buf = 138543874;
-                v102 = messageId9;
-                v103 = 2112;
-                v104 = v58;
-                v105 = 2114;
-                v106 = dateReceived4;
+                v101 = messageId9;
+                v102 = 2112;
+                v103 = v58;
+                v104 = 2114;
+                v105 = dateReceived4;
                 _os_log_impl(&dword_25B19F000, v56, OS_LOG_TYPE_DEFAULT, "Message Status UPDATED (Id: %{public}@ - Status: %@ - Date Received: %{public}@ - Source: MobileMail).", buf, 0x20u);
               }
 
@@ -1637,12 +1609,12 @@ LABEL_26:
               v65 = usedNotificationPriorityForMessageSync == 0;
               if (usedNotificationPriorityForMessageSync)
               {
-                v66 = v91;
+                v66 = v90;
               }
 
               else
               {
-                v66 = v90;
+                v66 = v89;
               }
 
               if (v65)
@@ -1672,29 +1644,29 @@ LABEL_26:
                 dateReceived5 = [v14 dateReceived];
                 v73 = +[NNMKMessage stringFromMailboxItemState:](NNMKMessage, "stringFromMailboxItemState:", [v14 status]);
                 *buf = 138543874;
-                v102 = messageId12;
-                v103 = 2114;
-                v104 = dateReceived5;
-                v105 = 2112;
-                v106 = v73;
+                v101 = messageId12;
+                v102 = 2114;
+                v103 = dateReceived5;
+                v104 = 2112;
+                v105 = v73;
                 _os_log_impl(&dword_25B19F000, v70, OS_LOG_TYPE_DEFAULT, "Removing message that does not belong to current mailbox due to status change. (Id: %{public}@ - Date Received: %{public}@ - Status: %@).", buf, 0x20u);
               }
 
               messageId13 = [v14 messageId];
-              [v86 addObject:messageId13];
+              [v85 addObject:messageId13];
 
               batchRequestHandler2 = [(NNMKSyncPersistenceHandler *)self batchRequestHandler];
               [batchRequestHandler2 handleMessageAdded:v14];
             }
           }
 
-          v12 = v92;
+          v12 = v91;
         }
 
 LABEL_42:
       }
 
-      v11 = [obj countByEnumeratingWithState:&v97 objects:v109 count:16];
+      v11 = [obj countByEnumeratingWithState:&v96 objects:v108 count:16];
     }
 
     while (v11);
@@ -1707,26 +1679,24 @@ LABEL_42:
   mailboxId2 = [mailboxCopy mailboxId];
   v79 = [currentDeviceRegistry6 syncVersionForMailboxId:mailboxId2];
 
-  v94[0] = MEMORY[0x277D85DD0];
-  v94[1] = 3221225472;
-  v94[2] = __59__NNMKSyncPersistenceHandler_updateMessagesStatus_mailbox___block_invoke;
-  v94[3] = &unk_279936488;
-  v94[4] = self;
-  v95 = mailboxCopy;
-  v96 = v79;
+  v93[0] = MEMORY[0x277D85DD0];
+  v93[1] = 3221225472;
+  v93[2] = __59__NNMKSyncPersistenceHandler_updateMessagesStatus_mailbox___block_invoke;
+  v93[3] = &unk_279936488;
+  v93[4] = self;
+  v94 = mailboxCopy;
+  v95 = v79;
   v80 = mailboxCopy;
-  v81 = MEMORY[0x25F864490](v94);
-  (v81)[2](v81, v91);
+  v81 = MEMORY[0x25F864490](v93);
   (v81)[2](v81, v90);
+  (v81)[2](v81, v89);
   v82 = objc_opt_new();
-  [v82 setProtoMessageUpdatesWithNotificationPriority:v91];
-  [v82 setProtoMessageUpdatesWithDefaultPriority:v90];
+  [v82 setProtoMessageUpdatesWithNotificationPriority:v90];
+  [v82 setProtoMessageUpdatesWithDefaultPriority:v89];
   [v82 setMessageIdsWithNotificationPriority:array];
   [v82 setMessageIdsWithDefaultPriority:array2];
-  [v82 setMessagesToAdd:v87];
-  [v82 setMessageIdsToDelete:v86];
-
-  v83 = *MEMORY[0x277D85DE8];
+  [v82 setMessagesToAdd:v86];
+  [v82 setMessageIdsToDelete:v85];
 
   return v82;
 }
@@ -1753,38 +1723,38 @@ void __59__NNMKSyncPersistenceHandler_updateMessagesStatus_mailbox___block_invok
 
 - (id)deleteMessagesWithIds:(id)ids mailbox:(id)mailbox
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   idsCopy = ids;
   mailboxCopy = mailbox;
   currentDeviceRegistry = [(NNMKSyncPersistenceHandler *)self currentDeviceRegistry];
   [currentDeviceRegistry beginUpdates];
 
-  v48 = objc_alloc_init(NNMKProtoMessageDeletions);
   v47 = objc_alloc_init(NNMKProtoMessageDeletions);
+  v46 = objc_alloc_init(NNMKProtoMessageDeletions);
   array = [MEMORY[0x277CBEB18] array];
   array2 = [MEMORY[0x277CBEB18] array];
+  v51 = 0u;
   v52 = 0u;
   v53 = 0u;
   v54 = 0u;
-  v55 = 0u;
   obj = idsCopy;
-  v9 = [obj countByEnumeratingWithState:&v52 objects:v58 count:16];
+  v9 = [obj countByEnumeratingWithState:&v51 objects:v57 count:16];
   if (v9)
   {
     v11 = v9;
-    v12 = *v53;
+    v12 = *v52;
     *&v10 = 138543362;
-    v43 = v10;
+    v42 = v10;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v53 != v12)
+        if (*v52 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v52 + 1) + 8 * i);
+        v14 = *(*(&v51 + 1) + 8 * i);
         currentDeviceRegistry2 = [(NNMKSyncPersistenceHandler *)self currentDeviceRegistry];
         v16 = [currentDeviceRegistry2 syncedMessageForMessageWithId:v14];
 
@@ -1793,8 +1763,8 @@ void __59__NNMKSyncPersistenceHandler_updateMessagesStatus_mailbox___block_invok
           v17 = qword_28144D620;
           if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
           {
-            *buf = v43;
-            v57 = v14;
+            *buf = v42;
+            v56 = v14;
             _os_log_impl(&dword_25B19F000, v17, OS_LOG_TYPE_DEFAULT, "Message DELETED (Id: %{public}@).", buf, 0xCu);
           }
 
@@ -1807,12 +1777,12 @@ void __59__NNMKSyncPersistenceHandler_updateMessagesStatus_mailbox___block_invok
           v22 = usedNotificationPriorityForMessageSync == 0;
           if (usedNotificationPriorityForMessageSync)
           {
-            v23 = v48;
+            v23 = v47;
           }
 
           else
           {
-            v23 = v47;
+            v23 = v46;
           }
 
           if (v22)
@@ -1848,7 +1818,7 @@ void __59__NNMKSyncPersistenceHandler_updateMessagesStatus_mailbox___block_invok
         [messageIdsToIgnoreStatusUpdates removeObject:v14];
       }
 
-      v11 = [obj countByEnumeratingWithState:&v52 objects:v58 count:16];
+      v11 = [obj countByEnumeratingWithState:&v51 objects:v57 count:16];
     }
 
     while (v11);
@@ -1858,26 +1828,24 @@ void __59__NNMKSyncPersistenceHandler_updateMessagesStatus_mailbox___block_invok
   mailboxId3 = [mailboxCopy mailboxId];
   v36 = [currentDeviceRegistry5 syncVersionForMailboxId:mailboxId3];
 
-  v49[0] = MEMORY[0x277D85DD0];
-  v49[1] = 3221225472;
-  v49[2] = __60__NNMKSyncPersistenceHandler_deleteMessagesWithIds_mailbox___block_invoke;
-  v49[3] = &unk_2799364B0;
-  v49[4] = self;
-  v50 = mailboxCopy;
-  v51 = v36;
+  v48[0] = MEMORY[0x277D85DD0];
+  v48[1] = 3221225472;
+  v48[2] = __60__NNMKSyncPersistenceHandler_deleteMessagesWithIds_mailbox___block_invoke;
+  v48[3] = &unk_2799364B0;
+  v48[4] = self;
+  v49 = mailboxCopy;
+  v50 = v36;
   v37 = mailboxCopy;
-  v38 = MEMORY[0x25F864490](v49);
-  (v38)[2](v38, v48);
+  v38 = MEMORY[0x25F864490](v48);
   (v38)[2](v38, v47);
+  (v38)[2](v38, v46);
   v39 = objc_alloc_init(NNMKDeletionResult);
-  [(NNMKDeletionResult *)v39 setUnprotectedNotificationProtobuf:v48];
+  [(NNMKDeletionResult *)v39 setUnprotectedNotificationProtobuf:v47];
   [(NNMKDeletionResult *)v39 setUnprotectedNotificationMessageIds:array];
-  [(NNMKDeletionResult *)v39 setUnprotectedDefaultProtobuf:v47];
+  [(NNMKDeletionResult *)v39 setUnprotectedDefaultProtobuf:v46];
   [(NNMKDeletionResult *)v39 setUnprotectedDefaultMessageIds:array2];
   currentDeviceRegistry6 = [(NNMKSyncPersistenceHandler *)self currentDeviceRegistry];
   [currentDeviceRegistry6 endUpdates];
-
-  v41 = *MEMORY[0x277D85DE8];
 
   return v39;
 }
@@ -1905,48 +1873,48 @@ void __60__NNMKSyncPersistenceHandler_deleteMessagesWithIds_mailbox___block_invo
 - (id)updateMessagesFromConversation:(id)conversation withState:(unint64_t)state include:(BOOL)include mailbox:(id)mailbox
 {
   includeCopy = include;
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   conversationCopy = conversation;
   mailboxCopy = mailbox;
   currentDeviceRegistry = [(NNMKSyncPersistenceHandler *)self currentDeviceRegistry];
   [currentDeviceRegistry beginUpdates];
 
-  v50 = objc_alloc_init(NNMKProtoMessageStatusUpdates);
   v49 = objc_alloc_init(NNMKProtoMessageStatusUpdates);
+  v48 = objc_alloc_init(NNMKProtoMessageStatusUpdates);
   array = [MEMORY[0x277CBEB18] array];
   [MEMORY[0x277CBEB18] array];
-  v47 = v46 = self;
+  v46 = v45 = self;
   currentDeviceRegistry2 = [(NNMKSyncPersistenceHandler *)self currentDeviceRegistry];
-  v42 = conversationCopy;
+  v41 = conversationCopy;
   v13 = [currentDeviceRegistry2 syncedMessagesForConversationWithId:conversationCopy];
 
-  v43 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v13, "count")}];
+  v42 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v13, "count")}];
+  v55 = 0u;
   v56 = 0u;
   v57 = 0u;
   v58 = 0u;
-  v59 = 0u;
   obj = v13;
-  v14 = [obj countByEnumeratingWithState:&v56 objects:v60 count:16];
+  v14 = [obj countByEnumeratingWithState:&v55 objects:v59 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v57;
+    v16 = *v56;
     v17 = state != 128 || includeCopy;
-    v51 = v17;
-    v45 = *v57;
+    v50 = v17;
+    v44 = *v56;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v57 != v16)
+        if (*v56 != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v19 = *(*(&v56 + 1) + 8 * i);
+        v19 = *(*(&v55 + 1) + 8 * i);
         if ((((([v19 status] & state) == 0) ^ includeCopy) & 1) == 0)
         {
-          if ((v51 & 1) != 0 || [mailboxCopy filterType] != 32)
+          if ((v50 & 1) != 0 || [mailboxCopy filterType] != 32)
           {
             [v19 setStatusVersion:{objc_msgSend(v19, "statusVersion") + 1}];
             status = [v19 status];
@@ -1962,7 +1930,7 @@ void __60__NNMKSyncPersistenceHandler_deleteMessagesWithIds_mailbox___block_invo
 
             [v19 setStatus:v22];
             messageId2 = objc_alloc_init(NNMKProtoMessageStatusUpdate);
-            syncController = [(NNMKSyncPersistenceHandler *)v46 syncController];
+            syncController = [(NNMKSyncPersistenceHandler *)v45 syncController];
             [v19 messageId];
             v25 = v24 = v15;
             v26 = [syncController watchMessageIdFromMessageId:v25];
@@ -1974,17 +1942,17 @@ void __60__NNMKSyncPersistenceHandler_deleteMessagesWithIds_mailbox___block_invo
             v28 = usedNotificationPriorityForMessageSync == 0;
             if (usedNotificationPriorityForMessageSync)
             {
-              v29 = v50;
+              v29 = v49;
             }
 
             else
             {
-              v29 = v49;
+              v29 = v48;
             }
 
             if (v28)
             {
-              v30 = v47;
+              v30 = v46;
             }
 
             else
@@ -1997,52 +1965,50 @@ void __60__NNMKSyncPersistenceHandler_deleteMessagesWithIds_mailbox___block_invo
             [v30 addObject:messageId];
 
             v15 = v24;
-            currentDeviceRegistry3 = [(NNMKSyncPersistenceHandler *)v46 currentDeviceRegistry];
+            currentDeviceRegistry3 = [(NNMKSyncPersistenceHandler *)v45 currentDeviceRegistry];
             [currentDeviceRegistry3 addOrUpdateSyncedMessage:v19];
 
-            v16 = v45;
+            v16 = v44;
           }
 
           else
           {
             messageId2 = [v19 messageId];
-            [v43 addObject:messageId2];
+            [v42 addObject:messageId2];
           }
         }
       }
 
-      v15 = [obj countByEnumeratingWithState:&v56 objects:v60 count:16];
+      v15 = [obj countByEnumeratingWithState:&v55 objects:v59 count:16];
     }
 
     while (v15);
   }
 
-  currentDeviceRegistry4 = [(NNMKSyncPersistenceHandler *)v46 currentDeviceRegistry];
+  currentDeviceRegistry4 = [(NNMKSyncPersistenceHandler *)v45 currentDeviceRegistry];
   [currentDeviceRegistry4 endUpdates];
 
-  currentDeviceRegistry5 = [(NNMKSyncPersistenceHandler *)v46 currentDeviceRegistry];
+  currentDeviceRegistry5 = [(NNMKSyncPersistenceHandler *)v45 currentDeviceRegistry];
   mailboxId = [mailboxCopy mailboxId];
   v36 = [currentDeviceRegistry5 syncVersionForMailboxId:mailboxId];
 
-  v53[0] = MEMORY[0x277D85DD0];
-  v53[1] = 3221225472;
-  v53[2] = __87__NNMKSyncPersistenceHandler_updateMessagesFromConversation_withState_include_mailbox___block_invoke;
-  v53[3] = &unk_279936488;
-  v53[4] = v46;
-  v54 = mailboxCopy;
-  v55 = v36;
+  v52[0] = MEMORY[0x277D85DD0];
+  v52[1] = 3221225472;
+  v52[2] = __87__NNMKSyncPersistenceHandler_updateMessagesFromConversation_withState_include_mailbox___block_invoke;
+  v52[3] = &unk_279936488;
+  v52[4] = v45;
+  v53 = mailboxCopy;
+  v54 = v36;
   v37 = mailboxCopy;
-  v38 = MEMORY[0x25F864490](v53);
-  (v38)[2](v38, v50);
+  v38 = MEMORY[0x25F864490](v52);
   (v38)[2](v38, v49);
+  (v38)[2](v38, v48);
   v39 = objc_opt_new();
-  [v39 setProtoMessageUpdatesWithNotificationPriority:v50];
-  [v39 setProtoMessageUpdatesWithDefaultPriority:v49];
+  [v39 setProtoMessageUpdatesWithNotificationPriority:v49];
+  [v39 setProtoMessageUpdatesWithDefaultPriority:v48];
   [v39 setMessageIdsWithNotificationPriority:array];
-  [v39 setMessageIdsWithDefaultPriority:v47];
-  [v39 setMessageIdsToDelete:v43];
-
-  v40 = *MEMORY[0x277D85DE8];
+  [v39 setMessageIdsWithDefaultPriority:v46];
+  [v39 setMessageIdsToDelete:v42];
 
   return v39;
 }
@@ -2069,7 +2035,7 @@ void __87__NNMKSyncPersistenceHandler_updateMessagesFromConversation_withState_i
 
 - (id)addMessageContent:(id)content forMessage:(id)message mailbox:(id)mailbox
 {
-  v112 = *MEMORY[0x277D85DE8];
+  v111 = *MEMORY[0x277D85DE8];
   contentCopy = content;
   messageCopy = message;
   v9 = objc_alloc_init(NNMKMessageContentResult);
@@ -2101,7 +2067,7 @@ void __87__NNMKSyncPersistenceHandler_updateMessagesFromConversation_withState_i
     goto LABEL_68;
   }
 
-  v91 = contentRequestedByUser;
+  v90 = contentRequestedByUser;
   currentDeviceRegistry2 = [(NNMKSyncPersistenceHandler *)selfCopy currentDeviceRegistry];
   [currentDeviceRegistry2 beginUpdates];
 
@@ -2134,10 +2100,10 @@ void __87__NNMKSyncPersistenceHandler_updateMessagesFromConversation_withState_i
   }
 
 LABEL_15:
-  v95 = v9;
-  v92 = preview;
-  v89 = [preview dataUsingEncoding:10];
-  compressedData = [v89 compressedData];
+  v94 = v9;
+  v91 = preview;
+  v88 = [preview dataUsingEncoding:10];
+  compressedData = [v88 compressedData];
   v22 = objc_alloc_init(NNMKProtoMessageContentSync);
   currentDeviceRegistry3 = [(NNMKSyncPersistenceHandler *)selfCopy currentDeviceRegistry];
   -[NNMKProtoMessageContentSync setFullSyncVersion:](v22, "setFullSyncVersion:", [currentDeviceRegistry3 fullSyncVersion]);
@@ -2156,15 +2122,15 @@ LABEL_15:
   [(NNMKProtoMessageContentSync *)v22 setMailboxId:mailboxId];
 
   -[NNMKProtoMessageContentSync setMainAlternativeValid:](v22, "setMainAlternativeValid:", [contentCopy mainAlternativeValid]);
-  v88 = compressedData;
+  v87 = compressedData;
   [(NNMKProtoMessageContentSync *)v22 setPreview:compressedData];
-  v99 = v22;
+  v98 = v22;
   -[NNMKProtoMessageContentSync setPartiallyLoaded:](v22, "setPartiallyLoaded:", [contentCopy partiallyLoaded]);
   currentDeviceRegistry4 = [(NNMKSyncPersistenceHandler *)selfCopy currentDeviceRegistry];
   supportsWebKit = [currentDeviceRegistry4 supportsWebKit];
 
-  v93 = v12;
-  v87 = supportsWebKit;
+  v92 = v12;
+  v86 = supportsWebKit;
   if (supportsWebKit)
   {
     bOOLValue = [supportsWebKit BOOLValue];
@@ -2180,7 +2146,7 @@ LABEL_15:
     v34 = 1;
   }
 
-  if (![(NNMKProtoMessageContentSync *)v99 mainAlternativeValid])
+  if (![(NNMKProtoMessageContentSync *)v98 mainAlternativeValid])
   {
     htmlContentData = [contentCopy htmlContentData];
     compressedData2 = [htmlContentData compressedData];
@@ -2203,16 +2169,16 @@ LABEL_15:
           messageId3 = [contentCopy messageId];
           htmlContentData3 = [contentCopy htmlContentData];
           *buf = 138543874;
-          v107 = messageId3;
-          v108 = 2048;
-          v109 = [htmlContentData3 length];
-          v110 = 2048;
-          v111 = [compressedData2 length];
+          v106 = messageId3;
+          v107 = 2048;
+          v108 = [htmlContentData3 length];
+          v109 = 2048;
+          v110 = [compressedData2 length];
           _os_log_impl(&dword_25B19F000, v40, OS_LOG_TYPE_INFO, "Message content will sync html content. %{public}@ - size: %lu - compressed: %lu", buf, 0x20u);
         }
 
-        [(NNMKProtoMessageContentSync *)v99 setHtmlContentData:compressedData2];
-        v97 = [compressedData2 length];
+        [(NNMKProtoMessageContentSync *)v98 setHtmlContentData:compressedData2];
+        v96 = [compressedData2 length];
 
         if (v34)
         {
@@ -2230,27 +2196,27 @@ LABEL_15:
       messageId4 = [contentCopy messageId];
       htmlContentData4 = [contentCopy htmlContentData];
       *buf = 138543874;
-      v107 = messageId4;
-      v108 = 2048;
-      v109 = [htmlContentData4 length];
-      v110 = 2048;
-      v111 = [compressedData2 length];
+      v106 = messageId4;
+      v107 = 2048;
+      v108 = [htmlContentData4 length];
+      v109 = 2048;
+      v110 = [compressedData2 length];
       _os_log_impl(&dword_25B19F000, v44, OS_LOG_TYPE_DEFAULT, "Html Message content size is too large. It will sync text attribute instead. %{public}@ - size: %lu - compressed %lu", buf, 0x20u);
     }
 
-    v97 = 0;
+    v96 = 0;
     goto LABEL_33;
   }
 
 LABEL_20:
-  v97 = 0;
+  v96 = 0;
   if (v34)
   {
     goto LABEL_33;
   }
 
 LABEL_21:
-  if ([(NNMKProtoMessageContentSync *)v99 mainAlternativeValid])
+  if ([(NNMKProtoMessageContentSync *)v98 mainAlternativeValid])
   {
 LABEL_33:
     textData = [contentCopy textData];
@@ -2266,13 +2232,13 @@ LABEL_33:
         textData2 = [contentCopy textData];
         v62 = [textData2 length];
         *buf = 138543618;
-        v107 = messageId5;
-        v108 = 2048;
-        v109 = v62;
+        v106 = messageId5;
+        v107 = 2048;
+        v108 = v62;
         _os_log_impl(&dword_25B19F000, v59, OS_LOG_TYPE_DEFAULT, "Message content too large won't sync. %{public}@ - size: %lu)", buf, 0x16u);
       }
 
-      [(NNMKProtoMessageContentSync *)v99 setMainAlternativeValid:0];
+      [(NNMKProtoMessageContentSync *)v98 setMainAlternativeValid:0];
     }
 
     else
@@ -2290,50 +2256,50 @@ LABEL_33:
         v56 = [htmlContentData5 length];
         v57 = [compressedData3 length];
         *buf = 138543874;
-        v107 = messageId6;
-        v108 = 2048;
-        v109 = v56;
+        v106 = messageId6;
+        v107 = 2048;
+        v108 = v56;
         usedNotificationPriorityForMessageSync = v55;
-        v110 = 2048;
-        v111 = v57;
+        v109 = 2048;
+        v110 = v57;
         _os_log_impl(&dword_25B19F000, v52, OS_LOG_TYPE_INFO, "Message content will sync text attribute. %{public}@ - size: %lu - compressed %lu", buf, 0x20u);
       }
 
-      [(NNMKProtoMessageContentSync *)v99 setText:compressedData3];
-      v97 = [compressedData3 length];
+      [(NNMKProtoMessageContentSync *)v98 setText:compressedData3];
+      v96 = [compressedData3 length];
     }
   }
 
-  v90 = usedNotificationPriorityForMessageSync;
+  v89 = usedNotificationPriorityForMessageSync;
   if (usedNotificationPriorityForMessageSync)
   {
     v63 = [(NNMKSyncPersistenceHandler *)selfCopy protoMessageFromMessage:messageCopy];
-    [(NNMKProtoMessageContentSync *)v99 setNotificationMessage:v63];
+    [(NNMKProtoMessageContentSync *)v98 setNotificationMessage:v63];
   }
 
-  v94 = messageCopy;
-  v98 = [MEMORY[0x277CBEB58] set];
+  v93 = messageCopy;
+  v97 = [MEMORY[0x277CBEB58] set];
+  v100 = 0u;
   v101 = 0u;
   v102 = 0u;
   v103 = 0u;
-  v104 = 0u;
-  v96 = contentCopy;
+  v95 = contentCopy;
   attachments = [contentCopy attachments];
-  v65 = [attachments countByEnumeratingWithState:&v101 objects:v105 count:16];
+  v65 = [attachments countByEnumeratingWithState:&v100 objects:v104 count:16];
   if (v65)
   {
     v66 = v65;
-    v67 = *v102;
+    v67 = *v101;
     do
     {
       for (i = 0; i != v66; ++i)
       {
-        if (*v102 != v67)
+        if (*v101 != v67)
         {
           objc_enumerationMutation(attachments);
         }
 
-        v69 = *(*(&v101 + 1) + 8 * i);
+        v69 = *(*(&v100 + 1) + 8 * i);
         contentId = [v69 contentId];
 
         if (contentId)
@@ -2359,7 +2325,7 @@ LABEL_33:
             if ([contentId4 renderOnClient])
             {
               contentId3 = [contentId4 contentId];
-              [v98 addObject:contentId3];
+              [v97 addObject:contentId3];
             }
 
             -[NNMKProtoAttachmentMetadata setRenderOnClient:](v71, "setRenderOnClient:", [contentId4 renderOnClient]);
@@ -2375,64 +2341,63 @@ LABEL_54:
           else if ([v69 isActionable])
           {
             contentId4 = [v69 contentId];
-            [v98 addObject:contentId4];
+            [v97 addObject:contentId4];
             goto LABEL_54;
           }
 
-          [(NNMKProtoMessageContentSync *)v99 addAttachment:v71];
+          [(NNMKProtoMessageContentSync *)v98 addAttachment:v71];
 
           continue;
         }
       }
 
-      v66 = [attachments countByEnumeratingWithState:&v101 objects:v105 count:16];
+      v66 = [attachments countByEnumeratingWithState:&v100 objects:v104 count:16];
     }
 
     while (v66);
   }
 
-  v12 = v93;
-  if (![v93 contentSynced] || objc_msgSend(v93, "contentRequestedByUser"))
+  v12 = v92;
+  if (![v92 contentSynced] || objc_msgSend(v92, "contentRequestedByUser"))
   {
-    [v93 setAttachmentsContentIdsNotYetSynced:v98];
+    [v92 setAttachmentsContentIdsNotYetSynced:v97];
   }
 
+  if (v89)
+  {
+    [v92 setContentSyncedUsingNotificationPriority:1];
+  }
+
+  messageCopy = v93;
   if (v90)
   {
-    [v93 setContentSyncedUsingNotificationPriority:1];
+    [v92 setContentSyncedBecauseUserRequested:1];
   }
 
-  messageCopy = v94;
-  if (v91)
+  [v92 setContentSynced:1];
+  contentResendInterval = [v92 contentResendInterval];
+  [v92 setContentResendInterval:0];
+  contentCopy = v95;
+  if ([v92 isContentCompletelySynced])
   {
-    [v93 setContentSyncedBecauseUserRequested:1];
-  }
-
-  [v93 setContentSynced:1];
-  contentResendInterval = [v93 contentResendInterval];
-  [v93 setContentResendInterval:0];
-  contentCopy = v96;
-  if ([v93 isContentCompletelySynced])
-  {
-    [v93 setContentRequestedByUser:0];
+    [v92 setContentRequestedByUser:0];
   }
 
   currentDeviceRegistry5 = [(NNMKSyncPersistenceHandler *)selfCopy currentDeviceRegistry];
-  [currentDeviceRegistry5 addOrUpdateSyncedMessage:v93];
+  [currentDeviceRegistry5 addOrUpdateSyncedMessage:v92];
 
   currentDeviceRegistry6 = [(NNMKSyncPersistenceHandler *)selfCopy currentDeviceRegistry];
   [currentDeviceRegistry6 endUpdates];
 
-  v9 = v95;
-  [(NNMKMessageContentResult *)v95 setProtoMessageContentSync:v99];
-  [(NNMKMessageContentResult *)v95 setResendInterval:contentResendInterval];
-  [(NNMKMessageContentResult *)v95 setCompressedTextDataLength:v97];
-  -[NNMKMessageContentResult setIsContentCompletelySynced:](v95, "setIsContentCompletelySynced:", [v93 isContentCompletelySynced]);
-  -[NNMKMessageContentResult setIsNotificationPriority:](v95, "setIsNotificationPriority:", [v93 contentSyncedUsingNotificationPriority]);
-  -[NNMKMessageContentResult setIsUserRequest:](v95, "setIsUserRequest:", [v93 contentSyncedBecauseUserRequested]);
+  v9 = v94;
+  [(NNMKMessageContentResult *)v94 setProtoMessageContentSync:v98];
+  [(NNMKMessageContentResult *)v94 setResendInterval:contentResendInterval];
+  [(NNMKMessageContentResult *)v94 setCompressedTextDataLength:v96];
+  -[NNMKMessageContentResult setIsContentCompletelySynced:](v94, "setIsContentCompletelySynced:", [v92 isContentCompletelySynced]);
+  -[NNMKMessageContentResult setIsNotificationPriority:](v94, "setIsNotificationPriority:", [v92 contentSyncedUsingNotificationPriority]);
+  -[NNMKMessageContentResult setIsUserRequest:](v94, "setIsUserRequest:", [v92 contentSyncedBecauseUserRequested]);
 
 LABEL_68:
-  v85 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -2474,14 +2439,12 @@ LABEL_68:
 
 - (void)addStandaloneAccountIdentity:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 username];
-  v6 = 138412290;
-  v7 = v4;
-  _os_log_error_impl(&dword_25B19F000, v3, OS_LOG_TYPE_ERROR, "No account for username. Standalone account information won't be synced. %@", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138412290;
+  v6 = v4;
+  _os_log_error_impl(&dword_25B19F000, v3, OS_LOG_TYPE_ERROR, "No account for username. Standalone account information won't be synced. %@", &v5, 0xCu);
 }
 
 @end

@@ -9,17 +9,16 @@
 {
   v4 = sub_22911BF0C();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20]();
-  v8 = &v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v4);
+  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   recordCopy = record;
   sub_2289B47F0();
   sub_22911BEFC();
 
-  (*(v5 + 8))(v8, v4);
-  v10 = sub_22911C34C();
+  (*(v5 + 8))(v7, v4);
+  v9 = sub_22911C34C();
 
-  return v10;
+  return v9;
 }
 
 - (HDCloudSyncRecordPrintDescription)init

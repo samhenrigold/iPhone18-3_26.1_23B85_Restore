@@ -5197,87 +5197,86 @@ void DYTraceEncode_MPSExternalCNNUnary_encodeBatchToCommandBuffer_computeCommand
 
   if (a5 && a3 <= 0x23)
   {
-    v31 = *a5;
-    v32 = 500;
-    v33 = "36 <= length";
+    v30 = *a5;
+    v31 = 500;
+    v32 = "36 <= length";
+    v33 = 0u;
     v34 = 0u;
-    v35 = 0u;
-    GTError_addError(a5, &v31);
+    GTError_addError(a5, &v30);
   }
 
   *(a2 + 3) = 0;
   *(a2 + 2) = 0u;
   *a2 = 0xFFFFE81D00000024;
   a2[8] = v10;
-  v11 = *(a1 + 56);
-  v12 = snprintf(a2 + 36, a3 - 36, "Cttulul@%llutU@%llutUtul", v11, *(a1 + 80)) + *a2;
-  v13 = (v12 + 4) & 0xFFFFFFFC;
-  bzero(a2 + (v12 + 1), v13 - (v12 + 1));
+  v11 = snprintf(a2 + 36, a3 - 36, "Cttulul@%llutU@%llutUtul", *(a1 + 56), *(a1 + 80)) + *a2;
+  v12 = (v11 + 4) & 0xFFFFFFFC;
+  bzero(a2 + v11 + 1, v12 - (v11 + 1));
+  *a2 = v12;
+  *(a2 + v12) = *a1;
+  v13 = *a2 + 8;
   *a2 = v13;
-  *(a2 + v13) = *a1;
+  *(a2 + v13) = *(a1 + 16);
   v14 = *a2 + 8;
   *a2 = v14;
-  *(a2 + v14) = *(a1 + 16);
+  *(a2 + v14) = *(a1 + 24);
   v15 = *a2 + 8;
   *a2 = v15;
-  *(a2 + v15) = *(a1 + 24);
+  *(a2 + v15) = *(a1 + 32);
   v16 = *a2 + 8;
   *a2 = v16;
-  *(a2 + v16) = *(a1 + 32);
+  *(a2 + v16) = *(a1 + 40);
   v17 = *a2 + 8;
   *a2 = v17;
-  *(a2 + v17) = *(a1 + 40);
-  v18 = *a2 + 8;
-  *a2 = v18;
-  v19 = 8 * *(a1 + 56);
-  memcpy(a2 + v18, *(a1 + 48), v19);
-  *a2 += v19;
+  v18 = 8 * *(a1 + 56);
+  memcpy(a2 + v17, *(a1 + 48), v18);
+  *a2 += v18;
   AppendString(*(a1 + 64), a2);
-  v20 = *a2;
-  v21 = (v20 + 3) & 0xFFFFFFFC;
-  bzero(a2 + v20, v21 - v20);
-  *a2 = v21;
-  v22 = 8 * *(a1 + 80);
-  memcpy(a2 + v21, *(a1 + 72), v22);
-  *a2 += v22;
+  v19 = *a2;
+  v20 = (v19 + 3) & 0xFFFFFFFC;
+  bzero(a2 + v19, v20 - v19);
+  *a2 = v20;
+  v21 = 8 * *(a1 + 80);
+  memcpy(a2 + v20, *(a1 + 72), v21);
+  *a2 += v21;
   AppendString(*(a1 + 88), a2);
-  v23 = *a2;
-  v24 = (v23 + 3) & 0xFFFFFFFC;
-  bzero(a2 + v23, v24 - v23);
+  v22 = *a2;
+  v23 = (v22 + 3) & 0xFFFFFFFC;
+  bzero(a2 + v22, v23 - v22);
+  *a2 = v23;
+  *(a2 + v23) = *(a1 + 96);
+  v24 = *a2 + 8;
   *a2 = v24;
-  *(a2 + v24) = *(a1 + 96);
+  *(a2 + v24) = *(a1 + 104);
   v25 = *a2 + 8;
   *a2 = v25;
-  *(a2 + v25) = *(a1 + 104);
-  v26 = *a2 + 8;
+  strcpy(a2 + v25, "ul");
+  v26 = (*a2 + 6) & 0xFFFFFFFC;
+  bzero(a2 + *a2 + 3, v26 - (*a2 + 3));
   *a2 = v26;
-  strcpy(a2 + v26, "ul");
-  v27 = (*a2 + 6) & 0xFFFFFFFC;
-  bzero(a2 + *a2 + 3, v27 - (*a2 + 3));
+  *(a2 + v26) = *(a1 + 8);
+  v27 = *a2 + 8;
   *a2 = v27;
-  *(a2 + v27) = *(a1 + 8);
-  v28 = *a2 + 8;
-  *a2 = v28;
   if (a4)
   {
-    v29 = 8 * *a4 + 8;
-    memcpy(a2 + v28, a4, v29);
-    v30 = *a2 + v29;
-    v28 = (v30 + 3) & 0xFFFFFFFC;
-    bzero(a2 + v30, v28 - v30);
-    *a2 = v28;
+    v28 = 8 * *a4 + 8;
+    memcpy(a2 + v27, a4, v28);
+    v29 = *a2 + v28;
+    v27 = (v29 + 3) & 0xFFFFFFFC;
+    bzero(a2 + v29, v27 - v29);
+    *a2 = v27;
   }
 
   if (a5)
   {
-    if (v28 > a3)
+    if (v27 > a3)
     {
-      v31 = *a5;
-      v32 = 500;
-      v33 = "bytes->length <= length";
+      v30 = *a5;
+      v31 = 500;
+      v32 = "bytes->length <= length";
+      v33 = 0u;
       v34 = 0u;
-      v35 = 0u;
-      GTError_addError(a5, &v31);
+      GTError_addError(a5, &v30);
     }
   }
 }
@@ -5445,95 +5444,94 @@ void DYTraceEncode_MPSExternalCNNBinary_encodeBatchToCommandBuffer_computeComman
 
   if (a5 && a3 <= 0x23)
   {
-    v34 = *a5;
-    v35 = 500;
-    v36 = "36 <= length";
+    v33 = *a5;
+    v34 = 500;
+    v35 = "36 <= length";
+    v36 = 0u;
     v37 = 0u;
-    v38 = 0u;
-    GTError_addError(a5, &v34);
+    GTError_addError(a5, &v33);
   }
 
   *(a2 + 3) = 0;
   *(a2 + 2) = 0u;
   *a2 = 0xFFFFE81A00000024;
   a2[8] = v10;
-  v11 = *(a1 + 80);
-  v12 = snprintf(a2 + 36, a3 - 36, "Cttulul@%llutU@%llutU@%llutUtul", *(a1 + 56), v11, *(a1 + 104)) + *a2;
-  v13 = (v12 + 4) & 0xFFFFFFFC;
-  bzero(a2 + (v12 + 1), v13 - (v12 + 1));
+  v11 = snprintf(a2 + 36, a3 - 36, "Cttulul@%llutU@%llutU@%llutUtul", *(a1 + 56), *(a1 + 80), *(a1 + 104)) + *a2;
+  v12 = (v11 + 4) & 0xFFFFFFFC;
+  bzero(a2 + v11 + 1, v12 - (v11 + 1));
+  *a2 = v12;
+  *(a2 + v12) = *a1;
+  v13 = *a2 + 8;
   *a2 = v13;
-  *(a2 + v13) = *a1;
+  *(a2 + v13) = *(a1 + 16);
   v14 = *a2 + 8;
   *a2 = v14;
-  *(a2 + v14) = *(a1 + 16);
+  *(a2 + v14) = *(a1 + 24);
   v15 = *a2 + 8;
   *a2 = v15;
-  *(a2 + v15) = *(a1 + 24);
+  *(a2 + v15) = *(a1 + 32);
   v16 = *a2 + 8;
   *a2 = v16;
-  *(a2 + v16) = *(a1 + 32);
+  *(a2 + v16) = *(a1 + 40);
   v17 = *a2 + 8;
   *a2 = v17;
-  *(a2 + v17) = *(a1 + 40);
-  v18 = *a2 + 8;
-  *a2 = v18;
-  v19 = 8 * *(a1 + 56);
-  memcpy(a2 + v18, *(a1 + 48), v19);
-  *a2 += v19;
+  v18 = 8 * *(a1 + 56);
+  memcpy(a2 + v17, *(a1 + 48), v18);
+  *a2 += v18;
   AppendString(*(a1 + 64), a2);
-  v20 = *a2;
-  v21 = (v20 + 3) & 0xFFFFFFFC;
-  bzero(a2 + v20, v21 - v20);
-  *a2 = v21;
-  v22 = 8 * *(a1 + 80);
-  memcpy(a2 + v21, *(a1 + 72), v22);
-  *a2 += v22;
+  v19 = *a2;
+  v20 = (v19 + 3) & 0xFFFFFFFC;
+  bzero(a2 + v19, v20 - v19);
+  *a2 = v20;
+  v21 = 8 * *(a1 + 80);
+  memcpy(a2 + v20, *(a1 + 72), v21);
+  *a2 += v21;
   AppendString(*(a1 + 88), a2);
-  v23 = *a2;
-  v24 = (v23 + 3) & 0xFFFFFFFC;
-  bzero(a2 + v23, v24 - v23);
-  *a2 = v24;
-  v25 = 8 * *(a1 + 104);
-  memcpy(a2 + v24, *(a1 + 96), v25);
-  *a2 += v25;
+  v22 = *a2;
+  v23 = (v22 + 3) & 0xFFFFFFFC;
+  bzero(a2 + v22, v23 - v22);
+  *a2 = v23;
+  v24 = 8 * *(a1 + 104);
+  memcpy(a2 + v23, *(a1 + 96), v24);
+  *a2 += v24;
   AppendString(*(a1 + 112), a2);
-  v26 = *a2;
-  v27 = (v26 + 3) & 0xFFFFFFFC;
-  bzero(a2 + v26, v27 - v26);
+  v25 = *a2;
+  v26 = (v25 + 3) & 0xFFFFFFFC;
+  bzero(a2 + v25, v26 - v25);
+  *a2 = v26;
+  *(a2 + v26) = *(a1 + 120);
+  v27 = *a2 + 8;
   *a2 = v27;
-  *(a2 + v27) = *(a1 + 120);
+  *(a2 + v27) = *(a1 + 128);
   v28 = *a2 + 8;
   *a2 = v28;
-  *(a2 + v28) = *(a1 + 128);
-  v29 = *a2 + 8;
+  strcpy(a2 + v28, "ul");
+  v29 = (*a2 + 6) & 0xFFFFFFFC;
+  bzero(a2 + *a2 + 3, v29 - (*a2 + 3));
   *a2 = v29;
-  strcpy(a2 + v29, "ul");
-  v30 = (*a2 + 6) & 0xFFFFFFFC;
-  bzero(a2 + *a2 + 3, v30 - (*a2 + 3));
+  *(a2 + v29) = *(a1 + 8);
+  v30 = *a2 + 8;
   *a2 = v30;
-  *(a2 + v30) = *(a1 + 8);
-  v31 = *a2 + 8;
-  *a2 = v31;
   if (a4)
   {
-    v32 = 8 * *a4 + 8;
-    memcpy(a2 + v31, a4, v32);
-    v33 = *a2 + v32;
-    v31 = (v33 + 3) & 0xFFFFFFFC;
-    bzero(a2 + v33, v31 - v33);
-    *a2 = v31;
+    v31 = 8 * *a4 + 8;
+    memcpy(a2 + v30, a4, v31);
+    v32 = *a2 + v31;
+    v30 = (v32 + 3) & 0xFFFFFFFC;
+    bzero(a2 + v32, v30 - v32);
+    *a2 = v30;
   }
 
   if (a5)
   {
-    if (v31 > a3)
+    if (v30 > a3)
     {
-      v34 = *a5;
-      v35 = 500;
-      v36 = "bytes->length <= length";
+      v33 = *a5;
+      v34 = 500;
+      v35 = "bytes->length <= length";
+      v36 = 0u;
       v37 = 0u;
-      v38 = 0u;
-      GTError_addError(a5, &v34);
+      GTError_addError(a5, &v33);
     }
   }
 }
@@ -6068,96 +6066,95 @@ void DYTraceEncode_MPSExternalCNNConvolutionGradient_encodeBatchToCommandBuffer_
 
   if (a5 && a3 <= 0x23)
   {
-    v34 = *a5;
-    v35 = 500;
-    v36 = "36 <= length";
+    v33 = *a5;
+    v34 = 500;
+    v35 = "36 <= length";
+    v36 = 0u;
     v37 = 0u;
-    v38 = 0u;
-    GTError_addError(a5, &v34);
+    GTError_addError(a5, &v33);
   }
 
   *(a2 + 3) = 0;
   *(a2 + 2) = 0u;
   *a2 = 0xFFFFE81E00000024;
   a2[8] = v10;
-  v11 = *(a1 + 56);
-  v12 = snprintf(a2 + 36, a3 - 36, "Cttulul@%llutU@%llutUttitul", v11, *(a1 + 80)) + *a2;
-  v13 = (v12 + 4) & 0xFFFFFFFC;
-  bzero(a2 + (v12 + 1), v13 - (v12 + 1));
+  v11 = snprintf(a2 + 36, a3 - 36, "Cttulul@%llutU@%llutUttitul", *(a1 + 56), *(a1 + 80)) + *a2;
+  v12 = (v11 + 4) & 0xFFFFFFFC;
+  bzero(a2 + v11 + 1, v12 - (v11 + 1));
+  *a2 = v12;
+  *(a2 + v12) = *a1;
+  v13 = *a2 + 8;
   *a2 = v13;
-  *(a2 + v13) = *a1;
+  *(a2 + v13) = *(a1 + 16);
   v14 = *a2 + 8;
   *a2 = v14;
-  *(a2 + v14) = *(a1 + 16);
+  *(a2 + v14) = *(a1 + 24);
   v15 = *a2 + 8;
   *a2 = v15;
-  *(a2 + v15) = *(a1 + 24);
+  *(a2 + v15) = *(a1 + 32);
   v16 = *a2 + 8;
   *a2 = v16;
-  *(a2 + v16) = *(a1 + 32);
+  *(a2 + v16) = *(a1 + 40);
   v17 = *a2 + 8;
   *a2 = v17;
-  *(a2 + v17) = *(a1 + 40);
-  v18 = *a2 + 8;
-  *a2 = v18;
-  v19 = 8 * *(a1 + 56);
-  memcpy(a2 + v18, *(a1 + 48), v19);
-  *a2 += v19;
+  v18 = 8 * *(a1 + 56);
+  memcpy(a2 + v17, *(a1 + 48), v18);
+  *a2 += v18;
   AppendString(*(a1 + 64), a2);
-  v20 = *a2;
-  v21 = (v20 + 3) & 0xFFFFFFFC;
-  bzero(a2 + v20, v21 - v20);
-  *a2 = v21;
-  v22 = 8 * *(a1 + 80);
-  memcpy(a2 + v21, *(a1 + 72), v22);
-  *a2 += v22;
+  v19 = *a2;
+  v20 = (v19 + 3) & 0xFFFFFFFC;
+  bzero(a2 + v19, v20 - v19);
+  *a2 = v20;
+  v21 = 8 * *(a1 + 80);
+  memcpy(a2 + v20, *(a1 + 72), v21);
+  *a2 += v21;
   AppendString(*(a1 + 88), a2);
-  v23 = *a2;
-  v24 = (v23 + 3) & 0xFFFFFFFC;
-  bzero(a2 + v23, v24 - v23);
+  v22 = *a2;
+  v23 = (v22 + 3) & 0xFFFFFFFC;
+  bzero(a2 + v22, v23 - v22);
+  *a2 = v23;
+  *(a2 + v23) = *(a1 + 96);
+  v24 = *a2 + 8;
   *a2 = v24;
-  *(a2 + v24) = *(a1 + 96);
+  *(a2 + v24) = *(a1 + 104);
   v25 = *a2 + 8;
   *a2 = v25;
-  *(a2 + v25) = *(a1 + 104);
-  v26 = *a2 + 8;
+  *(a2 + v25) = *(a1 + 112);
+  v26 = *a2 + 4;
   *a2 = v26;
-  *(a2 + v26) = *(a1 + 112);
-  v27 = *a2 + 4;
+  *(a2 + v26) = *(a1 + 120);
+  v27 = *a2 + 8;
   *a2 = v27;
-  *(a2 + v27) = *(a1 + 120);
+  *(a2 + v27) = *(a1 + 128);
   v28 = *a2 + 8;
   *a2 = v28;
-  *(a2 + v28) = *(a1 + 128);
-  v29 = *a2 + 8;
+  strcpy(a2 + v28, "ul");
+  v29 = (*a2 + 6) & 0xFFFFFFFC;
+  bzero(a2 + *a2 + 3, v29 - (*a2 + 3));
   *a2 = v29;
-  strcpy(a2 + v29, "ul");
-  v30 = (*a2 + 6) & 0xFFFFFFFC;
-  bzero(a2 + *a2 + 3, v30 - (*a2 + 3));
+  *(a2 + v29) = *(a1 + 8);
+  v30 = *a2 + 8;
   *a2 = v30;
-  *(a2 + v30) = *(a1 + 8);
-  v31 = *a2 + 8;
-  *a2 = v31;
   if (a4)
   {
-    v32 = 8 * *a4 + 8;
-    memcpy(a2 + v31, a4, v32);
-    v33 = *a2 + v32;
-    v31 = (v33 + 3) & 0xFFFFFFFC;
-    bzero(a2 + v33, v31 - v33);
-    *a2 = v31;
+    v31 = 8 * *a4 + 8;
+    memcpy(a2 + v30, a4, v31);
+    v32 = *a2 + v31;
+    v30 = (v32 + 3) & 0xFFFFFFFC;
+    bzero(a2 + v32, v30 - v32);
+    *a2 = v30;
   }
 
   if (a5)
   {
-    if (v31 > a3)
+    if (v30 > a3)
     {
-      v34 = *a5;
-      v35 = 500;
-      v36 = "bytes->length <= length";
+      v33 = *a5;
+      v34 = 500;
+      v35 = "bytes->length <= length";
+      v36 = 0u;
       v37 = 0u;
-      v38 = 0u;
-      GTError_addError(a5, &v34);
+      GTError_addError(a5, &v33);
     }
   }
 }
@@ -7102,90 +7099,89 @@ void DYTraceEncode_MPSExternalCNNPoolingAverage_encodeBatchToCommandBuffer_compu
 
   if (a5 && a3 <= 0x23)
   {
-    v32 = *a5;
-    v33 = 500;
-    v34 = "36 <= length";
+    v31 = *a5;
+    v32 = 500;
+    v33 = "36 <= length";
+    v34 = 0u;
     v35 = 0u;
-    v36 = 0u;
-    GTError_addError(a5, &v32);
+    GTError_addError(a5, &v31);
   }
 
   *(a2 + 3) = 0;
   *(a2 + 2) = 0u;
   *a2 = 0xFFFFE80200000024;
   a2[8] = v10;
-  v11 = *(a1 + 48);
-  v12 = snprintf(a2 + 36, a3 - 36, "Cttul@%llutU@%llutUulultul", v11, *(a1 + 72)) + *a2;
-  v13 = (v12 + 4) & 0xFFFFFFFC;
-  bzero(a2 + (v12 + 1), v13 - (v12 + 1));
+  v11 = snprintf(a2 + 36, a3 - 36, "Cttul@%llutU@%llutUulultul", *(a1 + 48), *(a1 + 72)) + *a2;
+  v12 = (v11 + 4) & 0xFFFFFFFC;
+  bzero(a2 + v11 + 1, v12 - (v11 + 1));
+  *a2 = v12;
+  *(a2 + v12) = *a1;
+  v13 = *a2 + 8;
   *a2 = v13;
-  *(a2 + v13) = *a1;
+  *(a2 + v13) = *(a1 + 16);
   v14 = *a2 + 8;
   *a2 = v14;
-  *(a2 + v14) = *(a1 + 16);
+  *(a2 + v14) = *(a1 + 24);
   v15 = *a2 + 8;
   *a2 = v15;
-  *(a2 + v15) = *(a1 + 24);
+  *(a2 + v15) = *(a1 + 32);
   v16 = *a2 + 8;
   *a2 = v16;
-  *(a2 + v16) = *(a1 + 32);
-  v17 = *a2 + 8;
-  *a2 = v17;
-  v18 = 8 * *(a1 + 48);
-  memcpy(a2 + v17, *(a1 + 40), v18);
-  *a2 += v18;
+  v17 = 8 * *(a1 + 48);
+  memcpy(a2 + v16, *(a1 + 40), v17);
+  *a2 += v17;
   AppendString(*(a1 + 56), a2);
-  v19 = *a2;
-  v20 = (v19 + 3) & 0xFFFFFFFC;
-  bzero(a2 + v19, v20 - v19);
-  *a2 = v20;
-  v21 = 8 * *(a1 + 72);
-  memcpy(a2 + v20, *(a1 + 64), v21);
-  *a2 += v21;
+  v18 = *a2;
+  v19 = (v18 + 3) & 0xFFFFFFFC;
+  bzero(a2 + v18, v19 - v18);
+  *a2 = v19;
+  v20 = 8 * *(a1 + 72);
+  memcpy(a2 + v19, *(a1 + 64), v20);
+  *a2 += v20;
   AppendString(*(a1 + 80), a2);
-  v22 = *a2;
-  v23 = (v22 + 3) & 0xFFFFFFFC;
-  bzero(a2 + v22, v23 - v22);
+  v21 = *a2;
+  v22 = (v21 + 3) & 0xFFFFFFFC;
+  bzero(a2 + v21, v22 - v21);
+  *a2 = v22;
+  *(a2 + v22) = *(a1 + 88);
+  v23 = *a2 + 8;
   *a2 = v23;
-  *(a2 + v23) = *(a1 + 88);
+  *(a2 + v23) = *(a1 + 96);
   v24 = *a2 + 8;
   *a2 = v24;
-  *(a2 + v24) = *(a1 + 96);
+  *(a2 + v24) = *(a1 + 104);
   v25 = *a2 + 8;
   *a2 = v25;
-  *(a2 + v25) = *(a1 + 104);
+  *(a2 + v25) = *(a1 + 112);
   v26 = *a2 + 8;
   *a2 = v26;
-  *(a2 + v26) = *(a1 + 112);
-  v27 = *a2 + 8;
+  strcpy(a2 + v26, "ul");
+  v27 = (*a2 + 6) & 0xFFFFFFFC;
+  bzero(a2 + *a2 + 3, v27 - (*a2 + 3));
   *a2 = v27;
-  strcpy(a2 + v27, "ul");
-  v28 = (*a2 + 6) & 0xFFFFFFFC;
-  bzero(a2 + *a2 + 3, v28 - (*a2 + 3));
+  *(a2 + v27) = *(a1 + 8);
+  v28 = *a2 + 8;
   *a2 = v28;
-  *(a2 + v28) = *(a1 + 8);
-  v29 = *a2 + 8;
-  *a2 = v29;
   if (a4)
   {
-    v30 = 8 * *a4 + 8;
-    memcpy(a2 + v29, a4, v30);
-    v31 = *a2 + v30;
-    v29 = (v31 + 3) & 0xFFFFFFFC;
-    bzero(a2 + v31, v29 - v31);
-    *a2 = v29;
+    v29 = 8 * *a4 + 8;
+    memcpy(a2 + v28, a4, v29);
+    v30 = *a2 + v29;
+    v28 = (v30 + 3) & 0xFFFFFFFC;
+    bzero(a2 + v30, v28 - v30);
+    *a2 = v28;
   }
 
   if (a5)
   {
-    if (v29 > a3)
+    if (v28 > a3)
     {
-      v32 = *a5;
-      v33 = 500;
-      v34 = "bytes->length <= length";
+      v31 = *a5;
+      v32 = 500;
+      v33 = "bytes->length <= length";
+      v34 = 0u;
       v35 = 0u;
-      v36 = 0u;
-      GTError_addError(a5, &v32);
+      GTError_addError(a5, &v31);
     }
   }
 }

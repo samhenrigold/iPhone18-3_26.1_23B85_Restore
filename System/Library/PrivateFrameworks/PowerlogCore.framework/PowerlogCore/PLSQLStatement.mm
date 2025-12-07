@@ -1,6 +1,7 @@
 @interface PLSQLStatement
 - (PLSQLStatement)initWithSQLQuery:(id)query forDatabase:(sqlite3 *)database withDBSem:(id)sem result:(int *)result;
 - (id)perform;
+- (int)bindValue:(id)value withFormater:(signed __int16)formater atPosition:(int)position;
 - (void)dealloc;
 - (void)finalize;
 - (void)reset;
@@ -10,7 +11,7 @@
 
 - (id)perform
 {
-  v63 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   v4 = objc_opt_new();
   dbSem = [(PLSQLStatement *)self dbSem];
@@ -21,14 +22,14 @@
   {
     if (+[PLDefaults debugEnabled])
     {
-      v39 = [MEMORY[0x1E696AEC0] stringWithFormat:@"*** invalid statement ***"];
-      v40 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Utilities/DataTypes/PLSQLStatement.m"];
-      lastPathComponent = [v40 lastPathComponent];
-      v42 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLSQLStatement perform]"];
-      [PLCoreStorage logMessage:v39 fromFile:lastPathComponent fromFunction:v42 fromLineNumber:95];
+      v42 = [MEMORY[0x1E696AEC0] stringWithFormat:@"*** invalid statement ***"];
+      v43 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Utilities/DataTypes/PLSQLStatement.m"];
+      lastPathComponent = [v43 lastPathComponent];
+      v45 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLSQLStatement perform]"];
+      [PLCoreStorage logMessage:v42 fromFile:lastPathComponent fromFunction:v45 fromLineNumber:95];
 
-      v43 = PLLogCommon();
-      if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
+      v47 = PLLogCommon(v46);
+      if (os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG))
       {
         [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
       }
@@ -37,7 +38,7 @@
     dbSem2 = [(PLSQLStatement *)self dbSem];
     dispatch_semaphore_signal(dbSem2);
 
-    v45 = MEMORY[0x1E695E0F0];
+    v49 = MEMORY[0x1E695E0F0];
     goto LABEL_59;
   }
 
@@ -45,11 +46,11 @@
   selfCopy = self;
   v8 = sqlite3_column_count(statement);
   v9 = 0;
-  v59 = v8;
-  v60 = v8;
+  v63 = v8;
+  v64 = v8;
   v10 = 0x1E8518000uLL;
   v11 = 0x1E696A000uLL;
-  v58 = v3;
+  v62 = v3;
   while (1)
   {
     while (1)
@@ -77,34 +78,34 @@
     }
 
     dictionary = [MEMORY[0x1E695DF90] dictionary];
-    v20 = v59;
-    if (v60 >= 1)
+    v22 = v63;
+    if (v64 >= 1)
     {
-      for (i = 0; v20 != i; ++i)
+      for (i = 0; v22 != i; ++i)
       {
-        if ([v4 count] == v60)
+        if ([v4 count] == v64)
         {
-          v22 = [v4 objectAtIndex:i];
+          v24 = [v4 objectAtIndex:i];
         }
 
         else
         {
-          v22 = [*(v11 + 3776) stringWithUTF8String:{sqlite3_column_name(v7, i)}];
-          [v4 addObject:v22];
+          v24 = [*(v11 + 3776) stringWithUTF8String:{sqlite3_column_name(v7, i)}];
+          [v4 addObject:v24];
         }
 
-        v23 = sqlite3_column_type(v7, i);
-        v24 = v23;
-        if (v23 <= 2)
+        v25 = sqlite3_column_type(v7, i);
+        v26 = v25;
+        if (v25 <= 2)
         {
-          if (v23 == 1)
+          if (v25 == 1)
           {
             null2 = [MEMORY[0x1E696AD98] numberWithLongLong:{sqlite3_column_int64(v7, i)}];
           }
 
           else
           {
-            if (v23 != 2)
+            if (v25 != 2)
             {
               goto LABEL_29;
             }
@@ -115,23 +116,23 @@
 
         else
         {
-          if (v23 == 5)
+          if (v25 == 5)
           {
             goto LABEL_33;
           }
 
-          if (v23 != 4)
+          if (v25 != 4)
           {
-            if (v23 == 3)
+            if (v25 == 3)
             {
-              v25 = sqlite3_column_text(v7, i);
-              if (v25)
+              v27 = sqlite3_column_text(v7, i);
+              if (v27)
               {
-                v26 = [*(v11 + 3776) stringWithUTF8String:v25];
-                v27 = v26;
-                if (v26)
+                v28 = [*(v11 + 3776) stringWithUTF8String:v27];
+                v29 = v28;
+                if (v28)
                 {
-                  null = v26;
+                  null = v28;
                 }
 
                 else
@@ -139,7 +140,7 @@
                   null = [MEMORY[0x1E695DFB0] null];
                 }
 
-                v38 = null;
+                v41 = null;
 
                 goto LABEL_35;
               }
@@ -150,25 +151,25 @@
 LABEL_29:
               if ([*(v10 + 2224) debugEnabled])
               {
-                v31 = [*(v11 + 3776) stringWithFormat:@"[SQLITE] UNKNOWN DATATYPE colType=%d", v24];
-                v32 = [*(v11 + 3776) stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Utilities/DataTypes/PLSQLStatement.m"];
-                lastPathComponent2 = [v32 lastPathComponent];
-                v34 = v11;
-                v35 = lastPathComponent2;
-                v36 = [*(v34 + 3776) stringWithUTF8String:"-[PLSQLStatement perform]"];
-                [PLCoreStorage logMessage:v31 fromFile:v35 fromFunction:v36 fromLineNumber:140];
+                v33 = [*(v11 + 3776) stringWithFormat:@"[SQLITE] UNKNOWN DATATYPE colType=%d", v26];
+                v34 = [*(v11 + 3776) stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Utilities/DataTypes/PLSQLStatement.m"];
+                lastPathComponent2 = [v34 lastPathComponent];
+                v36 = v11;
+                v37 = lastPathComponent2;
+                v38 = [*(v36 + 3776) stringWithUTF8String:"-[PLSQLStatement perform]"];
+                [PLCoreStorage logMessage:v33 fromFile:v37 fromFunction:v38 fromLineNumber:140];
 
-                v37 = PLLogCommon();
-                if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
+                v40 = PLLogCommon(v39);
+                if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
                 {
                   *buf = 138412290;
-                  v62 = v31;
-                  _os_log_debug_impl(&dword_1D8611000, v37, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+                  v66 = v33;
+                  _os_log_debug_impl(&dword_1D8611000, v40, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
                 }
 
                 v11 = 0x1E696A000;
                 v10 = 0x1E8518000;
-                v20 = v59;
+                v22 = v63;
               }
             }
 
@@ -177,19 +178,19 @@ LABEL_33:
             goto LABEL_34;
           }
 
-          v30 = sqlite3_column_blob(v7, i);
-          null2 = [MEMORY[0x1E695DEF0] dataWithBytes:v30 length:{sqlite3_column_bytes(v7, i)}];
+          v32 = sqlite3_column_blob(v7, i);
+          null2 = [MEMORY[0x1E695DEF0] dataWithBytes:v32 length:{sqlite3_column_bytes(v7, i)}];
         }
 
 LABEL_34:
-        v38 = null2;
+        v41 = null2;
 LABEL_35:
-        [dictionary setObject:v38 forKey:v22];
+        [dictionary setObject:v41 forKey:v24];
       }
     }
 
-    v3 = v58;
-    [v58 addObject:dictionary];
+    v3 = v62;
+    [v62 addObject:dictionary];
 
     v9 = 0;
     LODWORD(v13) = 100;
@@ -205,20 +206,21 @@ LABEL_40:
     goto LABEL_53;
   }
 
-  if ([*(v10 + 2224) debugEnabled])
+  debugEnabled = [*(v10 + 2224) debugEnabled];
+  if (debugEnabled)
   {
-    v14 = [*(v11 + 3776) stringWithFormat:@"ERROR: sqlite3_step error=%d", v13];
-    v15 = [*(v11 + 3776) stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Utilities/DataTypes/PLSQLStatement.m"];
-    lastPathComponent3 = [v15 lastPathComponent];
-    v17 = [*(v11 + 3776) stringWithUTF8String:"-[PLSQLStatement perform]"];
-    [PLCoreStorage logMessage:v14 fromFile:lastPathComponent3 fromFunction:v17 fromLineNumber:155];
+    v15 = [*(v11 + 3776) stringWithFormat:@"ERROR: sqlite3_step error=%d", v13];
+    v16 = [*(v11 + 3776) stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Utilities/DataTypes/PLSQLStatement.m"];
+    lastPathComponent3 = [v16 lastPathComponent];
+    v18 = [*(v11 + 3776) stringWithUTF8String:"-[PLSQLStatement perform]"];
+    [PLCoreStorage logMessage:v15 fromFile:lastPathComponent3 fromFunction:v18 fromLineNumber:155];
 
-    v18 = PLLogCommon();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+    v20 = PLLogCommon(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v62 = v14;
-      _os_log_debug_impl(&dword_1D8611000, v18, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+      v66 = v15;
+      _os_log_debug_impl(&dword_1D8611000, v20, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
     }
 
     v11 = 0x1E696A000;
@@ -230,14 +232,14 @@ LABEL_40:
     goto LABEL_40;
   }
 
-  v46 = PLLogSQLiteConnection();
-  if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+  v50 = PLLogSQLiteConnection(debugEnabled);
+  if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
   {
-    [(PLSQLStatement *)v46 perform];
+    [(PLSQLStatement *)v50 perform];
   }
 
-  v48 = +[PLSQLiteConnection sharedSQLiteConnection];
-  [PLUtilities exitWithReason:1001 connection:v48];
+  v52 = +[PLSQLiteConnection sharedSQLiteConnection];
+  [PLUtilities exitWithReason:1001 connection:v52];
 
 LABEL_53:
   dbSem3 = [(PLSQLStatement *)selfCopy dbSem];
@@ -245,25 +247,23 @@ LABEL_53:
 
   if (v9 > 5 && [*(v10 + 2224) debugEnabled])
   {
-    v50 = [*(v11 + 3776) stringWithFormat:@"WARNING: SQLITE_BUSY for too long"];
-    v51 = [*(v11 + 3776) stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Utilities/DataTypes/PLSQLStatement.m"];
-    lastPathComponent4 = [v51 lastPathComponent];
-    v53 = [*(v11 + 3776) stringWithUTF8String:"-[PLSQLStatement perform]"];
-    [PLCoreStorage logMessage:v50 fromFile:lastPathComponent4 fromFunction:v53 fromLineNumber:166];
+    v54 = [*(v11 + 3776) stringWithFormat:@"WARNING: SQLITE_BUSY for too long"];
+    v55 = [*(v11 + 3776) stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Utilities/DataTypes/PLSQLStatement.m"];
+    lastPathComponent4 = [v55 lastPathComponent];
+    v57 = [*(v11 + 3776) stringWithUTF8String:"-[PLSQLStatement perform]"];
+    [PLCoreStorage logMessage:v54 fromFile:lastPathComponent4 fromFunction:v57 fromLineNumber:166];
 
-    v54 = PLLogCommon();
-    if (os_log_type_enabled(v54, OS_LOG_TYPE_DEBUG))
+    v59 = PLLogCommon(v58);
+    if (os_log_type_enabled(v59, OS_LOG_TYPE_DEBUG))
     {
       [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
     }
   }
 
-  v45 = v3;
+  v49 = v3;
 LABEL_59:
 
-  v55 = *MEMORY[0x1E69E9840];
-
-  return v45;
+  return v49;
 }
 
 - (void)reset
@@ -301,9 +301,9 @@ LABEL_59:
 {
   queryCopy = query;
   semCopy = sem;
-  v26.receiver = self;
-  v26.super_class = PLSQLStatement;
-  v12 = [(PLSQLStatement *)&v26 init];
+  v27.receiver = self;
+  v27.super_class = PLSQLStatement;
+  v12 = [(PLSQLStatement *)&v27 init];
   v13 = v12;
   if (v12)
   {
@@ -340,8 +340,8 @@ LABEL_59:
         v20 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLSQLStatement initWithSQLQuery:forDatabase:withDBSem:result:]"];
         [PLCoreStorage logMessage:queryCopy fromFile:lastPathComponent fromFunction:v20 fromLineNumber:38];
 
-        v21 = PLLogCommon();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+        v22 = PLLogCommon(v21);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
         {
           [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
         }
@@ -351,16 +351,166 @@ LABEL_59:
     dbSem3 = [(PLSQLStatement *)v13 dbSem];
     dispatch_semaphore_signal(dbSem3);
 
-    v23 = 0;
+    v24 = 0;
   }
 
   else
   {
 LABEL_12:
-    v23 = v13;
+    v24 = v13;
   }
 
-  return v23;
+  return v24;
+}
+
+- (int)bindValue:(id)value withFormater:(signed __int16)formater atPosition:(int)position
+{
+  v5 = *&position;
+  formaterCopy = formater;
+  valueCopy = value;
+  if (formaterCopy == -32768 || [PLValueUtilties isFormater:formaterCopy validForObject:valueCopy])
+  {
+    dbSem = [(PLSQLStatement *)self dbSem];
+    dispatch_semaphore_wait(dbSem, 0xFFFFFFFFFFFFFFFFLL);
+
+    if (!valueCopy || ([MEMORY[0x1E695DFB0] null], v10 = objc_claimAutoreleasedReturnValue(), v10, v10 == valueCopy))
+    {
+      v11 = sqlite3_bind_null([(PLSQLStatement *)self statement], v5);
+      goto LABEL_13;
+    }
+
+    if (formaterCopy > 2)
+    {
+      if (formaterCopy > 5)
+      {
+        if (formaterCopy != 6)
+        {
+          if (formaterCopy != 7)
+          {
+            if (formaterCopy == 8 && [valueCopy length])
+            {
+              v11 = sqlite3_bind_blob(-[PLSQLStatement statement](self, "statement"), v5, [valueCopy bytes], objc_msgSend(valueCopy, "length"), 0xFFFFFFFFFFFFFFFFLL);
+LABEL_13:
+              v12 = v11;
+LABEL_14:
+              dbSem2 = [(PLSQLStatement *)self dbSem];
+              dispatch_semaphore_signal(dbSem2);
+              goto LABEL_15;
+            }
+
+LABEL_31:
+            formaterCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid formatter=%i", formaterCopy];
+            v30 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Utilities/DataTypes/PLSQLStatement.m"];
+            lastPathComponent = [v30 lastPathComponent];
+            v32 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLSQLStatement bindValue:withFormater:atPosition:]"];
+            [PLCoreStorage logMessage:formaterCopy fromFile:lastPathComponent fromFunction:v32 fromLineNumber:77];
+
+            v34 = PLLogCommon(v33);
+            if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
+            {
+              [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
+            }
+
+            v12 = 0;
+            goto LABEL_14;
+          }
+
+          statement = [(PLSQLStatement *)self statement];
+          unsignedLongLongValue = [valueCopy unsignedLongLongValue];
+LABEL_42:
+          v11 = sqlite3_bind_int64(statement, v5, unsignedLongLongValue);
+          goto LABEL_13;
+        }
+
+        statement2 = [(PLSQLStatement *)self statement];
+        [valueCopy doubleValue];
+LABEL_38:
+        v11 = sqlite3_bind_double(statement2, v5, v26);
+        goto LABEL_13;
+      }
+
+      if (formaterCopy != 3)
+      {
+        if (formaterCopy != 5)
+        {
+          goto LABEL_31;
+        }
+
+        statement = [(PLSQLStatement *)self statement];
+        unsignedLongLongValue = [valueCopy longLongValue];
+        goto LABEL_42;
+      }
+
+      statement3 = [(PLSQLStatement *)self statement];
+      bOOLValue = [valueCopy BOOLValue];
+LABEL_40:
+      v11 = sqlite3_bind_int(statement3, v5, bOOLValue);
+      goto LABEL_13;
+    }
+
+    if (formaterCopy > 0)
+    {
+      if (formaterCopy != 1)
+      {
+        statement2 = [(PLSQLStatement *)self statement];
+        [valueCopy timeIntervalSince1970];
+        goto LABEL_38;
+      }
+
+      uTF8String = [valueCopy UTF8String];
+    }
+
+    else
+    {
+      if (formaterCopy != -32768)
+      {
+        if (formaterCopy)
+        {
+          goto LABEL_31;
+        }
+
+        statement3 = [(PLSQLStatement *)self statement];
+        bOOLValue = [valueCopy count] != 0;
+        goto LABEL_40;
+      }
+
+      v35 = [valueCopy description];
+      uTF8String = [v35 UTF8String];
+    }
+
+    statement4 = [(PLSQLStatement *)self statement];
+    v38 = strlen(uTF8String);
+    v11 = sqlite3_bind_text(statement4, v5, uTF8String, v38, 0xFFFFFFFFFFFFFFFFLL);
+    goto LABEL_13;
+  }
+
+  if (!+[PLDefaults debugEnabled])
+  {
+    v12 = 20;
+    goto LABEL_16;
+  }
+
+  v15 = MEMORY[0x1E696AEC0];
+  v16 = objc_opt_class();
+  v17 = [valueCopy description];
+  dbSem2 = [v15 stringWithFormat:@"*** formater does not match object type! ***\nposition=%d formater=%d class=%@ value=%@\n", v5, formaterCopy, v16, v17];
+
+  v18 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Utilities/DataTypes/PLSQLStatement.m"];
+  lastPathComponent2 = [v18 lastPathComponent];
+  v20 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLSQLStatement bindValue:withFormater:atPosition:]"];
+  [PLCoreStorage logMessage:dbSem2 fromFile:lastPathComponent2 fromFunction:v20 fromLineNumber:51];
+
+  v22 = PLLogCommon(v21);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+  {
+    [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
+  }
+
+  v12 = 20;
+LABEL_15:
+
+LABEL_16:
+  return v12;
 }
 
 @end

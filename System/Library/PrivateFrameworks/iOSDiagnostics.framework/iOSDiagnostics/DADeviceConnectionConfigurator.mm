@@ -1,6 +1,7 @@
 @interface DADeviceConnectionConfigurator
 + (id)sharedInstance;
 - (int)mode;
+- (void)overrideSessionModeWithMode:(int)mode;
 @end
 
 @implementation DADeviceConnectionConfigurator
@@ -34,6 +35,14 @@
   {
     return 0;
   }
+}
+
+- (void)overrideSessionModeWithMode:(int)mode
+{
+  v3 = *&mode;
+  [(DADeviceConnectionConfigurator *)self setIsSessionModeOveridden:1];
+
+  [(DADeviceConnectionConfigurator *)self setOverrideSessionMode:v3];
 }
 
 @end

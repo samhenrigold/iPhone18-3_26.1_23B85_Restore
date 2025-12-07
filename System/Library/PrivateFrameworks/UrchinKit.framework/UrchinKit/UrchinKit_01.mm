@@ -49,22 +49,22 @@ uint64_t sub_2707EFB64(uint64_t a1)
 
 uint64_t LocationRule.LocationSupport.encode(to:)(void *a1)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2808385D8);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2808385D8, &qword_2707F3238);
   v25 = *(v3 - 8);
   v26 = v3;
   MEMORY[0x28223BE20](v3);
   v24 = &v18 - v4;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2808385E0);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2808385E0, &qword_2707F3240);
   v22 = *(v5 - 8);
   v23 = v5;
   MEMORY[0x28223BE20](v5);
   v21 = &v18 - v6;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2808385E8);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2808385E8, &qword_2707F3248);
   v19 = *(v7 - 8);
   v20 = v7;
   MEMORY[0x28223BE20](v7);
   v9 = &v18 - v8;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2808385F0);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2808385F0, &qword_2707F3250);
   v11 = *(v10 - 8);
   MEMORY[0x28223BE20](v10);
   v13 = &v18 - v12;
@@ -167,20 +167,20 @@ uint64_t LocationRule.LocationSupport.hashValue.getter()
 uint64_t LocationRule.LocationSupport.init(from:)@<X0>(void *a1@<X0>, _BYTE *a2@<X8>)
 {
   v35 = a2;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_280838618);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_280838618, &qword_2707F3258);
   v31 = *(v3 - 8);
   v32 = v3;
   MEMORY[0x28223BE20](v3);
   v34 = &v28 - v4;
-  v33 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_280838620);
+  v33 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_280838620, &qword_2707F3260);
   v30 = *(v33 - 8);
   MEMORY[0x28223BE20](v33);
   v6 = &v28 - v5;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_280838628);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_280838628, &qword_2707F3268);
   v29 = *(v7 - 8);
   MEMORY[0x28223BE20](v7);
   v9 = &v28 - v8;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_280838630);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_280838630, &unk_2707F3270);
   v11 = *(v10 - 8);
   MEMORY[0x28223BE20](v10);
   v13 = &v28 - v12;
@@ -208,7 +208,7 @@ uint64_t LocationRule.LocationSupport.init(from:)@<X0>(void *a1@<X0>, _BYTE *a2@
       v22 = sub_2707F14C8();
       swift_allocError();
       v24 = v23;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2808383E8);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2808383E8, &qword_2707F24A8);
       *v24 = &type metadata for LocationRule.LocationSupport;
       sub_2707F1508();
       sub_2707F14B8();

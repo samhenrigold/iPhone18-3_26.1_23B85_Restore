@@ -184,7 +184,7 @@ void __28__PowerUIDrainMonitor_start__block_invoke_2(uint64_t a1)
 
 void __28__PowerUIDrainMonitor_start__block_invoke_3(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   notify_set_state(*(*(a1 + 32) + 16), 1uLL);
   notify_post([@"com.apple.powerui.nudge.LPM" UTF8String]);
   v2 = +[PowerUIBrightnessController sharedInstance];
@@ -194,20 +194,18 @@ void __28__PowerUIDrainMonitor_start__block_invoke_3(uint64_t a1)
   v3 = [*(a1 + 32) log];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v7) = 0;
-    _os_log_impl(&dword_21B766000, v3, OS_LOG_TYPE_DEFAULT, "SMDEBUG: Posting Ambrosia Engage notification", &v7, 2u);
+    LOWORD(v6) = 0;
+    _os_log_impl(&dword_21B766000, v3, OS_LOG_TYPE_DEFAULT, "SMDEBUG: Posting Ambrosia Engage notification", &v6, 2u);
   }
 
   v4 = [*(a1 + 32) log];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [*(a1 + 32) isAtKnownChargingLocation];
-    v7 = 134217984;
-    v8 = v5;
-    _os_log_impl(&dword_21B766000, v4, OS_LOG_TYPE_DEFAULT, "SMDEBUG: Is at known location: %lu", &v7, 0xCu);
+    v6 = 134217984;
+    v7 = v5;
+    _os_log_impl(&dword_21B766000, v4, OS_LOG_TYPE_DEFAULT, "SMDEBUG: Is at known location: %lu", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enableLPM
@@ -263,7 +261,7 @@ void __28__PowerUIDrainMonitor_start__block_invoke_3(uint64_t a1)
 
 - (void)evaluateNudgeForLPM
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   context = self->_context;
   keyPathForBatteryLevel = [MEMORY[0x277CFE338] keyPathForBatteryLevel];
   v5 = [(_CDLocalContext *)context objectForContextualKeyPath:keyPathForBatteryLevel];
@@ -272,9 +270,9 @@ void __28__PowerUIDrainMonitor_start__block_invoke_3(uint64_t a1)
   log = self->_log;
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 134217984;
-    v15 = integerValue;
-    _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "Current battery level %lu", &v14, 0xCu);
+    v13 = 134217984;
+    v14 = integerValue;
+    _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "Current battery level %lu", &v13, 0xCu);
   }
 
   date = [MEMORY[0x277CBEAA8] date];
@@ -293,13 +291,11 @@ void __28__PowerUIDrainMonitor_start__block_invoke_3(uint64_t a1)
       [(PowerUIDrainMonitor *)self enableMitigations];
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)postLPMNudgeNotificationWithInfo:(id)info
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   if (+[PowerUISmartChargeUtilities isInternalBuild])
   {
@@ -307,11 +303,11 @@ void __28__PowerUIDrainMonitor_start__block_invoke_3(uint64_t a1)
     if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v29 = infoCopy;
+      v28 = infoCopy;
       _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "Posting LPM notification %@", buf, 0xCu);
     }
 
-    v27 = +[PowerUINotificationManager sharedInstance];
+    v26 = +[PowerUINotificationManager sharedInstance];
     date = [MEMORY[0x277CBEAA8] date];
     v7 = [(NSUserDefaults *)self->_defaults objectForKey:@"kLastALPMNotificationDate"];
     v8 = [infoCopy objectForKeyedSubscript:@"ignoreLastNudge"];
@@ -363,7 +359,7 @@ LABEL_16:
     v22 = [date dateByAddingTimeInterval:1800.0];
     v23 = [MEMORY[0x277CBEBC0] URLWithString:@"E-T-Insights://"];
     date2 = [MEMORY[0x277CBEAA8] date];
-    [v27 postInternalNotificationAtDate:date2 withTitle:@"[Internal] IBLM" withTextContent:v20 icon:v21 url:v23 expirationDate:v22];
+    [v26 postInternalNotificationAtDate:date2 withTitle:@"[Internal] IBLM" withTextContent:v20 icon:v21 url:v23 expirationDate:v22];
 
     v25 = self->_log;
     if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
@@ -378,8 +374,6 @@ LABEL_16:
   }
 
 LABEL_17:
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)slotForDate:(id)date withTimeSlotWidth:(unint64_t)width
@@ -397,29 +391,29 @@ LABEL_17:
 
 - (BOOL)hasVariationForMedianLevels:(id)levels
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   levelsCopy = levels;
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
-  v5 = [levelsCopy countByEnumeratingWithState:&v20 objects:v28 count:16];
+  v5 = [levelsCopy countByEnumeratingWithState:&v19 objects:v27 count:16];
   if (v5)
   {
     v6 = v5;
     integerValue2 = 0;
-    v8 = *v21;
+    v8 = *v20;
     integerValue = 101;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v21 != v8)
+        if (*v20 != v8)
         {
           objc_enumerationMutation(levelsCopy);
         }
 
-        v11 = *(*(&v20 + 1) + 8 * i);
+        v11 = *(*(&v19 + 1) + 8 * i);
         if ([v11 integerValue] < integerValue)
         {
           integerValue = [v11 integerValue];
@@ -431,7 +425,7 @@ LABEL_17:
         }
       }
 
-      v6 = [levelsCopy countByEnumeratingWithState:&v20 objects:v28 count:16];
+      v6 = [levelsCopy countByEnumeratingWithState:&v19 objects:v27 count:16];
     }
 
     while (v6);
@@ -454,14 +448,13 @@ LABEL_17:
       v16 = [v14 numberWithInteger:integerValue];
       v17 = [MEMORY[0x277CCABB0] numberWithInteger:integerValue2];
       *buf = 138412546;
-      v25 = v16;
-      v26 = 2112;
-      v27 = v17;
+      v24 = v16;
+      v25 = 2112;
+      v26 = v17;
       _os_log_impl(&dword_21B766000, v15, OS_LOG_TYPE_DEFAULT, "Not enough variation in the values. Min %@, Max %@", buf, 0x16u);
     }
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v12 > 45;
 }
 
@@ -476,7 +469,7 @@ LABEL_17:
 
 - (id)isTrendingLowerWithBatteryLevel:(int64_t)level atDate:(id)date
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v6 = objc_opt_new();
   [v6 setObject:MEMORY[0x277CBEC28] forKeyedSubscript:@"shouldEngage"];
   v7 = +[PowerUIBatteryData sharedInstance];
@@ -504,11 +497,11 @@ LABEL_17:
   log = self->_log;
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
   {
-    v25 = 134218240;
+    v24 = 134218240;
     levelCopy = level;
-    v27 = 2048;
-    v28 = integerValue;
-    _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "Current battery level %lu, Reference level %lu", &v25, 0x16u);
+    v26 = 2048;
+    v27 = integerValue;
+    _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "Current battery level %lu, Reference level %lu", &v24, 0x16u);
   }
 
   if ([(PowerUIDrainMonitor *)self hasVariationForMedianLevels:v10])
@@ -556,8 +549,6 @@ LABEL_17:
     v22 = [MEMORY[0x277CCABB0] numberWithBool:isAtKnownChargingLocation];
     [v6 setObject:v22 forKeyedSubscript:@"knownChargingLocation"];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

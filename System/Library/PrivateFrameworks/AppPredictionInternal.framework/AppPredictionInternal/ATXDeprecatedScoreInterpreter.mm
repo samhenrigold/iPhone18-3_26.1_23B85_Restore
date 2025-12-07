@@ -68,7 +68,6 @@ void __47___ATXDeprecatedScoreInterpreter__compileRoot___block_invoke(uint64_t a
   {
 LABEL_51:
 
-    v55 = *MEMORY[0x277D85DE8];
     return;
   }
 
@@ -325,8 +324,8 @@ LABEL_48:
     v84[3] = &__block_descriptor_40_e43_d16__0___ATXDeprecatedScoreInterpreterCtx_8l;
     v84[4] = v43;
     v44 = [v84 copy];
-    v56 = _Block_copy(v44);
-    [v6 addObject:v56];
+    v55 = _Block_copy(v44);
+    [v6 addObject:v55];
 
     goto LABEL_49;
   }
@@ -339,8 +338,8 @@ LABEL_48:
     v83[3] = &__block_descriptor_40_e43_d16__0___ATXDeprecatedScoreInterpreterCtx_8l;
     v83[4] = v43;
     v44 = [v83 copy];
-    v57 = _Block_copy(v44);
-    [v6 addObject:v57];
+    v56 = _Block_copy(v44);
+    [v6 addObject:v56];
 
     goto LABEL_49;
   }
@@ -353,8 +352,8 @@ LABEL_48:
     v82[3] = &__block_descriptor_40_e43_d16__0___ATXDeprecatedScoreInterpreterCtx_8l;
     v82[4] = v43;
     v44 = [v82 copy];
-    v58 = _Block_copy(v44);
-    [v6 addObject:v58];
+    v57 = _Block_copy(v44);
+    [v6 addObject:v57];
 
     goto LABEL_49;
   }
@@ -367,8 +366,8 @@ LABEL_48:
     v81[3] = &__block_descriptor_40_e43_d16__0___ATXDeprecatedScoreInterpreterCtx_8l;
     v81[4] = v43;
     v44 = [v81 copy];
-    v59 = _Block_copy(v44);
-    [v6 addObject:v59];
+    v58 = _Block_copy(v44);
+    [v6 addObject:v58];
 
     goto LABEL_49;
   }
@@ -381,8 +380,8 @@ LABEL_48:
     v80[3] = &__block_descriptor_40_e43_d16__0___ATXDeprecatedScoreInterpreterCtx_8l;
     v80[4] = v43;
     v44 = [v80 copy];
-    v60 = _Block_copy(v44);
-    [v6 addObject:v60];
+    v59 = _Block_copy(v44);
+    [v6 addObject:v59];
 
     goto LABEL_49;
   }
@@ -395,8 +394,8 @@ LABEL_48:
     v79[3] = &__block_descriptor_40_e43_d16__0___ATXDeprecatedScoreInterpreterCtx_8l;
     v79[4] = v43;
     v44 = [v79 copy];
-    v61 = _Block_copy(v44);
-    [v6 addObject:v61];
+    v60 = _Block_copy(v44);
+    [v6 addObject:v60];
 
     goto LABEL_49;
   }
@@ -409,8 +408,8 @@ LABEL_48:
     v78[3] = &__block_descriptor_40_e43_d16__0___ATXDeprecatedScoreInterpreterCtx_8l;
     v78[4] = v43;
     v44 = [v78 copy];
-    v62 = _Block_copy(v44);
-    [v6 addObject:v62];
+    v61 = _Block_copy(v44);
+    [v6 addObject:v61];
 
     goto LABEL_49;
   }
@@ -423,8 +422,8 @@ LABEL_48:
     v77[3] = &__block_descriptor_40_e43_d16__0___ATXDeprecatedScoreInterpreterCtx_8l;
     v77[4] = v43;
     v44 = [v77 copy];
-    v63 = _Block_copy(v44);
-    [v6 addObject:v63];
+    v62 = _Block_copy(v44);
+    [v6 addObject:v62];
 
     goto LABEL_49;
   }
@@ -437,8 +436,8 @@ LABEL_48:
     v76[3] = &__block_descriptor_40_e43_d16__0___ATXDeprecatedScoreInterpreterCtx_8l;
     v76[4] = v43;
     v44 = [v76 copy];
-    v64 = _Block_copy(v44);
-    [v6 addObject:v64];
+    v63 = _Block_copy(v44);
+    [v6 addObject:v63];
 
     goto LABEL_49;
   }
@@ -446,13 +445,14 @@ LABEL_48:
   if ([v7 isEqualToString:@"ApplyFeedback"])
   {
     v44 = [&__block_literal_global_215 copy];
-    v65 = _Block_copy(v44);
-    [v6 addObject:v65];
+    v64 = _Block_copy(v44);
+    [v6 addObject:v64];
 
     goto LABEL_49;
   }
 
-  if ([v7 isEqualToString:@"RandomUniform"])
+  v65 = [v7 isEqualToString:@"RandomUniform"];
+  if (v65)
   {
     v75[0] = MEMORY[0x277D85DD0];
     v75[1] = 3221225472;
@@ -466,7 +466,7 @@ LABEL_48:
     goto LABEL_49;
   }
 
-  v67 = __atxlog_handle_default();
+  v67 = __atxlog_handle_default(v65);
   if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
   {
     __47___ATXDeprecatedScoreInterpreter__compileRoot___block_invoke_cold_2();
@@ -673,7 +673,7 @@ double __47___ATXDeprecatedScoreInterpreter__compileRoot___block_invoke_10(uint6
 
 double __47___ATXDeprecatedScoreInterpreter__compileRoot___block_invoke_11(uint64_t a1, void *a2)
 {
-  v31[1] = *MEMORY[0x277D85DE8];
+  v32[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (shouldReturnUndefined_0(v3, *(a1 + 40)))
   {
@@ -692,21 +692,21 @@ double __47___ATXDeprecatedScoreInterpreter__compileRoot___block_invoke_11(uint6
     v5 = -1;
   }
 
-  v26 = v5;
+  v27 = v5;
   v6 = objc_opt_new();
   v7 = [*(a1 + 32) numberOfFeatures];
   if (!v7)
   {
 LABEL_19:
-    [*(a1 + 32) predictionForEvaluatedFeatures:v6 withOutputIndexedSubscript:v26];
-    v4 = v21;
+    [*(a1 + 32) predictionForEvaluatedFeatures:v6 withOutputIndexedSubscript:v27];
+    v4 = v23;
     goto LABEL_27;
   }
 
   v8 = v7;
   v9 = 0;
-  v27 = v7;
-  v28 = v6;
+  v28 = v7;
+  v29 = v6;
   while (1)
   {
     v10 = [*(a1 + 32) featureAtIndex:v8 + ~v9];
@@ -717,28 +717,29 @@ LABEL_19:
       goto LABEL_18;
     }
 
-    if ([v10 featureType] != 5)
+    v13 = [v10 featureType];
+    if (v13 != 5)
     {
       break;
     }
 
-    v29 = v11;
-    v13 = a1;
-    v14 = [v10 multiArraySize];
-    v15 = objc_alloc(MEMORY[0x277CBFF48]);
-    v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v14];
-    v31[0] = v16;
-    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:1];
-    v30 = 0;
-    v12 = [v15 initWithShape:v17 dataType:65600 error:&v30];
-    v18 = v30;
+    v30 = v11;
+    v14 = a1;
+    v15 = [v10 multiArraySize];
+    v16 = objc_alloc(MEMORY[0x277CBFF48]);
+    v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v15];
+    v32[0] = v17;
+    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:1];
+    v31 = 0;
+    v12 = [v16 initWithShape:v18 dataType:65600 error:&v31];
+    v19 = v31;
 
-    if (v18)
+    if (v19)
     {
-      v23 = __atxlog_handle_default();
-      v6 = v28;
-      v11 = v29;
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      v25 = __atxlog_handle_default(v20);
+      v6 = v29;
+      v11 = v30;
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
         __47___ATXDeprecatedScoreInterpreter__compileRoot___block_invoke_11_cold_2();
       }
@@ -747,30 +748,30 @@ LABEL_19:
       goto LABEL_26;
     }
 
-    if (v14)
+    if (v15)
     {
-      v19 = v14 - 1;
-      a1 = v13;
+      v21 = v15 - 1;
+      a1 = v14;
       do
       {
-        v20 = [MEMORY[0x277CCABB0] numberWithDouble:pop_0(v3)];
-        [v12 setObject:v20 atIndexedSubscript:v19];
+        v22 = [MEMORY[0x277CCABB0] numberWithDouble:pop_0(v3)];
+        [v12 setObject:v22 atIndexedSubscript:v21];
 
-        --v19;
+        --v21;
       }
 
-      while (v19 != -1);
-      v6 = v28;
+      while (v21 != -1);
+      v6 = v29;
     }
 
     else
     {
-      v6 = v28;
-      a1 = v13;
+      v6 = v29;
+      a1 = v14;
     }
 
-    v11 = v29;
-    v8 = v27;
+    v11 = v30;
+    v8 = v28;
 LABEL_18:
     [v6 setObject:v12 forKeyedSubscript:v11];
 
@@ -780,8 +781,8 @@ LABEL_18:
     }
   }
 
-  v22 = __atxlog_handle_default();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+  v24 = __atxlog_handle_default(v13);
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
   {
     __47___ATXDeprecatedScoreInterpreter__compileRoot___block_invoke_11_cold_1();
   }
@@ -792,7 +793,6 @@ LABEL_26:
 LABEL_27:
 LABEL_28:
 
-  v24 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -809,23 +809,23 @@ double __47___ATXDeprecatedScoreInterpreter__compileRoot___block_invoke_68(uint6
     v5 = *(a1 + 32);
     v6 = v3[1] - v5;
     drop_0(v3, v5);
-    v7 = &v3[v6];
-    v9 = *(v7 + 2);
-    v8 = *(v7 + 3);
-    if (v9 <= 0.0)
+    v8 = &v3[v6];
+    v10 = *(v8 + 2);
+    v9 = *(v8 + 3);
+    if (v10 <= 0.0)
     {
       __47___ATXDeprecatedScoreInterpreter__compileRoot___block_invoke_68_cold_2();
     }
 
-    if (v8 <= 0.0)
+    if (v9 <= 0.0)
     {
       __47___ATXDeprecatedScoreInterpreter__compileRoot___block_invoke_68_cold_3();
     }
 
-    if (v9 <= 0.0)
+    if (v10 <= 0.0)
     {
-      v10 = __atxlog_handle_default();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = __atxlog_handle_default(v7);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         __47___ATXDeprecatedScoreInterpreter__compileRoot___block_invoke_68_cold_4();
       }
@@ -833,16 +833,16 @@ double __47___ATXDeprecatedScoreInterpreter__compileRoot___block_invoke_68(uint6
 
     else
     {
-      if (v8 > 0.0)
+      if (v9 > 0.0)
       {
 LABEL_16:
-        v11 = log10(v9);
-        v4 = v11 / log10(v8);
+        v12 = log10(v10);
+        v4 = v12 / log10(v9);
         goto LABEL_17;
       }
 
-      v10 = __atxlog_handle_default();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = __atxlog_handle_default(v7);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         __47___ATXDeprecatedScoreInterpreter__compileRoot___block_invoke_68_cold_5();
       }
@@ -881,8 +881,8 @@ double __47___ATXDeprecatedScoreInterpreter__compileRoot___block_invoke_81(uint6
     if (v7 <= 0.0)
     {
       __47___ATXDeprecatedScoreInterpreter__compileRoot___block_invoke_81_cold_2();
-      v8 = __atxlog_handle_default();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = __atxlog_handle_default(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         __47___ATXDeprecatedScoreInterpreter__compileRoot___block_invoke_81_cold_3();
       }
@@ -980,26 +980,26 @@ double __47___ATXDeprecatedScoreInterpreter__compileRoot___block_invoke_102(uint
     v5 = *(a1 + 32);
     v6 = v3[1] - v5;
     drop_0(v3, v5);
-    v7 = &v3[v6];
-    v9 = v7[2];
-    v8 = v7[3];
-    v10 = v7[4];
-    if (v9 < 0.0)
+    v8 = &v3[v6];
+    v10 = v8[2];
+    v9 = v8[3];
+    v11 = v8[4];
+    if (v10 < 0.0)
     {
       __47___ATXDeprecatedScoreInterpreter__compileRoot___block_invoke_102_cold_2();
     }
 
-    if (v8 <= 0.0)
+    if (v9 <= 0.0)
     {
       __47___ATXDeprecatedScoreInterpreter__compileRoot___block_invoke_102_cold_3();
     }
 
-    if (v9 >= 0.0)
+    if (v10 >= 0.0)
     {
-      if (v8 <= 0.0)
+      if (v9 <= 0.0)
       {
-        v13 = __atxlog_handle_default();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+        v14 = __atxlog_handle_default(v7);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
         {
           __47___ATXDeprecatedScoreInterpreter__compileRoot___block_invoke_102_cold_4();
         }
@@ -1010,14 +1010,14 @@ double __47___ATXDeprecatedScoreInterpreter__compileRoot___block_invoke_102(uint
 
     else
     {
-      v11 = __atxlog_handle_default();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = __atxlog_handle_default(v7);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         __47___ATXDeprecatedScoreInterpreter__compileRoot___block_invoke_102_cold_5();
       }
     }
 
-    v4 = v10 * exp(v9 * (-0.693147181 / v8));
+    v4 = v11 * exp(v10 * (-0.693147181 / v9));
     goto LABEL_16;
   }
 
@@ -1074,31 +1074,31 @@ double __47___ATXDeprecatedScoreInterpreter__compileRoot___block_invoke_2_119(ui
   {
     drop_0(v3, *(a1 + 32));
 LABEL_13:
-    v11 = -31337.0;
+    v12 = -31337.0;
     goto LABEL_14;
   }
 
   v4 = *(a1 + 32);
   v5 = v3[1] - v4;
   drop_0(v3, v4);
-  v6 = &v3[v5];
-  v7 = v6[2];
-  v8 = v6[3];
-  v9 = v6[4];
-  if (v9 == 1.0)
+  v7 = &v3[v5];
+  v8 = v7[2];
+  v9 = v7[3];
+  v10 = v7[4];
+  if (v10 == 1.0)
   {
     __47___ATXDeprecatedScoreInterpreter__compileRoot___block_invoke_2_119_cold_2();
   }
 
-  if (v9 < 0.0)
+  if (v10 < 0.0)
   {
     __47___ATXDeprecatedScoreInterpreter__compileRoot___block_invoke_2_119_cold_3();
   }
 
-  if (v9 == 1.0)
+  if (v10 == 1.0)
   {
-    v10 = __atxlog_handle_default();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = __atxlog_handle_default(v6);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       __47___ATXDeprecatedScoreInterpreter__compileRoot___block_invoke_2_119_cold_5();
     }
@@ -1106,19 +1106,19 @@ LABEL_13:
     goto LABEL_13;
   }
 
-  if (v9 < 0.0 && v7 != v7)
+  if (v10 < 0.0 && v8 != v8)
   {
-    v13 = __atxlog_handle_default();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = __atxlog_handle_default(v6);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       __47___ATXDeprecatedScoreInterpreter__compileRoot___block_invoke_2_119_cold_4();
     }
   }
 
-  v11 = v8 * ((1.0 - pow(v9, v7)) / (1.0 - v9));
+  v12 = v9 * ((1.0 - pow(v10, v8)) / (1.0 - v10));
 LABEL_14:
 
-  return v11;
+  return v12;
 }
 
 double __47___ATXDeprecatedScoreInterpreter__compileRoot___block_invoke_129(uint64_t a1, void *a2)
@@ -1150,7 +1150,7 @@ double __47___ATXDeprecatedScoreInterpreter__compileRoot___block_invoke_129(uint
 
 double __47___ATXDeprecatedScoreInterpreter__compileRoot___block_invoke_2_133(uint64_t a1, void *a2)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (*(a1 + 32) != 4)
   {
@@ -1168,60 +1168,57 @@ double __47___ATXDeprecatedScoreInterpreter__compileRoot___block_invoke_2_133(ui
     v5 = *(a1 + 32);
     v6 = v3[1] - v5;
     drop_0(v3, v5);
-    v7 = &v3[v6];
-    v9 = v7[2];
-    v8 = v7[3];
-    v11 = v7[4];
-    v10 = v7[5];
-    if (v8 > v10)
+    v8 = &v3[v6];
+    v10 = v8[2];
+    v9 = v8[3];
+    v12 = v8[4];
+    v11 = v8[5];
+    if (v9 > v11)
     {
-      v16 = *(v7 + 3);
-      v17 = *(v7 + 5);
       __47___ATXDeprecatedScoreInterpreter__compileRoot___block_invoke_2_133_cold_2();
     }
 
-    if (v10 > v11)
+    if (v11 > v12)
     {
       __47___ATXDeprecatedScoreInterpreter__compileRoot___block_invoke_2_133_cold_3();
     }
 
-    v12 = v9;
-    if (v9 < v8)
+    v13 = v10;
+    if (v10 < v9)
     {
-      v12 = v8;
+      v13 = v9;
     }
 
-    if (v12 >= v11)
-    {
-      v4 = v11;
-    }
-
-    else
+    if (v13 >= v12)
     {
       v4 = v12;
     }
 
-    if (v4 != v9)
+    else
     {
-      v13 = __atxlog_handle_default();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+      v4 = v13;
+    }
+
+    if (v4 != v10)
+    {
+      v14 = __atxlog_handle_default(v7);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
-        v18 = 134219008;
+        v16 = 134219008;
+        v17 = v10;
+        v18 = 2048;
         v19 = v9;
         v20 = 2048;
-        v21 = v8;
+        v21 = v12;
         v22 = 2048;
         v23 = v11;
         v24 = 2048;
-        v25 = v10;
-        v26 = 2048;
-        v27 = v4;
-        _os_log_debug_impl(&dword_2263AA000, v13, OS_LOG_TYPE_DEBUG, "ClampToRange(input=%f, min=%f, max=%f, default=%f): input coerced to %f", &v18, 0x34u);
+        v25 = v4;
+        _os_log_debug_impl(&dword_2263AA000, v14, OS_LOG_TYPE_DEBUG, "ClampToRange(input=%f, min=%f, max=%f, default=%f): input coerced to %f", &v16, 0x34u);
       }
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -1256,8 +1253,6 @@ double __47___ATXDeprecatedScoreInterpreter__compileRoot___block_invoke_2_150(ui
     v9 = v7[3];
     if (v8 > v9)
     {
-      v11 = *(v7 + 2);
-      v12 = *(v7 + 3);
       __47___ATXDeprecatedScoreInterpreter__compileRoot___block_invoke_2_150_cold_2();
     }
 
@@ -1288,22 +1283,6 @@ void __47___ATXDeprecatedScoreInterpreter__compileRoot___block_invoke_cold_4()
   [OUTLINED_FUNCTION_0_16(v0 v1];
 }
 
-void __47___ATXDeprecatedScoreInterpreter__compileRoot___block_invoke_11_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __47___ATXDeprecatedScoreInterpreter__compileRoot___block_invoke_11_cold_2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 void __47___ATXDeprecatedScoreInterpreter__compileRoot___block_invoke_68_cold_1()
 {
   v7 = [MEMORY[0x277CCA890] currentHandler];
@@ -1327,20 +1306,16 @@ void __47___ATXDeprecatedScoreInterpreter__compileRoot___block_invoke_68_cold_3(
 
 void __47___ATXDeprecatedScoreInterpreter__compileRoot___block_invoke_68_cold_4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __47___ATXDeprecatedScoreInterpreter__compileRoot___block_invoke_68_cold_5()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __47___ATXDeprecatedScoreInterpreter__compileRoot___block_invoke_81_cold_1()
@@ -1359,11 +1334,9 @@ void __47___ATXDeprecatedScoreInterpreter__compileRoot___block_invoke_81_cold_2(
 
 void __47___ATXDeprecatedScoreInterpreter__compileRoot___block_invoke_81_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __47___ATXDeprecatedScoreInterpreter__compileRoot___block_invoke_88_cold_1()
@@ -1381,14 +1354,12 @@ void __47___ATXDeprecatedScoreInterpreter__compileRoot___block_invoke_88_cold_2(
   v3 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[_ATXDeprecatedScoreInterpreter _compileRoot:]_block_invoke"];
   [v2 handleFailureInFunction:v3 file:@"_ATXDeprecatedScoreInterpreter.m" lineNumber:508 description:@"Attempted to compute pow(%f, %f)", v1, v0];
 
-  v4 = __atxlog_handle_default();
-  if (OUTLINED_FUNCTION_10(v4))
+  v5 = __atxlog_handle_default(v4);
+  if (OUTLINED_FUNCTION_10(v5))
   {
     OUTLINED_FUNCTION_5_3();
     _os_log_error_impl(&dword_2263AA000, v2, OS_LOG_TYPE_ERROR, "Attempted to compute pow(%f,%f) -- output is NaN", buf, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __47___ATXDeprecatedScoreInterpreter__compileRoot___block_invoke_95_cold_1()
@@ -1406,15 +1377,14 @@ void __47___ATXDeprecatedScoreInterpreter__compileRoot___block_invoke_95_cold_2(
   v3 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[_ATXDeprecatedScoreInterpreter _compileRoot:]_block_invoke"];
   [v2 handleFailureInFunction:v3 file:@"_ATXDeprecatedScoreInterpreter.m" lineNumber:518 description:{@"Invalid parameter not satisfying: %@", @"denominator != 0"}];
 
-  v4 = __atxlog_handle_default();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = __atxlog_handle_default(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_5_3();
-    _os_log_error_impl(&dword_2263AA000, v4, OS_LOG_TYPE_ERROR, "Divide by zero error (%f / %f) -- setting output to _ATXScoreNotSet", buf, 0x16u);
+    _os_log_error_impl(&dword_2263AA000, v5, OS_LOG_TYPE_ERROR, "Divide by zero error (%f / %f) -- setting output to _ATXScoreNotSet", buf, 0x16u);
   }
 
   *a1 = 0xC0DE9A4000000000;
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __47___ATXDeprecatedScoreInterpreter__compileRoot___block_invoke_102_cold_1()
@@ -1440,20 +1410,16 @@ void __47___ATXDeprecatedScoreInterpreter__compileRoot___block_invoke_102_cold_3
 
 void __47___ATXDeprecatedScoreInterpreter__compileRoot___block_invoke_102_cold_4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __47___ATXDeprecatedScoreInterpreter__compileRoot___block_invoke_102_cold_5()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __47___ATXDeprecatedScoreInterpreter__compileRoot___block_invoke_115_cold_1()
@@ -1482,14 +1448,6 @@ void __47___ATXDeprecatedScoreInterpreter__compileRoot___block_invoke_2_119_cold
   v7 = [MEMORY[0x277CCA890] currentHandler];
   v0 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[_ATXDeprecatedScoreInterpreter _compileRoot:]_block_invoke_2"];
   [OUTLINED_FUNCTION_0_16(v0 v1];
-}
-
-void __47___ATXDeprecatedScoreInterpreter__compileRoot___block_invoke_2_119_cold_4()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __47___ATXDeprecatedScoreInterpreter__compileRoot___block_invoke_129_cold_1()

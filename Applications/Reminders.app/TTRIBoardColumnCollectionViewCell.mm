@@ -34,8 +34,8 @@
   {
     animationCopy = animation;
     selfCopy = self;
-    sub_100058000(&unk_1007701B0);
-    sub_10000E188(&unk_1007701E0, &unk_1007701B0);
+    sub_100058000(&unk_1007701B0, &qword_100644F50);
+    sub_10000E188(&unk_1007701E0, &unk_1007701B0, &qword_100644F50, &protocol conformance descriptor for PassthroughSubject<A, B>);
     Subject<>.send()();
   }
 }
@@ -43,10 +43,10 @@
 - (void)collectionView:(id)view prefetchItemsAtIndexPaths:(id)paths
 {
   type metadata accessor for IndexPath();
-  static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  v6 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  sub_1001CA4B4(viewCopy);
+  sub_1001CA4B4(viewCopy, v6);
 }
 
 - (void)collectionView:(id)view willDisplayCell:(id)cell forItemAtIndexPath:(id)path
@@ -59,7 +59,7 @@
   viewCopy = view;
   cellCopy = cell;
   selfCopy = self;
-  sub_1001D1E38();
+  sub_1001D1E38(v11);
 
   (*(v9 + 8))(v11, v8);
 }
@@ -69,25 +69,25 @@
   selfCopy = self;
   v7 = type metadata accessor for IndexPath();
   v8 = *(v7 - 8);
-  v9 = __chkstk_darwin(v7);
-  v11 = &v25 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = __chkstk_darwin(v9);
-  v14 = &v25 - v13;
-  v15 = __chkstk_darwin(v12);
-  v17 = &v25 - v16;
-  __chkstk_darwin(v15);
+  __chkstk_darwin(v7);
+  v10 = &v25 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v11);
+  v13 = &v25 - v12;
+  __chkstk_darwin(v14);
+  v16 = &v25 - v15;
+  __chkstk_darwin(v17);
   v19 = &v25 - v18;
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   v21 = selfCopy;
-  sub_1001CAA98(v17, v14, v11, v19);
+  sub_1001CAA98(v16, v13, v10, v19);
 
   v22 = *(v8 + 8);
-  v22(v11, v7);
-  v22(v14, v7);
-  v22(v17, v7);
+  v22(v10, v7);
+  v22(v13, v7);
+  v22(v16, v7);
   v23.super.isa = IndexPath._bridgeToObjectiveC()().super.isa;
   v22(v19, v7);
 
@@ -109,9 +109,10 @@
   v9 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  v12 = sub_1001CB3BC(viewCopy, v9, x, y);
+  sub_1001CB3BC(viewCopy, v9, x, y);
+  v13 = v12;
 
-  return v12;
+  return v13;
 }
 
 - (void)collectionView:(id)view willPerformPreviewActionForMenuWithConfiguration:(id)configuration animator:(id)animator

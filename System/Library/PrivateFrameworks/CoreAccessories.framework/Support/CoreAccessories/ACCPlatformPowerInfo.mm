@@ -82,9 +82,7 @@
 {
   if (!self->_siphoningControl)
   {
-    v4 = [[ACCPowerSiphoningControl alloc] initWithDelegate:self];
-    siphoningControl = self->_siphoningControl;
-    self->_siphoningControl = v4;
+    self->_siphoningControl = [[ACCPowerSiphoningControl alloc] initWithDelegate:self];
 
     _objc_release_x1();
   }
@@ -255,7 +253,7 @@
 
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
       {
-        [ACCPlatformPowerInfo powerInfoChangeNotificationHandler:?];
+        [ACCPlatformPowerInfo powerInfoChangeNotificationHandler:];
       }
     }
 
@@ -364,7 +362,7 @@
 
       if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
       {
-        [ACCPlatformPowerInfo powerInfoChangeNotificationHandler:?];
+        [ACCPlatformPowerInfo powerInfoChangeNotificationHandler:];
       }
     }
 
@@ -428,7 +426,7 @@ LABEL_102:
 
       if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
       {
-        [ACCPlatformPowerInfo powerInfoChangeNotificationHandler:?];
+        [ACCPlatformPowerInfo powerInfoChangeNotificationHandler:];
       }
 
       endpointUID = [(ACCPlatformPowerInfo *)self endpointUID];
@@ -500,7 +498,7 @@ LABEL_114:
 
       if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
       {
-        [ACCPlatformPowerInfo powerInfoChangeNotificationHandler:?];
+        [ACCPlatformPowerInfo powerInfoChangeNotificationHandler:];
       }
 
       endpointUID = [(ACCPlatformPowerInfo *)self endpointUID];
@@ -576,7 +574,7 @@ LABEL_115:
 
       if (os_log_type_enabled(v63, OS_LOG_TYPE_DEBUG))
       {
-        [ACCPlatformPowerInfo powerInfoChangeNotificationHandler:?];
+        [ACCPlatformPowerInfo powerInfoChangeNotificationHandler:];
       }
 
       platform_power_sendPowerUpdate([(ACCPlatformPowerInfo *)self endpointUID], 6, self->_batteryChargeLevel, 13, 0);
@@ -702,7 +700,7 @@ LABEL_103:
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
       OUTLINED_FUNCTION_2_3();
-      OUTLINED_FUNCTION_2_0(&_mh_execute_header, &_os_log_default, v11, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v12, v13, v14, v15, v58);
+      OUTLINED_FUNCTION_2_0(&_mh_execute_header, &_os_log_default, v11, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v12, v13, v14, v15);
     }
 
     v17 = &_os_log_default;
@@ -757,10 +755,11 @@ LABEL_103:
       {
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
-          *&v59[4] = HIDWORD(v30);
+          *v58 = 134218240;
+          *&v58[4] = v30;
           OUTLINED_FUNCTION_3();
-          v60[0] = v31;
-          OUTLINED_FUNCTION_2_0(&_mh_execute_header, &_os_log_default, v48, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v49, v50, v51, v52, 0);
+          *&v58[14] = v31;
+          OUTLINED_FUNCTION_2_0(&_mh_execute_header, &_os_log_default, v48, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v49, v50, v51, v52, *v58, *&v58[8]);
         }
 
         v32 = &_os_log_default;
@@ -770,10 +769,10 @@ LABEL_103:
       if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
       {
         [(ACCPlatformPowerInfo *)self accessoryChargingCurrent];
-        v58 = 67109376;
-        *v59 = accessoryChargingCurrent;
+        *v58 = 67109376;
+        *&v58[4] = accessoryChargingCurrent;
         OUTLINED_FUNCTION_9_13();
-        *&v59[6] = v35;
+        *&v58[10] = v35;
         OUTLINED_FUNCTION_11_10();
         _os_log_impl(v36, v37, v38, v39, v40, 0xEu);
       }
@@ -791,7 +790,7 @@ LABEL_103:
           if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
           {
             OUTLINED_FUNCTION_2_3();
-            OUTLINED_FUNCTION_2_0(&_mh_execute_header, &_os_log_default, v53, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v54, v55, v56, v57, v58);
+            OUTLINED_FUNCTION_2_0(&_mh_execute_header, &_os_log_default, v53, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v54, v55, v56, v57);
           }
 
           v42 = &_os_log_default;
@@ -802,13 +801,13 @@ LABEL_103:
         {
           accessoryChargingCurrent2 = [(ACCPlatformPowerInfo *)self accessoryChargingCurrent];
           [(ACCPlatformPowerInfo *)self accessoryChargingCurrent];
-          v58 = 67109632;
-          *v59 = 7;
+          *v58 = 67109632;
+          *&v58[4] = 7;
           OUTLINED_FUNCTION_9_13();
-          *&v59[6] = accessoryChargingCurrent2;
-          LOWORD(v60[0]) = v45;
-          *(v60 + 2) = v46;
-          _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "[#Power] Sending Power Update (for sleep): %d: %d->%d\n", &v58, 0x14u);
+          *&v58[10] = accessoryChargingCurrent2;
+          *&v58[14] = v45;
+          *&v58[16] = v46;
+          _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "[#Power] Sending Power Update (for sleep): %d: %d->%d\n", v58, 0x14u);
         }
 
         [(ACCPlatformPowerInfo *)self endpointUID];
@@ -848,7 +847,7 @@ LABEL_103:
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
       OUTLINED_FUNCTION_2_3();
-      OUTLINED_FUNCTION_2_0(&_mh_execute_header, &_os_log_default, v11, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v12, v13, v14, v15, v57);
+      OUTLINED_FUNCTION_2_0(&_mh_execute_header, &_os_log_default, v11, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v12, v13, v14, v15);
     }
 
     v17 = &_os_log_default;
@@ -893,57 +892,66 @@ LABEL_103:
       -[ACCPlatformPowerInfo setAccessoryChargingCurrent:](self, "setAccessoryChargingCurrent:", [isModelNumberConnected accessoryChargingCurrentInmA:connectionUID2]);
 
       v30 = *(v6 + 3928);
-      if (v30 && *(v7 + 3936) >= 8)
+      v31 = *(v7 + 3936);
+      if (v30 && v31 >= 8)
       {
-        v31 = *(v30 + 56);
+        v32 = *(v30 + 56);
       }
 
       else
       {
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
+          *v60 = 134218240;
+          *&v60[4] = v30;
           OUTLINED_FUNCTION_3();
-          OUTLINED_FUNCTION_2_0(&_mh_execute_header, &_os_log_default, v47, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v48, v49, v50, v51, 0);
+          *&v60[14] = v31;
+          OUTLINED_FUNCTION_2_0(&_mh_execute_header, &_os_log_default, v50, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v51, v52, v53, v54, *v60, *&v60[8], *&v60[16]);
         }
 
-        v31 = &_os_log_default;
         v32 = &_os_log_default;
+        v33 = &_os_log_default;
       }
 
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
       {
         [(ACCPlatformPowerInfo *)self accessoryChargingCurrent];
         OUTLINED_FUNCTION_9_13();
+        *&v60[12] = v34;
         OUTLINED_FUNCTION_11_10();
-        _os_log_impl(v33, v34, v35, v36, v37, 0xEu);
+        _os_log_impl(v35, v36, v37, v38, v39, 0xEu);
       }
 
       if (accessoryChargingCurrent != [(ACCPlatformPowerInfo *)self accessoryChargingCurrent])
       {
-        v38 = *(v6 + 3928);
-        if (v38 && *(v7 + 3936) >= 8)
+        v40 = *(v6 + 3928);
+        v41 = *(v7 + 3936);
+        if (v40 && v41 >= 8)
         {
-          v39 = *(v38 + 56);
+          v42 = *(v40 + 56);
         }
 
         else
         {
           if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
           {
+            *v60 = 134218240;
+            *&v60[4] = v40;
             OUTLINED_FUNCTION_3();
-            OUTLINED_FUNCTION_2_0(&_mh_execute_header, &_os_log_default, v52, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v53, v54, v55, v56, 0);
+            *&v60[14] = v41;
+            OUTLINED_FUNCTION_2_0(&_mh_execute_header, &_os_log_default, v55, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v56, v57, v58, v59, *v60, *&v60[8], *&v60[16]);
           }
 
-          v39 = &_os_log_default;
-          v40 = &_os_log_default;
+          v42 = &_os_log_default;
+          v43 = &_os_log_default;
         }
 
-        if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
         {
           [(ACCPlatformPowerInfo *)self accessoryChargingCurrent];
           OUTLINED_FUNCTION_9_13();
           OUTLINED_FUNCTION_11_10();
-          _os_log_impl(v41, v42, v43, v44, v45, 0x14u);
+          _os_log_impl(v44, v45, v46, v47, v48, 0x14u);
         }
 
         [(ACCPlatformPowerInfo *)self endpointUID];
@@ -954,46 +962,11 @@ LABEL_103:
   }
 }
 
-- (void)powerInfoChangeNotificationHandler:(unsigned __int8 *)a1 .cold.3(unsigned __int8 *a1)
-{
-  v1 = *a1;
-  OUTLINED_FUNCTION_2_27();
-  OUTLINED_FUNCTION_6_18(&_mh_execute_header, v2, v3, "[#Power] Sending Power Update: %d: %d->%d\n", 67109632, v4, v5);
-}
-
-- (void)powerInfoChangeNotificationHandler:(unsigned int *)a1 .cold.5(unsigned int *a1)
-{
-  v1 = *a1;
-  OUTLINED_FUNCTION_2_27();
-  OUTLINED_FUNCTION_6_18(&_mh_execute_header, v2, v3, "[#Power] Sending Power Update: %d: %d->%d\n", 67109632, v4, v5);
-}
-
-- (void)powerInfoChangeNotificationHandler:(unsigned __int8 *)a1 .cold.7(unsigned __int8 *a1)
-{
-  v1 = *a1;
-  OUTLINED_FUNCTION_2_27();
-  OUTLINED_FUNCTION_6_18(&_mh_execute_header, v2, v3, "[#Power] Sending Power Update: %d: %d->%d\n", 67109632, v4, v5);
-}
-
 - (void)powerInfoChangeNotificationHandler:(NSObject *)a3 .cold.10(unsigned __int8 a1, unsigned __int8 *a2, NSObject *a3)
 {
   LOWORD(v3) = 1024;
   HIWORD(v3) = a1;
   OUTLINED_FUNCTION_6_18(&_mh_execute_header, a2, a3, "[#Power] Sending Power Update: %d: %d->%d\n", 67109632, v3, *a2);
-}
-
-- (void)powerInfoChangeNotificationHandler:(unsigned __int8 *)a1 .cold.12(unsigned __int8 *a1)
-{
-  v1 = *a1;
-  OUTLINED_FUNCTION_2_27();
-  OUTLINED_FUNCTION_6_18(&_mh_execute_header, v2, v3, "[#Power] Sending Power Update: %d: %d->%d\n", 67109632, v4, v5);
-}
-
-- (void)powerInfoChangeNotificationHandler:(unsigned __int16 *)a1 .cold.16(unsigned __int16 *a1)
-{
-  v1 = *a1;
-  OUTLINED_FUNCTION_2_27();
-  OUTLINED_FUNCTION_6_18(&_mh_execute_header, v2, v3, "[#Power] Sending Power Update: %d: %d->%d\n", 67109632, v4, v5);
 }
 
 @end

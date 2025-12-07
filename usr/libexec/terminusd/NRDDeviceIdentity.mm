@@ -87,13 +87,13 @@
     if (IsLevelEnabled)
     {
       v15 = sub_10015B480();
-      _NRLogWithArgs();
+      _NRLogWithArgs(v15, 16, "%s%.30s:%-4d ABORTING: [super init] failed", ", "[NRDDeviceIdentity initWithCoder:]"", 828);
     }
 
     coderCopy = _os_log_pack_size();
     v6 = (&v23 - ((coderCopy + 15) & 0xFFFFFFFFFFFFFFF0));
-    v16 = *__error();
-    v17 = _os_log_pack_fill();
+    v16 = __error();
+    v17 = _os_log_pack_fill(v6, coderCopy, *v16, &_mh_execute_header, "%{public}s [super init] failed");
     *v17 = 136446210;
     *(v17 + 4) = "[NRDDeviceIdentity initWithCoder:]";
     sub_10015B480();
@@ -105,8 +105,8 @@ LABEL_9:
     if (v19)
     {
       v20 = sub_10015B480();
+      _NRLogWithArgs(v20, 17, "%s called with null self.identity");
 LABEL_13:
-      _NRLogWithArgs();
     }
 
 LABEL_14:
@@ -136,6 +136,7 @@ LABEL_14:
     if (v22)
     {
       v20 = sub_10015B480();
+      _NRLogWithArgs(v20, 17, "%s called with null self.publicKey");
       goto LABEL_13;
     }
 

@@ -2544,7 +2544,7 @@ LABEL_36:
     v7 = AXSettingsReturnObjectValueWithClass(@"AXSAssistiveTouchHeadTrackingExpressionToActionMapping", dictionary, v6);
 
     dictionary2 = [MEMORY[0x1E695DF90] dictionary];
-    v9 = AXAssistiveTouchDisallowedBaseActions();
+    v9 = AXAssistiveTouchDisallowedBaseActions(dictionary2);
     v18 = MEMORY[0x1E69E9820];
     v19 = 3221225472;
     v20 = __87__AXSettings_LegacyImplementation__assistiveTouchHeadTrackingExpressionToActionMapping__block_invoke;
@@ -2986,7 +2986,7 @@ LABEL_6:
   _Block_object_dispose(&v15, 8);
 }
 
-uint64_t __60__AXSettings_LegacyImplementation__updateCustomizableMouse___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__60__AXSettings_LegacyImplementation__updateCustomizableMouse___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   result = [*(a1 + 32) isEqualToMouse:a2];
   if (result)
@@ -3917,68 +3917,69 @@ LABEL_15:
 
 - (NSArray)deviceKeys
 {
-  v24[22] = *MEMORY[0x1E69E9840];
+  v25[22] = *MEMORY[0x1E69E9840];
   v2 = objc_opt_new();
   v3 = *MEMORY[0x1E6988458];
-  v24[0] = *MEMORY[0x1E69883B8];
-  v24[1] = v3;
+  v25[0] = *MEMORY[0x1E69883B8];
+  v25[1] = v3;
   v4 = *MEMORY[0x1E69883D0];
-  v24[2] = *MEMORY[0x1E6988400];
-  v24[3] = v4;
+  v25[2] = *MEMORY[0x1E6988400];
+  v25[3] = v4;
   v5 = *MEMORY[0x1E6988410];
-  v24[4] = *MEMORY[0x1E69883E8];
-  v24[5] = v5;
+  v25[4] = *MEMORY[0x1E69883E8];
+  v25[5] = v5;
   v6 = *MEMORY[0x1E6988470];
-  v24[6] = *MEMORY[0x1E69883F8];
-  v24[7] = v6;
+  v25[6] = *MEMORY[0x1E69883F8];
+  v25[7] = v6;
   v7 = *MEMORY[0x1E6988430];
-  v24[8] = *MEMORY[0x1E6988440];
-  v24[9] = v7;
+  v25[8] = *MEMORY[0x1E6988440];
+  v25[9] = v7;
   v8 = *MEMORY[0x1E6988428];
-  v24[10] = *MEMORY[0x1E6988460];
-  v24[11] = v8;
+  v25[10] = *MEMORY[0x1E6988460];
+  v25[11] = v8;
   v9 = *MEMORY[0x1E69883D8];
-  v24[12] = *MEMORY[0x1E6988420];
-  v24[13] = v9;
+  v25[12] = *MEMORY[0x1E6988420];
+  v25[13] = v9;
   v10 = *MEMORY[0x1E6988418];
-  v24[14] = *MEMORY[0x1E6988438];
-  v24[15] = v10;
+  v25[14] = *MEMORY[0x1E6988438];
+  v25[15] = v10;
   v11 = *MEMORY[0x1E69883E0];
-  v24[16] = *MEMORY[0x1E69883C0];
-  v24[17] = v11;
+  v25[16] = *MEMORY[0x1E69883C0];
+  v25[17] = v11;
   v12 = *MEMORY[0x1E6988450];
-  v24[18] = *MEMORY[0x1E69883C8];
-  v24[19] = v12;
+  v25[18] = *MEMORY[0x1E69883C8];
+  v25[19] = v12;
   v13 = *MEMORY[0x1E6988408];
-  v24[20] = *MEMORY[0x1E6988448];
-  v24[21] = v13;
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:22];
+  v25[20] = *MEMORY[0x1E6988448];
+  v25[21] = v13;
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:22];
   [v2 addObjectsFromArray:v14];
 
   if (AXDeviceIsSiriAvailable())
   {
-    v23 = *MEMORY[0x1E6988468];
-    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v23 count:1];
+    v24 = *MEMORY[0x1E6988468];
+    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v24 count:1];
     [v2 addObjectsFromArray:v15];
   }
 
-  if (AXDeviceSupportsCameraButton())
+  v16 = AXDeviceSupportsCameraButton();
+  if (v16)
   {
-    v16 = *MEMORY[0x1E69883A8];
-    v22[0] = *MEMORY[0x1E6988398];
-    v22[1] = v16;
-    v17 = *MEMORY[0x1E69885D8];
-    v22[2] = *MEMORY[0x1E69883A0];
-    v22[3] = v17;
-    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:4];
-    [v2 addObjectsFromArray:v18];
+    v17 = *MEMORY[0x1E69883A8];
+    v23[0] = *MEMORY[0x1E6988398];
+    v23[1] = v17;
+    v18 = *MEMORY[0x1E69885D8];
+    v23[2] = *MEMORY[0x1E69883A0];
+    v23[3] = v18;
+    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:4];
+    [v2 addObjectsFromArray:v19];
   }
 
-  if (AXDeviceSupportsMultitasking())
+  if (AXDeviceSupportsMultitasking(v16))
   {
-    v21 = *MEMORY[0x1E69883F0];
-    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v21 count:1];
-    [v2 addObjectsFromArray:v19];
+    v22 = *MEMORY[0x1E69883F0];
+    v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v22 count:1];
+    [v2 addObjectsFromArray:v20];
   }
 
   return v2;
@@ -4774,7 +4775,7 @@ LABEL_8:
 
 - (NSOrderedSet)zoomPreferredLensModes
 {
-  v2 = AXZoomUserSelectableLensModes();
+  v2 = AXZoomUserSelectableLensModes(self);
   v3 = objc_opt_class();
   v4 = AXSettingsReturnObjectValueWithClass(@"ZoomPreferredLensModes", v2, v3);
 
@@ -4791,7 +4792,7 @@ LABEL_8:
 
 - (NSOrderedSet)zoomPreferredDockPositions
 {
-  v2 = AXZoomDockPositions();
+  v2 = AXZoomDockPositions(self);
   v3 = objc_opt_class();
   v4 = AXSettingsReturnObjectValueWithClass(@"ZoomPreferredDockPositions", v2, v3);
 
@@ -4958,42 +4959,42 @@ LABEL_8:
 
 - (NSString)guidedAccessToneIdentifierForTimeRestrictionEvents
 {
-  v3 = [(AXSettings *)self valueForPreferenceKey:@"GuidedAccessToneIdentifierForTimeRestrictionEvent"];
-  if (!v3)
+  v4 = [(AXSettings *)self valueForPreferenceKey:@"GuidedAccessToneIdentifierForTimeRestrictionEvent"];
+  if (!v4)
   {
     goto LABEL_5;
   }
 
-  v11 = 0;
-  v12 = &v11;
-  v13 = 0x2050000000;
-  v4 = getTLToneManagerClass_softClass;
-  v14 = getTLToneManagerClass_softClass;
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x2050000000;
+  v5 = getTLToneManagerClass_softClass;
+  v15 = getTLToneManagerClass_softClass;
   if (!getTLToneManagerClass_softClass)
   {
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __getTLToneManagerClass_block_invoke;
-    v10[3] = &unk_1E71E9A80;
-    v10[4] = &v11;
-    __getTLToneManagerClass_block_invoke(v10);
-    v4 = v12[3];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __getTLToneManagerClass_block_invoke;
+    v11[3] = &unk_1E71E9A80;
+    v11[4] = &v12;
+    __getTLToneManagerClass_block_invoke(v11, v3);
+    v5 = v13[3];
   }
 
-  v5 = v4;
-  _Block_object_dispose(&v11, 8);
-  sharedToneManager = [v4 sharedToneManager];
-  v7 = [sharedToneManager toneWithIdentifierIsValid:v3];
+  v6 = v5;
+  _Block_object_dispose(&v12, 8);
+  sharedToneManager = [v5 sharedToneManager];
+  v8 = [sharedToneManager toneWithIdentifierIsValid:v4];
 
-  if ((v7 & 1) == 0)
+  if ((v8 & 1) == 0)
   {
 LABEL_5:
     guidedAccessDefaultToneIdentifierForTimeRestrictionEvents = [(AXSettings *)self guidedAccessDefaultToneIdentifierForTimeRestrictionEvents];
 
-    v3 = guidedAccessDefaultToneIdentifierForTimeRestrictionEvents;
+    v4 = guidedAccessDefaultToneIdentifierForTimeRestrictionEvents;
   }
 
-  return v3;
+  return v4;
 }
 
 - (NSString)guidedAccessDefaultToneIdentifierForTimeRestrictionEvents
@@ -6970,7 +6971,7 @@ uint64_t __55__AXSettings_LegacyImplementation__voiceOverRotorItems__block_invok
   [preferredLanguages enumerateObjectsUsingBlock:&__block_literal_global_2157];
 }
 
-uint64_t __50__AXSettings_LegacyImplementation___localeChange___block_invoke(uint64_t a1, uint64_t a2)
+void *__50__AXSettings_LegacyImplementation___localeChange___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [MEMORY[0x1E695DF58] characterDirectionForLanguage:a2];
   AnyUserPreferredLanguageIsRTL |= result == 2;
@@ -8785,7 +8786,7 @@ LABEL_8:
 
 - (NSDictionary)voiceOverHandGesturesActionCustomizations
 {
-  if (_os_feature_enabled_impl() && VoiceOverServicesLibraryCore())
+  if (_os_feature_enabled_impl() && VoiceOverServicesLibraryCore(0))
   {
     v3 = [(AXSettings *)self valueForPreferenceKey:@"VoiceOverWatchHandGesturesActionCustomizations"];
     objc_opt_class();
@@ -8855,7 +8856,7 @@ LABEL_8:
 
 - (NSDictionary)zoomHandGesturesActionCustomizations
 {
-  if (_os_feature_enabled_impl() && operator||())
+  if (_os_feature_enabled_impl() && operator||(0))
   {
     v3 = [(AXSettings *)self valueForPreferenceKey:@"ZoomWatchHandGesturesActionCustomizations"];
     objc_opt_class();
@@ -11571,7 +11572,7 @@ LABEL_11:
   v7[3] = v4;
   v7[4] = v6;
   selfCopy = self;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA9B70D8);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA9B70D8, &qword_18B2FAA60);
   sub_18B2C95A4();
 
   return v10;
@@ -11626,7 +11627,7 @@ LABEL_11:
   v13[6] = v9;
   v13[7] = exists;
   selfCopy = self;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA9B6868);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA9B6868, &qword_18B2F9B40);
   sub_18B2C95A4();
 
   if (v17)

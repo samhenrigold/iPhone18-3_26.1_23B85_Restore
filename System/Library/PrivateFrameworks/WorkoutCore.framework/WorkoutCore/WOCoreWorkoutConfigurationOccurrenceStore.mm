@@ -18,7 +18,7 @@
   }
 
   v6.receiver = selfCopy;
-  v6.super_class = type metadata accessor for WorkoutConfigurationOccurrenceStore();
+  v6.super_class = type metadata accessor for WorkoutConfigurationOccurrenceStore(0);
   [(WOCoreWorkoutConfigurationOccurrenceStore *)&v6 dealloc];
 }
 
@@ -27,9 +27,10 @@
   forCopy = for;
   goalCopy = goal;
   selfCopy = self;
-  v9 = WorkoutConfigurationOccurrenceStore.goalConfiguration(for:goal:)(forCopy, goal);
+  WorkoutConfigurationOccurrenceStore.goalConfiguration(for:goal:)(forCopy, goal);
+  v10 = v9;
 
-  return v9;
+  return v10;
 }
 
 - (WOCoreWorkoutConfigurationOccurrenceStore)init

@@ -133,40 +133,40 @@ LABEL_27:
 
 - (int)inferenceWithPixelBuffer:(__CVBuffer *)buffer toDestinationPixelBuffer:(__CVBuffer *)pixelBuffer
 {
-  v4 = VCPSignPostLog();
+  v4 = VCPSignPostLog(self);
   v5 = os_signpost_id_generate(v4);
 
-  v6 = VCPSignPostLog();
-  v7 = v6;
-  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
+  v7 = VCPSignPostLog(v6);
+  v8 = v7;
+  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v7, OS_SIGNPOST_INTERVAL_BEGIN, v5, "VCPMADMLScalingInference", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v5, "VCPMADMLScalingInference", "", buf, 2u);
   }
 
-  result = espresso_network_bind_direct_cvpixelbuffer();
-  if (!result)
+  LODWORD(v9) = espresso_network_bind_direct_cvpixelbuffer();
+  if (!v9)
   {
-    result = espresso_network_bind_direct_cvpixelbuffer();
-    if (!result)
+    LODWORD(v9) = espresso_network_bind_direct_cvpixelbuffer();
+    if (!v9)
     {
-      result = espresso_plan_execute_sync();
-      if (!result)
+      v9 = espresso_plan_execute_sync();
+      if (!v9)
       {
-        v9 = VCPSignPostLog();
-        v10 = v9;
-        if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
+        v10 = VCPSignPostLog(v9);
+        v11 = v10;
+        if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
         {
-          *v11 = 0;
-          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v10, OS_SIGNPOST_INTERVAL_END, v5, "VCPMADMLScalingInference", "", v11, 2u);
+          *v13 = 0;
+          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v11, OS_SIGNPOST_INTERVAL_END, v5, "VCPMADMLScalingInference", "", v13, 2u);
         }
 
-        return 0;
+        LODWORD(v9) = 0;
       }
     }
   }
 
-  return result;
+  return v9;
 }
 
 @end

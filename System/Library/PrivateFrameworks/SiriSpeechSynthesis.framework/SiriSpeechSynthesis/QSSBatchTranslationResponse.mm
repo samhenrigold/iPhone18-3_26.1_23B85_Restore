@@ -44,7 +44,7 @@ flatbuffers::DetachedBuffer *__43__QSSBatchTranslationResponse_flatbuffData__blo
 
 - (Offset<siri::speech::schema_fb::BatchTranslationResponse>)addObjectToBuffer:(void *)buffer
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   request_id = [(QSSBatchTranslationResponse *)self request_id];
   v6 = request_id;
   if (!request_id)
@@ -66,7 +66,7 @@ flatbuffers::DetachedBuffer *__43__QSSBatchTranslationResponse_flatbuffData__blo
 
   uTF8String2 = [(__CFString *)return_string UTF8String];
   v13 = strlen(uTF8String2);
-  v41 = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String2, v13);
+  v40 = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String2, v13);
 
   paragraph_id = [(QSSBatchTranslationResponse *)self paragraph_id];
   v15 = paragraph_id;
@@ -77,7 +77,7 @@ flatbuffers::DetachedBuffer *__43__QSSBatchTranslationResponse_flatbuffData__blo
 
   uTF8String3 = [(__CFString *)paragraph_id UTF8String];
   v17 = strlen(uTF8String3);
-  v40 = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String3, v17);
+  v39 = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String3, v17);
 
   translated_text = [(QSSBatchTranslationResponse *)self translated_text];
   v19 = translated_text;
@@ -88,51 +88,51 @@ flatbuffers::DetachedBuffer *__43__QSSBatchTranslationResponse_flatbuffData__blo
 
   uTF8String4 = [(__CFString *)translated_text UTF8String];
   v21 = strlen(uTF8String4);
-  v39 = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String4, v21);
+  v38 = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String4, v21);
 
-  memset(&v53, 0, sizeof(v53));
+  memset(&v49, 0, sizeof(v49));
   span = [(QSSBatchTranslationResponse *)self span];
-  std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::reserve(&v53, [span count]);
+  std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::reserve(&v49, [span count]);
 
-  v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
-  v50 = 0u;
+  v47 = 0u;
+  v48 = 0u;
+  v45 = 0u;
+  v46 = 0u;
   span2 = [(QSSBatchTranslationResponse *)self span];
-  v24 = [span2 countByEnumeratingWithState:&v49 objects:v55 count:16];
+  v24 = [span2 countByEnumeratingWithState:&v45 objects:v51 count:16];
   if (v24)
   {
-    v25 = *v50;
+    v25 = *v46;
     do
     {
       for (i = 0; i != v24; ++i)
       {
-        if (*v50 != v25)
+        if (*v46 != v25)
         {
           objc_enumerationMutation(span2);
         }
 
-        v48 = [*(*(&v49 + 1) + 8 * i) addObjectToBuffer:buffer];
-        std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::push_back[abi:ne200100](&v53, &v48);
+        v44 = [*(*(&v45 + 1) + 8 * i) addObjectToBuffer:buffer];
+        std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::push_back[abi:ne200100](&v49, &v44);
       }
 
-      v24 = [span2 countByEnumeratingWithState:&v49 objects:v55 count:16];
+      v24 = [span2 countByEnumeratingWithState:&v45 objects:v51 count:16];
     }
 
     while (v24);
   }
 
-  if (v53.__end_ == v53.__begin_)
+  if (v49.__end_ == v49.__begin_)
   {
     begin = &flatbuffers::data<flatbuffers::Offset<siri::speech::schema_fb::RepeatedSpan>,std::allocator<flatbuffers::Offset<siri::speech::schema_fb::RepeatedSpan>>>(std::vector<flatbuffers::Offset<siri::speech::schema_fb::RepeatedSpan>> const&)::t;
   }
 
   else
   {
-    begin = v53.__begin_;
+    begin = v49.__begin_;
   }
 
-  v38 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>(buffer, begin, v53.__end_ - v53.__begin_);
+  v37 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>(buffer, begin, v49.__end_ - v49.__begin_);
   translated_sentences = [(QSSBatchTranslationResponse *)self translated_sentences];
   v29 = [translated_sentences count];
   if (v29)
@@ -145,16 +145,11 @@ flatbuffers::DetachedBuffer *__43__QSSBatchTranslationResponse_flatbuffData__blo
     std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::__throw_length_error[abi:ne200100]();
   }
 
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
-  v45 = 0u;
+  memset(v43, 0, sizeof(v43));
   obj = [(QSSBatchTranslationResponse *)self translated_sentences];
-  if ([obj countByEnumeratingWithState:&v44 objects:v54 count:16])
+  if ([obj countByEnumeratingWithState:v43 objects:v50 count:16])
   {
-    *v45;
-    *v45;
-    [**(&v44 + 1) addObjectToBuffer:buffer];
+    [**(&v43[0] + 1) addObjectToBuffer:buffer];
     std::__allocate_at_least[abi:ne200100]<std::allocator<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>>(1uLL);
   }
 
@@ -167,10 +162,10 @@ flatbuffers::DetachedBuffer *__43__QSSBatchTranslationResponse_flatbuffData__blo
   v33 = *(buffer + 10);
   flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 4, String);
   flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(buffer, 6, return_code);
-  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 8, v41);
-  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 10, v40);
-  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 12, v39);
-  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 14, v38);
+  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 8, v40);
+  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 10, v39);
+  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 12, v38);
+  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 14, v37);
   if (v30)
   {
     v34 = flatbuffers::FlatBufferBuilder::ReferTo(buffer, v30);
@@ -178,12 +173,11 @@ flatbuffers::DetachedBuffer *__43__QSSBatchTranslationResponse_flatbuffData__blo
   }
 
   v35.var0 = flatbuffers::FlatBufferBuilder::EndTable(buffer, v31 - v32 + v33);
-  if (v53.__begin_)
+  if (v49.__begin_)
   {
-    operator delete(v53.__begin_);
+    operator delete(v49.__begin_);
   }
 
-  v36 = *MEMORY[0x277D85DE8];
   return v35;
 }
 

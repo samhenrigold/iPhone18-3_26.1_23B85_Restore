@@ -28,22 +28,20 @@
 
 - (void)processElement:(id)element attributes:(id)attributes objectModel:(id)model completion:(id)completion
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   elementCopy = element;
   completionCopy = completion;
-  v10 = _FALogSystem();
+  v10 = _FALogSystem(completionCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     attributes = [elementCopy attributes];
-    v14 = 138412290;
-    v15 = attributes;
-    _os_log_impl(&dword_21BB35000, v10, OS_LOG_TYPE_DEFAULT, "process element attributes %@", &v14, 0xCu);
+    v13 = 138412290;
+    v14 = attributes;
+    _os_log_impl(&dword_21BB35000, v10, OS_LOG_TYPE_DEFAULT, "process element attributes %@", &v13, 0xCu);
   }
 
   attributes2 = [elementCopy attributes];
   [(FAResendFamilyInviteHook *)self loadResendRequestWithAttributes:attributes2 completion:completionCopy];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processObjectModel:(id)model completion:(id)completion
@@ -84,27 +82,25 @@ void __71__FAResendFamilyInviteHook_loadResendRequestWithAttributes_completion__
 
   if (v4)
   {
-    v5 = _FALogSystem();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = _FALogSystem(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = [v3 error];
-      v7 = [v6 localizedDescription];
+      v7 = [v3 error];
+      v8 = [v7 localizedDescription];
       v11 = 138412290;
-      v12 = v7;
-      _os_log_impl(&dword_21BB35000, v5, OS_LOG_TYPE_DEFAULT, "Error from state controller for resend family invite %@", &v11, 0xCu);
+      v12 = v8;
+      _os_log_impl(&dword_21BB35000, v6, OS_LOG_TYPE_DEFAULT, "Error from state controller for resend family invite %@", &v11, 0xCu);
     }
 
-    v8 = *(a1 + 32);
-    v9 = [v3 error];
-    (*(v8 + 16))(v8, 1, v9);
+    v9 = *(a1 + 32);
+    v10 = [v3 error];
+    (*(v9 + 16))(v9, 1, v10);
   }
 
   else
   {
     (*(*(a1 + 32) + 16))();
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (RUIServerHookDelegate)delegate

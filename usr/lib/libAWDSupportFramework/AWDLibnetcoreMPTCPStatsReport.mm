@@ -900,7 +900,6 @@ LABEL_31:
   has = self->_has;
   if ((*&has & 0x400) != 0)
   {
-    mptcpHandoverAttempts = self->_mptcpHandoverAttempts;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((*&has & 0x2000000) == 0)
@@ -920,7 +919,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  mptcpInteractiveAttempt = self->_mptcpInteractiveAttempt;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 2) == 0)
@@ -935,7 +933,6 @@ LABEL_4:
   }
 
 LABEL_34:
-  mptcpAggregateAttempt = self->_mptcpAggregateAttempt;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x80) == 0)
@@ -950,7 +947,6 @@ LABEL_5:
   }
 
 LABEL_35:
-  mptcpFirstPartyHandoverAttempt = self->_mptcpFirstPartyHandoverAttempt;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x100) == 0)
@@ -965,7 +961,6 @@ LABEL_6:
   }
 
 LABEL_36:
-  mptcpFirstPartyInteractiveAttempt = self->_mptcpFirstPartyInteractiveAttempt;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x40) == 0)
@@ -980,7 +975,6 @@ LABEL_7:
   }
 
 LABEL_37:
-  mptcpFirstPartyAggregateAttempt = self->_mptcpFirstPartyAggregateAttempt;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x400000) == 0)
@@ -995,7 +989,6 @@ LABEL_8:
   }
 
 LABEL_38:
-  mptcpHeuristicFallback = self->_mptcpHeuristicFallback;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x800000) == 0)
@@ -1010,7 +1003,6 @@ LABEL_9:
   }
 
 LABEL_39:
-  mptcpHeuristicFallbackFirstParty = self->_mptcpHeuristicFallbackFirstParty;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x40000) == 0)
@@ -1025,7 +1017,6 @@ LABEL_10:
   }
 
 LABEL_40:
-  mptcpHandshakeHandoverSuccessWiFi = self->_mptcpHandshakeHandoverSuccessWiFi;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x10000) == 0)
@@ -1040,7 +1031,6 @@ LABEL_11:
   }
 
 LABEL_41:
-  mptcpHandshakeHandoverSuccessCell = self->_mptcpHandshakeHandoverSuccessCell;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x100000) == 0)
@@ -1055,7 +1045,6 @@ LABEL_12:
   }
 
 LABEL_42:
-  mptcpHandshakeInteractiveSuccess = self->_mptcpHandshakeInteractiveSuccess;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x4000) == 0)
@@ -1070,7 +1059,6 @@ LABEL_13:
   }
 
 LABEL_43:
-  mptcpHandshakeAggregateSuccess = self->_mptcpHandshakeAggregateSuccess;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x80000) == 0)
@@ -1085,7 +1073,6 @@ LABEL_14:
   }
 
 LABEL_44:
-  mptcpHandshakeHandoverSuccessWiFiFirstParty = self->_mptcpHandshakeHandoverSuccessWiFiFirstParty;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x20000) == 0)
@@ -1100,7 +1087,6 @@ LABEL_15:
   }
 
 LABEL_45:
-  mptcpHandshakeHandoverSuccessCellFirstParty = self->_mptcpHandshakeHandoverSuccessCellFirstParty;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x200000) == 0)
@@ -1115,7 +1101,6 @@ LABEL_16:
   }
 
 LABEL_46:
-  mptcpHandshakeInteractiveSuccessFirstParty = self->_mptcpHandshakeInteractiveSuccessFirstParty;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x8000) == 0)
@@ -1130,7 +1115,6 @@ LABEL_17:
   }
 
 LABEL_47:
-  mptcpHandshakeAggregateSuccessFirstParty = self->_mptcpHandshakeAggregateSuccessFirstParty;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x1000) == 0)
@@ -1145,7 +1129,6 @@ LABEL_18:
   }
 
 LABEL_48:
-  mptcpHandoverCellSubflowFromWiFi = self->_mptcpHandoverCellSubflowFromWiFi;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x2000) == 0)
@@ -1160,7 +1143,6 @@ LABEL_19:
   }
 
 LABEL_49:
-  mptcpHandoverWiFiSubflowFromCell = self->_mptcpHandoverWiFiSubflowFromCell;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x8000000) == 0)
@@ -1175,7 +1157,6 @@ LABEL_20:
   }
 
 LABEL_50:
-  mptcpInteractiveCellUsage = self->_mptcpInteractiveCellUsage;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x800) == 0)
@@ -1190,7 +1171,6 @@ LABEL_21:
   }
 
 LABEL_51:
-  mptcpHandoverCellBytes = self->_mptcpHandoverCellBytes;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x4000000) == 0)
@@ -1205,7 +1185,6 @@ LABEL_22:
   }
 
 LABEL_52:
-  mptcpInteractiveCellBytes = self->_mptcpInteractiveCellBytes;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 4) == 0)
@@ -1220,7 +1199,6 @@ LABEL_23:
   }
 
 LABEL_53:
-  mptcpAggregateCellBytes = self->_mptcpAggregateCellBytes;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x200) == 0)
@@ -1235,7 +1213,6 @@ LABEL_24:
   }
 
 LABEL_54:
-  mptcpHandoverAllBytes = self->_mptcpHandoverAllBytes;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x1000000) == 0)
@@ -1250,7 +1227,6 @@ LABEL_25:
   }
 
 LABEL_55:
-  mptcpInteractiveAllBytes = self->_mptcpInteractiveAllBytes;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 1) == 0)
@@ -1265,7 +1241,6 @@ LABEL_26:
   }
 
 LABEL_56:
-  mptcpAggregateAllBytes = self->_mptcpAggregateAllBytes;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 8) == 0)
@@ -1280,7 +1255,6 @@ LABEL_27:
   }
 
 LABEL_57:
-  mptcpBackToWiFi = self->_mptcpBackToWiFi;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x10) == 0)
@@ -1295,7 +1269,6 @@ LABEL_28:
   }
 
 LABEL_58:
-  mptcpCellDenied = self->_mptcpCellDenied;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x20) == 0)
@@ -1307,7 +1280,6 @@ LABEL_29:
     }
 
 LABEL_60:
-    mptcpWiFiProxy = self->_mptcpWiFiProxy;
     PBDataWriterWriteUint64Field();
     if ((*&self->_has & 0x10000000) == 0)
     {
@@ -1318,7 +1290,6 @@ LABEL_60:
   }
 
 LABEL_59:
-  mptcpCellProxy = self->_mptcpCellProxy;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x20000000) != 0)
@@ -1333,7 +1304,6 @@ LABEL_30:
   }
 
 LABEL_61:
-  mptcpTriggeredCell = self->_mptcpTriggeredCell;
 
   PBDataWriterWriteUint64Field();
 }

@@ -5,7 +5,7 @@
 
 void __67__CNContactStore_Sanitization__fetchContactsWithIdentifiers_error___block_invoke(void *a1, void *a2, _BYTE *a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = objc_autoreleasePoolPush();
   v7 = objc_alloc(MEMORY[0x277CBDA70]);
@@ -16,16 +16,16 @@ void __67__CNContactStore_Sanitization__fetchContactsWithIdentifiers_error___blo
   [v9 setPredicate:v10];
 
   [v9 setUnifyResults:1];
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __67__CNContactStore_Sanitization__fetchContactsWithIdentifiers_error___block_invoke_2;
-  v22[3] = &unk_278F8A240;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __67__CNContactStore_Sanitization__fetchContactsWithIdentifiers_error___block_invoke_2;
+  v21[3] = &unk_278F8A240;
   v11 = a1[4];
-  v22[4] = a1[5];
-  v23 = 0;
-  v12 = [v11 enumerateContactsWithFetchRequest:v9 error:&v23 usingBlock:v22];
-  v13 = v23;
-  v14 = v23;
+  v21[4] = a1[5];
+  v22 = 0;
+  v12 = [v11 enumerateContactsWithFetchRequest:v9 error:&v22 usingBlock:v21];
+  v13 = v22;
+  v14 = v22;
   v15 = DNDSLogSettings;
   if (v12)
   {
@@ -35,7 +35,7 @@ void __67__CNContactStore_Sanitization__fetchContactsWithIdentifiers_error___blo
       v17 = v15;
       v18 = [v16 count];
       *buf = 134349056;
-      v25 = v18;
+      v24 = v18;
       _os_log_impl(&dword_24912E000, v17, OS_LOG_TYPE_DEFAULT, "Fetched %{public}lld sanitizated contacts", buf, 0xCu);
     }
   }
@@ -56,7 +56,6 @@ void __67__CNContactStore_Sanitization__fetchContactsWithIdentifiers_error___blo
   }
 
   objc_autoreleasePoolPop(v6);
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __67__CNContactStore_Sanitization__fetchContactsWithIdentifiers_error___block_invoke_2(uint64_t a1, uint64_t a2)
@@ -67,11 +66,10 @@ void __67__CNContactStore_Sanitization__fetchContactsWithIdentifiers_error___blo
 
 void __67__CNContactStore_Sanitization__fetchContactsWithIdentifiers_error___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_24912E000, a2, OS_LOG_TYPE_ERROR, "Unable to fetch sanitized contacts: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_24912E000, a2, OS_LOG_TYPE_ERROR, "Unable to fetch sanitized contacts: %{public}@", &v2, 0xCu);
 }
 
 @end

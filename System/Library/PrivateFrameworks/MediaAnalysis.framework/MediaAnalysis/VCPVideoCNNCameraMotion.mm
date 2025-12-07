@@ -65,7 +65,7 @@
     goto LABEL_20;
   }
 
-  [(VCPCNNModelEspresso *)motionTypeModel outputBlob];
+  objc_msgSend_outputBlob(motionTypeModel);
   value = time.value;
   if (!time.value)
   {
@@ -105,7 +105,7 @@
     motionScoreModel = self->_motionScoreModel;
     if (motionScoreModel)
     {
-      [(VCPCNNModelEspresso *)motionScoreModel outputBlob];
+      objc_msgSend_outputBlob(motionScoreModel);
       v40 = time.value;
       if (time.value)
       {

@@ -1,4 +1,5 @@
 @interface _MLCGPUEmbedding
++ (id)layerWithDevice:(id)device descriptor:(id)descriptor weights:(id)weights inferenceOnly:(BOOL)only;
 - (_MLCGPUEmbedding)initWithDevice:(id)device descriptor:(id)descriptor weights:(id)weights inferenceOnly:(BOOL)only;
 @end
 
@@ -6,18 +7,18 @@
 
 - (_MLCGPUEmbedding)initWithDevice:(id)device descriptor:(id)descriptor weights:(id)weights inferenceOnly:(BOOL)only
 {
-  v44[2] = *MEMORY[0x277D85DE8];
+  v43[2] = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   descriptorCopy = descriptor;
   weightsCopy = weights;
-  v43.receiver = self;
-  v43.super_class = _MLCGPUEmbedding;
-  v12 = [(_MLCGPUEmbedding *)&v43 init];
+  v42.receiver = self;
+  v42.super_class = _MLCGPUEmbedding;
+  v12 = [(_MLCGPUEmbedding *)&v42 init];
   v13 = v12;
   if (v12)
   {
-    v39 = v12;
-    v41 = [MEMORY[0x277CBEBF8] mutableCopy];
+    v38 = v12;
+    v40 = [MEMORY[0x277CBEBF8] mutableCopy];
     deviceList = [deviceCopy deviceList];
     v15 = [deviceList count];
 
@@ -61,17 +62,17 @@
           if (maximumNorm)
           {
             maximumNorm2 = [descriptorCopy maximumNorm];
-            v44[0] = maximumNorm2;
+            v43[0] = maximumNorm2;
             pNorm = [descriptorCopy pNorm];
-            v44[1] = pNorm;
-            v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:2];
+            v43[1] = pNorm;
+            v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:2];
             [v19 setEmbeddingParams:v33];
           }
 
           [v19 setScaleGradientByFrequency:{objc_msgSend(descriptorCopy, "scalesGradientByFrequency")}];
           [v19 setSourceOfForwardNeededForGradient:1];
           [v19 setResultOfForwardNeededForGradient:0];
-          [v41 addObject:v19];
+          [v40 addObject:v19];
         }
 
         ++v16;
@@ -82,14 +83,24 @@
       while (v16 < v35);
     }
 
-    v36 = [v41 copy];
-    v13 = v39;
-    v42.receiver = v39;
-    v42.super_class = _MLCGPUEmbedding;
-    [(_MLCGPULayer *)&v42 setDeviceOps:v36];
+    v36 = [v40 copy];
+    v13 = v38;
+    v41.receiver = v38;
+    v41.super_class = _MLCGPUEmbedding;
+    [(_MLCGPULayer *)&v41 setDeviceOps:v36];
   }
 
-  v37 = *MEMORY[0x277D85DE8];
+  return v13;
+}
+
++ (id)layerWithDevice:(id)device descriptor:(id)descriptor weights:(id)weights inferenceOnly:(BOOL)only
+{
+  onlyCopy = only;
+  weightsCopy = weights;
+  descriptorCopy = descriptor;
+  deviceCopy = device;
+  v13 = [[self alloc] initWithDevice:deviceCopy descriptor:descriptorCopy weights:weightsCopy inferenceOnly:onlyCopy];
+
   return v13;
 }
 

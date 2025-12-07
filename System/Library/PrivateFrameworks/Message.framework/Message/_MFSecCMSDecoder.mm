@@ -1,8 +1,8 @@
 @interface _MFSecCMSDecoder
-- (char)initWithPartData:(void *)data error:;
 - (id)data;
 - (id)verifyAgainstSenders:(id *)senders signingError:;
 - (int64_t)appendData:(id)data;
+- (uint64_t)initWithPartData:(void *)data error:;
 - (void)dealloc;
 - (void)done;
 - (void)signedData;
@@ -10,9 +10,9 @@
 
 @implementation _MFSecCMSDecoder
 
-- (char)initWithPartData:(void *)data error:
+- (uint64_t)initWithPartData:(void *)data error:
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = a2;
   if (self)
   {
@@ -21,20 +21,20 @@
       *data = 0;
     }
 
-    v21.receiver = self;
-    v21.super_class = _MFSecCMSDecoder;
-    self = objc_msgSendSuper2(&v21, sel_init);
+    v18.receiver = self;
+    v18.super_class = _MFSecCMSDecoder;
+    self = objc_msgSendSuper2(&v18, sel_init);
     if (self)
     {
       v6 = SecCmsDecoderCreate();
       *(self + 2) = v6;
-      v7 = (self + 8);
+      v7 = (self + 1);
       if (v6)
       {
         v8 = MFLogGeneral();
         if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
         {
-          [_MFSecCMSDecoder initWithPartData:? error:?];
+          [_MFSecCMSDecoder initWithPartData:error:];
         }
       }
 
@@ -47,43 +47,41 @@
         *v7 = v10;
         if (!v10)
         {
-          v14 = SecCmsDecoderFinish();
-          *v7 = v14;
-          if (*(self + 2))
+          v13 = SecCmsDecoderFinish();
+          *v7 = v13;
+          if (self[2])
           {
-            v15 = *(self + 2);
-            self[56] = SecCmsMessageIsEncrypted() != 0;
-            v14 = *(self + 2);
+            *(self + 56) = SecCmsMessageIsEncrypted() != 0;
+            v13 = *(self + 2);
           }
 
-          if (v14)
+          if (v13)
           {
-            v16 = MFLogGeneral();
-            if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+            v14 = MFLogGeneral();
+            if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
             {
-              [_MFSecCMSDecoder initWithPartData:? error:?];
+              [_MFSecCMSDecoder initWithPartData:error:];
             }
           }
 
-          *(self + 6) = _ExtractContentWithTag(*(self + 2), 27);
-          ContentWithTag = _ExtractContentWithTag(*(self + 2), 26);
-          *(self + 5) = ContentWithTag;
+          self[6] = _ExtractContentWithTag(self[2], 27);
+          ContentWithTag = _ExtractContentWithTag(self[2], 26);
+          self[5] = ContentWithTag;
           if (ContentWithTag)
           {
             if (!SecCmsSignedDataHasDigests())
             {
-              v18 = *(self + 5);
               SecCmsSignedDataGetDigestAlgs();
               started = SecCmsDigestContextStartMultiple();
-              *(self + 3) = started;
+              self[3] = started;
               if (!started)
               {
 
-                v20 = MFLogGeneral();
-                if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+                v17 = MFLogGeneral();
+                if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
                 {
                   *buf = 0;
-                  _os_log_impl(&dword_1B0389000, v20, OS_LOG_TYPE_INFO, "#SMIMEErrors SecCmsDigestContextStartMultiple failed", buf, 2u);
+                  _os_log_impl(&dword_1B0389000, v17, OS_LOG_TYPE_INFO, "#SMIMEErrors SecCmsDigestContextStartMultiple failed", buf, 2u);
                 }
 
                 if (data)
@@ -119,14 +117,13 @@ LABEL_13:
     }
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return self;
 }
 
 - (id)verifyAgainstSenders:(id *)senders signingError:
 {
-  v57 = *MEMORY[0x1E69E9840];
-  v46 = a2;
+  v52 = *MEMORY[0x1E69E9840];
+  v41 = a2;
   if (self)
   {
     if (senders)
@@ -138,20 +135,20 @@ LABEL_13:
     if (*(self + 8))
     {
       v6 = MFLookupLocalizedString(@"SMIME_UNREADABLE_SIG", @"There was a problem reading the digital signature for this message.", @"Delayed");
-      v47 = [MFError errorWithDomain:@"MFMessageErrorDomain" code:1036 localizedDescription:v6];
+      v42 = [MFError errorWithDomain:@"MFMessageErrorDomain" code:1036 localizedDescription:v6];
 
       v7 = MFLogGeneral();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        [_MFSecCMSDecoder verifyAgainstSenders:? signingError:?];
+        [_MFSecCMSDecoder verifyAgainstSenders:signingError:];
       }
 
       goto LABEL_63;
     }
 
-    if ([v46 count])
+    if ([v41 count])
     {
-      v7 = [v46 objectAtIndex:0];
+      v7 = [v41 objectAtIndex:0];
     }
 
     else
@@ -159,13 +156,12 @@ LABEL_13:
       v7 = 0;
     }
 
-    v8 = *(self + 40);
     if (SecCmsSignedDataHasDigests())
     {
       if (!v7)
       {
-        v38 = MFLookupLocalizedString(@"SMIME_UNREADABLE_SIG", @"There was a problem reading the digital signature for this message.", @"Delayed");
-        v47 = [MFError errorWithDomain:@"MFMessageErrorDomain" code:1036 localizedDescription:v38];
+        v34 = MFLookupLocalizedString(@"SMIME_UNREADABLE_SIG", @"There was a problem reading the digital signature for this message.", @"Delayed");
+        v42 = [MFError errorWithDomain:@"MFMessageErrorDomain" code:1036 localizedDescription:v34];
 
         v7 = MFLogGeneral();
         if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
@@ -177,33 +173,30 @@ LABEL_13:
         goto LABEL_63;
       }
 
-      v9 = *(self + 40);
-      v10 = SecCmsSignedDataSignerInfoCount();
-      v43 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v10];
-      if (v10)
+      v8 = SecCmsSignedDataSignerInfoCount();
+      v38 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v8];
+      if (v8)
       {
-        v45 = [MFMessageKeychainManager copySMIMESigningPolicyForAddress:v7];
-        if (v10 >= 1)
+        v40 = [MFMessageKeychainManager copySMIMESigningPolicyForAddress:v7];
+        if (v8 >= 1)
         {
-          v44 = v10;
-          v47 = 0;
-          v12 = 0;
-          *&v11 = 67109120;
-          v42 = v11;
+          v39 = v8;
+          v42 = 0;
+          v10 = 0;
+          *&v9 = 67109120;
+          v37 = v9;
           while (1)
           {
-            v13 = *(self + 40);
             SignerInfo = SecCmsSignedDataGetSignerInfo();
-            v15 = *(self + 40);
-            v16 = SecCmsSignedDataVerifySignerInfo();
-            *v5 = v16;
-            if (!v16)
+            v12 = SecCmsSignedDataVerifySignerInfo();
+            *v5 = v12;
+            if (!v12)
             {
               break;
             }
 
-            v17 = MFLookupLocalizedString(@"SMIME_UNREADABLE_SIG", @"There was a problem reading the digital signature for this message.", @"Delayed");
-            v18 = [MFError errorWithDomain:@"MFMessageErrorDomain" code:1036 localizedDescription:v17];
+            v13 = MFLookupLocalizedString(@"SMIME_UNREADABLE_SIG", @"There was a problem reading the digital signature for this message.", @"Delayed");
+            v14 = [MFError errorWithDomain:@"MFMessageErrorDomain" code:1036 localizedDescription:v13];
 
             if (SignerInfo)
             {
@@ -215,29 +208,29 @@ LABEL_13:
               SignerEmailAddress = 0;
             }
 
-            v27 = MFLogGeneral();
-            if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+            v23 = MFLogGeneral();
+            if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
             {
-              v34 = *v5;
-              v35 = @"(Unknown)";
+              v30 = *v5;
+              v31 = @"(Unknown)";
               if (!SignerEmailAddress)
               {
-                v35 = 0;
+                v31 = 0;
               }
 
               *trust = 134218498;
-              *&trust[4] = v34;
-              v51 = 1024;
-              v52 = v12;
-              v53 = 2112;
-              v54 = v35;
-              _os_log_error_impl(&dword_1B0389000, v27, OS_LOG_TYPE_ERROR, "#SMIMEErrors SecCmsSignedDataVerifySignerInfo returned %ld for #%d:%@", trust, 0x1Cu);
+              *&trust[4] = v30;
+              v46 = 1024;
+              v47 = v10;
+              v48 = 2112;
+              v49 = v31;
+              _os_log_error_impl(&dword_1B0389000, v23, OS_LOG_TYPE_ERROR, "#SMIMEErrors SecCmsSignedDataVerifySignerInfo returned %ld for #%d:%@", trust, 0x1Cu);
             }
 
-            v47 = v18;
+            v42 = v14;
 LABEL_43:
 
-            if (v44 == ++v12)
+            if (v39 == ++v10)
             {
               goto LABEL_60;
             }
@@ -245,53 +238,53 @@ LABEL_43:
 
           if (!SignerInfo)
           {
-            v28 = v7;
-            v26 = 0;
+            v24 = v7;
+            v22 = 0;
             VerificationStatus = 2;
             goto LABEL_35;
           }
 
           VerificationStatus = SecCmsSignerInfoGetVerificationStatus();
-          v21 = v7;
+          v17 = v7;
           ValueAtIndex = SecCmsSignerInfoCopyCertFromEncryptionKeyPreference();
           if (!ValueAtIndex)
           {
-            v29 = SecTrustCopyCertificateChain(0);
-            v30 = v29;
-            if (v29)
+            v25 = SecTrustCopyCertificateChain(0);
+            v26 = v25;
+            if (v25)
             {
-              if (CFArrayGetCount(v29) < 1)
+              if (CFArrayGetCount(v25) < 1)
               {
-                v31 = 0;
+                v27 = 0;
                 ValueAtIndex = 0;
               }
 
               else
               {
-                ValueAtIndex = CFArrayGetValueAtIndex(v30, 0);
+                ValueAtIndex = CFArrayGetValueAtIndex(v26, 0);
                 if (ValueAtIndex && (SecCertificateGetKeyUsage() & 0x14) != 0)
                 {
                   ValueAtIndex = CFRetain(ValueAtIndex);
-                  v31 = 1;
+                  v27 = 1;
                 }
 
                 else
                 {
-                  v31 = 0;
+                  v27 = 0;
                 }
               }
 
-              CFRelease(v30);
-              if (!v31)
+              CFRelease(v26);
+              if (!v27)
               {
 LABEL_24:
-                v26 = 0;
+                v22 = 0;
 LABEL_35:
 
-                SignerEmailAddress = [[MFMessageSigner alloc] initWithSender:v7 signingTrust:0 encryptionTrust:v26 verification:VerificationStatus];
-                if (v26)
+                SignerEmailAddress = [[MFMessageSigner alloc] initWithSender:v7 signingTrust:0 encryptionTrust:v22 verification:VerificationStatus];
+                if (v22)
                 {
-                  CFRelease(v26);
+                  CFRelease(v22);
                 }
 
                 if (senders)
@@ -300,8 +293,8 @@ LABEL_35:
                   *senders = error;
                   if (error)
                   {
-                    v33 = MFLogGeneral();
-                    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+                    v29 = MFLogGeneral();
+                    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
                     {
                       [*senders ef_publicDescription];
                       objc_claimAutoreleasedReturnValue();
@@ -310,7 +303,7 @@ LABEL_35:
                   }
                 }
 
-                [v43 addObject:{SignerEmailAddress, v42}];
+                [v38 addObject:{SignerEmailAddress, v37}];
                 goto LABEL_43;
               }
             }
@@ -321,64 +314,64 @@ LABEL_35:
             }
           }
 
-          v23 = [MFMessageKeychainManager copySMIMEEncryptionPolicyForAddress:v21, v42];
+          v19 = [MFMessageKeychainManager copySMIMEEncryptionPolicyForAddress:v17, v37];
           *trust = 0;
-          v24 = SecTrustCreateWithCertificates(ValueAtIndex, v23, trust);
-          CFRelease(v23);
+          v20 = SecTrustCreateWithCertificates(ValueAtIndex, v19, trust);
+          CFRelease(v19);
           CFRelease(ValueAtIndex);
-          if (v24)
+          if (v20)
           {
-            v25 = MFLogGeneral();
-            if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+            v21 = MFLogGeneral();
+            if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
             {
-              *buf = v42;
-              v56 = v24;
-              _os_log_error_impl(&dword_1B0389000, v25, OS_LOG_TYPE_ERROR, "#SMIMEErrors SecTrustCreateWithCertificates returned %d", buf, 8u);
+              *buf = v37;
+              v51 = v20;
+              _os_log_error_impl(&dword_1B0389000, v21, OS_LOG_TYPE_ERROR, "#SMIMEErrors SecTrustCreateWithCertificates returned %d", buf, 8u);
             }
           }
 
           else
           {
-            v26 = *trust;
+            v22 = *trust;
             if (*trust)
             {
               goto LABEL_35;
             }
 
-            v25 = MFLogGeneral();
-            if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+            v21 = MFLogGeneral();
+            if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
             {
-              [(_MFSecCMSDecoder *)&v48 verifyAgainstSenders:v49 signingError:v25];
+              [(_MFSecCMSDecoder *)&v43 verifyAgainstSenders:v44 signingError:v21];
             }
           }
 
           goto LABEL_24;
         }
 
-        v47 = 0;
+        v42 = 0;
 LABEL_60:
-        if (v45)
+        if (v40)
         {
-          CFRelease(v45);
+          CFRelease(v40);
         }
       }
 
       else
       {
-        v47 = 0;
+        v42 = 0;
       }
 
-      v39 = *(self + 32);
-      *(self + 32) = v43;
+      v35 = *(self + 32);
+      *(self + 32) = v38;
     }
 
     else
     {
-      v36 = MFLookupLocalizedString(@"SMIME_UNREADABLE_SIG", @"There was a problem reading the digital signature for this message.", @"Delayed");
-      v47 = [MFError errorWithDomain:@"MFMessageErrorDomain" code:1036 localizedDescription:v36];
+      v32 = MFLookupLocalizedString(@"SMIME_UNREADABLE_SIG", @"There was a problem reading the digital signature for this message.", @"Delayed");
+      v42 = [MFError errorWithDomain:@"MFMessageErrorDomain" code:1036 localizedDescription:v32];
 
-      v37 = MFLogGeneral();
-      [_MFSecCMSDecoder verifyAgainstSenders:v37 signingError:?];
+      v33 = MFLogGeneral();
+      [_MFSecCMSDecoder verifyAgainstSenders:v33 signingError:?];
     }
 
 LABEL_63:
@@ -386,12 +379,10 @@ LABEL_63:
     goto LABEL_64;
   }
 
-  v47 = 0;
+  v42 = 0;
 LABEL_64:
 
-  v40 = *MEMORY[0x1E69E9840];
-
-  return v47;
+  return v42;
 }
 
 - (void)dealloc
@@ -462,10 +453,9 @@ LABEL_5:
 
 - (void)done
 {
-  OUTLINED_FUNCTION_7_0(self, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_7_0(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_3_1();
-  OUTLINED_FUNCTION_1_2(&dword_1B0389000, v1, v2, "#SMIMEErrors SecCmsSignedDataSetDigestContext on -done returned %ld", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_2(&dword_1B0389000, v0, v1, "#SMIMEErrors SecCmsSignedDataSetDigestContext on -done returned %ld", v2, v3, v4, v5);
 }
 
 - (id)data
@@ -507,12 +497,11 @@ LABEL_5:
   return InnerContent;
 }
 
-- (void)initWithPartData:(int *)a1 error:.cold.1(int *a1)
+- (void)initWithPartData:error:.cold.1()
 {
-  OUTLINED_FUNCTION_7_0(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_7_0(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_3_1();
-  OUTLINED_FUNCTION_1_2(&dword_1B0389000, v1, v2, "#SMIMEErrors SecCmsDecoderCreate returned %ld", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_2(&dword_1B0389000, v0, v1, "#SMIMEErrors SecCmsDecoderCreate returned %ld", v2, v3, v4, v5);
 }
 
 - (void)initWithPartData:(uint64_t)a3 error:(os_log_t)log .cold.2(int a1, uint8_t *buf, uint64_t a3, os_log_t log)
@@ -524,20 +513,18 @@ LABEL_5:
   _os_log_error_impl(&dword_1B0389000, log, OS_LOG_TYPE_ERROR, "#SMIMEErrors SecCmsDecoderUpdate returned %ld for %lu bytes", buf, 0x16u);
 }
 
-- (void)initWithPartData:(int *)a1 error:.cold.3(int *a1)
+- (void)initWithPartData:error:.cold.3()
 {
-  OUTLINED_FUNCTION_7_0(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_7_0(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_3_1();
-  OUTLINED_FUNCTION_1_2(&dword_1B0389000, v1, v2, "#SMIMEErrors SecCmsDecoderFinish returned %ld", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_2(&dword_1B0389000, v0, v1, "#SMIMEErrors SecCmsDecoderFinish returned %ld", v2, v3, v4, v5);
 }
 
-- (void)verifyAgainstSenders:(int *)a1 signingError:.cold.1(int *a1)
+- (void)verifyAgainstSenders:signingError:.cold.1()
 {
-  OUTLINED_FUNCTION_7_0(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_7_0(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_3_1();
-  OUTLINED_FUNCTION_1_2(&dword_1B0389000, v1, v2, "#SMIMEErrors _MFSecCMSDecoder asked to verify with pending error (%ld)", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_2(&dword_1B0389000, v0, v1, "#SMIMEErrors _MFSecCMSDecoder asked to verify with pending error (%ld)", v2, v3, v4, v5);
 }
 
 - (void)verifyAgainstSenders:(os_log_t)log signingError:.cold.2(uint8_t *buf, _BYTE *a2, os_log_t log)

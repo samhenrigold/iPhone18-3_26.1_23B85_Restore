@@ -130,7 +130,7 @@
 
 - (id)topLevelAccountsWithAccountTypeIdentifier:(id)identifier error:(id *)error
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   backingAccountStore = [(CalChangeFilteringMigrationAccountStore *)self backingAccountStore];
   v8 = [backingAccountStore topLevelAccountsWithAccountTypeIdentifier:identifierCopy error:error];
@@ -138,26 +138,26 @@
   if (v8)
   {
     v9 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v8, "count")}];
+    v33 = 0u;
     v34 = 0u;
     v35 = 0u;
     v36 = 0u;
-    v37 = 0u;
     v10 = v8;
-    v11 = [v10 countByEnumeratingWithState:&v34 objects:v39 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v33 objects:v38 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v35;
+      v13 = *v34;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v35 != v13)
+          if (*v34 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v34 + 1) + 8 * i);
+          v15 = *(*(&v33 + 1) + 8 * i);
           identifier = [v15 identifier];
           v17 = [(CalChangeFilteringMigrationAccountStore *)self _accountWithIdentifier:identifier preloadedBackingAccount:v15];
 
@@ -167,34 +167,34 @@
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v34 objects:v39 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v33 objects:v38 count:16];
       }
 
       while (v12);
     }
 
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
     v31 = 0u;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
     addedWrappedAccounts = [(CalChangeFilteringMigrationAccountStore *)self addedWrappedAccounts];
     allValues = [addedWrappedAccounts allValues];
 
-    v20 = [allValues countByEnumeratingWithState:&v30 objects:v38 count:16];
+    v20 = [allValues countByEnumeratingWithState:&v29 objects:v37 count:16];
     if (v20)
     {
       v21 = v20;
-      v22 = *v31;
+      v22 = *v30;
       do
       {
         for (j = 0; j != v21; ++j)
         {
-          if (*v31 != v22)
+          if (*v30 != v22)
           {
             objc_enumerationMutation(allValues);
           }
 
-          v24 = *(*(&v30 + 1) + 8 * j);
+          v24 = *(*(&v29 + 1) + 8 * j);
           parentAccountIdentifier = [v24 parentAccountIdentifier];
           if (parentAccountIdentifier)
           {
@@ -212,7 +212,7 @@
           }
         }
 
-        v21 = [allValues countByEnumeratingWithState:&v30 objects:v38 count:16];
+        v21 = [allValues countByEnumeratingWithState:&v29 objects:v37 count:16];
       }
 
       while (v21);
@@ -224,14 +224,12 @@
     v9 = 0;
   }
 
-  v28 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
 - (id)childAccountsForAccount:(id)account withTypeIdentifier:(id)identifier
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   identifierCopy = identifier;
   removedWrappedAccountIdentifiers = [(CalChangeFilteringMigrationAccountStore *)self removedWrappedAccountIdentifiers];
@@ -250,33 +248,33 @@
     identifier2 = [accountCopy identifier];
     v15 = [addedWrappedAccounts objectForKeyedSubscript:identifier2];
 
-    v40 = accountCopy;
+    v39 = accountCopy;
     if (!v15)
     {
       v16 = [(CalChangeFilteringMigrationAccountStore *)self _backingAccountForAccount:accountCopy];
       backingAccountStore = [(CalChangeFilteringMigrationAccountStore *)self backingAccountStore];
       v18 = [backingAccountStore childAccountsForAccount:v16 withTypeIdentifier:identifierCopy];
 
-      v47 = 0u;
-      v48 = 0u;
-      v45 = 0u;
       v46 = 0u;
+      v47 = 0u;
+      v44 = 0u;
+      v45 = 0u;
       v19 = v18;
-      v20 = [v19 countByEnumeratingWithState:&v45 objects:v50 count:16];
+      v20 = [v19 countByEnumeratingWithState:&v44 objects:v49 count:16];
       if (v20)
       {
         v21 = v20;
-        v22 = *v46;
+        v22 = *v45;
         do
         {
           for (i = 0; i != v21; ++i)
           {
-            if (*v46 != v22)
+            if (*v45 != v22)
             {
               objc_enumerationMutation(v19);
             }
 
-            v24 = *(*(&v45 + 1) + 8 * i);
+            v24 = *(*(&v44 + 1) + 8 * i);
             identifier3 = [v24 identifier];
             v26 = [(CalChangeFilteringMigrationAccountStore *)self _accountWithIdentifier:identifier3 preloadedBackingAccount:v24];
 
@@ -286,38 +284,38 @@
             }
           }
 
-          v21 = [v19 countByEnumeratingWithState:&v45 objects:v50 count:16];
+          v21 = [v19 countByEnumeratingWithState:&v44 objects:v49 count:16];
         }
 
         while (v21);
       }
 
-      accountCopy = v40;
+      accountCopy = v39;
     }
 
-    v43 = 0u;
-    v44 = 0u;
-    v41 = 0u;
     v42 = 0u;
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
     addedWrappedChildAccounts = [(CalChangeFilteringMigrationAccountStore *)self addedWrappedChildAccounts];
     identifier4 = [accountCopy identifier];
     v29 = [addedWrappedChildAccounts objectForKeyedSubscript:identifier4];
 
-    v30 = [v29 countByEnumeratingWithState:&v41 objects:v49 count:16];
+    v30 = [v29 countByEnumeratingWithState:&v40 objects:v48 count:16];
     if (v30)
     {
       v31 = v30;
-      v32 = *v42;
+      v32 = *v41;
       do
       {
         for (j = 0; j != v31; ++j)
         {
-          if (*v42 != v32)
+          if (*v41 != v32)
           {
             objc_enumerationMutation(v29);
           }
 
-          v34 = [(CalChangeFilteringMigrationAccountStore *)self _accountWithIdentifier:*(*(&v41 + 1) + 8 * j) preloadedBackingAccount:0];
+          v34 = [(CalChangeFilteringMigrationAccountStore *)self _accountWithIdentifier:*(*(&v40 + 1) + 8 * j) preloadedBackingAccount:0];
           v35 = v34;
           if (v34)
           {
@@ -331,17 +329,15 @@
           }
         }
 
-        v31 = [v29 countByEnumeratingWithState:&v41 objects:v49 count:16];
+        v31 = [v29 countByEnumeratingWithState:&v40 objects:v48 count:16];
       }
 
       while (v31);
     }
 
     v11 = [v12 copy];
-    accountCopy = v40;
+    accountCopy = v39;
   }
-
-  v38 = *MEMORY[0x1E69E9840];
 
   return v11;
 }

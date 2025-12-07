@@ -104,70 +104,71 @@
       [array addObjectsFromArray:externalBrightnessSpecifiers];
     }
 
-    if (DBSReverseZoomEnabled() && DBSChamoisEnabled() && [(DBSExternalDisplayPreferencesController *)self supportedZoomModesCount]>= 2)
+    v11 = DBSReverseZoomEnabled(v8, v9);
+    if (v11 && DBSChamoisEnabled(v11, v12) && [(DBSExternalDisplayPreferencesController *)self supportedZoomModesCount]>= 2)
     {
-      v9 = objc_opt_new();
-      [v9 setDelegate:self];
-      specifiers = [v9 specifiers];
+      v13 = objc_opt_new();
+      [v13 setDelegate:self];
+      specifiers = [v13 specifiers];
 
       if (specifiers)
       {
-        specifiers2 = [v9 specifiers];
+        specifiers2 = [v13 specifiers];
         [array addObjectsFromArray:specifiers2];
       }
 
-      [(DBSExternalDisplayPreferencesController *)self set_zoomAndProSpecifierVendor:v9];
+      [(DBSExternalDisplayPreferencesController *)self set_zoomAndProSpecifierVendor:v13];
     }
 
-    v12 = +[DBSExternalDisplayManager defaultManager];
-    supportedHDRModesWithHighRefreshRate = [v12 supportedHDRModesWithHighRefreshRate];
+    v16 = +[DBSExternalDisplayManager defaultManager];
+    supportedHDRModesWithHighRefreshRate = [v16 supportedHDRModesWithHighRefreshRate];
     if ([supportedHDRModesWithHighRefreshRate count])
     {
     }
 
     else
     {
-      v14 = +[DBSExternalDisplayManager defaultManager];
-      supportedHDRModesWithVRR = [v14 supportedHDRModesWithVRR];
-      v16 = [supportedHDRModesWithVRR count];
+      v18 = +[DBSExternalDisplayManager defaultManager];
+      supportedHDRModesWithVRR = [v18 supportedHDRModesWithVRR];
+      v20 = [supportedHDRModesWithVRR count];
 
-      if (!v16)
+      if (!v20)
       {
         displayModeSpecifiers = [(DBSExternalDisplayPreferencesController *)self displayModeSpecifiers];
         [array addObjectsFromArray:displayModeSpecifiers];
 
         emptyGroupSpecifier = [MEMORY[0x277D3FAD8] emptyGroupSpecifier];
-        v27 = *MEMORY[0x277D3FFB8];
+        v31 = *MEMORY[0x277D3FFB8];
         [emptyGroupSpecifier setObject:@"MATCH_CONTENT_GROUP" forKeyedSubscript:*MEMORY[0x277D3FFB8]];
-        v28 = DBS_LocalizedStringForConnectedDisplays(@"MATCH_CONTENT_FOOTER");
-        [emptyGroupSpecifier setObject:v28 forKeyedSubscript:*MEMORY[0x277D3FF88]];
+        v32 = DBS_LocalizedStringForConnectedDisplays(@"MATCH_CONTENT_FOOTER");
+        [emptyGroupSpecifier setObject:v32 forKeyedSubscript:*MEMORY[0x277D3FF88]];
 
         [array addObject:emptyGroupSpecifier];
-        v29 = MEMORY[0x277D3FAD8];
-        v30 = DBS_LocalizedStringForConnectedDisplays(@"MATCH_CONTENT");
-        v20 = [v29 preferenceSpecifierNamed:v30 target:self set:sel_setMatchContentEnabled_specifier_ get:sel_matchContentEnabled_ detail:0 cell:6 edit:0];
+        v33 = MEMORY[0x277D3FAD8];
+        v34 = DBS_LocalizedStringForConnectedDisplays(@"MATCH_CONTENT");
+        v24 = [v33 preferenceSpecifierNamed:v34 target:self set:sel_setMatchContentEnabled_specifier_ get:sel_matchContentEnabled_ detail:0 cell:6 edit:0];
 
-        v22 = v20;
-        v23 = @"MATCH_CONTENT";
-        v21 = v27;
+        v26 = v24;
+        v27 = @"MATCH_CONTENT";
+        v25 = v31;
         goto LABEL_14;
       }
     }
 
     emptyGroupSpecifier = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"ADVANCED_LINK_GROUP_ID"];
     [array addObject:emptyGroupSpecifier];
-    v18 = MEMORY[0x277D3FAD8];
-    v19 = DBS_LocalizedStringForDisplays(@"ADVANCED");
-    v20 = [v18 preferenceSpecifierNamed:v19 target:self set:0 get:0 detail:objc_opt_class() cell:2 edit:0];
+    v22 = MEMORY[0x277D3FAD8];
+    v23 = DBS_LocalizedStringForDisplays(@"ADVANCED");
+    v24 = [v22 preferenceSpecifierNamed:v23 target:self set:0 get:0 detail:objc_opt_class() cell:2 edit:0];
 
-    v21 = *MEMORY[0x277D3FFB8];
-    v22 = v20;
-    v23 = @"ADVANCED";
+    v25 = *MEMORY[0x277D3FFB8];
+    v26 = v24;
+    v27 = @"ADVANCED";
 LABEL_14:
-    [v22 setObject:v23 forKeyedSubscript:v21];
-    [array addObject:v20];
+    [v26 setObject:v27 forKeyedSubscript:v25];
+    [array addObject:v24];
 
-    v24 = *(&self->super.super.super.super.super.isa + v3);
+    v28 = *(&self->super.super.super.super.super.isa + v3);
     *(&self->super.super.super.super.super.isa + v3) = array;
 
     v4 = *(&self->super.super.super.super.super.isa + v3);

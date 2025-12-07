@@ -82,10 +82,18 @@ void sub_1000017E0(uint64_t a1)
   [v3 becomeFirstResponder];
 }
 
-void sub_100002200(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, os_log_t log, uint64_t a12, uint8_t buf)
+void sub_100002200(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, os_log_t log, uint64_t a12, ...)
 {
+  va_start(va, a12);
 
-  _os_log_debug_impl(a1, log, OS_LOG_TYPE_DEBUG, a4, &buf, 0x2Cu);
+  _os_log_debug_impl(a1, log, OS_LOG_TYPE_DEBUG, a4, va, 0x2Cu);
+}
+
+void sub_1000026F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 uint64_t sub_100002728(uint64_t result, uint64_t a2)
@@ -149,7 +157,7 @@ void sub_100003464(uint64_t a1, os_log_t log)
   v8 = [v7 currentImageView];
   v9 = [v8 image];
   sub_1000021C4();
-  sub_100002200(&_mh_execute_header, v10, v11, "BGN PAGE (%d) -> (%d) = Leading (%lu), Trailing (%lu), Current (%@)", v12, v13, v14, v15, v16, v17, log, WeakRetained, v21);
+  sub_100002200(&_mh_execute_header, v10, v11, "BGN PAGE (%d) -> (%d) = Leading (%lu), Trailing (%lu), Current (%@)", v12, v13, v14, v15, v16, v17, log, WeakRetained);
 }
 
 void sub_1000035A0(_DWORD *a1, id *location, os_log_t log)
@@ -167,7 +175,7 @@ void sub_1000035A0(_DWORD *a1, id *location, os_log_t log)
   v9 = [v8 currentImageView];
   v10 = [v9 image];
   sub_1000021C4();
-  sub_100002200(&_mh_execute_header, v11, v12, "END PAGE (%d) -> (%d) = Leading (%lu), Trailing (%lu), Current (%@)", v13, v14, v15, v16, v17, v18, log, WeakRetained, v22);
+  sub_100002200(&_mh_execute_header, v11, v12, "END PAGE (%d) -> (%d) = Leading (%lu), Trailing (%lu), Current (%@)", v13, v14, v15, v16, v17, v18, log, WeakRetained);
 }
 
 void sub_1000036DC(uint64_t a1, NSObject *a2)

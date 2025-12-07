@@ -55,10 +55,10 @@
 
 - (void)_lock_invalidate
 {
-  v0 = objc_opt_class();
-  v5 = NSStringFromClass(v0);
+  v2 = objc_opt_class();
+  v7 = NSStringFromClass(v2);
   OUTLINED_FUNCTION_6_3();
-  _os_log_debug_impl(v1, v2, OS_LOG_TYPE_DEBUG, v3, v4, 0x16u);
+  _os_log_debug_impl(v3, v4, OS_LOG_TYPE_DEBUG, v5, v6, 0x16u);
 }
 
 - (void)dealloc
@@ -66,12 +66,11 @@
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"must be invalidated before dealloc"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(self);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(self);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_13();
-    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -83,12 +82,11 @@
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"say no to re-creating a denied connection"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(self);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(self);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_13();
-    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -97,77 +95,78 @@
 
 void __42__FBSServiceFacilityClient__lock_activate__block_invoke(uint64_t a1, void *a2)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v5 = *(a1 + 32);
   v4 = (a1 + 32);
   os_unfair_lock_lock(v5 + 15);
   if (v3 && ((*v4)[18]._os_unfair_lock_opaque & 0x10000) == 0)
   {
-    v6 = FBLogCommon();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = FBLogCommon(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = objc_opt_class();
-      v8 = NSStringFromClass(v7);
-      v9 = *v4;
+      v8 = objc_opt_class();
+      v9 = NSStringFromClass(v8);
+      v10 = *v4;
       *buf = 138543618;
-      v26 = v8;
-      v27 = 2048;
       v28 = v9;
-      _os_log_impl(&dword_1A2DBB000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@:%p] Service facility connection activation received.", buf, 0x16u);
+      v29 = 2048;
+      v30 = v10;
+      _os_log_impl(&dword_1A2DBB000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@:%p] Service facility connection activation received.", buf, 0x16u);
     }
 
-    if (([v3 decodeBoolForKey:@"fbs_accept"] & 1) == 0)
+    v11 = [v3 decodeBoolForKey:@"fbs_accept"];
+    if ((v11 & 1) == 0)
     {
-      v10 = FBLogCommon();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v12 = FBLogCommon(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = objc_opt_class();
-        v12 = NSStringFromClass(v11);
-        v13 = *v4;
+        v13 = objc_opt_class();
+        v14 = NSStringFromClass(v13);
+        v15 = *v4;
         *buf = 138543618;
-        v26 = v12;
-        v27 = 2048;
-        v28 = v13;
-        _os_log_impl(&dword_1A2DBB000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@:%p] Service denied.", buf, 0x16u);
+        v28 = v14;
+        v29 = 2048;
+        v30 = v15;
+        _os_log_impl(&dword_1A2DBB000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@:%p] Service denied.", buf, 0x16u);
       }
 
       LOBYTE((*v4)[18]._os_unfair_lock_opaque) = 1;
       [*&(*v4)[16]._os_unfair_lock_opaque invalidate];
-      v14 = *&(*v4)[16]._os_unfair_lock_opaque;
+      v16 = *&(*v4)[16]._os_unfair_lock_opaque;
       *&(*v4)[16]._os_unfair_lock_opaque = 0;
 
-      v15 = [MEMORY[0x1E695DF90] dictionary];
-      v16 = [v3 decodeStringForKey:@"fbs_errorDesc"];
-      if (v16)
+      v17 = [MEMORY[0x1E695DF90] dictionary];
+      v18 = [v3 decodeStringForKey:@"fbs_errorDesc"];
+      if (v18)
       {
-        v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Service denied: %@", v16];
-        [v15 setObject:v16 forKey:*MEMORY[0x1E696A588]];
+        v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Service denied: %@", v18];
+        [v17 setObject:v18 forKey:*MEMORY[0x1E696A588]];
       }
 
       else
       {
-        v17 = @"Service denied.";
+        v19 = @"Service denied.";
       }
 
-      [v15 setObject:v17 forKey:*MEMORY[0x1E696A578]];
-      v18 = [MEMORY[0x1E696ABC0] errorWithDomain:@"FBSServiceFacilityErrorDomain" code:1 userInfo:v15];
-      v19 = FBLogCommon();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      [v17 setObject:v19 forKey:*MEMORY[0x1E696A578]];
+      v20 = [MEMORY[0x1E696ABC0] errorWithDomain:@"FBSServiceFacilityErrorDomain" code:1 userInfo:v17];
+      v21 = FBLogCommon(v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
-        __42__FBSServiceFacilityClient__lock_activate__block_invoke_cold_1(v4, v18);
+        __42__FBSServiceFacilityClient__lock_activate__block_invoke_cold_1(v4, v20);
       }
 
-      v20 = *v4;
-      v21 = *&(*v4)[12]._os_unfair_lock_opaque;
+      v22 = *v4;
+      v23 = *&(*v4)[12]._os_unfair_lock_opaque;
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = __42__FBSServiceFacilityClient__lock_activate__block_invoke_92;
       block[3] = &unk_1E76BCD60;
-      block[4] = v20;
-      v24 = v18;
-      v22 = v18;
-      dispatch_async(v21, block);
+      block[4] = v22;
+      v26 = v20;
+      v24 = v20;
+      dispatch_async(v23, block);
     }
   }
 
@@ -243,9 +242,9 @@ void __60__FBSServiceFacilityClient_initWithIdentifier_calloutQueue___block_invo
   }
 
   v6 = configuratorCopy;
-  v29.receiver = self;
-  v29.super_class = FBSServiceFacilityClient;
-  v7 = [(FBSServiceFacilityClient *)&v29 init];
+  v30.receiver = self;
+  v30.super_class = FBSServiceFacilityClient;
+  v7 = [(FBSServiceFacilityClient *)&v30 init];
   if (v7)
   {
     (v6)[2](v6, v7);
@@ -289,34 +288,35 @@ void __60__FBSServiceFacilityClient_initWithIdentifier_calloutQueue___block_invo
     }
 
     NSClassFromString(&cfstr_Uisapplication_0.isa);
-    *(v7 + 75) = objc_opt_isKindOfClass() & 1;
-    v15 = FBLogCommon();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+    isKindOfClass = objc_opt_isKindOfClass();
+    *(v7 + 75) = isKindOfClass & 1;
+    v16 = FBLogCommon(isKindOfClass);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
-      [(FBSServiceFacilityClient *)v7 + 1 initWithConfigurator:v15];
+      [(FBSServiceFacilityClient *)v7 + 1 initWithConfigurator:v16];
     }
 
-    v16 = *(v7 + 1);
-    v27[0] = MEMORY[0x1E69E9820];
-    v27[1] = 3221225472;
-    v27[2] = __49__FBSServiceFacilityClient_initWithConfigurator___block_invoke;
-    v27[3] = &unk_1E76BF908;
-    v17 = v7;
-    v28 = v17;
-    v18 = [off_1E76BCA28 connectionWithEndpoint:v16 clientContextBuilder:v27];
-    v19 = v17[8];
-    v17[8] = v18;
+    v17 = *(v7 + 1);
+    v28[0] = MEMORY[0x1E69E9820];
+    v28[1] = 3221225472;
+    v28[2] = __49__FBSServiceFacilityClient_initWithConfigurator___block_invoke;
+    v28[3] = &unk_1E76BF908;
+    v18 = v7;
+    v29 = v18;
+    v19 = [off_1E76BCA28 connectionWithEndpoint:v17 clientContextBuilder:v28];
+    v20 = v18[8];
+    v18[8] = v19;
 
-    v20 = v17[8];
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = __49__FBSServiceFacilityClient_initWithConfigurator___block_invoke_2;
-    v24[3] = &unk_1E76BF980;
-    v25 = v12;
-    v26 = v17;
-    v21 = v12;
-    [v20 _configureConnection:v24];
-    v22 = *(v7 + 5);
+    v21 = v18[8];
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __49__FBSServiceFacilityClient_initWithConfigurator___block_invoke_2;
+    v25[3] = &unk_1E76BF980;
+    v26 = v12;
+    v27 = v18;
+    v22 = v12;
+    [v21 _configureConnection:v25];
+    v23 = *(v7 + 5);
     *(v7 + 5) = 0;
   }
 
@@ -666,13 +666,13 @@ uint64_t __42__FBSServiceFacilityClient__lock_activate__block_invoke_92(uint64_t
   dispatch_async(calloutQueue, block);
 }
 
-uint64_t __47__FBSServiceFacilityClient__queue_handleError___block_invoke(uint64_t a1)
+void *__47__FBSServiceFacilityClient__queue_handleError___block_invoke(uint64_t a1)
 {
-  v2 = a1 + 32;
+  v2 = (a1 + 32);
   result = [*(a1 + 32) _isValid];
   if (result)
   {
-    v4 = FBLogCommon();
+    v4 = FBLogCommon(result);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __47__FBSServiceFacilityClient__queue_handleError___block_invoke_cold_1(v2, a1);
@@ -705,10 +705,10 @@ void __49__FBSServiceFacilityClient__queue_handleMessage___block_invoke(uint64_t
   {
     v3 = [*(a1 + 40) decodeInt64ForKey:@"message"];
     v4 = [FBSXPCMessage messageWithBSXPCMessage:*(a1 + 40) ownReply:1];
-    v5 = FBLogCommon();
+    v5 = FBLogCommon(v4);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      __49__FBSServiceFacilityClient__queue_handleMessage___block_invoke_cold_1();
+      __49__FBSServiceFacilityClient__queue_handleMessage___block_invoke_cold_1(v2, v5);
     }
 
     [*v2 handleMessage:v4 withType:v3];
@@ -729,12 +729,11 @@ void __49__FBSServiceFacilityClient__queue_handleMessage___block_invoke(uint64_t
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"if an interface is specified you must also specify the target"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_13();
-    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -746,12 +745,11 @@ void __49__FBSServiceFacilityClient__queue_handleMessage___block_invoke(uint64_t
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"configuration error: facilityID was not specified"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_13();
-    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -763,12 +761,11 @@ void __49__FBSServiceFacilityClient__queue_handleMessage___block_invoke(uint64_t
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"configuration error: endpoint was not specified"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_13();
-    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -777,15 +774,14 @@ void __49__FBSServiceFacilityClient__queue_handleMessage___block_invoke(uint64_t
 
 - (void)initWithConfigurator:(char *)a1 .cold.5(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"block"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"block", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -794,15 +790,14 @@ void __49__FBSServiceFacilityClient__queue_handleMessage___block_invoke(uint64_t
 
 - (void)setEndpoint:(uint64_t)a1 .cold.1(uint64_t a1, char *a2)
 {
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"the endpoint specifies an incompatible service : endpoint=%@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"the endpoint specifies an incompatible service : endpoint=%@", a1];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a2);
-    objc_claimAutoreleasedReturnValue();
-    v4 = OUTLINED_FUNCTION_12();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a2);
+    v6 = OUTLINED_FUNCTION_12(v4, v5);
+    v7 = NSStringFromClass(v6);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, a1, v12, v13);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v13, v14);
   }
 
   [v3 UTF8String];
@@ -811,15 +806,14 @@ void __49__FBSServiceFacilityClient__queue_handleMessage___block_invoke(uint64_t
 
 - (void)setEndpoint:(char *)a1 .cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"endpoint"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"endpoint", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -831,12 +825,11 @@ void __49__FBSServiceFacilityClient__queue_handleMessage___block_invoke(uint64_t
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"untimely configuration call"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_13();
-    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -845,15 +838,14 @@ void __49__FBSServiceFacilityClient__queue_handleMessage___block_invoke(uint64_t
 
 - (void)setIdentifier:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"identifier"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"identifier", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -865,12 +857,11 @@ void __49__FBSServiceFacilityClient__queue_handleMessage___block_invoke(uint64_t
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"untimely configuration call"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_13();
-    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -879,15 +870,14 @@ void __49__FBSServiceFacilityClient__queue_handleMessage___block_invoke(uint64_t
 
 - (void)setServiceQuality:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"serviceQuality"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"serviceQuality", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -899,12 +889,11 @@ void __49__FBSServiceFacilityClient__queue_handleMessage___block_invoke(uint64_t
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"untimely configuration call"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_13();
-    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -913,15 +902,14 @@ void __49__FBSServiceFacilityClient__queue_handleMessage___block_invoke(uint64_t
 
 - (void)setInterface:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"interface"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"interface", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -933,12 +921,11 @@ void __49__FBSServiceFacilityClient__queue_handleMessage___block_invoke(uint64_t
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"untimely configuration call"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_13();
-    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -947,15 +934,14 @@ void __49__FBSServiceFacilityClient__queue_handleMessage___block_invoke(uint64_t
 
 - (void)setInterfaceTarget:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"target"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"target", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -967,12 +953,11 @@ void __49__FBSServiceFacilityClient__queue_handleMessage___block_invoke(uint64_t
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"untimely configuration call"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_13();
-    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -981,15 +966,14 @@ void __49__FBSServiceFacilityClient__queue_handleMessage___block_invoke(uint64_t
 
 - (void)setCalloutQueue:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"calloutQueue"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"calloutQueue", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -1001,12 +985,11 @@ void __49__FBSServiceFacilityClient__queue_handleMessage___block_invoke(uint64_t
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"untimely configuration call"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_13();
-    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1015,22 +998,21 @@ void __49__FBSServiceFacilityClient__queue_handleMessage___block_invoke(uint64_t
 
 - (void)sendMessage:(char *)a1 withType:replyHandler:waitForReply:timeout:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"fbs_message"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"fbs_message", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
   _bs_set_crash_log_message();
 }
 
-void __42__FBSServiceFacilityClient__lock_activate__block_invoke_cold_1(uint64_t a1, void *a2)
+void __42__FBSServiceFacilityClient__lock_activate__block_invoke_cold_1(void *a1, void *a2)
 {
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
@@ -1040,7 +1022,7 @@ void __42__FBSServiceFacilityClient__lock_activate__block_invoke_cold_1(uint64_t
   _os_log_error_impl(v6, v7, OS_LOG_TYPE_ERROR, v8, v9, 0x20u);
 }
 
-void __47__FBSServiceFacilityClient__queue_handleError___block_invoke_cold_1(uint64_t a1, uint64_t a2)
+void __47__FBSServiceFacilityClient__queue_handleError___block_invoke_cold_1(void *a1, uint64_t a2)
 {
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
@@ -1050,12 +1032,12 @@ void __47__FBSServiceFacilityClient__queue_handleError___block_invoke_cold_1(uin
   _os_log_error_impl(v6, v7, OS_LOG_TYPE_ERROR, v8, v9, 0x20u);
 }
 
-void __49__FBSServiceFacilityClient__queue_handleMessage___block_invoke_cold_1()
+void __49__FBSServiceFacilityClient__queue_handleMessage___block_invoke_cold_1(void *a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  v5 = NSStringFromClass(v0);
+  v2 = objc_opt_class();
+  v7 = NSStringFromClass(v2);
   OUTLINED_FUNCTION_6_3();
-  _os_log_debug_impl(v1, v2, OS_LOG_TYPE_DEBUG, v3, v4, 0x16u);
+  _os_log_debug_impl(v3, v4, OS_LOG_TYPE_DEBUG, v5, v6, 0x16u);
 }
 
 @end

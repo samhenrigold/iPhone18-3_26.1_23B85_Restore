@@ -1,4 +1,5 @@
 @interface TIKeyboardInputManagerLiveConversion_zh
+- (BOOL)_adjustPhraseBoundaryInForwardDirection:(BOOL)direction granularity:(int)granularity;
 - (BOOL)_shouldCommitInputDirectly:(id)directly;
 - (BOOL)closeCandidateGenerationContextWithResults:(id)results;
 - (BOOL)shouldClearInputOnMarkedTextOutOfSync;
@@ -24,6 +25,7 @@
 - (void)initImplementation;
 - (void)presentSegmentAdjuster;
 - (void)presentSegmentPickerIfNeeded;
+- (void)syncToKeyboardState:(id)state from:(id)from afterContextChange:(BOOL)change;
 @end
 
 @implementation TIKeyboardInputManagerLiveConversion_zh
@@ -237,19 +239,17 @@ LABEL_30:
 
 - (id)markedText
 {
-  v13[1] = *MEMORY[0x29EDCA608];
+  v12[1] = *MEMORY[0x29EDCA608];
   rawInputString = [(TIKeyboardInputManagerLiveConversion_zh *)self rawInputString];
   inputString = [(TIKeyboardInputManagerLiveConversion_zh *)self inputString];
   inputIndex = [(TIKeyboardInputManagerLiveConversion_zh *)self inputIndex];
   searchStringForMarkedText = [(TIKeyboardInputManagerChinesePhonetic *)self searchStringForMarkedText];
   v7 = [MEMORY[0x29EDBA168] valueWithRange:{0, objc_msgSend(inputString, "length")}];
-  v13[0] = v7;
-  v8 = [MEMORY[0x29EDB8D80] arrayWithObjects:v13 count:1];
+  v12[0] = v7;
+  v8 = [MEMORY[0x29EDB8D80] arrayWithObjects:v12 count:1];
 
   lastInputString = [(TIKeyboardInputManagerLiveConversion_zh *)self lastInputString];
   v10 = [MEMORY[0x29EDC70A0] intermediateTextWithInputString:rawInputString displayString:inputString selectionLocation:inputIndex searchString:searchStringForMarkedText candidateOffset:0 liveConversionSegments:v8 highlightSegmentIndex:0x7FFFFFFFFFFFFFFFLL lastInputString:lastInputString];
-
-  v11 = *MEMORY[0x29EDCA608];
 
   return v10;
 }
@@ -541,7 +541,7 @@ LABEL_18:
 
 - (void)_notifyUpdateCandidates:(id)candidates forOperation:(id)operation
 {
-  v31 = *MEMORY[0x29EDCA608];
+  v30 = *MEMORY[0x29EDCA608];
   candidatesCopy = candidates;
   operationCopy = operation;
   if (-[TIKeyboardInputManagerLiveConversion_zh shouldSkipCandidateSelection](self, "shouldSkipCandidateSelection") || ([candidatesCopy candidates], v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v7, "count"), v7, !v8))
@@ -556,30 +556,30 @@ LABEL_18:
   cachedInputString = self->_cachedInputString;
   self->_cachedInputString = 0;
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
-  v24 = candidatesCopy;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  v23 = candidatesCopy;
   candidates = [candidatesCopy candidates];
-  v11 = [candidates countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v11 = [candidates countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (!v11)
   {
     goto LABEL_20;
   }
 
   v12 = v11;
-  v13 = *v27;
+  v13 = *v26;
   while (2)
   {
     for (i = 0; i != v12; ++i)
     {
-      if (*v27 != v13)
+      if (*v26 != v13)
       {
         objc_enumerationMutation(candidates);
       }
 
-      v15 = *(*(&v26 + 1) + 8 * i);
+      v15 = *(*(&v25 + 1) + 8 * i);
       if ([v15 containPunctuationOnly])
       {
 LABEL_19:
@@ -616,7 +616,7 @@ LABEL_14:
       }
     }
 
-    v12 = [candidates countByEnumeratingWithState:&v26 objects:v30 count:16];
+    v12 = [candidates countByEnumeratingWithState:&v25 objects:v29 count:16];
     if (v12)
     {
       continue;
@@ -628,10 +628,8 @@ LABEL_14:
 LABEL_20:
 
   [(TIKeyboardInputManagerLiveConversion_zh *)self setMarkedText];
-  candidatesCopy = v24;
+  candidatesCopy = v23;
 LABEL_21:
-
-  v23 = *MEMORY[0x29EDCA608];
 }
 
 - (BOOL)closeCandidateGenerationContextWithResults:(id)results
@@ -644,7 +642,7 @@ LABEL_21:
 
 - (id)didAcceptCandidate:(id)candidate
 {
-  v25 = *MEMORY[0x29EDCA608];
+  v24 = *MEMORY[0x29EDCA608];
   candidateCopy = candidate;
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
@@ -660,11 +658,11 @@ LABEL_21:
 
     if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
     {
-      v21 = 136315394;
-      v22 = "[TIKeyboardInputManagerLiveConversion_zh didAcceptCandidate:]";
-      v23 = 1024;
-      v24 = v11;
-      _os_log_impl(&dword_29EA88000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "%s  candidate is partial: %d", &v21, 0x12u);
+      v20 = 136315394;
+      v21 = "[TIKeyboardInputManagerLiveConversion_zh didAcceptCandidate:]";
+      v22 = 1024;
+      v23 = v11;
+      _os_log_impl(&dword_29EA88000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "%s  candidate is partial: %d", &v20, 0x12u);
     }
 
     candidate = [candidateCopy candidate];
@@ -709,7 +707,6 @@ LABEL_21:
     [(TIKeyboardInputManagerMecabra *)self completeComposition];
   }
 
-  v19 = *MEMORY[0x29EDCA608];
   return &stru_2A252F9A8;
 }
 
@@ -732,6 +729,50 @@ LABEL_21:
   }
 
   return v5;
+}
+
+- (BOOL)_adjustPhraseBoundaryInForwardDirection:(BOOL)direction granularity:(int)granularity
+{
+  v4 = *&granularity;
+  directionCopy = direction;
+  if (TICanLogMessageAtLevel())
+  {
+    v7 = TIOSLogFacility();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    {
+      [TIKeyboardInputManagerLiveConversion_zh _adjustPhraseBoundaryInForwardDirection:directionCopy granularity:v4];
+    }
+  }
+
+  v13.receiver = self;
+  v13.super_class = TIKeyboardInputManagerLiveConversion_zh;
+  if ([(TIKeyboardInputManagerMecabra *)&v13 _adjustPhraseBoundaryInForwardDirection:directionCopy granularity:v4])
+  {
+    return 1;
+  }
+
+  zhuyinInputManager = [(TIKeyboardInputManagerLiveConversion_zh *)self zhuyinInputManager];
+  syllableBuffersOccupied = [zhuyinInputManager syllableBuffersOccupied];
+
+  if (syllableBuffersOccupied)
+  {
+    return 1;
+  }
+
+  if (v4 == 4)
+  {
+    [(TIKeyboardInputManagerLiveConversion_zh *)self presentSegmentPickerIfNeeded];
+  }
+
+  else
+  {
+    [(TIKeyboardInputManagerLiveConversion_zh *)self presentSegmentAdjuster];
+  }
+
+  composingKeyboardInputManager = [(TIKeyboardInputManagerMecabra *)self composingKeyboardInputManager];
+  v10 = [composingKeyboardInputManager _adjustPhraseBoundaryInForwardDirection:directionCopy granularity:v4];
+
+  return v10;
 }
 
 - (void)presentSegmentAdjuster
@@ -845,37 +886,55 @@ LABEL_21:
   [(TIKeyboardInputManagerMecabra *)&v17 commitComposition];
 }
 
+- (void)syncToKeyboardState:(id)state from:(id)from afterContextChange:(BOOL)change
+{
+  changeCopy = change;
+  stateCopy = state;
+  v13.receiver = self;
+  v13.super_class = TIKeyboardInputManagerLiveConversion_zh;
+  [(TIKeyboardInputManagerChinesePhonetic *)&v13 syncToKeyboardState:stateCopy from:from afterContextChange:changeCopy];
+  currentCandidate = [stateCopy currentCandidate];
+
+  if (currentCandidate)
+  {
+    currentCandidate2 = [stateCopy currentCandidate];
+    [(TIKeyboardInputManagerLiveConversion_zh *)self setCurrentCandidate:currentCandidate2];
+  }
+
+  inputForMarkedText = [stateCopy inputForMarkedText];
+  v12 = [inputForMarkedText length];
+
+  if (!v12)
+  {
+    [(TIKeyboardInputManagerMecabra *)self cancelComposition];
+  }
+}
+
 - (void)handleKeyboardInput:.cold.1()
 {
-  v6 = *MEMORY[0x29EDCA608];
+  v5 = *MEMORY[0x29EDCA608];
   v0 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"%s handleKeyboardInput", "-[TIKeyboardInputManagerLiveConversion_zh handleKeyboardInput:]"];
-  v4 = 138412290;
-  v5 = v0;
-  OUTLINED_FUNCTION_0(&dword_29EA88000, v1, v2, "%@", &v4);
-
-  v3 = *MEMORY[0x29EDCA608];
+  v3 = 138412290;
+  v4 = v0;
+  OUTLINED_FUNCTION_0(&dword_29EA88000, v1, v2, "%@", &v3);
 }
 
 - (void)updateCandidatesByWaitingForResults:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v7 = *MEMORY[0x29EDCA608];
+  v6 = *MEMORY[0x29EDCA608];
   v1 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"%s updateCandidates for %@", "-[TIKeyboardInputManagerLiveConversion_zh updateCandidatesByWaitingForResults:]", a1];
-  v5 = 138412290;
-  v6 = v1;
-  OUTLINED_FUNCTION_0(&dword_29EA88000, v2, v3, "%@", &v5);
-
-  v4 = *MEMORY[0x29EDCA608];
+  v4 = 138412290;
+  v5 = v1;
+  OUTLINED_FUNCTION_0(&dword_29EA88000, v2, v3, "%@", &v4);
 }
 
 - (void)_adjustPhraseBoundaryInForwardDirection:(char)a1 granularity:(uint64_t)a2 .cold.1(char a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x29EDCA608];
+  v7 = *MEMORY[0x29EDCA608];
   v2 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"%s adjust phrase: %d %d", "-[TIKeyboardInputManagerLiveConversion_zh _adjustPhraseBoundaryInForwardDirection:granularity:]", a1 & 1, a2];
-  v6 = 138412290;
-  v7 = v2;
-  OUTLINED_FUNCTION_0(&dword_29EA88000, v3, v4, "%@", &v6);
-
-  v5 = *MEMORY[0x29EDCA608];
+  v5 = 138412290;
+  v6 = v2;
+  OUTLINED_FUNCTION_0(&dword_29EA88000, v3, v4, "%@", &v5);
 }
 
 @end

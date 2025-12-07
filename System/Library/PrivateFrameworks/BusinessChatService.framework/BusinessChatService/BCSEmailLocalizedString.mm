@@ -51,24 +51,23 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (self->_locale)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_text)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    isDefault = self->_isDefault;
     PBDataWriterWriteBOOLField();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 

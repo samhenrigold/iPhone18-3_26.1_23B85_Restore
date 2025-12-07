@@ -1,15 +1,48 @@
+void sub_10002A7E4()
+{
+  __error();
+  v0 = __error();
+  strerror(*v0);
+  sub_10001CFB0();
+  sub_10001CFD4(&_mh_execute_header, v1, v2, "[ERROR] fsctl(dev=%d) failed; error %d (%s)", v3, v4, v5, v6);
+}
+
+void sub_10002A878()
+{
+  __error();
+  v0 = __error();
+  strerror(*v0);
+  sub_10001CFB0();
+  sub_10001CFD4(&_mh_execute_header, v1, v2, "[ERROR] fsgetpath(dev=%d) failed; error %d (%s)", v3, v4, v5, v6);
+}
+
+void sub_10002A938()
+{
+  sub_100006058();
+  sub_100006064();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
+}
+
+void sub_10002A9A8()
+{
+  sub_100025198();
+  sub_100006064();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
+}
+
+void sub_10002AA90()
+{
+  sub_100006058();
+  WORD2(v3) = 2048;
+  HIWORD(v3) = v0;
+  sub_1000251C0(&_mh_execute_header, v0, v1, "[DEBUG] Creating entry for docid:%lld ino:%lld", v2, v3);
+}
+
 void sub_10002AB70()
 {
   sub_1000030A8();
   sub_100006064();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
-}
-
-void sub_10002ABE8(uint64_t *a1)
-{
-  v1 = *a1;
-  sub_100025198();
-  sub_10002517C(&_mh_execute_header, v2, v3, "[ERROR] Found incorrect permissions/ownership on Document Revisions storage at %@; moving out of the way and creating a new storage directory.\n", v4, v5, v6, v7, v8);
 }
 
 void sub_10002AC54(NSObject *a1)
@@ -22,13 +55,6 @@ void sub_10002AC54(NSObject *a1)
   v6 = 2080;
   v7 = v4;
   _os_log_error_impl(&_mh_execute_header, a1, 0x90u, "[ERROR] Failed to clear ACL on storage directory: error %d (%s)\n", v5, 0x12u);
-}
-
-void sub_10002AE20(uint64_t *a1)
-{
-  v1 = *a1;
-  sub_100025198();
-  sub_10002517C(&_mh_execute_header, v2, v3, "[ERROR] Failed to open database in path %@\n", v4, v5, v6, v7, v8);
 }
 
 void sub_10002AE8C(uint8_t *buf, _BYTE *a2, os_log_t log)
@@ -82,7 +108,6 @@ void sub_10002B0C0()
 
 void sub_10002B198(uint64_t a1)
 {
-  v6 = *(a1 + 8);
   [*(a1 + 40) UTF8String];
   sub_10000CEAC();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
@@ -100,13 +125,6 @@ void sub_10002B2B8()
   sub_100006058();
   sub_100006064();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-}
-
-void sub_10002B460(uint64_t a1)
-{
-  v1 = *(a1 + 8);
-  sub_100025198();
-  sub_10002517C(&_mh_execute_header, v2, v3, "[ERROR] Failed to remove generation row ID %lld\n", v4, v5, v6, v7, v8);
 }
 
 void sub_10002B5A8()
@@ -145,12 +163,11 @@ void sub_10002B910(uint64_t a1, NSObject *a2)
   _os_log_error_impl(&_mh_execute_header, a2, 0x90u, "[ERROR] fts_read() failed for path %s; error %d (%s)", &v7, 0x1Cu);
 }
 
-void sub_10002BA38(uint64_t a1)
+void sub_10002BA38()
 {
-  v1 = *(a1 + 168);
   sub_100025198();
   sub_100006064();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void sub_10002BAE0()

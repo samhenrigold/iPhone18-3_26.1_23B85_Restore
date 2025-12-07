@@ -37,7 +37,7 @@
 
 void __50__WFPinboardGetAction_runAsynchronouslyWithInput___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
   v6 = [v5 domain];
@@ -62,26 +62,26 @@ LABEL_5:
   v11 = [*(a1 + 40) baseURL];
   v12 = [v10 attributionSetContentOfURL:v11];
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   obj = v4;
-  v13 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+  v13 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v32;
+    v15 = *v31;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v32 != v15)
+        if (*v31 != v15)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v31 + 1) + 8 * i);
+        v17 = *(*(&v30 + 1) + 8 * i);
         v18 = [v17 objectForKey:@"href"];
         v19 = [MEMORY[0x277CBEBC0] URLWithString:v18];
         if (v19)
@@ -111,14 +111,13 @@ LABEL_5:
 LABEL_14:
       }
 
-      v14 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v14 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
     }
 
     while (v14);
   }
 
   [*(a1 + 32) finishRunningWithError:v5];
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 @end

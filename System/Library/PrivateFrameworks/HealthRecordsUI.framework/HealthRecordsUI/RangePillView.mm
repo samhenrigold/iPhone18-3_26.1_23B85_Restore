@@ -24,17 +24,18 @@
   width = bounds.size.width;
   y = bounds.origin.y;
   x = bounds.origin.x;
-  v9.receiver = self;
-  v9.super_class = type metadata accessor for RangePillView();
-  v7 = v9.receiver;
-  [(RangePillView *)&v9 setBounds:x, y, width, height];
+  v10.receiver = self;
+  v10.super_class = type metadata accessor for RangePillView();
+  v7 = v10.receiver;
+  [(RangePillView *)&v10 setBounds:x, y, width, height];
   v8 = *&v7[OBJC_IVAR____TtC15HealthRecordsUI13RangePillView_onBoundsChange];
   if (v8)
   {
+    v9 = *&v7[OBJC_IVAR____TtC15HealthRecordsUI13RangePillView_onBoundsChange + 8];
 
     v8([v7 bounds]);
 
-    sub_1D102CC60(v8);
+    sub_1D102CC60(v8, v9);
   }
 
   else

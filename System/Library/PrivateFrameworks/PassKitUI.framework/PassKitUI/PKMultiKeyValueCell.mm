@@ -176,12 +176,12 @@
   [(PKMultiKeyValueCell *)&v4 layoutSubviews];
   contentView = [(PKMultiKeyValueCell *)self contentView];
   [contentView bounds];
-  [(PKMultiKeyValueCell *)self _layoutWithBounds:0 isTemplateLayout:?];
+  objc_msgSend__layoutWithBounds_isTemplateLayout_(self);
 }
 
 - (CGSize)sizeThatFits:(CGSize)fits
 {
-  [(PKMultiKeyValueCell *)self _layoutWithBounds:1 isTemplateLayout:*MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), fits.width, fits.height];
+  objc_msgSend__layoutWithBounds_isTemplateLayout_(self, a2, 1, *MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), fits.width, fits.height);
   result.height = v4;
   result.width = v3;
   return result;
@@ -222,13 +222,13 @@
   remainder.size.height = v9;
   if ([(NSArray *)self->_titleLabels count])
   {
-    v52 = width;
+    v86 = width;
     v15 = 0;
     memset(&slice, 0, sizeof(slice));
     v16 = 0.0;
     do
     {
-      v54 = v16;
+      v88 = v16;
       v17 = [(NSArray *)self->_titleLabels objectAtIndexedSubscript:v15];
       [v17 sizeThatFits:{remainder.size.width, remainder.size.height}];
       v19 = v18;
@@ -240,46 +240,72 @@
       if (v11)
       {
         CGRectDivide(remainder, &slice, &remainder, v21, CGRectMinYEdge);
-        PKContentAlignmentMake();
-        PKSizeAlignedInRect();
-        v53 = v27;
-        v29 = v28;
-        v31 = v30;
-        v33 = v32;
-        CGRectDivide(remainder, &slice, &remainder, v26, CGRectMinYEdge);
-        PKContentAlignmentMake();
-        PKSizeAlignedInRect();
-        v35 = v34;
+        v27 = PKContentAlignmentMake();
+        v28.n128_u64[0] = *&slice.origin.x;
+        v29.n128_u64[0] = *&slice.origin.y;
+        v30.n128_u64[0] = *&slice.size.width;
+        v31.n128_u64[0] = *&slice.size.height;
+        v32.n128_f64[0] = v19;
+        v33.n128_f64[0] = v21;
+        PKSizeAlignedInRect(v27, v32, v33, v28, v29, v30, v31, v34);
+        v87 = v35;
         v37 = v36;
         v39 = v38;
         v41 = v40;
+        CGRectDivide(remainder, &slice, &remainder, *&v26, CGRectMinYEdge);
+        v42 = PKContentAlignmentMake();
+        v43.n128_u64[0] = *&slice.origin.x;
+        v44.n128_u64[0] = *&slice.origin.y;
+        v45.n128_u64[0] = *&slice.size.width;
+        v46.n128_u64[0] = *&slice.size.height;
+        v47.n128_f64[0] = v24;
+        v48.n128_u64[0] = v26;
+        PKSizeAlignedInRect(v42, v47, v48, v43, v44, v45, v46, v49);
+        v51 = v50;
+        v53 = v52;
+        v55 = v54;
+        v57 = v56;
         CGRectDivide(remainder, &slice, &remainder, 5.0, CGRectMinYEdge);
-        v21 = v33 + v41;
+        v21 = v41 + v57;
       }
 
       else
       {
-        memset(&v56, 0, sizeof(v56));
-        CGRectDivide(remainder, &v56, &remainder, v21, CGRectMinYEdge);
-        memset(&v55, 0, sizeof(v55));
-        CGRectDivide(v56, &v55, &v56, fmin(v56.size.width, v19), v13);
-        PKContentAlignmentMake();
-        PKSizeAlignedInRect();
-        v53 = v42;
-        v29 = v43;
-        v31 = v44;
-        v33 = v45;
-        CGRectDivide(v56, &v55, &v56, fmin(v56.size.width, v24), v14);
-        PKContentAlignmentMake();
-        PKSizeAlignedInRect();
-        v35 = v46;
-        v37 = v47;
-        v39 = v48;
-        v41 = v49;
-        CGRectDivide(remainder, &v56, &remainder, 5.0, CGRectMinYEdge);
+        memset(&v90, 0, sizeof(v90));
+        CGRectDivide(remainder, &v90, &remainder, v21, CGRectMinYEdge);
+        v58 = fmin(v90.size.width, v19);
+        memset(&v89, 0, sizeof(v89));
+        CGRectDivide(v90, &v89, &v90, v58, v13);
+        v59 = PKContentAlignmentMake();
+        v60.n128_u64[0] = *&v89.origin.x;
+        v61.n128_u64[0] = *&v89.origin.y;
+        v62.n128_u64[0] = *&v89.size.width;
+        v63.n128_u64[0] = *&v89.size.height;
+        v64.n128_f64[0] = v58;
+        v65.n128_f64[0] = v21;
+        PKSizeAlignedInRect(v59, v64, v65, v60, v61, v62, v63, v66);
+        v87 = v67;
+        v37 = v68;
+        v39 = v69;
+        v41 = v70;
+        v71 = fmin(v90.size.width, v24);
+        CGRectDivide(v90, &v89, &v90, v71, v14);
+        v72 = PKContentAlignmentMake();
+        v73.n128_u64[0] = *&v89.origin.x;
+        v74.n128_u64[0] = *&v89.origin.y;
+        v75.n128_u64[0] = *&v89.size.width;
+        v76.n128_u64[0] = *&v89.size.height;
+        v77.n128_f64[0] = v71;
+        v78.n128_u64[0] = v26;
+        PKSizeAlignedInRect(v72, v77, v78, v73, v74, v75, v76, v79);
+        v51 = v80;
+        v53 = v81;
+        v55 = v82;
+        v57 = v83;
+        CGRectDivide(remainder, &v90, &remainder, 5.0, CGRectMinYEdge);
       }
 
-      v16 = v54 + v21;
+      v16 = v88 + v21;
       if (++v15 < [(NSArray *)self->_titleLabels count])
       {
         v16 = v16 + 5.0;
@@ -287,24 +313,24 @@
 
       if (!layout)
       {
-        [v17 setFrame:{v53, v29, v31, v33}];
-        [v22 setFrame:{v35, v37, v39, v41}];
+        [v17 setFrame:{v87, v37, v39, v41}];
+        [v22 setFrame:{v51, v53, v55, v57}];
       }
     }
 
     while (v15 < [(NSArray *)self->_titleLabels count]);
-    v50 = v16 + 32.0;
-    width = v52;
+    v84 = v16 + 32.0;
+    width = v86;
   }
 
   else
   {
-    v50 = 32.0;
+    v84 = 32.0;
   }
 
-  v51 = width;
-  result.height = v50;
-  result.width = v51;
+  v85 = width;
+  result.height = v84;
+  result.width = v85;
   return result;
 }
 

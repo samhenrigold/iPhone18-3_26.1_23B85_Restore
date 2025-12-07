@@ -28,11 +28,11 @@
 
 + (id)nonPrivateCoreSpotlightClientsForUser:(unsigned int)user bundleID:(id)d protectionClass:(id)class
 {
-  v12[1] = *MEMORY[0x29EDCA608];
+  v11[1] = *MEMORY[0x29EDCA608];
   v5 = [SDCoreSpotlightDiagnosticClient defaultClientWithBundleID:d protectionClass:class];
   v6 = [SDDiagnosticClientSet alloc];
-  v12[0] = v5;
-  v7 = [MEMORY[0x29EDB8D80] arrayWithObjects:v12 count:1];
+  v11[0] = v5;
+  v7 = [MEMORY[0x29EDB8D80] arrayWithObjects:v11 count:1];
   if ([0 count])
   {
     allObjects = [0 allObjects];
@@ -43,8 +43,6 @@
   {
     v9 = [(SDDiagnosticClientSet *)v6 initWithDefaultClients:v7 privateClients:0 managedClients:0];
   }
-
-  v10 = *MEMORY[0x29EDCA608];
 
   return v9;
 }

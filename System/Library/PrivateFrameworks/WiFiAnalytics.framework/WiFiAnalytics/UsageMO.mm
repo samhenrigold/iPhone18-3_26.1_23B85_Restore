@@ -38,35 +38,33 @@
 
 + (id)jumpBackOneSpan
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = WALogCategoryDeviceStoreHandle();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
   {
-    v5 = 136446466;
-    v6 = "+[UsageMO jumpBackOneSpan]";
-    v7 = 1024;
-    v8 = 56;
-    _os_log_impl(&dword_1C8460000, v2, OS_LOG_TYPE_FAULT, "%{public}s::%d:children classes shall implement <UsageMOProtocol>", &v5, 0x12u);
+    v4 = 136446466;
+    v5 = "+[UsageMO jumpBackOneSpan]";
+    v6 = 1024;
+    v7 = 56;
+    _os_log_impl(&dword_1C8460000, v2, OS_LOG_TYPE_FAULT, "%{public}s::%d:children classes shall implement <UsageMOProtocol>", &v4, 0x12u);
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 + (unint64_t)timeSpan
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = WALogCategoryDeviceStoreHandle();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
   {
-    v5 = 136446466;
-    v6 = "+[UsageMO timeSpan]";
-    v7 = 1024;
-    v8 = 61;
-    _os_log_impl(&dword_1C8460000, v2, OS_LOG_TYPE_FAULT, "%{public}s::%d:children classes shall implement <UsageMOProtocol>", &v5, 0x12u);
+    v4 = 136446466;
+    v5 = "+[UsageMO timeSpan]";
+    v6 = 1024;
+    v7 = 61;
+    _os_log_impl(&dword_1C8460000, v2, OS_LOG_TYPE_FAULT, "%{public}s::%d:children classes shall implement <UsageMOProtocol>", &v4, 0x12u);
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -88,7 +86,7 @@
 
 + (int64_t)checkForInvalid:(int64_t)invalid constraint:(id)constraint on:(id)on
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (invalid == 0x7FFFFFFFFFFFFFFFLL)
   {
     constraintCopy = constraint;
@@ -98,34 +96,30 @@
     attributeType = [v8 attributeType];
     if (attributeType == 100)
     {
-      invalid = 0x7FFFLL;
-      goto LABEL_11;
+      return 0x7FFFLL;
     }
 
     if (attributeType != 300)
     {
       if (attributeType == 200)
       {
-        invalid = 0x7FFFFFFFLL;
-        goto LABEL_11;
+        return 0x7FFFFFFFLL;
       }
 
       v10 = WALogCategoryDeviceStoreHandle();
       if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
       {
-        v13 = 136446466;
-        v14 = "+[UsageMO checkForInvalid:constraint:on:]";
-        v15 = 1024;
-        v16 = 81;
-        _os_log_impl(&dword_1C8460000, v10, OS_LOG_TYPE_FAULT, "%{public}s::%d:This function is meant to be called on integer constraints", &v13, 0x12u);
+        v12 = 136446466;
+        v13 = "+[UsageMO checkForInvalid:constraint:on:]";
+        v14 = 1024;
+        v15 = 81;
+        _os_log_impl(&dword_1C8460000, v10, OS_LOG_TYPE_FAULT, "%{public}s::%d:This function is meant to be called on integer constraints", &v12, 0x12u);
       }
     }
 
-    invalid = 0x7FFFFFFFFFFFFFFFLL;
+    return 0x7FFFFFFFFFFFFFFFLL;
   }
 
-LABEL_11:
-  v11 = *MEMORY[0x1E69E9840];
   return invalid;
 }
 
@@ -211,7 +205,7 @@ LABEL_11:
 
 + (BOOL)verifyConstraints:(id)constraints withError:(id *)error
 {
-  v118[1] = *MEMORY[0x1E69E9840];
+  v117[1] = *MEMORY[0x1E69E9840];
   constraintsCopy = constraints;
   if (![BSSMO verifyConstraints:constraintsCopy withError:error]|| ![NetworkMO verifyConstraints:constraintsCopy withError:error]|| ![LANMO verifyConstraints:constraintsCopy withError:error])
   {
@@ -229,22 +223,22 @@ LABEL_68:
     {
       v78 = [constraintsCopy objectForKeyedSubscript:@"date_ge"];
       *buf = 136446722;
-      v108 = "+[UsageMO verifyConstraints:withError:]";
-      v109 = 1024;
-      v110 = 131;
-      v111 = 2112;
-      v112 = v78;
+      v107 = "+[UsageMO verifyConstraints:withError:]";
+      v108 = 1024;
+      v109 = 131;
+      v110 = 2112;
+      v111 = v78;
       _os_log_impl(&dword_1C8460000, v77, OS_LOG_TYPE_FAULT, "%{public}s::%d:Invalid input. date_ge:%@", buf, 0x1Cu);
     }
 
     if (error)
     {
       v31 = MEMORY[0x1E696ABC0];
-      v117 = *MEMORY[0x1E696A588];
-      v118[0] = @"WAErrorCodeLacksRequiredArgument";
+      v116 = *MEMORY[0x1E696A588];
+      v117[0] = @"WAErrorCodeLacksRequiredArgument";
       v32 = MEMORY[0x1E695DF20];
-      v33 = v118;
-      v34 = &v117;
+      v33 = v117;
+      v34 = &v116;
       goto LABEL_77;
     }
 
@@ -274,22 +268,22 @@ LABEL_73:
       v80 = +[WAPersistentContainer defaultBinnedDateHigherEdgePropertyName];
       v81 = [constraintsCopy objectForKeyedSubscript:v80];
       *buf = 136446722;
-      v108 = "+[UsageMO verifyConstraints:withError:]";
-      v109 = 1024;
-      v110 = 133;
-      v111 = 2112;
-      v112 = v81;
+      v107 = "+[UsageMO verifyConstraints:withError:]";
+      v108 = 1024;
+      v109 = 133;
+      v110 = 2112;
+      v111 = v81;
       _os_log_impl(&dword_1C8460000, v79, OS_LOG_TYPE_FAULT, "%{public}s::%d:Invalid input. date_lt:%@", buf, 0x1Cu);
     }
 
     if (error)
     {
       v31 = MEMORY[0x1E696ABC0];
-      v115 = *MEMORY[0x1E696A588];
-      v116 = @"WAErrorCodeLacksRequiredArgument";
+      v114 = *MEMORY[0x1E696A588];
+      v115 = @"WAErrorCodeLacksRequiredArgument";
       v32 = MEMORY[0x1E695DF20];
-      v33 = &v116;
-      v34 = &v115;
+      v33 = &v115;
+      v34 = &v114;
       goto LABEL_77;
     }
 
@@ -324,24 +318,24 @@ LABEL_73:
         v54 = [constraintsCopy objectForKeyedSubscript:@"rssi_ge"];
         v55 = [constraintsCopy objectForKeyedSubscript:@"rssi_lt"];
         *buf = 136446978;
-        v108 = "+[UsageMO verifyConstraints:withError:]";
-        v109 = 1024;
-        v110 = 137;
-        v111 = 2112;
-        v112 = v54;
-        v113 = 2112;
-        v114 = v55;
+        v107 = "+[UsageMO verifyConstraints:withError:]";
+        v108 = 1024;
+        v109 = 137;
+        v110 = 2112;
+        v111 = v54;
+        v112 = 2112;
+        v113 = v55;
         _os_log_impl(&dword_1C8460000, v53, OS_LOG_TYPE_FAULT, "%{public}s::%d:Invalid input. rssi bin [%@:%@) is not valid", buf, 0x26u);
       }
 
       if (error)
       {
         v31 = MEMORY[0x1E696ABC0];
-        v105 = *MEMORY[0x1E696A588];
-        v106 = @"WAErrorCodeLacksRequiredArgument";
+        v104 = *MEMORY[0x1E696A588];
+        v105 = @"WAErrorCodeLacksRequiredArgument";
         v32 = MEMORY[0x1E695DF20];
-        v33 = &v106;
-        v34 = &v105;
+        v33 = &v105;
+        v34 = &v104;
         goto LABEL_77;
       }
 
@@ -364,11 +358,11 @@ LABEL_73:
       {
         v30 = [constraintsCopy objectForKeyedSubscript:@"rssi_ge"];
         *buf = 136446722;
-        v108 = "+[UsageMO verifyConstraints:withError:]";
-        v109 = 1024;
-        v110 = 138;
-        v111 = 2112;
-        v112 = v30;
+        v107 = "+[UsageMO verifyConstraints:withError:]";
+        v108 = 1024;
+        v109 = 138;
+        v110 = 2112;
+        v111 = v30;
         _os_log_impl(&dword_1C8460000, v29, OS_LOG_TYPE_FAULT, "%{public}s::%d:Invalid input. rssi_ge:%@", buf, 0x1Cu);
       }
 
@@ -378,13 +372,13 @@ LABEL_73:
       }
 
       v31 = MEMORY[0x1E696ABC0];
-      v103 = *MEMORY[0x1E696A588];
-      v104 = @"WAErrorCodeLacksRequiredArgument";
+      v102 = *MEMORY[0x1E696A588];
+      v103 = @"WAErrorCodeLacksRequiredArgument";
       v32 = MEMORY[0x1E695DF20];
-      v33 = &v104;
-      v34 = &v103;
+      v33 = &v103;
+      v34 = &v102;
 LABEL_77:
-      v82 = [v32 dictionaryWithObjects:v33 forKeys:v34 count:{1, v87, v88, v89, v90, v91, v92, v93, v94, v95, v96, v97, v98, v99, v100, v101, v102, v103, v104, v105, v106}];
+      v82 = [v32 dictionaryWithObjects:v33 forKeys:v34 count:{1, v86, v87, v88, v89, v90, v91, v92, v93, v94, v95, v96, v97, v98, v99, v100, v101, v102, v103, v104, v105}];
       *error = [v31 errorWithDomain:@"com.apple.wifi.analytics.errordomain" code:9010 userInfo:v82];
 
 LABEL_78:
@@ -408,11 +402,11 @@ LABEL_78:
       {
         v36 = [constraintsCopy objectForKeyedSubscript:@"rssi_lt"];
         *buf = 136446722;
-        v108 = "+[UsageMO verifyConstraints:withError:]";
-        v109 = 1024;
-        v110 = 139;
-        v111 = 2112;
-        v112 = v36;
+        v107 = "+[UsageMO verifyConstraints:withError:]";
+        v108 = 1024;
+        v109 = 139;
+        v110 = 2112;
+        v111 = v36;
         _os_log_impl(&dword_1C8460000, v35, OS_LOG_TYPE_FAULT, "%{public}s::%d:Invalid input. rssi_lt:%@", buf, 0x1Cu);
       }
 
@@ -422,11 +416,11 @@ LABEL_78:
       }
 
       v31 = MEMORY[0x1E696ABC0];
-      v101 = *MEMORY[0x1E696A588];
-      v102 = @"WAErrorCodeLacksRequiredArgument";
+      v100 = *MEMORY[0x1E696A588];
+      v101 = @"WAErrorCodeLacksRequiredArgument";
       v32 = MEMORY[0x1E695DF20];
-      v33 = &v102;
-      v34 = &v101;
+      v33 = &v101;
+      v34 = &v100;
       goto LABEL_77;
     }
   }
@@ -448,24 +442,24 @@ LABEL_78:
         v71 = [constraintsCopy objectForKeyedSubscript:@"rxtxFrames_gt"];
         v72 = [constraintsCopy objectForKeyedSubscript:@"rxtxFrames_le"];
         *buf = 136446978;
-        v108 = "+[UsageMO verifyConstraints:withError:]";
-        v109 = 1024;
-        v110 = 142;
-        v111 = 2112;
-        v112 = v71;
-        v113 = 2112;
-        v114 = v72;
+        v107 = "+[UsageMO verifyConstraints:withError:]";
+        v108 = 1024;
+        v109 = 142;
+        v110 = 2112;
+        v111 = v71;
+        v112 = 2112;
+        v113 = v72;
         _os_log_impl(&dword_1C8460000, v70, OS_LOG_TYPE_FAULT, "%{public}s::%d:Invalid input. rxtxFrames bin (%@:%@] is not valid", buf, 0x26u);
       }
 
       if (error)
       {
         v31 = MEMORY[0x1E696ABC0];
-        v99 = *MEMORY[0x1E696A588];
-        v100 = @"WAErrorCodeLacksRequiredArgument";
+        v98 = *MEMORY[0x1E696A588];
+        v99 = @"WAErrorCodeLacksRequiredArgument";
         v32 = MEMORY[0x1E695DF20];
-        v33 = &v100;
-        v34 = &v99;
+        v33 = &v99;
+        v34 = &v98;
         goto LABEL_77;
       }
 
@@ -481,22 +475,22 @@ LABEL_78:
     {
       v57 = [constraintsCopy objectForKeyedSubscript:@"rxtxFrames_gt"];
       *buf = 136446722;
-      v108 = "+[UsageMO verifyConstraints:withError:]";
-      v109 = 1024;
-      v110 = 143;
-      v111 = 2112;
-      v112 = v57;
+      v107 = "+[UsageMO verifyConstraints:withError:]";
+      v108 = 1024;
+      v109 = 143;
+      v110 = 2112;
+      v111 = v57;
       _os_log_impl(&dword_1C8460000, v56, OS_LOG_TYPE_FAULT, "%{public}s::%d:Invalid input. rxtxFrames_gt:%@", buf, 0x1Cu);
     }
 
     if (error)
     {
       v31 = MEMORY[0x1E696ABC0];
-      v97 = *MEMORY[0x1E696A588];
-      v98 = @"WAErrorCodeLacksRequiredArgument";
+      v96 = *MEMORY[0x1E696A588];
+      v97 = @"WAErrorCodeLacksRequiredArgument";
       v32 = MEMORY[0x1E695DF20];
-      v33 = &v98;
-      v34 = &v97;
+      v33 = &v97;
+      v34 = &v96;
       goto LABEL_77;
     }
   }
@@ -511,22 +505,22 @@ LABEL_78:
       {
         v69 = [constraintsCopy objectForKeyedSubscript:@"rxtxFrames_le"];
         *buf = 136446722;
-        v108 = "+[UsageMO verifyConstraints:withError:]";
-        v109 = 1024;
-        v110 = 144;
-        v111 = 2112;
-        v112 = v69;
+        v107 = "+[UsageMO verifyConstraints:withError:]";
+        v108 = 1024;
+        v109 = 144;
+        v110 = 2112;
+        v111 = v69;
         _os_log_impl(&dword_1C8460000, v68, OS_LOG_TYPE_FAULT, "%{public}s::%d:Invalid input. rxtxFrames_le:%@", buf, 0x1Cu);
       }
 
       if (error)
       {
         v31 = MEMORY[0x1E696ABC0];
-        v95 = *MEMORY[0x1E696A588];
-        v96 = @"WAErrorCodeLacksRequiredArgument";
+        v94 = *MEMORY[0x1E696A588];
+        v95 = @"WAErrorCodeLacksRequiredArgument";
         v32 = MEMORY[0x1E695DF20];
-        v33 = &v96;
-        v34 = &v95;
+        v33 = &v95;
+        v34 = &v94;
         goto LABEL_77;
       }
     }
@@ -554,27 +548,27 @@ LABEL_78:
 
               if ((shortValue - 12) <= 0xFFF4u)
               {
-                v85 = WALogCategoryDeviceStoreHandle();
-                if (os_log_type_enabled(v85, OS_LOG_TYPE_FAULT))
+                v84 = WALogCategoryDeviceStoreHandle();
+                if (os_log_type_enabled(v84, OS_LOG_TYPE_FAULT))
                 {
-                  v86 = [constraintsCopy objectForKeyedSubscript:@"subband"];
+                  v85 = [constraintsCopy objectForKeyedSubscript:@"subband"];
                   *buf = 136446722;
-                  v108 = "+[UsageMO verifyConstraints:withError:]";
-                  v109 = 1024;
-                  v110 = 153;
-                  v111 = 2112;
-                  v112 = v86;
-                  _os_log_impl(&dword_1C8460000, v85, OS_LOG_TYPE_FAULT, "%{public}s::%d:Invalid input. subband:%@", buf, 0x1Cu);
+                  v107 = "+[UsageMO verifyConstraints:withError:]";
+                  v108 = 1024;
+                  v109 = 153;
+                  v110 = 2112;
+                  v111 = v85;
+                  _os_log_impl(&dword_1C8460000, v84, OS_LOG_TYPE_FAULT, "%{public}s::%d:Invalid input. subband:%@", buf, 0x1Cu);
                 }
 
                 if (error)
                 {
                   v31 = MEMORY[0x1E696ABC0];
-                  v89 = *MEMORY[0x1E696A588];
-                  v90 = @"WAErrorCodeLacksRequiredArgument";
+                  v88 = *MEMORY[0x1E696A588];
+                  v89 = @"WAErrorCodeLacksRequiredArgument";
                   v32 = MEMORY[0x1E695DF20];
-                  v33 = &v90;
-                  v34 = &v89;
+                  v33 = &v89;
+                  v34 = &v88;
                   goto LABEL_77;
                 }
               }
@@ -594,22 +588,22 @@ LABEL_78:
                   {
                     v76 = [constraintsCopy objectForKeyedSubscript:@"isAnyAppInFg"];
                     *buf = 136446722;
-                    v108 = "+[UsageMO verifyConstraints:withError:]";
-                    v109 = 1024;
-                    v110 = 155;
-                    v111 = 2112;
-                    v112 = v76;
+                    v107 = "+[UsageMO verifyConstraints:withError:]";
+                    v108 = 1024;
+                    v109 = 155;
+                    v110 = 2112;
+                    v111 = v76;
                     _os_log_impl(&dword_1C8460000, v75, OS_LOG_TYPE_FAULT, "%{public}s::%d:Invalid input. isAnyAppInFg:%@", buf, 0x1Cu);
                   }
 
                   if (error)
                   {
                     v31 = MEMORY[0x1E696ABC0];
-                    v87 = *MEMORY[0x1E696A588];
-                    v88 = @"WAErrorCodeLacksRequiredArgument";
+                    v86 = *MEMORY[0x1E696A588];
+                    v87 = @"WAErrorCodeLacksRequiredArgument";
                     v32 = MEMORY[0x1E695DF20];
-                    v33 = &v88;
-                    v34 = &v87;
+                    v33 = &v87;
+                    v34 = &v86;
                     goto LABEL_77;
                   }
                 }
@@ -623,22 +617,22 @@ LABEL_78:
               {
                 v74 = [constraintsCopy objectForKeyedSubscript:@"band"];
                 *buf = 136446722;
-                v108 = "+[UsageMO verifyConstraints:withError:]";
-                v109 = 1024;
-                v110 = 150;
-                v111 = 2112;
-                v112 = v74;
+                v107 = "+[UsageMO verifyConstraints:withError:]";
+                v108 = 1024;
+                v109 = 150;
+                v110 = 2112;
+                v111 = v74;
                 _os_log_impl(&dword_1C8460000, v73, OS_LOG_TYPE_FAULT, "%{public}s::%d:Invalid input. band:%@", buf, 0x1Cu);
               }
 
               if (error)
               {
                 v31 = MEMORY[0x1E696ABC0];
-                v91 = *MEMORY[0x1E696A588];
-                v92 = @"WAErrorCodeLacksRequiredArgument";
+                v90 = *MEMORY[0x1E696A588];
+                v91 = @"WAErrorCodeLacksRequiredArgument";
                 v32 = MEMORY[0x1E695DF20];
-                v33 = &v92;
-                v34 = &v91;
+                v33 = &v91;
+                v34 = &v90;
                 goto LABEL_77;
               }
             }
@@ -657,22 +651,22 @@ LABEL_78:
       {
         v52 = [constraintsCopy objectForKeyedSubscript:@"band"];
         *buf = 136446722;
-        v108 = "+[UsageMO verifyConstraints:withError:]";
-        v109 = 1024;
-        v110 = 147;
-        v111 = 2112;
-        v112 = v52;
+        v107 = "+[UsageMO verifyConstraints:withError:]";
+        v108 = 1024;
+        v109 = 147;
+        v110 = 2112;
+        v111 = v52;
         _os_log_impl(&dword_1C8460000, v51, OS_LOG_TYPE_FAULT, "%{public}s::%d:Invalid input. band:%@", buf, 0x1Cu);
       }
 
       if (error)
       {
         v31 = MEMORY[0x1E696ABC0];
-        v93 = *MEMORY[0x1E696A588];
-        v94 = @"WAErrorCodeLacksRequiredArgument";
+        v92 = *MEMORY[0x1E696A588];
+        v93 = @"WAErrorCodeLacksRequiredArgument";
         v32 = MEMORY[0x1E695DF20];
-        v33 = &v94;
-        v34 = &v93;
+        v33 = &v93;
+        v34 = &v92;
         goto LABEL_77;
       }
     }
@@ -680,7 +674,6 @@ LABEL_78:
 
 LABEL_79:
 
-  v83 = *MEMORY[0x1E69E9840];
   return error;
 }
 
@@ -713,7 +706,7 @@ LABEL_79:
 + (id)referenceDateFor:(unint64_t)for timeSpan:(unint64_t)span withError:(id *)error
 {
   errorCopy = error;
-  v21[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   v7 = [UsageHelper classForTimeSpan:span withError:error];
   if (!v7)
   {
@@ -737,9 +730,9 @@ LABEL_6:
   if (errorCopy)
   {
     v9 = MEMORY[0x1E696ABC0];
-    v20 = *MEMORY[0x1E696A588];
-    v21[0] = @"WAErrorCodeInvalidInput";
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+    v19 = *MEMORY[0x1E696A588];
+    v20[0] = @"WAErrorCodeInvalidInput";
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
     *errorCopy = [v9 errorWithDomain:@"com.apple.wifi.analytics.errordomain" code:9035 userInfo:v10];
 
 LABEL_9:
@@ -750,16 +743,14 @@ LABEL_10:
   v11 = WALogCategoryDeviceStoreHandle();
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
-    v14 = 136446722;
-    v15 = "+[UsageMO referenceDateFor:timeSpan:withError:]";
-    v16 = 1024;
-    v17 = 210;
-    v18 = 2112;
-    v19 = errorCopy;
-    _os_log_impl(&dword_1C8460000, v11, OS_LOG_TYPE_DEBUG, "%{public}s::%d:Returning: %@", &v14, 0x1Cu);
+    v13 = 136446722;
+    v14 = "+[UsageMO referenceDateFor:timeSpan:withError:]";
+    v15 = 1024;
+    v16 = 210;
+    v17 = 2112;
+    v18 = errorCopy;
+    _os_log_impl(&dword_1C8460000, v11, OS_LOG_TYPE_DEBUG, "%{public}s::%d:Returning: %@", &v13, 0x1Cu);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return errorCopy;
 }

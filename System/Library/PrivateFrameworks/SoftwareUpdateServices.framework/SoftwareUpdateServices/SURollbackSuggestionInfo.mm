@@ -41,21 +41,21 @@
 
 - (SURollbackSuggestionInfo)initWithCoder:(id)coder
 {
-  v14[3] = *MEMORY[0x277D85DE8];
+  v13[3] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v13.receiver = self;
-  v13.super_class = SURollbackSuggestionInfo;
-  v5 = [(SURollbackSuggestionInfo *)&v13 init];
+  v12.receiver = self;
+  v12.super_class = SURollbackSuggestionInfo;
+  v5 = [(SURollbackSuggestionInfo *)&v12 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"ClientIdentifier"];
     [(SURollbackSuggestionInfo *)v5 setClientIdentifier:v6];
 
     v7 = MEMORY[0x277CBEB98];
-    v14[0] = objc_opt_class();
-    v14[1] = objc_opt_class();
-    v14[2] = objc_opt_class();
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:3];
+    v13[0] = objc_opt_class();
+    v13[1] = objc_opt_class();
+    v13[2] = objc_opt_class();
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:3];
     v9 = [v7 setWithArray:v8];
     v10 = [coderCopy decodeObjectOfClasses:v9 forKey:@"responsibleProcessesInfo"];
     [(SURollbackSuggestionInfo *)v5 setResponsibleProcessesInfo:v10];
@@ -63,7 +63,6 @@
     -[SURollbackSuggestionInfo setSuggestionReason:](v5, "setSuggestionReason:", [coderCopy decodeIntForKey:@"RollbackSuggestionReason"]);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

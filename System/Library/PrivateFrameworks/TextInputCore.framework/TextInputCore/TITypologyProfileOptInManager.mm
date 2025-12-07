@@ -16,7 +16,7 @@
 
 - (BOOL)_isProfileInstalledAndUserEnabled
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   mEMORY[0x277D6F470] = [MEMORY[0x277D6F470] sharedPreferencesController];
   v4 = [mEMORY[0x277D6F470] BOOLForKey:54];
 
@@ -26,9 +26,9 @@
   {
     if (v6)
     {
-      v32 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s %@", "-[TITypologyProfileOptInManager _isProfileInstalledAndUserEnabled]", @"CustomerTypologyEnabledByDiagnosticExtension is false"];
+      v31 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s %@", "-[TITypologyProfileOptInManager _isProfileInstalledAndUserEnabled]", @"CustomerTypologyEnabledByDiagnosticExtension is false"];
       *buf = 138412290;
-      v50 = v32;
+      v49 = v31;
       _os_log_debug_impl(&dword_22CA55000, typologyProfileState9, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
     }
 
@@ -75,18 +75,18 @@ LABEL_19:
 
       if (!typologyProfileState)
       {
-        v13 = +[TITypologyProfileState typologyProfileStateFromPersistedState];
-        [(TITypologyProfileOptInManager *)self setTypologyProfileState:v13];
+        v12 = +[TITypologyProfileState typologyProfileStateFromPersistedState];
+        [(TITypologyProfileOptInManager *)self setTypologyProfileState:v12];
       }
 
       typologyProfileState2 = [(TITypologyProfileOptInManager *)self typologyProfileState];
 
       if (!typologyProfileState2)
       {
-        v15 = [TITypologyProfileState alloc];
-        v16 = [MEMORY[0x277CBEAA8] now];
-        v17 = [(TITypologyProfileState *)v15 initWithProfileInstallationDate:v16];
-        [(TITypologyProfileOptInManager *)self setTypologyProfileState:v17];
+        v14 = [TITypologyProfileState alloc];
+        v15 = [MEMORY[0x277CBEAA8] now];
+        v16 = [(TITypologyProfileState *)v14 initWithProfileInstallationDate:v15];
+        [(TITypologyProfileOptInManager *)self setTypologyProfileState:v16];
 
         typologyProfileState3 = [(TITypologyProfileOptInManager *)self typologyProfileState];
         [typologyProfileState3 persistState];
@@ -108,63 +108,63 @@ LABEL_19:
 
       typologyProfileState5 = [(TITypologyProfileOptInManager *)self typologyProfileState];
       userResponse = [typologyProfileState5 userResponse];
-      v22 = [userResponse isEqualToString:@"Enable"];
+      isEqualToString = objc_msgSend_isEqualToString_(userResponse);
 
       typologyProfileState6 = [(TITypologyProfileOptInManager *)self typologyProfileState];
-      v24 = typologyProfileState6;
-      if (v22)
+      v23 = typologyProfileState6;
+      if (isEqualToString)
       {
         userNotificationDate = [typologyProfileState6 userNotificationDate];
-        v26 = [userNotificationDate dateByAddingTimeInterval:259200.0];
+        v25 = [userNotificationDate dateByAddingTimeInterval:259200.0];
 
         typologyProfileState9 = [MEMORY[0x277CBEAA8] now];
-        v27 = [v26 laterDate:typologyProfileState9];
+        v26 = [v25 laterDate:typologyProfileState9];
 
-        v28 = TITypologyProfileStateLog();
-        v29 = os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT);
-        LOBYTE(typologyProfileState9) = v27 == v26;
-        if (v27 == v26)
+        v27 = TITypologyProfileStateLog();
+        v28 = os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT);
+        LOBYTE(typologyProfileState9) = v26 == v25;
+        if (v26 == v25)
         {
-          if (v29)
+          if (v28)
           {
             *buf = 0;
-            v30 = "User opted-in.";
+            v29 = "User opted-in.";
             goto LABEL_44;
           }
         }
 
-        else if (v29)
+        else if (v28)
         {
           *buf = 0;
-          v30 = "User opted-in, but opt-in has expired.";
+          v29 = "User opted-in, but opt-in has expired.";
 LABEL_44:
-          _os_log_impl(&dword_22CA55000, v28, OS_LOG_TYPE_DEFAULT, v30, buf, 2u);
+          _os_log_impl(&dword_22CA55000, v27, OS_LOG_TYPE_DEFAULT, v29, buf, 2u);
         }
 
-        goto LABEL_21;
+        return typologyProfileState9;
       }
 
       userResponse2 = [typologyProfileState6 userResponse];
-      v34 = [userResponse2 isEqualToString:@"NotNow"];
+      v33 = objc_msgSend_isEqualToString_(userResponse2);
 
       typologyProfileState7 = [(TITypologyProfileOptInManager *)self typologyProfileState];
-      v36 = typologyProfileState7;
-      if (v34)
+      v35 = typologyProfileState7;
+      if (v33)
       {
         userNotificationDate2 = [typologyProfileState7 userNotificationDate];
-        v38 = [userNotificationDate2 dateByAddingTimeInterval:600.0];
+        v37 = [userNotificationDate2 dateByAddingTimeInterval:600.0];
 
-        v39 = [MEMORY[0x277CBEAA8] now];
-        v40 = [v38 earlierDate:v39];
+        v38 = [MEMORY[0x277CBEAA8] now];
+        v39 = [v37 earlierDate:v38];
 
-        v41 = TITypologyProfileStateLog();
-        v42 = os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT);
-        if (v40 == v38)
+        v40 = TITypologyProfileStateLog();
+        v41 = os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT);
+        if (v39 == v37)
         {
-          if (v42)
+          if (v41)
           {
             *buf = 0;
-            _os_log_impl(&dword_22CA55000, v41, OS_LOG_TYPE_DEFAULT, "User deferred opt-in. Time to ask again.", buf, 2u);
+            _os_log_impl(&dword_22CA55000, v40, OS_LOG_TYPE_DEFAULT, "User deferred opt-in. Time to ask again.", buf, 2u);
           }
 
           [(TITypologyProfileOptInManager *)self _askUserToAllow];
@@ -172,10 +172,10 @@ LABEL_44:
 
         else
         {
-          if (v42)
+          if (v41)
           {
             *buf = 0;
-            _os_log_impl(&dword_22CA55000, v41, OS_LOG_TYPE_DEFAULT, "User deferred opt-in. Not time to ask again.", buf, 2u);
+            _os_log_impl(&dword_22CA55000, v40, OS_LOG_TYPE_DEFAULT, "User deferred opt-in. Not time to ask again.", buf, 2u);
           }
         }
 
@@ -183,15 +183,15 @@ LABEL_44:
       }
 
       userResponse3 = [typologyProfileState7 userResponse];
-      v44 = [userResponse3 isEqualToString:@"None"];
+      v43 = objc_msgSend_isEqualToString_(userResponse3);
 
-      if (v44)
+      if (v43)
       {
-        v45 = TITypologyProfileStateLog();
-        if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+        v44 = TITypologyProfileStateLog();
+        if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_22CA55000, v45, OS_LOG_TYPE_DEFAULT, "User has not been asked to opt-in. Asking now.", buf, 2u);
+          _os_log_impl(&dword_22CA55000, v44, OS_LOG_TYPE_DEFAULT, "User has not been asked to opt-in. Asking now.", buf, 2u);
         }
 
         [(TITypologyProfileOptInManager *)self _askUserToAllow];
@@ -200,9 +200,9 @@ LABEL_44:
 
       typologyProfileState8 = [(TITypologyProfileOptInManager *)self typologyProfileState];
       userResponse4 = [typologyProfileState8 userResponse];
-      v48 = [userResponse4 isEqualToString:@"Disabled"];
+      v47 = objc_msgSend_isEqualToString_(userResponse4);
 
-      if (v48)
+      if (v47)
       {
         v8 = TITypologyProfileStateLog();
         if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
@@ -222,7 +222,7 @@ LABEL_44:
 
       if (!typologyProfileState9)
       {
-        goto LABEL_21;
+        return typologyProfileState9;
       }
 
       [(TITypologyProfileOptInManager *)self setTypologyProfileState:0];
@@ -231,20 +231,18 @@ LABEL_44:
 
 LABEL_20:
     LOBYTE(typologyProfileState9) = 0;
-    goto LABEL_21;
+    return typologyProfileState9;
   }
 
   if (v6)
   {
-    v31 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s %@", "-[TITypologyProfileOptInManager _isProfileInstalledAndUserEnabled]", @"CustomerTypologyEnabledByDiagnosticExtension is true"];
+    v30 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s %@", "-[TITypologyProfileOptInManager _isProfileInstalledAndUserEnabled]", @"CustomerTypologyEnabledByDiagnosticExtension is true"];
     *buf = 138412290;
-    v50 = v31;
+    v49 = v30;
     _os_log_debug_impl(&dword_22CA55000, typologyProfileState9, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
   }
 
   LOBYTE(typologyProfileState9) = 1;
-LABEL_21:
-  v10 = *MEMORY[0x277D85DE8];
   return typologyProfileState9;
 }
 
@@ -349,37 +347,36 @@ void __76__TITypologyProfileOptInManager_presentDialogForType_withCompletionHand
 {
   if (sNotification)
   {
-    v2 = *(a1 + 40);
-    v3 = *(*(a1 + 40) + 16);
+    v2 = *(*(a1 + 40) + 16);
 
-    v3();
+    v2();
   }
 
   else
   {
     error = 0;
-    v4 = [*(a1 + 32) notificationDetailsForType:*(a1 + 48)];
-    v5 = *MEMORY[0x277CBECE8];
-    sNotification = CFUserNotificationCreate(*MEMORY[0x277CBECE8], 0.0, 0, &error, v4);
-    v6 = *(a1 + 40);
+    v3 = [*(a1 + 32) notificationDetailsForType:*(a1 + 48)];
+    v4 = *MEMORY[0x277CBECE8];
+    sNotification = CFUserNotificationCreate(*MEMORY[0x277CBECE8], 0.0, 0, &error, v3);
+    v5 = *(a1 + 40);
     if (error)
     {
-      v6[2](v6, 0);
+      v5[2](v5, 0);
     }
 
     else
     {
-      v7 = [v6 copy];
-      v8 = sCompletionHandler;
-      sCompletionHandler = v7;
+      v6 = [v5 copy];
+      v7 = sCompletionHandler;
+      sCompletionHandler = v6;
 
-      RunLoopSource = CFUserNotificationCreateRunLoopSource(v5, sNotification, _HandleUserNotificationCallBack, 0);
+      RunLoopSource = CFUserNotificationCreateRunLoopSource(v4, sNotification, _HandleUserNotificationCallBack, 0);
       if (RunLoopSource)
       {
-        v10 = RunLoopSource;
+        v9 = RunLoopSource;
         Current = CFRunLoopGetCurrent();
-        CFRunLoopAddSource(Current, v10, *MEMORY[0x277CBF048]);
-        CFRelease(v10);
+        CFRunLoopAddSource(Current, v9, *MEMORY[0x277CBF048]);
+        CFRelease(v9);
       }
 
       else
@@ -552,31 +549,31 @@ LABEL_18:
 
 - (BOOL)devicePasscodeSet
 {
-  v6 = 0;
-  v7 = &v6;
-  v8 = 0x2020000000;
+  v7 = 0;
+  v8 = &v7;
+  v9 = 0x2020000000;
   v2 = getMKBGetDeviceLockStateSymbolLoc_ptr;
-  v9 = getMKBGetDeviceLockStateSymbolLoc_ptr;
+  v10 = getMKBGetDeviceLockStateSymbolLoc_ptr;
   if (!getMKBGetDeviceLockStateSymbolLoc_ptr)
   {
-    v5[0] = MEMORY[0x277D85DD0];
-    v5[1] = 3221225472;
-    v5[2] = __getMKBGetDeviceLockStateSymbolLoc_block_invoke;
-    v5[3] = &unk_278733760;
-    v5[4] = &v6;
-    __getMKBGetDeviceLockStateSymbolLoc_block_invoke(v5);
-    v2 = v7[3];
+    v6[0] = MEMORY[0x277D85DD0];
+    v6[1] = 3221225472;
+    v6[2] = __getMKBGetDeviceLockStateSymbolLoc_block_invoke;
+    v6[3] = &unk_278733760;
+    v6[4] = &v7;
+    __getMKBGetDeviceLockStateSymbolLoc_block_invoke(v6);
+    v2 = v8[3];
   }
 
-  _Block_object_dispose(&v6, 8);
+  _Block_object_dispose(&v7, 8);
   if (v2)
   {
     return v2(0) != 3;
   }
 
-  dlerror();
-  v4 = abort_report_np();
-  return __getMKBGetDeviceLockStateSymbolLoc_block_invoke(v4);
+  v4 = dlerror();
+  v5 = abort_report_np("%s", v4);
+  return __getMKBGetDeviceLockStateSymbolLoc_block_invoke(v5);
 }
 
 + (id)localizedStringForKey:(id)key
@@ -588,20 +585,8 @@ LABEL_18:
   preferredLanguages = [MEMORY[0x277CBEAF8] preferredLanguages];
   v8 = [v5 preferredLocalizationsFromArray:localizations forPreferences:preferredLanguages];
 
-  if (![v8 count])
+  if (![v8 count] || (objc_msgSend(v8, "objectAtIndexedSubscript:", 0), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v4, "pathForResource:ofType:inDirectory:forLocalization:", @"TypologyProfileOptIn", @"strings", 0, v9), v10 = objc_claimAutoreleasedReturnValue(), v9, objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithContentsOfFile:", v10), v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v11, "objectForKey:", keyCopy), v12 = objc_claimAutoreleasedReturnValue(), v11, v10, !v12))
   {
-    goto LABEL_3;
-  }
-
-  v9 = [v8 objectAtIndexedSubscript:0];
-  v10 = [v4 pathForResource:@"TypologyProfileOptIn" ofType:@"strings" inDirectory:0 forLocalization:v9];
-
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfFile:v10];
-  v12 = [v11 objectForKey:keyCopy];
-
-  if (!v12)
-  {
-LABEL_3:
     v12 = [v4 localizedStringForKey:keyCopy value:&stru_283FDFAF8 table:@"TypologyProfileOptIn"];
   }
 

@@ -2174,15 +2174,15 @@ LABEL_10:
 
 - (int64_t)intendedSizeClass
 {
-  sub_100026F48();
-  sub_100026F2C();
+  v2 = sub_100026F48(self);
+  sub_100026F2C(v2);
   return 0;
 }
 
 - (CGRect)frameForWeekContainingDate:(id)date
 {
-  sub_100026F48();
-  sub_100026F2C();
+  v3 = sub_100026F48(self);
+  sub_100026F2C(v3);
   x = CGRectZero.origin.x;
   y = CGRectZero.origin.y;
   width = CGRectZero.size.width;
@@ -2196,8 +2196,8 @@ LABEL_10:
 
 - (CGRect)frameForTodayHighlight
 {
-  sub_100026F48();
-  sub_100026F2C();
+  v2 = sub_100026F48(self);
+  sub_100026F2C(v2);
   x = CGRectZero.origin.x;
   y = CGRectZero.origin.y;
   width = CGRectZero.size.width;
@@ -2211,8 +2211,8 @@ LABEL_10:
 
 - (id)cellFramesForWeekContainingDate:(id)date
 {
-  sub_100026F48();
-  sub_100026F2C();
+  v3 = sub_100026F48(self);
+  sub_100026F2C(v3);
   return 0;
 }
 

@@ -134,12 +134,12 @@ LABEL_12:
 
 - (id)gestureStateInfoForUnbalancedPressBeganCount:(int64_t)count previousCount:(int64_t)previousCount
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v7 = objc_alloc_init(SBPressGestureStateInfo);
   [(SBClickGestureRecognizer *)self _notePressReceivedWithType:[(SBPressGestureRecognizer *)self latestPressType] phase:[(SBPressGestureRecognizer *)self latestPressPhase]];
   if (!self->_numberOfClicksRequired || self->_gestureWasRecognized)
   {
-    [(SBPressGestureStateInfo *)v7 setState:3];
+    state2 = [(SBPressGestureStateInfo *)v7 setState:3];
     goto LABEL_20;
   }
 
@@ -152,15 +152,15 @@ LABEL_12:
       [(SBPressGestureStateInfo *)v7 setState:0];
       if (self->_allPressBeganReceived)
       {
-        v9 = &OBJC_IVAR___SBClickGestureRecognizer__maximumClickDownDuration;
+        v10 = &OBJC_IVAR___SBClickGestureRecognizer__maximumClickDownDuration;
       }
 
       else
       {
-        v9 = &OBJC_IVAR___SBClickGestureRecognizer__maximumClickFormationDuration;
+        v10 = &OBJC_IVAR___SBClickGestureRecognizer__maximumClickFormationDuration;
       }
 
-      v10 = *v9;
+      v11 = *v10;
       goto LABEL_11;
     }
 
@@ -172,15 +172,15 @@ LABEL_12:
 LABEL_17:
     [(SBPressGestureStateInfo *)v7 setIsCoalescing:1];
     state = [(SBClickGestureRecognizer *)self state];
-    v14 = v7;
+    v15 = v7;
 LABEL_18:
-    [(SBPressGestureStateInfo *)v14 setState:state];
+    [(SBPressGestureStateInfo *)v15 setState:state];
     goto LABEL_19;
   }
 
   if (!self->_allPressBeganReceived)
   {
-    v14 = v7;
+    v15 = v7;
     state = 5;
     goto LABEL_18;
   }
@@ -188,30 +188,30 @@ LABEL_18:
   recognizedClicksCount = self->_recognizedClicksCount;
   if (!self->_allPressesUpRequired)
   {
-    v12 = recognizedClicksCount + 1;
+    v13 = recognizedClicksCount + 1;
     goto LABEL_27;
   }
 
   if ([(SBClickGestureRecognizer *)self didReceiveRequiredPressEndedCount])
   {
-    v12 = self->_recognizedClicksCount + 1;
+    v13 = self->_recognizedClicksCount + 1;
 LABEL_27:
-    self->_recognizedClicksCount = v12;
+    self->_recognizedClicksCount = v13;
     goto LABEL_29;
   }
 
   [(SBPressGestureStateInfo *)v7 setIsCoalescing:1];
   [(SBPressGestureStateInfo *)v7 setState:[(SBClickGestureRecognizer *)self state]];
-  v12 = self->_recognizedClicksCount;
+  v13 = self->_recognizedClicksCount;
 LABEL_29:
-  if (recognizedClicksCount >= v12)
+  if (recognizedClicksCount >= v13)
   {
     goto LABEL_19;
   }
 
-  if (v12 == self->_numberOfClicksRequired)
+  if (v13 == self->_numberOfClicksRequired)
   {
-    v14 = v7;
+    v15 = v7;
     state = 3;
     goto LABEL_18;
   }
@@ -219,34 +219,35 @@ LABEL_29:
   self->_allPressBeganReceived = 0;
   [(SBClickGestureRecognizer *)self resetShortcutsTracking];
   [(SBPressGestureStateInfo *)v7 setState:0];
-  v10 = 416;
+  v11 = 416;
 LABEL_11:
-  [(SBPressGestureStateInfo *)v7 setExpirationTime:*(&self->super.super.super.isa + v10)];
+  [(SBPressGestureStateInfo *)v7 setExpirationTime:*(&self->super.super.super.isa + v11)];
   [(SBPressGestureStateInfo *)v7 setStateUponExpiration:5];
 LABEL_19:
-  self->_gestureWasRecognized = [(SBPressGestureStateInfo *)v7 state]== 3;
+  state2 = [(SBPressGestureStateInfo *)v7 state];
+  self->_gestureWasRecognized = state2 == 3;
 LABEL_20:
-  v15 = SBLogButtonsCombo();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+  v16 = SBLogButtonsCombo(state2);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
     name = [(SBPressGestureRecognizer *)self name];
-    v18 = SBSystemGestureRecognizerStateDescription([(SBPressGestureStateInfo *)v7 state]);
+    v19 = SBSystemGestureRecognizerStateDescription([(SBPressGestureStateInfo *)v7 state]);
     [(SBPressGestureStateInfo *)v7 expirationTime];
-    v20 = v19;
-    v21 = SBSystemGestureRecognizerStateDescription([(SBPressGestureStateInfo *)v7 stateUponExpiration]);
-    v22 = 138544642;
-    v23 = name;
-    v24 = 1024;
+    v21 = v20;
+    v22 = SBSystemGestureRecognizerStateDescription([(SBPressGestureStateInfo *)v7 stateUponExpiration]);
+    v23 = 138544642;
+    v24 = name;
+    v25 = 1024;
     countCopy = count;
-    v26 = 1024;
+    v27 = 1024;
     previousCountCopy = previousCount;
-    v28 = 2114;
-    v29 = v18;
-    v30 = 2048;
-    v31 = v20;
-    v32 = 2114;
-    v33 = v21;
-    _os_log_debug_impl(&dword_21ED4E000, v15, OS_LOG_TYPE_DEBUG, "%{public}@ gestureStateInfoForUnbalancedPressBeganCount:%d previousCount:%d outState:%{public}@ expiration:%g setStateUponExpiration:%{public}@", &v22, 0x36u);
+    v29 = 2114;
+    v30 = v19;
+    v31 = 2048;
+    v32 = v21;
+    v33 = 2114;
+    v34 = v22;
+    _os_log_debug_impl(&dword_21ED4E000, v16, OS_LOG_TYPE_DEBUG, "%{public}@ gestureStateInfoForUnbalancedPressBeganCount:%d previousCount:%d outState:%{public}@ expiration:%g setStateUponExpiration:%{public}@", &v23, 0x36u);
   }
 
   return v7;

@@ -18,16 +18,17 @@
 
 - (MPVoicemailMessageNotificationViewController)init
 {
-  if ([CNContactStore authorizationStatusForEntityType:0]== 3)
+  v3 = [CNContactStore authorizationStatusForEntityType:0];
+  if (v3 == CNAuthorizationStatusAuthorized)
   {
-    v3 = objc_alloc_init(CNContactStore);
-    self = [(VMMessageViewController *)self initWithContactStore:v3];
+    v4 = objc_alloc_init(CNContactStore);
+    self = [(VMMessageViewController *)self initWithContactStore:v4];
   }
 
   else
   {
-    v3 = PHDefaultLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = PHDefaultLog(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_10005FB7C();
     }
@@ -61,7 +62,7 @@
 {
   pathCopy = path;
   objectCopy = object;
-  v11 = PHDefaultLog();
+  v11 = PHDefaultLog(objectCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     v21 = 138412546;
@@ -160,33 +161,34 @@ LABEL_17:
   [playerControlsView setElapsedTime:1 animated:timeCopy];
 
   voicemailMessage = [(VMMessageViewController *)self voicemailMessage];
-  if ([voicemailMessage shouldMarkAsReadForPlaybackCurrentTime:timeCopy])
+  v9 = [voicemailMessage shouldMarkAsReadForPlaybackCurrentTime:timeCopy];
+  if (v9)
   {
-    v9 = PHDefaultLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = PHDefaultLog(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v15 = voicemailMessage;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Marking current voicemail as read %@", buf, 0xCu);
+      v16 = voicemailMessage;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Marking current voicemail as read %@", buf, 0xCu);
     }
 
-    v10 = +[NotificationApplicationServices shared];
-    voicemailManager = [v10 voicemailManager];
-    v13 = voicemailMessage;
-    v12 = [NSArray arrayWithObjects:&v13 count:1];
-    [voicemailManager markVoicemailsAsRead:v12];
+    v11 = +[NotificationApplicationServices shared];
+    voicemailManager = [v11 voicemailManager];
+    v14 = voicemailMessage;
+    v13 = [NSArray arrayWithObjects:&v14 count:1];
+    [voicemailManager markVoicemailsAsRead:v13];
   }
 }
 
 - (void)didReceiveNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 138412290;
-    v17 = notificationCopy;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Received notification (%@).", &v16, 0xCu);
+    v17 = 138412290;
+    v18 = notificationCopy;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Received notification (%@).", &v17, 0xCu);
   }
 
   request = [(MPMessageID *)notificationCopy request];
@@ -195,12 +197,12 @@ LABEL_17:
 
   v9 = [userInfo objectForKeyedSubscript:@"VMVoicemailIdentifier"];
   v10 = [userInfo objectForKeyedSubscript:@"voicemailRecordUUID"];
-  v11 = PHDefaultLog();
+  v11 = PHDefaultLog(v10);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 138412290;
-    v17 = v9;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Retrieving voicemail message matching the specified identifier (%@).", &v16, 0xCu);
+    v17 = 138412290;
+    v18 = v9;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Retrieving voicemail message matching the specified identifier (%@).", &v17, 0xCu);
   }
 
   if (v9)
@@ -213,18 +215,19 @@ LABEL_17:
 
     else
     {
-      v13 = [[MPMessageID alloc] initWithValue:[(MPMessageID *)v9 intValue]];
+      v14 = [[MPMessageID alloc] initWithValue:[(MPMessageID *)v9 intValue]];
+      v13 = v14;
     }
 
-    v14 = PHDefaultLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = PHDefaultLog(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       voicemailManager = [(VMMessageViewController *)self voicemailManager];
-      v16 = 138412546;
-      v17 = v13;
-      v18 = 2112;
-      v19 = voicemailManager;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Fetching voicemail for messageID (%@) using manager %@.", &v16, 0x16u);
+      v17 = 138412546;
+      v18 = v13;
+      v19 = 2112;
+      v20 = voicemailManager;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Fetching voicemail for messageID (%@) using manager %@.", &v17, 0x16u);
     }
 
     [(MPVoicemailMessageNotificationViewController *)self setPlaybackMessageWithID:v13];
@@ -254,24 +257,24 @@ LABEL_17:
 {
   responseCopy = response;
   handlerCopy = handler;
-  v8 = PHDefaultLog();
+  v8 = PHDefaultLog(handlerCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v32 = responseCopy;
+    v33 = responseCopy;
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "Received notification response (%@).", buf, 0xCu);
   }
 
   actionIdentifier = [responseCopy actionIdentifier];
   v10 = [actionIdentifier length];
-  v11 = PHDefaultLog();
+  v11 = PHDefaultLog(v10);
   v12 = os_log_type_enabled(v11, OS_LOG_TYPE_INFO);
   if (v10)
   {
     if (v12)
     {
       *buf = 138412290;
-      v32 = actionIdentifier;
+      v33 = actionIdentifier;
       _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "Executing action matching the specified identifier (%@).", buf, 0xCu);
     }
 
@@ -284,41 +287,42 @@ LABEL_17:
 
       v17 = [userInfo objectForKeyedSubscript:@"TUDialRequestURL"];
       objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      isKindOfClass = objc_opt_isKindOfClass();
+      if (isKindOfClass)
       {
-        v18 = v17;
-        v19 = PHDefaultLog();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+        v19 = v17;
+        v20 = PHDefaultLog(v19);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v32 = v18;
-          _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, "Constructing a URL from the specified string (%@).", buf, 0xCu);
+          v33 = v19;
+          _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "Constructing a URL from the specified string (%@).", buf, 0xCu);
         }
 
-        v20 = [NSURL URLWithString:v18];
-        v21 = PHDefaultLog();
-        v22 = v21;
-        if (v20)
+        v21 = [NSURL URLWithString:v19];
+        v22 = PHDefaultLog(v21);
+        v23 = v22;
+        if (v21)
         {
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v32 = v20;
-            _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_INFO, "Initiating outgoing call with the specified URL (%@).", buf, 0xCu);
+            v33 = v21;
+            _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_INFO, "Initiating outgoing call with the specified URL (%@).", buf, 0xCu);
           }
 
           extensionContext = [(MPVoicemailMessageNotificationViewController *)self extensionContext];
-          v28[0] = _NSConcreteStackBlock;
-          v28[1] = 3221225472;
-          v28[2] = sub_10000557C;
-          v28[3] = &unk_100089830;
-          v29 = handlerCopy;
-          [extensionContext openURL:v20 completionHandler:v28];
+          v29[0] = _NSConcreteStackBlock;
+          v29[1] = 3221225472;
+          v29[2] = sub_10000557C;
+          v29[3] = &unk_100089830;
+          v30 = handlerCopy;
+          [extensionContext openURL:v21 completionHandler:v29];
 
-          v22 = v29;
+          v23 = v30;
         }
 
-        else if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+        else if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
           sub_10005FC44();
         }
@@ -326,8 +330,8 @@ LABEL_17:
 
       else
       {
-        v18 = PHDefaultLog();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+        v19 = PHDefaultLog(isKindOfClass);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
           sub_10005FBBC();
         }
@@ -340,19 +344,19 @@ LABEL_27:
     if ([actionIdentifier isEqualToString:@"MPVoicemailDeleteMessageBulletinBoardActionIdentifier"])
     {
       userInfo = [(VMMessageViewController *)self voicemailMessage];
-      v24 = PHDefaultLog();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+      v25 = PHDefaultLog(userInfo);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
       {
         identifier = [userInfo identifier];
         *buf = 134217984;
-        v32 = identifier;
-        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_INFO, "Trashing voicemail message matching the specified identifier (%lu).", buf, 0xCu);
+        v33 = identifier;
+        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_INFO, "Trashing voicemail message matching the specified identifier (%lu).", buf, 0xCu);
       }
 
       voicemailManager = [(VMMessageViewController *)self voicemailManager];
-      v30 = userInfo;
-      v27 = [NSArray arrayWithObjects:&v30 count:1];
-      [voicemailManager trashVoicemails:v27];
+      v31 = userInfo;
+      v28 = [NSArray arrayWithObjects:&v31 count:1];
+      [voicemailManager trashVoicemails:v28];
 
       (*(handlerCopy + 2))(handlerCopy, 1);
       goto LABEL_27;
@@ -364,7 +368,7 @@ LABEL_27:
     if (v12)
     {
       *buf = 138412290;
-      v32 = actionIdentifier;
+      v33 = actionIdentifier;
       _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "Received notification response contains an empty or nil action identifier (%@).", buf, 0xCu);
     }
 
@@ -386,16 +390,16 @@ LABEL_28:
     imageView = [playPauseButton imageView];
     [imageView frame];
     [view convertRect:playPauseButton fromView:?];
-    x = v8;
-    y = v10;
-    width = v12;
-    height = v14;
+    x = v9;
+    y = v11;
+    width = v13;
+    height = v15;
   }
 
   else
   {
-    v16 = PHDefaultLog();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = PHDefaultLog(v6);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       sub_10005FCB8();
     }
@@ -406,14 +410,14 @@ LABEL_28:
     height = CGRectZero.size.height;
   }
 
-  v17 = x;
-  v18 = y;
-  v19 = width;
-  v20 = height;
-  result.size.height = v20;
-  result.size.width = v19;
-  result.origin.y = v18;
-  result.origin.x = v17;
+  v18 = x;
+  v19 = y;
+  v20 = width;
+  v21 = height;
+  result.size.height = v21;
+  result.size.width = v20;
+  result.origin.y = v19;
+  result.origin.x = v18;
   return result;
 }
 
@@ -442,7 +446,7 @@ LABEL_28:
   {
     v8 = sub_1000184C8(v14, v15);
     v9 = *(v7 - 8);
-    __chkstk_darwin(v8);
+    __chkstk_darwin(v8, v8);
     v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
     (*(v9 + 16))(v11);
     v12 = sub_100060E0C();

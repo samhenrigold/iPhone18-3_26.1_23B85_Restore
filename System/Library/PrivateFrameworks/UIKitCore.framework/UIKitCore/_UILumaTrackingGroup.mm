@@ -146,7 +146,7 @@ LABEL_32:
       while (v18 < [(NSArray *)self->_lumaViews count]);
     }
 
-    if (self->_backgroundLuminanceLevel != backgroundLuminanceLevel || ([(NSMapTable *)self->_outliers isEqual:v3]& 1) == 0)
+    if (self->_backgroundLuminanceLevel != backgroundLuminanceLevel || (objc_msgSend_isEqual_(self->_outliers) & 1) == 0)
     {
       WeakRetained = objc_loadWeakRetained(&self->_delegate);
 

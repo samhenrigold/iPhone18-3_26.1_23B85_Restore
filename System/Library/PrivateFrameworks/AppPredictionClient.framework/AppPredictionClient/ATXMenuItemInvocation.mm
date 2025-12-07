@@ -41,7 +41,7 @@
     return off_1E80C3978[type];
   }
 
-  v5 = __atxlog_handle_client_donations();
+  v5 = __atxlog_handle_client_donations(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     [(ATXMenuItemInvocation *)type stringForMenuItemInvocationType:v5];
@@ -58,7 +58,7 @@
     return off_1E80C39B0[type];
   }
 
-  v5 = __atxlog_handle_client_donations();
+  v5 = __atxlog_handle_client_donations(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     [(ATXMenuItemInvocation *)type stringForMenuItemSourceType:v5];

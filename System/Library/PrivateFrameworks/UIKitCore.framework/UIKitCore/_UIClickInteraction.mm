@@ -84,10 +84,15 @@
     delegate = [(_UIClickInteraction *)self delegate];
     if (objc_opt_respondsToSelector())
     {
-      [delegate _clickInteractionDefaultDriverType:self];
+      v5 = [delegate _clickInteractionDefaultDriverType:self];
     }
 
-    overrideDriverClass = _UIClickInteractionDriverForActivationStyle();
+    else
+    {
+      v5 = 0;
+    }
+
+    overrideDriverClass = _UIClickInteractionDriverForActivationStyle(v5);
   }
 
   return overrideDriverClass;

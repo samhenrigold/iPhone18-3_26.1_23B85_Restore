@@ -3,6 +3,8 @@
 - (_INPBSendMessageIntent)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)effectAsString:(int)string;
+- (id)outgoingMessageTypeAsString:(int)string;
 - (int)StringAsEffect:(id)effect;
 - (int)StringAsOutgoingMessageType:(id)type;
 - (unint64_t)hash;
@@ -26,7 +28,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if (self->_alternativeConversationIdentifier)
   {
@@ -38,30 +40,30 @@
   if ([(NSArray *)self->_attachments count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v46 = 0u;
     v47 = 0u;
     v48 = 0u;
     v49 = 0u;
-    v50 = 0u;
     v7 = self->_attachments;
-    v8 = [(NSArray *)v7 countByEnumeratingWithState:&v47 objects:v52 count:16];
+    v8 = [(NSArray *)v7 countByEnumeratingWithState:&v46 objects:v51 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v48;
+      v10 = *v47;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v48 != v10)
+          if (*v47 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          dictionaryRepresentation = [*(*(&v47 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v46 + 1) + 8 * i) dictionaryRepresentation];
           [array addObject:dictionaryRepresentation];
         }
 
-        v9 = [(NSArray *)v7 countByEnumeratingWithState:&v47 objects:v52 count:16];
+        v9 = [(NSArray *)v7 countByEnumeratingWithState:&v46 objects:v51 count:16];
       }
 
       while (v9);
@@ -136,30 +138,30 @@
   if ([(NSArray *)self->_recipients count])
   {
     array2 = [MEMORY[0x1E695DF70] array];
+    v42 = 0u;
     v43 = 0u;
     v44 = 0u;
     v45 = 0u;
-    v46 = 0u;
     v28 = self->_recipients;
-    v29 = [(NSArray *)v28 countByEnumeratingWithState:&v43 objects:v51 count:16];
+    v29 = [(NSArray *)v28 countByEnumeratingWithState:&v42 objects:v50 count:16];
     if (v29)
     {
       v30 = v29;
-      v31 = *v44;
+      v31 = *v43;
       do
       {
         for (j = 0; j != v30; ++j)
         {
-          if (*v44 != v31)
+          if (*v43 != v31)
           {
             objc_enumerationMutation(v28);
           }
 
-          dictionaryRepresentation5 = [*(*(&v43 + 1) + 8 * j) dictionaryRepresentation];
+          dictionaryRepresentation5 = [*(*(&v42 + 1) + 8 * j) dictionaryRepresentation];
           [array2 addObject:dictionaryRepresentation5];
         }
 
-        v30 = [(NSArray *)v28 countByEnumeratingWithState:&v43 objects:v51 count:16];
+        v30 = [(NSArray *)v28 countByEnumeratingWithState:&v42 objects:v50 count:16];
       }
 
       while (v30);
@@ -188,8 +190,6 @@
   speakableGroupName = [(_INPBSendMessageIntent *)self speakableGroupName];
   dictionaryRepresentation7 = [speakableGroupName dictionaryRepresentation];
   [dictionary setObject:dictionaryRepresentation7 forKeyedSubscript:@"speakableGroupName"];
-
-  v41 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -667,46 +667,44 @@ LABEL_70:
 
 - (void)writeTo:(id)to
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   toCopy = to;
   alternativeConversationIdentifier = [(_INPBSendMessageIntent *)self alternativeConversationIdentifier];
 
   if (alternativeConversationIdentifier)
   {
-    alternativeConversationIdentifier = self->_alternativeConversationIdentifier;
     PBDataWriterWriteStringField();
   }
 
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
-  v44 = 0u;
-  v7 = self->_attachments;
-  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v43 objects:v48 count:16];
-  if (v8)
+  v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
+  v6 = self->_attachments;
+  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v33 objects:v38 count:16];
+  if (v7)
   {
-    v9 = v8;
-    v10 = *v44;
+    v8 = v7;
+    v9 = *v34;
     do
     {
-      v11 = 0;
+      v10 = 0;
       do
       {
-        if (*v44 != v10)
+        if (*v34 != v9)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v43 + 1) + 8 * v11);
         PBDataWriterWriteSubmessage();
-        ++v11;
+        ++v10;
       }
 
-      while (v9 != v11);
-      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v43 objects:v48 count:16];
+      while (v8 != v10);
+      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v33 objects:v38 count:16];
     }
 
-    while (v9);
+    while (v8);
   }
 
   content = [(_INPBSendMessageIntent *)self content];
@@ -721,13 +719,11 @@ LABEL_70:
 
   if (conversationIdentifier)
   {
-    conversationIdentifier = self->_conversationIdentifier;
     PBDataWriterWriteStringField();
   }
 
   if ([(_INPBSendMessageIntent *)self hasEffect])
   {
-    effect = self->_effect;
     PBDataWriterWriteInt32Field();
   }
 
@@ -751,46 +747,43 @@ LABEL_70:
 
   if (notificationThreadIdentifier)
   {
-    notificationThreadIdentifier = self->_notificationThreadIdentifier;
     PBDataWriterWriteStringField();
   }
 
   if ([(_INPBSendMessageIntent *)self hasOutgoingMessageType])
   {
-    outgoingMessageType = self->_outgoingMessageType;
     PBDataWriterWriteInt32Field();
   }
 
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
-  v40 = 0u;
-  v25 = self->_recipients;
-  v26 = [(NSArray *)v25 countByEnumeratingWithState:&v39 objects:v47 count:16];
-  if (v26)
+  v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
+  v19 = self->_recipients;
+  v20 = [(NSArray *)v19 countByEnumeratingWithState:&v29 objects:v37 count:16];
+  if (v20)
   {
-    v27 = v26;
-    v28 = *v40;
+    v21 = v20;
+    v22 = *v30;
     do
     {
-      v29 = 0;
+      v23 = 0;
       do
       {
-        if (*v40 != v28)
+        if (*v30 != v22)
         {
-          objc_enumerationMutation(v25);
+          objc_enumerationMutation(v19);
         }
 
-        v30 = *(*(&v39 + 1) + 8 * v29);
         PBDataWriterWriteSubmessage();
-        ++v29;
+        ++v23;
       }
 
-      while (v27 != v29);
-      v27 = [(NSArray *)v25 countByEnumeratingWithState:&v39 objects:v47 count:16];
+      while (v21 != v23);
+      v21 = [(NSArray *)v19 countByEnumeratingWithState:&v29 objects:v37 count:16];
     }
 
-    while (v27);
+    while (v21);
   }
 
   sender = [(_INPBSendMessageIntent *)self sender];
@@ -805,13 +798,11 @@ LABEL_70:
 
   if (serviceName)
   {
-    serviceName = self->_serviceName;
     PBDataWriterWriteStringField();
   }
 
   if ([(_INPBSendMessageIntent *)self hasShouldHideSiriAttribution])
   {
-    shouldHideSiriAttribution = self->_shouldHideSiriAttribution;
     PBDataWriterWriteBOOLField();
   }
 
@@ -822,8 +813,6 @@ LABEL_70:
     speakableGroupName2 = [(_INPBSendMessageIntent *)self speakableGroupName];
     PBDataWriterWriteSubmessage();
   }
-
-  v38 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setHasShouldHideSiriAttribution:(BOOL)attribution
@@ -892,6 +881,26 @@ LABEL_70:
     {
       v4 = 1;
     }
+  }
+
+  return v4;
+}
+
+- (id)outgoingMessageTypeAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"OUTGOING_MESSAGE_TEXT";
+  }
+
+  else if (string == 2)
+  {
+    v4 = @"OUTGOING_MESSAGE_AUDIO";
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
   }
 
   return v4;
@@ -1007,6 +1016,21 @@ LABEL_70:
   else
   {
     v4 = 1;
+  }
+
+  return v4;
+}
+
+- (id)effectAsString:(int)string
+{
+  if ((string - 1) >= 0xD)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7281848[string - 1];
   }
 
   return v4;

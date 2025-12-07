@@ -9,22 +9,20 @@
 
 + (id)keychainDictionaryRepresentationWithPassword:(id)password
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   if (password)
   {
-    v8 = @"pwd";
-    v9[0] = password;
+    v7 = @"pwd";
+    v8[0] = password;
     v3 = MEMORY[0x1E695DF20];
     passwordCopy = password;
-    v5 = [v3 dictionaryWithObjects:v9 forKeys:&v8 count:1];
+    v5 = [v3 dictionaryWithObjects:v8 forKeys:&v7 count:1];
   }
 
   else
   {
     v5 = 0;
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -62,48 +60,49 @@
     v11 = [v17 safari_HTMLFormProtectionSpaceForURL:v18];
   }
 
-  v19 = [dictionaryCopy objectForKeyedSubscript:*MEMORY[0x1E697B3C0]];
-  if (v19)
+  v20 = [dictionaryCopy objectForKeyedSubscript:*MEMORY[0x1E697B3C0]];
+  if (v20)
   {
-    v31 = 0;
-    v20 = [MEMORY[0x1E696AE40] propertyListWithData:v19 options:0 format:0 error:&v31];
-    v21 = v31;
-    if (v20)
+    v34 = 0;
+    v21 = [MEMORY[0x1E696AE40] propertyListWithData:v20 options:0 format:0 error:&v34];
+    v22 = v34;
+    v24 = v22;
+    if (v21)
     {
-      v22 = [v20 objectForKeyedSubscript:@"pwd"];
-      v23 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceReferenceDate:v7];
-      v24 = [dictionaryCopy objectForKeyedSubscript:*MEMORY[0x1E697B3C8]];
+      v25 = [v21 objectForKeyedSubscript:@"pwd"];
+      v26 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceReferenceDate:v7];
+      v27 = [dictionaryCopy objectForKeyedSubscript:*MEMORY[0x1E697B3C8]];
       selfCopy = self;
-      v26 = v24;
-      v27 = [(WBSGeneratedPassword *)selfCopy _initWithPassword:v22 protectionSpace:v11 generationDate:v23 wasGeneratedInPrivateBrowsingSession:v10 keychainPersistentReference:v24 originalDictionary:v20];
+      v29 = v27;
+      v30 = [(WBSGeneratedPassword *)selfCopy _initWithPassword:v25 protectionSpace:v11 generationDate:v26 wasGeneratedInPrivateBrowsingSession:v10 keychainPersistentReference:v27 originalDictionary:v21];
 
-      self = v27;
+      self = v30;
     }
 
     else
     {
-      v29 = WBS_LOG_CHANNEL_PREFIXPasswords();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      v32 = WBS_LOG_CHANNEL_PREFIXPasswords(v22, v23);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
-        [(WBSGeneratedPassword *)v29 initWithKeychainItemDictionary:v21];
+        [(WBSGeneratedPassword *)v32 initWithKeychainItemDictionary:v24];
       }
 
-      v27 = 0;
+      v30 = 0;
     }
   }
 
   else
   {
-    v28 = WBS_LOG_CHANNEL_PREFIXPasswords();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    v31 = WBS_LOG_CHANNEL_PREFIXPasswords(0, v19);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
-      [WBSGeneratedPassword initWithKeychainItemDictionary:v28];
+      [WBSGeneratedPassword initWithKeychainItemDictionary:v31];
     }
 
-    v27 = 0;
+    v30 = 0;
   }
 
-  return v27;
+  return v30;
 }
 
 - (id)_initWithPassword:(id)password protectionSpace:(id)space generationDate:(id)date wasGeneratedInPrivateBrowsingSession:(BOOL)session keychainPersistentReference:(id)reference originalDictionary:(id)dictionary
@@ -165,27 +164,23 @@
 
 - (void)initWithKeychainItemDictionary:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = [a2 safari_privacyPreservingDescription];
-  v6 = 138412290;
-  v7 = v4;
-  _os_log_error_impl(&dword_1B8447000, v3, OS_LOG_TYPE_ERROR, "Unable to unarchive data blob from generated password item: %@", &v6, 0xCu);
-
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 138412290;
+  v6 = v4;
+  _os_log_error_impl(&dword_1B8447000, v3, OS_LOG_TYPE_ERROR, "Unable to unarchive data blob from generated password item: %@", &v5, 0xCu);
 }
 
 - (void)initWithKeychainItemDictionary:(void *)a1 .cold.2(void *a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = objc_opt_class();
   v3 = NSStringFromClass(v2);
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_1B8447000, v1, OS_LOG_TYPE_ERROR, "Found non-Data object in data field of generated password item: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_1B8447000, v1, OS_LOG_TYPE_ERROR, "Found non-Data object in data field of generated password item: %@", &v4, 0xCu);
 }
 
 @end

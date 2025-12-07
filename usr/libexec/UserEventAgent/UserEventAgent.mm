@@ -13,8 +13,8 @@ void sub_100000AB0(void *a1, _OWORD *a2)
   sub_100000CB8(a1, a2);
   sub_10000263C();
   sub_100002608();
-  sub_1000025E4();
-  sub_100002624();
+  v8 = sub_1000025E4(v2, v3, v4, v5, &_mh_execute_header, v6, v7, "assertion failure: sys->publisher != ((void*)0) -> %llu");
+  sub_100002624(v8);
   __break(1u);
 }
 
@@ -22,26 +22,25 @@ BOOL xpc_event_provider_token_fire_with_reply(uint64_t a1, uint64_t a2, uint64_t
 {
   if (!*(a1 + 16))
   {
-    sub_100000AB0(&v7, v8);
+    sub_100000AB0(&v6, v7);
   }
 
   if (a4)
   {
-    v4 = *(a1 + 8);
-    v5 = xpc_event_publisher_fire_with_reply();
+    v4 = xpc_event_publisher_fire_with_reply();
   }
 
   else if (*(a1 + 48) == 1)
   {
-    v5 = xpc_event_publisher_fire_noboost();
+    v4 = xpc_event_publisher_fire_noboost();
   }
 
   else
   {
-    v5 = xpc_event_publisher_fire();
+    v4 = xpc_event_publisher_fire();
   }
 
-  return v5 == 0;
+  return v4 == 0;
 }
 
 uint64_t sub_100000BB8(uint64_t result, int a2, uint64_t a3, uint64_t a4)
@@ -101,18 +100,34 @@ void start(int a1, uint64_t a2)
 {
   v4 = &selRef_UTF8String;
   qword_10000C040 = os_log_create("com.apple.UserEventAgent", "Daemon");
+  v14[1] = 0;
+  v14[2] = 0;
   if (setiopolicy_np(9, 0, 1))
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
-    v14 = 0u;
+    v14[0] = 0;
+    v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     *buf = 0u;
-    os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      v10 = 3;
+    }
+
+    else
+    {
+      v10 = 2;
+    }
+
     v4 = *__error();
-    v10 = __error();
-    strerror(*v10);
-    _os_log_send_and_compose_impl();
+    v11 = __error();
+    v12 = strerror(*v11);
+    v15[0] = 67109378;
+    v15[1] = v4;
+    v16 = 2082;
+    v17 = v12;
+    _os_log_send_and_compose_impl(v10, v14, buf, 80, &_mh_execute_header, &_os_log_default, 16, "Error setting low space io policy: %d (%{public}s)", v15, 18);
     _os_crash_msg();
     __break(1u);
   }
@@ -208,7 +223,7 @@ LABEL_18:
         goto LABEL_22;
       }
 
-      v11 = qword_10000C040;
+      v13 = qword_10000C040;
       if (os_log_type_enabled(qword_10000C040, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
@@ -219,12 +234,12 @@ LABEL_18:
     }
   }
 
-  v11 = *(v4 + 64);
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+  v13 = *(v4 + 64);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
 LABEL_26:
-    _os_log_error_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "Failed to create a set.", buf, 2u);
+    _os_log_error_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "Failed to create a set.", buf, 2u);
   }
 
 LABEL_27:

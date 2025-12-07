@@ -24,20 +24,17 @@
 
 - (NSArray)registeredNotificationsForDomains
 {
-  v2 = *(self + OBJC_IVAR___LACEligibilityHelper_registeredNotificationsForDomains);
   type metadata accessor for LACEligibilityDomain(0);
 
-  v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
+  v2.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
-  return v3.super.isa;
+  return v2.super.isa;
 }
 
 - (void)setRegisteredNotificationsForDomains:(id)domains
 {
   type metadata accessor for LACEligibilityDomain(0);
-  v4 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
-  v5 = *(self + OBJC_IVAR___LACEligibilityHelper_registeredNotificationsForDomains);
-  *(self + OBJC_IVAR___LACEligibilityHelper_registeredNotificationsForDomains) = v4;
+  *(self + OBJC_IVAR___LACEligibilityHelper_registeredNotificationsForDomains) = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 }
 
 - (void)dealloc

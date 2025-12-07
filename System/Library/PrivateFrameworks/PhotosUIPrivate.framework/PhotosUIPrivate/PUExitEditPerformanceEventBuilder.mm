@@ -84,7 +84,7 @@
   }
 
   asset = [(PUExitEditPerformanceEventBuilder *)selfCopy asset];
-  [asset duration];
+  objc_msgSend_duration(asset);
   v27 = v26;
 
   compositionController3 = [(PUExitEditPerformanceEventBuilder *)selfCopy compositionController];
@@ -93,8 +93,8 @@
   Seconds = v27;
   if (trimAdjustmentController)
   {
-    [trimAdjustmentController endTime];
-    [trimAdjustmentController startTime];
+    objc_msgSend_endTime(trimAdjustmentController);
+    objc_msgSend_startTime(trimAdjustmentController);
     CMTimeSubtract(&time, lhs, &rhs);
     Seconds = CMTimeGetSeconds(&time);
   }

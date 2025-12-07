@@ -4,7 +4,7 @@
 - (HDClientDataCollectionObservationStateMonitorDelegate)delegate;
 - (HDProfile)profile;
 - (id)currentObserverState;
-- (uint64_t)_componentStateDidChange;
+- (void)_componentStateDidChange;
 - (void)dealloc;
 - (void)invalidate;
 @end
@@ -139,11 +139,11 @@
   return v24;
 }
 
-- (uint64_t)_componentStateDidChange
+- (void)_componentStateDidChange
 {
   if (result)
   {
-    v1 = *(result + 8);
+    v1 = result[1];
     v2[0] = MEMORY[0x277D85DD0];
     v2[1] = 3221225472;
     v2[2] = __73__HDClientDataCollectionObservationStateMonitor__componentStateDidChange__block_invoke;

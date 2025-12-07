@@ -270,41 +270,41 @@ LABEL_15:
 
 - (NRDeviceProxyInfo)initWithCoder:(id)coder
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v28.receiver = self;
-  v28.super_class = NRDeviceProxyInfo;
-  v5 = [(NRDeviceProxyInfo *)&v28 init];
+  v24.receiver = self;
+  v24.super_class = NRDeviceProxyInfo;
+  v5 = [(NRDeviceProxyInfo *)&v24 init];
   if (!v5)
   {
-    v14 = nrCopyLogObj_966();
+    v13 = nrCopyLogObj_966();
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v15 = v14;
-      v16 = os_log_type_enabled(v14, OS_LOG_TYPE_ERROR);
+      v14 = v13;
+      v15 = os_log_type_enabled(v13, OS_LOG_TYPE_ERROR);
 
-      if (!v16)
+      if (!v15)
       {
         goto LABEL_7;
       }
     }
 
-    v17 = nrCopyLogObj_966();
-    _NRLogWithArgs(v17, 16, "%s%.30s:%-4d ABORTING: [super init] failed", v18, v19, v20, v21, v22, "");
+    v16 = nrCopyLogObj_966();
+    _NRLogWithArgs(v16, 16, "%s%.30s:%-4d ABORTING: [super init] failed", ", "[NRDeviceProxyInfo initWithCoder:]"", 36);
 
 LABEL_7:
-    v23 = _os_log_pack_size();
-    MEMORY[0x28223BE20](v23, v24);
-    v25 = *__error();
-    v26 = _os_log_pack_fill();
-    *v26 = 136446210;
-    *(v26 + 4) = "[NRDeviceProxyInfo initWithCoder:]";
-    v27 = nrCopyLogObj_966();
-    _NRLogAbortWithPack(v27);
+    v17 = _os_log_pack_size();
+    v19 = &v23 - ((MEMORY[0x28223BE20](v17, v18) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v20 = __error();
+    v21 = _os_log_pack_fill(v19, v17, *v20, &dword_25B98C000, "%{public}s [super init] failed");
+    *v21 = 136446210;
+    *(v21 + 4) = "[NRDeviceProxyInfo initWithCoder:]";
+    v22 = nrCopyLogObj_966();
+    _NRLogAbortWithPack(v22, v19);
   }
 
   v6 = v5;
@@ -324,7 +324,6 @@ LABEL_7:
   v11 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"httpConnectPassword"];
   [(NRDeviceProxyInfo *)v6 setHttpConnectPassword:v11];
 
-  v12 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

@@ -58,7 +58,7 @@
 
 + (id)signedClinicalDataFileWithURL:(id)l sourceURL:(id)rL receivedDate:(id)date countryOfOrigin:(id)origin error:(id *)error
 {
-  v25[2] = *MEMORY[0x277D85DE8];
+  v24[2] = *MEMORY[0x277D85DE8];
   lCopy = l;
   rLCopy = rL;
   dateCopy = date;
@@ -66,19 +66,19 @@
   v16 = [MEMORY[0x277CCA9F8] fileHandleForReadingFromURL:lCopy error:error];
   if (v16)
   {
-    v24[0] = @"Filename";
+    v23[0] = @"Filename";
     lastPathComponent = [lCopy lastPathComponent];
     v18 = lastPathComponent;
-    v24[1] = @"CountryOfOrigin";
+    v23[1] = @"CountryOfOrigin";
     v19 = *MEMORY[0x277CCBBC8];
     if (originCopy)
     {
       v19 = originCopy;
     }
 
-    v25[0] = lastPathComponent;
-    v25[1] = v19;
-    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:2];
+    v24[0] = lastPathComponent;
+    v24[1] = v19;
+    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:2];
 
     v21 = [[self alloc] initWithFileURL:lCopy fileHandle:v16 sourceURL:rLCopy receivedDate:dateCopy metadata:v20];
   }
@@ -87,8 +87,6 @@
   {
     v21 = 0;
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v21;
 }

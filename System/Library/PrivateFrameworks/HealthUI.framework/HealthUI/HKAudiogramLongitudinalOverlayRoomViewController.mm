@@ -105,7 +105,7 @@
   selfCopy = self;
   sub_1C3C277F0();
 
-  sub_1C3C27CB4(0, &qword_1EC085778);
+  sub_1C3C27CB4(0, &qword_1EC085778, off_1E81B2C00);
   v11 = sub_1C3D202A4();
 
   return v11;
@@ -113,7 +113,7 @@
 
 - (id)createViewControllerForMode:(int64_t)mode displayDate:(id)date applicationItems:(id)items
 {
-  sub_1C3C27AE0();
+  sub_1C3C27AE0(0);
   MEMORY[0x1EEE9AC00](v6 - 8);
   v8 = &v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1C3D20374();
@@ -144,7 +144,7 @@
 
 - (HKAudiogramLongitudinalOverlayRoomViewController)initWithDisplayDate:(id)date applicationItems:(id)items factorDisplayTypes:(id)types mode:(int64_t)mode
 {
-  sub_1C3C27AE0();
+  sub_1C3C27AE0(0);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1C3D20374();

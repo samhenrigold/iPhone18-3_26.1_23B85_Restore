@@ -87,21 +87,21 @@
   displayedController = [(CNUnknownContactsController *)self displayedController];
   if (!displayedController)
   {
-    contacts = [(CNUnknownContactsController *)self contacts];
-    v5 = [contacts count];
+    v4 = objc_msgSend_contacts(self);
+    v5 = [v4 count];
 
     if (v5 < 2)
     {
-      contacts2 = [(CNUnknownContactsController *)self contacts];
-      v8 = [contacts2 objectAtIndexedSubscript:0];
+      v7 = objc_msgSend_contacts(self);
+      v8 = [v7 objectAtIndexedSubscript:0];
       displayedController = [CNContactViewController viewControllerForUnknownContact:v8];
     }
 
     else
     {
       v6 = [CNMultipleUnknownContactsViewController alloc];
-      contacts2 = [(CNUnknownContactsController *)self contacts];
-      displayedController = [(CNMultipleUnknownContactsViewController *)v6 initWithContacts:contacts2];
+      v7 = objc_msgSend_contacts(self);
+      displayedController = [(CNMultipleUnknownContactsViewController *)v6 initWithContacts:v7];
     }
 
     contactStore = [(CNUnknownContactsController *)self contactStore];

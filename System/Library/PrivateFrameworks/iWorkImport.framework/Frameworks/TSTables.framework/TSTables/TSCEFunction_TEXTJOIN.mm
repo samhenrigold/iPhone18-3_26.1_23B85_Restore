@@ -7,91 +7,91 @@
 + (id)evaluateForArgsWithContext:(id)context functionSpec:(id)spec arguments:(const void *)arguments
 {
   contextCopy = context;
-  v110[0] = contextCopy;
-  v110[1] = spec;
+  v96[0] = contextCopy;
+  v96[1] = spec;
   specCopy = spec;
-  v111 = 0;
-  v112[0] = 2;
-  *(v112 + 7) = 0;
-  v113 = vdupq_n_s64(0x7FFF7FFFFFFFuLL);
-  v114 = 0;
-  v115 = 0;
-  v108 = 0;
-  v109[0] = 0;
-  *(v109 + 7) = 0;
-  memset(v107, 0, 19);
-  v12 = *arguments;
-  v13 = *(arguments + 1);
-  if (v13 != *arguments)
+  v97 = 0;
+  v98[0] = 2;
+  *(v98 + 7) = 0;
+  v99 = vdupq_n_s64(0x7FFF7FFFFFFFuLL);
+  v100 = 0;
+  v101 = 0;
+  v94 = 0;
+  v95[0] = 0;
+  *(v95 + 7) = 0;
+  memset(v93, 0, 19);
+  v11 = *arguments;
+  v12 = *(arguments + 1);
+  if (v12 != *arguments)
   {
-    v14 = *v12;
-    v18 = objc_msgSend_deepType_(v14, v15, contextCopy, v16, v17);
-    if (v18 != 10 && v18 != 12)
+    v13 = *v11;
+    v16 = objc_msgSend_deepType_(v13, v14, contextCopy, v15);
+    if (v16 != 10 && v16 != 12)
     {
-      v106 = 0;
-      v49 = objc_msgSend_asString_functionSpec_argumentIndex_outError_(v14, v19, contextCopy, spec, 0, &v106);
-      v50 = v106;
-      sub_221077074(&v95);
-      v51 = v95;
-      v95 = 0;
-      v52 = v107[0];
-      v107[0] = v51;
+      v92 = 0;
+      v41 = objc_msgSend_asString_functionSpec_argumentIndex_outError_(v13, v17, contextCopy, spec, 0, &v92);
+      v42 = v92;
+      sub_221077074(&v81, v41);
+      v43 = v81;
+      v81 = 0;
+      v44 = v93[0];
+      v93[0] = v43;
 
-      v53 = v96;
-      v96 = 0;
-      v54 = v107[1];
-      v107[1] = v53;
+      v45 = v82;
+      v82 = 0;
+      v46 = v93[1];
+      v93[1] = v45;
 
-      LOWORD(v107[2]) = v97;
-      BYTE2(v107[2]) = BYTE2(v97);
+      LOWORD(v93[2]) = v83;
+      BYTE2(v93[2]) = BYTE2(v83);
 
-      if (v50)
+      if (v42)
       {
-        v58 = objc_msgSend_raiseErrorOrConvert_(contextCopy, v55, v50, v56, v57);
+        v49 = objc_msgSend_raiseErrorOrConvert_(contextCopy, v47, v42, v48);
         goto LABEL_51;
       }
     }
 
-    v12 = *arguments;
-    v13 = *(arguments + 1);
+    v11 = *arguments;
+    v12 = *(arguments + 1);
   }
 
-  if ((v13 - v12) >= 9)
+  if ((v12 - v11) >= 9)
   {
-    v14 = v12[1];
-    if (objc_msgSend_isTokenOrEmptyArg(v14, v21, v22, v23, v24))
+    v13 = v11[1];
+    if (objc_msgSend_isTokenOrEmptyArg(v13, v19, v20, v21))
     {
-      v27 = 1;
+      v23 = 1;
       goto LABEL_11;
     }
 
-    v105 = 0;
-    v44 = objc_msgSend_deepType_outError_(v14, v25, contextCopy, &v105, v26);
-    v45 = v105;
-    v50 = v45;
-    if (v44 == 10)
+    v91 = 0;
+    v37 = objc_msgSend_deepType_outError_(v13, v22, contextCopy, &v91);
+    v38 = v91;
+    v42 = v38;
+    if (v37 == 10)
     {
-      v27 = 1;
-      if (!v45)
+      v23 = 1;
+      if (!v38)
       {
 LABEL_11:
 
         if (*(arguments + 1) - *arguments < 0x11uLL)
         {
-          v14 = 0;
-          v50 = 0;
-          v39 = objc_msgSend_count(0, v28, v29, v30, v31, specCopy);
+          v13 = 0;
+          v42 = 0;
+          v33 = objc_msgSend_count(0, v24, v25, v26, specCopy);
         }
 
         else
         {
-          v32 = *(*arguments + 16);
-          v103 = 0;
-          v34 = objc_msgSend_asGrid_functionSpec_argumentIndex_applyPreferredFormat_outError_(v32, v33, contextCopy, specCopy, 2, 0, &v103);
-          v50 = v103;
+          v27 = *(*arguments + 16);
+          v89 = 0;
+          v29 = objc_msgSend_asGrid_functionSpec_argumentIndex_applyPreferredFormat_outError_(v27, v28, contextCopy, specCopy, 2, 0, &v89);
+          v42 = v89;
 
-          v14 = v34;
-          v39 = objc_msgSend_count(v34, v35, v36, v37, v38, specCopy);
+          v13 = v29;
+          v33 = objc_msgSend_count(v29, v30, v31, v32, specCopy);
         }
 
         goto LABEL_20;
@@ -100,81 +100,81 @@ LABEL_11:
 
     else
     {
-      v104 = v45;
-      v27 = objc_msgSend_asBoolean_functionSpec_argumentIndex_outError_(v14, v46, contextCopy, specCopy, 1, &v104);
-      v90 = v104;
+      v90 = v38;
+      v23 = objc_msgSend_asBoolean_functionSpec_argumentIndex_outError_(v13, v39, contextCopy, specCopy, 1, &v90);
+      v76 = v90;
 
-      v50 = v90;
-      if (!v90)
+      v42 = v76;
+      if (!v76)
       {
         goto LABEL_11;
       }
     }
 
-    v58 = objc_msgSend_raiseErrorOrConvert_(contextCopy, v46, v50, v47, v48, specCopy);
+    v49 = objc_msgSend_raiseErrorOrConvert_(contextCopy, v39, v42, v40, specCopy);
     goto LABEL_51;
   }
 
-  v14 = 0;
-  v50 = 0;
-  v27 = 1;
-  v39 = objc_msgSend_count(0, v7, v8, v9, v10, specCopy);
+  v13 = 0;
+  v42 = 0;
+  v23 = 1;
+  v33 = objc_msgSend_count(0, v7, v8, v9, specCopy);
 LABEL_20:
-  v59 = v39;
-  if (!v39)
+  v50 = v33;
+  if (!v33)
   {
     goto LABEL_50;
   }
 
-  v94 = v14;
-  v60 = 0;
-  v61 = 0;
+  v80 = v13;
+  v51 = 0;
+  v52 = 0;
   isRegexString = 1;
   do
   {
-    v63 = objc_msgSend_valueAtIndex_accessContext_(v94, v40, v60, v110, v43);
-    v67 = objc_msgSend_deepType_(v63, v64, contextCopy, v65, v66);
-    if (v67 == 9)
+    v54 = objc_msgSend_valueAtIndex_accessContext_(v80, v34, v51, v96);
+    v57 = objc_msgSend_deepType_(v54, v55, contextCopy, v56);
+    if (v57 == 9)
     {
-      v86 = objc_msgSend_errorWithContext_(v63, v68, contextCopy, v70, v71);
-      v14 = v94;
-      v85 = objc_msgSend_raiseErrorOrConvert_(contextCopy, v87, v86, v88, v89);
+      v73 = objc_msgSend_errorWithContext_(v54, v58, contextCopy, v60);
+      v13 = v80;
+      v72 = objc_msgSend_raiseErrorOrConvert_(contextCopy, v74, v73, v75);
 
       goto LABEL_46;
     }
 
-    if (v27)
+    if (v23)
     {
-      if (!v67)
+      if (!v57)
       {
         goto LABEL_41;
       }
 
-      v102 = v50;
-      v72 = objc_msgSend_asString_functionSpec_argumentIndex_outError_(v63, v68, contextCopy, v93, 0, &v102);
-      v73 = v102;
+      v88 = v42;
+      v61 = objc_msgSend_asString_functionSpec_argumentIndex_outError_(v54, v58, contextCopy, v79, 0, &v88);
+      v62 = v88;
 
-      v78 = objc_msgSend_length(v72, v74, v75, v76, v77);
-      if (!v78)
+      v66 = objc_msgSend_length(v61, v63, v64, v65);
+      if (!v66)
       {
-        v50 = v73;
+        v42 = v62;
         goto LABEL_41;
       }
     }
 
     else
     {
-      v73 = v50;
+      v62 = v42;
     }
 
-    v101 = v73;
-    if (v63)
+    v87 = v62;
+    if (v54)
     {
-      objc_msgSend_asRichTextStorage_functionSpec_argumentIndex_outError_(v63, v68, contextCopy, v93, 0, &v101);
-      v79 = v101;
+      objc_msgSend_asRichTextStorage_functionSpec_argumentIndex_outError_(v54, v58, contextCopy, v79, 0, &v87);
+      v67 = v87;
 
-      v73 = v79;
-      if (v79)
+      v62 = v67;
+      if (v67)
       {
         goto LABEL_45;
       }
@@ -182,43 +182,43 @@ LABEL_20:
 
     else
     {
-      v95 = 0;
-      v96 = 0;
-      v97 = 0;
-      if (v73)
+      v81 = 0;
+      v82 = 0;
+      v83 = 0;
+      if (v62)
       {
 LABEL_45:
-        v85 = objc_msgSend_raiseErrorOrConvert_(contextCopy, v68, v73, v70, v71);
+        v72 = objc_msgSend_raiseErrorOrConvert_(contextCopy, v58, v62, v60);
 
-        v50 = v73;
-        v14 = v94;
+        v42 = v62;
+        v13 = v80;
         goto LABEL_46;
       }
     }
 
-    if (v27)
+    if (v23)
     {
-      if (!sub_221078910(&v108, v68, v69, v70, v71))
+      if (!sub_221078910(&v94, v58, v59, v60))
       {
         goto LABEL_37;
       }
 
 LABEL_36:
-      sub_221077424(&v108, v107, contextCopy);
+      sub_221077424(&v94, v93, contextCopy);
       goto LABEL_37;
     }
 
-    if (v60)
+    if (v51)
     {
       goto LABEL_36;
     }
 
 LABEL_37:
-    sub_221077424(&v108, &v95, contextCopy);
+    sub_221077424(&v94, &v81, contextCopy);
     if (isRegexString)
     {
-      isRegexString = objc_msgSend_isRegexString(v63, v80, v81, v82, v83);
-      v61 |= isRegexString;
+      isRegexString = objc_msgSend_isRegexString(v54, v68, v69, v70);
+      v52 |= isRegexString;
     }
 
     else
@@ -226,40 +226,40 @@ LABEL_37:
       isRegexString = 0;
     }
 
-    v50 = 0;
+    v42 = 0;
 LABEL_41:
 
-    ++v60;
+    ++v51;
   }
 
-  while (v59 != v60);
-  if (isRegexString & v61)
+  while (v50 != v51);
+  if (isRegexString & v52)
   {
-    v14 = v94;
-    v63 = sub_2210772BC(&v108, v40, v41, v42, v43);
-    v95 = 0;
-    LODWORD(v96) = 0;
-    BYTE4(v96) = 0;
-    LOWORD(v97) = v97 & 0xC080 | 0x421;
-    BYTE2(v97) = BYTE2(v97) & 0xF8 | 1;
-    HIDWORD(v97) = -50266102;
-    v98 = -3;
-    v99 &= 0xE0u;
-    v100 = 0;
-    v85 = objc_msgSend_stringValue_format_isRegex_isCaseSensitiveRegex_isLiteralString_(TSCEStringValue, v84, v63, &v95, 1, 0, 0);
+    v13 = v80;
+    v54 = sub_2210772BC(&v94, v34, v35, v36);
+    v81 = 0;
+    LODWORD(v82) = 0;
+    BYTE4(v82) = 0;
+    LOWORD(v83) = v83 & 0xC080 | 0x421;
+    BYTE2(v83) = BYTE2(v83) & 0xF8 | 1;
+    HIDWORD(v83) = -50266102;
+    v84 = -3;
+    v85 &= 0xE0u;
+    v86 = 0;
+    v72 = objc_msgSend_stringValue_format_isRegex_isCaseSensitiveRegex_isLiteralString_(TSCEStringValue, v71, v54, &v81, 1, 0, 0);
 LABEL_46:
 
     goto LABEL_52;
   }
 
-  v14 = v94;
+  v13 = v80;
 LABEL_50:
-  v58 = sub_2210789F4(&v108, v40, v41, v42, v43);
+  v49 = sub_2210789F4(&v94, v34, v35, v36);
 LABEL_51:
-  v85 = v58;
+  v72 = v49;
 LABEL_52:
 
-  return v85;
+  return v72;
 }
 
 @end

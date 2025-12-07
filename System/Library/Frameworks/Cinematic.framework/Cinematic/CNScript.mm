@@ -119,10 +119,10 @@ void __61__CNScript_loadFromAsset_changes_progress_completionHandler___block_inv
     }
 
     v7 = _CNCinematicError(v12, 0);
-    v13 = _CNLogSystem();
+    v13 = _CNLogSystem(v7);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      __61__CNScript_loadFromAsset_changes_progress_completionHandler___block_invoke_cold_1(v7, a1);
+      __61__CNScript_loadFromAsset_changes_progress_completionHandler___block_invoke_cold_1();
     }
 
     v8 = *(*(a1 + 56) + 16);
@@ -306,7 +306,7 @@ void __21__CNScript_timeRange__block_invoke_2(uint64_t a1@<X0>, _OWORD *a2@<X8>)
   if (v3)
   {
     v4 = v3;
-    [v3 timeRange];
+    objc_msgSend_timeRange(v3);
     v3 = v4;
   }
 
@@ -491,7 +491,7 @@ id __37__CNScript_decisionAtTime_tolerance___block_invoke_2(uint64_t a1)
   memset(&v9, 0, sizeof(v9));
   if (v3)
   {
-    [v3 time];
+    objc_msgSend_time(v3);
   }
 
   else
@@ -1101,30 +1101,30 @@ void __32__CNScript_addedDetectionTracks__block_invoke(uint64_t a1)
 
 id __32__CNScript_addedDetectionTracks__block_invoke_2(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = objc_opt_new();
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v3 = [*(a1 + 32) internalScript];
   v4 = [v3 tracks];
 
-  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         if ([v9 isUserCreated])
         {
           v10 = [CNDetectionTrack _trackFromInternal:v9];
@@ -1132,14 +1132,13 @@ id __32__CNScript_addedDetectionTracks__block_invoke_2(uint64_t a1)
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
   }
 
   v11 = [v2 copy];
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -1524,15 +1523,13 @@ uint64_t __33__CNScript_removeDetectionTrack___block_invoke_2(uint64_t a1)
   return v4;
 }
 
-void __61__CNScript_loadFromAsset_changes_progress_completionHandler___block_invoke_cold_1(uint64_t a1, uint64_t a2)
+void __61__CNScript_loadFromAsset_changes_progress_completionHandler___block_invoke_cold_1()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = *(a2 + 48);
-  OUTLINED_FUNCTION_1_1();
-  v7 = 2112;
-  v8 = v3;
-  _os_log_error_impl(&dword_236F52000, v4, OS_LOG_TYPE_ERROR, "Error %@: Failed to read script from asset %@", v6, 0x16u);
   v5 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1();
+  v3 = 2112;
+  v4 = v0;
+  _os_log_error_impl(&dword_236F52000, v1, OS_LOG_TYPE_ERROR, "Error %@: Failed to read script from asset %@", v2, 0x16u);
 }
 
 @end

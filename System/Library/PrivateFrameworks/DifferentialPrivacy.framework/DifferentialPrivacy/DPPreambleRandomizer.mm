@@ -73,45 +73,41 @@ void __61___DPPreambleRandomizer_randomizeBitVectors_metadata_forKey___block_inv
 
 void __61___DPPreambleRandomizer_randomizeBitVectors_metadata_forKey___block_invoke_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 134218242;
-  *&v4[4] = a2;
-  *&v4[12] = 2112;
-  *&v4[14] = a1;
-  OUTLINED_FUNCTION_3_0(&dword_22622D000, a2, a3, "Skipping Preamble privatization for invalid vector %lu: %@", *v4, *&v4[8], *&v4[16], *MEMORY[0x277D85DE8]);
-  v3 = *MEMORY[0x277D85DE8];
+  *v3 = 134218242;
+  *&v3[4] = a2;
+  *&v3[12] = 2112;
+  *&v3[14] = a1;
+  OUTLINED_FUNCTION_3_0(&dword_22622D000, a2, a3, "Skipping Preamble privatization for invalid vector %lu: %@", *v3, *&v3[8], *&v3[16], *MEMORY[0x277D85DE8]);
 }
 
 void __61___DPPreambleRandomizer_randomizeBitVectors_metadata_forKey___block_invoke_cold_2(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
-  v5 = 134218242;
-  v6 = a2;
-  v7 = 2112;
-  v8 = v3;
-  _os_log_debug_impl(&dword_22622D000, log, OS_LOG_TYPE_DEBUG, "Privatizing with Preamble for vector %lu for %@", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 134218242;
+  v5 = a2;
+  v6 = 2112;
+  v7 = v3;
+  _os_log_debug_impl(&dword_22622D000, log, OS_LOG_TYPE_DEBUG, "Privatizing with Preamble for vector %lu for %@", &v4, 0x16u);
 }
 
 void __61___DPPreambleRandomizer_randomizeBitVectors_metadata_forKey___block_invoke_cold_3(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 138412546;
-  *&v4[4] = *(a1 + 32);
-  *&v4[12] = 2112;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_3_0(&dword_22622D000, a2, a3, "Fail to privatize one-hot with Preamble for %@ error=%@", *v4, *&v4[8], *&v4[16], *MEMORY[0x277D85DE8]);
-  v3 = *MEMORY[0x277D85DE8];
+  *v3 = 138412546;
+  *&v3[4] = *(a1 + 32);
+  *&v3[12] = 2112;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_3_0(&dword_22622D000, a2, a3, "Fail to privatize one-hot with Preamble for %@ error=%@", *v3, *&v3[8], *&v3[16], *MEMORY[0x277D85DE8]);
 }
 
 void __61___DPPreambleRandomizer_randomizeBitVectors_metadata_forKey___block_invoke_cold_4(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 134218240;
-  v4 = a1;
-  v5 = 2048;
-  v6 = 0x800000;
-  _os_log_error_impl(&dword_22622D000, a2, OS_LOG_TYPE_ERROR, "dimension=(%lu) should be less than or equal to %zu", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 134218240;
+  v3 = a1;
+  v4 = 2048;
+  v5 = 0x800000;
+  _os_log_error_impl(&dword_22622D000, a2, OS_LOG_TYPE_ERROR, "dimension=(%lu) should be less than or equal to %zu", &v2, 0x16u);
 }
 
 @end

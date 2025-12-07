@@ -211,16 +211,16 @@
 
 - (uint64_t)completionCellBackgroundModeInTopSection
 {
-  v2 = [self safari_firstInlineCardSectionOfClass:objc_opt_class()];
+  v3 = [self safari_firstInlineCardSectionOfClass:objc_opt_class()];
 
-  if (v2)
+  if (v3)
   {
     return 0;
   }
 
-  v3 = [self safari_firstInlineCardSectionOfClass:objc_opt_class()];
+  v4 = [self safari_firstInlineCardSectionOfClass:objc_opt_class()];
 
-  if (v3)
+  if (v4)
   {
     return 0;
   }
@@ -235,9 +235,9 @@
 
   inlineCard2 = [self inlineCard];
   cardSections = [inlineCard2 cardSections];
-  v9 = [cardSections safari_containsObjectPassingTest:&__block_literal_global_47];
+  v10 = [cardSections safari_containsObjectPassingTest:&__block_literal_global_47];
 
-  if (v9)
+  if (v10)
   {
     return 2;
   }
@@ -325,21 +325,21 @@
 
 - (id)safari_titleForReflection
 {
-  v2 = [self safari_firstInlineCardSectionOfClass:objc_opt_class()];
-  v3 = v2;
-  if (v2)
+  v3 = [self safari_firstInlineCardSectionOfClass:objc_opt_class()];
+  v4 = v3;
+  if (v3)
   {
-    title = [v2 title];
+    title = [v3 title];
     text = [title text];
   }
 
   else
   {
-    v6 = [self safari_firstInlineCardSectionOfClass:objc_opt_class()];
-    title = v6;
-    if (v6)
+    v7 = [self safari_firstInlineCardSectionOfClass:objc_opt_class()];
+    title = v7;
+    if (v7)
     {
-      leadingText = [v6 leadingText];
+      leadingText = [v7 leadingText];
       text = [leadingText text];
     }
 

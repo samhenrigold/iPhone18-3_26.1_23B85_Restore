@@ -5,6 +5,7 @@
 - (id)landscapeOverlayMessage;
 - (void)didTransitionToPresentationStyle:(unint64_t)style;
 - (void)requestExpandedPresentation;
+- (void)selectAvatarRecordWithIdentifier:(id)identifier animated:(BOOL)animated;
 - (void)setAvatarPickerDelegate:(id)delegate;
 @end
 
@@ -88,6 +89,14 @@
   WeakRetained = objc_loadWeakRetained(&self->_avatarPickerDelegate);
 
   return WeakRetained;
+}
+
+- (void)selectAvatarRecordWithIdentifier:(id)identifier animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  identifierCopy = identifier;
+  forwardingPicker = [(FunCamMessagesViewController *)self forwardingPicker];
+  [forwardingPicker selectAvatarRecordWithIdentifier:identifierCopy animated:animatedCopy];
 }
 
 - (AVTAvatarPicker)forwardingPicker

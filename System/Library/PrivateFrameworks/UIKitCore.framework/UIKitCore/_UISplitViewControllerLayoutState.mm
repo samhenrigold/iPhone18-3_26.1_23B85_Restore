@@ -4,14 +4,14 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionary;
-- (id)initWithLayout:(uint64_t *)layout preferredColumns:;
 - (void)encodeWithCoder:(id)coder;
 - (void)initWithDictionary:(void *)dictionary;
+- (void)initWithLayout:(uint64_t *)layout preferredColumns:;
 @end
 
 @implementation _UISplitViewControllerLayoutState
 
-- (id)initWithLayout:(uint64_t *)layout preferredColumns:
+- (void)initWithLayout:(uint64_t *)layout preferredColumns:
 {
   if (result)
   {
@@ -37,7 +37,7 @@
         v5 = 999;
       }
 
-      *(result + 1) = v5;
+      result[1] = v5;
       if (layout[8] == 1)
       {
         v6 = layout[1];
@@ -48,7 +48,7 @@
         v6 = 999;
       }
 
-      *(result + 2) = v6;
+      result[2] = v6;
     }
   }
 

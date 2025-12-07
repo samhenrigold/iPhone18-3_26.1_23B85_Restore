@@ -65,17 +65,17 @@ LABEL_8:
 - (id)styleTextAsMessage:(id)message boundingSize:(CGSize)size
 {
   width = size.width;
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   messageCopy = message;
-  v21 = *MEMORY[0x277D740A8];
-  v7 = v21;
+  v20 = *MEMORY[0x277D740A8];
+  v7 = v20;
   messageLargeFont = [(NUNewsFeedTitleViewStyler *)self messageLargeFont];
-  v22[0] = messageLargeFont;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+  v21[0] = messageLargeFont;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
   [messageCopy sizeWithAttributes:v9];
   v11 = v10;
 
-  v19[0] = v7;
+  v18[0] = v7;
   if (v11 <= width)
   {
     [(NUNewsFeedTitleViewStyler *)self messageLargeFont];
@@ -86,40 +86,38 @@ LABEL_8:
     [(NUNewsFeedTitleViewStyler *)self messageSmallFont];
   }
   v12 = ;
-  v20[0] = v12;
-  v19[1] = *MEMORY[0x277D74118];
+  v19[0] = v12;
+  v18[1] = *MEMORY[0x277D74118];
   width = [(NUNewsFeedTitleViewStyler *)self titleParagraphStyleWithWrapping:v11 > width];
-  v20[1] = width;
-  v19[2] = *MEMORY[0x277D740C0];
+  v19[1] = width;
+  v18[2] = *MEMORY[0x277D740C0];
   textColor = [(NUNewsFeedTitleViewStyler *)self textColor];
-  v20[2] = textColor;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:3];
+  v19[2] = textColor;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:3];
 
   v16 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:messageCopy attributes:v15];
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
 
 - (id)styleTextAsTitle:(id)title boundingSize:(CGSize)size
 {
-  v14[4] = *MEMORY[0x277D85DE8];
-  v13[0] = *MEMORY[0x277D740A8];
+  v13[4] = *MEMORY[0x277D85DE8];
+  v12[0] = *MEMORY[0x277D740A8];
   titleCopy = title;
   titleExtraLargeFont = [(NUNewsFeedTitleViewStyler *)self titleExtraLargeFont];
-  v14[0] = titleExtraLargeFont;
-  v13[1] = *MEMORY[0x277D74118];
+  v13[0] = titleExtraLargeFont;
+  v12[1] = *MEMORY[0x277D74118];
   v7 = [(NUNewsFeedTitleViewStyler *)self titleParagraphStyleWithWrapping:0];
-  v14[1] = v7;
-  v13[2] = *MEMORY[0x277D740C0];
+  v13[1] = v7;
+  v12[2] = *MEMORY[0x277D740C0];
   textColor = [(NUNewsFeedTitleViewStyler *)self textColor];
-  v13[3] = *MEMORY[0x277D740D0];
-  v14[2] = textColor;
-  v14[3] = &unk_286E12E58;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:4];
+  v12[3] = *MEMORY[0x277D740D0];
+  v13[2] = textColor;
+  v13[3] = &unk_286E12E58;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:4];
 
   v10 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:titleCopy attributes:v9];
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

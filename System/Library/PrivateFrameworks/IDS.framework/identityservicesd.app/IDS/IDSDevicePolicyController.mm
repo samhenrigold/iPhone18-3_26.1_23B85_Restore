@@ -110,7 +110,7 @@
   }
 
   v9 = [v7 objectForKey:@"start-time"];
-  [v9 doubleValue];
+  objc_msgSend_doubleValue(v9);
   v11 = v10;
 
   ids_monotonic_time();

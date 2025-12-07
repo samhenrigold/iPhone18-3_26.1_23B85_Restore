@@ -49,38 +49,38 @@
     v6 = [NSDictionary alloc];
     wallpaperSettingsFilePath2 = [(MSDWallpaperManager *)self wallpaperSettingsFilePath];
     v8 = [NSURL fileURLWithPath:wallpaperSettingsFilePath2];
-    v24 = 0;
-    v9 = [v6 initWithContentsOfURL:v8 error:&v24];
-    v10 = v24;
+    v26 = 0;
+    v9 = [v6 initWithContentsOfURL:v8 error:&v26];
+    v10 = v26;
 
-    v11 = sub_100063A54();
-    v12 = v11;
+    v12 = sub_100063A54(v11);
+    v13 = v12;
     if (!v9)
     {
-      sub_1000D196C(v11, v10);
+      sub_1000D196C(v12, v10);
       goto LABEL_13;
     }
 
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v26 = v9;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Persistent wallpaper settings loaded: %{public}@", buf, 0xCu);
+      v28 = v9;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Persistent wallpaper settings loaded: %{public}@", buf, 0xCu);
     }
 
-    v13 = [v9 objectForKey:@"UseFactoryDefault"];
-    [(MSDWallpaperManager *)self setUseFactoryDefault:[v13 BOOLValue]];
+    v14 = [v9 objectForKey:@"UseFactoryDefault"];
+    [(MSDWallpaperManager *)self setUseFactoryDefault:[v14 BOOLValue]];
   }
 
   else
   {
     wallpaperSettingsFilePath3 = [(MSDWallpaperManager *)self wallpaperSettingsFilePath];
     stringByDeletingLastPathComponent = [wallpaperSettingsFilePath3 stringByDeletingLastPathComponent];
-    v23 = 0;
-    v16 = [v3 createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v23];
-    v10 = v23;
+    v25 = 0;
+    v17 = [v3 createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v25];
+    v10 = v25;
 
-    if ((v16 & 1) == 0)
+    if ((v17 & 1) == 0)
     {
       sub_1000D1824(v10);
       v9 = &off_10017BFE0;
@@ -88,30 +88,30 @@
     }
 
     wallpaperSettingsFilePath4 = [(MSDWallpaperManager *)self wallpaperSettingsFilePath];
-    v18 = [NSURL fileURLWithPath:wallpaperSettingsFilePath4];
-    v22 = v10;
-    v19 = [&off_10017BFE0 writeToURL:v18 error:&v22];
-    v20 = v22;
+    v19 = [NSURL fileURLWithPath:wallpaperSettingsFilePath4];
+    v24 = v10;
+    v20 = [&off_10017BFE0 writeToURL:v19 error:&v24];
+    v21 = v24;
 
-    v21 = sub_100063A54();
-    v13 = v21;
-    if ((v19 & 1) == 0)
+    v23 = sub_100063A54(v22);
+    v14 = v23;
+    if ((v20 & 1) == 0)
     {
-      sub_1000D18CC(v21, v20);
+      sub_1000D18CC(v23, v21);
       v9 = &off_10017BFE0;
-      v10 = v20;
+      v10 = v21;
       goto LABEL_13;
     }
 
     v9 = &off_10017BFE0;
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v26 = &off_10017BFE0;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Persistent wallpaper settings saved: %{public}@", buf, 0xCu);
+      v28 = &off_10017BFE0;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Persistent wallpaper settings saved: %{public}@", buf, 0xCu);
     }
 
-    v10 = v20;
+    v10 = v21;
   }
 
   if (![(MSDWallpaperManager *)self useFactoryDefault])
@@ -124,13 +124,14 @@ LABEL_13:
 
 - (void)restoreWallpaperSettingsIfNeeded
 {
-  if ([(MSDWallpaperManager *)self useFactoryDefault])
+  useFactoryDefault = [(MSDWallpaperManager *)self useFactoryDefault];
+  if (useFactoryDefault)
   {
-    v3 = sub_100063A54();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100063A54(useFactoryDefault);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      *v4 = 0;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Wallpaper settings have changed. Resetting wallpaper settings to factory default!", v4, 2u);
+      *v5 = 0;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Wallpaper settings have changed. Resetting wallpaper settings to factory default!", v5, 2u);
     }
 
     [(MSDWallpaperManager *)self _resetWallpaperSettingsToFactoryDefault];
@@ -139,7 +140,7 @@ LABEL_13:
 
 - (void)_startPosterConfigChangeMonitor
 {
-  v3 = sub_100063A54();
+  v3 = sub_100063A54(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -169,45 +170,50 @@ LABEL_13:
 
 - (void)_handleWallpaperConfigChange
 {
-  if ([(MSDWallpaperManager *)self justBootUp])
+  justBootUp = [(MSDWallpaperManager *)self justBootUp];
+  if (justBootUp)
   {
-    v3 = sub_100063A54();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100063A54(justBootUp);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Ignore first poster config change call after observer is first registered.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Ignore first poster config change call after observer is first registered.", buf, 2u);
     }
 
     [(MSDWallpaperManager *)self setJustBootUp:0];
   }
 
-  else if (![(MSDWallpaperManager *)self useFactoryDefault])
+  else
   {
-    v4 = sub_100063A54();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    useFactoryDefault = [(MSDWallpaperManager *)self useFactoryDefault];
+    if ((useFactoryDefault & 1) == 0)
     {
-      *v11 = 0;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Will reset wallpaper settings to factory default next time.", v11, 2u);
-    }
+      v6 = sub_100063A54(useFactoryDefault);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      {
+        *v13 = 0;
+        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Will reset wallpaper settings to factory default next time.", v13, 2u);
+      }
 
-    wallpaperSettingsFilePath = [(MSDWallpaperManager *)self wallpaperSettingsFilePath];
-    v6 = [NSURL fileURLWithPath:wallpaperSettingsFilePath];
-    v10 = 0;
-    v7 = [&off_10017C008 writeToURL:v6 error:&v10];
-    v8 = v10;
+      wallpaperSettingsFilePath = [(MSDWallpaperManager *)self wallpaperSettingsFilePath];
+      v8 = [NSURL fileURLWithPath:wallpaperSettingsFilePath];
+      v12 = 0;
+      v9 = [&off_10017C008 writeToURL:v8 error:&v12];
+      v10 = v12;
 
-    if (v7)
-    {
-      [(MSDWallpaperManager *)self setUseFactoryDefault:1];
-      posterObserver = [(MSDWallpaperManager *)self posterObserver];
-      [posterObserver invalidate];
+      if (v9)
+      {
+        [(MSDWallpaperManager *)self setUseFactoryDefault:1];
+        posterObserver = [(MSDWallpaperManager *)self posterObserver];
+        [posterObserver invalidate];
 
-      [(MSDWallpaperManager *)self setPosterObserver:0];
-    }
+        [(MSDWallpaperManager *)self setPosterObserver:0];
+      }
 
-    else
-    {
-      sub_1000D1A0C(v8);
+      else
+      {
+        sub_1000D1A0C(v10);
+      }
     }
   }
 }
@@ -217,19 +223,20 @@ LABEL_13:
   v2 = objc_alloc_init(PRSService);
   v3 = dispatch_semaphore_create(0);
   v4 = dispatch_time(0, 3000000000);
-  v7[0] = _NSConcreteStackBlock;
-  v7[1] = 3221225472;
-  v7[2] = sub_100043CC8;
-  v7[3] = &unk_10016ACA0;
+  v8[0] = _NSConcreteStackBlock;
+  v8[1] = 3221225472;
+  v8[2] = sub_100043CC8;
+  v8[3] = &unk_10016ACA0;
   v5 = v3;
-  v8 = v5;
-  [v2 deleteDataStoreWithCompletion:v7];
-  if (dispatch_semaphore_wait(v5, v4))
+  v9 = v5;
+  [v2 deleteDataStoreWithCompletion:v8];
+  v6 = dispatch_semaphore_wait(v5, v4);
+  if (v6)
   {
-    v6 = sub_100063A54();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = sub_100063A54(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      sub_1000D1AB4(v6);
+      sub_1000D1AB4(v7);
     }
   }
 }

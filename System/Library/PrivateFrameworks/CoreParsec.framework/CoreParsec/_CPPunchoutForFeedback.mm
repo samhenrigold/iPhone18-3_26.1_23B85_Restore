@@ -144,13 +144,12 @@ LABEL_23:
 
 - (void)writeTo:(id)to
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   toCopy = to;
   name = [(_CPPunchoutForFeedback *)self name];
 
   if (name)
   {
-    name = self->_name;
     PBDataWriterWriteStringField();
   }
 
@@ -158,57 +157,51 @@ LABEL_23:
 
   if (label)
   {
-    label = self->_label;
     PBDataWriterWriteStringField();
   }
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
-  v20 = 0u;
-  v9 = self->_urls;
-  v10 = [(NSArray *)v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
-  if (v10)
+  v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v7 = self->_urls;
+  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  if (v8)
   {
-    v11 = v10;
-    v12 = *v20;
+    v9 = v8;
+    v10 = *v14;
     do
     {
-      v13 = 0;
+      v11 = 0;
       do
       {
-        if (*v20 != v12)
+        if (*v14 != v10)
         {
-          objc_enumerationMutation(v9);
+          objc_enumerationMutation(v7);
         }
 
-        v14 = *(*(&v19 + 1) + 8 * v13);
         PBDataWriterWriteStringField();
-        ++v13;
+        ++v11;
       }
 
-      while (v11 != v13);
-      v11 = [(NSArray *)v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      while (v9 != v11);
+      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
-    while (v11);
+    while (v9);
   }
 
   bundleIdentifier = [(_CPPunchoutForFeedback *)self bundleIdentifier];
 
   if (bundleIdentifier)
   {
-    bundleIdentifier = self->_bundleIdentifier;
     PBDataWriterWriteStringField();
   }
 
   if ([(_CPPunchoutForFeedback *)self knownBundleIdentifier])
   {
-    knownBundleIdentifier = self->_knownBundleIdentifier;
     PBDataWriterWriteInt32Field();
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (int)knownBundleIdentifier
@@ -276,9 +269,7 @@ LABEL_23:
 
 - (void)setUrls:(id)urls
 {
-  v4 = [urls mutableCopy];
-  urls = self->_urls;
-  self->_urls = v4;
+  self->_urls = [urls mutableCopy];
 
   MEMORY[0x1EEE66BB8]();
 }
@@ -294,11 +285,11 @@ LABEL_23:
 
 - (_CPPunchoutForFeedback)initWithFacade:(id)facade
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   facadeCopy = facade;
-  v32.receiver = self;
-  v32.super_class = _CPPunchoutForFeedback;
-  v5 = [(_CPPunchoutForFeedback *)&v32 init];
+  v31.receiver = self;
+  v31.super_class = _CPPunchoutForFeedback;
+  v5 = [(_CPPunchoutForFeedback *)&v31 init];
   if (v5)
   {
     name = [facadeCopy name];
@@ -330,30 +321,30 @@ LABEL_23:
       v13 = 0;
     }
 
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
     urls3 = [facadeCopy urls];
-    v15 = [urls3 countByEnumeratingWithState:&v28 objects:v33 count:16];
+    v15 = [urls3 countByEnumeratingWithState:&v27 objects:v32 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v29;
+      v17 = *v28;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v29 != v17)
+          if (*v28 != v17)
           {
             objc_enumerationMutation(urls3);
           }
 
-          absoluteString = [*(*(&v28 + 1) + 8 * i) absoluteString];
+          absoluteString = [*(*(&v27 + 1) + 8 * i) absoluteString];
           [v13 addObject:absoluteString];
         }
 
-        v16 = [urls3 countByEnumeratingWithState:&v28 objects:v33 count:16];
+        v16 = [urls3 countByEnumeratingWithState:&v27 objects:v32 count:16];
       }
 
       while (v16);
@@ -1815,7 +1806,6 @@ LABEL_377:
 
 LABEL_378:
 
-  v26 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

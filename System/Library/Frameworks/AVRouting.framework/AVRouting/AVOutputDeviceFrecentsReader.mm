@@ -15,7 +15,7 @@
 
 - (id)frecencyInfoForDeviceWithID:(id)d
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = [(NSDictionary *)self->_frecents objectForKeyedSubscript:?];
   if (v3)
   {
@@ -29,21 +29,20 @@
         fig_log_call_emit_and_clean_up_after_send_and_compose();
       }
 
-      v3 = 0;
+      return 0;
     }
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
 - (AVOutputDeviceFrecentsReader)initWithFrecentsFilePath:(id)path error:(id *)error
 {
-  v19[22] = *MEMORY[0x1E69E9840];
-  v18.receiver = self;
-  v18.super_class = AVOutputDeviceFrecentsReader;
-  v19[0] = 0;
-  v6 = [(AVOutputDeviceFrecentsReader *)&v18 init];
+  v18[22] = *MEMORY[0x1E69E9840];
+  v17.receiver = self;
+  v17.super_class = AVOutputDeviceFrecentsReader;
+  v18[0] = 0;
+  v6 = [(AVOutputDeviceFrecentsReader *)&v17 init];
   v7 = v6;
   v8 = 0;
   if (!path || !v6)
@@ -57,10 +56,10 @@ LABEL_15:
     goto LABEL_16;
   }
 
-  v9 = [MEMORY[0x1E695DEF0] dataWithContentsOfFile:path options:0 error:v19];
+  v9 = [MEMORY[0x1E695DEF0] dataWithContentsOfFile:path options:0 error:v18];
   if (v9)
   {
-    v10 = [MEMORY[0x1E696AE40] propertyListWithData:v9 options:0 format:0 error:v19];
+    v10 = [MEMORY[0x1E696AE40] propertyListWithData:v9 options:0 format:0 error:v18];
     if (v10)
     {
       v11 = v10;
@@ -111,12 +110,11 @@ LABEL_14:
 LABEL_16:
   if (!v8)
   {
-    *error = v19[0];
+    *error = v18[0];
   }
 
 LABEL_18:
 
-  v16 = *MEMORY[0x1E69E9840];
   return v8;
 }
 

@@ -49,7 +49,7 @@
   else
   {
     ++self->_nextEnumerationIndex;
-    v6 = [(NSArray *)v4 objectAtIndex:?];
+    v6 = objc_msgSend_objectAtIndex_(v4);
   }
 
   return v6;
@@ -59,15 +59,13 @@
 {
   if (self)
   {
-    appearances = self->_appearances;
+    return objc_msgSend_objectAtIndex_(self->_appearances, a2, self->_nextEnumerationIndex - 1);
   }
 
   else
   {
-    appearances = 0;
+    return objc_msgSend_objectAtIndex_(0, a2, MEMORY[8] - 1);
   }
-
-  return [(NSArray *)appearances objectAtIndex:self->_nextEnumerationIndex - 1];
 }
 
 @end

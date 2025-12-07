@@ -551,7 +551,7 @@ LABEL_7:
 - (void)_setUpStackedButtonView
 {
   v12[1] = *MEMORY[0x277D85DE8];
-  v3 = HRHeartRhythmUIFrameworkBundle();
+  v3 = HRHeartRhythmUIFrameworkBundle(self);
   v4 = [v3 localizedStringForKey:@"ONBOARDING_CONTINUE" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable"];
   v12[0] = v4;
   v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];

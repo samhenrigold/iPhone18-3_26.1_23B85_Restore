@@ -49,33 +49,33 @@ LABEL_10:
 
 - (id)dp_floatVectorBytesData
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   data = [MEMORY[0x277CBEB28] data];
   v4 = objc_opt_new();
   [v4 setNumberStyle:1];
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v5 = [MEMORY[0x277CCA900] characterSetWithCharactersInString:{@", "}];
   v6 = [self componentsSeparatedByCharactersInSet:v5];
 
-  v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v19;
+    v9 = *v18;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [v4 numberFromString:*(*(&v18 + 1) + 8 * i)];
+        v11 = [v4 numberFromString:*(*(&v17 + 1) + 8 * i)];
         if (!v11)
         {
 
@@ -85,11 +85,11 @@ LABEL_10:
 
         v12 = v11;
         [v11 floatValue];
-        v17 = v13;
-        [data appendBytes:&v17 length:4];
+        v16 = v13;
+        [data appendBytes:&v16 length:4];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v8)
       {
         continue;
@@ -103,7 +103,6 @@ LABEL_10:
 LABEL_11:
 
   objc_autoreleasePoolPop(v2);
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }

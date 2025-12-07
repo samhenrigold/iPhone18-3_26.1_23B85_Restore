@@ -286,38 +286,38 @@
   sessionChange2 = [changeCopy sessionChange];
   isEndingSession = [sessionChange2 isEndingSession];
 
-  v10 = sub_10000235C();
-  v11 = v10;
+  v11 = sub_10000235C(v10);
+  v12 = v11;
   if (isEndingSession & 1) != 0 || (isBeginningSession)
   {
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v17 = "[IUISessionCoordinator _queue_queueSessionChange:]";
-      v18 = 2112;
-      v19 = changeCopy;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%s  Ready to handle session change: %@", buf, 0x16u);
+      v18 = "[IUISessionCoordinator _queue_queueSessionChange:]";
+      v19 = 2112;
+      v20 = changeCopy;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%s  Ready to handle session change: %@", buf, 0x16u);
     }
 
-    v14[0] = _NSConcreteStackBlock;
-    v14[1] = 3221225472;
-    v14[2] = sub_100004D4C;
-    v14[3] = &unk_1000205D0;
-    v14[4] = self;
-    v15 = changeCopy;
-    dispatch_async(&_dispatch_main_q, v14);
+    v15[0] = _NSConcreteStackBlock;
+    v15[1] = 3221225472;
+    v15[2] = sub_100004D4C;
+    v15[3] = &unk_1000205D0;
+    v15[4] = self;
+    v16 = changeCopy;
+    dispatch_async(&_dispatch_main_q, v15);
   }
 
   else
   {
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_10000CC68(changeCopy);
     }
 
-    v12 = [[IUISessionChangeResponse alloc] initWithResponseState:2];
+    v13 = [[IUISessionChangeResponse alloc] initWithResponseState:2];
     completion = [changeCopy completion];
-    (completion)[2](completion, v12);
+    (completion)[2](completion, v13);
   }
 }
 
@@ -391,15 +391,15 @@
 {
   changeCopy = change;
   dispatch_assert_queue_V2(&_dispatch_main_q);
-  v5 = sub_10000235C();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = sub_10000235C(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     sessionChange = [(IUISessionChangeContext *)changeCopy sessionChange];
     *buf = 136315394;
     *&buf[4] = "[IUISessionCoordinator _main_handleSessionChange:]";
     *&buf[12] = 2112;
     *&buf[14] = sessionChange;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%s  begin session change: %@", buf, 0x16u);
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%s  begin session change: %@", buf, 0x16u);
   }
 
   sessionChange2 = [(IUISessionChangeContext *)changeCopy sessionChange];
@@ -412,31 +412,31 @@
     currentSession2 = [(IUISessionCoordinator *)self currentSession];
     uuid = [currentSession2 uuid];
     endSessionID = [sessionChange2 endSessionID];
-    v14 = [uuid isEqual:endSessionID];
+    v16 = [uuid isEqual:endSessionID];
 
-    if (v14)
+    if (v16)
     {
       options = [sessionChange2 options];
       shouldResign = [options shouldResign];
 
-      v17 = shouldResign ^ 1;
-      v14 = 1;
+      v19 = shouldResign ^ 1;
+      v16 = 1;
     }
 
     else
     {
-      v17 = 0;
+      v19 = 0;
     }
   }
 
   else
   {
-    v17 = 0;
-    v14 = 0;
+    v19 = 0;
+    v16 = 0;
   }
 
-  v18 = sub_10000235C();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+  v20 = sub_10000235C(v12);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136316418;
     *&buf[4] = "[IUISessionCoordinator _main_handleSessionChange:]";
@@ -444,45 +444,45 @@
     *&buf[14] = isEndingSession;
     *&buf[18] = 1024;
     *&buf[20] = isBeginningSession;
-    LOWORD(v78) = 1024;
-    *(&v78 + 2) = currentSession != 0;
-    HIWORD(v78) = 1024;
-    LODWORD(v79) = v14;
-    WORD2(v79) = 1024;
-    *(&v79 + 6) = v17;
-    _os_log_debug_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEBUG, "%s  \n  changeEndsSession:   %d\n  changeBeginsSession: %d\n  hasCurrentSession:   %d\n  endingSessionMatchesCurrentSession: %d\n  createPlaceholderInputSource: %d", buf, 0x2Au);
+    LOWORD(v82) = 1024;
+    *(&v82 + 2) = currentSession != 0;
+    HIWORD(v82) = 1024;
+    LODWORD(v83) = v16;
+    WORD2(v83) = 1024;
+    *(&v83 + 6) = v19;
+    _os_log_debug_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEBUG, "%s  \n  changeEndsSession:   %d\n  changeBeginsSession: %d\n  hasCurrentSession:   %d\n  endingSessionMatchesCurrentSession: %d\n  createPlaceholderInputSource: %d", buf, 0x2Au);
   }
 
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v78 = sub_1000059CC;
-  *&v79 = sub_1000059DC;
-  *(&v79 + 1) = 0;
+  v82 = sub_1000059CC;
+  *&v83 = sub_1000059DC;
+  *(&v83 + 1) = 0;
   if ((isBeginningSession & (currentSession != 0)) == 1)
   {
-    v19 = sub_10000235C();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+    v22 = sub_10000235C(v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
     {
       currentSession3 = [(IUISessionCoordinator *)self currentSession];
-      sub_10000CCF8(currentSession3, changeCopy, v76, v19);
+      sub_10000CCF8(currentSession3, changeCopy, v80, v22);
     }
   }
 
-  if (((v14 | isEndingSession ^ 1) & 1) == 0)
+  if (((v16 | isEndingSession ^ 1) & 1) == 0)
   {
-    v22 = sub_10000235C();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+    v25 = sub_10000235C(v21);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
     {
       sessionChange3 = [(IUISessionChangeContext *)changeCopy sessionChange];
-      sub_10000CD70(sessionChange3, v72, v22);
+      sub_10000CD70(sessionChange3, v76, v25);
     }
 
-    v24 = [[IUISessionChangeResponse alloc] initWithResponseState:2];
+    v27 = [[IUISessionChangeResponse alloc] initWithResponseState:2];
     completion = [(IUISessionChangeContext *)changeCopy completion];
-    (completion)[2](completion, v24);
+    (completion)[2](completion, v27);
 
-    v26 = 0;
+    v29 = 0;
     goto LABEL_37;
   }
 
@@ -492,9 +492,9 @@
     if (isBeginningSession)
     {
 LABEL_17:
-      v21 = [(IUISessionCoordinator *)self _main_inputSourceForChangeContext:changeCopy];
+      v24 = [(IUISessionCoordinator *)self _main_inputSourceForChangeContext:changeCopy];
 LABEL_27:
-      v62 = 0;
+      v66 = 0;
       goto LABEL_28;
     }
   }
@@ -508,73 +508,73 @@ LABEL_27:
     }
   }
 
-  if (!v17)
+  if (!v19)
   {
-    v21 = 0;
+    v24 = 0;
     goto LABEL_27;
   }
 
-  v61 = +[NSUUID UUID];
-  v27 = sub_10000235C();
-  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+  v65 = +[NSUUID UUID];
+  v30 = sub_10000235C(v65);
+  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
   {
-    *v72 = 136315394;
-    v73 = "[IUISessionCoordinator _main_handleSessionChange:]";
-    v74 = 2112;
-    v75 = v61;
-    _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "%s  Creating placeholder service session with identifier: %@", v72, 0x16u);
+    *v76 = 136315394;
+    v77 = "[IUISessionCoordinator _main_handleSessionChange:]";
+    v78 = 2112;
+    v79 = v65;
+    _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "%s  Creating placeholder service session with identifier: %@", v76, 0x16u);
   }
 
   sourceSession = [textInputSource sourceSession];
   documentTraits = [sourceSession documentTraits];
-  v30 = [documentTraits copy];
+  v33 = [documentTraits copy];
 
-  [v30 setAutofillMode:0];
-  [v30 setAutofillSubMode:0];
-  [v30 setAutofillContext:0];
-  v60 = objc_alloc_init(RTIDocumentState);
-  v31 = [(IUISessionCoordinator *)self _main_placeholderServiceSessionWithIdentifier:v61 documentTraits:v30];
-  v32 = *(*&buf[8] + 40);
-  *(*&buf[8] + 40) = v31;
+  [v33 setAutofillMode:0];
+  [v33 setAutofillSubMode:0];
+  [v33 setAutofillContext:0];
+  v64 = objc_alloc_init(RTIDocumentState);
+  v34 = [(IUISessionCoordinator *)self _main_placeholderServiceSessionWithIdentifier:v65 documentTraits:v33];
+  v35 = *(*&buf[8] + 40);
+  *(*&buf[8] + 40) = v34;
 
-  v21 = [(IUISessionCoordinator *)self _main_placeholderInputSourceForSession:*(*&buf[8] + 40)];
-  v33 = [IUISessionChange alloc];
+  v24 = [(IUISessionCoordinator *)self _main_placeholderInputSourceForSession:*(*&buf[8] + 40)];
+  v36 = [IUISessionChange alloc];
   endSessionID2 = [sessionChange2 endSessionID];
   options2 = [sessionChange2 options];
-  v36 = [(IUISessionChange *)v33 initEndSessionWithID:endSessionID2 andBeginPlaceholderSessionWithID:v61 documentTraits:v30 documentState:v60 options:options2];
+  v39 = [(IUISessionChange *)v36 initEndSessionWithID:endSessionID2 andBeginPlaceholderSessionWithID:v65 documentTraits:v33 documentState:v64 options:options2];
 
-  v37 = [IUISessionChangeContext alloc];
+  v40 = [IUISessionChangeContext alloc];
   service = [(IUISessionChangeContext *)changeCopy service];
-  v39 = *(*&buf[8] + 40);
+  v42 = *(*&buf[8] + 40);
   completion2 = [(IUISessionChangeContext *)changeCopy completion];
-  v41 = [(IUISessionChangeContext *)v37 initWithService:service session:v39 sessionChange:v36 completion:completion2];
+  v44 = [(IUISessionChangeContext *)v40 initWithService:service session:v42 sessionChange:v39 completion:completion2];
 
-  options3 = [v36 options];
+  options3 = [v39 options];
   [options3 setShouldResign:1];
-  v43 = [IUISessionChange alloc];
+  v46 = [IUISessionChange alloc];
   uuid2 = [*(*&buf[8] + 40) uuid];
-  v45 = [(IUISessionChange *)v43 initEndSessionWithID:uuid2 options:options3];
+  v48 = [(IUISessionChange *)v46 initEndSessionWithID:uuid2 options:options3];
 
-  v46 = [IUISessionChangeContext alloc];
-  service2 = [(IUISessionChangeContext *)v41 service];
-  v62 = [(IUISessionChangeContext *)v46 initWithService:service2 session:*(*&buf[8] + 40) sessionChange:v45 completion:&stru_100020610];
+  v49 = [IUISessionChangeContext alloc];
+  service2 = [(IUISessionChangeContext *)v44 service];
+  v66 = [(IUISessionChangeContext *)v49 initWithService:service2 session:*(*&buf[8] + 40) sessionChange:v48 completion:&stru_100020610];
 
-  sessionChange2 = v36;
-  changeCopy = v41;
+  sessionChange2 = v39;
+  changeCopy = v44;
 LABEL_28:
   sessionChange4 = [(IUISessionChangeContext *)changeCopy sessionChange];
   options4 = [sessionChange4 options];
-  v50 = [(IUISessionCoordinator *)self assertionForOptions:options4];
+  v53 = [(IUISessionCoordinator *)self assertionForOptions:options4];
 
-  v51 = +[UIKeyboardImpl sharedInstance];
-  v52 = [[IUISessionChangeAssistant alloc] initWithController:self sessionChangeContext:changeCopy outgoingInputSource:textInputSource incomingInputSource:v21];
-  v53 = [(IUISessionCoordinator *)self _main_didTeardownExistingDelegateCallback_withSessionChangeAssistant:v52];
-  v54 = [(IUISessionCoordinator *)self _main_willSetupNewDelegateCallback_withSessionChangeAssistant:v52];
-  [v51 setDidTeardownExistingDelegate:v53];
-  [v51 setWillSetupNewDelegate:v54];
-  if (v21)
+  v54 = +[UIKeyboardImpl sharedInstance];
+  v55 = [[IUISessionChangeAssistant alloc] initWithController:self sessionChangeContext:changeCopy outgoingInputSource:textInputSource incomingInputSource:v24];
+  v56 = [(IUISessionCoordinator *)self _main_didTeardownExistingDelegateCallback_withSessionChangeAssistant:v55];
+  v57 = [(IUISessionCoordinator *)self _main_willSetupNewDelegateCallback_withSessionChangeAssistant:v55];
+  [v54 setDidTeardownExistingDelegate:v56];
+  [v54 setWillSetupNewDelegate:v57];
+  if (v24)
   {
-    [v21 becomeFirstResponder];
+    [v24 becomeFirstResponder];
   }
 
   else if (textInputSource)
@@ -584,50 +584,50 @@ LABEL_28:
 
   else
   {
-    v55 = sub_10000235C();
-    if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
+    v58 = sub_10000235C(0);
+    if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
     {
       sub_10000CDDC();
     }
   }
 
-  [(IUISessionChangeAssistant *)v52 finalizeSessionChange];
-  [(IUISessionCoordinator *)self invalidateAssertionIfNeeded:v50 resetKeyboardAlpha:v21 != 0];
+  [(IUISessionChangeAssistant *)v55 finalizeSessionChange];
+  [(IUISessionCoordinator *)self invalidateAssertionIfNeeded:v53 resetKeyboardAlpha:v24 != 0];
   [(IUISessionCoordinator *)self handlePendingSuggestionsDataIfNecessary];
-  [v51 setDidTeardownExistingDelegate:0];
-  [v51 setWillSetupNewDelegate:0];
+  [v54 setDidTeardownExistingDelegate:0];
+  [v54 setWillSetupNewDelegate:0];
 
-  if (v62)
+  if (v66)
   {
-    v56 = dispatch_time(0, 50000000);
+    v60 = dispatch_time(0, 50000000);
     dispatchQueue = [(IUISessionCoordinator *)self dispatchQueue];
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_100005A8C;
     block[3] = &unk_100020638;
-    v26 = v62;
-    v65 = v26;
+    v29 = v66;
+    v69 = v29;
     selfCopy = self;
-    v67 = buf;
-    dispatch_after(v56, dispatchQueue, block);
+    v71 = buf;
+    dispatch_after(v60, dispatchQueue, block);
 
-    v24 = v65;
+    v27 = v69;
 LABEL_37:
 
     goto LABEL_38;
   }
 
-  v26 = 0;
+  v29 = 0;
 LABEL_38:
-  v58 = sub_10000235C();
-  if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
+  v62 = sub_10000235C(v59);
+  if (os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
   {
     sessionChange5 = [(IUISessionChangeContext *)changeCopy sessionChange];
-    *v68 = 136315394;
-    v69 = "[IUISessionCoordinator _main_handleSessionChange:]";
-    v70 = 2112;
-    v71 = sessionChange5;
-    _os_log_impl(&_mh_execute_header, v58, OS_LOG_TYPE_DEFAULT, "%s  finished session change: %@", v68, 0x16u);
+    *v72 = 136315394;
+    v73 = "[IUISessionCoordinator _main_handleSessionChange:]";
+    v74 = 2112;
+    v75 = sessionChange5;
+    _os_log_impl(&_mh_execute_header, v62, OS_LOG_TYPE_DEFAULT, "%s  finished session change: %@", v72, 0x16u);
   }
 
   _Block_object_dispose(buf, 8);
@@ -669,9 +669,9 @@ LABEL_38:
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v36 = beginCopy;
-    v37 = 2112;
-    v38 = serviceCopy;
+    v37 = beginCopy;
+    v38 = 2112;
+    v39 = serviceCopy;
     _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "did begin session %@, service: %@", buf, 0x16u);
   }
 
@@ -682,11 +682,11 @@ LABEL_38:
   block[3] = &unk_100020688;
   block[4] = self;
   v13 = serviceCopy;
-  v32 = v13;
+  v33 = v13;
   v14 = beginCopy;
-  v33 = v14;
+  v34 = v14;
   v15 = optionsCopy;
-  v34 = v15;
+  v35 = v15;
   dispatch_async(dispatchQueue, block);
 
   if (qword_10002B838 != -1)
@@ -702,39 +702,39 @@ LABEL_38:
     documentState = [v14 documentState];
     v20 = [(IUISessionChange *)v16 initBeginSessionWithID:uuid documentTraits:documentTraits documentState:documentState options:v15];
 
-    v21 = sub_10000235C();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v22 = sub_10000235C(v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v36 = "[IUISessionCoordinator inputSystemService:inputSessionDidBegin:options:]";
-      v37 = 2112;
-      v38 = v20;
-      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "%s  queuing input session did begin: %@", buf, 0x16u);
+      v37 = "[IUISessionCoordinator inputSystemService:inputSessionDidBegin:options:]";
+      v38 = 2112;
+      v39 = v20;
+      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "%s  queuing input session did begin: %@", buf, 0x16u);
     }
 
-    v22 = [[IUISessionChangeContext alloc] initWithService:v13 session:v14 sessionChange:v20 completion:&stru_1000206A8];
+    v23 = [[IUISessionChangeContext alloc] initWithService:v13 session:v14 sessionChange:v20 completion:&stru_1000206A8];
     dispatchQueue2 = [(IUISessionCoordinator *)self dispatchQueue];
-    v29[0] = _NSConcreteStackBlock;
-    v29[1] = 3221225472;
-    v29[2] = sub_1000063AC;
-    v29[3] = &unk_1000205D0;
-    v29[4] = self;
-    v30 = v22;
-    v24 = v22;
-    dispatch_async(dispatchQueue2, v29);
+    v30[0] = _NSConcreteStackBlock;
+    v30[1] = 3221225472;
+    v30[2] = sub_1000063AC;
+    v30[3] = &unk_1000205D0;
+    v30[4] = self;
+    v31 = v23;
+    v25 = v23;
+    dispatch_async(dispatchQueue2, v30);
   }
 
   else
   {
     dispatchQueue3 = [(IUISessionCoordinator *)self dispatchQueue];
-    v26[0] = _NSConcreteStackBlock;
-    v26[1] = 3221225472;
-    v26[2] = sub_1000063B8;
-    v26[3] = &unk_100020660;
-    v26[4] = self;
-    v27 = v14;
-    v28 = v15;
-    dispatch_async(dispatchQueue3, v26);
+    v27[0] = _NSConcreteStackBlock;
+    v27[1] = 3221225472;
+    v27[2] = sub_1000063B8;
+    v27[3] = &unk_100020660;
+    v27[4] = self;
+    v28 = v14;
+    v29 = v15;
+    dispatch_async(dispatchQueue3, v27);
   }
 }
 
@@ -822,9 +822,9 @@ LABEL_11:
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v50 = endCopy;
-    v51 = 2112;
-    v52 = serviceCopy;
+    v52 = endCopy;
+    v53 = 2112;
+    v54 = serviceCopy;
     _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "did end session %@, service: %@", buf, 0x16u);
   }
 
@@ -835,11 +835,11 @@ LABEL_11:
   block[3] = &unk_100020688;
   block[4] = self;
   v16 = serviceCopy;
-  v46 = v16;
+  v48 = v16;
   v17 = endCopy;
-  v47 = v17;
+  v49 = v17;
   v18 = optionsCopy;
-  v48 = v18;
+  v50 = v18;
   dispatch_async(dispatchQueue, block);
 
   if (qword_10002B838 != -1)
@@ -853,86 +853,86 @@ LABEL_11:
     uuid = [v17 uuid];
     v21 = [(IUISessionChange *)v19 initEndSessionWithID:uuid options:v18];
 
-    v22 = sub_10000235C();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    v23 = sub_10000235C(v22);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v50 = "[IUISessionCoordinator inputSystemService:inputSessionDidEnd:options:completion:]";
-      v51 = 2112;
-      v52 = v21;
-      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "%s  queuing input session did end: %@", buf, 0x16u);
+      v52 = "[IUISessionCoordinator inputSystemService:inputSessionDidEnd:options:completion:]";
+      v53 = 2112;
+      v54 = v21;
+      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "%s  queuing input session did end: %@", buf, 0x16u);
     }
 
-    v23 = +[InputUIApp sharedApplication];
-    servicePausedLock = [v23 servicePausedLock];
+    v24 = +[InputUIApp sharedApplication];
+    servicePausedLock = [v24 servicePausedLock];
     [servicePausedLock lock];
 
-    if ([v23 isServicePaused])
+    if ([v24 isServicePaused])
     {
-      v25 = objc_retainBlock(completionCopy);
+      v26 = objc_retainBlock(completionCopy);
 
       completionCopy = 0;
     }
 
     else
     {
-      v25 = 0;
+      v26 = 0;
     }
 
+    v45[0] = _NSConcreteStackBlock;
+    v45[1] = 3221225472;
+    v45[2] = sub_100006F9C;
+    v45[3] = &unk_1000206F8;
+    v28 = completionCopy;
+    v46 = v28;
+    v29 = objc_retainBlock(v45);
+    v36 = v16;
+    v30 = [[IUISessionChangeContext alloc] initWithService:v16 session:v17 sessionChange:v21 completion:v29];
+    dispatchQueue2 = [(IUISessionCoordinator *)self dispatchQueue];
     v43[0] = _NSConcreteStackBlock;
     v43[1] = 3221225472;
-    v43[2] = sub_100006F9C;
-    v43[3] = &unk_1000206F8;
-    v27 = completionCopy;
-    v44 = v27;
-    v28 = objc_retainBlock(v43);
-    v34 = v16;
-    v29 = [[IUISessionChangeContext alloc] initWithService:v16 session:v17 sessionChange:v21 completion:v28];
-    dispatchQueue2 = [(IUISessionCoordinator *)self dispatchQueue];
-    v41[0] = _NSConcreteStackBlock;
-    v41[1] = 3221225472;
-    v41[2] = sub_100006FB4;
-    v41[3] = &unk_1000205D0;
-    v41[4] = self;
-    v42 = v29;
-    v31 = v29;
-    dispatch_async(dispatchQueue2, v41);
+    v43[2] = sub_100006FB4;
+    v43[3] = &unk_1000205D0;
+    v43[4] = self;
+    v44 = v30;
+    v32 = v30;
+    dispatch_async(dispatchQueue2, v43);
 
-    servicePausedLock2 = [v23 servicePausedLock];
+    servicePausedLock2 = [v24 servicePausedLock];
     [servicePausedLock2 unlock];
 
-    if (v25)
+    if (v26)
     {
-      v33 = sub_10000235C();
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+      v35 = sub_10000235C(v34);
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v50 = "[IUISessionCoordinator inputSystemService:inputSessionDidEnd:options:completion:]";
-        _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "%s  InputUI service is paused: calling end input session completion immediately", buf, 0xCu);
+        v52 = "[IUISessionCoordinator inputSystemService:inputSessionDidEnd:options:completion:]";
+        _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "%s  InputUI service is paused: calling end input session completion immediately", buf, 0xCu);
       }
 
-      v25[2](v25);
+      v26[2](v26);
     }
 
-    v16 = v34;
+    v16 = v36;
   }
 
   else
   {
     dispatchQueue3 = [(IUISessionCoordinator *)self dispatchQueue];
-    v35[0] = _NSConcreteStackBlock;
-    v35[1] = 3221225472;
-    v35[2] = sub_100006FC0;
-    v35[3] = &unk_100020720;
-    v36 = v17;
-    v37 = v16;
+    v37[0] = _NSConcreteStackBlock;
+    v37[1] = 3221225472;
+    v37[2] = sub_100006FC0;
+    v37[3] = &unk_100020720;
+    v38 = v17;
+    v39 = v16;
     selfCopy = self;
-    v39 = v18;
-    v27 = completionCopy;
-    v40 = v27;
-    dispatch_async(dispatchQueue3, v35);
+    v41 = v18;
+    v28 = completionCopy;
+    v42 = v28;
+    dispatch_async(dispatchQueue3, v37);
 
-    v21 = v36;
+    v21 = v38;
   }
 }
 

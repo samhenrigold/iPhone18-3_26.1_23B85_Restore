@@ -181,8 +181,8 @@
 
     if (homeActionObject)
     {
-      configuration = [(HomeOutlineSectionController *)self configuration];
-      homeActionDelegate = [configuration homeActionDelegate];
+      v13 = objc_msgSend_configuration(self);
+      homeActionDelegate = [v13 homeActionDelegate];
       homeActionObject2 = [viewModel2 homeActionObject];
       [homeActionDelegate homeItemTapped:homeActionObject2];
     }
@@ -695,8 +695,8 @@ LABEL_13:
 
 - (NSSet)selectedIdentifierPaths
 {
-  configuration = [(HomeOutlineSectionController *)self configuration];
-  collectionView = [configuration collectionView];
+  v3 = objc_msgSend_configuration(self, a2);
+  collectionView = [v3 collectionView];
   indexPathsForSelectedItems = [collectionView indexPathsForSelectedItems];
 
   v9[0] = _NSConcreteStackBlock;
@@ -777,10 +777,10 @@ LABEL_13:
     v9[3] = &unk_101626140;
     v9[4] = self;
     v4 = [(NSMutableSet *)expandedIdentifierPaths objectsPassingTest:v9];
-    configuration = [(HomeOutlineSectionController *)self configuration];
-    storage = [configuration storage];
-    configuration2 = [(HomeOutlineSectionController *)self configuration];
-    sectionIdentifier = [configuration2 sectionIdentifier];
+    v5 = objc_msgSend_configuration(self);
+    storage = [v5 storage];
+    v7 = objc_msgSend_configuration(self);
+    sectionIdentifier = [v7 sectionIdentifier];
     [storage storeExpandedIdentifierPaths:v4 forSection:sectionIdentifier];
   }
 }
@@ -790,10 +790,10 @@ LABEL_13:
   v10 = [NSSet setWithObject:self->_sectionIdentifierPath];
   if ([(HomeOutlineSectionController *)self persistsExpansions])
   {
-    configuration = [(HomeOutlineSectionController *)self configuration];
-    storage = [configuration storage];
-    configuration2 = [(HomeOutlineSectionController *)self configuration];
-    sectionIdentifier = [configuration2 sectionIdentifier];
+    v3 = objc_msgSend_configuration(self);
+    storage = [v3 storage];
+    v5 = objc_msgSend_configuration(self);
+    sectionIdentifier = [v5 sectionIdentifier];
     v7 = [storage expandedIdentifierPathsInSection:sectionIdentifier defaultExpandedIdentifierPaths:v10];
   }
 
@@ -939,8 +939,8 @@ LABEL_13:
 
 - (HomeOutlineSectionControllerDelegate)delegate
 {
-  configuration = [(HomeOutlineSectionController *)self configuration];
-  delegate = [configuration delegate];
+  v2 = objc_msgSend_configuration(self, a2);
+  delegate = [v2 delegate];
 
   return delegate;
 }
@@ -959,8 +959,8 @@ LABEL_13:
     deletions = v7->_deletions;
     v7->_deletions = v8;
 
-    configuration = [(HomeOutlineSectionController *)v7 configuration];
-    sectionIdentifier = [configuration sectionIdentifier];
+    v10 = objc_msgSend_configuration(v7);
+    sectionIdentifier = [v10 sectionIdentifier];
     v12 = [IdentifierPath identifierPathWithIdentifier:sectionIdentifier];
     sectionIdentifierPath = v7->_sectionIdentifierPath;
     v7->_sectionIdentifierPath = v12;

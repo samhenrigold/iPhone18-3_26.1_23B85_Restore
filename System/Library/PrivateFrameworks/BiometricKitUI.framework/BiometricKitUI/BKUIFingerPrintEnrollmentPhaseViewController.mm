@@ -9,6 +9,8 @@
 - (id)_detailPhasesText;
 - (id)_detailTextDonePhase;
 - (id)_subtitleFont;
+- (id)initInBuddy:(BOOL)buddy hideUnlockMessage:(BOOL)message headerTitle:(id)title firstEnrollView:(id)view secondEnrollView:(id)enrollView;
+- (id)initInBuddy:(BOOL)buddy hideUnlockMessage:(BOOL)message showFollowUpSell:(BOOL)sell headerTitle:(id)title firstEnrollView:(id)view secondEnrollView:(id)enrollView;
 - (void)_continuePressed:(id)pressed;
 - (void)_enrollSkipped;
 - (void)_forceLayout;
@@ -25,12 +27,63 @@
 - (void)setEnrollViewState:(unint64_t)state;
 - (void)setHeaderTitle:(id)title;
 - (void)shouldAnimateEntireView;
+- (void)updateHeaderWithTitle:(id)title animated:(BOOL)animated heightDifference:(id)difference;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator;
 @end
 
 @implementation BKUIFingerPrintEnrollmentPhaseViewController
+
+- (id)initInBuddy:(BOOL)buddy hideUnlockMessage:(BOOL)message headerTitle:(id)title firstEnrollView:(id)view secondEnrollView:(id)enrollView
+{
+  buddyCopy = buddy;
+  titleCopy = title;
+  viewCopy = view;
+  enrollViewCopy = enrollView;
+  v23.receiver = self;
+  v23.super_class = BKUIFingerPrintEnrollmentPhaseViewController;
+  v16 = [(BKUIFingerPrintEnrollmentPhaseViewController *)&v23 initWithTitle:titleCopy detailText:0 icon:0 contentLayout:6];
+  v17 = v16;
+  if (v16)
+  {
+    objc_storeStrong(&v16->_mesaFirstEnrollView, view);
+    objc_storeStrong(&v17->_mesaSecondEnrollView, enrollView);
+    [(BKUICurvesView *)v17->_mesaSecondEnrollView setAlpha:0.0];
+    headerView = [(BKUIFingerPrintEnrollmentPhaseViewController *)v17 headerView];
+    systemBlueColor = [MEMORY[0x277D75348] systemBlueColor];
+    [headerView setTintColor:systemBlueColor];
+
+    [(BKUIFingerPrintEnrollmentPhaseViewController *)v17 setInBuddy:buddyCopy];
+    headerView2 = [(BKUIFingerPrintEnrollmentPhaseViewController *)v17 headerView];
+    _detailPhasesText = [(BKUIFingerPrintEnrollmentPhaseViewController *)v17 _detailPhasesText];
+    [headerView2 setDetailText:_detailPhasesText];
+
+    [(BKUIFingerPrintEnrollmentPhaseViewController *)v17 setEnrollViewState:0];
+    v17->_hideUnlockMessage = message;
+    objc_storeStrong(&v17->_headerTitle, title);
+    v17->_buttonTraySize = *MEMORY[0x277CBF3A8];
+  }
+
+  return v17;
+}
+
+- (id)initInBuddy:(BOOL)buddy hideUnlockMessage:(BOOL)message showFollowUpSell:(BOOL)sell headerTitle:(id)title firstEnrollView:(id)view secondEnrollView:(id)enrollView
+{
+  v9 = [(BKUIFingerPrintEnrollmentPhaseViewController *)self initInBuddy:buddy hideUnlockMessage:message headerTitle:title firstEnrollView:view secondEnrollView:enrollView];
+  v10 = v9;
+  if (v9)
+  {
+    v9[1234] = sell;
+    headerView = [v9 headerView];
+    _detailPhasesText = [v10 _detailPhasesText];
+    [headerView setDetailText:_detailPhasesText];
+  }
+
+  return v10;
+}
 
 - (void)_updateContentViewSizeToMatchConstraints
 {
@@ -166,6 +219,59 @@ void __59__BKUIFingerPrintEnrollmentPhaseViewController_viewDidLoad__block_invok
   }
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = BKUIFingerPrintEnrollmentPhaseViewController;
+  [(BKUIFingerPrintEnrollmentPhaseViewController *)&v5 viewWillAppear:appear];
+  [(BKUIFingerPrintEnrollmentPhaseViewController *)self _updateButtonTraySize];
+  [(BKUIFingerPrintEnrollmentPhaseViewController *)self _idealEnrollCurveViewSize];
+  [(BKUIFingerPrintEnrollmentPhaseViewController *)self _updateEnrollViewsForSize:?];
+  buttonTray = [(BKUIFingerPrintEnrollmentPhaseViewController *)self buttonTray];
+  [buttonTray layoutIfNeeded];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v20.receiver = self;
+  v20.super_class = BKUIFingerPrintEnrollmentPhaseViewController;
+  [(OBBaseWelcomeController *)&v20 viewDidAppear:appear];
+  [(BKUIFingerPrintEnrollmentPhaseViewController *)self _idealEnrollCurveViewSize];
+  [(BKUIFingerPrintEnrollmentPhaseViewController *)self _updateEnrollViewsForSize:?];
+  if ([(BKUIFingerPrintEnrollmentPhaseViewController *)self _topTouchButtonIpad])
+  {
+    view = [(BKUIFingerPrintEnrollmentPhaseViewController *)self view];
+    window = [view window];
+    windowScene = [window windowScene];
+    windows = [windowScene windows];
+    v8 = [MEMORY[0x277CCAC30] predicateWithBlock:&__block_literal_global_5];
+    v9 = [windows filteredArrayUsingPredicate:v8];
+    firstObject = [v9 firstObject];
+
+    if (firstObject)
+    {
+      [(BKUIFingerPrintEnrollmentPhaseViewController *)self setTouchindicatorWindow:firstObject];
+    }
+
+    else
+    {
+      view2 = [(BKUIFingerPrintEnrollmentPhaseViewController *)self view];
+      window2 = [view2 window];
+      windowScene2 = [window2 windowScene];
+      v14 = [BKUIIndicatorWindow instanceWithWindowScene:windowScene2];
+      [(BKUIFingerPrintEnrollmentPhaseViewController *)self setTouchindicatorWindow:v14];
+    }
+
+    view3 = [(BKUIFingerPrintEnrollmentPhaseViewController *)self view];
+    window3 = [view3 window];
+    windowScene3 = [window3 windowScene];
+    v18 = [windowScene3 _enhancedWindowingEnabled] ^ 1;
+
+    touchindicatorWindow = [(BKUIFingerPrintEnrollmentPhaseViewController *)self touchindicatorWindow];
+    [touchindicatorWindow setAlpha:v18];
+  }
+}
+
 uint64_t __62__BKUIFingerPrintEnrollmentPhaseViewController_viewDidAppear___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
@@ -257,7 +363,7 @@ uint64_t __68__BKUIFingerPrintEnrollmentPhaseViewController_removeTouchIndicator
 - (void)_updateEnrollViewsForSize:(CGSize)size
 {
   height = size.height;
-  v67 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   bkui_fingerprint_enroll_view_controller_log = self->bkui_fingerprint_enroll_view_controller_log;
   if (os_log_type_enabled(bkui_fingerprint_enroll_view_controller_log, OS_LOG_TYPE_DEBUG))
   {
@@ -275,15 +381,15 @@ uint64_t __68__BKUIFingerPrintEnrollmentPhaseViewController_removeTouchIndicator
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134219008;
-    v58 = height * 0.00108695652 + 0.434782609;
-    v59 = 2048;
-    v60 = height;
-    v61 = 2048;
-    v62 = v6 * 5.0;
-    v63 = 2048;
-    v64 = 0;
-    v65 = 2048;
-    v66 = v6 * -40.0;
+    v57 = height * 0.00108695652 + 0.434782609;
+    v58 = 2048;
+    v59 = height;
+    v60 = 2048;
+    v61 = v6 * 5.0;
+    v62 = 2048;
+    v63 = 0;
+    v64 = 2048;
+    v65 = v6 * -40.0;
     _os_log_impl(&dword_241B0A000, v8, OS_LOG_TYPE_DEFAULT, "BiometricKitUI: SVG multiplier: %f (size: %f), svgHOffset: %f, svgVOffset: %f, svgVOffset2: %f", buf, 0x34u);
   }
 
@@ -350,44 +456,43 @@ uint64_t __68__BKUIFingerPrintEnrollmentPhaseViewController_removeTouchIndicator
   v28 = v6 * 180.0;
   v29 = v6 * 124.0;
   widthAnchor = [(BKUICurvesView *)self->_mesaSecondEnrollView widthAnchor];
-  v54 = [widthAnchor constraintEqualToConstant:v28];
-  v56[0] = v54;
+  v53 = [widthAnchor constraintEqualToConstant:v28];
+  v55[0] = v53;
   heightAnchor = [(BKUICurvesView *)self->_mesaSecondEnrollView heightAnchor];
-  v52 = [heightAnchor constraintEqualToConstant:v10];
-  v56[1] = v52;
+  v51 = [heightAnchor constraintEqualToConstant:v10];
+  v55[1] = v51;
   centerXAnchor = [(BKUICurvesView *)self->_mesaSecondEnrollView centerXAnchor];
   contentView2 = [(BKUIFingerPrintEnrollmentPhaseViewController *)self contentView];
   centerXAnchor2 = [contentView2 centerXAnchor];
-  v48 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2 constant:v7];
-  v56[2] = v48;
+  v47 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2 constant:v7];
+  v55[2] = v47;
   bottomAnchor = [(BKUICurvesView *)self->_mesaSecondEnrollView bottomAnchor];
   contentView3 = [(BKUIFingerPrintEnrollmentPhaseViewController *)self contentView];
   bottomAnchor2 = [contentView3 bottomAnchor];
-  v44 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2 constant:v26];
-  v56[3] = v44;
+  v43 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2 constant:v26];
+  v55[3] = v43;
   widthAnchor2 = [(BKUICurvesView *)self->_mesaFirstEnrollView widthAnchor];
-  v42 = [widthAnchor2 constraintEqualToConstant:v29];
-  v56[4] = v42;
+  v41 = [widthAnchor2 constraintEqualToConstant:v29];
+  v55[4] = v41;
   heightAnchor2 = [(BKUICurvesView *)self->_mesaFirstEnrollView heightAnchor];
-  v40 = [heightAnchor2 constraintEqualToConstant:v9];
-  v56[5] = v40;
+  v39 = [heightAnchor2 constraintEqualToConstant:v9];
+  v55[5] = v39;
   centerXAnchor3 = [(BKUICurvesView *)self->_mesaFirstEnrollView centerXAnchor];
   contentView4 = [(BKUIFingerPrintEnrollmentPhaseViewController *)self contentView];
   centerXAnchor4 = [contentView4 centerXAnchor];
   v33 = [centerXAnchor3 constraintEqualToAnchor:centerXAnchor4];
-  v56[6] = v33;
+  v55[6] = v33;
   centerYAnchor = [(BKUICurvesView *)self->_mesaFirstEnrollView centerYAnchor];
   centerYAnchor2 = [(BKUICurvesView *)self->_mesaSecondEnrollView centerYAnchor];
   v36 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-  v56[7] = v36;
-  v37 = [MEMORY[0x277CBEA60] arrayWithObjects:v56 count:8];
+  v55[7] = v36;
+  v37 = [MEMORY[0x277CBEA60] arrayWithObjects:v55 count:8];
   v38 = self->_mesaEnrollContainerConstraints;
   self->_mesaEnrollContainerConstraints = v37;
 
   [MEMORY[0x277CCAAD0] activateConstraints:self->_mesaEnrollContainerConstraints];
   [(BKUICurvesView *)self->_mesaFirstEnrollView setSublayersSize:v29, v9];
   [(BKUICurvesView *)self->_mesaSecondEnrollView setSublayersSize:v28, v10];
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleEnrollmentFailure
@@ -675,6 +780,42 @@ LABEL_15:
   return v3;
 }
 
+- (void)updateHeaderWithTitle:(id)title animated:(BOOL)animated heightDifference:(id)difference
+{
+  animatedCopy = animated;
+  titleCopy = title;
+  differenceCopy = difference;
+  [(BKUIFingerPrintEnrollmentPhaseViewController *)self setHeaderTitle:titleCopy];
+  if ([(BKUIFingerPrintEnrollmentPhaseViewController *)self enrollViewState]== 2)
+  {
+    headerView = [(BKUIFingerPrintEnrollmentPhaseViewController *)self headerView];
+    _detailTextDonePhase = [(BKUIFingerPrintEnrollmentPhaseViewController *)self _detailTextDonePhase];
+    [headerView setDetailText:_detailTextDonePhase];
+  }
+
+  enrollCurvesViewCenterConstraint = [(BKUIFingerPrintEnrollmentPhaseViewController *)self enrollCurvesViewCenterConstraint];
+  [enrollCurvesViewCenterConstraint setActive:0];
+
+  view = [(BKUIFingerPrintEnrollmentPhaseViewController *)self view];
+  [view bounds];
+  v15 = v14 * 0.13;
+  [(BKUIFingerPrintEnrollmentPhaseViewController *)self innerAndOuterCurvesViewHeightDiff];
+  *&v16 = v16;
+  v17 = fminf(v15, *&v16);
+
+  objc_initWeak(&location, self);
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __96__BKUIFingerPrintEnrollmentPhaseViewController_updateHeaderWithTitle_animated_heightDifference___block_invoke;
+  v18[3] = &unk_278D0A468;
+  objc_copyWeak(v19, &location);
+  v19[1] = *&v17;
+  v18[4] = self;
+  [(OBTouchIDEnrollmentWelcomeController *)self startTitleTransitionAnimated:animatedCopy heightDifference:v18];
+  objc_destroyWeak(v19);
+  objc_destroyWeak(&location);
+}
+
 void __96__BKUIFingerPrintEnrollmentPhaseViewController_updateHeaderWithTitle_animated_heightDifference___block_invoke(uint64_t a1, double a2)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -691,12 +832,12 @@ void __96__BKUIFingerPrintEnrollmentPhaseViewController_updateHeaderWithTitle_an
 
   if (v7 != v9)
   {
-    v16 = *(a1 + 48);
-    v17 = [WeakRetained enrollCurvesViewTopConstraint];
-    v15 = v17;
-    v18 = v16;
+    v17 = *(a1 + 48);
+    v18 = [WeakRetained enrollCurvesViewTopConstraint];
+    v16 = v18;
+    v19 = v17;
 LABEL_9:
-    [v17 setConstant:v18];
+    [v18 setConstant:v19];
 LABEL_10:
 
     goto LABEL_11;
@@ -705,9 +846,9 @@ LABEL_10:
   v10 = *(a1 + 48) + a2;
   if (a2 >= 0.0)
   {
-    v17 = [WeakRetained enrollCurvesViewTopConstraint];
-    v15 = v17;
-    v18 = v10;
+    v18 = [WeakRetained enrollCurvesViewTopConstraint];
+    v16 = v18;
+    v19 = v10;
     goto LABEL_9;
   }
 
@@ -720,23 +861,23 @@ LABEL_10:
 
   if (v14 < 10.0)
   {
-    v15 = _BKUILoggingFacility();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+    v16 = _BKUILoggingFacility(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
     {
-      __96__BKUIFingerPrintEnrollmentPhaseViewController_updateHeaderWithTitle_animated_heightDifference___block_invoke_cold_1(v15);
+      __96__BKUIFingerPrintEnrollmentPhaseViewController_updateHeaderWithTitle_animated_heightDifference___block_invoke_cold_1(v16);
     }
 
     goto LABEL_10;
   }
 
 LABEL_11:
-  v19 = [WeakRetained view];
-  [v19 layoutIfNeeded];
+  v20 = [WeakRetained view];
+  [v20 layoutIfNeeded];
 
   if ([*(a1 + 32) enrollViewState] == 2 && objc_msgSend(*(a1 + 32), "showFollowUpEnrollmentUpSellContent"))
   {
-    v20 = [*(a1 + 32) headerView];
-    [v20 setTitleTrailingSymbol:@"checkmark"];
+    v21 = [*(a1 + 32) headerView];
+    [v21 setTitleTrailingSymbol:@"checkmark"];
   }
 
 LABEL_14:
@@ -916,13 +1057,12 @@ LABEL_10:
 
 - (void)shouldAnimateEntireView
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 134218240;
-  v5 = a2;
-  v6 = 2048;
-  v7 = a3;
-  _os_log_debug_impl(&dword_241B0A000, log, OS_LOG_TYPE_DEBUG, "Enroll Height: %f\tButton Height: %f", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 134218240;
+  v4 = a2;
+  v5 = 2048;
+  v6 = a3;
+  _os_log_debug_impl(&dword_241B0A000, log, OS_LOG_TYPE_DEBUG, "Enroll Height: %f\tButton Height: %f", &v3, 0x16u);
 }
 
 @end

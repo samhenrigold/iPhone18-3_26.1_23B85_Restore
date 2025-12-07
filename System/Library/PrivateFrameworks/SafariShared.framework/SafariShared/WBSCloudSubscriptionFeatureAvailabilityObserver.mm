@@ -42,11 +42,11 @@ void __80__WBSCloudSubscriptionFeatureAvailabilityObserver_porcupineAvailability
 
 - (WBSCloudSubscriptionFeatureAvailabilityObserver)initWithFeatureIdentifier:(id)identifier
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
-  v18.receiver = self;
-  v18.super_class = WBSCloudSubscriptionFeatureAvailabilityObserver;
-  v5 = [(WBSCloudSubscriptionFeatureAvailabilityObserver *)&v18 init];
+  v20.receiver = self;
+  v20.super_class = WBSCloudSubscriptionFeatureAvailabilityObserver;
+  v5 = [(WBSCloudSubscriptionFeatureAvailabilityObserver *)&v20 init];
   if (v5)
   {
     v6 = dispatch_queue_create("com.apple.WBSCloudSubscriptionFeatureAvailabilityObserver", 0);
@@ -64,41 +64,42 @@ void __80__WBSCloudSubscriptionFeatureAvailabilityObserver_porcupineAvailability
       location[2] = __CloudSubscriptionFeaturesLibraryCore_block_invoke;
       location[3] = &__block_descriptor_40_e5_v8__0l;
       location[4] = 0;
-      v20 = xmmword_1E7FB8728;
-      v21 = 0;
-      CloudSubscriptionFeaturesLibraryCore_frameworkLibrary = _sl_dlopen();
+      v22 = xmmword_1E7FB8728;
+      v23 = 0;
+      v10 = _sl_dlopen();
+      CloudSubscriptionFeaturesLibraryCore_frameworkLibrary = v10;
     }
 
     if (CloudSubscriptionFeaturesLibraryCore_frameworkLibrary)
     {
       objc_initWeak(location, v5);
-      v10 = MEMORY[0x1E6994FE8];
-      v16[0] = MEMORY[0x1E69E9820];
-      v16[1] = 3221225472;
-      v16[2] = __77__WBSCloudSubscriptionFeatureAvailabilityObserver_initWithFeatureIdentifier___block_invoke;
-      v16[3] = &unk_1E7FB86B8;
-      objc_copyWeak(&v17, location);
-      v11 = [v10 registerForFeatureChangeNotificationsUsingBlock:v16];
+      v12 = MEMORY[0x1E6994FE8];
+      v18[0] = MEMORY[0x1E69E9820];
+      v18[1] = 3221225472;
+      v18[2] = __77__WBSCloudSubscriptionFeatureAvailabilityObserver_initWithFeatureIdentifier___block_invoke;
+      v18[3] = &unk_1E7FB86B8;
+      objc_copyWeak(&v19, location);
+      v13 = [v12 registerForFeatureChangeNotificationsUsingBlock:v18];
       changeObserverToken = v5->_changeObserverToken;
-      v5->_changeObserverToken = v11;
+      v5->_changeObserverToken = v13;
 
       [(WBSCloudSubscriptionFeatureAvailabilityObserver *)v5 _requestFeatureObjectBlockingQueueUntilResponse:1];
       [(WBSCloudSubscriptionFeatureAvailabilityObserver *)v5 _requestFeatureEligibilityBlockingQueueUntilResponse:1];
-      objc_destroyWeak(&v17);
+      objc_destroyWeak(&v19);
       objc_destroyWeak(location);
     }
 
     else
     {
-      v13 = WBS_LOG_CHANNEL_PREFIXAppleAccount();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+      v15 = WBS_LOG_CHANNEL_PREFIXAppleAccount(v10, v11);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
         LOWORD(location[0]) = 0;
-        _os_log_impl(&dword_1BB6F3000, v13, OS_LOG_TYPE_INFO, "Running in an environment where CloudSubscriptionFeatures framework is not available.", location, 2u);
+        _os_log_impl(&dword_1BB6F3000, v15, OS_LOG_TYPE_INFO, "Running in an environment where CloudSubscriptionFeatures framework is not available.", location, 2u);
       }
     }
 
-    v14 = v5;
+    v16 = v5;
   }
 
   return v5;
@@ -113,39 +114,40 @@ void __77__WBSCloudSubscriptionFeatureAvailabilityObserver_initWithFeatureIdenti
 
 - (void)_requestFeatureObjectBlockingQueueUntilResponse:(BOOL)response
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   _overridenAvailability = [(WBSCloudSubscriptionFeatureAvailabilityObserver *)self _overridenAvailability];
-  v6 = WBS_LOG_CHANNEL_PREFIXAppleAccount();
-  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_INFO);
-  if (_overridenAvailability)
+  v6 = _overridenAvailability;
+  v8 = WBS_LOG_CHANNEL_PREFIXAppleAccount(_overridenAvailability, v7);
+  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_INFO);
+  if (v6)
   {
-    if (v7)
+    if (v9)
     {
       featureIdentifier = self->_featureIdentifier;
       *buf = 138412290;
-      v14 = featureIdentifier;
-      _os_log_impl(&dword_1BB6F3000, v6, OS_LOG_TYPE_INFO, "Found local override for cloud subscription feature %@. Skipping availability lookup.", buf, 0xCu);
+      v16 = featureIdentifier;
+      _os_log_impl(&dword_1BB6F3000, v8, OS_LOG_TYPE_INFO, "Found local override for cloud subscription feature %@. Skipping availability lookup.", buf, 0xCu);
     }
   }
 
   else
   {
-    if (v7)
+    if (v9)
     {
-      v9 = self->_featureIdentifier;
+      v11 = self->_featureIdentifier;
       *buf = 138412290;
-      v14 = v9;
-      _os_log_impl(&dword_1BB6F3000, v6, OS_LOG_TYPE_INFO, "Requesting feature availability for cloud subscription feature %@", buf, 0xCu);
+      v16 = v11;
+      _os_log_impl(&dword_1BB6F3000, v8, OS_LOG_TYPE_INFO, "Requesting feature availability for cloud subscription feature %@", buf, 0xCu);
     }
 
     queue = self->_queue;
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __99__WBSCloudSubscriptionFeatureAvailabilityObserver__requestFeatureObjectBlockingQueueUntilResponse___block_invoke;
-    v11[3] = &unk_1E7FB74B8;
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __99__WBSCloudSubscriptionFeatureAvailabilityObserver__requestFeatureObjectBlockingQueueUntilResponse___block_invoke;
+    v13[3] = &unk_1E7FB74B8;
     responseCopy = response;
-    v11[4] = self;
-    dispatch_async(queue, v11);
+    v13[4] = self;
+    dispatch_async(queue, v13);
   }
 }
 
@@ -180,86 +182,87 @@ void __99__WBSCloudSubscriptionFeatureAvailabilityObserver__requestFeatureObject
 
 void __99__WBSCloudSubscriptionFeatureAvailabilityObserver__requestFeatureObjectBlockingQueueUntilResponse___block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v7 = WBS_LOG_CHANNEL_PREFIXAppleAccount();
-  v8 = v7;
+  v8 = WBS_LOG_CHANNEL_PREFIXAppleAccount(v6, v7);
+  v9 = v8;
   if (v6)
   {
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __99__WBSCloudSubscriptionFeatureAvailabilityObserver__requestFeatureObjectBlockingQueueUntilResponse___block_invoke_3_cold_1(v8, v6);
+      __99__WBSCloudSubscriptionFeatureAvailabilityObserver__requestFeatureObjectBlockingQueueUntilResponse___block_invoke_3_cold_1(v9, v6);
     }
   }
 
-  else if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v9 = *(*(a1 + 32) + 16);
+    v10 = *(*(a1 + 32) + 16);
     *buf = 138412290;
-    v18 = v9;
-    _os_log_impl(&dword_1BB6F3000, v8, OS_LOG_TYPE_INFO, "Did receive feature availability for cloud subscription feature %@", buf, 0xCu);
+    v19 = v10;
+    _os_log_impl(&dword_1BB6F3000, v9, OS_LOG_TYPE_INFO, "Did receive feature availability for cloud subscription feature %@", buf, 0xCu);
   }
 
-  v10 = *(a1 + 32);
+  v11 = *(a1 + 32);
   if (*(a1 + 40))
   {
-    v11 = *(v10 + 32);
-    *(v10 + 32) = v5;
-    v12 = v5;
+    v12 = *(v11 + 32);
+    *(v11 + 32) = v5;
+    v13 = v5;
 
     (*(*(a1 + 40) + 16))();
   }
 
   else
   {
-    v13 = *(v10 + 8);
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __99__WBSCloudSubscriptionFeatureAvailabilityObserver__requestFeatureObjectBlockingQueueUntilResponse___block_invoke_9;
-    v15[3] = &unk_1E7FB6E30;
-    v15[4] = v10;
-    v16 = v5;
-    v14 = v5;
-    dispatch_async(v13, v15);
+    v14 = *(v11 + 8);
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __99__WBSCloudSubscriptionFeatureAvailabilityObserver__requestFeatureObjectBlockingQueueUntilResponse___block_invoke_9;
+    v16[3] = &unk_1E7FB6E30;
+    v16[4] = v11;
+    v17 = v5;
+    v15 = v5;
+    dispatch_async(v14, v16);
   }
 }
 
 - (void)_requestFeatureEligibilityBlockingQueueUntilResponse:(BOOL)response
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   _overridenAvailability = [(WBSCloudSubscriptionFeatureAvailabilityObserver *)self _overridenAvailability];
-  v6 = WBS_LOG_CHANNEL_PREFIXAppleAccount();
-  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_INFO);
-  if (_overridenAvailability)
+  v6 = _overridenAvailability;
+  v8 = WBS_LOG_CHANNEL_PREFIXAppleAccount(_overridenAvailability, v7);
+  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_INFO);
+  if (v6)
   {
-    if (v7)
+    if (v9)
     {
       featureIdentifier = self->_featureIdentifier;
       *buf = 138412290;
-      v14 = featureIdentifier;
-      _os_log_impl(&dword_1BB6F3000, v6, OS_LOG_TYPE_INFO, "Found local override for cloud subscription feature %@. Skipping eligibility lookup.", buf, 0xCu);
+      v16 = featureIdentifier;
+      _os_log_impl(&dword_1BB6F3000, v8, OS_LOG_TYPE_INFO, "Found local override for cloud subscription feature %@. Skipping eligibility lookup.", buf, 0xCu);
     }
   }
 
   else
   {
-    if (v7)
+    if (v9)
     {
-      v9 = self->_featureIdentifier;
+      v11 = self->_featureIdentifier;
       *buf = 138412290;
-      v14 = v9;
-      _os_log_impl(&dword_1BB6F3000, v6, OS_LOG_TYPE_INFO, "Requesting feature eligibility for cloud subscription feature %@", buf, 0xCu);
+      v16 = v11;
+      _os_log_impl(&dword_1BB6F3000, v8, OS_LOG_TYPE_INFO, "Requesting feature eligibility for cloud subscription feature %@", buf, 0xCu);
     }
 
     queue = self->_queue;
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __104__WBSCloudSubscriptionFeatureAvailabilityObserver__requestFeatureEligibilityBlockingQueueUntilResponse___block_invoke;
-    v11[3] = &unk_1E7FB74B8;
-    v11[4] = self;
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __104__WBSCloudSubscriptionFeatureAvailabilityObserver__requestFeatureEligibilityBlockingQueueUntilResponse___block_invoke;
+    v13[3] = &unk_1E7FB74B8;
+    v13[4] = self;
     responseCopy = response;
-    dispatch_async(queue, v11);
+    dispatch_async(queue, v13);
   }
 }
 
@@ -303,43 +306,43 @@ void __104__WBSCloudSubscriptionFeatureAvailabilityObserver__requestFeatureEligi
 
 void __104__WBSCloudSubscriptionFeatureAvailabilityObserver__requestFeatureEligibilityBlockingQueueUntilResponse___block_invoke_3(uint64_t a1, char a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = WBS_LOG_CHANNEL_PREFIXAppleAccount();
-  v7 = v6;
+  v7 = WBS_LOG_CHANNEL_PREFIXAppleAccount(v5, v6);
+  v8 = v7;
   if (v5)
   {
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __104__WBSCloudSubscriptionFeatureAvailabilityObserver__requestFeatureEligibilityBlockingQueueUntilResponse___block_invoke_3_cold_1(v7, v5);
+      __104__WBSCloudSubscriptionFeatureAvailabilityObserver__requestFeatureEligibilityBlockingQueueUntilResponse___block_invoke_3_cold_1(v8, v5);
     }
   }
 
-  else if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    v8 = *(*(a1 + 32) + 16);
+    v9 = *(*(a1 + 32) + 16);
     *buf = 138412290;
-    v14 = v8;
-    _os_log_impl(&dword_1BB6F3000, v7, OS_LOG_TYPE_INFO, "Did receive feature eligibility for cloud subscription feature %@", buf, 0xCu);
+    v15 = v9;
+    _os_log_impl(&dword_1BB6F3000, v8, OS_LOG_TYPE_INFO, "Did receive feature eligibility for cloud subscription feature %@", buf, 0xCu);
   }
 
-  v9 = *(a1 + 32);
+  v10 = *(a1 + 32);
   if (*(a1 + 40))
   {
-    *(v9 + 40) = a2;
+    *(v10 + 40) = a2;
     (*(*(a1 + 40) + 16))();
   }
 
   else
   {
-    v10 = *(v9 + 8);
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __104__WBSCloudSubscriptionFeatureAvailabilityObserver__requestFeatureEligibilityBlockingQueueUntilResponse___block_invoke_16;
-    v11[3] = &unk_1E7FB74B8;
-    v11[4] = v9;
-    v12 = a2;
-    dispatch_async(v10, v11);
+    v11 = *(v10 + 8);
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __104__WBSCloudSubscriptionFeatureAvailabilityObserver__requestFeatureEligibilityBlockingQueueUntilResponse___block_invoke_16;
+    v12[3] = &unk_1E7FB74B8;
+    v12[4] = v10;
+    v13 = a2;
+    dispatch_async(v11, v12);
   }
 }
 
@@ -372,12 +375,13 @@ void __104__WBSCloudSubscriptionFeatureAvailabilityObserver__requestFeatureEligi
 void __95__WBSCloudSubscriptionFeatureAvailabilityObserver_getFeatureAvailabilityWithCompletionHandler___block_invoke(uint64_t a1)
 {
   v2 = a1 + 32;
-  if ([*(a1 + 32) _overridenAvailability])
+  v3 = [*(a1 + 32) _overridenAvailability];
+  if (v3)
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXAppleAccount();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    v5 = WBS_LOG_CHANNEL_PREFIXAppleAccount(v3, v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      __95__WBSCloudSubscriptionFeatureAvailabilityObserver_getFeatureAvailabilityWithCompletionHandler___block_invoke_cold_2(v2, v3);
+      __95__WBSCloudSubscriptionFeatureAvailabilityObserver_getFeatureAvailabilityWithCompletionHandler___block_invoke_cold_2(v2, v5);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -385,26 +389,29 @@ void __95__WBSCloudSubscriptionFeatureAvailabilityObserver_getFeatureAvailabilit
 
   else
   {
-    v4 = *(*v2 + 32);
-    if (objc_opt_respondsToSelector())
+    v6 = *(*v2 + 32);
+    v7 = objc_opt_respondsToSelector();
+    if (v7)
     {
-      v5 = [v4 canUse];
+      v7 = [v6 canUse];
+      v9 = v7;
     }
 
-    else if (v4)
+    else if (v6)
     {
-      v5 = [v4 status] == 0;
+      v7 = [v6 status];
+      v9 = v7 == 0;
     }
 
     else
     {
-      v5 = 0;
+      v9 = 0;
     }
 
-    v6 = WBS_LOG_CHANNEL_PREFIXAppleAccount();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v10 = WBS_LOG_CHANNEL_PREFIXAppleAccount(v7, v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      __95__WBSCloudSubscriptionFeatureAvailabilityObserver_getFeatureAvailabilityWithCompletionHandler___block_invoke_cold_1(v2, v5);
+      __95__WBSCloudSubscriptionFeatureAvailabilityObserver_getFeatureAvailabilityWithCompletionHandler___block_invoke_cold_1(v2, v9);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -429,29 +436,30 @@ uint64_t __94__WBSCloudSubscriptionFeatureAvailabilityObserver_getFeatureEligibi
 {
   v2 = a1 + 32;
   v3 = [*(a1 + 32) _overridenAvailability];
-  v4 = WBS_LOG_CHANNEL_PREFIXAppleAccount();
-  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
-  if (v3)
+  v4 = v3;
+  v6 = WBS_LOG_CHANNEL_PREFIXAppleAccount(v3, v5);
+  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG);
+  if (v4)
   {
-    if (v5)
+    if (v7)
     {
-      __94__WBSCloudSubscriptionFeatureAvailabilityObserver_getFeatureEligibilityWithCompletionHandler___block_invoke_cold_2(v2, v4);
+      __94__WBSCloudSubscriptionFeatureAvailabilityObserver_getFeatureEligibilityWithCompletionHandler___block_invoke_cold_2(v2, v6);
     }
 
-    v6 = *(*(a1 + 40) + 16);
+    v8 = *(*(a1 + 40) + 16);
   }
 
   else
   {
-    if (v5)
+    if (v7)
     {
       __94__WBSCloudSubscriptionFeatureAvailabilityObserver_getFeatureEligibilityWithCompletionHandler___block_invoke_cold_1(v2);
     }
 
-    v6 = *(*(a1 + 40) + 16);
+    v8 = *(*(a1 + 40) + 16);
   }
 
-  return v6();
+  return v8();
 }
 
 + (WBSCloudSubscriptionFeatureAvailabilityObserver)provisionNewHideMyEmailAvailabilityObserver
@@ -477,14 +485,18 @@ void __99__WBSCloudSubscriptionFeatureAvailabilityObserver__requestFeatureObject
 {
   v3 = a1;
   v4 = [a2 safari_privacyPreservingDescription];
-  OUTLINED_FUNCTION_0_1(&dword_1BB6F3000, v5, v6, "Failed to get cloud feature object: %{public}@", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_0_1(&dword_1BB6F3000, v5, v6, "Failed to get cloud feature object: %{public}@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 void __104__WBSCloudSubscriptionFeatureAvailabilityObserver__requestFeatureEligibilityBlockingQueueUntilResponse___block_invoke_3_cold_1(void *a1, void *a2)
 {
   v3 = a1;
   v4 = [a2 safari_privacyPreservingDescription];
-  OUTLINED_FUNCTION_0_1(&dword_1BB6F3000, v5, v6, "Failed to get cloud feature eligibility: %{public}@", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_0_1(&dword_1BB6F3000, v5, v6, "Failed to get cloud feature eligibility: %{public}@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 void __95__WBSCloudSubscriptionFeatureAvailabilityObserver_getFeatureAvailabilityWithCompletionHandler___block_invoke_cold_1(uint64_t a1, char a2)
@@ -497,7 +509,7 @@ void __95__WBSCloudSubscriptionFeatureAvailabilityObserver_getFeatureAvailabilit
 
   v3 = v2;
   OUTLINED_FUNCTION_0_7();
-  OUTLINED_FUNCTION_2_2(&dword_1BB6F3000, v4, v5, "Returning cloud feature %@ availability from CloudSubscriptionFeatures: %@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_2_2(&dword_1BB6F3000, v4, v5, "Returning cloud feature %@ availability from CloudSubscriptionFeatures: %@", v6, v7, v8, v9);
 }
 
 void __95__WBSCloudSubscriptionFeatureAvailabilityObserver_getFeatureAvailabilityWithCompletionHandler___block_invoke_cold_2(uint64_t a1, NSObject *a2)
@@ -523,7 +535,7 @@ void __94__WBSCloudSubscriptionFeatureAvailabilityObserver_getFeatureEligibility
 
   v2 = v1;
   OUTLINED_FUNCTION_0_7();
-  OUTLINED_FUNCTION_2_2(&dword_1BB6F3000, v3, v4, "Returning cloud feature %@ eligibility from CloudSubscriptionFeatures: %@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_2_2(&dword_1BB6F3000, v3, v4, "Returning cloud feature %@ eligibility from CloudSubscriptionFeatures: %@", v5, v6, v7, v8);
 }
 
 void __94__WBSCloudSubscriptionFeatureAvailabilityObserver_getFeatureEligibilityWithCompletionHandler___block_invoke_cold_2(uint64_t a1, NSObject *a2)

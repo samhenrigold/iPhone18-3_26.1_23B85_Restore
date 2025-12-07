@@ -18,7 +18,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   defaultUnit = [(_INPBSaveHealthSampleIntentResponse *)self defaultUnit];
   dictionaryRepresentation = [defaultUnit dictionaryRepresentation];
@@ -35,30 +35,30 @@
   if ([(NSArray *)self->_sampleUuids count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v42 = 0u;
     v43 = 0u;
     v44 = 0u;
     v45 = 0u;
-    v46 = 0u;
     v11 = self->_sampleUuids;
-    v12 = [(NSArray *)v11 countByEnumeratingWithState:&v43 objects:v49 count:16];
+    v12 = [(NSArray *)v11 countByEnumeratingWithState:&v42 objects:v48 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v44;
+      v14 = *v43;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v44 != v14)
+          if (*v43 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          dictionaryRepresentation4 = [*(*(&v43 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation4 = [*(*(&v42 + 1) + 8 * i) dictionaryRepresentation];
           [array addObject:dictionaryRepresentation4];
         }
 
-        v13 = [(NSArray *)v11 countByEnumeratingWithState:&v43 objects:v49 count:16];
+        v13 = [(NSArray *)v11 countByEnumeratingWithState:&v42 objects:v48 count:16];
       }
 
       while (v13);
@@ -74,30 +74,30 @@
   if ([(NSArray *)self->_valuesDefaultUnits count])
   {
     array2 = [MEMORY[0x1E695DF70] array];
+    v38 = 0u;
     v39 = 0u;
     v40 = 0u;
     v41 = 0u;
-    v42 = 0u;
     v20 = self->_valuesDefaultUnits;
-    v21 = [(NSArray *)v20 countByEnumeratingWithState:&v39 objects:v48 count:16];
+    v21 = [(NSArray *)v20 countByEnumeratingWithState:&v38 objects:v47 count:16];
     if (v21)
     {
       v22 = v21;
-      v23 = *v40;
+      v23 = *v39;
       do
       {
         for (j = 0; j != v22; ++j)
         {
-          if (*v40 != v23)
+          if (*v39 != v23)
           {
             objc_enumerationMutation(v20);
           }
 
-          dictionaryRepresentation6 = [*(*(&v39 + 1) + 8 * j) dictionaryRepresentation];
+          dictionaryRepresentation6 = [*(*(&v38 + 1) + 8 * j) dictionaryRepresentation];
           [array2 addObject:dictionaryRepresentation6];
         }
 
-        v22 = [(NSArray *)v20 countByEnumeratingWithState:&v39 objects:v48 count:16];
+        v22 = [(NSArray *)v20 countByEnumeratingWithState:&v38 objects:v47 count:16];
       }
 
       while (v22);
@@ -109,30 +109,30 @@
   if ([(NSArray *)self->_valuesUserProvidedUnits count])
   {
     array3 = [MEMORY[0x1E695DF70] array];
+    v34 = 0u;
     v35 = 0u;
     v36 = 0u;
     v37 = 0u;
-    v38 = 0u;
     v27 = self->_valuesUserProvidedUnits;
-    v28 = [(NSArray *)v27 countByEnumeratingWithState:&v35 objects:v47 count:16];
+    v28 = [(NSArray *)v27 countByEnumeratingWithState:&v34 objects:v46 count:16];
     if (v28)
     {
       v29 = v28;
-      v30 = *v36;
+      v30 = *v35;
       do
       {
         for (k = 0; k != v29; ++k)
         {
-          if (*v36 != v30)
+          if (*v35 != v30)
           {
             objc_enumerationMutation(v27);
           }
 
-          dictionaryRepresentation7 = [*(*(&v35 + 1) + 8 * k) dictionaryRepresentation];
+          dictionaryRepresentation7 = [*(*(&v34 + 1) + 8 * k) dictionaryRepresentation];
           [array3 addObject:dictionaryRepresentation7];
         }
 
-        v29 = [(NSArray *)v27 countByEnumeratingWithState:&v35 objects:v47 count:16];
+        v29 = [(NSArray *)v27 countByEnumeratingWithState:&v34 objects:v46 count:16];
       }
 
       while (v29);
@@ -140,8 +140,6 @@
 
     [dictionary setObject:array3 forKeyedSubscript:@"valuesUserProvidedUnit"];
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -404,7 +402,7 @@ LABEL_38:
 
 - (void)writeTo:(id)to
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   toCopy = to;
   defaultUnit = [(_INPBSaveHealthSampleIntentResponse *)self defaultUnit];
 
@@ -430,33 +428,32 @@ LABEL_38:
     PBDataWriterWriteSubmessage();
   }
 
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
-  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   v11 = self->_sampleUuids;
-  v12 = [(NSArray *)v11 countByEnumeratingWithState:&v40 objects:v46 count:16];
+  v12 = [(NSArray *)v11 countByEnumeratingWithState:&v36 objects:v42 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v41;
+    v14 = *v37;
     do
     {
       v15 = 0;
       do
       {
-        if (*v41 != v14)
+        if (*v37 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v40 + 1) + 8 * v15);
         PBDataWriterWriteSubmessage();
         ++v15;
       }
 
       while (v13 != v15);
-      v13 = [(NSArray *)v11 countByEnumeratingWithState:&v40 objects:v46 count:16];
+      v13 = [(NSArray *)v11 countByEnumeratingWithState:&v36 objects:v42 count:16];
     }
 
     while (v13);
@@ -470,71 +467,67 @@ LABEL_38:
     PBDataWriterWriteSubmessage();
   }
 
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
-  v37 = 0u;
-  v19 = self->_valuesDefaultUnits;
-  v20 = [(NSArray *)v19 countByEnumeratingWithState:&v36 objects:v45 count:16];
-  if (v20)
-  {
-    v21 = v20;
-    v22 = *v37;
-    do
-    {
-      v23 = 0;
-      do
-      {
-        if (*v37 != v22)
-        {
-          objc_enumerationMutation(v19);
-        }
-
-        v24 = *(*(&v36 + 1) + 8 * v23);
-        PBDataWriterWriteSubmessage();
-        ++v23;
-      }
-
-      while (v21 != v23);
-      v21 = [(NSArray *)v19 countByEnumeratingWithState:&v36 objects:v45 count:16];
-    }
-
-    while (v21);
-  }
-
   v34 = 0u;
   v35 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v25 = self->_valuesUserProvidedUnits;
-  v26 = [(NSArray *)v25 countByEnumeratingWithState:&v32 objects:v44 count:16];
-  if (v26)
+  v18 = self->_valuesDefaultUnits;
+  v19 = [(NSArray *)v18 countByEnumeratingWithState:&v32 objects:v41 count:16];
+  if (v19)
   {
-    v27 = v26;
-    v28 = *v33;
+    v20 = v19;
+    v21 = *v33;
     do
     {
-      v29 = 0;
+      v22 = 0;
       do
       {
-        if (*v33 != v28)
+        if (*v33 != v21)
         {
-          objc_enumerationMutation(v25);
+          objc_enumerationMutation(v18);
         }
 
-        v30 = *(*(&v32 + 1) + 8 * v29);
         PBDataWriterWriteSubmessage();
-        ++v29;
+        ++v22;
       }
 
-      while (v27 != v29);
-      v27 = [(NSArray *)v25 countByEnumeratingWithState:&v32 objects:v44 count:16];
+      while (v20 != v22);
+      v20 = [(NSArray *)v18 countByEnumeratingWithState:&v32 objects:v41 count:16];
     }
 
-    while (v27);
+    while (v20);
   }
 
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
+  v23 = self->_valuesUserProvidedUnits;
+  v24 = [(NSArray *)v23 countByEnumeratingWithState:&v28 objects:v40 count:16];
+  if (v24)
+  {
+    v25 = v24;
+    v26 = *v29;
+    do
+    {
+      v27 = 0;
+      do
+      {
+        if (*v29 != v26)
+        {
+          objc_enumerationMutation(v23);
+        }
+
+        PBDataWriterWriteSubmessage();
+        ++v27;
+      }
+
+      while (v25 != v27);
+      v25 = [(NSArray *)v23 countByEnumeratingWithState:&v28 objects:v40 count:16];
+    }
+
+    while (v25);
+  }
 }
 
 - (void)addValuesUserProvidedUnit:(id)unit

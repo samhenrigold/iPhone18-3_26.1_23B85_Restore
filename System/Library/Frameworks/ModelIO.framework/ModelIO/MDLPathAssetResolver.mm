@@ -9,19 +9,19 @@
 
 - (void)setPath:(NSString *)path
 {
-  v7 = path;
-  if (objc_msgSend_hasSuffix_(v7, v4, @"/"))
+  v25 = path;
+  if (objc_msgSend_hasSuffix_(v25, v4, @"/", v5, v10, v11, v12, v13, v6, v7, v8, v9))
   {
-    v5 = v7;
+    v23 = v25;
   }
 
   else
   {
-    v5 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v7, @"%@/", v7);
+    v23 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v25, @"%@/", v14, v19, v20, v21, v22, v15, v16, v17, v18, v25);
   }
 
-  v6 = self->_path;
-  self->_path = v5;
+  v24 = self->_path;
+  self->_path = v23;
 }
 
 - (MDLPathAssetResolver)initWithPath:(NSString *)path
@@ -45,25 +45,25 @@
   namedCopy = named;
   if (namedCopy && self->_path)
   {
-    v6 = objc_msgSend_resolveAssetNamed_(self, v4, namedCopy);
-    v7 = v6 != 0;
+    v15 = objc_msgSend_resolveAssetNamed_(self, v4, namedCopy, v5, v11, v12, v13, v14, v6, v7, v8, v9);
+    v16 = v15 != 0;
   }
 
   else
   {
-    v7 = 0;
+    v16 = 0;
   }
 
-  return v7;
+  return v16;
 }
 
 - (id)resolveAssetNamed:(id)named
 {
   namedCopy = named;
-  v6 = objc_msgSend_fileURLWithPath_isDirectory_(MEMORY[0x277CBEBC0], v5, self->_path, 1);
-  v8 = objc_msgSend_URLByAppendingPathComponent_(v6, v7, namedCopy);
+  v14 = objc_msgSend_fileURLWithPath_isDirectory_(MEMORY[0x277CBEBC0], v5, self->_path, 1, v10, v11, v12, v13, v6, v7, v8, v9);
+  v25 = objc_msgSend_URLByAppendingPathComponent_(v14, v15, namedCopy, v16, v21, v22, v23, v24, v17, v18, v19, v20);
 
-  return v8;
+  return v25;
 }
 
 @end

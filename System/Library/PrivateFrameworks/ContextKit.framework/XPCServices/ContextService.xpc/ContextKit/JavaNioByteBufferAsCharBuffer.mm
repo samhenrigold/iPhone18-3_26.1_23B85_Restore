@@ -4,7 +4,11 @@
 - (id)asReadOnlyBuffer;
 - (id)compact;
 - (id)duplicate;
+- (id)getWithCharArray:(id)array withInt:(int)int withInt:(int)withInt;
 - (id)order;
+- (id)putWithChar:(unsigned __int16)char;
+- (id)putWithCharArray:(id)array withInt:(int)int withInt:(int)withInt;
+- (id)putWithInt:(int)int withChar:(unsigned __int16)char;
 - (id)slice;
 - (id)subSequenceFrom:(int)from to:(int)to;
 - (unsigned)get;
@@ -107,6 +111,32 @@
   return [(JavaNioByteBuffer *)byteBuffer getCharWithInt:(2 * int)];
 }
 
+- (id)getWithCharArray:(id)array withInt:(int)int withInt:(int)withInt
+{
+  byteBuffer = self->byteBuffer_;
+  if (!byteBuffer)
+  {
+    JreThrowNullPointerException();
+  }
+
+  v7 = *&withInt;
+  v8 = *&int;
+  [(JavaNioBuffer *)byteBuffer limitWithInt:(2 * self->super.super.limit_)];
+  [(JavaNioBuffer *)self->byteBuffer_ positionWithInt:(2 * self->super.super.position_)];
+  objc_opt_class();
+  objc_opt_isKindOfClass();
+  v10 = self->byteBuffer_;
+  objc_opt_class();
+  if (v10 && (objc_opt_isKindOfClass() & 1) == 0)
+  {
+    JreThrowClassCastException();
+  }
+
+  [(JavaNioByteBuffer *)v10 getWithCharArray:array withInt:v8 withInt:v7];
+  self->super.super.position_ += v7;
+  return self;
+}
+
 - (BOOL)isDirect
 {
   byteBuffer = self->byteBuffer_;
@@ -138,6 +168,66 @@
   }
 
   return [(JavaNioByteBuffer *)byteBuffer order];
+}
+
+- (id)putWithChar:(unsigned __int16)char
+{
+  position = self->super.super.position_;
+  if (position == self->super.super.limit_)
+  {
+    v7 = new_JavaNioBufferOverflowException_init();
+    objc_exception_throw(v7);
+  }
+
+  byteBuffer = self->byteBuffer_;
+  if (!byteBuffer)
+  {
+    JreThrowNullPointerException();
+  }
+
+  self->super.super.position_ = position + 1;
+  [(JavaNioByteBuffer *)byteBuffer putCharWithInt:(2 * position) withChar:char];
+  return self;
+}
+
+- (id)putWithInt:(int)int withChar:(unsigned __int16)char
+{
+  charCopy = char;
+  [(JavaNioBuffer *)self checkIndexWithInt:?];
+  byteBuffer = self->byteBuffer_;
+  if (!byteBuffer)
+  {
+    JreThrowNullPointerException();
+  }
+
+  [(JavaNioByteBuffer *)byteBuffer putCharWithInt:(2 * int) withChar:charCopy];
+  return self;
+}
+
+- (id)putWithCharArray:(id)array withInt:(int)int withInt:(int)withInt
+{
+  byteBuffer = self->byteBuffer_;
+  if (!byteBuffer)
+  {
+    JreThrowNullPointerException();
+  }
+
+  v7 = *&withInt;
+  v8 = *&int;
+  [(JavaNioBuffer *)byteBuffer limitWithInt:(2 * self->super.super.limit_)];
+  [(JavaNioBuffer *)self->byteBuffer_ positionWithInt:(2 * self->super.super.position_)];
+  objc_opt_class();
+  objc_opt_isKindOfClass();
+  v10 = self->byteBuffer_;
+  objc_opt_class();
+  if (v10 && (objc_opt_isKindOfClass() & 1) == 0)
+  {
+    JreThrowClassCastException();
+  }
+
+  [(JavaNioByteBuffer *)v10 putWithCharArray:array withInt:v8 withInt:v7];
+  self->super.super.position_ += v7;
+  return self;
 }
 
 - (id)slice

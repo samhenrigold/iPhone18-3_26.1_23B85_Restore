@@ -82,7 +82,7 @@
   v64 = iCopy;
   v65 = parserCopy;
   v66 = elementCopy;
-  [(_OTSVGParserDelegate *)self namespaces];
+  objc_msgSend_namespaces(self);
   v61 = attributesCopy;
   v21 = attributesCopy;
   *v72 = 0u;
@@ -374,7 +374,7 @@ LABEL_92:
     goto LABEL_104;
   }
 
-  [(_OTSVGParserDelegate *)self stack];
+  objc_msgSend_stack(self);
   v56 = v84;
   v57 = v85;
   if (v84)
@@ -394,103 +394,103 @@ LABEL_104:
   {
     if ([v66 isEqualToString:@"g"])
     {
-      [(_OTSVGParserDelegate *)self stack];
+      objc_msgSend_stack(self);
       operator new();
     }
 
     if ([v66 isEqualToString:@"defs"])
     {
-      [(_OTSVGParserDelegate *)self stack];
+      objc_msgSend_stack(self);
       operator new();
     }
 
     if ([v66 isEqualToString:@"use"])
     {
-      [(_OTSVGParserDelegate *)self stack];
+      objc_msgSend_stack(self);
       operator new();
     }
 
     if ([v66 isEqualToString:@"image"])
     {
-      [(_OTSVGParserDelegate *)self stack];
+      objc_msgSend_stack(self);
       operator new();
     }
 
     if ([v66 isEqualToString:@"path"])
     {
-      [(_OTSVGParserDelegate *)self stack];
+      objc_msgSend_stack(self);
       operator new();
     }
 
     if ([v66 isEqualToString:@"rect"])
     {
-      [(_OTSVGParserDelegate *)self stack];
+      objc_msgSend_stack(self);
       operator new();
     }
 
     if ([v66 isEqualToString:@"circle"])
     {
-      [(_OTSVGParserDelegate *)self stack];
+      objc_msgSend_stack(self);
       operator new();
     }
 
     if ([v66 isEqualToString:@"ellipse"])
     {
-      [(_OTSVGParserDelegate *)self stack];
+      objc_msgSend_stack(self);
       operator new();
     }
 
     if ([v66 isEqualToString:@"line"])
     {
-      [(_OTSVGParserDelegate *)self stack];
+      objc_msgSend_stack(self);
       operator new();
     }
 
     if ([v66 isEqualToString:@"polyline"])
     {
-      [(_OTSVGParserDelegate *)self stack];
+      objc_msgSend_stack(self);
       operator new();
     }
 
     if ([v66 isEqualToString:@"polygon"])
     {
-      [(_OTSVGParserDelegate *)self stack];
+      objc_msgSend_stack(self);
       operator new();
     }
 
     if ([v66 isEqualToString:@"linearGradient"])
     {
-      [(_OTSVGParserDelegate *)self stack];
+      objc_msgSend_stack(self);
       operator new();
     }
 
     if ([v66 isEqualToString:@"radialGradient"])
     {
-      [(_OTSVGParserDelegate *)self stack];
+      objc_msgSend_stack(self);
       operator new();
     }
 
     if ([v66 isEqualToString:@"stop"])
     {
-      [(_OTSVGParserDelegate *)self stack];
+      objc_msgSend_stack(self);
       operator new();
     }
 
     if ([v66 isEqualToString:@"pattern"])
     {
-      [(_OTSVGParserDelegate *)self stack];
+      objc_msgSend_stack(self);
       operator new();
     }
 
     if ([v66 isEqualToString:@"clipPath"])
     {
-      [(_OTSVGParserDelegate *)self stack];
+      objc_msgSend_stack(self);
       operator new();
     }
 
     if ([v66 isEqualToString:@"mask"])
     {
-      [(_OTSVGParserDelegate *)self stack];
+      objc_msgSend_stack(self);
       operator new();
     }
 
@@ -714,13 +714,13 @@ LABEL_23:
       std::__allocate_at_least[abi:nn200100]<std::allocator<SVG::Recorder::State *>>(v32);
     }
 
-    v20[9] = (v26 - 170);
+    v20[9] = v26 - 170;
     *&v34[0] = *v23;
-    v20[6] = v23 + 8;
+    v20[6] = (v23 + 8);
     std::__split_buffer<SVG::Recorder::State *>::emplace_back<SVG::Recorder::State *&>(v20 + 5, v34);
     v30 = parserCopy;
     v23 = v20[6];
-    v27 = v20[9] + v20[10];
+    v27 = v20[10] + v20[9];
   }
 
   else
@@ -731,7 +731,7 @@ LABEL_23:
   v31 = *&v23[8 * (v27 / 0xAA)] + 24 * (v27 % 0xAA);
   *v31 = v38;
   *(v31 + 16) = v39;
-  v20[10] = v20[10] + 1;
+  ++v20[10];
 }
 
 - (void)parser:(id)parser didEndMappingPrefix:(id)prefix

@@ -5,6 +5,8 @@
 - (int)identifier;
 - (int64_t)type;
 - (void)setData:(id)data;
+- (void)setEmulateUserGesture:(BOOL)gesture;
+- (void)setIdentifier:(int)identifier;
 - (void)setType:(int64_t)type;
 @end
 
@@ -109,11 +111,25 @@ LABEL_8:
   return v2;
 }
 
+- (void)setIdentifier:(int)identifier
+{
+  v3.receiver = self;
+  v3.super_class = RWIProtocolDebuggerBreakpointAction;
+  [(RWIProtocolJSONObject *)&v3 setInteger:*&identifier forKey:@"id"];
+}
+
 - (int)identifier
 {
   v3.receiver = self;
   v3.super_class = RWIProtocolDebuggerBreakpointAction;
   return [(RWIProtocolJSONObject *)&v3 integerForKey:@"id"];
+}
+
+- (void)setEmulateUserGesture:(BOOL)gesture
+{
+  v3.receiver = self;
+  v3.super_class = RWIProtocolDebuggerBreakpointAction;
+  [(RWIProtocolJSONObject *)&v3 setBool:gesture forKey:@"emulateUserGesture"];
 }
 
 - (BOOL)emulateUserGesture

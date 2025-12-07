@@ -17,24 +17,22 @@
 
 - (id)standardLabelsForLabel:(id)label
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   labelCopy = label;
   if ([labelCopy isEqualToString:@"MobileMe"])
   {
-    v10[0] = @"MOBILEME";
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+    v9[0] = @"MOBILEME";
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
   }
 
   else
   {
-    v9.receiver = self;
-    v9.super_class = CNVCardEmailLineGenerator;
-    v5 = [(CNVCardLineGenerator *)&v9 standardLabelsForLabel:labelCopy];
+    v8.receiver = self;
+    v8.super_class = CNVCardEmailLineGenerator;
+    v5 = [(CNVCardLineGenerator *)&v8 standardLabelsForLabel:labelCopy];
   }
 
   v6 = v5;
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

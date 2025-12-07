@@ -15,33 +15,33 @@
 
 - (id)JSONCompatibleKeyValueMap
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v4 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   networks = [(CWFBackgroundScanConfiguration *)self networks];
-  v6 = [networks countByEnumeratingWithState:&v30 objects:v35 count:16];
+  v6 = [networks countByEnumeratingWithState:&v29 objects:v34 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v31;
+    v8 = *v30;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v31 != v8)
+        if (*v30 != v8)
         {
           objc_enumerationMutation(networks);
         }
 
-        jSONCompatibleKeyValueMap = [*(*(&v30 + 1) + 8 * i) JSONCompatibleKeyValueMap];
+        jSONCompatibleKeyValueMap = [*(*(&v29 + 1) + 8 * i) JSONCompatibleKeyValueMap];
         [v4 addObject:jSONCompatibleKeyValueMap];
       }
 
-      v7 = [networks countByEnumeratingWithState:&v30 objects:v35 count:16];
+      v7 = [networks countByEnumeratingWithState:&v29 objects:v34 count:16];
     }
 
     while (v7);
@@ -49,30 +49,30 @@
 
   [v3 setObject:v4 forKeyedSubscript:@"networks"];
   v11 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   channels = [(CWFBackgroundScanConfiguration *)self channels];
-  v13 = [channels countByEnumeratingWithState:&v26 objects:v34 count:16];
+  v13 = [channels countByEnumeratingWithState:&v25 objects:v33 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v27;
+    v15 = *v26;
     do
     {
       for (j = 0; j != v14; ++j)
       {
-        if (*v27 != v15)
+        if (*v26 != v15)
         {
           objc_enumerationMutation(channels);
         }
 
-        jSONCompatibleKeyValueMap2 = [*(*(&v26 + 1) + 8 * j) JSONCompatibleKeyValueMap];
+        jSONCompatibleKeyValueMap2 = [*(*(&v25 + 1) + 8 * j) JSONCompatibleKeyValueMap];
         [v11 addObject:jSONCompatibleKeyValueMap2];
       }
 
-      v14 = [channels countByEnumeratingWithState:&v26 objects:v34 count:16];
+      v14 = [channels countByEnumeratingWithState:&v25 objects:v33 count:16];
     }
 
     while (v14);
@@ -101,8 +101,6 @@
   {
     v23 = 0;
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 
   return v23;
 }

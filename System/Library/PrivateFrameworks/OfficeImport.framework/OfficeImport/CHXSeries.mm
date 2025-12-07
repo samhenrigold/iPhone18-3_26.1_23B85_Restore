@@ -183,7 +183,7 @@
       if (v69)
       {
         string = [v69 string];
-        EDValue::makeWithNSString(string, &v78);
+        EDValue::makeWithNSString(&v78.type, string);
 
         v71 = [[CHDDataValue alloc] initWithIndex:-1 value:&v78];
         [stateCopy setLastCachedName:v71];
@@ -204,7 +204,7 @@
       }
 
       v68 = [objc_alloc(MEMORY[0x277CCACA8]) tc_initWithContentOfXmlNode:v74];
-      EDValue::makeWithNSString(v68, &v78);
+      EDValue::makeWithNSString(&v78.type, v68);
       v75 = [[CHDDataValue alloc] initWithIndex:-1 value:&v78];
       [stateCopy setLastCachedName:v75];
 

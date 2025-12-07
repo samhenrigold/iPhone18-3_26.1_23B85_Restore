@@ -140,11 +140,11 @@
 
 - (id)localizedDescriptionForAssets:(id)assets
 {
-  v3 = [(PUPhotoPickerResizeTaskDescriptor *)self formattedSizeForAssets:assets];
-  v4 = PULocalizedString(@"SIZE_PICKER_SIZE_(BYTES)");
-  v5 = PUStringWithValidatedFormat();
+  v4 = [(PUPhotoPickerResizeTaskDescriptor *)self formattedSizeForAssets:assets];
+  v5 = PULocalizedString(@"SIZE_PICKER_SIZE_(BYTES)");
+  v12 = PUStringWithValidatedFormat(v5, @"%@ %@", v6, v7, v8, v9, v10, v11, self->_localizedDescription);
 
-  return v5;
+  return v12;
 }
 
 - (PUPhotoPickerResizeTaskDescriptor)initWithLocalizedDescription:(id)description targetSize:(CGSize)size

@@ -113,51 +113,49 @@ void __36__ADUserTransparencyRequest_options__block_invoke()
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v8 = toCopy;
+  v6 = toCopy;
   if (self->_dPID)
   {
     PBDataWriterWriteDataField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_localeIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_iAdID)
   {
     PBDataWriterWriteDataField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_contentiAdID)
   {
     PBDataWriterWriteDataField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_iTunesStore)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 2) != 0)
   {
-    limitAdTracking = self->_limitAdTracking;
     PBDataWriterWriteBOOLField();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if (has)
   {
-    isSignedInToiTunes = self->_isSignedInToiTunes;
     PBDataWriterWriteBOOLField();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 
@@ -320,7 +318,6 @@ LABEL_20:
     goto LABEL_20;
   }
 
-  v12 = *(equalCopy + 49);
   if (self->_limitAdTracking)
   {
     if ((*(equalCopy + 49) & 1) == 0)

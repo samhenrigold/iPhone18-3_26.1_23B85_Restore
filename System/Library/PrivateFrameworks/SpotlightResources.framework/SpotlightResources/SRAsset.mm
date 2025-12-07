@@ -9,37 +9,37 @@
 
 + (id)assetWithLocaleIdentifier:(id)identifier contentType:(id)type deliveryType:(int64_t)deliveryType resourceRoot:(id)root pathNames:(id)names
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   typeCopy = type;
   rootCopy = root;
   namesCopy = names;
   v12 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   v13 = namesCopy;
-  v14 = [v13 countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v29;
+    v16 = *v28;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v29 != v16)
+        if (*v28 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = *(*(&v28 + 1) + 8 * i);
+        v18 = *(*(&v27 + 1) + 8 * i);
         v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@/%@", rootCopy, v18];
         [v12 setObject:v19 forKeyedSubscript:v18];
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v27 objects:v31 count:16];
     }
 
     while (v15);
@@ -58,8 +58,6 @@
     v21 = typeCopy;
     v20 = identifierCopy;
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return v22;
 }

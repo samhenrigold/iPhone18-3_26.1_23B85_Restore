@@ -23,54 +23,55 @@
   peripheralCopy = peripheral;
   dCopy = d;
   iDCopy = iD;
-  v31.receiver = self;
-  v31.super_class = EPCharacteristicReader;
-  v16 = [(EPCharacteristicReader *)&v31 init];
+  v33.receiver = self;
+  v33.super_class = EPCharacteristicReader;
+  v16 = [(EPCharacteristicReader *)&v33 init];
+  v17 = v16;
   if (v16)
   {
-    v17 = sub_1000A98C0();
-    v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
+    v18 = sub_1000A98C0(v16);
+    v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
 
-    if (v18)
+    if (v19)
     {
-      v19 = sub_1000A98C0();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v21 = sub_1000A98C0(v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
         uUIDString = [iDCopy UUIDString];
         *buf = 134218242;
-        v33 = v16;
-        v34 = 2112;
-        v35 = uUIDString;
-        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "EPCharacteristicReader[%p]: init to read characteristic %@", buf, 0x16u);
+        v35 = v17;
+        v36 = 2112;
+        v37 = uUIDString;
+        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "EPCharacteristicReader[%p]: init to read characteristic %@", buf, 0x16u);
       }
     }
 
-    v16->_timeout = timeout;
-    objc_storeWeak(&v16->_delegate, delegateCopy);
-    v21 = +[EPFactory sharedFactory];
-    agentManager = [v21 agentManager];
-    v23 = [agentManager newCentralManagerWithDelegate:v16];
-    central = v16->_central;
-    v16->_central = v23;
+    v17->_timeout = timeout;
+    objc_storeWeak(&v17->_delegate, delegateCopy);
+    v23 = +[EPFactory sharedFactory];
+    agentManager = [v23 agentManager];
+    v25 = [agentManager newCentralManagerWithDelegate:v17];
+    central = v17->_central;
+    v17->_central = v25;
 
-    objc_storeStrong(&v16->_peripheral, peripheral);
-    [peripheralCopy setDelegate:v16];
-    objc_storeStrong(&v16->_serviceUUID, d);
-    objc_storeStrong(&v16->_characteristicUUID, iD);
-    v25 = +[NSMutableArray array];
-    services = v16->_services;
-    v16->_services = v25;
+    objc_storeStrong(&v17->_peripheral, peripheral);
+    [peripheralCopy setDelegate:v17];
+    objc_storeStrong(&v17->_serviceUUID, d);
+    objc_storeStrong(&v17->_characteristicUUID, iD);
+    v27 = +[NSMutableArray array];
+    services = v17->_services;
+    v17->_services = v27;
 
-    v27 = +[EPFactory queue];
+    v29 = +[EPFactory queue];
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_1000AA2AC;
     block[3] = &unk_100175660;
-    v30 = v16;
-    dispatch_async(v27, block);
+    v32 = v17;
+    dispatch_async(v29, block);
   }
 
-  return v16;
+  return v17;
 }
 
 - (id)newDispatchTimerOfDuration:(double)duration withTimeoutBlock:(id)block
@@ -101,15 +102,15 @@
 
 - (void)_characteristicDiscoveryTimedOut
 {
-  v3 = sub_1000A98C0();
+  v3 = sub_1000A98C0(self);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_ERROR);
 
   if (v4)
   {
-    v5 = sub_1000A98C0();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = sub_1000A98C0(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      sub_100102798(self, v5);
+      sub_100102798(self, v6);
     }
   }
 
@@ -120,20 +121,20 @@
 {
   errorCopy = error;
   dataCopy = data;
-  v8 = sub_1000A98C0();
+  v8 = sub_1000A98C0(dataCopy);
   v9 = v8;
   if (!errorCopy)
   {
-    v13 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+    v14 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
 
-    if (v13)
+    if (v14)
     {
-      v14 = sub_1000A98C0();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v16 = sub_1000A98C0(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
         selfCopy = self;
-        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "EPCharacteristicReader[%p]: _readFinishedWithError no error", buf, 0xCu);
+        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "EPCharacteristicReader[%p]: _readFinishedWithError no error", buf, 0xCu);
       }
     }
 
@@ -146,8 +147,8 @@
 
   if (v10)
   {
-    v11 = sub_1000A98C0();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = sub_1000A98C0(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       sub_100102810();
     }
@@ -163,7 +164,7 @@ LABEL_13:
     if (readSequenceTimer)
     {
       dispatch_source_cancel(readSequenceTimer);
-      v16 = self->_readSequenceTimer;
+      v18 = self->_readSequenceTimer;
       self->_readSequenceTimer = 0;
     }
 
@@ -171,23 +172,23 @@ LABEL_13:
     if (characteristicDiscoveryTimer)
     {
       dispatch_source_cancel(characteristicDiscoveryTimer);
-      v18 = self->_characteristicDiscoveryTimer;
+      v20 = self->_characteristicDiscoveryTimer;
       self->_characteristicDiscoveryTimer = 0;
     }
 
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
     objc_storeWeak(&self->_delegate, 0);
-    v20 = +[EPFactory queue];
-    v22[0] = _NSConcreteStackBlock;
-    v22[1] = 3221225472;
-    v22[2] = sub_1000AA71C;
-    v22[3] = &unk_1001756F8;
-    v23 = errorCopy;
-    v24 = WeakRetained;
+    v22 = +[EPFactory queue];
+    v24[0] = _NSConcreteStackBlock;
+    v24[1] = 3221225472;
+    v24[2] = sub_1000AA71C;
+    v24[3] = &unk_1001756F8;
+    v25 = errorCopy;
+    v26 = WeakRetained;
     selfCopy2 = self;
-    v26 = dataCopy;
-    v21 = WeakRetained;
-    dispatch_async(v20, v22);
+    v28 = dataCopy;
+    v23 = WeakRetained;
+    dispatch_async(v22, v24);
   }
 }
 
@@ -215,12 +216,12 @@ LABEL_13:
       if (!self->_readSequenceTimer)
       {
         timeout = self->_timeout;
-        v33[0] = _NSConcreteStackBlock;
-        v33[1] = 3221225472;
-        v33[2] = sub_1000AABD0;
-        v33[3] = &unk_100175660;
-        v33[4] = self;
-        v7 = [(EPCharacteristicReader *)self newDispatchTimerOfDuration:v33 withTimeoutBlock:timeout];
+        v35[0] = _NSConcreteStackBlock;
+        v35[1] = 3221225472;
+        v35[2] = sub_1000AABD0;
+        v35[3] = &unk_100175660;
+        v35[4] = self;
+        v7 = [(EPCharacteristicReader *)self newDispatchTimerOfDuration:v35 withTimeoutBlock:timeout];
         readSequenceTimer = self->_readSequenceTimer;
         self->_readSequenceTimer = v7;
       }
@@ -239,11 +240,11 @@ LABEL_13:
 
     else
     {
-      v27 = self->_readSequenceTimer;
-      if (v27)
+      v29 = self->_readSequenceTimer;
+      if (v29)
       {
-        dispatch_source_cancel(v27);
-        v28 = self->_readSequenceTimer;
+        dispatch_source_cancel(v29);
+        v30 = self->_readSequenceTimer;
         self->_readSequenceTimer = 0;
       }
 
@@ -251,12 +252,12 @@ LABEL_13:
       if (characteristicDiscoveryTimer)
       {
         dispatch_source_cancel(characteristicDiscoveryTimer);
-        v30 = self->_characteristicDiscoveryTimer;
+        v32 = self->_characteristicDiscoveryTimer;
         self->_characteristicDiscoveryTimer = 0;
       }
 
       [(NSMutableArray *)self->_services removeAllObjects];
-      v31 = self->_characteristic;
+      v33 = self->_characteristic;
       self->_characteristic = 0;
 
       characteristic = self->_connector;
@@ -273,27 +274,27 @@ LABEL_13:
       case 2uLL:
         if ([(EPResource *)self->_peripheral availability]== 1)
         {
-          v12 = sub_1000A98C0();
+          v12 = sub_1000A98C0(1);
           v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
 
           if (v13)
           {
-            v14 = sub_1000A98C0();
-            if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+            v15 = sub_1000A98C0(v14);
+            if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
             {
               uUIDString = [(CBUUID *)self->_serviceUUID UUIDString];
               *buf = 134218242;
               selfCopy2 = self;
-              v37 = 2112;
-              v38 = uUIDString;
-              _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "EPCharacteristicReader[%p]: Calling CoreBluetooth CBPeripheral discoverServices: %@", buf, 0x16u);
+              v39 = 2112;
+              v40 = uUIDString;
+              _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "EPCharacteristicReader[%p]: Calling CoreBluetooth CBPeripheral discoverServices: %@", buf, 0x16u);
             }
           }
 
           peripheral = [(EPPeripheralObserver *)self->_peripheral peripheral];
           serviceUUID = self->_serviceUUID;
-          v17 = [NSArray arrayWithObjects:&serviceUUID count:1];
-          [peripheral discoverServices:v17];
+          v18 = [NSArray arrayWithObjects:&serviceUUID count:1];
+          [peripheral discoverServices:v18];
 
           [(EPCharacteristicReader *)self setState:3];
         }
@@ -304,43 +305,42 @@ LABEL_13:
         {
           if (!self->_characteristicDiscoveryTimer)
           {
-            v32[0] = _NSConcreteStackBlock;
-            v32[1] = 3221225472;
-            v32[2] = sub_1000AAC14;
-            v32[3] = &unk_100175660;
-            v32[4] = self;
-            v18 = [(EPCharacteristicReader *)self newDispatchTimerOfDuration:v32 withTimeoutBlock:1.5];
-            v19 = self->_characteristicDiscoveryTimer;
-            self->_characteristicDiscoveryTimer = v18;
+            v34[0] = _NSConcreteStackBlock;
+            v34[1] = 3221225472;
+            v34[2] = sub_1000AAC14;
+            v34[3] = &unk_100175660;
+            v34[4] = self;
+            v19 = [(EPCharacteristicReader *)self newDispatchTimerOfDuration:v34 withTimeoutBlock:1.5];
+            v20 = self->_characteristicDiscoveryTimer;
+            self->_characteristicDiscoveryTimer = v19;
           }
 
           firstObject = [(NSMutableArray *)self->_services firstObject];
           if (firstObject)
           {
-            [(NSMutableArray *)self->_services removeObjectAtIndex:0];
-            v21 = sub_1000A98C0();
-            v22 = os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
+            v22 = sub_1000A98C0([(NSMutableArray *)self->_services removeObjectAtIndex:0]);
+            v23 = os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT);
 
-            if (v22)
+            if (v23)
             {
-              v23 = sub_1000A98C0();
-              if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+              v25 = sub_1000A98C0(v24);
+              if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
               {
                 uUIDString2 = [(CBUUID *)self->_characteristicUUID UUIDString];
                 *buf = 134218498;
                 selfCopy2 = self;
-                v37 = 2112;
-                v38 = uUIDString2;
-                v39 = 2048;
-                v40 = firstObject;
-                _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "EPCharacteristicReader[%p]: Calling CoreBluetooth CBPeripheral discoverCharacteristics: %@ service: %p", buf, 0x20u);
+                v39 = 2112;
+                v40 = uUIDString2;
+                v41 = 2048;
+                v42 = firstObject;
+                _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "EPCharacteristicReader[%p]: Calling CoreBluetooth CBPeripheral discoverCharacteristics: %@ service: %p", buf, 0x20u);
               }
             }
 
             peripheral2 = [(EPPeripheralObserver *)self->_peripheral peripheral];
             characteristicUUID = self->_characteristicUUID;
-            v26 = [NSArray arrayWithObjects:&characteristicUUID count:1];
-            [peripheral2 discoverCharacteristics:v26 forService:firstObject];
+            v28 = [NSArray arrayWithObjects:&characteristicUUID count:1];
+            [peripheral2 discoverCharacteristics:v28 forService:firstObject];
 
             [(EPCharacteristicReader *)self setState:5];
           }
@@ -370,20 +370,20 @@ LABEL_13:
 
 - (void)read
 {
-  v3 = sub_1000A98C0();
+  v3 = sub_1000A98C0(self);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
   if (v4)
   {
-    v5 = sub_1000A98C0();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_1000A98C0(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       characteristic = self->_characteristic;
-      v8 = 134218242;
+      v9 = 134218242;
       selfCopy = self;
-      v10 = 2112;
-      v11 = characteristic;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "EPCharacteristicReader[%p]: Calling CoreBluetooth CBPeripheral readValueForCharacteristic: for characteristic %@", &v8, 0x16u);
+      v11 = 2112;
+      v12 = characteristic;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "EPCharacteristicReader[%p]: Calling CoreBluetooth CBPeripheral readValueForCharacteristic: for characteristic %@", &v9, 0x16u);
     }
   }
 
@@ -393,17 +393,17 @@ LABEL_13:
 
 - (void)invalidate
 {
-  v3 = sub_1000A98C0();
+  v3 = sub_1000A98C0(self);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
   if (v4)
   {
-    v5 = sub_1000A98C0();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_1000A98C0(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 134217984;
+      v7 = 134217984;
       selfCopy = self;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "EPCharacteristicReader[%p]: invalidate call", &v6, 0xCu);
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "EPCharacteristicReader[%p]: invalidate call", &v7, 0xCu);
     }
   }
 
@@ -544,26 +544,26 @@ LABEL_37:
       goto LABEL_38;
     }
 
-    v45 = 0u;
-    v46 = 0u;
-    v43 = 0u;
-    v44 = 0u;
+    v51 = 0u;
+    v52 = 0u;
+    v49 = 0u;
+    v50 = 0u;
     services = [peripheralCopy services];
-    v12 = [services countByEnumeratingWithState:&v43 objects:v54 count:16];
+    v12 = [services countByEnumeratingWithState:&v49 objects:v60 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v44;
+      v14 = *v50;
       do
       {
         for (i = 0; i != v13; i = i + 1)
         {
-          if (*v44 != v14)
+          if (*v50 != v14)
           {
             objc_enumerationMutation(services);
           }
 
-          v16 = *(*(&v43 + 1) + 8 * i);
+          v16 = *(*(&v49 + 1) + 8 * i);
           uUID = [v16 UUID];
           v18 = [uUID isEqual:self->_serviceUUID];
 
@@ -573,107 +573,108 @@ LABEL_37:
           }
         }
 
-        v13 = [services countByEnumeratingWithState:&v43 objects:v54 count:16];
+        v13 = [services countByEnumeratingWithState:&v49 objects:v60 count:16];
       }
 
       while (v13);
     }
 
-    if ([(NSMutableArray *)self->_services count])
+    v19 = [(NSMutableArray *)self->_services count];
+    if (v19)
     {
-      v19 = sub_1000A98C0();
-      v20 = os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
+      v20 = sub_1000A98C0(v19);
+      v21 = os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT);
 
-      if (!v20)
+      if (!v21)
       {
         goto LABEL_37;
       }
 
-      v21 = sub_1000A98C0();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v23 = sub_1000A98C0(v22);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
         selfCopy3 = self;
-        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "EPCharacteristicReader[%p]: Found service", buf, 0xCu);
+        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "EPCharacteristicReader[%p]: Found service", buf, 0xCu);
       }
     }
 
     else
     {
-      v21 = objc_alloc_init(NSMutableArray);
-      v39 = 0u;
-      v40 = 0u;
-      v41 = 0u;
-      v42 = 0u;
-      v38 = peripheralCopy;
+      v23 = objc_alloc_init(NSMutableArray);
+      v45 = 0u;
+      v46 = 0u;
+      v47 = 0u;
+      v48 = 0u;
+      v44 = peripheralCopy;
       services2 = [peripheralCopy services];
-      v23 = [services2 countByEnumeratingWithState:&v39 objects:v53 count:16];
-      if (v23)
+      v25 = [services2 countByEnumeratingWithState:&v45 objects:v59 count:16];
+      if (v25)
       {
-        v24 = v23;
-        v25 = *v40;
+        v26 = v25;
+        v27 = *v46;
         do
         {
-          for (j = 0; j != v24; j = j + 1)
+          for (j = 0; j != v26; j = j + 1)
           {
-            if (*v40 != v25)
+            if (*v46 != v27)
             {
               objc_enumerationMutation(services2);
             }
 
-            v27 = *(*(&v39 + 1) + 8 * j);
-            uUID2 = [(CBUUID *)v27 UUID];
+            v29 = *(*(&v45 + 1) + 8 * j);
+            uUID2 = [(CBUUID *)v29 UUID];
             uUIDString = [uUID2 UUIDString];
 
             if (uUIDString)
             {
-              [v21 addObject:uUIDString];
+              [v23 addObject:uUIDString];
             }
 
             else
             {
-              v30 = sub_1000A98C0();
-              v31 = os_log_type_enabled(v30, OS_LOG_TYPE_ERROR);
+              v33 = sub_1000A98C0(v32);
+              v34 = os_log_type_enabled(v33, OS_LOG_TYPE_ERROR);
 
-              if (v31)
+              if (v34)
               {
-                v32 = sub_1000A98C0();
-                if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+                v36 = sub_1000A98C0(v35);
+                if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 134218242;
                   selfCopy3 = self;
-                  v49 = 2112;
-                  v50 = v27;
-                  _os_log_error_impl(&_mh_execute_header, v32, OS_LOG_TYPE_ERROR, "EPCharacteristicReader[%p]: CBService %@ has nil UUID", buf, 0x16u);
+                  v55 = 2112;
+                  v56 = v29;
+                  _os_log_error_impl(&_mh_execute_header, v36, OS_LOG_TYPE_ERROR, "EPCharacteristicReader[%p]: CBService %@ has nil UUID", buf, 0x16u);
                 }
               }
             }
           }
 
-          v24 = [services2 countByEnumeratingWithState:&v39 objects:v53 count:16];
+          v26 = [services2 countByEnumeratingWithState:&v45 objects:v59 count:16];
         }
 
-        while (v24);
+        while (v26);
       }
 
-      v33 = sub_1000A98C0();
-      v34 = os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT);
+      v38 = sub_1000A98C0(v37);
+      v39 = os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT);
 
-      peripheralCopy = v38;
-      if (v34)
+      peripheralCopy = v44;
+      if (v39)
       {
-        v35 = sub_1000A98C0();
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+        v41 = sub_1000A98C0(v40);
+        if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
         {
           serviceUUID = self->_serviceUUID;
-          v37 = [v21 componentsJoinedByString:@", "];
+          v43 = [v23 componentsJoinedByString:@", "];
           *buf = 134218498;
           selfCopy3 = self;
-          v49 = 2114;
-          v50 = serviceUUID;
-          v51 = 2112;
-          v52 = v37;
-          _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "EPCharacteristicReader[%p]: Did not find service %{public}@, services device has: [%@]", buf, 0x20u);
+          v55 = 2114;
+          v56 = serviceUUID;
+          v57 = 2112;
+          v58 = v43;
+          _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "EPCharacteristicReader[%p]: Did not find service %{public}@, services device has: [%@]", buf, 0x20u);
         }
       }
 
@@ -697,19 +698,19 @@ LABEL_38:
 
   if (v13)
   {
-    v14 = sub_1000A98C0();
-    v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
+    v15 = sub_1000A98C0(v14);
+    v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
 
-    if (v15)
+    if (v16)
     {
-      v16 = sub_1000A98C0();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v18 = sub_1000A98C0(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134218242;
         selfCopy4 = self;
-        v40 = 2112;
-        v41 = errorCopy;
-        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "EPCharacteristicReader[%p]: CoreBluetooth CBPeripheralDelegate peripheral:didDiscoverCharacteristicsForService with error %@", buf, 0x16u);
+        v46 = 2112;
+        v47 = errorCopy;
+        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "EPCharacteristicReader[%p]: CoreBluetooth CBPeripheralDelegate peripheral:didDiscoverCharacteristicsForService with error %@", buf, 0x16u);
       }
     }
 
@@ -718,43 +719,43 @@ LABEL_38:
       if (errorCopy)
       {
         selfCopy5 = self;
-        v18 = 1;
+        v20 = 1;
       }
 
       else
       {
-        v35 = 0u;
-        v36 = 0u;
-        v33 = 0u;
-        v34 = 0u;
+        v41 = 0u;
+        v42 = 0u;
+        v39 = 0u;
+        v40 = 0u;
         characteristics = [serviceCopy characteristics];
-        v20 = [characteristics countByEnumeratingWithState:&v33 objects:v37 count:16];
-        if (v20)
+        v22 = [characteristics countByEnumeratingWithState:&v39 objects:v43 count:16];
+        if (v22)
         {
-          v21 = v20;
-          v22 = *v34;
+          v23 = v22;
+          v24 = *v40;
           while (2)
           {
-            for (i = 0; i != v21; i = i + 1)
+            for (i = 0; i != v23; i = i + 1)
             {
-              if (*v34 != v22)
+              if (*v40 != v24)
               {
                 objc_enumerationMutation(characteristics);
               }
 
-              v24 = *(*(&v33 + 1) + 8 * i);
-              uUID = [v24 UUID];
-              v26 = [uUID isEqual:self->_characteristicUUID];
+              v26 = *(*(&v39 + 1) + 8 * i);
+              uUID = [v26 UUID];
+              v28 = [uUID isEqual:self->_characteristicUUID];
 
-              if (v26)
+              if (v28)
               {
-                objc_storeStrong(&self->_characteristic, v24);
+                objc_storeStrong(&self->_characteristic, v26);
                 goto LABEL_22;
               }
             }
 
-            v21 = [characteristics countByEnumeratingWithState:&v33 objects:v37 count:16];
-            if (v21)
+            v23 = [characteristics countByEnumeratingWithState:&v39 objects:v43 count:16];
+            if (v23)
             {
               continue;
             }
@@ -767,53 +768,54 @@ LABEL_22:
 
         if (self->_characteristic)
         {
-          v27 = sub_1000A98C0();
-          v28 = os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT);
+          v30 = sub_1000A98C0(v29);
+          v31 = os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT);
 
-          if (v28)
+          if (v31)
           {
-            v29 = sub_1000A98C0();
-            if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+            v33 = sub_1000A98C0(v32);
+            if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 134218240;
               selfCopy4 = self;
-              v40 = 2048;
-              v41 = serviceCopy;
-              _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "EPCharacteristicReader[%p]: Found characteristic on service %p", buf, 0x16u);
+              v46 = 2048;
+              v47 = serviceCopy;
+              _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "EPCharacteristicReader[%p]: Found characteristic on service %p", buf, 0x16u);
             }
           }
 
           goto LABEL_10;
         }
 
-        if (![(NSMutableArray *)self->_services count])
+        v34 = [(NSMutableArray *)self->_services count];
+        if (!v34)
         {
 LABEL_10:
           [(EPCharacteristicReader *)self update];
           goto LABEL_11;
         }
 
-        v30 = sub_1000A98C0();
-        v31 = os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT);
+        v35 = sub_1000A98C0(v34);
+        v36 = os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT);
 
-        if (v31)
+        if (v36)
         {
-          v32 = sub_1000A98C0();
-          if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+          v38 = sub_1000A98C0(v37);
+          if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 134218240;
             selfCopy4 = self;
-            v40 = 2048;
-            v41 = serviceCopy;
-            _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "EPCharacteristicReader[%p]: Did not find characteristic on service %p, yet", buf, 0x16u);
+            v46 = 2048;
+            v47 = serviceCopy;
+            _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "EPCharacteristicReader[%p]: Did not find characteristic on service %p, yet", buf, 0x16u);
           }
         }
 
         selfCopy5 = self;
-        v18 = 4;
+        v20 = 4;
       }
 
-      [(EPCharacteristicReader *)selfCopy5 setState:v18];
+      [(EPCharacteristicReader *)selfCopy5 setState:v20];
       goto LABEL_10;
     }
   }
@@ -859,16 +861,16 @@ LABEL_12:
 
   if (v18)
   {
-    v19 = sub_1000A98C0();
-    v20 = v19;
+    v20 = sub_1000A98C0(v19);
+    v21 = v20;
     if (errorCopy)
     {
-      v21 = os_log_type_enabled(v19, OS_LOG_TYPE_ERROR);
+      v22 = os_log_type_enabled(v20, OS_LOG_TYPE_ERROR);
 
-      if (v21)
+      if (v22)
       {
-        v22 = sub_1000A98C0();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+        v24 = sub_1000A98C0(v23);
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
         {
           sub_100102878();
         }
@@ -879,20 +881,20 @@ LABEL_17:
 
     else
     {
-      v23 = os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
+      v25 = os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT);
 
-      if (v23)
+      if (v25)
       {
-        v22 = sub_1000A98C0();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+        v24 = sub_1000A98C0(v26);
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
         {
           value = [characteristicCopy value];
-          v25 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [value length]);
-          v28 = 134218242;
+          v28 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [value length]);
+          v31 = 134218242;
           selfCopy = self;
-          v30 = 2112;
-          v31 = v25;
-          _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "EPCharacteristicReader[%p]: CoreBluetooth CBPeripheralDelegate peripheral:didUpdateValueForCharacteristic with no error length = %@", &v28, 0x16u);
+          v33 = 2112;
+          v34 = v28;
+          _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "EPCharacteristicReader[%p]: CoreBluetooth CBPeripheralDelegate peripheral:didUpdateValueForCharacteristic with no error length = %@", &v31, 0x16u);
         }
 
         goto LABEL_17;

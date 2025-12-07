@@ -104,7 +104,7 @@
 
 - (void)invalidate
 {
-  v3 = sub_10001C784();
+  v3 = sub_10001C784(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 134217984;
@@ -429,10 +429,10 @@ LABEL_6:
 
   if (!self->_vehicle)
   {
-    v8 = sub_10001C784();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = sub_10001C784(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      sub_1000915D4(self, mFiCertificateSerialNumber, v8);
+      sub_1000915D4(self, mFiCertificateSerialNumber, v9);
     }
   }
 }

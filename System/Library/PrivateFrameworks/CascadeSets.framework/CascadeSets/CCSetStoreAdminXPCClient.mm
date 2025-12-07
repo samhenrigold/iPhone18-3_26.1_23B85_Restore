@@ -25,11 +25,12 @@
   return v9;
 }
 
-uint64_t __62__CCSetStoreAdminXPCClient_wrappedCompletion_retainingClient___block_invoke(uint64_t a1, int a2)
+uint64_t __62__CCSetStoreAdminXPCClient_wrappedCompletion_retainingClient___block_invoke(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v4 = __biome_log_for_category();
   v5 = v4;
-  if (a2 == 1)
+  if (v2 == 1)
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
@@ -39,7 +40,7 @@ uint64_t __62__CCSetStoreAdminXPCClient_wrappedCompletion_retainingClient___bloc
 
   else if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __62__CCSetStoreAdminXPCClient_wrappedCompletion_retainingClient___block_invoke_cold_1(a2, a1, v5);
+    __62__CCSetStoreAdminXPCClient_wrappedCompletion_retainingClient___block_invoke_cold_1(v2, a1, v5);
   }
 
   result = *(a1 + 40);
@@ -128,35 +129,31 @@ uint64_t __62__CCSetStoreAdminXPCClient_wrappedCompletion_retainingClient___bloc
 
 void __62__CCSetStoreAdminXPCClient_wrappedCompletion_retainingClient___block_invoke_cold_1(unsigned __int16 a1, uint64_t a2, NSObject *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v5 = CCSetStoreAdminServiceResultDescription(a1);
   v6 = *(a2 + 32);
-  v8 = 138412546;
-  v9 = v5;
-  v10 = 2112;
-  v11 = v6;
-  _os_log_error_impl(&dword_1B6DB2000, a3, OS_LOG_TYPE_ERROR, "Failed to complete client activity (serviceResult: %@): %@", &v8, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
+  v7 = 138412546;
+  v8 = v5;
+  v9 = 2112;
+  v10 = v6;
+  _os_log_error_impl(&dword_1B6DB2000, a3, OS_LOG_TYPE_ERROR, "Failed to complete client activity (serviceResult: %@): %@", &v7, 0x16u);
 }
 
 void __62__CCSetStoreAdminXPCClient_wrappedCompletion_retainingClient___block_invoke_cold_2(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_debug_impl(&dword_1B6DB2000, a2, OS_LOG_TYPE_DEBUG, "Successfully completed client activity: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_debug_impl(&dword_1B6DB2000, a2, OS_LOG_TYPE_DEBUG, "Successfully completed client activity: %@", &v3, 0xCu);
 }
 
 - (void)shouldDeferCurrentActivity:(char)a1 .cold.1(char a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3[0] = 67109120;
-  v3[1] = a1 & 1;
-  _os_log_debug_impl(&dword_1B6DB2000, a2, OS_LOG_TYPE_DEBUG, "CCSetStoreAdminXPCClient shouldDeferBlock: %d", v3, 8u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v2[0] = 67109120;
+  v2[1] = a1 & 1;
+  _os_log_debug_impl(&dword_1B6DB2000, a2, OS_LOG_TYPE_DEBUG, "CCSetStoreAdminXPCClient shouldDeferBlock: %d", v2, 8u);
 }
 
 @end

@@ -227,7 +227,7 @@
     v14 = IMLogHandleForCategory();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      [CKTranscriptBlockedConversationCell(CKChatItem) configureForChatItem:context:animated:animationDuration:animationCurve:];
+      [CKTranscriptBlockedConversationCell(CKChatItem) configureForChatItem:itemCopy context:? animated:? animationDuration:? animationCurve:?];
     }
 
     v15 = MEMORY[0x1E696ABC0];

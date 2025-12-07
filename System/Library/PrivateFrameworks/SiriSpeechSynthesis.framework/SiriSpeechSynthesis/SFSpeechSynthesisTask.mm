@@ -8,6 +8,7 @@
 - (id)cancel;
 - (id)pause;
 - (id)resume;
+- (void)handleSynthesisBegin:(unsigned int)begin asbd:(AudioStreamBasicDescription *)asbd audioPlaybackBufferDuration:(double)duration voiceAsset:(id)asset resourceAsset:(id)resourceAsset;
 - (void)handleSynthesisChunks:(id)chunks;
 - (void)handleSynthesisEnd:(id)end;
 - (void)handleSynthesisEndCallback;
@@ -50,7 +51,7 @@
 
 - (void)setErrorIfNotNull:(id)null
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   nullCopy = null;
   error = [(SFSpeechSynthesisTask *)self error];
 
@@ -61,13 +62,11 @@
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       error2 = [(SFSpeechSynthesisTask *)self error];
-      v9 = 138412290;
-      v10 = error2;
-      _os_log_debug_impl(&dword_269079000, v6, OS_LOG_TYPE_DEBUG, "Set Error: %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = error2;
+      _os_log_debug_impl(&dword_269079000, v6, OS_LOG_TYPE_DEBUG, "Set Error: %@", &v8, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isSpeakRequest
@@ -113,7 +112,7 @@
 
 - (void)handleSynthesisEndCallback
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v3 = SFSSGetLogObject();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
@@ -128,13 +127,13 @@
   {
     v6 = +[SFSSAudioConverter sharedInstance];
     bufferedAudioData = [(SFSpeechSynthesisTask *)self bufferedAudioData];
-    [(SFSpeechSynthesisTask *)self asbd];
-    v25[0] = SFSSAudioFormat48khzPCM;
-    v25[1] = unk_26914CE38;
-    v26 = 16;
-    v27 = 0;
-    v8 = [v6 convertChunks:bufferedAudioData srcAsbd:buf dstAsbd:v25 outError:&v27];
-    v9 = v27;
+    objc_msgSend_asbd(self);
+    v24[0] = SFSSAudioFormat48khzPCM;
+    v24[1] = unk_26914CE38;
+    v25 = 16;
+    v26 = 0;
+    v8 = [v6 convertChunks:bufferedAudioData srcAsbd:buf dstAsbd:v24 outError:&v26];
+    v9 = v26;
 
     if (v9)
     {
@@ -156,8 +155,8 @@
 
     delegate2 = [(SFSpeechSynthesisTask *)self delegate];
     *buf = SFSSAudioFormat48khzPCM;
-    v29 = unk_26914CE38;
-    v30 = 16;
+    v28 = unk_26914CE38;
+    v29 = 16;
     [delegate2 speechSynthesisTask:self didFinishSysthesisAudio:buf audioData:v8];
   }
 
@@ -183,13 +182,11 @@
     phonemeSequence = [(SFSpeechSynthesisTask *)self phonemeSequence];
     [delegate6 speechSynthesisTask:self didFinishWithPhoneme:phonemeSequence];
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleSynthesisEnd:(id)end
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   endCopy = end;
   v5 = SFSSGetLogObject();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
@@ -222,7 +219,7 @@
       {
         taskIdentifer = [(SFSpeechSynthesisTask *)self taskIdentifer];
         *buf = 138412290;
-        v41 = taskIdentifer;
+        v40 = taskIdentifer;
         _os_log_impl(&dword_269079000, v11, OS_LOG_TYPE_INFO, "Cache Audio for task: %@", buf, 0xCu);
       }
 
@@ -235,7 +232,7 @@
       v17 = [voiceAsset key];
       resourceAsset = [(SFSpeechSynthesisTask *)self resourceAsset];
       v19 = [resourceAsset key];
-      [(SFSpeechSynthesisTask *)self asbd];
+      objc_msgSend_asbd(self);
       bufferedAudios = [(SFSpeechSynthesisTask *)self bufferedAudios];
       v21 = [bufferedAudios copy];
       v22 = v13;
@@ -275,12 +272,11 @@ LABEL_10:
     instrumentMetrics5 = [(SFSpeechSynthesisTask *)self instrumentMetrics];
     v36 = [instrumentMetrics5 description];
     *buf = 138412290;
-    v41 = v36;
+    v40 = v36;
     _os_log_impl(&dword_269079000, v34, OS_LOG_TYPE_INFO, "InstrumentMetrics: %@", buf, 0xCu);
   }
 
   [(SFSpeechSynthesisTask *)self handleSynthesisEndCallback];
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleSynthesisChunks:(id)chunks
@@ -290,7 +286,7 @@ LABEL_10:
   [bufferedAudios addObject:chunksCopy];
 
   v6 = [SFSSAudioData alloc];
-  [(SFSpeechSynthesisTask *)self asbd];
+  objc_msgSend_asbd(self);
   v7 = [(SFSSAudioData *)v6 initWithASBD:v20 rawData:chunksCopy];
 
   bufferedAudioData = [(SFSpeechSynthesisTask *)self bufferedAudioData];
@@ -320,6 +316,61 @@ LABEL_10:
   }
 }
 
+- (void)handleSynthesisBegin:(unsigned int)begin asbd:(AudioStreamBasicDescription *)asbd audioPlaybackBufferDuration:(double)duration voiceAsset:(id)asset resourceAsset:(id)resourceAsset
+{
+  v10 = *&begin;
+  v30 = *MEMORY[0x277D85DE8];
+  resourceAssetCopy = resourceAsset;
+  assetCopy = asset;
+  [(SFSpeechSynthesisTask *)self setAudioPlaybackBufferDuration:duration];
+  v14 = *&asbd->mBytesPerPacket;
+  *v28 = *&asbd->mSampleRate;
+  *&v28[16] = v14;
+  v29 = *&asbd->mBitsPerChannel;
+  [(SFSpeechSynthesisTask *)self setAsbd:v28];
+  [(SFSpeechSynthesisTask *)self setVoiceAsset:assetCopy];
+
+  [(SFSpeechSynthesisTask *)self setResourceAsset:resourceAssetCopy];
+  v15 = SFSSGetLogObject();
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+  {
+    voiceAsset = [(SFSpeechSynthesisTask *)self voiceAsset];
+    v17 = [voiceAsset key];
+    resourceAsset = [(SFSpeechSynthesisTask *)self resourceAsset];
+    v19 = [resourceAsset key];
+    *v28 = 138412546;
+    *&v28[4] = v17;
+    *&v28[12] = 2112;
+    *&v28[14] = v19;
+    _os_log_impl(&dword_269079000, v15, OS_LOG_TYPE_INFO, "handleSynthesisBegin: voiceKey=%@, resourceKey=%@", v28, 0x16u);
+  }
+
+  if ([(SFSpeechSynthesisTask *)self isSpeakRequest])
+  {
+    v20 = SFSSGetLogObject();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+    {
+      [(SFSpeechSynthesisTask *)self audioPlaybackBufferDuration];
+      *v28 = 134217984;
+      *&v28[4] = v21;
+      _os_log_impl(&dword_269079000, v20, OS_LOG_TYPE_INFO, "AudioPlaybackBufferDuration=%f", v28, 0xCu);
+    }
+
+    objc_msgSend_asbd(self);
+    [(SFSpeechSynthesisTask *)self initSpeak:v10 asbd:v28];
+  }
+
+  voiceAsset2 = [(SFSpeechSynthesisTask *)self voiceAsset];
+  v23 = [voiceAsset2 key];
+  instrumentMetrics = [(SFSpeechSynthesisTask *)self instrumentMetrics];
+  [instrumentMetrics setVoiceAssetKey:v23];
+
+  resourceAsset2 = [(SFSpeechSynthesisTask *)self resourceAsset];
+  v26 = [resourceAsset2 key];
+  instrumentMetrics2 = [(SFSpeechSynthesisTask *)self instrumentMetrics];
+  [instrumentMetrics2 setResourceAssetKey:v26];
+}
+
 - (void)handleSynthesisInit
 {
   v3 = SFSSGetLogObject();
@@ -338,14 +389,14 @@ LABEL_10:
 
 - (void)waitForSpeakFinish
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = SFSSGetLogObject();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     taskIdentifer = [(SFSpeechSynthesisTask *)self taskIdentifer];
-    v10 = 138412290;
-    v11 = taskIdentifer;
-    _os_log_impl(&dword_269079000, v3, OS_LOG_TYPE_INFO, "Wait for speak finish, taskId=%@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = taskIdentifer;
+    _os_log_impl(&dword_269079000, v3, OS_LOG_TYPE_INFO, "Wait for speak finish, taskId=%@", &v9, 0xCu);
   }
 
   playbackService = [(SFSpeechSynthesisTask *)self playbackService];
@@ -359,23 +410,21 @@ LABEL_10:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     taskIdentifer2 = [(SFSpeechSynthesisTask *)self taskIdentifer];
-    v10 = 138412290;
-    v11 = taskIdentifer2;
-    _os_log_impl(&dword_269079000, v7, OS_LOG_TYPE_INFO, "Speak finished, taskId=%@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = taskIdentifer2;
+    _os_log_impl(&dword_269079000, v7, OS_LOG_TYPE_INFO, "Speak finished, taskId=%@", &v9, 0xCu);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initSpeak:(unsigned int)speak asbd:(AudioStreamBasicDescription *)asbd
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v6 = [SFSSAudioPlaybackService alloc];
   v7 = *&asbd->mBytesPerPacket;
-  *v16 = *&asbd->mSampleRate;
-  *&v16[16] = v7;
-  v17 = *&asbd->mBitsPerChannel;
-  v8 = [(SFSSAudioPlaybackService *)v6 initWithAudioSessionID:0 asbd:v16];
+  *v15 = *&asbd->mSampleRate;
+  *&v15[16] = v7;
+  v16 = *&asbd->mBitsPerChannel;
+  v8 = [(SFSSAudioPlaybackService *)v6 initWithAudioSessionID:0 asbd:v15];
   [(SFSpeechSynthesisTask *)self setPlaybackService:v8];
 
   playbackService = [(SFSpeechSynthesisTask *)self playbackService];
@@ -388,14 +437,12 @@ LABEL_10:
   {
     taskIdentifer = [(SFSpeechSynthesisTask *)self taskIdentifer];
     error = [(SFSpeechSynthesisTask *)self error];
-    *v16 = 138412546;
-    *&v16[4] = taskIdentifer;
-    *&v16[12] = 2112;
-    *&v16[14] = error;
-    _os_log_impl(&dword_269079000, v12, OS_LOG_TYPE_INFO, "Init speak, taskId=%@, error=%@", v16, 0x16u);
+    *v15 = 138412546;
+    *&v15[4] = taskIdentifer;
+    *&v15[12] = 2112;
+    *&v15[14] = error;
+    _os_log_impl(&dword_269079000, v12, OS_LOG_TYPE_INFO, "Init speak, taskId=%@, error=%@", v15, 0x16u);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)start:(id)start
@@ -437,16 +484,16 @@ uint64_t __31__SFSpeechSynthesisTask_start___block_invoke(uint64_t a1, void *a2)
 
 - (void)startSpeakIfValid
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if ([(SFSpeechSynthesisTask *)self speakState]!= 1 && [(SFSpeechSynthesisTask *)self speakState]!= 2 && [(SFSpeechSynthesisTask *)self speakState]!= 3)
   {
     v3 = SFSSGetLogObject();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       taskIdentifer = [(SFSpeechSynthesisTask *)self taskIdentifer];
-      v10 = 138412290;
-      v11 = taskIdentifer;
-      _os_log_impl(&dword_269079000, v3, OS_LOG_TYPE_INFO, "Start speaking, taskId=%@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = taskIdentifer;
+      _os_log_impl(&dword_269079000, v3, OS_LOG_TYPE_INFO, "Start speaking, taskId=%@", &v9, 0xCu);
     }
 
     playbackService = [(SFSpeechSynthesisTask *)self playbackService];
@@ -458,13 +505,11 @@ uint64_t __31__SFSpeechSynthesisTask_start___block_invoke(uint64_t a1, void *a2)
     instrumentMetrics = [(SFSpeechSynthesisTask *)self instrumentMetrics];
     [instrumentMetrics setSpeakBeginTimestamp:v7];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)resume
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if ([(SFSpeechSynthesisTask *)self speakState]== 2)
   {
     [(SFSpeechSynthesisTask *)self setSpeakState:1];
@@ -473,7 +518,7 @@ uint64_t __31__SFSpeechSynthesisTask_start___block_invoke(uint64_t a1, void *a2)
     {
       taskIdentifer = [(SFSpeechSynthesisTask *)self taskIdentifer];
       *buf = 138412290;
-      v14 = taskIdentifer;
+      v13 = taskIdentifer;
       _os_log_impl(&dword_269079000, v3, OS_LOG_TYPE_INFO, "Resume speak, taskId=%@", buf, 0xCu);
     }
 
@@ -484,21 +529,19 @@ uint64_t __31__SFSpeechSynthesisTask_start___block_invoke(uint64_t a1, void *a2)
   else
   {
     v7 = MEMORY[0x277CCA9B8];
-    v11 = *MEMORY[0x277CCA450];
+    v10 = *MEMORY[0x277CCA450];
     playbackService = [MEMORY[0x277CCACA8] stringWithFormat:@"Speak task is in wrong state. speak state = %ld", -[SFSpeechSynthesisTask speakState](self, "speakState")];
-    v12 = playbackService;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
+    v11 = playbackService;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
     start = [v7 errorWithDomain:@"SFSpeechSynthesisTaskError" code:700 userInfo:v8];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return start;
 }
 
 - (id)pause
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if ([(SFSpeechSynthesisTask *)self speakState]== 1)
   {
     [(SFSpeechSynthesisTask *)self setSpeakState:2];
@@ -507,7 +550,7 @@ uint64_t __31__SFSpeechSynthesisTask_start___block_invoke(uint64_t a1, void *a2)
     {
       taskIdentifer = [(SFSpeechSynthesisTask *)self taskIdentifer];
       *buf = 138412290;
-      v14 = taskIdentifer;
+      v13 = taskIdentifer;
       _os_log_impl(&dword_269079000, v3, OS_LOG_TYPE_INFO, "Pause speak, taskId=%@", buf, 0xCu);
     }
 
@@ -519,30 +562,28 @@ uint64_t __31__SFSpeechSynthesisTask_start___block_invoke(uint64_t a1, void *a2)
   else
   {
     v7 = MEMORY[0x277CCA9B8];
-    v11 = *MEMORY[0x277CCA450];
+    v10 = *MEMORY[0x277CCA450];
     playbackService = [MEMORY[0x277CCACA8] stringWithFormat:@"Speak task is in wrong state. speak state = %ld", -[SFSpeechSynthesisTask speakState](self, "speakState")];
-    v12 = playbackService;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
+    v11 = playbackService;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
     v6 = [v7 errorWithDomain:@"SFSpeechSynthesisTaskError" code:700 userInfo:v8];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 - (id)cancel
 {
-  v29[1] = *MEMORY[0x277D85DE8];
+  v28[1] = *MEMORY[0x277D85DE8];
   if (![(SFSpeechSynthesisTask *)self isSpeakRequest]|| [(SFSpeechSynthesisTask *)self speakState]== 3 || [(SFSpeechSynthesisTask *)self speakState]== 4)
   {
     if ([(SFSpeechSynthesisTask *)self isSpeakRequest]|| [(SFSpeechSynthesisTask *)self synthesisState]== 4 || [(SFSpeechSynthesisTask *)self synthesisState]== 3)
     {
       v3 = MEMORY[0x277CCA9B8];
-      v22 = *MEMORY[0x277CCA450];
+      v21 = *MEMORY[0x277CCA450];
       v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"Speak/Synthesis task is in wrong state. speak state = %ld, synthesis state = %ld", -[SFSpeechSynthesisTask speakState](self, "speakState"), -[SFSpeechSynthesisTask synthesisState](self, "synthesisState")];
-      v23 = v4;
-      v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
+      v22 = v4;
+      v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
       v6 = [v3 errorWithDomain:@"SFSpeechSynthesisTaskError" code:700 userInfo:v5];
 
       goto LABEL_17;
@@ -550,10 +591,10 @@ uint64_t __31__SFSpeechSynthesisTask_start___block_invoke(uint64_t a1, void *a2)
 
     [(SFSpeechSynthesisTask *)self setSynthesisState:4];
     v14 = MEMORY[0x277CCA9B8];
-    v24 = *MEMORY[0x277CCA450];
+    v23 = *MEMORY[0x277CCA450];
     v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"Speak/Synthesis task is canceled. speak state = %ld, synthesis state = %ld", -[SFSpeechSynthesisTask speakState](self, "speakState"), -[SFSpeechSynthesisTask synthesisState](self, "synthesisState")];
-    v25 = v15;
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+    v24 = v15;
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
     v17 = [v14 errorWithDomain:@"SFSpeechSynthesisError" code:300 userInfo:v16];
     [(SFSpeechSynthesisTask *)self setErrorIfNotNull:v17];
 
@@ -562,7 +603,7 @@ uint64_t __31__SFSpeechSynthesisTask_start___block_invoke(uint64_t a1, void *a2)
     {
       taskIdentifer = [(SFSpeechSynthesisTask *)self taskIdentifer];
       *buf = 138412290;
-      v27 = taskIdentifer;
+      v26 = taskIdentifer;
       _os_log_impl(&dword_269079000, v18, OS_LOG_TYPE_INFO, "Cancel synthesis task, taskId=%@", buf, 0xCu);
     }
 
@@ -576,10 +617,10 @@ uint64_t __31__SFSpeechSynthesisTask_start___block_invoke(uint64_t a1, void *a2)
     {
       [(SFSpeechSynthesisTask *)self setSynthesisState:4];
       v7 = MEMORY[0x277CCA9B8];
-      v28 = *MEMORY[0x277CCA450];
+      v27 = *MEMORY[0x277CCA450];
       v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"Speak/Synthesis task is canceled. speak state = %ld, synthesis state = %ld", -[SFSpeechSynthesisTask speakState](self, "speakState"), -[SFSpeechSynthesisTask synthesisState](self, "synthesisState")];
-      v29[0] = v8;
-      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:&v28 count:1];
+      v28[0] = v8;
+      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:&v27 count:1];
       v10 = [v7 errorWithDomain:@"SFSpeechSynthesisError" code:300 userInfo:v9];
       [(SFSpeechSynthesisTask *)self setErrorIfNotNull:v10];
     }
@@ -589,7 +630,7 @@ uint64_t __31__SFSpeechSynthesisTask_start___block_invoke(uint64_t a1, void *a2)
     {
       taskIdentifer2 = [(SFSpeechSynthesisTask *)self taskIdentifer];
       *buf = 138412290;
-      v27 = taskIdentifer2;
+      v26 = taskIdentifer2;
       _os_log_impl(&dword_269079000, v11, OS_LOG_TYPE_INFO, "Cancel speak task, taskId=%@", buf, 0xCu);
     }
 
@@ -600,7 +641,6 @@ uint64_t __31__SFSpeechSynthesisTask_start___block_invoke(uint64_t a1, void *a2)
 
   v6 = 0;
 LABEL_17:
-  v20 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

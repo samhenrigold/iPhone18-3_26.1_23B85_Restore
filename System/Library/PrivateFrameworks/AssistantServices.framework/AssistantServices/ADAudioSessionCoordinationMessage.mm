@@ -87,7 +87,7 @@
   v5 = representationCopy;
   if (representationCopy)
   {
-    v6 = [representationCopy objectForKey:@"hostTime"];
+    v6 = objc_msgSend_objectForKey_(representationCopy);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -100,7 +100,7 @@
     }
 
     unsignedLongLongValue = [v7 unsignedLongLongValue];
-    v9 = [v5 objectForKey:@"type"];
+    v9 = objc_msgSend_objectForKey_(v5);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -112,7 +112,7 @@
           dispatch_once(&qword_1005902D8, &stru_100512E00);
         }
 
-        v11 = [qword_1005902E0 objectForKey:v10];
+        v11 = objc_msgSend_objectForKey_(qword_1005902E0);
         integerValue = [v11 integerValue];
       }
 
@@ -127,7 +127,7 @@
       integerValue = 0;
     }
 
-    v13 = [v5 objectForKey:@"payloadBeginAudioSessionRequest"];
+    v13 = objc_msgSend_objectForKey_(v5);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -139,7 +139,7 @@
       v14 = 0;
     }
 
-    v15 = [v5 objectForKey:@"payloadBeginAudioSessionResponse"];
+    v15 = objc_msgSend_objectForKey_(v5);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -151,7 +151,7 @@
       v16 = 0;
     }
 
-    v17 = [v5 objectForKey:@"payloadKeepAudioSessionAliveRequest"];
+    v17 = objc_msgSend_objectForKey_(v5);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -163,7 +163,7 @@
       v18 = 0;
     }
 
-    v19 = [v5 objectForKey:@"payloadKeepAudioSessionAliveResponse"];
+    v19 = objc_msgSend_objectForKey_(v5);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -175,7 +175,7 @@
       v20 = 0;
     }
 
-    v21 = [v5 objectForKey:@"payloadEndAudioSessionRequest"];
+    v21 = objc_msgSend_objectForKey_(v5);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -187,7 +187,7 @@
       v22 = 0;
     }
 
-    v23 = [v5 objectForKey:@"payloadEndAudioSessionResponse"];
+    v23 = objc_msgSend_objectForKey_(v5);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {

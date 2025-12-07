@@ -33,9 +33,9 @@
 {
   if (*(self + OBJC_IVAR____TtC4Siri30SystemAssistantPromptEntryView_requestSourceIsQuickTypeTamale) == 1)
   {
-    v5 = &type metadata for SiriUIFeaturesFlags;
-    v6 = sub_100017934();
-    v4[0] = 2;
+    v4[3] = &type metadata for SiriUIFeaturesFlags;
+    v4[4] = sub_100017934();
+    LOBYTE(v4[0]) = 2;
     v2 = isFeatureEnabled(_:)();
     sub_100006114(v4);
   }
@@ -252,7 +252,7 @@
 - (void)stopLatencyAnimationIfNeeded
 {
   selfCopy = self;
-  sub_1000C1E34();
+  sub_1000C1E34(selfCopy);
 }
 
 - (void)setKeyboardSuggestions:(id)suggestions

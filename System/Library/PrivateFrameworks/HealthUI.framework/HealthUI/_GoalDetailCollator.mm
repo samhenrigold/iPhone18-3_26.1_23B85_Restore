@@ -174,29 +174,29 @@ LABEL_12:
     v36 = [MEMORY[0x1E696AD98] numberWithDouble:v17];
     v28 = [controllerCopy localizedDisplayNameForUnit:_unit value:v36];
 
-    v47 = typeControllerCopy;
+    v48 = typeControllerCopy;
     if (!value)
     {
-      v37 = HKActiveEnergyIntegerNumberFormatter();
+      v38 = HKActiveEnergyIntegerNumberFormatter(v37);
       goto LABEL_16;
     }
 
 LABEL_14:
-    v37 = HKIntegerFormatter();
+    v38 = HKIntegerFormatter();
 LABEL_16:
-    v38 = v37;
-    v39 = [MEMORY[0x1E696AD98] numberWithDouble:v17];
-    v40 = [v38 stringFromNumber:v39];
+    v39 = v38;
+    v40 = [MEMORY[0x1E696AD98] numberWithDouble:v17];
+    v41 = [v39 stringFromNumber:v40];
 
-    v41 = [MEMORY[0x1E696AD98] numberWithDouble:v24];
-    v42 = [v38 stringFromNumber:v41];
+    v42 = [MEMORY[0x1E696AD98] numberWithDouble:v24];
+    v43 = [v39 stringFromNumber:v42];
 
-    v43 = MEMORY[0x1E696AEC0];
-    v44 = [MEMORY[0x1E696AAE8] bundleWithIdentifier:@"com.apple.HealthUI"];
-    v45 = [v44 localizedStringForKey:@"ACTIVITY_GOAL_IN_LEGEND %@ %@ %@" value:&stru_1F42FFBE0 table:@"HealthUI-Localizable"];
-    v12 = [v43 stringWithFormat:v45, v40, v42, v28];
+    v44 = MEMORY[0x1E696AEC0];
+    v45 = [MEMORY[0x1E696AAE8] bundleWithIdentifier:@"com.apple.HealthUI"];
+    v46 = [v45 localizedStringForKey:@"ACTIVITY_GOAL_IN_LEGEND %@ %@ %@" value:&stru_1F42FFBE0 table:@"HealthUI-Localizable"];
+    v12 = [v44 stringWithFormat:v46, v41, v43, v28];
 
-    typeControllerCopy = v47;
+    typeControllerCopy = v48;
     goto LABEL_17;
   }
 
@@ -228,7 +228,7 @@ LABEL_16:
 
     if (_unit)
     {
-      v47 = typeControllerCopy;
+      v48 = typeControllerCopy;
       v25 = MEMORY[0x1E696AEC0];
       v26 = [MEMORY[0x1E696AAE8] bundleWithIdentifier:@"com.apple.HealthUI"];
       v27 = [v26 localizedStringForKey:@"HOURS_MEDIUM" value:&stru_1F42FFBE0 table:@"HealthUI-Localizable"];

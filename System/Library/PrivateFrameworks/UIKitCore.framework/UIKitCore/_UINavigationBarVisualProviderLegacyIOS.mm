@@ -1825,7 +1825,7 @@ LABEL_97:
         if (!v440)
         {
           v146 = 0;
-          v398 = 0;
+          isEqualToString = 0;
           v147 = 0.0;
           v382 = 0.0;
           goto LABEL_137;
@@ -1886,7 +1886,7 @@ LABEL_108:
           [v418 imageSize];
           v143 = v141 + v139 + v142;
           [v79 minBackImageWidth];
-          v398 = 0;
+          isEqualToString = 0;
           v145 = fmax(v143, v141 + v139 + v144);
           v382 = v145;
         }
@@ -1897,7 +1897,7 @@ LABEL_108:
           title2 = [v418 title];
           _abbreviatedBackButtonTitles = [itemCopy _abbreviatedBackButtonTitles];
           lastObject = [_abbreviatedBackButtonTitles lastObject];
-          v398 = [title2 isEqualToString:lastObject];
+          isEqualToString = objc_msgSend_isEqualToString_(title2);
 
           if (title2)
           {
@@ -2019,7 +2019,7 @@ LABEL_137:
           v184 = totalSpaceForSpaceItems(v125, v125, v181);
         }
 
-        if (v398)
+        if (isEqualToString)
         {
           v184 = v184 + v184;
         }
@@ -2422,7 +2422,7 @@ LABEL_230:
               v258 = v250;
             }
 
-            if ((v253 == 0.0) | v255 & (v398 ^ 1) & 1)
+            if ((v253 == 0.0) | v255 & (isEqualToString ^ 1) & 1)
             {
               v259 = 0.0;
             }
@@ -2432,7 +2432,7 @@ LABEL_230:
               v259 = v258;
             }
 
-            if (((v398 ^ 1) & 1) == 0 && ![v443 count])
+            if (((isEqualToString ^ 1) & 1) == 0 && ![v443 count])
             {
               v259 = v259 + v259;
             }
@@ -2518,7 +2518,7 @@ LABEL_287:
               v275 = fmin(v391, fmax(v264 * 0.4, v382));
               v276 = fmin(v403, fmax(v264 - v275, v381));
               v277 = fmin(v403, v275 - v382 + v276);
-              if ((v276 >= v403 || (v221 & 1) == 0) | v398 & 1)
+              if ((v276 >= v403 || (v221 & 1) == 0) | isEqualToString & 1)
               {
                 v278 = v275;
               }
@@ -2528,7 +2528,7 @@ LABEL_287:
                 v278 = v382;
               }
 
-              if ((v276 >= v403 || (v221 & 1) == 0) | v398 & 1)
+              if ((v276 >= v403 || (v221 & 1) == 0) | isEqualToString & 1)
               {
                 v279 = v276;
               }
@@ -3517,7 +3517,7 @@ LABEL_8:
         dispatch_once(&qword_1ED49B2A0, &__block_literal_global_66);
       }
 
-      backIndicatorImage = _MergedGlobals_29_0;
+      backIndicatorImage = _MergedGlobals_29_0[0];
     }
   }
 
@@ -3559,11 +3559,11 @@ LABEL_8:
   if (_effectiveBackIndicatorImage || ([(UIImageView *)self->_backIndicatorView image], (backItem = objc_claimAutoreleasedReturnValue()) != 0))
   {
     image = [(UIImageView *)self->_backIndicatorView image];
-    v7 = [_effectiveBackIndicatorImage isEqual:image];
+    isEqual = objc_msgSend_isEqual_(_effectiveBackIndicatorImage);
 
     if (_effectiveBackIndicatorImage)
     {
-      if (v7)
+      if (isEqual)
       {
         goto LABEL_12;
       }
@@ -3590,7 +3590,7 @@ LABEL_8:
     else
     {
 
-      if (v7)
+      if (isEqual)
       {
         goto LABEL_12;
       }
@@ -3630,7 +3630,7 @@ LABEL_12:
       tintColor2 = 0;
     }
 
-    if (([tintColor isEqual:tintColor2] & 1) == 0)
+    if ((objc_msgSend_isEqual_(tintColor) & 1) == 0)
     {
       [(UIView *)self->_backIndicatorView setTintColor:tintColor2];
       [(UINavigationBar *)self->super._navigationBar setNeedsLayout];
@@ -3775,7 +3775,7 @@ LABEL_14:
   v160 = v31;
   v161 = v28;
   v159 = MinX;
-  if ((objc_opt_isKindOfClass() & 1) != 0 && [title2 isEqualToString:title] && (objc_msgSend(v38, "hasCustomBackgroundImage") & 1) == 0 && (objc_msgSend(assistantCopy, "shouldCrossfade") & 1) == 0)
+  if ((objc_opt_isKindOfClass() & 1) != 0 && objc_msgSend_isEqualToString_(title2) && ([v38 hasCustomBackgroundImage] & 1) == 0 && (objc_msgSend(assistantCopy, "shouldCrossfade") & 1) == 0)
   {
     [(_UINavigationBarVisualProviderLegacyIOS *)object _backTitleWidthOverTitleWidthForMatchingBackButtonView:v38 titleView:_titleView withBackButtonWidth:v176];
     v45 = v156;
@@ -4010,7 +4010,7 @@ LABEL_23:
     {
     }
 
-    else if ([v170 isEqualToString:rect_16])
+    else if (objc_msgSend_isEqualToString_(v170))
     {
 LABEL_49:
       v112 = v176 / v166;
@@ -4383,7 +4383,7 @@ LABEL_70:
   v174 = title;
   v158 = v30;
   v156 = v39;
-  if ((objc_opt_isKindOfClass() & 1) != 0 && [title2 isEqualToString:title] && (objc_msgSend(existingBackButtonView, "hasCustomBackgroundImage") & 1) == 0 && (objc_msgSend(assistantCopy, "shouldCrossfade") & 1) == 0)
+  if ((objc_opt_isKindOfClass() & 1) != 0 && objc_msgSend_isEqualToString_(title2) && ([existingBackButtonView hasCustomBackgroundImage] & 1) == 0 && (objc_msgSend(assistantCopy, "shouldCrossfade") & 1) == 0)
   {
     [existingBackButtonView bounds];
     v47 = selfCopy;
@@ -4546,7 +4546,7 @@ LABEL_47:
     {
     }
 
-    else if ([v173 isEqualToString:v174])
+    else if (objc_msgSend_isEqualToString_(v173))
     {
       goto LABEL_53;
     }
@@ -6658,7 +6658,7 @@ LABEL_13:
 
   else
   {
-    if ([0 isEqualToString:prompt])
+    if (objc_msgSend_isEqualToString_(0))
     {
       goto LABEL_26;
     }

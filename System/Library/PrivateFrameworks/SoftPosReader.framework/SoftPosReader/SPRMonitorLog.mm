@@ -2,12 +2,38 @@
 + (id)getEventString:(unsigned __int16)string;
 - (SPRMonitorLog)initWithAudit:(id)audit details:(id)details origin:(id)origin component:(id)component;
 - (SPRMonitorLog)initWithCoder:(id)coder;
+- (SPRMonitorLog)initWithEvent:(unsigned __int16)event details:(id)details origin:(id)origin component:(id)component;
 - (SPRMonitorLog)initWithIncident:(id)incident details:(id)details origin:(id)origin component:(id)component;
 - (id)description;
 - (void)encodeWithCoder:(id)coder;
 @end
 
 @implementation SPRMonitorLog
+
+- (SPRMonitorLog)initWithEvent:(unsigned __int16)event details:(id)details origin:(id)origin component:(id)component
+{
+  eventCopy = event;
+  detailsCopy = details;
+  originCopy = origin;
+  componentCopy = component;
+  v16 = objc_msgSend_getEventString_(SPRMonitorLog, v13, eventCopy, v14, v15);
+  event = self->_event;
+  self->_event = v16;
+
+  details = self->_details;
+  self->_details = detailsCopy;
+  v19 = detailsCopy;
+
+  origin = self->_origin;
+  self->_origin = originCopy;
+  v21 = originCopy;
+
+  component = self->_component;
+  self->_component = componentCopy;
+
+  self->_logType = 0;
+  return self;
+}
 
 - (SPRMonitorLog)initWithAudit:(id)audit details:(id)details origin:(id)origin component:(id)component
 {

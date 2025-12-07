@@ -13,7 +13,7 @@
     v5 = self->_channel;
     self->_channel = v4;
 
-    objc_msgSend_setOwningAudioUnit_(self->_channel, v6, self, v7, v8);
+    [(TTSAUMessagingAU *)self->_channel setOwningAudioUnit:self];
     channel = self->_channel;
   }
 

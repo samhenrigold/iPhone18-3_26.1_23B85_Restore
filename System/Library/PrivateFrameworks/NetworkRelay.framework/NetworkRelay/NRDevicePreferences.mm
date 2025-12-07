@@ -7,7 +7,6 @@
 - (NSSet)policyTrafficClassifiers;
 - (const)copyDetailsLocked;
 - (id)description;
-- (uint64_t)restartConnectionLocked;
 - (void)addPreferWiFiRequest;
 - (void)addQuickRelayRequest;
 - (void)cancel;
@@ -21,6 +20,7 @@
 - (void)removeQuickRelayRequest;
 - (void)removeQuickRelayRequestLocked:(uint64_t)locked;
 - (void)resetCompanionLinkPreferencesLocked;
+- (void)restartConnectionLocked;
 - (void)sendDevicePreferencesLocked;
 - (void)setBluetoothLinkPreferences:(id)preferences;
 - (void)setBluetoothLinkPreferencesLocked:(uint64_t)locked;
@@ -65,8 +65,8 @@
     if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_115, OS_LOG_TYPE_DEFAULT))
     {
       v7 = nrCopyLogObj_sNRLogObj_115;
-      v22 = _NRCopyPolicyTrafficClassifiersDescription(v5);
-      _NRLogWithArgs(v7, 0, "%s%.30s:%-4d %@ policy traffic classifiers already set to %@", v8, v9, v10, v11, v12, "");
+      v8 = _NRCopyPolicyTrafficClassifiersDescription(v5);
+      _NRLogWithArgs(v7, 0, "%s%.30s:%-4d %@ policy traffic classifiers already set to %@", ", "[NRDevicePreferences setPolicyTrafficClassifiers:]"", 468, self, v8);
     }
   }
 
@@ -79,22 +79,22 @@
 
     if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_115, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = nrCopyLogObj_sNRLogObj_115;
+      v9 = nrCopyLogObj_sNRLogObj_115;
       if (self)
       {
-        v14 = self->_internalPolicyTrafficClassifiers;
+        v10 = self->_internalPolicyTrafficClassifiers;
       }
 
       else
       {
-        v14 = 0;
+        v10 = 0;
       }
 
-      v15 = v14;
-      v16 = v13;
-      v23 = _NRCopyPolicyTrafficClassifiersDescription(v15);
-      v24 = _NRCopyPolicyTrafficClassifiersDescription(v5);
-      _NRLogWithArgs(v16, 0, "%s%.30s:%-4d %@ setting policy traffic classifiers from %@ to %@", v17, v18, v19, v20, v21, "");
+      v11 = v10;
+      v12 = v9;
+      v13 = _NRCopyPolicyTrafficClassifiersDescription(v11);
+      v14 = _NRCopyPolicyTrafficClassifiersDescription(v5);
+      _NRLogWithArgs(v12, 0, "%s%.30s:%-4d %@ setting policy traffic classifiers from %@ to %@", ", "[NRDevicePreferences setPolicyTrafficClassifiers:]"", 472, self, v13, v14);
     }
 
     if (self)
@@ -110,10 +110,14 @@
 - (void)sendDevicePreferencesLocked
 {
   location[2] = *MEMORY[0x277D85DE8];
-  if (!self || (os_unfair_lock_assert_owner((self + 16)), ([self isNRDTestServer] & 1) != 0))
+  if (!self)
   {
-LABEL_34:
-    v30 = *MEMORY[0x277D85DE8];
+    return;
+  }
+
+  os_unfair_lock_assert_owner((self + 16));
+  if ([self isNRDTestServer])
+  {
     return;
   }
 
@@ -125,9 +129,9 @@ LABEL_34:
     goto LABEL_7;
   }
 
-  v31 = *(self + 9);
+  v25 = *(self + 9);
 
-  if (v31)
+  if (v25)
   {
 LABEL_7:
     if (!*(self + 56))
@@ -144,17 +148,17 @@ LABEL_7:
 
       objc_initWeak(location, self);
       v6 = *(self + 56);
-      v79[0] = MEMORY[0x277D85DD0];
-      v79[1] = 3221225472;
-      v79[2] = __50__NRDevicePreferences_sendDevicePreferencesLocked__block_invoke;
-      v79[3] = &unk_27996B2D8;
-      objc_copyWeak(&v80, location);
-      xpc_connection_set_event_handler(v6, v79);
+      v57[0] = MEMORY[0x277D85DD0];
+      v57[1] = 3221225472;
+      v57[2] = __50__NRDevicePreferences_sendDevicePreferencesLocked__block_invoke;
+      v57[3] = &unk_27996B2D8;
+      objc_copyWeak(&v58, location);
+      xpc_connection_set_event_handler(v6, v57);
 
       v7 = *(self + 56);
       xpc_connection_activate(v7);
 
-      objc_destroyWeak(&v80);
+      objc_destroyWeak(&v58);
       objc_destroyWeak(location);
     }
 
@@ -166,53 +170,53 @@ LABEL_7:
 
     if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_115, OS_LOG_TYPE_DEFAULT))
     {
-      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_115, 0, "%s%.30s:%-4d %@ sending device preferences: %@", v8, v9, v10, v11, v12, "");
+      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_115, 0, "%s%.30s:%-4d %@ sending device preferences: %@", ", "[NRDevicePreferences sendDevicePreferencesLocked]"", 534, self, copyDetailsLocked);
     }
 
-    v14 = xpc_dictionary_create(0, 0, 0);
-    v15 = v14;
-    if (v14)
+    v9 = xpc_dictionary_create(0, 0, 0);
+    v10 = v9;
+    if (v9)
     {
-      xpc_dictionary_set_uint64(v14, "Type", 0xBuLL);
+      xpc_dictionary_set_uint64(v9, "Type", 0xBuLL);
       deviceIdentifier = [self deviceIdentifier];
       nrDeviceIdentifier = [deviceIdentifier nrDeviceIdentifier];
-      v18 = v15;
-      v19 = nrDeviceIdentifier;
-      v20 = v19;
-      if (v19)
+      v13 = v10;
+      v14 = nrDeviceIdentifier;
+      v15 = v14;
+      if (v14)
       {
         location[0] = 0;
         location[1] = 0;
-        [v19 getUUIDBytes:location];
-        xpc_dictionary_set_uuid(v18, "DeviceIdentifier", location);
+        [v14 getUUIDBytes:location];
+        xpc_dictionary_set_uuid(v13, "DeviceIdentifier", location);
         goto LABEL_19;
       }
 
-      v40 = nrCopyLogObj_117();
+      v29 = nrCopyLogObj_117();
       if (sNRCopyLogToStdErr == 1)
       {
       }
 
       else
       {
-        v52 = v40;
-        v53 = os_log_type_enabled(v40, OS_LOG_TYPE_FAULT);
+        v39 = v29;
+        v40 = os_log_type_enabled(v29, OS_LOG_TYPE_FAULT);
 
-        if (!v53)
+        if (!v40)
         {
           goto LABEL_19;
         }
       }
 
-      v54 = nrCopyLogObj_117();
-      _NRLogWithArgs(v54, 17, "%s called with null uuid", v55, v56, v57, v58, v59, "nr_xpc_dictionary_set_nsuuid");
+      v41 = nrCopyLogObj_117();
+      _NRLogWithArgs(v41, 17, "%s called with null uuid", "nr_xpc_dictionary_set_nsuuid");
 
 LABEL_19:
-      xpc_dictionary_set_BOOL(v18, "DevicePreferencesIsDeviceSetupInProgress", *(self + 8));
+      xpc_dictionary_set_BOOL(v13, "DevicePreferencesIsDeviceSetupInProgress", *(self + 8));
       if ([*(self + 64) isNotEmpty])
       {
         copyEncodedXPCDict = [*(self + 64) copyEncodedXPCDict];
-        xpc_dictionary_set_value(v18, "DevicePreferencesBTLinkPreferences", copyEncodedXPCDict);
+        xpc_dictionary_set_value(v13, "DevicePreferencesBTLinkPreferences", copyEncodedXPCDict);
       }
 
       if (![*(self + 80) count])
@@ -220,115 +224,115 @@ LABEL_19:
         goto LABEL_31;
       }
 
-      v22 = xpc_array_create(0, 0);
-      if (v22)
+      v17 = xpc_array_create(0, 0);
+      if (v17)
       {
-        v77 = 0u;
-        v78 = 0u;
-        v75 = 0u;
-        v76 = 0u;
-        v23 = *(self + 80);
-        v24 = [v23 countByEnumeratingWithState:&v75 objects:v81 count:16];
-        if (v24)
+        v55 = 0u;
+        v56 = 0u;
+        v53 = 0u;
+        v54 = 0u;
+        v18 = *(self + 80);
+        v19 = [v18 countByEnumeratingWithState:&v53 objects:v59 count:16];
+        if (v19)
         {
-          v25 = *v76;
+          v20 = *v54;
           do
           {
-            for (i = 0; i != v24; ++i)
+            for (i = 0; i != v19; ++i)
             {
-              if (*v76 != v25)
+              if (*v54 != v20)
               {
-                objc_enumerationMutation(v23);
+                objc_enumerationMutation(v18);
               }
 
-              xpc_array_set_string(v22, 0xFFFFFFFFFFFFFFFFLL, [*(*(&v75 + 1) + 8 * i) UTF8String]);
+              xpc_array_set_string(v17, 0xFFFFFFFFFFFFFFFFLL, [*(*(&v53 + 1) + 8 * i) UTF8String]);
             }
 
-            v24 = [v23 countByEnumeratingWithState:&v75 objects:v81 count:16];
+            v19 = [v18 countByEnumeratingWithState:&v53 objects:v59 count:16];
           }
 
-          while (v24);
+          while (v19);
         }
 
-        xpc_dictionary_set_value(v18, "DevicePreferencesPolicyTrafficClassifiers", v22);
+        xpc_dictionary_set_value(v13, "DevicePreferencesPolicyTrafficClassifiers", v17);
 LABEL_31:
         objc_initWeak(location, self);
-        v27 = *(self + 56);
+        v22 = *(self + 56);
         if (nrXPCCopyQueue_onceToken != -1)
         {
           dispatch_once(&nrXPCCopyQueue_onceToken, &__block_literal_global_2644);
         }
 
-        v28 = nrXPCCopyQueue_nrXPCQueue;
-        v72[0] = MEMORY[0x277D85DD0];
-        v72[1] = 3221225472;
-        v72[2] = __50__NRDevicePreferences_sendDevicePreferencesLocked__block_invoke_2;
-        v72[3] = &unk_27996AEF8;
-        objc_copyWeak(&v74, location);
-        v29 = copyDetailsLocked;
-        v73 = v29;
-        xpc_connection_send_message_with_reply(v27, v18, v28, v72);
+        v23 = nrXPCCopyQueue_nrXPCQueue;
+        v50[0] = MEMORY[0x277D85DD0];
+        v50[1] = 3221225472;
+        v50[2] = __50__NRDevicePreferences_sendDevicePreferencesLocked__block_invoke_2;
+        v50[3] = &unk_27996AEF8;
+        objc_copyWeak(&v52, location);
+        v24 = copyDetailsLocked;
+        v51 = v24;
+        xpc_connection_send_message_with_reply(v22, v13, v23, v50);
 
-        objc_destroyWeak(&v74);
+        objc_destroyWeak(&v52);
         objc_destroyWeak(location);
 
-        goto LABEL_34;
+        return;
       }
 
-      v41 = nrCopyLogObj_117();
+      v30 = nrCopyLogObj_117();
       if (sNRCopyLogToStdErr == 1)
       {
       }
 
       else
       {
-        v60 = v41;
-        v61 = os_log_type_enabled(v41, OS_LOG_TYPE_ERROR);
+        v42 = v30;
+        v43 = os_log_type_enabled(v30, OS_LOG_TYPE_ERROR);
 
-        if (!v61)
+        if (!v43)
         {
 LABEL_57:
-          _os_log_pack_size();
-          MEMORY[0x28223BE20]();
-          v68 = *__error();
-          v69 = _os_log_pack_fill();
-          __os_log_helper_1_2_3_8_34_8_0_4_0(v69, "nr_xpc_array_create");
+          v45 = _os_log_pack_size();
+          v36 = v50 - ((MEMORY[0x28223BE20](v45, v46) + 15) & 0xFFFFFFFFFFFFFFF0);
+          v47 = __error();
+          v48 = _os_log_pack_fill(v36, v45, *v47, &dword_25B98C000, "%{public}s xpc_array_create(%p, %u) failed");
+          __os_log_helper_1_2_3_8_34_8_0_4_0(v48, "nr_xpc_array_create");
 LABEL_58:
-          v70 = nrCopyLogObj_117();
-          _NRLogAbortWithPack(v70);
+          v49 = nrCopyLogObj_117();
+          _NRLogAbortWithPack(v49, v36);
         }
       }
 
-      v62 = nrCopyLogObj_117();
-      _NRLogWithArgs(v62, 16, "%s%.30s:%-4d ABORTING: xpc_array_create(%p, %u) failed", v63, v64, v65, v66, v67, "");
+      v44 = nrCopyLogObj_117();
+      _NRLogWithArgs(v44, 16, "%s%.30s:%-4d ABORTING: xpc_array_create(%p, %u) failed", ", "nr_xpc_array_create"", 56, 0, 0);
 
       goto LABEL_57;
     }
 
-    v39 = nrCopyLogObj_117();
+    v28 = nrCopyLogObj_117();
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v42 = v39;
-      v43 = os_log_type_enabled(v39, OS_LOG_TYPE_ERROR);
+      v31 = v28;
+      v32 = os_log_type_enabled(v28, OS_LOG_TYPE_ERROR);
 
-      if (!v43)
+      if (!v32)
       {
 LABEL_52:
-        _os_log_pack_size();
-        MEMORY[0x28223BE20]();
-        v50 = *__error();
-        v51 = _os_log_pack_fill();
-        __os_log_helper_1_2_4_8_34_8_0_8_0_4_0(v51, "nr_xpc_dictionary_create");
+        v34 = _os_log_pack_size();
+        v36 = v50 - ((MEMORY[0x28223BE20](v34, v35) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v37 = __error();
+        v38 = _os_log_pack_fill(v36, v34, *v37, &dword_25B98C000, "%{public}s xpc_dictionary_create(%p, %p, %u) failed");
+        __os_log_helper_1_2_4_8_34_8_0_8_0_4_0(v38, "nr_xpc_dictionary_create");
         goto LABEL_58;
       }
     }
 
-    v44 = nrCopyLogObj_117();
-    _NRLogWithArgs(v44, 16, "%s%.30s:%-4d ABORTING: xpc_dictionary_create(%p, %p, %u) failed", v45, v46, v47, v48, v49, "");
+    v33 = nrCopyLogObj_117();
+    _NRLogWithArgs(v33, 16, "%s%.30s:%-4d ABORTING: xpc_dictionary_create(%p, %p, %u) failed", ", "nr_xpc_dictionary_create"", 74, 0, 0, 0);
 
     goto LABEL_52;
   }
@@ -340,12 +344,10 @@ LABEL_52:
 
   if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_115, OS_LOG_TYPE_DEFAULT))
   {
-    v32 = nrCopyLogObj_sNRLogObj_115;
+    v26 = nrCopyLogObj_sNRLogObj_115;
     copyDetailsLocked2 = [(NRDevicePreferences *)self copyDetailsLocked];
-    _NRLogWithArgs(v32, 0, "%s%.30s:%-4d %@ cancelling connection because not needed %@", v33, v34, v35, v36, v37, "");
+    _NRLogWithArgs(v26, 0, "%s%.30s:%-4d %@ cancelling connection because not needed %@", ", "[NRDevicePreferences sendDevicePreferencesLocked]"", 496, self, copyDetailsLocked2);
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 
   [(NRDevicePreferences *)self cancelConnectionLocked];
 }
@@ -392,14 +394,14 @@ LABEL_52:
       v8 = _NRCopyPolicyTrafficClassifiersDescription(v7);
       v9 = [v3 initWithFormat:@"%llu preferWiFi, %@, %@", v4, v6, v8];
 
-      _NRLogWithArgs(v2, 0, "%s%.30s:%-4d %@ cancelling connection %@", v10, v11, v12, v13, v14, "");
+      _NRLogWithArgs(v2, 0, "%s%.30s:%-4d %@ cancelling connection %@", ", "[NRDevicePreferences cancelConnectionLocked]"", 141, self, v9);
     }
 
-    v15 = *(self + 56);
-    if (v15)
+    v10 = *(self + 56);
+    if (v10)
     {
-      xpc_connection_cancel(v15);
-      v16 = *(self + 56);
+      xpc_connection_cancel(v10);
+      v11 = *(self + 56);
       *(self + 56) = 0;
     }
   }
@@ -407,14 +409,14 @@ LABEL_52:
 
 void __50__NRDevicePreferences_sendDevicePreferencesLocked__block_invoke(uint64_t a1, void *a2)
 {
-  v14 = a2;
+  v4 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
-    if (MEMORY[0x25F8746E0](v14) == MEMORY[0x277D86480])
+    if (MEMORY[0x25F8746E0](v4) == MEMORY[0x277D86480])
     {
       os_unfair_lock_lock(WeakRetained + 4);
-      if (v14 == MEMORY[0x277D863F0])
+      if (v4 == MEMORY[0x277D863F0])
       {
         if (nrCopyLogObj_onceToken_113 != -1)
         {
@@ -423,7 +425,7 @@ void __50__NRDevicePreferences_sendDevicePreferencesLocked__block_invoke(uint64_
 
         if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_115, OS_LOG_TYPE_DEFAULT))
         {
-          _NRLogWithArgs(nrCopyLogObj_sNRLogObj_115, 0, "%s%.30s:%-4d %@ interrupted, resubmitting device preferences", v9, v10, v11, v12, v13, "");
+          _NRLogWithArgs(nrCopyLogObj_sNRLogObj_115, 0, "%s%.30s:%-4d %@ interrupted, resubmitting device preferences", ", "[NRDevicePreferences sendDevicePreferencesLocked]_block_invoke"", 514, WeakRetained);
         }
 
         [(NRDevicePreferences *)WeakRetained sendDevicePreferencesLocked];
@@ -431,7 +433,7 @@ void __50__NRDevicePreferences_sendDevicePreferencesLocked__block_invoke(uint64_
 
       else
       {
-        if (v14 == MEMORY[0x277D863F8])
+        if (v4 == MEMORY[0x277D863F8])
         {
           if (nrCopyLogObj_onceToken_113 != -1)
           {
@@ -440,7 +442,7 @@ void __50__NRDevicePreferences_sendDevicePreferencesLocked__block_invoke(uint64_
 
           if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_115, OS_LOG_TYPE_DEFAULT))
           {
-            _NRLogWithArgs(nrCopyLogObj_sNRLogObj_115, 0, "%s%.30s:%-4d %@ received XPC error invalid", v9, v10, v11, v12, v13, "");
+            _NRLogWithArgs(nrCopyLogObj_sNRLogObj_115, 0, "%s%.30s:%-4d %@ received XPC error invalid", ", "[NRDevicePreferences sendDevicePreferencesLocked]_block_invoke"", 518, WeakRetained);
           }
         }
 
@@ -453,7 +455,7 @@ void __50__NRDevicePreferences_sendDevicePreferencesLocked__block_invoke(uint64_
 
           if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_115, OS_LOG_TYPE_ERROR))
           {
-            _NRLogWithArgs(nrCopyLogObj_sNRLogObj_115, 16, "%s%.30s:%-4d %@ received unknown XPC error: %@", v9, v10, v11, v12, v13, "");
+            _NRLogWithArgs(nrCopyLogObj_sNRLogObj_115, 16, "%s%.30s:%-4d %@ received unknown XPC error: %@", ", "[NRDevicePreferences sendDevicePreferencesLocked]_block_invoke"", 521, WeakRetained, v4);
           }
         }
 
@@ -472,7 +474,7 @@ void __50__NRDevicePreferences_sendDevicePreferencesLocked__block_invoke(uint64_
 
       if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_115, OS_LOG_TYPE_ERROR))
       {
-        _NRLogWithArgs(nrCopyLogObj_sNRLogObj_115, 16, "%s%.30s:%-4d %@ received unexpected XPC message %@", v4, v5, v6, v7, v8, "");
+        _NRLogWithArgs(nrCopyLogObj_sNRLogObj_115, 16, "%s%.30s:%-4d %@ received unexpected XPC message %@", ", "[NRDevicePreferences sendDevicePreferencesLocked]_block_invoke"", 526, WeakRetained, v4);
       }
     }
   }
@@ -480,11 +482,11 @@ void __50__NRDevicePreferences_sendDevicePreferencesLocked__block_invoke(uint64_
 
 void __50__NRDevicePreferences_sendDevicePreferencesLocked__block_invoke_2(uint64_t a1, void *a2)
 {
-  v11 = a2;
+  v4 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
-    if (MEMORY[0x25F8746E0](v11) == MEMORY[0x277D86480])
+    if (MEMORY[0x25F8746E0](v4) == MEMORY[0x277D86480])
     {
       if (nrCopyLogObj_onceToken_113 != -1)
       {
@@ -493,8 +495,7 @@ void __50__NRDevicePreferences_sendDevicePreferencesLocked__block_invoke_2(uint6
 
       if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_115, OS_LOG_TYPE_ERROR))
       {
-        v10 = *(a1 + 32);
-        _NRLogWithArgs(nrCopyLogObj_sNRLogObj_115, 16, "%s%.30s:%-4d %@ failed to send device preferences: %@, error %@", v4, v5, v6, v7, v8, "");
+        _NRLogWithArgs(nrCopyLogObj_sNRLogObj_115, 16, "%s%.30s:%-4d %@ failed to send device preferences: %@, error %@", ", "[NRDevicePreferences sendDevicePreferencesLocked]_block_invoke_2"", 564, WeakRetained, *(a1 + 32), v4);
       }
     }
 
@@ -507,14 +508,13 @@ void __50__NRDevicePreferences_sendDevicePreferencesLocked__block_invoke_2(uint6
 
       if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_115, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = *(a1 + 32);
-        _NRLogWithArgs(nrCopyLogObj_sNRLogObj_115, 0, "%s%.30s:%-4d %@ sent device preferences: %@", v4, v5, v6, v7, v8, "");
+        _NRLogWithArgs(nrCopyLogObj_sNRLogObj_115, 0, "%s%.30s:%-4d %@ sent device preferences: %@", ", "[NRDevicePreferences sendDevicePreferencesLocked]_block_invoke_2"", 566, WeakRetained, *(a1 + 32));
       }
     }
   }
 }
 
-- (uint64_t)restartConnectionLocked
+- (void)restartConnectionLocked
 {
   os_unfair_lock_assert_owner((self + 16));
   if (nrCopyLogObj_onceToken_113 != -1)
@@ -534,12 +534,12 @@ void __50__NRDevicePreferences_sendDevicePreferencesLocked__block_invoke_2(uint6
     v8 = _NRCopyPolicyTrafficClassifiersDescription(v7);
     v9 = [v3 initWithFormat:@"%llu preferWiFi, %@, %@", v4, v6, v8];
 
-    _NRLogWithArgs(v2, 0, "%s%.30s:%-4d %@ restarting connection %@", v10, v11, v12, v13, v14, "");
+    _NRLogWithArgs(v2, 0, "%s%.30s:%-4d %@ restarting connection %@", ", "[NRDevicePreferences restartConnectionLocked]"", 151, self, v9);
   }
 
   [(NRDevicePreferences *)self cancelConnectionLocked];
 
-  return [(NRDevicePreferences *)self sendDevicePreferencesLocked];
+  [(NRDevicePreferences *)self sendDevicePreferencesLocked];
 }
 
 - (NSSet)policyTrafficClassifiers
@@ -584,11 +584,13 @@ LABEL_6:
       v9 = nrCopyLogObj_sNRLogObj_115;
       if (self)
       {
-        internalCompanionLinkPreferences = self->_internalCompanionLinkPreferences;
+        _NRLogWithArgs(nrCopyLogObj_sNRLogObj_115, 0, "%s%.30s:%-4d %@ setting link preferences from %@ to %@", ", "[NRDevicePreferences setCompanionLinkPreferences:]"", 365, self, self->_internalCompanionLinkPreferences, preferencesCopy);
       }
 
-      v11 = nrCopyLogObj_sNRLogObj_115;
-      _NRLogWithArgs(v11, 0, "%s%.30s:%-4d %@ setting link preferences from %@ to %@", v12, v13, v14, v15, v16, "");
+      else
+      {
+        _NRLogWithArgs(nrCopyLogObj_sNRLogObj_115, 0, "%s%.30s:%-4d %@ setting link preferences from %@ to %@", ", "[NRDevicePreferences setCompanionLinkPreferences:]"", 365, 0, 0, preferencesCopy);
+      }
     }
 
     [(NRDevicePreferences *)self resetCompanionLinkPreferencesLocked];
@@ -599,9 +601,9 @@ LABEL_6:
 
     if ([preferencesCopy serviceClass] == 2 || objc_msgSend(preferencesCopy, "serviceClass") == 3 || objc_msgSend(preferencesCopy, "serviceClass") == 4)
     {
-      v17 = objc_alloc_init(NRBluetoothLinkPreferences);
-      [(NRBluetoothLinkPreferences *)v17 setPacketsPerSecond:&unk_286D2CEA8];
-      [(NRDevicePreferences *)self setBluetoothLinkPreferencesLocked:v17];
+      v10 = objc_alloc_init(NRBluetoothLinkPreferences);
+      [(NRBluetoothLinkPreferences *)v10 setPacketsPerSecond:&unk_286D2CEA8];
+      [(NRDevicePreferences *)self setBluetoothLinkPreferencesLocked:v10];
       if (self)
       {
         self->_hasCmpnLnkPrefsForBT = 1;
@@ -610,30 +612,30 @@ LABEL_6:
 
     if ([preferencesCopy serviceClass] == 3)
     {
-      v18 = objc_alloc_init(MEMORY[0x277CD91F0]);
-      [v18 requireNetworkAgentWithDomain:@"com.apple.networkrelay" type:@"PhoneCallRelayAgent"];
-      copyCParameters = [v18 copyCParameters];
+      v11 = objc_alloc_init(MEMORY[0x277CD91F0]);
+      [v11 requireNetworkAgentWithDomain:@"com.apple.networkrelay" type:@"PhoneCallRelayAgent"];
+      copyCParameters = [v11 copyCParameters];
       evaluator_for_endpoint = nw_path_create_evaluator_for_endpoint();
 
-      v21 = nw_path_evaluator_copy_path();
-      v22 = nw_path_copy_netagent_dictionary();
-      v27 = 0;
-      v28 = &v27;
-      v29 = 0x2020000000;
-      v30 = 0;
-      if (v22)
+      v14 = nw_path_evaluator_copy_path();
+      v15 = nw_path_copy_netagent_dictionary();
+      v20 = 0;
+      v21 = &v20;
+      v22 = 0x2020000000;
+      v23 = 0;
+      if (v15)
       {
         applier[0] = MEMORY[0x277D85DD0];
         applier[1] = 3221225472;
         applier[2] = __51__NRDevicePreferences_setCompanionLinkPreferences___block_invoke;
         applier[3] = &unk_27996AEA0;
-        v26 = &v27;
-        v25 = v21;
-        xpc_dictionary_apply(v22, applier);
+        v19 = &v20;
+        v18 = v14;
+        xpc_dictionary_apply(v15, applier);
 
         if (self)
         {
-          if (v28[3])
+          if (v21[3])
           {
             self->_hasCmpnLnkPrefsForIsoch = 1;
             objc_storeStrong(&self->_cmpnLnkPrefsEvaluator, evaluator_for_endpoint);
@@ -641,7 +643,7 @@ LABEL_6:
         }
       }
 
-      _Block_object_dispose(&v27, 8);
+      _Block_object_dispose(&v20, 8);
     }
 
     if (![preferencesCopy highThroughput])
@@ -665,16 +667,16 @@ LABEL_34:
           goto LABEL_40;
         }
 
-        v23 = 10;
+        v16 = 10;
         goto LABEL_38;
       }
 
       NRPreferP2PImmediatelySet(1);
       if (self)
       {
-        v23 = 11;
+        v16 = 11;
 LABEL_38:
-        *(&self->super.isa + v23) = 1;
+        *(&self->super.isa + v16) = 1;
 LABEL_39:
         objc_storeStrong(&self->_internalCompanionLinkPreferences, preferences);
       }
@@ -685,7 +687,7 @@ LABEL_39:
       NRPreferWiFiSet(1);
       if (self)
       {
-        v23 = 12;
+        v16 = 12;
         goto LABEL_38;
       }
     }
@@ -710,9 +712,8 @@ LABEL_40:
 
       if (*(self + 14) == 1)
       {
-        v2 = *(self + 96);
         nw_path_evaluator_cancel();
-        v3 = *(self + 96);
+        v2 = *(self + 96);
         *(self + 96) = 0;
 
         *(self + 14) = 0;
@@ -736,7 +737,7 @@ LABEL_40:
         *(self + 12) = 0;
       }
 
-      v4 = *(self + 72);
+      v3 = *(self + 72);
       *(self + 72) = 0;
     }
   }
@@ -744,7 +745,7 @@ LABEL_40:
 
 - (void)setBluetoothLinkPreferencesLocked:(uint64_t)locked
 {
-  v17 = a2;
+  v6 = a2;
   if (locked)
   {
     os_unfair_lock_assert_owner((locked + 16));
@@ -758,9 +759,9 @@ LABEL_40:
 
       if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_115, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = *(locked + 64);
-        v10 = nrCopyLogObj_sNRLogObj_115;
-        _NRLogWithArgs(v10, 0, "%s%.30s:%-4d %@ setting Bluetooth link preferences from %@ to %@", v11, v12, v13, v14, v15, "");
+        v4 = *(locked + 64);
+        v5 = nrCopyLogObj_sNRLogObj_115;
+        _NRLogWithArgs(v5, 0, "%s%.30s:%-4d %@ setting Bluetooth link preferences from %@ to %@", ", "[NRDevicePreferences setBluetoothLinkPreferencesLocked:]"", 301, locked, v4, v6);
       }
 
       objc_storeStrong((locked + 64), a2);
@@ -776,7 +777,7 @@ LABEL_40:
 
       if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_115, OS_LOG_TYPE_FAULT))
       {
-        _NRLogWithArgs(nrCopyLogObj_sNRLogObj_115, 17, "Invalid bluetooth link preferences", v4, v5, v6, v7, v8, v16);
+        _NRLogWithArgs(nrCopyLogObj_sNRLogObj_115, 17, "Invalid bluetooth link preferences");
       }
     }
   }
@@ -792,10 +793,9 @@ uint64_t __51__NRDevicePreferences_setCompanionLinkPreferences___block_invoke(ui
     v6 = data;
     if (!strcmp(data + 16, "com.apple.networkrelay") && !strcmp(v6 + 48, "PhoneCallRelayAgent"))
     {
-      v7 = *(a1 + 32);
-      v8 = nw_path_assert_agent();
+      v7 = nw_path_assert_agent();
       result = 0;
-      *(*(*(a1 + 40) + 8) + 24) = v8;
+      *(*(*(a1 + 40) + 8) + 24) = v7;
     }
 
     else
@@ -886,8 +886,8 @@ uint64_t __51__NRDevicePreferences_setCompanionLinkPreferences___block_invoke(ui
   }
 
   os_unfair_lock_assert_owner((locked + 16));
-  v9 = *(locked + 40);
-  if (!v9)
+  v4 = *(locked + 40);
+  if (!v4)
   {
     return;
   }
@@ -902,8 +902,7 @@ uint64_t __51__NRDevicePreferences_setCompanionLinkPreferences___block_invoke(ui
 
     if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_115, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = *(locked + 40);
-      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_115, 0, "%s%.30s:%-4d %@ removing all quick relay requests (count is now %llu)", v4, v5, v6, v7, v8, "");
+      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_115, 0, "%s%.30s:%-4d %@ removing all quick relay requests (count is now %llu)", ", "[NRDevicePreferences removeQuickRelayRequestLocked:]"", 238, locked, *(locked + 40));
     }
 
     [*(locked + 48) removeAllQuickRelayRequests];
@@ -913,13 +912,13 @@ uint64_t __51__NRDevicePreferences_setCompanionLinkPreferences___block_invoke(ui
     }
 
 LABEL_17:
-    v10 = *(locked + 48);
+    v5 = *(locked + 48);
     *(locked + 48) = 0;
 
     return;
   }
 
-  *(locked + 40) = v9 - 1;
+  *(locked + 40) = v4 - 1;
   if (nrCopyLogObj_onceToken_113 != -1)
   {
     dispatch_once(&nrCopyLogObj_onceToken_113, &__block_literal_global_114);
@@ -927,8 +926,7 @@ LABEL_17:
 
   if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_115, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = *(locked + 40);
-    _NRLogWithArgs(nrCopyLogObj_sNRLogObj_115, 0, "%s%.30s:%-4d %@ removing quick relay request (count is now %llu)", v4, v5, v6, v7, v8, "");
+    _NRLogWithArgs(nrCopyLogObj_sNRLogObj_115, 0, "%s%.30s:%-4d %@ removing quick relay request (count is now %llu)", ", "[NRDevicePreferences removeQuickRelayRequestLocked:]"", 242, locked, *(locked + 40));
   }
 
   [*(locked + 48) removeQuickRelayRequest];
@@ -997,10 +995,10 @@ LABEL_17:
   if (self)
   {
     os_unfair_lock_assert_owner((self + 16));
-    v7 = *(self + 32);
-    if (v7)
+    v2 = *(self + 32);
+    if (v2)
     {
-      *(self + 32) = v7 - 1;
+      *(self + 32) = v2 - 1;
       if (nrCopyLogObj_onceToken_113 != -1)
       {
         dispatch_once(&nrCopyLogObj_onceToken_113, &__block_literal_global_114);
@@ -1008,8 +1006,7 @@ LABEL_17:
 
       if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_115, OS_LOG_TYPE_DEFAULT))
       {
-        v8 = *(self + 32);
-        _NRLogWithArgs(nrCopyLogObj_sNRLogObj_115, 0, "%s%.30s:%-4d %@ removing prefer Wi-Fi request (count is now %llu)", v2, v3, v4, v5, v6, "");
+        _NRLogWithArgs(nrCopyLogObj_sNRLogObj_115, 0, "%s%.30s:%-4d %@ removing prefer Wi-Fi request (count is now %llu)", ", "[NRDevicePreferences removePreferWiFiRequestLocked]"", 198, self, *(self + 32));
       }
 
       NRPreferWiFiSet(0);
@@ -1024,7 +1021,7 @@ LABEL_17:
 
       if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_115, OS_LOG_TYPE_ERROR))
       {
-        _NRLogWithArgs(nrCopyLogObj_sNRLogObj_115, 16, "%s%.30s:%-4d %@ not removing prefer Wi-Fi request because count is 0", v2, v3, v4, v5, v6, "");
+        _NRLogWithArgs(nrCopyLogObj_sNRLogObj_115, 16, "%s%.30s:%-4d %@ not removing prefer Wi-Fi request because count is 0", ", "[NRDevicePreferences removePreferWiFiRequestLocked]"", 201, self);
       }
     }
   }
@@ -1041,8 +1038,7 @@ LABEL_17:
 
   if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_115, OS_LOG_TYPE_DEFAULT))
   {
-    preferWiFiRequestCount = self->_preferWiFiRequestCount;
-    _NRLogWithArgs(nrCopyLogObj_sNRLogObj_115, 0, "%s%.30s:%-4d %@ adding prefer Wi-Fi request (count is now %llu)", v3, v4, v5, v6, v7, "");
+    _NRLogWithArgs(nrCopyLogObj_sNRLogObj_115, 0, "%s%.30s:%-4d %@ adding prefer Wi-Fi request (count is now %llu)", ", "[NRDevicePreferences addPreferWiFiRequest]"", 188, self, self->_preferWiFiRequestCount);
   }
 
   NRPreferWiFiSet(1);
@@ -1098,13 +1094,13 @@ LABEL_17:
 
   if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_115, OS_LOG_TYPE_DEFAULT))
   {
-    _NRLogWithArgs(nrCopyLogObj_sNRLogObj_115, 0, "%s%.30s:%-4d Dealloc: %@", v2, v3, v4, v5, v6, "");
+    _NRLogWithArgs(nrCopyLogObj_sNRLogObj_115, 0, "%s%.30s:%-4d Dealloc: %@", ", "[NRDevicePreferences dealloc]"", 119, self);
   }
 
   [(NRDevicePreferences *)self cancel];
-  v8.receiver = self;
-  v8.super_class = NRDevicePreferences;
-  [(NRDevicePreferences *)&v8 dealloc];
+  v3.receiver = self;
+  v3.super_class = NRDevicePreferences;
+  [(NRDevicePreferences *)&v3 dealloc];
 }
 
 - (void)cancel
@@ -1119,7 +1115,7 @@ LABEL_17:
   {
     v3 = nrCopyLogObj_sNRLogObj_115;
     copyDetailsLocked = [(NRDevicePreferences *)self copyDetailsLocked];
-    _NRLogWithArgs(v3, 0, "%s%.30s:%-4d Cancel: %@ %@", v4, v5, v6, v7, v8, "");
+    _NRLogWithArgs(v3, 0, "%s%.30s:%-4d Cancel: %@ %@", ", "[NRDevicePreferences cancel]"", 104, self, copyDetailsLocked);
   }
 
   while (self->_preferWiFiRequestCount)
@@ -1140,74 +1136,74 @@ LABEL_17:
 
 - (NRDevicePreferences)initWithDeviceIdentifier:(id)identifier
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   if (!identifierCopy)
   {
-    v16 = nrCopyLogObj_117();
+    v10 = nrCopyLogObj_117();
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v18 = v16;
-      v19 = os_log_type_enabled(v16, OS_LOG_TYPE_ERROR);
+      v12 = v10;
+      v13 = os_log_type_enabled(v10, OS_LOG_TYPE_ERROR);
 
-      if (!v19)
+      if (!v13)
       {
 LABEL_15:
-        _os_log_pack_size();
-        MEMORY[0x28223BE20]();
-        v26 = *__error();
-        v27 = _os_log_pack_fill();
-        *v27 = 136446466;
-        *(v27 + 4) = "[NRDevicePreferences initWithDeviceIdentifier:]";
-        *(v27 + 12) = 2080;
-        *(v27 + 14) = "[NRDevicePreferences initWithDeviceIdentifier:]";
+        v15 = _os_log_pack_size();
+        v17 = &v28 - ((MEMORY[0x28223BE20](v15, v16) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v18 = __error();
+        v19 = _os_log_pack_fill(v17, v15, *v18, &dword_25B98C000, "%{public}s BUG IN CLIENT OF NetworkRelay: %s called with NULL deviceIdentifier");
+        *v19 = 136446466;
+        *(v19 + 4) = "[NRDevicePreferences initWithDeviceIdentifier:]";
+        *(v19 + 12) = 2080;
+        *(v19 + 14) = "[NRDevicePreferences initWithDeviceIdentifier:]";
         goto LABEL_19;
       }
     }
 
-    v20 = nrCopyLogObj_117();
-    _NRLogWithArgs(v20, 16, "%s%.30s:%-4d ABORTING: BUG IN CLIENT OF NetworkRelay: %s called with NULL deviceIdentifier", v21, v22, v23, v24, v25, "");
+    v14 = nrCopyLogObj_117();
+    _NRLogWithArgs(v14, 16, "%s%.30s:%-4d ABORTING: BUG IN CLIENT OF NetworkRelay: %s called with NULL deviceIdentifier", ", "[NRDevicePreferences initWithDeviceIdentifier:]", 89, "[NRDevicePreferences initWithDeviceIdentifier:]"");
 
     goto LABEL_15;
   }
 
   v6 = identifierCopy;
-  v39.receiver = self;
-  v39.super_class = NRDevicePreferences;
-  v7 = [(NRDevicePreferences *)&v39 init];
+  v29.receiver = self;
+  v29.super_class = NRDevicePreferences;
+  v7 = [(NRDevicePreferences *)&v29 init];
   if (!v7)
   {
-    v17 = nrCopyLogObj_117();
+    v11 = nrCopyLogObj_117();
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v28 = v17;
-      v29 = os_log_type_enabled(v17, OS_LOG_TYPE_ERROR);
+      v20 = v11;
+      v21 = os_log_type_enabled(v11, OS_LOG_TYPE_ERROR);
 
-      if (!v29)
+      if (!v21)
       {
 LABEL_18:
-        _os_log_pack_size();
-        MEMORY[0x28223BE20]();
-        v36 = *__error();
-        v37 = _os_log_pack_fill();
-        *v37 = 136446210;
-        *(v37 + 4) = "[NRDevicePreferences initWithDeviceIdentifier:]";
+        v23 = _os_log_pack_size();
+        v17 = &v28 - ((MEMORY[0x28223BE20](v23, v24) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v25 = __error();
+        v26 = _os_log_pack_fill(v17, v23, *v25, &dword_25B98C000, "%{public}s [super init] failed");
+        *v26 = 136446210;
+        *(v26 + 4) = "[NRDevicePreferences initWithDeviceIdentifier:]";
 LABEL_19:
-        v38 = nrCopyLogObj_117();
-        _NRLogAbortWithPack(v38);
+        v27 = nrCopyLogObj_117();
+        _NRLogAbortWithPack(v27, v17);
       }
     }
 
-    v30 = nrCopyLogObj_117();
-    _NRLogWithArgs(v30, 16, "%s%.30s:%-4d ABORTING: [super init] failed", v31, v32, v33, v34, v35, "");
+    v22 = nrCopyLogObj_117();
+    _NRLogWithArgs(v22, 16, "%s%.30s:%-4d ABORTING: [super init] failed", ", "[NRDevicePreferences initWithDeviceIdentifier:]"", 90);
 
     goto LABEL_18;
   }
@@ -1223,10 +1219,9 @@ LABEL_19:
 
   if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_115, OS_LOG_TYPE_DEFAULT))
   {
-    _NRLogWithArgs(nrCopyLogObj_sNRLogObj_115, 0, "%s%.30s:%-4d Init: %@", v9, v10, v11, v12, v13, "");
+    _NRLogWithArgs(nrCopyLogObj_sNRLogObj_115, 0, "%s%.30s:%-4d Init: %@", ", "[NRDevicePreferences initWithDeviceIdentifier:]"", 97, v8);
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

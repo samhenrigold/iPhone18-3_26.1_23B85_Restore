@@ -15,7 +15,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_A900();
+  sub_A900(selfCopy);
 }
 
 - (CGSize)systemLayoutSizeFittingSize:(CGSize)size withHorizontalFittingPriority:(float)priority verticalFittingPriority:(float)fittingPriority

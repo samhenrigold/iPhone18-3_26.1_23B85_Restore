@@ -1,5 +1,7 @@
 @interface HMBoundedIntegerSetting
 - (BOOL)isEqual:(id)equal;
+- (HMBoundedIntegerSetting)initWithKeyPath:(id)path readOnly:(BOOL)only integerValue:(int64_t)value maxValue:(int64_t)maxValue minValue:(int64_t)minValue valueStepSize:(int64_t)size;
+- (HMBoundedIntegerSetting)initWithKeyPath:(id)path readOnly:(BOOL)only payload:(id)payload;
 - (HMBoundedIntegerSetting)initWithProtoPayload:(id)payload;
 - (HMBoundedIntegerSetting)settingWithSettingValue:(id)value;
 - (id)attributeDescriptions;
@@ -49,61 +51,109 @@
 
 - (id)attributeDescriptions
 {
-  v21[4] = *MEMORY[0x1E69E9840];
-  v20.receiver = self;
-  v20.super_class = HMBoundedIntegerSetting;
-  attributeDescriptions = [(HMImmutableSetting *)&v20 attributeDescriptions];
+  v20[4] = *MEMORY[0x1E69E9840];
+  v19.receiver = self;
+  v19.super_class = HMBoundedIntegerSetting;
+  attributeDescriptions = [(HMImmutableSetting *)&v19 attributeDescriptions];
   v3 = objc_alloc(MEMORY[0x1E69A29C8]);
-  v19 = [MEMORY[0x1E696AD98] numberWithInteger:{-[HMBoundedIntegerSetting integerValue](self, "integerValue")}];
-  v4 = [v3 initWithName:@"integerValue" value:v19];
-  v21[0] = v4;
+  v18 = [MEMORY[0x1E696AD98] numberWithInteger:{-[HMBoundedIntegerSetting integerValue](self, "integerValue")}];
+  v4 = [v3 initWithName:@"integerValue" value:v18];
+  v20[0] = v4;
   v5 = objc_alloc(MEMORY[0x1E69A29C8]);
   v6 = [MEMORY[0x1E696AD98] numberWithInteger:{-[HMBoundedIntegerSetting maxValue](self, "maxValue")}];
   v7 = [v5 initWithName:@"maxValue" value:v6];
-  v21[1] = v7;
+  v20[1] = v7;
   v8 = objc_alloc(MEMORY[0x1E69A29C8]);
   v9 = [MEMORY[0x1E696AD98] numberWithInteger:{-[HMBoundedIntegerSetting minValue](self, "minValue")}];
   v10 = [v8 initWithName:@"minValue" value:v9];
-  v21[2] = v10;
+  v20[2] = v10;
   v11 = objc_alloc(MEMORY[0x1E69A29C8]);
   v12 = [MEMORY[0x1E696AD98] numberWithInteger:{-[HMBoundedIntegerSetting valueStepSize](self, "valueStepSize")}];
   v13 = [v11 initWithName:@"valueStepSize" value:v12];
-  v21[3] = v13;
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:4];
+  v20[3] = v13;
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:4];
   v15 = [attributeDescriptions arrayByAddingObjectsFromArray:v14];
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
 
+- (HMBoundedIntegerSetting)initWithKeyPath:(id)path readOnly:(BOOL)only payload:(id)payload
+{
+  onlyCopy = only;
+  v34 = *MEMORY[0x1E69E9840];
+  pathCopy = path;
+  payloadCopy = payload;
+  v27 = 0;
+  v10 = [payloadCopy hmf_integerForKey:@"HMImmutableSettingValuePayloadKey" error:&v27];
+  v11 = v27;
+  v26 = v11;
+  v12 = [payloadCopy hmf_integerForKey:@"HMBoundedIntegerSettingMaxValuePayloadKey" error:&v26];
+  v13 = v26;
+
+  v25 = v13;
+  v14 = [payloadCopy hmf_integerForKey:@"HMBoundedIntegerSettingMinValuePayloadKey" error:&v25];
+  v15 = v25;
+
+  v24 = v15;
+  v16 = [payloadCopy hmf_integerForKey:@"HMBoundedIntegerSettingValueStepSizePayloadKey" error:&v24];
+  v17 = v24;
+
+  if (v17)
+  {
+    v18 = objc_autoreleasePoolPush();
+    selfCopy = self;
+    v20 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    {
+      v21 = HMFGetLogIdentifier();
+      *buf = 138543874;
+      v29 = v21;
+      v30 = 2112;
+      v31 = payloadCopy;
+      v32 = 2112;
+      v33 = v17;
+      _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode bounded integer setting due to invalid payload: %@ error: %@", buf, 0x20u);
+    }
+
+    objc_autoreleasePoolPop(v18);
+    v22 = 0;
+  }
+
+  else
+  {
+    selfCopy = [(HMBoundedIntegerSetting *)self initWithKeyPath:pathCopy readOnly:onlyCopy integerValue:v10 maxValue:v12 minValue:v14 valueStepSize:v16];
+    v22 = selfCopy;
+  }
+
+  return v22;
+}
+
 - (id)payloadCopy
 {
-  v15[5] = *MEMORY[0x1E69E9840];
-  v13.receiver = self;
-  v13.super_class = HMBoundedIntegerSetting;
-  payloadCopy = [(HMImmutableSetting *)&v13 payloadCopy];
+  v14[5] = *MEMORY[0x1E69E9840];
+  v12.receiver = self;
+  v12.super_class = HMBoundedIntegerSetting;
+  payloadCopy = [(HMImmutableSetting *)&v12 payloadCopy];
   v4 = [payloadCopy mutableCopy];
 
-  v15[0] = &unk_1F0EFCBC0;
-  v14[0] = @"HMImmutableSettingTypePayloadKey";
-  v14[1] = @"HMImmutableSettingValuePayloadKey";
+  v14[0] = &unk_1F0EFCBC0;
+  v13[0] = @"HMImmutableSettingTypePayloadKey";
+  v13[1] = @"HMImmutableSettingValuePayloadKey";
   v5 = [MEMORY[0x1E696AD98] numberWithInteger:{-[HMBoundedIntegerSetting integerValue](self, "integerValue")}];
-  v15[1] = v5;
-  v14[2] = @"HMBoundedIntegerSettingMaxValuePayloadKey";
+  v14[1] = v5;
+  v13[2] = @"HMBoundedIntegerSettingMaxValuePayloadKey";
   v6 = [MEMORY[0x1E696AD98] numberWithInteger:{-[HMBoundedIntegerSetting maxValue](self, "maxValue")}];
-  v15[2] = v6;
-  v14[3] = @"HMBoundedIntegerSettingMinValuePayloadKey";
+  v14[2] = v6;
+  v13[3] = @"HMBoundedIntegerSettingMinValuePayloadKey";
   v7 = [MEMORY[0x1E696AD98] numberWithInteger:{-[HMBoundedIntegerSetting minValue](self, "minValue")}];
-  v15[3] = v7;
-  v14[4] = @"HMBoundedIntegerSettingValueStepSizePayloadKey";
+  v14[3] = v7;
+  v13[4] = @"HMBoundedIntegerSettingValueStepSizePayloadKey";
   v8 = [MEMORY[0x1E696AD98] numberWithInteger:{-[HMBoundedIntegerSetting valueStepSize](self, "valueStepSize")}];
-  v15[4] = v8;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:5];
+  v14[4] = v8;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:5];
   [v4 addEntriesFromDictionary:v9];
 
   v10 = [v4 copy];
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -142,7 +192,7 @@
 
 - (HMBoundedIntegerSetting)initWithProtoPayload:(id)payload
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   payloadCopy = payload;
   if (([payloadCopy hasKeyPath] & 1) == 0)
   {
@@ -156,9 +206,9 @@
 
     v23 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v30 = v23;
-    v31 = 2112;
-    v32 = payloadCopy;
+    v29 = v23;
+    v30 = 2112;
+    v31 = payloadCopy;
     v24 = "%{public}@Failed to decode setting missing keyPath: %@";
 LABEL_17:
     _os_log_impl(&dword_19BB39000, v22, OS_LOG_TYPE_ERROR, v24, buf, 0x16u);
@@ -178,9 +228,9 @@ LABEL_17:
 
     v23 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v30 = v23;
-    v31 = 2112;
-    v32 = payloadCopy;
+    v29 = v23;
+    v30 = 2112;
+    v31 = payloadCopy;
     v24 = "%{public}@Failed to decode setting missing readOnly: %@";
     goto LABEL_17;
   }
@@ -209,9 +259,9 @@ LABEL_15:
     {
       v23 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v30 = v23;
-      v31 = 2112;
-      v32 = payloadCopy;
+      v29 = v23;
+      v30 = 2112;
+      v31 = payloadCopy;
       v24 = "%{public}@Failed to decode setting missing integer setting required attributes: %@";
       goto LABEL_17;
     }
@@ -246,9 +296,9 @@ LABEL_18:
 
     v23 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v30 = v23;
-    v31 = 2112;
-    v32 = payloadCopy;
+    v29 = v23;
+    v30 = 2112;
+    v31 = payloadCopy;
     v24 = "%{public}@Failed to decode setting missing integer value: %@";
     goto LABEL_17;
   }
@@ -268,7 +318,6 @@ LABEL_18:
   v20 = selfCopy4;
 LABEL_19:
 
-  v25 = *MEMORY[0x1E69E9840];
   return v20;
 }
 
@@ -307,6 +356,22 @@ LABEL_19:
   }
 
   return v9;
+}
+
+- (HMBoundedIntegerSetting)initWithKeyPath:(id)path readOnly:(BOOL)only integerValue:(int64_t)value maxValue:(int64_t)maxValue minValue:(int64_t)minValue valueStepSize:(int64_t)size
+{
+  v13.receiver = self;
+  v13.super_class = HMBoundedIntegerSetting;
+  result = [(HMImmutableSetting *)&v13 initWithKeyPath:path readOnly:only];
+  if (result)
+  {
+    result->_integerValue = value;
+    result->_maxValue = maxValue;
+    result->_minValue = minValue;
+    result->_valueStepSize = size;
+  }
+
+  return result;
 }
 
 @end

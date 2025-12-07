@@ -34,7 +34,7 @@
     metaDataStore = self->_metaDataStore;
     if (containsAnyItems)
     {
-      v44 = a2;
+      v42 = a2;
       dataSource2 = [(PXZoomableInlineHeaderSectionInfoMetaDataStore *)metaDataStore dataSource];
       changeHistory = [(PXAssetsDataSourceManager *)self->_assetsDataSourceManager changeHistory];
       identifier = [dataSource2 identifier];
@@ -43,60 +43,51 @@
       v13 = dataSource2;
       v14 = [changeHistory changeDetailsFromDataSourceIdentifier:v12 toDataSourceIdentifier:identifier2];
 
-      v47 = [(PXZoomableInlineHeaderSectionInfoMetaDataStore *)self->_metaDataStore updateWithDataSourceAfterChanges:v5 changeDetails:v14];
-      v54 = 0;
+      v45 = [(PXZoomableInlineHeaderSectionInfoMetaDataStore *)self->_metaDataStore updateWithDataSourceAfterChanges:v5 changeDetails:v14];
+      v50 = 0;
       p_sectionIndexPath = &self->_sectionIndexPath;
       section = self->_sectionIndexPath.section;
       identifier3 = [v13 identifier];
       v17 = MEMORY[0x277D3CF78];
-      v48 = v14;
-      v46 = v13;
+      v46 = v14;
+      v44 = v13;
       if (identifier3 == self->_sectionIndexPath.dataSourceIdentifier)
       {
         v18 = identifier3;
         v19 = MEMORY[0x277D3CF78];
         v20 = self->_sectionIndexPath.section;
-        v21 = *&self->_sectionIndexPath.item;
-        v49 = *&p_sectionIndexPath->dataSourceIdentifier;
-        v50 = v21;
-        [MEMORY[0x277D3CDD0] indexPathAfterApplyingChanges:v14 toIndexPath:&v49 hasIncrementalChanges:&v54 objectChanged:0];
-        v22 = v52;
-        *&p_sectionIndexPath->dataSourceIdentifier = v51;
-        *&self->_sectionIndexPath.item = v22;
+        objc_msgSend_indexPathAfterApplyingChanges_toIndexPath_hasIncrementalChanges_objectChanged_(MEMORY[0x277D3CDD0]);
+        v21 = v48;
+        *&p_sectionIndexPath->dataSourceIdentifier = v47;
+        *&self->_sectionIndexPath.item = v21;
       }
 
       else
       {
         changeHistory2 = [(PXAssetsDataSourceManager *)self->_assetsDataSourceManager changeHistory];
-        v24 = [changeHistory2 changeDetailsFromDataSourceIdentifier:p_sectionIndexPath->dataSourceIdentifier toDataSourceIdentifier:{objc_msgSend(v13, "identifier")}];
+        v23 = [changeHistory2 changeDetailsFromDataSourceIdentifier:p_sectionIndexPath->dataSourceIdentifier toDataSourceIdentifier:{objc_msgSend(v13, "identifier")}];
 
-        v25 = *&self->_sectionIndexPath.item;
-        v49 = *&p_sectionIndexPath->dataSourceIdentifier;
-        v50 = v25;
-        [MEMORY[0x277D3CDD0] indexPathAfterRevertingChanges:v24 fromIndexPath:&v49 hasIncrementalChanges:&v54 objectChanged:0];
-        v20 = v51.i64[1];
-        v18 = v51.i64[0];
-        v53 = v52;
+        objc_msgSend_indexPathAfterRevertingChanges_fromIndexPath_hasIncrementalChanges_objectChanged_(MEMORY[0x277D3CDD0]);
+        v20 = v47.i64[1];
+        v18 = v47.i64[0];
+        v49 = v48;
         v19 = v17;
         if (p_sectionIndexPath->dataSourceIdentifier == *v17)
         {
           currentHandler = [MEMORY[0x277CCA890] currentHandler];
-          [currentHandler handleFailureInMethod:v44 object:self file:@"PXZoomableInlineHeadersDataSourceManager.m" lineNumber:119 description:@"IndexPath after applying changes is null"];
+          [currentHandler handleFailureInMethod:v42 object:self file:@"PXZoomableInlineHeadersDataSourceManager.m" lineNumber:119 description:@"IndexPath after applying changes is null"];
         }
 
-        if (v54 == 1)
+        if (v50 == 1)
         {
-          *&v49 = v18;
-          *(&v49 + 1) = v20;
-          v50 = v53;
-          [MEMORY[0x277D3CDD0] indexPathAfterApplyingChanges:v14 toIndexPath:&v49 hasIncrementalChanges:&v54 objectChanged:0];
-          v26 = v52;
-          *&p_sectionIndexPath->dataSourceIdentifier = v51;
-          *&self->_sectionIndexPath.item = v26;
+          objc_msgSend_indexPathAfterApplyingChanges_toIndexPath_hasIncrementalChanges_objectChanged_(MEMORY[0x277D3CDD0]);
+          v24 = v48;
+          *&p_sectionIndexPath->dataSourceIdentifier = v47;
+          *&self->_sectionIndexPath.item = v24;
         }
       }
 
-      if (v54 == 1)
+      if (v50 == 1)
       {
         dataSourceIdentifier = p_sectionIndexPath->dataSourceIdentifier;
       }
@@ -106,54 +97,54 @@
         dataSourceIdentifier = [v5 identifier];
         p_sectionIndexPath->dataSourceIdentifier = dataSourceIdentifier;
         self->_sectionIndexPath.section = section;
-        v28.f64[0] = NAN;
-        v28.f64[1] = NAN;
-        *&self->_sectionIndexPath.item = vnegq_f64(v28);
+        v26.f64[0] = NAN;
+        v26.f64[1] = NAN;
+        *&self->_sectionIndexPath.item = vnegq_f64(v26);
       }
 
-      v29 = *v19;
+      v27 = *v19;
       if (dataSourceIdentifier == *v19)
       {
         currentHandler2 = [MEMORY[0x277CCA890] currentHandler];
-        [currentHandler2 handleFailureInMethod:v44 object:self file:@"PXZoomableInlineHeadersDataSourceManager.m" lineNumber:130 description:@"current IndexPath is null"];
+        [currentHandler2 handleFailureInMethod:v42 object:self file:@"PXZoomableInlineHeadersDataSourceManager.m" lineNumber:130 description:@"current IndexPath is null"];
       }
 
-      if (v18 == v29)
+      if (v18 == v27)
       {
         v20 = self->_sectionIndexPath.section;
       }
 
-      fetchResultInfoProvider = [v46 fetchResultInfoProvider];
-      v51.i64[0] = [v46 identifier];
-      v51.i64[1] = v20;
-      v31.f64[0] = NAN;
-      v31.f64[1] = NAN;
-      v52 = vnegq_f64(v31);
-      v32 = [fetchResultInfoProvider sortDescriptorsForFetchResultAtSectionIndexPath:&v51];
+      fetchResultInfoProvider = [v44 fetchResultInfoProvider];
+      v47.i64[0] = [v44 identifier];
+      v47.i64[1] = v20;
+      v29.f64[0] = NAN;
+      v29.f64[1] = NAN;
+      v48 = vnegq_f64(v29);
+      v30 = [fetchResultInfoProvider sortDescriptorsForFetchResultAtSectionIndexPath:&v47];
 
       if (vminv_u16(vmovn_s32(vuzp1q_s32(vceqq_s64(*&p_sectionIndexPath->dataSourceIdentifier, *MEMORY[0x277D3CFD8]), vceqq_s64(*&self->_sectionIndexPath.item, *(MEMORY[0x277D3CFD8] + 16))))))
       {
         currentHandler3 = [MEMORY[0x277CCA890] currentHandler];
-        [currentHandler3 handleFailureInMethod:v44 object:self file:@"PXZoomableInlineHeadersDataSourceManager.m" lineNumber:137 description:@"After-state index path is null. This indicates an update was missed."];
+        [currentHandler3 handleFailureInMethod:v42 object:self file:@"PXZoomableInlineHeadersDataSourceManager.m" lineNumber:137 description:@"After-state index path is null. This indicates an update was missed."];
       }
 
       fetchResultInfoProvider2 = [v5 fetchResultInfoProvider];
-      v34 = *&self->_sectionIndexPath.item;
-      v51 = *&p_sectionIndexPath->dataSourceIdentifier;
-      v52 = v34;
-      v35 = [fetchResultInfoProvider2 sortDescriptorsForFetchResultAtSectionIndexPath:&v51];
+      v32 = *&self->_sectionIndexPath.item;
+      v47 = *&p_sectionIndexPath->dataSourceIdentifier;
+      v48 = v32;
+      v33 = [fetchResultInfoProvider2 sortDescriptorsForFetchResultAtSectionIndexPath:&v47];
 
-      if (v32 == v35)
+      if (v30 == v33)
       {
-        v36 = 1;
+        v34 = 1;
       }
 
       else
       {
-        v36 = [v32 isEqual:v35];
+        v34 = [v30 isEqual:v33];
       }
 
-      if ((v47 & v36 & 1) == 0 && !self->_isPreparingMetadataInBackground)
+      if ((v45 & v34 & 1) == 0 && !self->_isPreparingMetadataInBackground)
       {
         [(PXZoomableInlineHeadersDataSourceManager *)self _prepareInBackgroundWithDataSource:v5];
       }
@@ -170,13 +161,13 @@
     [(PXZoomableInlineHeadersDataSourceManager *)self _prepareInBackgroundWithDataSource:v5];
   }
 
-  v37 = [[PXZoomableInlineHeadersDataSource alloc] initWithAssetsDataSource:v5 level:0 metaDataStore:self->_metaDataStore];
+  v35 = [[PXZoomableInlineHeadersDataSource alloc] initWithAssetsDataSource:v5 level:0 metaDataStore:self->_metaDataStore];
   yearsDataSource = self->_yearsDataSource;
-  self->_yearsDataSource = v37;
+  self->_yearsDataSource = v35;
 
-  v39 = [[PXZoomableInlineHeadersDataSource alloc] initWithAssetsDataSource:v5 level:1 metaDataStore:self->_metaDataStore];
+  v37 = [[PXZoomableInlineHeadersDataSource alloc] initWithAssetsDataSource:v5 level:1 metaDataStore:self->_metaDataStore];
   monthsDataSource = self->_monthsDataSource;
-  self->_monthsDataSource = v39;
+  self->_monthsDataSource = v37;
 
   [(PXSectionedDataSourceManager *)self setDataSource:self->_monthsDataSource changeDetails:0];
 }

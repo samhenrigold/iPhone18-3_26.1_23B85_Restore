@@ -72,7 +72,7 @@
   _Block_object_dispose(&v10, 8);
 }
 
-uint64_t __79__AVDelegatingPlaybackCoordinator__setIsInExpanseMediaPlaybackOnAVAudioSession__block_invoke(void *a1)
+void *__79__AVDelegatingPlaybackCoordinator__setIsInExpanseMediaPlaybackOnAVAudioSession__block_invoke(void *a1)
 {
   result = [*(a1[4] + 88) count];
   *(*(a1[6] + 8) + 24) = result != 0;
@@ -101,10 +101,10 @@ uint64_t __79__AVDelegatingPlaybackCoordinator__setIsInExpanseMediaPlaybackOnAVA
 
 - (AVDelegatingPlaybackCoordinator)initWithPlaybackControlDelegate:(id)playbackControlDelegate
 {
-  v42 = *MEMORY[0x1E69E9840];
-  v40.receiver = self;
-  v40.super_class = AVDelegatingPlaybackCoordinator;
-  val = [(AVPlaybackCoordinator *)&v40 initInternal];
+  v43 = *MEMORY[0x1E69E9840];
+  v41.receiver = self;
+  v41.super_class = AVDelegatingPlaybackCoordinator;
+  val = [(AVPlaybackCoordinator *)&v41 initInternal];
   if (val)
   {
     v4 = *MEMORY[0x1E695E4D0];
@@ -115,7 +115,7 @@ uint64_t __79__AVDelegatingPlaybackCoordinator__setIsInExpanseMediaPlaybackOnAVA
     val->_figTimelineCoordinatorConfigQueue = dispatch_queue_create("com.apple.avdelegatingplaybackcoordinator.figtimelinecoordinator.config", v6);
     v7 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
     val->_currentItemIDConfigQueue = dispatch_queue_create("com.apple.avdelegatingplaybackcoordinator.currentitemidentifier.config", v7);
-    val->_ivarAccessQueue = av_readwrite_dispatch_queue_create("com.apple.avfoundation.avdelegatingplaybackcoordinator.ivars");
+    val->_ivarAccessQueue = av_readwrite_dispatch_queue_create("com.apple.avfoundation.avdelegatingplaybackcoordinator.ivars", v8);
     objc_storeWeak(&val->_delegate, playbackControlDelegate);
     val->_controlStates = objc_alloc_init(MEMORY[0x1E695DF90]);
     val->_participantStates = objc_alloc_init(MEMORY[0x1E695DF90]);
@@ -125,42 +125,42 @@ uint64_t __79__AVDelegatingPlaybackCoordinator__setIsInExpanseMediaPlaybackOnAVA
     val->_suspensionReasonsThatTriggerWaiting = [objc_alloc(MEMORY[0x1E695DF70]) initWithObjects:{@"AVCoordinatedPlaybackSuspensionReasonUserIsChangingCurrentTime", 0}];
     val->_waitingPoliciesArray = objc_alloc_init(MEMORY[0x1E695DF70]);
     val->_pauseSnapsToMediaTimeOfOriginator = 1;
-    v34 = 0;
-    v35 = AVDelegatingPlaybackCoordinatorSetRateAndAnchorTimeCallback;
-    v36 = AVDelegatingPlaybackCoordinatorJumpToTimeCallback;
-    v37 = AVDelegatingPlaybackCoordinatorPauseCallback;
-    v38 = AVDelegatingPlaybackCoordinatorPrepareToSetRateCallback;
-    v39 = 0;
+    v35 = 0;
+    v36 = AVDelegatingPlaybackCoordinatorSetRateAndAnchorTimeCallback;
+    v37 = AVDelegatingPlaybackCoordinatorJumpToTimeCallback;
+    v38 = AVDelegatingPlaybackCoordinatorPauseCallback;
+    v39 = AVDelegatingPlaybackCoordinatorPrepareToSetRateCallback;
+    v40 = 0;
     if (!FigTimelineCoordinatorCreate())
     {
       array = [MEMORY[0x1E695DF70] array];
-      v32 = 0u;
       v33 = 0u;
-      v30 = 0u;
+      v34 = 0u;
       v31 = 0u;
+      v32 = 0u;
       suspensionReasonsThatTriggerWaiting = [(AVDelegatingPlaybackCoordinator *)val suspensionReasonsThatTriggerWaiting];
-      v10 = [suspensionReasonsThatTriggerWaiting countByEnumeratingWithState:&v30 objects:v41 count:16];
-      if (v10)
+      v11 = [suspensionReasonsThatTriggerWaiting countByEnumeratingWithState:&v31 objects:v42 count:16];
+      if (v11)
       {
-        v11 = *v31;
-        v12 = *MEMORY[0x1E6963348];
-        v13 = *MEMORY[0x1E6963340];
+        v12 = *v32;
+        v13 = *MEMORY[0x1E6963348];
+        v14 = *MEMORY[0x1E6963340];
         do
         {
-          for (i = 0; i != v10; ++i)
+          for (i = 0; i != v11; ++i)
           {
-            if (*v31 != v11)
+            if (*v32 != v12)
             {
               objc_enumerationMutation(suspensionReasonsThatTriggerWaiting);
             }
 
-            [array addObject:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjectsAndKeys:", AVPlaybackCoordinatorFigSuspensionReasonForAVFReason(*(*(&v30 + 1) + 8 * i)), v12, v4, v13, 0)}];
+            [array addObject:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjectsAndKeys:", AVPlaybackCoordinatorFigSuspensionReasonForAVFReason(*(*(&v31 + 1) + 8 * i)), v13, v4, v14, 0)}];
           }
 
-          v10 = [suspensionReasonsThatTriggerWaiting countByEnumeratingWithState:&v30 objects:v41 count:16];
+          v11 = [suspensionReasonsThatTriggerWaiting countByEnumeratingWithState:&v31 objects:v42 count:16];
         }
 
-        while (v10);
+        while (v11);
       }
 
       [(AVDelegatingPlaybackCoordinator *)val _updateWaitingPoliciesArray:val->_waitingPoliciesArray withPolicies:array];
@@ -175,32 +175,32 @@ uint64_t __79__AVDelegatingPlaybackCoordinator__setIsInExpanseMediaPlaybackOnAVA
         objc_initWeak(location, val);
         defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
         figTimelineCoordinator = val->_figTimelineCoordinator;
-        v27[0] = MEMORY[0x1E69E9820];
-        v27[1] = 3221225472;
-        v27[2] = __67__AVDelegatingPlaybackCoordinator_initWithPlaybackControlDelegate___block_invoke;
-        v27[3] = &unk_1E7460BB0;
-        objc_copyWeak(&v28, location);
-        val->_suspensionsChangedNotificationToken = [defaultCenter addObserverForName:*MEMORY[0x1E6963298] object:figTimelineCoordinator queue:0 usingBlock:v27];
+        v28[0] = MEMORY[0x1E69E9820];
+        v28[1] = 3221225472;
+        v28[2] = __67__AVDelegatingPlaybackCoordinator_initWithPlaybackControlDelegate___block_invoke;
+        v28[3] = &unk_1E7460BB0;
+        objc_copyWeak(&v29, location);
+        val->_suspensionsChangedNotificationToken = [defaultCenter addObserverForName:*MEMORY[0x1E6963298] object:figTimelineCoordinator queue:0 usingBlock:v28];
         defaultCenter2 = [MEMORY[0x1E696AD88] defaultCenter];
-        v18 = val->_figTimelineCoordinator;
-        v25[0] = MEMORY[0x1E69E9820];
-        v25[1] = 3221225472;
-        v25[2] = __67__AVDelegatingPlaybackCoordinator_initWithPlaybackControlDelegate___block_invoke_2;
-        v25[3] = &unk_1E7460BB0;
-        objc_copyWeak(&v26, location);
-        val->_participantsChangedNotificationToken = [defaultCenter2 addObserverForName:*MEMORY[0x1E6963290] object:v18 queue:0 usingBlock:v25];
+        v19 = val->_figTimelineCoordinator;
+        v26[0] = MEMORY[0x1E69E9820];
+        v26[1] = 3221225472;
+        v26[2] = __67__AVDelegatingPlaybackCoordinator_initWithPlaybackControlDelegate___block_invoke_2;
+        v26[3] = &unk_1E7460BB0;
+        objc_copyWeak(&v27, location);
+        val->_participantsChangedNotificationToken = [defaultCenter2 addObserverForName:*MEMORY[0x1E6963290] object:v19 queue:0 usingBlock:v26];
         defaultCenter3 = [MEMORY[0x1E696AD88] defaultCenter];
-        v20 = val->_figTimelineCoordinator;
-        v23[0] = MEMORY[0x1E69E9820];
-        v23[1] = 3221225472;
-        v23[2] = __67__AVDelegatingPlaybackCoordinator_initWithPlaybackControlDelegate___block_invoke_3;
-        v23[3] = &unk_1E7460BB0;
-        objc_copyWeak(&v24, location);
-        val->_didIssueCommandToPlaybackObjectNotificationToken = [defaultCenter3 addObserverForName:*MEMORY[0x1E6963288] object:v20 queue:0 usingBlock:v23];
+        v21 = val->_figTimelineCoordinator;
+        v24[0] = MEMORY[0x1E69E9820];
+        v24[1] = 3221225472;
+        v24[2] = __67__AVDelegatingPlaybackCoordinator_initWithPlaybackControlDelegate___block_invoke_3;
+        v24[3] = &unk_1E7460BB0;
+        objc_copyWeak(&v25, location);
+        val->_didIssueCommandToPlaybackObjectNotificationToken = [defaultCenter3 addObserverForName:*MEMORY[0x1E6963288] object:v21 queue:0 usingBlock:v24];
         [(AVDelegatingPlaybackCoordinator *)val applyFigPauseSnapsToMediaTimeOfOriginator];
-        objc_destroyWeak(&v24);
-        objc_destroyWeak(&v26);
-        objc_destroyWeak(&v28);
+        objc_destroyWeak(&v25);
+        objc_destroyWeak(&v27);
+        objc_destroyWeak(&v29);
         objc_destroyWeak(location);
         return val;
       }
@@ -210,7 +210,7 @@ uint64_t __79__AVDelegatingPlaybackCoordinator__setIsInExpanseMediaPlaybackOnAVA
   return 0;
 }
 
-uint64_t __67__AVDelegatingPlaybackCoordinator_initWithPlaybackControlDelegate___block_invoke(uint64_t a1, void *a2)
+void *__67__AVDelegatingPlaybackCoordinator_initWithPlaybackControlDelegate___block_invoke(uint64_t a1, void *a2)
 {
   v16 = *MEMORY[0x1E69E9840];
   v3 = [a2 userInfo];
@@ -254,7 +254,7 @@ uint64_t __67__AVDelegatingPlaybackCoordinator_initWithPlaybackControlDelegate__
   return result;
 }
 
-uint64_t __67__AVDelegatingPlaybackCoordinator_initWithPlaybackControlDelegate___block_invoke_2(uint64_t a1, void *a2)
+void *__67__AVDelegatingPlaybackCoordinator_initWithPlaybackControlDelegate___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = [a2 userInfo];
   result = [v3 objectForKey:*MEMORY[0x1E6963278]];
@@ -351,7 +351,7 @@ uint64_t __67__AVDelegatingPlaybackCoordinator_initWithPlaybackControlDelegate__
   return v3;
 }
 
-uint64_t __56__AVDelegatingPlaybackCoordinator_currentItemIdentifier__block_invoke(uint64_t a1)
+void *__56__AVDelegatingPlaybackCoordinator_currentItemIdentifier__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 144) copy];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -378,7 +378,7 @@ uint64_t __56__AVDelegatingPlaybackCoordinator_currentItemIdentifier__block_invo
   dispatch_sync(currentItemIDConfigQueue, v8);
 }
 
-uint64_t __104__AVDelegatingPlaybackCoordinator_transitionToItemWithIdentifier_proposingInitialTimingBasedOnTimebase___block_invoke(uint64_t a1)
+void *__104__AVDelegatingPlaybackCoordinator_transitionToItemWithIdentifier_proposingInitialTimingBasedOnTimebase___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 40) copy];
   *(*(a1 + 32) + 144) = result;
@@ -538,7 +538,7 @@ uint64_t __84__AVDelegatingPlaybackCoordinator__updateOtherParticipantsUsingFigP
   return v3;
 }
 
-uint64_t __52__AVDelegatingPlaybackCoordinator_otherParticipants__block_invoke(uint64_t a1)
+void *__52__AVDelegatingPlaybackCoordinator_otherParticipants__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 88) copy];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -585,9 +585,9 @@ id __60__AVDelegatingPlaybackCoordinator_participantForIdentifier___block_invoke
   return result;
 }
 
-uint64_t __60__AVDelegatingPlaybackCoordinator_participantForIdentifier___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__60__AVDelegatingPlaybackCoordinator_participantForIdentifier___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  result = [objc_msgSend(a2 "identifier")];
+  result = [objc_msgSend(a2 identifier];
   *a4 = result;
   return result;
 }
@@ -676,15 +676,15 @@ id __61__AVDelegatingPlaybackCoordinator_coordinationMediumDelegate__block_invok
   av_readwrite_dispatch_queue_write(ivarAccessQueue, v4);
 }
 
-uint64_t __62__AVDelegatingPlaybackCoordinator_setMediumLoggingIdentifier___block_invoke(uint64_t result)
+void *__62__AVDelegatingPlaybackCoordinator_setMediumLoggingIdentifier___block_invoke(void *result)
 {
-  v1 = *(*(result + 40) + 168);
-  if (*(result + 32) != v1)
+  v1 = *(result[5] + 168);
+  if (result[4] != v1)
   {
     v2 = result;
 
-    result = [*(v2 + 32) copy];
-    *(*(v2 + 40) + 168) = result;
+    result = [v2[4] copy];
+    *(v2[5] + 168) = result;
   }
 
   return result;
@@ -711,7 +711,7 @@ uint64_t __62__AVDelegatingPlaybackCoordinator_setMediumLoggingIdentifier___bloc
   return v3;
 }
 
-uint64_t __58__AVDelegatingPlaybackCoordinator_mediumLoggingIdentifier__block_invoke(uint64_t a1)
+void *__58__AVDelegatingPlaybackCoordinator_mediumLoggingIdentifier__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 168) copy];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -739,7 +739,7 @@ uint64_t __58__AVDelegatingPlaybackCoordinator_mediumLoggingIdentifier__block_in
   return v3;
 }
 
-uint64_t __75__AVDelegatingPlaybackCoordinator_trackedTransportControlStateDictionaries__block_invoke(uint64_t a1)
+void *__75__AVDelegatingPlaybackCoordinator_trackedTransportControlStateDictionaries__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 96) copy];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -762,6 +762,7 @@ uint64_t __75__AVDelegatingPlaybackCoordinator_trackedTransportControlStateDicti
 
 void __99__AVDelegatingPlaybackCoordinator__updateTransportControlStateDictionaryWithTransportControlState___block_invoke(uint64_t a1)
 {
+  v14 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) objectForKeyedSubscript:@"Identifier"];
   v3 = [*(*(a1 + 40) + 96) objectForKeyedSubscript:v2];
   if (!v3 || (v4 = v3, v5 = [objc_msgSend(v3 objectForKeyedSubscript:{@"LamportTimestamp", "intValue"}], v6 = objc_msgSend(objc_msgSend(*(a1 + 32), "objectForKeyedSubscript:", @"LamportTimestamp"), "intValue"), (objc_msgSend(objc_msgSend(*(a1 + 32), "objectForKeyedSubscript:", @"IsAuthoritative"), "BOOLValue") & 1) != 0) || v6 > v5)
@@ -834,7 +835,7 @@ LABEL_8:
   return v4;
 }
 
-uint64_t __75__AVDelegatingPlaybackCoordinator__transportControlStateForItemIdentifier___block_invoke(void *a1)
+void *__75__AVDelegatingPlaybackCoordinator__transportControlStateForItemIdentifier___block_invoke(void *a1)
 {
   result = [objc_msgSend(*(a1[4] + 96) objectForKeyedSubscript:{a1[5]), "copy"}];
   *(*(a1[6] + 8) + 40) = result;
@@ -852,7 +853,7 @@ uint64_t __75__AVDelegatingPlaybackCoordinator__transportControlStateForItemIden
   av_readwrite_dispatch_queue_write(ivarAccessQueue, v3);
 }
 
-uint64_t __70__AVDelegatingPlaybackCoordinator__removeUnusedTransportControlStates__block_invoke(uint64_t a1)
+void *__70__AVDelegatingPlaybackCoordinator__removeUnusedTransportControlStates__block_invoke(uint64_t a1)
 {
   v15 = *MEMORY[0x1E69E9840];
   v2 = [*(*(a1 + 32) + 96) allKeys];
@@ -887,7 +888,7 @@ uint64_t __70__AVDelegatingPlaybackCoordinator__removeUnusedTransportControlStat
           [*(*(a1 + 32) + 96) removeObjectForKey:v8];
         }
 
-        ++v7;
+        v7 = v7 + 1;
       }
 
       while (v5 != v7);
@@ -901,7 +902,7 @@ uint64_t __70__AVDelegatingPlaybackCoordinator__removeUnusedTransportControlStat
   return result;
 }
 
-uint64_t __70__AVDelegatingPlaybackCoordinator__removeUnusedTransportControlStates__block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__70__AVDelegatingPlaybackCoordinator__removeUnusedTransportControlStates__block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [objc_msgSend(a2 objectForKeyedSubscript:{@"CurrentIdentifier", "isEqualToString:", *(a1 + 32)}];
   *a4 = result;
@@ -929,7 +930,7 @@ uint64_t __70__AVDelegatingPlaybackCoordinator__removeUnusedTransportControlStat
   return v3;
 }
 
-uint64_t __52__AVDelegatingPlaybackCoordinator_participantStates__block_invoke(uint64_t a1)
+void *__52__AVDelegatingPlaybackCoordinator_participantStates__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 104) copy];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -979,7 +980,7 @@ uint64_t __89__AVDelegatingPlaybackCoordinator__updateParticipantStateDictionary
   return v4;
 }
 
-uint64_t __66__AVDelegatingPlaybackCoordinator__participantStateForIdentifier___block_invoke(void *a1)
+void *__66__AVDelegatingPlaybackCoordinator__participantStateForIdentifier___block_invoke(void *a1)
 {
   result = [objc_msgSend(*(a1[4] + 104) objectForKeyedSubscript:{a1[5]), "copy"}];
   *(*(a1[6] + 8) + 40) = result;
@@ -1018,7 +1019,7 @@ uint64_t __73__AVDelegatingPlaybackCoordinator__removeParticipantStateWithIdenti
   av_readwrite_dispatch_queue_write(ivarAccessQueue, v4);
 }
 
-uint64_t __61__AVDelegatingPlaybackCoordinator__replaceParticipantStates___block_invoke(uint64_t a1)
+void *__61__AVDelegatingPlaybackCoordinator__replaceParticipantStates___block_invoke(uint64_t a1)
 {
   v12 = *MEMORY[0x1E69E9840];
   [*(*(a1 + 32) + 104) removeAllObjects];
@@ -1043,7 +1044,7 @@ uint64_t __61__AVDelegatingPlaybackCoordinator__replaceParticipantStates___block
         }
 
         [*(*(a1 + 32) + 104) setObject:*(*(&v7 + 1) + 8 * v6) forKeyedSubscript:{objc_msgSend(*(*(&v7 + 1) + 8 * v6), "objectForKeyedSubscript:", @"UUID"}];
-        ++v6;
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);
@@ -1073,6 +1074,7 @@ uint64_t __61__AVDelegatingPlaybackCoordinator__replaceParticipantStates___block
 
 uint64_t __76__AVDelegatingPlaybackCoordinator_handleNewTransportControlStateDictionary___block_invoke(uint64_t a1)
 {
+  v3 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) _transportControlStateForItemIdentifier:*(a1 + 40)];
   result = FigTimelineCoordinatorHandleUpdatedTimelineStateFromMedium();
   if (result)
@@ -1102,6 +1104,7 @@ uint64_t __76__AVDelegatingPlaybackCoordinator_handleNewTransportControlStateDic
 
 uint64_t __71__AVDelegatingPlaybackCoordinator_handleNewParticipantStateDictionary___block_invoke(uint64_t a1)
 {
+  v3 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) _participantStateForIdentifier:*(a1 + 40)];
   result = FigTimelineCoordinatorHandleUpdatedParticipantStateFromMedium();
   if (result)
@@ -1129,6 +1132,7 @@ uint64_t __71__AVDelegatingPlaybackCoordinator_handleNewParticipantStateDictiona
 
 uint64_t __81__AVDelegatingPlaybackCoordinator_handleReplacementParticipantStateDictionaries___block_invoke(uint64_t a1)
 {
+  v3 = *MEMORY[0x1E69E9840];
   [objc_msgSend(*(a1 + 32) "participantStates")];
   result = FigTimelineCoordinatorHandleReplacementOfAllParticipantStatesFromMedium();
   if (result)
@@ -1225,7 +1229,7 @@ uint64_t __60__AVDelegatingPlaybackCoordinator__updateSuspensionReasons___block_
   return v3;
 }
 
-uint64_t __52__AVDelegatingPlaybackCoordinator_suspensionReasons__block_invoke(uint64_t a1)
+void *__52__AVDelegatingPlaybackCoordinator_suspensionReasons__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 80) copy];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -1338,7 +1342,7 @@ LABEL_17:
   return v3;
 }
 
-uint64_t __63__AVDelegatingPlaybackCoordinator__currentWaitingPoliciesArray__block_invoke(uint64_t a1)
+void *__63__AVDelegatingPlaybackCoordinator__currentWaitingPoliciesArray__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 128) copy];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -1429,7 +1433,7 @@ uint64_t __90__AVDelegatingPlaybackCoordinator_setParticipantLimit_forWaitingOut
   return integerValue;
 }
 
-uint64_t __86__AVDelegatingPlaybackCoordinator_participantLimitForWaitingOutSuspensionsWithReason___block_invoke(void *a1)
+void *__86__AVDelegatingPlaybackCoordinator_participantLimitForWaitingOutSuspensionsWithReason___block_invoke(void *a1)
 {
   result = [*(a1[4] + 112) objectForKeyedSubscript:a1[5]];
   *(*(a1[6] + 8) + 40) = result;
@@ -1592,7 +1596,7 @@ uint64_t __74__AVDelegatingPlaybackCoordinator_setSuspensionReasonsThatTriggerWa
   return v3;
 }
 
-uint64_t __70__AVDelegatingPlaybackCoordinator_suspensionReasonsThatTriggerWaiting__block_invoke(uint64_t a1)
+void *__70__AVDelegatingPlaybackCoordinator_suspensionReasonsThatTriggerWaiting__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 120) copy];
   *(*(*(a1 + 40) + 8) + 40) = result;

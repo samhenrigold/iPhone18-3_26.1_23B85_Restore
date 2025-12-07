@@ -16,7 +16,7 @@ void sub_1828(uint64_t a1, void *a2)
     v7 = v6;
     if (v6)
     {
-      [v6 currentTime];
+      objc_msgSend_currentTime(v6);
     }
 
     else
@@ -26,20 +26,20 @@ void sub_1828(uint64_t a1, void *a2)
 
     Seconds = CMTimeGetSeconds(time);
 
-    v27 = v5;
+    v28 = v5;
     v9 = [v5 currentLoadedTimeRanges];
     v10 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [v9 count]);
     v11 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [v9 count]);
-    v37 = 0u;
     v38 = 0u;
     v39 = 0u;
     v40 = 0u;
+    v41 = 0u;
     obj = v9;
-    v12 = [obj countByEnumeratingWithState:&v37 objects:v42 count:16];
+    v12 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v38;
+      v14 = *v39;
       v15 = &stru_3D458;
       do
       {
@@ -47,22 +47,22 @@ void sub_1828(uint64_t a1, void *a2)
         v17 = v15;
         do
         {
-          if (*v38 != v14)
+          if (*v39 != v14)
           {
             objc_enumerationMutation(obj);
           }
 
-          v18 = *(*(&v37 + 1) + 8 * v16);
+          v18 = *(*(&v38 + 1) + 8 * v16);
           memset(time, 0, sizeof(time));
           if (v18)
           {
-            [v18 CMTimeRangeValue];
+            objc_msgSend_CMTimeRangeValue(v18);
           }
 
-          v36 = time[0];
-          v19 = CMTimeGetSeconds(&v36);
-          v36 = time[1];
-          v20 = CMTimeGetSeconds(&v36);
+          v37 = time[0];
+          v19 = CMTimeGetSeconds(&v37);
+          v37 = time[1];
+          v20 = CMTimeGetSeconds(&v37);
           v21 = [NSNumber numberWithDouble:v19];
           [v10 addObject:v21];
 
@@ -76,7 +76,7 @@ void sub_1828(uint64_t a1, void *a2)
         }
 
         while (v13 != v16);
-        v13 = [obj countByEnumeratingWithState:&v37 objects:v42 count:16];
+        v13 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
       }
 
       while (v13);
@@ -87,33 +87,33 @@ void sub_1828(uint64_t a1, void *a2)
       v15 = &stru_3D458;
     }
 
-    v23 = BKAudiobooksBKAVLog();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    v24 = BKAudiobooksBKAVLog(v23);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
       LODWORD(time[0].value) = 134218242;
       *(&time[0].value + 4) = Seconds;
       LOWORD(time[0].flags) = 2114;
       *(&time[0].flags + 2) = v15;
-      _os_log_impl(&dword_0, v23, OS_LOG_TYPE_DEFAULT, "currentTime=%f cachedTimeRanges=%{public}@", time, 0x16u);
+      _os_log_impl(&dword_0, v24, OS_LOG_TYPE_DEFAULT, "currentTime=%f cachedTimeRanges=%{public}@", time, 0x16u);
     }
 
-    v31[0] = _NSConcreteStackBlock;
-    v31[1] = 3221225472;
-    v31[2] = sub_1C60;
-    v31[3] = &unk_3C688;
-    v5 = v27;
-    v32 = v27;
-    v24 = v10;
-    v33 = v24;
-    v25 = v11;
+    v32[0] = _NSConcreteStackBlock;
+    v32[1] = 3221225472;
+    v32[2] = sub_1C60;
+    v32[3] = &unk_3C688;
+    v5 = v28;
+    v33 = v28;
+    v25 = v10;
     v34 = v25;
-    v35 = v3;
-    v26 = objc_retainBlock(v31);
-    if (v26)
+    v26 = v11;
+    v35 = v26;
+    v36 = v3;
+    v27 = objc_retainBlock(v32);
+    if (v27)
     {
       if (+[NSThread isMainThread])
       {
-        (v26[2])(v26);
+        (v27[2])(v27);
       }
 
       else
@@ -122,7 +122,7 @@ void sub_1828(uint64_t a1, void *a2)
         block[1] = 3221225472;
         block[2] = sub_1CD8;
         block[3] = &unk_3C6B0;
-        v30 = v26;
+        v31 = v27;
         dispatch_async(&_dispatch_main_q, block);
       }
     }
@@ -145,13 +145,13 @@ void sub_1C60(uint64_t a1)
 
 void sub_1EF0(uint64_t a1)
 {
-  v1 = (a1 + 32);
-  if (([*(a1 + 32) isPlayable] & 1) == 0)
+  v1 = [*(a1 + 32) isPlayable];
+  if ((v1 & 1) == 0)
   {
-    v2 = BKAudiobooksBKAVLog();
+    v2 = BKAudiobooksBKAVLog(v1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      sub_20CFC(v1);
+      sub_20CFC();
     }
   }
 }
@@ -182,33 +182,33 @@ void sub_2524(id *a1)
 
   if (a1[4])
   {
-    v4 = BKAudiobooksBKAVLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = BKAudiobooksBKAVLog(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = a1[4];
+      v6 = a1[4];
       *buf = 138543362;
-      v14 = v5;
-      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "_recreateCurrentAssetWithRestoreTime: _seekToTime: %{public}@", buf, 0xCu);
+      v15 = v6;
+      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "_recreateCurrentAssetWithRestoreTime: _seekToTime: %{public}@", buf, 0xCu);
     }
 
     [a1[4] doubleValue];
-    v7 = v6;
-    v10[0] = _NSConcreteStackBlock;
-    v10[1] = 3221225472;
-    v10[2] = sub_26CC;
-    v10[3] = &unk_3C750;
-    v11 = a1[4];
-    v12 = a1[5];
-    [WeakRetained _seekToTime:v10 completionHandler:v7];
+    v8 = v7;
+    v11[0] = _NSConcreteStackBlock;
+    v11[1] = 3221225472;
+    v11[2] = sub_26CC;
+    v11[3] = &unk_3C750;
+    v12 = a1[4];
+    v13 = a1[5];
+    [WeakRetained _seekToTime:v11 completionHandler:v8];
   }
 
   else
   {
-    v8 = objc_retainBlock(a1[5]);
-    v9 = v8;
-    if (v8)
+    v9 = objc_retainBlock(a1[5]);
+    v10 = v9;
+    if (v9)
     {
-      (*(v8 + 2))(v8, 0);
+      (*(v9 + 2))(v9, 0);
     }
   }
 }
@@ -217,7 +217,7 @@ void sub_26CC(uint64_t a1, uint64_t a2)
 {
   if ((a2 & 1) == 0)
   {
-    v4 = BKAudiobooksBKAVLog();
+    v4 = BKAudiobooksBKAVLog(a1);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = *(a1 + 32);
@@ -262,7 +262,7 @@ void sub_309C(uint64_t a1)
 {
   if (*(a1 + 40) != *(*(a1 + 32) + 9))
   {
-    v2 = BKAudiobooksStreamingLog();
+    v2 = BKAudiobooksStreamingLog(a1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       v3 = *(*(a1 + 32) + 9);
@@ -284,7 +284,7 @@ void sub_32B4(uint64_t a1)
 {
   if (*(a1 + 40) != *(*(a1 + 32) + 10))
   {
-    v2 = BKAudiobooksStreamingLog();
+    v2 = BKAudiobooksStreamingLog(a1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       v3 = *(*(a1 + 32) + 10);
@@ -354,13 +354,13 @@ void sub_3F78(uint64_t a1)
   dispatch_async(&_dispatch_main_q, v7);
 }
 
-id sub_4638(uint64_t a1)
+id sub_4638(uint64_t a1, uint64_t a2)
 {
-  v2 = BKAudiobooksBKAVLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = BKAudiobooksBKAVLog(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "onRouteChange: pause", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "onRouteChange: pause", v5, 2u);
   }
 
   return [*(a1 + 32) pause];
@@ -377,34 +377,34 @@ void sub_4AA8(uint64_t a1)
 
     [v5 indicatedBitrate];
     v7 = v6;
-    [WeakRetained lastBitrate];
-    if (v8 != v7)
+    v8 = [WeakRetained lastBitrate];
+    if (v9 != v7)
     {
-      v9 = BKAudiobooksStreamingLog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = BKAudiobooksStreamingLog(v8);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         [WeakRetained lastBitrate];
         *buf = 134218240;
-        v21 = v10;
-        v22 = 2048;
-        v23 = v7;
-        _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "Bit Rate %.0f -> %.0f.", buf, 0x16u);
+        v22 = v11;
+        v23 = 2048;
+        v24 = v7;
+        _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "Bit Rate %.0f -> %.0f.", buf, 0x16u);
       }
 
       [WeakRetained lastBitrate];
-      v12 = v11;
+      v13 = v12;
       [WeakRetained delegate];
       block[0] = _NSConcreteStackBlock;
       block[1] = 3221225472;
       block[2] = sub_4C70;
-      v16 = block[3] = &unk_3C8A8;
-      v17 = WeakRetained;
-      v18 = v12;
-      v19 = v7;
-      v13 = v16;
+      v17 = block[3] = &unk_3C8A8;
+      v18 = WeakRetained;
+      v19 = v13;
+      v20 = v7;
+      v14 = v17;
       dispatch_async(&_dispatch_main_q, block);
-      *&v14 = v7;
-      [WeakRetained setLastBitrate:v14];
+      *&v15 = v7;
+      [WeakRetained setLastBitrate:v15];
     }
   }
 }
@@ -447,7 +447,7 @@ void sub_5168(uint64_t a1, uint64_t a2)
 {
   if ((a2 & 1) == 0)
   {
-    v4 = BKAudiobooksBKAVLog();
+    v4 = BKAudiobooksBKAVLog(a1);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = *(a1 + 40);
@@ -507,7 +507,7 @@ void sub_5660(uint64_t a1, uint64_t a2)
 {
   if ((a2 & 1) == 0)
   {
-    v4 = BKAudiobooksBKAVLog();
+    v4 = BKAudiobooksBKAVLog(a1);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = *(a1 + 40);
@@ -535,7 +535,7 @@ void sub_6160(uint64_t a1, void *a2)
     v6 = v5;
     if (v5)
     {
-      [v5 currentTime];
+      objc_msgSend_currentTime(v5);
     }
 
     else
@@ -699,21 +699,20 @@ void sub_66B4(uint64_t a1)
   }
 }
 
-uint64_t sub_6754(uint64_t a1, char a2)
+uint64_t sub_6754(uint64_t a1, uint64_t a2)
 {
   if ((a2 & 1) == 0)
   {
-    v3 = BKAudiobooksBKAVLog();
+    v3 = BKAudiobooksBKAVLog(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       [*(a1 + 32) pendingCurrentTime];
-      v7 = 134217984;
-      v8 = v4;
-      _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "_seekToTime to %lf did not finish (_playWithSeekTime)", &v7, 0xCu);
+      v6 = 134217984;
+      v7 = v4;
+      _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "_seekToTime to %lf did not finish (_playWithSeekTime)", &v6, 0xCu);
     }
   }
 
-  v5 = *(a1 + 48);
   return (*(*(a1 + 40) + 16))();
 }
 
@@ -730,17 +729,15 @@ void sub_68C4(uint64_t a1, char a2, void *a3)
   dispatch_async(&_dispatch_main_q, block);
 }
 
-uint64_t sub_6984(uint64_t a1)
+uint64_t sub_6984(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 48) != 1 || *(a1 + 32))
   {
-    v2 = BKAudiobooksBKAVLog();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v3 = BKAudiobooksBKAVLog(a1);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      sub_21020(a1);
+      sub_21020();
     }
-
-    v3 = *(a1 + 48);
   }
 
   return (*(*(a1 + 40) + 16))();
@@ -780,21 +777,21 @@ void sub_79B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int
   _Unwind_Resume(a1);
 }
 
-void sub_79EC(uint64_t a1)
+void sub_79EC(uint64_t a1, uint64_t a2)
 {
-  v2 = BKAudiobooksBKAVLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = BKAudiobooksBKAVLog(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 40);
-    v7 = 134217984;
-    v8 = v3;
-    _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "observed time: %.1f", &v7, 0xCu);
+    v4 = *(a1 + 40);
+    v8 = 134217984;
+    v9 = v4;
+    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "observed time: %.1f", &v8, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v5 = [WeakRetained delegate];
-  v6 = objc_loadWeakRetained((a1 + 32));
-  [v5 player:v6 didReachPosition:*(a1 + 40)];
+  v6 = [WeakRetained delegate];
+  v7 = objc_loadWeakRetained((a1 + 32));
+  [v6 player:v7 didReachPosition:*(a1 + 40)];
 }
 
 void sub_7F40(_Unwind_Exception *a1)
@@ -850,89 +847,89 @@ void sub_8820(uint64_t a1)
 void sub_89E4(uint64_t a1)
 {
   v2 = dispatch_group_create();
-  v20 = +[NSMutableArray array];
+  v21 = +[NSMutableArray array];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   if (WeakRetained)
   {
-    v18 = WeakRetained;
+    v19 = WeakRetained;
     v4 = [WeakRetained stores];
     if (*(a1 + 64) == 1)
     {
-      v5 = [v18 stores];
+      v5 = [v19 stores];
       v6 = [NSPredicate predicateWithBlock:&stru_3CAF0];
       v7 = [v5 filteredArrayUsingPredicate:v6];
 
       v4 = v7;
     }
 
-    v36 = 0u;
     v37 = 0u;
-    v34 = 0u;
+    v38 = 0u;
     v35 = 0u;
+    v36 = 0u;
     obj = v4;
-    v8 = [obj countByEnumeratingWithState:&v34 objects:v42 count:16];
+    v8 = [obj countByEnumeratingWithState:&v35 objects:v43 count:16];
     if (v8)
     {
-      v9 = *v35;
+      v9 = *v36;
       do
       {
         for (i = 0; i != v8; i = i + 1)
         {
-          if (*v35 != v9)
+          if (*v36 != v9)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v34 + 1) + 8 * i);
+          v11 = *(*(&v35 + 1) + 8 * i);
           dispatch_group_enter(v2);
-          v12 = BKAudiobooksPersistenceLog();
-          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+          v13 = BKAudiobooksPersistenceLog(v12);
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
           {
-            v13 = [*(a1 + 32) assetID];
-            v14 = [v11 shortName];
+            v14 = [*(a1 + 32) assetID];
+            v15 = [v11 shortName];
             *buf = 138478083;
-            v39 = v13;
-            v40 = 2114;
-            v41 = v14;
-            _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "Checking for bookmark on assetID %{private}@ on store %{public}@", buf, 0x16u);
+            v40 = v14;
+            v41 = 2114;
+            v42 = v15;
+            _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "Checking for bookmark on assetID %{private}@ on store %{public}@", buf, 0x16u);
           }
 
-          v15 = *(a1 + 32);
-          v28[0] = _NSConcreteStackBlock;
-          v28[1] = 3221225472;
-          v28[2] = sub_8DBC;
-          v28[3] = &unk_3CB40;
-          objc_copyWeak(&v33, (a1 + 56));
-          v29 = v2;
-          v30 = *(a1 + 32);
-          v31 = v11;
-          v32 = v20;
-          [v11 bookmarkTimeForAudiobook:v15 completion:v28];
+          v16 = *(a1 + 32);
+          v29[0] = _NSConcreteStackBlock;
+          v29[1] = 3221225472;
+          v29[2] = sub_8DBC;
+          v29[3] = &unk_3CB40;
+          objc_copyWeak(&v34, (a1 + 56));
+          v30 = v2;
+          v31 = *(a1 + 32);
+          v32 = v11;
+          v33 = v21;
+          [v11 bookmarkTimeForAudiobook:v16 completion:v29];
 
-          objc_destroyWeak(&v33);
+          objc_destroyWeak(&v34);
         }
 
-        v8 = [obj countByEnumeratingWithState:&v34 objects:v42 count:16];
+        v8 = [obj countByEnumeratingWithState:&v35 objects:v43 count:16];
       }
 
       while (v8);
     }
 
-    v16 = dispatch_get_global_queue(2, 0);
+    v17 = dispatch_get_global_queue(2, 0);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_9188;
     block[3] = &unk_3CBA8;
-    v22 = v2;
-    v23 = *(a1 + 32);
-    v24 = v20;
-    v25 = v18;
-    v17 = *(a1 + 48);
-    v26 = *(a1 + 40);
-    v27 = v17;
-    dispatch_async(v16, block);
+    v23 = v2;
+    v24 = *(a1 + 32);
+    v25 = v21;
+    v26 = v19;
+    v18 = *(a1 + 48);
+    v27 = *(a1 + 40);
+    v28 = v18;
+    dispatch_async(v17, block);
 
-    WeakRetained = v18;
+    WeakRetained = v19;
   }
 }
 
@@ -964,7 +961,7 @@ void sub_8DBC(uint64_t a1, void *a2, void *a3, double a4)
 
   else
   {
-    v15 = BKAudiobooksPersistenceLog();
+    v15 = BKAudiobooksPersistenceLog(0);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -979,7 +976,7 @@ void sub_8F50(uint64_t a1)
 {
   if (*(a1 + 32) && !*(a1 + 40))
   {
-    v7 = BKAudiobooksPersistenceLog();
+    v7 = BKAudiobooksPersistenceLog(a1);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = [*(a1 + 48) assetID];
@@ -1009,7 +1006,7 @@ void sub_8F50(uint64_t a1)
 
   else
   {
-    v2 = BKAudiobooksPersistenceLog();
+    v2 = BKAudiobooksPersistenceLog(a1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       v3 = [*(a1 + 48) assetID];
@@ -1035,27 +1032,28 @@ void sub_9188(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v3 = dispatch_time(0, 3000000000);
-  if (dispatch_group_wait(v2, v3))
+  v4 = dispatch_group_wait(v2, v3);
+  if (v4)
   {
-    v4 = BKAudiobooksPersistenceLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = BKAudiobooksPersistenceLog(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      sub_21240(a1, v4);
+      sub_21240(a1, v5);
     }
   }
 
-  v5 = *(*(a1 + 56) + 8);
-  v8[0] = _NSConcreteStackBlock;
-  v8[1] = 3221225472;
-  v8[2] = sub_9298;
-  v8[3] = &unk_3C688;
-  v6 = *(a1 + 48);
-  v7 = *(a1 + 64);
-  v9 = v6;
+  v6 = *(*(a1 + 56) + 8);
+  v9[0] = _NSConcreteStackBlock;
+  v9[1] = 3221225472;
+  v9[2] = sub_9298;
+  v9[3] = &unk_3C688;
+  v7 = *(a1 + 48);
+  v8 = *(a1 + 64);
   v10 = v7;
-  v11 = *(a1 + 40);
-  v12 = *(a1 + 72);
-  dispatch_async(v5, v8);
+  v11 = v8;
+  v12 = *(a1 + 40);
+  v13 = *(a1 + 72);
+  dispatch_async(v6, v9);
 }
 
 void sub_9298(id *a1)
@@ -1073,65 +1071,65 @@ void sub_9298(id *a1)
     v7 = [v2 objectForKeyedSubscript:@"timestamp"];
     [a1[5] _rollbackAmountForLastPlayedDate:v7];
     v9 = v8;
-    [a1[6] duration];
-    if (v6 > v10 + -5.0)
+    v10 = [a1[6] duration];
+    if (v6 > v11 + -5.0)
     {
-      v11 = BKAudiobooksPersistenceLog();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v12 = BKAudiobooksPersistenceLog(v10);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = [a1[6] assetID];
-        v22 = 138412290;
-        v23 = v12;
-        _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "For %@ bookmark time is past our last viable bookmark time. Resetting to zero.", &v22, 0xCu);
+        v13 = [a1[6] assetID];
+        v23 = 138412290;
+        v24 = v13;
+        _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "For %@ bookmark time is past our last viable bookmark time. Resetting to zero.", &v23, 0xCu);
       }
 
       v9 = 0.0;
       v6 = 0.0;
     }
 
-    v13 = BKAudiobooksPersistenceLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = BKAudiobooksPersistenceLog(v10);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = [a1[6] assetID];
-      v15 = [v2 objectForKeyedSubscript:@"source"];
-      v16 = a1[4];
-      v22 = 138478851;
-      v23 = v14;
-      v24 = 2048;
-      v25 = v6;
-      v26 = 2114;
-      v27 = v7;
-      v28 = 2114;
-      v29 = v15;
-      v30 = 2114;
-      v31 = v16;
-      _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "For %{private}@ picking bookmark time %lf dated %{public}@ from source %{public}@.  Whole list of available bookmarks: %{public}@", &v22, 0x34u);
+      v15 = [a1[6] assetID];
+      v16 = [v2 objectForKeyedSubscript:@"source"];
+      v17 = a1[4];
+      v23 = 138478851;
+      v24 = v15;
+      v25 = 2048;
+      v26 = v6;
+      v27 = 2114;
+      v28 = v7;
+      v29 = 2114;
+      v30 = v16;
+      v31 = 2114;
+      v32 = v17;
+      _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "For %{private}@ picking bookmark time %lf dated %{public}@ from source %{public}@.  Whole list of available bookmarks: %{public}@", &v23, 0x34u);
     }
 
-    v17 = objc_retainBlock(a1[7]);
-    v18 = v17;
-    if (v17)
+    v18 = objc_retainBlock(a1[7]);
+    v19 = v18;
+    if (v18)
     {
-      (*(v17 + 2))(v17, v7, 0, v6, v9);
+      (*(v18 + 2))(v18, v7, 0, v6, v9);
     }
   }
 
   else
   {
-    v19 = BKAudiobooksPersistenceLog();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v20 = BKAudiobooksPersistenceLog(0);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = [a1[6] assetID];
-      v22 = 138477827;
-      v23 = v20;
-      _os_log_impl(&dword_0, v19, OS_LOG_TYPE_DEFAULT, "For audiobook %{private}@, cannot find a bookmark time.", &v22, 0xCu);
+      v21 = [a1[6] assetID];
+      v23 = 138477827;
+      v24 = v21;
+      _os_log_impl(&dword_0, v20, OS_LOG_TYPE_DEFAULT, "For audiobook %{private}@, cannot find a bookmark time.", &v23, 0xCu);
     }
 
-    v21 = objc_retainBlock(a1[7]);
-    v2 = v21;
-    if (v21)
+    v22 = objc_retainBlock(a1[7]);
+    v2 = v22;
+    if (v22)
     {
-      (*(v21 + 2))(v21, 0, 0, 0.0, 0.0);
+      (*(v22 + 2))(v22, 0, 0, 0.0, 0.0);
     }
   }
 }
@@ -1218,6 +1216,13 @@ void sub_9780(uint64_t a1)
   _Block_object_dispose(v25, 8);
 }
 
+void sub_9A1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
+{
+  va_start(va, a31);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 uint64_t sub_9A54(uint64_t result, uint64_t a2)
 {
   *(result + 40) = *(a2 + 40);
@@ -1284,7 +1289,7 @@ void sub_9FB0(uint64_t a1, double a2, uint64_t a3, void *a4)
   v8 = WeakRetained;
   if (v6)
   {
-    v9 = BKAudiobooksPersistenceLog();
+    v9 = BKAudiobooksPersistenceLog(WeakRetained);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_212F8(v6, v9);
@@ -1316,7 +1321,7 @@ void sub_AF70(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
-  v7 = BKAudiobooksStreamingLog();
+  v7 = BKAudiobooksStreamingLog(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v11 = 138543362;
@@ -1348,8 +1353,7 @@ void sub_B09C(_Unwind_Exception *exception_object, int a2, ...)
   if (a2 == 1)
   {
     v3 = objc_begin_catch(exception_object);
-    [*(v2 + 32) finishLoadingWithError:0];
-    v4 = BKAudiobooksStreamingLog();
+    v4 = BKAudiobooksStreamingLog([*(v2 + 32) finishLoadingWithError:0]);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       v5 = [v3 reason];
@@ -1365,7 +1369,7 @@ void sub_B09C(_Unwind_Exception *exception_object, int a2, ...)
 
 void sub_B2BC(id a1)
 {
-  v1 = BKAudiobooksNowPlayingAdaptorLog();
+  v1 = BKAudiobooksNowPlayingAdaptorLog(a1);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
     v8[0] = 0;
@@ -1400,76 +1404,77 @@ void sub_C1B0(uint64_t a1, void *a2)
   }
 
   v5 = [*(a1 + 32) assetID];
-  if ([*(a1 + 32) isAudiobookPreview])
+  v6 = [*(a1 + 32) isAudiobookPreview];
+  if (v6)
   {
-    v6 = [*(a1 + 40) nowPlayingAudiobookArtworkForPreviews];
+    v7 = [*(a1 + 40) nowPlayingAudiobookArtworkForPreviews];
 
-    if (v6)
+    if (v7)
     {
-      v7 = BKAudiobooksNowPlayingAdaptorLog();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v9 = BKAudiobooksNowPlayingAdaptorLog(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Returning artwork for previewed audiobook.", buf, 2u);
+        _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "Returning artwork for previewed audiobook.", buf, 2u);
       }
 
-      v8 = *(a1 + 48);
-      v9 = [*(a1 + 40) nowPlayingAudiobookArtworkForPreviews];
-      (*(v8 + 16))(v8, v9, 0);
+      v10 = *(a1 + 48);
+      v11 = [*(a1 + 40) nowPlayingAudiobookArtworkForPreviews];
+      (*(v10 + 16))(v10, v11, 0);
     }
 
     else
     {
-      v11 = [*(a1 + 40) artworkCompletionBlocks];
+      v13 = [*(a1 + 40) artworkCompletionBlocks];
 
-      if (v11)
+      if (v13)
       {
-        v12 = [*(a1 + 40) artworkCompletionBlocks];
-        v13 = objc_retainBlock(*(a1 + 48));
-        [v12 addObject:v13];
+        v14 = [*(a1 + 40) artworkCompletionBlocks];
+        v15 = objc_retainBlock(*(a1 + 48));
+        [v14 addObject:v15];
       }
 
       else
       {
-        v12 = objc_retainBlock(*(a1 + 48));
-        v13 = [NSMutableArray arrayWithObject:v12];
-        [*(a1 + 40) setArtworkCompletionBlocks:v13];
+        v14 = objc_retainBlock(*(a1 + 48));
+        v15 = [NSMutableArray arrayWithObject:v14];
+        [*(a1 + 40) setArtworkCompletionBlocks:v15];
       }
 
-      v9 = BKAudiobooksNowPlayingAdaptorLog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v11 = BKAudiobooksNowPlayingAdaptorLog(v20);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "No artwork available for audiobook preview. Fetching artwork.", buf, 2u);
+        _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "No artwork available for audiobook preview. Fetching artwork.", buf, 2u);
       }
     }
   }
 
-  else if (!a2 && ([*(a1 + 40) genericCoverProvider], (v14 = objc_claimAutoreleasedReturnValue()) != 0) && (v15 = v14, v16 = objc_msgSend(v5, "length"), v15, v16))
+  else if (!a2 && ([*(a1 + 40) genericCoverProvider], (v6 = objc_claimAutoreleasedReturnValue()) != 0) && (v16 = v6, v17 = objc_msgSend(v5, "length"), v16, v17))
   {
-    v17 = BKAudiobooksNowPlayingAdaptorLog();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v18 = BKAudiobooksNowPlayingAdaptorLog(v6);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v17, OS_LOG_TYPE_DEFAULT, "Generating artwork for active audiobook. None available already on the audiobook.", buf, 2u);
+      _os_log_impl(&dword_0, v18, OS_LOG_TYPE_DEFAULT, "Generating artwork for active audiobook. None available already on the audiobook.", buf, 2u);
     }
 
-    v18 = [WeakRetained genericCoverProvider];
-    v19[0] = _NSConcreteStackBlock;
-    v19[1] = 3221225472;
-    v19[2] = sub_C4DC;
-    v19[3] = &unk_3CD30;
-    v20 = *(a1 + 48);
-    [v18 fetchCoverForAssetID:v5 size:v19 completion:{*(a1 + 64), *(a1 + 72)}];
+    v19 = [WeakRetained genericCoverProvider];
+    v21[0] = _NSConcreteStackBlock;
+    v21[1] = 3221225472;
+    v21[2] = sub_C4DC;
+    v21[3] = &unk_3CD30;
+    v22 = *(a1 + 48);
+    [v19 fetchCoverForAssetID:v5 size:v21 completion:{*(a1 + 64), *(a1 + 72)}];
   }
 
   else
   {
-    v10 = BKAudiobooksNowPlayingAdaptorLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v12 = BKAudiobooksNowPlayingAdaptorLog(v6);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "Returning artwork for active audiobook found on the current audiobook.", buf, 2u);
+      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "Returning artwork for active audiobook found on the current audiobook.", buf, 2u);
     }
 
     (*(*(a1 + 48) + 16))();
@@ -1480,7 +1485,7 @@ void sub_C4DC(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
   v6 = [UIImage imageWithCGImage:a2];
-  v7 = BKAudiobooksNowPlayingAdaptorLog();
+  v7 = BKAudiobooksNowPlayingAdaptorLog(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     [v6 size];
@@ -1493,16 +1498,16 @@ void sub_C4DC(uint64_t a1, uint64_t a2, void *a3)
   (*(*(a1 + 32) + 16))();
 }
 
-id BKAudiobooksLog()
+id BKAudiobooksLog(uint64_t a1)
 {
   if (qword_47940 != -1)
   {
     sub_21420();
   }
 
-  v1 = qword_47938;
+  v2 = qword_47938;
 
-  return v1;
+  return v2;
 }
 
 void sub_CF34(id a1)
@@ -1512,16 +1517,16 @@ void sub_CF34(id a1)
   _objc_release_x1();
 }
 
-id BKAudiobooksBKAVLog()
+id BKAudiobooksBKAVLog(uint64_t a1)
 {
   if (qword_47950 != -1)
   {
     sub_21434();
   }
 
-  v1 = qword_47948;
+  v2 = qword_47948;
 
-  return v1;
+  return v2;
 }
 
 void sub_CFBC(id a1)
@@ -1531,16 +1536,16 @@ void sub_CFBC(id a1)
   _objc_release_x1();
 }
 
-id BKAudiobooksSleepTimerLog()
+id BKAudiobooksSleepTimerLog(uint64_t a1)
 {
   if (qword_47960 != -1)
   {
     sub_21448();
   }
 
-  v1 = qword_47958;
+  v2 = qword_47958;
 
-  return v1;
+  return v2;
 }
 
 void sub_D044(id a1)
@@ -1550,16 +1555,16 @@ void sub_D044(id a1)
   _objc_release_x1();
 }
 
-id BKAudiobooksMediaRemoteLog()
+id BKAudiobooksMediaRemoteLog(uint64_t a1)
 {
   if (qword_47970 != -1)
   {
     sub_2145C();
   }
 
-  v1 = qword_47968;
+  v2 = qword_47968;
 
-  return v1;
+  return v2;
 }
 
 void sub_D0CC(id a1)
@@ -1569,16 +1574,16 @@ void sub_D0CC(id a1)
   _objc_release_x1();
 }
 
-id BKAudiobooksNowPlayingAdaptorLog()
+id BKAudiobooksNowPlayingAdaptorLog(uint64_t a1)
 {
   if (qword_47980 != -1)
   {
     sub_21470();
   }
 
-  v1 = qword_47978;
+  v2 = qword_47978;
 
-  return v1;
+  return v2;
 }
 
 void sub_D154(id a1)
@@ -1588,16 +1593,16 @@ void sub_D154(id a1)
   _objc_release_x1();
 }
 
-id BKAudiobooksSkipControllerLog()
+id BKAudiobooksSkipControllerLog(uint64_t a1)
 {
   if (qword_47990 != -1)
   {
     sub_21484();
   }
 
-  v1 = qword_47988;
+  v2 = qword_47988;
 
-  return v1;
+  return v2;
 }
 
 void sub_D1DC(id a1)
@@ -1607,16 +1612,16 @@ void sub_D1DC(id a1)
   _objc_release_x1();
 }
 
-id BKAudiobooksPersistenceLog()
+id BKAudiobooksPersistenceLog(uint64_t a1)
 {
   if (qword_479A0 != -1)
   {
     sub_21498();
   }
 
-  v1 = qword_47998;
+  v2 = qword_47998;
 
-  return v1;
+  return v2;
 }
 
 void sub_D264(id a1)
@@ -1626,16 +1631,16 @@ void sub_D264(id a1)
   _objc_release_x1();
 }
 
-id BKAudiobooksPersistenceCloudKitLog()
+id BKAudiobooksPersistenceCloudKitLog(uint64_t a1)
 {
   if (qword_479B0 != -1)
   {
     sub_214AC();
   }
 
-  v1 = qword_479A8;
+  v2 = qword_479A8;
 
-  return v1;
+  return v2;
 }
 
 void sub_D2EC(id a1)
@@ -1645,16 +1650,16 @@ void sub_D2EC(id a1)
   _objc_release_x1();
 }
 
-id BKAudiobooksPersistenceMediaLibraryLocalLog()
+id BKAudiobooksPersistenceMediaLibraryLocalLog(uint64_t a1)
 {
   if (qword_479C0 != -1)
   {
     sub_214C0();
   }
 
-  v1 = qword_479B8;
+  v2 = qword_479B8;
 
-  return v1;
+  return v2;
 }
 
 void sub_D374(id a1)
@@ -1664,16 +1669,16 @@ void sub_D374(id a1)
   _objc_release_x1();
 }
 
-id BKAudiobooksPersistenceMediaLibraryDAAPLog()
+id BKAudiobooksPersistenceMediaLibraryDAAPLog(uint64_t a1)
 {
   if (qword_479D0 != -1)
   {
     sub_214D4();
   }
 
-  v1 = qword_479C8;
+  v2 = qword_479C8;
 
-  return v1;
+  return v2;
 }
 
 void sub_D3FC(id a1)
@@ -1683,16 +1688,16 @@ void sub_D3FC(id a1)
   _objc_release_x1();
 }
 
-id BKBTClassicLog()
+id BKBTClassicLog(uint64_t a1)
 {
   if (qword_479E0 != -1)
   {
     sub_214E8();
   }
 
-  v1 = qword_479D8;
+  v2 = qword_479D8;
 
-  return v1;
+  return v2;
 }
 
 void sub_D484(id a1)
@@ -1702,16 +1707,16 @@ void sub_D484(id a1)
   _objc_release_x1();
 }
 
-id BKAudiobooksStreamingLog()
+id BKAudiobooksStreamingLog(uint64_t a1)
 {
   if (qword_479F0 != -1)
   {
     sub_214FC();
   }
 
-  v1 = qword_479E8;
+  v2 = qword_479E8;
 
-  return v1;
+  return v2;
 }
 
 void sub_D50C(id a1)
@@ -1721,16 +1726,16 @@ void sub_D50C(id a1)
   _objc_release_x1();
 }
 
-id BKAudiobooksBundle()
+id BKAudiobooksBundle(uint64_t a1)
 {
   if (qword_47A00 != -1)
   {
     sub_21510();
   }
 
-  v1 = qword_479F8;
+  v2 = qword_479F8;
 
-  return v1;
+  return v2;
 }
 
 void sub_D60C(id a1)
@@ -1754,12 +1759,12 @@ void sub_DA48(uint64_t a1, void *a2)
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained setGuid:v4];
 
-  v6 = BKAudiobooksLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = BKAudiobooksLog(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = v3;
-    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Received GUID for audiobook: %@", &v7, 0xCu);
+    v8 = 138412290;
+    v9 = v3;
+    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Received GUID for audiobook: %@", &v8, 0xCu);
   }
 }
 
@@ -1820,10 +1825,11 @@ void sub_FDF0(uint64_t a1)
   }
 }
 
-void sub_108D4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_108D4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 void sub_10D60(id a1)
@@ -1843,31 +1849,32 @@ void sub_1368C(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = BKAudiobooksLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = BKAudiobooksLog(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      sub_21710(a1, v6, v7);
+      sub_21710(a1, v7, v8);
     }
 
-    v8 = objc_retainBlock(*(a1 + 40));
-    v9 = v8;
-    if (v8)
+    v9 = objc_retainBlock(*(a1 + 40));
+    v10 = v9;
+    if (v9)
     {
-      v10 = v8[2];
+      v11 = v9[2];
 LABEL_8:
-      v10();
+      v11();
     }
   }
 
   else
   {
-    v11 = objc_retainBlock(*(a1 + 40));
-    v9 = v11;
-    if (v11)
+    v12 = objc_retainBlock(*(a1 + 40));
+    v10 = v12;
+    if (v12)
     {
-      v10 = v11[2];
+      v11 = v12[2];
       goto LABEL_8;
     }
   }
@@ -1877,12 +1884,13 @@ void sub_1382C(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = BKAudiobooksLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = BKAudiobooksLog(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      sub_21828(v6, v7);
+      sub_21828(v7, v8);
     }
   }
 
@@ -1920,7 +1928,7 @@ void sub_15160(id a1)
 
 id sub_15598(uint64_t a1)
 {
-  v2 = BKAudiobooksSleepTimerLog();
+  v2 = BKAudiobooksSleepTimerLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf.value) = 0;
@@ -1930,24 +1938,24 @@ id sub_15598(uint64_t a1)
   v3 = *(a1 + 32);
   if (v3)
   {
-    [v3 timeRangeInTrack];
+    objc_msgSend_timeRangeInTrack(v3);
   }
 
   else
   {
-    memset(&v8, 0, sizeof(v8));
+    memset(&v9, 0, sizeof(v9));
   }
 
-  buf = v8;
+  buf = v9;
   Seconds = CMTimeGetSeconds(&buf);
-  v5 = BKAudiobooksSleepTimerLog();
-  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+  v6 = BKAudiobooksSleepTimerLog(v5);
+  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
   if (Seconds == 0.0)
   {
-    if (v6)
+    if (v7)
     {
       LOWORD(buf.value) = 0;
-      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "Next chapter is the first in a track file.  Remembering to pause playback when state returns to Playing", &buf, 2u);
+      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Next chapter is the first in a track file.  Remembering to pause playback when state returns to Playing", &buf, 2u);
     }
 
     return [*(a1 + 40) setWaitingForPlayerStatePlayingThenPause:1];
@@ -1955,10 +1963,10 @@ id sub_15598(uint64_t a1)
 
   else
   {
-    if (v6)
+    if (v7)
     {
       LOWORD(buf.value) = 0;
-      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "Pausing playback", &buf, 2u);
+      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Pausing playback", &buf, 2u);
     }
 
     return [*(a1 + 48) pause];
@@ -2014,10 +2022,11 @@ uint64_t sub_18534(uint64_t a1, void *a2, uint64_t a3, unsigned __int8 *a4)
   return *a4;
 }
 
-void sub_19694(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_19694(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 uint64_t sub_19754(uint64_t a1)
@@ -2117,7 +2126,7 @@ void sub_1C670(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
   {
     if (v7)
     {
-      [v7 timeRangeInTrack];
+      objc_msgSend_timeRangeInTrack(v7);
     }
 
     else
@@ -2137,10 +2146,10 @@ void sub_1C670(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 
     if (v7)
     {
-      [v7 timeRangeInTrack];
+      objc_msgSend_timeRangeInTrack(v7);
       *&time1.value = v10;
       time1.epoch = v11;
-      [v7 timeRangeInTrack];
+      objc_msgSend_timeRangeInTrack(v7);
     }
 
     else
@@ -2170,16 +2179,17 @@ id sub_1E6B4(uint64_t a1)
   return [v1 artworkForTime:?];
 }
 
-void sub_1EE4C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1EE4C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 void sub_1F000(id *a1)
 {
   v2 = [a1[4] assetID];
-  v3 = BKAudiobooksPersistenceCloudKitLog();
+  v3 = BKAudiobooksPersistenceCloudKitLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138477827;
@@ -2203,7 +2213,7 @@ void sub_1F000(id *a1)
 
   else
   {
-    v6 = BKAudiobooksPersistenceCloudKitLog();
+    v6 = BKAudiobooksPersistenceCloudKitLog(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_225F0();
@@ -2222,22 +2232,23 @@ void sub_1F1DC(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = BKAudiobooksPersistenceCloudKitLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = BKAudiobooksPersistenceCloudKitLog(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      sub_22664(a1, v6, v7);
+      sub_22664(a1, v7, v8);
     }
   }
 
-  v8 = objc_retainBlock(*(a1 + 40));
-  if (v8)
+  v9 = objc_retainBlock(*(a1 + 40));
+  if (v9)
   {
     [v5 bookmarkTime];
-    v10 = v9;
-    v11 = [v5 datePlaybackTimeUpdated];
-    v8[2](v8, v11, v6, v10);
+    v11 = v10;
+    v12 = [v5 datePlaybackTimeUpdated];
+    v9[2](v9, v12, v7, v11);
   }
 }
 
@@ -2245,104 +2256,105 @@ void sub_1F4B0(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = BKAudiobooksPersistenceCloudKitLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = BKAudiobooksPersistenceCloudKitLog(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_22760();
     }
 
-    v8 = objc_retainBlock(*(a1 + 56));
-    v9 = v8;
-    if (v8)
+    v9 = objc_retainBlock(*(a1 + 56));
+    v10 = v9;
+    if (v9)
     {
-      (*(v8 + 2))(v8, v6);
+      (*(v9 + 2))(v9, v7);
     }
   }
 
   else
   {
-    v9 = +[NSDate date];
-    v10 = BKAudiobooksPersistenceCloudKitLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v10 = +[NSDate date];
+    v11 = BKAudiobooksPersistenceCloudKitLog(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = *(a1 + 32);
-      v12 = *(a1 + 64);
+      v12 = *(a1 + 32);
+      v13 = *(a1 + 64);
       *buf = 138412802;
-      v31 = v11;
-      v32 = 2112;
-      v33 = v9;
-      v34 = 2048;
-      v35 = v12;
-      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "AssetDetailManager %@ Audiobook Setting bookmark time [%@ = %.2f].", buf, 0x20u);
+      v33 = v12;
+      v34 = 2112;
+      v35 = v10;
+      v36 = 2048;
+      v37 = v13;
+      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "AssetDetailManager %@ Audiobook Setting bookmark time [%@ = %.2f].", buf, 0x20u);
     }
 
     [v5 setBookmarkTime:*(a1 + 64)];
-    [v5 setDatePlaybackTimeUpdated:v9];
-    [v5 setLastOpenDate:v9];
-    [*(a1 + 40) duration];
-    v14 = v13;
-    v15 = 0.0;
-    if (v13 != 0.0)
+    [v5 setDatePlaybackTimeUpdated:v10];
+    [v5 setLastOpenDate:v10];
+    v14 = [*(a1 + 40) duration];
+    v16 = v15;
+    v17 = 0.0;
+    if (v15 != 0.0)
     {
-      v15 = *(a1 + 64) / v13;
+      v17 = *(a1 + 64) / v15;
     }
 
-    if (v15 < 0.0 || v15 > 1.0)
+    if (v17 < 0.0 || v17 > 1.0)
     {
-      v16 = BKAudiobooksPersistenceCloudKitLog();
-      v17 = v15;
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+      v18 = BKAudiobooksPersistenceCloudKitLog(v14);
+      v19 = v17;
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
       {
         [v5 bookmarkTime];
         *buf = 134218496;
-        v31 = v17;
-        v32 = 2048;
-        v33 = v23;
+        v33 = v19;
         v34 = 2048;
-        v35 = v14;
-        _os_log_fault_impl(&dword_0, v16, OS_LOG_TYPE_FAULT, "Calculated reading progress out of range %f.  bookmarkTime=%f audiobookDuration=%f", buf, 0x20u);
+        v35 = v25;
+        v36 = 2048;
+        v37 = v16;
+        _os_log_fault_impl(&dword_0, v18, OS_LOG_TYPE_FAULT, "Calculated reading progress out of range %f.  bookmarkTime=%f audiobookDuration=%f", buf, 0x20u);
       }
 
       BUClamp();
-      v15 = v18;
+      v17 = v20;
     }
 
     [v5 readingProgressHighWaterMark];
-    if (*&v19 >= v15)
+    if (*&v21 >= v17)
     {
-      v20 = *&v19;
+      v22 = *&v21;
     }
 
     else
     {
-      v20 = v15;
+      v22 = v17;
     }
 
-    *&v19 = v15;
-    [v5 setReadingProgress:v19];
-    *&v21 = v20;
-    [v5 setReadingProgressHighWaterMark:v21];
-    [v5 setReadingPositionLocationUpdateDate:v9];
-    v22 = *(a1 + 48);
-    v24[0] = _NSConcreteStackBlock;
-    v24[1] = 3221225472;
-    v24[2] = sub_1F7BC;
-    v24[3] = &unk_3D238;
-    v25 = *(a1 + 32);
-    v27 = *(a1 + 64);
-    v28 = v15;
-    v29 = v20;
-    v26 = *(a1 + 56);
-    [v22 setAssetDetail:v5 completion:v24];
+    *&v21 = v17;
+    [v5 setReadingProgress:v21];
+    *&v23 = v22;
+    [v5 setReadingProgressHighWaterMark:v23];
+    [v5 setReadingPositionLocationUpdateDate:v10];
+    v24 = *(a1 + 48);
+    v26[0] = _NSConcreteStackBlock;
+    v26[1] = 3221225472;
+    v26[2] = sub_1F7BC;
+    v26[3] = &unk_3D238;
+    v27 = *(a1 + 32);
+    v29 = *(a1 + 64);
+    v30 = v17;
+    v31 = v22;
+    v28 = *(a1 + 56);
+    [v24 setAssetDetail:v5 completion:v26];
   }
 }
 
 void sub_1F7BC(uint64_t a1, int a2, uint64_t a3, void *a4)
 {
   v6 = a4;
-  v7 = BKAudiobooksPersistenceCloudKitLog();
+  v7 = BKAudiobooksPersistenceCloudKitLog(v6);
   v8 = v7;
   if (a2)
   {
@@ -2448,9 +2460,9 @@ void sub_20824(uint64_t a1, void *a2, uint64_t a3)
   [v16 addObject:v17];
 }
 
-void sub_20AE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_20AE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2485,13 +2497,6 @@ void sub_20C7C(id a1)
   [v3 setSecondsToRewindAfterInterruption:3];
 }
 
-void sub_20CFC(uint64_t *a1)
-{
-  v6 = *a1;
-  sub_85DC();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-}
-
 void sub_20D74()
 {
   sub_85E8();
@@ -2518,13 +2523,6 @@ void sub_20E78()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_20EB4(uint64_t *a1)
-{
-  v6 = *a1;
-  sub_85DC();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-}
-
 void sub_20F2C()
 {
   sub_85E8();
@@ -2537,20 +2535,6 @@ void sub_20F68()
   sub_85E8();
   sub_85DC();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-void sub_20FA4(float *a1)
-{
-  v6 = *a1;
-  sub_85DC();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-}
-
-void sub_21020(uint64_t a1)
-{
-  v6 = *(a1 + 32);
-  sub_85DC();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
 }
 
 void sub_21098(void *a1, NSObject *a2)
@@ -2649,6 +2633,13 @@ void sub_219AC(uint64_t a1, NSObject *a2)
   v2 = 138412290;
   v3 = a1;
   _os_log_error_impl(&dword_0, a2, OS_LOG_TYPE_ERROR, "failed to resolve chapter from contentItemID %@", &v2, 0xCu);
+}
+
+void sub_21A68(void *a1)
+{
+  LODWORD(v7) = 134217984;
+  *(&v7 + 4) = [a1 type];
+  sub_19694(&dword_0, v1, v2, "Received unhandled event type: %lu", v3, v4, v5, v6, v7, DWORD2(v7));
 }
 
 void sub_21AE4()
@@ -2751,7 +2742,7 @@ void sub_22190(void *a1)
 {
   [a1 positionInCurrentChapter];
   sub_1EE40();
-  sub_1EE4C(&dword_0, v1, v2, "observer: position = %f", v3, v4, v5, v6, v7);
+  sub_1EE4C(&dword_0, v1, v2, "observer: position = %f", v3, v4, v5, v6);
 }
 
 void sub_22208()
@@ -2772,7 +2763,7 @@ void sub_222E8(void *a1)
 {
   v1 = [a1 currentAudiobook];
   sub_1EE34();
-  sub_1EE4C(&dword_0, v2, v3, "observer: audiobook = %@", v4, v5, v6, v7, v8);
+  sub_1EE4C(&dword_0, v2, v3, "observer: audiobook = %@", v4, v5, v6, v7);
 }
 
 void sub_2236C()

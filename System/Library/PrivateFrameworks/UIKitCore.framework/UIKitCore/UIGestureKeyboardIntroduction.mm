@@ -252,7 +252,7 @@ id __64__UIGestureKeyboardIntroduction_showGestureKeyboardIntroduction__block_in
   v7 = [*(a1 + 40) factory];
   v8 = [v7 traitsForKey:v6 onKeyplane:*(a1 + 48)];
 
-  v9 = [v8 geometry];
+  v9 = objc_msgSend_geometry(v8);
   [v9 displayFrame];
   v11 = v10;
   v13 = v12;

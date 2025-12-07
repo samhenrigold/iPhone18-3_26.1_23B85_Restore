@@ -50,11 +50,11 @@
 
 - (id)exportToLegacyDictionary
 {
-  timestamp = [(VCPProtoVideoThumbnailResult *)self timestamp];
-  v4 = timestamp;
-  if (timestamp)
+  v3 = objc_msgSend_timestamp(self, a2);
+  v4 = v3;
+  if (v3)
   {
-    [timestamp timeValue];
+    objc_msgSend_timeValue(v3);
   }
 
   else

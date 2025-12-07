@@ -8,7 +8,7 @@
 
 - (void)logMessageType:(int)type data:(void *)data actionString:(void *)string
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   stringCopy = string;
   if (nelog_is_debug_logging_enabled())
@@ -27,21 +27,19 @@
     v8 = ne_log_obj();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      v10 = [dataCopy length];
-      v11 = [v7 description];
-      v12 = 138413058;
-      v13 = stringCopy;
-      v14 = 1024;
+      v9 = [dataCopy length];
+      v10 = [v7 description];
+      v11 = 138413058;
+      v12 = stringCopy;
+      v13 = 1024;
       typeCopy = type;
-      v16 = 2048;
-      v17 = v10;
-      v18 = 2112;
-      v19 = v11;
-      _os_log_debug_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_DEBUG, "%@ an IPC message with type %u and length %lu, hash %@", &v12, 0x26u);
+      v15 = 2048;
+      v16 = v9;
+      v17 = 2112;
+      v18 = v10;
+      _os_log_debug_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_DEBUG, "%@ an IPC message with type %u and length %lu, hash %@", &v11, 0x26u);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __35__NEIPC_handleMessage_withHandler___block_invoke(uint64_t a1, void *a2)
@@ -177,7 +175,7 @@ void __39__NEIPC_setupMessageHandlingWithQueue___block_invoke(uint64_t a1, void 
 
 void __51__NEIPC_startInListenModeWithQueue_messageHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (v3 && MEMORY[0x1BFAFC5E0](v3) == MEMORY[0x1E69E9E68])
@@ -199,17 +197,15 @@ void __51__NEIPC_startInListenModeWithQueue_messageHandler___block_invoke(uint64
         Property = objc_getProperty(Property, v9, 16, 1);
       }
 
-      v12 = Property;
-      v13[0] = 67109120;
-      v13[1] = xpc_connection_get_pid(v12);
-      _os_log_debug_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_DEBUG, "Received a new connection from %d", v13, 8u);
+      v11 = Property;
+      v12[0] = 67109120;
+      v12[1] = xpc_connection_get_pid(v11);
+      _os_log_debug_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_DEBUG, "Received a new connection from %d", v12, 8u);
     }
 
     [(NEIPC *)*(a1 + 32) setupMessageHandlingWithQueue:?];
     objc_sync_exit(v5);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __58__NEIPC_sendMessageWithType_data_replyQueue_replyHandler___block_invoke(uint64_t a1, xpc_object_t xdict)

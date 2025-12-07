@@ -26,7 +26,7 @@
   v6 = [[_TUIGradientStyler alloc] initWithLayout:self];
   v7 = [[_TUIGradientContainerLayerConfig alloc] initWithStyle:v6];
   v8 = [[TUIRenderModelLayer alloc] initWithSubmodels:0 config:v7 erasableInsets:UIEdgeInsetsZero.top, UIEdgeInsetsZero.left, UIEdgeInsetsZero.bottom, UIEdgeInsetsZero.right];
-  v9 = [(TUILayout *)self box];
+  v9 = objc_msgSend_box(self);
   identifier = [v9 identifier];
   [(TUIRenderModelLayer *)v8 setIdentifier:identifier];
 

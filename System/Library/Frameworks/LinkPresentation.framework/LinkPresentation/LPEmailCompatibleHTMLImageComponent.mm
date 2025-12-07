@@ -11,70 +11,69 @@
   styleCopy = style;
   pathCopy = path;
   generatorCopy = generator;
-  v80.receiver = self;
-  v80.super_class = LPEmailCompatibleHTMLImageComponent;
-  v13 = [(LPHTMLComponent *)&v80 initWithTagName:@"img" themePath:pathCopy generator:generatorCopy];
-  v15 = v13;
+  v79.receiver = self;
+  v79.super_class = LPEmailCompatibleHTMLImageComponent;
+  v13 = [(LPHTMLComponent *)&v79 initWithTagName:@"img" themePath:pathCopy generator:generatorCopy];
   if (v13)
   {
-    LPWebLock(v13, v14);
+    LPWebLock();
     _alternateHTMLImageGenerator = [imageCopy _alternateHTMLImageGenerator];
 
     if (_alternateHTMLImageGenerator)
     {
       _alternateHTMLImageGenerator2 = [imageCopy _alternateHTMLImageGenerator];
-      v18 = _alternateHTMLImageGenerator2[2]();
+      v16 = _alternateHTMLImageGenerator2[2]();
 
-      imageCopy = v18;
+      imageCopy = v16;
     }
 
     aBlock[0] = MEMORY[0x1E69E9820];
     aBlock[1] = 3221225472;
     aBlock[2] = __79__LPEmailCompatibleHTMLImageComponent_initWithImage_style_themePath_generator___block_invoke;
     aBlock[3] = &unk_1E7A357A0;
-    v19 = pathCopy;
-    v79 = v19;
-    v75 = _Block_copy(aBlock);
+    v17 = pathCopy;
+    v78 = v17;
+    v74 = _Block_copy(aBlock);
     imageCopy = imageCopy;
     _remoteURLsForEmailCompatibleOutput = [imageCopy _remoteURLsForEmailCompatibleOutput];
 
     if (_remoteURLsForEmailCompatibleOutput)
     {
-      element = [(LPHTMLComponent *)v15 element];
+      element = [(LPHTMLComponent *)v13 element];
       _remoteURLsForEmailCompatibleOutput2 = [imageCopy _remoteURLsForEmailCompatibleOutput];
       firstObject = [_remoteURLsForEmailCompatibleOutput2 firstObject];
-      v24 = [firstObject URL];
-      absoluteString = [v24 absoluteString];
+      v22 = [firstObject URL];
+      absoluteString = [v22 absoluteString];
       [element setAttribute:@"src" value:absoluteString];
 
-      element2 = [(LPHTMLComponent *)v15 element];
+      element2 = [(LPHTMLComponent *)v13 element];
       _srcsetForRemoteURLs = [imageCopy _srcsetForRemoteURLs];
       [element2 setAttribute:@"srcset" value:_srcsetForRemoteURLs];
-      v76 = imageCopy;
+      v75 = imageCopy;
     }
 
     else
     {
-      v76 = imageCopy;
+      v75 = imageCopy;
       if ([styleCopy filter] == 4)
       {
         maskColor = [styleCopy maskColor];
-        v76 = flatImageWithColor(imageCopy, maskColor);
+        v75 = flatImageWithColor(imageCopy, maskColor);
       }
 
-      element2 = [(LPHTMLComponent *)v15 element];
-      _srcsetForRemoteURLs = [generatorCopy _URLForImage:v76];
+      element2 = [(LPHTMLComponent *)v13 element];
+      _srcsetForRemoteURLs = [generatorCopy _URLForImage:v75];
       [element2 setAttribute:@"src" value:_srcsetForRemoteURLs];
     }
 
-    element3 = [(LPHTMLComponent *)v15 element];
+    element3 = [(LPHTMLComponent *)v13 element];
     properties = [imageCopy properties];
     accessibilityText = [properties accessibilityText];
-    v74 = v19;
+    v73 = v17;
     [element3 setAttribute:@"alt" value:accessibilityText];
 
     fixedSize = [styleCopy fixedSize];
-    if (fixedSize && ([styleCopy fixedSize], v33 = objc_claimAutoreleasedReturnValue(), v34 = objc_msgSend(v33, "isEmpty"), v33, fixedSize, (v34 & 1) == 0))
+    if (fixedSize && ([styleCopy fixedSize], v31 = objc_claimAutoreleasedReturnValue(), v32 = objc_msgSend(v31, "isEmpty"), v31, fixedSize, (v32 & 1) == 0))
     {
       fixedSize2 = [styleCopy fixedSize];
       width = [fixedSize2 width];
@@ -85,78 +84,78 @@
 
     else
     {
-      [v76 _pixelSize];
+      [v75 _pixelSize];
+      v34 = v33;
       v36 = v35;
-      v38 = v37;
       rootWidth = [generatorCopy rootWidth];
-      [rootWidth value];
-      sizeFittingInsideSizeMaintainingAspectRatio(v36, v38, v40, 500.0);
-      v42 = v41;
-      v44 = v43;
+      value = [rootWidth value];
+      sizeFittingInsideSizeMaintainingAspectRatio(value, v34, v36, v39, 500.0);
+      v41 = v40;
+      v43 = v42;
 
-      width = [[LPPointUnit alloc] initWithValue:v42];
-      height = [[LPPointUnit alloc] initWithValue:v44];
+      width = [[LPPointUnit alloc] initWithValue:v41];
+      height = [[LPPointUnit alloc] initWithValue:v43];
     }
 
     _lp_CSSText = [(LPPointUnit *)width _lp_CSSText];
     cssResolver = [generatorCopy cssResolver];
     localVariables = [cssResolver localVariables];
-    v52 = v75[2](v75, @"local", @"width");
-    [localVariables setObject:_lp_CSSText forKeyedSubscript:v52];
+    v51 = v74[2](v74, @"local", @"width");
+    [localVariables setObject:_lp_CSSText forKeyedSubscript:v51];
 
     _lp_CSSText2 = [(LPPointUnit *)height _lp_CSSText];
     cssResolver2 = [generatorCopy cssResolver];
     localVariables2 = [cssResolver2 localVariables];
-    v56 = v75[2](v75, @"local", @"height");
-    [localVariables2 setObject:_lp_CSSText2 forKeyedSubscript:v56];
+    v55 = v74[2](v74, @"local", @"height");
+    [localVariables2 setObject:_lp_CSSText2 forKeyedSubscript:v55];
 
     filter = [styleCopy filter];
-    v58 = 0.0;
+    v57 = 0.0;
     if (filter == 2)
     {
       [styleCopy darkeningAmount];
     }
 
-    v59 = v58;
-    if (v59 == 0.0)
+    v58 = v57;
+    if (v58 == 0.0)
     {
-      v60 = &stru_1F2447CF0;
+      v59 = &stru_1F2447CF0;
     }
 
     else
     {
-      v60 = [MEMORY[0x1E696AEC0] stringWithFormat:@"brightness(%g)", (1.0 - v59)];
+      v59 = [MEMORY[0x1E696AEC0] stringWithFormat:@"brightness(%g)", (1.0 - v58)];
     }
 
     cssResolver3 = [generatorCopy cssResolver];
     localVariables3 = [cssResolver3 localVariables];
-    v63 = v75[2](v75, @"local", @"filter");
-    [localVariables3 setObject:v60 forKeyedSubscript:v63];
+    v62 = v74[2](v74, @"local", @"filter");
+    [localVariables3 setObject:v59 forKeyedSubscript:v62];
 
-    if (v59 != 0.0)
+    if (v58 != 0.0)
     {
     }
 
     cssResolver4 = [generatorCopy cssResolver];
-    v65 = [@"lp-rich-link-" stringByAppendingString:v74];
-    element4 = [(LPHTMLComponent *)v15 element];
-    [cssResolver4 addStyle:v65 toElement:element4 inComponent:v15];
+    v64 = [@"lp-rich-link-" stringByAppendingString:v73];
+    element4 = [(LPHTMLComponent *)v13 element];
+    [cssResolver4 addStyle:v64 toElement:element4 inComponent:v13];
 
-    element5 = [(LPHTMLComponent *)v15 element];
+    element5 = [(LPHTMLComponent *)v13 element];
     _lp_HTMLAttributeText = [(LPPointUnit *)width _lp_HTMLAttributeText];
     [element5 setAttribute:@"width" value:_lp_HTMLAttributeText];
 
-    element6 = [(LPHTMLComponent *)v15 element];
+    element6 = [(LPHTMLComponent *)v13 element];
     _lp_HTMLAttributeText2 = [(LPPointUnit *)height _lp_HTMLAttributeText];
     [element6 setAttribute:@"height" value:_lp_HTMLAttributeText2];
 
-    element7 = [(LPHTMLComponent *)v15 element];
+    element7 = [(LPHTMLComponent *)v13 element];
     [element7 setAttribute:@"draggable" value:@"false"];
 
-    v72 = v15;
+    v71 = v13;
   }
 
-  return v15;
+  return v13;
 }
 
 id __79__LPEmailCompatibleHTMLImageComponent_initWithImage_style_themePath_generator___block_invoke(uint64_t a1, void *a2, void *a3)

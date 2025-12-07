@@ -11,7 +11,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_1A41FD9B4();
+  sub_1A41FD9B4(selfCopy, v2);
 }
 
 - (NSCopying)userData
@@ -26,8 +26,8 @@
   *(&self->super.super.super.isa + OBJC_IVAR____TtC12PhotosUICoreP33_D2105462B28C8B244908FEC7DAEF9E2941PhotosDynamicHeaderLayoutDebugOverlayView_userData) = data;
   swift_unknownObjectRetain_n();
   self;
-  swift_unknownObjectRelease();
-  sub_1A41FE0BC();
+  v4 = swift_unknownObjectRelease();
+  sub_1A41FE0BC(v4, v5);
 }
 
 - (CGRect)clippingRect
@@ -47,8 +47,8 @@
 {
   *(&self->super.super.super.isa + OBJC_IVAR____TtC12PhotosUICoreP33_D2105462B28C8B244908FEC7DAEF9E2941PhotosDynamicHeaderLayoutDebugOverlayView_userData) = 0;
   self;
-  swift_unknownObjectRelease();
-  sub_1A41FE0BC();
+  v2 = swift_unknownObjectRelease();
+  sub_1A41FE0BC(v2, v3);
 }
 
 @end

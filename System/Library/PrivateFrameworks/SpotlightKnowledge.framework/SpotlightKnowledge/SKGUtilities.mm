@@ -34,225 +34,225 @@ uint64_t __34__SKGUtilities_sharedSKGUtilities__block_invoke()
 
 - (id)getSKGDictionary:(id)dictionary filterBundle:(id)bundle protectionClasses:(id)classes processorFlags:(unint64_t)flags
 {
-  v211 = *MEMORY[0x1E69E9840];
+  v210 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   bundleCopy = bundle;
   classesCopy = classes;
   v11 = objc_opt_new();
-  v204 = 0;
-  v205 = &v204;
-  v206 = 0x3032000000;
-  v207 = __Block_byref_object_copy_;
-  v208 = __Block_byref_object_dispose_;
-  v209 = 0;
-  v198 = 0;
-  v199 = &v198;
-  v200 = 0x3032000000;
-  v201 = __Block_byref_object_copy_;
-  v202 = __Block_byref_object_dispose_;
   v203 = 0;
-  v192 = 0;
-  v193 = &v192;
-  v194 = 0x3032000000;
-  v195 = __Block_byref_object_copy_;
-  v196 = __Block_byref_object_dispose_;
+  v204 = &v203;
+  v205 = 0x3032000000;
+  v206 = __Block_byref_object_copy_;
+  v207 = __Block_byref_object_dispose_;
+  v208 = 0;
   v197 = 0;
-  v186 = 0;
-  v187 = &v186;
-  v188 = 0x3032000000;
-  v189 = __Block_byref_object_copy_;
-  v190 = __Block_byref_object_dispose_;
+  v198 = &v197;
+  v199 = 0x3032000000;
+  v200 = __Block_byref_object_copy_;
+  v201 = __Block_byref_object_dispose_;
+  v202 = 0;
   v191 = 0;
-  v180 = 0;
-  v181 = &v180;
-  v182 = 0x3032000000;
-  v183 = __Block_byref_object_copy_;
-  v184 = __Block_byref_object_dispose_;
+  v192 = &v191;
+  v193 = 0x3032000000;
+  v194 = __Block_byref_object_copy_;
+  v195 = __Block_byref_object_dispose_;
+  v196 = 0;
   v185 = 0;
-  v174 = 0;
-  v175 = &v174;
-  v176 = 0x3032000000;
-  v177 = __Block_byref_object_copy_;
-  v178 = __Block_byref_object_dispose_;
+  v186 = &v185;
+  v187 = 0x3032000000;
+  v188 = __Block_byref_object_copy_;
+  v189 = __Block_byref_object_dispose_;
+  v190 = 0;
   v179 = 0;
-  v168 = 0;
-  v169 = &v168;
-  v170 = 0x3032000000;
-  v171 = __Block_byref_object_copy_;
-  v172 = __Block_byref_object_dispose_;
+  v180 = &v179;
+  v181 = 0x3032000000;
+  v182 = __Block_byref_object_copy_;
+  v183 = __Block_byref_object_dispose_;
+  v184 = 0;
   v173 = 0;
-  v162 = 0;
-  v163 = &v162;
-  v164 = 0x3032000000;
-  v165 = __Block_byref_object_copy_;
-  v166 = __Block_byref_object_dispose_;
+  v174 = &v173;
+  v175 = 0x3032000000;
+  v176 = __Block_byref_object_copy_;
+  v177 = __Block_byref_object_dispose_;
+  v178 = 0;
   v167 = 0;
-  v156 = 0;
-  v157 = &v156;
-  v158 = 0x3032000000;
-  v159 = __Block_byref_object_copy_;
-  v160 = __Block_byref_object_dispose_;
+  v168 = &v167;
+  v169 = 0x3032000000;
+  v170 = __Block_byref_object_copy_;
+  v171 = __Block_byref_object_dispose_;
+  v172 = 0;
   v161 = 0;
-  v150 = 0;
-  v151 = &v150;
-  v152 = 0x3032000000;
-  v153 = __Block_byref_object_copy_;
-  v154 = __Block_byref_object_dispose_;
+  v162 = &v161;
+  v163 = 0x3032000000;
+  v164 = __Block_byref_object_copy_;
+  v165 = __Block_byref_object_dispose_;
+  v166 = 0;
   v155 = 0;
-  v144 = 0;
-  v145 = &v144;
-  v146 = 0x3032000000;
-  v147 = __Block_byref_object_copy_;
-  v148 = __Block_byref_object_dispose_;
+  v156 = &v155;
+  v157 = 0x3032000000;
+  v158 = __Block_byref_object_copy_;
+  v159 = __Block_byref_object_dispose_;
+  v160 = 0;
   v149 = 0;
-  v138 = 0;
-  v139 = &v138;
-  v140 = 0x3032000000;
-  v141 = __Block_byref_object_copy_;
-  v142 = __Block_byref_object_dispose_;
+  v150 = &v149;
+  v151 = 0x3032000000;
+  v152 = __Block_byref_object_copy_;
+  v153 = __Block_byref_object_dispose_;
+  v154 = 0;
   v143 = 0;
-  v132 = 0;
-  v133 = &v132;
-  v134 = 0x3032000000;
-  v135 = __Block_byref_object_copy_;
-  v136 = __Block_byref_object_dispose_;
+  v144 = &v143;
+  v145 = 0x3032000000;
+  v146 = __Block_byref_object_copy_;
+  v147 = __Block_byref_object_dispose_;
+  v148 = 0;
   v137 = 0;
-  v126 = 0;
-  v127 = &v126;
-  v128 = 0x3032000000;
-  v129 = __Block_byref_object_copy_;
-  v130 = __Block_byref_object_dispose_;
+  v138 = &v137;
+  v139 = 0x3032000000;
+  v140 = __Block_byref_object_copy_;
+  v141 = __Block_byref_object_dispose_;
+  v142 = 0;
   v131 = 0;
-  v120 = 0;
-  v121 = &v120;
-  v122 = 0x3032000000;
-  v123 = __Block_byref_object_copy_;
-  v124 = __Block_byref_object_dispose_;
+  v132 = &v131;
+  v133 = 0x3032000000;
+  v134 = __Block_byref_object_copy_;
+  v135 = __Block_byref_object_dispose_;
+  v136 = 0;
   v125 = 0;
-  v114 = 0;
-  v115 = &v114;
-  v116 = 0x3032000000;
-  v117 = __Block_byref_object_copy_;
-  v118 = __Block_byref_object_dispose_;
+  v126 = &v125;
+  v127 = 0x3032000000;
+  v128 = __Block_byref_object_copy_;
+  v129 = __Block_byref_object_dispose_;
+  v130 = 0;
   v119 = 0;
-  v108 = 0;
-  v109 = &v108;
-  v110 = 0x3032000000;
-  v111 = __Block_byref_object_copy_;
-  v112 = __Block_byref_object_dispose_;
+  v120 = &v119;
+  v121 = 0x3032000000;
+  v122 = __Block_byref_object_copy_;
+  v123 = __Block_byref_object_dispose_;
+  v124 = 0;
   v113 = 0;
-  v102 = 0;
-  v103 = &v102;
-  v104 = 0x3032000000;
-  v105 = __Block_byref_object_copy_;
-  v106 = __Block_byref_object_dispose_;
+  v114 = &v113;
+  v115 = 0x3032000000;
+  v116 = __Block_byref_object_copy_;
+  v117 = __Block_byref_object_dispose_;
+  v118 = 0;
   v107 = 0;
-  v96 = 0;
-  v97 = &v96;
-  v98 = 0x3032000000;
-  v99 = __Block_byref_object_copy_;
-  v100 = __Block_byref_object_dispose_;
+  v108 = &v107;
+  v109 = 0x3032000000;
+  v110 = __Block_byref_object_copy_;
+  v111 = __Block_byref_object_dispose_;
+  v112 = 0;
   v101 = 0;
+  v102 = &v101;
+  v103 = 0x3032000000;
+  v104 = __Block_byref_object_copy_;
+  v105 = __Block_byref_object_dispose_;
+  v106 = 0;
+  v95 = 0;
+  v96 = &v95;
+  v97 = 0x3032000000;
+  v98 = __Block_byref_object_copy_;
+  v99 = __Block_byref_object_dispose_;
+  v100 = 0;
   v12 = objc_opt_new();
   v13 = dispatch_group_create();
   dispatch_group_enter(v13);
   v14 = +[SKGAttributeProcessor sharedProcessor];
   allObjects = [classesCopy allObjects];
-  v95[0] = MEMORY[0x1E69E9820];
-  v95[1] = 3221225472;
-  v95[2] = __79__SKGUtilities_getSKGDictionary_filterBundle_protectionClasses_processorFlags___block_invoke;
-  v95[3] = &unk_1E74B7E60;
-  v95[4] = &v108;
-  v95[5] = &v114;
-  v95[6] = &v204;
-  v95[7] = &v198;
-  v95[8] = &v192;
-  v95[9] = &v186;
-  v95[10] = &v180;
-  v95[11] = &v174;
-  v95[12] = &v168;
-  v95[13] = &v162;
-  v95[14] = &v156;
-  v95[15] = &v150;
-  v95[16] = &v144;
-  v95[17] = &v138;
-  v95[18] = &v132;
-  v95[19] = &v126;
-  v95[20] = &v120;
-  v95[21] = &v102;
-  v95[22] = &v96;
-  v93[0] = MEMORY[0x1E69E9820];
-  v93[1] = 3221225472;
-  v93[2] = __79__SKGUtilities_getSKGDictionary_filterBundle_protectionClasses_processorFlags___block_invoke_2;
-  v93[3] = &unk_1E74B7E88;
+  v94[0] = MEMORY[0x1E69E9820];
+  v94[1] = 3221225472;
+  v94[2] = __79__SKGUtilities_getSKGDictionary_filterBundle_protectionClasses_processorFlags___block_invoke;
+  v94[3] = &unk_1E74B7E60;
+  v94[4] = &v107;
+  v94[5] = &v113;
+  v94[6] = &v203;
+  v94[7] = &v197;
+  v94[8] = &v191;
+  v94[9] = &v185;
+  v94[10] = &v179;
+  v94[11] = &v173;
+  v94[12] = &v167;
+  v94[13] = &v161;
+  v94[14] = &v155;
+  v94[15] = &v149;
+  v94[16] = &v143;
+  v94[17] = &v137;
+  v94[18] = &v131;
+  v94[19] = &v125;
+  v94[20] = &v119;
+  v94[21] = &v101;
+  v94[22] = &v95;
+  v92[0] = MEMORY[0x1E69E9820];
+  v92[1] = 3221225472;
+  v92[2] = __79__SKGUtilities_getSKGDictionary_filterBundle_protectionClasses_processorFlags___block_invoke_2;
+  v92[3] = &unk_1E74B7E88;
   group = v13;
-  v94 = group;
-  [v14 getGenerationProgressReportForProtectionClasses:allObjects processorFlags:flags reportHandler:v95 completionHandler:v93];
+  v93 = group;
+  [v14 getGenerationProgressReportForProtectionClasses:allObjects processorFlags:flags reportHandler:v94 completionHandler:v92];
 
   dispatch_group_wait(group, 0xFFFFFFFFFFFFFFFFLL);
-  v16 = v109[5];
+  v16 = v108[5];
   if (v16)
   {
     for (i = 0; i < xpc_array_get_count(v16); ++i)
     {
-      v18 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{xpc_array_get_string(v109[5], i)}];
+      v18 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{xpc_array_get_string(v108[5], i)}];
       if (!bundleCopy || [bundleCopy isEqualToString:v18])
       {
         [v12 addObject:v18];
       }
 
-      v16 = v109[5];
+      v16 = v108[5];
     }
   }
 
   [v12 sortUsingSelector:sel_caseInsensitiveCompare_];
-  v91 = 0u;
-  v92 = 0u;
-  v89 = 0u;
   v90 = 0u;
+  v91 = 0u;
+  v88 = 0u;
+  v89 = 0u;
   obj = v12;
-  v19 = [obj countByEnumeratingWithState:&v89 objects:v210 count:16];
+  v19 = [obj countByEnumeratingWithState:&v88 objects:v209 count:16];
   if (v19)
   {
-    v20 = *v90;
+    v20 = *v89;
     do
     {
       for (j = 0; j != v19; ++j)
       {
-        if (*v90 != v20)
+        if (*v89 != v20)
         {
           objc_enumerationMutation(obj);
         }
 
-        v22 = *(*(&v89 + 1) + 8 * j);
+        v22 = *(*(&v88 + 1) + 8 * j);
         v23 = objc_alloc_init(SKGBundleStatus);
         if ((flags & 4) != 0)
         {
-          v24 = v115[5];
+          v24 = v114[5];
           v25 = v22;
           -[SKGBundleStatus setCount:](v23, "setCount:", xpc_dictionary_get_uint64(v24, [v22 UTF8String]));
-          v26 = v205[5];
+          v26 = v204[5];
           v27 = v22;
           -[SKGBundleStatus setProcessedCount:](v23, "setProcessedCount:", xpc_dictionary_get_uint64(v26, [v22 UTF8String]));
-          v28 = v199[5];
+          v28 = v198[5];
           v29 = v22;
           -[SKGBundleStatus setNeedProcessCount:](v23, "setNeedProcessCount:", xpc_dictionary_get_uint64(v28, [v22 UTF8String]));
-          v30 = v193[5];
+          v30 = v192[5];
           v31 = v22;
           -[SKGBundleStatus setNeedEmbedCount:](v23, "setNeedEmbedCount:", xpc_dictionary_get_uint64(v30, [v22 UTF8String]));
-          v32 = v187[5];
+          v32 = v186[5];
           v33 = v22;
           -[SKGBundleStatus setAwaitingRedonationCount:](v23, "setAwaitingRedonationCount:", xpc_dictionary_get_uint64(v32, [v22 UTF8String]));
-          v34 = v181[5];
+          v34 = v180[5];
           v35 = v22;
           -[SKGBundleStatus setItemsRedonationRequestCapReachedCount:](v23, "setItemsRedonationRequestCapReachedCount:", xpc_dictionary_get_uint64(v34, [v22 UTF8String]));
-          v36 = v175[5];
+          v36 = v174[5];
           v37 = v22;
           -[SKGBundleStatus setPrimaryEmbeddingCount:](v23, "setPrimaryEmbeddingCount:", xpc_dictionary_get_uint64(v36, [v22 UTF8String]));
-          v38 = v169[5];
+          v38 = v168[5];
           v39 = v22;
           -[SKGBundleStatus setSecondaryEmbeddingCount:](v23, "setSecondaryEmbeddingCount:", xpc_dictionary_get_uint64(v38, [v22 UTF8String]));
-          v40 = v103[5];
+          v40 = v102[5];
           v41 = v22;
           string = xpc_dictionary_get_string(v40, [v22 UTF8String]);
           if (string)
@@ -271,7 +271,7 @@ uint64_t __34__SKGUtilities_sharedSKGUtilities__block_invoke()
           {
           }
 
-          v44 = v97[5];
+          v44 = v96[5];
           v45 = v22;
           v46 = xpc_dictionary_get_string(v44, [v22 UTF8String]);
           if (v46)
@@ -293,63 +293,63 @@ uint64_t __34__SKGUtilities_sharedSKGUtilities__block_invoke()
 
         if ((flags & 0x20) != 0)
         {
-          v48 = v115[5];
+          v48 = v114[5];
           v49 = v22;
           -[SKGBundleStatus setCount:](v23, "setCount:", xpc_dictionary_get_uint64(v48, [v22 UTF8String]));
-          v50 = v205[5];
+          v50 = v204[5];
           v51 = v22;
           -[SKGBundleStatus setProcessedCount:](v23, "setProcessedCount:", xpc_dictionary_get_uint64(v50, [v22 UTF8String]));
-          v52 = v199[5];
+          v52 = v198[5];
           v53 = v22;
           -[SKGBundleStatus setNeedProcessCount:](v23, "setNeedProcessCount:", xpc_dictionary_get_uint64(v52, [v22 UTF8String]));
-          v54 = v163[5];
+          v54 = v162[5];
           v55 = v22;
           -[SKGBundleStatus setNeedSuggestedEventsCount:](v23, "setNeedSuggestedEventsCount:", xpc_dictionary_get_uint64(v54, [v22 UTF8String]));
-          v56 = v157[5];
+          v56 = v156[5];
           v57 = v22;
           -[SKGBundleStatus setSuggestedEventsCount:](v23, "setSuggestedEventsCount:", xpc_dictionary_get_uint64(v56, [v22 UTF8String]));
         }
 
         if ((flags & 0x40) != 0)
         {
-          v58 = v115[5];
+          v58 = v114[5];
           v59 = v22;
           -[SKGBundleStatus setCount:](v23, "setCount:", xpc_dictionary_get_uint64(v58, [v22 UTF8String]));
-          v60 = v205[5];
+          v60 = v204[5];
           v61 = v22;
           -[SKGBundleStatus setProcessedCount:](v23, "setProcessedCount:", xpc_dictionary_get_uint64(v60, [v22 UTF8String]));
-          v62 = v199[5];
+          v62 = v198[5];
           v63 = v22;
           -[SKGBundleStatus setNeedProcessCount:](v23, "setNeedProcessCount:", xpc_dictionary_get_uint64(v62, [v22 UTF8String]));
-          v64 = v151[5];
+          v64 = v150[5];
           v65 = v22;
           -[SKGBundleStatus setNeedDocumentUnderstandingCount:](v23, "setNeedDocumentUnderstandingCount:", xpc_dictionary_get_uint64(v64, [v22 UTF8String]));
-          v66 = v145[5];
+          v66 = v144[5];
           v67 = v22;
           -[SKGBundleStatus setDocumentUnderstandingCount:](v23, "setDocumentUnderstandingCount:", xpc_dictionary_get_uint64(v66, [v22 UTF8String]));
         }
 
         if ((flags & 8) != 0)
         {
-          v68 = v115[5];
+          v68 = v114[5];
           v69 = v22;
           -[SKGBundleStatus setCount:](v23, "setCount:", xpc_dictionary_get_uint64(v68, [v22 UTF8String]));
-          v70 = v205[5];
+          v70 = v204[5];
           v71 = v22;
           -[SKGBundleStatus setProcessedCount:](v23, "setProcessedCount:", xpc_dictionary_get_uint64(v70, [v22 UTF8String]));
-          v72 = v199[5];
+          v72 = v198[5];
           v73 = v22;
           -[SKGBundleStatus setNeedProcessCount:](v23, "setNeedProcessCount:", xpc_dictionary_get_uint64(v72, [v22 UTF8String]));
-          v74 = v139[5];
+          v74 = v138[5];
           v75 = v22;
           -[SKGBundleStatus setNeedKeyphrasesCount:](v23, "setNeedKeyphrasesCount:", xpc_dictionary_get_uint64(v74, [v22 UTF8String]));
-          v76 = v133[5];
+          v76 = v132[5];
           v77 = v22;
           -[SKGBundleStatus setKeyphrasesCount:](v23, "setKeyphrasesCount:", xpc_dictionary_get_uint64(v76, [v22 UTF8String]));
-          v78 = v127[5];
+          v78 = v126[5];
           v79 = v22;
           -[SKGBundleStatus setBreadcrumbsCount:](v23, "setBreadcrumbsCount:", xpc_dictionary_get_uint64(v78, [v22 UTF8String]));
-          v80 = v121[5];
+          v80 = v120[5];
           v81 = v22;
           -[SKGBundleStatus setLocationsCount:](v23, "setLocationsCount:", xpc_dictionary_get_uint64(v80, [v22 UTF8String]));
         }
@@ -357,41 +357,40 @@ uint64_t __34__SKGUtilities_sharedSKGUtilities__block_invoke()
         [v11 setObject:v23 forKeyedSubscript:v22];
       }
 
-      v19 = [obj countByEnumeratingWithState:&v89 objects:v210 count:16];
+      v19 = [obj countByEnumeratingWithState:&v88 objects:v209 count:16];
     }
 
     while (v19);
   }
 
-  _Block_object_dispose(&v96, 8);
-  _Block_object_dispose(&v102, 8);
+  _Block_object_dispose(&v95, 8);
+  _Block_object_dispose(&v101, 8);
 
-  _Block_object_dispose(&v108, 8);
-  _Block_object_dispose(&v114, 8);
+  _Block_object_dispose(&v107, 8);
+  _Block_object_dispose(&v113, 8);
 
-  _Block_object_dispose(&v120, 8);
-  _Block_object_dispose(&v126, 8);
+  _Block_object_dispose(&v119, 8);
+  _Block_object_dispose(&v125, 8);
 
-  _Block_object_dispose(&v132, 8);
-  _Block_object_dispose(&v138, 8);
+  _Block_object_dispose(&v131, 8);
+  _Block_object_dispose(&v137, 8);
 
-  _Block_object_dispose(&v144, 8);
-  _Block_object_dispose(&v150, 8);
+  _Block_object_dispose(&v143, 8);
+  _Block_object_dispose(&v149, 8);
 
-  _Block_object_dispose(&v156, 8);
-  _Block_object_dispose(&v162, 8);
+  _Block_object_dispose(&v155, 8);
+  _Block_object_dispose(&v161, 8);
 
-  _Block_object_dispose(&v168, 8);
-  _Block_object_dispose(&v174, 8);
+  _Block_object_dispose(&v167, 8);
+  _Block_object_dispose(&v173, 8);
 
-  _Block_object_dispose(&v180, 8);
-  _Block_object_dispose(&v186, 8);
+  _Block_object_dispose(&v179, 8);
+  _Block_object_dispose(&v185, 8);
 
-  _Block_object_dispose(&v192, 8);
-  _Block_object_dispose(&v198, 8);
+  _Block_object_dispose(&v191, 8);
+  _Block_object_dispose(&v197, 8);
 
-  _Block_object_dispose(&v204, 8);
-  v82 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v203, 8);
 
   return v11;
 }

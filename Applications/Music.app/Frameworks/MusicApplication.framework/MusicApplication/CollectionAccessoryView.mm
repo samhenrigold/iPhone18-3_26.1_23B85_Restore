@@ -39,15 +39,16 @@
 
 - (CGSize)sizeThatFits:(CGSize)fits
 {
+  height = fits.height;
   width = fits.width;
   selfCopy = self;
-  v5 = sub_D3A68(width);
-  v7 = v6;
+  v6 = sub_D3A68(width, height);
+  v8 = v7;
 
-  v8 = v5;
-  v9 = v7;
-  result.height = v9;
-  result.width = v8;
+  v9 = v6;
+  v10 = v8;
+  result.height = v10;
+  result.width = v9;
   return result;
 }
 
@@ -96,7 +97,7 @@
     v4 = *&v2[OBJC_IVAR____TtC16MusicApplication23CollectionAccessoryView_titleTextColor];
     *&v2[OBJC_IVAR____TtC16MusicApplication23CollectionAccessoryView_titleTextColor] = tintColor;
     v5 = tintColor;
-    sub_D392C();
+    sub_D392C(v4);
   }
 
   else

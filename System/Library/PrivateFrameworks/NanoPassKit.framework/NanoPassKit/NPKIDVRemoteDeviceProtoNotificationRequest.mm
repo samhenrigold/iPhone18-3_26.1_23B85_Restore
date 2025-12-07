@@ -3,6 +3,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)documentTypeAsString:(int)string;
+- (id)notificationTypeAsString:(int)string;
 - (int)StringAsDocumentType:(id)type;
 - (int)StringAsNotificationType:(id)type;
 - (void)copyTo:(id)to;
@@ -11,6 +13,21 @@
 @end
 
 @implementation NPKIDVRemoteDeviceProtoNotificationRequest
+
+- (id)notificationTypeAsString:(int)string
+{
+  if ((string + 1) >= 0xA)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_2799455A0[string + 1];
+  }
+
+  return v4;
+}
 
 - (int)StringAsNotificationType:(id)type
 {
@@ -68,6 +85,21 @@
   else
   {
     v4 = -1;
+  }
+
+  return v4;
+}
+
+- (id)documentTypeAsString:(int)string
+{
+  if ((string + 1) >= 4)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_2799455F0[string + 1];
   }
 
   return v4;
@@ -157,9 +189,7 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  notificationType = self->_notificationType;
   PBDataWriterWriteInt32Field();
-  documentType = self->_documentType;
   PBDataWriterWriteInt32Field();
   if (self->_issuerName)
   {

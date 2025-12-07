@@ -12,7 +12,7 @@
   {
     v5 = *&self->onUpdate[OBJC_IVAR____TtCE11PosterBoardCSo27DNDModeConfigurationServiceP33_810B7575001E280934AD3AE501DC549F8Listener_onUpdate];
     selfCopy = self;
-    v7 = sub_21B638B64(v4);
+    v7 = sub_21B638B64(v4, v5);
     v4(v7);
 
     sub_21B638B68(v4, v5);

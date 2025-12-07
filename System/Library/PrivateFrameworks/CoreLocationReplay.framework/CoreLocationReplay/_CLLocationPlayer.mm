@@ -201,7 +201,7 @@
 
 - (void)_updateVIOEstimation:(id)estimation
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   objc_sync_enter(self);
   if ([(_CLLocationPlayer *)self isPlayerActive])
   {
@@ -221,11 +221,11 @@
           [estimation timestamp];
           v7 = v6;
           [(_CLLocationPlayer *)self notifierLastARKitUpdateTime];
-          v13 = 134349312;
-          v14 = v7;
-          v15 = 2050;
-          v16 = v8;
-          _os_log_impl(&dword_245B46000, v5, OS_LOG_TYPE_ERROR, "CLLP,_updateVIOEstimation,Session has timed out without end notification,nowMachAbsTime,%{public}.3lf,lastARKitUpdate,%{public}.3lf", &v13, 0x16u);
+          v12 = 134349312;
+          v13 = v7;
+          v14 = 2050;
+          v15 = v8;
+          _os_log_impl(&dword_245B46000, v5, OS_LOG_TYPE_ERROR, "CLLP,_updateVIOEstimation,Session has timed out without end notification,nowMachAbsTime,%{public}.3lf,lastARKitUpdate,%{public}.3lf", &v12, 0x16u);
         }
 
         [(_CLLocationPlayer *)self closeARSessionWithState:2];
@@ -241,8 +241,8 @@
         v9 = qword_27EE33DF0;
         if (os_log_type_enabled(qword_27EE33DF0, OS_LOG_TYPE_DEBUG))
         {
-          LOWORD(v13) = 0;
-          _os_log_impl(&dword_245B46000, v9, OS_LOG_TYPE_DEBUG, "CLLP,_updateVIOEstimation:,Payload was sent without start notification of current session", &v13, 2u);
+          LOWORD(v12) = 0;
+          _os_log_impl(&dword_245B46000, v9, OS_LOG_TYPE_DEBUG, "CLLP,_updateVIOEstimation:,Payload was sent without start notification of current session", &v12, 2u);
         }
 
         [(_CLLocationPlayer *)self startARSessionWithState:1];
@@ -266,7 +266,7 @@
     v10 = qword_27EE33DF0;
     if (os_log_type_enabled(qword_27EE33DF0, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v13) = 0;
+      LOWORD(v12) = 0;
       v11 = "CLLP,_updateVIOEstimation:,Input estimation is nil";
       goto LABEL_25;
     }
@@ -282,21 +282,20 @@
     v10 = qword_27EE33DF0;
     if (os_log_type_enabled(qword_27EE33DF0, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v13) = 0;
+      LOWORD(v12) = 0;
       v11 = "CLLP,_updateVIOEstimation:,Player is inactive - need to start the player first";
 LABEL_25:
-      _os_log_impl(&dword_245B46000, v10, OS_LOG_TYPE_ERROR, v11, &v13, 2u);
+      _os_log_impl(&dword_245B46000, v10, OS_LOG_TYPE_ERROR, v11, &v12, 2u);
     }
   }
 
 LABEL_26:
   objc_sync_exit(self);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateVLLocalizationResult:(id)result
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   objc_sync_enter(self);
   if ([(_CLLocationPlayer *)self isPlayerActive])
   {
@@ -316,11 +315,11 @@ LABEL_26:
           [result timestamp];
           v7 = v6;
           [(_CLLocationPlayer *)self notifierLastARKitUpdateTime];
-          v13 = 134349312;
-          v14 = v7;
-          v15 = 2050;
-          v16 = v8;
-          _os_log_impl(&dword_245B46000, v5, OS_LOG_TYPE_ERROR, "CLLP,_updateVLLocalizationResult,Session has timed out without end notification,nowMachAbsTime,%{public}.3lf,lastARKitUpdate,%{public}.3lf", &v13, 0x16u);
+          v12 = 134349312;
+          v13 = v7;
+          v14 = 2050;
+          v15 = v8;
+          _os_log_impl(&dword_245B46000, v5, OS_LOG_TYPE_ERROR, "CLLP,_updateVLLocalizationResult,Session has timed out without end notification,nowMachAbsTime,%{public}.3lf,lastARKitUpdate,%{public}.3lf", &v12, 0x16u);
         }
 
         [(_CLLocationPlayer *)self closeARSessionWithState:2];
@@ -336,8 +335,8 @@ LABEL_26:
         v9 = qword_27EE33DF0;
         if (os_log_type_enabled(qword_27EE33DF0, OS_LOG_TYPE_DEBUG))
         {
-          LOWORD(v13) = 0;
-          _os_log_impl(&dword_245B46000, v9, OS_LOG_TYPE_DEBUG, "CLLP,_updateVLLocalizationResult:,Payload was sent without start notification of current session", &v13, 2u);
+          LOWORD(v12) = 0;
+          _os_log_impl(&dword_245B46000, v9, OS_LOG_TYPE_DEBUG, "CLLP,_updateVLLocalizationResult:,Payload was sent without start notification of current session", &v12, 2u);
         }
 
         [(_CLLocationPlayer *)self startARSessionWithState:1];
@@ -361,7 +360,7 @@ LABEL_26:
     v10 = qword_27EE33DF0;
     if (os_log_type_enabled(qword_27EE33DF0, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v13) = 0;
+      LOWORD(v12) = 0;
       v11 = "CLLP,_updateVLLocalizationResult:,Input localizationResult is nil";
       goto LABEL_25;
     }
@@ -377,16 +376,15 @@ LABEL_26:
     v10 = qword_27EE33DF0;
     if (os_log_type_enabled(qword_27EE33DF0, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v13) = 0;
+      LOWORD(v12) = 0;
       v11 = "CLLP,_updateVLLocalizationResult:,Player is inactive - need to start the player first";
 LABEL_25:
-      _os_log_impl(&dword_245B46000, v10, OS_LOG_TYPE_ERROR, v11, &v13, 2u);
+      _os_log_impl(&dword_245B46000, v10, OS_LOG_TYPE_ERROR, v11, &v12, 2u);
     }
   }
 
 LABEL_26:
   objc_sync_exit(self);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_getFusedLocationFrom:(id)from machAbsTime:(double)time
@@ -541,50 +539,50 @@ LABEL_20:
 
 - (void)convertCLLocation:(id)location machAbsTime:(double)time toDaemonLocation:(CLDaemonLocation *)daemonLocation daemonLocationPrivate:(void *)private
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   if (location)
   {
-    [location clientLocation];
+    objc_msgSend_clientLocation(location, a2);
   }
 
   else
   {
-    memset(v58, 0, 156);
+    memset(v57, 0, 156);
   }
 
-  v10 = *&v58[112];
-  *&daemonLocation->var11 = *&v58[96];
+  v10 = *&v57[112];
+  *&daemonLocation->var11 = *&v57[96];
   daemonLocation->var13 = v10;
-  *&daemonLocation->var14 = *&v58[128];
-  *&daemonLocation->var16 = *&v58[140];
-  v11 = *&v58[48];
-  *&daemonLocation->var3 = *&v58[32];
+  *&daemonLocation->var14 = *&v57[128];
+  *&daemonLocation->var16 = *&v57[140];
+  v11 = *&v57[48];
+  *&daemonLocation->var3 = *&v57[32];
   *&daemonLocation->var5 = v11;
-  v12 = *&v58[80];
-  *&daemonLocation->var7 = *&v58[64];
+  v12 = *&v57[80];
+  *&daemonLocation->var7 = *&v57[64];
   *&daemonLocation->var9 = v12;
-  v13 = *&v58[16];
-  *&daemonLocation->var0 = *v58;
+  v13 = *&v57[16];
+  *&daemonLocation->var0 = *v57;
   *&daemonLocation->var1.var1 = v13;
-  sub_245B46F34(v58);
-  memcpy(private, v58, 0x201uLL);
-  v14 = v59;
-  v59 = 0u;
+  sub_245B46F34(v57);
+  memcpy(private, v57, 0x201uLL);
+  v14 = v58;
+  v58 = 0u;
   v15 = *(private + 66);
   *(private + 520) = v14;
   if (v15)
   {
     sub_245B4720C(v15);
-    v16 = *(&v59 + 1);
-    v17 = v65[0];
-    *(private + 600) = v64;
+    v16 = *(&v58 + 1);
+    v17 = v64[0];
+    *(private + 600) = v63;
     *(private + 616) = v17;
-    *(private + 625) = *(v65 + 9);
-    v18 = v61;
-    *(private + 536) = v60;
+    *(private + 625) = *(v64 + 9);
+    v18 = v60;
+    *(private + 536) = v59;
     *(private + 552) = v18;
-    v19 = v63;
-    *(private + 568) = v62;
+    v19 = v62;
+    *(private + 568) = v61;
     *(private + 584) = v19;
     if (v16)
     {
@@ -594,15 +592,15 @@ LABEL_20:
 
   else
   {
-    v20 = v65[0];
-    *(private + 600) = v64;
+    v20 = v64[0];
+    *(private + 600) = v63;
     *(private + 616) = v20;
-    *(private + 625) = *(v65 + 9);
-    v21 = v61;
-    *(private + 536) = v60;
+    *(private + 625) = *(v64 + 9);
+    v21 = v60;
+    *(private + 536) = v59;
     *(private + 552) = v21;
-    v22 = v63;
-    *(private + 568) = v62;
+    v22 = v62;
+    *(private + 568) = v61;
     *(private + 584) = v22;
   }
 
@@ -689,11 +687,11 @@ LABEL_15:
     if (os_log_type_enabled(qword_27EE33DF0, OS_LOG_TYPE_DEBUG))
     {
       [location rawHorizontalAccuracy];
-      *v58 = 134349312;
-      *&v58[4] = time;
-      *&v58[12] = 2050;
-      *&v58[14] = v44;
-      _os_log_impl(&dword_245B46000, v43, OS_LOG_TYPE_DEBUG, "CLLP,convertCLLocation:toDaemonLocation:daemonLocationPrivate:,Input does not have valid rawCoordinate,machAbsTime,%{public}.3f,rawHorzAcc,%{public}.3f", v58, 0x16u);
+      *v57 = 134349312;
+      *&v57[4] = time;
+      *&v57[12] = 2050;
+      *&v57[14] = v44;
+      _os_log_impl(&dword_245B46000, v43, OS_LOG_TYPE_DEBUG, "CLLP,convertCLLocation:toDaemonLocation:daemonLocationPrivate:,Input does not have valid rawCoordinate,machAbsTime,%{public}.3f,rawHorzAcc,%{public}.3f", v57, 0x16u);
       if (qword_27EE33DE8 != -1)
       {
         dispatch_once(&qword_27EE33DE8, &unk_2858B7E30);
@@ -703,8 +701,8 @@ LABEL_15:
     v45 = qword_27EE33DF0;
     if (os_log_type_enabled(qword_27EE33DF0, OS_LOG_TYPE_DEBUG))
     {
-      *v58 = 0;
-      _os_log_impl(&dword_245B46000, v45, OS_LOG_TYPE_DEBUG, "CLLP,convertCLLocation:toDaemonLocation:daemonLocationPrivate:,Will use coordinate instead of rawCoordinate", v58, 2u);
+      *v57 = 0;
+      _os_log_impl(&dword_245B46000, v45, OS_LOG_TYPE_DEBUG, "CLLP,convertCLLocation:toDaemonLocation:daemonLocationPrivate:,Will use coordinate instead of rawCoordinate", v57, 2u);
     }
 
     *(&daemonLocation->var11 + 4) = *(&daemonLocation->var0 + 1);
@@ -732,11 +730,11 @@ LABEL_15:
     if (os_log_type_enabled(qword_27EE33DF0, OS_LOG_TYPE_DEBUG))
     {
       [location rawVerticalAccuracy];
-      *v58 = 134349312;
-      *&v58[4] = time;
-      *&v58[12] = 2050;
-      *&v58[14] = v50;
-      _os_log_impl(&dword_245B46000, v49, OS_LOG_TYPE_DEBUG, "CLLP,convertCLLocation:toDaemonLocation:daemonLocationPrivate:,Input does not have valid rawAltitude,machAbsTime,%{public}.3f,rawVertAcc,%{public}.3f", v58, 0x16u);
+      *v57 = 134349312;
+      *&v57[4] = time;
+      *&v57[12] = 2050;
+      *&v57[14] = v50;
+      _os_log_impl(&dword_245B46000, v49, OS_LOG_TYPE_DEBUG, "CLLP,convertCLLocation:toDaemonLocation:daemonLocationPrivate:,Input does not have valid rawAltitude,machAbsTime,%{public}.3f,rawVertAcc,%{public}.3f", v57, 0x16u);
       if (qword_27EE33DE8 != -1)
       {
         dispatch_once(&qword_27EE33DE8, &unk_2858B7E30);
@@ -746,8 +744,8 @@ LABEL_15:
     v51 = qword_27EE33DF0;
     if (os_log_type_enabled(qword_27EE33DF0, OS_LOG_TYPE_DEBUG))
     {
-      *v58 = 0;
-      _os_log_impl(&dword_245B46000, v51, OS_LOG_TYPE_DEBUG, "CLLP,convertCLLocation:toDaemonLocation:daemonLocationPrivate:,Will use altitude instead of rawAltitude", v58, 2u);
+      *v57 = 0;
+      _os_log_impl(&dword_245B46000, v51, OS_LOG_TYPE_DEBUG, "CLLP,convertCLLocation:toDaemonLocation:daemonLocationPrivate:,Will use altitude instead of rawAltitude", v57, 2u);
     }
 
     *(private + 25) = *(&daemonLocation->var2 + 4);
@@ -772,11 +770,11 @@ LABEL_15:
     if (os_log_type_enabled(qword_27EE33DF0, OS_LOG_TYPE_DEBUG))
     {
       [location rawCourseAccuracy];
-      *v58 = 134349312;
-      *&v58[4] = time;
-      *&v58[12] = 2050;
-      *&v58[14] = v55;
-      _os_log_impl(&dword_245B46000, v54, OS_LOG_TYPE_DEBUG, "CLLP,convertCLLocation:toDaemonLocation:daemonLocationPrivate:,Input does not have valid rawCourse,machAbsTime,%{public}.3f,rawCourseAcc,%{public}.3f", v58, 0x16u);
+      *v57 = 134349312;
+      *&v57[4] = time;
+      *&v57[12] = 2050;
+      *&v57[14] = v55;
+      _os_log_impl(&dword_245B46000, v54, OS_LOG_TYPE_DEBUG, "CLLP,convertCLLocation:toDaemonLocation:daemonLocationPrivate:,Input does not have valid rawCourse,machAbsTime,%{public}.3f,rawCourseAcc,%{public}.3f", v57, 0x16u);
       if (qword_27EE33DE8 != -1)
       {
         dispatch_once(&qword_27EE33DE8, &unk_2858B7E30);
@@ -786,8 +784,8 @@ LABEL_15:
     v56 = qword_27EE33DF0;
     if (os_log_type_enabled(qword_27EE33DF0, OS_LOG_TYPE_DEBUG))
     {
-      *v58 = 0;
-      _os_log_impl(&dword_245B46000, v56, OS_LOG_TYPE_DEBUG, "CLLP,convertCLLocation:toDaemonLocation:daemonLocationPrivate:,Will use course instead of rawCourse", v58, 2u);
+      *v57 = 0;
+      _os_log_impl(&dword_245B46000, v56, OS_LOG_TYPE_DEBUG, "CLLP,convertCLLocation:toDaemonLocation:daemonLocationPrivate:,Will use course instead of rawCourse", v57, 2u);
     }
 
     *(&daemonLocation->var13.var0 + 4) = *(&daemonLocation->var6 + 4);
@@ -800,53 +798,37 @@ LABEL_15:
   *(private + 114) = HIDWORD(daemonLocation->var14);
   *(private + 29) = *(&daemonLocation->var2 + 4);
   *(private + 30) = *(&daemonLocation->var6 + 4);
-  v57 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateLocation:(CLDaemonLocation *)location locationPrivate:(void *)private
 {
-  v18 = *MEMORY[0x277D85DE8];
-  if (![(_CLLocationPlayer *)self isARSessionActive])
+  v16 = *MEMORY[0x277D85DE8];
+  if ([(_CLLocationPlayer *)self isARSessionActive]|| [(_CLLocationPlayer *)self isFusionEnabled]&& (self->_locationFuser.activated_ || ((mach_abs = self->_locationFuser.lastValidVlf_.t.mach_abs, v8 = vabdd_f64(*(private + 4), mach_abs), mach_abs > 0.0) ? (v9 = v8 <= 24.0) : (v9 = 0), v9)) || ![(_CLLocationPlayer *)self isFusionEnabled]|| self->_locationFuser.activated_ || ((v10 = self->_locationFuser.lastValidVlf_.t.mach_abs, vabdd_f64(*(private + 4), v10) <= 24.0) ? (v11 = v10 <= 0.0) : (v11 = 1), !v11 || v10 <= 0.0))
   {
-    if (![(_CLLocationPlayer *)self isFusionEnabled]|| !self->_locationFuser.activated_ && ((v7 = self->_locationFuser.lastValidVlf_.t.mach_abs, v8 = vabdd_f64(*(private + 4), v7), v7 > 0.0) ? (v9 = v8 <= 24.0) : (v9 = 0), !v9))
+    if ([(_CLLocationPlayer *)self isFusionEnabled])
     {
-      if ([(_CLLocationPlayer *)self isFusionEnabled]&& !self->_locationFuser.activated_)
-      {
-        mach_abs = self->_locationFuser.lastValidVlf_.t.mach_abs;
-        v12 = vabdd_f64(*(private + 4), mach_abs) > 24.0 || mach_abs <= 0.0;
-        if (v12 && mach_abs > 0.0)
-        {
-          sub_245B4C854(&self->_locationFuser);
-          if (qword_27EE33DE8 != -1)
-          {
-            dispatch_once(&qword_27EE33DE8, &unk_2858B7E30);
-          }
 
-          v13 = qword_27EE33DF0;
-          if (os_log_type_enabled(qword_27EE33DF0, OS_LOG_TYPE_DEBUG))
-          {
-            v14 = *(private + 4);
-            v16 = 134349056;
-            v17 = v14;
-            _os_log_impl(&dword_245B46000, v13, OS_LOG_TYPE_DEBUG, "CLLP,_updateLocation:locationPrivate:,Manual location fuser reset,machAbsTime,%{public}.3lf", &v16, 0xCu);
-          }
-
-          goto LABEL_24;
-        }
-      }
+      sub_245B5108C(&self->_locationFuser, location, private);
     }
   }
 
-  if (![(_CLLocationPlayer *)self isFusionEnabled])
+  else
   {
-LABEL_24:
-    v15 = *MEMORY[0x277D85DE8];
-    return;
+    sub_245B4C854(&self->_locationFuser);
+    if (qword_27EE33DE8 != -1)
+    {
+      dispatch_once(&qword_27EE33DE8, &unk_2858B7E30);
+    }
+
+    v12 = qword_27EE33DF0;
+    if (os_log_type_enabled(qword_27EE33DF0, OS_LOG_TYPE_DEBUG))
+    {
+      v13 = *(private + 4);
+      v14 = 134349056;
+      v15 = v13;
+      _os_log_impl(&dword_245B46000, v12, OS_LOG_TYPE_DEBUG, "CLLP,_updateLocation:locationPrivate:,Manual location fuser reset,machAbsTime,%{public}.3lf", &v14, 0xCu);
+    }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
-
-  sub_245B5108C(&self->_locationFuser, location, private);
 }
 
 @end

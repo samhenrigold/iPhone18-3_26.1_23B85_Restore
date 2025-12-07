@@ -9,7 +9,6 @@
 - (OSType)pixelFormatType;
 - (id)debugDescription;
 - (id)description;
-- (uint64_t)copyAuxiliaryMetadata;
 - (void)dealloc;
 @end
 
@@ -72,9 +71,9 @@ LABEL_6:
 + (AVPortraitEffectsMatte)portraitEffectsMatteFromDictionaryRepresentation:(NSDictionary *)imageSourceAuxDataInfoDictionary error:(NSError *)outError
 {
   pixelBufferOut = 0;
-  v7 = [(NSDictionary *)imageSourceAuxDataInfoDictionary objectForKeyedSubscript:*MEMORY[0x1E696D218]];
-  v8 = [(NSDictionary *)imageSourceAuxDataInfoDictionary objectForKeyedSubscript:*MEMORY[0x1E696D220]];
-  v9 = [(NSDictionary *)imageSourceAuxDataInfoDictionary objectForKeyedSubscript:*MEMORY[0x1E696D228]];
+  v7 = objc_msgSend_objectForKeyedSubscript_(imageSourceAuxDataInfoDictionary, a2, *MEMORY[0x1E696D218]);
+  v8 = objc_msgSend_objectForKeyedSubscript_(imageSourceAuxDataInfoDictionary);
+  v9 = objc_msgSend_objectForKeyedSubscript_(imageSourceAuxDataInfoDictionary);
   if (v7)
   {
     v10 = v8 == 0;
@@ -88,7 +87,7 @@ LABEL_6:
   v11 = v10;
   if (v11 == 1 && v9 == 0)
   {
-    +[AVPortraitEffectsMatte portraitEffectsMatteFromDictionaryRepresentation:error:];
+    [AVPortraitEffectsMatte portraitEffectsMatteFromDictionaryRepresentation:v9 error:?];
 LABEL_43:
     v38 = 0;
     v26 = -11865;
@@ -101,13 +100,13 @@ LABEL_43:
     goto LABEL_32;
   }
 
-  v14 = [objc_msgSend(v8 objectForKeyedSubscript:{*MEMORY[0x1E696DEC0]), "intValue"}];
-  v15 = [objc_msgSend(v8 objectForKeyedSubscript:{*MEMORY[0x1E696DFB8]), "intValue"}];
-  v16 = [objc_msgSend(v8 objectForKeyedSubscript:{*MEMORY[0x1E696DD58]), "intValue"}];
-  v17 = [objc_msgSend(v8 objectForKeyedSubscript:{*MEMORY[0x1E696D430]), "intValue"}];
-  if (v14)
+  intValue = [objc_msgSend_objectForKeyedSubscript_(v8) intValue];
+  intValue2 = [objc_msgSend_objectForKeyedSubscript_(v8) intValue];
+  intValue3 = [objc_msgSend_objectForKeyedSubscript_(v8) intValue];
+  intValue4 = [objc_msgSend_objectForKeyedSubscript_(v8) intValue];
+  if (intValue)
   {
-    v18 = v15 == 0;
+    v18 = intValue2 == 0;
   }
 
   else
@@ -115,15 +114,15 @@ LABEL_43:
     v18 = 1;
   }
 
-  if (v18 || v16 == 0 || v17 == 0)
+  if (v18 || intValue3 == 0 || intValue4 == 0)
   {
-    +[AVPortraitEffectsMatte portraitEffectsMatteFromDictionaryRepresentation:error:];
+    [AVPortraitEffectsMatte portraitEffectsMatteFromDictionaryRepresentation:intValue4 error:?];
     goto LABEL_43;
   }
 
-  v21 = v17;
+  v21 = intValue4;
   _allSupportedPortraitEffectsMattePixelFormatTypes = [self _allSupportedPortraitEffectsMattePixelFormatTypes];
-  if (([_allSupportedPortraitEffectsMattePixelFormatTypes containsObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInt:", v14)}] & 1) == 0)
+  if (([_allSupportedPortraitEffectsMattePixelFormatTypes containsObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInt:", intValue)}] & 1) == 0)
   {
     +[AVPortraitEffectsMatte portraitEffectsMatteFromDictionaryRepresentation:error:];
     v38 = 0;
@@ -131,10 +130,10 @@ LABEL_43:
     goto LABEL_34;
   }
 
-  v23 = v16;
+  v23 = intValue3;
   v24 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:v21];
   v25 = [MEMORY[0x1E695DF20] dictionaryWithObjectsAndKeys:{MEMORY[0x1E695E0F8], *MEMORY[0x1E69660D8], v24, *MEMORY[0x1E6966020], 0}];
-  v26 = CVPixelBufferCreate(*MEMORY[0x1E695E480], v15, v16, v14, v25, &pixelBufferOut);
+  v26 = CVPixelBufferCreate(*MEMORY[0x1E695E480], intValue2, intValue3, intValue, v25, &pixelBufferOut);
   v27 = pixelBufferOut;
   if (v26)
   {
@@ -259,71 +258,71 @@ LABEL_34:
       v11 = Width;
       Width = Height;
 LABEL_23:
-      v28 = *MEMORY[0x1E69660D8];
-      v29 = MEMORY[0x1E695E0F8];
-      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
-      v15 = *MEMORY[0x1E695E480];
-      if (!CVPixelBufferCreate(*MEMORY[0x1E695E480], v11, Width, PixelFormatType, v14, &pixelBufferOut))
+      v29 = *MEMORY[0x1E69660D8];
+      v30 = MEMORY[0x1E695E0F8];
+      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
+      v16 = *MEMORY[0x1E695E480];
+      if (!CVPixelBufferCreate(*MEMORY[0x1E695E480], v11, Width, PixelFormatType, v15, &pixelBufferOut))
       {
-        v16 = *MEMORY[0x1E6965F60];
+        v17 = *MEMORY[0x1E6965F60];
         CVBufferSetAttachment(pixelBufferOut, *MEMORY[0x1E6965F30], *MEMORY[0x1E6965F60], kCVAttachmentMode_ShouldPropagate);
         if (((v10 == 0) & ~v9) != 0)
         {
-          v17 = VTPixelTransferSessionCreate(v15, &pixelTransferSessionOut);
-          if (!v17)
+          v18 = VTPixelTransferSessionCreate(v16, &pixelTransferSessionOut);
+          if (!v18)
           {
-            v17 = VTPixelTransferSessionTransferImage(pixelTransferSessionOut, self->_internal->pixelBuffer, pixelBufferOut);
+            v18 = VTPixelTransferSessionTransferImage(pixelTransferSessionOut, self->_internal->pixelBuffer, pixelBufferOut);
           }
         }
 
         else
         {
-          v17 = VTPixelRotationSessionCreate(v15, &pixelRotationSessionOut);
-          if (!v17)
+          v18 = VTPixelRotationSessionCreate(v16, &pixelRotationSessionOut);
+          if (!v18)
           {
-            v18 = pixelRotationSessionOut;
-            v19 = *MEMORY[0x1E6983D98];
-            v20 = AVCaptureVTRotationFromDegrees(v10);
-            VTSessionSetProperty(v18, v19, v20);
-            v21 = *MEMORY[0x1E695E4D0];
+            v19 = pixelRotationSessionOut;
+            v20 = *MEMORY[0x1E6983D98];
+            v21 = AVCaptureVTRotationFromDegrees(v10);
+            VTSessionSetProperty(v19, v20, v21);
+            v22 = *MEMORY[0x1E695E4D0];
             VTSessionSetProperty(pixelRotationSessionOut, *MEMORY[0x1E6983D68], *MEMORY[0x1E695E4D0]);
-            VTSessionSetProperty(pixelRotationSessionOut, *MEMORY[0x1E6983D50], v16);
+            VTSessionSetProperty(pixelRotationSessionOut, *MEMORY[0x1E6983D50], v17);
             if (v9)
             {
-              v22 = v10 == 90 || v10 == 270;
-              v23 = MEMORY[0x1E6983D80];
-              if (!v22)
+              v23 = v10 == 90 || v10 == 270;
+              v24 = MEMORY[0x1E6983D80];
+              if (!v23)
               {
-                v23 = MEMORY[0x1E6983D78];
+                v24 = MEMORY[0x1E6983D78];
               }
 
-              VTSessionSetProperty(pixelRotationSessionOut, *v23, v21);
+              VTSessionSetProperty(pixelRotationSessionOut, *v24, v22);
             }
 
-            v17 = VTPixelRotationSessionRotateImage(pixelRotationSessionOut, self->_internal->pixelBuffer, pixelBufferOut);
+            v18 = VTPixelRotationSessionRotateImage(pixelRotationSessionOut, self->_internal->pixelBuffer, pixelBufferOut);
           }
         }
 
-        v24 = v17;
+        v25 = v18;
         goto LABEL_37;
       }
 
 LABEL_45:
-      v24 = 0;
+      v25 = 0;
 LABEL_37:
-      v25 = [AVPortraitEffectsMatte alloc];
-      if (v24)
+      v26 = [AVPortraitEffectsMatte alloc];
+      if (v25)
       {
-        v26 = 0;
+        v27 = 0;
       }
 
       else
       {
-        v26 = pixelBufferOut;
+        v27 = pixelBufferOut;
       }
 
-      v27 = [(AVPortraitEffectsMatte *)v25 initWithPixelBuffer:v26 portraitEffectsMatteMetadataDictionary:0];
-      v27->_internal->version = self->_internal->version;
+      v28 = [(AVPortraitEffectsMatte *)v26 initWithPixelBuffer:v27 portraitEffectsMatteMetadataDictionary:0];
+      v28->_internal->version = self->_internal->version;
       CVPixelBufferRelease(pixelBufferOut);
       if (pixelRotationSessionOut)
       {
@@ -335,7 +334,7 @@ LABEL_37:
         CFRelease(pixelTransferSessionOut);
       }
 
-      return v27;
+      return v28;
     }
 
     if (exifOrientation > kCGImagePropertyOrientationRight)
@@ -369,7 +368,7 @@ LABEL_22:
   }
 
   v12 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v12, v13))
   {
     objc_exception_throw(v12);
   }
@@ -464,7 +463,7 @@ LABEL_6:
       internal->pixelBuffer = v8;
       if (dictionary)
       {
-        v6->_internal->version = [objc_msgSend(dictionary objectForKeyedSubscript:{*MEMORY[0x1E69914E0]), "intValue"}];
+        v6->_internal->version = [objc_msgSend_objectForKeyedSubscript_(dictionary) intValue];
       }
     }
 
@@ -536,7 +535,7 @@ LABEL_8:
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_1_11();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     return 0;
   }
 
@@ -576,48 +575,6 @@ LABEL_8:
   }
 
   return dictionary;
-}
-
-+ (uint64_t)portraitEffectsMatteFromDictionaryRepresentation:error:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-+ (uint64_t)portraitEffectsMatteFromDictionaryRepresentation:error:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-+ (uint64_t)portraitEffectsMatteFromDictionaryRepresentation:error:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)portraitEffectsMatteByReplacingPortraitEffectsMatteWithPixelBuffer:error:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)portraitEffectsMatteByReplacingPortraitEffectsMatteWithPixelBuffer:error:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)copyAuxiliaryMetadata
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
 }
 
 @end

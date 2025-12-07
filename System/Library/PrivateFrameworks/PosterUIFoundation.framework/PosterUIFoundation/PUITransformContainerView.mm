@@ -69,7 +69,7 @@
   containerView = self->_containerView;
   if (containerView)
   {
-    [(UIView *)containerView transform];
+    objc_msgSend_transform(containerView, a2);
   }
 
   else
@@ -98,7 +98,7 @@
   result = self->_containerView;
   if (result)
   {
-    return [(CGAffineTransform *)result transform];
+    return objc_msgSend_transform(result, a3);
   }
 
   *&retstr->c = 0u;

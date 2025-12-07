@@ -153,7 +153,7 @@ LABEL_7:
 
 - (id)_cachedEntryModelAfterDate:(id)date limit:(unint64_t)limit
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   v7 = [(NWCComplicationTimelineEntryModelCache *)self _cachedEntryModelForDate:dateCopy];
   if (!v7)
@@ -178,15 +178,15 @@ LABEL_7:
       v11 = objc_opt_class();
       v12 = v11;
       cachedEntryModels2 = [(NWCComplicationTimelineEntryModelCache *)self cachedEntryModels];
-      v24 = 134218754;
-      v25 = v11;
-      v26 = 2112;
-      v27 = v7;
-      v28 = 2112;
-      v29 = dateCopy;
-      v30 = 2112;
-      v31 = cachedEntryModels2;
-      _os_log_error_impl(&dword_23BDCF000, v10, OS_LOG_TYPE_ERROR, "[%public}@] Failed to find entryModelForDate %@ for date %@ in models: %@.", &v24, 0x2Au);
+      v23 = 134218754;
+      v24 = v11;
+      v25 = 2112;
+      v26 = v7;
+      v27 = 2112;
+      v28 = dateCopy;
+      v29 = 2112;
+      v30 = cachedEntryModels2;
+      _os_log_error_impl(&dword_23BDCF000, v10, OS_LOG_TYPE_ERROR, "[%public}@] Failed to find entryModelForDate %@ for date %@ in models: %@.", &v23, 0x2Au);
     }
 
 LABEL_7:
@@ -196,16 +196,16 @@ LABEL_7:
   }
 
   cachedEntryModels3 = [(NWCComplicationTimelineEntryModelCache *)self cachedEntryModels];
-  v18 = [cachedEntryModels3 count];
+  v17 = [cachedEntryModels3 count];
 
-  if (v18 - v9 >= limit)
+  if (v17 - v9 >= limit)
   {
     limitCopy = limit;
   }
 
   else
   {
-    limitCopy = v18 - v9;
+    limitCopy = v17 - v9;
   }
 
   v14 = [MEMORY[0x277CBEB18] arrayWithCapacity:limitCopy];
@@ -214,14 +214,14 @@ LABEL_7:
     do
     {
       cachedEntryModels4 = [(NWCComplicationTimelineEntryModelCache *)self cachedEntryModels];
-      v21 = [cachedEntryModels4 objectAtIndexedSubscript:v9];
+      v20 = [cachedEntryModels4 objectAtIndexedSubscript:v9];
 
-      entryDate = [v21 entryDate];
-      v23 = [entryDate compare:dateCopy];
+      entryDate = [v20 entryDate];
+      v22 = [entryDate compare:dateCopy];
 
-      if (v23 == 1)
+      if (v22 == 1)
       {
-        [v14 addObject:v21];
+        [v14 addObject:v20];
       }
 
       ++v9;
@@ -232,8 +232,6 @@ LABEL_7:
   }
 
 LABEL_8:
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }

@@ -38,33 +38,31 @@ uint64_t ___LayoutConstants_block_invoke(uint64_t a1, void *a2)
 
 void ___LayoutConstants_block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v17[2] = *MEMORY[0x277D85DE8];
+  v16[2] = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBBAF8] metricsWithDevice:a2 identitySizeClass:2];
   [v2 setRoundingBehavior:2];
-  v16[0] = &unk_286CFF510;
-  v11 = vdupq_n_s64(0x4044000000000000uLL);
-  v13 = v11;
-  v3 = [MEMORY[0x277CCAE60] valueWithBytes:&v13 objCType:"{CGSize=dd}"];
-  v17[0] = v3;
-  v16[1] = &unk_286CFF528;
-  v12 = v11;
-  v4 = [MEMORY[0x277CCAE60] valueWithBytes:&v12 objCType:"{CGSize=dd}"];
-  v17[1] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
+  v15[0] = &unk_286CFF510;
+  v10 = vdupq_n_s64(0x4044000000000000uLL);
+  v12 = v10;
+  v3 = [MEMORY[0x277CCAE60] valueWithBytes:&v12 objCType:"{CGSize=dd}"];
+  v16[0] = v3;
+  v15[1] = &unk_286CFF528;
+  v11 = v10;
+  v4 = [MEMORY[0x277CCAE60] valueWithBytes:&v11 objCType:"{CGSize=dd}"];
+  v16[1] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
   [v2 scaledSize:v5 withOverrides:{40.0, 40.0}];
   _LayoutConstants_constants_0 = v6;
   _LayoutConstants_constants_1 = v7;
 
   _LayoutConstants_constants_2 = 0x4039000000000000;
-  v14[0] = &unk_286CFF510;
-  v14[1] = &unk_286CFF528;
-  v15[0] = &unk_286CFF590;
-  v15[1] = &unk_286CFF5A0;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
+  v13[0] = &unk_286CFF510;
+  v13[1] = &unk_286CFF528;
+  v14[0] = &unk_286CFF590;
+  v14[1] = &unk_286CFF5A0;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
   [v2 scaledValue:v8 withOverrides:4.0];
   _LayoutConstants_constants_3 = v9;
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

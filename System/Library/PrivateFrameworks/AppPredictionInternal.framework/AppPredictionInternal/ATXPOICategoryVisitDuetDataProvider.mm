@@ -50,45 +50,45 @@ void __53__ATXPOICategoryVisitDuetDataProvider_sharedInstance__block_invoke()
 
 - (id)fetchEventsBetweenStartDate:(id)date andEndDate:(id)endDate withPredicates:(id)predicates limit:(unint64_t)limit ascending:(BOOL)ascending
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   endDateCopy = endDate;
   [dateCopy timeIntervalSinceReferenceDate];
   v12 = v11;
-  v36 = endDateCopy;
+  v35 = endDateCopy;
   [endDateCopy timeIntervalSinceReferenceDate];
   v14 = v13;
   v15 = BiomeLibrary();
   location = [v15 Location];
   pointOfInterest = [location PointOfInterest];
   category = [pointOfInterest Category];
-  v37 = dateCopy;
+  v36 = dateCopy;
   v19 = [category atx_publisherFromStartDate:dateCopy];
 
-  v35 = v19;
+  v34 = v19;
   v20 = [(ATXPOICategoryEventAggregator *)self->_streamAggregator groupVisitsFromPublisher:v19 startTimestamp:v12 endTimestamp:v14];
   v21 = objc_opt_new();
+  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
-  v34 = v20;
+  v33 = v20;
   obj = [v20 events];
-  v22 = [obj countByEnumeratingWithState:&v39 objects:v43 count:16];
+  v22 = [obj countByEnumeratingWithState:&v38 objects:v42 count:16];
   if (v22)
   {
     v23 = v22;
-    v24 = *v40;
+    v24 = *v39;
     do
     {
       for (i = 0; i != v23; ++i)
       {
-        if (*v40 != v24)
+        if (*v39 != v24)
         {
           objc_enumerationMutation(obj);
         }
 
-        v26 = *(*(&v39 + 1) + 8 * i);
+        v26 = *(*(&v38 + 1) + 8 * i);
         v27 = [ATXPOICategoryVisitDuetEvent alloc];
         possibleCategoryNames = [v26 possibleCategoryNames];
         startDate = [v26 startDate];
@@ -98,13 +98,11 @@ void __53__ATXPOICategoryVisitDuetDataProvider_sharedInstance__block_invoke()
         [v21 addObject:v31];
       }
 
-      v23 = [obj countByEnumeratingWithState:&v39 objects:v43 count:16];
+      v23 = [obj countByEnumeratingWithState:&v38 objects:v42 count:16];
     }
 
     while (v23);
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 
   return v21;
 }
@@ -128,23 +126,21 @@ void __108__ATXPOICategoryVisitDuetDataProvider_subscribeToPOIChangesForCategory
 
   if (v3)
   {
-    v4 = __atxlog_handle_anchor();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = __atxlog_handle_anchor(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __108__ATXPOICategoryVisitDuetDataProvider_subscribeToPOIChangesForCategory_observer_enterSelector_exitSelector___block_invoke_cold_1(v2, v4);
+      __108__ATXPOICategoryVisitDuetDataProvider_subscribeToPOIChangesForCategory_observer_enterSelector_exitSelector___block_invoke_cold_1(v2, v5);
     }
   }
 }
 
 void __108__ATXPOICategoryVisitDuetDataProvider_subscribeToPOIChangesForCategory_observer_enterSelector_exitSelector___block_invoke_cold_1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 error];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXPOICategoryVisitDuetDataProvider: error subscribing to stream: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXPOICategoryVisitDuetDataProvider: error subscribing to stream: %@", &v4, 0xCu);
 }
 
 @end

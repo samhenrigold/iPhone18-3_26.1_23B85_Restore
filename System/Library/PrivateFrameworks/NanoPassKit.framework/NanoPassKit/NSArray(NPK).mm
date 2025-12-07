@@ -32,38 +32,37 @@
 
 - (id)npkSafeObjectAtIndex:()NPK
 {
-  v17 = *MEMORY[0x277D85DE8];
-  if ([self count] <= a3)
+  v18 = *MEMORY[0x277D85DE8];
+  v5 = [self count];
+  if (v5 <= a3)
   {
-    v6 = pk_General_log();
-    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_ERROR);
+    v7 = pk_General_log(v5);
+    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_ERROR);
 
-    if (v7)
+    if (v8)
     {
-      v8 = pk_General_log();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v10 = pk_General_log(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        v11 = 134218498;
-        v12 = a3;
-        v13 = 2112;
+        v12 = 134218498;
+        v13 = a3;
+        v14 = 2112;
         selfCopy = self;
-        v15 = 2048;
-        v16 = [self count];
-        _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_ERROR, "Error: Tried to access invalid object at index %lu in array %@ with %lu elements", &v11, 0x20u);
+        v16 = 2048;
+        v17 = [self count];
+        _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_ERROR, "Error: Tried to access invalid object at index %lu in array %@ with %lu elements", &v12, 0x20u);
       }
     }
 
-    v5 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v5 = [self objectAtIndex:a3];
+    v6 = [self objectAtIndex:a3];
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-
-  return v5;
+  return v6;
 }
 
 - (id)npkComprehension:()NPK

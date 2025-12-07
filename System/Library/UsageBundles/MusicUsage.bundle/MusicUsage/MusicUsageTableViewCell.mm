@@ -128,59 +128,59 @@ LABEL_9:
 
 - (void)layoutSubviews
 {
-  v118.receiver = self;
-  v118.super_class = MusicUsageTableViewCell;
-  [(MusicUsageTableViewCell *)&v118 layoutSubviews];
+  v114.receiver = self;
+  v114.super_class = MusicUsageTableViewCell;
+  [(MusicUsageTableViewCell *)&v114 layoutSubviews];
   traitCollection = [(MusicUsageTableViewCell *)self traitCollection];
   [traitCollection displayScale];
   v4 = v3;
   contentView = [(MusicUsageTableViewCell *)self contentView];
   [contentView bounds];
-  v105 = v7;
-  v106 = v6;
-  v103 = v9;
-  v104 = v8;
+  v101 = v7;
+  v102 = v6;
+  v99 = v9;
+  v100 = v8;
   [(MusicUsageTableViewCell *)self layoutMargins];
   v11 = v10;
   v13 = v12;
   accessoryType = [(MusicUsageTableViewCell *)self accessoryType];
-  v110 = 0;
-  v111 = &v110;
-  v112 = 0x4010000000;
-  v113 = "";
-  v114 = v106 + v11;
-  v115 = v105 + 0.0;
-  v116 = v104 - (v11 + v13);
-  v117 = v103;
+  v106 = 0;
+  v107 = &v106;
+  v108 = 0x4010000000;
+  v109 = "";
+  v110 = v102 + v11;
+  v111 = v101 + 0.0;
+  v112 = v100 - (v11 + v13);
+  v113 = v99;
   if (accessoryType)
   {
     v15 = +[UIApplication sharedApplication];
     v16 = [v15 userInterfaceLayoutDirection] == &dword_0 + 1;
 
-    p_x = &v111->origin.x;
+    p_x = &v107->origin.x;
     if (v16)
     {
-      v111[1].origin.x = 0.0;
+      v107[1].origin.x = 0.0;
     }
   }
 
   else
   {
-    p_x = &v110;
+    p_x = &v106;
   }
 
-  v109[0] = _NSConcreteStackBlock;
-  v109[1] = 3221225472;
-  v109[2] = sub_1E78;
-  v109[3] = &unk_103F0;
-  v109[4] = self;
-  v109[5] = &v110;
-  *&v109[6] = v4;
-  *&v109[7] = v106;
-  *&v109[8] = v105;
-  *&v109[9] = v104;
-  *&v109[10] = v103;
-  [(MusicUsageTableViewCell *)self _layoutArtworkViewWithAvailableContentBounds:v109 idealArtworkSize:p_x[4] usingBlock:p_x[5], p_x[6], p_x[7], 40.0, 40.0];
+  v105[0] = _NSConcreteStackBlock;
+  v105[1] = 3221225472;
+  v105[2] = sub_1E78;
+  v105[3] = &unk_103F0;
+  v105[4] = self;
+  v105[5] = &v106;
+  *&v105[6] = v4;
+  *&v105[7] = v102;
+  *&v105[8] = v101;
+  *&v105[9] = v100;
+  *&v105[10] = v99;
+  [(MusicUsageTableViewCell *)self _layoutArtworkViewWithAvailableContentBounds:v105 idealArtworkSize:p_x[4] usingBlock:p_x[5], p_x[6], p_x[7], 40.0, 40.0];
   _fileSizeText = [(MusicUsageTableViewCell *)self _fileSizeText];
   v19 = [_fileSizeText length];
   fileSizeLabel = self->_fileSizeLabel;
@@ -210,8 +210,8 @@ LABEL_9:
       [(UILabel *)self->_fileSizeLabel setHidden:0];
     }
 
-    width = v111[1].size.width;
-    height = v111[1].size.height;
+    width = v107[1].size.width;
+    height = v107[1].size.height;
     [(UILabel *)self->_fileSizeLabel setText:_fileSizeText];
     [(UILabel *)self->_fileSizeLabel sizeThatFits:width, height];
     if (v29 < width)
@@ -224,58 +224,54 @@ LABEL_9:
       height = v30;
     }
 
-    CGRectGetMaxX(v111[1]);
-    v121.origin.x = CGRectZero.origin.x;
-    v121.origin.y = CGRectZero.origin.y;
-    v121.size.width = width;
-    v121.size.height = height;
-    CGRectGetWidth(v121);
-    x = v111[1].origin.x;
-    y = v111[1].origin.y;
-    v33 = v111[1].size.width;
-    v34 = v111[1].size.height;
+    CGRectGetMaxX(v107[1]);
+    v117.origin.x = CGRectZero.origin.x;
+    v117.origin.y = CGRectZero.origin.y;
+    v117.size.width = width;
+    v117.size.height = height;
+    CGRectGetWidth(v117);
     UIRectCenteredYInRectScale();
+    v32 = v31;
+    v34 = v33;
     v36 = v35;
     v38 = v37;
-    v40 = v39;
-    v42 = v41;
-    [(UILabel *)self->_fileSizeLabel setFrame:MusicRectByApplyingUserInterfaceLayoutDirectionInRect([(MusicUsageTableViewCell *)self effectiveUserInterfaceLayoutDirection], v35, v37, v39, v41, v106, v105, v104, v103)];
-    MaxX = CGRectGetMaxX(v111[1]);
-    v122.origin.x = v36;
-    v122.origin.y = v38;
-    v122.size.width = v40;
-    v122.size.height = v42;
-    MinX = CGRectGetMinX(v122);
-    v45 = v111;
-    v111[1].size.width = v111[1].size.width - (MaxX - MinX + 8.0);
+    [(UILabel *)self->_fileSizeLabel setFrame:MusicRectByApplyingUserInterfaceLayoutDirectionInRect([(MusicUsageTableViewCell *)self effectiveUserInterfaceLayoutDirection], v31, v33, v35, v37, v102, v101, v100, v99)];
+    MaxX = CGRectGetMaxX(v107[1]);
+    v118.origin.x = v32;
+    v118.origin.y = v34;
+    v118.size.width = v36;
+    v118.size.height = v38;
+    MinX = CGRectGetMinX(v118);
+    v41 = v107;
+    v107[1].size.width = v107[1].size.width - (MaxX - MinX + 8.0);
   }
 
   else
   {
     [(UILabel *)fileSizeLabel setHidden:1];
-    v45 = v111;
+    v41 = v107;
   }
 
-  origin = v45[1].origin;
-  size = v45[1].size;
-  v46 = self->_usageItemTitle;
-  v47 = [(NSString *)v46 length];
+  origin = v41[1].origin;
+  size = v41[1].size;
+  v42 = self->_usageItemTitle;
+  v43 = [(NSString *)v42 length];
   titleLabel = self->_titleLabel;
-  if (v47)
+  if (v43)
   {
     if (!titleLabel)
     {
-      v49 = objc_alloc_init(UILabel);
-      v50 = self->_titleLabel;
-      self->_titleLabel = v49;
+      v45 = objc_alloc_init(UILabel);
+      v46 = self->_titleLabel;
+      self->_titleLabel = v45;
 
-      v51 = self->_titleLabel;
-      v52 = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-      [(UILabel *)v51 setFont:v52];
+      v47 = self->_titleLabel;
+      v48 = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+      [(UILabel *)v47 setFont:v48];
 
-      v53 = self->_titleLabel;
-      v54 = +[UIColor _labelColor];
-      [(UILabel *)v53 setTextColor:v54];
+      v49 = self->_titleLabel;
+      v50 = +[UIColor _labelColor];
+      [(UILabel *)v49 setTextColor:v50];
 
       [(UILabel *)self->_titleLabel setTextAlignment:4];
       [contentView addSubview:self->_titleLabel];
@@ -287,68 +283,68 @@ LABEL_9:
       [(UILabel *)self->_titleLabel setHidden:0];
     }
 
-    v55 = v111[1].size.width;
-    v56 = v111[1].size.height;
-    [(UILabel *)self->_titleLabel setText:v46];
-    [(UILabel *)self->_titleLabel sizeThatFits:v55, v56];
-    if (v57 < v55)
+    v51 = v107[1].size.width;
+    v52 = v107[1].size.height;
+    [(UILabel *)self->_titleLabel setText:v42];
+    [(UILabel *)self->_titleLabel sizeThatFits:v51, v52];
+    if (v53 < v51)
     {
-      v55 = v57;
+      v51 = v53;
     }
 
-    if (v58 < v56)
+    if (v54 < v52)
     {
-      v56 = v58;
+      v52 = v54;
     }
 
-    v59 = CGRectGetMinX(v111[1]);
-    MinY = CGRectGetMinY(v111[1]);
-    v123.origin.x = v59;
-    v123.origin.y = MinY;
-    v123.size.width = v55;
-    v123.size.height = v56;
-    CGRectGetMinY(v123);
-    v124.origin.x = v59;
-    v124.origin.y = MinY;
-    v124.size.width = v55;
-    v124.size.height = v56;
-    CGRectGetMaxY(v124);
-    [(UILabel *)self->_titleLabel setFrame:MusicRectByApplyingUserInterfaceLayoutDirectionInRect([(MusicUsageTableViewCell *)self effectiveUserInterfaceLayoutDirection], v59, MinY, v55, v56, v106, v105, v104, v103)];
-    v125.origin.x = v59;
-    v125.origin.y = MinY;
-    v125.size.width = v55;
-    v125.size.height = v56;
-    v61 = CGRectGetHeight(v125) + 0.0;
-    v62 = v111;
-    v111[1].origin.y = v61 + v111[1].origin.y;
-    v62[1].size.height = v62[1].size.height - v61;
-    v63 = self->_titleLabel;
+    v55 = CGRectGetMinX(v107[1]);
+    MinY = CGRectGetMinY(v107[1]);
+    v119.origin.x = v55;
+    v119.origin.y = MinY;
+    v119.size.width = v51;
+    v119.size.height = v52;
+    CGRectGetMinY(v119);
+    v120.origin.x = v55;
+    v120.origin.y = MinY;
+    v120.size.width = v51;
+    v120.size.height = v52;
+    CGRectGetMaxY(v120);
+    [(UILabel *)self->_titleLabel setFrame:MusicRectByApplyingUserInterfaceLayoutDirectionInRect([(MusicUsageTableViewCell *)self effectiveUserInterfaceLayoutDirection], v55, MinY, v51, v52, v102, v101, v100, v99)];
+    v121.origin.x = v55;
+    v121.origin.y = MinY;
+    v121.size.width = v51;
+    v121.size.height = v52;
+    v57 = CGRectGetHeight(v121) + 0.0;
+    v58 = v107;
+    v107[1].origin.y = v57 + v107[1].origin.y;
+    v58[1].size.height = v58[1].size.height - v57;
+    v59 = self->_titleLabel;
   }
 
   else
   {
     [(UILabel *)titleLabel setHidden:1];
-    v63 = 0;
+    v59 = 0;
   }
 
-  v64 = self->_usageItemSubtitles;
-  v65 = [(NSArray *)v64 count];
+  v60 = self->_usageItemSubtitles;
+  v61 = [(NSArray *)v60 count];
   subtitleLabel = self->_subtitleLabel;
-  if (v65)
+  if (v61)
   {
     if (!subtitleLabel)
     {
-      v67 = objc_alloc_init(MPUAbbreviatingLabel);
-      v68 = self->_subtitleLabel;
-      self->_subtitleLabel = v67;
+      v63 = objc_alloc_init(MPUAbbreviatingLabel);
+      v64 = self->_subtitleLabel;
+      self->_subtitleLabel = v63;
 
-      v69 = self->_subtitleLabel;
-      v70 = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption1];
-      [(MPUAbbreviatingLabel *)v69 setFont:v70];
+      v65 = self->_subtitleLabel;
+      v66 = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption1];
+      [(MPUAbbreviatingLabel *)v65 setFont:v66];
 
-      v71 = self->_subtitleLabel;
-      v72 = PreferencesTableViewHeaderColor();
-      [(MPUAbbreviatingLabel *)v71 setTextColor:v72];
+      v67 = self->_subtitleLabel;
+      v68 = PreferencesTableViewHeaderColor();
+      [(MPUAbbreviatingLabel *)v67 setTextColor:v68];
 
       [(MPUAbbreviatingLabel *)self->_subtitleLabel setTextAlignment:4];
       [contentView addSubview:self->_subtitleLabel];
@@ -360,60 +356,60 @@ LABEL_9:
       [(MPUAbbreviatingLabel *)self->_subtitleLabel setHidden:0];
     }
 
-    v74 = v111[1].size.width;
-    v73 = v111[1].size.height;
-    if (v63)
+    v70 = v107[1].size.width;
+    v69 = v107[1].size.height;
+    if (v59)
     {
       font = [(MPUAbbreviatingLabel *)self->_subtitleLabel font];
       [font _scaledValueForValue:16.0];
-      v77 = v76;
+      v73 = v72;
       [font ascender];
-      v79 = v78;
-      [(UILabel *)v63 _baselineOffsetFromBottom];
-      v81 = v80;
+      v75 = v74;
+      [(UILabel *)v59 _baselineOffsetFromBottom];
+      v77 = v76;
 
-      v82 = round(v4 * (v77 - v79)) / v4;
-      v73 = v73 + v81 - v82;
+      v78 = round(v4 * (v73 - v75)) / v4;
+      v69 = v69 + v77 - v78;
     }
 
     else
     {
-      v82 = 0.0;
+      v78 = 0.0;
     }
 
-    [(MPUAbbreviatingLabel *)self->_subtitleLabel setTextRepresentations:v64];
-    [(MPUAbbreviatingLabel *)self->_subtitleLabel sizeThatFits:v74, v73];
-    if (v83 < v73)
+    [(MPUAbbreviatingLabel *)self->_subtitleLabel setTextRepresentations:v60];
+    [(MPUAbbreviatingLabel *)self->_subtitleLabel sizeThatFits:v70, v69];
+    if (v79 < v69)
     {
-      v73 = v83;
+      v69 = v79;
     }
 
-    v84 = CGRectGetMinX(v111[1]);
-    [(UILabel *)v63 frame];
-    MaxY = CGRectGetMaxY(v126);
-    if (v63)
+    v80 = CGRectGetMinX(v107[1]);
+    [(UILabel *)v59 frame];
+    MaxY = CGRectGetMaxY(v122);
+    if (v59)
     {
-      v86 = MaxY;
-      [(UILabel *)v63 _baselineOffsetFromBottom];
-      v88 = v82 + v86 - v87;
+      v82 = MaxY;
+      [(UILabel *)v59 _baselineOffsetFromBottom];
+      v84 = v78 + v82 - v83;
     }
 
     else
     {
-      v88 = CGRectGetMinY(v111[1]);
+      v84 = CGRectGetMinY(v107[1]);
     }
 
-    v127.origin.x = v84;
-    v127.origin.y = v88;
-    v127.size.width = v74;
-    v127.size.height = v73;
-    CGRectGetMinY(v127);
-    v128.origin.x = v84;
-    v128.origin.y = v88;
-    v128.size.width = v74;
-    v128.size.height = v73;
-    CGRectGetMaxY(v128);
-    [(MPUAbbreviatingLabel *)self->_subtitleLabel setFrame:MusicRectByApplyingUserInterfaceLayoutDirectionInRect([(MusicUsageTableViewCell *)self effectiveUserInterfaceLayoutDirection], v84, v88, v74, v73, v106, v105, v104, v103)];
+    v123.origin.x = v80;
+    v123.origin.y = v84;
+    v123.size.width = v70;
+    v123.size.height = v69;
+    CGRectGetMinY(v123);
+    v124.origin.x = v80;
+    v124.origin.y = v84;
+    v124.size.width = v70;
+    v124.size.height = v69;
+    CGRectGetMaxY(v124);
+    [(MPUAbbreviatingLabel *)self->_subtitleLabel setFrame:MusicRectByApplyingUserInterfaceLayoutDirectionInRect([(MusicUsageTableViewCell *)self effectiveUserInterfaceLayoutDirection], v80, v84, v70, v69, v102, v101, v100, v99)];
   }
 
   else
@@ -421,41 +417,41 @@ LABEL_9:
     [(MPUAbbreviatingLabel *)subtitleLabel setHidden:1];
   }
 
-  v89 = v111;
-  v111[1].origin = origin;
-  v89[1].size = size;
-  CGRectGetHeight(v89[1]);
-  v119 = self->_titleLabel;
-  v120 = self->_subtitleLabel;
-  v90 = &v119;
-  v91 = 1;
+  v85 = v107;
+  v107[1].origin = origin;
+  v85[1].size = size;
+  CGRectGetHeight(v85[1]);
+  v115 = self->_titleLabel;
+  v116 = self->_subtitleLabel;
+  v86 = &v115;
+  v87 = 1;
   do
   {
-    v92 = v91;
-    v93 = *v90;
-    v94 = v93;
-    if (v93 && ([v93 isHidden] & 1) == 0)
+    v88 = v87;
+    v89 = *v86;
+    v90 = v89;
+    if (v89 && ([v89 isHidden] & 1) == 0)
     {
-      [v94 frame];
-      [v94 setFrame:?];
+      [v90 frame];
+      [v90 setFrame:?];
     }
 
-    v91 = 0;
-    v90 = &v120;
+    v87 = 0;
+    v86 = &v116;
   }
 
-  while ((v92 & 1) != 0);
-  [(MusicUsageTableViewCell *)self separatorInset];
+  while ((v88 & 1) != 0);
+  objc_msgSend_separatorInset(self);
+  v92 = v91;
+  v94 = v93;
   v96 = v95;
-  v98 = v97;
-  v100 = v99;
   [(UILabel *)self->_titleLabel frame];
-  [(MusicUsageTableViewCell *)self setSeparatorInset:v96, CGRectGetMinX(v129), v98, v100];
+  [(MusicUsageTableViewCell *)self setSeparatorInset:v92, CGRectGetMinX(v125), v94, v96];
   for (i = 1; i != -1; --i)
   {
   }
 
-  _Block_object_dispose(&v110, 8);
+  _Block_object_dispose(&v106, 8);
 }
 
 - (void)reloadWithSpecifier:(id)specifier animated:(BOOL)animated
@@ -565,9 +561,9 @@ LABEL_9:
   [(UIImageView *)artworkView setHidden:0];
   traitCollection = [(MusicUsageTableViewCell *)self traitCollection];
   [traitCollection displayScale];
-  *&v45 = MusicSafeDisplayScale(v17);
+  *&v44 = MusicSafeDisplayScale(v17);
   layer2 = [(UIImageView *)self->_artworkView layer];
-  [layer2 setBorderWidth:1.0 / *&v45];
+  [layer2 setBorderWidth:1.0 / *&v44];
 
   if (width > 0.00000011920929 && height > 0.00000011920929)
   {
@@ -578,23 +574,21 @@ LABEL_9:
       [image size];
       if (v22 > 0.00000011920929 && v23 > 0.00000011920929)
       {
-        v42 = v23;
-        v43 = v22;
+        v41 = v23;
+        v42 = v22;
         v34 = width / v22;
         v35 = height / v23;
-        v36 = MusicFloatEqualToFloat(width / v22, height / v23);
-        usageItemArtworkWantsCircleTreatment = self->_usageItemArtworkWantsCircleTreatment;
-        if (v36)
+        if (MusicFloatEqualToFloat(width / v22, height / v23))
         {
           if (!self->_usageItemArtworkWantsCircleTreatment)
           {
             v37.n128_f64[0] = width;
-            v44 = v37;
+            v43 = v37;
             v25 = height;
             v26 = width / height;
 LABEL_33:
 
-            v19 = v44;
+            v19 = v43;
             goto LABEL_18;
           }
         }
@@ -603,26 +597,26 @@ LABEL_33:
         {
           if (v34 >= v35)
           {
-            v39 = v35;
+            v38 = v35;
           }
 
           else
           {
-            v39 = v34;
+            v38 = v34;
           }
 
-          v40.f64[0] = v43;
-          v40.f64[1] = v42;
-          v41 = vdivq_f64(vrndmq_f64(vmulq_n_f64(vmulq_n_f64(v40, v39), *&v45)), vdupq_lane_s64(v45, 0));
-          v25 = v41.f64[1];
-          v44 = v41;
-          v26 = v41.f64[0] / v41.f64[1];
+          v39.f64[0] = v42;
+          v39.f64[1] = v41;
+          v40 = vdivq_f64(vrndmq_f64(vmulq_n_f64(vmulq_n_f64(v39, v38), *&v44)), vdupq_lane_s64(v44, 0));
+          v25 = v40.f64[1];
+          v43 = v40;
+          v26 = v40.f64[0] / v40.f64[1];
           goto LABEL_33;
         }
 
         v26 = 1.0;
         v37.n128_f64[0] = width;
-        v44 = v37;
+        v43 = v37;
         v25 = height;
         goto LABEL_33;
       }
@@ -638,33 +632,33 @@ LABEL_18:
   if (!self->_artworkConfigurationBlockEnabled)
   {
     v27 = self->_usageItem;
-    v51 = 0;
-    v52 = &v51;
-    v53 = 0x2020000000;
-    v54 = 0;
+    v50 = 0;
+    v51 = &v50;
+    v52 = 0x2020000000;
+    v53 = 0;
     [(UIImageView *)self->_artworkView frame];
     v29 = v28;
     v31 = v30;
     v32 = self->_usageItemArtworkCatalog;
-    [(MPArtworkCatalog *)v32 setDestinationScale:*&v45];
+    [(MPArtworkCatalog *)v32 setDestinationScale:*&v44];
     [(MPArtworkCatalog *)v32 setFittingSize:v29, v31];
-    v46[0] = _NSConcreteStackBlock;
-    v46[1] = 3221225472;
-    v46[2] = sub_25FC;
-    v46[3] = &unk_10418;
+    v45[0] = _NSConcreteStackBlock;
+    v45[1] = 3221225472;
+    v45[2] = sub_25FC;
+    v45[3] = &unk_10418;
     v33 = v27;
-    v49 = width;
-    v50 = height;
-    v47 = v33;
-    v48 = &v51;
-    [(MPArtworkCatalog *)v32 setDestination:self configurationBlock:v46];
+    v48 = width;
+    v49 = height;
+    v46 = v33;
+    v47 = &v50;
+    [(MPArtworkCatalog *)v32 setDestination:self configurationBlock:v45];
     self->_artworkConfigurationBlockEnabled = 1;
-    if ((v52[3] & 1) == 0)
+    if ((v51[3] & 1) == 0)
     {
       [(MusicUsageTableViewCell *)self _handleArtworkImageUpdate:0 idealArtworkSize:width, height];
     }
 
-    _Block_object_dispose(&v51, 8);
+    _Block_object_dispose(&v50, 8);
   }
 
 LABEL_23:

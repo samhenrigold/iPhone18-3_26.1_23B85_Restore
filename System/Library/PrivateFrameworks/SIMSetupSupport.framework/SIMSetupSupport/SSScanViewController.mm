@@ -11,8 +11,10 @@
 - (void)didChangeValueForKey:(id)key;
 - (void)drawQRBox:(id)box;
 - (void)startScanning;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator;
 @end
 
@@ -165,6 +167,31 @@
   [navigationItem setHidesBackButton:0 animated:0];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = SSScanViewController;
+  [(SSScanViewController *)&v5 viewWillAppear:appear];
+  view = [(SSScanViewController *)self view];
+  [view setUserInteractionEnabled:1];
+
+  [(UIView *)self->_cutoutView setAlpha:0.0];
+  self->_isEnterManuallyTapped = 0;
+  [(TSCellularPlanQRCodeScannerView *)self->_scannerView setOrientation:[(SSScanViewController *)self _getCurrentDeviceOrientation]];
+  [(SSScanViewController *)self startScanning];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  [(SSScanViewController *)self _stopScanning];
+  v6.receiver = self;
+  v6.super_class = SSScanViewController;
+  [(OBBaseWelcomeController *)&v6 viewDidDisappear:disappearCopy];
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  [WeakRetained receivedResponse];
+}
+
 - (void)viewDidLayoutSubviews
 {
   v5.receiver = self;
@@ -227,7 +254,7 @@ void __78__SSScanViewController_captureOutput_didOutputMetadataObjects_fromConne
   v23 = *MEMORY[0x277D85DE8];
   metadataCopy = metadata;
   stringValue = [metadataCopy stringValue];
-  v6 = _TSLogDomain();
+  v6 = _TSLogDomain(stringValue);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
@@ -241,7 +268,7 @@ void __78__SSScanViewController_captureOutput_didOutputMetadataObjects_fromConne
   {
     if (self->_scannedCode)
     {
-      WeakRetained = _TSLogDomain();
+      WeakRetained = _TSLogDomain(v7);
       if (os_log_type_enabled(WeakRetained, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
@@ -264,7 +291,7 @@ void __78__SSScanViewController_captureOutput_didOutputMetadataObjects_fromConne
         [(SSScanViewController *)self drawQRBox:corners];
 
         objc_initWeak(buf, self);
-        v10 = MEMORY[0x277D75D18];
+        v11 = MEMORY[0x277D75D18];
         v17[0] = MEMORY[0x277D85DD0];
         v17[1] = 3221225472;
         v17[2] = __39__SSScanViewController_decodeMetadata___block_invoke;
@@ -278,7 +305,7 @@ void __78__SSScanViewController_captureOutput_didOutputMetadataObjects_fromConne
         v14 = WeakRetained;
         v15 = stringValue;
         objc_copyWeak(&v16, buf);
-        [v10 animateWithDuration:v17 animations:v13 completion:0.25];
+        [v11 animateWithDuration:v17 animations:v13 completion:0.25];
         objc_destroyWeak(&v16);
 
         objc_destroyWeak(&v18);
@@ -287,16 +314,14 @@ void __78__SSScanViewController_captureOutput_didOutputMetadataObjects_fromConne
 
       else
       {
-        v11 = _TSLogDomain();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+        v12 = _TSLogDomain(0);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
         {
-          [SSScanViewController decodeMetadata:v11];
+          [SSScanViewController decodeMetadata:v12];
         }
       }
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __39__SSScanViewController_decodeMetadata___block_invoke(uint64_t a1)
@@ -306,11 +331,11 @@ void __39__SSScanViewController_decodeMetadata___block_invoke(uint64_t a1)
   [v1 setAlpha:1.0];
 }
 
-void __39__SSScanViewController_decodeMetadata___block_invoke_2(uint64_t a1, char a2)
+void __39__SSScanViewController_decodeMetadata___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   if ((a2 & 1) == 0)
   {
-    v3 = _TSLogDomain();
+    v3 = _TSLogDomain(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __39__SSScanViewController_decodeMetadata___block_invoke_2_cold_1(v3);
@@ -329,37 +354,33 @@ void __39__SSScanViewController_decodeMetadata___block_invoke_2(uint64_t a1, cha
   objc_destroyWeak(&v7);
 }
 
-void __39__SSScanViewController_decodeMetadata___block_invoke_50(uint64_t a1, char a2)
+void __39__SSScanViewController_decodeMetadata___block_invoke_50(uint64_t a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     WeakRetained = objc_loadWeakRetained((a1 + 32));
     v3 = [WeakRetained delegate];
     v4 = objc_loadWeakRetained((a1 + 32));
     [v3 viewControllerDidComplete:v4];
-
-    v5 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v6 = _TSLogDomain();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v5 = _TSLogDomain(a1);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v13 = "[SSScanViewController decodeMetadata:]_block_invoke";
-      _os_log_impl(&dword_262AA8000, v6, OS_LOG_TYPE_DEFAULT, "unexpect qrcode @%s", buf, 0xCu);
+      v11 = "[SSScanViewController decodeMetadata:]_block_invoke";
+      _os_log_impl(&dword_262AA8000, v5, OS_LOG_TYPE_DEFAULT, "unexpect qrcode @%s", buf, 0xCu);
     }
 
-    v7 = objc_loadWeakRetained((a1 + 32));
-    v8 = [v7 view];
-    [v8 setUserInteractionEnabled:1];
+    v6 = objc_loadWeakRetained((a1 + 32));
+    v7 = [v6 view];
+    [v7 setUserInteractionEnabled:1];
 
-    v9 = objc_loadWeakRetained((a1 + 32));
-    [v9 startScanning];
-
-    v10 = *MEMORY[0x277D85DE8];
+    v8 = objc_loadWeakRetained((a1 + 32));
+    [v8 startScanning];
   }
 }
 
@@ -641,20 +662,18 @@ void __39__SSScanViewController_decodeMetadata___block_invoke_50(uint64_t a1, ch
 
 - (void)decodeMetadata:(os_log_t)log .cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[SSScanViewController decodeMetadata:]";
-  _os_log_error_impl(&dword_262AA8000, log, OS_LOG_TYPE_ERROR, "[E]invalid qrcode delegate @%s", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[SSScanViewController decodeMetadata:]";
+  _os_log_error_impl(&dword_262AA8000, log, OS_LOG_TYPE_ERROR, "[E]invalid qrcode delegate @%s", &v1, 0xCu);
 }
 
 void __39__SSScanViewController_decodeMetadata___block_invoke_2_cold_1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[SSScanViewController decodeMetadata:]_block_invoke_2";
-  _os_log_error_impl(&dword_262AA8000, log, OS_LOG_TYPE_ERROR, "[E]animation failed! @%s", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[SSScanViewController decodeMetadata:]_block_invoke_2";
+  _os_log_error_impl(&dword_262AA8000, log, OS_LOG_TYPE_ERROR, "[E]animation failed! @%s", &v1, 0xCu);
 }
 
 @end

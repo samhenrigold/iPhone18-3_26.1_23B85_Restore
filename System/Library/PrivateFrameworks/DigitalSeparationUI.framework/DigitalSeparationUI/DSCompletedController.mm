@@ -193,7 +193,7 @@ void __36__DSCompletedController_viewDidLoad__block_invoke(uint64_t a1)
 
 void __62__DSCompletedController_fetchAdditionalSharingWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -206,26 +206,26 @@ void __62__DSCompletedController_fetchAdditionalSharingWithCompletion___block_in
 
   else
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     v7 = [v5 members];
-    v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v16;
+      v10 = *v15;
       while (2)
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v16 != v10)
+          if (*v15 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v15 + 1) + 8 * i);
+          v12 = *(*(&v14 + 1) + 8 * i);
           if ([v12 isMe])
           {
             WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -235,7 +235,7 @@ void __62__DSCompletedController_fetchAdditionalSharingWithCompletion___block_in
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
         if (v9)
         {
           continue;
@@ -249,8 +249,6 @@ LABEL_14:
   }
 
   dispatch_group_leave(*(a1 + 32));
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __62__DSCompletedController_fetchAdditionalSharingWithCompletion___block_invoke_424(uint64_t a1, int a2, unsigned int a3, void *a4)
@@ -286,10 +284,57 @@ uint64_t __62__DSCompletedController_fetchAdditionalSharingWithCompletion___bloc
 
 - (void)addFamilyBullet
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_248C7E000, v0, v1, "Failed to find name for %{private}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  familyMember = [(DSCompletedController *)self familyMember];
+  v4 = familyMember;
+  if (familyMember)
+  {
+    contact = [familyMember contact];
+
+    if (!contact || (v6 = MEMORY[0x277CBDA78], [v4 contact], v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "stringFromContact:style:", v7, 0), v8 = objc_claimAutoreleasedReturnValue(), v7, !v8))
+    {
+      fullName = [v4 fullName];
+      if (!fullName)
+      {
+        if (os_log_type_enabled(DSLogAdditionalSharing, OS_LOG_TYPE_ERROR))
+        {
+          [DSCompletedController addFamilyBullet];
+        }
+
+        if ([v4 isOrganizer])
+        {
+          v13 = @"ADDITIONAL_FAMILY_ORGANIZER_DETAIL";
+        }
+
+        else
+        {
+          v13 = @"ADDITIONAL_FAMILY_MEMBER_DETAIL";
+        }
+
+        v12 = DSUILocStringForKey(v13);
+        goto LABEL_16;
+      }
+
+      v8 = fullName;
+    }
+
+    if ([v4 isOrganizer])
+    {
+      v10 = @"ADDITIONAL_FAMILY_ORGANIZER_DETAIL_WITH_NAME";
+    }
+
+    else
+    {
+      v10 = @"ADDITIONAL_FAMILY_MEMBER_DETAIL_WITH_NAME";
+    }
+
+    v11 = DSUILocStringForKey(v10);
+    v12 = [MEMORY[0x277CCACA8] localizedStringWithFormat:v11, v8];
+
+LABEL_16:
+    v14 = DSUILocStringForKey(@"ADDITIONAL_FAMILY_TITLE");
+    v15 = [MEMORY[0x277D755B8] systemImageNamed:@"person.3.fill"];
+    [(DSCompletedController *)self addBulletedListItemWithTitle:v14 description:v12 image:v15];
+  }
 }
 
 - (void)addWalletBullet
@@ -377,7 +422,7 @@ uint64_t __62__DSCompletedController_fetchAdditionalSharingWithCompletion___bloc
 
 - (void)findMyAccessoryManager:(id)manager didFetchStatusOfUTEnablementRequirementsWithStatus:(id)status withError:(id)error
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   statusCopy = status;
   errorCopy = error;
@@ -389,9 +434,9 @@ uint64_t __62__DSCompletedController_fetchAdditionalSharingWithCompletion___bloc
   v11 = DSLogAdditionalSharing;
   if (os_log_type_enabled(DSLogAdditionalSharing, OS_LOG_TYPE_INFO))
   {
-    v15 = 138543362;
-    v16 = statusCopy;
-    _os_log_impl(&dword_248C7E000, v11, OS_LOG_TYPE_INFO, "Got UT EnablementStatus %{public}@", &v15, 0xCu);
+    v14 = 138543362;
+    v15 = statusCopy;
+    _os_log_impl(&dword_248C7E000, v11, OS_LOG_TYPE_INFO, "Got UT EnablementStatus %{public}@", &v14, 0xCu);
   }
 
   v12 = [statusCopy objectForKeyedSubscript:*MEMORY[0x277CBFCE8]];
@@ -399,8 +444,6 @@ uint64_t __62__DSCompletedController_fetchAdditionalSharingWithCompletion___bloc
 
   fetchingGroup = [(DSCompletedController *)self fetchingGroup];
   dispatch_group_leave(fetchingGroup);
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (DSNavigationDelegate)delegate
@@ -408,30 +451,6 @@ uint64_t __62__DSCompletedController_fetchAdditionalSharingWithCompletion___bloc
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
 
   return WeakRetained;
-}
-
-void __62__DSCompletedController_fetchAdditionalSharingWithCompletion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_248C7E000, v0, v1, "Failed to fetch FamilyCircle because %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __62__DSCompletedController_fetchAdditionalSharingWithCompletion___block_invoke_424_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_248C7E000, v0, v1, "Failed to fetch wallet sharing because %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)findMyAccessoryManager:didFetchStatusOfUTEnablementRequirementsWithStatus:withError:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_248C7E000, v0, v1, "Failed to fetch status of UT enablement because %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

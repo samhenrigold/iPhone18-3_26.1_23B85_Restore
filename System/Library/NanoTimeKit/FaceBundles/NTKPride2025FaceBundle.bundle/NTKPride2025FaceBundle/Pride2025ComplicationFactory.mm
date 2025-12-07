@@ -17,12 +17,12 @@
   if (Strong)
   {
     v4 = Strong;
-    sub_12834();
-    __chkstk_darwin();
-    v6[2] = self;
-    v6[3] = v4;
+    v5 = sub_12834();
+    __chkstk_darwin(v5);
+    v7[2] = self;
+    v7[3] = v4;
     selfCopy = self;
-    sub_2548(sub_3084, v6);
+    sub_2548(sub_3084, v7, "NTKPride2025FaceBundle/Pride2025ComplicationFactory.swift", 57, 2u, 79);
   }
 }
 
@@ -88,7 +88,7 @@
   v7[3] = view;
   viewCopy = view;
   selfCopy = self;
-  sub_2548(sub_2CEC, v7);
+  sub_2548(sub_2CEC, v7, "NTKPride2025FaceBundle/Pride2025ComplicationFactory.swift", 57, 2u, 79);
 }
 
 - (id)newLegacyViewForComplication:(id)complication family:(int64_t)family slot:(id)slot faceView:(id)view
@@ -97,29 +97,29 @@
   complicationType = [complicationCopy complicationType];
   sub_12834();
   v10[2] = complicationType;
-  v8 = sub_26D0(sub_2C90, v10, "NTKPride2025FaceBundle/Pride2025ComplicationFactory.swift", 57);
+  v8 = sub_26D0(sub_2C90, v10, "NTKPride2025FaceBundle/Pride2025ComplicationFactory.swift", 57, 2, 113);
 
   return v8;
 }
 
 - (void)configureComplicationView:(id)view forSlot:(id)slot faceView:(id)faceView
 {
-  v13.receiver = self;
-  v13.super_class = swift_getObjectType();
+  v14.receiver = self;
+  v14.super_class = swift_getObjectType();
   viewCopy = view;
   faceViewCopy = faceView;
-  v10 = v13.receiver;
-  [(Pride2025ComplicationFactory *)&v13 configureComplicationView:viewCopy forSlot:slot faceView:faceViewCopy];
+  v10 = v14.receiver;
+  [(Pride2025ComplicationFactory *)&v14 configureComplicationView:viewCopy forSlot:slot faceView:faceViewCopy];
   objc_opt_self();
   if (swift_dynamicCastObjCClass())
   {
     objc_opt_self();
     v11 = swift_dynamicCastObjCClassUnconditional();
-    sub_12834();
-    __chkstk_darwin();
-    v12[2] = v11;
-    v12[3] = v10;
-    sub_2548(sub_2C3C, v12);
+    v12 = sub_12834();
+    __chkstk_darwin(v12);
+    v13[2] = v11;
+    v13[3] = v10;
+    sub_2548(sub_2C3C, v13, "NTKPride2025FaceBundle/Pride2025ComplicationFactory.swift", 57, 2u, 149);
   }
 
   else

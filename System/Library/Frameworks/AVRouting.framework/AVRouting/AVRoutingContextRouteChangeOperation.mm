@@ -226,10 +226,10 @@ void *__66__AVRoutingContextRouteChangeOperation__routeChangeStartedWithID___blo
 
 - (void)_routeChangeWithID:(__CFNumber *)d endedWithReason:(__CFString *)reason
 {
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x2020000000;
   v15 = 0;
-  v16 = &v15;
-  v17 = 0x2020000000;
-  v18 = 0;
   v7 = objc_alloc_init(AVOutputContextDestinationChange);
   v8 = objc_alloc_init(AVInputContextDestinationChange);
   notificationManagementQueue = self->_notificationManagementQueue;
@@ -238,10 +238,10 @@ void *__66__AVRoutingContextRouteChangeOperation__routeChangeStartedWithID___blo
   block[2] = __75__AVRoutingContextRouteChangeOperation__routeChangeWithID_endedWithReason___block_invoke;
   block[3] = &unk_1E794E930;
   block[4] = self;
-  block[5] = &v15;
+  block[5] = &v12;
   block[6] = d;
   dispatch_sync(notificationManagementQueue, block);
-  if (v16[3])
+  if (v13[3])
   {
     if (self->_inputRoutePicked)
     {
@@ -255,48 +255,42 @@ void *__66__AVRoutingContextRouteChangeOperation__routeChangeStartedWithID___blo
       [(AVRoutingContextRouteChangeOperation *)self _setResultIfNotAlreadySet:v7];
     }
 
-    v10 = *MEMORY[0x1E69AF450];
     if (!FigCFEqual())
     {
-      v11 = *MEMORY[0x1E69AF448];
       if (FigCFEqual())
       {
-        v12 = -11800;
+        v10 = -11800;
       }
 
       else
       {
-        v13 = *MEMORY[0x1E69AF438];
         if (!FigCFEqual())
         {
           [(AVRoutingOperation *)self markAsCancelled];
           goto LABEL_11;
         }
 
-        v12 = -11909;
+        v10 = -11909;
       }
 
-      [(AVRoutingOperation *)self markAsFailedWithError:AVLocalizedError(@"AVFoundationErrorDomain", v12, 0)];
+      [(AVRoutingOperation *)self markAsFailedWithError:AVLocalizedError(@"AVFoundationErrorDomain", v10, 0)];
     }
   }
 
 LABEL_11:
 
-  _Block_object_dispose(&v15, 8);
+  _Block_object_dispose(&v12, 8);
 }
 
 uint64_t __75__AVRoutingContextRouteChangeOperation__routeChangeWithID_endedWithReason___block_invoke(uint64_t result)
 {
-  v1 = *(result + 32);
-  if (*(v1 + 312) == 1)
+  if (*(*(result + 32) + 312) == 1)
   {
-    v2 = result;
-    v3 = *(result + 48);
-    v4 = *(v1 + 320);
+    v1 = result;
     result = FigCFEqual();
     if (result)
     {
-      *(*(*(v2 + 40) + 8) + 24) = 1;
+      *(*(*(v1 + 40) + 8) + 24) = 1;
     }
   }
 

@@ -23,41 +23,41 @@
 - (id)initFullColorImageViewWithDevice:(id)device
 {
   deviceCopy = device;
-  v46.receiver = self;
-  v46.super_class = CompassBaseRichCircularDialView;
-  v6 = [(CompassRichDialView *)&v46 initFullColorImageViewWithDevice:deviceCopy];
+  v36.receiver = self;
+  v36.super_class = CompassBaseRichCircularDialView;
+  v6 = [(CompassRichDialView *)&v36 initFullColorImageViewWithDevice:deviceCopy];
   v7 = v6;
   if (v6)
   {
     objc_storeStrong(v6 + 57, device);
-    v45 = 0;
-    v43 = 0u;
-    v44 = 0u;
+    v35 = 0;
+    v33 = 0u;
+    v34 = 0u;
     v8 = v7[57];
-    v12 = objc_msgSend__supportedFamily(v7, v9, v10, v11);
-    sub_23BD3D108(v8, v12, &v43);
-    v13 = v44;
-    v16 = objc_msgSend_systemFontOfSize_weight_design_(MEMORY[0x277CBBB08], v14, v44, v15, v43);
-    v17 = objc_opt_new();
-    v18 = v7[58];
-    v7[58] = v17;
+    v11 = objc_msgSend__supportedFamily(v7, v9, v10);
+    sub_23BD3D108(v8, v11, &v33);
+    v12 = v34;
+    v14 = objc_msgSend_systemFontOfSize_weight_design_(MEMORY[0x277CBBB08], v13, v34, v33);
+    v15 = objc_opt_new();
+    v16 = v7[58];
+    v7[58] = v15;
 
-    v19 = NanoCompassAppTintColor();
-    objc_msgSend_setTextColor_(v7[58], v20, v19, v21);
+    v18 = NanoCompassAppTintColor(v17);
+    objc_msgSend_setTextColor_(v7[58], v19, v18);
 
-    objc_msgSend_setFont_(v7[58], v22, v16, v23);
-    objc_msgSend_setTextAlignment_(v7[58], v24, 1, v25);
-    objc_msgSend_addSubview_(v7, v26, v7[58], v27);
-    v28 = objc_opt_new();
-    v29 = v7[59];
-    v7[59] = v28;
+    objc_msgSend_setFont_(v7[58], v20, v14);
+    objc_msgSend_setTextAlignment_(v7[58], v21, 1);
+    objc_msgSend_addSubview_(v7, v22, v7[58]);
+    v23 = objc_opt_new();
+    v24 = v7[59];
+    v7[59] = v23;
 
-    v33 = objc_msgSend_whiteColor(MEMORY[0x277D75348], v30, v31, v32);
-    objc_msgSend_setTextColor_(v7[59], v34, v33, v35);
+    v27 = objc_msgSend_whiteColor(MEMORY[0x277D75348], v25, v26);
+    objc_msgSend_setTextColor_(v7[59], v28, v27);
 
-    objc_msgSend_setFont_(v7[59], v36, v16, v37);
-    objc_msgSend_setTextAlignment_(v7[59], v38, 1, v39);
-    objc_msgSend_addSubview_(v7, v40, v7[59], v41);
+    objc_msgSend_setFont_(v7[59], v29, v14);
+    objc_msgSend_setTextAlignment_(v7[59], v30, 1);
+    objc_msgSend_addSubview_(v7, v31, v7[59]);
   }
 
   return v7;
@@ -65,28 +65,28 @@
 
 - (id)_newTicksView
 {
-  v5 = objc_msgSend__ticksImageName(self, a2, v2, v3);
-  v6 = NanoCompassComplicationImageNamed(v5);
+  v4 = objc_msgSend__ticksImageName(self, a2, v2);
+  v5 = NanoCompassComplicationImageNamed(v4);
 
-  v7 = objc_alloc(MEMORY[0x277D755E8]);
-  v10 = objc_msgSend_initWithImage_(v7, v8, v6, v9);
+  v6 = objc_alloc(MEMORY[0x277D755E8]);
+  v8 = objc_msgSend_initWithImage_(v6, v7, v5);
   ticks = self->_ticks;
-  self->_ticks = v10;
+  self->_ticks = v8;
 
-  v12 = self->_ticks;
-  return v12;
+  v10 = self->_ticks;
+  return v10;
 }
 
 - (id)_newNeedleView
 {
-  if (objc_msgSend_supportsGossamer(self, a2, v2, v3))
+  if (objc_msgSend_supportsGossamer(self, a2, v2))
   {
-    objc_msgSend__gossamer_newNeedleView(self, v5, v6, v7);
+    objc_msgSend__gossamer_newNeedleView(self, v4, v5);
   }
 
   else
   {
-    objc_msgSend__pregossamer_newNeedleView(self, v5, v6, v7);
+    objc_msgSend__pregossamer_newNeedleView(self, v4, v5);
   }
 
   return objc_claimAutoreleasedReturnValue();
@@ -95,74 +95,74 @@
 - (id)_newNeedleAODView
 {
   v3 = objc_alloc(MEMORY[0x277D75D18]);
-  objc_msgSend_bounds(self, v4, v5, v6);
+  objc_msgSend_bounds(self, v4, v5);
 
-  return objc_msgSend_initWithFrame_(v3, v7, v8, v9);
+  return objc_msgSend_initWithFrame_(v3, v6, v7);
 }
 
 - (id)_gossamer_newNeedleView
 {
-  v5 = objc_msgSend__needleNorthImageName(self, a2, v2, v3);
-  v6 = NanoCompassComplicationImageNamed(v5);
+  v4 = objc_msgSend__needleNorthImageName(self, a2, v2);
+  v5 = NanoCompassComplicationImageNamed(v4);
 
-  v7 = NanoCompassAppTintColor();
-  v10 = objc_msgSend_imageWithTintColor_(v6, v8, v7, v9);
+  v7 = NanoCompassAppTintColor(v6);
+  v9 = objc_msgSend_imageWithTintColor_(v5, v8, v7);
 
-  v11 = objc_alloc(MEMORY[0x277D755E8]);
-  v14 = objc_msgSend_initWithImage_(v11, v12, v10, v13);
+  v10 = objc_alloc(MEMORY[0x277D755E8]);
+  v12 = objc_msgSend_initWithImage_(v10, v11, v9);
   north = self->_north;
-  self->_north = v14;
+  self->_north = v12;
 
-  v19 = objc_msgSend__ticksImageName(self, v16, v17, v18);
-  v20 = NanoCompassComplicationImageNamed(v19);
+  v16 = objc_msgSend__ticksImageName(self, v14, v15);
+  v17 = NanoCompassComplicationImageNamed(v16);
 
-  objc_msgSend_size(v20, v21, v22, v23);
-  v25 = v24;
-  v27 = v26;
-  v28 = *MEMORY[0x277CBF348];
-  v29 = *(MEMORY[0x277CBF348] + 8);
-  v30 = objc_alloc(MEMORY[0x277D75D18]);
-  v34 = objc_msgSend_initWithFrame_(v30, v31, v32, v33, v28, v29, v25, v27);
-  objc_msgSend_addSubview_(v34, v35, self->_north, v36);
+  objc_msgSend_size(v17, v18, v19);
+  v21 = v20;
+  v23 = v22;
+  v24 = *MEMORY[0x277CBF348];
+  v25 = *(MEMORY[0x277CBF348] + 8);
+  v26 = objc_alloc(MEMORY[0x277D75D18]);
+  v29 = objc_msgSend_initWithFrame_(v26, v27, v28, v24, v25, v21, v23);
+  objc_msgSend_addSubview_(v29, v30, self->_north);
 
-  return v34;
+  return v29;
 }
 
 - (id)_pregossamer_newNeedleView
 {
-  v5 = objc_msgSend__needleNorthImageName(self, a2, v2, v3);
-  v6 = NanoCompassComplicationImageNamed(v5);
+  v4 = objc_msgSend__needleNorthImageName(self, a2, v2);
+  v5 = NanoCompassComplicationImageNamed(v4);
 
-  v7 = objc_alloc(MEMORY[0x277D755E8]);
-  v10 = objc_msgSend_initWithImage_(v7, v8, v6, v9);
+  v6 = objc_alloc(MEMORY[0x277D755E8]);
+  v8 = objc_msgSend_initWithImage_(v6, v7, v5);
   north = self->_north;
-  self->_north = v10;
+  self->_north = v8;
 
-  v15 = objc_msgSend__needleSouthImageName(self, v12, v13, v14);
-  v16 = NanoCompassComplicationImageNamed(v15);
+  v12 = objc_msgSend__needleSouthImageName(self, v10, v11);
+  v13 = NanoCompassComplicationImageNamed(v12);
 
-  v17 = objc_alloc(MEMORY[0x277D755E8]);
-  v20 = objc_msgSend_initWithImage_(v17, v18, v16, v19);
+  v14 = objc_alloc(MEMORY[0x277D755E8]);
+  v16 = objc_msgSend_initWithImage_(v14, v15, v13);
   south = self->_south;
-  self->_south = v20;
+  self->_south = v16;
 
-  v25 = objc_msgSend__needleShadowImageName(self, v22, v23, v24);
-  v26 = NanoCompassComplicationImageNamed(v25);
+  v20 = objc_msgSend__needleShadowImageName(self, v18, v19);
+  v21 = NanoCompassComplicationImageNamed(v20);
 
-  v27 = objc_alloc(MEMORY[0x277D755E8]);
-  v30 = objc_msgSend_initWithImage_(v27, v28, v26, v29);
-  objc_msgSend_bounds(v30, v31, v32, v33);
-  v35 = v34;
-  v37 = v36;
-  v39 = v38;
-  v41 = v40;
-  v42 = objc_alloc(MEMORY[0x277D75D18]);
-  v46 = objc_msgSend_initWithFrame_(v42, v43, v44, v45, v35, v37, v39, v41);
-  objc_msgSend_addSubview_(v46, v47, v30, v48);
-  objc_msgSend_addSubview_(v46, v49, self->_south, v50);
-  objc_msgSend_addSubview_(v46, v51, self->_north, v52);
+  v22 = objc_alloc(MEMORY[0x277D755E8]);
+  v24 = objc_msgSend_initWithImage_(v22, v23, v21);
+  objc_msgSend_bounds(v24, v25, v26);
+  v28 = v27;
+  v30 = v29;
+  v32 = v31;
+  v34 = v33;
+  v35 = objc_alloc(MEMORY[0x277D75D18]);
+  v38 = objc_msgSend_initWithFrame_(v35, v36, v37, v28, v30, v32, v34);
+  objc_msgSend_addSubview_(v38, v39, v24);
+  objc_msgSend_addSubview_(v38, v40, self->_south);
+  objc_msgSend_addSubview_(v38, v41, self->_north);
 
-  return v46;
+  return v38;
 }
 
 - (id)monochromeAccentViews
@@ -178,96 +178,96 @@
 
 - (id)monochromeOtherViews
 {
-  v9[2] = *MEMORY[0x277D85DE8];
-  if (objc_msgSend_supportsGossamer(self, a2, v2, v3))
+  v8[2] = *MEMORY[0x277D85DE8];
+  if (objc_msgSend_supportsGossamer(self, a2, v2))
   {
-    objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v5, v9, 2, v8, self->_ticks, self->_directionLabel);
+    objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v4, v8, 2, v7, self->_ticks, self->_directionLabel);
   }
 
   else
   {
-    objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v5, &v8, 1, self->_south, v9[0], v9[1]);
+    objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v4, &v7, 1, self->_south, v8[0], v8[1]);
   }
-  v6 = ;
+  v5 = ;
 
-  return v6;
+  return v5;
 }
 
 - (void)configureWithImageProvider:(id)provider reason:(int64_t)reason
 {
   providerCopy = provider;
-  v57.receiver = self;
-  v57.super_class = CompassBaseRichCircularDialView;
-  [(CompassRichDialView *)&v57 configureWithImageProvider:providerCopy reason:reason];
-  v10 = objc_msgSend_metadata(providerCopy, v7, v8, v9);
-  v13 = objc_msgSend_objectForKeyedSubscript_(v10, v11, @"heading", v12);
+  v42.receiver = self;
+  v42.super_class = CompassBaseRichCircularDialView;
+  [(CompassRichDialView *)&v42 configureWithImageProvider:providerCopy reason:reason];
+  v9 = objc_msgSend_metadata(providerCopy, v7, v8);
+  v11 = objc_msgSend_objectForKeyedSubscript_(v9, v10, @"heading");
 
-  v17 = objc_msgSend_null(MEMORY[0x277CBEB68], v14, v15, v16);
-  isEqual = objc_msgSend_isEqual_(v13, v18, v17, v19);
+  v14 = objc_msgSend_null(MEMORY[0x277CBEB68], v12, v13);
+  isEqual = objc_msgSend_isEqual_(v11, v15, v14);
 
   if (isEqual)
   {
 
-    v13 = 0;
+    v11 = 0;
   }
 
-  v24 = objc_msgSend_metadata(providerCopy, v21, v22, v23);
-  v27 = objc_msgSend_objectForKeyedSubscript_(v24, v25, @"nodata", v26);
-  v31 = objc_msgSend_BOOLValue(v27, v28, v29, v30);
+  v19 = objc_msgSend_metadata(providerCopy, v17, v18);
+  v21 = objc_msgSend_objectForKeyedSubscript_(v19, v20, @"nodata");
+  v24 = objc_msgSend_BOOLValue(v21, v22, v23);
 
-  if (v13)
+  if (v11)
   {
-    v35 = v31 == 0;
+    v27 = v24 == 0;
   }
 
   else
   {
-    v35 = 0;
+    v27 = 0;
   }
 
-  if (v35)
+  if (v27)
   {
-    v42 = NanoCompassFormattedHeading(v13, 0, 0);
-    objc_msgSend_setText_(self->_headingLabel, v43, v42, v44);
+    v32 = NanoCompassFormattedHeading(v11, 0, 0);
+    objc_msgSend_setText_(self->_headingLabel, v33, v32);
 
-    NanoCompassFormattedHeadingDirection(v13);
+    NanoCompassFormattedHeadingDirection(v11);
   }
 
   else
   {
-    v36 = objc_msgSend_headingRedactionLabel(self, v32, v33, v34);
-    objc_msgSend_setText_(self->_headingLabel, v37, v36, v38);
+    v28 = objc_msgSend_headingRedactionLabel(self, v25, v26);
+    objc_msgSend_setText_(self->_headingLabel, v29, v28);
 
-    objc_msgSend_directionRedactionLabel(self, v39, v40, v41);
+    objc_msgSend_directionRedactionLabel(self, v30, v31);
   }
-  v45 = ;
-  objc_msgSend_setText_(self->_directionLabel, v46, v45, v47);
+  v34 = ;
+  objc_msgSend_setText_(self->_directionLabel, v35, v34);
 
-  objc_msgSend_sizeToFit(self->_headingLabel, v48, v49, v50);
-  objc_msgSend_sizeToFit(self->_directionLabel, v51, v52, v53);
-  objc_msgSend_setNeedsLayout(self, v54, v55, v56);
+  objc_msgSend_sizeToFit(self->_headingLabel, v36, v37);
+  objc_msgSend_sizeToFit(self->_directionLabel, v38, v39);
+  objc_msgSend_setNeedsLayout(self, v40, v41);
 }
 
 - (void)layoutSubviews
 {
-  v32.receiver = self;
-  v32.super_class = CompassBaseRichCircularDialView;
-  [(CompassRichDialView *)&v32 layoutSubviews];
-  objc_msgSend_bounds(self, v3, v4, v5);
-  v31 = 0;
-  v29 = 0u;
-  v30 = 0u;
+  v24.receiver = self;
+  v24.super_class = CompassBaseRichCircularDialView;
+  [(CompassRichDialView *)&v24 layoutSubviews];
+  objc_msgSend_bounds(self, v3, v4);
+  v23 = 0;
+  v21 = 0u;
+  v22 = 0u;
   device = self->_device;
-  v10 = objc_msgSend__supportedFamily(self, v7, v8, v9, 0, 0);
-  sub_23BD3D108(device, v10, &v29);
-  objc_msgSend_frame(self->_headingLabel, v11, v12, v13);
-  objc_msgSend__lastLineBaseline(self->_headingLabel, v14, v15, v16);
+  v8 = objc_msgSend__supportedFamily(self, v6, v7, 0, 0);
+  sub_23BD3D108(device, v8, &v21);
+  objc_msgSend_frame(self->_headingLabel, v9, v10);
+  objc_msgSend__lastLineBaseline(self->_headingLabel, v11, v12);
   CLKRectCenteredXInRectForDevice();
-  objc_msgSend_setFrame_(self->_headingLabel, v17, v18, v19);
-  objc_msgSend_frame(self->_directionLabel, v20, v21, v22);
-  objc_msgSend__lastLineBaseline(self->_directionLabel, v23, v24, v25);
+  objc_msgSend_setFrame_(self->_headingLabel, v13, v14);
+  objc_msgSend_frame(self->_directionLabel, v15, v16);
+  objc_msgSend__lastLineBaseline(self->_directionLabel, v17, v18);
   CLKRectCenteredXInRectForDevice();
-  objc_msgSend_setFrame_(self->_directionLabel, v26, v27, v28);
+  objc_msgSend_setFrame_(self->_directionLabel, v19, v20);
 }
 
 - (id)headingRedactionLabel
@@ -296,36 +296,36 @@
 
 - (int64_t)_supportedFamily
 {
-  sub_23BD29238();
-  sub_23BD2921C();
+  v2 = sub_23BD29238();
+  sub_23BD2921C(v2);
   return 10;
 }
 
 - (id)_ticksImageName
 {
-  sub_23BD29238();
-  sub_23BD2921C();
+  v2 = sub_23BD29238();
+  sub_23BD2921C(v2);
   return 0;
 }
 
 - (id)_needleNorthImageName
 {
-  sub_23BD29238();
-  sub_23BD2921C();
+  v2 = sub_23BD29238();
+  sub_23BD2921C(v2);
   return 0;
 }
 
 - (id)_needleSouthImageName
 {
-  sub_23BD29238();
-  sub_23BD2921C();
+  v2 = sub_23BD29238();
+  sub_23BD2921C(v2);
   return 0;
 }
 
 - (id)_needleShadowImageName
 {
-  sub_23BD29238();
-  sub_23BD2921C();
+  v2 = sub_23BD29238();
+  sub_23BD2921C(v2);
   return 0;
 }
 

@@ -84,7 +84,7 @@ LABEL_11:
 
 void __118__HMDHAPAccessoryReaderWriterMetricHelper_updateLogEvents_withResponses_remoteMessageResponse_forTaskID_shouldSubmit___block_invoke(uint64_t a1, void *a2)
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 request];
   v5 = [v4 accessory];
@@ -127,8 +127,8 @@ void __118__HMDHAPAccessoryReaderWriterMetricHelper_updateLogEvents_withResponse
             v16 = HMFGetOSLogHandle();
             if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
             {
-              v34 = v14;
-              v35 = HMFGetLogIdentifier();
+              v33 = v14;
+              v34 = HMFGetLogIdentifier();
               v17 = *(a1 + 48);
               if ([v10 isWriteOperation])
               {
@@ -140,14 +140,14 @@ void __118__HMDHAPAccessoryReaderWriterMetricHelper_updateLogEvents_withResponse
                 v18 = @"Reading";
               }
 
-              v33 = [v10 characteristicsInRequest];
-              v29 = [v33 count];
-              v32 = [v10 accessoryUUID];
-              v31 = [v10 error];
-              v30 = [v10 residentFirstError];
-              v28 = [v10 durationMilliseconds];
-              v27 = [v10 localDurationInMilliseconds];
-              v26 = [v10 residentFirstDurationInMilliseconds];
+              v32 = [v10 characteristicsInRequest];
+              v28 = [v32 count];
+              v31 = [v10 accessoryUUID];
+              v30 = [v10 error];
+              v29 = [v10 residentFirstError];
+              v27 = [v10 durationMilliseconds];
+              v26 = [v10 localDurationInMilliseconds];
+              v25 = [v10 residentFirstDurationInMilliseconds];
               if ([v10 isLocal])
               {
                 [v10 linkType];
@@ -172,30 +172,30 @@ void __118__HMDHAPAccessoryReaderWriterMetricHelper_updateLogEvents_withResponse
 
               v22 = v19;
               *buf = 138545922;
-              v37 = v35;
-              v38 = 2114;
-              v39 = v17;
-              v40 = 2114;
-              v41 = v18;
-              v42 = 2048;
-              v43 = v29;
-              v44 = 2114;
-              v45 = v32;
-              v46 = 2114;
-              v47 = v31;
-              v48 = 2114;
-              v49 = v30;
-              v50 = 2048;
-              v51 = v28;
-              v52 = 2048;
-              v53 = v27;
-              v54 = 2048;
-              v55 = v26;
-              v56 = 2114;
-              v57 = v19;
+              v36 = v34;
+              v37 = 2114;
+              v38 = v17;
+              v39 = 2114;
+              v40 = v18;
+              v41 = 2048;
+              v42 = v28;
+              v43 = 2114;
+              v44 = v31;
+              v45 = 2114;
+              v46 = v30;
+              v47 = 2114;
+              v48 = v29;
+              v49 = 2048;
+              v50 = v27;
+              v51 = 2048;
+              v52 = v26;
+              v53 = 2048;
+              v54 = v25;
+              v55 = 2114;
+              v56 = v19;
               _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@For Task: %{public}@ -- %{public}@ %tu characteristic(s) on accessory %{public}@ completed with error: %{public}@ (Resident first error: %{public}@), Total duration: %ld ms (Local duration: %ld ms, Resident first duration: %ld ms) using transport: %{public}@", buf, 0x70u);
 
-              v14 = v34;
+              v14 = v33;
             }
 
             objc_autoreleasePoolPop(v14);
@@ -214,8 +214,6 @@ void __118__HMDHAPAccessoryReaderWriterMetricHelper_updateLogEvents_withResponse
   {
     v10 = 0;
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 + (void)updateLogEvents:(id)events withResponses:(id)responses forTaskID:(id)d shouldSubmit:(BOOL)submit
@@ -245,7 +243,7 @@ void __118__HMDHAPAccessoryReaderWriterMetricHelper_updateLogEvents_withResponse
 
 void __96__HMDHAPAccessoryReaderWriterMetricHelper_updateLogEvents_withResponses_forTaskID_shouldSubmit___block_invoke(uint64_t a1, void *a2)
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 request];
   v5 = [v4 accessory];
@@ -285,8 +283,8 @@ void __96__HMDHAPAccessoryReaderWriterMetricHelper_updateLogEvents_withResponses
             v16 = HMFGetOSLogHandle();
             if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
             {
-              v34 = v14;
-              v35 = HMFGetLogIdentifier();
+              v33 = v14;
+              v34 = HMFGetLogIdentifier();
               v17 = *(a1 + 48);
               if ([v10 isWriteOperation])
               {
@@ -298,14 +296,14 @@ void __96__HMDHAPAccessoryReaderWriterMetricHelper_updateLogEvents_withResponses
                 v18 = @"Reading";
               }
 
-              v33 = [v10 characteristicsInRequest];
-              v29 = [v33 count];
-              v32 = [v10 accessoryUUID];
-              v31 = [v10 error];
-              v30 = [v10 residentFirstError];
-              v28 = [v10 durationMilliseconds];
-              v27 = [v10 localDurationInMilliseconds];
-              v26 = [v10 residentFirstDurationInMilliseconds];
+              v32 = [v10 characteristicsInRequest];
+              v28 = [v32 count];
+              v31 = [v10 accessoryUUID];
+              v30 = [v10 error];
+              v29 = [v10 residentFirstError];
+              v27 = [v10 durationMilliseconds];
+              v26 = [v10 localDurationInMilliseconds];
+              v25 = [v10 residentFirstDurationInMilliseconds];
               if ([v10 isLocal])
               {
                 [v10 linkType];
@@ -330,30 +328,30 @@ void __96__HMDHAPAccessoryReaderWriterMetricHelper_updateLogEvents_withResponses
 
               v22 = v19;
               *buf = 138545922;
-              v37 = v35;
-              v38 = 2114;
-              v39 = v17;
-              v40 = 2114;
-              v41 = v18;
-              v42 = 2048;
-              v43 = v29;
-              v44 = 2114;
-              v45 = v32;
-              v46 = 2114;
-              v47 = v31;
-              v48 = 2114;
-              v49 = v30;
-              v50 = 2048;
-              v51 = v28;
-              v52 = 2048;
-              v53 = v27;
-              v54 = 2048;
-              v55 = v26;
-              v56 = 2114;
-              v57 = v19;
+              v36 = v34;
+              v37 = 2114;
+              v38 = v17;
+              v39 = 2114;
+              v40 = v18;
+              v41 = 2048;
+              v42 = v28;
+              v43 = 2114;
+              v44 = v31;
+              v45 = 2114;
+              v46 = v30;
+              v47 = 2114;
+              v48 = v29;
+              v49 = 2048;
+              v50 = v27;
+              v51 = 2048;
+              v52 = v26;
+              v53 = 2048;
+              v54 = v25;
+              v55 = 2114;
+              v56 = v19;
               _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@For Task: %{public}@ -- %{public}@ %tu characteristic(s) on accessory %{public}@ completed with error: %{public}@ (Resident first error: %{public}@), Total duration: %ld ms (Local duration: %ld ms, Resident first duration: %ld ms) using transport: %{public}@", buf, 0x70u);
 
-              v14 = v34;
+              v14 = v33;
             }
 
             objc_autoreleasePoolPop(v14);
@@ -372,8 +370,6 @@ void __96__HMDHAPAccessoryReaderWriterMetricHelper_updateLogEvents_withResponses
   {
     v10 = 0;
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 @end

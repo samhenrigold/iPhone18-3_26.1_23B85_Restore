@@ -9,12 +9,12 @@
 - (id)description
 {
   v3 = objc_alloc(MEMORY[0x1E696AEC0]);
-  [(PXCurrentTimeRecord *)self sampleTime];
+  objc_msgSend_sampleTime(self);
   v4 = CMTimeCopyDescription(0, &time);
   v5 = [MEMORY[0x1E696AD98] numberWithDouble:self->_sampleTimestamp];
   [(PXCurrentTimeRecord *)self rate];
   v7 = v6;
-  [(PXCurrentTimeRecord *)self currentTime];
+  objc_msgSend_currentTime(self);
   v8 = CMTimeCopyDescription(0, &time);
   v9 = [v3 initWithFormat:@"<%@ %p; Sample Time: %@, Sample Timestamp: %@; Rate: %.2f; Current Time: %@>", self, self, v4, v5, *&v7, v8];
 
@@ -29,7 +29,7 @@
     v6 = CFAbsoluteTimeGetCurrent() - self->_sampleTimestamp;
     [(PXCurrentTimeRecord *)self rate];
     v8 = v6 * v7;
-    [(PXCurrentTimeRecord *)self sampleTime];
+    objc_msgSend_sampleTime(self);
     CMTimeMakeWithSeconds(&v10, v8, PXAudioDefaultCMTimeScale);
     return CMTimeAdd(retstr, &lhs, &v10);
   }

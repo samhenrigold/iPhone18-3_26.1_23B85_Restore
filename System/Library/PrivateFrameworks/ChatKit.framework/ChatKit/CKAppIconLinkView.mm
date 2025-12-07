@@ -59,7 +59,7 @@
   }
 
   v7 = [MEMORY[0x1E69DCAB8] ckImageNamed:v6];
-  v8 = CKFrameworkBundle();
+  v8 = CKFrameworkBundle(v7);
   v9 = [v8 localizedStringForKey:v5 value:&stru_1F04268F8 table:@"ChatKit"];
   previewString = self->_previewString;
   self->_previewString = v9;
@@ -68,31 +68,31 @@
 LABEL_8:
   v11 = objc_alloc(MEMORY[0x1E696AD40]);
   previewString = [(CKAppIconLinkView *)self previewString];
-  v37 = [v11 initWithString:previewString];
+  v38 = [v11 initWithString:previewString];
 
   v13 = *MEMORY[0x1E69DB648];
   v14 = [MEMORY[0x1E69DB878] __ck_shortPreferredFontForTextStyle:*MEMORY[0x1E69DDCF8] size:10.0];
-  [v37 addAttribute:v13 value:v14 range:{0, objc_msgSend(v37, "length")}];
+  [v38 addAttribute:v13 value:v14 range:{0, objc_msgSend(v38, "length")}];
 
   appName = [(CKAppIconLinkView *)self appName];
   switch(appName)
   {
     case 4:
-      v21 = CKFrameworkBundle();
+      v21 = CKFrameworkBundle(4);
       v17 = [v21 localizedStringForKey:@"WHATS_NEW_SYNDICATION_TV_HEADER" value:&stru_1F04268F8 table:@"ChatKit"];
 
       v18 = MEMORY[0x1E695DFF8];
       v19 = @"https://tv.apple.com/us/show/mythic-quest/umc.cmc.1nfdfd5zlk05fo1bwwetzldy3?ctx_brand=tvs.sbd.4000";
       goto LABEL_14;
     case 1:
-      v20 = CKFrameworkBundle();
+      v20 = CKFrameworkBundle(1);
       v17 = [v20 localizedStringForKey:@"WHATS_NEW_SYNDICATION_MUSIC_HEADER" value:&stru_1F04268F8 table:@"ChatKit"];
 
       v18 = MEMORY[0x1E695DFF8];
       v19 = @"https://music.apple.com/us/album/green-eyes/1534718812?i=1534719300";
       goto LABEL_14;
     case 0:
-      v16 = CKFrameworkBundle();
+      v16 = CKFrameworkBundle(0);
       v17 = [v16 localizedStringForKey:@"WHATS_NEW_SYNDICATION_SAFARI_HEADER" value:&stru_1F04268F8 table:@"ChatKit"];
 
       v18 = MEMORY[0x1E695DFF8];
@@ -103,12 +103,12 @@ LABEL_14:
       goto LABEL_16;
   }
 
-  v23 = [v37 length];
+  v23 = [v38 length];
   v22 = 0;
   v17 = 0;
 LABEL_16:
   v24 = [v17 length];
-  if (v24 <= [v37 length])
+  if (v24 <= [v38 length])
   {
     v23 = [v17 length];
   }
@@ -116,7 +116,7 @@ LABEL_16:
   if (v23)
   {
     v25 = [MEMORY[0x1E69DB878] boldSystemFontOfSize:10.0];
-    [v37 addAttribute:v13 value:v25 range:{0, v23}];
+    [v38 addAttribute:v13 value:v25 range:{0, v23}];
   }
 
   v26 = objc_alloc_init(MEMORY[0x1E696ECA0]);
@@ -127,39 +127,40 @@ LABEL_16:
   {
     v28 = +[CKSyndicationOnboardingLinkBalloonView tvSpecialization];
 LABEL_24:
-    v29 = v28;
+    v30 = v28;
     [v26 setSpecialization:v28];
     goto LABEL_26;
   }
 
-  if ([absoluteString hasPrefix:@"https://music"])
+  v29 = [absoluteString hasPrefix:@"https://music"];
+  if (v29)
   {
     v28 = +[CKSyndicationOnboardingLinkBalloonView musicSpecialization];
     goto LABEL_24;
   }
 
-  v30 = CKFrameworkBundle();
-  v31 = [v30 localizedStringForKey:@"WHATS_NEW_SYNDICATION_SAFARI_HEADER" value:&stru_1F04268F8 table:@"ChatKit"];
-  [v26 setTitle:v31];
+  v31 = CKFrameworkBundle(v29);
+  v32 = [v31 localizedStringForKey:@"WHATS_NEW_SYNDICATION_SAFARI_HEADER" value:&stru_1F04268F8 table:@"ChatKit"];
+  [v26 setTitle:v32];
 
-  v32 = [MEMORY[0x1E69DCAB8] ckImageNamed:@"HighlightSafari"];
-  v29 = UIImagePNGRepresentation(v32);
+  v33 = [MEMORY[0x1E69DCAB8] ckImageNamed:@"HighlightSafari"];
+  v30 = UIImagePNGRepresentation(v33);
 
-  v33 = [objc_alloc(MEMORY[0x1E696EC68]) initWithData:v29 MIMEType:@"image/jpeg"];
-  [v26 setImage:v33];
+  v34 = [objc_alloc(MEMORY[0x1E696EC68]) initWithData:v30 MIMEType:@"image/jpeg"];
+  [v26 setImage:v34];
 
 LABEL_26:
-  v34 = [objc_alloc(MEMORY[0x1E696ECC8]) initWithMetadata:v26];
-  [v34 _setPreferredSizeClass:7];
-  [v34 _setApplyCornerRadius:0];
-  [v34 _setDisableTapGesture:1];
-  [v34 _setDisableAnimations:1];
-  [v34 _setForceFlexibleWidth:1];
-  v35 = [CKSyndicationOnboardingTailedBubble alloc];
-  v36 = [(CKSyndicationOnboardingTailedBubble *)v35 initWithFrame:app withAppName:v34 withLPLinkView:*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)];
-  [(CKSyndicationOnboardingTailedBubble *)v36 setTranslatesAutoresizingMaskIntoConstraints:0];
-  [(CKAppIconLinkView *)self setTailedBubble:v36];
-  [(CKAppIconLinkView *)self addSubview:v36];
+  v35 = [objc_alloc(MEMORY[0x1E696ECC8]) initWithMetadata:v26];
+  [v35 _setPreferredSizeClass:7];
+  [v35 _setApplyCornerRadius:0];
+  [v35 _setDisableTapGesture:1];
+  [v35 _setDisableAnimations:1];
+  [v35 _setForceFlexibleWidth:1];
+  v36 = [CKSyndicationOnboardingTailedBubble alloc];
+  v37 = [(CKSyndicationOnboardingTailedBubble *)v36 initWithFrame:app withAppName:v35 withLPLinkView:*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)];
+  [(CKSyndicationOnboardingTailedBubble *)v37 setTranslatesAutoresizingMaskIntoConstraints:0];
+  [(CKAppIconLinkView *)self setTailedBubble:v37];
+  [(CKAppIconLinkView *)self addSubview:v37];
 }
 
 - (void)updateConstraints

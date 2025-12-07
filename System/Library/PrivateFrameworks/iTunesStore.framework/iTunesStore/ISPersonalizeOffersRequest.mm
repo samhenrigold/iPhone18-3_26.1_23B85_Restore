@@ -10,31 +10,31 @@
 
 - (ISPersonalizeOffersRequest)initWithItems:(id)items
 {
-  v21 = *MEMORY[0x277D85DE8];
-  v19.receiver = self;
-  v19.super_class = ISPersonalizeOffersRequest;
-  v4 = [(ISPersonalizeOffersRequest *)&v19 init];
+  v20 = *MEMORY[0x277D85DE8];
+  v18.receiver = self;
+  v18.super_class = ISPersonalizeOffersRequest;
+  v4 = [(ISPersonalizeOffersRequest *)&v18 init];
   if (v4)
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
-    v5 = [items countByEnumeratingWithState:&v15 objects:v20 count:16];
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
+    v5 = [items countByEnumeratingWithState:&v14 objects:v19 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v16;
+      v7 = *v15;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v16 != v7)
+          if (*v15 != v7)
           {
             objc_enumerationMutation(items);
           }
 
-          v9 = *(*(&v15 + 1) + 8 * i);
+          v9 = *(*(&v14 + 1) + 8 * i);
           v10 = [objc_msgSend(v9 "ITunesStoreIdentifier")];
           itemKind = [v9 itemKind];
           if (v10)
@@ -53,14 +53,13 @@
           }
         }
 
-        v6 = [items countByEnumeratingWithState:&v15 objects:v20 count:16];
+        v6 = [items countByEnumeratingWithState:&v14 objects:v19 count:16];
       }
 
       while (v6);
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v4;
 }
 

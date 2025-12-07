@@ -139,7 +139,7 @@ LABEL_8:
   updateCopy = update;
   objc_initWeak(&location, targetCopy);
   v7 = [CKMenuItemObject alloc];
-  v8 = CKFrameworkBundle();
+  v8 = CKFrameworkBundle(v7);
   v9 = [v8 localizedStringForKey:@"CREATE_NEW_CONTACT" value:&stru_1F04268F8 table:@"ChatKit"];
   v22[0] = MEMORY[0x1E69E9820];
   v22[1] = 3221225472;
@@ -151,7 +151,7 @@ LABEL_8:
   v11 = [(CKMenuItemObject *)v7 initWithTitle:v9 imageName:@"person.crop.circle" handler:v22];
   v26[0] = v11;
   v12 = [CKMenuItemObject alloc];
-  v13 = CKFrameworkBundle();
+  v13 = CKFrameworkBundle(v12);
   v14 = [v13 localizedStringForKey:@"ADD_TO_EXISTING_CONTACT" value:&stru_1F04268F8 table:@"ChatKit"];
   v19[0] = MEMORY[0x1E69E9820];
   v19[1] = 3221225472;
@@ -234,7 +234,7 @@ void __65__CKNicknameUtility_addContactOptionsMenuItemsWithTarget_update___block
   v23 = targetCopy;
   objc_initWeak(&location, targetCopy);
   v7 = [CKMenuItemObject alloc];
-  v8 = CKFrameworkBundle();
+  v8 = CKFrameworkBundle(v7);
   v24 = [v8 localizedStringForKey:@"NAME_AND_PHOTO" value:&stru_1F04268F8 table:@"ChatKit"];
   v31[0] = MEMORY[0x1E69E9820];
   v31[1] = 3221225472;
@@ -246,7 +246,7 @@ void __65__CKNicknameUtility_addContactOptionsMenuItemsWithTarget_update___block
   v10 = [(CKMenuItemObject *)v7 initWithTitle:v24 imageName:0 handler:v31];
   v35[0] = v10;
   v11 = [CKMenuItemObject alloc];
-  v12 = CKFrameworkBundle();
+  v12 = CKFrameworkBundle(v11);
   v13 = [v12 localizedStringForKey:@"NAME_ONLY" value:&stru_1F04268F8 table:@"ChatKit"];
   v28[0] = MEMORY[0x1E69E9820];
   v28[1] = 3221225472;
@@ -258,7 +258,7 @@ void __65__CKNicknameUtility_addContactOptionsMenuItemsWithTarget_update___block
   v15 = [(CKMenuItemObject *)v11 initWithTitle:v13 imageName:0 handler:v28];
   v35[1] = v15;
   v16 = [CKMenuItemObject alloc];
-  v17 = CKFrameworkBundle();
+  v17 = CKFrameworkBundle(v16);
   v18 = [v17 localizedStringForKey:@"PHOTO_ONLY" value:&stru_1F04268F8 table:@"ChatKit"];
   v25[0] = MEMORY[0x1E69E9820];
   v25[1] = 3221225472;
@@ -316,24 +316,29 @@ void __66__CKNicknameUtility_updateNameAndPhotoMenuItemsWithTarget_update___bloc
     v11 = *v21;
     do
     {
-      for (i = 0; i != v10; ++i)
+      v12 = 0;
+      do
       {
         if (*v21 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        uiAction = [*(*(&v20 + 1) + 8 * i) uiAction];
+        uiAction = [*(*(&v20 + 1) + 8 * v12) uiAction];
         [v7 addObject:uiAction];
+
+        ++v12;
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      while (v10 != v12);
+      v9 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v10 = v9;
     }
 
-    while (v10);
+    while (v9);
   }
 
-  v14 = CKFrameworkBundle();
+  v14 = CKFrameworkBundle(v9);
   v15 = [v14 localizedStringForKey:@"UPDATE_PHOTO_AND_NAME_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
 
   v16 = MEMORY[0x1E69DCC60];
@@ -354,19 +359,20 @@ void __66__CKNicknameUtility_updateNameAndPhotoMenuItemsWithTarget_update___bloc
   {
     if (contact)
     {
-      givenName = [contact givenName];
+      contact = [contact givenName];
+      v11 = contact;
     }
 
     else
     {
       handle = [firstObject handle];
-      givenName = [handle ID];
+      v11 = [handle ID];
     }
   }
 
   else
   {
-    givenName = 0;
+    v11 = 0;
   }
 
   v13 = 0;
@@ -375,7 +381,7 @@ void __66__CKNicknameUtility_updateNameAndPhotoMenuItemsWithTarget_update___bloc
     if (style == 4)
     {
       v24 = MEMORY[0x1E696AEC0];
-      v25 = CKFrameworkBundle();
+      v25 = CKFrameworkBundle(contact);
       v26 = [v25 localizedStringForKey:@"PEOPLE_SHARED_UPDATED_CONTACT_INFO_FORMAT" value:&stru_1F04268F8 table:@"ChatKit"];
       v18 = [v24 localizedStringWithFormat:v26, objc_msgSend(updatesCopy, "count")];
 
@@ -399,7 +405,7 @@ void __66__CKNicknameUtility_updateNameAndPhotoMenuItemsWithTarget_update___bloc
     {
       if (style == 5)
       {
-        v17 = CKFrameworkBundle();
+        v17 = CKFrameworkBundle(contact);
         v18 = v17;
         v19 = @"SHARE_YOUR_NAME_AND_PHOTO";
       }
@@ -411,7 +417,7 @@ void __66__CKNicknameUtility_updateNameAndPhotoMenuItemsWithTarget_update___bloc
           goto LABEL_34;
         }
 
-        v17 = CKFrameworkBundle();
+        v17 = CKFrameworkBundle(contact);
         v18 = v17;
         v19 = @"ADD_YOUR_NAME_AND_PHOTO";
       }
@@ -428,19 +434,19 @@ void __66__CKNicknameUtility_updateNameAndPhotoMenuItemsWithTarget_update___bloc
     case 1uLL:
       if (!titlesCopy)
       {
-        v14 = CKFrameworkBundle();
+        v14 = CKFrameworkBundle(contact);
         v15 = v14;
         v16 = @"THIS_PERSON_SHARED_A_NEW_PHOTO";
         goto LABEL_32;
       }
 
       v20 = MEMORY[0x1E696AEC0];
-      v21 = CKFrameworkBundle();
+      v21 = CKFrameworkBundle(contact);
       v22 = v21;
       v23 = @"%@_SHARED_A_NEW_PHOTO";
 LABEL_23:
       v31 = [v21 localizedStringForKey:v23 value:&stru_1F04268F8 table:@"ChatKit"];
-      v15 = [v20 stringWithFormat:v31, givenName];
+      v15 = [v20 stringWithFormat:v31, v11];
 
       mEMORY[0x1E69DC668]2 = [MEMORY[0x1E69DC668] sharedApplication];
       userInterfaceLayoutDirection2 = [mEMORY[0x1E69DC668]2 userInterfaceLayoutDirection];
@@ -460,19 +466,19 @@ LABEL_23:
     case 2uLL:
       if (!titlesCopy)
       {
-        v14 = CKFrameworkBundle();
+        v14 = CKFrameworkBundle(contact);
         v15 = v14;
         v16 = @"THIS_PERSON_SHARED_A_NEW_NAME";
         goto LABEL_32;
       }
 
       v20 = MEMORY[0x1E696AEC0];
-      v21 = CKFrameworkBundle();
+      v21 = CKFrameworkBundle(contact);
       v22 = v21;
       v23 = @"%@_SHARED_A_NEW_NAME";
       goto LABEL_23;
     case 3uLL:
-      v14 = CKFrameworkBundle();
+      v14 = CKFrameworkBundle(contact);
       v15 = v14;
       v16 = @"THIS_PERSON_SHARED_A_NEW_PHOTO_AND_NAME";
 LABEL_32:
@@ -489,7 +495,7 @@ LABEL_34:
     goto LABEL_37;
   }
 
-  v18 = CKFrameworkBundle();
+  v18 = CKFrameworkBundle(contact);
   v36 = [v18 localizedStringForKey:@"NEW_CONTACT_INFORMATION" value:&stru_1F04268F8 table:@"ChatKit"];
 
   v13 = v36;
@@ -508,9 +514,10 @@ LABEL_37:
   {
     case 6uLL:
       v10 = CKIsRunningInMacCatalyst();
-      v7 = CKFrameworkBundle();
+      v11 = v10;
+      v7 = CKFrameworkBundle(v10);
       contact = v7;
-      if (v10)
+      if (v11)
       {
         v9 = @"SET_UP_BUTTON";
       }
@@ -522,50 +529,51 @@ LABEL_37:
 
       goto LABEL_17;
     case 5uLL:
-      v7 = CKFrameworkBundle();
+      v7 = CKFrameworkBundle(firstObject);
       contact = v7;
       v9 = @"SHARE_BUTTON_TEXT";
       goto LABEL_17;
     case 4uLL:
-      v7 = CKFrameworkBundle();
+      v7 = CKFrameworkBundle(firstObject);
       contact = v7;
       v9 = @"VIEW_BUTTON_TEXT";
 LABEL_17:
-      v17 = [v7 localizedStringForKey:v9 value:&stru_1F04268F8 table:@"ChatKit"];
+      v19 = [v7 localizedStringForKey:v9 value:&stru_1F04268F8 table:@"ChatKit"];
       goto LABEL_18;
   }
 
   contact = [firstObject contact];
-  v11 = CKIsRunningInMacCatalyst();
-  v12 = CKFrameworkBundle();
+  v12 = CKIsRunningInMacCatalyst();
   v13 = v12;
-  v14 = @"UPDATE_LIST_TEXT";
-  if (!v11)
+  v14 = CKFrameworkBundle(v12);
+  v15 = v14;
+  v16 = @"UPDATE_LIST_TEXT";
+  if (!v13)
   {
-    v14 = @"UPDATE_BUTTON_TEXT";
+    v16 = @"UPDATE_BUTTON_TEXT";
   }
 
-  v15 = @"ADD_BUTTON_TEXT";
-  if (v11)
+  v17 = @"ADD_BUTTON_TEXT";
+  if (v13)
   {
-    v15 = @"ADD_LIST_TEXT";
+    v17 = @"ADD_LIST_TEXT";
   }
 
   if (contact)
   {
-    v16 = v14;
+    v18 = v16;
   }
 
   else
   {
-    v16 = v15;
+    v18 = v17;
   }
 
-  v17 = [v12 localizedStringForKey:v16 value:&stru_1F04268F8 table:@"ChatKit"];
+  v19 = [v14 localizedStringForKey:v18 value:&stru_1F04268F8 table:@"ChatKit"];
 
 LABEL_18:
 
-  return v17;
+  return v19;
 }
 
 + (id)bannerSubtitleTextWithUpdates:(id)updates style:(unint64_t)style
@@ -839,8 +847,8 @@ LABEL_7:
   v6 = [mEMORY[0x1E69A7FD0] fetchCNContactForHandleWithID:handleID];
 
   v7 = MEMORY[0x1E696AEC0];
-  v8 = CKFrameworkBundle();
-  v9 = [v8 localizedStringForKey:@"GROUP_PHOTO_BANNER_UPDATE_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+  v9 = CKFrameworkBundle(v8);
+  v10 = [v9 localizedStringForKey:@"GROUP_PHOTO_BANNER_UPDATE_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
   if (v6)
   {
     [CKNicknameUtility getContactDisplayName:v6];
@@ -850,39 +858,39 @@ LABEL_7:
   {
     [updateCopy handleID];
   }
-  v10 = ;
-  v11 = [v7 stringWithFormat:v9, v10];
+  v11 = ;
+  v12 = [v7 stringWithFormat:v10, v11];
 
   mEMORY[0x1E69DC668] = [MEMORY[0x1E69DC668] sharedApplication];
   userInterfaceLayoutDirection = [mEMORY[0x1E69DC668] userInterfaceLayoutDirection];
 
   if (userInterfaceLayoutDirection == 1)
   {
-    v14 = @"\u200F";
+    v15 = @"\u200F";
   }
 
   else
   {
-    v14 = @"\u200E";
+    v15 = @"\u200E";
   }
 
-  v15 = [(__CFString *)v14 stringByAppendingString:v11];
+  v16 = [(__CFString *)v15 stringByAppendingString:v12];
 
-  return v15;
+  return v16;
 }
 
 + (id)groupPhotoUpdateSubtitleForUpdate:(id)update
 {
-  v3 = [update groupUpdateType] - 1;
-  if (v3 > 7)
+  groupUpdateType = [update groupUpdateType];
+  if ((groupUpdateType - 1) > 7)
   {
     v6 = 0;
   }
 
   else
   {
-    v4 = off_1E72EFD98[v3];
-    v5 = CKFrameworkBundle();
+    v4 = off_1E72EFD98[groupUpdateType - 1];
+    v5 = CKFrameworkBundle(groupUpdateType);
     v6 = [v5 localizedStringForKey:v4 value:&stru_1F04268F8 table:@"ChatKit"];
   }
 

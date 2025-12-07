@@ -1,12 +1,40 @@
 @interface EKOrganizer
++ (id)organizerWithName:(id)name emailAddress:(id)address phoneNumber:(id)number address:(id)a6 isCurrentUser:(BOOL)user;
 - (BOOL)isCurrentUser;
+- (EKOrganizer)initWithName:(id)name emailAddress:(id)address phoneNumber:(id)number address:(id)a6 isCurrentUser:(BOOL)user;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (int64_t)scheduleAgent;
+- (void)setCurrentUser:(BOOL)user;
 - (void)setScheduleAgent:(int64_t)agent;
 @end
 
 @implementation EKOrganizer
+
++ (id)organizerWithName:(id)name emailAddress:(id)address phoneNumber:(id)number address:(id)a6 isCurrentUser:(BOOL)user
+{
+  userCopy = user;
+  v12 = a6;
+  numberCopy = number;
+  addressCopy = address;
+  nameCopy = name;
+  v16 = [[self alloc] initWithName:nameCopy emailAddress:addressCopy phoneNumber:numberCopy address:v12 isCurrentUser:userCopy];
+
+  return v16;
+}
+
+- (EKOrganizer)initWithName:(id)name emailAddress:(id)address phoneNumber:(id)number address:(id)a6 isCurrentUser:(BOOL)user
+{
+  userCopy = user;
+  v8 = [(EKParticipant *)self initWithName:name emailAddress:address phoneNumber:number url:a6];
+  v9 = v8;
+  if (v8)
+  {
+    [(EKOrganizer *)v8 setCurrentUser:userCopy];
+  }
+
+  return v9;
+}
 
 - (id)copyWithZone:(_NSZone *)zone
 {
@@ -48,6 +76,12 @@
   bOOLValue = [v2 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setCurrentUser:(BOOL)user
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:user];
+  [(EKObject *)self setSingleChangedValue:v4 forKey:*MEMORY[0x1E6992B28]];
 }
 
 - (int64_t)scheduleAgent

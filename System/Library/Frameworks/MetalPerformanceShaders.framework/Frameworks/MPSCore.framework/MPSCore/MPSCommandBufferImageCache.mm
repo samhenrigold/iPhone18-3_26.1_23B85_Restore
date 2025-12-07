@@ -277,7 +277,7 @@ LABEL_14:
     else
     {
 
-      MEMORY[0x2821F96F8]();
+      MEMORY[0x2821F96F8](self);
     }
   }
 }

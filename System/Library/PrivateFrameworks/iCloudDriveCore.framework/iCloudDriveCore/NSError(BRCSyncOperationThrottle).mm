@@ -69,11 +69,10 @@ LABEL_10:
 
 - (void)brc_syncOperationErrorKind
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_debug_impl(&dword_223E7A000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] Skipping throttling because sync operation was cancelled%@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_223E7A000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] Skipping throttling because sync operation was cancelled%@", &v2, 0xCu);
 }
 
 @end

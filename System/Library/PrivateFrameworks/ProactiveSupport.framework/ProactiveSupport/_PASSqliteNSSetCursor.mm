@@ -40,9 +40,7 @@
 
 - (void)stepIndexedRow
 {
-  nextObject = [(NSEnumerator *)self->_valuesEnumerator nextObject];
-  currentValue = self->_currentValue;
-  self->_currentValue = nextObject;
+  self->_currentValue = [(NSEnumerator *)self->_valuesEnumerator nextObject];
 
   MEMORY[0x1EEE66BB8]();
 }

@@ -390,7 +390,6 @@ LABEL_14:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 0x400) == 0)
@@ -410,7 +409,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  gprsSup = self->_gprsSup;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -425,7 +423,6 @@ LABEL_4:
   }
 
 LABEL_19:
-  rac = self->_rac;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x800) == 0)
@@ -440,7 +437,6 @@ LABEL_5:
   }
 
 LABEL_20:
-  spPgCy = self->_spPgCy;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -455,7 +451,6 @@ LABEL_6:
   }
 
 LABEL_21:
-  nco = self->_nco;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -470,7 +465,6 @@ LABEL_7:
   }
 
 LABEL_22:
-  nom = self->_nom;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -485,7 +479,6 @@ LABEL_8:
   }
 
 LABEL_23:
-  crHyst = self->_crHyst;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -500,7 +493,6 @@ LABEL_9:
   }
 
 LABEL_24:
-  accThr = self->_accThr;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x200) == 0)
@@ -515,7 +507,6 @@ LABEL_10:
   }
 
 LABEL_25:
-  extUplTbfSupported = self->_extUplTbfSupported;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -530,7 +521,6 @@ LABEL_11:
   }
 
 LABEL_26:
-  priorityClass = self->_priorityClass;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -545,12 +535,10 @@ LABEL_12:
   }
 
 LABEL_27:
-  cellBarAccess2 = self->_cellBarAccess2;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x100) != 0)
   {
 LABEL_13:
-    subsId = self->_subsId;
     PBDataWriterWriteUint32Field();
   }
 
@@ -934,7 +922,6 @@ LABEL_13:
       goto LABEL_71;
     }
 
-    v7 = *(equalCopy + 49);
     if (self->_gprsSup)
     {
       if ((*(equalCopy + 49) & 1) == 0)
@@ -974,7 +961,6 @@ LABEL_13:
       goto LABEL_71;
     }
 
-    v8 = *(equalCopy + 50);
     if (self->_spPgCy)
     {
       if ((*(equalCopy + 50) & 1) == 0)
@@ -1054,7 +1040,7 @@ LABEL_13:
     }
 
 LABEL_71:
-    v10 = 0;
+    v7 = 0;
     goto LABEL_72;
   }
 
@@ -1063,7 +1049,6 @@ LABEL_71:
     goto LABEL_71;
   }
 
-  v9 = *(equalCopy + 48);
   if (self->_extUplTbfSupported)
   {
     if ((*(equalCopy + 48) & 1) == 0)
@@ -1111,17 +1096,17 @@ LABEL_50:
       goto LABEL_71;
     }
 
-    v10 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v10 = (v6 & 0x100) == 0;
+    v7 = (v6 & 0x100) == 0;
   }
 
 LABEL_72:
 
-  return v10;
+  return v7;
 }
 
 - (unint64_t)hash

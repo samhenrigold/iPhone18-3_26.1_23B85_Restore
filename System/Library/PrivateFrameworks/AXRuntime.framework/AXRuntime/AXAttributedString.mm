@@ -782,7 +782,7 @@ uint64_t __84__AXAttributedString_stringByReplacingOccurrencesOfString_withStrin
 
 uint64_t __43__AXAttributedString_attributeValueForKey___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, _BYTE *a5)
 {
-  v7 = [a2 objectForKey:*(a1 + 32)];
+  v7 = [a2 objectForKey:{*(a1 + 32), a4}];
   if (v7)
   {
     objc_storeStrong((*(*(a1 + 40) + 8) + 40), v7);

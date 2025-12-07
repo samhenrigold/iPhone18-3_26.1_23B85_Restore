@@ -108,41 +108,40 @@
     withLock_backlightStateDescription = [(BLSHBacklightTransitionStateMachine *)selfCopy withLock_backlightStateDescription];
     v4 = [OUTLINED_FUNCTION_14_3() appendObject:? withName:?];
 
-    v5 = *(selfCopy + 25);
-    v6 = NSStringFromBLSFlipbookState();
-    v7 = [OUTLINED_FUNCTION_14_3() appendObject:? withName:?];
+    v5 = NSStringFromBLSFlipbookState();
+    v6 = [OUTLINED_FUNCTION_14_3() appendObject:? withName:?];
 
     [(BLSHBacklightTransitionStateMachine *)selfCopy flipbookStateForEngine];
-    v8 = NSStringFromBLSFlipbookState();
-    v9 = [OUTLINED_FUNCTION_14_3() appendObject:? withName:?];
+    v7 = NSStringFromBLSFlipbookState();
+    v8 = [OUTLINED_FUNCTION_14_3() appendObject:? withName:?];
 
-    v10 = [v2 appendBool:selfCopy[243] withName:@"safeToUnblank" ifEqualTo:0];
-    v11 = [*(selfCopy + 19) debugDescription];
-    v12 = [OUTLINED_FUNCTION_14_3() appendObject:? withName:?];
+    v9 = [v2 appendBool:selfCopy[243] withName:@"safeToUnblank" ifEqualTo:0];
+    v10 = [*(selfCopy + 19) debugDescription];
+    v11 = [OUTLINED_FUNCTION_14_3() appendObject:? withName:?];
 
-    v13 = [*(selfCopy + 20) debugDescription];
-    v14 = [OUTLINED_FUNCTION_14_3() appendObject:? withName:?];
+    v12 = [*(selfCopy + 20) debugDescription];
+    v13 = [OUTLINED_FUNCTION_14_3() appendObject:? withName:?];
 
-    v15 = [*(selfCopy + 13) debugDescription];
-    v16 = [OUTLINED_FUNCTION_14_3() appendObject:? withName:?];
+    v14 = [*(selfCopy + 13) debugDescription];
+    v15 = [OUTLINED_FUNCTION_14_3() appendObject:? withName:?];
 
-    v17 = [*(selfCopy + 16) debugDescription];
-    v18 = [OUTLINED_FUNCTION_14_3() appendObject:? withName:?];
+    v16 = [*(selfCopy + 16) debugDescription];
+    v17 = [OUTLINED_FUNCTION_14_3() appendObject:? withName:?];
 
-    v19 = [*(selfCopy + 14) debugDescription];
-    v20 = [OUTLINED_FUNCTION_14_3() appendObject:? withName:?];
+    v18 = [*(selfCopy + 14) debugDescription];
+    v19 = [OUTLINED_FUNCTION_14_3() appendObject:? withName:?];
 
-    v21 = [*(selfCopy + 15) debugDescription];
-    v22 = [OUTLINED_FUNCTION_14_3() appendObject:? withName:?];
+    v20 = [*(selfCopy + 15) debugDescription];
+    v21 = [OUTLINED_FUNCTION_14_3() appendObject:? withName:?];
 
-    v23 = [*(selfCopy + 17) debugDescription];
-    v24 = [OUTLINED_FUNCTION_14_3() appendObject:? withName:?];
+    v22 = [*(selfCopy + 17) debugDescription];
+    v23 = [OUTLINED_FUNCTION_14_3() appendObject:? withName:?];
 
-    v25 = [*(selfCopy + 22) debugDescription];
-    v26 = [OUTLINED_FUNCTION_14_3() appendObject:? withName:?];
+    v24 = [*(selfCopy + 22) debugDescription];
+    v25 = [OUTLINED_FUNCTION_14_3() appendObject:? withName:?];
 
-    v27 = [*(selfCopy + 21) debugDescription];
-    v28 = [v2 appendObject:v27 withName:@"pendingPrewarmedEvent"];
+    v26 = [*(selfCopy + 21) debugDescription];
+    v27 = [v2 appendObject:v26 withName:@"pendingPrewarmedEvent"];
 
     selfCopy = [v2 build];
   }
@@ -174,25 +173,23 @@
       v3 = "";
     }
 
-    v4 = *(self + 72);
-    v5 = NSStringFromBLSBacklightState();
+    v4 = NSStringFromBLSBacklightState();
     mEMORY[0x277CF0BF0] = [MEMORY[0x277CF0BF0] sharedInstance];
-    v7 = *(self + 80);
     mach_continuous_time();
     BSTimeDifferenceFromMachTimeToMachTime();
-    v8 = [mEMORY[0x277CF0BF0] formatDuration:?];
-    v9 = objc_alloc(MEMORY[0x277CBEAA8]);
-    v10 = [v9 bls_initWithMachContinuousTime:*(self + 80)];
-    bls_shortLoggingString = [v10 bls_shortLoggingString];
-    v12 = [v2 stringWithFormat:@"%s%@ for %@ since %@", v3, v5, v8, bls_shortLoggingString];
+    v6 = [mEMORY[0x277CF0BF0] formatDuration:?];
+    v7 = objc_alloc(MEMORY[0x277CBEAA8]);
+    v8 = [v7 bls_initWithMachContinuousTime:*(self + 80)];
+    bls_shortLoggingString = [v8 bls_shortLoggingString];
+    v10 = [v2 stringWithFormat:@"%s%@ for %@ since %@", v3, v4, v6, bls_shortLoggingString];
   }
 
   else
   {
-    v12 = 0;
+    v10 = 0;
   }
 
-  return v12;
+  return v10;
 }
 
 - (BOOL)withLock_isTransitioning
@@ -216,7 +213,6 @@
       v2 = result;
       if ([*(v1 + 40) isSuppressed])
       {
-        v3 = *(v1 + 72);
         if (BLSBacklightStateIsActive())
         {
           return 2;
@@ -264,25 +260,25 @@
 {
   v5 = MEMORY[0x277CCACA8];
   sessionProvider = [*self sessionProvider];
-  v6 = [v5 stringWithFormat:@"%p nil presentation from session provider:%@"];
+  v7 = [v5 stringWithFormat:@"%p nil presentation from session provider:%@", a2, sessionProvider];
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v7 = NSStringFromSelector(a3);
-    v8 = objc_opt_class();
-    v9 = NSStringFromClass(v8);
+    v8 = NSStringFromSelector(a3);
+    v9 = objc_opt_class();
+    v10 = NSStringFromClass(v9);
     OUTLINED_FUNCTION_16();
-    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v10, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v11, v12, v13, v14, a2, sessionProvider, v16);
+    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v11, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v12, v13, v14, v15, v16, v17);
   }
 
-  [v6 UTF8String];
+  [v7 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
 - (BLSHBacklightMutableTargetState)withLock_ensureTargetStateCreated
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (self)
   {
     v2 = *(self + 160);
@@ -297,11 +293,11 @@
       if (os_log_type_enabled(presentation3, OS_LOG_TYPE_DEBUG))
       {
         [(BLSHBacklightMutableTargetState *)v3 bls_shortLoggingString];
-        v19 = 134218242;
+        v18 = 134218242;
         selfCopy2 = self;
-        v22 = v21 = 2114;
+        v21 = v20 = 2114;
         OUTLINED_FUNCTION_13_3();
-        _os_log_debug_impl(v12, v13, v14, v15, v16, v17);
+        _os_log_debug_impl(v11, v12, v13, v14, v15, v16);
       }
 
       goto LABEL_10;
@@ -319,14 +315,14 @@
         v6 = bls_backlight_log();
         if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
         {
-          v18 = *(self + 152);
-          v19 = 134218498;
+          v17 = *(self + 152);
+          v18 = 134218498;
           selfCopy2 = self;
-          v21 = 2114;
-          v22 = v3;
-          v23 = 2114;
-          v24 = v18;
-          _os_log_error_impl(&dword_21FD11000, v6, OS_LOG_TYPE_ERROR, "TSM:%p nil target presentation, will adopt from current state — target:%{public}@ current:%{public}@", &v19, 0x20u);
+          v20 = 2114;
+          v21 = v3;
+          v22 = 2114;
+          v23 = v17;
+          _os_log_error_impl(&dword_21FD11000, v6, OS_LOG_TYPE_ERROR, "TSM:%p nil target presentation, will adopt from current state — target:%{public}@ current:%{public}@", &v18, 0x20u);
         }
 
         presentation3 = [*(self + 152) presentation];
@@ -341,8 +337,6 @@ LABEL_10:
     v3 = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v3;
 }
 
@@ -350,14 +344,14 @@ LABEL_10:
 {
   if (self)
   {
-    v2 = OUTLINED_FUNCTION_15_2(self);
-    os_unfair_lock_lock(v2);
-    v3 = *(v1 + 56);
-    *(v1 + 56) = 0;
-    v4 = v3;
+    v3 = OUTLINED_FUNCTION_15_2(self);
+    os_unfair_lock_lock(v3);
+    v4 = *(v2 + 56);
+    *(v2 + 56) = 0;
+    v5 = v4;
 
-    os_unfair_lock_unlock((v1 + 8));
-    [v4 invalidate];
+    os_unfair_lock_unlock((v2 + 8));
+    [v5 invalidate];
   }
 }
 
@@ -374,7 +368,6 @@ LABEL_10:
 - (id)onMainWithLock_updatePresentationOperationIfNeeded
 {
   selfCopy = self;
-  v33 = *MEMORY[0x277D85DE8];
   if (self)
   {
     presentation = [self[20] presentation];
@@ -403,7 +396,7 @@ LABEL_9:
         {
           OUTLINED_FUNCTION_1_0();
           OUTLINED_FUNCTION_12_4();
-          _os_log_debug_impl(v16, v17, v18, v19, v20, 0x20u);
+          _os_log_debug_impl(v15, v16, v17, v18, v19, 0x20u);
         }
 
         selfCopy = 0;
@@ -417,11 +410,10 @@ LABEL_9:
       {
         if (v8)
         {
-          v21 = selfCopy[14];
           OUTLINED_FUNCTION_10_1();
           OUTLINED_FUNCTION_11_2();
           OUTLINED_FUNCTION_12_4();
-          _os_log_debug_impl(v22, v23, v24, v25, v26, 0x16u);
+          _os_log_debug_impl(v20, v21, v22, v23, v24, 0x16u);
         }
 
         v9 = selfCopy[14];
@@ -441,16 +433,14 @@ LABEL_16:
       }
     }
 
-    v27 = selfCopy[14];
     OUTLINED_FUNCTION_10_1();
     OUTLINED_FUNCTION_11_2();
     OUTLINED_FUNCTION_12_4();
-    _os_log_debug_impl(v28, v29, v30, v31, v32, 0x16u);
+    _os_log_debug_impl(v25, v26, v27, v28, v29, 0x16u);
     goto LABEL_15;
   }
 
 LABEL_17:
-  v14 = *MEMORY[0x277D85DE8];
 
   return selfCopy;
 }
@@ -470,16 +460,16 @@ LABEL_17:
 {
   if (self)
   {
-    v2 = OUTLINED_FUNCTION_15_2(self);
-    os_unfair_lock_lock(v2);
-    lock_displayOperationForCurrentTarget = [(BLSHBacklightTransitionStateMachine *)v1 lock_displayOperationForCurrentTarget];
+    v3 = OUTLINED_FUNCTION_15_2(self);
+    os_unfair_lock_lock(v3);
+    lock_displayOperationForCurrentTarget = [(BLSHBacklightTransitionStateMachine *)v2 lock_displayOperationForCurrentTarget];
     rampOperation = [lock_displayOperationForCurrentTarget rampOperation];
     if (rampOperation)
     {
-      [(BLSHBacklightTransitionStateMachine *)v1 _lock_setPendingUpdateDisplayMode:lock_displayOperationForCurrentTarget];
+      [(BLSHBacklightTransitionStateMachine *)v2 _lock_setPendingUpdateDisplayMode:lock_displayOperationForCurrentTarget];
     }
 
-    os_unfair_lock_unlock((v1 + 8));
+    os_unfair_lock_unlock((v2 + 8));
   }
 
   else
@@ -512,48 +502,44 @@ LABEL_17:
 
 - (void)withLock_acquireTransitionAPAwakeAssertion
 {
-  v19[9] = *MEMORY[0x277D85DE8];
+  v17[9] = *MEMORY[0x277D85DE8];
   if (self)
   {
-    v3 = OUTLINED_FUNCTION_15_2(self);
-    os_unfair_lock_assert_owner(v3);
-    if (*(v1 + 88))
+    v4 = OUTLINED_FUNCTION_15_2(self);
+    os_unfair_lock_assert_owner(v4);
+    if (*(v2 + 88))
     {
-      v4 = bls_backlight_log();
-      if (OUTLINED_FUNCTION_33_0(v4))
+      v5 = bls_backlight_log();
+      if (OUTLINED_FUNCTION_33_0(v5))
       {
-        v11 = *(v1 + 88);
         OUTLINED_FUNCTION_2_4();
-        *(&v19[7] + 6) = v12;
+        *(&v17[7] + 6) = v10;
         OUTLINED_FUNCTION_13_3();
-        _os_log_debug_impl(v13, v14, v15, v16, v17, v18);
+        _os_log_debug_impl(v11, v12, v13, v14, v15, v16);
       }
     }
 
     else
     {
-      v5 = mach_continuous_time();
-      v6 = [*(v1 + 24) createSystemActivityAssertionWithIdentifier:@"BacklightServices.transition" configurator:&__block_literal_global_21];
-      v7 = *(v1 + 88);
-      *(v1 + 88) = v6;
+      v6 = mach_continuous_time();
+      v7 = [*(v2 + 24) createSystemActivityAssertionWithIdentifier:@"BacklightServices.transition" configurator:&__block_literal_global_21];
+      v8 = *(v2 + 88);
+      *(v2 + 88) = v7;
 
-      v8 = *(v1 + 88);
       OUTLINED_FUNCTION_12();
       OUTLINED_FUNCTION_3_2();
-      v19[2] = __81__BLSHBacklightTransitionStateMachine_withLock_acquireTransitionAPAwakeAssertion__block_invoke_2;
-      v19[3] = &unk_278420450;
-      v19[4] = v1;
-      v19[5] = v5;
-      [v9 acquireWithTimeout:v19 handler:0.0];
+      v17[2] = __81__BLSHBacklightTransitionStateMachine_withLock_acquireTransitionAPAwakeAssertion__block_invoke_2;
+      v17[3] = &unk_278420450;
+      v17[4] = v2;
+      v17[5] = v6;
+      [v9 acquireWithTimeout:v17 handler:0.0];
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __81__BLSHBacklightTransitionStateMachine_withLock_acquireTransitionAPAwakeAssertion__block_invoke_2(uint64_t a1, int a2, void *a3, void *a4)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a4;
   v9 = bls_backlight_log();
@@ -577,24 +563,21 @@ void __81__BLSHBacklightTransitionStateMachine_withLock_acquireTransitionAPAwake
 
   if (os_log_type_enabled(v9, v10))
   {
-    v12 = *(a1 + 32);
-    v11 = *(a1 + 40);
+    v11 = *(a1 + 32);
     mach_continuous_time();
     BSTimeDifferenceFromMachTimeToMachTime();
-    v14 = v13;
-    v15 = [v7 bls_loggingString];
-    v17 = 134218754;
-    v18 = v12;
-    v19 = 2048;
-    v20 = v14;
+    v13 = v12;
+    v14 = [v7 bls_loggingString];
+    v15 = 134218754;
+    v16 = v11;
+    v17 = 2048;
+    v18 = v13;
+    v19 = 2114;
+    v20 = v8;
     v21 = 2114;
-    v22 = v8;
-    v23 = 2114;
-    v24 = v15;
-    _os_log_impl(&dword_21FD11000, v9, v10, "TSM:%p transition system activity assertion callback elapsed:%.4lfs details:%{public}@ error:%{public}@", &v17, 0x2Au);
+    v22 = v14;
+    _os_log_impl(&dword_21FD11000, v9, v10, "TSM:%p transition system activity assertion callback elapsed:%.4lfs details:%{public}@ error:%{public}@", &v15, 0x2Au);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (BLSHBacklightHostObserving)performerDelegate
@@ -608,7 +591,7 @@ void __81__BLSHBacklightTransitionStateMachine_withLock_acquireTransitionAPAwake
 
 - (void)onMainWithLock_updateSpecifierOperationIfNeeded
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   if (self)
   {
     selfCopy = self;
@@ -626,12 +609,11 @@ LABEL_15:
           goto LABEL_19;
         }
 
-        v16 = selfCopy[15];
         OUTLINED_FUNCTION_36_0();
         OUTLINED_FUNCTION_26_0();
 LABEL_23:
         OUTLINED_FUNCTION_13_3();
-        _os_log_debug_impl(v30, v31, v32, v33, v34, v35);
+        _os_log_debug_impl(v27, v28, v29, v30, v31, v32);
         goto LABEL_15;
       }
 
@@ -651,15 +633,15 @@ LABEL_23:
         v11 = selfCopy[12];
         OUTLINED_FUNCTION_12();
         OUTLINED_FUNCTION_3_2();
-        v36[2] = __86__BLSHBacklightTransitionStateMachine_onMainWithLock_updateSpecifierOperationIfNeeded__block_invoke;
-        v36[3] = &unk_2784204A0;
-        v40 = presentation2 != presentation;
-        v37 = presentation;
-        v38 = presentation2;
-        v39 = selfCopy;
+        v33[2] = __86__BLSHBacklightTransitionStateMachine_onMainWithLock_updateSpecifierOperationIfNeeded__block_invoke;
+        v33[3] = &unk_2784204A0;
+        v37 = presentation2 != presentation;
+        v34 = presentation;
+        v35 = presentation2;
+        v36 = selfCopy;
         v2 = presentation2;
         v1 = presentation;
-        v12 = [v11 filter:v36];
+        v12 = [v11 filter:v33];
         v13 = [(BLSHPendingUpdateToSpecifier *)v10 initWithSpecifier:v12];
         v14 = selfCopy[15];
         selfCopy[15] = v13;
@@ -668,40 +650,39 @@ LABEL_23:
       else
       {
         v1 = v6;
-        v17 = bls_backlight_log();
-        if (OUTLINED_FUNCTION_32_0(v17))
+        v16 = bls_backlight_log();
+        if (OUTLINED_FUNCTION_32_0(v16))
         {
           OUTLINED_FUNCTION_36_0();
-          v42 = 2114;
-          v43 = v1;
-          v44 = 1024;
-          v45 = v7;
+          v39 = 2114;
+          v40 = v1;
+          v41 = 1024;
+          v42 = v7;
           OUTLINED_FUNCTION_27_0();
-          _os_log_impl(v18, v19, v20, v21, v22, 0x1Cu);
+          _os_log_impl(v17, v18, v19, v20, v21, 0x1Cu);
         }
       }
 
-      v23 = selfCopy[12];
+      v22 = selfCopy[12];
       selfCopy[12] = 0;
     }
 
-    v24 = selfCopy[15];
-    v25 = bls_backlight_log();
-    v26 = OUTLINED_FUNCTION_33_0(v25);
-    if (v24)
+    v23 = selfCopy[15];
+    v24 = bls_backlight_log();
+    v25 = OUTLINED_FUNCTION_33_0(v24);
+    if (v23)
     {
-      if (!v26)
+      if (!v25)
       {
         goto LABEL_15;
       }
 
-      v29 = selfCopy[15];
       OUTLINED_FUNCTION_36_0();
       OUTLINED_FUNCTION_26_0();
       goto LABEL_23;
     }
 
-    if (v26)
+    if (v25)
     {
       OUTLINED_FUNCTION_36_0();
       _os_log_debug_impl(&dword_21FD11000, v1, OS_LOG_TYPE_DEBUG, "TSM:%p (findNextOperation) no updateSpecifier needed", buf, 0xCu);
@@ -711,14 +692,13 @@ LABEL_23:
   }
 
 LABEL_19:
-  v27 = *MEMORY[0x277D85DE8];
 
   return self;
 }
 
 - (id)onMainWithLock_updateDisplayOrEngineOperationIfNeeded
 {
-  v83 = *MEMORY[0x277D85DE8];
+  v79 = *MEMORY[0x277D85DE8];
   if (self)
   {
     v3 = *(self + 128);
@@ -760,10 +740,9 @@ LABEL_19:
         if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
         {
           OUTLINED_FUNCTION_40();
-          v37 = *(self + 104);
           OUTLINED_FUNCTION_4_8();
           OUTLINED_FUNCTION_16_2();
-          _os_log_fault_impl(v38, v39, OS_LOG_TYPE_FAULT, v40, v41, 0x22u);
+          _os_log_fault_impl(v34, v35, OS_LOG_TYPE_FAULT, v36, v37, 0x22u);
         }
 
         goto LABEL_18;
@@ -772,10 +751,9 @@ LABEL_19:
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         OUTLINED_FUNCTION_40();
-        v32 = *(self + 104);
         OUTLINED_FUNCTION_4_8();
         OUTLINED_FUNCTION_16_2();
-        _os_log_debug_impl(v33, v34, OS_LOG_TYPE_DEBUG, v35, v36, 0x22u);
+        _os_log_debug_impl(v30, v31, OS_LOG_TYPE_DEBUG, v32, v33, 0x22u);
       }
     }
 
@@ -785,9 +763,8 @@ LABEL_19:
       if (os_log_type_enabled(displayMode, OS_LOG_TYPE_FAULT))
       {
         OUTLINED_FUNCTION_40();
-        v18 = *(self + 112);
         OUTLINED_FUNCTION_4_8();
-        _os_log_fault_impl(&dword_21FD11000, displayMode, OS_LOG_TYPE_FAULT, "TSM:%p (findNextOperation) pending presentation update while determining display update, animating:%{BOOL}u forcedUnanimated:%{BOOL}u pending:%{public}@", v77, 0x22u);
+        _os_log_fault_impl(&dword_21FD11000, displayMode, OS_LOG_TYPE_FAULT, "TSM:%p (findNextOperation) pending presentation update while determining display update, animating:%{BOOL}u forcedUnanimated:%{BOOL}u pending:%{public}@", v73, 0x22u);
       }
 
 LABEL_17:
@@ -808,18 +785,18 @@ LABEL_19:
         if (_lock_ensureFlipbookCurrent)
         {
           v14 = _lock_ensureFlipbookCurrent;
-          v43 = bls_backlight_log();
-          if (OUTLINED_FUNCTION_44(v43))
+          v39 = bls_backlight_log();
+          if (OUTLINED_FUNCTION_44(v39))
           {
             OUTLINED_FUNCTION_1_0();
-            v79 = v14;
-            v80 = v44;
-            *v81 = lock_displayOperationForCurrentTarget;
+            v75 = v14;
+            v76 = v40;
+            *v77 = lock_displayOperationForCurrentTarget;
             OUTLINED_FUNCTION_16_2();
-            v49 = OS_LOG_TYPE_DEBUG;
-            v50 = 32;
+            v45 = OS_LOG_TYPE_DEBUG;
+            v46 = 32;
 LABEL_55:
-            _os_log_debug_impl(v45, v46, v49, v47, v48, v50);
+            _os_log_debug_impl(v41, v42, v45, v43, v44, v46);
             goto LABEL_46;
           }
 
@@ -832,19 +809,19 @@ LABEL_55:
         if (v6 != lock_displayOperationForCurrentTarget)
         {
 LABEL_30:
-          v17 = bls_backlight_log();
-          if (OUTLINED_FUNCTION_34_0(v17))
+          v16 = bls_backlight_log();
+          if (OUTLINED_FUNCTION_34_0(v16))
           {
             OUTLINED_FUNCTION_40();
             OUTLINED_FUNCTION_10_1();
-            v78 = 2114;
-            v79 = lock_displayOperationForCurrentTarget;
-            v80 = 1024;
-            *v81 = v70;
-            *&v81[4] = 1024;
-            *&v81[6] = v71;
+            v74 = 2114;
+            v75 = lock_displayOperationForCurrentTarget;
+            v76 = 1024;
+            *v77 = v66;
+            *&v77[4] = 1024;
+            *&v77[6] = v67;
             OUTLINED_FUNCTION_12_4();
-            _os_log_debug_impl(v72, v73, v74, v75, v76, 0x22u);
+            _os_log_debug_impl(v68, v69, v70, v71, v72, 0x22u);
           }
 
           goto LABEL_40;
@@ -857,11 +834,11 @@ LABEL_30:
       if (_lock_ensureFlipbookCurrent2)
       {
         v14 = _lock_ensureFlipbookCurrent2;
-        v52 = bls_backlight_log();
-        if (OUTLINED_FUNCTION_44(v52))
+        v48 = bls_backlight_log();
+        if (OUTLINED_FUNCTION_44(v48))
         {
           OUTLINED_FUNCTION_1_0();
-          v79 = v14;
+          v75 = v14;
           OUTLINED_FUNCTION_16_2();
           OUTLINED_FUNCTION_13_3();
           goto LABEL_55;
@@ -875,25 +852,25 @@ LABEL_46:
 
     else
     {
-      v19 = *(self + 136);
-      if (v19 && ([v19 isCompleted] & 1) == 0)
+      v17 = *(self + 136);
+      if (v17 && ([v17 isCompleted] & 1) == 0)
       {
-        v20 = bls_backlight_log();
-        if (OUTLINED_FUNCTION_35_0(v20))
+        v18 = bls_backlight_log();
+        if (OUTLINED_FUNCTION_35_0(v18))
         {
-          v21 = *(self + 136);
-          v22 = NSStringFromBLSBacklightDisplayMode(displayMode);
+          v19 = *(self + 136);
+          v20 = NSStringFromBLSBacklightDisplayMode(displayMode);
           OUTLINED_FUNCTION_1_0();
-          v79 = v21;
-          v80 = v23;
-          *v81 = v24;
+          v75 = v19;
+          v76 = v21;
+          *v77 = v22;
           OUTLINED_FUNCTION_16_2();
           OUTLINED_FUNCTION_22_1();
-          _os_log_impl(v25, v26, v27, v28, v29, v30);
+          _os_log_impl(v23, v24, v25, v26, v27, v28);
         }
       }
 
-      v31 = *(self + 136);
+      v29 = *(self + 136);
       *(self + 136) = 0;
 
       if (lock_displayOperationForCurrentTarget)
@@ -906,23 +883,23 @@ LABEL_46:
             onMainWithLock_updateSpecifierOperationIfNeeded = [(BLSHBacklightTransitionStateMachine *)self onMainWithLock_updateSpecifierOperationIfNeeded];
             if (onMainWithLock_updateSpecifierOperationIfNeeded)
             {
-              v60 = onMainWithLock_updateSpecifierOperationIfNeeded;
-              v61 = bls_backlight_log();
-              if (OUTLINED_FUNCTION_35_0(v61))
+              v56 = onMainWithLock_updateSpecifierOperationIfNeeded;
+              v57 = bls_backlight_log();
+              if (OUTLINED_FUNCTION_35_0(v57))
               {
-                v62 = NSStringFromBLSBacklightDisplayMode([*(self + 152) displayMode]);
-                v63 = NSStringFromBLSBacklightDisplayMode(displayMode);
+                v58 = NSStringFromBLSBacklightDisplayMode([*(self + 152) displayMode]);
+                v59 = NSStringFromBLSBacklightDisplayMode(displayMode);
                 OUTLINED_FUNCTION_1_0();
-                v79 = v60;
-                v80 = v64;
-                *v81 = v62;
-                *&v81[8] = v64;
-                v82 = v65;
+                v75 = v56;
+                v76 = v60;
+                *v77 = v58;
+                *&v77[8] = v60;
+                v78 = v61;
                 OUTLINED_FUNCTION_16_2();
-                _os_log_impl(v66, v67, OS_LOG_TYPE_INFO, v68, v69, 0x2Au);
+                _os_log_impl(v62, v63, OS_LOG_TYPE_INFO, v64, v65, 0x2Au);
               }
 
-              v14 = v60;
+              v14 = v56;
               goto LABEL_19;
             }
           }
@@ -936,12 +913,12 @@ LABEL_40:
       }
     }
 
-    v53 = bls_backlight_log();
-    if (OUTLINED_FUNCTION_34_0(v53))
+    v49 = bls_backlight_log();
+    if (OUTLINED_FUNCTION_34_0(v49))
     {
       OUTLINED_FUNCTION_10_1();
       OUTLINED_FUNCTION_12_4();
-      _os_log_debug_impl(v54, v55, v56, v57, v58, 0xCu);
+      _os_log_debug_impl(v50, v51, v52, v53, v54, 0xCu);
     }
 
     goto LABEL_17;
@@ -949,7 +926,6 @@ LABEL_40:
 
   v14 = 0;
 LABEL_20:
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -967,9 +943,9 @@ LABEL_20:
   providerCopy = provider;
   interfaceProviderCopy = interfaceProvider;
   policyCopy = policy;
-  v44.receiver = self;
-  v44.super_class = BLSHBacklightTransitionStateMachine;
-  v13 = [(BLSHBacklightTransitionStateMachine *)&v44 init];
+  v43.receiver = self;
+  v43.super_class = BLSHBacklightTransitionStateMachine;
+  v13 = [(BLSHBacklightTransitionStateMachine *)&v43 init];
   v14 = v13;
   if (v13)
   {
@@ -1026,14 +1002,13 @@ LABEL_20:
     *(v14 + 208) = displayMode2;
     *(v14 + 216) = displayMode2;
     objc_initWeak(&location, v14);
-    v38 = MEMORY[0x277D85DD0];
-    v39 = 3221225472;
-    v40 = __105__BLSHBacklightTransitionStateMachine_initWithPlatformProvider_osInterfaceProvider_inactiveBudgetPolicy___block_invoke;
-    v41 = &unk_27841EC40;
-    objc_copyWeak(&v42, &location);
+    v37 = MEMORY[0x277D85DD0];
+    v38 = 3221225472;
+    v39 = __105__BLSHBacklightTransitionStateMachine_initWithPlatformProvider_osInterfaceProvider_inactiveBudgetPolicy___block_invoke;
+    v40 = &unk_27841EC40;
+    objc_copyWeak(&v41, &location);
     *(v14 + 232) = os_state_add_handler();
     [BLSHBacklightFBSceneHostEnvironment setAmendSceneSettingsDelegate:v14];
-    v33 = *(v14 + 72);
     if ((BLSBacklightStateIsActive() & 1) == 0)
     {
       [(BLSHBacklightTransitionStateMachine *)v14 acquireTouchLockAssertion];
@@ -1045,25 +1020,25 @@ LABEL_20:
       block[1] = 3221225472;
       block[2] = __105__BLSHBacklightTransitionStateMachine_initWithPlatformProvider_osInterfaceProvider_inactiveBudgetPolicy___block_invoke_2;
       block[3] = &unk_27841E650;
-      v37 = v14;
-      v35 = MEMORY[0x277D85CD0];
+      v36 = v14;
+      v34 = MEMORY[0x277D85CD0];
       dispatch_async(MEMORY[0x277D85CD0], block);
     }
 
-    objc_destroyWeak(&v42);
+    objc_destroyWeak(&v41);
     objc_destroyWeak(&location);
   }
 
   return v14;
 }
 
-uint64_t __105__BLSHBacklightTransitionStateMachine_initWithPlatformProvider_osInterfaceProvider_inactiveBudgetPolicy___block_invoke(uint64_t a1)
+uint64_t __105__BLSHBacklightTransitionStateMachine_initWithPlatformProvider_osInterfaceProvider_inactiveBudgetPolicy___block_invoke(uint64_t a1, uint64_t a2)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = [WeakRetained debugDescription];
-  v3 = BLSStateDataWithTitleDescriptionAndHints();
+  v3 = [WeakRetained debugDescription];
+  v4 = BLSStateDataWithTitleDescriptionAndHints();
 
-  return v3;
+  return v4;
 }
 
 - (uint64_t)lock_displayModeForBacklightState:(uint64_t)result
@@ -1116,9 +1091,9 @@ uint64_t __105__BLSHBacklightTransitionStateMachine_initWithPlatformProvider_osI
     os_state_remove_handler();
   }
 
-  v3.receiver = self;
-  v3.super_class = BLSHBacklightTransitionStateMachine;
-  [(BLSHBacklightTransitionStateMachine *)&v3 dealloc];
+  v4.receiver = self;
+  v4.super_class = BLSHBacklightTransitionStateMachine;
+  [(BLSHBacklightTransitionStateMachine *)&v4 dealloc];
 }
 
 - (NSString)description
@@ -1128,22 +1103,20 @@ uint64_t __105__BLSHBacklightTransitionStateMachine_initWithPlatformProvider_osI
   withLock_backlightStateDescription = [(BLSHBacklightTransitionStateMachine *)self withLock_backlightStateDescription];
   v5 = [v3 appendObject:withLock_backlightStateDescription withName:@"backlightState"];
 
-  lastSteadyStateFlipbookState = self->_lastSteadyStateFlipbookState;
-  v7 = NSStringFromBLSFlipbookState();
-  v8 = [v3 appendObject:v7 withName:@"flipbookState"];
+  v6 = NSStringFromBLSFlipbookState();
+  v7 = [v3 appendObject:v6 withName:@"flipbookState"];
 
-  v9 = [v3 appendBool:self->_lock_safeToUnblank withName:@"safeToUnblank" ifEqualTo:0];
-  v10 = [v3 appendObject:self->_currentState withName:@"currentState"];
-  v11 = [v3 appendObject:self->_lock_targetState withName:@"targetState"];
-  v12 = [v3 appendBool:self->_flipbookSupported withName:@"fb" ifEqualTo:0];
-  v13 = [v3 appendPointer:self->_lock_pendingEnvironmentUpdate withName:@"pendingEventToPerform"];
-  v14 = [v3 appendPointer:self->_lock_pendingUpdateDisplayMode withName:@"pendingUpdateDisplayMode"];
-  v15 = [v3 appendPointer:self->_lock_pendingUpdatePresentation withName:@"pendingUpdatePresentation"];
-  v16 = [v3 appendPointer:self->_lock_pendingUpdateToSpecifier withName:@"pendingUpdateToSpecifier"];
-  v17 = [v3 appendPointer:self->_lock_ensureFlipbookCurrentOperation withName:@"ensureFlipbookCurrentOperation"];
-  lock_queuedEventsToPerform = self->_lock_queuedEventsToPerform;
-  v19 = NSStringFromBLSBacklightChangeEvents();
-  [v3 appendString:v19 withName:@"queuedEvents"];
+  v8 = [v3 appendBool:self->_lock_safeToUnblank withName:@"safeToUnblank" ifEqualTo:0];
+  v9 = [v3 appendObject:self->_currentState withName:@"currentState"];
+  v10 = [v3 appendObject:self->_lock_targetState withName:@"targetState"];
+  v11 = [v3 appendBool:self->_flipbookSupported withName:@"fb" ifEqualTo:0];
+  v12 = [v3 appendPointer:self->_lock_pendingEnvironmentUpdate withName:@"pendingEventToPerform"];
+  v13 = [v3 appendPointer:self->_lock_pendingUpdateDisplayMode withName:@"pendingUpdateDisplayMode"];
+  v14 = [v3 appendPointer:self->_lock_pendingUpdatePresentation withName:@"pendingUpdatePresentation"];
+  v15 = [v3 appendPointer:self->_lock_pendingUpdateToSpecifier withName:@"pendingUpdateToSpecifier"];
+  v16 = [v3 appendPointer:self->_lock_ensureFlipbookCurrentOperation withName:@"ensureFlipbookCurrentOperation"];
+  v17 = NSStringFromBLSBacklightChangeEvents();
+  [v3 appendString:v17 withName:@"queuedEvents"];
 
   build = [v3 build];
   os_unfair_lock_unlock(&self->_lock);
@@ -1310,7 +1283,7 @@ uint64_t __105__BLSHBacklightTransitionStateMachine_initWithPlatformProvider_osI
 - (void)setFlipbookDisabled:(BOOL)disabled
 {
   disabledCopy = disabled;
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   v5 = self->_lock_flipbookDisabled != disabledCopy && self->_lock_backlightState == 1;
   self->_lock_flipbookDisabled = disabledCopy;
@@ -1320,16 +1293,16 @@ uint64_t __105__BLSHBacklightTransitionStateMachine_initWithPlatformProvider_osI
     v7 = bls_backlight_log();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      v9 = NSStringFromBLSBacklightDisplayMode(v6);
+      v8 = NSStringFromBLSBacklightDisplayMode(v6);
       lock_targetState = self->_lock_targetState;
       *buf = 134218754;
       selfCopy = self;
-      v13 = 1024;
-      v14 = disabledCopy;
-      v15 = 2114;
-      v16 = v9;
-      v17 = 2114;
-      v18 = lock_targetState;
+      v12 = 1024;
+      v13 = disabledCopy;
+      v14 = 2114;
+      v15 = v8;
+      v16 = 2114;
+      v17 = lock_targetState;
       _os_log_debug_impl(&dword_21FD11000, v7, OS_LOG_TYPE_DEBUG, "TSM:%p setFlipbookDisabled:%{BOOL}u targetDisplayMode:%{public}@ previousTarget:%{public}@", buf, 0x26u);
     }
 
@@ -1341,8 +1314,6 @@ uint64_t __105__BLSHBacklightTransitionStateMachine_initWithPlatformProvider_osI
   {
     BSDispatchMain();
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performEvent:(id)event
@@ -1425,7 +1396,7 @@ id __120__BLSHBacklightTransitionStateMachine_logForPerformEvent_currentState_ta
 
 uint64_t __86__BLSHBacklightTransitionStateMachine_onMainWithLock_updateSpecifierOperationIfNeeded__block_invoke(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = [a2 environment];
   if ([*(a1 + 32) containsEnvironment:v3] & 1) != 0 || *(a1 + 56) == 1 && (objc_msgSend(*(a1 + 40), "containsEnvironment:", v3))
   {
@@ -1437,30 +1408,30 @@ uint64_t __86__BLSHBacklightTransitionStateMachine_onMainWithLock_updateSpecifie
     v5 = bls_backlight_log();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v8 = *(a1 + 48);
-      v9 = [v3 identifier];
-      v10 = [*(a1 + 32) bls_shortLoggingString];
-      v11 = *(a1 + 56);
-      if (v11 == 1)
+      v7 = *(a1 + 48);
+      v8 = [v3 identifier];
+      v9 = [*(a1 + 32) bls_shortLoggingString];
+      v10 = *(a1 + 56);
+      if (v10 == 1)
       {
-        v12 = [*(a1 + 40) bls_shortLoggingString];
+        v11 = [*(a1 + 40) bls_shortLoggingString];
       }
 
       else
       {
-        v12 = @"(same)";
+        v11 = @"(same)";
       }
 
-      v13 = 134218754;
-      v14 = v8;
-      v15 = 2114;
-      v16 = v9;
-      v17 = 2114;
-      v18 = v10;
-      v19 = 2114;
-      v20 = v12;
-      _os_log_error_impl(&dword_21FD11000, v5, OS_LOG_TYPE_ERROR, "TSM:%p specifier environment:%{public}@ not in presentation:%{public}@ or target:%{public}@", &v13, 0x2Au);
-      if (v11)
+      v12 = 134218754;
+      v13 = v7;
+      v14 = 2114;
+      v15 = v8;
+      v16 = 2114;
+      v17 = v9;
+      v18 = 2114;
+      v19 = v11;
+      _os_log_error_impl(&dword_21FD11000, v5, OS_LOG_TYPE_ERROR, "TSM:%p specifier environment:%{public}@ not in presentation:%{public}@ or target:%{public}@", &v12, 0x2Au);
+      if (v10)
       {
       }
     }
@@ -1468,34 +1439,31 @@ uint64_t __86__BLSHBacklightTransitionStateMachine_onMainWithLock_updateSpecifie
     v4 = 0;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
-uint64_t __90__BLSHBacklightTransitionStateMachine_onMainWithLock_environmentUpdateOperationForEvents___block_invoke(uint64_t a1)
+void __90__BLSHBacklightTransitionStateMachine_onMainWithLock_environmentUpdateOperationForEvents___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) setCompleted:1];
   v2 = bls_backlight_log();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v4 = *(a1 + 32);
     v3 = *(a1 + 40);
-    v7 = 134218242;
-    v8 = v3;
-    v9 = 2114;
-    v10 = v4;
-    _os_log_impl(&dword_21FD11000, v2, OS_LOG_TYPE_INFO, "TSM:%p completed pendingEnvironmentUpdate %{public}@", &v7, 0x16u);
+    v5 = 134218242;
+    v6 = v3;
+    v7 = 2114;
+    v8 = v4;
+    _os_log_impl(&dword_21FD11000, v2, OS_LOG_TYPE_INFO, "TSM:%p completed pendingEnvironmentUpdate %{public}@", &v5, 0x16u);
   }
 
-  result = [(BLSHBacklightTransitionStateMachine *)*(a1 + 40) onMain_performNextStepInTransition];
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  [(BLSHBacklightTransitionStateMachine *)*(a1 + 40) onMain_performNextStepInTransition];
 }
 
 - (void)ifStillValidPerformAlwaysOnBrightnessRamp:(double)ramp withDuration:
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = v5;
   if (self)
@@ -1535,15 +1503,15 @@ uint64_t __90__BLSHBacklightTransitionStateMachine_onMainWithLock_environmentUpd
       v14 = bls_backlight_log();
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v21 = 134218242;
+        v20 = 134218242;
         selfCopy5 = self;
-        v23 = 2114;
+        v22 = 2114;
         rampCopy3 = *&v6;
         v15 = "TSM:%p nothing do here since rampOperation has already started:%{public}@";
         v16 = v14;
         v17 = 22;
 LABEL_18:
-        _os_log_impl(&dword_21FD11000, v16, OS_LOG_TYPE_DEFAULT, v15, &v21, v17);
+        _os_log_impl(&dword_21FD11000, v16, OS_LOG_TYPE_DEFAULT, v15, &v20, v17);
       }
     }
 
@@ -1551,27 +1519,27 @@ LABEL_18:
     {
       if (first == v6 || ([first isCompleted] & 1) != 0)
       {
-        v19 = bls_backlight_log();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+        v18 = bls_backlight_log();
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
         {
-          v21 = 134218498;
+          v20 = 134218498;
           selfCopy5 = self;
-          v23 = 2048;
+          v22 = 2048;
           rampCopy3 = ramp;
-          v25 = 2114;
-          v26 = v6;
-          _os_log_debug_impl(&dword_21FD11000, v19, OS_LOG_TYPE_DEBUG, "TSM:%p performing brightness ramp with duration:%.2lfs using operation:%{public}@", &v21, 0x20u);
+          v24 = 2114;
+          v25 = v6;
+          _os_log_debug_impl(&dword_21FD11000, v18, OS_LOG_TYPE_DEBUG, "TSM:%p performing brightness ramp with duration:%.2lfs using operation:%{public}@", &v20, 0x20u);
         }
 
         [v6 setStarted:1];
-        v20 = bls_backlight_log();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+        v19 = bls_backlight_log();
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
         {
-          v21 = 134218242;
+          v20 = 134218242;
           selfCopy5 = self;
-          v23 = 2114;
+          v22 = 2114;
           rampCopy3 = *&v6;
-          _os_log_impl(&dword_21FD11000, v20, OS_LOG_TYPE_INFO, "TSM:%p started rampOperation %{public}@", &v21, 0x16u);
+          _os_log_impl(&dword_21FD11000, v19, OS_LOG_TYPE_INFO, "TSM:%p started rampOperation %{public}@", &v20, 0x16u);
         }
 
         [v6 targetDisplayMode];
@@ -1582,13 +1550,13 @@ LABEL_18:
       v14 = bls_backlight_log();
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
-        v21 = 134218498;
+        v20 = 134218498;
         selfCopy5 = self;
-        v23 = 2048;
+        v22 = 2048;
         rampCopy3 = ramp;
-        v25 = 2114;
-        v26 = v7;
-        _os_log_debug_impl(&dword_21FD11000, v14, OS_LOG_TYPE_DEBUG, "TSM:%p waiting to perform brightness ramp with duration:%.2lfs using operation:%{public}@", &v21, 0x20u);
+        v24 = 2114;
+        v25 = v7;
+        _os_log_debug_impl(&dword_21FD11000, v14, OS_LOG_TYPE_DEBUG, "TSM:%p waiting to perform brightness ramp with duration:%.2lfs using operation:%{public}@", &v20, 0x20u);
       }
     }
 
@@ -1597,14 +1565,14 @@ LABEL_18:
       v14 = bls_backlight_log();
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v21 = 134218754;
+        v20 = 134218754;
         selfCopy5 = self;
-        v23 = 2048;
+        v22 = 2048;
         rampCopy3 = ramp;
-        v25 = 2114;
-        v26 = v6;
-        v27 = 2114;
-        v28 = v7;
+        v24 = 2114;
+        v25 = v6;
+        v26 = 2114;
+        v27 = v7;
         v15 = "TSM:%p not performing brightness ramp with duration:%.2lfs using operation:%{public}@ because display operation has changed to operation:%{public}@";
         v16 = v14;
         v17 = 42;
@@ -1614,8 +1582,6 @@ LABEL_18:
 
 LABEL_20:
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __84__BLSHBacklightTransitionStateMachine_environmentStateMachineDidBeginUpdateToState___block_invoke(uint64_t a1)
@@ -1641,7 +1607,7 @@ void __87__BLSHBacklightTransitionStateMachine_environmentStateMachine_didUpdate
 
 - (void)environmentStateMachine:(id)machine didUpdateToSpecifier:(id)specifier
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   specifierCopy = specifier;
   os_unfair_lock_lock(&self->_lock);
   specifier = [(BLSHPendingUpdateToSpecifier *)self->_lock_pendingUpdateToSpecifier specifier];
@@ -1662,12 +1628,12 @@ void __87__BLSHBacklightTransitionStateMachine_environmentStateMachine_didUpdate
     lock_pendingUpdateToSpecifier = self->_lock_pendingUpdateToSpecifier;
     *buf = 134218754;
     selfCopy2 = self;
-    v16 = 2114;
-    v17 = specifierCopy;
-    v18 = 1024;
-    v19 = v8;
-    v20 = 2114;
-    v21 = lock_pendingUpdateToSpecifier;
+    v15 = 2114;
+    v16 = specifierCopy;
+    v17 = 1024;
+    v18 = v8;
+    v19 = 2114;
+    v20 = lock_pendingUpdateToSpecifier;
     _os_log_debug_impl(&dword_21FD11000, v9, OS_LOG_TYPE_DEBUG, "TSM:%p didUpdateToSpecifier:%{public}@ matchesPendingUpdate:%{BOOL}u pending:%{public}@", buf, 0x26u);
   }
 
@@ -1680,8 +1646,8 @@ void __87__BLSHBacklightTransitionStateMachine_environmentStateMachine_didUpdate
       v11 = self->_lock_pendingUpdateToSpecifier;
       *buf = 134218242;
       selfCopy2 = self;
-      v16 = 2114;
-      v17 = v11;
+      v15 = 2114;
+      v16 = v11;
       _os_log_impl(&dword_21FD11000, v10, OS_LOG_TYPE_INFO, "TSM:%p completed pendingUpdateToSpecifier %{public}@", buf, 0x16u);
     }
 
@@ -1693,8 +1659,6 @@ void __87__BLSHBacklightTransitionStateMachine_environmentStateMachine_didUpdate
   {
     os_unfair_lock_unlock(&self->_lock);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)inactiveEnvironmentSession:(id)session updateToPresentation:(id)presentation
@@ -1827,8 +1791,8 @@ LABEL_22:
     goto LABEL_21;
   }
 
-  v9 = bls_backlight_log();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+  v10 = bls_backlight_log();
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
     lock_session = self->_lock_session;
     *buf = 134218754;
@@ -1839,13 +1803,11 @@ LABEL_22:
     v38 = lock_session;
     v39 = 2114;
     v40 = presentationCopy;
-    _os_log_error_impl(&dword_21FD11000, v9, OS_LOG_TYPE_ERROR, "TSM:%p updated presentation on invalid session:%{public}@ currentSession:%{public}@ new presentation:%{public}@", buf, 0x2Au);
+    _os_log_error_impl(&dword_21FD11000, v10, OS_LOG_TYPE_ERROR, "TSM:%p updated presentation on invalid session:%{public}@ currentSession:%{public}@ new presentation:%{public}@", buf, 0x2Au);
   }
 
   os_unfair_lock_unlock(&self->_lock);
 LABEL_5:
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 id __87__BLSHBacklightTransitionStateMachine_inactiveEnvironmentSession_updateToPresentation___block_invoke(uint64_t a1, void *a2)
@@ -1937,7 +1899,7 @@ void __87__BLSHBacklightTransitionStateMachine_inactiveEnvironmentSession_update
 - (void)setGlobalCacheFlipbookOnDisplayWake:(BOOL)wake
 {
   wakeCopy = wake;
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   lock_globalCacheFlipbook = self->_lock_globalCacheFlipbook;
   self->_lock_globalCacheFlipbook = wakeCopy;
@@ -1946,19 +1908,19 @@ void __87__BLSHBacklightTransitionStateMachine_inactiveEnvironmentSession_update
     goto LABEL_2;
   }
 
-  v7 = bls_backlight_log();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  v6 = bls_backlight_log();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *buf = 134218240;
     selfCopy = self;
-    v11 = 1024;
-    v12 = wakeCopy;
-    _os_log_impl(&dword_21FD11000, v7, OS_LOG_TYPE_INFO, "TSM:%p new globalCacheFlipbook:%{BOOL}u", buf, 0x12u);
+    v10 = 1024;
+    v11 = wakeCopy;
+    _os_log_impl(&dword_21FD11000, v6, OS_LOG_TYPE_INFO, "TSM:%p new globalCacheFlipbook:%{BOOL}u", buf, 0x12u);
   }
 
   if ([(BLSHBacklightTransitionStateMachine *)self _lock_updateCacheFlipbookWithSession:?]&& self->_lock_session)
   {
-    [(BLSHBacklightTransitionStateMachine *)self setGlobalCacheFlipbookOnDisplayWake:v8];
+    [(BLSHBacklightTransitionStateMachine *)self setGlobalCacheFlipbookOnDisplayWake:v7];
   }
 
   else
@@ -1966,8 +1928,6 @@ void __87__BLSHBacklightTransitionStateMachine_inactiveEnvironmentSession_update
 LABEL_2:
     os_unfair_lock_unlock(&self->_lock);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)hostEnvironment:(id)environment hostDidSetLiveUpdating:(BOOL)updating
@@ -1988,8 +1948,8 @@ LABEL_2:
 
     if (!v9)
     {
-      v10 = bls_backlight_log();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v11 = bls_backlight_log();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         identifier = [environmentCopy identifier];
         *buf = 134218498;
@@ -1998,7 +1958,7 @@ LABEL_2:
         v23 = updatingCopy;
         v24 = 2114;
         v25 = identifier;
-        _os_log_debug_impl(&dword_21FD11000, v10, OS_LOG_TYPE_DEBUG, "TSM:%p hostDidSetLiveUpdating:%{BOOL}u forEnvironment:%{public}@ but not in presentation", buf, 0x1Cu);
+        _os_log_debug_impl(&dword_21FD11000, v11, OS_LOG_TYPE_DEBUG, "TSM:%p hostDidSetLiveUpdating:%{BOOL}u forEnvironment:%{public}@ but not in presentation", buf, 0x1Cu);
       }
 
       os_unfair_lock_unlock(&self->_lock);
@@ -2042,13 +2002,12 @@ LABEL_2:
   dispatch_async(MEMORY[0x277D85CD0], v18);
 
 LABEL_6:
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)hostEnvironment:(id)environment hostDidSetUnrestrictedFramerateUpdates:(BOOL)updates
 {
   updatesCopy = updates;
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   environmentCopy = environment;
   os_unfair_lock_lock(&self->_lock);
   presentation = [(BLSHBacklightAggregateState *)self->_currentState presentation];
@@ -2073,19 +2032,17 @@ LABEL_8:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     identifier = [environmentCopy identifier];
-    v13 = 134218498;
+    v12 = 134218498;
     selfCopy = self;
-    v15 = 1024;
-    v16 = updatesCopy;
-    v17 = 2114;
-    v18 = identifier;
-    _os_log_debug_impl(&dword_21FD11000, v10, OS_LOG_TYPE_DEBUG, "TSM:%p changed unrestrictedFramerate:%{BOOL}u forEnvironment:%{public}@ but not in presentation", &v13, 0x1Cu);
+    v14 = 1024;
+    v15 = updatesCopy;
+    v16 = 2114;
+    v17 = identifier;
+    _os_log_debug_impl(&dword_21FD11000, v10, OS_LOG_TYPE_DEBUG, "TSM:%p changed unrestrictedFramerate:%{BOOL}u forEnvironment:%{public}@ but not in presentation", &v12, 0x1Cu);
   }
 
   os_unfair_lock_unlock(&self->_lock);
 LABEL_6:
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __115__BLSHBacklightTransitionStateMachine_updateTargetAndPerformNextStepForUnrestrictedFramerateChangeWithEnvironment___block_invoke(uint64_t a1)
@@ -2110,7 +2067,7 @@ void __115__BLSHBacklightTransitionStateMachine_updateTargetAndPerformNextStepFo
 
 - (void)presentationEngine:(id)engine didUpdateToCurrentWithSpecifier:(id)specifier
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   specifierCopy = specifier;
   os_unfair_lock_lock(&self->_lock);
   v6 = self->_lock_ensureFlipbookCurrentOperation;
@@ -2129,10 +2086,10 @@ void __115__BLSHBacklightTransitionStateMachine_updateTargetAndPerformNextStepFo
 
     *buf = 134218498;
     selfCopy2 = self;
-    v17 = 2114;
-    v18 = v6;
-    v19 = 2114;
-    v20 = specifierCopy;
+    v16 = 2114;
+    v17 = v6;
+    v18 = 2114;
+    v19 = specifierCopy;
     v11 = "TSM:%p completed ensureFlipbookCurrentOperation %{public}@, flipbook did update to current with:%{public}@";
     v12 = v9;
     v13 = 32;
@@ -2147,8 +2104,8 @@ void __115__BLSHBacklightTransitionStateMachine_updateTargetAndPerformNextStepFo
 
     *buf = 134218242;
     selfCopy2 = self;
-    v17 = 2114;
-    v18 = v6;
+    v16 = 2114;
+    v17 = v6;
     v11 = "TSM:%p completed ensureFlipbookCurrentOperation %{public}@";
     v12 = v9;
     v13 = 22;
@@ -2162,13 +2119,11 @@ LABEL_7:
   {
     BSDispatchMain();
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)presentationEngine:(id)engine didInvalidateContentForEnvironment:(id)environment reason:(id)reason
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   environmentCopy = environment;
   reasonCopy = reason;
   os_unfair_lock_lock(&self->_lock);
@@ -2180,10 +2135,10 @@ LABEL_7:
     identifier = [environmentCopy identifier];
     *buf = 134218498;
     selfCopy = self;
-    v16 = 2114;
-    v17 = identifier;
-    v18 = 2114;
-    v19 = reasonCopy;
+    v15 = 2114;
+    v16 = identifier;
+    v17 = 2114;
+    v18 = reasonCopy;
     _os_log_debug_impl(&dword_21FD11000, v10, OS_LOG_TYPE_DEBUG, "TSM:%p flipbookIsStale=YES env:%{public}@ invalidateContentForReason:%{public}@", buf, 0x20u);
   }
 
@@ -2197,13 +2152,11 @@ LABEL_7:
     block[4] = self;
     dispatch_async(MEMORY[0x277D85CD0], block);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)displayState:(id)state didUpdateToMode:(int64_t)mode
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   if (self->_lock_didNotifyDisplayModeTransitionStartedButNotCompleted && self->_lock_lastNotifiedTargetDisplayMode == mode)
   {
@@ -2241,12 +2194,12 @@ LABEL_10:
       v15 = NSStringFromBLSBacklightDisplayMode(currentDisplayMode);
       *buf = 134218754;
       selfCopy3 = self;
-      v46 = 2114;
-      v47 = v12;
-      v48 = 1024;
-      *v49 = currentDisplayMode == lock_lastNotifiedCompletedDisplayMode;
-      *&v49[4] = 2114;
-      *&v49[6] = v15;
+      v45 = 2114;
+      v46 = v12;
+      v47 = 1024;
+      *v48 = currentDisplayMode == lock_lastNotifiedCompletedDisplayMode;
+      *&v48[4] = 2114;
+      *&v48[6] = v15;
       _os_log_impl(&dword_21FD11000, v14, (currentDisplayMode == lock_lastNotifiedCompletedDisplayMode), "TSM:%p completed updateOperation:%{public}@ modeMatches:%{BOOL}u lastNotifiedMode:%{public}@", buf, 0x26u);
     }
 
@@ -2261,8 +2214,8 @@ LABEL_10:
 
   rampOperation = [(BLSHPendingUpdateDisplayMode *)self->_lock_pendingUpdateDisplayMode rampOperation];
   v18 = rampOperation;
-  v42 = v12;
-  v41 = v16;
+  v41 = v12;
+  v40 = v16;
   if (rampOperation && [rampOperation targetDisplayMode] == mode)
   {
     [v18 setCompleted:1];
@@ -2271,22 +2224,22 @@ LABEL_10:
     if (os_log_type_enabled(v16, (currentDisplayMode == lock_lastNotifiedCompletedDisplayMode)))
     {
       NSStringFromBLSBacklightDisplayMode(currentDisplayMode);
-      v19 = v39 = v9;
+      v19 = v38 = v9;
       *buf = 134218754;
       selfCopy3 = self;
-      v46 = 2114;
-      v47 = v12;
-      v48 = 1024;
-      *v49 = currentDisplayMode == lock_lastNotifiedCompletedDisplayMode;
-      *&v49[4] = 2114;
-      *&v49[6] = v19;
+      v45 = 2114;
+      v46 = v12;
+      v47 = 1024;
+      *v48 = currentDisplayMode == lock_lastNotifiedCompletedDisplayMode;
+      *&v48[4] = 2114;
+      *&v48[6] = v19;
       _os_log_impl(&dword_21FD11000, v16, (currentDisplayMode == lock_lastNotifiedCompletedDisplayMode), "TSM:%p completed rampOperation:%{public}@ modeMatches:%{BOOL}u lastNotifiedMode:%{public}@", buf, 0x26u);
 
-      v9 = v39;
+      v9 = v38;
     }
 
     v20 = 1;
-    LOBYTE(v16) = v41;
+    LOBYTE(v16) = v40;
   }
 
   else
@@ -2309,7 +2262,7 @@ LABEL_10:
     v21 = lock_lastNotifiedCompletedDisplayMode;
   }
 
-  v43 = v21;
+  v42 = v21;
   lock_targetState = self->_lock_targetState;
   if (!lock_targetState)
   {
@@ -2342,30 +2295,30 @@ LABEL_32:
   v30 = bls_backlight_log();
   if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
   {
-    v40 = NSStringFromBLSBacklightDisplayMode(mode);
-    v34 = NSStringFromBLSBacklightDisplayMode(v43);
+    v39 = NSStringFromBLSBacklightDisplayMode(mode);
+    v33 = NSStringFromBLSBacklightDisplayMode(v42);
     lock_pendingUpdateDisplayMode = self->_lock_pendingUpdateDisplayMode;
-    v38 = v34;
-    v35 = NSStringFromBLSBacklightChangeEvents();
+    v37 = v33;
+    v34 = NSStringFromBLSBacklightChangeEvents();
     *buf = 134220034;
     selfCopy3 = self;
-    v46 = 2114;
-    v47 = v40;
-    v48 = 2114;
-    *v49 = v38;
-    *&v49[8] = 1024;
-    *&v49[10] = v41;
-    v50 = 1024;
-    v51 = v20;
-    v52 = 1024;
-    v53 = v27;
-    v54 = 1024;
-    v55 = v24;
-    v56 = 2114;
-    v57 = lock_pendingUpdateDisplayMode;
-    v58 = 2114;
-    v36 = v35;
-    v59 = v35;
+    v45 = 2114;
+    v46 = v39;
+    v47 = 2114;
+    *v48 = v37;
+    *&v48[8] = 1024;
+    *&v48[10] = v40;
+    v49 = 1024;
+    v50 = v20;
+    v51 = 1024;
+    v52 = v27;
+    v53 = 1024;
+    v54 = v24;
+    v55 = 2114;
+    v56 = lock_pendingUpdateDisplayMode;
+    v57 = 2114;
+    v35 = v34;
+    v58 = v34;
     _os_log_debug_impl(&dword_21FD11000, v30, OS_LOG_TYPE_DEBUG, "TSM:%p didUpdateToMode:%{public}@ fromMode:%{public}@ matchesUpdate:%{BOOL}u matchesRamp:%{BOOL}u matchesTargetDisplayMode:%{BOOL}u shouldNotify:%{BOOL}u update:%{public}@ events:%{public}@", buf, 0x4Cu);
   }
 
@@ -2373,8 +2326,6 @@ LABEL_32:
   v31 = v29;
   v32 = v28;
   BSDispatchMain();
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 void __68__BLSHBacklightTransitionStateMachine_displayState_didUpdateToMode___block_invoke(uint64_t a1)
@@ -2432,7 +2383,7 @@ void __68__BLSHBacklightTransitionStateMachine_displayState_didUpdateToMode___bl
 
 - (void)acquireTouchLockAssertion
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   if (self)
   {
     v2 = OUTLINED_FUNCTION_15_2(self);
@@ -2444,7 +2395,7 @@ void __68__BLSHBacklightTransitionStateMachine_displayState_didUpdateToMode___bl
       os_unfair_lock_unlock((v1 + 8));
       if (isActive)
       {
-        goto LABEL_7;
+        return;
       }
     }
 
@@ -2455,8 +2406,8 @@ void __68__BLSHBacklightTransitionStateMachine_displayState_didUpdateToMode___bl
 
     v5 = MEMORY[0x277CF0868];
     touchLock = [MEMORY[0x277CF09D8] touchLock];
-    v13[0] = touchLock;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+    v12[0] = touchLock;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
     v8 = [v5 acquireWithExplanation:@"inactiveBacklight" observer:0 attributes:v7];
 
     os_unfair_lock_lock((v1 + 8));
@@ -2468,9 +2419,6 @@ void __68__BLSHBacklightTransitionStateMachine_displayState_didUpdateToMode___bl
     os_unfair_lock_unlock((v1 + 8));
     [v11 invalidate];
   }
-
-LABEL_7:
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (uint64_t)createSession
@@ -2497,7 +2445,7 @@ LABEL_7:
 
 - (uint64_t)_lock_updateCacheFlipbookWithSession:(uint64_t)session
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = v4;
   if (session)
@@ -2513,7 +2461,7 @@ LABEL_7:
       presentation = [v4 presentation];
       presentationEntries = [presentation presentationEntries];
 
-      v7 = OUTLINED_FUNCTION_43(v9, v10, v11, v12, v13, v14, v15, v16, 0, 0, 0, 0, 0, 0, 0, 0, buf, v53, *(&v53 + 1), v54, v55);
+      v7 = OUTLINED_FUNCTION_43(v9, v10, v11, v12, v13, v14, v15, v16, v43, 0, 0, 0, 0, 0, 0, 0, buf, v53, *(&v53 + 1), v54);
       if (v7)
       {
         v17 = *v46;
@@ -2559,7 +2507,7 @@ LABEL_7:
             }
           }
 
-          v7 = OUTLINED_FUNCTION_43(v22, v23, v24, v25, v26, v27, v28, v29, v44, v45, v46, v47, v48, v49, v50, v51, buf, v53, *(&v53 + 1), v54, v55);
+          v7 = OUTLINED_FUNCTION_43(v22, v23, v24, v25, v26, v27, v28, v29, v44, v45, v46, v47, v48, v49, v50, v51, buf, v53, *(&v53 + 1), v54);
           if (v7)
           {
             continue;
@@ -2595,7 +2543,6 @@ LABEL_19:
     }
   }
 
-  v42 = *MEMORY[0x277D85DE8];
   return session;
 }
 
@@ -2622,7 +2569,6 @@ LABEL_19:
 
 - (void)destroySession
 {
-  v18 = *MEMORY[0x277D85DE8];
   if (self)
   {
     v3 = OUTLINED_FUNCTION_15_2(self);
@@ -2656,8 +2602,6 @@ LABEL_19:
     v16 = [*(v1 + 40) stopForReason:@"destroySession"];
     [*(v1 + 40) purgeFlipbook];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (uint64_t)hasUnrestrictedFramerateWithSession:(uint64_t)session
@@ -2683,7 +2627,6 @@ LABEL_19:
 
 - (void)releaseTransitionAPAwakeAssertion
 {
-  v14 = *MEMORY[0x277D85DE8];
   if (self)
   {
     v3 = OUTLINED_FUNCTION_15_2(self);
@@ -2693,11 +2636,10 @@ LABEL_19:
       v4 = bls_backlight_log();
       if (OUTLINED_FUNCTION_33_0(v4))
       {
-        v7 = *(v1 + 88);
         OUTLINED_FUNCTION_18_1();
         OUTLINED_FUNCTION_11_2();
         OUTLINED_FUNCTION_13_3();
-        _os_log_debug_impl(v8, v9, v10, v11, v12, v13);
+        _os_log_debug_impl(v6, v7, v8, v9, v10, v11);
       }
 
       [*(v1 + 88) invalidate];
@@ -2707,24 +2649,22 @@ LABEL_19:
 
     os_unfair_lock_unlock((v1 + 8));
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)onMain_performEvent:(uint64_t)event
 {
-  v13 = a2;
+  v14 = a2;
   if (!event)
   {
     goto LABEL_12;
   }
 
   os_unfair_lock_lock((event + 8));
-  state = [v13 state];
+  state = [v14 state];
   v4 = *(event + 168);
   *(event + 168) = 0;
 
-  [v13 setAninmationPropertiesWithPlatformProvider:*(event + 248)];
+  [v14 setAninmationPropertiesWithPlatformProvider:*(event + 248)];
   if (*(event + 227))
   {
     isTransitionForcedUnanimated = 0;
@@ -2732,11 +2672,11 @@ LABEL_19:
 
   else
   {
-    isTransitionForcedUnanimated = [v13 isTransitionForcedUnanimated];
+    isTransitionForcedUnanimated = [v14 isTransitionForcedUnanimated];
   }
 
   *(event + 226) = isTransitionForcedUnanimated;
-  [(BLSHBacklightTransitionStateMachine *)event _lock_enqueueNewEvent:v13];
+  [(BLSHBacklightTransitionStateMachine *)event _lock_enqueueNewEvent:v14];
   v6 = *(event + 72);
   *(event + 72) = state;
   if (v6 == state)
@@ -2756,12 +2696,12 @@ LABEL_19:
 
   [(BLSHBacklightTransitionStateMachine *)event onMain_ensureSessionCreated];
 LABEL_10:
-  v7 = v4 == v13;
+  v7 = v4 == v14;
   os_unfair_lock_lock((event + 8));
   withLock_ensureTargetStateCreated = [(BLSHBacklightTransitionStateMachine *)event withLock_ensureTargetStateCreated];
   [withLock_ensureTargetStateCreated setDisplayMode:{-[BLSHBacklightTransitionStateMachine lock_displayModeForBacklightState:](event, *(event + 72))}];
   os_unfair_lock_unlock((event + 8));
-  [(BLSHBacklightTransitionStateMachine *)event logForPerformEvent:v13 currentState:*(event + 152) targetState:withLock_ensureTargetStateCreated matchesPrewarm:v7 pendingPrewarmedEvent:*(event + 168)];
+  [(BLSHBacklightTransitionStateMachine *)event logForPerformEvent:v14 currentState:*(event + 152) targetState:withLock_ensureTargetStateCreated matchesPrewarm:v7 pendingPrewarmedEvent:*(event + 168)];
   if (v6 != state)
   {
     if (BLSBacklightStateIsActive())
@@ -2777,7 +2717,7 @@ LABEL_10:
 
   [*(event + 48) invalidate:1];
   v9 = *(event + 24);
-  v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"TSM:%p transition to backlight state for event:%@", event, v13];
+  v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"TSM:%p transition to backlight state for event:%@", event, v14];
   v11 = [v9 scheduleWatchdogWithDelegate:event explanation:v10 timeout:20.0];
   v12 = *(event + 48);
   *(event + 48) = v11;
@@ -2788,7 +2728,7 @@ LABEL_12:
 
 - (void)_lock_enqueueNewEvent:(id *)event
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   if (event)
@@ -2799,8 +2739,8 @@ LABEL_12:
     if (firstObject && state != [firstObject state])
     {
       [event[24] addObjectsFromArray:event[23]];
-      v10[0] = v4;
-      v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+      v9[0] = v4;
+      v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
       [event[23] setArray:v8];
       [event[22] setArray:v8];
     }
@@ -2811,14 +2751,12 @@ LABEL_12:
       [event[22] addObject:v4];
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logForPerformEvent:(void *)event currentState:(void *)state targetState:(int)targetState matchesPrewarm:(void *)prewarm pendingPrewarmedEvent:
 {
-  v103[1] = *MEMORY[0x277D85DE8];
-  v72 = a2;
+  v102[1] = *MEMORY[0x277D85DE8];
+  v71 = a2;
   eventCopy = event;
   stateCopy = state;
   prewarmCopy = prewarm;
@@ -2838,8 +2776,8 @@ LABEL_12:
         v19 = [BLSHBacklightEnvironmentPresentation alloc];
         presentationEntries2 = [presentation2 presentationEntries];
         firstObject = [presentationEntries2 firstObject];
-        v103[0] = firstObject;
-        v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v103 count:1];
+        v102[0] = firstObject;
+        v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v102 count:1];
         flipbookContext = [presentation2 flipbookContext];
         [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:20.0];
         v25 = v24 = presentation;
@@ -2852,11 +2790,11 @@ LABEL_12:
       v27 = [presentation2 differenceFromPresentation:presentation];
       insertions = [v27 insertions];
       removals = [v27 removals];
-      v68 = insertions;
-      v66 = [insertions count];
-      v67 = removals;
+      v67 = insertions;
+      v65 = [insertions count];
+      v66 = removals;
       v30 = [removals count];
-      changeRequest = [v72 changeRequest];
+      changeRequest = [v71 changeRequest];
       v32 = bls_backlight_log();
       targetStateCopy = targetState;
       if (targetState)
@@ -2874,24 +2812,24 @@ LABEL_12:
       {
         v35 = @"(unmatched prewarm event) ";
         v36 = &stru_283373E60;
-        v64 = targetStateCopy;
+        v63 = targetStateCopy;
         if (targetStateCopy)
         {
           v35 = &stru_283373E60;
         }
 
-        v54 = v35;
-        eventID = [v72 eventID];
-        [v72 previousState];
-        v62 = NSStringFromBLSBacklightState();
-        [v72 state];
+        v53 = v35;
+        eventID = [v71 eventID];
+        [v71 previousState];
         v61 = NSStringFromBLSBacklightState();
+        [v71 state];
+        v60 = NSStringFromBLSBacklightState();
         [changeRequest sourceEvent];
-        v60 = NSStringFromBLSBacklightChangeSourceEvent();
+        v59 = NSStringFromBLSBacklightChangeSourceEvent();
         [changeRequest explanation];
-        v57 = v56 = eventCopy;
-        v59 = NSStringFromBLSBacklightDisplayMode([eventCopy displayMode]);
-        v58 = NSStringFromBLSBacklightDisplayMode([stateCopy displayMode]);
+        v56 = v55 = eventCopy;
+        v58 = NSStringFromBLSBacklightDisplayMode([eventCopy displayMode]);
+        v57 = NSStringFromBLSBacklightDisplayMode([stateCopy displayMode]);
         if (presentation != presentation2)
         {
           v37 = MEMORY[0x277CCACA8];
@@ -2901,11 +2839,11 @@ LABEL_12:
           v36 = [v37 stringWithFormat:@"presentation:%p(%lu)->%p(%lu)", presentation, v38, presentation2, objc_msgSend(presentationEntries4, "count")];
         }
 
-        if (v66)
+        if (v65)
         {
           v39 = MEMORY[0x277CCACA8];
-          v51 = [v68 bs_map:&__block_literal_global_186];
-          v40 = [v39 stringWithFormat:@"\nadded %@", v51];
+          v50 = [v67 bs_map:&__block_literal_global_186];
+          v40 = [v39 stringWithFormat:@"\nadded %@", v50];
         }
 
         else
@@ -2913,16 +2851,16 @@ LABEL_12:
           v40 = &stru_283373E60;
         }
 
-        v55 = presentation;
+        v54 = presentation;
         if (v30)
         {
           v41 = v40;
           bls_shortLoggingString2 = 0x277CCA000;
           v43 = MEMORY[0x277CCACA8];
-          v49 = [v67 bs_map:&__block_literal_global_194];
+          v48 = [v66 bs_map:&__block_literal_global_194];
           v44 = v43;
           v40 = v41;
-          v45 = [v44 stringWithFormat:@"\nremoved %@", v49];
+          v45 = [v44 stringWithFormat:@"\nremoved %@", v48];
         }
 
         else
@@ -2932,7 +2870,7 @@ LABEL_12:
         }
 
         bls_shortLoggingString = [presentation2 bls_shortLoggingString];
-        if (v64)
+        if (v63)
         {
           v46 = &stru_283373E60;
         }
@@ -2945,37 +2883,37 @@ LABEL_12:
         }
 
         *buf = 134221570;
-        v74 = selfCopy;
-        v75 = 2114;
-        v76 = v54;
-        v77 = 2048;
-        v78 = eventID;
-        v79 = 2048;
-        v80 = v72;
-        v81 = 2114;
-        v82 = v62;
-        v83 = 2114;
-        v84 = v61;
-        v85 = 2114;
-        v86 = v60;
-        v87 = 2114;
-        v88 = v57;
-        v89 = 2114;
-        v90 = v59;
-        v91 = 2114;
-        v92 = v58;
-        v93 = 2114;
-        v94 = v36;
-        v95 = 2114;
-        v96 = v40;
-        v97 = 2114;
-        v98 = v45;
-        v99 = 2114;
-        v100 = bls_shortLoggingString;
-        v101 = 2114;
-        v102 = v46;
+        v73 = selfCopy;
+        v74 = 2114;
+        v75 = v53;
+        v76 = 2048;
+        v77 = eventID;
+        v78 = 2048;
+        v79 = v71;
+        v80 = 2114;
+        v81 = v61;
+        v82 = 2114;
+        v83 = v60;
+        v84 = 2114;
+        v85 = v59;
+        v86 = 2114;
+        v87 = v56;
+        v88 = 2114;
+        v89 = v58;
+        v90 = 2114;
+        v91 = v57;
+        v92 = 2114;
+        v93 = v36;
+        v94 = 2114;
+        v95 = v40;
+        v96 = 2114;
+        v97 = v45;
+        v98 = 2114;
+        v99 = bls_shortLoggingString;
+        v100 = 2114;
+        v101 = v46;
         _os_log_impl(&dword_21FD11000, log, v34, "TSM:%p %{public}@will performEvent(%llu:%p) %{public}@->%{public}@ %{public}@:%{public}@ %{public}@->%{public}@ %{public}@%{public}@%{public}@\n%{public}@%{public}@", buf, 0x98u);
-        if ((v64 & 1) == 0)
+        if ((v63 & 1) == 0)
         {
         }
 
@@ -2983,20 +2921,18 @@ LABEL_12:
         {
         }
 
-        eventCopy = v56;
-        if (v66)
+        eventCopy = v55;
+        if (v65)
         {
         }
 
-        presentation = v55;
-        if (v55 != presentation2)
+        presentation = v54;
+        if (v54 != presentation2)
         {
         }
       }
     }
   }
-
-  v48 = *MEMORY[0x277D85DE8];
 }
 
 - (id)lock_displayOperationForTarget:(uint64_t)target isNullOperationAllowed:
@@ -3033,10 +2969,9 @@ LABEL_12:
 
 - (void)onMainWithLock_stopPresentationEngineIfNeededForDisplayMode:(uint64_t)mode
 {
-  v24 = *MEMORY[0x277D85DE8];
   if (!mode)
   {
-    goto LABEL_23;
+    return;
   }
 
   v5 = *(mode + 40);
@@ -3100,24 +3035,19 @@ LABEL_17:
     v14 = bls_backlight_log();
     if (OUTLINED_FUNCTION_32_0(v14))
     {
-      v15 = *(mode + 136);
-      v16 = NSStringFromBLSBacklightDisplayMode(a2);
+      v15 = NSStringFromBLSBacklightDisplayMode(a2);
       OUTLINED_FUNCTION_8_2();
       OUTLINED_FUNCTION_27();
-      _os_log_impl(v17, v18, v19, v20, v21, 0x20u);
+      _os_log_impl(v16, v17, v18, v19, v20, 0x20u);
     }
   }
 
-  v22 = *(mode + 136);
+  v21 = *(mode + 136);
   *(mode + 136) = 0;
-
-LABEL_23:
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (id)onMainWithLock_onScreenSpecifierForDisplayMode:(uint64_t)mode
 {
-  v18 = *MEMORY[0x277D85DE8];
   if (mode)
   {
     if (a2 == 2)
@@ -3139,11 +3069,11 @@ LABEL_23:
     v9 = bls_backlight_log();
     if (OUTLINED_FUNCTION_44(v9))
     {
-      v12 = NSStringFromBLSBacklightDisplayMode(a2);
+      v11 = NSStringFromBLSBacklightDisplayMode(a2);
       bls_shortLoggingString = [onGlassFlipbookFrame bls_shortLoggingString];
       OUTLINED_FUNCTION_1_0();
       OUTLINED_FUNCTION_16_2();
-      _os_log_debug_impl(v14, v15, OS_LOG_TYPE_DEBUG, v16, v17, 0x20u);
+      _os_log_debug_impl(v13, v14, OS_LOG_TYPE_DEBUG, v15, v16, 0x20u);
     }
   }
 
@@ -3151,8 +3081,6 @@ LABEL_23:
   {
     v8 = 0;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -3197,7 +3125,7 @@ LABEL_23:
 - (id)onMainWithLock_performEventOperationIfNeededWhenBeforeDisplayBlankingChange:(id *)change
 {
   changeCopy = change;
-  v33 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   if (!change)
   {
     goto LABEL_9;
@@ -3205,12 +3133,12 @@ LABEL_23:
 
   if ([change[22] count])
   {
-    firstObject = [*(changeCopy + 22) firstObject];
+    firstObject = [changeCopy[22] firstObject];
     if ((([firstObject state] == 0) ^ a2))
     {
-      v11 = [*(changeCopy + 22) copy];
-      [*(changeCopy + 22) removeAllObjects];
-      changeCopy = [(BLSHBacklightTransitionStateMachine *)changeCopy onMainWithLock_environmentUpdateOperationForEvents:v11];
+      v9 = [changeCopy[22] copy];
+      [changeCopy[22] removeAllObjects];
+      changeCopy = [(BLSHBacklightTransitionStateMachine *)changeCopy onMainWithLock_environmentUpdateOperationForEvents:v9];
 
       goto LABEL_9;
     }
@@ -3218,69 +3146,66 @@ LABEL_23:
     goto LABEL_6;
   }
 
-  if (!*(changeCopy + 13))
+  if (!changeCopy[13])
   {
 LABEL_6:
     v5 = bls_backlight_log();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      v8 = *(changeCopy + 22);
-      v9 = NSStringFromBLSBacklightChangeEvents();
+      v7 = NSStringFromBLSBacklightChangeEvents();
       OUTLINED_FUNCTION_18_1();
-      v29 = 1024;
-      v30 = a2;
-      v31 = 2114;
-      v32 = v10;
-      _os_log_debug_impl(&dword_21FD11000, v5, OS_LOG_TYPE_DEBUG, "TSM:%p (findNextOperation) no environmentPerformUpdate operation needed isBeforeDisplayBlankingChange:%{BOOL}u (queuedEvents:%{public}@})", v28, 0x1Cu);
+      v26 = 1024;
+      v27 = a2;
+      v28 = 2114;
+      v29 = v8;
+      _os_log_debug_impl(&dword_21FD11000, v5, OS_LOG_TYPE_DEBUG, "TSM:%p (findNextOperation) no environmentPerformUpdate operation needed isBeforeDisplayBlankingChange:%{BOOL}u (queuedEvents:%{public}@})", v25, 0x1Cu);
     }
 
     changeCopy = 0;
     goto LABEL_9;
   }
 
-  [*(changeCopy + 20) displayMode];
-  v12 = OUTLINED_FUNCTION_30_0();
-  v14 = [(BLSHBacklightTransitionStateMachine *)v12 willUnblankTransitioningToDisplayMode:v13];
-  v15 = *(changeCopy + 16);
-  if (v15 && [v15 isCompleted] && (objc_msgSend(*(changeCopy + 16), "isDirectRamp") & 1) == 0 && *(changeCopy + 20))
+  [changeCopy[20] displayMode];
+  v10 = OUTLINED_FUNCTION_30_0();
+  v12 = [(BLSHBacklightTransitionStateMachine *)v10 willUnblankTransitioningToDisplayMode:v11];
+  v13 = changeCopy[16];
+  if (v13 && [v13 isCompleted] && (objc_msgSend(changeCopy[16], "isDirectRamp") & 1) == 0 && changeCopy[20])
   {
-    last = [*(changeCopy + 16) last];
+    last = [changeCopy[16] last];
     targetDisplayMode = [last targetDisplayMode];
-    v18 = targetDisplayMode == [*(changeCopy + 20) displayMode];
+    v16 = targetDisplayMode == [changeCopy[20] displayMode];
   }
 
   else
   {
-    v18 = 0;
+    v16 = 0;
   }
 
-  v19 = *(changeCopy + 13);
-  if (a2 && (v14 || v18))
+  v17 = changeCopy[13];
+  if (a2 && (v12 || v16))
   {
-    if ([v19 didUpdateInitialState])
+    if ([v17 didUpdateInitialState])
     {
       goto LABEL_6;
     }
   }
 
-  else if ([v19 isCompleted])
+  else if ([v17 isCompleted])
   {
     goto LABEL_6;
   }
 
-  v20 = bls_backlight_log();
-  if (OUTLINED_FUNCTION_33_0(v20))
+  v18 = bls_backlight_log();
+  if (OUTLINED_FUNCTION_33_0(v18))
   {
-    v21 = *(changeCopy + 13);
     OUTLINED_FUNCTION_18_1();
     OUTLINED_FUNCTION_11_2();
     OUTLINED_FUNCTION_13_3();
-    _os_log_debug_impl(v22, v23, v24, v25, v26, v27);
+    _os_log_debug_impl(v19, v20, v21, v22, v23, v24);
   }
 
-  changeCopy = *(changeCopy + 13);
+  changeCopy = changeCopy[13];
 LABEL_9:
-  v6 = *MEMORY[0x277D85DE8];
 
   return changeCopy;
 }
@@ -3298,7 +3223,7 @@ LABEL_9:
 
 - (BLSHPendingEnvironmentUpdateOperation)onMainWithLock_environmentUpdateOperationForEvents:(BLSHPendingEnvironmentUpdateOperation *)events
 {
-  v101 = *MEMORY[0x277D85DE8];
+  v100 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (events)
   {
@@ -3323,9 +3248,9 @@ LABEL_9:
       {
         v10 = NSStringFromBLSBacklightChangeEvents();
         OUTLINED_FUNCTION_6_5(3.8522e-34);
-        v98 = v8;
-        v99 = v11;
-        v100 = v12;
+        v97 = v8;
+        v98 = v11;
+        v99 = v12;
         OUTLINED_FUNCTION_22_1();
         _os_log_impl(v13, v14, v15, v16, v17, v18);
       }
@@ -3335,11 +3260,11 @@ LABEL_9:
       block[2] = __90__BLSHBacklightTransitionStateMachine_onMainWithLock_environmentUpdateOperationForEvents___block_invoke;
       block[3] = &unk_27841E538;
       v19 = v8;
-      v94 = v19;
+      v93 = v19;
       eventsCopy = events;
       dispatch_async(MEMORY[0x277D85CD0], block);
       events = v19;
-      initialSpecifier = v94;
+      initialSpecifier = v93;
     }
 
     else
@@ -3351,33 +3276,33 @@ LABEL_9:
 
       else
       {
-        v91 = 0u;
-        v92 = 0u;
-        v89 = 0u;
         v90 = 0u;
+        v91 = 0u;
+        v88 = 0u;
+        v89 = 0u;
         v22 = v3;
-        v23 = [v22 countByEnumeratingWithState:&v89 objects:v97 count:16];
+        v23 = [v22 countByEnumeratingWithState:&v88 objects:v96 count:16];
         if (v23)
         {
           v24 = v23;
-          v25 = *v90;
+          v25 = *v89;
           while (2)
           {
             for (i = 0; i != v24; ++i)
             {
-              if (*v90 != v25)
+              if (*v89 != v25)
               {
                 objc_enumerationMutation(v22);
               }
 
-              if ([*(*(&v89 + 1) + 8 * i) isEnvironmentTransitionAnimated])
+              if ([*(*(&v88 + 1) + 8 * i) isEnvironmentTransitionAnimated])
               {
                 v21 = 1;
                 goto LABEL_20;
               }
             }
 
-            v24 = [v22 countByEnumeratingWithState:&v89 objects:v97 count:16];
+            v24 = [v22 countByEnumeratingWithState:&v88 objects:v96 count:16];
             if (v24)
             {
               continue;
@@ -3399,9 +3324,9 @@ LABEL_20:
           v28 = [*&events[1]._started description];
           v29 = NSStringFromBLSBacklightDisplayMode(displayMode);
           OUTLINED_FUNCTION_6_5(3.8522e-34);
-          v98 = v28;
-          v99 = v30;
-          v100 = v31;
+          v97 = v28;
+          v98 = v30;
+          v99 = v31;
           OUTLINED_FUNCTION_22_1();
           _os_log_impl(v32, v33, v34, v35, v36, v37);
         }
@@ -3409,8 +3334,8 @@ LABEL_20:
 
       else
       {
-        v76 = OUTLINED_FUNCTION_41();
-        [(BLSHBacklightTransitionStateMachine *)v76 onMainWithLock_stopPresentationEngineIfNeededForDisplayMode:v77];
+        v75 = OUTLINED_FUNCTION_41();
+        [(BLSHBacklightTransitionStateMachine *)v75 onMainWithLock_stopPresentationEngineIfNeededForDisplayMode:v76];
       }
 
       firstObject = [v3 firstObject];
@@ -3429,9 +3354,9 @@ LABEL_20:
             {
               v43 = NSStringFromBLSBacklightChangeEvents();
               OUTLINED_FUNCTION_6_5(3.8522e-34);
-              v98 = initialSpecifier;
-              v99 = v44;
-              v100 = v45;
+              v97 = initialSpecifier;
+              v98 = v44;
+              v99 = v45;
               OUTLINED_FUNCTION_22_1();
               _os_log_impl(v46, v47, v48, v49, v50, v51);
             }
@@ -3484,35 +3409,35 @@ LABEL_20:
 
       else
       {
-        v87 = 0u;
-        v88 = 0u;
-        v85 = 0u;
         v86 = 0u;
+        v87 = 0u;
+        v84 = 0u;
+        v85 = 0u;
         v60 = v3;
-        v61 = [v60 countByEnumeratingWithState:&v85 objects:v96 count:16];
+        v61 = [v60 countByEnumeratingWithState:&v84 objects:v95 count:16];
         if (v61)
         {
           v62 = v61;
-          v84 = v39;
+          v83 = v39;
           v59 = v21 ^ 1;
-          v63 = *v86;
+          v63 = *v85;
           while (2)
           {
             for (j = 0; j != v62; ++j)
             {
-              if (*v86 != v63)
+              if (*v85 != v63)
               {
                 objc_enumerationMutation(v60);
               }
 
-              if (![*(*(&v85 + 1) + 8 * j) isTransitionForcedUnanimated])
+              if (![*(*(&v84 + 1) + 8 * j) isTransitionForcedUnanimated])
               {
                 v59 = 0;
                 goto LABEL_54;
               }
             }
 
-            v62 = [v60 countByEnumeratingWithState:&v85 objects:v96 count:16];
+            v62 = [v60 countByEnumeratingWithState:&v84 objects:v95 count:16];
             if (v62)
             {
               continue;
@@ -3522,7 +3447,7 @@ LABEL_20:
           }
 
 LABEL_54:
-          v39 = v84;
+          v39 = v83;
         }
 
         else
@@ -3539,9 +3464,9 @@ LABEL_54:
         if (os_log_type_enabled(v65, OS_LOG_TYPE_INFO))
         {
           OUTLINED_FUNCTION_6_5(3.8522e-34);
-          v98 = v55;
-          v99 = v67;
-          v100 = v58;
+          v97 = v55;
+          v98 = v67;
+          v99 = v58;
           OUTLINED_FUNCTION_22_1();
           _os_log_impl(v68, v69, v70, v71, v72, v73);
         }
@@ -3550,16 +3475,14 @@ LABEL_54:
       else if (os_log_type_enabled(v65, OS_LOG_TYPE_DEBUG))
       {
         OUTLINED_FUNCTION_6_5(3.8521e-34);
-        v98 = v58;
+        v97 = v58;
         OUTLINED_FUNCTION_13_3();
-        _os_log_debug_impl(v78, v79, v80, v81, v82, v83);
+        _os_log_debug_impl(v77, v78, v79, v80, v81, v82);
       }
 
       events = v58;
     }
   }
-
-  v74 = *MEMORY[0x277D85DE8];
 
   return events;
 }
@@ -3585,7 +3508,6 @@ LABEL_54:
 
   v5 = BLSBacklightStateForBLSBacklightDisplayMode(a2);
   v6 = BLSBacklightStateForBLSBacklightDisplayMode(mode);
-  v7 = *(self + 248);
   if (objc_opt_respondsToSelector())
   {
     if (([*(self + 248) isTransitionForcedUnanimatedToState:v5 fromPreviousState:v6] & 1) == 0)
@@ -3596,32 +3518,30 @@ LABEL_54:
     return 0;
   }
 
-  v11 = OUTLINED_FUNCTION_41();
-  if (DefaultIsTransitionForcedUnanimated(v11, v12))
+  v9 = OUTLINED_FUNCTION_41();
+  if (DefaultIsTransitionForcedUnanimated(v9, v10))
   {
     return 0;
   }
 
 LABEL_4:
-  v8 = *(self + 248);
   if (objc_opt_respondsToSelector())
   {
-    v9 = *(self + 248);
+    v7 = *(self + 248);
 
-    return [v9 isEnvironmentTransitionAnimatedToState:v5 fromPreviousState:v6];
+    return [v7 isEnvironmentTransitionAnimatedToState:v5 fromPreviousState:v6];
   }
 
   else
   {
-    v13 = OUTLINED_FUNCTION_41();
+    v11 = OUTLINED_FUNCTION_41();
 
-    return DefaultIsEnvironmentTransitionAnimated(v13, v14);
+    return DefaultIsEnvironmentTransitionAnimated(v11, v12);
   }
 }
 
 - (void)_lock_setPendingUpdateDisplayMode:(uint64_t)mode
 {
-  v16 = *MEMORY[0x277D85DE8];
   v5 = a2;
   if (mode)
   {
@@ -3669,13 +3589,11 @@ LABEL_11:
   }
 
 LABEL_13:
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (NSObject)_lock_ensureFlipbookCurrent
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (!self)
   {
 LABEL_7:
@@ -3697,7 +3615,7 @@ LABEL_7:
     if (OUTLINED_FUNCTION_33_0(v4))
     {
       OUTLINED_FUNCTION_18_1();
-      _os_log_debug_impl(&dword_21FD11000, v3, OS_LOG_TYPE_DEBUG, "TSM:%p flipbookIsStale=NO ensureCurrent completed", v9, 0xCu);
+      _os_log_debug_impl(&dword_21FD11000, v3, OS_LOG_TYPE_DEBUG, "TSM:%p flipbookIsStale=NO ensureCurrent completed", v8, 0xCu);
     }
 
     goto LABEL_7;
@@ -3709,14 +3627,13 @@ LABEL_7:
 
   v3 = v5;
 LABEL_9:
-  v7 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (void)environmentStateMachineDidBeginUpdateToState:(uint64_t)state
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if (state)
   {
     os_unfair_lock_lock((state + 8));
@@ -3737,19 +3654,19 @@ LABEL_9:
     v9 = bls_backlight_log();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      v11 = NSStringFromBLSBacklightState();
-      v12 = *(state + 104);
-      v13 = NSStringFromBLSBacklightChangeEvents();
+      v10 = NSStringFromBLSBacklightState();
+      v11 = *(state + 104);
+      v12 = NSStringFromBLSBacklightChangeEvents();
       *buf = 134219010;
       stateCopy = state;
-      v18 = 2114;
-      v19 = v11;
-      v20 = 1024;
-      v21 = v8;
-      v22 = 2114;
-      v23 = v12;
-      v24 = 2114;
-      v25 = v13;
+      v17 = 2114;
+      v18 = v10;
+      v19 = 1024;
+      v20 = v8;
+      v21 = 2114;
+      v22 = v11;
+      v23 = 2114;
+      v24 = v12;
       _os_log_debug_impl(&dword_21FD11000, v9, OS_LOG_TYPE_DEBUG, "TSM:%p didBeginUpdateToState:%{public}@ matchesPendingEvent:%{BOOL}u pendingEvent:%{public}@ events:%{public}@", buf, 0x30u);
     }
 
@@ -3759,8 +3676,8 @@ LABEL_9:
       os_unfair_lock_unlock((state + 8));
       OUTLINED_FUNCTION_12();
       OUTLINED_FUNCTION_3_2();
-      v14 = v4;
-      v15 = v5;
+      v13 = v4;
+      v14 = v5;
       BSDispatchMain();
     }
 
@@ -3769,13 +3686,11 @@ LABEL_9:
       os_unfair_lock_unlock((state + 8));
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)environmentStateMachineDidCompleteUpdateToState:(uint64_t)state
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (state)
   {
     v4 = OUTLINED_FUNCTION_15_2(state);
@@ -3795,14 +3710,13 @@ LABEL_9:
     v8 = bls_backlight_log();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      v13 = NSStringFromBLSBacklightState();
-      v14 = *(v2 + 104);
+      v11 = NSStringFromBLSBacklightState();
       OUTLINED_FUNCTION_2_4();
-      v19 = v15;
-      v20 = 1024;
-      v21 = v7;
-      v22 = v16;
-      v23 = v17;
+      v16 = v12;
+      v17 = 1024;
+      v18 = v7;
+      v19 = v13;
+      v20 = v14;
       _os_log_debug_impl(&dword_21FD11000, v8, OS_LOG_TYPE_DEBUG, "TSM:%p environmentStateMachine didCompleteUpdateToState:%{public}@ matchesPendingEvent:%{BOOL}u pendingEvent:%{public}@ ", buf, 0x26u);
     }
 
@@ -3812,9 +3726,8 @@ LABEL_9:
       v9 = bls_backlight_log();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
-        v10 = *(v2 + 104);
         OUTLINED_FUNCTION_2_4();
-        v19 = v11;
+        v16 = v10;
         _os_log_impl(&dword_21FD11000, v9, OS_LOG_TYPE_INFO, "TSM:%p completed pendingEnvironmentUpdate %{public}@", buf, 0x16u);
       }
 
@@ -3829,13 +3742,11 @@ LABEL_9:
       os_unfair_lock_unlock((v2 + 8));
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)environmentStateMachine:(id)machine didUpdateToPresentation:(id)presentation
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   presentationCopy = presentation;
   os_unfair_lock_lock(&self->_lock);
   lock_pendingUpdatePresentation = self->_lock_pendingUpdatePresentation;
@@ -3846,11 +3757,10 @@ LABEL_9:
     v11 = bls_backlight_log();
     if (OUTLINED_FUNCTION_32_0(v11))
     {
-      v12 = self->_lock_pendingUpdatePresentation;
       OUTLINED_FUNCTION_37_0();
       OUTLINED_FUNCTION_26_0();
       OUTLINED_FUNCTION_27_0();
-      _os_log_impl(v13, v14, v15, v16, v17, 0x16u);
+      _os_log_impl(v12, v13, v14, v15, v16, 0x16u);
     }
 
     self->_lock_flipbookIsStale = 1;
@@ -3862,38 +3772,35 @@ LABEL_9:
   }
 
   withLock_ensureTargetStateCreated = [(BLSHBacklightTransitionStateMachine *)self withLock_ensureTargetStateCreated];
-  v19 = [(BLSHBacklightTransitionStateMachine *)self lock_displayModeForBacklightState:?];
-  v20 = bls_backlight_log();
-  if (OUTLINED_FUNCTION_44(v20))
+  v18 = [(BLSHBacklightTransitionStateMachine *)self lock_displayModeForBacklightState:?];
+  v19 = bls_backlight_log();
+  if (OUTLINED_FUNCTION_44(v19))
   {
-    v25 = NSStringFromBLSBacklightDisplayMode(v19);
-    v26 = self->_lock_pendingUpdatePresentation;
+    v23 = NSStringFromBLSBacklightDisplayMode(v18);
     OUTLINED_FUNCTION_37_0();
-    v32 = 2114;
-    v33 = presentationCopy;
-    v34 = 1024;
-    v35 = v10;
-    v36 = 2114;
-    v37 = v27;
-    v38 = 2114;
-    v39 = v28;
+    v29 = 2114;
+    v30 = presentationCopy;
+    v31 = 1024;
+    v32 = v10;
+    v33 = 2114;
+    v34 = v24;
+    v35 = 2114;
+    v36 = v25;
     _os_log_debug_impl(&dword_21FD11000, v4, OS_LOG_TYPE_DEBUG, "TSM:%p didUpdateToPresentation:%{public}@ matchesPendingUpdate:%{BOOL}u targetDisplayMode:%{public}@ pending:%{public}@", buf, 0x30u);
   }
 
-  [withLock_ensureTargetStateCreated setDisplayMode:v19];
+  [withLock_ensureTargetStateCreated setDisplayMode:v18];
   os_unfair_lock_unlock(&self->_lock);
   if (v10)
   {
-    v21 = self->_lock_session;
+    v20 = self->_lock_session;
     OUTLINED_FUNCTION_0_5();
     OUTLINED_FUNCTION_18();
-    v29 = v22;
-    v30 = presentationCopy;
-    v23 = v21;
+    v26 = v21;
+    v27 = presentationCopy;
+    v22 = v20;
     BSDispatchMain();
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateTargetAndPerformNextStepForUnrestrictedFramerateChangeWithEnvironment:(uint64_t)environment
@@ -3903,67 +3810,65 @@ LABEL_9:
   if (environment)
   {
     os_unfair_lock_lock((environment + 8));
-    v4 = *(environment + 72);
+    v5 = *(environment + 72);
     if (*(environment + 240))
     {
-      v5 = 1;
+      v6 = 1;
     }
 
     else
     {
-      v5 = [(BLSHBacklightTransitionStateMachine *)environment hasUnrestrictedFramerateWithSession:?];
+      v6 = [(BLSHBacklightTransitionStateMachine *)environment hasUnrestrictedFramerateWithSession:?];
     }
 
-    if (v4 == 1 && v5 != 0)
+    if (v5 == 1 && v6 != 0)
     {
       [(BLSHBacklightTransitionStateMachine *)environment withLock_acquireTransitionAPAwakeAssertion];
     }
 
     withLock_ensureTargetStateCreated = [(BLSHBacklightTransitionStateMachine *)environment withLock_ensureTargetStateCreated];
     displayMode = [withLock_ensureTargetStateCreated displayMode];
-    v9 = [(BLSHBacklightTransitionStateMachine *)environment lock_displayModeForBacklightState:?];
-    v10 = bls_backlight_log();
-    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG);
+    v10 = [(BLSHBacklightTransitionStateMachine *)environment lock_displayModeForBacklightState:?];
+    v11 = bls_backlight_log();
+    v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG);
     if (v3)
     {
-      if (v11)
+      if (v12)
       {
         identifier = [v3 identifier];
-        v12 = NSStringFromBLSBacklightDisplayMode(v9);
+        v13 = NSStringFromBLSBacklightDisplayMode(v10);
         OUTLINED_FUNCTION_23_0();
         v27 = identifier;
-        v28 = v13;
-        v29 = v14;
-        v30 = v13;
+        v28 = v14;
+        v29 = v15;
+        v30 = v14;
         v31 = withLock_ensureTargetStateCreated;
-        _os_log_debug_impl(&dword_21FD11000, v10, OS_LOG_TYPE_DEBUG, "TSM:%p changed unrestrictedFramerate:%{BOOL}u forEnvironment:%{public}@ targetDisplayMode:%{public}@ previousTarget:%{public}@", buf, 0x30u);
+        _os_log_debug_impl(&dword_21FD11000, v11, OS_LOG_TYPE_DEBUG, "TSM:%p changed unrestrictedFramerate:%{BOOL}u forEnvironment:%{public}@ targetDisplayMode:%{public}@ previousTarget:%{public}@", buf, 0x30u);
       }
     }
 
-    else if (v11)
+    else if (v12)
     {
-      v19 = NSStringFromBLSBacklightDisplayMode(v9);
+      v19 = NSStringFromBLSBacklightDisplayMode(v10);
       OUTLINED_FUNCTION_23_0();
       v27 = v20;
       v28 = v21;
       v29 = withLock_ensureTargetStateCreated;
-      _os_log_debug_impl(&dword_21FD11000, v10, OS_LOG_TYPE_DEBUG, "TSM:%p changed global unrestrictedFramerate:%{BOOL}u targetDisplayMode:%{public}@ previousTarget:%{public}@", buf, 0x26u);
+      _os_log_debug_impl(&dword_21FD11000, v11, OS_LOG_TYPE_DEBUG, "TSM:%p changed global unrestrictedFramerate:%{BOOL}u targetDisplayMode:%{public}@ previousTarget:%{public}@", buf, 0x26u);
     }
 
-    [withLock_ensureTargetStateCreated setDisplayMode:v9];
-    v15 = *(environment + 256);
-    v16 = *(environment + 32);
+    [withLock_ensureTargetStateCreated setDisplayMode:v10];
+    v16 = *(environment + 256);
+    v17 = *(environment + 32);
     os_unfair_lock_unlock((environment + 8));
-    if (displayMode != v9 || v4 == 1)
+    if (displayMode != v10 || v5 == 1)
     {
-      v23 = v15;
+      v23 = v16;
       v24 = v3;
-      v25 = v16;
+      v25 = v17;
       BSDispatchMain();
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setGlobalHighLuminanceAlwaysOn:(BOOL)on
@@ -3981,11 +3886,11 @@ LABEL_9:
   os_unfair_lock_unlock(&self->_lock);
   if (lock_globalHighLuminanceAlwaysOn != onCopy)
   {
-    v7 = self->_displayStateMachine;
+    v8 = self->_displayStateMachine;
     OUTLINED_FUNCTION_12();
     OUTLINED_FUNCTION_3_2();
-    v10 = v8;
-    v9 = v8;
+    v11 = v9;
+    v10 = v9;
     BSDispatchMain();
   }
 }
@@ -3998,12 +3903,12 @@ LABEL_9:
   os_unfair_lock_lock(&self->_lock);
   [(BLSHBacklightTransitionStateMachine *)self withLock_acquireTransitionAPAwakeAssertion];
   withLock_ensureTargetStateCreated = [(BLSHBacklightTransitionStateMachine *)self withLock_ensureTargetStateCreated];
-  v8 = [(BLSHBacklightTransitionStateMachine *)self lock_displayModeForBacklightState:?];
-  v9 = bls_backlight_log();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  v9 = [(BLSHBacklightTransitionStateMachine *)self lock_displayModeForBacklightState:?];
+  v10 = bls_backlight_log();
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     identifier = [environmentCopy identifier];
-    v11 = NSStringFromBLSBacklightDisplayMode(v8);
+    v12 = NSStringFromBLSBacklightDisplayMode(v9);
     *buf = 134219010;
     selfCopy = self;
     v15 = 1024;
@@ -4011,19 +3916,17 @@ LABEL_9:
     v17 = 2114;
     v18 = identifier;
     v19 = 2114;
-    v20 = v11;
+    v20 = v12;
     v21 = 2114;
     v22 = withLock_ensureTargetStateCreated;
-    _os_log_impl(&dword_21FD11000, v9, OS_LOG_TYPE_INFO, "TSM:%p hostDidSetAlwaysOnEnabled:%{BOOL}u forEnvironment:%{public}@ targetDisplayMode:%{public}@ previousTarget:%{public}@", buf, 0x30u);
+    _os_log_impl(&dword_21FD11000, v10, OS_LOG_TYPE_INFO, "TSM:%p hostDidSetAlwaysOnEnabled:%{BOOL}u forEnvironment:%{public}@ targetDisplayMode:%{public}@ previousTarget:%{public}@", buf, 0x30u);
   }
 
-  [withLock_ensureTargetStateCreated setDisplayMode:v8];
+  [withLock_ensureTargetStateCreated setDisplayMode:v9];
   os_unfair_lock_unlock(&self->_lock);
   OUTLINED_FUNCTION_0_5();
   OUTLINED_FUNCTION_18();
   BSDispatchMain();
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)onMain_updateHostEnvironmentAndPerformNextStep:(uint64_t)step
@@ -4084,42 +3987,41 @@ LABEL_9:
 
 - (BOOL)hostEnvironment:(id)environment didAmendSceneSettings:(id)settings
 {
-  v102 = *MEMORY[0x277D85DE8];
+  v100 = *MEMORY[0x277D85DE8];
   environmentCopy = environment;
   settingsCopy = settings;
   os_unfair_lock_lock(&self->_lock);
   isForeground = [settingsCopy isForeground];
-  lock_backlightState = self->_lock_backlightState;
   presentation = [(BLSHBacklightAggregateState *)self->_currentState presentation];
   withLock_isTransitioning = [(BLSHBacklightTransitionStateMachine *)self withLock_isTransitioning];
   os_unfair_lock_unlock(&self->_lock);
-  v12 = [presentation containsEnvironment:environmentCopy];
+  v11 = [presentation containsEnvironment:environmentCopy];
   presentationDate = [environmentCopy presentationDate];
   bls_presentationDate = [settingsCopy bls_presentationDate];
   if (bls_presentationDate)
   {
-    v14 = BSEqualObjects();
+    v13 = BSEqualObjects();
   }
 
   else
   {
-    v14 = 1;
+    v13 = 1;
   }
 
-  v15 = (isForeground | withLock_isTransitioning) & v12;
-  v83 = (v15 ^ 1) & v14;
-  if (v83)
+  v14 = (isForeground | withLock_isTransitioning) & v11;
+  v81 = (v14 ^ 1) & v13;
+  if (v81)
   {
-    v80 = bls_presentationDate;
-    v16 = OUTLINED_FUNCTION_38_0();
-    v21 = BLSVisualStateForBacklightStateAndSettings(v16, v17, v18, v19, v20);
-    v22 = bls_backlight_log();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+    v78 = bls_presentationDate;
+    v15 = OUTLINED_FUNCTION_38_0();
+    v20 = BLSVisualStateForBacklightStateAndSettings(v15, v16, v17, v18, v19);
+    v21 = bls_backlight_log();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
     {
       identifier = [environmentCopy identifier];
-      v23 = NSStringFromBLSBacklightState();
-      bls_shortLoggingString = [v21 bls_shortLoggingString];
-      v61 = v12 & 1;
+      v22 = NSStringFromBLSBacklightState();
+      bls_shortLoggingString = [v20 bls_shortLoggingString];
+      v59 = v11 & 1;
       bls_shortLoggingString2 = [presentation bls_shortLoggingString];
       visualState = [environmentCopy visualState];
       bls_shortLoggingString3 = [visualState bls_shortLoggingString];
@@ -4127,149 +4029,145 @@ LABEL_9:
       bls_shortLoggingString4 = [presentationDate2 bls_shortLoggingString];
       bls_visualState = [settingsCopy bls_visualState];
       [bls_visualState bls_shortLoggingString];
-      v26 = v65 = environmentCopy;
+      v25 = v63 = environmentCopy;
       [settingsCopy bls_presentationDate];
-      v27 = v71 = presentation;
-      [v27 bls_shortLoggingString];
-      v28 = log = v21;
+      v26 = v69 = presentation;
+      [v26 bls_shortLoggingString];
+      v27 = log = v20;
       OUTLINED_FUNCTION_21_1();
-      v86 = identifier;
-      v87 = v29;
-      v88 = v23;
-      v89 = v29;
-      v90 = bls_shortLoggingString;
+      v84 = identifier;
+      v85 = v28;
+      v86 = v22;
+      v87 = v28;
+      v88 = bls_shortLoggingString;
       OUTLINED_FUNCTION_20_1();
-      v91 = v61;
-      v92 = v30;
-      v93 = bls_shortLoggingString2;
-      v94 = v30;
-      v95 = bls_shortLoggingString3;
-      v96 = v30;
-      v97 = bls_shortLoggingString4;
-      v98 = v30;
-      v99 = v26;
-      v100 = v30;
-      v101 = v31;
-      _os_log_impl(&dword_21FD11000, v22, OS_LOG_TYPE_INFO, "TSM:%p will amend scene %{public}@ for backlightState:%{public}@ with visualState:%{public}@ – willBeForeground:%{BOOL}u containsEnv:%{BOOL}u presentation:%{public}@ oldVisualState:%{public}@ oldPresentationDate:%{public}@ settingsVisualState:%{public}@ settingsPresentationDate:%{public}@", buf, 0x68u);
+      v89 = v59;
+      v90 = v29;
+      v91 = bls_shortLoggingString2;
+      v92 = v29;
+      v93 = bls_shortLoggingString3;
+      v94 = v29;
+      v95 = bls_shortLoggingString4;
+      v96 = v29;
+      v97 = v25;
+      v98 = v29;
+      v99 = v30;
+      _os_log_impl(&dword_21FD11000, v21, OS_LOG_TYPE_INFO, "TSM:%p will amend scene %{public}@ for backlightState:%{public}@ with visualState:%{public}@ – willBeForeground:%{BOOL}u containsEnv:%{BOOL}u presentation:%{public}@ oldVisualState:%{public}@ oldPresentationDate:%{public}@ settingsVisualState:%{public}@ settingsPresentationDate:%{public}@", buf, 0x68u);
 
-      presentation = v71;
-      v21 = log;
+      presentation = v69;
+      v20 = log;
 
-      environmentCopy = v65;
+      environmentCopy = v63;
     }
 
-    [settingsCopy bls_setVisualState:v21];
+    [settingsCopy bls_setVisualState:v20];
     [settingsCopy bls_setPresentationDate:0];
-    bls_presentationDate = v80;
+    bls_presentationDate = v78;
   }
 
   else
   {
-    v32 = bls_backlight_log();
-    v33 = v32;
-    if (v15)
+    v31 = bls_backlight_log();
+    v32 = v31;
+    if (v14)
     {
-      v21 = v32;
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+      v20 = v31;
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
       {
         identifier2 = [environmentCopy identifier];
-        v34 = NSStringFromBLSBacklightState();
+        v33 = NSStringFromBLSBacklightState();
         loga = [settingsCopy bls_visualState];
         [loga bls_shortLoggingString];
-        v35 = v81 = bls_presentationDate;
+        v34 = v79 = bls_presentationDate;
         bls_shortLoggingString5 = [presentation bls_shortLoggingString];
         [environmentCopy visualState];
-        v37 = v72 = presentation;
-        bls_shortLoggingString6 = [v37 bls_shortLoggingString];
+        v36 = v70 = presentation;
+        bls_shortLoggingString6 = [v36 bls_shortLoggingString];
         OUTLINED_FUNCTION_21_1();
-        v86 = identifier2;
-        v87 = v39;
+        v84 = identifier2;
+        v85 = v38;
+        v86 = v33;
+        v87 = v38;
         v88 = v34;
-        v89 = v39;
-        v90 = v35;
         OUTLINED_FUNCTION_20_1();
-        v91 = 1;
-        v92 = v40;
-        v93 = bls_shortLoggingString5;
-        v94 = v40;
-        v95 = v41;
-        _os_log_debug_impl(&dword_21FD11000, v21, OS_LOG_TYPE_DEBUG, "TSM:%p will not amend scene %{public}@ for backlightState:%{public}@ with settingsVisualState:%{public}@ willBeForeground:%{BOOL}u containsEnv:%{BOOL}u presentation:%{public}@ oldVisualState:%{public}@", buf, 0x4Au);
+        v89 = 1;
+        v90 = v39;
+        v91 = bls_shortLoggingString5;
+        v92 = v39;
+        v93 = v40;
+        _os_log_debug_impl(&dword_21FD11000, v20, OS_LOG_TYPE_DEBUG, "TSM:%p will not amend scene %{public}@ for backlightState:%{public}@ with settingsVisualState:%{public}@ willBeForeground:%{BOOL}u containsEnv:%{BOOL}u presentation:%{public}@ oldVisualState:%{public}@", buf, 0x4Au);
 
-        presentation = v72;
-        bls_presentationDate = v81;
+        presentation = v70;
+        bls_presentationDate = v79;
       }
     }
 
     else
     {
-      v21 = v32;
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+      v20 = v31;
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
       {
         identifier3 = [environmentCopy identifier];
-        v73 = NSStringFromBLSBacklightState();
-        v42 = OUTLINED_FUNCTION_38_0();
-        v70 = BLSVisualStateForBacklightStateAndSettings(v42, v43, v44, v45, v46);
-        bls_shortLoggingString7 = [v70 bls_shortLoggingString];
-        v62 = v12 & 1;
+        v71 = NSStringFromBLSBacklightState();
+        v41 = OUTLINED_FUNCTION_38_0();
+        v68 = BLSVisualStateForBacklightStateAndSettings(v41, v42, v43, v44, v45);
+        bls_shortLoggingString7 = [v68 bls_shortLoggingString];
+        v60 = v11 & 1;
         bls_shortLoggingString8 = [presentation bls_shortLoggingString];
         visualState2 = [environmentCopy visualState];
         bls_shortLoggingString9 = [visualState2 bls_shortLoggingString];
         [environmentCopy presentationDate];
-        v66 = v82 = bls_presentationDate;
-        bls_shortLoggingString10 = [v66 bls_shortLoggingString];
+        v64 = v80 = bls_presentationDate;
+        bls_shortLoggingString10 = [v64 bls_shortLoggingString];
         bls_visualState2 = [settingsCopy bls_visualState];
         [bls_visualState2 bls_shortLoggingString];
-        v49 = logb = v33;
+        v48 = logb = v32;
         bls_presentationDate2 = [settingsCopy bls_presentationDate];
         [bls_presentationDate2 bls_shortLoggingString];
         objc_claimAutoreleasedReturnValue();
         OUTLINED_FUNCTION_21_1();
-        v86 = identifier3;
-        v87 = v51;
-        v88 = v73;
-        v89 = v51;
-        v90 = bls_shortLoggingString7;
+        v84 = identifier3;
+        v85 = v50;
+        v86 = v71;
+        v87 = v50;
+        v88 = bls_shortLoggingString7;
         OUTLINED_FUNCTION_20_1();
-        v91 = v62;
-        v92 = v52;
-        v93 = bls_shortLoggingString8;
-        v94 = v52;
-        v95 = bls_shortLoggingString9;
-        v96 = v52;
-        v97 = bls_shortLoggingString10;
-        v98 = v52;
-        v99 = v49;
-        v100 = v52;
-        v101 = v53;
-        v54 = v53;
+        v89 = v60;
+        v90 = v51;
+        v91 = bls_shortLoggingString8;
+        v92 = v51;
+        v93 = bls_shortLoggingString9;
+        v94 = v51;
+        v95 = bls_shortLoggingString10;
+        v96 = v51;
+        v97 = v48;
+        v98 = v51;
+        v99 = v52;
+        v53 = v52;
         _os_log_impl(&dword_21FD11000, logb, OS_LOG_TYPE_INFO, "TSM:%p would have (but will not) amend scene %{public}@ for backlightState:%{public}@ with visualState:%{public}@ – willBeForeground:%{BOOL}u containsEnv:%{BOOL}u presentation:%{public}@ oldVisualState:%{public}@ oldPresentationDate:%{public}@ settingsVisualState:%{public}@ settingsPresentationDate:%{public}@", buf, 0x68u);
 
-        bls_presentationDate = v82;
-        v21 = logb;
+        bls_presentationDate = v80;
+        v20 = logb;
       }
     }
   }
 
-  v55 = *MEMORY[0x277D85DE8];
-  return v83 & 1;
+  return v81 & 1;
 }
 
 - (void)initWithPlatformProvider:(uint64_t *)a1 osInterfaceProvider:(char *)a2 inactiveBudgetPolicy:.cold.1(uint64_t *a1, char *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v12 = *a1;
-  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"presentationEngine:%@ is not stopped on intitialization"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"presentationEngine:%@ is not stopped on intitialization", *a1];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a2);
-    objc_claimAutoreleasedReturnValue();
-    v4 = OUTLINED_FUNCTION_4();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a2);
+    v6 = OUTLINED_FUNCTION_4(v4, v5);
+    v7 = NSStringFromClass(v6);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v12, v13, v14);
+    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v14, v15);
   }
 
-  v11 = v3;
+  v13 = v3;
   [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
@@ -4280,12 +4178,14 @@ LABEL_9:
   v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"unexpectedly wants suppression when backlightState:BLSBacklightStateInactiveOn"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_4();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_4(v3, v4);
+    v6 = NSStringFromClass(v5);
+    LODWORD(v12) = 138544642;
+    *(&v12 + 4) = a1;
+    WORD6(v12) = 2114;
     OUTLINED_FUNCTION_24_1();
-    OUTLINED_FUNCTION_2_2(&dword_21FD11000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, 2u);
+    OUTLINED_FUNCTION_2_2(&dword_21FD11000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12);
   }
 
   [v2 UTF8String];
@@ -4295,15 +4195,14 @@ LABEL_9:
 
 - (void)registerHandlersForService:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"handler != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_4();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_4(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"handler != nil", v10, v11);
+    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -4313,15 +4212,14 @@ LABEL_9:
 
 - (void)registerHandlersForService:(char *)a1 .cold.2(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"handler != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_4();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_4(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"handler != nil", v10, v11);
+    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -4331,15 +4229,14 @@ LABEL_9:
 
 - (void)registerHandlersForService:(char *)a1 .cold.3(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"handler != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_4();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_4(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"handler != nil", v10, v11);
+    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -4349,15 +4246,14 @@ LABEL_9:
 
 - (void)registerHandlersForService:(char *)a1 .cold.4(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"handler != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_4();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_4(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"handler != nil", v10, v11);
+    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -4367,15 +4263,14 @@ LABEL_9:
 
 - (void)ifStillValidPerformAlwaysOnBrightnessRamp:(char *)a1 withDuration:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"rampOperation != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_4();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_4(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"rampOperation != nil", v10, v11);
+    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -4385,15 +4280,14 @@ LABEL_9:
 
 - (void)inactiveEnvironmentSession:(uint64_t)a1 updateToPresentation:(char *)a2 .cold.1(uint64_t a1, char *a2)
 {
-  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"session:%@ exists but no environment state machine"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"session:%@ exists but no environment state machine", a1];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a2);
-    objc_claimAutoreleasedReturnValue();
-    v4 = OUTLINED_FUNCTION_4();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a2);
+    v6 = OUTLINED_FUNCTION_4(v4, v5);
+    v7 = NSStringFromClass(v6);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, a1, v12, v13);
+    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v13, v14);
   }
 
   [v3 UTF8String];

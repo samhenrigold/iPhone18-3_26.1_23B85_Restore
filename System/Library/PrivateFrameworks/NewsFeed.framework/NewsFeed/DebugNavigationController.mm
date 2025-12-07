@@ -75,7 +75,7 @@
   controllerCopy = controller;
   viewControllerCopy = viewController;
   selfCopy = self;
-  sub_1D5EF2238(controllerCopy);
+  sub_1D5EF2238(controllerCopy, v9);
 }
 
 @end

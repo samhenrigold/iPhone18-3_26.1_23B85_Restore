@@ -39,7 +39,7 @@
 - (AMSBagProtocol)bag
 {
   selfCopy = self;
-  v3 = sub_1001A7AB4(selfCopy);
+  v3 = sub_1001A7AB4();
 
   return v3;
 }
@@ -87,7 +87,7 @@
 
 - (NSUUID)deviceVendorID
 {
-  v2 = sub_100080FB4(&unk_1003CE610);
+  v2 = sub_100080FB4(&unk_1003CE610, &unk_1002F8550);
   __chkstk_darwin(v2 - 8);
   v4 = &v8 - v3;
   sub_1001AAFE4(&v8 - v3);
@@ -113,7 +113,7 @@
 - (AMSURLRequestEncoder)urlRequestEncoder
 {
   selfCopy = self;
-  v3 = sub_1001A9564(selfCopy);
+  v3 = sub_1001A9564();
 
   return v3;
 }
@@ -131,7 +131,7 @@
   if (dictionary)
   {
     type metadata accessor for SKClientOverridesKey(0);
-    sub_1001B3300(&qword_1003CC3A8, type metadata accessor for SKClientOverridesKey);
+    sub_1001B3300(&qword_1003CC3A8, type metadata accessor for SKClientOverridesKey, &unk_1002EB710);
     static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
@@ -148,7 +148,7 @@
   if (dictionary)
   {
     type metadata accessor for SKClientOverridesKey(0);
-    sub_1001B3300(&qword_1003CC3A8, type metadata accessor for SKClientOverridesKey);
+    sub_1001B3300(&qword_1003CC3A8, type metadata accessor for SKClientOverridesKey, &unk_1002EB710);
     static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
@@ -174,7 +174,7 @@
 
 - (id)queryWith:(BOOL)with customReceiptURL:(id)l
 {
-  v6 = sub_100080FB4(&unk_1003D0540);
+  v6 = sub_100080FB4(&unk_1003D0540, &unk_1002EDD50);
   __chkstk_darwin(v6 - 8);
   v8 = &v14 - v7;
   if (l)
@@ -194,9 +194,9 @@
   selfCopy = self;
   sub_1001A8A94();
 
-  sub_10013B1E8(v8, &unk_1003D0540);
+  sub_10013B1E8(v8, &unk_1003D0540, &unk_1002EDD50);
   type metadata accessor for SKServerKey(0);
-  sub_1001B3300(&qword_1003CC3B8, type metadata accessor for SKServerKey);
+  sub_1001B3300(&qword_1003CC3B8, type metadata accessor for SKServerKey, &unk_1002EB750);
   v12.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
 
   return v12.super.isa;

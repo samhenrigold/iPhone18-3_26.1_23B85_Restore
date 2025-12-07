@@ -98,20 +98,20 @@
 
 - (ChipError)_encodeToTLVReader:(PacketBufferTLVReader *)reader
 {
-  v68 = *MEMORY[0x277D85DE8];
-  v49[0] = 0;
-  unsignedShortValue = 0;
-  v51 = 0;
-  v53 = 0;
-  v55 = 0;
-  v58 = 0;
-  LOBYTE(v60) = 0;
-  v61 = 0;
+  v67 = *MEMORY[0x277D85DE8];
   v48[0] = 0;
-  v48[1] = 0;
-  v47 = v48;
+  unsignedShortValue = 0;
+  v50 = 0;
+  v52 = 0;
+  v54 = 0;
+  v57 = 0;
+  LOBYTE(v59) = 0;
+  v60 = 0;
+  v47[0] = 0;
+  v47[1] = 0;
+  v46 = v47;
   streamUsage = [(MTRWebRTCTransportProviderClusterSolicitOfferParams *)self streamUsage];
-  v49[0] = [streamUsage unsignedCharValue];
+  v48[0] = [streamUsage unsignedCharValue];
 
   originatingEndpointID = [(MTRWebRTCTransportProviderClusterSolicitOfferParams *)self originatingEndpointID];
   unsignedShortValue = [originatingEndpointID unsignedShortValue];
@@ -121,17 +121,17 @@
 
   if (!v7)
   {
-    v51 = 1;
-    v52 = 0;
+    v50 = 1;
+    v51 = 0;
     videoStreamID2 = [(MTRWebRTCTransportProviderClusterSolicitOfferParams *)self videoStreamID];
     v9 = videoStreamID2 == 0;
 
     if (!v9)
     {
-      LOWORD(v52) = 0;
-      BYTE2(v52) = 1;
+      LOWORD(v51) = 0;
+      BYTE2(v51) = 1;
       videoStreamID3 = [(MTRWebRTCTransportProviderClusterSolicitOfferParams *)self videoStreamID];
-      LOWORD(v52) = [videoStreamID3 unsignedShortValue];
+      LOWORD(v51) = [videoStreamID3 unsignedShortValue];
     }
   }
 
@@ -140,17 +140,17 @@
 
   if (!v12)
   {
-    v53 = 1;
-    v54 = 0;
+    v52 = 1;
+    v53 = 0;
     audioStreamID2 = [(MTRWebRTCTransportProviderClusterSolicitOfferParams *)self audioStreamID];
     v14 = audioStreamID2 == 0;
 
     if (!v14)
     {
-      LOWORD(v54) = 0;
-      BYTE2(v54) = 1;
+      LOWORD(v53) = 0;
+      BYTE2(v53) = 1;
       audioStreamID3 = [(MTRWebRTCTransportProviderClusterSolicitOfferParams *)self audioStreamID];
-      LOWORD(v54) = [audioStreamID3 unsignedShortValue];
+      LOWORD(v53) = [audioStreamID3 unsignedShortValue];
     }
   }
 
@@ -159,9 +159,9 @@
 
   if (!v17)
   {
-    v55 = 1;
+    v54 = 1;
+    v55 = 0;
     v56 = 0;
-    v57 = 0;
     iceServers2 = [(MTRWebRTCTransportProviderClusterSolicitOfferParams *)self iceServers];
     v19 = [iceServers2 count] == 0;
 
@@ -170,8 +170,8 @@
       operator new();
     }
 
+    v55 = 0;
     v56 = 0;
-    v57 = 0;
   }
 
   iceTransportPolicy = [(MTRWebRTCTransportProviderClusterSolicitOfferParams *)self iceTransportPolicy];
@@ -179,13 +179,13 @@
 
   if (!v21)
   {
-    v58 = 1;
-    v59 = 0uLL;
+    v57 = 1;
+    v58 = 0uLL;
     iceTransportPolicy2 = [(MTRWebRTCTransportProviderClusterSolicitOfferParams *)self iceTransportPolicy];
     v23 = iceTransportPolicy2;
     sub_238DB9BD8(buf, [iceTransportPolicy2 UTF8String], objc_msgSend(iceTransportPolicy2, "lengthOfBytesUsingEncoding:", 4));
 
-    v59 = *buf;
+    v58 = *buf;
   }
 
   metadataEnabled = [(MTRWebRTCTransportProviderClusterSolicitOfferParams *)self metadataEnabled];
@@ -193,9 +193,9 @@
 
   if (!v25)
   {
-    v60 = 1;
+    v59 = 1;
     metadataEnabled2 = [(MTRWebRTCTransportProviderClusterSolicitOfferParams *)self metadataEnabled];
-    HIBYTE(v60) = [metadataEnabled2 BOOLValue];
+    HIBYTE(v59) = [metadataEnabled2 BOOLValue];
   }
 
   sFrameConfig = [(MTRWebRTCTransportProviderClusterSolicitOfferParams *)self sFrameConfig];
@@ -203,54 +203,54 @@
 
   if (!v28)
   {
-    v61 = 1;
-    memset(v62, 0, sizeof(v62));
+    v60 = 1;
+    memset(v61, 0, sizeof(v61));
     sFrameConfig2 = [(MTRWebRTCTransportProviderClusterSolicitOfferParams *)self sFrameConfig];
     cipherSuite = [sFrameConfig2 cipherSuite];
-    *v62 = [cipherSuite unsignedShortValue];
+    *v61 = [cipherSuite unsignedShortValue];
 
     sFrameConfig3 = [(MTRWebRTCTransportProviderClusterSolicitOfferParams *)self sFrameConfig];
     baseKey = [sFrameConfig3 baseKey];
     v33 = baseKey;
     sub_238DB6950(buf, [baseKey bytes], objc_msgSend(baseKey, "length"));
 
-    *&v62[8] = *buf;
+    *&v61[8] = *buf;
     sFrameConfig4 = [(MTRWebRTCTransportProviderClusterSolicitOfferParams *)self sFrameConfig];
     v35 = [sFrameConfig4 kid];
     v36 = v35;
     sub_238DB6950(buf, [v35 bytes], objc_msgSend(v35, "length"));
 
-    *&v62[24] = *buf;
+    *&v61[24] = *buf;
   }
 
-  sub_2393D9C18(0x62FuLL, 0, &v46);
-  if (v46)
+  sub_2393D9C18(0x62FuLL, 0, &v45);
+  if (v45)
   {
     sub_2393C7B90(buf);
+    v64 = 0;
     v65 = 0;
+    v63 = &unk_284BB83A8;
     v66 = 0;
-    v64 = &unk_284BB83A8;
-    v67 = 0;
-    sub_238EA16C4(&v64, &v46, 0);
-    sub_2393C7BF0(buf, &v64, 0xFFFFFFFF);
-    v38 = sub_238F33104(v49, buf, 0x100uLL);
+    sub_238EA16C4(&v63, &v45, 0);
+    sub_2393C7BF0(buf, &v63, 0xFFFFFFFF);
+    v38 = sub_238F33104(v48, buf, 0x100uLL);
     v39 = v38;
-    if (v38 || (v38 = sub_238DD2EFC(buf, &v46), v39 = v38, v38))
+    if (v38 || (v38 = sub_238DD2EFC(buf, &v45), v39 = v38, v38))
     {
       v40 = v37;
     }
 
     else
     {
-      sub_238DD2F90(reader, &v46);
+      sub_238DD2F90(reader, &v45);
       v38 = sub_2393C7114(reader, 21, 256);
-      v40 = v44;
+      v40 = v43;
       v39 = v38;
     }
 
-    v64 = &unk_284BB83A8;
-    sub_238EA1758(&v66);
+    v63 = &unk_284BB83A8;
     sub_238EA1758(&v65);
+    sub_238EA1758(&v64);
   }
 
   else
@@ -260,14 +260,13 @@
     v39 = 11;
   }
 
-  sub_238EA1758(&v46);
-  sub_238EA1790(&v47);
-  v41 = *MEMORY[0x277D85DE8];
-  v42 = v38 & 0xFFFFFFFF00000000 | v39;
-  v43 = v40;
-  result.mFile = v43;
-  result.mError = v42;
-  result.mLine = HIDWORD(v42);
+  sub_238EA1758(&v45);
+  sub_238EA1790(&v46);
+  v41 = v38 & 0xFFFFFFFF00000000 | v39;
+  v42 = v40;
+  result.mFile = v42;
+  result.mError = v41;
+  result.mLine = HIDWORD(v41);
   return result;
 }
 

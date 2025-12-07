@@ -8,7 +8,7 @@
 {
   v10 = &unk_28521AC78;
   sub_24019C750(&v10, __p);
-  nullsub_2(&v10);
+  nullsub_2();
   v2 = MEMORY[0x277CCACA8];
   v3 = v12;
   v4 = __p[0];

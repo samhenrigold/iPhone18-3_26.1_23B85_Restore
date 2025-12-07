@@ -77,34 +77,32 @@ LABEL_8:
 
 + (id)syncPolicyForNotifications
 {
-  v21[1] = *MEMORY[0x1E69E9840];
-  v16 = [objc_alloc(MEMORY[0x1E698F340]) initWithTransportType:2 direction:3];
-  v21[0] = v16;
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:1];
+  v20[1] = *MEMORY[0x1E69E9840];
+  v15 = [objc_alloc(MEMORY[0x1E698F340]) initWithTransportType:2 direction:3];
+  v20[0] = v15;
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:1];
   v3 = [objc_alloc(MEMORY[0x1E698F340]) initWithTransportType:2 direction:2];
-  v20 = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v20 count:1];
+  v19 = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v19 count:1];
   v5 = [objc_alloc(MEMORY[0x1E698F340]) initWithTransportType:2 direction:2];
-  v19 = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v19 count:1];
+  v18 = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v18 count:1];
   v7 = BMDevicePlatformAsKeyString();
-  v17[0] = v7;
-  v18[0] = v2;
+  v16[0] = v7;
+  v17[0] = v2;
   v8 = BMDevicePlatformAsKeyString();
-  v17[1] = v8;
-  v18[1] = v4;
+  v16[1] = v8;
+  v17[1] = v4;
   v9 = BMDevicePlatformAsKeyString();
-  v17[2] = v9;
-  v18[2] = v6;
+  v16[2] = v9;
+  v17[2] = v6;
   v10 = BMDevicePlatformAsKeyString();
-  v17[3] = v10;
-  v18[3] = v6;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:4];
+  v16[3] = v10;
+  v17[3] = v6;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:4];
 
   v12 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:@"7AA39C8F-2B9F-417D-83AE-849D68345CB8"];
   v13 = [objc_alloc(MEMORY[0x1E698F348]) initWithPolicyDictionary:v11 syncUUID:v12 legacySyncID:0 eventClass:objc_opt_class()];
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -154,24 +152,22 @@ LABEL_8:
 
 + (id)syncPolicyForEngagement
 {
-  v14[2] = *MEMORY[0x1E69E9840];
+  v13[2] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F340]) initWithTransportType:3 direction:3];
   v3 = [objc_alloc(MEMORY[0x1E698F340]) initWithTransportType:2 direction:3];
-  v14[0] = v2;
-  v14[1] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:2];
+  v13[0] = v2;
+  v13[1] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:2];
   v5 = BMDevicePlatformAsKeyString();
-  v12[0] = v5;
-  v13[0] = v4;
+  v11[0] = v5;
+  v12[0] = v4;
   v6 = BMDevicePlatformAsKeyString();
-  v12[1] = v6;
-  v13[1] = v4;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:2];
+  v11[1] = v6;
+  v12[1] = v4;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
 
   v8 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:@"4C66F537-A426-4AC0-B65C-6F2CF2D92E8D"];
   v9 = [objc_alloc(MEMORY[0x1E698F348]) initWithPolicyDictionary:v7 syncUUID:v8 legacySyncID:0 eventClass:objc_opt_class()];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -186,66 +182,60 @@ LABEL_8:
 
 + (id)Notifications
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   configurationForNotifications = [self configurationForNotifications];
   v3 = +[BMMomentsNotifications columns];
   v4 = BMEventTimestampSQLColumn();
-  v13 = v4;
+  v12 = v4;
   v5 = BMEventBodyDataSQLColumn();
-  v14 = v5;
+  v13 = v5;
   v6 = BMEventClassNameSQLColumn();
-  v15 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:3];
-  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v13, v14}];
+  v14 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:3];
+  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v12, v13}];
 
   v9 = [objc_alloc(MEMORY[0x1E698F2F0]) initWithTableName:@"Moments.Events.Notifications" columns:v8];
   v10 = [objc_alloc(MEMORY[0x1E698F320]) initWithIdentifier:@"Moments.Events.Notifications" schema:v9 configuration:configurationForNotifications];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 + (id)EngagementLight
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   configurationForEngagementLight = [self configurationForEngagementLight];
   v3 = +[BMMomentsEngagementLight columns];
   v4 = BMEventTimestampSQLColumn();
-  v13 = v4;
+  v12 = v4;
   v5 = BMEventBodyDataSQLColumn();
-  v14 = v5;
+  v13 = v5;
   v6 = BMEventClassNameSQLColumn();
-  v15 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:3];
-  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v13, v14}];
+  v14 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:3];
+  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v12, v13}];
 
   v9 = [objc_alloc(MEMORY[0x1E698F2F0]) initWithTableName:@"Moments.Events.EngagementLight" columns:v8];
   v10 = [objc_alloc(MEMORY[0x1E698F320]) initWithIdentifier:@"Moments.Events.EngagementLight" schema:v9 configuration:configurationForEngagementLight];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 + (id)Engagement
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   configurationForEngagement = [self configurationForEngagement];
   v3 = +[BMMomentsEngagement columns];
   v4 = BMEventTimestampSQLColumn();
-  v13 = v4;
+  v12 = v4;
   v5 = BMEventBodyDataSQLColumn();
-  v14 = v5;
+  v13 = v5;
   v6 = BMEventClassNameSQLColumn();
-  v15 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:3];
-  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v13, v14}];
+  v14 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:3];
+  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v12, v13}];
 
   v9 = [objc_alloc(MEMORY[0x1E698F2F0]) initWithTableName:@"Moments.Events.Engagement" columns:v8];
   v10 = [objc_alloc(MEMORY[0x1E698F320]) initWithIdentifier:@"Moments.Events.Engagement" schema:v9 configuration:configurationForEngagement];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

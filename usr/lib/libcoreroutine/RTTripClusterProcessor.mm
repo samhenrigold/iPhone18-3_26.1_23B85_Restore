@@ -5258,7 +5258,7 @@ LABEL_8:
 LABEL_9:
   }
 
-  [*(a1 + 48) updateLockStatusForClusterId:*(a1 + 40) isLocked:{0, *v11, *&v11[16], v12}];
+  [*(a1 + 48) updateLockStatusForClusterId:*(a1 + 40) isLocked:{0, *v11, *&v11[8], v12}];
   dispatch_semaphore_signal(*(*(*(a1 + 64) + 8) + 40));
 }
 

@@ -272,14 +272,17 @@
 - (void)_significantTimeChange:(id)change
 {
   userInfo = [change userInfo];
-  v5 = [userInfo objectForKey:CUIKCalendarModelSignificantTimeChangeNotificationDayChangedKey];
+  v7 = [userInfo objectForKey:CUIKCalendarModelSignificantTimeChangeNotificationDayChangedKey];
 
-  if (([v5 BOOLValue] & 1) != 0 || !v5)
+  bOOLValue = [v7 BOOLValue];
+  v6 = v7;
+  if ((bOOLValue & 1) != 0 || !v7)
   {
-    [(CompactMonthListViewController *)self _reloadTableViewAndScrollIfNeededWithForceScroll:1];
+    bOOLValue = [(CompactMonthListViewController *)self _reloadTableViewAndScrollIfNeededWithForceScroll:1];
+    v6 = v7;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(bOOLValue, v6);
 }
 
 - (void)_reloadOccurrenceData

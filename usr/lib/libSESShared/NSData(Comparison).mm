@@ -28,7 +28,7 @@
       break;
     }
 
-    v7 = bytes[v5++];
+    ++v5;
   }
 
   while (!bytes[v6]);

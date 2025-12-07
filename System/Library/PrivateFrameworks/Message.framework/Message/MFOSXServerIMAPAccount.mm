@@ -1,6 +1,7 @@
 @interface MFOSXServerIMAPAccount
 + (id)_authSchemeForAuthenticationMethod:(id)method;
 + (id)newChildAccountWithParentAccount:(id)account error:(id *)error;
+- (id)_credentialCreateIfNecessary:(BOOL)necessary error:(id *)error;
 - (id)_deliveryAccountCreateIfNeeded:(BOOL)needed;
 - (id)displayName;
 @end
@@ -27,39 +28,47 @@
   return accountDescription;
 }
 
+- (id)_credentialCreateIfNecessary:(BOOL)necessary error:(id *)error
+{
+  parentAccount = [(MFAccount *)self parentAccount];
+  v6 = [parentAccount credentialWithError:error];
+
+  return v6;
+}
+
 + (id)newChildAccountWithParentAccount:(id)account error:(id *)error
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   v7 = accountCopy;
   if (accountCopy)
   {
     selfCopy = self;
     v8 = *MEMORY[0x1E6959B28];
-    v47 = [accountCopy propertiesForDataclass:*MEMORY[0x1E6959B28]];
+    v46 = [accountCopy propertiesForDataclass:*MEMORY[0x1E6959B28]];
     dictionary = [MEMORY[0x1E695DF90] dictionary];
     if (([v7 isProvisionedForDataclass:v8] & 1) != 0 || (+[MFError errorWithDomain:code:localizedDescription:](MFError, "errorWithDomain:code:localizedDescription:", @"OSXServerIMAPErrorDomain", 2, 0), (v9 = objc_claimAutoreleasedReturnValue()) == 0))
     {
-      v50 = 0u;
-      v51 = 0u;
-      v48 = 0u;
       v49 = 0u;
+      v50 = 0u;
+      v47 = 0u;
+      v48 = 0u;
       childAccounts = [v7 childAccounts];
-      v11 = [childAccounts countByEnumeratingWithState:&v48 objects:v53 count:16];
+      v11 = [childAccounts countByEnumeratingWithState:&v47 objects:v52 count:16];
       if (v11)
       {
-        v12 = *v49;
+        v12 = *v48;
         v13 = *MEMORY[0x1E6959898];
         while (2)
         {
           for (i = 0; i != v11; ++i)
           {
-            if (*v49 != v12)
+            if (*v48 != v12)
             {
               objc_enumerationMutation(childAccounts);
             }
 
-            accountType = [*(*(&v48 + 1) + 8 * i) accountType];
+            accountType = [*(*(&v47 + 1) + 8 * i) accountType];
             identifier = [accountType identifier];
             v17 = [identifier isEqualToString:v13];
 
@@ -70,7 +79,7 @@
             }
           }
 
-          v11 = [childAccounts countByEnumeratingWithState:&v48 objects:v53 count:16];
+          v11 = [childAccounts countByEnumeratingWithState:&v47 objects:v52 count:16];
           if (v11)
           {
             continue;
@@ -84,7 +93,7 @@
 LABEL_15:
     }
 
-    v19 = [v47 objectForKeyedSubscript:@"EmailAccountName"];
+    v19 = [v46 objectForKeyedSubscript:@"EmailAccountName"];
     v20 = v19;
     if (v19)
     {
@@ -98,7 +107,7 @@ LABEL_15:
 
     v22 = username;
 
-    v23 = [v47 objectForKeyedSubscript:*MEMORY[0x1E6959768]];
+    v23 = [v46 objectForKeyedSubscript:*MEMORY[0x1E6959768]];
     if (v9)
     {
       if (error)
@@ -117,7 +126,7 @@ LABEL_15:
     else
     {
       [dictionary setObject:v22 forKeyedSubscript:@"Username"];
-      v25 = [v47 objectForKeyedSubscript:@"EmailAddresses"];
+      v25 = [v46 objectForKeyedSubscript:@"EmailAddresses"];
       if (v25)
       {
         [dictionary setObject:v25 forKeyedSubscript:@"EmailAddresses"];
@@ -125,10 +134,10 @@ LABEL_15:
 
       else
       {
-        v26 = [v47 objectForKeyedSubscript:@"EmailAddress"];
+        v26 = [v46 objectForKeyedSubscript:@"EmailAddress"];
         if (!v26)
         {
-          v27 = [v47 objectForKeyedSubscript:@"EmailDomain"];
+          v27 = [v46 objectForKeyedSubscript:@"EmailDomain"];
           v28 = v27;
           if (v27)
           {
@@ -145,8 +154,8 @@ LABEL_15:
           v26 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@@%@", v22, v30];
         }
 
-        v52 = v26;
-        v31 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v52 count:1];
+        v51 = v26;
+        v31 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v51 count:1];
         [dictionary setObject:v31 forKeyedSubscript:@"EmailAddresses"];
       }
 
@@ -154,11 +163,11 @@ LABEL_15:
       [dictionary setObject:accountDescription forKeyedSubscript:@"DisplayName"];
 
       [dictionary setObject:v23 forKeyedSubscript:@"Hostname"];
-      v33 = [v47 objectForKeyedSubscript:*MEMORY[0x1E6959770]];
+      v33 = [v46 objectForKeyedSubscript:*MEMORY[0x1E6959770]];
       [dictionary setObject:v33 forKeyedSubscript:@"PortNumber"];
 
       v34 = *MEMORY[0x1E6959778];
-      v35 = [v47 objectForKeyedSubscript:*MEMORY[0x1E6959778]];
+      v35 = [v46 objectForKeyedSubscript:*MEMORY[0x1E6959778]];
       [dictionary setObject:v35 forKeyedSubscript:@"SSLEnabled"];
 
       userFullName = [v7 userFullName];
@@ -169,7 +178,7 @@ LABEL_15:
         [dictionary setObject:userFullName2 forKeyedSubscript:@"FullUserName"];
       }
 
-      v38 = [v47 objectForKeyedSubscript:@"IncomingMailServerAuthentication"];
+      v38 = [v46 objectForKeyedSubscript:@"IncomingMailServerAuthentication"];
       v39 = [selfCopy _authSchemeForAuthenticationMethod:v38];
       [dictionary setObject:v39 forKeyedSubscript:@"AuthenticationScheme"];
 
@@ -177,7 +186,7 @@ LABEL_15:
       defaultPath = [v18 defaultPath];
       [v18 setPath:defaultPath];
 
-      v41 = [v47 objectForKeyedSubscript:v34];
+      v41 = [v46 objectForKeyedSubscript:v34];
       [v18 setUsesSSL:{objc_msgSend(v41, "BOOLValue")}];
 
       persistentAccount = [v18 persistentAccount];
@@ -191,7 +200,6 @@ LABEL_15:
     v18 = 0;
   }
 
-  v43 = *MEMORY[0x1E69E9840];
   return v18;
 }
 

@@ -91,7 +91,7 @@
 
 - (void)remote_fetchWorkoutsWithFilter:(id)filter anchor:(id)anchor limit:(unint64_t)limit completion:(id)completion
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   maxWorkoutBatchSize = self->_maxWorkoutBatchSize;
   if (limit >= maxWorkoutBatchSize)
@@ -120,38 +120,36 @@
     v14 = 0;
   }
 
+  v23 = 0;
   v24 = 0;
-  v25 = 0;
-  v15 = [(HDWorkoutClusterManager *)workoutClusterManager workoutsWithFilter:filter anchor:anchor limit:v14 newAnchor:&v25 error:&v24];
-  v16 = v25;
-  v17 = v24;
+  v15 = [(HDWorkoutClusterManager *)workoutClusterManager workoutsWithFilter:filter anchor:anchor limit:v14 newAnchor:&v24 error:&v23];
+  v16 = v24;
+  v17 = v23;
   _HKInitializeLogging();
   v18 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEBUG))
   {
-    v20 = v18;
-    v21 = [v15 count];
-    v22 = HKStringFromBool();
+    v19 = v18;
+    v20 = [v15 count];
+    v21 = HKStringFromBool();
     localizedDescription = [v17 localizedDescription];
     *buf = 134218754;
-    v27 = v21;
-    v28 = 2114;
-    v29 = v22;
-    v30 = 2112;
-    v31 = v16;
-    v32 = 2114;
-    v33 = localizedDescription;
-    _os_log_debug_impl(&dword_228986000, v20, OS_LOG_TYPE_DEBUG, "Fetched %lu workouts with success=%{public}@, newAnchor=%@, error=%{public}@", buf, 0x2Au);
+    v26 = v20;
+    v27 = 2114;
+    v28 = v21;
+    v29 = 2112;
+    v30 = v16;
+    v31 = 2114;
+    v32 = localizedDescription;
+    _os_log_debug_impl(&dword_228986000, v19, OS_LOG_TYPE_DEBUG, "Fetched %lu workouts with success=%{public}@, newAnchor=%@, error=%{public}@", buf, 0x2Au);
   }
 
   completionCopy[2](completionCopy, v15, v16, v17);
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remote_fetchWorkoutsWithFilter:(id)filter limit:(unint64_t)limit sortDescriptors:(id)descriptors completion:(id)completion
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   maxWorkoutBatchSize = self->_maxWorkoutBatchSize;
   if (limit >= maxWorkoutBatchSize)
@@ -180,29 +178,27 @@
   }
 
   workoutClusterManager = self->_workoutClusterManager;
-  v23 = 0;
-  v15 = [(HDWorkoutClusterManager *)workoutClusterManager workoutsWithFilter:filter limit:v13 sortDescriptors:descriptors error:&v23];
-  v16 = v23;
+  v22 = 0;
+  v15 = [(HDWorkoutClusterManager *)workoutClusterManager workoutsWithFilter:filter limit:v13 sortDescriptors:descriptors error:&v22];
+  v16 = v22;
   _HKInitializeLogging();
   v17 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEBUG))
   {
-    v19 = v17;
-    v20 = [v15 count];
-    v21 = HKStringFromBool();
+    v18 = v17;
+    v19 = [v15 count];
+    v20 = HKStringFromBool();
     localizedDescription = [v16 localizedDescription];
     *buf = 134218498;
-    v25 = v20;
-    v26 = 2114;
-    v27 = v21;
-    v28 = 2114;
-    v29 = localizedDescription;
-    _os_log_debug_impl(&dword_228986000, v19, OS_LOG_TYPE_DEBUG, "Fetched %lu workouts with success=%{public}@, error=%{public}@", buf, 0x20u);
+    v24 = v19;
+    v25 = 2114;
+    v26 = v20;
+    v27 = 2114;
+    v28 = localizedDescription;
+    _os_log_debug_impl(&dword_228986000, v18, OS_LOG_TYPE_DEBUG, "Fetched %lu workouts with success=%{public}@, error=%{public}@", buf, 0x20u);
   }
 
   completionCopy[2](completionCopy, v15, v16);
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remote_fetchRouteCoordinatesForWorkoutUUID:(id)d startDate:(id)date limit:(unint64_t)limit completion:(id)completion
@@ -392,24 +388,13 @@ uint64_t __99__HDWorkoutClusterServer_remote_fetchRouteCoordinatesForWorkoutUUID
 {
   v3 = a2;
   v4 = [*(a1 + 32) endDate];
-  if (!v4)
-  {
-    goto LABEL_4;
-  }
-
-  v5 = v4;
-  v6 = [v3 timestamp];
-  v7 = [*(a1 + 32) endDate];
-  v8 = [v6 hk_isAfterDate:v7];
-
-  if (v8)
+  if (v4 && (v5 = v4, [v3 timestamp], v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(*(a1 + 32), "endDate"), v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v6, "hk_isAfterDate:", v7), v7, v6, v5, (v8 & 1) != 0))
   {
     v9 = 0;
   }
 
   else
   {
-LABEL_4:
     v10 = *(a1 + 40);
     v11 = *(a1 + 48);
     v12 = *(a1 + 72);
@@ -425,13 +410,13 @@ LABEL_4:
 
 - (void)remote_createWorkoutCluster:(id)cluster completion:(id)completion
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   clusterCopy = cluster;
   workoutClusterManager = self->_workoutClusterManager;
-  v17 = 0;
+  v16 = 0;
   completionCopy = completion;
-  v9 = [(HDWorkoutClusterManager *)workoutClusterManager createWorkoutCluster:clusterCopy error:&v17];
-  v10 = v17;
+  v9 = [(HDWorkoutClusterManager *)workoutClusterManager createWorkoutCluster:clusterCopy error:&v16];
+  v10 = v16;
   _HKInitializeLogging();
   v11 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
@@ -441,27 +426,25 @@ LABEL_4:
     v14 = HKStringFromBool();
     localizedDescription = [v10 localizedDescription];
     *buf = 138543874;
-    v19 = clusterUUID;
-    v20 = 2114;
-    v21 = v14;
-    v22 = 2114;
-    v23 = localizedDescription;
+    v18 = clusterUUID;
+    v19 = 2114;
+    v20 = v14;
+    v21 = 2114;
+    v22 = localizedDescription;
     _os_log_impl(&dword_228986000, v12, OS_LOG_TYPE_DEFAULT, "Created workout cluster (%{public}@) with success=%{public}@, error=%{public}@", buf, 0x20u);
   }
 
   completionCopy[2](completionCopy, v9, v10);
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remote_fetchWorkoutClustersWithCompletion:(id)completion
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   workoutClusterManager = self->_workoutClusterManager;
-  v13 = 0;
+  v12 = 0;
   completionCopy = completion;
-  v5 = [(HDWorkoutClusterManager *)workoutClusterManager allWorkoutClustersWithError:&v13];
-  v6 = v13;
+  v5 = [(HDWorkoutClusterManager *)workoutClusterManager allWorkoutClustersWithError:&v12];
+  v6 = v12;
   _HKInitializeLogging();
   v7 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
@@ -471,28 +454,26 @@ LABEL_4:
     v10 = HKStringFromBool();
     localizedDescription = [v6 localizedDescription];
     *buf = 134218498;
-    v15 = v9;
-    v16 = 2114;
-    v17 = v10;
-    v18 = 2114;
-    v19 = localizedDescription;
+    v14 = v9;
+    v15 = 2114;
+    v16 = v10;
+    v17 = 2114;
+    v18 = localizedDescription;
     _os_log_impl(&dword_228986000, v8, OS_LOG_TYPE_DEFAULT, "Fetched all workout clusters (count %lu) with success=%{public}@, error=%{public}@", buf, 0x20u);
   }
 
   completionCopy[2](completionCopy, v5, v6);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remote_fetchWorkoutClusterContainingWorkoutUUID:(id)d completion:(id)completion
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   dCopy = d;
   workoutClusterManager = self->_workoutClusterManager;
-  v17 = 0;
+  v16 = 0;
   completionCopy = completion;
-  v9 = [(HDWorkoutClusterManager *)workoutClusterManager workoutClusterContainingWorkoutUUID:dCopy error:&v17];
-  v10 = v17;
+  v9 = [(HDWorkoutClusterManager *)workoutClusterManager workoutClusterContainingWorkoutUUID:dCopy error:&v16];
+  v10 = v16;
   _HKInitializeLogging();
   v11 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
@@ -502,30 +483,28 @@ LABEL_4:
     v14 = HKStringFromBool();
     localizedDescription = [v10 localizedDescription];
     *buf = 138544130;
-    v19 = clusterUUID;
-    v20 = 2114;
-    v21 = dCopy;
-    v22 = 2114;
-    v23 = v14;
-    v24 = 2114;
-    v25 = localizedDescription;
+    v18 = clusterUUID;
+    v19 = 2114;
+    v20 = dCopy;
+    v21 = 2114;
+    v22 = v14;
+    v23 = 2114;
+    v24 = localizedDescription;
     _os_log_impl(&dword_228986000, v12, OS_LOG_TYPE_DEFAULT, "Fetched cluster (%{public}@) for workout UUID %{public}@ with success=%{public}@, error=%{public}@", buf, 0x2Au);
   }
 
   completionCopy[2](completionCopy, v9, v10);
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remote_fetchWorkoutClustersContainingWorkoutUUIDs:(id)ds completion:(id)completion
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   workoutClusterManager = self->_workoutClusterManager;
-  v18 = 0;
+  v17 = 0;
   completionCopy = completion;
-  v9 = [(HDWorkoutClusterManager *)workoutClusterManager workoutClustersContainingWorkoutUUIDs:dsCopy error:&v18];
-  v10 = v18;
+  v9 = [(HDWorkoutClusterManager *)workoutClusterManager workoutClustersContainingWorkoutUUIDs:dsCopy error:&v17];
+  v10 = v17;
   _HKInitializeLogging();
   v11 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
@@ -536,30 +515,28 @@ LABEL_4:
     v15 = HKStringFromBool();
     localizedDescription = [v10 localizedDescription];
     *buf = 134218754;
-    v20 = v13;
-    v21 = 2048;
-    v22 = v14;
-    v23 = 2114;
-    v24 = v15;
-    v25 = 2114;
-    v26 = localizedDescription;
+    v19 = v13;
+    v20 = 2048;
+    v21 = v14;
+    v22 = 2114;
+    v23 = v15;
+    v24 = 2114;
+    v25 = localizedDescription;
     _os_log_impl(&dword_228986000, v12, OS_LOG_TYPE_DEFAULT, "Fetched clusters (count %lu) for workouts (count %lu) with success=%{public}@, error=%{public}@", buf, 0x2Au);
   }
 
   completionCopy[2](completionCopy, v9, v10);
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remote_fetchWorkoutUUIDsForClusterUUID:(id)d completion:(id)completion
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   dCopy = d;
   workoutClusterManager = self->_workoutClusterManager;
-  v17 = 0;
+  v16 = 0;
   completionCopy = completion;
-  v9 = [(HDWorkoutClusterManager *)workoutClusterManager allWorkoutUUIDsForClusterUUID:dCopy error:&v17];
-  v10 = v17;
+  v9 = [(HDWorkoutClusterManager *)workoutClusterManager allWorkoutUUIDsForClusterUUID:dCopy error:&v16];
+  v10 = v16;
   _HKInitializeLogging();
   v11 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
@@ -569,30 +546,28 @@ LABEL_4:
     v14 = HKStringFromBool();
     localizedDescription = [v10 localizedDescription];
     *buf = 138544130;
-    v19 = dCopy;
-    v20 = 2048;
-    v21 = v13;
-    v22 = 2114;
-    v23 = v14;
-    v24 = 2114;
-    v25 = localizedDescription;
+    v18 = dCopy;
+    v19 = 2048;
+    v20 = v13;
+    v21 = 2114;
+    v22 = v14;
+    v23 = 2114;
+    v24 = localizedDescription;
     _os_log_impl(&dword_228986000, v12, OS_LOG_TYPE_DEFAULT, "Fetched workout UUIDs (cluster=%{public}@, count %lu) with success=%{public}@, error=%{public}@", buf, 0x2Au);
   }
 
   completionCopy[2](completionCopy, v9, v10);
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remote_fetchWorkoutRouteSnapshotForClusterUUID:(id)d completion:(id)completion
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   dCopy = d;
   workoutClusterManager = self->_workoutClusterManager;
-  v17 = 0;
+  v16 = 0;
   completionCopy = completion;
-  v9 = [(HDWorkoutClusterManager *)workoutClusterManager workoutRouteSnapshotForClusterUUID:dCopy error:&v17];
-  v10 = v17;
+  v9 = [(HDWorkoutClusterManager *)workoutClusterManager workoutRouteSnapshotForClusterUUID:dCopy error:&v16];
+  v10 = v16;
   _HKInitializeLogging();
   v11 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
@@ -602,31 +577,29 @@ LABEL_4:
     v14 = HKStringFromBool();
     localizedDescription = [v10 localizedDescription];
     *buf = 138544130;
-    v19 = dCopy;
-    v20 = 2048;
-    v21 = v13;
-    v22 = 2114;
-    v23 = v14;
-    v24 = 2114;
-    v25 = localizedDescription;
+    v18 = dCopy;
+    v19 = 2048;
+    v20 = v13;
+    v21 = 2114;
+    v22 = v14;
+    v23 = 2114;
+    v24 = localizedDescription;
     _os_log_impl(&dword_228986000, v12, OS_LOG_TYPE_DEFAULT, "Fetched route snapshot (cluster=%{public}@, %0.1lf kB) with success=%{public}@, error=%{public}@", buf, 0x2Au);
   }
 
   completionCopy[2](completionCopy, v9, v10);
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remote_updateWorkoutRouteSnapshot:(id)snapshot forClusterUUID:(id)d completion:(id)completion
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   snapshotCopy = snapshot;
   dCopy = d;
   workoutClusterManager = self->_workoutClusterManager;
-  v20 = 0;
+  v19 = 0;
   completionCopy = completion;
-  v12 = [(HDWorkoutClusterManager *)workoutClusterManager updateWorkoutClusterWithUUID:dCopy newRouteSnapshot:snapshotCopy error:&v20];
-  v13 = v20;
+  v12 = [(HDWorkoutClusterManager *)workoutClusterManager updateWorkoutClusterWithUUID:dCopy newRouteSnapshot:snapshotCopy error:&v19];
+  v13 = v19;
   _HKInitializeLogging();
   v14 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
@@ -636,30 +609,28 @@ LABEL_4:
     v17 = HKStringFromBool();
     localizedDescription = [v13 localizedDescription];
     *buf = 138544130;
-    v22 = dCopy;
-    v23 = 2048;
-    v24 = v16;
-    v25 = 2114;
-    v26 = v17;
-    v27 = 2114;
-    v28 = localizedDescription;
+    v21 = dCopy;
+    v22 = 2048;
+    v23 = v16;
+    v24 = 2114;
+    v25 = v17;
+    v26 = 2114;
+    v27 = localizedDescription;
     _os_log_impl(&dword_228986000, v15, OS_LOG_TYPE_DEFAULT, "Updated route snapshot (cluster=%{public}@, %0.1lf kB) with success=%{public}@, error=%{public}@", buf, 0x2Au);
   }
 
   completionCopy[2](completionCopy, v12, v13);
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remote_updateWorkoutRouteLabel:(id)label forClusterUUID:(id)d completion:(id)completion
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   dCopy = d;
   workoutClusterManager = self->_workoutClusterManager;
-  v18 = 0;
+  v17 = 0;
   completionCopy = completion;
-  v11 = [(HDWorkoutClusterManager *)workoutClusterManager updateWorkoutClusterWithUUID:dCopy newRouteLabel:label error:&v18];
-  v12 = v18;
+  v11 = [(HDWorkoutClusterManager *)workoutClusterManager updateWorkoutClusterWithUUID:dCopy newRouteLabel:label error:&v17];
+  v12 = v17;
   _HKInitializeLogging();
   v13 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
@@ -668,28 +639,26 @@ LABEL_4:
     v15 = HKStringFromBool();
     localizedDescription = [v12 localizedDescription];
     *buf = 138543874;
-    v20 = dCopy;
-    v21 = 2114;
-    v22 = v15;
-    v23 = 2114;
-    v24 = localizedDescription;
+    v19 = dCopy;
+    v20 = 2114;
+    v21 = v15;
+    v22 = 2114;
+    v23 = localizedDescription;
     _os_log_impl(&dword_228986000, v14, OS_LOG_TYPE_DEFAULT, "Updated route label (cluster=%{public}@) with success=%{public}@, error=%{public}@", buf, 0x20u);
   }
 
   completionCopy[2](completionCopy, v11, v12);
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remote_updateWorkoutClusterWithUUID:(id)d newRelevance:(id)relevance newLastWorkoutUUID:(id)iD newBestWorkoutUUID:(id)uID newWorkoutAssociations:(id)associations workoutAssociationsToRemove:(id)remove completion:(id)completion
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   dCopy = d;
   workoutClusterManager = self->_workoutClusterManager;
-  v25 = 0;
+  v24 = 0;
   completionCopy = completion;
-  v18 = [(HDWorkoutClusterManager *)workoutClusterManager updateWorkoutClusterWithUUID:dCopy newRelevance:relevance newLastWorkoutUUID:iD newBestWorkoutUUID:uID newWorkoutAssociations:associations workoutAssociationsToRemove:remove error:&v25];
-  v19 = v25;
+  v18 = [(HDWorkoutClusterManager *)workoutClusterManager updateWorkoutClusterWithUUID:dCopy newRelevance:relevance newLastWorkoutUUID:iD newBestWorkoutUUID:uID newWorkoutAssociations:associations workoutAssociationsToRemove:remove error:&v24];
+  v19 = v24;
   _HKInitializeLogging();
   v20 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
@@ -698,28 +667,26 @@ LABEL_4:
     v22 = HKStringFromBool();
     localizedDescription = [v19 localizedDescription];
     *buf = 138543874;
-    v27 = dCopy;
-    v28 = 2114;
-    v29 = v22;
-    v30 = 2114;
-    v31 = localizedDescription;
+    v26 = dCopy;
+    v27 = 2114;
+    v28 = v22;
+    v29 = 2114;
+    v30 = localizedDescription;
     _os_log_impl(&dword_228986000, v21, OS_LOG_TYPE_DEFAULT, "Updated workout cluster (%{public}@) with success=%{public}@, error=%{public}@", buf, 0x20u);
   }
 
   completionCopy[2](completionCopy, v18, v19);
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remote_deleteWorkoutClusterWithUUID:(id)d completion:(id)completion
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   dCopy = d;
   workoutClusterManager = self->_workoutClusterManager;
-  v16 = 0;
+  v15 = 0;
   completionCopy = completion;
-  v9 = [(HDWorkoutClusterManager *)workoutClusterManager deleteWorkoutClusterWithUUID:dCopy error:&v16];
-  v10 = v16;
+  v9 = [(HDWorkoutClusterManager *)workoutClusterManager deleteWorkoutClusterWithUUID:dCopy error:&v15];
+  v10 = v15;
   _HKInitializeLogging();
   v11 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
@@ -728,34 +695,32 @@ LABEL_4:
     v13 = HKStringFromBool();
     localizedDescription = [v10 localizedDescription];
     *buf = 138543874;
-    v18 = dCopy;
-    v19 = 2114;
-    v20 = v13;
-    v21 = 2114;
-    v22 = localizedDescription;
+    v17 = dCopy;
+    v18 = 2114;
+    v19 = v13;
+    v20 = 2114;
+    v21 = localizedDescription;
     _os_log_impl(&dword_228986000, v12, OS_LOG_TYPE_DEFAULT, "Deleted workout cluster (%{public}@) with success=%{public}@, error=%{public}@", buf, 0x20u);
   }
 
   completionCopy[2](completionCopy, v9, v10);
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remote_generateRaceRouteClustersWithLimit:(unint64_t)limit completion:(id)completion
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   Current = CFAbsoluteTimeGetCurrent();
   workoutClusterManager = self->_workoutClusterManager;
-  v20[5] = limit;
-  v21 = 0;
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __79__HDWorkoutClusterServer_remote_generateRaceRouteClustersWithLimit_completion___block_invoke;
-  v20[3] = &unk_27861AC78;
-  v20[4] = self;
-  v9 = [(HDWorkoutClusterManager *)workoutClusterManager performUsingAccessibilityAssertionWithError:&v21 block:v20];
-  v10 = v21;
+  v19[5] = limit;
+  v20 = 0;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __79__HDWorkoutClusterServer_remote_generateRaceRouteClustersWithLimit_completion___block_invoke;
+  v19[3] = &unk_27861AC78;
+  v19[4] = self;
+  v9 = [(HDWorkoutClusterManager *)workoutClusterManager performUsingAccessibilityAssertionWithError:&v20 block:v19];
+  v10 = v20;
   v11 = CFAbsoluteTimeGetCurrent();
   _HKInitializeLogging();
   v12 = *MEMORY[0x277CCC330];
@@ -765,13 +730,13 @@ LABEL_4:
     v14 = HKStringFromBool();
     localizedDescription = [v10 localizedDescription];
     *buf = 134218754;
-    v23 = v11 - Current;
-    v24 = 2048;
+    v22 = v11 - Current;
+    v23 = 2048;
     limitCopy = limit;
-    v26 = 2114;
-    v27 = v14;
-    v28 = 2114;
-    v29 = localizedDescription;
+    v25 = 2114;
+    v26 = v14;
+    v27 = 2114;
+    v28 = localizedDescription;
     _os_log_impl(&dword_228986000, v13, OS_LOG_TYPE_DEFAULT, "Generated Race Route clusters (%0.3lfs, limit %lu) with success=%{public}@, error=%{public}@", buf, 0x2Au);
   }
 
@@ -785,13 +750,11 @@ LABEL_4:
   }
 
   completionCopy[2](completionCopy, v9, v10);
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __79__HDWorkoutClusterServer_remote_generateRaceRouteClustersWithLimit_completion___block_invoke_301(uint64_t a1, char a2, void *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = a3;
   if ((a2 & 1) == 0)
   {
@@ -799,21 +762,18 @@ void __79__HDWorkoutClusterServer_remote_generateRaceRouteClustersWithLimit_comp
     v5 = *MEMORY[0x277CCC330];
     if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
     {
-      v7 = 138543362;
-      v8 = v4;
-      _os_log_error_impl(&dword_228986000, v5, OS_LOG_TYPE_ERROR, "Failed to sync Racing clusters after generation: %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v4;
+      _os_log_error_impl(&dword_228986000, v5, OS_LOG_TYPE_ERROR, "Failed to sync Racing clusters after generation: %{public}@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 + (id)requiredEntitlements
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = *MEMORY[0x277CCC8B0];
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = *MEMORY[0x277CCC8B0];
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }

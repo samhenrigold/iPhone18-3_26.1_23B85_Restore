@@ -10,34 +10,34 @@
 + (id)dataWithToken:(id)token
 {
   v4 = [qword_1EB658D18 alloc];
-  v7 = objc_msgSend_initWithToken_(v4, v5, token, v6);
+  v6 = objc_msgSend_initWithToken_(v4, v5, token);
 
-  return v7;
+  return v6;
 }
 
 + (id)dataWithInt:(int)int
 {
   v3 = *&int;
   v4 = [qword_1EB658D18 alloc];
-  v7 = objc_msgSend_initWithInt_(v4, v5, v3, v6);
+  v6 = objc_msgSend_initWithInt_(v4, v5, v3);
 
-  return v7;
+  return v6;
 }
 
 + (id)dataWithDouble:(double)double
 {
   v4 = [qword_1EB658D18 alloc];
-  v8 = objc_msgSend_initWithDouble_(v4, v5, v6, v7, double);
+  v7 = objc_msgSend_initWithDouble_(v4, v5, v6, double);
 
-  return v8;
+  return v7;
 }
 
 + (id)dataWithString:(id)string
 {
   v4 = [qword_1EB658D18 alloc];
-  v7 = objc_msgSend_initWithString_(v4, v5, string, v6);
+  v6 = objc_msgSend_initWithString_(v4, v5, string);
 
-  return v7;
+  return v6;
 }
 
 @end

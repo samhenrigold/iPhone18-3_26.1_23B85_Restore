@@ -98,46 +98,42 @@ void __50__PXGBasicAXGroupAccessibility_accessibilityFrame__block_invoke(uint64_
 
 - (void)_updateLayoutIfNeeded
 {
-  v9[2] = *MEMORY[0x29EDCA608];
+  v8[2] = *MEMORY[0x29EDCA608];
   v3 = [(PXGBasicAXGroupAccessibility *)self safeBoolForKey:@"needsUpdate"];
-  v7.receiver = self;
-  v7.super_class = PXGBasicAXGroupAccessibility;
-  [(PXGBasicAXGroupAccessibility *)&v7 _updateLayoutIfNeeded];
+  v6.receiver = self;
+  v6.super_class = PXGBasicAXGroupAccessibility;
+  [(PXGBasicAXGroupAccessibility *)&v6 _updateLayoutIfNeeded];
   if (v3)
   {
     defaultCenter = [MEMORY[0x29EDBA068] defaultCenter];
-    v8[0] = @"AXPhotosGridGroupKey";
-    v8[1] = @"AXPhotosGridUpdateKey";
-    v9[0] = self;
-    v9[1] = &unk_2A2288EB8;
-    v5 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
+    v7[0] = @"AXPhotosGridGroupKey";
+    v7[1] = @"AXPhotosGridUpdateKey";
+    v8[0] = self;
+    v8[1] = &unk_2A2288EB8;
+    v5 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
     [defaultCenter postNotificationName:@"AXPhotosGridGroupDataChanged" object:self userInfo:v5];
   }
-
-  v6 = *MEMORY[0x29EDCA608];
 }
 
 - (void)updateSubgroupsWithChangeDetails:(id)details
 {
-  v11[2] = *MEMORY[0x29EDCA608];
-  v9.receiver = self;
-  v9.super_class = PXGBasicAXGroupAccessibility;
+  v10[2] = *MEMORY[0x29EDCA608];
+  v8.receiver = self;
+  v8.super_class = PXGBasicAXGroupAccessibility;
   detailsCopy = details;
-  [(PXGBasicAXGroupAccessibility *)&v9 updateSubgroupsWithChangeDetails:detailsCopy];
+  [(PXGBasicAXGroupAccessibility *)&v8 updateSubgroupsWithChangeDetails:detailsCopy];
   hasAnyInsertionsRemovalsOrMoves = [detailsCopy hasAnyInsertionsRemovalsOrMoves];
 
   if (hasAnyInsertionsRemovalsOrMoves)
   {
     defaultCenter = [MEMORY[0x29EDBA068] defaultCenter];
-    v10[0] = @"AXPhotosGridGroupKey";
-    v10[1] = @"AXPhotosGridUpdateKey";
-    v11[0] = self;
-    v11[1] = &unk_2A2288EB8;
-    v7 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+    v9[0] = @"AXPhotosGridGroupKey";
+    v9[1] = @"AXPhotosGridUpdateKey";
+    v10[0] = self;
+    v10[1] = &unk_2A2288EB8;
+    v7 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
     [defaultCenter postNotificationName:@"AXPhotosGridGroupDataChanged" object:self userInfo:v7];
   }
-
-  v8 = *MEMORY[0x29EDCA608];
 }
 
 @end

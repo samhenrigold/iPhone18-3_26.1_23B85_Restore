@@ -118,13 +118,17 @@
 - (void)attributeSetForObject:(void *)a1 .cold.2(void *a1)
 {
   v1 = [a1 searchIndexingIdentifier];
-  OUTLINED_FUNCTION_0_2(&dword_1D4576000, v2, v3, "-attributeSetForObject: NO need to index ICSearchIndexable: %@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_2(&dword_1D4576000, v2, v3, "-attributeSetForObject: NO need to index ICSearchIndexable: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 - (void)attributeSetForObject:(void *)a1 .cold.3(void *a1)
 {
   v1 = [a1 searchIndexingIdentifier];
-  OUTLINED_FUNCTION_0_2(&dword_1D4576000, v2, v3, "-attributeSetForObject: need to index ICSearchIndexable: %@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_2(&dword_1D4576000, v2, v3, "-attributeSetForObject: need to index ICSearchIndexable: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

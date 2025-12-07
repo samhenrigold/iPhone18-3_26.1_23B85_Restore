@@ -10,12 +10,14 @@
 - (id)getSortedDocValuesWithNSString:(id)string;
 - (id)getSortedNumericDocValuesWithNSString:(id)string;
 - (id)getSortedSetDocValuesWithNSString:(id)string;
+- (id)getTermVectorsWithInt:(int)int;
 - (int)maxDoc;
 - (int)numDocs;
 - (void)addCoreClosedListenerWithOrgApacheLuceneIndexLeafReader_CoreClosedListener:(id)listener;
 - (void)checkIntegrity;
 - (void)dealloc;
 - (void)doClose;
+- (void)documentWithInt:(int)int withOrgApacheLuceneIndexStoredFieldVisitor:(id)visitor;
 - (void)removeCoreClosedListenerWithOrgApacheLuceneIndexLeafReader_CoreClosedListener:(id)listener;
 @end
 
@@ -74,6 +76,19 @@
   return [(OrgApacheLuceneIndexLeafReader *)in getFieldInfos];
 }
 
+- (id)getTermVectorsWithInt:(int)int
+{
+  v3 = *&int;
+  [(OrgApacheLuceneIndexIndexReader *)self ensureOpen];
+  in = self->in_;
+  if (!in)
+  {
+    JreThrowNullPointerException();
+  }
+
+  return [(OrgApacheLuceneIndexLeafReader *)in getTermVectorsWithInt:v3];
+}
+
 - (int)numDocs
 {
   in = self->in_;
@@ -94,6 +109,19 @@
   }
 
   return [(OrgApacheLuceneIndexLeafReader *)in maxDoc];
+}
+
+- (void)documentWithInt:(int)int withOrgApacheLuceneIndexStoredFieldVisitor:(id)visitor
+{
+  v5 = *&int;
+  [(OrgApacheLuceneIndexIndexReader *)self ensureOpen];
+  in = self->in_;
+  if (!in)
+  {
+    JreThrowNullPointerException();
+  }
+
+  [(OrgApacheLuceneIndexLeafReader *)in documentWithInt:v5 withOrgApacheLuceneIndexStoredFieldVisitor:visitor];
 }
 
 - (void)doClose

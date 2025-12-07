@@ -16,6 +16,7 @@
 - (void)setAllowBrowseSync:(id)sync specifier:(id)specifier;
 - (void)showMoreTapped:(id)tapped;
 - (void)showProgressPrivacyInfo:(id)info;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -46,6 +47,21 @@
   }
 
   return v2;
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v10.receiver = self;
+  v10.super_class = CLSClassKitSettingsController;
+  [(CLSClassKitSettingsController *)&v10 viewDidAppear:appear];
+  v4 = [NSURL URLWithString:@"settings-navigation://com.apple.Settings.ClassKit"];
+  v5 = [_NSLocalizedStringResource alloc];
+  v6 = +[NSLocale currentLocale];
+  v7 = [NSBundle bundleForClass:objc_opt_class()];
+  bundleURL = [v7 bundleURL];
+  v9 = [v5 initWithKey:@"CLASS_PROGRESS_TITLE" table:@"ClassKitSettings" locale:v6 bundleURL:bundleURL];
+
+  [(CLSClassKitSettingsController *)self pe_emitNavigationEventForSystemSettingsWithGraphicIconIdentifier:@"com.apple.application-icon.classkit" title:v9 localizedNavigationComponents:&__NSArray0__struct deepLink:v4];
 }
 
 - (void)viewDidLoad

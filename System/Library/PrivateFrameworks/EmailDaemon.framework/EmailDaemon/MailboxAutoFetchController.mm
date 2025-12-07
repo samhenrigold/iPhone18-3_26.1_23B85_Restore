@@ -3,6 +3,7 @@
 + (OS_os_log)signpostLog;
 + (id)log;
 - (BOOL)_shouldAutoFetchAccount:(id)account whenVisible:(BOOL)visible;
+- (BOOL)_tryFetch:(int)fetch withAccounts:(id)accounts;
 - (MailboxAutoFetchController)initWithFavoritesPersistence:(id)persistence;
 - (id)_invocationWithTarget:(id)target priority:(unint64_t)priority;
 - (id)_visibleMailboxes;
@@ -15,6 +16,7 @@
 - (void)_createJobList;
 - (void)_createJobListFinished:(id)finished;
 - (void)_doFetchChangedMailboxes:(id)mailboxes forAccount:(id)account options:(int)options;
+- (void)_fetchChangedMailboxes:(id)mailboxes forAccount:(id)account options:(int)options;
 - (void)_fetchCompleted:(id)completed;
 - (void)_finishAutoFetch;
 - (void)_logSignpostForMailboxFetch:(id)fetch finished:(BOOL)finished;
@@ -258,25 +260,7 @@
   visibleSourceJobList = self->_visibleSourceJobList;
   self->_visibleSourceJobList = v14;
 
-  if (!self->_isReachable)
-  {
-    goto LABEL_21;
-  }
-
-  v16 = +[CPNetworkObserver sharedNetworkObserver];
-  isWiFiEnabled = [v16 isWiFiEnabled];
-
-  if (!isWiFiEnabled)
-  {
-    goto LABEL_21;
-  }
-
-  v18 = +[PCPersistentTimer lastSystemWakeDate];
-  [v18 timeIntervalSinceNow];
-  v20 = v19;
-
-  v21 = v20 + 9.0;
-  if (v21 > 0.0)
+  if (self->_isReachable && (+[CPNetworkObserver sharedNetworkObserver](CPNetworkObserver, "sharedNetworkObserver"), v16 = objc_claimAutoreleasedReturnValue(), v17 = [v16 isWiFiEnabled], v16, v17) && (+[PCPersistentTimer lastSystemWakeDate](PCPersistentTimer, "lastSystemWakeDate"), v18 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v18, "timeIntervalSinceNow"), v20 = v19, v18, v21 = v20 + 9.0, v21 > 0.0))
   {
     [(MailboxAutoFetchController *)self setAutoFetchState:1];
     fetchScheduler = [(MailboxAutoFetchController *)self fetchScheduler];
@@ -290,7 +274,6 @@
 
   else
   {
-LABEL_21:
     [(MailboxAutoFetchController *)self _createJobList];
   }
 }
@@ -570,6 +553,145 @@ LABEL_20:
   [fetchScheduler performBlock:v7];
 }
 
+- (BOOL)_tryFetch:(int)fetch withAccounts:(id)accounts
+{
+  v5 = *&fetch;
+  accountsCopy = accounts;
+  if ([(MailboxAutoFetchController *)self autoFetchState])
+  {
+    v8 = MFAutoFetchLog();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Suppressing autofetch because there's already one inflight", buf, 2u);
+    }
+
+    if (v5)
+    {
+      *buf = 0;
+      v29 = buf;
+      v30 = 0x2020000000;
+      v31 = 1;
+      v26[0] = _NSConcreteStackBlock;
+      v26[1] = 3221225472;
+      v26[2] = sub_100029080;
+      v26[3] = &unk_100157348;
+      v27 = v5;
+      v26[4] = self;
+      v26[5] = buf;
+      v9 = objc_retainBlock(v26);
+      (v9[2])(v9, 16);
+      (v9[2])(v9, 8);
+      (v9[2])(v9, 4);
+      (v9[2])(v9, 0x8000);
+      if ((v5 & 2) != 0 && self->_autoFetchState >= 4)
+      {
+        v29[24] = 0;
+      }
+
+      fetchAccounts = self->_fetchAccounts;
+      if (fetchAccounts == accountsCopy)
+      {
+        v13 = v29;
+      }
+
+      else
+      {
+        if (fetchAccounts)
+        {
+          v11 = self->_fetchAccounts;
+        }
+
+        else
+        {
+          v11 = &__NSArray0__struct;
+        }
+
+        v12 = [(NSArray *)accountsCopy isEqualToArray:v11];
+        v13 = v29;
+        if ((v12 & 1) == 0)
+        {
+          v29[24] = 0;
+        }
+      }
+
+      if (v13[24] == 1)
+      {
+        self->_fetchType |= v5;
+      }
+
+      else
+      {
+        self->_pendingFetchType |= v5 | 1;
+        objc_storeStrong(&self->_pendingFetchAccounts, accounts);
+      }
+
+      _Block_object_dispose(buf, 8);
+    }
+
+LABEL_34:
+    v24 = 0;
+    goto LABEL_37;
+  }
+
+  if ((v5 & 1) == 0 && ((v5 & 2) == 0 || !self->_lastAutoFetchHadErrors) && self->_lastNonvisibleAutoFetchDate != 0.0)
+  {
+    v14 = CFAbsoluteTimeGetCurrent() - self->_lastNonvisibleAutoFetchDate;
+    v15 = 3.0;
+    if (self->_lastAutoFetchHadSources)
+    {
+      v15 = 30.0;
+    }
+
+    if (v14 < v15)
+    {
+      v16 = MFAutoFetchLog();
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Suppressing background autofetch because it's too close to the last one", buf, 2u);
+      }
+
+      v17 = +[NSNotificationCenter defaultCenter];
+      [v17 postNotificationName:@"MailboxAutoFetchProcessFinishedNotification" object:self];
+
+      goto LABEL_34;
+    }
+  }
+
+  v18 = sub_100027C70();
+  launchedToTest = [v18 launchedToTest];
+
+  if ((launchedToTest & 1) == 0)
+  {
+    freeSpaceMonitor = [(MailboxAutoFetchController *)self freeSpaceMonitor];
+    isFreeSpaceCritical = [freeSpaceMonitor isFreeSpaceCritical];
+
+    if (isFreeSpaceCritical)
+    {
+      v22 = MFAutoFetchLog();
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Suppressing autofetch because free space is critical.", buf, 2u);
+      }
+
+      v23 = +[NSNotificationCenter defaultCenter];
+      [v23 postNotificationName:@"MailboxAutoFetchProcessFinishedNotification" object:self];
+    }
+
+    else
+    {
+      [(MailboxAutoFetchController *)self _startAutoFetch:v5 withAccounts:accountsCopy];
+    }
+  }
+
+  v24 = 1;
+LABEL_37:
+
+  return v24;
+}
+
 - (void)fetchNow:(int)now withAccounts:(id)accounts
 {
   accountsCopy = accounts;
@@ -780,6 +902,30 @@ LABEL_20:
     }
 
     while (v9);
+  }
+}
+
+- (void)_fetchChangedMailboxes:(id)mailboxes forAccount:(id)account options:(int)options
+{
+  v5 = *&options;
+  mailboxesCopy = mailboxes;
+  accountCopy = account;
+  freeSpaceMonitor = [(MailboxAutoFetchController *)self freeSpaceMonitor];
+  hasAdequateFreeSpace = [freeSpaceMonitor hasAdequateFreeSpace];
+
+  if (hasAdequateFreeSpace)
+  {
+    [(MailboxAutoFetchController *)self _doFetchChangedMailboxes:mailboxesCopy forAccount:accountCopy options:v5];
+  }
+
+  else
+  {
+    v12 = MFAutoFetchLog();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    {
+      *v13 = 0;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Suppressing fetched mailbox changes due to low disk space", v13, 2u);
+    }
   }
 }
 

@@ -19,6 +19,7 @@
 - (void)setCurrentNumber:(id)number;
 - (void)setEnabled:(BOOL)enabled;
 - (void)setFeedbackDisabled:(BOOL)disabled;
+- (void)setOrientation:(int64_t)orientation animated:(BOOL)animated;
 - (void)sliderDidEndScrolling:(id)scrolling;
 - (void)sliderWillBeginScrolling:(id)scrolling;
 @end
@@ -409,7 +410,7 @@ LABEL_25:
       v35 = v34 = _displayValueRange;
       [v35 setCellDataProvider:self];
 
-      [(CAMSystemOverlaySlider *)self _orientationTransform];
+      objc_msgSend__orientationTransform(self);
       cellDataConfiguration = [_discreteSlider cellDataConfiguration];
       v45[0] = *(&v45[3] + 8);
       v45[1] = *(&v45[4] + 8);
@@ -584,7 +585,7 @@ LABEL_8:
       [v8 setSliderVerticalAlignment:1];
       [v8 setGradientInsets:{13.0, 13.0}];
       [v8 setSelectionFeedbackProfile:2];
-      [(CAMSystemOverlaySlider *)self _orientationTransform];
+      objc_msgSend__orientationTransform(self);
       cellDataConfiguration = [v8 cellDataConfiguration];
       v17[0] = v17[3];
       v17[1] = v17[4];
@@ -684,6 +685,25 @@ LABEL_15:
   return v5;
 }
 
+- (void)setOrientation:(int64_t)orientation animated:(BOOL)animated
+{
+  if (self->_orientation != orientation)
+  {
+    v10[10] = v4;
+    v10[11] = v5;
+    animatedCopy = animated;
+    self->_orientation = orientation;
+    _discreteSlider = [(CAMSystemOverlaySlider *)self _discreteSlider];
+    cellDataConfiguration = [_discreteSlider cellDataConfiguration];
+
+    if (cellDataConfiguration)
+    {
+      objc_msgSend__orientationTransform(self);
+      [cellDataConfiguration setContentTransform:v10 animated:animatedCopy];
+    }
+  }
+}
+
 - (CGAffineTransform)_orientationTransform
 {
   orientation = self->_orientation;
@@ -694,20 +714,19 @@ LABEL_15:
 
   else if (orientation == 4)
   {
-    v16.a = 0.0;
-    *&v16.b = &v16;
-    *&v16.c = 0x2020000000;
-    v16.d = 0.0;
+    v14.a = 0.0;
+    *&v14.b = &v14;
+    *&v14.c = 0x2020000000;
+    v14.d = 0.0;
     _selectorConfigurations = [(CAMSystemOverlaySlider *)self _selectorConfigurations];
-    v17[0] = _NSConcreteStackBlock;
-    v17[1] = 3221225472;
-    v17[2] = sub_1000047F0;
-    v17[3] = &unk_1000553B8;
-    v17[4] = &v16;
-    [_selectorConfigurations enumerateObjectsUsingBlock:v17];
+    v15[0] = _NSConcreteStackBlock;
+    v15[1] = 3221225472;
+    v15[2] = sub_1000047F0;
+    v15[3] = &unk_1000553B8;
+    v15[4] = &v14;
+    [_selectorConfigurations enumerateObjectsUsingBlock:v15];
 
-    v9 = *(*&v16.b + 24);
-    _Block_object_dispose(&v16, 8);
+    _Block_object_dispose(&v14, 8);
     v5 = 1.57079633;
   }
 
@@ -716,35 +735,34 @@ LABEL_15:
     v5 = 0.0;
     if (orientation == 3)
     {
-      v16.a = 0.0;
-      *&v16.b = &v16;
-      *&v16.c = 0x2020000000;
-      v16.d = 0.0;
+      v14.a = 0.0;
+      *&v14.b = &v14;
+      *&v14.c = 0x2020000000;
+      v14.d = 0.0;
       _selectorConfigurations2 = [(CAMSystemOverlaySlider *)self _selectorConfigurations];
-      v18[0] = _NSConcreteStackBlock;
-      v18[1] = 3221225472;
-      v18[2] = sub_10000478C;
-      v18[3] = &unk_1000553B8;
-      v18[4] = &v16;
-      [_selectorConfigurations2 enumerateObjectsUsingBlock:v18];
+      v16[0] = _NSConcreteStackBlock;
+      v16[1] = 3221225472;
+      v16[2] = sub_10000478C;
+      v16[3] = &unk_1000553B8;
+      v16[4] = &v14;
+      [_selectorConfigurations2 enumerateObjectsUsingBlock:v16];
 
-      v7 = -*(*&v16.b + 24);
-      _Block_object_dispose(&v16, 8);
+      _Block_object_dispose(&v14, 8);
       v5 = -1.57079633;
     }
   }
 
-  v10 = dbl_10003FB60[[(CAMSystemOverlaySlider *)self alignment]== 0];
-  memset(&v16, 0, sizeof(v16));
-  CGAffineTransformMakeRotation(&v16, v5 + v10);
-  v14 = v16;
-  memset(&v15, 0, sizeof(v15));
-  CGAffineTransformScale(&v15, &v14, -1.0, 1.0);
+  v8 = dbl_10003FB60[[(CAMSystemOverlaySlider *)self alignment]== 0];
   memset(&v14, 0, sizeof(v14));
+  CGAffineTransformMakeRotation(&v14, v5 + v8);
+  v12 = v14;
+  memset(&v13, 0, sizeof(v13));
+  CGAffineTransformScale(&v13, &v12, -1.0, 1.0);
+  memset(&v12, 0, sizeof(v12));
   UIRoundToViewScale();
-  v13 = v15;
-  CGAffineTransformTranslate(&v14, &v13, 0.0, v11);
-  v13 = v14;
+  v11 = v13;
+  CGAffineTransformTranslate(&v12, &v11, 0.0, v9);
+  v11 = v12;
   return UIIntegralTransform();
 }
 

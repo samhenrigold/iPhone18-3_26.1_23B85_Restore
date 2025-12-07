@@ -1,3 +1,340 @@
+BOOL sub_1000AA9BC(id a1, MRAVEndpoint *a2, MRAVEndpoint *a3)
+{
+  v4 = a3;
+  v5 = [(MRAVEndpoint *)a2 outputDeviceUIDs];
+  v6 = [(MRAVEndpoint *)v4 outputDeviceUIDs];
+
+  LOBYTE(v4) = [v5 isEqualToArray:v6];
+  return v4 ^ 1;
+}
+
+BOOL sub_1000AAFDC(sqlite3_stmt *a1, int a2, id a3)
+{
+  v6 = a3;
+  v7 = a3;
+  v8 = [v7 UTF8String];
+  v9 = [v7 length];
+
+  v10 = sqlite3_bind_text(a1, a2, v8, v9, 0xFFFFFFFFFFFFFFFFLL);
+  if (v10)
+  {
+    v11 = _MRLogForCategory();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    {
+      *v13 = 0;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Error binding statement to database query", v13, 2u);
+    }
+  }
+
+  return v10 == 0;
+}
+
+void sub_1000ABC68(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
+{
+  objc_destroyWeak((v14 + 32));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_1000ABC84(uint64_t a1, void *a2, void *a3, void *a4, void *a5, void *a6)
+{
+  v11 = a2;
+  v12 = a3;
+  v13 = a4;
+  v14 = a5;
+  v15 = a6;
+  WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v17 = WeakRetained[5];
+  v23[0] = _NSConcreteStackBlock;
+  v23[1] = 3221225472;
+  v23[2] = sub_1000ABDD0;
+  v23[3] = &unk_1004BA1B8;
+  v24 = v13;
+  v25 = WeakRetained;
+  v26 = v11;
+  v27 = v12;
+  v28 = v14;
+  v29 = v15;
+  v18 = v15;
+  v19 = v14;
+  v20 = v12;
+  v21 = v11;
+  v22 = v13;
+  dispatch_async(v17, v23);
+}
+
+id sub_1000ABDD0(uint64_t a1)
+{
+  if ([*(a1 + 32) isEqualToString:MRIDSServiceMessageTypeDiscovery])
+  {
+    v4 = *(a1 + 40);
+    v5 = *(a1 + 48);
+    v6 = *(a1 + 56);
+
+    return [v4 _handleDiscoveryMessage:v5 fromDevice:{v6, v2, v3}];
+  }
+
+  else
+  {
+    result = [*(a1 + 32) isEqualToString:MRIDSServiceMessageTypeConnectRemoteControl];
+    if (result)
+    {
+      v7 = *(a1 + 40);
+      v8 = *(a1 + 48);
+      v9 = *(a1 + 56);
+      v10 = *(a1 + 64);
+      v11 = *(a1 + 72);
+
+      return [v7 _handleConnectRemoteControlMessage:v8 fromDevice:v9 destination:v10 session:v11];
+    }
+  }
+
+  return result;
+}
+
+void sub_1000AC028(uint64_t a1)
+{
+  v2 = _MRLogForCategory();
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  {
+    v3 = [*(a1 + 32) deviceInfo];
+    v4 = *(a1 + 40);
+    v8 = 138412546;
+    v9 = v3;
+    v10 = 2112;
+    v11 = v4;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "[MRDIDSRemoteControlService] Removing DiscoveryChannel for client %@ with error %@", &v8, 0x16u);
+  }
+
+  v5 = *(*(a1 + 48) + 48);
+  v6 = [*(a1 + 32) deviceInfo];
+  v7 = [v6 deviceUID];
+  [v5 setObject:0 forKeyedSubscript:v7];
+}
+
+void sub_1000AC210(uint64_t a1)
+{
+  v2 = [*(a1 + 32) mode];
+  [*(a1 + 40) setDiscoveryMode:v2];
+  v3 = [*(a1 + 32) configuration];
+  [*(a1 + 40) setConfiguration:v3];
+
+  if (v2)
+  {
+    v6 = objc_alloc_init(MRProtocolMessageOptions);
+    [v6 setPriority:5];
+    [v6 setWaking:1];
+    v4 = *(a1 + 48);
+    v5 = +[MRAVLocalEndpoint sharedLocalEndpoint];
+    [v4 _onWorkerQueue_sendEndpoint:v5 toClient:*(a1 + 40) options:v6];
+  }
+}
+
+void sub_1000AC4C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location)
+{
+  objc_destroyWeak((v16 + 40));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_1000AC4E8(uint64_t a1, void *a2)
+{
+  v3 = a2;
+  WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v5 = WeakRetained[5];
+  block[0] = _NSConcreteStackBlock;
+  block[1] = 3221225472;
+  block[2] = sub_1000AC5B0;
+  block[3] = &unk_1004B69D0;
+  block[4] = WeakRetained;
+  v8 = *(a1 + 32);
+  v9 = v3;
+  v6 = v3;
+  dispatch_async(v5, block);
+}
+
+void sub_1000AC5B0(void *a1)
+{
+  v1 = a1[4];
+  if (v1)
+  {
+    v4 = [*(v1 + 48) objectForKeyedSubscript:a1[5]];
+    v3 = [v4 client];
+    [v3 disconnectWithError:a1[6]];
+
+    [*(a1[4] + 48) setObject:0 forKeyedSubscript:a1[5]];
+  }
+}
+
+void sub_1000AC958(void *a1, uint64_t a2, uint64_t a3, void *a4)
+{
+  v6 = a4;
+  v7 = [[MRPromptForRouteAuthorizationMessage alloc] initWithRoute:0 inputType:a3];
+  v8 = a1[4];
+  v9 = [v7 protobufData];
+  v10 = MRIDSServiceMessageTypeProtobuf;
+  v12 = a1[5];
+  v11 = a1[6];
+  v14[0] = _NSConcreteStackBlock;
+  v14[1] = 3221225472;
+  v14[2] = sub_1000ACA68;
+  v14[3] = &unk_1004BA228;
+  v15 = v6;
+  v13 = v6;
+  [v8 sendMessage:v9 type:v10 destination:v12 session:v11 options:0 priority:300 response:v14];
+}
+
+void sub_1000ACA68(uint64_t a1, void *a2)
+{
+  v3 = a2;
+  v4 = [v3 data];
+
+  if (v4)
+  {
+    v5 = [v3 data];
+    v9 = 0;
+    v6 = [MRProtocolMessage protocolMessageWithProtobufData:v5 error:&v9];
+    v7 = v9;
+
+    if (v7 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+    {
+      v8 = 0;
+    }
+
+    else
+    {
+      v8 = [v6 response];
+    }
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  (*(*(a1 + 32) + 16))();
+}
+
+void sub_1000ACB58(uint64_t a1, void *a2)
+{
+  v3 = a2;
+  v6 = [[MRProtocolMessage alloc] initWithUnderlyingCodableMessage:0 error:v3];
+
+  v4 = *(a1 + 32);
+  v5 = [v6 protobufData];
+  [v4 replyWithData:v5 priority:300];
+}
+
+void sub_1000ACDAC(id a1)
+{
+  v3 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+  v1 = dispatch_queue_create("com.apple.mediaremote.MRDIDSRemoteControlService.discoveryChannelClientQueue", v3);
+  v2 = qword_1005292C0;
+  qword_1005292C0 = v1;
+}
+
+void sub_1000AD1BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id location)
+{
+  objc_destroyWeak((v24 + 64));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_1000AD1F8(id *a1, void *a2)
+{
+  v3 = a2;
+  WeakRetained = objc_loadWeakRetained(a1 + 8);
+  v5 = WeakRetained;
+  if (WeakRetained)
+  {
+    v6 = WeakRetained[5];
+    v7[0] = _NSConcreteStackBlock;
+    v7[1] = 3221225472;
+    v7[2] = sub_1000AD300;
+    v7[3] = &unk_1004BA1B8;
+    v7[4] = WeakRetained;
+    v8 = a1[4];
+    v9 = a1[5];
+    v10 = a1[6];
+    v11 = v3;
+    v12 = a1[7];
+    dispatch_async(v6, v7);
+  }
+}
+
+void sub_1000AD300(uint64_t a1)
+{
+  v2 = [*(*(a1 + 32) + 56) objectForKeyedSubscript:*(a1 + 40)];
+  v8 = [v2 channelForDestination:*(a1 + 48) session:*(a1 + 56)];
+
+  if (v8)
+  {
+    v3 = [*(a1 + 64) object];
+    v4 = [MRProtocolMessage alloc];
+    v5 = [v3 error];
+    v6 = [v4 initWithUnderlyingCodableMessage:0 error:v5];
+    v7 = [v6 protobufData];
+
+    [*(a1 + 72) sendMessage:v7 type:MRIDSServiceMessageTypeDisconnectRemoteControl destination:*(a1 + 48) session:*(a1 + 56) options:0 priority:300];
+  }
+}
+
+void sub_1000AD520(uint64_t a1, void *a2)
+{
+  v3 = a2;
+  v4 = [*(a1 + 32) transport];
+  v5 = [v3 groupLeader];
+  v6 = [v4 exportOutputDevice:v5 endpoint:v3];
+
+  v7 = [*(a1 + 32) destination];
+  LOBYTE(v5) = [v6 containsUID:v7];
+
+  if (v5)
+  {
+    v8 = [*(a1 + 40) destinationOutputDeviceUID];
+    v9 = [v3 outputDeviceWithUID:v8];
+
+    if (*(a1 + 72) == 1 && ([*(a1 + 40) isDestinationLocal] & 1) == 0)
+    {
+      v10 = *(*(a1 + 48) + 8);
+      v11 = [v9 primaryID];
+      v27[0] = _NSConcreteStackBlock;
+      v27[1] = 3221225472;
+      v27[2] = sub_1000AD7B4;
+      v27[3] = &unk_1004BA298;
+      v29 = *(a1 + 64);
+      v28 = v9;
+      [v10 addAuthorizationCallbackForRouteID:v11 requestCallback:v27];
+    }
+
+    v12 = *(a1 + 40);
+    v21[0] = _NSConcreteStackBlock;
+    v21[1] = 3221225472;
+    v21[2] = sub_1000AD7D0;
+    v21[3] = &unk_1004BA2C0;
+    v26 = *(a1 + 72);
+    v13 = v12;
+    v14 = *(a1 + 48);
+    v15 = *(a1 + 56);
+    v22 = v13;
+    v23 = v14;
+    v24 = v9;
+    v25 = v15;
+    v16 = v9;
+    [v13 requestConnectedDestinationEndpoint:v21];
+  }
+
+  else
+  {
+    v17 = [NSError alloc];
+    v18 = [v3 debugName];
+    v19 = [*(a1 + 32) destination];
+    v20 = [v17 initWithMRError:118 format:{@"Tried to connect to endpoint but its groupLeader changed from %@ to %@", v18, v19}];
+
+    (*(*(a1 + 56) + 16))();
+  }
+}
+
 void sub_1000AD7D0(uint64_t a1, uint64_t a2, void *a3)
 {
   v6 = a3;
@@ -60,9 +397,9 @@ void sub_1000ADBAC(uint64_t a1, void *a2)
   (*(*(a1 + 32) + 16))();
 }
 
-void sub_1000AE388(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000AE388(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -685,13 +1022,13 @@ void sub_1000B1778(uint64_t a1, void *a2, void *a3)
   v5 = a2;
   v6 = a3;
   v7 = *(a1 + 32);
-  v58[0] = _NSConcreteStackBlock;
-  v58[1] = 3221225472;
-  v58[2] = sub_1000B1E98;
-  v58[3] = &unk_1004BA5C8;
+  v57[0] = _NSConcreteStackBlock;
+  v57[1] = 3221225472;
+  v57[2] = sub_1000B1E98;
+  v57[3] = &unk_1004BA5C8;
   v8 = v5;
-  v59 = v8;
-  v9 = [v7 msv_compactMap:v58];
+  v58 = v8;
+  v9 = [v7 msv_compactMap:v57];
   v10 = [v9 count];
   v11 = [*(a1 + 32) count];
 
@@ -714,7 +1051,7 @@ void sub_1000B1778(uint64_t a1, void *a2, void *a3)
         if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v61 = v35;
+          v60 = v35;
           _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "[MRDRRC].RV no unanimous endpoint and at least one RC member: %@", buf, 0xCu);
         }
 
@@ -739,21 +1076,19 @@ void sub_1000B1778(uint64_t a1, void *a2, void *a3)
       if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v61 = v8;
+        v60 = v8;
         _os_log_impl(&_mh_execute_header, v53, OS_LOG_TYPE_DEFAULT, "[MRDRRC].RV no endpoint, no RC, returning device collection: %@", buf, 0xCu);
       }
 
-      v54 = *(a1 + 56);
       (*(*(a1 + 72) + 16))();
-
 LABEL_30:
-LABEL_31:
 
+LABEL_31:
       goto LABEL_32;
     }
 
     v14 = [MRIRRoute routeWithEndpoint:v6];
-    v57 = [v14 nodes];
+    v56 = [v14 nodes];
 
     v15 = +[MRDMediaRemoteServer server];
     v16 = [v15 nowPlayingServer];
@@ -767,7 +1102,7 @@ LABEL_31:
 
     v23 = [v18 activeNowPlayingClient];
     v24 = [v23 activePlayerClient];
-    v56 = [v24 isPlaying];
+    v55 = [v24 isPlaying];
 
     v25 = [v22 activeNowPlayingClient];
     v26 = [v25 activePlayerClient];
@@ -795,17 +1130,17 @@ LABEL_31:
 
     else
     {
-      v35 = v57;
-      if (![v57 isSubsetOfSet:*(a1 + 48)])
+      v35 = v56;
+      if (![v56 isSubsetOfSet:*(a1 + 48)])
       {
         v43 = _MRLogForCategory();
         if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
         {
           v44 = *(a1 + 48);
           *buf = 138412546;
-          v61 = v44;
-          v62 = 2112;
-          v63 = v57;
+          v60 = v44;
+          v61 = 2112;
+          v62 = v56;
           _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEFAULT, "[MRDRRC].RV endpoint is not a perfect match.\n desired nodes: %@\n available nodes: %@", buf, 0x16u);
         }
 
@@ -814,36 +1149,36 @@ LABEL_31:
       }
 
       v37 = [NSMutableSet setWithSet:*(a1 + 48)];
-      [v37 minusSet:v57];
+      [v37 minusSet:v56];
       if ([v37 count])
       {
         v38 = _MRLogForCategory();
         if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v61 = v37;
+          v60 = v37;
           _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "[MRDRRC].RV could not find nodes: %@", buf, 0xCu);
         }
       }
 
-      v55 = v30;
+      v54 = v30;
       v39 = _MRLogForCategory();
       if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v61 = v6;
+        v60 = v6;
         _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "[MRDRRC].RV endpoint is a perfect match, returning endpoint: %@", buf, 0xCu);
       }
 
       v40 = *(a1 + 72);
       v41 = *(a1 + 56);
       v42 = [v6 outputDevices];
-      (*(v40 + 16))(v40, v41, v42, v6, v56, v27, v55, v33);
+      (*(v40 + 16))(v40, v41, v42, v6, v55, v27, v54, v33);
 
-      v30 = v55;
+      v30 = v54;
     }
 
-    v35 = v57;
+    v35 = v56;
 LABEL_29:
 
     goto LABEL_30;
@@ -988,19 +1323,18 @@ void sub_1000B2958(uint64_t a1, uint64_t a2, id obj)
 
 void sub_1000B29D0(uint64_t a1, void *a2, void *a3)
 {
-  v10 = a2;
+  v9 = a2;
   v5 = a3;
   v6 = *(*(a1 + 56) + 8);
   if (!*(v6 + 40) && *(a1 + 32))
   {
-    v7 = *(a1 + 40);
     MRAddDeviceInfoToUserInfo();
     v6 = *(*(a1 + 56) + 8);
   }
 
-  v8 = *(v6 + 40);
+  v7 = *(v6 + 40);
   *(v6 + 40) = v5;
-  v9 = v5;
+  v8 = v5;
 
   dispatch_group_leave(*(a1 + 48));
 }
@@ -1140,9 +1474,9 @@ void sub_1000B4E90(uint64_t a1, void *a2)
   [v2 replyWithData:v3 priority:300];
 }
 
-void sub_1000B518C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1000B518C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1597,21 +1931,21 @@ id sub_1000B9ADC(uint64_t a1)
         v18 = *(a1 + 56);
         v10 = +[NSDate date];
         [v10 timeIntervalSinceDate:*(a1 + 80)];
-        v37 = 138544386;
-        v38 = v15;
-        v39 = 2114;
-        v40 = v16;
-        v41 = 2112;
-        v42 = v17;
-        v43 = 2114;
-        v44 = v18;
-        v45 = 2048;
-        v46 = v19;
+        v35 = 138544386;
+        v36 = v15;
+        v37 = 2114;
+        v38 = v16;
+        v39 = 2112;
+        v40 = v17;
+        v41 = 2114;
+        v42 = v18;
+        v43 = 2048;
+        v44 = v19;
         v20 = "Response: %{public}@<%{public}@> returned <%@> for %{public}@ in %.4lf seconds";
         v21 = v4;
         v22 = 52;
 LABEL_19:
-        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, v20, &v37, v22);
+        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, v20, &v35, v22);
         goto LABEL_20;
       }
 
@@ -1625,14 +1959,14 @@ LABEL_19:
       v29 = *(a1 + 48);
       v10 = +[NSDate date];
       [v10 timeIntervalSinceDate:*(a1 + 80)];
-      v37 = 138544130;
-      v38 = v27;
-      v39 = 2114;
-      v40 = v28;
-      v41 = 2112;
-      v42 = v29;
-      v43 = 2048;
-      v44 = v30;
+      v35 = 138544130;
+      v36 = v27;
+      v37 = 2114;
+      v38 = v28;
+      v39 = 2112;
+      v40 = v29;
+      v41 = 2048;
+      v42 = v30;
       v20 = "Response: %{public}@<%{public}@> returned <%@> in %.4lf seconds";
     }
 
@@ -1649,12 +1983,12 @@ LABEL_19:
         v32 = *(a1 + 72);
         v10 = +[NSDate date];
         [v10 timeIntervalSinceDate:*(a1 + 80)];
-        v37 = 138543874;
-        v38 = v31;
-        v39 = 2114;
-        v40 = v32;
-        v41 = 2048;
-        v42 = v33;
+        v35 = 138543874;
+        v36 = v31;
+        v37 = 2114;
+        v38 = v32;
+        v39 = 2048;
+        v40 = v33;
         v20 = "Response: %{public}@<%{public}@> returned in %.4lf seconds";
         v21 = v4;
         v22 = 32;
@@ -1671,14 +2005,14 @@ LABEL_19:
       v25 = *(a1 + 56);
       v10 = +[NSDate date];
       [v10 timeIntervalSinceDate:*(a1 + 80)];
-      v37 = 138544130;
-      v38 = v24;
+      v35 = 138544130;
+      v36 = v24;
+      v37 = 2114;
+      v38 = v23;
       v39 = 2114;
-      v40 = v23;
-      v41 = 2114;
-      v42 = v25;
-      v43 = 2048;
-      v44 = v26;
+      v40 = v25;
+      v41 = 2048;
+      v42 = v26;
       v20 = "Response: %{public}@<%{public}@> returned for %{public}@ in %.4lf seconds";
     }
 
@@ -1700,17 +2034,17 @@ LABEL_19:
       v9 = *(a1 + 56);
       v10 = +[NSDate date];
       [v10 timeIntervalSinceDate:*(a1 + 80)];
-      v37 = 138544386;
-      v38 = v7;
+      v35 = 138544386;
+      v36 = v7;
+      v37 = 2114;
+      v38 = v6;
       v39 = 2114;
-      v40 = v6;
+      v40 = v8;
       v41 = 2114;
-      v42 = v8;
-      v43 = 2114;
-      v44 = v9;
-      v45 = 2048;
-      v46 = v11;
-      _os_log_error_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds", &v37, 0x34u);
+      v42 = v9;
+      v43 = 2048;
+      v44 = v11;
+      _os_log_error_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds", &v35, 0x34u);
 LABEL_20:
     }
   }
@@ -1722,8 +2056,6 @@ LABEL_20:
 
 LABEL_21:
 
-  v35 = *(a1 + 40);
-  v34 = *(a1 + 48);
   (*(*(a1 + 96) + 16))();
   [*(a1 + 32) trackWithError:*(a1 + 40)];
   return [*(a1 + 88) setStartingNowPlayingSession:0];
@@ -2057,7 +2389,7 @@ void sub_1000BB244(void *a1, void *a2, void *a3)
 
     if (v19)
     {
-      sub_1003A73D0(a1);
+      sub_1003A73D0(a1, v6);
     }
   }
 
@@ -2278,32 +2610,31 @@ void sub_1000BBB80(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
-    v3 = *(a1 + 40);
-    v4 = *(*(a1 + 40) + 16);
+    v3 = *(*(a1 + 40) + 16);
 
-    v4();
+    v3();
   }
 
   else
   {
-    v10 = [*(a1 + 32) origin];
-    if (v10)
+    v9 = [*(a1 + 32) origin];
+    if (v9)
     {
-      v5 = [MRPlayerPath alloc];
-      v6 = [*(a1 + 32) origin];
-      v7 = [v5 initWithOrigin:v6 client:0 player:0];
+      v4 = [MRPlayerPath alloc];
+      v5 = [*(a1 + 32) origin];
+      v6 = [v4 initWithOrigin:v5 client:0 player:0];
 
-      v8 = *(*(a1 + 40) + 16);
+      v7 = *(*(a1 + 40) + 16);
     }
 
     else
     {
-      v9 = *(a1 + 40);
-      v7 = [[NSError alloc] initWithMRError:121 description:@"endpoint connected but then closed immediately after"];
-      v8 = *(v9 + 16);
+      v8 = *(a1 + 40);
+      v6 = [[NSError alloc] initWithMRError:121 description:@"endpoint connected but then closed immediately after"];
+      v7 = *(v8 + 16);
     }
 
-    v8();
+    v7();
   }
 }
 
@@ -2405,14 +2736,14 @@ void sub_1000BD840(uint64_t a1, void *a2, void *a3)
         v28 = *(a1 + 40);
         v13 = +[NSDate date];
         [v13 timeIntervalSinceDate:*(a1 + 64)];
-        v40 = 138544130;
-        v41 = v27;
-        v42 = 2114;
-        v43 = v26;
-        v44 = 2114;
-        v45 = v28;
-        v46 = 2048;
-        v47 = v29;
+        v39 = 138544130;
+        v40 = v27;
+        v41 = 2114;
+        v42 = v26;
+        v43 = 2114;
+        v44 = v28;
+        v45 = 2048;
+        v46 = v29;
         v30 = "Response: %{public}@<%{public}@> returned for %{public}@ in %.4lf seconds";
         v31 = v8;
         v32 = 42;
@@ -2429,18 +2760,18 @@ void sub_1000BD840(uint64_t a1, void *a2, void *a3)
         v37 = *(a1 + 56);
         v13 = +[NSDate date];
         [v13 timeIntervalSinceDate:*(a1 + 64)];
-        v40 = 138543874;
-        v41 = v36;
-        v42 = 2114;
-        v43 = v37;
-        v44 = 2048;
-        v45 = v38;
+        v39 = 138543874;
+        v40 = v36;
+        v41 = 2114;
+        v42 = v37;
+        v43 = 2048;
+        v44 = v38;
         v30 = "Response: %{public}@<%{public}@> returned in %.4lf seconds";
         v31 = v8;
         v32 = 32;
       }
 
-      _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, v30, &v40, v32);
+      _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, v30, &v39, v32);
       goto LABEL_20;
     }
 
@@ -2457,16 +2788,16 @@ void sub_1000BD840(uint64_t a1, void *a2, void *a3)
       v20 = *(a1 + 40);
       v21 = +[NSDate date];
       [v21 timeIntervalSinceDate:*(a1 + 64)];
-      v40 = 138544386;
-      v41 = v18;
-      v42 = 2114;
-      v43 = v19;
-      v44 = 2112;
-      v45 = v13;
-      v46 = 2114;
-      v47 = v20;
-      v48 = 2048;
-      v49 = v22;
+      v39 = 138544386;
+      v40 = v18;
+      v41 = 2114;
+      v42 = v19;
+      v43 = 2112;
+      v44 = v13;
+      v45 = 2114;
+      v46 = v20;
+      v47 = 2048;
+      v48 = v22;
       v23 = "Response: %{public}@<%{public}@> returned <%@> for %{public}@ in %.4lf seconds";
       v24 = v8;
       v25 = 52;
@@ -2484,20 +2815,20 @@ void sub_1000BD840(uint64_t a1, void *a2, void *a3)
       v13 = [v5 debugName];
       v21 = +[NSDate date];
       [v21 timeIntervalSinceDate:*(a1 + 64)];
-      v40 = 138544130;
-      v41 = v33;
-      v42 = 2114;
-      v43 = v34;
-      v44 = 2112;
-      v45 = v13;
-      v46 = 2048;
-      v47 = v35;
+      v39 = 138544130;
+      v40 = v33;
+      v41 = 2114;
+      v42 = v34;
+      v43 = 2112;
+      v44 = v13;
+      v45 = 2048;
+      v46 = v35;
       v23 = "Response: %{public}@<%{public}@> returned <%@> in %.4lf seconds";
       v24 = v8;
       v25 = 42;
     }
 
-    _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, v23, &v40, v25);
+    _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, v23, &v39, v25);
 
     goto LABEL_20;
   }
@@ -2514,29 +2845,28 @@ void sub_1000BD840(uint64_t a1, void *a2, void *a3)
       v12 = *(a1 + 40);
       v13 = +[NSDate date];
       [v13 timeIntervalSinceDate:*(a1 + 64)];
-      v40 = 138544386;
-      v41 = v11;
-      v42 = 2114;
-      v43 = v10;
-      v44 = 2114;
-      v45 = v6;
-      v46 = 2114;
-      v47 = v12;
-      v48 = 2048;
-      v49 = v14;
-      _os_log_error_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds", &v40, 0x34u);
+      v39 = 138544386;
+      v40 = v11;
+      v41 = 2114;
+      v42 = v10;
+      v43 = 2114;
+      v44 = v6;
+      v45 = 2114;
+      v46 = v12;
+      v47 = 2048;
+      v48 = v14;
+      _os_log_error_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds", &v39, 0x34u);
 LABEL_20:
     }
   }
 
   else if (v9)
   {
-    sub_1003A74A4(a1, v6, v8);
+    sub_1003A74A4();
   }
 
 LABEL_21:
 
-  v39 = *(a1 + 32);
   (*(*(a1 + 72) + 16))();
 }
 
@@ -2607,21 +2937,21 @@ void sub_1000BE134(uint64_t a1, void *a2, void *a3)
         v13 = *(a1 + 40);
         v14 = +[NSDate date];
         [v14 timeIntervalSinceDate:*(a1 + 64)];
-        v36 = 138544386;
-        v37 = v12;
-        v38 = 2114;
-        v39 = v11;
-        v40 = 2112;
-        v41 = v5;
-        v42 = 2114;
-        v43 = v13;
-        v44 = 2048;
-        v45 = v15;
+        v35 = 138544386;
+        v36 = v12;
+        v37 = 2114;
+        v38 = v11;
+        v39 = 2112;
+        v40 = v5;
+        v41 = 2114;
+        v42 = v13;
+        v43 = 2048;
+        v44 = v15;
         v16 = "Response: %{public}@<%{public}@> returned <%@> for %{public}@ in %.4lf seconds";
         v17 = v9;
         v18 = 52;
 LABEL_16:
-        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, v16, &v36, v18);
+        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, v16, &v35, v18);
         goto LABEL_17;
       }
 
@@ -2637,14 +2967,14 @@ LABEL_16:
     v30 = *(a1 + 56);
     v14 = +[NSDate date];
     [v14 timeIntervalSinceDate:*(a1 + 64)];
-    v36 = 138544130;
-    v37 = v29;
-    v38 = 2114;
-    v39 = v30;
-    v40 = 2112;
-    v41 = v5;
-    v42 = 2048;
-    v43 = v31;
+    v35 = 138544130;
+    v36 = v29;
+    v37 = 2114;
+    v38 = v30;
+    v39 = 2112;
+    v40 = v5;
+    v41 = 2048;
+    v42 = v31;
     v16 = "Response: %{public}@<%{public}@> returned <%@> in %.4lf seconds";
 LABEL_15:
     v17 = v9;
@@ -2664,17 +2994,17 @@ LABEL_15:
         v22 = *(a1 + 40);
         v14 = +[NSDate date];
         [v14 timeIntervalSinceDate:*(a1 + 64)];
-        v36 = 138544386;
-        v37 = v21;
-        v38 = 2114;
-        v39 = v20;
-        v40 = 2114;
-        v41 = v6;
-        v42 = 2114;
-        v43 = v22;
-        v44 = 2048;
-        v45 = v23;
-        _os_log_error_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds", &v36, 0x34u);
+        v35 = 138544386;
+        v36 = v21;
+        v37 = 2114;
+        v38 = v20;
+        v39 = 2114;
+        v40 = v6;
+        v41 = 2114;
+        v42 = v22;
+        v43 = 2048;
+        v44 = v23;
+        _os_log_error_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds", &v35, 0x34u);
 LABEL_17:
 
         goto LABEL_22;
@@ -2683,7 +3013,7 @@ LABEL_17:
 
     else if (v19)
     {
-      sub_1003A74A4(a1, v6, v9);
+      sub_1003A74A4();
     }
 
     goto LABEL_22;
@@ -2701,12 +3031,12 @@ LABEL_17:
     v33 = *(a1 + 56);
     v14 = +[NSDate date];
     [v14 timeIntervalSinceDate:*(a1 + 64)];
-    v36 = 138543874;
-    v37 = v32;
-    v38 = 2114;
-    v39 = v33;
-    v40 = 2048;
-    v41 = v34;
+    v35 = 138543874;
+    v36 = v32;
+    v37 = 2114;
+    v38 = v33;
+    v39 = 2048;
+    v40 = v34;
     v16 = "Response: %{public}@<%{public}@> returned in %.4lf seconds";
     v17 = v9;
     v18 = 32;
@@ -2720,21 +3050,20 @@ LABEL_17:
     v27 = *(a1 + 40);
     v14 = +[NSDate date];
     [v14 timeIntervalSinceDate:*(a1 + 64)];
-    v36 = 138544130;
-    v37 = v26;
-    v38 = 2114;
-    v39 = v25;
-    v40 = 2114;
-    v41 = v27;
-    v42 = 2048;
-    v43 = v28;
+    v35 = 138544130;
+    v36 = v26;
+    v37 = 2114;
+    v38 = v25;
+    v39 = 2114;
+    v40 = v27;
+    v41 = 2048;
+    v42 = v28;
     v16 = "Response: %{public}@<%{public}@> returned for %{public}@ in %.4lf seconds";
     goto LABEL_15;
   }
 
 LABEL_22:
 
-  v35 = *(a1 + 32);
   (*(*(a1 + 72) + 16))();
 }
 
@@ -2833,7 +3162,7 @@ LABEL_17:
 
     else if (v19)
     {
-      sub_1003A7554(a1, v6, v9);
+      sub_1003A7554();
     }
 
     goto LABEL_22;
@@ -3041,7 +3370,7 @@ void sub_1000BF99C(uint64_t a1, void *a2, void *a3)
     {
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        sub_1003A7604(a1, v6, v8);
+        sub_1003A7604();
       }
     }
 
@@ -3178,7 +3507,7 @@ LABEL_10:
 
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    sub_1003A7604(a1, v6, v8);
+    sub_1003A7604();
   }
 
 LABEL_11:
@@ -3298,7 +3627,7 @@ LABEL_10:
 
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    sub_1003A7604(a1, v6, v8);
+    sub_1003A7604();
   }
 
 LABEL_11:
@@ -3370,7 +3699,7 @@ LABEL_10:
 
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    sub_1003A7604(a1, v6, v8);
+    sub_1003A7604();
   }
 
 LABEL_11:
@@ -3450,9 +3779,9 @@ id sub_1000C15D8(void *a1, const char *a2)
   return [a1 timeIntervalSinceDate:v4];
 }
 
-void sub_1000C1B20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_1000C1B20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3758,7 +4087,7 @@ LABEL_9:
     v9 = _MRLogForCategory();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      sub_1003A780C(v2);
+      sub_1003A780C();
     }
 
     v6 = *(a1 + 48);
@@ -4178,7 +4507,7 @@ id sub_1000C5510(uint64_t a1, void *a2)
 
 void sub_1000C5584(uint64_t a1, void *a2, uint64_t a3)
 {
-  v16 = a2;
+  v15 = a2;
   v5 = *(a1 + 32);
   if (a3)
   {
@@ -4193,7 +4522,7 @@ void sub_1000C5584(uint64_t a1, void *a2, uint64_t a3)
 
     if (!v8)
     {
-      v9 = [v16 groupLeader];
+      v9 = [v15 groupLeader];
       v10 = [v9 uid];
 
       v11 = [[MRUpdateActiveSystemEndpointRequest alloc] initWithOutputDeviceUID:v10 reason:@"MRGroupSession.joined"];
@@ -4203,7 +4532,6 @@ void sub_1000C5584(uint64_t a1, void *a2, uint64_t a3)
       [v14 updateSystemEndpointForRequest:v11];
     }
 
-    v15 = *(a1 + 48);
     (*(*(a1 + 56) + 16))();
   }
 }
@@ -4422,68 +4750,67 @@ void sub_1000C60DC(uint64_t a1)
     v2 = _MRLogForCategory();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      sub_1003A7C54(a1);
+      sub_1003A7C54();
     }
 
-    v3 = *(a1 + 40);
     (*(*(a1 + 72) + 16))();
     return;
   }
 
-  v4 = [*(a1 + 48) lastSessionEventDate];
-  v5 = v4;
-  if (v4 == *(a1 + 56))
+  v3 = [*(a1 + 48) lastSessionEventDate];
+  v4 = v3;
+  if (v3 == *(a1 + 56))
   {
   }
 
   else
   {
-    v6 = [v4 isEqual:?];
+    v5 = [v3 isEqual:?];
 
-    if ((v6 & 1) == 0)
+    if ((v5 & 1) == 0)
     {
-      v7 = _MRLogForCategory();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+      v6 = _MRLogForCategory();
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v18) = 0;
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "[MRDGroupSessionManager] New session event occurred after requesting to join with token.", &v18, 2u);
+        LOWORD(v17) = 0;
+        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "[MRDGroupSessionManager] New session event occurred after requesting to join with token.", &v17, 2u);
       }
 
-      v8 = *(a1 + 72);
-      v9 = [NSError msv_errorWithDomain:MRGroupSessionError code:13 debugDescription:@"Implicitly cancelled due to new session request"];
-      (*(v8 + 16))(v8, v9);
+      v7 = *(a1 + 72);
+      v8 = [NSError msv_errorWithDomain:MRGroupSessionError code:13 debugDescription:@"Implicitly cancelled due to new session request"];
+      (*(v7 + 16))(v7, v8);
 
       return;
     }
   }
 
-  v10 = _MRLogForCategory();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v9 = _MRLogForCategory();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = [*(a1 + 32) sessionIdentifier];
-    v18 = 138543362;
-    v19 = v11;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "[MRDGroupSessionManager] Got invitation response with sessionID: %{public}@. Joining session", &v18, 0xCu);
+    v10 = [*(a1 + 32) sessionIdentifier];
+    v17 = 138543362;
+    v18 = v10;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "[MRDGroupSessionManager] Got invitation response with sessionID: %{public}@. Joining session", &v17, 0xCu);
   }
 
-  v12 = [*(a1 + 32) joinToken];
+  v11 = [*(a1 + 32) joinToken];
+  v12 = v11;
+  if (!v11)
+  {
+    v12 = *(a1 + 64);
+  }
+
   v13 = v12;
-  if (!v12)
-  {
-    v13 = *(a1 + 64);
-  }
 
-  v14 = v13;
-
-  v15 = *(a1 + 48);
-  v16 = [*(a1 + 32) nearbyGroup];
-  v17 = [*(a1 + 32) publicSigningKeyData];
-  [v15 joinGroupSessionWithNearbyGroup:v16 hostSigningKey:v17 joinToken:v14 completion:*(a1 + 80)];
+  v14 = *(a1 + 48);
+  v15 = [*(a1 + 32) nearbyGroup];
+  v16 = [*(a1 + 32) publicSigningKeyData];
+  [v14 joinGroupSessionWithNearbyGroup:v15 hostSigningKey:v16 joinToken:v13 completion:*(a1 + 80)];
 }
 
-void sub_1000C643C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000C643C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4525,9 +4852,9 @@ void sub_1000C6608(uint64_t a1)
   }
 }
 
-void sub_1000C66F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000C66F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4712,9 +5039,9 @@ void sub_1000C7A74(uint64_t a1, void *a2)
   dispatch_async(v4, v7);
 }
 
-void sub_1000C7C50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000C7C50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5088,50 +5415,49 @@ void sub_1000C96AC(uint64_t a1)
   v2 = [*(a1 + 32) uiManager];
   [v2 beginObservingSession:*(a1 + 40)];
 
-  v3 = *(a1 + 40);
   (*(*(a1 + 56) + 16))();
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
-  v4 = *(a1 + 48);
-  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
-  if (v5)
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
+  v3 = *(a1 + 48);
+  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  if (v4)
   {
-    v6 = v5;
-    v7 = *v11;
+    v5 = v4;
+    v6 = *v10;
     do
     {
-      v8 = 0;
+      v7 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v6)
         {
-          objc_enumerationMutation(v4);
+          objc_enumerationMutation(v3);
         }
 
-        v9 = *(*(&v10 + 1) + 8 * v8);
+        v8 = *(*(&v9 + 1) + 8 * v7);
         if ([*(a1 + 40) isHosted])
         {
           if (objc_opt_respondsToSelector())
           {
-            [v9 manager:*(a1 + 32) didStartHostedGroupSession:*(a1 + 40)];
+            [v8 manager:*(a1 + 32) didStartHostedGroupSession:*(a1 + 40)];
           }
         }
 
         else if (objc_opt_respondsToSelector())
         {
-          [v9 manager:*(a1 + 32) didJoinRemoteGroupSession:*(a1 + 40)];
+          [v8 manager:*(a1 + 32) didJoinRemoteGroupSession:*(a1 + 40)];
         }
 
-        v8 = v8 + 1;
+        v7 = v7 + 1;
       }
 
-      while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      while (v5 != v7);
+      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
-    while (v6);
+    while (v5);
   }
 }
 
@@ -5423,15 +5749,14 @@ void sub_1000CA38C(uint64_t a1, uint64_t a2)
 
 void sub_1000CA508(uint64_t a1)
 {
-  v4 = [*(a1 + 32) uiManager];
-  v2 = *(a1 + 40);
-  v3 = (*(*(a1 + 48) + 16))();
-  [v4 dismissJoinRequest:v3];
+  v3 = [*(a1 + 32) uiManager];
+  v2 = (*(*(a1 + 48) + 16))();
+  [v3 dismissJoinRequest:v2];
 }
 
-void sub_1000CA7BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000CA7BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5619,10 +5944,16 @@ void sub_1000CB548(id *a1, int a2)
 uint64_t sub_1000CB64C(uint64_t a1)
 {
   [*(a1 + 32) dismissJoinRequest:*(a1 + 40)];
-  v2 = *(a1 + 56);
-  v3 = *(*(a1 + 48) + 16);
+  v2 = *(*(a1 + 48) + 16);
 
-  return v3();
+  return v2();
+}
+
+void sub_1000CBAD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
+{
+  va_start(va, a32);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 void sub_1000CBAFC(uint64_t a1, void *a2)
@@ -5730,7 +6061,7 @@ void sub_1000CBCE8(uint64_t a1, uint64_t a2)
       {
         if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
         {
-          sub_1003A7EA0(a1, (a1 + 56), v21);
+          sub_1003A7EA0(a1, a1 + 56, v21);
         }
 
         goto LABEL_15;
@@ -5989,33 +6320,32 @@ void sub_1000CCAD8(uint64_t a1, void *a2)
 
 void sub_1000CCC38(uint64_t a1)
 {
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v8 + 1) + 8 * v6);
         (*(*(a1 + 40) + 16))(*(a1 + 40));
-        v6 = v6 + 1;
+        ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
@@ -6756,9 +7086,9 @@ void sub_1000D4320(uint64_t a1)
   [*(*(a1 + 32) + 136) setDeviceInfo:v2];
 }
 
-void sub_1000D4488(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000D4488(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6786,9 +7116,9 @@ void *sub_1000D455C(uint64_t a1)
   return result;
 }
 
-void sub_1000D4700(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000D4700(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6812,9 +7142,9 @@ id sub_1000D47D8(uint64_t a1)
   return [v6 setDeviceInfo:v5];
 }
 
-void sub_1000D49D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000D49D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6827,43 +7157,41 @@ id sub_1000D49EC(uint64_t a1)
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v4 = *(*(*(a1 + 48) + 8) + 24);
-    v5 = MRExternalDeviceConnectionStateCopyDescription();
-    v6 = *(*(a1 + 32) + 48);
-    v7 = v5;
-    v8 = MRExternalDeviceConnectionStateCopyDescription();
+    v4 = MRExternalDeviceConnectionStateCopyDescription();
+    v5 = v4;
+    v6 = MRExternalDeviceConnectionStateCopyDescription();
     [*(*(a1 + 32) + 40) timeIntervalSinceNow];
-    v10 = v9;
+    v8 = v7;
 
-    v19 = 138544130;
-    v20 = v3;
-    v21 = 2114;
-    v22 = v5;
-    v23 = 2112;
-    v24 = v8;
-    v25 = 2050;
-    v26 = -v10;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "WHAPRO: ConnectionState for device %{public}@ change from %{public}@ to %@ in %{public}f seconds", &v19, 0x2Au);
+    v17 = 138544130;
+    v18 = v3;
+    v19 = 2114;
+    v20 = v4;
+    v21 = 2112;
+    v22 = v6;
+    v23 = 2050;
+    v24 = -v8;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "WHAPRO: ConnectionState for device %{public}@ change from %{public}@ to %@ in %{public}f seconds", &v17, 0x2Au);
   }
 
-  v11 = +[NSDate date];
-  v12 = *(a1 + 32);
-  v13 = *(v12 + 40);
-  *(v12 + 40) = v11;
+  v9 = +[NSDate date];
+  v10 = *(a1 + 32);
+  v11 = *(v10 + 40);
+  *(v10 + 40) = v9;
 
   if (*(a1 + 56) == 3)
   {
-    v14 = *(a1 + 32);
-    v15 = *(a1 + 40);
-    v16 = *(v14 + 32);
-    *(v14 + 32) = v15;
+    v12 = *(a1 + 32);
+    v13 = *(a1 + 40);
+    v14 = *(v12 + 32);
+    *(v12 + 32) = v13;
   }
 
   else
   {
-    v17 = *(a1 + 32);
-    v16 = *(v17 + 32);
-    *(v17 + 32) = 0;
+    v15 = *(a1 + 32);
+    v14 = *(v15 + 32);
+    *(v15 + 32) = 0;
   }
 
   if (*(a1 + 56) == 2)
@@ -6880,9 +7208,9 @@ id sub_1000D49EC(uint64_t a1)
   return result;
 }
 
-void sub_1000D4DA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000D4DA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7414,9 +7742,9 @@ void sub_1000D82AC(uint64_t a1)
   }
 }
 
-void sub_1000D85D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_1000D85D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7909,9 +8237,9 @@ void sub_1000DB800(uint64_t a1, void *a2)
   }
 }
 
-void sub_1000DBB64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000DBB64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8116,23 +8444,23 @@ void sub_1000DD6E4(uint64_t a1)
   {
     v3 = [*(v1 + 168) name];
     v4 = [*(*(a1 + 32) + 168) uid];
-    v9 = [NSString stringWithFormat:@"com.apple.mediaremote.MRExternalDevice/%@(%@)", v3, v4];
+    v8 = [NSString stringWithFormat:@"com.apple.mediaremote.MRExternalDevice/%@(%@)", v3, v4];
 
-    v5 = [[MROSTransaction alloc] initWithName:v9];
+    v5 = [[MROSTransaction alloc] initWithName:v8];
     v6 = *(a1 + 32);
     v7 = *(v6 + 72);
     *(v6 + 72) = v5;
 
-    v8 = *(*(a1 + 32) + 72);
     MRRegisterTransaction();
   }
 }
 
-void sub_1000DDEB0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id location, char a27)
+void sub_1000DDEB0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id location, ...)
 {
-  objc_destroyWeak((v27 + 48));
+  va_start(va, location);
+  objc_destroyWeak((v26 + 48));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a27, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -8162,11 +8490,10 @@ void sub_1000DDEE4(uint64_t a1, void *a2)
       if (v10)
       {
         v11 = v10;
-        v12 = WeakRetained[1];
-        v17 = WeakRetained;
-        v18 = v11;
+        v16 = WeakRetained;
+        v17 = v11;
         v9 = v9;
-        v13 = v11;
+        v12 = v11;
         msv_dispatch_sync_on_queue();
 
 LABEL_9:
@@ -8179,10 +8506,10 @@ LABEL_9:
       v9 = 0;
     }
 
-    v14 = [[NSError alloc] initWithMRError:100 format:@"deviceInfo response was nil"];
-    v15 = *(*(a1 + 40) + 8);
-    v16 = *(v15 + 40);
-    *(v15 + 40) = v14;
+    v13 = [[NSError alloc] initWithMRError:100 format:@"deviceInfo response was nil"];
+    v14 = *(*(a1 + 40) + 8);
+    v15 = *(v14 + 40);
+    *(v14 + 40) = v13;
 
     goto LABEL_9;
   }
@@ -8217,6 +8544,13 @@ void sub_1000DE11C(uint64_t a1, void *a2)
   v10 = v6;
   v7 = v3;
   dispatch_async(v5, v8);
+}
+
+void sub_1000DF0AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
+{
+  va_start(va, a25);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 void sub_1000DF0D8(uint64_t a1)
@@ -8493,336 +8827,4 @@ void sub_1000E04A4(uint64_t a1, void *a2, void *a3)
     v8 = [[NSError alloc] initWithMRError:176];
     [v9 invalidate:v8];
   }
-}
-
-void sub_1000E0558(uint64_t a1, void *a2)
-{
-  v2 = *(a1 + 32);
-  v3 = [a2 error];
-  (*(v2 + 16))(v2, v3);
-}
-
-void sub_1000E05B8(id a1, MRDApplicationConnection *a2, MRApplicationConnectionRequestInfo *a3, id a4)
-{
-  v5 = a4;
-  v6 = [[NSError alloc] initWithMRError:132];
-  (*(a4 + 2))(v5, v6);
-}
-
-void sub_1000E0634(id a1, MRDApplicationConnection *a2, MRApplicationConnectionRequestInfo *a3, id a4)
-{
-  v5 = a4;
-  v6 = [[NSError alloc] initWithMRError:180];
-  (*(a4 + 2))(v5, v6);
-}
-
-void sub_1000E0910(_Unwind_Exception *a1)
-{
-  objc_destroyWeak((v1 + 56));
-  objc_destroyWeak((v2 - 88));
-  _Unwind_Resume(a1);
-}
-
-void sub_1000E0950(id *a1, void *a2)
-{
-  v3 = a2;
-  WeakRetained = objc_loadWeakRetained(a1 + 6);
-  if (!WeakRetained)
-  {
-    Error = MRMediaRemoteCreateError();
-    v14 = *(a1[5] + 2);
-    goto LABEL_17;
-  }
-
-  v5 = [v3 error];
-
-  if (v5)
-  {
-    v6 = [v3 error];
-    if ([v6 mr_isMediaRemoteError])
-    {
-      v7 = [v3 error];
-      v8 = [v7 code];
-
-      if (v8 == 26)
-      {
-        v9 = [NSString alloc];
-        v10 = [a1[4] requestIdentifier];
-        v11 = [v3 error];
-        v12 = [v11 description];
-        Error = [v9 initWithFormat:@"event = <playbackQueueRequest>, request = <%@>, error = <%@>", v10, v12];
-
-        v24[0] = _NSConcreteStackBlock;
-        v24[1] = 3221225472;
-        v24[2] = sub_1000E0C50;
-        v24[3] = &unk_1004B9BE0;
-        v25 = v3;
-        v26 = a1[5];
-        [WeakRetained verifyConnectionStatusAndMaybeDisconnect:Error completion:v24];
-
-        goto LABEL_18;
-      }
-    }
-
-    else
-    {
-    }
-
-    v23 = a1[5];
-    Error = [v3 error];
-    v14 = *(v23 + 2);
-LABEL_17:
-    v14();
-    goto LABEL_18;
-  }
-
-  Error = v3;
-  v15 = [Error state];
-  v16 = [v15 playbackQueue];
-
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
-  v28 = 0u;
-  v17 = [v16 contentItems];
-  v18 = [v17 countByEnumeratingWithState:&v27 objects:v31 count:16];
-  if (v18)
-  {
-    v19 = v18;
-    v20 = *v28;
-    do
-    {
-      for (i = 0; i != v19; i = i + 1)
-      {
-        if (*v28 != v20)
-        {
-          objc_enumerationMutation(v17);
-        }
-
-        v22 = [*(*(&v27 + 1) + 8 * i) metadata];
-        [v22 setDeviceSpecificUserInfo:0];
-      }
-
-      v19 = [v17 countByEnumeratingWithState:&v27 objects:v31 count:16];
-    }
-
-    while (v19);
-  }
-
-  (*(a1[5] + 2))();
-LABEL_18:
-}
-
-void sub_1000E0C50(uint64_t a1, void *a2)
-{
-  v5 = a2;
-  v3 = [*(a1 + 32) error];
-  if (v5)
-  {
-    v4 = [v5 mr_errorByEnvelopingWithMRError:121 format:{@"Operation timedout, attempted ping which also timedout"}];
-
-    v3 = v4;
-  }
-
-  (*(*(a1 + 40) + 16))();
-}
-
-void sub_1000E0CF0(uint64_t a1)
-{
-  WeakRetained = objc_loadWeakRetained((a1 + 56));
-  [WeakRetained _handlePlaybackQueueRequest:*(a1 + 32) forPlayerPath:*(a1 + 40) completion:*(a1 + 48)];
-}
-
-void sub_1000E0FB0(_Unwind_Exception *a1)
-{
-  objc_destroyWeak((v1 + 56));
-  objc_destroyWeak((v2 - 88));
-  _Unwind_Resume(a1);
-}
-
-void sub_1000E0FDC(uint64_t a1, void *a2)
-{
-  v16 = a2;
-  v3 = [v16 error];
-
-  v4 = *(a1 + 32);
-  if (v3)
-  {
-    v5 = *(a1 + 56);
-    v6 = [v16 error];
-    [v4 endEventWithID:v5 error:v6];
-
-    v7 = *(a1 + 48);
-    v8 = [[MRPlaybackSessionResponseMessage alloc] initWithPlaybackSession:0 request:*(a1 + 32)];
-    v9 = [v16 error];
-    (*(v7 + 16))(v7, v8, v9);
-  }
-
-  else
-  {
-    v10 = v16;
-    v11 = [v10 request];
-    v12 = [v4 merge:v11];
-    v13 = v12;
-    if (!v12)
-    {
-      v13 = *(a1 + 40);
-    }
-
-    v9 = v13;
-
-    [*(a1 + 32) endEventWithID:*(a1 + 56) error:v9];
-    v14 = [MRPlaybackSessionResponseMessage alloc];
-    v15 = [v10 playbackSession];
-
-    v8 = [v14 initWithPlaybackSession:v15 request:*(a1 + 32)];
-    (*(*(a1 + 48) + 16))(*(a1 + 48), v8, 0);
-  }
-}
-
-void sub_1000E116C(uint64_t a1)
-{
-  WeakRetained = objc_loadWeakRetained((a1 + 56));
-  [WeakRetained _handlePlaybackSessionRequest:*(a1 + 32) forPlayerPath:*(a1 + 40) completion:*(a1 + 48)];
-}
-
-void sub_1000E1400(uint64_t a1, void *a2)
-{
-  v10 = a2;
-  v3 = *(a1 + 32);
-  v4 = [v10 error];
-
-  if (!v4)
-  {
-    v5 = [v10 request];
-
-    v3 = v5;
-  }
-
-  v6 = *(a1 + 48);
-  v7 = [v10 error];
-  [v3 endEventWithID:v6 error:v7];
-
-  v8 = *(a1 + 40);
-  v9 = [v10 error];
-  (*(v8 + 16))(v8, v3, v9);
-}
-
-void sub_1000E1734(uint64_t a1, void *a2)
-{
-  v13 = a2;
-  v3 = [v13 error];
-  if (v3)
-  {
-  }
-
-  else
-  {
-    objc_opt_class();
-    if (objc_opt_isKindOfClass())
-    {
-      v4 = *(a1 + 32);
-      v5 = [v13 request];
-      v6 = [v4 merge:v5];
-
-      [*(a1 + 32) endEventWithID:*(a1 + 48) error:v6];
-      v7 = [[MRPlaybackSessionMigrateResponseMessage alloc] initWithRequest:*(a1 + 32)];
-      v8 = *(*(a1 + 40) + 16);
-      goto LABEL_6;
-    }
-  }
-
-  v9 = *(a1 + 32);
-  v10 = *(a1 + 48);
-  v11 = [v13 error];
-  [v9 endEventWithID:v10 error:v11];
-
-  v6 = [[MRPlaybackSessionMigrateResponseMessage alloc] initWithRequest:*(a1 + 32)];
-  v12 = *(a1 + 40);
-  v7 = [v13 error];
-  v8 = *(v12 + 16);
-LABEL_6:
-  v8();
-}
-
-void sub_1000E1B68(uint64_t a1, void *a2)
-{
-  v13 = a2;
-  v3 = [v13 error];
-  if (v3)
-  {
-  }
-
-  else
-  {
-    objc_opt_class();
-    if (objc_opt_isKindOfClass())
-    {
-      v4 = *(a1 + 32);
-      v5 = [v13 request];
-      v6 = [v4 merge:v5];
-
-      [*(a1 + 32) endEventWithID:*(a1 + 48) error:v6];
-      v7 = [[MRPlaybackSessionMigrateResponseMessage alloc] initWithRequest:*(a1 + 32)];
-      v8 = *(*(a1 + 40) + 16);
-      goto LABEL_6;
-    }
-  }
-
-  v9 = *(a1 + 32);
-  v10 = *(a1 + 48);
-  v11 = [v13 error];
-  [v9 endEventWithID:v10 error:v11];
-
-  v6 = [[MRPlaybackSessionMigrateResponseMessage alloc] initWithRequest:*(a1 + 32)];
-  v12 = *(a1 + 40);
-  v7 = [v13 error];
-  v8 = *(v12 + 16);
-LABEL_6:
-  v8();
-}
-
-void sub_1000E1F28(uint64_t a1, void *a2)
-{
-  v12 = a2;
-  v3 = [v12 error];
-
-  if (v3)
-  {
-    v4 = [*(a1 + 32) request];
-    v5 = *(a1 + 48);
-    v6 = [v12 error];
-    [v4 endEventWithID:v5 error:v6];
-
-    v9 = a1 + 32;
-    v7 = *(a1 + 32);
-    v8 = *(v9 + 8);
-    v10 = [v12 error];
-    (*(v8 + 16))(v8, v7, v10);
-  }
-
-  else
-  {
-    v10 = v12;
-    v11 = [v10 request];
-    [v11 endEventWithID:*(a1 + 48)];
-
-    (*(*(a1 + 40) + 16))(*(a1 + 40), v10, 0);
-  }
-}
-
-void sub_1000E20F4(uint64_t a1)
-{
-  v5 = +[NSMutableDictionary dictionary];
-  v2 = [NSNumber numberWithUnsignedInt:*(a1 + 48)];
-  [v5 setObject:v2 forKey:kMRExternalDeviceConnectionStateUserInfoKey];
-
-  v3 = *(a1 + 32);
-  if (v3)
-  {
-    [v5 setObject:v3 forKey:NSUnderlyingErrorKey];
-  }
-
-  v4 = +[NSNotificationCenter defaultCenter];
-  [v4 postNotificationName:kMRExternalDeviceConnectionStateDidChangeNotification object:*(a1 + 40) userInfo:v5];
 }

@@ -85,33 +85,33 @@ LABEL_3:
 
 - (BOOL)_updateTwoFactorEntryViewModel:(id)model withTemplate:(id)template error:(id *)error
 {
-  v99 = *MEMORY[0x277D85DE8];
+  v98 = *MEMORY[0x277D85DE8];
   modelCopy = model;
+  v87 = 0u;
   v88 = 0u;
   v89 = 0u;
   v90 = 0u;
-  v91 = 0u;
   children = [template children];
-  v7 = [children countByEnumeratingWithState:&v88 objects:v98 count:16];
+  v7 = [children countByEnumeratingWithState:&v87 objects:v97 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v89;
-    v67 = *MEMORY[0x277CBE660];
-    v68 = *v89;
-    v69 = children;
+    v9 = *v88;
+    v66 = *MEMORY[0x277CBE660];
+    v67 = *v88;
+    v68 = children;
     do
     {
       v10 = 0;
-      v71 = v8;
+      v70 = v8;
       do
       {
-        if (*v89 != v9)
+        if (*v88 != v9)
         {
           objc_enumerationMutation(children);
         }
 
-        v11 = *(*(&v88 + 1) + 8 * v10);
+        v11 = *(*(&v87 + 1) + 8 * v10);
         vs_elementType = [v11 vs_elementType];
         if (vs_elementType != 160)
         {
@@ -125,7 +125,7 @@ LABEL_3:
                 v13 = MEMORY[0x277CBEAD8];
                 v14 = objc_opt_class();
                 v15 = NSStringFromClass(v14);
-                [v13 raise:v67 format:{@"Unexpectedly, element was %@, instead of IKImageElement.", v15}];
+                [v13 raise:v66 format:{@"Unexpectedly, element was %@, instead of IKImageElement.", v15}];
               }
 
               v16 = [(VSAppDocumentController *)self _imageItemProviderWithImageElement:v11];
@@ -142,7 +142,7 @@ LABEL_3:
             v17 = MEMORY[0x277CBEAD8];
             v18 = objc_opt_class();
             v19 = NSStringFromClass(v18);
-            [v17 raise:v67 format:{@"Unexpectedly, element was %@, instead of IKTextElement.", v19}];
+            [v17 raise:v66 format:{@"Unexpectedly, element was %@, instead of IKTextElement.", v19}];
           }
 
           v16 = v11;
@@ -166,32 +166,32 @@ LABEL_34:
           goto LABEL_59;
         }
 
-        v73 = v10;
+        v72 = v10;
         v23 = [v11 vs_itemElementsOfType:140];
+        v83 = 0u;
         v84 = 0u;
         v85 = 0u;
         v86 = 0u;
-        v87 = 0u;
         v16 = v23;
-        v24 = [v16 countByEnumeratingWithState:&v84 objects:v97 count:16];
+        v24 = [v16 countByEnumeratingWithState:&v83 objects:v96 count:16];
         if (!v24)
         {
           goto LABEL_58;
         }
 
         v25 = v24;
-        v26 = *v85;
+        v26 = *v84;
         obj = v16;
         while (2)
         {
           for (i = 0; i != v25; ++i)
           {
-            if (*v85 != v26)
+            if (*v84 != v26)
             {
               objc_enumerationMutation(obj);
             }
 
-            v28 = *(*(&v84 + 1) + 8 * i);
+            v28 = *(*(&v83 + 1) + 8 * i);
             attributes = [v28 attributes];
             v30 = [attributes objectForKey:@"label"];
 
@@ -249,13 +249,13 @@ LABEL_43:
                 if (v38)
                 {
 LABEL_47:
-                  v72 = [v28 vs_BOOLAttributeValueForKey:@"autoshowkeyboard"];
+                  v71 = [v28 vs_BOOLAttributeValueForKey:@"autoshowkeyboard"];
 LABEL_52:
                   v42 = objc_alloc_init(VSITMLTwoFactorEntryField);
                   [(VSITMLTwoFactorEntryField *)v42 setAssociatedTextFieldElement:v28];
                   [(VSTwoFactorEntryTextField *)v42 setKeyboardType:v40];
                   [(VSTwoFactorEntryTextField *)v42 setAutocapitalizationType:v41];
-                  [(VSTwoFactorEntryTextField *)v42 setAutoShowKeyboard:v72];
+                  [(VSTwoFactorEntryTextField *)v42 setAutoShowKeyboard:v71];
                   [(VSTwoFactorEntryTextField *)v42 setLabel:v30];
                   if ([v32 integerValue] < 9)
                   {
@@ -269,9 +269,9 @@ LABEL_52:
                     {
                       integerValue2 = [v32 integerValue];
                       *buf = 134218240;
-                      v94 = integerValue2;
-                      v95 = 2048;
-                      v96 = 8;
+                      v93 = integerValue2;
+                      v94 = 2048;
+                      v95 = 8;
                       _os_log_error_impl(&dword_270DD4000, v43, OS_LOG_TYPE_ERROR, "Attempted to use TFA with %ld digits, limit is %ld", buf, 0x16u);
                     }
 
@@ -312,7 +312,7 @@ LABEL_52:
                 v45 = VSErrorLogObject();
                 if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
                 {
-                  [VSTwoFactorEntryAppDocumentController _updateTwoFactorEntryViewModel:v83 withTemplate:v45 error:?];
+                  [VSTwoFactorEntryAppDocumentController _updateTwoFactorEntryViewModel:v82 withTemplate:v45 error:?];
                 }
 
 LABEL_30:
@@ -330,7 +330,7 @@ LABEL_50:
                 }
               }
 
-              v72 = 1;
+              v71 = 1;
               goto LABEL_52;
             }
 
@@ -343,7 +343,7 @@ LABEL_50:
           }
 
           v16 = obj;
-          v25 = [obj countByEnumeratingWithState:&v84 objects:v97 count:16];
+          v25 = [obj countByEnumeratingWithState:&v83 objects:v96 count:16];
           if (v25)
           {
             continue;
@@ -354,10 +354,10 @@ LABEL_50:
 
 LABEL_58:
 
-        v9 = v68;
-        children = v69;
-        v8 = v71;
-        v10 = v73;
+        v9 = v67;
+        children = v68;
+        v8 = v70;
+        v10 = v72;
 LABEL_59:
 
 LABEL_60:
@@ -365,35 +365,35 @@ LABEL_60:
       }
 
       while (v10 != v8);
-      v47 = [children countByEnumeratingWithState:&v88 objects:v98 count:16];
+      v47 = [children countByEnumeratingWithState:&v87 objects:v97 count:16];
       v8 = v47;
     }
 
     while (v47);
   }
 
-  v77 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v76 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v77 = 0u;
   v78 = 0u;
   v79 = 0u;
   v80 = 0u;
-  v81 = 0u;
   filteredButtonLockupElements = [(VSAppDocumentController *)self filteredButtonLockupElements];
-  v49 = [filteredButtonLockupElements countByEnumeratingWithState:&v78 objects:v92 count:16];
+  v49 = [filteredButtonLockupElements countByEnumeratingWithState:&v77 objects:v91 count:16];
   if (v49)
   {
     v50 = v49;
-    v51 = *v79;
-    v76 = *MEMORY[0x277CBE660];
+    v51 = *v78;
+    v75 = *MEMORY[0x277CBE660];
     do
     {
       for (j = 0; j != v50; ++j)
       {
-        if (*v79 != v51)
+        if (*v78 != v51)
         {
           objc_enumerationMutation(filteredButtonLockupElements);
         }
 
-        v53 = *(*(&v78 + 1) + 8 * j);
+        v53 = *(*(&v77 + 1) + 8 * j);
         v54 = [v53 vs_itemElementsOfType:138];
         firstObject = [v54 firstObject];
 
@@ -405,7 +405,7 @@ LABEL_60:
           v58 = objc_alloc_init(VSTwoFactorEntryButton);
           if (!string2)
           {
-            [MEMORY[0x277CBEAD8] raise:v76 format:@"The buttonText parameter must not be nil."];
+            [MEMORY[0x277CBEAD8] raise:v75 format:@"The buttonText parameter must not be nil."];
           }
 
           [(VSTwoFactorEntryButton *)v58 setText:string2];
@@ -417,17 +417,17 @@ LABEL_60:
             [(VSTwoFactorEntryButton *)v58 setType:v60];
           }
 
-          [v77 addObject:v58];
+          [v76 addObject:v58];
         }
       }
 
-      v50 = [filteredButtonLockupElements countByEnumeratingWithState:&v78 objects:v92 count:16];
+      v50 = [filteredButtonLockupElements countByEnumeratingWithState:&v77 objects:v91 count:16];
     }
 
     while (v50);
   }
 
-  [modelCopy setButtons:v77];
+  [modelCopy setButtons:v76];
   twoFactorTextField = [modelCopy twoFactorTextField];
 
   if (twoFactorTextField)
@@ -446,7 +446,6 @@ LABEL_60:
     *error = v62;
   }
 
-  v64 = *MEMORY[0x277D85DE8];
   return v62 == 0;
 }
 
@@ -484,7 +483,7 @@ LABEL_60:
 
 - (void)twoFactorEntryViewModel:(id)model didPressButtonAtIndex:(unint64_t)index
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   filteredButtonLockupElements = [(VSAppDocumentController *)self filteredButtonLockupElements];
   v6 = [filteredButtonLockupElements objectAtIndex:index];
 
@@ -493,9 +492,9 @@ LABEL_60:
     v7 = VSDefaultLogObject();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412290;
-      v11 = v6;
-      _os_log_impl(&dword_270DD4000, v7, OS_LOG_TYPE_DEFAULT, "Sending select event for button %@.", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v6;
+      _os_log_impl(&dword_270DD4000, v7, OS_LOG_TYPE_DEFAULT, "Sending select event for button %@.", &v9, 0xCu);
     }
 
     [v6 dispatchEventOfType:2 canBubble:1 isCancelable:1 extraInfo:0 completionBlock:0];
@@ -509,8 +508,6 @@ LABEL_60:
       [VSTwoFactorEntryAppDocumentController twoFactorEntryViewModel:index didPressButtonAtIndex:v8];
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateTwoFactorEntryViewModel:(uint8_t *)buf withTemplate:(_BYTE *)a2 error:(os_log_t)log .cold.1(uint8_t *buf, _BYTE *a2, os_log_t log)
@@ -522,11 +519,10 @@ LABEL_60:
 
 - (void)twoFactorEntryViewModel:(uint64_t)a1 didPressButtonAtIndex:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_error_impl(&dword_270DD4000, a2, OS_LOG_TYPE_ERROR, "Two factor button with index %lu does not exist.", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_error_impl(&dword_270DD4000, a2, OS_LOG_TYPE_ERROR, "Two factor button with index %lu does not exist.", &v2, 0xCu);
 }
 
 @end

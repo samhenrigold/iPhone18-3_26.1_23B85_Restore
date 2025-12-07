@@ -1,81 +1,646 @@
-float32x4_t *sub_2779D68DC()
+uint64_t sub_2779D5D94(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  result = MEMORY[0x28223BE20]();
-  v7 = v6;
-  v8 = result;
-  v43 = *MEMORY[0x277D85DE8];
-  v9 = 98893;
-  v10 = *(v6 + 48);
-  if (v10 <= 8)
+  v8 = MEMORY[0x28223BE20](a1, a2, a3, a4, a5, a6, a7, a8);
+  v12 = v11;
+  v14 = v13;
+  v16 = v15;
+  v18 = v17;
+  v19 = v8;
+  v185 = *MEMORY[0x277D85DE8];
+  v20 = v8 + 644296;
+  v21 = (v8 + 270312);
+  result = 999999999;
+  v23 = *(v9 + 12);
+  v24 = *(v9 + 16);
+  v25 = *(v9 + 48);
+  v26 = v9 + 232;
+  if ((*(v19 + 245616) & 0xFD) == 0)
   {
-    if (v10 == 3)
+    LOBYTE(v27) = 0;
+    goto LABEL_61;
+  }
+
+  v27 = *v20;
+  if (*v20)
+  {
+    v141 = v10;
+    v28 = 0;
+    v182[0] = 0u;
+    v181 = 0u;
+    v29 = &v147.i64[1];
+    v180 = 0u;
+    v179 = 0u;
+    v178 = 0u;
+    v177 = 0u;
+    v176 = 0u;
+    v175 = 0u;
+    v174 = 0u;
+    v173 = 0u;
+    v172 = 0u;
+    v171 = 0u;
+    v170 = 0u;
+    v169 = 0u;
+    v168 = 0u;
+    v167 = 0u;
+    v166 = 0u;
+    v165 = 0u;
+    v164 = 0u;
+    v163 = 0u;
+    v162 = 0u;
+    v161 = 0u;
+    v160 = 0u;
+    v159 = 0u;
+    v158 = 0u;
+    v157 = 0u;
+    v156 = 0u;
+    v155 = 0u;
+    v154 = 0u;
+    v153 = 0u;
+    v152 = 0u;
+    v151 = 0u;
+    v125 = v16;
+    *(v182 + 1) = v16;
+    v30 = __clz(v12) ^ 0x1F;
+    if (v12)
     {
-      v11 = &unk_27A71D4C0;
+      v31 = v30 + 1;
     }
 
     else
     {
-      if (v10 != 6)
+      v31 = 0;
+    }
+
+    LODWORD(v151) = 7;
+    *(v182 + 2) = v31;
+    v32 = &v147;
+    v33 = 1;
+    v147 = 0uLL;
+    v148 = 0uLL;
+    do
+    {
+      v34 = v33;
+      v35 = *(v26 + 8 * v28);
+      if ((v35 - 1) < 0x3B9AC9FF)
+      {
+        v32->i32[0] = v35;
+      }
+
+      v33 = 0;
+      v32 = &v147.i32[1];
+      v28 = 1;
+    }
+
+    while ((v34 & 1) != 0);
+    v36 = 0;
+    v37 = 0;
+    do
+    {
+      v38 = v37;
+      v39 = *(v9 + 248 + 8 * v36);
+      if ((v39 - 1) < 0x3B9AC9FF)
+      {
+        *v29 = v39;
+      }
+
+      v36 = 1;
+      v37 = 1;
+      v29 = (&v147.i64[1] + 4);
+    }
+
+    while ((v38 & 1) == 0);
+    v40 = *(v9 + 200);
+    v41 = *(v9 + 216);
+    v42.i64[0] = -1;
+    v42.i64[1] = -1;
+    v43 = vaddq_s64(v40, v42);
+    if (vuzp1_s16(vmovn_s64(vcgtq_u64(vdupq_n_s64(0x3B9AC9FFuLL), v43)), *v41.i8).u8[0])
+    {
+      LODWORD(v148) = *(v9 + 200);
+    }
+
+    v44 = vaddq_s64(v41, v42);
+    if (vuzp1_s16(vmovn_s64(vcgtq_u64(vdupq_n_s64(0x3B9AC9FFuLL), v43)), *&v41).i8[2])
+    {
+      DWORD1(v148) = v40.i32[2];
+    }
+
+    if (vuzp1_s16(*&v41, vmovn_s64(vcgtq_u64(vdupq_n_s64(0x3B9AC9FFuLL), v44))).i32[1])
+    {
+      DWORD2(v148) = v41.i32[0];
+    }
+
+    v45 = vuzp1_s16(*v41.i8, vmovn_s64(vcgtq_u64(vdupq_n_s64(0x3B9AC9FFuLL), v44)));
+    if (v45.i8[6])
+    {
+      HIDWORD(v148) = v41.i32[2];
+    }
+
+    v46 = 0;
+    v47 = 0x7FFFFFFF;
+    if (v14 < 0x7FFFFFFF)
+    {
+      v47 = v14;
+    }
+
+    *v45.i32 = v47;
+    v48 = vdupq_n_s32(v47);
+    v49 = vdupq_lane_s32(v45, 0);
+    __asm { FMOV            V2.4S, #1.0 }
+
+    do
+    {
+      *(&v182[v46] + 12) = vbslq_s8(vorrq_s8(vclezq_s32(*(&v147 + v46 * 16)), vcgeq_s32(*(&v147 + v46 * 16), v48)), _Q2, vdivq_f32(vcvtq_f32_u32(*(&v147 + v46 * 16)), v49));
+      ++v46;
+    }
+
+    while (v46 != 2);
+    v184 = 0uLL;
+    v55 = 0xFFu;
+    v183 = 0uLL;
+    if (v25 > 8)
+    {
+      switch(v25)
+      {
+        case 9:
+          v56 = 3u;
+          break;
+        case 0xC:
+          v56 = 4u;
+          break;
+        case 0xF:
+          v56 = 5u;
+          break;
+        default:
+          goto LABEL_40;
+      }
+    }
+
+    else
+    {
+      v56 = v25;
+      if (v25)
+      {
+        if (v25 == 3)
+        {
+          v56 = 1u;
+        }
+
+        else
+        {
+          if (v25 != 6)
+          {
+            goto LABEL_40;
+          }
+
+          v56 = 2u;
+        }
+      }
+    }
+
+    v55 = *(&unk_277C31428 + v56 + 48);
+LABEL_40:
+    v131 = v18;
+    v57 = 0xFFu;
+    if (v25 > 8)
+    {
+      switch(v25)
+      {
+        case 9:
+          v58 = 3u;
+          goto LABEL_52;
+        case 0xC:
+          v58 = 4u;
+          goto LABEL_52;
+        case 0xF:
+          v58 = 5u;
+          goto LABEL_52;
+      }
+    }
+
+    else
+    {
+      v58 = v25;
+      switch(v25)
+      {
+        case 0:
+LABEL_52:
+          v57 = *(&unk_277C31428 + v58 + 54);
+          break;
+        case 3:
+          v58 = 1u;
+          goto LABEL_52;
+        case 6:
+          v58 = 2u;
+          goto LABEL_52;
+      }
+    }
+
+    v126 = v9 + 232;
+    v127 = v9;
+    v128 = v14;
+    v137 = v12;
+    v133 = v21;
+    v135 = v20;
+    if (*(*v21 + 77))
+    {
+      v59 = 1;
+    }
+
+    else
+    {
+      v59 = 3;
+    }
+
+    v60 = v19;
+    v129 = v24;
+    v130 = v23;
+    v139 = v25;
+    sub_277A5D0C0(v131, v21[244], v23, v24, v59, v25);
+    v61 = 0;
+    v62 = 0;
+    v63 = *(v131 + 72);
+    v64 = *(v131 + 48);
+    v143 = v63 * byte_277C3CAE8[v55];
+    v65 = byte_277C3CAFE[v57];
+    v66 = v64;
+    do
+    {
+      v184.i32[v62] = sub_277A5D00C(*v60, v131 + 416, v66 + v61, v63, v55, 0, (*(*(v131 + 8376) + 192) >> 3) & 1);
+      v183.i32[v62++] = sub_277A5D00C(*v60, v131 + 416, v64, v63, v57, 0, (*(*(v131 + 8376) + 192) >> 3) & 1);
+      v64 += v65;
+      v61 += v143;
+    }
+
+    while (v62 != 4);
+    v12 = v137;
+    *v67.i32 = (v137 + 1);
+    v68 = vdupq_lane_s32(v67, 0);
+    v69.i64[0] = 0x100000001;
+    v69.i64[1] = 0x100000001;
+    v70 = vdupq_n_s32(0x3DCCCCCDu);
+    v71 = vdivq_f32(vcvtq_f32_u32(vaddq_s32(v184, v69)), v68);
+    v72 = vbslq_s8(vcgtq_f32(v70, v71), v70, v71);
+    __asm { FMOV            V4.4S, #10.0 }
+
+    v74 = vdivq_f32(vcvtq_f32_u32(vaddq_s32(v183, v69)), v68);
+    v75 = vbslq_s8(vcgtq_f32(v70, v74), v70, v74);
+    *(&v182[2] + 12) = vbslq_s8(vcgtq_f32(v72, _Q4), _Q4, v72);
+    *(&v182[3] + 12) = vbslq_s8(vcgtq_f32(v75, _Q4), _Q4, v75);
+    v20 = v135;
+    (*(v135 + 32))(*(v135 + 16), &v151);
+    memset(v149, 0, sizeof(v149));
+    v147 = 0u;
+    v148 = 0u;
+    v76 = (*(v20 + 40))(*(v20 + 16), &v147);
+    LOBYTE(v27) = v76 == 0;
+    v10 = v141;
+    if (!v76)
+    {
+      *v141 = v150;
+    }
+
+    LODWORD(v25) = v139;
+    v19 = v60;
+    v18 = v131;
+    v21 = v133;
+    v24 = v129;
+    v23 = v130;
+    v9 = v127;
+    v14 = v128;
+    result = 999999999;
+    v26 = v126;
+    v16 = v125;
+  }
+
+LABEL_61:
+  if (v14 <= 999999999 && (v27 & 1) == 0)
+  {
+    switch(v25)
+    {
+      case 6:
+        v142 = v10;
+        v77 = &unk_27A71D208;
+        break;
+      case 0xC:
+        v142 = v10;
+        v77 = &unk_27A71D3D8;
+        break;
+      case 9:
+        v142 = v10;
+        v77 = &unk_27A71D2F0;
+        break;
+      default:
+        return result;
+    }
+
+    v132 = v77;
+    v78 = 0;
+    v79 = __clz(v12) ^ 0x1F;
+    if (v12)
+    {
+      v80 = v79 + 1;
+    }
+
+    else
+    {
+      v80 = 0;
+    }
+
+    v147.f32[0] = v16;
+    v147.f32[1] = v80;
+    v152 = 0u;
+    v151 = 0u;
+    v81 = &v151;
+    v82 = 1;
+    do
+    {
+      v83 = v82;
+      v84 = *(v26 + 8 * v78);
+      if ((v84 - 1) < 0x3B9AC9FF)
+      {
+        *v81 = v84;
+      }
+
+      v82 = 0;
+      v81 = (&v151 + 4);
+      v78 = 1;
+    }
+
+    while ((v83 & 1) != 0);
+    v85 = 0;
+    for (i = 8; i != 16; i += 4)
+    {
+      v87 = *(v9 + 248 + 8 * v85);
+      if ((v87 - 1) < 0x3B9AC9FF)
+      {
+        *(&v151 + i) = v87;
+      }
+
+      v85 = 1;
+    }
+
+    v88 = *(v9 + 200);
+    v89 = *(v9 + 216);
+    v90.i64[0] = -1;
+    v90.i64[1] = -1;
+    v91 = vaddq_s64(v88, v90);
+    if (vuzp1_s16(vmovn_s64(vcgtq_u64(vdupq_n_s64(0x3B9AC9FFuLL), v91)), *v89.i8).u8[0])
+    {
+      LODWORD(v152) = *(v9 + 200);
+    }
+
+    v92 = vaddq_s64(v89, v90);
+    if (vuzp1_s16(vmovn_s64(vcgtq_u64(vdupq_n_s64(0x3B9AC9FFuLL), v91)), *&v89).i8[2])
+    {
+      DWORD1(v152) = v88.i32[2];
+    }
+
+    if (vuzp1_s16(*&v89, vmovn_s64(vcgtq_u64(vdupq_n_s64(0x3B9AC9FFuLL), v92))).i32[1])
+    {
+      DWORD2(v152) = v89.i32[0];
+    }
+
+    v93 = vuzp1_s16(*v89.i8, vmovn_s64(vcgtq_u64(vdupq_n_s64(0x3B9AC9FFuLL), v92)));
+    if (v93.i8[6])
+    {
+      HIDWORD(v152) = v89.i32[2];
+    }
+
+    v94 = 0;
+    *v93.i32 = v14;
+    v95 = vdupq_n_s32(v14);
+    v96 = vdupq_lane_s32(v93, 0);
+    __asm { FMOV            V2.4S, #1.0 }
+
+    do
+    {
+      *(&v147 + v94 + 8) = vbslq_s8(vorrq_s8(vclezq_s32(*(&v151 + v94)), vcgeq_s32(*(&v151 + v94), v95)), _Q2, vdivq_f32(vcvtq_f32_u32(*(&v151 + v94)), v96));
+      v94 += 16;
+    }
+
+    while (v94 != 32);
+    v184 = 0uLL;
+    v183 = 0uLL;
+    if (v25 > 8)
+    {
+      if (v25 == 9)
+      {
+        v98 = 3u;
+      }
+
+      else
+      {
+        v98 = 4u;
+      }
+    }
+
+    else
+    {
+      v98 = 2u;
+    }
+
+    v99 = *(&unk_277C31428 + v98 + 48);
+    v136 = v20;
+    v138 = v12;
+    if (v25 > 8)
+    {
+      if (v25 == 9)
+      {
+        v100 = 3u;
+      }
+
+      else
+      {
+        v100 = 4u;
+      }
+    }
+
+    else
+    {
+      v100 = 2u;
+    }
+
+    v101 = *(&unk_277C31428 + v100 + 54);
+    v134 = v21;
+    if (*(*v21 + 77))
+    {
+      v102 = 1;
+    }
+
+    else
+    {
+      v102 = 3;
+    }
+
+    v103 = v19;
+    v140 = v25;
+    sub_277A5D0C0(v18, v21[244], v23, v24, v102, v25);
+    v104 = 0;
+    v105 = 0;
+    v106 = *(v18 + 72);
+    v107 = *(v18 + 48);
+    v144 = v106 * byte_277C3CAE8[v99];
+    v108 = byte_277C3CAFE[v101];
+    v109 = v107;
+    do
+    {
+      v184.i32[v105] = sub_277A5D00C(*v103, v18 + 416, v109 + v104, v106, v99, 0, (*(*(v18 + 8376) + 192) >> 3) & 1);
+      v183.i32[v105++] = sub_277A5D00C(*v103, v18 + 416, v107, v106, v101, 0, (*(*(v18 + 8376) + 192) >> 3) & 1);
+      v107 += v108;
+      v104 += v144;
+    }
+
+    while (v105 != 4);
+    *v110.i32 = (v138 + 1);
+    v111 = vdupq_lane_s32(v110, 0);
+    v112.i64[0] = 0x100000001;
+    v112.i64[1] = 0x100000001;
+    v113 = vdivq_f32(vcvtq_f32_u32(vaddq_s32(v184, v112)), v111);
+    v114 = vdupq_n_s32(0x3DCCCCCDu);
+    v115 = vbslq_s8(vcgtq_f32(v114, v113), v114, v113);
+    __asm { FMOV            V4.4S, #10.0 }
+
+    *(v149 + 8) = vbslq_s8(vcgtq_f32(v115, _Q4), _Q4, v115);
+    v117 = vdivq_f32(vcvtq_f32_u32(vaddq_s32(v183, v112)), v111);
+    v118 = vbslq_s8(vcgtq_f32(v114, v117), v114, v117);
+    *(&v149[1] + 8) = vbslq_s8(vcgtq_f32(v118, _Q4), _Q4, v118);
+    if ((*(v103 + 245616) & 0xFD) != 0)
+    {
+      sub_2779D4488(v134[238], *(v136 + 4) != 0, &v147, 18, 7);
+    }
+
+    v146 = 0uLL;
+    result = sub_2779D28B0(&v147, v132, &v146);
+    v119 = 0;
+    v120 = vcvtq_s32_f32(vmulq_f32(v146, vdupq_n_s32(0x42C80000u)));
+    v121 = vmaxvq_s32(vmaxq_s32(v120, vdupq_n_s32(0xFFFFFC18)));
+    v122 = v121 - 500;
+    if (v140 == 6)
+    {
+      v123 = v121 - 500;
+    }
+
+    else
+    {
+      v123 = v121;
+    }
+
+    if (v140 != 9)
+    {
+      v122 = v123;
+    }
+
+    v145 = v120;
+    v124 = v121 - 200;
+    if (v140 != 12)
+    {
+      v124 = v122;
+    }
+
+    *v142 = 0;
+    do
+    {
+      if (v145.i32[v119] >= v124)
+      {
+        if (v119)
+        {
+          *v142 = 1;
+        }
+
+        if (v119 >= 2)
+        {
+          *(v142 + 1) = 1;
+        }
+      }
+
+      ++v119;
+    }
+
+    while (v119 != 4);
+  }
+
+  return result;
+}
+
+float32x4_t *sub_2779D68DC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  result = MEMORY[0x28223BE20](a1, a2, a3, a4, a5, a6, a7, a8);
+  v15 = v14;
+  v16 = result;
+  v51 = *MEMORY[0x277D85DE8];
+  v17 = 98893;
+  v18 = *(v14 + 48);
+  if (v18 <= 8)
+  {
+    if (v18 == 3)
+    {
+      v19 = &unk_27A71D4C0;
+    }
+
+    else
+    {
+      if (v18 != 6)
       {
         return result;
       }
 
-      v9 = 98894;
-      v11 = &unk_27A71D5A8;
+      v17 = 98894;
+      v19 = &unk_27A71D5A8;
     }
   }
 
   else
   {
-    switch(v10)
+    switch(v18)
     {
       case 9u:
-        v9 = 98895;
-        v11 = &unk_27A71D690;
+        v17 = 98895;
+        v19 = &unk_27A71D690;
         break;
       case 0xCu:
-        v9 = 98896;
-        v11 = &unk_27A71D778;
+        v17 = 98896;
+        v19 = &unk_27A71D778;
         break;
       case 0xFu:
-        v9 = 98897;
-        v11 = &unk_27A71D860;
+        v17 = 98897;
+        v19 = &unk_27A71D860;
         break;
       default:
         return result;
     }
   }
 
-  v12 = result->u32[v9];
-  if ((v12 & 0x80000000) == 0)
+  v20 = result->u32[v17];
+  if ((v20 & 0x80000000) == 0)
   {
-    v13 = &result[40268].i32[2];
-    v14 = byte_277C3BCB6[*(v6 + 48)];
-    v15 = flt_277BCCF58[result[24728].i32[0] - 1];
-    v16 = 0x7FFFFFFFLL;
-    if (v3 < 0x7FFFFFFF)
+    v21 = &result[40268].i32[2];
+    v22 = byte_277C3BCB6[*(v14 + 48)];
+    v23 = flt_277BCCF58[result[24728].i32[0] - 1];
+    v24 = 0x7FFFFFFFLL;
+    if (v11 < 0x7FFFFFFF)
     {
-      v16 = v3;
+      v24 = v11;
     }
 
-    v42.f32[0] = (((*(v1 + 16920) * 0.0078125) * 0.0019531) / (1 << v14)) * v2;
-    v42.f32[1] = (v16 >> v14);
-    v17 = **(v1 + 128) >> (v5 - 8);
-    v42.f32[2] = v4;
-    v42.i32[3] = vcvts_n_f32_u32(v17 * v17, 8uLL);
-    sub_2779D4488(result[17013].i64[1], result[40268].i32[3] != 0, &v42, 4, 2);
-    if ((v8[15351].i8[0] & 0xFD) != 0 && *v13 && (v41 = 0u, v40 = 0u, v39 = 0u, v38 = 0u, v37 = 0u, v36 = 0u, v35 = 0u, v34 = 0u, v33 = 0u, v32 = 0u, v31 = 0u, v30 = 0u, v29 = 0u, v28 = 0u, v27 = 0u, v26 = 0u, v25 = 0u, v24 = 0u, v23 = 0u, v22 = 0u, *&v21[16] = 0u, *v21 = 0u, memset(v20, 0, sizeof(v20)), LODWORD(v20[0]) = 2, *&v21[12] = v42, (v8[40270].i64[1])(v8[40269].i64[1], v20), memset(v18, 0, 512), result = (v8[40271].i64[0])(v8[40269].i64[1], v18), !result))
+    v50.f32[0] = (((*(v9 + 16920) * 0.0078125) * 0.0019531) / (1 << v22)) * v10;
+    v50.f32[1] = (v24 >> v22);
+    v25 = **(v9 + 128) >> (v13 - 8);
+    v50.f32[2] = v12;
+    v50.i32[3] = vcvts_n_f32_u32(v25 * v25, 8uLL);
+    sub_2779D4488(result[17013].i64[1], result[40268].i32[3] != 0, &v50, 4, 2);
+    if ((v16[15351].i8[0] & 0xFD) != 0 && *v21 && (v49 = 0u, v48 = 0u, v47 = 0u, v46 = 0u, v45 = 0u, v44 = 0u, v43 = 0u, v42 = 0u, v41 = 0u, v40 = 0u, v39 = 0u, v38 = 0u, v37 = 0u, v36 = 0u, v35 = 0u, v34 = 0u, v33 = 0u, v32 = 0u, v31 = 0u, v30 = 0u, *&v29[16] = 0u, *v29 = 0u, memset(v28, 0, sizeof(v28)), LODWORD(v28[0]) = 2, *&v29[12] = v50, (v16[40270].i64[1])(v16[40269].i64[1], v28), memset(v26, 0, 512), result = (v16[40271].i64[0])(v16[40269].i64[1], v26), !result))
     {
-      *(v7 + 296) = v19;
+      *(v15 + 296) = v27;
     }
 
     else
     {
-      LODWORD(v18[0]) = 0;
-      result = sub_2779D28B0(&v42, v11, v18);
-      if ((*v18 * 100.0) >= (v15 * v12))
+      v26[0].i32[0] = 0;
+      result = sub_2779D28B0(&v50, v19, v26);
+      if ((v26[0].f32[0] * 100.0) >= (v23 * v20))
       {
-        *(v7 + 296) = 0;
+        *(v15 + 296) = 0;
       }
     }
   }
@@ -119,9 +684,9 @@ unsigned __int8 *sub_2779D6C38(unsigned __int8 *result, uint64_t a2)
   return result;
 }
 
-float32x4_t *sub_2779D6CBC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, _DWORD *a9)
+float32x4_t *sub_2779D6CBC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int *a9)
 {
-  result = MEMORY[0x28223BE20]();
+  result = MEMORY[0x28223BE20](a1, a2, a3, a4, a5, a6, a7, a8);
   v17 = v16;
   v18 = v11;
   v19 = v10;
@@ -564,7 +1129,7 @@ double sub_2779D7568(uint64_t a1, int *a2, uint64_t a3, unsigned __int8 *a4, int
     v10 = 1;
   }
 
-  sub_277978170(a1 + 245616, a3 + 416, **(a3 + 8280), v10, v13, a3 + 8728, a3 + 10584, v14, &v15);
+  sub_277978170(a1 + 245616, (a3 + 416), **(a3 + 8280), v10, v13, a3 + 8728, a3 + 10584, v14, &v15);
   if (*(v13 | v10))
   {
     v11 = (a3 + 8728 + (v10 << 6));
@@ -576,18 +1141,17 @@ double sub_2779D7568(uint64_t a1, int *a2, uint64_t a3, unsigned __int8 *a4, int
   }
 
   *(v16 + v10) = (((v11[1] + ((v11[1] & 0x8000) == 0)) << 13) + 24576) & 0xFFFF0000 | ((*v11 + ((*v11 & 0x8000) == 0) + 3) >> 3);
-  *&result = sub_2779D7714(a4, v16).n128_u64[0];
-  return result;
+  return sub_2779D7714(a4, v16);
 }
 
-__n128 sub_2779D7714(unsigned __int8 *a1, __int128 *a2)
+double sub_2779D7714(unsigned __int8 *a1, __int128 *a2)
 {
   while (1)
   {
     v4 = *a2;
     *(a1 + 56) = a2[1];
     *(a1 + 40) = v4;
-    result = 0uLL;
+    result = 0.0;
     *(a1 + 72) = 0u;
     *(a1 + 88) = 0u;
     *(a1 + 104) = 0u;
@@ -2167,7 +2731,7 @@ double sub_2779D9580(uint16x4_t *a1, int a2, unsigned __int8 a3, unsigned __int8
   v20.u64[1] = *v10;
   v21.i64[0] = *v7;
   v21.i64[1] = *v11;
-  v22.i64[0] = *v6;
+  *v22.i8 = *v6;
   v22.i64[1] = *v12;
   v23 = vabdq_u16(v19, v20);
   v25 = vcgeq_u16(vdupq_n_s16(a4 << (a6 - 8)), vmaxq_u16(vmaxq_u16(v23, vabdq_u16(v20, v21)), vabdq_u16(v21, v22)));
@@ -2235,7 +2799,7 @@ double sub_2779D9580(uint16x4_t *a1, int a2, unsigned __int8 a3, unsigned __int8
         v62 = vaddq_s16(vmlaq_s16(vaddq_s16(vaddq_s16(v54, v20), vaddq_s16(v21, v22)), v49, v60), vaddq_s16(v61, v61));
         v63 = vaddq_s16(vaddq_s16(v22, v13), vsubq_s16(v62, vaddq_s16(v49, v49)));
         v64 = vaddq_s16(vsubq_s16(vaddq_s16(v14, v21), vaddq_s16(v35, v49)), v63);
-        v65.i64[1] = *v6;
+        v65.u64[1] = *v6;
         v66 = vrshrq_n_u16(v64, 4uLL);
         v65.i64[0] = *v12;
         v67 = vaddq_s16(vsubq_s16(vaddq_s16(v65, v20), vaddq_s16(v34, v49)), v64);
@@ -2272,7 +2836,7 @@ double sub_2779D9580(uint16x4_t *a1, int a2, unsigned __int8 a3, unsigned __int8
 
     *v26 = v35.i64[0];
     *v27 = v34.i64[0];
-    *v6 = v22.i64[0];
+    *v6 = *v22.i8;
     *v7 = v21.i64[0];
     *v8 = *v73.i8;
     *v9 = *v75.i8;
@@ -2567,14 +3131,14 @@ uint64_t sub_2779D9D84()
   }
 }
 
-uint64_t sub_2779D9ED4(uint64_t a1, unsigned int a2, int a3)
+uint64_t sub_2779D9ED4(uint64_t a1, int a2, int a3)
 {
   memset(v4, 0, sizeof(v4));
   sub_2779D9F18(a1, a2, a3, v4);
   return sub_2779DA010(v4, 0, 1, 0);
 }
 
-uint64_t sub_2779D9F18(uint64_t result, unsigned int a2, int a3, uint64_t a4)
+uint64_t sub_2779D9F18(uint64_t result, int a2, int a3, uint64_t a4)
 {
   *(a4 + 16) = 0u;
   *(a4 + 32) = 0u;
@@ -2919,10 +3483,11 @@ LABEL_70:
   }
 }
 
-void sub_2779DA394(uint64_t a1, unsigned int a2, uint64_t a3, int a4, int a5, uint64_t a6, int a7, uint64_t a8)
+void sub_2779DA394(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v13 = a1 + 432;
-  v14 = *(a1 + 8352);
+  v10 = a4;
+  v13 = result + 432;
+  v14 = *(result + 8352);
   v15 = byte_277C3CAE8[a3];
   if (v14 < 0)
   {
@@ -2931,7 +3496,7 @@ void sub_2779DA394(uint64_t a1, unsigned int a2, uint64_t a3, int a4, int a5, ui
 
   v16 = v15 >> 2;
   v17 = byte_277C3CAFE[a3];
-  v18 = *(a1 + 8344);
+  v18 = *(result + 8344);
   if (v18 < 0)
   {
     v17 += v18 >> (*(v13 + 2608 * a7 + 4) + 3);
@@ -2952,14 +3517,14 @@ void sub_2779DA394(uint64_t a1, unsigned int a2, uint64_t a3, int a4, int a5, ui
 
   if (!v22)
   {
-    v23 = **(a1 + 8280);
+    v23 = **(result + 8280);
     if (a7 || v23[(a5 >> byte_277BFC806[a3]) + 146 + (a4 >> byte_277BFC81C[a3] << byte_277BFC832[a3])] == a2)
     {
       v24 = byte_277C3BCDE[4 * *v23 + 2 * *(v13 + 2608 * a7 + 4) + *(v13 + 2608 * a7 + 8)];
       if (*(a8 + 20))
       {
 
-        sub_277A38314();
+        sub_277A38314(a7, a6, a4, a5, v24, a2, a8, a8);
       }
 
       else
@@ -3002,7 +3567,7 @@ void sub_2779DA394(uint64_t a1, unsigned int a2, uint64_t a3, int a4, int a5, ui
             for (i = 0; i < v27; i += v30)
             {
               v34 = a6;
-              sub_2779DA394(a1, v29, a3, (v28 + a4), (a5 + i), a6, 0, a8);
+              sub_2779DA394(result, v29, a3, (v28 + v10), (a5 + i), a6, 0, a8);
               a6 = (v34 + v32 * v30);
             }
           }
@@ -3018,7 +3583,7 @@ void sub_2779DA394(uint64_t a1, unsigned int a2, uint64_t a3, int a4, int a5, ui
 
 void sub_2779DA624(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, signed int a10, unsigned int a11, int a12, uint64_t a13, uint64_t a14, uint64_t a15)
 {
-  v15 = MEMORY[0x28223BE20]();
+  v15 = MEMORY[0x28223BE20](a1, a2, a3, a4, a5, a6, a7, a8);
   v17 = v16;
   v128 = v19;
   v129 = v18;
@@ -3465,2054 +4030,2055 @@ void sub_2779DA624(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   }
 }
 
-void sub_2779DAE30()
+void sub_2779DAE30(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v0 = MEMORY[0x28223BE20]();
-  v3 = 0;
-  v832 = *MEMORY[0x277D85DE8];
-  v4 = vdupq_n_s16(0x16A1u);
-  v5 = vdupq_n_s16(0xE95Fu);
-  v6 = vdupq_n_s16(0x1D90u);
-  v7 = vdupq_n_s16(0xC3Fu);
-  v8 = vdupq_n_s16(0xE270u);
-  v624 = vdupq_n_s16(0xF3C1u);
-  v622 = vdupq_n_s16(0x1F63u);
-  v9 = vdupq_n_s16(0x63Eu);
-  v620 = vdupq_n_s16(0xE09Du);
-  v618 = vdupq_n_s16(0x11C7u);
-  v10 = vdupq_n_s16(0x1A9Bu);
-  v616 = vdupq_n_s16(0xEE39u);
-  v11 = vdupq_n_s16(0x1FD9u);
-  v12 = vdupq_n_s16(0x323u);
-  v13 = vdupq_n_s16(0xE027u);
-  v14 = vdupq_n_s16(0x144Du);
+  v8 = MEMORY[0x28223BE20](a1, a2, a3, a4, a5, a6, a7, a8);
+  v11 = 0;
+  v840 = *MEMORY[0x277D85DE8];
+  v12 = vdupq_n_s16(0x16A1u);
+  v13 = vdupq_n_s16(0xE95Fu);
+  v14 = vdupq_n_s16(0x1D90u);
+  v15 = vdupq_n_s16(0xC3Fu);
+  v16 = vdupq_n_s16(0xE270u);
+  v632 = vdupq_n_s16(0xF3C1u);
+  v630 = vdupq_n_s16(0x1F63u);
+  v17 = vdupq_n_s16(0x63Eu);
+  v628 = vdupq_n_s16(0xE09Du);
+  v626 = vdupq_n_s16(0x11C7u);
+  v18 = vdupq_n_s16(0x1A9Bu);
+  v624 = vdupq_n_s16(0xEE39u);
+  v19 = vdupq_n_s16(0x1FD9u);
+  v20 = vdupq_n_s16(0x323u);
+  v21 = vdupq_n_s16(0xE027u);
+  v22 = vdupq_n_s16(0x144Du);
   do
   {
-    v15 = 0;
-    v16 = v0;
+    v23 = 0;
+    v24 = v8;
     do
     {
-      v627[v15++] = *v16;
-      v16 = (v16 + 2 * v2);
+      v635[v23++] = *v24;
+      v24 = (v24 + 2 * v10);
     }
 
-    while (v15 != 16);
+    while (v23 != 16);
     for (i = 0; i != 16; ++i)
     {
-      v627[i] = vshlq_n_s16(v627[i], 2uLL);
+      v635[i] = vshlq_n_s16(v635[i], 2uLL);
     }
 
-    v18 = 0;
+    v26 = 0;
     for (j = 15; j != 7; --j)
     {
-      *&v807[v18 * 16] = vqaddq_s16(v627[v18], v627[j]);
-      ++v18;
+      *&v815[v26 * 16] = vqaddq_s16(v635[v26], v635[j]);
+      ++v26;
     }
 
-    v20 = 8;
+    v28 = 8;
     do
     {
-      *&v807[v20 * 16] = vqsubq_s16(v627[j--], v627[v20]);
-      ++v20;
+      *&v815[v28 * 16] = vqsubq_s16(v635[j--], v635[v28]);
+      ++v28;
     }
 
     while (j != -1);
-    v21 = 0;
+    v29 = 0;
     for (k = 112; k != 48; k -= 16)
     {
-      *(&v767 + v21) = vqaddq_s16(*&v807[v21], *&v807[k]);
-      v21 += 16;
+      *(&v775 + v29) = vqaddq_s16(*&v815[v29], *&v815[k]);
+      v29 += 16;
     }
 
-    v23 = 64;
+    v31 = 64;
     do
     {
-      *(&v767 + v23) = vqsubq_s16(*&v807[k], *&v807[v23]);
+      *(&v775 + v31) = vqsubq_s16(*&v815[k], *&v815[v31]);
       k -= 16;
-      v23 += 16;
-    }
-
-    while (k != -16);
-    v24 = 0;
-    v25 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v810.i8, *v4.i8), *v813.i8, *v4.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v810, v4), v813, v4), 0xDuLL);
-    v26 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v810.i8, *v5.i8), *v813.i8, *v4.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v810, v5), v813, v4), 0xDuLL);
-    v27 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v811.i8, *v4.i8), *v812.i8, *v4.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v811, v4), v812, v4), 0xDuLL);
-    v28 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v811.i8, *v5.i8), *v812.i8, *v4.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v811, v5), v812, v4), 0xDuLL);
-    v29 = vqaddq_s16(v767, v770);
-    v30 = vqaddq_s16(v768, v769);
-    v31 = vqsubq_s16(v768, v769);
-    v32 = vqsubq_s16(v767, v770);
-    v33 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v772.i8, *v4.i8), *v773.i8, *v4.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v772, v4), v773, v4), 0xDuLL);
-    v34 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v772.i8, *v5.i8), *v773.i8, *v4.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v772, v5), v773, v4), 0xDuLL);
-    v35 = vqaddq_s16(v808, v28);
-    v36 = vqaddq_s16(v809, v26);
-    v37 = vqsubq_s16(v809, v26);
-    v38 = vqsubq_s16(v808, v28);
-    v39 = vqsubq_s16(v815, v27);
-    v40 = vqsubq_s16(v814, v25);
-    v41 = vqaddq_s16(v814, v25);
-    v42 = vqaddq_s16(v815, v27);
-    v43 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v30.i8, *v4.i8), *v29.i8, *v4.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v30, v4), v29, v4), 0xDuLL);
-    v44 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v30.i8, *v5.i8), *v29.i8, *v4.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v30, v5), v29, v4), 0xDuLL);
-    v45 = vmlal_s16(vmull_s16(*v31.i8, *v7.i8), *v32.i8, *v6.i8);
-    v46 = vmlal_high_s16(vmull_high_s16(v31, v7), v32, v6);
-    v47 = vmlal_s16(vmull_s16(*v31.i8, *v8.i8), *v32.i8, *v7.i8);
-    v48 = vmlal_high_s16(vmull_high_s16(v31, v8), v32, v7);
-    v49 = vrshrn_high_n_s32(vrshrn_n_s32(v45, 0xDuLL), v46, 0xDuLL);
-    v50 = vrshrn_high_n_s32(vrshrn_n_s32(v47, 0xDuLL), v48, 0xDuLL);
-    v51 = vqaddq_s16(v771, v34);
-    v52 = vqsubq_s16(v771, v34);
-    v53 = vqsubq_s16(v774, v33);
-    v54 = vqaddq_s16(v774, v33);
-    v55 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v36.i8, *v7.i8), *v41.i8, *v6.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v36, v7), v41, v6), 0xDuLL);
-    v56 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v36.i8, *v8.i8), *v41.i8, *v7.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v36, v8), v41, v7), 0xDuLL);
-    v57 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v37.i8, *v8.i8), *v40.i8, *v7.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v37, v8), v40, v7), 0xDuLL);
-    v58 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v37.i8, *v624.i8), *v40.i8, *v8.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v37, v624), v40, v8), 0xDuLL);
-    v59 = vmlal_s16(vmull_s16(*v52.i8, *v616.i8), *v53.i8, *v10.i8);
-    v60 = vmlal_high_s16(vmull_high_s16(v52, v616), v53, v10);
-    v61 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v52.i8, *v10.i8), *v53.i8, *v618.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v52, v10), v53, v618), 0xDuLL);
-    v62 = vrshrn_high_n_s32(vrshrn_n_s32(v59, 0xDuLL), v60, 0xDuLL);
-    v63 = vqaddq_s16(v35, v56);
-    v64 = vqsubq_s16(v35, v56);
-    v65 = vqsubq_s16(v38, v58);
-    v66 = vqaddq_s16(v38, v58);
-    v67 = vqaddq_s16(v39, v57);
-    v68 = vqsubq_s16(v39, v57);
-    v69 = vqsubq_s16(v42, v55);
-    v70 = vqaddq_s16(v42, v55);
-    v627[0] = v43;
-    v627[1] = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v63.i8, *v12.i8), *v70.i8, *v11.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v63, v12), v70, v11), 0xDuLL);
-    v627[14] = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v51.i8, *v620.i8), *v54.i8, *v9.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v51, v620), v54, v9), 0xDuLL);
-    v627[15] = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v63.i8, *v13.i8), *v70.i8, *v12.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v63, v13), v70, v12), 0xDuLL);
-    v71 = vdupq_n_s16(0x18BDu);
-    v72 = vdupq_n_s16(0x1C39u);
-    v73 = vdupq_n_s16(0xF16u);
-    v74 = vmlal_s16(vmull_s16(*v65.i8, *v73.i8), *v68.i8, *v72.i8);
-    v75 = vmlal_high_s16(vmull_high_s16(v65, v73), v68, v72);
-    v76 = vdupq_n_s16(0xE3C7u);
-    v77 = vmlal_s16(vmull_s16(*v65.i8, *v76.i8), *v68.i8, *v73.i8);
-    v78 = vmlal_high_s16(vmull_high_s16(v65, v76), v68, v73);
-    v79 = vdupq_n_s16(0x94Au);
-    v80 = vdupq_n_s16(0x1E9Fu);
-    v81 = vmlal_s16(vmull_s16(*v66.i8, *v80.i8), *v67.i8, *v79.i8);
-    v82 = vmlal_high_s16(vmull_high_s16(v66, v80), v67, v79);
-    v83 = vdupq_n_s16(0xF6B6u);
-    v84 = vmlal_s16(vmull_s16(*v66.i8, *v83.i8), *v67.i8, *v80.i8);
-    v85 = vmlal_high_s16(vmull_high_s16(v66, v83), v67, v80);
-    v86 = vdupq_n_s16(0xEBB3u);
-    v627[8] = v44;
-    v627[9] = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v64.i8, *v71.i8), *v69.i8, *v14.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v64, v71), v69, v14), 0xDuLL);
-    v627[6] = v62;
-    v627[7] = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v64.i8, *v86.i8), *v69.i8, *v71.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v64, v86), v69, v71), 0xDuLL);
-    v627[4] = v49;
-    v627[5] = vrshrn_high_n_s32(vrshrn_n_s32(v74, 0xDuLL), v75, 0xDuLL);
-    v627[10] = v61;
-    v627[11] = vrshrn_high_n_s32(vrshrn_n_s32(v77, 0xDuLL), v78, 0xDuLL);
-    v627[12] = v50;
-    v627[13] = vrshrn_high_n_s32(vrshrn_n_s32(v81, 0xDuLL), v82, 0xDuLL);
-    v627[2] = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v51.i8, *v9.i8), *v54.i8, *v622.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v51, v9), v54, v622), 0xDuLL);
-    v627[3] = vrshrn_high_n_s32(vrshrn_n_s32(v84, 0xDuLL), v85, 0xDuLL);
-    do
-    {
-      v627[v24] = vrshrq_n_s16(v627[v24], 4uLL);
-      ++v24;
-    }
-
-    while (v24 != 16);
-    v87 = 0;
-    v88 = 1;
-    do
-    {
-      v89 = &v627[8 * v87];
-      v90 = v89[1];
-      v91 = vtrn1q_s16(*v89, v90);
-      v92 = vtrn2q_s16(*v89, v90);
-      v93 = v89[2];
-      v94 = v89[3];
-      v95 = vtrn1q_s16(v93, v94);
-      v96 = vtrn2q_s16(v93, v94);
-      v97 = v89[4];
-      v98 = v89[5];
-      v99 = vtrn1q_s16(v97, v98);
-      v100 = vtrn2q_s16(v97, v98);
-      v101 = v89[6];
-      v102 = v89[7];
-      v103 = vtrn1q_s16(v101, v102);
-      v104 = vtrn2q_s16(v101, v102);
-      v105 = vtrn1q_s32(v91, v95);
-      v106 = vtrn2q_s32(v91, v95);
-      v107 = vtrn1q_s32(v92, v96);
-      v108 = vtrn2q_s32(v92, v96);
-      v109 = vtrn1q_s32(v99, v103);
-      v110 = vtrn2q_s32(v99, v103);
-      v111 = vtrn1q_s32(v100, v104);
-      v112 = vtrn2q_s32(v100, v104);
-      v113 = vzip2q_s64(v105, v109);
-      v105.i64[1] = v109.i64[0];
-      v114 = vzip2q_s64(v107, v111);
-      v107.i64[1] = v111.i64[0];
-      v115 = vzip2q_s64(v106, v110);
-      v106.i64[1] = v110.i64[0];
-      v116 = vzip2q_s64(v108, v112);
-      v108.i64[1] = v112.i64[0];
-      v117 = &v626[1024 * v87 + 128 * v3];
-      *v117 = v105;
-      v117[1] = v107;
-      LOBYTE(v89) = v88;
-      v117[2] = v106;
-      v117[3] = v108;
-      v117[4] = v113;
-      v117[5] = v114;
-      v117[6] = v115;
-      v117[7] = v116;
-      v87 = 1;
-      v88 = 0;
-    }
-
-    while ((v89 & 1) != 0);
-    ++v3;
-    v0 += 16;
-  }
-
-  while (v3 != 8);
-  v118 = 0;
-  v119 = 1;
-  v120 = vdupq_n_s16(0x16A0u);
-  v121 = vdupq_n_s16(0xE960u);
-  v456 = vneg_f16(0x8888888888888888);
-  v625 = v120;
-  v623 = v121;
-  do
-  {
-    v122 = 0;
-    v123 = v119;
-    v124 = 63;
-    v125 = &v626[1024 * v118];
-    do
-    {
-      *&v807[v122 * 16] = vqaddq_s16(v125[v122], v125[v124--]);
-      ++v122;
-    }
-
-    while (v124 != 31);
-    v126 = 32;
-    do
-    {
-      *&v807[v126 * 16] = vqsubq_s16(v125[v124--], v125[v126]);
-      ++v126;
-    }
-
-    while (v124 != -1);
-    v127 = 0;
-    for (m = 496; m != 240; m -= 16)
-    {
-      *(&v767 + v127) = vqaddq_s16(*&v807[v127], *&v807[m]);
-      v127 += 16;
-    }
-
-    v129 = 256;
-    do
-    {
-      *(&v767 + v129) = vqsubq_s16(*&v807[m], *&v807[v129]);
-      m -= 16;
-      v129 += 16;
-    }
-
-    while (m != -16);
-    v130 = 0;
-    v806 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v816.i8, *v120.i8), *v831.i8, *v120.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v816, v120), v831, v120), 0xDuLL);
-    v805 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v817.i8, *v120.i8), *v830.i8, *v120.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v817, v120), v830, v120), 0xDuLL);
-    v791 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v816.i8, *v121.i8), *v831.i8, *v120.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v816, v121), v831, v120), 0xDuLL);
-    v792 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v817.i8, *v121.i8), *v830.i8, *v120.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v817, v121), v830, v120), 0xDuLL);
-    v804 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v818.i8, *v120.i8), *v829.i8, *v120.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v818, v120), v829, v120), 0xDuLL);
-    v803 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v819.i8, *v120.i8), *v828.i8, *v120.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v819, v120), v828, v120), 0xDuLL);
-    v793 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v818.i8, *v121.i8), *v829.i8, *v120.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v818, v121), v829, v120), 0xDuLL);
-    v794 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v819.i8, *v121.i8), *v828.i8, *v120.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v819, v121), v828, v120), 0xDuLL);
-    v802 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v820.i8, *v120.i8), *v827.i8, *v120.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v820, v120), v827, v120), 0xDuLL);
-    v801 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v821.i8, *v120.i8), *v826.i8, *v120.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v821, v120), v826, v120), 0xDuLL);
-    v795 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v820.i8, *v121.i8), *v827.i8, *v120.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v820, v121), v827, v120), 0xDuLL);
-    v796 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v821.i8, *v121.i8), *v826.i8, *v120.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v821, v121), v826, v120), 0xDuLL);
-    v800 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v822.i8, *v120.i8), *v825.i8, *v120.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v822, v120), v825, v120), 0xDuLL);
-    v799 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v823.i8, *v120.i8), *v824.i8, *v120.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v823, v120), v824, v120), 0xDuLL);
-    v797 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v822.i8, *v121.i8), *v825.i8, *v120.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v822, v121), v825, v120), 0xDuLL);
-    v798 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v823.i8, *v121.i8), *v824.i8, *v120.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v823, v121), v824, v120), 0xDuLL);
-    for (n = 240; n != 112; n -= 16)
-    {
-      *&v726[v130] = vqaddq_s16(*(&v767 + v130), *(&v767 + n));
-      v130 += 16;
-    }
-
-    v132 = 128;
-    do
-    {
-      *&v726[v132] = vqsubq_s16(*(&v767 + n), *(&v767 + v132));
-      n -= 16;
-      v132 += 16;
-    }
-
-    while (n != -16);
-    v735 = v775;
-    v736 = v776;
-    v737 = v777;
-    v738 = v778;
-    v746 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v779.i8, *v120.i8), *v786.i8, *v120.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v779, v120), v786, v120), 0xDuLL);
-    v745 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v780.i8, *v120.i8), *v785.i8, *v120.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v780, v120), v785, v120), 0xDuLL);
-    v739 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v779.i8, *v121.i8), *v786.i8, *v120.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v779, v121), v786, v120), 0xDuLL);
-    v740 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v780.i8, *v121.i8), *v785.i8, *v120.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v780, v121), v785, v120), 0xDuLL);
-    v744 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v781.i8, *v120.i8), *v784.i8, *v120.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v781, v120), v784, v120), 0xDuLL);
-    v743 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v782.i8, *v120.i8), *v783.i8, *v120.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v782, v120), v783, v120), 0xDuLL);
-    v741 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v781.i8, *v121.i8), *v784.i8, *v120.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v781, v121), v784, v120), 0xDuLL);
-    v742 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v782.i8, *v121.i8), *v783.i8, *v120.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v782, v121), v783, v120), 0xDuLL);
-    v747 = v787;
-    v748 = v788;
-    v749 = v789;
-    v750 = v790;
-    v133 = 512;
-    for (ii = 752; ii != 624; ii -= 16)
-    {
-      *&v726[v133] = vqaddq_s16(*&v807[v133], *(&v767 + ii));
-      v133 += 16;
-    }
-
-    v135 = 640;
-    do
-    {
-      *&v726[v135] = vqsubq_s16(*&v807[ii], *(&v767 + v135));
-      ii -= 16;
-      v135 += 16;
-    }
-
-    while (ii != 496);
-    v136 = 768;
-    for (jj = 1008; jj != 880; jj -= 16)
-    {
-      *&v726[v136] = vqsubq_s16(*&v807[jj], *(&v767 + v136));
-      v136 += 16;
-    }
-
-    v138 = 880;
-    for (kk = 896; kk != 1024; kk += 16)
-    {
-      *&v726[kk] = vqaddq_s16(*&v807[kk], *(&v767 + v138));
-      v138 -= 16;
-    }
-
-    v140 = 0;
-    for (mm = 112; mm != 48; mm -= 16)
-    {
-      *(&v682 + v140) = vqaddq_s16(*&v726[v140], *&v726[mm]);
-      v140 += 16;
-    }
-
-    v142 = 64;
-    do
-    {
-      *(&v682 + v142) = vqsubq_s16(*&v726[mm], *&v726[v142]);
-      mm -= 16;
-      v142 += 16;
-    }
-
-    while (mm != -16);
-    v693 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v729.i8, *v120.i8), *v732.i8, *v120.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v729, v120), v732, v120), 0xDuLL);
-    v692 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v730.i8, *v120.i8), *v731.i8, *v120.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v730, v120), v731, v120), 0xDuLL);
-    v690 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v729.i8, *v121.i8), *v732.i8, *v120.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v729, v121), v732, v120), 0xDuLL);
-    v691 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v730.i8, *v121.i8), *v731.i8, *v120.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v730, v121), v731, v120), 0xDuLL);
-    v143 = 256;
-    for (nn = 368; nn != 304; nn -= 16)
-    {
-      *(&v682 + v143) = vqaddq_s16(*&v726[v143], *&v726[nn]);
-      v143 += 16;
-    }
-
-    v145 = 320;
-    do
-    {
-      *(&v682 + v145) = vqsubq_s16(*&v726[nn], *&v726[v145]);
-      nn -= 16;
-      v145 += 16;
-    }
-
-    while (nn != 240);
-    v146 = 384;
-    for (i1 = 496; i1 != 432; i1 -= 16)
-    {
-      *(&v682 + v146) = vqsubq_s16(*&v726[i1], *&v726[v146]);
-      v146 += 16;
-    }
-
-    v148 = 432;
-    for (i2 = 448; i2 != 512; i2 += 16)
-    {
-      *(&v682 + i2) = vqaddq_s16(*&v726[i2], *&v726[v148]);
-      v148 -= 16;
-    }
-
-    v150 = vdupq_n_s16(0x1D90u);
-    v151 = vdupq_n_s16(0xC3Eu);
-    v152 = vdupq_n_s16(0xE270u);
-    v725 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v751.i8, *v151.i8), *v766.i8, *v150.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v751, v151), v766, v150), 0xDuLL);
-    v724 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v752.i8, *v151.i8), *v765.i8, *v150.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v752, v151), v765, v150), 0xDuLL);
-    v710 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v751.i8, *v152.i8), *v766.i8, *v151.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v751, v152), v766, v151), 0xDuLL);
-    v711 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v752.i8, *v152.i8), *v765.i8, *v151.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v752, v152), v765, v151), 0xDuLL);
-    v723 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v753.i8, *v151.i8), *v764.i8, *v150.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v753, v151), v764, v150), 0xDuLL);
-    v722 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v754.i8, *v151.i8), *v763.i8, *v150.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v754, v151), v763, v150), 0xDuLL);
-    v712 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v753.i8, *v152.i8), *v764.i8, *v151.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v753, v152), v764, v151), 0xDuLL);
-    v713 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v754.i8, *v152.i8), *v763.i8, *v151.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v754, v152), v763, v151), 0xDuLL);
-    v153 = vdupq_n_s16(0xF3C2u);
-    v721 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v755.i8, *v152.i8), *v762.i8, *v151.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v755, v152), v762, v151), 0xDuLL);
-    v720 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v756.i8, *v152.i8), *v761.i8, *v151.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v756, v152), v761, v151), 0xDuLL);
-    v714 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v755.i8, *v153.i8), *v762.i8, *v152.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v755, v153), v762, v152), 0xDuLL);
-    v715 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v756.i8, *v153.i8), *v761.i8, *v152.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v756, v153), v761, v152), 0xDuLL);
-    v719 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v757.i8, *v152.i8), *v760.i8, *v151.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v757, v152), v760, v151), 0xDuLL);
-    v718 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v758.i8, *v152.i8), *v759.i8, *v151.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v758, v152), v759, v151), 0xDuLL);
-    v716 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v757.i8, *v153.i8), *v760.i8, *v152.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v757, v153), v760, v152), 0xDuLL);
-    v717 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v758.i8, *v153.i8), *v759.i8, *v152.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v758, v153), v759, v152), 0xDuLL);
-    v628 = vqaddq_s16(v682, v685);
-    v629 = vqaddq_s16(v683, v684);
-    v630 = vqsubq_s16(v683, v684);
-    v631 = vqsubq_s16(v682, v685);
-    v633 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v687.i8, *v120.i8), *v688.i8, *v120.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v687, v120), v688, v120), 0xDuLL);
-    v632 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v687.i8, *v121.i8), *v688.i8, *v120.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v687, v121), v688, v120), 0xDuLL);
-    v634 = vqaddq_s16(v727, v691);
-    v635 = vqaddq_s16(v728, v690);
-    v636 = vqsubq_s16(v728, v690);
-    v637 = vqsubq_s16(v727, v691);
-    v638 = vqsubq_s16(v734, v692);
-    v639 = vqsubq_s16(v733, v693);
-    v640 = vqaddq_s16(v733, v693);
-    v641 = vqaddq_s16(v734, v692);
-    v649 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v696.i8, *v151.i8), *v707.i8, *v150.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v696, v151), v707, v150), 0xDuLL);
-    v648 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v697.i8, *v151.i8), *v706.i8, *v150.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v697, v151), v706, v150), 0xDuLL);
-    v642 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v696.i8, *v152.i8), *v707.i8, *v151.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v696, v152), v707, v151), 0xDuLL);
-    v643 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v697.i8, *v152.i8), *v706.i8, *v151.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v697, v152), v706, v151), 0xDuLL);
-    v647 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v698.i8, *v152.i8), *v705.i8, *v151.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v698, v152), v705, v151), 0xDuLL);
-    v646 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v699.i8, *v152.i8), *v704.i8, *v151.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v699, v152), v704, v151), 0xDuLL);
-    v644 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v698.i8, *v153.i8), *v705.i8, *v152.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v698, v153), v705, v152), 0xDuLL);
-    v645 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v699.i8, *v153.i8), *v704.i8, *v152.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v699, v153), v704, v152), 0xDuLL);
-    v154 = 512;
-    for (i3 = 624; i3 != 560; i3 -= 16)
-    {
-      *(&v628 + v154) = vqaddq_s16(*&v726[v154], *(&v682 + i3));
-      v154 += 16;
-    }
-
-    v156 = 576;
-    do
-    {
-      *(&v628 + v156) = vqsubq_s16(*&v726[i3], *(&v682 + v156));
-      i3 -= 16;
-      v156 += 16;
-    }
-
-    while (i3 != 496);
-    v157 = 640;
-    for (i4 = 752; i4 != 688; i4 -= 16)
-    {
-      *(&v628 + v157) = vqsubq_s16(*&v726[i4], *(&v682 + v157));
-      v157 += 16;
-    }
-
-    v159 = 688;
-    for (i5 = 704; i5 != 768; i5 += 16)
-    {
-      *(&v628 + i5) = vqaddq_s16(*&v726[i5], *(&v682 + v159));
-      v159 -= 16;
-    }
-
-    v161 = 768;
-    for (i6 = 880; i6 != 816; i6 -= 16)
-    {
-      *(&v628 + v161) = vqaddq_s16(*&v726[v161], *(&v682 + i6));
-      v161 += 16;
-    }
-
-    v163 = 832;
-    do
-    {
-      *(&v628 + v163) = vqsubq_s16(*&v726[i6], *(&v682 + v163));
-      i6 -= 16;
-      v163 += 16;
-    }
-
-    while (i6 != 752);
-    v164 = 896;
-    for (i7 = 1008; i7 != 944; i7 -= 16)
-    {
-      *(&v628 + v164) = vqsubq_s16(*&v726[i7], *(&v682 + v164));
-      v164 += 16;
-    }
-
-    v166 = 944;
-    for (i8 = 960; i8 != 1024; i8 += 16)
-    {
-      *(&v628 + i8) = vqaddq_s16(*&v726[i8], *(&v682 + v166));
-      v166 -= 16;
-    }
-
-    v168 = 0;
-    v621 = vmlal_s16(vmull_s16(*v630.i8, *v151.i8), *v631.i8, *v150.i8);
-    v619 = vmlal_high_s16(vmull_high_s16(v630, v151), v631, v150);
-    v617 = vmlal_s16(vmull_s16(*v630.i8, *v152.i8), *v631.i8, *v151.i8);
-    v615 = vmlal_high_s16(vmull_high_s16(v630, v152), v631, v151);
-    v169 = vmlal_s16(vmull_s16(*v635.i8, *v151.i8), *v640.i8, *v150.i8);
-    v170 = vmlal_high_s16(vmull_high_s16(v635, v151), v640, v150);
-    v171 = vmlal_s16(vmull_s16(*v635.i8, *v152.i8), *v640.i8, *v151.i8);
-    v172 = vmlal_high_s16(vmull_high_s16(v635, v152), v640, v151);
-    v173 = vqaddq_s16(v695, v642);
-    v174 = vqsubq_s16(v695, v642);
-    v175 = vqsubq_s16(v708, v649);
-    v176 = vdupq_n_s16(0x1F62u);
-    v177 = vdupq_n_s16(0x63Eu);
-    v572 = vmlal_s16(vmull_s16(*v636.i8, *v152.i8), *v639.i8, *v151.i8);
-    v178 = vqaddq_s16(v708, v649);
-    v179 = vdupq_n_s16(0xE09Eu);
-    v570 = vmlal_high_s16(vmull_high_s16(v636, v152), v639, v151);
-    v568 = vmlal_s16(vmull_s16(*v636.i8, *v153.i8), *v639.i8, *v152.i8);
-    v566 = vmlal_high_s16(vmull_high_s16(v636, v153), v639, v152);
-    v180 = vmlal_s16(vmull_s16(*v652.i8, *v177.i8), *v679.i8, *v176.i8);
-    v181 = vmlal_high_s16(vmull_high_s16(v652, v177), v679, v176);
-    v182 = vmlal_s16(vmull_s16(*v652.i8, *v179.i8), *v679.i8, *v177.i8);
-    v183 = vmlal_high_s16(vmull_high_s16(v652, v179), v679, v177);
-    v560 = vmlal_s16(vmull_s16(*v653.i8, *v177.i8), *v678.i8, *v176.i8);
-    v556 = vmlal_high_s16(vmull_high_s16(v653, v177), v678, v176);
-    v554 = vmlal_s16(vmull_s16(*v653.i8, *v179.i8), *v678.i8, *v177.i8);
-    v551 = vmlal_high_s16(vmull_high_s16(v653, v179), v678, v177);
-    v580 = vmlal_s16(vmull_s16(*v654.i8, *v179.i8), *v677.i8, *v177.i8);
-    v578 = vmlal_high_s16(vmull_high_s16(v654, v179), v677, v177);
-    v184 = vdupq_n_s16(0xF9C2u);
-    v576 = vmlal_s16(vmull_s16(*v654.i8, *v184.i8), *v677.i8, *v179.i8);
-    v574 = vmlal_high_s16(vmull_high_s16(v654, v184), v677, v179);
-    v185 = vmlal_s16(vmull_s16(*v655.i8, *v179.i8), *v676.i8, *v177.i8);
-    v186 = vmlal_high_s16(vmull_high_s16(v655, v179), v676, v177);
-    v187 = vmlal_s16(vmull_s16(*v655.i8, *v184.i8), *v676.i8, *v179.i8);
-    v188 = vmlal_high_s16(vmull_high_s16(v655, v184), v676, v179);
-    v189 = vqaddq_s16(v686, v632);
-    v190 = vqaddq_s16(v689, v633);
-    v614 = vmlal_s16(vmull_s16(*v189.i8, *v177.i8), *v190.i8, *v176.i8);
-    v613 = vmlal_high_s16(vmull_high_s16(v189, v177), v190, v176);
-    v612 = vmlal_s16(vmull_s16(*v189.i8, *v179.i8), *v190.i8, *v177.i8);
-    v611 = vmlal_high_s16(vmull_high_s16(v189, v179), v190, v177);
-    v584 = vmlal_s16(vmull_s16(*v173.i8, *v177.i8), *v178.i8, *v176.i8);
-    v582 = vmlal_high_s16(vmull_high_s16(v173, v177), v178, v176);
-    v558 = vmlal_s16(vmull_s16(*v173.i8, *v179.i8), *v178.i8, *v177.i8);
-    v191 = vmlal_high_s16(vmull_high_s16(v173, v179), v178, v177);
-    v541 = vmlal_s16(vmull_s16(*v174.i8, *v179.i8), *v175.i8, *v177.i8);
-    v539 = vmlal_high_s16(vmull_high_s16(v174, v179), v175, v177);
-    v535 = vmlal_high_s16(vmull_high_s16(v174, v184), v175, v179);
-    v537 = vmlal_s16(vmull_s16(*v174.i8, *v184.i8), *v175.i8, *v179.i8);
-    v192 = vqsubq_s16(v686, v632);
-    v193 = vqsubq_s16(v689, v633);
-    v194 = vqsubq_s16(v700, v645);
-    v195 = vqaddq_s16(v700, v645);
-    v196 = vqaddq_s16(v703, v646);
-    v197 = vqsubq_s16(v703, v646);
-    v198 = vdupq_n_s16(0x11C8u);
-    v199 = vdupq_n_s16(0x1A9Cu);
-    v200 = vmlal_s16(vmull_s16(*v660.i8, *v199.i8), *v671.i8, *v198.i8);
-    v201 = vmlal_high_s16(vmull_high_s16(v660, v199), v671, v198);
-    v202 = vdupq_n_s16(0xEE38u);
-    v203 = vmlal_s16(vmull_s16(*v660.i8, *v202.i8), *v671.i8, *v199.i8);
-    v204 = vmlal_high_s16(vmull_high_s16(v660, v202), v671, v199);
-    v594 = vmlal_s16(vmull_s16(*v661.i8, *v199.i8), *v670.i8, *v198.i8);
-    v592 = vmlal_high_s16(vmull_high_s16(v661, v199), v670, v198);
-    v590 = vmlal_s16(vmull_s16(*v661.i8, *v202.i8), *v670.i8, *v199.i8);
-    v588 = vmlal_high_s16(vmull_high_s16(v661, v202), v670, v199);
-    v602 = vmlal_s16(vmull_s16(*v662.i8, *v202.i8), *v669.i8, *v199.i8);
-    v205 = vdupq_n_s16(0xE564u);
-    v600 = vmlal_high_s16(vmull_high_s16(v662, v202), v669, v199);
-    v598 = vmlal_s16(vmull_s16(*v662.i8, *v205.i8), *v669.i8, *v202.i8);
-    v596 = vmlal_high_s16(vmull_high_s16(v662, v205), v669, v202);
-    v206 = vmlal_s16(vmull_s16(*v663.i8, *v202.i8), *v668.i8, *v199.i8);
-    v207 = vmlal_high_s16(vmull_high_s16(v663, v202), v668, v199);
-    v208 = vmlal_s16(vmull_s16(*v663.i8, *v205.i8), *v668.i8, *v202.i8);
-    v209 = vmlal_high_s16(vmull_high_s16(v663, v205), v668, v202);
-    v608 = vmlal_s16(vmull_s16(*v192.i8, *v199.i8), *v193.i8, *v198.i8);
-    v607 = vmlal_high_s16(vmull_high_s16(v192, v199), v193, v198);
-    v606 = vmlal_s16(vmull_s16(*v192.i8, *v202.i8), *v193.i8, *v199.i8);
-    v605 = vmlal_high_s16(vmull_high_s16(v192, v202), v193, v199);
-    v533 = vmlal_s16(vmull_s16(*v194.i8, *v199.i8), *v197.i8, *v198.i8);
-    v531 = vmlal_high_s16(vmull_high_s16(v194, v199), v197, v198);
-    v529 = vmlal_s16(vmull_s16(*v194.i8, *v202.i8), *v197.i8, *v199.i8);
-    v527 = vmlal_high_s16(vmull_high_s16(v194, v202), v197, v199);
-    v545 = vmlal_s16(vmull_s16(*v195.i8, *v202.i8), *v196.i8, *v199.i8);
-    v543 = vmlal_high_s16(vmull_high_s16(v195, v202), v196, v199);
-    v521 = vmlal_high_s16(vmull_high_s16(v195, v205), v196, v202);
-    v523 = vmlal_s16(vmull_s16(*v195.i8, *v205.i8), *v196.i8, *v202.i8);
-    v210 = vrshrn_high_n_s32(vrshrn_n_s32(v169, 0xDuLL), v170, 0xDuLL);
-    v211 = vrshrn_high_n_s32(vrshrn_n_s32(v171, 0xDuLL), v172, 0xDuLL);
-    v212 = vrshrn_high_n_s32(vrshrn_n_s32(v180, 0xDuLL), v181, 0xDuLL);
-    v213 = vrshrn_high_n_s32(vrshrn_n_s32(v182, 0xDuLL), v183, 0xDuLL);
-    v214 = vqaddq_s16(v651, v213);
-    v215 = vqsubq_s16(v651, v213);
-    v216 = vqsubq_s16(v680, v212);
-    v217 = vqaddq_s16(v680, v212);
-    v218 = vqaddq_s16(v634, v211);
-    v219 = vdupq_n_s16(0x1FD8u);
-    v220 = vqaddq_s16(v641, v210);
-    v221 = vdupq_n_s16(0x322u);
-    v478 = vmlal_s16(vmull_s16(*v218.i8, *v221.i8), *v220.i8, *v219.i8);
-    v604 = vmlal_high_s16(vmull_high_s16(v218, v221), v220, v219);
-    v222 = vdupq_n_s16(0xE028u);
-    v610 = vmlal_s16(vmull_s16(*v218.i8, *v222.i8), *v220.i8, *v221.i8);
-    v609 = vmlal_high_s16(vmull_high_s16(v218, v222), v220, v221);
-    v223 = vmlal_s16(vmull_s16(*v214.i8, *v221.i8), *v217.i8, *v219.i8);
-    v224 = vmlal_high_s16(vmull_high_s16(v214, v221), v217, v219);
-    v225 = vmlal_s16(vmull_s16(*v214.i8, *v222.i8), *v217.i8, *v221.i8);
-    v226 = vmlal_high_s16(vmull_high_s16(v214, v222), v217, v221);
-    v227 = vmlal_s16(vmull_s16(*v215.i8, *v222.i8), *v216.i8, *v221.i8);
-    v228 = vmlal_high_s16(vmull_high_s16(v215, v222), v216, v221);
-    v229 = vdupq_n_s16(0xFCDEu);
-    v230 = vmlal_s16(vmull_s16(*v215.i8, *v229.i8), *v216.i8, *v222.i8);
-    v231 = vmlal_high_s16(vmull_high_s16(v215, v229), v216, v222);
-    v232 = vrshrn_high_n_s32(vrshrn_n_s32(v185, 0xDuLL), v186, 0xDuLL);
-    v233 = vrshrn_high_n_s32(vrshrn_n_s32(v187, 0xDuLL), v188, 0xDuLL);
-    v234 = vqsubq_s16(v634, v211);
-    v235 = vqsubq_s16(v641, v210);
-    v236 = vqsubq_s16(v656, v233);
-    v237 = vqaddq_s16(v656, v233);
-    v238 = vqaddq_s16(v675, v232);
-    v239 = vqsubq_s16(v675, v232);
-    v240 = vdupq_n_s16(0x144Cu);
-    v241 = vdupq_n_s16(0x18BCu);
-    v242 = vmlal_s16(vmull_s16(*v234.i8, *v241.i8), *v235.i8, *v240.i8);
-    v243 = vmlal_high_s16(vmull_high_s16(v234, v241), v235, v240);
-    v244 = vdupq_n_s16(0xEBB4u);
-    v587 = vmlal_s16(vmull_s16(*v234.i8, *v244.i8), *v235.i8, *v241.i8);
-    v586 = vmlal_high_s16(vmull_high_s16(v234, v244), v235, v241);
-    v476 = vmlal_s16(vmull_s16(*v236.i8, *v241.i8), *v239.i8, *v240.i8);
-    v245 = vmlal_high_s16(vmull_high_s16(v236, v241), v239, v240);
-    v246 = vmlal_s16(vmull_s16(*v236.i8, *v244.i8), *v239.i8, *v241.i8);
-    v247 = vmlal_high_s16(vmull_high_s16(v236, v244), v239, v241);
-    v493 = vmlal_s16(vmull_s16(*v237.i8, *v244.i8), *v238.i8, *v241.i8);
-    v491 = vmlal_high_s16(vmull_high_s16(v237, v244), v238, v241);
-    v248 = vdupq_n_s16(0xE744u);
-    v485 = vmlal_high_s16(vmull_high_s16(v237, v248), v238, v244);
-    v487 = vmlal_s16(vmull_s16(*v237.i8, *v248.i8), *v238.i8, *v244.i8);
-    v249 = vrshrn_high_n_s32(vrshrn_n_s32(v572, 0xDuLL), v570, 0xDuLL);
-    v250 = vrshrn_high_n_s32(vrshrn_n_s32(v568, 0xDuLL), v566, 0xDuLL);
-    v251 = vrshrn_high_n_s32(vrshrn_n_s32(v200, 0xDuLL), v201, 0xDuLL);
-    v252 = vrshrn_high_n_s32(vrshrn_n_s32(v203, 0xDuLL), v204, 0xDuLL);
-    v253 = vqaddq_s16(v659, v252);
-    v254 = vqsubq_s16(v659, v252);
-    v255 = vqsubq_s16(v672, v251);
-    v256 = vqaddq_s16(v672, v251);
-    v257 = vqsubq_s16(v637, v250);
-    v258 = vqsubq_s16(v638, v249);
-    v259 = vdupq_n_s16(0x1C38u);
-    v260 = vdupq_n_s16(0xF16u);
-    v573 = vmlal_s16(vmull_s16(*v257.i8, *v260.i8), *v258.i8, *v259.i8);
-    v571 = vmlal_high_s16(vmull_high_s16(v257, v260), v258, v259);
-    v261 = vdupq_n_s16(0xE3C8u);
-    v569 = vmlal_s16(vmull_s16(*v257.i8, *v261.i8), *v258.i8, *v260.i8);
-    v567 = vmlal_high_s16(vmull_high_s16(v257, v261), v258, v260);
-    v501 = vmlal_s16(vmull_s16(*v253.i8, *v260.i8), *v256.i8, *v259.i8);
-    v499 = vmlal_high_s16(vmull_high_s16(v253, v260), v256, v259);
-    v497 = vmlal_s16(vmull_s16(*v253.i8, *v261.i8), *v256.i8, *v260.i8);
-    v495 = vmlal_high_s16(vmull_high_s16(v253, v261), v256, v260);
-    v262 = vmlal_s16(vmull_s16(*v254.i8, *v261.i8), *v255.i8, *v260.i8);
-    v513 = vmlal_high_s16(vmull_high_s16(v254, v261), v255, v260);
-    v263 = vdupq_n_s16(0xF0EAu);
-    v507 = vmlal_high_s16(vmull_high_s16(v254, v263), v255, v261);
-    v509 = vmlal_s16(vmull_s16(*v254.i8, *v263.i8), *v255.i8, *v261.i8);
-    v264 = vrshrn_high_n_s32(vrshrn_n_s32(v206, 0xDuLL), v207, 0xDuLL);
-    v265 = vrshrn_high_n_s32(vrshrn_n_s32(v208, 0xDuLL), v209, 0xDuLL);
-    v266 = vqaddq_s16(v637, v250);
-    v267 = vqaddq_s16(v638, v249);
-    v268 = vqsubq_s16(v664, v265);
-    v269 = vqaddq_s16(v664, v265);
-    v270 = vqaddq_s16(v667, v264);
-    v271 = vdupq_n_s16(0x94Au);
-    v272 = vdupq_n_s16(0x1EA0u);
-    v273 = vqsubq_s16(v667, v264);
-    v565 = vmlal_s16(vmull_s16(*v266.i8, *v272.i8), *v267.i8, *v271.i8);
-    v274 = vdupq_n_s16(0xF6B6u);
-    v564 = vmlal_high_s16(vmull_high_s16(v266, v272), v267, v271);
-    v563 = vmlal_s16(vmull_s16(*v266.i8, *v274.i8), *v267.i8, *v272.i8);
-    v562 = vmlal_high_s16(vmull_high_s16(v266, v274), v267, v272);
-    v511 = vmlal_s16(vmull_s16(*v268.i8, *v272.i8), *v273.i8, *v271.i8);
-    v506 = vmlal_high_s16(vmull_high_s16(v268, v272), v273, v271);
-    v504 = vmlal_s16(vmull_s16(*v268.i8, *v274.i8), *v273.i8, *v272.i8);
-    v503 = vmlal_high_s16(vmull_high_s16(v268, v274), v273, v272);
-    v275 = vmlal_s16(vmull_s16(*v269.i8, *v274.i8), *v270.i8, *v272.i8);
-    v276 = vdupq_n_s16(0xE160u);
-    v277 = vmlal_high_s16(vmull_high_s16(v269, v274), v270, v272);
-    v278 = vmlal_s16(vmull_s16(*v269.i8, *v276.i8), *v270.i8, *v274.i8);
-    v279 = vmlal_high_s16(vmull_high_s16(v269, v276), v270, v274);
-    v280 = vrshrn_high_n_s32(vrshrn_n_s32(v584, 0xDuLL), v582, 0xDuLL);
-    v281 = vrshrn_high_n_s32(vrshrn_n_s32(v558, 0xDuLL), v191, 0xDuLL);
-    v282 = vqaddq_s16(v694, v643);
-    v283 = vqaddq_s16(v709, v648);
-    v284 = vqaddq_s16(v282, v281);
-    v285 = vdupq_n_s16(0x1FF6u);
-    v286 = vqaddq_s16(v283, v280);
-    v287 = vdupq_n_s16(0x192u);
-    v559 = vmlal_s16(vmull_s16(*v284.i8, *v287.i8), *v286.i8, *v285.i8);
-    v553 = vmlal_high_s16(vmull_high_s16(v284, v287), v286, v285);
-    v288 = vdupq_n_s16(0xE00Au);
-    v585 = vmlal_s16(vmull_s16(*v284.i8, *v288.i8), *v286.i8, *v287.i8);
-    v583 = vmlal_high_s16(vmull_high_s16(v284, v288), v286, v287);
-    v289 = vqsubq_s16(v282, v281);
-    v290 = vdupq_n_s16(0x157Eu);
-    v291 = vdupq_n_s16(0x17B6u);
-    v292 = vqsubq_s16(v283, v280);
-    v550 = vmlal_s16(vmull_s16(*v289.i8, *v291.i8), *v292.i8, *v290.i8);
-    v293 = vdupq_n_s16(0xEA82u);
-    v549 = vmlal_high_s16(vmull_high_s16(v289, v291), v292, v290);
-    v548 = vmlal_s16(vmull_s16(*v289.i8, *v293.i8), *v292.i8, *v291.i8);
-    v547 = vmlal_high_s16(vmull_high_s16(v289, v293), v292, v291);
-    v294 = vqsubq_s16(v694, v643);
-    v295 = vqsubq_s16(v709, v648);
-    v296 = vrshrn_high_n_s32(vrshrn_n_s32(v541, 0xDuLL), v539, 0xDuLL);
-    v297 = vrshrn_high_n_s32(vrshrn_n_s32(v537, 0xDuLL), v535, 0xDuLL);
-    v298 = vqsubq_s16(v294, v297);
-    v299 = vqsubq_s16(v295, v296);
-    v300 = vdupq_n_s16(0x1CEEu);
-    v301 = vdupq_n_s16(0xDAEu);
-    v538 = vmlal_s16(vmull_s16(*v298.i8, *v301.i8), *v299.i8, *v300.i8);
-    v536 = vmlal_high_s16(vmull_high_s16(v298, v301), v299, v300);
-    v302 = vdupq_n_s16(0xE312u);
-    v525 = vmlal_high_s16(vmull_high_s16(v298, v302), v299, v301);
-    v526 = vmlal_s16(vmull_s16(*v298.i8, *v302.i8), *v299.i8, *v301.i8);
-    v303 = vqaddq_s16(v294, v297);
-    v304 = vdupq_n_s16(0xF538u);
-    v305 = vqaddq_s16(v295, v296);
-    v306 = vmull_s16(*v303.i8, *v304.i8);
-    v307 = vmull_high_s16(v303, v304);
-    v308 = vdupq_n_s16(0x1E22u);
-    v517 = vmlal_high_s16(v307, v305, v308);
-    v518 = vmlal_s16(v306, *v305.i8, *v308.i8);
-    v309 = vrshrn_high_n_s32(vrshrn_n_s32(v533, 0xDuLL), v531, 0xDuLL);
-    v310 = vrshrn_high_n_s32(vrshrn_n_s32(v529, 0xDuLL), v527, 0xDuLL);
-    v311 = vqsubq_s16(v701, v644);
-    v312 = vqsubq_s16(v702, v647);
-    v313 = vqaddq_s16(v311, v310);
-    v314 = vqaddq_s16(v312, v309);
-    v315 = vdupq_n_s16(0x1F0Au);
-    v316 = vdupq_n_s16(0x7C6u);
-    v516 = vmlal_s16(vmull_s16(*v313.i8, *v316.i8), *v314.i8, *v315.i8);
-    v515 = vmlal_high_s16(vmull_high_s16(v313, v316), v314, v315);
-    v317 = vdupq_n_s16(0xE0F6u);
-    v540 = vmlal_high_s16(vmull_high_s16(v313, v317), v314, v316);
-    v542 = vmlal_s16(vmull_s16(*v313.i8, *v317.i8), *v314.i8, *v316.i8);
-    v318 = vqsubq_s16(v311, v310);
-    v319 = vdupq_n_s16(0x1074u);
-    v320 = vqsubq_s16(v312, v309);
-    v321 = vdupq_n_s16(0x1B72u);
-    v532 = vmlal_s16(vmull_s16(*v318.i8, *v321.i8), *v320.i8, *v319.i8);
-    v528 = vmlal_high_s16(vmull_high_s16(v318, v321), v320, v319);
-    v322 = vdupq_n_s16(0xEF8Cu);
-    v534 = vmlal_s16(vmull_s16(*v318.i8, *v322.i8), *v320.i8, *v321.i8);
-    v530 = vmlal_high_s16(vmull_high_s16(v318, v322), v320, v321);
-    v323 = vqaddq_s16(v701, v644);
-    v324 = vqaddq_s16(v702, v647);
-    v325 = vrshrn_high_n_s32(vrshrn_n_s32(v545, 0xDuLL), v543, 0xDuLL);
-    v326 = vrshrn_high_n_s32(vrshrn_n_s32(v523, 0xDuLL), v521, 0xDuLL);
-    v327 = vqsubq_s16(v323, v326);
-    v328 = vdupq_n_s16(0x19B4u);
-    v329 = vdupq_n_s16(0x1310u);
-    v330 = vqsubq_s16(v324, v325);
-    v524 = vmlal_s16(vmull_s16(*v327.i8, *v329.i8), *v330.i8, *v328.i8);
-    v331 = vdupq_n_s16(0xE64Cu);
-    v522 = vmlal_s16(vmull_s16(*v327.i8, *v331.i8), *v330.i8, *v329.i8);
-    v519 = vmlal_high_s16(vmull_high_s16(v327, v329), v330, v328);
-    v520 = vmlal_high_s16(vmull_high_s16(v327, v331), v330, v329);
-    v332 = vqaddq_s16(v323, v326);
-    v333 = vqaddq_s16(v324, v325);
-    v334 = vdupq_n_s16(0x4B2u);
-    v335 = vdupq_n_s16(0x1FA8u);
-    v546 = vmlal_s16(vmull_s16(*v332.i8, *v335.i8), *v333.i8, *v334.i8);
-    v544 = vmlal_high_s16(vmull_high_s16(v332, v335), v333, v334);
-    v336 = vdupq_n_s16(0xFB4Eu);
-    v489 = vmlal_high_s16(vmull_high_s16(v332, v336), v333, v335);
-    v490 = vmlal_s16(vmull_s16(*v332.i8, *v336.i8), *v333.i8, *v335.i8);
-    v337 = vrshrn_high_n_s32(vrshrn_n_s32(v560, 0xDuLL), v556, 0xDuLL);
-    v338 = vrshrn_high_n_s32(vrshrn_n_s32(v554, 0xDuLL), v551, 0xDuLL);
-    v473 = vrshrn_high_n_s32(vrshrn_n_s32(v223, 0xDuLL), v224, 0xDuLL);
-    v483 = vrshrn_high_n_s32(vrshrn_n_s32(v225, 0xDuLL), v226, 0xDuLL);
-    v482 = vqaddq_s16(v650, v338);
-    v472 = vqaddq_s16(v681, v337);
-    v339 = vqsubq_s16(v482, v483);
-    v340 = vdupq_n_s16(0x1610u);
-    v341 = vqsubq_s16(v472, v473);
-    v342 = vdupq_n_s16(0x172Eu);
-    v561 = vmlal_s16(vmull_s16(*v339.i8, *v342.i8), *v341.i8, *v340.i8);
-    v557 = vmlal_high_s16(vmull_high_s16(v339, v342), v341, v340);
-    v343 = vdupq_n_s16(0xE9F0u);
-    v555 = vmlal_s16(vmull_s16(*v339.i8, *v343.i8), *v341.i8, *v342.i8);
-    v552 = vmlal_high_s16(vmull_high_s16(v339, v343), v341, v342);
-    v344 = vqsubq_s16(v650, v338);
-    v345 = vqsubq_s16(v681, v337);
-    v346 = vrshrn_high_n_s32(vrshrn_n_s32(v227, 0xDuLL), v228, 0xDuLL);
-    v347 = vrshrn_high_n_s32(vrshrn_n_s32(v230, 0xDuLL), v231, 0xDuLL);
-    v348 = vqsubq_s16(v344, v347);
-    v349 = vdupq_n_s16(0x1D42u);
-    v350 = vdupq_n_s16(0xCF8u);
-    v351 = vqsubq_s16(v345, v346);
-    v475 = vmlal_s16(vmull_s16(*v348.i8, *v350.i8), *v351.i8, *v349.i8);
-    v352 = vdupq_n_s16(0xE2BEu);
-    v474 = vmlal_high_s16(vmull_high_s16(v348, v350), v351, v349);
-    v484 = vmlal_s16(vmull_s16(*v348.i8, *v352.i8), *v351.i8, *v350.i8);
-    v481 = vmlal_high_s16(vmull_high_s16(v348, v352), v351, v350);
-    v353 = vqaddq_s16(v344, v347);
-    v354 = vqaddq_s16(v345, v346);
-    v355 = vdupq_n_s16(0xB84u);
-    v356 = vdupq_n_s16(0x1DDCu);
-    v480 = vmlal_s16(vmull_s16(*v353.i8, *v356.i8), *v354.i8, *v355.i8);
-    v479 = vmlal_high_s16(vmull_high_s16(v353, v356), v354, v355);
-    v357 = vdupq_n_s16(0xF47Cu);
-    v470 = vmlal_high_s16(vmull_high_s16(v353, v357), v354, v356);
-    v471 = vmlal_s16(vmull_s16(*v353.i8, *v357.i8), *v354.i8, *v356.i8);
-    v358 = vrshrn_high_n_s32(vrshrn_n_s32(v580, 0xDuLL), v578, 0xDuLL);
-    v359 = vrshrn_high_n_s32(vrshrn_n_s32(v576, 0xDuLL), v574, 0xDuLL);
-    v360 = vrshrn_high_n_s32(vrshrn_n_s32(v476, 0xDuLL), v245, 0xDuLL);
-    v361 = vrshrn_high_n_s32(vrshrn_n_s32(v246, 0xDuLL), v247, 0xDuLL);
-    v362 = vqsubq_s16(v657, v359);
-    v363 = vqsubq_s16(v674, v358);
-    v364 = vqaddq_s16(v362, v361);
-    v365 = vdupq_n_s16(0x1F38u);
-    v366 = vqaddq_s16(v363, v360);
-    v367 = vdupq_n_s16(0x702u);
-    v467 = vmlal_s16(vmull_s16(*v364.i8, *v367.i8), *v366.i8, *v365.i8);
-    v465 = vmlal_high_s16(vmull_high_s16(v364, v367), v366, v365);
-    v368 = vdupq_n_s16(0xE0C8u);
-    v581 = vmlal_s16(vmull_s16(*v364.i8, *v368.i8), *v366.i8, *v367.i8);
-    v579 = vmlal_high_s16(vmull_high_s16(v364, v368), v366, v367);
-    v369 = vqsubq_s16(v362, v361);
-    v370 = vdupq_n_s16(0x111Eu);
-    v371 = vdupq_n_s16(0x1B0Au);
-    v372 = vqsubq_s16(v363, v360);
-    v577 = vmlal_s16(vmull_s16(*v369.i8, *v371.i8), *v372.i8, *v370.i8);
-    v373 = vdupq_n_s16(0xEEE2u);
-    v575 = vmlal_high_s16(vmull_high_s16(v369, v371), v372, v370);
-    v477 = vmlal_s16(vmull_s16(*v369.i8, *v373.i8), *v372.i8, *v371.i8);
-    v469 = vmlal_high_s16(vmull_high_s16(v369, v373), v372, v371);
-    v374 = vqaddq_s16(v657, v359);
-    v375 = vqaddq_s16(v674, v358);
-    v376 = vrshrn_high_n_s32(vrshrn_n_s32(v493, 0xDuLL), v491, 0xDuLL);
-    v377 = vrshrn_high_n_s32(vrshrn_n_s32(v487, 0xDuLL), v485, 0xDuLL);
-    v378 = vqsubq_s16(v374, v377);
-    v379 = vqsubq_s16(v375, v376);
-    v380 = vdupq_n_s16(0x1A2Au);
-    v381 = vdupq_n_s16(0x126Eu);
-    v468 = vmlal_s16(vmull_s16(*v378.i8, *v381.i8), *v379.i8, *v380.i8);
-    v466 = vmlal_high_s16(vmull_high_s16(v378, v381), v379, v380);
-    v382 = vdupq_n_s16(0xE5D6u);
-    v486 = vmlal_high_s16(vmull_high_s16(v378, v382), v379, v381);
-    v488 = vmlal_s16(vmull_s16(*v378.i8, *v382.i8), *v379.i8, *v381.i8);
-    v383 = vqaddq_s16(v374, v377);
-    v384 = vdupq_n_s16(0x578u);
-    v385 = vqaddq_s16(v375, v376);
-    v386 = vdupq_n_s16(0x1F88u);
-    v494 = vmlal_s16(vmull_s16(*v383.i8, *v386.i8), *v385.i8, *v384.i8);
-    v492 = vmlal_high_s16(vmull_high_s16(v383, v386), v385, v384);
-    v387 = vdupq_n_s16(0xFA88u);
-    v463 = vmlal_high_s16(vmull_high_s16(v383, v387), v385, v386);
-    v464 = vmlal_s16(vmull_s16(*v383.i8, *v387.i8), *v385.i8, *v386.i8);
-    v388 = vrshrn_high_n_s32(vrshrn_n_s32(v594, 0xDuLL), v592, 0xDuLL);
-    v389 = vrshrn_high_n_s32(vrshrn_n_s32(v590, 0xDuLL), v588, 0xDuLL);
-    v390 = vrshrn_high_n_s32(vrshrn_n_s32(v501, 0xDuLL), v499, 0xDuLL);
-    v391 = vrshrn_high_n_s32(vrshrn_n_s32(v497, 0xDuLL), v495, 0xDuLL);
-    v392 = vqaddq_s16(v658, v389);
-    v393 = vqaddq_s16(v673, v388);
-    v394 = vqaddq_s16(v392, v391);
-    v395 = vdupq_n_s16(0x1FC2u);
-    v396 = vdupq_n_s16(0x3EAu);
-    v397 = vqaddq_s16(v393, v390);
-    v498 = vmlal_s16(vmull_s16(*v394.i8, *v396.i8), *v397.i8, *v395.i8);
-    v398 = vdupq_n_s16(0xE03Eu);
-    v496 = vmlal_high_s16(vmull_high_s16(v394, v396), v397, v395);
-    v595 = vmlal_s16(vmull_s16(*v394.i8, *v398.i8), *v397.i8, *v396.i8);
-    v593 = vmlal_high_s16(vmull_high_s16(v394, v398), v397, v396);
-    v399 = vqsubq_s16(v392, v391);
-    v400 = vqsubq_s16(v393, v390);
-    v401 = vdupq_n_s16(0x13B0u);
-    v402 = vdupq_n_s16(0x193Au);
-    v591 = vmlal_s16(vmull_s16(*v399.i8, *v402.i8), *v400.i8, *v401.i8);
-    v589 = vmlal_high_s16(vmull_high_s16(v399, v402), v400, v401);
-    v403 = vdupq_n_s16(0xEC50u);
-    v500 = vmlal_high_s16(vmull_high_s16(v399, v403), v400, v402);
-    v502 = vmlal_s16(vmull_s16(*v399.i8, *v403.i8), *v400.i8, *v402.i8);
-    v404 = vqsubq_s16(v658, v389);
-    v461 = vqsubq_s16(v673, v388);
-    v405 = vrshrn_high_n_s32(vrshrn_n_s32(v262, 0xDuLL), v513, 0xDuLL);
-    v406 = vrshrn_high_n_s32(vrshrn_n_s32(v509, 0xDuLL), v507, 0xDuLL);
-    v407 = vqsubq_s16(v404, v406);
-    v408 = vdupq_n_s16(0x1BD8u);
-    v409 = vqsubq_s16(v461, v405);
-    v410 = vdupq_n_s16(0xFC6u);
-    v508 = vmlal_s16(vmull_s16(*v407.i8, *v410.i8), *v409.i8, *v408.i8);
-    v462 = vmlal_high_s16(vmull_high_s16(v407, v410), v409, v408);
-    v411 = vdupq_n_s16(0xE428u);
-    v514 = vmlal_s16(vmull_s16(*v407.i8, *v411.i8), *v409.i8, *v410.i8);
-    v510 = vmlal_high_s16(vmull_high_s16(v407, v411), v409, v410);
-    v412 = vrshrn_high_n_s32(vrshrn_n_s32(v602, 0xDuLL), v600, 0xDuLL);
-    v413 = vrshrn_high_n_s32(vrshrn_n_s32(v598, 0xDuLL), v596, 0xDuLL);
-    v414 = vrshrn_high_n_s32(vrshrn_n_s32(v511, 0xDuLL), v506, 0xDuLL);
-    v415 = vrshrn_high_n_s32(vrshrn_n_s32(v504, 0xDuLL), v503, 0xDuLL);
-    v512 = vqsubq_s16(v665, v413);
-    v457 = vqsubq_s16(v666, v412);
-    v416 = vqsubq_s16(v512, v415);
-    v417 = vdupq_n_s16(0xE64u);
-    v418 = vdupq_n_s16(0x1C96u);
-    v419 = vqsubq_s16(v457, v414);
-    v603 = vmlal_s16(vmull_s16(*v416.i8, *v418.i8), *v419.i8, *v417.i8);
-    v420 = vdupq_n_s16(0xF19Cu);
-    v601 = vmlal_high_s16(vmull_high_s16(v416, v418), v419, v417);
-    v505 = vmlal_s16(vmull_s16(*v416.i8, *v420.i8), *v419.i8, *v418.i8);
-    v460 = vmlal_high_s16(vmull_high_s16(v416, v420), v419, v418);
-    v421 = vqaddq_s16(v665, v413);
-    v422 = vqaddq_s16(v666, v412);
-    v423 = vrshrn_high_n_s32(vrshrn_n_s32(v275, 0xDuLL), v277, 0xDuLL);
-    v424 = vrshrn_high_n_s32(vrshrn_n_s32(v278, 0xDuLL), v279, 0xDuLL);
-    v425 = vqsubq_s16(v421, v424);
-    v426 = vqsubq_s16(v422, v423);
-    v427 = vdupq_n_s16(0x183Cu);
-    v428 = vdupq_n_s16(0x14E6u);
-    v459 = vmlal_s16(vmull_s16(*v425.i8, *v428.i8), *v426.i8, *v427.i8);
-    v458 = vmlal_high_s16(vmull_high_s16(v425, v428), v426, v427);
-    v429 = vdupq_n_s16(0xE7C4u);
-    v430 = vqaddq_s16(v421, v424);
-    v431 = vdupq_n_s16(0x25Au);
-    v432 = vqaddq_s16(v422, v423);
-    v433 = vdupq_n_s16(0x1FEAu);
-    v599 = vmlal_s16(vmull_s16(*v430.i8, *v433.i8), *v432.i8, *v431.i8);
-    v597 = vmlal_high_s16(vmull_high_s16(v430, v433), v432, v431);
-    v434 = vdupq_n_s16(0xFDA6u);
-    v435 = vmlal_s16(vmull_s16(*v430.i8, *v434.i8), *v432.i8, *v433.i8);
-    v436 = vmlal_high_s16(vmull_high_s16(v430, v434), v432, v433);
-    v437 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v628.i8, *v625.i8), *v629.i8, *v625.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v628, v625), v629, v625), 0xDuLL);
-    v438 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v628.i8, *v623.i8), *v629.i8, *v625.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v628, v623), v629, v625), 0xDuLL);
-    v439 = vqaddq_s16(v482, v483);
-    v440 = vqaddq_s16(v404, v406);
-    v441 = vqaddq_s16(v512, v415);
-    v442 = vqaddq_s16(v457, v414);
-    v443 = vqaddq_s16(v461, v405);
-    v444 = vqaddq_s16(v472, v473);
-    v445 = vdupq_n_s16(0x1FFEu);
-    v446 = vmlal_s16(vmull_s16(*v439.i8, 0xCA00CA00CA00CALL), *v444.i8, *v445.i8);
-    v403.i64[0] = 0xCA00CA00CA00CALL;
-    v403.i64[1] = 0xCA00CA00CA00CALL;
-    v447 = vmlal_high_s16(vmull_high_s16(v439, v403), v444, v445);
-    v448 = vdupq_n_s16(0xE002u);
-    v125[63] = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v439.i8, *v448.i8), *v444.i8, 0xCA00CA00CA00CALL), 0xDuLL), vmlal_high_s16(vmull_high_s16(v439, v448), v444, v403), 0xDuLL);
-    *v125 = v437;
-    v125[1] = vrshrn_high_n_s32(vrshrn_n_s32(v446, 0xDuLL), v447, 0xDuLL);
-    v125[2] = vrshrn_high_n_s32(vrshrn_n_s32(v559, 0xDuLL), v553, 0xDuLL);
-    v125[3] = vrshrn_high_n_s32(vrshrn_n_s32(v435, 0xDuLL), v436, 0xDuLL);
-    v125[4] = vrshrn_high_n_s32(vrshrn_n_s32(v478, 0xDuLL), v604, 0xDuLL);
-    v125[5] = vrshrn_high_n_s32(vrshrn_n_s32(v498, 0xDuLL), v496, 0xDuLL);
-    v125[6] = vrshrn_high_n_s32(vrshrn_n_s32(v490, 0xDuLL), v489, 0xDuLL);
-    v125[7] = vrshrn_high_n_s32(vrshrn_n_s32(v464, 0xDuLL), v463, 0xDuLL);
-    v449 = vdupq_n_s16(0x1ED8u);
-    v450 = vdupq_n_s16(0xF778u);
-    v451 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v440.i8, *v450.i8), *v443.i8, *v449.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v440, v450), v443, v449), 0xDuLL);
-    v125[8] = vrshrn_high_n_s32(vrshrn_n_s32(v614, 0xDuLL), v613, 0xDuLL);
-    v125[9] = vrshrn_high_n_s32(vrshrn_n_s32(v467, 0xDuLL), v465, 0xDuLL);
-    v452 = vdupq_n_s16(0x1E62u);
-    v125[10] = vrshrn_high_n_s32(vrshrn_n_s32(v516, 0xDuLL), v515, 0xDuLL);
-    v125[11] = v451;
-    v125[12] = vrshrn_high_n_s32(vrshrn_n_s32(v563, 0xDuLL), v562, 0xDuLL);
-    v125[13] = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v441.i8, 0xA0A0A0A0A0A0A0ALL), *v442.i8, *v452.i8), 0xDuLL), vmlal_high_s16(vmull_s16(*&vextq_s8(v441, v441, 8uLL), 0xA0A0A0A0A0A0A0ALL), v442, v452), 0xDuLL);
-    v125[14] = vrshrn_high_n_s32(vrshrn_n_s32(v518, 0xDuLL), v517, 0xDuLL);
-    v125[15] = vrshrn_high_n_s32(vrshrn_n_s32(v471, 0xDuLL), v470, 0xDuLL);
-    v125[16] = vrshrn_high_n_s32(vrshrn_n_s32(v621, 0xDuLL), v619, 0xDuLL);
-    v125[17] = vrshrn_high_n_s32(vrshrn_n_s32(v475, 0xDuLL), v474, 0xDuLL);
-    v125[18] = vrshrn_high_n_s32(vrshrn_n_s32(v538, 0xDuLL), v536, 0xDuLL);
-    v125[19] = vrshrn_high_n_s32(vrshrn_n_s32(v505, 0xDuLL), v460, 0xDuLL);
-    v125[20] = vrshrn_high_n_s32(vrshrn_n_s32(v573, 0xDuLL), v571, 0xDuLL);
-    v125[21] = vrshrn_high_n_s32(vrshrn_n_s32(v508, 0xDuLL), v462, 0xDuLL);
-    v125[22] = vrshrn_high_n_s32(vrshrn_n_s32(v534, 0xDuLL), v530, 0xDuLL);
-    v125[23] = vrshrn_high_n_s32(vrshrn_n_s32(v477, 0xDuLL), v469, 0xDuLL);
-    v125[24] = vrshrn_high_n_s32(vrshrn_n_s32(v606, 0xDuLL), v605, 0xDuLL);
-    v125[25] = vrshrn_high_n_s32(vrshrn_n_s32(v468, 0xDuLL), v466, 0xDuLL);
-    v125[26] = vrshrn_high_n_s32(vrshrn_n_s32(v524, 0xDuLL), v519, 0xDuLL);
-    v125[27] = vrshrn_high_n_s32(vrshrn_n_s32(v502, 0xDuLL), v500, 0xDuLL);
-    v125[28] = vrshrn_high_n_s32(vrshrn_n_s32(v587, 0xDuLL), v586, 0xDuLL);
-    v125[29] = vrshrn_high_n_s32(vrshrn_n_s32(v459, 0xDuLL), v458, 0xDuLL);
-    v125[30] = vrshrn_high_n_s32(vrshrn_n_s32(v548, 0xDuLL), v547, 0xDuLL);
-    v125[31] = vrshrn_high_n_s32(vrshrn_n_s32(v555, 0xDuLL), v552, 0xDuLL);
-    v125[32] = v438;
-    v125[33] = vrshrn_high_n_s32(vrshrn_n_s32(v561, 0xDuLL), v557, 0xDuLL);
-    v125[34] = vrshrn_high_n_s32(vrshrn_n_s32(v550, 0xDuLL), v549, 0xDuLL);
-    v125[35] = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v425.i8, *v429.i8), *v426.i8, *v428.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v425, v429), v426, v428), 0xDuLL);
-    v125[36] = vrshrn_high_n_s32(vrshrn_n_s32(v242, 0xDuLL), v243, 0xDuLL);
-    v125[37] = vrshrn_high_n_s32(vrshrn_n_s32(v591, 0xDuLL), v589, 0xDuLL);
-    v125[38] = vrshrn_high_n_s32(vrshrn_n_s32(v522, 0xDuLL), v520, 0xDuLL);
-    v125[39] = vrshrn_high_n_s32(vrshrn_n_s32(v488, 0xDuLL), v486, 0xDuLL);
-    v125[41] = vrshrn_high_n_s32(vrshrn_n_s32(v577, 0xDuLL), v575, 0xDuLL);
-    v125[42] = vrshrn_high_n_s32(vrshrn_n_s32(v532, 0xDuLL), v528, 0xDuLL);
-    v125[40] = vrshrn_high_n_s32(vrshrn_n_s32(v608, 0xDuLL), v607, 0xDuLL);
-    v125[45] = vrshrn_high_n_s32(vrshrn_n_s32(v603, 0xDuLL), v601, 0xDuLL);
-    v125[46] = vrshrn_high_n_s32(vrshrn_n_s32(v526, 0xDuLL), v525, 0xDuLL);
-    v125[43] = vrshrn_high_n_s32(vrshrn_n_s32(v514, 0xDuLL), v510, 0xDuLL);
-    v125[44] = vrshrn_high_n_s32(vrshrn_n_s32(v569, 0xDuLL), v567, 0xDuLL);
-    v125[47] = vrshrn_high_n_s32(vrshrn_n_s32(v484, 0xDuLL), v481, 0xDuLL);
-    v453 = vdupq_n_s16(0xE19Eu);
-    v125[49] = vrshrn_high_n_s32(vrshrn_n_s32(v480, 0xDuLL), v479, 0xDuLL);
-    v125[48] = vrshrn_high_n_s32(vrshrn_n_s32(v617, 0xDuLL), v615, 0xDuLL);
-    v125[51] = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v441.i8, *v453.i8), *v442.i8, 0xA0A0A0A0A0A0A0ALL), 0xDuLL), vmlal_high_s16(vmull_s16(*&vextq_s8(v442, v442, 8uLL), 0xA0A0A0A0A0A0A0ALL), v441, v453), 0xDuLL);
-    v125[52] = vrshrn_high_n_s32(vrshrn_n_s32(v565, 0xDuLL), v564, 0xDuLL);
-    v125[53] = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v440.i8, *v449.i8), *v443.i8, v456), 0xDuLL), vmlal_high_s16(vmull_s16(*&vextq_s8(v443, v443, 8uLL), v456), v440, v449), 0xDuLL);
-    v125[54] = vrshrn_high_n_s32(vrshrn_n_s32(v542, 0xDuLL), v540, 0xDuLL);
-    v125[55] = vrshrn_high_n_s32(vrshrn_n_s32(v581, 0xDuLL), v579, 0xDuLL);
-    v125[56] = vrshrn_high_n_s32(vrshrn_n_s32(v612, 0xDuLL), v611, 0xDuLL);
-    v125[57] = vrshrn_high_n_s32(vrshrn_n_s32(v494, 0xDuLL), v492, 0xDuLL);
-    v125[58] = vrshrn_high_n_s32(vrshrn_n_s32(v546, 0xDuLL), v544, 0xDuLL);
-    v125[59] = vrshrn_high_n_s32(vrshrn_n_s32(v595, 0xDuLL), v593, 0xDuLL);
-    v125[60] = vrshrn_high_n_s32(vrshrn_n_s32(v610, 0xDuLL), v609, 0xDuLL);
-    v125[61] = vrshrn_high_n_s32(vrshrn_n_s32(v599, 0xDuLL), v597, 0xDuLL);
-    v125[62] = vrshrn_high_n_s32(vrshrn_n_s32(v585, 0xDuLL), v583, 0xDuLL);
-    v454 = (v1 + 16 + 32 * v118);
-    do
-    {
-      v455 = v125[v168];
-      v454[-1] = vmovl_s16(*v455.i8);
-      *v454 = vmovl_high_s16(v455);
-      ++v168;
-      v454 += 4;
-    }
-
-    while (v168 != 32);
-    v119 = 0;
-    v118 = 1;
-    v120 = v625;
-    v121 = v623;
-  }
-
-  while ((v123 & 1) != 0);
-
-  bzero((v1 + 2048), 0x800uLL);
-}
-
-uint64_t sub_2779DD5F4()
-{
-  v0 = MEMORY[0x28223BE20]();
-  v459 = v2;
-  v3 = 0;
-  v843 = *MEMORY[0x277D85DE8];
-  v4 = v636;
-  v5 = 1;
-  v6 = vdupq_n_s16(0x16A1u);
-  v7 = vdupq_n_s16(0xE95Fu);
-  v461 = vneg_f16(0x6161616161616161);
-  v462 = vneg_f16(0x6565656565656565);
-  v460 = vneg_f16(0x7777777777777777);
-  v634 = v6;
-  v632 = v7;
-  do
-  {
-    v8 = 0;
-    v9 = v5;
-    v10 = (v0 + 2 * v3);
-    do
-    {
-      v638[v8++] = *v10;
-      v10 = (v10 + 2 * v1);
-    }
-
-    while (v8 != 64);
-    v11 = 0;
-    for (i = 63; i != 31; --i)
-    {
-      *&v818[v11 * 16] = vqaddq_s16(v638[v11], v638[i]);
-      ++v11;
-    }
-
-    v13 = 32;
-    do
-    {
-      *&v818[v13 * 16] = vqsubq_s16(v638[i--], v638[v13]);
-      ++v13;
-    }
-
-    while (i != -1);
-    v14 = 0;
-    for (j = 496; j != 240; j -= 16)
-    {
-      *(&v778 + v14) = vqaddq_s16(*&v818[v14], *&v818[j]);
-      v14 += 16;
-    }
-
-    v16 = 256;
-    do
-    {
-      *(&v778 + v16) = vqsubq_s16(*&v818[j], *&v818[v16]);
-      j -= 16;
-      v16 += 16;
-    }
-
-    while (j != -16);
-    v17 = 0;
-    v817 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v827.i8, *v6.i8), *v842.i8, *v6.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v827, v6), v842, v6), 0xDuLL);
-    v816 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v828.i8, *v6.i8), *v841.i8, *v6.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v828, v6), v841, v6), 0xDuLL);
-    v802 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v827.i8, *v7.i8), *v842.i8, *v6.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v827, v7), v842, v6), 0xDuLL);
-    v803 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v828.i8, *v7.i8), *v841.i8, *v6.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v828, v7), v841, v6), 0xDuLL);
-    v815 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v829.i8, *v6.i8), *v840.i8, *v6.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v829, v6), v840, v6), 0xDuLL);
-    v814 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v830.i8, *v6.i8), *v839.i8, *v6.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v830, v6), v839, v6), 0xDuLL);
-    v804 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v829.i8, *v7.i8), *v840.i8, *v6.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v829, v7), v840, v6), 0xDuLL);
-    v805 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v830.i8, *v7.i8), *v839.i8, *v6.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v830, v7), v839, v6), 0xDuLL);
-    v813 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v831.i8, *v6.i8), *v838.i8, *v6.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v831, v6), v838, v6), 0xDuLL);
-    v812 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v832.i8, *v6.i8), *v837.i8, *v6.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v832, v6), v837, v6), 0xDuLL);
-    v806 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v831.i8, *v7.i8), *v838.i8, *v6.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v831, v7), v838, v6), 0xDuLL);
-    v807 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v832.i8, *v7.i8), *v837.i8, *v6.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v832, v7), v837, v6), 0xDuLL);
-    v811 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v833.i8, *v6.i8), *v836.i8, *v6.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v833, v6), v836, v6), 0xDuLL);
-    v810 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v834.i8, *v6.i8), *v835.i8, *v6.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v834, v6), v835, v6), 0xDuLL);
-    v808 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v833.i8, *v7.i8), *v836.i8, *v6.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v833, v7), v836, v6), 0xDuLL);
-    v809 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v834.i8, *v7.i8), *v835.i8, *v6.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v834, v7), v835, v6), 0xDuLL);
-    for (k = 240; k != 112; k -= 16)
-    {
-      *&v737[v17] = vqaddq_s16(*(&v778 + v17), *(&v778 + k));
-      v17 += 16;
-    }
-
-    v19 = 128;
-    for (m = 112; m != -16; m -= 16)
-    {
-      *&v737[v19] = vqsubq_s16(*(&v778 + m), *(&v778 + v19));
-      v19 += 16;
-    }
-
-    v746 = v786;
-    v747 = v787;
-    v748 = v788;
-    v749 = v789;
-    v757 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v790.i8, *v6.i8), *v797.i8, *v6.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v790, v6), v797, v6), 0xDuLL);
-    v756 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v791.i8, *v6.i8), *v796.i8, *v6.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v791, v6), v796, v6), 0xDuLL);
-    v750 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v790.i8, *v7.i8), *v797.i8, *v6.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v790, v7), v797, v6), 0xDuLL);
-    v751 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v791.i8, *v7.i8), *v796.i8, *v6.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v791, v7), v796, v6), 0xDuLL);
-    v755 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v792.i8, *v6.i8), *v795.i8, *v6.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v792, v6), v795, v6), 0xDuLL);
-    v754 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v793.i8, *v6.i8), *v794.i8, *v6.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v793, v6), v794, v6), 0xDuLL);
-    v752 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v792.i8, *v7.i8), *v795.i8, *v6.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v792, v7), v795, v6), 0xDuLL);
-    v753 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v793.i8, *v7.i8), *v794.i8, *v6.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v793, v7), v794, v6), 0xDuLL);
-    v758 = v798;
-    v759 = v799;
-    v760 = v800;
-    v761 = v801;
-    v21 = 512;
-    for (n = 752; n != 624; n -= 16)
-    {
-      *&v737[v21] = vqaddq_s16(*&v818[v21], *(&v778 + n));
-      v21 += 16;
-    }
-
-    v23 = 640;
-    do
-    {
-      *&v737[v23] = vqsubq_s16(*&v818[n], *(&v778 + v23));
-      n -= 16;
-      v23 += 16;
-    }
-
-    while (n != 496);
-    v24 = 768;
-    for (ii = 1008; ii != 880; ii -= 16)
-    {
-      *&v737[v24] = vqsubq_s16(*&v818[ii], *(&v778 + v24));
-      v24 += 16;
-    }
-
-    v26 = 880;
-    for (jj = 896; jj != 1024; jj += 16)
-    {
-      *&v737[jj] = vqaddq_s16(*&v818[jj], *(&v778 + v26));
-      v26 -= 16;
-    }
-
-    v28 = 0;
-    for (kk = 112; kk != 48; kk -= 16)
-    {
-      *(&v693 + v28) = vqaddq_s16(*&v737[v28], *&v737[kk]);
-      v28 += 16;
-    }
-
-    v30 = 64;
-    do
-    {
-      *(&v693 + v30) = vqsubq_s16(*&v737[kk], *&v737[v30]);
-      kk -= 16;
-      v30 += 16;
-    }
-
-    while (kk != -16);
-    v704 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v740.i8, *v6.i8), *v743.i8, *v6.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v740, v6), v743, v6), 0xDuLL);
-    v703 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v741.i8, *v6.i8), *v742.i8, *v6.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v741, v6), v742, v6), 0xDuLL);
-    v701 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v740.i8, *v7.i8), *v743.i8, *v6.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v740, v7), v743, v6), 0xDuLL);
-    v702 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v741.i8, *v7.i8), *v742.i8, *v6.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v741, v7), v742, v6), 0xDuLL);
-    v31 = 256;
-    for (mm = 368; mm != 304; mm -= 16)
-    {
-      *(&v693 + v31) = vqaddq_s16(*&v737[v31], *&v737[mm]);
       v31 += 16;
     }
 
-    v33 = 320;
+    while (k != -16);
+    v32 = 0;
+    v33 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v818.i8, *v12.i8), *v821.i8, *v12.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v818, v12), v821, v12), 0xDuLL);
+    v34 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v818.i8, *v13.i8), *v821.i8, *v12.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v818, v13), v821, v12), 0xDuLL);
+    v35 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v819.i8, *v12.i8), *v820.i8, *v12.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v819, v12), v820, v12), 0xDuLL);
+    v36 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v819.i8, *v13.i8), *v820.i8, *v12.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v819, v13), v820, v12), 0xDuLL);
+    v37 = vqaddq_s16(v775, v778);
+    v38 = vqaddq_s16(v776, v777);
+    v39 = vqsubq_s16(v776, v777);
+    v40 = vqsubq_s16(v775, v778);
+    v41 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v780.i8, *v12.i8), *v781.i8, *v12.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v780, v12), v781, v12), 0xDuLL);
+    v42 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v780.i8, *v13.i8), *v781.i8, *v12.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v780, v13), v781, v12), 0xDuLL);
+    v43 = vqaddq_s16(v816, v36);
+    v44 = vqaddq_s16(v817, v34);
+    v45 = vqsubq_s16(v817, v34);
+    v46 = vqsubq_s16(v816, v36);
+    v47 = vqsubq_s16(v823, v35);
+    v48 = vqsubq_s16(v822, v33);
+    v49 = vqaddq_s16(v822, v33);
+    v50 = vqaddq_s16(v823, v35);
+    v51 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v38.i8, *v12.i8), *v37.i8, *v12.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v38, v12), v37, v12), 0xDuLL);
+    v52 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v38.i8, *v13.i8), *v37.i8, *v12.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v38, v13), v37, v12), 0xDuLL);
+    v53 = vmlal_s16(vmull_s16(*v39.i8, *v15.i8), *v40.i8, *v14.i8);
+    v54 = vmlal_high_s16(vmull_high_s16(v39, v15), v40, v14);
+    v55 = vmlal_s16(vmull_s16(*v39.i8, *v16.i8), *v40.i8, *v15.i8);
+    v56 = vmlal_high_s16(vmull_high_s16(v39, v16), v40, v15);
+    v57 = vrshrn_high_n_s32(vrshrn_n_s32(v53, 0xDuLL), v54, 0xDuLL);
+    v58 = vrshrn_high_n_s32(vrshrn_n_s32(v55, 0xDuLL), v56, 0xDuLL);
+    v59 = vqaddq_s16(v779, v42);
+    v60 = vqsubq_s16(v779, v42);
+    v61 = vqsubq_s16(v782, v41);
+    v62 = vqaddq_s16(v782, v41);
+    v63 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v44.i8, *v15.i8), *v49.i8, *v14.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v44, v15), v49, v14), 0xDuLL);
+    v64 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v44.i8, *v16.i8), *v49.i8, *v15.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v44, v16), v49, v15), 0xDuLL);
+    v65 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v45.i8, *v16.i8), *v48.i8, *v15.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v45, v16), v48, v15), 0xDuLL);
+    v66 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v45.i8, *v632.i8), *v48.i8, *v16.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v45, v632), v48, v16), 0xDuLL);
+    v67 = vmlal_s16(vmull_s16(*v60.i8, *v624.i8), *v61.i8, *v18.i8);
+    v68 = vmlal_high_s16(vmull_high_s16(v60, v624), v61, v18);
+    v69 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v60.i8, *v18.i8), *v61.i8, *v626.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v60, v18), v61, v626), 0xDuLL);
+    v70 = vrshrn_high_n_s32(vrshrn_n_s32(v67, 0xDuLL), v68, 0xDuLL);
+    v71 = vqaddq_s16(v43, v64);
+    v72 = vqsubq_s16(v43, v64);
+    v73 = vqsubq_s16(v46, v66);
+    v74 = vqaddq_s16(v46, v66);
+    v75 = vqaddq_s16(v47, v65);
+    v76 = vqsubq_s16(v47, v65);
+    v77 = vqsubq_s16(v50, v63);
+    v78 = vqaddq_s16(v50, v63);
+    v635[0] = v51;
+    v635[1] = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v71.i8, *v20.i8), *v78.i8, *v19.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v71, v20), v78, v19), 0xDuLL);
+    v635[14] = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v59.i8, *v628.i8), *v62.i8, *v17.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v59, v628), v62, v17), 0xDuLL);
+    v635[15] = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v71.i8, *v21.i8), *v78.i8, *v20.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v71, v21), v78, v20), 0xDuLL);
+    v79 = vdupq_n_s16(0x18BDu);
+    v80 = vdupq_n_s16(0x1C39u);
+    v81 = vdupq_n_s16(0xF16u);
+    v82 = vmlal_s16(vmull_s16(*v73.i8, *v81.i8), *v76.i8, *v80.i8);
+    v83 = vmlal_high_s16(vmull_high_s16(v73, v81), v76, v80);
+    v84 = vdupq_n_s16(0xE3C7u);
+    v85 = vmlal_s16(vmull_s16(*v73.i8, *v84.i8), *v76.i8, *v81.i8);
+    v86 = vmlal_high_s16(vmull_high_s16(v73, v84), v76, v81);
+    v87 = vdupq_n_s16(0x94Au);
+    v88 = vdupq_n_s16(0x1E9Fu);
+    v89 = vmlal_s16(vmull_s16(*v74.i8, *v88.i8), *v75.i8, *v87.i8);
+    v90 = vmlal_high_s16(vmull_high_s16(v74, v88), v75, v87);
+    v91 = vdupq_n_s16(0xF6B6u);
+    v92 = vmlal_s16(vmull_s16(*v74.i8, *v91.i8), *v75.i8, *v88.i8);
+    v93 = vmlal_high_s16(vmull_high_s16(v74, v91), v75, v88);
+    v94 = vdupq_n_s16(0xEBB3u);
+    v635[8] = v52;
+    v635[9] = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v72.i8, *v79.i8), *v77.i8, *v22.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v72, v79), v77, v22), 0xDuLL);
+    v635[6] = v70;
+    v635[7] = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v72.i8, *v94.i8), *v77.i8, *v79.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v72, v94), v77, v79), 0xDuLL);
+    v635[4] = v57;
+    v635[5] = vrshrn_high_n_s32(vrshrn_n_s32(v82, 0xDuLL), v83, 0xDuLL);
+    v635[10] = v69;
+    v635[11] = vrshrn_high_n_s32(vrshrn_n_s32(v85, 0xDuLL), v86, 0xDuLL);
+    v635[12] = v58;
+    v635[13] = vrshrn_high_n_s32(vrshrn_n_s32(v89, 0xDuLL), v90, 0xDuLL);
+    v635[2] = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v59.i8, *v17.i8), *v62.i8, *v630.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v59, v17), v62, v630), 0xDuLL);
+    v635[3] = vrshrn_high_n_s32(vrshrn_n_s32(v92, 0xDuLL), v93, 0xDuLL);
     do
     {
-      *(&v693 + v33) = vqsubq_s16(*&v737[mm], *&v737[v33]);
+      v635[v32] = vrshrq_n_s16(v635[v32], 4uLL);
+      ++v32;
+    }
+
+    while (v32 != 16);
+    v95 = 0;
+    v96 = 1;
+    do
+    {
+      v97 = &v635[8 * v95];
+      v98 = v97[1];
+      v99 = vtrn1q_s16(*v97, v98);
+      v100 = vtrn2q_s16(*v97, v98);
+      v101 = v97[2];
+      v102 = v97[3];
+      v103 = vtrn1q_s16(v101, v102);
+      v104 = vtrn2q_s16(v101, v102);
+      v105 = v97[4];
+      v106 = v97[5];
+      v107 = vtrn1q_s16(v105, v106);
+      v108 = vtrn2q_s16(v105, v106);
+      v109 = v97[6];
+      v110 = v97[7];
+      v111 = vtrn1q_s16(v109, v110);
+      v112 = vtrn2q_s16(v109, v110);
+      v113 = vtrn1q_s32(v99, v103);
+      v114 = vtrn2q_s32(v99, v103);
+      v115 = vtrn1q_s32(v100, v104);
+      v116 = vtrn2q_s32(v100, v104);
+      v117 = vtrn1q_s32(v107, v111);
+      v118 = vtrn2q_s32(v107, v111);
+      v119 = vtrn1q_s32(v108, v112);
+      v120 = vtrn2q_s32(v108, v112);
+      v121 = vzip2q_s64(v113, v117);
+      v113.i64[1] = v117.i64[0];
+      v122 = vzip2q_s64(v115, v119);
+      v115.i64[1] = v119.i64[0];
+      v123 = vzip2q_s64(v114, v118);
+      v114.i64[1] = v118.i64[0];
+      v124 = vzip2q_s64(v116, v120);
+      v116.i64[1] = v120.i64[0];
+      v125 = &v634[1024 * v95 + 128 * v11];
+      *v125 = v113;
+      v125[1] = v115;
+      LOBYTE(v97) = v96;
+      v125[2] = v114;
+      v125[3] = v116;
+      v125[4] = v121;
+      v125[5] = v122;
+      v125[6] = v123;
+      v125[7] = v124;
+      v95 = 1;
+      v96 = 0;
+    }
+
+    while ((v97 & 1) != 0);
+    ++v11;
+    v8 += 16;
+  }
+
+  while (v11 != 8);
+  v126 = 0;
+  v127 = 1;
+  v128 = vdupq_n_s16(0x16A0u);
+  v129 = vdupq_n_s16(0xE960u);
+  v464 = vneg_f16(0x8888888888888888);
+  v633 = v128;
+  v631 = v129;
+  do
+  {
+    v130 = 0;
+    v131 = v127;
+    v132 = 63;
+    v133 = &v634[1024 * v126];
+    do
+    {
+      *&v815[v130 * 16] = vqaddq_s16(v133[v130], v133[v132--]);
+      ++v130;
+    }
+
+    while (v132 != 31);
+    v134 = 32;
+    do
+    {
+      *&v815[v134 * 16] = vqsubq_s16(v133[v132--], v133[v134]);
+      ++v134;
+    }
+
+    while (v132 != -1);
+    v135 = 0;
+    for (m = 496; m != 240; m -= 16)
+    {
+      *(&v775 + v135) = vqaddq_s16(*&v815[v135], *&v815[m]);
+      v135 += 16;
+    }
+
+    v137 = 256;
+    do
+    {
+      *(&v775 + v137) = vqsubq_s16(*&v815[m], *&v815[v137]);
+      m -= 16;
+      v137 += 16;
+    }
+
+    while (m != -16);
+    v138 = 0;
+    v814 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v824.i8, *v128.i8), *v839.i8, *v128.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v824, v128), v839, v128), 0xDuLL);
+    v813 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v825.i8, *v128.i8), *v838.i8, *v128.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v825, v128), v838, v128), 0xDuLL);
+    v799 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v824.i8, *v129.i8), *v839.i8, *v128.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v824, v129), v839, v128), 0xDuLL);
+    v800 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v825.i8, *v129.i8), *v838.i8, *v128.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v825, v129), v838, v128), 0xDuLL);
+    v812 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v826.i8, *v128.i8), *v837.i8, *v128.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v826, v128), v837, v128), 0xDuLL);
+    v811 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v827.i8, *v128.i8), *v836.i8, *v128.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v827, v128), v836, v128), 0xDuLL);
+    v801 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v826.i8, *v129.i8), *v837.i8, *v128.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v826, v129), v837, v128), 0xDuLL);
+    v802 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v827.i8, *v129.i8), *v836.i8, *v128.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v827, v129), v836, v128), 0xDuLL);
+    v810 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v828.i8, *v128.i8), *v835.i8, *v128.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v828, v128), v835, v128), 0xDuLL);
+    v809 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v829.i8, *v128.i8), *v834.i8, *v128.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v829, v128), v834, v128), 0xDuLL);
+    v803 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v828.i8, *v129.i8), *v835.i8, *v128.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v828, v129), v835, v128), 0xDuLL);
+    v804 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v829.i8, *v129.i8), *v834.i8, *v128.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v829, v129), v834, v128), 0xDuLL);
+    v808 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v830.i8, *v128.i8), *v833.i8, *v128.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v830, v128), v833, v128), 0xDuLL);
+    v807 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v831.i8, *v128.i8), *v832.i8, *v128.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v831, v128), v832, v128), 0xDuLL);
+    v805 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v830.i8, *v129.i8), *v833.i8, *v128.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v830, v129), v833, v128), 0xDuLL);
+    v806 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v831.i8, *v129.i8), *v832.i8, *v128.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v831, v129), v832, v128), 0xDuLL);
+    for (n = 240; n != 112; n -= 16)
+    {
+      *&v734[v138] = vqaddq_s16(*(&v775 + v138), *(&v775 + n));
+      v138 += 16;
+    }
+
+    v140 = 128;
+    do
+    {
+      *&v734[v140] = vqsubq_s16(*(&v775 + n), *(&v775 + v140));
+      n -= 16;
+      v140 += 16;
+    }
+
+    while (n != -16);
+    v743 = v783;
+    v744 = v784;
+    v745 = v785;
+    v746 = v786;
+    v754 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v787.i8, *v128.i8), *v794.i8, *v128.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v787, v128), v794, v128), 0xDuLL);
+    v753 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v788.i8, *v128.i8), *v793.i8, *v128.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v788, v128), v793, v128), 0xDuLL);
+    v747 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v787.i8, *v129.i8), *v794.i8, *v128.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v787, v129), v794, v128), 0xDuLL);
+    v748 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v788.i8, *v129.i8), *v793.i8, *v128.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v788, v129), v793, v128), 0xDuLL);
+    v752 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v789.i8, *v128.i8), *v792.i8, *v128.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v789, v128), v792, v128), 0xDuLL);
+    v751 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v790.i8, *v128.i8), *v791.i8, *v128.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v790, v128), v791, v128), 0xDuLL);
+    v749 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v789.i8, *v129.i8), *v792.i8, *v128.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v789, v129), v792, v128), 0xDuLL);
+    v750 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v790.i8, *v129.i8), *v791.i8, *v128.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v790, v129), v791, v128), 0xDuLL);
+    v755 = v795;
+    v756 = v796;
+    v757 = v797;
+    v758 = v798;
+    v141 = 512;
+    for (ii = 752; ii != 624; ii -= 16)
+    {
+      *&v734[v141] = vqaddq_s16(*&v815[v141], *(&v775 + ii));
+      v141 += 16;
+    }
+
+    v143 = 640;
+    do
+    {
+      *&v734[v143] = vqsubq_s16(*&v815[ii], *(&v775 + v143));
+      ii -= 16;
+      v143 += 16;
+    }
+
+    while (ii != 496);
+    v144 = 768;
+    for (jj = 1008; jj != 880; jj -= 16)
+    {
+      *&v734[v144] = vqsubq_s16(*&v815[jj], *(&v775 + v144));
+      v144 += 16;
+    }
+
+    v146 = 880;
+    for (kk = 896; kk != 1024; kk += 16)
+    {
+      *&v734[kk] = vqaddq_s16(*&v815[kk], *(&v775 + v146));
+      v146 -= 16;
+    }
+
+    v148 = 0;
+    for (mm = 112; mm != 48; mm -= 16)
+    {
+      *(&v690 + v148) = vqaddq_s16(*&v734[v148], *&v734[mm]);
+      v148 += 16;
+    }
+
+    v150 = 64;
+    do
+    {
+      *(&v690 + v150) = vqsubq_s16(*&v734[mm], *&v734[v150]);
       mm -= 16;
-      v33 += 16;
+      v150 += 16;
+    }
+
+    while (mm != -16);
+    v701 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v737.i8, *v128.i8), *v740.i8, *v128.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v737, v128), v740, v128), 0xDuLL);
+    v700 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v738.i8, *v128.i8), *v739.i8, *v128.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v738, v128), v739, v128), 0xDuLL);
+    v698 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v737.i8, *v129.i8), *v740.i8, *v128.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v737, v129), v740, v128), 0xDuLL);
+    v699 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v738.i8, *v129.i8), *v739.i8, *v128.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v738, v129), v739, v128), 0xDuLL);
+    v151 = 256;
+    for (nn = 368; nn != 304; nn -= 16)
+    {
+      *(&v690 + v151) = vqaddq_s16(*&v734[v151], *&v734[nn]);
+      v151 += 16;
+    }
+
+    v153 = 320;
+    do
+    {
+      *(&v690 + v153) = vqsubq_s16(*&v734[nn], *&v734[v153]);
+      nn -= 16;
+      v153 += 16;
+    }
+
+    while (nn != 240);
+    v154 = 384;
+    for (i1 = 496; i1 != 432; i1 -= 16)
+    {
+      *(&v690 + v154) = vqsubq_s16(*&v734[i1], *&v734[v154]);
+      v154 += 16;
+    }
+
+    v156 = 432;
+    for (i2 = 448; i2 != 512; i2 += 16)
+    {
+      *(&v690 + i2) = vqaddq_s16(*&v734[i2], *&v734[v156]);
+      v156 -= 16;
+    }
+
+    v158 = vdupq_n_s16(0x1D90u);
+    v159 = vdupq_n_s16(0xC3Eu);
+    v160 = vdupq_n_s16(0xE270u);
+    v733 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v759.i8, *v159.i8), *v774.i8, *v158.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v759, v159), v774, v158), 0xDuLL);
+    v732 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v760.i8, *v159.i8), *v773.i8, *v158.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v760, v159), v773, v158), 0xDuLL);
+    v718 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v759.i8, *v160.i8), *v774.i8, *v159.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v759, v160), v774, v159), 0xDuLL);
+    v719 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v760.i8, *v160.i8), *v773.i8, *v159.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v760, v160), v773, v159), 0xDuLL);
+    v731 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v761.i8, *v159.i8), *v772.i8, *v158.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v761, v159), v772, v158), 0xDuLL);
+    v730 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v762.i8, *v159.i8), *v771.i8, *v158.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v762, v159), v771, v158), 0xDuLL);
+    v720 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v761.i8, *v160.i8), *v772.i8, *v159.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v761, v160), v772, v159), 0xDuLL);
+    v721 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v762.i8, *v160.i8), *v771.i8, *v159.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v762, v160), v771, v159), 0xDuLL);
+    v161 = vdupq_n_s16(0xF3C2u);
+    v729 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v763.i8, *v160.i8), *v770.i8, *v159.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v763, v160), v770, v159), 0xDuLL);
+    v728 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v764.i8, *v160.i8), *v769.i8, *v159.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v764, v160), v769, v159), 0xDuLL);
+    v722 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v763.i8, *v161.i8), *v770.i8, *v160.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v763, v161), v770, v160), 0xDuLL);
+    v723 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v764.i8, *v161.i8), *v769.i8, *v160.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v764, v161), v769, v160), 0xDuLL);
+    v727 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v765.i8, *v160.i8), *v768.i8, *v159.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v765, v160), v768, v159), 0xDuLL);
+    v726 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v766.i8, *v160.i8), *v767.i8, *v159.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v766, v160), v767, v159), 0xDuLL);
+    v724 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v765.i8, *v161.i8), *v768.i8, *v160.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v765, v161), v768, v160), 0xDuLL);
+    v725 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v766.i8, *v161.i8), *v767.i8, *v160.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v766, v161), v767, v160), 0xDuLL);
+    v636 = vqaddq_s16(v690, v693);
+    v637 = vqaddq_s16(v691, v692);
+    v638 = vqsubq_s16(v691, v692);
+    v639 = vqsubq_s16(v690, v693);
+    v641 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v695.i8, *v128.i8), *v696.i8, *v128.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v695, v128), v696, v128), 0xDuLL);
+    v640 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v695.i8, *v129.i8), *v696.i8, *v128.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v695, v129), v696, v128), 0xDuLL);
+    v642 = vqaddq_s16(v735, v699);
+    v643 = vqaddq_s16(v736, v698);
+    v644 = vqsubq_s16(v736, v698);
+    v645 = vqsubq_s16(v735, v699);
+    v646 = vqsubq_s16(v742, v700);
+    v647 = vqsubq_s16(v741, v701);
+    v648 = vqaddq_s16(v741, v701);
+    v649 = vqaddq_s16(v742, v700);
+    v657 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v704.i8, *v159.i8), *v715.i8, *v158.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v704, v159), v715, v158), 0xDuLL);
+    v656 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v705.i8, *v159.i8), *v714.i8, *v158.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v705, v159), v714, v158), 0xDuLL);
+    v650 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v704.i8, *v160.i8), *v715.i8, *v159.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v704, v160), v715, v159), 0xDuLL);
+    v651 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v705.i8, *v160.i8), *v714.i8, *v159.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v705, v160), v714, v159), 0xDuLL);
+    v655 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v706.i8, *v160.i8), *v713.i8, *v159.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v706, v160), v713, v159), 0xDuLL);
+    v654 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v707.i8, *v160.i8), *v712.i8, *v159.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v707, v160), v712, v159), 0xDuLL);
+    v652 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v706.i8, *v161.i8), *v713.i8, *v160.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v706, v161), v713, v160), 0xDuLL);
+    v653 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v707.i8, *v161.i8), *v712.i8, *v160.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v707, v161), v712, v160), 0xDuLL);
+    v162 = 512;
+    for (i3 = 624; i3 != 560; i3 -= 16)
+    {
+      *(&v636 + v162) = vqaddq_s16(*&v734[v162], *(&v690 + i3));
+      v162 += 16;
+    }
+
+    v164 = 576;
+    do
+    {
+      *(&v636 + v164) = vqsubq_s16(*&v734[i3], *(&v690 + v164));
+      i3 -= 16;
+      v164 += 16;
+    }
+
+    while (i3 != 496);
+    v165 = 640;
+    for (i4 = 752; i4 != 688; i4 -= 16)
+    {
+      *(&v636 + v165) = vqsubq_s16(*&v734[i4], *(&v690 + v165));
+      v165 += 16;
+    }
+
+    v167 = 688;
+    for (i5 = 704; i5 != 768; i5 += 16)
+    {
+      *(&v636 + i5) = vqaddq_s16(*&v734[i5], *(&v690 + v167));
+      v167 -= 16;
+    }
+
+    v169 = 768;
+    for (i6 = 880; i6 != 816; i6 -= 16)
+    {
+      *(&v636 + v169) = vqaddq_s16(*&v734[v169], *(&v690 + i6));
+      v169 += 16;
+    }
+
+    v171 = 832;
+    do
+    {
+      *(&v636 + v171) = vqsubq_s16(*&v734[i6], *(&v690 + v171));
+      i6 -= 16;
+      v171 += 16;
+    }
+
+    while (i6 != 752);
+    v172 = 896;
+    for (i7 = 1008; i7 != 944; i7 -= 16)
+    {
+      *(&v636 + v172) = vqsubq_s16(*&v734[i7], *(&v690 + v172));
+      v172 += 16;
+    }
+
+    v174 = 944;
+    for (i8 = 960; i8 != 1024; i8 += 16)
+    {
+      *(&v636 + i8) = vqaddq_s16(*&v734[i8], *(&v690 + v174));
+      v174 -= 16;
+    }
+
+    v176 = 0;
+    v629 = vmlal_s16(vmull_s16(*v638.i8, *v159.i8), *v639.i8, *v158.i8);
+    v627 = vmlal_high_s16(vmull_high_s16(v638, v159), v639, v158);
+    v625 = vmlal_s16(vmull_s16(*v638.i8, *v160.i8), *v639.i8, *v159.i8);
+    v623 = vmlal_high_s16(vmull_high_s16(v638, v160), v639, v159);
+    v177 = vmlal_s16(vmull_s16(*v643.i8, *v159.i8), *v648.i8, *v158.i8);
+    v178 = vmlal_high_s16(vmull_high_s16(v643, v159), v648, v158);
+    v179 = vmlal_s16(vmull_s16(*v643.i8, *v160.i8), *v648.i8, *v159.i8);
+    v180 = vmlal_high_s16(vmull_high_s16(v643, v160), v648, v159);
+    v181 = vqaddq_s16(v703, v650);
+    v182 = vqsubq_s16(v703, v650);
+    v183 = vqsubq_s16(v716, v657);
+    v184 = vdupq_n_s16(0x1F62u);
+    v185 = vdupq_n_s16(0x63Eu);
+    v580 = vmlal_s16(vmull_s16(*v644.i8, *v160.i8), *v647.i8, *v159.i8);
+    v186 = vqaddq_s16(v716, v657);
+    v187 = vdupq_n_s16(0xE09Eu);
+    v578 = vmlal_high_s16(vmull_high_s16(v644, v160), v647, v159);
+    v576 = vmlal_s16(vmull_s16(*v644.i8, *v161.i8), *v647.i8, *v160.i8);
+    v574 = vmlal_high_s16(vmull_high_s16(v644, v161), v647, v160);
+    v188 = vmlal_s16(vmull_s16(*v660.i8, *v185.i8), *v687.i8, *v184.i8);
+    v189 = vmlal_high_s16(vmull_high_s16(v660, v185), v687, v184);
+    v190 = vmlal_s16(vmull_s16(*v660.i8, *v187.i8), *v687.i8, *v185.i8);
+    v191 = vmlal_high_s16(vmull_high_s16(v660, v187), v687, v185);
+    v568 = vmlal_s16(vmull_s16(*v661.i8, *v185.i8), *v686.i8, *v184.i8);
+    v564 = vmlal_high_s16(vmull_high_s16(v661, v185), v686, v184);
+    v562 = vmlal_s16(vmull_s16(*v661.i8, *v187.i8), *v686.i8, *v185.i8);
+    v559 = vmlal_high_s16(vmull_high_s16(v661, v187), v686, v185);
+    v588 = vmlal_s16(vmull_s16(*v662.i8, *v187.i8), *v685.i8, *v185.i8);
+    v586 = vmlal_high_s16(vmull_high_s16(v662, v187), v685, v185);
+    v192 = vdupq_n_s16(0xF9C2u);
+    v584 = vmlal_s16(vmull_s16(*v662.i8, *v192.i8), *v685.i8, *v187.i8);
+    v582 = vmlal_high_s16(vmull_high_s16(v662, v192), v685, v187);
+    v193 = vmlal_s16(vmull_s16(*v663.i8, *v187.i8), *v684.i8, *v185.i8);
+    v194 = vmlal_high_s16(vmull_high_s16(v663, v187), v684, v185);
+    v195 = vmlal_s16(vmull_s16(*v663.i8, *v192.i8), *v684.i8, *v187.i8);
+    v196 = vmlal_high_s16(vmull_high_s16(v663, v192), v684, v187);
+    v197 = vqaddq_s16(v694, v640);
+    v198 = vqaddq_s16(v697, v641);
+    v622 = vmlal_s16(vmull_s16(*v197.i8, *v185.i8), *v198.i8, *v184.i8);
+    v621 = vmlal_high_s16(vmull_high_s16(v197, v185), v198, v184);
+    v620 = vmlal_s16(vmull_s16(*v197.i8, *v187.i8), *v198.i8, *v185.i8);
+    v619 = vmlal_high_s16(vmull_high_s16(v197, v187), v198, v185);
+    v592 = vmlal_s16(vmull_s16(*v181.i8, *v185.i8), *v186.i8, *v184.i8);
+    v590 = vmlal_high_s16(vmull_high_s16(v181, v185), v186, v184);
+    v566 = vmlal_s16(vmull_s16(*v181.i8, *v187.i8), *v186.i8, *v185.i8);
+    v199 = vmlal_high_s16(vmull_high_s16(v181, v187), v186, v185);
+    v549 = vmlal_s16(vmull_s16(*v182.i8, *v187.i8), *v183.i8, *v185.i8);
+    v547 = vmlal_high_s16(vmull_high_s16(v182, v187), v183, v185);
+    v543 = vmlal_high_s16(vmull_high_s16(v182, v192), v183, v187);
+    v545 = vmlal_s16(vmull_s16(*v182.i8, *v192.i8), *v183.i8, *v187.i8);
+    v200 = vqsubq_s16(v694, v640);
+    v201 = vqsubq_s16(v697, v641);
+    v202 = vqsubq_s16(v708, v653);
+    v203 = vqaddq_s16(v708, v653);
+    v204 = vqaddq_s16(v711, v654);
+    v205 = vqsubq_s16(v711, v654);
+    v206 = vdupq_n_s16(0x11C8u);
+    v207 = vdupq_n_s16(0x1A9Cu);
+    v208 = vmlal_s16(vmull_s16(*v668.i8, *v207.i8), *v679.i8, *v206.i8);
+    v209 = vmlal_high_s16(vmull_high_s16(v668, v207), v679, v206);
+    v210 = vdupq_n_s16(0xEE38u);
+    v211 = vmlal_s16(vmull_s16(*v668.i8, *v210.i8), *v679.i8, *v207.i8);
+    v212 = vmlal_high_s16(vmull_high_s16(v668, v210), v679, v207);
+    v602 = vmlal_s16(vmull_s16(*v669.i8, *v207.i8), *v678.i8, *v206.i8);
+    v600 = vmlal_high_s16(vmull_high_s16(v669, v207), v678, v206);
+    v598 = vmlal_s16(vmull_s16(*v669.i8, *v210.i8), *v678.i8, *v207.i8);
+    v596 = vmlal_high_s16(vmull_high_s16(v669, v210), v678, v207);
+    v610 = vmlal_s16(vmull_s16(*v670.i8, *v210.i8), *v677.i8, *v207.i8);
+    v213 = vdupq_n_s16(0xE564u);
+    v608 = vmlal_high_s16(vmull_high_s16(v670, v210), v677, v207);
+    v606 = vmlal_s16(vmull_s16(*v670.i8, *v213.i8), *v677.i8, *v210.i8);
+    v604 = vmlal_high_s16(vmull_high_s16(v670, v213), v677, v210);
+    v214 = vmlal_s16(vmull_s16(*v671.i8, *v210.i8), *v676.i8, *v207.i8);
+    v215 = vmlal_high_s16(vmull_high_s16(v671, v210), v676, v207);
+    v216 = vmlal_s16(vmull_s16(*v671.i8, *v213.i8), *v676.i8, *v210.i8);
+    v217 = vmlal_high_s16(vmull_high_s16(v671, v213), v676, v210);
+    v616 = vmlal_s16(vmull_s16(*v200.i8, *v207.i8), *v201.i8, *v206.i8);
+    v615 = vmlal_high_s16(vmull_high_s16(v200, v207), v201, v206);
+    v614 = vmlal_s16(vmull_s16(*v200.i8, *v210.i8), *v201.i8, *v207.i8);
+    v613 = vmlal_high_s16(vmull_high_s16(v200, v210), v201, v207);
+    v541 = vmlal_s16(vmull_s16(*v202.i8, *v207.i8), *v205.i8, *v206.i8);
+    v539 = vmlal_high_s16(vmull_high_s16(v202, v207), v205, v206);
+    v537 = vmlal_s16(vmull_s16(*v202.i8, *v210.i8), *v205.i8, *v207.i8);
+    v535 = vmlal_high_s16(vmull_high_s16(v202, v210), v205, v207);
+    v553 = vmlal_s16(vmull_s16(*v203.i8, *v210.i8), *v204.i8, *v207.i8);
+    v551 = vmlal_high_s16(vmull_high_s16(v203, v210), v204, v207);
+    v529 = vmlal_high_s16(vmull_high_s16(v203, v213), v204, v210);
+    v531 = vmlal_s16(vmull_s16(*v203.i8, *v213.i8), *v204.i8, *v210.i8);
+    v218 = vrshrn_high_n_s32(vrshrn_n_s32(v177, 0xDuLL), v178, 0xDuLL);
+    v219 = vrshrn_high_n_s32(vrshrn_n_s32(v179, 0xDuLL), v180, 0xDuLL);
+    v220 = vrshrn_high_n_s32(vrshrn_n_s32(v188, 0xDuLL), v189, 0xDuLL);
+    v221 = vrshrn_high_n_s32(vrshrn_n_s32(v190, 0xDuLL), v191, 0xDuLL);
+    v222 = vqaddq_s16(v659, v221);
+    v223 = vqsubq_s16(v659, v221);
+    v224 = vqsubq_s16(v688, v220);
+    v225 = vqaddq_s16(v688, v220);
+    v226 = vqaddq_s16(v642, v219);
+    v227 = vdupq_n_s16(0x1FD8u);
+    v228 = vqaddq_s16(v649, v218);
+    v229 = vdupq_n_s16(0x322u);
+    v486 = vmlal_s16(vmull_s16(*v226.i8, *v229.i8), *v228.i8, *v227.i8);
+    v612 = vmlal_high_s16(vmull_high_s16(v226, v229), v228, v227);
+    v230 = vdupq_n_s16(0xE028u);
+    v618 = vmlal_s16(vmull_s16(*v226.i8, *v230.i8), *v228.i8, *v229.i8);
+    v617 = vmlal_high_s16(vmull_high_s16(v226, v230), v228, v229);
+    v231 = vmlal_s16(vmull_s16(*v222.i8, *v229.i8), *v225.i8, *v227.i8);
+    v232 = vmlal_high_s16(vmull_high_s16(v222, v229), v225, v227);
+    v233 = vmlal_s16(vmull_s16(*v222.i8, *v230.i8), *v225.i8, *v229.i8);
+    v234 = vmlal_high_s16(vmull_high_s16(v222, v230), v225, v229);
+    v235 = vmlal_s16(vmull_s16(*v223.i8, *v230.i8), *v224.i8, *v229.i8);
+    v236 = vmlal_high_s16(vmull_high_s16(v223, v230), v224, v229);
+    v237 = vdupq_n_s16(0xFCDEu);
+    v238 = vmlal_s16(vmull_s16(*v223.i8, *v237.i8), *v224.i8, *v230.i8);
+    v239 = vmlal_high_s16(vmull_high_s16(v223, v237), v224, v230);
+    v240 = vrshrn_high_n_s32(vrshrn_n_s32(v193, 0xDuLL), v194, 0xDuLL);
+    v241 = vrshrn_high_n_s32(vrshrn_n_s32(v195, 0xDuLL), v196, 0xDuLL);
+    v242 = vqsubq_s16(v642, v219);
+    v243 = vqsubq_s16(v649, v218);
+    v244 = vqsubq_s16(v664, v241);
+    v245 = vqaddq_s16(v664, v241);
+    v246 = vqaddq_s16(v683, v240);
+    v247 = vqsubq_s16(v683, v240);
+    v248 = vdupq_n_s16(0x144Cu);
+    v249 = vdupq_n_s16(0x18BCu);
+    v250 = vmlal_s16(vmull_s16(*v242.i8, *v249.i8), *v243.i8, *v248.i8);
+    v251 = vmlal_high_s16(vmull_high_s16(v242, v249), v243, v248);
+    v252 = vdupq_n_s16(0xEBB4u);
+    v595 = vmlal_s16(vmull_s16(*v242.i8, *v252.i8), *v243.i8, *v249.i8);
+    v594 = vmlal_high_s16(vmull_high_s16(v242, v252), v243, v249);
+    v484 = vmlal_s16(vmull_s16(*v244.i8, *v249.i8), *v247.i8, *v248.i8);
+    v253 = vmlal_high_s16(vmull_high_s16(v244, v249), v247, v248);
+    v254 = vmlal_s16(vmull_s16(*v244.i8, *v252.i8), *v247.i8, *v249.i8);
+    v255 = vmlal_high_s16(vmull_high_s16(v244, v252), v247, v249);
+    v501 = vmlal_s16(vmull_s16(*v245.i8, *v252.i8), *v246.i8, *v249.i8);
+    v499 = vmlal_high_s16(vmull_high_s16(v245, v252), v246, v249);
+    v256 = vdupq_n_s16(0xE744u);
+    v493 = vmlal_high_s16(vmull_high_s16(v245, v256), v246, v252);
+    v495 = vmlal_s16(vmull_s16(*v245.i8, *v256.i8), *v246.i8, *v252.i8);
+    v257 = vrshrn_high_n_s32(vrshrn_n_s32(v580, 0xDuLL), v578, 0xDuLL);
+    v258 = vrshrn_high_n_s32(vrshrn_n_s32(v576, 0xDuLL), v574, 0xDuLL);
+    v259 = vrshrn_high_n_s32(vrshrn_n_s32(v208, 0xDuLL), v209, 0xDuLL);
+    v260 = vrshrn_high_n_s32(vrshrn_n_s32(v211, 0xDuLL), v212, 0xDuLL);
+    v261 = vqaddq_s16(v667, v260);
+    v262 = vqsubq_s16(v667, v260);
+    v263 = vqsubq_s16(v680, v259);
+    v264 = vqaddq_s16(v680, v259);
+    v265 = vqsubq_s16(v645, v258);
+    v266 = vqsubq_s16(v646, v257);
+    v267 = vdupq_n_s16(0x1C38u);
+    v268 = vdupq_n_s16(0xF16u);
+    v581 = vmlal_s16(vmull_s16(*v265.i8, *v268.i8), *v266.i8, *v267.i8);
+    v579 = vmlal_high_s16(vmull_high_s16(v265, v268), v266, v267);
+    v269 = vdupq_n_s16(0xE3C8u);
+    v577 = vmlal_s16(vmull_s16(*v265.i8, *v269.i8), *v266.i8, *v268.i8);
+    v575 = vmlal_high_s16(vmull_high_s16(v265, v269), v266, v268);
+    v509 = vmlal_s16(vmull_s16(*v261.i8, *v268.i8), *v264.i8, *v267.i8);
+    v507 = vmlal_high_s16(vmull_high_s16(v261, v268), v264, v267);
+    v505 = vmlal_s16(vmull_s16(*v261.i8, *v269.i8), *v264.i8, *v268.i8);
+    v503 = vmlal_high_s16(vmull_high_s16(v261, v269), v264, v268);
+    v270 = vmlal_s16(vmull_s16(*v262.i8, *v269.i8), *v263.i8, *v268.i8);
+    v521 = vmlal_high_s16(vmull_high_s16(v262, v269), v263, v268);
+    v271 = vdupq_n_s16(0xF0EAu);
+    v515 = vmlal_high_s16(vmull_high_s16(v262, v271), v263, v269);
+    v517 = vmlal_s16(vmull_s16(*v262.i8, *v271.i8), *v263.i8, *v269.i8);
+    v272 = vrshrn_high_n_s32(vrshrn_n_s32(v214, 0xDuLL), v215, 0xDuLL);
+    v273 = vrshrn_high_n_s32(vrshrn_n_s32(v216, 0xDuLL), v217, 0xDuLL);
+    v274 = vqaddq_s16(v645, v258);
+    v275 = vqaddq_s16(v646, v257);
+    v276 = vqsubq_s16(v672, v273);
+    v277 = vqaddq_s16(v672, v273);
+    v278 = vqaddq_s16(v675, v272);
+    v279 = vdupq_n_s16(0x94Au);
+    v280 = vdupq_n_s16(0x1EA0u);
+    v281 = vqsubq_s16(v675, v272);
+    v573 = vmlal_s16(vmull_s16(*v274.i8, *v280.i8), *v275.i8, *v279.i8);
+    v282 = vdupq_n_s16(0xF6B6u);
+    v572 = vmlal_high_s16(vmull_high_s16(v274, v280), v275, v279);
+    v571 = vmlal_s16(vmull_s16(*v274.i8, *v282.i8), *v275.i8, *v280.i8);
+    v570 = vmlal_high_s16(vmull_high_s16(v274, v282), v275, v280);
+    v519 = vmlal_s16(vmull_s16(*v276.i8, *v280.i8), *v281.i8, *v279.i8);
+    v514 = vmlal_high_s16(vmull_high_s16(v276, v280), v281, v279);
+    v512 = vmlal_s16(vmull_s16(*v276.i8, *v282.i8), *v281.i8, *v280.i8);
+    v511 = vmlal_high_s16(vmull_high_s16(v276, v282), v281, v280);
+    v283 = vmlal_s16(vmull_s16(*v277.i8, *v282.i8), *v278.i8, *v280.i8);
+    v284 = vdupq_n_s16(0xE160u);
+    v285 = vmlal_high_s16(vmull_high_s16(v277, v282), v278, v280);
+    v286 = vmlal_s16(vmull_s16(*v277.i8, *v284.i8), *v278.i8, *v282.i8);
+    v287 = vmlal_high_s16(vmull_high_s16(v277, v284), v278, v282);
+    v288 = vrshrn_high_n_s32(vrshrn_n_s32(v592, 0xDuLL), v590, 0xDuLL);
+    v289 = vrshrn_high_n_s32(vrshrn_n_s32(v566, 0xDuLL), v199, 0xDuLL);
+    v290 = vqaddq_s16(v702, v651);
+    v291 = vqaddq_s16(v717, v656);
+    v292 = vqaddq_s16(v290, v289);
+    v293 = vdupq_n_s16(0x1FF6u);
+    v294 = vqaddq_s16(v291, v288);
+    v295 = vdupq_n_s16(0x192u);
+    v567 = vmlal_s16(vmull_s16(*v292.i8, *v295.i8), *v294.i8, *v293.i8);
+    v561 = vmlal_high_s16(vmull_high_s16(v292, v295), v294, v293);
+    v296 = vdupq_n_s16(0xE00Au);
+    v593 = vmlal_s16(vmull_s16(*v292.i8, *v296.i8), *v294.i8, *v295.i8);
+    v591 = vmlal_high_s16(vmull_high_s16(v292, v296), v294, v295);
+    v297 = vqsubq_s16(v290, v289);
+    v298 = vdupq_n_s16(0x157Eu);
+    v299 = vdupq_n_s16(0x17B6u);
+    v300 = vqsubq_s16(v291, v288);
+    v558 = vmlal_s16(vmull_s16(*v297.i8, *v299.i8), *v300.i8, *v298.i8);
+    v301 = vdupq_n_s16(0xEA82u);
+    v557 = vmlal_high_s16(vmull_high_s16(v297, v299), v300, v298);
+    v556 = vmlal_s16(vmull_s16(*v297.i8, *v301.i8), *v300.i8, *v299.i8);
+    v555 = vmlal_high_s16(vmull_high_s16(v297, v301), v300, v299);
+    v302 = vqsubq_s16(v702, v651);
+    v303 = vqsubq_s16(v717, v656);
+    v304 = vrshrn_high_n_s32(vrshrn_n_s32(v549, 0xDuLL), v547, 0xDuLL);
+    v305 = vrshrn_high_n_s32(vrshrn_n_s32(v545, 0xDuLL), v543, 0xDuLL);
+    v306 = vqsubq_s16(v302, v305);
+    v307 = vqsubq_s16(v303, v304);
+    v308 = vdupq_n_s16(0x1CEEu);
+    v309 = vdupq_n_s16(0xDAEu);
+    v546 = vmlal_s16(vmull_s16(*v306.i8, *v309.i8), *v307.i8, *v308.i8);
+    v544 = vmlal_high_s16(vmull_high_s16(v306, v309), v307, v308);
+    v310 = vdupq_n_s16(0xE312u);
+    v533 = vmlal_high_s16(vmull_high_s16(v306, v310), v307, v309);
+    v534 = vmlal_s16(vmull_s16(*v306.i8, *v310.i8), *v307.i8, *v309.i8);
+    v311 = vqaddq_s16(v302, v305);
+    v312 = vdupq_n_s16(0xF538u);
+    v313 = vqaddq_s16(v303, v304);
+    v314 = vmull_s16(*v311.i8, *v312.i8);
+    v315 = vmull_high_s16(v311, v312);
+    v316 = vdupq_n_s16(0x1E22u);
+    v525 = vmlal_high_s16(v315, v313, v316);
+    v526 = vmlal_s16(v314, *v313.i8, *v316.i8);
+    v317 = vrshrn_high_n_s32(vrshrn_n_s32(v541, 0xDuLL), v539, 0xDuLL);
+    v318 = vrshrn_high_n_s32(vrshrn_n_s32(v537, 0xDuLL), v535, 0xDuLL);
+    v319 = vqsubq_s16(v709, v652);
+    v320 = vqsubq_s16(v710, v655);
+    v321 = vqaddq_s16(v319, v318);
+    v322 = vqaddq_s16(v320, v317);
+    v323 = vdupq_n_s16(0x1F0Au);
+    v324 = vdupq_n_s16(0x7C6u);
+    v524 = vmlal_s16(vmull_s16(*v321.i8, *v324.i8), *v322.i8, *v323.i8);
+    v523 = vmlal_high_s16(vmull_high_s16(v321, v324), v322, v323);
+    v325 = vdupq_n_s16(0xE0F6u);
+    v548 = vmlal_high_s16(vmull_high_s16(v321, v325), v322, v324);
+    v550 = vmlal_s16(vmull_s16(*v321.i8, *v325.i8), *v322.i8, *v324.i8);
+    v326 = vqsubq_s16(v319, v318);
+    v327 = vdupq_n_s16(0x1074u);
+    v328 = vqsubq_s16(v320, v317);
+    v329 = vdupq_n_s16(0x1B72u);
+    v540 = vmlal_s16(vmull_s16(*v326.i8, *v329.i8), *v328.i8, *v327.i8);
+    v536 = vmlal_high_s16(vmull_high_s16(v326, v329), v328, v327);
+    v330 = vdupq_n_s16(0xEF8Cu);
+    v542 = vmlal_s16(vmull_s16(*v326.i8, *v330.i8), *v328.i8, *v329.i8);
+    v538 = vmlal_high_s16(vmull_high_s16(v326, v330), v328, v329);
+    v331 = vqaddq_s16(v709, v652);
+    v332 = vqaddq_s16(v710, v655);
+    v333 = vrshrn_high_n_s32(vrshrn_n_s32(v553, 0xDuLL), v551, 0xDuLL);
+    v334 = vrshrn_high_n_s32(vrshrn_n_s32(v531, 0xDuLL), v529, 0xDuLL);
+    v335 = vqsubq_s16(v331, v334);
+    v336 = vdupq_n_s16(0x19B4u);
+    v337 = vdupq_n_s16(0x1310u);
+    v338 = vqsubq_s16(v332, v333);
+    v532 = vmlal_s16(vmull_s16(*v335.i8, *v337.i8), *v338.i8, *v336.i8);
+    v339 = vdupq_n_s16(0xE64Cu);
+    v530 = vmlal_s16(vmull_s16(*v335.i8, *v339.i8), *v338.i8, *v337.i8);
+    v527 = vmlal_high_s16(vmull_high_s16(v335, v337), v338, v336);
+    v528 = vmlal_high_s16(vmull_high_s16(v335, v339), v338, v337);
+    v340 = vqaddq_s16(v331, v334);
+    v341 = vqaddq_s16(v332, v333);
+    v342 = vdupq_n_s16(0x4B2u);
+    v343 = vdupq_n_s16(0x1FA8u);
+    v554 = vmlal_s16(vmull_s16(*v340.i8, *v343.i8), *v341.i8, *v342.i8);
+    v552 = vmlal_high_s16(vmull_high_s16(v340, v343), v341, v342);
+    v344 = vdupq_n_s16(0xFB4Eu);
+    v497 = vmlal_high_s16(vmull_high_s16(v340, v344), v341, v343);
+    v498 = vmlal_s16(vmull_s16(*v340.i8, *v344.i8), *v341.i8, *v343.i8);
+    v345 = vrshrn_high_n_s32(vrshrn_n_s32(v568, 0xDuLL), v564, 0xDuLL);
+    v346 = vrshrn_high_n_s32(vrshrn_n_s32(v562, 0xDuLL), v559, 0xDuLL);
+    v481 = vrshrn_high_n_s32(vrshrn_n_s32(v231, 0xDuLL), v232, 0xDuLL);
+    v491 = vrshrn_high_n_s32(vrshrn_n_s32(v233, 0xDuLL), v234, 0xDuLL);
+    v490 = vqaddq_s16(v658, v346);
+    v480 = vqaddq_s16(v689, v345);
+    v347 = vqsubq_s16(v490, v491);
+    v348 = vdupq_n_s16(0x1610u);
+    v349 = vqsubq_s16(v480, v481);
+    v350 = vdupq_n_s16(0x172Eu);
+    v569 = vmlal_s16(vmull_s16(*v347.i8, *v350.i8), *v349.i8, *v348.i8);
+    v565 = vmlal_high_s16(vmull_high_s16(v347, v350), v349, v348);
+    v351 = vdupq_n_s16(0xE9F0u);
+    v563 = vmlal_s16(vmull_s16(*v347.i8, *v351.i8), *v349.i8, *v350.i8);
+    v560 = vmlal_high_s16(vmull_high_s16(v347, v351), v349, v350);
+    v352 = vqsubq_s16(v658, v346);
+    v353 = vqsubq_s16(v689, v345);
+    v354 = vrshrn_high_n_s32(vrshrn_n_s32(v235, 0xDuLL), v236, 0xDuLL);
+    v355 = vrshrn_high_n_s32(vrshrn_n_s32(v238, 0xDuLL), v239, 0xDuLL);
+    v356 = vqsubq_s16(v352, v355);
+    v357 = vdupq_n_s16(0x1D42u);
+    v358 = vdupq_n_s16(0xCF8u);
+    v359 = vqsubq_s16(v353, v354);
+    v483 = vmlal_s16(vmull_s16(*v356.i8, *v358.i8), *v359.i8, *v357.i8);
+    v360 = vdupq_n_s16(0xE2BEu);
+    v482 = vmlal_high_s16(vmull_high_s16(v356, v358), v359, v357);
+    v492 = vmlal_s16(vmull_s16(*v356.i8, *v360.i8), *v359.i8, *v358.i8);
+    v489 = vmlal_high_s16(vmull_high_s16(v356, v360), v359, v358);
+    v361 = vqaddq_s16(v352, v355);
+    v362 = vqaddq_s16(v353, v354);
+    v363 = vdupq_n_s16(0xB84u);
+    v364 = vdupq_n_s16(0x1DDCu);
+    v488 = vmlal_s16(vmull_s16(*v361.i8, *v364.i8), *v362.i8, *v363.i8);
+    v487 = vmlal_high_s16(vmull_high_s16(v361, v364), v362, v363);
+    v365 = vdupq_n_s16(0xF47Cu);
+    v478 = vmlal_high_s16(vmull_high_s16(v361, v365), v362, v364);
+    v479 = vmlal_s16(vmull_s16(*v361.i8, *v365.i8), *v362.i8, *v364.i8);
+    v366 = vrshrn_high_n_s32(vrshrn_n_s32(v588, 0xDuLL), v586, 0xDuLL);
+    v367 = vrshrn_high_n_s32(vrshrn_n_s32(v584, 0xDuLL), v582, 0xDuLL);
+    v368 = vrshrn_high_n_s32(vrshrn_n_s32(v484, 0xDuLL), v253, 0xDuLL);
+    v369 = vrshrn_high_n_s32(vrshrn_n_s32(v254, 0xDuLL), v255, 0xDuLL);
+    v370 = vqsubq_s16(v665, v367);
+    v371 = vqsubq_s16(v682, v366);
+    v372 = vqaddq_s16(v370, v369);
+    v373 = vdupq_n_s16(0x1F38u);
+    v374 = vqaddq_s16(v371, v368);
+    v375 = vdupq_n_s16(0x702u);
+    v475 = vmlal_s16(vmull_s16(*v372.i8, *v375.i8), *v374.i8, *v373.i8);
+    v473 = vmlal_high_s16(vmull_high_s16(v372, v375), v374, v373);
+    v376 = vdupq_n_s16(0xE0C8u);
+    v589 = vmlal_s16(vmull_s16(*v372.i8, *v376.i8), *v374.i8, *v375.i8);
+    v587 = vmlal_high_s16(vmull_high_s16(v372, v376), v374, v375);
+    v377 = vqsubq_s16(v370, v369);
+    v378 = vdupq_n_s16(0x111Eu);
+    v379 = vdupq_n_s16(0x1B0Au);
+    v380 = vqsubq_s16(v371, v368);
+    v585 = vmlal_s16(vmull_s16(*v377.i8, *v379.i8), *v380.i8, *v378.i8);
+    v381 = vdupq_n_s16(0xEEE2u);
+    v583 = vmlal_high_s16(vmull_high_s16(v377, v379), v380, v378);
+    v485 = vmlal_s16(vmull_s16(*v377.i8, *v381.i8), *v380.i8, *v379.i8);
+    v477 = vmlal_high_s16(vmull_high_s16(v377, v381), v380, v379);
+    v382 = vqaddq_s16(v665, v367);
+    v383 = vqaddq_s16(v682, v366);
+    v384 = vrshrn_high_n_s32(vrshrn_n_s32(v501, 0xDuLL), v499, 0xDuLL);
+    v385 = vrshrn_high_n_s32(vrshrn_n_s32(v495, 0xDuLL), v493, 0xDuLL);
+    v386 = vqsubq_s16(v382, v385);
+    v387 = vqsubq_s16(v383, v384);
+    v388 = vdupq_n_s16(0x1A2Au);
+    v389 = vdupq_n_s16(0x126Eu);
+    v476 = vmlal_s16(vmull_s16(*v386.i8, *v389.i8), *v387.i8, *v388.i8);
+    v474 = vmlal_high_s16(vmull_high_s16(v386, v389), v387, v388);
+    v390 = vdupq_n_s16(0xE5D6u);
+    v494 = vmlal_high_s16(vmull_high_s16(v386, v390), v387, v389);
+    v496 = vmlal_s16(vmull_s16(*v386.i8, *v390.i8), *v387.i8, *v389.i8);
+    v391 = vqaddq_s16(v382, v385);
+    v392 = vdupq_n_s16(0x578u);
+    v393 = vqaddq_s16(v383, v384);
+    v394 = vdupq_n_s16(0x1F88u);
+    v502 = vmlal_s16(vmull_s16(*v391.i8, *v394.i8), *v393.i8, *v392.i8);
+    v500 = vmlal_high_s16(vmull_high_s16(v391, v394), v393, v392);
+    v395 = vdupq_n_s16(0xFA88u);
+    v471 = vmlal_high_s16(vmull_high_s16(v391, v395), v393, v394);
+    v472 = vmlal_s16(vmull_s16(*v391.i8, *v395.i8), *v393.i8, *v394.i8);
+    v396 = vrshrn_high_n_s32(vrshrn_n_s32(v602, 0xDuLL), v600, 0xDuLL);
+    v397 = vrshrn_high_n_s32(vrshrn_n_s32(v598, 0xDuLL), v596, 0xDuLL);
+    v398 = vrshrn_high_n_s32(vrshrn_n_s32(v509, 0xDuLL), v507, 0xDuLL);
+    v399 = vrshrn_high_n_s32(vrshrn_n_s32(v505, 0xDuLL), v503, 0xDuLL);
+    v400 = vqaddq_s16(v666, v397);
+    v401 = vqaddq_s16(v681, v396);
+    v402 = vqaddq_s16(v400, v399);
+    v403 = vdupq_n_s16(0x1FC2u);
+    v404 = vdupq_n_s16(0x3EAu);
+    v405 = vqaddq_s16(v401, v398);
+    v506 = vmlal_s16(vmull_s16(*v402.i8, *v404.i8), *v405.i8, *v403.i8);
+    v406 = vdupq_n_s16(0xE03Eu);
+    v504 = vmlal_high_s16(vmull_high_s16(v402, v404), v405, v403);
+    v603 = vmlal_s16(vmull_s16(*v402.i8, *v406.i8), *v405.i8, *v404.i8);
+    v601 = vmlal_high_s16(vmull_high_s16(v402, v406), v405, v404);
+    v407 = vqsubq_s16(v400, v399);
+    v408 = vqsubq_s16(v401, v398);
+    v409 = vdupq_n_s16(0x13B0u);
+    v410 = vdupq_n_s16(0x193Au);
+    v599 = vmlal_s16(vmull_s16(*v407.i8, *v410.i8), *v408.i8, *v409.i8);
+    v597 = vmlal_high_s16(vmull_high_s16(v407, v410), v408, v409);
+    v411 = vdupq_n_s16(0xEC50u);
+    v508 = vmlal_high_s16(vmull_high_s16(v407, v411), v408, v410);
+    v510 = vmlal_s16(vmull_s16(*v407.i8, *v411.i8), *v408.i8, *v410.i8);
+    v412 = vqsubq_s16(v666, v397);
+    v469 = vqsubq_s16(v681, v396);
+    v413 = vrshrn_high_n_s32(vrshrn_n_s32(v270, 0xDuLL), v521, 0xDuLL);
+    v414 = vrshrn_high_n_s32(vrshrn_n_s32(v517, 0xDuLL), v515, 0xDuLL);
+    v415 = vqsubq_s16(v412, v414);
+    v416 = vdupq_n_s16(0x1BD8u);
+    v417 = vqsubq_s16(v469, v413);
+    v418 = vdupq_n_s16(0xFC6u);
+    v516 = vmlal_s16(vmull_s16(*v415.i8, *v418.i8), *v417.i8, *v416.i8);
+    v470 = vmlal_high_s16(vmull_high_s16(v415, v418), v417, v416);
+    v419 = vdupq_n_s16(0xE428u);
+    v522 = vmlal_s16(vmull_s16(*v415.i8, *v419.i8), *v417.i8, *v418.i8);
+    v518 = vmlal_high_s16(vmull_high_s16(v415, v419), v417, v418);
+    v420 = vrshrn_high_n_s32(vrshrn_n_s32(v610, 0xDuLL), v608, 0xDuLL);
+    v421 = vrshrn_high_n_s32(vrshrn_n_s32(v606, 0xDuLL), v604, 0xDuLL);
+    v422 = vrshrn_high_n_s32(vrshrn_n_s32(v519, 0xDuLL), v514, 0xDuLL);
+    v423 = vrshrn_high_n_s32(vrshrn_n_s32(v512, 0xDuLL), v511, 0xDuLL);
+    v520 = vqsubq_s16(v673, v421);
+    v465 = vqsubq_s16(v674, v420);
+    v424 = vqsubq_s16(v520, v423);
+    v425 = vdupq_n_s16(0xE64u);
+    v426 = vdupq_n_s16(0x1C96u);
+    v427 = vqsubq_s16(v465, v422);
+    v611 = vmlal_s16(vmull_s16(*v424.i8, *v426.i8), *v427.i8, *v425.i8);
+    v428 = vdupq_n_s16(0xF19Cu);
+    v609 = vmlal_high_s16(vmull_high_s16(v424, v426), v427, v425);
+    v513 = vmlal_s16(vmull_s16(*v424.i8, *v428.i8), *v427.i8, *v426.i8);
+    v468 = vmlal_high_s16(vmull_high_s16(v424, v428), v427, v426);
+    v429 = vqaddq_s16(v673, v421);
+    v430 = vqaddq_s16(v674, v420);
+    v431 = vrshrn_high_n_s32(vrshrn_n_s32(v283, 0xDuLL), v285, 0xDuLL);
+    v432 = vrshrn_high_n_s32(vrshrn_n_s32(v286, 0xDuLL), v287, 0xDuLL);
+    v433 = vqsubq_s16(v429, v432);
+    v434 = vqsubq_s16(v430, v431);
+    v435 = vdupq_n_s16(0x183Cu);
+    v436 = vdupq_n_s16(0x14E6u);
+    v467 = vmlal_s16(vmull_s16(*v433.i8, *v436.i8), *v434.i8, *v435.i8);
+    v466 = vmlal_high_s16(vmull_high_s16(v433, v436), v434, v435);
+    v437 = vdupq_n_s16(0xE7C4u);
+    v438 = vqaddq_s16(v429, v432);
+    v439 = vdupq_n_s16(0x25Au);
+    v440 = vqaddq_s16(v430, v431);
+    v441 = vdupq_n_s16(0x1FEAu);
+    v607 = vmlal_s16(vmull_s16(*v438.i8, *v441.i8), *v440.i8, *v439.i8);
+    v605 = vmlal_high_s16(vmull_high_s16(v438, v441), v440, v439);
+    v442 = vdupq_n_s16(0xFDA6u);
+    v443 = vmlal_s16(vmull_s16(*v438.i8, *v442.i8), *v440.i8, *v441.i8);
+    v444 = vmlal_high_s16(vmull_high_s16(v438, v442), v440, v441);
+    v445 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v636.i8, *v633.i8), *v637.i8, *v633.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v636, v633), v637, v633), 0xDuLL);
+    v446 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v636.i8, *v631.i8), *v637.i8, *v633.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v636, v631), v637, v633), 0xDuLL);
+    v447 = vqaddq_s16(v490, v491);
+    v448 = vqaddq_s16(v412, v414);
+    v449 = vqaddq_s16(v520, v423);
+    v450 = vqaddq_s16(v465, v422);
+    v451 = vqaddq_s16(v469, v413);
+    v452 = vqaddq_s16(v480, v481);
+    v453 = vdupq_n_s16(0x1FFEu);
+    v454 = vmlal_s16(vmull_s16(*v447.i8, 0xCA00CA00CA00CALL), *v452.i8, *v453.i8);
+    v411.i64[0] = 0xCA00CA00CA00CALL;
+    v411.i64[1] = 0xCA00CA00CA00CALL;
+    v455 = vmlal_high_s16(vmull_high_s16(v447, v411), v452, v453);
+    v456 = vdupq_n_s16(0xE002u);
+    v133[63] = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v447.i8, *v456.i8), *v452.i8, 0xCA00CA00CA00CALL), 0xDuLL), vmlal_high_s16(vmull_high_s16(v447, v456), v452, v411), 0xDuLL);
+    *v133 = v445;
+    v133[1] = vrshrn_high_n_s32(vrshrn_n_s32(v454, 0xDuLL), v455, 0xDuLL);
+    v133[2] = vrshrn_high_n_s32(vrshrn_n_s32(v567, 0xDuLL), v561, 0xDuLL);
+    v133[3] = vrshrn_high_n_s32(vrshrn_n_s32(v443, 0xDuLL), v444, 0xDuLL);
+    v133[4] = vrshrn_high_n_s32(vrshrn_n_s32(v486, 0xDuLL), v612, 0xDuLL);
+    v133[5] = vrshrn_high_n_s32(vrshrn_n_s32(v506, 0xDuLL), v504, 0xDuLL);
+    v133[6] = vrshrn_high_n_s32(vrshrn_n_s32(v498, 0xDuLL), v497, 0xDuLL);
+    v133[7] = vrshrn_high_n_s32(vrshrn_n_s32(v472, 0xDuLL), v471, 0xDuLL);
+    v457 = vdupq_n_s16(0x1ED8u);
+    v458 = vdupq_n_s16(0xF778u);
+    v459 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v448.i8, *v458.i8), *v451.i8, *v457.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v448, v458), v451, v457), 0xDuLL);
+    v133[8] = vrshrn_high_n_s32(vrshrn_n_s32(v622, 0xDuLL), v621, 0xDuLL);
+    v133[9] = vrshrn_high_n_s32(vrshrn_n_s32(v475, 0xDuLL), v473, 0xDuLL);
+    v460 = vdupq_n_s16(0x1E62u);
+    v133[10] = vrshrn_high_n_s32(vrshrn_n_s32(v524, 0xDuLL), v523, 0xDuLL);
+    v133[11] = v459;
+    v133[12] = vrshrn_high_n_s32(vrshrn_n_s32(v571, 0xDuLL), v570, 0xDuLL);
+    v133[13] = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v449.i8, 0xA0A0A0A0A0A0A0ALL), *v450.i8, *v460.i8), 0xDuLL), vmlal_high_s16(vmull_s16(*&vextq_s8(v449, v449, 8uLL), 0xA0A0A0A0A0A0A0ALL), v450, v460), 0xDuLL);
+    v133[14] = vrshrn_high_n_s32(vrshrn_n_s32(v526, 0xDuLL), v525, 0xDuLL);
+    v133[15] = vrshrn_high_n_s32(vrshrn_n_s32(v479, 0xDuLL), v478, 0xDuLL);
+    v133[16] = vrshrn_high_n_s32(vrshrn_n_s32(v629, 0xDuLL), v627, 0xDuLL);
+    v133[17] = vrshrn_high_n_s32(vrshrn_n_s32(v483, 0xDuLL), v482, 0xDuLL);
+    v133[18] = vrshrn_high_n_s32(vrshrn_n_s32(v546, 0xDuLL), v544, 0xDuLL);
+    v133[19] = vrshrn_high_n_s32(vrshrn_n_s32(v513, 0xDuLL), v468, 0xDuLL);
+    v133[20] = vrshrn_high_n_s32(vrshrn_n_s32(v581, 0xDuLL), v579, 0xDuLL);
+    v133[21] = vrshrn_high_n_s32(vrshrn_n_s32(v516, 0xDuLL), v470, 0xDuLL);
+    v133[22] = vrshrn_high_n_s32(vrshrn_n_s32(v542, 0xDuLL), v538, 0xDuLL);
+    v133[23] = vrshrn_high_n_s32(vrshrn_n_s32(v485, 0xDuLL), v477, 0xDuLL);
+    v133[24] = vrshrn_high_n_s32(vrshrn_n_s32(v614, 0xDuLL), v613, 0xDuLL);
+    v133[25] = vrshrn_high_n_s32(vrshrn_n_s32(v476, 0xDuLL), v474, 0xDuLL);
+    v133[26] = vrshrn_high_n_s32(vrshrn_n_s32(v532, 0xDuLL), v527, 0xDuLL);
+    v133[27] = vrshrn_high_n_s32(vrshrn_n_s32(v510, 0xDuLL), v508, 0xDuLL);
+    v133[28] = vrshrn_high_n_s32(vrshrn_n_s32(v595, 0xDuLL), v594, 0xDuLL);
+    v133[29] = vrshrn_high_n_s32(vrshrn_n_s32(v467, 0xDuLL), v466, 0xDuLL);
+    v133[30] = vrshrn_high_n_s32(vrshrn_n_s32(v556, 0xDuLL), v555, 0xDuLL);
+    v133[31] = vrshrn_high_n_s32(vrshrn_n_s32(v563, 0xDuLL), v560, 0xDuLL);
+    v133[32] = v446;
+    v133[33] = vrshrn_high_n_s32(vrshrn_n_s32(v569, 0xDuLL), v565, 0xDuLL);
+    v133[34] = vrshrn_high_n_s32(vrshrn_n_s32(v558, 0xDuLL), v557, 0xDuLL);
+    v133[35] = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v433.i8, *v437.i8), *v434.i8, *v436.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v433, v437), v434, v436), 0xDuLL);
+    v133[36] = vrshrn_high_n_s32(vrshrn_n_s32(v250, 0xDuLL), v251, 0xDuLL);
+    v133[37] = vrshrn_high_n_s32(vrshrn_n_s32(v599, 0xDuLL), v597, 0xDuLL);
+    v133[38] = vrshrn_high_n_s32(vrshrn_n_s32(v530, 0xDuLL), v528, 0xDuLL);
+    v133[39] = vrshrn_high_n_s32(vrshrn_n_s32(v496, 0xDuLL), v494, 0xDuLL);
+    v133[41] = vrshrn_high_n_s32(vrshrn_n_s32(v585, 0xDuLL), v583, 0xDuLL);
+    v133[42] = vrshrn_high_n_s32(vrshrn_n_s32(v540, 0xDuLL), v536, 0xDuLL);
+    v133[40] = vrshrn_high_n_s32(vrshrn_n_s32(v616, 0xDuLL), v615, 0xDuLL);
+    v133[45] = vrshrn_high_n_s32(vrshrn_n_s32(v611, 0xDuLL), v609, 0xDuLL);
+    v133[46] = vrshrn_high_n_s32(vrshrn_n_s32(v534, 0xDuLL), v533, 0xDuLL);
+    v133[43] = vrshrn_high_n_s32(vrshrn_n_s32(v522, 0xDuLL), v518, 0xDuLL);
+    v133[44] = vrshrn_high_n_s32(vrshrn_n_s32(v577, 0xDuLL), v575, 0xDuLL);
+    v133[47] = vrshrn_high_n_s32(vrshrn_n_s32(v492, 0xDuLL), v489, 0xDuLL);
+    v461 = vdupq_n_s16(0xE19Eu);
+    v133[49] = vrshrn_high_n_s32(vrshrn_n_s32(v488, 0xDuLL), v487, 0xDuLL);
+    v133[48] = vrshrn_high_n_s32(vrshrn_n_s32(v625, 0xDuLL), v623, 0xDuLL);
+    v133[51] = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v449.i8, *v461.i8), *v450.i8, 0xA0A0A0A0A0A0A0ALL), 0xDuLL), vmlal_high_s16(vmull_s16(*&vextq_s8(v450, v450, 8uLL), 0xA0A0A0A0A0A0A0ALL), v449, v461), 0xDuLL);
+    v133[52] = vrshrn_high_n_s32(vrshrn_n_s32(v573, 0xDuLL), v572, 0xDuLL);
+    v133[53] = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v448.i8, *v457.i8), *v451.i8, v464), 0xDuLL), vmlal_high_s16(vmull_s16(*&vextq_s8(v451, v451, 8uLL), v464), v448, v457), 0xDuLL);
+    v133[54] = vrshrn_high_n_s32(vrshrn_n_s32(v550, 0xDuLL), v548, 0xDuLL);
+    v133[55] = vrshrn_high_n_s32(vrshrn_n_s32(v589, 0xDuLL), v587, 0xDuLL);
+    v133[56] = vrshrn_high_n_s32(vrshrn_n_s32(v620, 0xDuLL), v619, 0xDuLL);
+    v133[57] = vrshrn_high_n_s32(vrshrn_n_s32(v502, 0xDuLL), v500, 0xDuLL);
+    v133[58] = vrshrn_high_n_s32(vrshrn_n_s32(v554, 0xDuLL), v552, 0xDuLL);
+    v133[59] = vrshrn_high_n_s32(vrshrn_n_s32(v603, 0xDuLL), v601, 0xDuLL);
+    v133[60] = vrshrn_high_n_s32(vrshrn_n_s32(v618, 0xDuLL), v617, 0xDuLL);
+    v133[61] = vrshrn_high_n_s32(vrshrn_n_s32(v607, 0xDuLL), v605, 0xDuLL);
+    v133[62] = vrshrn_high_n_s32(vrshrn_n_s32(v593, 0xDuLL), v591, 0xDuLL);
+    v462 = (v9 + 16 + 32 * v126);
+    do
+    {
+      v463 = v133[v176];
+      v462[-1] = vmovl_s16(*v463.i8);
+      *v462 = vmovl_high_s16(v463);
+      ++v176;
+      v462 += 4;
+    }
+
+    while (v176 != 32);
+    v127 = 0;
+    v126 = 1;
+    v128 = v633;
+    v129 = v631;
+  }
+
+  while ((v131 & 1) != 0);
+
+  bzero((v9 + 2048), 0x800uLL);
+}
+
+uint64_t sub_2779DD5F4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  v8 = MEMORY[0x28223BE20](a1, a2, a3, a4, a5, a6, a7, a8);
+  v467 = v10;
+  v11 = 0;
+  v851 = *MEMORY[0x277D85DE8];
+  v12 = v644;
+  v13 = 1;
+  v14 = vdupq_n_s16(0x16A1u);
+  v15 = vdupq_n_s16(0xE95Fu);
+  v469 = vneg_f16(0x6161616161616161);
+  v470 = vneg_f16(0x6565656565656565);
+  v468 = vneg_f16(0x7777777777777777);
+  v642 = v14;
+  v640 = v15;
+  do
+  {
+    v16 = 0;
+    v17 = v13;
+    v18 = (v8 + 2 * v11);
+    do
+    {
+      v646[v16++] = *v18;
+      v18 = (v18 + 2 * v9);
+    }
+
+    while (v16 != 64);
+    v19 = 0;
+    for (i = 63; i != 31; --i)
+    {
+      *&v826[v19 * 16] = vqaddq_s16(v646[v19], v646[i]);
+      ++v19;
+    }
+
+    v21 = 32;
+    do
+    {
+      *&v826[v21 * 16] = vqsubq_s16(v646[i--], v646[v21]);
+      ++v21;
+    }
+
+    while (i != -1);
+    v22 = 0;
+    for (j = 496; j != 240; j -= 16)
+    {
+      *(&v786 + v22) = vqaddq_s16(*&v826[v22], *&v826[j]);
+      v22 += 16;
+    }
+
+    v24 = 256;
+    do
+    {
+      *(&v786 + v24) = vqsubq_s16(*&v826[j], *&v826[v24]);
+      j -= 16;
+      v24 += 16;
+    }
+
+    while (j != -16);
+    v25 = 0;
+    v825 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v835.i8, *v14.i8), *v850.i8, *v14.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v835, v14), v850, v14), 0xDuLL);
+    v824 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v836.i8, *v14.i8), *v849.i8, *v14.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v836, v14), v849, v14), 0xDuLL);
+    v810 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v835.i8, *v15.i8), *v850.i8, *v14.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v835, v15), v850, v14), 0xDuLL);
+    v811 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v836.i8, *v15.i8), *v849.i8, *v14.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v836, v15), v849, v14), 0xDuLL);
+    v823 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v837.i8, *v14.i8), *v848.i8, *v14.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v837, v14), v848, v14), 0xDuLL);
+    v822 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v838.i8, *v14.i8), *v847.i8, *v14.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v838, v14), v847, v14), 0xDuLL);
+    v812 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v837.i8, *v15.i8), *v848.i8, *v14.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v837, v15), v848, v14), 0xDuLL);
+    v813 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v838.i8, *v15.i8), *v847.i8, *v14.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v838, v15), v847, v14), 0xDuLL);
+    v821 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v839.i8, *v14.i8), *v846.i8, *v14.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v839, v14), v846, v14), 0xDuLL);
+    v820 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v840.i8, *v14.i8), *v845.i8, *v14.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v840, v14), v845, v14), 0xDuLL);
+    v814 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v839.i8, *v15.i8), *v846.i8, *v14.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v839, v15), v846, v14), 0xDuLL);
+    v815 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v840.i8, *v15.i8), *v845.i8, *v14.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v840, v15), v845, v14), 0xDuLL);
+    v819 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v841.i8, *v14.i8), *v844.i8, *v14.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v841, v14), v844, v14), 0xDuLL);
+    v818 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v842.i8, *v14.i8), *v843.i8, *v14.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v842, v14), v843, v14), 0xDuLL);
+    v816 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v841.i8, *v15.i8), *v844.i8, *v14.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v841, v15), v844, v14), 0xDuLL);
+    v817 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v842.i8, *v15.i8), *v843.i8, *v14.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v842, v15), v843, v14), 0xDuLL);
+    for (k = 240; k != 112; k -= 16)
+    {
+      *&v745[v25] = vqaddq_s16(*(&v786 + v25), *(&v786 + k));
+      v25 += 16;
+    }
+
+    v27 = 128;
+    for (m = 112; m != -16; m -= 16)
+    {
+      *&v745[v27] = vqsubq_s16(*(&v786 + m), *(&v786 + v27));
+      v27 += 16;
+    }
+
+    v754 = v794;
+    v755 = v795;
+    v756 = v796;
+    v757 = v797;
+    v765 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v798.i8, *v14.i8), *v805.i8, *v14.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v798, v14), v805, v14), 0xDuLL);
+    v764 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v799.i8, *v14.i8), *v804.i8, *v14.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v799, v14), v804, v14), 0xDuLL);
+    v758 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v798.i8, *v15.i8), *v805.i8, *v14.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v798, v15), v805, v14), 0xDuLL);
+    v759 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v799.i8, *v15.i8), *v804.i8, *v14.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v799, v15), v804, v14), 0xDuLL);
+    v763 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v800.i8, *v14.i8), *v803.i8, *v14.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v800, v14), v803, v14), 0xDuLL);
+    v762 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v801.i8, *v14.i8), *v802.i8, *v14.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v801, v14), v802, v14), 0xDuLL);
+    v760 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v800.i8, *v15.i8), *v803.i8, *v14.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v800, v15), v803, v14), 0xDuLL);
+    v761 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v801.i8, *v15.i8), *v802.i8, *v14.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v801, v15), v802, v14), 0xDuLL);
+    v766 = v806;
+    v767 = v807;
+    v768 = v808;
+    v769 = v809;
+    v29 = 512;
+    for (n = 752; n != 624; n -= 16)
+    {
+      *&v745[v29] = vqaddq_s16(*&v826[v29], *(&v786 + n));
+      v29 += 16;
+    }
+
+    v31 = 640;
+    do
+    {
+      *&v745[v31] = vqsubq_s16(*&v826[n], *(&v786 + v31));
+      n -= 16;
+      v31 += 16;
+    }
+
+    while (n != 496);
+    v32 = 768;
+    for (ii = 1008; ii != 880; ii -= 16)
+    {
+      *&v745[v32] = vqsubq_s16(*&v826[ii], *(&v786 + v32));
+      v32 += 16;
+    }
+
+    v34 = 880;
+    for (jj = 896; jj != 1024; jj += 16)
+    {
+      *&v745[jj] = vqaddq_s16(*&v826[jj], *(&v786 + v34));
+      v34 -= 16;
+    }
+
+    v36 = 0;
+    for (kk = 112; kk != 48; kk -= 16)
+    {
+      *(&v701 + v36) = vqaddq_s16(*&v745[v36], *&v745[kk]);
+      v36 += 16;
+    }
+
+    v38 = 64;
+    do
+    {
+      *(&v701 + v38) = vqsubq_s16(*&v745[kk], *&v745[v38]);
+      kk -= 16;
+      v38 += 16;
+    }
+
+    while (kk != -16);
+    v712 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v748.i8, *v14.i8), *v751.i8, *v14.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v748, v14), v751, v14), 0xDuLL);
+    v711 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v749.i8, *v14.i8), *v750.i8, *v14.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v749, v14), v750, v14), 0xDuLL);
+    v709 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v748.i8, *v15.i8), *v751.i8, *v14.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v748, v15), v751, v14), 0xDuLL);
+    v710 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v749.i8, *v15.i8), *v750.i8, *v14.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v749, v15), v750, v14), 0xDuLL);
+    v39 = 256;
+    for (mm = 368; mm != 304; mm -= 16)
+    {
+      *(&v701 + v39) = vqaddq_s16(*&v745[v39], *&v745[mm]);
+      v39 += 16;
+    }
+
+    v41 = 320;
+    do
+    {
+      *(&v701 + v41) = vqsubq_s16(*&v745[mm], *&v745[v41]);
+      mm -= 16;
+      v41 += 16;
     }
 
     while (mm != 240);
-    v34 = 384;
+    v42 = 384;
     for (nn = 496; nn != 432; nn -= 16)
     {
-      *(&v693 + v34) = vqsubq_s16(*&v737[nn], *&v737[v34]);
-      v34 += 16;
-    }
-
-    v36 = 432;
-    for (i1 = 448; i1 != 512; i1 += 16)
-    {
-      *(&v693 + i1) = vqaddq_s16(*&v737[i1], *&v737[v36]);
-      v36 -= 16;
-    }
-
-    v38 = vdupq_n_s16(0x1D90u);
-    v39 = vdupq_n_s16(0xC3Fu);
-    v40 = vdupq_n_s16(0xE270u);
-    v736 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v762.i8, *v39.i8), *v777.i8, *v38.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v762, v39), v777, v38), 0xDuLL);
-    v735 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v763.i8, *v39.i8), *v776.i8, *v38.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v763, v39), v776, v38), 0xDuLL);
-    v721 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v762.i8, *v40.i8), *v777.i8, *v39.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v762, v40), v777, v39), 0xDuLL);
-    v722 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v763.i8, *v40.i8), *v776.i8, *v39.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v763, v40), v776, v39), 0xDuLL);
-    v734 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v764.i8, *v39.i8), *v775.i8, *v38.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v764, v39), v775, v38), 0xDuLL);
-    v733 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v765.i8, *v39.i8), *v774.i8, *v38.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v765, v39), v774, v38), 0xDuLL);
-    v723 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v764.i8, *v40.i8), *v775.i8, *v39.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v764, v40), v775, v39), 0xDuLL);
-    v724 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v765.i8, *v40.i8), *v774.i8, *v39.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v765, v40), v774, v39), 0xDuLL);
-    v41 = vdupq_n_s16(0xF3C1u);
-    v732 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v766.i8, *v40.i8), *v773.i8, *v39.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v766, v40), v773, v39), 0xDuLL);
-    v731 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v767.i8, *v40.i8), *v772.i8, *v39.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v767, v40), v772, v39), 0xDuLL);
-    v725 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v766.i8, *v41.i8), *v773.i8, *v40.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v766, v41), v773, v40), 0xDuLL);
-    v726 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v767.i8, *v41.i8), *v772.i8, *v40.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v767, v41), v772, v40), 0xDuLL);
-    v730 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v768.i8, *v40.i8), *v771.i8, *v39.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v768, v40), v771, v39), 0xDuLL);
-    v729 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v769.i8, *v40.i8), *v770.i8, *v39.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v769, v40), v770, v39), 0xDuLL);
-    v727 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v768.i8, *v41.i8), *v771.i8, *v40.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v768, v41), v771, v40), 0xDuLL);
-    v728 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v769.i8, *v41.i8), *v770.i8, *v40.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v769, v41), v770, v40), 0xDuLL);
-    v639 = vqaddq_s16(v693, v696);
-    v640 = vqaddq_s16(v694, v695);
-    v641 = vqsubq_s16(v694, v695);
-    v642 = vqsubq_s16(v693, v696);
-    v644 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v698.i8, *v6.i8), *v699.i8, *v6.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v698, v6), v699, v6), 0xDuLL);
-    v643 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v698.i8, *v7.i8), *v699.i8, *v6.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v698, v7), v699, v6), 0xDuLL);
-    v645 = vqaddq_s16(v738, v702);
-    v646 = vqaddq_s16(v739, v701);
-    v647 = vqsubq_s16(v739, v701);
-    v648 = vqsubq_s16(v738, v702);
-    v649 = vqsubq_s16(v745, v703);
-    v650 = vqsubq_s16(v744, v704);
-    v651 = vqaddq_s16(v744, v704);
-    v652 = vqaddq_s16(v745, v703);
-    v660 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v707.i8, *v39.i8), *v718.i8, *v38.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v707, v39), v718, v38), 0xDuLL);
-    v659 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v708.i8, *v39.i8), *v717.i8, *v38.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v708, v39), v717, v38), 0xDuLL);
-    v653 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v707.i8, *v40.i8), *v718.i8, *v39.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v707, v40), v718, v39), 0xDuLL);
-    v654 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v708.i8, *v40.i8), *v717.i8, *v39.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v708, v40), v717, v39), 0xDuLL);
-    v658 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v709.i8, *v40.i8), *v716.i8, *v39.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v709, v40), v716, v39), 0xDuLL);
-    v657 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v710.i8, *v40.i8), *v715.i8, *v39.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v710, v40), v715, v39), 0xDuLL);
-    v655 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v709.i8, *v41.i8), *v716.i8, *v40.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v709, v41), v716, v40), 0xDuLL);
-    v656 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v710.i8, *v41.i8), *v715.i8, *v40.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v710, v41), v715, v40), 0xDuLL);
-    v42 = 512;
-    for (i2 = 624; i2 != 560; i2 -= 16)
-    {
-      *(&v639 + v42) = vqaddq_s16(*&v737[v42], *(&v693 + i2));
+      *(&v701 + v42) = vqsubq_s16(*&v745[nn], *&v745[v42]);
       v42 += 16;
     }
 
-    v44 = 576;
+    v44 = 432;
+    for (i1 = 448; i1 != 512; i1 += 16)
+    {
+      *(&v701 + i1) = vqaddq_s16(*&v745[i1], *&v745[v44]);
+      v44 -= 16;
+    }
+
+    v46 = vdupq_n_s16(0x1D90u);
+    v47 = vdupq_n_s16(0xC3Fu);
+    v48 = vdupq_n_s16(0xE270u);
+    v744 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v770.i8, *v47.i8), *v785.i8, *v46.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v770, v47), v785, v46), 0xDuLL);
+    v743 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v771.i8, *v47.i8), *v784.i8, *v46.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v771, v47), v784, v46), 0xDuLL);
+    v729 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v770.i8, *v48.i8), *v785.i8, *v47.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v770, v48), v785, v47), 0xDuLL);
+    v730 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v771.i8, *v48.i8), *v784.i8, *v47.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v771, v48), v784, v47), 0xDuLL);
+    v742 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v772.i8, *v47.i8), *v783.i8, *v46.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v772, v47), v783, v46), 0xDuLL);
+    v741 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v773.i8, *v47.i8), *v782.i8, *v46.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v773, v47), v782, v46), 0xDuLL);
+    v731 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v772.i8, *v48.i8), *v783.i8, *v47.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v772, v48), v783, v47), 0xDuLL);
+    v732 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v773.i8, *v48.i8), *v782.i8, *v47.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v773, v48), v782, v47), 0xDuLL);
+    v49 = vdupq_n_s16(0xF3C1u);
+    v740 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v774.i8, *v48.i8), *v781.i8, *v47.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v774, v48), v781, v47), 0xDuLL);
+    v739 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v775.i8, *v48.i8), *v780.i8, *v47.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v775, v48), v780, v47), 0xDuLL);
+    v733 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v774.i8, *v49.i8), *v781.i8, *v48.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v774, v49), v781, v48), 0xDuLL);
+    v734 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v775.i8, *v49.i8), *v780.i8, *v48.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v775, v49), v780, v48), 0xDuLL);
+    v738 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v776.i8, *v48.i8), *v779.i8, *v47.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v776, v48), v779, v47), 0xDuLL);
+    v737 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v777.i8, *v48.i8), *v778.i8, *v47.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v777, v48), v778, v47), 0xDuLL);
+    v735 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v776.i8, *v49.i8), *v779.i8, *v48.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v776, v49), v779, v48), 0xDuLL);
+    v736 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v777.i8, *v49.i8), *v778.i8, *v48.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v777, v49), v778, v48), 0xDuLL);
+    v647 = vqaddq_s16(v701, v704);
+    v648 = vqaddq_s16(v702, v703);
+    v649 = vqsubq_s16(v702, v703);
+    v650 = vqsubq_s16(v701, v704);
+    v652 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v706.i8, *v14.i8), *v707.i8, *v14.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v706, v14), v707, v14), 0xDuLL);
+    v651 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v706.i8, *v15.i8), *v707.i8, *v14.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v706, v15), v707, v14), 0xDuLL);
+    v653 = vqaddq_s16(v746, v710);
+    v654 = vqaddq_s16(v747, v709);
+    v655 = vqsubq_s16(v747, v709);
+    v656 = vqsubq_s16(v746, v710);
+    v657 = vqsubq_s16(v753, v711);
+    v658 = vqsubq_s16(v752, v712);
+    v659 = vqaddq_s16(v752, v712);
+    v660 = vqaddq_s16(v753, v711);
+    v668 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v715.i8, *v47.i8), *v726.i8, *v46.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v715, v47), v726, v46), 0xDuLL);
+    v667 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v716.i8, *v47.i8), *v725.i8, *v46.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v716, v47), v725, v46), 0xDuLL);
+    v661 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v715.i8, *v48.i8), *v726.i8, *v47.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v715, v48), v726, v47), 0xDuLL);
+    v662 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v716.i8, *v48.i8), *v725.i8, *v47.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v716, v48), v725, v47), 0xDuLL);
+    v666 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v717.i8, *v48.i8), *v724.i8, *v47.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v717, v48), v724, v47), 0xDuLL);
+    v665 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v718.i8, *v48.i8), *v723.i8, *v47.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v718, v48), v723, v47), 0xDuLL);
+    v663 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v717.i8, *v49.i8), *v724.i8, *v48.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v717, v49), v724, v48), 0xDuLL);
+    v664 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v718.i8, *v49.i8), *v723.i8, *v48.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v718, v49), v723, v48), 0xDuLL);
+    v50 = 512;
+    for (i2 = 624; i2 != 560; i2 -= 16)
+    {
+      *(&v647 + v50) = vqaddq_s16(*&v745[v50], *(&v701 + i2));
+      v50 += 16;
+    }
+
+    v52 = 576;
     do
     {
-      *(&v639 + v44) = vqsubq_s16(*&v737[i2], *(&v693 + v44));
+      *(&v647 + v52) = vqsubq_s16(*&v745[i2], *(&v701 + v52));
       i2 -= 16;
-      v44 += 16;
-    }
-
-    while (i2 != 496);
-    v45 = 640;
-    for (i3 = 752; i3 != 688; i3 -= 16)
-    {
-      *(&v639 + v45) = vqsubq_s16(*&v737[i3], *(&v693 + v45));
-      v45 += 16;
-    }
-
-    v47 = 688;
-    for (i4 = 704; i4 != 768; i4 += 16)
-    {
-      *(&v639 + i4) = vqaddq_s16(*&v737[i4], *(&v693 + v47));
-      v47 -= 16;
-    }
-
-    v49 = 768;
-    for (i5 = 880; i5 != 816; i5 -= 16)
-    {
-      *(&v639 + v49) = vqaddq_s16(*&v737[v49], *(&v693 + i5));
-      v49 += 16;
-    }
-
-    v51 = 832;
-    do
-    {
-      *(&v639 + v51) = vqsubq_s16(*&v737[i5], *(&v693 + v51));
-      i5 -= 16;
-      v51 += 16;
-    }
-
-    while (i5 != 752);
-    v52 = 896;
-    for (i6 = 1008; i6 != 944; i6 -= 16)
-    {
-      *(&v639 + v52) = vqsubq_s16(*&v737[i6], *(&v693 + v52));
       v52 += 16;
     }
 
-    v54 = 944;
+    while (i2 != 496);
+    v53 = 640;
+    for (i3 = 752; i3 != 688; i3 -= 16)
+    {
+      *(&v647 + v53) = vqsubq_s16(*&v745[i3], *(&v701 + v53));
+      v53 += 16;
+    }
+
+    v55 = 688;
+    for (i4 = 704; i4 != 768; i4 += 16)
+    {
+      *(&v647 + i4) = vqaddq_s16(*&v745[i4], *(&v701 + v55));
+      v55 -= 16;
+    }
+
+    v57 = 768;
+    for (i5 = 880; i5 != 816; i5 -= 16)
+    {
+      *(&v647 + v57) = vqaddq_s16(*&v745[v57], *(&v701 + i5));
+      v57 += 16;
+    }
+
+    v59 = 832;
+    do
+    {
+      *(&v647 + v59) = vqsubq_s16(*&v745[i5], *(&v701 + v59));
+      i5 -= 16;
+      v59 += 16;
+    }
+
+    while (i5 != 752);
+    v60 = 896;
+    for (i6 = 1008; i6 != 944; i6 -= 16)
+    {
+      *(&v647 + v60) = vqsubq_s16(*&v745[i6], *(&v701 + v60));
+      v60 += 16;
+    }
+
+    v62 = 944;
     for (i7 = 960; i7 != 1024; i7 += 16)
     {
-      *(&v639 + i7) = vqaddq_s16(*&v737[i7], *(&v693 + v54));
-      v54 -= 16;
+      *(&v647 + i7) = vqaddq_s16(*&v745[i7], *(&v701 + v62));
+      v62 -= 16;
     }
 
-    v56 = 0;
-    v630 = vmlal_s16(vmull_s16(*v641.i8, *v39.i8), *v642.i8, *v38.i8);
-    v628 = vmlal_high_s16(vmull_high_s16(v641, v39), v642, v38);
-    v626 = vmlal_s16(vmull_s16(*v641.i8, *v40.i8), *v642.i8, *v39.i8);
-    v625 = vmlal_high_s16(vmull_high_s16(v641, v40), v642, v39);
-    v57 = vmlal_s16(vmull_s16(*v646.i8, *v39.i8), *v651.i8, *v38.i8);
-    v58 = vmlal_high_s16(vmull_high_s16(v646, v39), v651, v38);
-    v59 = vmlal_s16(vmull_s16(*v646.i8, *v40.i8), *v651.i8, *v39.i8);
-    v60 = vmlal_high_s16(vmull_high_s16(v646, v40), v651, v39);
-    v61 = vqaddq_s16(v706, v653);
-    v62 = vqsubq_s16(v706, v653);
-    v63 = vqsubq_s16(v719, v660);
-    v64 = vqaddq_s16(v719, v660);
-    v65 = vdupq_n_s16(0x1F63u);
-    v581 = vmlal_s16(vmull_s16(*v647.i8, *v40.i8), *v650.i8, *v39.i8);
-    v66 = vdupq_n_s16(0x63Eu);
-    v67 = vdupq_n_s16(0xE09Du);
-    v579 = vmlal_high_s16(vmull_high_s16(v647, v40), v650, v39);
-    v577 = vmlal_s16(vmull_s16(*v647.i8, *v41.i8), *v650.i8, *v40.i8);
-    v573 = vmlal_high_s16(vmull_high_s16(v647, v41), v650, v40);
-    v68 = vmlal_s16(vmull_s16(*v663.i8, *v66.i8), *v690.i8, *v65.i8);
-    v69 = vmlal_high_s16(vmull_high_s16(v663, v66), v690, v65);
-    v70 = vmlal_s16(vmull_s16(*v663.i8, *v67.i8), *v690.i8, *v66.i8);
-    v71 = vmlal_high_s16(vmull_high_s16(v663, v67), v690, v66);
-    v563 = vmlal_s16(vmull_s16(*v664.i8, *v66.i8), *v689.i8, *v65.i8);
-    v561 = vmlal_high_s16(vmull_high_s16(v664, v66), v689, v65);
-    v559 = vmlal_s16(vmull_s16(*v664.i8, *v67.i8), *v689.i8, *v66.i8);
-    v557 = vmlal_high_s16(vmull_high_s16(v664, v67), v689, v66);
-    v589 = vmlal_s16(vmull_s16(*v665.i8, *v67.i8), *v688.i8, *v66.i8);
-    v587 = vmlal_high_s16(vmull_high_s16(v665, v67), v688, v66);
-    v72 = vdupq_n_s16(0xF9C2u);
-    v585 = vmlal_s16(vmull_s16(*v665.i8, *v72.i8), *v688.i8, *v67.i8);
-    v583 = vmlal_high_s16(vmull_high_s16(v665, v72), v688, v67);
-    v73 = vmlal_s16(vmull_s16(*v666.i8, *v67.i8), *v687.i8, *v66.i8);
-    v74 = vmlal_high_s16(vmull_high_s16(v666, v67), v687, v66);
-    v75 = vmlal_s16(vmull_s16(*v666.i8, *v72.i8), *v687.i8, *v67.i8);
-    v76 = vmlal_high_s16(vmull_high_s16(v666, v72), v687, v67);
-    v77 = vqaddq_s16(v697, v643);
-    v78 = vqaddq_s16(v700, v644);
-    v624 = vmlal_s16(vmull_s16(*v77.i8, *v66.i8), *v78.i8, *v65.i8);
-    v623 = vmlal_high_s16(vmull_high_s16(v77, v66), v78, v65);
-    v622 = vmlal_s16(vmull_s16(*v77.i8, *v67.i8), *v78.i8, *v66.i8);
-    v621 = vmlal_high_s16(vmull_high_s16(v77, v67), v78, v66);
-    v593 = vmlal_s16(vmull_s16(*v61.i8, *v66.i8), *v64.i8, *v65.i8);
-    v591 = vmlal_high_s16(vmull_high_s16(v61, v66), v64, v65);
-    v555 = vmlal_s16(vmull_s16(*v61.i8, *v67.i8), *v64.i8, *v66.i8);
-    v553 = vmlal_high_s16(vmull_high_s16(v61, v67), v64, v66);
-    v571 = vmlal_s16(vmull_s16(*v62.i8, *v67.i8), *v63.i8, *v66.i8);
-    v569 = vmlal_high_s16(vmull_high_s16(v62, v67), v63, v66);
-    v567 = vmlal_s16(vmull_s16(*v62.i8, *v72.i8), *v63.i8, *v67.i8);
-    v565 = vmlal_high_s16(vmull_high_s16(v62, v72), v63, v67);
-    v79 = vqsubq_s16(v697, v643);
-    v80 = vqsubq_s16(v700, v644);
-    v81 = vqsubq_s16(v711, v656);
-    v82 = vqaddq_s16(v711, v656);
-    v83 = vqaddq_s16(v714, v657);
-    v84 = vqsubq_s16(v714, v657);
-    v85 = vdupq_n_s16(0x11C7u);
-    v86 = vdupq_n_s16(0x1A9Bu);
-    v87 = vmlal_s16(vmull_s16(*v671.i8, *v86.i8), *v682.i8, *v85.i8);
-    v88 = vmlal_high_s16(vmull_high_s16(v671, v86), v682, v85);
-    v89 = vdupq_n_s16(0xEE39u);
-    v90 = vmlal_s16(vmull_s16(*v671.i8, *v89.i8), *v682.i8, *v86.i8);
-    v91 = vmlal_high_s16(vmull_high_s16(v671, v89), v682, v86);
-    v603 = vmlal_s16(vmull_s16(*v672.i8, *v86.i8), *v681.i8, *v85.i8);
-    v601 = vmlal_high_s16(vmull_high_s16(v672, v86), v681, v85);
-    v599 = vmlal_s16(vmull_s16(*v672.i8, *v89.i8), *v681.i8, *v86.i8);
-    v597 = vmlal_high_s16(vmull_high_s16(v672, v89), v681, v86);
-    v611 = vmlal_s16(vmull_s16(*v673.i8, *v89.i8), *v680.i8, *v86.i8);
-    v609 = vmlal_high_s16(vmull_high_s16(v673, v89), v680, v86);
-    v607 = vmlal_s16(vmull_s16(*v673.i8, v462), *v680.i8, *v89.i8);
-    v605 = vmlal_high_s16(vmull_s16(*&vextq_s8(v673, v673, 8uLL), v462), v680, v89);
-    v92 = vmlal_s16(vmull_s16(*v674.i8, *v89.i8), *v679.i8, *v86.i8);
-    v93 = vmlal_high_s16(vmull_high_s16(v674, v89), v679, v86);
-    v94 = vmlal_s16(vmull_s16(*v674.i8, v462), *v679.i8, *v89.i8);
-    v95 = vmlal_high_s16(vmull_s16(*&vextq_s8(v674, v674, 8uLL), v462), v679, v89);
-    v618 = vmlal_s16(vmull_s16(*v79.i8, *v86.i8), *v80.i8, *v85.i8);
-    v617 = vmlal_high_s16(vmull_high_s16(v79, v86), v80, v85);
-    v616 = vmlal_s16(vmull_s16(*v79.i8, *v89.i8), *v80.i8, *v86.i8);
-    v615 = vmlal_high_s16(vmull_high_s16(v79, v89), v80, v86);
-    v551 = vmlal_s16(vmull_s16(*v81.i8, *v86.i8), *v84.i8, *v85.i8);
-    v549 = vmlal_high_s16(vmull_high_s16(v81, v86), v84, v85);
-    v547 = vmlal_s16(vmull_s16(*v81.i8, *v89.i8), *v84.i8, *v86.i8);
-    v545 = vmlal_high_s16(vmull_high_s16(v81, v89), v84, v86);
-    v539 = vmlal_s16(vmull_s16(*v82.i8, *v89.i8), *v83.i8, *v86.i8);
-    v537 = vmlal_high_s16(vmull_high_s16(v82, v89), v83, v86);
-    v533 = vmlal_high_s16(vmull_s16(*&vextq_s8(v82, v82, 8uLL), v462), v83, v89);
-    v535 = vmlal_s16(vmull_s16(*v82.i8, v462), *v83.i8, *v89.i8);
-    v96 = vrshrn_high_n_s32(vrshrn_n_s32(v57, 0xDuLL), v58, 0xDuLL);
-    v97 = vrshrn_high_n_s32(vrshrn_n_s32(v59, 0xDuLL), v60, 0xDuLL);
-    v98 = vrshrn_high_n_s32(vrshrn_n_s32(v68, 0xDuLL), v69, 0xDuLL);
-    v99 = vrshrn_high_n_s32(vrshrn_n_s32(v70, 0xDuLL), v71, 0xDuLL);
-    v100 = vqaddq_s16(v662, v99);
-    v101 = vqsubq_s16(v662, v99);
-    v102 = vqsubq_s16(v691, v98);
-    v103 = vqaddq_s16(v691, v98);
-    v104 = vqaddq_s16(v645, v97);
-    v105 = vqaddq_s16(v652, v96);
-    v106 = vdupq_n_s16(0x1FD9u);
-    v107 = vdupq_n_s16(0x323u);
-    v614 = vmlal_s16(vmull_s16(*v104.i8, *v107.i8), *v105.i8, *v106.i8);
-    v613 = vmlal_high_s16(vmull_high_s16(v104, v107), v105, v106);
-    v108 = vdupq_n_s16(0xE027u);
-    v620 = vmlal_s16(vmull_s16(*v104.i8, *v108.i8), *v105.i8, *v107.i8);
-    v619 = vmlal_high_s16(vmull_high_s16(v104, v108), v105, v107);
-    v109 = vmlal_s16(vmull_s16(*v100.i8, *v107.i8), *v103.i8, *v106.i8);
-    v110 = vmlal_high_s16(vmull_high_s16(v100, v107), v103, v106);
-    v111 = vmlal_s16(vmull_s16(*v100.i8, *v108.i8), *v103.i8, *v107.i8);
-    v112 = vmlal_high_s16(vmull_high_s16(v100, v108), v103, v107);
-    v113 = vmlal_s16(vmull_s16(*v101.i8, *v108.i8), *v102.i8, *v107.i8);
-    v114 = vmlal_high_s16(vmull_high_s16(v101, v108), v102, v107);
-    v115 = vdupq_n_s16(0xFCDDu);
-    v116 = vmlal_s16(vmull_s16(*v101.i8, *v115.i8), *v102.i8, *v108.i8);
-    v117 = vmlal_high_s16(vmull_high_s16(v101, v115), v102, v108);
-    v118 = vrshrn_high_n_s32(vrshrn_n_s32(v73, 0xDuLL), v74, 0xDuLL);
-    v119 = vrshrn_high_n_s32(vrshrn_n_s32(v75, 0xDuLL), v76, 0xDuLL);
-    v120 = vqsubq_s16(v645, v97);
-    v121 = vqsubq_s16(v652, v96);
-    v122 = vqsubq_s16(v667, v119);
-    v123 = vqaddq_s16(v667, v119);
-    v124 = vqaddq_s16(v686, v118);
-    v125 = vdupq_n_s16(0x144Du);
-    v126 = vdupq_n_s16(0x18BDu);
-    v127 = vqsubq_s16(v686, v118);
-    v128 = vmlal_s16(vmull_s16(*v120.i8, *v126.i8), *v121.i8, *v125.i8);
-    v129 = vdupq_n_s16(0xEBB3u);
-    v130 = vmlal_high_s16(vmull_high_s16(v120, v126), v121, v125);
-    v596 = vmlal_s16(vmull_s16(*v120.i8, *v129.i8), *v121.i8, *v126.i8);
-    v595 = vmlal_high_s16(vmull_high_s16(v120, v129), v121, v126);
-    v483 = vmlal_s16(vmull_s16(*v122.i8, *v126.i8), *v127.i8, *v125.i8);
-    v131 = vmlal_high_s16(vmull_high_s16(v122, v126), v127, v125);
-    v132 = vmlal_s16(vmull_s16(*v122.i8, *v129.i8), *v127.i8, *v126.i8);
-    v133 = vmlal_high_s16(vmull_high_s16(v122, v129), v127, v126);
-    v497 = vmlal_s16(vmull_s16(*v123.i8, *v129.i8), *v124.i8, *v126.i8);
-    v134 = vdupq_n_s16(0xE743u);
-    v495 = vmlal_high_s16(vmull_high_s16(v123, v129), v124, v126);
-    v493 = vmlal_s16(vmull_s16(*v123.i8, *v134.i8), *v124.i8, *v129.i8);
-    v490 = vmlal_high_s16(vmull_high_s16(v123, v134), v124, v129);
-    v135 = vrshrn_high_n_s32(vrshrn_n_s32(v581, 0xDuLL), v579, 0xDuLL);
-    v136 = vrshrn_high_n_s32(vrshrn_n_s32(v577, 0xDuLL), v573, 0xDuLL);
-    v137 = vrshrn_high_n_s32(vrshrn_n_s32(v87, 0xDuLL), v88, 0xDuLL);
-    v138 = vrshrn_high_n_s32(vrshrn_n_s32(v90, 0xDuLL), v91, 0xDuLL);
-    v139 = vqaddq_s16(v670, v138);
-    v140 = vqsubq_s16(v670, v138);
-    v141 = vqsubq_s16(v683, v137);
-    v142 = vqaddq_s16(v683, v137);
-    v143 = vqsubq_s16(v648, v136);
-    v144 = vdupq_n_s16(0x1C39u);
-    v145 = vdupq_n_s16(0xF16u);
-    v146 = vqsubq_s16(v649, v135);
-    v147 = vmlal_s16(vmull_s16(*v143.i8, *v145.i8), *v146.i8, *v144.i8);
-    v148 = vdupq_n_s16(0xE3C7u);
-    v582 = vmlal_high_s16(vmull_high_s16(v143, v145), v146, v144);
-    v580 = vmlal_s16(vmull_s16(*v143.i8, *v148.i8), *v146.i8, *v145.i8);
-    v578 = vmlal_high_s16(vmull_high_s16(v143, v148), v146, v145);
-    v507 = vmlal_s16(vmull_s16(*v139.i8, *v145.i8), *v142.i8, *v144.i8);
-    v505 = vmlal_high_s16(vmull_high_s16(v139, v145), v142, v144);
-    v503 = vmlal_s16(vmull_s16(*v139.i8, *v148.i8), *v142.i8, *v145.i8);
-    v501 = vmlal_high_s16(vmull_high_s16(v139, v148), v142, v145);
-    v515 = vmlal_s16(vmull_s16(*v140.i8, *v148.i8), *v141.i8, *v145.i8);
-    v149 = vdupq_n_s16(0xF0EAu);
-    v513 = vmlal_high_s16(vmull_high_s16(v140, v148), v141, v145);
-    v509 = vmlal_high_s16(vmull_high_s16(v140, v149), v141, v148);
-    v511 = vmlal_s16(vmull_s16(*v140.i8, *v149.i8), *v141.i8, *v148.i8);
-    v150 = vrshrn_high_n_s32(vrshrn_n_s32(v92, 0xDuLL), v93, 0xDuLL);
-    v151 = vrshrn_high_n_s32(vrshrn_n_s32(v94, 0xDuLL), v95, 0xDuLL);
-    v152 = vqaddq_s16(v648, v136);
-    v153 = vqaddq_s16(v649, v135);
-    v154 = vqsubq_s16(v675, v151);
-    v155 = vqaddq_s16(v675, v151);
-    v156 = vqaddq_s16(v678, v150);
-    v157 = vdupq_n_s16(0x94Au);
-    v158 = vqsubq_s16(v678, v150);
-    v159 = vdupq_n_s16(0x1E9Fu);
-    v160 = vmlal_s16(vmull_s16(*v152.i8, *v159.i8), *v153.i8, *v157.i8);
-    v576 = vmlal_high_s16(vmull_high_s16(v152, v159), v153, v157);
-    v161 = vdupq_n_s16(0xF6B6u);
-    v575 = vmlal_s16(vmull_s16(*v152.i8, *v161.i8), *v153.i8, *v159.i8);
-    v574 = vmlal_high_s16(vmull_high_s16(v152, v161), v153, v159);
-    v523 = vmlal_s16(vmull_s16(*v154.i8, *v159.i8), *v158.i8, *v157.i8);
-    v521 = vmlal_high_s16(vmull_high_s16(v154, v159), v158, v157);
-    v519 = vmlal_s16(vmull_s16(*v154.i8, *v161.i8), *v158.i8, *v159.i8);
-    v517 = vmlal_high_s16(vmull_high_s16(v154, v161), v158, v159);
-    v162 = vmlal_s16(vmull_s16(*v155.i8, *v161.i8), *v156.i8, *v159.i8);
-    v163 = vmlal_high_s16(vmull_high_s16(v155, v161), v156, v159);
-    v164 = vmlal_s16(vmull_s16(*v155.i8, v461), *v156.i8, *v161.i8);
-    v165 = vmlal_high_s16(vmull_s16(*&vextq_s8(v155, v155, 8uLL), v461), v156, v161);
-    v166 = vrshrn_high_n_s32(vrshrn_n_s32(v593, 0xDuLL), v591, 0xDuLL);
-    v167 = vrshrn_high_n_s32(vrshrn_n_s32(v555, 0xDuLL), v553, 0xDuLL);
-    v168 = vqaddq_s16(v705, v654);
-    v169 = vqaddq_s16(v720, v659);
-    v170 = vqaddq_s16(v168, v167);
-    v171 = vqaddq_s16(v169, v166);
-    v172 = vdupq_n_s16(0x1FF6u);
-    v173 = vdupq_n_s16(0x192u);
-    v556 = vmlal_s16(vmull_s16(*v170.i8, *v173.i8), *v171.i8, *v172.i8);
-    v554 = vmlal_high_s16(vmull_high_s16(v170, v173), v171, v172);
-    v174 = vdupq_n_s16(0xE00Au);
-    v594 = vmlal_s16(vmull_s16(*v170.i8, *v174.i8), *v171.i8, *v173.i8);
-    v592 = vmlal_high_s16(vmull_high_s16(v170, v174), v171, v173);
-    v175 = vqsubq_s16(v168, v167);
-    v176 = vqsubq_s16(v169, v166);
-    v177 = vdupq_n_s16(0x157Du);
-    v178 = vdupq_n_s16(0x17B6u);
-    v544 = vmlal_s16(vmull_s16(*v175.i8, *v178.i8), *v176.i8, *v177.i8);
-    v543 = vmlal_high_s16(vmull_high_s16(v175, v178), v176, v177);
-    v179 = vdupq_n_s16(0xEA83u);
-    v541 = vmlal_high_s16(vmull_high_s16(v175, v179), v176, v178);
-    v542 = vmlal_s16(vmull_s16(*v175.i8, *v179.i8), *v176.i8, *v178.i8);
-    v180 = vqsubq_s16(v705, v654);
-    v181 = vqsubq_s16(v720, v659);
-    v182 = vrshrn_high_n_s32(vrshrn_n_s32(v571, 0xDuLL), v569, 0xDuLL);
-    v183 = vrshrn_high_n_s32(vrshrn_n_s32(v567, 0xDuLL), v565, 0xDuLL);
-    v184 = vqsubq_s16(v180, v183);
-    v185 = vqsubq_s16(v181, v182);
-    v186 = vdupq_n_s16(0x1CEDu);
-    v187 = vdupq_n_s16(0xDAFu);
-    v568 = vmlal_s16(vmull_s16(*v184.i8, *v187.i8), *v185.i8, *v186.i8);
-    v566 = vmlal_high_s16(vmull_high_s16(v184, v187), v185, v186);
-    v188 = vdupq_n_s16(0xE313u);
-    v572 = vmlal_s16(vmull_s16(*v184.i8, *v188.i8), *v185.i8, *v187.i8);
-    v570 = vmlal_high_s16(vmull_high_s16(v184, v188), v185, v187);
-    v189 = vqaddq_s16(v180, v183);
-    v190 = vqaddq_s16(v181, v182);
-    v191 = vdupq_n_s16(0xF538u);
-    v192 = vmull_s16(*v189.i8, *v191.i8);
-    v193 = vmull_high_s16(v189, v191);
-    v194 = vdupq_n_s16(0x1E21u);
-    v529 = vmlal_high_s16(v193, v190, v194);
-    v530 = vmlal_s16(v192, *v190.i8, *v194.i8);
-    v195 = vrshrn_high_n_s32(vrshrn_n_s32(v551, 0xDuLL), v549, 0xDuLL);
-    v196 = vrshrn_high_n_s32(vrshrn_n_s32(v547, 0xDuLL), v545, 0xDuLL);
-    v197 = vqsubq_s16(v712, v655);
-    v198 = vqsubq_s16(v713, v658);
-    v199 = vqaddq_s16(v197, v196);
-    v200 = vqaddq_s16(v198, v195);
-    v201 = vdupq_n_s16(0x1F0Au);
-    v202 = vdupq_n_s16(0x7C6u);
-    v526 = vmlal_s16(vmull_s16(*v199.i8, *v202.i8), *v200.i8, *v201.i8);
-    v525 = vmlal_high_s16(vmull_high_s16(v199, v202), v200, v201);
-    v203 = vdupq_n_s16(0xE0F6u);
-    v552 = vmlal_s16(vmull_s16(*v199.i8, *v203.i8), *v200.i8, *v202.i8);
-    v550 = vmlal_high_s16(vmull_high_s16(v199, v203), v200, v202);
-    v204 = vqsubq_s16(v197, v196);
-    v205 = vqsubq_s16(v198, v195);
-    v206 = vdupq_n_s16(0x1074u);
-    v207 = vdupq_n_s16(0x1B73u);
-    v548 = vmlal_s16(vmull_s16(*v204.i8, *v207.i8), *v205.i8, *v206.i8);
-    v546 = vmlal_high_s16(vmull_high_s16(v204, v207), v205, v206);
-    v208 = vdupq_n_s16(0xEF8Cu);
-    v531 = vmlal_high_s16(vmull_high_s16(v204, v208), v205, v207);
-    v532 = vmlal_s16(vmull_s16(*v204.i8, *v208.i8), *v205.i8, *v207.i8);
-    v209 = vqaddq_s16(v712, v655);
-    v210 = vqaddq_s16(v713, v658);
-    v211 = vrshrn_high_n_s32(vrshrn_n_s32(v539, 0xDuLL), v537, 0xDuLL);
-    v212 = vrshrn_high_n_s32(vrshrn_n_s32(v535, 0xDuLL), v533, 0xDuLL);
-    v213 = vqsubq_s16(v209, v212);
-    v214 = vqsubq_s16(v210, v211);
-    v215 = vdupq_n_s16(0x19B4u);
-    v216 = vdupq_n_s16(0x1310u);
-    v528 = vmlal_s16(vmull_s16(*v213.i8, *v216.i8), *v214.i8, *v215.i8);
-    v527 = vmlal_high_s16(vmull_high_s16(v213, v216), v214, v215);
-    v217 = vdupq_n_s16(0xE64Cu);
-    v534 = vmlal_high_s16(vmull_high_s16(v213, v217), v214, v216);
-    v536 = vmlal_s16(vmull_s16(*v213.i8, *v217.i8), *v214.i8, *v216.i8);
-    v218 = vqaddq_s16(v209, v212);
-    v219 = vqaddq_s16(v210, v211);
-    v220 = vdupq_n_s16(0x4B2u);
-    v221 = vdupq_n_s16(0x1FA7u);
-    v540 = vmlal_s16(vmull_s16(*v218.i8, *v221.i8), *v219.i8, *v220.i8);
-    v538 = vmlal_high_s16(vmull_high_s16(v218, v221), v219, v220);
-    v222 = vdupq_n_s16(0xFB4Eu);
-    v499 = vmlal_high_s16(vmull_high_s16(v218, v222), v219, v221);
-    v500 = vmlal_s16(vmull_s16(*v218.i8, *v222.i8), *v219.i8, *v221.i8);
-    v223 = vrshrn_high_n_s32(vrshrn_n_s32(v563, 0xDuLL), v561, 0xDuLL);
-    v224 = vrshrn_high_n_s32(vrshrn_n_s32(v559, 0xDuLL), v557, 0xDuLL);
-    v482 = vrshrn_high_n_s32(vrshrn_n_s32(v109, 0xDuLL), v110, 0xDuLL);
-    v485 = vrshrn_high_n_s32(vrshrn_n_s32(v111, 0xDuLL), v112, 0xDuLL);
-    v486 = vqaddq_s16(v661, v224);
-    v481 = vqaddq_s16(v692, v223);
-    v225 = vqsubq_s16(v486, v485);
-    v226 = vqsubq_s16(v481, v482);
-    v227 = vdupq_n_s16(0x1611u);
-    v228 = vdupq_n_s16(0x172Du);
-    v564 = vmlal_s16(vmull_s16(*v225.i8, *v228.i8), *v226.i8, *v227.i8);
-    v562 = vmlal_high_s16(vmull_high_s16(v225, v228), v226, v227);
-    v229 = vdupq_n_s16(0xE9EFu);
-    v560 = vmlal_s16(vmull_s16(*v225.i8, *v229.i8), *v226.i8, *v228.i8);
-    v558 = vmlal_high_s16(vmull_high_s16(v225, v229), v226, v228);
-    v230 = vqsubq_s16(v661, v224);
-    v231 = vqsubq_s16(v692, v223);
-    v232 = vrshrn_high_n_s32(vrshrn_n_s32(v113, 0xDuLL), v114, 0xDuLL);
-    v233 = vrshrn_high_n_s32(vrshrn_n_s32(v116, 0xDuLL), v117, 0xDuLL);
-    v234 = vqsubq_s16(v230, v233);
-    v235 = vqsubq_s16(v231, v232);
-    v236 = vdupq_n_s16(0x1D41u);
-    v237 = vdupq_n_s16(0xCF8u);
-    v480 = vmlal_s16(vmull_s16(*v234.i8, *v237.i8), *v235.i8, *v236.i8);
-    v479 = vmlal_high_s16(vmull_high_s16(v234, v237), v235, v236);
-    v238 = vdupq_n_s16(0xE2BFu);
-    v492 = vmlal_s16(vmull_s16(*v234.i8, *v238.i8), *v235.i8, *v237.i8);
-    v489 = vmlal_high_s16(vmull_high_s16(v234, v238), v235, v237);
-    v239 = vqaddq_s16(v230, v233);
-    v240 = vqaddq_s16(v231, v232);
-    v241 = vdupq_n_s16(0xB84u);
-    v242 = vdupq_n_s16(0x1DDBu);
-    v488 = vmlal_s16(vmull_s16(*v239.i8, *v242.i8), *v240.i8, *v241.i8);
-    v487 = vmlal_high_s16(vmull_high_s16(v239, v242), v240, v241);
-    v243 = vdupq_n_s16(0xF47Cu);
-    v477 = vmlal_high_s16(vmull_high_s16(v239, v243), v240, v242);
-    v478 = vmlal_s16(vmull_s16(*v239.i8, *v243.i8), *v240.i8, *v242.i8);
-    v244 = vrshrn_high_n_s32(vrshrn_n_s32(v589, 0xDuLL), v587, 0xDuLL);
-    v245 = vrshrn_high_n_s32(vrshrn_n_s32(v585, 0xDuLL), v583, 0xDuLL);
-    v246 = vrshrn_high_n_s32(vrshrn_n_s32(v483, 0xDuLL), v131, 0xDuLL);
-    v247 = vrshrn_high_n_s32(vrshrn_n_s32(v132, 0xDuLL), v133, 0xDuLL);
-    v248 = vqsubq_s16(v668, v245);
-    v249 = vqsubq_s16(v685, v244);
-    v250 = vqaddq_s16(v248, v247);
-    v251 = vqaddq_s16(v249, v246);
-    v252 = vdupq_n_s16(0x1F39u);
-    v253 = vdupq_n_s16(0x703u);
-    v484 = vmlal_s16(vmull_s16(*v250.i8, *v253.i8), *v251.i8, *v252.i8);
-    v476 = vmlal_high_s16(vmull_high_s16(v250, v253), v251, v252);
-    v254 = vdupq_n_s16(0xE0C7u);
-    v590 = vmlal_s16(vmull_s16(*v250.i8, *v254.i8), *v251.i8, *v253.i8);
-    v588 = vmlal_high_s16(vmull_high_s16(v250, v254), v251, v253);
-    v255 = vqsubq_s16(v248, v247);
-    v256 = vqsubq_s16(v249, v246);
-    v257 = vdupq_n_s16(0x111Fu);
-    v258 = vdupq_n_s16(0x1B09u);
-    v586 = vmlal_s16(vmull_s16(*v255.i8, *v258.i8), *v256.i8, *v257.i8);
-    v584 = vmlal_high_s16(vmull_high_s16(v255, v258), v256, v257);
-    v259 = vdupq_n_s16(0xEEE1u);
-    v474 = vmlal_high_s16(vmull_high_s16(v255, v259), v256, v258);
-    v475 = vmlal_s16(vmull_s16(*v255.i8, *v259.i8), *v256.i8, *v258.i8);
-    v260 = vqaddq_s16(v668, v245);
-    v261 = vqaddq_s16(v685, v244);
-    v262 = vrshrn_high_n_s32(vrshrn_n_s32(v497, 0xDuLL), v495, 0xDuLL);
-    v263 = vrshrn_high_n_s32(vrshrn_n_s32(v493, 0xDuLL), v490, 0xDuLL);
-    v264 = vqsubq_s16(v260, v263);
-    v265 = vqsubq_s16(v261, v262);
-    v266 = vdupq_n_s16(0x1A2Au);
-    v267 = vdupq_n_s16(0x126Du);
-    v473 = vmlal_s16(vmull_s16(*v264.i8, *v267.i8), *v265.i8, *v266.i8);
-    v472 = vmlal_high_s16(vmull_high_s16(v264, v267), v265, v266);
-    v268 = vdupq_n_s16(0xE5D6u);
-    v491 = vmlal_high_s16(vmull_high_s16(v264, v268), v265, v267);
-    v269 = vqaddq_s16(v260, v263);
-    v270 = vqaddq_s16(v261, v262);
-    v271 = vdupq_n_s16(0x579u);
-    v272 = vdupq_n_s16(0x1F87u);
-    v498 = vmlal_s16(vmull_s16(*v269.i8, *v272.i8), *v270.i8, *v271.i8);
-    v494 = vmlal_s16(vmull_s16(*v264.i8, *v268.i8), *v265.i8, *v267.i8);
-    v496 = vmlal_high_s16(vmull_high_s16(v269, v272), v270, v271);
-    v273 = vdupq_n_s16(0xFA87u);
-    v470 = vmlal_high_s16(vmull_high_s16(v269, v273), v270, v272);
-    v471 = vmlal_s16(vmull_s16(*v269.i8, *v273.i8), *v270.i8, *v272.i8);
-    v274 = vrshrn_high_n_s32(vrshrn_n_s32(v603, 0xDuLL), v601, 0xDuLL);
-    v275 = vrshrn_high_n_s32(vrshrn_n_s32(v599, 0xDuLL), v597, 0xDuLL);
-    v276 = vrshrn_high_n_s32(vrshrn_n_s32(v507, 0xDuLL), v505, 0xDuLL);
-    v277 = vrshrn_high_n_s32(vrshrn_n_s32(v503, 0xDuLL), v501, 0xDuLL);
-    v278 = vqaddq_s16(v669, v275);
-    v279 = vqaddq_s16(v684, v274);
-    v280 = vqaddq_s16(v278, v277);
-    v281 = vqaddq_s16(v279, v276);
-    v282 = vdupq_n_s16(0x1FC2u);
-    v283 = vdupq_n_s16(0x3EBu);
-    v504 = vmlal_s16(vmull_s16(*v280.i8, *v283.i8), *v281.i8, *v282.i8);
-    v502 = vmlal_high_s16(vmull_high_s16(v280, v283), v281, v282);
-    v284 = vdupq_n_s16(0xE03Eu);
-    v604 = vmlal_s16(vmull_s16(*v280.i8, *v284.i8), *v281.i8, *v283.i8);
-    v602 = vmlal_high_s16(vmull_high_s16(v280, v284), v281, v283);
-    v285 = vqsubq_s16(v278, v277);
-    v286 = vqsubq_s16(v279, v276);
-    v287 = vdupq_n_s16(0x13B0u);
-    v288 = vdupq_n_s16(0x193Au);
-    v600 = vmlal_s16(vmull_s16(*v285.i8, *v288.i8), *v286.i8, *v287.i8);
-    v598 = vmlal_high_s16(vmull_high_s16(v285, v288), v286, v287);
-    v289 = vdupq_n_s16(0xEC50u);
-    v506 = vmlal_high_s16(vmull_high_s16(v285, v289), v286, v288);
-    v508 = vmlal_s16(vmull_s16(*v285.i8, *v289.i8), *v286.i8, *v288.i8);
-    v290 = vqsubq_s16(v669, v275);
-    v291 = vqsubq_s16(v684, v274);
-    v292 = vrshrn_high_n_s32(vrshrn_n_s32(v515, 0xDuLL), v513, 0xDuLL);
-    v293 = vrshrn_high_n_s32(vrshrn_n_s32(v511, 0xDuLL), v509, 0xDuLL);
-    v294 = vqsubq_s16(v290, v293);
-    v295 = vqsubq_s16(v291, v292);
-    v296 = vdupq_n_s16(0x1BD8u);
-    v297 = vdupq_n_s16(0xFC6u);
-    v469 = vmlal_s16(vmull_s16(*v294.i8, *v297.i8), *v295.i8, *v296.i8);
-    v468 = vmlal_high_s16(vmull_high_s16(v294, v297), v295, v296);
-    v298 = vdupq_n_s16(0xE428u);
-    v512 = vmlal_high_s16(vmull_high_s16(v294, v298), v295, v297);
-    v514 = vmlal_s16(vmull_s16(*v294.i8, *v298.i8), *v295.i8, *v297.i8);
-    v299 = vqaddq_s16(v290, v293);
-    v300 = vqaddq_s16(v291, v292);
-    v301 = vdupq_n_s16(0x889u);
-    v302 = vdupq_n_s16(0x1ED7u);
-    v516 = vmlal_s16(vmull_s16(*v299.i8, *v302.i8), *v300.i8, *v301.i8);
-    v510 = vmlal_high_s16(vmull_high_s16(v299, v302), v300, v301);
-    v467 = vmlal_s16(vmull_s16(*v299.i8, v460), *v300.i8, *v302.i8);
-    v466 = vmlal_high_s16(vmull_s16(*&vextq_s8(v299, v299, 8uLL), v460), v300, v302);
-    v303 = vrshrn_high_n_s32(vrshrn_n_s32(v611, 0xDuLL), v609, 0xDuLL);
-    v304 = vrshrn_high_n_s32(vrshrn_n_s32(v607, 0xDuLL), v605, 0xDuLL);
-    v305 = vrshrn_high_n_s32(vrshrn_n_s32(v523, 0xDuLL), v521, 0xDuLL);
-    v306 = vrshrn_high_n_s32(vrshrn_n_s32(v519, 0xDuLL), v517, 0xDuLL);
-    v522 = vqsubq_s16(v676, v304);
-    v524 = vqsubq_s16(v677, v303);
-    v307 = vqsubq_s16(v522, v306);
-    v308 = vqsubq_s16(v524, v305);
-    v309 = vdupq_n_s16(0xE63u);
-    v310 = vdupq_n_s16(0x1C95u);
-    v612 = vmlal_s16(vmull_s16(*v307.i8, *v310.i8), *v308.i8, *v309.i8);
-    v610 = vmlal_high_s16(vmull_high_s16(v307, v310), v308, v309);
-    v311 = vdupq_n_s16(0xF19Du);
-    v518 = vmlal_s16(vmull_s16(*v307.i8, *v311.i8), *v308.i8, *v310.i8);
-    v464 = vmlal_high_s16(vmull_high_s16(v307, v311), v308, v310);
-    v312 = vqaddq_s16(v676, v304);
-    v313 = vqaddq_s16(v677, v303);
-    v314 = vrshrn_high_n_s32(vrshrn_n_s32(v162, 0xDuLL), v163, 0xDuLL);
-    v315 = vrshrn_high_n_s32(vrshrn_n_s32(v164, 0xDuLL), v165, 0xDuLL);
-    v316 = vqsubq_s16(v312, v315);
-    v317 = vdupq_n_s16(0x183Bu);
-    v318 = vqsubq_s16(v313, v314);
-    v319 = vdupq_n_s16(0x14E7u);
-    v463 = vmlal_s16(vmull_s16(*v316.i8, *v319.i8), *v318.i8, *v317.i8);
-    v320 = vmlal_high_s16(vmull_high_s16(v316, v319), v318, v317);
-    v321 = vdupq_n_s16(0xE7C5u);
-    v520 = vmlal_s16(vmull_s16(*v316.i8, *v321.i8), *v318.i8, *v319.i8);
-    v465 = vmlal_high_s16(vmull_high_s16(v316, v321), v318, v319);
-    v322 = vqaddq_s16(v312, v315);
-    v323 = vdupq_n_s16(0x25Bu);
-    v324 = vdupq_n_s16(0x1FEAu);
-    v325 = vqaddq_s16(v313, v314);
-    v608 = vmlal_s16(vmull_s16(*v322.i8, *v324.i8), *v325.i8, *v323.i8);
-    v326 = vdupq_n_s16(0xFDA5u);
-    v606 = vmlal_high_s16(vmull_high_s16(v322, v324), v325, v323);
-    v327 = vmlal_s16(vmull_s16(*v322.i8, *v326.i8), *v325.i8, *v324.i8);
-    v328 = vmlal_high_s16(vmull_high_s16(v322, v326), v325, v324);
-    v329 = vqaddq_s16(v486, v485);
-    v330 = vqaddq_s16(v481, v482);
-    v331 = vdupq_n_s16(0x1FFEu);
-    v332 = vmlal_s16(vmull_s16(*v329.i8, 0xC900C900C900C9), *v330.i8, *v331.i8);
-    v311.i64[0] = 0xC900C900C900C9;
-    v311.i64[1] = 0xC900C900C900C9;
-    v333 = vmlal_high_s16(vmull_high_s16(v329, v311), v330, v331);
-    v334 = vdupq_n_s16(0xE002u);
-    v638[63] = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v329.i8, *v334.i8), *v330.i8, 0xC900C900C900C9), 0xDuLL), vmlal_high_s16(vmull_high_s16(v329, v334), v330, v311), 0xDuLL);
-    v638[1] = vrshrn_high_n_s32(vrshrn_n_s32(v332, 0xDuLL), v333, 0xDuLL);
-    v638[0] = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v639.i8, *v634.i8), *v640.i8, *v634.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v639, v634), v640, v634), 0xDuLL);
-    v335 = vqaddq_s16(v522, v306);
-    v638[3] = vrshrn_high_n_s32(vrshrn_n_s32(v327, 0xDuLL), v328, 0xDuLL);
-    v638[2] = vrshrn_high_n_s32(vrshrn_n_s32(v556, 0xDuLL), v554, 0xDuLL);
-    v336 = vqaddq_s16(v524, v305);
-    v638[5] = vrshrn_high_n_s32(vrshrn_n_s32(v504, 0xDuLL), v502, 0xDuLL);
-    v638[4] = vrshrn_high_n_s32(vrshrn_n_s32(v614, 0xDuLL), v613, 0xDuLL);
-    v638[7] = vrshrn_high_n_s32(vrshrn_n_s32(v471, 0xDuLL), v470, 0xDuLL);
-    v638[6] = vrshrn_high_n_s32(vrshrn_n_s32(v500, 0xDuLL), v499, 0xDuLL);
-    v638[9] = vrshrn_high_n_s32(vrshrn_n_s32(v484, 0xDuLL), v476, 0xDuLL);
-    v638[8] = vrshrn_high_n_s32(vrshrn_n_s32(v624, 0xDuLL), v623, 0xDuLL);
-    v638[11] = vrshrn_high_n_s32(vrshrn_n_s32(v467, 0xDuLL), v466, 0xDuLL);
-    v638[10] = vrshrn_high_n_s32(vrshrn_n_s32(v526, 0xDuLL), v525, 0xDuLL);
-    v337 = vdupq_n_s16(0x1E63u);
-    v638[13] = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v335.i8, 0xA0A0A0A0A0A0A0ALL), *v336.i8, *v337.i8), 0xDuLL), vmlal_high_s16(vmull_s16(*&vextq_s8(v335, v335, 8uLL), 0xA0A0A0A0A0A0A0ALL), v336, v337), 0xDuLL);
-    v638[12] = vrshrn_high_n_s32(vrshrn_n_s32(v575, 0xDuLL), v574, 0xDuLL);
-    v638[15] = vrshrn_high_n_s32(vrshrn_n_s32(v478, 0xDuLL), v477, 0xDuLL);
-    v638[14] = vrshrn_high_n_s32(vrshrn_n_s32(v530, 0xDuLL), v529, 0xDuLL);
-    v638[17] = vrshrn_high_n_s32(vrshrn_n_s32(v480, 0xDuLL), v479, 0xDuLL);
-    v638[16] = vrshrn_high_n_s32(vrshrn_n_s32(v630, 0xDuLL), v628, 0xDuLL);
-    v638[19] = vrshrn_high_n_s32(vrshrn_n_s32(v518, 0xDuLL), v464, 0xDuLL);
-    v638[18] = vrshrn_high_n_s32(vrshrn_n_s32(v568, 0xDuLL), v566, 0xDuLL);
-    v638[21] = vrshrn_high_n_s32(vrshrn_n_s32(v469, 0xDuLL), v468, 0xDuLL);
-    v638[20] = vrshrn_high_n_s32(vrshrn_n_s32(v147, 0xDuLL), v582, 0xDuLL);
-    v638[23] = vrshrn_high_n_s32(vrshrn_n_s32(v475, 0xDuLL), v474, 0xDuLL);
-    v638[22] = vrshrn_high_n_s32(vrshrn_n_s32(v532, 0xDuLL), v531, 0xDuLL);
-    v638[25] = vrshrn_high_n_s32(vrshrn_n_s32(v473, 0xDuLL), v472, 0xDuLL);
-    v638[24] = vrshrn_high_n_s32(vrshrn_n_s32(v616, 0xDuLL), v615, 0xDuLL);
-    v638[27] = vrshrn_high_n_s32(vrshrn_n_s32(v508, 0xDuLL), v506, 0xDuLL);
-    v638[26] = vrshrn_high_n_s32(vrshrn_n_s32(v528, 0xDuLL), v527, 0xDuLL);
-    v638[29] = vrshrn_high_n_s32(vrshrn_n_s32(v463, 0xDuLL), v320, 0xDuLL);
-    v638[28] = vrshrn_high_n_s32(vrshrn_n_s32(v596, 0xDuLL), v595, 0xDuLL);
-    v638[31] = vrshrn_high_n_s32(vrshrn_n_s32(v560, 0xDuLL), v558, 0xDuLL);
-    v638[30] = vrshrn_high_n_s32(vrshrn_n_s32(v542, 0xDuLL), v541, 0xDuLL);
-    v638[33] = vrshrn_high_n_s32(vrshrn_n_s32(v564, 0xDuLL), v562, 0xDuLL);
-    v638[32] = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v639.i8, *v632.i8), *v640.i8, *v634.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v639, v632), v640, v634), 0xDuLL);
-    v638[35] = vrshrn_high_n_s32(vrshrn_n_s32(v520, 0xDuLL), v465, 0xDuLL);
-    v638[34] = vrshrn_high_n_s32(vrshrn_n_s32(v544, 0xDuLL), v543, 0xDuLL);
-    v638[37] = vrshrn_high_n_s32(vrshrn_n_s32(v600, 0xDuLL), v598, 0xDuLL);
-    v638[36] = vrshrn_high_n_s32(vrshrn_n_s32(v128, 0xDuLL), v130, 0xDuLL);
-    v638[39] = vrshrn_high_n_s32(vrshrn_n_s32(v494, 0xDuLL), v491, 0xDuLL);
-    v638[38] = vrshrn_high_n_s32(vrshrn_n_s32(v536, 0xDuLL), v534, 0xDuLL);
-    v638[41] = vrshrn_high_n_s32(vrshrn_n_s32(v586, 0xDuLL), v584, 0xDuLL);
-    v638[40] = vrshrn_high_n_s32(vrshrn_n_s32(v618, 0xDuLL), v617, 0xDuLL);
-    v638[43] = vrshrn_high_n_s32(vrshrn_n_s32(v514, 0xDuLL), v512, 0xDuLL);
-    v638[42] = vrshrn_high_n_s32(vrshrn_n_s32(v548, 0xDuLL), v546, 0xDuLL);
-    v638[45] = vrshrn_high_n_s32(vrshrn_n_s32(v612, 0xDuLL), v610, 0xDuLL);
-    v638[44] = vrshrn_high_n_s32(vrshrn_n_s32(v580, 0xDuLL), v578, 0xDuLL);
-    v638[47] = vrshrn_high_n_s32(vrshrn_n_s32(v492, 0xDuLL), v489, 0xDuLL);
-    v638[46] = vrshrn_high_n_s32(vrshrn_n_s32(v572, 0xDuLL), v570, 0xDuLL);
-    v338 = vdupq_n_s16(0xE19Du);
-    v638[49] = vrshrn_high_n_s32(vrshrn_n_s32(v488, 0xDuLL), v487, 0xDuLL);
-    v638[48] = vrshrn_high_n_s32(vrshrn_n_s32(v626, 0xDuLL), v625, 0xDuLL);
-    v638[51] = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v335.i8, *v338.i8), *v336.i8, 0xA0A0A0A0A0A0A0ALL), 0xDuLL), vmlal_high_s16(vmull_s16(*&vextq_s8(v336, v336, 8uLL), 0xA0A0A0A0A0A0A0ALL), v335, v338), 0xDuLL);
-    v638[52] = vrshrn_high_n_s32(vrshrn_n_s32(v160, 0xDuLL), v576, 0xDuLL);
-    v638[53] = vrshrn_high_n_s32(vrshrn_n_s32(v516, 0xDuLL), v510, 0xDuLL);
-    v638[54] = vrshrn_high_n_s32(vrshrn_n_s32(v552, 0xDuLL), v550, 0xDuLL);
-    v638[55] = vrshrn_high_n_s32(vrshrn_n_s32(v590, 0xDuLL), v588, 0xDuLL);
-    v638[56] = vrshrn_high_n_s32(vrshrn_n_s32(v622, 0xDuLL), v621, 0xDuLL);
-    v638[57] = vrshrn_high_n_s32(vrshrn_n_s32(v498, 0xDuLL), v496, 0xDuLL);
-    v638[58] = vrshrn_high_n_s32(vrshrn_n_s32(v540, 0xDuLL), v538, 0xDuLL);
-    v638[59] = vrshrn_high_n_s32(vrshrn_n_s32(v604, 0xDuLL), v602, 0xDuLL);
-    v638[60] = vrshrn_high_n_s32(vrshrn_n_s32(v620, 0xDuLL), v619, 0xDuLL);
-    v638[61] = vrshrn_high_n_s32(vrshrn_n_s32(v608, 0xDuLL), v606, 0xDuLL);
-    v638[62] = vrshrn_high_n_s32(vrshrn_n_s32(v594, 0xDuLL), v592, 0xDuLL);
+    v64 = 0;
+    v638 = vmlal_s16(vmull_s16(*v649.i8, *v47.i8), *v650.i8, *v46.i8);
+    v636 = vmlal_high_s16(vmull_high_s16(v649, v47), v650, v46);
+    v634 = vmlal_s16(vmull_s16(*v649.i8, *v48.i8), *v650.i8, *v47.i8);
+    v633 = vmlal_high_s16(vmull_high_s16(v649, v48), v650, v47);
+    v65 = vmlal_s16(vmull_s16(*v654.i8, *v47.i8), *v659.i8, *v46.i8);
+    v66 = vmlal_high_s16(vmull_high_s16(v654, v47), v659, v46);
+    v67 = vmlal_s16(vmull_s16(*v654.i8, *v48.i8), *v659.i8, *v47.i8);
+    v68 = vmlal_high_s16(vmull_high_s16(v654, v48), v659, v47);
+    v69 = vqaddq_s16(v714, v661);
+    v70 = vqsubq_s16(v714, v661);
+    v71 = vqsubq_s16(v727, v668);
+    v72 = vqaddq_s16(v727, v668);
+    v73 = vdupq_n_s16(0x1F63u);
+    v589 = vmlal_s16(vmull_s16(*v655.i8, *v48.i8), *v658.i8, *v47.i8);
+    v74 = vdupq_n_s16(0x63Eu);
+    v75 = vdupq_n_s16(0xE09Du);
+    v587 = vmlal_high_s16(vmull_high_s16(v655, v48), v658, v47);
+    v585 = vmlal_s16(vmull_s16(*v655.i8, *v49.i8), *v658.i8, *v48.i8);
+    v581 = vmlal_high_s16(vmull_high_s16(v655, v49), v658, v48);
+    v76 = vmlal_s16(vmull_s16(*v671.i8, *v74.i8), *v698.i8, *v73.i8);
+    v77 = vmlal_high_s16(vmull_high_s16(v671, v74), v698, v73);
+    v78 = vmlal_s16(vmull_s16(*v671.i8, *v75.i8), *v698.i8, *v74.i8);
+    v79 = vmlal_high_s16(vmull_high_s16(v671, v75), v698, v74);
+    v571 = vmlal_s16(vmull_s16(*v672.i8, *v74.i8), *v697.i8, *v73.i8);
+    v569 = vmlal_high_s16(vmull_high_s16(v672, v74), v697, v73);
+    v567 = vmlal_s16(vmull_s16(*v672.i8, *v75.i8), *v697.i8, *v74.i8);
+    v565 = vmlal_high_s16(vmull_high_s16(v672, v75), v697, v74);
+    v597 = vmlal_s16(vmull_s16(*v673.i8, *v75.i8), *v696.i8, *v74.i8);
+    v595 = vmlal_high_s16(vmull_high_s16(v673, v75), v696, v74);
+    v80 = vdupq_n_s16(0xF9C2u);
+    v593 = vmlal_s16(vmull_s16(*v673.i8, *v80.i8), *v696.i8, *v75.i8);
+    v591 = vmlal_high_s16(vmull_high_s16(v673, v80), v696, v75);
+    v81 = vmlal_s16(vmull_s16(*v674.i8, *v75.i8), *v695.i8, *v74.i8);
+    v82 = vmlal_high_s16(vmull_high_s16(v674, v75), v695, v74);
+    v83 = vmlal_s16(vmull_s16(*v674.i8, *v80.i8), *v695.i8, *v75.i8);
+    v84 = vmlal_high_s16(vmull_high_s16(v674, v80), v695, v75);
+    v85 = vqaddq_s16(v705, v651);
+    v86 = vqaddq_s16(v708, v652);
+    v632 = vmlal_s16(vmull_s16(*v85.i8, *v74.i8), *v86.i8, *v73.i8);
+    v631 = vmlal_high_s16(vmull_high_s16(v85, v74), v86, v73);
+    v630 = vmlal_s16(vmull_s16(*v85.i8, *v75.i8), *v86.i8, *v74.i8);
+    v629 = vmlal_high_s16(vmull_high_s16(v85, v75), v86, v74);
+    v601 = vmlal_s16(vmull_s16(*v69.i8, *v74.i8), *v72.i8, *v73.i8);
+    v599 = vmlal_high_s16(vmull_high_s16(v69, v74), v72, v73);
+    v563 = vmlal_s16(vmull_s16(*v69.i8, *v75.i8), *v72.i8, *v74.i8);
+    v561 = vmlal_high_s16(vmull_high_s16(v69, v75), v72, v74);
+    v579 = vmlal_s16(vmull_s16(*v70.i8, *v75.i8), *v71.i8, *v74.i8);
+    v577 = vmlal_high_s16(vmull_high_s16(v70, v75), v71, v74);
+    v575 = vmlal_s16(vmull_s16(*v70.i8, *v80.i8), *v71.i8, *v75.i8);
+    v573 = vmlal_high_s16(vmull_high_s16(v70, v80), v71, v75);
+    v87 = vqsubq_s16(v705, v651);
+    v88 = vqsubq_s16(v708, v652);
+    v89 = vqsubq_s16(v719, v664);
+    v90 = vqaddq_s16(v719, v664);
+    v91 = vqaddq_s16(v722, v665);
+    v92 = vqsubq_s16(v722, v665);
+    v93 = vdupq_n_s16(0x11C7u);
+    v94 = vdupq_n_s16(0x1A9Bu);
+    v95 = vmlal_s16(vmull_s16(*v679.i8, *v94.i8), *v690.i8, *v93.i8);
+    v96 = vmlal_high_s16(vmull_high_s16(v679, v94), v690, v93);
+    v97 = vdupq_n_s16(0xEE39u);
+    v98 = vmlal_s16(vmull_s16(*v679.i8, *v97.i8), *v690.i8, *v94.i8);
+    v99 = vmlal_high_s16(vmull_high_s16(v679, v97), v690, v94);
+    v611 = vmlal_s16(vmull_s16(*v680.i8, *v94.i8), *v689.i8, *v93.i8);
+    v609 = vmlal_high_s16(vmull_high_s16(v680, v94), v689, v93);
+    v607 = vmlal_s16(vmull_s16(*v680.i8, *v97.i8), *v689.i8, *v94.i8);
+    v605 = vmlal_high_s16(vmull_high_s16(v680, v97), v689, v94);
+    v619 = vmlal_s16(vmull_s16(*v681.i8, *v97.i8), *v688.i8, *v94.i8);
+    v617 = vmlal_high_s16(vmull_high_s16(v681, v97), v688, v94);
+    v615 = vmlal_s16(vmull_s16(*v681.i8, v470), *v688.i8, *v97.i8);
+    v613 = vmlal_high_s16(vmull_s16(*&vextq_s8(v681, v681, 8uLL), v470), v688, v97);
+    v100 = vmlal_s16(vmull_s16(*v682.i8, *v97.i8), *v687.i8, *v94.i8);
+    v101 = vmlal_high_s16(vmull_high_s16(v682, v97), v687, v94);
+    v102 = vmlal_s16(vmull_s16(*v682.i8, v470), *v687.i8, *v97.i8);
+    v103 = vmlal_high_s16(vmull_s16(*&vextq_s8(v682, v682, 8uLL), v470), v687, v97);
+    v626 = vmlal_s16(vmull_s16(*v87.i8, *v94.i8), *v88.i8, *v93.i8);
+    v625 = vmlal_high_s16(vmull_high_s16(v87, v94), v88, v93);
+    v624 = vmlal_s16(vmull_s16(*v87.i8, *v97.i8), *v88.i8, *v94.i8);
+    v623 = vmlal_high_s16(vmull_high_s16(v87, v97), v88, v94);
+    v559 = vmlal_s16(vmull_s16(*v89.i8, *v94.i8), *v92.i8, *v93.i8);
+    v557 = vmlal_high_s16(vmull_high_s16(v89, v94), v92, v93);
+    v555 = vmlal_s16(vmull_s16(*v89.i8, *v97.i8), *v92.i8, *v94.i8);
+    v553 = vmlal_high_s16(vmull_high_s16(v89, v97), v92, v94);
+    v547 = vmlal_s16(vmull_s16(*v90.i8, *v97.i8), *v91.i8, *v94.i8);
+    v545 = vmlal_high_s16(vmull_high_s16(v90, v97), v91, v94);
+    v541 = vmlal_high_s16(vmull_s16(*&vextq_s8(v90, v90, 8uLL), v470), v91, v97);
+    v543 = vmlal_s16(vmull_s16(*v90.i8, v470), *v91.i8, *v97.i8);
+    v104 = vrshrn_high_n_s32(vrshrn_n_s32(v65, 0xDuLL), v66, 0xDuLL);
+    v105 = vrshrn_high_n_s32(vrshrn_n_s32(v67, 0xDuLL), v68, 0xDuLL);
+    v106 = vrshrn_high_n_s32(vrshrn_n_s32(v76, 0xDuLL), v77, 0xDuLL);
+    v107 = vrshrn_high_n_s32(vrshrn_n_s32(v78, 0xDuLL), v79, 0xDuLL);
+    v108 = vqaddq_s16(v670, v107);
+    v109 = vqsubq_s16(v670, v107);
+    v110 = vqsubq_s16(v699, v106);
+    v111 = vqaddq_s16(v699, v106);
+    v112 = vqaddq_s16(v653, v105);
+    v113 = vqaddq_s16(v660, v104);
+    v114 = vdupq_n_s16(0x1FD9u);
+    v115 = vdupq_n_s16(0x323u);
+    v622 = vmlal_s16(vmull_s16(*v112.i8, *v115.i8), *v113.i8, *v114.i8);
+    v621 = vmlal_high_s16(vmull_high_s16(v112, v115), v113, v114);
+    v116 = vdupq_n_s16(0xE027u);
+    v628 = vmlal_s16(vmull_s16(*v112.i8, *v116.i8), *v113.i8, *v115.i8);
+    v627 = vmlal_high_s16(vmull_high_s16(v112, v116), v113, v115);
+    v117 = vmlal_s16(vmull_s16(*v108.i8, *v115.i8), *v111.i8, *v114.i8);
+    v118 = vmlal_high_s16(vmull_high_s16(v108, v115), v111, v114);
+    v119 = vmlal_s16(vmull_s16(*v108.i8, *v116.i8), *v111.i8, *v115.i8);
+    v120 = vmlal_high_s16(vmull_high_s16(v108, v116), v111, v115);
+    v121 = vmlal_s16(vmull_s16(*v109.i8, *v116.i8), *v110.i8, *v115.i8);
+    v122 = vmlal_high_s16(vmull_high_s16(v109, v116), v110, v115);
+    v123 = vdupq_n_s16(0xFCDDu);
+    v124 = vmlal_s16(vmull_s16(*v109.i8, *v123.i8), *v110.i8, *v116.i8);
+    v125 = vmlal_high_s16(vmull_high_s16(v109, v123), v110, v116);
+    v126 = vrshrn_high_n_s32(vrshrn_n_s32(v81, 0xDuLL), v82, 0xDuLL);
+    v127 = vrshrn_high_n_s32(vrshrn_n_s32(v83, 0xDuLL), v84, 0xDuLL);
+    v128 = vqsubq_s16(v653, v105);
+    v129 = vqsubq_s16(v660, v104);
+    v130 = vqsubq_s16(v675, v127);
+    v131 = vqaddq_s16(v675, v127);
+    v132 = vqaddq_s16(v694, v126);
+    v133 = vdupq_n_s16(0x144Du);
+    v134 = vdupq_n_s16(0x18BDu);
+    v135 = vqsubq_s16(v694, v126);
+    v136 = vmlal_s16(vmull_s16(*v128.i8, *v134.i8), *v129.i8, *v133.i8);
+    v137 = vdupq_n_s16(0xEBB3u);
+    v138 = vmlal_high_s16(vmull_high_s16(v128, v134), v129, v133);
+    v604 = vmlal_s16(vmull_s16(*v128.i8, *v137.i8), *v129.i8, *v134.i8);
+    v603 = vmlal_high_s16(vmull_high_s16(v128, v137), v129, v134);
+    v491 = vmlal_s16(vmull_s16(*v130.i8, *v134.i8), *v135.i8, *v133.i8);
+    v139 = vmlal_high_s16(vmull_high_s16(v130, v134), v135, v133);
+    v140 = vmlal_s16(vmull_s16(*v130.i8, *v137.i8), *v135.i8, *v134.i8);
+    v141 = vmlal_high_s16(vmull_high_s16(v130, v137), v135, v134);
+    v505 = vmlal_s16(vmull_s16(*v131.i8, *v137.i8), *v132.i8, *v134.i8);
+    v142 = vdupq_n_s16(0xE743u);
+    v503 = vmlal_high_s16(vmull_high_s16(v131, v137), v132, v134);
+    v501 = vmlal_s16(vmull_s16(*v131.i8, *v142.i8), *v132.i8, *v137.i8);
+    v498 = vmlal_high_s16(vmull_high_s16(v131, v142), v132, v137);
+    v143 = vrshrn_high_n_s32(vrshrn_n_s32(v589, 0xDuLL), v587, 0xDuLL);
+    v144 = vrshrn_high_n_s32(vrshrn_n_s32(v585, 0xDuLL), v581, 0xDuLL);
+    v145 = vrshrn_high_n_s32(vrshrn_n_s32(v95, 0xDuLL), v96, 0xDuLL);
+    v146 = vrshrn_high_n_s32(vrshrn_n_s32(v98, 0xDuLL), v99, 0xDuLL);
+    v147 = vqaddq_s16(v678, v146);
+    v148 = vqsubq_s16(v678, v146);
+    v149 = vqsubq_s16(v691, v145);
+    v150 = vqaddq_s16(v691, v145);
+    v151 = vqsubq_s16(v656, v144);
+    v152 = vdupq_n_s16(0x1C39u);
+    v153 = vdupq_n_s16(0xF16u);
+    v154 = vqsubq_s16(v657, v143);
+    v155 = vmlal_s16(vmull_s16(*v151.i8, *v153.i8), *v154.i8, *v152.i8);
+    v156 = vdupq_n_s16(0xE3C7u);
+    v590 = vmlal_high_s16(vmull_high_s16(v151, v153), v154, v152);
+    v588 = vmlal_s16(vmull_s16(*v151.i8, *v156.i8), *v154.i8, *v153.i8);
+    v586 = vmlal_high_s16(vmull_high_s16(v151, v156), v154, v153);
+    v515 = vmlal_s16(vmull_s16(*v147.i8, *v153.i8), *v150.i8, *v152.i8);
+    v513 = vmlal_high_s16(vmull_high_s16(v147, v153), v150, v152);
+    v511 = vmlal_s16(vmull_s16(*v147.i8, *v156.i8), *v150.i8, *v153.i8);
+    v509 = vmlal_high_s16(vmull_high_s16(v147, v156), v150, v153);
+    v523 = vmlal_s16(vmull_s16(*v148.i8, *v156.i8), *v149.i8, *v153.i8);
+    v157 = vdupq_n_s16(0xF0EAu);
+    v521 = vmlal_high_s16(vmull_high_s16(v148, v156), v149, v153);
+    v517 = vmlal_high_s16(vmull_high_s16(v148, v157), v149, v156);
+    v519 = vmlal_s16(vmull_s16(*v148.i8, *v157.i8), *v149.i8, *v156.i8);
+    v158 = vrshrn_high_n_s32(vrshrn_n_s32(v100, 0xDuLL), v101, 0xDuLL);
+    v159 = vrshrn_high_n_s32(vrshrn_n_s32(v102, 0xDuLL), v103, 0xDuLL);
+    v160 = vqaddq_s16(v656, v144);
+    v161 = vqaddq_s16(v657, v143);
+    v162 = vqsubq_s16(v683, v159);
+    v163 = vqaddq_s16(v683, v159);
+    v164 = vqaddq_s16(v686, v158);
+    v165 = vdupq_n_s16(0x94Au);
+    v166 = vqsubq_s16(v686, v158);
+    v167 = vdupq_n_s16(0x1E9Fu);
+    v168 = vmlal_s16(vmull_s16(*v160.i8, *v167.i8), *v161.i8, *v165.i8);
+    v584 = vmlal_high_s16(vmull_high_s16(v160, v167), v161, v165);
+    v169 = vdupq_n_s16(0xF6B6u);
+    v583 = vmlal_s16(vmull_s16(*v160.i8, *v169.i8), *v161.i8, *v167.i8);
+    v582 = vmlal_high_s16(vmull_high_s16(v160, v169), v161, v167);
+    v531 = vmlal_s16(vmull_s16(*v162.i8, *v167.i8), *v166.i8, *v165.i8);
+    v529 = vmlal_high_s16(vmull_high_s16(v162, v167), v166, v165);
+    v527 = vmlal_s16(vmull_s16(*v162.i8, *v169.i8), *v166.i8, *v167.i8);
+    v525 = vmlal_high_s16(vmull_high_s16(v162, v169), v166, v167);
+    v170 = vmlal_s16(vmull_s16(*v163.i8, *v169.i8), *v164.i8, *v167.i8);
+    v171 = vmlal_high_s16(vmull_high_s16(v163, v169), v164, v167);
+    v172 = vmlal_s16(vmull_s16(*v163.i8, v469), *v164.i8, *v169.i8);
+    v173 = vmlal_high_s16(vmull_s16(*&vextq_s8(v163, v163, 8uLL), v469), v164, v169);
+    v174 = vrshrn_high_n_s32(vrshrn_n_s32(v601, 0xDuLL), v599, 0xDuLL);
+    v175 = vrshrn_high_n_s32(vrshrn_n_s32(v563, 0xDuLL), v561, 0xDuLL);
+    v176 = vqaddq_s16(v713, v662);
+    v177 = vqaddq_s16(v728, v667);
+    v178 = vqaddq_s16(v176, v175);
+    v179 = vqaddq_s16(v177, v174);
+    v180 = vdupq_n_s16(0x1FF6u);
+    v181 = vdupq_n_s16(0x192u);
+    v564 = vmlal_s16(vmull_s16(*v178.i8, *v181.i8), *v179.i8, *v180.i8);
+    v562 = vmlal_high_s16(vmull_high_s16(v178, v181), v179, v180);
+    v182 = vdupq_n_s16(0xE00Au);
+    v602 = vmlal_s16(vmull_s16(*v178.i8, *v182.i8), *v179.i8, *v181.i8);
+    v600 = vmlal_high_s16(vmull_high_s16(v178, v182), v179, v181);
+    v183 = vqsubq_s16(v176, v175);
+    v184 = vqsubq_s16(v177, v174);
+    v185 = vdupq_n_s16(0x157Du);
+    v186 = vdupq_n_s16(0x17B6u);
+    v552 = vmlal_s16(vmull_s16(*v183.i8, *v186.i8), *v184.i8, *v185.i8);
+    v551 = vmlal_high_s16(vmull_high_s16(v183, v186), v184, v185);
+    v187 = vdupq_n_s16(0xEA83u);
+    v549 = vmlal_high_s16(vmull_high_s16(v183, v187), v184, v186);
+    v550 = vmlal_s16(vmull_s16(*v183.i8, *v187.i8), *v184.i8, *v186.i8);
+    v188 = vqsubq_s16(v713, v662);
+    v189 = vqsubq_s16(v728, v667);
+    v190 = vrshrn_high_n_s32(vrshrn_n_s32(v579, 0xDuLL), v577, 0xDuLL);
+    v191 = vrshrn_high_n_s32(vrshrn_n_s32(v575, 0xDuLL), v573, 0xDuLL);
+    v192 = vqsubq_s16(v188, v191);
+    v193 = vqsubq_s16(v189, v190);
+    v194 = vdupq_n_s16(0x1CEDu);
+    v195 = vdupq_n_s16(0xDAFu);
+    v576 = vmlal_s16(vmull_s16(*v192.i8, *v195.i8), *v193.i8, *v194.i8);
+    v574 = vmlal_high_s16(vmull_high_s16(v192, v195), v193, v194);
+    v196 = vdupq_n_s16(0xE313u);
+    v580 = vmlal_s16(vmull_s16(*v192.i8, *v196.i8), *v193.i8, *v195.i8);
+    v578 = vmlal_high_s16(vmull_high_s16(v192, v196), v193, v195);
+    v197 = vqaddq_s16(v188, v191);
+    v198 = vqaddq_s16(v189, v190);
+    v199 = vdupq_n_s16(0xF538u);
+    v200 = vmull_s16(*v197.i8, *v199.i8);
+    v201 = vmull_high_s16(v197, v199);
+    v202 = vdupq_n_s16(0x1E21u);
+    v537 = vmlal_high_s16(v201, v198, v202);
+    v538 = vmlal_s16(v200, *v198.i8, *v202.i8);
+    v203 = vrshrn_high_n_s32(vrshrn_n_s32(v559, 0xDuLL), v557, 0xDuLL);
+    v204 = vrshrn_high_n_s32(vrshrn_n_s32(v555, 0xDuLL), v553, 0xDuLL);
+    v205 = vqsubq_s16(v720, v663);
+    v206 = vqsubq_s16(v721, v666);
+    v207 = vqaddq_s16(v205, v204);
+    v208 = vqaddq_s16(v206, v203);
+    v209 = vdupq_n_s16(0x1F0Au);
+    v210 = vdupq_n_s16(0x7C6u);
+    v534 = vmlal_s16(vmull_s16(*v207.i8, *v210.i8), *v208.i8, *v209.i8);
+    v533 = vmlal_high_s16(vmull_high_s16(v207, v210), v208, v209);
+    v211 = vdupq_n_s16(0xE0F6u);
+    v560 = vmlal_s16(vmull_s16(*v207.i8, *v211.i8), *v208.i8, *v210.i8);
+    v558 = vmlal_high_s16(vmull_high_s16(v207, v211), v208, v210);
+    v212 = vqsubq_s16(v205, v204);
+    v213 = vqsubq_s16(v206, v203);
+    v214 = vdupq_n_s16(0x1074u);
+    v215 = vdupq_n_s16(0x1B73u);
+    v556 = vmlal_s16(vmull_s16(*v212.i8, *v215.i8), *v213.i8, *v214.i8);
+    v554 = vmlal_high_s16(vmull_high_s16(v212, v215), v213, v214);
+    v216 = vdupq_n_s16(0xEF8Cu);
+    v539 = vmlal_high_s16(vmull_high_s16(v212, v216), v213, v215);
+    v540 = vmlal_s16(vmull_s16(*v212.i8, *v216.i8), *v213.i8, *v215.i8);
+    v217 = vqaddq_s16(v720, v663);
+    v218 = vqaddq_s16(v721, v666);
+    v219 = vrshrn_high_n_s32(vrshrn_n_s32(v547, 0xDuLL), v545, 0xDuLL);
+    v220 = vrshrn_high_n_s32(vrshrn_n_s32(v543, 0xDuLL), v541, 0xDuLL);
+    v221 = vqsubq_s16(v217, v220);
+    v222 = vqsubq_s16(v218, v219);
+    v223 = vdupq_n_s16(0x19B4u);
+    v224 = vdupq_n_s16(0x1310u);
+    v536 = vmlal_s16(vmull_s16(*v221.i8, *v224.i8), *v222.i8, *v223.i8);
+    v535 = vmlal_high_s16(vmull_high_s16(v221, v224), v222, v223);
+    v225 = vdupq_n_s16(0xE64Cu);
+    v542 = vmlal_high_s16(vmull_high_s16(v221, v225), v222, v224);
+    v544 = vmlal_s16(vmull_s16(*v221.i8, *v225.i8), *v222.i8, *v224.i8);
+    v226 = vqaddq_s16(v217, v220);
+    v227 = vqaddq_s16(v218, v219);
+    v228 = vdupq_n_s16(0x4B2u);
+    v229 = vdupq_n_s16(0x1FA7u);
+    v548 = vmlal_s16(vmull_s16(*v226.i8, *v229.i8), *v227.i8, *v228.i8);
+    v546 = vmlal_high_s16(vmull_high_s16(v226, v229), v227, v228);
+    v230 = vdupq_n_s16(0xFB4Eu);
+    v507 = vmlal_high_s16(vmull_high_s16(v226, v230), v227, v229);
+    v508 = vmlal_s16(vmull_s16(*v226.i8, *v230.i8), *v227.i8, *v229.i8);
+    v231 = vrshrn_high_n_s32(vrshrn_n_s32(v571, 0xDuLL), v569, 0xDuLL);
+    v232 = vrshrn_high_n_s32(vrshrn_n_s32(v567, 0xDuLL), v565, 0xDuLL);
+    v490 = vrshrn_high_n_s32(vrshrn_n_s32(v117, 0xDuLL), v118, 0xDuLL);
+    v493 = vrshrn_high_n_s32(vrshrn_n_s32(v119, 0xDuLL), v120, 0xDuLL);
+    v494 = vqaddq_s16(v669, v232);
+    v489 = vqaddq_s16(v700, v231);
+    v233 = vqsubq_s16(v494, v493);
+    v234 = vqsubq_s16(v489, v490);
+    v235 = vdupq_n_s16(0x1611u);
+    v236 = vdupq_n_s16(0x172Du);
+    v572 = vmlal_s16(vmull_s16(*v233.i8, *v236.i8), *v234.i8, *v235.i8);
+    v570 = vmlal_high_s16(vmull_high_s16(v233, v236), v234, v235);
+    v237 = vdupq_n_s16(0xE9EFu);
+    v568 = vmlal_s16(vmull_s16(*v233.i8, *v237.i8), *v234.i8, *v236.i8);
+    v566 = vmlal_high_s16(vmull_high_s16(v233, v237), v234, v236);
+    v238 = vqsubq_s16(v669, v232);
+    v239 = vqsubq_s16(v700, v231);
+    v240 = vrshrn_high_n_s32(vrshrn_n_s32(v121, 0xDuLL), v122, 0xDuLL);
+    v241 = vrshrn_high_n_s32(vrshrn_n_s32(v124, 0xDuLL), v125, 0xDuLL);
+    v242 = vqsubq_s16(v238, v241);
+    v243 = vqsubq_s16(v239, v240);
+    v244 = vdupq_n_s16(0x1D41u);
+    v245 = vdupq_n_s16(0xCF8u);
+    v488 = vmlal_s16(vmull_s16(*v242.i8, *v245.i8), *v243.i8, *v244.i8);
+    v487 = vmlal_high_s16(vmull_high_s16(v242, v245), v243, v244);
+    v246 = vdupq_n_s16(0xE2BFu);
+    v500 = vmlal_s16(vmull_s16(*v242.i8, *v246.i8), *v243.i8, *v245.i8);
+    v497 = vmlal_high_s16(vmull_high_s16(v242, v246), v243, v245);
+    v247 = vqaddq_s16(v238, v241);
+    v248 = vqaddq_s16(v239, v240);
+    v249 = vdupq_n_s16(0xB84u);
+    v250 = vdupq_n_s16(0x1DDBu);
+    v496 = vmlal_s16(vmull_s16(*v247.i8, *v250.i8), *v248.i8, *v249.i8);
+    v495 = vmlal_high_s16(vmull_high_s16(v247, v250), v248, v249);
+    v251 = vdupq_n_s16(0xF47Cu);
+    v485 = vmlal_high_s16(vmull_high_s16(v247, v251), v248, v250);
+    v486 = vmlal_s16(vmull_s16(*v247.i8, *v251.i8), *v248.i8, *v250.i8);
+    v252 = vrshrn_high_n_s32(vrshrn_n_s32(v597, 0xDuLL), v595, 0xDuLL);
+    v253 = vrshrn_high_n_s32(vrshrn_n_s32(v593, 0xDuLL), v591, 0xDuLL);
+    v254 = vrshrn_high_n_s32(vrshrn_n_s32(v491, 0xDuLL), v139, 0xDuLL);
+    v255 = vrshrn_high_n_s32(vrshrn_n_s32(v140, 0xDuLL), v141, 0xDuLL);
+    v256 = vqsubq_s16(v676, v253);
+    v257 = vqsubq_s16(v693, v252);
+    v258 = vqaddq_s16(v256, v255);
+    v259 = vqaddq_s16(v257, v254);
+    v260 = vdupq_n_s16(0x1F39u);
+    v261 = vdupq_n_s16(0x703u);
+    v492 = vmlal_s16(vmull_s16(*v258.i8, *v261.i8), *v259.i8, *v260.i8);
+    v484 = vmlal_high_s16(vmull_high_s16(v258, v261), v259, v260);
+    v262 = vdupq_n_s16(0xE0C7u);
+    v598 = vmlal_s16(vmull_s16(*v258.i8, *v262.i8), *v259.i8, *v261.i8);
+    v596 = vmlal_high_s16(vmull_high_s16(v258, v262), v259, v261);
+    v263 = vqsubq_s16(v256, v255);
+    v264 = vqsubq_s16(v257, v254);
+    v265 = vdupq_n_s16(0x111Fu);
+    v266 = vdupq_n_s16(0x1B09u);
+    v594 = vmlal_s16(vmull_s16(*v263.i8, *v266.i8), *v264.i8, *v265.i8);
+    v592 = vmlal_high_s16(vmull_high_s16(v263, v266), v264, v265);
+    v267 = vdupq_n_s16(0xEEE1u);
+    v482 = vmlal_high_s16(vmull_high_s16(v263, v267), v264, v266);
+    v483 = vmlal_s16(vmull_s16(*v263.i8, *v267.i8), *v264.i8, *v266.i8);
+    v268 = vqaddq_s16(v676, v253);
+    v269 = vqaddq_s16(v693, v252);
+    v270 = vrshrn_high_n_s32(vrshrn_n_s32(v505, 0xDuLL), v503, 0xDuLL);
+    v271 = vrshrn_high_n_s32(vrshrn_n_s32(v501, 0xDuLL), v498, 0xDuLL);
+    v272 = vqsubq_s16(v268, v271);
+    v273 = vqsubq_s16(v269, v270);
+    v274 = vdupq_n_s16(0x1A2Au);
+    v275 = vdupq_n_s16(0x126Du);
+    v481 = vmlal_s16(vmull_s16(*v272.i8, *v275.i8), *v273.i8, *v274.i8);
+    v480 = vmlal_high_s16(vmull_high_s16(v272, v275), v273, v274);
+    v276 = vdupq_n_s16(0xE5D6u);
+    v499 = vmlal_high_s16(vmull_high_s16(v272, v276), v273, v275);
+    v277 = vqaddq_s16(v268, v271);
+    v278 = vqaddq_s16(v269, v270);
+    v279 = vdupq_n_s16(0x579u);
+    v280 = vdupq_n_s16(0x1F87u);
+    v506 = vmlal_s16(vmull_s16(*v277.i8, *v280.i8), *v278.i8, *v279.i8);
+    v502 = vmlal_s16(vmull_s16(*v272.i8, *v276.i8), *v273.i8, *v275.i8);
+    v504 = vmlal_high_s16(vmull_high_s16(v277, v280), v278, v279);
+    v281 = vdupq_n_s16(0xFA87u);
+    v478 = vmlal_high_s16(vmull_high_s16(v277, v281), v278, v280);
+    v479 = vmlal_s16(vmull_s16(*v277.i8, *v281.i8), *v278.i8, *v280.i8);
+    v282 = vrshrn_high_n_s32(vrshrn_n_s32(v611, 0xDuLL), v609, 0xDuLL);
+    v283 = vrshrn_high_n_s32(vrshrn_n_s32(v607, 0xDuLL), v605, 0xDuLL);
+    v284 = vrshrn_high_n_s32(vrshrn_n_s32(v515, 0xDuLL), v513, 0xDuLL);
+    v285 = vrshrn_high_n_s32(vrshrn_n_s32(v511, 0xDuLL), v509, 0xDuLL);
+    v286 = vqaddq_s16(v677, v283);
+    v287 = vqaddq_s16(v692, v282);
+    v288 = vqaddq_s16(v286, v285);
+    v289 = vqaddq_s16(v287, v284);
+    v290 = vdupq_n_s16(0x1FC2u);
+    v291 = vdupq_n_s16(0x3EBu);
+    v512 = vmlal_s16(vmull_s16(*v288.i8, *v291.i8), *v289.i8, *v290.i8);
+    v510 = vmlal_high_s16(vmull_high_s16(v288, v291), v289, v290);
+    v292 = vdupq_n_s16(0xE03Eu);
+    v612 = vmlal_s16(vmull_s16(*v288.i8, *v292.i8), *v289.i8, *v291.i8);
+    v610 = vmlal_high_s16(vmull_high_s16(v288, v292), v289, v291);
+    v293 = vqsubq_s16(v286, v285);
+    v294 = vqsubq_s16(v287, v284);
+    v295 = vdupq_n_s16(0x13B0u);
+    v296 = vdupq_n_s16(0x193Au);
+    v608 = vmlal_s16(vmull_s16(*v293.i8, *v296.i8), *v294.i8, *v295.i8);
+    v606 = vmlal_high_s16(vmull_high_s16(v293, v296), v294, v295);
+    v297 = vdupq_n_s16(0xEC50u);
+    v514 = vmlal_high_s16(vmull_high_s16(v293, v297), v294, v296);
+    v516 = vmlal_s16(vmull_s16(*v293.i8, *v297.i8), *v294.i8, *v296.i8);
+    v298 = vqsubq_s16(v677, v283);
+    v299 = vqsubq_s16(v692, v282);
+    v300 = vrshrn_high_n_s32(vrshrn_n_s32(v523, 0xDuLL), v521, 0xDuLL);
+    v301 = vrshrn_high_n_s32(vrshrn_n_s32(v519, 0xDuLL), v517, 0xDuLL);
+    v302 = vqsubq_s16(v298, v301);
+    v303 = vqsubq_s16(v299, v300);
+    v304 = vdupq_n_s16(0x1BD8u);
+    v305 = vdupq_n_s16(0xFC6u);
+    v477 = vmlal_s16(vmull_s16(*v302.i8, *v305.i8), *v303.i8, *v304.i8);
+    v476 = vmlal_high_s16(vmull_high_s16(v302, v305), v303, v304);
+    v306 = vdupq_n_s16(0xE428u);
+    v520 = vmlal_high_s16(vmull_high_s16(v302, v306), v303, v305);
+    v522 = vmlal_s16(vmull_s16(*v302.i8, *v306.i8), *v303.i8, *v305.i8);
+    v307 = vqaddq_s16(v298, v301);
+    v308 = vqaddq_s16(v299, v300);
+    v309 = vdupq_n_s16(0x889u);
+    v310 = vdupq_n_s16(0x1ED7u);
+    v524 = vmlal_s16(vmull_s16(*v307.i8, *v310.i8), *v308.i8, *v309.i8);
+    v518 = vmlal_high_s16(vmull_high_s16(v307, v310), v308, v309);
+    v475 = vmlal_s16(vmull_s16(*v307.i8, v468), *v308.i8, *v310.i8);
+    v474 = vmlal_high_s16(vmull_s16(*&vextq_s8(v307, v307, 8uLL), v468), v308, v310);
+    v311 = vrshrn_high_n_s32(vrshrn_n_s32(v619, 0xDuLL), v617, 0xDuLL);
+    v312 = vrshrn_high_n_s32(vrshrn_n_s32(v615, 0xDuLL), v613, 0xDuLL);
+    v313 = vrshrn_high_n_s32(vrshrn_n_s32(v531, 0xDuLL), v529, 0xDuLL);
+    v314 = vrshrn_high_n_s32(vrshrn_n_s32(v527, 0xDuLL), v525, 0xDuLL);
+    v530 = vqsubq_s16(v684, v312);
+    v532 = vqsubq_s16(v685, v311);
+    v315 = vqsubq_s16(v530, v314);
+    v316 = vqsubq_s16(v532, v313);
+    v317 = vdupq_n_s16(0xE63u);
+    v318 = vdupq_n_s16(0x1C95u);
+    v620 = vmlal_s16(vmull_s16(*v315.i8, *v318.i8), *v316.i8, *v317.i8);
+    v618 = vmlal_high_s16(vmull_high_s16(v315, v318), v316, v317);
+    v319 = vdupq_n_s16(0xF19Du);
+    v526 = vmlal_s16(vmull_s16(*v315.i8, *v319.i8), *v316.i8, *v318.i8);
+    v472 = vmlal_high_s16(vmull_high_s16(v315, v319), v316, v318);
+    v320 = vqaddq_s16(v684, v312);
+    v321 = vqaddq_s16(v685, v311);
+    v322 = vrshrn_high_n_s32(vrshrn_n_s32(v170, 0xDuLL), v171, 0xDuLL);
+    v323 = vrshrn_high_n_s32(vrshrn_n_s32(v172, 0xDuLL), v173, 0xDuLL);
+    v324 = vqsubq_s16(v320, v323);
+    v325 = vdupq_n_s16(0x183Bu);
+    v326 = vqsubq_s16(v321, v322);
+    v327 = vdupq_n_s16(0x14E7u);
+    v471 = vmlal_s16(vmull_s16(*v324.i8, *v327.i8), *v326.i8, *v325.i8);
+    v328 = vmlal_high_s16(vmull_high_s16(v324, v327), v326, v325);
+    v329 = vdupq_n_s16(0xE7C5u);
+    v528 = vmlal_s16(vmull_s16(*v324.i8, *v329.i8), *v326.i8, *v327.i8);
+    v473 = vmlal_high_s16(vmull_high_s16(v324, v329), v326, v327);
+    v330 = vqaddq_s16(v320, v323);
+    v331 = vdupq_n_s16(0x25Bu);
+    v332 = vdupq_n_s16(0x1FEAu);
+    v333 = vqaddq_s16(v321, v322);
+    v616 = vmlal_s16(vmull_s16(*v330.i8, *v332.i8), *v333.i8, *v331.i8);
+    v334 = vdupq_n_s16(0xFDA5u);
+    v614 = vmlal_high_s16(vmull_high_s16(v330, v332), v333, v331);
+    v335 = vmlal_s16(vmull_s16(*v330.i8, *v334.i8), *v333.i8, *v332.i8);
+    v336 = vmlal_high_s16(vmull_high_s16(v330, v334), v333, v332);
+    v337 = vqaddq_s16(v494, v493);
+    v338 = vqaddq_s16(v489, v490);
+    v339 = vdupq_n_s16(0x1FFEu);
+    v340 = vmlal_s16(vmull_s16(*v337.i8, 0xC900C900C900C9), *v338.i8, *v339.i8);
+    v319.i64[0] = 0xC900C900C900C9;
+    v319.i64[1] = 0xC900C900C900C9;
+    v341 = vmlal_high_s16(vmull_high_s16(v337, v319), v338, v339);
+    v342 = vdupq_n_s16(0xE002u);
+    v646[63] = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v337.i8, *v342.i8), *v338.i8, 0xC900C900C900C9), 0xDuLL), vmlal_high_s16(vmull_high_s16(v337, v342), v338, v319), 0xDuLL);
+    v646[1] = vrshrn_high_n_s32(vrshrn_n_s32(v340, 0xDuLL), v341, 0xDuLL);
+    v646[0] = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v647.i8, *v642.i8), *v648.i8, *v642.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v647, v642), v648, v642), 0xDuLL);
+    v343 = vqaddq_s16(v530, v314);
+    v646[3] = vrshrn_high_n_s32(vrshrn_n_s32(v335, 0xDuLL), v336, 0xDuLL);
+    v646[2] = vrshrn_high_n_s32(vrshrn_n_s32(v564, 0xDuLL), v562, 0xDuLL);
+    v344 = vqaddq_s16(v532, v313);
+    v646[5] = vrshrn_high_n_s32(vrshrn_n_s32(v512, 0xDuLL), v510, 0xDuLL);
+    v646[4] = vrshrn_high_n_s32(vrshrn_n_s32(v622, 0xDuLL), v621, 0xDuLL);
+    v646[7] = vrshrn_high_n_s32(vrshrn_n_s32(v479, 0xDuLL), v478, 0xDuLL);
+    v646[6] = vrshrn_high_n_s32(vrshrn_n_s32(v508, 0xDuLL), v507, 0xDuLL);
+    v646[9] = vrshrn_high_n_s32(vrshrn_n_s32(v492, 0xDuLL), v484, 0xDuLL);
+    v646[8] = vrshrn_high_n_s32(vrshrn_n_s32(v632, 0xDuLL), v631, 0xDuLL);
+    v646[11] = vrshrn_high_n_s32(vrshrn_n_s32(v475, 0xDuLL), v474, 0xDuLL);
+    v646[10] = vrshrn_high_n_s32(vrshrn_n_s32(v534, 0xDuLL), v533, 0xDuLL);
+    v345 = vdupq_n_s16(0x1E63u);
+    v646[13] = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v343.i8, 0xA0A0A0A0A0A0A0ALL), *v344.i8, *v345.i8), 0xDuLL), vmlal_high_s16(vmull_s16(*&vextq_s8(v343, v343, 8uLL), 0xA0A0A0A0A0A0A0ALL), v344, v345), 0xDuLL);
+    v646[12] = vrshrn_high_n_s32(vrshrn_n_s32(v583, 0xDuLL), v582, 0xDuLL);
+    v646[15] = vrshrn_high_n_s32(vrshrn_n_s32(v486, 0xDuLL), v485, 0xDuLL);
+    v646[14] = vrshrn_high_n_s32(vrshrn_n_s32(v538, 0xDuLL), v537, 0xDuLL);
+    v646[17] = vrshrn_high_n_s32(vrshrn_n_s32(v488, 0xDuLL), v487, 0xDuLL);
+    v646[16] = vrshrn_high_n_s32(vrshrn_n_s32(v638, 0xDuLL), v636, 0xDuLL);
+    v646[19] = vrshrn_high_n_s32(vrshrn_n_s32(v526, 0xDuLL), v472, 0xDuLL);
+    v646[18] = vrshrn_high_n_s32(vrshrn_n_s32(v576, 0xDuLL), v574, 0xDuLL);
+    v646[21] = vrshrn_high_n_s32(vrshrn_n_s32(v477, 0xDuLL), v476, 0xDuLL);
+    v646[20] = vrshrn_high_n_s32(vrshrn_n_s32(v155, 0xDuLL), v590, 0xDuLL);
+    v646[23] = vrshrn_high_n_s32(vrshrn_n_s32(v483, 0xDuLL), v482, 0xDuLL);
+    v646[22] = vrshrn_high_n_s32(vrshrn_n_s32(v540, 0xDuLL), v539, 0xDuLL);
+    v646[25] = vrshrn_high_n_s32(vrshrn_n_s32(v481, 0xDuLL), v480, 0xDuLL);
+    v646[24] = vrshrn_high_n_s32(vrshrn_n_s32(v624, 0xDuLL), v623, 0xDuLL);
+    v646[27] = vrshrn_high_n_s32(vrshrn_n_s32(v516, 0xDuLL), v514, 0xDuLL);
+    v646[26] = vrshrn_high_n_s32(vrshrn_n_s32(v536, 0xDuLL), v535, 0xDuLL);
+    v646[29] = vrshrn_high_n_s32(vrshrn_n_s32(v471, 0xDuLL), v328, 0xDuLL);
+    v646[28] = vrshrn_high_n_s32(vrshrn_n_s32(v604, 0xDuLL), v603, 0xDuLL);
+    v646[31] = vrshrn_high_n_s32(vrshrn_n_s32(v568, 0xDuLL), v566, 0xDuLL);
+    v646[30] = vrshrn_high_n_s32(vrshrn_n_s32(v550, 0xDuLL), v549, 0xDuLL);
+    v646[33] = vrshrn_high_n_s32(vrshrn_n_s32(v572, 0xDuLL), v570, 0xDuLL);
+    v646[32] = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v647.i8, *v640.i8), *v648.i8, *v642.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v647, v640), v648, v642), 0xDuLL);
+    v646[35] = vrshrn_high_n_s32(vrshrn_n_s32(v528, 0xDuLL), v473, 0xDuLL);
+    v646[34] = vrshrn_high_n_s32(vrshrn_n_s32(v552, 0xDuLL), v551, 0xDuLL);
+    v646[37] = vrshrn_high_n_s32(vrshrn_n_s32(v608, 0xDuLL), v606, 0xDuLL);
+    v646[36] = vrshrn_high_n_s32(vrshrn_n_s32(v136, 0xDuLL), v138, 0xDuLL);
+    v646[39] = vrshrn_high_n_s32(vrshrn_n_s32(v502, 0xDuLL), v499, 0xDuLL);
+    v646[38] = vrshrn_high_n_s32(vrshrn_n_s32(v544, 0xDuLL), v542, 0xDuLL);
+    v646[41] = vrshrn_high_n_s32(vrshrn_n_s32(v594, 0xDuLL), v592, 0xDuLL);
+    v646[40] = vrshrn_high_n_s32(vrshrn_n_s32(v626, 0xDuLL), v625, 0xDuLL);
+    v646[43] = vrshrn_high_n_s32(vrshrn_n_s32(v522, 0xDuLL), v520, 0xDuLL);
+    v646[42] = vrshrn_high_n_s32(vrshrn_n_s32(v556, 0xDuLL), v554, 0xDuLL);
+    v646[45] = vrshrn_high_n_s32(vrshrn_n_s32(v620, 0xDuLL), v618, 0xDuLL);
+    v646[44] = vrshrn_high_n_s32(vrshrn_n_s32(v588, 0xDuLL), v586, 0xDuLL);
+    v646[47] = vrshrn_high_n_s32(vrshrn_n_s32(v500, 0xDuLL), v497, 0xDuLL);
+    v646[46] = vrshrn_high_n_s32(vrshrn_n_s32(v580, 0xDuLL), v578, 0xDuLL);
+    v346 = vdupq_n_s16(0xE19Du);
+    v646[49] = vrshrn_high_n_s32(vrshrn_n_s32(v496, 0xDuLL), v495, 0xDuLL);
+    v646[48] = vrshrn_high_n_s32(vrshrn_n_s32(v634, 0xDuLL), v633, 0xDuLL);
+    v646[51] = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v343.i8, *v346.i8), *v344.i8, 0xA0A0A0A0A0A0A0ALL), 0xDuLL), vmlal_high_s16(vmull_s16(*&vextq_s8(v344, v344, 8uLL), 0xA0A0A0A0A0A0A0ALL), v343, v346), 0xDuLL);
+    v646[52] = vrshrn_high_n_s32(vrshrn_n_s32(v168, 0xDuLL), v584, 0xDuLL);
+    v646[53] = vrshrn_high_n_s32(vrshrn_n_s32(v524, 0xDuLL), v518, 0xDuLL);
+    v646[54] = vrshrn_high_n_s32(vrshrn_n_s32(v560, 0xDuLL), v558, 0xDuLL);
+    v646[55] = vrshrn_high_n_s32(vrshrn_n_s32(v598, 0xDuLL), v596, 0xDuLL);
+    v646[56] = vrshrn_high_n_s32(vrshrn_n_s32(v630, 0xDuLL), v629, 0xDuLL);
+    v646[57] = vrshrn_high_n_s32(vrshrn_n_s32(v506, 0xDuLL), v504, 0xDuLL);
+    v646[58] = vrshrn_high_n_s32(vrshrn_n_s32(v548, 0xDuLL), v546, 0xDuLL);
+    v646[59] = vrshrn_high_n_s32(vrshrn_n_s32(v612, 0xDuLL), v610, 0xDuLL);
+    v646[60] = vrshrn_high_n_s32(vrshrn_n_s32(v628, 0xDuLL), v627, 0xDuLL);
+    v646[61] = vrshrn_high_n_s32(vrshrn_n_s32(v616, 0xDuLL), v614, 0xDuLL);
+    v646[62] = vrshrn_high_n_s32(vrshrn_n_s32(v602, 0xDuLL), v600, 0xDuLL);
     do
     {
-      v638[v56] = vrshrq_n_s16(v638[v56], 2uLL);
-      ++v56;
+      v646[v64] = vrshrq_n_s16(v646[v64], 2uLL);
+      ++v64;
     }
 
-    while (v56 != 64);
-    v339 = v4 + 4;
+    while (v64 != 64);
+    v347 = v12 + 4;
     for (i8 = 112; i8 != 1136; i8 += 128)
     {
-      v341 = *&v637[i8 + 1808];
-      v342 = *&v637[i8 + 1824];
-      v343 = vtrn1q_s16(v341, v342);
-      v344 = vtrn2q_s16(v341, v342);
-      v345 = *&v637[i8 + 1840];
-      v346 = *&v637[i8 + 1856];
-      v347 = vtrn1q_s16(v345, v346);
-      v348 = vtrn2q_s16(v345, v346);
-      v349 = *&v637[i8 + 1872];
-      v350 = *&v637[i8 + 1888];
+      v349 = *&v645[i8 + 1808];
+      v350 = *&v645[i8 + 1824];
       v351 = vtrn1q_s16(v349, v350);
       v352 = vtrn2q_s16(v349, v350);
-      v353 = *&v637[i8 + 1904];
-      v354 = v638[i8 / 0x10];
+      v353 = *&v645[i8 + 1840];
+      v354 = *&v645[i8 + 1856];
       v355 = vtrn1q_s16(v353, v354);
       v356 = vtrn2q_s16(v353, v354);
-      v357 = vtrn1q_s32(v343, v347);
-      v358 = vtrn2q_s32(v343, v347);
-      v359 = vtrn1q_s32(v344, v348);
-      v360 = vtrn2q_s32(v344, v348);
-      v361 = vtrn1q_s32(v351, v355);
-      v362 = vtrn2q_s32(v351, v355);
-      v363 = vzip2q_s64(v357, v361);
-      v357.i64[1] = v361.i64[0];
-      v364 = vtrn1q_s32(v352, v356);
-      v365 = vtrn2q_s32(v352, v356);
-      v366 = vzip2q_s64(v359, v364);
-      v359.i64[1] = v364.i64[0];
-      v367 = vzip2q_s64(v358, v362);
-      v358.i64[1] = v362.i64[0];
-      v362.i64[0] = v360.i64[0];
-      v362.i64[1] = v365.i64[0];
-      v339[-4] = v357;
-      v339[-3] = v359;
-      v339[-2] = v358;
-      v339[-1] = v362;
-      *v339 = v363;
-      v339[1] = v366;
-      v339[2] = v367;
-      v339[3] = vzip2q_s64(v360, v365);
-      v339 += 16;
+      v357 = *&v645[i8 + 1872];
+      v358 = *&v645[i8 + 1888];
+      v359 = vtrn1q_s16(v357, v358);
+      v360 = vtrn2q_s16(v357, v358);
+      v361 = *&v645[i8 + 1904];
+      v362 = v646[i8 / 0x10];
+      v363 = vtrn1q_s16(v361, v362);
+      v364 = vtrn2q_s16(v361, v362);
+      v365 = vtrn1q_s32(v351, v355);
+      v366 = vtrn2q_s32(v351, v355);
+      v367 = vtrn1q_s32(v352, v356);
+      v368 = vtrn2q_s32(v352, v356);
+      v369 = vtrn1q_s32(v359, v363);
+      v370 = vtrn2q_s32(v359, v363);
+      v371 = vzip2q_s64(v365, v369);
+      v365.i64[1] = v369.i64[0];
+      v372 = vtrn1q_s32(v360, v364);
+      v373 = vtrn2q_s32(v360, v364);
+      v374 = vzip2q_s64(v367, v372);
+      v367.i64[1] = v372.i64[0];
+      v375 = vzip2q_s64(v366, v370);
+      v366.i64[1] = v370.i64[0];
+      v370.i64[0] = v368.i64[0];
+      v370.i64[1] = v373.i64[0];
+      v347[-4] = v365;
+      v347[-3] = v367;
+      v347[-2] = v366;
+      v347[-1] = v370;
+      *v347 = v371;
+      v347[1] = v374;
+      v347[2] = v375;
+      v347[3] = vzip2q_s64(v368, v373);
+      v347 += 16;
     }
 
-    v5 = 0;
-    v4 = v637;
-    v3 = 8;
-    v6 = v634;
-    v7 = v632;
+    v13 = 0;
+    v12 = v645;
+    v11 = 8;
+    v14 = v642;
+    v15 = v640;
   }
 
-  while ((v9 & 1) != 0);
-  v368 = 0;
-  v369 = v459 + 1;
-  v370 = vdupq_n_s16(0x16A0u);
-  v371 = vdupq_n_s16(0xE960u);
-  v372 = vdupq_n_s16(0x1D90u);
-  v373 = vdupq_n_s16(0xC3Eu);
-  v374 = vdupq_n_s16(0xE270u);
-  v635 = vdupq_n_s16(0xF3C2u);
-  v633 = vdupq_n_s16(0x1F62u);
-  v375 = vdupq_n_s16(0x63Eu);
-  v631 = vdupq_n_s16(0xE09Eu);
-  v629 = vdupq_n_s16(0x11C8u);
-  v376 = vdupq_n_s16(0x1A9Cu);
-  v627 = vdupq_n_s16(0xEE38u);
-  v377 = vdupq_n_s16(0x1FD8u);
-  v378 = vdupq_n_s16(0x322u);
-  v379 = vdupq_n_s16(0xE028u);
-  v380 = vdupq_n_s16(0x144Cu);
+  while ((v17 & 1) != 0);
+  v376 = 0;
+  v377 = v467 + 1;
+  v378 = vdupq_n_s16(0x16A0u);
+  v379 = vdupq_n_s16(0xE960u);
+  v380 = vdupq_n_s16(0x1D90u);
+  v381 = vdupq_n_s16(0xC3Eu);
+  v382 = vdupq_n_s16(0xE270u);
+  v643 = vdupq_n_s16(0xF3C2u);
+  v641 = vdupq_n_s16(0x1F62u);
+  v383 = vdupq_n_s16(0x63Eu);
+  v639 = vdupq_n_s16(0xE09Eu);
+  v637 = vdupq_n_s16(0x11C8u);
+  v384 = vdupq_n_s16(0x1A9Cu);
+  v635 = vdupq_n_s16(0xEE38u);
+  v385 = vdupq_n_s16(0x1FD8u);
+  v386 = vdupq_n_s16(0x322u);
+  v387 = vdupq_n_s16(0xE028u);
+  v388 = vdupq_n_s16(0x144Cu);
   result = 2378;
-  v382 = v636;
+  v390 = v644;
   do
   {
-    v383 = 0;
-    v384 = &v636[256 * v368];
+    v391 = 0;
+    v392 = &v644[256 * v376];
     for (i9 = 240; i9 != 112; i9 -= 16)
     {
-      *&v818[v383] = vqaddq_s16(*&v382[v383], *&v382[i9]);
-      v383 += 16;
+      *&v826[v391] = vqaddq_s16(*&v390[v391], *&v390[i9]);
+      v391 += 16;
     }
 
-    v386 = 128;
+    v394 = 128;
     do
     {
-      *&v818[v386] = vqsubq_s16(*&v382[i9], *&v382[v386]);
+      *&v826[v394] = vqsubq_s16(*&v390[i9], *&v390[v394]);
       i9 -= 16;
-      v386 += 16;
+      v394 += 16;
     }
 
     while (i9 != -16);
-    v387 = 0;
+    v395 = 0;
     for (i10 = 112; i10 != 48; i10 -= 16)
     {
-      *(&v778 + v387) = vqaddq_s16(*&v818[v387], *&v818[i10]);
-      v387 += 16;
+      *(&v786 + v395) = vqaddq_s16(*&v826[v395], *&v826[i10]);
+      v395 += 16;
     }
 
-    v389 = 64;
+    v397 = 64;
     do
     {
-      *(&v778 + v389) = vqsubq_s16(*&v818[i10], *&v818[v389]);
+      *(&v786 + v397) = vqsubq_s16(*&v826[i10], *&v826[v397]);
       i10 -= 16;
-      v389 += 16;
+      v397 += 16;
     }
 
     while (i10 != -16);
-    v390 = 0;
-    v391 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v821.i8, *v370.i8), *v824.i8, *v370.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v821, v370), v824, v370), 0xDuLL);
-    v392 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v821.i8, *v371.i8), *v824.i8, *v370.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v821, v371), v824, v370), 0xDuLL);
-    v393 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v822.i8, *v370.i8), *v823.i8, *v370.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v822, v370), v823, v370), 0xDuLL);
-    v394 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v822.i8, *v371.i8), *v823.i8, *v370.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v822, v371), v823, v370), 0xDuLL);
-    v395 = vqaddq_s16(v778, v781);
-    v396 = vqaddq_s16(v779, v780);
-    v397 = vqsubq_s16(v779, v780);
-    v398 = vqsubq_s16(v778, v781);
-    v399 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v783.i8, *v370.i8), *v784.i8, *v370.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v783, v370), v784, v370), 0xDuLL);
-    v400 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v783.i8, *v371.i8), *v784.i8, *v370.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v783, v371), v784, v370), 0xDuLL);
-    v401 = vqaddq_s16(v819, v394);
-    v402 = vqaddq_s16(v820, v392);
-    v403 = vqsubq_s16(v820, v392);
-    v404 = vqsubq_s16(v819, v394);
-    v405 = vqsubq_s16(v826, v393);
-    v406 = vqsubq_s16(v825, v391);
-    v407 = vqaddq_s16(v825, v391);
-    v408 = vqaddq_s16(v826, v393);
-    v409 = vmlal_s16(vmull_s16(*v396.i8, *v371.i8), *v395.i8, *v370.i8);
-    v410 = vmlal_high_s16(vmull_high_s16(v396, v371), v395, v370);
-    v411 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v396.i8, *v370.i8), *v395.i8, *v370.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v396, v370), v395, v370), 0xDuLL);
-    v412 = vrshrn_high_n_s32(vrshrn_n_s32(v409, 0xDuLL), v410, 0xDuLL);
-    v413 = vmlal_s16(vmull_s16(*v397.i8, *v373.i8), *v398.i8, *v372.i8);
-    v414 = vmlal_high_s16(vmull_high_s16(v397, v373), v398, v372);
-    v415 = vmlal_s16(vmull_s16(*v397.i8, *v374.i8), *v398.i8, *v373.i8);
-    v416 = vmlal_high_s16(vmull_high_s16(v397, v374), v398, v373);
-    v417 = vrshrn_high_n_s32(vrshrn_n_s32(v413, 0xDuLL), v414, 0xDuLL);
-    v418 = vrshrn_high_n_s32(vrshrn_n_s32(v415, 0xDuLL), v416, 0xDuLL);
-    v419 = vqaddq_s16(v782, v400);
-    v420 = vqsubq_s16(v782, v400);
-    v421 = vqsubq_s16(v785, v399);
-    v422 = vqaddq_s16(v785, v399);
-    v423 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v402.i8, *v373.i8), *v407.i8, *v372.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v402, v373), v407, v372), 0xDuLL);
-    v424 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v402.i8, *v374.i8), *v407.i8, *v373.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v402, v374), v407, v373), 0xDuLL);
-    v425 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v403.i8, *v374.i8), *v406.i8, *v373.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v403, v374), v406, v373), 0xDuLL);
-    v426 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v403.i8, *v635.i8), *v406.i8, *v374.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v403, v635), v406, v374), 0xDuLL);
-    v427 = vmlal_s16(vmull_s16(*v420.i8, *v627.i8), *v421.i8, *v376.i8);
-    v428 = vmlal_high_s16(vmull_high_s16(v420, v627), v421, v376);
-    v429 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v420.i8, *v376.i8), *v421.i8, *v629.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v420, v376), v421, v629), 0xDuLL);
-    v430 = vrshrn_high_n_s32(vrshrn_n_s32(v427, 0xDuLL), v428, 0xDuLL);
-    v431 = vqaddq_s16(v401, v424);
-    v432 = vqsubq_s16(v401, v424);
-    v433 = vqsubq_s16(v404, v426);
-    v434 = vqaddq_s16(v404, v426);
-    v435 = vqaddq_s16(v405, v425);
-    v436 = vqsubq_s16(v405, v425);
-    v437 = vqsubq_s16(v408, v423);
-    v438 = vqaddq_s16(v408, v423);
-    *v384 = v411;
-    v384[1] = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v431.i8, *v378.i8), *v438.i8, *v377.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v431, v378), v438, v377), 0xDuLL);
-    v439 = vdupq_n_s16(0x18BCu);
-    v440 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v431.i8, *v379.i8), *v438.i8, *v378.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v431, v379), v438, v378), 0xDuLL);
-    v441 = vdupq_n_s16(0x1C38u);
-    v442 = vdupq_n_s16(0xF16u);
-    v384[14] = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v419.i8, *v631.i8), *v422.i8, *v375.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v419, v631), v422, v375), 0xDuLL);
-    v384[15] = v440;
-    v443 = vmlal_s16(vmull_s16(*v433.i8, *v442.i8), *v436.i8, *v441.i8);
-    v444 = vdupq_n_s16(0xE3C8u);
-    v445 = vmlal_high_s16(vmull_high_s16(v433, v442), v436, v441);
-    v446 = vmlal_s16(vmull_s16(*v433.i8, *v444.i8), *v436.i8, *v442.i8);
-    v447 = vmull_high_s16(v433, v444);
-    v448 = vdupq_n_s16(0x94Au);
-    v449 = vmlal_high_s16(v447, v436, v442);
-    v450 = vdupq_n_s16(0x1EA0u);
-    v451 = vmlal_s16(vmull_s16(*v434.i8, *v450.i8), *v435.i8, *v448.i8);
-    v452 = vmlal_high_s16(vmull_high_s16(v434, v450), v435, v448);
-    v453 = vdupq_n_s16(0xF6B6u);
-    v454 = vmlal_s16(vmull_s16(*v434.i8, *v453.i8), *v435.i8, *v450.i8);
-    v455 = vmlal_high_s16(vmull_high_s16(v434, v453), v435, v450);
-    v456 = vdupq_n_s16(0xEBB4u);
-    v384[8] = v412;
-    v384[9] = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v432.i8, *v439.i8), *v437.i8, *v380.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v432, v439), v437, v380), 0xDuLL);
-    v384[6] = v430;
-    v384[7] = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v432.i8, *v456.i8), *v437.i8, *v439.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v432, v456), v437, v439), 0xDuLL);
-    v384[4] = v417;
-    v384[5] = vrshrn_high_n_s32(vrshrn_n_s32(v443, 0xDuLL), v445, 0xDuLL);
-    v384[10] = v429;
-    v384[11] = vrshrn_high_n_s32(vrshrn_n_s32(v446, 0xDuLL), v449, 0xDuLL);
-    v384[12] = v418;
-    v384[13] = vrshrn_high_n_s32(vrshrn_n_s32(v451, 0xDuLL), v452, 0xDuLL);
-    v384[2] = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v419.i8, *v375.i8), *v422.i8, *v633.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v419, v375), v422, v633), 0xDuLL);
-    v384[3] = vrshrn_high_n_s32(vrshrn_n_s32(v454, 0xDuLL), v455, 0xDuLL);
-    v457 = v369;
+    v398 = 0;
+    v399 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v829.i8, *v378.i8), *v832.i8, *v378.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v829, v378), v832, v378), 0xDuLL);
+    v400 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v829.i8, *v379.i8), *v832.i8, *v378.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v829, v379), v832, v378), 0xDuLL);
+    v401 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v830.i8, *v378.i8), *v831.i8, *v378.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v830, v378), v831, v378), 0xDuLL);
+    v402 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v830.i8, *v379.i8), *v831.i8, *v378.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v830, v379), v831, v378), 0xDuLL);
+    v403 = vqaddq_s16(v786, v789);
+    v404 = vqaddq_s16(v787, v788);
+    v405 = vqsubq_s16(v787, v788);
+    v406 = vqsubq_s16(v786, v789);
+    v407 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v791.i8, *v378.i8), *v792.i8, *v378.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v791, v378), v792, v378), 0xDuLL);
+    v408 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v791.i8, *v379.i8), *v792.i8, *v378.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v791, v379), v792, v378), 0xDuLL);
+    v409 = vqaddq_s16(v827, v402);
+    v410 = vqaddq_s16(v828, v400);
+    v411 = vqsubq_s16(v828, v400);
+    v412 = vqsubq_s16(v827, v402);
+    v413 = vqsubq_s16(v834, v401);
+    v414 = vqsubq_s16(v833, v399);
+    v415 = vqaddq_s16(v833, v399);
+    v416 = vqaddq_s16(v834, v401);
+    v417 = vmlal_s16(vmull_s16(*v404.i8, *v379.i8), *v403.i8, *v378.i8);
+    v418 = vmlal_high_s16(vmull_high_s16(v404, v379), v403, v378);
+    v419 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v404.i8, *v378.i8), *v403.i8, *v378.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v404, v378), v403, v378), 0xDuLL);
+    v420 = vrshrn_high_n_s32(vrshrn_n_s32(v417, 0xDuLL), v418, 0xDuLL);
+    v421 = vmlal_s16(vmull_s16(*v405.i8, *v381.i8), *v406.i8, *v380.i8);
+    v422 = vmlal_high_s16(vmull_high_s16(v405, v381), v406, v380);
+    v423 = vmlal_s16(vmull_s16(*v405.i8, *v382.i8), *v406.i8, *v381.i8);
+    v424 = vmlal_high_s16(vmull_high_s16(v405, v382), v406, v381);
+    v425 = vrshrn_high_n_s32(vrshrn_n_s32(v421, 0xDuLL), v422, 0xDuLL);
+    v426 = vrshrn_high_n_s32(vrshrn_n_s32(v423, 0xDuLL), v424, 0xDuLL);
+    v427 = vqaddq_s16(v790, v408);
+    v428 = vqsubq_s16(v790, v408);
+    v429 = vqsubq_s16(v793, v407);
+    v430 = vqaddq_s16(v793, v407);
+    v431 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v410.i8, *v381.i8), *v415.i8, *v380.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v410, v381), v415, v380), 0xDuLL);
+    v432 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v410.i8, *v382.i8), *v415.i8, *v381.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v410, v382), v415, v381), 0xDuLL);
+    v433 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v411.i8, *v382.i8), *v414.i8, *v381.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v411, v382), v414, v381), 0xDuLL);
+    v434 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v411.i8, *v643.i8), *v414.i8, *v382.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v411, v643), v414, v382), 0xDuLL);
+    v435 = vmlal_s16(vmull_s16(*v428.i8, *v635.i8), *v429.i8, *v384.i8);
+    v436 = vmlal_high_s16(vmull_high_s16(v428, v635), v429, v384);
+    v437 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v428.i8, *v384.i8), *v429.i8, *v637.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v428, v384), v429, v637), 0xDuLL);
+    v438 = vrshrn_high_n_s32(vrshrn_n_s32(v435, 0xDuLL), v436, 0xDuLL);
+    v439 = vqaddq_s16(v409, v432);
+    v440 = vqsubq_s16(v409, v432);
+    v441 = vqsubq_s16(v412, v434);
+    v442 = vqaddq_s16(v412, v434);
+    v443 = vqaddq_s16(v413, v433);
+    v444 = vqsubq_s16(v413, v433);
+    v445 = vqsubq_s16(v416, v431);
+    v446 = vqaddq_s16(v416, v431);
+    *v392 = v419;
+    v392[1] = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v439.i8, *v386.i8), *v446.i8, *v385.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v439, v386), v446, v385), 0xDuLL);
+    v447 = vdupq_n_s16(0x18BCu);
+    v448 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v439.i8, *v387.i8), *v446.i8, *v386.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v439, v387), v446, v386), 0xDuLL);
+    v449 = vdupq_n_s16(0x1C38u);
+    v450 = vdupq_n_s16(0xF16u);
+    v392[14] = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v427.i8, *v639.i8), *v430.i8, *v383.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v427, v639), v430, v383), 0xDuLL);
+    v392[15] = v448;
+    v451 = vmlal_s16(vmull_s16(*v441.i8, *v450.i8), *v444.i8, *v449.i8);
+    v452 = vdupq_n_s16(0xE3C8u);
+    v453 = vmlal_high_s16(vmull_high_s16(v441, v450), v444, v449);
+    v454 = vmlal_s16(vmull_s16(*v441.i8, *v452.i8), *v444.i8, *v450.i8);
+    v455 = vmull_high_s16(v441, v452);
+    v456 = vdupq_n_s16(0x94Au);
+    v457 = vmlal_high_s16(v455, v444, v450);
+    v458 = vdupq_n_s16(0x1EA0u);
+    v459 = vmlal_s16(vmull_s16(*v442.i8, *v458.i8), *v443.i8, *v456.i8);
+    v460 = vmlal_high_s16(vmull_high_s16(v442, v458), v443, v456);
+    v461 = vdupq_n_s16(0xF6B6u);
+    v462 = vmlal_s16(vmull_s16(*v442.i8, *v461.i8), *v443.i8, *v458.i8);
+    v463 = vmlal_high_s16(vmull_high_s16(v442, v461), v443, v458);
+    v464 = vdupq_n_s16(0xEBB4u);
+    v392[8] = v420;
+    v392[9] = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v440.i8, *v447.i8), *v445.i8, *v388.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v440, v447), v445, v388), 0xDuLL);
+    v392[6] = v438;
+    v392[7] = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v440.i8, *v464.i8), *v445.i8, *v447.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v440, v464), v445, v447), 0xDuLL);
+    v392[4] = v425;
+    v392[5] = vrshrn_high_n_s32(vrshrn_n_s32(v451, 0xDuLL), v453, 0xDuLL);
+    v392[10] = v437;
+    v392[11] = vrshrn_high_n_s32(vrshrn_n_s32(v454, 0xDuLL), v457, 0xDuLL);
+    v392[12] = v426;
+    v392[13] = vrshrn_high_n_s32(vrshrn_n_s32(v459, 0xDuLL), v460, 0xDuLL);
+    v392[2] = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v427.i8, *v383.i8), *v430.i8, *v641.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v427, v383), v430, v641), 0xDuLL);
+    v392[3] = vrshrn_high_n_s32(vrshrn_n_s32(v462, 0xDuLL), v463, 0xDuLL);
+    v465 = v377;
     do
     {
-      v458 = *&v382[v390];
-      v457[-1] = vmovl_s16(*v458.i8);
-      *v457 = vmovl_high_s16(v458);
-      v390 += 16;
-      v457 += 8;
+      v466 = *&v390[v398];
+      v465[-1] = vmovl_s16(*v466.i8);
+      *v465 = vmovl_high_s16(v466);
+      v398 += 16;
+      v465 += 8;
     }
 
-    while (v390 != 256);
-    ++v368;
-    v382 += 256;
-    v369 += 2;
+    while (v398 != 256);
+    ++v376;
+    v390 += 256;
+    v377 += 2;
   }
 
-  while (v368 != 4);
+  while (v376 != 4);
   return result;
 }
 
-uint64_t sub_2779DFDDC(__int16 *a1, int32x4_t *a2, uint64_t a3, uint64_t a4, char a5)
+uint64_t sub_2779DFDDC(__int16 *a1, int32x4_t *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v5 = a3;
   v7 = a1;
   v48 = *MEMORY[0x277D85DE8];
   if ((0xF1FEuLL >> a4))
   {
+    v11 = a5;
     memset(v39, 0, 64);
     sub_277A78D0C(a4, 0xAu, v39);
-    return sub_277A78E90(v7, a2, v5, v39, v40.i32, a5);
+    return sub_277A78E90(v7, a2, v5, v39, v40.i32, v11);
   }
 
   v8 = off_28866DB20[a4];
@@ -5544,7 +6110,7 @@ LABEL_9:
 LABEL_10:
   for (i = 0; i != 4; ++i)
   {
-    (v8)(&v7[8 * i], &v40, v5, 13);
+    (v8)(&v7[8 * i], &v40, v5, 13, a5);
     for (j = 0; j != 128; j += 16)
     {
       *(&v40 + j) = vrshrq_n_s16(*(&v40 + j), 2uLL);
@@ -7815,2402 +8381,1591 @@ int16x4_t sub_2779E3D78(void *a1, int16x4_t *a2, int a3, int a4)
   return result;
 }
 
-uint64_t sub_2779E40C0()
+uint64_t sub_2779E40C0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v0 = MEMORY[0x28223BE20]();
-  v2 = v1;
-  v4 = v3;
-  v5 = v0;
-  v6 = 0;
-  v58 = *MEMORY[0x277D85DE8];
-  v8 = off_28866D7A0[v7];
-  v9 = v56;
+  v8 = MEMORY[0x28223BE20](a1, a2, a3, a4, a5, a6, a7, a8);
+  v10 = v9;
+  v12 = v11;
+  v13 = v8;
+  v14 = 0;
+  v77 = *MEMORY[0x277D85DE8];
+  v16 = off_28866D7A0[v15];
+  v17 = v75;
   do
   {
-    (v8)(v5 + 16 * v6, v57, v2, 12);
+    (v16)(v13 + 16 * v14, v76, v10, 12);
     for (i = 0; i != 512; i += 16)
     {
-      *&v57[i] = vrshrq_n_s16(*&v57[i], 4uLL);
+      *&v76[i] = vrshrq_n_s16(*&v76[i], 4uLL);
     }
 
-    v11 = v9;
+    v24 = v17;
     for (j = 112; j != 624; j += 128)
     {
-      v13 = *&v56[j + 3920];
-      v14 = *&v56[j + 3936];
-      v15 = vtrn1q_s16(v13, v14);
-      v16 = vtrn2q_s16(v13, v14);
-      v17 = *&v56[j + 3952];
-      v18 = *&v56[j + 3968];
-      v19 = vtrn1q_s16(v17, v18);
-      v20 = vtrn2q_s16(v17, v18);
-      v21 = *&v56[j + 3984];
-      v22 = *&v56[j + 4000];
-      v23 = vtrn1q_s16(v21, v22);
-      v24 = vtrn2q_s16(v21, v22);
-      v25 = *&v56[j + 4016];
-      v26 = *&v57[j];
-      v27 = vtrn1q_s16(v25, v26);
-      v28 = vtrn2q_s16(v25, v26);
-      v29 = vtrn1q_s32(v15, v19);
-      v30 = vtrn2q_s32(v15, v19);
-      v31 = vtrn1q_s32(v16, v20);
-      v32 = vtrn2q_s32(v16, v20);
-      v33 = vtrn1q_s32(v23, v27);
-      v34 = vtrn2q_s32(v23, v27);
-      v35 = vzip2q_s64(v29, v33);
-      v29.i64[1] = v33.i64[0];
-      v36 = vtrn1q_s32(v24, v28);
-      v37 = vtrn2q_s32(v24, v28);
-      v38 = vzip2q_s64(v31, v36);
-      v31.i64[1] = v36.i64[0];
-      v39 = vzip2q_s64(v30, v34);
-      v30.i64[1] = v34.i64[0];
-      v34.i64[0] = v32.i64[0];
-      v34.i64[1] = v37.i64[0];
-      v11[-4] = v29;
-      v11[-3] = v31;
-      v11[-2] = v30;
-      v11[-1] = v34;
-      *v11 = v35;
-      v11[1] = v38;
-      v11[2] = v39;
-      v11[3] = vzip2q_s64(v32, v37);
-      v11 += 64;
+      v26 = *&v75[j + 3920];
+      v27 = *&v75[j + 3936];
+      v28 = vtrn1q_s16(v26, v27);
+      v29 = vtrn2q_s16(v26, v27);
+      v30 = *&v75[j + 3952];
+      v31 = *&v75[j + 3968];
+      v32 = vtrn1q_s16(v30, v31);
+      v33 = vtrn2q_s16(v30, v31);
+      v34 = *&v75[j + 3984];
+      v35 = *&v75[j + 4000];
+      v36 = vtrn1q_s16(v34, v35);
+      v37 = vtrn2q_s16(v34, v35);
+      v38 = *&v75[j + 4016];
+      v39 = *&v76[j];
+      v40 = vtrn1q_s16(v38, v39);
+      v41 = vtrn2q_s16(v38, v39);
+      v42 = vtrn1q_s32(v28, v32);
+      v43 = vtrn2q_s32(v28, v32);
+      v44 = vtrn1q_s32(v29, v33);
+      v45 = vtrn2q_s32(v29, v33);
+      v46 = vtrn1q_s32(v36, v40);
+      v47 = vtrn2q_s32(v36, v40);
+      v48 = vzip2q_s64(v42, v46);
+      v42.i64[1] = v46.i64[0];
+      v49 = vtrn1q_s32(v37, v41);
+      v50 = vtrn2q_s32(v37, v41);
+      v51 = vzip2q_s64(v44, v49);
+      v44.i64[1] = v49.i64[0];
+      v52 = vzip2q_s64(v43, v47);
+      v43.i64[1] = v47.i64[0];
+      v47.i64[0] = v45.i64[0];
+      v47.i64[1] = v50.i64[0];
+      v24[-4] = v42;
+      v24[-3] = v44;
+      v24[-2] = v43;
+      v24[-1] = v47;
+      *v24 = v48;
+      v24[1] = v51;
+      v24[2] = v52;
+      v24[3] = vzip2q_s64(v45, v50);
+      v24 += 64;
     }
 
-    ++v6;
-    v9 += 8;
+    ++v14;
+    v17 += 8;
   }
 
-  while (v6 != 8);
-  v40 = 0;
-  v41 = (v4 + 16);
-  v42 = &v55;
-  v53 = vdupq_n_s32(0x16A1u);
+  while (v14 != 8);
+  v53 = 0;
+  v54 = (v12 + 16);
+  v55 = &v74;
+  v71 = vdupq_n_s32(0x16A1u);
   do
   {
     for (k = 0; k != 1024; k += 16)
     {
-      v44 = *&v42[k];
-      *&v54[k + 1024] = vmovl_s16(*v44.i8);
-      *&v54[k] = vmovl_high_s16(v44);
+      v57 = *&v55[k];
+      *&v73[k] = vmovl_s16(*v57.i8);
+      *&v72[k] = vmovl_high_s16(v57);
     }
 
-    sub_2779E436C();
-    result = sub_2779E436C();
+    sub_2779E436C(v73, v73, 11, v18, v19, v20, v21, v22);
+    result = sub_2779E436C(v72, v72, 11, v58, v59, v60, v61, v62);
     for (m = 0; m != 512; m += 16)
     {
-      *&v54[m + 1024] = vrshrq_n_s32(*&v54[m + 1024], 2uLL);
+      *&v73[m] = vrshrq_n_s32(*&v73[m], 2uLL);
     }
 
     for (n = 0; n != 512; n += 16)
     {
-      *&v54[n] = vrshrq_n_s32(*&v54[n], 2uLL);
+      *&v72[n] = vrshrq_n_s32(*&v72[n], 2uLL);
     }
 
     for (ii = 0; ii != 512; ii += 16)
     {
-      *&v54[ii + 1024] = vrshrq_n_s32(vmulq_s32(*&v54[ii + 1024], v53), 0xCuLL);
+      *&v73[ii] = vrshrq_n_s32(vmulq_s32(*&v73[ii], v71), 0xCuLL);
     }
 
     for (jj = 0; jj != 512; jj += 16)
     {
-      *&v54[jj] = vrshrq_n_s32(vmulq_s32(*&v54[jj], v53), 0xCuLL);
+      *&v72[jj] = vrshrq_n_s32(vmulq_s32(*&v72[jj], v71), 0xCuLL);
     }
 
-    v50 = 0;
-    v51 = v41;
+    v68 = 0;
+    v69 = v54;
     do
     {
-      v52 = *&v54[v50];
-      *(v51 - 1) = *&v54[v50 + 1024];
-      *v51 = v52;
-      v50 += 16;
-      v51 += 8;
+      v70 = *&v72[v68];
+      *(v69 - 1) = *&v73[v68];
+      *v69 = v70;
+      v68 += 16;
+      v69 += 8;
     }
 
-    while (v50 != 512);
-    ++v40;
-    v42 += 1024;
-    v41 += 2;
+    while (v68 != 512);
+    ++v53;
+    v55 += 1024;
+    v54 += 2;
   }
 
-  while (v40 != 4);
+  while (v53 != 4);
   return result;
 }
 
-uint64_t sub_2779E436C()
+uint64_t sub_2779E436C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  result = MEMORY[0x28223BE20]();
-  v2 = 0;
-  v439 = *MEMORY[0x277D85DE8];
-  v4 = &xmmword_277BEB8A0[16 * (v3 - 10)];
-  v6 = *v4;
-  v5 = v4[1];
-  v246 = v4[3];
-  v248 = v4[2];
-  v250 = v4[5];
-  v252 = v4[6];
-  v254 = v4[7];
-  v256 = v4[4];
-  v261 = v4[10];
-  v262 = v4[11];
-  v263 = v4[12];
-  v260 = v4[13];
-  v7 = 1008;
-  v258 = v4[9];
-  v259 = v4[14];
-  v264 = v4[15];
-  v265 = v4[8];
-  do
-  {
-    *&v422[v2] = vqaddq_s32(*(result + v2), *(result + v7));
-    v7 -= 16;
-    v2 += 16;
-  }
-
-  while (v7 != 496);
-  v8 = 496;
-  v9 = 512;
-  do
-  {
-    *&v422[v9] = vqsubq_s32(*(result + v8), *(result + v9));
-    v8 -= 16;
-    v9 += 16;
-  }
-
-  while (v8 != -16);
+  result = MEMORY[0x28223BE20](a1, a2, a3, a4, a5, a6, a7, a8);
   v10 = 0;
-  for (i = 496; i != 240; i -= 16)
+  v447 = *MEMORY[0x277D85DE8];
+  v12 = &xmmword_277BEB8A0[16 * (v11 - 10)];
+  v14 = *v12;
+  v13 = v12[1];
+  v254 = v12[3];
+  v256 = v12[2];
+  v258 = v12[5];
+  v260 = v12[6];
+  v262 = v12[7];
+  v264 = v12[4];
+  v269 = v12[10];
+  v270 = v12[11];
+  v271 = v12[12];
+  v268 = v12[13];
+  v15 = 1008;
+  v266 = v12[9];
+  v267 = v12[14];
+  v272 = v12[15];
+  v273 = v12[8];
+  do
   {
-    *&v397[v10] = vqaddq_s32(*&v422[v10], *&v422[i]);
+    *&v430[v10] = vqaddq_s32(*(result + v10), *(result + v15));
+    v15 -= 16;
     v10 += 16;
   }
 
-  v12 = 240;
-  v13 = 256;
+  while (v15 != 496);
+  v16 = 496;
+  v17 = 512;
   do
   {
-    *&v397[v13] = vqsubq_s32(*&v422[v12], *&v422[v13]);
-    v12 -= 16;
-    v13 += 16;
-  }
-
-  while (v12 != -16);
-  v14 = 0;
-  v15 = vmovl_s16(*v6.i8);
-  v16 = vmovl_s16(vdup_lane_s16(*v6.i8, 0));
-  v17 = vmovl_s16(vdup_lane_s16(*v6.i8, 1));
-  v18 = vmovl_s16(vdup_lane_s16(*v6.i8, 2));
-  v421 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v438, v16), v423, v17), 0xDuLL);
-  v420 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v437, v16), v424, v17), 0xDuLL);
-  v406 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v438, v17), v423, v18), 0xDuLL);
-  v407 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v437, v17), v424, v18), 0xDuLL);
-  v419 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v436, v16), v425, v17), 0xDuLL);
-  v418 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v435, v16), v426, v17), 0xDuLL);
-  v408 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v436, v17), v425, v18), 0xDuLL);
-  v409 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v435, v17), v426, v18), 0xDuLL);
-  v417 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v434, v16), v427, v17), 0xDuLL);
-  v416 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v433, v16), v428, v17), 0xDuLL);
-  v410 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v434, v17), v427, v18), 0xDuLL);
-  v411 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v433, v17), v428, v18), 0xDuLL);
-  v19 = vdupq_lane_s32(*v15.i8, 0);
-  v20 = vdupq_lane_s32(*v15.i8, 1);
-  v21 = vdupq_laneq_s32(v15, 2);
-  v415 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v432, v16), v429, v17), 0xDuLL);
-  v414 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v431, v16), v430, v17), 0xDuLL);
-  v412 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v432, v17), v429, v18), 0xDuLL);
-  v413 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v431, v17), v430, v18), 0xDuLL);
-  for (j = 240; j != 112; j -= 16)
-  {
-    *&v364[v14] = vqaddq_s32(*&v397[v14], *&v397[j]);
-    v14 += 16;
-  }
-
-  v23 = 112;
-  v24 = 128;
-  do
-  {
-    *&v364[v24] = vqsubq_s32(*&v397[v23], *&v397[v24]);
-    v23 -= 16;
-    v24 += 16;
-  }
-
-  while (v23 != -16);
-  v380 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v405, v19), v398, v20), 0xDuLL);
-  v379 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v404, v19), v399, v20), 0xDuLL);
-  v373 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v405, v20), v398, v21), 0xDuLL);
-  v374 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v404, v20), v399, v21), 0xDuLL);
-  v378 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v403, v19), v400, v20), 0xDuLL);
-  v377 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v402, v19), v401, v20), 0xDuLL);
-  v25 = 752;
-  v375 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v403, v20), v400, v21), 0xDuLL);
-  v376 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v402, v20), v401, v21), 0xDuLL);
-  v26 = 512;
-  do
-  {
-    *&v364[v26] = vqaddq_s32(*&v422[v26], *&v397[v25]);
-    v25 -= 16;
-    v26 += 16;
-  }
-
-  while (v25 != 624);
-  v27 = 640;
-  do
-  {
-    *&v364[v27] = vqsubq_s32(*&v422[v25], *&v397[v27]);
-    v25 -= 16;
-    v27 += 16;
-  }
-
-  while (v25 != 496);
-  v28 = 1008;
-  v29 = 768;
-  do
-  {
-    *&v364[v29] = vqsubq_s32(*&v422[v28], *&v397[v29]);
-    v28 -= 16;
-    v29 += 16;
-  }
-
-  while (v28 != 880);
-  v30 = 896;
-  v31 = 880;
-  do
-  {
-    *&v364[v30] = vqaddq_s32(*&v422[v30], *&v397[v31]);
-    v30 += 16;
-    v31 -= 16;
-  }
-
-  while (v30 != 1024);
-  v32 = 0;
-  for (k = 112; k != 48; k -= 16)
-  {
-    *(&v320 + v32) = vqaddq_s32(*&v364[v32], *&v364[k]);
-    v32 += 16;
-  }
-
-  v34 = 48;
-  v35 = 64;
-  do
-  {
-    *(&v320 + v35) = vqsubq_s32(*&v364[v34], *&v364[v35]);
-    v34 -= 16;
-    v35 += 16;
-  }
-
-  while (v34 != -16);
-  v331 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v370, v19), v367, v20), 0xDuLL);
-  v330 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v369, v19), v368, v20), 0xDuLL);
-  v36 = 368;
-  v328 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v370, v20), v367, v21), 0xDuLL);
-  v329 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v369, v20), v368, v21), 0xDuLL);
-  v37 = 256;
-  do
-  {
-    *(&v320 + v37) = vqaddq_s32(*&v397[v37], *&v364[v36]);
-    v36 -= 16;
-    v37 += 16;
-  }
-
-  while (v36 != 304);
-  v38 = 320;
-  do
-  {
-    *(&v320 + v38) = vqsubq_s32(*&v397[v36], *&v364[v38]);
-    v36 -= 16;
-    v38 += 16;
-  }
-
-  while (v36 != 240);
-  v39 = 496;
-  v40 = 384;
-  do
-  {
-    *(&v320 + v40) = vqsubq_s32(*&v397[v39], *&v364[v40]);
-    v39 -= 16;
-    v40 += 16;
-  }
-
-  while (v39 != 432);
-  v41 = 448;
-  v42 = 432;
-  do
-  {
-    *(&v320 + v41) = vqaddq_s32(*&v397[v41], *&v364[v42]);
-    v41 += 16;
-    v42 -= 16;
-  }
-
-  while (v41 != 512);
-  v43 = vmovl_high_s16(v6);
-  v44 = vdupq_lane_s32(*v43.i8, 0);
-  v45 = vdupq_lane_s32(*v43.i8, 1);
-  v46 = vmovl_s16(vdup_laneq_s16(v6, 4));
-  v47 = vmovl_s16(vdup_laneq_s16(v6, 5));
-  v48 = vmovl_s16(vdup_laneq_s16(v6, 6));
-  v363 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v396, v46), v381, v47), 0xDuLL);
-  v362 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v395, v46), v382, v47), 0xDuLL);
-  v348 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v396, v47), v381, v48), 0xDuLL);
-  v349 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v395, v47), v382, v48), 0xDuLL);
-  v361 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v394, v46), v383, v47), 0xDuLL);
-  v360 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v393, v46), v384, v47), 0xDuLL);
-  v350 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v394, v47), v383, v48), 0xDuLL);
-  v351 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v393, v47), v384, v48), 0xDuLL);
-  v49 = vmovl_s16(vdup_laneq_s16(v6, 7));
-  v359 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v392, v47), v385, v48), 0xDuLL);
-  v358 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v391, v47), v386, v48), 0xDuLL);
-  v352 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v392, v48), v385, v49), 0xDuLL);
-  v353 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v391, v48), v386, v49), 0xDuLL);
-  v357 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v390, v47), v387, v48), 0xDuLL);
-  v356 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v389, v47), v388, v48), 0xDuLL);
-  v354 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v390, v48), v387, v49), 0xDuLL);
-  v355 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v389, v48), v388, v49), 0xDuLL);
-  v266 = vqaddq_s32(v320, v323);
-  v267 = vqaddq_s32(v321, v322);
-  v268 = vqsubq_s32(v321, v322);
-  v269 = vqsubq_s32(v320, v323);
-  v270 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v326, v20), v325, v21), 0xDuLL);
-  v271 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v326, v19), v325, v20), 0xDuLL);
-  v272 = vqaddq_s32(v365, v329);
-  v273 = vqaddq_s32(v366, v328);
-  v274 = vqsubq_s32(v366, v328);
-  v275 = vqsubq_s32(v365, v329);
-  v276 = vqsubq_s32(v372, v330);
-  v277 = vqsubq_s32(v371, v331);
-  v50 = vdupq_laneq_s32(v43, 2);
-  v278 = vqaddq_s32(v371, v331);
-  v279 = vqaddq_s32(v372, v330);
-  v286 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v344, v46), v335, v47), 0xDuLL);
-  v287 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v345, v46), v334, v47), 0xDuLL);
-  v51 = vdupq_laneq_s32(v43, 3);
-  v280 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v345, v47), v334, v48), 0xDuLL);
-  v281 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v344, v47), v335, v48), 0xDuLL);
-  v284 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v342, v47), v337, v48), 0xDuLL);
-  v285 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v343, v47), v336, v48), 0xDuLL);
-  v52 = 624;
-  v53 = 512;
-  v282 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v343, v48), v336, v49), 0xDuLL);
-  v283 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v342, v48), v337, v49), 0xDuLL);
-  do
-  {
-    *(&v266 + v53) = vqaddq_s32(*&v364[v53], *(&v320 + v52));
-    v52 -= 16;
-    v53 += 16;
-  }
-
-  while (v52 != 560);
-  v54 = 576;
-  do
-  {
-    *(&v266 + v54) = vqsubq_s32(*&v364[v52], *(&v320 + v54));
-    v52 -= 16;
-    v54 += 16;
-  }
-
-  while (v52 != 496);
-  v55 = 752;
-  v56 = 640;
-  do
-  {
-    *(&v266 + v56) = vqsubq_s32(*&v364[v55], *(&v320 + v56));
-    v55 -= 16;
-    v56 += 16;
-  }
-
-  while (v55 != 688);
-  v57 = 704;
-  v58 = 688;
-  do
-  {
-    *(&v266 + v57) = vqaddq_s32(*&v364[v57], *(&v320 + v58));
-    v57 += 16;
-    v58 -= 16;
-  }
-
-  while (v57 != 768);
-  v59 = 880;
-  v60 = 768;
-  do
-  {
-    *(&v266 + v60) = vqaddq_s32(*&v364[v60], *(&v320 + v59));
-    v59 -= 16;
-    v60 += 16;
-  }
-
-  while (v59 != 816);
-  v61 = 832;
-  do
-  {
-    *(&v266 + v61) = vqsubq_s32(*&v364[v59], *(&v320 + v61));
-    v59 -= 16;
-    v61 += 16;
-  }
-
-  while (v59 != 752);
-  v62 = 1008;
-  v63 = 896;
-  do
-  {
-    *(&v266 + v63) = vqsubq_s32(*&v364[v62], *(&v320 + v63));
-    v62 -= 16;
-    v63 += 16;
-  }
-
-  while (v62 != 944);
-  v64 = 960;
-  v65 = 944;
-  do
-  {
-    *(&v266 + v64) = vqaddq_s32(*&v364[v64], *(&v320 + v65));
-    v64 += 16;
-    v65 -= 16;
-  }
-
-  while (v64 != 1024);
-  v244 = vmlaq_s32(vmulq_s32(v266, v19), v267, v20);
-  v245 = vmlaq_s32(vmulq_s32(v269, v44), v268, v45);
-  v66 = vmlaq_s32(vmulq_s32(v278, v44), v273, v45);
-  v67 = vmlaq_s32(vmulq_s32(v278, v45), v273, v50);
-  v68 = vmlaq_s32(vmulq_s32(v277, v45), v274, v50);
-  v69 = vmlaq_s32(vmulq_s32(v277, v50), v274, v51);
-  v70 = vqaddq_s32(v333, v280);
-  v71 = vqsubq_s32(v333, v280);
-  v72 = vqsubq_s32(v346, v287);
-  v73 = vqaddq_s32(v346, v287);
-  v74 = vmovl_s16(vdup_lane_s16(*v5.i8, 0));
-  v75 = vmovl_s16(vdup_lane_s16(*v5.i8, 1));
-  v76 = vmlaq_s32(vmulq_s32(v317, v74), v290, v75);
-  v77 = vmovl_s16(vdup_lane_s16(*v5.i8, 2));
-  v78 = vmlaq_s32(vmulq_s32(v317, v75), v290, v77);
-  v231 = vmlaq_s32(vmulq_s32(v316, v74), v291, v75);
-  v233 = vmlaq_s32(vmulq_s32(v316, v75), v291, v77);
-  v236 = vmlaq_s32(vmulq_s32(v315, v75), v292, v77);
-  v79 = vmovl_s16(vdup_lane_s16(*v5.i8, 3));
-  v238 = vmlaq_s32(vmulq_s32(v315, v77), v292, v79);
-  v80 = vmlaq_s32(vmulq_s32(v314, v75), v293, v77);
-  v81 = vmlaq_s32(vmulq_s32(v314, v77), v293, v79);
-  v243 = vmlaq_s32(vmulq_s32(vqaddq_s32(v327, v271), v74), vqaddq_s32(v324, v270), v75);
-  v82 = vmlaq_s32(vmulq_s32(v73, v74), v70, v75);
-  v83 = vmlaq_s32(vmulq_s32(v73, v75), v70, v77);
-  v226 = vmlaq_s32(vmulq_s32(v72, v75), v71, v77);
-  v229 = vmlaq_s32(vmulq_s32(v72, v77), v71, v79);
-  v84 = vqsubq_s32(v338, v283);
-  v85 = vqaddq_s32(v338, v283);
-  v86 = vqaddq_s32(v341, v284);
-  v87 = vqsubq_s32(v341, v284);
-  v88 = vmovl_s16(vdup_laneq_s16(v5, 5));
-  v89 = vmovl_s16(vdup_laneq_s16(v5, 4));
-  v90 = vmlaq_s32(vmulq_s32(v309, v88), v298, v89);
-  v91 = vmovl_s16(vdup_laneq_s16(v5, 7));
-  v92 = vmlaq_s32(vmulq_s32(v309, v89), v298, v91);
-  v235 = vmlaq_s32(vmulq_s32(v308, v88), v299, v89);
-  v237 = vmlaq_s32(vmulq_s32(v308, v89), v299, v91);
-  v240 = vmlaq_s32(vmulq_s32(v307, v89), v300, v91);
-  v93 = vmovl_s16(vdup_laneq_s16(v5, 6));
-  v94 = vmlaq_s32(vmulq_s32(v306, v89), v301, v91);
-  v95 = vmlaq_s32(vmulq_s32(v306, v91), v301, v93);
-  v241 = vmlaq_s32(vmulq_s32(v307, v91), v300, v93);
-  v242 = vmlaq_s32(vmulq_s32(vqsubq_s32(v327, v271), v89), vqsubq_s32(v324, v270), v91);
-  v96 = vmlaq_s32(vmulq_s32(v87, v88), v84, v89);
-  v97 = vmlaq_s32(vmulq_s32(v87, v89), v84, v91);
-  v98 = vmlaq_s32(vmulq_s32(v86, v89), v85, v91);
-  v99 = vmlaq_s32(vmulq_s32(v86, v91), v85, v93);
-  v100 = vrshrq_n_s32(v78, 0xDuLL);
-  v101 = vqaddq_s32(v289, v100);
-  v102 = vqsubq_s32(v289, v100);
-  v103 = vrshrq_n_s32(v76, 0xDuLL);
-  v104 = vqsubq_s32(v318, v103);
-  v105 = vqaddq_s32(v318, v103);
-  v106 = vrshrq_n_s32(v66, 0xDuLL);
-  v107 = vrshrq_n_s32(v67, 0xDuLL);
-  v108 = vmovl_s16(vdup_lane_s16(*v248.i8, 0));
-  v109 = vmovl_s16(vdup_lane_s16(*v248.i8, 1));
-  v239 = vmlaq_s32(vmulq_s32(vqaddq_s32(v279, v106), v108), vqaddq_s32(v272, v107), v109);
-  v110 = vmovl_s16(vdup_lane_s16(*v248.i8, 2));
-  v111 = vmlaq_s32(vmulq_s32(v105, v108), v101, v109);
-  v112 = vmlaq_s32(vmulq_s32(v105, v109), v101, v110);
-  v113 = vmlaq_s32(vmulq_s32(v104, v109), v102, v110);
-  v225 = vmlaq_s32(vmulq_s32(v104, v110), v102, vmovl_s16(vdup_lane_s16(*v248.i8, 3)));
-  v114 = vqsubq_s32(v279, v106);
-  v115 = vrshrq_n_s32(v81, 0xDuLL);
-  v116 = vqsubq_s32(v294, v115);
-  v117 = vqaddq_s32(v294, v115);
-  v118 = vrshrq_n_s32(v80, 0xDuLL);
-  v119 = vqaddq_s32(v313, v118);
-  v120 = vqsubq_s32(v313, v118);
-  v121 = vmovl_s16(vdup_laneq_s16(v246, 4));
-  v122 = vmovl_s16(vdup_laneq_s16(v246, 7));
-  v234 = vmlaq_s32(vmulq_s32(v114, v121), vqsubq_s32(v272, v107), v122);
-  v123 = vmlaq_s32(vmulq_s32(v120, vmovl_s16(vdup_laneq_s16(v246, 5))), v116, v121);
-  v124 = vmlaq_s32(vmulq_s32(v120, v121), v116, v122);
-  v125 = vmlaq_s32(vmulq_s32(v119, v121), v117, v122);
-  v126 = vmlaq_s32(vmulq_s32(v119, v122), v117, vmovl_s16(vdup_laneq_s16(v246, 6)));
-  v127 = vrshrq_n_s32(v92, 0xDuLL);
-  v128 = vqaddq_s32(v297, v127);
-  v129 = vqsubq_s32(v297, v127);
-  v130 = vrshrq_n_s32(v90, 0xDuLL);
-  v131 = vqsubq_s32(v310, v130);
-  v132 = vqaddq_s32(v310, v130);
-  v133 = vrshrq_n_s32(v68, 0xDuLL);
-  v134 = vrshrq_n_s32(v69, 0xDuLL);
-  v135 = vmovl_s16(vdup_lane_s16(*v246.i8, 0));
-  v136 = vmovl_s16(vdup_lane_s16(*v246.i8, 1));
-  v232 = vmlaq_s32(vmulq_s32(vqsubq_s32(v276, v133), v135), vqsubq_s32(v275, v134), v136);
-  v137 = vmovl_s16(vdup_lane_s16(*v246.i8, 2));
-  v138 = vmlaq_s32(vmulq_s32(v132, v135), v128, v136);
-  v139 = vmlaq_s32(vmulq_s32(v132, v136), v128, v137);
-  v140 = vmlaq_s32(vmulq_s32(v131, v136), v129, v137);
-  v141 = vmlaq_s32(vmulq_s32(v131, v137), v129, vmovl_s16(vdup_lane_s16(*v246.i8, 3)));
-  v142 = vqaddq_s32(v275, v134);
-  v143 = vrshrq_n_s32(v95, 0xDuLL);
-  v144 = vqsubq_s32(v302, v143);
-  v145 = vqaddq_s32(v302, v143);
-  v146 = vrshrq_n_s32(v94, 0xDuLL);
-  v147 = vqaddq_s32(v305, v146);
-  v148 = vqsubq_s32(v305, v146);
-  v149 = vmovl_s16(vdup_laneq_s16(v248, 4));
-  v150 = vmovl_s16(vdup_laneq_s16(v248, 7));
-  v247 = vmlaq_s32(vmulq_s32(vqaddq_s32(v276, v133), v149), v142, v150);
-  v151 = vmlaq_s32(vmulq_s32(v148, vmovl_s16(vdup_laneq_s16(v248, 5))), v144, v149);
-  v152 = vmlaq_s32(vmulq_s32(v148, v149), v144, v150);
-  v153 = vmlaq_s32(vmulq_s32(v147, v149), v145, v150);
-  v154 = vmlaq_s32(vmulq_s32(v147, v150), v145, vmovl_s16(vdup_laneq_s16(v248, 6)));
-  v155 = vrshrq_n_s32(v82, 0xDuLL);
-  v156 = vqaddq_s32(v347, v286);
-  v157 = vrshrq_n_s32(v83, 0xDuLL);
-  v158 = vqaddq_s32(v332, v281);
-  v228 = vmlaq_s32(vmulq_s32(vqaddq_s32(v156, v155), vmovl_s16(vdup_lane_s16(*v256.i8, 0))), vqaddq_s32(v158, v157), vmovl_s16(vdup_lane_s16(*v256.i8, 1)));
-  v249 = vmlaq_s32(vmulq_s32(vqsubq_s32(v156, v155), vmovl_s16(vdup_laneq_s16(v254, 4))), vqsubq_s32(v158, v157), vmovl_s16(vdup_laneq_s16(v254, 7)));
-  v159 = vqsubq_s32(v332, v281);
-  v160 = vqsubq_s32(v347, v286);
-  v161 = vrshrq_n_s32(v226, 0xDuLL);
-  v162 = vrshrq_n_s32(v229, 0xDuLL);
-  v230 = vmlaq_s32(vmulq_s32(vqsubq_s32(v160, v161), vmovl_s16(vdup_lane_s16(*v252.i8, 0))), vqsubq_s32(v159, v162), vmovl_s16(vdup_lane_s16(*v252.i8, 1)));
-  v227 = vmlaq_s32(vmulq_s32(vqaddq_s32(v160, v161), vmovl_s16(vdup_laneq_s16(v250, 4))), vqaddq_s32(v159, v162), vmovl_s16(vdup_laneq_s16(v250, 7)));
-  v163 = vrshrq_n_s32(v96, 0xDuLL);
-  v164 = vqsubq_s32(v340, v285);
-  v165 = vrshrq_n_s32(v97, 0xDuLL);
-  v166 = vqsubq_s32(v339, v282);
-  v251 = vmlaq_s32(vmulq_s32(vqaddq_s32(v164, v163), vmovl_s16(vdup_lane_s16(*v250.i8, 0))), vqaddq_s32(v166, v165), vmovl_s16(vdup_lane_s16(*v250.i8, 1)));
-  v253 = vmlaq_s32(vmulq_s32(vqsubq_s32(v164, v163), vmovl_s16(vdup_laneq_s16(v252, 4))), vqsubq_s32(v166, v165), vmovl_s16(vdup_laneq_s16(v252, 7)));
-  v167 = vqaddq_s32(v339, v282);
-  v168 = vqaddq_s32(v340, v285);
-  v169 = vrshrq_n_s32(v98, 0xDuLL);
-  v170 = vrshrq_n_s32(v99, 0xDuLL);
-  v255 = vmlaq_s32(vmulq_s32(vqsubq_s32(v168, v169), vmovl_s16(vdup_lane_s16(*v254.i8, 0))), vqsubq_s32(v167, v170), vmovl_s16(vdup_lane_s16(*v254.i8, 1)));
-  v257 = vmlaq_s32(vmulq_s32(vqaddq_s32(v168, v169), vmovl_s16(vdup_laneq_s16(v256, 4))), vqaddq_s32(v167, v170), vmovl_s16(vdup_laneq_s16(v256, 7)));
-  v171 = vrshrq_n_s32(v231, 0xDuLL);
-  v172 = vrshrq_n_s32(v111, 0xDuLL);
-  v173 = vqaddq_s32(v319, v171);
-  v174 = vrshrq_n_s32(v233, 0xDuLL);
-  v175 = vrshrq_n_s32(v112, 0xDuLL);
-  v176 = vqaddq_s32(v288, v174);
-  v177 = vmlaq_s32(vmulq_s32(vqaddq_s32(v173, v172), vmovl_s16(vdup_lane_s16(*v265.i8, 0))), vqaddq_s32(v176, v175), vmovl_s16(vdup_lane_s16(*v265.i8, 1)));
-  v178 = vmlaq_s32(vmulq_s32(vqsubq_s32(v173, v172), vmovl_s16(vdup_laneq_s16(v264, 4))), vqsubq_s32(v176, v175), vmovl_s16(vdup_laneq_s16(v264, 7)));
-  v179 = vqsubq_s32(v288, v174);
-  v180 = vqsubq_s32(v319, v171);
-  v181 = vrshrq_n_s32(v113, 0xDuLL);
-  v182 = vrshrq_n_s32(v225, 0xDuLL);
-  v183 = vmlaq_s32(vmulq_s32(vqsubq_s32(v180, v181), vmovl_s16(vdup_lane_s16(*v263.i8, 0))), vqsubq_s32(v179, v182), vmovl_s16(vdup_lane_s16(*v263.i8, 1)));
-  v184 = vmlaq_s32(vmulq_s32(vqaddq_s32(v180, v181), vmovl_s16(vdup_laneq_s16(v262, 4))), vqaddq_s32(v179, v182), vmovl_s16(vdup_laneq_s16(v262, 7)));
-  v185 = vrshrq_n_s32(v236, 0xDuLL);
-  v186 = vrshrq_n_s32(v123, 0xDuLL);
-  v187 = vqsubq_s32(v312, v185);
-  v188 = vrshrq_n_s32(v238, 0xDuLL);
-  v189 = vrshrq_n_s32(v124, 0xDuLL);
-  v190 = vqsubq_s32(v295, v188);
-  v191 = vmlaq_s32(vmulq_s32(vqaddq_s32(v187, v186), vmovl_s16(vdup_lane_s16(*v261.i8, 0))), vqaddq_s32(v190, v189), vmovl_s16(vdup_lane_s16(*v261.i8, 1)));
-  v192 = vmlaq_s32(vmulq_s32(vqsubq_s32(v187, v186), vmovl_s16(vdup_laneq_s16(v260, 4))), vqsubq_s32(v190, v189), vmovl_s16(vdup_laneq_s16(v260, 7)));
-  v193 = vqaddq_s32(v295, v188);
-  v194 = vqaddq_s32(v312, v185);
-  v195 = vrshrq_n_s32(v125, 0xDuLL);
-  v196 = vrshrq_n_s32(v126, 0xDuLL);
-  v197 = vmlaq_s32(vmulq_s32(vqsubq_s32(v194, v195), vmovl_s16(vdup_lane_s16(*v259.i8, 0))), vqsubq_s32(v193, v196), vmovl_s16(vdup_lane_s16(*v259.i8, 1)));
-  v198 = vmlaq_s32(vmulq_s32(vqaddq_s32(v194, v195), vmovl_s16(vdup_laneq_s16(v258, 4))), vqaddq_s32(v193, v196), vmovl_s16(vdup_laneq_s16(v258, 7)));
-  v199 = vrshrq_n_s32(v235, 0xDuLL);
-  v200 = vrshrq_n_s32(v138, 0xDuLL);
-  v201 = vqaddq_s32(v311, v199);
-  v202 = vrshrq_n_s32(v237, 0xDuLL);
-  v203 = vrshrq_n_s32(v139, 0xDuLL);
-  v204 = vqaddq_s32(v296, v202);
-  v205 = vmlaq_s32(vmulq_s32(vqaddq_s32(v201, v200), vmovl_s16(vdup_lane_s16(*v258.i8, 0))), vqaddq_s32(v204, v203), vmovl_s16(vdup_lane_s16(*v258.i8, 1)));
-  v206 = vmlaq_s32(vmulq_s32(vqsubq_s32(v201, v200), vmovl_s16(vdup_laneq_s16(v259, 4))), vqsubq_s32(v204, v203), vmovl_s16(vdup_laneq_s16(v259, 7)));
-  v207 = vqsubq_s32(v296, v202);
-  v208 = vqsubq_s32(v311, v199);
-  v209 = vrshrq_n_s32(v140, 0xDuLL);
-  v210 = vrshrq_n_s32(v141, 0xDuLL);
-  v211 = vmlaq_s32(vmulq_s32(vqsubq_s32(v208, v209), vmovl_s16(vdup_lane_s16(*v260.i8, 0))), vqsubq_s32(v207, v210), vmovl_s16(vdup_lane_s16(*v260.i8, 1)));
-  v212 = vmlaq_s32(vmulq_s32(vqaddq_s32(v208, v209), vmovl_s16(vdup_laneq_s16(v261, 4))), vqaddq_s32(v207, v210), vmovl_s16(vdup_laneq_s16(v261, 7)));
-  v213 = vrshrq_n_s32(v240, 0xDuLL);
-  v214 = vrshrq_n_s32(v151, 0xDuLL);
-  v215 = vqsubq_s32(v304, v213);
-  v216 = vrshrq_n_s32(v241, 0xDuLL);
-  v217 = vrshrq_n_s32(v152, 0xDuLL);
-  v218 = vqsubq_s32(v303, v216);
-  v219 = vmlaq_s32(vmulq_s32(vqaddq_s32(v215, v214), vmovl_s16(vdup_lane_s16(*v262.i8, 0))), vqaddq_s32(v218, v217), vmovl_s16(vdup_lane_s16(*v262.i8, 1)));
-  v220 = vmlaq_s32(vmulq_s32(vqsubq_s32(v215, v214), vmovl_s16(vdup_laneq_s16(v263, 4))), vqsubq_s32(v218, v217), vmovl_s16(vdup_laneq_s16(v263, 7)));
-  v221 = vqaddq_s32(v303, v216);
-  v222 = vqaddq_s32(v304, v213);
-  v223 = vrshrq_n_s32(v153, 0xDuLL);
-  v224 = vrshrq_n_s32(v154, 0xDuLL);
-  *v1 = vrshrq_n_s32(v244, 0xDuLL);
-  v1[1] = vrshrq_n_s32(v177, 0xDuLL);
-  v1[2] = vrshrq_n_s32(v228, 0xDuLL);
-  v1[3] = vrshrq_n_s32(vmlaq_s32(vmulq_s32(vqaddq_s32(v222, v223), vmovl_s16(vdup_laneq_s16(v265, 4))), vqaddq_s32(v221, v224), vmovl_s16(vdup_laneq_s16(v265, 7))), 0xDuLL);
-  v1[4] = vrshrq_n_s32(v239, 0xDuLL);
-  v1[5] = vrshrq_n_s32(v205, 0xDuLL);
-  v1[6] = vrshrq_n_s32(v257, 0xDuLL);
-  v1[7] = vrshrq_n_s32(v198, 0xDuLL);
-  v1[8] = vrshrq_n_s32(v243, 0xDuLL);
-  v1[9] = vrshrq_n_s32(v191, 0xDuLL);
-  v1[10] = vrshrq_n_s32(v251, 0xDuLL);
-  v1[11] = vrshrq_n_s32(v212, 0xDuLL);
-  v1[12] = vrshrq_n_s32(v247, 0xDuLL);
-  v1[13] = vrshrq_n_s32(v219, 0xDuLL);
-  v1[14] = vrshrq_n_s32(v227, 0xDuLL);
-  v1[15] = vrshrq_n_s32(v184, 0xDuLL);
-  v1[16] = vrshrq_n_s32(v245, 0xDuLL);
-  v1[17] = vrshrq_n_s32(v183, 0xDuLL);
-  v1[18] = vrshrq_n_s32(v230, 0xDuLL);
-  v1[19] = vrshrq_n_s32(v220, 0xDuLL);
-  v1[20] = vrshrq_n_s32(v232, 0xDuLL);
-  v1[21] = vrshrq_n_s32(v211, 0xDuLL);
-  v1[22] = vrshrq_n_s32(v253, 0xDuLL);
-  v1[23] = vrshrq_n_s32(v192, 0xDuLL);
-  v1[24] = vrshrq_n_s32(v242, 0xDuLL);
-  v1[25] = vrshrq_n_s32(v197, 0xDuLL);
-  v1[26] = vrshrq_n_s32(v255, 0xDuLL);
-  v1[27] = vrshrq_n_s32(v206, 0xDuLL);
-  v1[28] = vrshrq_n_s32(v234, 0xDuLL);
-  v1[29] = vrshrq_n_s32(vmlaq_s32(vmulq_s32(vqsubq_s32(v222, v223), vmovl_s16(vdup_lane_s16(*v264.i8, 0))), vqsubq_s32(v221, v224), vmovl_s16(vdup_lane_s16(*v264.i8, 1))), 0xDuLL);
-  v1[30] = vrshrq_n_s32(v249, 0xDuLL);
-  v1[31] = vrshrq_n_s32(v178, 0xDuLL);
-  return result;
-}
-
-uint64_t sub_2779E57A8()
-{
-  v0 = MEMORY[0x28223BE20]();
-  v378 = v2;
-  v3 = 0;
-  v739 = *MEMORY[0x277D85DE8];
-  v4 = v552;
-  v5 = vdupq_n_s16(0x16A1u);
-  v6 = vdupq_n_s16(0xE95Fu);
-  v380 = vneg_f16(0x6161616161616161);
-  v381 = vneg_f16(0x6565656565656565);
-  v379 = vneg_f16(0x7777777777777777);
-  v549 = v5;
-  v548 = v6;
-  do
-  {
-    v7 = 0;
-    v8 = v0;
-    do
-    {
-      v553[v7++] = *v8;
-      v8 = (v8 + 2 * v1);
-    }
-
-    while (v7 != 64);
-    v9 = 0;
-    for (i = 63; i != 31; --i)
-    {
-      v722[v9] = vqaddq_s16(v553[v9], v553[i]);
-      ++v9;
-    }
-
-    v11 = 32;
-    do
-    {
-      v722[v11] = vqsubq_s16(v553[i--], v553[v11]);
-      ++v11;
-    }
-
-    while (i != -1);
-    v12 = 0;
-    for (j = 31; j != 15; --j)
-    {
-      v693[v12] = vqaddq_s16(v722[v12], v722[j]);
-      ++v12;
-    }
-
-    v14 = 16;
-    do
-    {
-      v693[v14] = vqsubq_s16(v722[j--], v722[v14]);
-      ++v14;
-    }
-
-    while (j != -1);
-    v15 = 0;
-    v721 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v723.i8, *v5.i8), *v738.i8, *v5.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v723, v5), v738, v5), 0xDuLL);
-    v720 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v724.i8, *v5.i8), *v737.i8, *v5.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v724, v5), v737, v5), 0xDuLL);
-    v706 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v723.i8, *v6.i8), *v738.i8, *v5.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v723, v6), v738, v5), 0xDuLL);
-    v707 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v724.i8, *v6.i8), *v737.i8, *v5.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v724, v6), v737, v5), 0xDuLL);
-    v719 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v725.i8, *v5.i8), *v736.i8, *v5.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v725, v5), v736, v5), 0xDuLL);
-    v718 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v726.i8, *v5.i8), *v735.i8, *v5.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v726, v5), v735, v5), 0xDuLL);
-    v708 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v725.i8, *v6.i8), *v736.i8, *v5.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v725, v6), v736, v5), 0xDuLL);
-    v709 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v726.i8, *v6.i8), *v735.i8, *v5.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v726, v6), v735, v5), 0xDuLL);
-    v717 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v727.i8, *v5.i8), *v734.i8, *v5.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v727, v5), v734, v5), 0xDuLL);
-    v716 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v728.i8, *v5.i8), *v733.i8, *v5.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v728, v5), v733, v5), 0xDuLL);
-    v710 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v727.i8, *v6.i8), *v734.i8, *v5.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v727, v6), v734, v5), 0xDuLL);
-    v711 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v728.i8, *v6.i8), *v733.i8, *v5.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v728, v6), v733, v5), 0xDuLL);
-    v715 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v729.i8, *v5.i8), *v732.i8, *v5.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v729, v5), v732, v5), 0xDuLL);
-    v714 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v730.i8, *v5.i8), *v731.i8, *v5.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v730, v5), v731, v5), 0xDuLL);
-    v712 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v729.i8, *v6.i8), *v732.i8, *v5.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v729, v6), v732, v5), 0xDuLL);
-    v713 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v730.i8, *v6.i8), *v731.i8, *v5.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v730, v6), v731, v5), 0xDuLL);
-    for (k = 15; k != 7; --k)
-    {
-      *&v652[v15 * 16] = vqaddq_s16(v693[v15], v693[k]);
-      ++v15;
-    }
-
-    v17 = 8;
-    do
-    {
-      *&v652[v17 * 16] = vqsubq_s16(v693[k--], v693[v17]);
-      ++v17;
-    }
-
-    while (k != -1);
-    v661 = v693[16];
-    v662 = v693[17];
-    v663 = v693[18];
-    v664 = v693[19];
-    v672 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v694.i8, *v5.i8), *v701.i8, *v5.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v694, v5), v701, v5), 0xDuLL);
-    v671 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v695.i8, *v5.i8), *v700.i8, *v5.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v695, v5), v700, v5), 0xDuLL);
-    v665 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v694.i8, *v6.i8), *v701.i8, *v5.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v694, v6), v701, v5), 0xDuLL);
-    v666 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v695.i8, *v6.i8), *v700.i8, *v5.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v695, v6), v700, v5), 0xDuLL);
-    v670 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v696.i8, *v5.i8), *v699.i8, *v5.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v696, v5), v699, v5), 0xDuLL);
-    v669 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v697.i8, *v5.i8), *v698.i8, *v5.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v697, v5), v698, v5), 0xDuLL);
-    v667 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v696.i8, *v6.i8), *v699.i8, *v5.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v696, v6), v699, v5), 0xDuLL);
-    v668 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v697.i8, *v6.i8), *v698.i8, *v5.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v697, v6), v698, v5), 0xDuLL);
-    v673 = v702;
-    v674 = v703;
-    v675 = v704;
-    v676 = v705;
-    v18 = 32;
-    for (m = 47; m != 39; --m)
-    {
-      *&v652[v18 * 16] = vqaddq_s16(v722[v18], v693[m]);
-      ++v18;
-    }
-
-    v20 = 40;
-    do
-    {
-      *&v652[v20 * 16] = vqsubq_s16(v722[m--], v693[v20]);
-      ++v20;
-    }
-
-    while (m != 31);
-    v21 = 48;
-    for (n = 63; n != 55; --n)
-    {
-      *&v652[v21 * 16] = vqsubq_s16(v722[n], v693[v21]);
-      ++v21;
-    }
-
-    v23 = 55;
-    for (ii = 56; ii != 64; ++ii)
-    {
-      *&v652[ii * 16] = vqaddq_s16(v722[ii], v693[v23--]);
-    }
-
-    v25 = 0;
-    for (jj = 112; jj != 48; jj -= 16)
-    {
-      *(&v608 + v25) = vqaddq_s16(*&v652[v25], *&v652[jj]);
-      v25 += 16;
-    }
-
-    v27 = 64;
-    do
-    {
-      *(&v608 + v27) = vqsubq_s16(*&v652[jj], *&v652[v27]);
-      jj -= 16;
-      v27 += 16;
-    }
-
-    while (jj != -16);
-    v619 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v655.i8, *v5.i8), *v658.i8, *v5.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v655, v5), v658, v5), 0xDuLL);
-    v618 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v656.i8, *v5.i8), *v657.i8, *v5.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v656, v5), v657, v5), 0xDuLL);
-    v616 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v655.i8, *v6.i8), *v658.i8, *v5.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v655, v6), v658, v5), 0xDuLL);
-    v617 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v656.i8, *v6.i8), *v657.i8, *v5.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v656, v6), v657, v5), 0xDuLL);
-    v28 = 256;
-    for (kk = 368; kk != 304; kk -= 16)
-    {
-      *(&v608 + v28) = vqaddq_s16(*&v652[v28], *&v652[kk]);
-      v28 += 16;
-    }
-
-    v30 = 320;
-    do
-    {
-      *(&v608 + v30) = vqsubq_s16(*&v652[kk], *&v652[v30]);
-      kk -= 16;
-      v30 += 16;
-    }
-
-    while (kk != 240);
-    v31 = 384;
-    for (mm = 496; mm != 432; mm -= 16)
-    {
-      *(&v608 + v31) = vqsubq_s16(*&v652[mm], *&v652[v31]);
-      v31 += 16;
-    }
-
-    v33 = 432;
-    for (nn = 448; nn != 512; nn += 16)
-    {
-      *(&v608 + nn) = vqaddq_s16(*&v652[nn], *&v652[v33]);
-      v33 -= 16;
-    }
-
-    v35 = vdupq_n_s16(0x1D90u);
-    v36 = vdupq_n_s16(0xC3Fu);
-    v37 = vdupq_n_s16(0xE270u);
-    v651 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v677.i8, *v36.i8), *v692.i8, *v35.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v677, v36), v692, v35), 0xDuLL);
-    v650 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v678.i8, *v36.i8), *v691.i8, *v35.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v678, v36), v691, v35), 0xDuLL);
-    v636 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v677.i8, *v37.i8), *v692.i8, *v36.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v677, v37), v692, v36), 0xDuLL);
-    v637 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v678.i8, *v37.i8), *v691.i8, *v36.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v678, v37), v691, v36), 0xDuLL);
-    v649 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v679.i8, *v36.i8), *v690.i8, *v35.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v679, v36), v690, v35), 0xDuLL);
-    v648 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v680.i8, *v36.i8), *v689.i8, *v35.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v680, v36), v689, v35), 0xDuLL);
-    v638 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v679.i8, *v37.i8), *v690.i8, *v36.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v679, v37), v690, v36), 0xDuLL);
-    v639 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v680.i8, *v37.i8), *v689.i8, *v36.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v680, v37), v689, v36), 0xDuLL);
-    v38 = vdupq_n_s16(0xF3C1u);
-    v647 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v681.i8, *v37.i8), *v688.i8, *v36.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v681, v37), v688, v36), 0xDuLL);
-    v646 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v682.i8, *v37.i8), *v687.i8, *v36.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v682, v37), v687, v36), 0xDuLL);
-    v640 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v681.i8, *v38.i8), *v688.i8, *v37.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v681, v38), v688, v37), 0xDuLL);
-    v641 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v682.i8, *v38.i8), *v687.i8, *v37.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v682, v38), v687, v37), 0xDuLL);
-    v645 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v683.i8, *v37.i8), *v686.i8, *v36.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v683, v37), v686, v36), 0xDuLL);
-    v644 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v684.i8, *v37.i8), *v685.i8, *v36.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v684, v37), v685, v36), 0xDuLL);
-    v642 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v683.i8, *v38.i8), *v686.i8, *v37.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v683, v38), v686, v37), 0xDuLL);
-    v643 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v684.i8, *v38.i8), *v685.i8, *v37.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v684, v38), v685, v37), 0xDuLL);
-    v554 = vqaddq_s16(v608, v611);
-    v555 = vqaddq_s16(v609, v610);
-    v556 = vqsubq_s16(v609, v610);
-    v557 = vqsubq_s16(v608, v611);
-    v559 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v613.i8, *v5.i8), *v614.i8, *v5.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v613, v5), v614, v5), 0xDuLL);
-    v558 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v613.i8, *v6.i8), *v614.i8, *v5.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v613, v6), v614, v5), 0xDuLL);
-    v560 = vqaddq_s16(v653, v617);
-    v561 = vqaddq_s16(v654, v616);
-    v562 = vqsubq_s16(v654, v616);
-    v563 = vqsubq_s16(v653, v617);
-    v564 = vqsubq_s16(v660, v618);
-    v565 = vqsubq_s16(v659, v619);
-    v566 = vqaddq_s16(v659, v619);
-    v567 = vqaddq_s16(v660, v618);
-    v575 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v622.i8, *v36.i8), *v633.i8, *v35.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v622, v36), v633, v35), 0xDuLL);
-    v574 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v623.i8, *v36.i8), *v632.i8, *v35.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v623, v36), v632, v35), 0xDuLL);
-    v568 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v622.i8, *v37.i8), *v633.i8, *v36.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v622, v37), v633, v36), 0xDuLL);
-    v569 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v623.i8, *v37.i8), *v632.i8, *v36.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v623, v37), v632, v36), 0xDuLL);
-    v573 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v624.i8, *v37.i8), *v631.i8, *v36.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v624, v37), v631, v36), 0xDuLL);
-    v572 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v625.i8, *v37.i8), *v630.i8, *v36.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v625, v37), v630, v36), 0xDuLL);
-    v570 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v624.i8, *v38.i8), *v631.i8, *v37.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v624, v38), v631, v37), 0xDuLL);
-    v571 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v625.i8, *v38.i8), *v630.i8, *v37.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v625, v38), v630, v37), 0xDuLL);
-    v39 = 512;
-    for (i1 = 624; i1 != 560; i1 -= 16)
-    {
-      *(&v554 + v39) = vqaddq_s16(*&v652[v39], *(&v608 + i1));
-      v39 += 16;
-    }
-
-    v41 = 576;
-    do
-    {
-      *(&v554 + v41) = vqsubq_s16(*&v652[i1], *(&v608 + v41));
-      i1 -= 16;
-      v41 += 16;
-    }
-
-    while (i1 != 496);
-    v42 = 640;
-    for (i2 = 752; i2 != 688; i2 -= 16)
-    {
-      *(&v554 + v42) = vqsubq_s16(*&v652[i2], *(&v608 + v42));
-      v42 += 16;
-    }
-
-    v44 = 688;
-    for (i3 = 704; i3 != 768; i3 += 16)
-    {
-      *(&v554 + i3) = vqaddq_s16(*&v652[i3], *(&v608 + v44));
-      v44 -= 16;
-    }
-
-    v46 = 768;
-    for (i4 = 880; i4 != 816; i4 -= 16)
-    {
-      *(&v554 + v46) = vqaddq_s16(*&v652[v46], *(&v608 + i4));
-      v46 += 16;
-    }
-
-    v48 = 832;
-    do
-    {
-      *(&v554 + v48) = vqsubq_s16(*&v652[i4], *(&v608 + v48));
-      i4 -= 16;
-      v48 += 16;
-    }
-
-    while (i4 != 752);
-    v49 = 896;
-    for (i5 = 1008; i5 != 944; i5 -= 16)
-    {
-      *(&v554 + v49) = vqsubq_s16(*&v652[i5], *(&v608 + v49));
-      v49 += 16;
-    }
-
-    v51 = 944;
-    for (i6 = 960; i6 != 1024; i6 += 16)
-    {
-      *(&v554 + i6) = vqaddq_s16(*&v652[i6], *(&v608 + v51));
-      v51 -= 16;
-    }
-
-    v53 = 0;
-    v547 = vmlal_s16(vmull_s16(*v556.i8, *v36.i8), *v557.i8, *v35.i8);
-    v546 = vmlal_high_s16(vmull_high_s16(v556, v36), v557, v35);
-    v545 = vmlal_s16(vmull_s16(*v556.i8, *v37.i8), *v557.i8, *v36.i8);
-    v544 = vmlal_high_s16(vmull_high_s16(v556, v37), v557, v36);
-    v54 = vmlal_s16(vmull_s16(*v561.i8, *v36.i8), *v566.i8, *v35.i8);
-    v55 = vmlal_high_s16(vmull_high_s16(v561, v36), v566, v35);
-    v56 = vmlal_s16(vmull_s16(*v561.i8, *v37.i8), *v566.i8, *v36.i8);
-    v57 = vmlal_high_s16(vmull_high_s16(v561, v37), v566, v36);
-    v58 = vqaddq_s16(v621, v568);
-    v59 = vqsubq_s16(v621, v568);
-    v60 = vqsubq_s16(v634, v575);
-    v61 = vqaddq_s16(v634, v575);
-    v62 = vdupq_n_s16(0x1F63u);
-    v500 = vmlal_s16(vmull_s16(*v562.i8, *v37.i8), *v565.i8, *v36.i8);
-    v63 = vdupq_n_s16(0x63Eu);
-    v64 = vdupq_n_s16(0xE09Du);
-    v498 = vmlal_high_s16(vmull_high_s16(v562, v37), v565, v36);
-    v496 = vmlal_s16(vmull_s16(*v562.i8, *v38.i8), *v565.i8, *v37.i8);
-    v492 = vmlal_high_s16(vmull_high_s16(v562, v38), v565, v37);
-    v65 = vmlal_s16(vmull_s16(*v578.i8, *v63.i8), *v605.i8, *v62.i8);
-    v66 = vmlal_high_s16(vmull_high_s16(v578, v63), v605, v62);
-    v67 = vmlal_s16(vmull_s16(*v578.i8, *v64.i8), *v605.i8, *v63.i8);
-    v68 = vmlal_high_s16(vmull_high_s16(v578, v64), v605, v63);
-    v482 = vmlal_s16(vmull_s16(*v579.i8, *v63.i8), *v604.i8, *v62.i8);
-    v480 = vmlal_high_s16(vmull_high_s16(v579, v63), v604, v62);
-    v478 = vmlal_s16(vmull_s16(*v579.i8, *v64.i8), *v604.i8, *v63.i8);
-    v476 = vmlal_high_s16(vmull_high_s16(v579, v64), v604, v63);
-    v508 = vmlal_s16(vmull_s16(*v580.i8, *v64.i8), *v603.i8, *v63.i8);
-    v506 = vmlal_high_s16(vmull_high_s16(v580, v64), v603, v63);
-    v69 = vdupq_n_s16(0xF9C2u);
-    v504 = vmlal_s16(vmull_s16(*v580.i8, *v69.i8), *v603.i8, *v64.i8);
-    v502 = vmlal_high_s16(vmull_high_s16(v580, v69), v603, v64);
-    v70 = vmlal_s16(vmull_s16(*v581.i8, *v64.i8), *v602.i8, *v63.i8);
-    v71 = vmlal_high_s16(vmull_high_s16(v581, v64), v602, v63);
-    v72 = vmlal_s16(vmull_s16(*v581.i8, *v69.i8), *v602.i8, *v64.i8);
-    v73 = vmlal_high_s16(vmull_high_s16(v581, v69), v602, v64);
-    v74 = vqaddq_s16(v612, v558);
-    v75 = vqaddq_s16(v615, v559);
-    v543 = vmlal_s16(vmull_s16(*v74.i8, *v63.i8), *v75.i8, *v62.i8);
-    v542 = vmlal_high_s16(vmull_high_s16(v74, v63), v75, v62);
-    v541 = vmlal_s16(vmull_s16(*v74.i8, *v64.i8), *v75.i8, *v63.i8);
-    v540 = vmlal_high_s16(vmull_high_s16(v74, v64), v75, v63);
-    v512 = vmlal_s16(vmull_s16(*v58.i8, *v63.i8), *v61.i8, *v62.i8);
-    v510 = vmlal_high_s16(vmull_high_s16(v58, v63), v61, v62);
-    v474 = vmlal_s16(vmull_s16(*v58.i8, *v64.i8), *v61.i8, *v63.i8);
-    v472 = vmlal_high_s16(vmull_high_s16(v58, v64), v61, v63);
-    v490 = vmlal_s16(vmull_s16(*v59.i8, *v64.i8), *v60.i8, *v63.i8);
-    v488 = vmlal_high_s16(vmull_high_s16(v59, v64), v60, v63);
-    v486 = vmlal_s16(vmull_s16(*v59.i8, *v69.i8), *v60.i8, *v64.i8);
-    v484 = vmlal_high_s16(vmull_high_s16(v59, v69), v60, v64);
-    v76 = vqsubq_s16(v612, v558);
-    v77 = vqsubq_s16(v615, v559);
-    v78 = vqsubq_s16(v626, v571);
-    v79 = vqaddq_s16(v626, v571);
-    v80 = vqaddq_s16(v629, v572);
-    v81 = vqsubq_s16(v629, v572);
-    v82 = vdupq_n_s16(0x11C7u);
-    v83 = vdupq_n_s16(0x1A9Bu);
-    v84 = vmlal_s16(vmull_s16(*v586.i8, *v83.i8), *v597.i8, *v82.i8);
-    v85 = vmlal_high_s16(vmull_high_s16(v586, v83), v597, v82);
-    v86 = vdupq_n_s16(0xEE39u);
-    v87 = vmlal_s16(vmull_s16(*v586.i8, *v86.i8), *v597.i8, *v83.i8);
-    v88 = vmlal_high_s16(vmull_high_s16(v586, v86), v597, v83);
-    v522 = vmlal_s16(vmull_s16(*v587.i8, *v83.i8), *v596.i8, *v82.i8);
-    v520 = vmlal_high_s16(vmull_high_s16(v587, v83), v596, v82);
-    v518 = vmlal_s16(vmull_s16(*v587.i8, *v86.i8), *v596.i8, *v83.i8);
-    v516 = vmlal_high_s16(vmull_high_s16(v587, v86), v596, v83);
-    v530 = vmlal_s16(vmull_s16(*v588.i8, *v86.i8), *v595.i8, *v83.i8);
-    v528 = vmlal_high_s16(vmull_high_s16(v588, v86), v595, v83);
-    v526 = vmlal_s16(vmull_s16(*v588.i8, v381), *v595.i8, *v86.i8);
-    v524 = vmlal_high_s16(vmull_s16(*&vextq_s8(v588, v588, 8uLL), v381), v595, v86);
-    v89 = vmlal_s16(vmull_s16(*v589.i8, *v86.i8), *v594.i8, *v83.i8);
-    v90 = vmlal_high_s16(vmull_high_s16(v589, v86), v594, v83);
-    v91 = vmlal_s16(vmull_s16(*v589.i8, v381), *v594.i8, *v86.i8);
-    v92 = vmlal_high_s16(vmull_s16(*&vextq_s8(v589, v589, 8uLL), v381), v594, v86);
-    v537 = vmlal_s16(vmull_s16(*v76.i8, *v83.i8), *v77.i8, *v82.i8);
-    v536 = vmlal_high_s16(vmull_high_s16(v76, v83), v77, v82);
-    v535 = vmlal_s16(vmull_s16(*v76.i8, *v86.i8), *v77.i8, *v83.i8);
-    v534 = vmlal_high_s16(vmull_high_s16(v76, v86), v77, v83);
-    v470 = vmlal_s16(vmull_s16(*v78.i8, *v83.i8), *v81.i8, *v82.i8);
-    v468 = vmlal_high_s16(vmull_high_s16(v78, v83), v81, v82);
-    v466 = vmlal_s16(vmull_s16(*v78.i8, *v86.i8), *v81.i8, *v83.i8);
-    v464 = vmlal_high_s16(vmull_high_s16(v78, v86), v81, v83);
-    v458 = vmlal_s16(vmull_s16(*v79.i8, *v86.i8), *v80.i8, *v83.i8);
-    v456 = vmlal_high_s16(vmull_high_s16(v79, v86), v80, v83);
-    v452 = vmlal_high_s16(vmull_s16(*&vextq_s8(v79, v79, 8uLL), v381), v80, v86);
-    v454 = vmlal_s16(vmull_s16(*v79.i8, v381), *v80.i8, *v86.i8);
-    v93 = vrshrn_high_n_s32(vrshrn_n_s32(v54, 0xDuLL), v55, 0xDuLL);
-    v94 = vrshrn_high_n_s32(vrshrn_n_s32(v56, 0xDuLL), v57, 0xDuLL);
-    v95 = vrshrn_high_n_s32(vrshrn_n_s32(v65, 0xDuLL), v66, 0xDuLL);
-    v96 = vrshrn_high_n_s32(vrshrn_n_s32(v67, 0xDuLL), v68, 0xDuLL);
-    v97 = vqaddq_s16(v577, v96);
-    v98 = vqsubq_s16(v577, v96);
-    v99 = vqsubq_s16(v606, v95);
-    v100 = vqaddq_s16(v606, v95);
-    v101 = vqaddq_s16(v560, v94);
-    v102 = vqaddq_s16(v567, v93);
-    v103 = vdupq_n_s16(0x1FD9u);
-    v104 = vdupq_n_s16(0x323u);
-    v533 = vmlal_s16(vmull_s16(*v101.i8, *v104.i8), *v102.i8, *v103.i8);
-    v532 = vmlal_high_s16(vmull_high_s16(v101, v104), v102, v103);
-    v105 = vdupq_n_s16(0xE027u);
-    v539 = vmlal_s16(vmull_s16(*v101.i8, *v105.i8), *v102.i8, *v104.i8);
-    v538 = vmlal_high_s16(vmull_high_s16(v101, v105), v102, v104);
-    v106 = vmlal_s16(vmull_s16(*v97.i8, *v104.i8), *v100.i8, *v103.i8);
-    v107 = vmlal_high_s16(vmull_high_s16(v97, v104), v100, v103);
-    v108 = vmlal_s16(vmull_s16(*v97.i8, *v105.i8), *v100.i8, *v104.i8);
-    v109 = vmlal_high_s16(vmull_high_s16(v97, v105), v100, v104);
-    v110 = vmlal_s16(vmull_s16(*v98.i8, *v105.i8), *v99.i8, *v104.i8);
-    v111 = vmlal_high_s16(vmull_high_s16(v98, v105), v99, v104);
-    v112 = vdupq_n_s16(0xFCDDu);
-    v113 = vmlal_s16(vmull_s16(*v98.i8, *v112.i8), *v99.i8, *v105.i8);
-    v114 = vmlal_high_s16(vmull_high_s16(v98, v112), v99, v105);
-    v115 = vrshrn_high_n_s32(vrshrn_n_s32(v70, 0xDuLL), v71, 0xDuLL);
-    v116 = vrshrn_high_n_s32(vrshrn_n_s32(v72, 0xDuLL), v73, 0xDuLL);
-    v117 = vqsubq_s16(v560, v94);
-    v118 = vqsubq_s16(v567, v93);
-    v119 = vqsubq_s16(v582, v116);
-    v120 = vqaddq_s16(v582, v116);
-    v121 = vqaddq_s16(v601, v115);
-    v122 = vdupq_n_s16(0x144Du);
-    v123 = vdupq_n_s16(0x18BDu);
-    v124 = vqsubq_s16(v601, v115);
-    v125 = vmlal_s16(vmull_s16(*v117.i8, *v123.i8), *v118.i8, *v122.i8);
-    v126 = vdupq_n_s16(0xEBB3u);
-    v127 = vmlal_high_s16(vmull_high_s16(v117, v123), v118, v122);
-    v515 = vmlal_s16(vmull_s16(*v117.i8, *v126.i8), *v118.i8, *v123.i8);
-    v514 = vmlal_high_s16(vmull_high_s16(v117, v126), v118, v123);
-    v402 = vmlal_s16(vmull_s16(*v119.i8, *v123.i8), *v124.i8, *v122.i8);
-    v128 = vmlal_high_s16(vmull_high_s16(v119, v123), v124, v122);
-    v129 = vmlal_s16(vmull_s16(*v119.i8, *v126.i8), *v124.i8, *v123.i8);
-    v130 = vmlal_high_s16(vmull_high_s16(v119, v126), v124, v123);
-    v416 = vmlal_s16(vmull_s16(*v120.i8, *v126.i8), *v121.i8, *v123.i8);
-    v131 = vdupq_n_s16(0xE743u);
-    v414 = vmlal_high_s16(vmull_high_s16(v120, v126), v121, v123);
-    v412 = vmlal_s16(vmull_s16(*v120.i8, *v131.i8), *v121.i8, *v126.i8);
-    v409 = vmlal_high_s16(vmull_high_s16(v120, v131), v121, v126);
-    v132 = vrshrn_high_n_s32(vrshrn_n_s32(v500, 0xDuLL), v498, 0xDuLL);
-    v133 = vrshrn_high_n_s32(vrshrn_n_s32(v496, 0xDuLL), v492, 0xDuLL);
-    v134 = vrshrn_high_n_s32(vrshrn_n_s32(v84, 0xDuLL), v85, 0xDuLL);
-    v135 = vrshrn_high_n_s32(vrshrn_n_s32(v87, 0xDuLL), v88, 0xDuLL);
-    v136 = vqaddq_s16(v585, v135);
-    v137 = vqsubq_s16(v585, v135);
-    v138 = vqsubq_s16(v598, v134);
-    v139 = vqaddq_s16(v598, v134);
-    v140 = vqsubq_s16(v563, v133);
-    v141 = vdupq_n_s16(0x1C39u);
-    v142 = vdupq_n_s16(0xF16u);
-    v143 = vqsubq_s16(v564, v132);
-    v144 = vmlal_s16(vmull_s16(*v140.i8, *v142.i8), *v143.i8, *v141.i8);
-    v145 = vdupq_n_s16(0xE3C7u);
-    v501 = vmlal_high_s16(vmull_high_s16(v140, v142), v143, v141);
-    v499 = vmlal_s16(vmull_s16(*v140.i8, *v145.i8), *v143.i8, *v142.i8);
-    v497 = vmlal_high_s16(vmull_high_s16(v140, v145), v143, v142);
-    v426 = vmlal_s16(vmull_s16(*v136.i8, *v142.i8), *v139.i8, *v141.i8);
-    v424 = vmlal_high_s16(vmull_high_s16(v136, v142), v139, v141);
-    v422 = vmlal_s16(vmull_s16(*v136.i8, *v145.i8), *v139.i8, *v142.i8);
-    v420 = vmlal_high_s16(vmull_high_s16(v136, v145), v139, v142);
-    v434 = vmlal_s16(vmull_s16(*v137.i8, *v145.i8), *v138.i8, *v142.i8);
-    v146 = vdupq_n_s16(0xF0EAu);
-    v432 = vmlal_high_s16(vmull_high_s16(v137, v145), v138, v142);
-    v428 = vmlal_high_s16(vmull_high_s16(v137, v146), v138, v145);
-    v430 = vmlal_s16(vmull_s16(*v137.i8, *v146.i8), *v138.i8, *v145.i8);
-    v147 = vrshrn_high_n_s32(vrshrn_n_s32(v89, 0xDuLL), v90, 0xDuLL);
-    v148 = vrshrn_high_n_s32(vrshrn_n_s32(v91, 0xDuLL), v92, 0xDuLL);
-    v149 = vqaddq_s16(v563, v133);
-    v150 = vqaddq_s16(v564, v132);
-    v151 = vqsubq_s16(v590, v148);
-    v152 = vqaddq_s16(v590, v148);
-    v153 = vqaddq_s16(v593, v147);
-    v154 = vdupq_n_s16(0x94Au);
-    v155 = vqsubq_s16(v593, v147);
-    v156 = vdupq_n_s16(0x1E9Fu);
-    v157 = vmlal_s16(vmull_s16(*v149.i8, *v156.i8), *v150.i8, *v154.i8);
-    v495 = vmlal_high_s16(vmull_high_s16(v149, v156), v150, v154);
-    v158 = vdupq_n_s16(0xF6B6u);
-    v494 = vmlal_s16(vmull_s16(*v149.i8, *v158.i8), *v150.i8, *v156.i8);
-    v493 = vmlal_high_s16(vmull_high_s16(v149, v158), v150, v156);
-    v442 = vmlal_s16(vmull_s16(*v151.i8, *v156.i8), *v155.i8, *v154.i8);
-    v440 = vmlal_high_s16(vmull_high_s16(v151, v156), v155, v154);
-    v438 = vmlal_s16(vmull_s16(*v151.i8, *v158.i8), *v155.i8, *v156.i8);
-    v436 = vmlal_high_s16(vmull_high_s16(v151, v158), v155, v156);
-    v159 = vmlal_s16(vmull_s16(*v152.i8, *v158.i8), *v153.i8, *v156.i8);
-    v160 = vmlal_high_s16(vmull_high_s16(v152, v158), v153, v156);
-    v161 = vmlal_s16(vmull_s16(*v152.i8, v380), *v153.i8, *v158.i8);
-    v162 = vmlal_high_s16(vmull_s16(*&vextq_s8(v152, v152, 8uLL), v380), v153, v158);
-    v163 = vrshrn_high_n_s32(vrshrn_n_s32(v512, 0xDuLL), v510, 0xDuLL);
-    v164 = vrshrn_high_n_s32(vrshrn_n_s32(v474, 0xDuLL), v472, 0xDuLL);
-    v165 = vqaddq_s16(v620, v569);
-    v166 = vqaddq_s16(v635, v574);
-    v167 = vqaddq_s16(v165, v164);
-    v168 = vqaddq_s16(v166, v163);
-    v169 = vdupq_n_s16(0x1FF6u);
-    v170 = vdupq_n_s16(0x192u);
-    v475 = vmlal_s16(vmull_s16(*v167.i8, *v170.i8), *v168.i8, *v169.i8);
-    v473 = vmlal_high_s16(vmull_high_s16(v167, v170), v168, v169);
-    v171 = vdupq_n_s16(0xE00Au);
-    v513 = vmlal_s16(vmull_s16(*v167.i8, *v171.i8), *v168.i8, *v170.i8);
-    v511 = vmlal_high_s16(vmull_high_s16(v167, v171), v168, v170);
-    v172 = vqsubq_s16(v165, v164);
-    v173 = vqsubq_s16(v166, v163);
-    v174 = vdupq_n_s16(0x157Du);
-    v175 = vdupq_n_s16(0x17B6u);
-    v463 = vmlal_s16(vmull_s16(*v172.i8, *v175.i8), *v173.i8, *v174.i8);
-    v462 = vmlal_high_s16(vmull_high_s16(v172, v175), v173, v174);
-    v176 = vdupq_n_s16(0xEA83u);
-    v460 = vmlal_high_s16(vmull_high_s16(v172, v176), v173, v175);
-    v461 = vmlal_s16(vmull_s16(*v172.i8, *v176.i8), *v173.i8, *v175.i8);
-    v177 = vqsubq_s16(v620, v569);
-    v178 = vqsubq_s16(v635, v574);
-    v179 = vrshrn_high_n_s32(vrshrn_n_s32(v490, 0xDuLL), v488, 0xDuLL);
-    v180 = vrshrn_high_n_s32(vrshrn_n_s32(v486, 0xDuLL), v484, 0xDuLL);
-    v181 = vqsubq_s16(v177, v180);
-    v182 = vqsubq_s16(v178, v179);
-    v183 = vdupq_n_s16(0x1CEDu);
-    v184 = vdupq_n_s16(0xDAFu);
-    v487 = vmlal_s16(vmull_s16(*v181.i8, *v184.i8), *v182.i8, *v183.i8);
-    v485 = vmlal_high_s16(vmull_high_s16(v181, v184), v182, v183);
-    v185 = vdupq_n_s16(0xE313u);
-    v491 = vmlal_s16(vmull_s16(*v181.i8, *v185.i8), *v182.i8, *v184.i8);
-    v489 = vmlal_high_s16(vmull_high_s16(v181, v185), v182, v184);
-    v186 = vqaddq_s16(v177, v180);
-    v187 = vqaddq_s16(v178, v179);
-    v188 = vdupq_n_s16(0xF538u);
-    v189 = vmull_s16(*v186.i8, *v188.i8);
-    v190 = vmull_high_s16(v186, v188);
-    v191 = vdupq_n_s16(0x1E21u);
-    v448 = vmlal_high_s16(v190, v187, v191);
-    v449 = vmlal_s16(v189, *v187.i8, *v191.i8);
-    v192 = vrshrn_high_n_s32(vrshrn_n_s32(v470, 0xDuLL), v468, 0xDuLL);
-    v193 = vrshrn_high_n_s32(vrshrn_n_s32(v466, 0xDuLL), v464, 0xDuLL);
-    v194 = vqsubq_s16(v627, v570);
-    v195 = vqsubq_s16(v628, v573);
-    v196 = vqaddq_s16(v194, v193);
-    v197 = vqaddq_s16(v195, v192);
-    v198 = vdupq_n_s16(0x1F0Au);
-    v199 = vdupq_n_s16(0x7C6u);
-    v445 = vmlal_s16(vmull_s16(*v196.i8, *v199.i8), *v197.i8, *v198.i8);
-    v444 = vmlal_high_s16(vmull_high_s16(v196, v199), v197, v198);
-    v200 = vdupq_n_s16(0xE0F6u);
-    v471 = vmlal_s16(vmull_s16(*v196.i8, *v200.i8), *v197.i8, *v199.i8);
-    v469 = vmlal_high_s16(vmull_high_s16(v196, v200), v197, v199);
-    v201 = vqsubq_s16(v194, v193);
-    v202 = vqsubq_s16(v195, v192);
-    v203 = vdupq_n_s16(0x1074u);
-    v204 = vdupq_n_s16(0x1B73u);
-    v467 = vmlal_s16(vmull_s16(*v201.i8, *v204.i8), *v202.i8, *v203.i8);
-    v465 = vmlal_high_s16(vmull_high_s16(v201, v204), v202, v203);
-    v205 = vdupq_n_s16(0xEF8Cu);
-    v450 = vmlal_high_s16(vmull_high_s16(v201, v205), v202, v204);
-    v451 = vmlal_s16(vmull_s16(*v201.i8, *v205.i8), *v202.i8, *v204.i8);
-    v206 = vqaddq_s16(v627, v570);
-    v207 = vqaddq_s16(v628, v573);
-    v208 = vrshrn_high_n_s32(vrshrn_n_s32(v458, 0xDuLL), v456, 0xDuLL);
-    v209 = vrshrn_high_n_s32(vrshrn_n_s32(v454, 0xDuLL), v452, 0xDuLL);
-    v210 = vqsubq_s16(v206, v209);
-    v211 = vqsubq_s16(v207, v208);
-    v212 = vdupq_n_s16(0x19B4u);
-    v213 = vdupq_n_s16(0x1310u);
-    v447 = vmlal_s16(vmull_s16(*v210.i8, *v213.i8), *v211.i8, *v212.i8);
-    v446 = vmlal_high_s16(vmull_high_s16(v210, v213), v211, v212);
-    v214 = vdupq_n_s16(0xE64Cu);
-    v453 = vmlal_high_s16(vmull_high_s16(v210, v214), v211, v213);
-    v455 = vmlal_s16(vmull_s16(*v210.i8, *v214.i8), *v211.i8, *v213.i8);
-    v215 = vqaddq_s16(v206, v209);
-    v216 = vqaddq_s16(v207, v208);
-    v217 = vdupq_n_s16(0x4B2u);
-    v218 = vdupq_n_s16(0x1FA7u);
-    v459 = vmlal_s16(vmull_s16(*v215.i8, *v218.i8), *v216.i8, *v217.i8);
-    v457 = vmlal_high_s16(vmull_high_s16(v215, v218), v216, v217);
-    v219 = vdupq_n_s16(0xFB4Eu);
-    v418 = vmlal_high_s16(vmull_high_s16(v215, v219), v216, v218);
-    v419 = vmlal_s16(vmull_s16(*v215.i8, *v219.i8), *v216.i8, *v218.i8);
-    v220 = vrshrn_high_n_s32(vrshrn_n_s32(v482, 0xDuLL), v480, 0xDuLL);
-    v221 = vrshrn_high_n_s32(vrshrn_n_s32(v478, 0xDuLL), v476, 0xDuLL);
-    v401 = vrshrn_high_n_s32(vrshrn_n_s32(v106, 0xDuLL), v107, 0xDuLL);
-    v404 = vrshrn_high_n_s32(vrshrn_n_s32(v108, 0xDuLL), v109, 0xDuLL);
-    v405 = vqaddq_s16(v576, v221);
-    v400 = vqaddq_s16(v607, v220);
-    v222 = vqsubq_s16(v405, v404);
-    v223 = vqsubq_s16(v400, v401);
-    v224 = vdupq_n_s16(0x1611u);
-    v225 = vdupq_n_s16(0x172Du);
-    v483 = vmlal_s16(vmull_s16(*v222.i8, *v225.i8), *v223.i8, *v224.i8);
-    v481 = vmlal_high_s16(vmull_high_s16(v222, v225), v223, v224);
-    v226 = vdupq_n_s16(0xE9EFu);
-    v479 = vmlal_s16(vmull_s16(*v222.i8, *v226.i8), *v223.i8, *v225.i8);
-    v477 = vmlal_high_s16(vmull_high_s16(v222, v226), v223, v225);
-    v227 = vqsubq_s16(v576, v221);
-    v228 = vqsubq_s16(v607, v220);
-    v229 = vrshrn_high_n_s32(vrshrn_n_s32(v110, 0xDuLL), v111, 0xDuLL);
-    v230 = vrshrn_high_n_s32(vrshrn_n_s32(v113, 0xDuLL), v114, 0xDuLL);
-    v231 = vqsubq_s16(v227, v230);
-    v232 = vqsubq_s16(v228, v229);
-    v233 = vdupq_n_s16(0x1D41u);
-    v234 = vdupq_n_s16(0xCF8u);
-    v399 = vmlal_s16(vmull_s16(*v231.i8, *v234.i8), *v232.i8, *v233.i8);
-    v398 = vmlal_high_s16(vmull_high_s16(v231, v234), v232, v233);
-    v235 = vdupq_n_s16(0xE2BFu);
-    v411 = vmlal_s16(vmull_s16(*v231.i8, *v235.i8), *v232.i8, *v234.i8);
-    v408 = vmlal_high_s16(vmull_high_s16(v231, v235), v232, v234);
-    v236 = vqaddq_s16(v227, v230);
-    v237 = vqaddq_s16(v228, v229);
-    v238 = vdupq_n_s16(0xB84u);
-    v239 = vdupq_n_s16(0x1DDBu);
-    v407 = vmlal_s16(vmull_s16(*v236.i8, *v239.i8), *v237.i8, *v238.i8);
-    v406 = vmlal_high_s16(vmull_high_s16(v236, v239), v237, v238);
-    v240 = vdupq_n_s16(0xF47Cu);
-    v396 = vmlal_high_s16(vmull_high_s16(v236, v240), v237, v239);
-    v397 = vmlal_s16(vmull_s16(*v236.i8, *v240.i8), *v237.i8, *v239.i8);
-    v241 = vrshrn_high_n_s32(vrshrn_n_s32(v508, 0xDuLL), v506, 0xDuLL);
-    v242 = vrshrn_high_n_s32(vrshrn_n_s32(v504, 0xDuLL), v502, 0xDuLL);
-    v243 = vrshrn_high_n_s32(vrshrn_n_s32(v402, 0xDuLL), v128, 0xDuLL);
-    v244 = vrshrn_high_n_s32(vrshrn_n_s32(v129, 0xDuLL), v130, 0xDuLL);
-    v245 = vqsubq_s16(v583, v242);
-    v246 = vqsubq_s16(v600, v241);
-    v247 = vqaddq_s16(v245, v244);
-    v248 = vqaddq_s16(v246, v243);
-    v249 = vdupq_n_s16(0x1F39u);
-    v250 = vdupq_n_s16(0x703u);
-    v403 = vmlal_s16(vmull_s16(*v247.i8, *v250.i8), *v248.i8, *v249.i8);
-    v395 = vmlal_high_s16(vmull_high_s16(v247, v250), v248, v249);
-    v251 = vdupq_n_s16(0xE0C7u);
-    v509 = vmlal_s16(vmull_s16(*v247.i8, *v251.i8), *v248.i8, *v250.i8);
-    v507 = vmlal_high_s16(vmull_high_s16(v247, v251), v248, v250);
-    v252 = vqsubq_s16(v245, v244);
-    v253 = vqsubq_s16(v246, v243);
-    v254 = vdupq_n_s16(0x111Fu);
-    v255 = vdupq_n_s16(0x1B09u);
-    v505 = vmlal_s16(vmull_s16(*v252.i8, *v255.i8), *v253.i8, *v254.i8);
-    v503 = vmlal_high_s16(vmull_high_s16(v252, v255), v253, v254);
-    v256 = vdupq_n_s16(0xEEE1u);
-    v393 = vmlal_high_s16(vmull_high_s16(v252, v256), v253, v255);
-    v394 = vmlal_s16(vmull_s16(*v252.i8, *v256.i8), *v253.i8, *v255.i8);
-    v257 = vqaddq_s16(v583, v242);
-    v258 = vqaddq_s16(v600, v241);
-    v259 = vrshrn_high_n_s32(vrshrn_n_s32(v416, 0xDuLL), v414, 0xDuLL);
-    v260 = vrshrn_high_n_s32(vrshrn_n_s32(v412, 0xDuLL), v409, 0xDuLL);
-    v261 = vqsubq_s16(v257, v260);
-    v262 = vqsubq_s16(v258, v259);
-    v263 = vdupq_n_s16(0x1A2Au);
-    v264 = vdupq_n_s16(0x126Du);
-    v392 = vmlal_s16(vmull_s16(*v261.i8, *v264.i8), *v262.i8, *v263.i8);
-    v391 = vmlal_high_s16(vmull_high_s16(v261, v264), v262, v263);
-    v265 = vdupq_n_s16(0xE5D6u);
-    v410 = vmlal_high_s16(vmull_high_s16(v261, v265), v262, v264);
-    v266 = vqaddq_s16(v257, v260);
-    v267 = vqaddq_s16(v258, v259);
-    v268 = vdupq_n_s16(0x579u);
-    v269 = vdupq_n_s16(0x1F87u);
-    v417 = vmlal_s16(vmull_s16(*v266.i8, *v269.i8), *v267.i8, *v268.i8);
-    v413 = vmlal_s16(vmull_s16(*v261.i8, *v265.i8), *v262.i8, *v264.i8);
-    v415 = vmlal_high_s16(vmull_high_s16(v266, v269), v267, v268);
-    v270 = vdupq_n_s16(0xFA87u);
-    v389 = vmlal_high_s16(vmull_high_s16(v266, v270), v267, v269);
-    v390 = vmlal_s16(vmull_s16(*v266.i8, *v270.i8), *v267.i8, *v269.i8);
-    v271 = vrshrn_high_n_s32(vrshrn_n_s32(v522, 0xDuLL), v520, 0xDuLL);
-    v272 = vrshrn_high_n_s32(vrshrn_n_s32(v518, 0xDuLL), v516, 0xDuLL);
-    v273 = vrshrn_high_n_s32(vrshrn_n_s32(v426, 0xDuLL), v424, 0xDuLL);
-    v274 = vrshrn_high_n_s32(vrshrn_n_s32(v422, 0xDuLL), v420, 0xDuLL);
-    v275 = vqaddq_s16(v584, v272);
-    v276 = vqaddq_s16(v599, v271);
-    v277 = vqaddq_s16(v275, v274);
-    v278 = vqaddq_s16(v276, v273);
-    v279 = vdupq_n_s16(0x1FC2u);
-    v280 = vdupq_n_s16(0x3EBu);
-    v423 = vmlal_s16(vmull_s16(*v277.i8, *v280.i8), *v278.i8, *v279.i8);
-    v421 = vmlal_high_s16(vmull_high_s16(v277, v280), v278, v279);
-    v281 = vdupq_n_s16(0xE03Eu);
-    v523 = vmlal_s16(vmull_s16(*v277.i8, *v281.i8), *v278.i8, *v280.i8);
-    v521 = vmlal_high_s16(vmull_high_s16(v277, v281), v278, v280);
-    v282 = vqsubq_s16(v275, v274);
-    v283 = vqsubq_s16(v276, v273);
-    v284 = vdupq_n_s16(0x13B0u);
-    v285 = vdupq_n_s16(0x193Au);
-    v519 = vmlal_s16(vmull_s16(*v282.i8, *v285.i8), *v283.i8, *v284.i8);
-    v517 = vmlal_high_s16(vmull_high_s16(v282, v285), v283, v284);
-    v286 = vdupq_n_s16(0xEC50u);
-    v425 = vmlal_high_s16(vmull_high_s16(v282, v286), v283, v285);
-    v427 = vmlal_s16(vmull_s16(*v282.i8, *v286.i8), *v283.i8, *v285.i8);
-    v287 = vqsubq_s16(v584, v272);
-    v288 = vqsubq_s16(v599, v271);
-    v289 = vrshrn_high_n_s32(vrshrn_n_s32(v434, 0xDuLL), v432, 0xDuLL);
-    v290 = vrshrn_high_n_s32(vrshrn_n_s32(v430, 0xDuLL), v428, 0xDuLL);
-    v291 = vqsubq_s16(v287, v290);
-    v292 = vqsubq_s16(v288, v289);
-    v293 = vdupq_n_s16(0x1BD8u);
-    v294 = vdupq_n_s16(0xFC6u);
-    v388 = vmlal_s16(vmull_s16(*v291.i8, *v294.i8), *v292.i8, *v293.i8);
-    v387 = vmlal_high_s16(vmull_high_s16(v291, v294), v292, v293);
-    v295 = vdupq_n_s16(0xE428u);
-    v431 = vmlal_high_s16(vmull_high_s16(v291, v295), v292, v294);
-    v433 = vmlal_s16(vmull_s16(*v291.i8, *v295.i8), *v292.i8, *v294.i8);
-    v296 = vqaddq_s16(v287, v290);
-    v297 = vqaddq_s16(v288, v289);
-    v298 = vdupq_n_s16(0x889u);
-    v299 = vdupq_n_s16(0x1ED7u);
-    v435 = vmlal_s16(vmull_s16(*v296.i8, *v299.i8), *v297.i8, *v298.i8);
-    v429 = vmlal_high_s16(vmull_high_s16(v296, v299), v297, v298);
-    v386 = vmlal_s16(vmull_s16(*v296.i8, v379), *v297.i8, *v299.i8);
-    v385 = vmlal_high_s16(vmull_s16(*&vextq_s8(v296, v296, 8uLL), v379), v297, v299);
-    v300 = vrshrn_high_n_s32(vrshrn_n_s32(v530, 0xDuLL), v528, 0xDuLL);
-    v301 = vrshrn_high_n_s32(vrshrn_n_s32(v526, 0xDuLL), v524, 0xDuLL);
-    v302 = vrshrn_high_n_s32(vrshrn_n_s32(v442, 0xDuLL), v440, 0xDuLL);
-    v303 = vrshrn_high_n_s32(vrshrn_n_s32(v438, 0xDuLL), v436, 0xDuLL);
-    v441 = vqsubq_s16(v591, v301);
-    v443 = vqsubq_s16(v592, v300);
-    v304 = vqsubq_s16(v441, v303);
-    v305 = vqsubq_s16(v443, v302);
-    v306 = vdupq_n_s16(0xE63u);
-    v307 = vdupq_n_s16(0x1C95u);
-    v531 = vmlal_s16(vmull_s16(*v304.i8, *v307.i8), *v305.i8, *v306.i8);
-    v529 = vmlal_high_s16(vmull_high_s16(v304, v307), v305, v306);
-    v308 = vdupq_n_s16(0xF19Du);
-    v437 = vmlal_s16(vmull_s16(*v304.i8, *v308.i8), *v305.i8, *v307.i8);
-    v383 = vmlal_high_s16(vmull_high_s16(v304, v308), v305, v307);
-    v309 = vqaddq_s16(v591, v301);
-    v310 = vqaddq_s16(v592, v300);
-    v311 = vrshrn_high_n_s32(vrshrn_n_s32(v159, 0xDuLL), v160, 0xDuLL);
-    v312 = vrshrn_high_n_s32(vrshrn_n_s32(v161, 0xDuLL), v162, 0xDuLL);
-    v313 = vqsubq_s16(v309, v312);
-    v314 = vdupq_n_s16(0x183Bu);
-    v315 = vqsubq_s16(v310, v311);
-    v316 = vdupq_n_s16(0x14E7u);
-    v382 = vmlal_s16(vmull_s16(*v313.i8, *v316.i8), *v315.i8, *v314.i8);
-    v317 = vmlal_high_s16(vmull_high_s16(v313, v316), v315, v314);
-    v318 = vdupq_n_s16(0xE7C5u);
-    v439 = vmlal_s16(vmull_s16(*v313.i8, *v318.i8), *v315.i8, *v316.i8);
-    v384 = vmlal_high_s16(vmull_high_s16(v313, v318), v315, v316);
-    v319 = vqaddq_s16(v309, v312);
-    v320 = vdupq_n_s16(0x25Bu);
-    v321 = vdupq_n_s16(0x1FEAu);
-    v322 = vqaddq_s16(v310, v311);
-    v527 = vmlal_s16(vmull_s16(*v319.i8, *v321.i8), *v322.i8, *v320.i8);
-    v323 = vdupq_n_s16(0xFDA5u);
-    v525 = vmlal_high_s16(vmull_high_s16(v319, v321), v322, v320);
-    v324 = vmlal_s16(vmull_s16(*v319.i8, *v323.i8), *v322.i8, *v321.i8);
-    v325 = vmlal_high_s16(vmull_high_s16(v319, v323), v322, v321);
-    v326 = vqaddq_s16(v405, v404);
-    v327 = vqaddq_s16(v400, v401);
-    v328 = vdupq_n_s16(0x1FFEu);
-    v329 = vmlal_s16(vmull_s16(*v326.i8, 0xC900C900C900C9), *v327.i8, *v328.i8);
-    v308.i64[0] = 0xC900C900C900C9;
-    v308.i64[1] = 0xC900C900C900C9;
-    v330 = vmlal_high_s16(vmull_high_s16(v326, v308), v327, v328);
-    v331 = vdupq_n_s16(0xE002u);
-    v553[63] = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v326.i8, *v331.i8), *v327.i8, 0xC900C900C900C9), 0xDuLL), vmlal_high_s16(vmull_high_s16(v326, v331), v327, v308), 0xDuLL);
-    v553[1] = vrshrn_high_n_s32(vrshrn_n_s32(v329, 0xDuLL), v330, 0xDuLL);
-    v553[0] = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v554.i8, *v549.i8), *v555.i8, *v549.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v554, v549), v555, v549), 0xDuLL);
-    v332 = vqaddq_s16(v441, v303);
-    v553[3] = vrshrn_high_n_s32(vrshrn_n_s32(v324, 0xDuLL), v325, 0xDuLL);
-    v553[2] = vrshrn_high_n_s32(vrshrn_n_s32(v475, 0xDuLL), v473, 0xDuLL);
-    v333 = vqaddq_s16(v443, v302);
-    v553[5] = vrshrn_high_n_s32(vrshrn_n_s32(v423, 0xDuLL), v421, 0xDuLL);
-    v553[4] = vrshrn_high_n_s32(vrshrn_n_s32(v533, 0xDuLL), v532, 0xDuLL);
-    v553[7] = vrshrn_high_n_s32(vrshrn_n_s32(v390, 0xDuLL), v389, 0xDuLL);
-    v553[6] = vrshrn_high_n_s32(vrshrn_n_s32(v419, 0xDuLL), v418, 0xDuLL);
-    v553[9] = vrshrn_high_n_s32(vrshrn_n_s32(v403, 0xDuLL), v395, 0xDuLL);
-    v553[8] = vrshrn_high_n_s32(vrshrn_n_s32(v543, 0xDuLL), v542, 0xDuLL);
-    v553[11] = vrshrn_high_n_s32(vrshrn_n_s32(v386, 0xDuLL), v385, 0xDuLL);
-    v553[10] = vrshrn_high_n_s32(vrshrn_n_s32(v445, 0xDuLL), v444, 0xDuLL);
-    v334 = vdupq_n_s16(0x1E63u);
-    v553[13] = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v332.i8, 0xA0A0A0A0A0A0A0ALL), *v333.i8, *v334.i8), 0xDuLL), vmlal_high_s16(vmull_s16(*&vextq_s8(v332, v332, 8uLL), 0xA0A0A0A0A0A0A0ALL), v333, v334), 0xDuLL);
-    v553[12] = vrshrn_high_n_s32(vrshrn_n_s32(v494, 0xDuLL), v493, 0xDuLL);
-    v553[15] = vrshrn_high_n_s32(vrshrn_n_s32(v397, 0xDuLL), v396, 0xDuLL);
-    v553[14] = vrshrn_high_n_s32(vrshrn_n_s32(v449, 0xDuLL), v448, 0xDuLL);
-    v553[17] = vrshrn_high_n_s32(vrshrn_n_s32(v399, 0xDuLL), v398, 0xDuLL);
-    v553[16] = vrshrn_high_n_s32(vrshrn_n_s32(v547, 0xDuLL), v546, 0xDuLL);
-    v553[19] = vrshrn_high_n_s32(vrshrn_n_s32(v437, 0xDuLL), v383, 0xDuLL);
-    v553[18] = vrshrn_high_n_s32(vrshrn_n_s32(v487, 0xDuLL), v485, 0xDuLL);
-    v553[21] = vrshrn_high_n_s32(vrshrn_n_s32(v388, 0xDuLL), v387, 0xDuLL);
-    v553[20] = vrshrn_high_n_s32(vrshrn_n_s32(v144, 0xDuLL), v501, 0xDuLL);
-    v553[23] = vrshrn_high_n_s32(vrshrn_n_s32(v394, 0xDuLL), v393, 0xDuLL);
-    v553[22] = vrshrn_high_n_s32(vrshrn_n_s32(v451, 0xDuLL), v450, 0xDuLL);
-    v553[25] = vrshrn_high_n_s32(vrshrn_n_s32(v392, 0xDuLL), v391, 0xDuLL);
-    v553[24] = vrshrn_high_n_s32(vrshrn_n_s32(v535, 0xDuLL), v534, 0xDuLL);
-    v553[27] = vrshrn_high_n_s32(vrshrn_n_s32(v427, 0xDuLL), v425, 0xDuLL);
-    v553[26] = vrshrn_high_n_s32(vrshrn_n_s32(v447, 0xDuLL), v446, 0xDuLL);
-    v553[29] = vrshrn_high_n_s32(vrshrn_n_s32(v382, 0xDuLL), v317, 0xDuLL);
-    v553[28] = vrshrn_high_n_s32(vrshrn_n_s32(v515, 0xDuLL), v514, 0xDuLL);
-    v553[31] = vrshrn_high_n_s32(vrshrn_n_s32(v479, 0xDuLL), v477, 0xDuLL);
-    v553[30] = vrshrn_high_n_s32(vrshrn_n_s32(v461, 0xDuLL), v460, 0xDuLL);
-    v553[33] = vrshrn_high_n_s32(vrshrn_n_s32(v483, 0xDuLL), v481, 0xDuLL);
-    v553[32] = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v554.i8, *v548.i8), *v555.i8, *v549.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v554, v548), v555, v549), 0xDuLL);
-    v553[35] = vrshrn_high_n_s32(vrshrn_n_s32(v439, 0xDuLL), v384, 0xDuLL);
-    v553[34] = vrshrn_high_n_s32(vrshrn_n_s32(v463, 0xDuLL), v462, 0xDuLL);
-    v553[37] = vrshrn_high_n_s32(vrshrn_n_s32(v519, 0xDuLL), v517, 0xDuLL);
-    v553[36] = vrshrn_high_n_s32(vrshrn_n_s32(v125, 0xDuLL), v127, 0xDuLL);
-    v553[39] = vrshrn_high_n_s32(vrshrn_n_s32(v413, 0xDuLL), v410, 0xDuLL);
-    v553[38] = vrshrn_high_n_s32(vrshrn_n_s32(v455, 0xDuLL), v453, 0xDuLL);
-    v553[41] = vrshrn_high_n_s32(vrshrn_n_s32(v505, 0xDuLL), v503, 0xDuLL);
-    v553[40] = vrshrn_high_n_s32(vrshrn_n_s32(v537, 0xDuLL), v536, 0xDuLL);
-    v553[43] = vrshrn_high_n_s32(vrshrn_n_s32(v433, 0xDuLL), v431, 0xDuLL);
-    v553[42] = vrshrn_high_n_s32(vrshrn_n_s32(v467, 0xDuLL), v465, 0xDuLL);
-    v553[45] = vrshrn_high_n_s32(vrshrn_n_s32(v531, 0xDuLL), v529, 0xDuLL);
-    v553[44] = vrshrn_high_n_s32(vrshrn_n_s32(v499, 0xDuLL), v497, 0xDuLL);
-    v553[47] = vrshrn_high_n_s32(vrshrn_n_s32(v411, 0xDuLL), v408, 0xDuLL);
-    v553[46] = vrshrn_high_n_s32(vrshrn_n_s32(v491, 0xDuLL), v489, 0xDuLL);
-    v335 = vdupq_n_s16(0xE19Du);
-    v553[49] = vrshrn_high_n_s32(vrshrn_n_s32(v407, 0xDuLL), v406, 0xDuLL);
-    v553[48] = vrshrn_high_n_s32(vrshrn_n_s32(v545, 0xDuLL), v544, 0xDuLL);
-    v553[51] = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v332.i8, *v335.i8), *v333.i8, 0xA0A0A0A0A0A0A0ALL), 0xDuLL), vmlal_high_s16(vmull_s16(*&vextq_s8(v333, v333, 8uLL), 0xA0A0A0A0A0A0A0ALL), v332, v335), 0xDuLL);
-    v553[52] = vrshrn_high_n_s32(vrshrn_n_s32(v157, 0xDuLL), v495, 0xDuLL);
-    v553[53] = vrshrn_high_n_s32(vrshrn_n_s32(v435, 0xDuLL), v429, 0xDuLL);
-    v553[54] = vrshrn_high_n_s32(vrshrn_n_s32(v471, 0xDuLL), v469, 0xDuLL);
-    v553[55] = vrshrn_high_n_s32(vrshrn_n_s32(v509, 0xDuLL), v507, 0xDuLL);
-    v553[56] = vrshrn_high_n_s32(vrshrn_n_s32(v541, 0xDuLL), v540, 0xDuLL);
-    v553[57] = vrshrn_high_n_s32(vrshrn_n_s32(v417, 0xDuLL), v415, 0xDuLL);
-    v553[58] = vrshrn_high_n_s32(vrshrn_n_s32(v459, 0xDuLL), v457, 0xDuLL);
-    v553[59] = vrshrn_high_n_s32(vrshrn_n_s32(v523, 0xDuLL), v521, 0xDuLL);
-    v553[60] = vrshrn_high_n_s32(vrshrn_n_s32(v539, 0xDuLL), v538, 0xDuLL);
-    v553[61] = vrshrn_high_n_s32(vrshrn_n_s32(v527, 0xDuLL), v525, 0xDuLL);
-    v553[62] = vrshrn_high_n_s32(vrshrn_n_s32(v513, 0xDuLL), v511, 0xDuLL);
-    do
-    {
-      v553[v53] = vrshrq_n_s16(v553[v53], 2uLL);
-      ++v53;
-    }
-
-    while (v53 != 64);
-    v336 = v4;
-    for (i7 = 112; i7 != 624; i7 += 128)
-    {
-      v338 = *&v552[i7 + 3920];
-      v339 = *&v552[i7 + 3936];
-      v340 = vtrn1q_s16(v338, v339);
-      v341 = vtrn2q_s16(v338, v339);
-      v342 = *&v552[i7 + 3952];
-      v343 = *&v552[i7 + 3968];
-      v344 = vtrn1q_s16(v342, v343);
-      v345 = vtrn2q_s16(v342, v343);
-      v346 = *&v552[i7 + 3984];
-      v347 = *&v552[i7 + 4000];
-      v348 = vtrn1q_s16(v346, v347);
-      v349 = vtrn2q_s16(v346, v347);
-      v350 = *&v552[i7 + 4016];
-      v351 = v553[i7 / 0x10];
-      v352 = vtrn1q_s16(v350, v351);
-      v353 = vtrn2q_s16(v350, v351);
-      v354 = vtrn1q_s32(v340, v344);
-      v355 = vtrn2q_s32(v340, v344);
-      v356 = vtrn1q_s32(v341, v345);
-      v357 = vtrn2q_s32(v341, v345);
-      v358 = vtrn1q_s32(v348, v352);
-      v359 = vtrn2q_s32(v348, v352);
-      v360 = vzip2q_s64(v354, v358);
-      v354.i64[1] = v358.i64[0];
-      v361 = vtrn1q_s32(v349, v353);
-      v362 = vtrn2q_s32(v349, v353);
-      v363 = vzip2q_s64(v356, v361);
-      v356.i64[1] = v361.i64[0];
-      v364 = vzip2q_s64(v355, v359);
-      v355.i64[1] = v359.i64[0];
-      v359.i64[0] = v357.i64[0];
-      v359.i64[1] = v362.i64[0];
-      v336[-4] = v354;
-      v336[-3] = v356;
-      v336[-2] = v355;
-      v336[-1] = v359;
-      *v336 = v360;
-      v336[1] = v363;
-      v336[2] = v364;
-      v336[3] = vzip2q_s64(v357, v362);
-      v336 += 32;
-    }
-
-    ++v3;
-    v0 += 16;
-    v4 += 8;
-    v5 = v549;
-    v6 = v548;
-  }
-
-  while (v3 != 4);
-  v365 = 0;
-  v366 = v378 + 1;
-  v367 = &v551;
-  v550 = vdupq_n_s32(0x16A1u);
-  do
-  {
-    for (i8 = 0; i8 != 32; ++i8)
-    {
-      v369 = *&v367[i8 * 16];
-      v722[i8] = vmovl_s16(*v369.i8);
-      v693[i8] = vmovl_high_s16(v369);
-    }
-
-    sub_2779E7BA4(v722, v722);
-    result = sub_2779E7BA4(v693, v693);
-    for (i9 = 0; i9 != 32; ++i9)
-    {
-      v722[i9] = vrshrq_n_s32(v722[i9], 2uLL);
-    }
-
-    for (i10 = 0; i10 != 32; ++i10)
-    {
-      v693[i10] = vrshrq_n_s32(v693[i10], 2uLL);
-    }
-
-    for (i11 = 0; i11 != 32; ++i11)
-    {
-      v722[i11] = vrshrq_n_s32(vmulq_s32(v722[i11], v550), 0xCuLL);
-    }
-
-    for (i12 = 0; i12 != 32; ++i12)
-    {
-      v693[i12] = vrshrq_n_s32(vmulq_s32(v693[i12], v550), 0xCuLL);
-    }
-
-    v375 = 0;
-    v376 = v366;
-    do
-    {
-      v377 = v693[v375];
-      v376[-1] = v722[v375];
-      *v376 = v377;
-      ++v375;
-      v376 += 8;
-    }
-
-    while (v375 != 32);
-    ++v365;
-    v367 += 512;
-    v366 += 2;
-  }
-
-  while (v365 != 4);
-  return result;
-}
-
-uint64_t sub_2779E7BA4(uint64_t result, int32x4_t *a2)
-{
-  v2 = 0;
-  v218 = *MEMORY[0x277D85DE8];
-  for (i = 496; i != 240; i -= 16)
-  {
-    *(&v156 + v2) = vqaddq_s32(*(result + v2), *(result + i));
-    v2 += 16;
-  }
-
-  v4 = 240;
-  v5 = 256;
-  do
-  {
-    *(&v156 + v5) = vqsubq_s32(*(result + v4), *(result + v5));
-    v4 -= 16;
-    v5 += 16;
-  }
-
-  while (v4 != -16);
-  v6 = 0;
-  for (j = 240; j != 112; j -= 16)
-  {
-    *(&v188 + v6) = vqaddq_s32(*(&v156 + v6), *(&v156 + j));
-    v6 += 16;
-  }
-
-  v8 = 112;
-  v9 = 128;
-  do
-  {
-    *(&v188 + v9) = vqsubq_s32(*(&v156 + v8), *(&v156 + v9));
-    v8 -= 16;
-    v9 += 16;
-  }
-
-  while (v8 != -16);
-  v10 = 0;
-  v202 = v172;
-  v203 = v173;
-  v204 = v174;
-  v205 = v175;
-  v11 = vdupq_n_s32(0x16A0u);
-  v12 = vdupq_n_s32(0xFFFFE960);
-  v213 = vrshrq_n_s32(vmulq_s32(vaddq_s32(v176, v183), v11), 0xDuLL);
-  v212 = vrshrq_n_s32(vmulq_s32(vaddq_s32(v177, v182), v11), 0xDuLL);
-  v206 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v183, v11), v176, v12), 0xDuLL);
-  v207 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v182, v11), v177, v12), 0xDuLL);
-  v211 = vrshrq_n_s32(vmulq_s32(vaddq_s32(v178, v181), v11), 0xDuLL);
-  v210 = vrshrq_n_s32(vmulq_s32(vaddq_s32(v179, v180), v11), 0xDuLL);
-  v208 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v181, v11), v178, v12), 0xDuLL);
-  v209 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v180, v11), v179, v12), 0xDuLL);
-  v214 = v184;
-  v215 = v185;
-  v216 = v186;
-  v217 = v187;
-  for (k = 112; k != 48; k -= 16)
-  {
-    *(&v156 + v10) = vqaddq_s32(*(&v188 + v10), *(&v188 + k));
-    v10 += 16;
-  }
-
-  v14 = 48;
-  v15 = 64;
-  do
-  {
-    *(&v156 + v15) = vqsubq_s32(*(&v188 + v14), *(&v188 + v15));
-    v14 -= 16;
-    v15 += 16;
-  }
-
-  while (v14 != -16);
-  v164 = v194;
-  v165 = v195;
-  v16 = vdupq_n_s32(0x16A0u);
-  v17 = vdupq_n_s32(0xFFFFE960);
-  v168 = vrshrq_n_s32(vmulq_s32(vaddq_s32(v197, v198), v16), 0xDuLL);
-  v169 = vrshrq_n_s32(vmulq_s32(vaddq_s32(v196, v199), v16), 0xDuLL);
-  v166 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v199, v16), v196, v17), 0xDuLL);
-  v167 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v198, v16), v197, v17), 0xDuLL);
-  v170 = v200;
-  v171 = v201;
-  v18 = 368;
-  v19 = 256;
-  do
-  {
-    *(&v156 + v19) = vqaddq_s32(*(&v188 + v19), *(&v188 + v18));
-    v18 -= 16;
-    v19 += 16;
-  }
-
-  while (v18 != 304);
-  v20 = 320;
-  do
-  {
-    *(&v156 + v20) = vqsubq_s32(*(&v188 + v18), *(&v188 + v20));
-    v18 -= 16;
-    v20 += 16;
-  }
-
-  while (v18 != 240);
-  v21 = 496;
-  v22 = 384;
-  do
-  {
-    *(&v156 + v22) = vqsubq_s32(*(&v188 + v21), *(&v188 + v22));
-    v21 -= 16;
-    v22 += 16;
-  }
-
-  while (v21 != 432);
-  v23 = 448;
-  v24 = 432;
-  do
-  {
-    *(&v156 + v23) = vqaddq_s32(*(&v188 + v23), *(&v188 + v24));
-    v23 += 16;
-    v24 -= 16;
-  }
-
-  while (v23 != 512);
-  v150 = vdupq_n_s32(0x16A0u);
-  v155 = vdupq_n_s32(0xFFFFE960);
-  v25 = vdupq_n_s32(0x1D90u);
-  v26 = vdupq_n_s32(0xC40u);
-  v27 = vdupq_n_s32(0xFFFFE270);
-  v28 = vmlaq_s32(vmulq_s32(v184, v25), v175, v26);
-  v152 = vmlaq_s32(vmulq_s32(v183, v26), v176, v27);
-  v29 = vdupq_n_s32(0xFFFFF3C0);
-  v30 = vmlaq_s32(vmulq_s32(v183, v27), v176, v29);
-  v31 = vmlaq_s32(vmulq_s32(v182, v27), v177, v29);
-  v190 = vqsubq_s32(v157, v158);
-  v191 = vqsubq_s32(v156, v159);
-  v153 = vmlaq_s32(vmulq_s32(v191, v25), v190, v26);
-  v154 = vmlaq_s32(vmulq_s32(v191, v26), v190, v27);
-  v200 = vqaddq_s32(v170, v169);
-  v201 = vqaddq_s32(v171, v168);
-  v195 = vqaddq_s32(v165, v166);
-  v196 = vqsubq_s32(v165, v166);
-  v198 = vqsubq_s32(v171, v168);
-  v199 = vqsubq_s32(v170, v169);
-  v197 = vqsubq_s32(v164, v167);
-  v32 = vmlaq_s32(vmulq_s32(v199, v27), v196, v29);
-  v215 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v185, v25), v174, v26), 0xDuLL);
-  v204 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v185, v26), v174, v27), 0xDuLL);
-  v33 = vqaddq_s32(v173, v204);
-  v34 = vqsubq_s32(v173, v204);
-  v192 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v162, v150), v161, v155), 0xDuLL);
-  v193 = vrshrq_n_s32(vmulq_s32(vaddq_s32(v161, v162), v150), 0xDuLL);
-  v35 = vqaddq_s32(v160, v192);
-  v36 = vqaddq_s32(v163, v193);
-  v37 = vdupq_n_s32(0x1F64u);
-  v38 = vdupq_n_s32(0x640u);
-  v149 = vmlaq_s32(vmulq_s32(v36, v37), v35, v38);
-  v39 = vdupq_n_s32(0xFFFFE09C);
-  v151 = vmlaq_s32(vmulq_s32(v36, v38), v35, v39);
-  v40 = vqaddq_s32(v186, v215);
-  v41 = vmlaq_s32(vmulq_s32(v40, v37), v33, v38);
-  v42 = vmlaq_s32(vmulq_s32(v40, v38), v33, v39);
-  v43 = vqsubq_s32(v186, v215);
-  v44 = vmlaq_s32(vmulq_s32(v43, v38), v34, v39);
-  v45 = vmlaq_s32(vmulq_s32(v43, v39), v34, vdupq_n_s32(0xFFFFF9C0));
-  v46 = vqsubq_s32(v160, v192);
-  v47 = vqsubq_s32(v163, v193);
-  v48 = vrshrq_n_s32(v31, 0xDuLL);
-  v49 = vqsubq_s32(v178, v48);
-  v50 = vqaddq_s32(v178, v48);
-  v51 = vdupq_n_s32(0x11C8u);
-  v52 = vdupq_n_s32(0x1A9Cu);
-  v148 = vmlaq_s32(vmulq_s32(v47, v51), v46, v52);
-  v53 = vmulq_s32(v47, v52);
-  v54 = vdupq_n_s32(0xFFFFEE38);
-  v147 = vmlaq_s32(v53, v46, v54);
-  v55 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v182, v26), v177, v27), 0xDuLL);
-  v56 = vqsubq_s32(v181, v55);
-  v57 = vmlaq_s32(vmulq_s32(v56, v51), v49, v52);
-  v58 = vmlaq_s32(vmulq_s32(v56, v52), v49, v54);
-  v59 = vqaddq_s32(v181, v55);
-  v60 = vmlaq_s32(vmulq_s32(v59, v52), v50, v54);
-  v61 = vmlaq_s32(vmulq_s32(v59, v54), v50, vdupq_n_s32(0xFFFFE564));
-  v194 = vqaddq_s32(v164, v167);
-  v62 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v200, v25), v195, v26), 0xDuLL);
-  v63 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v200, v26), v195, v27), 0xDuLL);
-  v64 = vqaddq_s32(v201, v62);
-  v65 = vqaddq_s32(v194, v63);
-  v66 = vdupq_n_s32(0x324u);
-  v67 = vmlaq_s32(vmulq_s32(v64, vdupq_n_s32(0x1FD8u)), v65, v66);
-  v146 = vmlaq_s32(vmulq_s32(v64, v66), v65, vdupq_n_s32(0xFFFFE028));
-  v68 = vqsubq_s32(v194, v63);
-  v69 = vqsubq_s32(v201, v62);
-  v70 = vdupq_n_s32(0x18BCu);
-  v71 = vmlaq_s32(vmulq_s32(v69, vdupq_n_s32(0x144Cu)), v68, v70);
-  v72 = vmlaq_s32(vmulq_s32(v69, v70), v68, vdupq_n_s32(0xFFFFEBB4));
-  v73 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v199, v26), v196, v27), 0xDuLL);
-  v74 = vrshrq_n_s32(v32, 0xDuLL);
-  v75 = vqsubq_s32(v198, v73);
-  v76 = vqsubq_s32(v197, v74);
-  v77 = vdupq_n_s32(0xF14u);
-  v78 = vmlaq_s32(vmulq_s32(v75, vdupq_n_s32(0x1C38u)), v76, v77);
-  v79 = vmlaq_s32(vmulq_s32(v75, v77), v76, vdupq_n_s32(0xFFFFE3C8));
-  v80 = vqaddq_s32(v197, v74);
-  v81 = vqaddq_s32(v198, v73);
-  v82 = vdupq_n_s32(0x1EA0u);
-  v83 = vmlaq_s32(vmulq_s32(v81, vdupq_n_s32(0x94Cu)), v80, v82);
-  v84 = vmlaq_s32(vmulq_s32(v81, v82), v80, vdupq_n_s32(0xFFFFF6B4));
-  v85 = vrshrq_n_s32(v28, 0xDuLL);
-  v86 = vrshrq_n_s32(v41, 0xDuLL);
-  v87 = vrshrq_n_s32(v42, 0xDuLL);
-  v88 = vqaddq_s32(v187, v85);
-  v89 = vqaddq_s32(v88, v86);
-  v90 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v184, v26), v175, v27), 0xDuLL);
-  v91 = vqaddq_s32(v172, v90);
-  v92 = vdupq_n_s32(0x190u);
-  v93 = vqaddq_s32(v91, v87);
-  v94 = vmlaq_s32(vmulq_s32(v89, vdupq_n_s32(0x1FF8u)), v93, v92);
-  v95 = vmlaq_s32(vmulq_s32(v89, v92), v93, vdupq_n_s32(0xFFFFE008));
-  v96 = vqsubq_s32(v91, v87);
-  v97 = vqsubq_s32(v88, v86);
-  v98 = vdupq_n_s32(0x17B4u);
-  v99 = vmlaq_s32(vmulq_s32(v97, vdupq_n_s32(0x157Cu)), v96, v98);
-  v100 = vmlaq_s32(vmulq_s32(v97, v98), v96, vdupq_n_s32(0xFFFFEA84));
-  v101 = vqsubq_s32(v172, v90);
-  v102 = vqsubq_s32(v187, v85);
-  v103 = vrshrq_n_s32(v44, 0xDuLL);
-  v104 = vrshrq_n_s32(v45, 0xDuLL);
-  v105 = vqsubq_s32(v102, v103);
-  v106 = vqsubq_s32(v101, v104);
-  v107 = vdupq_n_s32(0xDB0u);
-  v108 = vmlaq_s32(vmulq_s32(v105, vdupq_n_s32(0x1CECu)), v106, v107);
-  v109 = vmlaq_s32(vmulq_s32(v105, v107), v106, vdupq_n_s32(0xFFFFE314));
-  v110 = vqaddq_s32(v101, v104);
-  v111 = vqaddq_s32(v102, v103);
-  v112 = vdupq_n_s32(0x1E20u);
-  v113 = vmlaq_s32(vmulq_s32(v111, vdupq_n_s32(0xAC8u)), v110, v112);
-  v114 = vmlaq_s32(vmulq_s32(v111, v112), v110, vdupq_n_s32(0xFFFFF538));
-  v115 = vrshrq_n_s32(v152, 0xDuLL);
-  v116 = vrshrq_n_s32(v30, 0xDuLL);
-  v117 = vrshrq_n_s32(v57, 0xDuLL);
-  v118 = vrshrq_n_s32(v58, 0xDuLL);
-  v119 = vqsubq_s32(v180, v115);
-  v120 = vqaddq_s32(v119, v117);
-  v121 = vdupq_n_s32(0x7C8u);
-  v122 = vqsubq_s32(v179, v116);
-  v123 = vqaddq_s32(v122, v118);
-  v124 = vmlaq_s32(vmulq_s32(v120, vdupq_n_s32(0x1F0Cu)), v123, v121);
-  v125 = vmlaq_s32(vmulq_s32(v120, v121), v123, vdupq_n_s32(0xFFFFE0F4));
-  v126 = vqsubq_s32(v122, v118);
-  v127 = vqsubq_s32(v119, v117);
-  v128 = vdupq_n_s32(0x1B74u);
-  v129 = vmlaq_s32(vmulq_s32(v127, vdupq_n_s32(0x1074u)), v126, v128);
-  v130 = vmlaq_s32(vmulq_s32(v127, v128), v126, vdupq_n_s32(0xFFFFEF8C));
-  v131 = vqaddq_s32(v179, v116);
-  v132 = vqaddq_s32(v180, v115);
-  v133 = vrshrq_n_s32(v60, 0xDuLL);
-  v134 = vrshrq_n_s32(v61, 0xDuLL);
-  v135 = vqsubq_s32(v132, v133);
-  v136 = vqsubq_s32(v131, v134);
-  v137 = vdupq_n_s32(0x1310u);
-  v138 = vmlaq_s32(vmulq_s32(v135, vdupq_n_s32(0x19B4u)), v136, v137);
-  v139 = vmlaq_s32(vmulq_s32(v135, v137), v136, vdupq_n_s32(0xFFFFE64C));
-  v140 = vqaddq_s32(v131, v134);
-  v141 = vqaddq_s32(v132, v133);
-  v142 = vdupq_n_s32(0x1FA8u);
-  v143 = vmlaq_s32(vmulq_s32(v141, vdupq_n_s32(0x4B4u)), v140, v142);
-  v144 = vmlaq_s32(vmulq_s32(v141, v142), v140, vdupq_n_s32(0xFFFFFB4C));
-  v188 = vqaddq_s32(v156, v159);
-  v189 = vqaddq_s32(v157, v158);
-  v145 = vmlaq_s32(vmulq_s32(v188, v150), v189, v155);
-  *a2 = vrshrq_n_s32(vmulq_s32(vaddq_s32(v189, v188), v150), 0xDuLL);
-  a2[1] = vrshrq_n_s32(v94, 0xDuLL);
-  a2[2] = vrshrq_n_s32(v67, 0xDuLL);
-  a2[3] = vrshrq_n_s32(v144, 0xDuLL);
-  a2[4] = vrshrq_n_s32(v149, 0xDuLL);
-  a2[5] = vrshrq_n_s32(v124, 0xDuLL);
-  a2[6] = vrshrq_n_s32(v84, 0xDuLL);
-  a2[7] = vrshrq_n_s32(v114, 0xDuLL);
-  a2[8] = vrshrq_n_s32(v153, 0xDuLL);
-  a2[9] = vrshrq_n_s32(v108, 0xDuLL);
-  a2[10] = vrshrq_n_s32(v78, 0xDuLL);
-  a2[11] = vrshrq_n_s32(v130, 0xDuLL);
-  a2[12] = vrshrq_n_s32(v147, 0xDuLL);
-  a2[13] = vrshrq_n_s32(v138, 0xDuLL);
-  a2[14] = vrshrq_n_s32(v72, 0xDuLL);
-  a2[15] = vrshrq_n_s32(v100, 0xDuLL);
-  a2[16] = vrshrq_n_s32(v145, 0xDuLL);
-  a2[17] = vrshrq_n_s32(v99, 0xDuLL);
-  a2[18] = vrshrq_n_s32(v71, 0xDuLL);
-  a2[19] = vrshrq_n_s32(v139, 0xDuLL);
-  a2[20] = vrshrq_n_s32(v148, 0xDuLL);
-  a2[21] = vrshrq_n_s32(v129, 0xDuLL);
-  a2[22] = vrshrq_n_s32(v79, 0xDuLL);
-  a2[23] = vrshrq_n_s32(v109, 0xDuLL);
-  a2[24] = vrshrq_n_s32(v154, 0xDuLL);
-  a2[25] = vrshrq_n_s32(v113, 0xDuLL);
-  a2[26] = vrshrq_n_s32(v83, 0xDuLL);
-  a2[27] = vrshrq_n_s32(v125, 0xDuLL);
-  a2[28] = vrshrq_n_s32(v151, 0xDuLL);
-  a2[29] = vrshrq_n_s32(v143, 0xDuLL);
-  a2[30] = vrshrq_n_s32(v146, 0xDuLL);
-  a2[31] = vrshrq_n_s32(v95, 0xDuLL);
-  return result;
-}
-
-uint64_t sub_2779E858C(__int16 *a1, int32x4_t *a2, uint64_t a3, uint64_t a4, char a5)
-{
-  v5 = a3;
-  v7 = a1;
-  v80 = *MEMORY[0x277D85DE8];
-  if ((0xF1FEuLL >> a4))
-  {
-    v65 = 0u;
-    v66 = 0u;
-    v63 = 0u;
-    v64 = 0u;
-    sub_277A78D0C(a4, 0xAu, &v63);
-    return sub_277A78E90(v7, a2, v5, &v63, v79, a5);
-  }
-
-  v8 = off_28866D6A0[a4];
-  v9 = off_28866DC20[a4];
-  v10 = 1;
-  if (a4 <= 0xF)
-  {
-    if (((1 << a4) & 0x4110) == 0)
-    {
-      if (((1 << a4) & 0x80A0) != 0)
-      {
-        v10 = 0;
-        goto LABEL_10;
-      }
-
-      if (a4 != 6)
-      {
-        goto LABEL_10;
-      }
-
-      v10 = 0;
-    }
-
-    v7 = &a1[15 * a3];
-    v5 = -a3;
-  }
-
-LABEL_10:
-  for (i = 0; i != 4; ++i)
-  {
-    (v8)(&v7[8 * i], &v63, v5, 13);
-    for (j = 0; j != 256; j += 16)
-    {
-      *(&v63 + j) = vrshrq_n_s16(*(&v63 + j), 4uLL);
-    }
-
-    v15 = vtrn1q_s16(v63, v64);
-    v16 = vtrn2q_s16(v63, v64);
-    v17 = vtrn1q_s16(v65, v66);
-    v18 = vtrn2q_s16(v65, v66);
-    v19 = vtrn1q_s16(v67, v68);
-    v20 = vtrn2q_s16(v67, v68);
-    v21 = vtrn1q_s16(v69, v70);
-    v22 = vtrn2q_s16(v69, v70);
-    v23 = vtrn1q_s32(v15, v17);
-    v24 = vtrn2q_s32(v15, v17);
-    v25 = vtrn1q_s32(v16, v18);
-    v26 = vtrn2q_s32(v16, v18);
-    v27 = vtrn1q_s32(v19, v21);
-    v28 = vtrn2q_s32(v19, v21);
-    v29 = vtrn1q_s32(v20, v22);
-    v30 = vtrn2q_s32(v20, v22);
-    v31 = vzip2q_s64(v23, v27);
-    v23.i64[1] = v27.i64[0];
-    v32 = vzip2q_s64(v25, v29);
-    v25.i64[1] = v29.i64[0];
-    v33 = vzip2q_s64(v24, v28);
-    v24.i64[1] = v28.i64[0];
-    v34 = vzip2q_s64(v26, v30);
-    v26.i64[1] = v30.i64[0];
-    v35 = &v79[32 * i];
-    *v35 = v23;
-    *(v35 + 1) = v25;
-    *(v35 + 2) = v24;
-    *(v35 + 3) = v26;
-    *(v35 + 4) = v31;
-    *(v35 + 5) = v32;
-    *(v35 + 6) = v33;
-    *(v35 + 7) = v34;
-    v36 = &v79[32 * i + 128];
-    v37 = vtrn1q_s16(v71, v72);
-    v38 = vtrn2q_s16(v71, v72);
-    v39 = vtrn1q_s16(v73, v74);
-    v40 = vtrn2q_s16(v73, v74);
-    v41 = vtrn1q_s16(v75, v76);
-    v42 = vtrn2q_s16(v75, v76);
-    v43 = vtrn1q_s16(v77, v78);
-    v44 = vtrn2q_s16(v77, v78);
-    v45 = vtrn1q_s32(v37, v39);
-    v46 = vtrn2q_s32(v37, v39);
-    v47 = vtrn1q_s32(v38, v40);
-    v48 = vtrn2q_s32(v38, v40);
-    v49 = vtrn1q_s32(v41, v43);
-    v50 = vtrn2q_s32(v41, v43);
-    v51 = vtrn1q_s32(v42, v44);
-    v52 = vtrn2q_s32(v42, v44);
-    v53 = vzip2q_s64(v45, v49);
-    v45.i64[1] = v49.i64[0];
-    v54 = vzip2q_s64(v47, v51);
-    v47.i64[1] = v51.i64[0];
-    v55 = vzip2q_s64(v46, v50);
-    v46.i64[1] = v50.i64[0];
-    v56 = vzip2q_s64(v48, v52);
-    v48.i64[1] = v52.i64[0];
-    *v36 = v45;
-    *(v36 + 1) = v47;
-    *(v36 + 2) = v46;
-    *(v36 + 3) = v48;
-    *(v36 + 4) = v53;
-    *(v36 + 5) = v54;
-    *(v36 + 6) = v55;
-    *(v36 + 7) = v56;
-  }
-
-  v57 = 0;
-  v58 = 1;
-  do
-  {
-    v59 = v58;
-    v60 = &v79[128 * v57];
-    if ((v10 & 1) == 0)
-    {
-      for (k = 496; k != -16; k -= 16)
-      {
-        v62 = *v60++;
-        *(&v63 + k) = v62;
-      }
-
-      v60 = &v63;
-    }
-
-    result = (v9)(v60, &a2[2 * v57], 16, 13);
-    v58 = 0;
-    v57 = 1;
-  }
-
-  while ((v59 & 1) != 0);
-  return result;
-}
-
-uint64_t sub_2779E8870(uint64_t result, int32x4_t *a2, int a3)
-{
-  v3 = 0;
-  v9 = *MEMORY[0x277D85DE8];
-  do
-  {
-    *&v8[v3] = vshlq_n_s16(*(result + v3), 2uLL);
-    v3 += 16;
-  }
-
-  while (v3 != 512);
-  v4 = 0;
-  v5 = a2 + 1;
-  v6 = vdupq_n_s16(0x16A1u);
-  do
-  {
-    v7 = *&v8[v4];
-    v5[-1] = vrshrq_n_s32(vmull_s16(*v7.i8, *v6.i8), 0xCuLL);
-    *v5 = vrshrq_n_s32(vmull_high_s16(v7, v6), 0xCuLL);
-    v4 += 16;
-    v5 = (v5 + 4 * a3);
-  }
-
-  while (v4 != 512);
-  return result;
-}
-
-uint64_t sub_2779E8920(uint64_t result, int32x4_t *a2, int a3, int a4)
-{
-  v4 = 0;
-  v267 = *MEMORY[0x277D85DE8];
-  v6 = xmmword_277BEB8A0[16 * a4 - 160];
-  v5 = xmmword_277BEB8A0[16 * a4 - 159];
-  v203 = xmmword_277BEB8A0[16 * a4 - 157];
-  v205 = xmmword_277BEB8A0[16 * a4 - 158];
-  v207 = xmmword_277BEB8A0[16 * a4 - 155];
-  v209 = xmmword_277BEB8A0[16 * a4 - 154];
-  v210 = xmmword_277BEB8A0[16 * a4 - 153];
-  v211 = xmmword_277BEB8A0[16 * a4 - 156];
-  for (i = 496; i != 240; i -= 16)
-  {
-    *&v258[v4] = vqaddq_s16(*(result + v4), *(result + i));
-    v4 += 16;
-  }
-
-  v8 = 240;
-  v9 = 256;
-  do
-  {
-    *&v258[v9] = vqsubq_s16(*(result + v8), *(result + v9));
-    v8 -= 16;
-    v9 += 16;
-  }
-
-  while (v8 != -16);
-  v10 = 0;
-  for (j = 240; j != 112; j -= 16)
-  {
-    *&v241[v10] = vqaddq_s16(*&v258[v10], *&v258[j]);
-    v10 += 16;
-  }
-
-  v12 = 112;
-  v13 = 128;
-  do
-  {
-    *&v241[v13] = vqsubq_s16(*&v258[v12], *&v258[v13]);
-    v12 -= 16;
-    v13 += 16;
-  }
-
-  while (v12 != -16);
-  v14 = 0;
-  v257 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_lane_s16(vmull_lane_s16(*v259.i8, *v6.i8, 1), *v266.i8, *v6.i8, 0), 0xDuLL), vmlal_high_lane_s16(vmull_high_lane_s16(v259, *v6.i8, 1), v266, *v6.i8, 0), 0xDuLL);
-  v256 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_lane_s16(vmull_lane_s16(*v260.i8, *v6.i8, 1), *v265.i8, *v6.i8, 0), 0xDuLL), vmlal_high_lane_s16(vmull_high_lane_s16(v260, *v6.i8, 1), v265, *v6.i8, 0), 0xDuLL);
-  v250 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_lane_s16(vmull_lane_s16(*v259.i8, *v6.i8, 2), *v266.i8, *v6.i8, 1), 0xDuLL), vmlal_high_lane_s16(vmull_high_lane_s16(v259, *v6.i8, 2), v266, *v6.i8, 1), 0xDuLL);
-  v251 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_lane_s16(vmull_lane_s16(*v260.i8, *v6.i8, 2), *v265.i8, *v6.i8, 1), 0xDuLL), vmlal_high_lane_s16(vmull_high_lane_s16(v260, *v6.i8, 2), v265, *v6.i8, 1), 0xDuLL);
-  v255 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_lane_s16(vmull_lane_s16(*v261.i8, *v6.i8, 1), *v264.i8, *v6.i8, 0), 0xDuLL), vmlal_high_lane_s16(vmull_high_lane_s16(v261, *v6.i8, 1), v264, *v6.i8, 0), 0xDuLL);
-  v254 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_lane_s16(vmull_lane_s16(*v262.i8, *v6.i8, 1), *v263.i8, *v6.i8, 0), 0xDuLL), vmlal_high_lane_s16(vmull_high_lane_s16(v262, *v6.i8, 1), v263, *v6.i8, 0), 0xDuLL);
-  v252 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_lane_s16(vmull_lane_s16(*v261.i8, *v6.i8, 2), *v264.i8, *v6.i8, 1), 0xDuLL), vmlal_high_lane_s16(vmull_high_lane_s16(v261, *v6.i8, 2), v264, *v6.i8, 1), 0xDuLL);
-  v253 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_lane_s16(vmull_lane_s16(*v262.i8, *v6.i8, 2), *v263.i8, *v6.i8, 1), 0xDuLL), vmlal_high_lane_s16(vmull_high_lane_s16(v262, *v6.i8, 2), v263, *v6.i8, 1), 0xDuLL);
-  for (k = 112; k != 48; k -= 16)
-  {
-    *(&v213 + v14) = vqaddq_s16(*&v241[v14], *&v241[k]);
-    v14 += 16;
-  }
-
-  v16 = 48;
-  v17 = 64;
-  do
-  {
-    *(&v213 + v17) = vqsubq_s16(*&v241[v16], *&v241[v17]);
+    *&v430[v17] = vqsubq_s32(*(result + v16), *(result + v17));
     v16 -= 16;
     v17 += 16;
   }
 
   while (v16 != -16);
-  v224 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_lane_s16(vmull_lane_s16(*v244.i8, *v6.i8, 1), *v247.i8, *v6.i8, 0), 0xDuLL), vmlal_high_lane_s16(vmull_high_lane_s16(v244, *v6.i8, 1), v247, *v6.i8, 0), 0xDuLL);
-  v223 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_lane_s16(vmull_lane_s16(*v245.i8, *v6.i8, 1), *v246.i8, *v6.i8, 0), 0xDuLL), vmlal_high_lane_s16(vmull_high_lane_s16(v245, *v6.i8, 1), v246, *v6.i8, 0), 0xDuLL);
-  v18 = 368;
-  v221 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_lane_s16(vmull_lane_s16(*v244.i8, *v6.i8, 2), *v247.i8, *v6.i8, 1), 0xDuLL), vmlal_high_lane_s16(vmull_high_lane_s16(v244, *v6.i8, 2), v247, *v6.i8, 1), 0xDuLL);
-  v222 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_lane_s16(vmull_lane_s16(*v245.i8, *v6.i8, 2), *v246.i8, *v6.i8, 1), 0xDuLL), vmlal_high_lane_s16(vmull_high_lane_s16(v245, *v6.i8, 2), v246, *v6.i8, 1), 0xDuLL);
-  v19 = 256;
-  do
+  v18 = 0;
+  for (i = 496; i != 240; i -= 16)
   {
-    *(&v213 + v19) = vqaddq_s16(*&v258[v19], *&v241[v18]);
-    v18 -= 16;
-    v19 += 16;
+    *&v405[v18] = vqaddq_s32(*&v430[v18], *&v430[i]);
+    v18 += 16;
   }
 
-  while (v18 != 304);
-  v20 = 320;
+  v20 = 240;
+  v21 = 256;
   do
   {
-    *(&v213 + v20) = vqsubq_s16(*&v258[v18], *&v241[v20]);
-    v18 -= 16;
-    v20 += 16;
+    *&v405[v21] = vqsubq_s32(*&v430[v20], *&v430[v21]);
+    v20 -= 16;
+    v21 += 16;
   }
 
-  while (v18 != 240);
-  v21 = 496;
-  v22 = 384;
-  do
+  while (v20 != -16);
+  v22 = 0;
+  v23 = vmovl_s16(*v14.i8);
+  v24 = vmovl_s16(vdup_lane_s16(*v14.i8, 0));
+  v25 = vmovl_s16(vdup_lane_s16(*v14.i8, 1));
+  v26 = vmovl_s16(vdup_lane_s16(*v14.i8, 2));
+  v429 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v446, v24), v431, v25), 0xDuLL);
+  v428 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v445, v24), v432, v25), 0xDuLL);
+  v414 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v446, v25), v431, v26), 0xDuLL);
+  v415 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v445, v25), v432, v26), 0xDuLL);
+  v427 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v444, v24), v433, v25), 0xDuLL);
+  v426 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v443, v24), v434, v25), 0xDuLL);
+  v416 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v444, v25), v433, v26), 0xDuLL);
+  v417 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v443, v25), v434, v26), 0xDuLL);
+  v425 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v442, v24), v435, v25), 0xDuLL);
+  v424 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v441, v24), v436, v25), 0xDuLL);
+  v418 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v442, v25), v435, v26), 0xDuLL);
+  v419 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v441, v25), v436, v26), 0xDuLL);
+  v27 = vdupq_lane_s32(*v23.i8, 0);
+  v28 = vdupq_lane_s32(*v23.i8, 1);
+  v29 = vdupq_laneq_s32(v23, 2);
+  v423 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v440, v24), v437, v25), 0xDuLL);
+  v422 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v439, v24), v438, v25), 0xDuLL);
+  v420 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v440, v25), v437, v26), 0xDuLL);
+  v421 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v439, v25), v438, v26), 0xDuLL);
+  for (j = 240; j != 112; j -= 16)
   {
-    *(&v213 + v22) = vqsubq_s16(*&v258[v21], *&v241[v22]);
-    v21 -= 16;
+    *&v372[v22] = vqaddq_s32(*&v405[v22], *&v405[j]);
     v22 += 16;
   }
 
-  while (v21 != 432);
-  v23 = 448;
-  v24 = 432;
+  v31 = 112;
+  v32 = 128;
   do
   {
-    *(&v213 + v23) = vqaddq_s16(*&v258[v23], *&v241[v24]);
-    v23 += 16;
-    v24 -= 16;
+    *&v372[v32] = vqsubq_s32(*&v405[v31], *&v405[v32]);
+    v31 -= 16;
+    v32 += 16;
   }
 
-  while (v23 != 512);
-  v25 = 0;
-  v26 = vqaddq_s16(v213, v216);
-  v27 = vqaddq_s16(v214, v215);
-  v28 = vqsubq_s16(v214, v215);
-  v29 = vqsubq_s16(v213, v216);
-  v30 = vmlal_lane_s16(vmull_lane_s16(*v218.i8, *v6.i8, 2), *v219.i8, *v6.i8, 1);
-  v31 = vmlal_high_lane_s16(vmull_high_lane_s16(v218, *v6.i8, 2), v219, *v6.i8, 1);
-  v32 = vqaddq_s16(v243, v221);
-  v33 = vqsubq_s16(v243, v221);
-  v34 = vqsubq_s16(v248, v224);
-  v35 = vqaddq_s16(v248, v224);
-  v36 = vmlal_laneq_s16(vmull_laneq_s16(*v227.i8, v6, 5), *v238.i8, v6, 4);
-  v37 = vmlal_high_laneq_s16(vmull_high_laneq_s16(v227, v6, 5), v238, v6, 4);
-  v38 = vmlal_laneq_s16(vmull_laneq_s16(*v227.i8, v6, 6), *v238.i8, v6, 5);
-  v39 = vmlal_high_laneq_s16(vmull_high_laneq_s16(v227, v6, 6), v238, v6, 5);
-  v177 = vmlal_laneq_s16(vmull_laneq_s16(*v228.i8, v6, 5), *v237.i8, v6, 4);
-  v174 = vmlal_high_laneq_s16(vmull_high_laneq_s16(v228, v6, 5), v237, v6, 4);
-  v170 = vmlal_high_laneq_s16(vmull_high_laneq_s16(v228, v6, 6), v237, v6, 5);
-  v172 = vmlal_laneq_s16(vmull_laneq_s16(*v228.i8, v6, 6), *v237.i8, v6, 5);
-  v40 = vmlal_laneq_s16(vmull_laneq_s16(*v229.i8, v6, 6), *v236.i8, v6, 5);
-  v41 = vmlal_high_laneq_s16(vmull_high_laneq_s16(v229, v6, 6), v236, v6, 5);
-  v42 = vmlal_laneq_s16(vmull_laneq_s16(*v229.i8, v6, 7), *v236.i8, v6, 6);
-  v43 = vmlal_high_laneq_s16(vmull_high_laneq_s16(v229, v6, 7), v236, v6, 6);
-  v44 = vmlal_laneq_s16(vmull_laneq_s16(*v230.i8, v6, 6), *v235.i8, v6, 5);
-  v45 = vmlal_high_laneq_s16(vmull_high_laneq_s16(v230, v6, 6), v235, v6, 5);
-  v46 = vmlal_laneq_s16(vmull_laneq_s16(*v230.i8, v6, 7), *v235.i8, v6, 6);
-  v47 = vmlal_high_laneq_s16(vmull_high_laneq_s16(v230, v6, 7), v235, v6, 6);
-  v202 = vmlal_lane_s16(vmull_lane_s16(*v27.i8, *v6.i8, 1), *v26.i8, *v6.i8, 0);
-  v201 = vmlal_high_lane_s16(vmull_high_lane_s16(v27, *v6.i8, 1), v26, *v6.i8, 0);
-  v199 = vmlal_high_lane_s16(vmull_high_lane_s16(v27, *v6.i8, 2), v26, *v6.i8, 1);
-  v200 = vmlal_lane_s16(vmull_lane_s16(*v27.i8, *v6.i8, 2), *v26.i8, *v6.i8, 1);
-  v198 = vmlal_laneq_s16(vmull_laneq_s16(*v28.i8, v6, 5), *v29.i8, v6, 4);
-  v197 = vmlal_high_laneq_s16(vmull_high_laneq_s16(v28, v6, 5), v29, v6, 4);
-  v195 = vmlal_high_laneq_s16(vmull_high_laneq_s16(v28, v6, 6), v29, v6, 5);
-  v196 = vmlal_laneq_s16(vmull_laneq_s16(*v28.i8, v6, 6), *v29.i8, v6, 5);
-  v48 = vmlal_laneq_s16(vmull_laneq_s16(*v32.i8, v6, 5), *v35.i8, v6, 4);
-  v49 = vmlal_high_laneq_s16(vmull_high_laneq_s16(v32, v6, 5), v35, v6, 4);
-  v50 = vmlal_laneq_s16(vmull_laneq_s16(*v32.i8, v6, 6), *v35.i8, v6, 5);
-  v51 = vmlal_high_laneq_s16(vmull_high_laneq_s16(v32, v6, 6), v35, v6, 5);
-  v52 = vmlal_laneq_s16(vmull_laneq_s16(*v33.i8, v6, 6), *v34.i8, v6, 5);
-  v53 = vmlal_high_laneq_s16(vmull_high_laneq_s16(v33, v6, 6), v34, v6, 5);
-  v54 = vmlal_laneq_s16(vmull_laneq_s16(*v33.i8, v6, 7), *v34.i8, v6, 6);
-  v55 = vmlal_high_laneq_s16(vmull_high_laneq_s16(v33, v6, 7), v34, v6, 6);
-  v56 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_lane_s16(vmull_lane_s16(*v218.i8, *v6.i8, 1), *v219.i8, *v6.i8, 0), 0xDuLL), vmlal_high_lane_s16(vmull_high_lane_s16(v218, *v6.i8, 1), v219, *v6.i8, 0), 0xDuLL);
-  v57 = vrshrn_high_n_s32(vrshrn_n_s32(v30, 0xDuLL), v31, 0xDuLL);
-  v58 = vrshrn_high_n_s32(vrshrn_n_s32(v36, 0xDuLL), v37, 0xDuLL);
-  v59 = vrshrn_high_n_s32(vrshrn_n_s32(v38, 0xDuLL), v39, 0xDuLL);
-  v60 = vrshrn_high_n_s32(vrshrn_n_s32(v44, 0xDuLL), v45, 0xDuLL);
-  v61 = vrshrn_high_n_s32(vrshrn_n_s32(v46, 0xDuLL), v47, 0xDuLL);
-  v62 = vqaddq_s16(v217, v57);
-  v63 = vqsubq_s16(v217, v57);
-  v64 = vqsubq_s16(v220, v56);
-  v65 = vqaddq_s16(v220, v56);
-  v66 = vqaddq_s16(v226, v59);
-  v67 = vqsubq_s16(v226, v59);
-  v68 = vqsubq_s16(v231, v61);
-  v69 = vqaddq_s16(v231, v61);
-  v70 = vqaddq_s16(v234, v60);
-  v71 = vqsubq_s16(v234, v60);
-  v72 = vqsubq_s16(v239, v58);
-  v73 = vqaddq_s16(v239, v58);
-  v192 = vmlal_lane_s16(vmull_lane_s16(*v62.i8, *v5.i8, 1), *v65.i8, *v5.i8, 0);
-  v191 = vmlal_high_lane_s16(vmull_high_lane_s16(v62, *v5.i8, 1), v65, *v5.i8, 0);
-  v194 = vmlal_lane_s16(vmull_lane_s16(*v62.i8, *v5.i8, 2), *v65.i8, *v5.i8, 1);
-  v193 = vmlal_high_lane_s16(vmull_high_lane_s16(v62, *v5.i8, 2), v65, *v5.i8, 1);
-  v190 = vmlal_laneq_s16(vmull_laneq_s16(*v63.i8, v5, 4), *v64.i8, v5, 5);
-  v189 = vmlal_high_laneq_s16(vmull_high_laneq_s16(v63, v5, 4), v64, v5, 5);
-  v188 = vmlal_laneq_s16(vmull_laneq_s16(*v63.i8, v5, 7), *v64.i8, v5, 4);
-  v187 = vmlal_high_laneq_s16(vmull_high_laneq_s16(v63, v5, 7), v64, v5, 4);
-  v183 = vmlal_lane_s16(vmull_lane_s16(*v66.i8, *v5.i8, 1), *v73.i8, *v5.i8, 0);
-  v182 = vmlal_high_lane_s16(vmull_high_lane_s16(v66, *v5.i8, 1), v73, *v5.i8, 0);
-  v180 = vmlal_high_lane_s16(vmull_high_lane_s16(v66, *v5.i8, 2), v73, *v5.i8, 1);
-  v181 = vmlal_lane_s16(vmull_lane_s16(*v66.i8, *v5.i8, 2), *v73.i8, *v5.i8, 1);
-  v74 = vmlal_lane_s16(vmull_lane_s16(*v67.i8, *v5.i8, 2), *v72.i8, *v5.i8, 1);
-  v75 = vmlal_high_lane_s16(vmull_high_lane_s16(v67, *v5.i8, 2), v72, *v5.i8, 1);
-  v76 = vmlal_lane_s16(vmull_lane_s16(*v67.i8, *v5.i8, 3), *v72.i8, *v5.i8, 2);
-  v77 = vmlal_high_lane_s16(vmull_high_lane_s16(v67, *v5.i8, 3), v72, *v5.i8, 2);
-  v78 = vmlal_laneq_s16(vmull_laneq_s16(*v68.i8, v5, 4), *v71.i8, v5, 5);
-  v79 = vmlal_high_laneq_s16(vmull_high_laneq_s16(v68, v5, 4), v71, v5, 5);
-  v80 = vmlal_laneq_s16(vmull_laneq_s16(*v68.i8, v5, 7), *v71.i8, v5, 4);
-  v81 = vmlal_high_laneq_s16(vmull_high_laneq_s16(v68, v5, 7), v71, v5, 4);
-  v163 = vmlal_laneq_s16(vmull_laneq_s16(*v69.i8, v5, 7), *v70.i8, v5, 4);
-  v162 = vmlal_high_laneq_s16(vmull_high_laneq_s16(v69, v5, 7), v70, v5, 4);
-  v161 = vmlal_laneq_s16(vmull_laneq_s16(*v69.i8, v5, 6), *v70.i8, v5, 7);
-  v160 = vmlal_high_laneq_s16(vmull_high_laneq_s16(v69, v5, 6), v70, v5, 7);
-  v82 = vqaddq_s16(v242, v222);
-  v83 = vqsubq_s16(v242, v222);
-  v84 = vqsubq_s16(v249, v223);
-  v85 = vqaddq_s16(v249, v223);
-  v86 = vrshrn_high_n_s32(vrshrn_n_s32(v48, 0xDuLL), v49, 0xDuLL);
-  v87 = vrshrn_high_n_s32(vrshrn_n_s32(v50, 0xDuLL), v51, 0xDuLL);
-  v88 = vrshrn_high_n_s32(vrshrn_n_s32(v52, 0xDuLL), v53, 0xDuLL);
-  v89 = vrshrn_high_n_s32(vrshrn_n_s32(v54, 0xDuLL), v55, 0xDuLL);
-  v90 = vqsubq_s16(v82, v87);
-  v91 = vqsubq_s16(v85, v86);
-  v186 = vmlal_laneq_s16(vmull_laneq_s16(*v90.i8, v203, 4), *v91.i8, v203, 5);
-  v185 = vmlal_high_laneq_s16(vmull_high_laneq_s16(v90, v203, 4), v91, v203, 5);
-  v168 = vmlal_high_laneq_s16(vmull_high_laneq_s16(v90, v203, 7), v91, v203, 4);
-  v169 = vmlal_laneq_s16(vmull_laneq_s16(*v90.i8, v203, 7), *v91.i8, v203, 4);
-  v92 = vqsubq_s16(v83, v89);
-  v93 = vqsubq_s16(v84, v88);
-  v179 = vmlal_lane_s16(vmull_lane_s16(*v92.i8, *v203.i8, 1), *v93.i8, *v203.i8, 0);
-  v176 = vmlal_high_lane_s16(vmull_high_lane_s16(v92, *v203.i8, 1), v93, *v203.i8, 0);
-  v166 = vmlal_high_lane_s16(vmull_high_lane_s16(v92, *v203.i8, 2), v93, *v203.i8, 1);
-  v167 = vmlal_lane_s16(vmull_lane_s16(*v92.i8, *v203.i8, 2), *v93.i8, *v203.i8, 1);
-  v94 = vqaddq_s16(v82, v87);
-  v95 = vqaddq_s16(v83, v89);
-  v96 = vqaddq_s16(v84, v88);
-  v97 = vqaddq_s16(v85, v86);
-  v204 = vmlal_lane_s16(vmull_lane_s16(*v94.i8, *v205.i8, 1), *v97.i8, *v205.i8, 0);
-  v184 = vmlal_high_lane_s16(vmull_high_lane_s16(v94, *v205.i8, 1), v97, *v205.i8, 0);
-  v157 = vmlal_high_lane_s16(vmull_high_lane_s16(v94, *v205.i8, 2), v97, *v205.i8, 1);
-  v158 = vmlal_lane_s16(vmull_lane_s16(*v94.i8, *v205.i8, 2), *v97.i8, *v205.i8, 1);
-  v165 = vmlal_laneq_s16(vmull_laneq_s16(*v95.i8, v205, 4), *v96.i8, v205, 5);
-  v164 = vmlal_high_laneq_s16(vmull_high_laneq_s16(v95, v205, 4), v96, v205, 5);
-  v159 = vmlal_laneq_s16(vmull_laneq_s16(*v95.i8, v205, 7), *v96.i8, v205, 4);
-  v206 = vmlal_high_laneq_s16(vmull_high_laneq_s16(v95, v205, 7), v96, v205, 4);
-  v98 = vrshrn_high_n_s32(vrshrn_n_s32(v177, 0xDuLL), v174, 0xDuLL);
-  v99 = vrshrn_high_n_s32(vrshrn_n_s32(v172, 0xDuLL), v170, 0xDuLL);
-  v100 = vrshrn_high_n_s32(vrshrn_n_s32(v40, 0xDuLL), v41, 0xDuLL);
-  v101 = vrshrn_high_n_s32(vrshrn_n_s32(v42, 0xDuLL), v43, 0xDuLL);
-  v102 = vrshrn_high_n_s32(vrshrn_n_s32(v74, 0xDuLL), v75, 0xDuLL);
-  v103 = vrshrn_high_n_s32(vrshrn_n_s32(v76, 0xDuLL), v77, 0xDuLL);
-  v104 = vrshrn_high_n_s32(vrshrn_n_s32(v78, 0xDuLL), v79, 0xDuLL);
-  v105 = vrshrn_high_n_s32(vrshrn_n_s32(v80, 0xDuLL), v81, 0xDuLL);
-  v106 = vqsubq_s16(v225, v99);
-  v107 = vqsubq_s16(v240, v98);
-  v108 = vqaddq_s16(v106, v103);
-  v109 = vqaddq_s16(v107, v102);
-  v178 = vmlal_laneq_s16(vmull_laneq_s16(*v108.i8, v207, 4), *v109.i8, v207, 5);
-  v175 = vmlal_high_laneq_s16(vmull_high_laneq_s16(v108, v207, 4), v109, v207, 5);
-  v173 = vmlal_laneq_s16(vmull_laneq_s16(*v108.i8, v207, 7), *v109.i8, v207, 4);
-  v171 = vmlal_high_laneq_s16(vmull_high_laneq_s16(v108, v207, 7), v109, v207, 4);
-  v110 = vqsubq_s16(v232, v101);
-  v111 = vqsubq_s16(v233, v100);
-  v112 = vqaddq_s16(v110, v105);
-  v113 = vqaddq_s16(v111, v104);
-  v156 = vmlal_lane_s16(vmull_lane_s16(*v112.i8, *v207.i8, 1), *v113.i8, *v207.i8, 0);
-  v155 = vmlal_high_lane_s16(vmull_high_lane_s16(v112, *v207.i8, 1), v113, *v207.i8, 0);
-  v114 = vmlal_lane_s16(vmull_lane_s16(*v112.i8, *v207.i8, 2), *v113.i8, *v207.i8, 1);
-  v208 = vmlal_high_lane_s16(vmull_high_lane_s16(v112, *v207.i8, 2), v113, *v207.i8, 1);
-  v115 = vqsubq_s16(v106, v103);
-  v116 = vqsubq_s16(v110, v105);
-  v117 = vqsubq_s16(v111, v104);
-  v118 = vqsubq_s16(v107, v102);
-  v119 = vmlal_lane_s16(vmull_lane_s16(*v115.i8, *v209.i8, 1), *v118.i8, *v209.i8, 0);
-  v120 = vmlal_high_lane_s16(vmull_high_lane_s16(v115, *v209.i8, 1), v118, *v209.i8, 0);
-  v121 = vmlal_lane_s16(vmull_lane_s16(*v115.i8, *v209.i8, 2), *v118.i8, *v209.i8, 1);
-  v122 = vmlal_high_lane_s16(vmull_high_lane_s16(v115, *v209.i8, 2), v118, *v209.i8, 1);
-  v153 = vmlal_laneq_s16(vmull_laneq_s16(*v116.i8, v209, 4), *v117.i8, v209, 5);
-  v154 = v114;
-  v123 = vmlal_high_laneq_s16(vmull_high_laneq_s16(v116, v209, 4), v117, v209, 5);
-  v124 = vmlal_laneq_s16(vmull_laneq_s16(*v116.i8, v209, 7), *v117.i8, v209, 4);
-  v125 = vmlal_high_laneq_s16(vmull_high_laneq_s16(v116, v209, 7), v117, v209, 4);
-  v126 = vqaddq_s16(v225, v99);
-  v127 = vqaddq_s16(v232, v101);
-  v128 = vqaddq_s16(v233, v100);
-  v129 = vqaddq_s16(v240, v98);
-  v130 = vrshrn_high_n_s32(vrshrn_n_s32(v183, 0xDuLL), v182, 0xDuLL);
-  v131 = vrshrn_high_n_s32(vrshrn_n_s32(v181, 0xDuLL), v180, 0xDuLL);
-  v132 = vrshrn_high_n_s32(vrshrn_n_s32(v163, 0xDuLL), v162, 0xDuLL);
-  v133 = vrshrn_high_n_s32(vrshrn_n_s32(v161, 0xDuLL), v160, 0xDuLL);
-  v134 = vqsubq_s16(v126, v131);
-  v135 = vqsubq_s16(v129, v130);
-  v136 = vmlal_laneq_s16(vmull_laneq_s16(*v134.i8, v210, 4), *v135.i8, v210, 5);
-  v137 = vmlal_high_laneq_s16(vmull_high_laneq_s16(v134, v210, 4), v135, v210, 5);
-  v138 = vmlal_laneq_s16(vmull_laneq_s16(*v134.i8, v210, 7), *v135.i8, v210, 4);
-  v139 = vmlal_high_laneq_s16(vmull_high_laneq_s16(v134, v210, 7), v135, v210, 4);
-  v140 = vqsubq_s16(v127, v133);
-  v141 = vqsubq_s16(v128, v132);
-  v142 = vmlal_lane_s16(vmull_lane_s16(*v140.i8, *v210.i8, 1), *v141.i8, *v210.i8, 0);
-  v143 = vmlal_high_lane_s16(vmull_high_lane_s16(v140, *v210.i8, 1), v141, *v210.i8, 0);
-  v144 = vmlal_lane_s16(vmull_lane_s16(*v140.i8, *v210.i8, 2), *v141.i8, *v210.i8, 1);
-  v145 = vmlal_high_lane_s16(vmull_high_lane_s16(v140, *v210.i8, 2), v141, *v210.i8, 1);
-  v146 = vqaddq_s16(v126, v131);
-  v147 = vqaddq_s16(v127, v133);
-  v148 = vqaddq_s16(v128, v132);
-  v149 = vqaddq_s16(v129, v130);
-  v212[0] = vrshrn_high_n_s32(vrshrn_n_s32(v202, 0xDuLL), v201, 0xDuLL);
-  v212[1] = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_lane_s16(vmull_lane_s16(*v146.i8, *v211.i8, 1), *v149.i8, *v211.i8, 0), 0xDuLL), vmlal_high_lane_s16(vmull_high_lane_s16(v146, *v211.i8, 1), v149, *v211.i8, 0), 0xDuLL);
-  v212[30] = vrshrn_high_n_s32(vrshrn_n_s32(v158, 0xDuLL), v157, 0xDuLL);
-  v212[31] = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_lane_s16(vmull_lane_s16(*v146.i8, *v211.i8, 2), *v149.i8, *v211.i8, 1), 0xDuLL), vmlal_high_lane_s16(vmull_high_lane_s16(v146, *v211.i8, 2), v149, *v211.i8, 1), 0xDuLL);
-  v212[16] = vrshrn_high_n_s32(vrshrn_n_s32(v200, 0xDuLL), v199, 0xDuLL);
-  v212[17] = vrshrn_high_n_s32(vrshrn_n_s32(v136, 0xDuLL), v137, 0xDuLL);
-  v212[14] = vrshrn_high_n_s32(vrshrn_n_s32(v169, 0xDuLL), v168, 0xDuLL);
-  v212[15] = vrshrn_high_n_s32(vrshrn_n_s32(v138, 0xDuLL), v139, 0xDuLL);
-  v212[8] = vrshrn_high_n_s32(vrshrn_n_s32(v198, 0xDuLL), v197, 0xDuLL);
-  v212[9] = vrshrn_high_n_s32(vrshrn_n_s32(v119, 0xDuLL), v120, 0xDuLL);
-  v212[22] = vrshrn_high_n_s32(vrshrn_n_s32(v167, 0xDuLL), v166, 0xDuLL);
-  v212[23] = vrshrn_high_n_s32(vrshrn_n_s32(v121, 0xDuLL), v122, 0xDuLL);
-  v212[24] = vrshrn_high_n_s32(vrshrn_n_s32(v196, 0xDuLL), v195, 0xDuLL);
-  v212[25] = vrshrn_high_n_s32(vrshrn_n_s32(v178, 0xDuLL), v175, 0xDuLL);
-  v212[6] = vrshrn_high_n_s32(vrshrn_n_s32(v159, 0xDuLL), v206, 0xDuLL);
-  v212[7] = vrshrn_high_n_s32(vrshrn_n_s32(v173, 0xDuLL), v171, 0xDuLL);
-  v212[4] = vrshrn_high_n_s32(vrshrn_n_s32(v192, 0xDuLL), v191, 0xDuLL);
-  v212[5] = vrshrn_high_n_s32(vrshrn_n_s32(v156, 0xDuLL), v155, 0xDuLL);
-  v212[26] = vrshrn_high_n_s32(vrshrn_n_s32(v165, 0xDuLL), v164, 0xDuLL);
-  v212[27] = vrshrn_high_n_s32(vrshrn_n_s32(v154, 0xDuLL), v208, 0xDuLL);
-  v212[20] = vrshrn_high_n_s32(vrshrn_n_s32(v190, 0xDuLL), v189, 0xDuLL);
-  v212[21] = vrshrn_high_n_s32(vrshrn_n_s32(v153, 0xDuLL), v123, 0xDuLL);
-  v212[10] = vrshrn_high_n_s32(vrshrn_n_s32(v179, 0xDuLL), v176, 0xDuLL);
-  v212[11] = vrshrn_high_n_s32(vrshrn_n_s32(v124, 0xDuLL), v125, 0xDuLL);
-  v212[12] = vrshrn_high_n_s32(vrshrn_n_s32(v188, 0xDuLL), v187, 0xDuLL);
-  v212[13] = vrshrn_high_n_s32(vrshrn_n_s32(v142, 0xDuLL), v143, 0xDuLL);
-  v212[18] = vrshrn_high_n_s32(vrshrn_n_s32(v186, 0xDuLL), v185, 0xDuLL);
-  v212[19] = vrshrn_high_n_s32(vrshrn_n_s32(v144, 0xDuLL), v145, 0xDuLL);
-  v212[28] = vrshrn_high_n_s32(vrshrn_n_s32(v194, 0xDuLL), v193, 0xDuLL);
-  v212[29] = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_laneq_s16(vmull_laneq_s16(*v147.i8, v211, 4), *v148.i8, v211, 5), 0xDuLL), vmlal_high_laneq_s16(vmull_high_laneq_s16(v147, v211, 4), v148, v211, 5), 0xDuLL);
-  v212[2] = vrshrn_high_n_s32(vrshrn_n_s32(v204, 0xDuLL), v184, 0xDuLL);
-  v212[3] = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_laneq_s16(vmull_laneq_s16(*v147.i8, v211, 7), *v148.i8, v211, 4), 0xDuLL), vmlal_high_laneq_s16(vmull_high_laneq_s16(v147, v211, 7), v148, v211, 4), 0xDuLL);
-  v150 = a2 + 1;
+  while (v31 != -16);
+  v388 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v413, v27), v406, v28), 0xDuLL);
+  v387 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v412, v27), v407, v28), 0xDuLL);
+  v381 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v413, v28), v406, v29), 0xDuLL);
+  v382 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v412, v28), v407, v29), 0xDuLL);
+  v386 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v411, v27), v408, v28), 0xDuLL);
+  v385 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v410, v27), v409, v28), 0xDuLL);
+  v33 = 752;
+  v383 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v411, v28), v408, v29), 0xDuLL);
+  v384 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v410, v28), v409, v29), 0xDuLL);
+  v34 = 512;
   do
   {
-    v151 = v212[v25];
-    v152 = vdupq_n_s16(0x16A1u);
-    v150[-1] = vrshrq_n_s32(vmull_s16(*v151.i8, *v152.i8), 0xCuLL);
-    *v150 = vrshrq_n_s32(vmull_high_s16(v151, v152), 0xCuLL);
-    ++v25;
-    v150 = (v150 + 4 * a3);
+    *&v372[v34] = vqaddq_s32(*&v430[v34], *&v405[v33]);
+    v33 -= 16;
+    v34 += 16;
   }
 
-  while (v25 != 32);
+  while (v33 != 624);
+  v35 = 640;
+  do
+  {
+    *&v372[v35] = vqsubq_s32(*&v430[v33], *&v405[v35]);
+    v33 -= 16;
+    v35 += 16;
+  }
+
+  while (v33 != 496);
+  v36 = 1008;
+  v37 = 768;
+  do
+  {
+    *&v372[v37] = vqsubq_s32(*&v430[v36], *&v405[v37]);
+    v36 -= 16;
+    v37 += 16;
+  }
+
+  while (v36 != 880);
+  v38 = 896;
+  v39 = 880;
+  do
+  {
+    *&v372[v38] = vqaddq_s32(*&v430[v38], *&v405[v39]);
+    v38 += 16;
+    v39 -= 16;
+  }
+
+  while (v38 != 1024);
+  v40 = 0;
+  for (k = 112; k != 48; k -= 16)
+  {
+    *(&v328 + v40) = vqaddq_s32(*&v372[v40], *&v372[k]);
+    v40 += 16;
+  }
+
+  v42 = 48;
+  v43 = 64;
+  do
+  {
+    *(&v328 + v43) = vqsubq_s32(*&v372[v42], *&v372[v43]);
+    v42 -= 16;
+    v43 += 16;
+  }
+
+  while (v42 != -16);
+  v339 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v378, v27), v375, v28), 0xDuLL);
+  v338 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v377, v27), v376, v28), 0xDuLL);
+  v44 = 368;
+  v336 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v378, v28), v375, v29), 0xDuLL);
+  v337 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v377, v28), v376, v29), 0xDuLL);
+  v45 = 256;
+  do
+  {
+    *(&v328 + v45) = vqaddq_s32(*&v405[v45], *&v372[v44]);
+    v44 -= 16;
+    v45 += 16;
+  }
+
+  while (v44 != 304);
+  v46 = 320;
+  do
+  {
+    *(&v328 + v46) = vqsubq_s32(*&v405[v44], *&v372[v46]);
+    v44 -= 16;
+    v46 += 16;
+  }
+
+  while (v44 != 240);
+  v47 = 496;
+  v48 = 384;
+  do
+  {
+    *(&v328 + v48) = vqsubq_s32(*&v405[v47], *&v372[v48]);
+    v47 -= 16;
+    v48 += 16;
+  }
+
+  while (v47 != 432);
+  v49 = 448;
+  v50 = 432;
+  do
+  {
+    *(&v328 + v49) = vqaddq_s32(*&v405[v49], *&v372[v50]);
+    v49 += 16;
+    v50 -= 16;
+  }
+
+  while (v49 != 512);
+  v51 = vmovl_high_s16(v14);
+  v52 = vdupq_lane_s32(*v51.i8, 0);
+  v53 = vdupq_lane_s32(*v51.i8, 1);
+  v54 = vmovl_s16(vdup_laneq_s16(v14, 4));
+  v55 = vmovl_s16(vdup_laneq_s16(v14, 5));
+  v56 = vmovl_s16(vdup_laneq_s16(v14, 6));
+  v371 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v404, v54), v389, v55), 0xDuLL);
+  v370 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v403, v54), v390, v55), 0xDuLL);
+  v356 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v404, v55), v389, v56), 0xDuLL);
+  v357 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v403, v55), v390, v56), 0xDuLL);
+  v369 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v402, v54), v391, v55), 0xDuLL);
+  v368 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v401, v54), v392, v55), 0xDuLL);
+  v358 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v402, v55), v391, v56), 0xDuLL);
+  v359 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v401, v55), v392, v56), 0xDuLL);
+  v57 = vmovl_s16(vdup_laneq_s16(v14, 7));
+  v367 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v400, v55), v393, v56), 0xDuLL);
+  v366 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v399, v55), v394, v56), 0xDuLL);
+  v360 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v400, v56), v393, v57), 0xDuLL);
+  v361 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v399, v56), v394, v57), 0xDuLL);
+  v365 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v398, v55), v395, v56), 0xDuLL);
+  v364 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v397, v55), v396, v56), 0xDuLL);
+  v362 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v398, v56), v395, v57), 0xDuLL);
+  v363 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v397, v56), v396, v57), 0xDuLL);
+  v274 = vqaddq_s32(v328, v331);
+  v275 = vqaddq_s32(v329, v330);
+  v276 = vqsubq_s32(v329, v330);
+  v277 = vqsubq_s32(v328, v331);
+  v278 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v334, v28), v333, v29), 0xDuLL);
+  v279 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v334, v27), v333, v28), 0xDuLL);
+  v280 = vqaddq_s32(v373, v337);
+  v281 = vqaddq_s32(v374, v336);
+  v282 = vqsubq_s32(v374, v336);
+  v283 = vqsubq_s32(v373, v337);
+  v284 = vqsubq_s32(v380, v338);
+  v285 = vqsubq_s32(v379, v339);
+  v58 = vdupq_laneq_s32(v51, 2);
+  v286 = vqaddq_s32(v379, v339);
+  v287 = vqaddq_s32(v380, v338);
+  v294 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v352, v54), v343, v55), 0xDuLL);
+  v295 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v353, v54), v342, v55), 0xDuLL);
+  v59 = vdupq_laneq_s32(v51, 3);
+  v288 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v353, v55), v342, v56), 0xDuLL);
+  v289 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v352, v55), v343, v56), 0xDuLL);
+  v292 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v350, v55), v345, v56), 0xDuLL);
+  v293 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v351, v55), v344, v56), 0xDuLL);
+  v60 = 624;
+  v61 = 512;
+  v290 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v351, v56), v344, v57), 0xDuLL);
+  v291 = vrshrq_n_s32(vmlaq_s32(vmulq_s32(v350, v56), v345, v57), 0xDuLL);
+  do
+  {
+    *(&v274 + v61) = vqaddq_s32(*&v372[v61], *(&v328 + v60));
+    v60 -= 16;
+    v61 += 16;
+  }
+
+  while (v60 != 560);
+  v62 = 576;
+  do
+  {
+    *(&v274 + v62) = vqsubq_s32(*&v372[v60], *(&v328 + v62));
+    v60 -= 16;
+    v62 += 16;
+  }
+
+  while (v60 != 496);
+  v63 = 752;
+  v64 = 640;
+  do
+  {
+    *(&v274 + v64) = vqsubq_s32(*&v372[v63], *(&v328 + v64));
+    v63 -= 16;
+    v64 += 16;
+  }
+
+  while (v63 != 688);
+  v65 = 704;
+  v66 = 688;
+  do
+  {
+    *(&v274 + v65) = vqaddq_s32(*&v372[v65], *(&v328 + v66));
+    v65 += 16;
+    v66 -= 16;
+  }
+
+  while (v65 != 768);
+  v67 = 880;
+  v68 = 768;
+  do
+  {
+    *(&v274 + v68) = vqaddq_s32(*&v372[v68], *(&v328 + v67));
+    v67 -= 16;
+    v68 += 16;
+  }
+
+  while (v67 != 816);
+  v69 = 832;
+  do
+  {
+    *(&v274 + v69) = vqsubq_s32(*&v372[v67], *(&v328 + v69));
+    v67 -= 16;
+    v69 += 16;
+  }
+
+  while (v67 != 752);
+  v70 = 1008;
+  v71 = 896;
+  do
+  {
+    *(&v274 + v71) = vqsubq_s32(*&v372[v70], *(&v328 + v71));
+    v70 -= 16;
+    v71 += 16;
+  }
+
+  while (v70 != 944);
+  v72 = 960;
+  v73 = 944;
+  do
+  {
+    *(&v274 + v72) = vqaddq_s32(*&v372[v72], *(&v328 + v73));
+    v72 += 16;
+    v73 -= 16;
+  }
+
+  while (v72 != 1024);
+  v252 = vmlaq_s32(vmulq_s32(v274, v27), v275, v28);
+  v253 = vmlaq_s32(vmulq_s32(v277, v52), v276, v53);
+  v74 = vmlaq_s32(vmulq_s32(v286, v52), v281, v53);
+  v75 = vmlaq_s32(vmulq_s32(v286, v53), v281, v58);
+  v76 = vmlaq_s32(vmulq_s32(v285, v53), v282, v58);
+  v77 = vmlaq_s32(vmulq_s32(v285, v58), v282, v59);
+  v78 = vqaddq_s32(v341, v288);
+  v79 = vqsubq_s32(v341, v288);
+  v80 = vqsubq_s32(v354, v295);
+  v81 = vqaddq_s32(v354, v295);
+  v82 = vmovl_s16(vdup_lane_s16(*v13.i8, 0));
+  v83 = vmovl_s16(vdup_lane_s16(*v13.i8, 1));
+  v84 = vmlaq_s32(vmulq_s32(v325, v82), v298, v83);
+  v85 = vmovl_s16(vdup_lane_s16(*v13.i8, 2));
+  v86 = vmlaq_s32(vmulq_s32(v325, v83), v298, v85);
+  v239 = vmlaq_s32(vmulq_s32(v324, v82), v299, v83);
+  v241 = vmlaq_s32(vmulq_s32(v324, v83), v299, v85);
+  v244 = vmlaq_s32(vmulq_s32(v323, v83), v300, v85);
+  v87 = vmovl_s16(vdup_lane_s16(*v13.i8, 3));
+  v246 = vmlaq_s32(vmulq_s32(v323, v85), v300, v87);
+  v88 = vmlaq_s32(vmulq_s32(v322, v83), v301, v85);
+  v89 = vmlaq_s32(vmulq_s32(v322, v85), v301, v87);
+  v251 = vmlaq_s32(vmulq_s32(vqaddq_s32(v335, v279), v82), vqaddq_s32(v332, v278), v83);
+  v90 = vmlaq_s32(vmulq_s32(v81, v82), v78, v83);
+  v91 = vmlaq_s32(vmulq_s32(v81, v83), v78, v85);
+  v234 = vmlaq_s32(vmulq_s32(v80, v83), v79, v85);
+  v237 = vmlaq_s32(vmulq_s32(v80, v85), v79, v87);
+  v92 = vqsubq_s32(v346, v291);
+  v93 = vqaddq_s32(v346, v291);
+  v94 = vqaddq_s32(v349, v292);
+  v95 = vqsubq_s32(v349, v292);
+  v96 = vmovl_s16(vdup_laneq_s16(v13, 5));
+  v97 = vmovl_s16(vdup_laneq_s16(v13, 4));
+  v98 = vmlaq_s32(vmulq_s32(v317, v96), v306, v97);
+  v99 = vmovl_s16(vdup_laneq_s16(v13, 7));
+  v100 = vmlaq_s32(vmulq_s32(v317, v97), v306, v99);
+  v243 = vmlaq_s32(vmulq_s32(v316, v96), v307, v97);
+  v245 = vmlaq_s32(vmulq_s32(v316, v97), v307, v99);
+  v248 = vmlaq_s32(vmulq_s32(v315, v97), v308, v99);
+  v101 = vmovl_s16(vdup_laneq_s16(v13, 6));
+  v102 = vmlaq_s32(vmulq_s32(v314, v97), v309, v99);
+  v103 = vmlaq_s32(vmulq_s32(v314, v99), v309, v101);
+  v249 = vmlaq_s32(vmulq_s32(v315, v99), v308, v101);
+  v250 = vmlaq_s32(vmulq_s32(vqsubq_s32(v335, v279), v97), vqsubq_s32(v332, v278), v99);
+  v104 = vmlaq_s32(vmulq_s32(v95, v96), v92, v97);
+  v105 = vmlaq_s32(vmulq_s32(v95, v97), v92, v99);
+  v106 = vmlaq_s32(vmulq_s32(v94, v97), v93, v99);
+  v107 = vmlaq_s32(vmulq_s32(v94, v99), v93, v101);
+  v108 = vrshrq_n_s32(v86, 0xDuLL);
+  v109 = vqaddq_s32(v297, v108);
+  v110 = vqsubq_s32(v297, v108);
+  v111 = vrshrq_n_s32(v84, 0xDuLL);
+  v112 = vqsubq_s32(v326, v111);
+  v113 = vqaddq_s32(v326, v111);
+  v114 = vrshrq_n_s32(v74, 0xDuLL);
+  v115 = vrshrq_n_s32(v75, 0xDuLL);
+  v116 = vmovl_s16(vdup_lane_s16(*v256.i8, 0));
+  v117 = vmovl_s16(vdup_lane_s16(*v256.i8, 1));
+  v247 = vmlaq_s32(vmulq_s32(vqaddq_s32(v287, v114), v116), vqaddq_s32(v280, v115), v117);
+  v118 = vmovl_s16(vdup_lane_s16(*v256.i8, 2));
+  v119 = vmlaq_s32(vmulq_s32(v113, v116), v109, v117);
+  v120 = vmlaq_s32(vmulq_s32(v113, v117), v109, v118);
+  v121 = vmlaq_s32(vmulq_s32(v112, v117), v110, v118);
+  v233 = vmlaq_s32(vmulq_s32(v112, v118), v110, vmovl_s16(vdup_lane_s16(*v256.i8, 3)));
+  v122 = vqsubq_s32(v287, v114);
+  v123 = vrshrq_n_s32(v89, 0xDuLL);
+  v124 = vqsubq_s32(v302, v123);
+  v125 = vqaddq_s32(v302, v123);
+  v126 = vrshrq_n_s32(v88, 0xDuLL);
+  v127 = vqaddq_s32(v321, v126);
+  v128 = vqsubq_s32(v321, v126);
+  v129 = vmovl_s16(vdup_laneq_s16(v254, 4));
+  v130 = vmovl_s16(vdup_laneq_s16(v254, 7));
+  v242 = vmlaq_s32(vmulq_s32(v122, v129), vqsubq_s32(v280, v115), v130);
+  v131 = vmlaq_s32(vmulq_s32(v128, vmovl_s16(vdup_laneq_s16(v254, 5))), v124, v129);
+  v132 = vmlaq_s32(vmulq_s32(v128, v129), v124, v130);
+  v133 = vmlaq_s32(vmulq_s32(v127, v129), v125, v130);
+  v134 = vmlaq_s32(vmulq_s32(v127, v130), v125, vmovl_s16(vdup_laneq_s16(v254, 6)));
+  v135 = vrshrq_n_s32(v100, 0xDuLL);
+  v136 = vqaddq_s32(v305, v135);
+  v137 = vqsubq_s32(v305, v135);
+  v138 = vrshrq_n_s32(v98, 0xDuLL);
+  v139 = vqsubq_s32(v318, v138);
+  v140 = vqaddq_s32(v318, v138);
+  v141 = vrshrq_n_s32(v76, 0xDuLL);
+  v142 = vrshrq_n_s32(v77, 0xDuLL);
+  v143 = vmovl_s16(vdup_lane_s16(*v254.i8, 0));
+  v144 = vmovl_s16(vdup_lane_s16(*v254.i8, 1));
+  v240 = vmlaq_s32(vmulq_s32(vqsubq_s32(v284, v141), v143), vqsubq_s32(v283, v142), v144);
+  v145 = vmovl_s16(vdup_lane_s16(*v254.i8, 2));
+  v146 = vmlaq_s32(vmulq_s32(v140, v143), v136, v144);
+  v147 = vmlaq_s32(vmulq_s32(v140, v144), v136, v145);
+  v148 = vmlaq_s32(vmulq_s32(v139, v144), v137, v145);
+  v149 = vmlaq_s32(vmulq_s32(v139, v145), v137, vmovl_s16(vdup_lane_s16(*v254.i8, 3)));
+  v150 = vqaddq_s32(v283, v142);
+  v151 = vrshrq_n_s32(v103, 0xDuLL);
+  v152 = vqsubq_s32(v310, v151);
+  v153 = vqaddq_s32(v310, v151);
+  v154 = vrshrq_n_s32(v102, 0xDuLL);
+  v155 = vqaddq_s32(v313, v154);
+  v156 = vqsubq_s32(v313, v154);
+  v157 = vmovl_s16(vdup_laneq_s16(v256, 4));
+  v158 = vmovl_s16(vdup_laneq_s16(v256, 7));
+  v255 = vmlaq_s32(vmulq_s32(vqaddq_s32(v284, v141), v157), v150, v158);
+  v159 = vmlaq_s32(vmulq_s32(v156, vmovl_s16(vdup_laneq_s16(v256, 5))), v152, v157);
+  v160 = vmlaq_s32(vmulq_s32(v156, v157), v152, v158);
+  v161 = vmlaq_s32(vmulq_s32(v155, v157), v153, v158);
+  v162 = vmlaq_s32(vmulq_s32(v155, v158), v153, vmovl_s16(vdup_laneq_s16(v256, 6)));
+  v163 = vrshrq_n_s32(v90, 0xDuLL);
+  v164 = vqaddq_s32(v355, v294);
+  v165 = vrshrq_n_s32(v91, 0xDuLL);
+  v166 = vqaddq_s32(v340, v289);
+  v236 = vmlaq_s32(vmulq_s32(vqaddq_s32(v164, v163), vmovl_s16(vdup_lane_s16(*v264.i8, 0))), vqaddq_s32(v166, v165), vmovl_s16(vdup_lane_s16(*v264.i8, 1)));
+  v257 = vmlaq_s32(vmulq_s32(vqsubq_s32(v164, v163), vmovl_s16(vdup_laneq_s16(v262, 4))), vqsubq_s32(v166, v165), vmovl_s16(vdup_laneq_s16(v262, 7)));
+  v167 = vqsubq_s32(v340, v289);
+  v168 = vqsubq_s32(v355, v294);
+  v169 = vrshrq_n_s32(v234, 0xDuLL);
+  v170 = vrshrq_n_s32(v237, 0xDuLL);
+  v238 = vmlaq_s32(vmulq_s32(vqsubq_s32(v168, v169), vmovl_s16(vdup_lane_s16(*v260.i8, 0))), vqsubq_s32(v167, v170), vmovl_s16(vdup_lane_s16(*v260.i8, 1)));
+  v235 = vmlaq_s32(vmulq_s32(vqaddq_s32(v168, v169), vmovl_s16(vdup_laneq_s16(v258, 4))), vqaddq_s32(v167, v170), vmovl_s16(vdup_laneq_s16(v258, 7)));
+  v171 = vrshrq_n_s32(v104, 0xDuLL);
+  v172 = vqsubq_s32(v348, v293);
+  v173 = vrshrq_n_s32(v105, 0xDuLL);
+  v174 = vqsubq_s32(v347, v290);
+  v259 = vmlaq_s32(vmulq_s32(vqaddq_s32(v172, v171), vmovl_s16(vdup_lane_s16(*v258.i8, 0))), vqaddq_s32(v174, v173), vmovl_s16(vdup_lane_s16(*v258.i8, 1)));
+  v261 = vmlaq_s32(vmulq_s32(vqsubq_s32(v172, v171), vmovl_s16(vdup_laneq_s16(v260, 4))), vqsubq_s32(v174, v173), vmovl_s16(vdup_laneq_s16(v260, 7)));
+  v175 = vqaddq_s32(v347, v290);
+  v176 = vqaddq_s32(v348, v293);
+  v177 = vrshrq_n_s32(v106, 0xDuLL);
+  v178 = vrshrq_n_s32(v107, 0xDuLL);
+  v263 = vmlaq_s32(vmulq_s32(vqsubq_s32(v176, v177), vmovl_s16(vdup_lane_s16(*v262.i8, 0))), vqsubq_s32(v175, v178), vmovl_s16(vdup_lane_s16(*v262.i8, 1)));
+  v265 = vmlaq_s32(vmulq_s32(vqaddq_s32(v176, v177), vmovl_s16(vdup_laneq_s16(v264, 4))), vqaddq_s32(v175, v178), vmovl_s16(vdup_laneq_s16(v264, 7)));
+  v179 = vrshrq_n_s32(v239, 0xDuLL);
+  v180 = vrshrq_n_s32(v119, 0xDuLL);
+  v181 = vqaddq_s32(v327, v179);
+  v182 = vrshrq_n_s32(v241, 0xDuLL);
+  v183 = vrshrq_n_s32(v120, 0xDuLL);
+  v184 = vqaddq_s32(v296, v182);
+  v185 = vmlaq_s32(vmulq_s32(vqaddq_s32(v181, v180), vmovl_s16(vdup_lane_s16(*v273.i8, 0))), vqaddq_s32(v184, v183), vmovl_s16(vdup_lane_s16(*v273.i8, 1)));
+  v186 = vmlaq_s32(vmulq_s32(vqsubq_s32(v181, v180), vmovl_s16(vdup_laneq_s16(v272, 4))), vqsubq_s32(v184, v183), vmovl_s16(vdup_laneq_s16(v272, 7)));
+  v187 = vqsubq_s32(v296, v182);
+  v188 = vqsubq_s32(v327, v179);
+  v189 = vrshrq_n_s32(v121, 0xDuLL);
+  v190 = vrshrq_n_s32(v233, 0xDuLL);
+  v191 = vmlaq_s32(vmulq_s32(vqsubq_s32(v188, v189), vmovl_s16(vdup_lane_s16(*v271.i8, 0))), vqsubq_s32(v187, v190), vmovl_s16(vdup_lane_s16(*v271.i8, 1)));
+  v192 = vmlaq_s32(vmulq_s32(vqaddq_s32(v188, v189), vmovl_s16(vdup_laneq_s16(v270, 4))), vqaddq_s32(v187, v190), vmovl_s16(vdup_laneq_s16(v270, 7)));
+  v193 = vrshrq_n_s32(v244, 0xDuLL);
+  v194 = vrshrq_n_s32(v131, 0xDuLL);
+  v195 = vqsubq_s32(v320, v193);
+  v196 = vrshrq_n_s32(v246, 0xDuLL);
+  v197 = vrshrq_n_s32(v132, 0xDuLL);
+  v198 = vqsubq_s32(v303, v196);
+  v199 = vmlaq_s32(vmulq_s32(vqaddq_s32(v195, v194), vmovl_s16(vdup_lane_s16(*v269.i8, 0))), vqaddq_s32(v198, v197), vmovl_s16(vdup_lane_s16(*v269.i8, 1)));
+  v200 = vmlaq_s32(vmulq_s32(vqsubq_s32(v195, v194), vmovl_s16(vdup_laneq_s16(v268, 4))), vqsubq_s32(v198, v197), vmovl_s16(vdup_laneq_s16(v268, 7)));
+  v201 = vqaddq_s32(v303, v196);
+  v202 = vqaddq_s32(v320, v193);
+  v203 = vrshrq_n_s32(v133, 0xDuLL);
+  v204 = vrshrq_n_s32(v134, 0xDuLL);
+  v205 = vmlaq_s32(vmulq_s32(vqsubq_s32(v202, v203), vmovl_s16(vdup_lane_s16(*v267.i8, 0))), vqsubq_s32(v201, v204), vmovl_s16(vdup_lane_s16(*v267.i8, 1)));
+  v206 = vmlaq_s32(vmulq_s32(vqaddq_s32(v202, v203), vmovl_s16(vdup_laneq_s16(v266, 4))), vqaddq_s32(v201, v204), vmovl_s16(vdup_laneq_s16(v266, 7)));
+  v207 = vrshrq_n_s32(v243, 0xDuLL);
+  v208 = vrshrq_n_s32(v146, 0xDuLL);
+  v209 = vqaddq_s32(v319, v207);
+  v210 = vrshrq_n_s32(v245, 0xDuLL);
+  v211 = vrshrq_n_s32(v147, 0xDuLL);
+  v212 = vqaddq_s32(v304, v210);
+  v213 = vmlaq_s32(vmulq_s32(vqaddq_s32(v209, v208), vmovl_s16(vdup_lane_s16(*v266.i8, 0))), vqaddq_s32(v212, v211), vmovl_s16(vdup_lane_s16(*v266.i8, 1)));
+  v214 = vmlaq_s32(vmulq_s32(vqsubq_s32(v209, v208), vmovl_s16(vdup_laneq_s16(v267, 4))), vqsubq_s32(v212, v211), vmovl_s16(vdup_laneq_s16(v267, 7)));
+  v215 = vqsubq_s32(v304, v210);
+  v216 = vqsubq_s32(v319, v207);
+  v217 = vrshrq_n_s32(v148, 0xDuLL);
+  v218 = vrshrq_n_s32(v149, 0xDuLL);
+  v219 = vmlaq_s32(vmulq_s32(vqsubq_s32(v216, v217), vmovl_s16(vdup_lane_s16(*v268.i8, 0))), vqsubq_s32(v215, v218), vmovl_s16(vdup_lane_s16(*v268.i8, 1)));
+  v220 = vmlaq_s32(vmulq_s32(vqaddq_s32(v216, v217), vmovl_s16(vdup_laneq_s16(v269, 4))), vqaddq_s32(v215, v218), vmovl_s16(vdup_laneq_s16(v269, 7)));
+  v221 = vrshrq_n_s32(v248, 0xDuLL);
+  v222 = vrshrq_n_s32(v159, 0xDuLL);
+  v223 = vqsubq_s32(v312, v221);
+  v224 = vrshrq_n_s32(v249, 0xDuLL);
+  v225 = vrshrq_n_s32(v160, 0xDuLL);
+  v226 = vqsubq_s32(v311, v224);
+  v227 = vmlaq_s32(vmulq_s32(vqaddq_s32(v223, v222), vmovl_s16(vdup_lane_s16(*v270.i8, 0))), vqaddq_s32(v226, v225), vmovl_s16(vdup_lane_s16(*v270.i8, 1)));
+  v228 = vmlaq_s32(vmulq_s32(vqsubq_s32(v223, v222), vmovl_s16(vdup_laneq_s16(v271, 4))), vqsubq_s32(v226, v225), vmovl_s16(vdup_laneq_s16(v271, 7)));
+  v229 = vqaddq_s32(v311, v224);
+  v230 = vqaddq_s32(v312, v221);
+  v231 = vrshrq_n_s32(v161, 0xDuLL);
+  v232 = vrshrq_n_s32(v162, 0xDuLL);
+  *v9 = vrshrq_n_s32(v252, 0xDuLL);
+  v9[1] = vrshrq_n_s32(v185, 0xDuLL);
+  v9[2] = vrshrq_n_s32(v236, 0xDuLL);
+  v9[3] = vrshrq_n_s32(vmlaq_s32(vmulq_s32(vqaddq_s32(v230, v231), vmovl_s16(vdup_laneq_s16(v273, 4))), vqaddq_s32(v229, v232), vmovl_s16(vdup_laneq_s16(v273, 7))), 0xDuLL);
+  v9[4] = vrshrq_n_s32(v247, 0xDuLL);
+  v9[5] = vrshrq_n_s32(v213, 0xDuLL);
+  v9[6] = vrshrq_n_s32(v265, 0xDuLL);
+  v9[7] = vrshrq_n_s32(v206, 0xDuLL);
+  v9[8] = vrshrq_n_s32(v251, 0xDuLL);
+  v9[9] = vrshrq_n_s32(v199, 0xDuLL);
+  v9[10] = vrshrq_n_s32(v259, 0xDuLL);
+  v9[11] = vrshrq_n_s32(v220, 0xDuLL);
+  v9[12] = vrshrq_n_s32(v255, 0xDuLL);
+  v9[13] = vrshrq_n_s32(v227, 0xDuLL);
+  v9[14] = vrshrq_n_s32(v235, 0xDuLL);
+  v9[15] = vrshrq_n_s32(v192, 0xDuLL);
+  v9[16] = vrshrq_n_s32(v253, 0xDuLL);
+  v9[17] = vrshrq_n_s32(v191, 0xDuLL);
+  v9[18] = vrshrq_n_s32(v238, 0xDuLL);
+  v9[19] = vrshrq_n_s32(v228, 0xDuLL);
+  v9[20] = vrshrq_n_s32(v240, 0xDuLL);
+  v9[21] = vrshrq_n_s32(v219, 0xDuLL);
+  v9[22] = vrshrq_n_s32(v261, 0xDuLL);
+  v9[23] = vrshrq_n_s32(v200, 0xDuLL);
+  v9[24] = vrshrq_n_s32(v250, 0xDuLL);
+  v9[25] = vrshrq_n_s32(v205, 0xDuLL);
+  v9[26] = vrshrq_n_s32(v263, 0xDuLL);
+  v9[27] = vrshrq_n_s32(v214, 0xDuLL);
+  v9[28] = vrshrq_n_s32(v242, 0xDuLL);
+  v9[29] = vrshrq_n_s32(vmlaq_s32(vmulq_s32(vqsubq_s32(v230, v231), vmovl_s16(vdup_lane_s16(*v272.i8, 0))), vqsubq_s32(v229, v232), vmovl_s16(vdup_lane_s16(*v272.i8, 1))), 0xDuLL);
+  v9[30] = vrshrq_n_s32(v257, 0xDuLL);
+  v9[31] = vrshrq_n_s32(v186, 0xDuLL);
+  return result;
+}
+
+uint64_t sub_2779E57A8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  v8 = MEMORY[0x28223BE20](a1, a2, a3, a4, a5, a6, a7, a8);
+  v386 = v10;
+  v11 = 0;
+  v747 = *MEMORY[0x277D85DE8];
+  v12 = v560;
+  v13 = vdupq_n_s16(0x16A1u);
+  v14 = vdupq_n_s16(0xE95Fu);
+  v388 = vneg_f16(0x6161616161616161);
+  v389 = vneg_f16(0x6565656565656565);
+  v387 = vneg_f16(0x7777777777777777);
+  v557 = v13;
+  v556 = v14;
+  do
+  {
+    v15 = 0;
+    v16 = v8;
+    do
+    {
+      v561[v15++] = *v16;
+      v16 = (v16 + 2 * v9);
+    }
+
+    while (v15 != 64);
+    v17 = 0;
+    for (i = 63; i != 31; --i)
+    {
+      v730[v17] = vqaddq_s16(v561[v17], v561[i]);
+      ++v17;
+    }
+
+    v19 = 32;
+    do
+    {
+      v730[v19] = vqsubq_s16(v561[i--], v561[v19]);
+      ++v19;
+    }
+
+    while (i != -1);
+    v20 = 0;
+    for (j = 31; j != 15; --j)
+    {
+      v701[v20] = vqaddq_s16(v730[v20], v730[j]);
+      ++v20;
+    }
+
+    v22 = 16;
+    do
+    {
+      v701[v22] = vqsubq_s16(v730[j--], v730[v22]);
+      ++v22;
+    }
+
+    while (j != -1);
+    v23 = 0;
+    v729 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v731.i8, *v13.i8), *v746.i8, *v13.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v731, v13), v746, v13), 0xDuLL);
+    v728 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v732.i8, *v13.i8), *v745.i8, *v13.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v732, v13), v745, v13), 0xDuLL);
+    v714 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v731.i8, *v14.i8), *v746.i8, *v13.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v731, v14), v746, v13), 0xDuLL);
+    v715 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v732.i8, *v14.i8), *v745.i8, *v13.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v732, v14), v745, v13), 0xDuLL);
+    v727 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v733.i8, *v13.i8), *v744.i8, *v13.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v733, v13), v744, v13), 0xDuLL);
+    v726 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v734.i8, *v13.i8), *v743.i8, *v13.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v734, v13), v743, v13), 0xDuLL);
+    v716 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v733.i8, *v14.i8), *v744.i8, *v13.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v733, v14), v744, v13), 0xDuLL);
+    v717 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v734.i8, *v14.i8), *v743.i8, *v13.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v734, v14), v743, v13), 0xDuLL);
+    v725 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v735.i8, *v13.i8), *v742.i8, *v13.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v735, v13), v742, v13), 0xDuLL);
+    v724 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v736.i8, *v13.i8), *v741.i8, *v13.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v736, v13), v741, v13), 0xDuLL);
+    v718 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v735.i8, *v14.i8), *v742.i8, *v13.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v735, v14), v742, v13), 0xDuLL);
+    v719 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v736.i8, *v14.i8), *v741.i8, *v13.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v736, v14), v741, v13), 0xDuLL);
+    v723 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v737.i8, *v13.i8), *v740.i8, *v13.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v737, v13), v740, v13), 0xDuLL);
+    v722 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v738.i8, *v13.i8), *v739.i8, *v13.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v738, v13), v739, v13), 0xDuLL);
+    v720 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v737.i8, *v14.i8), *v740.i8, *v13.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v737, v14), v740, v13), 0xDuLL);
+    v721 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v738.i8, *v14.i8), *v739.i8, *v13.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v738, v14), v739, v13), 0xDuLL);
+    for (k = 15; k != 7; --k)
+    {
+      *&v660[v23 * 16] = vqaddq_s16(v701[v23], v701[k]);
+      ++v23;
+    }
+
+    v25 = 8;
+    do
+    {
+      *&v660[v25 * 16] = vqsubq_s16(v701[k--], v701[v25]);
+      ++v25;
+    }
+
+    while (k != -1);
+    v669 = v701[16];
+    v670 = v701[17];
+    v671 = v701[18];
+    v672 = v701[19];
+    v680 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v702.i8, *v13.i8), *v709.i8, *v13.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v702, v13), v709, v13), 0xDuLL);
+    v679 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v703.i8, *v13.i8), *v708.i8, *v13.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v703, v13), v708, v13), 0xDuLL);
+    v673 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v702.i8, *v14.i8), *v709.i8, *v13.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v702, v14), v709, v13), 0xDuLL);
+    v674 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v703.i8, *v14.i8), *v708.i8, *v13.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v703, v14), v708, v13), 0xDuLL);
+    v678 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v704.i8, *v13.i8), *v707.i8, *v13.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v704, v13), v707, v13), 0xDuLL);
+    v677 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v705.i8, *v13.i8), *v706.i8, *v13.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v705, v13), v706, v13), 0xDuLL);
+    v675 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v704.i8, *v14.i8), *v707.i8, *v13.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v704, v14), v707, v13), 0xDuLL);
+    v676 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v705.i8, *v14.i8), *v706.i8, *v13.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v705, v14), v706, v13), 0xDuLL);
+    v681 = v710;
+    v682 = v711;
+    v683 = v712;
+    v684 = v713;
+    v26 = 32;
+    for (m = 47; m != 39; --m)
+    {
+      *&v660[v26 * 16] = vqaddq_s16(v730[v26], v701[m]);
+      ++v26;
+    }
+
+    v28 = 40;
+    do
+    {
+      *&v660[v28 * 16] = vqsubq_s16(v730[m--], v701[v28]);
+      ++v28;
+    }
+
+    while (m != 31);
+    v29 = 48;
+    for (n = 63; n != 55; --n)
+    {
+      *&v660[v29 * 16] = vqsubq_s16(v730[n], v701[v29]);
+      ++v29;
+    }
+
+    v31 = 55;
+    for (ii = 56; ii != 64; ++ii)
+    {
+      *&v660[ii * 16] = vqaddq_s16(v730[ii], v701[v31--]);
+    }
+
+    v33 = 0;
+    for (jj = 112; jj != 48; jj -= 16)
+    {
+      *(&v616 + v33) = vqaddq_s16(*&v660[v33], *&v660[jj]);
+      v33 += 16;
+    }
+
+    v35 = 64;
+    do
+    {
+      *(&v616 + v35) = vqsubq_s16(*&v660[jj], *&v660[v35]);
+      jj -= 16;
+      v35 += 16;
+    }
+
+    while (jj != -16);
+    v627 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v663.i8, *v13.i8), *v666.i8, *v13.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v663, v13), v666, v13), 0xDuLL);
+    v626 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v664.i8, *v13.i8), *v665.i8, *v13.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v664, v13), v665, v13), 0xDuLL);
+    v624 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v663.i8, *v14.i8), *v666.i8, *v13.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v663, v14), v666, v13), 0xDuLL);
+    v625 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v664.i8, *v14.i8), *v665.i8, *v13.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v664, v14), v665, v13), 0xDuLL);
+    v36 = 256;
+    for (kk = 368; kk != 304; kk -= 16)
+    {
+      *(&v616 + v36) = vqaddq_s16(*&v660[v36], *&v660[kk]);
+      v36 += 16;
+    }
+
+    v38 = 320;
+    do
+    {
+      *(&v616 + v38) = vqsubq_s16(*&v660[kk], *&v660[v38]);
+      kk -= 16;
+      v38 += 16;
+    }
+
+    while (kk != 240);
+    v39 = 384;
+    for (mm = 496; mm != 432; mm -= 16)
+    {
+      *(&v616 + v39) = vqsubq_s16(*&v660[mm], *&v660[v39]);
+      v39 += 16;
+    }
+
+    v41 = 432;
+    for (nn = 448; nn != 512; nn += 16)
+    {
+      *(&v616 + nn) = vqaddq_s16(*&v660[nn], *&v660[v41]);
+      v41 -= 16;
+    }
+
+    v43 = vdupq_n_s16(0x1D90u);
+    v44 = vdupq_n_s16(0xC3Fu);
+    v45 = vdupq_n_s16(0xE270u);
+    v659 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v685.i8, *v44.i8), *v700.i8, *v43.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v685, v44), v700, v43), 0xDuLL);
+    v658 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v686.i8, *v44.i8), *v699.i8, *v43.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v686, v44), v699, v43), 0xDuLL);
+    v644 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v685.i8, *v45.i8), *v700.i8, *v44.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v685, v45), v700, v44), 0xDuLL);
+    v645 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v686.i8, *v45.i8), *v699.i8, *v44.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v686, v45), v699, v44), 0xDuLL);
+    v657 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v687.i8, *v44.i8), *v698.i8, *v43.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v687, v44), v698, v43), 0xDuLL);
+    v656 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v688.i8, *v44.i8), *v697.i8, *v43.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v688, v44), v697, v43), 0xDuLL);
+    v646 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v687.i8, *v45.i8), *v698.i8, *v44.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v687, v45), v698, v44), 0xDuLL);
+    v647 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v688.i8, *v45.i8), *v697.i8, *v44.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v688, v45), v697, v44), 0xDuLL);
+    v46 = vdupq_n_s16(0xF3C1u);
+    v655 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v689.i8, *v45.i8), *v696.i8, *v44.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v689, v45), v696, v44), 0xDuLL);
+    v654 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v690.i8, *v45.i8), *v695.i8, *v44.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v690, v45), v695, v44), 0xDuLL);
+    v648 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v689.i8, *v46.i8), *v696.i8, *v45.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v689, v46), v696, v45), 0xDuLL);
+    v649 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v690.i8, *v46.i8), *v695.i8, *v45.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v690, v46), v695, v45), 0xDuLL);
+    v653 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v691.i8, *v45.i8), *v694.i8, *v44.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v691, v45), v694, v44), 0xDuLL);
+    v652 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v692.i8, *v45.i8), *v693.i8, *v44.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v692, v45), v693, v44), 0xDuLL);
+    v650 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v691.i8, *v46.i8), *v694.i8, *v45.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v691, v46), v694, v45), 0xDuLL);
+    v651 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v692.i8, *v46.i8), *v693.i8, *v45.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v692, v46), v693, v45), 0xDuLL);
+    v562 = vqaddq_s16(v616, v619);
+    v563 = vqaddq_s16(v617, v618);
+    v564 = vqsubq_s16(v617, v618);
+    v565 = vqsubq_s16(v616, v619);
+    v567 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v621.i8, *v13.i8), *v622.i8, *v13.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v621, v13), v622, v13), 0xDuLL);
+    v566 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v621.i8, *v14.i8), *v622.i8, *v13.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v621, v14), v622, v13), 0xDuLL);
+    v568 = vqaddq_s16(v661, v625);
+    v569 = vqaddq_s16(v662, v624);
+    v570 = vqsubq_s16(v662, v624);
+    v571 = vqsubq_s16(v661, v625);
+    v572 = vqsubq_s16(v668, v626);
+    v573 = vqsubq_s16(v667, v627);
+    v574 = vqaddq_s16(v667, v627);
+    v575 = vqaddq_s16(v668, v626);
+    v583 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v630.i8, *v44.i8), *v641.i8, *v43.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v630, v44), v641, v43), 0xDuLL);
+    v582 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v631.i8, *v44.i8), *v640.i8, *v43.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v631, v44), v640, v43), 0xDuLL);
+    v576 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v630.i8, *v45.i8), *v641.i8, *v44.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v630, v45), v641, v44), 0xDuLL);
+    v577 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v631.i8, *v45.i8), *v640.i8, *v44.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v631, v45), v640, v44), 0xDuLL);
+    v581 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v632.i8, *v45.i8), *v639.i8, *v44.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v632, v45), v639, v44), 0xDuLL);
+    v580 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v633.i8, *v45.i8), *v638.i8, *v44.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v633, v45), v638, v44), 0xDuLL);
+    v578 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v632.i8, *v46.i8), *v639.i8, *v45.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v632, v46), v639, v45), 0xDuLL);
+    v579 = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v633.i8, *v46.i8), *v638.i8, *v45.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v633, v46), v638, v45), 0xDuLL);
+    v47 = 512;
+    for (i1 = 624; i1 != 560; i1 -= 16)
+    {
+      *(&v562 + v47) = vqaddq_s16(*&v660[v47], *(&v616 + i1));
+      v47 += 16;
+    }
+
+    v49 = 576;
+    do
+    {
+      *(&v562 + v49) = vqsubq_s16(*&v660[i1], *(&v616 + v49));
+      i1 -= 16;
+      v49 += 16;
+    }
+
+    while (i1 != 496);
+    v50 = 640;
+    for (i2 = 752; i2 != 688; i2 -= 16)
+    {
+      *(&v562 + v50) = vqsubq_s16(*&v660[i2], *(&v616 + v50));
+      v50 += 16;
+    }
+
+    v52 = 688;
+    for (i3 = 704; i3 != 768; i3 += 16)
+    {
+      *(&v562 + i3) = vqaddq_s16(*&v660[i3], *(&v616 + v52));
+      v52 -= 16;
+    }
+
+    v54 = 768;
+    for (i4 = 880; i4 != 816; i4 -= 16)
+    {
+      *(&v562 + v54) = vqaddq_s16(*&v660[v54], *(&v616 + i4));
+      v54 += 16;
+    }
+
+    v56 = 832;
+    do
+    {
+      *(&v562 + v56) = vqsubq_s16(*&v660[i4], *(&v616 + v56));
+      i4 -= 16;
+      v56 += 16;
+    }
+
+    while (i4 != 752);
+    v57 = 896;
+    for (i5 = 1008; i5 != 944; i5 -= 16)
+    {
+      *(&v562 + v57) = vqsubq_s16(*&v660[i5], *(&v616 + v57));
+      v57 += 16;
+    }
+
+    v59 = 944;
+    for (i6 = 960; i6 != 1024; i6 += 16)
+    {
+      *(&v562 + i6) = vqaddq_s16(*&v660[i6], *(&v616 + v59));
+      v59 -= 16;
+    }
+
+    v61 = 0;
+    v555 = vmlal_s16(vmull_s16(*v564.i8, *v44.i8), *v565.i8, *v43.i8);
+    v554 = vmlal_high_s16(vmull_high_s16(v564, v44), v565, v43);
+    v553 = vmlal_s16(vmull_s16(*v564.i8, *v45.i8), *v565.i8, *v44.i8);
+    v552 = vmlal_high_s16(vmull_high_s16(v564, v45), v565, v44);
+    v62 = vmlal_s16(vmull_s16(*v569.i8, *v44.i8), *v574.i8, *v43.i8);
+    v63 = vmlal_high_s16(vmull_high_s16(v569, v44), v574, v43);
+    v64 = vmlal_s16(vmull_s16(*v569.i8, *v45.i8), *v574.i8, *v44.i8);
+    v65 = vmlal_high_s16(vmull_high_s16(v569, v45), v574, v44);
+    v66 = vqaddq_s16(v629, v576);
+    v67 = vqsubq_s16(v629, v576);
+    v68 = vqsubq_s16(v642, v583);
+    v69 = vqaddq_s16(v642, v583);
+    v70 = vdupq_n_s16(0x1F63u);
+    v508 = vmlal_s16(vmull_s16(*v570.i8, *v45.i8), *v573.i8, *v44.i8);
+    v71 = vdupq_n_s16(0x63Eu);
+    v72 = vdupq_n_s16(0xE09Du);
+    v506 = vmlal_high_s16(vmull_high_s16(v570, v45), v573, v44);
+    v504 = vmlal_s16(vmull_s16(*v570.i8, *v46.i8), *v573.i8, *v45.i8);
+    v500 = vmlal_high_s16(vmull_high_s16(v570, v46), v573, v45);
+    v73 = vmlal_s16(vmull_s16(*v586.i8, *v71.i8), *v613.i8, *v70.i8);
+    v74 = vmlal_high_s16(vmull_high_s16(v586, v71), v613, v70);
+    v75 = vmlal_s16(vmull_s16(*v586.i8, *v72.i8), *v613.i8, *v71.i8);
+    v76 = vmlal_high_s16(vmull_high_s16(v586, v72), v613, v71);
+    v490 = vmlal_s16(vmull_s16(*v587.i8, *v71.i8), *v612.i8, *v70.i8);
+    v488 = vmlal_high_s16(vmull_high_s16(v587, v71), v612, v70);
+    v486 = vmlal_s16(vmull_s16(*v587.i8, *v72.i8), *v612.i8, *v71.i8);
+    v484 = vmlal_high_s16(vmull_high_s16(v587, v72), v612, v71);
+    v516 = vmlal_s16(vmull_s16(*v588.i8, *v72.i8), *v611.i8, *v71.i8);
+    v514 = vmlal_high_s16(vmull_high_s16(v588, v72), v611, v71);
+    v77 = vdupq_n_s16(0xF9C2u);
+    v512 = vmlal_s16(vmull_s16(*v588.i8, *v77.i8), *v611.i8, *v72.i8);
+    v510 = vmlal_high_s16(vmull_high_s16(v588, v77), v611, v72);
+    v78 = vmlal_s16(vmull_s16(*v589.i8, *v72.i8), *v610.i8, *v71.i8);
+    v79 = vmlal_high_s16(vmull_high_s16(v589, v72), v610, v71);
+    v80 = vmlal_s16(vmull_s16(*v589.i8, *v77.i8), *v610.i8, *v72.i8);
+    v81 = vmlal_high_s16(vmull_high_s16(v589, v77), v610, v72);
+    v82 = vqaddq_s16(v620, v566);
+    v83 = vqaddq_s16(v623, v567);
+    v551 = vmlal_s16(vmull_s16(*v82.i8, *v71.i8), *v83.i8, *v70.i8);
+    v550 = vmlal_high_s16(vmull_high_s16(v82, v71), v83, v70);
+    v549 = vmlal_s16(vmull_s16(*v82.i8, *v72.i8), *v83.i8, *v71.i8);
+    v548 = vmlal_high_s16(vmull_high_s16(v82, v72), v83, v71);
+    v520 = vmlal_s16(vmull_s16(*v66.i8, *v71.i8), *v69.i8, *v70.i8);
+    v518 = vmlal_high_s16(vmull_high_s16(v66, v71), v69, v70);
+    v482 = vmlal_s16(vmull_s16(*v66.i8, *v72.i8), *v69.i8, *v71.i8);
+    v480 = vmlal_high_s16(vmull_high_s16(v66, v72), v69, v71);
+    v498 = vmlal_s16(vmull_s16(*v67.i8, *v72.i8), *v68.i8, *v71.i8);
+    v496 = vmlal_high_s16(vmull_high_s16(v67, v72), v68, v71);
+    v494 = vmlal_s16(vmull_s16(*v67.i8, *v77.i8), *v68.i8, *v72.i8);
+    v492 = vmlal_high_s16(vmull_high_s16(v67, v77), v68, v72);
+    v84 = vqsubq_s16(v620, v566);
+    v85 = vqsubq_s16(v623, v567);
+    v86 = vqsubq_s16(v634, v579);
+    v87 = vqaddq_s16(v634, v579);
+    v88 = vqaddq_s16(v637, v580);
+    v89 = vqsubq_s16(v637, v580);
+    v90 = vdupq_n_s16(0x11C7u);
+    v91 = vdupq_n_s16(0x1A9Bu);
+    v92 = vmlal_s16(vmull_s16(*v594.i8, *v91.i8), *v605.i8, *v90.i8);
+    v93 = vmlal_high_s16(vmull_high_s16(v594, v91), v605, v90);
+    v94 = vdupq_n_s16(0xEE39u);
+    v95 = vmlal_s16(vmull_s16(*v594.i8, *v94.i8), *v605.i8, *v91.i8);
+    v96 = vmlal_high_s16(vmull_high_s16(v594, v94), v605, v91);
+    v530 = vmlal_s16(vmull_s16(*v595.i8, *v91.i8), *v604.i8, *v90.i8);
+    v528 = vmlal_high_s16(vmull_high_s16(v595, v91), v604, v90);
+    v526 = vmlal_s16(vmull_s16(*v595.i8, *v94.i8), *v604.i8, *v91.i8);
+    v524 = vmlal_high_s16(vmull_high_s16(v595, v94), v604, v91);
+    v538 = vmlal_s16(vmull_s16(*v596.i8, *v94.i8), *v603.i8, *v91.i8);
+    v536 = vmlal_high_s16(vmull_high_s16(v596, v94), v603, v91);
+    v534 = vmlal_s16(vmull_s16(*v596.i8, v389), *v603.i8, *v94.i8);
+    v532 = vmlal_high_s16(vmull_s16(*&vextq_s8(v596, v596, 8uLL), v389), v603, v94);
+    v97 = vmlal_s16(vmull_s16(*v597.i8, *v94.i8), *v602.i8, *v91.i8);
+    v98 = vmlal_high_s16(vmull_high_s16(v597, v94), v602, v91);
+    v99 = vmlal_s16(vmull_s16(*v597.i8, v389), *v602.i8, *v94.i8);
+    v100 = vmlal_high_s16(vmull_s16(*&vextq_s8(v597, v597, 8uLL), v389), v602, v94);
+    v545 = vmlal_s16(vmull_s16(*v84.i8, *v91.i8), *v85.i8, *v90.i8);
+    v544 = vmlal_high_s16(vmull_high_s16(v84, v91), v85, v90);
+    v543 = vmlal_s16(vmull_s16(*v84.i8, *v94.i8), *v85.i8, *v91.i8);
+    v542 = vmlal_high_s16(vmull_high_s16(v84, v94), v85, v91);
+    v478 = vmlal_s16(vmull_s16(*v86.i8, *v91.i8), *v89.i8, *v90.i8);
+    v476 = vmlal_high_s16(vmull_high_s16(v86, v91), v89, v90);
+    v474 = vmlal_s16(vmull_s16(*v86.i8, *v94.i8), *v89.i8, *v91.i8);
+    v472 = vmlal_high_s16(vmull_high_s16(v86, v94), v89, v91);
+    v466 = vmlal_s16(vmull_s16(*v87.i8, *v94.i8), *v88.i8, *v91.i8);
+    v464 = vmlal_high_s16(vmull_high_s16(v87, v94), v88, v91);
+    v460 = vmlal_high_s16(vmull_s16(*&vextq_s8(v87, v87, 8uLL), v389), v88, v94);
+    v462 = vmlal_s16(vmull_s16(*v87.i8, v389), *v88.i8, *v94.i8);
+    v101 = vrshrn_high_n_s32(vrshrn_n_s32(v62, 0xDuLL), v63, 0xDuLL);
+    v102 = vrshrn_high_n_s32(vrshrn_n_s32(v64, 0xDuLL), v65, 0xDuLL);
+    v103 = vrshrn_high_n_s32(vrshrn_n_s32(v73, 0xDuLL), v74, 0xDuLL);
+    v104 = vrshrn_high_n_s32(vrshrn_n_s32(v75, 0xDuLL), v76, 0xDuLL);
+    v105 = vqaddq_s16(v585, v104);
+    v106 = vqsubq_s16(v585, v104);
+    v107 = vqsubq_s16(v614, v103);
+    v108 = vqaddq_s16(v614, v103);
+    v109 = vqaddq_s16(v568, v102);
+    v110 = vqaddq_s16(v575, v101);
+    v111 = vdupq_n_s16(0x1FD9u);
+    v112 = vdupq_n_s16(0x323u);
+    v541 = vmlal_s16(vmull_s16(*v109.i8, *v112.i8), *v110.i8, *v111.i8);
+    v540 = vmlal_high_s16(vmull_high_s16(v109, v112), v110, v111);
+    v113 = vdupq_n_s16(0xE027u);
+    v547 = vmlal_s16(vmull_s16(*v109.i8, *v113.i8), *v110.i8, *v112.i8);
+    v546 = vmlal_high_s16(vmull_high_s16(v109, v113), v110, v112);
+    v114 = vmlal_s16(vmull_s16(*v105.i8, *v112.i8), *v108.i8, *v111.i8);
+    v115 = vmlal_high_s16(vmull_high_s16(v105, v112), v108, v111);
+    v116 = vmlal_s16(vmull_s16(*v105.i8, *v113.i8), *v108.i8, *v112.i8);
+    v117 = vmlal_high_s16(vmull_high_s16(v105, v113), v108, v112);
+    v118 = vmlal_s16(vmull_s16(*v106.i8, *v113.i8), *v107.i8, *v112.i8);
+    v119 = vmlal_high_s16(vmull_high_s16(v106, v113), v107, v112);
+    v120 = vdupq_n_s16(0xFCDDu);
+    v121 = vmlal_s16(vmull_s16(*v106.i8, *v120.i8), *v107.i8, *v113.i8);
+    v122 = vmlal_high_s16(vmull_high_s16(v106, v120), v107, v113);
+    v123 = vrshrn_high_n_s32(vrshrn_n_s32(v78, 0xDuLL), v79, 0xDuLL);
+    v124 = vrshrn_high_n_s32(vrshrn_n_s32(v80, 0xDuLL), v81, 0xDuLL);
+    v125 = vqsubq_s16(v568, v102);
+    v126 = vqsubq_s16(v575, v101);
+    v127 = vqsubq_s16(v590, v124);
+    v128 = vqaddq_s16(v590, v124);
+    v129 = vqaddq_s16(v609, v123);
+    v130 = vdupq_n_s16(0x144Du);
+    v131 = vdupq_n_s16(0x18BDu);
+    v132 = vqsubq_s16(v609, v123);
+    v133 = vmlal_s16(vmull_s16(*v125.i8, *v131.i8), *v126.i8, *v130.i8);
+    v134 = vdupq_n_s16(0xEBB3u);
+    v135 = vmlal_high_s16(vmull_high_s16(v125, v131), v126, v130);
+    v523 = vmlal_s16(vmull_s16(*v125.i8, *v134.i8), *v126.i8, *v131.i8);
+    v522 = vmlal_high_s16(vmull_high_s16(v125, v134), v126, v131);
+    v410 = vmlal_s16(vmull_s16(*v127.i8, *v131.i8), *v132.i8, *v130.i8);
+    v136 = vmlal_high_s16(vmull_high_s16(v127, v131), v132, v130);
+    v137 = vmlal_s16(vmull_s16(*v127.i8, *v134.i8), *v132.i8, *v131.i8);
+    v138 = vmlal_high_s16(vmull_high_s16(v127, v134), v132, v131);
+    v424 = vmlal_s16(vmull_s16(*v128.i8, *v134.i8), *v129.i8, *v131.i8);
+    v139 = vdupq_n_s16(0xE743u);
+    v422 = vmlal_high_s16(vmull_high_s16(v128, v134), v129, v131);
+    v420 = vmlal_s16(vmull_s16(*v128.i8, *v139.i8), *v129.i8, *v134.i8);
+    v417 = vmlal_high_s16(vmull_high_s16(v128, v139), v129, v134);
+    v140 = vrshrn_high_n_s32(vrshrn_n_s32(v508, 0xDuLL), v506, 0xDuLL);
+    v141 = vrshrn_high_n_s32(vrshrn_n_s32(v504, 0xDuLL), v500, 0xDuLL);
+    v142 = vrshrn_high_n_s32(vrshrn_n_s32(v92, 0xDuLL), v93, 0xDuLL);
+    v143 = vrshrn_high_n_s32(vrshrn_n_s32(v95, 0xDuLL), v96, 0xDuLL);
+    v144 = vqaddq_s16(v593, v143);
+    v145 = vqsubq_s16(v593, v143);
+    v146 = vqsubq_s16(v606, v142);
+    v147 = vqaddq_s16(v606, v142);
+    v148 = vqsubq_s16(v571, v141);
+    v149 = vdupq_n_s16(0x1C39u);
+    v150 = vdupq_n_s16(0xF16u);
+    v151 = vqsubq_s16(v572, v140);
+    v152 = vmlal_s16(vmull_s16(*v148.i8, *v150.i8), *v151.i8, *v149.i8);
+    v153 = vdupq_n_s16(0xE3C7u);
+    v509 = vmlal_high_s16(vmull_high_s16(v148, v150), v151, v149);
+    v507 = vmlal_s16(vmull_s16(*v148.i8, *v153.i8), *v151.i8, *v150.i8);
+    v505 = vmlal_high_s16(vmull_high_s16(v148, v153), v151, v150);
+    v434 = vmlal_s16(vmull_s16(*v144.i8, *v150.i8), *v147.i8, *v149.i8);
+    v432 = vmlal_high_s16(vmull_high_s16(v144, v150), v147, v149);
+    v430 = vmlal_s16(vmull_s16(*v144.i8, *v153.i8), *v147.i8, *v150.i8);
+    v428 = vmlal_high_s16(vmull_high_s16(v144, v153), v147, v150);
+    v442 = vmlal_s16(vmull_s16(*v145.i8, *v153.i8), *v146.i8, *v150.i8);
+    v154 = vdupq_n_s16(0xF0EAu);
+    v440 = vmlal_high_s16(vmull_high_s16(v145, v153), v146, v150);
+    v436 = vmlal_high_s16(vmull_high_s16(v145, v154), v146, v153);
+    v438 = vmlal_s16(vmull_s16(*v145.i8, *v154.i8), *v146.i8, *v153.i8);
+    v155 = vrshrn_high_n_s32(vrshrn_n_s32(v97, 0xDuLL), v98, 0xDuLL);
+    v156 = vrshrn_high_n_s32(vrshrn_n_s32(v99, 0xDuLL), v100, 0xDuLL);
+    v157 = vqaddq_s16(v571, v141);
+    v158 = vqaddq_s16(v572, v140);
+    v159 = vqsubq_s16(v598, v156);
+    v160 = vqaddq_s16(v598, v156);
+    v161 = vqaddq_s16(v601, v155);
+    v162 = vdupq_n_s16(0x94Au);
+    v163 = vqsubq_s16(v601, v155);
+    v164 = vdupq_n_s16(0x1E9Fu);
+    v165 = vmlal_s16(vmull_s16(*v157.i8, *v164.i8), *v158.i8, *v162.i8);
+    v503 = vmlal_high_s16(vmull_high_s16(v157, v164), v158, v162);
+    v166 = vdupq_n_s16(0xF6B6u);
+    v502 = vmlal_s16(vmull_s16(*v157.i8, *v166.i8), *v158.i8, *v164.i8);
+    v501 = vmlal_high_s16(vmull_high_s16(v157, v166), v158, v164);
+    v450 = vmlal_s16(vmull_s16(*v159.i8, *v164.i8), *v163.i8, *v162.i8);
+    v448 = vmlal_high_s16(vmull_high_s16(v159, v164), v163, v162);
+    v446 = vmlal_s16(vmull_s16(*v159.i8, *v166.i8), *v163.i8, *v164.i8);
+    v444 = vmlal_high_s16(vmull_high_s16(v159, v166), v163, v164);
+    v167 = vmlal_s16(vmull_s16(*v160.i8, *v166.i8), *v161.i8, *v164.i8);
+    v168 = vmlal_high_s16(vmull_high_s16(v160, v166), v161, v164);
+    v169 = vmlal_s16(vmull_s16(*v160.i8, v388), *v161.i8, *v166.i8);
+    v170 = vmlal_high_s16(vmull_s16(*&vextq_s8(v160, v160, 8uLL), v388), v161, v166);
+    v171 = vrshrn_high_n_s32(vrshrn_n_s32(v520, 0xDuLL), v518, 0xDuLL);
+    v172 = vrshrn_high_n_s32(vrshrn_n_s32(v482, 0xDuLL), v480, 0xDuLL);
+    v173 = vqaddq_s16(v628, v577);
+    v174 = vqaddq_s16(v643, v582);
+    v175 = vqaddq_s16(v173, v172);
+    v176 = vqaddq_s16(v174, v171);
+    v177 = vdupq_n_s16(0x1FF6u);
+    v178 = vdupq_n_s16(0x192u);
+    v483 = vmlal_s16(vmull_s16(*v175.i8, *v178.i8), *v176.i8, *v177.i8);
+    v481 = vmlal_high_s16(vmull_high_s16(v175, v178), v176, v177);
+    v179 = vdupq_n_s16(0xE00Au);
+    v521 = vmlal_s16(vmull_s16(*v175.i8, *v179.i8), *v176.i8, *v178.i8);
+    v519 = vmlal_high_s16(vmull_high_s16(v175, v179), v176, v178);
+    v180 = vqsubq_s16(v173, v172);
+    v181 = vqsubq_s16(v174, v171);
+    v182 = vdupq_n_s16(0x157Du);
+    v183 = vdupq_n_s16(0x17B6u);
+    v471 = vmlal_s16(vmull_s16(*v180.i8, *v183.i8), *v181.i8, *v182.i8);
+    v470 = vmlal_high_s16(vmull_high_s16(v180, v183), v181, v182);
+    v184 = vdupq_n_s16(0xEA83u);
+    v468 = vmlal_high_s16(vmull_high_s16(v180, v184), v181, v183);
+    v469 = vmlal_s16(vmull_s16(*v180.i8, *v184.i8), *v181.i8, *v183.i8);
+    v185 = vqsubq_s16(v628, v577);
+    v186 = vqsubq_s16(v643, v582);
+    v187 = vrshrn_high_n_s32(vrshrn_n_s32(v498, 0xDuLL), v496, 0xDuLL);
+    v188 = vrshrn_high_n_s32(vrshrn_n_s32(v494, 0xDuLL), v492, 0xDuLL);
+    v189 = vqsubq_s16(v185, v188);
+    v190 = vqsubq_s16(v186, v187);
+    v191 = vdupq_n_s16(0x1CEDu);
+    v192 = vdupq_n_s16(0xDAFu);
+    v495 = vmlal_s16(vmull_s16(*v189.i8, *v192.i8), *v190.i8, *v191.i8);
+    v493 = vmlal_high_s16(vmull_high_s16(v189, v192), v190, v191);
+    v193 = vdupq_n_s16(0xE313u);
+    v499 = vmlal_s16(vmull_s16(*v189.i8, *v193.i8), *v190.i8, *v192.i8);
+    v497 = vmlal_high_s16(vmull_high_s16(v189, v193), v190, v192);
+    v194 = vqaddq_s16(v185, v188);
+    v195 = vqaddq_s16(v186, v187);
+    v196 = vdupq_n_s16(0xF538u);
+    v197 = vmull_s16(*v194.i8, *v196.i8);
+    v198 = vmull_high_s16(v194, v196);
+    v199 = vdupq_n_s16(0x1E21u);
+    v456 = vmlal_high_s16(v198, v195, v199);
+    v457 = vmlal_s16(v197, *v195.i8, *v199.i8);
+    v200 = vrshrn_high_n_s32(vrshrn_n_s32(v478, 0xDuLL), v476, 0xDuLL);
+    v201 = vrshrn_high_n_s32(vrshrn_n_s32(v474, 0xDuLL), v472, 0xDuLL);
+    v202 = vqsubq_s16(v635, v578);
+    v203 = vqsubq_s16(v636, v581);
+    v204 = vqaddq_s16(v202, v201);
+    v205 = vqaddq_s16(v203, v200);
+    v206 = vdupq_n_s16(0x1F0Au);
+    v207 = vdupq_n_s16(0x7C6u);
+    v453 = vmlal_s16(vmull_s16(*v204.i8, *v207.i8), *v205.i8, *v206.i8);
+    v452 = vmlal_high_s16(vmull_high_s16(v204, v207), v205, v206);
+    v208 = vdupq_n_s16(0xE0F6u);
+    v479 = vmlal_s16(vmull_s16(*v204.i8, *v208.i8), *v205.i8, *v207.i8);
+    v477 = vmlal_high_s16(vmull_high_s16(v204, v208), v205, v207);
+    v209 = vqsubq_s16(v202, v201);
+    v210 = vqsubq_s16(v203, v200);
+    v211 = vdupq_n_s16(0x1074u);
+    v212 = vdupq_n_s16(0x1B73u);
+    v475 = vmlal_s16(vmull_s16(*v209.i8, *v212.i8), *v210.i8, *v211.i8);
+    v473 = vmlal_high_s16(vmull_high_s16(v209, v212), v210, v211);
+    v213 = vdupq_n_s16(0xEF8Cu);
+    v458 = vmlal_high_s16(vmull_high_s16(v209, v213), v210, v212);
+    v459 = vmlal_s16(vmull_s16(*v209.i8, *v213.i8), *v210.i8, *v212.i8);
+    v214 = vqaddq_s16(v635, v578);
+    v215 = vqaddq_s16(v636, v581);
+    v216 = vrshrn_high_n_s32(vrshrn_n_s32(v466, 0xDuLL), v464, 0xDuLL);
+    v217 = vrshrn_high_n_s32(vrshrn_n_s32(v462, 0xDuLL), v460, 0xDuLL);
+    v218 = vqsubq_s16(v214, v217);
+    v219 = vqsubq_s16(v215, v216);
+    v220 = vdupq_n_s16(0x19B4u);
+    v221 = vdupq_n_s16(0x1310u);
+    v455 = vmlal_s16(vmull_s16(*v218.i8, *v221.i8), *v219.i8, *v220.i8);
+    v454 = vmlal_high_s16(vmull_high_s16(v218, v221), v219, v220);
+    v222 = vdupq_n_s16(0xE64Cu);
+    v461 = vmlal_high_s16(vmull_high_s16(v218, v222), v219, v221);
+    v463 = vmlal_s16(vmull_s16(*v218.i8, *v222.i8), *v219.i8, *v221.i8);
+    v223 = vqaddq_s16(v214, v217);
+    v224 = vqaddq_s16(v215, v216);
+    v225 = vdupq_n_s16(0x4B2u);
+    v226 = vdupq_n_s16(0x1FA7u);
+    v467 = vmlal_s16(vmull_s16(*v223.i8, *v226.i8), *v224.i8, *v225.i8);
+    v465 = vmlal_high_s16(vmull_high_s16(v223, v226), v224, v225);
+    v227 = vdupq_n_s16(0xFB4Eu);
+    v426 = vmlal_high_s16(vmull_high_s16(v223, v227), v224, v226);
+    v427 = vmlal_s16(vmull_s16(*v223.i8, *v227.i8), *v224.i8, *v226.i8);
+    v228 = vrshrn_high_n_s32(vrshrn_n_s32(v490, 0xDuLL), v488, 0xDuLL);
+    v229 = vrshrn_high_n_s32(vrshrn_n_s32(v486, 0xDuLL), v484, 0xDuLL);
+    v409 = vrshrn_high_n_s32(vrshrn_n_s32(v114, 0xDuLL), v115, 0xDuLL);
+    v412 = vrshrn_high_n_s32(vrshrn_n_s32(v116, 0xDuLL), v117, 0xDuLL);
+    v413 = vqaddq_s16(v584, v229);
+    v408 = vqaddq_s16(v615, v228);
+    v230 = vqsubq_s16(v413, v412);
+    v231 = vqsubq_s16(v408, v409);
+    v232 = vdupq_n_s16(0x1611u);
+    v233 = vdupq_n_s16(0x172Du);
+    v491 = vmlal_s16(vmull_s16(*v230.i8, *v233.i8), *v231.i8, *v232.i8);
+    v489 = vmlal_high_s16(vmull_high_s16(v230, v233), v231, v232);
+    v234 = vdupq_n_s16(0xE9EFu);
+    v487 = vmlal_s16(vmull_s16(*v230.i8, *v234.i8), *v231.i8, *v233.i8);
+    v485 = vmlal_high_s16(vmull_high_s16(v230, v234), v231, v233);
+    v235 = vqsubq_s16(v584, v229);
+    v236 = vqsubq_s16(v615, v228);
+    v237 = vrshrn_high_n_s32(vrshrn_n_s32(v118, 0xDuLL), v119, 0xDuLL);
+    v238 = vrshrn_high_n_s32(vrshrn_n_s32(v121, 0xDuLL), v122, 0xDuLL);
+    v239 = vqsubq_s16(v235, v238);
+    v240 = vqsubq_s16(v236, v237);
+    v241 = vdupq_n_s16(0x1D41u);
+    v242 = vdupq_n_s16(0xCF8u);
+    v407 = vmlal_s16(vmull_s16(*v239.i8, *v242.i8), *v240.i8, *v241.i8);
+    v406 = vmlal_high_s16(vmull_high_s16(v239, v242), v240, v241);
+    v243 = vdupq_n_s16(0xE2BFu);
+    v419 = vmlal_s16(vmull_s16(*v239.i8, *v243.i8), *v240.i8, *v242.i8);
+    v416 = vmlal_high_s16(vmull_high_s16(v239, v243), v240, v242);
+    v244 = vqaddq_s16(v235, v238);
+    v245 = vqaddq_s16(v236, v237);
+    v246 = vdupq_n_s16(0xB84u);
+    v247 = vdupq_n_s16(0x1DDBu);
+    v415 = vmlal_s16(vmull_s16(*v244.i8, *v247.i8), *v245.i8, *v246.i8);
+    v414 = vmlal_high_s16(vmull_high_s16(v244, v247), v245, v246);
+    v248 = vdupq_n_s16(0xF47Cu);
+    v404 = vmlal_high_s16(vmull_high_s16(v244, v248), v245, v247);
+    v405 = vmlal_s16(vmull_s16(*v244.i8, *v248.i8), *v245.i8, *v247.i8);
+    v249 = vrshrn_high_n_s32(vrshrn_n_s32(v516, 0xDuLL), v514, 0xDuLL);
+    v250 = vrshrn_high_n_s32(vrshrn_n_s32(v512, 0xDuLL), v510, 0xDuLL);
+    v251 = vrshrn_high_n_s32(vrshrn_n_s32(v410, 0xDuLL), v136, 0xDuLL);
+    v252 = vrshrn_high_n_s32(vrshrn_n_s32(v137, 0xDuLL), v138, 0xDuLL);
+    v253 = vqsubq_s16(v591, v250);
+    v254 = vqsubq_s16(v608, v249);
+    v255 = vqaddq_s16(v253, v252);
+    v256 = vqaddq_s16(v254, v251);
+    v257 = vdupq_n_s16(0x1F39u);
+    v258 = vdupq_n_s16(0x703u);
+    v411 = vmlal_s16(vmull_s16(*v255.i8, *v258.i8), *v256.i8, *v257.i8);
+    v403 = vmlal_high_s16(vmull_high_s16(v255, v258), v256, v257);
+    v259 = vdupq_n_s16(0xE0C7u);
+    v517 = vmlal_s16(vmull_s16(*v255.i8, *v259.i8), *v256.i8, *v258.i8);
+    v515 = vmlal_high_s16(vmull_high_s16(v255, v259), v256, v258);
+    v260 = vqsubq_s16(v253, v252);
+    v261 = vqsubq_s16(v254, v251);
+    v262 = vdupq_n_s16(0x111Fu);
+    v263 = vdupq_n_s16(0x1B09u);
+    v513 = vmlal_s16(vmull_s16(*v260.i8, *v263.i8), *v261.i8, *v262.i8);
+    v511 = vmlal_high_s16(vmull_high_s16(v260, v263), v261, v262);
+    v264 = vdupq_n_s16(0xEEE1u);
+    v401 = vmlal_high_s16(vmull_high_s16(v260, v264), v261, v263);
+    v402 = vmlal_s16(vmull_s16(*v260.i8, *v264.i8), *v261.i8, *v263.i8);
+    v265 = vqaddq_s16(v591, v250);
+    v266 = vqaddq_s16(v608, v249);
+    v267 = vrshrn_high_n_s32(vrshrn_n_s32(v424, 0xDuLL), v422, 0xDuLL);
+    v268 = vrshrn_high_n_s32(vrshrn_n_s32(v420, 0xDuLL), v417, 0xDuLL);
+    v269 = vqsubq_s16(v265, v268);
+    v270 = vqsubq_s16(v266, v267);
+    v271 = vdupq_n_s16(0x1A2Au);
+    v272 = vdupq_n_s16(0x126Du);
+    v400 = vmlal_s16(vmull_s16(*v269.i8, *v272.i8), *v270.i8, *v271.i8);
+    v399 = vmlal_high_s16(vmull_high_s16(v269, v272), v270, v271);
+    v273 = vdupq_n_s16(0xE5D6u);
+    v418 = vmlal_high_s16(vmull_high_s16(v269, v273), v270, v272);
+    v274 = vqaddq_s16(v265, v268);
+    v275 = vqaddq_s16(v266, v267);
+    v276 = vdupq_n_s16(0x579u);
+    v277 = vdupq_n_s16(0x1F87u);
+    v425 = vmlal_s16(vmull_s16(*v274.i8, *v277.i8), *v275.i8, *v276.i8);
+    v421 = vmlal_s16(vmull_s16(*v269.i8, *v273.i8), *v270.i8, *v272.i8);
+    v423 = vmlal_high_s16(vmull_high_s16(v274, v277), v275, v276);
+    v278 = vdupq_n_s16(0xFA87u);
+    v397 = vmlal_high_s16(vmull_high_s16(v274, v278), v275, v277);
+    v398 = vmlal_s16(vmull_s16(*v274.i8, *v278.i8), *v275.i8, *v277.i8);
+    v279 = vrshrn_high_n_s32(vrshrn_n_s32(v530, 0xDuLL), v528, 0xDuLL);
+    v280 = vrshrn_high_n_s32(vrshrn_n_s32(v526, 0xDuLL), v524, 0xDuLL);
+    v281 = vrshrn_high_n_s32(vrshrn_n_s32(v434, 0xDuLL), v432, 0xDuLL);
+    v282 = vrshrn_high_n_s32(vrshrn_n_s32(v430, 0xDuLL), v428, 0xDuLL);
+    v283 = vqaddq_s16(v592, v280);
+    v284 = vqaddq_s16(v607, v279);
+    v285 = vqaddq_s16(v283, v282);
+    v286 = vqaddq_s16(v284, v281);
+    v287 = vdupq_n_s16(0x1FC2u);
+    v288 = vdupq_n_s16(0x3EBu);
+    v431 = vmlal_s16(vmull_s16(*v285.i8, *v288.i8), *v286.i8, *v287.i8);
+    v429 = vmlal_high_s16(vmull_high_s16(v285, v288), v286, v287);
+    v289 = vdupq_n_s16(0xE03Eu);
+    v531 = vmlal_s16(vmull_s16(*v285.i8, *v289.i8), *v286.i8, *v288.i8);
+    v529 = vmlal_high_s16(vmull_high_s16(v285, v289), v286, v288);
+    v290 = vqsubq_s16(v283, v282);
+    v291 = vqsubq_s16(v284, v281);
+    v292 = vdupq_n_s16(0x13B0u);
+    v293 = vdupq_n_s16(0x193Au);
+    v527 = vmlal_s16(vmull_s16(*v290.i8, *v293.i8), *v291.i8, *v292.i8);
+    v525 = vmlal_high_s16(vmull_high_s16(v290, v293), v291, v292);
+    v294 = vdupq_n_s16(0xEC50u);
+    v433 = vmlal_high_s16(vmull_high_s16(v290, v294), v291, v293);
+    v435 = vmlal_s16(vmull_s16(*v290.i8, *v294.i8), *v291.i8, *v293.i8);
+    v295 = vqsubq_s16(v592, v280);
+    v296 = vqsubq_s16(v607, v279);
+    v297 = vrshrn_high_n_s32(vrshrn_n_s32(v442, 0xDuLL), v440, 0xDuLL);
+    v298 = vrshrn_high_n_s32(vrshrn_n_s32(v438, 0xDuLL), v436, 0xDuLL);
+    v299 = vqsubq_s16(v295, v298);
+    v300 = vqsubq_s16(v296, v297);
+    v301 = vdupq_n_s16(0x1BD8u);
+    v302 = vdupq_n_s16(0xFC6u);
+    v396 = vmlal_s16(vmull_s16(*v299.i8, *v302.i8), *v300.i8, *v301.i8);
+    v395 = vmlal_high_s16(vmull_high_s16(v299, v302), v300, v301);
+    v303 = vdupq_n_s16(0xE428u);
+    v439 = vmlal_high_s16(vmull_high_s16(v299, v303), v300, v302);
+    v441 = vmlal_s16(vmull_s16(*v299.i8, *v303.i8), *v300.i8, *v302.i8);
+    v304 = vqaddq_s16(v295, v298);
+    v305 = vqaddq_s16(v296, v297);
+    v306 = vdupq_n_s16(0x889u);
+    v307 = vdupq_n_s16(0x1ED7u);
+    v443 = vmlal_s16(vmull_s16(*v304.i8, *v307.i8), *v305.i8, *v306.i8);
+    v437 = vmlal_high_s16(vmull_high_s16(v304, v307), v305, v306);
+    v394 = vmlal_s16(vmull_s16(*v304.i8, v387), *v305.i8, *v307.i8);
+    v393 = vmlal_high_s16(vmull_s16(*&vextq_s8(v304, v304, 8uLL), v387), v305, v307);
+    v308 = vrshrn_high_n_s32(vrshrn_n_s32(v538, 0xDuLL), v536, 0xDuLL);
+    v309 = vrshrn_high_n_s32(vrshrn_n_s32(v534, 0xDuLL), v532, 0xDuLL);
+    v310 = vrshrn_high_n_s32(vrshrn_n_s32(v450, 0xDuLL), v448, 0xDuLL);
+    v311 = vrshrn_high_n_s32(vrshrn_n_s32(v446, 0xDuLL), v444, 0xDuLL);
+    v449 = vqsubq_s16(v599, v309);
+    v451 = vqsubq_s16(v600, v308);
+    v312 = vqsubq_s16(v449, v311);
+    v313 = vqsubq_s16(v451, v310);
+    v314 = vdupq_n_s16(0xE63u);
+    v315 = vdupq_n_s16(0x1C95u);
+    v539 = vmlal_s16(vmull_s16(*v312.i8, *v315.i8), *v313.i8, *v314.i8);
+    v537 = vmlal_high_s16(vmull_high_s16(v312, v315), v313, v314);
+    v316 = vdupq_n_s16(0xF19Du);
+    v445 = vmlal_s16(vmull_s16(*v312.i8, *v316.i8), *v313.i8, *v315.i8);
+    v391 = vmlal_high_s16(vmull_high_s16(v312, v316), v313, v315);
+    v317 = vqaddq_s16(v599, v309);
+    v318 = vqaddq_s16(v600, v308);
+    v319 = vrshrn_high_n_s32(vrshrn_n_s32(v167, 0xDuLL), v168, 0xDuLL);
+    v320 = vrshrn_high_n_s32(vrshrn_n_s32(v169, 0xDuLL), v170, 0xDuLL);
+    v321 = vqsubq_s16(v317, v320);
+    v322 = vdupq_n_s16(0x183Bu);
+    v323 = vqsubq_s16(v318, v319);
+    v324 = vdupq_n_s16(0x14E7u);
+    v390 = vmlal_s16(vmull_s16(*v321.i8, *v324.i8), *v323.i8, *v322.i8);
+    v325 = vmlal_high_s16(vmull_high_s16(v321, v324), v323, v322);
+    v326 = vdupq_n_s16(0xE7C5u);
+    v447 = vmlal_s16(vmull_s16(*v321.i8, *v326.i8), *v323.i8, *v324.i8);
+    v392 = vmlal_high_s16(vmull_high_s16(v321, v326), v323, v324);
+    v327 = vqaddq_s16(v317, v320);
+    v328 = vdupq_n_s16(0x25Bu);
+    v329 = vdupq_n_s16(0x1FEAu);
+    v330 = vqaddq_s16(v318, v319);
+    v535 = vmlal_s16(vmull_s16(*v327.i8, *v329.i8), *v330.i8, *v328.i8);
+    v331 = vdupq_n_s16(0xFDA5u);
+    v533 = vmlal_high_s16(vmull_high_s16(v327, v329), v330, v328);
+    v332 = vmlal_s16(vmull_s16(*v327.i8, *v331.i8), *v330.i8, *v329.i8);
+    v333 = vmlal_high_s16(vmull_high_s16(v327, v331), v330, v329);
+    v334 = vqaddq_s16(v413, v412);
+    v335 = vqaddq_s16(v408, v409);
+    v336 = vdupq_n_s16(0x1FFEu);
+    v337 = vmlal_s16(vmull_s16(*v334.i8, 0xC900C900C900C9), *v335.i8, *v336.i8);
+    v316.i64[0] = 0xC900C900C900C9;
+    v316.i64[1] = 0xC900C900C900C9;
+    v338 = vmlal_high_s16(vmull_high_s16(v334, v316), v335, v336);
+    v339 = vdupq_n_s16(0xE002u);
+    v561[63] = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v334.i8, *v339.i8), *v335.i8, 0xC900C900C900C9), 0xDuLL), vmlal_high_s16(vmull_high_s16(v334, v339), v335, v316), 0xDuLL);
+    v561[1] = vrshrn_high_n_s32(vrshrn_n_s32(v337, 0xDuLL), v338, 0xDuLL);
+    v561[0] = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v562.i8, *v557.i8), *v563.i8, *v557.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v562, v557), v563, v557), 0xDuLL);
+    v340 = vqaddq_s16(v449, v311);
+    v561[3] = vrshrn_high_n_s32(vrshrn_n_s32(v332, 0xDuLL), v333, 0xDuLL);
+    v561[2] = vrshrn_high_n_s32(vrshrn_n_s32(v483, 0xDuLL), v481, 0xDuLL);
+    v341 = vqaddq_s16(v451, v310);
+    v561[5] = vrshrn_high_n_s32(vrshrn_n_s32(v431, 0xDuLL), v429, 0xDuLL);
+    v561[4] = vrshrn_high_n_s32(vrshrn_n_s32(v541, 0xDuLL), v540, 0xDuLL);
+    v561[7] = vrshrn_high_n_s32(vrshrn_n_s32(v398, 0xDuLL), v397, 0xDuLL);
+    v561[6] = vrshrn_high_n_s32(vrshrn_n_s32(v427, 0xDuLL), v426, 0xDuLL);
+    v561[9] = vrshrn_high_n_s32(vrshrn_n_s32(v411, 0xDuLL), v403, 0xDuLL);
+    v561[8] = vrshrn_high_n_s32(vrshrn_n_s32(v551, 0xDuLL), v550, 0xDuLL);
+    v561[11] = vrshrn_high_n_s32(vrshrn_n_s32(v394, 0xDuLL), v393, 0xDuLL);
+    v561[10] = vrshrn_high_n_s32(vrshrn_n_s32(v453, 0xDuLL), v452, 0xDuLL);
+    v342 = vdupq_n_s16(0x1E63u);
+    v561[13] = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v340.i8, 0xA0A0A0A0A0A0A0ALL), *v341.i8, *v342.i8), 0xDuLL), vmlal_high_s16(vmull_s16(*&vextq_s8(v340, v340, 8uLL), 0xA0A0A0A0A0A0A0ALL), v341, v342), 0xDuLL);
+    v561[12] = vrshrn_high_n_s32(vrshrn_n_s32(v502, 0xDuLL), v501, 0xDuLL);
+    v561[15] = vrshrn_high_n_s32(vrshrn_n_s32(v405, 0xDuLL), v404, 0xDuLL);
+    v561[14] = vrshrn_high_n_s32(vrshrn_n_s32(v457, 0xDuLL), v456, 0xDuLL);
+    v561[17] = vrshrn_high_n_s32(vrshrn_n_s32(v407, 0xDuLL), v406, 0xDuLL);
+    v561[16] = vrshrn_high_n_s32(vrshrn_n_s32(v555, 0xDuLL), v554, 0xDuLL);
+    v561[19] = vrshrn_high_n_s32(vrshrn_n_s32(v445, 0xDuLL), v391, 0xDuLL);
+    v561[18] = vrshrn_high_n_s32(vrshrn_n_s32(v495, 0xDuLL), v493, 0xDuLL);
+    v561[21] = vrshrn_high_n_s32(vrshrn_n_s32(v396, 0xDuLL), v395, 0xDuLL);
+    v561[20] = vrshrn_high_n_s32(vrshrn_n_s32(v152, 0xDuLL), v509, 0xDuLL);
+    v561[23] = vrshrn_high_n_s32(vrshrn_n_s32(v402, 0xDuLL), v401, 0xDuLL);
+    v561[22] = vrshrn_high_n_s32(vrshrn_n_s32(v459, 0xDuLL), v458, 0xDuLL);
+    v561[25] = vrshrn_high_n_s32(vrshrn_n_s32(v400, 0xDuLL), v399, 0xDuLL);
+    v561[24] = vrshrn_high_n_s32(vrshrn_n_s32(v543, 0xDuLL), v542, 0xDuLL);
+    v561[27] = vrshrn_high_n_s32(vrshrn_n_s32(v435, 0xDuLL), v433, 0xDuLL);
+    v561[26] = vrshrn_high_n_s32(vrshrn_n_s32(v455, 0xDuLL), v454, 0xDuLL);
+    v561[29] = vrshrn_high_n_s32(vrshrn_n_s32(v390, 0xDuLL), v325, 0xDuLL);
+    v561[28] = vrshrn_high_n_s32(vrshrn_n_s32(v523, 0xDuLL), v522, 0xDuLL);
+    v561[31] = vrshrn_high_n_s32(vrshrn_n_s32(v487, 0xDuLL), v485, 0xDuLL);
+    v561[30] = vrshrn_high_n_s32(vrshrn_n_s32(v469, 0xDuLL), v468, 0xDuLL);
+    v561[33] = vrshrn_high_n_s32(vrshrn_n_s32(v491, 0xDuLL), v489, 0xDuLL);
+    v561[32] = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v562.i8, *v556.i8), *v563.i8, *v557.i8), 0xDuLL), vmlal_high_s16(vmull_high_s16(v562, v556), v563, v557), 0xDuLL);
+    v561[35] = vrshrn_high_n_s32(vrshrn_n_s32(v447, 0xDuLL), v392, 0xDuLL);
+    v561[34] = vrshrn_high_n_s32(vrshrn_n_s32(v471, 0xDuLL), v470, 0xDuLL);
+    v561[37] = vrshrn_high_n_s32(vrshrn_n_s32(v527, 0xDuLL), v525, 0xDuLL);
+    v561[36] = vrshrn_high_n_s32(vrshrn_n_s32(v133, 0xDuLL), v135, 0xDuLL);
+    v561[39] = vrshrn_high_n_s32(vrshrn_n_s32(v421, 0xDuLL), v418, 0xDuLL);
+    v561[38] = vrshrn_high_n_s32(vrshrn_n_s32(v463, 0xDuLL), v461, 0xDuLL);
+    v561[41] = vrshrn_high_n_s32(vrshrn_n_s32(v513, 0xDuLL), v511, 0xDuLL);
+    v561[40] = vrshrn_high_n_s32(vrshrn_n_s32(v545, 0xDuLL), v544, 0xDuLL);
+    v561[43] = vrshrn_high_n_s32(vrshrn_n_s32(v441, 0xDuLL), v439, 0xDuLL);
+    v561[42] = vrshrn_high_n_s32(vrshrn_n_s32(v475, 0xDuLL), v473, 0xDuLL);
+    v561[45] = vrshrn_high_n_s32(vrshrn_n_s32(v539, 0xDuLL), v537, 0xDuLL);
+    v561[44] = vrshrn_high_n_s32(vrshrn_n_s32(v507, 0xDuLL), v505, 0xDuLL);
+    v561[47] = vrshrn_high_n_s32(vrshrn_n_s32(v419, 0xDuLL), v416, 0xDuLL);
+    v561[46] = vrshrn_high_n_s32(vrshrn_n_s32(v499, 0xDuLL), v497, 0xDuLL);
+    v343 = vdupq_n_s16(0xE19Du);
+    v561[49] = vrshrn_high_n_s32(vrshrn_n_s32(v415, 0xDuLL), v414, 0xDuLL);
+    v561[48] = vrshrn_high_n_s32(vrshrn_n_s32(v553, 0xDuLL), v552, 0xDuLL);
+    v561[51] = vrshrn_high_n_s32(vrshrn_n_s32(vmlal_s16(vmull_s16(*v340.i8, *v343.i8), *v341.i8, 0xA0A0A0A0A0A0A0ALL), 0xDuLL), vmlal_high_s16(vmull_s16(*&vextq_s8(v341, v341, 8uLL), 0xA0A0A0A0A0A0A0ALL), v340, v343), 0xDuLL);
+    v561[52] = vrshrn_high_n_s32(vrshrn_n_s32(v165, 0xDuLL), v503, 0xDuLL);
+    v561[53] = vrshrn_high_n_s32(vrshrn_n_s32(v443, 0xDuLL), v437, 0xDuLL);
+    v561[54] = vrshrn_high_n_s32(vrshrn_n_s32(v479, 0xDuLL), v477, 0xDuLL);
+    v561[55] = vrshrn_high_n_s32(vrshrn_n_s32(v517, 0xDuLL), v515, 0xDuLL);
+    v561[56] = vrshrn_high_n_s32(vrshrn_n_s32(v549, 0xDuLL), v548, 0xDuLL);
+    v561[57] = vrshrn_high_n_s32(vrshrn_n_s32(v425, 0xDuLL), v423, 0xDuLL);
+    v561[58] = vrshrn_high_n_s32(vrshrn_n_s32(v467, 0xDuLL), v465, 0xDuLL);
+    v561[59] = vrshrn_high_n_s32(vrshrn_n_s32(v531, 0xDuLL), v529, 0xDuLL);
+    v561[60] = vrshrn_high_n_s32(vrshrn_n_s32(v547, 0xDuLL), v546, 0xDuLL);
+    v561[61] = vrshrn_high_n_s32(vrshrn_n_s32(v535, 0xDuLL), v533, 0xDuLL);
+    v561[62] = vrshrn_high_n_s32(vrshrn_n_s32(v521, 0xDuLL), v519, 0xDuLL);
+    do
+    {
+      v561[v61] = vrshrq_n_s16(v561[v61], 2uLL);
+      ++v61;
+    }
+
+    while (v61 != 64);
+    v344 = v12;
+    for (i7 = 112; i7 != 624; i7 += 128)
+    {
+      v346 = *&v560[i7 + 3920];
+      v347 = *&v560[i7 + 3936];
+      v348 = vtrn1q_s16(v346, v347);
+      v349 = vtrn2q_s16(v346, v347);
+      v350 = *&v560[i7 + 3952];
+      v351 = *&v560[i7 + 3968];
+      v352 = vtrn1q_s16(v350, v351);
+      v353 = vtrn2q_s16(v350, v351);
+      v354 = *&v560[i7 + 3984];
+      v355 = *&v560[i7 + 4000];
+      v356 = vtrn1q_s16(v354, v355);
+      v357 = vtrn2q_s16(v354, v355);
+      v358 = *&v560[i7 + 4016];
+      v359 = v561[i7 / 0x10];
+      v360 = vtrn1q_s16(v358, v359);
+      v361 = vtrn2q_s16(v358, v359);
+      v362 = vtrn1q_s32(v348, v352);
+      v363 = vtrn2q_s32(v348, v352);
+      v364 = vtrn1q_s32(v349, v353);
+      v365 = vtrn2q_s32(v349, v353);
+      v366 = vtrn1q_s32(v356, v360);
+      v367 = vtrn2q_s32(v356, v360);
+      v368 = vzip2q_s64(v362, v366);
+      v362.i64[1] = v366.i64[0];
+      v369 = vtrn1q_s32(v357, v361);
+      v370 = vtrn2q_s32(v357, v361);
+      v371 = vzip2q_s64(v364, v369);
+      v364.i64[1] = v369.i64[0];
+      v372 = vzip2q_s64(v363, v367);
+      v363.i64[1] = v367.i64[0];
+      v367.i64[0] = v365.i64[0];
+      v367.i64[1] = v370.i64[0];
+      v344[-4] = v362;
+      v344[-3] = v364;
+      v344[-2] = v363;
+      v344[-1] = v367;
+      *v344 = v368;
+      v344[1] = v371;
+      v344[2] = v372;
+      v344[3] = vzip2q_s64(v365, v370);
+      v344 += 32;
+    }
+
+    ++v11;
+    v8 += 16;
+    v12 += 8;
+    v13 = v557;
+    v14 = v556;
+  }
+
+  while (v11 != 4);
+  v373 = 0;
+  v374 = v386 + 1;
+  v375 = &v559;
+  v558 = vdupq_n_s32(0x16A1u);
+  do
+  {
+    for (i8 = 0; i8 != 32; ++i8)
+    {
+      v377 = *&v375[i8 * 16];
+      v730[i8] = vmovl_s16(*v377.i8);
+      v701[i8] = vmovl_high_s16(v377);
+    }
+
+    sub_2779E7BA4(v730, v730);
+    result = sub_2779E7BA4(v701, v701);
+    for (i9 = 0; i9 != 32; ++i9)
+    {
+      v730[i9] = vrshrq_n_s32(v730[i9], 2uLL);
+    }
+
+    for (i10 = 0; i10 != 32; ++i10)
+    {
+      v701[i10] = vrshrq_n_s32(v701[i10], 2uLL);
+    }
+
+    for (i11 = 0; i11 != 32; ++i11)
+    {
+      v730[i11] = vrshrq_n_s32(vmulq_s32(v730[i11], v558), 0xCuLL);
+    }
+
+    for (i12 = 0; i12 != 32; ++i12)
+    {
+      v701[i12] = vrshrq_n_s32(vmulq_s32(v701[i12], v558), 0xCuLL);
+    }
+
+    v383 = 0;
+    v384 = v374;
+    do
+    {
+      v385 = v701[v383];
+      v384[-1] = v730[v383];
+      *v384 = v385;
+      ++v383;
+      v384 += 8;
+    }
+
+    while (v383 != 32);
+    ++v373;
+    v375 += 512;
+    v374 += 2;
+  }
+
+  while (v373 != 4);
   return result;
 }

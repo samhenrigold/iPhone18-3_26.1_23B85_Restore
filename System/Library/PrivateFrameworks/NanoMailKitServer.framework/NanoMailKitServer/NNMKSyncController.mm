@@ -72,39 +72,39 @@
 - (id)filterMessages:(id)messages byAlreadySynced:(BOOL)synced byMailbox:(id)mailbox
 {
   syncedCopy = synced;
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   messagesCopy = messages;
   mailboxCopy = mailbox;
   v10 = MEMORY[0x277CBEB18];
   v11 = [messagesCopy count];
   v12 = v10;
   v13 = mailboxCopy;
-  v49 = [v12 arrayWithCapacity:v11];
+  v48 = [v12 arrayWithCapacity:v11];
+  v50 = 0u;
   v51 = 0u;
   v52 = 0u;
   v53 = 0u;
-  v54 = 0u;
   obj = messagesCopy;
-  v14 = [obj countByEnumeratingWithState:&v51 objects:v61 count:16];
+  v14 = [obj countByEnumeratingWithState:&v50 objects:v60 count:16];
   if (v14)
   {
     v16 = v14;
-    v17 = *v52;
+    v17 = *v51;
     *&v15 = 138543618;
-    v46 = v15;
-    v47 = syncedCopy;
-    v48 = mailboxCopy;
+    v45 = v15;
+    v46 = syncedCopy;
+    v47 = mailboxCopy;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v52 != v17)
+        if (*v51 != v17)
         {
           objc_enumerationMutation(obj);
         }
 
-        v19 = *(*(&v51 + 1) + 8 * i);
-        if ([(NNMKSyncController *)self _validateMessage:v19, v46])
+        v19 = *(*(&v50 + 1) + 8 * i);
+        if ([(NNMKSyncController *)self _validateMessage:v19, v45])
         {
           if (syncedCopy)
           {
@@ -141,13 +141,13 @@
                   v39 = v38;
                   messageId3 = [v19 messageId];
                   *buf = 138543362;
-                  v56 = messageId3;
+                  v55 = messageId3;
                   _os_log_impl(&dword_25B19F000, v39, OS_LOG_TYPE_INFO, "Dropping message because it already exist. %{public}@", buf, 0xCu);
                 }
               }
 
-              syncedCopy = v47;
-              v13 = v48;
+              syncedCopy = v46;
+              v13 = v47;
             }
 
             else
@@ -164,7 +164,7 @@ LABEL_32:
               }
 
 LABEL_33:
-              [v49 addObject:v19];
+              [v48 addObject:v19];
               continue;
             }
           }
@@ -193,14 +193,14 @@ LABEL_33:
           {
             v42 = v41;
             messageId4 = [v19 messageId];
-            *buf = v46;
-            v56 = messageId4;
-            v57 = 2114;
-            v58 = v48;
+            *buf = v45;
+            v55 = messageId4;
+            v56 = 2114;
+            v57 = v47;
             _os_log_debug_impl(&dword_25B19F000, v42, OS_LOG_TYPE_DEBUG, "Dropping message because it does not belong to mailbox. Message: %{public}@, Mailbox: %{public}@", buf, 0x16u);
 
-            v13 = v48;
-            syncedCopy = v47;
+            v13 = v47;
+            syncedCopy = v46;
           }
         }
 
@@ -214,30 +214,28 @@ LABEL_33:
             accountId = [v19 accountId];
             mailboxId = [v19 mailboxId];
             *buf = 138543874;
-            v56 = messageId5;
-            v57 = 2114;
-            v58 = accountId;
-            v59 = 2114;
-            v60 = mailboxId;
+            v55 = messageId5;
+            v56 = 2114;
+            v57 = accountId;
+            v58 = 2114;
+            v59 = mailboxId;
             _os_log_error_impl(&dword_25B19F000, v28, OS_LOG_TYPE_ERROR, "Dropping message because it is missing identifiers. (id:%{public}@, a-id:%{public}@, ma-id:%{public}@)", buf, 0x20u);
           }
         }
       }
 
-      v16 = [obj countByEnumeratingWithState:&v51 objects:v61 count:16];
+      v16 = [obj countByEnumeratingWithState:&v50 objects:v60 count:16];
     }
 
     while (v16);
   }
 
-  v44 = *MEMORY[0x277D85DE8];
-
-  return v49;
+  return v48;
 }
 
 - (id)removeInvalidMailboxesFromMailboxSelection:(id)selection
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   selectionCopy = selection;
   allMailboxesSyncEnabled = [selectionCopy allMailboxesSyncEnabled];
   v5 = 0;
@@ -255,7 +253,7 @@ LABEL_33:
           v9 = v8;
           mailboxId = [v7 mailboxId];
           *buf = 138543362;
-          v18 = mailboxId;
+          v17 = mailboxId;
           _os_log_impl(&dword_25B19F000, v9, OS_LOG_TYPE_DEFAULT, "Received invalid mailbox from mailbox selection. Id: %{public}@", buf, 0xCu);
         }
 
@@ -288,40 +286,38 @@ LABEL_33:
     v12 = selectionCopy;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v12;
 }
 
 - (id)filterMessages:(id)messages receivedBeforeDate:(id)date
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   messagesCopy = messages;
   dateCopy = date;
   if (dateCopy)
   {
     v7 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(messagesCopy, "count")}];
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
-    v22 = messagesCopy;
+    v21 = messagesCopy;
     v8 = messagesCopy;
-    v9 = [v8 countByEnumeratingWithState:&v23 objects:v33 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v22 objects:v32 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v24;
+      v11 = *v23;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v24 != v11)
+          if (*v23 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v23 + 1) + 8 * i);
+          v13 = *(*(&v22 + 1) + 8 * i);
           dateReceived = [v13 dateReceived];
           v15 = [dateReceived compare:dateCopy];
 
@@ -334,11 +330,11 @@ LABEL_33:
               messageId = [v13 messageId];
               dateReceived2 = [v13 dateReceived];
               *buf = 138543874;
-              v28 = dateCopy;
-              v29 = 2114;
-              v30 = messageId;
-              v31 = 2114;
-              v32 = dateReceived2;
+              v27 = dateCopy;
+              v28 = 2114;
+              v29 = messageId;
+              v30 = 2114;
+              v31 = dateReceived2;
               _os_log_impl(&dword_25B19F000, v17, OS_LOG_TYPE_INFO, "Dropping message because it is older than %{public}@. Id: %{public}@, Date: %{public}@", buf, 0x20u);
             }
           }
@@ -349,21 +345,19 @@ LABEL_33:
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v23 objects:v33 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v22 objects:v32 count:16];
       }
 
       while (v10);
     }
 
-    messagesCopy = v22;
+    messagesCopy = v21;
   }
 
   else
   {
     v7 = messagesCopy;
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -457,31 +451,31 @@ LABEL_33:
 
 - (BOOL)doesMessageBelongToSyncedMailboxes:(id)mailboxes
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   mailboxesCopy = mailboxes;
   deviceRegistry = [(NNMKSyncController *)self deviceRegistry];
   syncEnabledMailboxes = [deviceRegistry syncEnabledMailboxes];
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v7 = syncEnabledMailboxes;
-  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v17;
+    v10 = *v16;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v17 != v10)
+        if (*v16 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        if ([(NNMKSyncController *)self isMessage:mailboxesCopy fromMailbox:*(*(&v16 + 1) + 8 * i), v16])
+        if ([(NNMKSyncController *)self isMessage:mailboxesCopy fromMailbox:*(*(&v15 + 1) + 8 * i), v15])
         {
 
           v13 = 1;
@@ -489,7 +483,7 @@ LABEL_33:
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v9)
       {
         continue;
@@ -508,7 +502,6 @@ LABEL_33:
   v13 = 0;
 LABEL_13:
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -645,7 +638,7 @@ LABEL_13:
 
 - (id)mailboxesToSync
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   delegate = [(NNMKSyncController *)self delegate];
   pairedDeviceSupportsMultipleMailboxes = [delegate pairedDeviceSupportsMultipleMailboxes];
 
@@ -662,15 +655,13 @@ LABEL_5:
   deviceRegistry = v7;
   if (v7)
   {
-    v11[0] = v7;
-    syncEnabledMailboxes = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+    v10[0] = v7;
+    syncEnabledMailboxes = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
     goto LABEL_5;
   }
 
   v8 = 0;
 LABEL_6:
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -685,7 +676,7 @@ LABEL_6:
 
 - (id)groupMessagesByMailboxId:(id)id
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   idCopy = id;
   v5 = objc_alloc_init(MEMORY[0x277CBEB38]);
   delegate = [(NNMKSyncController *)self delegate];
@@ -693,26 +684,26 @@ LABEL_6:
 
   if (!idCopy || (pairedDeviceSupportsMultipleMailboxes & 1) != 0)
   {
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     v9 = idCopy;
-    v10 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v21;
+      v12 = *v20;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v21 != v12)
+          if (*v20 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v20 + 1) + 8 * i);
+          v14 = *(*(&v19 + 1) + 8 * i);
           mailboxId = [v14 mailboxId];
           v16 = [v5 objectForKeyedSubscript:mailboxId];
 
@@ -726,7 +717,7 @@ LABEL_6:
           [v16 addObject:v14];
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v11);
@@ -744,38 +735,36 @@ LABEL_6:
     [v5 setObject:idCopy forKeyedSubscript:@"-1"];
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
 - (void)groupMessagesByMailbox:(id)mailbox mailboxes:(id)mailboxes block:(id)block
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   mailboxCopy = mailbox;
   mailboxesCopy = mailboxes;
   blockCopy = block;
   v11 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(mailboxesCopy, "count")}];
+  v53 = 0u;
   v54 = 0u;
   v55 = 0u;
   v56 = 0u;
-  v57 = 0u;
   obj = mailboxesCopy;
-  v12 = [obj countByEnumeratingWithState:&v54 objects:v64 count:16];
+  v12 = [obj countByEnumeratingWithState:&v53 objects:v63 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v55;
+    v14 = *v54;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v55 != v14)
+        if (*v54 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v54 + 1) + 8 * i);
+        v16 = *(*(&v53 + 1) + 8 * i);
         mailboxId = [v16 mailboxId];
 
         if (mailboxId)
@@ -785,35 +774,35 @@ LABEL_6:
         }
       }
 
-      v13 = [obj countByEnumeratingWithState:&v54 objects:v64 count:16];
+      v13 = [obj countByEnumeratingWithState:&v53 objects:v63 count:16];
     }
 
     while (v13);
   }
 
-  v40 = mailboxCopy;
+  v39 = mailboxCopy;
   [(NNMKSyncController *)self groupMessagesByMailboxId:mailboxCopy];
+  v49 = 0u;
   v50 = 0u;
   v51 = 0u;
-  v52 = 0u;
-  v45 = v53 = 0u;
-  allKeys = [v45 allKeys];
-  v19 = [allKeys countByEnumeratingWithState:&v50 objects:v63 count:16];
+  v44 = v52 = 0u;
+  allKeys = [v44 allKeys];
+  v19 = [allKeys countByEnumeratingWithState:&v49 objects:v62 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v51;
+    v21 = *v50;
     do
     {
       v22 = 0;
       do
       {
-        if (*v51 != v21)
+        if (*v50 != v21)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v23 = *(*(&v50 + 1) + 8 * v22);
+        v23 = *(*(&v49 + 1) + 8 * v22);
         v24 = [(NNMKSyncController *)self mailboxWithId:v23];
         v25 = v24;
         if (v24)
@@ -821,7 +810,7 @@ LABEL_6:
           mailboxId3 = [v24 mailboxId];
           [v11 removeObjectForKey:mailboxId3];
 
-          v27 = [v45 objectForKeyedSubscript:v23];
+          v27 = [v44 objectForKeyedSubscript:v23];
           blockCopy[2](blockCopy, v27, v25);
 LABEL_17:
 
@@ -832,12 +821,12 @@ LABEL_17:
         if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_ERROR))
         {
           log = v28;
-          v41 = [v45 objectForKeyedSubscript:v23];
-          v29 = [NNMKMessage messageIdsFromMessages:v41];
+          v40 = [v44 objectForKeyedSubscript:v23];
+          v29 = [NNMKMessage messageIdsFromMessages:v40];
           *buf = 138543618;
-          v60 = v23;
-          v61 = 2114;
-          v62 = v29;
+          v59 = v23;
+          v60 = 2114;
+          v61 = v29;
           v27 = log;
           _os_log_error_impl(&dword_25B19F000, log, OS_LOG_TYPE_ERROR, "Could not find mailbox for messages. (Mailbox: %{public}@, Dropping messages: %{public}@)", buf, 0x16u);
 
@@ -850,34 +839,34 @@ LABEL_19:
       }
 
       while (v20 != v22);
-      v30 = [allKeys countByEnumeratingWithState:&v50 objects:v63 count:16];
+      v30 = [allKeys countByEnumeratingWithState:&v49 objects:v62 count:16];
       v20 = v30;
     }
 
     while (v30);
   }
 
-  v48 = 0u;
-  v49 = 0u;
-  v46 = 0u;
   v47 = 0u;
+  v48 = 0u;
+  v45 = 0u;
+  v46 = 0u;
   allValues = [v11 allValues];
-  v32 = [allValues countByEnumeratingWithState:&v46 objects:v58 count:16];
+  v32 = [allValues countByEnumeratingWithState:&v45 objects:v57 count:16];
   if (v32)
   {
     v33 = v32;
-    v34 = *v47;
+    v34 = *v46;
     v35 = MEMORY[0x277CBEBF8];
     do
     {
       for (j = 0; j != v33; ++j)
       {
-        if (*v47 != v34)
+        if (*v46 != v34)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v37 = *(*(&v46 + 1) + 8 * j);
+        v37 = *(*(&v45 + 1) + 8 * j);
         v38 = qword_28144D620;
         if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEBUG))
         {
@@ -887,13 +876,11 @@ LABEL_19:
         blockCopy[2](blockCopy, v35, v37);
       }
 
-      v33 = [allValues countByEnumeratingWithState:&v46 objects:v58 count:16];
+      v33 = [allValues countByEnumeratingWithState:&v45 objects:v57 count:16];
     }
 
     while (v33);
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (id)mailboxForMessageWithId:(id)id
@@ -962,38 +949,33 @@ LABEL_8:
 
 - (void)canSyncMailbox:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 mailboxId];
-  v6 = 138543362;
-  v7 = v4;
-  _os_log_error_impl(&dword_25B19F000, v3, OS_LOG_TYPE_ERROR, "It will not sync mailbox because it does not have a valid mailbox id: %{public}@", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138543362;
+  v6 = v4;
+  _os_log_error_impl(&dword_25B19F000, v3, OS_LOG_TYPE_ERROR, "It will not sync mailbox because it does not have a valid mailbox id: %{public}@", &v5, 0xCu);
 }
 
 - (void)doesMessageBelongToSyncedMailboxes:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 messageId];
   v5 = [a2 mailboxId];
-  v7 = 138543618;
-  v8 = v4;
-  v9 = 2114;
-  v10 = v5;
-  _os_log_debug_impl(&dword_25B19F000, v3, OS_LOG_TYPE_DEBUG, "Dropping message because it does not belong to synced mailboxes. Id: %{public}@, mailboxId: %{public}@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138543618;
+  v7 = v4;
+  v8 = 2114;
+  v9 = v5;
+  _os_log_debug_impl(&dword_25B19F000, v3, OS_LOG_TYPE_DEBUG, "Dropping message because it does not belong to synced mailboxes. Id: %{public}@, mailboxId: %{public}@", &v6, 0x16u);
 }
 
 - (void)messageIdFromWatchMessageId:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_25B19F000, a2, OS_LOG_TYPE_ERROR, "Could not find message id for watch message id. Returning watch wessage id... %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_25B19F000, a2, OS_LOG_TYPE_ERROR, "Could not find message id for watch message id. Returning watch wessage id... %{public}@", &v2, 0xCu);
 }
 
 - (void)groupMessagesByMailbox:(uint8_t *)buf mailboxes:(_BYTE *)a2 block:(os_log_t)log .cold.1(uint8_t *buf, _BYTE *a2, os_log_t log)
@@ -1005,25 +987,22 @@ LABEL_8:
 
 - (void)mailboxForMessageWithId:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_25B19F000, a2, OS_LOG_TYPE_ERROR, "No mailbox for message id %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_25B19F000, a2, OS_LOG_TYPE_ERROR, "No mailbox for message id %{public}@", &v2, 0xCu);
 }
 
 - (void)mailboxWithId:(uint64_t)a3 .cold.1(void *a1, void *a2, uint64_t a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = [a2 delegate];
-  v8 = 134218242;
-  v9 = [v6 pairedDeviceSupportsMultipleMailboxes];
-  v10 = 2114;
-  v11 = a3;
-  _os_log_debug_impl(&dword_25B19F000, v5, OS_LOG_TYPE_DEBUG, "Retrieving default mailbox. (Paired device supports multiple mailboxes: %lu, MailboxId: %{public}@)", &v8, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 134218242;
+  v8 = [v6 pairedDeviceSupportsMultipleMailboxes];
+  v9 = 2114;
+  v10 = a3;
+  _os_log_debug_impl(&dword_25B19F000, v5, OS_LOG_TYPE_DEBUG, "Retrieving default mailbox. (Paired device supports multiple mailboxes: %lu, MailboxId: %{public}@)", &v7, 0x16u);
 }
 
 @end

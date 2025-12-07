@@ -16,8 +16,7 @@
   v9 = *(&self->super._layoutManager + OBJC_IVAR____TtC7SwiftUIP33_863CCF9D49B535DAEB1C7D61BEE53B5914CGDrawingLayer_content);
   contextCopy = context;
   selfCopy = self;
-  outlined copy of PlatformDrawableContent.Storage(v4, v5, v6, v7, v8, v9);
-  [(CGDrawingLayer *)selfCopy bounds];
+  [(CGDrawingLayer *)selfCopy bounds:outlined copy of PlatformDrawableContent.Storage(v4];
   v13 = v12;
   v15 = v14;
   [(CGDrawingLayer *)selfCopy contentsScale];

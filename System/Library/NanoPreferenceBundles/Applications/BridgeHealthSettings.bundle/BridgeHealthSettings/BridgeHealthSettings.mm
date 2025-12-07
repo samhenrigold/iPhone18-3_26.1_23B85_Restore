@@ -215,10 +215,11 @@ void sub_67A0(id a1)
   _objc_release_x1(v1, v2);
 }
 
-void sub_6CC0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_6CC0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_703C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
@@ -254,7 +255,7 @@ void sub_8218(uint64_t a1, char a2, void *a3)
     v6 = HKLogMedicalID;
     if (os_log_type_enabled(HKLogMedicalID, OS_LOG_TYPE_ERROR))
     {
-      sub_C150(a1, v6);
+      sub_C150(a1, v6, v5);
     }
   }
 }
@@ -284,8 +285,8 @@ void sub_8A78(uint64_t a1)
     v2 = HKLogSync;
     if (os_log_type_enabled(HKLogSync, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "Successfully tore down sharing.", v7, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "Successfully tore down sharing.", v6, 2u);
     }
 
     WeakRetained = objc_loadWeakRetained(*v1 + 22);
@@ -294,14 +295,14 @@ void sub_8A78(uint64_t a1)
 
   else
   {
-    v5 = [*v1 table];
-    [v5 reloadData];
+    v4 = [*v1 table];
+    [v4 reloadData];
 
     _HKInitializeLogging();
-    v6 = HKLogSync;
+    v5 = HKLogSync;
     if (os_log_type_enabled(HKLogSync, OS_LOG_TYPE_ERROR))
     {
-      sub_C264(v1, v6, a1);
+      sub_C264(v1, v5);
     }
   }
 }
@@ -352,14 +353,13 @@ void sub_8F80(uint64_t a1, void *a2, void *a3)
 
 id sub_904C(uint64_t a1)
 {
-  v2 = (a1 + 32);
   if (*(a1 + 32))
   {
     _HKInitializeLogging();
-    v3 = HKLogMedicalID;
+    v2 = HKLogMedicalID;
     if (os_log_type_enabled(HKLogMedicalID, OS_LOG_TYPE_ERROR))
     {
-      sub_C3E4(a1, v3, v2);
+      sub_C3E4(a1, v2);
     }
   }
 
@@ -369,10 +369,11 @@ id sub_904C(uint64_t a1)
   return [*(a1 + 40) reloadSpecifiers];
 }
 
-void sub_948C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_948C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x20u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x20u);
 }
 
 void sub_992C(uint64_t a1)
@@ -414,11 +415,11 @@ void sub_9C0C(uint64_t a1, void *a2, void *a3)
   [*(a1 + 32) reloadSpecifiers];
 }
 
-void sub_A408(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_A408(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v15 - 112), 8);
+  _Block_object_dispose((v22 - 112), 8);
   _Unwind_Resume(a1);
 }
 
@@ -483,10 +484,11 @@ id sub_A8B4(id a1)
   return a1;
 }
 
-void sub_A8D8(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_A8D8(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 void sub_ACAC(uint64_t a1, void *a2, void *a3)
@@ -599,54 +601,54 @@ void sub_B7A0(uint64_t a1, void *a2, void *a3, void *a4)
   [BPSWatchSettingsNavigationDonation emitNavigationEventForApplicationSettingWithIconSpecifierIdentifier:v9 title:v8 localizedNavigationComponents:v7 deepLink:v10];
 }
 
-id sub_B898()
+id sub_B898(uint64_t a1)
 {
   objc_opt_self();
-  v0 = [_NSLocalizedStringResource alloc];
-  v1 = +[NSLocale currentLocale];
+  v1 = [_NSLocalizedStringResource alloc];
+  v2 = +[NSLocale currentLocale];
   objc_opt_class();
   objc_opt_self();
-  v2 = [NSBundle bundleForClass:objc_opt_class()];
-  v3 = [v2 bundleURL];
-  v4 = [v0 initWithKey:@"HEALTH_LABEL" table:@"Localizable" locale:v1 bundleURL:v3];
+  v3 = [NSBundle bundleForClass:objc_opt_class()];
+  v4 = [v3 bundleURL];
+  v5 = [v1 initWithKey:@"HEALTH_LABEL" table:@"Localizable" locale:v2 bundleURL:v4];
 
-  return v4;
+  return v5;
 }
 
-id sub_B96C()
+id sub_B96C(uint64_t a1)
 {
   objc_opt_self();
   objc_opt_class();
   objc_opt_self();
-  v0 = [NSBundle bundleForClass:objc_opt_class()];
-  v1 = [v0 bundleIdentifier];
-  v2 = [NSString stringWithFormat:@"bridge:root=%@", v1];
+  v1 = [NSBundle bundleForClass:objc_opt_class()];
+  v2 = [v1 bundleIdentifier];
+  v3 = [NSString stringWithFormat:@"bridge:root=%@", v2];
 
-  return v2;
+  return v3;
 }
 
-id sub_BA94()
+id sub_BA94(uint64_t a1)
 {
   objc_opt_self();
-  v0 = [_NSLocalizedStringResource alloc];
-  v1 = +[NSLocale currentLocale];
+  v1 = [_NSLocalizedStringResource alloc];
+  v2 = +[NSLocale currentLocale];
   objc_opt_class();
   objc_opt_self();
-  v2 = [NSBundle bundleForClass:objc_opt_class()];
-  v3 = [v2 bundleURL];
-  v4 = [v0 initWithKey:@"HEALTH_DETAILS" table:@"Localizable" locale:v1 bundleURL:v3];
+  v3 = [NSBundle bundleForClass:objc_opt_class()];
+  v4 = [v3 bundleURL];
+  v5 = [v1 initWithKey:@"HEALTH_DETAILS" table:@"Localizable" locale:v2 bundleURL:v4];
 
-  return v4;
+  return v5;
 }
 
-id sub_BB68()
+id sub_BB68(uint64_t a1)
 {
   objc_opt_self();
-  objc_opt_class();
-  v0 = sub_B96C();
-  v1 = [v0 stringByAppendingString:@"&path=HealthProfileIdentifier"];
+  v1 = objc_opt_class();
+  v2 = sub_B96C(v1);
+  v3 = [v2 stringByAppendingString:@"&path=HealthProfileIdentifier"];
 
-  return v1;
+  return v3;
 }
 
 void sub_BD0C(uint64_t a1, NSObject *a2)
@@ -679,29 +681,32 @@ void sub_C00C(void *a1, const char *a2)
   _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
 }
 
-void sub_C150(uint64_t a1, void *a2)
+void sub_C150(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = *(a1 + 32);
-  v3 = a2;
-  v4 = [v2 healthStore];
-  v11 = [v4 profileIdentifier];
-  sub_948C(&dword_0, v5, v6, "%{public}@ Failed to force cloud sync data upload for profile identifier %{public}@, Error: %{public}@", v7, v8, v9, v10, 2u);
+  v4 = *(a1 + 32);
+  v5 = a2;
+  v6 = [v4 healthStore];
+  v7 = [v6 profileIdentifier];
+  *v14 = 138543874;
+  *&v14[4] = v4;
+  *&v14[12] = 2114;
+  *&v14[14] = v7;
+  *&v14[22] = 2114;
+  sub_948C(&dword_0, v8, v9, "%{public}@ Failed to force cloud sync data upload for profile identifier %{public}@, Error: %{public}@", v10, v11, v12, v13, *v14, *&v14[8], *&v14[16], a3);
 }
 
-void sub_C264(void **a1, void *a2, uint64_t a3)
+void sub_C264(void **a1, void *a2)
 {
+  v3 = a2;
+  v4 = objc_opt_class();
   v5 = *a1;
-  v6 = a2;
-  v7 = objc_opt_class();
-  v8 = *a1;
-  v9 = v7;
-  v10 = [v8 activeTinkerDevice];
-  v11 = [v10 pairingID];
-  v12 = *(a3 + 40);
-  v13 = 138543874;
-  v14 = v7;
+  v6 = v4;
+  v7 = [v5 activeTinkerDevice];
+  v8 = [v7 pairingID];
+  v9 = 138543874;
+  v10 = v4;
   sub_9474();
-  _os_log_error_impl(&dword_0, v6, OS_LOG_TYPE_ERROR, "[sharing-setup] %{public}@ Failed to tear down Health Sharing With Tinker Device NRUUID %{public}@, Error: %{public}@", &v13, 0x20u);
+  _os_log_error_impl(&dword_0, v3, OS_LOG_TYPE_ERROR, "[sharing-setup] %{public}@ Failed to tear down Health Sharing With Tinker Device NRUUID %{public}@, Error: %{public}@", &v9, 0x20u);
 }
 
 void sub_C358(uint64_t a1, uint64_t a2, os_log_t log)
@@ -714,33 +719,32 @@ void sub_C358(uint64_t a1, uint64_t a2, os_log_t log)
   _os_log_error_impl(&dword_0, log, OS_LOG_TYPE_ERROR, "%{public}@ Failed to get profile display name, error : %{public}@", &v4, 0x16u);
 }
 
-void sub_C3E4(uint64_t a1, void *a2, uint64_t *a3)
+void sub_C3E4(uint64_t a1, void *a2)
 {
-  v4 = *(a1 + 40);
-  v5 = a2;
-  v6 = [v4 healthStore];
-  v7 = [v6 profileIdentifier];
-  v8 = *a3;
+  v2 = *(a1 + 40);
+  v3 = a2;
+  v4 = [v2 healthStore];
+  v5 = [v4 profileIdentifier];
+  LODWORD(v12) = 138543874;
+  *(&v12 + 4) = v2;
   sub_9474();
-  sub_948C(&dword_0, v9, v10, "%{public}@ Error fetching medical id data for profile identifier %{public}@, Error: %{public}@", v11, v12, v13, v14, 2u);
+  sub_948C(&dword_0, v6, v7, "%{public}@ Error fetching medical id data for profile identifier %{public}@, Error: %{public}@", v8, v9, v10, v11, v12, DWORD2(v12));
 }
 
 void sub_C4A8(uint64_t a1, void *a2)
 {
-  v2 = *(a1 + 32);
-  v3 = a2;
-  v4 = objc_opt_class();
-  v5 = sub_A8B4(v4);
-  sub_A8D8(&dword_0, v6, v7, "[sharing-setup] %{public}@ Failed to fetch tinker family member with error: %{public}@", v8, v9, v10, v11, v12);
+  v2 = a2;
+  v3 = objc_opt_class();
+  v4 = sub_A8B4(v3);
+  sub_A8D8(&dword_0, v5, v6, "[sharing-setup] %{public}@ Failed to fetch tinker family member with error: %{public}@", v7, v8, v9, v10);
 }
 
 void sub_C544(uint64_t a1, void *a2)
 {
-  v2 = *(a1 + 32);
-  v3 = a2;
-  v4 = objc_opt_class();
-  v5 = sub_A8B4(v4);
-  sub_A8D8(&dword_0, v6, v7, "[sharing-setup] %{public}@ Failed to fetch active tinker family member with error : %{public}@", v8, v9, v10, v11, v12);
+  v2 = a2;
+  v3 = objc_opt_class();
+  v4 = sub_A8B4(v3);
+  sub_A8D8(&dword_0, v5, v6, "[sharing-setup] %{public}@ Failed to fetch active tinker family member with error : %{public}@", v7, v8, v9, v10);
 }
 
 void sub_C5E0(void **a1, void *a2, uint64_t a3)

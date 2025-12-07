@@ -44,16 +44,14 @@
 
 void __40__REElementDataSource_contentAttributes__block_invoke()
 {
-  v3[4] = *MEMORY[0x277D85DE8];
-  v3[0] = @"REContentHeaderTextKey";
-  v3[1] = @"REContentDescription1TextKey";
-  v3[2] = @"REContentDescription2TextKey";
-  v3[3] = @"REContentDescription3TextKey";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:4];
+  v2[4] = *MEMORY[0x277D85DE8];
+  v2[0] = @"REContentHeaderTextKey";
+  v2[1] = @"REContentDescription1TextKey";
+  v2[2] = @"REContentDescription2TextKey";
+  v2[3] = @"REContentDescription3TextKey";
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:4];
   v1 = contentAttributes_ContentAttributes;
   contentAttributes_ContentAttributes = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 + ($9FE6E10C8CE45DBC9A88DFDEA39A390D)minimumSupportedSystemVersion

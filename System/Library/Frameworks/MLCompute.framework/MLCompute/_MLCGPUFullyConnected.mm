@@ -8,26 +8,26 @@
 
 - (_MLCGPUFullyConnected)initWithDevice:(id)device weights:(id)weights biasTerms:(id)terms descriptor:(id)descriptor neuronDescriptor:(id)neuronDescriptor
 {
-  v66[1] = *MEMORY[0x277D85DE8];
+  v65[1] = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   weightsCopy = weights;
   termsCopy = terms;
   descriptorCopy = descriptor;
-  v60.receiver = self;
-  v60.super_class = _MLCGPUFullyConnected;
-  v13 = [(_MLCGPUFullyConnected *)&v60 init];
+  v59.receiver = self;
+  v59.super_class = _MLCGPUFullyConnected;
+  v13 = [(_MLCGPUFullyConnected *)&v59 init];
   v14 = v13;
   if (v13)
   {
-    v51 = v13;
-    v54 = [MEMORY[0x277CBEBF8] mutableCopy];
+    v50 = v13;
+    v53 = [MEMORY[0x277CBEBF8] mutableCopy];
     deviceList = [deviceCopy deviceList];
     v16 = [deviceList count];
 
     if (v16)
     {
       v17 = 0;
-      v57 = deviceCopy;
+      v56 = deviceCopy;
       do
       {
         deviceList2 = [deviceCopy deviceList];
@@ -40,20 +40,20 @@
         {
           if (v21)
           {
-            v58 = v22;
+            v57 = v22;
             v23 = [MLCGPUDeviceOps deviceOpsWithForwardKernel:v20 gradientKernel:v21 secondaryGradientKernel:v22];
-            v66[0] = v20;
-            v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v66 count:1];
+            v65[0] = v20;
+            v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v65 count:1];
             v25 = [v24 mutableCopy];
             [v23 setForwardStatisticsKernel:v25];
 
-            v65[0] = v21;
-            v65[1] = v58;
-            v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v65 count:2];
+            v64[0] = v21;
+            v64[1] = v57;
+            v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v64 count:2];
             v27 = [v26 mutableCopy];
             [v23 setGradientStatisticsKernel:v27];
 
-            v22 = v58;
+            v22 = v57;
             if (v23)
             {
               deviceList3 = [deviceCopy deviceList];
@@ -71,18 +71,18 @@
                 v31 = weightsCopy;
                 if (termsCopy)
                 {
-                  v63[0] = weightsCopy;
-                  v63[1] = termsCopy;
+                  v62[0] = weightsCopy;
+                  v62[1] = termsCopy;
                   v32 = MEMORY[0x277CBEA60];
-                  v33 = v63;
+                  v33 = v62;
                   v34 = 2;
                 }
 
                 else
                 {
-                  v64 = weightsCopy;
+                  v63 = weightsCopy;
                   v32 = MEMORY[0x277CBEA60];
-                  v33 = &v64;
+                  v33 = &v63;
                   v34 = 1;
                 }
 
@@ -110,12 +110,12 @@
 
                 [deviceCopy broadcastTensor:termsCopy];
                 deviceMemory = [v31 deviceMemory];
-                v52 = [deviceMemory objectAtIndexedSubscript:v17];
-                v62[0] = v52;
+                v51 = [deviceMemory objectAtIndexedSubscript:v17];
+                v61[0] = v51;
                 deviceMemory2 = [termsCopy deviceMemory];
                 v38 = [deviceMemory2 objectAtIndexedSubscript:v17];
-                v62[1] = v38;
-                v39 = [MEMORY[0x277CBEA60] arrayWithObjects:v62 count:2];
+                v61[1] = v38;
+                v39 = [MEMORY[0x277CBEA60] arrayWithObjects:v61 count:2];
                 v40 = [v39 copy];
                 [v23 setExportableState:v40];
 
@@ -129,8 +129,8 @@
               {
                 deviceMemory3 = [v31 deviceMemory];
                 v43 = [deviceMemory3 objectAtIndexedSubscript:v17];
-                v61 = v43;
-                v44 = [MEMORY[0x277CBEA60] arrayWithObjects:&v61 count:1];
+                v60 = v43;
+                v44 = [MEMORY[0x277CBEA60] arrayWithObjects:&v60 count:1];
                 v45 = [v44 copy];
                 [v23 setExportableState:v45];
               }
@@ -138,10 +138,10 @@
               [v23 setTotalElementsPerChannel:1];
               [v23 setSourceOfForwardNeededForGradient:1];
               [v23 setResultOfForwardNeededForGradient:0];
-              [v54 addObject:v23];
+              [v53 addObject:v23];
 
-              deviceCopy = v57;
-              v22 = v58;
+              deviceCopy = v56;
+              v22 = v57;
             }
           }
         }
@@ -150,20 +150,19 @@
         deviceList4 = [deviceCopy deviceList];
         v47 = [deviceList4 count];
 
-        deviceCopy = v57;
+        deviceCopy = v56;
       }
 
       while (v17 < v47);
     }
 
-    v48 = [v54 copy];
-    v14 = v51;
-    v59.receiver = v51;
-    v59.super_class = _MLCGPUFullyConnected;
-    [(_MLCGPULayer *)&v59 setDeviceOps:v48];
+    v48 = [v53 copy];
+    v14 = v50;
+    v58.receiver = v50;
+    v58.super_class = _MLCGPUFullyConnected;
+    [(_MLCGPULayer *)&v58 setDeviceOps:v48];
   }
 
-  v49 = *MEMORY[0x277D85DE8];
   return v14;
 }
 

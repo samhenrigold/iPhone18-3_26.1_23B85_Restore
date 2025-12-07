@@ -94,25 +94,23 @@
 
 - (void)completeWithHandoffType:(unint64_t)type
 {
-  v11[1] = *MEMORY[0x277D85DE8];
-  sbProxy = self->_sbProxy;
+  v9[1] = *MEMORY[0x277D85DE8];
   if (objc_opt_respondsToSelector())
   {
-    v6 = _SBSLoggingFacility();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v5 = _SBSLoggingFacility();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v9 = 0;
-      _os_log_impl(&dword_26B246000, v6, OS_LOG_TYPE_DEFAULT, "Proximity Handoff UI Service setting device as stereo leader.", v9, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_26B246000, v5, OS_LOG_TYPE_DEFAULT, "Proximity Handoff UI Service setting device as stereo leader.", v7, 2u);
     }
 
-    v10 = @"reason";
-    v11[0] = @"ProximityHandoffV2";
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
-    [(SBSImplementer *)self->_sbProxy handoffSetDeviceAsStereoLeader:1 withOptions:v7];
+    v8 = @"reason";
+    v9[0] = @"ProximityHandoffV2";
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+    [(SBSImplementer *)self->_sbProxy handoffSetDeviceAsStereoLeader:1 withOptions:v6];
   }
 
   [(SBSImplementer *)self->_sbProxy handoffCompleteWithHandoffType:type];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (SBSProximityHandoffUI)initWithTarget:(id)target

@@ -1,5 +1,6 @@
 @interface ipp_value_t
 + (id)valueWithBoolean:(int)boolean;
++ (id)valueWithInteger:(int)integer;
 + (id)valueWithString:(id)string;
 - (BOOL)BOOLean;
 - (NSData)unknown;
@@ -14,8 +15,11 @@
 - (ipp_value_string_t)string;
 - (ipp_value_t)init;
 - (ipp_value_t)initWithCoder:(id)coder;
+- (void)setBoolean:(BOOL)boolean;
 - (void)setDate:(ipp_value_date_t)date;
+- (void)setInteger:(int)integer;
 - (void)setRange:(ipp_value_range_t)range;
+- (void)setResolution:(ipp_value_resolution_t)resolution;
 - (void)setString:(ipp_value_string_t)string;
 @end
 
@@ -66,7 +70,6 @@
 
 - (int)integer
 {
-  x_payload = self->x_payload;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -79,38 +82,50 @@
   }
 }
 
+- (void)setInteger:(int)integer
+{
+  v4 = [NSNumber numberWithInt:*&integer];
+  x_payload = self->x_payload;
+  self->x_payload = v4;
+}
+
 - (BOOL)BOOLean
 {
-  x_payload = self->x_payload;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     return 0;
   }
 
-  v4 = self->x_payload;
+  x_payload = self->x_payload;
 
-  return [v4 BOOLValue];
+  return [x_payload BOOLValue];
+}
+
+- (void)setBoolean:(BOOL)boolean
+{
+  v4 = [NSNumber numberWithBool:boolean];
+  x_payload = self->x_payload;
+  self->x_payload = v4;
 }
 
 - (ipp_value_date_t)date
 {
-  memset(v7, 0, 11);
-  x_payload = self->x_payload;
+  memset(v6, 0, 11);
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
+  v4 = 0;
   v5 = 0;
-  v6 = 0;
   if (isKindOfClass)
   {
-    [self->x_payload getBytes:v7 range:0, 11];
-    v6 = v7[0];
-    v5 = LOWORD(v7[1]) | (BYTE2(v7[1]) << 16);
+    [self->x_payload getBytes:v6 range:0, 11];
+    v5 = v6[0];
+    v4 = LOWORD(v6[1]) | (BYTE2(v6[1]) << 16);
   }
 
-  *result.var0 = v6;
-  *&result.var0[8] = v5;
-  result.var0[10] = BYTE2(v5);
+  *result.var0 = v5;
+  *&result.var0[8] = v4;
+  result.var0[10] = BYTE2(v4);
   return result;
 }
 
@@ -148,93 +163,104 @@
 
 - (ipp_value_string_t)string
 {
-  x_payload = self->x_payload;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v4 = self->x_payload;
-    v5 = [v4 count];
-    if (v5 == 1)
+    v3 = self->x_payload;
+    v4 = [v3 count];
+    if (v4 == 1)
     {
-      v6 = 0;
+      v5 = 0;
     }
 
     else
     {
-      if (v5 != 2)
+      if (v4 != 2)
       {
-        v6 = 0;
-        v7 = &stru_1000A4BB0;
+        v5 = 0;
+        v6 = &stru_1000A4BB0;
         goto LABEL_9;
       }
 
-      v6 = [v4 objectAtIndexedSubscript:1];
+      v5 = [v3 objectAtIndexedSubscript:1];
     }
 
-    v7 = [v4 objectAtIndexedSubscript:0];
+    v6 = [v3 objectAtIndexedSubscript:0];
 LABEL_9:
 
     goto LABEL_10;
   }
 
-  v6 = 0;
-  v7 = &stru_1000A4BB0;
+  v5 = 0;
+  v6 = &stru_1000A4BB0;
 LABEL_10:
+  v7 = v5;
   v8 = v6;
-  v9 = v7;
-  result.var1 = v9;
-  result.var0 = v8;
+  result.var1 = v8;
+  result.var0 = v7;
   return result;
 }
 
 - (ipp_value_resolution_t)resolution
 {
-  x_payload = self->x_payload;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
 LABEL_7:
-    v12 = 0;
     v11 = 0;
-    v13 = 0;
+    v10 = 0;
+    v12 = 0;
     goto LABEL_8;
   }
 
-  v4 = self->x_payload;
-  if ([v4 count]!= 3)
+  v3 = self->x_payload;
+  if ([v3 count]!= 3)
   {
-    v14 = _PKLogCategory(PKLogCategoryFramework);
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v13 = _PKLogCategory(PKLogCategoryFramework);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      *v16 = 0;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "invalid resolution object", v16, 2u);
+      *v15 = 0;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "invalid resolution object", v15, 2u);
     }
 
     goto LABEL_7;
   }
 
-  v5 = [v4 objectAtIndexedSubscript:0];
-  integerValue = [v5 integerValue];
-  v7 = [v4 objectAtIndexedSubscript:1];
-  integerValue2 = [v7 integerValue];
-  v9 = [v4 objectAtIndexedSubscript:2];
-  integerValue3 = [v9 integerValue];
+  v4 = [v3 objectAtIndexedSubscript:0];
+  integerValue = [v4 integerValue];
+  v6 = [v3 objectAtIndexedSubscript:1];
+  integerValue2 = [v6 integerValue];
+  v8 = [v3 objectAtIndexedSubscript:2];
+  integerValue3 = [v8 integerValue];
 
-  v11 = integerValue2 << 32;
-  v12 = integerValue;
-  v13 = integerValue3;
+  v10 = integerValue2 << 32;
+  v11 = integerValue;
+  v12 = integerValue3;
 LABEL_8:
-  v15 = v11 | v12;
-  result.var0 = v15;
-  result.var1 = HIDWORD(v15);
-  result.var2 = v13;
+  v14 = v10 | v11;
+  result.var0 = v14;
+  result.var1 = HIDWORD(v14);
+  result.var2 = v12;
   return result;
+}
+
+- (void)setResolution:(ipp_value_resolution_t)resolution
+{
+  v3 = *&resolution.var2;
+  v4 = *&resolution.var0;
+  v6 = [NSNumber numberWithInt:?];
+  v7 = [NSNumber numberWithInt:HIDWORD(v4), v6];
+  v11[1] = v7;
+  v8 = [NSNumber numberWithUnsignedInt:v3];
+  v11[2] = v8;
+  v9 = [NSArray arrayWithObjects:v11 count:3];
+  x_payload = self->x_payload;
+  self->x_payload = v9;
 }
 
 - (ipp_value_range_t)range
 {
   v4 = v2;
-  x_payload = self->x_payload;
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
   if ((isKindOfClass & 1) == 0)
@@ -244,23 +270,23 @@ LABEL_9:
     return isKindOfClass;
   }
 
-  v12 = self->x_payload;
-  if ([v12 count]!= 2)
+  v11 = self->x_payload;
+  if ([v11 count]!= 2)
   {
-    v11 = _PKLogCategory(PKLogCategoryFramework);
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v10 = _PKLogCategory(PKLogCategoryFramework);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "invalid range object", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "invalid range object", buf, 2u);
     }
 
     goto LABEL_9;
   }
 
-  v7 = [v12 objectAtIndexedSubscript:0];
-  integerValue = [v7 integerValue];
-  v9 = [v12 objectAtIndexedSubscript:1];
-  integerValue2 = [v9 integerValue];
+  v6 = [v11 objectAtIndexedSubscript:0];
+  integerValue = [v6 integerValue];
+  v8 = [v11 objectAtIndexedSubscript:1];
+  integerValue2 = [v8 integerValue];
   *v4 = integerValue;
   *(v4 + 4) = integerValue2;
 
@@ -280,36 +306,34 @@ LABEL_9:
 
 - (NSData)unknown
 {
-  x_payload = self->x_payload;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v4 = self->x_payload;
+    v3 = self->x_payload;
   }
 
   else
   {
-    v4 = 0;
+    v3 = 0;
   }
 
-  return v4;
+  return v3;
 }
 
 - (ipp_collection_t)collection
 {
-  x_payload = self->x_payload;
   objc_opt_class();
-  if (objc_opt_isKindOfClass() & 1) != 0 || (v4 = self->x_payload, objc_getClass("PK_ipp_collection_t"), (objc_opt_isKindOfClass()))
+  if (objc_opt_isKindOfClass() & 1) != 0 || (objc_getClass("PK_ipp_collection_t"), (objc_opt_isKindOfClass()))
   {
-    v5 = self->x_payload;
+    v3 = self->x_payload;
   }
 
   else
   {
-    v5 = 0;
+    v3 = 0;
   }
 
-  return v5;
+  return v3;
 }
 
 - (id)description
@@ -344,17 +368,16 @@ LABEL_9:
       if (value == 34)
       {
         bOOLean = [(ipp_value_t *)self BOOLean];
-        v12 = @"false";
+        x_payload = @"false";
         if (bOOLean)
         {
-          v12 = @"true";
+          x_payload = @"true";
         }
 
         goto LABEL_55;
       }
 
 LABEL_45:
-      x_payload = self->x_payload;
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -362,7 +385,7 @@ LABEL_45:
         if (![v29 count])
         {
 
-          v41 = @"<empty array>";
+          v40 = @"<empty array>";
           goto LABEL_56;
         }
 
@@ -372,26 +395,26 @@ LABEL_45:
         {
           if ([v29 count]== 1)
           {
-            v41 = v30;
+            v40 = v30;
             goto LABEL_44;
           }
 
           if ([v29 count]== 2)
           {
             v32 = [v29 objectAtIndexedSubscript:1];
-            v41 = [NSString stringWithFormat:@"%@ (%@)", v30, v32];
+            v40 = [NSString stringWithFormat:@"%@ (%@)", v30, v32];
             goto LABEL_43;
           }
         }
       }
 
-      v12 = self->x_payload;
+      x_payload = self->x_payload;
 LABEL_55:
-      v41 = v12;
+      v40 = x_payload;
       goto LABEL_56;
     }
 
-    v41 = +[NSNull null];
+    v40 = +[NSNull null];
     goto LABEL_56;
   }
 
@@ -406,15 +429,15 @@ LABEL_55:
         v27 = [NSString stringWithFormat:@"%@<%p> - %lu bytes {", objc_opt_class(), v25, [v25 length]];
         [v26 addObject:v27];
 
-        *&v50.tm_sec = _NSConcreteStackBlock;
-        *&v50.tm_hour = 3221225472;
-        *&v50.tm_mon = sub_10003EBE8;
-        *&v50.tm_wday = &unk_1000A3240;
-        v41 = v26;
-        *&v50.tm_isdst = v41;
-        _visitHexLines(v25, 0, &v50);
+        *&v49.tm_sec = _NSConcreteStackBlock;
+        *&v49.tm_hour = 3221225472;
+        *&v49.tm_mon = sub_10003EBE8;
+        *&v49.tm_wday = &unk_1000A3240;
+        v40 = v26;
+        *&v49.tm_isdst = v40;
+        _visitHexLines(v25, 0, &v49);
         v28 = [NSString stringWithFormat:@"}"];
-        [(__CFString *)v41 addObject:v28];
+        [(__CFString *)v40 addObject:v28];
 
         goto LABEL_56;
       }
@@ -423,13 +446,13 @@ LABEL_55:
       {
         date = [(ipp_value_t *)self date];
         v6 = v5;
-        memset(&v50.tm_wday, 0, 32);
-        v50.tm_mon = BYTE2(date) - 1;
-        v50.tm_year = (bswap32(date) >> 16) - 1900;
-        v50.tm_hour = BYTE4(date);
-        v50.tm_mday = BYTE3(date);
-        *&v50.tm_sec = vand_s8(vmovn_s64(vshlq_u64(vdupq_n_s64(date), xmmword_10006B950)), 0xFF000000FFLL);
-        v7 = mktime(&v50);
+        memset(&v49.tm_wday, 0, 32);
+        v49.tm_mon = BYTE2(date) - 1;
+        v49.tm_year = (bswap32(date) >> 16) - 1900;
+        v49.tm_hour = BYTE4(date);
+        v49.tm_mday = BYTE3(date);
+        *&v49.tm_sec = vand_s8(vmovn_s64(vshlq_u64(vdupq_n_s64(date), xmmword_10006B950)), 0xFF000000FFLL);
+        v7 = mktime(&v49);
         v8 = 3600;
         if (v6 != 45)
         {
@@ -443,7 +466,7 @@ LABEL_55:
         }
 
         v10 = [NSDate dateWithTimeIntervalSince1970:(v9 * BYTE2(v6) + v8 * BYTE1(v6) + v7)];
-        v41 = [v10 description];
+        v40 = [v10 description];
 
         goto LABEL_56;
       }
@@ -452,7 +475,7 @@ LABEL_55:
     }
 
 LABEL_39:
-    v41 = [NSString stringWithFormat:@"%d", [(ipp_value_t *)self integer]];
+    v40 = [NSString stringWithFormat:@"%d", [(ipp_value_t *)self integer]];
     goto LABEL_56;
   }
 
@@ -464,7 +487,7 @@ LABEL_39:
     v32 = [v29 objectAtIndexedSubscript:1];
     integerValue2 = [v32 integerValue];
     v35 = [v29 objectAtIndexedSubscript:2];
-    v41 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"resolution<%d, %d, %d>", integerValue, integerValue2, [v35 integerValue]);
+    v40 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"resolution<%d, %d, %d>", integerValue, integerValue2, [v35 integerValue]);
 
     goto LABEL_43;
   }
@@ -475,7 +498,7 @@ LABEL_39:
     v30 = [v29 objectAtIndexedSubscript:0];
     integerValue3 = [v30 integerValue];
     v32 = [v29 objectAtIndexedSubscript:1];
-    v41 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"range<%d, %d>", integerValue3, [v32 integerValue]);
+    v40 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"range<%d, %d>", integerValue3, [v32 integerValue]);
 LABEL_43:
 
 LABEL_44:
@@ -487,68 +510,68 @@ LABEL_44:
     goto LABEL_45;
   }
 
-  v38 = self->x_payload;
-  v41 = objc_opt_new();
-  v48 = 0u;
-  v49 = 0u;
-  v46 = 0u;
+  v37 = self->x_payload;
+  v40 = objc_opt_new();
   v47 = 0u;
-  attrs = [v38 attrs];
+  v48 = 0u;
+  v45 = 0u;
+  v46 = 0u;
+  attrs = [v37 attrs];
   obj = attrs;
-  v14 = [attrs countByEnumeratingWithState:&v46 objects:v54 count:16];
+  v14 = [attrs countByEnumeratingWithState:&v45 objects:v53 count:16];
   if (v14)
   {
-    v40 = *v47;
+    v39 = *v46;
     do
     {
       for (i = 0; i != v14; i = i + 1)
       {
-        if (*v47 != v40)
+        if (*v46 != v39)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v46 + 1) + 8 * i);
+        v16 = *(*(&v45 + 1) + 8 * i);
         name = [v16 name];
         v18 = objc_opt_new();
-        v44 = 0u;
-        v45 = 0u;
-        v42 = 0u;
         v43 = 0u;
+        v44 = 0u;
+        v41 = 0u;
+        v42 = 0u;
         values = [v16 values];
-        v20 = [values countByEnumeratingWithState:&v42 objects:v53 count:16];
+        v20 = [values countByEnumeratingWithState:&v41 objects:v52 count:16];
         if (v20)
         {
-          v21 = *v43;
+          v21 = *v42;
           do
           {
             for (j = 0; j != v20; j = j + 1)
             {
-              if (*v43 != v21)
+              if (*v42 != v21)
               {
                 objc_enumerationMutation(values);
               }
 
-              v23 = [*(*(&v42 + 1) + 8 * j) loggingValue:{objc_msgSend(v16, "value_tag")}];
+              v23 = [*(*(&v41 + 1) + 8 * j) loggingValue:{objc_msgSend(v16, "value_tag")}];
               [v18 addObject:v23];
             }
 
-            v20 = [values countByEnumeratingWithState:&v42 objects:v53 count:16];
+            v20 = [values countByEnumeratingWithState:&v41 objects:v52 count:16];
           }
 
           while (v20);
         }
 
-        v51[0] = @"col_name";
-        v51[1] = @"col_vals";
-        v52[0] = name;
-        v52[1] = v18;
-        v24 = [NSDictionary dictionaryWithObjects:v52 forKeys:v51 count:2];
-        [(__CFString *)v41 addObject:v24];
+        v50[0] = @"col_name";
+        v50[1] = @"col_vals";
+        v51[0] = name;
+        v51[1] = v18;
+        v24 = [NSDictionary dictionaryWithObjects:v51 forKeys:v50 count:2];
+        [(__CFString *)v40 addObject:v24];
       }
 
       attrs = obj;
-      v14 = [obj countByEnumeratingWithState:&v46 objects:v54 count:16];
+      v14 = [obj countByEnumeratingWithState:&v45 objects:v53 count:16];
     }
 
     while (v14);
@@ -556,7 +579,16 @@ LABEL_44:
 
 LABEL_56:
 
-  return v41;
+  return v40;
+}
+
++ (id)valueWithInteger:(int)integer
+{
+  v3 = *&integer;
+  v4 = objc_opt_new();
+  [v4 setInteger:v3];
+
+  return v4;
 }
 
 + (id)valueWithBoolean:(int)boolean

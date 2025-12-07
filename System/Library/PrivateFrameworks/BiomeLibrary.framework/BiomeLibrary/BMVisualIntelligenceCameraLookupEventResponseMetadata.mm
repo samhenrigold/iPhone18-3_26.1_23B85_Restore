@@ -96,7 +96,7 @@ LABEL_21:
 
 - (id)jsonDictionary
 {
-  v15[4] = *MEMORY[0x1E69E9840];
+  v14[4] = *MEMORY[0x1E69E9840];
   if ([(BMVisualIntelligenceCameraLookupEventResponseMetadata *)self hasHasResultRetrieved])
   {
     v3 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMVisualIntelligenceCameraLookupEventResponseMetadata hasResultRetrieved](self, "hasResultRetrieved")}];
@@ -128,39 +128,39 @@ LABEL_21:
     v6 = 0;
   }
 
-  v14[0] = @"hasResultRetrieved";
+  v13[0] = @"hasResultRetrieved";
   null = v3;
   if (!v3)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v15[0] = null;
-  v14[1] = @"endReason";
+  v14[0] = null;
+  v13[1] = @"endReason";
   null2 = v4;
   if (!v4)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v15[1] = null2;
-  v14[2] = @"httpErrorCode";
+  v14[1] = null2;
+  v13[2] = @"httpErrorCode";
   null3 = v5;
   if (!v5)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v15[2] = null3;
-  v14[3] = @"serverErrorCode";
+  v14[2] = null3;
+  v13[3] = @"serverErrorCode";
   null4 = v6;
   if (!v6)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v15[3] = null4;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:4];
+  v14[3] = null4;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:4];
   if (v6)
   {
     if (v5)
@@ -205,19 +205,18 @@ LABEL_21:
 LABEL_28:
 
 LABEL_22:
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
 
 - (BMVisualIntelligenceCameraLookupEventResponseMetadata)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v40[1] = *MEMORY[0x1E69E9840];
+  v39[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"hasResultRetrieved"];
   if (!v7 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
-    v32 = 0;
+    v31 = 0;
 LABEL_4:
     v8 = [dictionaryCopy objectForKeyedSubscript:@"endReason"];
     if (v8 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
@@ -235,32 +234,32 @@ LABEL_4:
         {
           if (!error)
           {
-            v31 = 0;
+            v30 = 0;
             selfCopy4 = 0;
             goto LABEL_35;
           }
 
-          v26 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v27 = *MEMORY[0x1E698F240];
-          v37 = *MEMORY[0x1E696A578];
+          v25 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v26 = *MEMORY[0x1E698F240];
+          v36 = *MEMORY[0x1E696A578];
           v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"endReason"];
-          v38 = v16;
-          v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
-          v31 = 0;
+          v37 = v16;
+          v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
+          v30 = 0;
           selfCopy4 = 0;
-          *error = [v26 initWithDomain:v27 code:2 userInfo:v13];
+          *error = [v25 initWithDomain:v26 code:2 userInfo:v13];
           goto LABEL_34;
         }
 
         v9 = [MEMORY[0x1E696AD98] numberWithInt:BMVisualIntelligenceCameraLookupEventRequestEndReasonFromString(v8)];
       }
 
-      v31 = v9;
+      v30 = v9;
     }
 
     else
     {
-      v31 = 0;
+      v30 = 0;
     }
 
     v13 = [dictionaryCopy objectForKeyedSubscript:@"httpErrorCode"];
@@ -276,15 +275,15 @@ LABEL_4:
           goto LABEL_34;
         }
 
-        v29 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v28 = objc_alloc(MEMORY[0x1E696ABC0]);
         v19 = *MEMORY[0x1E698F240];
-        v35 = *MEMORY[0x1E696A578];
+        v34 = *MEMORY[0x1E696A578];
         v18 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"httpErrorCode"];
-        v36 = v18;
-        [MEMORY[0x1E695DF20] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
+        v35 = v18;
+        [MEMORY[0x1E695DF20] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
         selfCopy3 = self;
         v17 = v20 = error;
-        v21 = [v29 initWithDomain:v19 code:2 userInfo:v17];
+        v21 = [v28 initWithDomain:v19 code:2 userInfo:v17];
         v16 = 0;
         selfCopy4 = 0;
         *v20 = v21;
@@ -308,7 +307,7 @@ LABEL_4:
     {
       v18 = 0;
 LABEL_22:
-      self = -[BMVisualIntelligenceCameraLookupEventResponseMetadata initWithHasResultRetrieved:endReason:httpErrorCode:serverErrorCode:](selfCopy3, "initWithHasResultRetrieved:endReason:httpErrorCode:serverErrorCode:", v32, [v31 intValue], v16, v18);
+      self = -[BMVisualIntelligenceCameraLookupEventResponseMetadata initWithHasResultRetrieved:endReason:httpErrorCode:serverErrorCode:](selfCopy3, "initWithHasResultRetrieved:endReason:httpErrorCode:serverErrorCode:", v31, [v30 intValue], v16, v18);
       selfCopy4 = self;
 LABEL_33:
 
@@ -325,13 +324,13 @@ LABEL_34:
 
     if (errorCopy2)
     {
-      v30 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v28 = *MEMORY[0x1E698F240];
-      v33 = *MEMORY[0x1E696A578];
+      v29 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v27 = *MEMORY[0x1E698F240];
+      v32 = *MEMORY[0x1E696A578];
       v22 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"serverErrorCode"];
-      v34 = v22;
-      v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
-      *errorCopy2 = [v30 initWithDomain:v28 code:2 userInfo:v23];
+      v33 = v22;
+      v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
+      *errorCopy2 = [v29 initWithDomain:v27 code:2 userInfo:v23];
     }
 
     v18 = 0;
@@ -344,30 +343,29 @@ LABEL_32:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v32 = v7;
+    v31 = v7;
     goto LABEL_4;
   }
 
   if (!error)
   {
-    v32 = 0;
+    v31 = 0;
     selfCopy4 = 0;
     goto LABEL_36;
   }
 
   v10 = objc_alloc(MEMORY[0x1E696ABC0]);
   v11 = *MEMORY[0x1E698F240];
-  v39 = *MEMORY[0x1E696A578];
-  v31 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"hasResultRetrieved"];
-  v40[0] = v31;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v40 forKeys:&v39 count:1];
-  v32 = 0;
+  v38 = *MEMORY[0x1E696A578];
+  v30 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"hasResultRetrieved"];
+  v39[0] = v30;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v39 forKeys:&v38 count:1];
+  v31 = 0;
   selfCopy4 = 0;
   *error = [v10 initWithDomain:v11 code:2 userInfo:v8];
 LABEL_35:
 
 LABEL_36:
-  v24 = *MEMORY[0x1E69E9840];
   return selfCopy4;
 }
 
@@ -385,21 +383,17 @@ LABEL_36:
   toCopy = to;
   if (self->_hasHasResultRetrieved)
   {
-    hasResultRetrieved = self->_hasResultRetrieved;
     PBDataWriterWriteBOOLField();
   }
 
-  endReason = self->_endReason;
   PBDataWriterWriteUint32Field();
   if (self->_hasHttpErrorCode)
   {
-    httpErrorCode = self->_httpErrorCode;
     PBDataWriterWriteInt32Field();
   }
 
   if (self->_hasServerErrorCode)
   {
-    serverErrorCode = self->_serverErrorCode;
     PBDataWriterWriteInt32Field();
   }
 }
@@ -771,36 +765,32 @@ LABEL_79:
 
 + (id)protoFields
 {
-  v9[4] = *MEMORY[0x1E69E9840];
+  v8[4] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"hasResultRetrieved" number:1 type:12 subMessageClass:0];
-  v9[0] = v2;
+  v8[0] = v2;
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"endReason" number:2 type:4 subMessageClass:0];
-  v9[1] = v3;
+  v8[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"httpErrorCode" number:3 type:2 subMessageClass:0];
-  v9[2] = v4;
+  v8[2] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"serverErrorCode" number:4 type:2 subMessageClass:0];
-  v9[3] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:4];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v8[3] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:4];
 
   return v6;
 }
 
 + (id)columns
 {
-  v9[4] = *MEMORY[0x1E69E9840];
+  v8[4] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"hasResultRetrieved" dataType:0 requestOnly:0 fieldNumber:1 protoDataType:12 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"endReason" dataType:0 requestOnly:0 fieldNumber:2 protoDataType:4 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"httpErrorCode" dataType:0 requestOnly:0 fieldNumber:3 protoDataType:2 convertedType:0];
   v5 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"serverErrorCode" dataType:0 requestOnly:0 fieldNumber:4 protoDataType:2 convertedType:0];
-  v9[0] = v2;
-  v9[1] = v3;
-  v9[2] = v4;
-  v9[3] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:4];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v8[0] = v2;
+  v8[1] = v3;
+  v8[2] = v4;
+  v8[3] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:4];
 
   return v6;
 }

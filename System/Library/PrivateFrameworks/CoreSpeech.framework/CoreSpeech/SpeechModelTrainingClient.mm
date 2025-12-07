@@ -1,6 +1,7 @@
 @interface SpeechModelTrainingClient
 + (void)initialize;
 - (SpeechModelTrainingClient)init;
+- (void)buildPhoneticMatchWithLanguage:(id)language saveIntermediateFsts:(BOOL)fsts completion:(id)completion;
 - (void)buildSpeechProfileForLanguage:(id)language;
 - (void)dealloc;
 - (void)extractBundledOovs:(id)oovs appLmDataFileSandboxExtension:(id)extension appBundleId:(id)id completion:(id)completion;
@@ -18,6 +19,7 @@
 - (void)trainPartialAllAppLMWithLanguage:(id)language;
 - (void)trainPartialAllAppLMWithLanguage:(id)language completion:(id)completion;
 - (void)trainPersonalizedLMWithLanguage:(id)language configuration:(id)configuration asset:(id)asset directory:(id)directory completion:(id)completion;
+- (void)trainPersonalizedLMWithLanguage:(id)language configuration:(id)configuration fides:(BOOL)fides activity:(id)activity completion:(id)completion;
 - (void)upperCaseString:(id)string completion:(id)completion;
 - (void)wakeUpWithCompletion:(id)completion;
 - (void)xpcExitClean;
@@ -95,6 +97,26 @@
   textsCopy = texts;
   v11 = [(SpeechModelTrainingClient *)self _serviceProxyWithErrorHandler:v12];
   [v11 generateAudioWithTexts:textsCopy language:languageCopy completion:v8];
+}
+
+- (void)buildPhoneticMatchWithLanguage:(id)language saveIntermediateFsts:(BOOL)fsts completion:(id)completion
+{
+  fstsCopy = fsts;
+  v17[0] = _NSConcreteStackBlock;
+  v17[1] = 3221225472;
+  v17[2] = sub_10000AACC;
+  v17[3] = &unk_10024E1A0;
+  completionCopy = completion;
+  v8 = completionCopy;
+  languageCopy = language;
+  v12 = _NSConcreteStackBlock;
+  v13 = 3221225472;
+  v14 = sub_10000AAE4;
+  v15 = &unk_100252368;
+  v16 = objc_retainBlock(v17);
+  v10 = v16;
+  v11 = [(SpeechModelTrainingClient *)self _serviceProxyWithErrorHandler:&v12];
+  [v11 buildPhoneticMatchWithLanguage:languageCopy saveIntermediateFsts:fstsCopy completion:{v8, v12, v13, v14, v15}];
 }
 
 - (void)buildSpeechProfileForLanguage:(id)language
@@ -238,6 +260,33 @@
   lCopy = l;
   v8 = [(SpeechModelTrainingClient *)self _serviceProxyWithErrorHandler:v9];
   [v8 trainGlobalNNLMwithFidesSessionURL:lCopy completion:v6];
+}
+
+- (void)trainPersonalizedLMWithLanguage:(id)language configuration:(id)configuration fides:(BOOL)fides activity:(id)activity completion:(id)completion
+{
+  fidesCopy = fides;
+  v21[0] = _NSConcreteStackBlock;
+  v21[1] = 3221225472;
+  v21[2] = sub_10000C1A0;
+  v21[3] = &unk_10024E1A0;
+  completionCopy = completion;
+  v11 = completionCopy;
+  configurationCopy = configuration;
+  languageCopy = language;
+  v19[0] = _NSConcreteStackBlock;
+  v19[1] = 3221225472;
+  v19[2] = sub_10000C1B8;
+  v19[3] = &unk_100252368;
+  v14 = objc_retainBlock(v21);
+  v20 = v14;
+  v15 = [(SpeechModelTrainingClient *)self _serviceProxyWithErrorHandler:v19];
+  v17[0] = _NSConcreteStackBlock;
+  v17[1] = 3221225472;
+  v17[2] = sub_10000C2A8;
+  v17[3] = &unk_10024E1A0;
+  v18 = v14;
+  v16 = v14;
+  [v15 trainPersonalizedLMWithLanguage:languageCopy configuration:configurationCopy fides:fidesCopy write:1 completion:v17];
 }
 
 - (void)trainPersonalizedLMWithLanguage:(id)language configuration:(id)configuration asset:(id)asset directory:(id)directory completion:(id)completion

@@ -50,42 +50,42 @@
 
 - (void)_combineMoodVectorsWithGraph:(id)graph
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   v5 = objc_opt_new();
   v6 = objc_opt_new();
   selfCopy = self;
-  v21 = graphCopy;
+  v20 = graphCopy;
   v7 = [(PGMoodSource *)self _moodVectorsWithGraph:graphCopy];
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
-  v8 = [v7 countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v28;
+    v10 = *v27;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v28 != v10)
+        if (*v27 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v27 + 1) + 8 * i);
-        v24[0] = MEMORY[0x277D85DD0];
-        v24[1] = 3221225472;
-        v24[2] = __45__PGMoodSource__combineMoodVectorsWithGraph___block_invoke;
-        v24[3] = &unk_278886530;
-        v25 = v5;
-        v26 = v6;
-        [v12 enumerateWithBlock:v24];
+        v12 = *(*(&v26 + 1) + 8 * i);
+        v23[0] = MEMORY[0x277D85DD0];
+        v23[1] = 3221225472;
+        v23[2] = __45__PGMoodSource__combineMoodVectorsWithGraph___block_invoke;
+        v23[3] = &unk_278886530;
+        v24 = v5;
+        v25 = v6;
+        [v12 enumerateWithBlock:v23];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
     while (v9);
@@ -102,13 +102,13 @@
     [(PGMoodVector *)v5 normalize];
   }
 
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __45__PGMoodSource__combineMoodVectorsWithGraph___block_invoke_2;
-  v22[3] = &unk_2788841C8;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __45__PGMoodSource__combineMoodVectorsWithGraph___block_invoke_2;
+  v21[3] = &unk_2788841C8;
   v14 = v6;
-  v23 = v14;
-  [(PGMoodVector *)v14 enumerateWithBlock:v22];
+  v22 = v14;
+  [(PGMoodVector *)v14 enumerateWithBlock:v21];
   positiveVector = selfCopy->_positiveVector;
   selfCopy->_positiveVector = v5;
   v16 = v5;
@@ -116,11 +116,9 @@
   negativeVector = selfCopy->_negativeVector;
   selfCopy->_negativeVector = v14;
   v18 = v14;
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __45__PGMoodSource__combineMoodVectorsWithGraph___block_invoke(uint64_t result, uint64_t a2, double a3)
+char *__45__PGMoodSource__combineMoodVectorsWithGraph___block_invoke(char *result, uint64_t a2, double a3)
 {
   if (a3 == 1.0)
   {
@@ -137,14 +135,14 @@ uint64_t __45__PGMoodSource__combineMoodVectorsWithGraph___block_invoke(uint64_t
     v3 = 40;
   }
 
-  return [*(result + v3) addValue:a2 forMood:1.0];
+  return [*&result[v3] addValue:a2 forMood:1.0];
 }
 
-uint64_t __45__PGMoodSource__combineMoodVectorsWithGraph___block_invoke_2(uint64_t result, uint64_t a2, double a3)
+id *__45__PGMoodSource__combineMoodVectorsWithGraph___block_invoke_2(id *result, uint64_t a2, double a3)
 {
   if (a3 != 0.0)
   {
-    return [*(result + 32) setValue:a2 forMood:1.0];
+    return [result[4] setValue:a2 forMood:1.0];
   }
 
   return result;
@@ -152,42 +150,40 @@ uint64_t __45__PGMoodSource__combineMoodVectorsWithGraph___block_invoke_2(uint64
 
 - (id)_moodVectorsWithGraph:(id)graph
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   array = [MEMORY[0x277CBEB18] array];
   v6 = [(PGMoodSource *)self _plistMoodIdentifiersWithGraph:graphCopy];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [(PGMoodSource *)self _moodVectorForMoodIdentifier:*(*(&v14 + 1) + 8 * i)];
+        v11 = [(PGMoodSource *)self _moodVectorForMoodIdentifier:*(*(&v13 + 1) + 8 * i)];
         if (v11)
         {
           [array addObject:v11];
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return array;
 }

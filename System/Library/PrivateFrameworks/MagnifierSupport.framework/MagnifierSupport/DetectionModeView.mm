@@ -1,8 +1,8 @@
 @interface DetectionModeView
 - (NSArray)accessibilityCustomActions;
 - (_TtC16MagnifierSupport17DetectionModeView)initWithFrame:(CGRect)frame;
+- (double)toggleDetection;
 - (id)_accessibilitySupplementaryFooterViews;
-- (uint64_t)toggleDetection;
 - (void)didPanPreviewView:(id)view;
 - (void)didPinchToZoom:(id)zoom;
 - (void)didTapRecordButton:(id)button;
@@ -40,7 +40,7 @@
 
   if (v3)
   {
-    sub_257BD2C2C(0, &qword_281543E70);
+    sub_257BD2C2C(0, &qword_281543E70, 0x277D75088);
     v4 = sub_257ECF7F0();
   }
 
@@ -57,7 +57,7 @@
   ObjectType = swift_getObjectType();
   if (actions)
   {
-    sub_257BD2C2C(0, &qword_281543E70);
+    sub_257BD2C2C(0, &qword_281543E70, 0x277D75088);
     sub_257ECF810();
     selfCopy = self;
     actions = sub_257ECF7F0();
@@ -147,7 +147,7 @@
   return result;
 }
 
-- (uint64_t)toggleDetection
+- (double)toggleDetection
 {
   if (qword_281544FE0 != -1)
   {
@@ -181,7 +181,7 @@
       swift_getKeyPath();
       swift_getKeyPath();
       sub_257ECC3F0();
-      return sub_257ECDD70();
+      sub_257ECDD70();
     }
   }
 

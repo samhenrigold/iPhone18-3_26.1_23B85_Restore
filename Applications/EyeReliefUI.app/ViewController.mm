@@ -35,14 +35,20 @@
   v6 = _Block_copy(completion);
   if (v6)
   {
-    *(swift_allocObject() + 16) = v6;
+    v7 = swift_allocObject();
+    *(v7 + 16) = v6;
     v6 = sub_1000058BC;
+  }
+
+  else
+  {
+    v7 = 0;
   }
 
   contextCopy = context;
   selfCopy = self;
   sub_1000036E4(context, v6);
-  sub_10000536C(v6);
+  sub_10000536C(v6, v7);
 }
 
 - (void)prepareForActivationWithContext:(id)context completion:(id)completion
@@ -50,14 +56,20 @@
   v6 = _Block_copy(completion);
   if (v6)
   {
-    *(swift_allocObject() + 16) = v6;
+    v7 = swift_allocObject();
+    *(v7 + 16) = v6;
     v6 = sub_1000053B4;
+  }
+
+  else
+  {
+    v7 = 0;
   }
 
   contextCopy = context;
   selfCopy = self;
   sub_100003C14(context, v6);
-  sub_10000536C(v6);
+  sub_10000536C(v6, v7);
 }
 
 - (BOOL)prefersStatusBarHidden

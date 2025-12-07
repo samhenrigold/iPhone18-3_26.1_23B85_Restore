@@ -178,16 +178,15 @@ void __64__GKDiscoveryBonjour_resolveName_onIndex_withCompletionHandler___block_
   [(GKDiscoveryBonjourResolveContainer *)v2 setContext:*(a1 + 32)];
   [objc_msgSend(*(a1 + 32) "resolveContainers")];
   sdRef = 0;
-  v3 = a1 + 56;
   *(*(*(a1 + 56) + 8) + 24) = DNSServiceResolve(&sdRef, 0x20000u, *(a1 + 64), [*(a1 + 40) UTF8String], objc_msgSend(*(*(a1 + 32) + 8), "UTF8String"), objc_msgSend(*(*(a1 + 32) + 16), "UTF8String"), gkDiscoveryResolveCallback, v2);
   if (*(*(*(a1 + 56) + 8) + 24))
   {
     if (VRTraceGetErrorLogLevelForModule() >= 3)
     {
-      v4 = VRTraceErrorLogLevelToCSTR();
+      VRTraceErrorLogLevelToCSTR();
       if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
       {
-        __64__GKDiscoveryBonjour_resolveName_onIndex_withCompletionHandler___block_invoke_cold_1(v4, v3);
+        __64__GKDiscoveryBonjour_resolveName_onIndex_withCompletionHandler___block_invoke_cold_1();
       }
     }
 
@@ -200,8 +199,8 @@ void __64__GKDiscoveryBonjour_resolveName_onIndex_withCompletionHandler___block_
 LABEL_11:
     if (sdRef)
     {
-      v6 = [(GKDiscoveryBonjourResolveContainer *)v2 serviceRefList];
-      -[NSMutableArray addObject:](v6, "addObject:", [MEMORY[0x277CCAE60] valueWithPointer:sdRef]);
+      v3 = [(GKDiscoveryBonjourResolveContainer *)v2 serviceRefList];
+      -[NSMutableArray addObject:](v3, "addObject:", [MEMORY[0x277CCAE60] valueWithPointer:sdRef]);
     }
 
     goto LABEL_13;
@@ -209,10 +208,10 @@ LABEL_11:
 
   if (VRTraceGetErrorLogLevelForModule() >= 3)
   {
-    v5 = VRTraceErrorLogLevelToCSTR();
+    VRTraceErrorLogLevelToCSTR();
     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
     {
-      __64__GKDiscoveryBonjour_resolveName_onIndex_withCompletionHandler___block_invoke_cold_2(v5, v3);
+      __64__GKDiscoveryBonjour_resolveName_onIndex_withCompletionHandler___block_invoke_cold_2();
     }
   }
 
@@ -269,25 +268,24 @@ uint64_t __34__GKDiscoveryBonjour_stopResolve___block_invoke(uint64_t a1)
 
 uint64_t __52__GKDiscoveryBonjour_createDispatchEventWithSocket___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   *&v2.sa_len = 0xAAAAAAAAAAAAAAAALL;
   *&v2.sa_data[6] = 0xAAAAAAAAAAAAAAAALL;
-  v12 = v2;
-  v13 = v2;
-  v10 = v2;
   v11 = v2;
-  v8 = v2;
+  v12 = v2;
   v9 = v2;
-  v6 = v2;
+  v10 = v2;
   v7 = v2;
-  v5 = -1431655766;
-  result = accept(*(a1 + 40), &v6, &v5);
+  v8 = v2;
+  v5 = v2;
+  v6 = v2;
+  v4 = -1431655766;
+  result = accept(*(a1 + 40), &v5, &v4);
   if (result != -1)
   {
-    result = (*(*(a1 + 32) + 16))();
+    return (*(*(a1 + 32) + 16))();
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -383,13 +381,11 @@ LABEL_13:
 - (void)setupBothListeningSockets
 {
   OUTLINED_FUNCTION_19_1();
-  v9 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
   OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_18_0();
-  OUTLINED_FUNCTION_9_2(&dword_24E50C000, v1, v2, " [%s] %s:%d bind() failed for ipV4 local gaming advertising (%d)", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_9_2(&dword_24E50C000, v0, v1, " [%s] %s:%d bind() failed for ipV4 local gaming advertising (%d)", v2, v3, v4, v5);
 }
 
 - (void)setupListeningSockets
@@ -401,27 +397,27 @@ LABEL_13:
 
 - (void)closeListeningSockets
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   launchdSources = self->_launchdSources;
-  v4 = [(NSMutableArray *)launchdSources countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [(NSMutableArray *)launchdSources countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(launchdSources);
         }
 
-        pointerValue = [*(*(&v10 + 1) + 8 * i) pointerValue];
+        pointerValue = [*(*(&v9 + 1) + 8 * i) pointerValue];
         dispatch_source_cancel(pointerValue);
         if (pointerValue)
         {
@@ -429,41 +425,40 @@ LABEL_13:
         }
       }
 
-      v5 = [(NSMutableArray *)launchdSources countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [(NSMutableArray *)launchdSources countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
 
   [(NSMutableArray *)self->_launchdSources removeAllObjects];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendBonjourRegistrationEvent:(id)event discoveryInfo:(id)info
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   txtRecord.ForceNaturalAlignment = 0xAAAAAAAAAAAAAAAALL;
   *(&txtRecord.ForceNaturalAlignment + 1) = 0xAAAAAAAAAAAAAAAALL;
   TXTRecordCreate(&txtRecord, 0, 0);
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   allKeys = [info allKeys];
-  v6 = [allKeys countByEnumeratingWithState:&v28 objects:v35 count:16];
+  v6 = [allKeys countByEnumeratingWithState:&v27 objects:v34 count:16];
   if (v6)
   {
-    v7 = *v29;
+    v7 = *v28;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v29 != v7)
+        if (*v28 != v7)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v9 = *(*(&v28 + 1) + 8 * i);
+        v9 = *(*(&v27 + 1) + 8 * i);
         v10 = [info valueForKey:v9];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
@@ -485,9 +480,9 @@ LABEL_13:
                 *&buf[12] = 2080;
                 *&buf[14] = "[GKDiscoveryBonjour sendBonjourRegistrationEvent:discoveryInfo:]";
                 *&buf[22] = 1024;
-                LODWORD(v33) = 762;
-                WORD2(v33) = 1024;
-                *(&v33 + 6) = v14;
+                LODWORD(v32) = 762;
+                WORD2(v32) = 1024;
+                *(&v32 + 6) = v14;
                 _os_log_error_impl(&dword_24E50C000, v16, OS_LOG_TYPE_ERROR, " [%s] %s:%d txt record set value failed with error [%d]", buf, 0x22u);
               }
             }
@@ -495,7 +490,7 @@ LABEL_13:
         }
       }
 
-      v6 = [allKeys countByEnumeratingWithState:&v28 objects:v35 count:16];
+      v6 = [allKeys countByEnumeratingWithState:&v27 objects:v34 count:16];
     }
 
     while (v6);
@@ -512,17 +507,17 @@ LABEL_13:
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3052000000;
-  *&v33 = __Block_byref_object_copy__0;
-  *(&v33 + 1) = __Block_byref_object_dispose__0;
+  *&v32 = __Block_byref_object_copy__0;
+  *(&v32 + 1) = __Block_byref_object_dispose__0;
   selfCopy = self;
 
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __65__GKDiscoveryBonjour_sendBonjourRegistrationEvent_discoveryInfo___block_invoke;
-  v27[3] = &unk_279683310;
-  v27[4] = info;
-  v27[5] = buf;
-  self->_collisionCallback = [v27 copy];
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __65__GKDiscoveryBonjour_sendBonjourRegistrationEvent_discoveryInfo___block_invoke;
+  v26[3] = &unk_279683310;
+  v26[4] = info;
+  v26[5] = buf;
+  self->_collisionCallback = [v26 copy];
   uTF8String3 = [event UTF8String];
   uTF8String4 = [(NSString *)self->_serviceType UTF8String];
   listeningPort_low = LOWORD(self->_listeningPort);
@@ -554,10 +549,9 @@ LABEL_13:
 
   TXTRecordDeallocate(&txtRecord);
   _Block_object_dispose(buf, 8);
-  v24 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __65__GKDiscoveryBonjour_sendBonjourRegistrationEvent_discoveryInfo___block_invoke(uint64_t a1)
+void *__65__GKDiscoveryBonjour_sendBonjourRegistrationEvent_discoveryInfo___block_invoke(uint64_t a1)
 {
   result = [*(*(*(a1 + 40) + 8) + 40) serviceNameCollisionCallback];
   if (result)
@@ -595,86 +589,72 @@ uint64_t __65__GKDiscoveryBonjour_sendBonjourRegistrationEvent_discoveryInfo___b
 
 - (void)startBrowsing:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_21_1();
-  OUTLINED_FUNCTION_1_1(&dword_24E50C000, v0, v1, " [%s] %s:%d service browse failed with error [%d]", v3, v4, v5, v6);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_24E50C000, v0, v1, " [%s] %s:%d service browse failed with error [%d]", v2, v3, v4, v5);
 }
 
 - (void)startBrowsing:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_21_1();
-  OUTLINED_FUNCTION_1_1(&dword_24E50C000, v0, v1, " [%s] %s:%d set dispatch queue failed with error [%d]", v3, v4, v5, v6);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_24E50C000, v0, v1, " [%s] %s:%d set dispatch queue failed with error [%d]", v2, v3, v4, v5);
 }
 
-void __64__GKDiscoveryBonjour_resolveName_onIndex_withCompletionHandler___block_invoke_cold_1(uint64_t a1, uint64_t a2)
+void __64__GKDiscoveryBonjour_resolveName_onIndex_withCompletionHandler___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_13_2(a2, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_13_2(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_12_2();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_18_0();
-  OUTLINED_FUNCTION_1_1(&dword_24E50C000, v2, v3, " [%s] %s:%d DNS service resolve failed with error [%d]", v5, v6, v7, v8);
-  v4 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_24E50C000, v0, v1, " [%s] %s:%d DNS service resolve failed with error [%d]", v2, v3, v4, v5);
 }
 
-void __64__GKDiscoveryBonjour_resolveName_onIndex_withCompletionHandler___block_invoke_cold_2(uint64_t a1, uint64_t a2)
+void __64__GKDiscoveryBonjour_resolveName_onIndex_withCompletionHandler___block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_13_2(a2, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_13_2(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_12_2();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_18_0();
-  OUTLINED_FUNCTION_1_1(&dword_24E50C000, v2, v3, " [%s] %s:%d set dispatch queue failed with error [%d]", v5, v6, v7, v8);
-  v4 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_24E50C000, v0, v1, " [%s] %s:%d set dispatch queue failed with error [%d]", v2, v3, v4, v5);
 }
 
 - (void)ipV4Socket
 {
   OUTLINED_FUNCTION_19_1();
-  v9 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
   OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_18_0();
-  OUTLINED_FUNCTION_9_2(&dword_24E50C000, v1, v2, " [%s] %s:%d socket() failed for ipV4 local gaming advertising (%d)", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_9_2(&dword_24E50C000, v0, v1, " [%s] %s:%d socket() failed for ipV4 local gaming advertising (%d)", v2, v3, v4, v5);
 }
 
 - (void)ipV6Socket
 {
   OUTLINED_FUNCTION_19_1();
-  v9 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
   OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_18_0();
-  OUTLINED_FUNCTION_9_2(&dword_24E50C000, v1, v2, " [%s] %s:%d socket() failed for ipV6 local gaming advertising (%d)", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_9_2(&dword_24E50C000, v0, v1, " [%s] %s:%d socket() failed for ipV6 local gaming advertising (%d)", v2, v3, v4, v5);
 }
 
 - (void)sendBonjourRegistrationEvent:discoveryInfo:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_21_1();
-  OUTLINED_FUNCTION_1_1(&dword_24E50C000, v0, v1, " [%s] %s:%d service registration failed with error [%d]", v3, v4, v5, v6);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_24E50C000, v0, v1, " [%s] %s:%d service registration failed with error [%d]", v2, v3, v4, v5);
 }
 
 - (void)sendBonjourRegistrationEvent:discoveryInfo:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_21_1();
-  OUTLINED_FUNCTION_1_1(&dword_24E50C000, v0, v1, " [%s] %s:%d set dispatch queue failed with error [%d]", v3, v4, v5, v6);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_24E50C000, v0, v1, " [%s] %s:%d set dispatch queue failed with error [%d]", v2, v3, v4, v5);
 }
 
 @end

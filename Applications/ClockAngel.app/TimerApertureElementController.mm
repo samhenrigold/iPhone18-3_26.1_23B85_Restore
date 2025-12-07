@@ -68,50 +68,48 @@
 - (NSURL)launchURL
 {
   v3 = sub_1000032D4(&unk_100119A20, &qword_1000D1DC0);
-  v4 = *(*(v3 - 8) + 64);
   __chkstk_darwin(v3 - 8);
-  v6 = &v15 - v5;
-  v7 = OBJC_IVAR____TtC10ClockAngel30TimerApertureElementController_launchURL;
+  v5 = &v14 - v4;
+  v6 = OBJC_IVAR____TtC10ClockAngel30TimerApertureElementController_launchURL;
   swift_beginAccess();
-  sub_10002CFC4(self + v7, v6, &unk_100119A20, &qword_1000D1DC0);
-  v8 = type metadata accessor for URL();
-  v9 = *(v8 - 8);
-  v10 = (*(v9 + 48))(v6, 1, v8);
-  v11 = 0;
-  if (v10 != 1)
+  sub_10002CFC4(self + v6, v5, &unk_100119A20, &qword_1000D1DC0);
+  v7 = type metadata accessor for URL();
+  v8 = *(v7 - 8);
+  v9 = (*(v8 + 48))(v5, 1, v7);
+  v10 = 0;
+  if (v9 != 1)
   {
-    URL._bridgeToObjectiveC()(v10);
-    v13 = v12;
-    (*(v9 + 8))(v6, v8);
-    v11 = v13;
+    URL._bridgeToObjectiveC()(v9);
+    v12 = v11;
+    (*(v8 + 8))(v5, v7);
+    v10 = v12;
   }
 
-  return v11;
+  return v10;
 }
 
 - (void)setLaunchURL:(id)l
 {
   v5 = sub_1000032D4(&unk_100119A20, &qword_1000D1DC0);
-  v6 = *(*(v5 - 8) + 64);
   __chkstk_darwin(v5 - 8);
-  v8 = &v13 - v7;
+  v7 = &v12 - v6;
   if (l)
   {
     static URL._unconditionallyBridgeFromObjectiveC(_:)();
-    v9 = type metadata accessor for URL();
-    (*(*(v9 - 8) + 56))(v8, 0, 1, v9);
+    v8 = type metadata accessor for URL();
+    (*(*(v8 - 8) + 56))(v7, 0, 1, v8);
   }
 
   else
   {
-    v10 = type metadata accessor for URL();
-    (*(*(v10 - 8) + 56))(v8, 1, 1, v10);
+    v9 = type metadata accessor for URL();
+    (*(*(v9 - 8) + 56))(v7, 1, 1, v9);
   }
 
-  v11 = OBJC_IVAR____TtC10ClockAngel30TimerApertureElementController_launchURL;
+  v10 = OBJC_IVAR____TtC10ClockAngel30TimerApertureElementController_launchURL;
   swift_beginAccess();
   selfCopy = self;
-  sub_10004EC60(v8, self + v11, &unk_100119A20, &qword_1000D1DC0);
+  sub_10004EC60(v7, self + v10, &unk_100119A20, &qword_1000D1DC0);
   swift_endAccess();
 }
 
@@ -119,18 +117,16 @@
 {
   if (*(self + OBJC_IVAR____TtC10ClockAngel30TimerApertureElementController_associatedAppBundleIdentifier + 8))
   {
-    v2 = *(self + OBJC_IVAR____TtC10ClockAngel30TimerApertureElementController_associatedAppBundleIdentifier);
-    v3 = *(self + OBJC_IVAR____TtC10ClockAngel30TimerApertureElementController_associatedAppBundleIdentifier + 8);
 
-    v4 = String._bridgeToObjectiveC()();
+    v2 = String._bridgeToObjectiveC()();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (void)setAssociatedAppBundleIdentifier:(id)identifier
@@ -147,7 +143,6 @@
   }
 
   v6 = (self + OBJC_IVAR____TtC10ClockAngel30TimerApertureElementController_associatedAppBundleIdentifier);
-  v7 = *(self + OBJC_IVAR____TtC10ClockAngel30TimerApertureElementController_associatedAppBundleIdentifier + 8);
   *v6 = v4;
   v6[1] = v5;
 }
@@ -236,27 +231,26 @@
 {
   v4 = type metadata accessor for DateInterval();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   __chkstk_darwin(v4);
-  v8 = &v14 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v13 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   static DateInterval._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
   isa = DateInterval._bridgeToObjectiveC()().super.isa;
-  v11 = type metadata accessor for TimerApertureElementController(0);
-  v14.receiver = selfCopy;
-  v14.super_class = v11;
-  v12 = [(TimerApertureElementController *)&v14 _timelinesForDateInterval:isa];
+  v10 = type metadata accessor for TimerApertureElementController(0);
+  v13.receiver = selfCopy;
+  v13.super_class = v10;
+  v11 = [(TimerApertureElementController *)&v13 _timelinesForDateInterval:isa];
 
-  if (!v12)
+  if (!v11)
   {
     sub_10002BB3C(0, &unk_100119780, BLSAlwaysOnTimeline_ptr);
     static Array._unconditionallyBridgeFromObjectiveC(_:)();
-    v12 = Array._bridgeToObjectiveC()().super.isa;
+    v11 = Array._bridgeToObjectiveC()().super.isa;
   }
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 
-  return v12;
+  return v11;
 }
 
 - (void)_updateWithFrameSpecifier:(id)specifier completion:(id)completion

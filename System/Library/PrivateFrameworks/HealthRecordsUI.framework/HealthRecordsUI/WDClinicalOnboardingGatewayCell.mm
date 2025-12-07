@@ -758,7 +758,7 @@ id __60__WDClinicalOnboardingGatewayCell__createTapToConnectButton__block_invoke
       v18 = *MEMORY[0x1E696B948];
       if (os_log_type_enabled(*MEMORY[0x1E696B948], OS_LOG_TYPE_ERROR))
       {
-        [WDClinicalOnboardingGatewayCell _didTapConnectButton:v18];
+        [(WDClinicalOnboardingGatewayCell *)v18 _didTapConnectButton:v6];
       }
     }
   }
@@ -770,7 +770,7 @@ LABEL_5:
     v9 = *MEMORY[0x1E696B948];
     if (os_log_type_enabled(*MEMORY[0x1E696B948], OS_LOG_TYPE_ERROR))
     {
-      [WDClinicalOnboardingGatewayCell _didTapConnectButton:v9];
+      [(WDClinicalOnboardingGatewayCell *)v9 _didTapConnectButton:v6];
     }
   }
 }
@@ -785,20 +785,24 @@ LABEL_5:
   [tapToConnectButton setTitleColor:tintColor forState:0];
 }
 
-- (void)_didTapConnectButton:(void *)a1 .cold.1(void *a1)
+- (void)_didTapConnectButton:(void *)a1 .cold.1(void *a1, uint64_t a2)
 {
-  v1 = a1;
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
-  OUTLINED_FUNCTION_9(&dword_1D101F000, v4, v5, "%{public}@ table view delegate does not respond to clinicalOnboardingGatewayCell:didTapConnectWithGateway:dataProvider:", v6, v7, v8, v9, 2u);
+  v2 = a1;
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_9(&dword_1D101F000, v5, v6, "%{public}@ table view delegate does not respond to clinicalOnboardingGatewayCell:didTapConnectWithGateway:dataProvider:", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
-- (void)_didTapConnectButton:(void *)a1 .cold.2(void *a1)
+- (void)_didTapConnectButton:(void *)a1 .cold.2(void *a1, uint64_t a2)
 {
-  v1 = a1;
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
-  OUTLINED_FUNCTION_9(&dword_1D101F000, v4, v5, "%{public}@ unable to find containing table view", v6, v7, v8, v9, 2u);
+  v2 = a1;
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_9(&dword_1D101F000, v5, v6, "%{public}@ unable to find containing table view", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 @end

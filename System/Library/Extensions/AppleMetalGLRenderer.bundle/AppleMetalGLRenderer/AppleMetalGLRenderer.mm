@@ -143,12 +143,28 @@ BOOL GLDQueryStagingBuffer::allocateResultOffset(GLDQueryStagingBuffer *this, un
   return v3 != v4;
 }
 
-uint64_t GLDQueryStagingBuffer::deferProcessResults(uint64_t this, GLDContextRec *a2, GLRQueryResultBuffer *a3)
+uint64_t GLDQueryStagingBuffer::deferProcessResults(uint64_t this, GLDContextRec *a2, GLRQueryResultBuffer *a3, uint64_t a4)
 {
-  if (*(this + 36) > *(this + 32))
+  v8 = *(this + 32);
+  v9 = *(this + 36);
+  v10 = v9 >= v8;
+  v11 = v9 - v8;
+  if (v11 != 0 && v10)
   {
-    v3 = *(this + 32);
-    GLDContextRec::addCompletionBlock();
+    v15 = v5;
+    v16 = v4;
+    v17 = v6;
+    v18 = v7;
+    v12[0] = MEMORY[0x29EDCA5F8];
+    v12[1] = 3221225472;
+    v12[2] = ___ZN21GLDQueryStagingBuffer19deferProcessResultsEP13GLDContextRecP20GLRQueryResultBuffery_block_invoke;
+    v12[3] = &__block_descriptor_64_e28_v16__0___MTLCommandBuffer__8l;
+    v12[4] = this;
+    v12[5] = a3;
+    v13 = v8;
+    v14 = v11;
+    v12[6] = a4;
+    GLDContextRec::addCompletionBlock(a2, v12);
   }
 
   return this;
@@ -194,23 +210,23 @@ uint64_t GLDQueryRec::getCounter(GLDQueryRec *this)
   return v4;
 }
 
-intptr_t GLDContextRec::waitQueryStamp(intptr_t this, unint64_t a2)
+id *GLDContextRec::waitQueryStamp(id *this, unint64_t a2)
 {
   v3 = this;
-  if (*(this + 4776) < a2)
+  if (this[597] < a2)
   {
     this = GLDContextRec::flushContext(this);
   }
 
-  if (*(v3 + 4784) < a2)
+  if (v3[598] < a2)
   {
-    pthread_mutex_lock((v3 + 4888));
-    while (*(v3 + 4784) < a2)
+    pthread_mutex_lock((v3 + 611));
+    while (v3[598] < a2)
     {
-      pthread_cond_wait((v3 + 4952), (v3 + 4888));
+      pthread_cond_wait((v3 + 619), (v3 + 611));
     }
 
-    return pthread_mutex_unlock((v3 + 4888));
+    return pthread_mutex_unlock((v3 + 611));
   }
 
   return this;
@@ -290,31 +306,31 @@ LABEL_5:
   return v4;
 }
 
-uint64_t GLDContextRec::endQuery(uint64_t this, GLDQueryRec *a2, int a3)
+void *GLDContextRec::endQuery(void *this, GLDQueryRec *a2, int a3)
 {
   if (a3 == 6)
   {
-    *(this + 3368) = 0;
+    this[421] = 0;
   }
 
   else if (a3)
   {
-    v5 = MTLReleaseAssertionFailure();
-    return GLDContextRec::beginQuery(v5, v6, v7);
+    v6 = MTLReleaseAssertionFailure("endQuery", 368, "false", "unsupported query type", v3, v4);
+    return GLDContextRec::beginQuery(v6, v7, v8);
   }
 
   else
   {
     *(a2 + 8) = 0;
-    v4 = *(this + 16);
+    v5 = this[2];
 
-    return [v4 setVisibilityResultMode:0 offset:0];
+    return [v5 setVisibilityResultMode:0 offset:0];
   }
 
   return this;
 }
 
-void *GLDContextRec::beginQuery(GLDContextRec *this, GLDQueryRec *a2, int a3)
+char *GLDContextRec::beginQuery(GLDContextRec *this, GLDQueryRec *a2, int a3)
 {
   if (a3 == 6)
   {
@@ -326,7 +342,7 @@ void *GLDContextRec::beginQuery(GLDContextRec *this, GLDQueryRec *a2, int a3)
 
   else if (a3)
   {
-    v12 = MTLReleaseAssertionFailure();
+    v12 = MTLReleaseAssertionFailure("beginQuery", 415, "false", "unsupported query type");
     return GLDContextRec::loadCurrentQueries(v12);
   }
 
@@ -373,16 +389,16 @@ void *GLDContextRec::beginQuery(GLDContextRec *this, GLDQueryRec *a2, int a3)
   return result;
 }
 
-GLDContextRec *GLDContextRec::loadCurrentQueries(GLDContextRec *this)
+char *GLDContextRec::loadCurrentQueries(char *this)
 {
   v1 = this;
   v2 = 0;
-  v3 = (this + 4792);
+  v3 = this + 4792;
   do
   {
     v4 = *(v1 + 14) + 8 * v2;
     v5 = *(v4 + 432);
-    v6 = v3[v2];
+    v6 = *&v3[8 * v2];
     if (v5 != v6)
     {
       if (v5)
@@ -392,8 +408,8 @@ GLDContextRec *GLDContextRec::loadCurrentQueries(GLDContextRec *this)
         {
           this = GLDContextRec::endQuery(v1, *(v4 + 432), v5[9]);
           v5[9] = 12;
-          v3[v7] = 0;
-          v6 = v3[v2];
+          *&v3[8 * v7] = 0;
+          v6 = *&v3[8 * v2];
         }
       }
 
@@ -402,14 +418,14 @@ GLDContextRec *GLDContextRec::loadCurrentQueries(GLDContextRec *this)
         v8 = v6[9];
         this = GLDContextRec::endQuery(v1, v6, v6[9]);
         v6[9] = 12;
-        v3[v8] = 0;
+        *&v3[8 * v8] = 0;
       }
 
       if (v5)
       {
         this = GLDContextRec::beginQuery(v1, v5, v2);
         v5[9] = v2;
-        v3[v2] = v5;
+        *&v3[8 * v2] = v5;
       }
     }
 
@@ -435,21 +451,21 @@ uint64_t gldCreateQuery(uint64_t a1, unsigned int **a2)
   return 0;
 }
 
-uint64_t gldDestroyQuery(uint64_t a1, GLDQueryRec *a2)
+uint64_t gldDestroyQuery(void *a1, GLDQueryRec *a2)
 {
   v3 = *(a2 + 9);
   if (v3 != 12)
   {
     GLDContextRec::endQuery(a1, a2, *(a2 + 9));
     *(a2 + 9) = 12;
-    *(a1 + 8 * v3 + 4792) = 0;
+    a1[v3 + 599] = 0;
   }
 
   GLDObject::release(a2);
   return 0;
 }
 
-uint64_t gldGetQueryInfo(uint64_t a1, GLDQueryRec *this, int a3, uint64_t *a4)
+uint64_t gldGetQueryInfo(void *a1, GLDQueryRec *this, int a3, uint64_t *a4)
 {
   if (!a3)
   {
@@ -483,7 +499,7 @@ uint64_t gldGetQueryInfo(uint64_t a1, GLDQueryRec *this, int a3, uint64_t *a4)
     {
       GLDContextRec::endQuery(a1, this, *(this + 9));
       *(this + 9) = 12;
-      *(a1 + 8 * v6 + 4792) = 0;
+      a1[v6 + 599] = 0;
     }
 
     GLDQueryRec::getQueryInfo(this, this, a4);
@@ -493,14 +509,14 @@ uint64_t gldGetQueryInfo(uint64_t a1, GLDQueryRec *this, int a3, uint64_t *a4)
   return result;
 }
 
-uint64_t gldModifyQuery(uint64_t a1, GLDQueryRec *a2, int a3, uint64_t *a4)
+uint64_t gldModifyQuery(void *a1, GLDQueryRec *a2, int a3, uint64_t *a4)
 {
   v7 = *(a2 + 9);
   if (v7 != 12)
   {
     GLDContextRec::endQuery(a1, a2, *(a2 + 9));
     *(a2 + 9) = 12;
-    *(a1 + 8 * v7 + 4792) = 0;
+    a1[v7 + 599] = 0;
   }
 
   if (a3)
@@ -579,10 +595,9 @@ uint64_t GLDBufferRec::dealloc(GLDBufferRec *this)
   return GLDObject::dealloc(this);
 }
 
-uint64_t GLDBufferRec::update(GLDBufferRec *this, char a2)
+uint64_t GLDBufferRec::update(GLDBufferRec *this, unint64_t a2)
 {
-  v2 = *(this + 3);
-  if (!*v2)
+  if (!**(this + 3))
   {
     return 0;
   }
@@ -592,32 +607,29 @@ uint64_t GLDBufferRec::update(GLDBufferRec *this, char a2)
     return 1;
   }
 
-  v4 = *(*(this + 2) + 232);
+  v3 = *(*(this + 2) + 232);
   if (!*(this + 5))
   {
-    v5 = GLDObject::operator new(0x20);
-    GLDObject::GLDObject(v5);
-    *v5 = &unk_2A240E820;
-    *(this + 5) = v5;
-    v6 = *(this + 2);
-    GLDLibrary::getAllDisplayMask(v5);
-    *(v5 + 2) = v6;
-    v2 = *(this + 3);
-    v7 = *v2;
+    v4 = GLDObject::operator new(0x20);
+    GLDObject::GLDObject(v4);
+    *v4 = &unk_2A240E820;
+    *(this + 5) = v4;
+    v5 = *(this + 2);
+    GLDLibrary::getAllDisplayMask(v4);
+    *(v4 + 2) = v5;
   }
 
-  v8 = v2[1];
-  result = [v4 newBufferWithBytesNoCopy:? length:? options:? deallocator:?];
+  result = [v3 newBufferWithBytesNoCopy:? length:? options:? deallocator:?];
   if (result)
   {
-    v10 = result;
+    v7 = result;
     [result setLabel:*MEMORY[0x29EDBB7B0]];
-    v11 = GLDObject::operator new(0x30);
-    GLRBufferResource::GLRBufferResource(v11);
-    GLRBufferResource::initWithMetalBuffer(v11, v10, *(*(this + 3) + 8));
+    v8 = GLDObject::operator new(0x30);
+    GLRBufferResource::GLRBufferResource(v8);
+    GLRBufferResource::initWithMetalBuffer(v8, v7, *(*(this + 3) + 8));
 
-    GLDMemoryPluginRec::setBufferResource(*(this + 5), v11);
-    (*(*v11 + 24))(v11);
+    GLDMemoryPluginRec::setBufferResource(*(this + 5), v8);
+    (*(*v8 + 24))(v8);
     return 1;
   }
 
@@ -829,48 +841,47 @@ LABEL_22:
   v3 = *(this + 3);
   if ((GLDDeviceRec::init(void)::enableMetalCapture & 1) == 0)
   {
-    v4 = *(this + 3);
     if (objc_opt_respondsToSelector())
     {
       v3 = [v3 originalObject];
     }
 
-    v5 = v3;
+    v4 = v3;
 
     *(this + 3) = v3;
   }
 
-  v6 = [objc_msgSend(v3 "name")];
-  v7 = strlen(v6);
-  v8 = malloc_type_malloc(v7 + 1, 0x100004077774924uLL);
-  *(this + 121) = v8;
-  strncpy(v8, v6, v7 + 1);
-  v9 = [objc_msgSend(MEMORY[0x29EDBA0F8] stringWithFormat:@"Metal%@GLDriver", objc_msgSend(*(this + 3), "familyName")), "cStringUsingEncoding:", 1];
-  v10 = strlen(v9);
-  v11 = malloc_type_malloc(v10 + 1, 0x100004077774924uLL);
-  *(this + 122) = v11;
-  strncpy(v11, v9, v10 + 1);
+  v5 = [objc_msgSend(v3 "name")];
+  v6 = strlen(v5);
+  v7 = malloc_type_malloc(v6 + 1, 0x100004077774924uLL);
+  *(this + 121) = v7;
+  strncpy(v7, v5, v6 + 1);
+  v8 = [objc_msgSend(MEMORY[0x29EDBA0F8] stringWithFormat:@"Metal%@GLDriver", objc_msgSend(*(this + 3), "familyName")), "cStringUsingEncoding:", 1];
+  v9 = strlen(v8);
+  v10 = malloc_type_malloc(v9 + 1, 0x100004077774924uLL);
+  *(this + 122) = v10;
+  strncpy(v10, v8, v9 + 1);
   *(this + 4) = 850045863;
   *(this + 40) = 0u;
   *(this + 56) = 0u;
   *(this + 72) = 0u;
   *(this + 11) = 0;
-  v12 = [objc_alloc(MEMORY[0x29EDB9F48]) initWithPath:@"/System/Library/Extensions/AppleMetalGLRenderer.bundle"];
-  v13 = [v12 pathForResource:@"default" ofType:@"metallib"];
+  v11 = [objc_alloc(MEMORY[0x29EDB9F48]) initWithPath:@"/System/Library/Extensions/AppleMetalGLRenderer.bundle"];
+  v12 = [v11 pathForResource:@"default" ofType:@"metallib"];
   block[0] = MEMORY[0x29EDCA5F8];
   block[1] = 3221225472;
   block[2] = ___ZN12GLDDeviceRec4initEv_block_invoke_2;
   block[3] = &unk_29F349C30;
-  block[4] = v13;
+  block[4] = v12;
   block[5] = this;
   if (GLDDeviceRec::init(void)::once != -1)
   {
     dispatch_once(&GLDDeviceRec::init(void)::once, block);
   }
 
-  v14 = GLDDeviceRec::init(void)::defaultLibrary;
-  *(this + 12) = v14;
-  if (v14)
+  v13 = GLDDeviceRec::init(void)::defaultLibrary;
+  *(this + 12) = v13;
+  if (v13)
   {
 
     *(this + 55) = objc_alloc_init(MEMORY[0x29EDB8E00]);
@@ -881,26 +892,26 @@ LABEL_22:
     GLRDepthStencilCache::init((this + 464));
     *(this + 26) = GLRFunctionCache::registerBuiltInFunction(this + 216, [*(this + 12) newFunctionWithName:@"clearVertex"]);
     *(this + 14) = malloc_type_calloc(0x100uLL, 4uLL, 0x100004052888210uLL);
-    v15 = off_29F349C50;
+    v14 = off_29F349C50;
     for (i = 120; i != 188; i += 4)
     {
-      v17 = GLRFunctionCache::registerBuiltInFunction(this + 216, [*(this + 12) newFunctionWithName:*v15]);
-      *(this + i) = v17;
-      if (!v17)
+      v16 = GLRFunctionCache::registerBuiltInFunction(this + 216, [*(this + 12) newFunctionWithName:*v14]);
+      *(this + i) = v16;
+      if (!v16)
       {
         GLDDeviceRec::init();
         goto LABEL_22;
       }
 
-      ++v15;
+      ++v14;
     }
 
-    v18 = GLDObject::operator new(0x30);
-    GLRResourceListPool::GLRResourceListPool(v18);
-    *(this + 59) = v18;
-    GLRResourceListPool::initWithResourceListCapacity(v18, 4096);
-    v19 = [MEMORY[0x29EDB9F48] mainBundle];
-    if (v19 && [objc_msgSend(v19 "bundlePath")] != 0x7FFFFFFFFFFFFFFFLL)
+    v17 = GLDObject::operator new(0x30);
+    GLRResourceListPool::GLRResourceListPool(v17);
+    *(this + 59) = v17;
+    GLRResourceListPool::initWithResourceListCapacity(v17, 4096);
+    v18 = [MEMORY[0x29EDB9F48] mainBundle];
+    if (v18 && [objc_msgSend(v18 "bundlePath")] != 0x7FFFFFFFFFFFFFFFLL)
     {
       *(this + 61) = [MEMORY[0x29EDB8E00] dictionaryWithCapacity:4];
       *(this + 62) = [MEMORY[0x29EDB8E00] dictionaryWithCapacity:64];
@@ -909,7 +920,7 @@ LABEL_22:
     }
 
     *(this + 480) = 0;
-    if (atomic_load_explicit(&qword_2A1A12DD8, memory_order_acquire))
+    if (atomic_load_explicit(byte_2A1A12DD8, memory_order_acquire))
     {
       goto LABEL_17;
     }
@@ -1029,58 +1040,57 @@ void *GLDDeviceRec::getDepthStencilStateFromDescriptor(GLDDeviceRec *this, MTLDe
 
 uint64_t GLDDeviceRec::getRenderPipelineStateFromKey(GLDDeviceRec *this, const GLRRenderPipelineKey *a2)
 {
-  v22 = *MEMORY[0x29EDCA608];
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3052000000;
-  v18 = __Block_byref_object_copy_;
-  v19 = __Block_byref_object_dispose_;
-  v20 = 0;
+  v21 = *MEMORY[0x29EDCA608];
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3052000000;
+  v17 = __Block_byref_object_copy_;
+  v18 = __Block_byref_object_dispose_;
+  v19 = 0;
   context[0] = this + 456;
   context[1] = a2;
-  context[2] = &v20;
+  context[2] = &v19;
   dispatch_sync_f(*(this + 56), context, _getRenderPipelineState);
-  v4 = v16[5];
+  v4 = v15[5];
   if (!v4)
   {
     v5 = objc_autoreleasePoolPush();
-    v13 = 0;
-    v6 = GLRRenderPipelineKey::copyDescriptor(a2, (this + 216));
     v12 = 0;
-    v7 = [*(this + 3) newRenderPipelineStateWithDescriptor:v6 options:1 reflection:&v12 error:&v13];
+    v6 = GLRRenderPipelineKey::copyDescriptor(a2, (this + 216));
+    v11 = 0;
+    v7 = [*(this + 3) newRenderPipelineStateWithDescriptor:v6 options:1 reflection:&v11 error:&v12];
     if (v7)
     {
       *(this + 3) |= 0x300000u;
       v8 = *(this + 56);
-      v11[0] = MEMORY[0x29EDCA5F8];
-      v11[1] = 3221225472;
-      v11[2] = ___ZN12GLDDeviceRec29getRenderPipelineStateFromKeyEPK20GLRRenderPipelineKey_block_invoke;
-      v11[3] = &unk_29F349D00;
-      v11[7] = this;
-      v11[8] = a2;
-      v11[6] = &v15;
-      v11[4] = v7;
-      v11[5] = v12;
-      dispatch_barrier_sync(v8, v11);
+      v10[0] = MEMORY[0x29EDCA5F8];
+      v10[1] = 3221225472;
+      v10[2] = ___ZN12GLDDeviceRec29getRenderPipelineStateFromKeyEPK20GLRRenderPipelineKey_block_invoke;
+      v10[3] = &unk_29F349D00;
+      v10[7] = this;
+      v10[8] = a2;
+      v10[6] = &v14;
+      v10[4] = v7;
+      v10[5] = v11;
+      dispatch_barrier_sync(v8, v10);
     }
 
     else if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
     {
-      GLDDeviceRec::getRenderPipelineStateFromKey([v13 localizedDescription], buf);
+      GLDDeviceRec::getRenderPipelineStateFromKey([v12 localizedDescription], buf);
     }
 
     objc_autoreleasePoolPop(v5);
-    v4 = v16[5];
+    v4 = v15[5];
   }
 
-  _Block_object_dispose(&v15, 8);
-  v9 = *MEMORY[0x29EDCA608];
+  _Block_object_dispose(&v14, 8);
   return v4;
 }
 
-void sub_29D36335C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_29D36335C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1151,14 +1161,14 @@ LABEL_4:
     return v4;
   }
 
-  result = MTLReleaseAssertionFailure();
+  result = MTLReleaseAssertionFailure("getDepthStencilStateFromKey", 390, "false", "failed to build depth stencil state");
   __break(1u);
   return result;
 }
 
-void sub_29D363608(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_29D363608(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1170,7 +1180,7 @@ const void *_getDepthStencilState(uint64_t a1)
   return result;
 }
 
-uint64_t GLDDeviceRec::getClearShaderFragmentFunction(GLDDeviceRec *this, uint64_t a2)
+void *GLDDeviceRec::getClearShaderFragmentFunction(GLDDeviceRec *this, uint64_t a2)
 {
   pthread_mutex_lock((this + 32));
   v4 = *(*(this + 14) + 4 * a2);
@@ -1302,7 +1312,7 @@ const char *gldGetDeviceString(uint64_t a1, int a2)
   }
 }
 
-uint64_t gldCreateDevice(GLDObject **a1, uint64_t a2, uint64_t a3)
+uint64_t gldCreateDevice(GLDObject **a1, unint64_t a2, uint64_t a3)
 {
   v5 = GLDObject::operator new(0x3D8);
   GLDObject::GLDObject(v5);
@@ -1481,7 +1491,7 @@ LABEL_9:
     v5 = *(*(this + 5) + 8 * v4);
     v6 = *(v5 + 56);
     v7 = *(v6 + 20);
-    if (v7)
+    if (*(v6 + 20))
     {
       break;
     }
@@ -1554,32 +1564,30 @@ uint64_t GLDFramebufferRec::updateState(GLDFramebufferRec *this)
             goto LABEL_2;
           }
 
-          v11 = v10[3];
-          v25 = 0;
-          v24 = 0u;
-          v12 = *(*(this + 2) + 232);
+          v23 = 0;
+          v22 = 0u;
           MTLPixelFormatGetInfoForDevice();
           if (*(*(v9 + 48) + 212) <= 1u)
           {
-            v13 = &v24 + 2;
+            v11 = &v22 + 2;
           }
 
           else
           {
-            v13 = &v25;
+            v11 = &v23;
           }
 
-          v14 = *v13;
+          v12 = *v11;
           v2 = *(this + 4);
           if (*(v2 + 176) && v6 == *(v2 + 176) - 36064)
           {
-            v15 = *(this + 5);
-            v16 = *(v10 + 3);
-            *(v15 + 84) = *(v10 + 2);
-            *(v15 + 86) = v16;
+            v13 = *(this + 5);
+            v14 = *(v10 + 3);
+            *(v13 + 84) = *(v10 + 2);
+            *(v13 + 86) = v14;
           }
 
-          v8 += 8 * v14;
+          v8 += 8 * v12;
           v7 |= 1 << v6;
         }
       }
@@ -1588,37 +1596,37 @@ uint64_t GLDFramebufferRec::updateState(GLDFramebufferRec *this)
     }
 
     while (v6 != 10);
-    v17 = [*(*(this + 2) + 232) maxFramebufferStorageBits];
+    v15 = [*(*(this + 2) + 232) maxFramebufferStorageBits];
     v1 = *(this + 5);
-    if (v17 >= v8)
+    if (v15 >= v8)
     {
-      v18 = *(v1 + 64);
-      if (!v18 || (*(&glrTextureFormats + 40 * *(v18 + 64) + 36) & 2) != 0)
+      v16 = *(v1 + 64);
+      if (!v16 || (*(&glrTextureFormats + 40 * *(v16 + 64) + 36) & 2) != 0)
       {
-        v19 = *(v1 + 72);
-        if (v19)
+        v17 = *(v1 + 72);
+        if (v17)
         {
           result = 0;
-          v20 = 68;
-          if (*(v19 + 76) == 1)
+          v18 = 68;
+          if (*(v17 + 76) == 1)
           {
-            v20 = 64;
+            v18 = 64;
           }
 
-          v21 = &(&glrTextureFormats)[5 * *(v19 + v20)];
-          if (v18)
+          v19 = &(&glrTextureFormats)[5 * *(v17 + v18)];
+          if (v16)
           {
-            v22 = v19 == v18;
+            v20 = v17 == v16;
           }
 
           else
           {
-            v22 = 1;
+            v20 = 1;
           }
 
-          v23 = !v22;
+          v21 = !v20;
           v4 = 1;
-          if (*(v21 + 36) & 4) == 0 || (v23)
+          if (*(v19 + 36) & 4) == 0 || (v21)
           {
             goto LABEL_5;
           }
@@ -1626,7 +1634,7 @@ uint64_t GLDFramebufferRec::updateState(GLDFramebufferRec *this)
           goto LABEL_38;
         }
 
-        if (v7 || v18)
+        if (v7 || v16)
         {
 LABEL_38:
           v4 = 0;
@@ -1678,19 +1686,20 @@ uint64_t gldDestroyFramebuffer(uint64_t a1, atomic_uint *this)
   return 0;
 }
 
-uint64_t GLDContextRec::loadCurrentProgram(GLDContextRec *this, GLDProgramRec *a2, GLDPipelineProgramRec *a3, unsigned int *a4, unsigned int a5)
+GLDContextRec *GLDContextRec::loadCurrentProgram(GLDContextRec *this, GLDProgramRec *a2, GLDPipelineProgramRec *a3, unsigned int *a4, uint64_t a5)
 {
-  v14 = 0;
+  v5 = a5;
+  v16 = 0;
   if (a3)
   {
-    result = GLDPipelineProgramRec::update(a3, a2, a5, &v14);
+    result = GLDPipelineProgramRec::update(a3, a2, a5, &v16);
     if (!result)
     {
       GLDContextRec::loadCurrentProgram();
-      return GLDContextRec::loadCurrentPipelinePrograms(v12, v13);
+      return GLDContextRec::loadCurrentPipelinePrograms(v12, v13, v14, v15);
     }
 
-    v10 = v14;
+    v10 = v16;
   }
 
   else
@@ -1699,19 +1708,19 @@ uint64_t GLDContextRec::loadCurrentProgram(GLDContextRec *this, GLDProgramRec *a
     result = 0;
   }
 
-  if (*(this + a5 + 511) != result)
+  if (*(this + v5 + 511) != result)
   {
-    *(this + a5 + 511) = result;
+    *(this + v5 + 511) = result;
     *(this + 330) = -1;
     *(this + 618) |= 0x40Cu;
   }
 
-  if (!a5)
+  if (!v5)
   {
     *(this + 516) = v10;
   }
 
-  v11 = this + 8 * a5;
+  v11 = this + 8 * v5;
   *(v11 + 188) = a2;
   *(v11 + 183) = a3;
   return result;
@@ -1751,7 +1760,8 @@ uint64_t GLDContextRec::loadCurrentPipelinePrograms(uint64_t this, unsigned int 
       {
         if ((v7 & 1) == 0)
         {
-          goto LABEL_30;
+          v18 = 111;
+          goto LABEL_32;
         }
 
         v12 = *(v9 + 32);
@@ -1779,7 +1789,7 @@ uint64_t GLDContextRec::loadCurrentPipelinePrograms(uint64_t this, unsigned int 
       v14 = 0;
       v15 = (v13 + 288);
 LABEL_20:
-      this = GLDContextRec::loadCurrentProgram(v5, v14, *v15, a4, 4u);
+      this = GLDContextRec::loadCurrentProgram(v5, v14, *v15, a4, 4);
       v6 = a2[3];
       goto LABEL_21;
     }
@@ -1790,8 +1800,9 @@ LABEL_20:
       goto LABEL_20;
     }
 
-LABEL_30:
-    MTLReleaseAssertionFailure();
+    v18 = 148;
+LABEL_32:
+    MTLReleaseAssertionFailure("loadCurrentPipelinePrograms", v18, "false", 0);
     return gldGetPipelineProgramInfo();
   }
 
@@ -1803,8 +1814,8 @@ LABEL_21:
       v16 = *(*(v5 + 112) + 296);
       if (*(v5 + 1464) != v16)
       {
-        v18 = 0;
-        this = GLDPipelineProgramRec::update(v16, 0, 0, &v18);
+        v19 = 0;
+        this = GLDPipelineProgramRec::update(v16, 0, 0, &v19);
         if (!this)
         {
           v16 = 0;
@@ -1812,7 +1823,7 @@ LABEL_21:
           a2[3] |= 0x10400000u;
         }
 
-        v17 = v18;
+        v17 = v19;
         if (*(v5 + 4088) != this)
         {
           *(v5 + 4088) = this;
@@ -1891,7 +1902,7 @@ void *GLDObject::operator new(GLDObject *this)
   return v2;
 }
 
-uint64_t gpusPixelBytes(int a1, int a2)
+uint64_t gpusPixelBytes(signed int a1, int a2)
 {
   result = 2;
   if (a2 <= 33634)
@@ -1946,7 +1957,7 @@ uint64_t gpusPixelBytes(int a1, int a2)
       if (a2)
       {
 LABEL_54:
-        MTLReleaseAssertionFailure();
+        MTLReleaseAssertionFailure("gpusPixelBytes", 252, "false", "Unknown type");
         goto LABEL_55;
       }
 
@@ -1976,7 +1987,7 @@ LABEL_54:
           if (v9 > 9)
           {
 LABEL_55:
-            v7 = MTLReleaseAssertionFailure();
+            v7 = MTLReleaseAssertionFailure("gpusPixelBytes", 353, "false", "Bad compressed format");
             return gpulComponents(v7);
           }
 
@@ -2154,7 +2165,7 @@ LABEL_22:
   return result;
 }
 
-uint64_t gpusRowBytes(int a1, int a2, int a3)
+uint64_t gpusRowBytes(signed int a1, int a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
 {
   if (a2)
   {
@@ -2176,18 +2187,18 @@ uint64_t gpusRowBytes(int a1, int a2, int a3)
       case 37842:
       case 37888:
       case 37889:
-        v4 = 1;
-        v5 = 5;
-        return (((a3 + v5 - 1) / v5 * gpusPixelBytes(a1, 0)) / v4);
+        v10 = 1;
+        v11 = 5;
+        return (((a3 + v11 - 1) / v11 * gpusPixelBytes(a1, 0)) / v10);
       case 37811:
       case 37812:
       case 37843:
       case 37844:
       case 37890:
       case 37891:
-        v4 = 1;
-        v5 = 6;
-        return (((a3 + v5 - 1) / v5 * gpusPixelBytes(a1, 0)) / v4);
+        v10 = 1;
+        v11 = 6;
+        return (((a3 + v11 - 1) / v11 * gpusPixelBytes(a1, 0)) / v10);
       case 37813:
       case 37814:
       case 37815:
@@ -2211,18 +2222,18 @@ uint64_t gpusRowBytes(int a1, int a2, int a3)
       case 37897:
       case 37898:
       case 37899:
-        v4 = 1;
-        v5 = 10;
-        return (((a3 + v5 - 1) / v5 * gpusPixelBytes(a1, 0)) / v4);
+        v10 = 1;
+        v11 = 10;
+        return (((a3 + v11 - 1) / v11 * gpusPixelBytes(a1, 0)) / v10);
       case 37820:
       case 37821:
       case 37852:
       case 37853:
       case 37900:
       case 37901:
-        v4 = 1;
-        v5 = 12;
-        return (((a3 + v5 - 1) / v5 * gpusPixelBytes(a1, 0)) / v4);
+        v10 = 1;
+        v11 = 12;
+        return (((a3 + v11 - 1) / v11 * gpusPixelBytes(a1, 0)) / v10);
       default:
         goto LABEL_35;
     }
@@ -2232,9 +2243,9 @@ uint64_t gpusRowBytes(int a1, int a2, int a3)
   {
     if ((a1 - 37488) < 0xA)
     {
-      v5 = 4;
-      v4 = 4;
-      return (((a3 + v5 - 1) / v5 * gpusPixelBytes(a1, 0)) / v4);
+      v11 = 4;
+      v10 = 4;
+      return (((a3 + v11 - 1) / v11 * gpusPixelBytes(a1, 0)) / v10);
     }
 
     if (a1 == 35842)
@@ -2242,7 +2253,7 @@ uint64_t gpusRowBytes(int a1, int a2, int a3)
       goto LABEL_33;
     }
 
-    v7 = 35843;
+    v13 = 35843;
     goto LABEL_31;
   }
 
@@ -2265,20 +2276,20 @@ uint64_t gpusRowBytes(int a1, int a2, int a3)
     {
       if (a1 != 35415)
       {
-        v6 = 35420;
+        v12 = 35420;
         goto LABEL_26;
       }
 
 LABEL_33:
-      v5 = 8;
-      v4 = 8;
-      return (((a3 + v5 - 1) / v5 * gpusPixelBytes(a1, 0)) / v4);
+      v11 = 8;
+      v10 = 8;
+      return (((a3 + v11 - 1) / v11 * gpusPixelBytes(a1, 0)) / v10);
     }
 
 LABEL_32:
-    v4 = 8;
-    v5 = 16;
-    return (((a3 + v5 - 1) / v5 * gpusPixelBytes(a1, 0)) / v4);
+    v10 = 8;
+    v11 = 16;
+    return (((a3 + v11 - 1) / v11 * gpusPixelBytes(a1, 0)) / v10);
   }
 
   if (a1 > 35422)
@@ -2290,9 +2301,9 @@ LABEL_32:
         goto LABEL_33;
       }
 
-      v7 = 35841;
+      v13 = 35841;
 LABEL_31:
-      if (a1 != v7)
+      if (a1 != v13)
       {
         goto LABEL_35;
       }
@@ -2301,9 +2312,9 @@ LABEL_31:
     }
 
 LABEL_28:
-    v4 = 1;
-    v5 = 8;
-    return (((a3 + v5 - 1) / v5 * gpusPixelBytes(a1, 0)) / v4);
+    v10 = 1;
+    v11 = 8;
+    return (((a3 + v11 - 1) / v11 * gpusPixelBytes(a1, 0)) / v10);
   }
 
   if (a1 == 35421)
@@ -2311,71 +2322,71 @@ LABEL_28:
     goto LABEL_28;
   }
 
-  v6 = 35422;
+  v12 = 35422;
 LABEL_26:
-  if (a1 == v6)
+  if (a1 == v12)
   {
 LABEL_27:
-    v4 = 1;
-    v5 = 4;
-    return (((a3 + v5 - 1) / v5 * gpusPixelBytes(a1, 0)) / v4);
+    v10 = 1;
+    v11 = 4;
+    return (((a3 + v11 - 1) / v11 * gpusPixelBytes(a1, 0)) / v10);
   }
 
 LABEL_35:
-  v8 = MTLReleaseAssertionFailure();
-  return glrPixelSettings(v8);
+  v14 = MTLReleaseAssertionFailure("gpusRowBytes", 532, "false", "Bad compressed format");
+  return glrPixelSettings(v14, v15, v16, v17, v18, v19, v20, v21, a9);
 }
 
-uint64_t glrPixelSettings(int a1, int a2, int a3, int a4, int *a5, _DWORD *a6, _DWORD *a7, int *a8, char a9)
+uint64_t glrPixelSettings(signed int a1, int a2, int a3, int a4, int *a5, _DWORD *a6, _DWORD *a7, int *a8, char a9)
 {
   result = gpusPixelBytes(a1, a2);
   *a6 = result;
   if (a2 && a8)
   {
-    v18 = result;
-    v19 = a8[1];
-    if (!v19)
+    v23 = result;
+    v24 = a8[1];
+    if (!v24)
     {
-      result = *a8 < 1 ? gpusRowBytes(a1, a2, a3) : (*a8 * result);
-      v20 = a8[7];
-      v21 = result % v20;
-      v19 = v20 + result - result % v20;
-      if (!v21)
+      result = *a8 < 1 ? gpusRowBytes(a1, a2, a3, v18, v19, v20, v21, v22, v30) : (*a8 * result);
+      v25 = a8[7];
+      v26 = result % v25;
+      v24 = v25 + result - result % v25;
+      if (!v26)
       {
-        v19 = result;
+        v24 = result;
       }
     }
 
-    *a5 = v19;
-    v22 = a8[3];
-    if (!v22)
+    *a5 = v24;
+    v27 = a8[3];
+    if (!v27)
     {
-      v23 = a8[2];
-      if (v23 <= 0)
+      v28 = a8[2];
+      if (v28 <= 0)
       {
-        v23 = a4;
+        v28 = a4;
       }
 
-      v22 = v23 * v19;
+      v27 = v28 * v24;
     }
 
     if ((a9 & 4) != 0)
     {
-      v24 = a8[6];
+      v29 = a8[6];
     }
 
     else
     {
-      v24 = 0;
+      v29 = 0;
     }
 
-    *a7 = a8[5] * v18 + v24 * v22 + a8[4] * v19;
+    *a7 = a8[5] * v23 + v29 * v27 + a8[4] * v24;
   }
 
   else
   {
     *a7 = 0;
-    result = gpusRowBytes(a1, a2, a3);
+    result = gpusRowBytes(a1, a2, a3, v18, v19, v20, v21, v22, v30);
     *a5 = result;
   }
 
@@ -2517,10 +2528,10 @@ LABEL_29:
     goto LABEL_30;
   }
 
-  MTLReleaseAssertionFailure();
+  MTLReleaseAssertionFailure("createMetalFunction", 163, "false", "Unsupported function type");
 LABEL_34:
-  v27 = MTLReleaseAssertionFailure();
-  return GLDPipelineProgramRec::update(v27);
+  v27 = MTLReleaseAssertionFailure("metalDataTypeFromPPStreamType", 89, "false", "Unsupported data type");
+  return GLDPipelineProgramRec::update(v27, v28, v29, v30);
 }
 
 uint64_t GLDPipelineProgramRec::update(uint64_t a1, uint64_t a2, int a3, void *a4)
@@ -2894,13 +2905,12 @@ void GLRTextureResource::updateSampleViewIfNeeded(GLRTextureResource *this, MTLP
 
   else
   {
-    v19 = *(this + 15);
-    v20 = [*(this + 4) newTextureViewWithPixelFormat:a2 textureType:a3 levels:*(this + 12) slices:v15 swizzle:location, length, MTLTextureSwizzleKeyToChannels()];
-    [v20 setLabel:*MEMORY[0x29EDBB7B0]];
-    v21 = *(this + 5);
-    GLDLibrary::getAllDisplayMask(v21);
-    *(v21 + 3) = 1;
-    *(v21 + 4) = v20;
+    v19 = [*(this + 4) newTextureViewWithPixelFormat:a2 textureType:a3 levels:*(this + 12) slices:v15 swizzle:location, length, MTLTextureSwizzleKeyToChannels()];
+    [v19 setLabel:*MEMORY[0x29EDBB7B0]];
+    v20 = *(this + 5);
+    GLDLibrary::getAllDisplayMask(v20);
+    *(v20 + 3) = 1;
+    *(v20 + 4) = v19;
   }
 
   *(this + 56) = 0;
@@ -3152,7 +3162,7 @@ uint64_t GLRResourceList::addFence(GLRResourceList *this, GLRResource *a2)
   return GLRResource::incrementUsage(a2);
 }
 
-uint64_t GLRResourceList::addResource(uint64_t this, uint64_t a2)
+uint64_t GLRResourceList::addResource(uint64_t this, unint64_t a2)
 {
   v3 = this;
   v4 = (a2 >> 6) & 0x3F;
@@ -3302,10 +3312,14 @@ uint64_t GLDSamplerRec::update(GLDSamplerRec *this)
 {
   v3 = *(this + 3);
   v4 = *v3;
-  v5 = *(v3 + 1);
   if (v4 == 35416)
   {
     v5 = -30120;
+  }
+
+  else
+  {
+    v5 = *(v3 + 1);
   }
 
   if (*(v3 + 1) == 35416 || v4 == 35416)
@@ -3319,18 +3333,18 @@ uint64_t GLDSamplerRec::update(GLDSamplerRec *this)
     {
       v1 = 0;
       v7 = 0;
-      goto LABEL_25;
+      goto LABEL_26;
     }
 
     if (v4 == 9729)
     {
       v1 = 0;
-      goto LABEL_22;
+      goto LABEL_23;
     }
 
     if (v4 != 9984)
     {
-      goto LABEL_55;
+      goto LABEL_56;
     }
 
     v7 = 0;
@@ -3344,33 +3358,33 @@ uint64_t GLDSamplerRec::update(GLDSamplerRec *this)
       if (v4 != 9985)
       {
         v7 = 0;
-LABEL_24:
+LABEL_25:
         v1 = 2;
-        goto LABEL_25;
+        goto LABEL_26;
       }
 
       v1 = 1;
-LABEL_22:
+LABEL_23:
       v7 = 1;
-      goto LABEL_25;
+      goto LABEL_26;
     }
 
     if (v4 == 9987)
     {
       v7 = 1;
-      goto LABEL_24;
+      goto LABEL_25;
     }
 
     if (v4 != 35416)
     {
-      goto LABEL_55;
+      goto LABEL_56;
     }
 
     v1 = 0;
     v7 = 2;
   }
 
-LABEL_25:
+LABEL_26:
   if (v5 == 9728)
   {
     v8 = 0;
@@ -3383,12 +3397,12 @@ LABEL_25:
       if (v5 == 9729)
       {
         v8 = 1;
-        goto LABEL_31;
+        goto LABEL_32;
       }
 
-      MTLReleaseAssertionFailure();
-LABEL_55:
-      v20 = MTLReleaseAssertionFailure();
+      MTLReleaseAssertionFailure("update", 197, "false", "unknown filter type");
+LABEL_56:
+      v20 = MTLReleaseAssertionFailure("update", 175, "false", "unknown filter type");
       GLDObject::operator delete(v1);
       _Unwind_Resume(v20);
     }
@@ -3396,7 +3410,7 @@ LABEL_55:
     v8 = 2;
   }
 
-LABEL_31:
+LABEL_32:
   [*(this + 6) setMinFilter:v7];
   [*(this + 6) setMagFilter:v8];
   [*(this + 6) setMipFilter:v1];
@@ -3410,9 +3424,9 @@ LABEL_31:
   if (v12 >= 0x10)
   {
     [*(this + 6) setMaxAnisotropy:16];
-LABEL_43:
+LABEL_44:
     atomic_fetch_or((*(*(this + 2) + 224) + 536), 0x20000uLL);
-    goto LABEL_44;
+    goto LABEL_45;
   }
 
   if (v12 <= 1.0)
@@ -3443,10 +3457,10 @@ LABEL_43:
   [*(this + 6) setMaxAnisotropy:(1 << v14)];
   if (v14)
   {
-    goto LABEL_43;
+    goto LABEL_44;
   }
 
-LABEL_44:
+LABEL_45:
   *&v13 = v3[5];
   if (*&v13 < 0.0)
   {
@@ -3516,8 +3530,8 @@ uint64_t getMetalWrapMode(int a1)
     }
   }
 
-  v2 = MTLReleaseAssertionFailure();
-  return gldCreateSampler(v2, v3, v4, v5);
+  v4 = MTLReleaseAssertionFailure("getMetalWrapMode", 80, "false", "unsuport wrap mode", v1, v2);
+  return gldCreateSampler(v4, v5, v6, v7);
 }
 
 uint64_t gldCreateSampler(uint64_t a1, GLDObject **a2, uint64_t a3, uint64_t a4)
@@ -3584,30 +3598,29 @@ uint64_t GLDShareGroupRec::initWithDevice(uint64_t a1, uint64_t a2, uint64_t a3)
 
 uint64_t GLDShareGroupRec::dealloc(GLDShareGroupRec *this)
 {
-  v2 = *(this + 54);
   glgDestroyProcessor();
 
   GLDObject::release(*(this + 28));
-  v3 = 0;
-  v4 = 1;
+  v2 = 0;
+  v3 = 1;
   do
   {
-    v5 = v4;
-    v6 = this + 88 * v3;
+    v4 = v3;
+    v5 = this + 88 * v2;
     for (i = 40; i != 128; i += 8)
     {
-      v8 = *&v6[i];
-      if (v8)
+      v7 = *&v5[i];
+      if (v7)
       {
-        GLDObject::release(v8);
+        GLDObject::release(v7);
       }
     }
 
-    v4 = 0;
-    v3 = 1;
+    v3 = 0;
+    v2 = 1;
   }
 
-  while ((v5 & 1) != 0);
+  while ((v4 & 1) != 0);
 
   return GLDObject::dealloc(this);
 }
@@ -3886,7 +3899,7 @@ uint64_t GLDShareGroupRec::waitUsage(GLDShareGroupRec *this, volatile int *a2)
   return pthread_mutex_unlock(this + 5);
 }
 
-uint64_t GLDShareGroupRec::waitForObject(GLDShareGroupRec *this, int a2, unsigned int a3, GLDTextureRec *a4)
+uint64_t GLDShareGroupRec::waitForObject(GLDShareGroupRec *this, int a2, uint64_t a3, GLDTextureRec *a4)
 {
   v4 = a4;
   if (!a2)
@@ -3914,7 +3927,7 @@ uint64_t GLDShareGroupRec::waitForObject(GLDShareGroupRec *this, int a2, unsigne
     }
 
 LABEL_10:
-    (*(*v4 + 40))(v4, this);
+    (*(*v4 + 40))(v4, this, a3);
     return 0;
   }
 
@@ -4029,8 +4042,8 @@ uint64_t GLDTextureRec::dealloc(GLDTextureRec *this)
 uint64_t GLDTextureRec::load(GLDTextureRec *this)
 {
   v1 = *(this + 7);
-  LOBYTE(v2) = *(v1 + 20);
-  if (!v2)
+  v2 = *(v1 + 20);
+  if (!*(v1 + 20))
   {
     return 1;
   }
@@ -4080,8 +4093,9 @@ LABEL_11:
   return v7;
 }
 
-uint64_t GLDTextureRec::update(GLDTextureRec *this, char a2, unsigned __int16 *a3)
+uint64_t GLDTextureRec::update(GLDTextureRec *this, uint64_t a2, unsigned __int16 *a3)
 {
+  v3 = a2;
   if ((a2 & 2) != 0)
   {
     GLDTextureRec::updatePixelFormat(this);
@@ -4102,14 +4116,14 @@ uint64_t GLDTextureRec::update(GLDTextureRec *this, char a2, unsigned __int16 *a
 
     if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_FAULT))
     {
-      GLDTextureRec::update(a2, (a2 & 2) == 0);
+      GLDTextureRec::update(v3, (v3 & 2) == 0);
     }
 
-    MTLReleaseAssertionFailure();
+    MTLReleaseAssertionFailure("update", 1216, "false", 0);
     goto LABEL_27;
   }
 
-  if (a2)
+  if (v3)
   {
     GLDTextureRec::updateDescriptor(this);
     v5 = *(this + 16);
@@ -4121,7 +4135,7 @@ uint64_t GLDTextureRec::update(GLDTextureRec *this, char a2, unsigned __int16 *a
   v8 = *v6 & 0x1C00;
   if (v8 == 2048)
   {
-    result = GLDTextureRec::loadIOSurfaceTexture(this, a2);
+    result = GLDTextureRec::loadIOSurfaceTexture(this, v3);
     if (!result)
     {
       return result;
@@ -4133,11 +4147,11 @@ uint64_t GLDTextureRec::update(GLDTextureRec *this, char a2, unsigned __int16 *a
   if (v8 != 4096)
   {
 LABEL_27:
-    v10 = MTLReleaseAssertionFailure();
+    v10 = MTLReleaseAssertionFailure("update", 1239, "false", "unknown texture target bits");
     return GLDTextureRec::reclaim(v10);
   }
 
-  if ((GLDTextureRec::loadPrivateTexture(this, a2, a3) & 1) == 0)
+  if ((GLDTextureRec::loadPrivateTexture(this, v3, a3) & 1) == 0)
   {
     return 0;
   }
@@ -4145,7 +4159,7 @@ LABEL_27:
 LABEL_16:
   if ((*(*(this + 6) + 24) & 8) != 0)
   {
-    GLDTextureRec::updateSamplerState(this, a2);
+    GLDTextureRec::updateSamplerState(this, v3);
   }
 
   return 1;
@@ -4239,7 +4253,7 @@ uint64_t GLDTextureRec::modify(GLDTextureRec *this)
   return 0;
 }
 
-uint64_t GLDTextureRec::restoreData(GLDTextureRec *this, uint64_t a2, uint64_t a3, unsigned int a4, unsigned int a5)
+uint64_t GLDTextureRec::restoreData(GLDTextureRec *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v11 = 0;
   v12 = &v11;
@@ -4269,9 +4283,9 @@ uint64_t GLDTextureRec::restoreData(GLDTextureRec *this, uint64_t a2, uint64_t a
   return v6;
 }
 
-void ___ZN13GLDTextureRec11restoreDataEii_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4, unsigned int a5)
+void ___ZN13GLDTextureRec11restoreDataEii_block_invoke(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v6 = *(a1 + 40);
+  v6 = *(result + 40);
   v7 = *(v6 + 5);
   if (*(v7 + 248))
   {
@@ -4280,8 +4294,8 @@ void ___ZN13GLDTextureRec11restoreDataEii_block_invoke(uint64_t a1, uint64_t a2,
 
   if (*(v6 + 3))
   {
-    GLDTextureRec::readTextureDataInternal(v6, *(a1 + 48), *(a1 + 52), a4, a5, *(*(v6 + 6) + 480 * *(a1 + 48) + 32 * *(a1 + 52) + 288));
-    *(*(*(a1 + 32) + 8) + 24) = 0;
+    GLDTextureRec::readTextureDataInternal(v6, *(result + 48), *(result + 52), a4, a5, *(*(v6 + 6) + 480 * *(result + 48) + 32 * *(result + 52) + 288));
+    *(*(*(result + 32) + 8) + 24) = 0;
   }
 
   v8 = *(v6 + 5);
@@ -4293,7 +4307,7 @@ void ___ZN13GLDTextureRec11restoreDataEii_block_invoke(uint64_t a1, uint64_t a2,
   }
 }
 
-void GLDTextureRec::readTextureDataInternal(GLDTextureRec *this, int a2, int a3, unsigned int a4, unsigned int a5, char *a6)
+void GLDTextureRec::readTextureDataInternal(GLDTextureRec *this, int a2, uint64_t a3, uint64_t a4, uint64_t a5, char *a6)
 {
   v7 = *(this + 3);
   if (!v7)
@@ -4302,7 +4316,7 @@ void GLDTextureRec::readTextureDataInternal(GLDTextureRec *this, int a2, int a3,
   }
 
   LODWORD(v9) = a3;
-  (*(*v7 + 40))(v7, *(this + 5));
+  (*(*v7 + 40))(v7, *(this + 5), a3, a4, a5);
   if ([*(this + 15) textureType] == 7)
   {
     v11 = 4;
@@ -4314,227 +4328,216 @@ void GLDTextureRec::readTextureDataInternal(GLDTextureRec *this, int a2, int a3,
   }
 
   v12 = &(&glrTextureFormats)[5 * *(this + 16)];
-  v13 = v12[3];
-  v86 = 0;
-  v84 = 0u;
-  v85 = 0u;
-  v83 = 0u;
+  v73 = 0;
+  v71 = 0u;
+  v72 = 0u;
+  v70 = 0u;
   MTLPixelFormatGetInfo();
-  v14 = *(this + 6);
+  v13 = *(this + 6);
   v9 = v9;
-  v15 = (v14 + 264 + 480 * a2 + 32 * v9);
-  v16 = v15[8];
-  v17 = &(&glrTextureFormats)[5 * *(this + 16)];
-  v18 = *(v17 + 2) != v16 || *(v17 + 3) != v15[9];
-  v19 = a2;
-  if (v16 == 6402 && v15[9] == 5126)
+  v14 = (v13 + 264 + 480 * a2 + 32 * v9);
+  v15 = v14[8];
+  v16 = &(&glrTextureFormats)[5 * *(this + 16)];
+  v17 = *(v16 + 2) != v15 || *(v16 + 3) != v14[9];
+  v18 = a2;
+  if (v15 == 6402 && v14[9] == 5126)
   {
-    v18 = 1;
+    v17 = 1;
   }
 
-  v20 = *(*(this + 3) + 32);
-  v21 = *(v14 + 24);
-  v82 = 0;
-  v80 = 0u;
-  v81 = 0u;
-  v78 = 0u;
-  v79 = 0u;
-  v66 = v21 | v18;
-  if ((v21 | v18))
+  v19 = *(*(this + 3) + 32);
+  v20 = *(v13 + 24);
+  v69 = 0;
+  v67 = 0u;
+  v68 = 0u;
+  v65 = 0u;
+  v66 = 0u;
+  v53 = v20 | v17;
+  if ((v20 | v17))
   {
-    v70 = 0;
-    LODWORD(v71) = 0;
-    LODWORD(v68) = 0;
-    glrPixelSettings(v16, v15[9], v15[2], v15[3], &v71, &v68, &v70, 0, v11);
-    v22 = v71;
-    LODWORD(v71) = v22 * [*(this + 15) sampleCount];
-    v23 = *(*(this + 6) + 480 * v19 + 32 * v9 + 268) * DWORD2(v84);
-    v24 = v23 * [*(this + 15) sampleCount];
-    v25 = *(this + 6) + 480 * v19 + 32 * v9;
-    v26 = *(v25 + 270) * v24;
-    v27 = malloc_type_malloc(v26 * *(v25 + 272), 0x767357AFuLL);
-    v28 = (*(this + 6) + 480 * v19 + 32 * v9);
-    DWORD1(v81) = v28[134];
-    v29 = v28[136] * v28[135];
-    v30 = &v27[(v29 - 1) * v24];
-    v31 = (v21 & 1) == 0;
-    v32 = v27;
-    if (v31)
+    v57 = 0;
+    LODWORD(v58) = 0;
+    LODWORD(v55) = 0;
+    glrPixelSettings(v15, v14[9], v14[2], v14[3], &v58, &v55, &v57, 0, v11);
+    v21 = v58;
+    LODWORD(v58) = v21 * [*(this + 15) sampleCount];
+    v22 = *(*(this + 6) + 480 * v18 + 32 * v9 + 268) * DWORD2(v71);
+    v23 = v22 * [*(this + 15) sampleCount];
+    v24 = *(this + 6) + 480 * v18 + 32 * v9;
+    v25 = *(v24 + 270) * v23;
+    v26 = malloc_type_malloc(v25 * *(v24 + 272), 0x767357AFuLL);
+    v27 = (*(this + 6) + 480 * v18 + 32 * v9);
+    DWORD1(v68) = v27[134];
+    v28 = v27[136] * v27[135];
+    v29 = &v26[(v28 - 1) * v23];
+    v30 = (v20 & 1) == 0;
+    v31 = v26;
+    if (v30)
     {
-      v30 = v27;
-      v33 = v24;
+      v29 = v26;
+      v32 = v23;
     }
 
     else
     {
-      v33 = -v24;
+      v32 = -v23;
     }
 
-    *&v78 = v30;
-    DWORD2(v81) = v29;
-    LODWORD(v79) = v33;
-    v34 = v28[140];
-    v35 = v28[141];
+    *&v65 = v29;
+    DWORD2(v68) = v28;
+    LODWORD(v66) = v32;
     glgConvertType();
-    *(&v78 + 1) = a6;
-    HIDWORD(v79) = v71;
-    v36 = *(v12 + 2);
-    v37 = *(v12 + 3);
+    *(&v65 + 1) = a6;
+    HIDWORD(v66) = v58;
     v9 = v9;
     glgConvertType();
-    HIDWORD(v80) = *(v12 + 4);
-    LODWORD(v81) = -1;
-    v38 = v26;
-  }
-
-  else if ((BYTE9(v83) & 0x20) != 0)
-  {
-    v24 = 0;
-    v38 = 0;
-    v32 = a6;
+    HIDWORD(v67) = *(v12 + 4);
+    LODWORD(v68) = -1;
+    v33 = v25;
   }
 
   else
   {
-    v39 = *(*(this + 5) + 232);
-    v40 = (v14 + 264 + 480 * v19);
-    v41 = v40[2];
-    v42 = v40[3];
-    v43 = a6;
-    v44 = v40[4];
-    [*(this + 15) sampleCount];
-    a6 = v43;
-    MTLGetTextureLevelInfoForDeviceWithOptions();
-    v24 = v76;
-    v38 = v77;
-    v32 = v43;
-  }
-
-  v45 = *(this + 11);
-  v67 = a6;
-  v64 = this;
-  v65 = v32;
-  if (v45 > 3)
-  {
-    if (v45 > 5)
+    if ((BYTE9(v70) & 0x20) != 0)
     {
-      if (v45 != 6 && v45 != 7)
-      {
-        goto LABEL_50;
-      }
-
-      v61 = *(this + 6) + 480 * v19 + 32 * v9;
-      v59 = (v61 + 268);
-      v60 = *(v61 + 270);
-      LODWORD(v61) = *(v61 + 272);
-LABEL_42:
-      v61 = v61;
-      v52 = *v59;
-      v68 = 0uLL;
-      v69 = 0;
-      v49 = v60;
-LABEL_43:
-      v71 = v68;
-      v72 = v69;
-      v73 = v52;
-      v74 = v49;
-      v75 = v61;
-      [v20 getBytes:v32 bytesPerRow:v24 bytesPerImage:v38 fromRegion:&v71 mipmapLevel:v9 slice:v19];
-      goto LABEL_44;
+      v23 = 0;
+      v33 = 0;
     }
 
-    goto LABEL_36;
+    else
+    {
+      [*(this + 15) sampleCount];
+      MTLGetTextureLevelInfoForDeviceWithOptions();
+      v23 = v63;
+      v33 = v64;
+    }
+
+    v31 = a6;
   }
 
-  if (v45 <= 1)
+  v34 = *(this + 11);
+  v54 = a6;
+  v52 = v31;
+  if (v34 > 3)
   {
-    if (v45)
+    if (v34 > 5)
     {
-      if (v45 == 1)
+      if (v34 != 6 && v34 != 7)
       {
-        v46 = v20;
-        v47 = *(this + 6);
-        v48 = (v47 + 480 * v19 + 32 * v9 + 270);
-        v49 = 1;
-        goto LABEL_29;
+        goto LABEL_51;
       }
 
-LABEL_50:
-      v63 = MTLReleaseAssertionFailure();
-      GLDTextureRec::updatePixelFormat(v63);
+      v50 = *(this + 6) + 480 * v18 + 32 * v9;
+      v48 = (v50 + 268);
+      v49 = *(v50 + 270);
+      LODWORD(v50) = *(v50 + 272);
+LABEL_43:
+      v50 = v50;
+      v41 = *v48;
+      v55 = 0uLL;
+      v56 = 0;
+      v38 = v49;
+LABEL_44:
+      v58 = v55;
+      v59 = v56;
+      v60 = v41;
+      v61 = v38;
+      v62 = v50;
+      [v19 getBytes:v31 bytesPerRow:v23 bytesPerImage:v33 fromRegion:&v58 mipmapLevel:v9 slice:v18];
+      goto LABEL_45;
+    }
+
+    goto LABEL_37;
+  }
+
+  if (v34 <= 1)
+  {
+    if (v34)
+    {
+      if (v34 == 1)
+      {
+        v35 = v19;
+        v36 = *(this + 6);
+        v37 = (v36 + 480 * v18 + 32 * v9 + 270);
+        v38 = 1;
+        goto LABEL_30;
+      }
+
+LABEL_51:
+      v51 = MTLReleaseAssertionFailure("readTextureDataInternal", 1453, "false", "unknown metal texture type %d", v34);
+      GLDTextureRec::updatePixelFormat(v51);
       return;
     }
 
-    v59 = (*(this + 6) + 480 * v19 + 32 * v9 + 268);
-    v60 = 1;
-    goto LABEL_41;
-  }
-
-  if (v45 == 2)
-  {
-LABEL_36:
-    v58 = *(this + 6) + 480 * v19 + 32 * v9;
-    v59 = (v58 + 268);
-    v60 = *(v58 + 270);
-LABEL_41:
-    LODWORD(v61) = 1;
+    v48 = (*(this + 6) + 480 * v18 + 32 * v9 + 268);
+    v49 = 1;
     goto LABEL_42;
   }
 
-  v46 = v20;
-  v47 = *(this + 6);
-  v50 = v47 + 480 * v19 + 32 * v9;
-  v49 = *(v50 + 270);
-  v48 = (v50 + 272);
-LABEL_29:
-  v51 = *v48;
-  v52 = *(v47 + 480 * v19 + 32 * v9 + 268);
-  v68 = 0uLL;
-  v69 = 0;
-  if (!v51)
+  if (v34 == 2)
   {
-    v61 = 1;
-    v20 = v46;
+LABEL_37:
+    v47 = *(this + 6) + 480 * v18 + 32 * v9;
+    v48 = (v47 + 268);
+    v49 = *(v47 + 270);
+LABEL_42:
+    LODWORD(v50) = 1;
     goto LABEL_43;
   }
 
-  v53 = 0;
-  if (v45 == 1)
+  v35 = v19;
+  v36 = *(this + 6);
+  v39 = v36 + 480 * v18 + 32 * v9;
+  v38 = *(v39 + 270);
+  v37 = (v39 + 272);
+LABEL_30:
+  v40 = *v37;
+  v41 = *(v36 + 480 * v18 + 32 * v9 + 268);
+  v55 = 0uLL;
+  v56 = 0;
+  if (!v40)
   {
-    v54 = v24;
+    v50 = 1;
+    v19 = v35;
+    goto LABEL_44;
+  }
+
+  v42 = 0;
+  if (v34 == 1)
+  {
+    v43 = v23;
   }
 
   else
   {
-    v54 = v38;
+    v43 = v33;
   }
 
-  v55 = v38;
-  v56 = v54;
-  v57 = v46;
+  v44 = v33;
+  v45 = v43;
+  v46 = v35;
   do
   {
-    v71 = v68;
-    v72 = v69;
-    v73 = v52;
-    v74 = v49;
-    v75 = 1;
-    [v57 getBytes:v32 bytesPerRow:v24 bytesPerImage:v55 fromRegion:&v71 mipmapLevel:v9 slice:v53];
-    v32 += v56;
-    ++v53;
+    v58 = v55;
+    v59 = v56;
+    v60 = v41;
+    v61 = v38;
+    v62 = 1;
+    [v46 getBytes:v31 bytesPerRow:v23 bytesPerImage:v44 fromRegion:&v58 mipmapLevel:v9 slice:v42];
+    v31 += v45;
+    ++v42;
   }
 
-  while (v51 != v53);
-LABEL_44:
-  if (v66)
+  while (v40 != v42);
+LABEL_45:
+  if (v53)
   {
-    v62 = *(v64 + 5);
     glgProcessPixelsWithProcessor();
   }
 
-  if (v65 != v67)
+  if (v52 != v54)
   {
-    free(v65);
+    free(v52);
   }
 }
 
@@ -4574,9 +4577,8 @@ void GLDTextureRec::updatePixelFormat(GLDTextureRec *this)
   *(this + 8) = 0;
   do
   {
-    v12 = *(this + 73);
-    GLDTextureRec::chooseTextureFormat(this, v4, v8, v3);
-    *(this + v7++ + 16) = v13;
+    GLDTextureRec::chooseTextureFormat(this, v4, v8, v3, v7, *(this + 73));
+    *(this + v7++ + 16) = v12;
   }
 
   while (v7 < *(this + 19));
@@ -4721,14 +4723,13 @@ void *GLDTextureRec::updateDescriptor(GLDTextureRec *this)
     v14 = *(v4 + 209);
   }
 
-  *(v4 + 208);
   if (*(v4 + 208))
   {
     v11 = (v11 >> v12) | (v11 >> v12 == 0);
   }
 
-  v44 = v11;
-  v45 = v14;
+  v40 = v11;
+  v41 = v14;
   if (*(v4 + 208))
   {
     v15 = (*(v4 + 196) >> v12) | (*(v4 + 196) >> v12 == 0);
@@ -4760,7 +4761,7 @@ void *GLDTextureRec::updateDescriptor(GLDTextureRec *this)
     v18 = v16;
   }
 
-  v43 = v18;
+  v39 = v18;
   if (v17)
   {
     v19 = 1;
@@ -4782,7 +4783,7 @@ void *GLDTextureRec::updateDescriptor(GLDTextureRec *this)
     v21 = v15;
   }
 
-  v42 = v21;
+  v38 = v21;
   if (v20)
   {
     v22 = v19;
@@ -4793,7 +4794,7 @@ void *GLDTextureRec::updateDescriptor(GLDTextureRec *this)
     v22 = *(v4 + 196);
   }
 
-  v41 = v22 * v8;
+  v37 = v22 * v8;
   if (v7)
   {
     v23 = *(v4 + 212);
@@ -4834,15 +4835,15 @@ void *GLDTextureRec::updateDescriptor(GLDTextureRec *this)
     v27 = 1;
   }
 
-  v40 = v9;
+  v36 = v9;
   [*(this + 15) setTextureType:?];
   [*(this + 15) setPixelFormat:(&glrTextureFormats)[5 * *(this + 16) + 3]];
-  [*(this + 15) setWidth:v44];
-  [*(this + 15) setHeight:v42];
-  [*(this + 15) setDepth:v43];
+  [*(this + 15) setWidth:v40];
+  [*(this + 15) setHeight:v38];
+  [*(this + 15) setDepth:v39];
   [*(this + 15) setSampleCount:v26];
   [*(this + 15) setArrayLength:v22];
-  [*(this + 15) setMipmapLevelCount:v45];
+  [*(this + 15) setMipmapLevelCount:v41];
   [*(this + 15) setWriteSwizzleEnabled:1];
   v28 = &(&glrTextureFormats)[5 * *(this + 16)];
   if (v28[3] == 253)
@@ -4866,52 +4867,48 @@ void *GLDTextureRec::updateDescriptor(GLDTextureRec *this)
   }
 
   [*(this + 15) setUsage:v30];
-  *(this + 28) = v41;
-  v31 = *(*(this + 5) + 232);
-  v32 = (&glrTextureFormats)[5 * *(this + 16) + 3];
+  *(this + 28) = v37;
   MTLGetTextureLevelInfoForDeviceWithOptions();
   *(this + 12) = 0;
   [*(this + 15) setSwizzleKey:GLDTextureRec::getMetalSwizzleKey(this)];
   result = *(this + 16);
   if (result)
   {
-    [result setTextureType:v40];
+    [result setTextureType:v36];
     [*(this + 16) setPixelFormat:(&glrTextureFormats)[5 * *(this + 17) + 3]];
-    [*(this + 16) setWidth:v44];
-    [*(this + 16) setHeight:v42];
-    [*(this + 16) setDepth:v43];
+    [*(this + 16) setWidth:v40];
+    [*(this + 16) setHeight:v38];
+    [*(this + 16) setDepth:v39];
     [*(this + 16) setSampleCount:v26];
     [*(this + 16) setArrayLength:v22];
-    [*(this + 16) setMipmapLevelCount:v45];
+    [*(this + 16) setMipmapLevelCount:v41];
     [*(this + 16) setWriteSwizzleEnabled:1];
-    v34 = &(&glrTextureFormats)[5 * *(this + 17)];
-    v35 = v27;
-    if (v34[3] == 253)
+    v32 = &(&glrTextureFormats)[5 * *(this + 17)];
+    v33 = v27;
+    if (v32[3] == 253)
     {
-      v35 = v27 & 0x10;
+      v33 = v27 & 0x10;
     }
 
-    if ((*(v34 + 9) & 7) != 0)
+    if ((*(v32 + 9) & 7) != 0)
     {
-      v36 = v35 | 4;
+      v34 = v33 | 4;
     }
 
     else
     {
-      v36 = v35;
+      v34 = v33;
     }
 
-    [*(this + 16) setUsage:v36];
-    v37 = *(*(this + 5) + 232);
-    v38 = (&glrTextureFormats)[5 * *(this + 17) + 3];
+    [*(this + 16) setUsage:v34];
     result = MTLGetTextureLevelInfoForDeviceWithOptions();
-    v39 = v46;
-    if (v45 >= 2)
+    v35 = v42;
+    if (v41 >= 2)
     {
-      v39 = 4 * v46 / 3;
+      v35 = 4 * v42 / 3;
     }
 
-    *(this + 13) = v39;
+    *(this + 13) = v35;
   }
 
   return result;
@@ -4933,51 +4930,49 @@ uint64_t GLDTextureRec::getTextureResource(GLDTextureRec *this, unsigned int a2)
       return *(this + a2 + 3);
     }
 
-    v21 = 0;
-    v20 = 0u;
-    v5 = *(*(this + 5) + 232);
+    v19 = 0u;
     [*(this + 15) pixelFormat];
     MTLPixelFormatGetInfoForDevice();
-    v6 = [*(this + 15) width];
-    v7 = [*(this + 15) sampleCount];
-    v8 = &v20 + 1;
-    if (v7 > 1)
+    v5 = [*(this + 15) width];
+    v6 = [*(this + 15) sampleCount];
+    v7 = &v19 + 1;
+    if (v6 > 1)
     {
-      v8 = &v21;
+      v7 = &v20;
     }
 
-    v9 = *v8;
-    v10 = [*(*(this + 5) + 232) deviceLinearTextureAlignmentBytes];
-    v11 = (v10 + v9 * v6 - 1) & -v10;
-    v12 = v11 * [*(this + 15) height];
-    v13 = [*(*(this + 5) + 232) newBufferWithLength:v12 options:32];
-    if (v13)
+    v8 = *v7;
+    v9 = [*(*(this + 5) + 232) deviceLinearTextureAlignmentBytes];
+    v10 = (v9 + v8 * v5 - 1) & -v9;
+    v11 = v10 * [*(this + 15) height];
+    v12 = [*(*(this + 5) + 232) newBufferWithLength:v11 options:32];
+    if (v12)
     {
-      v14 = v13;
+      v13 = v12;
       [*(this + 15) setStorageMode:2];
-      v15 = MEMORY[0x29EDBB7B0];
-      [v14 setLabel:*MEMORY[0x29EDBB7B0]];
-      v16 = [v14 newLinearTextureWithDescriptor:*(this + 15) offset:0 bytesPerRow:v11 bytesPerImage:v12];
-      if (v16)
+      v14 = MEMORY[0x29EDBB7B0];
+      [v13 setLabel:*MEMORY[0x29EDBB7B0]];
+      v15 = [v13 newLinearTextureWithDescriptor:*(this + 15) offset:0 bytesPerRow:v10 bytesPerImage:v11];
+      if (v15)
       {
-        v17 = v16;
-        [v16 setLabel:*v15];
-        v18 = GLDObject::operator new(0x40);
-        GLRTextureResource::GLRTextureResource(v18);
-        if (GLRTextureResource::initWithMetalTexture(v18, v17, *(this + 12)))
+        v16 = v15;
+        [v15 setLabel:*v14];
+        v17 = GLDObject::operator new(0x40);
+        GLRTextureResource::GLRTextureResource(v17);
+        if (GLRTextureResource::initWithMetalTexture(v17, v16, *(this + 12)))
         {
           MetalSwizzleKey = GLDTextureRec::getMetalSwizzleKey(this);
-          GLRTextureResource::setSwizzleKey(v18, MetalSwizzleKey);
-          GLRTextureResource::setBaseLevelMaxLevel(v18, *(*(this + 6) + 214) & 0xF, *(*(this + 6) + 214) >> 4);
-          v22.length = *(this + 28);
-          v22.location = 0;
-          GLRTextureResource::updateSampleViewIfNeeded(v18, (&glrTextureFormats)[5 * *(this + 16) + 3], *(this + 11), v22);
-          *(this + 24) = v18;
+          GLRTextureResource::setSwizzleKey(v17, MetalSwizzleKey);
+          GLRTextureResource::setBaseLevelMaxLevel(v17, *(*(this + 6) + 214) & 0xF, *(*(this + 6) + 214) >> 4);
+          v21.length = *(this + 28);
+          v21.location = 0;
+          GLRTextureResource::updateSampleViewIfNeeded(v17, (&glrTextureFormats)[5 * *(this + 16) + 3], *(this + 11), v21);
+          *(this + 24) = v17;
         }
 
         else
         {
-          (*(*v18 + 24))(v18);
+          (*(*v17 + 24))(v17);
         }
       }
     }
@@ -4992,13 +4987,13 @@ uint64_t GLDTextureRec::getTextureResource(GLDTextureRec *this, unsigned int a2)
   return result;
 }
 
-uint64_t GLDTextureRec::ensureResource(uint64_t this)
+GLDTextureRec *GLDTextureRec::ensureResource(GLDTextureRec *this)
 {
-  v1 = *(this + 48);
+  v1 = *(this + 6);
   if ((*(v1 + 24) & 8) == 0)
   {
     v2 = this;
-    if (*(*(this + 40) + 440) == 1)
+    if (*(*(this + 5) + 440) == 1)
     {
       v3 = mach_absolute_time();
       v4 = (*(g_Library + 16))(*(*(v2 + 6) + 32));
@@ -5179,21 +5174,21 @@ LABEL_33:
   return 1;
 }
 
-uint64_t GLDTextureRec::blitAccum(uint64_t a1, void *a2, uint64_t a3)
+uint64_t GLDTextureRec::blitAccum(unint64_t *a1, void *a2, uint64_t a3)
 {
   GLDTextureRec::ensureResource(a1);
-  v6 = *(*(a1 + 184) + 32);
-  v7 = *(*(a1 + 24) + 32);
+  v6 = *(a1[23] + 32);
+  v7 = *(a1[3] + 32);
   memset(v11, 0, sizeof(v11));
   v10[0] = [v6 width];
   v10[1] = [v6 height];
   v10[2] = 1;
   memset(v9, 0, sizeof(v9));
   [a2 copyFromTexture:v6 sourceSlice:0 sourceLevel:0 sourceOrigin:v11 sourceSize:v10 toTexture:v7 destinationSlice:0 destinationLevel:0 destinationOrigin:v9];
-  GLRResourceList::addResource(a3, *(a1 + 184));
-  GLRResourceList::addResource(a3, *(a1 + 24));
-  result = (*(**(a1 + 184) + 24))(*(a1 + 184));
-  *(a1 + 184) = 0;
+  GLRResourceList::addResource(a3, a1[23]);
+  GLRResourceList::addResource(a3, a1[3]);
+  result = (*(*a1[23] + 24))(a1[23]);
+  a1[23] = 0;
   return result;
 }
 
@@ -5245,7 +5240,7 @@ uint64_t GLDTextureRec::loadIOSurfaceTexture(GLDTextureRec *this, char a2)
   return result;
 }
 
-BOOL GLDTextureRec::allocMetalTexture(GLDTextureRec *this)
+uint64_t GLDTextureRec::allocMetalTexture(GLDTextureRec *this)
 {
   v2 = 0;
   v3 = this + 24;
@@ -5321,7 +5316,7 @@ uint64_t GLDTextureRec::loadPrivateTexture(id *this, char a2, unsigned __int16 *
       v6 = 3;
     }
 
-    v47 = v6;
+    v37 = v6;
     if ((a2 & 5) != 0)
     {
       v7 = this[6];
@@ -5365,136 +5360,98 @@ LABEL_48:
         v10 = 0;
         while (1)
         {
-          v11 = this + 4 * v10;
-          v12 = &(&glrTextureFormats)[5 * *(v11 + 16)];
-          v13 = v12[3];
-          v66 = 0;
-          v64 = 0u;
-          v65 = 0u;
-          v63 = 0u;
-          MTLPixelFormatGetInfo();
-          v14 = &this[v10];
-          v15 = *(v14 + 24);
-          v48 = v15[4];
-          (*(*v15 + 40))(v15, this[5]);
-          v16 = this[6];
-          v17 = &v16[240 * v8 + 16 * v9];
-          v18 = v17[140];
-          v19 = &(&glrTextureFormats)[5 * *(v11 + 16)];
-          if (*(v19 + 2) != v18)
+          if ((v11 = this + 4 * v10, v12 = &(&glrTextureFormats)[5 * *(v11 + 16)], v56 = 0, v54 = 0u, v55 = 0u, v53 = 0u, MTLPixelFormatGetInfo(), v13 = &this[v10], v14 = *(v13 + 24), v38 = v14[4], (*(*v14 + 40))(v14, this[5]), v15 = this[6], v16 = &v15[60 * v8 + 4 * v9], v17 = v16[140], v18 = &(&glrTextureFormats)[5 * *(v11 + 16)], *(v18 + 2) == v17) && (v19 = v16[141], *(v18 + 3) == v19) && (v17 == 6402 ? (v20 = v19 == 5126) : (v20 = 0), !v20))
           {
-            goto LABEL_22;
-          }
-
-          v20 = v17[141];
-          if (*(v19 + 3) != v20)
-          {
-            goto LABEL_22;
-          }
-
-          if (v18 != 6402 || v20 != 5126)
-          {
-            if ((BYTE9(v63) & 0x20) != 0)
+            if ((BYTE9(v53) & 0x20) != 0)
             {
-              LODWORD(v14) = 0;
-              LODWORD(v25) = 0;
+              LODWORD(v13) = 0;
+              LODWORD(v21) = 0;
             }
 
             else
             {
-              v22 = *(this[5] + 29);
-              v23 = v16[97];
-              v25 = v16[98];
-              v24 = v16[99];
-              [*(v14 + 120) sampleCount];
+              [*(v13 + 120) sampleCount];
               MTLGetTextureLevelInfoForDeviceWithOptions();
-              LODWORD(v14) = v61;
-              LODWORD(v25) = v62;
-              v16 = this[6];
+              LODWORD(v13) = v51;
+              LODWORD(v21) = v52;
+              v15 = this[6];
             }
 
-            v27 = *&v16[240 * v8 + 144 + 16 * v9];
+            v23 = v15[60 * v8 + 36 + 4 * v9];
           }
 
           else
           {
-LABEL_22:
-            v55 = 0;
-            v54 = 0;
-            glrPixelSettings(v17[140], v17[141], v17[134], v17[135], &v55 + 1, &v55, &v54, 0, v47);
-            v26 = (this[6] + 480 * v8 + 32 * v9);
-            v14 = v26[134] * SDWORD2(v64);
-            v25 = v14 * v26[135];
-            v27 = malloc_type_malloc(v25 * v26[136], 0xF53BA6C6uLL);
-            v60 = 0;
-            v58 = 0u;
-            v59 = 0u;
-            v57 = 0u;
-            v56 = 0u;
-            v28 = this[6] + 480 * v8 + 32 * v9;
-            DWORD1(v59) = *(v28 + 268);
-            DWORD2(v59) = *(v28 + 272) * *(v28 + 270);
-            *&v56 = *(v28 + 288);
-            LODWORD(v57) = HIDWORD(v55);
-            v29 = *(v28 + 280);
-            v30 = *(v28 + 282);
+            v45 = 0;
+            v44 = 0;
+            glrPixelSettings(v16[140], v16[141], v16[134], v16[135], &v45 + 1, &v45, &v44, 0, v37);
+            v22 = (this[6] + 480 * v8 + 32 * v9);
+            v13 = v22[134] * SDWORD2(v54);
+            v21 = v13 * v22[135];
+            v23 = malloc_type_malloc(v21 * v22[136], 0xF53BA6C6uLL);
+            v50 = 0;
+            v48 = 0u;
+            v49 = 0u;
+            v47 = 0u;
+            v46 = 0u;
+            v24 = this[6] + 480 * v8 + 32 * v9;
+            DWORD1(v49) = *(v24 + 134);
+            DWORD2(v49) = *(v24 + 136) * *(v24 + 135);
+            *&v46 = *(v24 + 36);
+            LODWORD(v47) = HIDWORD(v45);
             glgConvertType();
-            *(&v56 + 1) = v27;
-            HIDWORD(v57) = v14;
-            v31 = *(v12 + 2);
-            v32 = *(v12 + 3);
+            *(&v46 + 1) = v23;
+            HIDWORD(v47) = v13;
             glgConvertType();
-            HIDWORD(v58) = *(v12 + 4);
-            LODWORD(v59) = -1;
-            v33 = this[5];
+            HIDWORD(v48) = *(v12 + 4);
+            LODWORD(v49) = -1;
             glgProcessPixelsWithProcessor();
           }
 
-          v34 = this[11];
-          if (v34 <= 3)
+          v25 = this[11];
+          if (v25 <= 3)
           {
             break;
           }
 
-          if (v34 <= 5)
+          if (v25 <= 5)
           {
             goto LABEL_32;
           }
 
-          if (v34 != 6 && v34 != 7)
+          if (v25 != 6 && v25 != 7)
           {
 LABEL_53:
-            v46 = this[11];
-            v45 = MTLReleaseAssertionFailure();
-            return ___ZN13GLDTextureRec18loadPrivateTextureEjPt_block_invoke(v45);
+            v36 = MTLReleaseAssertionFailure("loadPrivateTexture", 1104, "false", "Unknown metal texture type %d", this[11]);
+            return ___ZN13GLDTextureRec18loadPrivateTextureEjPt_block_invoke(v36);
           }
 
-          v34 = 0;
-          v40 = this[6] + 480 * v8 + 32 * v9;
-          v36 = (v40 + 268);
-          v38 = *(v40 + 270);
-          v41 = *(v40 + 272);
+          v25 = 0;
+          v31 = this[6] + 480 * v8 + 32 * v9;
+          v27 = (v31 + 268);
+          v29 = *(v31 + 135);
+          v32 = *(v31 + 136);
 LABEL_39:
-          v42 = *v36;
+          v33 = *v27;
           block[0] = MEMORY[0x29EDCA5F8];
           block[1] = 3221225472;
           block[2] = ___ZN13GLDTextureRec18loadPrivateTextureEjPt_block_invoke;
           block[3] = &unk_29F349D50;
-          block[6] = v42;
-          block[7] = v38;
-          block[8] = v41;
-          block[9] = v34;
-          block[4] = v48;
+          block[6] = v33;
+          block[7] = v29;
+          block[8] = v32;
+          block[9] = v25;
+          block[4] = v38;
           block[5] = this;
-          v50 = v9;
-          v51 = v8;
-          block[10] = v27;
-          v52 = v14;
-          v53 = v25;
-          v43 = this[17];
-          if (v43)
+          v40 = v9;
+          v41 = v8;
+          block[10] = v23;
+          v42 = v13;
+          v43 = v21;
+          v34 = this[17];
+          if (v34)
           {
-            dispatch_sync(v43, block);
+            dispatch_sync(v34, block);
           }
 
           else
@@ -5502,9 +5459,9 @@ LABEL_39:
             ___ZN13GLDTextureRec18loadPrivateTextureEjPt_block_invoke(block);
           }
 
-          if (v27 != *(this[6] + 60 * v8 + 4 * v9 + 36))
+          if (v23 != *(this[6] + 60 * v8 + 4 * v9 + 36))
           {
-            free(v27);
+            free(v23);
           }
 
           if (++v10 >= *(this + 19))
@@ -5514,49 +5471,49 @@ LABEL_39:
           }
         }
 
-        if (v34 > 1)
+        if (v25 > 1)
         {
-          if (v34 == 2)
+          if (v25 == 2)
           {
 LABEL_32:
-            v34 = 0;
-            v39 = this[6] + 480 * v8 + 32 * v9;
-            v36 = (v39 + 268);
-            v38 = *(v39 + 270);
+            v25 = 0;
+            v30 = this[6] + 480 * v8 + 32 * v9;
+            v27 = (v30 + 268);
+            v29 = *(v30 + 135);
           }
 
           else
           {
-            v37 = this[6] + 480 * v8 + 32 * v9;
-            v36 = (v37 + 268);
-            v38 = *(v37 + 270);
-            v34 = *(v37 + 272);
+            v28 = this[6] + 480 * v8 + 32 * v9;
+            v27 = (v28 + 268);
+            v29 = *(v28 + 135);
+            v25 = *(v28 + 136);
           }
         }
 
         else
         {
-          if (v34)
+          if (v25)
           {
-            if (v34 != 1)
+            if (v25 != 1)
             {
               goto LABEL_53;
             }
 
-            v35 = this[6] + 480 * v8 + 32 * v9;
-            v36 = (v35 + 268);
-            v34 = *(v35 + 270);
+            v26 = this[6] + 480 * v8 + 32 * v9;
+            v27 = (v26 + 268);
+            v25 = *(v26 + 135);
           }
 
           else
           {
-            v36 = (this[6] + 480 * v8 + 32 * v9 + 268);
+            v27 = (this[6] + 480 * v8 + 32 * v9 + 268);
           }
 
-          v38 = 1;
+          v29 = 1;
         }
 
-        v41 = 1;
+        v32 = 1;
         goto LABEL_39;
       }
     }
@@ -5570,7 +5527,7 @@ LABEL_32:
   return result;
 }
 
-uint64_t ___ZN13GLDTextureRec18loadPrivateTextureEjPt_block_invoke(uint64_t a1)
+void *___ZN13GLDTextureRec18loadPrivateTextureEjPt_block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 48);
   v3 = *(a1 + 56);
@@ -5624,20 +5581,20 @@ void GLDTextureRec::updateSamplerState(MTLTextureType *this, char a2)
   {
     MetalSwizzleKey = GLDTextureRec::getMetalSwizzleKey(this);
     v4 = 0;
-    v5 = (this + 3);
+    v5 = this + 3;
     v6 = 1;
     do
     {
       v7 = v6;
-      v8 = *&v5[8 * v4];
+      v8 = v5[v4];
       if (v8)
       {
         GLRTextureResource::setForceASTC_LP(v8, *(this + 75));
-        GLRTextureResource::setSwizzleKey(*&v5[8 * v4], MetalSwizzleKey);
-        GLRTextureResource::setBaseLevelMaxLevel(*&v5[8 * v4], *(*(this + 6) + 214) & 0xF, *(*(this + 6) + 214) >> 4);
+        GLRTextureResource::setSwizzleKey(v5[v4], MetalSwizzleKey);
+        GLRTextureResource::setBaseLevelMaxLevel(v5[v4], *(*(this + 6) + 214) & 0xF, *(*(this + 6) + 214) >> 4);
         v9.length = *(this + 28);
         v9.location = 0;
-        GLRTextureResource::updateSampleViewIfNeeded(*&v5[8 * v4], (&glrTextureFormats)[5 * *(this + v4 + 16) + 3], this[11], v9);
+        GLRTextureResource::updateSampleViewIfNeeded(v5[v4], (&glrTextureFormats)[5 * *(this + v4 + 16) + 3], this[11], v9);
       }
 
       v6 = 0;
@@ -5648,7 +5605,7 @@ void GLDTextureRec::updateSamplerState(MTLTextureType *this, char a2)
   }
 }
 
-uint64_t GLDTextureRec::readTextureData(GLDTextureRec *this, uint64_t a2, uint64_t a3, unsigned int a4, unsigned int a5, void *a6)
+uint64_t GLDTextureRec::readTextureData(GLDTextureRec *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6)
 {
   v14 = 0;
   v15 = &v14;
@@ -5681,7 +5638,7 @@ uint64_t GLDTextureRec::readTextureData(GLDTextureRec *this, uint64_t a2, uint64
   return v7;
 }
 
-void ___ZN13GLDTextureRec15readTextureDataEiijjPvj_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4, unsigned int a5)
+void ___ZN13GLDTextureRec15readTextureDataEiijjPvj_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v6 = *(a1 + 40);
   v7 = *(v6 + 5);
@@ -6132,7 +6089,7 @@ LABEL_112:
         }
 
 LABEL_140:
-        v21 = MTLReleaseAssertionFailure();
+        v21 = MTLReleaseAssertionFailure("getTextureInfo", 1762, "false", "%s:%d - Unsupported InternalFormat 0x%04X", "getTextureInfo", 1762, v5);
         return GLDTextureRec::getLevelInfo(v21, v22, v23, v24, v25);
       }
 
@@ -6214,7 +6171,7 @@ LABEL_132:
   return result;
 }
 
-uint64_t GLDTextureRec::getLevelInfo(GLDTextureRec *this, uint64_t a2, uint64_t a3, int a4, int *a5)
+dispatch_queue_t GLDTextureRec::getLevelInfo(GLDTextureRec *this, uint64_t a2, uint64_t a3, int a4, int *a5)
 {
   if ((*(*(this + 7) + 20) & 2) != 0)
   {
@@ -6299,7 +6256,7 @@ LABEL_25:
     }
   }
 
-  v12 = MTLReleaseAssertionFailure();
+  v12 = MTLReleaseAssertionFailure("getLevelInfo", 1853, "false", "getLevelInfo unsupported query: %04x\n", a4);
   return GLDTextureRec::createTextureImageQueue(v12);
 }
 
@@ -6498,7 +6455,7 @@ CFStringRef ___ZN12GLDDeviceRec16telemetryEmitAPIEv_block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t GLDDeviceRec::setMeasure<BOOL,0>(uint64_t result, uint64_t a2, uint64_t a3, char a4, uint64_t a5)
+void *GLDDeviceRec::setMeasure<BOOL,0>(void *result, uint64_t a2, uint64_t a3, char a4, void *a5)
 {
   v8 = result;
   if (a4)
@@ -6562,7 +6519,7 @@ dispatch_queue_t ___ZN12GLDDeviceRec26telemetryEmitBacktraceInfoEPK25GLRTelemetr
 
 void ___ZN12GLDDeviceRec26telemetryEmitBacktraceInfoEPK25GLRTelemetryBacktraceInfo_block_invoke_2(uint64_t a1)
 {
-  v31 = *MEMORY[0x29EDCA608];
+  v29 = *MEMORY[0x29EDCA608];
   v2 = objc_autoreleasePoolPush();
   v3 = [MEMORY[0x29EDB8E00] dictionaryWithCapacity:3];
   v4 = [MEMORY[0x29EDB9F48] mainBundle];
@@ -6570,10 +6527,10 @@ void ___ZN12GLDDeviceRec26telemetryEmitBacktraceInfoEPK25GLRTelemetryBacktraceIn
   v6 = [v4 objectForInfoDictionaryKey:@"CFBundleVersion"];
   if (v5)
   {
-    v25 = v6;
+    v23 = v6;
     v7 = *(a1 + 32);
     v10 = *v7;
-    v8 = (v7 + 2);
+    v8 = v7 + 2;
     v9 = v10;
     v11 = getprogname();
     v12 = [MEMORY[0x29EDB8DE8] array];
@@ -6581,11 +6538,20 @@ void ___ZN12GLDDeviceRec26telemetryEmitBacktraceInfoEPK25GLRTelemetryBacktraceIn
     {
       do
       {
-        v13 = *v8;
-        v14 = dyld_image_path_containing_address();
+        v13 = dyld_image_path_containing_address();
+        if (v13)
+        {
+          v14 = basename_r(v13, v24);
+        }
+
+        else
+        {
+          v14 = "<Unknown>";
+        }
+
         if (v14)
         {
-          v15 = basename_r(v14, v26);
+          v15 = v14;
         }
 
         else
@@ -6593,24 +6559,14 @@ void ___ZN12GLDDeviceRec26telemetryEmitBacktraceInfoEPK25GLRTelemetryBacktraceIn
           v15 = "<Unknown>";
         }
 
-        if (v15)
+        if (!strcmp(v11, v15))
         {
-          v16 = v15;
+          v16 = @"Direct";
         }
 
         else
         {
-          v16 = "<Unknown>";
-        }
-
-        if (!strcmp(v11, v16))
-        {
-          v17 = @"Direct";
-        }
-
-        else
-        {
-          v17 = [MEMORY[0x29EDBA0F8] stringWithUTF8String:v16];
+          v16 = [MEMORY[0x29EDBA0F8] stringWithUTF8String:v15];
         }
 
         if (isIgnoredFramework(NSString *)::onceToken != -1)
@@ -6618,12 +6574,12 @@ void ___ZN12GLDDeviceRec26telemetryEmitBacktraceInfoEPK25GLRTelemetryBacktraceIn
           ___ZN12GLDDeviceRec26telemetryEmitBacktraceInfoEPK25GLRTelemetryBacktraceInfo_block_invoke_2_cold_1();
         }
 
-        if (([isIgnoredFramework(NSString *)::ignoredFrameworks containsObject:v17] & 1) == 0 && (objc_msgSend(v12, "containsObject:", v17) & 1) == 0)
+        if (([isIgnoredFramework(NSString *)::ignoredFrameworks containsObject:v16] & 1) == 0 && (objc_msgSend(v12, "containsObject:", v16) & 1) == 0)
         {
-          [v12 addObject:v17];
+          [v12 addObject:v16];
         }
 
-        ++v8;
+        v8 += 2;
         --v9;
       }
 
@@ -6632,46 +6588,46 @@ void ___ZN12GLDDeviceRec26telemetryEmitBacktraceInfoEPK25GLRTelemetryBacktraceIn
 
     if ([v12 count])
     {
-      v18 = [v12 componentsJoinedByString:{@", "}];
-      if (v18)
+      v17 = [v12 componentsJoinedByString:{@", "}];
+      if (v17)
       {
-        v19 = v18;
-        v20 = *(a1 + 40) - 2;
-        if (v20 > 2)
+        v18 = v17;
+        v19 = *(a1 + 40) - 2;
+        if (v19 > 2)
         {
-          v21 = &stru_2A240F5C0;
+          v20 = &stru_2A240F5C0;
         }
 
         else
         {
-          v21 = *(&off_29F349E48 + v20);
+          v20 = *(&off_29F349E48 + v19);
         }
 
-        GLDDeviceRec::setMeasure<int,0>(0, @"Unused", 1, 1, [MEMORY[0x29EDBA0F8] stringWithFormat:@"com.apple.opengl.%@.Backtrace{%@}.%@", v21, v18, v5]);
+        GLDDeviceRec::setMeasure<int,0>(0, @"Unused", 1, 1, [MEMORY[0x29EDBA0F8] stringWithFormat:@"com.apple.opengl.%@.Backtrace{%@}.%@", v20, v17, v5]);
         [v3 setObject:v5 forKey:@"BundleIdentifier"];
-        v22 = *(a1 + 40) - 2;
-        if (v22 > 2)
+        v21 = *(a1 + 40) - 2;
+        if (v21 > 2)
         {
-          v23 = &stru_2A240F5C0;
+          v22 = &stru_2A240F5C0;
         }
 
         else
         {
-          v23 = *(&off_29F349E48 + v22);
+          v22 = *(&off_29F349E48 + v21);
         }
 
-        [v3 setObject:v23 forKey:@"API"];
-        if (v25)
+        [v3 setObject:v22 forKey:@"API"];
+        if (v23)
         {
-          [v3 setObject:v25 forKey:@"BundleVersion"];
+          [v3 setObject:v23 forKey:@"BundleVersion"];
         }
 
-        [v3 setObject:v19 forKey:@"Frameworks"];
-        *v26 = MEMORY[0x29EDCA5F8];
-        v27 = 3221225472;
-        v28 = ___ZN12GLDDeviceRec9sendEventEP8NSStringP19NSMutableDictionaryIS1_P8NSObjectE_block_invoke;
-        v29 = &unk_29F349DE8;
-        v30 = v3;
+        [v3 setObject:v18 forKey:@"Frameworks"];
+        *v24 = MEMORY[0x29EDCA5F8];
+        v25 = 3221225472;
+        v26 = ___ZN12GLDDeviceRec9sendEventEP8NSStringP19NSMutableDictionaryIS1_P8NSObjectE_block_invoke;
+        v27 = &unk_29F349DE8;
+        v28 = v3;
         AnalyticsSendEventLazy();
       }
     }
@@ -6679,10 +6635,9 @@ void ___ZN12GLDDeviceRec26telemetryEmitBacktraceInfoEPK25GLRTelemetryBacktraceIn
 
   free(*(a1 + 32));
   objc_autoreleasePoolPop(v2);
-  v24 = *MEMORY[0x29EDCA608];
 }
 
-uint64_t GLDDeviceRec::setMeasure<int,0>(uint64_t result, uint64_t a2, uint64_t a3, char a4, uint64_t a5)
+void *GLDDeviceRec::setMeasure<int,0>(void *result, uint64_t a2, uint64_t a3, char a4, void *a5)
 {
   v8 = result;
   if (a4)
@@ -7092,11 +7047,11 @@ LABEL_17:
   return this;
 }
 
-uint64_t GLDDeviceRec::telemetryEmitUsage(uint64_t this)
+void *GLDDeviceRec::telemetryEmitUsage(void *this)
 {
   v1 = this;
-  v2 = *(this + 536);
-  v3 = *(this + 544);
+  v2 = this[67];
+  v3 = this[68];
   if (v3 != v2)
   {
     v4 = v3 ^ v2;
@@ -7289,7 +7244,7 @@ LABEL_64:
       }
 
 LABEL_65:
-      this = [*(v1 + 496) setObject:objc_msgSend(MEMORY[0x29EDBA070] forKey:{"numberWithInt:", 1), v6}];
+      this = [v1[62] setObject:objc_msgSend(MEMORY[0x29EDBA070] forKey:{"numberWithInt:", 1), v6}];
       v7 = v5 == v4;
       v4 ^= v5;
     }
@@ -7297,22 +7252,22 @@ LABEL_65:
     while (!v7);
   }
 
-  *(v1 + 544) = v2;
+  v1[68] = v2;
   return this;
 }
 
-uint64_t GLDDeviceRec::telemetryEmitTexture(uint64_t this)
+char *GLDDeviceRec::telemetryEmitTexture(char *this)
 {
   v1 = this;
   v2 = 0;
   v3 = this + 552;
   do
   {
-    v4 = (v3 + v2);
-    if (atomic_load((v3 + v2)))
+    v4 = &v3[v2];
+    if (atomic_load(&v3[v2]))
     {
       v6 = *(&off_29F349E60 + v2);
-      v7 = *(v1 + 496);
+      v7 = *(v1 + 62);
       v8 = atomic_load(v4);
       this = [v7 setObject:objc_msgSend(MEMORY[0x29EDBA070] forKey:{"numberWithLongLong:", v8), v6}];
       atomic_store(0, v4);
@@ -7325,7 +7280,7 @@ uint64_t GLDDeviceRec::telemetryEmitTexture(uint64_t this)
   return this;
 }
 
-uint64_t GLDDeviceRec::emitTelemetry(id *this)
+void *GLDDeviceRec::emitTelemetry(id *this)
 {
   GLDDeviceRec::telemetryEmitAPI(this);
   GLDDeviceRec::telemetryEmitUsage(this);
@@ -7334,7 +7289,6 @@ uint64_t GLDDeviceRec::emitTelemetry(id *this)
   if (result)
   {
     [this[62] addEntriesFromDictionary:this[61]];
-    v3 = this[62];
     AnalyticsSendEventLazy();
     return [this[62] removeAllObjects];
   }
@@ -7374,7 +7328,7 @@ void GLDDeviceRec::telemetryStartTimer(GLDDeviceRec *this, double a2)
   _Block_object_dispose(v4, 8);
 }
 
-uint64_t ___ZN12GLDDeviceRec19telemetryStartTimerEd_block_invoke(uint64_t a1)
+void ___ZN12GLDDeviceRec19telemetryStartTimerEd_block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 40);
   GLDDeviceRec::emitTelemetry(v2);
@@ -7388,10 +7342,10 @@ uint64_t ___ZN12GLDDeviceRec19telemetryStartTimerEd_block_invoke(uint64_t a1)
     v4 = *(*(*(a1 + 32) + 8) + 24);
   }
 
-  return GLDDeviceRec::telemetryStartTimer(v2, v4);
+  GLDDeviceRec::telemetryStartTimer(v2, v4);
 }
 
-uint64_t ___ZL18isIgnoredFrameworkP8NSString_block_invoke()
+void *___ZL18isIgnoredFrameworkP8NSString_block_invoke()
 {
   result = [objc_alloc(MEMORY[0x29EDB8E50]) initWithArray:&unk_2A24105B8];
   isIgnoredFramework(NSString *)::ignoredFrameworks = result;
@@ -7443,7 +7397,7 @@ unint64_t _depthStencilKeyHash(void *a1)
   return (0x165667B19E3779F9 * (v2 ^ (v2 >> 29))) ^ ((0x165667B19E3779F9 * (v2 ^ (v2 >> 29))) >> 32);
 }
 
-void GLDTextureRec::chooseTextureFormat(GLDTextureRec *this, unsigned int a2, unsigned int a3, int a4)
+void GLDTextureRec::chooseTextureFormat(GLDTextureRec *this, int a2, int a3, int a4, int a5, int a6)
 {
   if (a4 <= 36213)
   {
@@ -7535,9 +7489,9 @@ void GLDTextureRec::chooseTextureFormat(GLDTextureRec *this, unsigned int a2, un
         return;
       }
 
-      v4 = 36013;
+      v6 = 36013;
 LABEL_121:
-      if (a4 == v4)
+      if (a4 == v6)
       {
         return;
       }
@@ -7626,7 +7580,7 @@ LABEL_121:
             return;
           }
 
-          v4 = 35056;
+          v6 = 35056;
           goto LABEL_121;
         }
 
@@ -7638,8 +7592,8 @@ LABEL_121:
     }
 
 LABEL_124:
-    v5 = MTLReleaseAssertionFailure();
-    GLDContextRec::getCommandBuffer(v5);
+    v7 = MTLReleaseAssertionFailure("chooseTextureFormat", 636, "false", "unknown texture format %04X\n", a4);
+    GLDContextRec::getCommandBuffer(v7);
     return;
   }
 
@@ -7822,7 +7776,7 @@ void GLDContextRec::getCommandBuffer(GLDContextRec *this)
   objc_autoreleasePoolPop(v2);
 }
 
-uint64_t GLDContextRec::buildRenderPassDescriptor(GLDContextRec *this)
+void *GLDContextRec::buildRenderPassDescriptor(GLDContextRec *this)
 {
   v2 = *(this + 231);
   if (!v2)
@@ -8040,19 +7994,19 @@ double GLDContextRec::beginRenderPass(GLDContextRec *this)
   if ((*(v2 + 40) - *(v2 + 36)) <= 0x1FF)
   {
     v3 = *(this + 5);
-    v27[0] = MEMORY[0x29EDCA5F8];
-    v27[1] = 3221225472;
-    v27[2] = ___ZN13GLDContextRec15beginRenderPassEv_block_invoke;
-    v27[3] = &__block_descriptor_48_e28_v16__0___MTLCommandBuffer__8l;
-    v27[4] = this;
-    v27[5] = v2;
-    [v3 addCompletedHandler:v27];
+    v26[0] = MEMORY[0x29EDCA5F8];
+    v26[1] = 3221225472;
+    v26[2] = ___ZN13GLDContextRec15beginRenderPassEv_block_invoke;
+    v26[3] = &__block_descriptor_48_e28_v16__0___MTLCommandBuffer__8l;
+    v26[4] = this;
+    v26[5] = v2;
+    [v3 addCompletedHandler:v26];
     *(this + 595) = GLDContextRec::allocQueryStagingBuffer(this);
   }
 
   v4 = **(*(this + 50) + 40);
   v5 = MEMORY[0x29EDBB7B0];
-  if (v4 && *(v4 + 184))
+  if (v4 && v4[23])
   {
     v6 = objc_autoreleasePoolPush();
     v7 = [*(this + 5) blitCommandEncoder];
@@ -8111,19 +8065,18 @@ double GLDContextRec::beginRenderPass(GLDContextRec *this)
   v21 = *(this + 2);
   *(this + 445) = sel_drawIndexedPrimitives_indexCount_indexType_indexBuffer_indexBufferOffset_instanceCount_;
   *(this + 446) = [v21 methodForSelector:?];
-  v22 = *(this + 2);
   *(this + 5086) = objc_opt_respondsToSelector() & 1;
   *(this + 1263) |= *(this + 1312) | 0x10;
   GLDContextRec::addRenderPassResources(this);
-  v23 = *(this + 599);
-  if (v23)
+  v22 = *(this + 599);
+  if (v22)
   {
-    v24 = *(v23 + 40);
-    v26 = 0;
-    *(v23 + 48) = *(this + 596);
+    v23 = *(v22 + 40);
+    v25 = 0;
+    *(v22 + 48) = *(this + 596);
     *(this + 5088) = 1;
-    GLDQueryStagingBuffer::allocateResultOffset(*(this + 595), &v26, v24);
-    [*(this + 2) setVisibilityResultMode:1 offset:v26];
+    GLDQueryStagingBuffer::allocateResultOffset(*(this + 595), &v25, v23);
+    [*(this + 2) setVisibilityResultMode:1 offset:v25];
     *(this + 53) |= 0x1000uLL;
   }
 
@@ -8288,90 +8241,89 @@ void GLDContextRec::endRenderPass(GLDContextRec *this)
     [*(this + 2) setStencilStoreAction:v16];
   }
 
-  v18 = *(this + 596);
-  GLDQueryStagingBuffer::deferProcessResults(*(this + 595), this, *(this + 594));
+  GLDQueryStagingBuffer::deferProcessResults(*(this + 595), this, *(this + 594), *(this + 596));
   [*(this + 2) endEncoding];
   if (*(this + 2232) != 1)
   {
     goto LABEL_62;
   }
 
-  v19 = *(this + 282);
-  v20 = *(this + 288);
-  if (!v20)
+  v18 = *(this + 282);
+  v19 = *(this + 288);
+  if (!v19)
   {
-    v33 = 0;
+    v32 = 0;
     goto LABEL_61;
   }
 
-  v21 = 0;
-  *&v22 = -1;
-  *(&v22 + 1) = -1;
+  v20 = 0;
+  *&v21 = -1;
+  *(&v21 + 1) = -1;
   while (1)
   {
-    v23 = (*(this + 287) + 24 * v21);
-    v24 = *v23;
-    if (v24 == 1)
+    v22 = (*(this + 287) + 24 * v20);
+    v23 = *v22;
+    if (v23 == 1)
     {
-      v26 = *(this + 280) + 40 * v19;
-      *(v26 + 32) = -1;
-      *v26 = v22;
-      *(v26 + 16) = v22;
-      v27 = (*(v23 + 2) - *(v23 + 1) + 3) & 0xFFFFFFFFFFFFFFFCLL;
-      *v26 = *v23 >> 8;
-      *(v26 + 4) = *(*(this + 284) + 4 * *(v23 + 1));
-      v28 = *(v23 + 1);
-      *(v26 + 8) = v28;
-      *(v26 + 16) = v28 + v27;
-      v25 = v21 + 1;
-      v20 = *(this + 288);
-      if (v21 + 1 < v20)
+      v25 = *(this + 280) + 40 * v18;
+      *(v25 + 32) = -1;
+      *v25 = v21;
+      *(v25 + 16) = v21;
+      v26 = (*(v22 + 2) - *(v22 + 1) + 3) & 0xFFFFFFFFFFFFFFFCLL;
+      *v25 = *v22 >> 8;
+      *(v25 + 4) = *(*(this + 284) + 4 * *(v22 + 1));
+      v27 = *(v22 + 1);
+      *(v25 + 8) = v27;
+      *(v25 + 16) = v27 + v26;
+      v24 = v20 + 1;
+      v19 = *(this + 288);
+      if (v20 + 1 < v19)
       {
-        v29 = *(this + 287) + 24 * v25;
-        if (*v29 == 2)
+        v28 = *(this + 287) + 24 * v24;
+        if (*v28 == 2)
         {
-          v31 = v29 + 8;
-          v30 = *(v29 + 8);
-          v32 = v30 + ((*(v31 + 8) - v30 + 3) & 0xFFFFFFFFFFFFFFFCLL);
-          *(v26 + 24) = v30;
-          *(v26 + 32) = v32;
-          v25 = v21 + 2;
+          v30 = v28 + 8;
+          v29 = *(v28 + 8);
+          v31 = v29 + ((*(v30 + 8) - v29 + 3) & 0xFFFFFFFFFFFFFFFCLL);
+          *(v25 + 24) = v29;
+          *(v25 + 32) = v31;
+          v24 = v20 + 2;
         }
       }
 
-      v19 = (v19 + 1) % *(this + 281);
+      v18 = (v18 + 1) % *(this + 281);
       goto LABEL_56;
     }
 
-    if (v24 == 255)
+    if (v23 == 255)
     {
       break;
     }
 
-    v25 = v21 + 1;
+    v24 = v20 + 1;
 LABEL_56:
-    v21 = v25;
-    if (v25 >= v20)
+    v20 = v24;
+    if (v24 >= v19)
     {
       goto LABEL_60;
     }
   }
 
-  v25 = v21;
+  v24 = v20;
 LABEL_60:
-  v33 = 24 * v25;
+  v32 = 24 * v24;
 LABEL_61:
-  *(this + 282) = v19;
-  memset(*(this + 287), 255, v33);
+  *(this + 282) = v18;
+  memset(*(this + 287), 255, v32);
   *(this + 285) = *(this + 284);
 LABEL_62:
-  v34 = *(this + 1259);
-  if ((v34 & 0x100) != 0)
+  v33 = *(this + 1259);
+  if ((v33 & 0x100) != 0)
   {
     *(this + 1263) |= 0x40u;
   }
 
-  if ((v34 & 0x200) != 0)
+  if ((v33 & 0x200) != 0)
   {
     *(this + 1263) |= 0x80u;
   }
@@ -8750,7 +8702,7 @@ uint64_t GLDContextRec::setRenderVertexBuffers(uint64_t this)
 
 uint64_t GLDContextRec::setRenderVertexCurrents(GLDContextRec *this)
 {
-  v14 = *MEMORY[0x29EDCA608];
+  v13 = *MEMORY[0x29EDCA608];
   v1 = *(this + 69);
   if (v1)
   {
@@ -8758,7 +8710,7 @@ uint64_t GLDContextRec::setRenderVertexCurrents(GLDContextRec *this)
     v3 = v2 + 6160;
     v4 = this + 280;
     v5 = v2 + 6416;
-    v6 = v13;
+    v6 = v12;
     v7 = *(this + 69);
     do
     {
@@ -8777,14 +8729,12 @@ uint64_t GLDContextRec::setRenderVertexCurrents(GLDContextRec *this)
     while (v7);
   }
 
-  result = (*(this + 428))(*(this + 2), *(this + 427), v13, 16 * v1, 14);
-  v12 = *MEMORY[0x29EDCA608];
-  return result;
+  return (*(this + 428))(*(this + 2), *(this + 427), v12, 16 * v1, 14);
 }
 
 uint64_t GLDContextRec::setRenderPrimitiveCurrents(GLDContextRec *this)
 {
-  v14 = *MEMORY[0x29EDCA608];
+  v13 = *MEMORY[0x29EDCA608];
   v1 = *(this + 74);
   if (v1)
   {
@@ -8792,7 +8742,7 @@ uint64_t GLDContextRec::setRenderPrimitiveCurrents(GLDContextRec *this)
     v3 = v2 + 6160;
     v4 = this + 300;
     v5 = v2 + 6416;
-    v6 = v13;
+    v6 = v12;
     v7 = *(this + 74);
     do
     {
@@ -8811,9 +8761,7 @@ uint64_t GLDContextRec::setRenderPrimitiveCurrents(GLDContextRec *this)
     while (v7);
   }
 
-  result = (*(this + 428))(*(this + 2), *(this + 427), v13, 16 * v1, 14);
-  v12 = *MEMORY[0x29EDCA608];
-  return result;
+  return (*(this + 428))(*(this + 2), *(this + 427), v12, 16 * v1, 14);
 }
 
 uint64_t GLDContextRec::setRenderUniformBuffersInternal(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
@@ -8842,13 +8790,13 @@ uint64_t GLDContextRec::setRenderUniformBuffers(GLDContextRec *this)
   return GLDContextRec::setRenderUniformBuffersInternal(this, this + 2968, this + 3192, 12, this + 3464);
 }
 
-uint64_t GLDContextRec::setRenderProgramUniformsInternal(uint64_t this, unsigned int a2, uint64_t *a3, uint64_t a4)
+void **GLDContextRec::setRenderProgramUniformsInternal(void **this, unsigned int a2, uint64_t *a3, uint64_t a4)
 {
   v4 = this;
-  v5 = *(this + 8 * a2 + 1504);
+  v5 = this[a2 + 188];
   if (v5)
   {
-    v6 = *(v5 + 24);
+    v6 = v5[3];
     v7 = *(v6 + 40);
     if (!v7)
     {
@@ -8862,10 +8810,10 @@ uint64_t GLDContextRec::setRenderProgramUniformsInternal(uint64_t this, unsigned
       v19 = 0;
       VertexBuffer = GLDContextRec::getVertexBuffer(this, 16 * v7, &__dst, &v19);
       memcpy(__dst, *(v6 + 32), v8);
-      return (*(a4 + 8))(*(v4 + 16), *a4, VertexBuffer, v19, 12);
+      return (*(a4 + 8))(v4[2], *a4, VertexBuffer, v19, 12);
     }
 
-    v13 = *(this + 16);
+    v13 = this[2];
     v15 = *a3;
     v16 = a3[1];
     v17 = *(v6 + 32);
@@ -8874,19 +8822,19 @@ uint64_t GLDContextRec::setRenderProgramUniformsInternal(uint64_t this, unsigned
 
   else
   {
-    if (!*(this + 8 * a2 + 1464))
+    if (!this[a2 + 183])
     {
       return this;
     }
 
-    v11 = *(this + 104) + 16 * a2;
+    v11 = this[13] + 16 * a2;
     v12 = *(v11 + 15636);
     if (!v12)
     {
       return this;
     }
 
-    v13 = *(this + 16);
+    v13 = this[2];
     v14 = 16 * v12;
     v15 = *a3;
     v16 = a3[1];
@@ -8896,7 +8844,7 @@ uint64_t GLDContextRec::setRenderProgramUniformsInternal(uint64_t this, unsigned
   return v16(v13, v15, v17, v14, 12);
 }
 
-uint64_t GLDContextRec::setRenderProgramUniforms(GLDContextRec *this)
+void **GLDContextRec::setRenderProgramUniforms(GLDContextRec *this)
 {
   GLDContextRec::setRenderProgramUniformsInternal(this, 0, this + 427, this + 3448);
 
@@ -9089,7 +9037,7 @@ uint64_t getMTLBlendFactor(int a1)
       }
 
 LABEL_33:
-      v2 = MTLReleaseAssertionFailure();
+      v2 = MTLReleaseAssertionFailure("getMTLBlendFactor", 612, "false", "unknown blend factor %04x", a1);
       return getMTLBlendOperation(v2);
     }
 
@@ -9120,14 +9068,14 @@ LABEL_33:
   }
 }
 
-uint64_t getMTLBlendOperation(__int16 a1)
+uint64_t getMTLBlendOperation(int a1)
 {
   if (a1 + 32762) < 6u && ((0x37u >> (a1 - 6)))
   {
     return qword_29D37A5F8[(a1 + 32762)];
   }
 
-  v2 = MTLReleaseAssertionFailure();
+  v2 = MTLReleaseAssertionFailure("getMTLBlendOperation", 626, "false", "unknown blend equation %04x", a1);
   return GLDContextRec::updateRenderColorMaskMode(v2);
 }
 
@@ -9453,7 +9401,7 @@ uint64_t getMTLStencilOperation(int a1)
     }
 
 LABEL_19:
-    v2 = MTLReleaseAssertionFailure();
+    v2 = MTLReleaseAssertionFailure("getMTLStencilOperation", 1356, "false", "Unknown stencil op %04x", a1);
     return GLDContextRec::setRenderDepthStencilState(v2);
   }
 
@@ -9817,7 +9765,7 @@ BOOL GLDVertexArrayRec::updateBuffers(GLDVertexArrayRec *this, uint64_t a2)
 
 uint64_t glrVertexFormatComponentAttribSizeTypeAlignment(MTLVertexFormat a1, unsigned __int8 *a2, unsigned __int8 *a3)
 {
-  v3 = &glrSupportedVertexFormatTableData + 16 * a1;
+  v3 = &glrSupportedVertexFormatTableData[16 * a1];
   *a2 = v3[11];
   *a3 = v3[10];
   return v3[9];

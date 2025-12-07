@@ -30,41 +30,39 @@
 {
   v3 = sub_25424D948();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  v6 = MEMORY[0x28223BE20](v3);
-  v8 = &v14 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v6);
-  v10 = &v14 - v9;
+  v5 = MEMORY[0x28223BE20](v3);
+  v7 = &v13 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v5);
+  v9 = &v13 - v8;
   sub_25424D908();
-  static Configuration.zoneUUID(forHomeIdentifier:)(v8, v10);
-  v11 = *(v4 + 8);
-  v11(v8, v3);
-  v12 = sub_25424D8E8();
-  v11(v10, v3);
+  static Configuration.zoneUUID(forHomeIdentifier:)(v7, v9);
+  v10 = *(v4 + 8);
+  v10(v7, v3);
+  v11 = sub_25424D8E8();
+  v10(v9, v3);
 
-  return v12;
+  return v11;
 }
 
 + (id)zoneNameForZoneUUID:(id)d
 {
   v3 = sub_25424D948();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x28223BE20](v3);
-  v7 = &v12 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v11 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_25424D908();
-  v14 = sub_25424D8D8();
-  v15 = v8;
-  v12 = 0x2D73746E657665;
-  v13 = 0xE700000000000000;
-  v12 = sub_25424DE78();
-  v13 = v9;
+  v13 = sub_25424D8D8();
+  v14 = v7;
+  v11 = 0x2D73746E657665;
+  v12 = 0xE700000000000000;
+  v11 = sub_25424DE78();
+  v12 = v8;
   sub_25424DDD8();
-  (*(v4 + 8))(v7, v3);
+  (*(v4 + 8))(v6, v3);
 
-  v10 = sub_25424DCA8();
+  v9 = sub_25424DCA8();
 
-  return v10;
+  return v9;
 }
 
 + (void)resetWithCompletion:(id)completion

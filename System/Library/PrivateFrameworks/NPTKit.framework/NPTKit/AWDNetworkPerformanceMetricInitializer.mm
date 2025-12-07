@@ -6,32 +6,32 @@
 
 + (id)createPerformanceMetricFromDictionary:(id)dictionary
 {
-  v172 = *MEMORY[0x277D85DE8];
+  v171 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v4 = objc_alloc_init(AWDNetworkPerformanceMetric);
+  v166 = 0u;
   v167 = 0u;
   v168 = 0u;
   v169 = 0u;
-  v170 = 0u;
   v5 = dictionaryCopy;
-  v6 = [v5 countByEnumeratingWithState:&v167 objects:v171 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v166 objects:v170 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = @"awdl_master_channel";
     v9 = @"awdl_op_mode";
-    v10 = *v168;
+    v10 = *v167;
     do
     {
       v11 = 0;
       do
       {
-        if (*v168 != v10)
+        if (*v167 != v10)
         {
           objc_enumerationMutation(v5);
         }
 
-        v12 = *(*(&v167 + 1) + 8 * v11);
+        v12 = *(*(&v166 + 1) + 8 * v11);
         if ([v12 isEqual:@"acceptable_performance_result"])
         {
           v13 = [v5 objectForKeyedSubscript:v12];
@@ -1956,14 +1956,12 @@ LABEL_43:
       }
 
       while (v7 != v11);
-      v164 = [v5 countByEnumeratingWithState:&v167 objects:v171 count:16];
+      v164 = [v5 countByEnumeratingWithState:&v166 objects:v170 count:16];
       v7 = v164;
     }
 
     while (v164);
   }
-
-  v165 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

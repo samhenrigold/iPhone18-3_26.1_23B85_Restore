@@ -287,12 +287,12 @@ LABEL_28:
 
 - (BOOL)runTest
 {
-  options = [(MapsAppTest *)self options];
-  v4 = [options objectForKeyedSubscript:@"searchQuery"];
+  v3 = objc_msgSend_options(self, a2);
+  v4 = [v3 objectForKeyedSubscript:@"searchQuery"];
   query = self->_query;
   self->_query = v4;
 
-  v6 = [options objectForKeyedSubscript:@"autocompleteResultIndex"];
+  v6 = [v3 objectForKeyedSubscript:@"autocompleteResultIndex"];
   if ([v6 length])
   {
     integerValue = [v6 integerValue];
@@ -304,7 +304,7 @@ LABEL_28:
   }
 
   self->_autocompleteResultIndex = integerValue;
-  v8 = [options objectForKeyedSubscript:@"searchResultIndex"];
+  v8 = [v3 objectForKeyedSubscript:@"searchResultIndex"];
   if ([v8 length])
   {
     integerValue2 = [v8 integerValue];
@@ -334,8 +334,8 @@ LABEL_12:
     testCoordinator = [(MapsAppTest *)self testCoordinator];
     [testCoordinator pptTestResetForLaunchURL];
 
-    _mapstest_mapType = [options _mapstest_mapType];
-    _mapstest_mapRegion = [options _mapstest_mapRegion];
+    _mapstest_mapType = [v3 _mapstest_mapType];
+    _mapstest_mapRegion = [v3 _mapstest_mapRegion];
     [(MapsAppTest *)self switchToMapType:_mapstest_mapType];
     mainVKMapView = [(MapsAppTest *)self mainVKMapView];
     [mainVKMapView setMapRegion:_mapstest_mapRegion pitch:0.0 yaw:0.0];

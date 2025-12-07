@@ -26,7 +26,6 @@
 - (id)description;
 - (id)eventsDictionary:(id)dictionary;
 - (id)fullReport;
-- (id)gatherAnalytics;
 - (id)innerErrorForEvent:(void *)event;
 - (id)merge:(id)merge;
 - (id)printEvents:(void *)events dateFormatter:(uint64_t *)formatter timeElapsed:(int)elapsed depth:;
@@ -34,6 +33,7 @@
 - (int64_t)endpointOptions;
 - (int64_t)playerOptions;
 - (unsigned)playbackState;
+- (unsigned)startEvent:(id)event role:(int)role;
 - (void)_finalizeRequestWithAnalytics:(uint64_t)analytics;
 - (void)_gatherMPPMetricsWithCompletion:(void *)completion;
 - (void)addDestinationType:(unsigned int)type;
@@ -41,7 +41,10 @@
 - (void)addEventInput:(id)input withKey:(id)key toEventID:(unsigned int)d;
 - (void)addEventOutput:(id)output withKey:(id)key toEventID:(unsigned int)d;
 - (void)backfillSignpostsForEvent:(uint64_t)event;
+- (void)endEventWithID:(unsigned int)d error:(id)error;
 - (void)finalizeWithCompletion:(id)completion;
+- (void)gatherAnalytics;
+- (void)setAllowFadeTransition:(BOOL)transition;
 - (void)setAnalyticsDurationForEvent:(void *)event duration:;
 - (void)setContentItem:(id)item;
 - (void)setEndpointOptions:(int64_t)options;
@@ -50,6 +53,7 @@
 - (void)setPlaybackPosition:(double)position;
 - (void)setPlaybackRate:(double)rate;
 - (void)setPlaybackSessionRequest:(id)request;
+- (void)setPlaybackState:(unsigned int)state;
 - (void)setPlayerOptions:(int64_t)options;
 - (void)setPlayerPath:(id)path;
 - (void)setRequestID:(id)d;
@@ -239,6 +243,15 @@
   return endpointOptions;
 }
 
+- (void)setPlaybackState:(unsigned int)state
+{
+  v3 = *&state;
+  os_unfair_lock_lock(&self->_lock);
+  [(_MRPlaybackSessionMigrateRequestProtobuf *)self->_protobuf setPlaybackState:v3];
+
+  os_unfair_lock_unlock(&self->_lock);
+}
+
 - (unsigned)playbackState
 {
   os_unfair_lock_lock(&self->_lock);
@@ -403,6 +416,48 @@
   return v5;
 }
 
+- (unsigned)startEvent:(id)event role:(int)role
+{
+  v4 = *&role;
+  eventCopy = event;
+  os_unfair_lock_lock(&self->_lock);
+  if (self->_finalized)
+  {
+    [MRPlaybackSessionMigrateRequest startEvent:a2 role:self];
+  }
+
+  v8 = objc_alloc_init(_MRPlaybackSessionMigrateRequestEventProtobuf);
+  v9 = MSVNanoIDCreateWithCharacters();
+  uTF8String = [v9 UTF8String];
+  v11 = (uTF8String[1] << 16) | (*uTF8String << 24) | (uTF8String[2] << 8);
+  v12 = uTF8String[3];
+  [(_MRPlaybackSessionMigrateRequestEventProtobuf *)v8 setIdentifier:v11 | v12];
+  [(_MRPlaybackSessionMigrateRequestEventProtobuf *)v8 setName:eventCopy];
+
+  v13 = [MEMORY[0x1E695DF00] now];
+  [v13 timeIntervalSinceReferenceDate];
+  [(_MRPlaybackSessionMigrateRequestEventProtobuf *)v8 setStartTimestamp:?];
+
+  [(_MRPlaybackSessionMigrateRequestEventProtobuf *)v8 setRole:v4];
+  events = [(_MRPlaybackSessionMigrateRequestProtobuf *)self->_protobuf events];
+  v15 = [(MRPlaybackSessionMigrateRequest *)self _getLastEventIfActiveInEvents:events];
+
+  if (v15)
+  {
+    protobuf = v15;
+  }
+
+  else
+  {
+    protobuf = self->_protobuf;
+  }
+
+  [(_MRPlaybackSessionMigrateRequestProtobuf *)protobuf addEvents:v8];
+  os_unfair_lock_unlock(&self->_lock);
+
+  return v11 | v12;
+}
+
 - (id)_getLastEventIfActiveInEvents:(uint64_t)events
 {
   v3 = a2;
@@ -414,18 +469,8 @@
     {
       lastObject = [v4 lastObject];
       events = [lastObject events];
-      if (!events)
+      if (!events || (v8 = events, [lastObject events], v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v9, "count"), v9, v8, !v10) || (objc_msgSend(lastObject, "events"), v11 = objc_claimAutoreleasedReturnValue(), -[MRPlaybackSessionMigrateRequest _getLastEventIfActiveInEvents:](events, v11), v5 = objc_claimAutoreleasedReturnValue(), v11, !v5))
       {
-        goto LABEL_7;
-      }
-
-      v8 = events;
-      events2 = [lastObject events];
-      v10 = [events2 count];
-
-      if (!v10 || ([lastObject events], v11 = objc_claimAutoreleasedReturnValue(), -[MRPlaybackSessionMigrateRequest _getLastEventIfActiveInEvents:](events, v11), v5 = objc_claimAutoreleasedReturnValue(), v11, !v5))
-      {
-LABEL_7:
         if ([lastObject hasEndTimestamp])
         {
           v5 = 0;
@@ -445,6 +490,44 @@ LABEL_7:
   }
 
   return v5;
+}
+
+- (void)endEventWithID:(unsigned int)d error:(id)error
+{
+  v4 = *&d;
+  errorCopy = error;
+  os_unfair_lock_lock(&self->_lock);
+  if (self->_finalized)
+  {
+    [MRPlaybackSessionMigrateRequest endEventWithID:a2 error:self];
+  }
+
+  v8 = [(MRPlaybackSessionMigrateRequest *)self _onlock_findEventWithID:v4];
+  if (v8)
+  {
+    v9 = [MEMORY[0x1E695DF00] now];
+    [v9 timeIntervalSinceReferenceDate];
+    [v8 setEndTimestamp:?];
+
+    if (errorCopy)
+    {
+      mr_protobuf = [errorCopy mr_protobuf];
+      [v8 setError:mr_protobuf];
+
+      [(MRPlaybackSessionMigrateRequest *)self updateError:errorCopy];
+    }
+  }
+
+  else
+  {
+    v11 = _MRLogForCategory(0);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    {
+      [(MRPlaybackSessionMigrateRequest *)self endEventWithID:v4 error:v11];
+    }
+  }
+
+  os_unfair_lock_unlock(&self->_lock);
 }
 
 - (void)updateError:(uint64_t)error
@@ -527,7 +610,7 @@ LABEL_7:
 
           v21 = [v9 objectAtIndexedSubscript:v12];
           name = [v21 name];
-          if ([name isEqualToString:v7])
+          if (objc_msgSend_isEqualToString_(name))
           {
             v23 = [v9 objectAtIndexedSubscript:v12];
             role = [v23 role];
@@ -713,38 +796,36 @@ id __50__MRPlaybackSessionMigrateRequest_gatherAnalytics__block_invoke(uint64_t 
 
 - (void)addDestinationTypesFromDevices:(id)devices
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   devicesCopy = devices;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v5 = [devicesCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [devicesCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(devicesCopy);
         }
 
-        [(MRPlaybackSessionMigrateRequest *)self addDestinationType:MRAnalyticsCompositionForOutputDevice(*(*(&v10 + 1) + 8 * v8++))];
+        [(MRPlaybackSessionMigrateRequest *)self addDestinationType:MRAnalyticsCompositionForOutputDevice(*(*(&v9 + 1) + 8 * v8++))];
       }
 
       while (v6 != v8);
-      v6 = [devicesCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [devicesCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (double)duration
@@ -771,6 +852,15 @@ id __50__MRPlaybackSessionMigrateRequest_gatherAnalytics__block_invoke(uint64_t 
   return allowFadeTransition;
 }
 
+- (void)setAllowFadeTransition:(BOOL)transition
+{
+  transitionCopy = transition;
+  os_unfair_lock_lock(&self->_lock);
+  [(_MRPlaybackSessionMigrateRequestProtobuf *)self->_protobuf setAllowFadeTransition:transitionCopy];
+
+  os_unfair_lock_unlock(&self->_lock);
+}
+
 - (MRSendCommandResultStatus)setPlaybackSessionCommandStatus
 {
   v3 = [MRSendCommandResultStatus alloc];
@@ -788,36 +878,36 @@ id __50__MRPlaybackSessionMigrateRequest_gatherAnalytics__block_invoke(uint64_t 
 
 - (id)merge:(id)merge
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   mergeCopy = merge;
   os_unfair_lock_lock(&self->_lock);
   events = [(_MRPlaybackSessionMigrateRequestProtobuf *)self->_protobuf events];
   v6 = [(MRPlaybackSessionMigrateRequest *)self _getLastEventIfActiveInEvents:events];
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
-  v30 = mergeCopy;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
+  v29 = mergeCopy;
   protobuf = [mergeCopy protobuf];
   events2 = [protobuf events];
 
-  v9 = [events2 countByEnumeratingWithState:&v31 objects:v35 count:16];
+  v9 = [events2 countByEnumeratingWithState:&v30 objects:v34 count:16];
   if (v9)
   {
     v10 = v9;
     v11 = 0;
-    v12 = *v32;
+    v12 = *v31;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v32 != v12)
+        if (*v31 != v12)
         {
           objc_enumerationMutation(events2);
         }
 
-        v14 = *(*(&v31 + 1) + 8 * i);
+        v14 = *(*(&v30 + 1) + 8 * i);
         if (v6)
         {
           protobuf = v6;
@@ -828,14 +918,14 @@ id __50__MRPlaybackSessionMigrateRequest_gatherAnalytics__block_invoke(uint64_t 
           protobuf = self->_protobuf;
         }
 
-        [(_MRPlaybackSessionMigrateRequestProtobuf *)protobuf addEvents:*(*(&v31 + 1) + 8 * i)];
+        [(_MRPlaybackSessionMigrateRequestProtobuf *)protobuf addEvents:*(*(&v30 + 1) + 8 * i)];
         v16 = [(MRPlaybackSessionMigrateRequest *)self innerErrorForEvent:v14];
         if (v16)
         {
           name = [v14 name];
-          v18 = [name isEqualToString:@"Post"];
+          isEqualToString = objc_msgSend_isEqualToString_(name);
 
-          if ((v18 & 1) == 0)
+          if ((isEqualToString & 1) == 0)
           {
             [(MRPlaybackSessionMigrateRequest *)self updateError:v16];
             if (v11)
@@ -855,7 +945,7 @@ id __50__MRPlaybackSessionMigrateRequest_gatherAnalytics__block_invoke(uint64_t 
         }
       }
 
-      v10 = [events2 countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v10 = [events2 countByEnumeratingWithState:&v30 objects:v34 count:16];
     }
 
     while (v10);
@@ -866,48 +956,46 @@ id __50__MRPlaybackSessionMigrateRequest_gatherAnalytics__block_invoke(uint64_t 
     v11 = 0;
   }
 
-  setPlaybackSessionCommandStatus = [v30 setPlaybackSessionCommandStatus];
+  setPlaybackSessionCommandStatus = [v29 setPlaybackSessionCommandStatus];
   [(MRPlaybackSessionMigrateRequest *)self setSetPlaybackSessionCommandStatus:setPlaybackSessionCommandStatus];
 
-  playbackSessionRequest = [v30 playbackSessionRequest];
+  playbackSessionRequest = [v29 playbackSessionRequest];
 
   if (playbackSessionRequest)
   {
-    protobuf2 = [v30 protobuf];
+    protobuf2 = [v29 protobuf];
     playbackSessionRequest2 = [protobuf2 playbackSessionRequest];
     [(_MRPlaybackSessionMigrateRequestProtobuf *)self->_protobuf setPlaybackSessionRequest:playbackSessionRequest2];
   }
 
-  resolvedPlayerPath = [v30 resolvedPlayerPath];
+  resolvedPlayerPath = [v29 resolvedPlayerPath];
 
   if (resolvedPlayerPath)
   {
-    protobuf3 = [v30 protobuf];
+    protobuf3 = [v29 protobuf];
     resolvedPlayerPath2 = [protobuf3 resolvedPlayerPath];
     [(_MRPlaybackSessionMigrateRequestProtobuf *)self->_protobuf setResolvedPlayerPath:resolvedPlayerPath2];
   }
 
-  -[_MRPlaybackSessionMigrateRequestProtobuf setAllowFadeTransition:](self->_protobuf, "setAllowFadeTransition:", [v30 allowFadeTransition]);
-  if ([v30 originatorType])
+  -[_MRPlaybackSessionMigrateRequestProtobuf setAllowFadeTransition:](self->_protobuf, "setAllowFadeTransition:", [v29 allowFadeTransition]);
+  if ([v29 originatorType])
   {
-    -[_MRPlaybackSessionMigrateRequestProtobuf setOriginatorType:](self->_protobuf, "setOriginatorType:", [v30 originatorType]);
+    -[_MRPlaybackSessionMigrateRequestProtobuf setOriginatorType:](self->_protobuf, "setOriginatorType:", [v29 originatorType]);
   }
 
-  if ([v30 destinationTypes])
+  if ([v29 destinationTypes])
   {
-    -[_MRPlaybackSessionMigrateRequestProtobuf setDestinationTypes:](self->_protobuf, "setDestinationTypes:", [v30 destinationTypes]);
+    -[_MRPlaybackSessionMigrateRequestProtobuf setDestinationTypes:](self->_protobuf, "setDestinationTypes:", [v29 destinationTypes]);
   }
 
   os_unfair_lock_unlock(&self->_lock);
-
-  v28 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
 
 - (void)backfillSignpostsForEvent:(uint64_t)event
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v68 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (event)
   {
@@ -916,183 +1004,182 @@ id __50__MRPlaybackSessionMigrateRequest_gatherAnalytics__block_invoke(uint64_t 
     [v3 startTimestamp];
     MRConvertTimestampToMachAbsoluteTime(v5);
     [v3 endTimestamp];
-    MRConvertTimestampToMachAbsoluteTime(v6);
-    v7 = MRLogCategoryMigrationOversize();
-    v8 = os_signpost_id_generate(v7);
+    v7 = MRConvertTimestampToMachAbsoluteTime(v6);
+    v8 = MRLogCategoryMigrationOversize(v7);
+    v9 = os_signpost_id_generate(v8);
 
-    switch([v3 role])
+    role = [v3 role];
+    switch(role)
     {
-      case 0u:
-        MRLogCategoryMigrationOversize();
+      case 0:
+        MRLogCategoryMigrationOversize(role);
         objc_claimAutoreleasedReturnValue();
         OUTLINED_FUNCTION_3_7();
-        if (!(!v10 & v9) && os_signpost_enabled(v4))
+        if (!(!v12 & v11) && os_signpost_enabled(v4))
         {
           name = [v3 name];
           OUTLINED_FUNCTION_0_13();
-          OUTLINED_FUNCTION_2_5(&dword_1A2860000, v12, v13, v14, "Unknown", "%{public, signpost.description:begin_time}llu,name=%{public}@", v15, v16, v59[0]);
+          OUTLINED_FUNCTION_2_5(&dword_1A2860000, v14, v15, v16, "Unknown", "%{public, signpost.description:begin_time}llu,name=%{public}@", v17, v18);
         }
 
-        MRLogCategoryMigrationOversize();
+        MRLogCategoryMigrationOversize(v19);
         objc_claimAutoreleasedReturnValue();
         OUTLINED_FUNCTION_7_0();
-        if (!v10 & v9 || !os_signpost_enabled(v4))
+        if (!v12 & v11 || !os_signpost_enabled(v4))
         {
           goto LABEL_46;
         }
 
         name2 = [v3 name];
         OUTLINED_FUNCTION_1_10();
-        v18 = "Unknown";
+        v21 = "Unknown";
         break;
-      case 1u:
-        MRLogCategoryMigrationOversize();
+      case 1:
+        MRLogCategoryMigrationOversize(role);
         objc_claimAutoreleasedReturnValue();
         OUTLINED_FUNCTION_3_7();
-        if (!(!v10 & v9) && os_signpost_enabled(v4))
+        if (!(!v12 & v11) && os_signpost_enabled(v4))
         {
           name3 = [v3 name];
           OUTLINED_FUNCTION_0_13();
-          OUTLINED_FUNCTION_2_5(&dword_1A2860000, v38, v39, v40, "Receptionist", "%{public, signpost.description:begin_time}llu,name=%{public}@", v41, v42, v59[0]);
+          OUTLINED_FUNCTION_2_5(&dword_1A2860000, v44, v45, v46, "Receptionist", "%{public, signpost.description:begin_time}llu,name=%{public}@", v47, v48);
         }
 
-        MRLogCategoryMigrationOversize();
+        MRLogCategoryMigrationOversize(v49);
         objc_claimAutoreleasedReturnValue();
         OUTLINED_FUNCTION_7_0();
-        if (!v10 & v9 || !os_signpost_enabled(v4))
+        if (!v12 & v11 || !os_signpost_enabled(v4))
         {
           goto LABEL_46;
         }
 
         name2 = [v3 name];
         OUTLINED_FUNCTION_1_10();
-        v18 = "Receptionist";
+        v21 = "Receptionist";
         break;
-      case 2u:
-        MRLogCategoryMigrationOversize();
+      case 2:
+        MRLogCategoryMigrationOversize(role);
         objc_claimAutoreleasedReturnValue();
         OUTLINED_FUNCTION_3_7();
-        if (!(!v10 & v9) && os_signpost_enabled(v4))
+        if (!(!v12 & v11) && os_signpost_enabled(v4))
         {
           name4 = [v3 name];
           OUTLINED_FUNCTION_0_13();
-          OUTLINED_FUNCTION_2_5(&dword_1A2860000, v26, v27, v28, "Source", "%{public, signpost.description:begin_time}llu,name=%{public}@", v29, v30, v59[0]);
+          OUTLINED_FUNCTION_2_5(&dword_1A2860000, v30, v31, v32, "Source", "%{public, signpost.description:begin_time}llu,name=%{public}@", v33, v34);
         }
 
-        MRLogCategoryMigrationOversize();
+        MRLogCategoryMigrationOversize(v35);
         objc_claimAutoreleasedReturnValue();
         OUTLINED_FUNCTION_7_0();
-        if (!v10 & v9 || !os_signpost_enabled(v4))
+        if (!v12 & v11 || !os_signpost_enabled(v4))
         {
           goto LABEL_46;
         }
 
         name2 = [v3 name];
         OUTLINED_FUNCTION_1_10();
-        v18 = "Source";
+        v21 = "Source";
         break;
-      case 3u:
-        MRLogCategoryMigrationOversize();
+      case 3:
+        MRLogCategoryMigrationOversize(role);
         objc_claimAutoreleasedReturnValue();
         OUTLINED_FUNCTION_3_7();
-        if (!(!v10 & v9) && os_signpost_enabled(v4))
+        if (!(!v12 & v11) && os_signpost_enabled(v4))
         {
           name5 = [v3 name];
           OUTLINED_FUNCTION_0_13();
-          OUTLINED_FUNCTION_2_5(&dword_1A2860000, v32, v33, v34, "Destination", "%{public, signpost.description:begin_time}llu,name=%{public}@", v35, v36, v59[0]);
+          OUTLINED_FUNCTION_2_5(&dword_1A2860000, v37, v38, v39, "Destination", "%{public, signpost.description:begin_time}llu,name=%{public}@", v40, v41);
         }
 
-        MRLogCategoryMigrationOversize();
+        MRLogCategoryMigrationOversize(v42);
         objc_claimAutoreleasedReturnValue();
         OUTLINED_FUNCTION_7_0();
-        if (!v10 & v9 || !os_signpost_enabled(v4))
+        if (!v12 & v11 || !os_signpost_enabled(v4))
         {
           goto LABEL_46;
         }
 
         name2 = [v3 name];
         OUTLINED_FUNCTION_1_10();
-        v18 = "Destination";
+        v21 = "Destination";
         break;
-      case 4u:
-        MRLogCategoryMigrationOversize();
+      case 4:
+        MRLogCategoryMigrationOversize(role);
         objc_claimAutoreleasedReturnValue();
         OUTLINED_FUNCTION_3_7();
-        if (!(!v10 & v9) && os_signpost_enabled(v4))
+        if (!(!v12 & v11) && os_signpost_enabled(v4))
         {
           name6 = [v3 name];
           OUTLINED_FUNCTION_0_13();
-          OUTLINED_FUNCTION_2_5(&dword_1A2860000, v20, v21, v22, "InApp", "%{public, signpost.description:begin_time}llu,name=%{public}@", v23, v24, v59[0]);
+          OUTLINED_FUNCTION_2_5(&dword_1A2860000, v23, v24, v25, "InApp", "%{public, signpost.description:begin_time}llu,name=%{public}@", v26, v27);
         }
 
-        MRLogCategoryMigrationOversize();
+        MRLogCategoryMigrationOversize(v28);
         objc_claimAutoreleasedReturnValue();
         OUTLINED_FUNCTION_7_0();
-        if (!v10 & v9 || !os_signpost_enabled(v4))
+        if (!v12 & v11 || !os_signpost_enabled(v4))
         {
           goto LABEL_46;
         }
 
         name2 = [v3 name];
         OUTLINED_FUNCTION_1_10();
-        v18 = "InApp";
+        v21 = "InApp";
         break;
-      case 5u:
-        MRLogCategoryMigrationOversize();
+      case 5:
+        MRLogCategoryMigrationOversize(role);
         objc_claimAutoreleasedReturnValue();
         OUTLINED_FUNCTION_3_7();
-        if (!(!v10 & v9) && os_signpost_enabled(v4))
+        if (!(!v12 & v11) && os_signpost_enabled(v4))
         {
           name7 = [v3 name];
           OUTLINED_FUNCTION_0_13();
-          OUTLINED_FUNCTION_2_5(&dword_1A2860000, v44, v45, v46, "Hijacked", "%{public, signpost.description:begin_time}llu,name=%{public}@", v47, v48, v59[0]);
+          OUTLINED_FUNCTION_2_5(&dword_1A2860000, v51, v52, v53, "Hijacked", "%{public, signpost.description:begin_time}llu,name=%{public}@", v54, v55);
         }
 
-        MRLogCategoryMigrationOversize();
+        MRLogCategoryMigrationOversize(v56);
         objc_claimAutoreleasedReturnValue();
         OUTLINED_FUNCTION_7_0();
-        if (!v10 & v9 || !os_signpost_enabled(v4))
+        if (!v12 & v11 || !os_signpost_enabled(v4))
         {
           goto LABEL_46;
         }
 
         name2 = [v3 name];
         OUTLINED_FUNCTION_1_10();
-        v18 = "Hijacked";
+        v21 = "Hijacked";
         break;
-      case 6u:
-        v49 = MRLogCategoryMigrationOversize();
-        v50 = v49;
-        if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v49))
+      case 6:
+        v57 = MRLogCategoryMigrationOversize(role);
+        v58 = v57;
+        if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v57))
         {
           name8 = [v3 name];
           OUTLINED_FUNCTION_0_13();
-          OUTLINED_FUNCTION_2_5(&dword_1A2860000, v52, v53, v54, "Group", "%{public, signpost.description:begin_time}llu,name=%{public}@", v55, v56, v59[0]);
+          OUTLINED_FUNCTION_2_5(&dword_1A2860000, v60, v61, v62, "Group", "%{public, signpost.description:begin_time}llu,name=%{public}@", v63, v64);
         }
 
-        v57 = MRLogCategoryMigrationOversize();
-        v4 = v57;
-        if (v8 - 1 > 0xFFFFFFFFFFFFFFFDLL || !os_signpost_enabled(v57))
+        v66 = MRLogCategoryMigrationOversize(v65);
+        v4 = v66;
+        if (v9 - 1 > 0xFFFFFFFFFFFFFFFDLL || !os_signpost_enabled(v66))
         {
           goto LABEL_46;
         }
 
         name2 = [v3 name];
         OUTLINED_FUNCTION_1_10();
-        v18 = "Group";
+        v21 = "Group";
         break;
       default:
         goto LABEL_47;
     }
 
-    _os_signpost_emit_with_name_impl(&dword_1A2860000, v4, OS_SIGNPOST_INTERVAL_END, v8, v18, "%{public, signpost.description:end_time}llu,name=%{public}@", v59, 0x16u);
+    _os_signpost_emit_with_name_impl(&dword_1A2860000, v4, OS_SIGNPOST_INTERVAL_END, v9, v21, "%{public, signpost.description:end_time}llu,name=%{public}@", v67, 0x16u);
 
 LABEL_46:
   }
 
 LABEL_47:
-
-  v58 = *MEMORY[0x1E69E9840];
 }
 
 - (id)reportDictionary
@@ -1176,35 +1263,35 @@ LABEL_47:
 
 - (id)eventsDictionary:(id)dictionary
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v4 = a2;
-  v18 = v4;
+  v17 = v4;
   dictionaryCopy = dictionary;
   if (dictionary)
   {
     v5 = v4;
     dictionary = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
     obj = v5;
-    v6 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v6 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v22;
+      v8 = *v21;
       do
       {
         v9 = 0;
         do
         {
-          if (*v22 != v8)
+          if (*v21 != v8)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = *(*(&v21 + 1) + 8 * v9);
+          v10 = *(*(&v20 + 1) + 8 * v9);
           v11 = objc_alloc_init(MEMORY[0x1E695DF90]);
           [v10 name];
           objc_claimAutoreleasedReturnValue();
@@ -1213,7 +1300,7 @@ LABEL_47:
           role = [v10 role];
           if (role >= 7)
           {
-            v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", role, v18];
+            v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", role, v17];
           }
 
           else
@@ -1260,14 +1347,12 @@ LABEL_47:
         }
 
         while (v7 != v9);
-        v7 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v7 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v7);
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -1417,15 +1502,15 @@ LABEL_47:
 - (id)printEvents:(void *)events dateFormatter:(uint64_t *)formatter timeElapsed:(int)elapsed depth:
 {
   formatterCopy = formatter;
-  v143 = *MEMORY[0x1E69E9840];
+  v142 = *MEMORY[0x1E69E9840];
   v8 = a2;
   eventsCopy = events;
   selfCopy = self;
-  v103 = v8;
+  v102 = v8;
   if (self)
   {
-    v126 = objc_alloc_init(MEMORY[0x1E696AD60]);
-    v117 = eventsCopy;
+    v125 = objc_alloc_init(MEMORY[0x1E696AD60]);
+    v116 = eventsCopy;
     if (elapsed < 1)
     {
       v12 = &stru_1F1513E38;
@@ -1446,14 +1531,14 @@ LABEL_47:
       while (elapsedCopy);
     }
 
-    v138 = 0u;
-    v139 = 0u;
-    v136 = 0u;
     v137 = 0u;
+    v138 = 0u;
+    v135 = 0u;
+    v136 = 0u;
     obj = v8;
-    eventsCopy = v117;
-    v109 = [obj countByEnumeratingWithState:&v136 objects:v142 count:16];
-    if (v109)
+    eventsCopy = v116;
+    v108 = [obj countByEnumeratingWithState:&v135 objects:v141 count:16];
+    if (v108)
     {
       v13 = @"│";
       if (elapsed > 0)
@@ -1461,21 +1546,21 @@ LABEL_47:
         v13 = @" ";
       }
 
-      v105 = v13;
-      v106 = *v137;
-      HIDWORD(v116) = elapsed;
+      v104 = v13;
+      v105 = *v136;
+      HIDWORD(v115) = elapsed;
       do
       {
         v14 = 0;
         do
         {
-          if (*v137 != v106)
+          if (*v136 != v105)
           {
             objc_enumerationMutation(obj);
           }
 
-          v114 = v14;
-          v15 = *(*(&v136 + 1) + 8 * v14);
+          v113 = v14;
+          v15 = *(*(&v135 + 1) + 8 * v14);
           [(MRPlaybackSessionMigrateRequest *)selfCopy backfillSignpostsForEvent:v15];
           name = [v15 name];
           v17 = [(MRPlaybackSessionMigrateRequest *)selfCopy symbolForEventName:name isStart:1];
@@ -1488,44 +1573,44 @@ LABEL_47:
 
           reportName = [v15 reportName];
           v21 = reportName;
-          v112 = v17;
+          v111 = v17;
           if (elapsed)
           {
-            [v126 appendFormat:@"%@          %@╭─%@%@\n", v19, v12, v17, reportName];
+            [v125 appendFormat:@"%@          %@╭─%@%@\n", v19, v12, v17, reportName];
           }
 
           else
           {
-            [v126 appendFormat:@"%@          ├─%@%@\n", v19, v17, reportName, v100];
+            [v125 appendFormat:@"%@          ├─%@%@\n", v19, v17, reportName, v99];
           }
 
-          v118 = v15;
+          v117 = v15;
           input = [v15 input];
           v23 = _MRProtoUtilsNSDictionaryFromProtoDictionary(input);
 
-          v134 = 0u;
-          v135 = 0u;
-          v132 = 0u;
           v133 = 0u;
+          v134 = 0u;
+          v131 = 0u;
+          v132 = 0u;
           v24 = v23;
-          v25 = [v24 countByEnumeratingWithState:&v132 objects:v141 count:16];
+          v25 = [v24 countByEnumeratingWithState:&v131 objects:v140 count:16];
           if (v25)
           {
             v26 = v25;
             v27 = 0;
-            v28 = *v133;
+            v28 = *v132;
             do
             {
               v29 = 0;
               v30 = v27 + 1;
               do
               {
-                if (*v133 != v28)
+                if (*v132 != v28)
                 {
                   objc_enumerationMutation(v24);
                 }
 
-                v31 = *(*(&v132 + 1) + 8 * v29);
+                v31 = *(*(&v131 + 1) + 8 * v29);
                 v32 = [v24 objectForKey:v31];
                 if (v30 == [v24 count])
                 {
@@ -1537,7 +1622,7 @@ LABEL_47:
                   v33 = @"%@          %@│ ├─%@: %@\n";
                 }
 
-                [v126 appendFormat:v33, v19, v12, v31, v32];
+                [v125 appendFormat:v33, v19, v12, v31, v32];
 
                 ++v29;
                 ++v30;
@@ -1545,49 +1630,49 @@ LABEL_47:
 
               while (v26 != v29);
               v27 += v26;
-              v26 = [v24 countByEnumeratingWithState:&v132 objects:v141 count:16];
+              v26 = [v24 countByEnumeratingWithState:&v131 objects:v140 count:16];
             }
 
             while (v26);
           }
 
-          v34 = v118;
-          if ([v118 eventsCount])
+          v34 = v117;
+          if ([v117 eventsCount])
           {
-            v131 = *formatterCopy;
-            events = [v118 events];
-            v36 = [(MRPlaybackSessionMigrateRequest *)selfCopy printEvents:events dateFormatter:v117 timeElapsed:&v131 depth:(HIDWORD(v116) + 1)];
-            [v126 appendString:v36];
+            v130 = *formatterCopy;
+            events = [v117 events];
+            v36 = [(MRPlaybackSessionMigrateRequest *)selfCopy printEvents:events dateFormatter:v116 timeElapsed:&v130 depth:HIDWORD(v115) + 1];
+            [v125 appendString:v36];
           }
 
-          [v118 calculatedDuration];
+          [v117 calculatedDuration];
           v38 = v37;
-          name2 = [v118 name];
+          name2 = [v117 name];
           v40 = [MEMORY[0x1E696AD98] numberWithDouble:*&v38];
           [(MRPlaybackSessionMigrateRequest *)selfCopy setAnalyticsDurationForEvent:name2 duration:v40];
 
           *formatterCopy = *&v38 + *formatterCopy;
-          name3 = [v118 name];
+          name3 = [v117 name];
           v42 = [(MRPlaybackSessionMigrateRequest *)selfCopy symbolForEventName:name3 isStart:0];
 
           v43 = MEMORY[0x1E695DF00];
-          [v118 endTimestamp];
+          [v117 endTimestamp];
           [v43 dateWithTimeIntervalSinceReferenceDate:?];
           objc_claimAutoreleasedReturnValue();
           v44 = [OUTLINED_FUNCTION_4_5() stringFromDate:?];
 
           v45 = *formatterCopy;
-          reportName2 = [v118 reportName];
+          reportName2 = [v117 reportName];
           v54 = reportName2;
-          if (HIDWORD(v116))
+          if (HIDWORD(v115))
           {
-            v55 = OUTLINED_FUNCTION_9_2(reportName2, v47, v48, v49, v50, v51, v52, v53, v98, v45, v12, v42, reportName2, v102, v103, obj, v105, v106, msv_treeDescription, v109, formatterCopy, v42, v112, v114, v116, v117, v118, v121, v122, selfCopy, v124, v126);
+            v55 = OUTLINED_FUNCTION_9_2(reportName2, v47, v48, v49, v50, v51, v52, v53, v97, v45, v12, v42, reportName2, v101, v102, obj, v104, v105, msv_treeDescription, v108, formatterCopy, v42, v111, v113, v115, v116, v117, v120, v121, selfCopy, v123, v125);
             v56 = @"%@ %7.3fs %@╰─%@%@\n";
           }
 
           else
           {
-            v55 = OUTLINED_FUNCTION_9_2(reportName2, v47, v48, v49, v50, v51, v52, v53, v98, v45, v42, reportName2, v101, v102, v103, obj, v105, v106, msv_treeDescription, v109, formatterCopy, v42, v112, v114, v116, v117, v118, v121, v122, selfCopy, v124, v126);
+            v55 = OUTLINED_FUNCTION_9_2(reportName2, v47, v48, v49, v50, v51, v52, v53, v97, v45, v42, reportName2, v100, v101, v102, obj, v104, v105, msv_treeDescription, v108, formatterCopy, v42, v111, v113, v115, v116, v117, v120, v121, selfCopy, v123, v125);
             v56 = @"%@ %7.3fs ├─%@%@\n";
           }
 
@@ -1596,31 +1681,31 @@ LABEL_47:
           output = [v34 output];
           v58 = _MRProtoUtilsNSDictionaryFromProtoDictionary(output);
 
-          v59 = v105;
+          v59 = v104;
+          v126 = 0u;
           v127 = 0u;
           v128 = 0u;
           v129 = 0u;
-          v130 = 0u;
           v60 = v58;
-          v125 = [v60 countByEnumeratingWithState:&v127 objects:v140 count:16];
-          if (v125)
+          v124 = [v60 countByEnumeratingWithState:&v126 objects:v139 count:16];
+          if (v124)
           {
-            v61 = *v128;
-            v121 = v44;
-            v122 = v59;
+            v61 = *v127;
+            v120 = v44;
+            v121 = v59;
             do
             {
-              for (i = 0; i != v125; ++i)
+              for (i = 0; i != v124; ++i)
               {
-                if (*v128 != v61)
+                if (*v127 != v61)
                 {
                   objc_enumerationMutation(v60);
                 }
 
-                v63 = *(*(&v127 + 1) + 8 * i);
+                v63 = *(*(&v126 + 1) + 8 * i);
                 v64 = [v60 objectForKey:v63];
-                v65 = [v63 isEqualToString:@"size"];
-                if (v65)
+                isEqualToString = objc_msgSend_isEqualToString_(v63);
+                if (isEqualToString)
                 {
                   unsignedLongValue = [v64 unsignedLongValue];
                   [selfCopy setPlaybackSessionSize:unsignedLongValue];
@@ -1636,30 +1721,30 @@ LABEL_47:
                   v19 = v75;
                   v61 = v74;
                   v64 = v79;
-                  v44 = v121;
-                  v59 = v122;
+                  v44 = v120;
+                  v59 = v121;
                 }
 
-                [OUTLINED_FUNCTION_9_2(v65 v66];
+                [OUTLINED_FUNCTION_9_2(isEqualToString v66];
               }
 
-              v125 = [v60 countByEnumeratingWithState:&v127 objects:v140 count:16];
+              v124 = [v60 countByEnumeratingWithState:&v126 objects:v139 count:16];
             }
 
-            while (v125);
+            while (v124);
           }
 
-          mr_error = [v119 mr_error];
+          mr_error = [v118 mr_error];
           v88 = mr_error;
           if (mr_error)
           {
-            v124 = v60;
-            v120 = mr_error;
+            v123 = v60;
+            v119 = mr_error;
             msv_treeDescription = [mr_error msv_treeDescription];
             v89 = [msv_treeDescription componentsSeparatedByString:@"\n"];
             v90 = [v89 mutableCopy];
 
-            elapsed = HIDWORD(v116);
+            elapsed = HIDWORD(v115);
             if ([v90 count])
             {
               v91 = 0;
@@ -1681,45 +1766,43 @@ LABEL_47:
             }
 
             v95 = [v90 componentsJoinedByString:@"\n"];
-            [v126 appendFormat:@"%@          %@%@ │─duration: %.3fs\n", v44, v12, v59, v38];
-            v100 = v95;
-            [v126 appendFormat:@"%@          %@%@ ╰─error: %@\n", v44, v12, v59];
+            [v125 appendFormat:@"%@          %@%@ │─duration: %.3fs\n", v44, v12, v59, v38];
+            v99 = v95;
+            [v125 appendFormat:@"%@          %@%@ ╰─error: %@\n", v44, v12, v59];
 
-            v60 = v124;
-            v88 = v120;
+            v60 = v123;
+            v88 = v119;
           }
 
           else
           {
             [OUTLINED_FUNCTION_9_2(0 v81];
-            elapsed = HIDWORD(v116);
+            elapsed = HIDWORD(v115);
           }
 
-          v14 = v115 + 1;
-          eventsCopy = v117;
+          v14 = v114 + 1;
+          eventsCopy = v116;
         }
 
-        while (v115 + 1 != v109);
-        v109 = [obj countByEnumeratingWithState:&v136 objects:v142 count:16];
+        while (v114 + 1 != v108);
+        v108 = [obj countByEnumeratingWithState:&v135 objects:v141 count:16];
       }
 
-      while (v109);
+      while (v108);
     }
   }
 
   else
   {
-    v126 = 0;
+    v125 = 0;
   }
 
-  v96 = *MEMORY[0x1E69E9840];
-
-  return v126;
+  return v125;
 }
 
 - (__CFString)symbolForEventName:(int)name isStart:
 {
-  v48[43] = *MEMORY[0x1E69E9840];
+  v47[43] = *MEMORY[0x1E69E9840];
   if (self)
   {
     v3 = @"􂄀";
@@ -1728,224 +1811,224 @@ LABEL_47:
       v3 = @"􂇄";
     }
 
-    v47[0] = @"DetermineRecipe";
-    v47[1] = @"ResolveSource";
+    v46[0] = @"DetermineRecipe";
+    v46[1] = @"ResolveSource";
     v4 = @"􀜈";
     if (name)
     {
       v4 = @"􀜇";
     }
 
-    v48[0] = v3;
-    v48[1] = v4;
+    v47[0] = v3;
+    v47[1] = v4;
     v5 = @"􁼢";
     if (name)
     {
       v5 = @"􁼡";
     }
 
-    v47[2] = @"ResolveDestination";
-    v47[3] = @"GetPlaybackSession";
+    v46[2] = @"ResolveDestination";
+    v46[3] = @"GetPlaybackSession";
     v6 = @"􁇉";
     if (name)
     {
       v6 = @"􁇈";
     }
 
-    v48[2] = v5;
-    v48[3] = v6;
+    v47[2] = v5;
+    v47[3] = v6;
     v7 = @"􁛂";
     if (name)
     {
       v7 = @"􁛁";
     }
 
-    v47[4] = @"Prepare";
-    v47[5] = @"Finalize";
+    v46[4] = @"Prepare";
+    v46[5] = @"Finalize";
     v8 = @"􁛄";
     if (name)
     {
       v8 = @"􁛃";
     }
 
-    v48[4] = v7;
-    v48[5] = v8;
+    v47[4] = v7;
+    v47[5] = v8;
     v9 = @"􀈢";
     if (name)
     {
       v9 = @"􀈡";
     }
 
-    v47[6] = @"SendPlaybackSession";
-    v47[7] = @"SetPlaybackSession";
+    v46[6] = @"SendPlaybackSession";
+    v46[7] = @"SetPlaybackSession";
     v10 = @"􀞉";
     if (name)
     {
       v10 = @"􀞈";
     }
 
-    v48[6] = v9;
-    v48[7] = v10;
+    v47[6] = v9;
+    v47[7] = v10;
     v11 = @"􁛳";
     if (!name)
     {
       v11 = @"􁛴";
     }
 
-    v47[8] = @"InterruptBestStreamIfNecessary";
-    v47[9] = @"SendPause";
+    v46[8] = @"InterruptBestStreamIfNecessary";
+    v46[9] = @"SendPause";
     v12 = @"􀊗";
     if (!name)
     {
       v12 = @"􀊘";
     }
 
-    v48[8] = v11;
-    v48[9] = v12;
+    v47[8] = v11;
+    v47[9] = v12;
     v13 = @"􁞏";
     if (name)
     {
       v13 = @"􁞎";
     }
 
-    v47[10] = @"VerifyPlayer";
-    v47[11] = @"BlessApp";
+    v46[10] = @"VerifyPlayer";
+    v46[11] = @"BlessApp";
     v14 = @"􂛒";
     if (name)
     {
       v14 = @"􂛑";
     }
 
-    v48[10] = v13;
-    v48[11] = v14;
+    v47[10] = v13;
+    v47[11] = v14;
     v15 = @"􀸺";
     if (name)
     {
       v15 = @"􀸹";
     }
 
-    v47[12] = @"Apply";
-    v47[13] = @"LaunchApp";
+    v46[12] = @"Apply";
+    v46[13] = @"LaunchApp";
     v16 = @"􁇮";
     if (name)
     {
       v16 = @"􁇭";
     }
 
-    v48[12] = v15;
-    v48[13] = v16;
+    v47[12] = v15;
+    v47[13] = v16;
     v17 = @"􂚴";
     if (name)
     {
       v17 = @"􂚳";
     }
 
-    v47[14] = @"ModifyTopology";
-    v47[15] = @"Preamble";
+    v46[14] = @"ModifyTopology";
+    v46[15] = @"Preamble";
     v18 = @"􀶢";
     if (name)
     {
       v18 = @"􀶡";
     }
 
-    v48[14] = v17;
-    v48[15] = v18;
+    v47[14] = v17;
+    v47[15] = v18;
     v19 = @"􀷗";
     if (name)
     {
       v19 = @"􀷖";
     }
 
-    v47[16] = @"SetActiveItem";
-    v47[17] = @"Epilogue";
+    v46[16] = @"SetActiveItem";
+    v46[17] = @"Epilogue";
     v20 = @"􀶠";
     if (name)
     {
       v20 = @"􀶟";
     }
 
-    v48[16] = v19;
-    v48[17] = v20;
-    v47[18] = @"setPlaybackSession";
-    v47[19] = @"interruptBestStreamIfNecessary";
-    v48[18] = v10;
-    v48[19] = v11;
-    v47[20] = @"Pause";
-    v47[21] = @"pause";
-    v48[20] = v12;
-    v48[21] = v12;
+    v47[16] = v19;
+    v47[17] = v20;
+    v46[18] = @"setPlaybackSession";
+    v46[19] = @"interruptBestStreamIfNecessary";
+    v47[18] = v10;
+    v47[19] = v11;
+    v46[20] = @"Pause";
+    v46[21] = @"pause";
+    v47[20] = v12;
+    v47[21] = v12;
     v21 = @"􀺅";
     if (!name)
     {
       v21 = @"􀺆";
     }
 
-    v47[22] = @"Seek";
-    v47[23] = @"seek";
-    v48[22] = v21;
-    v48[23] = v21;
+    v46[22] = @"Seek";
+    v46[23] = @"seek";
+    v47[22] = v21;
+    v47[23] = v21;
     v22 = @"􀊖";
     if (name)
     {
       v22 = @"􀊕";
     }
 
-    v47[24] = @"Play";
-    v47[25] = @"play";
-    v48[24] = v22;
-    v48[25] = v22;
+    v46[24] = @"Play";
+    v46[25] = @"play";
+    v47[24] = v22;
+    v47[25] = v22;
     v23 = @"􀖋";
     if (name)
     {
       v23 = @"􀖊";
     }
 
-    v47[26] = @"ResetOutputContext";
-    v47[27] = @"resetOutputContext";
-    v48[26] = v23;
-    v48[27] = v23;
+    v46[26] = @"ResetOutputContext";
+    v46[27] = @"resetOutputContext";
+    v47[26] = v23;
+    v47[27] = v23;
     v24 = @"􀻬";
     if (name)
     {
       v24 = @"􀻫";
     }
 
-    v47[28] = @"CoordinatePlayback";
-    v47[29] = @"FadeIn";
+    v46[28] = @"CoordinatePlayback";
+    v46[29] = @"FadeIn";
     v25 = @"􁛵";
     if (!name)
     {
       v25 = @"􁛶";
     }
 
-    v48[28] = v24;
-    v48[29] = v25;
+    v47[28] = v24;
+    v47[29] = v25;
     v26 = @"􁛸";
     if (name)
     {
       v26 = @"􁛷";
     }
 
-    v47[30] = @"FadeOut";
-    v47[31] = @"GetPlaybackQueue";
+    v46[30] = @"FadeOut";
+    v46[31] = @"GetPlaybackQueue";
     v27 = @"􂃋";
     if (!name)
     {
       v27 = @"􂃌";
     }
 
-    v48[30] = v26;
-    v48[31] = v27;
+    v47[30] = v26;
+    v47[31] = v27;
     v28 = @"􀒍";
     if (name)
     {
       v28 = @"􀒌";
     }
 
-    v47[32] = @"GetPlaybackState";
-    v47[33] = @"SetOutputDevices";
-    v48[32] = v28;
-    v48[33] = v17;
+    v46[32] = @"GetPlaybackState";
+    v46[33] = @"SetOutputDevices";
+    v47[32] = v28;
+    v47[33] = v17;
     if (name)
     {
       v29 = @"􀥑";
@@ -1956,16 +2039,16 @@ LABEL_47:
       v29 = @"􀥒";
     }
 
-    v47[34] = @"AddOutputDevices";
-    v47[35] = @"RemoveOutputDevices";
+    v46[34] = @"AddOutputDevices";
+    v46[35] = @"RemoveOutputDevices";
     v30 = @"􀫡";
     if (name)
     {
       v30 = @"􀫠";
     }
 
-    v48[34] = v29;
-    v48[35] = v30;
+    v47[34] = v29;
+    v47[35] = v30;
     if (name)
     {
       v31 = @"􀋕";
@@ -1976,16 +2059,16 @@ LABEL_47:
       v31 = @"􀋖";
     }
 
-    v47[36] = @"RouteToDevice";
-    v47[37] = @"DiscoverDestinationEndpoint";
+    v46[36] = @"RouteToDevice";
+    v46[37] = @"DiscoverDestinationEndpoint";
     v32 = @"􁣏";
     if (name)
     {
       v32 = @"􁣎";
     }
 
-    v48[36] = v31;
-    v48[37] = v32;
+    v47[36] = v31;
+    v47[37] = v32;
     if (name)
     {
       v33 = @"􁷔";
@@ -1996,16 +2079,16 @@ LABEL_47:
       v33 = @"􁷕";
     }
 
-    v47[38] = @"UpdateActiveSystemEndpoint";
-    v47[39] = @"ExpanseMigration";
+    v46[38] = @"UpdateActiveSystemEndpoint";
+    v46[39] = @"ExpanseMigration";
     v34 = @"􂝍";
     if (name)
     {
       v34 = @"􂝌";
     }
 
-    v48[38] = v33;
-    v48[39] = v34;
+    v47[38] = v33;
+    v47[39] = v34;
     if (name)
     {
       v35 = @"􀷈";
@@ -2016,24 +2099,24 @@ LABEL_47:
       v35 = @"􀷉";
     }
 
-    v47[40] = @"CreateSecondaryEndpoint";
-    v47[41] = @"Connect";
+    v46[40] = @"CreateSecondaryEndpoint";
+    v46[41] = @"Connect";
     v36 = @"􀢦";
     if (name)
     {
       v36 = @"􀢥";
     }
 
-    v48[40] = v35;
-    v48[41] = v36;
-    v47[42] = @"Search";
+    v47[40] = v35;
+    v47[41] = v36;
+    v46[42] = @"Search";
     v37 = @"􀒓";
     if (name)
     {
       v37 = @"􀒒";
     }
 
-    v48[42] = v37;
+    v47[42] = v37;
     v38 = MEMORY[0x1E695DF20];
     if (name)
     {
@@ -2046,7 +2129,7 @@ LABEL_47:
     }
 
     v40 = a2;
-    v41 = [v38 dictionaryWithObjects:v48 forKeys:v47 count:43];
+    v41 = [v38 dictionaryWithObjects:v47 forKeys:v46 count:43];
     v42 = [v41 objectForKey:v40];
 
     if (v42)
@@ -2067,8 +2150,6 @@ LABEL_47:
     v44 = 0;
   }
 
-  v45 = *MEMORY[0x1E69E9840];
-
   return v44;
 }
 
@@ -2078,37 +2159,37 @@ LABEL_47:
   eventCopy = event;
   if (self)
   {
-    if ([v6 isEqualToString:@"Preamble"])
+    if (objc_msgSend_isEqualToString_(v6))
     {
       [OUTLINED_FUNCTION_6_3() set_preDuration:?];
     }
 
-    else if ([v6 isEqualToString:@"Prepare"])
+    else if (objc_msgSend_isEqualToString_(v6))
     {
       [OUTLINED_FUNCTION_6_3() set_durationPrepare:?];
     }
 
-    else if ([v6 isEqualToString:@"DetermineRecipe"])
+    else if (objc_msgSend_isEqualToString_(v6))
     {
       [OUTLINED_FUNCTION_6_3() set_durationDetermineRecipe:?];
     }
 
-    else if ([v6 isEqualToString:@"Apply"])
+    else if (objc_msgSend_isEqualToString_(v6))
     {
       [OUTLINED_FUNCTION_6_3() set_durationApply:?];
     }
 
-    else if ([v6 isEqualToString:@"SetPlaybackSession"])
+    else if (objc_msgSend_isEqualToString_(v6))
     {
       [OUTLINED_FUNCTION_6_3() set_durationApply_SetPlaybackSession:?];
     }
 
-    else if ([v6 isEqualToString:@"Finalize"])
+    else if (objc_msgSend_isEqualToString_(v6))
     {
       [OUTLINED_FUNCTION_6_3() set_durationFinalize:?];
     }
 
-    else if ([v6 isEqualToString:@"Epilogue"])
+    else if (objc_msgSend_isEqualToString_(v6))
     {
       [OUTLINED_FUNCTION_6_3() set_postDuration:?];
     }
@@ -2218,7 +2299,7 @@ LABEL_47:
   return v7;
 }
 
-- (id)gatherAnalytics
+- (void)gatherAnalytics
 {
   selfCopy = self;
   if (self)
@@ -2227,10 +2308,10 @@ LABEL_47:
     if (!v2)
     {
       v3 = objc_alloc_init(MRPlaybackSessionMigrateAnalytics);
-      v4 = *(selfCopy + 48);
-      *(selfCopy + 48) = v3;
+      v4 = selfCopy[6];
+      selfCopy[6] = v3;
 
-      v2 = *(selfCopy + 48);
+      v2 = selfCopy[6];
     }
 
     resolvedPlayerPath = [selfCopy resolvedPlayerPath];
@@ -2239,140 +2320,139 @@ LABEL_47:
     [v2 setHandoffAppBundleFromString:bundleIdentifier];
 
     v8 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(selfCopy, "playbackSessionSize")}];
-    [*(selfCopy + 48) set_handoffQueueSize:v8];
+    [selfCopy[6] set_handoffQueueSize:v8];
 
-    v9 = *(selfCopy + 48);
     [selfCopy initiator];
     objc_claimAutoreleasedReturnValue();
     [OUTLINED_FUNCTION_10_3() setHandoffInitiatorFromString:resolvedPlayerPath];
 
-    if (*(selfCopy + 32))
+    if (selfCopy[4])
     {
-      v10 = 0;
+      v9 = 0;
     }
 
-    else if (*(selfCopy + 24))
+    else if (selfCopy[3])
     {
-      v10 = *(selfCopy + 64) != 0;
+      v9 = selfCopy[8] != 0;
     }
 
     else
     {
-      v10 = 1;
+      v9 = 1;
     }
 
-    v11 = [MEMORY[0x1E696AD98] numberWithInt:v10];
-    [*(selfCopy + 48) set_isSuccess:v11];
+    v10 = [MEMORY[0x1E696AD98] numberWithInt:v9];
+    [selfCopy[6] set_isSuccess:v10];
 
     resolvedPlayerPath2 = [selfCopy resolvedPlayerPath];
     origin = [resolvedPlayerPath2 origin];
-    v14 = [MRDeviceInfoRequest deviceInfoForOrigin:origin];
+    v13 = [MRDeviceInfoRequest deviceInfoForOrigin:origin];
 
-    [*(selfCopy + 48) setHandoffSourceFromMRDeviceClass:{objc_msgSend(v14, "deviceClass")}];
+    [selfCopy[6] setHandoffSourceFromMRDeviceClass:{objc_msgSend(v13, "deviceClass")}];
     playbackSessionRequest = [selfCopy playbackSessionRequest];
     destinationPlayerPath = [playbackSessionRequest destinationPlayerPath];
     origin2 = [destinationPlayerPath origin];
-    v18 = [MRDeviceInfoRequest deviceInfoForOrigin:origin2];
+    v17 = [MRDeviceInfoRequest deviceInfoForOrigin:origin2];
 
-    [*(selfCopy + 48) setHandoffDestinationFromMRDeviceClass:{objc_msgSend(v18, "deviceClass")}];
-    modelID = [v18 modelID];
+    [selfCopy[6] setHandoffDestinationFromMRDeviceClass:{objc_msgSend(v17, "deviceClass")}];
+    modelID = [v17 modelID];
     if ([modelID hasPrefix:{@"AudioAccessory5, "}])
     {
 
-      v20 = 1;
+      v19 = 1;
     }
 
     else
     {
-      deviceClass = [v18 deviceClass];
+      deviceClass = [v17 deviceClass];
 
       if (deviceClass == 6)
       {
-        v20 = 1;
+        v19 = 1;
       }
 
       else
       {
-        v20 = 3;
+        v19 = 3;
       }
     }
 
-    [*(selfCopy + 48) set_handoffDestinationPerformanceClass:v20];
-    modelID2 = [v14 modelID];
+    [selfCopy[6] set_handoffDestinationPerformanceClass:v19];
+    modelID2 = [v13 modelID];
     if ([modelID2 hasPrefix:{@"AudioAccessory5, "}])
     {
 
-      v23 = 1;
+      v22 = 1;
     }
 
     else
     {
-      deviceClass2 = [v14 deviceClass];
+      deviceClass2 = [v13 deviceClass];
 
       if (deviceClass2 == 6)
       {
-        v23 = 1;
+        v22 = 1;
       }
 
       else
       {
-        v23 = 3;
+        v22 = 3;
       }
     }
 
-    [*(selfCopy + 48) set_handoffSourcePerformanceClass:v23];
-    v25 = *(selfCopy + 24);
-    v26 = v25;
-    if (v25)
+    [selfCopy[6] set_handoffSourcePerformanceClass:v22];
+    v24 = selfCopy[3];
+    v25 = v24;
+    if (v24)
     {
-      msv_analyticSignature = [v25 msv_analyticSignature];
-      [*(selfCopy + 48) set_errorOnion:msv_analyticSignature];
+      msv_analyticSignature = [v24 msv_analyticSignature];
+      [selfCopy[6] set_errorOnion:msv_analyticSignature];
 
-      v29 = __50__MRPlaybackSessionMigrateRequest_gatherAnalytics__block_invoke(v28, v26);
-      msv_analyticSignature2 = [v29 msv_analyticSignature];
-      [*(selfCopy + 48) set_errorLevel_0:msv_analyticSignature2];
+      v28 = __50__MRPlaybackSessionMigrateRequest_gatherAnalytics__block_invoke(v27, v25);
+      msv_analyticSignature2 = [v28 msv_analyticSignature];
+      [selfCopy[6] set_errorLevel_0:msv_analyticSignature2];
 
-      msv_underlyingError = [v26 msv_underlyingError];
-      v32 = msv_underlyingError;
+      msv_underlyingError = [v25 msv_underlyingError];
+      v31 = msv_underlyingError;
       if (msv_underlyingError)
       {
-        v33 = __50__MRPlaybackSessionMigrateRequest_gatherAnalytics__block_invoke(msv_underlyingError, msv_underlyingError);
-        msv_analyticSignature3 = [v33 msv_analyticSignature];
-        [*(selfCopy + 48) set_errorLevel_1:msv_analyticSignature3];
+        v32 = __50__MRPlaybackSessionMigrateRequest_gatherAnalytics__block_invoke(msv_underlyingError, msv_underlyingError);
+        msv_analyticSignature3 = [v32 msv_analyticSignature];
+        [selfCopy[6] set_errorLevel_1:msv_analyticSignature3];
       }
 
-      v36Msv_underlyingError = v26;
-      msv_underlyingError2 = [v36Msv_underlyingError msv_underlyingError];
+      v35Msv_underlyingError = v25;
+      msv_underlyingError2 = [v35Msv_underlyingError msv_underlyingError];
 
       if (msv_underlyingError2)
       {
-        v37 = 0;
+        v36 = 0;
         do
         {
-          msv_underlyingError2 = v36Msv_underlyingError;
+          msv_underlyingError2 = v35Msv_underlyingError;
 
-          v36Msv_underlyingError = [msv_underlyingError2 msv_underlyingError];
+          v35Msv_underlyingError = [msv_underlyingError2 msv_underlyingError];
 
-          v35Msv_underlyingError = [v36Msv_underlyingError msv_underlyingError];
+          v34Msv_underlyingError = [v35Msv_underlyingError msv_underlyingError];
 
-          v37 = msv_underlyingError2;
+          v36 = msv_underlyingError2;
         }
 
-        while (v35Msv_underlyingError);
+        while (v34Msv_underlyingError);
       }
 
-      msv_analyticSignature4 = [v36Msv_underlyingError msv_analyticSignature];
-      [*(selfCopy + 48) set_errorLevelCore_0:msv_analyticSignature4];
+      msv_analyticSignature4 = [v35Msv_underlyingError msv_analyticSignature];
+      [selfCopy[6] set_errorLevelCore_0:msv_analyticSignature4];
 
       if (msv_underlyingError2)
       {
-        v41 = __50__MRPlaybackSessionMigrateRequest_gatherAnalytics__block_invoke(v40, msv_underlyingError2);
-        msv_analyticSignature5 = [v41 msv_analyticSignature];
-        [*(selfCopy + 48) set_errorLevelCore_1:msv_analyticSignature5];
+        v40 = __50__MRPlaybackSessionMigrateRequest_gatherAnalytics__block_invoke(v39, msv_underlyingError2);
+        msv_analyticSignature5 = [v40 msv_analyticSignature];
+        [selfCopy[6] set_errorLevelCore_1:msv_analyticSignature5];
       }
     }
 
-    selfCopy = [*(selfCopy + 48) dictionaryRepresentation];
+    selfCopy = [selfCopy[6] dictionaryRepresentation];
   }
 
   return selfCopy;
@@ -2380,7 +2460,7 @@ LABEL_47:
 
 - (void)_finalizeRequestWithAnalytics:(uint64_t)analytics
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (analytics)
   {
@@ -2393,98 +2473,97 @@ LABEL_47:
 
     *(analytics + 40) = 1;
     os_unfair_lock_unlock((analytics + 16));
-    v4 = MRLogCategoryMigrationOversize();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = MRLogCategoryMigrationOversize(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       fullReport = [(MRPlaybackSessionMigrateRequest *)analytics fullReport];
       *buf = 138543362;
-      v34 = fullReport;
-      _os_log_impl(&dword_1A2860000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
+      v36 = fullReport;
+      _os_log_impl(&dword_1A2860000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
     }
 
     if (MSVDeviceOSIsInternalInstall())
     {
       reportDictionary = [(MRPlaybackSessionMigrateRequest *)analytics reportDictionary];
-      v9 = MEMORY[0x1E696ACB0];
-      v31 = @"migrationReport";
-      v32 = reportDictionary;
-      v26 = reportDictionary;
-      v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
-      v29 = 0;
-      v11 = [v9 dataWithJSONObject:v10 options:0 error:&v29];
-      v12 = v29;
+      v10 = MEMORY[0x1E696ACB0];
+      v33 = @"migrationReport";
+      v34 = reportDictionary;
+      v28 = reportDictionary;
+      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
+      v31 = 0;
+      v12 = [v10 dataWithJSONObject:v11 options:0 error:&v31];
+      v13 = v31;
 
-      if (v11)
+      if (v12)
       {
-        v13 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithData:v11 encoding:4];
-        v14 = MRLogCategoryMigrationOversize();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithData:v12 encoding:4];
+        v16 = MRLogCategoryMigrationOversize(v15);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
-          v34 = v13;
-          _os_log_impl(&dword_1A2860000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
+          v36 = v15;
+          _os_log_impl(&dword_1A2860000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
         }
       }
 
       else
       {
-        v13 = MRLogCategoryMigrationOversize();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+        v15 = MRLogCategoryMigrationOversize(v14);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v34 = v12;
-          _os_log_impl(&dword_1A2860000, v13, OS_LOG_TYPE_ERROR, "Error while attempting to decode JSON migrationReport: %@", buf, 0xCu);
+          v36 = v13;
+          _os_log_impl(&dword_1A2860000, v15, OS_LOG_TYPE_ERROR, "Error while attempting to decode JSON migrationReport: %@", buf, 0xCu);
         }
       }
 
       if (*(analytics + 32) || *(analytics + 24) && !*(analytics + 64))
       {
         events = [*(analytics + 8) events];
-        v16 = _FirstErrorEvent(events);
-        name = [v16 name];
+        v18 = _FirstErrorEvent(events);
+        name = [v18 name];
 
-        v18 = MEMORY[0x1E696AEC0];
+        v20 = MEMORY[0x1E696AEC0];
         recipeType = [analytics recipeType];
         if (recipeType >= 3)
         {
-          v20 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", recipeType];
+          v22 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", recipeType];
         }
 
         else
         {
-          v20 = off_1E769DF80[recipeType];
+          v22 = off_1E769DF80[recipeType];
         }
 
-        v21 = [v18 stringWithFormat:@"%@MigrationFailure", v20];
+        v23 = [v20 stringWithFormat:@"%@MigrationFailure", v22];
 
-        v22 = MEMORY[0x1E69B13D8];
-        v23 = *MEMORY[0x1E69B1348];
-        v30 = v26;
-        v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v30 count:1];
-        [v22 snapshotWithDomain:v23 type:@"QHO" subType:v21 context:name triggerThresholdValues:0 events:v24 completion:0];
+        v24 = MEMORY[0x1E69B13D8];
+        v25 = *MEMORY[0x1E69B1348];
+        v32 = v28;
+        v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v32 count:1];
+        [v24 snapshotWithDomain:v25 type:@"QHO" subType:v23 context:name triggerThresholdValues:0 events:v26 completion:0];
       }
     }
 
-    if ([analytics recipeType] == 2)
+    recipeType2 = [analytics recipeType];
+    if (recipeType2 == 2)
     {
-      v5 = MRLogCategoryMigrationOversize();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v7 = MRLogCategoryMigrationOversize(recipeType2);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v34 = v3;
-        _os_log_impl(&dword_1A2860000, v5, OS_LOG_TYPE_DEFAULT, "Migration Analytics: %{public}@", buf, 0xCu);
+        v36 = v3;
+        _os_log_impl(&dword_1A2860000, v7, OS_LOG_TYPE_DEFAULT, "Migration Analytics: %{public}@", buf, 0xCu);
       }
 
-      v27[0] = MEMORY[0x1E69E9820];
-      v27[1] = 3221225472;
-      v27[2] = __65__MRPlaybackSessionMigrateRequest__finalizeRequestWithAnalytics___block_invoke;
-      v27[3] = &unk_1E769DDB0;
-      v28 = v3;
-      MRAnalyticsSendEvent(@"com.apple.mediaremote.qhop", 0, v27);
+      v29[0] = MEMORY[0x1E69E9820];
+      v29[1] = 3221225472;
+      v29[2] = __65__MRPlaybackSessionMigrateRequest__finalizeRequestWithAnalytics___block_invoke;
+      v29[3] = &unk_1E769DDB0;
+      v30 = v3;
+      MRAnalyticsSendEvent(@"com.apple.mediaremote.qhop", 0, v29);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __58__MRPlaybackSessionMigrateRequest_finalizeWithCompletion___block_invoke(uint64_t a1, uint64_t a2)
@@ -2529,7 +2608,7 @@ uint64_t __58__MRPlaybackSessionMigrateRequest_finalizeWithCompletion___block_in
 
 - (id)innerErrorForEvent:(void *)event
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (event)
@@ -2543,9 +2622,9 @@ uint64_t __58__MRPlaybackSessionMigrateRequest_finalizeWithCompletion___block_in
 
     else
     {
-      memset(v9, 0, sizeof(v9));
+      memset(v8, 0, sizeof(v8));
       events = [v4 events];
-      if ([events countByEnumeratingWithState:v9 objects:v10 count:16])
+      if ([events countByEnumeratingWithState:v8 objects:v9 count:16])
       {
         event = [(MRPlaybackSessionMigrateRequest *)event innerErrorForEvent:?];
       }
@@ -2556,8 +2635,6 @@ uint64_t __58__MRPlaybackSessionMigrateRequest_finalizeWithCompletion___block_in
       }
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return event;
 }
@@ -2576,15 +2653,13 @@ uint64_t __58__MRPlaybackSessionMigrateRequest_finalizeWithCompletion___block_in
 
 - (void)endEventWithID:(NSObject *)a3 error:.cold.2(uint64_t a1, int a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = [*(a1 + 8) requestID];
-  v7 = 138412546;
-  v8 = v5;
-  v9 = 1024;
-  v10 = a2;
-  _os_log_error_impl(&dword_1A2860000, a3, OS_LOG_TYPE_ERROR, "[QHO:%@] event with id=%{sonic:fourCC}d count not be ended [not found]", &v7, 0x12u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 138412546;
+  v7 = v5;
+  v8 = 1024;
+  v9 = a2;
+  _os_log_error_impl(&dword_1A2860000, a3, OS_LOG_TYPE_ERROR, "[QHO:%@] event with id=%{sonic:fourCC}d count not be ended [not found]", &v6, 0x12u);
 }
 
 void __67__MRPlaybackSessionMigrateRequest__gatherMPPMetricsWithCompletion___block_invoke_cold_1(uint64_t *a1, void *a2, void *a3, uint64_t a4)

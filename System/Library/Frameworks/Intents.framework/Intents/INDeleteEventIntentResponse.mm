@@ -18,8 +18,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v14[2] = *MEMORY[0x1E69E9840];
-  v13[0] = @"code";
+  v13[2] = *MEMORY[0x1E69E9840];
+  v12[0] = @"code";
   code = [(INDeleteEventIntentResponse *)self code];
   v4 = code;
   if (code < 6)
@@ -34,8 +34,8 @@
     v6 = 0;
   }
 
-  v13[1] = @"confirmationReason";
-  v14[0] = null;
+  v12[1] = @"confirmationReason";
+  v13[0] = null;
   confirmationReason = [(INDeleteEventIntentResponse *)self confirmationReason];
   v8 = @"unknown";
   if (confirmationReason == 1)
@@ -44,14 +44,12 @@
   }
 
   v9 = v8;
-  v14[1] = v9;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:2];
+  v13[1] = v9;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:2];
 
   if (v4 >= 6)
   {
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -182,7 +180,7 @@
 
 - (INDeleteEventIntentResponse)initWithCode:(int64_t)code userActivity:(id)activity
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   activityCopy = activity;
   v7 = INSiriLogContextIntents;
   if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
@@ -200,21 +198,20 @@
 
     v10 = v9;
     *buf = 136315906;
-    v16 = "[INDeleteEventIntentResponse initWithCode:userActivity:]";
-    v17 = 2048;
+    v15 = "[INDeleteEventIntentResponse initWithCode:userActivity:]";
+    v16 = 2048;
     codeCopy = code;
-    v19 = 2112;
-    v20 = v10;
-    v21 = 2112;
-    v22 = activityCopy;
+    v18 = 2112;
+    v19 = v10;
+    v20 = 2112;
+    v21 = activityCopy;
     _os_log_impl(&dword_18E991000, v8, OS_LOG_TYPE_INFO, "%s code = %zd (%@), userActivity = %@", buf, 0x2Au);
   }
 
-  v14.receiver = self;
-  v14.super_class = INDeleteEventIntentResponse;
-  v11 = [(INIntentResponse *)&v14 _initWithCode:code userActivity:activityCopy];
+  v13.receiver = self;
+  v13.super_class = INDeleteEventIntentResponse;
+  v11 = [(INIntentResponse *)&v13 _initWithCode:code userActivity:activityCopy];
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

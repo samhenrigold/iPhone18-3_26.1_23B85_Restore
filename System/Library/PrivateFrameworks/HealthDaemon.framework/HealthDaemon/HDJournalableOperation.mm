@@ -9,32 +9,32 @@
 
 + (void)applyEntries:(id)entries withProfile:(id)profile
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   entriesCopy = entries;
   profileCopy = profile;
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
-  v7 = [entriesCopy countByEnumeratingWithState:&v20 objects:v28 count:16];
+  v7 = [entriesCopy countByEnumeratingWithState:&v19 objects:v27 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v21;
+    v9 = *v20;
     do
     {
       v10 = 0;
       do
       {
-        if (*v21 != v9)
+        if (*v20 != v9)
         {
           objc_enumerationMutation(entriesCopy);
         }
 
-        v11 = *(*(&v20 + 1) + 8 * v10);
-        v19 = 0;
-        v12 = [v11 performOrJournalWithProfile:profileCopy error:&v19];
-        v13 = v19;
+        v11 = *(*(&v19 + 1) + 8 * v10);
+        v18 = 0;
+        v12 = [v11 performOrJournalWithProfile:profileCopy error:&v18];
+        v13 = v18;
         if ((v12 & 1) == 0)
         {
           _HKInitializeLogging();
@@ -42,9 +42,9 @@
           if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
           {
             *buf = 138543618;
-            v25 = v11;
-            v26 = 2114;
-            v27 = v13;
+            v24 = v11;
+            v25 = 2114;
+            v26 = v13;
             _os_log_error_impl(&dword_228986000, v14, OS_LOG_TYPE_ERROR, "%{public}@: Failed to perform during journal merge: %{public}@", buf, 0x16u);
           }
 
@@ -58,13 +58,11 @@
       }
 
       while (v8 != v10);
-      v8 = [entriesCopy countByEnumeratingWithState:&v20 objects:v28 count:16];
+      v8 = [entriesCopy countByEnumeratingWithState:&v19 objects:v27 count:16];
     }
 
     while (v8);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)performOrJournalWithProfile:(id)profile error:(id *)error

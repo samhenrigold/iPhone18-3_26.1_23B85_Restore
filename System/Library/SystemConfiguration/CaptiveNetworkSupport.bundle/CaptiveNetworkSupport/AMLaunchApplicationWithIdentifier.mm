@@ -5,7 +5,7 @@
 
 void ___AMLaunchApplicationWithIdentifier_block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -15,11 +15,11 @@ void ___AMLaunchApplicationWithIdentifier_block_invoke(uint64_t a1, void *a2, vo
     if (os_log_type_enabled(v7, v8))
     {
       v9 = *(a1 + 48);
-      v17 = 138412546;
-      v18 = v9;
-      v19 = 2112;
-      v20 = v6;
-      _os_log_impl(&dword_277237000, v7, v8, "Failed to launch app %@. Error = %@", &v17, 0x16u);
+      v16 = 138412546;
+      v17 = v9;
+      v18 = 2112;
+      v19 = v6;
+      _os_log_impl(&dword_277237000, v7, v8, "Failed to launch app %@. Error = %@", &v16, 0x16u);
     }
 
     if ([v6 code] == 1)
@@ -34,9 +34,9 @@ void ___AMLaunchApplicationWithIdentifier_block_invoke(uint64_t a1, void *a2, vo
         if (os_log_type_enabled(v12, v13))
         {
           v14 = *(a1 + 48);
-          v17 = 138412290;
-          v18 = v14;
-          _os_log_impl(&dword_277237000, v12, v13, "App %@ is uninstalled", &v17, 0xCu);
+          v16 = 138412290;
+          v17 = v14;
+          _os_log_impl(&dword_277237000, v12, v13, "App %@ is uninstalled", &v16, 0xCu);
         }
 
         v15 = 1;
@@ -52,8 +52,6 @@ void ___AMLaunchApplicationWithIdentifier_block_invoke(uint64_t a1, void *a2, vo
   }
 
   dispatch_semaphore_signal(*(a1 + 32));
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 @end

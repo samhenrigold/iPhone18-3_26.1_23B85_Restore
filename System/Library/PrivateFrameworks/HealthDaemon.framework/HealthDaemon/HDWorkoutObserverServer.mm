@@ -59,10 +59,9 @@ void __34__HDWorkoutObserverServer_dealloc__block_invoke(uint64_t a1)
 
 + (id)requiredEntitlements
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = *MEMORY[0x277CCC8B0];
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = *MEMORY[0x277CCC8B0];
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }
@@ -186,21 +185,19 @@ void __66__HDWorkoutObserverServer_workoutManager_didUpdateCurrentWorkout___bloc
 
 void __51__HDWorkoutObserverServer__sendSnapshotForWorkout___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v6;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "%{public}@: Failed to notify client of new snapshot: %{public}@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "%{public}@: Failed to notify client of new snapshot: %{public}@", &v6, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

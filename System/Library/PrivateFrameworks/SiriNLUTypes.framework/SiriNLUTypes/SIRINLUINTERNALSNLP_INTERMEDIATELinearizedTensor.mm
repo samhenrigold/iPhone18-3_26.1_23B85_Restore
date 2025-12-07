@@ -17,7 +17,7 @@
 
 - (void)mergeFrom:(id)from
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   shapesCount = [fromCopy shapesCount];
   if (shapesCount)
@@ -39,37 +39,35 @@
     }
   }
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v11 = fromCopy[7];
-  v12 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v18;
+    v14 = *v17;
     do
     {
       v15 = 0;
       do
       {
-        if (*v18 != v14)
+        if (*v17 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        [(SIRINLUINTERNALSNLP_INTERMEDIATELinearizedTensor *)self addFeature:*(*(&v17 + 1) + 8 * v15++), v17];
+        [(SIRINLUINTERNALSNLP_INTERMEDIATELinearizedTensor *)self addFeature:*(*(&v16 + 1) + 8 * v15++), v16];
       }
 
       while (v13 != v15);
-      v13 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v13);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)hash
@@ -106,44 +104,43 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   PBRepeatedUInt32Copy();
   PBRepeatedUInt32Copy();
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v6 = self->_features;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       v10 = 0;
       do
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [*(*(&v14 + 1) + 8 * v10) copyWithZone:{zone, v14}];
+        v11 = [*(*(&v13 + 1) + 8 * v10) copyWithZone:{zone, v13}];
         [v5 addFeature:v11];
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -196,14 +193,13 @@
 
 - (void)writeTo:(id)to
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if (self->_shapes.count)
   {
     v5 = 0;
     do
     {
-      v6 = self->_shapes.list[v5];
       PBDataWriterWriteUint32Field();
       ++v5;
     }
@@ -213,47 +209,46 @@
 
   if (self->_numericalizedFeatures.count)
   {
-    v7 = 0;
+    v6 = 0;
     do
     {
-      v8 = self->_numericalizedFeatures.list[v7];
       PBDataWriterWriteUint32Field();
-      ++v7;
+      ++v6;
     }
 
-    while (v7 < self->_numericalizedFeatures.count);
+    while (v6 < self->_numericalizedFeatures.count);
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
-  v17 = 0u;
-  v9 = self->_features;
-  v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
-  if (v10)
+  v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v7 = self->_features;
+  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v8)
   {
-    v11 = v10;
-    v12 = *v17;
+    v9 = v8;
+    v10 = *v13;
     do
     {
-      for (i = 0; i != v11; ++i)
+      v11 = 0;
+      do
       {
-        if (*v17 != v12)
+        if (*v13 != v10)
         {
-          objc_enumerationMutation(v9);
+          objc_enumerationMutation(v7);
         }
 
-        v14 = *(*(&v16 + 1) + 8 * i);
         PBDataWriterWriteStringField();
+        ++v11;
       }
 
-      v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      while (v9 != v11);
+      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
-    while (v11);
+    while (v9);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (id)dictionaryRepresentation

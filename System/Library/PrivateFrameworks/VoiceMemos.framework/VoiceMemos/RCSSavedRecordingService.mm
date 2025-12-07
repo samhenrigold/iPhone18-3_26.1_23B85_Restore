@@ -61,17 +61,17 @@
 
 - (RCSSavedRecordingService)init
 {
-  v26 = *MEMORY[0x277D85DE8];
-  v23.receiver = self;
-  v23.super_class = RCSSavedRecordingService;
-  v2 = [(RCSSavedRecordingService *)&v23 init];
+  v25 = *MEMORY[0x277D85DE8];
+  v22.receiver = self;
+  v22.super_class = RCSSavedRecordingService;
+  v2 = [(RCSSavedRecordingService *)&v22 init];
   if (v2)
   {
     v3 = OSLogForCategory(@"Default");
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v25 = "[RCSSavedRecordingService init]";
+      v24 = "[RCSSavedRecordingService init]";
       _os_log_impl(&dword_272442000, v3, OS_LOG_TYPE_DEFAULT, "%s -- Opening RCSSavedRecordingService connection", buf, 0xCu);
     }
 
@@ -100,25 +100,24 @@
     handler[1] = 3221225472;
     handler[2] = __32__RCSSavedRecordingService_init__block_invoke;
     handler[3] = &unk_279E44830;
-    objc_copyWeak(&v22, buf);
+    objc_copyWeak(&v21, buf);
     notify_register_dispatch(uTF8String, &v2->_compositionAVURLsBeingExportedDistributedNotificationToken, MEMORY[0x277D85CD0], handler);
 
     uTF8String2 = [@"RCSavedRecordingServiceDidChangeCompositionAVURLsBeingModifiedDistributedNotification" UTF8String];
-    v16 = MEMORY[0x277D85DD0];
-    v17 = 3221225472;
-    v18 = __32__RCSSavedRecordingService_init__block_invoke_2;
-    v19 = &unk_279E44830;
-    objc_copyWeak(&v20, buf);
-    notify_register_dispatch(uTF8String2, &v2->_compositionAVURLsBeingModifiedDistributedNotificationToken, MEMORY[0x277D85CD0], &v16);
+    v15 = MEMORY[0x277D85DD0];
+    v16 = 3221225472;
+    v17 = __32__RCSSavedRecordingService_init__block_invoke_2;
+    v18 = &unk_279E44830;
+    objc_copyWeak(&v19, buf);
+    notify_register_dispatch(uTF8String2, &v2->_compositionAVURLsBeingModifiedDistributedNotificationToken, MEMORY[0x277D85CD0], &v15);
 
-    [(RCSSavedRecordingService *)v2 _handleCompositionAVURLsBeingExportedDidChange:v16];
+    [(RCSSavedRecordingService *)v2 _handleCompositionAVURLsBeingExportedDidChange:v15];
     [(RCSSavedRecordingService *)v2 _handleCompositionAVURLsBeingModifiedDidChange];
-    objc_destroyWeak(&v20);
-    objc_destroyWeak(&v22);
+    objc_destroyWeak(&v19);
+    objc_destroyWeak(&v21);
     objc_destroyWeak(buf);
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -217,9 +216,11 @@ void __40__RCSSavedRecordingService_serviceProxy__block_invoke(uint64_t a1)
 
 uint64_t __41__RCSSavedRecordingService_sharedService__block_invoke()
 {
-  sharedService___sharedService = objc_alloc_init(RCSSavedRecordingService);
+  v0 = objc_alloc_init(RCSSavedRecordingService);
+  v1 = sharedService___sharedService;
+  sharedService___sharedService = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 void __32__RCSSavedRecordingService_init__block_invoke(uint64_t a1)
@@ -236,10 +237,18 @@ void __32__RCSSavedRecordingService_init__block_invoke_2(uint64_t a1)
 
 - (void)dealloc
 {
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  v3 = OSLogForCategory(@"Service");
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  {
+    [RCSSavedRecordingService dealloc];
+  }
+
+  notify_cancel(self->_compositionAVURLsBeingExportedDistributedNotificationToken);
+  notify_cancel(self->_compositionAVURLsBeingModifiedDistributedNotificationToken);
+  [(RCSSavedRecordingService *)self closeServiceConnection];
+  v4.receiver = self;
+  v4.super_class = RCSSavedRecordingService;
+  [(RCSSavedRecordingService *)&v4 dealloc];
 }
 
 - (void)setCompositionAVURLsBeingExported:(id)exported
@@ -310,81 +319,75 @@ LABEL_6:
 
 void __49__RCSSavedRecordingService_openServiceConnection__block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = OSLogForCategory(@"Service");
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v12 = "[RCSSavedRecordingService openServiceConnection]_block_invoke";
+    v11 = "[RCSSavedRecordingService openServiceConnection]_block_invoke";
     _os_log_impl(&dword_272442000, v2, OS_LOG_TYPE_DEFAULT, "%s -- service connection closed.", buf, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v4 = [WeakRetained[7] allObjects];
   v5 = [WeakRetained completionQueue];
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __49__RCSSavedRecordingService_openServiceConnection__block_invoke_27;
-  v8[3] = &unk_279E43AD0;
-  v9 = v4;
-  v10 = WeakRetained;
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __49__RCSSavedRecordingService_openServiceConnection__block_invoke_27;
+  v7[3] = &unk_279E43AD0;
+  v8 = v4;
+  v9 = WeakRetained;
   v6 = v4;
-  dispatch_async(v5, v8);
-
-  v7 = *MEMORY[0x277D85DE8];
+  dispatch_async(v5, v7);
 }
 
 void __49__RCSSavedRecordingService_openServiceConnection__block_invoke_27(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) serviceWasInterrupted:{*(a1 + 40), v8}];
+        [*(*(&v7 + 1) + 8 * v6++) serviceWasInterrupted:{*(a1 + 40), v7}];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __49__RCSSavedRecordingService_openServiceConnection__block_invoke_2(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = OSLogForCategory(@"Service");
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "[RCSSavedRecordingService openServiceConnection]_block_invoke_2";
-    _os_log_impl(&dword_272442000, v2, OS_LOG_TYPE_DEFAULT, "%s -- service connection invalidated.", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[RCSSavedRecordingService openServiceConnection]_block_invoke_2";
+    _os_log_impl(&dword_272442000, v2, OS_LOG_TYPE_DEFAULT, "%s -- service connection invalidated.", &v4, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained closeServiceConnection];
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)closeServiceConnection
@@ -400,7 +403,7 @@ void __49__RCSSavedRecordingService_openServiceConnection__block_invoke_2(uint64
 
 - (void)importRecordingWithSourceAudioURL:(id)l name:(id)name date:(id)date userInfo:(id)info importCompletionBlock:(id)block
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   lCopy = l;
   nameCopy = name;
   dateCopy = date;
@@ -409,33 +412,31 @@ void __49__RCSSavedRecordingService_openServiceConnection__block_invoke_2(uint64
   v18 = OSLogForCategory(@"Service");
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
   {
-    v24 = [lCopy url];
+    v23 = [lCopy url];
     *buf = 136315906;
-    v31 = "[RCSSavedRecordingService importRecordingWithSourceAudioURL:name:date:userInfo:importCompletionBlock:]";
-    v32 = 2112;
-    v33 = v24;
-    v34 = 2112;
-    v35 = nameCopy;
-    v36 = 2112;
-    v37 = dateCopy;
+    v30 = "[RCSSavedRecordingService importRecordingWithSourceAudioURL:name:date:userInfo:importCompletionBlock:]";
+    v31 = 2112;
+    v32 = v23;
+    v33 = 2112;
+    v34 = nameCopy;
+    v35 = 2112;
+    v36 = dateCopy;
     _os_log_debug_impl(&dword_272442000, v18, OS_LOG_TYPE_DEBUG, "%s -- Sending service request to importRecordingWithSourceAudioURL:%@ name:%@ date:%@", buf, 0x2Au);
   }
 
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __103__RCSSavedRecordingService_importRecordingWithSourceAudioURL_name_date_userInfo_importCompletionBlock___block_invoke;
-  v25[3] = &unk_279E44920;
-  v26 = lCopy;
-  v27 = nameCopy;
-  v28 = dateCopy;
-  v29 = infoCopy;
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __103__RCSSavedRecordingService_importRecordingWithSourceAudioURL_name_date_userInfo_importCompletionBlock___block_invoke;
+  v24[3] = &unk_279E44920;
+  v25 = lCopy;
+  v26 = nameCopy;
+  v27 = dateCopy;
+  v28 = infoCopy;
   v19 = infoCopy;
   v20 = dateCopy;
   v21 = nameCopy;
   v22 = lCopy;
-  [(RCSSavedRecordingService *)self _sendServiceMessage:a2 importRequestReplyBlock:blockCopy messagingBlock:v25];
-
-  v23 = *MEMORY[0x277D85DE8];
+  [(RCSSavedRecordingService *)self _sendServiceMessage:a2 importRequestReplyBlock:blockCopy messagingBlock:v24];
 }
 
 void __103__RCSSavedRecordingService_importRecordingWithSourceAudioURL_name_date_userInfo_importCompletionBlock___block_invoke(void *a1, void *a2, void *a3)
@@ -465,13 +466,13 @@ void __103__RCSSavedRecordingService_importRecordingWithSourceAudioURL_name_date
   {
     if (v8)
     {
-      __103__RCSSavedRecordingService_importRecordingWithSourceAudioURL_name_date_userInfo_importCompletionBlock___block_invoke_2_cold_1(a1);
+      __103__RCSSavedRecordingService_importRecordingWithSourceAudioURL_name_date_userInfo_importCompletionBlock___block_invoke_2_cold_1();
     }
   }
 
   else if (v8)
   {
-    __103__RCSSavedRecordingService_importRecordingWithSourceAudioURL_name_date_userInfo_importCompletionBlock___block_invoke_2_cold_2(a1);
+    __103__RCSSavedRecordingService_importRecordingWithSourceAudioURL_name_date_userInfo_importCompletionBlock___block_invoke_2_cold_2();
   }
 
   v9 = *(a1 + 40);
@@ -692,7 +693,7 @@ void __78__RCSSavedRecordingService_fetchMetadataForRecordingWithUUID_completion
 
   else if (v8)
   {
-    __78__RCSSavedRecordingService_fetchMetadataForRecordingWithUUID_completionBlock___block_invoke_2_cold_2(a1);
+    __78__RCSSavedRecordingService_fetchMetadataForRecordingWithUUID_completionBlock___block_invoke_2_cold_2();
   }
 
   v9 = *(a1 + 40);
@@ -1763,27 +1764,27 @@ void __51__RCSSavedRecordingService___fetchAllAccessTokens___block_invoke_2(uint
 
 void __56__RCSSavedRecordingService_observeFinalizingRecordings___block_invoke(uint64_t a1, void *a2)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   obj = a2;
-  v3 = [obj countByEnumeratingWithState:&v21 objects:v27 count:16];
+  v3 = [obj countByEnumeratingWithState:&v20 objects:v26 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v22;
+    v5 = *v21;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v22 != v5)
+        if (*v21 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v21 + 1) + 8 * i);
+        v7 = *(*(&v20 + 1) + 8 * i);
         v8 = [RCComposition compositionLoadedForComposedAVURL:v7 createIfNeeded:0];
         v9 = [v8 savedRecordingUUID];
         if (v9)
@@ -1796,28 +1797,26 @@ void __56__RCSSavedRecordingService_observeFinalizingRecordings___block_invoke(u
           handler[2] = __56__RCSSavedRecordingService_observeFinalizingRecordings___block_invoke_2;
           handler[3] = &unk_279E44B88;
           v12 = v9;
-          v18 = v12;
-          v19 = *(a1 + 40);
+          v17 = v12;
+          v18 = *(a1 + 40);
           if (!notify_register_dispatch(v11, &out_token, MEMORY[0x277D85CD0], handler))
           {
-            v25[0] = @"recordingID";
-            v25[1] = @"token";
-            v26[0] = v12;
+            v24[0] = @"recordingID";
+            v24[1] = @"token";
+            v25[0] = v12;
             v13 = [MEMORY[0x277CCABB0] numberWithInt:out_token];
-            v26[1] = v13;
-            v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:2];
+            v25[1] = v13;
+            v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:2];
             [*(a1 + 32) setObject:v14 forKeyedSubscript:v7];
           }
         }
       }
 
-      v4 = [obj countByEnumeratingWithState:&v21 objects:v27 count:16];
+      v4 = [obj countByEnumeratingWithState:&v20 objects:v26 count:16];
     }
 
     while (v4);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __56__RCSSavedRecordingService_observeFinalizingRecordings___block_invoke_2(uint64_t a1, int token)
@@ -1827,46 +1826,45 @@ uint64_t __56__RCSSavedRecordingService_observeFinalizingRecordings___block_invo
   v3 = OSLogForCategory(@"Service");
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __56__RCSSavedRecordingService_observeFinalizingRecordings___block_invoke_2_cold_1(a1);
+    __56__RCSSavedRecordingService_observeFinalizingRecordings___block_invoke_2_cold_1();
   }
 
-  v4 = *(a1 + 32);
   return (*(*(a1 + 40) + 16))(*&state64);
 }
 
 void __56__RCSSavedRecordingService_observeFinalizingRecordings___block_invoke_99(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v5 = a4;
   v6 = getChange(v5, *MEMORY[0x277CCA300]);
   v7 = getChange(v5, *MEMORY[0x277CCA2F0]);
   if ([v6 count])
   {
-    v23 = v6;
-    v24 = v5;
+    v22 = v6;
+    v23 = v5;
     v8 = [v6 mutableCopy];
-    v22 = v7;
+    v21 = v7;
     [v8 minusSet:v7];
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     v9 = v8;
-    v10 = [v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v26;
+      v12 = *v25;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v26 != v12)
+          if (*v25 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v25 + 1) + 8 * i);
+          v14 = *(*(&v24 + 1) + 8 * i);
           v15 = [*(a1 + 32) objectForKeyedSubscript:v14];
           v16 = v15;
           if (v15)
@@ -1881,15 +1879,15 @@ void __56__RCSSavedRecordingService_observeFinalizingRecordings___block_invoke_9
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
       while (v11);
     }
 
-    v6 = v23;
-    v5 = v24;
-    v7 = v22;
+    v6 = v22;
+    v5 = v23;
+    v7 = v21;
   }
 
   if ([v7 count])
@@ -1898,8 +1896,6 @@ void __56__RCSSavedRecordingService_observeFinalizingRecordings___block_invoke_9
     [v20 minusSet:v6];
     (*(*(a1 + 48) + 16))();
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __56__RCSSavedRecordingService_observeFinalizingRecordings___block_invoke_2_101(uint64_t a1)
@@ -1925,27 +1921,27 @@ void __56__RCSSavedRecordingService_observeFinalizingRecordings___block_invoke_2
 
 void __55__RCSSavedRecordingService_checkRecordingAvailability___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v3 = a2;
-  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
 LABEL_3:
     v7 = 0;
     while (1)
     {
-      if (*v12 != v6)
+      if (*v11 != v6)
       {
         objc_enumerationMutation(v3);
       }
 
-      v8 = [*(*(&v11 + 1) + 8 * v7) accessName];
+      v8 = [*(*(&v10 + 1) + 8 * v7) accessName];
       v9 = [v8 isEqualToString:@"capture"];
 
       if (v9)
@@ -1955,7 +1951,7 @@ LABEL_3:
 
       if (v5 == ++v7)
       {
-        v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
         if (v5)
         {
           goto LABEL_3;
@@ -1967,7 +1963,6 @@ LABEL_3:
   }
 
   (*(*(a1 + 32) + 16))();
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reloadExistingSearchMetadataWithCompletionBlock:(id)block
@@ -1996,7 +1991,7 @@ LABEL_3:
 
 - (void)updateSearchMetadataWithRecordingURIsToInsert:(id)insert recordingURIsToUpdate:(id)update recordingURIsToDelete:(id)delete completionBlock:(id)block
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   insertCopy = insert;
   updateCopy = update;
   deleteCopy = delete;
@@ -2008,36 +2003,34 @@ LABEL_3:
     v17 = OSLogForCategory(@"Service");
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
-      v19 = MEMORY[0x2743CA3B0](blockCopy);
+      v18 = MEMORY[0x2743CA3B0](blockCopy);
       *buf = 136316162;
-      v25 = "[RCSSavedRecordingService updateSearchMetadataWithRecordingURIsToInsert:recordingURIsToUpdate:recordingURIsToDelete:completionBlock:]";
-      v26 = 2112;
-      v27 = insertCopy;
-      v28 = 2112;
-      v29 = updateCopy;
-      v30 = 2112;
-      v31 = deleteCopy;
-      v32 = 2112;
-      v33 = v19;
+      v24 = "[RCSSavedRecordingService updateSearchMetadataWithRecordingURIsToInsert:recordingURIsToUpdate:recordingURIsToDelete:completionBlock:]";
+      v25 = 2112;
+      v26 = insertCopy;
+      v27 = 2112;
+      v28 = updateCopy;
+      v29 = 2112;
+      v30 = deleteCopy;
+      v31 = 2112;
+      v32 = v18;
       _os_log_debug_impl(&dword_272442000, v17, OS_LOG_TYPE_DEBUG, "%s -- Sending service request to updateSearchMetadataWithRecordingURIsToInsert:%@ recordingURIsToUpdate:%@ recordingURIsToDelete:%@ completionBlock:%@", buf, 0x34u);
     }
 
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __134__RCSSavedRecordingService_updateSearchMetadataWithRecordingURIsToInsert_recordingURIsToUpdate_recordingURIsToDelete_completionBlock___block_invoke;
-    v20[3] = &unk_279E44C28;
-    v21 = insertCopy;
-    v22 = updateCopy;
-    v23 = deleteCopy;
-    [(RCSSavedRecordingService *)self _sendServiceMessage:a2 withBasicReplyBlock:blockCopy messagingBlock:v20];
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __134__RCSSavedRecordingService_updateSearchMetadataWithRecordingURIsToInsert_recordingURIsToUpdate_recordingURIsToDelete_completionBlock___block_invoke;
+    v19[3] = &unk_279E44C28;
+    v20 = insertCopy;
+    v21 = updateCopy;
+    v22 = deleteCopy;
+    [(RCSSavedRecordingService *)self _sendServiceMessage:a2 withBasicReplyBlock:blockCopy messagingBlock:v19];
   }
 
   else if (blockCopy)
   {
     blockCopy[2](blockCopy, 0);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __40__RCSSavedRecordingService_serviceProxy__block_invoke_2(uint64_t a1, void *a2)
@@ -2367,8 +2360,7 @@ void __126__RCSSavedRecordingService__sendSynchronousServiceMessage_connectionFa
     v3 = [MEMORY[0x277CCA9B8] errorWithDomain:@"RCSSavedRecordingServiceErrorDomain" code:202 userInfo:0];
   }
 
-  v4 = *(a1 + 32);
-  v5 = v3;
+  v4 = v3;
   (*(*(a1 + 40) + 16))();
 }
 
@@ -2649,40 +2641,37 @@ void __94__RCSSavedRecordingService__sendSynchronousServiceMessage_withBasicRepl
 
 void __81__RCSSavedRecordingService__onQueueInvalidatePendingCompletionHandlersWithError___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
+  v6 = 0u;
+  v7 = 0u;
+  v8 = 0u;
   v9 = 0u;
-  v10 = 0u;
-  v11 = 0u;
-  v12 = 0u;
-  v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
-  if (v3)
+  v1 = *(a1 + 32);
+  v2 = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
+  if (v2)
   {
-    v4 = v3;
-    v5 = *v10;
+    v3 = v2;
+    v4 = *v7;
     do
     {
-      v6 = 0;
+      v5 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v7 != v4)
         {
-          objc_enumerationMutation(v2);
+          objc_enumerationMutation(v1);
         }
 
-        v7 = *(a1 + 40);
-        (*(*(*(&v9 + 1) + 8 * v6) + 16))(*(*(&v9 + 1) + 8 * v6));
-        ++v6;
+        (*(*(*(&v6 + 1) + 8 * v5) + 16))(*(*(&v6 + 1) + 8 * v5));
+        ++v5;
       }
 
-      while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      while (v3 != v5);
+      v3 = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
     }
 
-    while (v4);
+    while (v3);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_onQueueInvalidatePendingCompletionHandlerWithToken:(id)token withError:(id)error
@@ -2706,7 +2695,7 @@ void __81__RCSSavedRecordingService__onQueueInvalidatePendingCompletionHandlersW
 
 - (void)_invalidatePendingSynchronousCompletionHandlersWithError:(id)error
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   allValues = [(NSMutableDictionary *)self->_pendingSynchronousServiceCompletionHandlers allValues];
   v6 = [allValues copy];
@@ -2720,39 +2709,37 @@ void __81__RCSSavedRecordingService__onQueueInvalidatePendingCompletionHandlersW
       [RCSSavedRecordingService _invalidatePendingSynchronousCompletionHandlersWithError:v6];
     }
 
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     v8 = v6;
-    v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v15;
+      v11 = *v14;
       do
       {
         v12 = 0;
         do
         {
-          if (*v15 != v11)
+          if (*v14 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          (*(*(*(&v14 + 1) + 8 * v12) + 16))(*(*(&v14 + 1) + 8 * v12));
+          (*(*(*(&v13 + 1) + 8 * v12) + 16))(*(*(&v13 + 1) + 8 * v12));
           ++v12;
         }
 
         while (v10 != v12);
-        v10 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v10);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_valueForServiceKey:(id)key synchronous:(BOOL)synchronous completion:(id)completion
@@ -2822,7 +2809,7 @@ void __47__RCSSavedRecordingService_valueForServiceKey___block_invoke(uint64_t a
     v8 = OSLogForCategory(@"Service");
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __47__RCSSavedRecordingService_valueForServiceKey___block_invoke_cold_1(a1);
+      __47__RCSSavedRecordingService_valueForServiceKey___block_invoke_cold_1();
     }
   }
 
@@ -2839,184 +2826,91 @@ void __47__RCSSavedRecordingService_valueForServiceKey___block_invoke(uint64_t a
   return bOOLValue;
 }
 
-void __103__RCSSavedRecordingService_importRecordingWithSourceAudioURL_name_date_userInfo_importCompletionBlock___block_invoke_2_cold_1(uint64_t a1)
+void __103__RCSSavedRecordingService_importRecordingWithSourceAudioURL_name_date_userInfo_importCompletionBlock___block_invoke_2_cold_1()
 {
-  OUTLINED_FUNCTION_10(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_10(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_5_0();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __103__RCSSavedRecordingService_importRecordingWithSourceAudioURL_name_date_userInfo_importCompletionBlock___block_invoke_2_cold_2(uint64_t a1)
+void __103__RCSSavedRecordingService_importRecordingWithSourceAudioURL_name_date_userInfo_importCompletionBlock___block_invoke_2_cold_2()
 {
-  OUTLINED_FUNCTION_10(a1, *MEMORY[0x277D85DE8]);
-  v4 = 136315650;
+  OUTLINED_FUNCTION_10(*MEMORY[0x277D85DE8]);
+  v2 = 136315650;
   OUTLINED_FUNCTION_3_1();
-  OUTLINED_FUNCTION_8_0(&dword_272442000, v1, v2, "%s -- Failed to import %@, error = %@", v4);
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-- (void)enableCloudRecordingsWithCompletionBlock:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)importRecordingsFromCloud:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_8_0(&dword_272442000, v0, v1, "%s -- Failed to import %@, error = %@", v2);
 }
 
 void __54__RCSSavedRecordingService_importRecordingsFromCloud___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_5_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __54__RCSSavedRecordingService_importRecordingsFromCloud___block_invoke_2_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_5_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)exportRecordingsToCloud:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __52__RCSSavedRecordingService_exportRecordingsToCloud___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_5_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __52__RCSSavedRecordingService_exportRecordingsToCloud___block_invoke_2_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_5_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)fetchRecordingUUIDsForExport:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __57__RCSSavedRecordingService_fetchRecordingUUIDsForExport___block_invoke_2_cold_1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 count];
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0x12u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __57__RCSSavedRecordingService_fetchRecordingUUIDsForExport___block_invoke_2_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_5_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-- (void)fetchMetadataForRecordingWithUUID:completionBlock:.cold.1()
+void __78__RCSSavedRecordingService_fetchMetadataForRecordingWithUUID_completionBlock___block_invoke_2_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __78__RCSSavedRecordingService_fetchMetadataForRecordingWithUUID_completionBlock___block_invoke_2_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __78__RCSSavedRecordingService_fetchMetadataForRecordingWithUUID_completionBlock___block_invoke_2_cold_2(uint64_t a1)
-{
-  OUTLINED_FUNCTION_10(a1, *MEMORY[0x277D85DE8]);
-  v4 = 136315650;
+  OUTLINED_FUNCTION_10(*MEMORY[0x277D85DE8]);
+  v2 = 136315650;
   OUTLINED_FUNCTION_3_1();
-  OUTLINED_FUNCTION_8_0(&dword_272442000, v1, v2, "%s -- Failed to fetch metadata for recordin with UUID %@, error = %@", v4);
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-- (void)sizeOfRecordingsForExport:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __54__RCSSavedRecordingService_sizeOfRecordingsForExport___block_invoke_2_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_8_0(&dword_272442000, v0, v1, "%s -- Failed to fetch metadata for recordin with UUID %@, error = %@", v2);
 }
 
 void __54__RCSSavedRecordingService_sizeOfRecordingsForExport___block_invoke_2_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_5_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)expungeRecordingsFromCloud:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __55__RCSSavedRecordingService_expungeRecordingsFromCloud___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_5_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __55__RCSSavedRecordingService_expungeRecordingsFromCloud___block_invoke_2_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_5_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __69__RCSSavedRecordingService_prepareToCaptureToCompositionAVURL_error___block_invoke_cold_1()
@@ -3027,8 +2921,6 @@ void __69__RCSSavedRecordingService_prepareToCaptureToCompositionAVURL_error___b
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x2Au);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __69__RCSSavedRecordingService_prepareToCaptureToCompositionAVURL_error___block_invoke_cold_2()
@@ -3039,19 +2931,14 @@ void __69__RCSSavedRecordingService_prepareToCaptureToCompositionAVURL_error___b
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x2Au);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)prepareToCaptureToCompositionAVURL:(void *)a1 accessRequestHandler:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 path];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __84__RCSSavedRecordingService_prepareToCaptureToCompositionAVURL_accessRequestHandler___block_invoke_2_cold_1()
@@ -3062,8 +2949,6 @@ void __84__RCSSavedRecordingService_prepareToCaptureToCompositionAVURL_accessReq
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x2Au);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __84__RCSSavedRecordingService_prepareToCaptureToCompositionAVURL_accessRequestHandler___block_invoke_2_cold_2()
@@ -3074,8 +2959,6 @@ void __84__RCSSavedRecordingService_prepareToCaptureToCompositionAVURL_accessReq
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x2Au);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __67__RCSSavedRecordingService_prepareToPreviewCompositionAVURL_error___block_invoke_cold_1()
@@ -3086,8 +2969,6 @@ void __67__RCSSavedRecordingService_prepareToPreviewCompositionAVURL_error___blo
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x2Au);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __67__RCSSavedRecordingService_prepareToPreviewCompositionAVURL_error___block_invoke_cold_2()
@@ -3098,19 +2979,14 @@ void __67__RCSSavedRecordingService_prepareToPreviewCompositionAVURL_error___blo
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x2Au);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)prepareToPreviewCompositionAVURL:(void *)a1 accessRequestHandler:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 path];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __82__RCSSavedRecordingService_prepareToPreviewCompositionAVURL_accessRequestHandler___block_invoke_2_cold_1()
@@ -3121,8 +2997,6 @@ void __82__RCSSavedRecordingService_prepareToPreviewCompositionAVURL_accessReque
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x2Au);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __82__RCSSavedRecordingService_prepareToPreviewCompositionAVURL_accessRequestHandler___block_invoke_2_cold_2()
@@ -3133,8 +3007,6 @@ void __82__RCSSavedRecordingService_prepareToPreviewCompositionAVURL_accessReque
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x2Au);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __66__RCSSavedRecordingService_prepareToExportCompositionAVURL_error___block_invoke_cold_1()
@@ -3145,8 +3017,6 @@ void __66__RCSSavedRecordingService_prepareToExportCompositionAVURL_error___bloc
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x2Au);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __66__RCSSavedRecordingService_prepareToExportCompositionAVURL_error___block_invoke_cold_2()
@@ -3157,19 +3027,14 @@ void __66__RCSSavedRecordingService_prepareToExportCompositionAVURL_error___bloc
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x2Au);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)prepareToExportCompositionAVURL:(void *)a1 accessRequestHandler:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 path];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __81__RCSSavedRecordingService_prepareToExportCompositionAVURL_accessRequestHandler___block_invoke_2_cold_1()
@@ -3180,8 +3045,6 @@ void __81__RCSSavedRecordingService_prepareToExportCompositionAVURL_accessReques
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x2Au);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __81__RCSSavedRecordingService_prepareToExportCompositionAVURL_accessRequestHandler___block_invoke_2_cold_2()
@@ -3192,8 +3055,6 @@ void __81__RCSSavedRecordingService_prepareToExportCompositionAVURL_accessReques
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x2Au);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __64__RCSSavedRecordingService_prepareToTrimCompositionAVURL_error___block_invoke_cold_1()
@@ -3204,8 +3065,6 @@ void __64__RCSSavedRecordingService_prepareToTrimCompositionAVURL_error___block_
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x2Au);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __64__RCSSavedRecordingService_prepareToTrimCompositionAVURL_error___block_invoke_cold_2()
@@ -3216,19 +3075,14 @@ void __64__RCSSavedRecordingService_prepareToTrimCompositionAVURL_error___block_
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x2Au);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)prepareToTrimCompositionAVURL:(void *)a1 accessRequestHandler:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 path];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __79__RCSSavedRecordingService_prepareToTrimCompositionAVURL_accessRequestHandler___block_invoke_2_cold_1()
@@ -3239,8 +3093,6 @@ void __79__RCSSavedRecordingService_prepareToTrimCompositionAVURL_accessRequestH
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x2Au);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __79__RCSSavedRecordingService_prepareToTrimCompositionAVURL_accessRequestHandler___block_invoke_2_cold_2()
@@ -3251,223 +3103,130 @@ void __79__RCSSavedRecordingService_prepareToTrimCompositionAVURL_accessRequestH
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x2Au);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)endAccessSessionWithToken:completionBlock:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_5_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)disableOrphanedFragmentCleanupForCompositionAVURL:(void *)a1 completionBlock:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 path];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enableOrphanedFragmentCleanupForCompositionAVURL:(void *)a1 .cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 path];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
-- (void)enableOrphanHandlingWithCompletionBlock:.cold.1()
+void __56__RCSSavedRecordingService_observeFinalizingRecordings___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)fetchCompositionAVURLsBeingExported:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)fetchCompositionAVURLsBeingModified:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_fetchAllAccessTokens:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)__fetchAllAccessTokens:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __56__RCSSavedRecordingService_observeFinalizingRecordings___block_invoke_2_cold_1(uint64_t a1)
-{
-  OUTLINED_FUNCTION_10(a1, *MEMORY[0x277D85DE8]);
-  v2 = *v1;
-  v6 = 136315650;
+  OUTLINED_FUNCTION_10(*MEMORY[0x277D85DE8]);
+  v2 = 136315650;
   OUTLINED_FUNCTION_3_1();
-  OUTLINED_FUNCTION_8_0(&dword_272442000, v3, v4, "%s -- recordingID = %@, progress = %f", v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)reloadExistingSearchMetadataWithCompletionBlock:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)clearAndReloadSearchMetadataWithCompletionBlock:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_8_0(&dword_272442000, v0, v1, "%s -- recordingID = %@, progress = %f", v2);
 }
 
 void __40__RCSSavedRecordingService_serviceProxy__block_invoke_2_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(&dword_272442000, v0, OS_LOG_TYPE_ERROR, "%s -- An error occurred while waiting for a reply from the service. Error = %@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_272442000, v0, OS_LOG_TYPE_ERROR, "%s -- An error occurred while waiting for a reply from the service. Error = %@", v1, 0x16u);
 }
 
 void __51__RCSSavedRecordingService_synchronousServiceProxy__block_invoke_2_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(&dword_272442000, v0, OS_LOG_TYPE_ERROR, "%s -- An error occurred while waiting for a reply from the service. Error = %@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_272442000, v0, OS_LOG_TYPE_ERROR, "%s -- An error occurred while waiting for a reply from the service. Error = %@", v1, 0x16u);
 }
 
 void __132__RCSSavedRecordingService__sendServiceMessage_connectionFailureReplyInfo_infoAndErrorReplyHandler_withServiceProxy_messagingBlock___block_invoke_5_cold_1(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(*(a1 + 56));
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_9_0();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x20u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __132__RCSSavedRecordingService__sendServiceMessage_connectionFailureReplyInfo_infoAndErrorReplyHandler_withServiceProxy_messagingBlock___block_invoke_5_cold_2(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(*(a1 + 56));
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __126__RCSSavedRecordingService__sendSynchronousServiceMessage_connectionFailureReplyInfo_infoAndErrorReplyHandler_messagingBlock___block_invoke_3_cold_1(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(*(a1 + 64));
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_9_0();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x20u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __126__RCSSavedRecordingService__sendSynchronousServiceMessage_connectionFailureReplyInfo_infoAndErrorReplyHandler_messagingBlock___block_invoke_3_cold_2(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(*(a1 + 64));
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __100__RCSSavedRecordingService__sendServiceMessage_withBasicReplyBlock_withServiceProxy_messagingBlock___block_invoke_5_cold_1(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(*(a1 + 56));
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_9_0();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x20u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __100__RCSSavedRecordingService__sendServiceMessage_withBasicReplyBlock_withServiceProxy_messagingBlock___block_invoke_5_cold_2(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(*(a1 + 56));
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_onQueueInvalidatePendingCompletionHandlersWithError:(void *)a1 .cold.1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 count];
   OUTLINED_FUNCTION_11();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_invalidatePendingSynchronousCompletionHandlersWithError:(void *)a1 .cold.1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 count];
   OUTLINED_FUNCTION_11();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
-void __47__RCSSavedRecordingService_valueForServiceKey___block_invoke_cold_1(uint64_t a1)
+void __47__RCSSavedRecordingService_valueForServiceKey___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_10(a1, *MEMORY[0x277D85DE8]);
-  v5[0] = 136315650;
+  OUTLINED_FUNCTION_10(*MEMORY[0x277D85DE8]);
+  v3[0] = 136315650;
   OUTLINED_FUNCTION_3_1();
-  v6 = v1;
-  v7 = v2;
-  _os_log_error_impl(&dword_272442000, v3, OS_LOG_TYPE_ERROR, "%s -- failed to get value for %@, error = %@", v5, 0x20u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = v0;
+  v5 = v1;
+  _os_log_error_impl(&dword_272442000, v2, OS_LOG_TYPE_ERROR, "%s -- failed to get value for %@, error = %@", v3, 0x20u);
 }
 
 @end

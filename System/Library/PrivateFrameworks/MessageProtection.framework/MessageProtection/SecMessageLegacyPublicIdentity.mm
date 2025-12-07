@@ -16,7 +16,6 @@
 
 - (_SecMPPublicIdentity)asRef
 {
-  v3 = *MEMORY[0x277CBECE8];
   SecMPPublicIdentityGetTypeID();
   Instance = _CFRuntimeCreateInstance();
   Instance->var3 = CFRetain(self);

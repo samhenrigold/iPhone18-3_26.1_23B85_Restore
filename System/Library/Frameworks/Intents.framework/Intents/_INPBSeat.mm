@@ -224,7 +224,6 @@ LABEL_23:
 
   if (seatNumber)
   {
-    seatNumber = self->_seatNumber;
     PBDataWriterWriteStringField();
   }
 
@@ -232,7 +231,6 @@ LABEL_23:
 
   if (seatRow)
   {
-    seatRow = self->_seatRow;
     PBDataWriterWriteStringField();
   }
 
@@ -240,18 +238,16 @@ LABEL_23:
 
   if (seatSection)
   {
-    seatSection = self->_seatSection;
     PBDataWriterWriteStringField();
   }
 
   seatingType = [(_INPBSeat *)self seatingType];
 
-  v11 = toCopy;
+  v8 = toCopy;
   if (seatingType)
   {
-    seatingType = self->_seatingType;
     PBDataWriterWriteStringField();
-    v11 = toCopy;
+    v8 = toCopy;
   }
 }
 

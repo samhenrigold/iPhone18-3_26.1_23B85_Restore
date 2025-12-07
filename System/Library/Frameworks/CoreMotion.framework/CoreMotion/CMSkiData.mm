@@ -97,7 +97,7 @@
 
 - (void)convertToSkiEntry:(CLSkiEntry *)entry
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   memset(uu, 0, sizeof(uu));
   memset(src, 0, sizeof(src));
   uuid_clear(uu);
@@ -116,7 +116,6 @@
   entry->var7 = self->fRunMaxSpeed;
   entry->var8 = self->fRunSlope;
   entry->var9 = self->fRunElevationDescent;
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc

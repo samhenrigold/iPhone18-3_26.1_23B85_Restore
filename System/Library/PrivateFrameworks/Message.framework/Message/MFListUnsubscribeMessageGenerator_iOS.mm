@@ -7,7 +7,7 @@
 
 + (id)deliveryForCommand:(id)command
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   commandCopy = command;
   if (!commandCopy)
   {
@@ -43,12 +43,10 @@
     [(MFPlainTextDocument *)v11 appendString:v10 withQuoteLevel:0];
   }
 
-  v22[0] = v11;
-  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
+  v21[0] = v11;
+  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:1];
   v17 = [[MFOutgoingMessageDelivery alloc] initWithHeaders:v9 mixedContent:v16 textPartsAreHTML:0];
   [(MFOutgoingMessageDelivery *)v17 setArchiveAccount:account];
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }

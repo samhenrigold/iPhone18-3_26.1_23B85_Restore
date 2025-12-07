@@ -1,1261 +1,4 @@
-uint64_t CA::WindowServer::IOMFBDisplay::update_framebuffer_color_properties(uint64_t this, __int16 a2)
-{
-  v3 = this;
-  if ((a2 & 8) != 0)
-  {
-    this = IOMobileFramebufferEnableDisableVideoPowerSavings();
-  }
-
-  if ((a2 & 0x20) != 0 && (*(v3 + 672) & 0x1C00) != 0x800)
-  {
-    this = IOMobileFramebufferSetContrast();
-  }
-
-  if ((a2 & 0x10) != 0)
-  {
-    this = IOMobileFramebufferSetColorRemapMode();
-  }
-
-  if ((a2 & 0x100) != 0)
-  {
-
-    return IOMobileFramebufferSetBrightnessCorrection();
-  }
-
-  return this;
-}
-
-uint64_t CA::WindowServer::IOMFBDisplay::swap_set_layer(CA::WindowServer::IOMFBDisplay *this, CA::Render::Update *a2, uint64_t a3, CA::WindowServer::Surface *a4, const CA::Rect *a5, uint64_t a6, unsigned int a7, unsigned int a8, _BYTE *a9, BOOL *a10)
-{
-  v107 = *MEMORY[0x1E69E9840];
-  v19 = (*(*this + 1888))(this) ^ 1 | byte_1ED4E9840;
-  if (a3)
-  {
-    v86 = a8;
-    v87 = a7;
-    v88 = a5;
-    v89 = a4;
-    v20 = (this + 27560);
-    if (v19)
-    {
-      v21 = *(a3 + 236);
-      v22 = *(this + 3212);
-      if (init_iomfb(void)::once != -1)
-      {
-        dispatch_once(&init_iomfb(void)::once, &__block_literal_global_14192);
-      }
-
-      if (iomfb_swap_set_layer_edr_compensation_f)
-      {
-        iomfb_swap_set_layer_edr_compensation_f(v22, a2, (v21 >> 38) & 1, 2.22);
-      }
-
-      v23 = 1 << a2;
-      goto LABEL_71;
-    }
-
-    v25 = (*(*a3 + 88))(a3);
-    cf = v25;
-    if (!v25)
-    {
-      if (x_log_get_windowserver(void)::once != -1)
-      {
-        dispatch_once(&x_log_get_windowserver(void)::once, &__block_literal_global_17283);
-      }
-
-      v26 = x_log_get_windowserver(void)::log;
-      if (os_log_type_enabled(x_log_get_windowserver(void)::log, OS_LOG_TYPE_DEBUG))
-      {
-        *buf = 0;
-        _os_log_debug_impl(&dword_183AA6000, v26, OS_LOG_TYPE_DEBUG, "source surface has no colorspace, setting to sRGB", buf, 2u);
-      }
-
-      v25 = CAGetColorSpace(36);
-      cf = v25;
-    }
-
-    if (CACGColorSpaceIsRec709(v25))
-    {
-      CA::WindowServer::Display::display_attributes(buf, this);
-      if (DWORD1(v103) == 2 || DWORD1(v103) == 6 && (CA::WindowServer::Display::display_attributes(buf, this), (BYTE14(v102) & 1) != 0))
-      {
-        v27 = 1;
-        v28 = 26;
-      }
-
-      else
-      {
-        v27 = 0;
-        v28 = 36;
-      }
-
-      v29 = CAGetColorSpace(v28);
-      cf = v29;
-    }
-
-    else
-    {
-      v27 = 0;
-      v29 = cf;
-    }
-
-    if (CACGColorSpaceIsRec601NTSC(v29) & 1) != 0 || (CACGColorSpaceIsRec601PAL(cf))
-    {
-      CA::WindowServer::Display::display_attributes(buf, this);
-      if (DWORD1(v103) == 6)
-      {
-        CA::WindowServer::Display::display_attributes(buf, this);
-        if ((BYTE14(v102) & 1) == 0)
-        {
-LABEL_30:
-          v30 = CAGetColorSpace(36);
-          v27 = 0;
-          cf = v30;
-          goto LABEL_37;
-        }
-      }
-
-      else if (!v27)
-      {
-        goto LABEL_30;
-      }
-
-      if (CACGColorSpaceIsRec601NTSC(cf))
-      {
-        v31 = 31;
-      }
-
-      else
-      {
-        v31 = 32;
-      }
-
-      v30 = CAGetColorSpace(v31);
-      cf = v30;
-      v27 = 1;
-    }
-
-    else
-    {
-      v30 = cf;
-    }
-
-LABEL_37:
-    if (v30 == CAGetColorSpace(11) || CGColorSpaceEqualToColorSpaceIgnoringRange())
-    {
-      CA::WindowServer::Display::display_attributes(buf, this);
-      if ((BYTE14(v102) & 1) == 0)
-      {
-        cf = CAGetColorSpace(38);
-      }
-    }
-
-    CA::WindowServer::IOMFBDisplay::set_tonemapping_state(this, a3, a2, &cf, v32);
-    v33 = (*(a3 + 240) & 4) != 0 && ((*(*a3 + 136))(a3) & 1) == 0 && byte_1ED4E9803 == 0;
-    v34 = v33 & CA::WindowServer::Display::all_clones_support_edr_fixup(this);
-    if (!cf || cf == *(this + a2 + 3439))
-    {
-      v35 = 0;
-    }
-
-    else
-    {
-      v35 = CGColorSpaceEqualToColorSpaceIgnoringRange() ^ 1;
-    }
-
-    v36 = *(this + 6892);
-    v23 = 1 << a2;
-    if (v34 != ((v36 >> a2) & 1))
-    {
-      *(this + 6892) = v36 ^ v23;
-      v35 = 1;
-    }
-
-    if (v34 && (*(*a3 + 200))(a3) != *(this + a2 + 6886))
-    {
-      v35 = 1;
-    }
-
-    v37 = CA::WindowServer::IOMFBDisplay::color_program_cache(this);
-    v38 = v37;
-    v39 = *v20;
-    if ((v27 | BYTE11(xmmword_1ED4E982C)))
-    {
-      LOBYTE(v40) = 1;
-      if ((v39 >> a2))
-      {
-        goto LABEL_56;
-      }
-    }
-
-    else
-    {
-      v40 = (*(this + 906) >> 1) & 1;
-      if (v40 == ((v39 >> a2) & 1))
-      {
-LABEL_56:
-        v37[83] = v40;
-        if (!v35)
-        {
-LABEL_68:
-          if (v34)
-          {
-            *(this + a2 + 6886) = (*(*a3 + 200))(a3);
-          }
-
-          a5 = v88;
-LABEL_71:
-          v47 = (*(*a3 + 168))(a3);
-          if (v47)
-          {
-            v48 = (a2 & 0xFFFFFFFD) == 0;
-          }
-
-          else
-          {
-            v48 = 0;
-          }
-
-          if (v48)
-          {
-            a6 = a6 | 0x200;
-          }
-
-          else
-          {
-            a6 = a6;
-          }
-
-          if (initialized[0] != -1)
-          {
-            dispatch_once_f(initialized, 0, init_debug);
-          }
-
-          v49 = v23 & *&dword_1ED4E976C;
-          if (*(this + 29584) != 1 || *(this + 29585) == 1 && *(this + 29586) == 1)
-          {
-            if (!v49)
-            {
-              if (a9)
-              {
-                *a9 = 0;
-              }
-
-              v50 = v89;
-              if (byte_1ED4E987C == 1)
-              {
-                if (x_log_get_sharedevent(void)::once != -1)
-                {
-                  dispatch_once(&x_log_get_sharedevent(void)::once, &__block_literal_global_16251);
-                }
-
-                v74 = x_log_get_sharedevent(void)::log;
-                if (os_log_type_enabled(x_log_get_sharedevent(void)::log, OS_LOG_TYPE_DEBUG))
-                {
-                  v75 = (*(*a3 + 168))(a3);
-                  ID = IOSurfaceGetID(v75);
-                  v77 = *(a3 + 16);
-                  *buf = 67109632;
-                  *&buf[4] = ID;
-                  *&buf[8] = 1024;
-                  *&buf[10] = a2;
-                  *&buf[14] = 2048;
-                  *&v100 = v77;
-                  _os_log_debug_impl(&dword_183AA6000, v74, OS_LOG_TYPE_DEBUG, "IOSurfaceID: 0x%x  layer: %d  SharedEvent: %p", buf, 0x18u);
-                }
-              }
-
-              v51 = *(a3 + 16);
-              if (v51 && *(v51 + 32))
-              {
-                if (a2 > 3)
-                {
-                  v52 = 0;
-                }
-
-                else
-                {
-                  v52 = dword_183E21980[a2];
-                }
-
-                CA::CASharedEvent::get_wait_value(*(a3 + 16), v52, 1);
-                v62 = IOMobileFramebufferSwapSetEventWait();
-                if (v62)
-                {
-                  v63 = v62;
-                  if (x_log_get_sharedevent(void)::once != -1)
-                  {
-                    dispatch_once(&x_log_get_sharedevent(void)::once, &__block_literal_global_16251);
-                  }
-
-                  v64 = x_log_get_sharedevent(void)::log;
-                  if (os_log_type_enabled(x_log_get_sharedevent(void)::log, OS_LOG_TYPE_ERROR))
-                  {
-                    v71 = (*(*a3 + 168))(a3);
-                    v72 = IOSurfaceGetID(v71);
-                    v73 = *(a3 + 16);
-                    *buf = 67109888;
-                    *&buf[4] = v72;
-                    *&buf[8] = 1024;
-                    *&buf[10] = a2;
-                    *&buf[14] = 2048;
-                    *&v100 = v73;
-                    WORD4(v100) = 1024;
-                    *(&v100 + 10) = v63;
-                    _os_log_error_impl(&dword_183AA6000, v64, OS_LOG_TYPE_ERROR, "IOSurfaceID: 0x%x  layer: %d  SharedEvent: %p wait returned error: %x", buf, 0x1Eu);
-                  }
-                }
-
-                CA::CASharedEvent::inc_signal_value(v51, v52, 1);
-                v65 = IOMobileFramebufferSwapSetEventSignal();
-                if (v65)
-                {
-                  v66 = v65;
-                  v50 = v89;
-                  if (x_log_get_sharedevent(void)::once != -1)
-                  {
-                    dispatch_once(&x_log_get_sharedevent(void)::once, &__block_literal_global_16251);
-                  }
-
-                  v67 = x_log_get_sharedevent(void)::log;
-                  if (os_log_type_enabled(x_log_get_sharedevent(void)::log, OS_LOG_TYPE_ERROR))
-                  {
-                    v68 = (*(*a3 + 168))(a3);
-                    v69 = IOSurfaceGetID(v68);
-                    v70 = *(a3 + 16);
-                    *buf = 67109888;
-                    *&buf[4] = v69;
-                    *&buf[8] = 1024;
-                    *&buf[10] = a2;
-                    *&buf[14] = 2048;
-                    *&v100 = v70;
-                    WORD4(v100) = 1024;
-                    *(&v100 + 10) = v66;
-                    _os_log_error_impl(&dword_183AA6000, v67, OS_LOG_TYPE_ERROR, "IOSurfaceID: 0x%x  layer: %d  SharedEvent: %p signal returned error: %x", buf, 0x1Eu);
-                  }
-                }
-
-                else
-                {
-                  v50 = v89;
-                  if (a9)
-                  {
-                    *a9 = 1;
-                  }
-                }
-              }
-
-              v56 = *(this + 6);
-              v83 = v86;
-              v57 = (this + 25696);
-              v58 = a2;
-              v59 = v47;
-              v60 = v50;
-              v61 = v88;
-              return CA::WindowServer::IOMFBDisplay::fb_swap_set_layer(v56, v57, v58, v59, v60, v61, a6, v87, v83);
-            }
-          }
-
-          else if (!v49)
-          {
-            if (x_log_get_windowserver(void)::once != -1)
-            {
-              dispatch_once(&x_log_get_windowserver(void)::once, &__block_literal_global_17283);
-            }
-
-            v53 = x_log_get_windowserver(void)::log;
-            if (os_log_type_enabled(x_log_get_windowserver(void)::log, OS_LOG_TYPE_DEFAULT))
-            {
-              v54 = *(this + 29585);
-              v55 = *(this + 29586);
-              *buf = 67109376;
-              *&buf[4] = v54;
-              *&buf[8] = 1024;
-              *&buf[10] = v55;
-              _os_log_impl(&dword_183AA6000, v53, OS_LOG_TYPE_DEFAULT, "DBVFlashWorkaround: removing layer due to seen_brightness %i, swapped_brightness %i", buf, 0xEu);
-            }
-          }
-
-          v56 = *(this + 6);
-          v83 = v86;
-          v57 = (this + 25696);
-          v58 = a2;
-          v59 = 0;
-          v60 = v89;
-          v61 = a5;
-          return CA::WindowServer::IOMFBDisplay::fb_swap_set_layer(v56, v57, v58, v59, v60, v61, a6, v87, v83);
-        }
-
-LABEL_60:
-        if (BYTE13(xmmword_1ED4E982C) == 1)
-        {
-          v79 = CGColorSpaceCopyICCProfileDescription();
-          if (v79)
-          {
-            v80 = v79;
-            v105 = 0u;
-            v106 = 0u;
-            v104 = 0u;
-            v102 = 0u;
-            v103 = 0u;
-            v100 = 0u;
-            v101 = 0u;
-            *buf = 0u;
-            if (x_log_get_color(void)::once != -1)
-            {
-              dispatch_once(&x_log_get_color(void)::once, &__block_literal_global_12256);
-            }
-
-            v81 = x_log_get_color(void)::log;
-            if (os_log_type_enabled(x_log_get_color(void)::log, OS_LOG_TYPE_DEFAULT))
-            {
-              v85 = *(this + 6);
-              CString = CA_CFStringGetCString(v80, buf, 128);
-              v82 = (*(*a3 + 200))(a3);
-              *v91 = 67109890;
-              v92 = v85;
-              v93 = 1024;
-              v94 = a2;
-              v95 = 2080;
-              v96 = CString;
-              v97 = 2048;
-              v98 = v82;
-              _os_log_impl(&dword_183AA6000, v81, OS_LOG_TYPE_DEFAULT, "Display %u setting IOMFB source layer %u colorspace to '%s' with EDR factor: %g", v91, 0x22u);
-            }
-
-            CFRelease(v80);
-          }
-        }
-
-        v41 = CAGetColorSpace(37);
-        CA::ColorProgram::Cache::set_colorspace(v38, v41);
-        v42 = CA::ColorProgram::Cache::lookup(v38, cf, 0, 0);
-        if (v42)
-        {
-          v43 = v42;
-          v44 = 1.0;
-          if (v34)
-          {
-            v44 = (*(*a3 + 200))(a3, 1.0);
-          }
-
-          CA::WindowServer::IOMFBDisplay::set_icc_matrix_and_trc(this, v43, 0, 0, a2, v44);
-          X::CFRef<CGColorSpace *>::operator=(this + a2 + 3439, cf);
-        }
-
-        if ((*(this + 905) & 2) != 0)
-        {
-          v45 = (*(*this + 1856))(this);
-          CA::ColorProgram::Cache::set_colorspace(v38, v45);
-          v46 = CA::ColorProgram::Cache::lookup(v38, v41, 0, 0);
-          if (v46)
-          {
-            CA::WindowServer::IOMFBDisplay::set_icc_matrix_and_trc(this, v46, 1u, 1u, 0xFFFFFFFF, 1.0);
-          }
-        }
-
-        goto LABEL_68;
-      }
-    }
-
-    *v20 = v39 ^ v23;
-    v37[83] = v40;
-    goto LABEL_60;
-  }
-
-  if ((v19 & 1) == 0)
-  {
-    CA::WindowServer::IOMFBDisplay::set_tonemapping_state(this, 0, a2, 0, v18);
-  }
-
-  if (byte_1ED4E987C == 1)
-  {
-    if (x_log_get_sharedevent(void)::once != -1)
-    {
-      dispatch_once(&x_log_get_sharedevent(void)::once, &__block_literal_global_16251);
-    }
-
-    v78 = x_log_get_sharedevent(void)::log;
-    if (os_log_type_enabled(x_log_get_sharedevent(void)::log, OS_LOG_TYPE_DEBUG))
-    {
-      *buf = 67109120;
-      *&buf[4] = a2;
-      _os_log_debug_impl(&dword_183AA6000, v78, OS_LOG_TYPE_DEBUG, "layer: %d  surface: nullptr", buf, 8u);
-    }
-  }
-
-  return CA::WindowServer::IOMFBDisplay::fb_swap_set_layer(*(this + 6), (this + 25696), a2, 0, a4, a5, a6, a7, a8);
-}
-
-void CA::WindowServer::IOMFBDisplay::set_tonemapping_state(CA::WindowServer::IOMFBDisplay *this, CA::Render::Update *a2, const CA::WindowServer::Surface *a3, uint64_t a4, CGColorSpace **a5)
-{
-  v28 = *MEMORY[0x1E69E9840];
-  if (CA::WindowServer::IOMFBDisplay::set_tonemapping_state(CA::Render::Update *,CA::WindowServer::Surface const*,unsigned int,CGColorSpace **)::identity_once != -1)
-  {
-    dispatch_once(&CA::WindowServer::IOMFBDisplay::set_tonemapping_state(CA::Render::Update *,CA::WindowServer::Surface const*,unsigned int,CGColorSpace **)::identity_once, &__block_literal_global_59);
-  }
-
-  v9 = *(this + 6);
-  if (a2 && (*(a2 + 240) & 0x20) != 0 && *(a2 + 11) && ((*(*a2 + 40))(a2) == 18 || (*(*a2 + 40))(a2) == 16))
-  {
-    v10 = *(this + 6891);
-    if ((v10 & (1 << a3)) == 0)
-    {
-      *(this + 6891) = v10 ^ (1 << a3);
-    }
-
-    if ((*(*a2 + 88))(a2))
-    {
-      v11 = (*(*a2 + 168))(a2);
-      v12 = (*(*a2 + 88))(a2);
-      CA::Render::iosurface_set_bulk_from_colorspace(v11, v12, v13, v14);
-    }
-
-    v15 = *(a2 + 11);
-    v16 = (*(*a2 + 168))(a2);
-    v17 = *(a2 + 58);
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 0x40000000;
-    v25[2] = ___ZN2CA12WindowServer12IOMFBDisplay21set_tonemapping_stateEPNS_6Render6UpdateEPKNS0_7SurfaceEjPP12CGColorSpace_block_invoke_2;
-    v25[3] = &__block_descriptor_tmp_61_22546;
-    v25[4] = this;
-    v26 = a3;
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 0x40000000;
-    v22[2] = ___ZN2CA12WindowServer12IOMFBDisplay21set_tonemapping_stateEPNS_6Render6UpdateEPKNS0_7SurfaceEjPP12CGColorSpace_block_invoke_3;
-    v22[3] = &__block_descriptor_tmp_63;
-    v22[4] = this;
-    v23 = v9;
-    v24 = a3;
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 0x40000000;
-    v19[2] = ___ZN2CA12WindowServer12IOMFBDisplay21set_tonemapping_stateEPNS_6Render6UpdateEPKNS0_7SurfaceEjPP12CGColorSpace_block_invoke_64;
-    v19[3] = &__block_descriptor_tmp_66;
-    v19[4] = this;
-    v20 = v9;
-    v21 = a3;
-    (*(*v15 + 32))(v15, v16, a3, a2 + 96, a4, v25, v22, v19, v17);
-  }
-
-  else
-  {
-    v18 = *(this + 6891);
-    if ((v18 & (1 << a3)) != 0)
-    {
-      *(this + 6891) = v18 ^ (1 << a3);
-      memset(v27, 0, sizeof(v27));
-      IOMobileFramebufferSwapSetToneMapConfig();
-      CA::WindowServer::IOMFBDisplay::swap_set_icc_curve(this, 3, v9, a3, 7, &CA::WindowServer::IOMFBDisplay::set_tonemapping_state(CA::Render::Update *,CA::WindowServer::Surface const*,unsigned int,CGColorSpace **)::bypass_curve);
-      CA::WindowServer::IOMFBDisplay::swap_set_icc_curve(this, 7, v9, a3, 7, &CA::WindowServer::IOMFBDisplay::set_tonemapping_state(CA::Render::Update *,CA::WindowServer::Surface const*,unsigned int,CGColorSpace **)::bypass_curve);
-      CA::WindowServer::IOMFBDisplay::swap_set_icc_curve(this, 6, v9, a3, 7, &CA::WindowServer::IOMFBDisplay::set_tonemapping_state(CA::Render::Update *,CA::WindowServer::Surface const*,unsigned int,CGColorSpace **)::bypass_curve);
-      CA::WindowServer::IOMFBDisplay::swap_set_icc_curve(this, 11, v9, a3, 7, &CA::WindowServer::IOMFBDisplay::set_tonemapping_state(CA::Render::Update *,CA::WindowServer::Surface const*,unsigned int,CGColorSpace **)::bypass_curve);
-      CA::WindowServer::IOMFBDisplay::swap_set_icc_matrix(this, 2, v9, a3, &CA::WindowServer::IOMFBDisplay::set_tonemapping_state(CA::Render::Update *,CA::WindowServer::Surface const*,unsigned int,CGColorSpace **)::identity_matrix);
-      CA::WindowServer::IOMFBDisplay::swap_set_icc_matrix(this, 3, v9, a3, &CA::WindowServer::IOMFBDisplay::set_tonemapping_state(CA::Render::Update *,CA::WindowServer::Surface const*,unsigned int,CGColorSpace **)::identity_matrix);
-    }
-  }
-}
-
-char *CA::WindowServer::IOMFBDisplay::color_program_cache(CA::WindowServer::IOMFBDisplay *this)
-{
-  v1 = *(this + 3447);
-  if (!v1)
-  {
-    if (x_malloc_get_zone::once != -1)
-    {
-      dispatch_once_f(&x_malloc_get_zone::once, 0, malloc_zone_init);
-    }
-
-    v1 = malloc_type_zone_malloc(malloc_zone, 0x70uLL, 0x165299FDuLL);
-    if (v1)
-    {
-      v3 = CAGetColorSpace(36);
-      CA::ColorProgram::Cache::Cache(v1, v3);
-      *(this + 3447) = v1;
-      *(v1 + 92) = 0x180000000ELL;
-      if ((v1[82] & 1) == 0)
-      {
-        v1[82] = 1;
-      }
-
-      *(v1 + 83) = 1;
-      v1[85] = 0;
-    }
-
-    else
-    {
-      *(this + 3447) = 0;
-    }
-  }
-
-  return v1;
-}
-
-void CA::WindowServer::IOMFBDisplay::set_icc_matrix_and_trc(uint64_t a1, uint64_t a2, unsigned int a3, unsigned int a4, unsigned int a5, float a6)
-{
-  v7 = a5;
-  v8 = a4;
-  v126 = *MEMORY[0x1E69E9840];
-  v9 = *(a2 + 48);
-  if (a3 > 1)
-  {
-    v10 = a5 == -1;
-    if (a4 < 2 && v10)
-    {
-      v11 = 3;
-    }
-
-    else
-    {
-      v11 = 1;
-    }
-
-    if (a4 > 1)
-    {
-      v7 = 0;
-      v11 = 1;
-    }
-  }
-
-  else
-  {
-    v10 = a5 == -1;
-    if (a5 == -1)
-    {
-      v11 = 3;
-    }
-
-    else
-    {
-      v11 = 1;
-    }
-  }
-
-  v95 = a4 == 15 && CA::WindowServer::Display::Mode::is_hdr((a1 + 656));
-  v12 = &CA::OGL::MetalContext::get_pipeline_queue(void)::once;
-  v13 = *(a2 + 36) & 0x7FFFFFFF;
-  v100 = v10;
-  if ((*(a2 + 36) & 0x7FFFFFFF) != 0)
-  {
-    v14 = 0;
-    v15 = *(a1 + 24);
-    v16 = 1065353216 - LODWORD(a6);
-    if (LODWORD(a6) - 1065353216 >= 0)
-    {
-      v16 = LODWORD(a6) - 1065353216;
-    }
-
-    v105 = v16 < 4;
-    v103 = v8;
-    v98 = v11;
-    v99 = v7;
-    v107 = a6;
-    while (1)
-    {
-      v111 = v14;
-      while (1)
-      {
-        v17 = v13 & 0x1F;
-        v97 = v13;
-        if (v17 > 0x10)
-        {
-          goto LABEL_32;
-        }
-
-        if (v17 != 1)
-        {
-          break;
-        }
-
-        v18 = 0;
-        *&__src[8] = 0;
-        *__src = 0;
-        v19 = *(v9 + 16);
-        *&__src[12] = *v9;
-        LODWORD(__s1) = v19;
-        v20 = *(v9 + 36);
-        HIDWORD(__s1) = *(v9 + 32);
-        v119 = *(v9 + 4);
-        v120 = *(v9 + 20);
-        v121[0] = v20;
-        v121[1] = *(v9 + 8);
-        LODWORD(v21) = *(v9 + 24);
-        DWORD1(v21) = *(v9 + 40);
-        *(&v21 + 1) = *(v9 + 48);
-        v122 = v21;
-        v22 = v9;
-        v123 = *(v9 + 56);
-        do
-        {
-          if (v10)
-          {
-            v23 = v18;
-          }
-
-          else
-          {
-            v23 = v7;
-          }
-
-          v24 = CA::WindowServer::IOMFBDisplay::swap_set_icc_matrix(a1, a3, v15, v23, __src);
-          if (v24)
-          {
-            v25 = v24;
-            if (x_log_get_color(void)::once != -1)
-            {
-              dispatch_once(&x_log_get_color(void)::once, &__block_literal_global_12256);
-            }
-
-            v26 = x_log_get_color(void)::log;
-            if (os_log_type_enabled(x_log_get_color(void)::log, OS_LOG_TYPE_ERROR))
-            {
-              *buf = 67109120;
-              v114 = v25;
-              _os_log_error_impl(&dword_183AA6000, v26, OS_LOG_TYPE_ERROR, "Failed to set ICC matrix, error = 0x%X", buf, 8u);
-            }
-          }
-
-          ++v18;
-        }
-
-        while (v11 != v18);
-        v12 = &CA::OGL::MetalContext::get_pipeline_queue(void)::once;
-LABEL_36:
-        v9 = v22 + 16 * CA::ColorProgram::kOpcodeParamCount[v17];
-        v13 = v97 >> 5;
-        if (v97 < 0x20)
-        {
-          if (v111)
-          {
-            return;
-          }
-
-          goto LABEL_178;
-        }
-      }
-
-      v106 = v13 & 0x1F;
-      if (((1 << v17) & 0x180FC) == 0)
-      {
-LABEL_32:
-        v22 = v9;
-        if (v12[438] != -1)
-        {
-          dispatch_once(&x_log_get_color(void)::once, &__block_literal_global_12256);
-        }
-
-        v27 = x_log_get_color(void)::log;
-        if (os_log_type_enabled(x_log_get_color(void)::log, OS_LOG_TYPE_ERROR))
-        {
-          *__src = 67109120;
-          *&__src[4] = v17;
-          _os_log_error_impl(&dword_183AA6000, v27, OS_LOG_TYPE_ERROR, "Unexpected opcode %d for blending space", __src, 8u);
-        }
-
-        goto LABEL_36;
-      }
-
-      v28 = v13 & 0x1F;
-      bzero(__src, 0x648uLL);
-      v29 = 0;
-      v30 = CA::ColorProgram::kOpcodeParamCount[v13 & 0x1F];
-      v31 = v9;
-      do
-      {
-        if ((v13 & 0x1F) > 5)
-        {
-          if ((v13 & 0x1F) > 0xE)
-          {
-            if (v28 == 15)
-            {
-              *&__src[v29] = 7;
-            }
-
-            else if (v28 == 16)
-            {
-              *&__src[v29] = 6;
-            }
-
-            goto LABEL_73;
-          }
-
-          if (v28 != 6)
-          {
-            if (v28 == 7)
-            {
-              v33 = *(a2 + 64);
-              v34 = (*v31 * *(v33 + 16));
-              v35 = *(v33 + 176);
-              v36 = (*(v31 + 16) * *(a2 + 56));
-              v37 = &__src[v29];
-              *v37 = 8;
-              *(v37 + 2) = v34;
-              *(v37 + 3) = 1065353216;
-              *(v37 + 2) = *(v33 + 112) + v35 * v36;
-            }
-
-            goto LABEL_73;
-          }
-
-          v32 = 5;
-        }
-
-        else if ((v13 & 0x1F) > 3)
-        {
-          if (v28 == 4)
-          {
-            v32 = 3;
-          }
-
-          else
-          {
-            v32 = 4;
-          }
-        }
-
-        else if (v28 == 2)
-        {
-          v32 = 1;
-        }
-
-        else
-        {
-          if (v28 != 3)
-          {
-            goto LABEL_73;
-          }
-
-          v32 = 2;
-        }
-
-        *&__src[v29] = v32;
-        if (v30 > 3)
-        {
-          if (v30 > 5)
-          {
-            if (v30 != 6)
-            {
-              if (v30 != 7)
-              {
-                goto LABEL_73;
-              }
-
-              v121[v29 / 4] = *(v31 + 96);
-            }
-
-            *&v121[v29 / 4 - 1] = *(v31 + 80);
-LABEL_68:
-            *(&v119 + v29) = *(v31 + 64);
-          }
-
-          else if (v30 != 4)
-          {
-            goto LABEL_68;
-          }
-
-          *(&__s1 + v29 + 4) = *(v31 + 48);
-LABEL_70:
-          *&__src[v29 + 16] = *(v31 + 32);
-LABEL_71:
-          *&__src[v29 + 12] = *(v31 + 16);
-LABEL_72:
-          *&__src[v29 + 8] = *v31;
-          goto LABEL_73;
-        }
-
-        switch(v30)
-        {
-          case 1:
-            goto LABEL_72;
-          case 2:
-            goto LABEL_71;
-          case 3:
-            goto LABEL_70;
-        }
-
-LABEL_73:
-        v29 += 536;
-        v31 += 4;
-      }
-
-      while (v29 != 1608);
-      v96 = v9;
-      if (v95)
-      {
-        v38 = 6;
-        *__src = 6;
-        v124 = 6;
-        v125 = 6;
-        v39 = 6;
-LABEL_80:
-        v40 = 0;
-        v41 = *&__src[8];
-        v42 = *&__src[12];
-        v43 = __s1;
-        v44 = v119;
-        v45 = v120;
-        v46 = *v121;
-        v47 = *&__src[8];
-        v48 = __s1;
-        v49 = 4 * *&__src[8];
-        v50 = &v124;
-        while (1)
-        {
-          v51 = v40;
-          if (v39 > 3)
-          {
-            if (v39 == 4)
-            {
-              if (v41 != *(v50 + 2) || v42 != *(v50 + 3) || *&v43 != *(v50 + 4) || *(&v43 + 1) != *(v50 + 5) || v44 != *(v50 + 6))
-              {
-                goto LABEL_118;
-              }
-            }
-
-            else if (v39 == 5)
-            {
-              if (v41 != *(v50 + 2) || v42 != *(v50 + 3) || *&v43 != *(v50 + 4) || *(&v43 + 1) != *(v50 + 5) || v44 != *(v50 + 6) || v45 != *(v50 + 7) || v46 != *(v50 + 8))
-              {
-                goto LABEL_118;
-              }
-            }
-
-            else if (v39 == 8 && (v50[2] != v47 || v42 != *(v50 + 3) || !memcmp(v48, *(v50 + 2), v49)))
-            {
-              goto LABEL_118;
-            }
-          }
-
-          else if (v39 == 1)
-          {
-            if (v41 != *(v50 + 2))
-            {
-              goto LABEL_118;
-            }
-          }
-
-          else if (v39 == 2)
-          {
-            if (v41 != *(v50 + 2) || v42 != *(v50 + 3) || *&v43 != *(v50 + 4))
-            {
-              goto LABEL_118;
-            }
-          }
-
-          else if (v39 == 3 && (v41 != *(v50 + 2) || v42 != *(v50 + 3) || *&v43 != *(v50 + 4) || *(&v43 + 1) != *(v50 + 5)))
-          {
-            goto LABEL_118;
-          }
-
-          v40 = 1;
-          v50 = &v125;
-          if (v51 & 1 | (v39 != v38))
-          {
-            goto LABEL_119;
-          }
-        }
-      }
-
-      v39 = *__src;
-      if (*__src == v124)
-      {
-        v38 = v125;
-        goto LABEL_80;
-      }
-
-LABEL_118:
-      v51 = 0;
-LABEL_119:
-      v52 = 0;
-      v8 = v103;
-      v12 = &CA::OGL::MetalContext::get_pipeline_queue(void)::once;
-      v53 = &CA::OGL::MetalContext::get_pipeline_queue(void)::once;
-      v54 = 1.0;
-      while (2)
-      {
-        v55 = 0;
-        v101 = v52;
-        if (v10)
-        {
-          v56 = v52;
-        }
-
-        else
-        {
-          v56 = v99;
-        }
-
-        while (2)
-        {
-          if (v51)
-          {
-            v57 = 7;
-          }
-
-          else
-          {
-            v57 = 1 << v55;
-          }
-
-          if (a6 != v54)
-          {
-            v62 = v105;
-            if (a6 < 0.0)
-            {
-              v62 = 0;
-            }
-
-            if (v106 != 7 && !v62)
-            {
-              v63 = 0.0;
-              if (*(a2 + 16) && CGColorSpaceCreateConversionCurve())
-              {
-                v63 = MEMORY[0x1865E7A90]();
-                CGColorCurveRelease();
-              }
-
-              if (v8)
-              {
-                __assert_rtn("set_icc_matrix_and_trc", "windowserver-iomfb-display.cpp", 19819, "curve_loc == IOMFBCurveLoc_Src2XYZ");
-              }
-
-              v64 = powf(a6, v54 / v63);
-              v65 = malloc_type_calloc(4uLL, 0x280uLL, 0x100004052888210uLL);
-              v67 = 0;
-              v68 = v64;
-              v69 = &__src[536 * v55];
-              v71 = *(v69 + 2);
-              v70 = *(v69 + 3);
-              v73 = *(v69 + 4);
-              v72 = *(v69 + 5);
-              v74 = *(v69 + 6);
-              v75 = *v69;
-              v109 = -v73 / v70;
-              v110 = 1.0 / v68;
-              while (1)
-              {
-                v66.i32[1] = HIDWORD(v110);
-                v76 = v67 * 0.00196078424 * v110;
-                *v66.i32 = v76;
-                v77 = fabsf(*v66.i32);
-                if (v75 <= 3)
-                {
-                  break;
-                }
-
-                if (v75 <= 5)
-                {
-                  if (v75 == 4)
-                  {
-                    v112 = v66;
-                    *v81.i32 = powf(v73 + (v70 * v77), v71);
-                    v82 = v72 * v77;
-                  }
-
-                  else
-                  {
-                    v78 = v74;
-                    v79 = *(v69 + 7);
-                    v80 = *(v69 + 8);
-                    v112 = v66;
-                    *v81.i32 = v79 + powf(v73 + (v70 * v77), v71);
-                    v74 = v78;
-                    v82 = v80 + (v72 * v77);
-                    a6 = v107;
-                  }
-
-                  v87 = v77 < v74;
-                  goto LABEL_167;
-                }
-
-                if (v75 == 6)
-                {
-                  v88 = pow(*v66.i32, 0.159302);
-                  v85 = (v88 * 18.8515625 + 0.8359375) / (v88 * 18.6875 + 1.0);
-                  v86 = 78.844;
-                  goto LABEL_165;
-                }
-
-                if (v75 != 7)
-                {
-                  goto LABEL_161;
-                }
-
-                v83 = 0.0;
-                if (*v66.i32 != 0.0)
-                {
-                  v84 = pow(*v66.i32, 0.0126833135);
-                  v85 = (v84 + -0.8359375) / (v84 * -18.6875 + 18.8515625);
-                  v86 = 6.2774;
-LABEL_165:
-                  v83 = powf(v85, v86);
-                }
-
-LABEL_171:
-                v65[v67++] = v83 * a6;
-                if (v67 == 640)
-                {
-                  bzero(buf, 0x218uLL);
-                  *buf = 8;
-                  v115 = 0x3FA0606000000280;
-                  v116 = v65;
-                  v58 = CA::WindowServer::IOMFBDisplay::swap_set_icc_curve(a1, 0, v15, v56, v57, buf);
-                  free(v65);
-                  v8 = v103;
-                  v12 = &CA::OGL::MetalContext::get_pipeline_queue(void)::once;
-                  v53 = &CA::OGL::MetalContext::get_pipeline_queue(void)::once;
-                  v54 = 1.0;
-                  if (!v58)
-                  {
-                    goto LABEL_132;
-                  }
-
-                  goto LABEL_128;
-                }
-              }
-
-              switch(v75)
-              {
-                case 1:
-                  v112 = v66;
-                  *v81.i32 = powf(v77, v71);
-                  goto LABEL_170;
-                case 2:
-                  v112 = v66;
-                  *v81.i32 = powf(v73 + (v70 * v77), v71);
-                  v87 = v77 < v109;
-                  v82 = 0.0;
-LABEL_167:
-                  if (v87)
-                  {
-                    *v81.i32 = v82;
-                  }
-
-LABEL_170:
-                  v66.i64[0] = 0x8000000080000000;
-                  v66.i64[1] = 0x8000000080000000;
-                  LODWORD(v83) = vbslq_s8(v66, v81, v112).u32[0];
-                  goto LABEL_171;
-                case 3:
-                  v112 = v66;
-                  *v81.i32 = powf(v73 + (v70 * v77), v71) + v72;
-                  if (v77 < v109)
-                  {
-                    *v81.i32 = v72;
-                  }
-
-                  goto LABEL_170;
-              }
-
-LABEL_161:
-              v83 = v76;
-              goto LABEL_171;
-            }
-          }
-
-          v58 = CA::WindowServer::IOMFBDisplay::swap_set_icc_curve(a1, v8, v15, v56, v57, &__src[536 * v55]);
-          if (!v58)
-          {
-            goto LABEL_132;
-          }
-
-LABEL_128:
-          if (v12[438] != -1)
-          {
-            dispatch_once(&x_log_get_color(void)::once, &__block_literal_global_12256);
-          }
-
-          v59 = v53[439];
-          if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
-          {
-            *buf = 67109120;
-            v114 = v58;
-            _os_log_error_impl(&dword_183AA6000, v59, OS_LOG_TYPE_ERROR, "Failed to set ICC curve, error = 0x%X", buf, 8u);
-          }
-
-LABEL_132:
-          v61 = v55++ > 1;
-          if (((v51 | v61) & 1) == 0)
-          {
-            continue;
-          }
-
-          break;
-        }
-
-        v10 = v100;
-        v52 = v101 + 1;
-        v11 = v98;
-        if (v101 + 1 != v98)
-        {
-          continue;
-        }
-
-        break;
-      }
-
-      v9 = v96 + 16 * CA::ColorProgram::kOpcodeParamCount[v106];
-      v13 = v97 >> 5;
-      v14 = 1;
-      v7 = v99;
-      if (v97 < 0x20)
-      {
-        return;
-      }
-    }
-  }
-
-LABEL_178:
-  if (v95)
-  {
-    v89 = 6;
-  }
-
-  else
-  {
-    v89 = 0;
-  }
-
-  bzero(__src, 0x218uLL);
-  v90 = 0;
-  *__src = v89;
-  do
-  {
-    if (v10)
-    {
-      v91 = v90;
-    }
-
-    else
-    {
-      v91 = v7;
-    }
-
-    v92 = CA::WindowServer::IOMFBDisplay::swap_set_icc_curve(a1, v8, *(a1 + 24), v91, 7, __src);
-    if (v92)
-    {
-      v93 = v92;
-      if (x_log_get_color(void)::once != -1)
-      {
-        dispatch_once(&x_log_get_color(void)::once, &__block_literal_global_12256);
-      }
-
-      v94 = x_log_get_color(void)::log;
-      if (os_log_type_enabled(x_log_get_color(void)::log, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 67109120;
-        v114 = v93;
-        _os_log_error_impl(&dword_183AA6000, v94, OS_LOG_TYPE_ERROR, "Failed to set ICC curve, error = 0x%X", buf, 8u);
-      }
-    }
-
-    ++v90;
-    v10 = v100;
-  }
-
-  while (v11 != v90);
-}
-
-uint64_t CA::WindowServer::IOMFBDisplay::swap_set_icc_matrix(uint64_t a1, signed int a2, int a3, unsigned int a4, __int128 *a5)
+uint64_t CA::WindowServer::IOMFBDisplay::swap_set_icc_matrix(uint64_t a1, uint64_t a2, int a3, uint64_t a4, __int128 *a5)
 {
   v15 = *MEMORY[0x1E69E9840];
   if (a2 <= 7 && a4 <= 2)
@@ -1302,8 +45,11 @@ uint64_t CA::WindowServer::IOMFBDisplay::swap_set_icc_matrix(uint64_t a1, signed
   return IOMobileFramebufferSwapSetICCMatrix();
 }
 
-uint64_t CA::WindowServer::IOMFBDisplay::swap_set_icc_curve(uint64_t a1, signed int a2, int a3, unsigned int a4, int a5, void *__src)
+uint64_t CA::WindowServer::IOMFBDisplay::swap_set_icc_curve(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5, void *__src)
 {
+  v7 = a5;
+  v8 = a4;
+  v10 = a2;
   v18 = *MEMORY[0x1E69E9840];
   if (a2 <= 17 && a4 <= 2)
   {
@@ -1319,7 +65,7 @@ uint64_t CA::WindowServer::IOMFBDisplay::swap_set_icc_curve(uint64_t a1, signed 
   if (BYTE13(xmmword_1ED4E982C) == 1)
   {
     memset(v15, 0, sizeof(v15));
-    CA::IOMobileFramebuffer::print_icc_curve_to_stream(v15, a2, a3, a4, a5, __src);
+    CA::IOMobileFramebuffer::print_icc_curve_to_stream(v15, v10, a3, v8, v7, __src);
     if (x_log_get_color(void)::once != -1)
     {
       dispatch_once(&x_log_get_color(void)::once, &__block_literal_global_12256);
@@ -1343,8 +89,9 @@ uint64_t CA::WindowServer::IOMFBDisplay::swap_set_icc_curve(uint64_t a1, signed 
   return IOMobileFramebufferSwapSetICCCurve();
 }
 
-void ___ZN2CA12WindowServer12IOMFBDisplay21set_tonemapping_stateEPNS_6Render6UpdateEPKNS0_7SurfaceEjPP12CGColorSpace_block_invoke_3(uint64_t a1, signed int a2, void *a3)
+void ___ZN2CA12WindowServer12IOMFBDisplay21set_tonemapping_stateEPNS_6Render6UpdateEPKNS0_7SurfaceEjPP12CGColorSpace_block_invoke_3(uint64_t a1, uint64_t a2, void *a3)
 {
+  v3 = a2;
   v11 = *MEMORY[0x1E69E9840];
   if (a2 > 18)
   {
@@ -1357,7 +104,7 @@ void ___ZN2CA12WindowServer12IOMFBDisplay21set_tonemapping_stateEPNS_6Render6Upd
     if (os_log_type_enabled(x_log_get_windowserver(void)::log, OS_LOG_TYPE_ERROR))
     {
       v10[0] = 67109120;
-      v10[1] = a2;
+      v10[1] = v3;
       _os_log_error_impl(&dword_183AA6000, v9, OS_LOG_TYPE_ERROR, "unexpected ICC curve location %d", v10, 8u);
     }
   }
@@ -1381,8 +128,9 @@ void ___ZN2CA12WindowServer12IOMFBDisplay21set_tonemapping_stateEPNS_6Render6Upd
   }
 }
 
-void ___ZN2CA12WindowServer12IOMFBDisplay21set_tonemapping_stateEPNS_6Render6UpdateEPKNS0_7SurfaceEjPP12CGColorSpace_block_invoke_64(uint64_t a1, signed int a2, __int128 *a3)
+void ___ZN2CA12WindowServer12IOMFBDisplay21set_tonemapping_stateEPNS_6Render6UpdateEPKNS0_7SurfaceEjPP12CGColorSpace_block_invoke_64(uint64_t a1, uint64_t a2, __int128 *a3)
 {
+  v3 = a2;
   v11 = *MEMORY[0x1E69E9840];
   if (a2 > 8)
   {
@@ -1395,7 +143,7 @@ void ___ZN2CA12WindowServer12IOMFBDisplay21set_tonemapping_stateEPNS_6Render6Upd
     if (os_log_type_enabled(x_log_get_windowserver(void)::log, OS_LOG_TYPE_ERROR))
     {
       v10[0] = 67109120;
-      v10[1] = a2;
+      v10[1] = v3;
       _os_log_error_impl(&dword_183AA6000, v9, OS_LOG_TYPE_ERROR, "unexpected ICC matrix location %d", v10, 8u);
     }
   }
@@ -1704,7 +452,7 @@ void CA::WindowServer::IOMFBDisplay::update_digital_modes(CA::WindowServer::IOMF
             }
 
             v273 = v50;
-            v59 = (*(v7 + 3079) & 1) == 0 && (*(v280 + 336) & 0x1C00) != 4096;
+            v59 = (*(v7 + 3079) & 1) == 0 && (v280[168] & 0x1C00) != 4096;
             if (v59 && v58 < 121)
             {
               v60 = v58 << 16;
@@ -1766,7 +514,7 @@ void CA::WindowServer::IOMFBDisplay::update_digital_modes(CA::WindowServer::IOMF
             }
 
             Array = CA_CFDictionaryGetArray(v273, @"ColorModes");
-            if (Array && (v73 = Array, CFArrayGetCount(Array)) || (v73 = a4, (*(v280 + 336) & 0x1C00) != 0x400))
+            if (Array && (v73 = Array, CFArrayGetCount(Array)) || (v73 = a4, (v280[168] & 0x1C00) != 0x400))
             {
               *(a2 + 22) = (*(*v280 + 2464))(v280);
               v74 = CA_CFDictionaryGetArray(v273, @"UnsafeColorElementIDs");
@@ -1788,7 +536,7 @@ void CA::WindowServer::IOMFBDisplay::update_digital_modes(CA::WindowServer::IOMF
                       {
                         ValueAtIndex = CFArrayGetValueAtIndex(v75, j);
                         buf[0].i32[0] = CA_CFIntValue(ValueAtIndex);
-                        std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int const&>(v294, buf[0].u32[0]);
+                        std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int const&>(v294, buf[0].u32[0], buf);
                       }
                     }
                   }
@@ -2431,7 +1179,7 @@ LABEL_392:
                   else
                   {
                     v139 = v280;
-                    v138 = ((*(v280 + 336) & 0x1C00) != 4096) << 28;
+                    v138 = ((v280[168] & 0x1C00) != 4096) << 28;
                   }
 
                   v140 = v281 || Bool;
@@ -2486,7 +1234,7 @@ LABEL_392:
                     v152 = (*(*v280 + 2456))(v280, v150);
                     *v293 = v292;
                     buf[0] = v293;
-                    v153 = std::__hash_table<std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(a2 + 6, v292);
+                    v153 = std::__hash_table<std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(a2 + 6, v292, buf);
                     *(v153 + 6) = v151;
                     *(v153 + 7) = v152;
                     *(v153 + 32) = v250;
@@ -2769,7 +1517,7 @@ LABEL_469:
                   else
                   {
                     buf[0] = &v292;
-                    if (*(std::__hash_table<std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>,std::__unordered_map_hasher<CA::WindowServer::Display::Mode,std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>,CA::WindowServer::IOMFBDisplay::ModeHash,std::equal_to<CA::WindowServer::Display::Mode>,true>,std::__unordered_map_equal<CA::WindowServer::Display::Mode,std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>,std::equal_to<CA::WindowServer::Display::Mode>,CA::WindowServer::IOMFBDisplay::ModeHash,true>,std::allocator<std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>>>::__emplace_unique_key_args<CA::WindowServer::Display::Mode,std::piecewise_construct_t const&,std::tuple<CA::WindowServer::Display::Mode const&>,std::tuple<>>(v280 + 3338, v292) + 8) >= v269)
+                    if (*(std::__hash_table<std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>,std::__unordered_map_hasher<CA::WindowServer::Display::Mode,std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>,CA::WindowServer::IOMFBDisplay::ModeHash,std::equal_to<CA::WindowServer::Display::Mode>,true>,std::__unordered_map_equal<CA::WindowServer::Display::Mode,std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>,std::equal_to<CA::WindowServer::Display::Mode>,CA::WindowServer::IOMFBDisplay::ModeHash,true>,std::allocator<std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>>>::__emplace_unique_key_args<CA::WindowServer::Display::Mode,std::piecewise_construct_t const&,std::tuple<CA::WindowServer::Display::Mode const&>,std::tuple<>>(v280 + 6676, v292, buf) + 8) >= v269)
                     {
                       goto LABEL_401;
                     }
@@ -2799,7 +1547,7 @@ LABEL_469:
 
                   v204 = v182 + v269;
                   buf[0] = &v292;
-                  v205 = std::__hash_table<std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>,std::__unordered_map_hasher<CA::WindowServer::Display::Mode,std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>,CA::WindowServer::IOMFBDisplay::ModeHash,std::equal_to<CA::WindowServer::Display::Mode>,true>,std::__unordered_map_equal<CA::WindowServer::Display::Mode,std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>,std::equal_to<CA::WindowServer::Display::Mode>,CA::WindowServer::IOMFBDisplay::ModeHash,true>,std::allocator<std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>>>::__emplace_unique_key_args<CA::WindowServer::Display::Mode,std::piecewise_construct_t const&,std::tuple<CA::WindowServer::Display::Mode const&>,std::tuple<>>(v280 + 3338, v292);
+                  v205 = std::__hash_table<std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>,std::__unordered_map_hasher<CA::WindowServer::Display::Mode,std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>,CA::WindowServer::IOMFBDisplay::ModeHash,std::equal_to<CA::WindowServer::Display::Mode>,true>,std::__unordered_map_equal<CA::WindowServer::Display::Mode,std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>,std::equal_to<CA::WindowServer::Display::Mode>,CA::WindowServer::IOMFBDisplay::ModeHash,true>,std::allocator<std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>>>::__emplace_unique_key_args<CA::WindowServer::Display::Mode,std::piecewise_construct_t const&,std::tuple<CA::WindowServer::Display::Mode const&>,std::tuple<>>(v280 + 6676, v292, buf);
                   *(v205 + 6) = v102;
                   *(v205 + 7) = v194;
                   *(v205 + 8) = v269;
@@ -3034,7 +1782,7 @@ LABEL_543:
       do
       {
         *&v294[0] = v227;
-        v229 = *(std::__hash_table<std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>,std::__unordered_map_hasher<CA::WindowServer::Display::Mode,std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>,CA::WindowServer::IOMFBDisplay::ModeHash,std::equal_to<CA::WindowServer::Display::Mode>,true>,std::__unordered_map_equal<CA::WindowServer::Display::Mode,std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>,std::equal_to<CA::WindowServer::Display::Mode>,CA::WindowServer::IOMFBDisplay::ModeHash,true>,std::allocator<std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>>>::__emplace_unique_key_args<CA::WindowServer::Display::Mode,std::piecewise_construct_t const&,std::tuple<CA::WindowServer::Display::Mode const&>,std::tuple<>>(v6 + 3338, *v227) + 10);
+        v229 = *(std::__hash_table<std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>,std::__unordered_map_hasher<CA::WindowServer::Display::Mode,std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>,CA::WindowServer::IOMFBDisplay::ModeHash,std::equal_to<CA::WindowServer::Display::Mode>,true>,std::__unordered_map_equal<CA::WindowServer::Display::Mode,std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>,std::equal_to<CA::WindowServer::Display::Mode>,CA::WindowServer::IOMFBDisplay::ModeHash,true>,std::allocator<std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>>>::__emplace_unique_key_args<CA::WindowServer::Display::Mode,std::piecewise_construct_t const&,std::tuple<CA::WindowServer::Display::Mode const&>,std::tuple<>>(v6 + 6676, *v227, v294) + 10);
         if (!v229)
         {
           v229 = v225;
@@ -4380,7 +3128,7 @@ uint64_t CA::WindowServer::IOMFBDisplay::update_power_state_locked(BOOL)::$_0::o
 {
   v12 = *MEMORY[0x1E69E9840];
   v2 = *a1;
-  result = CA::IOMobileFramebuffer::swap_wait((*a1 + 25696));
+  result = CA::IOMobileFramebuffer::swap_wait((*a1 + 25696), 0, 3);
   if (result)
   {
     v4 = result;
@@ -4397,7 +3145,7 @@ uint64_t CA::WindowServer::IOMFBDisplay::update_power_state_locked(BOOL)::$_0::o
       _os_log_error_impl(&dword_183AA6000, v5, OS_LOG_TYPE_ERROR, "Wait Power On failed with error 0x%x. Retrying...", &v10, 8u);
     }
 
-    result = CA::IOMobileFramebuffer::swap_wait((v2 + 25696));
+    result = CA::IOMobileFramebuffer::swap_wait((v2 + 25696), 0, 3);
     if (result)
     {
       v6 = result;
@@ -4552,7 +3300,7 @@ void CA::WindowServer::IOMFBDisplay::reset_timings(os_unfair_lock_s *this)
   LOBYTE(v2[433]._os_unfair_lock_opaque) = 0;
   *&this[6584]._os_unfair_lock_opaque = 0u;
   *&this[6588]._os_unfair_lock_opaque = 0u;
-  CA::WindowServer::IOMFBDisplay::initialize_timings(this);
+  CA::WindowServer::IOMFBDisplay::initialize_timings(this, v3);
 
   os_unfair_lock_unlock(this + 6576);
 }
@@ -4565,10 +3313,10 @@ uint64_t ___ZN2CA12WindowServer12IOMFBDisplay42post_secure_indicator_statistics_
   return result;
 }
 
-uint64_t CA::WindowServer::IOMFBDisplay::is_secure_indicator_frame_insecure(CA::WindowServer::IOMFBDisplay *this)
+uint64_t CA::WindowServer::IOMFBDisplay::is_secure_indicator_frame_insecure(CA::WindowServer::IOMFBDisplay *this, uint64_t a2, uint64_t a3)
 {
-  v1 = *(this + 3220);
-  if (v1 && (*v1 || (v2 = sil_mgr_instance(0, 0xFFFFFFFFLL), (*v1 = v2) != 0)) && MEMORY[0x1EEE910F0])
+  v3 = *(this + 3220);
+  if (v3 && (*v3 || (v4 = sil_mgr_instance(0, 0xFFFFFFFFLL), (*v3 = v4) != 0)) && MEMORY[0x1EEE910F0])
   {
     return SILManagerIndicatorFrameIsInsecure();
   }
@@ -4579,215 +3327,215 @@ uint64_t CA::WindowServer::IOMFBDisplay::is_secure_indicator_frame_insecure(CA::
   }
 }
 
-void CA::WindowServer::IOMFBDisplay::draw_debug_valid_positions_bounding_boxes(CA::WindowServer::IOMFBDisplay *this, __n128 a2)
+void CA::WindowServer::IOMFBDisplay::draw_debug_valid_positions_bounding_boxes(CA::WindowServer::IOMFBDisplay *this, uint64_t a2, __n128 a3)
 {
-  v55 = *MEMORY[0x1E69E9840];
-  v2 = *(this + 3220);
-  if (v2)
+  v56 = *MEMORY[0x1E69E9840];
+  v3 = *(this + 3220);
+  if (v3)
   {
-    if (!*v2)
+    if (!*v3)
     {
-      v4 = sil_mgr_instance(0, 0xFFFFFFFFLL);
-      *v2 = v4;
-      if (!v4)
+      v5 = sil_mgr_instance(0, 0xFFFFFFFFLL);
+      *v3 = v5;
+      if (!v5)
       {
         return;
       }
 
-      v2 = *(this + 3220);
+      v3 = *(this + 3220);
     }
 
-    if (!*(v2 + 8))
+    if (!*(v3 + 8))
     {
       operator new();
     }
 
-    a2.n128_u64[0] = *(v2 + 248);
-    v46 = a2;
-    memset(v52, 0, 24);
-    v5.f64[1] = 0.0;
-    v48 = 0u;
+    a3.n128_u64[0] = *(v3 + 248);
+    v47 = a3;
+    memset(v53, 0, 24);
+    v6.f64[1] = 0.0;
+    v49 = 0u;
     if (MEMORY[0x1EEE91120])
     {
       valid = SILManagerIndicatorValidPositions();
-      v7 = valid;
+      v8 = valid;
       if (valid)
       {
-        std::vector<CGRect>::resize(v52, [valid count]);
-        *&v5.f64[1] = v52[1];
-        v8 = v52[0];
-        v48 = *v52;
-        v9 = v52[1];
-        if (v52[1] != v52[0])
+        std::vector<CGRect>::resize(v53, [valid count]);
+        v6.f64[1] = *(v53 + 1);
+        v9 = *&v53[0];
+        v49 = v53[0];
+        v10 = *(&v53[0] + 1);
+        if (*(&v53[0] + 1) != *&v53[0])
         {
-          v10 = 0;
-          if (((v52[1] - v52[0]) >> 5) <= 1)
+          v11 = 0;
+          if (((*(&v53[0] + 1) - *&v53[0]) >> 5) <= 1)
           {
-            v11 = 1;
+            v12 = 1;
           }
 
           else
           {
-            v11 = (v52[1] - v52[0]) >> 5;
+            v12 = (*(&v53[0] + 1) - *&v53[0]) >> 5;
           }
 
-          v12 = v52[0];
+          v13 = *&v53[0];
           do
           {
-            [objc_msgSend(v7 objectAtIndexedSubscript:{v10++, *&v46), "getValue:", v12}];
-            v12 += 32;
+            [objc_msgSend(v8 objectAtIndexedSubscript:{v11++, *&v47), "getValue:", v13}];
+            v13 += 32;
           }
 
-          while (v11 != v10);
-          v13.i64[0] = v46.n128_i32[0];
-          v13.i64[1] = v46.n128_i32[1];
-          v5 = vcvtq_f64_s64(v13);
+          while (v12 != v11);
+          v14.i64[0] = v47.n128_i32[0];
+          v14.i64[1] = v47.n128_i32[1];
+          v6 = vcvtq_f64_s64(v14);
           do
           {
-            v14 = vmulq_f64(v8[1], v5);
-            *v8 = vmulq_f64(*v8, v5);
-            v8[1] = v14;
-            v8 += 2;
+            v15 = vmulq_f64(v9[1], v6);
+            *v9 = vmulq_f64(*v9, v6);
+            v9[1] = v15;
+            v9 += 2;
           }
 
-          while (v8 != v9);
+          while (v9 != v10);
         }
       }
 
       else
       {
-        v5.f64[1] = 0.0;
-        v48 = 0u;
+        v6.f64[1] = 0.0;
+        v49 = 0u;
       }
     }
 
-    v5.f64[0] = *(v2 + 248);
-    v47 = v5;
-    v50 = 0;
+    v6.f64[0] = *(v3 + 248);
+    v48 = v6;
     v51 = 0;
-    v49 = 0;
-    if (MEMORY[0x1EEE91118] && (v15 = SILManagerIndicatorValidDynamicPositions(), (v16 = v15) != 0))
+    v52 = 0;
+    v50 = 0;
+    if (MEMORY[0x1EEE91118] && (v16 = SILManagerIndicatorValidDynamicPositions(), (v17 = v16) != 0))
     {
-      std::vector<CGRect>::resize(&v49, [v15 count]);
-      v17 = v49;
+      std::vector<CGRect>::resize(&v50, [v16 count]);
       v18 = v50;
-      if (v50 != v49)
+      v19 = v51;
+      if (v51 != v50)
       {
-        v19 = 0;
-        if (((v50 - v49) >> 5) <= 1)
+        v20 = 0;
+        if (((v51 - v50) >> 5) <= 1)
         {
-          v20 = 1;
+          v21 = 1;
         }
 
         else
         {
-          v20 = (v50 - v49) >> 5;
+          v21 = (v51 - v50) >> 5;
         }
 
-        v21 = v49;
+        v22 = v50;
         do
         {
-          [objc_msgSend(v16 objectAtIndexedSubscript:{v19++, *&v47), "getValue:", v21}];
-          v21 += 32;
+          [objc_msgSend(v17 objectAtIndexedSubscript:{v20++, *&v48), "getValue:", v22}];
+          v22 += 32;
         }
 
-        while (v20 != v19);
-        v22.i64[0] = SLODWORD(v47.f64[0]);
-        v22.i64[1] = SHIDWORD(v47.f64[0]);
-        v23 = vcvtq_f64_s64(v22);
-        v24 = v17;
+        while (v21 != v20);
+        v23.i64[0] = SLODWORD(v48.f64[0]);
+        v23.i64[1] = SHIDWORD(v48.f64[0]);
+        v24 = vcvtq_f64_s64(v23);
+        v25 = v18;
         do
         {
-          v25 = vmulq_f64(v24[1], v23);
-          *v24 = vmulq_f64(*v24, v23);
-          v24[1] = v25;
-          v24 += 2;
+          v26 = vmulq_f64(v25[1], v24);
+          *v25 = vmulq_f64(*v25, v24);
+          v25[1] = v26;
+          v25 += 2;
         }
 
-        while (v24 != v18);
+        while (v25 != v19);
       }
     }
 
     else
     {
+      v19 = 0;
       v18 = 0;
-      v17 = 0;
     }
 
-    v26.f64[1] = *(&v48 + 1);
-    if (v48 != *(&v48 + 1) || v17 != v18)
+    v27.f64[1] = *(&v49 + 1);
+    if (v49 != *(&v49 + 1) || v18 != v19)
     {
-      v28 = *(v2 + 8);
-      v28[8] = v28[6];
-      v28[10] = 0x3C003C0000003C00;
-      if (v48 != *(&v48 + 1))
+      v29 = *(v3 + 8);
+      v29[8] = v29[6];
+      v29[10] = 0x3C003C0000003C00;
+      if (v49 != *(&v49 + 1))
       {
-        v29 = v48;
+        v30 = v49;
         do
         {
-          v30 = *(v2 + 8);
-          v31 = *v29;
-          v32 = v29[1];
-          v29 += 2;
-          *&v31.f64[0] = vcvt_f32_f64(v31);
-          *&v53[0].f64[0] = vadd_f32(vcvt_f32_f64(v32), *&v31.f64[0]);
-          v30[2] = *&v31.f64[0];
-          CA::OGL::DebugRenderer::draw_rectangle_with_fill(v30, v53, v31.f64[0]);
+          v31 = *(v3 + 8);
+          v32 = *v30;
+          v33 = v30[1];
+          v30 += 2;
+          *&v32.f64[0] = vcvt_f32_f64(v32);
+          *&v54[0].f64[0] = vadd_f32(vcvt_f32_f64(v33), *&v32.f64[0]);
+          v31[2] = *&v32.f64[0];
+          CA::OGL::DebugRenderer::draw_rectangle_with_fill(v31, v54, v32.f64[0]);
         }
 
-        while (v29 != *(&v48 + 1));
+        while (v30 != *(&v49 + 1));
       }
 
-      *(*(v2 + 8) + 80) = 0x3C0000003C003C00;
-      if (v17 != v18)
+      *(*(v3 + 8) + 80) = 0x3C0000003C003C00;
+      if (v18 != v19)
       {
-        v33 = v17;
+        v34 = v18;
         do
         {
-          v34 = *(v2 + 8);
-          v35 = *v33;
-          v36 = v33[1];
-          v33 += 2;
-          *&v35.f64[0] = vcvt_f32_f64(v35);
-          *&v53[0].f64[0] = vadd_f32(vcvt_f32_f64(v36), *&v35.f64[0]);
-          v34[2] = *&v35.f64[0];
-          CA::OGL::DebugRenderer::draw_rectangle_with_fill(v34, v53, v35.f64[0]);
+          v35 = *(v3 + 8);
+          v36 = *v34;
+          v37 = v34[1];
+          v34 += 2;
+          *&v36.f64[0] = vcvt_f32_f64(v36);
+          *&v54[0].f64[0] = vadd_f32(vcvt_f32_f64(v37), *&v36.f64[0]);
+          v35[2] = *&v36.f64[0];
+          CA::OGL::DebugRenderer::draw_rectangle_with_fill(v35, v54, v36.f64[0]);
         }
 
-        while (v33 != v18);
+        while (v34 != v19);
       }
 
-      v37 = *(this + 41);
-      v38 = *(this + 52);
-      LODWORD(v26.f64[0]) = *(this + 53);
-      v40 = *(this + 40);
-      v39 = *(this + 41);
-      v54 = 0;
-      v41 = SLODWORD(v26.f64[0]) / v39;
-      *v26.f64 = v38 / v40;
-      v53[0] = xmmword_183E20E00;
-      v53[1] = 0u;
-      v53[2] = xmmword_183E20E60;
-      memset(&v53[3], 0, 32);
-      v53[5] = xmmword_183E20E00;
-      v53[6] = 0u;
+      v38 = *(this + 41);
+      v39 = *(this + 52);
+      LODWORD(v27.f64[0]) = *(this + 53);
+      v41 = *(this + 40);
+      v40 = *(this + 41);
+      v55 = 0;
+      v42 = SLODWORD(v27.f64[0]) / v40;
+      *v27.f64 = v39 / v41;
+      v54[0] = xmmword_183E20E00;
+      v54[1] = 0u;
+      v54[2] = xmmword_183E20E60;
+      memset(&v54[3], 0, 32);
+      v54[5] = xmmword_183E20E00;
+      v54[6] = 0u;
       __asm { FMOV            V1.2D, #1.0 }
 
-      v53[7] = xmmword_183E20E60;
-      v53[8] = _Q1;
-      v26.f64[0] = *v26.f64;
-      CA::Transform::scale(v53, v26, v41, 1.0);
-      CA::OGL::DebugRenderer::render(*(v2 + 8), *v37, v53, 1);
+      v54[7] = xmmword_183E20E60;
+      v54[8] = _Q1;
+      v27.f64[0] = *v27.f64;
+      CA::Transform::scale(v54, v27, v42, 1.0);
+      CA::OGL::DebugRenderer::render(*(v3 + 8), *v38, v54, 1);
     }
 
-    if (v17)
+    if (v18)
     {
-      operator delete(v17);
+      operator delete(v18);
     }
 
-    if (v48)
+    if (v49)
     {
-      operator delete(v48);
+      operator delete(v49);
     }
   }
 }
@@ -5051,7 +3799,7 @@ LABEL_47:
     {
       v8 = *(a1 + 16);
       v9 = *a1;
-      v10 = a2[-1].n128_i64[1];
+      v10 = a2[-1].n128_u64[1];
       *a1 = *v7;
       *(a1 + 16) = v10;
       *v7 = v9;
@@ -5496,13 +4244,13 @@ uint64_t CA::WindowServer::IOMFBDisplay::set_system_gamma_curve(CA::WindowServer
 void CA::WindowServer::IOMFBDisplay::set_display_color_space(const void **this, CGColorSpace *a2)
 {
   v7 = *MEMORY[0x1E69E9840];
-  v2 = (this + 3584);
+  v2 = this + 3584;
   if (*(this + 29566))
   {
     if (!CFEqual(this[3438], a2))
     {
       X::CFRef<CGColorSpace *>::operator=(this + 3438, a2);
-      v2[890] = 1;
+      *(v2 + 890) = 1;
     }
   }
 
@@ -5525,13 +4273,13 @@ void CA::WindowServer::IOMFBDisplay::set_display_color_space(const void **this, 
 void CA::WindowServer::IOMFBDisplay::set_blend_color_space(const void **this, CGColorSpace *a2)
 {
   v7 = *MEMORY[0x1E69E9840];
-  v2 = (this + 3584);
+  v2 = this + 3584;
   if (*(this + 29566))
   {
     if (!CFEqual(this[3437], a2))
     {
       X::CFRef<CGColorSpace *>::operator=(this + 3437, a2);
-      v2[889] = (this[113] & 0x200) != 0;
+      *(v2 + 889) = (this[113] & 0x200) != 0;
     }
   }
 
@@ -5811,7 +4559,7 @@ uint64_t CA::WindowServer::IOMFBDisplay::abort_color_matrix_ramp(uint64_t this, 
   return this;
 }
 
-_OWORD *CA::ColorAdaptation::RGBXYZConversionMatrices<double>::RGBXYZConversionMatrices(_OWORD *a1, float64x2_t *a2, float64x2_t *a3, double a4, float64x2_t a5, double a6, double a7, double a8, float64x2_t a9, double a10, float64x2_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, float64x2_t a33, float64x2_t a34, float64x2_t a35, float64x2_t a36, float64x2_t a37, float64x2_t a38)
+float64x2_t *CA::ColorAdaptation::RGBXYZConversionMatrices<double>::RGBXYZConversionMatrices(float64x2_t *a1, float64x2_t *a2, float64x2_t *a3, double a4, float64x2_t a5, double a6, double a7, double a8, float64x2_t a9, double a10, float64x2_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, float64x2_t a33, float64x2_t a34, float64x2_t a35, float64x2_t a36, float64x2_t a37, float64x2_t a38, __n128 a39, __n128 a40, float64x2_t a41, __n128 a42, float64x2_t a43, float64x2_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48)
 {
   a1[10] = 0u;
   a1[11] = 0u;
@@ -5826,45 +4574,45 @@ _OWORD *CA::ColorAdaptation::RGBXYZConversionMatrices<double>::RGBXYZConversionM
   *a1 = 0u;
   a1[1] = 0u;
   a5.f64[0] = a2[1].f64[0];
-  v39 = a2->f64[1];
-  v40.f64[0] = a5.f64[0] * a2->f64[0] / v39;
-  a9.f64[0] = (1.0 - vaddvq_f64(*a2)) * a5.f64[0] / v39;
-  v40.f64[1] = a5.f64[0];
-  v54 = v40;
-  v41 = a2[2];
+  v49 = a2->f64[1];
+  v50.f64[0] = a5.f64[0] * a2->f64[0] / v49;
+  a9.f64[0] = (1.0 - vaddvq_f64(*a2)) * a5.f64[0] / v49;
+  v50.f64[1] = a5.f64[0];
+  v64 = v50;
+  v51 = a2[2];
   a5.f64[0] = a2[3].f64[0];
-  v40.f64[0] = a2[2].f64[1];
-  v42.f64[0] = a5.f64[0] * v41.f64[0] / v40.f64[0];
-  a11.f64[0] = (1.0 - vaddvq_f64(v41)) * a5.f64[0] / v40.f64[0];
-  v55 = a11;
-  v56 = a9;
-  v42.f64[1] = a5.f64[0];
-  v53 = v42;
-  v43 = a2[4];
+  v50.f64[0] = a2[2].f64[1];
+  v52.f64[0] = a5.f64[0] * v51.f64[0] / v50.f64[0];
+  a11.f64[0] = (1.0 - vaddvq_f64(v51)) * a5.f64[0] / v50.f64[0];
+  v65 = a11;
+  v66 = a9;
+  v52.f64[1] = a5.f64[0];
+  v63 = v52;
+  v53 = a2[4];
   a5.f64[0] = a2[5].f64[0];
-  v40.f64[0] = a2[4].f64[1];
-  v42.f64[0] = a5.f64[0] * v43.f64[0] / v40.f64[0];
-  v40.f64[0] = (1.0 - vaddvq_f64(v43)) * a5.f64[0] / v40.f64[0];
-  v57 = v40;
-  v42.f64[1] = a5.f64[0];
-  v52 = v42;
-  v44 = *a3;
-  v45 = a3[1];
-  v42.f64[0] = a3->f64[1];
-  a5.f64[0] = vmuld_n_f64(a3->f64[0], v45.f64[0]) / v42.f64[0];
-  v50 = v45;
-  v51 = a5;
-  v44.f64[0] = (1.0 - vaddvq_f64(*a3)) * v45.f64[0] / v42.f64[0];
-  vars0 = v44;
+  v50.f64[0] = a2[4].f64[1];
+  v52.f64[0] = a5.f64[0] * v53.f64[0] / v50.f64[0];
+  v50.f64[0] = (1.0 - vaddvq_f64(v53)) * a5.f64[0] / v50.f64[0];
+  v67 = v50;
+  v52.f64[1] = a5.f64[0];
+  v62 = v52;
+  v54 = *a3;
+  v55 = a3[1];
+  v52.f64[0] = a3->f64[1];
+  a5.f64[0] = vmuld_n_f64(a3->f64[0], v55.f64[0]) / v52.f64[0];
+  v60 = v55;
+  v61 = a5;
+  v54.f64[0] = (1.0 - vaddvq_f64(*a3)) * v55.f64[0] / v52.f64[0];
+  vars0 = v54;
   __invert_d3();
-  *&v46 = *&vmlaq_f64(vmlaq_f64(vmulq_f64(a34, v51), v50, a36), vars0, a38);
-  v47 = vmlaq_n_f64(vmlaq_n_f64(vmulq_n_f64(a33, v51.f64[0]), a35, v50.f64[0]), a37, vars0.f64[0]);
-  *a1 = vmulq_n_f64(v54, v47.f64[0]);
-  a1[1] = vmulq_n_f64(v56, v47.f64[0]);
-  a1[2] = vmulq_laneq_f64(v53, v47, 1);
-  a1[3] = vmulq_laneq_f64(v55, v47, 1);
-  a1[4] = vmulq_n_f64(v52, v46);
-  a1[5] = vmulq_n_f64(v57, v46);
+  *&v56 = *&vmlaq_f64(vmlaq_f64(vmulq_f64(a34, v61), v60, a36), vars0, a38);
+  v57 = vmlaq_n_f64(vmlaq_n_f64(vmulq_n_f64(a33, v61.f64[0]), a35, v60.f64[0]), a37, vars0.f64[0]);
+  *a1 = vmulq_n_f64(v64, v57.f64[0]);
+  a1[1] = vmulq_n_f64(v66, v57.f64[0]);
+  a1[2] = vmulq_laneq_f64(v63, v57, 1);
+  a1[3] = vmulq_laneq_f64(v65, v57, 1);
+  a1[4] = vmulq_n_f64(v62, v56);
+  a1[5] = vmulq_n_f64(v67, v56);
   __invert_d3();
   a1[8] = a35;
   a1[9] = a36;
@@ -5929,11 +4677,11 @@ LABEL_6:
   {
     if (*v5 || (v6 = sil_mgr_instance(0, 0xFFFFFFFFLL), (*v5 = v6) != 0))
     {
-      CA::IOMobileFramebuffer::swap_wait((this + 25696));
+      CA::IOMobileFramebuffer::swap_wait((this + 25696), 0, 3);
       CA::WindowServer::SILMgr::set_power(*(this + 3220), 1, 1);
       v7 = 0;
       v8 = *(this + 3220);
-      v9 = (v8 + 24);
+      v9 = v8 + 3;
       v10 = v13;
       do
       {
@@ -5950,7 +4698,7 @@ LABEL_6:
       }
 
       while (v7 != 4);
-      CA::WindowServer::SILMgr::end_swap_region(v8, 0, 0.0);
+      CA::WindowServer::SILMgr::end_swap_region(v8, 0, 0.0, 0);
       CA::WindowServer::IOMFBDisplay::SecureIndicator::set_state(this + 25760, 3);
     }
   }
@@ -6189,7 +4937,7 @@ void CA::WindowServer::IOMFBDisplay::set_pulse_width_maximization(CA::WindowServ
   }
 }
 
-_BYTE *CA::WindowServer::IOMFBDisplay::set_inverse_color(_BYTE *this, int a2)
+_BYTE *CA::WindowServer::IOMFBDisplay::set_inverse_color(_BYTE *this, uint64_t a2)
 {
   if (this[29496] != a2)
   {
@@ -6204,23 +4952,23 @@ _BYTE *CA::WindowServer::IOMFBDisplay::set_inverse_color(_BYTE *this, int a2)
   return this;
 }
 
-uint64_t CA::WindowServer::IOMFBDisplay::update_display_modes(CA::WindowServer::IOMFBDisplay *this, int a2)
+uint64_t CA::WindowServer::IOMFBDisplay::update_display_modes(pthread_mutex_t *this, int a2)
 {
-  v4 = this + 28672;
-  if (*(this + 29513) == 1)
+  v4 = this + 448;
+  if (this[461].__opaque[1] == 1)
   {
     v5 = IOMobileFramebufferCopyProperty();
     if (v5)
     {
       v6 = v5;
-      v4[838] = CA_CFBoolValue(v5);
+      BYTE6(v4[13].__sig) = CA_CFBoolValue(v5);
       CFRelease(v6);
     }
   }
 
-  if ((*(*this + 80))(this))
+  if ((*(this->__sig + 80))(this))
   {
-    v4[838] = 0;
+    BYTE6(v4[13].__sig) = 0;
   }
 
   if (a2)
@@ -6330,7 +5078,7 @@ uint64_t CA::WindowServer::IOMFBDisplay::clone_exceeds_display_bandwidth_limits_
     v12 = v37[0] & 0x3FFF;
     v13 = (LODWORD(v37[0]) >> 14) & 0x3FFF;
     *&v34.f64[0] = v37;
-    v15 = *(std::__hash_table<std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>,std::__unordered_map_hasher<CA::WindowServer::Display::Mode,std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>,CA::WindowServer::IOMFBDisplay::ModeHash,std::equal_to<CA::WindowServer::Display::Mode>,true>,std::__unordered_map_equal<CA::WindowServer::Display::Mode,std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>,std::equal_to<CA::WindowServer::Display::Mode>,CA::WindowServer::IOMFBDisplay::ModeHash,true>,std::allocator<std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>>>::__emplace_unique_key_args<CA::WindowServer::Display::Mode,std::piecewise_construct_t const&,std::tuple<CA::WindowServer::Display::Mode const&>,std::tuple<>>(this + 3338, v37[0]) + 44);
+    v15 = *(std::__hash_table<std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>,std::__unordered_map_hasher<CA::WindowServer::Display::Mode,std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>,CA::WindowServer::IOMFBDisplay::ModeHash,std::equal_to<CA::WindowServer::Display::Mode>,true>,std::__unordered_map_equal<CA::WindowServer::Display::Mode,std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>,std::equal_to<CA::WindowServer::Display::Mode>,CA::WindowServer::IOMFBDisplay::ModeHash,true>,std::allocator<std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>>>::__emplace_unique_key_args<CA::WindowServer::Display::Mode,std::piecewise_construct_t const&,std::tuple<CA::WindowServer::Display::Mode const&>,std::tuple<>>(this + 6676, v37[0], &v34) + 44);
     v16 = *(a2 + 52);
     v17 = *(a2 + 53);
     if (v12 / v16 >= v13 / v17)
@@ -6628,9 +5376,9 @@ LABEL_20:
 
 double CA::WindowServer::IOMFBDisplay::clone_scale(CA::WindowServer::IOMFBDisplay *this, CA::WindowServer::Display *a2)
 {
-  v14[2] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   v4 = *(this + 3415);
-  v14[0] = v4;
+  v14 = v4;
   if ((v4 & 0x10000000) != 0)
   {
     v5 = *(this + 40);
@@ -6641,8 +5389,8 @@ double CA::WindowServer::IOMFBDisplay::clone_scale(CA::WindowServer::IOMFBDispla
     v5 = v4 & 0x3FFF;
   }
 
-  v14[1] = v14;
-  v6 = std::__hash_table<std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>,std::__unordered_map_hasher<CA::WindowServer::Display::Mode,std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>,CA::WindowServer::IOMFBDisplay::ModeHash,std::equal_to<CA::WindowServer::Display::Mode>,true>,std::__unordered_map_equal<CA::WindowServer::Display::Mode,std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>,std::equal_to<CA::WindowServer::Display::Mode>,CA::WindowServer::IOMFBDisplay::ModeHash,true>,std::allocator<std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>>>::__emplace_unique_key_args<CA::WindowServer::Display::Mode,std::piecewise_construct_t const&,std::tuple<CA::WindowServer::Display::Mode const&>,std::tuple<>>(this + 3338, v4);
+  v15[0] = &v14;
+  v6 = std::__hash_table<std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>,std::__unordered_map_hasher<CA::WindowServer::Display::Mode,std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>,CA::WindowServer::IOMFBDisplay::ModeHash,std::equal_to<CA::WindowServer::Display::Mode>,true>,std::__unordered_map_equal<CA::WindowServer::Display::Mode,std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>,std::equal_to<CA::WindowServer::Display::Mode>,CA::WindowServer::IOMFBDisplay::ModeHash,true>,std::allocator<std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>>>::__emplace_unique_key_args<CA::WindowServer::Display::Mode,std::piecewise_construct_t const&,std::tuple<CA::WindowServer::Display::Mode const&>,std::tuple<>>(this + 6676, v4, v15);
   v7 = *(a2 + 82);
   if ((v7 & 0x10000000) != 0)
   {
@@ -6803,7 +5551,7 @@ LABEL_8:
 
 uint64_t CA::WindowServer::IOMFBDisplay::clone_update(CA::WindowServer::IOMFBDisplay *this, CA::WindowServer::Server *a2, CA::WindowServer::Display *a3, CA::Render::Update *a4, unsigned int *a5, BOOL *a6)
 {
-  v335 = *MEMORY[0x1E69E9840];
+  v339 = *MEMORY[0x1E69E9840];
   if ((*(a3 + 226) & 0x8000) != 0)
   {
     v11 = a3;
@@ -6873,13 +5621,13 @@ LABEL_10:
           dispatch_once(&x_log_get_windowserver(void)::once, &__block_literal_global_17283);
         }
 
-        v276 = x_log_get_windowserver(void)::log;
+        v280 = x_log_get_windowserver(void)::log;
         if (os_log_type_enabled(x_log_get_windowserver(void)::log, OS_LOG_TYPE_DEFAULT))
         {
-          v277 = *(this + 6);
+          v281 = *(this + 6);
           *buf = 67109120;
-          *&buf[4] = v277;
-          _os_log_impl(&dword_183AA6000, v276, OS_LOG_TYPE_DEFAULT, "resuming display %d cloning", buf, 8u);
+          *&buf[4] = v281;
+          _os_log_impl(&dword_183AA6000, v280, OS_LOG_TYPE_DEFAULT, "resuming display %d cloning", buf, 8u);
         }
 
         *(this + 29578) = 0;
@@ -6892,7 +5640,7 @@ LABEL_10:
 
       *(this + 29492) = 1;
       v23 = *(this + 3415);
-      v323 = v23;
+      v327 = v23;
       v24 = *(this + 83);
       if (v24 && !v23)
       {
@@ -6914,7 +5662,7 @@ LABEL_10:
           }
         }
 
-        v23 = v323;
+        v23 = v327;
       }
 
       if (v23)
@@ -6926,11 +5674,11 @@ LABEL_10:
         if (CA::WindowServer::IOMFBDisplay::can_update_(this, BYTE1(*(a4 + 344)) & 1, 0.0, 0.0) && v29 >= v30)
         {
           CA::WindowServer::IOMFBDisplay::update_color_matrix(this, *(a4 + 10));
-          v31 = v323;
-          *buf = &v323;
-          v32 = *(std::__hash_table<std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>,std::__unordered_map_hasher<CA::WindowServer::Display::Mode,std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>,CA::WindowServer::IOMFBDisplay::ModeHash,std::equal_to<CA::WindowServer::Display::Mode>,true>,std::__unordered_map_equal<CA::WindowServer::Display::Mode,std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>,std::equal_to<CA::WindowServer::Display::Mode>,CA::WindowServer::IOMFBDisplay::ModeHash,true>,std::allocator<std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>>>::__emplace_unique_key_args<CA::WindowServer::Display::Mode,std::piecewise_construct_t const&,std::tuple<CA::WindowServer::Display::Mode const&>,std::tuple<>>(this + 3338, v323) + 44);
+          v31 = v327;
+          *buf = &v327;
+          v32 = *(std::__hash_table<std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>,std::__unordered_map_hasher<CA::WindowServer::Display::Mode,std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>,CA::WindowServer::IOMFBDisplay::ModeHash,std::equal_to<CA::WindowServer::Display::Mode>,true>,std::__unordered_map_equal<CA::WindowServer::Display::Mode,std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>,std::equal_to<CA::WindowServer::Display::Mode>,CA::WindowServer::IOMFBDisplay::ModeHash,true>,std::allocator<std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>>>::__emplace_unique_key_args<CA::WindowServer::Display::Mode,std::piecewise_construct_t const&,std::tuple<CA::WindowServer::Display::Mode const&>,std::tuple<>>(this + 6676, v327, buf) + 44);
           v33 = *(a4 + 38);
-          v298 = v19;
+          v302 = v19;
           if (byte_1ED4E9864 == 1)
           {
             v34 = 0;
@@ -6952,7 +5700,7 @@ LABEL_10:
           }
 
           pthread_mutex_lock((this + 25848));
-          v314 = (this + 25912);
+          v318 = (this + 25912);
           v37 = *(a3 + 52);
           v38 = *(this + 14);
           v39 = *(a3 + 672) + 4;
@@ -6964,13 +5712,13 @@ LABEL_10:
 
           v41 = v39 - *(this + 672) - ((v39 - *(this + 672) + (((v39 - *(this + 672)) & 0xC000) >> 14)) & 0xFFFC);
           v42 = v41;
-          v306 = v34;
+          v310 = v34;
           switch(v41)
           {
             case 1:
               goto LABEL_49;
             case 2:
-              v299 = 3;
+              v303 = 3;
               break;
             case 3:
               v40 = 7;
@@ -6978,22 +5726,22 @@ LABEL_49:
               v43 = (v41 & 1) == 0;
 LABEL_50:
               v44 = v43;
-              v299 = v40;
+              v303 = v40;
               v45 = *(a3 + 53);
 LABEL_63:
               v47 = v31 & 0x3FFF;
               v48 = (v31 >> 14) & 0x3FFF;
-              v317 = (v314 + 48 * *(this + 6458));
+              v321 = (v318 + 48 * *(this + 6458));
               __asm { FMOV            V0.2D, #1.0 }
 
-              v322 = _Q0;
+              v326 = _Q0;
               if ((v38 & 2) != 0)
               {
                 v53 = v45;
-                v313 = 0u;
+                v317 = 0u;
                 v54 = v37;
-                _Q0.n128_u64[0] = 1.0;
-                v309 = 0;
+                _Q0.f64[0] = 1.0;
+                v313 = 0;
                 v57.f64[0] = 1.0;
               }
 
@@ -7001,17 +5749,17 @@ LABEL_63:
               {
                 v53 = v45;
                 v54 = v37;
-                _Q0.n128_f64[0] = v47 / v45;
-                if (_Q0.n128_f64[0] >= v48 / v37)
+                _Q0.f64[0] = v47 / v45;
+                if (_Q0.f64[0] >= v48 / v37)
                 {
-                  _Q0.n128_f64[0] = v48 / v37;
+                  _Q0.f64[0] = v48 / v37;
                 }
 
-                *&v322.f64[0] = _Q0.n128_u64[0];
-                *&v322.f64[1] = _Q0.n128_u64[0];
+                v326.f64[0] = _Q0.f64[0];
+                v326.f64[1] = _Q0.f64[0];
                 if ((v38 & 8) != 0 || !v32)
                 {
-                  *&v57.f64[0] = _Q0.n128_u64[0];
+                  v57.f64[0] = _Q0.f64[0];
                 }
 
                 else
@@ -7023,19 +5771,19 @@ LABEL_63:
                     v56 = *(this + 16);
                   }
 
-                  v57.f64[0] = _Q0.n128_f64[0] * v55;
-                  _Q0.n128_f64[0] = _Q0.n128_f64[0] * v56;
-                  v322.f64[0] = v57.f64[0];
-                  *&v322.f64[1] = _Q0.n128_u64[0];
+                  v57.f64[0] = _Q0.f64[0] * v55;
+                  _Q0.f64[0] = _Q0.f64[0] * v56;
+                  v326.f64[0] = v57.f64[0];
+                  v326.f64[1] = _Q0.f64[0];
                 }
 
                 v58 = vcvtmd_s64_f64(v57.f64[0] * v53 + 0.5);
-                v59 = vcvtmd_s64_f64(_Q0.n128_f64[0] * v54 + 0.5);
-                v309 = __PAIR64__(v59, v58);
+                v59 = vcvtmd_s64_f64(_Q0.f64[0] * v54 + 0.5);
+                v313 = __PAIR64__(v59, v58);
                 v60 = (v48 - v59) >> 1;
                 LODWORD(v36) = (v47 - v58) >> 1;
                 DWORD1(v36) = v60;
-                v313 = v36;
+                v317 = v36;
                 v61 = *(this + 17);
                 if (v61 >= 1)
                 {
@@ -7059,12 +5807,12 @@ LABEL_63:
                     }
 
                     *(&v35 + 1) = v62;
-                    v309 = vcvt_s32_f32(vrnda_f32(vmul_n_f32(vcvt_f32_s32(__PAIR64__(v59, v58)), v66)));
+                    v313 = vcvt_s32_f32(vrnda_f32(vmul_n_f32(vcvt_f32_s32(__PAIR64__(v59, v58)), v66)));
                     *&v35 = vcvt_s32_f32(vadd_f32(*&v35, vcvt_f32_s32(*&v36)));
-                    v313 = v35;
-                    v57 = vmulq_n_f64(v322, v66);
-                    v322 = v57;
-                    _Q0.n128_u64[0] = *&v57.f64[1];
+                    v317 = v35;
+                    v57 = vmulq_n_f64(v326, v66);
+                    v326 = v57;
+                    _Q0.f64[0] = v57.f64[1];
                   }
                 }
 
@@ -7073,8 +5821,8 @@ LABEL_63:
                   v67 = (*(*this + 80))(this, _Q0);
                   if (v67)
                   {
-                    _Q0.n128_u64[0] = *&v322.f64[1];
-                    v57.f64[0] = v322.f64[0];
+                    _Q0.f64[0] = v326.f64[1];
+                    v57.f64[0] = v326.f64[0];
                     v47 = v31 & 0x3FFF;
                     v48 = (v31 >> 14) & 0x3FFF;
                   }
@@ -7101,46 +5849,46 @@ LABEL_63:
                     }
 
                     v57.f64[0] = v71;
-                    v72 = v322.f64[1];
-                    if (v322.f64[0] >= v57.f64[0])
+                    v72 = v326.f64[1];
+                    if (v326.f64[0] >= v57.f64[0])
                     {
-                      v57.f64[0] = v322.f64[0];
+                      v57.f64[0] = v326.f64[0];
                     }
 
                     else
                     {
-                      v72 = v322.f64[1] * v57.f64[0] / v322.f64[0];
-                      v322.f64[0] = v57.f64[0];
-                      v322.f64[1] = v72;
+                      v72 = v326.f64[1] * v57.f64[0] / v326.f64[0];
+                      v326.f64[0] = v57.f64[0];
+                      v326.f64[1] = v72;
                     }
 
-                    _Q0.n128_f64[0] = v70;
+                    _Q0.f64[0] = v70;
                     v47 = v31 & 0x3FFF;
                     v48 = (v31 >> 14) & 0x3FFF;
-                    if (v72 >= _Q0.n128_f64[0])
+                    if (v72 >= _Q0.f64[0])
                     {
-                      _Q0.n128_f64[0] = v72;
+                      _Q0.f64[0] = v72;
                     }
 
                     else
                     {
-                      v57.f64[0] = v57.f64[0] * _Q0.n128_f64[0] / v72;
-                      v322.f64[0] = v57.f64[0];
-                      *&v322.f64[1] = _Q0.n128_u64[0];
+                      v57.f64[0] = v57.f64[0] * _Q0.f64[0] / v72;
+                      v326.f64[0] = v57.f64[0];
+                      v326.f64[1] = _Q0.f64[0];
                     }
                   }
                 }
               }
 
               v73 = vcvtmd_s64_f64(v57.f64[0] * v53 + 0.5);
-              v74 = vcvtmd_s64_f64(_Q0.n128_f64[0] * v54 + 0.5);
+              v74 = vcvtmd_s64_f64(_Q0.f64[0] * v54 + 0.5);
               if (((byte_1ED4E9887 & 1) != 0 || (*(this + 29512) & 1) == 0) && (*(this + 29513) & 1) == 0)
               {
-                v75 = (v47 - v73) / 2 == v313 && (v48 - v74) / 2 == DWORD1(v313);
-                v76 = v75 && v309 == v73;
-                if (!v76 || HIDWORD(v309) != v74)
+                v75 = (v47 - v73) / 2 == v317 && (v48 - v74) / 2 == DWORD1(v317);
+                v76 = v75 && v313 == v73;
+                if (!v76 || HIDWORD(v313) != v74)
                 {
-                  v317[6] = 0;
+                  v321[6] = 0;
                   if (x_log_get_windowserver(void)::once != -1)
                   {
                     dispatch_once(&x_log_get_windowserver(void)::once, &__block_literal_global_17283);
@@ -7150,26 +5898,26 @@ LABEL_63:
                   if (os_log_type_enabled(x_log_get_windowserver(void)::log, OS_LOG_TYPE_ERROR))
                   {
                     *buf = 67109376;
-                    *&buf[4] = v309;
+                    *&buf[4] = v313;
                     *&buf[8] = 1024;
-                    *&buf[10] = HIDWORD(v309);
+                    *&buf[10] = HIDWORD(v313);
                     _os_log_error_impl(&dword_183AA6000, v78, OS_LOG_TYPE_ERROR, "Requested size (%i x %i) requires scaling on display that can't scale!", buf, 0xEu);
                   }
 
                   v14 = -12;
-                  goto LABEL_451;
+                  goto LABEL_455;
                 }
               }
 
-              v292 = v48;
-              v293 = v47;
-              v296 = v74;
-              v297 = v73;
-              v79 = v317;
-              v80 = v317 + 6;
-              if (!v317[6])
+              v296 = v48;
+              v297 = v47;
+              v300 = v74;
+              v301 = v73;
+              v79 = v321;
+              v80 = v321 + 6;
+              if (!v321[6])
               {
-                CA::IOMobileFramebuffer::swap_begin((this + 25696), v317 + 6);
+                CA::IOMobileFramebuffer::swap_begin((this + 25696), v321 + 6);
               }
 
               *(this + 6516) = 0;
@@ -7180,36 +5928,36 @@ LABEL_63:
               }
 
               v82 = CAHostTimeWithTime(*(a4 + 10) + v81);
-              *v324 = 1;
+              *v328 = 1;
               *buf = v82;
               IOMobileFramebufferSwapSetTimestamps();
-              v310 = v317 + 6;
-              v294 = v11 + 24576;
+              v314 = v321 + 6;
+              v298 = v11 + 24576;
               if ((*(a3 + 905) & 0x80) != 0)
               {
-                v303 = v42;
+                v307 = v42;
                 v86 = v11 + 48 * *(v11 + 6459);
-                v87 = v317[10] & 0xFE | v86[25952] & 1;
-                *(v317 + 40) = v87;
-                *(v317 + 40) = v87 & 0x3D | v86[25952] & 2;
+                v87 = v321[10] & 0xFE | v86[25952] & 1;
+                *(v321 + 40) = v87;
+                *(v321 + 40) = v87 & 0x3D | v86[25952] & 2;
                 v88 = *(v86 + 3240);
                 v89 = *(v88 + 68);
                 if (*(v88 + 8) >= 2u && *(this + 6460) >= 2u && (*(this + 29513) & 1) == 0)
                 {
-                  v90 = *(v314 + 6 * *(this + 6459) + 1);
+                  v90 = *(v318 + 6 * *(this + 6459) + 1);
                   if (v90)
                   {
-                    if ((*(v90 + 68) & 0x20) != 0 && *(v90 + 48) == v322.f64[0] && *(v90 + 56) == v322.f64[1])
+                    if ((*(v90 + 68) & 0x20) != 0 && *(v90 + 48) == v326.f64[0] && *(v90 + 56) == v326.f64[1])
                     {
                       ++*(v90 + 8);
-                      *(v317 + 1) = v90;
+                      *(v321 + 1) = v90;
                     }
                   }
                 }
 
                 v85 = *(v11 + 3287);
                 v91 = *(v11 + 26689);
-                v315 = *(v11 + 26688);
+                v319 = *(v11 + 26688);
                 v92 = *(v88 + 32);
                 v93 = v11;
                 v84 = *(v88 + 40);
@@ -7238,31 +5986,31 @@ LABEL_63:
                     _os_log_debug_impl(&dword_183AA6000, v95, OS_LOG_TYPE_DEBUG, "Clone does not support detaching. Disabling detachment", buf, 2u);
                   }
 
-                  v294[982] = 1;
+                  v298[982] = 1;
                   v14 = -7;
-                  goto LABEL_451;
+                  goto LABEL_455;
                 }
 
-                v307 = v94;
-                v311 = (v89 >> 2) & 1;
-                v290 = v91 == 2;
-                v79 = v317;
-                v80 = v317 + 6;
-                v42 = v303;
+                v311 = v94;
+                v315 = (v89 >> 2) & 1;
+                v294 = v91 == 2;
+                v79 = v321;
+                v80 = v321 + 6;
+                v42 = v307;
               }
 
               else
               {
-                v290 = 1;
-                v307 = (*(*a3 + 464))(a3, 1);
+                v294 = 1;
+                v311 = (*(*a3 + 464))(a3, 1);
                 v83 = 0;
                 v84 = 0;
-                v315 = 0;
+                v319 = 0;
                 v85 = 0;
-                v311 = 0;
+                v315 = 0;
               }
 
-              v287 = v83;
+              v291 = v83;
               if ((*(a4 + 1380) & 0x80) != 0 && (*(*a3 + 600))(a3))
               {
                 v96 = (*(*a3 + 616))(a3);
@@ -7271,24 +6019,24 @@ LABEL_63:
                   v84 = 0;
                 }
 
-                v289 = v84;
-                v97 = v307;
+                v293 = v84;
+                v97 = v311;
                 if (v96)
                 {
                   v97 = v96;
                 }
 
-                v307 = v97;
+                v311 = v97;
               }
 
               else
               {
-                v289 = v84;
+                v293 = v84;
               }
 
               buffer = CA::WindowServer::IOMFBDisplay::allocate_buffer(this, v79, 0, *(a4 + 40));
               v100 = buffer;
-              if (v311)
+              if (v315)
               {
                 v101 = 36;
               }
@@ -7299,40 +6047,40 @@ LABEL_63:
               }
 
               *(buffer + 68) = v101 | buffer[17] & 0xDA;
-              *(buffer + 3) = v322;
+              *(buffer + 3) = v326;
               if (*(this + 29508) == 1)
               {
                 IOMobileFramebufferSwapSetBackgroundColor();
                 *buf = 0u;
-                v327 = 0u;
-                *v324 = 0u;
-                v325 = 0u;
-                CA::WindowServer::IOMFBDisplay::swap_set_layer(this, 0, 0, buf, v324, 0, *v80, *(a4 + 68), 0, v279);
+                v331 = 0u;
+                *v328 = 0u;
+                v329 = 0u;
+                CA::WindowServer::IOMFBDisplay::swap_set_layer(this, 0, 0, buf, v328, 0, *v80, *(a4 + 68), 0, v283);
                 *buf = 0u;
-                v327 = 0u;
-                *v324 = 0u;
-                v325 = 0u;
-                CA::WindowServer::IOMFBDisplay::swap_set_layer(this, 1, 0, buf, v324, 0, *v80, *(a4 + 68), 0, v280);
+                v331 = 0u;
+                *v328 = 0u;
+                v329 = 0u;
+                CA::WindowServer::IOMFBDisplay::swap_set_layer(this, 1, 0, buf, v328, 0, *v80, *(a4 + 68), 0, v284);
                 *buf = 0u;
-                v327 = 0u;
-                *v324 = 0u;
-                v325 = 0u;
-                CA::WindowServer::IOMFBDisplay::swap_set_layer(this, 2, 0, buf, v324, 0, *v80, *(a4 + 68), 0, v281);
+                v331 = 0u;
+                *v328 = 0u;
+                v329 = 0u;
+                CA::WindowServer::IOMFBDisplay::swap_set_layer(this, 2, 0, buf, v328, 0, *v80, *(a4 + 68), 0, v285);
                 if ((*(*this + 1704))(this))
                 {
                   v102 = *(this + 26691);
                   *buf = 0u;
-                  v327 = 0u;
-                  *v324 = 0u;
-                  v325 = 0u;
-                  CA::WindowServer::IOMFBDisplay::swap_set_layer(this, v102, 0, buf, v324, 0, *v80, *(a4 + 68), 0, v279);
+                  v331 = 0u;
+                  *v328 = 0u;
+                  v329 = 0u;
+                  CA::WindowServer::IOMFBDisplay::swap_set_layer(this, v102, 0, buf, v328, 0, *v80, *(a4 + 68), 0, v283);
                 }
               }
 
               if (*(this + 905) & 1) == 0 || !v85 || (*(v85 + 292))
               {
                 CA::WindowServer::IOMFBDisplay::delete_detached_layer(this);
-                v300 = 0;
+                v304 = 0;
                 goto LABEL_157;
               }
 
@@ -7344,13 +6092,13 @@ LABEL_63:
               }
 
               v123 = *v122;
-              v124 = v299;
+              v124 = v303;
               if (*v122)
               {
                 if (atomic_fetch_add(v123 + 2, 0xFFFFFFFF) == 1)
                 {
-                  (*(*v123 + 16))(v123, v299);
-                  v124 = v299;
+                  (*(*v123 + 16))(v123, v303);
+                  v124 = v303;
                 }
 
                 *v122 = 0;
@@ -7363,7 +6111,7 @@ LABEL_63:
                 if (atomic_fetch_add(v125 + 2, 0xFFFFFFFF) == 1)
                 {
                   (*(*v125 + 16))(v125, v124);
-                  v124 = v299;
+                  v124 = v303;
                 }
 
                 *(v122 + 1) = 0;
@@ -7373,9 +6121,9 @@ LABEL_63:
               *(v122 + 8) = *(v85 + 32);
               v126 = *(v85 + 36) & 0xFFFFFF78 | 0x80;
               *(v122 + 9) = v126;
-              if (v124 && (v127 = (*(*this + 2472))(this, v124, *(v85 + 16)), LODWORD(v124) = v299, v126 = *(v122 + 9), v127))
+              if (v124 && (v127 = (*(*this + 2472))(this, v124, *(v85 + 16)), LODWORD(v124) = v303, v126 = *(v122 + 9), v127))
               {
-                *(v122 + 10) = 2 * v299;
+                *(v122 + 10) = 2 * v303;
                 v128 = v126 | *(v85 + 36) & 7;
                 *(v122 + 9) = v128;
               }
@@ -7402,9 +6150,9 @@ LABEL_63:
               {
                 if (v124 >= 4)
                 {
-                  v159 = _D2 + v139;
+                  v160 = _D2 + v139;
                   _D2 = v136;
-                  v136 = v53 - v159;
+                  v136 = v53 - v160;
                   v140 = v138;
                 }
 
@@ -7431,234 +6179,244 @@ LABEL_63:
                 v139 = v138;
               }
 
-              _Q0.i64[1] = *(&v313 + 1);
-              v160 = (*(v85 + 36) & 4) == 0;
-              _Q6 = v322;
-              v162 = v313 + v322.f64[0] * v136;
+              _Q0.i64[1] = *(&v317 + 1);
+              v161 = (*(v85 + 36) & 4) == 0;
+              _Q6 = v326;
+              v163 = v317 + v326.f64[0] * v136;
               __asm { FMLA            D0, D2, V6.D[1] }
 
-              *(v122 + 20) = v162;
+              *(v122 + 20) = v163;
               *(v122 + 21) = _Q0.i64[0];
-              v164 = v139 * _Q6.f64[0];
-              v165 = vmuld_lane_f64(v140, _Q6, 1);
-              *(v122 + 22) = v164;
-              *(v122 + 23) = v165;
-              v166 = vdup_n_s32(v160);
-              v167.i64[0] = v166.u32[0];
-              v167.i64[1] = v166.u32[1];
-              v168 = *(v85 + 128);
-              v169 = *(v85 + 144);
-              v170 = vdivq_f64(vmulq_f64(vbslq_s8(vcltzq_s64(vshlq_n_s64(v167, 0x3FuLL)), *(v85 + 112), vextq_s8(*(v85 + 112), *(v85 + 112), 8uLL)), _Q6), v169);
-              v171 = vmulq_f64(v170, v168);
-              v172 = vmulq_f64(v170, v169);
-              v305 = v42;
+              v165 = v139 * _Q6.f64[0];
+              v166 = vmuld_lane_f64(v140, _Q6, 1);
+              *(v122 + 22) = v165;
+              *(v122 + 23) = v166;
+              v167 = vdup_n_s32(v161);
+              v168.i64[0] = v167.u32[0];
+              v168.i64[1] = v167.u32[1];
+              v169 = *(v85 + 128);
+              v170 = *(v85 + 144);
+              v171 = vdivq_f64(vmulq_f64(vbslq_s8(vcltzq_s64(vshlq_n_s64(v168, 0x3FuLL)), *(v85 + 112), vextq_s8(*(v85 + 112), *(v85 + 112), 8uLL)), _Q6), v170);
+              v172 = vmulq_f64(v171, v169);
+              v173 = vmulq_f64(v171, v170);
+              v309 = v42;
               if ((v128 & 7) != 0)
               {
-                v170.i32[0] = 0;
-                v173 = vaddq_f64(v171, v172);
-                v168.i32[0] = v128 & 4;
-                v174 = vbslq_s8(vdupq_lane_s32(*&vceqq_s32(v168, v170), 0), v173, vextq_s8(v171, v173, 8uLL));
-                v175 = vdup_n_s32(v168.i32[0] == 0);
-                v176.i64[0] = v175.u32[0];
-                v176.i64[1] = v175.u32[1];
-                v177 = vbslq_s8(vcltzq_s64(vshlq_n_s64(v176, 0x3FuLL)), v171, vextq_s8(v173, v171, 8uLL));
-                *v173.i8 = vceqz_s32(vand_s8(vdup_n_s32(v128), 0x100000002));
-                v176.i64[0] = v173.i32[0];
-                v176.i64[1] = v173.i32[1];
-                v178 = vbslq_s8(v176, v177, v174);
-                v179 = vbslq_s8(v176, v174, v177);
-                v171 = vbslq_s8(vcgtq_f64(v179, v178), v178, v179);
-                v180 = vsubq_f64(v179, v178);
-                v172 = vbslq_s8(vcgezq_f64(v180), v180, vnegq_f64(v180));
+                LODWORD(v171.f64[0]) = 0;
+                v174 = vaddq_f64(v172, v173);
+                LODWORD(v169.f64[0]) = v128 & 4;
+                v175 = vbslq_s8(vdupq_lane_s32(*&vceqq_s32(v169, v171), 0), v174, vextq_s8(v172, v174, 8uLL));
+                v176 = vdup_n_s32(LODWORD(v169.f64[0]) == 0);
+                v177.i64[0] = v176.u32[0];
+                v177.i64[1] = v176.u32[1];
+                v178 = vbslq_s8(vcltzq_s64(vshlq_n_s64(v177, 0x3FuLL)), v172, vextq_s8(v174, v172, 8uLL));
+                *v174.i8 = vceqz_s32(vand_s8(vdup_n_s32(v128), 0x100000002));
+                v177.i64[0] = v174.i32[0];
+                v177.i64[1] = v174.i32[1];
+                v179 = vbslq_s8(v177, v178, v175);
+                v180 = vbslq_s8(v177, v175, v178);
+                v172 = vbslq_s8(vcgtq_f64(v180, v179), v179, v180);
+                v181 = vsubq_f64(v180, v179);
+                v173 = vbslq_s8(vcgezq_f64(v181), v181, vnegq_f64(v181));
               }
 
               __asm { FMOV            V7.2D, #0.5 }
 
-              v182 = vrndmq_f64(vaddq_f64(v171, _Q7));
-              *(v122 + 12) = v182;
-              v183 = floor(v162 + 0.5);
+              v183 = vrndmq_f64(vaddq_f64(v172, _Q7));
+              *(v122 + 12) = v183;
+              v184 = floor(v163 + 0.5);
               *_Q0.i64 = floor(*_Q0.i64 + 0.5);
-              *(v122 + 20) = v183;
+              *(v122 + 20) = v184;
               *(v122 + 21) = _Q0.i64[0];
-              v184 = floor(v164 + 0.5);
-              *v99.i64 = floor(v165 + 0.5);
-              *(v122 + 22) = v184;
+              v185 = floor(v165 + 0.5);
+              *v99.i64 = floor(v166 + 0.5);
+              *(v122 + 22) = v185;
               *(v122 + 23) = v99.i64[0];
-              v284 = _Q7;
-              v185 = vrndmq_f64(vaddq_f64(v172, _Q7));
-              *(v122 + 8) = v182;
-              *(v122 + 9) = v185;
-              *(v122 + 28) = v183;
-              *(v122 + 13) = v185;
+              v288 = _Q7;
+              v186 = vrndmq_f64(vaddq_f64(v173, _Q7));
+              *(v122 + 8) = v183;
+              *(v122 + 9) = v186;
+              *(v122 + 28) = v184;
+              *(v122 + 13) = v186;
               *(v122 + 29) = _Q0.i64[0];
-              *(v122 + 30) = v184;
+              *(v122 + 30) = v185;
               *(v122 + 31) = v99.i64[0];
-              v186 = HIDWORD(v309);
-              if (v309 > SHIDWORD(v309))
+              v187 = HIDWORD(v313);
+              if (v313 > SHIDWORD(v313))
               {
-                v186 = v309;
+                v187 = v313;
               }
 
-              _Q0.i32[0] = v186;
+              _Q0.i32[0] = v187;
               v99.i32[0] = 1073741822;
-              v187.i64[0] = v313;
-              v187.i64[1] = SDWORD1(v313);
-              v188 = vbslq_s8(vdupq_lane_s32(*&vcgtq_s32(_Q0, v99), 0), vdupq_n_s64(0xFFDFFFFFFFFFFFFFLL), vcvtq_f64_s64(v187));
-              v187.i64[0] = v309;
-              v187.i64[1] = SHIDWORD(v309);
-              v189 = vcvtq_f64_s64(v187);
-              v190 = vdup_n_s32(v186 > 1073741822);
-              v187.i64[0] = v190.u32[0];
-              v187.i64[1] = v190.u32[1];
-              v301 = v188;
-              v285 = vbslq_s8(vcltzq_s64(vshlq_n_s64(v187, 0x3FuLL)), vdupq_n_s64(0x7FEFFFFFFFFFFFFFuLL), v189);
-              if ((CA::BoundsImpl::contains(v188, v285, *(v122 + 14), *(v122 + 15)) & 1) == 0)
+              v188.i64[0] = v317;
+              v188.i64[1] = SDWORD1(v317);
+              v189 = vbslq_s8(vdupq_lane_s32(*&vcgtq_s32(_Q0, v99), 0), vdupq_n_s64(0xFFDFFFFFFFFFFFFFLL), vcvtq_f64_s64(v188));
+              v188.i64[0] = v313;
+              v188.i64[1] = SHIDWORD(v313);
+              v190 = vcvtq_f64_s64(v188);
+              v191 = vdup_n_s32(v187 > 1073741822);
+              v188.i64[0] = v191.u32[0];
+              v188.i64[1] = v191.u32[1];
+              v305 = v189;
+              v289 = vbslq_s8(vcltzq_s64(vshlq_n_s64(v188, 0x3FuLL)), vdupq_n_s64(0x7FEFFFFFFFFFFFFFuLL), v190);
+              if ((CA::BoundsImpl::contains(v189, v289, *(v122 + 14), *(v122 + 15)) & 1) == 0)
               {
-                v192 = CA::OGL::clip_detached_rects(v122 + 12, v122 + 28, 0, v191, v301, v285, v193, v194, v195, v196, v197, v198);
+                v193 = CA::OGL::clip_detached_rects(v122 + 12, v122 + 28, 0, v192, v305, v289, v194, v195, v196, v197, v198, v199);
               }
 
-              if (v290)
+              if (v294)
               {
-                goto LABEL_288;
+                goto LABEL_290;
               }
 
-              v192.f64[0] = *(v122 + 18);
-              if (v192.f64[0] == *(v122 + 22))
+              v193.f64[0] = *(v122 + 18);
+              if (v193.f64[0] == *(v122 + 22))
               {
-                v192.f64[0] = *(v122 + 19);
-                if (v192.f64[0] == *(v122 + 23))
+                v193.f64[0] = *(v122 + 19);
+                if (v193.f64[0] == *(v122 + 23))
                 {
-                  v192 = *(v122 + 13);
-                  *(v122 + 15) = v192;
+                  v193 = *(v122 + 13);
+                  *(v122 + 15) = v193;
                 }
               }
 
               if ((*(this + 29513) & 1) == 0)
               {
-LABEL_288:
-                v199 = *(v85 + 16);
-                v302 = v199[16];
-                v291 = (*(*v199 + 24))(v199, v192);
+LABEL_290:
+                v200 = *(v85 + 16);
+                v306 = v200[16];
+                v295 = (*(*v200 + 24))(v200, v193);
               }
 
               else
               {
-                v291 = 0;
-                v302 = 875704422;
+                v295 = 0;
+                v306 = 875704422;
               }
 
-              v286 = (*(**(v85 + 16) + 56))(*(v85 + 16));
-              v200 = vadd_s32(vmovn_s64(vcvtq_u64_f64(*(v122 + 13))), 0x100000001);
-              v201.i64[0] = v200.i32[0] & 0xFFFFFFFE;
-              v201.i64[1] = v200.i32[1] & 0xFFFFFFFE;
-              v202 = vcvtq_f64_u64(v201);
-              *(v122 + 13) = v202;
-              v203 = vadd_s32(vmovn_s64(vcvtq_u64_f64(*(v122 + 15))), 0x100000001);
-              v201.i64[0] = v203.i32[0] & 0xFFFFFFFE;
-              v201.i64[1] = v203.i32[1] & 0xFFFFFFFE;
-              v204 = vcvtq_f64_u64(v201);
-              *(v122 + 15) = v204;
-              v205 = *(v122 + 10);
-              if (v205)
+              v290 = (*(**(v85 + 16) + 56))(*(v85 + 16));
+              v201 = vadd_s32(vmovn_s64(vcvtq_u64_f64(*(v122 + 13))), 0x100000001);
+              v202.i64[0] = v201.i32[0] & 0xFFFFFFFE;
+              v202.i64[1] = v201.i32[1] & 0xFFFFFFFE;
+              v203 = vcvtq_f64_u64(v202);
+              *(v122 + 13) = v203;
+              v204 = vadd_s32(vmovn_s64(vcvtq_u64_f64(*(v122 + 15))), 0x100000001);
+              v202.i64[0] = v204.i32[0] & 0xFFFFFFFE;
+              v202.i64[1] = v204.i32[1] & 0xFFFFFFFE;
+              v205 = vcvtq_f64_u64(v202);
+              *(v122 + 15) = v205;
+              v206 = *(v122 + 10);
+              if (v206)
               {
-                v206 = v202.f64[0];
+                v207 = v203.f64[0];
               }
 
               else
               {
-                v206 = v204.f64[0];
+                v207 = v205.f64[0];
               }
 
-              v207 = v206;
-              v208 = v202.f64[1];
-              if (!v205)
+              v208 = v207;
+              v209 = v203.f64[1];
+              if (!v206)
               {
-                v208 = v204.f64[1];
+                v209 = v205.f64[1];
               }
 
-              v209 = v208;
-              v210 = *(v122 + 3);
-              if (v210)
+              v210 = v209;
+              v211 = *(v122 + 3);
+              if (v211)
               {
-                if (*(v122 + 2) != *(v85 + 16) || *(v210 + 14) != v207 || *(v210 + 60) != __PAIR64__(v302, v209))
+                if (*(v122 + 2) != *(v85 + 16) || *(v211 + 14) != v208 || *(v211 + 60) != __PAIR64__(v306, v210))
                 {
-                  goto LABEL_411;
+                  goto LABEL_413;
                 }
 
-                v211 = (*(*v210 + 24))(v210);
-                v210 = *(v122 + 3);
-                if (v211 == v291)
+                v212 = (*(*v211 + 24))(v211);
+                v211 = *(v122 + 3);
+                if (v212 == v295)
                 {
-                  v212 = (*(*v210 + 56))(v210);
-                  v210 = *(v122 + 3);
-                  if (v212 == v286)
+                  v213 = (*(*v211 + 56))(v211);
+                  v211 = *(v122 + 3);
+                  if (v213 == v290)
                   {
-                    v300 = 0;
-                    v79 = v317;
-                    v42 = v305;
-                    goto LABEL_430;
+                    v304 = 0;
+                    v79 = v321;
+                    v42 = v309;
+                    goto LABEL_434;
                   }
                 }
 
-                if (v210)
+                if (v211)
                 {
-LABEL_411:
-                  CA::WindowServer::Surface::unref(v210);
+LABEL_413:
+                  CA::WindowServer::Surface::unref(v211);
                   *(v122 + 3) = 0;
                 }
               }
 
-              v263 = *(v122 + 2);
-              if (v263)
+              v264 = *(v122 + 2);
+              if (v264)
               {
-                CA::WindowServer::Surface::unref(v263);
+                CA::WindowServer::Surface::unref(v264);
               }
 
-              v264 = *(v85 + 16);
-              v264[118] = *(v264 + 59) + 1;
-              *(v122 + 2) = v264;
+              v265 = *(v85 + 16);
+              v265[118] = *(v265 + 59) + 1;
+              *(v122 + 2) = v265;
               if (*(this + 29513) == 1)
               {
-                v337.width = v207;
-                *v324 = 0;
-                v337.height = v209;
-                v79 = v317;
-                wireless_surface_options = CA::IOMobileFramebuffer::get_wireless_surface_options(*(this + 3212), *(a4 + 10), v337, v324);
-                v300 = wireless_surface_options == 0;
+                v266 = v208;
+                *v328 = 0;
+                if (byte_1ED4E9806 == 1)
+                {
+                  v268 = 3;
+                }
+
+                else
+                {
+                  v268 = 2;
+                }
+
+                v79 = v321;
+                v267 = v210;
+                wireless_surface_options = CA::IOMobileFramebuffer::get_wireless_surface_options(*(this + 3212), *(a4 + 10), *&v266, v328, v268);
+                v304 = wireless_surface_options == 0;
                 if (wireless_surface_options)
                 {
-                  v155 = wireless_surface_options;
+                  v156 = wireless_surface_options;
                   if (!(*(*this + 2384))(this))
                   {
                     CA::WindowServer::IOMFBDisplay::delete_detached_layer(this);
                     IOMobileFramebufferSwapCancel();
-                    *v310 = 0;
-                    if (v155 != -536870184)
+                    *v314 = 0;
+                    if (v156 != -536870184)
                     {
                       if (x_log_get_windowserver(void)::once != -1)
                       {
                         dispatch_once(&x_log_get_windowserver(void)::once, &__block_literal_global_17283);
                       }
 
-                      v156 = x_log_get_windowserver(void)::log;
+                      v157 = x_log_get_windowserver(void)::log;
                       if (!os_log_type_enabled(x_log_get_windowserver(void)::log, OS_LOG_TYPE_ERROR))
                       {
-                        goto LABEL_450;
+                        goto LABEL_454;
                       }
 
-LABEL_466:
-                      v278 = *(this + 6);
+LABEL_470:
+                      v282 = *(this + 6);
                       *buf = 67109376;
-                      *&buf[4] = v278;
+                      *&buf[4] = v282;
                       *&buf[8] = 1024;
-                      *&buf[10] = v155;
-                      _os_log_error_impl(&dword_183AA6000, v156, OS_LOG_TYPE_ERROR, "display %u get_wireless_surface_options returned error %x\n", buf, 0xEu);
-LABEL_450:
+                      *&buf[10] = v156;
+                      _os_log_error_impl(&dword_183AA6000, v157, OS_LOG_TYPE_ERROR, "display %u get_wireless_surface_options returned error %x\n", buf, 0xEu);
+LABEL_454:
                       v14 = -14;
-                      goto LABEL_451;
+                      goto LABEL_455;
                     }
 
-                    goto LABEL_446;
+                    goto LABEL_450;
                   }
 
                   surface = *(v122 + 3);
@@ -7666,92 +6424,92 @@ LABEL_450:
 
                 else
                 {
-                  surface = CA::WindowServer::IOSurface::wrap_buffer(this, *v324, 0, 0);
+                  surface = CA::WindowServer::IOSurface::wrap_buffer(this, *v328, 0, 0);
                   *(v122 + 3) = surface;
                 }
               }
 
               else
               {
-                v267 = (*(*v264 + 232))(v264);
-                surface = CA::WindowServer::Display::allocate_surface(this, v207, v209, v302, v291, v286, 0, v267, @"CA Clone Surface", 0);
-                v300 = 0;
+                v271 = (*(*v265 + 232))(v265);
+                surface = CA::WindowServer::Display::allocate_surface(this, v208, v210, v306, v295, v290, 0, v271, @"CA Clone Surface", 0);
+                v304 = 0;
                 *(v122 + 3) = surface;
-                v79 = v317;
+                v79 = v321;
               }
 
-              v42 = v305;
+              v42 = v309;
               if (!surface)
               {
                 *(this + 29494) = 1;
-                goto LABEL_433;
+                goto LABEL_437;
               }
 
               *(this + 26689) = 2;
-              *(this + 26688) = v315;
-              v268 = *(v122 + 9) & 7 | (((*(v122 + 9) >> 3) & 1) << 9);
+              *(this + 26688) = v319;
+              v272 = *(v122 + 9) & 7 | (((*(v122 + 9) >> 3) & 1) << 9);
               if (byte_1ED4E9887 == 1)
               {
-                v269 = v268 | 0x400;
+                v273 = v272 | 0x400;
               }
 
               else if (*(this + 29512))
               {
-                v269 = v268;
+                v273 = v272;
               }
 
               else
               {
-                v269 = v268 | 0x400;
+                v273 = v272 | 0x400;
               }
 
               *buf = 0u;
-              v327 = 0u;
+              v331 = 0u;
               if ((*(v85 + 36) & 0x8000080) != 0 || (*(v85 + 44) & 7) != 0)
               {
-                *buf = vrndq_f64(vaddq_f64(*(v85 + 128), v284));
-                v270 = *(v85 + 152);
-                v327.f64[0] = trunc(*(v85 + 144) + 0.5);
-                v271 = trunc(v270 + 0.5);
+                *buf = vrndq_f64(vaddq_f64(*(v85 + 128), v288));
+                v274 = *(v85 + 152);
+                v331.f64[0] = trunc(*(v85 + 144) + 0.5);
+                v275 = trunc(v274 + 0.5);
               }
 
               else
               {
                 *buf = *(v85 + 192);
-                v271 = *(v85 + 216);
-                v327.f64[0] = *(v85 + 208);
+                v275 = *(v85 + 216);
+                v331.f64[0] = *(v85 + 208);
               }
 
-              v327.f64[1] = v271;
-              if (!CA::WindowServer::IOMFBDisplay::copy_surface(this, *(v122 + 3), *(v122 + 2), v269, 0, 0, buf, 0, *&v271))
+              v331.f64[1] = v275;
+              if (!CA::WindowServer::IOMFBDisplay::copy_surface(this, *(v122 + 3), *(v122 + 2), v273, 0, 0, buf, 0, *&v275))
               {
                 if (x_log_get_windowserver(void)::once != -1)
                 {
                   dispatch_once(&x_log_get_windowserver(void)::once, &__block_literal_global_17283);
                 }
 
-                v272 = x_log_get_windowserver(void)::log;
+                v276 = x_log_get_windowserver(void)::log;
                 if (os_log_type_enabled(x_log_get_windowserver(void)::log, OS_LOG_TYPE_DEFAULT))
                 {
-                  *v324 = 0;
-                  _os_log_impl(&dword_183AA6000, v272, OS_LOG_TYPE_DEFAULT, "clone failed to copy detached layer - Disabling detachment", v324, 2u);
+                  *v328 = 0;
+                  _os_log_impl(&dword_183AA6000, v276, OS_LOG_TYPE_DEFAULT, "clone failed to copy detached layer - Disabling detachment", v328, 2u);
                 }
 
                 *(this + 226) &= ~0x100u;
-                v294[982] = 1;
-                if (v300)
+                v298[982] = 1;
+                if (v304)
                 {
                   if ((*(**(v122 + 3) + 168))(*(v122 + 3)))
                   {
-                    LOBYTE(v318[0]) = 0;
-                    v273 = *(this + 26689);
-                    v274 = *(v122 + 3);
-                    *v324 = 0u;
+                    LOBYTE(v322[0]) = 0;
+                    v277 = *(this + 26689);
+                    v278 = *(v122 + 3);
+                    *v328 = 0u;
+                    v329 = 0u;
+                    v324 = 0u;
                     v325 = 0u;
-                    v320 = 0u;
-                    v321 = 0u;
-                    CA::WindowServer::IOMFBDisplay::swap_set_layer(this, v273, v274, v324, &v320, 0, *v310, *(a4 + 68), v318, v279);
-                    if (LOBYTE(v318[0]) == 1)
+                    CA::WindowServer::IOMFBDisplay::swap_set_layer(this, v277, v278, v328, &v324, 0, *v314, *(a4 + 68), v322, v283);
+                    if (LOBYTE(v322[0]) == 1)
                     {
                       CA::CASharedEvent::force_complete(*(*(v122 + 3) + 16), [*(*(*(v122 + 3) + 16) + 32) signaledValue] + 1, 0, 0);
                     }
@@ -7760,21 +6518,21 @@ LABEL_450:
 
                 CA::WindowServer::IOMFBDisplay::delete_detached_layer(this);
                 IOMobileFramebufferSwapCancel();
-                *v310 = 0;
-                goto LABEL_444;
+                *v314 = 0;
+                goto LABEL_448;
               }
 
-              v210 = *(v122 + 3);
-LABEL_430:
-              *(this + 29494) = 1;
-              if (v210)
-              {
+              v211 = *(v122 + 3);
 LABEL_434:
+              *(this + 29494) = 1;
+              if (v211)
+              {
+LABEL_438:
                 v122[292] &= ~1u;
 LABEL_157:
                 v103 = *(this + 3287);
-                v104 = v307;
-                v316 = *(this + 26688);
+                v104 = v311;
+                v320 = *(this + 26688);
                 if (!v103 && *(this + 26688) != 2 && *(this + 29513) == 1)
                 {
                   v105 = *(this + 26688);
@@ -7783,7 +6541,7 @@ LABEL_157:
                     v105 = 2;
                   }
 
-                  v316 = v105;
+                  v320 = v105;
                 }
 
                 if ((*(this + 29494) & 1) != 0 || *(this + 29508) == 1)
@@ -7795,17 +6553,17 @@ LABEL_157:
                     v107 = *(v106 + 56);
                     v108.i64[0] = v107;
                     v108.i64[1] = HIDWORD(v107);
-                    v327 = vcvtq_f64_u64(v108);
+                    v331 = vcvtq_f64_u64(v108);
                     v109 = *(v103 + 240);
-                    *v324 = *(v103 + 224);
-                    v325 = v109;
-                    v319 = 0;
-                    CA::WindowServer::IOMFBDisplay::swap_set_layer(this, *(this + 26689), v106, buf, v324, *(v103 + 40), *(v79 + 24), *(a4 + 68), &v319, v279);
-                    *(v79 + 40) = *(v79 + 40) & 0xBF | (v319 << 6);
-                    v320 = 0u;
-                    v321 = 0u;
-                    memset(v318, 0, sizeof(v318));
-                    CA::WindowServer::IOMFBDisplay::swap_set_layer(this, (v316 == 0), 0, &v320, v318, 0, *(v79 + 24), *(a4 + 68), 0, v282);
+                    *v328 = *(v103 + 224);
+                    v329 = v109;
+                    v323 = 0;
+                    CA::WindowServer::IOMFBDisplay::swap_set_layer(this, *(this + 26689), v106, buf, v328, *(v103 + 40), *(v79 + 24), *(a4 + 68), &v323, v283);
+                    *(v79 + 40) = *(v79 + 40) & 0xBF | (v323 << 6);
+                    v324 = 0u;
+                    v325 = 0u;
+                    memset(v322, 0, sizeof(v322));
+                    CA::WindowServer::IOMFBDisplay::swap_set_layer(this, (v320 == 0), 0, &v324, v322, 0, *(v79 + 24), *(a4 + 68), 0, v286);
                     v110 = *(v103 + 24);
                     ++*(v110 + 236);
                     *(v79 + 16) = v110;
@@ -7818,16 +6576,16 @@ LABEL_157:
                   else
                   {
                     *buf = 0u;
-                    v327 = 0u;
-                    *v324 = 0u;
-                    v325 = 0u;
-                    CA::WindowServer::IOMFBDisplay::swap_set_layer(this, 1, 0, buf, v324, 0, *v310, *(a4 + 68), 0, v279);
+                    v331 = 0u;
+                    *v328 = 0u;
+                    v329 = 0u;
+                    CA::WindowServer::IOMFBDisplay::swap_set_layer(this, 1, 0, buf, v328, 0, *v314, *(a4 + 68), 0, v283);
                     *buf = 0u;
-                    v327 = 0u;
-                    *v324 = 0u;
-                    v325 = 0u;
-                    v104 = v307;
-                    CA::WindowServer::IOMFBDisplay::swap_set_layer(this, (2 * (v316 == 0)), 0, buf, v324, 0, *v310, *(a4 + 68), 0, v283);
+                    v331 = 0u;
+                    *v328 = 0u;
+                    v329 = 0u;
+                    v104 = v311;
+                    CA::WindowServer::IOMFBDisplay::swap_set_layer(this, (2 * (v320 == 0)), 0, buf, v328, 0, *v314, *(a4 + 68), 0, v287);
                   }
                 }
 
@@ -7847,22 +6605,22 @@ LABEL_157:
                 }
 
                 v114 = v113;
-                if ((v114 | v311))
+                if ((v114 | v315))
                 {
                   *buf = 0u;
-                  v327 = 0u;
-                  *v324 = 0u;
-                  v325 = 0u;
-                  v115 = v317 + 6;
-                  CA::WindowServer::IOMFBDisplay::swap_set_layer(this, v316, 0, buf, v324, 0, *v310, *(a4 + 68), 0, v279);
+                  v331 = 0u;
+                  *v328 = 0u;
+                  v329 = 0u;
+                  v115 = v321 + 6;
+                  CA::WindowServer::IOMFBDisplay::swap_set_layer(this, v320, 0, buf, v328, 0, *v314, *(a4 + 68), 0, v283);
                   v116 = 0;
-                  goto LABEL_365;
+                  goto LABEL_367;
                 }
 
                 v117 = v42 - 1;
                 if ((v42 - 1) > 2)
                 {
-                  v312 = 0;
+                  v316 = 0;
                   v121 = 0;
                 }
 
@@ -7876,7 +6634,7 @@ LABEL_157:
                     v120 = 0;
                   }
 
-                  v312 = v120;
+                  v316 = v120;
                   if (v119)
                   {
                     v121 = 0;
@@ -7906,11 +6664,11 @@ LABEL_157:
                 if (v100[2] != 1)
                 {
                   v116 = 0;
-                  goto LABEL_355;
+                  goto LABEL_357;
                 }
 
-                v308 = v129;
-                if ((v306 & 1) == 0)
+                v312 = v129;
+                if ((v310 & 1) == 0)
                 {
                   v141 = *(v100 + 5);
                   if (v141)
@@ -7921,9 +6679,9 @@ LABEL_157:
 
                   (*(*this + 1608))(this, 0);
 LABEL_225:
-                  is_hdr = CA::WindowServer::Display::Mode::is_hdr(&v323);
+                  is_hdr = CA::WindowServer::Display::Mode::is_hdr(&v327);
                   v143 = is_hdr;
-                  if (v316 == 2)
+                  if (v320 == 2)
                   {
                     v144 = 875704422;
                   }
@@ -7933,27 +6691,27 @@ LABEL_225:
                     v144 = 1380411457;
                   }
 
-                  if (v316 != 2 && !is_hdr)
+                  if (v320 != 2 && !is_hdr)
                   {
                     v144 = CA::WindowServer::IOMFBDisplay::framebuffer_pixel_format(this);
                   }
 
-                  v295 = v143;
-                  v304 = v144;
+                  v299 = v143;
+                  v308 = v144;
                   if ((*(*this + 80))(this))
                   {
-                    v308 = v129 | 0x10000;
-                    v146 = v292;
-                    v145 = v293;
+                    v312 = v129 | 0x10000;
+                    v146 = v296;
+                    v145 = v297;
                   }
 
                   else
                   {
-                    if (((*(*this + 2504))(this, v316, &v322) & 1) != 0 || (byte_1ED4E9887 & 1) != 0 || *(this + 29512) != 1)
+                    if (((*(*this + 2504))(this, v320, &v326) & 1) != 0 || (byte_1ED4E9887 & 1) != 0 || *(this + 29512) != 1)
                     {
-                      v149 = (v312 & 8) == 0;
-                      v148 = v296;
-                      v147 = v297;
+                      v149 = (v316 & 8) == 0;
+                      v148 = v300;
+                      v147 = v301;
                     }
 
                     else
@@ -7984,7 +6742,7 @@ LABEL_225:
                     }
                   }
 
-                  if (v316 == 2)
+                  if (v320 == 2)
                   {
                     v150 = (v145 + 1) & 0xFFFFFFFE;
                   }
@@ -7994,7 +6752,7 @@ LABEL_225:
                     v150 = v145;
                   }
 
-                  if (v316 == 2)
+                  if (v320 == 2)
                   {
                     v151 = (v146 + 1) & 0xFFFFFFFE;
                   }
@@ -8005,7 +6763,7 @@ LABEL_225:
                   }
 
                   v152 = (*(*v104 + 232))(v104);
-                  if (v298)
+                  if (v302)
                   {
                     v153 = 0;
                   }
@@ -8024,136 +6782,146 @@ LABEL_225:
                       LODWORD(v151) = *(v104 + 15);
                     }
 
-                    v336.height = v151;
-                    v336.width = v150;
-                    *v324 = 0;
-                    v154 = CA::IOMobileFramebuffer::get_wireless_surface_options(*(this + 3212), *(a4 + 10), v336, v324);
-                    if (v154)
+                    *v328 = 0;
+                    if (byte_1ED4E9806 == 1)
                     {
-                      v155 = v154;
+                      v154 = 3;
+                    }
+
+                    else
+                    {
+                      v154 = 2;
+                    }
+
+                    v340.width = v150;
+                    v340.height = v151;
+                    v155 = CA::IOMobileFramebuffer::get_wireless_surface_options(*(this + 3212), *(a4 + 10), v340, v328, v154);
+                    if (v155)
+                    {
+                      v156 = v155;
                       IOMobileFramebufferSwapCancel();
-                      *v310 = 0;
-                      if (v155 != -536870184)
+                      *v314 = 0;
+                      if (v156 != -536870184)
                       {
                         if (x_log_get_windowserver(void)::once != -1)
                         {
                           dispatch_once(&x_log_get_windowserver(void)::once, &__block_literal_global_17283);
                         }
 
-                        v156 = x_log_get_windowserver(void)::log;
+                        v157 = x_log_get_windowserver(void)::log;
                         if (!os_log_type_enabled(x_log_get_windowserver(void)::log, OS_LOG_TYPE_ERROR))
                         {
-                          goto LABEL_450;
+                          goto LABEL_454;
                         }
 
-                        goto LABEL_466;
+                        goto LABEL_470;
                       }
 
-LABEL_446:
+LABEL_450:
                       v14 = -13;
-                      goto LABEL_451;
+                      goto LABEL_455;
                     }
 
-                    v157 = CA::WindowServer::IOSurface::wrap_buffer(this, *v324, 0, 0);
+                    v158 = CA::WindowServer::IOSurface::wrap_buffer(this, *v328, 0, 0);
                   }
 
                   else
                   {
-                    v157 = *(v100 + 4);
-                    if (v157)
+                    v158 = *(v100 + 4);
+                    if (v158)
                     {
-                      if (*(v157 + 14) != v150 || *(v157 + 15) != v151 || *(v157 + 16) != v304)
+                      if (*(v158 + 14) != v150 || *(v158 + 15) != v151 || *(v158 + 16) != v308)
                       {
-                        goto LABEL_269;
+                        goto LABEL_271;
                       }
 
-                      v158 = (*(*v157 + 24))(v157);
-                      v157 = *(v100 + 4);
-                      if (!v158)
+                      v159 = (*(*v158 + 24))(v158);
+                      v158 = *(v100 + 4);
+                      if (!v159)
                       {
-                        if (*(*v157 + 56))(v157) == 2 || ((*(*this + 1888))(this))
+                        if (*(*v158 + 56))(v158) == 2 || ((*(*this + 1888))(this))
                         {
-                          v275 = (*(**(v100 + 4) + 232))(*(v100 + 4));
-                          v157 = *(v100 + 4);
-                          if (v275 == v153)
+                          v279 = (*(**(v100 + 4) + 232))(*(v100 + 4));
+                          v158 = *(v100 + 4);
+                          if (v279 == v153)
                           {
-                            goto LABEL_303;
+                            goto LABEL_305;
                           }
                         }
 
                         else
                         {
-                          v157 = *(v100 + 4);
+                          v158 = *(v100 + 4);
                         }
                       }
 
-                      if (v157)
+                      if (v158)
                       {
-LABEL_269:
-                        CA::WindowServer::Surface::unref(v157);
+LABEL_271:
+                        CA::WindowServer::Surface::unref(v158);
                         *(v100 + 4) = 0;
                       }
                     }
 
-                    v157 = CA::WindowServer::Display::allocate_surface(this, v150, v151, v304, 0, 2u, 0, v153, @"CA Clone Surface", 0);
+                    v158 = CA::WindowServer::Display::allocate_surface(this, v150, v151, v308, 0, 2u, 0, v153, @"CA Clone Surface", 0);
                   }
 
-                  *(v100 + 4) = v157;
-LABEL_303:
-                  if (v157)
+                  *(v100 + 4) = v158;
+LABEL_305:
+                  if (v158)
                   {
-                    if (v306 & 1 | (v289 == 0))
+                    if (v310 & 1 | (v293 == 0))
                     {
-                      v213 = v104;
+                      v214 = v104;
                     }
 
                     else
                     {
-                      v213 = v289;
+                      v214 = v293;
                     }
 
-                    if ((*(this + 29513) & v295 & 1) != 0 && (((*(*v213 + 136))(v213) & 1) != 0 || ((*(*this + 728))(this) & 1) != 0 || (*(*this + 720))(this)))
+                    if ((*(this + 29513) & v299 & 1) != 0 && (((*(*v214 + 136))(v214) & 1) != 0 || ((*(*this + 728))(this) & 1) != 0 || (*(*this + 720))(this)))
                     {
-                      v334 = 0;
+                      v338 = 0;
+                      v336 = 0u;
+                      v337 = 0u;
+                      v334 = 0u;
+                      v335 = 0u;
                       v332 = 0u;
                       v333 = 0u;
-                      v330 = 0u;
-                      v331 = 0u;
-                      v328 = 0u;
-                      v329 = 0u;
                       *buf = 0u;
-                      v327 = 0u;
+                      v331 = 0u;
                       CA::WindowServer::Display::display_attributes(buf, this);
                       if (((*(*this + 720))(this) & 1) != 0 || (*(*this + 728))(this))
                       {
-                        DWORD1(v330) = 5;
+                        DWORD1(v334) = 5;
                       }
 
-                      v214 = *(v100 + 4);
-                      v215 = (*(*v214 + 232))(v214);
-                      v216 = (*(*this + 624))(this, v214, v213, buf, a4, v308, v215, 1);
+                      v215 = *(v100 + 4);
+                      v216 = (*(*v215 + 232))(v215);
+                      v217 = (*(*this + 624))(this, v215, v214, buf, a4, v312, v216, 1);
                       if ((*(*this + 728))(this))
                       {
-                        v217 = *(a4 + 295);
-                        if ((*(a4 + 305) & 0x180) != 0 && v217 <= *(a4 + 296))
+                        v218 = *(a4 + 295);
+                        if ((*(a4 + 305) & 0x180) != 0 && v218 <= *(a4 + 296))
                         {
-                          v217 = *(a4 + 296);
+                          v218 = *(a4 + 296);
                         }
 
-                        v218 = *(a4 + 101);
+                        v219 = *(a4 + 101);
                         v111.n128_u32[0] = 10.0;
-                        if (v218 < 10.0)
+                        if (v219 < 10.0)
                         {
                           v111.n128_u32[0] = 1.0;
-                          if (v218 >= v217)
+                          if (v219 >= v218)
                           {
-                            if (v217 >= 1.0)
+                            if (v218 >= 1.0)
                             {
-                              v111.n128_f32[0] = v217;
+                              v111.n128_f32[0] = v218;
                             }
                           }
 
-                          else if (v218 >= 1.0)
+                          else if (v219 >= 1.0)
                           {
                             v111.n128_u32[0] = *(a4 + 101);
                           }
@@ -8161,59 +6929,59 @@ LABEL_303:
 
                         else
                         {
-                          v219 = 1.0;
-                          if (v217 >= 1.0)
+                          v220 = 1.0;
+                          if (v218 >= 1.0)
                           {
-                            v219 = v217;
+                            v220 = v218;
                           }
 
-                          if (v217 <= 10.0)
+                          if (v218 <= 10.0)
                           {
-                            v111.n128_f32[0] = v219;
+                            v111.n128_f32[0] = v220;
                           }
                         }
 
                         (*(**(v100 + 4) + 224))(*(v100 + 4), 0, v111);
                       }
 
-                      if ((v216 & 1) == 0)
+                      if ((v217 & 1) == 0)
                       {
-                        goto LABEL_325;
+                        goto LABEL_327;
                       }
                     }
 
                     else
                     {
                       *buf = 0u;
-                      v327 = 0u;
+                      v331 = 0u;
                       if ((*(*this + 80))(this))
                       {
-                        v226 = v309;
-                        if (v309 <= SHIDWORD(v309))
+                        v227 = v313;
+                        if (v313 <= SHIDWORD(v313))
                         {
-                          v226 = HIDWORD(v309);
+                          v227 = HIDWORD(v313);
                         }
 
-                        v224.i32[0] = v226;
-                        v225.i32[0] = 1073741822;
-                        v227.i64[0] = v313;
-                        v227.i64[1] = SDWORD1(v313);
-                        v224 = vbslq_s8(vdupq_lane_s32(*&vcgtq_s32(v224, v225), 0), vdupq_n_s64(0xFFDFFFFFFFFFFFFFLL), vcvtq_f64_s64(v227));
-                        v227.i64[0] = v309;
-                        v227.i64[1] = SHIDWORD(v309);
-                        v228 = vdup_n_s32(v226 > 1073741822);
-                        v229 = vcvtq_f64_s64(v227);
-                        v227.i64[0] = v228.u32[0];
-                        v227.i64[1] = v228.u32[1];
-                        *buf = v224;
-                        v327 = vbslq_s8(vcltzq_s64(vshlq_n_s64(v227, 0x3FuLL)), vdupq_n_s64(0x7FEFFFFFFFFFFFFFuLL), v229);
-                        v308 |= 0x400u;
-                        v230 = buf;
+                        v225.i32[0] = v227;
+                        v226.i32[0] = 1073741822;
+                        v228.i64[0] = v317;
+                        v228.i64[1] = SDWORD1(v317);
+                        v225 = vbslq_s8(vdupq_lane_s32(*&vcgtq_s32(v225, v226), 0), vdupq_n_s64(0xFFDFFFFFFFFFFFFFLL), vcvtq_f64_s64(v228));
+                        v228.i64[0] = v313;
+                        v228.i64[1] = SHIDWORD(v313);
+                        v229 = vdup_n_s32(v227 > 1073741822);
+                        v230 = vcvtq_f64_s64(v228);
+                        v228.i64[0] = v229.u32[0];
+                        v228.i64[1] = v229.u32[1];
+                        *buf = v225;
+                        v331 = vbslq_s8(vcltzq_s64(vshlq_n_s64(v228, 0x3FuLL)), vdupq_n_s64(0x7FEFFFFFFFFFFFFFuLL), v230);
+                        v312 |= 0x400u;
+                        v231 = buf;
                       }
 
                       else
                       {
-                        v230 = 0;
+                        v231 = 0;
                       }
 
                       if (CA::ScalerUtil::get_io_service(void)::once != -1)
@@ -8223,87 +6991,87 @@ LABEL_303:
 
                       if (CA::ScalerUtil::get_io_service(void)::scaler_service)
                       {
-                        v231 = v308;
+                        v232 = v312;
                       }
 
                       else
                       {
-                        v231 = v308 | 0x800;
+                        v232 = v312 | 0x800;
                       }
 
-                      if (v295)
+                      if (v299)
                       {
-                        v232 = v287;
+                        v233 = v291;
                       }
 
                       else if (*(this + 29513))
                       {
-                        v232 = v287;
+                        v233 = v291;
                       }
 
                       else
                       {
-                        v232 = 0;
+                        v233 = 0;
                       }
 
                       if (CADeviceIsVirtualized::once[0] != -1)
                       {
-                        v288 = v232;
+                        v292 = v233;
                         dispatch_once(CADeviceIsVirtualized::once, &__block_literal_global_323);
-                        v232 = v288;
+                        v233 = v292;
                       }
 
-                      if ((CA::WindowServer::IOMFBDisplay::copy_surface(this, *(v100 + 4), v213, v231, v232, v230, 0, 0, *v224.i32) & 1) == 0)
+                      if ((CA::WindowServer::IOMFBDisplay::copy_surface(this, *(v100 + 4), v214, v232, v233, v231, 0, 0, *v225.i32) & 1) == 0)
                       {
-LABEL_325:
+LABEL_327:
                         if (x_log_get_windowserver(void)::once != -1)
                         {
                           dispatch_once(&x_log_get_windowserver(void)::once, &__block_literal_global_17283);
                         }
 
-                        v220 = x_log_get_windowserver(void)::log;
+                        v221 = x_log_get_windowserver(void)::log;
                         if (os_log_type_enabled(x_log_get_windowserver(void)::log, OS_LOG_TYPE_ERROR))
                         {
                           *buf = 0;
-                          _os_log_error_impl(&dword_183AA6000, v220, OS_LOG_TYPE_ERROR, "failed to copy main layer", buf, 2u);
+                          _os_log_error_impl(&dword_183AA6000, v221, OS_LOG_TYPE_ERROR, "failed to copy main layer", buf, 2u);
                           if (v116)
                           {
-                            goto LABEL_329;
+                            goto LABEL_331;
                           }
                         }
 
                         else if (v116)
                         {
-LABEL_329:
+LABEL_331:
                           if ((*(**(v100 + 4) + 168))(*(v100 + 4)))
                           {
-                            LOBYTE(v320) = 0;
-                            v221 = *(this + 26688);
-                            v222 = *(v100 + 4);
+                            LOBYTE(v324) = 0;
+                            v222 = *(this + 26688);
+                            v223 = *(v100 + 4);
                             *buf = 0u;
-                            v327 = 0u;
-                            *v324 = 0u;
-                            v325 = 0u;
-                            CA::WindowServer::IOMFBDisplay::swap_set_layer(this, v221, v222, buf, v324, 0, *v310, *(a4 + 68), &v320, v279);
-                            if (v320 == 1)
+                            v331 = 0u;
+                            *v328 = 0u;
+                            v329 = 0u;
+                            CA::WindowServer::IOMFBDisplay::swap_set_layer(this, v222, v223, buf, v328, 0, *v314, *(a4 + 68), &v324, v283);
+                            if (v324 == 1)
                             {
                               CA::CASharedEvent::force_complete(*(*(v100 + 4) + 16), [*(*(*(v100 + 4) + 16) + 32) signaledValue] + 1, 0, 1);
                             }
                           }
                         }
 
-                        v223 = *(v100 + 4);
-                        if (v223)
+                        v224 = *(v100 + 4);
+                        if (v224)
                         {
-                          CA::WindowServer::Surface::unref(v223);
+                          CA::WindowServer::Surface::unref(v224);
                         }
 
                         *(v100 + 4) = 0;
                         IOMobileFramebufferSwapCancel();
-                        *v310 = 0;
-LABEL_444:
+                        *v314 = 0;
+LABEL_448:
                         v14 = -15;
-LABEL_451:
+LABEL_455:
                         pthread_mutex_unlock((this + 25848));
                         return v14;
                       }
@@ -8312,67 +7080,67 @@ LABEL_451:
                     *(v100 + 68) = v100[17] & 0xF6 | 1;
                   }
 
-                  v79 = v317;
-LABEL_355:
-                  v233 = *(v100 + 4);
-                  if (v233)
+                  v79 = v321;
+LABEL_357:
+                  v234 = *(v100 + 4);
+                  if (v234)
                   {
-                    v111.n128_u32[0] = *(v233 + 56);
-                    v112.i32[0] = *(v233 + 60);
-                    v234 = v111.n128_u64[0];
-                    v235 = v112.u64[0];
+                    v111.n128_u32[0] = *(v234 + 56);
+                    v112.i32[0] = *(v234 + 60);
+                    v235 = v111.n128_u64[0];
+                    v236 = v112.u64[0];
                     memset(buf, 0, sizeof(buf));
-                    v327.f64[0] = v111.n128_u64[0];
-                    v327.f64[1] = v112.u64[0];
-                    v236 = v309;
-                    if (v309 <= SHIDWORD(v309))
+                    v331.f64[0] = v111.n128_u64[0];
+                    v331.f64[1] = v112.u64[0];
+                    v237 = v313;
+                    if (v313 <= SHIDWORD(v313))
                     {
-                      v236 = HIDWORD(v309);
+                      v237 = HIDWORD(v313);
                     }
 
-                    v111.n128_u32[0] = v236;
+                    v111.n128_u32[0] = v237;
                     v112.i32[0] = 1073741822;
-                    v237.i64[0] = v313;
-                    v237.i64[1] = SDWORD1(v313);
-                    v238 = vbslq_s8(vdupq_lane_s32(*&vcgtq_s32(v111, v112), 0), vdupq_n_s64(0xFFDFFFFFFFFFFFFFLL), vcvtq_f64_s64(v237));
-                    v237.i64[0] = v309;
-                    v237.i64[1] = SHIDWORD(v309);
-                    v239 = vcvtq_f64_s64(v237);
-                    v240 = vdup_n_s32(v236 > 1073741822);
-                    v237.i64[0] = v240.u32[0];
-                    v237.i64[1] = v240.u32[1];
-                    *v324 = v238;
-                    v325 = vbslq_s8(vcltzq_s64(vshlq_n_s64(v237, 0x3FuLL)), vdupq_n_s64(0x7FEFFFFFFFFFFFFFuLL), v239);
+                    v238.i64[0] = v317;
+                    v238.i64[1] = SDWORD1(v317);
+                    v239 = vbslq_s8(vdupq_lane_s32(*&vcgtq_s32(v111, v112), 0), vdupq_n_s64(0xFFDFFFFFFFFFFFFFLL), vcvtq_f64_s64(v238));
+                    v238.i64[0] = v313;
+                    v238.i64[1] = SHIDWORD(v313);
+                    v240 = vcvtq_f64_s64(v238);
+                    v241 = vdup_n_s32(v237 > 1073741822);
+                    v238.i64[0] = v241.u32[0];
+                    v238.i64[1] = v241.u32[1];
+                    *v328 = v239;
+                    v329 = vbslq_s8(vcltzq_s64(vshlq_n_s64(v238, 0x3FuLL)), vdupq_n_s64(0x7FEFFFFFFFFFFFFFuLL), v240);
                     if ((*(*this + 80))(this))
                     {
-                      memset(v324, 0, sizeof(v324));
-                      *v325.i64 = v234;
-                      *&v325.i64[1] = v235;
+                      memset(v328, 0, sizeof(v328));
+                      *v329.i64 = v235;
+                      *&v329.i64[1] = v236;
                     }
 
-                    LOBYTE(v320) = 0;
-                    CA::WindowServer::IOMFBDisplay::swap_set_layer(this, v316, *(v100 + 4), buf, v324, v312, *(v79 + 24), *(a4 + 68), &v320, v279);
-                    *(v79 + 40) = *(v79 + 40) & 0x7F | (v320 << 7);
+                    LOBYTE(v324) = 0;
+                    CA::WindowServer::IOMFBDisplay::swap_set_layer(this, v320, *(v100 + 4), buf, v328, v316, *(v79 + 24), *(a4 + 68), &v324, v283);
+                    *(v79 + 40) = *(v79 + 40) & 0x7F | (v324 << 7);
                     if (initialized[0] != -1)
                     {
                       dispatch_once_f(initialized, 0, init_debug);
                     }
 
-                    v115 = v317 + 6;
-                    v241 = v306;
+                    v115 = v321 + 6;
+                    v242 = v310;
                     if (*&dword_1ED4E9658)
                     {
-                      v242 = (*(**(v100 + 4) + 168))(*(v100 + 4));
-                      CA::WindowServer::IOMFBDisplay::dump_framebuffer(this, v242);
+                      v243 = (*(**(v100 + 4) + 168))(*(v100 + 4));
+                      CA::WindowServer::IOMFBDisplay::dump_framebuffer(this, v243);
                     }
 
-                    goto LABEL_366;
+                    goto LABEL_368;
                   }
 
-                  v115 = v317 + 6;
-LABEL_365:
-                  v241 = v306;
-LABEL_366:
+                  v115 = v321 + 6;
+LABEL_367:
+                  v242 = v310;
+LABEL_368:
                   v100[3] = *v115;
                   CA::WindowServer::IOMFBDisplay::update_color_matrix(this, *(a4 + 10));
                   CA::WindowServer::IOMFBDisplay::update_blend_display_color_spaces(this);
@@ -8382,8 +7150,8 @@ LABEL_366:
                   updated = CA::WindowServer::IOMFBDisplay::update_user_adjustment(this);
                   if (*(this + 29557) == 1)
                   {
-                    v244 = *(this + 29502);
-                    if (v244 != (*(*a3 + 864))(a3, updated))
+                    v245 = *(this + 29502);
+                    if (v245 != (*(*a3 + 864))(a3, updated))
                     {
                       *(this + 29502) = (*(*a3 + 864))(a3);
                       IOMobileFramebufferSwapSetColorRemapMode();
@@ -8396,51 +7164,51 @@ LABEL_366:
                   CA::WindowServer::IOMFBDisplay::swap_display_edr_factor(this);
                   CA::WindowServer::IOMFBDisplay::swap_display_headroom_used(this, a4);
                   CA::WindowServer::IOMFBDisplay::swap_hdr_metadata(this, a4);
-                  v245 = *(this + 29507);
-                  if (v245 != (*(*a3 + 888))(a3))
+                  v246 = *(this + 29507);
+                  if (v246 != (*(*a3 + 888))(a3))
                   {
-                    v246 = (*(*a3 + 888))(a3);
-                    *(this + 29507) = v246;
-                    iomfb_swap_set_pulse_width_maximization(*(this + 3212), v246);
+                    v247 = (*(*a3 + 888))(a3);
+                    *(this + 29507) = v247;
+                    iomfb_swap_set_pulse_width_maximization(*(this + 3212), v247);
                   }
 
-                  if ((v241 & 1) == 0)
+                  if ((v242 & 1) == 0)
                   {
-                    if (v297 <= v296)
+                    if (v301 <= v300)
                     {
-                      v247 = v296;
+                      v248 = v300;
                     }
 
                     else
                     {
-                      v247 = v297;
+                      v248 = v301;
                     }
 
-                    if (v247 <= 1073741822)
+                    if (v248 <= 1073741822)
                     {
-                      v248 = v296 * v297;
+                      v249 = v300 * v301;
                     }
 
                     else
                     {
-                      v248 = INFINITY;
+                      v249 = INFINITY;
                     }
 
-                    v249 = mach_absolute_time();
-                    v250 = CATimeWithHostTime(v249);
-                    CARecordFrame(0, 0, 0, 0, v250, v248, 0.0);
+                    v250 = mach_absolute_time();
+                    v251 = CATimeWithHostTime(v250);
+                    CARecordFrame(0, 0, 0, 0, v251, v249, 0.0);
                   }
 
-                  v251 = IOMobileFramebufferSwapEnd();
-                  if (v300)
+                  v252 = IOMobileFramebufferSwapEnd();
+                  if (v304)
                   {
-                    v252 = *(this + 3287);
-                    if (v252)
+                    v253 = *(this + 3287);
+                    if (v253)
                     {
-                      v253 = *(v252 + 24);
-                      if (v253)
+                      v254 = *(v253 + 24);
+                      if (v254)
                       {
-                        CA::WindowServer::Surface::unref(v253);
+                        CA::WindowServer::Surface::unref(v254);
                         *(*(this + 3287) + 24) = 0;
                       }
                     }
@@ -8448,30 +7216,30 @@ LABEL_366:
 
                   if (v116)
                   {
-                    v254 = *(v100 + 4);
-                    if (v254)
+                    v255 = *(v100 + 4);
+                    if (v255)
                     {
-                      CA::WindowServer::Surface::unref(v254);
+                      CA::WindowServer::Surface::unref(v255);
                       *(v100 + 4) = 0;
                     }
                   }
 
-                  if (v251)
+                  if (v252)
                   {
                     if (x_log_get_windowserver(void)::once != -1)
                     {
                       dispatch_once(&x_log_get_windowserver(void)::once, &__block_literal_global_17283);
                     }
 
-                    v255 = x_log_get_windowserver(void)::log;
+                    v256 = x_log_get_windowserver(void)::log;
                     if (os_log_type_enabled(x_log_get_windowserver(void)::log, OS_LOG_TYPE_ERROR))
                     {
-                      v262 = *(this + 6);
+                      v263 = *(this + 6);
                       *buf = 67109376;
-                      *&buf[4] = v262;
+                      *&buf[4] = v263;
                       *&buf[8] = 1024;
-                      *&buf[10] = v251;
-                      _os_log_error_impl(&dword_183AA6000, v255, OS_LOG_TYPE_ERROR, "display %u swap_end returned error %x\n", buf, 0xEu);
+                      *&buf[10] = v252;
+                      _os_log_error_impl(&dword_183AA6000, v256, OS_LOG_TYPE_ERROR, "display %u swap_end returned error %x\n", buf, 0xEu);
                     }
 
                     if (BYTE11(xmmword_1ED4E980C) == 1)
@@ -8479,18 +7247,18 @@ LABEL_366:
                       kdebug_trace();
                     }
 
-                    v256 = *(v79 + 40);
-                    if ((v256 & 0x40) != 0)
+                    v257 = *(v79 + 40);
+                    if ((v257 & 0x40) != 0)
                     {
                       CA::CASharedEvent::force_complete(*(*(v79 + 16) + 16), [*(*(*(v79 + 16) + 16) + 32) signaledValue] + 1, 0, 1);
-                      v256 = *(v79 + 40) & 0xBF;
-                      *(v79 + 40) = v256;
+                      v257 = *(v79 + 40) & 0xBF;
+                      *(v79 + 40) = v257;
                     }
 
-                    if (v256 < 0)
+                    if (v257 < 0)
                     {
-                      v257 = *(*(*(v79 + 8) + 32) + 16);
-                      CA::CASharedEvent::force_complete(v257, [v257[4] signaledValue] + 1, 0, 1);
+                      v258 = *(*(*(v79 + 8) + 32) + 16);
+                      CA::CASharedEvent::force_complete(v258, [v258[4] signaledValue] + 1, 0, 1);
                       *(v79 + 40) &= ~0x80u;
                     }
 
@@ -8502,41 +7270,41 @@ LABEL_366:
                   {
                     *(this + 3346) = *(a4 + 10);
                     CA::WindowServer::IOMFBDisplay::finish_update_(this, v79, a4, 0);
-                    if ((*(this + 29557) & 1) != 0 || (v258 = *(this + 29502), v258 == (*(*a3 + 864))(a3)))
+                    if ((*(this + 29557) & 1) != 0 || (v259 = *(this + 29502), v259 == (*(*a3 + 864))(a3)))
                     {
-                      v259 = 0;
+                      v260 = 0;
                     }
 
                     else
                     {
                       *(this + 29502) = (*(*a3 + 864))(a3);
-                      v259 = 16;
+                      v260 = 16;
                     }
 
-                    v260 = *(this + 6606);
-                    if (v260 != (*(*a3 + 936))(a3))
+                    v261 = *(this + 6606);
+                    if (v261 != (*(*a3 + 936))(a3))
                     {
                       *(this + 6606) = (*(*a3 + 936))(a3);
-                      v259 |= 0x20u;
+                      v260 |= 0x20u;
                     }
 
-                    v261 = *(this + 6629);
-                    if (v261 != (*(*a3 + 1016))(a3))
+                    v262 = *(this + 6629);
+                    if (v262 != (*(*a3 + 1016))(a3))
                     {
                       *(this + 6629) = (*(*a3 + 1016))(a3);
-                      v259 |= 0x100u;
+                      v260 |= 0x100u;
                     }
 
-                    CA::WindowServer::IOMFBDisplay::update_framebuffer_color_properties(this, v259);
+                    CA::WindowServer::IOMFBDisplay::update_framebuffer_color_properties(this, v260);
                     v14 = 0;
                   }
 
-                  goto LABEL_451;
+                  goto LABEL_455;
                 }
 
                 v130 = CA::WindowServer::IOMFBDisplay::framebuffer_pixel_format(this);
                 v131 = (*(*v104 + 232))(v104);
-                if (v298)
+                if (v302)
                 {
                   v132 = 0;
                 }
@@ -8562,7 +7330,7 @@ LABEL_216:
                     v134 = mach_absolute_time();
                     v135 = CATimeWithHostTime(v134);
                     CA::WindowServer::Server::inhibit_clone_render(a2, v104, a4, a3, v135);
-                    v129 = v308;
+                    v129 = v312;
                     goto LABEL_225;
                   }
 
@@ -8578,9 +7346,9 @@ LABEL_214:
                 goto LABEL_216;
               }
 
-LABEL_433:
+LABEL_437:
               CA::WindowServer::IOMFBDisplay::delete_detached_layer(this);
-              goto LABEL_434;
+              goto LABEL_438;
             default:
               v43 = 0;
               if (v42)
@@ -8589,7 +7357,7 @@ LABEL_433:
                 goto LABEL_50;
               }
 
-              v299 = 0;
+              v303 = 0;
               break;
           }
 
@@ -8700,7 +7468,7 @@ LABEL_5:
   return v4 & 1;
 }
 
-uint64_t CA::WindowServer::IOMFBDisplay::set_icc_curve_with_cg_trc(uint64_t a1, uint64_t a2, signed int a3, int a4)
+uint64_t CA::WindowServer::IOMFBDisplay::set_icc_curve_with_cg_trc(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v17 = *MEMORY[0x1E69E9840];
   bzero(&v12, 0x218uLL);
@@ -9223,7 +7991,7 @@ CA::Shape *CA::WindowServer::IOMFBDisplay::update_surface(CA::WindowServer::IOMF
 
 CA::Shape *CA::WindowServer::IOMFBDisplay::current_page_surface(CA::WindowServer::IOMFBDisplay *this, uint64_t a2, int a3, int a4, int a5, uint64_t a6, int a7)
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47[1] = *MEMORY[0x1E69E9840];
   v12 = this + 24576;
   pthread_mutex_lock((this + 25848));
   v13 = this + 48 * *(v12 + 314);
@@ -9261,7 +8029,7 @@ CA::Shape *CA::WindowServer::IOMFBDisplay::current_page_surface(CA::WindowServer
   v41 = a6;
   if (v16 != a2 || (BYTE14(xmmword_1ED4E97EC) & 1) != 0)
   {
-    if (*(*this + 80))(this) && (v47 = this + 27320, (*(std::__hash_table<std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>,std::__unordered_map_hasher<CA::WindowServer::Display::Mode,std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>,CA::WindowServer::IOMFBDisplay::ModeHash,std::equal_to<CA::WindowServer::Display::Mode>,true>,std::__unordered_map_equal<CA::WindowServer::Display::Mode,std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>,std::equal_to<CA::WindowServer::Display::Mode>,CA::WindowServer::IOMFBDisplay::ModeHash,true>,std::allocator<std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>>>::__emplace_unique_key_args<CA::WindowServer::Display::Mode,std::piecewise_construct_t const&,std::tuple<CA::WindowServer::Display::Mode const&>,std::tuple<>>(this + 3338, *(this + 3415)) + 44)))
+    if (*(*this + 80))(this) && (v47[0] = (this + 27320), (*(std::__hash_table<std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>,std::__unordered_map_hasher<CA::WindowServer::Display::Mode,std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>,CA::WindowServer::IOMFBDisplay::ModeHash,std::equal_to<CA::WindowServer::Display::Mode>,true>,std::__unordered_map_equal<CA::WindowServer::Display::Mode,std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>,std::equal_to<CA::WindowServer::Display::Mode>,CA::WindowServer::IOMFBDisplay::ModeHash,true>,std::allocator<std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>>>::__emplace_unique_key_args<CA::WindowServer::Display::Mode,std::piecewise_construct_t const&,std::tuple<CA::WindowServer::Display::Mode const&>,std::tuple<>>(this + 6676, *(this + 3415), v47) + 44)))
     {
       v21 = &v44;
     }
@@ -9523,7 +8291,7 @@ uint64_t CA::WindowServer::IOMFBDisplay::current_surface_is_read_only(CA::Window
 
 uint64_t CA::WindowServer::IOMFBDisplay::update_secure_indicators(CA::WindowServer::IOMFBDisplay *this, const CA::Render::Update *a2, double a3)
 {
-  v81 = *MEMORY[0x1E69E9840];
+  v82 = *MEMORY[0x1E69E9840];
   v6 = this + 25660;
   v7 = *(a2 + 142);
   v8 = *(a2 + 141);
@@ -9620,7 +8388,7 @@ LABEL_25:
       {
         v21 = CA::WindowServer::IOMFBDisplay::hide_secure_indicators(this, 15);
         buf[0] = 0;
-        CA::WindowServer::IOMFBDisplay::secure_indicator_swap_end(this, buf, 0.0);
+        CA::WindowServer::IOMFBDisplay::secure_indicator_swap_end(this, buf, 0.0, 0);
         if (!v21 || (buf[0] & 1) != 0)
         {
           return 1;
@@ -9711,12 +8479,12 @@ LABEL_31:
         dispatch_once(&x_log_get_secure_indicators(void)::once, &__block_literal_global_5775);
       }
 
-      v64 = x_log_get_secure_indicators(void)::log;
+      v65 = x_log_get_secure_indicators(void)::log;
       v22 = 0;
       if (os_log_type_enabled(x_log_get_secure_indicators(void)::log, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_183AA6000, v64, OS_LOG_TYPE_DEFAULT, "Display off, dropping SIL update", buf, 2u);
+        _os_log_impl(&dword_183AA6000, v65, OS_LOG_TYPE_DEFAULT, "Display off, dropping SIL update", buf, 2u);
         v22 = 0;
       }
 
@@ -9759,41 +8527,41 @@ LABEL_31:
   }
 
   v25 = 0;
-  v67 = 0;
+  v68 = 0;
   v26 = 48;
   v27 = 1;
-  v66 = v6;
+  v67 = v6;
   do
   {
     v28 = *(a2 + 141);
     if (*(v28 + v26 - 1) == 1 && (*(v28 + v26 - 2) & 1) == 0)
     {
       v29 = (v28 + v26);
-      v68 = *(v29 - 40);
-      v69 = *(v29 - 24);
+      v69 = *(v29 - 40);
+      v70 = *(v29 - 24);
       v30 = *(v29 - 3);
       v31 = *(v29 - 2);
       v32 = *(v29 - 2);
       v33 = *v29;
-      *v74 = vcvtq_s32_f32(v68);
-      if (!CA::Shape::intersects(v27, v74))
+      *v75 = vcvtq_s32_f32(v69);
+      if (!CA::Shape::intersects(v27, v75))
       {
-        v27 = CA::Shape::Union(v27, v74);
-        v73 = 0;
+        v27 = CA::Shape::Union(v27, v75);
+        v74 = 0;
         if (CADeviceSupportsHWGainMap::once != -1)
         {
           dispatch_once(&CADeviceSupportsHWGainMap::once, &__block_literal_global_86);
         }
 
-        v34 = v68;
-        v36.i32[0] = v69.i32[0];
-        v35 = vmuls_lane_f32(v24, v69, 1);
+        v34 = v69;
+        v36.i32[0] = v70.i32[0];
+        v35 = vmuls_lane_f32(v24, v70, 1);
         *&v36.i32[1] = v35;
         if (CADeviceSupportsHWGainMap::supports_gain_map == 1 && v31 <= 2)
         {
           v37 = powf(v35, 2.2);
-          v34 = v68;
-          v36 = __PAIR64__(LODWORD(v37), v69.u32[0]);
+          v34 = v69;
+          v36 = __PAIR64__(LODWORD(v37), v70.u32[0]);
         }
 
         v38 = *(this + 3220);
@@ -9804,17 +8572,17 @@ LABEL_31:
 
         if (!*v38)
         {
-          v70 = v36;
+          v71 = v36;
           v39 = sil_mgr_instance(0, 0xFFFFFFFFLL);
-          v34 = v68;
-          v36 = v70;
+          v34 = v69;
+          v36 = v71;
           *v38 = v39;
           if (!v39)
           {
 LABEL_76:
-            LODWORD(v67) = (v73 | v67 & 1) != 0;
-            HIDWORD(v67) = (HIBYTE(v73) | BYTE4(v67) & 1) != 0;
-            v6 = v66;
+            LODWORD(v68) = (v74 | v68 & 1) != 0;
+            HIDWORD(v68) = (HIBYTE(v74) | BYTE4(v68) & 1) != 0;
+            v6 = v67;
             goto LABEL_77;
           }
 
@@ -9823,18 +8591,18 @@ LABEL_76:
 
         if (initialized[0] != -1)
         {
-          v72 = v36;
+          v73 = v36;
           dispatch_once_f(initialized, 0, init_debug);
-          v34 = v68;
-          v36 = v72;
+          v34 = v69;
+          v36 = v73;
         }
 
         if (*(v38 + 256) != *&dword_1ED4E9750)
         {
-          v71 = v36;
+          v72 = v36;
           SILManagerSetLogLevel();
-          v34 = v68;
-          v36 = v71;
+          v34 = v69;
+          v36 = v72;
         }
 
         v40 = vextq_s8(v34, v34, 8uLL).u64[0];
@@ -9847,13 +8615,13 @@ LABEL_76:
         }
 
         *buf = v31;
-        v76 = v41;
-        v77 = vrev64_s32(v36);
-        v78 = v30;
-        v79 = v32;
+        v77 = v41;
+        v78 = vrev64_s32(v36);
+        v79 = v30;
+        v80 = v32;
         if (v32 == 0xFFFF)
         {
-          v80 = v40;
+          v81 = v40;
           if (MEMORY[0x1EEE910D8])
           {
             v43 = SILManagerFrameNumberFromBoundsAndBlur();
@@ -9869,11 +8637,11 @@ LABEL_76:
             v43 = -1;
           }
 
-          LOWORD(v79) = v43;
+          LOWORD(v80) = v43;
         }
 
-        v44 = v66[1140];
-        v66[1140] = v44 & 0xFD;
+        v44 = v67[1140];
+        v67[1140] = v44 & 0xFD;
         v45 = *(this + 3349);
         v46 = *(this + 3220);
         is_visibly_equal = CA::WindowServer::SILMgr::is_visibly_equal(v46, v25, buf);
@@ -9882,18 +8650,18 @@ LABEL_76:
           v48 = v45 != 0.0 || is_visibly_equal;
           if (v48)
           {
-            if (*(v46 + 264) == 3)
+            if (v46[33] == 3)
             {
-              v66[1140] = v44 | 2;
+              v67[1140] = v44 | 2;
             }
           }
 
           else
           {
-            *(v46 + 264) = 1;
+            v46[33] = 1;
           }
 
-          CA::WindowServer::SILMgr::swap_region(v46, v25, buf, &v73 + 1, &v73);
+          CA::WindowServer::SILMgr::swap_region(v46, v25, buf, &v74 + 1, &v74);
         }
 
         goto LABEL_76;
@@ -9909,7 +8677,7 @@ LABEL_77:
   CA::Shape::unref(v27);
   v53 = mach_absolute_time();
   v54.n128_f64[0] = CATimeWithHostTime(v53);
-  (*(*this + 2168))(this, BYTE4(v67) & 1, v54);
+  (*(*this + 2168))(this, BYTE4(v68) & 1, v54);
   if (*(a2 + 141) == *(a2 + 142))
   {
     __assert_rtn("update_secure_indicators_statistics", "windowserver-iomfb-display.cpp", 17247, "!indicators.empty ()");
@@ -9976,9 +8744,9 @@ LABEL_77:
 
   ++*(v6 + 747);
   os_unfair_lock_unlock(this + 7142);
-  v74[0] = 0;
-  CA::WindowServer::IOMFBDisplay::secure_indicator_swap_end(this, v74, a3);
-  v22 = ((HIDWORD(v67) | v67) & 1) != 0 || v74[0];
+  v75[0] = 0;
+  CA::WindowServer::IOMFBDisplay::secure_indicator_swap_end(this, v75, a3, *(this + 3349) != 0.0);
+  v22 = ((HIDWORD(v68) | v68) & 1) != 0 || v75[0];
   if ((v6[3927] & 1) != 0 || *v6 != 1 || (v6[1140] & 2) == 0)
   {
 LABEL_133:
@@ -9991,10 +8759,11 @@ LABEL_133:
     dispatch_once(&x_log_get_secure_indicators(void)::once, &__block_literal_global_5775);
   }
 
+  v64 = x_log_get_secure_indicators(void)::log;
   if (os_signpost_enabled(x_log_get_secure_indicators(void)::log))
   {
     *buf = 0;
-    _os_signpost_emit_unreliably_with_name_impl();
+    _os_signpost_emit_unreliably_with_name_impl(&dword_183AA6000, v64, 0, 0xEEEEB0B5B2B2EEEELL, "SIL Submit Swap Twice", "", buf, 2);
   }
 
   os_unfair_lock_unlock(this + 6701);
@@ -10189,27 +8958,27 @@ uint64_t CA::WindowServer::IOMFBDisplay::hide_secure_indicators(CA::WindowServer
   return v5 & 1;
 }
 
-uint64_t CA::WindowServer::IOMFBDisplay::secure_indicator_swap_end(uint64_t this, BOOL *a2, double a3)
+uint64_t CA::WindowServer::IOMFBDisplay::secure_indicator_swap_end(uint64_t this, BOOL *a2, double a3, uint64_t a4)
 {
-  v3 = *(this + 25760);
-  if (v3)
+  v4 = *(this + 25760);
+  if (v4)
   {
-    if (!*v3)
+    if (!*v4)
     {
-      v6 = this;
+      v8 = this;
       this = sil_mgr_instance(0, 0xFFFFFFFFLL);
-      *v3 = this;
+      *v4 = this;
       if (!this)
       {
         return this;
       }
 
-      v3 = *(v6 + 25760);
+      v4 = *(v8 + 25760);
     }
 
-    v7 = CAHostTimeWithTime(a3);
+    v9 = CAHostTimeWithTime(a3);
 
-    return CA::WindowServer::SILMgr::end_swap_region(v3, a2, v7);
+    return CA::WindowServer::SILMgr::end_swap_region(v4, a2, v9, a4);
   }
 
   return this;
@@ -10636,7 +9405,7 @@ void CA::WindowServer::IOMFBDisplay::register_for_disallowed_layers_notification
       {
         v12[0] = 0;
         CA::Render::Server::add_dead_name_watch(v10, v12, CA::WindowServer::handle_disallowed_layers_notification_dead_name, v11);
-        std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int const&>(&a2[7230]._os_unfair_lock_opaque, *v5);
+        std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int const&>(&a2[7230]._os_unfair_lock_opaque, *v5, v5);
       }
 
       a3[8] = 1;
@@ -10771,9 +9540,9 @@ LABEL_8:
     else
     {
       v8 = a2 + 6702;
-      while (v6[1] != a3[1])
+      while (*(v6 + 4) != a3[1])
       {
-        v6 += 6;
+        v6 += 24;
         if (v6 == v7)
         {
           goto LABEL_8;
@@ -10790,8 +9559,8 @@ LABEL_8:
       {
         v13 = a2[6]._os_unfair_lock_opaque;
         v14 = *v6;
-        v15 = v6[1];
-        v16 = v6[2];
+        v15 = *(v6 + 4);
+        v16 = *(v6 + 8);
         v20 = 67109888;
         v21 = v13;
         v22 = 1024;
@@ -10803,7 +9572,7 @@ LABEL_8:
         _os_log_impl(&dword_183AA6000, v12, OS_LOG_TYPE_DEFAULT, "Destroying power assertion for display=%u pid=%i port=%u reason=%i", &v20, 0x1Au);
       }
 
-      if (v6[2] == 3)
+      if (*(v6 + 8) == 3)
       {
         if (!LOBYTE(v8->_os_unfair_lock_opaque))
         {
@@ -10815,7 +9584,7 @@ LABEL_8:
 
       v17 = *&a2[7196]._os_unfair_lock_opaque;
       v18 = *(v17 - 24);
-      *(v6 + 2) = *(v17 - 8);
+      *(v6 + 16) = *(v17 - 8);
       *v6 = v18;
       v19 = *&a2[7196]._os_unfair_lock_opaque;
       if (v19 <= *&a2[7194]._os_unfair_lock_opaque)
@@ -11299,7 +10068,7 @@ uint64_t IOGPULibrary(void)
   v1 = v3[0];
   if (!v0)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     goto LABEL_5;
   }
 
@@ -11322,7 +10091,7 @@ uint64_t IOGPULibraryCore(char **a1)
   return IOGPULibraryCore(char **)::frameworkLibrary;
 }
 
-uint64_t ___ZL16IOGPULibraryCorePPc_block_invoke()
+uint64_t ___ZL16IOGPULibraryCorePPc_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   IOGPULibraryCore(char **)::frameworkLibrary = result;
@@ -11358,8 +10127,8 @@ uint64_t ___ZN2CA12WindowServer12IOMFBDisplay15hint_agx_timingEyy_block_invoke()
 
             else
             {
-              dlerror();
-              abort_report_np();
+              v5 = dlerror();
+              abort_report_np("%s", v5);
               return getIOGPUDeviceCreateSymbolLoc();
             }
           }
@@ -11597,7 +10366,7 @@ void CAObject_encodeWithCoder(void *a1, void *a2)
   }
 }
 
-uint64_t CAObject_encodeWithCAMLWriter(void *a1, void *a2)
+void *CAObject_encodeWithCAMLWriter(void *a1, void *a2)
 {
   v4 = objc_opt_class();
   result = classDescription(v4);
@@ -11608,13 +10377,13 @@ uint64_t CAObject_encodeWithCAMLWriter(void *a1, void *a2)
     v7 = result;
     do
     {
-      if (*(v6 + 24))
+      if (*(v6 + 6))
       {
         v8 = 0;
         v9 = 0;
         do
         {
-          String = CAAtomGetString(*(*(v6 + 16) + v8));
+          String = CAAtomGetString(*(v6[2] + v8));
           result = [a1 shouldArchiveValueForKey:String];
           if ((result | v7))
           {
@@ -11623,7 +10392,7 @@ uint64_t CAObject_encodeWithCAMLWriter(void *a1, void *a2)
             {
               v11 = result;
               [a2 beginPropertyElement:{-[objc_class CA_CAMLPropertyForKey:](v4, "CA_CAMLPropertyForKey:", String)}];
-              [a2 encodeObject:v11 conditionally:(*(*(v6 + 16) + v8 + 4) >> 29) & 1];
+              [a2 encodeObject:v11 conditionally:(*(v6[2] + v8 + 4) >> 29) & 1];
               result = [a2 endElement];
             }
           }
@@ -11632,7 +10401,7 @@ uint64_t CAObject_encodeWithCAMLWriter(void *a1, void *a2)
           v8 += 32;
         }
 
-        while (v9 < *(v6 + 24));
+        while (v9 < *(v6 + 6));
       }
 
       v6 = *v6;
@@ -11931,184 +10700,184 @@ uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned int,st
   return a1;
 }
 
-uint64_t CA::Render::ContentStream::destroy_stream(CA::Render::ContentStream *this, unsigned int a2, uint64_t a3, int a4)
+uint64_t CA::Render::ContentStream::destroy_stream(CA::Render::ContentStream *this)
 {
-  v33[6] = *MEMORY[0x1E69E9840];
+  v30[6] = *MEMORY[0x1E69E9840];
   if ((this - 1) > 0xFFFFFFFD)
   {
     return 0;
   }
 
-  v4 = this;
-  stream_and_lock = CA::Render::ContentStream::get_or_create_stream_and_lock(this, 0, 0, a4);
+  v1 = this;
+  stream_and_lock = CA::Render::ContentStream::get_or_create_stream_and_lock(this, 0, 0);
   if (stream_and_lock)
   {
-    v6 = stream_and_lock;
-    memset(v33, 0, 40);
-    v32 = 0u;
-    v31 = 0u;
-    memset(v30, 0, sizeof(v30));
+    v3 = stream_and_lock;
+    memset(v30, 0, 40);
     v29 = 0u;
-    *&v28[24] = 0u;
-    v7 = *(stream_and_lock + 112);
-    v27 = *(stream_and_lock + 96);
-    *v28 = v7;
-    *&v28[11] = *(stream_and_lock + 123);
-    v8 = *(stream_and_lock + 80);
-    v25 = *(stream_and_lock + 64);
-    v26 = v8;
-    *&v28[32] = &v30[1];
+    v28 = 0u;
+    memset(v27, 0, sizeof(v27));
+    v26 = 0u;
+    *&v25[24] = 0u;
+    v4 = *(stream_and_lock + 7);
+    v24 = *(stream_and_lock + 6);
+    *v25 = v4;
+    *&v25[11] = *(stream_and_lock + 123);
+    v5 = *(stream_and_lock + 5);
+    v22 = *(stream_and_lock + 4);
+    v23 = v5;
+    *&v25[32] = &v27[1];
+    *&v26 = &v27[1];
+    *(&v26 + 1) = &v27[1];
+    v27[0] = 8;
+    X::small_vector_base<unsigned int>::append<unsigned int const*>(&v25[32], stream_and_lock[18], stream_and_lock[19]);
+    *(&v28 + 1) = &v30[1];
     *&v29 = &v30[1];
     *(&v29 + 1) = &v30[1];
     v30[0] = 8;
-    X::small_vector_base<unsigned int>::append<unsigned int const*>(&v28[32], *(stream_and_lock + 144), *(stream_and_lock + 152));
-    *(&v31 + 1) = &v33[1];
-    *&v32 = &v33[1];
-    *(&v32 + 1) = &v33[1];
-    v33[0] = 8;
-    X::small_vector_base<unsigned int>::append<unsigned int const*>(&v31 + 8, *(v6 + 208), *(v6 + 216));
-    pthread_mutex_unlock(v6);
-    v24[0] = &v25;
-    v24[1] = 256;
-    CA::Render::post_notification(0x3Eu, 0, v24, 0);
-    if (*(&v31 + 1) != *(&v32 + 1))
+    X::small_vector_base<unsigned int>::append<unsigned int const*>(&v28 + 8, v3[26], v3[27]);
+    pthread_mutex_unlock(v3);
+    v21[0] = &v22;
+    v21[1] = 256;
+    CA::Render::post_notification(0x3Eu, 0, v21, 0);
+    if (*(&v28 + 1) != *(&v29 + 1))
     {
-      free(*(&v31 + 1));
+      free(*(&v28 + 1));
     }
 
-    if (*&v28[32] != *(&v29 + 1))
+    if (*&v25[32] != *(&v26 + 1))
     {
-      free(*&v28[32]);
+      free(*&v25[32]);
     }
   }
 
   os_unfair_lock_lock(&CA::Render::s_streams_lock);
-  v9 = CA::Render::s_streams;
-  if (!CA::Render::s_streams || (v10 = std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::find<unsigned int>(CA::Render::s_streams, v4)) == 0)
+  v6 = CA::Render::s_streams;
+  if (!CA::Render::s_streams || (v7 = std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::find<unsigned int>(CA::Render::s_streams, v1)) == 0)
   {
     os_unfair_lock_unlock(&CA::Render::s_streams_lock);
     return 0;
   }
 
-  v11 = v10[3];
-  v10[3] = 0;
-  v12 = v9[1];
-  v13 = v10[1];
-  v14 = vcnt_s8(v12);
-  v14.i16[0] = vaddlv_u8(v14);
-  if (v14.u32[0] > 1uLL)
+  v8 = v7[3];
+  v7[3] = 0;
+  v9 = v6[1];
+  v10 = v7[1];
+  v11 = vcnt_s8(v9);
+  v11.i16[0] = vaddlv_u8(v11);
+  if (v11.u32[0] > 1uLL)
   {
-    if (v13 >= *&v12)
+    if (v10 >= *&v9)
     {
-      v13 %= *&v12;
+      v10 %= *&v9;
     }
   }
 
   else
   {
-    v13 &= *&v12 - 1;
+    v10 &= *&v9 - 1;
   }
 
-  v16 = *(*v9 + 8 * v13);
+  v13 = *(*v6 + 8 * v10);
   do
   {
-    v17 = v16;
-    v16 = *v16;
+    v14 = v13;
+    v13 = *v13;
   }
 
-  while (v16 != v10);
-  if (v17 == v9 + 2)
+  while (v13 != v7);
+  if (v14 == v6 + 2)
   {
     goto LABEL_28;
   }
 
-  v18 = v17[1];
-  if (v14.u32[0] > 1uLL)
+  v15 = v14[1];
+  if (v11.u32[0] > 1uLL)
   {
-    if (v18 >= *&v12)
+    if (v15 >= *&v9)
     {
-      v18 %= *&v12;
+      v15 %= *&v9;
     }
   }
 
   else
   {
-    v18 &= *&v12 - 1;
+    v15 &= *&v9 - 1;
   }
 
-  if (v18 != v13)
+  if (v15 != v10)
   {
 LABEL_28:
-    if (!*v10)
+    if (!*v7)
     {
       goto LABEL_29;
     }
 
-    v19 = *(*v10 + 8);
-    if (v14.u32[0] > 1uLL)
+    v16 = *(*v7 + 8);
+    if (v11.u32[0] > 1uLL)
     {
-      if (v19 >= *&v12)
+      if (v16 >= *&v9)
       {
-        v19 %= *&v12;
+        v16 %= *&v9;
       }
     }
 
     else
     {
-      v19 &= *&v12 - 1;
+      v16 &= *&v9 - 1;
     }
 
-    if (v19 != v13)
+    if (v16 != v10)
     {
 LABEL_29:
-      *(*v9 + 8 * v13) = 0;
+      *(*v6 + 8 * v10) = 0;
     }
   }
 
-  v20 = *v10;
-  if (*v10)
+  v17 = *v7;
+  if (*v7)
   {
-    v21 = *(v20 + 8);
-    if (v14.u32[0] > 1uLL)
+    v18 = *(v17 + 8);
+    if (v11.u32[0] > 1uLL)
     {
-      if (v21 >= *&v12)
+      if (v18 >= *&v9)
       {
-        v21 %= *&v12;
+        v18 %= *&v9;
       }
     }
 
     else
     {
-      v21 &= *&v12 - 1;
+      v18 &= *&v9 - 1;
     }
 
-    if (v21 != v13)
+    if (v18 != v10)
     {
-      *(*v9 + 8 * v21) = v17;
-      v20 = *v10;
+      *(*v6 + 8 * v18) = v14;
+      v17 = *v7;
     }
   }
 
-  *v17 = v20;
-  *v10 = 0;
-  --v9[3];
-  *&v25 = v10;
-  *(&v25 + 1) = v9;
-  LOBYTE(v26) = 1;
-  *(&v26 + 1) = 0;
-  DWORD1(v26) = 0;
-  std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned int,std::unique_ptr<CA::Render::ContentStream>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned int,std::unique_ptr<CA::Render::ContentStream>>,void *>>>>::~unique_ptr[abi:nn200100](&v25);
-  v22 = v11[73];
-  v23 = (CA::Render::s_streams + 16);
+  *v14 = v17;
+  *v7 = 0;
+  --v6[3];
+  *&v22 = v7;
+  *(&v22 + 1) = v6;
+  LOBYTE(v23) = 1;
+  *(&v23 + 1) = 0;
+  DWORD1(v23) = 0;
+  std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned int,std::unique_ptr<CA::Render::ContentStream>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned int,std::unique_ptr<CA::Render::ContentStream>>,void *>>>>::~unique_ptr[abi:nn200100](&v22);
+  v19 = v8[73];
+  v20 = (CA::Render::s_streams + 16);
   while (1)
   {
-    v23 = *v23;
-    if (!v23)
+    v20 = *v20;
+    if (!v20)
     {
       break;
     }
 
-    if (*(v23[3] + 292) == v22)
+    if (*(v20[3] + 292) == v19)
     {
       os_unfair_lock_unlock(&CA::Render::s_streams_lock);
       goto LABEL_43;
@@ -12116,21 +10885,21 @@ LABEL_29:
   }
 
   os_unfair_lock_unlock(&CA::Render::s_streams_lock);
-  if (v22)
+  if (v19)
   {
-    [CA::Render::s_process_monitor removeMonitoringProcess:v22];
+    [CA::Render::s_process_monitor removeMonitoringProcess:v19];
   }
 
 LABEL_43:
-  if (v11)
+  if (v8)
   {
-    CA::Render::ContentStream::~ContentStream(v11);
+    CA::Render::ContentStream::~ContentStream(v8);
     if (x_malloc_get_zone::once != -1)
     {
       dispatch_once_f(&x_malloc_get_zone::once, 0, malloc_zone_init);
     }
 
-    malloc_zone_free(malloc_zone, v11);
+    malloc_zone_free(malloc_zone, v8);
   }
 
   return 1;
@@ -12405,7 +11174,7 @@ void CA::Render::release_single_iosurface(uint64_t a1, uint64_t a2)
   *(a1 + 16) = 0;
 }
 
-void std::vector<unsigned long>::push_back[abi:nn200100](uint64_t a1, void *a2)
+void std::vector<unsigned long>::push_back[abi:nn200100](uint64_t a1, uint64_t *a2)
 {
   v4 = *(a1 + 8);
   v3 = *(a1 + 16);
@@ -12467,7 +11236,7 @@ void std::vector<unsigned long>::push_back[abi:nn200100](uint64_t a1, void *a2)
   *(a1 + 8) = v5;
 }
 
-void X::small_vector_base<unsigned int>::resize(uint64_t a1, unint64_t a2)
+void X::small_vector_base<unsigned int>::resize(uint64_t a1, int *a2)
 {
   v4 = *(a1 + 8);
   v5 = *a1;
@@ -12809,12 +11578,12 @@ char *CA::Render::Proxy::show(int a1, X::Stream *this, uint64_t a3, char a4)
 {
   if (a4)
   {
-    return X::Stream::printf(this, "(proxy %d)");
+    return X::Stream::printf(this, "(proxy %d)", a3);
   }
 
   else
   {
-    return X::Stream::printf(this, "(proxy %d 0x%llx)");
+    return X::Stream::printf(this, "(proxy %d 0x%llx)", a3);
   }
 }
 
@@ -12876,7 +11645,7 @@ void CA::Render::Pattern::~Pattern(CA::Render::Pattern *this, const CA::Render::
   v3 = *(this + 16);
   if (v3 && atomic_fetch_add(v3 + 2, 0xFFFFFFFF) == 1)
   {
-    (*(*v3 + 16))(v3);
+    (*(*v3 + 16))(v3, a2);
   }
 
   --dword_1ED4EAAD4;
@@ -12901,7 +11670,7 @@ void CA::Render::Pattern::~Pattern(CA::Render::Pattern *this, const CA::Render::
   v3 = *(this + 16);
   if (v3 && atomic_fetch_add(v3 + 2, 0xFFFFFFFF) == 1)
   {
-    (*(*v3 + 16))(v3);
+    (*(*v3 + 16))(v3, a2);
   }
 
   --dword_1ED4EAAD4;
@@ -12954,7 +11723,7 @@ CGColorSpace *CA::Render::create_pattern_image(uint64_t a1, CGColorSpace *a2, CG
   {
     v14 = result;
     v15 = CAGetCachedCGBitmapContext_(result, v9, v4, v8, v11, a2);
-    if (v15 && (v17 = *(v15 + 2)) != 0)
+    if (v15 && (v17 = v15[2]) != 0)
     {
       CGContextSetCompositeOperation();
       v18 = *(MEMORY[0x1E695EFD0] + 16);
@@ -13056,12 +11825,12 @@ CA::Render::Pattern *CA::Render::Pattern::Pattern(CA::Render::Pattern *this, CA:
   v7 = 0uLL;
   CA::Render::Decoder::decode_cgfloat(a2, &v7, 2);
   *(this + 7) = v7;
-  *(this + 16) = CA::Render::Decoder::decode_object(a2, 6, &CA::Render::texture_types);
+  *(this + 16) = CA::Render::Decoder::decode_object(a2, 6, CA::Render::texture_types);
   CA::Render::Decoder::decode_sanity_check(a2, "/Library/Caches/com.apple.xbs/Sources/QuartzCore/LayerKit/render/render-pattern.cpp", 425);
   return this;
 }
 
-uint64_t CA::OGL::Shape::FlattenedLines::emit_line(CA::OGL::Shape::FlattenedLines *this, double a2, double a3, double a4, double a5, double a6, double a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, const double *a12)
+void **CA::OGL::Shape::FlattenedLines::emit_line(CA::OGL::Shape::FlattenedLines *this, double a2, double a3, double a4, double a5, double a6, double a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, const double *a12)
 {
   v29[1] = *MEMORY[0x1E69E9840];
   v28 = a3;
@@ -13383,149 +12152,168 @@ double CA::OGL::Shape::FlattenedMask::emit_line(CA::OGL::Shape::FlattenedMask *t
 
 uint64_t CA::OGL::Shape::flatten_quad(uint64_t (***a1)(void, __n128, __n128, __n128, __n128, __n128, __n128), __n128 a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6, __n128 a7, double a8, double a9, double a10)
 {
-  v20 = a5.n128_f64[0] - a2.n128_f64[0];
-  v21 = a6.n128_f64[0] - a3.n128_f64[0];
-  v22 = a8 - a5.n128_f64[0];
-  v23 = a9 - a6.n128_f64[0];
+  v13 = a5.n128_f64[0] - a2.n128_f64[0];
+  v14 = a6.n128_f64[0] - a3.n128_f64[0];
+  v15 = a8 - a5.n128_f64[0];
+  v16 = a9 - a6.n128_f64[0];
   if (vabdd_f64(a9 - a6.n128_f64[0], a6.n128_f64[0] - a3.n128_f64[0]) + vabdd_f64(a8 - a5.n128_f64[0], a5.n128_f64[0] - a2.n128_f64[0]) >= 2.0)
   {
     do
     {
-      v22 = v22 * 0.5;
-      v23 = v23 * 0.5;
-      v24 = a2.n128_f64[0] + v20 * 0.5 + (a8 - v22 - (a2.n128_f64[0] + v20 * 0.5)) * 0.5;
-      v25 = a3.n128_f64[0] + v21 * 0.5 + (a9 - v23 - (a3.n128_f64[0] + v21 * 0.5)) * 0.5;
-      v26 = a4.n128_f64[0] + (a7.n128_f64[0] - a4.n128_f64[0]) * 0.5 + (a10 + (a7.n128_f64[0] - a10) * 0.5 - (a4.n128_f64[0] + (a7.n128_f64[0] - a4.n128_f64[0]) * 0.5)) * 0.5;
-      v29 = a10 + (a7.n128_f64[0] - a10) * 0.5;
-      CA::OGL::Shape::flatten_quad(a1);
-      v20 = a8 - v22 - v24;
-      a7.n128_f64[0] = v29;
-      v21 = a9 - v23 - v25;
-      a4.n128_f64[0] = v26;
-      a3.n128_f64[0] = v25;
-      a2.n128_f64[0] = v24;
+      v20 = a7.n128_f64[0] - a10;
+      a5.n128_f64[0] = a2.n128_f64[0] + v13 * 0.5;
+      a6.n128_f64[0] = a3.n128_f64[0] + v14 * 0.5;
+      a7.n128_f64[0] = a4.n128_f64[0] + (a7.n128_f64[0] - a4.n128_f64[0]) * 0.5;
+      v15 = v15 * 0.5;
+      v16 = v16 * 0.5;
+      *&v21 = a10 + v20 * 0.5;
+      v17 = a5.n128_f64[0] + (a8 - v15 - a5.n128_f64[0]) * 0.5;
+      v18 = a6.n128_f64[0] + (a9 - v16 - a6.n128_f64[0]) * 0.5;
+      v19 = a7.n128_f64[0] + (*&v21 - a7.n128_f64[0]) * 0.5;
+      v24 = v21;
+      CA::OGL::Shape::flatten_quad(a1, a2, a3, a4, a5, a6, a7, v17, v18, v19);
+      v13 = a8 - v15 - v17;
+      a7.n128_u64[0] = v24;
+      v14 = a9 - v16 - v18;
+      a4.n128_f64[0] = v19;
+      a3.n128_f64[0] = v18;
+      a2.n128_f64[0] = v17;
     }
 
-    while (vabdd_f64(v23, v21) + vabdd_f64(v22, v20) >= 2.0);
+    while (vabdd_f64(v16, v14) + vabdd_f64(v15, v13) >= 2.0);
   }
 
   else
   {
-    v24 = a2.n128_f64[0];
-    v25 = a3.n128_f64[0];
-    v26 = a4.n128_f64[0];
+    v17 = a2.n128_f64[0];
+    v18 = a3.n128_f64[0];
+    v19 = a4.n128_f64[0];
   }
 
-  v27 = **a1;
-  a2.n128_f64[0] = v24;
-  a3.n128_f64[0] = v25;
-  a4.n128_f64[0] = v26;
+  v22 = **a1;
+  a2.n128_f64[0] = v17;
+  a3.n128_f64[0] = v18;
+  a4.n128_f64[0] = v19;
   a5.n128_f64[0] = a8;
   a6.n128_f64[0] = a9;
   a7.n128_f64[0] = a10;
 
-  return v27(a1, a2, a3, a4, a5, a6, a7);
+  return v22(a1, a2, a3, a4, a5, a6, a7);
 }
 
-uint64_t CA::OGL::Shape::flatten_cube(uint64_t (***a1)(void, __n128, __n128, __n128, __n128, __n128, __n128), int a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6, __n128 a7, __n128 a8, double a9, double a10, double a11, double a12, double a13, double a14)
+uint64_t CA::OGL::Shape::flatten_cube(uint64_t (***a1)(void, __n128, __n128, __n128, __n128, __n128, __n128), int a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6, __n128 a7, __n128 a8, __n128 a9, double a10, double a11, double a12, double a13, double a14)
 {
-  v38 = a8.n128_f64[0];
-  v22 = a6.n128_f64[0];
-  v24 = 2.0;
-  v25 = (a2 + 1);
-  while (v25 != 25)
+  v42 = a8.n128_f64[0];
+  v16 = a6.n128_f64[0];
+  v18 = 2.0;
+  v19 = a2 + 1;
+  while (v19 != 25)
   {
-    v26 = a12 - a9;
-    v27 = a13 - a10;
-    if (vabdd_f64(a12 - a9, a9 - v22) + vabdd_f64(a9 - v22, v22 - a3.n128_f64[0]) + vabdd_f64(a10 - a7.n128_f64[0], a7.n128_f64[0] - a4.n128_f64[0]) + vabdd_f64(a13 - a10, a10 - a7.n128_f64[0]) < v24)
+    a6.n128_f64[0] = v16 - a3.n128_f64[0];
+    v20 = a7.n128_f64[0] - a4.n128_f64[0];
+    v21 = a12 - a9.n128_f64[0];
+    v22 = a13 - a10;
+    if (vabdd_f64(a12 - a9.n128_f64[0], a9.n128_f64[0] - v16) + vabdd_f64(a9.n128_f64[0] - v16, v16 - a3.n128_f64[0]) + vabdd_f64(a10 - a7.n128_f64[0], a7.n128_f64[0] - a4.n128_f64[0]) + vabdd_f64(a13 - a10, a10 - a7.n128_f64[0]) < v18)
     {
       break;
     }
 
-    v28 = a3.n128_f64[0] + (a9 + a3.n128_f64[0] - v22 * v24) * 0.75 + (a12 - a3.n128_f64[0] + (a9 - v22) * -3.0) * 0.125 + (v22 - a3.n128_f64[0]) * 1.5;
-    v29 = a4.n128_f64[0] + (a10 + a4.n128_f64[0] - a7.n128_f64[0] * v24) * 0.75 + (a13 - a4.n128_f64[0] + (a10 - a7.n128_f64[0]) * -3.0) * 0.125 + (a7.n128_f64[0] - a4.n128_f64[0]) * 1.5;
-    v30 = a5.n128_f64[0] + (a11 + a5.n128_f64[0] - v38 * v24) * 0.75 + (a14 - a5.n128_f64[0] + (a11 - v38) * -3.0) * 0.125 + (v38 - a5.n128_f64[0]) * 1.5;
-    v31 = a13 - (v27 + v27 + (a10 + a10 - (a7.n128_f64[0] + a13)) * 0.5) * 0.5;
-    v38 = a14 - (a14 - a11 + a14 - a11 + (a11 + a11 - (v38 + a14)) * 0.5) * 0.5;
-    v32 = a12 - v26 * 0.5;
-    a10 = a13 - v27 * 0.5;
-    v36 = a12 - (v26 + v26 + (a9 + a9 - (v22 + a12)) * 0.5) * 0.5;
+    v23 = a9.n128_f64[0] + a3.n128_f64[0] - v16 * v18;
+    v24 = a10 + a4.n128_f64[0] - a7.n128_f64[0] * v18;
+    v25 = a11 + a5.n128_f64[0] - v42 * v18;
+    v26 = a3.n128_f64[0] + v23 * 0.75 + (a12 - a3.n128_f64[0] + (a9.n128_f64[0] - v16) * -3.0) * 0.125;
+    v27 = v21 + v21 + (a9.n128_f64[0] + a9.n128_f64[0] - (v16 + a12)) * 0.5;
+    v28 = v22 + v22 + (a10 + a10 - (a7.n128_f64[0] + a13)) * 0.5;
+    v29 = a6.n128_f64[0] + v23 * 0.25;
+    v30 = v26 + a6.n128_f64[0] * 1.5;
+    a6.n128_f64[0] = a3.n128_f64[0] + a6.n128_f64[0] * 0.5;
+    v31 = a4.n128_f64[0] + v24 * 0.75 + (a13 - a4.n128_f64[0] + (a10 - a7.n128_f64[0]) * -3.0) * 0.125 + v20 * 1.5;
+    a7.n128_f64[0] = a4.n128_f64[0] + v20 * 0.5;
+    v32 = a5.n128_f64[0] + v25 * 0.75 + (a14 - a5.n128_f64[0] + (a11 - v42) * -3.0) * 0.125 + (v42 - a5.n128_f64[0]) * 1.5;
+    a8.n128_f64[0] = a5.n128_f64[0] + (v42 - a5.n128_f64[0]) * 0.5;
+    v33 = v29 + a3.n128_f64[0];
+    v34 = v42 - a5.n128_f64[0] + v25 * 0.25 + a5.n128_f64[0];
+    v35 = a13 - v28 * 0.5;
+    v42 = a14 - (a14 - a11 + a14 - a11 + (a11 + a11 - (v42 + a14)) * 0.5) * 0.5;
+    v36 = a12 - v21 * 0.5;
+    a10 = a13 - v22 * 0.5;
+    v40 = a12 - v27 * 0.5;
     a11 = a14 - (a14 - a11) * 0.5;
-    v33 = a13;
-    CA::OGL::Shape::flatten_cube(a1, v25);
-    v22 = v36;
-    a9 = v32;
-    a7.n128_f64[0] = v31;
-    v24 = 2.0;
-    a13 = v33;
-    v25 = (v25 + 1);
-    a3.n128_f64[0] = v28;
-    a4.n128_f64[0] = v29;
-    a5.n128_f64[0] = v30;
+    v37 = a13;
+    CA::OGL::Shape::flatten_cube(a1, v19, a3, a4, a5, a6, a7, a8, v33, v20 + v24 * 0.25 + a4.n128_f64[0], v34, v30, v31, v32);
+    v16 = v40;
+    a9.n128_f64[0] = v36;
+    a7.n128_f64[0] = v35;
+    v18 = 2.0;
+    a13 = v37;
+    ++v19;
+    a3.n128_f64[0] = v30;
+    a4.n128_f64[0] = v31;
+    a5.n128_f64[0] = v32;
   }
 
-  v34 = **a1;
+  v38 = **a1;
   a6.n128_f64[0] = a12;
   a7.n128_f64[0] = a13;
   a8.n128_f64[0] = a14;
 
-  return v34(a1, a3, a4, a5, a6, a7, a8);
+  return v38(a1, a3, a4, a5, a6, a7, a8, a9);
 }
 
-void *CA::OGL::Shape::HairlineRenderer<CA::OGL::RenderPathIterator>::render_mask(uint64_t a1, uint64_t a2, uint64_t a3, int32x2_t *a4, double a5, double a6, double a7, __n128 a8, __n128 a9, __n128 a10)
+void *CA::OGL::Shape::HairlineRenderer<CA::OGL::RenderPathIterator>::render_mask(uint64_t a1, uint64_t a2, uint64_t a3, int32x2_t *a4, double a5, double a6, double a7, __n128 a8, __n128 a9, __n128 a10, __n128 a11)
 {
-  v26 = *MEMORY[0x1E69E9840];
-  v10 = *a4;
-  v11 = a4[1];
-  v12.i64[0] = a4->i32[0];
-  v12.i64[1] = HIDWORD(*a4);
-  v22 = vcvtq_f64_s64(v12);
-  v13 = *(a1 + 8);
-  v14 = vadd_s32(v11, v10);
-  v12.i64[0] = v14.i32[0];
-  v12.i64[1] = v14.i32[1];
-  v15 = vdupq_n_s64(0xBF50624DD2F1A9FCLL);
-  v23 = vaddq_f64(vcvtq_f64_s64(v12), v15);
-  v21 = &unk_1EF204C60;
-  v24 = a2;
-  v25 = a3;
-  v19 = 0u;
+  v27 = *MEMORY[0x1E69E9840];
+  v11 = *a4;
+  v12 = a4[1];
+  v13.i64[0] = a4->i32[0];
+  v13.i64[1] = HIDWORD(*a4);
+  v23 = vcvtq_f64_s64(v13);
+  v14 = *(a1 + 8);
+  v15 = vadd_s32(v12, v11);
+  v13.i64[0] = v15.i32[0];
+  v13.i64[1] = v15.i32[1];
+  v16 = vdupq_n_s64(0xBF50624DD2F1A9FCLL);
+  v24 = vaddq_f64(vcvtq_f64_s64(v13), v16);
+  v22 = &unk_1EF204C60;
+  v25 = a2;
+  v26 = a3;
   v20 = 0u;
-  v18 = 0u;
-  v17 = &v21;
-  return CA::OGL::RenderPathIterator::iterate<CA::OGL::Shape::FlatteningIterator>(v13, &v17, 0, v15, v22, a8, a9, a10);
+  v21 = 0u;
+  v19 = 0u;
+  v18 = &v22;
+  return CA::OGL::RenderPathIterator::iterate<CA::OGL::Shape::FlatteningIterator>(v14, &v18, 0, v16, v23, a8, a9, a10, a11);
 }
 
-void *CA::OGL::RenderPathIterator::iterate<CA::OGL::Shape::FlatteningIterator>(void *result, uint64_t (****a2)(double, double, double, double, double, double), __n128 a3, __n128 a4, __n128 a5, __n128 a6, __n128 a7, __n128 a8)
+void *CA::OGL::RenderPathIterator::iterate<CA::OGL::Shape::FlatteningIterator>(void *result, uint64_t (****a2)(double, double, double, double, double, double), __n128 a3, __n128 a4, __n128 a5, __n128 a6, __n128 a7, __n128 a8, __n128 a9)
 {
-  v38 = *MEMORY[0x1E69E9840];
-  v9 = *(*result + 32);
-  v10 = *(*result + 40);
-  v11 = *(*result + 20);
-  v12 = &v10[v11];
+  v39 = *MEMORY[0x1E69E9840];
+  v10 = *(*result + 32);
+  v11 = *(*result + 40);
+  v12 = *(*result + 20);
+  v13 = &v11[v12];
   if (!result[1])
   {
-    if (!v11)
+    if (!v12)
     {
       return result;
     }
 
     while (1)
     {
-      v23 = *v10;
-      if (v23 <= 1)
+      v24 = *v11;
+      if (v24 <= 1)
       {
-        if (*v10)
+        if (*v11)
         {
-          if (v23 == 1)
+          if (v24 == 1)
           {
-            v26 = *v9;
-            v27 = *(v9 + 8);
-            v9 += 16;
-            a2[4] = v26;
-            a2[5] = v27;
-            a2[1] = v26;
-            a2[2] = v27;
+            v27 = *v10;
+            v28 = v10[1];
+            v10 += 2;
+            a2[4] = v27;
+            a2[5] = v28;
+            a2[1] = v27;
+            a2[2] = v28;
             a2[6] = 0x3FF0000000000000;
             a2[3] = 0x3FF0000000000000;
           }
@@ -13542,121 +12330,122 @@ void *CA::OGL::RenderPathIterator::iterate<CA::OGL::Shape::FlatteningIterator>(v
         goto LABEL_38;
       }
 
-      if (v23 == 2)
+      if (v24 == 2)
       {
         break;
       }
 
-      if (v23 == 3)
+      if (v24 == 3)
       {
-        a6.n128_u64[0] = *v9;
-        a7.n128_u64[0] = *(v9 + 8);
-        v30 = *(v9 + 16);
-        v31 = *(v9 + 24);
+        a6.n128_u64[0] = *v10;
+        a7.n128_u64[0] = v10[1];
+        v31 = v10[2];
+        v32 = v10[3];
         a3.n128_u64[0] = a2[4];
         a4.n128_u64[0] = a2[5];
         a5.n128_u64[0] = a2[6];
         a8.n128_u64[0] = 1.0;
-        result = CA::OGL::Shape::flatten_quad(*a2, a3, a4, a5, a6, a7, a8, v30, v31, 1.0);
-        *(a2 + 4) = v30;
-        *(a2 + 5) = v31;
-        v9 += 32;
+        result = CA::OGL::Shape::flatten_quad(*a2, a3, a4, a5, a6, a7, a8, *&v31, *&v32, 1.0);
+        a2[4] = v31;
+        a2[5] = v32;
+        v10 += 4;
         goto LABEL_36;
       }
 
-      if (v23 == 4)
+      if (v24 == 4)
       {
-        a6.n128_u64[0] = *v9;
-        a7.n128_u64[0] = *(v9 + 8);
-        v24 = *(v9 + 32);
-        v25 = *(v9 + 40);
+        a6.n128_u64[0] = *v10;
+        a7.n128_u64[0] = v10[1];
+        a9.n128_u64[0] = v10[2];
+        v25 = v10[4];
+        v26 = v10[5];
         a3.n128_u64[0] = a2[4];
         a4.n128_u64[0] = a2[5];
         a5.n128_u64[0] = a2[6];
         a8.n128_u64[0] = 1.0;
-        result = CA::OGL::Shape::flatten_cube(*a2, 0, a3, a4, a5, a6, a7, a8, *(v9 + 16), *(v9 + 24), 1.0, v24, v25, 1.0);
-        *(a2 + 4) = v24;
-        *(a2 + 5) = v25;
-        v9 += 48;
+        result = CA::OGL::Shape::flatten_cube(*a2, 0, a3, a4, a5, a6, a7, a8, a9, *(v10 + 3), 1.0, *&v25, *&v26, 1.0);
+        a2[4] = v25;
+        a2[5] = v26;
+        v10 += 6;
 LABEL_36:
         a2[6] = 0x3FF0000000000000;
       }
 
 LABEL_38:
-      if (++v10 >= v12)
+      if (++v11 >= v13)
       {
         return result;
       }
     }
 
-    v28 = *v9;
-    v29 = *(v9 + 8);
-    v9 += 16;
-    result = (***a2)(*(a2 + 4), *(a2 + 5), *(a2 + 6), v28, v29, 1.0);
-    *(a2 + 4) = v28;
-    *(a2 + 5) = v29;
+    v29 = *v10;
+    v30 = v10[1];
+    v10 += 2;
+    result = (***a2)(*(a2 + 4), *(a2 + 5), *(a2 + 6), *&v29, *&v30, 1.0);
+    a2[4] = v29;
+    a2[5] = v30;
     goto LABEL_36;
   }
 
-  if (v11)
+  if (v12)
   {
-    v13 = result;
-    v14 = xmmword_183E20E60;
+    v14 = result;
+    v15 = xmmword_183E20E60;
     do
     {
-      v15.n128_u64[1] = 0;
-      v36 = 0u;
+      v16.n128_u64[1] = 0;
       v37 = 0u;
-      v34 = 0u;
+      v38 = 0u;
       v35 = 0u;
-      v32 = 0u;
+      v36 = 0u;
       v33 = 0u;
-      v16 = *v10;
-      if ((v16 - 1) < 2)
+      v34 = 0u;
+      v17 = *v11;
+      if ((v17 - 1) < 2)
       {
-        v17 = 1;
+        v18 = 1;
       }
 
       else
       {
-        if (v16 == 3)
+        if (v17 == 3)
         {
-          v17 = 2;
+          v18 = 2;
         }
 
         else
         {
-          if (v16 != 4)
+          if (v17 != 4)
           {
             goto LABEL_12;
           }
 
-          v36 = *(v9 + 32);
-          *(&v37 + 1) = 0x3FF0000000000000;
-          v17 = 3;
+          v37 = *(v10 + 2);
+          *(&v38 + 1) = 0x3FF0000000000000;
+          v18 = 3;
         }
 
-        v34 = *(v9 + 16);
-        v35 = v14;
+        v35 = *(v10 + 1);
+        v36 = v15;
       }
 
-      v32 = *v9;
-      v33 = v14;
-      result = CA::Transform::apply_to_point4(v13[1], &v32, &v32, v17);
-      v9 += 16 * v17;
-      v16 = *v10;
+      v33 = *v10;
+      v34 = v15;
+      result = CA::Transform::apply_to_point4(v14[1], &v33, &v33, v18);
+      v10 += 2 * v18;
+      v17 = *v11;
 LABEL_12:
-      if (v16 <= 1)
+      if (v17 <= 1)
       {
-        if (v16)
+        if (v17)
         {
-          v21 = v32;
-          a2[5] = *&v32.f64[1];
-          *&v22 = v33.n128_u64[1];
-          a2[6] = v33.n128_u64[1];
-          *(&v22 + 1) = *&v21.f64[0];
-          *(a2 + 1) = v21;
-          *(a2 + 3) = v22;
+          v22 = v33;
+          a2[5] = *&v33.f64[1];
+          *&v23 = v34.n128_u64[1];
+          a2[6] = v34.n128_u64[1];
+          *(&v23 + 1) = *&v22.f64[0];
+          *(a2 + 1) = v22;
+          *(a2 + 3) = v23;
         }
 
         else
@@ -13669,75 +12458,76 @@ LABEL_12:
         goto LABEL_23;
       }
 
-      switch(v16)
+      switch(v17)
       {
         case 2:
-          v19 = v32.f64[1];
-          v18 = v32.f64[0];
-          v20 = v33.n128_u64[1];
-          result = (***a2)(*(a2 + 4), *(a2 + 5), *(a2 + 6), v32.f64[0], v32.f64[1], v33.n128_f64[1]);
+          v20 = v33.f64[1];
+          v19 = v33.f64[0];
+          v21 = v34.n128_u64[1];
+          result = (***a2)(*(a2 + 4), *(a2 + 5), *(a2 + 6), v33.f64[0], v33.f64[1], v34.n128_f64[1]);
           goto LABEL_21;
         case 3:
-          a7.n128_u64[0] = *&v32.f64[1];
-          a6.n128_u64[0] = *&v32.f64[0];
-          a8.n128_u64[0] = v33.n128_u64[1];
-          v19 = *(&v34 + 1);
-          v18 = *&v34;
-          v20 = v35.n128_u64[1];
-          v15.n128_u64[0] = a2[4];
-          v14.n128_u64[0] = a2[5];
+          a7.n128_u64[0] = *&v33.f64[1];
+          a6.n128_u64[0] = *&v33.f64[0];
+          a8.n128_u64[0] = v34.n128_u64[1];
+          v20 = *(&v35 + 1);
+          v19 = *&v35;
+          v21 = v36.n128_u64[1];
+          v16.n128_u64[0] = a2[4];
+          v15.n128_u64[0] = a2[5];
           a5.n128_u64[0] = a2[6];
-          result = CA::OGL::Shape::flatten_quad(*a2, v15, v14, a5, a6, a7, a8, *&v34, *(&v34 + 1), v35.n128_f64[1]);
+          result = CA::OGL::Shape::flatten_quad(*a2, v16, v15, a5, a6, a7, a8, *&v35, *(&v35 + 1), v36.n128_f64[1]);
           goto LABEL_21;
         case 4:
-          a7.n128_u64[0] = *&v32.f64[1];
-          a6.n128_u64[0] = *&v32.f64[0];
-          a8.n128_u64[0] = v33.n128_u64[1];
-          v19 = *(&v36 + 1);
-          v18 = *&v36;
+          a7.n128_u64[0] = *&v33.f64[1];
+          a6.n128_u64[0] = *&v33.f64[0];
+          a8.n128_u64[0] = v34.n128_u64[1];
+          a9.n128_u64[0] = v35;
           v20 = *(&v37 + 1);
-          v15.n128_u64[0] = a2[4];
-          v14.n128_u64[0] = a2[5];
+          v19 = *&v37;
+          v21 = *(&v38 + 1);
+          v16.n128_u64[0] = a2[4];
+          v15.n128_u64[0] = a2[5];
           a5.n128_u64[0] = a2[6];
-          result = CA::OGL::Shape::flatten_cube(*a2, 0, v15, v14, a5, a6, a7, a8, *&v34, *(&v34 + 1), v35.n128_f64[1], *&v36, *(&v36 + 1), *(&v37 + 1));
+          result = CA::OGL::Shape::flatten_cube(*a2, 0, v16, v15, a5, a6, a7, a8, a9, *(&v35 + 1), v36.n128_f64[1], *&v37, *(&v37 + 1), *(&v38 + 1));
 LABEL_21:
-          *(a2 + 4) = v18;
-          *(a2 + 5) = v19;
-          a2[6] = v20;
+          *(a2 + 4) = v19;
+          *(a2 + 5) = v20;
+          a2[6] = v21;
           break;
       }
 
 LABEL_23:
-      ++v10;
-      v14 = xmmword_183E20E60;
+      ++v11;
+      v15 = xmmword_183E20E60;
     }
 
-    while (v10 < v12);
+    while (v11 < v13);
   }
 
   return result;
 }
 
-void *CA::OGL::Shape::HairlineRenderer<CA::OGL::RenderPathIterator>::render_lines(uint64_t a1, uint64_t a2, int32x2_t *a3, double a4, double a5, double a6, __n128 a7, __n128 a8, __n128 a9)
+void *CA::OGL::Shape::HairlineRenderer<CA::OGL::RenderPathIterator>::render_lines(uint64_t a1, uint64_t a2, int32x2_t *a3, double a4, double a5, double a6, __n128 a7, __n128 a8, __n128 a9, __n128 a10)
 {
-  v23 = *MEMORY[0x1E69E9840];
-  v9.i64[0] = a3->i32[0];
-  v9.i64[1] = HIDWORD(*a3);
-  v10 = vcvtq_f64_s64(v9);
-  v11 = *(a1 + 8);
-  v12 = vadd_s32(a3[1], *a3);
-  v9.i64[0] = v12.i32[0];
-  v9.i64[1] = v12.i32[1];
-  v13 = vdupq_n_s64(0xBF50624DD2F1A9FCLL);
-  v20 = v10;
-  v21 = vaddq_f64(vcvtq_f64_s64(v9), v13);
-  v19 = &unk_1EF204C48;
-  v22 = a2;
+  v24 = *MEMORY[0x1E69E9840];
+  v10.i64[0] = a3->i32[0];
+  v10.i64[1] = HIDWORD(*a3);
+  v11 = vcvtq_f64_s64(v10);
+  v12 = *(a1 + 8);
+  v13 = vadd_s32(a3[1], *a3);
+  v10.i64[0] = v13.i32[0];
+  v10.i64[1] = v13.i32[1];
+  v14 = vdupq_n_s64(0xBF50624DD2F1A9FCLL);
+  v21 = v11;
+  v22 = vaddq_f64(vcvtq_f64_s64(v10), v14);
+  v20 = &unk_1EF204C48;
+  v23 = a2;
+  v19 = 0u;
   v18 = 0u;
   v17 = 0u;
-  v16 = 0u;
-  v15 = &v19;
-  return CA::OGL::RenderPathIterator::iterate<CA::OGL::Shape::FlatteningIterator>(v11, &v15, 0, v13, v10, a7, a8, a9);
+  v16 = &v20;
+  return CA::OGL::RenderPathIterator::iterate<CA::OGL::Shape::FlatteningIterator>(v12, &v16, 0, v14, v11, a7, a8, a9, a10);
 }
 
 _DWORD *CA::CG::GaussianBlurStyle::copy(CA::CG::GaussianBlurStyle *this)
@@ -14020,7 +12810,7 @@ LABEL_14:
   return X::Stream::printf(this, v15);
 }
 
-void CA::OGL::fill_surface_mesh_3d(uint64_t a1, uint64_t a2, float64x2_t *a3, uint64_t a4, unsigned int a5, uint64_t a6, int a7, __n128 a8, float a9)
+void CA::OGL::fill_surface_mesh_3d(uint64_t a1, uint64_t a2, float64x2_t *a3, int32x2_t *a4, unsigned int a5, uint64_t a6, int a7, __n128 a8, float a9)
 {
   v119 = a7;
   v117 = a8;
@@ -14041,7 +12831,7 @@ void CA::OGL::fill_surface_mesh_3d(uint64_t a1, uint64_t a2, float64x2_t *a3, ui
 
   else
   {
-    v16 = MEMORY[0x1EEE9AC00](v112);
+    MEMORY[0x1EEE9AC00](v112);
     v17 = &v110 - ((v16 + 30) & 0xFFFFFFFFFFFFFFF0);
     bzero(v17, v16 | 0xF);
     v18 = ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -14566,15 +13356,15 @@ LABEL_27:
             v65 = v64 + 32 * *v63;
             v66 = (v64 + 32 * v63[1]);
             v67 = (v64 + 32 * v63[2]);
-            v68 = (v64 + 32 * v63[3]);
+            v68 = v64 + 32 * v63[3];
             v70 = *v65;
             v69 = *(v65 + 4);
             v72 = v66->f32[0];
             v71 = v66->f32[1];
             v73 = v67->f32[0];
             v74 = v67->f32[1];
-            v75 = v68->f32[0];
-            v76 = v68->f32[1];
+            v75 = *v68;
+            v76 = *(v68 + 4);
             v77 = 6;
             if (!*(a1 + 108))
             {
@@ -14594,15 +13384,15 @@ LABEL_27:
             v80 = v66[2];
             v81 = v67[2];
             *&v82 = *(v65 + 16);
-            v83 = v68[2];
+            v83 = *(v68 + 16);
             v84 = vsub_f32(vadd_f32(*&v82, v81), vadd_f32(v80, v83));
-            if (fabsf(v84.f32[0]) >= 0.000001 || fabsf(v84.f32[1]) >= 0.000001)
+            if (fabsf(*v84.i32) >= 0.000001 || fabsf(*&v84.i32[1]) >= 0.000001)
             {
               DWORD2(v82) = *(v65 + 24);
               HIDWORD(v82) = 1.0;
               v89 = vsub_f32(__PAIR64__(v80.u32[1], v83.u32[0]), v81);
               v90.i32[0] = v66[2];
-              v90.i32[1] = HIDWORD(*&v68[2]);
+              v90.i32[1] = HIDWORD(*(v68 + 16));
               v91 = vsub_f32(v90, v81);
               v92 = vrev64_s32(v91);
               v93 = vmla_f32(vneg_f32(vmul_f32(v89, vrev64_s32(v84))), v92, v84);
@@ -14623,7 +13413,7 @@ LABEL_27:
               *&v129[8] = v99.i32[0];
               *&v129[12] = v92;
               v100.i32[0] = vdup_lane_s32(v83, 1).u32[0];
-              v100.i32[1] = v68[3].i32[0];
+              v100.i32[1] = *(v68 + 24);
               *&v129[28] = v97.i32[1];
               *&v129[20] = vmul_lane_f32(v100, v97, 1);
               v101 = (*(a1 + 136) + 48 * v78);
@@ -14642,7 +13432,7 @@ LABEL_27:
               *(a1 + 144) = v78 + 4;
               v86 = *v66[2].f32;
               v87 = *v67[2].f32;
-              v88 = *v68[2].f32;
+              v88 = *(v68 + 16);
               *v85 = *(v65 + 16);
               v85[3] = v86;
               v85[6] = v87;
@@ -14820,16 +13610,16 @@ uint64_t CA::Render::TileCache::collect_entry(uint64_t a1, uint64_t a2, double *
   v4 = *(a2 + 24);
   if (v4 <= a3[1])
   {
-    *(*&v3 + 24) = x_list_prepend(*(*&v3 + 24), a2);
+    *(v3 + 24) = x_list_prepend(*(v3 + 24), a2);
     return 1;
   }
 
   else
   {
     result = 0;
-    if (v4 < *(*&v3 + 32))
+    if (v4 < *(v3 + 32))
     {
-      *(*&v3 + 32) = v4;
+      *(v3 + 32) = v4;
     }
   }
 
@@ -15037,7 +13827,7 @@ void sub_183DF9A0C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t ___ZL23mode_dictionary_classesv_block_invoke()
+void *___ZL23mode_dictionary_classesv_block_invoke()
 {
   v0 = objc_alloc(MEMORY[0x1E695DFD8]);
   v1 = objc_opt_class();
@@ -15087,7 +13877,7 @@ void cancelTimer(const void *a1, const void *a2, void *a3)
   }
 }
 
-NSObject *CACreateQueueWithWorkloop(const char *a1)
+NSObject *CACreateQueueWithWorkloop(const char *a1, uint64_t a2)
 {
   inactive = dispatch_workloop_create_inactive(a1);
   dispatch_set_qos_class_fallback();
@@ -15098,7 +13888,7 @@ NSObject *CACreateQueueWithWorkloop(const char *a1)
 
 NSObject *__CAGetRootQueue_block_invoke()
 {
-  result = CACreateQueueWithWorkloop("com.apple.coreanimation.workloop_queue");
+  result = CACreateQueueWithWorkloop("com.apple.coreanimation.workloop_queue", 54);
   CA::_root_queue = result;
   return result;
 }
@@ -15171,7 +13961,7 @@ uint64_t CA::CG::ImageRectDelegate::draw_image_rects(uint64_t this)
   return this;
 }
 
-double CA::CG::ImageRectDelegate::aa_quad(CA::CG::ImageRectDelegate *this, int32x2_t *a2, double *a3, __int32 a4)
+double CA::CG::ImageRectDelegate::aa_quad(CA::CG::ImageRectDelegate *this, int32x2_t *a2, float32x2_t *a3, __int32 a4)
 {
   v8 = *(this + 348);
   if (v8 == 32)
@@ -15185,13 +13975,13 @@ double CA::CG::ImageRectDelegate::aa_quad(CA::CG::ImageRectDelegate *this, int32
   v9[14] = vcvt_f32_s32(*a2);
   v9[15] = vcvt_f32_s32(vadd_s32(a2[1], *a2));
   v9[16] = *a3;
-  result = a3[1];
+  result = *&a3[1];
   *&v9[17] = result;
   v9[18].i32[0] = a4;
   return result;
 }
 
-double CA::CG::ImageRectDelegate::quad(CA::CG::ImageRectDelegate *this, int32x2_t *a2, double *a3)
+double CA::CG::ImageRectDelegate::quad(CA::CG::ImageRectDelegate *this, int32x2_t *a2, float32x2_t *a3)
 {
   v6 = *(this + 348);
   if (v6 == 32)
@@ -15205,7 +13995,7 @@ double CA::CG::ImageRectDelegate::quad(CA::CG::ImageRectDelegate *this, int32x2_
   v7[14] = vcvt_f32_s32(*a2);
   v7[15] = vcvt_f32_s32(vadd_s32(a2[1], *a2));
   v7[16] = *a3;
-  result = a3[1];
+  result = *&a3[1];
   *&v7[17] = result;
   v7[18].i32[0] = 0;
   return result;
@@ -15250,59 +14040,61 @@ void CA::CG::DrawImage::draw_image(CA::CG::DrawImage *this, CA::CG::Renderer *a2
 
   if (v7 < 0.0)
   {
-    v10 = v7 + v5;
+    v5 = v7 + v5;
+    v10 = v5;
     v12 = -v7;
   }
 
-  CA::CG::fill_image(a2, v4, &v9, a2 + 32, *(this + 25) & a3, (*(this + 25) >> 1) & 1, (*(this + 60) >> 8), *(this + 60), *(this + 14), 0);
+  LODWORD(v5) = *(this + 31);
+  CA::CG::fill_image(a2, v4, &v9, a2 + 32, *(this + 25) & a3, (*(this + 25) >> 1) & 1, (*(this + 60) >> 8), *(this + 60), v5, *(this + 14), 0);
 }
 
-void CA::CG::fill_image(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, __int128 *a10)
+void CA::CG::fill_image(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, double a9, const void *a10, __int128 *a11)
 {
-  v10 = MEMORY[0x1EEE9AC00](a1);
-  v205 = v12;
-  v206 = v11;
-  v13 = *&v10;
-  v200 = v14;
-  v16 = v15;
-  v18 = v17;
-  v20 = v19;
-  v22 = v21;
-  v207 = v23;
-  v259 = *MEMORY[0x1E69E9840];
-  v216 = v21;
-  Width = CGImageGetWidth(v21);
-  Height = CGImageGetHeight(v22);
+  v11 = MEMORY[0x1EEE9AC00](a1);
+  v210 = v13;
+  v211 = v12;
+  v14 = *&v11;
+  v205 = v15;
+  v17 = v16;
+  v19 = v18;
+  v21 = v20;
+  v23 = v22;
+  v212 = v24;
+  v264 = *MEMORY[0x1E69E9840];
+  v221 = v22;
+  Width = CGImageGetWidth(v22);
+  Height = CGImageGetHeight(v23);
   Mask = CGImageGetMask();
   if (Mask)
   {
-    v28 = Mask;
-    v29 = CGImageGetWidth(Mask);
-    v30 = CGImageGetHeight(v28);
-    if (v30 > Height)
+    v29 = Mask;
+    v30 = CGImageGetWidth(Mask);
+    v31 = CGImageGetHeight(v29);
+    if (v31 > Height)
     {
-      v31 = v30;
+      v32 = v31;
     }
 
     else
     {
-      v31 = Height;
+      v32 = Height;
     }
 
-    if (v30 > Height)
+    if (v31 > Height)
     {
-      v32 = v29;
+      v33 = v30;
     }
 
     else
     {
-      v32 = Width;
+      v33 = Width;
     }
 
-    v33 = v29 > Width && v30 > Height;
-    if (v29 > Width)
+    v34 = v30 > Width && v31 > Height;
+    if (v30 > Width)
     {
-      Height = v31;
+      Height = v32;
     }
 
     else
@@ -15310,142 +14102,142 @@ void CA::CG::fill_image(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint
       Height = Height;
     }
 
-    if (v29 > Width)
+    if (v30 > Width)
     {
-      Width = v32;
+      Width = v33;
     }
   }
 
   else
   {
-    v33 = 0;
+    v34 = 0;
   }
 
-  v204 = a10 != 0;
-  v196 = Height;
-  if (a10)
+  v209 = a11 != 0;
+  v201 = Height;
+  if (a11)
   {
-    v34 = *a10;
+    v35 = *a11;
   }
 
   else
   {
-    *&v34 = 0;
-    *(&v34 + 1) = __PAIR64__(Height, Width);
+    *&v35 = 0;
+    *(&v35 + 1) = __PAIR64__(Height, Width);
   }
 
-  v215 = v34;
-  v214 = 0uLL;
-  v35 = DWORD2(v34);
-  v36 = HIDWORD(v34);
-  v198 = v33;
-  if (!v33)
+  v220 = v35;
+  v219 = 0uLL;
+  v36 = DWORD2(v35);
+  v37 = HIDWORD(v35);
+  v203 = v34;
+  if (!v34)
   {
-    v203 = v34;
+    v208 = v35;
     if (CGImageIsSubimage())
     {
-      *&v215 = vadd_s32(*&v203, vmovn_s64(vcvtq_s64_f64(v214)));
-      Width = CGImageGetWidth(v216);
-      v204 = 1;
-      v196 = CGImageGetHeight(v216);
+      *&v220 = vadd_s32(*&v208, vmovn_s64(vcvtq_s64_f64(v219)));
+      Width = CGImageGetWidth(v221);
+      v209 = 1;
+      v201 = CGImageGetHeight(v221);
     }
   }
 
-  v212 = 0u;
-  v213 = 0u;
-  CA::CG::ImageFilter::ImageFilter(&v212, v35, v36, v20, v18, v206, 0, v27);
-  v202 = v18;
-  *&v203 = v20;
-  if (v16)
+  v217 = 0u;
+  v218 = 0u;
+  CA::CG::ImageFilter::ImageFilter(&v217, v36, v37, v21, v19, v211, 0, v28);
+  v207 = v19;
+  *&v208 = v21;
+  if (v17)
   {
-    v37 = v207;
-    if ((*(v207 + 136) & 2) == 0)
+    v38 = v212;
+    if ((*(v212 + 136) & 2) == 0)
     {
       goto LABEL_31;
     }
 
-    if (fabs(v18->f64[1]) < 0.000001 && fabs(v18[1].f64[0]) < 0.000001)
+    if (fabs(v19->f64[1]) < 0.000001 && fabs(v19[1].f64[0]) < 0.000001)
     {
-      v38 = 1;
+      v39 = 1;
       goto LABEL_32;
     }
 
-    if (fabs(v18->f64[0]) < 0.000001)
+    if (fabs(v19->f64[0]) < 0.000001)
     {
-      v38 = fabs(v18[1].f64[1]) < 0.000001;
+      v39 = fabs(v19[1].f64[1]) < 0.000001;
     }
 
     else
     {
 LABEL_31:
-      v38 = 0;
+      v39 = 0;
     }
   }
 
   else
   {
-    v38 = 1;
-    v37 = v207;
+    v39 = 1;
+    v38 = v212;
   }
 
 LABEL_32:
-  v39 = (v212 & 9) == 0 || v38;
-  if (v39)
+  v40 = (v217 & 9) == 0 || v39;
+  if (v40)
   {
-    v40 = 0;
+    v41 = 0;
   }
 
   else
   {
-    v40 = 255;
+    v41 = 255;
   }
 
-  v199 = v40;
-  v41 = v37[1];
-  if (*(*(v41 + 16) + 14) != COERCE_SHORT_FLOAT(COERCE_UNSIGNED_INT(1.0)) || (v42 = v216, (CGImageHasAlpha() & 1) != 0) || CGImageIsMask(v42) || CGImageGetMask() || CGImageGetMatte() || CGImageGetMaskingColors())
+  v204 = v41;
+  v42 = v38[1];
+  if (*(*(v42 + 16) + 14) != COERCE_SHORT_FLOAT(COERCE_UNSIGNED_INT(1.0)) || (v43 = v221, (CGImageHasAlpha() & 1) != 0) || CGImageIsMask(v43) || CGImageGetMask() || CGImageGetMatte() || CGImageGetMaskingColors())
   {
-    v43 = 0;
+    v44 = 0;
   }
 
   else
   {
-    v43 = ((v212 & 9) == 0) | v39;
+    v44 = ((v217 & 9) == 0) | v40;
   }
 
-  v44 = *(v41 + 16);
-  v45 = *(v44 + 497);
-  v197 = v43;
-  if (v45)
+  v45 = *(v42 + 16);
+  v46 = *(v45 + 497);
+  v202 = v44;
+  if (v46)
   {
-    v46 = *(v44 + 496);
-    if (v46 != 3)
+    v47 = *(v45 + 496);
+    if (v47 != 3)
     {
-      v43 = 0;
+      v44 = 0;
     }
 
-    if (v46 >= 2)
+    if (v47 >= 2)
     {
-      v47 = v43;
+      v48 = v44;
     }
 
     else
     {
-      v47 = 1;
+      v48 = 1;
     }
 
-    v201 = v47;
+    v206 = v48;
   }
 
   else
   {
-    v201 = 0;
+    v206 = 0;
   }
 
   CGImageGetContentHeadroom();
-  v49 = v48;
-  ColorSpace = CGImageGetColorSpace(v22);
-  v51 = CA::OGL::Context::color_program_cache(v41);
-  v52 = CA::ColorProgram::Cache::push_whippet_cache(v51, ColorSpace, v49, v13, v205, a9);
+  v50 = v49;
+  ColorSpace = CGImageGetColorSpace(v23);
+  v52 = CA::OGL::Context::color_program_cache(v42);
+  v53 = CA::ColorProgram::Cache::push_whippet_cache(v52, ColorSpace, v210, a10, v50, v14);
   Identifier = CGImageGetIdentifier();
   os_unfair_lock_lock(&CA::CG::AccelDataProvider::_table_lock);
   if (!CA::CG::AccelDataProvider::_table)
@@ -15454,67 +14246,72 @@ LABEL_32:
     goto LABEL_74;
   }
 
-  v54 = x_hash_table_lookup(CA::CG::AccelDataProvider::_table, Identifier, 0);
-  if (v54)
+  v55 = x_hash_table_lookup(CA::CG::AccelDataProvider::_table, Identifier, 0);
+  if (v55)
   {
-    v55 = v54;
-    atomic_fetch_add(&v54[3], 1u);
-    os_unfair_lock_lock(v54 + 2);
-    v56 = *&v55[4]._os_unfair_lock_opaque;
-    if (!v56 || (*(v56 + 68) & 1) != 0 || (*(*v37 + 24))(v37))
+    v56 = v55;
+    atomic_fetch_add(&v55[3], 1u);
+    os_unfair_lock_lock(v55 + 2);
+    v57 = *&v56[4]._os_unfair_lock_opaque;
+    if (!v57 || (*(v57 + 68) & 1) != 0 || (*(*v38 + 24))(v38))
     {
-      os_unfair_lock_unlock(v55 + 2);
+      os_unfair_lock_unlock(v56 + 2);
     }
 
     else
     {
-      v133 = *&v55[4]._os_unfair_lock_opaque;
+      v136 = *&v56[4]._os_unfair_lock_opaque;
       while (1)
       {
-        v134 = v133[2];
-        if (!v134)
+        v137 = v136[2];
+        if (!v137)
         {
           break;
         }
 
-        v135 = v133[2];
-        atomic_compare_exchange_strong(v133 + 2, &v135, v134 + 1);
-        if (v135 == v134)
+        v138 = v136[2];
+        atomic_compare_exchange_strong(v136 + 2, &v138, v137 + 1);
+        if (v138 == v137)
         {
           goto LABEL_230;
         }
       }
 
-      v133 = 0;
+      v136 = 0;
 LABEL_230:
-      CA::CG::AccelDataProvider::wait_data(v55);
-      os_unfair_lock_unlock(v55 + 2);
-      if (v133)
+      CA::CG::AccelDataProvider::wait_data(v56);
+      os_unfair_lock_unlock(v56 + 2);
+      if (v136)
       {
-        v163 = (*(*v37[1] + 232))(v37[1], 4);
-        if (v133[11] <= v163 && v133[12] <= v163)
+        v168 = (*(*v38[1] + 232))(v38[1], 4);
+        if (v136[11] <= v168 && v136[12] <= v168)
         {
-          (*(*v133 + 56))(&v227, v133);
-          v57 = v227;
+          (*(*v136 + 56))(&v232, v136);
+          v58 = v232;
         }
 
         else
         {
-          v57 = 0;
+          v58 = 0;
         }
 
         global_queue = dispatch_get_global_queue(17, 0);
-        dispatch_async_f(global_queue, v133, CA::CG::AccelDataProvider::retain_texture(CA::CG::Renderer &)::$_0::__invoke);
+        dispatch_async_f(global_queue, v136, CA::CG::AccelDataProvider::retain_texture(CA::CG::Renderer &)::$_0::__invoke);
 LABEL_60:
-        if (atomic_fetch_add(&v55[3], 0xFFFFFFFF) == 1)
+        if (atomic_fetch_add(&v56[3], 0xFFFFFFFF) == 1)
         {
-          (*(*&v55->_os_unfair_lock_opaque + 16))(v55);
+          (*(*&v56->_os_unfair_lock_opaque + 16))(v56);
         }
 
         os_unfair_lock_unlock(&CA::CG::AccelDataProvider::_table_lock);
-        if (v57)
+        if (v58)
         {
-          v258 = 0;
+          v263 = 0;
+          v262 = 0u;
+          v261 = 0u;
+          v260 = 0u;
+          v259 = 0u;
+          v258 = 0u;
           v257 = 0u;
           v256 = 0u;
           v255 = 0u;
@@ -15541,42 +14338,37 @@ LABEL_60:
           v234 = 0u;
           v233 = 0u;
           v232 = 0u;
-          v231 = 0u;
-          v230 = 0u;
-          v229 = 0u;
-          v228 = 0u;
-          v227 = 0u;
-          v58 = v57[2].i32[0];
-          v59 = v57[2].i32[1];
-          v60 = (*(*v57 + 104))(v57);
-          CA::OGL::ContentsGeometry::ContentsGeometry(&v227, v58, v59, v60, v203, &v215, v202->f64, v212, v199);
-          v61 = v201;
-          if (v201)
+          v59 = v58[2].i32[0];
+          v60 = v58[2].i32[1];
+          v61 = (*(*v58 + 104))(v58);
+          CA::OGL::ContentsGeometry::ContentsGeometry(&v232, v59, v60, v61, v208, &v220, v207->f64, v217, v204);
+          v62 = v206;
+          if (v206)
           {
-            *(*(v41 + 16) + 497) &= ~1u;
+            *(*(v42 + 16) + 497) &= ~1u;
           }
 
-          v62 = CA::OGL::Context::bind_image(v41, 0, v57, DWORD1(v246), BYTE4(v212), BYTE5(v212), 0, &v227, *(&v212 + 2), (&v244 + 4), 0);
-          v65 = v197;
+          v63 = CA::OGL::Context::bind_image(v42, 0, v58, DWORD1(v251), BYTE4(v217), BYTE5(v217), 0, &v232, *(&v217 + 2), (&v249 + 4), 0);
+          v68 = v202;
+          if (v63)
+          {
+            CA::OGL::ContentsGeometry::fill_and_unbind(&v232, v42, v63, BYTE4(v217), v64, v65, *(&v217 + 2));
+          }
+
           if (v62)
           {
-            CA::OGL::ContentsGeometry::fill_and_unbind(&v227, v41, v62, BYTE4(v212), *(&v212 + 2));
+            *(*(v42 + 16) + 497) |= 1u;
           }
 
-          if (v61)
-          {
-            *(*(v41 + 16) + 497) |= 1u;
-          }
-
-          CA::OGL::ContentsGeometry::fill_debug(&v227, v41, 0, v57, v65 & 1, v63, v64);
-          if (!v52)
+          CA::OGL::ContentsGeometry::fill_debug(&v232, v42, 0, v58, v68 & 1, v66, v67);
+          if (!v53)
           {
             goto LABEL_225;
           }
 
 LABEL_224:
-          v162 = CA::OGL::Context::color_program_cache(v41);
-          CA::ColorProgram::Cache::pop_whippet_cache(v162);
+          v167 = CA::OGL::Context::color_program_cache(v42);
+          CA::ColorProgram::Cache::pop_whippet_cache(v167);
           goto LABEL_225;
         }
 
@@ -15584,256 +14376,256 @@ LABEL_224:
       }
     }
 
-    v57 = 0;
+    v58 = 0;
     goto LABEL_60;
   }
 
   os_unfair_lock_unlock(&CA::CG::AccelDataProvider::_table_lock);
 LABEL_73:
-  v35 = DWORD2(v215);
+  v36 = DWORD2(v220);
 LABEL_74:
-  v66 = BYTE4(v212);
-  if (BYTE4(v212) <= 1u)
+  v69 = BYTE4(v217);
+  if (BYTE4(v217) <= 1u)
   {
-    v68 = HIDWORD(v215);
-    v194 = v35;
-    v195 = HIDWORD(v215);
+    v71 = HIDWORD(v220);
+    v199 = v36;
+    v200 = HIDWORD(v220);
   }
 
   else
   {
-    v67 = llround(*&v213 * v35);
-    v68 = HIDWORD(v215);
-    v69 = llround(*(&v213 + 1) * SHIDWORD(v215));
-    if (v67 <= 1)
+    v70 = llround(*&v218 * v36);
+    v71 = HIDWORD(v220);
+    v72 = llround(*(&v218 + 1) * SHIDWORD(v220));
+    if (v70 <= 1)
     {
-      v70 = 1;
+      v73 = 1;
     }
 
     else
     {
-      v70 = v67;
+      v73 = v70;
     }
 
-    if (v69 <= 1)
+    if (v72 <= 1)
     {
-      v71 = 1;
+      v74 = 1;
     }
 
     else
     {
-      v71 = v69;
+      v74 = v72;
     }
 
-    v194 = v70;
-    v195 = v71;
+    v199 = v73;
+    v200 = v74;
   }
 
-  if ((CGImageGetBitmapInfo(v216) & 0x100) != 0)
+  if ((CGImageGetBitmapInfo(v221) & 0x100) != 0)
   {
     IsWideGamutRGB = 1;
   }
 
   else
   {
-    v72 = CGImageGetColorSpace(v216);
-    IsWideGamutRGB = CGColorSpaceIsWideGamutRGB(v72);
+    v75 = CGImageGetColorSpace(v221);
+    IsWideGamutRGB = CGColorSpaceIsWideGamutRGB(v75);
   }
 
-  v74 = *(v41 + 672);
-  v205 = v52;
-  if (v74 && ((*(v74 + 92) & 0x130) != 0 ? (v75 = IsWideGamutRGB) : (v75 = 0), v75))
+  v77 = *(v42 + 672);
+  v210 = v53;
+  if (v77 && ((*(v77 + 92) & 0x130) != 0 ? (v78 = IsWideGamutRGB) : (v78 = 0), v78))
   {
-    v193 = 1;
-    v76 = 4;
+    v198 = 1;
+    v79 = 4;
   }
 
   else
   {
-    v77 = v37[1];
-    if (v77)
+    v80 = v38[1];
+    if (v80)
     {
-      v78 = *(v77 + 560);
+      v81 = *(v80 + 560);
     }
 
     else
     {
-      v78 = 0;
+      v81 = 0;
     }
 
-    Model = CGColorSpaceGetModel(v78);
-    v193 = Model != kCGColorSpaceModelMonochrome;
+    Model = CGColorSpaceGetModel(v81);
+    v198 = Model != kCGColorSpaceModelMonochrome;
     if (Model)
     {
-      v76 = 2;
+      v79 = 2;
     }
 
     else
     {
-      v76 = 1;
+      v79 = 1;
     }
   }
 
   if (CGImageGetProperty() != *MEMORY[0x1E695E4D0])
   {
-    v80 = *MEMORY[0x1E695E4D0];
-    if (CGImageGetProperty() != v80)
+    v83 = *MEMORY[0x1E695E4D0];
+    if (CGImageGetProperty() != v83)
     {
-      v81 = CA::OGL::Context::color_program_cache(v41);
-      v82 = v207 + 192 * v76;
-      if ((v195 + *(v82 + 1448) - 1) / *(v82 + 1448) * ((v194 + *(v82 + 1444) - 1) / *(v82 + 1444)) <= *(&CA::CG::Renderer::_max_mosaic_cells + v76) && (*(v81 + 84) & 1) == 0)
+      v84 = CA::OGL::Context::color_program_cache(v42);
+      v85 = v212 + 192 * v79;
+      if ((v200 + *(v85 + 1448) - 1) / *(v85 + 1448) * ((v199 + *(v85 + 1444) - 1) / *(v85 + 1444)) <= *(&CA::CG::Renderer::_max_mosaic_cells + v79) && (*(v84 + 84) & 1) == 0)
       {
-        v83 = v82 + 1440;
-        v84 = *(v41 + 16);
-        v85 = *(v84 + 16) & 0xFFFFFF00FF00FF00;
-        if (*(v84 + 8) == 0x3C003C003C003C00)
+        v86 = v85 + 1440;
+        v87 = *(v42 + 16);
+        v88 = *(v87 + 16) & 0xFFFFFF00FF00FF00;
+        if (*(v87 + 8) == 0x3C003C003C003C00)
         {
-          v86 = 1;
+          v89 = 1;
         }
 
         else
         {
-          v86 = 3;
+          v89 = 3;
         }
 
-        *(v84 + 16) = v86 | v85;
-        *(v84 + 20) = HIDWORD(v85);
-        v87 = v205;
-        if ((*(v83 + 144) & 0x80000000) != 0)
+        *(v87 + 16) = v89 | v88;
+        *(v87 + 20) = HIDWORD(v88);
+        v90 = v210;
+        if ((*(v86 + 144) & 0x80000000) != 0)
         {
-          v88 = BYTE5(v212);
-          v89 = BYTE4(v212);
-          if (v66 > 1)
+          v91 = BYTE5(v217);
+          v92 = BYTE4(v217);
+          if (v69 > 1)
           {
-            v89 = 1;
+            v92 = 1;
           }
 
-          *(v83 + 144) = 0;
-          *(v83 + 148) = v89;
-          *(v83 + 149) = v88;
-          if (v201)
+          *(v86 + 144) = 0;
+          *(v86 + 148) = v92;
+          *(v86 + 149) = v91;
+          if (v206)
           {
-            *(*(v41 + 16) + 497) &= ~1u;
+            *(*(v42 + 16) + 497) &= ~1u;
           }
 
-          v90 = CGImageGetIdentifier();
-          if (((v66 < 2) & ~v204) != 0)
+          v93 = CGImageGetIdentifier();
+          if (((v69 < 2) & ~v209) != 0)
           {
-            v93 = 0;
-            v97 = 2;
-            v96 = v194;
-            v95 = v195;
+            v96 = 0;
+            v100 = 2;
+            v99 = v199;
+            v98 = v200;
           }
 
           else
           {
-            MEMORY[0x1EEE9AC00](v90);
-            v93 = &v186;
-            v186 = &unk_1EF2051B0;
-            v187 = v94;
-            v188 = v215;
-            v189 = v35;
-            v96 = v194;
-            v95 = v195;
-            v190 = v68;
-            v191 = v194;
-            v192 = v195;
-            v90 = 33 * (33 * (33 * (33 * (33 * (DWORD1(v215) + 33 * v215) + v35) + v68) + v194) + v195) + v94;
-            v97 = 3;
+            MEMORY[0x1EEE9AC00](v93);
+            v96 = &v191;
+            v191 = &unk_1EF2051B0;
+            v192 = v97;
+            v193 = v220;
+            v194 = v36;
+            v99 = v199;
+            v98 = v200;
+            v195 = v71;
+            v196 = v199;
+            v197 = v200;
+            v93 = 33 * (33 * (33 * (33 * (33 * (DWORD1(v220) + 33 * v220) + v36) + v71) + v199) + v200) + v97;
+            v100 = 3;
           }
 
-          v164 = 0;
-          v165 = v200;
-          if (v200)
+          v169 = 0;
+          v170 = v205;
+          if (v205)
           {
-            v97 |= 0x100u;
+            v100 |= 0x100u;
           }
 
-          v204 = v97;
-          v91.i64[0] = &v209;
-          v92.i64[0] = v202;
-          v166 = vdupq_lane_s64(vmvnq_s8(vceqq_s64(v91, v92)).i64[0], 0);
-          v167 = vandq_s8(v202[1], v166);
-          v168 = vandq_s8(*v202, v166);
-          v170 = *(v203 + 16);
-          v169 = *(v203 + 24);
-          v211 = vmlaq_n_f64(vmlaq_n_f64(vandq_s8(v202[2], v166), v168, *v203), v167, v169 + *(v203 + 8));
-          v171 = vmulq_n_f64(v168, v170 / v96);
-          v172 = vmulq_n_f64(v167, -v169 / v95);
-          v209 = v171;
-          v210 = v172;
-          v173 = v90;
-          if (vabdd_f64(v171.f64[0], trunc(v172.f64[1])) < 0.000001 && fabs(v171.f64[1]) < 0.000001)
+          v209 = v100;
+          v94.i64[0] = &v214;
+          v95.i64[0] = v207;
+          v171 = vdupq_lane_s64(vmvnq_s8(vceqq_s64(v94, v95)).i64[0], 0);
+          v172 = vandq_s8(v207[1], v171);
+          v173 = vandq_s8(*v207, v171);
+          v175 = *(v208 + 16);
+          v174 = *(v208 + 24);
+          v216 = vmlaq_n_f64(vmlaq_n_f64(vandq_s8(v207[2], v171), v173, *v208), v172, v174 + *(v208 + 8));
+          v176 = vmulq_n_f64(v173, v175 / v99);
+          v177 = vmulq_n_f64(v172, -v174 / v98);
+          v214 = v176;
+          v215 = v177;
+          v178 = v93;
+          if (vabdd_f64(v176.f64[0], trunc(v177.f64[1])) < 0.000001 && fabs(v176.f64[1]) < 0.000001)
           {
-            v164 = fabs(v172.f64[0]) < 0.000001;
+            v169 = fabs(v177.f64[0]) < 0.000001;
           }
 
-          v174 = (*(*v41 + 232))(v41, 9);
-          v175 = !v193;
-          if (!v174)
+          v179 = (*(*v42 + 232))(v42, 9);
+          v180 = !v198;
+          if (!v179)
           {
-            v175 = 1;
+            v180 = 1;
           }
 
-          if ((v175 & 1) != 0 || (v176 = *(*(v41 + 16) + 496), v176 == 12) || (v176 - 1) > 0x18)
+          if ((v180 & 1) != 0 || (v181 = *(*(v42 + 16) + 496), v181 == 12) || (v181 - 1) > 0x18)
           {
-            v222 = 0u;
+            v227 = 0u;
+            v228 = 0u;
+            v225 = 0u;
+            v226 = 0u;
             v223 = 0u;
-            v220 = 0u;
-            v221 = 0u;
-            v218 = 0u;
-            v219 = 0u;
-            v217 = 0u;
-            v180 = v22;
-            v182 = v194;
-            v181 = v195;
-            CA::CG::ImageDelegate::ImageDelegate(&v217, v207, v41, v180, v194, v195, v206, v165, &v209, v164, &v227);
-            CA::OGL::Mosaic::draw(v83, v41, v204, v173, v93, v182, v181, 1, &v217, v199);
-            CA::CG::MosaicBitmapDelegate::~MosaicBitmapDelegate(&v217);
+            v224 = 0u;
+            v222 = 0u;
+            v185 = v23;
+            v187 = v199;
+            v186 = v200;
+            CA::CG::ImageDelegate::ImageDelegate(&v222, v212, v42, v185, v199, v200, v211, v170, &v214, v169, &v232);
+            CA::OGL::Mosaic::draw(v86, v42, v209, v178, v96, v187, v186, 1, &v222, v204);
+            CA::CG::MosaicBitmapDelegate::~MosaicBitmapDelegate(&v222);
           }
 
           else
           {
-            v177 = v22;
-            v179 = v194;
-            v178 = v195;
-            CA::CG::ImageRectDelegate::ImageRectDelegate(&v217, v207, v41, v177, v194, v195, v206, v165, &v209, v164, &v227);
-            CA::OGL::Mosaic::draw(v83, v41, v204, v173, v93, v179, v178, 1, &v217, v199);
-            CA::CG::ImageRectDelegate::~ImageRectDelegate(&v217);
+            v182 = v23;
+            v184 = v199;
+            v183 = v200;
+            CA::CG::ImageRectDelegate::ImageRectDelegate(&v222, v212, v42, v182, v199, v200, v211, v170, &v214, v169, &v232);
+            CA::OGL::Mosaic::draw(v86, v42, v209, v178, v96, v184, v183, 1, &v222, v204);
+            CA::CG::ImageRectDelegate::~ImageRectDelegate(&v222);
           }
 
-          v183 = v201;
-          if (v93)
+          v188 = v206;
+          if (v96)
           {
-            (**v93)(v93);
+            (**v96)(v96);
           }
 
-          if (v183)
+          if (v188)
           {
-            *(*(v41 + 16) + 497) |= 1u;
+            *(*(v42 + 16) + 497) |= 1u;
           }
 
-          v184 = *(v83 + 160);
-          if (v184)
+          v189 = *(v86 + 160);
+          if (v189)
           {
-            (*(*v41 + 560))(v41, v184, 0);
-            *(v83 + 160) = 0;
-            *(v83 + 152) = -1;
+            (*(*v42 + 560))(v42, v189, 0);
+            *(v86 + 160) = 0;
+            *(v86 + 152) = -1;
           }
 
-          *(v83 + 144) = -1;
-          *(v83 + 112) = 0;
+          *(v86 + 144) = -1;
+          *(v86 + 112) = 0;
         }
 
-        v57 = 0;
-        *(*(v41 + 16) + 16) = 0;
-        if (v87)
+        v58 = 0;
+        *(*(v42 + 16) + 16) = 0;
+        if (v90)
         {
           goto LABEL_224;
         }
 
 LABEL_225:
-        if (!v57)
+        if (!v58)
         {
           return;
         }
@@ -15843,94 +14635,94 @@ LABEL_225:
     }
   }
 
-  if (v200)
+  if (v205)
   {
-    v98 = 158;
+    v101 = 158;
   }
 
   else
   {
-    v98 = 156;
+    v101 = 156;
   }
 
-  if (v198)
+  if (v203)
   {
-    v99 = (v98 | 0x40);
+    v102 = (v101 | 0x40);
   }
 
   else
   {
-    v99 = v98;
+    v102 = v101;
   }
 
-  v100 = *(v41 + 648);
-  v101 = 1.0;
+  v103 = *(v42 + 648);
+  v104 = 1.0;
   if (CGImageGetCachingFlags() == 1)
   {
-    v102 = 0.1;
+    v105 = 0.1;
   }
 
   else
   {
-    v102 = 1.0;
+    v105 = 1.0;
   }
 
-  v103 = (*(*v41 + 232))(v41, 4);
-  v104 = v204;
-  if (v68 * v35 <= 0x100000)
+  v106 = (*(*v42 + 232))(v42, 4);
+  v107 = v209;
+  if (v71 * v36 <= 0x100000)
   {
-    v105 = 1;
+    v108 = 1;
   }
 
   else
   {
-    v105 = v204;
+    v108 = v209;
   }
 
-  if ((v105 & 1) == 0)
+  if ((v108 & 1) == 0)
   {
-    v106 = CGImageGetColorSpace(v216);
-    if (CGColorSpaceGetModel(v106) >= kCGColorSpaceModelCMYK)
+    v109 = CGImageGetColorSpace(v221);
+    if (CGColorSpaceGetModel(v109) >= kCGColorSpaceModelCMYK)
     {
-      v107 = v202;
-      v108 = vmulq_f64(v107[1], v107[1]);
-      v109 = vaddvq_f64(vmulq_f64(*v107, *v107));
-      v110 = vaddq_f64(vdupq_laneq_s64(v108, 1), v108).f64[0];
-      v111 = v109 != 1.0;
-      if (v110 != 1.0)
+      v110 = v207;
+      v111 = vmulq_f64(v110[1], v110[1]);
+      v112 = vaddvq_f64(vmulq_f64(*v110, *v110));
+      v113 = vaddq_f64(vdupq_laneq_s64(v111, 1), v111).f64[0];
+      v114 = v112 != 1.0;
+      if (v113 != 1.0)
       {
-        v111 = 1;
+        v114 = 1;
       }
 
-      v112 = sqrt(v109);
-      v113 = sqrt(v110);
-      if (v111)
+      v115 = sqrt(v112);
+      v116 = sqrt(v113);
+      if (v114)
       {
-        v110 = v113;
-        v109 = v112;
+        v113 = v116;
+        v112 = v115;
       }
 
-      v101 = fmin(fmax(*(v203 + 16) * v109 / v35, *(v203 + 24) * v110 / v68), 1.0);
+      v104 = fmin(fmax(*(v208 + 16) * v112 / v36, *(v208 + 24) * v113 / v71), 1.0);
     }
   }
 
-  v114 = v102 + v100;
-  if (v101 * v101 * v35 * v68 > (v103 * v103))
+  v117 = v105 + v103;
+  if (v104 * v104 * v36 * v71 > (v106 * v106))
   {
-    v115 = v35 <= v68 ? v68 : v35;
-    v116 = v103 / v115;
-    v101 = v116;
-    if (v116 * v115 > v103)
+    v118 = v36 <= v71 ? v71 : v36;
+    v119 = v106 / v118;
+    v104 = v119;
+    if (v119 * v118 > v106)
     {
-      v101 = floorf(v116 * 10000.0) * 0.0001;
+      v104 = floorf(v119 * 10000.0) * 0.0001;
     }
   }
 
-  v117 = CA::Render::copy_image(v216, *(v41 + 560), v99, v114, v101);
-  v57 = v117;
-  if (!v117)
+  v120 = CA::Render::copy_image(v221, *(v42 + 560), v102, v117, v104);
+  v58 = v120;
+  if (!v120)
   {
-    if (!v205)
+    if (!v210)
     {
       goto LABEL_225;
     }
@@ -15938,69 +14730,69 @@ LABEL_225:
     goto LABEL_224;
   }
 
-  v118 = v117[1].i32[1];
-  v117[1].i32[1] = v118 & 0xFFF7FFFF;
-  v119 = v117[2];
-  v209 = 0u;
-  v210 = 0u;
-  v120 = v119.i32[0];
-  v121 = v119.i32[1];
-  if (*&v119 == __PAIR64__(v196, Width))
+  v121 = v120[1].i32[1];
+  v120[1].i32[1] = v121 & 0xFFF7FFFF;
+  v122 = v120[2];
+  v214 = 0u;
+  v215 = 0u;
+  v123 = v122.i32[0];
+  v124 = v122.i32[1];
+  if (*&v122 == __PAIR64__(v201, Width))
   {
 LABEL_146:
-    if (v118 == 23)
+    if (v121 == 23)
     {
-      v127 = v104;
+      v130 = v107;
     }
 
     else
     {
-      v127 = 0;
+      v130 = 0;
     }
 
-    if (v127 != 1)
+    if (v130 != 1)
     {
       goto LABEL_202;
     }
 
-    if (BYTE4(v212) != 2 && BYTE4(v212) != 11)
+    if (BYTE4(v217) != 2 && BYTE4(v217) != 11)
     {
-      v136 = v120 <= v103 && v121 <= v103;
-      v137 = !v136 && SDWORD2(v215) <= v103;
-      if (!v137 || v68 > v103)
+      v139 = v123 <= v106 && v124 <= v106;
+      v140 = !v139 && SDWORD2(v220) <= v106;
+      if (!v140 || v71 > v106)
       {
         goto LABEL_202;
       }
     }
 
-    v128 = (*(*v41 + 248))(v41, v117[21].u8[0], DWORD2(v215), v68);
-    v129 = v128;
-    v130 = v57[1].i32[1];
-    if ((v130 & 0x2000000) != 0)
+    v131 = (*(*v42 + 248))(v42, v120[21].u8[0], DWORD2(v220), v71);
+    v132 = v131;
+    v133 = v58[1].i32[1];
+    if ((v133 & 0x2000000) != 0)
     {
-      *&v229 = 0;
-      *&v227 = v57;
-      *(&v227 + 1) = v128;
-      v228 = v215;
-      *(&v229 + 1) = 0x7FF0000000000000;
+      *&v234 = 0;
+      *&v232 = v58;
+      *(&v232 + 1) = v131;
+      v233 = v220;
+      *(&v234 + 1) = 0x7FF0000000000000;
       os_unfair_lock_lock(&CA::Render::Image::_subimage_table_lock);
       if (CA::Render::Image::_subimage_table)
       {
-        *&v217 = 0;
-        v131 = x_hash_table_lookup(CA::Render::Image::_subimage_table, &v227, &v217);
-        if (v131)
+        *&v222 = 0;
+        v134 = x_hash_table_lookup(CA::Render::Image::_subimage_table, &v232, &v222);
+        if (v134)
         {
-          v132 = v131;
-          if (v114 > 0.0)
+          v135 = v134;
+          if (v117 > 0.0)
           {
-            if (*(v217 + 40) < v114)
+            if (*(v222 + 40) < v117)
             {
-              *(v217 + 40) = v114;
+              *(v222 + 40) = v117;
             }
 
-            if (*&CA::Render::Image::_subimage_deadline > v114)
+            if (*&CA::Render::Image::_subimage_deadline > v117)
             {
-              CA::Render::Image::_subimage_deadline = *&v114;
+              CA::Render::Image::_subimage_deadline = *&v117;
             }
           }
 
@@ -16009,84 +14801,89 @@ LABEL_146:
       }
 
       os_unfair_lock_unlock(&CA::Render::Image::_subimage_table_lock);
-      v130 = v57[1].i32[1];
+      v133 = v58[1].i32[1];
     }
 
-    v57[1].i32[1] = v130 | 0x2000000;
-    v140 = CA::Render::Image::copy_subimage(v57, 0, &v215, v129, 0);
-    if (!v140)
+    v58[1].i32[1] = v133 | 0x2000000;
+    v143 = CA::Render::Image::copy_subimage(v58, 0, &v220, v132, 0);
+    if (!v143)
     {
       goto LABEL_202;
     }
 
-    v132 = v140;
+    v135 = v143;
     if (x_malloc_get_zone::once != -1)
     {
       dispatch_once_f(&x_malloc_get_zone::once, 0, malloc_zone_init);
     }
 
-    v141 = malloc_type_zone_malloc(malloc_zone, 0x30uLL, 0x165299FDuLL);
-    v142 = v141;
-    if (v141)
+    v144 = malloc_type_zone_malloc(malloc_zone, 0x30uLL, 0x165299FDuLL);
+    v145 = v144;
+    if (v144)
     {
-      *v141 = v57;
-      *(v141 + 1) = v129;
-      *(v141 + 1) = v215;
-      *(v141 + 8) = 0;
-      v141[5] = INFINITY;
+      *v144 = v58;
+      *(v144 + 1) = v132;
+      *(v144 + 1) = v220;
+      *(v144 + 8) = 0;
+      v144[5] = INFINITY;
     }
 
     os_unfair_lock_lock(&CA::Render::Image::_subimage_table_lock);
-    if (v114 > 0.0)
+    if (v117 > 0.0)
     {
-      v142[5] = v114;
-      if (*&CA::Render::Image::_subimage_deadline > v114)
+      v145[5] = v117;
+      if (*&CA::Render::Image::_subimage_deadline > v117)
       {
-        CA::Render::Image::_subimage_deadline = *&v114;
+        CA::Render::Image::_subimage_deadline = *&v117;
       }
     }
 
-    v143 = CA::Render::Image::_subimage_table;
+    v146 = CA::Render::Image::_subimage_table;
     if (!CA::Render::Image::_subimage_table)
     {
-      v143 = x_hash_table_new_(CA::Render::Image::SubimageKey::hash, CA::Render::Image::SubimageKey::compare, 0, 0, 0, 0);
-      CA::Render::Image::_subimage_table = v143;
+      v146 = x_hash_table_new_(CA::Render::Image::SubimageKey::hash, CA::Render::Image::SubimageKey::compare, 0, 0, 0, 0);
+      CA::Render::Image::_subimage_table = v146;
     }
 
-    if ((hash_table_modify(v143, v142, v132, 0) & 1) == 0)
+    if ((hash_table_modify(v146, v145, v135, 0) & 1) == 0)
     {
-      if (atomic_fetch_add(&v132[1], 0xFFFFFFFF) == 1)
+      if (atomic_fetch_add(&v135[1], 0xFFFFFFFF) == 1)
       {
-        (*(*v132 + 16))(v132);
+        (*(*v135 + 16))(v135);
       }
 
-      v132 = x_hash_table_lookup(CA::Render::Image::_subimage_table, v142, 0);
-      if (v142)
+      v135 = x_hash_table_lookup(CA::Render::Image::_subimage_table, v145, 0);
+      if (v145)
       {
         if (x_malloc_get_zone::once != -1)
         {
           dispatch_once_f(&x_malloc_get_zone::once, 0, malloc_zone_init);
         }
 
-        malloc_zone_free(malloc_zone, v142);
+        malloc_zone_free(malloc_zone, v145);
       }
 
-      if (!v132)
+      if (!v135)
       {
 LABEL_199:
         os_unfair_lock_unlock(&CA::Render::Image::_subimage_table_lock);
-        if (v132)
+        if (v135)
         {
-          *&v215 = 0;
-          v120 = v132[2].i32[0];
-          v121 = v132[2].i32[1];
-          if (atomic_fetch_add(&v57[1], 0xFFFFFFFF) == 1)
+          *&v220 = 0;
+          v123 = v135[2].i32[0];
+          v124 = v135[2].i32[1];
+          if (atomic_fetch_add(&v58[1], 0xFFFFFFFF) == 1)
           {
-            (*(*v57 + 16))(v57);
+            (*(*v58 + 16))(v58);
           }
 
 LABEL_203:
-          v258 = 0;
+          v263 = 0;
+          v262 = 0u;
+          v261 = 0u;
+          v260 = 0u;
+          v259 = 0u;
+          v258 = 0u;
           v257 = 0u;
           v256 = 0u;
           v255 = 0u;
@@ -16113,73 +14910,68 @@ LABEL_203:
           v234 = 0u;
           v233 = 0u;
           v232 = 0u;
-          v231 = 0u;
-          v230 = 0u;
-          v229 = 0u;
-          v228 = 0u;
-          v227 = 0u;
-          v145 = (*(*v132 + 104))(v132);
-          CA::OGL::ContentsGeometry::ContentsGeometry(&v227, v120, v121, v145, v203, &v215, v202->f64, v212, v199);
-          v146 = *(v41 + 16);
-          v147 = *(v146 + 497);
-          if (v147)
+          v148 = (*(*v135 + 104))(v135);
+          CA::OGL::ContentsGeometry::ContentsGeometry(&v232, v123, v124, v148, v208, &v220, v207->f64, v217, v204);
+          v149 = *(v42 + 16);
+          v150 = *(v149 + 497);
+          if (v150)
           {
-            DWORD1(v246) |= 0x100u;
+            DWORD1(v251) |= 0x100u;
           }
 
-          v148 = v205;
-          v149 = v201;
-          if (v201)
+          v151 = v210;
+          v152 = v206;
+          if (v206)
           {
-            *(v146 + 497) = v147 & 0xFE;
+            *(v149 + 497) = v150 & 0xFE;
           }
 
-          v152 = (*(*v132 + 216))(v132);
-          v153 = v152;
-          if (v152 || (v132[1].i8[4] == 23 && BYTE4(v212) == 11 && (CA::OGL::ContentsGeometry::scale(&v227, v150, v151), v157 < 0.75) || (*(*v41 + 608))(v41, v132)) && (LODWORD(v217) = 0, v208 = 0, ((*(*v132 + 232))(v132, &v217, &v208) & 1) != 0) && (v158 = (*(*v132 + 104))(v132), v159 = (*(*v41 + 248))(v41, v158, v217, v208), (v153 = (*(*v132 + 224))(v132, v159, (DWORD1(v246) >> 11) & 1)) != 0))
+          v155 = (*(*v135 + 216))(v135);
+          v156 = v155;
+          if (v155 || (v135[1].i8[4] == 23 && BYTE4(v217) == 11 && (CA::OGL::ContentsGeometry::scale(&v232, v153, v154), v160 < 0.75) || (*(*v42 + 608))(v42, v135)) && (LODWORD(v222) = 0, v213 = 0, ((*(*v135 + 232))(v135, &v222, &v213) & 1) != 0) && (v161 = (*(*v135 + 104))(v135), v162 = (*(*v42 + 248))(v42, v161, v222, v213), (v156 = (*(*v135 + 224))(v135, v162, (DWORD1(v251) >> 11) & 1)) != 0))
           {
-            v226 = 0;
-            v224 = 0u;
+            v231 = 0;
+            v229 = 0u;
+            v230 = 0u;
+            v227 = 0u;
+            v228 = 0u;
             v225 = 0u;
-            v222 = 0u;
+            v226 = 0u;
             v223 = 0u;
-            v220 = 0u;
-            v221 = 0u;
-            v218 = 0u;
-            v219 = 0u;
-            v217 = 0u;
-            CA::OGL::TiledImageGeometry::TiledImageGeometry(&v217, v153, v41, SDWORD1(v246), SBYTE4(v212), SBYTE5(v212), &v227, *(&v212 + 2));
-            CA::OGL::TiledImageGeometry::draw_tiles(&v217, 0, 1);
-            v156 = v197;
-            if (!v152 && atomic_fetch_add(v153 + 2, 0xFFFFFFFF) == 1)
+            v224 = 0u;
+            v222 = 0u;
+            CA::OGL::TiledImageGeometry::TiledImageGeometry(&v222, v156, v42, SDWORD1(v251), SBYTE4(v217), SBYTE5(v217), &v232, *(&v217 + 2));
+            CA::OGL::TiledImageGeometry::draw_tiles(&v222, 0, 1);
+            v159 = v202;
+            if (!v155 && atomic_fetch_add(v156 + 2, 0xFFFFFFFF) == 1)
             {
-              (*(*v153 + 16))(v153);
+              (*(*v156 + 16))(v156);
             }
           }
 
           else
           {
-            v160 = CA::OGL::Context::bind_image(v41, 0, v132, DWORD1(v246), BYTE4(v212), BYTE5(v212), 0, &v227, *(&v212 + 2), (&v244 + 4), 0);
-            v156 = v197;
-            if (v160)
+            v163 = CA::OGL::Context::bind_image(v42, 0, v135, DWORD1(v251), BYTE4(v217), BYTE5(v217), 0, &v232, *(&v217 + 2), (&v249 + 4), 0);
+            v159 = v202;
+            if (v163)
             {
-              CA::OGL::ContentsGeometry::fill_and_unbind(&v227, v41, v160, BYTE4(v212), *(&v212 + 2));
+              CA::OGL::ContentsGeometry::fill_and_unbind(&v232, v42, v163, BYTE4(v217), v164, v165, *(&v217 + 2));
             }
           }
 
-          if (v149)
+          if (v152)
           {
-            *(*(v41 + 16) + 497) |= 1u;
+            *(*(v42 + 16) + 497) |= 1u;
           }
 
-          v161 = CA::OGL::ContentsGeometry::fill_debug(&v227, v41, 0, v132, v156 & 1, v154, v155);
-          if (atomic_fetch_add(&v132[1], 0xFFFFFFFF) == 1)
+          v166 = CA::OGL::ContentsGeometry::fill_debug(&v232, v42, 0, v135, v159 & 1, v157, v158);
+          if (atomic_fetch_add(&v135[1], 0xFFFFFFFF) == 1)
           {
-            (*(*v132 + 16))(v132, v161);
+            (*(*v135 + 16))(v135, v166);
           }
 
-          v57 = 0;
-          if (v148)
+          v58 = 0;
+          if (v151)
           {
             goto LABEL_224;
           }
@@ -16188,53 +14980,53 @@ LABEL_203:
         }
 
 LABEL_202:
-        v132 = v57;
+        v135 = v58;
         goto LABEL_203;
       }
     }
 
 LABEL_197:
-    v144 = &v132[1];
-    if (!atomic_fetch_add(&v132[1], 1u))
+    v147 = &v135[1];
+    if (!atomic_fetch_add(&v135[1], 1u))
     {
-      v132 = 0;
-      atomic_fetch_add(v144, 0xFFFFFFFF);
+      v135 = 0;
+      atomic_fetch_add(v147, 0xFFFFFFFF);
     }
 
     goto LABEL_199;
   }
 
-  if (!v104)
+  if (!v107)
   {
-    v123 = vsub_s32(vmin_s32(vadd_s32(*(&v215 + 8), *&v215), v119), *&v215);
+    v126 = vsub_s32(vmin_s32(vadd_s32(*(&v220 + 8), *&v220), v122), *&v220);
     goto LABEL_145;
   }
 
-  v122 = vcgt_s32(v119, *&v215);
-  if (v122.i32[0] & v122.i32[1])
+  v125 = vcgt_s32(v122, *&v220);
+  if (v125.i32[0] & v125.i32[1])
   {
-    v123 = vsub_s32(vmin_s32(vadd_s32(*(&v215 + 8), *&v215), v119), *&v215);
-    v124 = *(v203 + 16);
-    v125.i64[0] = v123.i32[0];
-    v125.i64[1] = v123.i32[1];
-    v126 = vmulq_f64(v124, vcvtq_f64_s64(v125));
-    v125.i64[0] = SDWORD2(v215);
-    v125.i64[1] = SHIDWORD(v215);
-    v210 = vdivq_f64(v126, vcvtq_f64_s64(v125));
-    v124.f64[0] = COERCE_DOUBLE(*&vsubq_f64(v124, v210).f64[1]) + *(v203 + 8);
-    v209.f64[0] = *v203;
-    v209.f64[1] = v124.f64[0];
-    *&v203 = &v209;
+    v126 = vsub_s32(vmin_s32(vadd_s32(*(&v220 + 8), *&v220), v122), *&v220);
+    v127 = *(v208 + 16);
+    v128.i64[0] = v126.i32[0];
+    v128.i64[1] = v126.i32[1];
+    v129 = vmulq_f64(v127, vcvtq_f64_s64(v128));
+    v128.i64[0] = SDWORD2(v220);
+    v128.i64[1] = SHIDWORD(v220);
+    v215 = vdivq_f64(v129, vcvtq_f64_s64(v128));
+    v127.f64[0] = COERCE_DOUBLE(*&vsubq_f64(v127, v215).f64[1]) + *(v208 + 8);
+    v214.f64[0] = *v208;
+    v214.f64[1] = v127.f64[0];
+    *&v208 = &v214;
 LABEL_145:
-    *(&v215 + 1) = v123;
-    v68 = v123.u32[1];
+    *(&v220 + 1) = v126;
+    v71 = v126.u32[1];
     goto LABEL_146;
   }
 
 LABEL_226:
-  if (atomic_fetch_add(&v57[1], 0xFFFFFFFF) == 1)
+  if (atomic_fetch_add(&v58[1], 0xFFFFFFFF) == 1)
   {
-    (*(*v57 + 16))(v57);
+    (*(*v58 + 16))(v58);
   }
 }
 
@@ -16364,20 +15156,20 @@ LABEL_16:
   return a1;
 }
 
-uint64_t CA::CG::ImageRectDelegate::ImageRectDelegate(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, int a6, int a7, char a8, uint64_t a9, char a10, uint64_t a11)
+uint64_t CA::CG::ImageRectDelegate::ImageRectDelegate(uint64_t a1, uint64_t a2, float32x4_t *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11)
 {
   v13 = CA::CG::ImageDelegate::ImageDelegate(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11);
   *v13 = &unk_1EF204EA8;
   *(v13 + 1392) = 0;
   v14 = v13 + 1400;
-  *(*(a3 + 16) + 16) = 112;
+  *(a3[1].i64[0] + 16) = 112;
   v15 = CA::Transform::operator=(v13 + 1400, &CA::identity_transform);
   v15.n128_u64[0] = *(a9 + 32);
   CA::Transform::translate(v16, v15, *(a9 + 40), 0.0);
-  *(a3 + 1368) = v14;
-  ++*(a3 + 664);
-  v17 = *(*(a3 + 16) + 8);
-  v18 = (*(a3 + 1384) >> 12) & 7;
+  a3[85].i64[1] = v14;
+  ++a3[41].i32[2];
+  v17 = *(a3[1].i64[0] + 8);
+  v18 = (a3[86].u16[4] >> 12) & 7;
   v19 = HIWORD(v17);
   if (v18 == 2)
   {
@@ -16394,9 +15186,9 @@ LABEL_4:
   v20 = vcvtq_f32_f16(v17);
   v23.val[1] = vcvt_f32_f64(*(a9 + 16));
   v23.val[0] = vcvt_f32_f64(*a9);
-  v21 = (a3 + 160);
-  vst2_f32(v21, v23);
-  *(a3 + 240) = v20;
+  v21 = a3 + 10;
+  vst2_f32(v21->f32, v23);
+  a3[15] = v20;
   return a1;
 }
 
@@ -16762,7 +15554,7 @@ void CA::CG::DrawImage::draw_color(CA::CG::DrawImage *this, CA::CG::Renderer *a2
   }
 }
 
-uint64_t CA::CG::DrawImage::draw_shape(CA::CG::DrawImage *this, CA::CG::Renderer *a2, int8x16_t a3, int8x16_t a4, int8x16_t a5)
+uint64_t CA::CG::DrawImage::draw_shape(CA::CG::DrawImage *this, CA::CG::Renderer *a2, __n128 a3, __n128 a4, __n128 a5)
 {
   v24 = *MEMORY[0x1E69E9840];
   v6 = *(this + 25);
@@ -16770,34 +15562,34 @@ uint64_t CA::CG::DrawImage::draw_shape(CA::CG::DrawImage *this, CA::CG::Renderer
   {
     v14 = *(*this + 184);
 
-    return v14();
+    return v14(a3, a4, a5);
   }
 
   else
   {
     v7 = *(a2 + 1);
     v8 = (v6 << 31 >> 31);
-    a5.i64[0] = *(this + 17);
-    a3.i64[0] = *(this + 18);
-    v15 = a5.i64[0];
-    v16 = a3.i64[0];
+    a5.n128_u64[0] = *(this + 17);
+    a3.n128_u64[0] = *(this + 18);
+    v15 = a5.n128_u64[0];
+    v16 = a3.n128_u64[0];
     v9 = *(this + 19);
-    a4.i64[0] = *(this + 20);
+    a4.n128_u64[0] = *(this + 20);
     v17 = v9;
-    v18 = a4.i64[0];
+    v18 = a4.n128_u64[0];
     if (v9 < 0.0)
     {
-      *a5.i64 = v9 + *a5.i64;
-      v15 = a5.i64[0];
+      a5.n128_f64[0] = v9 + a5.n128_f64[0];
+      v15 = a5.n128_u64[0];
       v17 = -v9;
     }
 
-    if (*a4.i64 < 0.0)
+    if (a4.n128_f64[0] < 0.0)
     {
-      *a3.i64 = *a4.i64 + *a3.i64;
-      *a4.i64 = -*a4.i64;
-      v16 = a3.i64[0];
-      v18 = a4.i64[0];
+      a3.n128_f64[0] = a4.n128_f64[0] + a3.n128_f64[0];
+      a4.n128_f64[0] = -a4.n128_f64[0];
+      v16 = a3.n128_u64[0];
+      v18 = a4.n128_u64[0];
     }
 
     v10 = CA::CG::mat2_filter_bits(a2 + 32, a3, a4, a5);
@@ -16925,11 +15717,11 @@ uint64_t CA::CG::DrawImage::compute_dod_corners(uint64_t a1, float64x2_t *a2)
   v18 = vld1q_dup_f64(v7);
   do
   {
-    f64 = a2[v2].f64;
-    v21 = vld2q_f64(f64);
+    v19 = &a2[v2];
+    v21 = vld2q_f64(v19->f64);
     v22.val[0] = vmlaq_f64(vmlaq_f64(v15, v21.val[0], v11), v21.val[1], v14);
     v22.val[1] = vmlaq_f64(vmlaq_f64(v18, v21.val[0], v16), v21.val[1], v17);
-    vst2q_f64(f64, v22);
+    vst2q_f64(v19->f64, v22);
     v2 += 2;
   }
 
@@ -16990,11 +15782,13 @@ void CA::CG::DrawSubimage::draw_image(CA::CG::DrawSubimage *this, CA::CG::Render
 
   if (v7 < 0.0)
   {
-    v10 = v7 + v5;
+    v5 = v7 + v5;
+    v10 = v5;
     v12 = -v7;
   }
 
-  CA::CG::fill_image(a2, v4, &v9, a2 + 32, *(this + 25) & a3, (*(this + 25) >> 1) & 1, (*(this + 60) >> 8), *(this + 60), *(this + 14), (this + 168));
+  LODWORD(v5) = *(this + 31);
+  CA::CG::fill_image(a2, v4, &v9, a2 + 32, *(this + 25) & a3, (*(this + 25) >> 1) & 1, (*(this + 60) >> 8), *(this + 60), v5, *(this + 14), (this + 168));
 }
 
 void CA::CG::DrawSubimage::~DrawSubimage(CGImageRef *this)
@@ -17103,7 +15897,7 @@ LABEL_19:
   {
     v27 = result;
     v28 = CA::OGL::Context::color_program_cache(*&v22);
-    v29 = CA::ColorProgram::Cache::push_whippet_cache(v28, *(v27 + 56), *(v27 + 64), v17, 0, 0);
+    v29 = CA::ColorProgram::Cache::push_whippet_cache(v28, *(v27 + 56), 0, 0, *(v27 + 64), v17);
     *(v27 + 12) &= ~0x80000u;
     if (x_malloc_get_zone::once != -1)
     {
@@ -17226,7 +16020,7 @@ LABEL_38:
         *&v80[10] = v80;
         memset(&v80[10] + 12, 0, 28);
         DWORD2(v80[10]) = v51;
-        CA::OGL::fill_rect_tex(*&v22, &v80[9] + 8, v83.f32);
+        CA::OGL::fill_rect_tex(*&v22, &v80[9] + 8, &v83);
         result = (*(**&v22 + 560))(COERCE_FLOAT64_T(*&v22), v52, 0);
       }
     }
@@ -17327,16 +16121,16 @@ uint64_t CA::CG::DrawTiledImage::draw_shape(CA::CG::DrawTiledImage *this, float6
     v8 = (v6 << 31 >> 31);
     a5.f64[0] = *(this + 21);
     a3.i64[0] = *(this + 22);
-    v14 = *&a5.f64[0];
+    v14 = a5.f64[0];
     v15 = a3.i64[0];
     v9 = *(this + 23);
     a4.f64[0] = *(this + 24);
     v16 = v9;
-    v17 = *&a4.f64[0];
+    v17 = a4.f64[0];
     if (v9 < 0.0)
     {
       a5.f64[0] = v9 + a5.f64[0];
-      v14 = *&a5.f64[0];
+      v14 = a5.f64[0];
       v16 = -v9;
     }
 
@@ -17345,7 +16139,7 @@ uint64_t CA::CG::DrawTiledImage::draw_shape(CA::CG::DrawTiledImage *this, float6
       *a3.i64 = a4.f64[0] + *a3.i64;
       a4.f64[0] = -a4.f64[0];
       v15 = a3.i64[0];
-      v17 = *&a4.f64[0];
+      v17 = a4.f64[0];
     }
 
     v10 = CA::CG::mat2_filter_bits(&a2[2], a3, a4, a5);
@@ -17493,7 +16287,7 @@ void CA::CG::DrawTiledImage::~DrawTiledImage(CGImageRef *this)
   CA::CG::DrawOp::~DrawOp(this);
 }
 
-uint64_t CA_CGAffineTransformIsValid()
+uint64_t CA_CGAffineTransformIsValid(double *a1)
 {
   if (!CGFloatIsValid() || !CGFloatIsValid() || !CGFloatIsValid() || !CGFloatIsValid() || !CGFloatIsValid())
   {
@@ -17608,11 +16402,11 @@ LABEL_18:
 
   v22 = 0;
 LABEL_29:
-  *(v18 + 5) = v22;
+  v18[5] = v22;
   v24 = (*(*a1 + 24))(a1);
-  *(v19 + 6) = v24;
+  v19[6] = v24;
   CFRetain(v24);
-  return *(v19 + 2);
+  return v19[2];
 }
 
 BOOL CAIOSurfaceIsAcceleratable(uint64_t a1, unsigned int a2, unsigned int a3, unsigned int a4)
@@ -17915,7 +16709,7 @@ _BYTE *get_colorspace_map(_BYTE *result)
     if (v1)
     {
       v2 = *MEMORY[0x1E695F0B8];
-      get_colorspace_map(unsigned char *)::space_names = 0;
+      get_colorspace_map(unsigned char *)::space_names[0] = 0;
       unk_1EA8537E0 = v2;
       v3 = *MEMORY[0x1E695F0F0];
       qword_1EA8537E8 = *MEMORY[0x1E695F0C0];
@@ -18132,39 +16926,40 @@ CFStringRef CACreateStringWithDoubleArray(uint64_t a1, unint64_t a2, double a3)
   return 0;
 }
 
-__IOSurface *CACreateIOSurfaceBackedCGImage(__IOSurface *result, char a2, uint64_t a3)
+__IOSurface *CACreateIOSurfaceBackedCGImage(__IOSurface *result, __int16 a2, uint64_t a3, double a4, double a5)
 {
   if (result)
   {
-    v5 = result;
+    v6 = a2;
+    v7 = result;
     CFRetain(result);
-    if ((a2 & 0x1F) != 0)
+    if ((v6 & 0x1F) != 0)
     {
-      v6 = CFDictionaryCreate(0, MEMORY[0x1E695F2C8], MEMORY[0x1E695E4D0], 1, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+      v8 = CFDictionaryCreate(0, MEMORY[0x1E695F2C8], MEMORY[0x1E695E4D0], 1, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
     }
 
     else
     {
-      v6 = 0;
+      v8 = 0;
     }
 
-    PixelFormat = IOSurfaceGetPixelFormat(v5);
-    v8 = CA::Render::fourcc_compressed_of_type(PixelFormat, 0, 0);
+    PixelFormat = IOSurfaceGetPixelFormat(v7);
+    v10 = CA::Render::fourcc_compressed_of_type(PixelFormat, 0, 0);
     if (!a3)
     {
-      v9 = CA::Render::fourcc_to_format(v8);
-      CA::Render::format_default_colorspace(v9);
+      v11 = CA::Render::fourcc_to_format(v10);
+      CA::Render::format_default_colorspace(v11);
     }
 
     CGImageProviderCreate();
-    if (v6)
+    if (v8)
     {
-      CFRelease(v6);
+      CFRelease(v8);
     }
 
-    v10 = CGImageCreateWithImageProvider();
+    v12 = CGImageCreateWithImageProvider();
     CGImageProviderRelease();
-    return v10;
+    return v12;
   }
 
   return result;
@@ -18832,145 +17627,145 @@ void release_surface_block(__IOSurface *a1)
   CFRelease(a1);
 }
 
-uint64_t copy_image_block_set_metal(void *a1)
+uint64_t copy_image_block_set_metal(void *a1, uint64_t a2)
 {
-  v1 = a1;
-  v31 = *MEMORY[0x1E69E9840];
-  v2 = [a1 width];
-  v3 = [v1 height];
-  BytesPerRow = CAMetalTextureGetBytesPerRow(v1);
-  PixelFormat = CAMetalTextureGetPixelFormat(v1);
+  v2 = a1;
+  v32 = *MEMORY[0x1E69E9840];
+  v3 = [a1 width];
+  v4 = [v2 height];
+  BytesPerRow = CAMetalTextureGetBytesPerRow(v2);
+  PixelFormat = CAMetalTextureGetPixelFormat(v2);
   if (PixelFormat == 1647534392)
   {
-    v6 = CACreateFloat16TextureFromTexture(v1);
-    v7 = CAMetalTextureGetPixelFormat(v6);
-    BytesPerRow = CAMetalTextureGetBytesPerRow(v6);
-    v1 = v6;
+    v7 = CACreateFloat16TextureFromTexture(v2);
+    v8 = CAMetalTextureGetPixelFormat(v7);
+    BytesPerRow = CAMetalTextureGetBytesPerRow(v7);
+    v2 = v7;
   }
 
   else
   {
-    v7 = PixelFormat;
-    v6 = 0;
+    v8 = PixelFormat;
+    v7 = 0;
   }
 
   ComponentType = CGImageProviderGetComponentType();
-  v28 = 0;
   v29 = 0;
-  CAMetalTextureGetBytes(v1, &v29, &v28);
-  v9 = 0;
-  v10 = v29;
-  if (v29 && BytesPerRow)
+  v30 = 0;
+  CAMetalTextureGetBytes(v2, &v30, &v29);
+  v10 = 0;
+  v11 = v30;
+  if (v30 && BytesPerRow)
   {
-    if (v7 == 1380411457 || v7 == 1380401729)
+    if (v8 == 1380411457 || v8 == 1380401729)
     {
-      v12 = malloc_type_malloc(0x18uLL, 0xC004023DE3DC6uLL);
-      v13 = v28;
-      *v12 = v10;
-      v12[1] = v13;
-      v12[2] = CFRetain(v1);
+      v13 = malloc_type_malloc(0x18uLL, 0xC004023DE3DC6uLL);
+      v14 = v29;
+      *v13 = v11;
+      v13[1] = v14;
+      v13[2] = CFRetain(v2);
       goto LABEL_11;
     }
 
-    if (v7 == 1111970369)
+    if (v8 == 1111970369)
     {
-      src.data = v29;
-      src.height = v3;
-      src.width = v2;
+      src.data = v30;
+      src.height = v4;
+      src.width = v3;
       src.rowBytes = BytesPerRow;
-      dest.data = malloc_type_malloc(BytesPerRow * v3, 0xFB347DF3uLL);
-      dest.height = v3;
-      dest.width = v2;
+      dest.data = malloc_type_malloc(BytesPerRow * v4, 0xFB347DF3uLL);
+      dest.height = v4;
+      dest.width = v3;
       dest.rowBytes = BytesPerRow;
       *permuteMap = 50331906;
       vImagePermuteChannels_ARGB8888(&src, &dest, permuteMap, 0);
       CGImageBlockCreate();
-      v9 = CGImageBlockSetCreate();
-      CA::Render::aligned_free(v10, v28, v11);
+      v10 = CGImageBlockSetCreate();
+      CA::Render::aligned_free(v11, v29, v12);
       goto LABEL_12;
     }
 
-    if (v7 == 1999843442 && ComponentType == 1)
+    if (v8 == 1999843442 && ComponentType == 1)
     {
       {
       }
 
-      v15 = qword_1ED4E4918 - 1 + 4 * v2;
+      v16 = qword_1ED4E4918 - 1 + 4 * v3;
       if ((qword_1ED4E4918 & (qword_1ED4E4918 - 1)) != 0)
       {
-        v16 = v15 / qword_1ED4E4918 * qword_1ED4E4918;
+        v17 = v16 / qword_1ED4E4918 * qword_1ED4E4918;
       }
 
       else
       {
-        v16 = v15 & -qword_1ED4E4918;
+        v17 = v16 & -qword_1ED4E4918;
       }
 
-      v19 = malloc_type_calloc(v16, v3, 0x100004077774924uLL);
-      if (!v19)
+      v20 = malloc_type_calloc(v17, v4, 0x100004077774924uLL);
+      if (!v20)
       {
         goto LABEL_35;
       }
 
-      v20 = v19;
-      v21 = v1;
-      v22 = v20;
-      v23 = v16;
-      v24 = 0;
+      v21 = v20;
+      v22 = v2;
+      v23 = v21;
+      v24 = v17;
+      v25 = 0;
 LABEL_33:
-      if (!convert_CIF10(v21, v22, v23, v24))
+      if (!convert_CIF10(v22, v23, v24, v25))
       {
-        free(v20);
+        free(v21);
 LABEL_35:
-        v9 = 0;
+        v10 = 0;
         goto LABEL_12;
       }
 
 LABEL_11:
       src.data = CGImageBlockCreate();
-      v9 = CGImageBlockSetCreate();
+      v10 = CGImageBlockSetCreate();
       goto LABEL_12;
     }
 
-    v9 = 0;
-    if (v7 == 1999843442 && ComponentType == 5)
+    v10 = 0;
+    if (v8 == 1999843442 && ComponentType == 5)
     {
       {
       }
 
-      v17 = qword_1ED4E4918 - 1 + 8 * v2;
+      v18 = qword_1ED4E4918 - 1 + 8 * v3;
       if ((qword_1ED4E4918 & (qword_1ED4E4918 - 1)) != 0)
       {
-        v18 = v17 / qword_1ED4E4918 * qword_1ED4E4918;
+        v19 = v18 / qword_1ED4E4918 * qword_1ED4E4918;
       }
 
       else
       {
-        v18 = v17 & -qword_1ED4E4918;
+        v19 = v18 & -qword_1ED4E4918;
       }
 
-      v25 = malloc_type_calloc(v18, v3, 0xC05AE7C1uLL);
-      if (!v25)
+      v26 = malloc_type_calloc(v19, v4, 0xC05AE7C1uLL);
+      if (!v26)
       {
         goto LABEL_35;
       }
 
-      v20 = v25;
-      v21 = v1;
-      v22 = v20;
-      v23 = v18;
-      v24 = 1;
+      v21 = v26;
+      v22 = v2;
+      v23 = v21;
+      v24 = v19;
+      v25 = 1;
       goto LABEL_33;
     }
   }
 
 LABEL_12:
-  if (v6)
+  if (v7)
   {
-    CFRelease(v6);
+    CFRelease(v7);
   }
 
-  return v9;
+  return v10;
 }
 
 BOOL convert_CIF10(void *a1, void *a2, size_t a3, BOOL a4)
@@ -19678,92 +18473,92 @@ float CA::CG::anonymous namespace::HairLineRenderer::operator()(uint64_t a1, dou
   return result;
 }
 
-uint64_t CA::CG::anonymous namespace::dash_line(uint64_t a1, uint64_t a2, uint64_t a3, double *a4, double *a5)
+uint64_t CA::CG::anonymous namespace::dash_line(uint64_t result, uint64_t a2, uint64_t a3, double *a4, double *a5, uint64_t (***a6)(void, double, double, double, double))
 {
-  v5 = a5[1];
-  v6 = a4[1];
-  v7 = a4[2];
-  v8 = a4[3];
-  v9 = -*a4;
-  v10 = -v7;
-  if (*a4 > v7)
+  v6 = a5[1];
+  v7 = a4[1];
+  v8 = a4[2];
+  v9 = a4[3];
+  v10 = -*a4;
+  v11 = -v8;
+  if (*a4 > v8)
   {
-    v11 = -*a5;
+    v12 = -*a5;
   }
 
   else
   {
-    v11 = a5[2] + *a5;
+    v12 = a5[2] + *a5;
   }
 
-  if (*a4 > v7)
+  if (*a4 > v8)
   {
-    v12 = -(a5[2] + *a5);
-  }
-
-  else
-  {
-    v12 = *a5;
-  }
-
-  if (*a4 <= v7)
-  {
-    v10 = a4[2];
-    v9 = *a4;
-  }
-
-  if (v6 > v8)
-  {
-    v13 = -v5;
+    v13 = -(a5[2] + *a5);
   }
 
   else
   {
-    v13 = a5[3] + v5;
+    v13 = *a5;
   }
 
-  if (v6 > v8)
+  if (*a4 <= v8)
   {
-    v14 = -(a5[3] + v5);
+    v11 = a4[2];
+    v10 = *a4;
   }
 
-  else
+  if (v7 > v9)
   {
-    v14 = a5[1];
-  }
-
-  if (v6 > v8)
-  {
-    v15.f64[0] = -v8;
+    v14 = -v6;
   }
 
   else
   {
-    v15.f64[0] = a4[3];
+    v14 = a5[3] + v6;
   }
 
-  if (v6 > v8)
+  if (v7 > v9)
   {
-    v16.f64[0] = -v6;
+    v15 = -(a5[3] + v6);
   }
 
   else
   {
-    v16.f64[0] = a4[1];
+    v15 = a5[1];
   }
 
-  if (v10 >= v12 && v9 <= v11 && v15.f64[0] >= v14 && v16.f64[0] <= v13)
+  if (v7 > v9)
   {
-    v15.f64[1] = v10;
-    v16.f64[1] = v9;
-    v20 = vsubq_f64(v15, v16);
-    if (vaddvq_f64(vmulq_f64(v20, v20)) > 0.0)
+    v16.f64[0] = -v9;
+  }
+
+  else
+  {
+    v16.f64[0] = a4[3];
+  }
+
+  if (v7 > v9)
+  {
+    v17.f64[0] = -v7;
+  }
+
+  else
+  {
+    v17.f64[0] = a4[1];
+  }
+
+  if (v11 >= v13 && v10 <= v12 && v16.f64[0] >= v15 && v17.f64[0] <= v14)
+  {
+    v16.f64[1] = v11;
+    v17.f64[1] = v10;
+    v21 = vsubq_f64(v16, v17);
+    if (vaddvq_f64(vmulq_f64(v21, v21)) > 0.0)
     {
       return CGDashGetPattern();
     }
   }
 
-  return result;
+  return v22;
 }
 
 CA::OGL::Context *CA::CG::anonymous namespace::WideLineRenderer::operator()(uint64_t a1, int8x16_t a2, int8x16_t a3, float64x2_t a4, double a5)
@@ -19873,7 +18668,7 @@ CA::OGL::Context *CA::CG::anonymous namespace::WideLineRenderer::operator()(uint
   v34 = 0.0;
   v35 = -(a4.f64[0] * 0.5);
   v36 = v16;
-  v37 = *&a4.f64[0];
+  v37 = a4.f64[0];
   if (*(a1 + 36) == 1)
   {
     v24 = a4.f64[0] * 0.5;
@@ -20179,32 +18974,32 @@ BOOL validate_options(CAContentStreamOptions *a1, NSError **a2)
   return v11;
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,unsigned int,unsigned int>(void *result, unsigned int a2)
+void std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,unsigned int,unsigned int>(void *a1, unsigned int a2, _DWORD *a3, int *a4)
 {
-  v2 = result[1];
-  if (!v2)
+  v4 = a1[1];
+  if (!v4)
   {
     goto LABEL_18;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (v2 <= a2)
+    v6 = a2;
+    if (v4 <= a2)
     {
-      v4 = a2 % v2;
+      v6 = a2 % v4;
     }
   }
 
   else
   {
-    v4 = (v2 - 1) & a2;
+    v6 = (v4 - 1) & a2;
   }
 
-  v5 = *(*result + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -20212,44 +19007,42 @@ LABEL_18:
 
   while (1)
   {
-    v7 = v6[1];
-    if (v7 == a2)
+    v9 = v8[1];
+    if (v9 == a2)
     {
       break;
     }
 
-    if (v3.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v7 >= v2)
+      if (v9 >= v4)
       {
-        v7 %= v2;
+        v9 %= v4;
       }
     }
 
     else
     {
-      v7 &= v2 - 1;
+      v9 &= v4 - 1;
     }
 
-    if (v7 != v4)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v6 + 4) != a2)
+  if (*(v8 + 4) != a2)
   {
     goto LABEL_17;
   }
-
-  return result;
 }
 
 void remove_observer(CARenderer *a1)
@@ -22883,7 +21676,7 @@ uint64_t _XSetDisplayLatency(int *a1, uint64_t a2)
           if (memchr(a1 + 11, 0, v10 - 44))
           {
             v11 = a1 + ((v6 + 3) & 0xFC);
-            if (*v11 || *(v11 + 4) < 0x20u)
+            if (*v11 || *(v11 + 1) < 0x20u)
             {
               result = 4294966987;
             }
@@ -24729,15 +23522,15 @@ void _XWindowLayerDidChangeFlatten(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t _XFlipBookRenderDidComplete(uint64_t result, uint64_t a2, double a3, double a4)
+char *_XFlipBookRenderDidComplete(char *result, uint64_t a2, double a3, double a4)
 {
-  if ((*result & 0x80000000) != 0 && *(result + 24) == 1 && *(result + 4) == 112)
+  if ((*result & 0x80000000) != 0 && *(result + 6) == 1 && *(result + 1) == 112)
   {
-    if (*(result + 38) << 16 == 1114112)
+    if (*(result + 19) << 16 == 1114112)
     {
-      LODWORD(a3) = *(result + 80);
-      LODWORD(a4) = *(result + 84);
-      result = [flipbook _notifyRenderCompletedForTime:*(result + 52) status:*(result + 60) frameId:*(result + 64) oldestFrameId:*(result + 72) apl:*(result + 88) aplDimming:*(result + 28) memoryUsage:a3 rawSurfacePort:a4 rawSurfaceDestRect:{*(result + 96), *(result + 100), *(result + 104), *(result + 108)}];
+      LODWORD(a3) = *(result + 20);
+      LODWORD(a4) = *(result + 21);
+      result = [flipbook _notifyRenderCompletedForTime:*(result + 52) status:*(result + 15) frameId:*(result + 8) oldestFrameId:*(result + 9) apl:*(result + 11) aplDimming:*(result + 7) memoryUsage:a3 rawSurfacePort:a4 rawSurfaceDestRect:{*(result + 24), *(result + 25), *(result + 26), *(result + 27)}];
       *(a2 + 32) = 0;
       return result;
     }
@@ -24772,10 +23565,10 @@ _DWORD *_XFlipBookRenderDidBegin(_DWORD *result, uint64_t a2)
   return result;
 }
 
-uint64_t _XDisplayNotifyDisallowedLayersChange(uint64_t result, uint64_t a2)
+_DWORD *_XDisplayNotifyDisallowedLayersChange(_DWORD *result, uint64_t a2)
 {
   v18 = *MEMORY[0x1E69E9840];
-  if ((*result & 0x80000000) != 0 || *(result + 4) != 40)
+  if ((*result & 0x80000000) != 0 || result[1] != 40)
   {
     *(a2 + 32) = -304;
     *(a2 + 24) = *MEMORY[0x1E69E99E0];
@@ -24783,7 +23576,7 @@ uint64_t _XDisplayNotifyDisallowedLayersChange(uint64_t result, uint64_t a2)
 
   else
   {
-    v3 = *(result + 32);
+    v3 = result[8];
     v4 = *(result + 36);
     if (x_log_get_windowserver(void)::once != -1)
     {
@@ -24826,7 +23619,7 @@ uint64_t _XDisplayNotifyDisallowedLayersChange(uint64_t result, uint64_t a2)
             [v10 _notifyDisallowedLayersChange:v4 != 0];
           }
 
-          ++v9;
+          v9 = (v9 + 1);
         }
 
         while (v7 != v9);

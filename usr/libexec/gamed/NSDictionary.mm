@@ -43,8 +43,8 @@
   if (dataCopy)
   {
     v27 = 0;
-    v28 = 100;
-    v12 = [NSPropertyListSerialization propertyListWithData:dataCopy options:0 format:&v28 error:&v27];
+    v28[0] = 100;
+    v12 = [NSPropertyListSerialization propertyListWithData:dataCopy options:0 format:v28 error:&v27];
     v13 = v27;
     objc_opt_class();
     if (objc_opt_isKindOfClass())
@@ -63,10 +63,10 @@
 
           if (v18)
           {
-            v31 = v17;
+            v28[3] = v17;
             v19 = [v12 objectForKeyedSubscript:v17];
-            v32 = v19;
-            v20 = [NSDictionary dictionaryWithObjects:&v32 forKeys:&v31 count:1];
+            v28[4] = v19;
+            v20 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
             *error = [NSError userErrorForServerCode:integerValue reason:v16 userInfo:v20];
           }
 
@@ -86,9 +86,9 @@
 
     else if (error)
     {
-      v33 = NSLocalizedFailureReasonErrorKey;
-      v34 = @"Received unexpected data format in server response.";
-      v24 = [NSDictionary dictionaryWithObjects:&v34 forKeys:&v33 count:1];
+      v28[5] = NSLocalizedFailureReasonErrorKey;
+      v28[6] = @"Received unexpected data format in server response.";
+      v24 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
       *error = [NSError userErrorForCode:3 userInfo:v24];
     }
   }
@@ -108,9 +108,9 @@
         sub_10028DB14(v22);
       }
 
-      v29 = NSLocalizedFailureReasonErrorKey;
-      v30 = @"No data received from the server.";
-      v23 = [NSDictionary dictionaryWithObjects:&v30 forKeys:&v29 count:1];
+      v28[1] = NSLocalizedFailureReasonErrorKey;
+      v28[2] = @"No data received from the server.";
+      v23 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
       *error = [NSError userErrorForCode:3 userInfo:v23];
     }
 
@@ -150,9 +150,9 @@
         sub_10028DB14(v22);
       }
 
-      v28 = NSLocalizedFailureReasonErrorKey;
-      v29 = @"No data received from the server.";
-      v23 = [NSDictionary dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+      v27[1] = NSLocalizedFailureReasonErrorKey;
+      v27[2] = @"No data received from the server.";
+      v23 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
       *error = [NSError userErrorForCode:3 userInfo:v23];
     }
 
@@ -160,9 +160,9 @@
     goto LABEL_17;
   }
 
-  v27 = 0;
-  v12 = [NSJSONSerialization JSONObjectWithData:jsonCopy options:0 error:&v27];
-  v13 = v27;
+  v27[0] = 0;
+  v12 = [NSJSONSerialization JSONObjectWithData:jsonCopy options:0 error:v27];
+  v13 = v27[0];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -180,10 +180,10 @@
 
         if (v18)
         {
-          v30 = v17;
+          v27[3] = v17;
           v19 = [v12 objectForKeyedSubscript:v17];
-          v31 = v19;
-          v20 = [NSDictionary dictionaryWithObjects:&v31 forKeys:&v30 count:1];
+          v27[4] = v19;
+          v20 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
           *error = [NSError userErrorForServerCode:integerValue reason:v16 userInfo:v20];
         }
 
@@ -211,9 +211,9 @@ LABEL_17:
 
   if (error)
   {
-    v32 = NSLocalizedFailureReasonErrorKey;
-    v33 = @"Received unexpected data format in server response.";
-    v24 = [NSDictionary dictionaryWithObjects:&v33 forKeys:&v32 count:1];
+    v27[5] = NSLocalizedFailureReasonErrorKey;
+    v27[6] = @"Received unexpected data format in server response.";
+    v24 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
     *error = [NSError userErrorForCode:3 userInfo:v24];
   }
 

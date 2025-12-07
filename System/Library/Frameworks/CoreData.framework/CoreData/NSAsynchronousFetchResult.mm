@@ -1,7 +1,7 @@
 @interface NSAsynchronousFetchResult
 - (id)initForFetchRequest:(id)request withContext:(id)context andProgress:(id)progress completetionBlock:(id)block;
-- (uint64_t)setFinalResult:(uint64_t)result;
 - (void)dealloc;
+- (void)setFinalResult:(void *)result;
 - (void)setOperationError:(id)error;
 @end
 
@@ -38,19 +38,19 @@
   return v7;
 }
 
-- (uint64_t)setFinalResult:(uint64_t)result
+- (void)setFinalResult:(void *)result
 {
   if (result)
   {
     v3 = result;
-    v4 = *(result + 56);
+    v4 = result[7];
     if (v4 != a2)
     {
 
-      *(v3 + 56) = a2;
+      v3[7] = a2;
     }
 
-    fetchRequest = [*(v3 + 48) fetchRequest];
+    fetchRequest = [v3[6] fetchRequest];
 
     return [fetchRequest _setAsyncResultHandle:0];
   }

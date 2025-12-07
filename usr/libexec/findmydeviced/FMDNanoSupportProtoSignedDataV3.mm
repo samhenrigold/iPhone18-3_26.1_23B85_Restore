@@ -58,8 +58,6 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  errorOccurred = self->_errorOccurred;
-  v7 = toCopy;
   PBDataWriterWriteBOOLField();
   if (self->_signedData)
   {
@@ -71,17 +69,17 @@
     PBDataWriterWriteDataField();
   }
 
-  v6 = v7;
+  v4 = toCopy;
   if (self->_finalRequestJsonData)
   {
     PBDataWriterWriteDataField();
-    v6 = v7;
+    v4 = toCopy;
   }
 
   if (self->_signatureError)
   {
     PBDataWriterWriteStringField();
-    v6 = v7;
+    v4 = toCopy;
   }
 }
 
@@ -146,7 +144,6 @@
     goto LABEL_14;
   }
 
-  v5 = *(equalCopy + 40);
   if (self->_errorOccurred)
   {
     if ((*(equalCopy + 40) & 1) == 0)
@@ -158,7 +155,7 @@
   else if (*(equalCopy + 40))
   {
 LABEL_14:
-    v10 = 0;
+    v9 = 0;
     goto LABEL_15;
   }
 
@@ -189,17 +186,17 @@ LABEL_14:
   signatureError = self->_signatureError;
   if (signatureError | *(equalCopy + 2))
   {
-    v10 = [(NSString *)signatureError isEqual:?];
+    v9 = [(NSString *)signatureError isEqual:?];
   }
 
   else
   {
-    v10 = 1;
+    v9 = 1;
   }
 
 LABEL_15:
 
-  return v10;
+  return v9;
 }
 
 - (unint64_t)hash

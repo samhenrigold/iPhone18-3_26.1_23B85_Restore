@@ -9,7 +9,7 @@
 
 - (id)titleGeneratorForTriggeredMemory:(id)memory withKeyAsset:(id)asset curatedAssets:(id)assets extendedCuratedAssets:(id)curatedAssets titleGenerationContext:(id)context inGraph:(id)graph
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   memoryCopy = memory;
   contextCopy = context;
   memoryMomentNodes = [memoryCopy memoryMomentNodes];
@@ -20,8 +20,8 @@
 
     if ([loggingConnection2 count]== 1)
     {
-      v27 = [(PGGraphEdgeCollection *)PGGraphMeaningEdgeCollection edgesFromNodes:memoryMomentNodes toNodes:loggingConnection2];
-      anyEdge = [v27 anyEdge];
+      v26 = [(PGGraphEdgeCollection *)PGGraphMeaningEdgeCollection edgesFromNodes:memoryMomentNodes toNodes:loggingConnection2];
+      anyEdge = [v26 anyEdge];
       v16 = [PGMeaningfulEventTitleGenerator alloc];
       anyNode = [memoryMomentNodes anyNode];
       meaningLabel = [anyEdge meaningLabel];
@@ -39,7 +39,7 @@
     if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      v29 = [loggingConnection2 count];
+      v28 = [loggingConnection2 count];
       _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "[PGMeaningfulEventMemoryGenerator] One meaning node expected, found %d", buf, 8u);
     }
   }
@@ -50,15 +50,13 @@
     if (os_log_type_enabled(loggingConnection2, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      v29 = [memoryMomentNodes count];
+      v28 = [memoryMomentNodes count];
       _os_log_error_impl(&dword_22F0FC000, loggingConnection2, OS_LOG_TYPE_ERROR, "[PGMeaningfulEventMemoryGenerator] One moment node expected, found %d", buf, 8u);
     }
   }
 
   v23 = 0;
 LABEL_10:
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v23;
 }
@@ -116,16 +114,16 @@ LABEL_10:
 
 - (id)generatePotentialMemoriesForProcessingWindow:(id)window graph:(id)graph progressBlock:(id)block
 {
-  v92[2] = *MEMORY[0x277D85DE8];
+  v91[2] = *MEMORY[0x277D85DE8];
   windowCopy = window;
   graphCopy = graph;
   blockCopy = block;
   v10 = [MEMORY[0x277D22C80] progressReporterWithProgressBlock:blockCopy];
-  v78 = 0;
-  v79 = &v78;
-  v80 = 0x2020000000;
-  v81 = 0;
-  v64 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v77 = 0;
+  v78 = &v77;
+  v79 = 0x2020000000;
+  v80 = 0;
+  v63 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v11 = [(PGGraphNodeCollection *)PGGraphMeaningNodeCollection nodesInGraph:graphCopy];
   if ([v11 count])
   {
@@ -137,18 +135,18 @@ LABEL_10:
 
     if (![v14 count])
     {
-      if (v79[3])
+      if (v78[3])
       {
-        *(v79 + 24) = 1;
+        *(v78 + 24) = 1;
       }
 
       else
       {
         v39 = [v10 isCancelledWithProgress:1.0];
-        *(v79 + 24) = v39;
+        *(v78 + 24) = v39;
         if ((v39 & 1) == 0)
         {
-          v38 = v64;
+          v38 = v63;
 LABEL_51:
 
           v11 = v14;
@@ -160,8 +158,8 @@ LABEL_51:
       {
         *buf = 67109378;
         *&buf[4] = 58;
-        LOWORD(v88) = 2080;
-        *(&v88 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/Memory Generators/CurrentMemoryGenerators/MeaningMemoryGenerators/PGMeaningfulEventMemoryGenerator.m";
+        LOWORD(v87) = 2080;
+        *(&v87 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/Memory Generators/CurrentMemoryGenerators/MeaningMemoryGenerators/PGMeaningfulEventMemoryGenerator.m";
         _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
       }
 
@@ -175,18 +173,18 @@ LABEL_51:
 
     if (![v17 count])
     {
-      if (v79[3])
+      if (v78[3])
       {
-        *(v79 + 24) = 1;
+        *(v78 + 24) = 1;
       }
 
       else
       {
         v40 = [v10 isCancelledWithProgress:1.0];
-        *(v79 + 24) = v40;
+        *(v78 + 24) = v40;
         if ((v40 & 1) == 0)
         {
-          v38 = v64;
+          v38 = v63;
 LABEL_50:
 
           goto LABEL_51;
@@ -197,8 +195,8 @@ LABEL_50:
       {
         *buf = 67109378;
         *&buf[4] = 65;
-        LOWORD(v88) = 2080;
-        *(&v88 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/Memory Generators/CurrentMemoryGenerators/MeaningMemoryGenerators/PGMeaningfulEventMemoryGenerator.m";
+        LOWORD(v87) = 2080;
+        *(&v87 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/Memory Generators/CurrentMemoryGenerators/MeaningMemoryGenerators/PGMeaningfulEventMemoryGenerator.m";
         _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
       }
 
@@ -217,18 +215,18 @@ LABEL_50:
 
       if (![v17 count])
       {
-        if (v79[3])
+        if (v78[3])
         {
-          *(v79 + 24) = 1;
+          *(v78 + 24) = 1;
         }
 
         else
         {
           v43 = [v10 isCancelledWithProgress:1.0];
-          *(v79 + 24) = v43;
+          *(v78 + 24) = v43;
           if ((v43 & 1) == 0)
           {
-            v38 = v64;
+            v38 = v63;
             goto LABEL_47;
           }
         }
@@ -237,8 +235,8 @@ LABEL_50:
         {
           *buf = 67109378;
           *&buf[4] = 77;
-          LOWORD(v88) = 2080;
-          *(&v88 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/Memory Generators/CurrentMemoryGenerators/MeaningMemoryGenerators/PGMeaningfulEventMemoryGenerator.m";
+          LOWORD(v87) = 2080;
+          *(&v87 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/Memory Generators/CurrentMemoryGenerators/MeaningMemoryGenerators/PGMeaningfulEventMemoryGenerator.m";
           _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
         }
 
@@ -247,87 +245,87 @@ LABEL_50:
       }
 
       memoryGenerationContext = [(PGMemoryGenerator *)self memoryGenerationContext];
-      v59 = [memoryGenerationContext momentNodesAtSensitiveLocationsInGraph:graphCopy];
+      v58 = [memoryGenerationContext momentNodesAtSensitiveLocationsInGraph:graphCopy];
 
-      v60 = [v17 collectionBySubtracting:v59];
+      v59 = [v17 collectionBySubtracting:v58];
 
-      v54 = [PGGraphMeaningNodeCollection meaningNodesWithMeaning:12 inGraph:graphCopy];
-      v52 = [PGGraphMeaningNodeCollection meaningNodesWithMeaning:13 inGraph:graphCopy];
-      v92[0] = @"Concert";
-      v92[1] = @"Performance";
-      v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v92 count:2];
-      v51 = [PGGraphMeaningNodeCollection meaningNodesWithMeaningLabels:v21 inGraph:graphCopy];
+      v53 = [PGGraphMeaningNodeCollection meaningNodesWithMeaning:12 inGraph:graphCopy];
+      v51 = [PGGraphMeaningNodeCollection meaningNodesWithMeaning:13 inGraph:graphCopy];
+      v91[0] = @"Concert";
+      v91[1] = @"Performance";
+      v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v91 count:2];
+      v50 = [PGGraphMeaningNodeCollection meaningNodesWithMeaningLabels:v21 inGraph:graphCopy];
 
       v22 = MEMORY[0x277CBEB98];
       musicConcerts = [MEMORY[0x277D27780] musicConcerts];
-      v91[0] = musicConcerts;
+      v90[0] = musicConcerts;
       festivalsAndFairs = [MEMORY[0x277D27780] festivalsAndFairs];
-      v91[1] = festivalsAndFairs;
-      v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v91 count:2];
-      v58 = [v22 setWithArray:v25];
+      v90[1] = festivalsAndFairs;
+      v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v90 count:2];
+      v57 = [v22 setWithArray:v25];
 
-      v50 = [PGGraphPublicEventNodeCollection publicEventNodesWithCategories:v58 inGraph:graphCopy];
-      v90[0] = @"Lunch";
-      v90[1] = @"Dinner";
-      v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v90 count:2];
+      v49 = [PGGraphPublicEventNodeCollection publicEventNodesWithCategories:v57 inGraph:graphCopy];
+      v89[0] = @"Lunch";
+      v89[1] = @"Dinner";
+      v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v89 count:2];
       v27 = [PGGraphMeaningNodeCollection meaningNodesWithMeaningLabels:v26 inGraph:graphCopy];
-      v48 = [PGGraphBusinessNodeCollection restaurantBusinessNodesInGraph:graphCopy];
-      v46 = v26;
+      v47 = [PGGraphBusinessNodeCollection restaurantBusinessNodesInGraph:graphCopy];
+      v45 = v26;
       *buf = 0;
-      *&v88 = buf;
-      *(&v88 + 1) = 0x2020000000;
-      v89 = 0;
-      v47 = [v60 count];
+      *&v87 = buf;
+      *(&v87 + 1) = 0x2020000000;
+      v88 = 0;
+      v46 = [v59 count];
       v28 = MEMORY[0x277D22C90];
       v29 = +[PGGraphMomentNode dateOfMoment];
-      v86[0] = v29;
+      v85[0] = v29;
       v30 = +[PGGraphDateNode monthDayOfDate];
-      v86[1] = v30;
-      v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v86 count:2];
-      v57 = [v28 chain:v31];
+      v85[1] = v30;
+      v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v85 count:2];
+      v56 = [v28 chain:v31];
 
-      v56 = [MEMORY[0x277D22BF8] adjacencyWithSources:v60 relation:v57 targetsClass:objc_opt_class()];
-      v65[0] = MEMORY[0x277D85DD0];
-      v65[1] = 3221225472;
-      v65[2] = __101__PGMeaningfulEventMemoryGenerator_generatePotentialMemoriesForProcessingWindow_graph_progressBlock___block_invoke;
-      v65[3] = &unk_2788888D0;
-      v66 = v14;
-      v75 = &v78;
+      v55 = [MEMORY[0x277D22BF8] adjacencyWithSources:v59 relation:v56 targetsClass:objc_opt_class()];
+      v64[0] = MEMORY[0x277D85DD0];
+      v64[1] = 3221225472;
+      v64[2] = __101__PGMeaningfulEventMemoryGenerator_generatePotentialMemoriesForProcessingWindow_graph_progressBlock___block_invoke;
+      v64[3] = &unk_2788888D0;
+      v65 = v14;
+      v74 = &v77;
       v32 = v10;
-      v67 = v32;
-      v76 = buf;
+      v66 = v32;
+      v75 = buf;
       v33 = v27;
-      v68 = v33;
-      v34 = v48;
-      v69 = v34;
-      v49 = v54;
-      v70 = v49;
-      v53 = v52;
-      v71 = v53;
-      v55 = v51;
-      v72 = v55;
-      v35 = v50;
-      v73 = v35;
-      v36 = v64;
-      v74 = v36;
-      v77 = 1.0 / v47;
-      [v56 enumerateTargetsBySourceWithBlock:v65];
-      if (v79[3])
+      v67 = v33;
+      v34 = v47;
+      v68 = v34;
+      v48 = v53;
+      v69 = v48;
+      v52 = v51;
+      v70 = v52;
+      v54 = v50;
+      v71 = v54;
+      v35 = v49;
+      v72 = v35;
+      v36 = v63;
+      v73 = v36;
+      v76 = 1.0 / v46;
+      [v55 enumerateTargetsBySourceWithBlock:v64];
+      if (v78[3])
       {
-        *(v79 + 24) = 1;
+        *(v78 + 24) = 1;
       }
 
       else
       {
         v41 = [v32 isCancelledWithProgress:1.0];
-        *(v79 + 24) = v41;
+        *(v78 + 24) = v41;
         if ((v41 & 1) == 0)
         {
           v38 = v36;
 LABEL_46:
 
           _Block_object_dispose(buf, 8);
-          v17 = v60;
+          v17 = v59;
 LABEL_47:
 
           goto LABEL_50;
@@ -336,29 +334,29 @@ LABEL_47:
 
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
-        *v82 = 67109378;
-        v83 = 143;
-        v84 = 2080;
-        v85 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/Memory Generators/CurrentMemoryGenerators/MeaningMemoryGenerators/PGMeaningfulEventMemoryGenerator.m";
-        _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v82, 0x12u);
+        *v81 = 67109378;
+        v82 = 143;
+        v83 = 2080;
+        v84 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/Memory Generators/CurrentMemoryGenerators/MeaningMemoryGenerators/PGMeaningfulEventMemoryGenerator.m";
+        _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v81, 0x12u);
       }
 
       v38 = MEMORY[0x277CBEBF8];
       goto LABEL_46;
     }
 
-    if (v79[3])
+    if (v78[3])
     {
-      *(v79 + 24) = 1;
+      *(v78 + 24) = 1;
     }
 
     else
     {
       v42 = [v10 isCancelledWithProgress:1.0];
-      *(v79 + 24) = v42;
+      *(v78 + 24) = v42;
       if ((v42 & 1) == 0)
       {
-        v38 = v64;
+        v38 = v63;
 LABEL_49:
         v17 = v18;
         goto LABEL_50;
@@ -369,8 +367,8 @@ LABEL_49:
     {
       *buf = 67109378;
       *&buf[4] = 71;
-      LOWORD(v88) = 2080;
-      *(&v88 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/Memory Generators/CurrentMemoryGenerators/MeaningMemoryGenerators/PGMeaningfulEventMemoryGenerator.m";
+      LOWORD(v87) = 2080;
+      *(&v87 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/Memory Generators/CurrentMemoryGenerators/MeaningMemoryGenerators/PGMeaningfulEventMemoryGenerator.m";
       _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
     }
 
@@ -378,18 +376,18 @@ LABEL_49:
     goto LABEL_49;
   }
 
-  if (v79[3])
+  if (v78[3])
   {
-    *(v79 + 24) = 1;
+    *(v78 + 24) = 1;
   }
 
   else
   {
     v37 = [v10 isCancelledWithProgress:1.0];
-    *(v79 + 24) = v37;
+    *(v78 + 24) = v37;
     if ((v37 & 1) == 0)
     {
-      v38 = v64;
+      v38 = v63;
       goto LABEL_52;
     }
   }
@@ -398,16 +396,15 @@ LABEL_49:
   {
     *buf = 67109378;
     *&buf[4] = 50;
-    LOWORD(v88) = 2080;
-    *(&v88 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/Memory Generators/CurrentMemoryGenerators/MeaningMemoryGenerators/PGMeaningfulEventMemoryGenerator.m";
+    LOWORD(v87) = 2080;
+    *(&v87 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/Memory Generators/CurrentMemoryGenerators/MeaningMemoryGenerators/PGMeaningfulEventMemoryGenerator.m";
     _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
   }
 
   v38 = MEMORY[0x277CBEBF8];
 LABEL_52:
 
-  _Block_object_dispose(&v78, 8);
-  v44 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v77, 8);
 
   return v38;
 }

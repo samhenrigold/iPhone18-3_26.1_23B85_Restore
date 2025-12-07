@@ -9,21 +9,20 @@
 {
   v6 = sub_100001628();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin();
-  v10 = &v17 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v16 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_100001618();
   taskCopy = task;
   selfCopy = self;
   sub_100001608();
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
   sub_1000013FC(&_swiftEmptyArrayStorage);
-  v13 = objc_allocWithZone(MLRTaskResult);
+  v12 = objc_allocWithZone(MLRTaskResult);
   isa = sub_100001638().super.isa;
 
-  v15 = [v13 initWithJSONResult:isa unprivatizedVector:0];
+  v14 = [v12 initWithJSONResult:isa unprivatizedVector:0];
 
-  return v15;
+  return v14;
 }
 
 - (_TtC22SiriUserSegmentsPlugin22SiriUserSegmentsPlugin)init

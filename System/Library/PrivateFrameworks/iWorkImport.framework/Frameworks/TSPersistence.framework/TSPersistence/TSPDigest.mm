@@ -2,6 +2,7 @@
 + (id)digestFromDispatchData:(id)data;
 + (id)digestFromNSData:(id)data;
 + (id)digestFromReadChannel:(id)channel error:(id *)error;
++ (id)digestFromReadChannel:(id)channel scanForOSLikeCorruption:(BOOL)corruption foundLikelyOSCorruption:(BOOL *)sCorruption foundLikelyZeroBytesCorruption:(BOOL *)bytesCorruption error:(id *)error;
 + (id)digestWithDigestString:(id)string;
 + (id)emptyDataDigest;
 - (BOOL)isEqual:(id)equal;
@@ -233,6 +234,16 @@
   }
 
   return v18;
+}
+
++ (id)digestFromReadChannel:(id)channel scanForOSLikeCorruption:(BOOL)corruption foundLikelyOSCorruption:(BOOL *)sCorruption foundLikelyZeroBytesCorruption:(BOOL *)bytesCorruption error:(id *)error
+{
+  corruptionCopy = corruption;
+  channelCopy = channel;
+  v13 = [self alloc];
+  Channel_scanForOSLikeCorruption_foundLikelyOSCorruption_foundLikelyZeroBytesCorruption_error = objc_msgSend_initFromReadChannel_scanForOSLikeCorruption_foundLikelyOSCorruption_foundLikelyZeroBytesCorruption_error_(v13, v14, channelCopy, corruptionCopy, sCorruption, bytesCorruption, error);
+
+  return Channel_scanForOSLikeCorruption_foundLikelyOSCorruption_foundLikelyZeroBytesCorruption_error;
 }
 
 - (NSString)digestString

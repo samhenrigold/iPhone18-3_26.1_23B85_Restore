@@ -11,20 +11,19 @@
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC648318, &unk_1D1E8D030);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_1D1E739C0;
-  v5 = *MEMORY[0x1E696F568];
   *(inited + 32) = sub_1D1E6781C();
-  *(inited + 40) = v6;
+  *(inited + 40) = v5;
   selfCopy = self;
-  v8 = sub_1D19F86D0();
+  v7 = sub_1D19F86D0();
   *(inited + 72) = MEMORY[0x1E69E6370];
-  *(inited + 48) = v8 & 1;
+  *(inited + 48) = v7 & 1;
   sub_1D18D6538(inited);
   swift_setDeallocating();
   sub_1D1741A30(inited + 32, &qword_1EC646238, &qword_1D1E7E8D0);
 
-  v9 = sub_1D1E675DC();
+  v8 = sub_1D1E675DC();
 
-  return v9;
+  return v8;
 }
 
 - (_TtC13HomeDataModel16MockOnOffCluster)initWithDevice:(id)device endpointID:(id)d queue:(id)queue

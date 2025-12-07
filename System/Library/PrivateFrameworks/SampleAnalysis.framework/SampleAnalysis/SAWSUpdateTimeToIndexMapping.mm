@@ -136,33 +136,33 @@
 
 + (id)arrayOfMappingsFromWSUpdataDataArray:(id)array andSampleDataStore:(id)store
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   if (array && store)
   {
     v6 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v24 = 0u;
     v25 = 0u;
     v26 = 0u;
     v27 = 0u;
-    v28 = 0u;
     arrayCopy = array;
-    v8 = [arrayCopy countByEnumeratingWithState:&v25 objects:v30 count:16];
+    v8 = [arrayCopy countByEnumeratingWithState:&v24 objects:v29 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v26;
+      v10 = *v25;
       v11 = -1;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v26 != v10)
+          if (*v25 != v10)
           {
             objc_enumerationMutation(arrayCopy);
           }
 
-          v13 = *(*(&v25 + 1) + 8 * i);
+          v13 = *(*(&v24 + 1) + 8 * i);
           v14 = [SAWSUpdateTimeToIndexMapping alloc];
-          v15 = [(SAWSUpdateTimeToIndexMapping *)v14 initWithWSUpdateData:v13 andSampleDataStore:store andHintIndex:v11, v25];
+          v15 = [(SAWSUpdateTimeToIndexMapping *)v14 initWithWSUpdateData:v13 andSampleDataStore:store andHintIndex:v11, v24];
           if ([(SAWSUpdateTimeToIndexMapping *)v15 frameStartSampleIndex]!= -1)
           {
             frameStartSampleIndex = [(SAWSUpdateTimeToIndexMapping *)v15 frameStartSampleIndex];
@@ -172,7 +172,7 @@
           [v6 addObject:v15];
         }
 
-        v9 = [arrayCopy countByEnumeratingWithState:&v25 objects:v30 count:16];
+        v9 = [arrayCopy countByEnumeratingWithState:&v24 objects:v29 count:16];
       }
 
       while (v9);
@@ -212,8 +212,6 @@
     v18 = 0;
     *__error() = v19;
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return v18;
 }

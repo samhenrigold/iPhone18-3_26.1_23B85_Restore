@@ -13,7 +13,7 @@
   v6 = *&token->var0[4];
   v7 = *&token->var0[6];
   v8 = sub_265759190();
-  LOBYTE(v4) = sub_265758F40(v8, v9);
+  LOBYTE(v4) = sub_265758F40(v8, v9, v4, v5, v6, v7);
 
   return v4 & 1;
 }

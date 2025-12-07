@@ -578,7 +578,7 @@ LABEL_21:
 - (id)_summaryFromContacts:(id)contacts effectiveCount:(unint64_t)count includeMe:(BOOL)me
 {
   meCopy = me;
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   contactsCopy = contacts;
   v8 = count + meCopy;
   v9 = objc_alloc_init(MEMORY[0x1E695DF70]);
@@ -589,8 +589,8 @@ LABEL_21:
     [v9 addObject:v11];
   }
 
+  v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
   if (v8 > 3)
   {
     v12 = 2;
@@ -601,24 +601,24 @@ LABEL_21:
     v12 = 3;
   }
 
+  v40 = 0uLL;
   v41 = 0uLL;
-  v42 = 0uLL;
   v13 = contactsCopy;
-  v14 = [v13 countByEnumeratingWithState:&v41 objects:v45 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v40 objects:v44 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v42;
+    v16 = *v41;
 LABEL_8:
     v17 = 0;
     while (1)
     {
-      if (*v42 != v16)
+      if (*v41 != v16)
       {
         objc_enumerationMutation(v13);
       }
 
-      v18 = *(*(&v41 + 1) + 8 * v17);
+      v18 = *(*(&v40 + 1) + 8 * v17);
       if ([v9 count] >= v12)
       {
         break;
@@ -642,7 +642,7 @@ LABEL_8:
 
       if (v15 == ++v17)
       {
-        v15 = [v13 countByEnumeratingWithState:&v41 objects:v45 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v40 objects:v44 count:16];
         if (v15)
         {
           goto LABEL_8;
@@ -728,15 +728,13 @@ LABEL_39:
     v35 = [v9 objectAtIndex:0];
     v36 = [v9 objectAtIndex:1];
     v38 = [v9 objectAtIndex:2];
-    v32 = [v37 localizedStringWithFormat:v33, v35, v36, v38, 0, v41];
+    v32 = [v37 localizedStringWithFormat:v33, v35, v36, v38, 0, v40];
 
     goto LABEL_39;
   }
 
   v32 = 0;
 LABEL_41:
-
-  v39 = *MEMORY[0x1E69E9840];
 
   return v32;
 }

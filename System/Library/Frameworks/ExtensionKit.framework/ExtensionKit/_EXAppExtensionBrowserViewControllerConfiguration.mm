@@ -27,17 +27,16 @@
 {
   if (*(self + OBJC_IVAR____TtC12ExtensionKit49_EXAppExtensionBrowserViewControllerConfiguration_extensionPointIdentifiers))
   {
-    v2 = *(self + OBJC_IVAR____TtC12ExtensionKit49_EXAppExtensionBrowserViewControllerConfiguration_extensionPointIdentifiers);
 
-    v3 = sub_1D2A00498();
+    v2 = sub_1D2A00498();
   }
 
   else
   {
-    v3 = 0;
+    v2 = 0;
   }
 
-  return v3;
+  return v2;
 }
 
 - (void)setExtensionPointIdentifiers:(id)identifiers
@@ -52,7 +51,6 @@
     v4 = 0;
   }
 
-  v5 = *(self + OBJC_IVAR____TtC12ExtensionKit49_EXAppExtensionBrowserViewControllerConfiguration_extensionPointIdentifiers);
   *(self + OBJC_IVAR____TtC12ExtensionKit49_EXAppExtensionBrowserViewControllerConfiguration_extensionPointIdentifiers) = v4;
 }
 

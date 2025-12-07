@@ -32,48 +32,49 @@
 
 - (SIE5RTTensorPortDescriptor)initWithE5RTPort:(e5rt_io_port *)port portType:(int64_t)type engineType:(int64_t)engineType surfaceAllocator:(id)allocator
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   allocatorCopy = allocator;
-  v44.receiver = self;
-  v44.super_class = SIE5RTTensorPortDescriptor;
-  v11 = [(SIE5RTTensorPortDescriptor *)&v44 init];
+  v51.receiver = self;
+  v51.super_class = SIE5RTTensorPortDescriptor;
+  v11 = [(SIE5RTTensorPortDescriptor *)&v51 init];
   if (!v11)
   {
     goto LABEL_10;
   }
 
-  if (e5rt_io_port_retain_tensor_desc())
+  v12 = e5rt_io_port_retain_tensor_desc();
+  if (v12)
   {
-    v12 = __SceneIntelligenceLogSharedInstance();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = __SceneIntelligenceLogSharedInstance(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v13 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm", 57);
+      v14 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm", 57);
       *buf = 136381187;
-      v46 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm";
-      v47 = 1025;
-      v48 = 57;
-      v49 = 2113;
-      v50 = v13;
-      _os_log_impl(&dword_21DE0D000, v12, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", buf, 0x1Cu);
+      v53 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm";
+      v54 = 1025;
+      v55 = 57;
+      v56 = 2113;
+      v57 = v14;
+      _os_log_impl(&dword_21DE0D000, v13, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", buf, 0x1Cu);
     }
 
-    v14 = __SceneIntelligenceLogSharedInstance();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v16 = __SceneIntelligenceLogSharedInstance(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v15 = "YES";
+      v17 = "YES";
       desc = v11->_desc;
-      v46 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm";
+      v53 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm";
       *buf = 136381187;
       if (!desc)
       {
-        v15 = "NO";
+        v17 = "NO";
       }
 
-      v47 = 1025;
-      v48 = 57;
-      v49 = 2081;
-      v50 = v15;
-      _os_log_impl(&dword_21DE0D000, v14, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Failed to retain the tensor descriptor: desc has been init: %{private}s ***", buf, 0x1Cu);
+      v54 = 1025;
+      v55 = 57;
+      v56 = 2081;
+      v57 = v17;
+      _os_log_impl(&dword_21DE0D000, v16, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Failed to retain the tensor descriptor: desc has been init: %{private}s ***", buf, 0x1Cu);
     }
 
     goto LABEL_9;
@@ -84,19 +85,20 @@
   v11->_portType = type;
   if ([(SIE5RTTensorPortDescriptor *)v11 getComponentType])
   {
-    v20 = 0;
+    v21 = 0;
   }
 
   else
   {
-    v20 = [(SIE5RTTensorPortDescriptor *)v11 getNumComponents]== 4;
+    v21 = [(SIE5RTTensorPortDescriptor *)v11 getNumComponents]== 4;
   }
 
-  v11->_isFP32 = [(SIE5RTTensorPortDescriptor *)v11 isPackedFP32]|| v20;
+  v11->_isFP32 = [(SIE5RTTensorPortDescriptor *)v11 isPackedFP32]|| v21;
   v11->_isFP16_ANE = [(SIE5RTTensorPortDescriptor *)v11 isFP16_ANE];
   v11->_isS8_ANE = [(SIE5RTTensorPortDescriptor *)v11 isS8_ANE];
   v11->_isU8_ANE = [(SIE5RTTensorPortDescriptor *)v11 isU8_ANE];
-  v11->_client_desc = [(SIE5RTTensorPortDescriptor *)v11 createPackedFP32TensorDescriptor];
+  createPackedFP32TensorDescriptor = [(SIE5RTTensorPortDescriptor *)v11 createPackedFP32TensorDescriptor];
+  v11->_client_desc = createPackedFP32TensorDescriptor;
   if (type != 1)
   {
 LABEL_55:
@@ -104,31 +106,31 @@ LABEL_55:
     {
       if (v11->_client_desc)
       {
-        v17 = v11;
+        v19 = v11;
         goto LABEL_11;
       }
 
-      v14 = __SceneIntelligenceLogSharedInstance();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v16 = __SceneIntelligenceLogSharedInstance(createPackedFP32TensorDescriptor);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         *buf = 136380931;
-        v46 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm";
-        v47 = 1025;
-        v48 = 146;
-        _os_log_impl(&dword_21DE0D000, v14, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** client tensor descriptor is nil in tesnor port descriptor ***", buf, 0x12u);
+        v53 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm";
+        v54 = 1025;
+        v55 = 146;
+        _os_log_impl(&dword_21DE0D000, v16, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** client tensor descriptor is nil in tesnor port descriptor ***", buf, 0x12u);
       }
     }
 
     else
     {
-      v14 = __SceneIntelligenceLogSharedInstance();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v16 = __SceneIntelligenceLogSharedInstance(createPackedFP32TensorDescriptor);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         *buf = 136380931;
-        v46 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm";
-        v47 = 1025;
-        v48 = 141;
-        _os_log_impl(&dword_21DE0D000, v14, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** tensor descriptor is nil in tesnor port descriptor ***", buf, 0x12u);
+        v53 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm";
+        v54 = 1025;
+        v55 = 141;
+        _os_log_impl(&dword_21DE0D000, v16, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** tensor descriptor is nil in tesnor port descriptor ***", buf, 0x12u);
       }
     }
 
@@ -141,62 +143,63 @@ LABEL_55:
   createE5RTBuffer = 0;
   if (v11->_engineType == 2)
   {
-    v24 = v11->_desc;
-    if (e5rt_tensor_desc_alloc_buffer_object())
+    v26 = e5rt_tensor_desc_alloc_buffer_object();
+    if (v26)
     {
-      v25 = __SceneIntelligenceLogSharedInstance();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      v27 = __SceneIntelligenceLogSharedInstance(v26);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
-        v26 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm", 85);
+        v28 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm", 85);
         *buf = 136381187;
-        v46 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm";
-        v47 = 1025;
-        v48 = 85;
-        v49 = 2113;
-        v50 = v26;
-        _os_log_impl(&dword_21DE0D000, v25, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", buf, 0x1Cu);
+        v53 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm";
+        v54 = 1025;
+        v55 = 85;
+        v56 = 2113;
+        v57 = v28;
+        _os_log_impl(&dword_21DE0D000, v27, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", buf, 0x1Cu);
       }
 
-      v14 = __SceneIntelligenceLogSharedInstance();
-      if (!os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v16 = __SceneIntelligenceLogSharedInstance(v29);
+      if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_9;
       }
 
       *buf = 136380931;
-      v46 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm";
-      v47 = 1025;
-      v48 = 85;
-      v27 = " %{private}s:%{private}d *** Failed to alloc the internal iosurface for output port. ***";
+      v53 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm";
+      v54 = 1025;
+      v55 = 85;
+      v30 = " %{private}s:%{private}d *** Failed to alloc the internal iosurface for output port. ***";
       goto LABEL_66;
     }
 
-    if (e5rt_io_port_bind_buffer_object())
+    createPackedFP32TensorDescriptor = e5rt_io_port_bind_buffer_object();
+    if (createPackedFP32TensorDescriptor)
     {
-      v32 = __SceneIntelligenceLogSharedInstance();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+      v36 = __SceneIntelligenceLogSharedInstance(createPackedFP32TensorDescriptor);
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
       {
-        v33 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm", 88);
+        v37 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm", 88);
         *buf = 136381187;
-        v46 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm";
-        v47 = 1025;
-        v48 = 88;
-        v49 = 2113;
-        v50 = v33;
-        _os_log_impl(&dword_21DE0D000, v32, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", buf, 0x1Cu);
+        v53 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm";
+        v54 = 1025;
+        v55 = 88;
+        v56 = 2113;
+        v57 = v37;
+        _os_log_impl(&dword_21DE0D000, v36, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", buf, 0x1Cu);
       }
 
-      v14 = __SceneIntelligenceLogSharedInstance();
-      if (!os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v16 = __SceneIntelligenceLogSharedInstance(v38);
+      if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_9;
       }
 
       *buf = 136380931;
-      v46 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm";
-      v47 = 1025;
-      v48 = 88;
-      v27 = " %{private}s:%{private}d *** Failed to bind the internal iosurface for output port. ***";
+      v53 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm";
+      v54 = 1025;
+      v55 = 88;
+      v30 = " %{private}s:%{private}d *** Failed to bind the internal iosurface for output port. ***";
       goto LABEL_66;
     }
 
@@ -205,145 +208,147 @@ LABEL_55:
 
   if (getChannels != 1)
   {
-    v29 = v11->_desc;
-    if (e5rt_tensor_desc_alloc_buffer_object())
+    v32 = e5rt_tensor_desc_alloc_buffer_object();
+    if (v32)
     {
-      v30 = __SceneIntelligenceLogSharedInstance();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+      v33 = __SceneIntelligenceLogSharedInstance(v32);
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
       {
-        v31 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm", 94);
+        v34 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm", 94);
         *buf = 136381187;
-        v46 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm";
-        v47 = 1025;
-        v48 = 94;
-        v49 = 2113;
-        v50 = v31;
-        _os_log_impl(&dword_21DE0D000, v30, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", buf, 0x1Cu);
+        v53 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm";
+        v54 = 1025;
+        v55 = 94;
+        v56 = 2113;
+        v57 = v34;
+        _os_log_impl(&dword_21DE0D000, v33, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", buf, 0x1Cu);
       }
 
-      v14 = __SceneIntelligenceLogSharedInstance();
-      if (!os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v16 = __SceneIntelligenceLogSharedInstance(v35);
+      if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_9;
       }
 
       *buf = 136380931;
-      v46 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm";
-      v47 = 1025;
-      v48 = 94;
-      v27 = " %{private}s:%{private}d *** Failed to alloc the internal iosurface for output port. ***";
+      v53 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm";
+      v54 = 1025;
+      v55 = 94;
+      v30 = " %{private}s:%{private}d *** Failed to alloc the internal iosurface for output port. ***";
     }
 
     else
     {
-      v34 = [[SIIOSurface alloc] initFromE5RTBuffer:0];
+      v39 = [[SIIOSurface alloc] initFromE5RTBuffer:0];
       memory_surface = v11->_memory_surface;
-      v11->_memory_surface = v34;
+      v11->_memory_surface = v39;
 
-      if (!e5rt_io_port_bind_buffer_object())
+      createPackedFP32TensorDescriptor = e5rt_io_port_bind_buffer_object();
+      if (!createPackedFP32TensorDescriptor)
       {
         goto LABEL_54;
       }
 
-      v36 = __SceneIntelligenceLogSharedInstance();
-      if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+      v41 = __SceneIntelligenceLogSharedInstance(createPackedFP32TensorDescriptor);
+      if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
       {
-        v37 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm", 106);
+        v42 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm", 106);
         *buf = 136381187;
-        v46 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm";
-        v47 = 1025;
-        v48 = 106;
-        v49 = 2113;
-        v50 = v37;
-        _os_log_impl(&dword_21DE0D000, v36, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", buf, 0x1Cu);
+        v53 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm";
+        v54 = 1025;
+        v55 = 106;
+        v56 = 2113;
+        v57 = v42;
+        _os_log_impl(&dword_21DE0D000, v41, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", buf, 0x1Cu);
       }
 
-      v14 = __SceneIntelligenceLogSharedInstance();
-      if (!os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v16 = __SceneIntelligenceLogSharedInstance(v43);
+      if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_9;
       }
 
       *buf = 136380931;
-      v46 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm";
-      v47 = 1025;
-      v48 = 106;
-      v27 = " %{private}s:%{private}d *** Failed to bind the internal iosurface for output port. ***";
+      v53 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm";
+      v54 = 1025;
+      v55 = 106;
+      v30 = " %{private}s:%{private}d *** Failed to bind the internal iosurface for output port. ***";
     }
 
 LABEL_66:
-    _os_log_impl(&dword_21DE0D000, v14, OS_LOG_TYPE_ERROR, v27, buf, 0x12u);
+    _os_log_impl(&dword_21DE0D000, v16, OS_LOG_TYPE_ERROR, v30, buf, 0x12u);
     goto LABEL_9;
   }
 
-  v28 = 1278226488;
+  v31 = 1278226488;
   if (v11->_isFP32)
   {
-    v28 = 1278226534;
+    v31 = 1278226534;
   }
 
   else if (v11->_isFP16_ANE)
   {
-    v28 = 1278226536;
+    v31 = 1278226536;
   }
 
   else if (!v11->_isU8_ANE)
   {
     if (v11->_isS8_ANE)
     {
-      v28 = 1278226488;
+      v31 = 1278226488;
     }
 
     else
     {
-      v28 = 1111970369;
+      v31 = 1111970369;
     }
   }
 
   if (allocatorCopy)
   {
-    v38 = [allocatorCopy allocateWithWidth:getWidth height:getHeight pixelFormat:v28];
-    v39 = v11->_memory_surface;
-    v11->_memory_surface = v38;
+    v44 = [allocatorCopy allocateWithWidth:getWidth height:getHeight pixelFormat:v31];
+    v45 = v11->_memory_surface;
+    v11->_memory_surface = v44;
 
-    v40 = v11->_memory_surface;
-    if (!v40)
+    v46 = v11->_memory_surface;
+    if (!v46)
     {
       __assert_rtn("[SIE5RTTensorPortDescriptor initWithE5RTPort:portType:engineType:surfaceAllocator:]", "SIE5RTTensorPortDescriptor.mm", 126, "_memory_surface");
     }
 
-    createE5RTBuffer = [(SIIOSurface *)v40 createE5RTBuffer];
+    createE5RTBuffer = [(SIIOSurface *)v46 createE5RTBuffer];
     if (!createE5RTBuffer)
     {
       goto LABEL_10;
     }
 
-    if (e5rt_io_port_bind_buffer_object())
+    createPackedFP32TensorDescriptor = e5rt_io_port_bind_buffer_object();
+    if (createPackedFP32TensorDescriptor)
     {
-      v41 = __SceneIntelligenceLogSharedInstance();
-      if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+      v47 = __SceneIntelligenceLogSharedInstance(createPackedFP32TensorDescriptor);
+      if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
       {
-        v42 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm", 133);
+        v48 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm", 133);
         *buf = 136381187;
-        v46 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm";
-        v47 = 1025;
-        v48 = 133;
-        v49 = 2113;
-        v50 = v42;
-        _os_log_impl(&dword_21DE0D000, v41, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", buf, 0x1Cu);
+        v53 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm";
+        v54 = 1025;
+        v55 = 133;
+        v56 = 2113;
+        v57 = v48;
+        _os_log_impl(&dword_21DE0D000, v47, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", buf, 0x1Cu);
       }
 
-      v14 = __SceneIntelligenceLogSharedInstance();
-      if (!os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v16 = __SceneIntelligenceLogSharedInstance(v49);
+      if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_9;
       }
 
       *buf = 136380931;
-      v46 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm";
-      v47 = 1025;
-      v48 = 133;
-      v27 = " %{private}s:%{private}d *** Failed to bind the internal iosurface for output port. ***";
+      v53 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm";
+      v54 = 1025;
+      v55 = 133;
+      v30 = " %{private}s:%{private}d *** Failed to bind the internal iosurface for output port. ***";
       goto LABEL_66;
     }
 
@@ -352,25 +357,24 @@ LABEL_54:
     goto LABEL_55;
   }
 
-  v14 = __SceneIntelligenceLogSharedInstance();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+  v16 = __SceneIntelligenceLogSharedInstance(1);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
     *buf = 136380931;
-    v46 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm";
-    v47 = 1025;
-    v48 = 122;
-    v27 = " %{private}s:%{private}d *** SurfaceAllocator was required and not provided ***";
+    v53 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm";
+    v54 = 1025;
+    v55 = 122;
+    v30 = " %{private}s:%{private}d *** SurfaceAllocator was required and not provided ***";
     goto LABEL_66;
   }
 
 LABEL_9:
 
 LABEL_10:
-  v17 = 0;
+  v19 = 0;
 LABEL_11:
 
-  v18 = *MEMORY[0x277D85DE8];
-  return v17;
+  return v19;
 }
 
 - (void)dealloc
@@ -410,10 +414,10 @@ LABEL_11:
     copyData = [surfaceCopy copyData];
     bytes = [copyData bytes];
 
-    desc = self->_desc;
-    if (e5rt_tensor_desc_alloc_buffer_object())
+    v9 = e5rt_tensor_desc_alloc_buffer_object();
+    if (v9)
     {
-      v10 = __SceneIntelligenceLogSharedInstance();
+      v10 = __SceneIntelligenceLogSharedInstance(v9);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         v11 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm", 179);
@@ -426,8 +430,8 @@ LABEL_11:
         _os_log_impl(&dword_21DE0D000, v10, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", buf, 0x1Cu);
       }
 
-      v12 = __SceneIntelligenceLogSharedInstance();
-      if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = __SceneIntelligenceLogSharedInstance(v12);
+      if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_36;
       }
@@ -436,18 +440,19 @@ LABEL_11:
       v35 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm";
       v36 = 1025;
       v37 = 179;
-      v13 = " %{private}s:%{private}d *** Failed to alloc the internal iosurface for FP16_ANE input port. ***";
+      v14 = " %{private}s:%{private}d *** Failed to alloc the internal iosurface for FP16_ANE input port. ***";
 LABEL_35:
-      _os_log_impl(&dword_21DE0D000, v12, OS_LOG_TYPE_ERROR, v13, buf, 0x12u);
+      _os_log_impl(&dword_21DE0D000, v13, OS_LOG_TYPE_ERROR, v14, buf, 0x12u);
 LABEL_36:
 
-      v26 = 4;
+      v25 = 4;
       goto LABEL_39;
     }
 
-    if (e5rt_buffer_object_get_data_ptr())
+    data_ptr = e5rt_buffer_object_get_data_ptr();
+    if (data_ptr)
     {
-      v27 = __SceneIntelligenceLogSharedInstance();
+      v27 = __SceneIntelligenceLogSharedInstance(data_ptr);
       if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
         v28 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm", 181);
@@ -460,8 +465,8 @@ LABEL_36:
         _os_log_impl(&dword_21DE0D000, v27, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", buf, 0x1Cu);
       }
 
-      v12 = __SceneIntelligenceLogSharedInstance();
-      if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = __SceneIntelligenceLogSharedInstance(v29);
+      if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_36;
       }
@@ -470,7 +475,7 @@ LABEL_36:
       v35 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm";
       v36 = 1025;
       v37 = 181;
-      v13 = " %{private}s:%{private}d *** Unable to get data for cpuEspressoData ***";
+      v14 = " %{private}s:%{private}d *** Unable to get data for cpuEspressoData ***";
       goto LABEL_35;
     }
 
@@ -478,7 +483,7 @@ LABEL_36:
     memcpy(0, bytes, [copyData2 length]);
 
 LABEL_38:
-    v26 = 7;
+    v25 = 7;
     goto LABEL_39;
   }
 
@@ -491,28 +496,26 @@ LABEL_38:
   pixelFormat = [v6 pixelFormat];
   if (self->_isFP16_ANE && (pixelFormat == 1717855600 || pixelFormat == 1278226534))
   {
-    v16 = self->_desc;
-    client_desc = self->_client_desc;
-    buffer = self->_buffer;
-    if (e5rt_tensor_utils_cast_from_fp32_to_fp16())
+    v16 = e5rt_tensor_utils_cast_from_fp32_to_fp16();
+    if (v16)
     {
-      v18 = __SceneIntelligenceLogSharedInstance();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v17 = __SceneIntelligenceLogSharedInstance(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        v19 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm", 201);
+        v18 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm", 201);
         *buf = 136381187;
         v35 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm";
         v36 = 1025;
         v37 = 201;
         v38 = 2113;
-        v39 = v19;
-        _os_log_impl(&dword_21DE0D000, v18, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", buf, 0x1Cu);
+        v39 = v18;
+        _os_log_impl(&dword_21DE0D000, v17, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", buf, 0x1Cu);
       }
 
-      v20 = __SceneIntelligenceLogSharedInstance();
+      v20 = __SceneIntelligenceLogSharedInstance(v19);
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        v21 = self->_buffer;
+        buffer = self->_buffer;
         if (self->_client_desc)
         {
           v22 = "YES";
@@ -534,7 +537,7 @@ LABEL_38:
         }
 
         v35 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm";
-        if (v21)
+        if (buffer)
         {
           v24 = "YES";
         }
@@ -566,7 +569,6 @@ LABEL_38:
 
   else
   {
-    port = self->_port;
     e5rt_io_port_bind_buffer_object();
     if (self->_buffer)
     {
@@ -577,32 +579,29 @@ LABEL_38:
   }
 
   objc_storeStrong(&self->_memory_surface, surface);
-  v26 = 0;
+  v25 = 0;
 LABEL_39:
 
-  v30 = *MEMORY[0x277D85DE8];
-  return v26;
+  return v25;
 }
 
 - (void)bindRawPointer:(const void *)pointer
 {
-  client_desc = self->_client_desc;
   if (e5rt_tensor_desc_alloc_buffer_object())
   {
-    v9 = 219;
+    v4 = 219;
     goto LABEL_20;
   }
 
-  v5 = self->_client_desc;
   if (e5rt_tensor_desc_get_size())
   {
-    v9 = 222;
+    v4 = 222;
     goto LABEL_20;
   }
 
   if (e5rt_buffer_object_get_data_ptr())
   {
-    v9 = 226;
+    v4 = 226;
     goto LABEL_20;
   }
 
@@ -613,10 +612,9 @@ LABEL_39:
       return;
     }
 
-    port = self->_port;
     if (e5rt_io_port_bind_buffer_object())
     {
-      v9 = 234;
+      v4 = 234;
     }
 
     else
@@ -629,37 +627,33 @@ LABEL_39:
         return;
       }
 
-      v9 = 236;
+      v4 = 236;
     }
 
 LABEL_20:
-    v13 = createE5RTException("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm", v9);
-    objc_exception_throw(v13);
+    v7 = createE5RTException("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm", v4);
+    objc_exception_throw(v7);
   }
 
-  desc = self->_desc;
-  v6 = self->_client_desc;
-  v8 = self->_buffer;
   if (e5rt_tensor_utils_cast_from_fp32_to_fp16())
   {
-    v9 = 230;
+    v4 = 230;
     goto LABEL_20;
   }
 
   if (e5rt_buffer_object_release())
   {
-    v9 = 231;
+    v4 = 231;
     goto LABEL_20;
   }
 }
 
 - (void)getDataPtr
 {
-  buffer = self->_buffer;
   if (e5rt_buffer_object_get_data_ptr())
   {
-    v4 = createE5RTException("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm", 245);
-    objc_exception_throw(v4);
+    v3 = createE5RTException("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm", 245);
+    objc_exception_throw(v3);
   }
 
   return 0;
@@ -667,25 +661,24 @@ LABEL_20:
 
 - (int)getComponentType
 {
-  desc = self->_desc;
   if (e5rt_tensor_desc_retain_dtype())
   {
-    v4 = 252;
+    v3 = 252;
     goto LABEL_8;
   }
 
   if (e5rt_tensor_desc_dtype_get_component_dtype())
   {
-    v4 = 254;
+    v3 = 254;
     goto LABEL_8;
   }
 
   if (e5rt_tensor_desc_dtype_release())
   {
-    v4 = 255;
+    v3 = 255;
 LABEL_8:
-    v5 = createE5RTException("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm", v4);
-    objc_exception_throw(v5);
+    v4 = createE5RTException("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm", v3);
+    objc_exception_throw(v4);
   }
 
   return 0;
@@ -693,25 +686,24 @@ LABEL_8:
 
 - (unsigned)getNumComponents
 {
-  desc = self->_desc;
   if (e5rt_tensor_desc_retain_dtype())
   {
-    v4 = 262;
+    v3 = 262;
     goto LABEL_8;
   }
 
   if (e5rt_tensor_desc_dtype_get_num_components())
   {
-    v4 = 264;
+    v3 = 264;
     goto LABEL_8;
   }
 
   if (e5rt_tensor_desc_dtype_release())
   {
-    v4 = 265;
+    v3 = 265;
 LABEL_8:
-    v5 = createE5RTException("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm", v4);
-    objc_exception_throw(v5);
+    v4 = createE5RTException("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm", v3);
+    objc_exception_throw(v4);
   }
 
   return 0;
@@ -719,25 +711,24 @@ LABEL_8:
 
 - (unint64_t)getComponentSize
 {
-  desc = self->_desc;
   if (e5rt_tensor_desc_retain_dtype())
   {
-    v4 = 272;
+    v3 = 272;
     goto LABEL_8;
   }
 
   if (e5rt_tensor_desc_dtype_get_component_size())
   {
-    v4 = 274;
+    v3 = 274;
     goto LABEL_8;
   }
 
   if (e5rt_tensor_desc_dtype_release())
   {
-    v4 = 275;
+    v3 = 275;
 LABEL_8:
-    v5 = createE5RTException("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm", v4);
-    objc_exception_throw(v5);
+    v4 = createE5RTException("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm", v3);
+    objc_exception_throw(v4);
   }
 
   return 0;
@@ -745,11 +736,10 @@ LABEL_8:
 
 - (unint64_t)getRank
 {
-  desc = self->_desc;
   if (e5rt_tensor_desc_get_rank())
   {
-    v4 = createE5RTException("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm", 282);
-    objc_exception_throw(v4);
+    v3 = createE5RTException("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm", 282);
+    objc_exception_throw(v3);
   }
 
   return 0;
@@ -757,11 +747,10 @@ LABEL_8:
 
 - (const)getShape
 {
-  desc = self->_desc;
   if (e5rt_tensor_desc_get_shape())
   {
-    v4 = createE5RTException("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm", 290);
-    objc_exception_throw(v4);
+    v3 = createE5RTException("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm", 290);
+    objc_exception_throw(v3);
   }
 
   return 0;
@@ -769,11 +758,10 @@ LABEL_8:
 
 - (const)getStrides
 {
-  desc = self->_desc;
   if (e5rt_tensor_desc_get_strides())
   {
-    v4 = createE5RTException("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm", 298);
-    objc_exception_throw(v4);
+    v3 = createE5RTException("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm", 298);
+    objc_exception_throw(v3);
   }
 
   return 0;
@@ -781,11 +769,10 @@ LABEL_8:
 
 - (unint64_t)getSizeInBytes
 {
-  desc = self->_desc;
   if (e5rt_tensor_desc_get_size())
   {
-    v4 = createE5RTException("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm", 305);
-    objc_exception_throw(v4);
+    v3 = createE5RTException("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm", 305);
+    objc_exception_throw(v3);
   }
 
   return 0;
@@ -854,7 +841,7 @@ LABEL_8:
     [(SIE5RTTensorPortDescriptor *)self getNumComponents];
     if (e5rt_tensor_desc_dtype_create())
     {
-      v4 = 438;
+      v3 = 438;
     }
 
     else
@@ -863,7 +850,7 @@ LABEL_8:
       [(SIE5RTTensorPortDescriptor *)self getRank];
       if (e5rt_tensor_desc_create())
       {
-        v4 = 443;
+        v3 = 443;
       }
 
       else
@@ -873,19 +860,18 @@ LABEL_8:
           return 0;
         }
 
-        v4 = 444;
+        v3 = 444;
       }
     }
 
 LABEL_11:
-    v6 = createE5RTException("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm", v4);
-    objc_exception_throw(v6);
+    v5 = createE5RTException("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm", v3);
+    objc_exception_throw(v5);
   }
 
-  port = self->_port;
   if (e5rt_io_port_retain_tensor_desc())
   {
-    v4 = 421;
+    v3 = 421;
     goto LABEL_11;
   }
 
@@ -894,11 +880,10 @@ LABEL_11:
 
 - (unint64_t)getNumberOfElements
 {
-  desc = self->_desc;
   if (e5rt_tensor_desc_get_shape())
   {
-    v4 = createE5RTException("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm", 452);
-    objc_exception_throw(v4);
+    v3 = createE5RTException("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTTensorPortDescriptor.mm", 452);
+    objc_exception_throw(v3);
   }
 
   return 1;

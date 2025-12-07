@@ -141,7 +141,7 @@ LABEL_14:
 
 - (void)_q_updateSuggestionEntriesWithHandler:(uint64_t)handler
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (handler)
   {
@@ -154,11 +154,11 @@ LABEL_14:
         uniqueName = [handler uniqueName];
         v9 = NSStringFromMapsSuggestionsCurrentBestLocation();
         *buf = 138412802;
-        v30 = uniqueName;
-        v31 = 2112;
-        v32 = @"ALL";
-        v33 = 2112;
-        v34 = v9;
+        v31 = uniqueName;
+        v32 = 2112;
+        v33 = @"ALL";
+        v34 = 2112;
+        v35 = v9;
         _os_log_impl(&dword_1C5126000, v7, OS_LOG_TYPE_DEBUG, "{MSgDebug} UPDATING SOURCE{%@} for TYPE{%@} at LATLONG{%@}", buf, 0x20u);
       }
 
@@ -167,63 +167,63 @@ LABEL_14:
       GEOConfigGetDouble();
       v12 = [v10 initWithStartDate:v11 duration:?];
 
-      v13 = MapsSuggestionsCurrentBestLocation();
-      if (v13)
+      v14 = MapsSuggestionsCurrentBestLocation();
+      if (v14)
       {
-        v14 = GEOFindOrCreateLog();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+        v15 = GEOFindOrCreateLog();
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
         {
           uniqueName2 = [handler uniqueName];
           *buf = 138412546;
-          v30 = uniqueName2;
-          v31 = 2080;
-          v32 = "_updateSuggestionEntries";
-          _os_log_impl(&dword_1C5126000, v14, OS_LOG_TYPE_DEBUG, "{MSgDebug} OBJECT{%@} %s BEGIN", buf, 0x16u);
+          v31 = uniqueName2;
+          v32 = 2080;
+          v33 = "_updateSuggestionEntries";
+          _os_log_impl(&dword_1C5126000, v15, OS_LOG_TYPE_DEBUG, "{MSgDebug} OBJECT{%@} %s BEGIN", buf, 0x16u);
         }
 
-        v16 = GEOFindOrCreateLog();
-        if (os_signpost_enabled(v16))
+        v17 = GEOFindOrCreateLog();
+        if (os_signpost_enabled(v17))
         {
           *buf = 0;
-          _os_signpost_emit_with_name_impl(&dword_1C5126000, v16, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "_updateSuggestionEntries", "", buf, 2u);
+          _os_signpost_emit_with_name_impl(&dword_1C5126000, v17, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "_updateSuggestionEntries", "", buf, 2u);
         }
 
         objc_initWeak(buf, handler);
-        v17 = *(handler + 24);
-        v23[0] = MEMORY[0x1E69E9820];
-        v23[1] = 3221225472;
-        v23[2] = __70__MapsSuggestionsRoutineSource__q_updateSuggestionEntriesWithHandler___block_invoke_188;
-        v23[3] = &unk_1E81F62D0;
-        objc_copyWeak(&v25, buf);
-        v18 = v3;
-        v24 = v18;
-        if (![v17 fetchEntriesForLocation:v13 period:v12 handler:v23])
+        v18 = *(handler + 24);
+        v24[0] = MEMORY[0x1E69E9820];
+        v24[1] = 3221225472;
+        v24[2] = __70__MapsSuggestionsRoutineSource__q_updateSuggestionEntriesWithHandler___block_invoke_188;
+        v24[3] = &unk_1E81F62D0;
+        objc_copyWeak(&v26, buf);
+        v19 = v3;
+        v25 = v19;
+        if (![v18 fetchEntriesForLocation:v14 period:v12 handler:v24])
         {
-          v19 = GEOFindOrCreateLog();
-          if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+          v20 = GEOFindOrCreateLog();
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
           {
-            *v22 = 0;
-            _os_log_impl(&dword_1C5126000, v19, OS_LOG_TYPE_ERROR, "Routine returned WillNotCallBack.", v22, 2u);
+            *v23 = 0;
+            _os_log_impl(&dword_1C5126000, v20, OS_LOG_TYPE_ERROR, "Routine returned WillNotCallBack.", v23, 2u);
           }
 
-          v18[2](v18);
+          v19[2](v19);
         }
 
-        objc_destroyWeak(&v25);
+        objc_destroyWeak(&v26);
         objc_destroyWeak(buf);
       }
 
       else
       {
-        if (MapsSuggestionsLoggingIsVerbose())
+        if (MapsSuggestionsLoggingIsVerbose(0, v13))
         {
-          v20 = GEOFindOrCreateLog();
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+          v21 = GEOFindOrCreateLog();
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
           {
             uniqueName3 = [handler uniqueName];
             *buf = 138412290;
-            v30 = uniqueName3;
-            _os_log_impl(&dword_1C5126000, v20, OS_LOG_TYPE_ERROR, "%@ did not have a current location fix to query with.", buf, 0xCu);
+            v31 = uniqueName3;
+            _os_log_impl(&dword_1C5126000, v21, OS_LOG_TYPE_ERROR, "%@ did not have a current location fix to query with.", buf, 0xCu);
           }
         }
 
@@ -251,11 +251,11 @@ LABEL_14:
       block[2] = __70__MapsSuggestionsRoutineSource__q_updateSuggestionEntriesWithHandler___block_invoke;
       block[3] = &unk_1E81F5190;
       v6 = v5;
-      objc_copyWeak(&v28, buf);
-      v27 = v3;
+      objc_copyWeak(&v29, buf);
+      v28 = v3;
       dispatch_async(v6, block);
 
-      objc_destroyWeak(&v28);
+      objc_destroyWeak(&v29);
       objc_destroyWeak(buf);
     }
   }

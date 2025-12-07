@@ -29,15 +29,15 @@
 
 - (VFXCoreAsset)initWithEntityObject:(id)object
 {
-  v15.receiver = self;
-  v15.super_class = VFXCoreAsset;
-  v4 = [(VFXCoreAsset *)&v15 init];
+  v12.receiver = self;
+  v12.super_class = VFXCoreAsset;
+  v4 = [(VFXCoreAsset *)&v12 init];
   if (v4)
   {
     v5 = [VFXCoreEntityHandle alloc];
-    v8 = objc_msgSend_initWithEntityObject_(v5, v6, object, v7);
-    v11 = objc_msgSend_behaviorGraphWithEntityHandle_(VFXBehaviorGraph, v9, v8, v10);
-    objc_msgSend_setBehaviorGraph_(v4, v12, v11, v13);
+    v7 = objc_msgSend_initWithEntityObject_(v5, v6, object);
+    v9 = objc_msgSend_behaviorGraphWithEntityHandle_(VFXBehaviorGraph, v8, v7);
+    objc_msgSend_setBehaviorGraph_(v4, v10, v9);
   }
 
   return v4;
@@ -45,37 +45,37 @@
 
 - (id)initPresentation:(id)presentation
 {
-  v14.receiver = self;
-  v14.super_class = VFXCoreAsset;
-  v4 = [(VFXCoreAsset *)&v14 init];
-  v8 = v4;
+  v12.receiver = self;
+  v12.super_class = VFXCoreAsset;
+  v4 = [(VFXCoreAsset *)&v12 init];
+  v7 = v4;
   if (v4)
   {
     *(v4 + 40) |= 1u;
-    v4->_name = objc_msgSend_name(presentation, v5, v6, v7);
-    if (objc_msgSend_isTextureSource(presentation, v9, v10, v11))
+    v4->_name = objc_msgSend_name(presentation, v5, v6);
+    if (objc_msgSend_isTextureSource(presentation, v8, v9))
     {
-      v12 = 2;
+      v10 = 2;
     }
 
     else
     {
-      v12 = 0;
+      v10 = 0;
     }
 
-    *(v8 + 40) = *(v8 + 40) & 0xFD | v12;
-    v8->_behaviorGraph = *(presentation + 4);
+    *(v7 + 40) = *(v7 + 40) & 0xFD | v10;
+    v7->_behaviorGraph = *(presentation + 4);
   }
 
-  return v8;
+  return v7;
 }
 
 + (id)assetWithEntityObject:(id)object
 {
   v4 = objc_alloc(objc_opt_class());
-  v7 = objc_msgSend_initWithEntityObject_(v4, v5, object, v6);
+  v6 = objc_msgSend_initWithEntityObject_(v4, v5, object);
 
-  return v7;
+  return v6;
 }
 
 - (id)presentationObject
@@ -84,10 +84,10 @@
   if ((*(self + 40) & 1) == 0)
   {
     v3 = [VFXCoreAsset alloc];
-    v6 = objc_msgSend_initPresentation_(v3, v4, selfCopy, v5);
+    v5 = objc_msgSend_initPresentation_(v3, v4, selfCopy);
 
-    v6[4] = selfCopy->_behaviorGraph;
-    return v6;
+    v5[4] = selfCopy->_behaviorGraph;
+    return v5;
   }
 
   return selfCopy;
@@ -110,35 +110,35 @@
 
 - (NSString)identifier
 {
-  v4 = objc_msgSend_behaviorGraph(self, a2, v2, v3);
+  v3 = objc_msgSend_behaviorGraph(self, a2, v2);
 
-  return objc_msgSend_tag(v4, v5, v6, v7);
+  return objc_msgSend_tag(v3, v4, v5);
 }
 
 - (id)entityTag
 {
-  v4 = objc_msgSend_behaviorGraph(self, a2, v2, v3);
+  v3 = objc_msgSend_behaviorGraph(self, a2, v2);
 
-  return objc_msgSend_tag(v4, v5, v6, v7);
+  return objc_msgSend_tag(v3, v4, v5);
 }
 
 - (id)entityObject
 {
-  v4 = objc_msgSend_behaviorGraph(self, a2, v2, v3);
+  v3 = objc_msgSend_behaviorGraph(self, a2, v2);
 
-  return objc_msgSend_entityObject(v4, v5, v6, v7);
+  return objc_msgSend_entityObject(v3, v4, v5);
 }
 
 - (id)coreEntityHandle
 {
-  v4 = objc_msgSend_behaviorGraph(self, a2, v2, v3);
+  v3 = objc_msgSend_behaviorGraph(self, a2, v2);
 
-  return objc_msgSend_coreEntityHandle(v4, v5, v6, v7);
+  return objc_msgSend_coreEntityHandle(v3, v4, v5);
 }
 
 - (void)resolveTag:(id)tag remap:(id)remap
 {
-  v6 = objc_msgSend_behaviorGraph(self, a2, tag, remap);
+  v6 = objc_msgSend_behaviorGraph(self, a2, tag);
 
   objc_msgSend_resolveTag_remap_(v6, v7, tag, remap);
 }
@@ -152,14 +152,14 @@
 
 - (void)copyTo:(id)to withContext:(id)context
 {
-  v7 = objc_msgSend_name(self, a2, to, context);
-  objc_msgSend_setName_(to, v8, v7, v9);
-  isTextureSource = objc_msgSend_isTextureSource(self, v10, v11, v12);
-  objc_msgSend_setIsTextureSource_(to, v14, isTextureSource, v15);
-  v19 = objc_msgSend_behaviorGraph(self, v16, v17, v18);
-  v21 = sub_1AF2BED30(v19, context);
+  v7 = objc_msgSend_name(self, a2, to);
+  objc_msgSend_setName_(to, v8, v7);
+  isTextureSource = objc_msgSend_isTextureSource(self, v9, v10);
+  objc_msgSend_setIsTextureSource_(to, v12, isTextureSource);
+  v15 = objc_msgSend_behaviorGraph(self, v13, v14);
+  v17 = sub_1AF2BED30(v15, context);
 
-  objc_msgSend_setBehaviorGraph_(to, v20, v21, v22);
+  objc_msgSend_setBehaviorGraph_(to, v16, v17);
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -175,11 +175,11 @@
 
 - (VFXBehaviorGraph)behaviorGraph
 {
-  v4 = *(self + 40);
+  v3 = *(self + 40);
   result = self->_behaviorGraph;
-  if (v4)
+  if (v3)
   {
-    return objc_msgSend_presentationObject(result, a2, v2, v3);
+    return objc_msgSend_presentationObject(result, a2, v2);
   }
 
   return result;
@@ -187,7 +187,7 @@
 
 - (void)enumerateReferencesForOperation:(int64_t)operation usingBlock:(id)block
 {
-  v5 = objc_msgSend_behaviorGraph(self, a2, operation, block);
+  v5 = objc_msgSend_behaviorGraph(self, a2, operation);
   v6 = *(block + 2);
 
   v6(block, v5, 0, 0);
@@ -195,9 +195,9 @@
 
 - (void)__CFObject
 {
-  v4 = objc_msgSend_behaviorGraph(self, a2, v2, v3);
+  v3 = objc_msgSend_behaviorGraph(self, a2, v2);
 
-  return objc_msgSend___CFObject(v4, v5, v6, v7);
+  return objc_msgSend___CFObject(v3, v4, v5);
 }
 
 - (void)addWorldReference:(id)reference
@@ -205,7 +205,7 @@
   world = self->_world;
   if (world == reference)
   {
-    v6 = self->_worldReferenceCounter + 1;
+    v5 = self->_worldReferenceCounter + 1;
   }
 
   else
@@ -215,11 +215,11 @@
       self->_worldReferenceCounter = 0;
     }
 
-    objc_msgSend_setWorld_(self, a2, reference, v3);
-    v6 = 1;
+    objc_msgSend_setWorld_(self, a2, reference);
+    v5 = 1;
   }
 
-  self->_worldReferenceCounter = v6;
+  self->_worldReferenceCounter = v5;
 }
 
 - (void)removeWorldReference:(id)reference
@@ -230,21 +230,21 @@
     worldReferenceCounter = self->_worldReferenceCounter;
     if (worldReferenceCounter)
     {
-      v7 = worldReferenceCounter - 1;
-      self->_worldReferenceCounter = v7;
-      if (!v7)
+      v6 = worldReferenceCounter - 1;
+      self->_worldReferenceCounter = v6;
+      if (!v6)
       {
 
-        objc_msgSend_setWorld_(self, a2, 0, v3);
+        objc_msgSend_setWorld_(self, a2, 0);
       }
     }
 
     else
     {
-      v8 = sub_1AF0D5194();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v7 = sub_1AF0D5194(self, a2);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        sub_1AFDF4930(self, p_world, v8);
+        sub_1AFDF4930(self, p_world, v7);
       }
     }
   }
@@ -255,29 +255,29 @@
   world = self->_world;
   if (world != world)
   {
-    v13[9] = v4;
-    v13[10] = v5;
+    v11[9] = v3;
+    v11[10] = v4;
     if (world)
     {
-      v13[0] = MEMORY[0x1E69E9820];
-      v13[1] = 3221225472;
-      v13[2] = sub_1AF29B7C0;
-      v13[3] = &unk_1E7A7E428;
-      v13[4] = self;
-      objc_msgSend_enumerateReferencesForOperation_usingBlock_(self, a2, 1, v13);
-      objc_msgSend_didDetachFromWorld_(self, v9, self->_world, v10);
+      v11[0] = MEMORY[0x1E69E9820];
+      v11[1] = 3221225472;
+      v11[2] = sub_1AF29B7C0;
+      v11[3] = &unk_1E7A7E428;
+      v11[4] = self;
+      objc_msgSend_enumerateReferencesForOperation_usingBlock_(self, a2, 1, v11);
+      objc_msgSend_didDetachFromWorld_(self, v8, self->_world);
     }
 
     self->_world = world;
     if (world)
     {
-      objc_msgSend_didAttachToWorld_(self, a2, world, v3);
-      v12[0] = MEMORY[0x1E69E9820];
-      v12[1] = 3221225472;
-      v12[2] = sub_1AF29B820;
-      v12[3] = &unk_1E7A7E428;
-      v12[4] = self;
-      objc_msgSend_enumerateReferencesForOperation_usingBlock_(self, v11, 1, v12);
+      objc_msgSend_didAttachToWorld_(self, a2, world);
+      v10[0] = MEMORY[0x1E69E9820];
+      v10[1] = 3221225472;
+      v10[2] = sub_1AF29B820;
+      v10[3] = &unk_1E7A7E428;
+      v10[4] = self;
+      objc_msgSend_enumerateReferencesForOperation_usingBlock_(self, v9, 1, v10);
     }
   }
 }
@@ -289,7 +289,7 @@
     return self->_world;
   }
 
-  result = objc_msgSend_worldRef(self, a2, v2, v3);
+  result = objc_msgSend_worldRef(self, a2, v2);
   if (result)
   {
 
@@ -301,49 +301,49 @@
 
 - (__CFXWorld)worldRef
 {
-  v4 = objc_msgSend___CFObject(self, a2, v2, v3);
+  v3 = objc_msgSend___CFObject(self, a2, v2);
 
-  return sub_1AF1C3FAC(v4);
+  return sub_1AF1C3FAC(v3, v4);
 }
 
 - (VFXCoreAsset)initWithCoder:(id)coder
 {
-  v33.receiver = self;
-  v33.super_class = VFXCoreAsset;
-  v6 = [(VFXCoreAsset *)&v33 init];
-  if (v6)
+  v26.receiver = self;
+  v26.super_class = VFXCoreAsset;
+  v5 = [(VFXCoreAsset *)&v26 init];
+  if (v5)
   {
-    if (objc_msgSend_containsValueForKey_(coder, v4, @"entityTag", v5))
+    if (objc_msgSend_containsValueForKey_(coder, v4, @"entityTag"))
     {
-      v9 = objc_opt_class();
-      v11 = objc_msgSend_decodeObjectOfClass_forKey_(coder, v10, v9, @"entityTag");
-      v12 = [VFXCoreEntityHandle alloc];
-      v15 = objc_msgSend_initWithTag_(v12, v13, v11, v14);
+      v7 = objc_opt_class();
+      v9 = objc_msgSend_decodeObjectOfClass_forKey_(coder, v8, v7, @"entityTag");
+      v10 = [VFXCoreEntityHandle alloc];
+      v12 = objc_msgSend_initWithTag_(v10, v11, v9);
     }
 
     else
     {
-      if (!objc_msgSend_containsValueForKey_(coder, v7, @"entityHandle", v8))
+      if (!objc_msgSend_containsValueForKey_(coder, v6, @"entityHandle"))
       {
-        v23 = objc_opt_class();
-        v20 = objc_msgSend_decodeObjectOfClass_forKey_(coder, v24, v23, @"behaviorGraph");
+        v18 = objc_opt_class();
+        v16 = objc_msgSend_decodeObjectOfClass_forKey_(coder, v19, v18, @"behaviorGraph");
         goto LABEL_8;
       }
 
-      v18 = objc_opt_class();
-      v15 = objc_msgSend_decodeObjectOfClass_forKey_(coder, v19, v18, @"entityHandle");
+      v14 = objc_opt_class();
+      v12 = objc_msgSend_decodeObjectOfClass_forKey_(coder, v15, v14, @"entityHandle");
     }
 
-    v20 = objc_msgSend_behaviorGraphWithEntityHandle_(VFXBehaviorGraph, v16, v15, v17);
+    v16 = objc_msgSend_behaviorGraphWithEntityHandle_(VFXBehaviorGraph, v13, v12);
 LABEL_8:
-    objc_msgSend_setBehaviorGraph_(v6, v21, v20, v22);
-    v25 = objc_opt_class();
-    v6->_name = objc_msgSend_decodeObjectOfClass_forKey_(coder, v26, v25, @"name");
-    v29 = objc_msgSend_decodeBoolForKey_(coder, v27, @"isTextureSource", v28);
-    objc_msgSend_setIsTextureSource_(v6, v30, v29, v31);
+    objc_msgSend_setBehaviorGraph_(v5, v17, v16);
+    v20 = objc_opt_class();
+    v5->_name = objc_msgSend_decodeObjectOfClass_forKey_(coder, v21, v20, @"name");
+    v23 = objc_msgSend_decodeBoolForKey_(coder, v22, @"isTextureSource");
+    objc_msgSend_setIsTextureSource_(v5, v24, v23);
   }
 
-  return v6;
+  return v5;
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -360,9 +360,9 @@ LABEL_8:
     objc_msgSend_encodeObject_forKey_(coder, a2, name, @"name");
   }
 
-  isTextureSource = objc_msgSend_isTextureSource(self, a2, name, v3);
+  isTextureSource = objc_msgSend_isTextureSource(self, a2, name);
 
-  objc_msgSend_encodeBool_forKey_(coder, v8, isTextureSource, @"isTextureSource");
+  objc_msgSend_encodeBool_forKey_(coder, v7, isTextureSource, @"isTextureSource");
 }
 
 - (BOOL)isHeader
@@ -370,7 +370,7 @@ LABEL_8:
   selfCopy = self;
   v3 = sub_1AFCEEC98();
 
-  return v3 & 1;
+  return v3;
 }
 
 @end

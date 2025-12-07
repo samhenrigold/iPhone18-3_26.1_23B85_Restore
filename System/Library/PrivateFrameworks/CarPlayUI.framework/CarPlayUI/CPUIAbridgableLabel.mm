@@ -401,48 +401,48 @@ LABEL_21:
   [traitCollection displayScale];
   if (isKindOfClass)
   {
-    v16 = CPUISizeForAttributedText(stringCopy, v11, v12);
+    v17 = CPUISizeForAttributedText(stringCopy, v11, v12, v16);
   }
 
   else
   {
-    v16 = CPUISizeForText(stringCopy, font, v11, v12);
+    v17 = CPUISizeForText(stringCopy, font, v11, v12, v16);
   }
 
-  v18 = v16;
   v19 = v17;
+  v20 = v18;
 
   if (numberOfLines == 1)
   {
-    v20 = v6;
+    v21 = v6;
   }
 
   else
   {
-    v20 = v8;
+    v21 = v8;
   }
 
   if (numberOfLines == 1)
   {
-    v21 = v18;
+    v22 = v19;
   }
 
   else
   {
-    v21 = v19;
+    v22 = v20;
   }
 
-  if (v20 < v21)
+  if (v21 < v22)
   {
-    v22 = -1;
+    v23 = -1;
   }
 
   else
   {
-    v22 = v20 > v21;
+    v23 = v21 > v22;
   }
 
-  return v22;
+  return v23;
 }
 
 @end

@@ -143,7 +143,7 @@
 
 - (void)runDailyTask
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   dataSource = [(HMDUserActivityStateDetectorLogEventAnalyzer *)self dataSource];
   isThisDeviceDesignatedFMFDevice = [dataSource isThisDeviceDesignatedFMFDevice];
 
@@ -160,21 +160,20 @@
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       v8 = HMFGetLogIdentifier();
-      v10 = 138543362;
-      v11 = v8;
-      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Not submitting daily task because this device is not FMF Device", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v8;
+      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Not submitting daily task because this device is not FMF Device", &v9, 0xCu);
     }
 
     objc_autoreleasePoolPop(v5);
   }
 
   [(HMDUserActivityStateDetectorLogEventAnalyzer *)self resetCounterGroups];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleType6TransitionLogEvent:(id)event
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   eventString = [eventCopy eventString];
   v6 = objc_autoreleasePoolPush();
@@ -183,11 +182,11 @@
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     v9 = HMFGetLogIdentifier();
-    v21 = 138543618;
-    v22 = v9;
-    v23 = 2112;
-    v24 = eventString;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_DEBUG, "%{public}@Incrementing daily total counters for %@", &v21, 0x16u);
+    v20 = 138543618;
+    v21 = v9;
+    v22 = 2112;
+    v23 = eventString;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_DEBUG, "%{public}@Incrementing daily total counters for %@", &v20, 0x16u);
   }
 
   objc_autoreleasePoolPop(v6);
@@ -230,8 +229,6 @@ LABEL_14:
   }
 
 LABEL_15:
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)observeEvent:(id)event
@@ -257,18 +254,16 @@ LABEL_15:
 
 - (void)configure
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   dataSource = [(HMDUserActivityStateDetectorLogEventAnalyzer *)self dataSource];
   dailyScheduler = [dataSource dailyScheduler];
   [dailyScheduler registerDailyTaskRunner:self];
 
   dataSource2 = [(HMDUserActivityStateDetectorLogEventAnalyzer *)self dataSource];
   logEventDispatcher = [dataSource2 logEventDispatcher];
-  v9[0] = objc_opt_class();
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+  v8[0] = objc_opt_class();
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
   [logEventDispatcher addObserver:self forEventClasses:v7];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDUserActivityStateDetectorLogEventAnalyzer)initWithDataSource:(id)source

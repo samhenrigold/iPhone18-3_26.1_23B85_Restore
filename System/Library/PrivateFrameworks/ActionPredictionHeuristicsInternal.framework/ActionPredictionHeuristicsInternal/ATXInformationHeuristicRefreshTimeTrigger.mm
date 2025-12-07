@@ -33,13 +33,13 @@
   v26 = *MEMORY[0x277D85DE8];
   if (!self->_source)
   {
-    [(NSDate *)self->_fireDate timeIntervalSinceNow];
-    v4 = v3;
-    v5 = __atxlog_handle_gi();
-    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
-    if (v4 <= 0.0)
+    timeIntervalSinceNow = [(NSDate *)self->_fireDate timeIntervalSinceNow];
+    v5 = v4;
+    v6 = __atxlog_handle_gi(timeIntervalSinceNow);
+    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+    if (v5 <= 0.0)
     {
-      if (v6)
+      if (v7)
       {
         fireDate = self->_fireDate;
         registeredHeuristics = [(ATXInformationHeuristicRefreshTrigger *)self registeredHeuristics];
@@ -49,48 +49,46 @@
         v23 = fireDate;
         v24 = 2112;
         v25 = registeredHeuristics;
-        _os_log_impl(&dword_23E3EA000, v5, OS_LOG_TYPE_DEFAULT, "ATXInformationHeuristicRefreshTimeTrigger (%p): Past [%@]. Will not start. %@", buf, 0x20u);
+        _os_log_impl(&dword_23E3EA000, v6, OS_LOG_TYPE_DEFAULT, "ATXInformationHeuristicRefreshTimeTrigger (%p): Past [%@]. Will not start. %@", buf, 0x20u);
       }
     }
 
     else
     {
-      if (v6)
+      if (v7)
       {
-        v7 = self->_fireDate;
+        v8 = self->_fireDate;
         registeredHeuristics2 = [(ATXInformationHeuristicRefreshTrigger *)self registeredHeuristics];
         *buf = 134218498;
         selfCopy2 = self;
         v22 = 2112;
-        v23 = v7;
+        v23 = v8;
         v24 = 2112;
         v25 = registeredHeuristics2;
-        _os_log_impl(&dword_23E3EA000, v5, OS_LOG_TYPE_DEFAULT, "ATXInformationHeuristicRefreshTimeTrigger (%p): Start [%@]. %@", buf, 0x20u);
+        _os_log_impl(&dword_23E3EA000, v6, OS_LOG_TYPE_DEFAULT, "ATXInformationHeuristicRefreshTimeTrigger (%p): Start [%@]. %@", buf, 0x20u);
       }
 
       objc_initWeak(buf, self);
-      v9 = dispatch_get_global_queue(25, 0);
-      v10 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, v9);
+      v10 = dispatch_get_global_queue(25, 0);
+      v11 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, v10);
       source = self->_source;
-      self->_source = v10;
+      self->_source = v11;
 
-      v12 = self->_source;
-      v13 = dispatch_time(0, (v4 * 1000000000.0));
-      dispatch_source_set_timer(v12, v13, 0xFFFFFFFFFFFFFFFFLL, 0);
-      v14 = self->_source;
+      v13 = self->_source;
+      v14 = dispatch_time(0, (v5 * 1000000000.0));
+      dispatch_source_set_timer(v13, v14, 0xFFFFFFFFFFFFFFFFLL, 0);
+      v15 = self->_source;
       handler[0] = MEMORY[0x277D85DD0];
       handler[1] = 3221225472;
       handler[2] = __51__ATXInformationHeuristicRefreshTimeTrigger__start__block_invoke;
       handler[3] = &unk_278C3CEF0;
       objc_copyWeak(&v19, buf);
-      dispatch_source_set_event_handler(v14, handler);
+      dispatch_source_set_event_handler(v15, handler);
       dispatch_resume(self->_source);
       objc_destroyWeak(&v19);
       objc_destroyWeak(buf);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __51__ATXInformationHeuristicRefreshTimeTrigger__start__block_invoke(uint64_t a1)
@@ -100,57 +98,53 @@ void __51__ATXInformationHeuristicRefreshTimeTrigger__start__block_invoke(uint64
   if (WeakRetained)
   {
     v2 = objc_opt_new();
-    [v2 timeIntervalSinceDate:WeakRetained[4]];
-    v4 = v3;
-    v5 = __atxlog_handle_gi();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v3 = [v2 timeIntervalSinceDate:WeakRetained[4]];
+    v5 = v4;
+    v6 = __atxlog_handle_gi(v3);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = WeakRetained[4];
-      v7 = [WeakRetained registeredHeuristics];
+      v7 = WeakRetained[4];
+      v8 = [WeakRetained registeredHeuristics];
       v11 = 134218754;
       v12 = WeakRetained;
       v13 = 2112;
-      v14 = v6;
+      v14 = v7;
       v15 = 2048;
-      v16 = v4;
+      v16 = v5;
       v17 = 2112;
-      v18 = v7;
-      _os_log_impl(&dword_23E3EA000, v5, OS_LOG_TYPE_DEFAULT, "ATXInformationHeuristicRefreshTimeTrigger (%p): Fired [%@] %0.1fs after date. Triggering heuristics refresh. %@", &v11, 0x2Au);
+      v18 = v8;
+      _os_log_impl(&dword_23E3EA000, v6, OS_LOG_TYPE_DEFAULT, "ATXInformationHeuristicRefreshTimeTrigger (%p): Fired [%@] %0.1fs after date. Triggering heuristics refresh. %@", &v11, 0x2Au);
     }
 
-    v8 = [WeakRetained delegate];
-    v9 = [WeakRetained registeredHeuristics];
-    [v8 informationHeuristicRefreshTrigger:WeakRetained didTriggerRefreshForHeuristics:v9];
+    v9 = [WeakRetained delegate];
+    v10 = [WeakRetained registeredHeuristics];
+    [v9 informationHeuristicRefreshTrigger:WeakRetained didTriggerRefreshForHeuristics:v10];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_stop
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (self->_source)
   {
-    v3 = __atxlog_handle_gi();
+    v3 = __atxlog_handle_gi(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       fireDate = self->_fireDate;
       registeredHeuristics = [(ATXInformationHeuristicRefreshTrigger *)self registeredHeuristics];
-      v8 = 134218498;
+      v7 = 134218498;
       selfCopy = self;
-      v10 = 2112;
-      v11 = fireDate;
-      v12 = 2112;
-      v13 = registeredHeuristics;
-      _os_log_impl(&dword_23E3EA000, v3, OS_LOG_TYPE_DEFAULT, "ATXInformationHeuristicRefreshTimeTrigger (%p): Stopped [%@]. %@.", &v8, 0x20u);
+      v9 = 2112;
+      v10 = fireDate;
+      v11 = 2112;
+      v12 = registeredHeuristics;
+      _os_log_impl(&dword_23E3EA000, v3, OS_LOG_TYPE_DEFAULT, "ATXInformationHeuristicRefreshTimeTrigger (%p): Stopped [%@]. %@.", &v7, 0x20u);
     }
 
     dispatch_source_cancel(self->_source);
     source = self->_source;
     self->_source = 0;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isEqual:(id)equal
@@ -207,25 +201,8 @@ LABEL_7:
   v12.receiver = self;
   v12.super_class = ATXInformationHeuristicRefreshTimeTrigger;
   v5 = [(ATXInformationHeuristicRefreshTrigger *)&v12 initWithCoder:coderCopy];
-  if (!v5)
+  if (!v5 || ([coderCopy error], v6 = objc_claimAutoreleasedReturnValue(), v6, v6) || (-[ATXInformationHeuristicRefreshTrigger _safeDecodeObjectOfClass:forKey:withCoder:nonNull:](v5, "_safeDecodeObjectOfClass:forKey:withCoder:nonNull:", objc_opt_class(), @"fireDate", coderCopy, 1), v9 = objc_claimAutoreleasedReturnValue(), fireDate = v5->_fireDate, v5->_fireDate = v9, fireDate, !v5->_fireDate) || (objc_msgSend(coderCopy, "error"), v11 = objc_claimAutoreleasedReturnValue(), v11, v11))
   {
-    goto LABEL_3;
-  }
-
-  error = [coderCopy error];
-
-  if (error)
-  {
-    goto LABEL_3;
-  }
-
-  v9 = [(ATXInformationHeuristicRefreshTrigger *)v5 _safeDecodeObjectOfClass:objc_opt_class() forKey:@"fireDate" withCoder:coderCopy nonNull:1];
-  fireDate = v5->_fireDate;
-  v5->_fireDate = v9;
-
-  if (!v5->_fireDate || ([coderCopy error], v11 = objc_claimAutoreleasedReturnValue(), v11, v11))
-  {
-LABEL_3:
     v7 = 0;
   }
 

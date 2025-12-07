@@ -296,7 +296,7 @@ LABEL_11:
   }
 }
 
-uint64_t __42__PXStackedDataSectionManager_setEnabled___block_invoke(uint64_t a1)
+void *__42__PXStackedDataSectionManager_setEnabled___block_invoke(uint64_t a1)
 {
   *(*(a1 + 32) + 144) = *(a1 + 40);
   result = [*(a1 + 32) _updateDataSectionIfNecessary];

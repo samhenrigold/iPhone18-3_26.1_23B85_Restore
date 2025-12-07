@@ -83,9 +83,9 @@
 - (NSArray)contacts
 {
   avatarViewController = [(CNBadgingAvatarViewController *)self avatarViewController];
-  contacts = [avatarViewController contacts];
+  v3 = objc_msgSend_contacts(avatarViewController);
 
-  return contacts;
+  return v3;
 }
 
 - (void)setContacts:(id)contacts

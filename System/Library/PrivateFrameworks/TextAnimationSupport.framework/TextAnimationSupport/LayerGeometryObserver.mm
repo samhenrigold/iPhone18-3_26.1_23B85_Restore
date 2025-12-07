@@ -53,7 +53,7 @@ LABEL_6:
   if (change)
   {
     type metadata accessor for NSKeyValueChangeKey(0);
-    _s7SwiftUI4TextV6LayoutV4LineVAGSlAAWlTm_0(&lazy protocol witness table cache variable for type NSKeyValueChangeKey and conformance NSKeyValueChangeKey, type metadata accessor for NSKeyValueChangeKey);
+    _s7SwiftUI4TextV6LayoutV4LineVAGSlAAWlTm_0(&lazy protocol witness table cache variable for type NSKeyValueChangeKey and conformance NSKeyValueChangeKey, type metadata accessor for NSKeyValueChangeKey, &protocol conformance descriptor for NSKeyValueChangeKey);
     v18 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   }
 

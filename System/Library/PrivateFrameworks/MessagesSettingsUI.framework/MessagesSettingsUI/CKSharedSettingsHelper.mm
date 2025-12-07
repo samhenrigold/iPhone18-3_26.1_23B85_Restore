@@ -27,6 +27,9 @@
 - (id)systemPolicySpecifiers;
 - (void)satelliteDemoModeTapped;
 - (void)setAudioMessageAutoKeep:(id)keep;
+- (void)setConversationListFilteringEnabled:(BOOL)enabled;
+- (void)setRaiseToListenEnabled:(BOOL)enabled;
+- (void)setReadReceiptsEnabled:(BOOL)enabled;
 @end
 
 @implementation CKSharedSettingsHelper
@@ -73,6 +76,35 @@ uint64_t __40__CKSharedSettingsHelper_sharedInstance__block_invoke()
   return supportsSMS;
 }
 
+- (void)setReadReceiptsEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v5 = MEMORY[0x259C9B360](@"com.apple.madrid", @"GlobalReadReceiptVersionID");
+  v10 = v5;
+  if (v5)
+  {
+    v6 = [v5 integerValue] + 1;
+  }
+
+  else
+  {
+    v6 = 1;
+  }
+
+  CFPreferencesSetAppValue(@"GlobalReadReceiptVersionID", [MEMORY[0x277CCABB0] numberWithInteger:v6], @"com.apple.madrid");
+  CFPreferencesSetAppValue(@"ReadReceiptsEnabled", [MEMORY[0x277CCABB0] numberWithBool:enabledCopy], @"com.apple.madrid");
+  CFPreferencesSynchronize(@"com.apple.madrid", *MEMORY[0x277CBF040], *MEMORY[0x277CBF010]);
+  DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
+  CFNotificationCenterPostNotification(DarwinNotifyCenter, @"com.apple.MobileSMS.ReadReceiptsEnabled.changed", 0, 0, 1u);
+  notify_post(@"com.apple.MobileSMS.ReadReceiptsEnabled.shouldUpdateDevices");
+  if (PSIsNanoMirroringDomain())
+  {
+    _syncManager = [(CKSharedSettingsHelper *)self _syncManager];
+    v9 = [MEMORY[0x277CBEB98] setWithObject:@"ReadReceiptsEnabled"];
+    [_syncManager synchronizeUserDefaultsDomain:@"com.apple.madrid" keys:v9];
+  }
+}
+
 - (BOOL)areReadReceiptsEnabled
 {
   CFPreferencesSynchronize(@"com.apple.madrid", *MEMORY[0x277CBF040], *MEMORY[0x277CBF010]);
@@ -90,6 +122,46 @@ uint64_t __40__CKSharedSettingsHelper_sharedInstance__block_invoke()
   return !v2;
 }
 
+- (void)setConversationListFilteringEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  mEMORY[0x277D1A9B8] = [MEMORY[0x277D1A9B8] sharedFeatureFlags];
+  isIntroductionsEnabled = [mEMORY[0x277D1A9B8] isIntroductionsEnabled];
+
+  if (isIntroductionsEnabled)
+  {
+    mEMORY[0x277D18DE8] = [MEMORY[0x277D18DE8] sharedManager];
+    v8 = [MEMORY[0x277CCABB0] numberWithBool:enabledCopy];
+    [mEMORY[0x277D18DE8] setSettingValue:v8 forKey:4];
+  }
+
+  else
+  {
+    CFPreferencesSetAppValue(@"IncomingMessageAlertFiltration", [MEMORY[0x277CCABB0] numberWithBool:enabledCopy], @"com.apple.MobileSMS");
+    CFPreferencesSetAppValue(@"IncomingMessageAlertFiltrationForcedOn", *MEMORY[0x277CBED10], @"com.apple.MobileSMS");
+    CFPreferencesSetAppValue(@"MessageFilteringSettingsConfirmed", *MEMORY[0x277CBED28], @"com.apple.MobileSMS");
+    CFPreferencesSynchronize(@"com.apple.MobileSMS", *MEMORY[0x277CBF040], *MEMORY[0x277CBF010]);
+  }
+
+  DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
+  CFNotificationCenterPostNotification(DarwinNotifyCenter, @"com.apple.MobileSMS.IncomingMessageAlertFiltration.changed", 0, 0, 1u);
+  v10 = MEMORY[0x259C9B3F0]("CKResetBlackholeEnabledCache", @"ChatKit");
+  if (v10)
+  {
+    v10();
+  }
+
+  mEMORY[0x277D1A9B8]2 = [MEMORY[0x277D1A9B8] sharedFeatureFlags];
+  isIntroductionsEnabled2 = [mEMORY[0x277D1A9B8]2 isIntroductionsEnabled];
+
+  if ((isIntroductionsEnabled2 & 1) == 0)
+  {
+    _syncManager = [(CKSharedSettingsHelper *)self _syncManager];
+    v13 = [MEMORY[0x277CBEB98] setWithObjects:{@"IncomingMessageAlertFiltration", @"IncomingMessageAlertFiltrationForcedOn", @"MessageFilteringSettingsConfirmed", 0}];
+    [_syncManager synchronizeUserDefaultsDomain:@"com.apple.MobileSMS" keys:v13];
+  }
+}
+
 - (BOOL)getRaiseToListenEnabled
 {
   CFPreferencesSynchronize(@"com.apple.MobileSMS", *MEMORY[0x277CBF040], *MEMORY[0x277CBF010]);
@@ -101,6 +173,15 @@ uint64_t __40__CKSharedSettingsHelper_sharedInstance__block_invoke()
   }
 
   return result;
+}
+
+- (void)setRaiseToListenEnabled:(BOOL)enabled
+{
+  CFPreferencesSetAppValue(@"RaiseToListenEnabled", [MEMORY[0x277CCABB0] numberWithBool:enabled], @"com.apple.MobileSMS");
+  CFPreferencesSynchronize(@"com.apple.MobileSMS", *MEMORY[0x277CBF040], *MEMORY[0x277CBF010]);
+  DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
+
+  CFNotificationCenterPostNotification(DarwinNotifyCenter, @"com.apple.MobileSMS.RaiseToListenEnabled.changed", 0, 0, 1u);
 }
 
 - (BOOL)isRaiseGestureSupported
@@ -118,7 +199,7 @@ uint64_t __40__CKSharedSettingsHelper_sharedInstance__block_invoke()
   return isRaiseGestureSupported_isRaiseGestureSupported;
 }
 
-uint64_t __49__CKSharedSettingsHelper_isRaiseGestureSupported__block_invoke(uint64_t a1)
+void *__49__CKSharedSettingsHelper_isRaiseGestureSupported__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277CC1CA8] isGestureServiceAvailable];
   if (result)
@@ -212,7 +293,7 @@ uint64_t __49__CKSharedSettingsHelper_isRaiseGestureSupported__block_invoke(uint
 
 - (BOOL)shouldShowCheckInLocationHistorySettings
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = MGCopyAnswer();
   if (v3)
   {
@@ -221,17 +302,17 @@ uint64_t __49__CKSharedSettingsHelper_isRaiseGestureSupported__block_invoke(uint
     {
       if (IMOSLoggingEnabled())
       {
-        v8 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+        v7 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
         {
-          v10 = 138412290;
-          v11 = v4;
-          _os_log_impl(&dword_258D24000, v8, OS_LOG_TYPE_INFO, "Check In not supported for device type: %@", &v10, 0xCu);
+          v8 = 138412290;
+          v9 = v4;
+          _os_log_impl(&dword_258D24000, v7, OS_LOG_TYPE_INFO, "Check In not supported for device type: %@", &v8, 0xCu);
         }
       }
 
       CFRelease(v4);
-      goto LABEL_22;
+      return 0;
     }
 
     CFRelease(v4);
@@ -241,18 +322,16 @@ uint64_t __49__CKSharedSettingsHelper_isRaiseGestureSupported__block_invoke(uint
   {
     if (IMOSLoggingEnabled())
     {
-      v7 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+      v6 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v10) = 0;
-        _os_log_impl(&dword_258D24000, v7, OS_LOG_TYPE_INFO, "Check In not supported in region", &v10, 2u);
+        LOWORD(v8) = 0;
+        _os_log_impl(&dword_258D24000, v6, OS_LOG_TYPE_INFO, "Check In not supported in region", &v8, 2u);
       }
 
       goto LABEL_21;
     }
 
-LABEL_22:
-    v9 = *MEMORY[0x277D85DE8];
     return 0;
   }
 
@@ -260,29 +339,27 @@ LABEL_22:
   {
     if (IMOSLoggingEnabled())
     {
-      v7 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+      v6 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v10) = 0;
-        _os_log_impl(&dword_258D24000, v7, OS_LOG_TYPE_INFO, "Check In onboarding not completed", &v10, 2u);
+        LOWORD(v8) = 0;
+        _os_log_impl(&dword_258D24000, v6, OS_LOG_TYPE_INFO, "Check In onboarding not completed", &v8, 2u);
       }
 
 LABEL_21:
 
-      goto LABEL_22;
+      return 0;
     }
 
-    goto LABEL_22;
+    return 0;
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return _os_feature_enabled_impl();
 }
 
 - (BOOL)isCheckInAllowedInRegion
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   currentEstimates = [MEMORY[0x277D443A8] currentEstimates];
   if ([currentEstimates count] || (objc_msgSend(MEMORY[0x277D443A8], "lastKnownEstimates"), v3 = objc_claimAutoreleasedReturnValue(), currentEstimates, currentEstimates = v3, objc_msgSend(v3, "count")))
   {
@@ -292,30 +369,30 @@ LABEL_21:
       if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v23 = currentEstimates;
+        v22 = currentEstimates;
         _os_log_impl(&dword_258D24000, v4, OS_LOG_TYPE_INFO, "Current regulatory domain: %@", buf, 0xCu);
       }
     }
 
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     currentEstimates = currentEstimates;
-    v5 = [currentEstimates countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v5 = [currentEstimates countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v5)
     {
-      v6 = *v18;
+      v6 = *v17;
       while (2)
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v18 != v6)
+          if (*v17 != v6)
           {
             objc_enumerationMutation(currentEstimates);
           }
 
-          v8 = *(*(&v17 + 1) + 8 * i);
+          v8 = *(*(&v16 + 1) + 8 * i);
           v9 = objc_autoreleasePoolPush();
           if ((_os_feature_enabled_impl() & 1) == 0)
           {
@@ -330,7 +407,7 @@ LABEL_21:
                 if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
                 {
                   *buf = 138412290;
-                  v23 = v8;
+                  v22 = v8;
                   _os_log_impl(&dword_258D24000, v13, OS_LOG_TYPE_INFO, "Check In not available in regulatory domain: %@", buf, 0xCu);
                 }
               }
@@ -344,7 +421,7 @@ LABEL_21:
           objc_autoreleasePoolPop(v9);
         }
 
-        v5 = [currentEstimates countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v5 = [currentEstimates countByEnumeratingWithState:&v16 objects:v20 count:16];
         if (v5)
         {
           continue;
@@ -360,11 +437,11 @@ LABEL_22:
 
   else if (IMOSLoggingEnabled())
   {
-    v16 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+    v15 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_258D24000, v16, OS_LOG_TYPE_INFO, "Unable to determine Check In availability", buf, 2u);
+      _os_log_impl(&dword_258D24000, v15, OS_LOG_TYPE_INFO, "Unable to determine Check In availability", buf, 2u);
     }
 
     v12 = 1;
@@ -376,7 +453,6 @@ LABEL_22:
     v12 = 1;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -493,7 +569,7 @@ LABEL_14:
 
 - (BOOL)shouldShowSMSRelaySettings
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   mEMORY[0x277D07DB0] = [MEMORY[0x277D07DB0] sharedInstance];
   supportsSMS = [mEMORY[0x277D07DB0] supportsSMS];
 
@@ -503,33 +579,33 @@ LABEL_14:
   iMessageService = [MEMORY[0x277D18DE0] iMessageService];
   v9 = [mEMORY[0x277D18D28] activeAccountsForService:iMessageService];
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v10 = v9;
-  v11 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v19;
+    v13 = *v18;
     while (2)
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v19 != v13)
+        if (*v18 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        if ([*(*(&v18 + 1) + 8 * i) accountType] == 1)
+        if ([*(*(&v17 + 1) + 8 * i) accountType] == 1)
         {
           v15 = hasPhoneNumber & supportsSMS & v6;
           goto LABEL_11;
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v12)
       {
         continue;
@@ -542,37 +618,36 @@ LABEL_14:
   v15 = 0;
 LABEL_11:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
 - (BOOL)hasPhoneNumber
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc(MEMORY[0x277CC37B0]);
   v3 = [v2 initWithQueue:MEMORY[0x277D85CD0]];
-  v21 = 0;
-  v4 = [v3 getSubscriptionInfoWithError:&v21];
-  v5 = v21;
+  v20 = 0;
+  v4 = [v3 getSubscriptionInfoWithError:&v20];
+  v5 = v20;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   subscriptions = [v4 subscriptions];
-  v7 = [subscriptions countByEnumeratingWithState:&v17 objects:v22 count:16];
+  v7 = [subscriptions countByEnumeratingWithState:&v16 objects:v21 count:16];
   if (v7)
   {
-    v8 = *v18;
+    v8 = *v17;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(subscriptions);
         }
 
-        v10 = *(*(&v17 + 1) + 8 * i);
+        v10 = *(*(&v16 + 1) + 8 * i);
         labelID = [v10 labelID];
         if (labelID)
         {
@@ -588,7 +663,7 @@ LABEL_11:
         }
       }
 
-      v7 = [subscriptions countByEnumeratingWithState:&v17 objects:v22 count:16];
+      v7 = [subscriptions countByEnumeratingWithState:&v16 objects:v21 count:16];
       if (v7)
       {
         continue;
@@ -600,7 +675,6 @@ LABEL_11:
 
 LABEL_12:
 
-  v15 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -646,11 +720,10 @@ LABEL_12:
 
 - (id)sharedWithYouSettingsSpecifierIdentifiers
 {
-  v5[2] = *MEMORY[0x277D85DE8];
-  v5[0] = @"SHARED_WITH_YOU_GROUP";
-  v5[1] = @"SHARED_WITH_YOU_BUTTON";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:2];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[2] = *MEMORY[0x277D85DE8];
+  v4[0] = @"SHARED_WITH_YOU_GROUP";
+  v4[1] = @"SHARED_WITH_YOU_BUTTON";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:2];
 
   return v2;
 }
@@ -710,31 +783,31 @@ LABEL_12:
 
 - (id)systemPolicySpecifiers
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   systemPolicy = [(CKSharedSettingsHelper *)self systemPolicy];
   v3 = [systemPolicy specifiersForPolicyOptions:0x400800001 force:0];
 
   v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
+        v10 = *(*(&v13 + 1) + 8 * i);
         if ([v10 cellType])
         {
           v11 = [[_TtC18MessagesSettingsUI29CKWrappedPreferencesSpecifier alloc] initWithSpecifier:v10];
@@ -742,13 +815,11 @@ LABEL_12:
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -772,13 +843,11 @@ LABEL_12:
 
 void __49__CKSharedSettingsHelper_satelliteDemoModeTapped__block_invoke_cold_1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 localizedDescription];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_258D24000, a2, OS_LOG_TYPE_ERROR, "Request Satellite Demo error: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_258D24000, a2, OS_LOG_TYPE_ERROR, "Request Satellite Demo error: %@", &v4, 0xCu);
 }
 
 @end

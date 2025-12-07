@@ -8,11 +8,11 @@
 - (uint64_t)safari_initWithDomain:()SafariCoreExtras code:privacyPreservingDescription:;
 - (uint64_t)safari_isOrContainsClientSideNetworkError;
 - (uint64_t)safari_isOrContainsNetworkUnavailableError;
-- (uint64_t)safari_isSQLiteCorruptionError;
 - (uint64_t)safari_isSQLiteError;
 - (uint64_t)safari_matchesErrorDomain:()SafariCoreExtras;
-- (uint64_t)safari_matchesErrorDomain:()SafariCoreExtras andCode:;
 - (uint64_t)safari_matchesErrorDomainsAndCodes:()SafariCoreExtras;
+- (void)safari_isSQLiteCorruptionError;
+- (void)safari_matchesErrorDomain:()SafariCoreExtras andCode:;
 @end
 
 @implementation NSError(SafariCoreExtras)
@@ -178,20 +178,19 @@ LABEL_6:
 
 - (uint64_t)safari_initWithDomain:()SafariCoreExtras code:privacyPreservingDescription:
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   v8 = a3;
   if (a5)
   {
-    v14 = @"WBSPrivacyPreservingDescription";
-    v15[0] = a5;
+    v13 = @"WBSPrivacyPreservingDescription";
+    v14[0] = a5;
     v9 = MEMORY[0x1E695DF20];
     v10 = a5;
-    a5 = [v9 dictionaryWithObjects:v15 forKeys:&v14 count:1];
+    a5 = [v9 dictionaryWithObjects:v14 forKeys:&v13 count:1];
   }
 
   v11 = [self initWithDomain:v8 code:a4 userInfo:a5];
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -212,12 +211,12 @@ LABEL_6:
   return v2;
 }
 
-- (uint64_t)safari_isSQLiteCorruptionError
+- (void)safari_isSQLiteCorruptionError
 {
   result = [self safari_isSQLiteError];
   if (result)
   {
-    return [self code] == 11;
+    return ([self code] == 11);
   }
 
   return result;
@@ -242,12 +241,12 @@ LABEL_6:
   return v6;
 }
 
-- (uint64_t)safari_matchesErrorDomain:()SafariCoreExtras andCode:
+- (void)safari_matchesErrorDomain:()SafariCoreExtras andCode:
 {
-  result = [self safari_matchesErrorDomain:?];
+  result = [self safari_matchesErrorDomain:a3];
   if (result)
   {
-    return [self code] == a4;
+    return ([self code] == a4);
   }
 
   return result;

@@ -2,11 +2,13 @@
 - (BOOL)_activateHandleReply:(id)reply error:(id *)error;
 - (BOOL)_activateSyncWithRequest:(id)request error:(id *)error;
 - (BOOL)activateWithArchivePath:(id)path error:(id *)error;
+- (BOOL)activateWithFD:(int)d signatureData:(id)data error:(id *)error;
 - (BOOL)activateWithFilePath:(id)path error:(id *)error;
 - (ENFileSession)initWithServiceClient:(id)client;
 - (NSDate)endDate;
 - (NSDate)startDate;
 - (id)_activateCreateXPCRequestWithFD:(int)d archive:(BOOL)archive signatureData:(id)data error:(id *)error;
+- (id)_activateCreateXPCRequestWithPath:(id)path archive:(BOOL)archive signatureData:(id)data error:(id *)error;
 - (id)_readTEKBatchHandleReply:(id)reply error:(id *)error;
 - (id)readTEKBatchAndReturnError:(id *)error;
 - (id)verifySignatureWithPublicKey:(__SecKey *)key error:(id *)error;
@@ -36,7 +38,7 @@
 {
   if (self->_activateSucceeded && !self->_invalidated)
   {
-    v2 = [ENExposureDetectionSession dealloc];
+    [ENExposureDetectionSession dealloc];
     [(ENFileSession *)v2 startDate];
   }
 
@@ -93,16 +95,16 @@ void __27__ENFileSession_invalidate__block_invoke(uint64_t a1, void *a2)
       v6 = v3;
       if (gLogCategory__ENFileSession != -1 || (v5 = _LogCategory_Initialize(), v4 = v6, v5))
       {
-        __27__ENFileSession_invalidate__block_invoke_cold_1(a1);
+        __27__ENFileSession_invalidate__block_invoke_cold_1(a1, v6);
         v4 = v6;
       }
     }
   }
 }
 
-void __27__ENFileSession_invalidate__block_invoke_2(uint64_t a1)
+void __27__ENFileSession_invalidate__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = CUXPCDecodeNSErrorIfNeeded();
+  v3 = CUXPCDecodeNSErrorIfNeeded();
   (*(*(a1 + 32) + 16))();
 }
 
@@ -117,47 +119,122 @@ void __27__ENFileSession_invalidate__block_invoke_2(uint64_t a1)
 
   if (v10)
   {
-    v17 = 0;
-    v11 = [objc_alloc(MEMORY[0x277CBEA90]) initWithContentsOfFile:v8 options:0 error:&v17];
-    v12 = v17;
-    v13 = v12;
+    v23 = 0;
+    v11 = [objc_alloc(MEMORY[0x277CBEA90]) initWithContentsOfFile:v8 options:0 error:&v23];
+    v12 = v23;
+    v18 = v12;
     if (!v11)
     {
       if (error)
       {
-        ENNestedErrorF(v12, 1);
-        *error = v15 = 0;
+        ENNestedErrorF(v12, 1, "Read signature failed", v13, v14, v15, v16, v17, v22);
+        *error = v20 = 0;
       }
 
       else
       {
-        v15 = 0;
+        v20 = 0;
       }
 
       goto LABEL_8;
     }
 
-    v13 = v11;
+    v18 = v11;
   }
 
   else
   {
-    v13 = 0;
+    v18 = 0;
   }
 
-  v14 = [(ENFileSession *)self _activateCreateXPCRequestWithPath:pathCopy archive:0 signatureData:v13 error:error];
-  if (v14)
+  v19 = [(ENFileSession *)self _activateCreateXPCRequestWithPath:pathCopy archive:0 signatureData:v18 error:error];
+  if (v19)
   {
-    v15 = [(ENFileSession *)self _activateSyncWithRequest:v14 error:error];
+    v20 = [(ENFileSession *)self _activateSyncWithRequest:v19 error:error];
   }
 
   else
   {
-    v15 = 0;
+    v20 = 0;
   }
 
 LABEL_8:
-  return v15;
+  return v20;
+}
+
+- (id)_activateCreateXPCRequestWithPath:(id)path archive:(BOOL)archive signatureData:(id)data error:(id *)error
+{
+  archiveCopy = archive;
+  pathCopy = path;
+  dataCopy = data;
+  v12 = realpath_DARWIN_EXTSN([pathCopy fileSystemRepresentation], 0);
+  if (v12)
+  {
+    v13 = v12;
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __79__ENFileSession__activateCreateXPCRequestWithPath_archive_signatureData_error___block_invoke;
+    v19[3] = &__block_descriptor_40_e5_v8__0l;
+    v19[4] = v12;
+    v14 = MEMORY[0x2383EE560](v19);
+    v15 = open(v13, 0);
+    if ((v15 & 0x80000000) == 0)
+    {
+      goto LABEL_5;
+    }
+
+    if (*__error())
+    {
+      v16 = *__error();
+      if (!v16)
+      {
+LABEL_5:
+        v17 = [(ENFileSession *)self _activateCreateXPCRequestWithFD:v15 archive:archiveCopy signatureData:dataCopy error:error];
+        if (!v17)
+        {
+          close(v15);
+        }
+
+        goto LABEL_11;
+      }
+    }
+
+    else
+    {
+      v16 = 4294960596;
+    }
+
+    if (error)
+    {
+      ENErrorF(2, "Open %@ failed: %#m", pathCopy, v16);
+      *error = v17 = 0;
+    }
+
+    else
+    {
+      v17 = 0;
+    }
+
+LABEL_11:
+    v14[2](v14);
+
+    goto LABEL_12;
+  }
+
+  if (error)
+  {
+    ENErrorF(2, "realpath failed");
+    *error = v17 = 0;
+  }
+
+  else
+  {
+    v17 = 0;
+  }
+
+LABEL_12:
+
+  return v17;
 }
 
 - (id)_activateCreateXPCRequestWithFD:(int)d archive:(BOOL)archive signatureData:(id)data error:(id *)error
@@ -212,7 +289,7 @@ LABEL_8:
 
   else if (error)
   {
-    ENErrorF(1);
+    ENErrorF(1, "XPC FD create failed");
     *error = v13 = 0;
   }
 
@@ -231,25 +308,26 @@ LABEL_8:
   {
     if (error)
     {
-      goto LABEL_10;
+      ENErrorF(10, "Session already activated");
+LABEL_11:
+      *error = v10 = 0;
+      goto LABEL_6;
     }
 
-    goto LABEL_12;
+LABEL_13:
+    v10 = 0;
+    goto LABEL_6;
   }
 
   if (self->_invalidated)
   {
     if (error)
     {
-LABEL_10:
-      ENErrorF(10);
-      *error = v10 = 0;
-      goto LABEL_6;
+      ENErrorF(10, "Session invalidated");
+      goto LABEL_11;
     }
 
-LABEL_12:
-    v10 = 0;
-    goto LABEL_6;
+    goto LABEL_13;
   }
 
   v7 = [(ENXPCServiceClient *)self->_serviceClient getXPCConnectionAndReturnError:error];
@@ -295,13 +373,13 @@ LABEL_6:
     {
       if ((CUXPCDecodeNSData() & 1) != 0 && error)
       {
-        *error = ENErrorF(16);
+        *error = ENErrorF(16, "Nil file hash");
       }
     }
 
     else if (error)
     {
-      *error = ENErrorF(16);
+      *error = ENErrorF(16, "Nil metadata");
     }
   }
 
@@ -354,14 +432,15 @@ BOOL __44__ENFileSession__activateHandleReply_error___block_invoke(uint64_t a1, 
 
     if (error)
     {
-      goto LABEL_10;
+      ENErrorF(10, "Session invalidated");
+      goto LABEL_11;
     }
   }
 
   else if (error)
   {
-LABEL_10:
-    v6 = ENErrorF(10);
+    ENErrorF(10, "Session must be activated");
+    v6 = LABEL_11:;
     v7 = v6;
     v4 = 0;
     *error = v6;
@@ -485,13 +564,14 @@ BOOL __48__ENFileSession__readTEKBatchHandleReply_error___block_invoke(uint64_t 
   {
     if (!error)
     {
-      goto LABEL_47;
+      goto LABEL_48;
     }
 
-LABEL_43:
+    v32 = "Session must be activated";
+LABEL_44:
     v33 = 10;
-LABEL_46:
-    ENErrorF(v33);
+LABEL_47:
+    ENErrorF(v33, v32, key);
     *error = v30 = 0;
     goto LABEL_37;
   }
@@ -500,15 +580,17 @@ LABEL_46:
   {
     if (!error)
     {
-      goto LABEL_47;
+      goto LABEL_48;
     }
 
-    goto LABEL_43;
+    v32 = "Session invalidated";
+    goto LABEL_44;
   }
 
   sha256Data = self->_sha256Data;
   if (sha256Data)
   {
+    keyCopy = key;
     v7 = self->_signatures;
     v8 = v7;
     if (v7)
@@ -548,7 +630,7 @@ LABEL_46:
               if (signatureData)
               {
                 error = 0;
-                if (SecKeyVerifySignature(key, v13, sha256Data, signatureData, &error))
+                if (SecKeyVerifySignature(keyCopy, v13, sha256Data, signatureData, &error))
                 {
                   v30 = v17;
 
@@ -565,13 +647,13 @@ LABEL_46:
                     v22 = v13;
                     v23 = sha256Data;
                     v24 = v10;
-                    keyCopy = key;
+                    v25 = keyCopy;
                     v26 = v15;
                     code = [(__CFError *)errorCopy2 code];
 
                     v28 = code == -67808;
                     v15 = v26;
-                    key = keyCopy;
+                    keyCopy = v25;
                     v10 = v24;
                     sha256Data = v23;
                     v13 = v22;
@@ -582,7 +664,7 @@ LABEL_46:
 LABEL_23:
                       if (gLogCategory__ENFileSession <= 90 && (gLogCategory__ENFileSession != -1 || _LogCategory_Initialize()))
                       {
-                        [ENFileSession verifySignatureWithPublicKey:error:];
+                        [ENFileSession verifySignatureWithPublicKey:errorCopy2 error:?];
                       }
                     }
 
@@ -612,7 +694,7 @@ LABEL_27:
 
         if (errorCopy)
         {
-          ENErrorF(2);
+          ENErrorF(2, "No matching signature found");
           *errorCopy = v30 = 0;
         }
 
@@ -628,14 +710,15 @@ LABEL_35:
 
       if (error)
       {
-        goto LABEL_51;
+        ENErrorF(2, "No file signatures");
+        goto LABEL_53;
       }
     }
 
     else if (error)
     {
-LABEL_51:
-      ENErrorF(2);
+      ENErrorF(2, "Nil file signatures");
+LABEL_53:
       *error = v30 = 0;
 LABEL_36:
 
@@ -648,14 +731,14 @@ LABEL_36:
 
   if (error)
   {
+    v32 = "Nil file SHA256 data";
     v33 = 2;
-    goto LABEL_46;
+    goto LABEL_47;
   }
 
-LABEL_47:
+LABEL_48:
   v30 = 0;
 LABEL_37:
-  v31 = *MEMORY[0x277D85DE8];
 
   return v30;
 }
@@ -714,9 +797,24 @@ LABEL_37:
   return v7;
 }
 
-void __27__ENFileSession_invalidate__block_invoke_cold_1(uint64_t a1)
+- (BOOL)activateWithFD:(int)d signatureData:(id)data error:(id *)error
 {
-  v1 = *(a1 + 32);
+  v7 = [(ENFileSession *)self _activateCreateXPCRequestWithFD:*&d archive:0 signatureData:data error:error];
+  if (v7)
+  {
+    v8 = [(ENFileSession *)self _activateSyncWithRequest:v7 error:error];
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  return v8;
+}
+
+void __27__ENFileSession_invalidate__block_invoke_cold_1(uint64_t a1, uint64_t a2)
+{
   v2 = objc_opt_class();
   v4 = NSStringFromClass(v2);
   v3 = CUPrintNSError();
@@ -725,7 +823,7 @@ void __27__ENFileSession_invalidate__block_invoke_cold_1(uint64_t a1)
 
 void __44__ENFileSession__activateHandleReply_error___block_invoke_cold_1()
 {
-  ENErrorF(15);
+  ENErrorF(15, "Signature non-dict");
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_3();
   v1 = *(v0 + 40);
@@ -735,11 +833,11 @@ void __44__ENFileSession__activateHandleReply_error___block_invoke_cold_1()
 void __44__ENFileSession__activateHandleReply_error___block_invoke_cold_2(uint64_t a1)
 {
   v1 = OUTLINED_FUNCTION_9(a1);
-  ENNestedErrorF(v1, 2);
+  ENNestedErrorF(v1, 2, "Signature init XPC failed", v2, v3, v4, v5, v6, v10);
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_3();
-  v3 = *(v2 + 40);
-  *(v2 + 40) = v4;
+  v8 = *(v7 + 40);
+  *(v7 + 40) = v9;
 }
 
 - (void)readTEKBatchAndReturnError:(uint64_t *)a3 .cold.1(id *a1, uint64_t a2, uint64_t *a3)
@@ -766,7 +864,7 @@ void __44__ENFileSession__activateHandleReply_error___block_invoke_cold_2(uint64
 
 void __48__ENFileSession__readTEKBatchHandleReply_error___block_invoke_cold_1()
 {
-  ENErrorF(15);
+  ENErrorF(15, "TEK non-dict");
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_3();
   v1 = *(v0 + 40);
@@ -776,16 +874,16 @@ void __48__ENFileSession__readTEKBatchHandleReply_error___block_invoke_cold_1()
 void __48__ENFileSession__readTEKBatchHandleReply_error___block_invoke_cold_2(uint64_t a1)
 {
   v1 = OUTLINED_FUNCTION_9(a1);
-  ENNestedErrorF(v1, 2);
+  ENNestedErrorF(v1, 2, "TEK init XPC failed", v2, v3, v4, v5, v6, v10);
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_3();
-  v3 = *(v2 + 40);
-  *(v2 + 40) = v4;
+  v8 = *(v7 + 40);
+  *(v7 + 40) = v9;
 }
 
-- (void)verifySignatureWithPublicKey:error:.cold.1()
+- (void)verifySignatureWithPublicKey:(uint64_t)a1 error:.cold.1(uint64_t a1)
 {
-  v0 = CUPrintNSError();
+  v1 = CUPrintNSError();
   LogPrintF_safe();
 }
 

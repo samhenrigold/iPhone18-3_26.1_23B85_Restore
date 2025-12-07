@@ -3,6 +3,7 @@
 - (MTStopwatchManager)init;
 - (MTStopwatchManager)initWithConnectionProvider:(id)provider metrics:(id)metrics;
 - (MTStopwatchManager)initWithConnectionProvider:(id)provider metrics:(id)metrics notificationCenter:(id)center;
+- (MTStopwatchManager)initWithoutXpc:(BOOL)xpc;
 - (id)_initWithConnectionProvidingBlock:(id)block metrics:(id)metrics;
 - (id)_initWithConnectionProvidingBlock:(id)block metrics:(id)metrics notificationCenter:(id)center;
 - (id)createStopwatch:(id)stopwatch;
@@ -41,15 +42,14 @@
     _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ warming...", &v7, 0xCu);
   }
 
-  v4 = MTStopwatchServerInterface();
-  v5 = MTStopwatchClientInterface();
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = MTStopwatchServerInterface(v4);
+  v6 = MTStopwatchClientInterface();
 }
 
 id __38__MTStopwatchManager_initWithMetrics___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = MTStopwatchServerInterface();
+  v3 = MTStopwatchServerInterface(v2);
   v4 = [v2 exportedObject];
   v5 = MTStopwatchClientInterface();
   v6 = [MTXPCConnectionInfo infoForMachServiceName:@"com.apple.MobileTimer.stopwatchserver" remoteObjectInterface:v3 exportedObject:v4 exportedObjectInterface:v5 lifecycleNotification:@"com.apple.MTStopwatchServer.wakeup" requiredEntitlement:0 options:4096];
@@ -114,20 +114,20 @@ void __38__MTStopwatchManager_initWithMetrics___block_invoke_2(uint64_t a1)
 
 - (id)_initWithConnectionProvidingBlock:(id)block metrics:(id)metrics notificationCenter:(id)center
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   metricsCopy = metrics;
   centerCopy = center;
-  v19.receiver = self;
-  v19.super_class = MTStopwatchManager;
-  v11 = [(MTStopwatchManager *)&v19 init];
+  v18.receiver = self;
+  v18.super_class = MTStopwatchManager;
+  v11 = [(MTStopwatchManager *)&v18 init];
   if (v11)
   {
     v12 = MTLogForCategory(5);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v21 = v11;
+      v20 = v11;
       _os_log_impl(&dword_1B1F9F000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@ initializing...", buf, 0xCu);
     }
 
@@ -142,13 +142,20 @@ void __38__MTStopwatchManager_initWithMetrics___block_invoke_2(uint64_t a1)
     v11->_connectionProvider = v15;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v11;
+}
+
+- (MTStopwatchManager)initWithoutXpc:(BOOL)xpc
+{
+  defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
+  v5 = [(MTStopwatchManager *)self initWithConnectionProvider:0 metrics:0 notificationCenter:defaultCenter];
+
+  return v5;
 }
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = MTLogForCategory(5);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -158,10 +165,9 @@ void __38__MTStopwatchManager_initWithMetrics___block_invoke_2(uint64_t a1)
   }
 
   [(MTXPCConnectionProvider *)self->_connectionProvider invalidate];
-  v5.receiver = self;
-  v5.super_class = MTStopwatchManager;
-  [(MTStopwatchManager *)&v5 dealloc];
-  v4 = *MEMORY[0x1E69E9840];
+  v4.receiver = self;
+  v4.super_class = MTStopwatchManager;
+  [(MTStopwatchManager *)&v4 dealloc];
 }
 
 - (void)reconnect
@@ -172,7 +178,7 @@ void __38__MTStopwatchManager_initWithMetrics___block_invoke_2(uint64_t a1)
 
 - (id)createStopwatch:(id)stopwatch
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   stopwatchCopy = stopwatch;
   v5 = MTLogForCategory(5);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -180,25 +186,24 @@ void __38__MTStopwatchManager_initWithMetrics___block_invoke_2(uint64_t a1)
     identifier = [stopwatchCopy identifier];
     *buf = 138543618;
     selfCopy = self;
-    v21 = 2114;
-    v22 = identifier;
+    v20 = 2114;
+    v21 = identifier;
     _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ createStopwatch:%{public}@", buf, 0x16u);
   }
 
   v7 = objc_opt_new();
   connectionProvider = [(MTStopwatchManager *)self connectionProvider];
-  v16 = MEMORY[0x1E69E9820];
-  v17 = stopwatchCopy;
+  v15 = MEMORY[0x1E69E9820];
+  v16 = stopwatchCopy;
   v9 = v7;
-  v18 = v9;
+  v17 = v9;
   v10 = stopwatchCopy;
   errorOnlyCompletionHandlerAdapter = [v9 errorOnlyCompletionHandlerAdapter];
-  [connectionProvider performRemoteBlock:&v16 withErrorHandler:errorOnlyCompletionHandlerAdapter];
+  [connectionProvider performRemoteBlock:&v15 withErrorHandler:errorOnlyCompletionHandlerAdapter];
 
-  v12 = v18;
+  v12 = v17;
   v13 = v9;
 
-  v14 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -219,7 +224,7 @@ void __38__MTStopwatchManager_createStopwatch___block_invoke(uint64_t a1, void *
 
 - (id)updateStopwatch:(id)stopwatch
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   stopwatchCopy = stopwatch;
   v5 = MTLogForCategory(5);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -227,25 +232,24 @@ void __38__MTStopwatchManager_createStopwatch___block_invoke(uint64_t a1, void *
     identifier = [stopwatchCopy identifier];
     *buf = 138543618;
     selfCopy = self;
-    v21 = 2114;
-    v22 = identifier;
+    v20 = 2114;
+    v21 = identifier;
     _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ updateStopwatch: %{public}@", buf, 0x16u);
   }
 
   v7 = objc_opt_new();
   connectionProvider = [(MTStopwatchManager *)self connectionProvider];
-  v16 = MEMORY[0x1E69E9820];
-  v17 = stopwatchCopy;
+  v15 = MEMORY[0x1E69E9820];
+  v16 = stopwatchCopy;
   v9 = v7;
-  v18 = v9;
+  v17 = v9;
   v10 = stopwatchCopy;
   errorOnlyCompletionHandlerAdapter = [v9 errorOnlyCompletionHandlerAdapter];
-  [connectionProvider performRemoteBlock:&v16 withErrorHandler:errorOnlyCompletionHandlerAdapter];
+  [connectionProvider performRemoteBlock:&v15 withErrorHandler:errorOnlyCompletionHandlerAdapter];
 
-  v12 = v18;
+  v12 = v17;
   v13 = v9;
 
-  v14 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -266,7 +270,7 @@ void __38__MTStopwatchManager_updateStopwatch___block_invoke(uint64_t a1, void *
 
 - (id)removeStopwatch:(id)stopwatch
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   stopwatchCopy = stopwatch;
   v5 = MTLogForCategory(5);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -274,25 +278,24 @@ void __38__MTStopwatchManager_updateStopwatch___block_invoke(uint64_t a1, void *
     identifier = [stopwatchCopy identifier];
     *buf = 138543618;
     selfCopy = self;
-    v21 = 2114;
-    v22 = identifier;
+    v20 = 2114;
+    v21 = identifier;
     _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ removeStopwatch: %{public}@", buf, 0x16u);
   }
 
   v7 = objc_opt_new();
   connectionProvider = [(MTStopwatchManager *)self connectionProvider];
-  v16 = MEMORY[0x1E69E9820];
-  v17 = stopwatchCopy;
+  v15 = MEMORY[0x1E69E9820];
+  v16 = stopwatchCopy;
   v9 = v7;
-  v18 = v9;
+  v17 = v9;
   v10 = stopwatchCopy;
   errorOnlyCompletionHandlerAdapter = [v9 errorOnlyCompletionHandlerAdapter];
-  [connectionProvider performRemoteBlock:&v16 withErrorHandler:errorOnlyCompletionHandlerAdapter];
+  [connectionProvider performRemoteBlock:&v15 withErrorHandler:errorOnlyCompletionHandlerAdapter];
 
-  v12 = v18;
+  v12 = v17;
   v13 = v9;
 
-  v14 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -313,7 +316,7 @@ void __38__MTStopwatchManager_removeStopwatch___block_invoke(uint64_t a1, void *
 
 - (id)getStopwatches
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = MTLogForCategory(5);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -324,16 +327,14 @@ void __38__MTStopwatchManager_removeStopwatch___block_invoke(uint64_t a1, void *
 
   v4 = objc_opt_new();
   connectionProvider = [(MTStopwatchManager *)self connectionProvider];
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __36__MTStopwatchManager_getStopwatches__block_invoke;
-  v10[3] = &unk_1E7B0D030;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __36__MTStopwatchManager_getStopwatches__block_invoke;
+  v9[3] = &unk_1E7B0D030;
   v6 = v4;
-  v11 = v6;
+  v10 = v6;
   errorOnlyCompletionHandlerAdapter = [v6 errorOnlyCompletionHandlerAdapter];
-  [connectionProvider performRemoteBlock:v10 withErrorHandler:errorOnlyCompletionHandlerAdapter];
-
-  v8 = *MEMORY[0x1E69E9840];
+  [connectionProvider performRemoteBlock:v9 withErrorHandler:errorOnlyCompletionHandlerAdapter];
 
   return v6;
 }
@@ -372,7 +373,7 @@ uint64_t __36__MTStopwatchManager_getStopwatches__block_invoke_55(uint64_t a1, u
 
 - (id)didAddLap:(id)lap forStopwatch:(id)stopwatch sender:(id)sender
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   lapCopy = lap;
   stopwatchCopy = stopwatch;
   senderCopy = sender;
@@ -382,8 +383,8 @@ uint64_t __36__MTStopwatchManager_getStopwatches__block_invoke_55(uint64_t a1, u
     identifier = [stopwatchCopy identifier];
     *buf = 138543618;
     selfCopy = self;
-    v40 = 2114;
-    v41 = identifier;
+    v39 = 2114;
+    v40 = identifier;
     _os_log_impl(&dword_1B1F9F000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ addLap for: %{public}@", buf, 0x16u);
   }
 
@@ -394,33 +395,31 @@ uint64_t __36__MTStopwatchManager_getStopwatches__block_invoke_55(uint64_t a1, u
   aBlock[2] = __52__MTStopwatchManager_didAddLap_forStopwatch_sender___block_invoke;
   aBlock[3] = &unk_1E7B0D058;
   v14 = v13;
-  v33 = v14;
+  v32 = v14;
   v15 = senderCopy;
-  v34 = v15;
-  objc_copyWeak(&v37, buf);
+  v33 = v15;
+  objc_copyWeak(&v36, buf);
   v16 = lapCopy;
-  v35 = v16;
+  v34 = v16;
   v17 = stopwatchCopy;
-  v36 = v17;
+  v35 = v17;
   v18 = _Block_copy(aBlock);
   connectionProvider = [(MTStopwatchManager *)self connectionProvider];
-  v28 = MEMORY[0x1E69E9820];
+  v27 = MEMORY[0x1E69E9820];
   v20 = v16;
-  v29 = v20;
+  v28 = v20;
   v21 = v17;
-  v30 = v21;
+  v29 = v21;
   v22 = v18;
-  v31 = v22;
+  v30 = v22;
   errorOnlyCompletionHandlerAdapter = [v14 errorOnlyCompletionHandlerAdapter];
-  [connectionProvider performRemoteBlock:&v28 withErrorHandler:errorOnlyCompletionHandlerAdapter];
+  [connectionProvider performRemoteBlock:&v27 withErrorHandler:errorOnlyCompletionHandlerAdapter];
 
-  v24 = v31;
+  v24 = v30;
   v25 = v14;
 
-  objc_destroyWeak(&v37);
+  objc_destroyWeak(&v36);
   objc_destroyWeak(buf);
-
-  v26 = *MEMORY[0x1E69E9840];
 
   return v25;
 }
@@ -463,7 +462,7 @@ void __52__MTStopwatchManager_didAddLap_forStopwatch_sender___block_invoke_2(voi
 
 - (id)didClearAllLapsForStopwatch:(id)stopwatch sender:(id)sender
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   stopwatchCopy = stopwatch;
   senderCopy = sender;
   v8 = MTLogForCategory(5);
@@ -472,8 +471,8 @@ void __52__MTStopwatchManager_didAddLap_forStopwatch_sender___block_invoke_2(voi
     identifier = [stopwatchCopy identifier];
     *buf = 138543618;
     selfCopy = self;
-    v33 = 2114;
-    v34 = identifier;
+    v32 = 2114;
+    v33 = identifier;
     _os_log_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ didClearAllLapsForStopwatch for: %{public}@", buf, 0x16u);
   }
 
@@ -484,29 +483,27 @@ void __52__MTStopwatchManager_didAddLap_forStopwatch_sender___block_invoke_2(voi
   aBlock[2] = __57__MTStopwatchManager_didClearAllLapsForStopwatch_sender___block_invoke;
   aBlock[3] = &unk_1E7B0D0A8;
   v11 = v10;
-  v27 = v11;
+  v26 = v11;
   v12 = senderCopy;
-  v28 = v12;
-  objc_copyWeak(&v30, buf);
+  v27 = v12;
+  objc_copyWeak(&v29, buf);
   v13 = stopwatchCopy;
-  v29 = v13;
+  v28 = v13;
   v14 = _Block_copy(aBlock);
   connectionProvider = [(MTStopwatchManager *)self connectionProvider];
-  v23 = MEMORY[0x1E69E9820];
+  v22 = MEMORY[0x1E69E9820];
   v16 = v13;
-  v24 = v16;
+  v23 = v16;
   v17 = v14;
-  v25 = v17;
+  v24 = v17;
   errorOnlyCompletionHandlerAdapter = [v11 errorOnlyCompletionHandlerAdapter];
-  [connectionProvider performRemoteBlock:&v23 withErrorHandler:errorOnlyCompletionHandlerAdapter];
+  [connectionProvider performRemoteBlock:&v22 withErrorHandler:errorOnlyCompletionHandlerAdapter];
 
-  v19 = v25;
+  v19 = v24;
   v20 = v11;
 
-  objc_destroyWeak(&v30);
+  objc_destroyWeak(&v29);
   objc_destroyWeak(buf);
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v20;
 }
@@ -549,7 +546,7 @@ void __57__MTStopwatchManager_didClearAllLapsForStopwatch_sender___block_invoke_
 
 - (id)didStartLapTimerForStopwatch:(id)stopwatch sender:(id)sender
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   stopwatchCopy = stopwatch;
   senderCopy = sender;
   v8 = MTLogForCategory(5);
@@ -558,8 +555,8 @@ void __57__MTStopwatchManager_didClearAllLapsForStopwatch_sender___block_invoke_
     identifier = [stopwatchCopy identifier];
     *buf = 138543618;
     selfCopy = self;
-    v33 = 2114;
-    v34 = identifier;
+    v32 = 2114;
+    v33 = identifier;
     _os_log_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ didStartLapTimerForStopwatch for: %{public}@", buf, 0x16u);
   }
 
@@ -570,29 +567,27 @@ void __57__MTStopwatchManager_didClearAllLapsForStopwatch_sender___block_invoke_
   aBlock[2] = __58__MTStopwatchManager_didStartLapTimerForStopwatch_sender___block_invoke;
   aBlock[3] = &unk_1E7B0D0A8;
   v11 = v10;
-  v27 = v11;
+  v26 = v11;
   v12 = senderCopy;
-  v28 = v12;
-  objc_copyWeak(&v30, buf);
+  v27 = v12;
+  objc_copyWeak(&v29, buf);
   v13 = stopwatchCopy;
-  v29 = v13;
+  v28 = v13;
   v14 = _Block_copy(aBlock);
   connectionProvider = [(MTStopwatchManager *)self connectionProvider];
-  v23 = MEMORY[0x1E69E9820];
+  v22 = MEMORY[0x1E69E9820];
   v16 = v13;
-  v24 = v16;
+  v23 = v16;
   v17 = v14;
-  v25 = v17;
+  v24 = v17;
   errorOnlyCompletionHandlerAdapter = [v11 errorOnlyCompletionHandlerAdapter];
-  [connectionProvider performRemoteBlock:&v23 withErrorHandler:errorOnlyCompletionHandlerAdapter];
+  [connectionProvider performRemoteBlock:&v22 withErrorHandler:errorOnlyCompletionHandlerAdapter];
 
-  v19 = v25;
+  v19 = v24;
   v20 = v11;
 
-  objc_destroyWeak(&v30);
+  objc_destroyWeak(&v29);
   objc_destroyWeak(buf);
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v20;
 }
@@ -635,7 +630,7 @@ void __58__MTStopwatchManager_didStartLapTimerForStopwatch_sender___block_invoke
 
 - (id)didPauseLapTimerForStopwatch:(id)stopwatch sender:(id)sender
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   stopwatchCopy = stopwatch;
   senderCopy = sender;
   v8 = MTLogForCategory(5);
@@ -644,8 +639,8 @@ void __58__MTStopwatchManager_didStartLapTimerForStopwatch_sender___block_invoke
     identifier = [stopwatchCopy identifier];
     *buf = 138543618;
     selfCopy = self;
-    v33 = 2114;
-    v34 = identifier;
+    v32 = 2114;
+    v33 = identifier;
     _os_log_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ didPauseLapTimerForStopwatch for: %{public}@", buf, 0x16u);
   }
 
@@ -656,29 +651,27 @@ void __58__MTStopwatchManager_didStartLapTimerForStopwatch_sender___block_invoke
   aBlock[2] = __58__MTStopwatchManager_didPauseLapTimerForStopwatch_sender___block_invoke;
   aBlock[3] = &unk_1E7B0D0A8;
   v11 = v10;
-  v27 = v11;
+  v26 = v11;
   v12 = senderCopy;
-  v28 = v12;
-  objc_copyWeak(&v30, buf);
+  v27 = v12;
+  objc_copyWeak(&v29, buf);
   v13 = stopwatchCopy;
-  v29 = v13;
+  v28 = v13;
   v14 = _Block_copy(aBlock);
   connectionProvider = [(MTStopwatchManager *)self connectionProvider];
-  v23 = MEMORY[0x1E69E9820];
+  v22 = MEMORY[0x1E69E9820];
   v16 = v13;
-  v24 = v16;
+  v23 = v16;
   v17 = v14;
-  v25 = v17;
+  v24 = v17;
   errorOnlyCompletionHandlerAdapter = [v11 errorOnlyCompletionHandlerAdapter];
-  [connectionProvider performRemoteBlock:&v23 withErrorHandler:errorOnlyCompletionHandlerAdapter];
+  [connectionProvider performRemoteBlock:&v22 withErrorHandler:errorOnlyCompletionHandlerAdapter];
 
-  v19 = v25;
+  v19 = v24;
   v20 = v11;
 
-  objc_destroyWeak(&v30);
+  objc_destroyWeak(&v29);
   objc_destroyWeak(buf);
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v20;
 }
@@ -721,7 +714,7 @@ void __58__MTStopwatchManager_didPauseLapTimerForStopwatch_sender___block_invoke
 
 - (id)didLapLapTimerForStopwatch:(id)stopwatch sender:(id)sender
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   stopwatchCopy = stopwatch;
   senderCopy = sender;
   v8 = MTLogForCategory(5);
@@ -730,8 +723,8 @@ void __58__MTStopwatchManager_didPauseLapTimerForStopwatch_sender___block_invoke
     identifier = [stopwatchCopy identifier];
     *buf = 138543618;
     selfCopy = self;
-    v33 = 2114;
-    v34 = identifier;
+    v32 = 2114;
+    v33 = identifier;
     _os_log_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ didLapLapTimerForStopwatch for: %{public}@", buf, 0x16u);
   }
 
@@ -742,29 +735,27 @@ void __58__MTStopwatchManager_didPauseLapTimerForStopwatch_sender___block_invoke
   aBlock[2] = __56__MTStopwatchManager_didLapLapTimerForStopwatch_sender___block_invoke;
   aBlock[3] = &unk_1E7B0D0A8;
   v11 = v10;
-  v27 = v11;
+  v26 = v11;
   v12 = senderCopy;
-  v28 = v12;
-  objc_copyWeak(&v30, buf);
+  v27 = v12;
+  objc_copyWeak(&v29, buf);
   v13 = stopwatchCopy;
-  v29 = v13;
+  v28 = v13;
   v14 = _Block_copy(aBlock);
   connectionProvider = [(MTStopwatchManager *)self connectionProvider];
-  v23 = MEMORY[0x1E69E9820];
+  v22 = MEMORY[0x1E69E9820];
   v16 = v13;
-  v24 = v16;
+  v23 = v16;
   v17 = v14;
-  v25 = v17;
+  v24 = v17;
   errorOnlyCompletionHandlerAdapter = [v11 errorOnlyCompletionHandlerAdapter];
-  [connectionProvider performRemoteBlock:&v23 withErrorHandler:errorOnlyCompletionHandlerAdapter];
+  [connectionProvider performRemoteBlock:&v22 withErrorHandler:errorOnlyCompletionHandlerAdapter];
 
-  v19 = v25;
+  v19 = v24;
   v20 = v11;
 
-  objc_destroyWeak(&v30);
+  objc_destroyWeak(&v29);
   objc_destroyWeak(buf);
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v20;
 }
@@ -807,7 +798,7 @@ void __56__MTStopwatchManager_didLapLapTimerForStopwatch_sender___block_invoke_2
 
 - (id)didResetLapTimerForStopwatch:(id)stopwatch sender:(id)sender
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   stopwatchCopy = stopwatch;
   senderCopy = sender;
   v8 = MTLogForCategory(5);
@@ -816,8 +807,8 @@ void __56__MTStopwatchManager_didLapLapTimerForStopwatch_sender___block_invoke_2
     identifier = [stopwatchCopy identifier];
     *buf = 138543618;
     selfCopy = self;
-    v33 = 2114;
-    v34 = identifier;
+    v32 = 2114;
+    v33 = identifier;
     _os_log_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ didResetLapTimerForStopwatch for: %{public}@", buf, 0x16u);
   }
 
@@ -828,29 +819,27 @@ void __56__MTStopwatchManager_didLapLapTimerForStopwatch_sender___block_invoke_2
   aBlock[2] = __58__MTStopwatchManager_didResetLapTimerForStopwatch_sender___block_invoke;
   aBlock[3] = &unk_1E7B0D0A8;
   v11 = v10;
-  v27 = v11;
+  v26 = v11;
   v12 = senderCopy;
-  v28 = v12;
-  objc_copyWeak(&v30, buf);
+  v27 = v12;
+  objc_copyWeak(&v29, buf);
   v13 = stopwatchCopy;
-  v29 = v13;
+  v28 = v13;
   v14 = _Block_copy(aBlock);
   connectionProvider = [(MTStopwatchManager *)self connectionProvider];
-  v23 = MEMORY[0x1E69E9820];
+  v22 = MEMORY[0x1E69E9820];
   v16 = v13;
-  v24 = v16;
+  v23 = v16;
   v17 = v14;
-  v25 = v17;
+  v24 = v17;
   errorOnlyCompletionHandlerAdapter = [v11 errorOnlyCompletionHandlerAdapter];
-  [connectionProvider performRemoteBlock:&v23 withErrorHandler:errorOnlyCompletionHandlerAdapter];
+  [connectionProvider performRemoteBlock:&v22 withErrorHandler:errorOnlyCompletionHandlerAdapter];
 
-  v19 = v25;
+  v19 = v24;
   v20 = v11;
 
-  objc_destroyWeak(&v30);
+  objc_destroyWeak(&v29);
   objc_destroyWeak(buf);
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v20;
 }
@@ -893,7 +882,7 @@ void __58__MTStopwatchManager_didResetLapTimerForStopwatch_sender___block_invoke
 
 - (id)didResumeLapTimerForStopwatch:(id)stopwatch sender:(id)sender
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   stopwatchCopy = stopwatch;
   senderCopy = sender;
   v8 = MTLogForCategory(5);
@@ -902,8 +891,8 @@ void __58__MTStopwatchManager_didResetLapTimerForStopwatch_sender___block_invoke
     identifier = [stopwatchCopy identifier];
     *buf = 138543618;
     selfCopy = self;
-    v33 = 2114;
-    v34 = identifier;
+    v32 = 2114;
+    v33 = identifier;
     _os_log_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ didResumeLapTimerForStopwatch for: %{public}@", buf, 0x16u);
   }
 
@@ -914,29 +903,27 @@ void __58__MTStopwatchManager_didResetLapTimerForStopwatch_sender___block_invoke
   aBlock[2] = __59__MTStopwatchManager_didResumeLapTimerForStopwatch_sender___block_invoke;
   aBlock[3] = &unk_1E7B0D0A8;
   v11 = v10;
-  v27 = v11;
+  v26 = v11;
   v12 = senderCopy;
-  v28 = v12;
-  objc_copyWeak(&v30, buf);
+  v27 = v12;
+  objc_copyWeak(&v29, buf);
   v13 = stopwatchCopy;
-  v29 = v13;
+  v28 = v13;
   v14 = _Block_copy(aBlock);
   connectionProvider = [(MTStopwatchManager *)self connectionProvider];
-  v23 = MEMORY[0x1E69E9820];
+  v22 = MEMORY[0x1E69E9820];
   v16 = v13;
-  v24 = v16;
+  v23 = v16;
   v17 = v14;
-  v25 = v17;
+  v24 = v17;
   errorOnlyCompletionHandlerAdapter = [v11 errorOnlyCompletionHandlerAdapter];
-  [connectionProvider performRemoteBlock:&v23 withErrorHandler:errorOnlyCompletionHandlerAdapter];
+  [connectionProvider performRemoteBlock:&v22 withErrorHandler:errorOnlyCompletionHandlerAdapter];
 
-  v19 = v25;
+  v19 = v24;
   v20 = v11;
 
-  objc_destroyWeak(&v30);
+  objc_destroyWeak(&v29);
   objc_destroyWeak(buf);
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v20;
 }

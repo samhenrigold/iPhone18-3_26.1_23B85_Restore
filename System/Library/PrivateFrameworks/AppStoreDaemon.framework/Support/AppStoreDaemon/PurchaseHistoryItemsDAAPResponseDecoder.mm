@@ -50,7 +50,7 @@
     }
   }
 
-  [(NSConditionLock *)self->_parsingLock unlockWithCondition:2, *v11];
+  [(NSConditionLock *)self->_parsingLock unlockWithCondition:2, *v11, *&v11[8]];
 }
 
 - (void)parserDidCancel:(id)cancel
@@ -386,7 +386,7 @@ LABEL_8:
             v17 = [NSNumber numberWithUnsignedLongLong:v14 + v15];
             [(NSMutableArray *)currentBatchRemoved addObject:v17];
 
-            sub_100369550(self);
+            sub_100369550(&self->super.isa);
           }
 
           else

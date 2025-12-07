@@ -769,7 +769,7 @@ LABEL_20:
 
 - (BOOL)writeResourceData:(id)data resourceByteOffset:(unint64_t)offset
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   v7 = dataCopy;
   if (dataCopy)
@@ -785,15 +785,15 @@ LABEL_20:
         totalBytesExpected = self->_totalBytesExpected;
         resourcePath = self->_resourcePath;
         *buf = 134219010;
-        v33 = v8;
-        v34 = 2048;
-        v35 = totalBytesExpected;
-        v36 = 2112;
-        v37 = resourcePath;
-        v38 = 1024;
-        *v39 = v14;
-        *&v39[4] = 2080;
-        *&v39[6] = strerror(v14);
+        v37 = v8;
+        v38 = 2048;
+        v39 = totalBytesExpected;
+        v40 = 2112;
+        v41 = resourcePath;
+        v42 = 1024;
+        *v43 = v14;
+        *&v43[4] = 2080;
+        *&v43[6] = strerror(v14);
         _os_log_impl(&dword_1A7AD9000, v15, OS_LOG_TYPE_DEFAULT, "IDSSocketPairResourceTransferReceiver: error writing %lu (%llu total) to file %@ (errno: %d (%s))", buf, 0x30u);
       }
 
@@ -823,11 +823,11 @@ LABEL_20:
       {
         v12 = self->_resourcePath;
         *buf = 134218498;
-        v33 = v10;
-        v34 = 2048;
-        v35 = v8;
-        v36 = 2112;
-        v37 = v12;
+        v37 = v10;
+        v38 = 2048;
+        v39 = v8;
+        v40 = 2112;
+        v41 = v12;
         _os_log_impl(&dword_1A7AD9000, v11, OS_LOG_TYPE_DEFAULT, "IDSSocketPairResourceTransferReceiver: only wrote %ld/%lu bytes to file %@", buf, 0x20u);
       }
 
@@ -856,21 +856,21 @@ LABEL_20:
       totalBytesReceived = self->_totalBytesReceived;
       v21 = self->_resourcePath;
       *buf = 134219010;
-      v33 = v8;
-      v34 = 2048;
-      v35 = totalBytesReceived;
-      v36 = 2048;
-      v37 = v20;
-      v38 = 2112;
-      *v39 = v21;
-      *&v39[8] = 2048;
-      *&v39[10] = offset;
+      v37 = v8;
+      v38 = 2048;
+      v39 = totalBytesReceived;
+      v40 = 2048;
+      v41 = v20;
+      v42 = 2112;
+      *v43 = v21;
+      *&v43[8] = 2048;
+      *&v43[10] = offset;
       _os_log_impl(&dword_1A7AD9000, v18, OS_LOG_TYPE_DEBUG, "IDSSocketPairResourceTransferReceiver: wrote %lu (received %llu out of %llu total) bytes to file %@ at %llu", buf, 0x34u);
     }
 
-    if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
+    if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog(1))
     {
-      _IDSLogV(1, @"IDSFoundation", @"SocketPairMessage", @"IDSSocketPairResourceTransferReceiver: wrote %lu (received %llu out of %llu total) bytes to file %@ at %llu");
+      _IDSLogV(1, @"IDSFoundation", @"SocketPairMessage", @"IDSSocketPairResourceTransferReceiver: wrote %lu (received %llu out of %llu total) bytes to file %@ at %llu", v22, v23, v24, v25, v8);
     }
 
     v13 = self->_totalBytesReceived + v10;
@@ -882,19 +882,19 @@ LABEL_20:
     v13 = self->_totalBytesReceived;
   }
 
-  v22 = self->_totalBytesExpected;
-  if (v13 == v22)
+  v26 = self->_totalBytesExpected;
+  if (v13 == v26)
   {
-    v23 = OSLogHandleForIDSCategory();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    v27 = OSLogHandleForIDSCategory();
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
-      v24 = self->_totalBytesExpected;
-      v25 = self->_resourcePath;
+      v28 = self->_totalBytesExpected;
+      v29 = self->_resourcePath;
       *buf = 134218242;
-      v33 = v24;
-      v34 = 2112;
-      v35 = v25;
-      _os_log_impl(&dword_1A7AD9000, v23, OS_LOG_TYPE_DEFAULT, "IDSSocketPairResourceTransferReceiver: finished writing all %llu  bytes to file %@", buf, 0x16u);
+      v37 = v28;
+      v38 = 2112;
+      v39 = v29;
+      _os_log_impl(&dword_1A7AD9000, v27, OS_LOG_TYPE_DEFAULT, "IDSSocketPairResourceTransferReceiver: finished writing all %llu  bytes to file %@", buf, 0x16u);
     }
 
     if (os_log_shim_legacy_logging_enabled())
@@ -913,29 +913,29 @@ LABEL_20:
     close(self->_fileDescriptor);
     self->_fileDescriptor = -1;
     self->_done = 1;
-    v22 = self->_totalBytesExpected;
+    v26 = self->_totalBytesExpected;
     v13 = self->_totalBytesReceived;
   }
 
-  if (v13 <= v22)
+  if (v13 <= v26)
   {
-    v30 = 1;
+    v34 = 1;
     goto LABEL_44;
   }
 
-  v26 = OSLogHandleForIDSCategory();
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+  v30 = OSLogHandleForIDSCategory();
+  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
   {
-    v28 = self->_totalBytesExpected;
-    v27 = self->_totalBytesReceived;
-    v29 = self->_resourcePath;
+    v32 = self->_totalBytesExpected;
+    v31 = self->_totalBytesReceived;
+    v33 = self->_resourcePath;
     *buf = 134218498;
-    v33 = v27;
-    v34 = 2048;
-    v35 = v28;
-    v36 = 2112;
-    v37 = v29;
-    _os_log_impl(&dword_1A7AD9000, v26, OS_LOG_TYPE_DEFAULT, "IDSSocketPairResourceTransferReceiver: received %llu bytes, more than expected %llu to file %@", buf, 0x20u);
+    v37 = v31;
+    v38 = 2048;
+    v39 = v32;
+    v40 = 2112;
+    v41 = v33;
+    _os_log_impl(&dword_1A7AD9000, v30, OS_LOG_TYPE_DEFAULT, "IDSSocketPairResourceTransferReceiver: received %llu bytes, more than expected %llu to file %@", buf, 0x20u);
   }
 
   if (os_log_shim_legacy_logging_enabled())
@@ -954,17 +954,17 @@ LABEL_41:
 
 LABEL_42:
   close(self->_fileDescriptor);
-  v30 = 0;
+  v34 = 0;
   self->_fileDescriptor = -1;
   self->_done = 1;
 LABEL_44:
 
-  return v30;
+  return v34;
 }
 
 - (BOOL)appendMessage:(id)message receiverError:(unsigned __int8 *)error
 {
-  v65 = *MEMORY[0x1E69E9840];
+  v75 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   v6 = messageCopy;
   if (self->_done)
@@ -974,7 +974,7 @@ LABEL_44:
     {
       messageUUID = self->_messageUUID;
       *buf = 138412290;
-      v58 = messageUUID;
+      v68 = messageUUID;
       _os_log_impl(&dword_1A7AD9000, v7, OS_LOG_TYPE_DEFAULT, "IDSSocketPairResourceTransferReceiver: already done with this resource! messageUUID %@", buf, 0xCu);
     }
 
@@ -1021,71 +1021,66 @@ LABEL_44:
               v20 = [_FTDecompressData length];
               resourcePath = self->_resourcePath;
               *buf = 138413058;
-              v58 = v18;
-              v59 = 2048;
-              v60 = v19;
-              v61 = 2048;
-              v62 = v20;
-              v63 = 2112;
-              v64 = resourcePath;
+              v68 = v18;
+              v69 = 2048;
+              v70 = v19;
+              v71 = 2048;
+              v72 = v20;
+              v73 = 2112;
+              v74 = resourcePath;
               _os_log_impl(&dword_1A7AD9000, v17, OS_LOG_TYPE_DEBUG, "IDSSocketPairResourceTransferReceiver: appending message %@ (size: %lu decompressed: %lu) to file %@", buf, 0x2Au);
             }
 
-            if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
+            if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog(1))
             {
               v22 = self->_messageUUID;
-              v23 = [v15 length];
-              v55 = [_FTDecompressData length];
-              v56 = self->_resourcePath;
-              v51 = v22;
-              v54 = v23;
-              _IDSLogV(1, @"IDSFoundation", @"SocketPairMessage", @"IDSSocketPairResourceTransferReceiver: appending message %@ (size: %lu decompressed: %lu) to file %@");
+              [v15 length];
+              [_FTDecompressData length];
+              _IDSLogV(1, @"IDSFoundation", @"SocketPairMessage", @"IDSSocketPairResourceTransferReceiver: appending message %@ (size: %lu decompressed: %lu) to file %@", v23, v24, v25, v26, v22);
             }
           }
 
           else
           {
-            v45 = OSLogHandleForIDSCategory();
-            if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
+            v55 = OSLogHandleForIDSCategory();
+            if (os_log_type_enabled(v55, OS_LOG_TYPE_DEBUG))
             {
-              v46 = self->_messageUUID;
-              v47 = [v15 length];
-              v48 = self->_resourcePath;
+              v56 = self->_messageUUID;
+              v57 = [v15 length];
+              v58 = self->_resourcePath;
               *buf = 138412802;
-              v58 = v46;
-              v59 = 2048;
-              v60 = v47;
-              v61 = 2112;
-              v62 = v48;
-              _os_log_impl(&dword_1A7AD9000, v45, OS_LOG_TYPE_DEBUG, "IDSSocketPairResourceTransferReceiver: appending message %@ (size: %lu) to file %@", buf, 0x20u);
+              v68 = v56;
+              v69 = 2048;
+              v70 = v57;
+              v71 = 2112;
+              v72 = v58;
+              _os_log_impl(&dword_1A7AD9000, v55, OS_LOG_TYPE_DEBUG, "IDSSocketPairResourceTransferReceiver: appending message %@ (size: %lu) to file %@", buf, 0x20u);
             }
 
-            if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
+            if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog(1))
             {
-              v49 = self->_messageUUID;
-              v54 = [v15 length];
-              v55 = self->_resourcePath;
-              v51 = v49;
-              _IDSLogV(1, @"IDSFoundation", @"SocketPairMessage", @"IDSSocketPairResourceTransferReceiver: appending message %@ (size: %lu) to file %@");
+              v59 = self->_messageUUID;
+              [v15 length];
+              _IDSLogV(1, @"IDSFoundation", @"SocketPairMessage", @"IDSSocketPairResourceTransferReceiver: appending message %@ (size: %lu) to file %@", v60, v61, v62, v63, v59);
             }
 
             _FTDecompressData = v15;
           }
 
-          v9 = [(IDSSocketPairResourceTransferReceiver *)self writeResourceData:_FTDecompressData resourceByteOffset:v14, v51, v54, v55, v56];
+          v9 = [(IDSSocketPairResourceTransferReceiver *)self writeResourceData:_FTDecompressData resourceByteOffset:v14];
         }
 
         else
         {
-          v38 = OSLogHandleForIDSCategory();
-          if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+          v44 = OSLogHandleForIDSCategory();
+          if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
           {
             totalBytesReceived = self->_totalBytesReceived;
             *buf = 134218240;
-            v58 = v14;
-            v59 = 2048;
-            v60 = totalBytesReceived;
-            _os_log_impl(&dword_1A7AD9000, v38, OS_LOG_TYPE_DEFAULT, "IDSSocketPairResourceTransferReceiver: mismatching incoming resource chunk index: stated %llu != actual %llu", buf, 0x16u);
+            v68 = v14;
+            v69 = 2048;
+            v70 = totalBytesReceived;
+            _os_log_impl(&dword_1A7AD9000, v44, OS_LOG_TYPE_DEFAULT, "IDSSocketPairResourceTransferReceiver: mismatching incoming resource chunk index: stated %llu != actual %llu", buf, 0x16u);
           }
 
           if (os_log_shim_legacy_logging_enabled())
@@ -1109,85 +1104,80 @@ LABEL_44:
       {
         compressed = [v6 compressed];
         data2 = [v6 data];
-        v29 = data2;
+        v32 = data2;
         if (compressed)
         {
           _FTDecompressData2 = [data2 _FTDecompressData];
-          v31 = OSLogHandleForIDSCategory();
-          if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+          v34 = OSLogHandleForIDSCategory();
+          if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
           {
-            v32 = self->_messageUUID;
-            v33 = [v29 length];
-            v34 = [_FTDecompressData2 length];
-            v35 = self->_resourcePath;
+            v35 = self->_messageUUID;
+            v36 = [v32 length];
+            v37 = [_FTDecompressData2 length];
+            v38 = self->_resourcePath;
             *buf = 138413058;
-            v58 = v32;
-            v59 = 2048;
-            v60 = v33;
-            v61 = 2048;
-            v62 = v34;
-            v63 = 2112;
-            v64 = v35;
-            _os_log_impl(&dword_1A7AD9000, v31, OS_LOG_TYPE_DEBUG, "IDSSocketPairResourceTransferReceiver: appending message %@ (size: %lu decompressed: %lu) to file %@", buf, 0x2Au);
+            v68 = v35;
+            v69 = 2048;
+            v70 = v36;
+            v71 = 2048;
+            v72 = v37;
+            v73 = 2112;
+            v74 = v38;
+            _os_log_impl(&dword_1A7AD9000, v34, OS_LOG_TYPE_DEBUG, "IDSSocketPairResourceTransferReceiver: appending message %@ (size: %lu decompressed: %lu) to file %@", buf, 0x2Au);
           }
 
-          if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
+          if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog(1))
           {
-            v36 = self->_messageUUID;
-            v37 = [v29 length];
-            v55 = [_FTDecompressData2 length];
-            v56 = self->_resourcePath;
-            v51 = v36;
-            v54 = v37;
-            _IDSLogV(1, @"IDSFoundation", @"SocketPairMessage", @"IDSSocketPairResourceTransferReceiver: appending message %@ (size: %lu decompressed: %lu) to file %@");
+            v39 = self->_messageUUID;
+            [v32 length];
+            [_FTDecompressData2 length];
+            _IDSLogV(1, @"IDSFoundation", @"SocketPairMessage", @"IDSSocketPairResourceTransferReceiver: appending message %@ (size: %lu decompressed: %lu) to file %@", v40, v41, v42, v43, v39);
           }
         }
 
         else
         {
-          v40 = OSLogHandleForIDSCategory();
-          if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
+          v46 = OSLogHandleForIDSCategory();
+          if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
           {
-            v41 = self->_messageUUID;
-            v42 = [v29 length];
-            v43 = self->_resourcePath;
+            v47 = self->_messageUUID;
+            v48 = [v32 length];
+            v49 = self->_resourcePath;
             *buf = 138412802;
-            v58 = v41;
-            v59 = 2048;
-            v60 = v42;
-            v61 = 2112;
-            v62 = v43;
-            _os_log_impl(&dword_1A7AD9000, v40, OS_LOG_TYPE_DEBUG, "IDSSocketPairResourceTransferReceiver: appending message %@ (size: %lu) to file %@", buf, 0x20u);
+            v68 = v47;
+            v69 = 2048;
+            v70 = v48;
+            v71 = 2112;
+            v72 = v49;
+            _os_log_impl(&dword_1A7AD9000, v46, OS_LOG_TYPE_DEBUG, "IDSSocketPairResourceTransferReceiver: appending message %@ (size: %lu) to file %@", buf, 0x20u);
           }
 
-          if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
+          if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog(1))
           {
-            v44 = self->_messageUUID;
-            v54 = [v29 length];
-            v55 = self->_resourcePath;
-            v51 = v44;
-            _IDSLogV(1, @"IDSFoundation", @"SocketPairMessage", @"IDSSocketPairResourceTransferReceiver: appending message %@ (size: %lu) to file %@");
+            v50 = self->_messageUUID;
+            [v32 length];
+            _IDSLogV(1, @"IDSFoundation", @"SocketPairMessage", @"IDSSocketPairResourceTransferReceiver: appending message %@ (size: %lu) to file %@", v51, v52, v53, v54, v50);
           }
 
-          _FTDecompressData2 = v29;
+          _FTDecompressData2 = v32;
         }
 
-        v9 = [(IDSSocketPairResourceTransferReceiver *)self writeResourceData:_FTDecompressData2, v51, v54, v55, v56];
+        v9 = [(IDSSocketPairResourceTransferReceiver *)self writeResourceData:_FTDecompressData2];
       }
     }
 
     else
     {
-      v24 = OSLogHandleForIDSCategory();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+      v27 = OSLogHandleForIDSCategory();
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
         messageUUID2 = [v6 messageUUID];
-        v26 = self->_messageUUID;
+        v29 = self->_messageUUID;
         *buf = 138412546;
-        v58 = messageUUID2;
-        v59 = 2112;
-        v60 = v26;
-        _os_log_impl(&dword_1A7AD9000, v24, OS_LOG_TYPE_DEFAULT, "IDSSocketPairResourceTransferReceiver: messageUUID %@ does not match original messageUUID %@", buf, 0x16u);
+        v68 = messageUUID2;
+        v69 = 2112;
+        v70 = v29;
+        _os_log_impl(&dword_1A7AD9000, v27, OS_LOG_TYPE_DEFAULT, "IDSSocketPairResourceTransferReceiver: messageUUID %@ does not match original messageUUID %@", buf, 0x16u);
       }
 
       if (os_log_shim_legacy_logging_enabled())

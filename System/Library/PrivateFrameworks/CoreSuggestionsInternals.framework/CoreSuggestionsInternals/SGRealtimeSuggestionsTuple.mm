@@ -9,9 +9,16 @@
 
 - (id)description
 {
-  v2 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"<SGRealtimeSuggestionsTuple c:%tu e:%tu r:%tu d:%tu i:%tu o:%tu p:%tu>", -[NSArray count](self->_contacts, "count"), -[NSArray count](self->_events, "count"), -[NSArray count](self->_reminders, "count"), -[NSArray count](self->_deliveries, "count"), -[NSArray count](self->_invalidatedIdentifiers, "count"), -[NSArray count](self->_walletOrders, "count"), -[NSArray count](self->_walletPasses, "count")];
+  v3 = objc_alloc(MEMORY[0x277CCACA8]);
+  v4 = objc_msgSend_count(self->_contacts);
+  v5 = objc_msgSend_count(self->_events);
+  v6 = objc_msgSend_count(self->_reminders);
+  v7 = objc_msgSend_count(self->_deliveries);
+  v8 = objc_msgSend_count(self->_invalidatedIdentifiers);
+  v9 = objc_msgSend_count(self->_walletOrders);
+  v10 = [v3 initWithFormat:@"<SGRealtimeSuggestionsTuple c:%tu e:%tu r:%tu d:%tu i:%tu o:%tu p:%tu>", v4, v5, v6, v7, v8, v9, objc_msgSend_count(self->_walletPasses)];
 
-  return v2;
+  return v10;
 }
 
 - (id)combinedSuggestions
@@ -68,17 +75,17 @@
 - (unint64_t)suggestionsCount
 {
   contacts = [(SGRealtimeSuggestionsTuple *)self contacts];
-  v4 = [contacts count];
+  v4 = objc_msgSend_count(contacts);
   events = [(SGRealtimeSuggestionsTuple *)self events];
-  v6 = [events count] + v4;
+  v6 = objc_msgSend_count(events) + v4;
   reminders = [(SGRealtimeSuggestionsTuple *)self reminders];
-  v8 = [reminders count];
+  v8 = objc_msgSend_count(reminders);
   deliveries = [(SGRealtimeSuggestionsTuple *)self deliveries];
-  v10 = v6 + v8 + [deliveries count];
+  v10 = v6 + v8 + objc_msgSend_count(deliveries);
   walletOrders = [(SGRealtimeSuggestionsTuple *)self walletOrders];
-  v12 = [walletOrders count];
+  v12 = objc_msgSend_count(walletOrders);
   walletPasses = [(SGRealtimeSuggestionsTuple *)self walletPasses];
-  v14 = v12 + [walletPasses count];
+  v14 = v12 + objc_msgSend_count(walletPasses);
 
   return v10 + v14;
 }

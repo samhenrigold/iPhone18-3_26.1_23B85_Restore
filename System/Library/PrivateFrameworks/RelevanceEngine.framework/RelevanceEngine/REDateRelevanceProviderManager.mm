@@ -16,37 +16,33 @@
 
 + (id)_features
 {
-  v8[3] = *MEMORY[0x277D85DE8];
+  v7[3] = *MEMORY[0x277D85DE8];
   v2 = +[REFeature dateFeature];
   v3 = +[REFeature dateInformationalFeature];
-  v8[1] = v3;
+  v7[1] = v3;
   v4 = +[REFeature dateOccursTodayFeature];
-  v8[2] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:3];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v7[2] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:3];
 
   return v5;
 }
 
 + (id)_dependencyClasses
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEB98];
+  v6 = objc_opt_class();
   v7 = objc_opt_class();
   v8 = objc_opt_class();
-  v9 = objc_opt_class();
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:&v7 count:3];
-  v4 = [v2 setWithArray:{v3, v7, v8}];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:&v6 count:3];
+  v4 = [v2 setWithArray:{v3, v6, v7}];
 
   return v4;
 }
 
 - (id)_valueForProvider:(id)provider context:(id)context feature:(id)feature
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   providerCopy = provider;
   featureCopy = feature;
   v10 = providerCopy;
@@ -80,19 +76,19 @@ LABEL_6:
     irrelevantDate = [v10 irrelevantDate];
     startDate = [v10 startDate];
     endDate = [v10 endDate];
-    v47 = 138413570;
-    v48 = name;
-    v49 = 2112;
-    v50 = initialRelevanceDate;
-    v51 = 2112;
-    v52 = irrelevantDate;
-    v53 = 2112;
-    v54 = startDate;
-    v55 = 2112;
-    v56 = endDate;
-    v57 = 2112;
-    v58 = v11;
-    _os_log_debug_impl(&dword_22859F000, v16, OS_LOG_TYPE_DEBUG, "Calculating value for feature: %@ with provider initialRelevanceDate: %@, irrelevantDate: %@, startDate: %@, endDate: %@ at currentDate: %@", &v47, 0x3Eu);
+    v46 = 138413570;
+    v47 = name;
+    v48 = 2112;
+    v49 = initialRelevanceDate;
+    v50 = 2112;
+    v51 = irrelevantDate;
+    v52 = 2112;
+    v53 = startDate;
+    v54 = 2112;
+    v55 = endDate;
+    v56 = 2112;
+    v57 = v11;
+    _os_log_debug_impl(&dword_22859F000, v16, OS_LOG_TYPE_DEBUG, "Calculating value for feature: %@ with provider initialRelevanceDate: %@, irrelevantDate: %@, startDate: %@, endDate: %@ at currentDate: %@", &v46, 0x3Eu);
   }
 
   v17 = +[REFeature dateOccursTodayFeature];
@@ -192,7 +188,6 @@ LABEL_23:
   v27 = [REFeatureValue featureValueWithDouble:v31];
 
 LABEL_36:
-  v40 = *MEMORY[0x277D85DE8];
 
   return v27;
 }
@@ -207,7 +202,7 @@ LABEL_36:
 
 - (id)_valueForHistoricProvider:(id)provider feature:(id)feature
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   providerCopy = provider;
   featureCopy = feature;
   v8 = providerCopy;
@@ -216,7 +211,7 @@ LABEL_36:
   endDate = [interval endDate];
 
   [v8 recentDuration];
-  v43 = endDate;
+  v42 = endDate;
   v12 = [endDate dateByAddingTimeInterval:?];
   v13 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:irrelevantDate endDate:v12];
   v14 = RELogForDomain(3);
@@ -227,26 +222,26 @@ LABEL_36:
     irrelevantDate2 = [v8 irrelevantDate];
     startDate = [v8 startDate];
     [v8 endDate];
-    v38 = v41 = v13;
+    v37 = v40 = v13;
     [v8 recentDuration];
     lastDateUpdate = self->_lastDateUpdate;
     *buf = 138413826;
-    v45 = name;
-    v46 = 2112;
-    v47 = initialRelevanceDate;
-    v48 = 2112;
-    v49 = irrelevantDate2;
-    v50 = 2112;
-    v51 = startDate;
-    v52 = 2112;
-    v53 = v38;
-    v54 = 2048;
-    v55 = v40;
-    v56 = 2112;
-    v57 = lastDateUpdate;
+    v44 = name;
+    v45 = 2112;
+    v46 = initialRelevanceDate;
+    v47 = 2112;
+    v48 = irrelevantDate2;
+    v49 = 2112;
+    v50 = startDate;
+    v51 = 2112;
+    v52 = v37;
+    v53 = 2048;
+    v54 = v39;
+    v55 = 2112;
+    v56 = lastDateUpdate;
     _os_log_debug_impl(&dword_22859F000, v14, OS_LOG_TYPE_DEBUG, "Calculating value for feature: %@ with historic provider initialRelevanceDate: %@, irrelevantDate: %@, startDate: %@, endDate: %@, recentDurationInSeconds: %f at lastUpdateDate: %@", buf, 0x48u);
 
-    v13 = v41;
+    v13 = v40;
   }
 
   v15 = +[REFeature dateFeature];
@@ -315,8 +310,6 @@ LABEL_6:
 
   v30 = [REFeatureValue featureValueWithBool:v31 != 0];
 LABEL_19:
-
-  v33 = *MEMORY[0x277D85DE8];
 
   return v30;
 }
@@ -427,46 +420,6 @@ LABEL_5:
   [(RERelevanceProviderManager *)self _enumerateProviders:v4];
   v3 = +[RERelevanceProviderManagerUpdate immediateUpdateForAllProviders];
   [(RERelevanceProviderManager *)self _scheduleUpdate:v3];
-}
-
-- (void)_valueForProvider:context:feature:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_valueForProvider:context:feature:.cold.3()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_valueForProvider:context:feature:.cold.4()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_valueForProvider:context:feature:.cold.5()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_valueForHistoricProvider:feature:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

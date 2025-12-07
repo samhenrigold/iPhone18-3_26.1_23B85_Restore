@@ -11,9 +11,9 @@
   argCopy = arg;
   rightArgCopy = rightArg;
   listCopy = list;
-  v18.receiver = self;
-  v18.super_class = TSCEColonFormulaNode;
-  v11 = [(TSCEFormulaNode *)&v18 initWithNodeType:12];
+  v17.receiver = self;
+  v17.super_class = TSCEColonFormulaNode;
+  v11 = [(TSCEFormulaNode *)&v17 initWithNodeType:12];
   if (v11)
   {
     v12 = objc_opt_new();
@@ -23,12 +23,12 @@
     objc_storeStrong(&v11->_undoTractList, list);
     if (argCopy)
     {
-      objc_msgSend_addObject_(v11->super._children, v14, argCopy, v15, v16);
+      objc_msgSend_addObject_(v11->super._children, v14, argCopy, v15);
     }
 
     if (rightArgCopy)
     {
-      objc_msgSend_addObject_(v11->super._children, v14, rightArgCopy, v15, v16);
+      objc_msgSend_addObject_(v11->super._children, v14, rightArgCopy, v15);
     }
   }
 
@@ -37,12 +37,12 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v12.receiver = self;
-  v12.super_class = TSCEColonFormulaNode;
-  v4 = [(TSCEColonFormulaNode *)&v12 copy];
-  v9 = objc_msgSend_copy(self->_undoTractList, v5, v6, v7, v8);
-  v10 = v4[6];
-  v4[6] = v9;
+  v11.receiver = self;
+  v11.super_class = TSCEColonFormulaNode;
+  v4 = [(TSCEColonFormulaNode *)&v11 copy];
+  v8 = objc_msgSend_copy(self->_undoTractList, v5, v6, v7);
+  v9 = v4[6];
+  v4[6] = v8;
 
   return v4;
 }
@@ -50,26 +50,26 @@
 - (void)appendToNodeArray:(TSCEASTNodeArray *)array hostCellRef:(const TSCECellRef *)ref symbolTable:(void *)table calcEngine:(id)engine
 {
   engineCopy = engine;
-  v14 = objc_msgSend_children(self, v10, v11, v12, v13);
-  if (objc_msgSend_count(v14, v15, v16, v17, v18))
+  v13 = objc_msgSend_children(self, v10, v11, v12);
+  if (objc_msgSend_count(v13, v14, v15, v16))
   {
-    v23 = objc_msgSend_objectAtIndex_(v14, v19, 0, v21, v22);
-    objc_msgSend_appendToNodeArray_hostCellRef_symbolTable_calcEngine_(v23, v24, array, ref, table, engineCopy);
+    v20 = objc_msgSend_objectAtIndex_(v13, v17, 0, v19);
+    objc_msgSend_appendToNodeArray_hostCellRef_symbolTable_calcEngine_(v20, v21, array, ref, table, engineCopy);
   }
 
-  v25 = objc_msgSend_whitespaceBefore(self, v19, v20, v21, v22);
-  TSCEASTWhitespaceElement::appendWhitespaceElement(array, 31, v25);
+  v22 = objc_msgSend_whitespaceBefore(self, v17, v18, v19);
+  TSCEASTWhitespaceElement::appendWhitespaceElement(array, 31, v22);
 
-  if (objc_msgSend_count(v14, v26, v27, v28, v29) >= 2)
+  if (objc_msgSend_count(v13, v23, v24, v25) >= 2)
   {
-    v34 = objc_msgSend_objectAtIndex_(v14, v30, 1, v32, v33);
-    objc_msgSend_appendToNodeArray_hostCellRef_symbolTable_calcEngine_(v34, v35, array, ref, table, engineCopy);
+    v29 = objc_msgSend_objectAtIndex_(v13, v26, 1, v28);
+    objc_msgSend_appendToNodeArray_hostCellRef_symbolTable_calcEngine_(v29, v30, array, ref, table, engineCopy);
   }
 
-  v36 = objc_msgSend_whitespaceAfter(self, v30, v31, v32, v33);
-  TSCEASTWhitespaceElement::appendWhitespaceElement(array, 32, v36);
+  v31 = objc_msgSend_whitespaceAfter(self, v26, v27, v28);
+  TSCEASTWhitespaceElement::appendWhitespaceElement(array, 32, v31);
 
-  TSCEASTColonElement::appendColonWithUidTractListElement(array, self->_undoTractList, v37);
+  TSCEASTColonElement::appendColonWithUidTractListElement(array, self->_undoTractList, v32);
 }
 
 @end

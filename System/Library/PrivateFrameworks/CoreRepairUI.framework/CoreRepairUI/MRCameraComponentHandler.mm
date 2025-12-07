@@ -90,19 +90,12 @@
 + (void)handleSUCase
 {
   v3 = MGCopyAnswer();
-  intValue = [v3 intValue];
+  [v3 intValue];
 
   if ([MEMORY[0x277D00FC0] supportRepair:1026])
   {
-    v5 = 0x277D00FB0;
-    if (intValue != 1)
-    {
-      v5 = 0x277D00FB8;
-    }
-
-    v6 = *v5;
-    v7 = objc_opt_new();
-    [self handleComponentSUCase:@"hasDisplayedFollowupForCamera" lastAUthCheckBuildVersion:@"LastCameraAuthCompleteBuildVersion" followUpItemID:@"com.apple.mobilerepair.CameraRepair" queryString:@"Camera" suCasekey:@"SUcaseForCamera" startBuildVersion:@"18D1" componentAuth:v7];
+    v4 = objc_opt_new();
+    [self handleComponentSUCase:@"hasDisplayedFollowupForCamera" lastAUthCheckBuildVersion:@"LastCameraAuthCompleteBuildVersion" followUpItemID:@"com.apple.mobilerepair.CameraRepair" queryString:@"Camera" suCasekey:@"SUcaseForCamera" startBuildVersion:@"18D1" componentAuth:v4];
   }
 }
 
@@ -123,7 +116,7 @@
   return v2;
 }
 
-uint64_t __43__MRCameraComponentHandler_sharedSingleton__block_invoke(uint64_t a1)
+void *__43__MRCameraComponentHandler_sharedSingleton__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D00FC0] supportRepair:1026];
   if (result)

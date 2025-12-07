@@ -525,7 +525,6 @@ uint64_t __63__SUSettingsSUPreferencesManager_autoInstallSystemAndDataFiles__blo
   objc_storeStrong(&v8, 0);
   objc_storeStrong(&v9, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 @end

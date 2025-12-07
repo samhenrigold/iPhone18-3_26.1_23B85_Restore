@@ -7,7 +7,7 @@
 + (void)_deleteGlobalPrefs
 {
   v15 = *MEMORY[0x277D85DE8];
-  v2 = _TVRCGeneralLog();
+  v2 = _TVRCGeneralLog(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -43,16 +43,15 @@
     while (v4);
   }
 
-  if (!CFPreferencesAppSynchronize(*MEMORY[0x277CBF008]))
+  v7 = CFPreferencesAppSynchronize(*MEMORY[0x277CBF008]);
+  if (!v7)
   {
-    v7 = _TVRCGeneralLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _TVRCGeneralLog(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      +[(TVRCFeatures *)v7];
+      +[(TVRCFeatures *)v8];
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

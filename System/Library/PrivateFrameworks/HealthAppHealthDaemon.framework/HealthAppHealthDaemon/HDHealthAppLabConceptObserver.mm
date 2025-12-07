@@ -100,89 +100,84 @@ void __88__HDHealthAppLabConceptObserver_debounceRunBackgroundGenerationForNewUs
 
 - (void)userDomainConceptManager:(id)manager didAddUserDomainConcepts:(id)concepts
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   conceptsCopy = concepts;
   _HKInitializeLogging();
   v7 = HKLogWellnessDashboard();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = NSStringFromSelector(a2);
-    v10 = 138543874;
+    v9 = 138543874;
     selfCopy = self;
-    v12 = 2112;
-    v13 = v8;
-    v14 = 2048;
-    v15 = [conceptsCopy count];
-    _os_log_impl(&dword_22939E000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: %@ for %ld changes", &v10, 0x20u);
+    v11 = 2112;
+    v12 = v8;
+    v13 = 2048;
+    v14 = [conceptsCopy count];
+    _os_log_impl(&dword_22939E000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: %@ for %ld changes", &v9, 0x20u);
   }
 
   [(HDHealthAppLabConceptObserver *)self debounceRunBackgroundGenerationForNewUserDomainConcepts];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)userDomainConceptManager:(id)manager didDeleteUserDomainConcepts:(id)concepts
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   conceptsCopy = concepts;
   _HKInitializeLogging();
   v7 = HKLogWellnessDashboard();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = NSStringFromSelector(a2);
-    v10 = 138543874;
+    v9 = 138543874;
     selfCopy = self;
-    v12 = 2112;
-    v13 = v8;
-    v14 = 2048;
-    v15 = [conceptsCopy count];
-    _os_log_impl(&dword_22939E000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: %@ for %ld changes", &v10, 0x20u);
+    v11 = 2112;
+    v12 = v8;
+    v13 = 2048;
+    v14 = [conceptsCopy count];
+    _os_log_impl(&dword_22939E000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: %@ for %ld changes", &v9, 0x20u);
   }
 
   [(HDHealthAppLabConceptObserver *)self debounceRunBackgroundGenerationForNewUserDomainConcepts];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)userDomainConceptManager:(id)manager didJournalUserDomainConcepts:(id)concepts
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   conceptsCopy = concepts;
   _HKInitializeLogging();
   v7 = HKLogWellnessDashboard();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = NSStringFromSelector(a2);
-    v10 = 138543874;
+    v9 = 138543874;
     selfCopy = self;
-    v12 = 2112;
-    v13 = v8;
-    v14 = 2048;
-    v15 = [conceptsCopy count];
-    _os_log_impl(&dword_22939E000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: %@ for %ld changes", &v10, 0x20u);
+    v11 = 2112;
+    v12 = v8;
+    v13 = 2048;
+    v14 = [conceptsCopy count];
+    _os_log_impl(&dword_22939E000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: %@ for %ld changes", &v9, 0x20u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)userDomainConceptManager:(id)manager didUpdateUserDomainConcepts:(id)concepts
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   conceptsCopy = concepts;
   _HKInitializeLogging();
   v7 = HKLogWellnessDashboard();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = NSStringFromSelector(a2);
-    v10 = 138543874;
+    v9 = 138543874;
     selfCopy = self;
-    v12 = 2112;
-    v13 = v8;
-    v14 = 2048;
-    v15 = [conceptsCopy count];
-    _os_log_impl(&dword_22939E000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: %@ for %ld changes", &v10, 0x20u);
+    v11 = 2112;
+    v12 = v8;
+    v13 = 2048;
+    v14 = [conceptsCopy count];
+    _os_log_impl(&dword_22939E000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: %@ for %ld changes", &v9, 0x20u);
   }
 
   [(HDHealthAppLabConceptObserver *)self debounceRunBackgroundGenerationForNewUserDomainConcepts];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (HDProfile)profile

@@ -7,8 +7,10 @@
 - (BOOL)downloadReleaseNotes:(id)notes assetID:(id)d;
 - (BOOL)enableTRMSystemAuthenticationForRegistryEntryID:(id)d;
 - (BOOL)getAttestationCertificates:(id)certificates assetID:(id)d;
+- (BOOL)getSupportedAccessories:(id)accessories assetID:(id)d batchRequest:(BOOL)request;
 - (BOOL)getSupportedAccessories:(id)accessories forProductGroup:(id)group;
 - (BOOL)performSynchronousProviderInvocation:(id)invocation accessory:(id)accessory requireKnown:(BOOL)known description:(const char *)description;
+- (BOOL)personalizationVectorForAccessory:(id)accessory assetTag:(unsigned int)tag outVector:(unsigned int *)vector;
 - (BOOL)removeAccessory:(id)accessory;
 - (BOOL)requestConsent:(id)consent;
 - (BOOL)revokeConsentRequest:(id)request;
@@ -21,6 +23,7 @@
 - (id)getSupplementalAssetNameForAccessoryID:(id)d;
 - (id)invocationForProviderSelector:(SEL)selector;
 - (void)dealloc;
+- (void)manifestPropertiesReceivedForAccessory:(id)accessory assetTag:(unsigned int)tag properties:(id)properties;
 - (void)progressForUARPConsent:(id)consent bytesSent:(unint64_t)sent bytesTotal:(unint64_t)total;
 - (void)progressForUARPConsentInPostLogout:(id)logout bytesSent:(unint64_t)sent bytesTotal:(unint64_t)total;
 - (void)sendFirmwareUpdateProgressForAccessory:(id)accessory assetID:(id)d bytesSent:(unint64_t)sent bytesTotal:(unint64_t)total;
@@ -218,7 +221,7 @@ void __34__UARPControllerXPC_xpcConnection__block_invoke_116(uint64_t a1)
 - (BOOL)performSynchronousProviderInvocation:(id)invocation accessory:(id)accessory requireKnown:(BOOL)known description:(const char *)description
 {
   knownCopy = known;
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   invocationCopy = invocation;
   accessoryCopy = accessory;
   v12 = accessoryCopy;
@@ -235,12 +238,12 @@ void __34__UARPControllerXPC_xpcConnection__block_invoke_116(uint64_t a1)
       self->_lastProviderError = 0;
 
       xpcConnection = [(UARPControllerXPC *)self xpcConnection];
-      v26[0] = MEMORY[0x277D85DD0];
-      v26[1] = 3221225472;
-      v26[2] = __93__UARPControllerXPC_performSynchronousProviderInvocation_accessory_requireKnown_description___block_invoke;
-      v26[3] = &unk_278EC25E0;
-      v26[4] = self;
-      v19 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:v26];
+      v25[0] = MEMORY[0x277D85DD0];
+      v25[1] = 3221225472;
+      v25[2] = __93__UARPControllerXPC_performSynchronousProviderInvocation_accessory_requireKnown_description___block_invoke;
+      v25[3] = &unk_278EC25E0;
+      v25[4] = self;
+      v19 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:v25];
 
       [invocationCopy invokeWithTarget:v19];
       v20 = self->_lastProviderError;
@@ -250,13 +253,13 @@ void __34__UARPControllerXPC_xpcConnection__block_invoke_116(uint64_t a1)
         xpcLog = self->_xpcLog;
         if (os_log_type_enabled(xpcLog, OS_LOG_TYPE_ERROR))
         {
-          v25 = self->_lastProviderError;
+          v24 = self->_lastProviderError;
           *buf = 136446722;
           descriptionCopy2 = description;
-          v30 = 2114;
-          v31 = v25;
-          v32 = 2112;
-          v33 = v12;
+          v29 = 2114;
+          v30 = v24;
+          v31 = 2112;
+          v32 = v12;
           _os_log_error_impl(&dword_247AA7000, xpcLog, OS_LOG_TYPE_ERROR, "%{public}s: %{public}@ (%@)", buf, 0x20u);
         }
       }
@@ -267,18 +270,18 @@ void __34__UARPControllerXPC_xpcConnection__block_invoke_116(uint64_t a1)
       v15 = self->_xpcLog;
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        v24 = "known";
+        v23 = "known";
         *buf = 136446722;
         descriptionCopy2 = description;
         if (knownCopy)
         {
-          v24 = "unknown";
+          v23 = "unknown";
         }
 
-        v30 = 2082;
-        v31 = v24;
-        v32 = 2112;
-        v33 = v12;
+        v29 = 2082;
+        v30 = v23;
+        v31 = 2112;
+        v32 = v12;
         _os_log_error_impl(&dword_247AA7000, v15, OS_LOG_TYPE_ERROR, "%{public}s: %{public}s accessory (%@)", buf, 0x20u);
       }
 
@@ -291,7 +294,6 @@ void __34__UARPControllerXPC_xpcConnection__block_invoke_116(uint64_t a1)
     v16 = 0;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -427,6 +429,89 @@ void __34__UARPControllerXPC_xpcConnection__block_invoke_116(uint64_t a1)
   return self;
 }
 
+- (BOOL)personalizationVectorForAccessory:(id)accessory assetTag:(unsigned int)tag outVector:(unsigned int *)vector
+{
+  v6 = *&tag;
+  v40 = *MEMORY[0x277D85DE8];
+  accessoryCopy = accessory;
+  WeakRetained = objc_loadWeakRetained(&self->_controller);
+  v10 = [WeakRetained accessoryKnown:accessoryCopy];
+
+  if (v10)
+  {
+    v26 = 0;
+    v27 = &v26;
+    v28 = 0x3032000000;
+    v29 = __Block_byref_object_copy__3;
+    v30 = __Block_byref_object_dispose__3;
+    v31 = 0;
+    xpcConnection = [(UARPControllerXPC *)self xpcConnection];
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __74__UARPControllerXPC_personalizationVectorForAccessory_assetTag_outVector___block_invoke;
+    v25[3] = &unk_278EC2608;
+    v25[4] = &v26;
+    v12 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:v25];
+
+    v21 = 0;
+    v22 = &v21;
+    v23 = 0x2020000000;
+    v24 = 0;
+    getID = [accessoryCopy getID];
+    v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v6];
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __74__UARPControllerXPC_personalizationVectorForAccessory_assetTag_outVector___block_invoke_2;
+    v20[3] = &unk_278EC2630;
+    v20[4] = &v21;
+    v20[5] = &v26;
+    [v12 personalizationVectorForAccessoryID:getID assetTag:v14 reply:v20];
+
+    v15 = v27;
+    if (v27[5])
+    {
+      xpcLog = self->_xpcLog;
+      if (os_log_type_enabled(xpcLog, OS_LOG_TYPE_ERROR))
+      {
+        v19 = v27[5];
+        *buf = 136315906;
+        v33 = "[UARPControllerXPC personalizationVectorForAccessory:assetTag:outVector:]";
+        v34 = 1024;
+        v35 = v6;
+        v36 = 2112;
+        v37 = accessoryCopy;
+        v38 = 2112;
+        v39 = v19;
+        _os_log_error_impl(&dword_247AA7000, xpcLog, OS_LOG_TYPE_ERROR, "%s: Failed to query assetTag 0x%08x for %@ (%@)", buf, 0x26u);
+      }
+
+      v15 = v27;
+    }
+
+    else
+    {
+      *vector = *(v22 + 6);
+    }
+
+    v17 = v15[5] == 0;
+    _Block_object_dispose(&v21, 8);
+
+    _Block_object_dispose(&v26, 8);
+  }
+
+  else
+  {
+    if (os_log_type_enabled(self->_xpcLog, OS_LOG_TYPE_ERROR))
+    {
+      [UARPControllerXPC personalizationVectorForAccessory:assetTag:outVector:];
+    }
+
+    v17 = 0;
+  }
+
+  return v17;
+}
+
 void __74__UARPControllerXPC_personalizationVectorForAccessory_assetTag_outVector___block_invoke_2(uint64_t a1, void *a2, int a3)
 {
   v6 = a2;
@@ -447,11 +532,11 @@ void __74__UARPControllerXPC_personalizationVectorForAccessory_assetTag_outVecto
 {
   dCopy = d;
   v17 = 0;
-  v18[0] = &v17;
-  v18[1] = 0x3032000000;
-  v18[2] = __Block_byref_object_copy__3;
-  v18[3] = __Block_byref_object_dispose__3;
-  v19 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = __Block_byref_object_copy__3;
+  v21 = __Block_byref_object_dispose__3;
+  v22 = 0;
   xpcConnection = [(UARPControllerXPC *)self xpcConnection];
   v16[0] = MEMORY[0x277D85DD0];
   v16[1] = 3221225472;
@@ -460,11 +545,11 @@ void __74__UARPControllerXPC_personalizationVectorForAccessory_assetTag_outVecto
   v16[4] = &v17;
   v6 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:v16];
 
-  if (*(v18[0] + 40))
+  if (v18[5])
   {
     if (os_log_type_enabled(self->_xpcLog, OS_LOG_TYPE_ERROR))
     {
-      [UARPControllerXPC getAssetIDForAccessoryID:v18];
+      [UARPControllerXPC getAssetIDForAccessoryID:];
     }
 
     v7 = 0;
@@ -497,11 +582,11 @@ void __74__UARPControllerXPC_personalizationVectorForAccessory_assetTag_outVecto
 {
   dCopy = d;
   v17 = 0;
-  v18[0] = &v17;
-  v18[1] = 0x3032000000;
-  v18[2] = __Block_byref_object_copy__3;
-  v18[3] = __Block_byref_object_dispose__3;
-  v19 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = __Block_byref_object_copy__3;
+  v21 = __Block_byref_object_dispose__3;
+  v22 = 0;
   xpcConnection = [(UARPControllerXPC *)self xpcConnection];
   v16[0] = MEMORY[0x277D85DD0];
   v16[1] = 3221225472;
@@ -510,11 +595,11 @@ void __74__UARPControllerXPC_personalizationVectorForAccessory_assetTag_outVecto
   v16[4] = &v17;
   v6 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:v16];
 
-  if (*(v18[0] + 40))
+  if (v18[5])
   {
     if (os_log_type_enabled(self->_xpcLog, OS_LOG_TYPE_ERROR))
     {
-      [UARPControllerXPC getSupplementalAssetNameForAccessoryID:v18];
+      [UARPControllerXPC getSupplementalAssetNameForAccessoryID:];
     }
 
     v7 = 0;
@@ -541,6 +626,28 @@ void __74__UARPControllerXPC_personalizationVectorForAccessory_assetTag_outVecto
   _Block_object_dispose(&v17, 8);
 
   return v7;
+}
+
+- (void)manifestPropertiesReceivedForAccessory:(id)accessory assetTag:(unsigned int)tag properties:(id)properties
+{
+  v6 = *&tag;
+  accessoryCopy = accessory;
+  propertiesCopy = properties;
+  WeakRetained = objc_loadWeakRetained(&self->_controller);
+  v11 = [WeakRetained accessoryKnown:accessoryCopy];
+
+  if (v11)
+  {
+    xpcConnection = [(UARPControllerXPC *)self xpcConnection];
+    remoteObjectProxy = [xpcConnection remoteObjectProxy];
+    getID = [accessoryCopy getID];
+    [remoteObjectProxy manifestPropertiesReceivedForAccessoryID:getID assetTag:v6 properties:propertiesCopy];
+  }
+
+  else if (os_log_type_enabled(self->_xpcLog, OS_LOG_TYPE_ERROR))
+  {
+    [UARPControllerXPC manifestPropertiesReceivedForAccessory:assetTag:properties:];
+  }
 }
 
 - (void)sendUpdateFirmwareAnalyticsEventForAccessoryID:(id)d assetID:(id)iD params:(id)params
@@ -619,11 +726,11 @@ void __74__UARPControllerXPC_personalizationVectorForAccessory_assetTag_outVecto
   if (accessoriesCopy)
   {
     v26 = 0;
-    v27[0] = &v26;
-    v27[1] = 0x3032000000;
-    v27[2] = __Block_byref_object_copy__3;
-    v27[3] = __Block_byref_object_dispose__3;
-    v28 = 0;
+    v27 = &v26;
+    v28 = 0x3032000000;
+    v29 = __Block_byref_object_copy__3;
+    v30 = __Block_byref_object_dispose__3;
+    v31 = 0;
     xpcConnection = [(UARPControllerXPC *)self xpcConnection];
     v25[0] = MEMORY[0x277D85DD0];
     v25[1] = 3221225472;
@@ -632,11 +739,11 @@ void __74__UARPControllerXPC_personalizationVectorForAccessory_assetTag_outVecto
     v25[4] = &v26;
     v9 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:v25];
 
-    if (*(v27[0] + 40))
+    if (v27[5])
     {
       if (os_log_type_enabled(self->_xpcLog, OS_LOG_TYPE_ERROR))
       {
-        [UARPControllerXPC getSupportedAccessories:v27 forProductGroup:?];
+        [UARPControllerXPC getSupportedAccessories:forProductGroup:];
       }
 
       v10 = 0;
@@ -693,15 +800,46 @@ void __61__UARPControllerXPC_getSupportedAccessories_forProductGroup___block_inv
   *(*(*(a1 + 40) + 8) + 24) = a3;
 }
 
+- (BOOL)getSupportedAccessories:(id)accessories assetID:(id)d batchRequest:(BOOL)request
+{
+  requestCopy = request;
+  accessoriesCopy = accessories;
+  dCopy = d;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x3032000000;
+  v18 = __Block_byref_object_copy__3;
+  v19 = __Block_byref_object_dispose__3;
+  v20 = 0;
+  xpcConnection = [(UARPControllerXPC *)self xpcConnection];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __66__UARPControllerXPC_getSupportedAccessories_assetID_batchRequest___block_invoke;
+  v14[3] = &unk_278EC2608;
+  v14[4] = &v15;
+  v11 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:v14];
+
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __66__UARPControllerXPC_getSupportedAccessories_assetID_batchRequest___block_invoke_2;
+  v13[3] = &unk_278EC2608;
+  v13[4] = &v15;
+  [v11 getSupportedAccessories:accessoriesCopy assetID:dCopy batchRequest:requestCopy reply:v13];
+  LOBYTE(requestCopy) = v16[5] == 0;
+
+  _Block_object_dispose(&v15, 8);
+  return requestCopy;
+}
+
 - (id)getAttestationCertificates:(id)certificates
 {
   certificatesCopy = certificates;
   v17 = 0;
-  v18[0] = &v17;
-  v18[1] = 0x3032000000;
-  v18[2] = __Block_byref_object_copy__3;
-  v18[3] = __Block_byref_object_dispose__3;
-  v19 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = __Block_byref_object_copy__3;
+  v21 = __Block_byref_object_dispose__3;
+  v22 = 0;
   xpcConnection = [(UARPControllerXPC *)self xpcConnection];
   v16[0] = MEMORY[0x277D85DD0];
   v16[1] = 3221225472;
@@ -710,11 +848,11 @@ void __61__UARPControllerXPC_getSupportedAccessories_forProductGroup___block_inv
   v16[4] = &v17;
   v6 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:v16];
 
-  if (*(v18[0] + 40))
+  if (v18[5])
   {
     if (os_log_type_enabled(self->_xpcLog, OS_LOG_TYPE_ERROR))
     {
-      [UARPControllerXPC getAttestationCertificates:v18];
+      [UARPControllerXPC getAttestationCertificates:];
     }
 
     v7 = 0;
@@ -893,11 +1031,11 @@ void __61__UARPControllerXPC_getSupportedAccessories_forProductGroup___block_inv
 {
   dCopy = d;
   v17 = 0;
-  v18[0] = &v17;
-  v18[1] = 0x3032000000;
-  v18[2] = __Block_byref_object_copy__3;
-  v18[3] = __Block_byref_object_dispose__3;
-  v19 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = __Block_byref_object_copy__3;
+  v21 = __Block_byref_object_dispose__3;
+  v22 = 0;
   xpcConnection = [(UARPControllerXPC *)self xpcConnection];
   v16[0] = MEMORY[0x277D85DD0];
   v16[1] = 3221225472;
@@ -906,11 +1044,11 @@ void __61__UARPControllerXPC_getSupportedAccessories_forProductGroup___block_inv
   v16[4] = &v17;
   v6 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:v16];
 
-  if (*(v18[0] + 40))
+  if (v18[5])
   {
     if (os_log_type_enabled(self->_xpcLog, OS_LOG_TYPE_ERROR))
     {
-      [UARPControllerXPC getSandboxExtensionTokenForAssetID:v18];
+      [UARPControllerXPC getSandboxExtensionTokenForAssetID:];
     }
 
     v7 = 0;
@@ -941,83 +1079,78 @@ void __61__UARPControllerXPC_getSupportedAccessories_forProductGroup___block_inv
 
 - (void)personalizationVectorForAccessory:assetTag:outVector:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3_2(&dword_247AA7000, v0, v1, "%s: unknown accessory (%@)", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_2(&dword_247AA7000, v0, v1, "%s: unknown accessory (%@)", v2, v3, v4, v5, v6);
 }
 
-- (void)getAssetIDForAccessoryID:(uint64_t)a1 .cold.1(uint64_t a1)
+- (void)getAssetIDForAccessoryID:.cold.1()
 {
-  OUTLINED_FUNCTION_2_2(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_2_2(*MEMORY[0x277D85DE8]);
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_3_2(&dword_247AA7000, v1, v2, "%s: Failed to create proxy (%@)", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_2(&dword_247AA7000, v0, v1, "%s: Failed to create proxy (%@)", v2, v3, v4, v5, v6);
 }
 
-- (void)getSupplementalAssetNameForAccessoryID:(uint64_t)a1 .cold.1(uint64_t a1)
+- (void)getSupplementalAssetNameForAccessoryID:.cold.1()
 {
-  OUTLINED_FUNCTION_2_2(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_2_2(*MEMORY[0x277D85DE8]);
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_3_2(&dword_247AA7000, v1, v2, "%s: Failed to create proxy (%@)", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_2(&dword_247AA7000, v0, v1, "%s: Failed to create proxy (%@)", v2, v3, v4, v5, v6);
 }
 
 - (void)manifestPropertiesReceivedForAccessory:assetTag:properties:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3_2(&dword_247AA7000, v0, v1, "%s: unknown accessory (%@)", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_2(&dword_247AA7000, v0, v1, "%s: unknown accessory (%@)", v2, v3, v4, v5, v6);
 }
 
 - (void)sendUpdateFirmwareAnalyticsEventForAccessoryID:assetID:params:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3_2(&dword_247AA7000, v0, v1, "%s: unknown accessory ID (%@)", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_2(&dword_247AA7000, v0, v1, "%s: unknown accessory ID (%@)", v2, v3, v4, v5, v6);
 }
 
 - (void)updateProperty:value:forAccessory:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3_2(&dword_247AA7000, v0, v1, "%s: unknown accessory (%@)", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_2(&dword_247AA7000, v0, v1, "%s: unknown accessory (%@)", v2, v3, v4, v5, v6);
 }
 
-- (void)getSupportedAccessories:(uint64_t)a1 forProductGroup:.cold.1(uint64_t a1)
+- (void)getSupportedAccessories:forProductGroup:.cold.1()
 {
-  OUTLINED_FUNCTION_2_2(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_2_2(*MEMORY[0x277D85DE8]);
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_3_2(&dword_247AA7000, v1, v2, "%s: Failed to create proxy (%@)", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_2(&dword_247AA7000, v0, v1, "%s: Failed to create proxy (%@)", v2, v3, v4, v5, v6);
 }
 
 - (void)getSupportedAccessories:(os_log_t)log forProductGroup:.cold.2(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[UARPControllerXPC getSupportedAccessories:forProductGroup:]";
-  _os_log_error_impl(&dword_247AA7000, log, OS_LOG_TYPE_ERROR, "%s: Caller provided nil parameter set", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[UARPControllerXPC getSupportedAccessories:forProductGroup:]";
+  _os_log_error_impl(&dword_247AA7000, log, OS_LOG_TYPE_ERROR, "%s: Caller provided nil parameter set", &v1, 0xCu);
 }
 
-- (void)getAttestationCertificates:(uint64_t)a1 .cold.1(uint64_t a1)
+- (void)getAttestationCertificates:.cold.1()
 {
-  OUTLINED_FUNCTION_2_2(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_2_2(*MEMORY[0x277D85DE8]);
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_3_2(&dword_247AA7000, v1, v2, "%s: Failed to create proxy (%@)", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_2(&dword_247AA7000, v0, v1, "%s: Failed to create proxy (%@)", v2, v3, v4, v5, v6);
 }
 
-- (void)getSandboxExtensionTokenForAssetID:(uint64_t)a1 .cold.1(uint64_t a1)
+- (void)getSandboxExtensionTokenForAssetID:.cold.1()
 {
-  OUTLINED_FUNCTION_2_2(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_2_2(*MEMORY[0x277D85DE8]);
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_3_2(&dword_247AA7000, v1, v2, "%s: Failed to create proxy (%@)", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_2(&dword_247AA7000, v0, v1, "%s: Failed to create proxy (%@)", v2, v3, v4, v5, v6);
 }
 
 @end

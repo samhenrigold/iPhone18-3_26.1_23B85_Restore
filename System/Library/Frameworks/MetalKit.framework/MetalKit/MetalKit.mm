@@ -1,4 +1,4 @@
-uint64_t _mtkLinkedOnOrAfter(uint64_t a1)
+uint64_t _mtkLinkedOnOrAfter(uint64_t a1, uint64_t a2)
 {
   if (a1)
   {
@@ -7,15 +7,15 @@ uint64_t _mtkLinkedOnOrAfter(uint64_t a1)
       _mtkLinkedOnOrAfter_cold_1();
     }
 
-    v2 = 0x7E30901FFFFFFFFLL;
+    v3 = 0x7E30901FFFFFFFFLL;
   }
 
   else
   {
-    v2 = 0x7E00901FFFFFFFFLL;
+    v3 = 0x7E00901FFFFFFFFLL;
   }
 
-  return MEMORY[0x1EEE706E0](v2);
+  return MEMORY[0x1EEE706E0](v3);
 }
 
 BOOL reflectImage(void *a1, void *a2, vImagePixelCount a3, vImagePixelCount a4, size_t a5, uint64_t a6, uint64_t a7)
@@ -74,80 +74,81 @@ LABEL_11:
   return v7 == 0;
 }
 
-void sub_1D969B4D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, char a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, char a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, char a57)
+void sub_1D969B4D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, ...)
 {
+  va_start(va, a56);
   _Block_object_dispose(&a39, 8);
   _Block_object_dispose(&a45, 8);
   _Block_object_dispose(&a51, 8);
-  _Block_object_dispose(&a57, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1D969BC14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 96), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1D969BDFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1D969BC14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 96), 8);
+  _Block_object_dispose((v16 - 96), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1D969BFE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1D969BDFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 96), 8);
+  _Block_object_dispose((v16 - 96), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1D969C1CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1D969BFE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 96), 8);
+  _Block_object_dispose((v16 - 96), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1D969C3B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1D969C1CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 96), 8);
+  _Block_object_dispose((v16 - 96), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1D969EC50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1D969C3B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v16 - 96), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1D969EC50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1D969EE60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1D969EE60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -467,16 +468,14 @@ uint64_t selectRGBPixelFormat(uint64_t result)
 
 uint64_t _newMTKTextureErrorWithCodeAndErrorString(uint64_t a1, uint64_t a2)
 {
-  v8[2] = *MEMORY[0x1E69E9840];
+  v7[2] = *MEMORY[0x1E69E9840];
   v3 = *MEMORY[0x1E696A578];
-  v7[0] = @"MTKTextureLoaderErrorKey";
-  v7[1] = v3;
-  v8[0] = a2;
-  v8[1] = a2;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:2];
-  result = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:@"MTKTextureLoaderErrorDomain" code:a1 userInfo:v4];
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  v6[0] = @"MTKTextureLoaderErrorKey";
+  v6[1] = v3;
+  v7[0] = a2;
+  v7[1] = a2;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:v6 count:2];
+  return [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:@"MTKTextureLoaderErrorDomain" code:a1 userInfo:v4];
 }
 
 uint64_t _newMTKTextureErrorWithCodeAndUserInfo(uint64_t a1, uint64_t a2)
@@ -536,7 +535,7 @@ uint64_t expandRGBToRGBA(char *__src, char *__dst, uint64_t a3, unint64_t a4, ui
   return 1;
 }
 
-uint64_t arrayTextureTypeFromTextureType(unint64_t a1)
+uint64_t arrayTextureTypeFromTextureType(unint64_t a1, uint64_t a2)
 {
   if (a1 >= 0xA)
   {
@@ -1212,9 +1211,9 @@ Class initMDLVertexDescriptor()
   return result;
 }
 
-void sub_1D96A3B1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1D96A3B1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1321,16 +1320,14 @@ void *__ModelIOLibrary_block_invoke_0()
 
 id _MTKModelErrorWithCodeAndErrorString(uint64_t a1, void *a2)
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696ABC0];
-  v10 = @"MTKModelErrorKey";
-  v11[0] = a2;
+  v9 = @"MTKModelErrorKey";
+  v10[0] = a2;
   v4 = MEMORY[0x1E695DF20];
   v5 = a2;
-  v6 = [v4 dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v6 = [v4 dictionaryWithObjects:v10 forKeys:&v9 count:1];
   v7 = [v3 errorWithDomain:@"MTKModelErrorDomain" code:a1 userInfo:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -1383,7 +1380,7 @@ uint64_t printIndices32(uint64_t a1, unint64_t a2)
   return putchar(10);
 }
 
-uint64_t _mtkLinkedOSVersion()
+uint64_t _mtkLinkedOSVersion(uint64_t a1, uint64_t a2)
 {
   if (_mtkLinkedOSVersion_once != -1)
   {
@@ -1418,4 +1415,14 @@ void MTKModelIOVertexDescriptorFromMetalWithError_cold_2(void *a1)
   }
 
   __assert_rtn("MTKModelIOVertexDescriptorFromMetalWithError", "MTKModel.m", 634, "!Model I/O vertex descriptor layouts count should be at least MTL_MAX_VERTEX_BUFFERS");
+}
+
+CGRect CGRectIntegral(CGRect rect)
+{
+  MEMORY[0x1EEDBAE38](rect.origin, *&rect.origin.y, rect.size, *&rect.size.height);
+  result.size.height = v4;
+  result.size.width = v3;
+  result.origin.y = v2;
+  result.origin.x = v1;
+  return result;
 }

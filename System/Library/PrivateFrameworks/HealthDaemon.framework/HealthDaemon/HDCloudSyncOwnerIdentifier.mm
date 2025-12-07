@@ -31,11 +31,11 @@
   if (v12)
   {
     objc_storeStrong(&v12->_databaseIdentifier, identifer);
-    v14 = [identifierCopy copy];
+    v14 = objc_msgSend_copy(identifierCopy);
     deviceIdentifier = v13->_deviceIdentifier;
     v13->_deviceIdentifier = v14;
 
-    v16 = [differentiatorCopy copy];
+    v16 = objc_msgSend_copy(differentiatorCopy);
     ownerDifferentiator = v13->_ownerDifferentiator;
     v13->_ownerDifferentiator = v16;
   }
@@ -45,16 +45,16 @@
 
 - (NSString)string
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   ownerIdentifierString = self->_ownerIdentifierString;
   if (!ownerIdentifierString)
   {
     v4 = MEMORY[0x277CBEB18];
     databaseIdentifier = self->_databaseIdentifier;
-    v13[0] = self->_deviceIdentifier;
+    v12[0] = self->_deviceIdentifier;
     uUIDString = [(NSUUID *)databaseIdentifier UUIDString];
-    v13[1] = uUIDString;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
+    v12[1] = uUIDString;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
     v8 = [v4 arrayWithArray:v7];
 
     if (self->_ownerDifferentiator)
@@ -68,8 +68,6 @@
 
     ownerIdentifierString = self->_ownerIdentifierString;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return ownerIdentifierString;
 }

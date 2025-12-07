@@ -1,838 +1,43 @@
-uint64_t assignWithCopy for FileExportOperation(uint64_t a1, uint64_t a2, int *a3)
-{
-  if (a1 != a2)
-  {
-    outlined destroy of FileExportOperation.Mode(a1, type metadata accessor for FileExportOperation.Mode);
-    type metadata accessor for FileExportOperation.Mode(0);
-    EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-    if (EnumCaseMultiPayload > 1)
-    {
-      if (EnumCaseMultiPayload == 2)
-      {
-        v17 = *a2;
-        v18 = *(a2 + 8);
-        v19 = *(a2 + 16);
-        v20 = *(a2 + 24);
-        v21 = *(a2 + 32);
-        v22 = *(a2 + 40);
-        outlined copy of FileExportOperation.Storage(*a2, v18, v19, v20, v21, v22);
-        *a1 = v17;
-        *(a1 + 8) = v18;
-        *(a1 + 16) = v19;
-        *(a1 + 24) = v20;
-        *(a1 + 32) = v21;
-        *(a1 + 40) = v22;
-        *(a1 + 48) = *(a2 + 48);
-        *(a1 + 56) = *(a2 + 56);
-        *(a1 + 64) = *(a2 + 64);
-        v23 = *(a2 + 80);
-        *(a1 + 72) = *(a2 + 72);
-        *(a1 + 80) = v23;
-        v24 = *(a2 + 96);
-        *(a1 + 88) = *(a2 + 88);
-        *(a1 + 96) = v24;
-      }
-
-      else
-      {
-        v27 = *(a2 + 8);
-        *a1 = *a2;
-        *(a1 + 8) = v27;
-        *(a1 + 16) = *(a2 + 16);
-        v28 = *(a2 + 32);
-        *(a1 + 24) = *(a2 + 24);
-        *(a1 + 32) = v28;
-        v29 = *(a2 + 48);
-        *(a1 + 40) = *(a2 + 40);
-        *(a1 + 48) = v29;
-      }
-    }
-
-    else
-    {
-      if (!EnumCaseMultiPayload)
-      {
-        v7 = type metadata accessor for URL();
-        (*(*(v7 - 8) + 16))(a1, a2, v7);
-        v8 = type metadata accessor for FileExportOperation.Move(0);
-        v9 = *(v8 + 20);
-        v10 = (a1 + v9);
-        v11 = (a2 + v9);
-        v12 = v11[1];
-        *v10 = *v11;
-        v10[1] = v12;
-        v13 = *(v8 + 24);
-        v14 = (a1 + v13);
-        v15 = (a2 + v13);
-        v16 = v15[1];
-        *v14 = *v15;
-        v14[1] = v16;
-LABEL_11:
-
-        swift_storeEnumTagMultiPayload();
-        goto LABEL_12;
-      }
-
-      *a1 = *a2;
-      v25 = *(a2 + 16);
-      *(a1 + 8) = *(a2 + 8);
-      *(a1 + 16) = v25;
-      v26 = *(a2 + 32);
-      *(a1 + 24) = *(a2 + 24);
-      *(a1 + 32) = v26;
-    }
-
-    goto LABEL_11;
-  }
-
-LABEL_12:
-  v30 = a3[5];
-  v31 = (a1 + v30);
-  v32 = (a2 + v30);
-  *v31 = *v32;
-  v31[1] = v32[1];
-
-  v33 = a3[6];
-  v34 = type metadata accessor for URL();
-  v35 = *(v34 - 8);
-  v36 = *(v35 + 48);
-  v37 = v36(a1 + v33, 1, v34);
-  v38 = v36(a2 + v33, 1, v34);
-  if (v37)
-  {
-    if (!v38)
-    {
-      (*(v35 + 16))(a1 + v33, a2 + v33, v34);
-      (*(v35 + 56))(a1 + v33, 0, 1, v34);
-      goto LABEL_18;
-    }
-
-    goto LABEL_17;
-  }
-
-  if (v38)
-  {
-    (*(v35 + 8))(a1 + v33, v34);
-LABEL_17:
-    _s10Foundation3URLVSgMaTm_3(0, &lazy cache variable for type metadata for URL?, MEMORY[0x1E6968FB0], MEMORY[0x1E69E6720]);
-    memcpy((a1 + v33), (a2 + v33), *(*(v39 - 8) + 64));
-    goto LABEL_18;
-  }
-
-  (*(v35 + 24))(a1 + v33, a2 + v33, v34);
-LABEL_18:
-  v40 = a3[7];
-  v41 = a1 + v40;
-  v42 = a2 + v40;
-  v43 = *(a1 + v40 + 24);
-  v44 = *(a2 + v40 + 24);
-  if (v43)
-  {
-    if (v44)
-    {
-      v45 = *v42;
-      v46 = *(v42 + 8);
-      v47 = *(v42 + 16);
-      outlined copy of Text.Storage(*v42, v46, v47);
-      v48 = *v41;
-      v49 = *(v41 + 8);
-      v50 = *(v41 + 16);
-      *v41 = v45;
-      *(v41 + 8) = v46;
-      *(v41 + 16) = v47;
-      outlined consume of Text.Storage(v48, v49, v50);
-      *(v41 + 24) = *(v42 + 24);
-    }
-
-    else
-    {
-      outlined destroy of Text(v41);
-      v54 = *(v42 + 16);
-      *v41 = *v42;
-      *(v41 + 16) = v54;
-    }
-  }
-
-  else if (v44)
-  {
-    v51 = *v42;
-    v52 = *(v42 + 8);
-    v53 = *(v42 + 16);
-    outlined copy of Text.Storage(*v42, v52, v53);
-    *v41 = v51;
-    *(v41 + 8) = v52;
-    *(v41 + 16) = v53;
-    *(v41 + 24) = *(v42 + 24);
-  }
-
-  else
-  {
-    v55 = *(v42 + 16);
-    *v41 = *v42;
-    *(v41 + 16) = v55;
-  }
-
-  v56 = a3[8];
-  v57 = a1 + v56;
-  v58 = a2 + v56;
-  v59 = *(a1 + v56 + 24);
-  v60 = *(a2 + v56 + 24);
-  if (v59)
-  {
-    if (v60)
-    {
-      v61 = *v58;
-      v62 = *(v58 + 8);
-      v63 = *(v58 + 16);
-      outlined copy of Text.Storage(*v58, v62, v63);
-      v64 = *v57;
-      v65 = *(v57 + 8);
-      v66 = *(v57 + 16);
-      *v57 = v61;
-      *(v57 + 8) = v62;
-      *(v57 + 16) = v63;
-      outlined consume of Text.Storage(v64, v65, v66);
-      *(v57 + 24) = *(v58 + 24);
-    }
-
-    else
-    {
-      outlined destroy of Text(v57);
-      v70 = *(v58 + 16);
-      *v57 = *v58;
-      *(v57 + 16) = v70;
-    }
-  }
-
-  else if (v60)
-  {
-    v67 = *v58;
-    v68 = *(v58 + 8);
-    v69 = *(v58 + 16);
-    outlined copy of Text.Storage(*v58, v68, v69);
-    *v57 = v67;
-    *(v57 + 8) = v68;
-    *(v57 + 16) = v69;
-    *(v57 + 24) = *(v58 + 24);
-  }
-
-  else
-  {
-    v71 = *(v58 + 16);
-    *v57 = *v58;
-    *(v57 + 16) = v71;
-  }
-
-  v72 = a3[9];
-  v73 = a1 + v72;
-  v74 = a2 + v72;
-  v75 = *(a1 + v72 + 24);
-  v76 = *(a2 + v72 + 24);
-  if (v75)
-  {
-    if (v76)
-    {
-      v77 = *v74;
-      v78 = *(v74 + 8);
-      v79 = *(v74 + 16);
-      outlined copy of Text.Storage(*v74, v78, v79);
-      v80 = *v73;
-      v81 = *(v73 + 8);
-      v82 = *(v73 + 16);
-      *v73 = v77;
-      *(v73 + 8) = v78;
-      *(v73 + 16) = v79;
-      outlined consume of Text.Storage(v80, v81, v82);
-      *(v73 + 24) = *(v74 + 24);
-    }
-
-    else
-    {
-      outlined destroy of Text(v73);
-      v86 = *(v74 + 16);
-      *v73 = *v74;
-      *(v73 + 16) = v86;
-    }
-  }
-
-  else if (v76)
-  {
-    v83 = *v74;
-    v84 = *(v74 + 8);
-    v85 = *(v74 + 16);
-    outlined copy of Text.Storage(*v74, v84, v85);
-    *v73 = v83;
-    *(v73 + 8) = v84;
-    *(v73 + 16) = v85;
-    *(v73 + 24) = *(v74 + 24);
-  }
-
-  else
-  {
-    v87 = *(v74 + 16);
-    *v73 = *v74;
-    *(v73 + 16) = v87;
-  }
-
-  v88 = a3[10];
-  type metadata accessor for Predicate<Pack{URL}>();
-  v90 = v89;
-  v91 = *(v89 - 8);
-  v92 = *(v91 + 48);
-  v93 = v92(a1 + v88, 1, v89);
-  v94 = v92(a2 + v88, 1, v90);
-  if (!v93)
-  {
-    if (!v94)
-    {
-      (*(v91 + 24))(a1 + v88, a2 + v88, v90);
-      goto LABEL_46;
-    }
-
-    (*(v91 + 8))(a1 + v88, v90);
-    goto LABEL_45;
-  }
-
-  if (v94)
-  {
-LABEL_45:
-    _s10Foundation3URLVSgMaTm_3(0, &lazy cache variable for type metadata for Predicate<Pack{URL}>?, type metadata accessor for Predicate<Pack{URL}>, MEMORY[0x1E69E6720]);
-    memcpy((a1 + v88), (a2 + v88), *(*(v95 - 8) + 64));
-    goto LABEL_46;
-  }
-
-  (*(v91 + 16))(a1 + v88, a2 + v88, v90);
-  (*(v91 + 56))(a1 + v88, 0, 1, v90);
-LABEL_46:
-  *(a1 + a3[11]) = *(a2 + a3[11]);
-  v96 = a3[12];
-  v97 = a1 + v96;
-  v98 = (a2 + v96);
-  v99 = *v98;
-  *(v97 + 8) = *(v98 + 8);
-  *v97 = v99;
-  return a1;
-}
-
-char *initializeWithTake for FileExportOperation(char *a1, char *a2, int *a3)
-{
-  v6 = type metadata accessor for FileExportOperation.Mode(0);
-  if (swift_getEnumCaseMultiPayload())
-  {
-    memcpy(a1, a2, *(*(v6 - 8) + 64));
-  }
-
-  else
-  {
-    v7 = type metadata accessor for URL();
-    (*(*(v7 - 8) + 32))(a1, a2, v7);
-    v8 = type metadata accessor for FileExportOperation.Move(0);
-    *&a1[*(v8 + 20)] = *&a2[*(v8 + 20)];
-    *&a1[*(v8 + 24)] = *&a2[*(v8 + 24)];
-    swift_storeEnumTagMultiPayload();
-  }
-
-  v9 = a3[6];
-  *&a1[a3[5]] = *&a2[a3[5]];
-  v10 = type metadata accessor for URL();
-  v11 = *(v10 - 8);
-  if ((*(v11 + 48))(&a2[v9], 1, v10))
-  {
-    _s10Foundation3URLVSgMaTm_3(0, &lazy cache variable for type metadata for URL?, MEMORY[0x1E6968FB0], MEMORY[0x1E69E6720]);
-    memcpy(&a1[v9], &a2[v9], *(*(v12 - 8) + 64));
-  }
-
-  else
-  {
-    (*(v11 + 32))(&a1[v9], &a2[v9], v10);
-    (*(v11 + 56))(&a1[v9], 0, 1, v10);
-  }
-
-  v13 = a3[7];
-  v14 = a3[8];
-  v15 = &a1[v13];
-  v16 = &a2[v13];
-  v17 = *(v16 + 1);
-  *v15 = *v16;
-  *(v15 + 1) = v17;
-  v18 = &a1[v14];
-  v19 = &a2[v14];
-  v20 = *(v19 + 1);
-  *v18 = *v19;
-  *(v18 + 1) = v20;
-  v21 = a3[9];
-  v22 = a3[10];
-  v23 = *&a2[v21];
-  v24 = *&a2[v21 + 16];
-  v25 = &a1[v21];
-  *v25 = v23;
-  *(v25 + 1) = v24;
-  type metadata accessor for Predicate<Pack{URL}>();
-  v27 = v26;
-  v28 = *(v26 - 8);
-  if ((*(v28 + 48))(&a2[v22], 1, v26))
-  {
-    _s10Foundation3URLVSgMaTm_3(0, &lazy cache variable for type metadata for Predicate<Pack{URL}>?, type metadata accessor for Predicate<Pack{URL}>, MEMORY[0x1E69E6720]);
-    memcpy(&a1[v22], &a2[v22], *(*(v29 - 8) + 64));
-  }
-
-  else
-  {
-    (*(v28 + 32))(&a1[v22], &a2[v22], v27);
-    (*(v28 + 56))(&a1[v22], 0, 1, v27);
-  }
-
-  v30 = a3[12];
-  a1[a3[11]] = a2[a3[11]];
-  v31 = &a1[v30];
-  v32 = &a2[v30];
-  *v31 = *v32;
-  v31[8] = v32[8];
-  return a1;
-}
-
-char *assignWithTake for FileExportOperation(char *a1, char *a2, int *a3)
-{
-  if (a1 != a2)
-  {
-    outlined destroy of FileExportOperation.Mode(a1, type metadata accessor for FileExportOperation.Mode);
-    v6 = type metadata accessor for FileExportOperation.Mode(0);
-    if (swift_getEnumCaseMultiPayload())
-    {
-      memcpy(a1, a2, *(*(v6 - 8) + 64));
-    }
-
-    else
-    {
-      v7 = type metadata accessor for URL();
-      (*(*(v7 - 8) + 32))(a1, a2, v7);
-      v8 = type metadata accessor for FileExportOperation.Move(0);
-      *&a1[*(v8 + 20)] = *&a2[*(v8 + 20)];
-      *&a1[*(v8 + 24)] = *&a2[*(v8 + 24)];
-      swift_storeEnumTagMultiPayload();
-    }
-  }
-
-  v9 = a3[5];
-  v10 = &a1[v9];
-  v11 = &a2[v9];
-  v13 = *v11;
-  v12 = *(v11 + 1);
-  *v10 = v13;
-  *(v10 + 1) = v12;
-
-  v14 = a3[6];
-  v15 = type metadata accessor for URL();
-  v16 = *(v15 - 8);
-  v17 = *(v16 + 48);
-  v18 = v17(&a1[v14], 1, v15);
-  v19 = v17(&a2[v14], 1, v15);
-  if (v18)
-  {
-    if (!v19)
-    {
-      (*(v16 + 32))(&a1[v14], &a2[v14], v15);
-      (*(v16 + 56))(&a1[v14], 0, 1, v15);
-      goto LABEL_11;
-    }
-
-    goto LABEL_10;
-  }
-
-  if (v19)
-  {
-    (*(v16 + 8))(&a1[v14], v15);
-LABEL_10:
-    _s10Foundation3URLVSgMaTm_3(0, &lazy cache variable for type metadata for URL?, MEMORY[0x1E6968FB0], MEMORY[0x1E69E6720]);
-    memcpy(&a1[v14], &a2[v14], *(*(v20 - 8) + 64));
-    goto LABEL_11;
-  }
-
-  (*(v16 + 40))(&a1[v14], &a2[v14], v15);
-LABEL_11:
-  v21 = a3[7];
-  v22 = &a1[v21];
-  v23 = &a2[v21];
-  if (*&a1[v21 + 24])
-  {
-    if (*(v23 + 3))
-    {
-      v24 = v23[16];
-      v25 = *v22;
-      v26 = *(v22 + 8);
-      v27 = *(v22 + 16);
-      *v22 = *v23;
-      *(v22 + 16) = v24;
-      outlined consume of Text.Storage(v25, v26, v27);
-      *(v22 + 24) = *(v23 + 3);
-
-      goto LABEL_16;
-    }
-
-    outlined destroy of Text(v22);
-  }
-
-  v28 = *(v23 + 1);
-  *v22 = *v23;
-  *(v22 + 16) = v28;
-LABEL_16:
-  v29 = a3[8];
-  v30 = &a1[v29];
-  v31 = &a2[v29];
-  if (*&a1[v29 + 24])
-  {
-    if (*(v31 + 3))
-    {
-      v32 = v31[16];
-      v33 = *v30;
-      v34 = *(v30 + 8);
-      v35 = *(v30 + 16);
-      *v30 = *v31;
-      *(v30 + 16) = v32;
-      outlined consume of Text.Storage(v33, v34, v35);
-      *(v30 + 24) = *(v31 + 3);
-
-      goto LABEL_21;
-    }
-
-    outlined destroy of Text(v30);
-  }
-
-  v36 = *(v31 + 1);
-  *v30 = *v31;
-  *(v30 + 16) = v36;
-LABEL_21:
-  v37 = a3[9];
-  v38 = &a1[v37];
-  v39 = &a2[v37];
-  if (*&a1[v37 + 24])
-  {
-    if (*(v39 + 3))
-    {
-      v40 = v39[16];
-      v41 = *v38;
-      v42 = *(v38 + 8);
-      v43 = *(v38 + 16);
-      *v38 = *v39;
-      *(v38 + 16) = v40;
-      outlined consume of Text.Storage(v41, v42, v43);
-      *(v38 + 24) = *(v39 + 3);
-
-      goto LABEL_26;
-    }
-
-    outlined destroy of Text(v38);
-  }
-
-  v44 = *(v39 + 1);
-  *v38 = *v39;
-  *(v38 + 16) = v44;
-LABEL_26:
-  v45 = a3[10];
-  type metadata accessor for Predicate<Pack{URL}>();
-  v47 = v46;
-  v48 = *(v46 - 8);
-  v49 = *(v48 + 48);
-  v50 = v49(&a1[v45], 1, v46);
-  v51 = v49(&a2[v45], 1, v47);
-  if (!v50)
-  {
-    if (!v51)
-    {
-      (*(v48 + 40))(&a1[v45], &a2[v45], v47);
-      goto LABEL_32;
-    }
-
-    (*(v48 + 8))(&a1[v45], v47);
-    goto LABEL_31;
-  }
-
-  if (v51)
-  {
-LABEL_31:
-    _s10Foundation3URLVSgMaTm_3(0, &lazy cache variable for type metadata for Predicate<Pack{URL}>?, type metadata accessor for Predicate<Pack{URL}>, MEMORY[0x1E69E6720]);
-    memcpy(&a1[v45], &a2[v45], *(*(v52 - 8) + 64));
-    goto LABEL_32;
-  }
-
-  (*(v48 + 32))(&a1[v45], &a2[v45], v47);
-  (*(v48 + 56))(&a1[v45], 0, 1, v47);
-LABEL_32:
-  v53 = a3[12];
-  a1[a3[11]] = a2[a3[11]];
-  v54 = &a1[v53];
-  v55 = &a2[v53];
-  *v54 = *v55;
-  v54[8] = v55[8];
-  return a1;
-}
-
-uint64_t *initializeBufferWithCopyOfBuffer for FileExportOperation.Move(uint64_t *a1, uint64_t *a2, uint64_t a3)
-{
-  v4 = a1;
-  v5 = *(*(a3 - 8) + 80);
-  if ((v5 & 0x20000) != 0)
-  {
-    v16 = *a2;
-    *a1 = *a2;
-    v4 = (v16 + ((v5 + 16) & ~v5));
-  }
-
-  else
-  {
-    v7 = type metadata accessor for URL();
-    (*(*(v7 - 8) + 16))(v4, a2, v7);
-    v8 = *(a3 + 20);
-    v9 = *(a3 + 24);
-    v10 = (v4 + v8);
-    v11 = (a2 + v8);
-    v12 = v11[1];
-    *v10 = *v11;
-    v10[1] = v12;
-    v13 = (v4 + v9);
-    v14 = (a2 + v9);
-    v15 = v14[1];
-    *v13 = *v14;
-    v13[1] = v15;
-  }
-
-  return v4;
-}
-
-uint64_t destroy for FileExportOperation.Move(uint64_t a1)
-{
-  v2 = type metadata accessor for URL();
-  (*(*(v2 - 8) + 8))(a1, v2);
-}
-
-uint64_t initializeWithCopy for FileExportOperation.Move(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v6 = type metadata accessor for URL();
-  (*(*(v6 - 8) + 16))(a1, a2, v6);
-  v7 = *(a3 + 20);
-  v8 = *(a3 + 24);
-  v9 = (a1 + v7);
-  v10 = (a2 + v7);
-  v11 = v10[1];
-  *v9 = *v10;
-  v9[1] = v11;
-  v12 = (a1 + v8);
-  v13 = (a2 + v8);
-  v14 = v13[1];
-  *v12 = *v13;
-  v12[1] = v14;
-
-  return a1;
-}
-
-uint64_t assignWithCopy for FileExportOperation.Move(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v6 = type metadata accessor for URL();
-  (*(*(v6 - 8) + 24))(a1, a2, v6);
-  v7 = *(a3 + 20);
-  v8 = (a1 + v7);
-  v9 = (a2 + v7);
-  v10 = v9[1];
-  *v8 = *v9;
-  v8[1] = v10;
-
-  v11 = *(a3 + 24);
-  v12 = (a1 + v11);
-  v13 = (a2 + v11);
-  v14 = v13[1];
-  *v12 = *v13;
-  v12[1] = v14;
-
-  return a1;
-}
-
-uint64_t initializeWithTake for FileExportOperation.Move(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v6 = type metadata accessor for URL();
-  (*(*(v6 - 8) + 32))(a1, a2, v6);
-  v7 = *(a3 + 24);
-  *(a1 + *(a3 + 20)) = *(a2 + *(a3 + 20));
-  *(a1 + v7) = *(a2 + v7);
-  return a1;
-}
-
-uint64_t assignWithTake for FileExportOperation.Move(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v6 = type metadata accessor for URL();
-  (*(*(v6 - 8) + 40))(a1, a2, v6);
-  *(a1 + *(a3 + 20)) = *(a2 + *(a3 + 20));
-
-  *(a1 + *(a3 + 24)) = *(a2 + *(a3 + 24));
-
-  return a1;
-}
-
-unint64_t initializeBufferWithCopyOfBuffer for FileExportOperation.Mode(unint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v5 = *(*(a3 - 8) + 80);
-  if ((v5 & 0x20000) != 0)
-  {
-    v18 = *a2;
-    *a1 = *a2;
-    a1 = v18 + ((v5 + 16) & ~v5);
-  }
-
-  else
-  {
-    EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-    if (EnumCaseMultiPayload > 1)
-    {
-      if (EnumCaseMultiPayload == 2)
-      {
-        v19 = *a2;
-        v20 = *(a2 + 8);
-        v21 = *(a2 + 16);
-        v22 = *(a2 + 24);
-        v23 = *(a2 + 32);
-        v24 = *(a2 + 40);
-        outlined copy of FileExportOperation.Storage(*a2, v20, v21, v22, v23, v24);
-        *a1 = v19;
-        *(a1 + 8) = v20;
-        *(a1 + 16) = v21;
-        *(a1 + 24) = v22;
-        *(a1 + 32) = v23;
-        *(a1 + 40) = v24;
-        v25 = *(a2 + 56);
-        *(a1 + 48) = *(a2 + 48);
-        *(a1 + 56) = v25;
-        v26 = *(a2 + 96);
-        v32 = *(a2 + 80);
-        *(a1 + 64) = *(a2 + 64);
-        *(a1 + 80) = v32;
-        *(a1 + 96) = v26;
-      }
-
-      else
-      {
-        v29 = *(a2 + 8);
-        *a1 = *a2;
-        *(a1 + 8) = v29;
-        v30 = *(a2 + 48);
-        v33 = *(a2 + 32);
-        *(a1 + 16) = *(a2 + 16);
-        *(a1 + 32) = v33;
-        *(a1 + 48) = v30;
-      }
-    }
-
-    else
-    {
-      if (EnumCaseMultiPayload)
-      {
-        v27 = *(a2 + 32);
-        v28 = *(a2 + 16);
-        *a1 = *a2;
-        *(a1 + 16) = v28;
-        *(a1 + 32) = v27;
-      }
-
-      else
-      {
-        v7 = type metadata accessor for URL();
-        (*(*(v7 - 8) + 16))(a1, a2, v7);
-        v8 = type metadata accessor for FileExportOperation.Move(0);
-        v9 = *(v8 + 20);
-        v10 = (a1 + v9);
-        v11 = (a2 + v9);
-        v13 = *v11;
-        v12 = v11[1];
-        *v10 = v13;
-        v10[1] = v12;
-        v14 = *(v8 + 24);
-        v15 = (a1 + v14);
-        v16 = (a2 + v14);
-        v17 = v16[1];
-        *v15 = *v16;
-        v15[1] = v17;
-      }
-    }
-
-    swift_storeEnumTagMultiPayload();
-  }
-
-  return a1;
-}
-
-uint64_t destroy for FileExportOperation.Mode(uint64_t a1)
-{
-  result = swift_getEnumCaseMultiPayload();
-  if (result > 1)
-  {
-    if (result == 2)
-    {
-      outlined consume of FileExportOperation.Storage(*a1, *(a1 + 8), *(a1 + 16), *(a1 + 24), *(a1 + 32), *(a1 + 40));
-    }
-
-    else
-    {
-      if (result != 3)
-      {
-        return result;
-      }
-    }
-  }
-
-  else if (result)
-  {
-    if (result != 1)
-    {
-      return result;
-    }
-  }
-
-  else
-  {
-    v3 = type metadata accessor for URL();
-    (*(*(v3 - 8) + 8))(a1, v3);
-    type metadata accessor for FileExportOperation.Move(0);
-  }
-}
-
-uint64_t initializeWithCopy for FileExportOperation.Mode(uint64_t a1, uint64_t a2)
+uint64_t initializeWithCopy for FileExportOperation.Mode(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
   if (EnumCaseMultiPayload > 1)
   {
     if (EnumCaseMultiPayload == 2)
     {
-      v16 = *a2;
-      v17 = *(a2 + 8);
-      v18 = *(a2 + 16);
-      v19 = *(a2 + 24);
-      v20 = *(a2 + 32);
-      v21 = *(a2 + 40);
-      outlined copy of FileExportOperation.Storage(*a2, v17, v18, v19, v20, v21);
-      *a1 = v16;
-      *(a1 + 8) = v17;
-      *(a1 + 16) = v18;
-      *(a1 + 24) = v19;
-      *(a1 + 32) = v20;
-      *(a1 + 40) = v21;
-      v22 = *(a2 + 56);
+      v17 = *a2;
+      v18 = *(a2 + 8);
+      v19 = *(a2 + 16);
+      v20 = *(a2 + 24);
+      v21 = *(a2 + 32);
+      v22 = *(a2 + 40);
+      outlined copy of FileExportOperation.Storage(*a2, v18, v19, v20, v21, v22);
+      *a1 = v17;
+      *(a1 + 8) = v18;
+      *(a1 + 16) = v19;
+      *(a1 + 24) = v20;
+      *(a1 + 32) = v21;
+      *(a1 + 40) = v22;
+      v23 = *(a2 + 56);
       *(a1 + 48) = *(a2 + 48);
-      *(a1 + 56) = v22;
-      v23 = *(a2 + 96);
-      v29 = *(a2 + 80);
+      *(a1 + 56) = v23;
+      v24 = *(a2 + 96);
+      v30 = *(a2 + 80);
       *(a1 + 64) = *(a2 + 64);
-      *(a1 + 80) = v29;
-      *(a1 + 96) = v23;
+      *(a1 + 80) = v30;
+      *(a1 + 96) = v24;
     }
 
     else
     {
-      v26 = *(a2 + 8);
+      v27 = *(a2 + 8);
       *a1 = *a2;
-      *(a1 + 8) = v26;
-      v27 = *(a2 + 48);
-      v30 = *(a2 + 32);
+      *(a1 + 8) = v27;
+      v28 = *(a2 + 48);
+      v31 = *(a2 + 32);
       *(a1 + 16) = *(a2 + 16);
-      *(a1 + 32) = v30;
-      *(a1 + 48) = v27;
+      *(a1 + 32) = v31;
+      *(a1 + 48) = v28;
     }
   }
 
@@ -840,31 +45,31 @@ uint64_t initializeWithCopy for FileExportOperation.Mode(uint64_t a1, uint64_t a
   {
     if (EnumCaseMultiPayload)
     {
-      v24 = *(a2 + 32);
-      v25 = *(a2 + 16);
+      v25 = *(a2 + 32);
+      v26 = *(a2 + 16);
       *a1 = *a2;
-      *(a1 + 16) = v25;
-      *(a1 + 32) = v24;
+      *(a1 + 16) = v26;
+      *(a1 + 32) = v25;
     }
 
     else
     {
-      v5 = type metadata accessor for URL();
-      (*(*(v5 - 8) + 16))(a1, a2, v5);
-      v6 = type metadata accessor for FileExportOperation.Move(0);
-      v7 = *(v6 + 20);
-      v8 = (a1 + v7);
-      v9 = (a2 + v7);
-      v11 = *v9;
-      v10 = v9[1];
-      *v8 = v11;
-      v8[1] = v10;
-      v12 = *(v6 + 24);
-      v13 = (a1 + v12);
-      v14 = (a2 + v12);
-      v15 = v14[1];
-      *v13 = *v14;
-      v13[1] = v15;
+      v6 = type metadata accessor for URL();
+      (*(*(v6 - 8) + 16))(a1, a2, v6);
+      v7 = type metadata accessor for FileExportOperation.Move(0);
+      v8 = *(v7 + 20);
+      v9 = (a1 + v8);
+      v10 = (a2 + v8);
+      v12 = *v10;
+      v11 = v10[1];
+      *v9 = v12;
+      v9[1] = v11;
+      v13 = *(v7 + 24);
+      v14 = (a1 + v13);
+      v15 = (a2 + v13);
+      v16 = v15[1];
+      *v14 = *v15;
+      v14[1] = v16;
     }
   }
 
@@ -872,7 +77,7 @@ uint64_t initializeWithCopy for FileExportOperation.Mode(uint64_t a1, uint64_t a
   return a1;
 }
 
-uint64_t assignWithCopy for FileExportOperation.Mode(uint64_t a1, uint64_t a2)
+uint64_t assignWithCopy for FileExportOperation.Mode(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a1 != a2)
   {
@@ -882,44 +87,44 @@ uint64_t assignWithCopy for FileExportOperation.Mode(uint64_t a1, uint64_t a2)
     {
       if (EnumCaseMultiPayload == 2)
       {
-        v15 = *a2;
-        v16 = *(a2 + 8);
-        v17 = *(a2 + 16);
-        v18 = *(a2 + 24);
-        v19 = *(a2 + 32);
-        v20 = *(a2 + 40);
-        outlined copy of FileExportOperation.Storage(*a2, v16, v17, v18, v19, v20);
-        *a1 = v15;
-        *(a1 + 8) = v16;
-        *(a1 + 16) = v17;
-        *(a1 + 24) = v18;
-        *(a1 + 32) = v19;
-        *(a1 + 40) = v20;
+        v16 = *a2;
+        v17 = *(a2 + 8);
+        v18 = *(a2 + 16);
+        v19 = *(a2 + 24);
+        v20 = *(a2 + 32);
+        v21 = *(a2 + 40);
+        outlined copy of FileExportOperation.Storage(*a2, v17, v18, v19, v20, v21);
+        *a1 = v16;
+        *(a1 + 8) = v17;
+        *(a1 + 16) = v18;
+        *(a1 + 24) = v19;
+        *(a1 + 32) = v20;
+        *(a1 + 40) = v21;
         *(a1 + 48) = *(a2 + 48);
         *(a1 + 56) = *(a2 + 56);
         *(a1 + 64) = *(a2 + 64);
-        v21 = *(a2 + 80);
+        v22 = *(a2 + 80);
         *(a1 + 72) = *(a2 + 72);
-        *(a1 + 80) = v21;
-        v22 = *(a2 + 88);
-        v23 = *(a2 + 96);
-        *(a1 + 88) = v22;
-        *(a1 + 96) = v23;
+        *(a1 + 80) = v22;
+        v23 = *(a2 + 88);
+        v24 = *(a2 + 96);
+        *(a1 + 88) = v23;
+        *(a1 + 96) = v24;
       }
 
       else
       {
-        v27 = *(a2 + 8);
+        v28 = *(a2 + 8);
         *a1 = *a2;
-        *(a1 + 8) = v27;
+        *(a1 + 8) = v28;
         *(a1 + 16) = *(a2 + 16);
-        v28 = *(a2 + 32);
+        v29 = *(a2 + 32);
         *(a1 + 24) = *(a2 + 24);
-        *(a1 + 32) = v28;
-        v29 = *(a2 + 40);
-        v30 = *(a2 + 48);
-        *(a1 + 40) = v29;
-        *(a1 + 48) = v30;
+        *(a1 + 32) = v29;
+        v30 = *(a2 + 40);
+        v31 = *(a2 + 48);
+        *(a1 + 40) = v30;
+        *(a1 + 48) = v31;
       }
     }
 
@@ -927,21 +132,21 @@ uint64_t assignWithCopy for FileExportOperation.Mode(uint64_t a1, uint64_t a2)
     {
       if (!EnumCaseMultiPayload)
       {
-        v5 = type metadata accessor for URL();
-        (*(*(v5 - 8) + 16))(a1, a2, v5);
-        v6 = type metadata accessor for FileExportOperation.Move(0);
-        v7 = *(v6 + 20);
-        v8 = (a1 + v7);
-        v9 = (a2 + v7);
-        v10 = v9[1];
-        *v8 = *v9;
-        v8[1] = v10;
-        v11 = *(v6 + 24);
-        v12 = (a1 + v11);
-        v13 = (a2 + v11);
-        v14 = v13[1];
-        *v12 = *v13;
-        v12[1] = v14;
+        v6 = type metadata accessor for URL();
+        (*(*(v6 - 8) + 16))(a1, a2, v6);
+        v7 = type metadata accessor for FileExportOperation.Move(0);
+        v8 = *(v7 + 20);
+        v9 = (a1 + v8);
+        v10 = (a2 + v8);
+        v11 = v10[1];
+        *v9 = *v10;
+        v9[1] = v11;
+        v12 = *(v7 + 24);
+        v13 = (a1 + v12);
+        v14 = (a2 + v12);
+        v15 = v14[1];
+        *v13 = *v14;
+        v13[1] = v15;
 LABEL_11:
 
         swift_storeEnumTagMultiPayload();
@@ -949,13 +154,13 @@ LABEL_11:
       }
 
       *a1 = *a2;
-      v24 = *(a2 + 16);
+      v25 = *(a2 + 16);
       *(a1 + 8) = *(a2 + 8);
-      *(a1 + 16) = v24;
-      v25 = *(a2 + 24);
-      v26 = *(a2 + 32);
-      *(a1 + 24) = v25;
-      *(a1 + 32) = v26;
+      *(a1 + 16) = v25;
+      v26 = *(a2 + 24);
+      v27 = *(a2 + 32);
+      *(a1 + 24) = v26;
+      *(a1 + 32) = v27;
     }
 
     goto LABEL_11;
@@ -1009,7 +214,7 @@ char *assignWithTake for FileExportOperation.Mode(char *a1, char *a2, uint64_t a
   return memcpy(a1, a2, v6);
 }
 
-uint64_t FileExportOperation.Resolved.init(base:environment:)@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
+void FileExportOperation.Resolved.init(base:environment:)(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
 {
   v6 = *a2;
   v5 = a2[1];
@@ -1017,11 +222,11 @@ uint64_t FileExportOperation.Resolved.init(base:environment:)@<X0>(uint64_t a1@<
   v7 = type metadata accessor for FileExportOperation(0);
   if (*(a1 + v7[7] + 24))
   {
-    v24 = v6;
-    v25 = v5;
+    v23 = v6;
+    v24 = v5;
+    v21 = 0;
     v22 = 0;
-    v23 = 0;
-    MEMORY[0x18D009CB0](&v21);
+    MEMORY[0x18D009CB0](&v20);
     v8 = Text.resolveString(in:with:idiom:)();
     v10 = v9;
   }
@@ -1038,11 +243,11 @@ uint64_t FileExportOperation.Resolved.init(base:environment:)@<X0>(uint64_t a1@<
   v12[1] = v10;
   if (*(a1 + v7[8] + 24))
   {
-    v24 = v6;
-    v25 = v5;
+    v23 = v6;
+    v24 = v5;
+    v21 = 0;
     v22 = 0;
-    v23 = 0;
-    MEMORY[0x18D009CB0](&v21);
+    MEMORY[0x18D009CB0](&v20);
     v13 = Text.resolveString(in:with:idiom:)();
   }
 
@@ -1058,11 +263,11 @@ uint64_t FileExportOperation.Resolved.init(base:environment:)@<X0>(uint64_t a1@<
   v16 = *(a1 + v7[9] + 24);
   if (v16)
   {
-    v24 = v6;
-    v25 = v5;
+    v23 = v6;
+    v24 = v5;
+    v21 = 0;
     v22 = 0;
-    v23 = 0;
-    MEMORY[0x18D009CB0](&v21);
+    MEMORY[0x18D009CB0](&v20);
     v16 = Text.resolveString(in:with:idiom:)();
     v18 = v17;
     outlined destroy of FileExportOperation.Mode(a1, type metadata accessor for FileExportOperation);
@@ -1071,14 +276,13 @@ uint64_t FileExportOperation.Resolved.init(base:environment:)@<X0>(uint64_t a1@<
   else
   {
 
-    result = outlined destroy of FileExportOperation.Mode(a1, type metadata accessor for FileExportOperation);
+    outlined destroy of FileExportOperation.Mode(a1, type metadata accessor for FileExportOperation);
     v18 = 0;
   }
 
-  v20 = (a3 + v11[7]);
-  *v20 = v16;
-  v20[1] = v18;
-  return result;
+  v19 = (a3 + v11[7]);
+  *v19 = v16;
+  v19[1] = v18;
 }
 
 uint64_t FileExportOperation.allowedContentTypes.getter()
@@ -1318,7 +522,7 @@ uint64_t FileExportOperation.didFinish(with:)(void *a1, uint64_t a2)
       v18 = *&v13[*(v11 + 20)];
       if (a2 == 0xFF)
       {
-        type metadata accessor for Result<URL, Error>();
+        type metadata accessor for Result<URL, Error>(0);
         (*(*(v28 - 8) + 56))(v10, 1, 1, v28);
 LABEL_18:
         v18(v10);
@@ -1329,12 +533,12 @@ LABEL_18:
       if (a2)
       {
         *v10 = a1;
-        type metadata accessor for Result<URL, Error>();
+        type metadata accessor for Result<URL, Error>(0);
         v20 = v19;
         swift_storeEnumTagMultiPayload();
         outlined copy of Result<[URL], Error>(a1, 1);
 LABEL_17:
-        type metadata accessor for Result<URL, Error>();
+        type metadata accessor for Result<URL, Error>(0);
         (*(*(v20 - 8) + 56))(v10, 0, 1, v20);
         goto LABEL_18;
       }
@@ -1343,7 +547,7 @@ LABEL_17:
       {
         v30 = type metadata accessor for URL();
         (*(*(v30 - 8) + 16))(v10, a1 + ((*(*(v30 - 8) + 80) + 32) & ~*(*(v30 - 8) + 80)), v30);
-        type metadata accessor for Result<URL, Error>();
+        type metadata accessor for Result<URL, Error>(0);
         v20 = v31;
         swift_storeEnumTagMultiPayload();
         goto LABEL_17;
@@ -1374,7 +578,7 @@ LABEL_17:
   v40 = v24;
   if (a2 == 0xFF)
   {
-    type metadata accessor for Result<URL, Error>();
+    type metadata accessor for Result<URL, Error>(0);
     (*(*(v29 - 8) + 56))(v7, 1, 1, v29);
   }
 
@@ -1383,7 +587,7 @@ LABEL_17:
     if (a2)
     {
       *v7 = a1;
-      type metadata accessor for Result<URL, Error>();
+      type metadata accessor for Result<URL, Error>(0);
       v27 = v26;
       swift_storeEnumTagMultiPayload();
       outlined copy of Result<[URL], Error>(a1, 1);
@@ -1400,12 +604,12 @@ LABEL_25:
 
       v32 = type metadata accessor for URL();
       (*(*(v32 - 8) + 16))(v7, a1 + ((*(*(v32 - 8) + 80) + 32) & ~*(*(v32 - 8) + 80)), v32);
-      type metadata accessor for Result<URL, Error>();
+      type metadata accessor for Result<URL, Error>(0);
       v27 = v33;
       swift_storeEnumTagMultiPayload();
     }
 
-    type metadata accessor for Result<URL, Error>();
+    type metadata accessor for Result<URL, Error>(0);
     (*(*(v27 - 8) + 56))(v7, 0, 1, v27);
   }
 
@@ -1465,7 +669,7 @@ uint64_t FileExportOperation.writeTemporaryFilesIfNecessary()()
   v1[23] = v0;
   v1[24] = type metadata accessor for FileExportOperation.File.Storage(0);
   v1[25] = swift_task_alloc();
-  type metadata accessor for (key: NSFileWrapper, value: UTType)();
+  type metadata accessor for (key: NSFileWrapper, value: UTType)(0);
   v1[26] = v2;
   v1[27] = swift_task_alloc();
   _s10Foundation3URLVSgMaTm_3(0, &lazy cache variable for type metadata for UTType?, MEMORY[0x1E69E8450], MEMORY[0x1E69E6720]);
@@ -1569,7 +773,7 @@ uint64_t FileExportOperation.writeTemporaryFilesIfNecessary()()
         *(v0 + 136) = v20;
         *(v0 + 144) = v19;
         *(v0 + 152) = v21;
-        outlined copy of AnyTransferable?(v17);
+        outlined copy of AnyTransferable?(v17, v18);
         v22 = FileExportOperation.allowedContentTypes.getter();
         if (*(v22 + 16))
         {
@@ -1978,7 +1182,7 @@ LABEL_9:
       v44 = v9[3];
       if (v45 >= v44 >> 1)
       {
-        v9 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v44 > 1, v45 + 1, 1, v9);
+        v9 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v44 > 1), v45 + 1, 1, v9);
       }
 
       v6 &= v6 - 1;
@@ -2827,7 +2031,7 @@ uint64_t UTType.genericPartialFilename.getter()
   v5._object = 0xEB00000000402520;
   NSLocalizedString(_:tableName:bundle:value:comment:)(v3, v4, v2, v5, v17);
 
-  type metadata accessor for _ContiguousArrayStorage<CVarArg>();
+  type metadata accessor for _ContiguousArrayStorage<CVarArg>(0);
   v6 = swift_allocObject();
   *(v6 + 16) = xmmword_18CD63400;
   countAndFlagsBits = UTType.localizedDescription.getter();
@@ -2929,14 +2133,14 @@ uint64_t outlined init with take of FileExportOperation(uint64_t a1, uint64_t a2
   return a2;
 }
 
-void type metadata accessor for (key: NSFileWrapper, value: UTType)()
+void type metadata accessor for (key: NSFileWrapper, value: UTType)(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for (key: NSFileWrapper, value: UTType))
   {
     type metadata accessor for NSFileWrapper();
     type metadata accessor for UTType();
     TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-    if (!v1)
+    if (!v2)
     {
       atomic_store(TupleTypeMetadata2, &lazy cache variable for type metadata for (key: NSFileWrapper, value: UTType));
     }
@@ -2961,7 +2165,7 @@ unint64_t lazy protocol witness table accessor for type FileExportOperation.Erro
   result = lazy protocol witness table cache variable for type FileExportOperation.Error and conformance FileExportOperation.Error;
   if (!lazy protocol witness table cache variable for type FileExportOperation.Error and conformance FileExportOperation.Error)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for FileExportOperation.Error, &type metadata for FileExportOperation.Error, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type FileExportOperation.Error and conformance FileExportOperation.Error);
   }
 
@@ -2972,7 +2176,7 @@ unint64_t lazy protocol witness table accessor for type FileExportOperation.Erro
   result = lazy protocol witness table cache variable for type FileExportOperation.Error and conformance FileExportOperation.Error;
   if (!lazy protocol witness table cache variable for type FileExportOperation.Error and conformance FileExportOperation.Error)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for FileExportOperation.Error, &type metadata for FileExportOperation.Error, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type FileExportOperation.Error and conformance FileExportOperation.Error);
   }
 
@@ -3220,13 +2424,13 @@ char *assignWithTake for FileExportOperation.File(char *a1, char *a2, uint64_t a
   return a1;
 }
 
-uint64_t type metadata completion function for FileExportOperation.File()
+uint64_t type metadata completion function for FileExportOperation.File(uint64_t a1)
 {
   result = type metadata accessor for FileExportOperation.File.Storage(319);
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = type metadata accessor for UTType();
-    if (v2 <= 0x3F)
+    if (v3 <= 0x3F)
     {
       swift_initStructMetadata();
       return 0;
@@ -3267,57 +2471,57 @@ char *initializeBufferWithCopyOfBuffer for FileExportOperation.File.Storage(char
   return a1;
 }
 
-void destroy for FileExportOperation.File.Storage(void **a1)
+void destroy for FileExportOperation.File.Storage(void **a1, uint64_t a2)
 {
   if (swift_getEnumCaseMultiPayload() == 1)
   {
-    v2 = *a1;
+    v3 = *a1;
   }
 
   else
   {
-    v3 = type metadata accessor for URL();
-    v4 = *(*(v3 - 8) + 8);
+    v4 = type metadata accessor for URL();
+    v5 = *(*(v4 - 8) + 8);
 
-    v4(a1, v3);
+    v5(a1, v4);
   }
 }
 
-void **initializeWithCopy for FileExportOperation.File.Storage(void **a1, void **a2)
+void **initializeWithCopy for FileExportOperation.File.Storage(void **a1, void **a2, uint64_t a3)
 {
   if (swift_getEnumCaseMultiPayload() == 1)
   {
-    v4 = *a2;
+    v5 = *a2;
     *a1 = *a2;
-    v5 = v4;
+    v6 = v5;
   }
 
   else
   {
-    v6 = type metadata accessor for URL();
-    (*(*(v6 - 8) + 16))(a1, a2, v6);
+    v7 = type metadata accessor for URL();
+    (*(*(v7 - 8) + 16))(a1, a2, v7);
   }
 
   swift_storeEnumTagMultiPayload();
   return a1;
 }
 
-void **assignWithCopy for FileExportOperation.File.Storage(void **a1, void **a2)
+void **assignWithCopy for FileExportOperation.File.Storage(void **a1, void **a2, uint64_t a3)
 {
   if (a1 != a2)
   {
     outlined destroy of FileExportOperation.Mode(a1, type metadata accessor for FileExportOperation.File.Storage);
     if (swift_getEnumCaseMultiPayload() == 1)
     {
-      v4 = *a2;
+      v5 = *a2;
       *a1 = *a2;
-      v5 = v4;
+      v6 = v5;
     }
 
     else
     {
-      v6 = type metadata accessor for URL();
-      (*(*(v6 - 8) + 16))(a1, a2, v6);
+      v7 = type metadata accessor for URL();
+      (*(*(v7 - 8) + 16))(a1, a2, v7);
     }
 
     swift_storeEnumTagMultiPayload();
@@ -3365,10 +2569,10 @@ void *assignWithTake for FileExportOperation.File.Storage(void *a1, const void *
   return memcpy(a1, a2, v6);
 }
 
-uint64_t type metadata completion function for FileExportOperation.File.Storage()
+uint64_t type metadata completion function for FileExportOperation.File.Storage(uint64_t a1)
 {
   result = type metadata accessor for URL();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_initEnumMetadataMultiPayload();
     return 0;
@@ -3555,7 +2759,7 @@ unint64_t initializeBufferWithCopyOfBuffer for FileExportOperation.Resolved(unin
     }
 
     v63 = v32[10];
-    type metadata accessor for Predicate<Pack{URL}>();
+    type metadata accessor for Predicate<Pack{URL}>(0);
     v65 = v64;
     v66 = *(v64 - 8);
     if ((*(v66 + 48))(a2 + v63, 1, v64))
@@ -3664,7 +2868,7 @@ LABEL_11:
   }
 
   v11 = v4[10];
-  type metadata accessor for Predicate<Pack{URL}>();
+  type metadata accessor for Predicate<Pack{URL}>(0);
   v13 = v12;
   v14 = *(v12 - 8);
   if (!(*(v14 + 48))(a1 + v11, 1, v12))
@@ -3841,7 +3045,7 @@ uint64_t initializeWithCopy for FileExportOperation.Resolved(uint64_t a1, uint64
   }
 
   v61 = v30[10];
-  type metadata accessor for Predicate<Pack{URL}>();
+  type metadata accessor for Predicate<Pack{URL}>(0);
   v63 = v62;
   v64 = *(v62 - 8);
   if ((*(v64 + 48))(a2 + v61, 1, v62))
@@ -4164,7 +3368,7 @@ LABEL_18:
   }
 
   v89 = v30[10];
-  type metadata accessor for Predicate<Pack{URL}>();
+  type metadata accessor for Predicate<Pack{URL}>(0);
   v91 = v90;
   v92 = *(v90 - 8);
   v93 = *(v92 + 48);
@@ -4275,7 +3479,7 @@ char *initializeWithTake for FileExportOperation.Resolved(char *a1, char *a2, in
   *v23 = *v24;
   *(v23 + 1) = v25;
   v26 = v9[10];
-  type metadata accessor for Predicate<Pack{URL}>();
+  type metadata accessor for Predicate<Pack{URL}>(0);
   v28 = v27;
   v29 = *(v27 - 8);
   if ((*(v29 + 48))(&a2[v26], 1, v27))
@@ -4372,12 +3576,12 @@ LABEL_11:
     {
       v25 = v24[16];
       v26 = *v23;
-      v27 = *(v23 + 8);
-      v28 = *(v23 + 16);
+      v27 = *(v23 + 1);
+      v28 = v23[16];
       *v23 = *v24;
-      *(v23 + 16) = v25;
+      v23[16] = v25;
       outlined consume of Text.Storage(v26, v27, v28);
-      *(v23 + 24) = *(v24 + 3);
+      *(v23 + 3) = *(v24 + 3);
 
       goto LABEL_16;
     }
@@ -4387,7 +3591,7 @@ LABEL_11:
 
   v29 = *(v24 + 1);
   *v23 = *v24;
-  *(v23 + 16) = v29;
+  *(v23 + 1) = v29;
 LABEL_16:
   v30 = v9[8];
   v31 = &a1[v30];
@@ -4398,12 +3602,12 @@ LABEL_16:
     {
       v33 = v32[16];
       v34 = *v31;
-      v35 = *(v31 + 8);
-      v36 = *(v31 + 16);
+      v35 = *(v31 + 1);
+      v36 = v31[16];
       *v31 = *v32;
-      *(v31 + 16) = v33;
+      v31[16] = v33;
       outlined consume of Text.Storage(v34, v35, v36);
-      *(v31 + 24) = *(v32 + 3);
+      *(v31 + 3) = *(v32 + 3);
 
       goto LABEL_21;
     }
@@ -4413,7 +3617,7 @@ LABEL_16:
 
   v37 = *(v32 + 1);
   *v31 = *v32;
-  *(v31 + 16) = v37;
+  *(v31 + 1) = v37;
 LABEL_21:
   v38 = v9[9];
   v39 = &a1[v38];
@@ -4424,12 +3628,12 @@ LABEL_21:
     {
       v41 = v40[16];
       v42 = *v39;
-      v43 = *(v39 + 8);
-      v44 = *(v39 + 16);
+      v43 = *(v39 + 1);
+      v44 = v39[16];
       *v39 = *v40;
-      *(v39 + 16) = v41;
+      v39[16] = v41;
       outlined consume of Text.Storage(v42, v43, v44);
-      *(v39 + 24) = *(v40 + 3);
+      *(v39 + 3) = *(v40 + 3);
 
       goto LABEL_26;
     }
@@ -4439,10 +3643,10 @@ LABEL_21:
 
   v45 = *(v40 + 1);
   *v39 = *v40;
-  *(v39 + 16) = v45;
+  *(v39 + 1) = v45;
 LABEL_26:
   v46 = v9[10];
-  type metadata accessor for Predicate<Pack{URL}>();
+  type metadata accessor for Predicate<Pack{URL}>(0);
   v48 = v47;
   v49 = *(v47 - 8);
   v50 = *(v49 + 48);
@@ -4504,10 +3708,10 @@ LABEL_32:
   return a1;
 }
 
-uint64_t type metadata completion function for FileExportOperation.Resolved()
+uint64_t type metadata completion function for FileExportOperation.Resolved(uint64_t a1)
 {
   result = type metadata accessor for FileExportOperation(319);
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_initStructMetadata();
     return 0;
@@ -4516,8 +3720,10 @@ uint64_t type metadata completion function for FileExportOperation.Resolved()
   return result;
 }
 
-uint64_t destroy for FileExportOperation.BatchExport()
+double destroy for FileExportOperation.BatchExport()
 {
+
+  return result;
 }
 
 uint64_t initializeWithCopy for FileExportOperation.BatchExport(uint64_t a1, uint64_t a2)
@@ -4568,9 +3774,11 @@ uint64_t assignWithTake for FileExportOperation.BatchExport(uint64_t a1, uint64_
   return a1;
 }
 
-uint64_t destroy for FileExportOperation.Export(uint64_t a1)
+double destroy for FileExportOperation.Export(uint64_t a1)
 {
   outlined consume of FileExportOperation.Storage(*a1, *(a1 + 8), *(a1 + 16), *(a1 + 24), *(a1 + 32), *(a1 + 40));
+
+  return result;
 }
 
 uint64_t initializeWithCopy for FileExportOperation.Export(uint64_t a1, uint64_t a2)
@@ -4729,8 +3937,10 @@ LABEL_8:
   return result;
 }
 
-uint64_t destroy for FileExportOperation.BatchMove()
+double destroy for FileExportOperation.BatchMove()
 {
+
+  return result;
 }
 
 uint64_t initializeWithCopy for FileExportOperation.BatchMove(uint64_t a1, uint64_t a2)
@@ -4842,9 +4052,9 @@ uint64_t assignWithTake for FileExportOperation.Storage(uint64_t a1, uint64_t a2
   return a1;
 }
 
-unint64_t getEnumTag for HoverEffectPhaseOverride.Storage(uint64_t *a1)
+unint64_t getEnumTag for HoverEffectPhaseOverride.Storage(unint64_t *a1)
 {
-  if (*a1 >= 0)
+  if ((*a1 & 0x8000000000000000) == 0)
   {
     return *a1 >> 61;
   }
@@ -4870,54 +4080,62 @@ void *destructiveInjectEnumTag for HoverEffectPhaseOverride.Storage(void *result
   return result;
 }
 
-uint64_t DisclosureGroupConfiguration.init(isExpanded:label:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X7>, uint64_t a8@<X8>)
+uint64_t DisclosureGroupConfiguration.init(isExpanded:label:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>)
 {
-  (*(a7 + 16))(a6, a7);
-  v14 = type metadata accessor for DisclosureGroupConfiguration();
-  v15 = a8 + *(v14 + 52);
-  *v15 = a1;
-  *(v15 + 8) = a2;
-  *(v15 + 16) = a3;
-  return (*(*(a5 - 8) + 32))(a8 + *(v14 + 56), a4, a5);
+  (*(a8 + 16))(a6, a8);
+  v21[0] = a5;
+  v21[1] = a6;
+  v21[2] = a7;
+  v21[3] = a8;
+  v18 = type metadata accessor for DisclosureGroupConfiguration(0, v21);
+  v19 = a9 + *(v18 + 52);
+  *v19 = a1;
+  *(v19 + 8) = a2;
+  *(v19 + 16) = a3;
+  return (*(*(a5 - 8) + 32))(a9 + *(v18 + 56), a4, a5);
 }
 
 uint64_t DisclosureGroup<>.init(configuration:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
 {
-  v33 = a5;
-  v34 = a6;
-  v35 = a2;
-  v36 = a3;
-  v37 = a4;
-  v38 = a5;
-  v10 = type metadata accessor for DisclosureGroupConfiguration();
+  v37 = a5;
+  v38 = a6;
+  v39[0] = a2;
+  v39[1] = a3;
+  v39[2] = a4;
+  v39[3] = a5;
+  v10 = type metadata accessor for DisclosureGroupConfiguration(0, v39);
   v11 = *(v10 - 8);
   MEMORY[0x1EEE9AC00](v10);
-  v13 = &v29 - v12;
+  v13 = &v33 - v12;
   v15 = MEMORY[0x1EEE9AC00](v14);
-  v17 = &v29 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v17 = &v33 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
   v19 = *(v18 + 56);
   v20 = a1 + *(v18 + 52);
   v21 = *(v20 + 8);
-  v29 = *v20;
-  v30 = v21;
-  v32 = *(v20 + 16);
+  v33 = *v20;
+  v34 = v21;
+  v36 = *(v20 + 16);
   v23 = *(v22 + 16);
-  v31 = a1;
+  v35 = a1;
   v23(v17, a1 + v19, a2, v15);
   (*(v11 + 16))(v13, a1, v10);
   v24 = (*(v11 + 80) + 48) & ~*(v11 + 80);
   v25 = swift_allocObject();
   *(v25 + 2) = a2;
   *(v25 + 3) = a3;
+  v26 = a3;
+  v27 = a4;
   *(v25 + 4) = a4;
-  *(v25 + 5) = v33;
+  v28 = v37;
+  *(v25 + 5) = v37;
   (*(v11 + 32))(&v25[v24], v13, v10);
-  v26 = v29;
+  v29 = *(*(v28 + 8) + 8);
+  v30 = v33;
 
-  v27 = v30;
+  v31 = v34;
 
-  DisclosureGroup.init(isExpanded:label:content:)(v26, v27, v32, v17, partial apply for closure #1 in DisclosureGroup<>.init(configuration:), a2, v34);
-  return (*(v11 + 8))(v31, v10);
+  DisclosureGroup.init(isExpanded:label:content:)(v30, v31, v36, v17, partial apply for closure #1 in DisclosureGroup<>.init(configuration:), a2, v26, v38, v27, v29);
+  return (*(v11 + 8))(v35, v10);
 }
 
 uint64_t DisclosureGroup.$isExpanded.getter(uint64_t a1)
@@ -4938,166 +4156,173 @@ uint64_t DisclosureGroup.$isExpanded.getter(uint64_t a1)
   return v3;
 }
 
-uint64_t DisclosureGroup.init(isExpanded:label:content:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, uint64_t a4@<X3>, void (*a5)(uint64_t)@<X4>, uint64_t a6@<X6>, uint64_t a7@<X8>)
+void DisclosureGroup.init(isExpanded:label:content:)(uint64_t a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, uint64_t a4@<X3>, void (*a5)(uint64_t)@<X4>, uint64_t a6@<X6>, uint64_t a7@<X7>, uint64_t a8@<X8>, uint64_t a9, uint64_t a10)
 {
-  v13 = a7 + *(type metadata accessor for DisclosureGroup() + 56);
-  *v13 = 0;
-  *(v13 + 8) = 0;
-  *(v13 + 16) = 0;
-  v14 = *(a6 - 8);
-  v15 = (*(v14 + 16))(a7, a4, a6);
-  a5(v15);
+  v20[0] = a6;
+  v20[1] = a7;
+  v20[2] = a9;
+  v20[3] = a10;
+  v16 = a8 + *(type metadata accessor for DisclosureGroup(0, v20) + 56);
+  *v16 = 0;
+  *(v16 + 8) = 0;
+  *(v16 + 16) = 0;
+  v17 = *(a6 - 8);
+  v18 = (*(v17 + 16))(a8, a4, a6);
+  a5(v18);
 
-  result = (*(v14 + 8))(a4, a6);
+  (*(v17 + 8))(a4, a6);
   if (a2)
   {
-    result = outlined consume of StateOrBinding<Bool>(*v13, *(v13 + 8), *(v13 + 16), *(v13 + 17));
-    *v13 = a1;
-    *(v13 + 8) = a2;
-    *(v13 + 16) = a3 & 1;
-    *(v13 + 17) = 1;
+    outlined consume of StateOrBinding<Bool>(*v16, *(v16 + 8), *(v16 + 16), *(v16 + 17));
+    *v16 = a1;
+    *(v16 + 8) = a2;
+    *(v16 + 16) = a3 & 1;
+    *(v16 + 17) = 1;
   }
+}
+
+void DisclosureGroup.init(content:label:)(void (*a1)(uint64_t)@<X0>, uint64_t a2@<X4>, uint64_t a3@<X5>, uint64_t a4@<X6>, uint64_t a5@<X7>, uint64_t a6@<X8>)
+{
+  v12 = MEMORY[0x1EEE9AC00](a1);
+  v14 = &v16 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v15(v12);
+  DisclosureGroup.init(isExpanded:label:content:)(0, 0, 0, v14, a1, a2, a3, a6, a4, a5);
+}
+
+double DisclosureGroup.init(isExpanded:content:label:)@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, void (*a4)(uint64_t)@<X3>, uint64_t a5@<X4>, void (*a6)(uint64_t)@<X5>, uint64_t a7@<X7>, uint64_t a8@<X8>, uint64_t a9, uint64_t a10, uint64_t a11)
+{
+  v23 = a4;
+  v24 = a5;
+  v22 = a9;
+  MEMORY[0x1EEE9AC00](a1);
+  v18 = &v21 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+
+  a6(v19);
+  DisclosureGroup.init(isExpanded:label:content:)(a1, a2, a3 & 1, v18, v23, a7, v22, a8, a10, a11);
 
   return result;
 }
 
-uint64_t DisclosureGroup.init(content:label:)@<X0>(void (*a1)(uint64_t)@<X0>, uint64_t a2@<X4>, uint64_t a3@<X8>)
-{
-  v6 = MEMORY[0x1EEE9AC00](a1);
-  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9(v6);
-  return DisclosureGroup.init(isExpanded:label:content:)(0, 0, 0, v8, a1, a2, a3);
-}
-
-uint64_t DisclosureGroup.init(isExpanded:content:label:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, void (*a4)(uint64_t)@<X3>, uint64_t a5@<X4>, void (*a6)(uint64_t)@<X5>, uint64_t a7@<X7>, uint64_t a8@<X8>, uint64_t a9)
-{
-  v20 = a4;
-  v21 = a5;
-  v19[1] = a9;
-  MEMORY[0x1EEE9AC00](a1);
-  v16 = v19 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-
-  a6(v17);
-  DisclosureGroup.init(isExpanded:label:content:)(a1, a2, a3 & 1, v16, v20, a7, a8);
-}
-
 uint64_t DisclosureGroup.body.getter@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v38 = a2;
-  *&v36 = a1[2];
-  type metadata accessor for ModifiedContent();
-  type metadata accessor for ViewInputFlagModifier<HideNavigationLinkDisclosureIndicator>();
+  v40 = a2;
+  *&v38 = a1[2];
   v3 = type metadata accessor for ModifiedContent();
-  v32 = lazy protocol witness table accessor for type DisclosureGroupStyleConfiguration.Label and conformance DisclosureGroupStyleConfiguration.Label();
-  v57 = a1[4];
-  v4 = v57;
-  v58 = &protocol witness table for AccessibilityAttachmentModifier;
-  v37 = MEMORY[0x1E697E858];
-  WitnessTable = swift_getWitnessTable();
-  v56 = lazy protocol witness table accessor for type ViewInputFlagModifier<HideNavigationLinkDisclosureIndicator> and conformance ViewInputFlagModifier<A>(&lazy protocol witness table cache variable for type ViewInputFlagModifier<HideNavigationLinkDisclosureIndicator> and conformance ViewInputFlagModifier<A>, type metadata accessor for ViewInputFlagModifier<HideNavigationLinkDisclosureIndicator>);
-  v31 = v3;
-  v30 = swift_getWitnessTable();
+  type metadata accessor for ViewInputFlagModifier<HideNavigationLinkDisclosureIndicator>(255);
+  v4 = type metadata accessor for ModifiedContent();
+  v34 = lazy protocol witness table accessor for type DisclosureGroupStyleConfiguration.Label and conformance DisclosureGroupStyleConfiguration.Label();
+  v56[0] = a1[4];
+  v5 = v56[0];
+  v56[1] = &protocol witness table for AccessibilityAttachmentModifier;
+  v6 = MEMORY[0x1E697E858];
+  v39 = MEMORY[0x1E697E858];
+  v55[0] = swift_getWitnessTable(MEMORY[0x1E697E858], v3, v56);
+  v55[1] = lazy protocol witness table accessor for type ViewInputFlagModifier<HideNavigationLinkDisclosureIndicator> and conformance ViewInputFlagModifier<A>(&lazy protocol witness table cache variable for type ViewInputFlagModifier<HideNavigationLinkDisclosureIndicator> and conformance ViewInputFlagModifier<A>, type metadata accessor for ViewInputFlagModifier<HideNavigationLinkDisclosureIndicator>, MEMORY[0x1E697FD30]);
+  v33 = v4;
+  WitnessTable = swift_getWitnessTable(v6, v4, v55);
   v51 = &type metadata for DisclosureGroupStyleConfiguration.Label;
-  v52 = v3;
-  v53 = v32;
-  v54 = v30;
-  type metadata accessor for StaticSourceWriter();
-  v5 = type metadata accessor for ModifiedContent();
-  v35 = *(v5 - 8);
-  MEMORY[0x1EEE9AC00](v5);
-  v7 = &v28 - v6;
-  v8 = a1[3];
-  v33 = lazy protocol witness table accessor for type DisclosureGroupStyleConfiguration.Content and conformance DisclosureGroupStyleConfiguration.Content();
-  v9 = a1[5];
+  v52 = v4;
+  v53 = v34;
+  v54 = WitnessTable;
+  type metadata accessor for StaticSourceWriter(255, &v51);
+  v7 = type metadata accessor for ModifiedContent();
+  v37 = *(v7 - 8);
+  MEMORY[0x1EEE9AC00](v7);
+  v9 = &v30 - v8;
+  v10 = a1[3];
+  v35 = lazy protocol witness table accessor for type DisclosureGroupStyleConfiguration.Content and conformance DisclosureGroupStyleConfiguration.Content();
+  v11 = a1[5];
   v51 = &type metadata for DisclosureGroupStyleConfiguration.Content;
-  v52 = v8;
-  v29 = v8;
-  v53 = v33;
-  v54 = v9;
-  type metadata accessor for StaticSourceWriter();
-  v10 = type metadata accessor for ModifiedContent();
-  v11 = *(v10 - 8);
-  MEMORY[0x1EEE9AC00](v10);
-  v13 = &v28 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v14);
-  v16 = &v28 - v15;
-  v17 = a1;
-  v18 = v34;
-  v51 = DisclosureGroup.$isExpanded.getter(v17);
-  v52 = v19;
-  LOBYTE(v53) = v20 & 1;
-  *&v21 = v36;
-  *(&v21 + 1) = v8;
-  v36 = v21;
-  *&v22 = v4;
-  *(&v22 + 1) = v9;
-  v28 = v22;
-  v44 = v21;
-  v45 = v22;
-  v46 = v18;
-  v23 = lazy protocol witness table accessor for type ResolvedDisclosureGroupStyle and conformance ResolvedDisclosureGroupStyle();
-  View.viewAlias<A, B>(_:_:)(&type metadata for DisclosureGroupStyleConfiguration.Label, partial apply for closure #1 in DisclosureGroup.body.getter, v43, &type metadata for ResolvedDisclosureGroupStyle, &type metadata for DisclosureGroupStyleConfiguration.Label, v31, v23);
-
-  v41 = v28;
-  v40 = v36;
-  v42 = v18;
-  v49 = v23;
-  v50 = &protocol witness table for StaticSourceWriter<A, B>;
-  v24 = swift_getWitnessTable();
-  View.viewAlias<A, B>(_:_:)(&type metadata for DisclosureGroupStyleConfiguration.Content, partial apply for closure #2 in DisclosureGroup.body.getter, v39, v5, &type metadata for DisclosureGroupStyleConfiguration.Content, v29, v24);
-  (*(v35 + 8))(v7, v5);
+  v52 = v10;
+  v31 = v10;
+  v53 = v35;
+  v54 = v11;
+  type metadata accessor for StaticSourceWriter(255, &v51);
+  v12 = type metadata accessor for ModifiedContent();
+  v13 = *(v12 - 8);
+  MEMORY[0x1EEE9AC00](v12);
+  v15 = &v30 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v16);
+  v18 = &v30 - v17;
+  v19 = a1;
+  v20 = v36;
+  v51 = DisclosureGroup.$isExpanded.getter(v19);
+  v52 = v21;
+  LOBYTE(v53) = v22 & 1;
+  *&v23 = v38;
+  *(&v23 + 1) = v10;
+  v38 = v23;
+  *&v24 = v5;
+  *(&v24 + 1) = v11;
+  v30 = v24;
+  v46 = v23;
   v47 = v24;
-  v48 = &protocol witness table for StaticSourceWriter<A, B>;
-  v25 = swift_getWitnessTable();
-  static ViewBuilder.buildExpression<A>(_:)(v13, v10, v25);
-  v26 = *(v11 + 8);
-  v26(v13, v10);
-  static ViewBuilder.buildExpression<A>(_:)(v16, v10, v25);
-  return (v26)(v16, v10);
+  v48 = v20;
+  v25 = lazy protocol witness table accessor for type ResolvedDisclosureGroupStyle and conformance ResolvedDisclosureGroupStyle();
+  View.viewAlias<A, B>(_:_:)(&type metadata for DisclosureGroupStyleConfiguration.Label, partial apply for closure #1 in DisclosureGroup.body.getter, v45, &type metadata for ResolvedDisclosureGroupStyle, &type metadata for DisclosureGroupStyleConfiguration.Label, v33, v25);
+
+  v43 = v30;
+  v42 = v38;
+  v44 = v20;
+  v50[0] = v25;
+  v50[1] = &protocol witness table for StaticSourceWriter<A, B>;
+  v26 = v39;
+  v27 = swift_getWitnessTable(v39, v7, v50);
+  View.viewAlias<A, B>(_:_:)(&type metadata for DisclosureGroupStyleConfiguration.Content, partial apply for closure #2 in DisclosureGroup.body.getter, v41, v7, &type metadata for DisclosureGroupStyleConfiguration.Content, v31, v27);
+  (*(v37 + 8))(v9, v7);
+  v49[0] = v27;
+  v49[1] = &protocol witness table for StaticSourceWriter<A, B>;
+  swift_getWitnessTable(v26, v12, v49);
+  static ViewBuilder.buildExpression<A>(_:)();
+  v28 = *(v13 + 8);
+  v28(v15, v12);
+  static ViewBuilder.buildExpression<A>(_:)();
+  return (v28)(v18, v12);
 }
 
-void type metadata accessor for ViewInputFlagModifier<HideNavigationLinkDisclosureIndicator>()
+void type metadata accessor for ViewInputFlagModifier<HideNavigationLinkDisclosureIndicator>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for ViewInputFlagModifier<HideNavigationLinkDisclosureIndicator>)
   {
     lazy protocol witness table accessor for type HideNavigationLinkDisclosureIndicator and conformance HideNavigationLinkDisclosureIndicator();
-    v0 = type metadata accessor for ViewInputFlagModifier();
-    if (!v1)
+    v1 = type metadata accessor for ViewInputFlagModifier();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for ViewInputFlagModifier<HideNavigationLinkDisclosureIndicator>);
+      atomic_store(v1, &lazy cache variable for type metadata for ViewInputFlagModifier<HideNavigationLinkDisclosureIndicator>);
     }
   }
 }
 
 uint64_t closure #1 in DisclosureGroup.body.getter@<X0>(uint64_t a1@<X1>, uint64_t a2@<X2>, uint64_t a3@<X3>, uint64_t a4@<X4>, uint64_t a5@<X8>)
 {
-  v22[1] = a5;
-  type metadata accessor for ModifiedContent();
-  type metadata accessor for ViewInputFlagModifier<HideNavigationLinkDisclosureIndicator>();
+  v23[1] = a5;
   v9 = type metadata accessor for ModifiedContent();
-  v10 = *(v9 - 8);
-  MEMORY[0x1EEE9AC00](v9);
-  v12 = v22 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v13);
-  v15 = v22 - v14;
-  v22[6] = a1;
-  v22[7] = a2;
-  v22[8] = a3;
-  v22[9] = a4;
-  v16 = type metadata accessor for DisclosureGroup();
-  DisclosureGroup.groupLabel.getter(v16);
-  v22[4] = a3;
-  v22[5] = &protocol witness table for AccessibilityAttachmentModifier;
-  WitnessTable = swift_getWitnessTable();
-  v18 = lazy protocol witness table accessor for type ViewInputFlagModifier<HideNavigationLinkDisclosureIndicator> and conformance ViewInputFlagModifier<A>(&lazy protocol witness table cache variable for type ViewInputFlagModifier<HideNavigationLinkDisclosureIndicator> and conformance ViewInputFlagModifier<A>, type metadata accessor for ViewInputFlagModifier<HideNavigationLinkDisclosureIndicator>);
-  v22[2] = WitnessTable;
-  v22[3] = v18;
-  v19 = swift_getWitnessTable();
-  static ViewBuilder.buildExpression<A>(_:)(v12, v9, v19);
-  v20 = *(v10 + 8);
-  v20(v12, v9);
-  static ViewBuilder.buildExpression<A>(_:)(v15, v9, v19);
-  return (v20)(v15, v9);
+  type metadata accessor for ViewInputFlagModifier<HideNavigationLinkDisclosureIndicator>(255);
+  v10 = type metadata accessor for ModifiedContent();
+  v11 = *(v10 - 8);
+  MEMORY[0x1EEE9AC00](v10);
+  v13 = v23 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v14);
+  v16 = v23 - v15;
+  v26[0] = a1;
+  v26[1] = a2;
+  v26[2] = a3;
+  v26[3] = a4;
+  v17 = type metadata accessor for DisclosureGroup(0, v26);
+  DisclosureGroup.groupLabel.getter(v17);
+  v25[0] = a3;
+  v25[1] = &protocol witness table for AccessibilityAttachmentModifier;
+  v18 = MEMORY[0x1E697E858];
+  WitnessTable = swift_getWitnessTable(MEMORY[0x1E697E858], v9, v25);
+  v20 = lazy protocol witness table accessor for type ViewInputFlagModifier<HideNavigationLinkDisclosureIndicator> and conformance ViewInputFlagModifier<A>(&lazy protocol witness table cache variable for type ViewInputFlagModifier<HideNavigationLinkDisclosureIndicator> and conformance ViewInputFlagModifier<A>, type metadata accessor for ViewInputFlagModifier<HideNavigationLinkDisclosureIndicator>, MEMORY[0x1E697FD30]);
+  v24[0] = WitnessTable;
+  v24[1] = v20;
+  swift_getWitnessTable(v18, v10, v24);
+  static ViewBuilder.buildExpression<A>(_:)();
+  v21 = *(v11 + 8);
+  v21(v13, v10);
+  static ViewBuilder.buildExpression<A>(_:)();
+  return (v21)(v16, v10);
 }
 
 uint64_t DisclosureGroup.groupLabel.getter(uint64_t a1)
@@ -5106,93 +4331,95 @@ uint64_t DisclosureGroup.groupLabel.getter(uint64_t a1)
   v3 = type metadata accessor for ModifiedContent();
   v4 = *(v3 - 8);
   MEMORY[0x1EEE9AC00](v3);
-  v6 = v14 - v5;
+  v6 = &v16[-1] - v5;
   v7 = DisclosureGroup.$isExpanded.getter(a1);
   v8 = *(a1 + 32);
-  v15 = AccessibilityDisclosureModifier.init(_:)(v7, v10, v9 & 1) & 0x101;
-  v11 = type metadata accessor for AccessibilityDisclosureModifier();
-  WitnessTable = swift_getWitnessTable();
-  v14[1] = v8;
-  v14[2] = &protocol witness table for AccessibilityAttachmentModifier;
-  swift_getWitnessTable();
-  View.accessibilityConfiguration<A>(_:)(&v15, v2, v11, v8, WitnessTable);
+  v17 = AccessibilityDisclosureModifier.init(_:)(v7, v10, v9 & 1) & 0x101;
+  v12 = type metadata accessor for AccessibilityDisclosureModifier(0, v2, v8, v11);
+  WitnessTable = swift_getWitnessTable(protocol conformance descriptor for AccessibilityDisclosureModifier<A>, v12);
+  v16[0] = v8;
+  v16[1] = &protocol witness table for AccessibilityAttachmentModifier;
+  swift_getWitnessTable(MEMORY[0x1E697E858], v3, v16);
+  View.accessibilityConfiguration<A>(_:)(&v17, v2, v12, v8, WitnessTable);
   lazy protocol witness table accessor for type HideNavigationLinkDisclosureIndicator and conformance HideNavigationLinkDisclosureIndicator();
   View.input<A>(_:)();
   return (*(v4 + 8))(v6, v3);
 }
 
-uint64_t closure #2 in DisclosureGroup.body.getter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t closure #2 in DisclosureGroup.body.getter(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v8 = *(a3 - 8);
+  v4 = *(a3 - 8);
   MEMORY[0x1EEE9AC00](a1);
-  v10 = v17 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v17[0] = v11;
-  v17[1] = v12;
-  v17[2] = v13;
-  v17[3] = v14;
-  v15 = type metadata accessor for DisclosureGroup();
-  static ViewBuilder.buildExpression<A>(_:)(a1 + *(v15 + 52), a3, a5);
-  static ViewBuilder.buildExpression<A>(_:)(v10, a3, a5);
-  return (*(v8 + 8))(v10, a3);
+  v6 = v12 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12[0] = v7;
+  v12[1] = v8;
+  v12[2] = v9;
+  v12[3] = v10;
+  type metadata accessor for DisclosureGroup(0, v12);
+  static ViewBuilder.buildExpression<A>(_:)();
+  static ViewBuilder.buildExpression<A>(_:)();
+  return (*(v4 + 8))(v6, a3);
 }
 
-uint64_t DisclosureGroup<>.init(_:content:)@<X0>(void (*a1)(uint64_t)@<X4>, uint64_t a2@<X8>)
+void DisclosureGroup<>.init(_:content:)(void (*a5)(uint64_t)@<X4>, uint64_t a6@<X6>, uint64_t a7@<X7>, uint64_t a8@<X8>)
 {
-  v8[0] = Text.init(_:tableName:bundle:comment:)();
-  v8[1] = v4;
-  v9 = v5 & 1;
-  v10 = v6;
-  return DisclosureGroup.init(isExpanded:label:content:)(0, 0, 0, v8, a1, MEMORY[0x1E6981148], a2);
+  v15[0] = Text.init(_:tableName:bundle:comment:)();
+  v15[1] = v12;
+  v16 = v13 & 1;
+  v17 = v14;
+  DisclosureGroup.init(isExpanded:label:content:)(0, 0, 0, v15, a5, MEMORY[0x1E6981148], a6, a8, MEMORY[0x1E6981138], a7);
 }
 
-uint64_t DisclosureGroup<>.init(_:isExpanded:content:)@<X0>(uint64_t a1@<X4>, uint64_t a2@<X5>, char a3@<W6>, void (*a4)(uint64_t)@<X7>, uint64_t a5@<X8>)
+double DisclosureGroup<>.init(_:isExpanded:content:)@<D0>(uint64_t a5@<X4>, uint64_t a6@<X5>, char a7@<W6>, void (*a8)(uint64_t)@<X7>, uint64_t a9@<X8>, uint64_t a10, uint64_t a11, uint64_t a12)
 {
 
-  v14[0] = Text.init(_:tableName:bundle:comment:)();
-  v14[1] = v8;
-  v15 = v9 & 1;
-  v16 = v10;
-  DisclosureGroup.init(isExpanded:label:content:)(a1, a2, a3 & 1, v14, a4, MEMORY[0x1E6981148], a5);
+  v21[0] = Text.init(_:tableName:bundle:comment:)();
+  v21[1] = v15;
+  v22 = v16 & 1;
+  v23 = v17;
+  DisclosureGroup.init(isExpanded:label:content:)(a5, a6, a7 & 1, v21, a8, MEMORY[0x1E6981148], a11, a9, MEMORY[0x1E6981138], a12);
+
+  return result;
 }
 
-uint64_t DisclosureGroup<>.init<A>(_:content:)@<X0>(uint64_t a1@<X0>, void (*a2)(uint64_t)@<X1>, uint64_t a3@<X4>, uint64_t a4@<X8>)
+uint64_t DisclosureGroup<>.init<A>(_:content:)@<X0>(uint64_t a1@<X0>, void (*a2)(uint64_t)@<X1>, uint64_t a3@<X3>, uint64_t a4@<X4>, uint64_t a5@<X5>, uint64_t a7@<X8>)
 {
-  v8 = *(a3 - 8);
-  v9 = MEMORY[0x1EEE9AC00](a1);
-  (*(v8 + 16))(v16 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0), a1, v11, v9);
-  v16[0] = Text.init<A>(_:)();
-  v16[1] = v12;
-  v17 = v13 & 1;
-  v18 = v14;
-  DisclosureGroup.init(isExpanded:label:content:)(0, 0, 0, v16, a2, MEMORY[0x1E6981148], a4);
-  return (*(v8 + 8))(a1, a3);
+  v13 = *(a4 - 8);
+  v14 = MEMORY[0x1EEE9AC00](a1);
+  (*(v13 + 16))(v21 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0), a1, v16, v14);
+  v21[0] = Text.init<A>(_:)();
+  v21[1] = v17;
+  v22 = v18 & 1;
+  v23 = v19;
+  DisclosureGroup.init(isExpanded:label:content:)(0, 0, 0, v21, a2, MEMORY[0x1E6981148], a3, a7, MEMORY[0x1E6981138], a5);
+  return (*(v13 + 8))(a1, a4);
 }
 
-uint64_t DisclosureGroup<>.init<A>(_:isExpanded:content:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, char a4@<W3>, void (*a5)(uint64_t)@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>)
+uint64_t DisclosureGroup<>.init<A>(_:isExpanded:content:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, char a4@<W3>, void (*a5)(uint64_t)@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>, uint64_t a10, uint64_t a11)
 {
-  v25 = a6;
-  v26 = a7;
-  v24 = a5;
-  v15 = *(a8 - 8);
-  v16 = MEMORY[0x1EEE9AC00](a1);
-  (*(v15 + 16))(&v23 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0), a1, v18, v16);
+  v27 = a6;
+  v28 = a7;
+  v26 = a5;
+  v17 = *(a8 - 8);
+  v18 = MEMORY[0x1EEE9AC00](a1);
+  (*(v17 + 16))(&v25 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0), a1, v20, v18);
 
-  v27[0] = Text.init<A>(_:)();
-  v27[1] = v19;
-  v28 = v20 & 1;
-  v29 = v21;
-  DisclosureGroup.init(isExpanded:label:content:)(a2, a3, a4 & 1, v27, v24, MEMORY[0x1E6981148], a9);
+  v29[0] = Text.init<A>(_:)();
+  v29[1] = v21;
+  v30 = v22 & 1;
+  v31 = v23;
+  DisclosureGroup.init(isExpanded:label:content:)(a2, a3, a4 & 1, v29, v26, MEMORY[0x1E6981148], v28, a9, MEMORY[0x1E6981138], a10);
 
-  return (*(v15 + 8))(a1, a8);
+  return (*(v17 + 8))(a1, a8);
 }
 
-uint64_t type metadata completion function for DisclosureGroup()
+uint64_t type metadata completion function for DisclosureGroup(uint64_t a1)
 {
   result = swift_checkMetadataState();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = swift_checkMetadataState();
-    if (v2 <= 0x3F)
+    if (v3 <= 0x3F)
     {
       swift_initStructMetadata();
       return 0;
@@ -5254,7 +4481,7 @@ uint64_t *initializeBufferWithCopyOfBuffer for DisclosureGroup(uint64_t *a1, uin
   return v3;
 }
 
-uint64_t destroy for DisclosureGroup(uint64_t a1, uint64_t a2)
+double destroy for DisclosureGroup(uint64_t a1, uint64_t a2)
 {
   v4 = *(*(a2 + 16) - 8) + 8;
   (*v4)();
@@ -5273,6 +4500,8 @@ uint64_t destroy for DisclosureGroup(uint64_t a1, uint64_t a2)
   if (v10 == 1)
   {
   }
+
+  return result;
 }
 
 uint64_t initializeWithCopy for DisclosureGroup(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -5556,7 +4785,7 @@ uint64_t getEnumTagSinglePayload for DisclosureGroup(unsigned __int16 *a1, unsig
 LABEL_30:
     if (v5 == v10)
     {
-      return (*(v4 + 48))();
+      return (*(v4 + 48))(a1);
     }
 
     v22 = (a1 + v11) & ~v9;
@@ -5803,12 +5032,16 @@ LABEL_29:
 
 uint64_t partial apply for closure #1 in DisclosureGroup<>.init(configuration:)@<X0>(uint64_t a1@<X8>)
 {
-  v7 = *(v1 + 24);
-  v3 = *(type metadata accessor for DisclosureGroupConfiguration() - 8);
-  v4 = (*(v3 + 80) + 48) & ~*(v3 + 80);
-  v5 = *(*(v7 - 8) + 16);
+  v3 = *(v1 + 40);
+  v9 = *(v1 + 16);
+  v10 = *(v1 + 24);
+  v8 = v10;
+  v11 = v3;
+  v4 = *(type metadata accessor for DisclosureGroupConfiguration(0, &v9) - 8);
+  v5 = (*(v4 + 80) + 48) & ~*(v4 + 80);
+  v6 = *(*(v8 - 8) + 16);
 
-  return v5(a1, v1 + v4);
+  return v6(a1, v1 + v5);
 }
 
 uint64_t EnvironmentValues.shouldBuildExpandedContentLazily.getter()
@@ -5816,7 +5049,7 @@ uint64_t EnvironmentValues.shouldBuildExpandedContentLazily.getter()
   if (*(v0 + 8))
   {
     type metadata accessor for EnvironmentPropertyKey<ShouldBuildExpandedContentLazilyEnvironmentKey>();
-    lazy protocol witness table accessor for type ViewInputFlagModifier<HideNavigationLinkDisclosureIndicator> and conformance ViewInputFlagModifier<A>(&lazy protocol witness table cache variable for type EnvironmentPropertyKey<ShouldBuildExpandedContentLazilyEnvironmentKey> and conformance EnvironmentPropertyKey<A>, type metadata accessor for EnvironmentPropertyKey<ShouldBuildExpandedContentLazilyEnvironmentKey>);
+    lazy protocol witness table accessor for type ViewInputFlagModifier<HideNavigationLinkDisclosureIndicator> and conformance ViewInputFlagModifier<A>(&lazy protocol witness table cache variable for type EnvironmentPropertyKey<ShouldBuildExpandedContentLazilyEnvironmentKey> and conformance EnvironmentPropertyKey<A>, type metadata accessor for EnvironmentPropertyKey<ShouldBuildExpandedContentLazilyEnvironmentKey>, MEMORY[0x1E697FE40]);
 
     PropertyList.Tracker.value<A>(_:for:)();
   }
@@ -5824,33 +5057,33 @@ uint64_t EnvironmentValues.shouldBuildExpandedContentLazily.getter()
   else
   {
     type metadata accessor for EnvironmentPropertyKey<ShouldBuildExpandedContentLazilyEnvironmentKey>();
-    lazy protocol witness table accessor for type ViewInputFlagModifier<HideNavigationLinkDisclosureIndicator> and conformance ViewInputFlagModifier<A>(&lazy protocol witness table cache variable for type EnvironmentPropertyKey<ShouldBuildExpandedContentLazilyEnvironmentKey> and conformance EnvironmentPropertyKey<A>, type metadata accessor for EnvironmentPropertyKey<ShouldBuildExpandedContentLazilyEnvironmentKey>);
+    lazy protocol witness table accessor for type ViewInputFlagModifier<HideNavigationLinkDisclosureIndicator> and conformance ViewInputFlagModifier<A>(&lazy protocol witness table cache variable for type EnvironmentPropertyKey<ShouldBuildExpandedContentLazilyEnvironmentKey> and conformance EnvironmentPropertyKey<A>, type metadata accessor for EnvironmentPropertyKey<ShouldBuildExpandedContentLazilyEnvironmentKey>, MEMORY[0x1E697FE40]);
     PropertyList.subscript.getter();
   }
 
   return v2;
 }
 
-uint64_t lazy protocol witness table accessor for type ViewInputFlagModifier<HideNavigationLinkDisclosureIndicator> and conformance ViewInputFlagModifier<A>(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type ViewInputFlagModifier<HideNavigationLinkDisclosureIndicator> and conformance ViewInputFlagModifier<A>(unint64_t *a1, uint64_t (*a2)(uint64_t), const char *a3)
 {
   result = *a1;
   if (!result)
   {
-    a2(255);
-    result = swift_getWitnessTable();
+    v6 = a2(255);
+    result = swift_getWitnessTable(a3, v6);
     atomic_store(result, a1);
   }
 
   return result;
 }
 
-uint64_t type metadata completion function for DisclosureGroupConfiguration()
+uint64_t type metadata completion function for DisclosureGroupConfiguration(uint64_t a1)
 {
   result = swift_checkMetadataState();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = swift_checkMetadataState();
-    if (v2 <= 0x3F)
+    if (v3 <= 0x3F)
     {
       swift_initStructMetadata();
       return 0;
@@ -6339,10 +5572,10 @@ LABEL_34:
   return result;
 }
 
-uint64_t type metadata completion function for TextInputSuggestionCompletion()
+uint64_t type metadata completion function for TextInputSuggestionCompletion(uint64_t a1)
 {
   result = swift_checkMetadataState();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_initStructMetadata();
     return 0;
@@ -6381,7 +5614,7 @@ uint64_t initializeBufferWithCopyOfBuffer for TextInputSuggestionCompletion(uint
       (**(v14 - 8))(a1, a2);
       v15 = *(a2 + 7);
       *(v4 + 56) = v15;
-      (**(v15 - 8))(v4 + 32, (a2 + 4));
+      (**(v15 - 8))(v4 + 32, a2 + 4);
       v16 = 1;
     }
 
@@ -6417,19 +5650,17 @@ uint64_t initializeBufferWithCopyOfBuffer for TextInputSuggestionCompletion(uint
   return v4;
 }
 
-uint64_t outlined copy of Environment<Binding<String>?>.Content(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5)
+double outlined copy of Environment<Binding<String>?>.Content(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5)
 {
   if (a5)
   {
     return outlined copy of Binding<String>?(a1, a2);
   }
 
-  else
-  {
-  }
+  return result;
 }
 
-uint64_t destroy for TextInputSuggestionCompletion(uint64_t a1, uint64_t a2)
+double destroy for TextInputSuggestionCompletion(uint64_t a1, uint64_t a2)
 {
   v4 = *(a1 + 72);
   if (v4 >= 2)
@@ -6440,7 +5671,7 @@ uint64_t destroy for TextInputSuggestionCompletion(uint64_t a1, uint64_t a2)
   if (v4 == 1)
   {
     __swift_destroy_boxed_opaque_existential_1(a1);
-    __swift_destroy_boxed_opaque_existential_1(a1 + 32);
+    __swift_destroy_boxed_opaque_existential_1((a1 + 32));
   }
 
   else
@@ -6461,19 +5692,17 @@ uint64_t destroy for TextInputSuggestionCompletion(uint64_t a1, uint64_t a2)
   return outlined consume of Environment<Binding<String>?>.Content(v9, v10, v11, v12, v13);
 }
 
-uint64_t outlined consume of Environment<Binding<String>?>.Content(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5)
+double outlined consume of Environment<Binding<String>?>.Content(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5)
 {
   if (a5)
   {
     return outlined consume of Binding<String>?(a1, a2);
   }
 
-  else
-  {
-  }
+  return result;
 }
 
-uint64_t outlined consume of Binding<String>?(uint64_t a1, uint64_t a2)
+double outlined consume of Binding<String>?(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
@@ -6534,41 +5763,41 @@ uint64_t initializeWithCopy for TextInputSuggestionCompletion(uint64_t a1, uint6
   return a1;
 }
 
-uint64_t assignWithCopy for TextInputSuggestionCompletion(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t assignWithCopy for TextInputSuggestionCompletion(uint64_t a1, uint64_t a2, uint64_t a3, __n128 a4)
 {
   if (a1 != a2)
   {
-    v6 = *(a1 + 72);
-    if (v6 >= 2)
+    v7 = *(a1 + 72);
+    if (v7 >= 2)
     {
-      v6 = *a1 + 2;
+      v7 = *a1 + 2;
     }
 
-    if (v6 == 1)
+    if (v7 == 1)
     {
       __swift_destroy_boxed_opaque_existential_1(a1);
-      __swift_destroy_boxed_opaque_existential_1(a1 + 32);
+      __swift_destroy_boxed_opaque_existential_1((a1 + 32));
     }
 
     else
     {
     }
 
-    v7 = *(a2 + 72);
-    if (v7 >= 2)
+    v8 = *(a2 + 72);
+    if (v8 >= 2)
     {
-      v7 = *a2 + 2;
+      v8 = *a2 + 2;
     }
 
-    if (v7 == 1)
+    if (v8 == 1)
     {
-      v8 = *(a2 + 24);
-      *(a1 + 24) = v8;
-      (**(v8 - 8))(a1, a2);
-      v9 = *(a2 + 56);
-      *(a1 + 56) = v9;
+      v9 = *(a2 + 24);
+      *(a1 + 24) = v9;
+      (**(v9 - 8))(a1, a2);
+      v10 = *(a2 + 56);
+      *(a1 + 56) = v10;
       *(a1 + 64) = *(a2 + 64);
-      (**(v9 - 8))(a1 + 32, a2 + 32);
+      (**(v10 - 8))(a1 + 32, a2 + 32);
       *(a1 + 72) = 1;
     }
 
@@ -6580,32 +5809,32 @@ uint64_t assignWithCopy for TextInputSuggestionCompletion(uint64_t a1, uint64_t 
     }
   }
 
-  v10 = *(*(a3 + 16) - 8);
-  v11 = v10 + 24;
-  v12 = *(v10 + 80);
-  v13 = (v12 + 73 + a1) & ~v12;
-  v14 = (v12 + 73 + a2) & ~v12;
-  (*(v10 + 24))(v13, v14);
-  v15 = *(v11 + 40) + 7;
-  v16 = (v15 + v13) & 0xFFFFFFFFFFFFFFF8;
-  v17 = (v15 + v14) & 0xFFFFFFFFFFFFFFF8;
-  v18 = *v17;
-  v19 = *(v17 + 8);
-  v20 = *(v17 + 16);
-  v21 = *(v17 + 24);
-  v22 = *(v17 + 32);
-  outlined copy of Environment<Binding<String>?>.Content(*v17, v19, v20, v21, v22);
-  v23 = *v16;
-  v24 = *(v16 + 8);
-  v25 = *(v16 + 16);
-  v26 = *(v16 + 24);
-  v27 = *(v16 + 32);
-  *v16 = v18;
-  *(v16 + 8) = v19;
-  *(v16 + 16) = v20;
-  *(v16 + 24) = v21;
-  *(v16 + 32) = v22;
-  outlined consume of Environment<Binding<String>?>.Content(v23, v24, v25, v26, v27);
+  v11 = *(*(a3 + 16) - 8);
+  v12 = v11 + 24;
+  v13 = *(v11 + 80);
+  v14 = (v13 + 73 + a1) & ~v13;
+  v15 = (v13 + 73 + a2) & ~v13;
+  (*(v11 + 24))(v14, v15);
+  v16 = *(v12 + 40) + 7;
+  v17 = (v16 + v14) & 0xFFFFFFFFFFFFFFF8;
+  v18 = (v16 + v15) & 0xFFFFFFFFFFFFFFF8;
+  v19 = *v18;
+  v20 = *(v18 + 8);
+  v21 = *(v18 + 16);
+  v22 = *(v18 + 24);
+  v23 = *(v18 + 32);
+  outlined copy of Environment<Binding<String>?>.Content(*v18, v20, v21, v22, v23);
+  v24 = *v17;
+  v25 = *(v17 + 8);
+  v26 = *(v17 + 16);
+  v27 = *(v17 + 24);
+  v28 = *(v17 + 32);
+  *v17 = v19;
+  *(v17 + 8) = v20;
+  *(v17 + 16) = v21;
+  *(v17 + 24) = v22;
+  *(v17 + 32) = v23;
+  outlined consume of Environment<Binding<String>?>.Content(v24, v25, v26, v27, v28);
   return a1;
 }
 
@@ -6666,7 +5895,7 @@ uint64_t assignWithTake for TextInputSuggestionCompletion(uint64_t a1, uint64_t 
     if (v6 == 1)
     {
       __swift_destroy_boxed_opaque_existential_1(a1);
-      __swift_destroy_boxed_opaque_existential_1(a1 + 32);
+      __swift_destroy_boxed_opaque_existential_1((a1 + 32));
     }
 
     else
@@ -7037,7 +6266,7 @@ uint64_t destroy for TextInputSuggestionCompletionKind(uint64_t a1)
   if (v2 == 1)
   {
     __swift_destroy_boxed_opaque_existential_1(a1);
-    return __swift_destroy_boxed_opaque_existential_1(a1 + 32);
+    return __swift_destroy_boxed_opaque_existential_1((a1 + 32));
   }
 
   else
@@ -7090,7 +6319,7 @@ uint64_t assignWithCopy for TextInputSuggestionCompletionKind(uint64_t a1, uint6
     if (v4 == 1)
     {
       __swift_destroy_boxed_opaque_existential_1(a1);
-      __swift_destroy_boxed_opaque_existential_1(a1 + 32);
+      __swift_destroy_boxed_opaque_existential_1((a1 + 32));
     }
 
     else
@@ -7139,7 +6368,7 @@ uint64_t assignWithTake for TextInputSuggestionCompletionKind(uint64_t a1, uint6
     if (v4 == 1)
     {
       __swift_destroy_boxed_opaque_existential_1(a1);
-      __swift_destroy_boxed_opaque_existential_1(a1 + 32);
+      __swift_destroy_boxed_opaque_existential_1((a1 + 32));
     }
 
     else
@@ -7263,114 +6492,116 @@ uint64_t destructiveInjectEnumTag for TextInputSuggestionCompletionKind(uint64_t
 uint64_t TextInputSuggestionCompletion.body.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   v3 = v2;
-  v57 = a2;
-  v49 = type metadata accessor for TextInputCompletionButtonStyle();
-  MEMORY[0x1EEE9AC00](v49);
-  v6 = &v46 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v59 = a2;
+  v51 = type metadata accessor for TextInputCompletionButtonStyle(0);
+  MEMORY[0x1EEE9AC00](v51);
+  v6 = &v48 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   v7 = *(a1 - 8);
   v8 = *(v7 + 64);
   MEMORY[0x1EEE9AC00](v9);
-  v10 = &v46 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v46 = a1;
+  v10 = &v48 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v48 = a1;
   v11 = *(a1 + 16);
   v12 = *(a1 + 24);
-  v48 = type metadata accessor for Button();
-  v50 = *(v48 - 8);
-  MEMORY[0x1EEE9AC00](v48);
-  v47 = &v46 - v13;
-  type metadata accessor for PrimitiveButtonStyleContainerModifier<TextInputCompletionButtonStyle>();
-  v14 = type metadata accessor for ModifiedContent();
-  v54 = *(v14 - 8);
-  MEMORY[0x1EEE9AC00](v14);
-  v16 = &v46 - v15;
+  v50 = type metadata accessor for Button(0, v11, v12, v13);
+  v52 = *(v50 - 8);
+  MEMORY[0x1EEE9AC00](v50);
+  v49 = &v48 - v14;
+  type metadata accessor for PrimitiveButtonStyleContainerModifier<TextInputCompletionButtonStyle>(255);
+  v15 = type metadata accessor for ModifiedContent();
+  v56 = *(v15 - 8);
+  MEMORY[0x1EEE9AC00](v15);
+  v17 = &v48 - v16;
   type metadata accessor for _EnvironmentKeyTransformModifier<Bool>();
-  v55 = v14;
-  v51 = type metadata accessor for ModifiedContent();
-  v56 = *(v51 - 8);
-  MEMORY[0x1EEE9AC00](v51);
-  v52 = &v46 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v19 = MEMORY[0x1EEE9AC00](v18);
-  v53 = &v46 - v20;
-  v21 = v46;
-  (*(v7 + 16))(v10, v3, v46, v19);
-  v22 = (*(v7 + 80) + 32) & ~*(v7 + 80);
-  v23 = swift_allocObject();
-  *(v23 + 16) = v11;
-  *(v23 + 24) = v12;
-  (*(v7 + 32))(v23 + v22, v10, v21);
-  v58 = v11;
-  v59 = v12;
-  v60 = v3;
-  v24 = v47;
-  v25 = v16;
-  Button.init(action:label:)(partial apply for closure #1 in TextInputSuggestionCompletion.body.getter, v23, partial apply for closure #2 in TextInputSuggestionCompletion.body.getter, v47);
-  v26 = v3;
+  v57 = v15;
+  v53 = type metadata accessor for ModifiedContent();
+  v58 = *(v53 - 8);
+  MEMORY[0x1EEE9AC00](v53);
+  v54 = &v48 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v20 = MEMORY[0x1EEE9AC00](v19);
+  v55 = &v48 - v21;
+  v22 = v48;
+  (*(v7 + 16))(v10, v3, v48, v20);
+  v23 = (*(v7 + 80) + 32) & ~*(v7 + 80);
+  v24 = swift_allocObject();
+  *(v24 + 16) = v11;
+  *(v24 + 24) = v12;
+  (*(v7 + 32))(v24 + v23, v10, v22);
+  v61 = v11;
+  v62 = v12;
+  v63 = v3;
+  v25 = v49;
+  v26 = v12;
+  v27 = v17;
+  Button.init(action:label:)(partial apply for closure #1 in TextInputSuggestionCompletion.body.getter, v24, partial apply for closure #2 in TextInputSuggestionCompletion.body.getter, v60, v11, v26, v49);
+  v28 = v3;
   outlined init with copy of TextInputSuggestionCompletionKind(v3, v6);
-  v27 = v49;
-  v28 = *(v49 + 20);
-  *&v6[v28] = swift_getKeyPath();
-  type metadata accessor for Environment<DismissSearchAccessoryAction>.Content();
+  v29 = v51;
+  v30 = *(v51 + 20);
+  *&v6[v30] = swift_getKeyPath();
+  type metadata accessor for Environment<DismissSearchAccessoryAction>.Content(0);
   swift_storeEnumTagMultiPayload();
-  v29 = &v6[*(v27 + 24)];
-  *v29 = swift_getKeyPath();
-  *(v29 + 1) = 0;
-  v29[16] = 0;
-  v30 = v48;
-  WitnessTable = swift_getWitnessTable();
-  lazy protocol witness table accessor for type _EnvironmentKeyWritingModifier<ScrollToTopGestureAction?> and conformance _EnvironmentKeyWritingModifier<A>(&lazy protocol witness table cache variable for type TextInputCompletionButtonStyle and conformance TextInputCompletionButtonStyle, type metadata accessor for TextInputCompletionButtonStyle);
-  View.buttonStyle<A>(_:)(v6, v30, v27, WitnessTable);
+  v31 = &v6[*(v29 + 24)];
+  *v31 = swift_getKeyPath();
+  *(v31 + 1) = 0;
+  v31[16] = 0;
+  v32 = v50;
+  WitnessTable = swift_getWitnessTable(protocol conformance descriptor for Button<A>, v50);
+  lazy protocol witness table accessor for type _EnvironmentKeyWritingModifier<ScrollToTopGestureAction?> and conformance _EnvironmentKeyWritingModifier<A>(&lazy protocol witness table cache variable for type TextInputCompletionButtonStyle and conformance TextInputCompletionButtonStyle, type metadata accessor for TextInputCompletionButtonStyle, protocol conformance descriptor for TextInputCompletionButtonStyle);
+  View.buttonStyle<A>(_:)(v6, v32, v29, WitnessTable);
   outlined destroy of TextInputCompletionButtonStyle(v6, type metadata accessor for TextInputCompletionButtonStyle);
-  (*(v50 + 8))(v24, v30);
-  v32 = v26 + *(v21 + 40);
-  v33 = *(v32 + 16);
-  v65 = *v32;
-  v66 = v33;
-  v67 = *(v32 + 32);
-  v34 = specialized Environment.wrappedValue.getter();
-  if (v35)
+  (*(v52 + 8))(v25, v32);
+  v34 = v28 + *(v22 + 40);
+  v35 = *(v34 + 16);
+  v66 = *v34;
+  v67 = v35;
+  v68 = *(v34 + 32);
+  v36 = specialized Environment.wrappedValue.getter();
+  if (v37)
   {
-    outlined consume of Binding<String>?(v34, v35);
+    outlined consume of Binding<String>?(v36, v37);
   }
 
-  v36 = lazy protocol witness table accessor for type _EnvironmentKeyWritingModifier<ScrollToTopGestureAction?> and conformance _EnvironmentKeyWritingModifier<A>(&lazy protocol witness table cache variable for type PrimitiveButtonStyleContainerModifier<TextInputCompletionButtonStyle> and conformance PrimitiveButtonStyleContainerModifier<A>, type metadata accessor for PrimitiveButtonStyleContainerModifier<TextInputCompletionButtonStyle>);
-  v63 = WitnessTable;
-  v64 = v36;
-  v37 = v55;
-  v38 = swift_getWitnessTable();
-  v39 = v52;
+  v38 = lazy protocol witness table accessor for type _EnvironmentKeyWritingModifier<ScrollToTopGestureAction?> and conformance _EnvironmentKeyWritingModifier<A>(&lazy protocol witness table cache variable for type PrimitiveButtonStyleContainerModifier<TextInputCompletionButtonStyle> and conformance PrimitiveButtonStyleContainerModifier<A>, type metadata accessor for PrimitiveButtonStyleContainerModifier<TextInputCompletionButtonStyle>, protocol conformance descriptor for PrimitiveButtonStyleContainerModifier<A>);
+  v65[0] = WitnessTable;
+  v65[1] = v38;
+  v39 = MEMORY[0x1E697E858];
+  v40 = v57;
+  v41 = swift_getWitnessTable(MEMORY[0x1E697E858], v57, v65);
+  v42 = v54;
   View.disabled(_:)();
-  (*(v54 + 8))(v25, v37);
-  v40 = lazy protocol witness table accessor for type _EnvironmentKeyWritingModifier<ScrollToTopGestureAction?> and conformance _EnvironmentKeyWritingModifier<A>(&lazy protocol witness table cache variable for type _EnvironmentKeyTransformModifier<Bool> and conformance _EnvironmentKeyTransformModifier<A>, type metadata accessor for _EnvironmentKeyTransformModifier<Bool>);
-  v61 = v38;
-  v62 = v40;
-  v41 = v51;
-  v42 = swift_getWitnessTable();
-  v43 = v53;
-  static ViewBuilder.buildExpression<A>(_:)(v39, v41, v42);
-  v44 = *(v56 + 8);
-  v44(v39, v41);
-  static ViewBuilder.buildExpression<A>(_:)(v43, v41, v42);
-  return (v44)(v43, v41);
+  (*(v56 + 8))(v27, v40);
+  v43 = lazy protocol witness table accessor for type _EnvironmentKeyWritingModifier<ScrollToTopGestureAction?> and conformance _EnvironmentKeyWritingModifier<A>(&lazy protocol witness table cache variable for type _EnvironmentKeyTransformModifier<Bool> and conformance _EnvironmentKeyTransformModifier<A>, type metadata accessor for _EnvironmentKeyTransformModifier<Bool>, MEMORY[0x1E6980B30]);
+  v64[0] = v41;
+  v64[1] = v43;
+  v44 = v53;
+  swift_getWitnessTable(v39, v53, v64);
+  v45 = v55;
+  static ViewBuilder.buildExpression<A>(_:)();
+  v46 = *(v58 + 8);
+  v46(v42, v44);
+  static ViewBuilder.buildExpression<A>(_:)();
+  return (v46)(v45, v44);
 }
 
-uint64_t closure #1 in TextInputSuggestionCompletion.body.getter(uint64_t a1)
+void closure #1 in TextInputSuggestionCompletion.body.getter(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  outlined init with copy of TextInputSuggestionCompletionKind(a1, &v6);
-  if (v7)
+  outlined init with copy of TextInputSuggestionCompletionKind(a1, &v10);
+  if (v11)
   {
-    result = _assertionFailure(_:_:file:line:flags:)();
+    _assertionFailure(_:_:file:line:flags:)();
     __break(1u);
   }
 
   else
   {
-    v2 = a1 + *(type metadata accessor for TextInputSuggestionCompletion() + 40);
-    v3 = *(v2 + 16);
-    v8 = *v2;
-    v9 = v3;
-    v10 = *(v2 + 32);
+    v7 = (a1 + *(type metadata accessor for TextInputSuggestionCompletion(0, a2, a3, v6) + 40));
+    v8 = v7[1];
+    v12 = *v7;
+    v13 = v8;
+    v14 = *(v7 + 32);
     specialized Environment.wrappedValue.getter();
-    if (v4)
+    if (v9)
     {
       dispatch thunk of AnyLocation.set(_:transaction:)();
     }
@@ -7379,22 +6610,20 @@ uint64_t closure #1 in TextInputSuggestionCompletion.body.getter(uint64_t a1)
     {
     }
   }
-
-  return result;
 }
 
-uint64_t closure #2 in TextInputSuggestionCompletion.body.getter(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t closure #2 in TextInputSuggestionCompletion.body.getter(uint64_t a1, uint64_t a2)
 {
-  v6 = *(a2 - 8);
+  v3 = *(a2 - 8);
   MEMORY[0x1EEE9AC00](a1);
-  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = type metadata accessor for TextInputSuggestionCompletion();
-  static ViewBuilder.buildExpression<A>(_:)(a1 + *(v9 + 36), a2, a3);
-  static ViewBuilder.buildExpression<A>(_:)(v8, a2, a3);
-  return (*(v6 + 8))(v8, a2);
+  v5 = &v10 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  type metadata accessor for TextInputSuggestionCompletion(0, v6, v7, v8);
+  static ViewBuilder.buildExpression<A>(_:)();
+  static ViewBuilder.buildExpression<A>(_:)();
+  return (*(v3 + 8))(v5, a2);
 }
 
-uint64_t type metadata accessor for TextInputCompletionButtonStyle()
+uint64_t type metadata accessor for TextInputCompletionButtonStyle(uint64_t a1)
 {
   result = type metadata singleton initialization cache for TextInputCompletionButtonStyle;
   if (!type metadata singleton initialization cache for TextInputCompletionButtonStyle)
@@ -7405,16 +6634,16 @@ uint64_t type metadata accessor for TextInputCompletionButtonStyle()
   return result;
 }
 
-void type metadata accessor for PrimitiveButtonStyleContainerModifier<TextInputCompletionButtonStyle>()
+void type metadata accessor for PrimitiveButtonStyleContainerModifier<TextInputCompletionButtonStyle>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for PrimitiveButtonStyleContainerModifier<TextInputCompletionButtonStyle>)
   {
-    type metadata accessor for TextInputCompletionButtonStyle();
-    lazy protocol witness table accessor for type _EnvironmentKeyWritingModifier<ScrollToTopGestureAction?> and conformance _EnvironmentKeyWritingModifier<A>(&lazy protocol witness table cache variable for type TextInputCompletionButtonStyle and conformance TextInputCompletionButtonStyle, type metadata accessor for TextInputCompletionButtonStyle);
-    v0 = type metadata accessor for PrimitiveButtonStyleContainerModifier();
-    if (!v1)
+    v2 = type metadata accessor for TextInputCompletionButtonStyle(255);
+    v3 = lazy protocol witness table accessor for type _EnvironmentKeyWritingModifier<ScrollToTopGestureAction?> and conformance _EnvironmentKeyWritingModifier<A>(&lazy protocol witness table cache variable for type TextInputCompletionButtonStyle and conformance TextInputCompletionButtonStyle, type metadata accessor for TextInputCompletionButtonStyle, protocol conformance descriptor for TextInputCompletionButtonStyle);
+    v5 = type metadata accessor for PrimitiveButtonStyleContainerModifier(a1, v2, v3, v4);
+    if (!v6)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for PrimitiveButtonStyleContainerModifier<TextInputCompletionButtonStyle>);
+      atomic_store(v5, &lazy cache variable for type metadata for PrimitiveButtonStyleContainerModifier<TextInputCompletionButtonStyle>);
     }
   }
 }
@@ -7431,29 +6660,32 @@ void type metadata accessor for _EnvironmentKeyTransformModifier<Bool>()
   }
 }
 
-uint64_t partial apply for closure #1 in TextInputSuggestionCompletion.body.getter()
+void partial apply for closure #1 in TextInputSuggestionCompletion.body.getter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v1 = *(type metadata accessor for TextInputSuggestionCompletion() - 8);
-  v2 = v0 + ((*(v1 + 80) + 32) & ~*(v1 + 80));
+  v5 = *(v4 + 16);
+  v6 = *(v4 + 24);
+  v7 = *(type metadata accessor for TextInputSuggestionCompletion(0, v5, v6, a4) - 8);
+  v8 = v4 + ((*(v7 + 80) + 32) & ~*(v7 + 80));
 
-  return closure #1 in TextInputSuggestionCompletion.body.getter(v2);
+  closure #1 in TextInputSuggestionCompletion.body.getter(v8, v5, v6);
 }
 
 uint64_t closure #1 in TextInputCompletionButtonStyle.makeBody(configuration:)(uint64_t a1, uint64_t a2)
 {
   v3 = type metadata accessor for DismissSearchAccessoryAction(0);
   MEMORY[0x1EEE9AC00](v3 - 8);
-  v5 = &v10 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = (&v12 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0));
   type metadata accessor for PrimitiveButtonStyleConfiguration(0);
   ButtonAction.callAsFunction()();
-  v6 = type metadata accessor for TextInputCompletionButtonStyle();
+  v6 = type metadata accessor for TextInputCompletionButtonStyle(0);
   v7 = specialized Environment.wrappedValue.getter(*(a2 + *(v6 + 24)), *(a2 + *(v6 + 24) + 8), *(a2 + *(v6 + 24) + 16));
   if (v7)
   {
-    v8 = v7;
-    v11 = 4;
-    v7(&v11);
-    outlined consume of (@escaping @callee_guaranteed (@guaranteed NSFileWrapper?) -> (@owned NSFileWrapper, @error @owned Error))?(v8);
+    v9 = v7;
+    v10 = v8;
+    v13 = 4;
+    v7(&v13);
+    outlined consume of (@escaping @callee_guaranteed (@guaranteed NSFileWrapper?) -> (@owned NSFileWrapper, @error @owned Error))?(v9, v10);
   }
 
   specialized Environment.wrappedValue.getter(v5);
@@ -7464,29 +6696,29 @@ uint64_t closure #1 in TextInputCompletionButtonStyle.makeBody(configuration:)(u
 uint64_t protocol witness for PrimitiveButtonStyle.makeBody(configuration:) in conformance TextInputCompletionButtonStyle@<X0>(_BYTE *a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
   v4 = v3;
-  v20 = a3;
+  v23 = a3;
   v6 = *(a2 - 8);
   v7 = *(v6 + 64);
   MEMORY[0x1EEE9AC00](a1);
-  v8 = &v19 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v22 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   v9 = type metadata accessor for PrimitiveButtonStyleConfiguration(0);
   v10 = *(v9 - 8);
   v11 = *(v10 + 64);
   MEMORY[0x1EEE9AC00](v9 - 8);
-  _s7SwiftUI33PrimitiveButtonStyleConfigurationVWOcTm_5(a1, &v19 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0), type metadata accessor for PrimitiveButtonStyleConfiguration);
+  _s7SwiftUI33PrimitiveButtonStyleConfigurationVWOcTm_5(a1, &v22 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0), type metadata accessor for PrimitiveButtonStyleConfiguration);
   _s7SwiftUI33PrimitiveButtonStyleConfigurationVWOcTm_5(v4, v8, type metadata accessor for TextInputCompletionButtonStyle);
   v12 = (*(v10 + 80) + 16) & ~*(v10 + 80);
   v13 = (v11 + *(v6 + 80) + v12) & ~*(v6 + 80);
   v14 = swift_allocObject();
-  _s7SwiftUI33PrimitiveButtonStyleConfigurationVWObTm_1(&v19 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0), v14 + v12, type metadata accessor for PrimitiveButtonStyleConfiguration);
+  _s7SwiftUI33PrimitiveButtonStyleConfigurationVWObTm_1(&v22 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0), v14 + v12, type metadata accessor for PrimitiveButtonStyleConfiguration);
   _s7SwiftUI33PrimitiveButtonStyleConfigurationVWObTm_1(v8, v14 + v13, type metadata accessor for TextInputCompletionButtonStyle);
-  v15 = v20;
-  *v20 = *a1;
-  type metadata accessor for Button<PrimitiveButtonStyleConfiguration.Label>();
-  v17 = &v15[*(v16 + 36)];
-  *v17 = partial apply for closure #1 in TextInputCompletionButtonStyle.makeBody(configuration:);
-  v17[1] = v14;
-  type metadata accessor for ButtonAction();
+  v15 = v23;
+  *v23 = *a1;
+  type metadata accessor for Button<PrimitiveButtonStyleConfiguration.Label>(0, v16, v17, v18);
+  v20 = &v15[*(v19 + 36)];
+  *v20 = partial apply for closure #1 in TextInputCompletionButtonStyle.makeBody(configuration:);
+  v20[1] = v14;
+  type metadata accessor for ButtonAction(0);
   return swift_storeEnumTagMultiPayload();
 }
 
@@ -7596,7 +6828,7 @@ uint64_t initializeBufferWithCopyOfBuffer for TextInputCompletionButtonStyle(uin
       (**(v8 - 8))(a1, a2);
       v9 = *(a2 + 7);
       *(v4 + 56) = v9;
-      (**(v9 - 8))(v4 + 32, (a2 + 4));
+      (**(v9 - 8))(v4 + 32, a2 + 4);
       *(v4 + 72) = 1;
     }
 
@@ -7611,7 +6843,7 @@ uint64_t initializeBufferWithCopyOfBuffer for TextInputCompletionButtonStyle(uin
     v14 = *(a3 + 20);
     v15 = (v4 + v14);
     v16 = (a2 + v14);
-    type metadata accessor for Environment<DismissSearchAccessoryAction>.Content();
+    type metadata accessor for Environment<DismissSearchAccessoryAction>.Content(0);
     if (swift_getEnumCaseMultiPayload() == 1)
     {
       type metadata accessor for Binding<SearchFieldState>(0);
@@ -7663,8 +6895,8 @@ uint64_t initializeBufferWithCopyOfBuffer for TextInputCompletionButtonStyle(uin
     v30 = v4 + v29;
     v31 = a2 + v29;
     v32 = *v31;
-    v33 = *(v31 + 8);
-    v34 = *(v31 + 16);
+    v33 = *(v31 + 1);
+    v34 = v31[16];
     outlined copy of Environment<AppIntentExecutor?>.Content(*v31, v33, v34);
     *v30 = v32;
     *(v30 + 8) = v33;
@@ -7723,7 +6955,7 @@ uint64_t initializeWithCopy for TextInputCompletionButtonStyle(uint64_t a1, uint
   v12 = *(a3 + 20);
   v13 = (a1 + v12);
   v14 = (a2 + v12);
-  type metadata accessor for Environment<DismissSearchAccessoryAction>.Content();
+  type metadata accessor for Environment<DismissSearchAccessoryAction>.Content(0);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
     type metadata accessor for Binding<SearchFieldState>(0);
@@ -7877,7 +7109,7 @@ LABEL_13:
   v13 = (a1 + v12);
   v14 = (a2 + v12);
   outlined destroy of TextInputCompletionButtonStyle(a1 + v12, type metadata accessor for Environment<DismissSearchAccessoryAction>.Content);
-  type metadata accessor for Environment<DismissSearchAccessoryAction>.Content();
+  type metadata accessor for Environment<DismissSearchAccessoryAction>.Content(0);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
     type metadata accessor for Binding<SearchFieldState>(0);
@@ -7961,7 +7193,7 @@ _OWORD *initializeWithTake for TextInputCompletionButtonStyle(_OWORD *a1, _OWORD
   v8 = *(a3 + 20);
   v9 = (a1 + v8);
   v10 = (a2 + v8);
-  type metadata accessor for Environment<DismissSearchAccessoryAction>.Content();
+  type metadata accessor for Environment<DismissSearchAccessoryAction>.Content(0);
   v12 = v11;
   if (swift_getEnumCaseMultiPayload() == 1)
   {
@@ -8043,7 +7275,7 @@ LABEL_7:
     v10 = (a1 + v9);
     v11 = (a2 + v9);
     outlined destroy of TextInputCompletionButtonStyle(a1 + v9, type metadata accessor for Environment<DismissSearchAccessoryAction>.Content);
-    type metadata accessor for Environment<DismissSearchAccessoryAction>.Content();
+    type metadata accessor for Environment<DismissSearchAccessoryAction>.Content(0);
     v13 = v12;
     if (swift_getEnumCaseMultiPayload() == 1)
     {
@@ -8105,10 +7337,10 @@ LABEL_7:
   return a1;
 }
 
-void type metadata completion function for TextInputCompletionButtonStyle()
+void type metadata completion function for TextInputCompletionButtonStyle(uint64_t a1)
 {
-  type metadata accessor for Environment<DismissSearchAccessoryAction>.Content();
-  if (v0 <= 0x3F)
+  type metadata accessor for Environment<DismissSearchAccessoryAction>.Content(319);
+  if (v1 <= 0x3F)
   {
     swift_initStructMetadata();
   }
@@ -8119,50 +7351,53 @@ uint64_t partial apply for closure #1 in TextInputCompletionButtonStyle.makeBody
   v1 = *(type metadata accessor for PrimitiveButtonStyleConfiguration(0) - 8);
   v2 = (*(v1 + 80) + 16) & ~*(v1 + 80);
   v3 = *(v1 + 64);
-  v4 = *(type metadata accessor for TextInputCompletionButtonStyle() - 8);
+  v4 = *(type metadata accessor for TextInputCompletionButtonStyle(0) - 8);
   v5 = v0 + ((v2 + v3 + *(v4 + 80)) & ~*(v4 + 80));
 
   return closure #1 in TextInputCompletionButtonStyle.makeBody(configuration:)(v0 + v2, v5);
 }
 
-unint64_t lazy protocol witness table accessor for type ModifiedContent<Button<PrimitiveButtonStyleConfiguration.Label>, PrimitiveButtonStyleContainerModifier<DefaultListButtonStyle>> and conformance <> ModifiedContent<A, B>()
+unint64_t lazy protocol witness table accessor for type ModifiedContent<Button<PrimitiveButtonStyleConfiguration.Label>, PrimitiveButtonStyleContainerModifier<DefaultListButtonStyle>> and conformance <> ModifiedContent<A, B>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = lazy protocol witness table cache variable for type ModifiedContent<Button<PrimitiveButtonStyleConfiguration.Label>, PrimitiveButtonStyleContainerModifier<DefaultListButtonStyle>> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<Button<PrimitiveButtonStyleConfiguration.Label>, PrimitiveButtonStyleContainerModifier<DefaultListButtonStyle>> and conformance <> ModifiedContent<A, B>)
   {
-    type metadata accessor for ModifiedContent<Button<PrimitiveButtonStyleConfiguration.Label>, PrimitiveButtonStyleContainerModifier<DefaultListButtonStyle>>();
-    lazy protocol witness table accessor for type _EnvironmentKeyWritingModifier<ScrollToTopGestureAction?> and conformance _EnvironmentKeyWritingModifier<A>(&lazy protocol witness table cache variable for type Button<PrimitiveButtonStyleConfiguration.Label> and conformance Button<A>, type metadata accessor for Button<PrimitiveButtonStyleConfiguration.Label>);
-    lazy protocol witness table accessor for type _EnvironmentKeyWritingModifier<ScrollToTopGestureAction?> and conformance _EnvironmentKeyWritingModifier<A>(&lazy protocol witness table cache variable for type PrimitiveButtonStyleContainerModifier<DefaultListButtonStyle> and conformance PrimitiveButtonStyleContainerModifier<A>, type metadata accessor for PrimitiveButtonStyleContainerModifier<DefaultListButtonStyle>);
-    result = swift_getWitnessTable();
+    v9[4] = v4;
+    v9[5] = v5;
+    type metadata accessor for ModifiedContent<Button<PrimitiveButtonStyleConfiguration.Label>, PrimitiveButtonStyleContainerModifier<DefaultListButtonStyle>>(255, a2, a3, a4);
+    v8 = v7;
+    v9[0] = lazy protocol witness table accessor for type _EnvironmentKeyWritingModifier<ScrollToTopGestureAction?> and conformance _EnvironmentKeyWritingModifier<A>(&lazy protocol witness table cache variable for type Button<PrimitiveButtonStyleConfiguration.Label> and conformance Button<A>, type metadata accessor for Button<PrimitiveButtonStyleConfiguration.Label>, protocol conformance descriptor for Button<A>);
+    v9[1] = lazy protocol witness table accessor for type _EnvironmentKeyWritingModifier<ScrollToTopGestureAction?> and conformance _EnvironmentKeyWritingModifier<A>(&lazy protocol witness table cache variable for type PrimitiveButtonStyleContainerModifier<DefaultListButtonStyle> and conformance PrimitiveButtonStyleContainerModifier<A>, type metadata accessor for PrimitiveButtonStyleContainerModifier<DefaultListButtonStyle>, protocol conformance descriptor for PrimitiveButtonStyleContainerModifier<A>);
+    result = swift_getWitnessTable(MEMORY[0x1E697E858], v8, v9);
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<Button<PrimitiveButtonStyleConfiguration.Label>, PrimitiveButtonStyleContainerModifier<DefaultListButtonStyle>> and conformance <> ModifiedContent<A, B>);
   }
 
   return result;
 }
 
-void type metadata accessor for ModifiedContent<Button<PrimitiveButtonStyleConfiguration.Label>, PrimitiveButtonStyleContainerModifier<DefaultListButtonStyle>>()
+void type metadata accessor for ModifiedContent<Button<PrimitiveButtonStyleConfiguration.Label>, PrimitiveButtonStyleContainerModifier<DefaultListButtonStyle>>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (!lazy cache variable for type metadata for ModifiedContent<Button<PrimitiveButtonStyleConfiguration.Label>, PrimitiveButtonStyleContainerModifier<DefaultListButtonStyle>>)
   {
-    type metadata accessor for Button<PrimitiveButtonStyleConfiguration.Label>();
-    type metadata accessor for PrimitiveButtonStyleContainerModifier<DefaultListButtonStyle>();
-    v0 = type metadata accessor for ModifiedContent();
-    if (!v1)
+    type metadata accessor for Button<PrimitiveButtonStyleConfiguration.Label>(255, a2, a3, a4);
+    type metadata accessor for PrimitiveButtonStyleContainerModifier<DefaultListButtonStyle>(255);
+    v4 = type metadata accessor for ModifiedContent();
+    if (!v5)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for ModifiedContent<Button<PrimitiveButtonStyleConfiguration.Label>, PrimitiveButtonStyleContainerModifier<DefaultListButtonStyle>>);
+      atomic_store(v4, &lazy cache variable for type metadata for ModifiedContent<Button<PrimitiveButtonStyleConfiguration.Label>, PrimitiveButtonStyleContainerModifier<DefaultListButtonStyle>>);
     }
   }
 }
 
-void type metadata accessor for PrimitiveButtonStyleContainerModifier<DefaultListButtonStyle>()
+void type metadata accessor for PrimitiveButtonStyleContainerModifier<DefaultListButtonStyle>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for PrimitiveButtonStyleContainerModifier<DefaultListButtonStyle>)
   {
-    lazy protocol witness table accessor for type DefaultListButtonStyle and conformance DefaultListButtonStyle();
-    v0 = type metadata accessor for PrimitiveButtonStyleContainerModifier();
-    if (!v1)
+    v2 = lazy protocol witness table accessor for type DefaultListButtonStyle and conformance DefaultListButtonStyle();
+    v4 = type metadata accessor for PrimitiveButtonStyleContainerModifier(a1, &type metadata for DefaultListButtonStyle, v2, v3);
+    if (!v5)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for PrimitiveButtonStyleContainerModifier<DefaultListButtonStyle>);
+      atomic_store(v4, &lazy cache variable for type metadata for PrimitiveButtonStyleContainerModifier<DefaultListButtonStyle>);
     }
   }
 }
@@ -8560,7 +7795,7 @@ LABEL_8:
   return result;
 }
 
-unint64_t initializeBufferWithCopyOfBuffer for AlertModifier(unint64_t a1, unint64_t a2, uint64_t a3)
+unint64_t initializeBufferWithCopyOfBuffer for AlertModifier(unint64_t a1, uint64_t *a2, uint64_t a3)
 {
   v4 = *(a3 + 16);
   v5 = *(a3 + 24);
@@ -8771,7 +8006,7 @@ LABEL_6:
   return a1;
 }
 
-uint64_t getEnumTagSinglePayload for AlertModifier(unint64_t a1, unsigned int a2, uint64_t a3)
+uint64_t getEnumTagSinglePayload for AlertModifier(int *a1, unsigned int a2, uint64_t a3)
 {
   v4 = *(*(a3 + 16) - 8);
   v5 = *(v4 + 84);
@@ -9120,6 +8355,52 @@ uint64_t protocol witness for static PreferenceKey.reduce(value:nextValue:) in c
 
   *a1 = v6;
   return result;
+}
+
+uint64_t specialized thunk for @escaping @callee_guaranteed (@in_guaranteed A, @in_guaranteed B) -> (@out A, @out B)@<X0>(int *a1@<X0>, uint64_t a2@<X8>)
+{
+  v2 = *a1;
+  v3 = *(a1 + 54);
+  v12[12] = *(a1 + 50);
+  v12[13] = v3;
+  v12[14] = *(a1 + 58);
+  v13 = *(a1 + 31);
+  v4 = *(a1 + 38);
+  v12[8] = *(a1 + 34);
+  v12[9] = v4;
+  v5 = *(a1 + 46);
+  v12[10] = *(a1 + 42);
+  v12[11] = v5;
+  v6 = *(a1 + 22);
+  v12[4] = *(a1 + 18);
+  v12[5] = v6;
+  v7 = *(a1 + 30);
+  v12[6] = *(a1 + 26);
+  v12[7] = v7;
+  v8 = *(a1 + 6);
+  v12[0] = *(a1 + 2);
+  v12[1] = v8;
+  v9 = *(a1 + 14);
+  v12[2] = *(a1 + 10);
+  v12[3] = v9;
+  *a2 = v2;
+  *(a2 + 200) = *(a1 + 50);
+  *(a2 + 216) = *(a1 + 54);
+  *(a2 + 232) = *(a1 + 58);
+  *(a2 + 248) = *(a1 + 31);
+  *(a2 + 136) = *(a1 + 34);
+  *(a2 + 152) = *(a1 + 38);
+  *(a2 + 168) = *(a1 + 42);
+  *(a2 + 184) = *(a1 + 46);
+  *(a2 + 72) = *(a1 + 18);
+  *(a2 + 88) = *(a1 + 22);
+  *(a2 + 104) = *(a1 + 26);
+  *(a2 + 120) = *(a1 + 30);
+  *(a2 + 8) = *(a1 + 2);
+  *(a2 + 24) = *(a1 + 6);
+  *(a2 + 40) = *(a1 + 10);
+  *(a2 + 56) = *(a1 + 14);
+  return outlined init with copy of AlertStorage(v12, v11);
 }
 
 uint64_t assignWithCopy for MakeAlertStorage(uint64_t a1, uint64_t a2)
@@ -9656,18 +8937,18 @@ LABEL_11:
   return result;
 }
 
-void *static SwipeGesture.Direction.horizontal.getter@<X0>(void *result@<X0>, _BYTE *a2@<X1>, _BYTE *a3@<X8>)
+void *static SwipeGesture.Direction.horizontal.getter@<X0>(void *result@<X0>, _BYTE *a2@<X1>, _BYTE *a4@<X8>)
 {
   if (*result != -1)
   {
-    v3 = a2;
-    v4 = a3;
+    v4 = a2;
+    v5 = a4;
     result = swift_once();
-    a3 = v4;
-    a2 = v3;
+    a4 = v5;
+    a2 = v4;
   }
 
-  *a3 = *a2;
+  *a4 = *a2;
   return result;
 }
 
@@ -9771,4 +9052,740 @@ _BYTE *protocol witness for SetAlgebra.formIntersection(_:) in conformance Swipe
   }
 
   return result;
+}
+
+unsigned __int8 *protocol witness for SetAlgebra.formSymmetricDifference(_:) in conformance SwipeGesture.Direction(unsigned __int8 *result)
+{
+  v2 = *v1 ^ *result;
+  if (v2 >= 0x10)
+  {
+    result = _assertionFailure(_:_:file:line:flags:)();
+    __break(1u);
+  }
+
+  else
+  {
+    *v1 = v2;
+  }
+
+  return result;
+}
+
+uint64_t protocol witness for SetAlgebra.isSubset(of:) in conformance SwipeGesture.Direction(unsigned __int8 *a1)
+{
+  v2 = *v1;
+  if (v2 < 0x10)
+  {
+    return (v2 & ~*a1) == 0;
+  }
+
+  result = _assertionFailure(_:_:file:line:flags:)();
+  __break(1u);
+  return result;
+}
+
+uint64_t protocol witness for SetAlgebra.isDisjoint(with:) in conformance SwipeGesture.Direction(_BYTE *a1)
+{
+  v2 = *v1;
+  if (v2 < 0x10)
+  {
+    return (*a1 & v2) == 0;
+  }
+
+  result = _assertionFailure(_:_:file:line:flags:)();
+  __break(1u);
+  return result;
+}
+
+uint64_t protocol witness for SetAlgebra.contains(_:) in conformance SwipeGesture.Direction(unsigned __int8 *a1)
+{
+  v2 = *a1;
+  if (v2 < 0x10)
+  {
+    return (v2 & ~*v1) == 0;
+  }
+
+  result = _assertionFailure(_:_:file:line:flags:)();
+  __break(1u);
+  return result;
+}
+
+unsigned __int8 *protocol witness for RawRepresentable.init(rawValue:) in conformance SwipeGesture.Direction@<X0>(unsigned __int8 *result@<X0>, _WORD *a2@<X8>)
+{
+  v2 = *result;
+  if (v2 >= 0x10)
+  {
+    result = _assertionFailure(_:_:file:line:flags:)();
+    __break(1u);
+  }
+
+  else
+  {
+    *a2 = v2;
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type SwipeGesture and conformance SwipeGesture()
+{
+  result = lazy protocol witness table cache variable for type SwipeGesture and conformance SwipeGesture;
+  if (!lazy protocol witness table cache variable for type SwipeGesture and conformance SwipeGesture)
+  {
+    result = swift_getWitnessTable(protocol conformance descriptor for SwipeGesture, &type metadata for SwipeGesture, v0, v1);
+    atomic_store(result, &lazy protocol witness table cache variable for type SwipeGesture and conformance SwipeGesture);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type SwipeGesture and conformance SwipeGesture;
+  if (!lazy protocol witness table cache variable for type SwipeGesture and conformance SwipeGesture)
+  {
+    result = swift_getWitnessTable(protocol conformance descriptor for SwipeGesture, &type metadata for SwipeGesture, v0, v1);
+    atomic_store(result, &lazy protocol witness table cache variable for type SwipeGesture and conformance SwipeGesture);
+  }
+
+  return result;
+}
+
+double SwipeGesture.internalBody.getter@<D0>(uint64_t a1@<X8>)
+{
+  v2 = *v1;
+  *a1 = xmmword_18CDC1330;
+  *(a1 + 16) = xmmword_18CDC1340;
+  result = 0.0;
+  *(a1 + 32) = xmmword_18CDC1350;
+  *(a1 + 48) = xmmword_18CDC1360;
+  *(a1 + 64) = v2;
+  *(a1 + 72) = 4;
+  *(a1 + 80) = 0;
+  return result;
+}
+
+double SpatialSwipeGesture.body.getter()
+{
+  v5 = v0[2];
+  v6 = v0[3];
+  v7 = *(v0 + 64);
+  v3 = *v0;
+  v4 = v0[1];
+  type metadata accessor for EventListener<SpatialEvent>();
+  lazy protocol witness table accessor for type ModifierGesture<StateContainerGesture<SpatialSwipeGesture.StateType, SpatialEvent, SwipeGesture.Value>, ModifierGesture<EventFilter<SpatialEvent>, EventListener<SpatialEvent>>> and conformance ModifierGesture<A, B>(&lazy protocol witness table cache variable for type EventListener<SpatialEvent> and conformance EventListener<A>, type metadata accessor for EventListener<SpatialEvent>, MEMORY[0x1E697E128]);
+  Gesture.eventFilter<A>(forType:_:)();
+  v1 = swift_allocObject();
+  *(v1 + 48) = v5;
+  *(v1 + 64) = v6;
+  *(v1 + 80) = v7;
+  *(v1 + 16) = v3;
+  *(v1 + 32) = v4;
+  type metadata accessor for ModifierGesture<StateContainerGesture<SpatialSwipeGesture.StateType, SpatialEvent, SwipeGesture.Value>, ModifierGesture<EventFilter<SpatialEvent>, EventListener<SpatialEvent>>>(0);
+  lazy protocol witness table accessor for type ModifierGesture<StateContainerGesture<SpatialSwipeGesture.StateType, SpatialEvent, SwipeGesture.Value>, ModifierGesture<EventFilter<SpatialEvent>, EventListener<SpatialEvent>>> and conformance ModifierGesture<A, B>(&lazy protocol witness table cache variable for type ModifierGesture<StateContainerGesture<SpatialSwipeGesture.StateType, SpatialEvent, SwipeGesture.Value>, ModifierGesture<EventFilter<SpatialEvent>, EventListener<SpatialEvent>>> and conformance ModifierGesture<A, B>, type metadata accessor for ModifierGesture<StateContainerGesture<SpatialSwipeGesture.StateType, SpatialEvent, SwipeGesture.Value>, ModifierGesture<EventFilter<SpatialEvent>, EventListener<SpatialEvent>>>, MEMORY[0x1E697E860]);
+  Gesture.dependency(_:)();
+
+  return result;
+}
+
+uint64_t SpatialSwipeGesture.phase(state:event:)@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+{
+  v4 = result;
+  v5 = *(a2 + 48);
+  v56[2] = *(a2 + 32);
+  v56[3] = v5;
+  v56[4] = *(a2 + 64);
+  v57 = *(a2 + 80);
+  v6 = *(a2 + 16);
+  v56[0] = *a2;
+  v56[1] = v6;
+  v7 = v3[3];
+  v49 = v3[2];
+  v50 = v7;
+  v8 = v3[1];
+  v47 = *v3;
+  v48 = v8;
+  v9 = *(v3 + 64);
+  v10 = HIBYTE(v57);
+  if (HIBYTE(v57) - 1 >= 2)
+  {
+    if (HIBYTE(v57))
+    {
+      v20 = 0;
+      goto LABEL_20;
+    }
+
+    if (!*(v3 + 64))
+    {
+      goto LABEL_19;
+    }
+  }
+
+  else
+  {
+    v11 = v56[0];
+    v12 = *(a2 + 64);
+    v53 = *(a2 + 48);
+    v54 = v12;
+    v55 = *(a2 + 80);
+    v13 = *(a2 + 32);
+    v51 = *(a2 + 16);
+    v52 = v13;
+    if (*(result + 57))
+    {
+      goto LABEL_19;
+    }
+
+    v14 = a3;
+    if (*(result + 24))
+    {
+      v45[0] = v56[0];
+      v45[3] = v53;
+      v45[4] = v54;
+      v46 = v55;
+      v45[2] = v52;
+      v45[1] = v51;
+      outlined init with copy of GesturePhase<SpatialEvent>(v56, &v39);
+      SpatialEvent.globalLocation.getter();
+      v16 = v15;
+      v18 = v17;
+      v19 = *(&v11 + 1);
+    }
+
+    else
+    {
+      v18 = *(result + 8);
+      v19 = *(result + 16);
+      v16 = *result;
+      outlined init with copy of GesturePhase<SpatialEvent>(v56, &v39);
+    }
+
+    *v4 = v16;
+    *(v4 + 8) = v18;
+    *(v4 + 16) = v19;
+    *(v4 + 24) = 0;
+    v21 = v19;
+    v22 = v16;
+    v23 = v18;
+    if ((*(v4 + 56) & 1) == 0)
+    {
+      v23 = *(v4 + 40);
+      v21 = *(v4 + 48);
+      v22 = *(v4 + 32);
+    }
+
+    *(v4 + 32) = v22;
+    *(v4 + 40) = v23;
+    *(v4 + 48) = v21;
+    *(v4 + 56) = 0;
+    v24 = *(&v11 + 1) - v19;
+    if (v24 > 0.5)
+    {
+      result = outlined destroy of GesturePhase<SpatialEvent>(v56);
+      v20 = 0;
+LABEL_16:
+      v10 = 3;
+      a3 = v14;
+      goto LABEL_20;
+    }
+
+    v39 = v11;
+    v42 = v53;
+    v43 = v54;
+    v44 = v55;
+    v40 = v51;
+    v41 = v52;
+    SpatialEvent.globalLocation.getter();
+    v39 = v11;
+    v26 = v25 - v16;
+    v42 = v53;
+    v43 = v54;
+    v44 = v55;
+    v40 = v51;
+    v41 = v52;
+    SpatialEvent.globalLocation.getter();
+    v39 = v11;
+    v28 = v27 - v18;
+    v42 = v53;
+    v43 = v54;
+    v44 = v55;
+    v40 = v51;
+    v41 = v52;
+    SpatialEvent.globalLocation.getter();
+    v39 = v11;
+    v30 = v29 - v22;
+    v42 = v53;
+    v43 = v54;
+    v44 = v55;
+    v40 = v51;
+    v41 = v52;
+    SpatialEvent.globalLocation.getter();
+    LOBYTE(v45[0]) = v9;
+    v32.n128_f64[0] = v26;
+    v33 = SwipeDetector.checkForSwipe(with:time:currentDelta:currentTimeChange:allowedDirections:state:)(&v39, v45, v32, v28, v24, v30, v31 - v23, *(&v11 + 1) - v21);
+    v20 = v39;
+    v34 = BYTE1(v39);
+    v39 = v11;
+    v42 = v53;
+    v43 = v54;
+    v44 = v55;
+    v40 = v51;
+    v41 = v52;
+    SpatialEvent.globalLocation.getter();
+    v36 = v35;
+    v38 = v37;
+    result = outlined destroy of GesturePhase<SpatialEvent>(v56);
+    *(v4 + 32) = v36;
+    *(v4 + 40) = v38;
+    *(v4 + 48) = *(&v11 + 1);
+    *(v4 + 56) = 0;
+    if (v33)
+    {
+      v20 = 0;
+      *(v4 + 57) = 1;
+      goto LABEL_16;
+    }
+
+    a3 = v14;
+    if ((v34 & 1) == 0)
+    {
+      *(v4 + 58) = v20;
+      v10 = 2;
+      goto LABEL_20;
+    }
+
+    if (HIBYTE(v57) == 2)
+    {
+LABEL_19:
+      v20 = 0;
+      v10 = 3;
+      goto LABEL_20;
+    }
+  }
+
+  v10 = 0;
+  v20 = *(v4 + 58);
+LABEL_20:
+  *a3 = v20;
+  *(a3 + 2) = v10;
+  return result;
+}
+
+void SpatialSwipeGesture.StateType.init()(uint64_t a1@<X8>)
+{
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  *a1 = 0;
+  *(a1 + 24) = 1;
+  *(a1 + 40) = 0;
+  *(a1 + 48) = 0;
+  *(a1 + 32) = 0;
+  *(a1 + 56) = 1;
+  *(a1 + 57) = 0;
+}
+
+uint64_t SwipeDetector.checkForSwipe(with:time:currentDelta:currentTimeChange:allowedDirections:state:)(__int16 *a1, unsigned __int8 *a2, __n128 a3, double a4, double a5, double a6, double a7, double a8)
+{
+  v14 = a3.n128_f64[0];
+  v16 = *a2;
+  v17 = 0.5;
+  if (a5 <= 0.5)
+  {
+    v17 = a5;
+  }
+
+  v18 = SwipeDetector.movementRates(for:)(v17);
+  v22 = *(v8 + 32);
+  if (one-time initialization token for horizontal == -1)
+  {
+    if (v16 < 0x10)
+    {
+      goto LABEL_5;
+    }
+
+LABEL_83:
+    _assertionFailure(_:_:file:line:flags:)();
+    __break(1u);
+LABEL_84:
+    v40 = v21;
+    v42 = v20;
+    v37 = v18;
+    v38 = v19;
+    swift_once();
+    v19 = v38;
+    v21 = v40;
+    v20 = v42;
+    v18 = v37;
+    goto LABEL_13;
+  }
+
+  v39 = v21;
+  v41 = v20;
+  v35 = v18;
+  v36 = v19;
+  swift_once();
+  v19 = v36;
+  v21 = v39;
+  v20 = v41;
+  v18 = v35;
+  if (v16 >= 0x10)
+  {
+    goto LABEL_83;
+  }
+
+LABEL_5:
+  v9 = (static SwipeGesture.Direction.horizontal & v16);
+  if (v9 == 1)
+  {
+    if (v22 < v14)
+    {
+      goto LABEL_18;
+    }
+  }
+
+  else if (v9 == 2 && -v22 > v14)
+  {
+    goto LABEL_18;
+  }
+
+  if (one-time initialization token for vertical != -1)
+  {
+    goto LABEL_84;
+  }
+
+LABEL_13:
+  v24 = (static SwipeGesture.Direction.vertical & v16);
+  if (v24 == 8)
+  {
+    if (-v22 > a4)
+    {
+      goto LABEL_18;
+    }
+  }
+
+  else if (v24 == 4 && v22 < a4)
+  {
+    goto LABEL_18;
+  }
+
+  v26 = 0.01;
+  if (a8 > 0.01)
+  {
+    if (v9)
+    {
+      v27 = fabs(v14);
+      v28 = fabs(a4);
+      if (v19 >= v27 && v21 >= v28)
+      {
+        if (v18 > v27 || v20 > v28)
+        {
+          if ((static SwipeGesture.Direction.vertical & v16) == 0 || v19 < v28 || v21 < v27)
+          {
+            goto LABEL_68;
+          }
+
+LABEL_51:
+          if (v18 > v28 || v20 > v27)
+          {
+            goto LABEL_68;
+          }
+
+          goto LABEL_67;
+        }
+
+        v26 = a8;
+LABEL_74:
+        if (*(v8 + 56) <= fabs(a6 / v26))
+        {
+          result = 0;
+          if (v14 >= 0.0)
+          {
+            v34 = 2;
+          }
+
+          else
+          {
+            v34 = 1;
+          }
+
+          goto LABEL_69;
+        }
+
+        if ((static SwipeGesture.Direction.vertical & v16) == 0)
+        {
+          goto LABEL_68;
+        }
+
+        v28 = fabs(a4);
+        if (v19 < v28)
+        {
+          goto LABEL_68;
+        }
+
+        v27 = fabs(v14);
+        a8 = v26;
+        if (v21 < v27)
+        {
+          goto LABEL_68;
+        }
+
+        goto LABEL_51;
+      }
+
+      if ((static SwipeGesture.Direction.vertical & v16) != 0 && v19 >= v28 && v21 >= v27)
+      {
+        goto LABEL_51;
+      }
+    }
+
+    else
+    {
+      if ((static SwipeGesture.Direction.vertical & v16) == 0)
+      {
+        goto LABEL_68;
+      }
+
+      v28 = fabs(a4);
+      v27 = fabs(v14);
+      if (v19 >= v28 && v21 >= v27)
+      {
+        goto LABEL_51;
+      }
+    }
+
+LABEL_18:
+    *a1 = 256;
+    return 1;
+  }
+
+  if (v9)
+  {
+    v30 = fabs(v14);
+    if (v19 >= v30)
+    {
+      v31 = fabs(a4);
+      if (v21 >= v31)
+      {
+        if (v18 <= v30 && v20 <= v31)
+        {
+          goto LABEL_74;
+        }
+
+        if ((static SwipeGesture.Direction.vertical & v16) == 0 || v19 < v31 || v21 < v30)
+        {
+          goto LABEL_68;
+        }
+
+        goto LABEL_64;
+      }
+
+      if ((static SwipeGesture.Direction.vertical & v16) == 0)
+      {
+        goto LABEL_18;
+      }
+    }
+
+    else
+    {
+      if ((static SwipeGesture.Direction.vertical & v16) == 0)
+      {
+        goto LABEL_18;
+      }
+
+      v31 = fabs(a4);
+    }
+
+    if (v19 < v31 || v21 < v30)
+    {
+      goto LABEL_18;
+    }
+  }
+
+  else
+  {
+    if ((static SwipeGesture.Direction.vertical & v16) == 0)
+    {
+      goto LABEL_68;
+    }
+
+    v31 = fabs(a4);
+    v30 = fabs(v14);
+    if (v19 < v31 || v21 < v30)
+    {
+      goto LABEL_18;
+    }
+  }
+
+LABEL_64:
+  if (v18 > v31 || v20 > v30)
+  {
+    goto LABEL_68;
+  }
+
+  a8 = 0.01;
+LABEL_67:
+  if (*(v8 + 56) <= fabs(a7 / a8))
+  {
+    result = 0;
+    if (a4 >= 0.0)
+    {
+      v34 = 8;
+    }
+
+    else
+    {
+      v34 = 4;
+    }
+
+    goto LABEL_69;
+  }
+
+LABEL_68:
+  result = 0;
+  v34 = 256;
+LABEL_69:
+  *a1 = v34;
+  return result;
+}
+
+double SwipeDetector.movementRates(for:)(double a1)
+{
+  v2 = *v1 * (1.0 - (1.0 - v1[5]) * a1);
+  if (*v1 == 1.79769313e308)
+  {
+    return 1.79769313e308;
+  }
+
+  return v2;
+}
+
+uint64_t SwipeGesture.Direction.description.getter()
+{
+  v1 = *v0;
+  if (one-time initialization token for all != -1)
+  {
+LABEL_35:
+    swift_once();
+  }
+
+  if (static SwipeGesture.Direction.all == v1)
+  {
+    return 1819042094;
+  }
+
+  if (one-time initialization token for vertical != -1)
+  {
+    swift_once();
+  }
+
+  if (static SwipeGesture.Direction.vertical == v1)
+  {
+    return 0x616369747265762ELL;
+  }
+
+  if (one-time initialization token for horizontal != -1)
+  {
+    swift_once();
+  }
+
+  if (static SwipeGesture.Direction.horizontal == v1)
+  {
+    return 0x6E6F7A69726F682ELL;
+  }
+
+  v3 = 0;
+  v4 = MEMORY[0x1E69E7CC0];
+LABEL_13:
+  if (v3 <= 4)
+  {
+    v5 = 4;
+  }
+
+  else
+  {
+    v5 = v3;
+  }
+
+  v6 = (&outlined read-only object #1 of SwipeGesture.Direction.description.getter + 16 * v3 + 40);
+  while (v3 != 4)
+  {
+    if (v5 == v3)
+    {
+      __break(1u);
+      goto LABEL_35;
+    }
+
+    v7 = outlined read-only object #0 of SwipeGesture.Direction.description.getter[v3 + 32];
+    if (v7 >= 0x10)
+    {
+      result = _assertionFailure(_:_:file:line:flags:)();
+      __break(1u);
+      return result;
+    }
+
+    v9 = *v6;
+    v6 += 2;
+    v8 = v9;
+    ++v3;
+    if ((v7 & ~v1) == 0 && v8 != 0)
+    {
+      v11 = *(v6 - 3);
+
+      if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+      {
+        v4 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v4 + 2) + 1, 1, v4);
+      }
+
+      v12 = *(v4 + 2);
+      v13 = *(v4 + 3);
+      v14 = v12 + 1;
+      if (v12 >= v13 >> 1)
+      {
+        v24 = v12 + 1;
+        v16 = v4;
+        v17 = *(v4 + 2);
+        v18 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v13 > 1), v12 + 1, 1, v16);
+        v12 = v17;
+        v14 = v24;
+        v4 = v18;
+      }
+
+      *(v4 + 2) = v14;
+      v15 = &v4[16 * v12];
+      *(v15 + 4) = v11;
+      *(v15 + 5) = v8;
+      goto LABEL_13;
+    }
+  }
+
+  _sSSSgMaTm_2(0, &lazy cache variable for type metadata for String?, MEMORY[0x1E69E6158], MEMORY[0x1E69E6720]);
+  swift_arrayDestroy();
+  v19 = *(v4 + 2);
+  if (v19)
+  {
+    if (v19 == 1)
+    {
+      v20 = *(v4 + 4);
+
+      return v20;
+    }
+
+    else
+    {
+      _sSSSgMaTm_2(0, &lazy cache variable for type metadata for [String], MEMORY[0x1E69E6158], MEMORY[0x1E69E62F8]);
+      lazy protocol witness table accessor for type [String] and conformance [A]();
+      v21 = BidirectionalCollection<>.joined(separator:)();
+      v23 = v22;
+
+      MEMORY[0x18D00C9B0](v21, v23);
+
+      MEMORY[0x18D00C9B0](93, 0xE100000000000000);
+      return 91;
+    }
+  }
+
+  else
+  {
+
+    return 23899;
+  }
 }

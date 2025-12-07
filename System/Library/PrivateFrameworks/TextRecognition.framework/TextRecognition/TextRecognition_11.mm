@@ -1,8 +1,8 @@
-void CRDetectorPolygonExtractor::generatePivotsPolygon(uint64_t a1@<X0>, int8x16_t **a2@<X1>, void *a3@<X8>)
+void CRDetectorPolygonExtractor::generatePivotsPolygon(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X8>)
 {
   v6 = *a2;
   v7 = a2[1];
-  v8 = 126 - 2 * __clz((v7 - v6) >> 3);
+  v8 = 126 - 2 * __clz((v7->i64 - v6) >> 3);
   if (v7 == v6)
   {
     v9 = 0;
@@ -45,10 +45,10 @@ void sub_1B41E65A8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *std::__tree<std::__value_type<int,std::vector<int>>,std::__map_value_compare<int,std::__value_type<int,std::vector<int>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::vector<int>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(uint64_t a1, int a2)
+uint64_t **std::__tree<std::__value_type<int,std::vector<int>>,std::__map_value_compare<int,std::__value_type<int,std::vector<int>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::vector<int>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(uint64_t **a1, int a2, _DWORD **a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = a1[1];
+  if (!v3)
   {
 LABEL_8:
     operator new();
@@ -58,27 +58,27 @@ LABEL_8:
   {
     while (1)
     {
-      v3 = v2;
-      v4 = *(v2 + 32);
-      if (v4 <= a2)
+      v4 = v3;
+      v5 = *(v3 + 8);
+      if (v5 <= a2)
       {
         break;
       }
 
-      v2 = *v3;
-      if (!*v3)
+      v3 = *v4;
+      if (!*v4)
       {
         goto LABEL_8;
       }
     }
 
-    if (v4 >= a2)
+    if (v5 >= a2)
     {
-      return v3;
+      return v4;
     }
 
-    v2 = v3[1];
-    if (!v2)
+    v3 = v4[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
@@ -177,14 +177,14 @@ LABEL_8:
 
   while (1)
   {
-    v12 = v7[2];
+    v12 = *(v7 + 16);
     v13 = *v12;
     if (*v12 == v7)
     {
       break;
     }
 
-    if ((v7[3] & 1) == 0)
+    if ((*(v7 + 24) & 1) == 0)
     {
       *(v7 + 24) = 1;
       *(v12 + 24) = 0;
@@ -212,8 +212,8 @@ LABEL_8:
     v17 = *v7;
     if (*v7 && *(v17 + 24) != 1)
     {
-      v18 = v7[1];
-      if (v18 && (v18[3] & 1) == 0)
+      v18 = *(v7 + 8);
+      if (v18 && (*(v18 + 24) & 1) == 0)
       {
 LABEL_58:
         v17 = v7;
@@ -223,22 +223,22 @@ LABEL_58:
       {
         *(v17 + 24) = 1;
         *(v7 + 24) = 0;
-        v26 = v17[1];
+        v26 = *(v17 + 8);
         *v7 = v26;
         if (v26)
         {
           *(v26 + 16) = v7;
         }
 
-        v27 = v7[2];
-        v17[2] = v27;
+        v27 = *(v7 + 16);
+        *(v17 + 16) = v27;
         v27[*v27 != v7] = v17;
-        v17[1] = v7;
-        v7[2] = v17;
+        *(v17 + 8) = v7;
+        *(v7 + 16) = v17;
         v18 = v7;
       }
 
-      v28 = v17[2];
+      v28 = *(v17 + 16);
       *(v17 + 24) = *(v28 + 24);
       *(v28 + 24) = 1;
       *(v18 + 24) = 1;
@@ -257,14 +257,14 @@ LABEL_58:
       goto LABEL_71;
     }
 
-    v18 = v7[1];
+    v18 = *(v7 + 8);
     if (v18 && *(v18 + 24) != 1)
     {
       goto LABEL_58;
     }
 
     *(v7 + 24) = 0;
-    v19 = v7[2];
+    v19 = *(v7 + 16);
     if (v19 == result || (v19[3] & 1) == 0)
     {
       goto LABEL_52;
@@ -274,11 +274,11 @@ LABEL_49:
     v7 = *(v19[2] + 8 * (*v19[2] == v19));
   }
 
-  if ((v7[3] & 1) == 0)
+  if ((*(v7 + 24) & 1) == 0)
   {
     *(v7 + 24) = 1;
     *(v12 + 24) = 0;
-    v20 = v13[1];
+    v20 = *(v13 + 8);
     *v12 = v20;
     if (v20)
     {
@@ -286,11 +286,11 @@ LABEL_49:
     }
 
     v21 = v12[2];
-    v13[2] = v21;
+    *(v13 + 16) = v21;
     v21[*v21 != v12] = v13;
-    v13[1] = v12;
+    *(v13 + 8) = v12;
     v12[2] = v13;
-    v22 = v7[1];
+    v22 = *(v7 + 8);
     if (result == v22)
     {
       result = v7;
@@ -305,11 +305,11 @@ LABEL_49:
     goto LABEL_67;
   }
 
-  v24 = v7[1];
+  v24 = *(v7 + 8);
   if (!v24 || *(v24 + 24) == 1)
   {
     *(v7 + 24) = 0;
-    v19 = v7[2];
+    v19 = *(v7 + 16);
     if (*(v19 + 24) != 1 || v19 == result)
     {
 LABEL_52:
@@ -320,7 +320,7 @@ LABEL_52:
     goto LABEL_49;
   }
 
-  if (v23 && (v23[3] & 1) == 0)
+  if (v23 && (*(v23 + 24) & 1) == 0)
   {
 LABEL_67:
     v24 = v7;
@@ -330,20 +330,20 @@ LABEL_67:
   *(v24 + 24) = 1;
   *(v7 + 24) = 0;
   v32 = *v24;
-  v7[1] = *v24;
+  *(v7 + 8) = *v24;
   if (v32)
   {
     *(v32 + 16) = v7;
   }
 
-  v33 = v7[2];
-  v24[2] = v33;
+  v33 = *(v7 + 16);
+  *(v24 + 16) = v33;
   v33[*v33 != v7] = v24;
   *v24 = v7;
-  v7[2] = v24;
+  *(v7 + 16) = v24;
   v23 = v7;
 LABEL_68:
-  v28 = v24[2];
+  v28 = *(v24 + 16);
   *(v24 + 24) = *(v28 + 24);
   *(v28 + 24) = 1;
   *(v23 + 24) = 1;
@@ -381,7 +381,7 @@ void std::__tree<std::__value_type<int,std::vector<int>>,std::__map_value_compar
   }
 }
 
-int8x16_t *std::__introsort<std::_ClassicAlgPolicy,CRDetectorPolygonExtractor::generatePivotsPolygon(std::vector<PixelPosition> &)::$_0 &,PixelPosition*,false>(int8x16_t *result, int8x16_t *a2, uint64_t a3, char a4)
+uint64_t std::__introsort<std::_ClassicAlgPolicy,CRDetectorPolygonExtractor::generatePivotsPolygon(std::vector<PixelPosition> &)::$_0 &,PixelPosition*,false>(uint64_t result, int8x16_t *a2, uint64_t a3, char a4)
 {
   v7 = result;
 LABEL_2:
@@ -545,8 +545,8 @@ LABEL_130:
       {
         do
         {
-          v111 = v7->i32[2];
-          v112 = v7->i32[0];
+          v111 = *(v7 + 8);
+          v112 = *v7;
           v7 = v70;
           if (v111 < v112)
           {
@@ -563,10 +563,10 @@ LABEL_130:
             v70->i64[0] = v113;
           }
 
-          v70 = &v7->u64[1];
+          v70 = (v7 + 8);
         }
 
-        while (&v7->u64[1] != a2);
+        while ((v7 + 8) != a2);
       }
 
       return result;
@@ -711,25 +711,25 @@ LABEL_130:
             if (!v102)
             {
               v104 = v103 >> 1;
-              v105 = &v8->i64[v104];
-              if (*v105 < v97->i32[0])
+              v105 = (v8 + 8 * v104);
+              if (v105->i32[0] < v97->i32[0])
               {
                 v106 = v97->i64[0];
                 do
                 {
                   v107 = v97;
                   v97 = v105;
-                  *v107 = *v105;
+                  *v107 = v105->i64[0];
                   if (!v104)
                   {
                     break;
                   }
 
                   v104 = (v104 - 1) >> 1;
-                  v105 = &v8->i64[v104];
+                  v105 = (v8 + 8 * v104);
                 }
 
-                while (*v105 < v106);
+                while (v105->i32[0] < v106);
                 v97->i64[0] = v106;
               }
             }
@@ -1020,8 +1020,7 @@ LABEL_62:
           while (v51 < v41);
           do
           {
-            v52 = *(v49 - 2);
-            v49 -= 8;
+            v52 = *(v49-- - 2);
           }
 
           while (v52 >= v41);
@@ -1084,7 +1083,7 @@ LABEL_83:
             break;
           }
 
-          v56 = (v56 + 8);
+          v56 += 8;
         }
 
         while (v8->i32[0] <= v41);
@@ -1138,7 +1137,7 @@ LABEL_83:
       v62 = &v8[-1].i64[1];
       if (&v8[-1].u64[1] != v7)
       {
-        v7->i64[0] = *v62;
+        *v7 = *v62;
       }
 
       a4 = 0;
@@ -1458,7 +1457,7 @@ LABEL_14:
   }
 
 LABEL_34:
-  v21 = &a1[1].i64[1];
+  v21 = (a1 + 24);
   if (&a1[1].u64[1] == a2)
   {
     return 1;
@@ -1468,9 +1467,9 @@ LABEL_34:
   v23 = 0;
   while (1)
   {
-    if (*v21 < v6->i32[0])
+    if (v21->i32[0] < v6->i32[0])
     {
-      v24 = *v21;
+      v24 = v21->i64[0];
       v25 = v22;
       while (1)
       {
@@ -1484,23 +1483,24 @@ LABEL_34:
         v25 -= 8;
         if (v26 <= v24)
         {
-          v27 = (&a1[1].i64[1] + v25);
+          v27 = (a1 + v25 + 24);
           goto LABEL_42;
         }
       }
 
       v27 = a1;
 LABEL_42:
-      *v27 = v24;
+      v27->i64[0] = v24;
       if (++v23 == 8)
       {
-        return v21 + 1 == a2;
+        return &v21->u64[1] == a2;
       }
     }
 
     v6 = v21;
     v22 += 8;
-    if (++v21 == a2)
+    v21 = (v21 + 8);
+    if (v21 == a2)
     {
       return 1;
     }
@@ -1738,7 +1738,7 @@ void sub_1B41E8518(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>@<X0>(char a1@<W0>, const void **a2@<X1>, uint64_t a3@<X8>)
+_BYTE *std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>@<X0>(char a1@<W0>, const void **a2@<X1>, uint64_t a3@<X8>)
 {
   if (*(a2 + 23) >= 0)
   {
@@ -1751,7 +1751,7 @@ uint64_t std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator
   }
 
   result = std::string::basic_string[abi:ne200100](a3, v5 + 1);
-  if (*(result + 23) >= 0)
+  if (result[23] >= 0)
   {
     v7 = result;
   }
@@ -1837,7 +1837,7 @@ void sub_1B41E86A8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void d2s(double a1@<D0>, _BYTE *a2@<X8>)
+void d2s(double a1@<D0>, void *a2@<X8>)
 {
   v6 = *MEMORY[0x1E69E9840];
   snprintf(__str, 0x40uLL, "%.10g", a1);
@@ -2214,7 +2214,7 @@ void w2i(std::string *__str@<X0>, const void **a2@<X8>)
         }
 
         *(2 * v21) = v15;
-        v18 = 2 * v21 + 2;
+        v18 = (2 * v21 + 2);
         memcpy(0, v19, v20);
         v25 = *a2;
         *a2 = 0;
@@ -2229,7 +2229,7 @@ void w2i(std::string *__str@<X0>, const void **a2@<X8>)
       else
       {
         *v17 = v15;
-        v18 = (v17 + 2);
+        v18 = v17 + 2;
       }
 
       a2[1] = v18;
@@ -2414,7 +2414,7 @@ void w2i(std::string *__str@<X0>, __int16 a2@<W1>, const void **a3@<X8>)
         }
 
         *(2 * v24) = v18;
-        v21 = 2 * v24 + 2;
+        v21 = (2 * v24 + 2);
         memcpy(0, v22, v23);
         v28 = *a3;
         *a3 = 0;
@@ -2429,7 +2429,7 @@ void w2i(std::string *__str@<X0>, __int16 a2@<W1>, const void **a3@<X8>)
       else
       {
         *v20 = v18;
-        v21 = (v20 + 2);
+        v21 = v20 + 2;
       }
 
       a3[1] = v21;
@@ -2498,7 +2498,7 @@ void sub_1B41E8D54(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void w2int(uint64_t *a1@<X0>, const void **a2@<X8>)
+void w2int(uint64_t **a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
   a2[1] = 0;
@@ -2708,7 +2708,7 @@ void w2i32(std::string *__str@<X0>, const void **a2@<X8>)
         }
 
         *(4 * v21) = v15;
-        v18 = 4 * v21 + 4;
+        v18 = (4 * v21 + 4);
         memcpy(0, v19, v20);
         v25 = *a2;
         *a2 = 0;
@@ -2723,7 +2723,7 @@ void w2i32(std::string *__str@<X0>, const void **a2@<X8>)
       else
       {
         *v17 = v15;
-        v18 = (v17 + 4);
+        v18 = v17 + 4;
       }
 
       a2[1] = v18;
@@ -2853,7 +2853,7 @@ void iv2s(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
       }
 
       *(&v10->__r_.__value_.__l.__data_ + v9) = 95;
-      i2sh(*(*a1 + 4 * v7), __p);
+      i2sh(__p, *(*a1 + 4 * v7));
       if ((v19 & 0x80u) == 0)
       {
         v12 = __p;
@@ -2905,7 +2905,7 @@ void iv2s(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 
     else
     {
-      i2sh(**a1, &v20);
+      i2sh(&v20.__r_.__value_.__l.__data_, **a1);
       if (*(a3 + 23) < 0)
       {
         operator delete(*a3);
@@ -2980,7 +2980,7 @@ void iv2s(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
       }
 
       *(&v10->__r_.__value_.__l.__data_ + v9) = 95;
-      i2sh(*(*a1 + 4 * v7), __p);
+      i2sh(__p, *(*a1 + 4 * v7));
       if ((v19 & 0x80u) == 0)
       {
         v12 = __p;
@@ -3032,7 +3032,7 @@ void iv2s(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 
     else
     {
-      i2sh(**a1, &v20);
+      i2sh(&v20.__r_.__value_.__l.__data_, **a1);
       if (*(a3 + 23) < 0)
       {
         operator delete(*a3);
@@ -3107,7 +3107,7 @@ void iv2s(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
       }
 
       *(&v10->__r_.__value_.__l.__data_ + v9) = 95;
-      ul2sh(*(*a1 + 8 * v7), __p);
+      ul2sh(__p, *(*a1 + 8 * v7));
       if ((v19 & 0x80u) == 0)
       {
         v12 = __p;
@@ -3159,7 +3159,7 @@ void iv2s(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 
     else
     {
-      ul2sh(**a1, &v20);
+      ul2sh(&v20.__r_.__value_.__l.__data_, **a1);
       if (*(a3 + 23) < 0)
       {
         operator delete(*a3);
@@ -3234,7 +3234,7 @@ void iv2s(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
       }
 
       *(&v10->__r_.__value_.__l.__data_ + v9) = 95;
-      ul2sh(*(*a1 + 8 * v7), __p);
+      ul2sh(__p, *(*a1 + 8 * v7));
       if ((v19 & 0x80u) == 0)
       {
         v12 = __p;
@@ -3286,7 +3286,7 @@ void iv2s(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 
     else
     {
-      ul2sh(**a1, &v20);
+      ul2sh(&v20.__r_.__value_.__l.__data_, **a1);
       if (*(a3 + 23) < 0)
       {
         operator delete(*a3);
@@ -3311,17 +3311,17 @@ void sub_1B41E92E4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-double i2sh@<D0>(int a1@<W0>, uint64_t a2@<X8>)
+double i2sh@<D0>(const void **__return_ptr a1@<X8>, int a2@<W0>)
 {
-  std::string::basic_string[abi:ne200100]<0>(a2, &str);
-  if (a1 >= 0)
+  std::string::basic_string[abi:ne200100]<0>(a1, &str);
+  if (a2 >= 0)
   {
-    v4 = a1;
+    v4 = a2;
   }
 
   else
   {
-    v4 = -a1;
+    v4 = -a2;
   }
 
   do
@@ -3336,39 +3336,39 @@ double i2sh@<D0>(int a1@<W0>, uint64_t a2@<X8>)
       v5 = v4 & 0xF | 0x30;
     }
 
-    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v5, a2, &v8);
-    if (*(a2 + 23) < 0)
+    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v5, a1, &v8);
+    if (*(a1 + 23) < 0)
     {
-      operator delete(*a2);
+      operator delete(*a1);
     }
 
-    *a2 = v8;
-    *(a2 + 16) = v9;
+    *a1 = v8;
+    a1[2] = v9;
     v6 = v4 > 0xF;
     v4 >>= 4;
   }
 
   while (v6);
   std::operator+<char>();
-  if (*(a2 + 23) < 0)
+  if (*(a1 + 23) < 0)
   {
-    operator delete(*a2);
+    operator delete(*a1);
   }
 
   result = *&v8;
-  *a2 = v8;
-  *(a2 + 16) = v9;
-  if (a1 < 0)
+  *a1 = v8;
+  a1[2] = v9;
+  if (a2 < 0)
   {
     std::operator+<char>();
-    if (*(a2 + 23) < 0)
+    if (*(a1 + 23) < 0)
     {
-      operator delete(*a2);
+      operator delete(*a1);
     }
 
     result = *&v8;
-    *a2 = v8;
-    *(a2 + 16) = v9;
+    *a1 = v8;
+    a1[2] = v9;
   }
 
   return result;
@@ -3404,43 +3404,43 @@ void sub_1B41E986C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-double ul2sh@<D0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+double ul2sh@<D0>(const void **__return_ptr a1@<X8>, unint64_t a2@<X0>)
 {
-  std::string::basic_string[abi:ne200100]<0>(a2, &str);
+  std::string::basic_string[abi:ne200100]<0>(a1, &str);
   do
   {
-    if ((a1 & 0xF) >= 0xA)
+    if ((a2 & 0xF) >= 0xA)
     {
-      v4 = (a1 & 0xF) + 87;
+      v4 = (a2 & 0xF) + 87;
     }
 
     else
     {
-      v4 = a1 & 0xF | 0x30;
+      v4 = a2 & 0xF | 0x30;
     }
 
-    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v4, a2, &v7);
-    if (*(a2 + 23) < 0)
+    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v4, a1, &v7);
+    if (*(a1 + 23) < 0)
     {
-      operator delete(*a2);
+      operator delete(*a1);
     }
 
-    *a2 = v7;
-    *(a2 + 16) = v8;
-    v5 = a1 > 0xF;
-    a1 >>= 4;
+    *a1 = v7;
+    a1[2] = v8;
+    v5 = a2 > 0xF;
+    a2 >>= 4;
   }
 
   while (v5);
   std::operator+<char>();
-  if (*(a2 + 23) < 0)
+  if (*(a1 + 23) < 0)
   {
-    operator delete(*a2);
+    operator delete(*a1);
   }
 
   result = *&v7;
-  *a2 = v7;
-  *(a2 + 16) = v8;
+  *a1 = v7;
+  a1[2] = v8;
   return result;
 }
 
@@ -3514,7 +3514,7 @@ void iv2s(unsigned __int16 *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
         }
 
         *(&v9->__r_.__value_.__l.__data_ + v8) = 95;
-        short2sh(a1[i], __p);
+        short2sh(__p, a1[i]);
         if ((v18 & 0x80u) == 0)
         {
           v11 = __p;
@@ -3566,7 +3566,7 @@ void iv2s(unsigned __int16 *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 
       else
       {
-        short2sh(*a1, &v19);
+        short2sh(&v19.__r_.__value_.__l.__data_, *a1);
         if (*(a3 + 23) < 0)
         {
           operator delete(*a3);
@@ -3588,43 +3588,43 @@ void sub_1B41E9D84(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-double short2sh@<D0>(unsigned __int16 a1@<W0>, uint64_t a2@<X8>)
+double short2sh@<D0>(const void **__return_ptr a1@<X8>, unsigned __int16 a2@<W0>)
 {
-  std::string::basic_string[abi:ne200100]<0>(a2, &str);
+  std::string::basic_string[abi:ne200100]<0>(a1, &str);
   do
   {
-    if ((a1 & 0xFu) >= 0xA)
+    if ((a2 & 0xFu) >= 0xA)
     {
-      v4 = (a1 & 0xF) + 87;
+      v4 = (a2 & 0xF) + 87;
     }
 
     else
     {
-      v4 = a1 & 0xF | 0x30;
+      v4 = a2 & 0xF | 0x30;
     }
 
-    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v4, a2, &v7);
-    if (*(a2 + 23) < 0)
+    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v4, a1, &v7);
+    if (*(a1 + 23) < 0)
     {
-      operator delete(*a2);
+      operator delete(*a1);
     }
 
-    *a2 = v7;
-    *(a2 + 16) = v8;
-    v5 = a1;
-    a1 >>= 4;
+    *a1 = v7;
+    a1[2] = v8;
+    v5 = a2;
+    a2 >>= 4;
   }
 
   while (v5 > 0xF);
   std::operator+<char>();
-  if (*(a2 + 23) < 0)
+  if (*(a1 + 23) < 0)
   {
-    operator delete(*a2);
+    operator delete(*a1);
   }
 
   result = *&v7;
-  *a2 = v7;
-  *(a2 + 16) = v8;
+  *a1 = v7;
+  a1[2] = v8;
   return result;
 }
 
@@ -4100,7 +4100,7 @@ float64x2_t boxForContour(int32x2_t *a1, int32x2_t *a2)
   }
 }
 
-void sub_1B41EFFE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, void *a22, void *a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void *a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, char a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, id a41, char a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, id a47)
+void sub_1B41EFFE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, void *a22, void *a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void *a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, id a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, id a47)
 {
   _Block_object_dispose(&a36, 8);
 
@@ -4167,7 +4167,7 @@ void sub_1B41F31BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1B41F35C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, void *a28, uint64_t a29)
+void sub_1B41F35C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, void *a28, uint64_t a29)
 {
   if (__p)
   {
@@ -4191,14 +4191,12 @@ void sub_1B41F35C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 __n128 __Block_byref_object_copy__110(__n128 *a1, __n128 *a2)
 {
-  a1[3].n128_u64[0] = 0;
-  a1[3].n128_u64[1] = 0;
+  a1[3] = 0uLL;
   a1[4].n128_u64[0] = 0;
   result = a2[3];
   a1[3] = result;
   a1[4].n128_u64[0] = a2[4].n128_u64[0];
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   a2[4].n128_u64[0] = 0;
   return result;
 }
@@ -4213,7 +4211,7 @@ void __Block_byref_object_dispose__111(uint64_t a1)
   }
 }
 
-void std::vector<unsigned int>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
+void std::vector<unsigned int>::push_back[abi:ne200100](const void **a1, int *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -4262,18 +4260,18 @@ void std::vector<unsigned int>::push_back[abi:ne200100](const void **a1, _DWORD 
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 4;
   }
 
   a1[1] = v6;
 }
 
-uint64_t __copy_helper_block_ea8_40c39_ZTSNSt3__16vectorIhNS_9allocatorIhEEEE(uint64_t a1, uint64_t a2)
+uint64_t *__copy_helper_block_ea8_40c39_ZTSNSt3__16vectorIhNS_9allocatorIhEEEE(uint64_t a1, uint64_t a2)
 {
   *(a1 + 40) = 0;
   *(a1 + 48) = 0;
-  v2 = a1 + 40;
-  *(v2 + 16) = 0;
+  v2 = (a1 + 40);
+  v2[2] = 0;
   return std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(v2, *(a2 + 40), *(a2 + 48), *(a2 + 48) - *(a2 + 40));
 }
 
@@ -4287,27 +4285,28 @@ void __destroy_helper_block_ea8_40c39_ZTSNSt3__16vectorIhNS_9allocatorIhEEEE(uin
   }
 }
 
-void sub_1B41F3B34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, ...)
+void sub_1B41F3B34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B41F3EAC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, char a18)
+void sub_1B41F3EAC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, ...)
 {
+  va_start(va, a17);
   if (__p)
   {
     operator delete(__p);
   }
 
-  _Block_object_dispose(&a18, 8);
-  v22 = *(v20 - 88);
-  if (v22)
+  _Block_object_dispose(va, 8);
+  v21 = *(v19 - 88);
+  if (v21)
   {
-    *(v20 - 80) = v22;
-    operator delete(v22);
+    *(v19 - 80) = v21;
+    operator delete(v21);
   }
 
   _Unwind_Resume(a1);
@@ -4323,12 +4322,12 @@ void sub_1B41F4034(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t __copy_helper_block_ea8_48c39_ZTSNSt3__16vectorIjNS_9allocatorIjEEEE(uint64_t a1, uint64_t a2)
+uint64_t *__copy_helper_block_ea8_48c39_ZTSNSt3__16vectorIjNS_9allocatorIjEEEE(uint64_t a1, uint64_t a2)
 {
   *(a1 + 48) = 0;
   *(a1 + 56) = 0;
-  v2 = a1 + 48;
-  *(v2 + 16) = 0;
+  v2 = (a1 + 48);
+  v2[2] = 0;
   return std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(v2, *(a2 + 48), *(a2 + 56), (*(a2 + 56) - *(a2 + 48)) >> 2);
 }
 
@@ -4352,7 +4351,7 @@ void sub_1B41F4108(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_1B41F4590(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, void *__p, uint64_t a38, uint64_t a39, char a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, void *a45)
+void sub_1B41F4590(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, void *__p, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, void *a45)
 {
   _Block_object_dispose(&a21, 8);
   _Block_object_dispose(&a31, 8);
@@ -4495,7 +4494,7 @@ LABEL_20:
   return result;
 }
 
-uint64_t std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -4517,7 +4516,7 @@ void sub_1B41F56F8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<unsigned char>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::vector<unsigned char>::__vallocate[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -4527,7 +4526,7 @@ void std::vector<unsigned char>::__vallocate[abi:ne200100](uint64_t a1, uint64_t
   std::vector<unsigned long>::__throw_length_error[abi:ne200100]();
 }
 
-uint64_t std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(uint64_t *result, const void *a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
@@ -4566,7 +4565,7 @@ void sub_1B41F5BF8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void std::vector<double>::push_back[abi:ne200100](const void **a1, void *a2)
+void std::vector<double>::push_back[abi:ne200100](const void **a1, uint64_t *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -4615,7 +4614,7 @@ void std::vector<double>::push_back[abi:ne200100](const void **a1, void *a2)
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 8;
   }
 
   a1[1] = v6;
@@ -4715,19 +4714,17 @@ void sub_1B41F7860(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void *std::vector<double>::reserve(void *result, unint64_t a2)
+void std::vector<double>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 3)
+  if (a2 > (a1[2] - *a1) >> 3)
   {
     if (!(a2 >> 61))
     {
-      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long>>(a1, a2);
     }
 
     std::vector<unsigned long>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void sub_1B41F7DD0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
@@ -4757,6 +4754,19 @@ void sub_1B41F8130(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
+uint64_t *std::vector<BOOL>::vector(uint64_t *a1, uint64_t a2)
+{
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  if (a2)
+  {
+    std::vector<BOOL>::__vallocate[abi:ne200100](a1, a2);
+  }
+
+  return a1;
+}
+
 void sub_1B41FBDD0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10)
 {
   if (__p)
@@ -4767,15 +4777,15 @@ void sub_1B41FBDD0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t __copy_helper_atomic_property__0(void *a1, uint64_t *a2)
+uint64_t *__copy_helper_atomic_property__0(uint64_t *a1, uint64_t a2)
 {
   *a1 = 0;
   a1[1] = 0;
   a1[2] = 0;
-  return std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(a1, *a2, a2[1], (a2[1] - *a2) >> 2);
+  return std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(a1, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 2);
 }
 
-char **__assign_helper_atomic_property__0(char **result, char **a2)
+uint64_t *__assign_helper_atomic_property__0(uint64_t *result, char **a2)
 {
   if (result != a2)
   {
@@ -4862,7 +4872,7 @@ void sub_1B41FD160(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-char **std::__copy_impl::operator()[abi:ne200100]<std::vector<unsigned long> *,std::vector<unsigned long> *,std::vector<unsigned long> *>(char **a1, char **a2, char **a3)
+uint64_t *std::__copy_impl::operator()[abi:ne200100]<std::vector<unsigned long> *,std::vector<unsigned long> *,std::vector<unsigned long> *>(char **a1, char **a2, uint64_t *a3)
 {
   if (a1 != a2)
   {
@@ -4884,7 +4894,7 @@ char **std::__copy_impl::operator()[abi:ne200100]<std::vector<unsigned long> *,s
   return a3;
 }
 
-void *std::vector<_NSRange>::__assign_with_size[abi:ne200100]<_NSRange*,_NSRange*>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<_NSRange>::__assign_with_size[abi:ne200100]<_NSRange*,_NSRange*>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -4959,7 +4969,7 @@ void *std::vector<_NSRange>::__assign_with_size[abi:ne200100]<_NSRange*,_NSRange
   return result;
 }
 
-uint64_t utf16CheckIsWordSeparator(int a1)
+BOOL utf16CheckIsWordSeparator(int a1)
 {
   v1 = (a1 - 8208) < 6;
   if (a1 == 0x2000)
@@ -4975,7 +4985,7 @@ uint64_t utf16CheckIsWordSeparator(int a1)
   return a1 == 32 || v1;
 }
 
-uint64_t utf16CheckIsLatin(int a1)
+BOOL utf16CheckIsLatin(int a1)
 {
   v1 = (a1 & 0xFFFFFFDF) - 65 < 0x1A || (a1 - 248) < 0x158;
   if ((a1 - 192) < 0x17)
@@ -5046,7 +5056,7 @@ Class __getFTBipartiteMatcherClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -5057,14 +5067,14 @@ LABEL_4:
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    abort_report_np();
+    abort_report_np("Unable to find class %s", "FTBipartiteMatcher");
   }
 
   _MergedGlobals_26 = *(*(*(a1 + 32) + 8) + 24);
   return result;
 }
 
-uint64_t __FusionTrackerLibraryCore_block_invoke()
+uint64_t __FusionTrackerLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1ED9601B0 = result;
@@ -5078,10 +5088,10 @@ void sub_1B41FF268(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1B4200AE4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_1B4200AE4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = CRLanguageResources;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -5262,9 +5272,9 @@ void anonymous namespace::ContentTypeRefinementContext::shiftFields(uint64_t a1,
   [*a1 addObjectsFromArray:{v3, v7}];
 }
 
-void sub_1B4202E88(_Unwind_Exception *a1, uint64_t a2, void *a3, void *a4, void *a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_1B4202E88(_Unwind_Exception *a1, uint64_t a2, void *a3, void *a4, void *a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, void *a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
 
   std::__list_imp<objc_object  {objcproto20CRFormFieldProviding}* {__strong}>::clear(va);
   _Unwind_Resume(a1);
@@ -5677,14 +5687,14 @@ void sub_1B42064DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(__p);
   }
 
-  if (*(v71 - 57) < 0)
+  if (*(v66 - 57) < 0)
   {
-    operator delete(*(v71 - 80));
+    operator delete(*(v66 - 80));
   }
 
-  if (*(v71 - 89) < 0)
+  if (*(v66 - 89) < 0)
   {
-    operator delete(*(v71 - 112));
+    operator delete(*(v66 - 112));
   }
 
   if (a20 < 0)
@@ -5692,14 +5702,14 @@ void sub_1B42064DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(a15);
   }
 
-  if (*(v71 - 121) < 0)
+  if (*(v66 - 121) < 0)
   {
-    operator delete(*(v71 - 144));
+    operator delete(*(v66 - 144));
   }
 
-  if (*(v71 - 153) < 0)
+  if (*(v66 - 153) < 0)
   {
-    operator delete(*(v71 - 176));
+    operator delete(*(v66 - 176));
   }
 
   if (a26 < 0)
@@ -5707,14 +5717,14 @@ void sub_1B42064DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(a21);
   }
 
-  if (*(v71 - 185) < 0)
+  if (*(v66 - 185) < 0)
   {
-    operator delete(*(v71 - 208));
+    operator delete(*(v66 - 208));
   }
 
-  if (*(v71 - 217) < 0)
+  if (*(v66 - 217) < 0)
   {
-    operator delete(*(v71 - 240));
+    operator delete(*(v66 - 240));
   }
 
   if (a32 < 0)
@@ -5722,9 +5732,9 @@ void sub_1B42064DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(a27);
   }
 
-  if (a71 < 0)
+  if (a66 < 0)
   {
-    operator delete(a66);
+    operator delete(a65);
   }
 
   if (a64 < 0)
@@ -5761,7 +5771,7 @@ void CRCHNetwork::getSymbol(std::string *this, uint64_t a2, unint64_t a3)
   {
     if (a3)
     {
-      ul2sh(a3, this);
+      ul2sh(&this->__r_.__value_.__l.__data_, a3);
       return;
     }
 
@@ -5786,7 +5796,7 @@ void CRCHNetwork::getSymbol(std::string *this, uint64_t a2, unint64_t a3)
   }
 }
 
-uint64_t CRCHNetwork::readOneEdge(CRCHNetwork *this, char *a2, NetworkEdge *a3)
+uint64_t CRCHNetwork::readOneEdge(uint64_t **this, char *a2, NetworkEdge *a3)
 {
   std::string::basic_string[abi:ne200100]<0>(&__str, a2);
   v38[6] = 0;
@@ -5870,13 +5880,13 @@ LABEL_10:
   {
     __str.__r_.__value_.__r.__words[0] = 0;
     MEMORY[0x1B8C73DE0](v30, &__str);
-    std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long const&>(this + 64, &__str);
+    std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long const&>(this + 8, &__str, &__str);
     goto LABEL_15;
   }
 
   if (v16 == 73)
   {
-    MEMORY[0x1B8C73DE0](v30, this + 32);
+    MEMORY[0x1B8C73DE0](v30, this + 4);
 LABEL_15:
     v19 = 0;
     goto LABEL_35;
@@ -5908,11 +5918,11 @@ LABEL_15:
     size = __str.__r_.__value_.__l.__size_;
   }
 
-  if ((*(this + 192) & 1) == 0)
+  if ((this[24] & 1) == 0)
   {
     if (size)
     {
-      v21 = CRCHSymbolMap::store(this + 136, &__str.__r_.__value_.__l.__data_);
+      v21 = CRCHSymbolMap::store((this + 17), &__str.__r_.__value_.__l.__data_);
       goto LABEL_27;
     }
 
@@ -5974,7 +5984,7 @@ LABEL_35:
   return v19;
 }
 
-void sub_1B4206E30(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, void *a29, uint64_t a30, int a31, __int16 a32, char a33, char a34)
+void sub_1B4206E30(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, void *a29, uint64_t a30, int a31, __int16 a32, char a33, char a34)
 {
   __cxa_end_catch();
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a18, MEMORY[0x1E69E54D8]);
@@ -5982,12 +5992,12 @@ void sub_1B4206E30(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void CRCHNetwork::readDataFile(CRCHNetwork *this)
+void CRCHNetwork::readDataFile(const NetworkEdge **this)
 {
   v69 = *MEMORY[0x1E69E9840];
-  v2 = (this + 8);
+  v2 = (this + 1);
   v3 = *(this + 31);
-  v4 = this + 8;
+  v4 = (this + 1);
   if (v3 < 0)
   {
     v4 = *v2;
@@ -6024,12 +6034,12 @@ void CRCHNetwork::readDataFile(CRCHNetwork *this)
 
     if (CRCHNetwork::readOneEdge(this, v68, &v62))
     {
-      std::vector<NetworkEdge>::push_back[abi:ne200100](this + 88, &v62);
+      std::vector<NetworkEdge>::push_back[abi:ne200100]((this + 11), &v62);
     }
   }
 
-  v7 = *(this + 11);
-  v8 = *(this + 12);
+  v7 = this[11];
+  v8 = this[12];
   v9 = 126 - 2 * __clz(0xCCCCCCCCCCCCCCCDLL * ((v8 - v7) >> 4));
   v67.__r_.__value_.__r.__words[0] = compareEdge;
   if (v8 == v7)
@@ -6043,17 +6053,17 @@ void CRCHNetwork::readDataFile(CRCHNetwork *this)
   }
 
   std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(NetworkEdge const&,NetworkEdge const&),NetworkEdge*,false>(v7, v8, &v67, v10, 1);
-  v11 = *(this + 11);
-  v12 = *(this + 12);
+  v11 = this[11];
+  v12 = this[12];
   while (v11 != v12)
   {
     CRCHNetwork::storeIncomingEdgeEntry(this, v11);
-    v11 += 80;
+    v11 = (v11 + 80);
   }
 
-  v13 = *(this + 14);
-  v14 = *(this + 15);
-  v15 = 126 - 2 * __clz((v14->i64 - v13) >> 3);
+  v13 = this[14];
+  v14 = this[15];
+  v15 = 126 - 2 * __clz((v14 - v13) >> 3);
   v67.__r_.__value_.__r.__words[0] = compareIncomingEdge;
   if (v14 == v13)
   {
@@ -6068,8 +6078,8 @@ void CRCHNetwork::readDataFile(CRCHNetwork *this)
   std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(NetworkEdge const*,NetworkEdge const*),NetworkEdge const**,false>(v13, v14, &v67, v16, 1);
   v67.__r_.__value_.__r.__words[2] = 0;
   *&v67.__r_.__value_.__l.__data_ = &v67.__r_.__value_.__l.__size_;
-  v17 = *(this + 11);
-  v18 = *(this + 12);
+  v17 = this[11];
+  v18 = this[12];
   if (v17 == v18)
   {
     v20 = 0;
@@ -6079,9 +6089,9 @@ void CRCHNetwork::readDataFile(CRCHNetwork *this)
   {
     do
     {
-      std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long const&>(&v67, v17);
+      std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long const&>(&v67, v17, v17);
       v19 = v17 + 1;
-      std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long const&>(&v67, v19);
+      std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long const&>(&v67, v19, v19);
       v17 = v19 + 9;
     }
 
@@ -6090,24 +6100,24 @@ void CRCHNetwork::readDataFile(CRCHNetwork *this)
   }
 
   std::vector<CRCHNetworkNode>::resize(this + 5, v20);
-  v21 = *(this + 11);
-  v22 = *(this + 12);
-  v23 = *(this + 5);
+  v21 = this[11];
+  v22 = this[12];
+  v23 = this[5];
   if (v21 != v22)
   {
-    v24 = *(this + 11);
+    v24 = this[11];
     do
     {
-      ++*(v23 + 56 * *v24);
-      ++*(v23 + 56 * v24[1] + 8);
-      v24 += 10;
+      ++*(v23 + 7 * *v24);
+      ++*(v23 + 7 * *(v24 + 1) + 1);
+      v24 = (v24 + 80);
     }
 
     while (v24 != v22);
   }
 
-  v25 = *(this + 8);
-  if (v25 != (this + 72))
+  v25 = this[8];
+  if (v25 != (this + 9))
   {
     do
     {
@@ -6139,12 +6149,12 @@ void CRCHNetwork::readDataFile(CRCHNetwork *this)
       v25 = v27;
     }
 
-    while (v27 != (this + 72));
+    while (v27 != this + 9);
   }
 
   v29 = *v21;
-  *(v23 + 56 * *v21 + 16) = 0;
-  v30 = *(this + 6) - v23;
+  *(v23 + 7 * *v21 + 2) = 0;
+  v30 = this[6] - v23;
   if (v30)
   {
     v31 = 0;
@@ -6157,7 +6167,7 @@ void CRCHNetwork::readDataFile(CRCHNetwork *this)
     v33 = v23;
     do
     {
-      *(v33 + 16) = v29;
+      *(v33 + 2) = v29;
       if (!*v33 && (*(v33 + 48) & 1) == 0)
       {
         v38 = v31;
@@ -6190,19 +6200,19 @@ void CRCHNetwork::readDataFile(CRCHNetwork *this)
 
       v29 += *v33;
       ++v31;
-      v33 += 56;
+      v33 = (v33 + 56);
     }
 
     while (v32 != v31);
     v34 = 0;
     v35 = 0;
-    *(v23 + 24) = 0;
+    *(v23 + 3) = 0;
     v36 = (v23 + 24);
     do
     {
       *v36 = v35;
       v37 = *(v36 - 2);
-      if (!v37 && v34 != *(this + 4))
+      if (!v37 && v34 != this[4])
       {
         v46 = v34;
         v47 = __cxa_allocate_exception(0x10uLL);
@@ -6234,7 +6244,7 @@ void CRCHNetwork::readDataFile(CRCHNetwork *this)
 
       v36 += 7;
       v35 += v37;
-      ++v34;
+      v34 = (v34 + 1);
     }
 
     while (v32 != v34);
@@ -6242,7 +6252,7 @@ void CRCHNetwork::readDataFile(CRCHNetwork *this)
 
   else
   {
-    *(v23 + 24) = 0;
+    *(v23 + 3) = 0;
   }
 
   fclose(v6);
@@ -6363,19 +6373,19 @@ void CRCHNetwork::storeIncomingEdgeEntry(void *a1, uint64_t a2)
   a1[15] = v6;
 }
 
-void std::vector<CRCHNetworkNode>::resize(void *a1, unint64_t a2)
+void std::vector<CRCHNetworkNode>::resize(void *result, unint64_t a2)
 {
-  v2 = 0x6DB6DB6DB6DB6DB7 * ((a1[1] - *a1) >> 3);
+  v2 = 0x6DB6DB6DB6DB6DB7 * ((result[1] - *result) >> 3);
   v3 = a2 >= v2;
   v4 = a2 - v2;
   if (v4 != 0 && v3)
   {
-    std::vector<CRCHNetworkNode>::__append(a1, v4);
+    std::vector<CRCHNetworkNode>::__append(result, v4);
   }
 
   else if (!v3)
   {
-    a1[1] = *a1 + 56 * a2;
+    result[1] = *result + 56 * a2;
   }
 }
 
@@ -6732,7 +6742,7 @@ LABEL_29:
       while (v18 < *(v17 + 56 * v42 + 8));
     }
 
-    std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long const&>(&v48, &v42);
+    std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long const&>(&v48, &v42, &v42);
   }
 
   v25 = v50;
@@ -6787,7 +6797,7 @@ LABEL_29:
     do
     {
       v54 = &v27[v31];
-      std::__tree<std::__value_type<unsigned long,unsigned long>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,unsigned long>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,unsigned long>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&v42, &v27[v31])[5] = v32++;
+      std::__tree<std::__value_type<unsigned long,unsigned long>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,unsigned long>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,unsigned long>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&v42, &v27[v31], &std::piecewise_construct, &v54)[5] = v32++;
       v27 = __p;
       ++v31;
     }
@@ -6796,13 +6806,20 @@ LABEL_29:
   }
 
   v33 = v51;
-  for (j = v52; v33 != j; v33 = v35 + 9)
+  v34 = v52;
+  if (v51 != v52)
   {
-    v54 = v33;
-    *v33 = std::__tree<std::__value_type<unsigned long,unsigned long>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,unsigned long>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,unsigned long>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&v42, v33)[5];
-    v35 = v33 + 1;
-    v54 = v35;
-    *v35 = std::__tree<std::__value_type<unsigned long,unsigned long>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,unsigned long>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,unsigned long>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&v42, v35)[5];
+    do
+    {
+      v54 = v33;
+      *v33 = std::__tree<std::__value_type<unsigned long,unsigned long>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,unsigned long>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,unsigned long>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&v42, v33, &std::piecewise_construct, &v54)[5];
+      v35 = v33 + 1;
+      v54 = v35;
+      *v35 = std::__tree<std::__value_type<unsigned long,unsigned long>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,unsigned long>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,unsigned long>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&v42, v35, &std::piecewise_construct, &v54)[5];
+      v33 = v35 + 9;
+    }
+
+    while (v33 != v34);
   }
 
   v36 = v44;
@@ -6810,8 +6827,8 @@ LABEL_29:
   {
     do
     {
-      v54 = v36 + 4;
-      v37 = std::__tree<std::__value_type<unsigned long,unsigned long>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,unsigned long>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,unsigned long>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&v42, v36 + 4);
+      v54 = (v36 + 4);
+      v37 = std::__tree<std::__value_type<unsigned long,unsigned long>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,unsigned long>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,unsigned long>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&v42, v36 + 4, &std::piecewise_construct, &v54);
       CRCHNetwork::setFinal(a2, v37[5]);
       v38 = v36[1];
       if (v38)
@@ -6858,7 +6875,7 @@ LABEL_29:
   std::vector<NetworkEdge>::__destroy_vector::operator()[abi:ne200100](v46);
 }
 
-void sub_1B4207F20(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12, char a13, void *a14, uint64_t a15, char a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, void *a26)
+void sub_1B4207F20(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *a26)
 {
   if (__p)
   {
@@ -7113,20 +7130,20 @@ uint64_t std::vector<NetworkEdge>::push_back[abi:ne200100](uint64_t a1, const Ne
   return result;
 }
 
-void *CRCHNetwork::setFinal(CRCHNetwork *this, unint64_t a2)
+uint64_t *CRCHNetwork::setFinal(uint64_t **this, unint64_t a2)
 {
   v5 = a2;
-  result = std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long const&>(this + 64, &v5);
-  v4 = *(this + 5);
-  if (0x6DB6DB6DB6DB6DB7 * ((*(this + 6) - v4) >> 3) >= v5)
+  result = std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long const&>(this + 8, &v5, &v5);
+  v4 = this[5];
+  if (0x6DB6DB6DB6DB6DB7 * (this[6] - v4) >= v5)
   {
-    *(v4 + 56 * v5 + 48) = 1;
+    LOBYTE(v4[7 * v5 + 6]) = 1;
   }
 
   return result;
 }
 
-uint64_t CRCHNetwork::insertEdges(CRCHNetwork *a1, uint64_t *a2)
+uint64_t CRCHNetwork::insertEdges(CRCHNetwork *a1, const NetworkEdge **a2)
 {
   CRCHNetwork::mergeEquivalentEdges(a1, a2);
   v4 = *a2;
@@ -7342,13 +7359,12 @@ BOOL CRCHNetwork::checkSingleEmptyIncomingEdgeForNode(CRCHNetwork *this, uint64_
   return *a3 == 0;
 }
 
-uint64_t CRCHNetwork::guaranteeSingleEmptyIncomingEdgePerNode(uint64_t this)
+void CRCHNetwork::guaranteeSingleEmptyIncomingEdgePerNode(CRCHNetwork *this)
 {
-  v1 = *(this + 40);
-  v2 = *(this + 48) - v1;
+  v1 = *(this + 5);
+  v2 = *(this + 6) - v1;
   if (v2)
   {
-    v3 = this;
     v7 = 0;
     v4 = v2 >> 3;
     if ((0x6DB6DB6DB6DB6DB7 * v4) <= 1)
@@ -7366,8 +7382,7 @@ uint64_t CRCHNetwork::guaranteeSingleEmptyIncomingEdgePerNode(uint64_t this)
       if ((*i & 1) == 0)
       {
         v8 = 0;
-        this = CRCHNetwork::checkSingleEmptyIncomingEdgeForNode(v3, v7, &v8);
-        if (!this)
+        if (!CRCHNetwork::checkSingleEmptyIncomingEdgeForNode(this, v7, &v8))
         {
           break;
         }
@@ -7375,7 +7390,7 @@ uint64_t CRCHNetwork::guaranteeSingleEmptyIncomingEdgePerNode(uint64_t this)
 
       if (v5 == ++v7)
       {
-        return this;
+        return;
       }
     }
 
@@ -7387,11 +7402,9 @@ uint64_t CRCHNetwork::guaranteeSingleEmptyIncomingEdgePerNode(uint64_t this)
       operator new();
     }
   }
-
-  return this;
 }
 
-void sub_1B4208EB0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *__p, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, char a30, void *a31, uint64_t a32, uint64_t a33)
+void sub_1B4208EB0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *__p, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, void *a31, uint64_t a32, uint64_t a33)
 {
   std::__tree<CRCHuint128>::destroy(&a30, a31);
   std::deque<std::pair<int,int>>::~deque[abi:ne200100](&a33);
@@ -7478,9 +7491,9 @@ void std::vector<NetworkEdge>::resize(void *a1, unint64_t a2)
   }
 }
 
-void sub_1B42090F4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B42090F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<NetworkEdge>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -7499,52 +7512,52 @@ void CRCHNetwork::removeEpsOutputEdges(CRCHNetwork *this, CRCHNetwork *a2, int a
   *(a2 - 1) = a2;
   v71 = (a2 - 32);
   std::vector<CRCHNetworkNode>::resize(a2 - 4, 0);
-  v98 = 0;
-  v99 = 0;
   v100 = 0;
+  v101 = 0;
+  v102 = 0;
   v8 = *(this + 5);
   v7 = *(this + 6);
-  v96 = 0;
-  v97 = 0;
-  v94[1] = 0;
-  v95 = &v96;
-  v93 = v94;
-  v94[0] = 0;
-  std::set<unsigned long>::set[abi:ne200100](&v91, this + 64);
-  std::vector<unsigned long>::vector[abi:ne200100](&v90, 0x6DB6DB6DB6DB6DB7 * ((v7 - v8) >> 3));
-  v89 = 0u;
-  memset(v88, 0, sizeof(v88));
-  v87[0] = 0;
-  v87[1] = 0;
-  v86 = v87;
-  v75 = 0;
-  std::deque<unsigned long>::push_back(v88, &v75);
-  v9 = *(&v89 + 1);
-  if (*(&v89 + 1))
+  v98 = 0;
+  v99 = 0;
+  v96[1] = 0;
+  v97 = &v98;
+  v95 = v96;
+  v96[0] = 0;
+  std::set<unsigned long>::set[abi:ne200100](&v93, this + 64);
+  std::vector<unsigned long>::vector[abi:ne200100](&v92, 0x6DB6DB6DB6DB6DB7 * ((v7 - v8) >> 3));
+  v91 = 0u;
+  memset(v90, 0, sizeof(v90));
+  v89[0] = 0;
+  v89[1] = 0;
+  v88 = v89;
+  v77 = 0;
+  std::deque<unsigned long>::push_back(v90, &v77);
+  v9 = *(&v91 + 1);
+  if (*(&v91 + 1))
   {
     v10 = 0;
     do
     {
-      v11 = v89;
-      v12 = *(*(v88[1] + ((v89 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v89 & 0x1FF));
-      v101[0] = v12;
-      *&v89 = v89 + 1;
-      *(&v89 + 1) = v9 - 1;
+      v11 = v91;
+      v12 = *(*(v90[1] + ((v91 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v91 & 0x1FF));
+      v103[0] = v12;
+      *&v91 = v91 + 1;
+      *(&v91 + 1) = v9 - 1;
       if ((v11 + 1) >= 0x400)
       {
-        operator delete(*v88[1]);
-        v88[1] += 8;
-        *&v89 = v89 - 512;
-        v12 = v101[0];
+        operator delete(*v90[1]);
+        v90[1] += 8;
+        *&v91 = v91 - 512;
+        v12 = v103[0];
       }
 
-      v13 = v87[0];
-      if (!v87[0])
+      v13 = v89[0];
+      if (!v89[0])
       {
         goto LABEL_13;
       }
 
-      v14 = v87;
+      v14 = v89;
       do
       {
         v15 = v13[4];
@@ -7559,7 +7572,7 @@ void CRCHNetwork::removeEpsOutputEdges(CRCHNetwork *this, CRCHNetwork *a2, int a
       }
 
       while (v13);
-      if (v14 == v87 || v12 < v14[4])
+      if (v14 == v89 || v12 < v14[4])
       {
 LABEL_13:
         v18 = *(this + 5);
@@ -7570,17 +7583,17 @@ LABEL_13:
           {
             v20 = *(this + 11) + 80 * *(v18 + 56 * v12 + 16) + 80 * v19;
             v21 = *v20;
-            v85 = *v20;
-            v84 = *(v20 + 8);
-            v22 = v96;
+            v87 = *v20;
+            v86 = *(v20 + 8);
+            v22 = v98;
             if (*(v20 + 24))
             {
-              if (!v96)
+              if (!v98)
               {
                 goto LABEL_24;
               }
 
-              v23 = &v96;
+              v23 = &v98;
               do
               {
                 v24 = v22[4];
@@ -7595,25 +7608,27 @@ LABEL_13:
               }
 
               while (v22);
-              if (v23 == &v96 || v21 < v23[4])
+              if (v23 == &v98 || v21 < v23[4])
               {
 LABEL_24:
-                std::__tree<std::__value_type<unsigned long,unsigned long>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,unsigned long>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,unsigned long>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&v95, &v85)[5] = v10++;
+                v74 = &v87;
+                std::__tree<std::__value_type<unsigned long,unsigned long>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,unsigned long>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,unsigned long>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&v97, &v87, &std::piecewise_construct, &v74)[5] = v10++;
               }
 
-              v26 = std::__tree<std::__value_type<unsigned long,unsigned long>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,unsigned long>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,unsigned long>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&v95, &v85)[5];
-              v27 = v96;
-              if (!v96)
+              v74 = &v87;
+              v26 = std::__tree<std::__value_type<unsigned long,unsigned long>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,unsigned long>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,unsigned long>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&v97, &v87, &std::piecewise_construct, &v74)[5];
+              v27 = v98;
+              if (!v98)
               {
                 goto LABEL_33;
               }
 
-              v28 = &v96;
+              v28 = &v98;
               do
               {
                 v29 = v27[4];
-                v16 = v29 >= v84;
-                v30 = v29 < v84;
+                v16 = v29 >= v86;
+                v30 = v29 < v86;
                 if (v16)
                 {
                   v28 = v27;
@@ -7623,37 +7638,39 @@ LABEL_24:
               }
 
               while (v27);
-              if (v28 == &v96 || v84 < v28[4])
+              if (v28 == &v98 || v86 < v28[4])
               {
 LABEL_33:
-                std::__tree<std::__value_type<unsigned long,unsigned long>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,unsigned long>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,unsigned long>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&v95, &v84)[5] = v10++;
+                v74 = &v86;
+                std::__tree<std::__value_type<unsigned long,unsigned long>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,unsigned long>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,unsigned long>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&v97, &v86, &std::piecewise_construct, &v74)[5] = v10++;
               }
 
-              v31 = std::__tree<std::__value_type<unsigned long,unsigned long>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,unsigned long>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,unsigned long>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&v95, &v84)[5];
-              ++*(v90 + 8 * v26);
+              v74 = &v86;
+              v31 = std::__tree<std::__value_type<unsigned long,unsigned long>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,unsigned long>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,unsigned long>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&v97, &v86, &std::piecewise_construct, &v74)[5];
+              ++*(v92 + 8 * v26);
               __p = 0;
-              v82 = 0;
-              v83 = 0;
-              v75 = v26;
-              v76 = v31;
+              v84 = 0;
+              v85 = 0;
+              v77 = v26;
+              v78 = v31;
               v32 = *(this + 18) + 24 * *(v20 + 24);
               v33 = sh2i(v32);
               if (*(v32 + 23) < 0)
               {
-                std::string::__init_copy_ctor_external(&v74, *v32, *(v32 + 8));
+                std::string::__init_copy_ctor_external(&v76, *v32, *(v32 + 8));
               }
 
               else
               {
                 v34 = *v32;
-                v74.__r_.__value_.__r.__words[2] = *(v32 + 16);
-                *&v74.__r_.__value_.__l.__data_ = v34;
+                v76.__r_.__value_.__r.__words[2] = *(v32 + 16);
+                *&v76.__r_.__value_.__l.__data_ = v34;
               }
 
-              v43 = CRCHSymbolMap::store(v73 + 136, &v74.__r_.__value_.__l.__data_);
-              if (SHIBYTE(v74.__r_.__value_.__r.__words[2]) < 0)
+              v43 = CRCHSymbolMap::store(v73 + 136, &v76.__r_.__value_.__l.__data_);
+              if (SHIBYTE(v76.__r_.__value_.__r.__words[2]) < 0)
               {
-                operator delete(v74.__r_.__value_.__l.__data_);
+                operator delete(v76.__r_.__value_.__l.__data_);
               }
 
               v44 = v33;
@@ -7662,26 +7679,26 @@ LABEL_33:
                 v44 = v43;
               }
 
-              v77 = v44;
-              v78 = v43;
-              v79 = *(v20 + 32);
-              v80 = *(v20 + 40);
-              std::vector<NetworkEdge>::push_back[abi:ne200100](&v98, &v75);
+              v79 = v44;
+              v80 = v43;
+              v81 = *(v20 + 32);
+              v82 = *(v20 + 40);
+              std::vector<NetworkEdge>::push_back[abi:ne200100](&v100, &v77);
               if (__p)
               {
-                v82 = __p;
+                v84 = __p;
                 operator delete(__p);
               }
             }
 
             else
             {
-              if (!v96)
+              if (!v98)
               {
                 goto LABEL_44;
               }
 
-              v35 = &v96;
+              v35 = &v98;
               do
               {
                 v36 = v22[4];
@@ -7696,25 +7713,27 @@ LABEL_33:
               }
 
               while (v22);
-              if (v35 == &v96 || v21 < v35[4])
+              if (v35 == &v98 || v21 < v35[4])
               {
 LABEL_44:
-                std::__tree<std::__value_type<unsigned long,unsigned long>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,unsigned long>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,unsigned long>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&v95, &v85)[5] = v10++;
+                v74 = &v87;
+                std::__tree<std::__value_type<unsigned long,unsigned long>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,unsigned long>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,unsigned long>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&v97, &v87, &std::piecewise_construct, &v74)[5] = v10++;
               }
 
-              v38 = std::__tree<std::__value_type<unsigned long,unsigned long>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,unsigned long>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,unsigned long>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&v95, &v85)[5];
-              v39 = v96;
-              if (!v96)
+              v74 = &v87;
+              v38 = std::__tree<std::__value_type<unsigned long,unsigned long>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,unsigned long>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,unsigned long>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&v97, &v87, &std::piecewise_construct, &v74)[5];
+              v39 = v98;
+              if (!v98)
               {
                 goto LABEL_53;
               }
 
-              v40 = &v96;
+              v40 = &v98;
               do
               {
                 v41 = v39[4];
-                v16 = v41 >= v84;
-                v42 = v41 < v84;
+                v16 = v41 >= v86;
+                v42 = v41 < v86;
                 if (v16)
                 {
                   v40 = v39;
@@ -7724,25 +7743,26 @@ LABEL_44:
               }
 
               while (v39);
-              if (v40 == &v96 || v84 < v40[4])
+              if (v40 == &v98 || v86 < v40[4])
               {
 LABEL_53:
-                std::__tree<std::__value_type<unsigned long,unsigned long>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,unsigned long>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,unsigned long>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&v95, &v84)[5] = v38;
+                v74 = &v86;
+                std::__tree<std::__value_type<unsigned long,unsigned long>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,unsigned long>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,unsigned long>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&v97, &v86, &std::piecewise_construct, &v74)[5] = v38;
               }
             }
 
-            v45 = v87[0];
-            if (!v87[0])
+            v45 = v89[0];
+            if (!v89[0])
             {
               goto LABEL_69;
             }
 
-            v46 = v87;
+            v46 = v89;
             do
             {
               v47 = v45[4];
-              v16 = v47 >= v84;
-              v48 = v47 < v84;
+              v16 = v47 >= v86;
+              v48 = v47 < v86;
               if (v16)
               {
                 v46 = v45;
@@ -7752,27 +7772,27 @@ LABEL_53:
             }
 
             while (v45);
-            if (v46 == v87 || v84 < v46[4])
+            if (v46 == v89 || v86 < v46[4])
             {
 LABEL_69:
-              std::deque<unsigned long>::push_back(v88, &v84);
+              std::deque<unsigned long>::push_back(v90, &v86);
             }
 
             ++v19;
-            v12 = v101[0];
+            v12 = v103[0];
             v18 = *(this + 5);
           }
 
-          while (v19 < *(v18 + 56 * v101[0]));
+          while (v19 < *(v18 + 56 * v103[0]));
         }
 
-        std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long const&>(&v86, v101);
+        std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long const&>(&v88, v103, v103);
       }
 
-      v9 = *(&v89 + 1);
+      v9 = *(&v91 + 1);
     }
 
-    while (*(&v89 + 1));
+    while (*(&v91 + 1));
   }
 
   else
@@ -7780,26 +7800,28 @@ LABEL_69:
     v10 = 0;
   }
 
-  if (v97)
+  if (v99)
   {
-    v75 = 0;
+    v77 = 0;
     if (*(this + 6) != *(this + 5))
     {
       do
       {
-        v101[0] = std::__tree<std::__value_type<unsigned long,unsigned long>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,unsigned long>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,unsigned long>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&v95, &v75)[5];
-        v49 = v75;
-        std::__tree<std::__value_type<unsigned long,unsigned long>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,unsigned long>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,unsigned long>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&v93, v101)[5] = v49;
-        ++v75;
+        v74 = &v77;
+        v103[0] = std::__tree<std::__value_type<unsigned long,unsigned long>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,unsigned long>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,unsigned long>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&v97, &v77, &std::piecewise_construct, &v74)[5];
+        v49 = v77;
+        v74 = v103;
+        std::__tree<std::__value_type<unsigned long,unsigned long>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,unsigned long>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,unsigned long>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&v95, v103, &std::piecewise_construct, &v74)[5] = v49;
+        ++v77;
       }
 
-      while (v75 < 0x6DB6DB6DB6DB6DB7 * ((*(this + 6) - *(this + 5)) >> 3));
+      while (v77 < 0x6DB6DB6DB6DB6DB7 * ((*(this + 6) - *(this + 5)) >> 3));
     }
   }
 
   std::vector<CRCHNetworkNode>::resize(v71, v10);
-  v50 = v91;
-  if (v91 == v92)
+  v50 = v93;
+  if (v93 == v94)
   {
     v56 = -1;
   }
@@ -7808,9 +7830,11 @@ LABEL_69:
   {
     do
     {
-      v51 = std::__tree<std::__value_type<unsigned long,unsigned long>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,unsigned long>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,unsigned long>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&v95, v50 + 4);
+      v74 = v50 + 4;
+      v51 = std::__tree<std::__value_type<unsigned long,unsigned long>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,unsigned long>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,unsigned long>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&v97, v50 + 4, &std::piecewise_construct, &v74);
       CRCHNetwork::setFinal(v73, v51[5]);
-      v52 = std::__tree<std::__value_type<unsigned long,unsigned long>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,unsigned long>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,unsigned long>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&v95, v50 + 4);
+      v74 = v50 + 4;
+      v52 = std::__tree<std::__value_type<unsigned long,unsigned long>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,unsigned long>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,unsigned long>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&v97, v50 + 4, &std::piecewise_construct, &v74);
       v53 = v50[1];
       if (v53)
       {
@@ -7838,49 +7862,51 @@ LABEL_69:
       v50 = v54;
     }
 
-    while (v54 != v92);
+    while (v54 != v94);
     v56 = v52[5];
   }
 
-  v76 = 0;
-  v77 = 0;
-  v75 = &v76;
-  v101[0] = 0;
+  v78 = 0;
+  v79 = 0;
+  v77 = &v78;
+  v103[0] = 0;
   if (v10)
   {
-    for (i = 0; i < v10; v101[0] = i)
+    for (i = 0; i < v10; v103[0] = i)
     {
-      if (!*(v90 + 8 * i))
+      if (!*(v92 + 8 * i))
       {
+        v74 = v103;
         if (i == v56)
         {
-          std::__tree<std::__value_type<unsigned long,unsigned long>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,unsigned long>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,unsigned long>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&v75, v101)[5] = v56;
+          std::__tree<std::__value_type<unsigned long,unsigned long>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,unsigned long>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,unsigned long>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&v77, v103, &std::piecewise_construct, &v74)[5] = v56;
         }
 
         else
         {
-          v58 = std::__tree<std::__value_type<unsigned long,unsigned long>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,unsigned long>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,unsigned long>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&v93, v101);
-          NextNonZeroOutDegree = CRCHNetwork::findNextNonZeroOutDegree(this, &v90, &v95, v59, v60, v58[5]);
-          std::__tree<std::__value_type<unsigned long,unsigned long>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,unsigned long>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,unsigned long>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&v75, v101)[5] = NextNonZeroOutDegree;
+          v58 = std::__tree<std::__value_type<unsigned long,unsigned long>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,unsigned long>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,unsigned long>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&v95, v103, &std::piecewise_construct, &v74);
+          NextNonZeroOutDegree = CRCHNetwork::findNextNonZeroOutDegree(this, &v92, &v97, v59, v60, v58[5]);
+          v74 = v103;
+          std::__tree<std::__value_type<unsigned long,unsigned long>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,unsigned long>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,unsigned long>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&v77, v103, &std::piecewise_construct, &v74)[5] = NextNonZeroOutDegree;
         }
       }
 
-      i = v101[0] + 1;
+      i = v103[0] + 1;
     }
   }
 
-  v62 = v98;
-  v63 = v99;
-  if (v99 != v98)
+  v62 = v100;
+  v63 = v101;
+  if (v101 != v100)
   {
     v64 = 0;
     do
     {
-      v65 = v76;
-      if (v76)
+      v65 = v78;
+      if (v78)
       {
         v66 = *(v62 + 80 * v64 + 8);
-        v67 = &v76;
+        v67 = &v78;
         do
         {
           v68 = v65[4];
@@ -7895,13 +7921,14 @@ LABEL_69:
         }
 
         while (v65);
-        if (v67 != &v76 && v66 >= v67[4])
+        if (v67 != &v78 && v66 >= v67[4])
         {
-          v101[0] = *(v62 + 80 * v64 + 8);
-          v70 = std::__tree<std::__value_type<unsigned long,unsigned long>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,unsigned long>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,unsigned long>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&v75, v101);
-          v62 = v98;
-          *(v98 + 80 * v64 + 8) = v70[5];
-          v63 = v99;
+          v103[0] = *(v62 + 80 * v64 + 8);
+          v74 = v103;
+          v70 = std::__tree<std::__value_type<unsigned long,unsigned long>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,unsigned long>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,unsigned long>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&v77, v103, &std::piecewise_construct, &v74);
+          v62 = v100;
+          *(v100 + 80 * v64 + 8) = v70[5];
+          v63 = v101;
         }
       }
 
@@ -7911,10 +7938,13 @@ LABEL_69:
     while (v64 < 0xCCCCCCCCCCCCCCCDLL * ((v63 - v62) >> 4));
   }
 
+  v75[0] = 0;
+  v75[1] = 0;
+  v74 = v75;
   operator new();
 }
 
-void sub_1B4209CB8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14, void *a15, uint64_t a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22, uint64_t a23, void *a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, void *a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35, void *a36, uint64_t a37, uint64_t a38)
+void sub_1B4209CB8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22, uint64_t a23, void *a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, void *a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, void *a36, uint64_t a37, uint64_t a38)
 {
   std::__tree<CRCHuint128>::destroy(&a14, a15);
   std::__tree<CRCHuint128>::destroy(&a23, a24);
@@ -7981,7 +8011,7 @@ void CRCHNetwork::mergeEquivalentEdges(int a1, uint64_t *a2)
       {
 LABEL_16:
         v36 = &v30;
-        *(std::__tree<std::__value_type<CRCHuint128,int>,std::__map_value_compare<CRCHuint128,std::__value_type<CRCHuint128,int>,std::less<CRCHuint128>,true>,std::allocator<std::__value_type<CRCHuint128,int>>>::__emplace_unique_key_args<CRCHuint128,std::piecewise_construct_t const&,std::tuple<CRCHuint128 const&>,std::tuple<>>(&v34, &v30) + 11) = v4;
+        *(std::__tree<std::__value_type<CRCHuint128,int>,std::__map_value_compare<CRCHuint128,std::__value_type<CRCHuint128,int>,std::less<CRCHuint128>,true>,std::allocator<std::__value_type<CRCHuint128,int>>>::__emplace_unique_key_args<CRCHuint128,std::piecewise_construct_t const&,std::tuple<CRCHuint128 const&>,std::tuple<>>(&v34, &v30, &v36) + 11) = v4;
         std::vector<NetworkEdge>::push_back[abi:ne200100](&v31, (*a2 + 80 * v4));
       }
 
@@ -8065,7 +8095,7 @@ LABEL_16:
         else
         {
           v36 = &v30;
-          *(std::__tree<std::__value_type<CRCHuint128,int>,std::__map_value_compare<CRCHuint128,std::__value_type<CRCHuint128,int>,std::less<CRCHuint128>,true>,std::allocator<std::__value_type<CRCHuint128,int>>>::__emplace_unique_key_args<CRCHuint128,std::piecewise_construct_t const&,std::tuple<CRCHuint128 const&>,std::tuple<>>(&v34, &v30) + 11) = v4;
+          *(std::__tree<std::__value_type<CRCHuint128,int>,std::__map_value_compare<CRCHuint128,std::__value_type<CRCHuint128,int>,std::less<CRCHuint128>,true>,std::allocator<std::__value_type<CRCHuint128,int>>>::__emplace_unique_key_args<CRCHuint128,std::piecewise_construct_t const&,std::tuple<CRCHuint128 const&>,std::tuple<>>(&v34, &v30, &v36) + 11) = v4;
           std::vector<NetworkEdge>::push_back[abi:ne200100](&v31, (*a2 + 80 * v4));
           v17 = __p;
         }
@@ -8102,7 +8132,7 @@ void sub_1B420A028(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void CRCHNetwork::compose(CRCHNetwork *this, const CRCHNetwork *a2, CRCHNetwork *a3, char a4)
+void CRCHNetwork::compose(CRCHNetwork *this, uint64_t **a2, CRCHNetwork *a3, char a4)
 {
   std::vector<CRCHNetworkNode>::resize(this + 5, 0);
   std::__tree<CRCHuint128>::destroy(this + 64, *(this + 9));
@@ -8123,7 +8153,7 @@ void CRCHNetwork::compose(CRCHNetwork *this, const CRCHNetwork *a2, CRCHNetwork 
   v14 = v15;
   v12 = v13;
   v13[0] = 0;
-  CRCHNetwork::compose6(this, a2, a3, *(a2 + 4), *(a3 + 4), &v16, v19, &v14, &v12, a4);
+  CRCHNetwork::compose6(this, a2, a3, a2[4], *(a3 + 4), &v16, v19, &v14, &v12, a4);
   std::vector<CRCHNetworkNode>::resize(this + 5, v18);
   CRCHNetwork::insertEdges(this, v19);
   v8 = v12;
@@ -8169,7 +8199,7 @@ void CRCHNetwork::compose(CRCHNetwork *this, const CRCHNetwork *a2, CRCHNetwork 
   std::vector<NetworkEdge>::__destroy_vector::operator()[abi:ne200100](&v16);
 }
 
-void sub_1B420A1EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11, void *a12, uint64_t a13, char a14, void *a15, uint64_t a16, void **a17, void *a18)
+void sub_1B420A1EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, void **a17, void *a18)
 {
   std::__tree<CRCHuint128>::destroy(&a11, a12);
   std::__tree<CRCHuint128>::destroy(&a14, a15);
@@ -8179,31 +8209,31 @@ void sub_1B420A1EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t CRCHNetwork::compose6(uint64_t a1, uint64_t a2, CRCHNetwork *a3, unint64_t a4, unint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10)
+uint64_t *CRCHNetwork::compose6(uint64_t a1, uint64_t a2, CRCHNetwork *a3, uint64_t *a4, unint64_t a5, uint64_t a6, uint64_t a7, uint64_t *a8, uint64_t a9, char a10)
 {
   v12 = a4;
-  v45[0] = a4;
-  v45[1] = a5;
+  v44[0] = a4;
+  v44[1] = a5;
   result = std::__tree<std::__value_type<CRCHNodeTuple<unsigned long,unsigned long>,unsigned long>,std::__map_value_compare<CRCHNodeTuple<unsigned long,unsigned long>,std::__value_type<CRCHNodeTuple<unsigned long,unsigned long>,unsigned long>,std::less<CRCHNodeTuple<unsigned long,unsigned long>>,true>,std::allocator<std::__value_type<CRCHNodeTuple<unsigned long,unsigned long>,unsigned long>>>::find<CRCHNodeTuple<unsigned long,unsigned long>>(a6, a4, a5);
-  v43 = a6;
-  if (a6 + 8 == result)
+  v41 = a6;
+  if ((a6 + 8) == result)
   {
     goto LABEL_11;
   }
 
-  v16 = *(result + 48);
+  v16 = result[6];
   if (v16 == -1)
   {
     goto LABEL_11;
   }
 
-  v17 = *(a8 + 8);
+  v17 = a8[1];
   if (!v17)
   {
     goto LABEL_11;
   }
 
-  v18 = a8 + 8;
+  v18 = a8 + 1;
   do
   {
     v19 = *(v17 + 32);
@@ -8218,17 +8248,17 @@ uint64_t CRCHNetwork::compose6(uint64_t a1, uint64_t a2, CRCHNetwork *a3, unint6
   }
 
   while (v17);
-  if (v18 == a8 + 8 || v16 < *(v18 + 32))
+  if (v18 == a8 + 1 || v16 < v18[4])
   {
 LABEL_11:
-    v37 = a6 + 8;
-    v44 = *(a6 + 16);
-    v40 = CRCHNodeTupleMap<unsigned long>::add(a6, v45, &v44);
+    v35 = a6 + 8;
+    v43 = *(a6 + 16);
+    v38 = CRCHNodeTupleMap<unsigned long>::add(a6, v44, &v43);
     v22 = *(a2 + 40);
     if (*(v22 + 56 * v12))
     {
       v23 = 0;
-      v38 = v12;
+      v36 = v12;
       do
       {
         v24 = *(a2 + 88) + 80 * *(v22 + 56 * v12 + 16) + 80 * v23;
@@ -8238,10 +8268,9 @@ LABEL_11:
         v28 = FirstEdgeGivenSymbol;
         if (!a5 && a10 && FirstEdgeGivenSymbol == -1)
         {
-          if ((CRCHNetwork::addCWComposedCharacterEdge(a1, a2, a3, v43, v40, v26, 0, v24, 0, a9, a7, 1) & 1) == 0)
+          if ((CRCHNetwork::addCWComposedCharacterEdge(a1, a2, a3, v41, v38, v26, 0, v24, 0, a9, a7, 1) & 1) == 0)
           {
-            LOBYTE(v35) = 1;
-            CRCHNetwork::compose6(a1, a2, a3, v26, 0, v43, a7, a8, a9, v35);
+            CRCHNetwork::compose6(a1, a2, a3, v26, 0, v41, a7, a8, a9, 1);
           }
         }
 
@@ -8260,10 +8289,9 @@ LABEL_11:
               }
 
               v32 = *(v31 + 8);
-              if ((CRCHNetwork::addCWComposedCharacterEdge(a1, a2, a3, v43, v40, v26, v32, v24, v31, a9, a7, 0) & 1) == 0)
+              if ((CRCHNetwork::addCWComposedCharacterEdge(a1, a2, a3, v41, v38, v26, v32, v24, v31, a9, a7, 0) & 1) == 0)
               {
-                LOBYTE(v36) = a10;
-                CRCHNetwork::compose6(a1, a2, a3, v26, v32, v43, a7, a8, a9, v36);
+                CRCHNetwork::compose6(a1, a2, a3, v26, v32, v41, a7, a8, a9, a10);
               }
 
               ++v28;
@@ -8277,14 +8305,14 @@ LABEL_11:
 
         ++v23;
         v22 = *(a2 + 40);
-        v12 = v38;
+        v12 = v36;
       }
 
-      while (*(v22 + 56 * v38) > v23);
+      while (*(v22 + 56 * v36) > v23);
     }
 
-    v33 = std::__tree<std::__value_type<CRCHNodeTuple<unsigned long,unsigned long>,unsigned long>,std::__map_value_compare<CRCHNodeTuple<unsigned long,unsigned long>,std::__value_type<CRCHNodeTuple<unsigned long,unsigned long>,unsigned long>,std::less<CRCHNodeTuple<unsigned long,unsigned long>>,true>,std::allocator<std::__value_type<CRCHNodeTuple<unsigned long,unsigned long>,unsigned long>>>::find<CRCHNodeTuple<unsigned long,unsigned long>>(v43, v12, a5);
-    if (v37 == v33)
+    v33 = std::__tree<std::__value_type<CRCHNodeTuple<unsigned long,unsigned long>,unsigned long>,std::__map_value_compare<CRCHNodeTuple<unsigned long,unsigned long>,std::__value_type<CRCHNodeTuple<unsigned long,unsigned long>,unsigned long>,std::less<CRCHNodeTuple<unsigned long,unsigned long>>,true>,std::allocator<std::__value_type<CRCHNodeTuple<unsigned long,unsigned long>,unsigned long>>>::find<CRCHNodeTuple<unsigned long,unsigned long>>(v41, v12, a5);
+    if (v35 == v33)
     {
       v34 = -1;
     }
@@ -8294,13 +8322,14 @@ LABEL_11:
       v34 = *(v33 + 48);
     }
 
-    return std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long>(a8, v34);
+    v42 = v34;
+    return std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long>(a8, v34, &v42);
   }
 
   return result;
 }
 
-void CRCHNetwork::compose(uint64_t a1, uint64_t a2, void *a3, void *a4, uint64_t a5)
+void CRCHNetwork::compose(uint64_t a1, uint64_t a2, void *a3, void *a4, uint64_t **a5)
 {
   std::vector<CRCHNetworkNode>::resize((a1 + 40), 0);
   std::__tree<CRCHuint128>::destroy(a1 + 64, *(a1 + 72));
@@ -8387,7 +8416,7 @@ void CRCHNetwork::compose(uint64_t a1, uint64_t a2, void *a3, void *a4, uint64_t
   std::vector<NetworkEdge>::__destroy_vector::operator()[abi:ne200100](&v24);
 }
 
-void sub_1B420A790(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20, void *a21, uint64_t a22, char a23, void *a24, uint64_t a25, void **a26, void *a27)
+void sub_1B420A790(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, uint64_t a23, void *a24, uint64_t a25, void **a26, void *a27)
 {
   std::__tree<CRCHuint128>::destroy(&a20, a21);
   std::__tree<CRCHuint128>::destroy(&a23, a24);
@@ -8397,34 +8426,34 @@ void sub_1B420A790(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t CRCHNetwork::compose8(uint64_t a1, uint64_t a2, void *a3, void *a4, uint64_t a5, void *a6, uint64_t a7, uint64_t a8, unint64_t a9, uint64_t a10, unint64_t a11, char a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16)
+uint64_t *CRCHNetwork::compose8(uint64_t a1, uint64_t a2, void *a3, void *a4, uint64_t a5, uint64_t *a6, uint64_t *a7, uint64_t **a8, unint64_t a9, uint64_t a10, uint64_t *a11, char a12, uint64_t a13, uint64_t a14, uint64_t *a15, uint64_t **a16)
 {
   v19 = a13;
   v20 = a11;
   v21 = a9;
   v23 = a7 == a11 || a6 == a11;
-  v64 = v23;
-  v84 = a9;
-  v85 = a11;
+  v63 = v23;
+  v83 = a9;
+  v84 = a11;
   result = std::__tree<std::__value_type<CRCHNodeTuple<unsigned long,unsigned long>,unsigned long>,std::__map_value_compare<CRCHNodeTuple<unsigned long,unsigned long>,std::__value_type<CRCHNodeTuple<unsigned long,unsigned long>,unsigned long>,std::less<CRCHNodeTuple<unsigned long,unsigned long>>,true>,std::allocator<std::__value_type<CRCHNodeTuple<unsigned long,unsigned long>,unsigned long>>>::find<CRCHNodeTuple<unsigned long,unsigned long>>(a13, a9, a11);
-  if (a13 + 8 == result)
+  if ((a13 + 8) == result)
   {
     goto LABEL_17;
   }
 
-  v25 = *(result + 48);
+  v25 = result[6];
   if (v25 == -1)
   {
     goto LABEL_17;
   }
 
-  v26 = *(a15 + 8);
+  v26 = a15[1];
   if (!v26)
   {
     goto LABEL_17;
   }
 
-  v27 = a15 + 8;
+  v27 = a15 + 1;
   do
   {
     v28 = *(v26 + 32);
@@ -8439,24 +8468,24 @@ uint64_t CRCHNetwork::compose8(uint64_t a1, uint64_t a2, void *a3, void *a4, uin
   }
 
   while (v26);
-  if (v27 == a15 + 8 || v25 < *(v27 + 32))
+  if (v27 == a15 + 1 || v25 < v27[4])
   {
 LABEL_17:
     if (a12)
     {
-      v85 = a6;
+      v84 = a6;
       v20 = a6;
     }
 
-    v57 = v20;
-    v83 = *(a13 + 16);
-    v71 = CRCHNodeTupleMap<unsigned long>::add(a13, &v84, &v83);
+    v56 = v20;
+    v82 = *(a13 + 16);
+    v70 = CRCHNodeTupleMap<unsigned long>::add(a13, &v83, &v82);
     v31 = *(a2 + 40);
     if (*(v31 + 56 * a9))
     {
       v32 = 0;
       v33 = 0;
-      v61 = a8 + 8;
+      v60 = a8 + 1;
       if (a4)
       {
         v34 = a4 == a3;
@@ -8468,27 +8497,27 @@ LABEL_17:
       }
 
       v35 = v34;
-      v58 = v35;
-      v69 = a2;
+      v57 = v35;
+      v68 = a2;
       while (1)
       {
-        v72 = v32;
+        v71 = v32;
         v36 = *(a2 + 88) + 80 * *(v31 + 56 * v21 + 16) + v32;
         v38 = *(v36 + 8);
         v37 = *(v36 + 16);
-        v82 = v37;
+        v81 = v37;
         CursorByAdvancingWithCharacters = LMLexiconGetCursorByAdvancingWithCharacters();
         v40 = CursorByAdvancingWithCharacters;
-        v70 = v37;
-        if (v64)
+        v69 = v37;
+        if (v63)
         {
           break;
         }
 
-        LODWORD(v73) = 0;
+        LODWORD(v72) = 0;
         v42 = 0;
-        v67 = 0;
         v66 = 0;
+        v65 = 0;
         if (CursorByAdvancingWithCharacters)
         {
           goto LABEL_41;
@@ -8497,7 +8526,7 @@ LABEL_17:
 LABEL_65:
         ++v33;
         v31 = *(a2 + 40);
-        v32 = v72 + 80;
+        v32 = v71 + 80;
         v19 = a13;
         if (v33 >= *(v31 + 56 * v21))
         {
@@ -8505,8 +8534,8 @@ LABEL_65:
         }
       }
 
-      ul2sh(v37, v80);
-      v73 = CRCHSymbolMap::store(a1 + 136, v80);
+      ul2sh(v79, v37);
+      v72 = CRCHSymbolMap::store(a1 + 136, v79);
       if (v40)
       {
         TokenID = LMLexiconCursorFirstTokenID();
@@ -8517,74 +8546,71 @@ LABEL_65:
         TokenID = 0;
       }
 
-      if (v61 == std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::find<std::string>(a8, v80))
+      if (v60 == std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::find<std::string>(a8, v79))
       {
-        v76[0] = v80;
-        *(std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a8, v80) + 14) = TokenID;
+        v75[0] = v79;
+        *(std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a8, v79, v75) + 14) = TokenID;
       }
 
-      v76[0] = v38;
-      v76[1] = a6;
-      v79[0] = *(v19 + 16);
-      v67 = CRCHNodeTupleMap<unsigned long>::add(v19, v76, v79);
-      if ((CRCHNetwork::addCWComposedCharacterEdge(a1, a2, v19, v71, v38, a6, 1, v73, v36, a16, a14) & 1) == 0)
+      v75[0] = v38;
+      v75[1] = a6;
+      v78[0] = v19[2];
+      v66 = CRCHNodeTupleMap<unsigned long>::add(v19, v75, v78);
+      if ((CRCHNetwork::addCWComposedCharacterEdge(a1, a2, v19, v70, v38, a6, 1, v72, v36, a16, a14) & 1) == 0)
       {
         RootCursor = LMLexiconGetRootCursor();
-        LOBYTE(v56) = 0;
-        CRCHNetwork::compose8(a1, a2, a3, a4, a5, a6, a7, a8, v38, RootCursor, a6, v56, v19, a14, a15, a16);
-        if ((v58 & 1) == 0)
+        CRCHNetwork::compose8(a1, a2, a3, a4, a5, a6, a7, a8, v38, RootCursor, a6, 0, v19, a14, a15, a16);
+        if ((v57 & 1) == 0)
         {
           v44 = LMLexiconGetRootCursor();
-          LOBYTE(v56) = 1;
-          CRCHNetwork::compose8(a1, a2, a4, a4, a7, a6, a7, a8, v38, v44, a7, v56, v19, a14, a15, a16);
+          CRCHNetwork::compose8(a1, a2, a4, a4, a7, a6, a7, a8, v38, v44, a7, 1, v19, a14, a15, a16);
         }
       }
 
-      if (v81 < 0)
+      if (v80 < 0)
       {
-        operator delete(v80[0]);
+        operator delete(v79[0]);
       }
 
-      v42 = v70;
-      v66 = v71;
+      v42 = v69;
+      v65 = v70;
       if (!v40)
       {
         goto LABEL_65;
       }
 
 LABEL_41:
-      v65 = v33;
+      v64 = v33;
       v45 = *(*(a2 + 40) + 56 * v38 + 48);
       HasChildren = LMLexiconCursorHasChildren();
       HasEntries = LMLexiconCursorHasEntries();
       if (HasChildren)
       {
         v47 = LMLexiconCursorHash();
-        v80[0] = v38;
-        v80[1] = v47;
-        v76[0] = *(a13 + 16);
-        CRCHNodeTupleMap<unsigned long>::add(a13, v80, v76);
-        if ((CRCHNetwork::addCWComposedCharacterEdge(a1, v69, a13, v71, v38, v47, 0, 0, v36, a16, a14) & 1) == 0)
+        v79[0] = v38;
+        v79[1] = v47;
+        v75[0] = *(a13 + 16);
+        CRCHNodeTupleMap<unsigned long>::add(a13, v79, v75);
+        if ((CRCHNetwork::addCWComposedCharacterEdge(a1, v68, a13, v70, v38, v47, 0, 0, v36, a16, a14) & 1) == 0)
         {
-          LOBYTE(v56) = 0;
-          CRCHNetwork::compose8(a1, v69, a3, a4, a5, a6, a7, a8, v38, v40, v47, v56, a13, a14, a15, a16);
+          CRCHNetwork::compose8(a1, v68, a3, a4, a5, a6, a7, a8, v38, v40, v47, 0, a13, a14, a15, a16);
         }
       }
 
       v48 = HasEntries | v45;
-      a2 = v69;
+      a2 = v68;
       v21 = a9;
-      v33 = v65;
+      v33 = v64;
       if (v48)
       {
-        v59 = LMLexiconGetRootCursor();
-        getStringFromCursor(v80, a3);
-        v49 = CRCHSymbolMap::store(a1 + 136, v80);
-        v79[0] = v38;
-        v79[1] = a6;
-        v78 = *(a13 + 16);
-        v50 = CRCHNodeTupleMap<unsigned long>::add(a13, v79, &v78);
-        if (!(v66 | v67 | v42 | v73) || v66 != v71 || v67 != v50 || (v42 == v70 ? (v51 = v73 == v49) : (v51 = 0), !v51))
+        v58 = LMLexiconGetRootCursor();
+        getStringFromCursor(v79, a3, v40);
+        v49 = CRCHSymbolMap::store(a1 + 136, v79);
+        v78[0] = v38;
+        v78[1] = a6;
+        v77 = *(a13 + 16);
+        v50 = CRCHNodeTupleMap<unsigned long>::add(a13, v78, &v77);
+        if (!(v65 | v66 | v42 | v72) || v65 != v70 || v66 != v50 || (v42 == v69 ? (v51 = v72 == v49) : (v51 = 0), !v51))
         {
           if (HasEntries)
           {
@@ -8596,37 +8622,35 @@ LABEL_41:
             v52 = 0;
           }
 
-          getStringFromCursor(v76, a3);
-          if (v61 == std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::find<std::string>(a8, v76))
+          getStringFromCursor(v75, a3, v40);
+          if (v60 == std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::find<std::string>(a8, v75))
           {
-            v86 = v76;
-            *(std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a8, v76) + 14) = v52;
+            v85 = v75;
+            *(std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a8, v75, &v85) + 14) = v52;
           }
 
-          if ((CRCHNetwork::addCWComposedCharacterEdge(a1, v69, a13, v71, v38, a6, 1, v49, v36, a16, a14) & 1) == 0)
+          if ((CRCHNetwork::addCWComposedCharacterEdge(a1, v68, a13, v70, v38, a6, 1, v49, v36, a16, a14) & 1) == 0)
           {
-            LOBYTE(v56) = 0;
-            CRCHNetwork::compose8(a1, v69, a3, a4, a5, a6, a7, a8, v38, v59, a6, v56, a13, a14, a15, a16);
-            if ((v58 & 1) == 0)
+            CRCHNetwork::compose8(a1, v68, a3, a4, a5, a6, a7, a8, v38, v58, a6, 0, a13, a14, a15, a16);
+            if ((v57 & 1) == 0)
             {
               v53 = LMLexiconGetRootCursor();
-              LOBYTE(v56) = 1;
-              CRCHNetwork::compose8(a1, v69, a4, a4, a7, a6, a7, a8, v38, v53, a7, v56, a13, a14, a15, a16);
+              CRCHNetwork::compose8(a1, v68, a4, a4, a7, a6, a7, a8, v38, v53, a7, 1, a13, a14, a15, a16);
             }
           }
 
-          if (v77 < 0)
+          if (v76 < 0)
           {
-            operator delete(v76[0]);
+            operator delete(v75[0]);
           }
         }
 
-        if (v81 < 0)
+        if (v80 < 0)
         {
-          operator delete(v80[0]);
+          operator delete(v79[0]);
         }
 
-        a2 = v69;
+        a2 = v68;
         v21 = a9;
       }
 
@@ -8634,7 +8658,7 @@ LABEL_41:
     }
 
 LABEL_66:
-    v54 = std::__tree<std::__value_type<CRCHNodeTuple<unsigned long,unsigned long>,unsigned long>,std::__map_value_compare<CRCHNodeTuple<unsigned long,unsigned long>,std::__value_type<CRCHNodeTuple<unsigned long,unsigned long>,unsigned long>,std::less<CRCHNodeTuple<unsigned long,unsigned long>>,true>,std::allocator<std::__value_type<CRCHNodeTuple<unsigned long,unsigned long>,unsigned long>>>::find<CRCHNodeTuple<unsigned long,unsigned long>>(v19, v21, v57);
+    v54 = std::__tree<std::__value_type<CRCHNodeTuple<unsigned long,unsigned long>,unsigned long>,std::__map_value_compare<CRCHNodeTuple<unsigned long,unsigned long>,std::__value_type<CRCHNodeTuple<unsigned long,unsigned long>,unsigned long>,std::less<CRCHNodeTuple<unsigned long,unsigned long>>,true>,std::allocator<std::__value_type<CRCHNodeTuple<unsigned long,unsigned long>,unsigned long>>>::find<CRCHNodeTuple<unsigned long,unsigned long>>(v19, v21, v56);
     if (a13 + 8 == v54)
     {
       v55 = -1;
@@ -8645,8 +8669,8 @@ LABEL_66:
       v55 = *(v54 + 48);
     }
 
-    v80[0] = v55;
-    return std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long>(a15, v55);
+    v79[0] = v55;
+    return std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long>(a15, v55, v79);
   }
 
   return result;
@@ -8667,7 +8691,7 @@ void sub_1B420AE98(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t CRCHNetwork::findFirstEdgeGivenSymbol(CRCHNetwork *this, unint64_t a2, unint64_t a3)
+uint64_t CRCHNetwork::findFirstEdgeGivenSymbol(CRCHNetwork *this, unint64_t *a2, unint64_t a3)
 {
   v36 = a3;
   v37 = a2;
@@ -8677,7 +8701,7 @@ uint64_t CRCHNetwork::findFirstEdgeGivenSymbol(CRCHNetwork *this, unint64_t a2, 
   {
     v8 = this + 208;
     v7 = *(this + 26);
-    v9 = this + 200;
+    v9 = (this + 200);
     if (!v7)
     {
       goto LABEL_10;
@@ -8755,7 +8779,8 @@ LABEL_16:
           v22 = *(*(this + 11) + 80 * *(v20 + 56 * v37 + 16) + 80 * v21 + 16);
           if (v23 != v22)
           {
-            std::__tree<std::__value_type<unsigned long,std::map<unsigned long,unsigned long>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::map<unsigned long,unsigned long>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::map<unsigned long,unsigned long>>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(this + 200, v37);
+            v32 = &v37;
+            std::__tree<std::__value_type<unsigned long,std::map<unsigned long,unsigned long>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::map<unsigned long,unsigned long>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::map<unsigned long,unsigned long>>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(this + 25, v37, &v32);
             operator new();
           }
 
@@ -8769,7 +8794,8 @@ LABEL_16:
       a2 = v37;
     }
 
-    v24 = std::__tree<std::__value_type<unsigned long,std::map<unsigned long,unsigned long>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::map<unsigned long,unsigned long>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::map<unsigned long,unsigned long>>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(this + 200, a2);
+    v32 = &v37;
+    v24 = std::__tree<std::__value_type<unsigned long,std::map<unsigned long,unsigned long>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::map<unsigned long,unsigned long>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::map<unsigned long,unsigned long>>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(this + 25, a2, &v32);
     v27 = v24[6];
     v25 = v24 + 6;
     v26 = v27;
@@ -8781,7 +8807,7 @@ LABEL_16:
     v28 = v25;
     do
     {
-      v29 = v26[4];
+      v29 = *(v26 + 32);
       v12 = v29 >= a3;
       v30 = v29 < a3;
       if (v12)
@@ -8789,7 +8815,7 @@ LABEL_16:
         v28 = v26;
       }
 
-      v26 = v26[v30];
+      v26 = *(v26 + 8 * v30);
     }
 
     while (v26);
@@ -8799,10 +8825,13 @@ LABEL_36:
       v28 = v25;
     }
 
-    if (v28 != std::__tree<std::__value_type<unsigned long,std::map<unsigned long,unsigned long>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::map<unsigned long,unsigned long>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::map<unsigned long,unsigned long>>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(v9, v37) + 6)
+    v32 = &v37;
+    if (v28 != std::__tree<std::__value_type<unsigned long,std::map<unsigned long,unsigned long>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::map<unsigned long,unsigned long>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::map<unsigned long,unsigned long>>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(v9, v37, &v32) + 6)
     {
-      v31 = std::__tree<std::__value_type<unsigned long,std::map<unsigned long,unsigned long>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::map<unsigned long,unsigned long>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::map<unsigned long,unsigned long>>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(v9, v37);
-      return std::__tree<std::__value_type<unsigned long,unsigned long>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,unsigned long>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,unsigned long>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>((v31 + 5), &v36)[5];
+      v32 = &v37;
+      v31 = std::__tree<std::__value_type<unsigned long,std::map<unsigned long,unsigned long>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::map<unsigned long,unsigned long>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::map<unsigned long,unsigned long>>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(v9, v37, &v32);
+      v32 = &v36;
+      return std::__tree<std::__value_type<unsigned long,unsigned long>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,unsigned long>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,unsigned long>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(v31 + 5, &v36, &std::piecewise_construct, &v32)[5];
     }
 
     return -1;
@@ -8833,14 +8862,14 @@ LABEL_36:
   return result;
 }
 
-void sub_1B420B284(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, char a14, void *a15)
+void sub_1B420B284(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, void *a15)
 {
   std::__tree<CRCHuint128>::destroy(v15 + 8, a12);
   std::__tree<CRCHuint128>::destroy(&a14, a15);
   _Unwind_Resume(a1);
 }
 
-uint64_t CRCHNetwork::addCWComposedCharacterEdge(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, unint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12)
+uint64_t CRCHNetwork::addCWComposedCharacterEdge(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t *a6, uint64_t *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12)
 {
   v44[0] = a6;
   v44[1] = a7;
@@ -8873,7 +8902,7 @@ uint64_t CRCHNetwork::addCWComposedCharacterEdge(uint64_t a1, uint64_t a2, uint6
     if (v21 == a10 + 8 || v19 < *(v21 + 32))
     {
 LABEL_11:
-      std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long const&>(a10, &v42);
+      std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long const&>(a10, &v42, &v42);
       v19 = v42;
     }
   }
@@ -8915,14 +8944,12 @@ LABEL_11:
   }
 
   v37 = v28;
-  v32[0] = a5;
-  v32[1] = v19;
-  v32[2] = v25;
-  v32[3] = v27;
-  if (a1 + 232 == std::__tree<CRCHuint128>::find<CRCHuint128>(a1 + 224, v32))
+  *&v32 = a5 | (v19 << 32);
+  *(&v32 + 1) = v25 | (v27 << 32);
+  if (a1 + 232 == std::__tree<CRCHuint128>::find<CRCHuint128>(a1 + 224, &v32))
   {
     std::vector<NetworkEdge>::push_back[abi:ne200100](a11, v35);
-    std::__tree<CRCHuint128>::__emplace_unique_key_args<CRCHuint128,CRCHuint128 const&>(a1 + 224, v32);
+    std::__tree<CRCHuint128>::__emplace_unique_key_args<CRCHuint128,CRCHuint128 const&>((a1 + 224), &v32, &v32);
     v30 = *(*(a2 + 40) + 56 * a6 + 48);
     if (v39)
     {
@@ -8949,19 +8976,19 @@ void sub_1B420B4DC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t CRCHNodeTupleMap<unsigned long>::add(uint64_t a1, unint64_t *a2, uint64_t *a3)
+uint64_t *CRCHNodeTupleMap<unsigned long>::add(uint64_t **a1, uint64_t **a2, uint64_t *a3)
 {
   v3 = *a2;
   v4 = a2[1];
-  v5 = *(a1 + 8);
+  v5 = a1[1];
   if (!v5)
   {
 LABEL_29:
     operator new();
   }
 
-  v6 = (a1 + 8);
-  v7 = *(a1 + 8);
+  v6 = a1 + 1;
+  v7 = a1[1];
   do
   {
     v8 = v7[4];
@@ -8983,7 +9010,7 @@ LABEL_29:
   }
 
   while (v7);
-  if (v6 == (a1 + 8))
+  if (v6 == a1 + 1)
   {
     goto LABEL_16;
   }
@@ -9052,7 +9079,7 @@ LABEL_16:
   return v14;
 }
 
-uint64_t CRCHNetwork::addCWComposedCharacterEdge(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t a5, unint64_t a6, int a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11)
+uint64_t CRCHNetwork::addCWComposedCharacterEdge(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5, uint64_t *a6, int a7, uint64_t a8, uint64_t a9, uint64_t **a10, uint64_t a11)
 {
   v35[0] = a5;
   v35[1] = a6;
@@ -9063,7 +9090,7 @@ uint64_t CRCHNetwork::addCWComposedCharacterEdge(uint64_t a1, uint64_t a2, uint6
   {
     if (a10[2])
     {
-      v17 = *(*a10 + 32);
+      v17 = (*a10)[4];
       v33 = v17;
     }
 
@@ -9093,7 +9120,7 @@ uint64_t CRCHNetwork::addCWComposedCharacterEdge(uint64_t a1, uint64_t a2, uint6
       if (v20 == a10 + 1 || v17 < v20[4])
       {
 LABEL_15:
-        std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long const&>(a10, &v33);
+        std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long const&>(a10, &v33, &v33);
         v17 = v33;
       }
     }
@@ -9109,12 +9136,12 @@ LABEL_15:
   v28[2] = v24;
   v28[3] = a8;
   v28[4] = *(a9 + 32);
-  v27[0] = a4 | (v17 << 32);
-  v27[1] = v24 | (a8 << 32);
-  if (a1 + 232 == std::__tree<CRCHuint128>::find<CRCHuint128>(a1 + 224, v27))
+  *&v27 = a4 | (v17 << 32);
+  *(&v27 + 1) = v24 | (a8 << 32);
+  if (a1 + 232 == std::__tree<CRCHuint128>::find<CRCHuint128>(a1 + 224, &v27))
   {
     std::vector<NetworkEdge>::push_back[abi:ne200100](a11, v28);
-    std::__tree<CRCHuint128>::__emplace_unique_key_args<CRCHuint128,CRCHuint128 const&>(a1 + 224, v27);
+    std::__tree<CRCHuint128>::__emplace_unique_key_args<CRCHuint128,CRCHuint128 const&>((a1 + 224), &v27, &v27);
     v25 = *(*(a2 + 40) + 56 * a5 + 48);
     if (__p)
     {
@@ -9141,17 +9168,18 @@ void sub_1B420B850(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void getStringFromCursor(uint64_t a1, void *a2)
+void getStringFromCursor(uint64_t a1, void *a2, uint64_t a3)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = LMLexiconCursorTraversedLength();
-  v4[0] = 0;
+  v6 = *MEMORY[0x1E69E9840];
+  v4 = LMLexiconCursorTraversedLength();
+  v5[0] = 0;
   LMLexiconCursorGetTraversedCharacters();
-  iv2s(v4, v3, a1);
+  iv2s(v5, v4, a1);
 }
 
-void CRCHNetwork::expandForLM(void **a1, void *a2, int a3, uint64_t *a4)
+void CRCHNetwork::expandForLM(uint64_t **a1, void *a2, uint64_t a3, char **a4)
 {
+  v5 = a3;
   v8 = a1 + 9;
   std::__tree<CRCHuint128>::destroy((a1 + 8), a1[9]);
   *v8 = 0;
@@ -9159,16 +9187,16 @@ void CRCHNetwork::expandForLM(void **a1, void *a2, int a3, uint64_t *a4)
   v9 = v8 - 4;
   *(v8 - 1) = v8;
   std::vector<CRCHNetworkNode>::resize(v8 - 4, 0);
-  if (a3 < 2)
+  if (v5 < 2)
   {
     return;
   }
 
   std::vector<CRCHNetworkNode>::resize(v8 - 4, 0x6DB6DB6DB6DB6DB7 * ((a2[6] - a2[5]) >> 3));
   CRCHSymbolMap::operator=((a1 + 17), a2 + 17);
-  v52 = a3;
+  v52 = v5;
   v53 = 0uLL;
-  v10 = a3 - 1;
+  v10 = v5 - 1;
   do
   {
     CRCHLMHistory::push(&v52, 0);
@@ -9216,16 +9244,16 @@ void CRCHNetwork::expandForLM(void **a1, void *a2, int a3, uint64_t *a4)
   }
 
   v20 = &v49[3 * v15];
-  v21 = *(v20 + 8);
+  v21 = v20[1];
   if (!v21)
   {
     goto LABEL_19;
   }
 
-  v22 = v20 + 8;
+  v22 = v20 + 1;
   do
   {
-    v23 = *(v21 + 32);
+    v23 = v21[4];
     v24 = v23 >= v16;
     v25 = v23 < v16;
     if (v24)
@@ -9233,23 +9261,23 @@ void CRCHNetwork::expandForLM(void **a1, void *a2, int a3, uint64_t *a4)
       v22 = v21;
     }
 
-    v21 = *(v21 + 8 * v25);
+    v21 = v21[v25];
   }
 
   while (v21);
-  if (v22 == v20 + 8 || v16 < *(v22 + 32))
+  if (v22 == v20 + 1 || v16 < v22[4])
   {
 LABEL_19:
     v46 = v16;
     LODWORD(v47) = 0;
-    std::__tree<std::__value_type<unsigned long long,unsigned long>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,unsigned long>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,unsigned long>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long,int>>(v20, v16);
+    std::__tree<std::__value_type<unsigned long long,unsigned long>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,unsigned long>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,unsigned long>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long,int>>(v20, v16, &v46);
     v48 = 1;
   }
 
   std::vector<int>::vector[abi:ne200100](&v46, 0x6DB6DB6DB6DB6DB7 * ((a2[6] - a2[5]) >> 3));
   std::vector<int>::vector[abi:ne200100](v45, 0x6DB6DB6DB6DB6DB7 * ((a2[6] - a2[5]) >> 3));
   std::vector<int>::vector[abi:ne200100](__p, 0x6DB6DB6DB6DB6DB7 * ((a2[6] - a2[5]) >> 3));
-  CRCHNetwork::storeAllLMContextDFS2(a1, a2, a2[4], &v49, &v48, __p, &v46, v45, a3);
+  CRCHNetwork::storeAllLMContextDFS2(a1, a2, a2[4], &v49, &v48, __p, &v46, v45, v5);
   v26 = v49;
   if (v49 == v50)
   {
@@ -9281,7 +9309,7 @@ LABEL_19:
       {
         if (!(v27 >> 61))
         {
-          v34 = v33 - v30;
+          v34 = &v33[-v30];
           if (v34 >> 2 > v27)
           {
             v27 = v34 >> 2;
@@ -9309,14 +9337,14 @@ LABEL_19:
       }
 
       bzero(a4[1], 8 * v32);
-      v36 = v28 + 8 * v32;
+      v36 = &v28[8 * v32];
       goto LABEL_37;
     }
   }
 
   if (v31 > v27)
   {
-    v36 = v30 + 8 * v27;
+    v36 = (v30 + 8 * v27);
 LABEL_37:
     *v29 = v36;
   }
@@ -9371,7 +9399,7 @@ LABEL_37:
   }
 
   std::vector<CRCHNetworkNode>::resize(v9, v48);
-  CRCHNetwork::buildNewGraphFromLMContexts(a1, a2, &v49, a3);
+  CRCHNetwork::buildNewGraphFromLMContexts(a1, a2, &v49, v5);
   if (__p[0])
   {
     __p[1] = __p[0];
@@ -9442,22 +9470,22 @@ uint64_t CRCHNetwork::storeAllLMContextDFS2(uint64_t result, uint64_t a2, uint64
 {
   if (*(*a6 + 4 * a3) <= 0)
   {
-    v49 = 0u;
-    memset(v48, 0, sizeof(v48));
+    v52 = 0u;
+    memset(v51, 0, sizeof(v51));
     v10 = (*a4 + 24 * a3);
     v11 = *v10;
-    v35 = v10 + 1;
-    v36 = result;
+    v36 = v10 + 1;
+    v37 = result;
     if (*v10 == v10 + 1)
     {
-      return std::deque<std::pair<int,int>>::~deque[abi:ne200100](v48);
+      return std::deque<std::pair<int,int>>::~deque[abi:ne200100](v51);
     }
 
-    v34 = 56 * a3;
+    v35 = 56 * a3;
     for (i = 1; ; i = 0)
     {
       v16 = *(a2 + 40);
-      if (!*(v16 + v34))
+      if (!*(v16 + v35))
       {
         *(*a6 + 4 * a3) = 1;
         goto LABEL_43;
@@ -9465,23 +9493,23 @@ uint64_t CRCHNetwork::storeAllLMContextDFS2(uint64_t result, uint64_t a2, uint64
 
       v17 = 0;
       v18 = 0;
-      v37 = (v11[4] >> 40) & 0xFFFFFLL;
+      v38 = (v11[4] >> 40) & 0xFFFFFLL;
       do
       {
-        NetworkEdge::NetworkEdge(v43, (*(a2 + 88) + 80 * *(v16 + 56 * a3 + 16) + v17));
-        v41 = a9;
-        v42 = 0uLL;
+        NetworkEdge::NetworkEdge(v46, (*(a2 + 88) + 80 * *(v16 + 56 * a3 + 16) + v17));
+        v44 = a9;
+        v45 = 0uLL;
         if (a9 == 3)
         {
-          CRCHLMHistory::push(&v41, v37);
+          CRCHLMHistory::push(&v44, v38);
         }
 
-        CRCHLMHistory::push(&v41, v45);
-        if (*(*(a2 + 40) + 56 * v44[0] + 48))
+        CRCHLMHistory::push(&v44, v48);
+        if (*(*(a2 + 40) + 56 * v47[0] + 48))
         {
-          if (v41 == 2 || v41 == 3)
+          if (v44 == 2 || v44 == 3)
           {
-            v19 = v44[0] & 0xFFFFF;
+            v19 = v47[0] & 0xFFFFF;
             goto LABEL_17;
           }
 
@@ -9490,44 +9518,47 @@ LABEL_15:
           goto LABEL_17;
         }
 
-        if (v41 != 2)
+        if (v44 != 2)
         {
-          if (v41 == 3)
+          if (v44 == 3)
           {
-            v20 = vand_s8(*(&v42 + 4), 0xF0000000FLL);
+            v20 = vand_s8(*(&v45 + 4), 0xF0000000FLL);
             v21.i64[0] = v20.u32[0];
             v21.i64[1] = v20.u32[1];
             v22 = vshlq_u64(v21, xmmword_1B42AF6B0);
-            v19 = v22.i64[0] | v44[0] & 0xFFFFF | v22.i64[1];
+            v19 = v22.i64[0] | v47[0] & 0xFFFFF | v22.i64[1];
             goto LABEL_17;
           }
 
           goto LABEL_15;
         }
 
-        v19 = v44[0] & 0xFFFFF | ((DWORD1(v42) & 0xFFFFFLL) << 20);
+        v19 = v47[0] & 0xFFFFF | ((DWORD1(v45) & 0xFFFFFLL) << 20);
 LABEL_17:
-        if (std::__tree<std::__value_type<unsigned long long,unsigned long>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,unsigned long>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,unsigned long>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long,int>>(*a4 + 24 * v44[0], v19))
+        v23 = (*a4 + 24 * v47[0]);
+        v42 = v19;
+        v43 = *a5;
+        if (std::__tree<std::__value_type<unsigned long long,unsigned long>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,unsigned long>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,unsigned long>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long,int>>(v23, v19, &v42))
         {
           ++*a5;
         }
 
-        v23 = v44[0];
-        v24 = *(*a8 + 4 * v44[0]);
+        v24 = v47[0];
+        v25 = *(*a8 + 4 * v47[0]);
         if (i)
         {
-          *(*a8 + 4 * v44[0]) = ++v24;
+          *(*a8 + 4 * v47[0]) = ++v25;
         }
 
-        if (*(*(a2 + 40) + 56 * v23 + 8) == v24)
+        if (*(*(a2 + 40) + 56 * v24 + 8) == v25)
         {
-          *(*a7 + 4 * v23) = 1;
-          std::deque<unsigned long>::push_back(v48, v44);
+          *(*a7 + 4 * v24) = 1;
+          std::deque<unsigned long>::push_back(v51, v47);
         }
 
         if (__p)
         {
-          v47 = __p;
+          v50 = __p;
           operator delete(__p);
         }
 
@@ -9537,95 +9568,95 @@ LABEL_17:
       }
 
       while (v18 < *(v16 + 56 * a3));
-      v25 = *(&v49 + 1);
+      v26 = *(&v52 + 1);
       *(*a6 + 4 * a3) = 1;
-      if (v25)
+      if (v26)
       {
         do
         {
-          v26 = v25 - 1;
-          v27 = *(*(v48[1] + (((v49 + v26) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * ((v49 + v26) & 0x1FF));
-          *(&v49 + 1) = v26;
-          std::deque<unsigned long>::__maybe_remove_back_spare[abi:ne200100](v48, 1);
-          v28 = *(a2 + 40);
-          if ((*(v28 + 56 * v27 + 48) & 1) == 0 && !*(*a6 + 4 * v27))
+          v27 = v26 - 1;
+          v28 = *(*(v51[1] + (((v52 + v27) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * ((v52 + v27) & 0x1FF));
+          *(&v52 + 1) = v27;
+          std::deque<unsigned long>::__maybe_remove_back_spare[abi:ne200100](v51, 1);
+          v29 = *(a2 + 40);
+          if ((*(v29 + 56 * v28 + 48) & 1) == 0 && !*(*a6 + 4 * v28))
           {
-            CRCHNetwork::storeAllLMContextDFS2(v36, a2, v27, a4, a5, a6, a7, a8, a9);
-            v28 = *(a2 + 40);
+            CRCHNetwork::storeAllLMContextDFS2(v37, a2, v28, a4, a5, a6, a7, a8, a9);
+            v29 = *(a2 + 40);
           }
 
-          if (*(v28 + 56 * a3))
+          if (*(v29 + 56 * a3))
           {
-            v29 = 0;
             v30 = 0;
+            v31 = 0;
             while (1)
             {
-              NetworkEdge::NetworkEdge(v43, (*(a2 + 88) + 80 * *(v28 + 56 * a3 + 16) + v29));
-              v28 = *(a2 + 40);
-              if ((*(v28 + 56 * v44[0] + 48) & 1) == 0 && !*(*a6 + 4 * v44[0]) && *(*a7 + 4 * v44[0]) >= 1)
+              NetworkEdge::NetworkEdge(v46, (*(a2 + 88) + 80 * *(v29 + 56 * a3 + 16) + v30));
+              v29 = *(a2 + 40);
+              if ((*(v29 + 56 * v47[0] + 48) & 1) == 0 && !*(*a6 + 4 * v47[0]) && *(*a7 + 4 * v47[0]) >= 1)
               {
                 break;
               }
 
               if (__p)
               {
-                v47 = __p;
+                v50 = __p;
                 operator delete(__p);
-                v28 = *(a2 + 40);
+                v29 = *(a2 + 40);
               }
 
-              ++v30;
-              v29 += 80;
-              if (*(v28 + 56 * a3) <= v30)
+              ++v31;
+              v30 += 80;
+              if (*(v29 + 56 * a3) <= v31)
               {
                 goto LABEL_38;
               }
             }
 
-            std::deque<unsigned long>::push_back(v48, v44);
+            std::deque<unsigned long>::push_back(v51, v47);
             if (__p)
             {
-              v47 = __p;
+              v50 = __p;
               operator delete(__p);
             }
           }
 
 LABEL_38:
-          v25 = *(&v49 + 1);
+          v26 = *(&v52 + 1);
         }
 
-        while (*(&v49 + 1));
+        while (*(&v52 + 1));
       }
 
 LABEL_43:
-      v31 = v11[1];
-      if (v31)
+      v32 = v11[1];
+      if (v32)
       {
         do
         {
-          v32 = v31;
-          v31 = *v31;
+          v33 = v32;
+          v32 = *v32;
         }
 
-        while (v31);
+        while (v32);
       }
 
       else
       {
         do
         {
-          v32 = v11[2];
-          v33 = *v32 == v11;
-          v11 = v32;
+          v33 = v11[2];
+          v34 = *v33 == v11;
+          v11 = v33;
         }
 
-        while (!v33);
+        while (!v34);
       }
 
-      v11 = v32;
-      if (v32 == v35)
+      v11 = v33;
+      if (v33 == v36)
       {
-        return std::deque<std::pair<int,int>>::~deque[abi:ne200100](v48);
+        return std::deque<std::pair<int,int>>::~deque[abi:ne200100](v51);
       }
     }
   }
@@ -9644,7 +9675,7 @@ void sub_1B420C288(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void CRCHNetwork::buildNewGraphFromLMContexts(CRCHNetwork *a1, void *a2, uint64_t *a3, int a4)
+void CRCHNetwork::buildNewGraphFromLMContexts(uint64_t **a1, void *a2, uint64_t *a3, int a4)
 {
   memset(v50, 0, 24);
   v4 = a2[5];

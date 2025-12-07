@@ -96,12 +96,12 @@ id __91__PXNavigationBarAllowingUnclippedSubviewHitTest__unclippedViewPassingHit
   topItem = [(PXNavigationBarAllowingUnclippedSubviewHitTest *)self topItem];
   _preferredNavigationBarVisibility = [topItem _preferredNavigationBarVisibility];
 
-  if ((!v8 || __68__PXNavigationBarAllowingUnclippedSubviewHitTest_hitTest_withEvent___block_invoke()) && ([(PXNavigationBarAllowingUnclippedSubviewHitTest *)self isHidden]& 1) == 0)
+  if ((!v8 || __68__PXNavigationBarAllowingUnclippedSubviewHitTest_hitTest_withEvent___block_invoke(v8)) && ([(PXNavigationBarAllowingUnclippedSubviewHitTest *)self isHidden]& 1) == 0)
   {
     [(PXNavigationBarAllowingUnclippedSubviewHitTest *)self alpha];
     if (v11 > 0.01 && [(PXNavigationBarAllowingUnclippedSubviewHitTest *)self isUserInteractionEnabled]&& !_preferredNavigationBarVisibility)
     {
-      if (v8 && (__68__PXNavigationBarAllowingUnclippedSubviewHitTest_hitTest_withEvent___block_invoke() & 1) != 0)
+      if (v8 && (__68__PXNavigationBarAllowingUnclippedSubviewHitTest_hitTest_withEvent___block_invoke(v8) & 1) != 0)
       {
         selfCopy = v8;
       }
@@ -121,13 +121,13 @@ id __91__PXNavigationBarAllowingUnclippedSubviewHitTest__unclippedViewPassingHit
   return v8;
 }
 
-uint64_t __68__PXNavigationBarAllowingUnclippedSubviewHitTest_hitTest_withEvent___block_invoke()
+uint64_t __68__PXNavigationBarAllowingUnclippedSubviewHitTest_hitTest_withEvent___block_invoke(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
-  v2 = [v1 isEqualToString:@"UIKit.NavigationBarContentView"];
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
+  v3 = [v2 isEqualToString:@"UIKit.NavigationBarContentView"];
 
-  return v2;
+  return v3;
 }
 
 @end

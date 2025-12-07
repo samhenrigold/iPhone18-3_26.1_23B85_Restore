@@ -15,7 +15,7 @@
   v7 = [(HDCoreMotionDataCollector *)&v11 initWithProfile:profile];
   if (v7)
   {
-    v8 = [typeCopy copy];
+    v8 = objc_msgSend_copy(typeCopy);
     distanceType = v7->_distanceType;
     v7->_distanceType = v8;
   }

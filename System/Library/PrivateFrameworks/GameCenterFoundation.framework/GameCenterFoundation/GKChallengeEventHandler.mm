@@ -332,29 +332,23 @@ LABEL_23:
   issuingPlayer = [challengeCopy issuingPlayer];
   if ([challengeCopy state] == 1)
   {
-    uiDelegate = self->_uiDelegate;
     if (objc_opt_respondsToSelector())
     {
       [(GKChallengeEventHandlerUIDelegate *)self->_uiDelegate showReceivedBannerForIssuingPlayer:issuingPlayer challenge:challengeCopy handler:completeCopy];
     }
   }
 
-  else
+  else if ([receivingPlayer isLocalPlayer])
   {
-    isLocalPlayer = [receivingPlayer isLocalPlayer];
-    v11 = self->_uiDelegate;
-    if (isLocalPlayer)
+    if (objc_opt_respondsToSelector())
     {
-      if (objc_opt_respondsToSelector())
-      {
-        [(GKChallengeEventHandlerUIDelegate *)self->_uiDelegate showLocallyCompletedBannerForIssuingPlayer:issuingPlayer challenge:challengeCopy handler:completeCopy];
-      }
+      [(GKChallengeEventHandlerUIDelegate *)self->_uiDelegate showLocallyCompletedBannerForIssuingPlayer:issuingPlayer challenge:challengeCopy handler:completeCopy];
     }
+  }
 
-    else if (objc_opt_respondsToSelector())
-    {
-      [(GKChallengeEventHandlerUIDelegate *)self->_uiDelegate showRemotelyCompletedBannerForReceivingPlayer:receivingPlayer challenge:challengeCopy handler:completeCopy];
-    }
+  else if (objc_opt_respondsToSelector())
+  {
+    [(GKChallengeEventHandlerUIDelegate *)self->_uiDelegate showRemotelyCompletedBannerForReceivingPlayer:receivingPlayer challenge:challengeCopy handler:completeCopy];
   }
 }
 

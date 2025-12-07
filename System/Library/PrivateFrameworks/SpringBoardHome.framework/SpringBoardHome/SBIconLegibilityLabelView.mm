@@ -71,31 +71,31 @@
     v13 = settingsCopy;
   }
 
-  +[SBHLegibilitySettings legibilityStrengthForLegibilityStyle:](SBHLegibilitySettings, "legibilityStrengthForLegibilityStyle:", [v13 style]);
-  v16 = v15;
-  v17 = SBLogLegibility();
-  v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG);
+  v15 = +[SBHLegibilitySettings legibilityStrengthForLegibilityStyle:](SBHLegibilitySettings, "legibilityStrengthForLegibilityStyle:", [v13 style]);
+  v17 = v16;
+  v18 = SBLogLegibility(v15);
+  v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG);
 
-  if (v18)
+  if (v19)
   {
     userInfo = [(SBUILegibilityView *)self userInfo];
     text = [parametersCopy text];
-    v21 = text;
+    v22 = text;
     if (text)
     {
-      v22 = text;
+      v23 = text;
     }
 
     else
     {
-      v22 = @"(Undefined)";
+      v23 = @"(Undefined)";
     }
 
-    [userInfo setObject:v22 forKey:@"underlyingText"];
+    [userInfo setObject:v23 forKey:@"underlyingText"];
   }
 
   _UILegibilitySettings = [settingsCopy _UILegibilitySettings];
-  [(SBUILegibilityView *)self updateForChangedSettings:_UILegibilitySettings options:v14 image:image strength:v16];
+  [(SBUILegibilityView *)self updateForChangedSettings:_UILegibilitySettings options:v14 image:image strength:v17];
 }
 
 - (SBIconView)iconView

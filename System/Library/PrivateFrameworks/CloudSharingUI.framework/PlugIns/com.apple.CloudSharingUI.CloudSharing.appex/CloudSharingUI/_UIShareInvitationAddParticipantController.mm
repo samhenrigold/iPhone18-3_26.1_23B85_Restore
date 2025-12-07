@@ -482,10 +482,11 @@
 
     else
     {
-      if ((IMStringIsEmail() & 1) == 0)
+      IsEmail = IMStringIsEmail();
+      if ((IsEmail & 1) == 0)
       {
-        v11 = cdui_default_log();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+        v12 = cdui_default_log(IsEmail);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
         {
           sub_1000C5A14();
         }
@@ -558,13 +559,13 @@
     v12 = [v9 initWithContact:contact address:stringValue kind:1];
     [addressView addRecipient:v12];
 
-    v13 = cdui_default_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    v14 = cdui_default_log(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       stringValue2 = [v7 stringValue];
       *buf = 138412290;
-      v22 = stringValue2;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "[INFO] Added phone participant %@ via contact sheet property", buf, 0xCu);
+      v24 = stringValue2;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "[INFO] Added phone participant %@ via contact sheet property", buf, 0xCu);
     }
 
 LABEL_7:
@@ -575,31 +576,31 @@ LABEL_7:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v15 = value;
+    v16 = value;
     addressView2 = [(_UIShareInvitationAddParticipantController *)self addressView];
-    v17 = [CNComposeRecipient alloc];
+    v18 = [CNComposeRecipient alloc];
     contact2 = [propertyCopy contact];
-    v19 = [v17 initWithContact:contact2 address:v15 kind:0];
-    [addressView2 addRecipient:v19];
+    v20 = [v18 initWithContact:contact2 address:v16 kind:0];
+    [addressView2 addRecipient:v20];
 
-    v13 = cdui_default_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    v14 = cdui_default_log(v21);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v22 = v15;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "[INFO] Added mail participant %@ via contact sheet property", buf, 0xCu);
+      v24 = v16;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "[INFO] Added mail participant %@ via contact sheet property", buf, 0xCu);
     }
 
     goto LABEL_7;
   }
 
 LABEL_8:
-  v20[0] = _NSConcreteStackBlock;
-  v20[1] = 3221225472;
-  v20[2] = sub_100003DC8;
-  v20[3] = &unk_100106D30;
-  v20[4] = self;
-  [(_UIShareInvitationAddParticipantController *)self dismissViewControllerAnimated:1 completion:v20];
+  v22[0] = _NSConcreteStackBlock;
+  v22[1] = 3221225472;
+  v22[2] = sub_100003DC8;
+  v22[3] = &unk_100106D30;
+  v22[4] = self;
+  [(_UIShareInvitationAddParticipantController *)self dismissViewControllerAnimated:1 completion:v22];
 }
 
 - (void)contactPicker:(id)picker didSelectContact:(id)contact
@@ -619,25 +620,25 @@ LABEL_8:
     if (v10)
     {
       addressView = [(_UIShareInvitationAddParticipantController *)self addressView];
-      v17 = [CNComposeRecipient alloc];
+      v18 = [CNComposeRecipient alloc];
       stringValue = [value2 stringValue];
-      v19 = [v17 initWithContact:v10 address:stringValue kind:1];
-      [addressView addRecipient:v19];
+      v20 = [v18 initWithContact:v10 address:stringValue kind:1];
+      [addressView addRecipient:v20];
 
-      v20 = cdui_default_log();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+      v22 = cdui_default_log(v21);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
       {
         stringValue2 = [value2 stringValue];
         *buf = 138412290;
-        v24 = stringValue2;
-        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "[INFO] Added phone participant %@ via contact sheet", buf, 0xCu);
+        v26 = stringValue2;
+        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_INFO, "[INFO] Added phone participant %@ via contact sheet", buf, 0xCu);
       }
     }
 
     else
     {
-      v20 = cdui_default_log();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
+      v22 = cdui_default_log(0);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
       {
         sub_1000C5A7C();
       }
@@ -654,11 +655,11 @@ LABEL_8:
     v12 = [[CNComposeRecipient alloc] initWithContact:v10 address:value kind:0];
     [addressView2 addRecipient:v12];
 
-    value2 = cdui_default_log();
+    value2 = cdui_default_log(v13);
     if (os_log_type_enabled(value2, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v24 = value;
+      v26 = value;
       _os_log_impl(&_mh_execute_header, value2, OS_LOG_TYPE_INFO, "[INFO] Added mail participant %@ via contact sheet", buf, 0xCu);
     }
 
@@ -667,7 +668,7 @@ LABEL_13:
     goto LABEL_14;
   }
 
-  v10 = cdui_default_log();
+  v10 = cdui_default_log(0);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
   {
     sub_1000C5A7C();
@@ -675,12 +676,12 @@ LABEL_13:
 
 LABEL_14:
 
-  v22[0] = _NSConcreteStackBlock;
-  v22[1] = 3221225472;
-  v22[2] = sub_10000412C;
-  v22[3] = &unk_100106D30;
-  v22[4] = self;
-  [(_UIShareInvitationAddParticipantController *)self dismissViewControllerAnimated:1 completion:v22];
+  v24[0] = _NSConcreteStackBlock;
+  v24[1] = 3221225472;
+  v24[2] = sub_10000412C;
+  v24[3] = &unk_100106D30;
+  v24[4] = self;
+  [(_UIShareInvitationAddParticipantController *)self dismissViewControllerAnimated:1 completion:v24];
 }
 
 + (id)contactStore
@@ -836,23 +837,23 @@ LABEL_14:
 
   if (displayString)
   {
-    v13 = [NSMutableAttributedString alloc];
+    v14 = [NSMutableAttributedString alloc];
     displayString2 = [recordCopy displayString];
-    v26 = NSFontAttributeName;
-    v27 = fontCopy;
-    v15 = [NSDictionary dictionaryWithObjects:&v27 forKeys:&v26 count:1];
-    v16 = [v13 initWithString:displayString2 attributes:v15];
+    v27 = NSFontAttributeName;
+    v28 = fontCopy;
+    v16 = [NSDictionary dictionaryWithObjects:&v28 forKeys:&v27 count:1];
+    v17 = [v14 initWithString:displayString2 attributes:v16];
 
     completelyMatchedAttributedStrings = [recordCopy completelyMatchedAttributedStrings];
-    [self _applyBoldFont:fondCopy toPartialMatches:completelyMatchedAttributedStrings inAttributedString:v16];
-    v11 = v16;
+    [self _applyBoldFont:fondCopy toPartialMatches:completelyMatchedAttributedStrings inAttributedString:v17];
+    v11 = v17;
 LABEL_7:
 
     goto LABEL_8;
   }
 
-  v18 = cdui_default_log();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
+  v19 = cdui_default_log(v13);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
   {
     sub_1000C5AF8();
   }
@@ -861,14 +862,14 @@ LABEL_7:
 
   if (address)
   {
-    v20 = [NSMutableAttributedString alloc];
+    v21 = [NSMutableAttributedString alloc];
     completelyMatchedAttributedStrings = [recordCopy address];
-    v24 = NSFontAttributeName;
-    v25 = fontCopy;
-    v21 = [NSDictionary dictionaryWithObjects:&v25 forKeys:&v24 count:1];
-    v22 = [v20 initWithString:completelyMatchedAttributedStrings attributes:v21];
+    v25 = NSFontAttributeName;
+    v26 = fontCopy;
+    v22 = [NSDictionary dictionaryWithObjects:&v26 forKeys:&v25 count:1];
+    v23 = [v21 initWithString:completelyMatchedAttributedStrings attributes:v22];
 
-    v11 = v22;
+    v11 = v23;
     goto LABEL_7;
   }
 
@@ -980,14 +981,14 @@ LABEL_8:
   composeRecipient = [v8 composeRecipient];
   [addressView addRecipient:composeRecipient];
 
-  v11 = cdui_default_log();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+  v12 = cdui_default_log(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
     composeRecipient2 = [v8 composeRecipient];
     address = [composeRecipient2 address];
-    v16 = 138412290;
-    v17 = address;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "[INFO] Added recipient %@ via type-ahead search", &v16, 0xCu);
+    v17 = 138412290;
+    v18 = address;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "[INFO] Added recipient %@ via type-ahead search", &v17, 0xCu);
   }
 
   addressView2 = [(_UIShareInvitationAddParticipantController *)self addressView];

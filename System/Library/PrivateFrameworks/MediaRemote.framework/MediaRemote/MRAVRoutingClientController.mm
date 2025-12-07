@@ -149,66 +149,64 @@ void __73__MRAVRoutingClientController_fetchPickableRoutesForCategory_completion
 
 - (void)_flushPendingCompletionHandlersWithPickableRoutes:(void *)routes forCategory:
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v5 = a2;
   routesCopy = routes;
   v7 = routesCopy;
   if (self)
   {
-    v21 = 0;
-    v22 = &v21;
-    v23 = 0x3032000000;
-    v24 = __Block_byref_object_copy__29;
-    v25 = __Block_byref_object_dispose__29;
-    v26 = 0;
+    v20 = 0;
+    v21 = &v20;
+    v22 = 0x3032000000;
+    v23 = __Block_byref_object_copy__29;
+    v24 = __Block_byref_object_dispose__29;
+    v25 = 0;
     v8 = *(self + 16);
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __93__MRAVRoutingClientController__flushPendingCompletionHandlersWithPickableRoutes_forCategory___block_invoke;
     block[3] = &unk_1E769D1B8;
     block[4] = self;
-    v19 = routesCopy;
-    v20 = &v21;
+    v18 = routesCopy;
+    v19 = &v20;
     dispatch_sync(v8, block);
     if (!v5)
     {
       v5 = MEMORY[0x1E695E0F0];
     }
 
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
-    v9 = v22[5];
-    v10 = [v9 countByEnumeratingWithState:&v14 objects:v27 count:16];
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
+    v9 = v21[5];
+    v10 = [v9 countByEnumeratingWithState:&v13 objects:v26 count:16];
     if (v10)
     {
-      v11 = *v15;
+      v11 = *v14;
       do
       {
         v12 = 0;
         do
         {
-          if (*v15 != v11)
+          if (*v14 != v11)
           {
             objc_enumerationMutation(v9);
           }
 
-          (*(*(*(&v14 + 1) + 8 * v12) + 16))(*(*(&v14 + 1) + 8 * v12));
+          (*(*(*(&v13 + 1) + 8 * v12) + 16))(*(*(&v13 + 1) + 8 * v12));
           ++v12;
         }
 
         while (v10 != v12);
-        v10 = [v9 countByEnumeratingWithState:&v14 objects:v27 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v13 objects:v26 count:16];
       }
 
       while (v10);
     }
 
-    _Block_object_dispose(&v21, 8);
+    _Block_object_dispose(&v20, 8);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_pickableRoutesDidChangeNotification:(id)notification

@@ -20,6 +20,7 @@
 - (void)handleResponse:(unsigned int)response result:(id)result;
 - (void)handleTaskCompletion;
 - (void)login;
+- (void)sendResponseCode:(unsigned int)code dictionary:(id)dictionary;
 - (void)start;
 @end
 
@@ -34,32 +35,13 @@
   v23.receiver = self;
   v23.super_class = CNTokenAuthenticator;
   v14 = [(CNTokenAuthenticator *)&v23 init];
-  if (!v14)
+  if (!v14 || stringCopy && (+[NSURL URLWithString:](NSURL, "URLWithString:", stringCopy), v15 = objc_claimAutoreleasedReturnValue(), -[CNTokenAuthenticator setUrl:](v14, "setUrl:", v15), v15, -[CNTokenAuthenticator url](v14, "url"), v16 = objc_claimAutoreleasedReturnValue(), [v16 scheme], v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(v17, "compare:options:", @"https", 1), v17, v16, v18))
   {
-    goto LABEL_4;
-  }
-
-  if (!stringCopy)
-  {
-    goto LABEL_5;
-  }
-
-  v15 = [NSURL URLWithString:stringCopy];
-  [(CNTokenAuthenticator *)v14 setUrl:v15];
-
-  v16 = [(CNTokenAuthenticator *)v14 url];
-  scheme = [v16 scheme];
-  v18 = [scheme compare:@"https" options:1];
-
-  if (v18)
-  {
-LABEL_4:
     v19 = 0;
   }
 
   else
   {
-LABEL_5:
     [(CNTokenAuthenticator *)v14 setToken:tokenCopy];
     v20 = objc_alloc_init(NSOperationQueue);
     [(CNTokenAuthenticator *)v14 setOpQueue:v20];
@@ -306,6 +288,21 @@ LABEL_9:
   return v8;
 }
 
+- (void)sendResponseCode:(unsigned int)code dictionary:(id)dictionary
+{
+  v4 = *&code;
+  dictionaryCopy = dictionary;
+  responseHandler = [(CNTokenAuthenticator *)self responseHandler];
+
+  if (responseHandler)
+  {
+    responseHandler2 = [(CNTokenAuthenticator *)self responseHandler];
+    (responseHandler2)[2](responseHandler2, v4, dictionaryCopy);
+  }
+
+  [(CNTokenAuthenticator *)self cancel];
+}
+
 - (void)handleAuthenticationChallenge:(id)challenge task:(id)task completionHandler:(id)handler
 {
   challengeCopy = challenge;
@@ -472,20 +469,7 @@ LABEL_36:
 - (id)credentialForBearerChallenge:(id)challenge
 {
   challengeCopy = challenge;
-  if (![(NSData *)self->_token length])
-  {
-    goto LABEL_4;
-  }
-
-  v5 = [NSString alloc];
-  token = [(CNTokenAuthenticator *)self token];
-  v7 = [v5 initWithData:token encoding:4];
-
-  protectionSpace = [challengeCopy protectionSpace];
-  [protectionSpace realm];
-  OAuth2 = _CFURLCredentialCreateOAuth2();
-
-  if (OAuth2)
+  if (-[NSData length](self->_token, "length") && (v5 = [NSString alloc], -[CNTokenAuthenticator token](self, "token"), v6 = objc_claimAutoreleasedReturnValue(), v7 = [v5 initWithData:v6 encoding:4], v6, objc_msgSend(challengeCopy, "protectionSpace"), v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "realm"), OAuth2 = _CFURLCredentialCreateOAuth2(), v8, v7, OAuth2))
   {
     v10 = [[NSURLCredential alloc] _initWithCFURLCredential:OAuth2];
     CFRelease(OAuth2);
@@ -493,7 +477,6 @@ LABEL_36:
 
   else
   {
-LABEL_4:
     v10 = 0;
   }
 

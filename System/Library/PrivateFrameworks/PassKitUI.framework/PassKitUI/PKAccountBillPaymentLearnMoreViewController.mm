@@ -153,10 +153,10 @@ void __63__PKAccountBillPaymentLearnMoreViewController_initWithAccount___block_i
 
 - (void)loadView
 {
-  v73 = *MEMORY[0x1E69E9840];
-  v70.receiver = self;
-  v70.super_class = PKAccountBillPaymentLearnMoreViewController;
-  [(PKAccountBillPaymentLearnMoreViewController *)&v70 loadView];
+  v76 = *MEMORY[0x1E69E9840];
+  v73.receiver = self;
+  v73.super_class = PKAccountBillPaymentLearnMoreViewController;
+  [(PKAccountBillPaymentLearnMoreViewController *)&v73 loadView];
   view = [(PKAccountBillPaymentLearnMoreViewController *)self view];
   systemBackgroundColor = [MEMORY[0x1E69DC888] systemBackgroundColor];
   [view setBackgroundColor:systemBackgroundColor];
@@ -170,158 +170,158 @@ void __63__PKAccountBillPaymentLearnMoreViewController_initWithAccount___block_i
   scrollView = self->_scrollView;
   self->_scrollView = v10;
 
-  v59 = view;
+  v62 = view;
   [view addSubview:self->_scrollView];
   v12 = [objc_alloc(MEMORY[0x1E69DCC10]) initWithFrame:{v6, v7, v8, v9}];
   titleLabel = self->_titleLabel;
   self->_titleLabel = v12;
 
   v14 = self->_titleLabel;
-  v15 = PKOBKHeaderTitleFont();
-  [(UILabel *)v14 setFont:v15];
+  v16 = PKOBKHeaderTitleFont(v15);
+  [(UILabel *)v14 setFont:v16];
 
-  v16 = self->_titleLabel;
-  v17 = PKOBKHeaderTitleTextColor();
-  [(UILabel *)v16 setTextColor:v17];
+  v17 = self->_titleLabel;
+  v18 = PKOBKHeaderTitleTextColor();
+  [(UILabel *)v17 setTextColor:v18];
 
   [(UILabel *)self->_titleLabel setNumberOfLines:0];
   [(UILabel *)self->_titleLabel setText:self->_titleText];
   [(UIScrollView *)self->_scrollView addSubview:self->_titleLabel];
-  v18 = [objc_alloc(MEMORY[0x1E69DCC10]) initWithFrame:{v6, v7, v8, v9}];
+  v19 = [objc_alloc(MEMORY[0x1E69DCC10]) initWithFrame:{v6, v7, v8, v9}];
   subtitleLabel = self->_subtitleLabel;
-  self->_subtitleLabel = v18;
+  self->_subtitleLabel = v19;
 
-  v20 = self->_subtitleLabel;
-  v21 = PKOBKHeaderSubtitleFont();
-  [(UILabel *)v20 setFont:v21];
+  v21 = self->_subtitleLabel;
+  v23 = PKOBKHeaderSubtitleFont(v22);
+  [(UILabel *)v21 setFont:v23];
 
-  v22 = self->_subtitleLabel;
-  v23 = PKOBKHeaderSubtitleTextColor();
-  [(UILabel *)v22 setTextColor:v23];
+  v24 = self->_subtitleLabel;
+  v26 = PKOBKHeaderSubtitleTextColor(v25);
+  [(UILabel *)v24 setTextColor:v26];
 
   [(UILabel *)self->_subtitleLabel setNumberOfLines:0];
   [(UILabel *)self->_subtitleLabel setText:self->_subtitleText];
   [(UIScrollView *)self->_scrollView addSubview:self->_subtitleLabel];
-  v61 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v64 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v69 = 0u;
+  v70 = 0u;
+  v71 = 0u;
+  v72 = 0u;
+  selfCopy = self;
+  v28 = self->_suggestionDescriptions;
+  v29 = [(NSArray *)v28 countByEnumeratingWithState:&v69 objects:v75 count:16];
+  if (v29)
+  {
+    v30 = v29;
+    v31 = *v70;
+    do
+    {
+      for (i = 0; i != v30; ++i)
+      {
+        if (*v70 != v31)
+        {
+          objc_enumerationMutation(v28);
+        }
+
+        v33 = *(*(&v69 + 1) + 8 * i);
+        v34 = [objc_alloc(MEMORY[0x1E69DCC10]) initWithFrame:{v6, v7, v8, v9}];
+        v35 = PKOBKBulletTitleFont(1);
+        [v34 setFont:v35];
+
+        v36 = PKOBKBulletTitleTextColor();
+        [v34 setTextColor:v36];
+
+        [v34 setNumberOfLines:0];
+        title = [v33 title];
+        [v34 setText:title];
+
+        v38 = [objc_alloc(MEMORY[0x1E69DCC10]) initWithFrame:{v6, v7, v8, v9}];
+        v39 = PKOBKBulletSubtitleFont();
+        [v38 setFont:v39];
+
+        v40 = PKOBKBulletSubtitleTextColor();
+        [v38 setTextColor:v40];
+
+        [v38 setNumberOfLines:0];
+        message = [v33 message];
+        [v38 setText:message];
+
+        v42 = objc_alloc_init(PKAccountBillPaymentLearnMoreSuggestionDescriptionLabel);
+        [(PKAccountBillPaymentLearnMoreSuggestionDescriptionLabel *)v42 setTitleLabel:v34];
+        [(PKAccountBillPaymentLearnMoreSuggestionDescriptionLabel *)v42 setMessageLabel:v38];
+        [(UIScrollView *)self->_scrollView addSubview:v34];
+        [(UIScrollView *)self->_scrollView addSubview:v38];
+        [v64 addObject:v42];
+      }
+
+      v30 = [(NSArray *)v28 countByEnumeratingWithState:&v69 objects:v75 count:16];
+    }
+
+    while (v30);
+  }
+
+  v43 = [v64 copy];
+  suggestionDescriptionLabels = self->_suggestionDescriptionLabels;
+  self->_suggestionDescriptionLabels = v43;
+
+  v45 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v65 = 0u;
   v66 = 0u;
   v67 = 0u;
   v68 = 0u;
-  v69 = 0u;
-  selfCopy = self;
-  v25 = self->_suggestionDescriptions;
-  v26 = [(NSArray *)v25 countByEnumeratingWithState:&v66 objects:v72 count:16];
-  if (v26)
-  {
-    v27 = v26;
-    v28 = *v67;
-    do
-    {
-      for (i = 0; i != v27; ++i)
-      {
-        if (*v67 != v28)
-        {
-          objc_enumerationMutation(v25);
-        }
-
-        v30 = *(*(&v66 + 1) + 8 * i);
-        v31 = [objc_alloc(MEMORY[0x1E69DCC10]) initWithFrame:{v6, v7, v8, v9}];
-        v32 = PKOBKBulletTitleFont(1);
-        [v31 setFont:v32];
-
-        v33 = PKOBKBulletTitleTextColor();
-        [v31 setTextColor:v33];
-
-        [v31 setNumberOfLines:0];
-        title = [v30 title];
-        [v31 setText:title];
-
-        v35 = [objc_alloc(MEMORY[0x1E69DCC10]) initWithFrame:{v6, v7, v8, v9}];
-        v36 = PKOBKBulletSubtitleFont();
-        [v35 setFont:v36];
-
-        v37 = PKOBKBulletSubtitleTextColor();
-        [v35 setTextColor:v37];
-
-        [v35 setNumberOfLines:0];
-        message = [v30 message];
-        [v35 setText:message];
-
-        v39 = objc_alloc_init(PKAccountBillPaymentLearnMoreSuggestionDescriptionLabel);
-        [(PKAccountBillPaymentLearnMoreSuggestionDescriptionLabel *)v39 setTitleLabel:v31];
-        [(PKAccountBillPaymentLearnMoreSuggestionDescriptionLabel *)v39 setMessageLabel:v35];
-        [(UIScrollView *)self->_scrollView addSubview:v31];
-        [(UIScrollView *)self->_scrollView addSubview:v35];
-        [v61 addObject:v39];
-      }
-
-      v27 = [(NSArray *)v25 countByEnumeratingWithState:&v66 objects:v72 count:16];
-    }
-
-    while (v27);
-  }
-
-  v40 = [v61 copy];
-  suggestionDescriptionLabels = self->_suggestionDescriptionLabels;
-  self->_suggestionDescriptionLabels = v40;
-
-  v42 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v62 = 0u;
-  v63 = 0u;
-  v64 = 0u;
-  v65 = 0u;
   obj = selfCopy->_footnotes;
-  v43 = [(NSArray *)obj countByEnumeratingWithState:&v62 objects:v71 count:16];
-  if (v43)
+  v46 = [(NSArray *)obj countByEnumeratingWithState:&v65 objects:v74 count:16];
+  if (v46)
   {
-    v44 = v43;
-    v45 = *v63;
-    v46 = *MEMORY[0x1E69DDD10];
-    v47 = *MEMORY[0x1E69DDC38];
+    v47 = v46;
+    v48 = *v66;
+    v49 = *MEMORY[0x1E69DDD10];
+    v50 = *MEMORY[0x1E69DDC38];
     do
     {
-      for (j = 0; j != v44; ++j)
+      for (j = 0; j != v47; ++j)
       {
-        if (*v63 != v45)
+        if (*v66 != v48)
         {
           objc_enumerationMutation(obj);
         }
 
-        v49 = *(*(&v62 + 1) + 8 * j);
-        v50 = [objc_alloc(MEMORY[0x1E69DCC10]) initWithFrame:{v6, v7, v8, v9}];
-        v51 = PKFontForDefaultDesign(v46, v47);
-        [v50 setFont:v51];
+        v52 = *(*(&v65 + 1) + 8 * j);
+        v53 = [objc_alloc(MEMORY[0x1E69DCC10]) initWithFrame:{v6, v7, v8, v9}];
+        v54 = PKFontForDefaultDesign(v49, v50);
+        [v53 setFont:v54];
 
-        v52 = PKOBKFooterCaptionTextColor();
-        [v50 setTextColor:v52];
+        v55 = PKOBKFooterCaptionTextColor();
+        [v53 setTextColor:v55];
 
-        [v50 setNumberOfLines:0];
-        [v50 setText:v49];
-        [(UIScrollView *)selfCopy->_scrollView addSubview:v50];
-        [v42 addObject:v50];
+        [v53 setNumberOfLines:0];
+        [v53 setText:v52];
+        [(UIScrollView *)selfCopy->_scrollView addSubview:v53];
+        [v45 addObject:v53];
       }
 
-      v44 = [(NSArray *)obj countByEnumeratingWithState:&v62 objects:v71 count:16];
+      v47 = [(NSArray *)obj countByEnumeratingWithState:&v65 objects:v74 count:16];
     }
 
-    while (v44);
+    while (v47);
   }
 
-  v53 = [v42 copy];
+  v56 = [v45 copy];
   footnoteLabels = selfCopy->_footnoteLabels;
-  selfCopy->_footnoteLabels = v53;
+  selfCopy->_footnoteLabels = v56;
 
-  v55 = [MEMORY[0x1E69DD168] pkui_plainNonInteractiveTextViewWithFrame:{v6, v7, v8, v9}];
+  v58 = [MEMORY[0x1E69DD168] pkui_plainNonInteractiveTextViewWithFrame:{v6, v7, v8, v9}];
   customerAgreementTextView = selfCopy->_customerAgreementTextView;
-  selfCopy->_customerAgreementTextView = v55;
+  selfCopy->_customerAgreementTextView = v58;
 
   [(UITextView *)selfCopy->_customerAgreementTextView setDelegate:selfCopy];
   [(UITextView *)selfCopy->_customerAgreementTextView setSelectable:1];
   [(UITextView *)selfCopy->_customerAgreementTextView setUserInteractionEnabled:1];
   [(UITextView *)selfCopy->_customerAgreementTextView _setInteractiveTextSelectionDisabled:1];
   [(UITextView *)selfCopy->_customerAgreementTextView setTextContainerInset:*MEMORY[0x1E69DDCE0], *(MEMORY[0x1E69DDCE0] + 8), *(MEMORY[0x1E69DDCE0] + 16), *(MEMORY[0x1E69DDCE0] + 24)];
-  v57 = selfCopy->_customerAgreementTextView;
+  v60 = selfCopy->_customerAgreementTextView;
   _customerAgreementAttributedString = [(PKAccountBillPaymentLearnMoreViewController *)selfCopy _customerAgreementAttributedString];
-  [(UITextView *)v57 setAttributedText:_customerAgreementAttributedString];
+  [(UITextView *)v60 setAttributedText:_customerAgreementAttributedString];
 
   [(UIScrollView *)selfCopy->_scrollView addSubview:selfCopy->_customerAgreementTextView];
 }

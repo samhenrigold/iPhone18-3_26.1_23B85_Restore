@@ -4,6 +4,8 @@
 - (id)remoteObject;
 - (void)performRedo;
 - (void)performUndo;
+- (void)setShowUndoRedo:(BOOL)redo;
+- (void)setUndoEnabled:(BOOL)enabled redoEnabled:(BOOL)redoEnabled;
 @end
 
 @implementation PUEditingExtensionUndoProxyExtensionSide
@@ -13,6 +15,21 @@
   WeakRetained = objc_loadWeakRetained(&self->_target);
 
   return WeakRetained;
+}
+
+- (void)setUndoEnabled:(BOOL)enabled redoEnabled:(BOOL)redoEnabled
+{
+  redoEnabledCopy = redoEnabled;
+  enabledCopy = enabled;
+  remoteObject = [(PUEditingExtensionUndoProxyExtensionSide *)self remoteObject];
+  [remoteObject setUndoEnabled:enabledCopy redoEnabled:redoEnabledCopy];
+}
+
+- (void)setShowUndoRedo:(BOOL)redo
+{
+  redoCopy = redo;
+  remoteObject = [(PUEditingExtensionUndoProxyExtensionSide *)self remoteObject];
+  [remoteObject setShowUndoRedo:redoCopy];
 }
 
 - (id)remoteObject

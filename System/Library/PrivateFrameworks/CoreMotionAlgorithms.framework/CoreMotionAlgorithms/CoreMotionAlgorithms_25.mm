@@ -9762,9 +9762,9 @@ uint64_t sub_245E77DD0(uint64_t result, PB::Writer *this)
   return result;
 }
 
-uint64_t sub_245E7A458(uint64_t result)
+void *sub_245E7A458(void *result)
 {
-  if (!*(result + 2640))
+  if (!result[330])
   {
     operator new();
   }
@@ -9772,9 +9772,9 @@ uint64_t sub_245E7A458(uint64_t result)
   return result;
 }
 
-uint64_t sub_245E7A4E8(uint64_t result)
+void *sub_245E7A4E8(void *result)
 {
-  if (!*(result + 2592))
+  if (!result[324])
   {
     operator new();
   }
@@ -9782,9 +9782,9 @@ uint64_t sub_245E7A4E8(uint64_t result)
   return result;
 }
 
-uint64_t sub_245E7A578(uint64_t result)
+void *sub_245E7A578(void *result)
 {
-  if (!*(result + 2616))
+  if (!result[327])
   {
     operator new();
   }
@@ -9792,9 +9792,9 @@ uint64_t sub_245E7A578(uint64_t result)
   return result;
 }
 
-uint64_t sub_245E7A608(uint64_t result)
+void *sub_245E7A608(void *result)
 {
-  if (!*(result + 840))
+  if (!result[105])
   {
     operator new();
   }
@@ -9802,9 +9802,9 @@ uint64_t sub_245E7A608(uint64_t result)
   return result;
 }
 
-uint64_t sub_245E7A698(uint64_t result)
+void *sub_245E7A698(void *result)
 {
-  if (!*(result + 3680))
+  if (!result[460])
   {
     operator new();
   }
@@ -9812,9 +9812,9 @@ uint64_t sub_245E7A698(uint64_t result)
   return result;
 }
 
-uint64_t sub_245E7A728(uint64_t result)
+void *sub_245E7A728(void *result)
 {
-  if (!*(result + 3464))
+  if (!result[433])
   {
     operator new();
   }
@@ -9822,9 +9822,9 @@ uint64_t sub_245E7A728(uint64_t result)
   return result;
 }
 
-uint64_t sub_245E7A7B8(uint64_t result)
+void *sub_245E7A7B8(void *result)
 {
-  if (!*(result + 2736))
+  if (!result[342])
   {
     operator new();
   }
@@ -9832,9 +9832,9 @@ uint64_t sub_245E7A7B8(uint64_t result)
   return result;
 }
 
-uint64_t sub_245E7A848(uint64_t result)
+void *sub_245E7A848(void *result)
 {
-  if (!*(result + 2744))
+  if (!result[343])
   {
     operator new();
   }
@@ -9842,9 +9842,9 @@ uint64_t sub_245E7A848(uint64_t result)
   return result;
 }
 
-uint64_t sub_245E7A8D8(uint64_t result)
+void *sub_245E7A8D8(void *result)
 {
-  if (!*(result + 2720))
+  if (!result[340])
   {
     operator new();
   }
@@ -9852,9 +9852,9 @@ uint64_t sub_245E7A8D8(uint64_t result)
   return result;
 }
 
-uint64_t sub_245E7A968(uint64_t result)
+void *sub_245E7A968(void *result)
 {
-  if (!*(result + 2584))
+  if (!result[323])
   {
     operator new();
   }
@@ -9862,9 +9862,9 @@ uint64_t sub_245E7A968(uint64_t result)
   return result;
 }
 
-uint64_t sub_245E7A9F8(uint64_t result)
+void *sub_245E7A9F8(void *result)
 {
-  if (!*(result + 2728))
+  if (!result[341])
   {
     operator new();
   }
@@ -9872,9 +9872,9 @@ uint64_t sub_245E7A9F8(uint64_t result)
   return result;
 }
 
-uint64_t sub_245E7AA88(uint64_t result)
+void *sub_245E7AA88(void *result)
 {
-  if (!*(result + 2752))
+  if (!result[344])
   {
     operator new();
   }
@@ -9882,9 +9882,9 @@ uint64_t sub_245E7AA88(uint64_t result)
   return result;
 }
 
-uint64_t sub_245E7AB18(uint64_t result)
+void *sub_245E7AB18(void *result)
 {
-  if (!*(result + 352))
+  if (!result[44])
   {
     operator new();
   }

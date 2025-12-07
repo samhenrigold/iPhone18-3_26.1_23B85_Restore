@@ -3,6 +3,7 @@
 - (BOOL)_authorCluster:(id)cluster progressBlock:(id)block error:(id *)error;
 - (BOOL)_authorFinish:(id)finish progressBlock:(id)block error:(id *)error;
 - (BOOL)_authorProduce:(id)produce progressBlock:(id)block error:(id *)error;
+- (BOOL)author:(BOOL)author progressBlock:(id)block requiresProducer:(BOOL *)producer error:(id *)error;
 - (BOOL)liveAuthorInitialBootstrap:(id)bootstrap error:(id *)error;
 - (BOOL)needsLiveAuthoring;
 - (BOOL)resetLiveAuthoring;
@@ -1331,6 +1332,24 @@ LABEL_12:
   }
 
   return (v9 & 1) == 0;
+}
+
+- (BOOL)author:(BOOL)author progressBlock:(id)block requiresProducer:(BOOL *)producer error:(id *)error
+{
+  authorCopy = author;
+  v11 = objc_alloc_init(OpusNewClassicProducerContext);
+  if ([(OpusNewClassicProducer *)self _authorBootstrap:v11 progressBlock:block error:error]&& [(OpusNewClassicProducer *)self _authorCluster:v11 progressBlock:block error:error]&& [(OpusNewClassicProducer *)self _authorImport:v11 flatten:authorCopy progressBlock:block error:error]&& [(OpusNewClassicProducer *)self _authorProduce:v11 progressBlock:block error:error]&& [(OpusNewClassicProducer *)self _authorFinish:v11 progressBlock:block error:error])
+  {
+    *producer = !authorCopy;
+
+    return !error || *error == 0;
+  }
+
+  else
+  {
+
+    return 0;
+  }
 }
 
 - (BOOL)needsLiveAuthoring

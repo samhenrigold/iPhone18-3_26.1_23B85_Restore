@@ -85,6 +85,7 @@
 - (void)receiveNavigationReply:(id)reply clientIdentifier:(id)identifier;
 - (void)receiveProtoData:(id)data fromIdentifier:(id)identifier;
 - (void)recoverFromMissingIntefaceControllerWithID:(id)d;
+- (void)reloadRootControllersWithNames:(id)names initializationContextIDs:(id)ds pageIndex:(int64_t)index verticalPaging:(BOOL)paging;
 - (void)removeInterfaceControllersForClient:(id)client;
 - (void)removePageControllerAtIndexes:(id)indexes;
 - (void)removePageInterfaceCreationContextsForIDs:(id)ds;
@@ -112,17 +113,17 @@
 
 + (id)startRemoteInterfaceWithBundle:(id)bundle
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   bundleCopy = bundle;
-  v4 = wk_extension_loading_log();
+  v4 = wk_extension_loading_log(bundleCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446722;
-    v14 = "+[SPRemoteInterface startRemoteInterfaceWithBundle:]";
-    v15 = 1024;
-    v16 = 340;
-    v17 = 2114;
-    v18 = bundleCopy;
+    v13 = "+[SPRemoteInterface startRemoteInterfaceWithBundle:]";
+    v14 = 1024;
+    v15 = 340;
+    v16 = 2114;
+    v17 = bundleCopy;
     _os_log_impl(&dword_23B338000, v4, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: startRemoteInterfaceWithBundle:%{public}@", buf, 0x1Cu);
   }
 
@@ -130,7 +131,7 @@
   block[1] = 3221225472;
   block[2] = __52__SPRemoteInterface_startRemoteInterfaceWithBundle___block_invoke;
   block[3] = &unk_278B7E200;
-  v12 = bundleCopy;
+  v11 = bundleCopy;
   v5 = startRemoteInterfaceWithBundle__onceToken;
   v6 = bundleCopy;
   if (v5 != -1)
@@ -141,7 +142,6 @@
   v7 = __sharedRemoteInterface;
   v8 = __sharedRemoteInterface;
 
-  v9 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -166,7 +166,7 @@ uint64_t __52__SPRemoteInterface_startRemoteInterfaceWithBundle___block_invoke(u
 
 void __38__SPRemoteInterface__remoteIdentifier__block_invoke()
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CCA8D8] mainBundle];
   v1 = [v0 infoDictionary];
 
@@ -176,28 +176,26 @@ void __38__SPRemoteInterface__remoteIdentifier__block_invoke()
   v5 = _remoteIdentifier___remoteIdentifier;
   _remoteIdentifier___remoteIdentifier = v4;
 
-  v6 = wk_default_log();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = wk_default_log(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 136446722;
-    v10 = "+[SPRemoteInterface _remoteIdentifier]_block_invoke";
-    v11 = 1024;
-    v12 = 371;
-    v13 = 2114;
-    v14 = _remoteIdentifier___remoteIdentifier;
-    _os_log_impl(&dword_23B338000, v6, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: ComF:->ComD Gizmo app identifier %{public}@", &v9, 0x1Cu);
+    v10 = 136446722;
+    v11 = "+[SPRemoteInterface _remoteIdentifier]_block_invoke";
+    v12 = 1024;
+    v13 = 371;
+    v14 = 2114;
+    v15 = _remoteIdentifier___remoteIdentifier;
+    _os_log_impl(&dword_23B338000, v7, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: ComF:->ComD Gizmo app identifier %{public}@", &v10, 0x1Cu);
   }
 
   if (!_remoteIdentifier___remoteIdentifier)
   {
-    v7 = wk_default_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = wk_default_log(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       __38__SPRemoteInterface__remoteIdentifier__block_invoke_cold_1();
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (SPRemoteInterface)initWithBundle:(id)bundle
@@ -256,16 +254,16 @@ void __38__SPRemoteInterface__remoteIdentifier__block_invoke()
   return v6;
 }
 
-void __36__SPRemoteInterface_initWithBundle___block_invoke(uint64_t a1)
+void __36__SPRemoteInterface_initWithBundle___block_invoke(uint64_t a1, __n128 a2)
 {
-  v2 = wk_default_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = wk_default_log(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __36__SPRemoteInterface_initWithBundle___block_invoke_cold_1(a1);
+    __36__SPRemoteInterface_initWithBundle___block_invoke_cold_1();
   }
 
-  v3 = objc_alloc_init(*(a1 + 48));
-  [*(a1 + 40) setDataDelegate:v3];
+  v4 = objc_alloc_init(*(a1 + 48));
+  [*(a1 + 40) setDataDelegate:v4];
 }
 
 - (void)dealloc
@@ -293,45 +291,54 @@ void __36__SPRemoteInterface_initWithBundle___block_invoke(uint64_t a1)
   if ((AppBooleanValue != 0) != _updateAccessibility___startedAccessibilityServer)
   {
     v4 = AppBooleanValue;
-    __41__SPRemoteInterface__updateAccessibility__block_invoke();
+    __41__SPRemoteInterface__updateAccessibility__block_invoke(AppBooleanValue);
     if (v4)
     {
       if (v3)
       {
-        if (objc_opt_respondsToSelector())
+        v5 = objc_opt_respondsToSelector();
+        if (v5)
         {
-          v5 = __41__SPRemoteInterface__updateAccessibility__block_invoke();
+          v6 = __41__SPRemoteInterface__updateAccessibility__block_invoke(v5);
 
-          [v5 _accessibilityReenabled];
+          [v6 _accessibilityReenabled];
         }
       }
 
-      else if (objc_opt_respondsToSelector())
+      else
       {
-        [__41__SPRemoteInterface__updateAccessibility__block_invoke() _accessibilityStartServer];
-        _updateAccessibility___startedAccessibilityServer = 1;
+        v9 = objc_opt_respondsToSelector();
+        if (v9)
+        {
+          [__41__SPRemoteInterface__updateAccessibility__block_invoke(v9) _accessibilityStartServer];
+          _updateAccessibility___startedAccessibilityServer = 1;
+        }
       }
     }
 
-    else if (objc_opt_respondsToSelector())
+    else
     {
-      v6 = __41__SPRemoteInterface__updateAccessibility__block_invoke();
+      v7 = objc_opt_respondsToSelector();
+      if (v7)
+      {
+        v8 = __41__SPRemoteInterface__updateAccessibility__block_invoke(v7);
 
-      [v6 _accessibilityStopServer];
+        [v8 _accessibilityStopServer];
+      }
     }
   }
 }
 
-id __41__SPRemoteInterface__updateAccessibility__block_invoke()
+id __41__SPRemoteInterface__updateAccessibility__block_invoke(uint64_t a1)
 {
   if (__performAfterSendSetViewControllers_block_invoke_onceToken != -1)
   {
     __41__SPRemoteInterface__updateAccessibility__block_invoke_cold_1();
   }
 
-  v1 = __performAfterSendSetViewControllers_block_invoke___loaderClass;
+  v2 = __performAfterSendSetViewControllers_block_invoke___loaderClass;
 
-  return v1;
+  return v2;
 }
 
 Class __41__SPRemoteInterface__updateAccessibility__block_invoke_2()
@@ -356,54 +363,51 @@ Class __41__SPRemoteInterface__updateAccessibility__block_invoke_2()
   _setupSignalHandlers__sigUsr2Source = v2;
 }
 
-void __41__SPRemoteInterface__setupSignalHandlers__block_invoke(uint64_t a1)
+void __41__SPRemoteInterface__setupSignalHandlers__block_invoke(uint64_t a1, __n128 a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v2 = wk_default_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-  {
-    v8 = 136446466;
-    v9 = "[SPRemoteInterface _setupSignalHandlers]_block_invoke";
-    v10 = 1024;
-    v11 = 551;
-    _os_log_impl(&dword_23B338000, v2, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: ======== Companion App Extension", &v8, 0x12u);
-  }
-
-  v3 = wk_default_log();
+  v16 = *MEMORY[0x277D85DE8];
+  v3 = wk_default_log(a1);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = +[SPRemoteInterface _remoteIdentifier];
-    v8 = 136446722;
-    v9 = "[SPRemoteInterface _setupSignalHandlers]_block_invoke";
-    v10 = 1024;
-    v11 = 552;
-    v12 = 2114;
-    v13 = v4;
-    _os_log_impl(&dword_23B338000, v3, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: Remote Identifier: %{public}@", &v8, 0x1Cu);
+    v10 = 136446466;
+    v11 = "[SPRemoteInterface _setupSignalHandlers]_block_invoke";
+    v12 = 1024;
+    v13 = 551;
+    _os_log_impl(&dword_23B338000, v3, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: ======== Companion App Extension", &v10, 0x12u);
   }
 
-  v5 = wk_default_log();
+  v5 = wk_default_log(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136446466;
-    v9 = "[SPRemoteInterface _setupSignalHandlers]_block_invoke";
-    v10 = 1024;
-    v11 = 553;
-    _os_log_impl(&dword_23B338000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: -------- Interface Controllers", &v8, 0x12u);
+    v6 = +[SPRemoteInterface _remoteIdentifier];
+    v10 = 136446722;
+    v11 = "[SPRemoteInterface _setupSignalHandlers]_block_invoke";
+    v12 = 1024;
+    v13 = 552;
+    v14 = 2114;
+    v15 = v6;
+    _os_log_impl(&dword_23B338000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: Remote Identifier: %{public}@", &v10, 0x1Cu);
   }
 
-  [*(a1 + 32) _dumpInterfaceDictionary];
-  v6 = wk_default_log();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v8 = wk_default_log(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136446466;
-    v9 = "[SPRemoteInterface _setupSignalHandlers]_block_invoke";
-    v10 = 1024;
-    v11 = 555;
-    _os_log_impl(&dword_23B338000, v6, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: --------", &v8, 0x12u);
+    v10 = 136446466;
+    v11 = "[SPRemoteInterface _setupSignalHandlers]_block_invoke";
+    v12 = 1024;
+    v13 = 553;
+    _os_log_impl(&dword_23B338000, v8, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: -------- Interface Controllers", &v10, 0x12u);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
+  v9 = wk_default_log([*(a1 + 32) _dumpInterfaceDictionary]);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  {
+    v10 = 136446466;
+    v11 = "[SPRemoteInterface _setupSignalHandlers]_block_invoke";
+    v12 = 1024;
+    v13 = 555;
+    _os_log_impl(&dword_23B338000, v9, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: --------", &v10, 0x12u);
+  }
 }
 
 - (id)_setupSignal:(int)signal handler:(id)handler
@@ -425,7 +429,7 @@ void __41__SPRemoteInterface__setupSignalHandlers__block_invoke(uint64_t a1)
 
   else
   {
-    v7 = wk_default_log();
+    v7 = wk_default_log(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [SPRemoteInterface _setupSignal:handler:];
@@ -448,9 +452,9 @@ void __41__SPRemoteInterface__setupSignalHandlers__block_invoke(uint64_t a1)
   dataCopy = data;
   identifiersCopy = identifiers;
   replyCopy = reply;
-  kdebug_trace();
-  v11 = wk_default_log();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  v11 = kdebug_trace();
+  v12 = wk_default_log(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     [SPRemoteInterface sendData:clientIdentifiers:reply:];
   }
@@ -458,22 +462,22 @@ void __41__SPRemoteInterface__setupSignalHandlers__block_invoke(uint64_t a1)
   _host = [(SPRemoteInterface *)self _host];
   if (_host)
   {
-    v13 = +[SPRemoteInterface _remoteIdentifier];
+    v14 = +[SPRemoteInterface _remoteIdentifier];
     if (replyCopy)
     {
-      [_host sendData:dataCopy identifier:v13 clientIdentifiers:identifiersCopy reply:replyCopy];
+      [_host sendData:dataCopy identifier:v14 clientIdentifiers:identifiersCopy reply:replyCopy];
     }
 
     else
     {
-      [_host sendData:dataCopy identifier:v13 clientIdentifiers:identifiersCopy];
+      [_host sendData:dataCopy identifier:v14 clientIdentifiers:identifiersCopy];
     }
   }
 
   else
   {
-    v13 = wk_default_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = wk_default_log(0);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [SPRemoteInterface sendData:clientIdentifiers:reply:];
     }
@@ -495,7 +499,7 @@ void __41__SPRemoteInterface__setupSignalHandlers__block_invoke(uint64_t a1)
 
     else
     {
-      v10 = wk_default_log();
+      v10 = wk_default_log(0);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         [SPRemoteInterface sendPlist:clientIdentifiers:];
@@ -505,7 +509,7 @@ void __41__SPRemoteInterface__setupSignalHandlers__block_invoke(uint64_t a1)
 
   else
   {
-    data = wk_default_log();
+    data = wk_default_log(0);
     if (os_log_type_enabled(data, OS_LOG_TYPE_ERROR))
     {
       [SPRemoteInterface sendPlist:clientIdentifiers:];
@@ -515,37 +519,35 @@ void __41__SPRemoteInterface__setupSignalHandlers__block_invoke(uint64_t a1)
 
 - (void)sendSetViewController:(id)controller key:(id)key property:(id)property value:(id)value clientIdentifiers:(id)identifiers
 {
-  v15[3] = *MEMORY[0x277D85DE8];
-  v14[0] = @"V";
-  v14[1] = @"k";
-  v15[0] = controller;
-  v15[1] = @"#didActivate";
-  v14[2] = @"v";
-  v15[2] = MEMORY[0x277CBEC38];
+  v14[3] = *MEMORY[0x277D85DE8];
+  v13[0] = @"V";
+  v13[1] = @"k";
+  v14[0] = controller;
+  v14[1] = @"#didActivate";
+  v13[2] = @"v";
+  v14[2] = MEMORY[0x277CBEC38];
   v9 = MEMORY[0x277CBEAC0];
   identifiersCopy = identifiers;
   controllerCopy = controller;
-  v12 = [v9 dictionaryWithObjects:v15 forKeys:v14 count:3];
+  v12 = [v9 dictionaryWithObjects:v14 forKeys:v13 count:3];
 
   [(SPRemoteInterface *)self sendPlist:v12 clientIdentifiers:identifiersCopy];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendSetViewController:(id)controller values:(id)values clientIdentifiers:(id)identifiers
 {
-  v15[2] = *MEMORY[0x277D85DE8];
-  v14[0] = @"V";
-  v14[1] = @"S";
-  v15[0] = controller;
-  v15[1] = values;
+  v14[2] = *MEMORY[0x277D85DE8];
+  v13[0] = @"V";
+  v13[1] = @"S";
+  v14[0] = controller;
+  v14[1] = values;
   v8 = MEMORY[0x277CBEAC0];
   identifiersCopy = identifiers;
   valuesCopy = values;
   controllerCopy = controller;
-  v12 = [v8 dictionaryWithObjects:v15 forKeys:v14 count:2];
+  v12 = [v8 dictionaryWithObjects:v14 forKeys:v13 count:2];
 
   [(SPRemoteInterface *)self sendPlist:v12 clientIdentifiers:identifiersCopy];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_performAfterSendSetViewControllers:(id)controllers
@@ -583,7 +585,7 @@ uint64_t __57__SPRemoteInterface__performAfterSendSetViewControllers___block_inv
 
   else
   {
-    v6 = wk_default_log();
+    v6 = wk_default_log(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SPRemoteInterface _requestTimingData:];
@@ -593,9 +595,9 @@ uint64_t __57__SPRemoteInterface__performAfterSendSetViewControllers___block_inv
 
 - (void)replyWithExtensionTimingData:(id)data
 {
-  v25[4] = *MEMORY[0x277D85DE8];
+  v24[4] = *MEMORY[0x277D85DE8];
   dataCopy = data;
-  v17 = [dataCopy objectForKeyedSubscript:@"V"];
+  v16 = [dataCopy objectForKeyedSubscript:@"V"];
   v4 = [dataCopy objectForKeyedSubscript:@".sex"];
   v5 = [dataCopy objectForKeyedSubscript:@".eex"];
   v6 = [dataCopy objectForKeyedSubscript:@".idx"];
@@ -604,55 +606,51 @@ uint64_t __57__SPRemoteInterface__performAfterSendSetViewControllers___block_inv
 
   v9 = [dataCopy objectForKeyedSubscript:@".bex"];
 
-  v24[0] = @".sex";
-  v24[1] = @".eex";
-  v25[0] = v4;
-  v25[1] = v5;
-  v24[2] = @".bex";
-  v24[3] = @".idx";
-  v25[2] = v9;
-  v25[3] = v6;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:4];
-  v22[0] = @"V";
-  v22[1] = @"k";
-  v23[0] = v17;
-  v23[1] = @".PolDE";
-  v22[2] = @"v";
-  v23[2] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:3];
-  v12 = [(SPRemoteInterface *)self _interfaceControllerClientIDForControllerID:v17];
+  v23[0] = @".sex";
+  v23[1] = @".eex";
+  v24[0] = v4;
+  v24[1] = v5;
+  v23[2] = @".bex";
+  v23[3] = @".idx";
+  v24[2] = v9;
+  v24[3] = v6;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:4];
+  v21[0] = @"V";
+  v21[1] = @"k";
+  v22[0] = v16;
+  v22[1] = @".PolDE";
+  v21[2] = @"v";
+  v22[2] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:3];
+  v12 = [(SPRemoteInterface *)self _interfaceControllerClientIDForControllerID:v16];
   v13 = dispatch_time(0, 1000000 * (integerValue / 30) + 500000000);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __50__SPRemoteInterface_replyWithExtensionTimingData___block_invoke;
   block[3] = &unk_278B7E278;
   block[4] = self;
-  v20 = v11;
-  v21 = v12;
+  v19 = v11;
+  v20 = v12;
   v14 = v12;
   v15 = v11;
   dispatch_after(v13, MEMORY[0x277D85CD0], block);
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __50__SPRemoteInterface_replyWithExtensionTimingData___block_invoke(void *a1)
 {
-  v5[1] = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
   v1 = a1[4];
   v2 = a1[5];
-  v5[0] = a1[6];
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
+  v4[0] = a1[6];
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
   [v1 sendPlist:v2 clientIdentifiers:v3];
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)replyTimingData:(id)data
 {
-  v25[4] = *MEMORY[0x277D85DE8];
+  v24[4] = *MEMORY[0x277D85DE8];
   dataCopy = data;
-  v17 = [dataCopy objectForKeyedSubscript:@"V"];
+  v16 = [dataCopy objectForKeyedSubscript:@"V"];
   v4 = [dataCopy objectForKeyedSubscript:@".scd"];
   v5 = [dataCopy objectForKeyedSubscript:@".ecd"];
   v6 = [dataCopy objectForKeyedSubscript:@".idx"];
@@ -661,98 +659,92 @@ void __50__SPRemoteInterface_replyWithExtensionTimingData___block_invoke(void *a
 
   v9 = [dataCopy objectForKeyedSubscript:@".bcd"];
 
-  v24[0] = @".scd";
-  v24[1] = @".ecd";
-  v25[0] = v4;
-  v25[1] = v5;
-  v24[2] = @".bcd";
-  v24[3] = @".idx";
-  v25[2] = v9;
-  v25[3] = v6;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:4];
-  v22[0] = @"V";
-  v22[1] = @"k";
-  v23[0] = v17;
-  v23[1] = @".PolD";
-  v22[2] = @"v";
-  v23[2] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:3];
-  v12 = [(SPRemoteInterface *)self _interfaceControllerClientIDForControllerID:v17];
+  v23[0] = @".scd";
+  v23[1] = @".ecd";
+  v24[0] = v4;
+  v24[1] = v5;
+  v23[2] = @".bcd";
+  v23[3] = @".idx";
+  v24[2] = v9;
+  v24[3] = v6;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:4];
+  v21[0] = @"V";
+  v21[1] = @"k";
+  v22[0] = v16;
+  v22[1] = @".PolD";
+  v21[2] = @"v";
+  v22[2] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:3];
+  v12 = [(SPRemoteInterface *)self _interfaceControllerClientIDForControllerID:v16];
   v13 = dispatch_time(0, 1000000 * (integerValue / 30) + 500000000);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __37__SPRemoteInterface_replyTimingData___block_invoke;
   block[3] = &unk_278B7E278;
   block[4] = self;
-  v20 = v11;
-  v21 = v12;
+  v19 = v11;
+  v20 = v12;
   v14 = v12;
   v15 = v11;
   dispatch_after(v13, MEMORY[0x277D85CD0], block);
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __37__SPRemoteInterface_replyTimingData___block_invoke(void *a1)
 {
-  v5[1] = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
   v1 = a1[4];
   v2 = a1[5];
-  v5[0] = a1[6];
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
+  v4[0] = a1[6];
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
   [v1 sendPlist:v2 clientIdentifiers:v3];
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchNotificationForNotificationID:(id)d completion:(id)completion
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   dCopy = d;
   completionCopy = completion;
-  v8 = wk_default_log();
+  v8 = wk_default_log(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446722;
-    v22 = "[SPRemoteInterface fetchNotificationForNotificationID:completion:]";
+    v21 = "[SPRemoteInterface fetchNotificationForNotificationID:completion:]";
+    v22 = 1024;
     v23 = 1024;
-    v24 = 1024;
-    v25 = 2114;
-    v26 = dCopy;
+    v24 = 2114;
+    v25 = dCopy;
     _os_log_impl(&dword_23B338000, v8, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: ComF:->ComD, notificationID=%{public}@", buf, 0x1Cu);
   }
 
   _host = [(SPRemoteInterface *)self _host];
   if (_host)
   {
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __67__SPRemoteInterface_fetchNotificationForNotificationID_completion___block_invoke;
-    v17[3] = &unk_278B7E2A0;
-    v18 = completionCopy;
-    [_host fetchNotificationForNotificationID:dCopy completion:v17];
-    mainBundle = v18;
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __67__SPRemoteInterface_fetchNotificationForNotificationID_completion___block_invoke;
+    v16[3] = &unk_278B7E2A0;
+    v17 = completionCopy;
+    [_host fetchNotificationForNotificationID:dCopy completion:v16];
+    mainBundle = v17;
   }
 
   else
   {
-    v11 = wk_default_log();
+    v11 = wk_default_log(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [SPRemoteInterface fetchNotificationForNotificationID:completion:];
     }
 
     v12 = MEMORY[0x277CCA9B8];
-    v19 = *MEMORY[0x277CCA450];
+    v18 = *MEMORY[0x277CCA450];
     mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
     v13 = [mainBundle localizedStringForKey:@"SPErrorHostPrincipalForPluginNotFoundMessage" value:&stru_284DFE9D8 table:0];
-    v20 = v13;
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
+    v19 = v13;
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
     v15 = [v12 errorWithDomain:@"com.apple.watchkit.errors" code:8 userInfo:v14];
     (*(completionCopy + 2))(completionCopy, 0, 0, 0, v15);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __67__SPRemoteInterface_fetchNotificationForNotificationID_completion___block_invoke(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
@@ -765,13 +757,14 @@ void __67__SPRemoteInterface_fetchNotificationForNotificationID_completion___blo
   {
     v13 = MEMORY[0x277CCAAC8];
     getUNNotificationClass();
-    v21 = 0;
-    v14 = [v13 unarchivedObjectOfClass:objc_opt_class() fromData:v11 error:&v21];
-    v15 = v21;
+    v23 = 0;
+    v14 = [v13 unarchivedObjectOfClass:objc_opt_class() fromData:v11 error:&v23];
+    v15 = v23;
+    v16 = v15;
     if (!v14)
     {
-      v16 = wk_default_log();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v17 = wk_default_log(v15);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         __67__SPRemoteInterface_fetchNotificationForNotificationID_completion___block_invoke_cold_1();
       }
@@ -786,26 +779,26 @@ void __67__SPRemoteInterface_fetchNotificationForNotificationID_completion___blo
 
 LABEL_13:
     (*(*(a1 + 32) + 16))();
-    v18 = v15;
+    v19 = v16;
     goto LABEL_14;
   }
 
   v14 = 0;
-  v15 = 0;
+  v16 = 0;
   if (!v10)
   {
     goto LABEL_13;
   }
 
 LABEL_7:
-  v20 = v15;
-  v17 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v10 error:&v20];
-  v18 = v20;
+  v22 = v16;
+  v18 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v10 error:&v22];
+  v19 = v22;
 
-  if (!v17)
+  if (!v18)
   {
-    v19 = wk_default_log();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v21 = wk_default_log(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       __67__SPRemoteInterface_fetchNotificationForNotificationID_completion___block_invoke_cold_2();
     }
@@ -818,24 +811,24 @@ LABEL_14:
 
 - (void)updateUserActivity:(id)activity userInfo:(id)info webpageURL:(id)l controller:(id)controller
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   activityCopy = activity;
   infoCopy = info;
   lCopy = l;
   controllerCopy = controller;
-  v14 = wk_default_log();
+  v14 = wk_default_log(controllerCopy);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136447235;
-    v27 = "[SPRemoteInterface updateUserActivity:userInfo:webpageURL:controller:]";
-    v28 = 1024;
-    v29 = 1056;
-    v30 = 2114;
-    v31 = activityCopy;
-    v32 = 2113;
-    v33 = infoCopy;
-    v34 = 2114;
-    v35 = lCopy;
+    v26 = "[SPRemoteInterface updateUserActivity:userInfo:webpageURL:controller:]";
+    v27 = 1024;
+    v28 = 1056;
+    v29 = 2114;
+    v30 = activityCopy;
+    v31 = 2113;
+    v32 = infoCopy;
+    v33 = 2114;
+    v34 = lCopy;
     _os_log_impl(&dword_23B338000, v14, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: ComF:<-Plugin, activity type: %{public}@, userInfo: %{private}@, webpageURL:%{public}@", buf, 0x30u);
   }
 
@@ -861,25 +854,23 @@ LABEL_14:
   if (v18)
   {
     v19 = ArchiveWithArchiverDelegate(v16);
-    v24 = @"ua";
-    v25 = v19;
-    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+    v23 = @"ua";
+    v24 = v19;
+    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
 
-    v23 = v18;
-    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v23 count:1];
+    v22 = v18;
+    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v22 count:1];
     [(SPRemoteInterface *)self sendPlist:v20 clientIdentifiers:v21];
   }
 
   else
   {
-    v20 = wk_default_log();
+    v20 = wk_default_log(0);
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       [SPRemoteInterface updateUserActivity:userInfo:webpageURL:controller:];
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendCacheRequestMessage:(id)message
@@ -896,7 +887,7 @@ LABEL_14:
 
     else
     {
-      v6 = wk_default_log();
+      v6 = wk_default_log(0);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         [SPRemoteInterface sendCacheRequestMessage:];
@@ -906,7 +897,7 @@ LABEL_14:
 
   else
   {
-    _host = wk_default_log();
+    _host = wk_default_log(0);
     if (os_log_type_enabled(_host, OS_LOG_TYPE_ERROR))
     {
       [SPRemoteInterface sendCacheRequestMessage:];
@@ -1058,7 +1049,7 @@ LABEL_14:
 
 void __54__SPRemoteInterface_setController_key_property_value___block_invoke(uint64_t a1)
 {
-  v78[2] = *MEMORY[0x277D85DE8];
+  v75[2] = *MEMORY[0x277D85DE8];
   [SPRemoteInterface _setupStorageForController:*(a1 + 32)];
   v2 = [__recordedValues objectForKeyedSubscript:*(a1 + 32)];
   v3 = [__cachedRunLoopValues objectForKeyedSubscript:*(a1 + 32)];
@@ -1066,8 +1057,8 @@ void __54__SPRemoteInterface_setController_key_property_value___block_invoke(uin
   if (![*(a1 + 40) isEqualToString:@".null"] || !objc_msgSend(v2, "count"))
   {
     v5 = *(a1 + 48);
-    v59 = [(__CFString *)v5 isEqualToString:@"#value"];
-    if (v59)
+    v56 = [(__CFString *)v5 isEqualToString:@"#value"];
+    if (v56)
     {
 
       v5 = 0;
@@ -1087,36 +1078,36 @@ LABEL_63:
     if (*(a1 + 56) && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
       v13 = SerializablePropertyValue(*(a1 + 56));
-      v58 = v13;
+      v55 = v13;
       if ([(__CFString *)v5 length])
       {
         v14 = *(a1 + 40);
-        v73[0] = @"k";
-        v73[1] = @"p";
-        v74[0] = v14;
-        v74[1] = v5;
-        v73[2] = @"v";
-        v74[2] = v13;
+        v70[0] = @"k";
+        v70[1] = @"p";
+        v71[0] = v14;
+        v71[1] = v5;
+        v70[2] = @"v";
+        v71[2] = v13;
         v15 = MEMORY[0x277CBEAC0];
-        v16 = v74;
-        v17 = v73;
+        v16 = v71;
+        v17 = v70;
         v18 = 3;
       }
 
       else
       {
         v19 = *(a1 + 40);
-        v71[0] = @"k";
-        v71[1] = @"v";
-        v72[0] = v19;
-        v72[1] = v13;
+        v68[0] = @"k";
+        v68[1] = @"v";
+        v69[0] = v19;
+        v69[1] = v13;
         v15 = MEMORY[0x277CBEAC0];
-        v16 = v72;
-        v17 = v71;
+        v16 = v69;
+        v17 = v68;
         v18 = 2;
       }
 
-      v60 = [v15 dictionaryWithObjects:v16 forKeys:v17 count:v18];
+      v57 = [v15 dictionaryWithObjects:v16 forKeys:v17 count:v18];
     }
 
     else
@@ -1124,57 +1115,57 @@ LABEL_63:
       if ([(__CFString *)v5 length])
       {
         v8 = *(a1 + 40);
-        v77[0] = @"k";
-        v77[1] = @"p";
-        v78[0] = v8;
-        v78[1] = v5;
+        v74[0] = @"k";
+        v74[1] = @"p";
+        v75[0] = v8;
+        v75[1] = v5;
         v9 = MEMORY[0x277CBEAC0];
-        v10 = v78;
-        v11 = v77;
+        v10 = v75;
+        v11 = v74;
         v12 = 2;
       }
 
       else
       {
-        v75 = @"k";
-        v76 = *(a1 + 40);
+        v72 = @"k";
+        v73 = *(a1 + 40);
         v9 = MEMORY[0x277CBEAC0];
-        v10 = &v76;
-        v11 = &v75;
+        v10 = &v73;
+        v11 = &v72;
         v12 = 1;
       }
 
-      v60 = [v9 dictionaryWithObjects:v10 forKeys:v11 count:v12];
-      v58 = 0;
+      v57 = [v9 dictionaryWithObjects:v10 forKeys:v11 count:v12];
+      v55 = 0;
     }
 
     if (([(__CFString *)v5 isEqualToString:@"rowTypes"]& 1) != 0 || ([(__CFString *)v5 isEqualToString:@".insert"]& 1) != 0 || [(__CFString *)v5 isEqualToString:@".remove"])
     {
-      v56 = v5;
-      v57 = v2;
+      v53 = v5;
+      v54 = v2;
       v20 = [v4 allKeys];
       v21 = [v20 copy];
 
-      v67 = 0u;
-      v68 = 0u;
+      v64 = 0u;
       v65 = 0u;
-      v66 = 0u;
+      v62 = 0u;
+      v63 = 0u;
       v22 = v21;
-      v23 = [v22 countByEnumeratingWithState:&v65 objects:v70 count:16];
+      v23 = [v22 countByEnumeratingWithState:&v62 objects:v67 count:16];
       if (v23)
       {
         v24 = v23;
-        v25 = *v66;
+        v25 = *v63;
         do
         {
           for (i = 0; i != v24; ++i)
           {
-            if (*v66 != v25)
+            if (*v63 != v25)
             {
               objc_enumerationMutation(v22);
             }
 
-            v27 = *(*(&v65 + 1) + 8 * i);
+            v27 = *(*(&v62 + 1) + 8 * i);
             v28 = [v27 pathComponents];
             v29 = [v28 count];
 
@@ -1184,7 +1175,7 @@ LABEL_63:
             }
           }
 
-          v24 = [v22 countByEnumeratingWithState:&v65 objects:v70 count:16];
+          v24 = [v22 countByEnumeratingWithState:&v62 objects:v67 count:16];
         }
 
         while (v24);
@@ -1193,26 +1184,26 @@ LABEL_63:
       v30 = [v3 allKeys];
       v31 = [v30 copy];
 
-      v63 = 0u;
-      v64 = 0u;
+      v60 = 0u;
       v61 = 0u;
-      v62 = 0u;
+      v58 = 0u;
+      v59 = 0u;
       v32 = v31;
-      v33 = [v32 countByEnumeratingWithState:&v61 objects:v69 count:16];
+      v33 = [v32 countByEnumeratingWithState:&v58 objects:v66 count:16];
       if (v33)
       {
         v34 = v33;
-        v35 = *v62;
+        v35 = *v59;
         do
         {
           for (j = 0; j != v34; ++j)
           {
-            if (*v62 != v35)
+            if (*v59 != v35)
             {
               objc_enumerationMutation(v32);
             }
 
-            v37 = *(*(&v61 + 1) + 8 * j);
+            v37 = *(*(&v58 + 1) + 8 * j);
             v38 = [v37 pathComponents];
             v39 = [v38 count];
 
@@ -1222,14 +1213,14 @@ LABEL_63:
             }
           }
 
-          v34 = [v32 countByEnumeratingWithState:&v61 objects:v69 count:16];
+          v34 = [v32 countByEnumeratingWithState:&v58 objects:v66 count:16];
         }
 
         while (v34);
       }
 
-      v5 = v56;
-      v2 = v57;
+      v5 = v53;
+      v2 = v54;
     }
 
     if (v5 && !-[__CFString isEqualToString:](v5, "isEqualToString:", &stru_284DFE9D8) || ([*(a1 + 40) isEqualToString:@"#item"] & 1) != 0 || (objc_msgSend(*(a1 + 40), "isEqualToString:", @".null") & 1) != 0 || (objc_msgSend(*(a1 + 40), "isEqualToString:", @"#animateBegin") & 1) != 0)
@@ -1239,52 +1230,51 @@ LABEL_63:
 
     else
     {
-      v40 = v59 | [*(a1 + 40) isEqualToString:@"#animateCommit"];
+      v40 = v56 | [*(a1 + 40) isEqualToString:@"#animateCommit"];
     }
 
-    v41 = *(a1 + 40);
     if (v5)
     {
-      v42 = v5;
+      v41 = v5;
     }
 
     else
     {
-      v42 = &stru_284DFE9D8;
+      v41 = &stru_284DFE9D8;
     }
 
-    v43 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@|%@", *(a1 + 40), v42];
+    v42 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@|%@", *(a1 + 40), v41];
     if (v40)
     {
-      v44 = 0;
+      v43 = 0;
       goto LABEL_50;
     }
 
-    v48 = [v3 objectForKey:v43];
-    if (v48)
+    v47 = [v3 objectForKey:v42];
+    if (v47)
     {
-      v44 = v48;
-      [v2 replaceObjectAtIndex:objc_msgSend(v48 withObject:{"unsignedIntegerValue"), v60}];
-      v49 = *(a1 + 32);
-      v50 = *(a1 + 40);
-      v51 = *(a1 + 56);
-      v52 = @"Duplicate call within run loop.";
+      v43 = v47;
+      [v2 replaceObjectAtIndex:objc_msgSend(v47 withObject:{"unsignedIntegerValue"), v57}];
+      v48 = *(a1 + 32);
+      v49 = *(a1 + 40);
+      v50 = *(a1 + 56);
+      v51 = @"Duplicate call within run loop.";
 LABEL_55:
-      [SPRemoteInterface _logDuplicate:v52 controller:v49 key:v50 property:v5 value:v51];
+      [SPRemoteInterface _logDuplicate:v51 controller:v48 key:v49 property:v5 value:v50];
 LABEL_62:
 
       goto LABEL_63;
     }
 
-    v44 = [v4 objectForKey:v43];
-    if (v44)
+    v43 = [v4 objectForKey:v42];
+    if (v43)
     {
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) == 0 || (v53 = *(a1 + 56), objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+      if ((objc_opt_isKindOfClass() & 1) == 0 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
       {
-        if ([v44 isEqual:*(a1 + 56)])
+        if ([v43 isEqual:*(a1 + 56)])
         {
-          v51 = *(a1 + 56);
+          v50 = *(a1 + 56);
         }
 
         else
@@ -1295,41 +1285,41 @@ LABEL_62:
             goto LABEL_50;
           }
 
-          v51 = 0;
+          v50 = 0;
         }
 
 LABEL_67:
-        v49 = *(a1 + 32);
-        v50 = *(a1 + 40);
-        v52 = @"Duplicate call.";
+        v48 = *(a1 + 32);
+        v49 = *(a1 + 40);
+        v51 = @"Duplicate call.";
         goto LABEL_55;
       }
 
-      v51 = *(a1 + 56);
-      if (v44 == v51)
+      v50 = *(a1 + 56);
+      if (v43 == v50)
       {
         goto LABEL_67;
       }
     }
 
 LABEL_50:
-    [v2 addObject:v60];
-    v45 = [v2 count];
-    v46 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v45 - 1];
-    [v3 setObject:v46 forKey:v43];
+    [v2 addObject:v57];
+    v44 = [v2 count];
+    v45 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v44 - 1];
+    [v3 setObject:v45 forKey:v42];
 
     if ((v40 & 1) == 0)
     {
-      v47 = *(a1 + 56);
-      if (v47)
+      v46 = *(a1 + 56);
+      if (v46)
       {
-        [v4 setObject:v47 forKey:v43];
+        [v4 setObject:v46 forKey:v42];
       }
 
       else
       {
-        v54 = [MEMORY[0x277CBEB68] null];
-        [v4 setObject:v54 forKey:v43];
+        v52 = [MEMORY[0x277CBEB68] null];
+        [v4 setObject:v52 forKey:v42];
       }
     }
 
@@ -1337,8 +1327,6 @@ LABEL_50:
   }
 
 LABEL_64:
-
-  v55 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_logDuplicate:(id)duplicate controller:(id)controller key:(id)key property:(id)property value:(id)value
@@ -1362,11 +1350,11 @@ LABEL_64:
   v20 = objc_opt_class();
   v21 = objc_opt_class();
   NSLog(&cfstr_WatchkitDiscar.isa, duplicateCopy, v20, keyCopy, propertyCopy, valueCopy, v21);
-  v22 = wk_default_log();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+  v23 = wk_default_log(v22);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
-    v23 = objc_opt_class();
-    v24 = v23;
+    v24 = objc_opt_class();
+    v25 = v24;
     *buf = 136448003;
     v28 = "+[SPRemoteInterface _logDuplicate:controller:key:property:value:]";
     v29 = 1024;
@@ -1374,7 +1362,7 @@ LABEL_64:
     v31 = 2114;
     v32 = duplicateCopy;
     v33 = 2114;
-    v34 = v23;
+    v34 = v24;
     v35 = 2114;
     v36 = keyCopy;
     v37 = 2114;
@@ -1383,11 +1371,9 @@ LABEL_64:
     v40 = valueCopy;
     v41 = 2114;
     v42 = objc_opt_class();
-    v25 = v42;
-    _os_log_impl(&dword_23B338000, v22, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: WatchKit: %{public}@ Discarding call for %{public}@ key=%{public}@ property=%{public}@ value=%{private}@ value class=%{public}@", buf, 0x4Eu);
+    v26 = v42;
+    _os_log_impl(&dword_23B338000, v23, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: WatchKit: %{public}@ Discarding call for %{public}@ key=%{public}@ property=%{public}@ value=%{private}@ value class=%{public}@", buf, 0x4Eu);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 + (void)controller:(id)controller pushInterfaceController:(id)interfaceController context:(id)context
@@ -1401,34 +1387,34 @@ LABEL_64:
 
 + (void)reloadRootControllersWithNames:(id)names contexts:(id)contexts
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   namesCopy = names;
   contextsCopy = contexts;
   array = [MEMORY[0x277CBEB18] array];
   v8 = [contextsCopy count];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v9 = contextsCopy;
-  v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v20;
+    v12 = *v19;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v20 != v12)
+        if (*v19 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v19 + 1) + 8 * i);
+        v14 = *(*(&v18 + 1) + 8 * i);
         if (v8 > 1)
         {
-          [__sharedRemoteInterface storePageInterfaceCreationContext:{v14, v19}];
+          [__sharedRemoteInterface storePageInterfaceCreationContext:{v14, v18}];
         }
 
         else
@@ -1436,10 +1422,10 @@ LABEL_64:
           [__sharedRemoteInterface storeInterfaceCreationContext:v14];
         }
         v15 = ;
-        [array addObject:{v15, v19}];
+        [array addObject:{v15, v18}];
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v11);
@@ -1456,46 +1442,44 @@ LABEL_64:
     v17 = 0;
   }
 
-  [v16 reloadRootControllersWithNames:namesCopy initializationContextIDs:v17 pageIndex:0 verticalPaging:{0, v19}];
-
-  v18 = *MEMORY[0x277D85DE8];
+  [v16 reloadRootControllersWithNames:namesCopy initializationContextIDs:v17 pageIndex:0 verticalPaging:{0, v18}];
 }
 
 + (void)insertPageControllerAtIndexes:(id)indexes withNames:(id)names contexts:(id)contexts
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   indexesCopy = indexes;
   namesCopy = names;
   contextsCopy = contexts;
   array = [MEMORY[0x277CBEB18] array];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v11 = contextsCopy;
-  v12 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v21;
+    v14 = *v20;
     do
     {
       v15 = 0;
       do
       {
-        if (*v21 != v14)
+        if (*v20 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = [__sharedRemoteInterface storePageInterfaceCreationContext:{*(*(&v20 + 1) + 8 * v15), v20}];
+        v16 = [__sharedRemoteInterface storePageInterfaceCreationContext:{*(*(&v19 + 1) + 8 * v15), v19}];
         [array addObject:v16];
 
         ++v15;
       }
 
       while (v13 != v15);
-      v13 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v13);
@@ -1512,9 +1496,7 @@ LABEL_64:
     v18 = 0;
   }
 
-  [v17 insertPageControllerAtIndexes:indexesCopy withNames:namesCopy initializationContextIDs:{v18, v20}];
-
-  v19 = *MEMORY[0x277D85DE8];
+  [v17 insertPageControllerAtIndexes:indexesCopy withNames:namesCopy initializationContextIDs:{v18, v19}];
 }
 
 + (void)controller:(id)controller presentInterfaceController:(id)interfaceController context:(id)context
@@ -1528,35 +1510,35 @@ LABEL_64:
 
 + (void)controller:(id)controller presentInterfaceControllers:(id)controllers contexts:(id)contexts
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   controllersCopy = controllers;
   contextsCopy = contexts;
   array = [MEMORY[0x277CBEB18] array];
   v11 = [contextsCopy count];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v12 = contextsCopy;
-  v13 = [v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v23;
+    v15 = *v22;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v23 != v15)
+        if (*v22 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = *(*(&v22 + 1) + 8 * i);
+        v17 = *(*(&v21 + 1) + 8 * i);
         if (v11 > 1)
         {
-          [__sharedRemoteInterface storePageInterfaceCreationContext:{v17, v22}];
+          [__sharedRemoteInterface storePageInterfaceCreationContext:{v17, v21}];
         }
 
         else
@@ -1564,10 +1546,10 @@ LABEL_64:
           [__sharedRemoteInterface storeInterfaceCreationContext:v17];
         }
         v18 = ;
-        [array addObject:{v18, v22}];
+        [array addObject:{v18, v21}];
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v14);
@@ -1584,9 +1566,7 @@ LABEL_64:
     v20 = 0;
   }
 
-  [v19 controller:controllerCopy presentInterfaceControllers:controllersCopy initializationContextIDs:{v20, v22}];
-
-  v21 = *MEMORY[0x277D85DE8];
+  [v19 controller:controllerCopy presentInterfaceControllers:controllersCopy initializationContextIDs:{v20, v21}];
 }
 
 + (void)controller:(id)controller presentTextInputControllerWithSuggestions:(id)suggestions allowedInputMode:(id)mode completion:(id)completion
@@ -1622,7 +1602,7 @@ LABEL_64:
 
 + (void)sendCacheRequest:(id)request
 {
-  v3 = wk_default_log();
+  v3 = wk_default_log(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     +[SPRemoteInterface sendCacheRequest:];
@@ -1631,7 +1611,7 @@ LABEL_64:
 
 - (BOOL)_sendDataToApp:(id)app reply:(id)reply
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   appCopy = app;
   replyCopy = reply;
   appClientIdentifier = self->_appClientIdentifier;
@@ -1656,13 +1636,12 @@ LABEL_6:
     goto LABEL_6;
   }
 
-  v14[0] = v9;
+  v13[0] = v9;
   v10 = 1;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
   [(SPRemoteInterface *)self sendData:appCopy clientIdentifiers:v11 reply:replyCopy];
 
 LABEL_7:
-  v12 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -1786,7 +1765,7 @@ LABEL_8:
 
 - (void)controller:(id)controller pushInterfaceController:(id)interfaceController initializationContextID:(id)d
 {
-  v19[2] = *MEMORY[0x277D85DE8];
+  v18[2] = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   interfaceControllerCopy = interfaceController;
   dCopy = d;
@@ -1795,11 +1774,11 @@ LABEL_8:
   if (v12)
   {
     [(SPRemoteInterface *)self setNavigatingViewControllerID:v11];
-    v18[0] = @"V";
-    v18[1] = @"n";
-    v19[0] = v11;
-    v19[1] = interfaceControllerCopy;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
+    v17[0] = @"V";
+    v17[1] = @"n";
+    v18[0] = v11;
+    v18[1] = interfaceControllerCopy;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
     v14 = [v13 mutableCopy];
 
     if (dCopy)
@@ -1807,100 +1786,155 @@ LABEL_8:
       [v14 setObject:dCopy forKey:@"X"];
     }
 
-    v17 = v12;
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
+    v16 = v12;
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v16 count:1];
     [(SPRemoteInterface *)self sendPlist:v14 clientIdentifiers:v15];
   }
 
   else
   {
-    v14 = wk_default_log();
+    v14 = wk_default_log(0);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [SPRemoteInterface controller:pushInterfaceController:initializationContextID:];
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)controllerPop:(id)pop
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   popCopy = pop;
   v5 = [(SPRemoteInterface *)self _interfaceControllerID:popCopy];
   v6 = [(SPRemoteInterface *)self _interfaceControllerClientIDForControllerID:v5];
   if (v6)
   {
     [(SPRemoteInterface *)self setNavigatingViewControllerID:v5];
-    v11[0] = @"V";
-    v11[1] = @"n";
-    v12[0] = v5;
-    v12[1] = @".pop";
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
-    v10 = v6;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v10 count:1];
+    v10[0] = @"V";
+    v10[1] = @"n";
+    v11[0] = v5;
+    v11[1] = @".pop";
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+    v9 = v6;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v9 count:1];
     [(SPRemoteInterface *)self sendPlist:v7 clientIdentifiers:v8];
   }
 
   else
   {
-    v7 = wk_default_log();
+    v7 = wk_default_log(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [SPRemoteInterface controllerPop:];
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)controllerPopToRoot:(id)root
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   rootCopy = root;
   v5 = [(SPRemoteInterface *)self _interfaceControllerID:rootCopy];
   v6 = [(SPRemoteInterface *)self _interfaceControllerClientIDForControllerID:v5];
   if (v6)
   {
     [(SPRemoteInterface *)self setNavigatingViewControllerID:v5];
-    v11[0] = @"V";
-    v11[1] = @"n";
-    v12[0] = v5;
-    v12[1] = @".popR";
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
-    v10 = v6;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v10 count:1];
+    v10[0] = @"V";
+    v10[1] = @"n";
+    v11[0] = v5;
+    v11[1] = @".popR";
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+    v9 = v6;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v9 count:1];
     [(SPRemoteInterface *)self sendPlist:v7 clientIdentifiers:v8];
   }
 
   else
   {
-    v7 = wk_default_log();
+    v7 = wk_default_log(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [SPRemoteInterface controllerPopToRoot:];
     }
   }
+}
 
-  v9 = *MEMORY[0x277D85DE8];
+- (void)reloadRootControllersWithNames:(id)names initializationContextIDs:(id)ds pageIndex:(int64_t)index verticalPaging:(BOOL)paging
+{
+  pagingCopy = paging;
+  v31[5] = *MEMORY[0x277D85DE8];
+  namesCopy = names;
+  dsCopy = ds;
+  rootViewControllerID = self->_rootViewControllerID;
+  if (!rootViewControllerID)
+  {
+    rootViewControllerID = &stru_284DFE9D8;
+  }
+
+  v13 = rootViewControllerID;
+  appClientIdentifier = self->_appClientIdentifier;
+  if (appClientIdentifier)
+  {
+    v15 = appClientIdentifier;
+  }
+
+  else
+  {
+    v15 = [(SPRemoteInterface *)self _interfaceControllerClientIDForControllerID:self->_rootViewControllerID];
+    if (!v15)
+    {
+      goto LABEL_9;
+    }
+  }
+
+  v30[0] = @"V";
+  v30[1] = @"rv";
+  v31[0] = v13;
+  v31[1] = @"rvr";
+  v31[2] = namesCopy;
+  v30[2] = @"rvna";
+  v30[3] = @"rvpidx";
+  v16 = [MEMORY[0x277CCABB0] numberWithInteger:index];
+  v31[3] = v16;
+  v30[4] = @"rvv";
+  v17 = [MEMORY[0x277CCABB0] numberWithBool:pagingCopy];
+  v31[4] = v17;
+  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:5];
+  v19 = [v18 mutableCopy];
+
+  if (dsCopy)
+  {
+    [v19 setObject:dsCopy forKey:@"X"];
+  }
+
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __102__SPRemoteInterface_reloadRootControllersWithNames_initializationContextIDs_pageIndex_verticalPaging___block_invoke;
+  v27[3] = &unk_278B7E278;
+  v27[4] = self;
+  v28 = v19;
+  v29 = v15;
+  v20 = v15;
+  v21 = v19;
+  v22 = MEMORY[0x23EE9A9D0](v27);
+  v22[2](v22, v23, v24, v25, v26);
+
+LABEL_9:
 }
 
 void __102__SPRemoteInterface_reloadRootControllersWithNames_initializationContextIDs_pageIndex_verticalPaging___block_invoke(void *a1)
 {
-  v5[1] = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
   v1 = a1[4];
   v2 = a1[5];
-  v5[0] = a1[6];
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
+  v4[0] = a1[6];
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
   [v1 sendPlist:v2 clientIdentifiers:v3];
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)insertPageControllerAtIndexes:(id)indexes withNames:(id)names initializationContextIDs:(id)ds
 {
-  v21[4] = *MEMORY[0x277D85DE8];
+  v20[4] = *MEMORY[0x277D85DE8];
   indexesCopy = indexes;
   namesCopy = names;
   dsCopy = ds;
@@ -1926,15 +1960,15 @@ void __102__SPRemoteInterface_reloadRootControllersWithNames_initializationConte
     }
   }
 
-  v20[0] = @"V";
-  v20[1] = @"rv";
-  v21[0] = v12;
-  v21[1] = @"rvi";
-  v20[2] = @"rvna";
-  v20[3] = @"rvidx";
-  v21[2] = namesCopy;
-  v21[3] = indexesCopy;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:4];
+  v19[0] = @"V";
+  v19[1] = @"rv";
+  v20[0] = v12;
+  v20[1] = @"rvi";
+  v19[2] = @"rvna";
+  v19[3] = @"rvidx";
+  v20[2] = namesCopy;
+  v20[3] = indexesCopy;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:4];
   v16 = [v15 mutableCopy];
 
   if (dsCopy)
@@ -1942,17 +1976,16 @@ void __102__SPRemoteInterface_reloadRootControllersWithNames_initializationConte
     [v16 setObject:dsCopy forKey:@"X"];
   }
 
-  v19 = v14;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v19 count:1];
+  v18 = v14;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v18 count:1];
   [(SPRemoteInterface *)self sendPlist:v16 clientIdentifiers:v17];
 
 LABEL_9:
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)movePageControllerAtIndex:(int64_t)index toIndex:(int64_t)toIndex
 {
-  v20[3] = *MEMORY[0x277D85DE8];
+  v19[3] = *MEMORY[0x277D85DE8];
   rootViewControllerID = self->_rootViewControllerID;
   if (!rootViewControllerID)
   {
@@ -1965,21 +1998,21 @@ LABEL_9:
   {
     v10 = appClientIdentifier;
 LABEL_6:
-    v19[0] = @"V";
-    v19[1] = @"rv";
-    v20[0] = v8;
-    v20[1] = @"rvm";
-    v19[2] = @"rvidx";
+    v18[0] = @"V";
+    v18[1] = @"rv";
+    v19[0] = v8;
+    v19[1] = @"rvm";
+    v18[2] = @"rvidx";
     v11 = [MEMORY[0x277CCABB0] numberWithInteger:index];
-    v18[0] = v11;
+    v17[0] = v11;
     v12 = [MEMORY[0x277CCABB0] numberWithInteger:toIndex];
-    v18[1] = v12;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
-    v20[2] = v13;
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:3];
+    v17[1] = v12;
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
+    v19[2] = v13;
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:3];
 
-    v17 = v10;
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
+    v16 = v10;
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v16 count:1];
     [(SPRemoteInterface *)self sendPlist:v14 clientIdentifiers:v15];
 
     goto LABEL_7;
@@ -1992,13 +2025,11 @@ LABEL_6:
   }
 
 LABEL_7:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removePageControllerAtIndexes:(id)indexes
 {
-  v14[3] = *MEMORY[0x277D85DE8];
+  v13[3] = *MEMORY[0x277D85DE8];
   indexesCopy = indexes;
   rootViewControllerID = self->_rootViewControllerID;
   if (!rootViewControllerID)
@@ -2012,15 +2043,15 @@ LABEL_7:
   {
     v8 = appClientIdentifier;
 LABEL_6:
-    v13[0] = @"V";
-    v13[1] = @"rv";
-    v14[0] = v6;
-    v14[1] = @"rvd";
-    v13[2] = @"rvidx";
-    v14[2] = indexesCopy;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:3];
-    v12 = v8;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v12 count:1];
+    v12[0] = @"V";
+    v12[1] = @"rv";
+    v13[0] = v6;
+    v13[1] = @"rvd";
+    v12[2] = @"rvidx";
+    v13[2] = indexesCopy;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:3];
+    v11 = v8;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v11 count:1];
     [(SPRemoteInterface *)self sendPlist:v9 clientIdentifiers:v10];
 
     goto LABEL_7;
@@ -2033,62 +2064,56 @@ LABEL_6:
   }
 
 LABEL_7:
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)controllerBecomeCurrentPage:(id)page
 {
-  v19[2] = *MEMORY[0x277D85DE8];
+  v18[2] = *MEMORY[0x277D85DE8];
   pageCopy = page;
   v5 = [(SPRemoteInterface *)self _interfaceControllerID:pageCopy];
   v6 = [(SPRemoteInterface *)self _interfaceControllerClientIDForControllerID:v5];
   if (v6)
   {
-    v18[0] = @"V";
-    v18[1] = @"n";
-    v19[0] = v5;
-    v19[1] = @".page";
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __49__SPRemoteInterface_controllerBecomeCurrentPage___block_invoke;
-    v15[3] = &unk_278B7E278;
-    v15[4] = self;
-    v16 = v7;
-    v17 = v6;
+    v17[0] = @"V";
+    v17[1] = @"n";
+    v18[0] = v5;
+    v18[1] = @".page";
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __49__SPRemoteInterface_controllerBecomeCurrentPage___block_invoke;
+    v14[3] = &unk_278B7E278;
+    v14[4] = self;
+    v15 = v7;
+    v16 = v6;
     v8 = v7;
-    v9 = MEMORY[0x23EE9A9D0](v15);
+    v9 = MEMORY[0x23EE9A9D0](v14);
     v9[2](v9, v10, v11, v12, v13);
   }
 
   else
   {
-    v8 = wk_default_log();
+    v8 = wk_default_log(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [SPRemoteInterface controllerBecomeCurrentPage:];
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __49__SPRemoteInterface_controllerBecomeCurrentPage___block_invoke(void *a1)
 {
-  v5[1] = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
   v1 = a1[4];
   v2 = a1[5];
-  v5[0] = a1[6];
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
+  v4[0] = a1[6];
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
   [v1 sendPlist:v2 clientIdentifiers:v3];
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)controller:(id)controller presentInterfaceController:(id)interfaceController initializationContextID:(id)d
 {
-  v19[2] = *MEMORY[0x277D85DE8];
+  v18[2] = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   interfaceControllerCopy = interfaceController;
   dCopy = d;
@@ -2097,11 +2122,11 @@ void __49__SPRemoteInterface_controllerBecomeCurrentPage___block_invoke(void *a1
   if (v12)
   {
     [(SPRemoteInterface *)self setNavigatingViewControllerID:v11];
-    v18[0] = @"V";
-    v18[1] = @"nm";
-    v19[0] = v11;
-    v19[1] = interfaceControllerCopy;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
+    v17[0] = @"V";
+    v17[1] = @"nm";
+    v18[0] = v11;
+    v18[1] = interfaceControllerCopy;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
     v14 = [v13 mutableCopy];
 
     if (dCopy)
@@ -2109,26 +2134,24 @@ void __49__SPRemoteInterface_controllerBecomeCurrentPage___block_invoke(void *a1
       [v14 setObject:dCopy forKey:@"X"];
     }
 
-    v17 = v12;
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
+    v16 = v12;
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v16 count:1];
     [(SPRemoteInterface *)self sendPlist:v14 clientIdentifiers:v15];
   }
 
   else
   {
-    v14 = wk_default_log();
+    v14 = wk_default_log(0);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [SPRemoteInterface controller:presentInterfaceController:initializationContextID:];
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)controller:(id)controller presentInterfaceControllers:(id)controllers initializationContextIDs:(id)ds
 {
-  v19[2] = *MEMORY[0x277D85DE8];
+  v18[2] = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   controllersCopy = controllers;
   dsCopy = ds;
@@ -2137,11 +2160,11 @@ void __49__SPRemoteInterface_controllerBecomeCurrentPage___block_invoke(void *a1
   if (v12)
   {
     [(SPRemoteInterface *)self setNavigatingViewControllerID:v11];
-    v18[0] = @"V";
-    v18[1] = @"nm";
-    v19[0] = v11;
-    v19[1] = controllersCopy;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
+    v17[0] = @"V";
+    v17[1] = @"nm";
+    v18[0] = v11;
+    v18[1] = controllersCopy;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
     v14 = [v13 mutableCopy];
 
     if (dsCopy)
@@ -2149,57 +2172,53 @@ void __49__SPRemoteInterface_controllerBecomeCurrentPage___block_invoke(void *a1
       [v14 setObject:dsCopy forKey:@"X"];
     }
 
-    v17 = v12;
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
+    v16 = v12;
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v16 count:1];
     [(SPRemoteInterface *)self sendPlist:v14 clientIdentifiers:v15];
   }
 
   else
   {
-    v14 = wk_default_log();
+    v14 = wk_default_log(0);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [SPRemoteInterface controller:presentInterfaceControllers:initializationContextIDs:];
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)controllerDismiss:(id)dismiss
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   dismissCopy = dismiss;
   v5 = [(SPRemoteInterface *)self _interfaceControllerID:dismissCopy];
   v6 = [(SPRemoteInterface *)self _interfaceControllerClientIDForControllerID:v5];
   if (v6)
   {
     [(SPRemoteInterface *)self setNavigatingViewControllerID:v5];
-    v11[0] = @"V";
-    v11[1] = @"nm";
-    v12[0] = v5;
-    v12[1] = @".pop";
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
-    v10 = v6;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v10 count:1];
+    v10[0] = @"V";
+    v10[1] = @"nm";
+    v11[0] = v5;
+    v11[1] = @".pop";
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+    v9 = v6;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v9 count:1];
     [(SPRemoteInterface *)self sendPlist:v7 clientIdentifiers:v8];
   }
 
   else
   {
-    v7 = wk_default_log();
+    v7 = wk_default_log(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [SPRemoteInterface controllerDismiss:];
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)controllerPresentTextInputController:(id)controller allowedInputMode:(id)mode suggestions:(id)suggestions
 {
-  v21[4] = *MEMORY[0x277D85DE8];
+  v20[4] = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   modeCopy = mode;
   suggestionsCopy = suggestions;
@@ -2209,100 +2228,94 @@ void __49__SPRemoteInterface_controllerBecomeCurrentPage___block_invoke(void *a1
   {
     if ([suggestionsCopy count])
     {
-      v20[0] = @"V";
-      v20[1] = @"nm";
-      v21[0] = v11;
-      v21[1] = @"ti";
-      v20[2] = @"tim";
-      v20[3] = @"tI";
-      v21[2] = modeCopy;
-      v21[3] = suggestionsCopy;
-      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:4];
+      v19[0] = @"V";
+      v19[1] = @"nm";
+      v20[0] = v11;
+      v20[1] = @"ti";
+      v19[2] = @"tim";
+      v19[3] = @"tI";
+      v20[2] = modeCopy;
+      v20[3] = suggestionsCopy;
+      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:4];
     }
 
     else
     {
-      v18[0] = @"V";
-      v18[1] = @"nm";
-      v19[0] = v11;
-      v19[1] = @"ti";
-      v19[2] = modeCopy;
-      v18[2] = @"tim";
-      v18[3] = @"tL";
+      v17[0] = @"V";
+      v17[1] = @"nm";
+      v18[0] = v11;
+      v18[1] = @"ti";
+      v18[2] = modeCopy;
+      v17[2] = @"tim";
+      v17[3] = @"tL";
       v14 = [MEMORY[0x277CCABB0] numberWithInt:self->_textInputSuggestions != 0];
-      v19[3] = v14;
-      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:4];
+      v18[3] = v14;
+      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:4];
     }
 
-    v17 = v12;
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
+    v16 = v12;
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v16 count:1];
     [(SPRemoteInterface *)self sendPlist:v13 clientIdentifiers:v15];
   }
 
   else
   {
-    v13 = wk_default_log();
+    v13 = wk_default_log(0);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [SPRemoteInterface controllerPresentTextInputController:allowedInputMode:suggestions:];
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)controllerDismissTextInputController:(id)controller
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   v5 = [(SPRemoteInterface *)self _interfaceControllerID:controllerCopy];
   v6 = [(SPRemoteInterface *)self _interfaceControllerClientIDForControllerID:v5];
   if (v6)
   {
-    v11[0] = @"V";
-    v11[1] = @"nm";
-    v12[0] = v5;
-    v12[1] = @".pop";
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
-    v10 = v6;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v10 count:1];
+    v10[0] = @"V";
+    v10[1] = @"nm";
+    v11[0] = v5;
+    v11[1] = @".pop";
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+    v9 = v6;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v9 count:1];
     [(SPRemoteInterface *)self sendPlist:v7 clientIdentifiers:v8];
   }
 
   else
   {
-    v7 = wk_default_log();
+    v7 = wk_default_log(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [SPRemoteInterface controllerDismissTextInputController:];
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)openSystemURL:(id)l
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   appClientIdentifier = self->_appClientIdentifier;
   if (appClientIdentifier)
   {
     v6 = appClientIdentifier;
     v7 = spUtils_serializeObject(l);
-    v12 = @"ou";
-    v13[0] = v7;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
-    v11 = v6;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v11 count:1];
+    v11 = @"ou";
+    v12[0] = v7;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v10 = v6;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v10 count:1];
     [(SPRemoteInterface *)self sendPlist:v8 clientIdentifiers:v9];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)controllerPresentAddPassesController:(id)controller passes:(id)passes
 {
-  v16[3] = *MEMORY[0x277D85DE8];
+  v15[3] = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   passesCopy = passes;
   v8 = [(SPRemoteInterface *)self _interfaceControllerID:controllerCopy];
@@ -2310,93 +2323,87 @@ void __49__SPRemoteInterface_controllerBecomeCurrentPage___block_invoke(void *a1
   if (v9)
   {
     v10 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(passesCopy, "count")}];
-    v15[0] = @"V";
-    v15[1] = @"nm";
-    v16[0] = v8;
-    v16[1] = @"pka";
-    v15[2] = @"pkp";
-    v16[2] = v10;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:3];
-    v14 = v9;
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
+    v14[0] = @"V";
+    v14[1] = @"nm";
+    v15[0] = v8;
+    v15[1] = @"pka";
+    v14[2] = @"pkp";
+    v15[2] = v10;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:3];
+    v13 = v9;
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v13 count:1];
     [(SPRemoteInterface *)self sendPlist:v11 clientIdentifiers:v12];
   }
 
   else
   {
-    v10 = wk_default_log();
+    v10 = wk_default_log(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [SPRemoteInterface controllerPresentAddPassesController:passes:];
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)controllerDismissAddPassesController:(id)controller
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   v5 = [(SPRemoteInterface *)self _interfaceControllerID:controllerCopy];
   v6 = [(SPRemoteInterface *)self _interfaceControllerClientIDForControllerID:v5];
   if (v6)
   {
-    v11[0] = @"V";
-    v11[1] = @"nm";
-    v12[0] = v5;
-    v12[1] = @".pop";
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
-    v10 = v6;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v10 count:1];
+    v10[0] = @"V";
+    v10[1] = @"nm";
+    v11[0] = v5;
+    v11[1] = @".pop";
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+    v9 = v6;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v9 count:1];
     [(SPRemoteInterface *)self sendPlist:v7 clientIdentifiers:v8];
   }
 
   else
   {
-    v7 = wk_default_log();
+    v7 = wk_default_log(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [SPRemoteInterface controllerDismissAddPassesController:];
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didFinishHandlingActivity:(id)activity
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   activityCopy = activity;
   v5 = [(SPRemoteInterface *)self _interfaceControllerID:activityCopy];
   v6 = [(SPRemoteInterface *)self _interfaceControllerClientIDForControllerID:v5];
   if (v6)
   {
-    v11[0] = @"V";
-    v11[1] = @"har";
-    v12[0] = v5;
-    v12[1] = MEMORY[0x277CBEC38];
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
-    v10 = v6;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v10 count:1];
+    v10[0] = @"V";
+    v10[1] = @"har";
+    v11[0] = v5;
+    v11[1] = MEMORY[0x277CBEC38];
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+    v9 = v6;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v9 count:1];
     [(SPRemoteInterface *)self sendPlist:v7 clientIdentifiers:v8];
   }
 
   else
   {
-    v7 = wk_default_log();
+    v7 = wk_default_log(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [SPRemoteInterface didFinishHandlingActivity:];
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notificationController:(id)controller showNotificationInterfaceType:(int64_t)type
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   v7 = [(SPRemoteInterface *)self _interfaceControllerID:controllerCopy];
   v8 = [(SPRemoteInterface *)self _interfaceControllerClientIDForControllerID:v7];
@@ -2420,58 +2427,54 @@ void __49__SPRemoteInterface_controllerBecomeCurrentPage___block_invoke(void *a1
 
     v10 = *v9;
 LABEL_10:
-    v15[0] = @"V";
-    v15[1] = @"nt";
-    v16[0] = v7;
-    v16[1] = v10;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
-    v14 = v8;
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
+    v14[0] = @"V";
+    v14[1] = @"nt";
+    v15[0] = v7;
+    v15[1] = v10;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
+    v13 = v8;
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v13 count:1];
     [(SPRemoteInterface *)self sendPlist:v11 clientIdentifiers:v12];
 
     goto LABEL_11;
   }
 
-  v10 = wk_default_log();
+  v10 = wk_default_log(0);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
     [SPRemoteInterface notificationController:showNotificationInterfaceType:];
   }
 
 LABEL_11:
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendWillActivateReplyForController:(id)controller
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   v5 = [(SPRemoteInterface *)self _interfaceControllerID:controllerCopy];
   if (v5)
   {
     v6 = [(SPRemoteInterface *)self _interfaceControllerClientIDForControllerID:v5];
-    v15[0] = v6;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+    v14[0] = v6;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
     [(SPRemoteInterface *)self sendSetViewController:v5 key:@"#didActivate" property:0 value:0 clientIdentifiers:v7];
   }
 
   else
   {
-    v6 = wk_default_log();
+    v6 = wk_default_log(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 136446722;
-      v10 = "[SPRemoteInterface sendWillActivateReplyForController:]";
-      v11 = 1024;
-      v12 = 2311;
-      v13 = 2114;
-      v14 = controllerCopy;
-      _os_log_impl(&dword_23B338000, v6, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: ComF: interfaceControllerID for controller:%{public}@ not found. Controller may already have been released.", &v9, 0x1Cu);
+      v8 = 136446722;
+      v9 = "[SPRemoteInterface sendWillActivateReplyForController:]";
+      v10 = 1024;
+      v11 = 2311;
+      v12 = 2114;
+      v13 = controllerCopy;
+      _os_log_impl(&dword_23B338000, v6, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: ComF: interfaceControllerID for controller:%{public}@ not found. Controller may already have been released.", &v8, 0x1Cu);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)recoverFromMissingIntefaceControllerWithID:(id)d
@@ -2532,7 +2535,7 @@ void __73__SPRemoteInterface__inQueue_recoverFromMissingIntefaceControllerWithID
   dispatch_barrier_async(v3, v4);
 }
 
-uint64_t __73__SPRemoteInterface__inQueue_recoverFromMissingIntefaceControllerWithID___block_invoke_2(uint64_t a1)
+void *__73__SPRemoteInterface__inQueue_recoverFromMissingIntefaceControllerWithID___block_invoke_2(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 48) containsObject:*(a1 + 40)];
   if (result)
@@ -2561,7 +2564,7 @@ uint64_t __73__SPRemoteInterface__inQueue_recoverFromMissingIntefaceControllerWi
 
   else
   {
-    mainBundle = wk_default_log();
+    mainBundle = wk_default_log(v6);
     if (os_log_type_enabled(mainBundle, OS_LOG_TYPE_ERROR))
     {
       [SPRemoteInterface _tellApplicationThatInterfaceControllerCantBeFound:];
@@ -2589,34 +2592,30 @@ uint64_t __73__SPRemoteInterface__inQueue_recoverFromMissingIntefaceControllerWi
   v6 = dCopy;
   v14 = v6;
   dispatch_sync(interfaceControllersAccessQueue, block);
-  v7 = v17[5];
-  if (!v7)
+  v8 = v17[5];
+  if (!v8)
   {
-    v8 = wk_default_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = wk_default_log(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v9 = [(NSMutableDictionary *)self->_interfaceControllersOwners objectForKeyedSubscript:v6];
-      [(SPRemoteInterface *)v6 _interfaceControllerWithID:v9, v22];
+      v10 = [(NSMutableDictionary *)self->_interfaceControllersOwners objectForKeyedSubscript:v6];
+      [(SPRemoteInterface *)v6 _interfaceControllerWithID:v10, v22];
     }
 
     [(SPRemoteInterface *)self recoverFromMissingIntefaceControllerWithID:v6];
-    v7 = v17[5];
+    v8 = v17[5];
   }
 
-  v10 = v7;
+  v11 = v8;
 
   _Block_object_dispose(&v16, 8);
-  v11 = *MEMORY[0x277D85DE8];
 
-  return v10;
+  return v11;
 }
 
 uint64_t __48__SPRemoteInterface__interfaceControllerWithID___block_invoke(void *a1)
 {
-  v2 = [*(a1[4] + 32) objectForKeyedSubscript:a1[5]];
-  v3 = *(a1[6] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[6] + 8) + 40) = [*(a1[4] + 32) objectForKeyedSubscript:a1[5]];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -2666,10 +2665,7 @@ uint64_t __48__SPRemoteInterface__interfaceControllerWithID___block_invoke(void 
 
 uint64_t __61__SPRemoteInterface__interfaceControllerWithID_performBlock___block_invoke(void *a1)
 {
-  v2 = [*(a1[4] + 32) objectForKeyedSubscript:a1[5]];
-  v3 = *(a1[6] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[6] + 8) + 40) = [*(a1[4] + 32) objectForKeyedSubscript:a1[5]];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -2694,25 +2690,24 @@ uint64_t __61__SPRemoteInterface__interfaceControllerWithID_performBlock___block
   v6 = dCopy;
   v14 = v6;
   dispatch_sync(interfaceControllersAccessQueue, block);
-  v7 = v17[5];
-  if (!v7)
+  v8 = v17[5];
+  if (!v8)
   {
-    v8 = wk_default_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = wk_default_log(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v9 = [(NSMutableDictionary *)self->_interfaceControllersOwners objectForKeyedSubscript:v17[5]];
-      [(SPRemoteInterface *)v6 _interfaceControllerID:v9, v22];
+      v10 = [(NSMutableDictionary *)self->_interfaceControllersOwners objectForKeyedSubscript:v17[5]];
+      [(SPRemoteInterface *)v6 _interfaceControllerID:v10, v22];
     }
 
-    v7 = v17[5];
+    v8 = v17[5];
   }
 
-  v10 = v7;
+  v11 = v8;
 
   _Block_object_dispose(&v16, 8);
-  v11 = *MEMORY[0x277D85DE8];
 
-  return v10;
+  return v11;
 }
 
 void __44__SPRemoteInterface__interfaceControllerID___block_invoke(void *a1)
@@ -2727,47 +2722,44 @@ void __44__SPRemoteInterface__interfaceControllerID___block_invoke(void *a1)
 - (id)_interfaceControllerClientIDForControllerID:(id)d
 {
   dCopy = d;
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x3032000000;
-  v17 = __Block_byref_object_copy_;
-  v18 = __Block_byref_object_dispose_;
-  v19 = 0;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x3032000000;
+  v18 = __Block_byref_object_copy_;
+  v19 = __Block_byref_object_dispose_;
+  v20 = 0;
   interfaceControllersAccessQueue = self->_interfaceControllersAccessQueue;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __65__SPRemoteInterface__interfaceControllerClientIDForControllerID___block_invoke;
   block[3] = &unk_278B7E318;
-  v13 = &v14;
+  v14 = &v15;
   block[4] = self;
   v6 = dCopy;
-  v12 = v6;
+  v13 = v6;
   dispatch_sync(interfaceControllersAccessQueue, block);
-  v7 = v15[5];
-  if (!v7)
+  v8 = v16[5];
+  if (!v8)
   {
-    v8 = wk_default_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = wk_default_log(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [SPRemoteInterface _interfaceControllerClientIDForControllerID:];
     }
 
-    v7 = v15[5];
+    v8 = v16[5];
   }
 
-  v9 = v7;
+  v10 = v8;
 
-  _Block_object_dispose(&v14, 8);
+  _Block_object_dispose(&v15, 8);
 
-  return v9;
+  return v10;
 }
 
 uint64_t __65__SPRemoteInterface__interfaceControllerClientIDForControllerID___block_invoke(void *a1)
 {
-  v2 = [*(a1[4] + 40) objectForKeyedSubscript:a1[5]];
-  v3 = *(a1[6] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[6] + 8) + 40) = [*(a1[4] + 40) objectForKeyedSubscript:a1[5]];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -2792,11 +2784,11 @@ uint64_t __65__SPRemoteInterface__interfaceControllerClientIDForControllerID___b
   v6 = dCopy;
   v13 = v6;
   dispatch_sync(interfaceControllersAccessQueue, block);
-  v7 = v16[5];
-  if (!v7)
+  v8 = v16[5];
+  if (!v8)
   {
-    v8 = wk_default_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = wk_default_log(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446722;
       v22 = "[SPRemoteInterface _interfaceControllerIDsForClientID:]";
@@ -2804,18 +2796,17 @@ uint64_t __65__SPRemoteInterface__interfaceControllerClientIDForControllerID___b
       v24 = 2446;
       v25 = 2114;
       v26 = v6;
-      _os_log_impl(&dword_23B338000, v8, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: ComF: interfaceCotrollersIDs for clientIdentifier:%{public}@ not found", buf, 0x1Cu);
+      _os_log_impl(&dword_23B338000, v9, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: ComF: interfaceCotrollersIDs for clientIdentifier:%{public}@ not found", buf, 0x1Cu);
     }
 
-    v7 = v16[5];
+    v8 = v16[5];
   }
 
-  v9 = v7;
+  v10 = v8;
 
   _Block_object_dispose(&v15, 8);
-  v10 = *MEMORY[0x277D85DE8];
 
-  return v9;
+  return v10;
 }
 
 void __56__SPRemoteInterface__interfaceControllerIDsForClientID___block_invoke(void *a1)
@@ -2830,24 +2821,24 @@ void __56__SPRemoteInterface__interfaceControllerIDsForClientID___block_invoke(v
 - (void)_registerInterfaceController:(id)controller interfaceControllerID:(id)d interfaceControllerClientID:(id)iD applicationRootController:(BOOL)rootController
 {
   rootControllerCopy = rootController;
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   dCopy = d;
   iDCopy = iD;
-  v13 = wk_default_log();
+  v13 = wk_default_log(iDCopy);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 136447234;
-    v16 = "[SPRemoteInterface _registerInterfaceController:interfaceControllerID:interfaceControllerClientID:applicationRootController:]";
-    v17 = 1024;
-    v18 = 2458;
-    v19 = 2114;
-    v20 = controllerCopy;
-    v21 = 2114;
-    v22 = dCopy;
-    v23 = 2114;
-    v24 = iDCopy;
-    _os_log_impl(&dword_23B338000, v13, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: registering controller %{public}@ with id %{public}@ and clientIdentifier %{public}@", &v15, 0x30u);
+    v14 = 136447234;
+    v15 = "[SPRemoteInterface _registerInterfaceController:interfaceControllerID:interfaceControllerClientID:applicationRootController:]";
+    v16 = 1024;
+    v17 = 2458;
+    v18 = 2114;
+    v19 = controllerCopy;
+    v20 = 2114;
+    v21 = dCopy;
+    v22 = 2114;
+    v23 = iDCopy;
+    _os_log_impl(&dword_23B338000, v13, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: registering controller %{public}@ with id %{public}@ and clientIdentifier %{public}@", &v14, 0x30u);
   }
 
   if (controllerCopy)
@@ -2863,50 +2854,46 @@ void __56__SPRemoteInterface__interfaceControllerIDsForClientID___block_invoke(v
   {
     [(NSMutableDictionary *)self->_interfaceControllersOwners setObject:iDCopy forKey:dCopy];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_deregisterInterfaceControllerID:(id)d
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   dCopy = d;
-  v5 = wk_default_log();
+  v5 = wk_default_log(dCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = [(NSMutableDictionary *)self->_interfaceControllers objectForKeyedSubscript:dCopy];
     v7 = [(NSMutableDictionary *)self->_interfaceControllersOwners objectForKeyedSubscript:dCopy];
     *buf = 136447234;
-    v17 = "[SPRemoteInterface _deregisterInterfaceControllerID:]";
-    v18 = 1024;
-    v19 = 2501;
-    v20 = 2114;
-    v21 = v6;
-    v22 = 2114;
-    v23 = dCopy;
-    v24 = 2114;
-    v25 = v7;
+    v16 = "[SPRemoteInterface _deregisterInterfaceControllerID:]";
+    v17 = 1024;
+    v18 = 2501;
+    v19 = 2114;
+    v20 = v6;
+    v21 = 2114;
+    v22 = dCopy;
+    v23 = 2114;
+    v24 = v7;
     _os_log_impl(&dword_23B338000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: deregistering controller %{public}@ with id %{public}@ and clientIdentifier %{public}@", buf, 0x30u);
   }
 
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __54__SPRemoteInterface__deregisterInterfaceControllerID___block_invoke;
-  v14[3] = &unk_278B7E200;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __54__SPRemoteInterface__deregisterInterfaceControllerID___block_invoke;
+  v13[3] = &unk_278B7E200;
   v8 = dCopy;
-  v15 = v8;
-  spUtils_dispatchAsyncToMainThread(v14);
+  v14 = v8;
+  spUtils_dispatchAsyncToMainThread(v13);
   interfaceControllersAccessQueue = self->_interfaceControllersAccessQueue;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __54__SPRemoteInterface__deregisterInterfaceControllerID___block_invoke_2;
   block[3] = &unk_278B7E2F0;
   block[4] = self;
-  v13 = v8;
+  v12 = v8;
   v10 = v8;
   dispatch_barrier_async(interfaceControllersAccessQueue, block);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __54__SPRemoteInterface__deregisterInterfaceControllerID___block_invoke(uint64_t a1)
@@ -2984,17 +2971,18 @@ void __45__SPRemoteInterface__dumpInterfaceDictionary__block_invoke(uint64_t a1)
   v1 = a1 + 32;
   v2 = [*(*(a1 + 32) + 32) count];
   v16 = v1;
-  if (v2 != [*(*v1 + 40) count])
+  v3 = [*(*v1 + 40) count];
+  if (v2 != v3)
   {
-    v3 = wk_default_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = wk_default_log(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __45__SPRemoteInterface__dumpInterfaceDictionary__block_invoke_cold_1(v1);
     }
   }
 
-  v4 = wk_default_log();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = wk_default_log(v3);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     __45__SPRemoteInterface__dumpInterfaceDictionary__block_invoke_cold_2(v1);
   }
@@ -3003,122 +2991,119 @@ void __45__SPRemoteInterface__dumpInterfaceDictionary__block_invoke(uint64_t a1)
   v20 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v5 = *(*v1 + 32);
-  v6 = [v5 countByEnumeratingWithState:&v17 objects:v33 count:16];
-  if (v6)
+  v6 = *(*v1 + 32);
+  v7 = [v6 countByEnumeratingWithState:&v17 objects:v33 count:16];
+  if (v7)
   {
-    v7 = v6;
-    v8 = 0;
-    v9 = *v18;
+    v8 = v7;
+    v9 = 0;
+    v10 = *v18;
     do
     {
-      v10 = 0;
+      v11 = 0;
       do
       {
-        if (*v18 != v9)
+        if (*v18 != v10)
         {
-          objc_enumerationMutation(v5);
+          objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * v10);
-        v12 = wk_default_log();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+        v12 = *(*(&v17 + 1) + 8 * v11);
+        v13 = wk_default_log(v7);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
-          v13 = [*(*v16 + 32) objectForKeyedSubscript:v11];
-          v14 = [*(*v16 + 40) objectForKeyedSubscript:v11];
+          v14 = [*(*v16 + 32) objectForKeyedSubscript:v12];
+          v15 = [*(*v16 + 40) objectForKeyedSubscript:v12];
           *buf = 136447490;
           v22 = "[SPRemoteInterface _dumpInterfaceDictionary]_block_invoke";
           v23 = 1024;
           v24 = 2533;
           v25 = 1024;
-          v26 = v8;
+          v26 = v9;
           v27 = 2114;
-          v28 = v11;
+          v28 = v12;
           v29 = 2114;
-          v30 = v13;
+          v30 = v14;
           v31 = 2114;
-          v32 = v14;
-          _os_log_error_impl(&dword_23B338000, v12, OS_LOG_TYPE_ERROR, "%{public}s:%d: #%d key=%{public}@ interfaceController=%{public}@ interfaceControllersOwner=%{public}@", buf, 0x36u);
+          v32 = v15;
+          _os_log_error_impl(&dword_23B338000, v13, OS_LOG_TYPE_ERROR, "%{public}s:%d: #%d key=%{public}@ interfaceController=%{public}@ interfaceControllersOwner=%{public}@", buf, 0x36u);
 
-          ++v8;
+          ++v9;
         }
 
-        ++v10;
+        ++v11;
       }
 
-      while (v7 != v10);
-      v7 = [v5 countByEnumeratingWithState:&v17 objects:v33 count:16];
+      while (v8 != v11);
+      v7 = [v6 countByEnumeratingWithState:&v17 objects:v33 count:16];
+      v8 = v7;
     }
 
     while (v7);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeInterfaceControllersForClient:(id)client
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   clientCopy = client;
   v5 = [(SPRemoteInterface *)self _interfaceControllerIDsForClientID:clientCopy];
-  v6 = wk_default_log();
+  v6 = wk_default_log(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446978;
-    v27 = "[SPRemoteInterface removeInterfaceControllersForClient:]";
-    v28 = 1024;
-    v29 = 2558;
-    v30 = 2114;
-    v31 = clientCopy;
-    v32 = 2114;
-    v33 = v5;
+    v26 = "[SPRemoteInterface removeInterfaceControllersForClient:]";
+    v27 = 1024;
+    v28 = 2558;
+    v29 = 2114;
+    v30 = clientCopy;
+    v31 = 2114;
+    v32 = v5;
     _os_log_impl(&dword_23B338000, v6, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: !!! Release all controllers - clientIdentifier:%{public}@, interfaceControllerIDs:%{public}@", buf, 0x26u);
   }
 
-  v16 = clientCopy;
+  v15 = clientCopy;
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v7 = v5;
-  v8 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v22;
+    v10 = *v21;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v22 != v10)
+        if (*v21 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v21 + 1) + 8 * i);
-        v13 = [(SPRemoteInterface *)self _interfaceControllerWithID:v12, v16];
+        v12 = *(*(&v20 + 1) + 8 * i);
+        v13 = [(SPRemoteInterface *)self _interfaceControllerWithID:v12, v15];
         v14 = v13;
         if (v13)
         {
-          v17[0] = MEMORY[0x277D85DD0];
-          v17[1] = 3221225472;
-          v17[2] = __57__SPRemoteInterface_removeInterfaceControllersForClient___block_invoke;
-          v17[3] = &unk_278B7E278;
-          v18 = v13;
+          v16[0] = MEMORY[0x277D85DD0];
+          v16[1] = 3221225472;
+          v16[2] = __57__SPRemoteInterface_removeInterfaceControllersForClient___block_invoke;
+          v16[3] = &unk_278B7E278;
+          v17 = v13;
           selfCopy = self;
-          v20 = v12;
-          [SPRemoteInterface handleEvent:v17];
+          v19 = v12;
+          [SPRemoteInterface handleEvent:v16];
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v9);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __57__SPRemoteInterface_removeInterfaceControllersForClient___block_invoke(uint64_t a1)
@@ -3132,13 +3117,13 @@ uint64_t __57__SPRemoteInterface_removeInterfaceControllersForClient___block_inv
 
 + (id)controller:(id)controller setupProperties:(id)properties viewControllerID:(id)d tableIndex:(int64_t)index rowIndex:(int64_t)rowIndex classForType:(void *)type
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v70 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   propertiesCopy = properties;
   dCopy = d;
   array = [MEMORY[0x277CBEB18] array];
-  v52 = 0u;
-  v53 = 0u;
+  v55 = 0u;
+  v56 = 0u;
   if (type)
   {
     typeCopy = type;
@@ -3149,33 +3134,33 @@ uint64_t __57__SPRemoteInterface_removeInterfaceControllersForClient___block_inv
     typeCopy = SPInterfaceObjectWithType;
   }
 
-  v45 = typeCopy;
-  v54 = 0uLL;
-  v55 = 0uLL;
+  v48 = typeCopy;
+  v57 = 0uLL;
+  v58 = 0uLL;
   obj = propertiesCopy;
-  v14 = [obj countByEnumeratingWithState:&v52 objects:v66 count:16];
+  v14 = [obj countByEnumeratingWithState:&v55 objects:v69 count:16];
   if (v14)
   {
     v16 = v14;
     v17 = 0;
     v18 = @"property";
-    v19 = *v53;
+    v19 = *v56;
     *&v15 = 136447234;
-    v43 = v15;
-    v50 = controllerCopy;
+    v46 = v15;
+    v53 = controllerCopy;
     do
     {
       v20 = 0;
-      v49 = v16;
+      v52 = v16;
       do
       {
-        if (*v53 != v19)
+        if (*v56 != v19)
         {
           objc_enumerationMutation(obj);
         }
 
-        v21 = *(*(&v52 + 1) + 8 * v20);
-        v22 = [v21 objectForKeyedSubscript:{v18, v43}];
+        v21 = *(*(&v55 + 1) + 8 * v20);
+        v22 = [v21 objectForKeyedSubscript:{v18, v46}];
         v23 = [v21 objectForKeyedSubscript:@"type"];
         v24 = v23;
         if (v22)
@@ -3192,82 +3177,85 @@ uint64_t __57__SPRemoteInterface_removeInterfaceControllersForClient___block_inv
         {
           v26 = v18;
           NSSelectorFromString(v22);
-          if ((objc_opt_respondsToSelector() & 1) == 0)
+          v27 = objc_opt_respondsToSelector();
+          if ((v27 & 1) == 0)
           {
-            v28 = wk_default_log();
-            if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+            v29 = wk_default_log(v27);
+            if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
             {
               *buf = 136446978;
-              v57 = "+[SPRemoteInterface controller:setupProperties:viewControllerID:tableIndex:rowIndex:classForType:]";
-              v58 = 1024;
-              v59 = 2679;
-              v60 = 2114;
-              v61 = v22;
-              v62 = 2114;
-              v63 = controllerCopy;
-              _os_log_error_impl(&dword_23B338000, v28, OS_LOG_TYPE_ERROR, "%{public}s:%d: Unknown property in Interface description ('%{public}@') for controller %{public}@", buf, 0x26u);
+              v60 = "+[SPRemoteInterface controller:setupProperties:viewControllerID:tableIndex:rowIndex:classForType:]";
+              v61 = 1024;
+              v62 = 2679;
+              v63 = 2114;
+              v64 = v22;
+              v65 = 2114;
+              v66 = controllerCopy;
+              _os_log_error_impl(&dword_23B338000, v29, OS_LOG_TYPE_ERROR, "%{public}s:%d: Unknown property in Interface description ('%{public}@') for controller %{public}@", buf, 0x26u);
             }
 
-            v27 = v17;
+            v28 = v17;
             goto LABEL_27;
           }
 
-          v27 = v17 + 1;
-          v28 = [objc_alloc(v45(v24)) _initWithInterfaceProperty:v22 viewControllerID:dCopy propertyIndex:v17 tableIndex:index rowIndex:rowIndex];
-          [v28 _setupWithDescription:v21 forController:controllerCopy];
-          if (v28)
+          v28 = v17 + 1;
+          v29 = [objc_alloc(v48(v24)) _initWithInterfaceProperty:v22 viewControllerID:dCopy propertyIndex:v17 tableIndex:index rowIndex:rowIndex];
+          v30 = [v29 _setupWithDescription:v21 forController:controllerCopy];
+          if (v29)
           {
-            v29 = SetterForProperty(v22);
-            if (v29)
+            v31 = SetterForProperty(v22);
+            if (v31)
             {
-              v30 = v29;
-              if ([MEMORY[0x277D82BB8] instancesRespondToSelector:v29] & 1) != 0 || (objc_msgSend(WKInterfaceControllerClass(), "instancesRespondToSelector:", v30))
+              v32 = v31;
+              v33 = [MEMORY[0x277D82BB8] instancesRespondToSelector:v31];
+              if (v33 & 1) != 0 || (v33 = [WKInterfaceControllerClass(v33) instancesRespondToSelector:v32], (v33))
               {
-                v31 = wk_default_log();
-                if (!os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+                v34 = wk_default_log(v33);
+                if (!os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
                 {
                   goto LABEL_19;
                 }
 
-                v36 = NSStringFromSelector(v30);
+                v40 = NSStringFromSelector(v32);
                 *buf = 136446722;
-                v57 = "+[SPRemoteInterface controller:setupProperties:viewControllerID:tableIndex:rowIndex:classForType:]";
-                v58 = 1024;
-                v59 = 2670;
-                v60 = 2114;
-                v61 = v36;
-                v37 = v31;
-                v38 = "%{public}s:%d: Cannot specify setter '%{public}@' for properties of NSObject or WKInterfaceController";
-                v39 = 28;
+                v60 = "+[SPRemoteInterface controller:setupProperties:viewControllerID:tableIndex:rowIndex:classForType:]";
+                v61 = 1024;
+                v62 = 2670;
+                v63 = 2114;
+                v64 = v40;
+                v41 = v34;
+                v42 = "%{public}s:%d: Cannot specify setter '%{public}@' for properties of NSObject or WKInterfaceController";
+                v43 = 28;
 LABEL_35:
-                _os_log_error_impl(&dword_23B338000, v37, OS_LOG_TYPE_ERROR, v38, buf, v39);
+                _os_log_error_impl(&dword_23B338000, v41, OS_LOG_TYPE_ERROR, v42, buf, v43);
 
                 goto LABEL_19;
               }
 
-              if (objc_opt_respondsToSelector())
+              v39 = objc_opt_respondsToSelector();
+              if (v39)
               {
-                [v50 performSelector:v30 withObject:v28];
-                [array addObject:v28];
+                [v53 performSelector:v32 withObject:v29];
+                [array addObject:v29];
               }
 
               else
               {
-                v31 = wk_default_log();
-                if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+                v34 = wk_default_log(v39);
+                if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
                 {
-                  v36 = NSStringFromSelector(v30);
+                  v40 = NSStringFromSelector(v32);
                   *buf = 136446978;
-                  v57 = "+[SPRemoteInterface controller:setupProperties:viewControllerID:tableIndex:rowIndex:classForType:]";
-                  v58 = 1024;
-                  v59 = 2667;
-                  v60 = 2114;
-                  v61 = v50;
-                  v62 = 2114;
-                  v63 = v36;
-                  v37 = v31;
-                  v38 = "%{public}s:%d: Controller %{public}@ does not implement setter '%{public}@'";
-                  v39 = 38;
+                  v60 = "+[SPRemoteInterface controller:setupProperties:viewControllerID:tableIndex:rowIndex:classForType:]";
+                  v61 = 1024;
+                  v62 = 2667;
+                  v63 = 2114;
+                  v64 = v53;
+                  v65 = 2114;
+                  v66 = v40;
+                  v41 = v34;
+                  v42 = "%{public}s:%d: Controller %{public}@ does not implement setter '%{public}@'";
+                  v43 = 38;
                   goto LABEL_35;
                 }
 
@@ -3276,15 +3264,15 @@ LABEL_19:
 
 LABEL_27:
 
-              v17 = v27;
+              v17 = v28;
               v18 = v26;
-              v16 = v49;
-              controllerCopy = v50;
+              v16 = v52;
+              controllerCopy = v53;
               goto LABEL_28;
             }
 
-            v32 = wk_default_log();
-            if (!os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+            v35 = wk_default_log(0);
+            if (!os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
             {
 LABEL_26:
 
@@ -3292,40 +3280,40 @@ LABEL_26:
             }
 
             *buf = 136446722;
-            v57 = "+[SPRemoteInterface controller:setupProperties:viewControllerID:tableIndex:rowIndex:classForType:]";
-            v58 = 1024;
-            v59 = 2673;
-            v60 = 2114;
-            v61 = v22;
-            v33 = v32;
-            v34 = "%{public}s:%d: Invalid setter name for property '%{public}@'";
-            v35 = 28;
+            v60 = "+[SPRemoteInterface controller:setupProperties:viewControllerID:tableIndex:rowIndex:classForType:]";
+            v61 = 1024;
+            v62 = 2673;
+            v63 = 2114;
+            v64 = v22;
+            v36 = v35;
+            v37 = "%{public}s:%d: Invalid setter name for property '%{public}@'";
+            v38 = 28;
           }
 
           else
           {
-            v32 = wk_default_log();
-            if (!os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+            v35 = wk_default_log(v30);
+            if (!os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
             {
               goto LABEL_26;
             }
 
-            *buf = v43;
-            v57 = "+[SPRemoteInterface controller:setupProperties:viewControllerID:tableIndex:rowIndex:classForType:]";
-            v58 = 1024;
-            v59 = 2676;
-            v60 = 2114;
-            v61 = v24;
-            v62 = 2114;
-            v63 = v22;
-            v64 = 2114;
-            v65 = v50;
-            v33 = v32;
-            v34 = "%{public}s:%d: Unable to instantiate object of type '%{public}@' for property %{public}@ in controller %{public}@";
-            v35 = 48;
+            *buf = v46;
+            v60 = "+[SPRemoteInterface controller:setupProperties:viewControllerID:tableIndex:rowIndex:classForType:]";
+            v61 = 1024;
+            v62 = 2676;
+            v63 = 2114;
+            v64 = v24;
+            v65 = 2114;
+            v66 = v22;
+            v67 = 2114;
+            v68 = v53;
+            v36 = v35;
+            v37 = "%{public}s:%d: Unable to instantiate object of type '%{public}@' for property %{public}@ in controller %{public}@";
+            v38 = 48;
           }
 
-          _os_log_error_impl(&dword_23B338000, v33, OS_LOG_TYPE_ERROR, v34, buf, v35);
+          _os_log_error_impl(&dword_23B338000, v36, OS_LOG_TYPE_ERROR, v37, buf, v38);
           goto LABEL_26;
         }
 
@@ -3335,44 +3323,42 @@ LABEL_28:
       }
 
       while (v16 != v20);
-      v40 = [obj countByEnumeratingWithState:&v52 objects:v66 count:16];
-      v16 = v40;
+      v44 = [obj countByEnumeratingWithState:&v55 objects:v69 count:16];
+      v16 = v44;
     }
 
-    while (v40);
+    while (v44);
   }
-
-  v41 = *MEMORY[0x277D85DE8];
 
   return array;
 }
 
 - (void)receiveProtoData:(id)data fromIdentifier:(id)identifier
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   identifierCopy = identifier;
   v7 = [(__CFString *)dataCopy length];
-  v8 = wk_default_log();
+  v8 = wk_default_log(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = @"...";
-    v13 = 136447234;
-    v14 = "[SPRemoteInterface receiveProtoData:fromIdentifier:]";
-    v15 = 1024;
+    v12 = 136447234;
+    v13 = "[SPRemoteInterface receiveProtoData:fromIdentifier:]";
+    v14 = 1024;
     if (v7 < 0x10)
     {
       v9 = dataCopy;
     }
 
-    v16 = 2689;
-    v17 = 2114;
-    v18 = identifierCopy;
-    v19 = 2048;
-    v20 = v7;
-    v21 = 2114;
-    v22 = v9;
-    _os_log_impl(&dword_23B338000, v8, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: ComF:->Plugin clientIdentifier=%{public}@ len=%lu data=%{public}@", &v13, 0x30u);
+    v15 = 2689;
+    v16 = 2114;
+    v17 = identifierCopy;
+    v18 = 2048;
+    v19 = v7;
+    v20 = 2114;
+    v21 = v9;
+    _os_log_impl(&dword_23B338000, v8, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: ComF:->Plugin clientIdentifier=%{public}@ len=%lu data=%{public}@", &v12, 0x30u);
   }
 
   v10 = [SPProtoSerializer objectWithData:dataCopy];
@@ -3382,8 +3368,6 @@ LABEL_28:
     v11 = +[SPCompanionAssetCache sharedInstance];
     [v11 handleCacheMessage:v10];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)receiveData:(id)data fromIdentifier:(id)identifier
@@ -3400,8 +3384,8 @@ LABEL_28:
 
   else
   {
-    v9 = wk_default_log();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = wk_default_log(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [SPRemoteInterface receiveData:fromIdentifier:];
     }
@@ -3410,7 +3394,7 @@ LABEL_28:
 
 - (void)handleProtoPlist:(id)plist fromIdentifier:(id)identifier
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   plistCopy = plist;
   identifierCopy = identifier;
   v8 = [SPProtoSerializer dictionaryWithSPPlist:plistCopy];
@@ -3418,28 +3402,28 @@ LABEL_28:
   {
     data = [plistCopy data];
     v10 = [data length];
-    v11 = wk_default_log();
+    v11 = wk_default_log(v10);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      v13 = [v8 objectForKeyedSubscript:@"V"];
-      v14 = v13;
-      v16 = 136447235;
-      v17 = "[SPRemoteInterface handleProtoPlist:fromIdentifier:]";
-      v15 = @"...";
-      v18 = 1024;
-      v19 = 2749;
+      v12 = [v8 objectForKeyedSubscript:@"V"];
+      v13 = v12;
+      v15 = 136447235;
+      v16 = "[SPRemoteInterface handleProtoPlist:fromIdentifier:]";
+      v14 = @"...";
+      v17 = 1024;
+      v18 = 2749;
       if (v10 < 0x10)
       {
-        v15 = data;
+        v14 = data;
       }
 
-      v20 = 2114;
-      v21 = v13;
-      v22 = 2048;
-      v23 = v10;
-      v24 = 2113;
-      v25 = v15;
-      _os_log_debug_impl(&dword_23B338000, v11, OS_LOG_TYPE_DEBUG, "%{public}s:%d: ComF:->Plugin vcID=%{public}@ len=%lu data=%{private}@", &v16, 0x30u);
+      v19 = 2114;
+      v20 = v12;
+      v21 = 2048;
+      v22 = v10;
+      v23 = 2113;
+      v24 = v14;
+      _os_log_debug_impl(&dword_23B338000, v11, OS_LOG_TYPE_DEBUG, "%{public}s:%d: ComF:->Plugin vcID=%{public}@ len=%lu data=%{private}@", &v15, 0x30u);
     }
 
     [(SPRemoteInterface *)self handlePlistDictionary:v8 fromIdentifier:identifierCopy];
@@ -3447,19 +3431,17 @@ LABEL_28:
 
   else
   {
-    data = wk_default_log();
+    data = wk_default_log(0);
     if (os_log_type_enabled(data, OS_LOG_TYPE_ERROR))
     {
       [SPRemoteInterface handleProtoPlist:fromIdentifier:];
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handlePlistDictionary:(id)dictionary fromIdentifier:(id)identifier
 {
-  v146[2] = *MEMORY[0x277D85DE8];
+  v150[2] = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   identifierCopy = identifier;
   v8 = [dictionaryCopy objectForKeyedSubscript:@"V"];
@@ -3489,7 +3471,7 @@ LABEL_112:
       if ([v10 isEqualToString:@"R"])
       {
         v22 = [dictionaryCopy objectForKeyedSubscript:@"V"];
-        v23 = wk_default_log();
+        v23 = wk_default_log(v22);
         if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136446978;
@@ -3516,8 +3498,8 @@ LABEL_112:
           goto LABEL_49;
         }
 
-        v44 = wk_default_log();
-        if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+        v45 = wk_default_log(0);
+        if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
         {
           [SPRemoteInterface handlePlistDictionary:fromIdentifier:];
         }
@@ -3538,41 +3520,43 @@ LABEL_112:
           {
             if ([v10 isEqualToString:@"aua"])
             {
-              v55 = [dictionaryCopy objectForKeyedSubscript:@"ua"];
-              if (v55)
+              v56 = [dictionaryCopy objectForKeyedSubscript:@"ua"];
+              if (v56)
               {
                 objc_opt_class();
-                if (objc_opt_isKindOfClass())
+                isKindOfClass = objc_opt_isKindOfClass();
+                if (isKindOfClass)
                 {
-                  v56 = spUtils_allowedClassesForUserActivity();
-                  v57 = spUtils_deserializeObject(v55, v56);
+                  v58 = spUtils_allowedClassesForUserActivity(isKindOfClass);
+                  v59 = spUtils_deserializeObject(v56, v58);
                 }
 
                 else
                 {
-                  v57 = v55;
+                  v59 = v56;
                 }
 
                 objc_opt_class();
-                if ((objc_opt_isKindOfClass() & 1) == 0)
+                v81 = objc_opt_isKindOfClass();
+                if ((v81 & 1) == 0)
                 {
-                  v78 = wk_default_log();
-                  if (os_log_type_enabled(v78, OS_LOG_TYPE_ERROR))
+                  v82 = wk_default_log(v81);
+                  if (os_log_type_enabled(v82, OS_LOG_TYPE_ERROR))
                   {
                     [SPRemoteInterface handlePlistDictionary:fromIdentifier:];
                   }
                 }
 
-                v79 = [v57 objectForKeyedSubscript:@"uai"];
-                v133[0] = MEMORY[0x277D85DD0];
-                v133[1] = 3221225472;
-                v133[2] = __58__SPRemoteInterface_handlePlistDictionary_fromIdentifier___block_invoke;
-                v133[3] = &unk_278B7E278;
-                v134 = dictionaryCopy;
+                v83 = [v59 objectForKeyedSubscript:@"uai"];
+                v137[0] = MEMORY[0x277D85DD0];
+                v137[1] = 3221225472;
+                v137[2] = __58__SPRemoteInterface_handlePlistDictionary_fromIdentifier___block_invoke;
+                v137[3] = &unk_278B7E278;
+                v138 = dictionaryCopy;
                 selfCopy = self;
-                v136 = v79;
-                v80 = v79;
-                [SPRemoteInterface handleEvent:v133];
+                v140 = v83;
+                v84 = v83;
+                [SPRemoteInterface handleEvent:v137];
               }
             }
 
@@ -3594,8 +3578,8 @@ LABEL_112:
           goto LABEL_49;
         }
 
-        v44 = wk_default_log();
-        if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+        v45 = wk_default_log(0);
+        if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
         {
           [SPRemoteInterface handlePlistDictionary:fromIdentifier:];
         }
@@ -3604,43 +3588,43 @@ LABEL_112:
       goto LABEL_49;
     }
 
-    v99 = [dictionaryCopy objectForKeyedSubscript:@"V"];
-    v98 = [(SPRemoteInterface *)self _interfaceControllerWithID:v99];
+    v103 = [dictionaryCopy objectForKeyedSubscript:@"V"];
+    v102 = [(SPRemoteInterface *)self _interfaceControllerWithID:v103];
     v17 = [dictionaryCopy objectForKeyedSubscript:@"a"];
-    if (v17 && (-[SPRemoteInterface navigatingViewControllerID](self, "navigatingViewControllerID"), v18 = objc_claimAutoreleasedReturnValue(), v19 = [v99 isEqualToString:v18], v18, v17, (v19 & 1) == 0))
+    if (v17 && (-[SPRemoteInterface navigatingViewControllerID](self, "navigatingViewControllerID"), v18 = objc_claimAutoreleasedReturnValue(), v19 = [v103 isEqualToString:v18], v18, v17, (v19 & 1) == 0))
     {
-      v97 = [dictionaryCopy objectForKeyedSubscript:@"a"];
-      if ([(NSString *)v97 isEqualToString:@".Marco"])
+      v101 = [dictionaryCopy objectForKeyedSubscript:@"a"];
+      if ([(NSString *)v101 isEqualToString:@".Marco"])
       {
-        v96 = [dictionaryCopy objectForKeyedSubscript:@"v"];
-        v25 = [v96 objectForKeyedSubscript:@".idx"];
+        v100 = [dictionaryCopy objectForKeyedSubscript:@"v"];
+        v25 = [v100 objectForKeyedSubscript:@".idx"];
         integerValue = [v25 integerValue];
 
-        v26 = [v96 objectForKeyedSubscript:@".tr"];
+        v26 = [v100 objectForKeyedSubscript:@".tr"];
         bOOLValue = [v26 BOOLValue];
 
-        v27 = [v96 objectForKeyedSubscript:@".rs"];
+        v27 = [v100 objectForKeyedSubscript:@".rs"];
         integerValue2 = [v27 integerValue];
 
         v29 = [MEMORY[0x277CBEB28] dataWithCapacity:integerValue2];
         [(SPRemoteInterface *)self _fillDataWithRandom:v29 length:integerValue2];
-        v145[0] = @".idx";
+        v149[0] = @".idx";
         v30 = [MEMORY[0x277CCABB0] numberWithInteger:integerValue];
-        v145[1] = @".pl";
-        v146[0] = v30;
-        v146[1] = v29;
-        v95 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v146 forKeys:v145 count:2];
+        v149[1] = @".pl";
+        v150[0] = v30;
+        v150[1] = v29;
+        v99 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v150 forKeys:v149 count:2];
 
-        v31 = [(SPRemoteInterface *)self _interfaceControllerClientIDForControllerID:v99];
-        v143[0] = @"V";
-        v143[1] = @"k";
-        v144[0] = v99;
-        v144[1] = @".Polo";
-        v143[2] = @"v";
-        v144[2] = v95;
-        v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v144 forKeys:v143 count:3];
-        v142 = v31;
-        v33 = [MEMORY[0x277CBEA60] arrayWithObjects:&v142 count:1];
+        v31 = [(SPRemoteInterface *)self _interfaceControllerClientIDForControllerID:v103];
+        v147[0] = @"V";
+        v147[1] = @"k";
+        v148[0] = v103;
+        v148[1] = @".Polo";
+        v147[2] = @"v";
+        v148[2] = v99;
+        v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v148 forKeys:v147 count:3];
+        v146 = v31;
+        v33 = [MEMORY[0x277CBEA60] arrayWithObjects:&v146 count:1];
         [(SPRemoteInterface *)self sendPlist:v32 clientIdentifiers:v33];
 
         if (bOOLValue)
@@ -3650,272 +3634,272 @@ LABEL_112:
           block[1] = 3221225472;
           block[2] = __58__SPRemoteInterface_handlePlistDictionary_fromIdentifier___block_invoke_2;
           block[3] = &unk_278B7E368;
-          v131 = integerValue;
-          v132 = integerValue2;
-          v129 = v99;
+          v135 = integerValue;
+          v136 = integerValue2;
+          v133 = v103;
           selfCopy2 = self;
           dispatch_after(v34, MEMORY[0x277D85CD0], block);
         }
       }
 
-      else if ([(NSString *)v97 isEqualToString:@".select"])
+      else if ([(NSString *)v101 isEqualToString:@".select"])
       {
         v36 = [dictionaryCopy objectForKeyedSubscript:@"v"];
         v37 = [v36 objectAtIndexedSubscript:0];
         v38 = [v36 objectAtIndexedSubscript:1];
         integerValue3 = [v38 integerValue];
 
-        v124[0] = MEMORY[0x277D85DD0];
-        v124[1] = 3221225472;
-        v124[2] = __58__SPRemoteInterface_handlePlistDictionary_fromIdentifier___block_invoke_3;
-        v124[3] = &unk_278B7E390;
-        v98 = v98;
-        v125 = v98;
-        v126 = v37;
-        v127 = integerValue3;
+        v128[0] = MEMORY[0x277D85DD0];
+        v128[1] = 3221225472;
+        v128[2] = __58__SPRemoteInterface_handlePlistDictionary_fromIdentifier___block_invoke_3;
+        v128[3] = &unk_278B7E390;
+        v102 = v102;
+        v129 = v102;
+        v130 = v37;
+        v131 = integerValue3;
         v40 = v37;
-        [SPRemoteInterface handleEvent:v124];
+        [SPRemoteInterface handleEvent:v128];
       }
 
-      else if ([(NSString *)v97 isEqualToString:@".segue"])
+      else if ([(NSString *)v101 isEqualToString:@".segue"])
       {
         *buf = 0;
         *&buf[8] = buf;
         *&buf[16] = 0x2020000000;
         *&buf[24] = 0x7FFFFFFFFFFFFFFFLL;
-        v45 = [dictionaryCopy objectForKeyedSubscript:@"v"];
+        v46 = [dictionaryCopy objectForKeyedSubscript:@"v"];
         objc_opt_class();
-        isKindOfClass = objc_opt_isKindOfClass();
+        v47 = objc_opt_isKindOfClass();
 
         [dictionaryCopy objectForKeyedSubscript:@"v"];
-        if (isKindOfClass)
-          v47 = {;
-          v48 = 0;
+        if (v47)
+          v48 = {;
+          v49 = 0;
         }
 
         else
-          v58 = {;
-          v59 = [v58 objectAtIndexedSubscript:0];
-          v48 = [v98 valueForKey:v59];
+          v60 = {;
+          v61 = [v60 objectAtIndexedSubscript:0];
+          v49 = [v102 valueForKey:v61];
 
-          v60 = [v58 objectAtIndexedSubscript:1];
-          integerValue4 = [v60 integerValue];
+          v62 = [v60 objectAtIndexedSubscript:1];
+          integerValue4 = [v62 integerValue];
           *(*&buf[8] + 24) = integerValue4;
 
-          v47 = [v58 objectAtIndexedSubscript:2];
+          v48 = [v60 objectAtIndexedSubscript:2];
         }
 
-        v62 = [v47 objectForKeyedSubscript:@"type"];
-        v63 = [v62 isEqualToString:@"present"];
+        v64 = [v48 objectForKeyedSubscript:@"type"];
+        v65 = [v64 isEqualToString:@"present"];
 
-        v64 = [v47 objectForKeyedSubscript:@"destination"];
+        v66 = [v48 objectForKeyedSubscript:@"destination"];
         objc_opt_class();
-        v65 = objc_opt_isKindOfClass();
+        v67 = objc_opt_isKindOfClass();
 
-        v66 = [v47 objectForKeyedSubscript:@"identifier"];
-        v116[0] = MEMORY[0x277D85DD0];
-        v116[1] = 3221225472;
-        v116[2] = __58__SPRemoteInterface_handlePlistDictionary_fromIdentifier___block_invoke_4;
-        v116[3] = &unk_278B7E3B8;
-        v67 = v48;
-        v117 = v67;
-        v122 = v65 & 1;
-        v98 = v98;
-        v118 = v98;
-        v68 = v66;
-        v119 = v68;
-        v121 = buf;
-        v123 = v63;
-        v69 = v47;
-        v120 = v69;
-        [SPRemoteInterface handleEvent:v116];
+        v68 = [v48 objectForKeyedSubscript:@"identifier"];
+        v120[0] = MEMORY[0x277D85DD0];
+        v120[1] = 3221225472;
+        v120[2] = __58__SPRemoteInterface_handlePlistDictionary_fromIdentifier___block_invoke_4;
+        v120[3] = &unk_278B7E3B8;
+        v69 = v49;
+        v121 = v69;
+        v126 = v67 & 1;
+        v102 = v102;
+        v122 = v102;
+        v70 = v68;
+        v123 = v70;
+        v125 = buf;
+        v127 = v65;
+        v71 = v48;
+        v124 = v71;
+        [SPRemoteInterface handleEvent:v120];
 
         _Block_object_dispose(buf, 8);
       }
 
       else
       {
-        v49 = [dictionaryCopy objectForKeyedSubscript:@"v"];
-        v115 = v49;
+        v50 = [dictionaryCopy objectForKeyedSubscript:@"v"];
+        v119 = v50;
         objc_opt_class();
-        if ((objc_opt_isKindOfClass() & 1) != 0 && [v49 count] >= 2)
+        if ((objc_opt_isKindOfClass() & 1) != 0 && [v50 count] >= 2)
         {
-          v50 = [v49 objectAtIndex:0];
-          v51 = [v49 objectAtIndex:1];
-          integerValue5 = [v51 integerValue];
+          v51 = [v50 objectAtIndex:0];
+          v52 = [v50 objectAtIndex:1];
+          integerValue5 = [v52 integerValue];
 
-          if ([v49 count] < 3)
+          if ([v50 count] < 3)
           {
-            v53 = 0;
+            v54 = 0;
           }
 
           else
           {
-            v53 = [v49 objectAtIndex:2];
+            v54 = [v50 objectAtIndex:2];
           }
 
-          v115 = v53;
-          v73 = [v98 valueForKey:v50];
-          v74 = v73;
-          if (v73 && (integerValue5 & 0x8000000000000000) == 0 && integerValue5 < [v73 numberOfRows])
+          v119 = v54;
+          v75 = [v102 valueForKey:v51];
+          v76 = v75;
+          if (v75 && (integerValue5 & 0x8000000000000000) == 0 && integerValue5 < [v75 numberOfRows])
           {
-            v75 = [v74 rowControllerAtIndex:integerValue5];
+            v77 = [v76 rowControllerAtIndex:integerValue5];
 
-            v98 = v75;
+            v102 = v77;
           }
         }
 
         else
         {
-          v53 = v49;
+          v54 = v50;
         }
 
-        if (![(NSString *)v97 isEqualToString:@".pickerSettle"]&& ![(NSString *)v97 isEqualToString:@".pickerFocus"]&& ![(NSString *)v97 isEqualToString:@".pickerClearFocus"])
+        if (![(NSString *)v101 isEqualToString:@".pickerSettle"]&& ![(NSString *)v101 isEqualToString:@".pickerFocus"]&& ![(NSString *)v101 isEqualToString:@".pickerClearFocus"])
         {
-          v76 = NSSelectorFromString(v97);
-          if ((objc_opt_respondsToSelector() & 1) != 0 && ([WKInterfaceController instancesRespondToSelector:v76]& 1) == 0)
+          v78 = NSSelectorFromString(v101);
+          if ((objc_opt_respondsToSelector() & 1) != 0 && ([WKInterfaceController instancesRespondToSelector:v78]& 1) == 0)
           {
-            v81 = [objc_opt_class() instanceMethodSignatureForSelector:v76];
-            v82 = [MEMORY[0x277CBEAE8] invocationWithMethodSignature:v81];
-            [v82 setTarget:v98];
-            [v82 setSelector:v76];
-            v83 = wk_default_log();
-            if (os_log_type_enabled(v83, OS_LOG_TYPE_DEFAULT))
+            v85 = [objc_opt_class() instanceMethodSignatureForSelector:v78];
+            v86 = [MEMORY[0x277CBEAE8] invocationWithMethodSignature:v85];
+            [v86 setTarget:v102];
+            v87 = wk_default_log([v86 setSelector:v78]);
+            if (os_log_type_enabled(v87, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 136447490;
               *&buf[4] = "[SPRemoteInterface handlePlistDictionary:fromIdentifier:]";
               *&buf[12] = 1024;
               *&buf[14] = 3057;
               *&buf[18] = 2114;
-              *&buf[20] = v98;
+              *&buf[20] = v102;
               *&buf[28] = 2114;
-              *&buf[30] = v97;
-              v138 = 2114;
-              v139 = v81;
-              v140 = 2114;
-              v141 = v82;
-              _os_log_impl(&dword_23B338000, v83, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: controller controller=%{public}@ action=%{public}@ methodSignature=%{public}@ invocation=%{public}@", buf, 0x3Au);
+              *&buf[30] = v101;
+              v142 = 2114;
+              v143 = v85;
+              v144 = 2114;
+              v145 = v86;
+              _os_log_impl(&dword_23B338000, v87, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: controller controller=%{public}@ action=%{public}@ methodSignature=%{public}@ invocation=%{public}@", buf, 0x3Au);
             }
 
-            if (v53 && [v81 numberOfArguments] >= 3)
+            if (v54 && [v85 numberOfArguments] >= 3)
             {
-              v84 = v81;
-              v85 = [v81 getArgumentTypeAtIndex:2];
-              v86 = v85;
-              if (*v85 == 64 && !v85[1])
+              v88 = v85;
+              v89 = [v85 getArgumentTypeAtIndex:2];
+              v90 = v89;
+              if (*v89 == 64 && !v89[1])
               {
-                [v82 setArgument:&v115 atIndex:2];
+                [v86 setArgument:&v119 atIndex:2];
               }
 
               else
               {
                 objc_opt_class();
-                if (objc_opt_isKindOfClass())
+                v91 = objc_opt_isKindOfClass();
+                if (v91)
                 {
-                  v87 = *v86;
-                  if (v87 <= 0x62)
+                  v92 = *v90;
+                  if (v92 <= 0x62)
                   {
-                    if (*v86 <= 0x48u)
+                    if (*v90 <= 0x48u)
                     {
-                      if (v87 == 66)
+                      if (v92 == 66)
                       {
-                        if (!v86[1])
+                        if (!v90[1])
                         {
-                          buf[0] = [v115 BOOLValue];
-                          [v82 setArgument:buf atIndex:2];
+                          buf[0] = [v119 BOOLValue];
+                          [v86 setArgument:buf atIndex:2];
                         }
                       }
 
-                      else if (v87 == 67 && !v86[1])
+                      else if (v92 == 67 && !v90[1])
                       {
-                        buf[0] = [v115 unsignedCharValue];
-                        [v82 setArgument:buf atIndex:2];
+                        buf[0] = [v119 unsignedCharValue];
+                        [v86 setArgument:buf atIndex:2];
                       }
                     }
 
-                    else if (v87 == 73)
+                    else if (v92 == 73)
                     {
-                      if (!v86[1])
+                      if (!v90[1])
                       {
-                        *buf = [v115 unsignedIntValue];
-                        [v82 setArgument:buf atIndex:2];
+                        *buf = [v119 unsignedIntValue];
+                        [v86 setArgument:buf atIndex:2];
                       }
                     }
 
-                    else if (v87 == 81)
+                    else if (v92 == 81)
                     {
-                      if (!v86[1])
+                      if (!v90[1])
                       {
-                        *buf = [v115 unsignedIntegerValue];
-                        [v82 setArgument:buf atIndex:2];
+                        *buf = [v119 unsignedIntegerValue];
+                        [v86 setArgument:buf atIndex:2];
                       }
                     }
 
-                    else if (v87 == 83 && !v86[1])
+                    else if (v92 == 83 && !v90[1])
                     {
-                      *buf = [v115 unsignedShortValue];
-                      [v82 setArgument:buf atIndex:2];
+                      *buf = [v119 unsignedShortValue];
+                      [v86 setArgument:buf atIndex:2];
                     }
                   }
 
-                  else if (*v86 > 0x68u)
+                  else if (*v90 > 0x68u)
                   {
-                    if (v87 == 105)
+                    if (v92 == 105)
                     {
-                      if (!v86[1])
+                      if (!v90[1])
                       {
-                        *buf = [v115 intValue];
-                        [v82 setArgument:buf atIndex:2];
+                        *buf = [v119 intValue];
+                        [v86 setArgument:buf atIndex:2];
                       }
                     }
 
-                    else if (v87 == 113)
+                    else if (v92 == 113)
                     {
-                      if (!v86[1])
+                      if (!v90[1])
                       {
-                        *buf = [v115 integerValue];
-                        [v82 setArgument:buf atIndex:2];
+                        *buf = [v119 integerValue];
+                        [v86 setArgument:buf atIndex:2];
                       }
                     }
 
-                    else if (v87 == 115 && !v86[1])
+                    else if (v92 == 115 && !v90[1])
                     {
-                      *buf = [v115 shortValue];
-                      [v82 setArgument:buf atIndex:2];
+                      *buf = [v119 shortValue];
+                      [v86 setArgument:buf atIndex:2];
                     }
                   }
 
-                  else if (v87 == 99)
+                  else if (v92 == 99)
                   {
-                    if (!v86[1])
+                    if (!v90[1])
                     {
-                      buf[0] = [v115 charValue];
-                      [v82 setArgument:buf atIndex:2];
+                      buf[0] = [v119 charValue];
+                      [v86 setArgument:buf atIndex:2];
                     }
                   }
 
-                  else if (v87 == 100)
+                  else if (v92 == 100)
                   {
-                    if (!v86[1])
+                    if (!v90[1])
                     {
-                      [v115 doubleValue];
-                      *buf = v92;
-                      [v82 setArgument:buf atIndex:2];
+                      [v119 doubleValue];
+                      *buf = v96;
+                      [v86 setArgument:buf atIndex:2];
                     }
                   }
 
-                  else if (v87 == 102 && !v86[1])
+                  else if (v92 == 102 && !v90[1])
                   {
-                    [v115 floatValue];
-                    *buf = v88;
-                    [v82 setArgument:buf atIndex:2];
+                    [v119 floatValue];
+                    *buf = v93;
+                    [v86 setArgument:buf atIndex:2];
                   }
                 }
 
                 else
                 {
-                  v89 = wk_default_log();
-                  if (os_log_type_enabled(v89, OS_LOG_TYPE_ERROR))
+                  v94 = wk_default_log(v91);
+                  if (os_log_type_enabled(v94, OS_LOG_TYPE_ERROR))
                   {
                     [SPRemoteInterface handlePlistDictionary:fromIdentifier:];
                   }
@@ -3923,36 +3907,40 @@ LABEL_112:
               }
             }
 
-            v113[0] = MEMORY[0x277D85DD0];
-            v113[1] = 3221225472;
-            v113[2] = __58__SPRemoteInterface_handlePlistDictionary_fromIdentifier___block_invoke_513;
-            v113[3] = &unk_278B7E200;
-            v114 = v82;
-            v90 = v82;
-            [SPRemoteInterface handleEvent:v113];
+            v117[0] = MEMORY[0x277D85DD0];
+            v117[1] = 3221225472;
+            v117[2] = __58__SPRemoteInterface_handlePlistDictionary_fromIdentifier___block_invoke_513;
+            v117[3] = &unk_278B7E200;
+            v118 = v86;
+            v95 = v86;
+            [SPRemoteInterface handleEvent:v117];
 
-            v53 = v115;
+            v54 = v119;
           }
 
-          else if (![(NSString *)v97 isEqualToString:@".Marco"])
+          else
           {
-            v77 = wk_default_log();
-            if (os_log_type_enabled(v77, OS_LOG_TYPE_ERROR))
+            v79 = [(NSString *)v101 isEqualToString:@".Marco"];
+            if ((v79 & 1) == 0)
             {
-              [SPRemoteInterface handlePlistDictionary:fromIdentifier:];
+              v80 = wk_default_log(v79);
+              if (os_log_type_enabled(v80, OS_LOG_TYPE_ERROR))
+              {
+                [SPRemoteInterface handlePlistDictionary:fromIdentifier:];
+              }
             }
           }
         }
       }
 
-      v111[0] = MEMORY[0x277D85DD0];
-      v111[1] = 3221225472;
-      v111[2] = __58__SPRemoteInterface_handlePlistDictionary_fromIdentifier___block_invoke_514;
-      v111[3] = &unk_278B7E200;
-      v112 = v99;
-      [SPRemoteInterface handleEvent:v111];
+      v115[0] = MEMORY[0x277D85DD0];
+      v115[1] = 3221225472;
+      v115[2] = __58__SPRemoteInterface_handlePlistDictionary_fromIdentifier___block_invoke_514;
+      v115[3] = &unk_278B7E200;
+      v116 = v103;
+      [SPRemoteInterface handleEvent:v115];
 
-      v21 = v97;
+      v21 = v101;
     }
 
     else
@@ -3966,16 +3954,16 @@ LABEL_111:
         goto LABEL_112;
       }
 
-      v108[0] = MEMORY[0x277D85DD0];
-      v108[1] = 3221225472;
-      v108[2] = __58__SPRemoteInterface_handlePlistDictionary_fromIdentifier___block_invoke_2_515;
-      v108[3] = &unk_278B7E2F0;
-      v98 = v98;
-      v109 = v98;
-      v110 = dictionaryCopy;
-      [SPRemoteInterface handleEvent:v108];
+      v112[0] = MEMORY[0x277D85DD0];
+      v112[1] = 3221225472;
+      v112[2] = __58__SPRemoteInterface_handlePlistDictionary_fromIdentifier___block_invoke_2_515;
+      v112[3] = &unk_278B7E2F0;
+      v102 = v102;
+      v113 = v102;
+      v114 = dictionaryCopy;
+      [SPRemoteInterface handleEvent:v112];
 
-      v21 = v109;
+      v21 = v113;
     }
 
     goto LABEL_111;
@@ -3985,13 +3973,13 @@ LABEL_111:
 
   if (v16)
   {
-    v106[0] = MEMORY[0x277D85DD0];
-    v106[1] = 3221225472;
-    v106[2] = __58__SPRemoteInterface_handlePlistDictionary_fromIdentifier___block_invoke_3_516;
-    v106[3] = &unk_278B7E2F0;
-    v106[4] = self;
-    v107 = dictionaryCopy;
-    spUtils_dispatchAsyncToMainThread(v106);
+    v110[0] = MEMORY[0x277D85DD0];
+    v110[1] = 3221225472;
+    v110[2] = __58__SPRemoteInterface_handlePlistDictionary_fromIdentifier___block_invoke_3_516;
+    v110[3] = &unk_278B7E2F0;
+    v110[4] = self;
+    v111 = dictionaryCopy;
+    spUtils_dispatchAsyncToMainThread(v110);
   }
 
   else
@@ -4000,14 +3988,14 @@ LABEL_111:
 
     if (v24)
     {
-      v103[0] = MEMORY[0x277D85DD0];
-      v103[1] = 3221225472;
-      v103[2] = __58__SPRemoteInterface_handlePlistDictionary_fromIdentifier___block_invoke_4_517;
-      v103[3] = &unk_278B7E278;
-      v103[4] = self;
-      v104 = dictionaryCopy;
-      v105 = identifierCopy;
-      spUtils_dispatchAsyncToMainThread(v103);
+      v107[0] = MEMORY[0x277D85DD0];
+      v107[1] = 3221225472;
+      v107[2] = __58__SPRemoteInterface_handlePlistDictionary_fromIdentifier___block_invoke_4_517;
+      v107[3] = &unk_278B7E278;
+      v107[4] = self;
+      v108 = dictionaryCopy;
+      v109 = identifierCopy;
+      spUtils_dispatchAsyncToMainThread(v107);
     }
 
     else
@@ -4016,12 +4004,12 @@ LABEL_111:
 
       if (v35)
       {
-        v102[0] = MEMORY[0x277D85DD0];
-        v102[1] = 3221225472;
-        v102[2] = __58__SPRemoteInterface_handlePlistDictionary_fromIdentifier___block_invoke_5;
-        v102[3] = &unk_278B7E200;
-        v102[4] = self;
-        spUtils_dispatchAsyncToMainThread(v102);
+        v106[0] = MEMORY[0x277D85DD0];
+        v106[1] = 3221225472;
+        v106[2] = __58__SPRemoteInterface_handlePlistDictionary_fromIdentifier___block_invoke_5;
+        v106[3] = &unk_278B7E200;
+        v106[4] = self;
+        spUtils_dispatchAsyncToMainThread(v106);
       }
 
       else
@@ -4033,8 +4021,8 @@ LABEL_111:
           v42 = [dictionaryCopy objectForKeyedSubscript:@"lm"];
           NSLog(&stru_284DFF2B8.isa, v42);
 
-          v43 = wk_default_log();
-          if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+          v44 = wk_default_log(v43);
+          if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
           {
             [SPRemoteInterface handlePlistDictionary:dictionaryCopy fromIdentifier:@"lm"];
           }
@@ -4042,29 +4030,29 @@ LABEL_111:
 
         else
         {
-          v54 = [dictionaryCopy objectForKeyedSubscript:@"cc"];
+          v55 = [dictionaryCopy objectForKeyedSubscript:@"cc"];
 
-          if (v54)
+          if (v55)
           {
-            v100[0] = MEMORY[0x277D85DD0];
-            v100[1] = 3221225472;
-            v100[2] = __58__SPRemoteInterface_handlePlistDictionary_fromIdentifier___block_invoke_518;
-            v100[3] = &unk_278B7E2F0;
-            v100[4] = self;
-            v101 = dictionaryCopy;
-            spUtils_dispatchAsyncToMainThread(v100);
+            v104[0] = MEMORY[0x277D85DD0];
+            v104[1] = 3221225472;
+            v104[2] = __58__SPRemoteInterface_handlePlistDictionary_fromIdentifier___block_invoke_518;
+            v104[3] = &unk_278B7E2F0;
+            v104[4] = self;
+            v105 = dictionaryCopy;
+            spUtils_dispatchAsyncToMainThread(v104);
           }
 
           else
           {
-            v70 = [dictionaryCopy objectForKeyedSubscript:@"cd"];
+            v72 = [dictionaryCopy objectForKeyedSubscript:@"cd"];
 
-            if (v70)
+            if (v72)
             {
               activeComplicationsConnections = [(SPRemoteInterface *)self activeComplicationsConnections];
-              v72 = [activeComplicationsConnections containsObject:identifierCopy];
+              v74 = [activeComplicationsConnections containsObject:identifierCopy];
 
-              if ((v72 & 1) == 0)
+              if ((v74 & 1) == 0)
               {
                 [(SPRemoteInterface *)self applicationDidFinishConnecting:identifierCopy];
                 [(SPRemoteInterface *)self dataInterfaceDidBecomeActive:identifierCopy];
@@ -4079,41 +4067,39 @@ LABEL_111:
   }
 
 LABEL_113:
-
-  v91 = *MEMORY[0x277D85DE8];
 }
 
 void __58__SPRemoteInterface_handlePlistDictionary_fromIdentifier___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) objectForKeyedSubscript:@"V"];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v13;
+    v5 = *v12;
     do
     {
       v6 = 0;
       do
       {
-        if (*v13 != v5)
+        if (*v12 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = [*(a1 + 40) _interfaceControllerWithID:*(*(&v12 + 1) + 8 * v6)];
+        v7 = [*(a1 + 40) _interfaceControllerWithID:*(*(&v11 + 1) + 8 * v6)];
         [v7 handleUserActivity:*(a1 + 48)];
 
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v4);
@@ -4123,25 +4109,22 @@ void __58__SPRemoteInterface_handlePlistDictionary_fromIdentifier___block_invoke
   v9 = [v2 firstObject];
   v10 = [v8 _interfaceControllerWithID:v9];
   [SPRemoteInterface didFinishHandlingActivity:v10];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __58__SPRemoteInterface_handlePlistDictionary_fromIdentifier___block_invoke_2(uint64_t a1)
 {
-  v7[3] = *MEMORY[0x277D85DE8];
-  v7[0] = *(a1 + 32);
-  v6[0] = @"V";
-  v6[1] = @".idx";
+  v6[3] = *MEMORY[0x277D85DE8];
+  v6[0] = *(a1 + 32);
+  v5[0] = @"V";
+  v5[1] = @".idx";
   v2 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 48)];
-  v7[1] = v2;
-  v6[2] = @".rs";
+  v6[1] = v2;
+  v5[2] = @".rs";
   v3 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 56)];
-  v7[2] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:3];
+  v6[2] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:3];
 
   [*(a1 + 40) _requestTimingData:v4];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __58__SPRemoteInterface_handlePlistDictionary_fromIdentifier___block_invoke_3(void *a1)
@@ -4159,59 +4142,58 @@ void __58__SPRemoteInterface_handlePlistDictionary_fromIdentifier___block_invoke
   v5 = *(a1 + 48);
   if (v4)
   {
-    v6 = *(*(*(a1 + 64) + 8) + 24);
     if (v2)
     {
-      v7 = [v3 contextsForSegueWithIdentifier:v5 inTable:? rowIndex:?];
+      v6 = [v3 contextsForSegueWithIdentifier:v5 inTable:? rowIndex:?];
 LABEL_6:
-      v8 = v7;
-      v14 = 0;
+      v7 = v6;
+      v13 = 0;
       goto LABEL_10;
     }
 
-    v9 = [v3 contextForSegueWithIdentifier:v5 inTable:? rowIndex:?];
+    v8 = [v3 contextForSegueWithIdentifier:v5 inTable:? rowIndex:?];
   }
 
   else
   {
     if (v2)
     {
-      v7 = [v3 contextsForSegueWithIdentifier:v5];
+      v6 = [v3 contextsForSegueWithIdentifier:v5];
       goto LABEL_6;
     }
 
-    v9 = [v3 contextForSegueWithIdentifier:v5];
+    v8 = [v3 contextForSegueWithIdentifier:v5];
   }
 
-  v14 = v9;
-  v8 = 0;
+  v13 = v8;
+  v7 = 0;
 LABEL_10:
-  v10 = *(a1 + 72);
+  v9 = *(a1 + 72);
   if (*(a1 + 73) == 1)
   {
-    v11 = *(a1 + 40);
-    v12 = [*(a1 + 56) objectForKeyedSubscript:@"destination"];
-    if (v10)
+    v10 = *(a1 + 40);
+    v11 = [*(a1 + 56) objectForKeyedSubscript:@"destination"];
+    if (v9)
     {
-      [SPRemoteInterface controller:v11 presentInterfaceControllers:v12 contexts:v8];
+      [SPRemoteInterface controller:v10 presentInterfaceControllers:v11 contexts:v7];
     }
 
     else
     {
-      [SPRemoteInterface controller:v11 presentInterfaceController:v12 context:v14];
+      [SPRemoteInterface controller:v10 presentInterfaceController:v11 context:v13];
     }
   }
 
   else
   {
-    if (v10)
+    if (v9)
     {
       goto LABEL_17;
     }
 
-    v13 = *(a1 + 40);
-    v12 = [*(a1 + 56) objectForKeyedSubscript:@"destination"];
-    [SPRemoteInterface controller:v13 pushInterfaceController:v12 context:v14];
+    v12 = *(a1 + 40);
+    v11 = [*(a1 + 56) objectForKeyedSubscript:@"destination"];
+    [SPRemoteInterface controller:v12 pushInterfaceController:v11 context:v13];
   }
 
 LABEL_17:
@@ -4254,7 +4236,7 @@ void __58__SPRemoteInterface_handlePlistDictionary_fromIdentifier___block_invoke
 
 void __58__SPRemoteInterface_handlePlistDictionary_fromIdentifier___block_invoke_4_517(uint64_t a1)
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v1 = *(*(a1 + 32) + 96);
   if (v1)
   {
@@ -4271,16 +4253,14 @@ void __58__SPRemoteInterface_handlePlistDictionary_fromIdentifier___block_invoke
       v5 = MEMORY[0x277CBEBF8];
     }
 
-    v11 = @"tS";
-    v12[0] = v5;
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v10 = @"tS";
+    v11[0] = v5;
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
     v7 = *(a1 + 32);
-    v10 = *(a1 + 48);
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v10 count:1];
+    v9 = *(a1 + 48);
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v9 count:1];
     [v7 sendPlist:v6 clientIdentifiers:v8];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __58__SPRemoteInterface_handlePlistDictionary_fromIdentifier___block_invoke_5(uint64_t a1)
@@ -4300,14 +4280,13 @@ void __58__SPRemoteInterface_handlePlistDictionary_fromIdentifier___block_invoke
 
 void __58__SPRemoteInterface_handlePlistDictionary_fromIdentifier___block_invoke_518(uint64_t a1)
 {
-  v2 = *(*(a1 + 32) + 8);
   if (objc_opt_respondsToSelector())
   {
-    v4 = *(a1 + 32);
-    v3 = *(a1 + 40);
-    v5 = *(v4 + 8);
-    v6 = [v3 objectForKeyedSubscript:@"cc"];
-    [v5 remoteInterface:v4 setComplicationDataClassName:v6];
+    v3 = *(a1 + 32);
+    v2 = *(a1 + 40);
+    v4 = *(v3 + 8);
+    v5 = [v2 objectForKeyedSubscript:@"cc"];
+    [v4 remoteInterface:v3 setComplicationDataClassName:v5];
   }
 }
 
@@ -4320,10 +4299,10 @@ void __58__SPRemoteInterface_handlePlistDictionary_fromIdentifier___block_invoke
   infoCopy = info;
   descriptionsCopy = descriptions;
   identifierCopy = identifier;
-  if (!WKInterfaceControllerClass() || (v22 = NSClassFromString(nameCopy), ![(objc_class *)v22 isSubclassOfClass:WKInterfaceControllerClass()]))
+  if (!WKInterfaceControllerClass(identifierCopy) || (v22 = NSClassFromString(nameCopy), ![(objc_class *)v22 isSubclassOfClass:WKInterfaceControllerClass(v22)]))
   {
     v30 = NSClassFromString(nameCopy);
-    v31 = wk_default_log();
+    v31 = wk_default_log(v30);
     v32 = os_log_type_enabled(v31, OS_LOG_TYPE_ERROR);
     if (v30)
     {
@@ -4334,7 +4313,7 @@ void __58__SPRemoteInterface_handlePlistDictionary_fromIdentifier___block_invoke
 
       [MEMORY[0x277CCACA8] stringWithFormat:@"%@ is not a subclass of WKInterfaceController", nameCopy];
       v33 = [MEMORY[0x277CCACA8] stringWithFormat:@"Condition failed:%s. %@", "NO", objc_claimAutoreleasedReturnValue()];
-      v34 = wk_default_log();
+      v34 = wk_default_log(v33);
       if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
       {
         [SPRemoteInterface createViewController:className:properties:contextID:info:gestureDescriptions:clientIdentifier:];
@@ -4350,7 +4329,7 @@ void __58__SPRemoteInterface_handlePlistDictionary_fromIdentifier___block_invoke
 
       [MEMORY[0x277CCACA8] stringWithFormat:@"Couldn't instantiate class %@", nameCopy];
       v33 = [MEMORY[0x277CCACA8] stringWithFormat:@"Condition failed:%s. %@", "NO", objc_claimAutoreleasedReturnValue()];
-      v34 = wk_default_log();
+      v34 = wk_default_log(v33);
       if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
       {
         [SPRemoteInterface createViewController:className:properties:contextID:info:gestureDescriptions:clientIdentifier:];
@@ -4481,32 +4460,32 @@ void __115__SPRemoteInterface_createViewController_className_properties_contextI
 
 void __115__SPRemoteInterface_createViewController_className_properties_contextID_info_gestureDescriptions_clientIdentifier___block_invoke_2(uint64_t a1, uint64_t a2, void *a3, void *a4, void *a5, int a6)
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   v10 = a3;
   v11 = a4;
   v12 = a5;
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x3032000000;
-  v42 = __Block_byref_object_copy_;
-  v43 = __Block_byref_object_dispose_;
-  v44 = 0;
-  v13 = wk_default_log();
+  v38 = 0;
+  v39 = &v38;
+  v40 = 0x3032000000;
+  v41 = __Block_byref_object_copy_;
+  v42 = __Block_byref_object_dispose_;
+  v43 = 0;
+  v13 = wk_default_log(v12);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     v14 = *(a1 + 32);
     v15 = *(a1 + 40);
     v16 = *(a1 + 48);
     *buf = 136447234;
-    v46 = "[SPRemoteInterface createViewController:className:properties:contextID:info:gestureDescriptions:clientIdentifier:]_block_invoke_2";
-    v47 = 1024;
-    v48 = 3197;
-    v49 = 2114;
-    v50 = v14;
-    v51 = 2114;
-    v52 = v15;
-    v53 = 2114;
-    v54 = v16;
+    v45 = "[SPRemoteInterface createViewController:className:properties:contextID:info:gestureDescriptions:clientIdentifier:]_block_invoke_2";
+    v46 = 1024;
+    v47 = 3197;
+    v48 = 2114;
+    v49 = v14;
+    v50 = 2114;
+    v51 = v15;
+    v52 = 2114;
+    v53 = v16;
     _os_log_impl(&dword_23B338000, v13, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: !!! Create controller - clientIdentifier:%{public}@, viewControllerIdentifier:%{public}@, className:%{public}@", buf, 0x30u);
   }
 
@@ -4515,44 +4494,43 @@ void __115__SPRemoteInterface_createViewController_className_properties_contextI
   v20 = *(a1 + 56);
   v19 = *(a1 + 64);
   v21 = *(a1 + 72);
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __115__SPRemoteInterface_createViewController_className_properties_contextID_info_gestureDescriptions_clientIdentifier___block_invoke_521;
-  v30[3] = &unk_278B7E408;
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __115__SPRemoteInterface_createViewController_className_properties_contextID_info_gestureDescriptions_clientIdentifier___block_invoke_521;
+  v29[3] = &unk_278B7E408;
   v22 = v12;
-  v31 = v22;
+  v30 = v22;
   v23 = v10;
-  v32 = v23;
+  v31 = v23;
   v24 = v11;
-  v37 = &v39;
+  v36 = &v38;
   v25 = *(a1 + 80);
-  v33 = v24;
-  v34 = v25;
-  v35 = *(a1 + 40);
-  v36 = *(a1 + 32);
-  v38 = *(a1 + 120);
-  v26 = _WKInterfaceControllerCreateClass(v18, v20, v17, v19, v21, v30, *(a1 + 88), *(a1 + 96), *(a1 + 104), *(a1 + 112));
+  v32 = v24;
+  v33 = v25;
+  v34 = *(a1 + 40);
+  v35 = *(a1 + 32);
+  v37 = *(a1 + 120);
+  v26 = _WKInterfaceControllerCreateClass(v18, v20, v17, v19, v21, v29, *(a1 + 88), *(a1 + 96), *(a1 + 104), *(a1 + 112));
   if (a6)
   {
     [*(a1 + 80) extensionDidBeginNotificationUICreation];
-    v27 = v40[5];
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __115__SPRemoteInterface_createViewController_className_properties_contextID_info_gestureDescriptions_clientIdentifier___block_invoke_3;
-    v29[3] = &unk_278B7E430;
-    v29[4] = *(a1 + 80);
-    v29[5] = &v39;
-    [v27 _didReceiveNotification:v22 remoteNotification:v23 localNotification:v24 withCompletion:v29];
+    v27 = v39[5];
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __115__SPRemoteInterface_createViewController_className_properties_contextID_info_gestureDescriptions_clientIdentifier___block_invoke_3;
+    v28[3] = &unk_278B7E430;
+    v28[4] = *(a1 + 80);
+    v28[5] = &v38;
+    [v27 _didReceiveNotification:v22 remoteNotification:v23 localNotification:v24 withCompletion:v28];
   }
 
-  _Block_object_dispose(&v39, 8);
-  v28 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v38, 8);
 }
 
 void __115__SPRemoteInterface_createViewController_className_properties_contextID_info_gestureDescriptions_clientIdentifier___block_invoke_521(uint64_t a1, void *a2)
 {
   v4 = a2;
-  if (*(a1 + 32) || *(a1 + 40) || *(a1 + 48))
+  if (*(a1 + 32) != 0 || *(a1 + 48))
   {
     objc_storeStrong((*(*(a1 + 80) + 8) + 40), a2);
   }
@@ -4595,28 +4573,29 @@ void __115__SPRemoteInterface_createViewController_className_properties_contextI
   v10 = a3;
   v11 = a4;
   v12 = a5;
+  v13 = v12;
   if (v12)
   {
-    v13 = wk_default_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = wk_default_log(v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      __115__SPRemoteInterface_createViewController_className_properties_contextID_info_gestureDescriptions_clientIdentifier___block_invoke_531_cold_1(a1);
+      __115__SPRemoteInterface_createViewController_className_properties_contextID_info_gestureDescriptions_clientIdentifier___block_invoke_531_cold_1();
     }
   }
 
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __115__SPRemoteInterface_createViewController_className_properties_contextID_info_gestureDescriptions_clientIdentifier___block_invoke_532;
-  v18[3] = &unk_278B7E480;
-  v14 = *(a1 + 40);
-  v19 = v9;
-  v20 = v10;
-  v21 = v11;
-  v22 = v14;
-  v15 = v11;
-  v16 = v10;
-  v17 = v9;
-  spUtils_dispatchAsyncToMainThread(v18);
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __115__SPRemoteInterface_createViewController_className_properties_contextID_info_gestureDescriptions_clientIdentifier___block_invoke_532;
+  v19[3] = &unk_278B7E480;
+  v15 = *(a1 + 40);
+  v20 = v9;
+  v21 = v10;
+  v22 = v11;
+  v23 = v15;
+  v16 = v11;
+  v17 = v10;
+  v18 = v9;
+  spUtils_dispatchAsyncToMainThread(v19);
 }
 
 - (void)activateViewController:(id)controller clientIdentifier:(id)identifier
@@ -4644,7 +4623,7 @@ void __115__SPRemoteInterface_createViewController_className_properties_contextI
 
   else
   {
-    v9 = wk_default_log();
+    v9 = wk_default_log(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [SPRemoteInterface activateViewController:clientIdentifier:];
@@ -4659,8 +4638,8 @@ void __115__SPRemoteInterface_createViewController_className_properties_contextI
   v6 = [(SPRemoteInterface *)self _interfaceControllerWithID:controllerCopy];
   [SPRemoteInterface setControllerActive:controllerCopy];
 
-  v7 = wk_default_log();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = wk_default_log(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     viewControllerID = [v6 viewControllerID];
     v10 = 136446722;
@@ -4669,13 +4648,11 @@ void __115__SPRemoteInterface_createViewController_className_properties_contextI
     v13 = 3327;
     v14 = 2114;
     v15 = viewControllerID;
-    _os_log_impl(&dword_23B338000, v7, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: Calling willActivate for %{public}@", &v10, 0x1Cu);
+    _os_log_impl(&dword_23B338000, v8, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: Calling willActivate for %{public}@", &v10, 0x1Cu);
   }
 
   [v6 willActivate];
   [(SPRemoteInterface *)self sendWillActivateReplyForController:v6];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deactivateViewController:(id)controller clientIdentifier:(id)identifier
@@ -4697,7 +4674,7 @@ void __115__SPRemoteInterface_createViewController_className_properties_contextI
 
   else
   {
-    v9 = wk_default_log();
+    v9 = wk_default_log(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [SPRemoteInterface deactivateViewController:clientIdentifier:];
@@ -4728,17 +4705,17 @@ uint64_t __63__SPRemoteInterface_deactivateViewController_clientIdentifier___blo
 
 - (void)applicationDidTerminate:(id)terminate
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   terminateCopy = terminate;
-  v5 = wk_default_log();
+  v5 = wk_default_log(terminateCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446722;
-    v12 = "[SPRemoteInterface applicationDidTerminate:]";
-    v13 = 1024;
-    v14 = 3433;
-    v15 = 2114;
-    v16 = terminateCopy;
+    v11 = "[SPRemoteInterface applicationDidTerminate:]";
+    v12 = 1024;
+    v13 = 3433;
+    v14 = 2114;
+    v15 = terminateCopy;
     _os_log_impl(&dword_23B338000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: ComF:->Plugin, %{public}@", buf, 0x1Cu);
   }
 
@@ -4751,26 +4728,23 @@ uint64_t __63__SPRemoteInterface_deactivateViewController_clientIdentifier___blo
     activeComplicationsConnections2 = [(SPRemoteInterface *)self activeComplicationsConnections];
     [activeComplicationsConnections2 removeObjectAtIndex:v7];
 
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __45__SPRemoteInterface_applicationDidTerminate___block_invoke;
-    v10[3] = &unk_278B7E200;
-    v10[4] = self;
-    spUtils_dispatchAsyncToMainThread(v10);
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __45__SPRemoteInterface_applicationDidTerminate___block_invoke;
+    v9[3] = &unk_278B7E200;
+    v9[4] = self;
+    spUtils_dispatchAsyncToMainThread(v9);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __45__SPRemoteInterface_applicationDidTerminate___block_invoke(uint64_t a1)
 {
-  v2 = *(*(a1 + 32) + 8);
   result = objc_opt_respondsToSelector();
   if (result)
   {
-    v4 = *(*(a1 + 32) + 8);
+    v3 = *(*(a1 + 32) + 8);
 
-    return [v4 dataInterfaceWillResignActive:?];
+    return [v3 dataInterfaceWillResignActive:?];
   }
 
   return result;
@@ -4778,59 +4752,55 @@ uint64_t __45__SPRemoteInterface_applicationDidTerminate___block_invoke(uint64_t
 
 - (void)applicationContentsDidReset:(id)reset
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   resetCopy = reset;
-  v5 = wk_default_log();
+  v5 = wk_default_log(resetCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136446722;
-    v8 = "[SPRemoteInterface applicationContentsDidReset:]";
-    v9 = 1024;
-    v10 = 3449;
-    v11 = 2114;
-    v12 = resetCopy;
-    _os_log_impl(&dword_23B338000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: ComF:->Plugin, %{public}@", &v7, 0x1Cu);
+    v6 = 136446722;
+    v7 = "[SPRemoteInterface applicationContentsDidReset:]";
+    v8 = 1024;
+    v9 = 3449;
+    v10 = 2114;
+    v11 = resetCopy;
+    _os_log_impl(&dword_23B338000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: ComF:->Plugin, %{public}@", &v6, 0x1Cu);
   }
 
   [(SPRemoteInterface *)self removeInterfaceControllersForClient:resetCopy];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)applicationDidFinishConnecting:(id)connecting
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   connectingCopy = connecting;
-  v5 = wk_default_log();
+  v5 = wk_default_log(connectingCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446722;
-    v9 = "[SPRemoteInterface applicationDidFinishConnecting:]";
-    v10 = 1024;
-    v11 = 3456;
-    v12 = 2114;
-    v13 = connectingCopy;
+    v8 = "[SPRemoteInterface applicationDidFinishConnecting:]";
+    v9 = 1024;
+    v10 = 3456;
+    v11 = 2114;
+    v12 = connectingCopy;
     _os_log_impl(&dword_23B338000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: ComF:->Plugin, %{public}@", buf, 0x1Cu);
   }
 
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __52__SPRemoteInterface_applicationDidFinishConnecting___block_invoke;
-  v7[3] = &unk_278B7E200;
-  v7[4] = self;
-  spUtils_dispatchAsyncToMainThread(v7);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __52__SPRemoteInterface_applicationDidFinishConnecting___block_invoke;
+  v6[3] = &unk_278B7E200;
+  v6[4] = self;
+  spUtils_dispatchAsyncToMainThread(v6);
 }
 
 uint64_t __52__SPRemoteInterface_applicationDidFinishConnecting___block_invoke(uint64_t a1)
 {
-  v2 = *(*(a1 + 32) + 8);
   result = objc_opt_respondsToSelector();
   if (result)
   {
-    v4 = *(*(a1 + 32) + 8);
+    v3 = *(*(a1 + 32) + 8);
 
-    return [v4 remoteInterfaceDidFinishConnecting:?];
+    return [v3 remoteInterfaceDidFinishConnecting:?];
   }
 
   return result;
@@ -4838,34 +4808,30 @@ uint64_t __52__SPRemoteInterface_applicationDidFinishConnecting___block_invoke(u
 
 - (void)applicationDidBecomeActive:(id)active
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v3 = wk_default_log();
+  v8 = *MEMORY[0x277D85DE8];
+  v3 = wk_default_log(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136446466;
-    v6 = "[SPRemoteInterface applicationDidBecomeActive:]";
-    v7 = 1024;
-    v8 = 3618;
-    _os_log_impl(&dword_23B338000, v3, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: ComF:->Plugin", &v5, 0x12u);
+    v4 = 136446466;
+    v5 = "[SPRemoteInterface applicationDidBecomeActive:]";
+    v6 = 1024;
+    v7 = 3618;
+    _os_log_impl(&dword_23B338000, v3, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: ComF:->Plugin", &v4, 0x12u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)applicationWillResignActive:(id)active
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v3 = wk_default_log();
+  v8 = *MEMORY[0x277D85DE8];
+  v3 = wk_default_log(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136446466;
-    v6 = "[SPRemoteInterface applicationWillResignActive:]";
-    v7 = 1024;
-    v8 = 3642;
-    _os_log_impl(&dword_23B338000, v3, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: ComF:->Plugin", &v5, 0x12u);
+    v4 = 136446466;
+    v5 = "[SPRemoteInterface applicationWillResignActive:]";
+    v6 = 1024;
+    v7 = 3642;
+    _os_log_impl(&dword_23B338000, v3, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: ComF:->Plugin", &v4, 0x12u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)applicationDidReceiveNotification:(id)notification clientIdentifier:(id)identifier withCompletionHandler:(id)handler
@@ -4890,28 +4856,29 @@ void __94__SPRemoteInterface_applicationDidReceiveNotification_clientIdentifier_
   getUNNotificationClass();
   v3 = objc_opt_class();
   v4 = *(a1 + 32);
-  v11 = 0;
-  v5 = [v2 unarchivedObjectOfClass:v3 fromData:v4 error:&v11];
-  v6 = v11;
+  v12 = 0;
+  v5 = [v2 unarchivedObjectOfClass:v3 fromData:v4 error:&v12];
+  v6 = v12;
+  v7 = v6;
   if (!v5)
   {
-    v7 = wk_default_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = wk_default_log(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __94__SPRemoteInterface_applicationDidReceiveNotification_clientIdentifier_withCompletionHandler___block_invoke_cold_1();
     }
   }
 
-  v8 = [getUNUserNotificationCenterClass() currentNotificationCenter];
-  v9 = [v8 delegate];
+  v9 = [getUNUserNotificationCenterClass() currentNotificationCenter];
+  v10 = [v9 delegate];
 
   if (objc_opt_respondsToSelector())
   {
     NSClassFromString(&cfstr_Spapplicationd.isa);
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v10 = [getUNUserNotificationCenterClass() currentNotificationCenter];
-      [v9 userNotificationCenter:v10 willPresentNotification:v5 withCompletionHandler:*(a1 + 40)];
+      v11 = [getUNUserNotificationCenterClass() currentNotificationCenter];
+      [v10 userNotificationCenter:v11 willPresentNotification:v5 withCompletionHandler:*(a1 + 40)];
     }
   }
 }
@@ -4959,30 +4926,30 @@ void __111__SPRemoteInterface_applicationHandleWatchTaskKeys_reasonForSnapshot_v
 
 void __111__SPRemoteInterface_applicationHandleWatchTaskKeys_reasonForSnapshot_visibleVCID_barTaskUUID_clientIdentifier___block_invoke_2(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
-  v2 = wk_bg_app_refresh_log();
+  v26 = *MEMORY[0x277D85DE8];
+  v2 = wk_bg_app_refresh_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = [*(a1 + 40) allKeys];
     v5 = *(a1 + 48);
     *buf = 136447234;
-    v18 = "[SPRemoteInterface applicationHandleWatchTaskKeys:reasonForSnapshot:visibleVCID:barTaskUUID:clientIdentifier:]_block_invoke_2";
-    v19 = 1024;
-    v20 = 3775;
-    v21 = 2114;
-    v22 = v3;
-    v23 = 2114;
-    v24 = v4;
-    v25 = 2114;
-    v26 = v5;
+    v17 = "[SPRemoteInterface applicationHandleWatchTaskKeys:reasonForSnapshot:visibleVCID:barTaskUUID:clientIdentifier:]_block_invoke_2";
+    v18 = 1024;
+    v19 = 3775;
+    v20 = 2114;
+    v21 = v3;
+    v22 = 2114;
+    v23 = v4;
+    v24 = 2114;
+    v25 = v5;
     _os_log_impl(&dword_23B338000, v2, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: Waiting on finishActivatingVCWithID:%{public}@ with taskKeys %{public}@, barTaskUUID=%{public}@", buf, 0x30u);
   }
 
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __111__SPRemoteInterface_applicationHandleWatchTaskKeys_reasonForSnapshot_visibleVCID_barTaskUUID_clientIdentifier___block_invoke_553;
-  v14[3] = &unk_278B7E2C8;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __111__SPRemoteInterface_applicationHandleWatchTaskKeys_reasonForSnapshot_visibleVCID_barTaskUUID_clientIdentifier___block_invoke_553;
+  v13[3] = &unk_278B7E2C8;
   v6 = *(a1 + 56);
   v7 = *(a1 + 32);
   v8 = *(a1 + 40);
@@ -4992,23 +4959,21 @@ void __111__SPRemoteInterface_applicationHandleWatchTaskKeys_reasonForSnapshot_v
   *(&v11 + 1) = v10;
   *&v12 = v6;
   *(&v12 + 1) = v8;
-  v15 = v12;
-  v16 = v11;
-  [v6 finishActivatingVCWithID:v7 completion:v14];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = v12;
+  v15 = v11;
+  [v6 finishActivatingVCWithID:v7 completion:v13];
 }
 
 void __111__SPRemoteInterface_applicationHandleWatchTaskKeys_reasonForSnapshot_visibleVCID_barTaskUUID_clientIdentifier___block_invoke_553(void *a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v2 = wk_bg_app_refresh_log();
+  v16 = *MEMORY[0x277D85DE8];
+  v2 = wk_bg_app_refresh_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v14 = "[SPRemoteInterface applicationHandleWatchTaskKeys:reasonForSnapshot:visibleVCID:barTaskUUID:clientIdentifier:]_block_invoke";
-    v15 = 1024;
-    v16 = 3845;
+    v13 = "[SPRemoteInterface applicationHandleWatchTaskKeys:reasonForSnapshot:visibleVCID:barTaskUUID:clientIdentifier:]_block_invoke";
+    v14 = 1024;
+    v15 = 3845;
     _os_log_impl(&dword_23B338000, v2, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: Finished activating for snapshot", buf, 0x12u);
   }
 
@@ -5023,9 +4988,9 @@ void __111__SPRemoteInterface_applicationHandleWatchTaskKeys_reasonForSnapshot_v
     v4 = MEMORY[0x277CBEC10];
   }
 
-  v11[0] = @"hT";
-  v11[1] = @"Ui";
-  v12[0] = v4;
+  v10[0] = @"hT";
+  v10[1] = @"Ui";
+  v11[0] = v4;
   v5 = a1[6];
   v6 = v5;
   if (!v5)
@@ -5033,48 +4998,44 @@ void __111__SPRemoteInterface_applicationHandleWatchTaskKeys_reasonForSnapshot_v
     v6 = [MEMORY[0x277CCAD78] UUID];
   }
 
-  v12[1] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
-  v10 = a1[7];
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v10 count:1];
+  v11[1] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v9 = a1[7];
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v9 count:1];
   [v3 sendPlist:v7 clientIdentifiers:v8];
 
   if (!v5)
   {
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)applicationIsStillActive
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v2 = wk_default_log();
+  v7 = *MEMORY[0x277D85DE8];
+  v2 = wk_default_log(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = 136446466;
-    v5 = "[SPRemoteInterface applicationIsStillActive]";
-    v6 = 1024;
-    v7 = 3856;
-    _os_log_impl(&dword_23B338000, v2, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: ComF:->Plugin", &v4, 0x12u);
+    v3 = 136446466;
+    v4 = "[SPRemoteInterface applicationIsStillActive]";
+    v5 = 1024;
+    v6 = 3856;
+    _os_log_impl(&dword_23B338000, v2, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: ComF:->Plugin", &v3, 0x12u);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dataInterfaceDidBecomeActive:(id)active
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   activeCopy = active;
-  v5 = wk_default_log();
+  v5 = wk_default_log(activeCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446722;
-    v12 = "[SPRemoteInterface dataInterfaceDidBecomeActive:]";
-    v13 = 1024;
-    v14 = 3892;
-    v15 = 2114;
-    v16 = activeCopy;
+    v11 = "[SPRemoteInterface dataInterfaceDidBecomeActive:]";
+    v12 = 1024;
+    v13 = 3892;
+    v14 = 2114;
+    v15 = activeCopy;
     _os_log_impl(&dword_23B338000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: ComF:->Plugin, %{public}@", buf, 0x1Cu);
   }
 
@@ -5087,25 +5048,22 @@ void __111__SPRemoteInterface_applicationHandleWatchTaskKeys_reasonForSnapshot_v
     [activeComplicationsConnections2 addObject:activeCopy];
   }
 
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __50__SPRemoteInterface_dataInterfaceDidBecomeActive___block_invoke;
-  v10[3] = &unk_278B7E200;
-  v10[4] = self;
-  spUtils_dispatchAsyncToMainThread(v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __50__SPRemoteInterface_dataInterfaceDidBecomeActive___block_invoke;
+  v9[3] = &unk_278B7E200;
+  v9[4] = self;
+  spUtils_dispatchAsyncToMainThread(v9);
 }
 
 uint64_t __50__SPRemoteInterface_dataInterfaceDidBecomeActive___block_invoke(uint64_t a1)
 {
-  v2 = *(*(a1 + 32) + 8);
   result = objc_opt_respondsToSelector();
   if (result)
   {
-    v4 = *(*(a1 + 32) + 8);
+    v3 = *(*(a1 + 32) + 8);
 
-    return [v4 dataInterfaceDidBecomeActive:?];
+    return [v3 dataInterfaceDidBecomeActive:?];
   }
 
   return result;
@@ -5113,42 +5071,39 @@ uint64_t __50__SPRemoteInterface_dataInterfaceDidBecomeActive___block_invoke(uin
 
 - (void)dataInterfaceWillResignActive:(id)active
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   activeCopy = active;
-  v5 = wk_default_log();
+  v5 = wk_default_log(activeCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446722;
-    v10 = "[SPRemoteInterface dataInterfaceWillResignActive:]";
-    v11 = 1024;
-    v12 = 3907;
-    v13 = 2114;
-    v14 = activeCopy;
+    v9 = "[SPRemoteInterface dataInterfaceWillResignActive:]";
+    v10 = 1024;
+    v11 = 3907;
+    v12 = 2114;
+    v13 = activeCopy;
     _os_log_impl(&dword_23B338000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: ComF:->Plugin, %{public}@", buf, 0x1Cu);
   }
 
   activeComplicationsConnections = [(SPRemoteInterface *)self activeComplicationsConnections];
   [activeComplicationsConnections removeObject:activeCopy];
 
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __51__SPRemoteInterface_dataInterfaceWillResignActive___block_invoke;
-  v8[3] = &unk_278B7E200;
-  v8[4] = self;
-  spUtils_dispatchAsyncToMainThread(v8);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __51__SPRemoteInterface_dataInterfaceWillResignActive___block_invoke;
+  v7[3] = &unk_278B7E200;
+  v7[4] = self;
+  spUtils_dispatchAsyncToMainThread(v7);
 }
 
 uint64_t __51__SPRemoteInterface_dataInterfaceWillResignActive___block_invoke(uint64_t a1)
 {
-  v2 = *(*(a1 + 32) + 8);
   result = objc_opt_respondsToSelector();
   if (result)
   {
-    v4 = *(*(a1 + 32) + 8);
+    v3 = *(*(a1 + 32) + 8);
 
-    return [v4 dataInterfaceWillResignActive:?];
+    return [v3 dataInterfaceWillResignActive:?];
   }
 
   return result;
@@ -5156,68 +5111,62 @@ uint64_t __51__SPRemoteInterface_dataInterfaceWillResignActive___block_invoke(ui
 
 - (void)preferredContentSizeCategory:(id)category
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   categoryCopy = category;
-  v4 = wk_default_log();
+  v4 = wk_default_log(categoryCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446722;
-    v9 = "[SPRemoteInterface preferredContentSizeCategory:]";
-    v10 = 1024;
-    v11 = 3918;
-    v12 = 2114;
-    v13 = categoryCopy;
+    v8 = "[SPRemoteInterface preferredContentSizeCategory:]";
+    v9 = 1024;
+    v10 = 3918;
+    v11 = 2114;
+    v12 = categoryCopy;
     _os_log_impl(&dword_23B338000, v4, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: ComF:->Plugin, %{public}@", buf, 0x1Cu);
   }
 
   if (categoryCopy && (!preferredContentSizeCategory____textSize || [categoryCopy compare:?]))
   {
-    v6[0] = MEMORY[0x277D85DD0];
-    v6[1] = 3221225472;
-    v6[2] = __50__SPRemoteInterface_preferredContentSizeCategory___block_invoke;
-    v6[3] = &unk_278B7E200;
-    v7 = categoryCopy;
-    spUtils_dispatchAsyncToMainThread(v6);
+    v5[0] = MEMORY[0x277D85DD0];
+    v5[1] = 3221225472;
+    v5[2] = __50__SPRemoteInterface_preferredContentSizeCategory___block_invoke;
+    v5[3] = &unk_278B7E200;
+    v6 = categoryCopy;
+    spUtils_dispatchAsyncToMainThread(v5);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __50__SPRemoteInterface_preferredContentSizeCategory___block_invoke(uint64_t a1)
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   objc_storeStrong(&preferredContentSizeCategory____textSize, *(a1 + 32));
   v1 = preferredContentSizeCategory____textSize;
   v2 = +[WKInterfaceDevice currentDevice];
   [v2 setPreferredContentSizeCategory:v1];
 
-  v7 = *MEMORY[0x277D76850];
-  v8[0] = preferredContentSizeCategory____textSize;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v6 = *MEMORY[0x277D76850];
+  v7[0] = preferredContentSizeCategory____textSize;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   v4 = [MEMORY[0x277CCAB88] notificationWithName:*MEMORY[0x277D76810] object:0 userInfo:v3];
   v5 = [MEMORY[0x277CCAB98] defaultCenter];
   [v5 postNotification:v4];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)layoutDirection:(int64_t)direction
 {
   directionCopy = direction;
-  v12 = *MEMORY[0x277D85DE8];
-  v4 = wk_default_log();
+  v11 = *MEMORY[0x277D85DE8];
+  v4 = wk_default_log(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136446722;
-    v7 = "[SPRemoteInterface layoutDirection:]";
-    v8 = 1024;
-    v9 = 3939;
-    v10 = 1024;
-    v11 = directionCopy;
-    _os_log_impl(&dword_23B338000, v4, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: ComF:->Plugin, %d", &v6, 0x18u);
+    v5 = 136446722;
+    v6 = "[SPRemoteInterface layoutDirection:]";
+    v7 = 1024;
+    v8 = 3939;
+    v9 = 1024;
+    v10 = directionCopy;
+    _os_log_impl(&dword_23B338000, v4, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: ComF:->Plugin, %d", &v5, 0x18u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_handleAction:(id)action forNotification:(id)notification remoteNotificationContext:(id)context localNotification:(id)localNotification unNotification:(id)unNotification handler:(id)handler controller:(id)controller
@@ -5343,37 +5292,38 @@ void __129__SPRemoteInterface__handleAction_forNotification_remoteNotificationCo
   v10 = a3;
   v11 = a4;
   v12 = a5;
+  v13 = v12;
   if (v12)
   {
-    v13 = wk_default_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = wk_default_log(v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       __129__SPRemoteInterface__handleAction_forNotification_remoteNotificationContext_localNotification_unNotification_handler_controller___block_invoke_2_cold_1();
     }
 
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __129__SPRemoteInterface__handleAction_forNotification_remoteNotificationContext_localNotification_unNotification_handler_controller___block_invoke_560;
-    v22[3] = &unk_278B7E200;
-    v14 = &v23;
-    v23 = a1[4];
-    [SPRemoteInterface handleEvent:v22];
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __129__SPRemoteInterface__handleAction_forNotification_remoteNotificationContext_localNotification_unNotification_handler_controller___block_invoke_560;
+    v23[3] = &unk_278B7E200;
+    v15 = &v24;
+    v24 = a1[4];
+    [SPRemoteInterface handleEvent:v23];
   }
 
   else
   {
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __129__SPRemoteInterface__handleAction_forNotification_remoteNotificationContext_localNotification_unNotification_handler_controller___block_invoke_2_561;
-    v15[3] = &unk_278B7E548;
-    v14 = &v16;
-    v16 = a1[5];
-    v17 = a1[6];
-    v18 = v11;
-    v19 = v9;
-    v20 = v10;
-    v21 = a1[4];
-    [SPRemoteInterface handleEvent:v15];
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __129__SPRemoteInterface__handleAction_forNotification_remoteNotificationContext_localNotification_unNotification_handler_controller___block_invoke_2_561;
+    v16[3] = &unk_278B7E548;
+    v15 = &v17;
+    v17 = a1[5];
+    v18 = a1[6];
+    v19 = v11;
+    v20 = v9;
+    v21 = v10;
+    v22 = a1[4];
+    [SPRemoteInterface handleEvent:v16];
   }
 }
 
@@ -5387,8 +5337,8 @@ uint64_t __129__SPRemoteInterface__handleAction_forNotification_remoteNotificati
 
 uint64_t __129__SPRemoteInterface__handleAction_forNotification_remoteNotificationContext_localNotification_unNotification_handler_controller___block_invoke_3(void *a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v2 = wk_default_log();
+  v16 = *MEMORY[0x277D85DE8];
+  v2 = wk_default_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = a1[4];
@@ -5406,30 +5356,28 @@ uint64_t __129__SPRemoteInterface__handleAction_forNotification_remoteNotificati
 
   v5 = a1[4];
   v6 = [getUNUserNotificationCenterClass() currentNotificationCenter];
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x2050000000;
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x2050000000;
   v7 = getUNNotificationResponseClass_softClass;
-  v15 = getUNNotificationResponseClass_softClass;
+  v14 = getUNNotificationResponseClass_softClass;
   if (!getUNNotificationResponseClass_softClass)
   {
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = __getUNNotificationResponseClass_block_invoke;
     *&buf[24] = &unk_278B7E070;
-    *&buf[32] = &v12;
+    *&buf[32] = &v11;
     __getUNNotificationResponseClass_block_invoke(buf);
-    v7 = v13[3];
+    v7 = v12[3];
   }
 
   v8 = v7;
-  _Block_object_dispose(&v12, 8);
-  v9 = [v7 responseWithNotification:a1[6] actionIdentifier:{a1[5], v12}];
+  _Block_object_dispose(&v11, 8);
+  v9 = [v7 responseWithNotification:a1[6] actionIdentifier:{a1[5], v11}];
   [v5 userNotificationCenter:v6 didReceiveNotificationResponse:v9 withCompletionHandler:&__block_literal_global_566];
 
-  result = [SPRemoteInterface didFinishHandlingActivity:a1[7]];
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return [SPRemoteInterface didFinishHandlingActivity:a1[7]];
 }
 
 - (void)rootInterfaceController:(id)controller performActionWithItemID:(id)d forNotificationID:(id)iD userInfo:(id)info clientIdentifier:(id)identifier completionHandler:(id)handler
@@ -5447,13 +5395,14 @@ uint64_t __129__SPRemoteInterface__handleAction_forNotification_remoteNotificati
   {
     v19 = MEMORY[0x277CCAAC8];
     getUNNotificationClass();
-    v34 = 0;
-    v20 = [v19 unarchivedObjectOfClass:objc_opt_class() fromData:v18 error:&v34];
-    v21 = v34;
+    v36 = 0;
+    v20 = [v19 unarchivedObjectOfClass:objc_opt_class() fromData:v18 error:&v36];
+    v21 = v36;
+    v22 = v21;
     if (!v20)
     {
-      v22 = wk_default_log();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v23 = wk_default_log(v21);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         [SPRemoteInterface rootInterfaceController:performActionWithItemID:forNotificationID:userInfo:clientIdentifier:completionHandler:];
       }
@@ -5462,14 +5411,15 @@ uint64_t __129__SPRemoteInterface__handleAction_forNotification_remoteNotificati
 
   if (v17)
   {
-    v33 = 0;
-    v23 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v17 error:&v33];
-    v24 = v33;
-    v25 = controllerCopy;
-    if (!v23)
+    v35 = 0;
+    v24 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v17 error:&v35];
+    v25 = v35;
+    v26 = v25;
+    v27 = controllerCopy;
+    if (!v24)
     {
-      v26 = wk_default_log();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      v28 = wk_default_log(v25);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
         [SPRemoteInterface rootInterfaceController:performActionWithItemID:forNotificationID:userInfo:clientIdentifier:completionHandler:];
       }
@@ -5478,24 +5428,24 @@ uint64_t __129__SPRemoteInterface__handleAction_forNotification_remoteNotificati
 
   else
   {
-    v23 = 0;
-    v25 = controllerCopy;
+    v24 = 0;
+    v27 = controllerCopy;
   }
 
-  v27 = dCopy;
+  v29 = dCopy;
   if (!userInfo)
   {
     request = [0 request];
     content = [request content];
     userInfo = [content userInfo];
 
-    v27 = dCopy;
+    v29 = dCopy;
   }
 
-  v30 = [(SPRemoteInterface *)self _interfaceControllerWithID:v25];
-  if (![(SPRemoteInterface *)self _handleAction:v27 forNotification:iDCopy remoteNotificationContext:userInfo localNotification:v23 unNotification:0 handler:0 controller:v30])
+  v32 = [(SPRemoteInterface *)self _interfaceControllerWithID:v27];
+  if (![(SPRemoteInterface *)self _handleAction:v29 forNotification:iDCopy remoteNotificationContext:userInfo localNotification:v24 unNotification:0 handler:0 controller:v32])
   {
-    [(SPRemoteInterface *)self _handleAction:v27 forNotification:iDCopy remoteNotificationContext:userInfo localNotification:v23 unNotification:0 handler:v30 controller:v30];
+    [(SPRemoteInterface *)self _handleAction:v29 forNotification:iDCopy remoteNotificationContext:userInfo localNotification:v24 unNotification:0 handler:v32 controller:v32];
   }
 
   if (handlerCopy)
@@ -5506,39 +5456,36 @@ uint64_t __129__SPRemoteInterface__handleAction_forNotification_remoteNotificati
 
 - (void)getComplicationData:(id)data
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   dataCopy = data;
-  v5 = wk_default_log();
+  v5 = wk_default_log(dataCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446722;
-    v9 = "[SPRemoteInterface getComplicationData:]";
-    v10 = 1024;
-    v11 = 4391;
-    v12 = 2114;
-    v13 = dataCopy;
+    v8 = "[SPRemoteInterface getComplicationData:]";
+    v9 = 1024;
+    v10 = 4391;
+    v11 = 2114;
+    v12 = dataCopy;
     _os_log_impl(&dword_23B338000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: ComF:->Plugin, %{public}@", buf, 0x1Cu);
   }
 
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __41__SPRemoteInterface_getComplicationData___block_invoke;
-  v7[3] = &unk_278B7E200;
-  v7[4] = self;
-  spUtils_dispatchAsyncToMainThread(v7);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __41__SPRemoteInterface_getComplicationData___block_invoke;
+  v6[3] = &unk_278B7E200;
+  v6[4] = self;
+  spUtils_dispatchAsyncToMainThread(v6);
 }
 
 uint64_t __41__SPRemoteInterface_getComplicationData___block_invoke(uint64_t a1)
 {
-  v2 = *(*(a1 + 32) + 8);
   result = objc_opt_respondsToSelector();
   if (result)
   {
-    v4 = *(*(a1 + 32) + 8);
+    v3 = *(*(a1 + 32) + 8);
 
-    return [v4 getComplicationData:?];
+    return [v3 getComplicationData:?];
   }
 
   return result;
@@ -5604,281 +5551,223 @@ uint64_t __41__SPRemoteInterface_getComplicationData___block_invoke(uint64_t a1)
 
 void __38__SPRemoteInterface__remoteIdentifier__block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void __36__SPRemoteInterface_initWithBundle___block_invoke_cold_1(uint64_t a1)
+void __36__SPRemoteInterface_initWithBundle___block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_5();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x1Cu);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
 
 - (void)_setupSignal:handler:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendData:clientIdentifiers:reply:.cold.1()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  v3 = 623;
-  _os_log_debug_impl(&dword_23B338000, v0, OS_LOG_TYPE_DEBUG, "%{public}s:%d: ComF:->ComD", v2, 0x12u);
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = 623;
+  _os_log_debug_impl(&dword_23B338000, v0, OS_LOG_TYPE_DEBUG, "%{public}s:%d: ComF:->ComD", v1, 0x12u);
 }
 
 - (void)sendData:clientIdentifiers:reply:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendPlist:clientIdentifiers:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendPlist:clientIdentifiers:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_requestTimingData:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchNotificationForNotificationID:completion:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __67__SPRemoteInterface_fetchNotificationForNotificationID_completion___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __67__SPRemoteInterface_fetchNotificationForNotificationID_completion___block_invoke_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateUserActivity:userInfo:webpageURL:controller:.cold.1()
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3 = 136446978;
+  v2 = 136446978;
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_4(&dword_23B338000, v0, v1, "%{public}s:%d: ComF:<-Plugin controller ID %{public}@ (controller:%{public}@) has no client identifier", v3);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_23B338000, v0, v1, "%{public}s:%d: ComF:<-Plugin controller ID %{public}@ (controller:%{public}@) has no client identifier", v2);
 }
 
 - (void)sendCacheRequestMessage:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendCacheRequestMessage:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)sendCacheRequest:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)controller:pushInterfaceController:initializationContextID:.cold.1()
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3 = 136446978;
+  v2 = 136446978;
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_4(&dword_23B338000, v0, v1, "%{public}s:%d: ComF:<-Plugin controller ID %{public}@ (controller:%{public}@) has no client identifier", v3);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_23B338000, v0, v1, "%{public}s:%d: ComF:<-Plugin controller ID %{public}@ (controller:%{public}@) has no client identifier", v2);
 }
 
 - (void)controllerPop:.cold.1()
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3 = 136446978;
+  v2 = 136446978;
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_4(&dword_23B338000, v0, v1, "%{public}s:%d: ComF:<-Plugin controller ID %{public}@ (controller:%{public}@) has no client identifier", v3);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_23B338000, v0, v1, "%{public}s:%d: ComF:<-Plugin controller ID %{public}@ (controller:%{public}@) has no client identifier", v2);
 }
 
 - (void)controllerPopToRoot:.cold.1()
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3 = 136446978;
+  v2 = 136446978;
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_4(&dword_23B338000, v0, v1, "%{public}s:%d: ComF:<-Plugin controller ID %{public}@ (controller:%{public}@) has no client identifier", v3);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_23B338000, v0, v1, "%{public}s:%d: ComF:<-Plugin controller ID %{public}@ (controller:%{public}@) has no client identifier", v2);
 }
 
 - (void)controllerBecomeCurrentPage:.cold.1()
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3 = 136446978;
+  v2 = 136446978;
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_4(&dword_23B338000, v0, v1, "%{public}s:%d: ComF:<-Plugin controller ID %{public}@ (controller:%{public}@) has no client identifier", v3);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_23B338000, v0, v1, "%{public}s:%d: ComF:<-Plugin controller ID %{public}@ (controller:%{public}@) has no client identifier", v2);
 }
 
 - (void)controller:presentInterfaceController:initializationContextID:.cold.1()
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3 = 136446978;
+  v2 = 136446978;
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_4(&dword_23B338000, v0, v1, "%{public}s:%d: ComF:<-Plugin controller ID %{public}@ (controller:%{public}@) has no client identifier", v3);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_23B338000, v0, v1, "%{public}s:%d: ComF:<-Plugin controller ID %{public}@ (controller:%{public}@) has no client identifier", v2);
 }
 
 - (void)controller:presentInterfaceControllers:initializationContextIDs:.cold.1()
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3 = 136446978;
+  v2 = 136446978;
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_4(&dword_23B338000, v0, v1, "%{public}s:%d: ComF:<-Plugin controller ID %{public}@ (controller:%{public}@) has no client identifier", v3);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_23B338000, v0, v1, "%{public}s:%d: ComF:<-Plugin controller ID %{public}@ (controller:%{public}@) has no client identifier", v2);
 }
 
 - (void)controllerDismiss:.cold.1()
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3 = 136446978;
+  v2 = 136446978;
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_4(&dword_23B338000, v0, v1, "%{public}s:%d: ComF:<-Plugin controller ID %{public}@ (controller:%{public}@) has no client identifier", v3);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_23B338000, v0, v1, "%{public}s:%d: ComF:<-Plugin controller ID %{public}@ (controller:%{public}@) has no client identifier", v2);
 }
 
 - (void)controllerPresentTextInputController:allowedInputMode:suggestions:.cold.1()
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3 = 136446978;
+  v2 = 136446978;
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_4(&dword_23B338000, v0, v1, "%{public}s:%d: ComF:<-Plugin controller ID %{public}@ (object:%{public}@) has no client identifier", v3);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_23B338000, v0, v1, "%{public}s:%d: ComF:<-Plugin controller ID %{public}@ (object:%{public}@) has no client identifier", v2);
 }
 
 - (void)controllerDismissTextInputController:.cold.1()
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3 = 136446978;
+  v2 = 136446978;
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_4(&dword_23B338000, v0, v1, "%{public}s:%d: ComF:<-Plugin controller ID %{public}@ (object:%{public}@) has no client identifier", v3);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_23B338000, v0, v1, "%{public}s:%d: ComF:<-Plugin controller ID %{public}@ (object:%{public}@) has no client identifier", v2);
 }
 
 - (void)controllerPresentAddPassesController:passes:.cold.1()
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3 = 136446978;
+  v2 = 136446978;
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_4(&dword_23B338000, v0, v1, "%{public}s:%d: ComF:<-Plugin controller ID %{public}@ (object:%{public}@) has no client identifier", v3);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_23B338000, v0, v1, "%{public}s:%d: ComF:<-Plugin controller ID %{public}@ (object:%{public}@) has no client identifier", v2);
 }
 
 - (void)controllerDismissAddPassesController:.cold.1()
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3 = 136446978;
+  v2 = 136446978;
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_4(&dword_23B338000, v0, v1, "%{public}s:%d: ComF:<-Plugin controller ID %{public}@ (object:%{public}@) has no client identifier", v3);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_23B338000, v0, v1, "%{public}s:%d: ComF:<-Plugin controller ID %{public}@ (object:%{public}@) has no client identifier", v2);
 }
 
 - (void)didFinishHandlingActivity:.cold.1()
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3 = 136446978;
+  v2 = 136446978;
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_4(&dword_23B338000, v0, v1, "%{public}s:%d: ComF:<-Plugin controller ID %{public}@ (object:%{public}@) has no client identifier", v3);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_23B338000, v0, v1, "%{public}s:%d: ComF:<-Plugin controller ID %{public}@ (object:%{public}@) has no client identifier", v2);
 }
 
 - (void)notificationController:showNotificationInterfaceType:.cold.1()
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3 = 136446978;
+  v2 = 136446978;
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_4(&dword_23B338000, v0, v1, "%{public}s:%d: ComF:<-Plugin controller ID %{public}@ (object:%{public}@) has no client identifier", v3);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_23B338000, v0, v1, "%{public}s:%d: ComF:<-Plugin controller ID %{public}@ (object:%{public}@) has no client identifier", v2);
 }
 
 - (void)_tellApplicationThatInterfaceControllerCantBeFound:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_interfaceControllerWithID:(uint64_t)a3 .cold.1(uint64_t a1, void *a2, uint64_t a3)
@@ -5901,194 +5790,154 @@ void __67__SPRemoteInterface_fetchNotificationForNotificationID_completion___blo
 
 - (void)_interfaceControllerClientIDForControllerID:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __45__SPRemoteInterface__dumpInterfaceDictionary__block_invoke_cold_1(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   [*(*a1 + 32) count];
   [*(*a1 + 40) count];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x26u);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __45__SPRemoteInterface__dumpInterfaceDictionary__block_invoke_cold_2(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [*(*a1 + 32) count];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)receiveData:fromIdentifier:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleProtoPlist:fromIdentifier:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handlePlistDictionary:fromIdentifier:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handlePlistDictionary:fromIdentifier:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handlePlistDictionary:fromIdentifier:.cold.3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handlePlistDictionary:fromIdentifier:.cold.4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handlePlistDictionary:fromIdentifier:.cold.5()
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3 = 136446978;
+  v2 = 136446978;
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_4(&dword_23B338000, v0, v1, "%{public}s:%d: ComF:->Plugin method %{public}@ is not implemented by the controller %{public}@", v3);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_23B338000, v0, v1, "%{public}s:%d: ComF:->Plugin method %{public}@ is not implemented by the controller %{public}@", v2);
 }
 
 - (void)handlePlistDictionary:(void *)a1 fromIdentifier:(uint64_t)a2 .cold.6(void *a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v2 = [a1 objectForKeyedSubscript:a2];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x1Cu);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)createViewController:className:properties:contextID:info:gestureDescriptions:clientIdentifier:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)createViewController:className:properties:contextID:info:gestureDescriptions:clientIdentifier:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)createViewController:className:properties:contextID:info:gestureDescriptions:clientIdentifier:.cold.3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)createViewController:className:properties:contextID:info:gestureDescriptions:clientIdentifier:.cold.4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void __115__SPRemoteInterface_createViewController_className_properties_contextID_info_gestureDescriptions_clientIdentifier___block_invoke_531_cold_1(uint64_t a1)
+void __115__SPRemoteInterface_createViewController_className_properties_contextID_info_gestureDescriptions_clientIdentifier___block_invoke_531_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  LODWORD(v5) = 136446978;
-  *(&v5 + 4) = "[SPRemoteInterface createViewController:className:properties:contextID:info:gestureDescriptions:clientIdentifier:]_block_invoke";
-  WORD6(v5) = 1024;
+  LODWORD(v2) = 136446978;
+  *(&v2 + 4) = "[SPRemoteInterface createViewController:className:properties:contextID:info:gestureDescriptions:clientIdentifier:]_block_invoke";
+  WORD6(v2) = 1024;
   OUTLINED_FUNCTION_8();
-  OUTLINED_FUNCTION_4(&dword_23B338000, v2, v3, "%{public}s:%d: Got error fetching notification context for notification with ID %{public}@: %{public}@", v5);
-  v4 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_23B338000, v0, v1, "%{public}s:%d: Got error fetching notification context for notification with ID %{public}@: %{public}@", v2);
 }
 
 - (void)activateViewController:clientIdentifier:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deactivateViewController:clientIdentifier:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __94__SPRemoteInterface_applicationDidReceiveNotification_clientIdentifier_withCompletionHandler___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleAction:forNotification:remoteNotificationContext:localNotification:unNotification:handler:controller:.cold.1()
@@ -6102,32 +5951,26 @@ void __94__SPRemoteInterface_applicationDidReceiveNotification_clientIdentifier_
 
 void __129__SPRemoteInterface__handleAction_forNotification_remoteNotificationContext_localNotification_unNotification_handler_controller___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)rootInterfaceController:performActionWithItemID:forNotificationID:userInfo:clientIdentifier:completionHandler:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)rootInterfaceController:performActionWithItemID:forNotificationID:userInfo:clientIdentifier:completionHandler:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

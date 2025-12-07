@@ -107,7 +107,7 @@ LABEL_14:
     self->_currentAdamID = 0;
     currentGlobalID = self->_currentGlobalID;
     self->_currentGlobalID = 0;
-    _objc_release_x1();
+    _objc_release_x1(self, currentGlobalID);
   }
 }
 

@@ -49,45 +49,30 @@
           }
 
           v18 = *(*(&v34 + 1) + 8 * i);
-          if ([v18 relationship] == 4)
+          if ([v18 relationship] != 4 || (objc_msgSend(v18, "score"), v19 = &off_10036A318, v20 < v9))
           {
-            [v18 score];
-            v19 = &off_10036A318;
-            if (v20 >= v9)
+            if ([v18 relationship] != 15 || (objc_msgSend(v18, "score"), v19 = &off_10036A330, v21 < v8))
             {
-              goto LABEL_19;
-            }
-          }
-
-          if ([v18 relationship] == 15)
-          {
-            [v18 score];
-            v19 = &off_10036A330;
-            if (v21 >= v8)
-            {
-              goto LABEL_19;
-            }
-          }
-
-          if ([v18 relationship] != 27 || (objc_msgSend(v18, "score"), v19 = &off_10036A348, v22 < 1.0))
-          {
-            if ([v18 relationship] != 21 || (objc_msgSend(v18, "score"), v19 = &off_10036A360, v23 < v7))
-            {
-              if ([v18 relationship] != 22)
+              if ([v18 relationship] != 27 || (objc_msgSend(v18, "score"), v19 = &off_10036A348, v22 < 1.0))
               {
-                continue;
-              }
+                if ([v18 relationship] != 21 || (objc_msgSend(v18, "score"), v19 = &off_10036A360, v23 < v7))
+                {
+                  if ([v18 relationship] != 22)
+                  {
+                    continue;
+                  }
 
-              [v18 score];
-              v19 = &off_10036A378;
-              if (v24 < v6)
-              {
-                continue;
+                  [v18 score];
+                  v19 = &off_10036A378;
+                  if (v24 < v6)
+                  {
+                    continue;
+                  }
+                }
               }
             }
           }
 
-LABEL_19:
           [v18 score];
           v25 = [NSNumber numberWithDouble:?];
           [v10 setObject:v25 forKeyedSubscript:v19];
@@ -481,13 +466,17 @@ LABEL_22:
 + (void)getTheBestPersonRelationtshipTagFor:(void *)a1 useRelationshipInference:.cold.1(void *a1)
 {
   v1 = [a1 name];
-  OUTLINED_FUNCTION_0_6(&_mh_execute_header, v2, v3, "None of personalRelationships are confident enough to generate the best relationship tag for person %{private}@", v4, v5, v6, v7, 3u);
+  LODWORD(v8) = 138477827;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_6(&_mh_execute_header, v2, v3, "None of personalRelationships are confident enough to generate the best relationship tag for person %{private}@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 + (void)getTheBestPersonRelationtshipTagFor:(void *)a1 useRelationshipInference:.cold.2(void *a1)
 {
   v1 = [a1 name];
-  OUTLINED_FUNCTION_0_6(&_mh_execute_header, v2, v3, "No personalRelationship is available for person %{private}@", v4, v5, v6, v7, 3u);
+  LODWORD(v8) = 138477827;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_6(&_mh_execute_header, v2, v3, "No personalRelationship is available for person %{private}@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

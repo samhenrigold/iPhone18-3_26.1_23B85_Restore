@@ -138,36 +138,13 @@ void __71___NCWidgetViewController__processInputItems_initialActiveDisplayMode__
     }
   }
 
-  if ((*(*(*(a1 + 40) + 8) + 24) & 1) == 0 && (*(*(*(a1 + 48) + 8) + 24) & 1) == 0 && (*(*(*(a1 + 56) + 8) + 24) & 1) == 0 && (*(*(*(a1 + 72) + 8) + 24) & 1) == 0 && (*(*(*(a1 + 80) + 8) + 24) & 1) == 0 && (*(*(*(a1 + 88) + 8) + 24) & 1) == 0 && (*(*(*(a1 + 96) + 8) + 24) & 1) == 0 && (*(*(*(a1 + 104) + 8) + 24) & 1) == 0 && *(*(*(a1 + 112) + 8) + 24) != 1)
-  {
-    goto LABEL_56;
-  }
-
-  v31 = [v7 mutableCopy];
-  [v31 removeObjectForKey:@"NCExtensionItemUserInfoWidgetIdentifier"];
-  [v31 removeObjectForKey:@"NCExtensionItemUserInfoContainerIdentifier"];
-  [v31 removeObjectForKey:@"NCExtensionItemUserInfoDefaultMargins"];
-  [v31 removeObjectForKey:@"NCExtensionItemUserInfoInitialBounds"];
-  [v31 removeObjectForKey:@"NCExtensionItemUserInfoInitialActiveDisplayMode"];
-  [v31 removeObjectForKey:@"NCExtensionItemUserInfoInitialMaxLessSize"];
-  [v31 removeObjectForKey:@"NCExtensionItemUserInfoInitialMaxMoreSize"];
-  [v31 removeObjectForKey:@"NCExtensionItemUserInfoInitialVisibilityState"];
-  [v31 removeObjectForKey:@"NCExtensionItemUserInfoSnapshotTimestampsEnabled"];
-  [v33 setUserInfo:v31];
-
-  if ((*(*(*(a1 + 40) + 8) + 24) & 1) == 0)
-  {
-    goto LABEL_56;
-  }
-
-  if (*(*(*(a1 + 48) + 8) + 24) == 1 && *(*(*(a1 + 56) + 8) + 24) == 1 && *(*(*(a1 + 72) + 8) + 24) == 1 && *(*(*(a1 + 80) + 8) + 24) == 1 && *(*(*(a1 + 88) + 8) + 24) == 1 && *(*(*(a1 + 96) + 8) + 24) == 1)
+  if ((*(*(*(a1 + 40) + 8) + 24) & 1) != 0 || (*(*(*(a1 + 48) + 8) + 24) & 1) != 0 || (*(*(*(a1 + 56) + 8) + 24) & 1) != 0 || (*(*(*(a1 + 72) + 8) + 24) & 1) != 0 || (*(*(*(a1 + 80) + 8) + 24) & 1) != 0 || (*(*(*(a1 + 88) + 8) + 24) & 1) != 0 || (*(*(*(a1 + 96) + 8) + 24) & 1) != 0 || (*(*(*(a1 + 104) + 8) + 24) & 1) != 0 || *(*(*(a1 + 112) + 8) + 24) == 1) && (v31 = [v7 mutableCopy], objc_msgSend(v31, "removeObjectForKey:", @"NCExtensionItemUserInfoWidgetIdentifier"), objc_msgSend(v31, "removeObjectForKey:", @"NCExtensionItemUserInfoContainerIdentifier"), objc_msgSend(v31, "removeObjectForKey:", @"NCExtensionItemUserInfoDefaultMargins"), objc_msgSend(v31, "removeObjectForKey:", @"NCExtensionItemUserInfoInitialBounds"), objc_msgSend(v31, "removeObjectForKey:", @"NCExtensionItemUserInfoInitialActiveDisplayMode"), objc_msgSend(v31, "removeObjectForKey:", @"NCExtensionItemUserInfoInitialMaxLessSize"), objc_msgSend(v31, "removeObjectForKey:", @"NCExtensionItemUserInfoInitialMaxMoreSize"), objc_msgSend(v31, "removeObjectForKey:", @"NCExtensionItemUserInfoInitialVisibilityState"), objc_msgSend(v31, "removeObjectForKey:", @"NCExtensionItemUserInfoSnapshotTimestampsEnabled"), objc_msgSend(v33, "setUserInfo:", v31), v31, (*(*(*(a1 + 40) + 8) + 24)) && *(*(*(a1 + 48) + 8) + 24) == 1 && *(*(*(a1 + 56) + 8) + 24) == 1 && *(*(*(a1 + 72) + 8) + 24) == 1 && *(*(*(a1 + 80) + 8) + 24) == 1 && *(*(*(a1 + 88) + 8) + 24) == 1 && *(*(*(a1 + 96) + 8) + 24) == 1)
   {
     v32 = *(*(*(a1 + 104) + 8) + 24);
   }
 
   else
   {
-LABEL_56:
     v32 = 0;
   }
 
@@ -233,7 +210,7 @@ void __70___NCWidgetViewController__clientLargestSupportedDisplayModeDidChange__
 
 void __88___NCWidgetViewController__encodeLayerTreeToURL_withCodingImageFormat_withReplyHandler___block_invoke(id *a1)
 {
-  v22[2] = *MEMORY[0x277D85DE8];
+  v20[2] = *MEMORY[0x277D85DE8];
   v2 = [a1[4] context];
 
   if (v2)
@@ -252,15 +229,14 @@ void __88___NCWidgetViewController__encodeLayerTreeToURL_withCodingImageFormat_w
       [v5 setObject:@"com.apple.atx" forKey:*MEMORY[0x277CDA0A0]];
       v6 = *MEMORY[0x277CD2DD8];
       v7 = *MEMORY[0x277CD2DD0];
-      v21[0] = *MEMORY[0x277CD2F40];
-      v21[1] = v7;
-      v22[0] = v6;
-      v22[1] = &unk_284052068;
-      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:2];
+      v19[0] = *MEMORY[0x277CD2F40];
+      v19[1] = v7;
+      v20[0] = v6;
+      v20[1] = &unk_284052068;
+      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
       [v5 setObject:v8 forKey:*MEMORY[0x277CDA0A8]];
     }
 
-    v9 = a1[4];
     CAMLEncodeLayerTreeToPathWithOptions();
     CFRelease(v3);
     [MEMORY[0x277CD9FF0] commit];
@@ -269,43 +245,41 @@ void __88___NCWidgetViewController__encodeLayerTreeToURL_withCodingImageFormat_w
     block[1] = 3221225472;
     block[2] = __88___NCWidgetViewController__encodeLayerTreeToURL_withCodingImageFormat_withReplyHandler___block_invoke_128;
     block[3] = &unk_278750B58;
-    v17 = a1[7];
-    v18 = 0;
-    v19 = a1[8];
-    v10 = 0;
+    v15 = a1[7];
+    v16 = 0;
+    v17 = a1[8];
+    v9 = 0;
     dispatch_async(MEMORY[0x277D85CD0], block);
   }
 
   else
   {
-    v11 = NCLogWidgets;
+    v10 = NCLogWidgets;
     if (os_log_type_enabled(NCLogWidgets, OS_LOG_TYPE_ERROR))
     {
-      __88___NCWidgetViewController__encodeLayerTreeToURL_withCodingImageFormat_withReplyHandler___block_invoke_cold_1(v11);
+      __88___NCWidgetViewController__encodeLayerTreeToURL_withCodingImageFormat_withReplyHandler___block_invoke_cold_1(v10);
     }
 
-    v12 = NCLogWidgets;
+    v11 = NCLogWidgets;
     if (os_log_type_enabled(NCLogWidgets, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_22D116000, v12, OS_LOG_TYPE_DEFAULT, "Attempt to snapshot a layer not attached to a context", buf, 2u);
+      _os_log_impl(&dword_22D116000, v11, OS_LOG_TYPE_DEFAULT, "Attempt to snapshot a layer not attached to a context", buf, 2u);
     }
 
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __88___NCWidgetViewController__encodeLayerTreeToURL_withCodingImageFormat_withReplyHandler___block_invoke_130;
-    v14[3] = &unk_278750B80;
-    v15 = a1[8];
-    dispatch_async(MEMORY[0x277D85CD0], v14);
-    v10 = v15;
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __88___NCWidgetViewController__encodeLayerTreeToURL_withCodingImageFormat_withReplyHandler___block_invoke_130;
+    v12[3] = &unk_278750B80;
+    v13 = a1[8];
+    dispatch_async(MEMORY[0x277D85CD0], v12);
+    v9 = v13;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __88___NCWidgetViewController__encodeLayerTreeToURL_withCodingImageFormat_withReplyHandler___block_invoke_128(void *a1)
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v2 = a1[4];
   if (v2)
   {
@@ -316,10 +290,10 @@ void __88___NCWidgetViewController__encodeLayerTreeToURL_withCodingImageFormat_w
   if (v3)
   {
     v4 = MEMORY[0x277CCA9B8];
-    v9 = *MEMORY[0x277CCA450];
+    v8 = *MEMORY[0x277CCA450];
     v5 = [v3 description];
-    v10[0] = v5;
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+    v9[0] = v5;
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
     v7 = [v4 errorWithDomain:@"NCWidgetErrorDomain" code:1 userInfo:v6];
   }
 
@@ -329,22 +303,18 @@ void __88___NCWidgetViewController__encodeLayerTreeToURL_withCodingImageFormat_w
   }
 
   (*(a1[6] + 16))();
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __88___NCWidgetViewController__encodeLayerTreeToURL_withCodingImageFormat_withReplyHandler___block_invoke_130(uint64_t a1)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   v2 = MEMORY[0x277CCA9B8];
-  v6 = *MEMORY[0x277CCA450];
-  v7[0] = @"The layer being encoded isn't attached to a context";
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v5 = *MEMORY[0x277CCA450];
+  v6[0] = @"The layer being encoded isn't attached to a context";
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
   v4 = [v2 errorWithDomain:@"NCWidgetErrorDomain" code:2 userInfo:v3];
   (*(v1 + 16))(v1, v4);
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

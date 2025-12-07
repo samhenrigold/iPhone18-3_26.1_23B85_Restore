@@ -67,19 +67,19 @@ uint64_t __50__CUIKIReminderEditor_deleteEvents_resultHandler___block_invoke(uin
 
 - (BOOL)saveNewEvents:(id)events commit:(BOOL)commit error:(id *)error
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   v6 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(eventsCopy, "count")}];
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   v7 = eventsCopy;
-  v8 = [v7 countByEnumeratingWithState:&v28 objects:v34 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v27 objects:v33 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v29;
+    v10 = *v28;
     v11 = 1;
     do
     {
@@ -87,16 +87,16 @@ uint64_t __50__CUIKIReminderEditor_deleteEvents_resultHandler___block_invoke(uin
       v13 = v11;
       do
       {
-        if (*v29 != v10)
+        if (*v28 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v14 = *(*(&v28 + 1) + 8 * v12);
+        v14 = *(*(&v27 + 1) + 8 * v12);
         eventStore = [v14 eventStore];
-        v27 = 0;
-        v16 = [eventStore saveEvent:v14 span:0 commit:0 error:&v27];
-        v17 = v27;
+        v26 = 0;
+        v16 = [eventStore saveEvent:v14 span:0 commit:0 error:&v26];
+        v17 = v26;
 
         v11 = 0;
         if (v16)
@@ -110,7 +110,7 @@ uint64_t __50__CUIKIReminderEditor_deleteEvents_resultHandler___block_invoke(uin
       }
 
       while (v9 != v12);
-      v9 = [v7 countByEnumeratingWithState:&v28 objects:v34 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v27 objects:v33 count:16];
     }
 
     while (v9);
@@ -130,9 +130,9 @@ uint64_t __50__CUIKIReminderEditor_deleteEvents_resultHandler___block_invoke(uin
     if ([v20 count])
     {
       v21 = MEMORY[0x277CBEB38];
-      v32 = *MEMORY[0x277CF7C68];
-      v33 = v20;
-      v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
+      v31 = *MEMORY[0x277CF7C68];
+      v32 = v20;
+      v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
       v23 = [v21 dictionaryWithDictionary:v22];
     }
 
@@ -145,7 +145,6 @@ uint64_t __50__CUIKIReminderEditor_deleteEvents_resultHandler___block_invoke(uin
     [defaultCenter postNotificationName:*MEMORY[0x277CF7C60] object:eventStore2 userInfo:v23];
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v11 & 1;
 }
 

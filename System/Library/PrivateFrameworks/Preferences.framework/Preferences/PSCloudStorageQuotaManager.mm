@@ -22,12 +22,12 @@
   return v2;
 }
 
-void __43__PSCloudStorageQuotaManager_sharedManager__block_invoke()
+void __43__PSCloudStorageQuotaManager_sharedManager__block_invoke(uint64_t a1)
 {
   objc_opt_class();
-  v0 = objc_opt_new();
-  v1 = gSharedQuotaManager;
-  gSharedQuotaManager = v0;
+  v1 = objc_opt_new();
+  v2 = gSharedQuotaManager;
+  gSharedQuotaManager = v1;
 }
 
 - (void)getQuotaInfoForPrimaryAccountCompletion:(id)completion

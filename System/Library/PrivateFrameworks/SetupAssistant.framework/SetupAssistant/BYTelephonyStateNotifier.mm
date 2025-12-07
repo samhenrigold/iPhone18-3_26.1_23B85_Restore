@@ -6,7 +6,6 @@
 - (void)_beginObservingWithNotificationQueue:(id)queue notificationBlock:(id)block;
 - (void)_endObservingState;
 - (void)dealloc;
-- (void)initForNotifying;
 - (void)notifySIMUnlockStateChangedTo:(unint64_t)to;
 @end
 
@@ -37,18 +36,22 @@
 
 - (id)initForNotifying
 {
-  v5.receiver = self;
-  v5.super_class = BYTelephonyStateNotifier;
-  v2 = [(BYTelephonyStateNotifier *)&v5 init];
-  if (v2 && notify_register_check("com.apple.purplebuddy.simUnlockStateChanged", &v2->_simUnlockNotificationToken))
+  v6.receiver = self;
+  v6.super_class = BYTelephonyStateNotifier;
+  v2 = [(BYTelephonyStateNotifier *)&v6 init];
+  if (v2)
   {
-    v3 = _BYLoggingFacility();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v3 = notify_register_check("com.apple.purplebuddy.simUnlockStateChanged", &v2->_simUnlockNotificationToken);
+    if (v3)
     {
-      [BYTelephonyStateNotifier initForNotifying];
-    }
+      v4 = _BYLoggingFacility(v3);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+      {
+        [BYTelephonyStateNotifier initForNotifying];
+      }
 
-    v2->_simUnlockNotificationToken = -1;
+      v2->_simUnlockNotificationToken = -1;
+    }
   }
 
   return v2;
@@ -73,36 +76,39 @@
 - (void)notifySIMUnlockStateChangedTo:(unint64_t)to
 {
   is_valid_token = notify_is_valid_token([(BYTelephonyStateNotifier *)self simUnlockNotificationToken]);
-  v6 = _BYLoggingFacility();
-  v7 = v6;
-  if (!is_valid_token)
+  v6 = is_valid_token;
+  v7 = _BYLoggingFacility(is_valid_token);
+  v8 = v7;
+  if (!v6)
   {
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [BYTelephonyStateNotifier notifySIMUnlockStateChangedTo:v7];
+      [BYTelephonyStateNotifier notifySIMUnlockStateChangedTo:v8];
     }
 
     goto LABEL_13;
   }
 
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    [BYTelephonyStateNotifier notifySIMUnlockStateChangedTo:v7];
+    [BYTelephonyStateNotifier notifySIMUnlockStateChangedTo:v8];
   }
 
-  if (notify_set_state([(BYTelephonyStateNotifier *)self simUnlockNotificationToken], to))
+  v9 = notify_set_state([(BYTelephonyStateNotifier *)self simUnlockNotificationToken], to);
+  if (v9)
   {
-    v8 = _BYLoggingFacility();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = _BYLoggingFacility(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [BYTelephonyStateNotifier notifySIMUnlockStateChangedTo:];
     }
   }
 
-  if (notify_post("com.apple.purplebuddy.simUnlockStateChanged"))
+  v11 = notify_post("com.apple.purplebuddy.simUnlockStateChanged");
+  if (v11)
   {
-    v7 = _BYLoggingFacility();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _BYLoggingFacility(v11);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [BYTelephonyStateNotifier notifySIMUnlockStateChangedTo:];
     }
@@ -114,17 +120,18 @@ LABEL_13:
 - (void)_beginObservingWithNotificationQueue:(id)queue notificationBlock:(id)block
 {
   blockCopy = block;
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __83__BYTelephonyStateNotifier__beginObservingWithNotificationQueue_notificationBlock___block_invoke;
-  v9[3] = &unk_1E7D03B80;
-  v9[4] = self;
-  v10 = blockCopy;
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __83__BYTelephonyStateNotifier__beginObservingWithNotificationQueue_notificationBlock___block_invoke;
+  v10[3] = &unk_1E7D03B80;
+  v10[4] = self;
+  v11 = blockCopy;
   v7 = blockCopy;
-  if (notify_register_dispatch("com.apple.purplebuddy.simUnlockStateChanged", &self->_simUnlockNotificationToken, queue, v9))
+  v8 = notify_register_dispatch("com.apple.purplebuddy.simUnlockStateChanged", &self->_simUnlockNotificationToken, queue, v10);
+  if (v8)
   {
-    v8 = _BYLoggingFacility();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _BYLoggingFacility(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [BYTelephonyStateNotifier initForNotifying];
     }
@@ -133,14 +140,13 @@ LABEL_13:
 
 uint64_t __83__BYTelephonyStateNotifier__beginObservingWithNotificationQueue_notificationBlock___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v3 = *(a1 + 32);
   [objc_opt_class() retrieveSIMUnlockStateFromToken:a2];
   result = *(a1 + 40);
   if (result)
   {
-    v5 = *(result + 16);
+    v4 = *(result + 16);
 
-    return v5();
+    return v4();
   }
 
   return result;
@@ -158,22 +164,24 @@ uint64_t __83__BYTelephonyStateNotifier__beginObservingWithNotificationQueue_not
 
 + (unint64_t)retrieveSIMUnlockStateFromToken:(int)token
 {
-  if (!notify_is_valid_token(token))
+  is_valid_token = notify_is_valid_token(token);
+  if (!is_valid_token)
   {
-    v5 = _BYLoggingFacility();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = _BYLoggingFacility(is_valid_token);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [BYTelephonyStateNotifier retrieveSIMUnlockStateFromToken:v5];
+      [BYTelephonyStateNotifier retrieveSIMUnlockStateFromToken:v7];
     }
 
     return 0;
   }
 
   state64 = 0;
-  if (notify_get_state(token, &state64))
+  state = notify_get_state(token, &state64);
+  if (state)
   {
-    v4 = _BYLoggingFacility();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = _BYLoggingFacility(state);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       +[BYTelephonyStateNotifier retrieveSIMUnlockStateFromToken:];
     }
@@ -182,38 +190,6 @@ uint64_t __83__BYTelephonyStateNotifier__beginObservingWithNotificationQueue_not
   }
 
   return state64;
-}
-
-- (void)initForNotifying
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_4(&dword_1B862F000, v0, v1, "Failed to register for the SIM unlock state notification: %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)notifySIMUnlockStateChangedTo:.cold.3()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_4(&dword_1B862F000, v0, v1, "Failed to update SIM unlock state notification: %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)notifySIMUnlockStateChangedTo:.cold.4()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_4(&dword_1B862F000, v0, v1, "Failed to post SIM unlock state notification: %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)retrieveSIMUnlockStateFromToken:.cold.2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_4(&dword_1B862F000, v0, v1, "Failed to get the state of the SIM unlock state notification: %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

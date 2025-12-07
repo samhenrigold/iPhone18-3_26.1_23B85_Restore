@@ -17,37 +17,35 @@
 {
   v6 = type metadata accessor for IndexPath();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  v13 = sub_100034454();
+  v12 = sub_100034454();
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 
-  return v13;
+  return v12;
 }
 
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path
 {
   v5 = type metadata accessor for IndexPath();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   __chkstk_darwin(v5);
-  v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   isa = IndexPath._bridgeToObjectiveC()().super.isa;
-  v12 = [viewCopy cellForRowAtIndexPath:isa];
+  v11 = [viewCopy cellForRowAtIndexPath:isa];
 
-  if (v12)
+  if (v11)
   {
-    [v12 setSelected:0 animated:1];
+    [v11 setSelected:0 animated:1];
   }
 
-  (*(v6 + 8))(v9, v5);
+  (*(v6 + 8))(v8, v5);
 }
 
 - (_TtC16AccessorySetupUI35ASUIDeviceInfoPopoverViewController)initWithNibName:(id)name bundle:(id)bundle

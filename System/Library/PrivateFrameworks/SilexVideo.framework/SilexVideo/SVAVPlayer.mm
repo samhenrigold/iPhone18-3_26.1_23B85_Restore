@@ -1,4 +1,6 @@
 @interface SVAVPlayer
+- (SVAVPlayer)initWithPlayerItem:(id)item audioMode:(int)mode;
+- (SVAVPlayer)initWithURL:(id)l audioMode:(int)mode;
 - (void)addObservers;
 - (void)dealloc;
 - (void)durationChanged;
@@ -8,6 +10,7 @@
 - (void)seekToStartWithCompletionBlock:(id)block;
 - (void)setCumulativeTimePlayed:(id *)played;
 - (void)setElapsedTime:(double)time duration:(double)duration;
+- (void)setPlaybackStatus:(int)status;
 - (void)startTimeObserver;
 - (void)statusChanged;
 - (void)stopTimeObserver;
@@ -16,6 +19,41 @@
 @end
 
 @implementation SVAVPlayer
+
+- (SVAVPlayer)initWithURL:(id)l audioMode:(int)mode
+{
+  v4 = *&mode;
+  v6 = [MEMORY[0x277CE63D8] assetWithURL:l];
+  v7 = [MEMORY[0x277CE65B0] playerItemWithAsset:v6 automaticallyLoadedAssetKeys:&unk_2877C6D90];
+  v8 = [(SVAVPlayer *)self initWithPlayerItem:v7 audioMode:v4];
+
+  return v8;
+}
+
+- (SVAVPlayer)initWithPlayerItem:(id)item audioMode:(int)mode
+{
+  v4 = *&mode;
+  itemCopy = item;
+  v11.receiver = self;
+  v11.super_class = SVAVPlayer;
+  v7 = [(SVAVPlayer *)&v11 initWithPlayerItem:itemCopy];
+  if (v7)
+  {
+    [itemCopy setAllowedAudioSpatializationFormats:7];
+    v8 = [SVAudioSession sharedSessionForMode:v4];
+    [v8 addInterestForPlayer:v7 withMode:v4];
+
+    *(v7 + 4) = v4;
+    v9 = MEMORY[0x277CC08F0];
+    *(v7 + 17) = *(MEMORY[0x277CC08F0] + 16);
+    *(v7 + 120) = *v9;
+    [v7 setActionAtItemEnd:1];
+    [v7 addObservers];
+    [v7 loadFrameRate];
+  }
+
+  return v7;
+}
 
 - (void)dealloc
 {
@@ -55,7 +93,7 @@ void __45__SVAVPlayer_seekToStartWithCompletionBlock___block_invoke(uint64_t a1,
   {
     if (WeakRetained)
     {
-      [WeakRetained currentTime];
+      objc_msgSend_currentTime(WeakRetained);
     }
 
     else
@@ -108,7 +146,7 @@ void __27__SVAVPlayer_loadFrameRate__block_invoke(uint64_t a1)
   [v6 loadValuesAsynchronouslyForKeys:&unk_2877C6DC0 completionHandler:v7];
 }
 
-uint64_t __27__SVAVPlayer_loadFrameRate__block_invoke_2(uint64_t a1)
+void *__27__SVAVPlayer_loadFrameRate__block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) statusOfValueForKey:@"nominalFrameRate" error:0];
   if (result == 2)
@@ -132,13 +170,13 @@ uint64_t __27__SVAVPlayer_loadFrameRate__block_invoke_2(uint64_t a1)
   v22 = 0;
   v23 = 0;
   v24 = 0;
-  [(SVAVPlayer *)self currentTime];
+  objc_msgSend_currentTime(self, a2);
   v3 = v19;
   currentItem = [(SVAVPlayer *)self currentItem];
   v5 = currentItem;
   if (currentItem)
   {
-    [currentItem duration];
+    objc_msgSend_duration(currentItem);
   }
 
   else
@@ -176,7 +214,7 @@ void __31__SVAVPlayer_startTimeObserver__block_invoke(uint64_t a1, __int128 *a2)
   v6 = v5;
   if (v5)
   {
-    [v5 duration];
+    objc_msgSend_duration(v5);
   }
 
   else
@@ -195,7 +233,7 @@ void __31__SVAVPlayer_startTimeObserver__block_invoke(uint64_t a1, __int128 *a2)
     v9 = v8;
     if (v8)
     {
-      [v8 cumulativeTimePlayed];
+      objc_msgSend_cumulativeTimePlayed(v8);
     }
 
     else
@@ -387,8 +425,66 @@ void __26__SVAVPlayer_addObservers__block_invoke_4(uint64_t a1)
       playbackProgressBlock2 = [(SVAVPlayer *)self playbackProgressBlock];
       [(SVAVPlayer *)self elapsedTime];
       v9 = v8;
-      [(SVAVPlayer *)self duration];
+      objc_msgSend_duration(self);
       playbackProgressBlock2[2](playbackProgressBlock2, self, v9, v10);
+    }
+  }
+}
+
+- (void)setPlaybackStatus:(int)status
+{
+  if (self->_playbackStatus != status)
+  {
+    v19 = v3;
+    v20 = v4;
+    v5 = *&status;
+    self->_playbackStatus = status;
+    currentItem = [(SVAVPlayer *)self currentItem];
+    v8 = currentItem;
+    if (currentItem)
+    {
+      objc_msgSend_currentTime(currentItem);
+    }
+
+    else
+    {
+      v16 = 0;
+      v17 = 0;
+      v18 = 0;
+    }
+
+    currentItem2 = [(SVAVPlayer *)self currentItem];
+    v10 = currentItem2;
+    if (currentItem2)
+    {
+      objc_msgSend_duration(currentItem2);
+    }
+
+    else
+    {
+      v13 = 0;
+      v14 = 0;
+      v15 = 0;
+    }
+
+    [(SVAVPlayer *)self updateTime:&v16 duration:&v13];
+
+    if (v5 == 2)
+    {
+      [(SVAVPlayer *)self startTimeObserver];
+    }
+
+    else if ((v5 - 3) <= 2)
+    {
+      [(SVAVPlayer *)self stopTimeObserver];
+    }
+
+    v11 = [(SVAVPlayer *)self playbackStatusBlock:v13];
+
+    if (v11)
+    {
+      playbackStatusBlock = [(SVAVPlayer *)self playbackStatusBlock];
+      (playbackStatusBlock)[2](playbackStatusBlock, self, v5);
     }
   }
 }
@@ -458,7 +554,7 @@ void __26__SVAVPlayer_addObservers__block_invoke_4(uint64_t a1)
   v4 = currentItem;
   if (currentItem)
   {
-    [currentItem currentTime];
+    objc_msgSend_currentTime(currentItem);
   }
 
   else
@@ -470,7 +566,7 @@ void __26__SVAVPlayer_addObservers__block_invoke_4(uint64_t a1)
   v6 = currentItem2;
   if (currentItem2)
   {
-    [currentItem2 duration];
+    objc_msgSend_duration(currentItem2);
   }
 
   else

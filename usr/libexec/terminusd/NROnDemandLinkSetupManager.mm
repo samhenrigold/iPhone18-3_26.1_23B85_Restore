@@ -20,7 +20,7 @@
       dispatch_once(&qword_100228EC8, &stru_1001FA448);
     }
 
-    _NRLogWithArgs();
+    _NRLogWithArgs(qword_100228EC0, 0, "%s%.30s:%-4d received PHS state update phs:%d/llphs:%d", ", "[NROnDemandLinkSetupManager didUpdatePHSState:llphsActive:]"", 448, stateCopy, activeCopy);
   }
 
   if (self && self->_subscribedForPHSStateUpdates && (self->_isPHSActive != stateCopy || self->_isLLPHSActive != activeCopy))

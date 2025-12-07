@@ -47,22 +47,23 @@
   error = 0;
   key = 0;
   v18 = 0;
-  v11 = SecMPFICreatePrivateAndPublicKeyReadPersistentRef(&v18, ref, size, &key, &error);
-  v12 = v18;
-  if (v11)
+  v10 = SecMPFICreatePrivateAndPublicKeyReadPersistentRef(&v18, ref, size, &key, &error);
+  v11 = v18;
+  v12 = v11;
+  if (v10)
   {
-    v13 = MessageProtectionLog();
+    v13 = MessageProtectionLog(v11);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       *buf = 67109120;
-      v22 = v11;
+      v22 = v10;
       _os_log_impl(&dword_22B404000, v13, OS_LOG_TYPE_INFO, "Failed to lookup legacy persistent reference for signing key: %i", buf, 8u);
     }
   }
 
   else
   {
-    [identityCopy setSigningKeyPersistentRef:v12];
+    [identityCopy setSigningKeyPersistentRef:v11];
     v13 = SecKeyCopyExternalRepresentation(key, &error);
     if (v13)
     {
@@ -92,7 +93,6 @@
 LABEL_15:
 
 LABEL_3:
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -110,22 +110,23 @@ LABEL_3:
   error = 0;
   key = 0;
   v18 = 0;
-  v11 = SecMPFICreatePrivateAndPublicKeyReadPersistentRef(&v18, ref, size, &key, &error);
-  v12 = v18;
-  if (v11)
+  v10 = SecMPFICreatePrivateAndPublicKeyReadPersistentRef(&v18, ref, size, &key, &error);
+  v11 = v18;
+  v12 = v11;
+  if (v10)
   {
-    v13 = MessageProtectionLog();
+    v13 = MessageProtectionLog(v11);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       *buf = 67109120;
-      v22 = v11;
+      v22 = v10;
       _os_log_impl(&dword_22B404000, v13, OS_LOG_TYPE_INFO, "Failed to lookup legacy persistent reference for encryption key: %i", buf, 8u);
     }
   }
 
   else
   {
-    [identityCopy setEncryptionKeyPersistentRef:v12];
+    [identityCopy setEncryptionKeyPersistentRef:v11];
     v13 = SecKeyCopyExternalRepresentation(key, &error);
     if (v13)
     {
@@ -155,7 +156,6 @@ LABEL_3:
 LABEL_15:
 
 LABEL_3:
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -178,28 +178,26 @@ LABEL_3:
 
 - (void)deleteItemWithPersistentRef:(id)ref
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CDC5F0];
-  v11[0] = *MEMORY[0x277CDC228];
-  v11[1] = v3;
-  v12[0] = *MEMORY[0x277CDC250];
-  v12[1] = ref;
+  v10[0] = *MEMORY[0x277CDC228];
+  v10[1] = v3;
+  v11[0] = *MEMORY[0x277CDC250];
+  v11[1] = ref;
   v4 = MEMORY[0x277CBEAC0];
   refCopy = ref;
-  v6 = [v4 dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v6 = [v4 dictionaryWithObjects:v11 forKeys:v10 count:2];
 
   v7 = SecItemDelete(v6);
   if (v7)
   {
     v8 = v7;
-    v9 = MessageProtectionLog();
+    v9 = MessageProtectionLog(v7);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [(SecMessageLegacyFullIdentity(Migration) *)v8 deleteItemWithPersistentRef:v9];
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteMigratedKeys
@@ -212,8 +210,7 @@ LABEL_3:
 
   [(SecMessageLegacyFullIdentity *)self setEncryptionKeyPersistentRef:0];
   [(SecMessageLegacyFullIdentity *)self setSigningKeyPersistentRef:0];
-  [(SecMessageLegacyFullIdentity *)self setIsMigratedV2Key:0];
-  v5 = MessageProtectionLog();
+  v5 = MessageProtectionLog([(SecMessageLegacyFullIdentity *)self setIsMigratedV2Key:0]);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *v6 = 0;
@@ -248,10 +245,10 @@ LABEL_3:
 
   else
   {
-    v9 = MessageProtectionLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = MessageProtectionLog(v6);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [(SecMessageLegacyFullIdentity *)v9 initWithProtobufData:v10, v11, v12, v13, v14, v15, v16];
+      [(SecMessageLegacyFullIdentity *)v10 initWithProtobufData:v11, v12, v13, v14, v15, v16, v17];
     }
 
     selfCopy = 0;
@@ -286,21 +283,22 @@ LABEL_3:
 
   if (v8)
   {
-    v14 = 0;
-    v9 = [[SecKeyRSAPrivate alloc] initWithData:dataCopy error:&v14];
-    v10 = v14;
-    if (v9)
+    v16 = 0;
+    v10 = [[SecKeyRSAPrivate alloc] initWithData:dataCopy error:&v16];
+    v11 = v16;
+    v12 = v11;
+    if (v10)
     {
-      self = [(SecMessageLegacyFullIdentity *)self initWithEncryptionKey:v9 signingKey:v8];
+      self = [(SecMessageLegacyFullIdentity *)self initWithEncryptionKey:v10 signingKey:v8];
       selfCopy = self;
     }
 
     else
     {
-      v12 = MessageProtectionLog();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v14 = MessageProtectionLog(v11);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        [SecMessageLegacyFullIdentity initWithEncryptionKeyData:v10 signingKeyData:?];
+        [SecMessageLegacyFullIdentity initWithEncryptionKeyData:v12 signingKeyData:?];
       }
 
       selfCopy = 0;
@@ -309,8 +307,8 @@ LABEL_3:
 
   else
   {
-    v10 = MessageProtectionLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v12 = MessageProtectionLog(v9);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [SecMessageLegacyFullIdentity initWithEncryptionKeyData:signingKeyData:];
     }
@@ -331,37 +329,37 @@ LABEL_3:
 
   if (signingKey)
   {
-    v5 = objc_alloc_init(SecKeyRSAPrivate);
-    [(SecMessageLegacyFullIdentity *)v2 setEncryptionKey:v5];
+    v6 = objc_alloc_init(SecKeyRSAPrivate);
+    [(SecMessageLegacyFullIdentity *)v2 setEncryptionKey:v6];
 
     encryptionKey = [(SecMessageLegacyFullIdentity *)v2 encryptionKey];
 
     if (encryptionKey)
     {
-      v7 = v2;
+      v9 = v2;
       goto LABEL_9;
     }
 
-    v8 = MessageProtectionLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = MessageProtectionLog(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [(SecMessageLegacyFullIdentity *)v8 identity:v16];
+      [(SecMessageLegacyFullIdentity *)v10 identity:v18];
     }
   }
 
   else
   {
-    v8 = MessageProtectionLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = MessageProtectionLog(v5);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [(SecMessageLegacyFullIdentity *)v8 identity:v9];
+      [(SecMessageLegacyFullIdentity *)v10 identity:v11];
     }
   }
 
-  v7 = 0;
+  v9 = 0;
 LABEL_9:
 
-  return v7;
+  return v9;
 }
 
 + (id)identityWithDataRepresentation:(id)representation error:(id *)error
@@ -370,52 +368,53 @@ LABEL_9:
   if (![representationCopy length])
   {
     MPLogAndAssignError(-100, error, @"The passed legacy key representation is of incorrect size.");
-    v11 = 0;
+    v12 = 0;
     goto LABEL_14;
   }
 
   bytes = [representationCopy bytes];
   v7 = [representationCopy subdataWithRange:{1, objc_msgSend(representationCopy, "length") - 1}];
-  v16 = [v7 length];
+  v17 = [v7 length];
   bytes2 = [v7 bytes];
-  v8 = *bytes;
-  if (v8 == 2)
+  v16 = bytes2;
+  v9 = *bytes;
+  if (v9 == 2)
   {
-    v12 = MessageProtectionLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v13 = MessageProtectionLog(bytes2);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
-      *v14 = 0;
-      _os_log_impl(&dword_22B404000, v12, OS_LOG_TYPE_INFO, "Parsing a legacy key of version 2.", v14, 2u);
+      *v15 = 0;
+      _os_log_impl(&dword_22B404000, v13, OS_LOG_TYPE_INFO, "Parsing a legacy key of version 2.", v15, 2u);
     }
 
-    v10 = [SecMessageLegacyFullIdentity identityFromV2Bytes:&bytes2 size:&v16 error:error];
+    v11 = [SecMessageLegacyFullIdentity identityFromV2Bytes:&v16 size:&v17 error:error];
   }
 
   else
   {
-    if (v8 != 3)
+    if (v9 != 3)
     {
       MPLogAndAssignError(-100, error, @"Failed to parse legacy key format.");
-      v11 = 0;
+      v12 = 0;
       goto LABEL_13;
     }
 
-    v9 = MessageProtectionLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v10 = MessageProtectionLog(bytes2);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      *v14 = 0;
-      _os_log_impl(&dword_22B404000, v9, OS_LOG_TYPE_INFO, "Parsing a legacy key of version 3.", v14, 2u);
+      *v15 = 0;
+      _os_log_impl(&dword_22B404000, v10, OS_LOG_TYPE_INFO, "Parsing a legacy key of version 3.", v15, 2u);
     }
 
-    v10 = [[SecMessageLegacyFullIdentity alloc] initWithProtobufData:v7];
+    v11 = [[SecMessageLegacyFullIdentity alloc] initWithProtobufData:v7];
   }
 
-  v11 = v10;
+  v12 = v11;
 LABEL_13:
 
 LABEL_14:
 
-  return v11;
+  return v12;
 }
 
 - (id)signData:(id)data error:(id *)error
@@ -517,7 +516,6 @@ LABEL_14:
 
 - (_SecMPFullIdentity)asRef
 {
-  v3 = *MEMORY[0x277CBECE8];
   SecMPFullIdentityGetTypeID();
   Instance = _CFRuntimeCreateInstance();
   Instance->var5 = CFRetain(self);
@@ -536,20 +534,18 @@ LABEL_14:
 
 - (void)initWithEncryptionKeyData:(void *)a1 signingKeyData:.cold.1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 description];
-  OUTLINED_FUNCTION_0_2(&dword_22B404000, v2, v3, "Failed to initialize encryption key: %@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_2(&dword_22B404000, v2, v3, "Failed to initialize encryption key: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 - (void)initWithEncryptionKeyData:signingKeyData:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   v0 = [0 description];
-  OUTLINED_FUNCTION_0_2(&dword_22B404000, v1, v2, "Failed to initialize signing key: %@", v3, v4, v5, v6, 2u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  LODWORD(v7) = 138412290;
+  *(&v7 + 4) = v0;
+  OUTLINED_FUNCTION_0_2(&dword_22B404000, v1, v2, "Failed to initialize signing key: %@", v3, v4, v5, v6, v7, DWORD2(v7));
 }
 
 @end

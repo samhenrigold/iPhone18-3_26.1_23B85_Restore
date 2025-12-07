@@ -11,32 +11,28 @@
 
 + (id)foreignKeys
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"object_id";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"object_id";
   v2 = +[HDDataEntity defaultForeignKey];
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
 
 + (id)indices
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v2 = objc_alloc(MEMORY[0x277D10B40]);
   v3 = objc_opt_class();
-  v9[0] = @"source_id";
-  v9[1] = @"object_code";
-  v9[2] = @"sid";
-  v9[3] = @"deleted";
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:4];
+  v8[0] = @"source_id";
+  v8[1] = @"object_code";
+  v8[2] = @"sid";
+  v8[3] = @"deleted";
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:4];
   v5 = [v2 initWithEntity:v3 name:@"source_object_code_sid_deleted" columns:v4];
-  v10[0] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[0] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
 
   return v6;
 }
@@ -81,7 +77,6 @@ uint64_t __147__HDDataExternalSyncIdentifierEntity_populateSyncInfoForLocalSourc
 {
   sqlite3_bind_int64(a2, 1, a1[5]);
   sqlite3_bind_int64(a2, 2, a1[6]);
-  v4 = a1[4];
 
   return HDSQLiteBindFoundationValueToStatement();
 }
@@ -229,49 +224,46 @@ uint64_t __169__HDDataExternalSyncIdentifierEntity_insertSyncIdentifierWithProfi
   sqlite3_bind_int64(a2, 1, *(a1 + 48));
   sqlite3_bind_int64(a2, 2, *(a1 + 56));
   sqlite3_bind_int64(a2, 3, *(a1 + 64));
-  v4 = *(a1 + 32);
   HDSQLiteBindStringToStatement();
-  v5 = *(a1 + 40);
   HDSQLiteBindFoundationValueToStatement();
-  v6 = *(a1 + 72);
+  v4 = *(a1 + 72);
 
-  return sqlite3_bind_int(a2, 6, v6);
+  return sqlite3_bind_int(a2, 6, v4);
 }
 
 + (BOOL)enumerateValuesWithProfile:(id)profile error:(id *)error handler:(id)handler
 {
-  v17[6] = *MEMORY[0x277D85DE8];
+  v16[6] = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
-  v17[0] = @"object_id";
-  v17[1] = @"source_id";
-  v17[2] = @"object_code";
-  v17[3] = @"sid";
-  v17[4] = @"version";
-  v17[5] = @"deleted";
+  v16[0] = @"object_id";
+  v16[1] = @"source_id";
+  v16[2] = @"object_code";
+  v16[3] = @"sid";
+  v16[4] = @"version";
+  v16[5] = @"deleted";
   v8 = MEMORY[0x277CBEA60];
   profileCopy = profile;
-  v10 = [v8 arrayWithObjects:v17 count:6];
+  v10 = [v8 arrayWithObjects:v16 count:6];
   database = [profileCopy database];
 
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __79__HDDataExternalSyncIdentifierEntity_enumerateValuesWithProfile_error_handler___block_invoke;
-  v15[3] = &unk_278616A78;
-  v16 = handlerCopy;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __79__HDDataExternalSyncIdentifierEntity_enumerateValuesWithProfile_error_handler___block_invoke;
+  v14[3] = &unk_278616A78;
+  v15 = handlerCopy;
   v12 = handlerCopy;
-  LOBYTE(error) = [(HDHealthEntity *)HDDataExternalSyncIdentifierEntity enumerateProperties:v10 withPredicate:0 healthDatabase:database error:error enumerationHandler:v15];
+  LOBYTE(error) = [(HDHealthEntity *)HDDataExternalSyncIdentifierEntity enumerateProperties:v10 withPredicate:0 healthDatabase:database error:error enumerationHandler:v14];
 
-  v13 = *MEMORY[0x277D85DE8];
   return error;
 }
 
-uint64_t __79__HDDataExternalSyncIdentifierEntity_enumerateValuesWithProfile_error_handler___block_invoke(uint64_t a1)
+uint64_t __79__HDDataExternalSyncIdentifierEntity_enumerateValuesWithProfile_error_handler___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   HDSQLiteColumnWithNameAsInt64();
   HDSQLiteColumnWithNameAsInt64();
   HDSQLiteColumnWithNameAsInt64();
-  v2 = HDSQLiteColumnWithNameAsString();
-  v3 = HDSQLiteColumnWithNameAsNumber();
+  v5 = HDSQLiteColumnWithNameAsString();
+  v6 = HDSQLiteColumnWithNameAsNumber();
   HDSQLiteColumnWithNameAsBoolean();
   (*(*(a1 + 32) + 16))();
 

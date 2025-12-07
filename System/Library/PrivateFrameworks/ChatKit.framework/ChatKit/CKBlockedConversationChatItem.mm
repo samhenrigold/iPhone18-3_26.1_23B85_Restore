@@ -41,34 +41,36 @@
   transcriptRegularPreferredFontAttributes = [v5 transcriptRegularPreferredFontAttributes];
 
   blockedRecipients = [(CKBlockedConversationChatItem *)self blockedRecipients];
-  if ([(CKBlockedConversationChatItem *)self isGroupChat]&& blockedRecipients)
+  isGroupChat = [(CKBlockedConversationChatItem *)self isGroupChat];
+  if (isGroupChat && blockedRecipients)
   {
     hasMultipleBlockedRecipients = [(CKBlockedConversationChatItem *)self hasMultipleBlockedRecipients];
-    v9 = CKFrameworkBundle();
-    v10 = v9;
-    if (hasMultipleBlockedRecipients)
+    v10 = hasMultipleBlockedRecipients;
+    v11 = CKFrameworkBundle(hasMultipleBlockedRecipients);
+    v12 = v11;
+    if (v10)
     {
-      v11 = @"BLOCKED_CONVERSATION_GROUP_PLURAL";
+      v13 = @"BLOCKED_CONVERSATION_GROUP_PLURAL";
     }
 
     else
     {
-      v11 = @"BLOCKED_CONVERSATION_GROUP_SINGULAR";
+      v13 = @"BLOCKED_CONVERSATION_GROUP_SINGULAR";
     }
 
-    v12 = [v9 localizedStringForKey:v11 value:&stru_1F04268F8 table:@"ChatKit"];
-    CKAttributedFormatString(transcriptRegularPreferredFontAttributes, transcriptEmphasizedFontAttributes, v12, v18, v19, v20, v21, v22, blockedRecipients);
+    v14 = [v11 localizedStringForKey:v13 value:&stru_1F04268F8 table:@"ChatKit"];
+    CKAttributedFormatString(transcriptRegularPreferredFontAttributes, transcriptEmphasizedFontAttributes, v14, v20, v21, v22, v23, v24, blockedRecipients);
   }
 
   else
   {
-    v10 = CKFrameworkBundle();
-    v12 = [v10 localizedStringForKey:@"BLOCKED_CONVERSATION" value:&stru_1F04268F8 table:@"ChatKit"];
-    CKAttributedFormatString(transcriptRegularPreferredFontAttributes, transcriptEmphasizedFontAttributes, v12, v13, v14, v15, v16, v17, 0);
+    v12 = CKFrameworkBundle(isGroupChat);
+    v14 = [v12 localizedStringForKey:@"BLOCKED_CONVERSATION" value:&stru_1F04268F8 table:@"ChatKit"];
+    CKAttributedFormatString(transcriptRegularPreferredFontAttributes, transcriptEmphasizedFontAttributes, v14, v15, v16, v17, v18, v19, 0);
   }
-  v23 = ;
+  v25 = ;
 
-  return v23;
+  return v25;
 }
 
 - (NSAttributedString)transcriptButtonText
@@ -80,7 +82,7 @@
     centerTranscriptButtonTextAttributes = [v4 centerTranscriptButtonTextAttributes];
 
     v6 = objc_alloc(MEMORY[0x1E696AAB0]);
-    v7 = CKFrameworkBundle();
+    v7 = CKFrameworkBundle(v6);
     v8 = [v7 localizedStringForKey:@"LEAVE_CONVERSATION_TRANSCRIPT" value:&stru_1F04268F8 table:@"ChatKit"];
     v9 = [v6 initWithString:v8 attributes:centerTranscriptButtonTextAttributes];
     v10 = self->_transcriptButtonText;

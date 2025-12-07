@@ -75,7 +75,7 @@
   }
 }
 
-uint64_t __65__PSSegmentableSliderAccessibility__accessibilityIncreaseAmount___block_invoke(uint64_t a1)
+void *__65__PSSegmentableSliderAccessibility__accessibilityIncreaseAmount___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) offsetBetweenTicksForNumberOfTicks:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 24) = v3;

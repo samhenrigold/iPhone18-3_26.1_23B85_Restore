@@ -6,6 +6,8 @@
 - (OSDeviceDelegate)deviceDelegate;
 - (id)getInfoForDevice:(id)device andKey:(id)key;
 - (unint64_t)events;
+- (void)addProcessID:(int)d;
+- (void)addUserID:(unsigned int)d;
 - (void)dealloc;
 - (void)setDelegate:(id)delegate;
 - (void)setDeviceDelegate:(id)delegate;
@@ -37,7 +39,7 @@
 
 - (BOOL)establishTrust:(id)trust
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   trustCopy = trust;
   v5 = trustCopy;
   if (!trustCopy)
@@ -72,8 +74,8 @@ LABEL_15:
         v13 = 0;
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v27) = 0;
-          _os_log_impl(&dword_22E01A000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Invalid inputs", &v27, 2u);
+          LOWORD(v26) = 0;
+          _os_log_impl(&dword_22E01A000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Invalid inputs", &v26, 2u);
           v13 = 0;
         }
 
@@ -95,13 +97,13 @@ LABEL_15:
         v14 = (*(mobdevtab + 136))();
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
-          v27 = 136315650;
-          v28 = buffer;
-          v29 = 1024;
-          v30 = v13;
-          v31 = 2112;
-          v32 = v14;
-          _os_log_impl(&dword_22E01A000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "(%s) AMDeviceConnect failed with %08x (%@)\n", &v27, 0x1Cu);
+          v26 = 136315650;
+          v27 = buffer;
+          v28 = 1024;
+          v29 = v13;
+          v30 = 2112;
+          v31 = v14;
+          _os_log_impl(&dword_22E01A000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "(%s) AMDeviceConnect failed with %08x (%@)\n", &v26, 0x1Cu);
         }
 
         goto LABEL_26;
@@ -110,23 +112,23 @@ LABEL_15:
       v19 = (*(mobdevtab + 40))(mobileDeviceRef);
       if (v19 != -402653155 && v19 != 0)
       {
-        v23 = (*(mobdevtab + 120))(mobileDeviceRef);
-        if (v23)
+        v22 = (*(mobdevtab + 120))(mobileDeviceRef);
+        if (v22)
         {
-          v13 = v23;
+          v13 = v22;
           v14 = (*(mobdevtab + 136))();
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
           {
-            v27 = 136315650;
-            v28 = buffer;
-            v29 = 1024;
-            v30 = v13;
-            v31 = 2112;
-            v32 = v14;
-            v24 = MEMORY[0x277D86220];
-            v25 = "(%s) AMDevicePair failed with %08x (%@)\n";
+            v26 = 136315650;
+            v27 = buffer;
+            v28 = 1024;
+            v29 = v13;
+            v30 = 2112;
+            v31 = v14;
+            v23 = MEMORY[0x277D86220];
+            v24 = "(%s) AMDevicePair failed with %08x (%@)\n";
 LABEL_35:
-            _os_log_impl(&dword_22E01A000, v24, OS_LOG_TYPE_DEFAULT, v25, &v27, 0x1Cu);
+            _os_log_impl(&dword_22E01A000, v23, OS_LOG_TYPE_DEFAULT, v24, &v26, 0x1Cu);
           }
 
 LABEL_25:
@@ -147,26 +149,26 @@ LABEL_30:
           goto LABEL_31;
         }
 
-        v26 = (*(mobdevtab + 40))(mobileDeviceRef);
-        if (v26 != -402653155)
+        v25 = (*(mobdevtab + 40))(mobileDeviceRef);
+        if (v25 != -402653155)
         {
-          v13 = v26;
-          if (v26)
+          v13 = v25;
+          if (v25)
           {
-            v14 = (*(mobdevtab + 136))(v26);
+            v14 = (*(mobdevtab + 136))(v25);
             if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
             {
               goto LABEL_25;
             }
 
-            v27 = 136315650;
-            v28 = buffer;
-            v29 = 1024;
-            v30 = v13;
-            v31 = 2112;
-            v32 = v14;
-            v24 = MEMORY[0x277D86220];
-            v25 = "(%s) AMDeviceStartSession failed with %08x (%@)\n";
+            v26 = 136315650;
+            v27 = buffer;
+            v28 = 1024;
+            v29 = v13;
+            v30 = 2112;
+            v31 = v14;
+            v23 = MEMORY[0x277D86220];
+            v24 = "(%s) AMDeviceStartSession failed with %08x (%@)\n";
             goto LABEL_35;
           }
         }
@@ -194,25 +196,24 @@ LABEL_30:
   v18 = 1;
 LABEL_31:
 
-  v21 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
 - (id)getInfoForDevice:(id)device andKey:(id)key
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   keyCopy = key;
   if (!deviceCopy)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v20) = 0;
+      LOWORD(v19) = 0;
       v11 = MEMORY[0x277D86220];
       v12 = "Invalid input.";
       v13 = 2;
 LABEL_16:
-      _os_log_impl(&dword_22E01A000, v11, OS_LOG_TYPE_DEFAULT, v12, &v20, v13);
+      _os_log_impl(&dword_22E01A000, v11, OS_LOG_TYPE_DEFAULT, v12, &v19, v13);
     }
 
 LABEL_17:
@@ -249,7 +250,7 @@ LABEL_17:
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v20 = 134217984;
+      v19 = 134217984;
       devType2 = [deviceCopy devType];
       v11 = MEMORY[0x277D86220];
       v12 = "Unknown logging device type %ld";
@@ -302,14 +303,13 @@ LABEL_17:
   }
 
 LABEL_27:
-  v18 = *MEMORY[0x277D85DE8];
 
   return name;
 }
 
 - (void)setDeviceDelegate:(id)delegate
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
   deviceSearchSession = self->_deviceSearchSession;
   if (deviceSearchSession)
@@ -392,51 +392,51 @@ LABEL_27:
     if (watchForSims_SimServiceContextClass && (objc_opt_respondsToSelector() & 1) != 0)
     {
       v14 = objc_autoreleasePoolPush();
-      v40 = 0;
-      v15 = [watchForSims_SimServiceContextClass sharedServiceContextForDeveloperDir:0 error:&v40];
-      v16 = v40;
+      v39 = 0;
+      v15 = [watchForSims_SimServiceContextClass sharedServiceContextForDeveloperDir:0 error:&v39];
+      v16 = v39;
       v17 = v16;
       if (v15)
       {
-        v39 = v16;
-        v18 = [v15 defaultDeviceSetWithError:&v39];
-        v19 = v39;
+        v38 = v16;
+        v18 = [v15 defaultDeviceSetWithError:&v38];
+        v19 = v38;
 
         if (v18)
         {
           context = v14;
           v20 = dispatch_get_global_queue(17, 0);
-          v37[0] = MEMORY[0x277D85DD0];
-          v37[1] = 3221225472;
-          v37[2] = __watchForSims_block_invoke_2;
-          v37[3] = &unk_2787ADCB0;
+          v36[0] = MEMORY[0x277D85DD0];
+          v36[1] = 3221225472;
+          v36[2] = __watchForSims_block_invoke_2;
+          v36[3] = &unk_2787ADCB0;
           v21 = v13;
-          v38 = v21;
-          [v18 registerNotificationHandlerOnQueue:v20 handler:v37];
+          v37 = v21;
+          [v18 registerNotificationHandlerOnQueue:v20 handler:v36];
 
-          v35 = 0u;
-          v36 = 0u;
-          v33 = 0u;
           v34 = 0u;
+          v35 = 0u;
+          v32 = 0u;
+          v33 = 0u;
           devices = [v18 devices];
-          v23 = [devices countByEnumeratingWithState:&v33 objects:buf count:16];
+          v23 = [devices countByEnumeratingWithState:&v32 objects:buf count:16];
           if (v23)
           {
             v24 = v23;
-            v25 = *v34;
+            v25 = *v33;
             do
             {
               for (i = 0; i != v24; ++i)
               {
-                if (*v34 != v25)
+                if (*v33 != v25)
                 {
                   objc_enumerationMutation(devices);
                 }
 
-                _simDeviceUpdate(*(*(&v33 + 1) + 8 * i), v21);
+                _simDeviceUpdate(*(*(&v32 + 1) + 8 * i), v21);
               }
 
-              v24 = [devices countByEnumeratingWithState:&v33 objects:buf count:16];
+              v24 = [devices countByEnumeratingWithState:&v32 objects:buf count:16];
             }
 
             while (v24);
@@ -472,66 +472,57 @@ LABEL_27:
       objc_autoreleasePoolPop(v14);
     }
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopRemote
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   devType = [(OSLogDevice *)self->_device devType];
-  if (devType == 2)
+  if (devType != 2)
   {
-LABEL_16:
-    v9 = *MEMORY[0x277D85DE8];
-    return;
-  }
+    if (devType == 1)
+    {
+      obj = self;
+      objc_sync_enter(obj);
+      v4 = obj;
+      deviceEventSession = obj->_deviceEventSession;
+      if (deviceEventSession)
+      {
+        if (_logdev_mobdev_vtable_onceToken != -1)
+        {
+          v8 = obj->_deviceEventSession;
+          dispatch_once(&_logdev_mobdev_vtable_onceToken, &__block_literal_global_3342);
+          v4 = obj;
+          deviceEventSession = v8;
+        }
 
-  if (devType != 1)
-  {
-    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+        v6 = &_logdev_mobdev_vtable_vtab;
+        if (!_logdev_mobdev_vtable_valid)
+        {
+          v6 = 0;
+        }
+
+        mobdevtab = v6;
+        if (_logdev_mobdev_vtable_valid)
+        {
+          OTRCancelAndFreeActivityStream(deviceEventSession);
+          v4 = obj;
+        }
+
+        v4->_deviceEventSession = 0;
+      }
+
+      objc_sync_exit(v4);
+    }
+
+    else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       device = self->_device;
       *buf = 138412290;
-      v13 = device;
+      v11 = device;
       _os_log_impl(&dword_22E01A000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Unknown logging device type %@", buf, 0xCu);
     }
-
-    goto LABEL_16;
   }
-
-  obj = self;
-  objc_sync_enter(obj);
-  v4 = obj;
-  deviceEventSession = obj->_deviceEventSession;
-  if (deviceEventSession)
-  {
-    if (_logdev_mobdev_vtable_onceToken != -1)
-    {
-      v10 = obj->_deviceEventSession;
-      dispatch_once(&_logdev_mobdev_vtable_onceToken, &__block_literal_global_3342);
-      v4 = obj;
-      deviceEventSession = v10;
-    }
-
-    v6 = &_logdev_mobdev_vtable_vtab;
-    if (!_logdev_mobdev_vtable_valid)
-    {
-      v6 = 0;
-    }
-
-    mobdevtab = v6;
-    if (_logdev_mobdev_vtable_valid)
-    {
-      OTRCancelAndFreeActivityStream(deviceEventSession);
-      v4 = obj;
-    }
-
-    v4->_deviceEventSession = 0;
-  }
-
-  objc_sync_exit(v4);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopLocal
@@ -569,7 +560,7 @@ LABEL_16:
 
 - (void)startLocal
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   options = self->_options;
   if ((options & 4) != 0)
   {
@@ -587,7 +578,7 @@ LABEL_16:
   aBlock[3] = &unk_2787ADC60;
   aBlock[4] = self;
   v5 = array;
-  v44 = v5;
+  v43 = v5;
   v6 = _Block_copy(aBlock);
   v7 = options & 0x100;
   if ((options & 0x200) != 0)
@@ -603,27 +594,27 @@ LABEL_16:
     self->_stream = os_activity_stream_for_simulator([v10 UTF8String], v8, v6);
   }
 
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
   v40 = 0u;
+  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
   v11 = self->_pids;
-  v12 = [(NSMutableSet *)v11 countByEnumeratingWithState:&v39 objects:v46 count:16];
+  v12 = [(NSMutableSet *)v11 countByEnumeratingWithState:&v38 objects:v45 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v40;
+    v14 = *v39;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v40 != v14)
+        if (*v39 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
         stream = self->_stream;
-        intValue = [*(*(&v39 + 1) + 8 * i) intValue];
+        intValue = [*(*(&v38 + 1) + 8 * i) intValue];
         if (stream)
         {
           os_activity_stream_add_pid(stream, intValue);
@@ -635,33 +626,33 @@ LABEL_16:
         }
       }
 
-      v13 = [(NSMutableSet *)v11 countByEnumeratingWithState:&v39 objects:v46 count:16];
+      v13 = [(NSMutableSet *)v11 countByEnumeratingWithState:&v38 objects:v45 count:16];
     }
 
     while (v13);
   }
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   v18 = self->_uids;
-  v19 = [(NSMutableSet *)v18 countByEnumeratingWithState:&v35 objects:v45 count:16];
+  v19 = [(NSMutableSet *)v18 countByEnumeratingWithState:&v34 objects:v44 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v36;
+    v21 = *v35;
     do
     {
       for (j = 0; j != v20; ++j)
       {
-        if (*v36 != v21)
+        if (*v35 != v21)
         {
           objc_enumerationMutation(v18);
         }
 
         v23 = self->_stream;
-        unsignedIntValue = [*(*(&v35 + 1) + 8 * j) unsignedIntValue];
+        unsignedIntValue = [*(*(&v34 + 1) + 8 * j) unsignedIntValue];
         if (v23)
         {
           os_activity_stream_add_uid(v23, unsignedIntValue);
@@ -673,7 +664,7 @@ LABEL_16:
         }
       }
 
-      v20 = [(NSMutableSet *)v18 countByEnumeratingWithState:&v35 objects:v45 count:16];
+      v20 = [(NSMutableSet *)v18 countByEnumeratingWithState:&v34 objects:v44 count:16];
     }
 
     while (v20);
@@ -682,16 +673,16 @@ LABEL_16:
   v25 = self->_stream;
   if (!v25)
   {
-    v25 = os_activity_stream_for_pid(-1, v8, v6);
+    v25 = os_activity_stream_for_pid(0xFFFFFFFF, v8, v6);
     self->_stream = v25;
   }
 
-  v34[0] = MEMORY[0x277D85DD0];
-  v34[1] = 3221225472;
-  v34[2] = __30__OSActivityStream_startLocal__block_invoke_2;
-  v34[3] = &unk_2787ADC88;
-  v34[4] = self;
-  *(v25 + 8) = _Block_copy(v34);
+  v33[0] = MEMORY[0x277D85DD0];
+  v33[1] = 3221225472;
+  v33[2] = __30__OSActivityStream_startLocal__block_invoke_2;
+  v33[3] = &unk_2787ADC88;
+  v33[4] = self;
+  *(v25 + 8) = _Block_copy(v33);
   *(self->_stream + 16) |= LODWORD(self->_eventFilter);
   data = [(_OSLogStreamFilter *)self->_streamFilter data];
   v27 = data;
@@ -712,8 +703,6 @@ LABEL_16:
   }
 
   _os_activity_stream_resume_with_filter(v31, v32, v30);
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __30__OSActivityStream_startLocal__block_invoke(uint64_t a1, uint64_t a2, int a3)
@@ -807,341 +796,339 @@ uint64_t __30__OSActivityStream_startLocal__block_invoke_2(uint64_t a1, uint64_t
 
 - (void)startRemote
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   devType = [(OSLogDevice *)self->_device devType];
-  if (devType != 2)
+  if (devType == 2)
   {
-    if (devType != 1)
+
+    [(OSActivityStream *)self startLocal];
+  }
+
+  else
+  {
+    if (devType == 1)
     {
-      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+      mobileDeviceRef = [(OSLogDevice *)self->_device mobileDeviceRef];
+      selfCopy = self;
+      if (_logdev_mobdev_vtable_onceToken != -1)
       {
-        device = self->_device;
-        LODWORD(buf) = 138412290;
-        *(&buf + 4) = device;
-        _os_log_impl(&dword_22E01A000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Unknown logging device type %@", &buf, 0xCu);
+        dispatch_once(&_logdev_mobdev_vtable_onceToken, &__block_literal_global_3342);
       }
 
-      goto LABEL_54;
-    }
-
-    mobileDeviceRef = [(OSLogDevice *)self->_device mobileDeviceRef];
-    selfCopy = self;
-    if (_logdev_mobdev_vtable_onceToken != -1)
-    {
-      dispatch_once(&_logdev_mobdev_vtable_onceToken, &__block_literal_global_3342);
-    }
-
-    v6 = &_logdev_mobdev_vtable_vtab;
-    if (!_logdev_mobdev_vtable_valid)
-    {
-      v6 = 0;
-    }
-
-    mobdevtab = v6;
-    if (!_logdev_mobdev_vtable_valid)
-    {
-      goto LABEL_10;
-    }
-
-    v41[0] = MEMORY[0x277D85DD0];
-    v41[1] = 0x40000000;
-    v41[2] = __logdev_stream_events_block_invoke;
-    v41[3] = &__block_descriptor_tmp_3375;
-    v41[4] = logdev_message_callback;
-    v41[5] = selfCopy;
-    v46 = 0xFFFF;
-    valuePtr = -1;
-    v45 = 60;
-    v44 = 0;
-    if (_CopyOTRServiceConnectionForDevice(mobileDeviceRef, &v44, @"com.apple.os_trace_relay"))
-    {
-      if (_CopyOTRServiceConnectionForDevice(mobileDeviceRef, &v44, @"com.apple.syslog_relay"))
+      v6 = &_logdev_mobdev_vtable_vtab;
+      if (!_logdev_mobdev_vtable_valid)
       {
-LABEL_10:
-        v7 = 0;
-LABEL_53:
-        selfCopy->_deviceEventSession = v7;
-LABEL_54:
-        v32 = *MEMORY[0x277D85DE8];
-        return;
+        v6 = 0;
       }
 
-      v10 = 0;
-      v11 = 0;
-      v12 = 0;
-      v14 = v44;
-      goto LABEL_23;
-    }
-
-    v10 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
-    v11 = CFNumberCreate(0, kCFNumberIntType, &v46);
-    v12 = CFNumberCreate(0, kCFNumberIntType, &v45);
-    keys[0] = xmmword_2787AEC50;
-    keys[1] = *off_2787AEC60;
-    values[0] = @"StartActivity";
-    values[1] = v10;
-    values[2] = v11;
-    values[3] = v12;
-    v13 = CFDictionaryCreate(0, keys, values, 4, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-    v14 = v44;
-    v15 = (*(mobdevtab + 72))(v44, v13, 200, 0);
-    if (v15)
-    {
-      if (v15 == -402653139)
+      mobdevtab = v6;
+      if (!_logdev_mobdev_vtable_valid)
       {
-        if (v14)
+        goto LABEL_10;
+      }
+
+      v39[0] = MEMORY[0x277D85DD0];
+      v39[1] = 0x40000000;
+      v39[2] = __logdev_stream_events_block_invoke;
+      v39[3] = &__block_descriptor_tmp_3375;
+      v39[4] = logdev_message_callback;
+      v39[5] = selfCopy;
+      v44 = 0xFFFF;
+      valuePtr = -1;
+      v43 = 60;
+      v42 = 0;
+      if (_CopyOTRServiceConnectionForDevice(mobileDeviceRef, &v42, @"com.apple.os_trace_relay"))
+      {
+        if (_CopyOTRServiceConnectionForDevice(mobileDeviceRef, &v42, @"com.apple.syslog_relay"))
         {
-          (*(mobdevtab + 88))(v14);
-          CFRelease(v14);
-          v44 = 0;
+LABEL_10:
+          v7 = 0;
+LABEL_53:
+          selfCopy->_deviceEventSession = v7;
+          return;
         }
 
-        v16 = _CopyOTRServiceConnectionForDevice(mobileDeviceRef, &v44, @"com.apple.syslog_relay");
-        v14 = v44;
-        if (!v16)
+        v9 = 0;
+        v10 = 0;
+        v11 = 0;
+        v13 = v42;
+        goto LABEL_23;
+      }
+
+      v9 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
+      v10 = CFNumberCreate(0, kCFNumberIntType, &v44);
+      v11 = CFNumberCreate(0, kCFNumberIntType, &v43);
+      keys[0] = xmmword_2787AEC50;
+      keys[1] = *off_2787AEC60;
+      values[0] = @"StartActivity";
+      values[1] = v9;
+      values[2] = v10;
+      values[3] = v11;
+      v12 = CFDictionaryCreate(0, keys, values, 4, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+      v13 = v42;
+      v14 = (*(mobdevtab + 72))(v42, v12, 200, 0);
+      if (v14)
+      {
+        if (v14 == -402653139)
         {
-LABEL_23:
-          v48[0] = 0;
-          v48[1] = v48;
-          v48[2] = 0x2000000000;
-          v49 = 1;
-          v17 = dispatch_queue_create("com.apple.os_trace_relay.queue", MEMORY[0x277D85CD8]);
-          v18 = (*(mobdevtab + 80))(v14);
-          v19 = dispatch_source_create(MEMORY[0x277D85D28], v18, 0, v17);
-          v7 = _os_trace_calloc_typed();
-          *v7 = v14;
-          v7[1] = v19;
-          *&buf = MEMORY[0x277D85DD0];
-          *(&buf + 1) = 0x40000000;
-          v54 = __OTRStartLegacyStreaming_block_invoke;
-          v55 = &unk_2787AECC8;
-          v58 = v19;
-          v59 = v14;
-          v56 = v41;
-          v57 = v48;
-          dispatch_source_set_event_handler(v19, &buf);
-          v20 = dispatch_semaphore_create(0);
-          v7[3] = v20;
-          if (v20)
+          if (v13)
           {
-            v21 = v7[1];
-            handler[0] = MEMORY[0x277D85DD0];
-            handler[1] = 0x40000000;
-            handler[2] = __OTRStartLegacyStreaming_block_invoke_2;
-            handler[3] = &unk_2787AECF0;
-            handler[4] = v41;
-            handler[5] = v7;
-            dispatch_source_set_cancel_handler(v21, handler);
-            dispatch_activate(v19);
-            _Block_object_dispose(v48, 8);
-LABEL_45:
-            if (v10)
-            {
-              CFRelease(v10);
-            }
-
-            if (v11)
-            {
-              CFRelease(v11);
-            }
-
-            if (v12)
-            {
-              CFRelease(v12);
-            }
-
-            if (v7)
-            {
-              signal(2, 1);
-              global_queue = dispatch_get_global_queue(21, 0);
-              v31 = dispatch_source_create(MEMORY[0x277D85D30], 2uLL, 0, global_queue);
-              v7[2] = v31;
-              *&buf = MEMORY[0x277D85DD0];
-              *(&buf + 1) = 0x40000000;
-              v54 = __logdev_stream_events_block_invoke_2;
-              v55 = &__block_descriptor_tmp_4;
-              v56 = v7;
-              dispatch_source_set_event_handler(v31, &buf);
-              dispatch_activate(v31);
-            }
-
-            goto LABEL_53;
+            (*(mobdevtab + 88))(v13);
+            CFRelease(v13);
+            v42 = 0;
           }
 
-          free(v7);
-          _Block_object_dispose(v48, 8);
+          v15 = _CopyOTRServiceConnectionForDevice(mobileDeviceRef, &v42, @"com.apple.syslog_relay");
+          v13 = v42;
+          if (!v15)
+          {
+LABEL_23:
+            v46[0] = 0;
+            v46[1] = v46;
+            v46[2] = 0x2000000000;
+            v47 = 1;
+            v16 = dispatch_queue_create("com.apple.os_trace_relay.queue", MEMORY[0x277D85CD8]);
+            v17 = (*(mobdevtab + 80))(v13);
+            v18 = dispatch_source_create(MEMORY[0x277D85D28], v17, 0, v16);
+            v7 = _os_trace_calloc_typed();
+            *v7 = v13;
+            v7[1] = v18;
+            *&buf = MEMORY[0x277D85DD0];
+            *(&buf + 1) = 0x40000000;
+            v52 = __OTRStartLegacyStreaming_block_invoke;
+            v53 = &unk_2787AECC8;
+            v56 = v18;
+            v57 = v13;
+            v54 = v39;
+            v55 = v46;
+            dispatch_source_set_event_handler(v18, &buf);
+            v19 = dispatch_semaphore_create(0);
+            v7[3] = v19;
+            if (v19)
+            {
+              v20 = v7[1];
+              handler[0] = MEMORY[0x277D85DD0];
+              handler[1] = 0x40000000;
+              handler[2] = __OTRStartLegacyStreaming_block_invoke_2;
+              handler[3] = &unk_2787AECF0;
+              handler[4] = v39;
+              handler[5] = v7;
+              dispatch_source_set_cancel_handler(v20, handler);
+              dispatch_activate(v18);
+              _Block_object_dispose(v46, 8);
+LABEL_45:
+              if (v9)
+              {
+                CFRelease(v9);
+              }
+
+              if (v10)
+              {
+                CFRelease(v10);
+              }
+
+              if (v11)
+              {
+                CFRelease(v11);
+              }
+
+              if (v7)
+              {
+                signal(2, 1);
+                global_queue = dispatch_get_global_queue(21, 0);
+                v30 = dispatch_source_create(MEMORY[0x277D85D30], 2uLL, 0, global_queue);
+                v7[2] = v30;
+                *&buf = MEMORY[0x277D85DD0];
+                *(&buf + 1) = 0x40000000;
+                v52 = __logdev_stream_events_block_invoke_2;
+                v53 = &__block_descriptor_tmp_4;
+                v54 = v7;
+                dispatch_source_set_event_handler(v30, &buf);
+                dispatch_activate(v30);
+              }
+
+              goto LABEL_53;
+            }
+
+            free(v7);
+            _Block_object_dispose(v46, 8);
+          }
         }
-      }
 
 LABEL_40:
-      v28 = 0;
-      goto LABEL_41;
-    }
-
-    CFRelease(v13);
-    LOBYTE(v48[0]) = 0;
-    *&buf = 0;
-    if ((*(mobdevtab + 8))(v14, v48, 1) == 1)
-    {
-      v22 = LOBYTE(v48[0]);
-      if (LOBYTE(v48[0]) != 1)
-      {
-        if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
-        {
-          goto LABEL_38;
-        }
-
-        LODWORD(handler[0]) = 67109120;
-        HIDWORD(handler[0]) = v22;
-        v25 = MEMORY[0x277D86220];
-        v26 = "Got incorrect response type: %hhu";
-        goto LABEL_36;
+        v27 = 0;
+        goto LABEL_41;
       }
 
-      v23 = (*(mobdevtab + 16))(v14, &buf, 0, 0);
-      if (v23)
+      CFRelease(v12);
+      LOBYTE(v46[0]) = 0;
+      *&buf = 0;
+      if ((*(mobdevtab + 8))(v13, v46, 1) == 1)
       {
-        v24 = v23;
-        if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+        v21 = LOBYTE(v46[0]);
+        if (LOBYTE(v46[0]) != 1)
         {
-          goto LABEL_38;
-        }
-
-        LODWORD(handler[0]) = 67109120;
-        HIDWORD(handler[0]) = v24;
-        v25 = MEMORY[0x277D86220];
-        v26 = "Failed to receive response: %x";
-LABEL_36:
-        v27 = 8;
-        goto LABEL_37;
-      }
-
-      if (buf)
-      {
-        TypeID = CFDictionaryGetTypeID();
-        if (TypeID == CFGetTypeID(buf))
-        {
-          v28 = buf;
-          if (buf)
+          if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
           {
-            Value = CFDictionaryGetValue(buf, @"Status");
-            if (CFEqual(Value, @"RequestSuccessful"))
+            goto LABEL_38;
+          }
+
+          LODWORD(handler[0]) = 67109120;
+          HIDWORD(handler[0]) = v21;
+          v24 = MEMORY[0x277D86220];
+          v25 = "Got incorrect response type: %hhu";
+          goto LABEL_36;
+        }
+
+        v22 = (*(mobdevtab + 16))(v13, &buf, 0, 0);
+        if (v22)
+        {
+          v23 = v22;
+          if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+          {
+            goto LABEL_38;
+          }
+
+          LODWORD(handler[0]) = 67109120;
+          HIDWORD(handler[0]) = v23;
+          v24 = MEMORY[0x277D86220];
+          v25 = "Failed to receive response: %x";
+LABEL_36:
+          v26 = 8;
+          goto LABEL_37;
+        }
+
+        if (buf)
+        {
+          TypeID = CFDictionaryGetTypeID();
+          if (TypeID == CFGetTypeID(buf))
+          {
+            v27 = buf;
+            if (buf)
             {
-              v35 = (*(mobdevtab + 80))(v14);
-              if (v35 != -1)
+              Value = CFDictionaryGetValue(buf, @"Status");
+              if (CFEqual(Value, @"RequestSuccessful"))
               {
-                v36 = v35;
-                v37 = _os_trace_calloc_typed();
-                *v37 = v14;
-                v29 = v37;
-                v38 = dispatch_queue_create("com.apple.os_trace_relay_client", 0);
-                v29[3] = dispatch_semaphore_create(0);
-                v39 = dispatch_source_create(MEMORY[0x277D85D28], v36, 0, v38);
-                v29[1] = v39;
-                v43[0] = MEMORY[0x277D85DD0];
-                v43[1] = 0x40000000;
-                v43[2] = __OTRCreateActivityStreamForPID_block_invoke;
-                v43[3] = &unk_2787AEC78;
-                v43[4] = v41;
-                v43[5] = v29;
-                dispatch_source_set_event_handler(v39, v43);
-                v40 = v29[1];
-                v42[0] = MEMORY[0x277D85DD0];
-                v42[1] = 0x40000000;
-                v42[2] = __OTRCreateActivityStreamForPID_block_invoke_2;
-                v42[3] = &unk_2787AECA0;
-                v42[4] = v41;
-                v42[5] = v29;
-                dispatch_source_set_cancel_handler(v40, v42);
-                dispatch_activate(v29[1]);
-                if (v38)
+                v33 = (*(mobdevtab + 80))(v13);
+                if (v33 != -1)
                 {
-                  dispatch_release(v38);
-                }
+                  v34 = v33;
+                  v35 = _os_trace_calloc_typed();
+                  *v35 = v13;
+                  v28 = v35;
+                  v36 = dispatch_queue_create("com.apple.os_trace_relay_client", 0);
+                  v28[3] = dispatch_semaphore_create(0);
+                  v37 = dispatch_source_create(MEMORY[0x277D85D28], v34, 0, v36);
+                  v28[1] = v37;
+                  v41[0] = MEMORY[0x277D85DD0];
+                  v41[1] = 0x40000000;
+                  v41[2] = __OTRCreateActivityStreamForPID_block_invoke;
+                  v41[3] = &unk_2787AEC78;
+                  v41[4] = v39;
+                  v41[5] = v28;
+                  dispatch_source_set_event_handler(v37, v41);
+                  v38 = v28[1];
+                  v40[0] = MEMORY[0x277D85DD0];
+                  v40[1] = 0x40000000;
+                  v40[2] = __OTRCreateActivityStreamForPID_block_invoke_2;
+                  v40[3] = &unk_2787AECA0;
+                  v40[4] = v39;
+                  v40[5] = v28;
+                  dispatch_source_set_cancel_handler(v38, v40);
+                  dispatch_activate(v28[1]);
+                  if (v36)
+                  {
+                    dispatch_release(v36);
+                  }
 
 LABEL_44:
-                CFRelease(v28);
-                v7 = v29;
-                goto LABEL_45;
+                  CFRelease(v27);
+                  v7 = v28;
+                  goto LABEL_45;
+                }
               }
-            }
 
 LABEL_41:
-            if (v14)
-            {
-              (*(mobdevtab + 88))(v14);
-              CFRelease(v14);
-              v44 = 0;
+              if (v13)
+              {
+                (*(mobdevtab + 88))(v13);
+                CFRelease(v13);
+                v42 = 0;
+              }
+
+              v28 = 0;
+              v7 = 0;
+              if (!v27)
+              {
+                goto LABEL_45;
+              }
+
+              goto LABEL_44;
             }
 
-            v29 = 0;
-            v7 = 0;
-            if (!v28)
-            {
-              goto LABEL_45;
-            }
-
-            goto LABEL_44;
+            goto LABEL_40;
           }
 
-          goto LABEL_40;
-        }
-
-        if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
-        {
-LABEL_38:
-          if (buf)
+          if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
           {
-            CFRelease(buf);
+LABEL_38:
+            if (buf)
+            {
+              CFRelease(buf);
+            }
+
+            goto LABEL_40;
           }
 
-          goto LABEL_40;
+          LOWORD(handler[0]) = 0;
+          v24 = MEMORY[0x277D86220];
+          v25 = "Incorrect response type";
         }
 
-        LOWORD(handler[0]) = 0;
-        v25 = MEMORY[0x277D86220];
-        v26 = "Incorrect response type";
+        else
+        {
+          if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+          {
+            goto LABEL_40;
+          }
+
+          LOWORD(handler[0]) = 0;
+          v24 = MEMORY[0x277D86220];
+          v25 = "Got NULL response dictionary";
+        }
       }
 
       else
       {
         if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
-          goto LABEL_40;
+          goto LABEL_38;
         }
 
         LOWORD(handler[0]) = 0;
-        v25 = MEMORY[0x277D86220];
-        v26 = "Got NULL response dictionary";
-      }
-    }
-
-    else
-    {
-      if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
-      {
-        goto LABEL_38;
+        v24 = MEMORY[0x277D86220];
+        v25 = "Failed to get message type response";
       }
 
-      LOWORD(handler[0]) = 0;
-      v25 = MEMORY[0x277D86220];
-      v26 = "Failed to get message type response";
-    }
-
-    v27 = 2;
+      v26 = 2;
 LABEL_37:
-    _os_log_impl(&dword_22E01A000, v25, OS_LOG_TYPE_DEFAULT, v26, handler, v27);
-    goto LABEL_38;
+      _os_log_impl(&dword_22E01A000, v24, OS_LOG_TYPE_DEFAULT, v25, handler, v26);
+      goto LABEL_38;
+    }
+
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+    {
+      device = self->_device;
+      LODWORD(buf) = 138412290;
+      *(&buf + 4) = device;
+      _os_log_impl(&dword_22E01A000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Unknown logging device type %@", &buf, 0xCu);
+    }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
-
-  [(OSActivityStream *)self startLocal];
 }
 
 - (BOOL)streamEvent:(id)event error:(id)error
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   eventCopy = event;
   errorCopy = error;
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -1174,8 +1161,8 @@ LABEL_14:
       goto LABEL_16;
     }
 
-    v19[0] = eventCopy;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
+    v18[0] = eventCopy;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
     v11 = [v9 activityStream:self results:v10];
   }
 
@@ -1197,15 +1184,14 @@ LABEL_16:
       goto LABEL_17;
     }
 
-    v18 = eventCopy;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v18 count:1];
+    v17 = eventCopy;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
     v11 = [v9 activityStream:self results:v10 error:0];
   }
 
   v15 = v11;
 
 LABEL_17:
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -1268,6 +1254,20 @@ LABEL_17:
   v11 = [[_OSLogStreamFilter alloc] initWithPredicate:self->_predicate];
   streamFilter = self->_streamFilter;
   self->_streamFilter = v11;
+}
+
+- (void)addUserID:(unsigned int)d
+{
+  uids = self->_uids;
+  v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*&d];
+  [(NSMutableSet *)uids addObject:v4];
+}
+
+- (void)addProcessID:(int)d
+{
+  pids = self->_pids;
+  v4 = [MEMORY[0x277CCABB0] numberWithInt:*&d];
+  [(NSMutableSet *)pids addObject:v4];
 }
 
 - (unint64_t)events

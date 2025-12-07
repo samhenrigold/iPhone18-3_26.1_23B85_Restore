@@ -46,16 +46,15 @@ LABEL_8:
     v6 = 0xFFFFFFFFFFFFFLL;
   }
 
-  return decodeTaggedTimeInterval(v6 & (v2 >> 3));
+  return decodeTaggedTimeInterval(v6 & (v2 >> 3), a2);
 }
 
 - (void)dealloc
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3.receiver = self;
-  v3.super_class = __NSTaggedDate;
-  [(__NSTaggedDate *)&v3 dealloc];
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v2.receiver = self;
+  v2.super_class = __NSTaggedDate;
+  [(__NSTaggedDate *)&v2 dealloc];
 }
 
 - (__NSTaggedDate)initWithTimeIntervalSinceReferenceDate:(double)date

@@ -192,7 +192,7 @@
 
 + (void)signOutAllAccounts
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   MarcoLogRegistration();
   v2 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:2];
   facetimeService = [MEMORY[0x277D18DD8] facetimeService];
@@ -211,51 +211,51 @@
     [v2 addObject:iMessageService2];
   }
 
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   obj = v2;
-  v28 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
-  if (v28)
+  v27 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
+  if (v27)
   {
-    v27 = *v35;
+    v26 = *v34;
     v7 = *MEMORY[0x277D19478];
     do
     {
       v8 = 0;
       do
       {
-        if (*v35 != v27)
+        if (*v34 != v26)
         {
           objc_enumerationMutation(obj);
         }
 
-        v29 = v8;
-        v9 = *(*(&v34 + 1) + 8 * v8);
+        v28 = v8;
+        v9 = *(*(&v33 + 1) + 8 * v8);
         mEMORY[0x277D18D28] = [MEMORY[0x277D18D28] sharedInstance];
         v11 = [mEMORY[0x277D18D28] accountsForService:v9];
 
-        v32 = 0u;
-        v33 = 0u;
-        v30 = 0u;
         v31 = 0u;
+        v32 = 0u;
+        v29 = 0u;
+        v30 = 0u;
         v12 = v11;
-        v13 = [v12 countByEnumeratingWithState:&v30 objects:v38 count:16];
+        v13 = [v12 countByEnumeratingWithState:&v29 objects:v37 count:16];
         if (v13)
         {
           v14 = v13;
-          v15 = *v31;
+          v15 = *v30;
           do
           {
             for (i = 0; i != v14; ++i)
             {
-              if (*v31 != v15)
+              if (*v30 != v15)
               {
                 objc_enumerationMutation(v12);
               }
 
-              v17 = *(*(&v30 + 1) + 8 * i);
+              v17 = *(*(&v29 + 1) + 8 * i);
               if ([v17 accountType] == 1)
               {
                 MarcoLogRegistration();
@@ -281,23 +281,21 @@
               }
             }
 
-            v14 = [v12 countByEnumeratingWithState:&v30 objects:v38 count:16];
+            v14 = [v12 countByEnumeratingWithState:&v29 objects:v37 count:16];
           }
 
           while (v14);
         }
 
-        v8 = v29 + 1;
+        v8 = v28 + 1;
       }
 
-      while (v29 + 1 != v28);
-      v28 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
+      while (v28 + 1 != v27);
+      v27 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
     }
 
-    while (v28);
+    while (v27);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 + (id)IDSEnvironment

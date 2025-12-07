@@ -3,65 +3,70 @@
 
 @implementation APBrokerGroupAuthenticateWithOneBroker
 
-void ___APBrokerGroupAuthenticateWithOneBroker_block_invoke(void *a1, uint64_t a2, CFTypeRef cf, uint64_t a4, uint64_t a5, uint64_t a6)
+void ___APBrokerGroupAuthenticateWithOneBroker_block_invoke(void *a1, uint64_t a2, CFTypeRef cf)
 {
-  v7 = a2;
-  v9 = a1[6];
-  v10 = gLogCategory_APBrokerGroup;
+  v6 = a1[6];
+  v7 = gLogCategory_APBrokerGroup;
   if (gLogCategory_APBrokerGroup <= 50)
   {
-    v11 = a1[5];
-    v12 = a1[7];
-    if (gLogCategory_APBrokerGroup == -1)
+    v8 = a1[5];
+    v9 = a1[7];
+    if (gLogCategory_APBrokerGroup != -1)
     {
-      if (!_LogCategory_Initialize())
+LABEL_3:
+      if (v7 > 30)
       {
-        goto LABEL_9;
+        v10 = 1;
       }
 
-      v10 = gLogCategory_APBrokerGroup;
+      else
+      {
+        v10 = v7 == -1 && _LogCategory_Initialize() == 0;
+      }
+
+      LogPrintF(&gLogCategory_APBrokerGroup, "void _APBrokerGroupHandleBrokerAuthentication(void *, APBrokerGroupOperationStatus *, OSStatus, void *, CFDictionaryRef)", 33554482, "[%{ptr}] [%{ptr}] Got authentication callback from broker [%{ptr}] with error: %#m%?{end} and response: %@\n", v8, v6, v9, a2, v10, cf);
+      goto LABEL_11;
     }
 
-    if (v10 == -1)
+    if (_LogCategory_Initialize())
     {
-      _LogCategory_Initialize();
+      v7 = gLogCategory_APBrokerGroup;
+      goto LABEL_3;
     }
-
-    LogPrintF();
   }
 
-LABEL_9:
-  if (v7 == -6754)
+LABEL_11:
+  if (a2 == -6754)
   {
-    *(v9 + 4) = -6754;
+    *(v6 + 4) = -6754;
   }
 
-  else if (v7)
+  else if (a2)
   {
-    *(v9 + 4) = v7;
+    *(v6 + 4) = a2;
   }
 
   else
   {
-    *(v9 + 4) = 0;
-    *v9 = 1;
+    *(v6 + 4) = 0;
+    *v6 = 1;
     if (cf)
     {
-      v13 = CFRetain(cf);
+      v11 = CFRetain(cf);
     }
 
     else
     {
-      v13 = 0;
+      v11 = 0;
     }
 
-    *(v9 + 8) = v13;
+    *(v6 + 8) = v11;
   }
 
-  (*(a1[4] + 16))(a1[4], a2, cf, a4, a5, a6);
-  v14 = a1[4];
+  (*(a1[4] + 16))();
+  v12 = a1[4];
 
-  _Block_release(v14);
+  _Block_release(v12);
 }
 
 @end

@@ -13,11 +13,11 @@
 
 - (SFLeadingTrailingCardSection)initWithProtobuf:(id)protobuf
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
   protobufCopy = protobuf;
-  v58.receiver = self;
-  v58.super_class = SFLeadingTrailingCardSection;
-  v5 = [(SFCardSection *)&v58 init];
+  v57.receiver = self;
+  v57.super_class = SFLeadingTrailingCardSection;
+  v5 = [(SFCardSection *)&v57 init];
   if (v5)
   {
     punchoutOptions = [protobufCopy punchoutOptions];
@@ -31,33 +31,33 @@
       v7 = 0;
     }
 
-    v56 = 0u;
-    v57 = 0u;
-    v54 = 0u;
     v55 = 0u;
+    v56 = 0u;
+    v53 = 0u;
+    v54 = 0u;
     punchoutOptions2 = [protobufCopy punchoutOptions];
-    v9 = [punchoutOptions2 countByEnumeratingWithState:&v54 objects:v61 count:16];
+    v9 = [punchoutOptions2 countByEnumeratingWithState:&v53 objects:v60 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v55;
+      v11 = *v54;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v55 != v11)
+          if (*v54 != v11)
           {
             objc_enumerationMutation(punchoutOptions2);
           }
 
-          v13 = [[SFPunchout alloc] initWithProtobuf:*(*(&v54 + 1) + 8 * i)];
+          v13 = [[SFPunchout alloc] initWithProtobuf:*(*(&v53 + 1) + 8 * i)];
           if (v13)
           {
             [v7 addObject:v13];
           }
         }
 
-        v10 = [punchoutOptions2 countByEnumeratingWithState:&v54 objects:v61 count:16];
+        v10 = [punchoutOptions2 countByEnumeratingWithState:&v53 objects:v60 count:16];
       }
 
       while (v10);
@@ -129,33 +129,33 @@
       v25 = 0;
     }
 
-    v52 = 0u;
-    v53 = 0u;
-    v50 = 0u;
     v51 = 0u;
+    v52 = 0u;
+    v49 = 0u;
+    v50 = 0u;
     leadingCardSections2 = [protobufCopy leadingCardSections];
-    v27 = [leadingCardSections2 countByEnumeratingWithState:&v50 objects:v60 count:16];
+    v27 = [leadingCardSections2 countByEnumeratingWithState:&v49 objects:v59 count:16];
     if (v27)
     {
       v28 = v27;
-      v29 = *v51;
+      v29 = *v50;
       do
       {
         for (j = 0; j != v28; ++j)
         {
-          if (*v51 != v29)
+          if (*v50 != v29)
           {
             objc_enumerationMutation(leadingCardSections2);
           }
 
-          v31 = [[SFCardSection alloc] initWithProtobuf:*(*(&v50 + 1) + 8 * j)];
+          v31 = [[SFCardSection alloc] initWithProtobuf:*(*(&v49 + 1) + 8 * j)];
           if (v31)
           {
             [v25 addObject:v31];
           }
         }
 
-        v28 = [leadingCardSections2 countByEnumeratingWithState:&v50 objects:v60 count:16];
+        v28 = [leadingCardSections2 countByEnumeratingWithState:&v49 objects:v59 count:16];
       }
 
       while (v28);
@@ -163,7 +163,7 @@
 
     [(SFLeadingTrailingCardSection *)v5 setLeadingCardSections:v25];
     trailingCardSections = [protobufCopy trailingCardSections];
-    v45 = v5;
+    v44 = v5;
     if (trailingCardSections)
     {
       v33 = objc_alloc_init(MEMORY[0x1E695DF70]);
@@ -174,53 +174,52 @@
       v33 = 0;
     }
 
-    v48 = 0u;
-    v49 = 0u;
-    v46 = 0u;
     v47 = 0u;
+    v48 = 0u;
+    v45 = 0u;
+    v46 = 0u;
     trailingCardSections2 = [protobufCopy trailingCardSections];
-    v35 = [trailingCardSections2 countByEnumeratingWithState:&v46 objects:v59 count:16];
+    v35 = [trailingCardSections2 countByEnumeratingWithState:&v45 objects:v58 count:16];
     if (v35)
     {
       v36 = v35;
-      v37 = *v47;
+      v37 = *v46;
       do
       {
         for (k = 0; k != v36; ++k)
         {
-          if (*v47 != v37)
+          if (*v46 != v37)
           {
             objc_enumerationMutation(trailingCardSections2);
           }
 
-          v39 = [[SFCardSection alloc] initWithProtobuf:*(*(&v46 + 1) + 8 * k)];
+          v39 = [[SFCardSection alloc] initWithProtobuf:*(*(&v45 + 1) + 8 * k)];
           if (v39)
           {
             [v33 addObject:v39];
           }
         }
 
-        v36 = [trailingCardSections2 countByEnumeratingWithState:&v46 objects:v59 count:16];
+        v36 = [trailingCardSections2 countByEnumeratingWithState:&v45 objects:v58 count:16];
       }
 
       while (v36);
     }
 
-    v5 = v45;
-    [(SFLeadingTrailingCardSection *)v45 setTrailingCardSections:v33];
+    v5 = v44;
+    [(SFLeadingTrailingCardSection *)v44 setTrailingCardSections:v33];
     leadingToTrailingRatio = [protobufCopy leadingToTrailingRatio];
 
     if (leadingToTrailingRatio)
     {
       leadingToTrailingRatio2 = [protobufCopy leadingToTrailingRatio];
       [leadingToTrailingRatio2 doubleValue];
-      [(SFLeadingTrailingCardSection *)v45 setLeadingToTrailingRatio:?];
+      [(SFLeadingTrailingCardSection *)v44 setLeadingToTrailingRatio:?];
     }
 
-    v42 = v45;
+    v42 = v44;
   }
 
-  v43 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

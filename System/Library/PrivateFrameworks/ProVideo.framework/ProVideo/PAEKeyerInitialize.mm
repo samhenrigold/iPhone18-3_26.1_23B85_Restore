@@ -47,40 +47,50 @@
 + (void)setInitialSamples:(void *)samples autokeySetupUtil:(id)util sampleBoxHalfDim:(float)dim
 {
   getSamplesNb = [util getSamplesNb];
-  getInitialSamples = [util getInitialSamples];
+  [util getInitialSamples];
   if (getSamplesNb < 1)
   {
-    v12 = 0.0;
     v11 = 0.0;
+    v10 = 0.0;
   }
 
   else
   {
-    v10 = 0;
+    v9 = 0;
+    v10 = 0.0;
     v11 = 0.0;
-    v12 = 0.0;
     do
     {
+      v12 = 0.0;
       v13 = 0.0;
-      v14 = 0.0;
       if (util)
       {
-        [util getInitialSample:v10 usingArray:{getInitialSamples, 0.0, 0.0}];
-        v14 = v30;
-        v13 = v31;
+        objc_msgSend_getInitialSample_usingArray_(util, 0.0, 0.0);
+        v13 = v29;
+        v12 = v30;
       }
 
-      v12 = v12 + v14;
       v11 = v11 + v13;
-      v10 = (v10 + 1);
+      v10 = v10 + v12;
+      ++v9;
     }
 
-    while (getSamplesNb != v10);
+    while (getSamplesNb != v9);
   }
 
+  v28 = -dim;
   v29 = -dim;
-  v30 = -dim;
-  if (v12 >= v11)
+  if (v11 >= v10)
+  {
+    v14 = 1;
+  }
+
+  else
+  {
+    v14 = 2;
+  }
+
+  if (v11 < v10)
   {
     v15 = 1;
   }
@@ -90,73 +100,58 @@
     v15 = 2;
   }
 
-  if (v12 < v11)
-  {
-    v16 = 1;
-  }
-
-  else
-  {
-    v16 = 2;
-  }
-
-  v31 = -dim;
-  v28[0] = -dim;
-  v28[1] = -dim;
-  v28[2] = dim;
+  v30 = -dim;
   v27[0] = -dim;
-  v27[1] = dim;
-  v27[2] = -dim;
+  v27[1] = -dim;
+  v27[2] = dim;
   v26[0] = -dim;
   v26[1] = dim;
-  v26[2] = dim;
-  *v25 = dim;
-  *&v25[1] = -dim;
-  *&v25[2] = -dim;
+  v26[2] = -dim;
+  v25[0] = -dim;
+  v25[1] = dim;
+  v25[2] = dim;
   *v24 = dim;
   *&v24[1] = -dim;
-  *&v24[2] = dim;
+  *&v24[2] = -dim;
   *v23 = dim;
-  *&v23[1] = dim;
-  *&v23[2] = -dim;
+  *&v23[1] = -dim;
+  *&v23[2] = dim;
   *v22 = dim;
   *&v22[1] = dim;
-  *&v22[2] = dim;
+  *&v22[2] = -dim;
+  *v21 = dim;
+  *&v21[1] = dim;
+  *&v21[2] = dim;
   if (getSamplesNb >= 1)
   {
-    v17 = 0;
-    do
+    for (i = 0; i != getSamplesNb; ++i)
     {
       if (util)
       {
-        [util getInitialSample:v17 usingArray:getInitialSamples];
-        v18 = *&v20;
+        objc_msgSend_getInitialSample_usingArray_(util);
+        v17 = *&v19;
       }
 
       else
       {
-        v21 = 0;
         v20 = 0;
-        v18 = 0.0;
+        v19 = 0;
+        v17 = 0.0;
       }
 
-      v19 = *(&v20 + v15);
-      if (v19 > v18 && v19 > *(&v20 + v16))
+      v18 = *(&v19 + v14);
+      if (v18 > v17 && v18 > *(&v19 + v15))
       {
-        [PAEKeyerInitialize addCorner:&v20 toSamples:samples corner:&v29 clrScreen:v15 clrA:0 clrB:v16];
-        [PAEKeyerInitialize addCorner:&v20 toSamples:samples corner:v28 clrScreen:v15 clrA:0 clrB:v16];
-        [PAEKeyerInitialize addCorner:&v20 toSamples:samples corner:v27 clrScreen:v15 clrA:0 clrB:v16];
-        [PAEKeyerInitialize addCorner:&v20 toSamples:samples corner:v26 clrScreen:v15 clrA:0 clrB:v16];
-        [PAEKeyerInitialize addCorner:&v20 toSamples:samples corner:v25 clrScreen:v15 clrA:0 clrB:v16];
-        [PAEKeyerInitialize addCorner:&v20 toSamples:samples corner:v24 clrScreen:v15 clrA:0 clrB:v16];
-        [PAEKeyerInitialize addCorner:&v20 toSamples:samples corner:v23 clrScreen:v15 clrA:0 clrB:v16];
-        [PAEKeyerInitialize addCorner:&v20 toSamples:samples corner:v22 clrScreen:v15 clrA:0 clrB:v16];
+        [PAEKeyerInitialize addCorner:&v19 toSamples:samples corner:&v28 clrScreen:v14 clrA:0 clrB:v15];
+        [PAEKeyerInitialize addCorner:&v19 toSamples:samples corner:v27 clrScreen:v14 clrA:0 clrB:v15];
+        [PAEKeyerInitialize addCorner:&v19 toSamples:samples corner:v26 clrScreen:v14 clrA:0 clrB:v15];
+        [PAEKeyerInitialize addCorner:&v19 toSamples:samples corner:v25 clrScreen:v14 clrA:0 clrB:v15];
+        [PAEKeyerInitialize addCorner:&v19 toSamples:samples corner:v24 clrScreen:v14 clrA:0 clrB:v15];
+        [PAEKeyerInitialize addCorner:&v19 toSamples:samples corner:v23 clrScreen:v14 clrA:0 clrB:v15];
+        [PAEKeyerInitialize addCorner:&v19 toSamples:samples corner:v22 clrScreen:v14 clrA:0 clrB:v15];
+        [PAEKeyerInitialize addCorner:&v19 toSamples:samples corner:v21 clrScreen:v14 clrA:0 clrB:v15];
       }
-
-      v17 = (v17 + 1);
     }
-
-    while (getSamplesNb != v17);
   }
 }
 
@@ -302,7 +297,8 @@
   }
 
   v16 = HGObject::operator new(0x1C0uLL);
-  HGColorClamp::HGColorClamp(v16, 0.0, v15);
+  *v17.i32 = v15;
+  HGColorClamp::HGColorClamp(v16, 0, v17);
 }
 
 - (BOOL)findSampleRectsWithInfo:(id *)info screenColor:(int *)color colorPrimaries:(int)primaries width:(int)width height:(int)height minGreenHueAngle:(float)angle maxGreenHueAngle:(float)hueAngle greenChroma:(float)self0 minBlueHueAngle:(float)self1 maxBlueHueAngle:(float)self2 blueChroma:(float)self3 histoPercentageIncluded:(float)self4 omSamples:(void *)self5 viewingSetupMatte:(BOOL)self6 use32x32Histogram:(BOOL)self7 simpleKey:(BOOL)self8

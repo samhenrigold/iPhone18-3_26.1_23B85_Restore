@@ -135,11 +135,11 @@ uint64_t __126__HKHRAFibBurdenTachogramClassificationsRetriever_tachogramClassif
   v6 = a2;
   if (v6)
   {
-    v18 = v6;
+    v17 = v6;
     if ([*(a1 + 32) compare:v6] == -1)
     {
       v7 = [*(*(a1 + 40) + 24) currentCalendar];
-      v8 = [v18 hk_dayIndexWithCalendar:v7];
+      v8 = [v17 hk_dayIndexWithCalendar:v7];
 
       v9 = *(a1 + 48);
       v10 = [MEMORY[0x277CCABB0] numberWithInteger:v8];
@@ -150,9 +150,8 @@ uint64_t __126__HKHRAFibBurdenTachogramClassificationsRetriever_tachogramClassif
       v13 = [MEMORY[0x277CBEAA8] hk_latestPossibleDateWithDayIndex:v8];
       v14 = [v11 initWithStartDate:v12 endDate:v13];
 
-      v15 = *(*(a1 + 40) + 16);
-      v16 = HDSampleEntityPredicateForDateInterval();
-      [*(a1 + 56) addObject:v16];
+      v15 = HDSampleEntityPredicateForDateInterval();
+      [*(a1 + 56) addObject:v15];
     }
 
     else
@@ -298,7 +297,7 @@ uint64_t __159__HKHRAFibBurdenTachogramClassificationsRetriever_tachogramClassif
 
 - (id)_tachogramClassificationsWithPredicate:(id)predicate tachogramClassifier:(id)classifier error:(id *)error dayIndexBlock:(id)block filterBlock:(id)filterBlock
 {
-  v40[1] = *MEMORY[0x277D85DE8];
+  v39[1] = *MEMORY[0x277D85DE8];
   blockCopy = block;
   filterBlockCopy = filterBlock;
   v14 = MEMORY[0x277D10848];
@@ -311,28 +310,28 @@ uint64_t __159__HKHRAFibBurdenTachogramClassificationsRetriever_tachogramClassif
   [v19 setPredicate:predicateCopy];
   [v19 setEncodingOption:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277D10400]];
   v20 = [MEMORY[0x277D10B68] orderingTermWithProperty:*MEMORY[0x277D104A8] entityClass:objc_opt_class() ascending:1];
-  v40[0] = v20;
-  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:1];
+  v39[0] = v20;
+  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:1];
   [v19 setOrderingTerms:v21];
 
   v22 = [HKHRAFibBurdenTachogramClassificationsBuilder alloc];
   v23 = objc_loadWeakRetained(&self->_profile);
   v24 = [(HKHRAFibBurdenTachogramClassificationsBuilder *)v22 initWithProfile:v23 classifier:classifierCopy];
 
-  v39 = 0;
-  v35[0] = MEMORY[0x277D85DD0];
-  v35[1] = 3221225472;
-  v35[2] = __142__HKHRAFibBurdenTachogramClassificationsRetriever__tachogramClassificationsWithPredicate_tachogramClassifier_error_dayIndexBlock_filterBlock___block_invoke;
-  v35[3] = &unk_2786606C0;
+  v38 = 0;
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = __142__HKHRAFibBurdenTachogramClassificationsRetriever__tachogramClassificationsWithPredicate_tachogramClassifier_error_dayIndexBlock_filterBlock___block_invoke;
+  v34[3] = &unk_2786606C0;
   v25 = blockCopy;
-  v37 = v25;
-  v35[4] = self;
+  v36 = v25;
+  v34[4] = self;
   v26 = filterBlockCopy;
-  v38 = v26;
+  v37 = v26;
   v27 = v24;
-  v36 = v27;
-  LOBYTE(v23) = [v19 enumerateWithError:&v39 handler:v35];
-  v28 = v39;
+  v35 = v27;
+  LOBYTE(v23) = [v19 enumerateWithError:&v38 handler:v34];
+  v28 = v38;
   if (v23)
   {
     buildClassifications = [(HKHRAFibBurdenTachogramClassificationsBuilder *)v27 buildClassifications];
@@ -364,8 +363,6 @@ uint64_t __159__HKHRAFibBurdenTachogramClassificationsRetriever_tachogramClassif
 
     buildClassifications = 0;
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 
   return buildClassifications;
 }
@@ -403,20 +400,19 @@ uint64_t __142__HKHRAFibBurdenTachogramClassificationsRetriever__tachogramClassi
 
 - (id)_totalDatePredicateForStartDayIndex:(int64_t)index endDayIndex:(int64_t)dayIndex
 {
-  v7 = objc_alloc(MEMORY[0x277CCA970]);
-  v8 = [MEMORY[0x277CBEAA8] hk_earliestPossibleDateWithDayIndex:index];
-  v9 = [MEMORY[0x277CBEAA8] hk_latestPossibleDateWithDayIndex:dayIndex];
-  v10 = [v7 initWithStartDate:v8 endDate:v9];
+  v6 = objc_alloc(MEMORY[0x277CCA970]);
+  v7 = [MEMORY[0x277CBEAA8] hk_earliestPossibleDateWithDayIndex:index];
+  v8 = [MEMORY[0x277CBEAA8] hk_latestPossibleDateWithDayIndex:dayIndex];
+  v9 = [v6 initWithStartDate:v7 endDate:v8];
 
-  seriesType = self->_seriesType;
-  v12 = HDSampleEntityPredicateForDateInterval();
+  v10 = HDSampleEntityPredicateForDateInterval();
 
-  return v12;
+  return v10;
 }
 
 - (BOOL)_shouldAnalyzeSample:(id)sample
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   sampleCopy = sample;
   metadata = [sampleCopy metadata];
   v6 = [metadata objectForKeyedSubscript:*MEMORY[0x277CCE050]];
@@ -443,9 +439,9 @@ LABEL_15:
       v14 = HKHRAFibBurdenLogForCategory();
       if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
-        v17 = 138412290;
+        v16 = 138412290;
         selfCopy2 = self;
-        _os_log_impl(&dword_229486000, v14, OS_LOG_TYPE_INFO, "[%@] Ignoring sample from incompatible tachogram version", &v17, 0xCu);
+        _os_log_impl(&dword_229486000, v14, OS_LOG_TYPE_INFO, "[%@] Ignoring sample from incompatible tachogram version", &v16, 0xCu);
       }
     }
 
@@ -463,9 +459,9 @@ LABEL_14:
     v9 = HKHRAFibBurdenLogForCategory();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v17 = 138412290;
+      v16 = 138412290;
       selfCopy2 = self;
-      _os_log_impl(&dword_229486000, v9, OS_LOG_TYPE_INFO, "[%@] Ignoring sample from non-background context", &v17, 0xCu);
+      _os_log_impl(&dword_229486000, v9, OS_LOG_TYPE_INFO, "[%@] Ignoring sample from non-background context", &v16, 0xCu);
     }
 
     goto LABEL_14;
@@ -474,38 +470,34 @@ LABEL_14:
   v10 = 0;
 LABEL_16:
 
-  v15 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 void __159__HKHRAFibBurdenTachogramClassificationsRetriever_tachogramClassificationsForLastSixWeeksOfHoursFrom_to_julianDayToMajorityTimeZone_tachogramClassifier_error___block_invoke_2_cold_1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 40);
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_fault_impl(&dword_229486000, a2, OS_LOG_TYPE_FAULT, "[%@] Unable to determine majority time zone for sample, even though majority time zone should have considered all samples.", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_fault_impl(&dword_229486000, a2, OS_LOG_TYPE_FAULT, "[%@] Unable to determine majority time zone for sample, even though majority time zone should have considered all samples.", &v3, 0xCu);
 }
 
 - (void)_tachogramClassificationsWithPredicate:(NSObject *)a3 tachogramClassifier:error:dayIndexBlock:filterBlock:.cold.1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 138412546;
-  *&v4[4] = a1;
-  *&v4[12] = 2112;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_1(&dword_229486000, a2, a3, "[%@] Failed to enumerate across samples, received error: %@", *v4, *&v4[8], *&v4[16], *MEMORY[0x277D85DE8]);
-  v3 = *MEMORY[0x277D85DE8];
+  *v3 = 138412546;
+  *&v3[4] = a1;
+  *&v3[12] = 2112;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_1(&dword_229486000, a2, a3, "[%@] Failed to enumerate across samples, received error: %@", *v3, *&v3[8], *&v3[16], *MEMORY[0x277D85DE8]);
 }
 
 void __142__HKHRAFibBurdenTachogramClassificationsRetriever__tachogramClassificationsWithPredicate_tachogramClassifier_error_dayIndexBlock_filterBlock___block_invoke_cold_1(void *a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 138412546;
-  *&v4[4] = *a1;
-  *&v4[12] = 2112;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_1(&dword_229486000, a2, a3, "[%@] Error while filtering samples: %@", *v4, *&v4[8], *&v4[16], *MEMORY[0x277D85DE8]);
-  v3 = *MEMORY[0x277D85DE8];
+  *v3 = 138412546;
+  *&v3[4] = *a1;
+  *&v3[12] = 2112;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_1(&dword_229486000, a2, a3, "[%@] Error while filtering samples: %@", *v3, *&v3[8], *&v3[16], *MEMORY[0x277D85DE8]);
 }
 
 @end

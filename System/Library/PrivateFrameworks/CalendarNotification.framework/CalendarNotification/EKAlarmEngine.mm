@@ -23,7 +23,7 @@ id __22___EKAlarmEngine_init__block_invoke()
 
 void __23___EKAlarmEngine_start__block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) settingForKey:@"LastDBSequence"];
   v3 = [objc_alloc(MEMORY[0x277CF7100]) initWithSerializedSequenceString:v2];
   v4 = *(a1 + 40);
@@ -35,32 +35,28 @@ void __23___EKAlarmEngine_start__block_invoke(uint64_t a1)
   {
     v7 = [*(*(a1 + 40) + 8) serializedSequenceString];
     v8 = *(a1 + 32);
-    v10 = 138543618;
-    v11 = v7;
-    v12 = 2112;
-    v13 = v8;
-    _os_log_impl(&dword_242909000, v6, OS_LOG_TYPE_DEFAULT, "Starting up. Last sequence was %{public}@, context is %@", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = v7;
+    v11 = 2112;
+    v12 = v8;
+    _os_log_impl(&dword_242909000, v6, OS_LOG_TYPE_DEFAULT, "Starting up. Last sequence was %{public}@, context is %@", &v9, 0x16u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __37___EKAlarmEngine_receivedAlarmNamed___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   objc_storeStrong((*(a1 + 32) + 24), *(a1 + 40));
   v2 = +[CALNLogSubsystem alarmEngine];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(*(a1 + 32) + 24);
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_242909000, v2, OS_LOG_TYPE_DEFAULT, "Updated next fire date: %@.", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_242909000, v2, OS_LOG_TYPE_DEFAULT, "Updated next fire date: %@.", &v5, 0xCu);
   }
 
-  result = [*(a1 + 32) _timerFired];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _timerFired];
 }
 
 void __48___EKAlarmEngine__updateWithForceForAlarmTable___block_invoke(uint64_t a1)
@@ -134,40 +130,40 @@ void __37___EKAlarmEngine__haveAlarmsChanged___block_invoke(uint64_t a1, char a2
 
 void __60___EKAlarmEngine__storeAlarms_nextScheduleLimit_eventStore___block_invoke(uint64_t a1)
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   v2 = +[CALNLogSubsystem alarmEngine];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) count];
     *buf = 134217984;
-    v53 = v3;
+    v52 = v3;
     _os_log_impl(&dword_242909000, v2, OS_LOG_TYPE_DEFAULT, "There were %lu alarms found which will occur in the next 15 days", buf, 0xCu);
   }
 
   [*(a1 + 40) deleteAllAlarms];
   if ([*(a1 + 32) count])
   {
-    v49 = 0u;
-    v50 = 0u;
-    v47 = 0u;
     v48 = 0u;
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
     obj = *(a1 + 32);
-    v4 = [obj countByEnumeratingWithState:&v47 objects:v51 count:16];
+    v4 = [obj countByEnumeratingWithState:&v46 objects:v50 count:16];
     if (v4)
     {
       v5 = v4;
-      v45 = *v48;
+      v44 = *v47;
       do
       {
         v6 = 0;
         do
         {
-          if (*v48 != v45)
+          if (*v47 != v44)
           {
             objc_enumerationMutation(obj);
           }
 
-          v7 = *(*(&v47 + 1) + 8 * v6);
+          v7 = *(*(&v46 + 1) + 8 * v6);
           v8 = [*(a1 + 40) insertNewAlarm];
           v9 = [v7 ownerID];
           v10 = [v9 entityID];
@@ -208,7 +204,7 @@ void __60___EKAlarmEngine__storeAlarms_nextScheduleLimit_eventStore___block_invo
         }
 
         while (v5 != v6);
-        v5 = [obj countByEnumeratingWithState:&v47 objects:v51 count:16];
+        v5 = [obj countByEnumeratingWithState:&v46 objects:v50 count:16];
       }
 
       while (v5);
@@ -229,9 +225,9 @@ void __60___EKAlarmEngine__storeAlarms_nextScheduleLimit_eventStore___block_invo
   [v30 setSetting:v33 forKey:@"CacheEndDate"];
 
   v34 = *(a1 + 40);
-  v46 = 0;
-  LOBYTE(v30) = [v34 save:&v46];
-  v35 = v46;
+  v45 = 0;
+  LOBYTE(v30) = [v34 save:&v45];
+  v35 = v45;
   if ((v30 & 1) == 0)
   {
     v36 = +[CALNLogSubsystem alarmEngine];
@@ -240,8 +236,6 @@ void __60___EKAlarmEngine__storeAlarms_nextScheduleLimit_eventStore___block_invo
       __60___EKAlarmEngine__storeAlarms_nextScheduleLimit_eventStore___block_invoke_cold_1(v35, v36, v37, v38, v39, v40, v41, v42);
     }
   }
-
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 void __34___EKAlarmEngine__rescheduleTimer__block_invoke(uint64_t a1)
@@ -316,81 +310,79 @@ uint64_t __44___EKAlarmEngine__installTimerWithFireDate___block_invoke()
 
 void __37___EKAlarmEngine__notifyAlarmsFired___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = +[CALNLogSubsystem alarmEngine];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) count];
-    v7 = 134217984;
-    v8 = v3;
-    _os_log_impl(&dword_242909000, v2, OS_LOG_TYPE_DEFAULT, "Notifying: %lu alarms fired.", &v7, 0xCu);
+    v6 = 134217984;
+    v7 = v3;
+    _os_log_impl(&dword_242909000, v2, OS_LOG_TYPE_DEFAULT, "Notifying: %lu alarms fired.", &v6, 0xCu);
   }
 
   v4 = [MEMORY[0x277CBEAC0] dictionaryWithObject:*(a1 + 32) forKey:@"EKAlarmEngineAlarmOccurrencesKey"];
   v5 = [MEMORY[0x277CCAB98] defaultCenter];
   [v5 postNotificationName:@"EKAlarmEngineAlarmsDidFireNotification" object:*(a1 + 40) userInfo:v4];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __29___EKAlarmEngine__timerFired__block_invoke(uint64_t a1)
 {
   v1 = a1;
-  *(&v138[2] + 4) = *MEMORY[0x277D85DE8];
+  *(&v137[2] + 4) = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) alarmsBetweenStartDate:*(*(v1 + 40) + 24) endDate:*(v1 + 48)];
   v3 = +[CALNLogSubsystem alarmEngine];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v138[0] = [v2 count];
+    v137[0] = [v2 count];
     _os_log_impl(&dword_242909000, v3, OS_LOG_TYPE_DEFAULT, "Found %lu alarm(s)", buf, 0xCu);
   }
 
   if ([v2 count])
   {
-    v103 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v2, "count")}];
+    v102 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v2, "count")}];
     v4 = [*(v1 + 40) _eventStore];
     v5 = objc_alloc(MEMORY[0x277CBEA80]);
     v6 = [v5 initWithCalendarIdentifier:*MEMORY[0x277CBE5C0]];
     v7 = CalCopyTimeZone();
-    v100 = v6;
+    v99 = v6;
     [v6 setTimeZone:v7];
 
-    v102 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v2, "count")}];
+    v101 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v2, "count")}];
+    v128 = 0u;
     v129 = 0u;
     v130 = 0u;
     v131 = 0u;
-    v132 = 0u;
-    v101 = v2;
+    v100 = v2;
     obj = v2;
-    v108 = [obj countByEnumeratingWithState:&v129 objects:v136 count:16];
-    if (v108)
+    v107 = [obj countByEnumeratingWithState:&v128 objects:v135 count:16];
+    if (v107)
     {
-      v107 = *v130;
-      v105 = v4;
+      v106 = *v129;
+      v104 = v4;
       do
       {
         v8 = 0;
         do
         {
-          if (*v130 != v107)
+          if (*v129 != v106)
           {
             objc_enumerationMutation(obj);
           }
 
-          v114 = v8;
-          v9 = *(*(&v129 + 1) + 8 * v8);
+          v113 = v8;
+          v9 = *(*(&v128 + 1) + 8 * v8);
           v10 = [v9 entityTimeZone];
           if (v10)
           {
             v11 = MEMORY[0x277CBEBB0];
             v12 = [v9 entityTimeZone];
-            v123 = [v11 timeZoneWithName:v12];
+            v122 = [v11 timeZoneWithName:v12];
           }
 
           else
           {
-            v123 = 0;
+            v122 = 0;
           }
 
           v13 = [v9 entityID];
@@ -417,29 +409,29 @@ void __29___EKAlarmEngine__timerFired__block_invoke(uint64_t a1)
               if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
               {
                 v29 = [v9 entityID];
-                *v134 = 138412290;
-                v135 = v29;
-                _os_log_impl(&dword_242909000, v20, OS_LOG_TYPE_DEFAULT, "Side alarm has no Entity URI, will not fire. rowID: %@", v134, 0xCu);
+                *v133 = 138412290;
+                v134 = v29;
+                _os_log_impl(&dword_242909000, v20, OS_LOG_TYPE_DEFAULT, "Side alarm has no Entity URI, will not fire. rowID: %@", v133, 0xCu);
               }
 
               v21 = 0;
             }
 
             v30 = [v9 allDay];
-            HIDWORD(v115) = [v30 BOOLValue];
+            HIDWORD(v114) = [v30 BOOLValue];
 
             v23 = [v9 acknowledgedDate];
+            v110 = 0;
             v111 = 0;
-            v112 = 0;
             v31 = 0;
+            v116 = 0;
             v117 = 0;
             v118 = 0;
             v119 = 0;
             v120 = 0;
             v121 = 0;
-            v122 = 0;
             v32 = 0.0;
-            LOBYTE(v115) = v23 != 0;
+            LOBYTE(v114) = v23 != 0;
             v33 = 0.0;
             v34 = 1;
           }
@@ -451,22 +443,22 @@ void __29___EKAlarmEngine__timerFired__block_invoke(uint64_t a1)
 
             if (v23)
             {
-              v122 = [v23 title];
+              v121 = [v23 title];
               v24 = [v23 preferredLocationWithoutPrediction];
               v25 = [v24 address];
               v26 = [v24 title];
-              v27 = v102;
+              v27 = v101;
               v28 = v25;
               if (![v26 length])
               {
                 v35 = v25;
 
                 v26 = v35;
-                v27 = v102;
+                v27 = v101;
               }
 
               v36 = [CALNNotificationFilter shouldIgnoreNotificationForEvent:v23];
-              v121 = v26;
+              v120 = v26;
               if (v36)
               {
                 [v27 addObject:v9];
@@ -475,17 +467,17 @@ void __29___EKAlarmEngine__timerFired__block_invoke(uint64_t a1)
                 if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
                 {
                   v38 = [v9 entityID];
-                  *v134 = 138412290;
-                  v135 = v38;
-                  _os_log_impl(&dword_242909000, v37, OS_LOG_TYPE_DEFAULT, "Removing side alarm for junk or maybe junk event with rowID: %@", v134, 0xCu);
+                  *v133 = 138412290;
+                  v134 = v38;
+                  _os_log_impl(&dword_242909000, v37, OS_LOG_TYPE_DEFAULT, "Removing side alarm for junk or maybe junk event with rowID: %@", v133, 0xCu);
                 }
 
+                v110 = 0;
                 v111 = 0;
-                v112 = 0;
+                v116 = 0;
                 v117 = 0;
                 v118 = 0;
                 v119 = 0;
-                v120 = 0;
                 v21 = 0;
                 v33 = 0.0;
               }
@@ -494,20 +486,20 @@ void __29___EKAlarmEngine__timerFired__block_invoke(uint64_t a1)
               {
                 v39 = [v23 participationStatus];
                 v40 = [v23 status];
-                BYTE4(v112) = 0;
+                BYTE4(v111) = 0;
                 if ([v23 isCurrentUserInvitedAttendee] && v39 == 3 && v40 != 3)
                 {
                   v41 = [v23 calendar];
                   v42 = [v41 source];
                   v43 = [v42 constraints];
-                  BYTE4(v112) = [v43 statusesAreAccurate];
+                  BYTE4(v111) = [v43 statusesAreAccurate];
                 }
 
                 v21 = [v23 externalURL];
-                v120 = [v23 endDate];
-                v119 = [v24 mapKitHandle];
+                v119 = [v23 endDate];
+                v118 = [v24 mapKitHandle];
                 v44 = [v24 geoLocation];
-                LODWORD(v112) = v44 != 0;
+                LODWORD(v111) = v44 != 0;
 
                 v45 = [v24 geoLocation];
                 [v45 coordinate];
@@ -518,18 +510,18 @@ void __29___EKAlarmEngine__timerFired__block_invoke(uint64_t a1)
                 v32 = v48;
 
                 v49 = [v23 travelStartLocation];
-                v118 = [v49 routing];
+                v117 = [v49 routing];
 
-                HIDWORD(v111) = [v23 isSelfOrganized] ^ 1;
+                HIDWORD(v110) = [v23 isSelfOrganized] ^ 1;
                 v50 = [v23 organizer];
-                v117 = [v50 emailAddress];
+                v116 = [v50 emailAddress];
 
                 v37 = [v23 calendar];
-                LOBYTE(v111) = [v37 isSuggestedEventCalendar];
+                LOBYTE(v110) = [v37 isSuggestedEventCalendar];
               }
 
               v34 = !v36;
-              v4 = v105;
+              v4 = v104;
             }
 
             else
@@ -538,54 +530,54 @@ void __29___EKAlarmEngine__timerFired__block_invoke(uint64_t a1)
               v32 = 0.0;
               if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
               {
-                __29___EKAlarmEngine__timerFired__block_invoke_cold_1(buf, v9, v138, v24);
+                __29___EKAlarmEngine__timerFired__block_invoke_cold_1(buf, v9, v137, v24);
               }
 
+              v110 = 0;
               v111 = 0;
-              v112 = 0;
               v28 = 0;
+              v116 = 0;
               v117 = 0;
               v118 = 0;
               v119 = 0;
-              v120 = 0;
               v21 = 0;
+              v120 = 0;
               v121 = 0;
-              v122 = 0;
               v33 = 0.0;
               v34 = 1;
             }
 
-            v115 = 0;
+            v114 = 0;
             v31 = v28;
           }
 
           v51 = [v9 entityDate];
-          v113 = v17;
+          v112 = v17;
           v52 = [v4 eventForObjectID:v17 occurrenceDate:v51 checkValid:0];
 
           if (v52)
           {
-            HIDWORD(v115) = [v52 isAllDay];
+            HIDWORD(v114) = [v52 isAllDay];
             [v52 travelTime];
-            v110 = v53 > 0.0;
+            v109 = v53 > 0.0;
             v54 = [v52 calendar];
             v55 = [v54 source];
 
             if ([v55 supportsAlarmAcknowledgedDate])
             {
-              v116 = 0;
+              v115 = 0;
             }
 
             else
             {
-              v116 = [v52 uniqueIdentifier];
+              v115 = [v52 uniqueIdentifier];
             }
           }
 
           else
           {
-            v116 = 0;
-            v110 = 0;
+            v115 = 0;
+            v109 = 0;
           }
 
           v56 = [v9 acknowledgedDate];
@@ -595,19 +587,19 @@ void __29___EKAlarmEngine__timerFired__block_invoke(uint64_t a1)
             v57 = [v9 acknowledgedDate];
             v58 = [v9 fireTime];
             [v57 timeIntervalSinceDate:v58];
-            LOBYTE(v115) = v59 >= 0.0;
+            LOBYTE(v114) = v59 >= 0.0;
           }
 
           v60 = [v9 acknowledgedDate];
           if (v60 && (v61 = v60, [v9 acknowledgedDate], v62 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v62, "timeIntervalSinceReferenceDate"), v64 = v63, v62, v61, v64 >= 1.0))
           {
-            v109 = 0;
+            v108 = 0;
           }
 
           else
           {
             v65 = [v9 refiring];
-            v109 = [v65 BOOLValue];
+            v108 = [v65 BOOLValue];
           }
 
           v66 = [*(v1 + 40) _alertInfoAlarmIDFromSideAlarm:v9];
@@ -640,81 +632,81 @@ void __29___EKAlarmEngine__timerFired__block_invoke(uint64_t a1)
             [v9 externalID];
             v75 = v74 = v1;
             [v9 databaseID];
-            v106 = v67;
+            v105 = v67;
             v77 = v76 = v31;
-            BYTE2(v99) = v111;
-            BYTE1(v99) = v109;
-            LOBYTE(v99) = v110;
-            BYTE4(v98) = v115;
-            LODWORD(v98) = [v77 intValue];
-            LOBYTE(v97) = BYTE4(v112);
-            v78 = [EKCalendarItemAlertInfo initWithTitle:v72 location:"initWithTitle:location:date:endDate:timeZone:allDay:tentative:publisherBulletinID:entityID:appLink:proximity:externalID:databaseID:acknowledged:dismissalID:alarmID:isOffsetFromTravelTimeStart:refiring:pseudoEvent:" date:v122 endDate:v121 timeZone:v73 allDay:v120 tentative:v123 publisherBulletinID:HIDWORD(v115) entityID:v97 appLink:0 proximity:v21 externalID:0 databaseID:0 acknowledged:v75 dismissalID:v98 alarmID:v116 isOffsetFromTravelTimeStart:v66 refiring:v99 pseudoEvent:?];
+            BYTE2(v98) = v110;
+            BYTE1(v98) = v108;
+            LOBYTE(v98) = v109;
+            BYTE4(v97) = v114;
+            LODWORD(v97) = [v77 intValue];
+            LOBYTE(v96) = BYTE4(v111);
+            v78 = [EKCalendarItemAlertInfo initWithTitle:v72 location:"initWithTitle:location:date:endDate:timeZone:allDay:tentative:publisherBulletinID:entityID:appLink:proximity:externalID:databaseID:acknowledged:dismissalID:alarmID:isOffsetFromTravelTimeStart:refiring:pseudoEvent:" date:v121 endDate:v120 timeZone:v73 allDay:v119 tentative:v122 publisherBulletinID:HIDWORD(v114) entityID:v96 appLink:0 proximity:v21 externalID:0 databaseID:0 acknowledged:v75 dismissalID:v97 alarmID:v115 isOffsetFromTravelTimeStart:v66 refiring:v98 pseudoEvent:?];
 
             v31 = v76;
             v1 = v74;
-            v4 = v105;
+            v4 = v104;
 
-            [(EKCalendarItemAlertInfo *)v78 setMapKitHandle:v119];
-            [(EKCalendarItemAlertInfo *)v78 setHasGeoLocationCoordinates:v112];
+            [(EKCalendarItemAlertInfo *)v78 setMapKitHandle:v118];
+            [(EKCalendarItemAlertInfo *)v78 setHasGeoLocationCoordinates:v111];
             [(EKCalendarItemAlertInfo *)v78 setGeoLocationCoordinates:v33, v32];
-            [(EKCalendarItemAlertInfo *)v78 setHasOrganizerThatIsNotCurrentUser:HIDWORD(v111)];
-            [(EKCalendarItemAlertInfo *)v78 setOrganizerEmailAddress:v117];
-            [(EKCalendarItemAlertInfo *)v78 setStartLocationRouting:v118];
+            [(EKCalendarItemAlertInfo *)v78 setHasOrganizerThatIsNotCurrentUser:HIDWORD(v110)];
+            [(EKCalendarItemAlertInfo *)v78 setOrganizerEmailAddress:v116];
+            [(EKCalendarItemAlertInfo *)v78 setStartLocationRouting:v117];
             [(EKCalendarItemAlertInfo *)v78 setLocationAddress:v76];
-            [(EKCalendarItemAlertInfo *)v78 setTriggerType:v106];
+            [(EKCalendarItemAlertInfo *)v78 setTriggerType:v105];
             v79 = [v9 fireTime];
             [(EKCalendarItemAlertInfo *)v78 setFireDate:v79];
 
-            [v103 addObject:v78];
+            [v102 addObject:v78];
           }
 
-          v8 = v114 + 1;
+          v8 = v113 + 1;
         }
 
-        while (v108 != v114 + 1);
-        v108 = [obj countByEnumeratingWithState:&v129 objects:v136 count:16];
+        while (v107 != v113 + 1);
+        v107 = [obj countByEnumeratingWithState:&v128 objects:v135 count:16];
       }
 
-      while (v108);
+      while (v107);
     }
 
-    [*(v1 + 40) _notifyAlarmsFired:v103];
-    v80 = v102;
-    v2 = v101;
-    if ([v102 count])
+    [*(v1 + 40) _notifyAlarmsFired:v102];
+    v80 = v101;
+    v2 = v100;
+    if ([v101 count])
     {
-      v127 = 0u;
-      v128 = 0u;
-      v125 = 0u;
       v126 = 0u;
-      v81 = v102;
-      v82 = [v81 countByEnumeratingWithState:&v125 objects:v133 count:16];
+      v127 = 0u;
+      v124 = 0u;
+      v125 = 0u;
+      v81 = v101;
+      v82 = [v81 countByEnumeratingWithState:&v124 objects:v132 count:16];
       if (v82)
       {
         v83 = v82;
-        v84 = *v126;
+        v84 = *v125;
         do
         {
           for (i = 0; i != v83; ++i)
           {
-            if (*v126 != v84)
+            if (*v125 != v84)
             {
               objc_enumerationMutation(v81);
             }
 
-            [*(v1 + 32) deleteObject:*(*(&v125 + 1) + 8 * i)];
+            [*(v1 + 32) deleteObject:*(*(&v124 + 1) + 8 * i)];
           }
 
-          v83 = [v81 countByEnumeratingWithState:&v125 objects:v133 count:16];
+          v83 = [v81 countByEnumeratingWithState:&v124 objects:v132 count:16];
         }
 
         while (v83);
       }
 
       v86 = *(v1 + 32);
-      v124 = 0;
-      v87 = [v86 save:&v124];
-      v88 = v124;
+      v123 = 0;
+      v87 = [v86 save:&v123];
+      v88 = v123;
       if ((v87 & 1) == 0)
       {
         v89 = +[CALNLogSubsystem alarmEngine];
@@ -724,11 +716,9 @@ void __29___EKAlarmEngine__timerFired__block_invoke(uint64_t a1)
         }
       }
 
-      v80 = v102;
+      v80 = v101;
     }
   }
-
-  v96 = *MEMORY[0x277D85DE8];
 }
 
 void __45___EKAlarmEngine__timeDidChangeSignificantly__block_invoke(uint64_t a1)
@@ -740,9 +730,9 @@ void __45___EKAlarmEngine__timeDidChangeSignificantly__block_invoke(uint64_t a1)
 
 void __60___EKAlarmEngine__storeAlarms_nextScheduleLimit_eventStore___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_242909000, a2, a3, "Unable to save alarm side table: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&dword_242909000, a2, a3, "Unable to save alarm side table: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __29___EKAlarmEngine__timerFired__block_invoke_cold_1(uint8_t *a1, void *a2, void *a3, NSObject *a4)
@@ -755,9 +745,9 @@ void __29___EKAlarmEngine__timerFired__block_invoke_cold_1(uint8_t *a1, void *a2
 
 void __29___EKAlarmEngine__timerFired__block_invoke_cold_2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_242909000, a2, a3, "Unable to save alarm side table when pruning side alarms: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&dword_242909000, a2, a3, "Unable to save alarm side table when pruning side alarms: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

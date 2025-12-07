@@ -44,15 +44,15 @@
 
 - (TSPDocumentResourceRequest)initWithDocumentResourceInfos:(id)infos tags:(id)tags documentResourceCache:(id)cache
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   infosCopy = infos;
   tagsCopy = tags;
   cacheCopy = cache;
   if (objc_msgSend_count(infosCopy, v11, v12))
   {
-    v51.receiver = self;
-    v51.super_class = TSPDocumentResourceRequest;
-    v13 = [(TSPDocumentResourceRequest *)&v51 init];
+    v50.receiver = self;
+    v50.super_class = TSPDocumentResourceRequest;
+    v13 = [(TSPDocumentResourceRequest *)&v50 init];
     v14 = v13;
     if (v13)
     {
@@ -62,34 +62,34 @@
       v14->_documentResourceInfos = v17;
 
       v21 = objc_msgSend_mutableCopy(tagsCopy, v19, v20);
+      v46 = 0u;
       v47 = 0u;
       v48 = 0u;
       v49 = 0u;
-      v50 = 0u;
       v22 = infosCopy;
-      v24 = objc_msgSend_countByEnumeratingWithState_objects_count_(v22, v23, &v47, v52, 16);
+      v24 = objc_msgSend_countByEnumeratingWithState_objects_count_(v22, v23, &v46, v51, 16);
       if (v24)
       {
         v27 = v24;
-        v28 = *v48;
+        v28 = *v47;
         do
         {
           v29 = 0;
           do
           {
-            if (*v48 != v28)
+            if (*v47 != v28)
             {
               objc_enumerationMutation(v22);
             }
 
-            v30 = objc_msgSend_digestString(*(*(&v47 + 1) + 8 * v29), v25, v26, v47);
+            v30 = objc_msgSend_digestString(*(*(&v46 + 1) + 8 * v29), v25, v26, v46);
             objc_msgSend_addObject_(v21, v31, v30);
 
             ++v29;
           }
 
           while (v27 != v29);
-          v27 = objc_msgSend_countByEnumeratingWithState_objects_count_(v22, v25, &v47, v52, 16);
+          v27 = objc_msgSend_countByEnumeratingWithState_objects_count_(v22, v25, &v46, v51, 16);
         }
 
         while (v27);
@@ -122,7 +122,6 @@
     selfCopy = 0;
   }
 
-  v45 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -215,30 +214,30 @@ LABEL_6:
 
 - (void)conditionallyBeginAccessingResourcesWithCompletionQueue:(id)queue completionHandler:(id)handler
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   queueCopy = queue;
   handlerCopy = handler;
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v8 = self->_documentResourceInfos;
-  v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v9, &v23, v27, 16);
+  v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v9, &v22, v26, 16);
   if (v10)
   {
     v12 = v10;
-    v13 = *v24;
+    v13 = *v23;
     while (2)
     {
       v14 = 0;
       do
       {
-        if (*v24 != v13)
+        if (*v23 != v13)
         {
           objc_enumerationMutation(v8);
         }
 
-        v15 = objc_msgSend_fileURLForResourceInfo_(self->_documentResourceCache, v11, *(*(&v23 + 1) + 8 * v14));
+        v15 = objc_msgSend_fileURLForResourceInfo_(self->_documentResourceCache, v11, *(*(&v22 + 1) + 8 * v14));
         v17 = objc_msgSend_checkResourceIsReachableAndReturnError_(v15, v16, 0);
 
         if (!v17)
@@ -251,7 +250,7 @@ LABEL_6:
       }
 
       while (v12 != v14);
-      v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v11, &v23, v27, 16);
+      v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v11, &v22, v26, 16);
       if (v12)
       {
         continue;
@@ -268,13 +267,13 @@ LABEL_11:
   {
     if (queueCopy)
     {
-      v20[0] = MEMORY[0x277D85DD0];
-      v20[1] = 3221225472;
-      v20[2] = sub_276A86890;
-      v20[3] = &unk_27A6E5C68;
-      v21 = handlerCopy;
-      v22 = v18;
-      dispatch_async(queueCopy, v20);
+      v19[0] = MEMORY[0x277D85DD0];
+      v19[1] = 3221225472;
+      v19[2] = sub_276A86890;
+      v19[3] = &unk_27A6E5C68;
+      v20 = handlerCopy;
+      v21 = v18;
+      dispatch_async(queueCopy, v19);
     }
 
     else
@@ -282,8 +281,6 @@ LABEL_11:
       (*(handlerCopy + 2))(handlerCopy, v18);
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performResourceAccessUsingQueue:(id)queue block:(id)block

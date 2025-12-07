@@ -14,8 +14,10 @@
 - (unint64_t)breaksThroughSilentModeOptions;
 - (void)encodeWithCoder:(id)coder;
 - (void)freeze;
+- (void)setAllowsSnooze:(BOOL)snooze;
 - (void)setBreaksThroughSilentMode:(BOOL)mode;
 - (void)setBreaksThroughSilentModeOptions:(unint64_t)options;
+- (void)setEnabled:(BOOL)enabled;
 - (void)setSnoozeDuration:(double)duration;
 - (void)setSoundVolume:(id)volume;
 - (void)setToneIdentifier:(id)identifier;
@@ -23,6 +25,27 @@
 @end
 
 @implementation HKSPMutableAlarmConfiguration
+
+- (void)setEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  allProperties = [objc_opt_class() allProperties];
+  v6 = HKSPPropertiesByIdentifier(allProperties);
+  v14 = [v6 objectForKeyedSubscript:@"HKSPAlarmEnabled"];
+
+  v7 = [(HKSPObject *)self->_originalObject hksp_valueForProperty:v14];
+  bOOLValue = [v7 BOOLValue];
+
+  if (bOOLValue != enabledCopy || [(HKSPChangeSet *)self->_changeSet hasChangeForPropertyIdentifier:@"HKSPAlarmEnabled"])
+  {
+    changeSet = self->_changeSet;
+    v10 = [HKSPChange alloc];
+    v11 = [MEMORY[0x277CCABB0] numberWithBool:enabledCopy];
+    v12 = [MEMORY[0x277CCABB0] numberWithBool:bOOLValue];
+    v13 = [(HKSPChange *)v10 initWithProperty:v14 changedValue:v11 originalValue:v12];
+    [(HKSPChangeSet *)changeSet addChange:v13];
+  }
+}
 
 - (BOOL)isEnabled
 {
@@ -43,6 +66,27 @@
   bOOLValue = [v6 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setAllowsSnooze:(BOOL)snooze
+{
+  snoozeCopy = snooze;
+  allProperties = [objc_opt_class() allProperties];
+  v6 = HKSPPropertiesByIdentifier(allProperties);
+  v14 = [v6 objectForKeyedSubscript:@"HKSPAlarmAllowsSnooze"];
+
+  v7 = [(HKSPObject *)self->_originalObject hksp_valueForProperty:v14];
+  bOOLValue = [v7 BOOLValue];
+
+  if (bOOLValue != snoozeCopy || [(HKSPChangeSet *)self->_changeSet hasChangeForPropertyIdentifier:@"HKSPAlarmAllowsSnooze"])
+  {
+    changeSet = self->_changeSet;
+    v10 = [HKSPChange alloc];
+    v11 = [MEMORY[0x277CCABB0] numberWithBool:snoozeCopy];
+    v12 = [MEMORY[0x277CCABB0] numberWithBool:bOOLValue];
+    v13 = [(HKSPChange *)v10 initWithProperty:v14 changedValue:v11 originalValue:v12];
+    [(HKSPChangeSet *)changeSet addChange:v13];
+  }
 }
 
 - (BOOL)allowsSnooze
@@ -160,18 +204,11 @@
   v7 = [(HKSPObject *)self->_originalObject hksp_valueForProperty:v6];
   if (!NAEqualObjects() || [(HKSPChangeSet *)self->_changeSet hasChangeForPropertyIdentifier:@"HKSPAlarmToneIdentifier"])
   {
-    isRelationshipProperty = [v6 isRelationshipProperty];
-    v9 = off_279C73598;
-    if (!isRelationshipProperty)
-    {
-      v9 = off_279C734F8;
-    }
-
-    v10 = *v9;
-    v11 = objc_opt_class();
+    [v6 isRelationshipProperty];
+    v8 = objc_opt_class();
     changeSet = self->_changeSet;
-    v13 = [[v11 alloc] initWithProperty:v6 changedValue:identifierCopy originalValue:v7];
-    [(HKSPChangeSet *)changeSet addChange:v13];
+    v10 = [[v8 alloc] initWithProperty:v6 changedValue:identifierCopy originalValue:v7];
+    [(HKSPChangeSet *)changeSet addChange:v10];
   }
 }
 
@@ -205,18 +242,11 @@
   v7 = [(HKSPObject *)self->_originalObject hksp_valueForProperty:v6];
   if (!NAEqualObjects() || [(HKSPChangeSet *)self->_changeSet hasChangeForPropertyIdentifier:@"HKSPAlarmVibrationIdentifier"])
   {
-    isRelationshipProperty = [v6 isRelationshipProperty];
-    v9 = off_279C73598;
-    if (!isRelationshipProperty)
-    {
-      v9 = off_279C734F8;
-    }
-
-    v10 = *v9;
-    v11 = objc_opt_class();
+    [v6 isRelationshipProperty];
+    v8 = objc_opt_class();
     changeSet = self->_changeSet;
-    v13 = [[v11 alloc] initWithProperty:v6 changedValue:identifierCopy originalValue:v7];
-    [(HKSPChangeSet *)changeSet addChange:v13];
+    v10 = [[v8 alloc] initWithProperty:v6 changedValue:identifierCopy originalValue:v7];
+    [(HKSPChangeSet *)changeSet addChange:v10];
   }
 }
 
@@ -250,18 +280,11 @@
   v7 = [(HKSPObject *)self->_originalObject hksp_valueForProperty:v6];
   if (!NAEqualObjects() || [(HKSPChangeSet *)self->_changeSet hasChangeForPropertyIdentifier:@"HKSPAlarmSoundVolume"])
   {
-    isRelationshipProperty = [v6 isRelationshipProperty];
-    v9 = off_279C73598;
-    if (!isRelationshipProperty)
-    {
-      v9 = off_279C734F8;
-    }
-
-    v10 = *v9;
-    v11 = objc_opt_class();
+    [v6 isRelationshipProperty];
+    v8 = objc_opt_class();
     changeSet = self->_changeSet;
-    v13 = [[v11 alloc] initWithProperty:v6 changedValue:volumeCopy originalValue:v7];
-    [(HKSPChangeSet *)changeSet addChange:v13];
+    v10 = [[v8 alloc] initWithProperty:v6 changedValue:volumeCopy originalValue:v7];
+    [(HKSPChangeSet *)changeSet addChange:v10];
   }
 }
 

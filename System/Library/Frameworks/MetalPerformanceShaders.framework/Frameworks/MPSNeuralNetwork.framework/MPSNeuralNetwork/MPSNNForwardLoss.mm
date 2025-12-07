@@ -19,7 +19,7 @@
 {
   if (MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNLoss.mm", 0x7DC, @"Cannot directly initialize MPSCNNLoss. Use initWithDevice:lossDescriptor: instead.\n", v3, v4, v5, v6);
   }
 
   return 0;
@@ -27,9 +27,9 @@
 
 - (MPSNNForwardLoss)initWithDevice:(id)device lossDescriptor:(MPSCNNLossDescriptor *)lossDescriptor
 {
-  v126.receiver = self;
-  v126.super_class = MPSNNForwardLoss;
-  v13 = [(MPSCNNKernel *)&v126 initWithDevice:?];
+  v132.receiver = self;
+  v132.super_class = MPSNNForwardLoss;
+  v13 = [(MPSCNNKernel *)&v132 initWithDevice:?];
   if (!v13)
   {
     return v13;
@@ -41,8 +41,10 @@
     if (MTLReportFailureTypeEnabled())
     {
       objc_msgSend_lossType(lossDescriptor, v112, v113, v114, v115, v116, v117, v118);
+      v123 = @"invalid loss type (%lu)";
+      v124 = 2024;
 LABEL_10:
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNLoss.mm", v124, v123, v119, v120, v121, v122);
     }
   }
 
@@ -79,7 +81,9 @@ LABEL_10:
 
     if (MTLReportFailureTypeEnabled())
     {
-      objc_msgSend_reductionType(lossDescriptor, v119, v120, v121, v122, v123, v124, v125);
+      objc_msgSend_reductionType(lossDescriptor, v125, v126, v127, v128, v129, v130, v131);
+      v123 = @"invalid reduction type (%lu)";
+      v124 = 2027;
       goto LABEL_10;
     }
   }
@@ -89,8 +93,8 @@ LABEL_10:
 
 - (MPSNNForwardLoss)initWithCoder:(NSCoder *)aDecoder device:(id)device
 {
-  v92.receiver = self;
-  v92.super_class = MPSNNForwardLoss;
+  v99.receiver = self;
+  v99.super_class = MPSNNForwardLoss;
   v6 = [MPSCNNKernel initWithCoder:sel_initWithCoder_device_ device:?];
   v13 = v6;
   if (!v6)
@@ -109,8 +113,11 @@ LABEL_10:
 
     v90 = objc_opt_class();
     NSStringFromClass(v90);
+    v95 = @"[%@ initWithCoder:device:] Failed: unsupported file version.";
+    v96 = 1;
+    v97 = 2073;
 LABEL_9:
-    MTLReportFailure();
+    MTLReportFailure(v96, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNLoss.mm", v97, v95, v91, v92, v93, v94);
     goto LABEL_10;
   }
 
@@ -123,6 +130,9 @@ LABEL_9:
       goto LABEL_10;
     }
 
+    v95 = @"invalid loss type (%lu)";
+    v96 = 0;
+    v97 = 2080;
     goto LABEL_9;
   }
 
@@ -135,6 +145,9 @@ LABEL_9:
       goto LABEL_10;
     }
 
+    v95 = @"invalid reduction type (%lu)";
+    v96 = 0;
+    v97 = 2083;
     goto LABEL_9;
   }
 
@@ -503,13 +516,13 @@ LABEL_24:
 
 - (MPSImageBatch)encodeBatchToCommandBuffer:(id)commandBuffer sourceImages:(MPSImageBatch *)sourceImages labels:(MPSImageBatch *)labels weights:(MPSImageBatch *)weights destinationStates:(MPSStateBatch *)outStates destinationStateIsTemporary:(BOOL)isTemporary
 {
-  v180 = isTemporary;
+  v188 = isTemporary;
   v8 = outStates;
   v9 = weights;
-  v194[1] = *MEMORY[0x277D85DE8];
+  v202[1] = *MEMORY[0x277D85DE8];
   v14 = objc_msgSend_count(sourceImages, a2, commandBuffer, sourceImages, labels, weights, outStates, isTemporary);
-  v194[0] = objc_msgSend_objectAtIndexedSubscript_(sourceImages, v15, 0, v16, v17, v18, v19, v20);
-  v26 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v21, v194, 1, v22, v23, v24, v25);
+  v202[0] = objc_msgSend_objectAtIndexedSubscript_(sourceImages, v15, 0, v16, v17, v18, v19, v20);
+  v26 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v21, v202, 1, v22, v23, v24, v25);
   v32 = objc_msgSend_destinationImageDescriptorForSourceImages_sourceStates_(self, v27, v26, 0, v28, v29, v30, v31);
   v33 = v32;
   v34 = *MEMORY[0x277CD7378];
@@ -527,53 +540,53 @@ LABEL_24:
     {
       v35 = objc_opt_class();
       NSStringFromClass(v35);
-      MTLReportFailure();
+      MTLReportFailure(1, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNLoss.mm", 0x91C, @"[%@ encodeToCommandBuffer:sourceImage:] Unable to create MPSImageDescriptor for destination.  Encode failed.\n", v36, v37, v38, v39);
     }
 
     return 0;
   }
 
   destinationImageAllocator = self->super._destinationImageAllocator;
-  v182 = v14;
+  v190 = v14;
   if ((objc_opt_respondsToSelector() & 1) == 0)
   {
-    v48 = objc_msgSend_arrayWithCapacity_(MEMORY[0x277CBEB18], v37, v14, v38, v39, v40, v41, v42);
-    if (v48)
+    v52 = objc_msgSend_arrayWithCapacity_(MEMORY[0x277CBEB18], v41, v14, v42, v43, v44, v45, v46);
+    if (v52)
     {
-      v49 = v14;
-      v47 = v48;
-      if (v49)
+      v53 = v14;
+      v51 = v52;
+      if (v53)
       {
-        v177 = v8;
+        v185 = v8;
         batch = v9;
-        v50 = v48;
-        v51 = 0;
-        v52 = v182;
+        v54 = v52;
+        v55 = 0;
+        v56 = v190;
         do
         {
-          v53 = objc_msgSend_imageForCommandBuffer_imageDescriptor_kernel_(destinationImageAllocator, v43, commandBuffer, v33, self, v44, v45, v46, v174);
-          objc_msgSend_setObject_atIndexedSubscript_(v50, v54, v53, v51, v55, v56, v57, v58);
+          v57 = objc_msgSend_imageForCommandBuffer_imageDescriptor_kernel_(destinationImageAllocator, v47, commandBuffer, v33, self, v48, v49, v50, v182);
+          objc_msgSend_setObject_atIndexedSubscript_(v54, v58, v57, v55, v59, v60, v61, v62);
           if ((*(&self->super.super.super.isa + v34) & 1) == 0)
           {
-            objc_msgSend_objectAtIndexedSubscript_(v50, v43, v51, v59, v60, v44, v45, v46);
-            v52 = v182;
-            if (!objc_msgSend_objectAtIndexedSubscript_(v50, v61, v51, v62, v63, v64, v65, v66))
+            objc_msgSend_objectAtIndexedSubscript_(v54, v47, v55, v63, v64, v48, v49, v50);
+            v56 = v190;
+            if (!objc_msgSend_objectAtIndexedSubscript_(v54, v65, v55, v66, v67, v68, v69, v70))
             {
               if (MTLReportFailureTypeEnabled())
               {
-                v67 = objc_opt_class();
-                v174 = NSStringFromClass(v67);
-                MTLReportFailure();
+                v71 = objc_opt_class();
+                v182 = NSStringFromClass(v71);
+                MTLReportFailure(1, "/Library/Caches/com.apple.xbs/Binaries/MetalPerformanceShaders/install/Symbols/BuiltProducts/MPSCore.framework/PrivateHeaders/Internal/MPSImageInternal.h", 0x203, @"[%@ encodeToCommandBuffer:primaryImage:secondaryImage:] Unable to create MPSImage for destination.  Encode failed.\n", v72, v73, v74, v75);
               }
             }
           }
 
-          ++v51;
+          ++v55;
         }
 
-        while (v52 != v51);
-        v47 = v50;
-        v8 = v177;
+        while (v56 != v55);
+        v51 = v54;
+        v8 = v185;
         v9 = batch;
       }
 
@@ -583,16 +596,16 @@ LABEL_24:
     return 0;
   }
 
-  v47 = objc_msgSend_imageBatchForCommandBuffer_imageDescriptor_kernel_count_(destinationImageAllocator, v37, commandBuffer, v33, self, v14, v41, v42);
-  if (!v47)
+  v51 = objc_msgSend_imageBatchForCommandBuffer_imageDescriptor_kernel_count_(destinationImageAllocator, v41, commandBuffer, v33, self, v14, v45, v46);
+  if (!v51)
   {
     return 0;
   }
 
 LABEL_18:
-  if (!v180)
+  if (!v188)
   {
-    v74 = objc_msgSend_resultStateBatchForSourceImage_sourceStates_destinationImage_(self, v43, sourceImages, 0, v47, v44, v45, v46);
+    v82 = objc_msgSend_resultStateBatchForSourceImage_sourceStates_destinationImage_(self, v47, sourceImages, 0, v51, v48, v49, v50);
     if (!v8)
     {
       goto LABEL_25;
@@ -601,131 +614,131 @@ LABEL_18:
     goto LABEL_24;
   }
 
-  v74 = objc_msgSend_temporaryResultStateBatchForCommandBuffer_sourceImage_sourceStates_destinationImage_(self, v43, commandBuffer, sourceImages, 0, v47, v45, v46);
+  v82 = objc_msgSend_temporaryResultStateBatchForCommandBuffer_sourceImage_sourceStates_destinationImage_(self, v47, commandBuffer, sourceImages, 0, v51, v49, v50);
   if (v8)
   {
 LABEL_24:
-    *v8 = v74;
+    *v8 = v82;
   }
 
 LABEL_25:
-  v176 = v47;
+  v184 = v51;
   selfCopy = self;
   batcha = sourceImages;
-  v181 = labels;
+  v189 = labels;
   if (!self->_reductionType)
   {
-    v81 = objc_msgSend_objectAtIndexedSubscript_(labels, v68, 0, v69, v70, v71, v72, v73);
-    v79 = objc_msgSend_width(v81, v82, v83, v84, v85, v86, v87, v88);
-    v95 = objc_msgSend_objectAtIndexedSubscript_(labels, v89, 0, v90, v91, v92, v93, v94);
-    v78 = objc_msgSend_height(v95, v96, v97, v98, v99, v100, v101, v102);
-    v109 = objc_msgSend_objectAtIndexedSubscript_(labels, v103, 0, v104, v105, v106, v107, v108);
-    v77 = objc_msgSend_featureChannels(v109, v110, v111, v112, v113, v114, v115, v116);
-    v80 = v9;
-    if (!v182)
+    v89 = objc_msgSend_objectAtIndexedSubscript_(labels, v76, 0, v77, v78, v79, v80, v81);
+    v87 = objc_msgSend_width(v89, v90, v91, v92, v93, v94, v95, v96);
+    v103 = objc_msgSend_objectAtIndexedSubscript_(labels, v97, 0, v98, v99, v100, v101, v102);
+    v86 = objc_msgSend_height(v103, v104, v105, v106, v107, v108, v109, v110);
+    v117 = objc_msgSend_objectAtIndexedSubscript_(labels, v111, 0, v112, v113, v114, v115, v116);
+    v85 = objc_msgSend_featureChannels(v117, v118, v119, v120, v121, v122, v123, v124);
+    v88 = v9;
+    if (!v190)
     {
       goto LABEL_31;
     }
 
 LABEL_29:
-    v117 = v78;
-    for (i = 0; i != v182; ++i)
+    v125 = v86;
+    for (i = 0; i != v190; ++i)
     {
-      v119 = [MPSCNNLossLabels alloc];
-      v127 = objc_msgSend_device(commandBuffer, v120, v121, v122, v123, v124, v125, v126);
-      v191[0] = v79;
-      v191[1] = v117;
-      v191[2] = v77;
-      v134 = objc_msgSend_objectAtIndexedSubscript_(v181, v128, i, v129, v130, v131, v132, v133);
-      v141 = objc_msgSend_objectAtIndexedSubscript_(v80, v135, i, v136, v137, v138, v139, v140);
-      v145 = objc_msgSend_initWithDevice_lossImageSize_labelsImage_weightsImage_(v119, v142, v127, v191, v134, v141, v143, v144);
-      v152 = objc_msgSend_objectAtIndexedSubscript_(v74, v146, i, v147, v148, v149, v150, v151);
-      *(v152 + 312) = v145;
+      v127 = [MPSCNNLossLabels alloc];
+      v135 = objc_msgSend_device(commandBuffer, v128, v129, v130, v131, v132, v133, v134);
+      v199[0] = v87;
+      v199[1] = v125;
+      v199[2] = v85;
+      v142 = objc_msgSend_objectAtIndexedSubscript_(v189, v136, i, v137, v138, v139, v140, v141);
+      v149 = objc_msgSend_objectAtIndexedSubscript_(v88, v143, i, v144, v145, v146, v147, v148);
+      v153 = objc_msgSend_initWithDevice_lossImageSize_labelsImage_weightsImage_(v127, v150, v135, v199, v142, v149, v151, v152);
+      v160 = objc_msgSend_objectAtIndexedSubscript_(v82, v154, i, v155, v156, v157, v158, v159);
+      *(v160 + 312) = v153;
     }
 
     goto LABEL_31;
   }
 
-  v77 = 1;
-  v78 = 1;
-  v79 = 1;
-  v80 = v9;
-  if (v182)
+  v85 = 1;
+  v86 = 1;
+  v87 = 1;
+  v88 = v9;
+  if (v190)
   {
     goto LABEL_29;
   }
 
 LABEL_31:
-  v153 = selfCopy;
-  if (selfCopy->_reduceAcrossBatch && v80 && selfCopy->_reductionType == 3)
+  v161 = selfCopy;
+  if (selfCopy->_reduceAcrossBatch && v88 && selfCopy->_reductionType == 3)
   {
-    v189 = 0u;
-    v190 = 0u;
-    v187 = 0u;
-    v188 = 0u;
-    v154 = objc_msgSend_countByEnumeratingWithState_objects_count_(v74, v68, &v187, v193, 16, v71, v72, v73);
-    if (v154)
+    v197 = 0u;
+    v198 = 0u;
+    v195 = 0u;
+    v196 = 0u;
+    v162 = objc_msgSend_countByEnumeratingWithState_objects_count_(v82, v76, &v195, v201, 16, v79, v80, v81);
+    if (v162)
     {
-      v159 = v154;
-      v160 = *v188;
+      v167 = v162;
+      v168 = *v196;
       do
       {
-        for (j = 0; j != v159; ++j)
+        for (j = 0; j != v167; ++j)
         {
-          if (*v188 != v160)
+          if (*v196 != v168)
           {
-            objc_enumerationMutation(v74);
+            objc_enumerationMutation(v82);
           }
 
-          *(*(*(*(&v187 + 1) + 8 * j) + 312) + 129) = 1;
+          *(*(*(*(&v195 + 1) + 8 * j) + 312) + 129) = 1;
         }
 
-        v159 = objc_msgSend_countByEnumeratingWithState_objects_count_(v74, v155, &v187, v193, 16, v156, v157, v158);
+        v167 = objc_msgSend_countByEnumeratingWithState_objects_count_(v82, v163, &v195, v201, 16, v164, v165, v166);
       }
 
-      while (v159);
+      while (v167);
     }
 
     MPSImageBatchIncrementReadCount(batcha, 1);
-    v153 = selfCopy;
-    objc_msgSend_encodeBatchToCommandBuffer_sourceImages_inStates_destinationImages_(selfCopy, v162, commandBuffer, batcha, v74, v176, v163, v164);
-    v185 = 0u;
-    v186 = 0u;
-    v183 = 0u;
-    v184 = 0u;
-    v169 = objc_msgSend_countByEnumeratingWithState_objects_count_(v74, v165, &v183, v192, 16, v166, v167, v168);
-    if (v169)
+    v161 = selfCopy;
+    objc_msgSend_encodeBatchToCommandBuffer_sourceImages_inStates_destinationImages_(selfCopy, v170, commandBuffer, batcha, v82, v184, v171, v172);
+    v193 = 0u;
+    v194 = 0u;
+    v191 = 0u;
+    v192 = 0u;
+    v177 = objc_msgSend_countByEnumeratingWithState_objects_count_(v82, v173, &v191, v200, 16, v174, v175, v176);
+    if (v177)
     {
-      v171 = v169;
-      v172 = *v184;
+      v179 = v177;
+      v180 = *v192;
       do
       {
-        for (k = 0; k != v171; ++k)
+        for (k = 0; k != v179; ++k)
         {
-          if (*v184 != v172)
+          if (*v192 != v180)
           {
-            objc_enumerationMutation(v74);
+            objc_enumerationMutation(v82);
           }
 
-          *(*(*(*(&v183 + 1) + 8 * k) + 312) + 129) = 0;
+          *(*(*(*(&v191 + 1) + 8 * k) + 312) + 129) = 0;
         }
 
-        v171 = objc_msgSend_countByEnumeratingWithState_objects_count_(v74, v68, &v183, v192, 16, v170, v72, v73);
+        v179 = objc_msgSend_countByEnumeratingWithState_objects_count_(v82, v76, &v191, v200, 16, v178, v80, v81);
       }
 
-      while (v171);
+      while (v179);
     }
   }
 
-  v75 = v176;
-  objc_msgSend_encodeBatchToCommandBuffer_sourceImages_inStates_destinationImages_(v153, v68, commandBuffer, batcha, v74, v176, v72, v73, v174);
-  if (v80)
+  v83 = v184;
+  objc_msgSend_encodeBatchToCommandBuffer_sourceImages_inStates_destinationImages_(v161, v76, commandBuffer, batcha, v82, v184, v80, v81, v182);
+  if (v88)
   {
     MPSDecrementReadCount();
   }
 
   MPSDecrementReadCount();
-  return v75;
+  return v83;
 }
 
 - (id)resultStateForSourceImage:(id)image sourceStates:(id)states destinationImage:(id)destinationImage

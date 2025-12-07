@@ -479,7 +479,6 @@ LABEL_20:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 0x80) == 0)
@@ -499,7 +498,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  phyCellId = self->_phyCellId;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -514,7 +512,6 @@ LABEL_4:
   }
 
 LABEL_25:
-  dlFreq = self->_dlFreq;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x4000) == 0)
@@ -529,7 +526,6 @@ LABEL_5:
   }
 
 LABEL_26:
-  ulFreq = self->_ulFreq;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -544,7 +540,6 @@ LABEL_6:
   }
 
 LABEL_27:
-  dlBw = self->_dlBw;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x2000) == 0)
@@ -559,7 +554,6 @@ LABEL_7:
   }
 
 LABEL_28:
-  ulBw = self->_ulBw;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -574,7 +568,6 @@ LABEL_8:
   }
 
 LABEL_29:
-  cellId = self->_cellId;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -589,7 +582,6 @@ LABEL_9:
   }
 
 LABEL_30:
-  numMncDigits = self->_numMncDigits;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x200) == 0)
@@ -604,7 +596,6 @@ LABEL_10:
   }
 
 LABEL_31:
-  selPlmnMcc = self->_selPlmnMcc;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x400) == 0)
@@ -619,7 +610,6 @@ LABEL_11:
   }
 
 LABEL_32:
-  selPlmnMnc = self->_selPlmnMnc;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -634,12 +624,10 @@ LABEL_12:
   }
 
 LABEL_33:
-  allowedAccess = self->_allowedAccess;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x40) != 0)
   {
 LABEL_13:
-    numSubs = self->_numSubs;
     PBDataWriterWriteUint32Field();
   }
 
@@ -649,16 +637,15 @@ LABEL_14:
     PBDataWriterWriteDataField();
   }
 
-  v6 = self->_has;
-  if ((v6 & 0x800) != 0)
+  v5 = self->_has;
+  if ((v5 & 0x800) != 0)
   {
-    subsId = self->_subsId;
     PBDataWriterWriteUint32Field();
-    v6 = self->_has;
-    if ((v6 & 0x1000) == 0)
+    v5 = self->_has;
+    if ((v5 & 0x1000) == 0)
     {
 LABEL_18:
-      if ((v6 & 0x100) == 0)
+      if ((v5 & 0x100) == 0)
       {
         goto LABEL_20;
       }
@@ -672,12 +659,10 @@ LABEL_18:
     goto LABEL_18;
   }
 
-  trackingAreaCode = self->_trackingAreaCode;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x100) != 0)
   {
 LABEL_19:
-    psPref = self->_psPref;
     PBDataWriterWriteUint32Field();
   }
 

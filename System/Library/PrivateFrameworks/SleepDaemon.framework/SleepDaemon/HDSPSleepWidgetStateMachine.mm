@@ -7,6 +7,7 @@
 - (id)allStates;
 - (unint64_t)sleepScheduleState;
 - (void)significantTimeChangeOccurred;
+- (void)sleepModeDidChange:(int64_t)change isUserRequested:(BOOL)requested;
 - (void)sleepScheduleModelDidChange:(id)change;
 - (void)sleepScheduleStateDidChange:(unint64_t)change;
 - (void)sleepWidgetStateDidChange:(int64_t)change previousState:(int64_t)state;
@@ -16,27 +17,27 @@
 
 - (HDSPSleepWidgetStateMachine)initWithIdentifier:(id)identifier persistence:(id)persistence delegate:(id)delegate infoProvider:(id)provider currentDateProvider:(id)dateProvider
 {
-  v43[8] = *MEMORY[0x277D85DE8];
+  v42[8] = *MEMORY[0x277D85DE8];
   v12 = MEMORY[0x277CBEB98];
   dateProviderCopy = dateProvider;
   providerCopy = provider;
   delegateCopy = delegate;
   persistenceCopy = persistence;
   identifierCopy = identifier;
-  v43[0] = objc_opt_class();
-  v43[1] = objc_opt_class();
-  v43[2] = objc_opt_class();
-  v43[3] = objc_opt_class();
-  v43[4] = objc_opt_class();
-  v43[5] = objc_opt_class();
-  v43[6] = objc_opt_class();
-  v43[7] = objc_opt_class();
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:8];
+  v42[0] = objc_opt_class();
+  v42[1] = objc_opt_class();
+  v42[2] = objc_opt_class();
+  v42[3] = objc_opt_class();
+  v42[4] = objc_opt_class();
+  v42[5] = objc_opt_class();
+  v42[6] = objc_opt_class();
+  v42[7] = objc_opt_class();
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:8];
   v19 = [v12 setWithArray:v18];
 
-  v42.receiver = self;
-  v42.super_class = HDSPSleepWidgetStateMachine;
-  v20 = [(HKSPPersistentStateMachine *)&v42 initWithIdentifier:identifierCopy allowedStates:v19 persistence:persistenceCopy delegate:delegateCopy infoProvider:providerCopy currentDateProvider:dateProviderCopy];
+  v41.receiver = self;
+  v41.super_class = HDSPSleepWidgetStateMachine;
+  v20 = [(HKSPPersistentStateMachine *)&v41 initWithIdentifier:identifierCopy allowedStates:v19 persistence:persistenceCopy delegate:delegateCopy infoProvider:providerCopy currentDateProvider:dateProviderCopy];
 
   if (v20)
   {
@@ -84,29 +85,34 @@
     v39 = v20;
   }
 
-  v40 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
 - (id)allStates
 {
-  v9[8] = *MEMORY[0x277D85DE8];
+  v8[8] = *MEMORY[0x277D85DE8];
   waitingState = self->_waitingState;
-  v9[0] = self->_disabledState;
-  v9[1] = waitingState;
+  v8[0] = self->_disabledState;
+  v8[1] = waitingState;
   windDownState = self->_windDownState;
-  v9[2] = self->_upcomingState;
-  v9[3] = windDownState;
+  v8[2] = self->_upcomingState;
+  v8[3] = windDownState;
   bedtimeInProgressState = self->_bedtimeInProgressState;
-  v9[4] = self->_bedtimeState;
-  v9[5] = bedtimeInProgressState;
+  v8[4] = self->_bedtimeState;
+  v8[5] = bedtimeInProgressState;
   notOnboardedState = self->_notOnboardedState;
-  v9[6] = self->_greetingState;
-  v9[7] = notOnboardedState;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:8];
-  v7 = *MEMORY[0x277D85DE8];
+  v8[6] = self->_greetingState;
+  v8[7] = notOnboardedState;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:8];
 
   return v6;
+}
+
+- (void)sleepModeDidChange:(int64_t)change isUserRequested:(BOOL)requested
+{
+  requestedCopy = requested;
+  currentState = [(HKSPStateMachine *)self currentState];
+  [currentState sleepModeDidChange:change isUserRequested:requestedCopy];
 }
 
 - (void)sleepScheduleStateDidChange:(unint64_t)change

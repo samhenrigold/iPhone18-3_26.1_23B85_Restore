@@ -3,7 +3,7 @@
 
 @implementation AXSHomeButtonRestingUnlock
 
-uint64_t ___AXSHomeButtonRestingUnlock_block_invoke()
+void *___AXSHomeButtonRestingUnlock_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

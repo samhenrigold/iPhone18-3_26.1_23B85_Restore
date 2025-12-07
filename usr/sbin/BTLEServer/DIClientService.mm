@@ -9,6 +9,7 @@
 - (void)peripheral:(id)peripheral didDiscoverCharacteristicsForService:(id)service error:(id)error;
 - (void)peripheral:(id)peripheral didUpdateValueForCharacteristic:(id)characteristic error:(id)error;
 - (void)removeReadCompleteListener:(id)listener;
+- (void)setNotify:(BOOL)notify forCharacteristic:(id)characteristic;
 - (void)start;
 @end
 
@@ -86,7 +87,7 @@
   {
     if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_DEBUG))
     {
-      sub_100076AAC(listenerCopy, self);
+      sub_100076AAC();
       if (!listenerCopy)
       {
         goto LABEL_8;
@@ -111,7 +112,7 @@
 
       if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_DEBUG))
       {
-        sub_100076B20(listenerCopy, &self->_readCompleteListeners);
+        sub_100076B20();
       }
     }
   }
@@ -126,7 +127,7 @@ LABEL_8:
   {
     if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_DEBUG))
     {
-      sub_100076B8C(listenerCopy, self);
+      sub_100076B8C();
       if (!listenerCopy)
       {
         goto LABEL_8;
@@ -151,7 +152,7 @@ LABEL_8:
 
       if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_DEBUG))
       {
-        sub_100076C00(listenerCopy, &self->_readCompleteListeners);
+        sub_100076C00();
       }
     }
   }
@@ -758,6 +759,28 @@ LABEL_33:
   peripheral4 = [(ClientService *)self peripheral];
   name2 = [peripheral4 name];
   NSLog(@"Error updating DeviceInformation for %@‘s %@ - %@", name2, v5, 0);
+}
+
+- (void)setNotify:(BOOL)notify forCharacteristic:(id)characteristic
+{
+  notifyCopy = notify;
+  characteristicCopy = characteristic;
+  v7 = characteristicCopy;
+  if (characteristicCopy)
+  {
+    v9 = characteristicCopy;
+    characteristicCopy = [characteristicCopy properties];
+    v7 = v9;
+    if ((characteristicCopy & 0x10) != 0)
+    {
+      peripheral = [(ClientService *)self peripheral];
+      [peripheral setNotifyValue:notifyCopy forCharacteristic:v9];
+
+      v7 = v9;
+    }
+  }
+
+  _objc_release_x1(characteristicCopy, v7);
 }
 
 - (id)vendorIDSourceString

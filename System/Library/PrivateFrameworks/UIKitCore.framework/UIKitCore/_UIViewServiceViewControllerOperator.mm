@@ -836,10 +836,10 @@ LABEL_9:
     goto LABEL_8;
   }
 
-  v8 = [(_UISheetPresentationControllerClientConfiguration *)v6 isEqual:v7];
+  isEqual = objc_msgSend_isEqual_(v6, v7, v7);
 
   v9 = v11;
-  if (!v8)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     objc_storeStrong(&self->_sheetClientConfiguration, change);
@@ -1217,9 +1217,9 @@ LABEL_10:
   }
 
   v10 = v9;
-  v11 = [displayIdentity isEqual:v10];
+  isEqual = objc_msgSend_isEqual_(displayIdentity);
 
-  if ((v11 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
     if (os_variant_has_internal_diagnostics())
     {

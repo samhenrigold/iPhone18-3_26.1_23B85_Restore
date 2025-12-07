@@ -211,32 +211,23 @@ LABEL_5:
 
 + (void)clientCanPerformActionWithUrl:(void *)a1 .cold.1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 scheme];
   OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_1_5(&dword_21AB70000, MEMORY[0x277D86220], v2, "The custom action delegate answered that it could not handle url %p (%@)", v3, v4, v5, v6, v8);
-
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_5(&dword_21AB70000, MEMORY[0x277D86220], v2, "The custom action delegate answered that it could not handle url %p (%@)", v3, v4, v5, v6);
 }
 
 - (void)localizedName
 {
-  v9 = *MEMORY[0x277D85DE8];
   scheme = [*self scheme];
   OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_1_5(&dword_21AB70000, MEMORY[0x277D86220], v2, "The custom action delegate did not return a title for url %p (%@)", v3, v4, v5, v6, v8);
-
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_5(&dword_21AB70000, MEMORY[0x277D86220], v2, "The custom action delegate did not return a title for url %p (%@)", v3, v4, v5, v6);
 }
 
 - (void)performFromView:(id *)a1 .cold.1(id *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [*a1 scheme];
   OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_1_5(&dword_21AB70000, MEMORY[0x277D86220], v2, "The custom action delegate did not handle url %p (%@)", v3, v4, v5, v6, v8);
-
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_5(&dword_21AB70000, MEMORY[0x277D86220], v2, "The custom action delegate did not handle url %p (%@)", v3, v4, v5, v6);
 }
 
 @end

@@ -181,11 +181,11 @@
   }
 
   v9 = *MEMORY[0x277CBECE8];
-  sampleBuffer = self->_sampleBuffer;
-  if (FigRemote_CreateSerializedAtomDataBlockBufferForSampleBuffer())
+  SerializedAtomDataBlockBufferForSampleBuffer = FigRemote_CreateSerializedAtomDataBlockBufferForSampleBuffer();
+  if (SerializedAtomDataBlockBufferForSampleBuffer)
   {
-    v11 = CMIOLog();
-    if (v11 && os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = CMIOLog(SerializedAtomDataBlockBufferForSampleBuffer, v11);
+    if (v12 && os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [CMIOExtensionSample copyXPCDictionary];
     }
@@ -194,20 +194,21 @@
   }
 
   IsRangeContiguous = CMBlockBufferIsRangeContiguous(theBuffer, 0, 0);
-  v13 = theBuffer;
+  v14 = theBuffer;
   if (IsRangeContiguous)
   {
 LABEL_18:
-    if (CMBlockBufferGetDataPointer(v13, 0, 0, &totalLengthOut, &dataPointerOut))
+    DataPointer = CMBlockBufferGetDataPointer(v14, 0, 0, &totalLengthOut, &dataPointerOut);
+    if (DataPointer)
     {
-      [CMIOExtensionSample copyXPCDictionary];
+      [(CMIOExtensionSample *)DataPointer copyXPCDictionary];
     }
 
     else
     {
-      v14 = xpc_data_create(dataPointerOut, totalLengthOut);
-      xpc_dictionary_set_value(v3, "buffer", v14);
-      xpc_release(v14);
+      v18 = xpc_data_create(dataPointerOut, totalLengthOut);
+      xpc_dictionary_set_value(v3, "buffer", v18);
+      xpc_release(v18);
       if (v5)
       {
         IOSurface = CVPixelBufferGetIOSurface(v5);
@@ -220,8 +221,8 @@ LABEL_18:
 
         else
         {
-          v17 = CMIOLog();
-          if (v17 && os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+          v22 = CMIOLog(0, v20);
+          if (v22 && os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
           {
             [CMIOExtensionSample copyXPCDictionary];
           }
@@ -232,20 +233,21 @@ LABEL_18:
     goto LABEL_25;
   }
 
-  v19 = 0;
-  if (!CMBlockBufferCreateContiguous(v9, theBuffer, v9, 0, 0, 0, 0, &v19))
+  v24 = 0;
+  v15 = CMBlockBufferCreateContiguous(v9, theBuffer, v9, 0, 0, 0, 0, &v24);
+  if (!v15)
   {
     if (theBuffer)
     {
       CFRelease(theBuffer);
     }
 
-    v13 = v19;
-    theBuffer = v19;
+    v14 = v24;
+    theBuffer = v24;
     goto LABEL_18;
   }
 
-  [CMIOExtensionSample copyXPCDictionary];
+  [(CMIOExtensionSample *)&v24 copyXPCDictionary];
 LABEL_25:
   if (theBuffer)
   {
@@ -259,15 +261,15 @@ LABEL_25:
 {
   if (dictionary)
   {
-    v36 = 0;
+    v51 = 0;
     blockBufferOut = 0;
     formatDescriptionOut = 0;
     pixelBufferOut = 0;
     value = xpc_dictionary_get_value(dictionary, "buffer");
     if (!value)
     {
-      v12 = CMIOLog();
-      if (v12 && os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v16 = CMIOLog(0, v6);
+      if (v16 && os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         [CMIOExtensionSample initWithXPCDictionary:];
       }
@@ -275,12 +277,12 @@ LABEL_25:
       goto LABEL_19;
     }
 
-    v6 = value;
+    v7 = value;
     bytes_ptr = xpc_data_get_bytes_ptr(value);
     if (!bytes_ptr)
     {
-      v13 = CMIOLog();
-      if (v13 && os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v17 = CMIOLog(0, v9);
+      if (v17 && os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         [CMIOExtensionSample initWithXPCDictionary:];
       }
@@ -288,17 +290,18 @@ LABEL_25:
       goto LABEL_19;
     }
 
-    v8 = bytes_ptr;
-    length = xpc_data_get_length(v6);
+    v10 = bytes_ptr;
+    length = xpc_data_get_length(v7);
     HIDWORD(customBlockSource.AllocateBlock) = 0;
     *&customBlockSource.version = 0;
     customBlockSource.FreeBlock = cmio_bbufUtilXPCObjectReleaser;
-    customBlockSource.refCon = v6;
-    v10 = *MEMORY[0x277CBECE8];
-    if (CMBlockBufferCreateWithMemoryBlock(*MEMORY[0x277CBECE8], v8, length, 0, &customBlockSource, 0, length, 0, &blockBufferOut))
+    customBlockSource.refCon = v7;
+    v12 = *MEMORY[0x277CBECE8];
+    v13 = CMBlockBufferCreateWithMemoryBlock(*MEMORY[0x277CBECE8], v10, length, 0, &customBlockSource, 0, length, 0, &blockBufferOut);
+    if (v13)
     {
-      v11 = CMIOLog();
-      if (v11 && os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v15 = CMIOLog(v13, v14);
+      if (v15 && os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         [CMIOExtensionSample initWithXPCDictionary:];
       }
@@ -306,31 +309,31 @@ LABEL_25:
 
     else
     {
-      xpc_retain(v6);
+      xpc_retain(v7);
       SampleBufferFromSerializedAtomDataBlockBuffer = FigRemote_CreateSampleBufferFromSerializedAtomDataBlockBuffer();
       CFRelease(blockBufferOut);
       blockBufferOut = 0;
       if (!SampleBufferFromSerializedAtomDataBlockBuffer)
       {
-        v18 = CMGetAttachment(v36, @"MetadataDictionary", 0);
-        v19 = v18;
-        if (v18)
+        v24 = CMGetAttachment(v51, @"MetadataDictionary", 0);
+        v25 = v24;
+        if (v24)
         {
-          v20 = CFGetTypeID(v18);
-          if (v20 != CFDictionaryGetTypeID())
+          v26 = CFGetTypeID(v24);
+          if (v26 != CFDictionaryGetTypeID())
           {
-            v19 = 0;
+            v25 = 0;
           }
         }
 
-        v21 = xpc_dictionary_get_value(dictionary, "iosurface");
-        if (v21)
+        v27 = xpc_dictionary_get_value(dictionary, "iosurface");
+        if (v27)
         {
-          v22 = IOSurfaceLookupFromXPCObject(v21);
-          if (!v22)
+          v28 = IOSurfaceLookupFromXPCObject(v27);
+          if (!v28)
           {
-            v27 = CMIOLog();
-            if (v27 && os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+            v36 = CMIOLog(0, v29);
+            if (v36 && os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
             {
               [CMIOExtensionSample initWithXPCDictionary:];
             }
@@ -338,13 +341,13 @@ LABEL_25:
             goto LABEL_19;
           }
 
-          v23 = v22;
-          v24 = CVPixelBufferCreateWithIOSurface(v10, v22, 0, &pixelBufferOut);
-          CFRelease(v23);
-          if (v24)
+          v30 = v28;
+          v31 = CVPixelBufferCreateWithIOSurface(v12, v28, 0, &pixelBufferOut);
+          CFRelease(v30);
+          if (v31)
           {
-            v25 = CMIOLog();
-            if (v25 && os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+            v34 = CMIOLog(v32, v33);
+            if (v34 && os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
             {
               [CMIOExtensionSample initWithXPCDictionary:];
             }
@@ -352,15 +355,16 @@ LABEL_25:
             goto LABEL_19;
           }
 
-          if (v19 && !CVBufferHasAttachment(pixelBufferOut, @"MetadataDictionary"))
+          if (v25 && !CVBufferHasAttachment(pixelBufferOut, @"MetadataDictionary"))
           {
-            CVBufferSetAttachment(pixelBufferOut, @"MetadataDictionary", v19, kCVAttachmentMode_ShouldPropagate);
+            CVBufferSetAttachment(pixelBufferOut, @"MetadataDictionary", v25, kCVAttachmentMode_ShouldPropagate);
           }
 
-          if (CMVideoFormatDescriptionCreateForImageBuffer(v10, pixelBufferOut, &formatDescriptionOut))
+          v37 = CMVideoFormatDescriptionCreateForImageBuffer(v12, pixelBufferOut, &formatDescriptionOut);
+          if (v37)
           {
-            v28 = CMIOLog();
-            if (v28 && os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+            v39 = CMIOLog(v37, v38);
+            if (v39 && os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
             {
               [CMIOExtensionSample initWithXPCDictionary:];
             }
@@ -369,10 +373,11 @@ LABEL_25:
           }
 
           memset(&timingArrayOut, 0, sizeof(timingArrayOut));
-          if (CMSampleBufferGetSampleTimingInfoArray(v36, 1, &timingArrayOut, 0))
+          SampleTimingInfoArray = CMSampleBufferGetSampleTimingInfoArray(v51, 1, &timingArrayOut, 0);
+          if (SampleTimingInfoArray)
           {
-            v29 = CMIOLog();
-            if (v29 && os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+            v42 = CMIOLog(SampleTimingInfoArray, v41);
+            if (v42 && os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
             {
               [CMIOExtensionSample initWithXPCDictionary:];
             }
@@ -381,10 +386,11 @@ LABEL_25:
           }
 
           sampleBufferOut = 0;
-          if (CMSampleBufferCreateForImageBuffer(v10, pixelBufferOut, 1u, 0, 0, formatDescriptionOut, &timingArrayOut, &sampleBufferOut))
+          v43 = CMSampleBufferCreateForImageBuffer(v12, pixelBufferOut, 1u, 0, 0, formatDescriptionOut, &timingArrayOut, &sampleBufferOut);
+          if (v43)
           {
-            v30 = CMIOLog();
-            if (v30 && os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+            v45 = CMIOLog(v43, v44);
+            if (v45 && os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
             {
               [CMIOExtensionSample initWithXPCDictionary:];
             }
@@ -396,24 +402,24 @@ LABEL_25:
           pixelBufferOut = 0;
           CFRelease(formatDescriptionOut);
           formatDescriptionOut = 0;
-          CMPropagateAttachments(v36, sampleBufferOut);
-          CFRelease(v36);
-          v26 = sampleBufferOut;
-          v36 = sampleBufferOut;
+          CMPropagateAttachments(v51, sampleBufferOut);
+          CFRelease(v51);
+          v35 = sampleBufferOut;
+          v51 = sampleBufferOut;
         }
 
         else
         {
-          v26 = v36;
+          v35 = v51;
         }
 
-        v16 = [(CMIOExtensionSample *)self initWithCMSampleBuffer:v26];
-        CFRelease(v36);
-        return v16;
+        v22 = [(CMIOExtensionSample *)self initWithCMSampleBuffer:v35];
+        CFRelease(v51);
+        return v22;
       }
 
-      v15 = CMIOLog();
-      if (v15 && os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v21 = CMIOLog(v19, v20);
+      if (v21 && os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         [CMIOExtensionSample initWithXPCDictionary:];
       }
@@ -430,9 +436,9 @@ LABEL_19:
       CFRelease(pixelBufferOut);
     }
 
-    if (v36)
+    if (v51)
     {
-      CFRelease(v36);
+      CFRelease(v51);
     }
 
     if (formatDescriptionOut)
@@ -449,124 +455,104 @@ LABEL_19:
 
 - (void)copyXPCDictionary
 {
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProperties.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithXPCDictionary:.cold.1()
 {
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProperties.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithXPCDictionary:.cold.2()
 {
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProperties.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithXPCDictionary:.cold.3()
 {
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProperties.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithXPCDictionary:.cold.4()
 {
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProperties.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithXPCDictionary:.cold.5()
 {
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProperties.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithXPCDictionary:.cold.6()
 {
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProperties.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithXPCDictionary:.cold.7()
 {
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProperties.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithXPCDictionary:.cold.8()
 {
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProperties.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithXPCDictionary:.cold.9()
 {
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProperties.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

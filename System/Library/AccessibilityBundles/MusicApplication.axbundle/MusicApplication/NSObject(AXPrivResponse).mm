@@ -103,7 +103,7 @@
 
   if (v6)
   {
-    [v6 duration];
+    objc_msgSend_duration(v6, 0, 0, 0);
   }
 
   if (v4 == 2)
@@ -123,8 +123,8 @@
 
 + (void)accessibilityAttributesForAccountButtonInAccessoryView:()AXPrivResponse
 {
-  v16 = a3;
-  v3 = [v16 _accessibilityDescendantOfType:MEMORY[0x29C2E2DD0](@"MusicApplication.NotificationBadgeView")];
+  v14 = a3;
+  v3 = [v14 _accessibilityDescendantOfType:MEMORY[0x29C2E2DD0](@"MusicApplication.NotificationBadgeView")];
   v4 = v3;
   if (v3)
   {
@@ -135,28 +135,26 @@
       v7 = MEMORY[0x29EDBA0F8];
       v8 = accessibilityMusicLocalizedString(@"FOLLOW_REQUEST");
       v9 = [v7 stringWithFormat:v8, v6];
-      [v16 setAccessibilityValue:v9];
+      [v14 setAccessibilityValue:v9];
     }
   }
 
-  v10 = [v16 _accessibilityDescendantOfType:objc_opt_class()];
+  v10 = [v14 _accessibilityDescendantOfType:objc_opt_class()];
   if (v10)
   {
-    accessibilityTraits = [v16 accessibilityTraits];
+    accessibilityTraits = [v14 accessibilityTraits];
     v12 = *MEMORY[0x29EDC7F70] | accessibilityTraits;
-    v13 = [v10 safeBoolForKey:@"isEnabled"];
-    v14 = *MEMORY[0x29EDC7FA8] | v12;
-    if (v13)
+    if ([v10 safeBoolForKey:@"isEnabled"])
     {
-      v15 = v12 & ~*MEMORY[0x29EDC7FA8];
+      v13 = v12 & ~*MEMORY[0x29EDC7FA8];
     }
 
     else
     {
-      v15 = *MEMORY[0x29EDC7FA8] | v12;
+      v13 = *MEMORY[0x29EDC7FA8] | v12;
     }
 
-    [v16 setAccessibilityTraits:v15];
+    [v14 setAccessibilityTraits:v13];
   }
 }
 

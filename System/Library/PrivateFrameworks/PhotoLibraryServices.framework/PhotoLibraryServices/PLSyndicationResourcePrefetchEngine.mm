@@ -72,7 +72,7 @@
   v45[1] = v45;
   v45[2] = 0x2020000000;
   v45[3] = 0;
-  v23 = [v19 count];
+  v23 = objc_msgSend_count(v19);
   delegate2 = [(PLSyndicationResourcePrefetchEngine *)self delegate];
   v40[0] = MEMORY[0x1E69E9820];
   v40[1] = 3221225472;
@@ -1165,7 +1165,7 @@ void __92__PLSyndicationResourcePrefetchEngine_dateOfNextResourceToPrefetchWithM
     goto LABEL_7;
   }
 
-  if ([v9 count])
+  if (objc_msgSend_count(v9))
   {
     v11 = [v9 firstObject];
     v12 = [v11 objectForKeyedSubscript:@"cloudLastPrefetchDate"];

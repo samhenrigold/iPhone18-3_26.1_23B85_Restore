@@ -373,7 +373,7 @@ void __58__MOEventBundleStore_storeEventBundles_CompletionHandler___block_invoke
     v49 = v104;
     if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
     {
-      __58__MOEventBundleStore_storeEventBundles_CompletionHandler___block_invoke_cold_1(v43);
+      __58__MOEventBundleStore_storeEventBundles_CompletionHandler___block_invoke_cold_1();
     }
   }
 
@@ -927,35 +927,32 @@ LABEL_3:
           }
 
           v56 = *(*(&v274 + 1) + 8 * j);
-          if (!v53)
+          if (v53)
           {
-            goto LABEL_36;
+            startDate2 = [v53 startDate];
+            if (startDate2)
+            {
+              v58 = startDate2;
+              [v56 startDate];
+              v60 = v59 = v52;
+              [v53 startDate];
+              v62 = v61 = v53;
+              v63 = [v60 isAfterDate:v62];
+
+              v53 = v61;
+              v52 = v59;
+              v54 = v234;
+
+              if (!v63)
+              {
+                continue;
+              }
+            }
           }
 
-          startDate2 = [v53 startDate];
-          if (!startDate2)
-          {
-            goto LABEL_36;
-          }
+          v64 = v56;
 
-          v58 = startDate2;
-          [v56 startDate];
-          v60 = v59 = v52;
-          [v53 startDate];
-          v62 = v61 = v53;
-          v63 = [v60 isAfterDate:v62];
-
-          v53 = v61;
-          v52 = v59;
-          v54 = v234;
-
-          if (v63)
-          {
-LABEL_36:
-            v64 = v56;
-
-            v53 = v64;
-          }
+          v53 = v64;
         }
 
         v52 = [obj countByEnumeratingWithState:&v274 objects:v301 count:16];
@@ -1347,25 +1344,8 @@ LABEL_62:
                     [v130 setCityName:name];
 
                     [v243 addPlacesObject:v130];
-                    if (!v235)
+                    if (!v235 || ([v235 startDate], (v133 = objc_claimAutoreleasedReturnValue()) == 0) || (v134 = v133, objc_msgSend(v127, "startDate"), v135 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v235, "startDate"), v136 = objc_claimAutoreleasedReturnValue(), v137 = objc_msgSend(v135, "isAfterDate:", v136), v136, v135, v134, v137))
                     {
-                      goto LABEL_123;
-                    }
-
-                    startDate3 = [v235 startDate];
-                    if (!startDate3)
-                    {
-                      goto LABEL_123;
-                    }
-
-                    v134 = startDate3;
-                    startDate4 = [v127 startDate];
-                    startDate5 = [v235 startDate];
-                    v137 = [startDate4 isAfterDate:startDate5];
-
-                    if (v137)
-                    {
-LABEL_123:
                       v138 = v127;
 
                       v235 = v138;
@@ -1421,29 +1401,11 @@ LABEL_123:
               [v147 setCityName:name2];
 
               [v243 addPlacesObject:v147];
-              if (!v235)
+              if (!v235 || ([v235 startDate], (v150 = objc_claimAutoreleasedReturnValue()) == 0) || (v151 = v150, objc_msgSend(v232, "place"), v152 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v152, "startDate"), v153 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v235, "startDate"), v154 = objc_claimAutoreleasedReturnValue(), v155 = objc_msgSend(v153, "isAfterDate:", v154), v154, v153, v152, v151, v155))
               {
-                goto LABEL_137;
-              }
+                place8 = [v232 place];
 
-              startDate6 = [v235 startDate];
-              if (!startDate6)
-              {
-                goto LABEL_137;
-              }
-
-              v151 = startDate6;
-              place8 = [v232 place];
-              startDate7 = [place8 startDate];
-              startDate8 = [v235 startDate];
-              v155 = [startDate7 isAfterDate:startDate8];
-
-              if (v155)
-              {
-LABEL_137:
-                place9 = [v232 place];
-
-                v235 = place9;
+                v235 = place8;
               }
 
               v157 = _mo_log_facility_get_os_log(&MOLogFacilityEventBundleStore);
@@ -1665,18 +1627,18 @@ LABEL_190:
     {
       [v53 latitude];
       v200 = v199;
-      place10 = [v243 place];
-      [place10 setLatitude:v200];
+      place9 = [v243 place];
+      [place9 setLatitude:v200];
 
       [v53 longitude];
       v203 = v202;
-      place11 = [v243 place];
-      [place11 setLongitude:v203];
+      place10 = [v243 place];
+      [place10 setLongitude:v203];
 
       [v53 range];
       v206 = v205;
-      place12 = [v243 place];
-      [place12 setRange:v206];
+      place11 = [v243 place];
+      [place11 setRange:v206];
     }
 
     events2 = [v243 events];
@@ -2618,7 +2580,7 @@ void __68__MOEventBundleStore_purgeExpiredEventBundlesWithCompletionHandler___bl
 
     else if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
     {
-      __68__MOEventBundleStore_purgeExpiredEventBundlesWithCompletionHandler___block_invoke_cold_1(v17);
+      __68__MOEventBundleStore_purgeExpiredEventBundlesWithCompletionHandler___block_invoke_cold_1();
     }
   }
 
@@ -2775,7 +2737,7 @@ void __83__MOEventBundleStore_purgeEventBundlesWithNoEventsAssociatedWithComplet
 
     else if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      __83__MOEventBundleStore_purgeEventBundlesWithNoEventsAssociatedWithCompletionHandler___block_invoke_cold_1(v6);
+      __83__MOEventBundleStore_purgeEventBundlesWithNoEventsAssociatedWithCompletionHandler___block_invoke_cold_1();
     }
 
     [v3 reset];
@@ -2960,7 +2922,7 @@ void __72__MOEventBundleStore_purgeInvalidEvergreenBundlesWithCompletionHandler_
 
     else if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
-      __72__MOEventBundleStore_purgeInvalidEvergreenBundlesWithCompletionHandler___block_invoke_cold_1(v33);
+      __72__MOEventBundleStore_purgeInvalidEvergreenBundlesWithCompletionHandler___block_invoke_cold_1();
     }
 
     v4 = v34;
@@ -3151,7 +3113,7 @@ void __78__MOEventBundleStore_purgeEventBundlesWithRehydrationFailureCount_andHa
       v4 = v31;
       if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
-        __78__MOEventBundleStore_purgeEventBundlesWithRehydrationFailureCount_andHandler___block_invoke_cold_1(v29);
+        __78__MOEventBundleStore_purgeEventBundlesWithRehydrationFailureCount_andHandler___block_invoke_cold_1();
       }
     }
   }
@@ -3373,7 +3335,7 @@ void __59__MOEventBundleStore_purgeDanglingEventBundlesWithHandler___block_invok
       v4 = v39;
       if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
       {
-        __59__MOEventBundleStore_purgeDanglingEventBundlesWithHandler___block_invoke_cold_1(v37);
+        __59__MOEventBundleStore_purgeDanglingEventBundlesWithHandler___block_invoke_cold_1();
       }
     }
   }
@@ -4198,33 +4160,32 @@ void __59__MOEventBundleStore_getRankingParamsandCompletionHandler___block_invok
   v4 = +[MORankingParamsMO fetchRequest];
   [v4 setFetchLimit:1];
   [v4 setReturnsObjectsAsFaults:0];
-  v5 = a1 + 32;
-  v6 = *(*(a1 + 32) + 8);
-  obj = *(v6 + 40);
-  v7 = [v3 executeFetchRequest:v4 error:&obj];
-  objc_storeStrong((v6 + 40), obj);
+  v5 = *(*(a1 + 32) + 8);
+  obj = *(v5 + 40);
+  v6 = [v3 executeFetchRequest:v4 error:&obj];
+  objc_storeStrong((v5 + 40), obj);
   if (*(*(*(a1 + 32) + 8) + 40))
   {
-    v8 = _mo_log_facility_get_os_log(&MOLogFacilityEventBundleStore);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v7 = _mo_log_facility_get_os_log(&MOLogFacilityEventBundleStore);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __59__MOEventBundleStore_getRankingParamsandCompletionHandler___block_invoke_cold_1(v5);
+      __59__MOEventBundleStore_getRankingParamsandCompletionHandler___block_invoke_cold_1();
     }
   }
 
   else
   {
-    v9 = objc_alloc_init(NSMutableArray);
-    v10 = *(*(a1 + 40) + 8);
-    v11 = *(v10 + 40);
-    *(v10 + 40) = v9;
+    v8 = objc_alloc_init(NSMutableArray);
+    v9 = *(*(a1 + 40) + 8);
+    v10 = *(v9 + 40);
+    *(v9 + 40) = v8;
 
-    v12[0] = _NSConcreteStackBlock;
-    v12[1] = 3221225472;
-    v12[2] = __59__MOEventBundleStore_getRankingParamsandCompletionHandler___block_invoke_2;
-    v12[3] = &unk_10033EE90;
-    v12[4] = *(a1 + 40);
-    [v7 enumerateObjectsUsingBlock:v12];
+    v11[0] = _NSConcreteStackBlock;
+    v11[1] = 3221225472;
+    v11[2] = __59__MOEventBundleStore_getRankingParamsandCompletionHandler___block_invoke_2;
+    v11[3] = &unk_10033EE90;
+    v11[4] = *(a1 + 40);
+    [v6 enumerateObjectsUsingBlock:v11];
   }
 
   [v3 reset];
@@ -4865,11 +4826,11 @@ void __59__MOEventBundleStore_updateEventBundles_CompletionHandler___block_invok
   return WeakRetained;
 }
 
-void __58__MOEventBundleStore_storeEventBundles_CompletionHandler___block_invoke_cold_1(uint64_t a1)
+void __58__MOEventBundleStore_storeEventBundles_CompletionHandler___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_0_1(a1, __stack_chk_guard);
+  OUTLINED_FUNCTION_0_1(__stack_chk_guard);
   OUTLINED_FUNCTION_2_5();
-  OUTLINED_FUNCTION_0(&_mh_execute_header, v1, v2, "error, %@", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_0(&_mh_execute_header, v0, v1, "error, %@", v2, v3, v4, v5);
 }
 
 void __58__MOEventBundleStore_storeEventBundles_CompletionHandler___block_invoke_cold_2(uint8_t *buf, uint64_t a2, void *a3, os_log_t log)
@@ -4882,8 +4843,12 @@ void __58__MOEventBundleStore_storeEventBundles_CompletionHandler___block_invoke
 
 + (void)_recordResource:(uint64_t)a1 alreadySeenKeys:(void *)a2 .cold.1(uint64_t a1, void *a2)
 {
-  v8 = [a2 identifier];
-  OUTLINED_FUNCTION_5_3(&_mh_execute_header, v2, v3, "Unable to retrieve dedupe key due to error, %@. Falling back to identifier, %@", v4, v5, v6, v7, 2u);
+  v3 = [a2 identifier];
+  *v10 = 138412546;
+  *&v10[4] = a1;
+  *&v10[12] = 2112;
+  *&v10[14] = v3;
+  OUTLINED_FUNCTION_5_3(&_mh_execute_header, v4, v5, "Unable to retrieve dedupe key due to error, %@. Falling back to identifier, %@", v6, v7, v8, v9, *v10, *&v10[8], *&v10[16]);
 }
 
 - (void)_updateLongTermBundles:(uint64_t)a1 context:(uint64_t)a2 .cold.1(uint64_t a1, uint64_t a2)
@@ -4935,7 +4900,7 @@ void __80__MOEventBundleStore_removeEventBundlesStartedWithinInterval_Completion
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_8_1();
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_3(&_mh_execute_header, v2, v3, "%@, event bundles delete operation error, %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_5_3(&_mh_execute_header, v2, v3, "%@, event bundles delete operation error, %@", v4, v5, v6, v7);
 }
 
 void __68__MOEventBundleStore_purgeDeletedEventBundlesWithCompletionHandler___block_invoke_cold_1(uint64_t a1)
@@ -4944,28 +4909,28 @@ void __68__MOEventBundleStore_purgeDeletedEventBundlesWithCompletionHandler___bl
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_8_1();
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_3(&_mh_execute_header, v2, v3, "%@, event bundles delete operation error, %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_5_3(&_mh_execute_header, v2, v3, "%@, event bundles delete operation error, %@", v4, v5, v6, v7);
 }
 
-void __68__MOEventBundleStore_purgeExpiredEventBundlesWithCompletionHandler___block_invoke_cold_1(uint64_t a1)
+void __68__MOEventBundleStore_purgeExpiredEventBundlesWithCompletionHandler___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_0_1(a1, __stack_chk_guard);
+  OUTLINED_FUNCTION_0_1(__stack_chk_guard);
   OUTLINED_FUNCTION_2_5();
-  OUTLINED_FUNCTION_0(&_mh_execute_header, v1, v2, "saving event bundles purge operation error, %@", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_0(&_mh_execute_header, v0, v1, "saving event bundles purge operation error, %@", v2, v3, v4, v5);
 }
 
-void __83__MOEventBundleStore_purgeEventBundlesWithNoEventsAssociatedWithCompletionHandler___block_invoke_cold_1(uint64_t a1)
+void __83__MOEventBundleStore_purgeEventBundlesWithNoEventsAssociatedWithCompletionHandler___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_0_1(a1, __stack_chk_guard);
+  OUTLINED_FUNCTION_0_1(__stack_chk_guard);
   OUTLINED_FUNCTION_2_5();
-  OUTLINED_FUNCTION_0(&_mh_execute_header, v1, v2, "saving non-evergreen event bundles purge operation error, %@", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_0(&_mh_execute_header, v0, v1, "saving non-evergreen event bundles purge operation error, %@", v2, v3, v4, v5);
 }
 
-void __72__MOEventBundleStore_purgeInvalidEvergreenBundlesWithCompletionHandler___block_invoke_cold_1(uint64_t a1)
+void __72__MOEventBundleStore_purgeInvalidEvergreenBundlesWithCompletionHandler___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_0_1(a1, __stack_chk_guard);
+  OUTLINED_FUNCTION_0_1(__stack_chk_guard);
   OUTLINED_FUNCTION_2_5();
-  OUTLINED_FUNCTION_0(&_mh_execute_header, v1, v2, "saving evergreen event bundles purge operation error, %@", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_0(&_mh_execute_header, v0, v1, "saving evergreen event bundles purge operation error, %@", v2, v3, v4, v5);
 }
 
 - (void)purgeEventBundlesWithRehydrationFailureCount:(int)a1 andHandler:(NSObject *)a2 .cold.1(int a1, NSObject *a2)
@@ -4975,25 +4940,32 @@ void __72__MOEventBundleStore_purgeInvalidEvergreenBundlesWithCompletionHandler_
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "requested invalid maxRehydrationFailCount value %d", v2, 8u);
 }
 
-void __78__MOEventBundleStore_purgeEventBundlesWithRehydrationFailureCount_andHandler___block_invoke_cold_1(uint64_t a1)
+void __78__MOEventBundleStore_purgeEventBundlesWithRehydrationFailureCount_andHandler___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_0_1(a1, __stack_chk_guard);
+  OUTLINED_FUNCTION_0_1(__stack_chk_guard);
   OUTLINED_FUNCTION_2_5();
-  OUTLINED_FUNCTION_0(&_mh_execute_header, v1, v2, "saving event bundles purge due to rehydration failure error, %@", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_0(&_mh_execute_header, v0, v1, "saving event bundles purge due to rehydration failure error, %@", v2, v3, v4, v5);
 }
 
-void __59__MOEventBundleStore_purgeDanglingEventBundlesWithHandler___block_invoke_cold_1(uint64_t a1)
+void __59__MOEventBundleStore_purgeDanglingEventBundlesWithHandler___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_0_1(a1, __stack_chk_guard);
+  OUTLINED_FUNCTION_0_1(__stack_chk_guard);
   OUTLINED_FUNCTION_2_5();
-  OUTLINED_FUNCTION_0(&_mh_execute_header, v1, v2, "saving dangling event bundles purge error, %@", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_0(&_mh_execute_header, v0, v1, "saving dangling event bundles purge error, %@", v2, v3, v4, v5);
 }
 
-void __59__MOEventBundleStore_getRankingParamsandCompletionHandler___block_invoke_cold_1(uint64_t a1)
+void __59__MOEventBundleStore_getRankingParamsandCompletionHandler___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_0_1(a1, __stack_chk_guard);
+  OUTLINED_FUNCTION_0_1(__stack_chk_guard);
   OUTLINED_FUNCTION_2_5();
-  OUTLINED_FUNCTION_0(&_mh_execute_header, v1, v2, "Reading ranking params error, %@", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_0(&_mh_execute_header, v0, v1, "Reading ranking params error, %@", v2, v3, v4, v5);
+}
+
+- (void)_submitRankingParamsAnalytics:(uint64_t)a3 withSubmissionDate:(uint64_t)a4 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"com.apple.Moments.MORankingParams";
+  OUTLINED_FUNCTION_0(&_mh_execute_header, a1, a3, "CA payload (%@) is nil. Skip submission", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __59__MOEventBundleStore_updateEventBundles_CompletionHandler___block_invoke_2_cold_1(void *a1, NSObject *a2)

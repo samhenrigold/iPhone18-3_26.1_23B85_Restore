@@ -86,7 +86,7 @@ void __91__HDCloudSyncTapToRadar_showTapToRadarRequestWithTitle_message_proceed_
 
 void __91__HDCloudSyncTapToRadar_showTapToRadarRequestWithTitle_message_proceed_disable_completion___block_invoke_3(void *a1, void *a2, uint64_t a3, void *a4)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a4;
   showTapToRadarRequestWithTitle_message_proceed_disable_completion__isPresenting = 0;
@@ -98,9 +98,9 @@ void __91__HDCloudSyncTapToRadar_showTapToRadarRequestWithTitle_message_proceed_
       if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
       {
         v15 = a1[7];
-        v17 = 138543362;
-        v18 = v15;
-        _os_log_impl(&dword_228986000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@: cloud sync alert, 'Do not ask again' button pressed", &v17, 0xCu);
+        v16 = 138543362;
+        v17 = v15;
+        _os_log_impl(&dword_228986000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@: cloud sync alert, 'Do not ask again' button pressed", &v16, 0xCu);
       }
 
       v11 = a1[5];
@@ -111,9 +111,9 @@ void __91__HDCloudSyncTapToRadar_showTapToRadarRequestWithTitle_message_proceed_
       if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
       {
         v13 = a1[7];
-        v17 = 138543362;
-        v18 = v13;
-        _os_log_impl(&dword_228986000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@: cloud sync alert, 'Not Now' button pressed", &v17, 0xCu);
+        v16 = 138543362;
+        v17 = v13;
+        _os_log_impl(&dword_228986000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@: cloud sync alert, 'Not Now' button pressed", &v16, 0xCu);
       }
 
       break;
@@ -123,9 +123,9 @@ void __91__HDCloudSyncTapToRadar_showTapToRadarRequestWithTitle_message_proceed_
       if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
       {
         v10 = a1[7];
-        v17 = 138543362;
-        v18 = v10;
-        _os_log_impl(&dword_228986000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@: cloud sync alert, 'Tap-to-Radar' button pressed", &v17, 0xCu);
+        v16 = 138543362;
+        v17 = v10;
+        _os_log_impl(&dword_228986000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@: cloud sync alert, 'Tap-to-Radar' button pressed", &v16, 0xCu);
       }
 
       v11 = a1[4];
@@ -135,8 +135,6 @@ LABEL_12:
   }
 
   (*(a1[6] + 16))();
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 + (void)openTapToRadarWithTitle:(id)title description:(id)description completion:(id)completion
@@ -164,7 +162,7 @@ LABEL_12:
 
 void __72__HDCloudSyncTapToRadar_openTapToRadarWithTitle_description_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (!v5)
@@ -173,9 +171,9 @@ void __72__HDCloudSyncTapToRadar_openTapToRadarWithTitle_description_completion_
     v7 = *MEMORY[0x277CCC2B0];
     if (os_log_type_enabled(*MEMORY[0x277CCC2B0], OS_LOG_TYPE_ERROR))
     {
-      v10 = 138543362;
-      v11 = v6;
-      _os_log_error_impl(&dword_228986000, v7, OS_LOG_TYPE_ERROR, "Could not open Tap-to-Radar URL %{public}@", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v6;
+      _os_log_error_impl(&dword_228986000, v7, OS_LOG_TYPE_ERROR, "Could not open Tap-to-Radar URL %{public}@", &v9, 0xCu);
     }
   }
 
@@ -184,8 +182,6 @@ void __72__HDCloudSyncTapToRadar_openTapToRadarWithTitle_description_completion_
   {
     (*(v8 + 16))();
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -60,7 +60,7 @@
   {
     v6 = *(v4 + 1);
     selfCopy = self;
-    v8 = sub_1E1300E34(v5);
+    v8 = sub_1E1300E34(v5, v6);
     v5(v8);
 
     sub_1E1361B18(v5, v6);

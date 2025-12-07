@@ -1,6 +1,7 @@
 @interface CMMotionManager
 + ($27EAB7405FCF4138B96BF1D57C6DB1C9)gyroCalibrationDatabaseGetBiasFit;
 + ($27EAB7405FCF4138B96BF1D57C6DB1C9)gyroCalibrationDatabaseGetBiasFitAndEstimate:(SEL)estimate atTemperature:(id *)temperature;
++ (BOOL)configureM7Activity:(BOOL)activity stepCounting:(BOOL)counting activityForceCodeTransition:(BOOL)transition stepCountingForceCodeTransition:(BOOL)codeTransition threshold:(BOOL)threshold onBodyDetection:(BOOL)detection ispMode:(unsigned __int8)mode predictionInterval:(float)self0 logLevel:(char)self1 proactiveRevisitTime:(unsigned __int16)self2;
 + (BOOL)northAlignedReferenceFrame:(unint64_t)frame;
 + (BOOL)supportsGyroMiniCalibration;
 + (CMAttitudeReferenceFrame)availableAttitudeReferenceFrames;
@@ -13,8 +14,10 @@
 - (BOOL)isMagnetometerAvailable;
 - (BOOL)isSidebandSensorFusionAvailable;
 - (BOOL)readRawAmbientPressureSamplesFromDB:(id)b toQueue:(id)queue where:(id)where withHandler:(id)handler;
+- (BOOL)sendDeviceMotionError:(int)error;
 - (BOOL)sendDeviceMotionHostGravityToKeyboard:(id *)keyboard;
 - (BOOL)setMotionThreadPriority:(int)priority;
+- (BOOL)setSidebandSensorFusionEnable:(BOOL)enable measureLatency:(BOOL)latency withSnoopHandler:(id)handler;
 - (BOOL)shouldResetStartingReference;
 - (CMAccelerometerData)accelerometerData;
 - (CMAmbientPressureData)ambientPressureData;
@@ -72,6 +75,7 @@
 - (void)setPowerConservationMode:(int)mode;
 - (void)setShouldResetStartingReference:(BOOL)reference;
 - (void)setShowsDeviceMovementDisplay:(BOOL)showsDeviceMovementDisplay;
+- (void)setShowsDeviceMovementDisplayPrivate:(BOOL)private;
 - (void)setSidebandTimeSyncHandler:(id)handler;
 - (void)showDeviceMovementDisplay;
 - (void)startAccelerometerUpdates;
@@ -249,7 +253,7 @@
 
 - (void)dismissDeviceMovementDisplay
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   internal = self->_internal;
   if (internal[312] == 1)
   {
@@ -274,85 +278,97 @@
         dispatch_once(&qword_1ED71C800, &unk_1F0E3A778);
       }
 
-      v5 = _os_log_send_and_compose_impl();
+      v7[0] = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C808, 0, "CM: Dismissing Compass Calibration HUD", v7, 2);
+      v6 = v5;
       sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMotionManager dismissDeviceMovementDisplay]", "CoreLocation: %s\n", v5);
-      if (v5 != buf)
+      if (v6 != buf)
       {
-        free(v5);
+        free(v6);
       }
     }
 
     sub_19B6F3C6C();
     internal[312] = 0;
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (CMDeviceMotion)deviceMotion
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   internal = self->_internal;
-  if (objc_msgSend_isDeviceMotionActive(self, a2, v2) && internal[74] && (v5 = sub_19B424AE0(), sub_19B71FE3C(v5, internal[74], &v24, v6), objc_msgSend_applyNorthReference_(self, v7, &v24), objc_msgSend_applyInitialReference_(self, v8, &v24), objc_msgSend_deviceMotionInitialized_(CMMotionManager, v9, &v24)))
+  if (!objc_msgSend_isDeviceMotionActive(self, a2, v2))
   {
-    v10 = [CMDeviceMotion alloc];
-    v40 = v27;
-    v41 = v28;
-    v42 = v29;
-    v43 = v30;
-    *buf = v25;
-    *&buf[16] = v26;
-    LODWORD(v11) = v33;
-    LODWORD(v12) = v34;
-    v14 = objc_msgSend_initWithDeviceMotion_internal_timestamp_(v10, v13, buf, COERCE_DOUBLE(__PAIR64__(DWORD1(v25), v31)), COERCE_DOUBLE(__PAIR64__(DWORD1(v26), v32)), v11, v12, v24);
+    return 0;
+  }
+
+  if (!internal[74])
+  {
+    return 0;
+  }
+
+  v5 = sub_19B424AE0();
+  *&v7 = sub_19B71FE3C(v5, internal[74], &v26, v6);
+  objc_msgSend_applyNorthReference_(self, v8, &v26, v7);
+  objc_msgSend_applyInitialReference_(self, v9, &v26);
+  if (!objc_msgSend_deviceMotionInitialized_(CMMotionManager, v10, &v26))
+  {
+    return 0;
+  }
+
+  v11 = [CMDeviceMotion alloc];
+  v42 = v29;
+  v43 = v30;
+  v44 = v31;
+  v45 = v32;
+  *buf = v27;
+  *&buf[16] = v28;
+  LODWORD(v12) = v35;
+  LODWORD(v13) = v36;
+  v15 = objc_msgSend_initWithDeviceMotion_internal_timestamp_(v11, v14, buf, COERCE_DOUBLE(__PAIR64__(DWORD1(v27), v33)), COERCE_DOUBLE(__PAIR64__(DWORD1(v28), v34)), v12, v13, v26);
+  if (qword_1ED71C800 != -1)
+  {
+    dispatch_once(&qword_1ED71C800, &unk_1F0E3A778);
+  }
+
+  v16 = off_1ED71C808;
+  if (os_log_type_enabled(off_1ED71C808, OS_LOG_TYPE_DEBUG))
+  {
+    v17 = mach_absolute_time();
+    v18 = sub_19B41E070(v17);
+    *buf = 138412546;
+    *&buf[4] = v15;
+    *&buf[12] = 2048;
+    *&buf[14] = v18;
+    _os_log_impl(&dword_19B41C000, v16, OS_LOG_TYPE_DEBUG, "CMDeviceMotion: %@,now,%f", buf, 0x16u);
+  }
+
+  v19 = sub_19B420058();
+  if (*(v19 + 160) > 1 || *(v19 + 164) > 1 || *(v19 + 168) > 1 || *(v19 + 152))
+  {
+    bzero(buf, 0x65CuLL);
     if (qword_1ED71C800 != -1)
     {
       dispatch_once(&qword_1ED71C800, &unk_1F0E3A778);
     }
 
-    v15 = off_1ED71C808;
-    if (os_log_type_enabled(off_1ED71C808, OS_LOG_TYPE_DEBUG))
+    v20 = off_1ED71C808;
+    v21 = mach_absolute_time();
+    v22 = sub_19B41E070(v21);
+    v37 = 138412546;
+    v38 = v15;
+    v39 = 2048;
+    v40 = v22;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v20, 2, "CMDeviceMotion: %@,now,%f", &v37, 22);
+    v24 = v23;
+    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMotionManager deviceMotion]", "CoreLocation: %s\n", v23);
+    if (v24 != buf)
     {
-      v16 = mach_absolute_time();
-      v17 = sub_19B41E070(v16);
-      *buf = 138412546;
-      *&buf[4] = v14;
-      *&buf[12] = 2048;
-      *&buf[14] = v17;
-      _os_log_impl(&dword_19B41C000, v15, OS_LOG_TYPE_DEBUG, "CMDeviceMotion: %@,now,%f", buf, 0x16u);
-    }
-
-    v18 = sub_19B420058();
-    if (*(v18 + 160) > 1 || *(v18 + 164) > 1 || *(v18 + 168) > 1 || *(v18 + 152))
-    {
-      bzero(buf, 0x65CuLL);
-      if (qword_1ED71C800 != -1)
-      {
-        dispatch_once(&qword_1ED71C800, &unk_1F0E3A778);
-      }
-
-      v19 = mach_absolute_time();
-      v20 = sub_19B41E070(v19);
-      v35 = 138412546;
-      v36 = v14;
-      v37 = 2048;
-      v38 = v20;
-      v21 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMotionManager deviceMotion]", "CoreLocation: %s\n", v21);
-      if (v21 != buf)
-      {
-        free(v21);
-      }
+      free(v24);
     }
   }
 
-  else
-  {
-    v14 = 0;
-  }
-
-  v22 = *MEMORY[0x1E69E9840];
-  return v14;
+  return v15;
 }
 
 - (void)updateDeviceMotionMode
@@ -808,11 +824,12 @@
 
       LODWORD(v33) = 138412290;
       *(&v33 + 4) = b;
-      v18 = _os_log_send_and_compose_impl();
+      _os_log_send_and_compose_impl(2, 0, __p, 1628, &dword_19B41C000, qword_1EAFE2860, 17, "%@ is invalid", &v33, 12);
+      v19 = v18;
       sub_19B6BB7CC("Generic", 1, 0, 0, "[CMMotionManager readRawAmbientPressureSamplesFromDB:toQueue:where:withHandler:]", "CoreLocation: %s\n", v18);
-      if (v18 != __p)
+      if (v19 != __p)
       {
-        free(v18);
+        free(v19);
       }
     }
 
@@ -835,7 +852,7 @@
     if ((v15 & 1) == 0)
     {
 LABEL_21:
-      v23 = 0;
+      v24 = 0;
       goto LABEL_22;
     }
   }
@@ -845,21 +862,20 @@ LABEL_21:
     goto LABEL_21;
   }
 
-  v19 = objc_alloc(MEMORY[0x1E696ABC0]);
-  v21 = objc_msgSend_initWithDomain_code_userInfo_(v19, v20, @"CMErrorDomain", 109, 0);
+  v20 = objc_alloc(MEMORY[0x1E696ABC0]);
+  v22 = objc_msgSend_initWithDomain_code_userInfo_(v20, v21, @"CMErrorDomain", 109, 0);
   v26[0] = MEMORY[0x1E69E9820];
   v26[1] = 3221225472;
   v26[2] = sub_19B62BC40;
   v26[3] = &unk_1E7532B90;
-  v26[4] = v21;
+  v26[4] = v22;
   v26[5] = handler;
-  objc_msgSend_addOperationWithBlock_(queue, v22, v26);
+  objc_msgSend_addOperationWithBlock_(queue, v23, v26);
 
-  v23 = 1;
+  v24 = 1;
 LABEL_22:
   sub_19B66882C(v30);
-  v24 = *MEMORY[0x1E69E9840];
-  return v23;
+  return v24;
 }
 
 - (id)computeNonlinearPRTTFromDB:(id)b where:(id)where
@@ -880,15 +896,13 @@ LABEL_22:
     operator delete(*buf);
     if (v11)
     {
-      goto LABEL_5;
+      return objc_msgSend_dataWithBytes_length_(MEMORY[0x1E695DEF0], v10, v17, 222);
     }
   }
 
   else if (v11)
   {
-LABEL_5:
-    result = objc_msgSend_dataWithBytes_length_(MEMORY[0x1E695DEF0], v10, v17, 222);
-    goto LABEL_19;
+    return objc_msgSend_dataWithBytes_length_(MEMORY[0x1E695DEF0], v10, v17, 222);
   }
 
   if (qword_1EAFE2840 != -1)
@@ -919,18 +933,16 @@ LABEL_5:
     *&v22[4] = b;
     v23 = 2112;
     whereCopy2 = where;
-    v15 = _os_log_send_and_compose_impl();
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2860, 17, "Failed to calculate PRTT for %@ WHERE %@", v22, 22);
+    v16 = v15;
     sub_19B6BB7CC("Generic", 1, 0, 0, "[CMMotionManager computeNonlinearPRTTFromDB:where:]", "CoreLocation: %s\n", v15);
-    if (v15 != buf)
+    if (v16 != buf)
     {
-      free(v15);
+      free(v16);
     }
   }
 
-  result = 0;
-LABEL_19:
-  v16 = *MEMORY[0x1E69E9840];
-  return result;
+  return 0;
 }
 
 - (void)setCompensatedAmbientPressureUpdateInterval:(double)interval
@@ -1403,7 +1415,7 @@ LABEL_19:
 
 - (id)deviceMotionNoSim
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   internal = self->_internal;
   if (!objc_msgSend_isDeviceMotionActiveNoSim(self, a2, v2) || !internal[74])
   {
@@ -1412,19 +1424,19 @@ LABEL_19:
       dispatch_once(&qword_1ED71C800, &unk_1F0E3A778);
     }
 
-    v23 = off_1ED71C808;
+    v27 = off_1ED71C808;
     if (os_log_type_enabled(off_1ED71C808, OS_LOG_TYPE_ERROR))
     {
-      v24 = internal[74];
+      v28 = internal[74];
       *buf = 67109120;
-      *&buf[4] = v24;
-      _os_log_impl(&dword_19B41C000, v23, OS_LOG_TYPE_ERROR, "CMDeviceMotion not active or unknown, mode, %u", buf, 8u);
+      *&buf[4] = v28;
+      _os_log_impl(&dword_19B41C000, v27, OS_LOG_TYPE_ERROR, "CMDeviceMotion not active or unknown, mode, %u", buf, 8u);
     }
 
-    v25 = sub_19B420058();
-    if ((*(v25 + 160) & 0x80000000) != 0 && (*(v25 + 164) & 0x80000000) != 0 && (*(v25 + 168) & 0x80000000) != 0 && !*(v25 + 152))
+    v29 = sub_19B420058();
+    if ((*(v29 + 160) & 0x80000000) != 0 && (*(v29 + 164) & 0x80000000) != 0 && (*(v29 + 168) & 0x80000000) != 0 && !*(v29 + 152))
     {
-      goto LABEL_38;
+      return 0;
     }
 
     bzero(buf, 0x65CuLL);
@@ -1433,74 +1445,76 @@ LABEL_19:
       dispatch_once(&qword_1ED71C800, &unk_1F0E3A778);
     }
 
-    v26 = internal[74];
-    LODWORD(v32) = 67109120;
-    HIDWORD(v32) = v26;
-    goto LABEL_36;
+    v30 = internal[74];
+    LODWORD(v39) = 67109120;
+    HIDWORD(v39) = v30;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C808, 16, "CMDeviceMotion not active or unknown, mode, %u", &v39);
+    goto LABEL_37;
   }
 
   v5 = sub_19B424AE0();
-  sub_19B71FE3C(v5, internal[74], &v32, v6);
-  objc_msgSend_applyNorthReference_(self, v7, &v32);
-  objc_msgSend_applyInitialReference_(self, v8, &v32);
-  if (!objc_msgSend_deviceMotionInitialized_(CMMotionManager, v9, &v32))
+  *&v7 = sub_19B71FE3C(v5, internal[74], &v39, v6);
+  objc_msgSend_applyNorthReference_(self, v8, &v39, v7);
+  objc_msgSend_applyInitialReference_(self, v9, &v39);
+  if (!objc_msgSend_deviceMotionInitialized_(CMMotionManager, v10, &v39))
   {
     if (qword_1ED71C800 != -1)
     {
       dispatch_once(&qword_1ED71C800, &unk_1F0E3A778);
     }
 
-    v30 = off_1ED71C808;
+    v33 = off_1ED71C808;
     if (os_log_type_enabled(off_1ED71C808, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_19B41C000, v30, OS_LOG_TYPE_ERROR, "deviceMotionInitialized returned nil", buf, 2u);
+      _os_log_impl(&dword_19B41C000, v33, OS_LOG_TYPE_ERROR, "deviceMotionInitialized returned nil", buf, 2u);
     }
 
-    v31 = sub_19B420058();
-    if ((*(v31 + 160) & 0x80000000) != 0 && (*(v31 + 164) & 0x80000000) != 0 && (*(v31 + 168) & 0x80000000) != 0 && !*(v31 + 152))
+    v34 = sub_19B420058();
+    if ((*(v34 + 160) & 0x80000000) != 0 && (*(v34 + 164) & 0x80000000) != 0 && (*(v34 + 168) & 0x80000000) != 0 && !*(v34 + 152))
     {
-      goto LABEL_38;
+      return 0;
     }
 
     bzero(buf, 0x65CuLL);
-    if (qword_1ED71C800 == -1)
+    if (qword_1ED71C800 != -1)
     {
-      goto LABEL_36;
+      dispatch_once(&qword_1ED71C800, &unk_1F0E3A778);
     }
 
-    goto LABEL_55;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C808, 16, "deviceMotionInitialized returned nil");
+    goto LABEL_37;
   }
 
-  v10 = [CMDeviceMotion alloc];
-  v44 = v35;
-  v45 = v36;
-  v46 = v37;
-  v47 = v38;
-  *buf = v33;
-  *&buf[16] = v34;
-  LODWORD(v11) = v41;
-  LODWORD(v12) = v42;
-  v14 = objc_msgSend_initWithDeviceMotion_internal_timestamp_(v10, v13, buf, COERCE_DOUBLE(__PAIR64__(DWORD1(v33), v39)), COERCE_DOUBLE(__PAIR64__(DWORD1(v34), v40)), v11, v12, v32);
+  v11 = [CMDeviceMotion alloc];
+  v51 = v42;
+  v52 = v43;
+  v53 = v44;
+  v54 = v45;
+  *buf = v40;
+  *&buf[16] = v41;
+  LODWORD(v12) = v48;
+  LODWORD(v13) = v49;
+  v15 = objc_msgSend_initWithDeviceMotion_internal_timestamp_(v11, v14, buf, COERCE_DOUBLE(__PAIR64__(DWORD1(v40), v46)), COERCE_DOUBLE(__PAIR64__(DWORD1(v41), v47)), v12, v13, v39);
   if (qword_1ED71C800 != -1)
   {
     dispatch_once(&qword_1ED71C800, &unk_1F0E3A778);
   }
 
-  v15 = off_1ED71C808;
+  v16 = off_1ED71C808;
   if (os_log_type_enabled(off_1ED71C808, OS_LOG_TYPE_DEBUG))
   {
-    v16 = mach_absolute_time();
-    v17 = sub_19B41E070(v16);
+    v17 = mach_absolute_time();
+    v18 = sub_19B41E070(v17);
     *buf = 138412546;
-    *&buf[4] = v14;
+    *&buf[4] = v15;
     *&buf[12] = 2048;
-    *&buf[14] = v17;
-    _os_log_impl(&dword_19B41C000, v15, OS_LOG_TYPE_DEBUG, "CMDeviceMotion: %@,now,%f", buf, 0x16u);
+    *&buf[14] = v18;
+    _os_log_impl(&dword_19B41C000, v16, OS_LOG_TYPE_DEBUG, "CMDeviceMotion: %@,now,%f", buf, 0x16u);
   }
 
-  v18 = sub_19B420058();
-  if (*(v18 + 160) > 1 || *(v18 + 164) > 1 || *(v18 + 168) > 1 || *(v18 + 152))
+  v19 = sub_19B420058();
+  if (*(v19 + 160) > 1 || *(v19 + 164) > 1 || *(v19 + 168) > 1 || *(v19 + 152))
   {
     bzero(buf, 0x65CuLL);
     if (qword_1ED71C800 != -1)
@@ -1508,60 +1522,62 @@ LABEL_19:
       dispatch_once(&qword_1ED71C800, &unk_1F0E3A778);
     }
 
-    v19 = mach_absolute_time();
-    sub_19B41E070(v19);
-    v20 = _os_log_send_and_compose_impl();
-    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMotionManager deviceMotionNoSim]", "CoreLocation: %s\n", v20);
-    if (v20 != buf)
+    v20 = off_1ED71C808;
+    v21 = mach_absolute_time();
+    *v36 = 138412546;
+    *&v36[4] = v15;
+    v37 = 2048;
+    v38 = sub_19B41E070(v21);
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v20, 2, "CMDeviceMotion: %@,now,%f", v36, 22);
+    v23 = v22;
+    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMotionManager deviceMotionNoSim]", "CoreLocation: %s\n", v22);
+    if (v23 != buf)
     {
-      free(v20);
+      free(v23);
     }
   }
 
-  if (!v14)
+  if (!v15)
   {
     if (qword_1ED71C800 != -1)
     {
       dispatch_once(&qword_1ED71C800, &unk_1F0E3A778);
     }
 
-    v21 = off_1ED71C808;
+    v24 = off_1ED71C808;
     if (os_log_type_enabled(off_1ED71C808, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_19B41C000, v21, OS_LOG_TYPE_ERROR, "devicemotion object is nil", buf, 2u);
+      _os_log_impl(&dword_19B41C000, v24, OS_LOG_TYPE_ERROR, "devicemotion object is nil", buf, 2u);
     }
 
-    v22 = sub_19B420058();
-    if ((*(v22 + 160) & 0x80000000) != 0 && (*(v22 + 164) & 0x80000000) != 0 && (*(v22 + 168) & 0x80000000) != 0 && !*(v22 + 152))
+    v25 = sub_19B420058();
+    if ((*(v25 + 160) & 0x80000000) != 0 && (*(v25 + 164) & 0x80000000) != 0 && (*(v25 + 168) & 0x80000000) != 0 && !*(v25 + 152))
     {
-      goto LABEL_38;
+      return 0;
     }
 
     bzero(buf, 0x65CuLL);
-    if (qword_1ED71C800 == -1)
+    if (qword_1ED71C800 != -1)
     {
-LABEL_36:
-      v27 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMMotionManager deviceMotionNoSim]", "CoreLocation: %s\n", v27);
-      if (v27 != buf)
-      {
-        free(v27);
-      }
-
-LABEL_38:
-      v14 = 0;
-      goto LABEL_39;
+      dispatch_once(&qword_1ED71C800, &unk_1F0E3A778);
     }
 
-LABEL_55:
-    dispatch_once(&qword_1ED71C800, &unk_1F0E3A778);
-    goto LABEL_36;
+    *v36 = 0;
+    LODWORD(v35) = 2;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C808, 16, "devicemotion object is nil", v36, v35, *v36);
+LABEL_37:
+    v31 = v26;
+    sub_19B6BB7CC("Generic", 1, 0, 0, "[CMMotionManager deviceMotionNoSim]", "CoreLocation: %s\n", v26);
+    if (v31 != buf)
+    {
+      free(v31);
+    }
+
+    return 0;
   }
 
-LABEL_39:
-  v28 = *MEMORY[0x1E69E9840];
-  return v14;
+  return v15;
 }
 
 - (void)startDeviceMotionUpdatesNoSim
@@ -2002,9 +2018,18 @@ LABEL_36:
   sub_19B420C9C(v5, v6);
 }
 
+- (void)setShowsDeviceMovementDisplayPrivate:(BOOL)private
+{
+  *(self->_internal + 432) = private;
+  if (!private)
+  {
+    objc_msgSend_dismissDeviceMovementDisplay(self, a2, private);
+  }
+}
+
 - (void)showDeviceMovementDisplay
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if ((sub_19B421620() & 0x10) == 0)
   {
     internal = self->_internal;
@@ -2031,11 +2056,13 @@ LABEL_36:
           dispatch_once(&qword_1ED71C800, &unk_1F0E3A778);
         }
 
-        v6 = _os_log_send_and_compose_impl();
+        v8[0] = 0;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C808, 0, "CM: Invoking Compass Calibration HUD", v8, 2);
+        v7 = v6;
         sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMotionManager showDeviceMovementDisplay]", "CoreLocation: %s\n", v6);
-        if (v6 != buf)
+        if (v7 != buf)
         {
-          free(v6);
+          free(v7);
         }
       }
 
@@ -2045,8 +2072,6 @@ LABEL_36:
       }
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (id)initUsing6AxisSensorFusion
@@ -2287,7 +2312,51 @@ LABEL_36:
   v56 = *MEMORY[0x1E69E9840];
   Current = CFRunLoopGetCurrent();
   sub_19B420D84();
-  if (Current != *qword_1ED71C908)
+  if (Current == *qword_1ED71C908)
+  {
+    if (objc_msgSend_isDeviceMotionAvailable(self, v12, v13))
+    {
+      internal = self->_internal;
+      internal[65] = callback;
+      internal[66] = info;
+      v25 = internal[64];
+      if (interval <= 0.0)
+      {
+        if (v25)
+        {
+          v27 = sub_19B424AE0();
+          sub_19B425248(v27, internal[64]);
+          v28 = internal[64];
+          if (v28)
+          {
+            (*(*v28 + 8))(v28);
+          }
+
+          internal[64] = 0;
+        }
+      }
+
+      else
+      {
+        if (!v25)
+        {
+          objc_msgSend_updateDeviceMotionMode(self, v22, v23);
+          v29 = [CLDeviceMotionProperties alloc];
+          objc_msgSend_initWithMode_(v29, v30, *(internal + 74));
+          operator new();
+        }
+
+        v26 = sub_19B424AE0();
+        sub_19B44DE40(v26, internal[64], interval);
+      }
+
+      v31 = sub_19B42AD98();
+
+      sub_19B42A614(v31, fsyncCopy);
+    }
+  }
+
+  else
   {
     if (qword_1ED71C800 != -1)
     {
@@ -2321,10 +2390,11 @@ LABEL_36:
         dispatch_once(&qword_1ED71C800, &unk_1F0E3A778);
       }
 
+      v17 = off_1ED71C808;
       sub_19B420D84();
-      v17 = *_CFGetProgname();
+      v18 = *_CFGetProgname();
       v36 = 136447234;
-      v37 = v17;
+      v37 = v18;
       v38 = 2050;
       callbackCopy2 = callback;
       v40 = 2050;
@@ -2333,15 +2403,16 @@ LABEL_36:
       intervalCopy2 = interval;
       v44 = 1026;
       v45 = fsyncCopy;
-      v18 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMotionManager setDeviceMotionCallback:info:interval:fsync:]", "CoreLocation: %s\n", v18);
-      if (v18 != buf)
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v17, 1, "%{public}s calling setDeviceMotionCallback:%{public}p info:%{public}p interval:%{public}f fsync:%{public}d", &v36, 48);
+      v20 = v19;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMotionManager setDeviceMotionCallback:info:interval:fsync:]", "CoreLocation: %s\n", v19);
+      if (v20 != buf)
       {
-        free(v18);
+        free(v20);
       }
     }
 
-    v19 = sub_19B420D84();
+    v21 = sub_19B420D84();
     if (interval <= 0.0)
     {
       v34[0] = MEMORY[0x1E69E9820];
@@ -2353,7 +2424,7 @@ LABEL_36:
       v34[6] = info;
       *&v34[7] = interval;
       v35 = fsyncCopy;
-      sub_19B420C9C(v19, v34);
+      sub_19B420C9C(v21, v34);
     }
 
     else
@@ -2367,62 +2438,14 @@ LABEL_36:
       v32[6] = info;
       *&v32[7] = interval;
       v33 = fsyncCopy;
-      sub_19B421668(v19, v32);
-    }
-
-    goto LABEL_21;
-  }
-
-  if (!objc_msgSend_isDeviceMotionAvailable(self, v12, v13))
-  {
-LABEL_21:
-    v25 = *MEMORY[0x1E69E9840];
-    return;
-  }
-
-  internal = self->_internal;
-  internal[65] = callback;
-  internal[66] = info;
-  v23 = internal[64];
-  if (interval <= 0.0)
-  {
-    if (v23)
-    {
-      v26 = sub_19B424AE0();
-      sub_19B425248(v26, internal[64]);
-      v27 = internal[64];
-      if (v27)
-      {
-        (*(*v27 + 8))(v27);
-      }
-
-      internal[64] = 0;
+      sub_19B421668(v21, v32);
     }
   }
-
-  else
-  {
-    if (!v23)
-    {
-      objc_msgSend_updateDeviceMotionMode(self, v20, v21);
-      v28 = [CLDeviceMotionProperties alloc];
-      objc_msgSend_initWithMode_(v28, v29, *(internal + 74));
-      operator new();
-    }
-
-    v24 = sub_19B424AE0();
-    sub_19B44DE40(v24, internal[64], interval);
-  }
-
-  v30 = sub_19B42AD98();
-  v31 = *MEMORY[0x1E69E9840];
-
-  sub_19B42A614(v30, fsyncCopy);
 }
 
 - (void)setDisplayGravityHandler:(id)handler interval:(double)interval
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   if (objc_msgSend_isDisplayGravityAvailable(self, a2, handler))
   {
     if (qword_1ED71C800 != -1)
@@ -2436,10 +2459,10 @@ LABEL_21:
       sub_19B420D84();
       v8 = *_CFGetProgname();
       *buf = 136446722;
-      *v27 = v8;
-      *&v27[8] = 2050;
-      *&v27[10] = handler;
-      v28 = 2050;
+      *v28 = v8;
+      *&v28[8] = 2050;
+      *&v28[10] = handler;
+      v29 = 2050;
       intervalCopy = interval;
       _os_log_impl(&dword_19B41C000, v7, OS_LOG_TYPE_INFO, "%{public}s calling _setDisplayGravityHandler:%{public}p interval:%{public}f", buf, 0x20u);
     }
@@ -2453,59 +2476,59 @@ LABEL_21:
         dispatch_once(&qword_1ED71C800, &unk_1F0E3A778);
       }
 
+      v10 = off_1ED71C808;
       sub_19B420D84();
-      v10 = *_CFGetProgname();
+      v11 = *_CFGetProgname();
       *location = 136446722;
-      *&location[4] = v10;
-      v22 = 2050;
+      *&location[4] = v11;
+      v23 = 2050;
       handlerCopy = handler;
-      v24 = 2050;
+      v25 = 2050;
       intervalCopy2 = interval;
-      v11 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMotionManager setDisplayGravityHandler:interval:]", "CoreLocation: %s\n", v11);
-      if (v11 != buf)
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v10, 1, "%{public}s calling _setDisplayGravityHandler:%{public}p interval:%{public}f", location, 32);
+      v13 = v12;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMotionManager setDisplayGravityHandler:interval:]", "CoreLocation: %s\n", v12);
+      if (v13 != buf)
       {
-        free(v11);
+        free(v13);
       }
     }
 
     objc_initWeak(location, self);
     if (handler && interval > 0.0)
     {
-      objc_msgSend_setFDisplayGravityHandler_(self->_internal, v12, handler);
-      v13 = sub_19B420D84();
-      v17[0] = MEMORY[0x1E69E9820];
-      v17[1] = 3321888768;
-      v17[2] = sub_19B62FBBC;
-      v17[3] = &unk_1F0E3A728;
+      objc_msgSend_setFDisplayGravityHandler_(self->_internal, v14, handler);
+      v15 = sub_19B420D84();
+      v18[0] = MEMORY[0x1E69E9820];
+      v18[1] = 3321888768;
+      v18[2] = sub_19B62FBBC;
+      v18[3] = &unk_1F0E3A728;
       objc_copyWeak(buf, location);
-      v14 = v18;
-      *&v27[4] = interval;
-      objc_copyWeak(v18, buf);
-      v18[1] = *&v27[4];
-      sub_19B421668(v13, v17);
+      v16 = v19;
+      *&v28[4] = interval;
+      objc_copyWeak(v19, buf);
+      v19[1] = *&v28[4];
+      sub_19B421668(v15, v18);
       objc_destroyWeak(buf);
     }
 
     else
     {
-      v15 = sub_19B420D84();
-      v19[0] = MEMORY[0x1E69E9820];
-      v19[1] = 3321888768;
-      v19[2] = sub_19B62FB1C;
-      v19[3] = &unk_1F0E3A6F8;
+      v17 = sub_19B420D84();
+      v20[0] = MEMORY[0x1E69E9820];
+      v20[1] = 3321888768;
+      v20[2] = sub_19B62FB1C;
+      v20[3] = &unk_1F0E3A6F8;
       objc_copyWeak(buf, location);
-      v14 = &v20;
-      objc_copyWeak(&v20, buf);
-      sub_19B421668(v15, v19);
+      v16 = &v21;
+      objc_copyWeak(&v21, buf);
+      sub_19B421668(v17, v20);
       objc_destroyWeak(buf);
     }
 
-    objc_destroyWeak(v14);
+    objc_destroyWeak(v16);
     objc_destroyWeak(location);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)connect
@@ -2518,51 +2541,133 @@ LABEL_21:
   }
 }
 
+- (BOOL)setSidebandSensorFusionEnable:(BOOL)enable measureLatency:(BOOL)latency withSnoopHandler:(id)handler
+{
+  latencyCopy = latency;
+  enableCopy = enable;
+  v37 = *MEMORY[0x1E69E9840];
+  Current = CFRunLoopGetCurrent();
+  sub_19B420D84();
+  if (Current == *qword_1ED71C908)
+  {
+    if (qword_1ED71C800 != -1)
+    {
+      dispatch_once(&qword_1ED71C800, &unk_1F0E3A778);
+    }
+
+    v12 = off_1ED71C808;
+    if (os_log_type_enabled(off_1ED71C808, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 67240704;
+      *&buf[4] = enableCopy;
+      LOWORD(v34) = 1026;
+      *(&v34 + 2) = latencyCopy;
+      HIWORD(v34) = 1026;
+      LODWORD(v35) = handler != 0;
+      _os_log_impl(&dword_19B41C000, v12, OS_LOG_TYPE_DEFAULT, "[SidebandSensorFusion] requesting from framework,enabled,%{public}d,measureLatency,%{public}d,snoop,%{public}d", buf, 0x14u);
+    }
+
+    v13 = sub_19B420058();
+    if (*(v13 + 160) > 1 || *(v13 + 164) > 1 || *(v13 + 168) > 1 || *(v13 + 152))
+    {
+      bzero(buf, 0x65CuLL);
+      if (qword_1ED71C800 != -1)
+      {
+        dispatch_once(&qword_1ED71C800, &unk_1F0E3A778);
+      }
+
+      v28[0] = 67240704;
+      v28[1] = enableCopy;
+      v29 = 1026;
+      v30 = latencyCopy;
+      v31 = 1026;
+      v32 = handler != 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C808, 0, "[SidebandSensorFusion] requesting from framework,enabled,%{public}d,measureLatency,%{public}d,snoop,%{public}d", v28, 20);
+      v17 = v16;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMotionManager setSidebandSensorFusionEnable:measureLatency:withSnoopHandler:]", "CoreLocation: %s\n", v16);
+      if (v17 != buf)
+      {
+        free(v17);
+      }
+    }
+
+    objc_msgSend_connect(self, v14, v15);
+    CFAbsoluteTimeGetCurrent();
+    v26[0] = @"CMSidebandSensorFusionEnable";
+    v27[0] = objc_msgSend_numberWithBool_(MEMORY[0x1E696AD98], v18, enableCopy);
+    v26[1] = @"CMSidebandSensorFusionLatency";
+    v27[1] = objc_msgSend_numberWithBool_(MEMORY[0x1E696AD98], v19, latencyCopy);
+    v26[2] = @"CMSidebandSensorFusionSnoop";
+    v27[2] = objc_msgSend_numberWithBool_(MEMORY[0x1E696AD98], v20, handler != 0);
+    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v21, v27, v26, 3);
+    sub_19B639BD4();
+  }
+
+  *buf = 0;
+  v34 = buf;
+  v35 = 0x2020000000;
+  v36 = 0;
+  v10 = sub_19B420D84();
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = sub_19B631454;
+  v23[3] = &unk_1E7533848;
+  v23[5] = handler;
+  v23[6] = buf;
+  v24 = enableCopy;
+  v25 = latencyCopy;
+  v23[4] = self;
+  sub_19B420C9C(v10, v23);
+  v11 = v34[24];
+  _Block_object_dispose(buf, 8);
+  return v11 & 1;
+}
+
 - (void)setSidebandTimeSyncHandler:(id)handler
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   if (objc_msgSend_isSidebandSensorFusionAvailable(self, a2, handler))
   {
     internal = self->_internal;
     if (handler)
     {
-      v41 = 0;
-      v42[0] = &v41;
-      v42[1] = 0x2020000000;
-      v42[2] = 0;
-      v39 = 0;
-      v40[0] = &v39;
-      v40[1] = 0x2020000000;
-      v40[2] = 0;
+      v44 = 0;
+      v45[0] = &v44;
+      v45[1] = 0x2020000000;
+      v45[2] = 0;
+      v42 = 0;
+      v43[0] = &v42;
+      v43[1] = 0x2020000000;
+      v43[2] = 0;
       if (!*(internal + 136))
       {
         *(internal + 136) = dispatch_semaphore_create(0);
       }
 
       v6 = sub_19B420D84();
-      v38[0] = MEMORY[0x1E69E9820];
-      v38[1] = 3221225472;
-      v38[2] = sub_19B631C4C;
-      v38[3] = &unk_1E7533898;
-      v38[4] = internal;
-      v38[5] = &v41;
-      v38[6] = &v39;
-      sub_19B420C9C(v6, v38);
+      v41[0] = MEMORY[0x1E69E9820];
+      v41[1] = 3221225472;
+      v41[2] = sub_19B631C4C;
+      v41[3] = &unk_1E7533898;
+      v41[4] = internal;
+      v41[5] = &v44;
+      v41[6] = &v42;
+      sub_19B420C9C(v6, v41);
       v7 = dispatch_queue_create("OscarTimeWait", 0);
-      v36 = 0;
-      v37[0] = &v36;
-      v37[1] = 0x2020000000;
-      v37[2] = 0;
-      v34 = 0;
-      v35[0] = &v34;
-      v35[1] = 0x2020000000;
-      v35[2] = 0;
+      v39 = 0;
+      v40[0] = &v39;
+      v40[1] = 0x2020000000;
+      v40[2] = 0;
+      v37 = 0;
+      v38[0] = &v37;
+      v38[1] = 0x2020000000;
+      v38[2] = 0;
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = sub_19B631F14;
       block[3] = &unk_1E75338C0;
-      block[4] = &v36;
-      block[5] = &v34;
+      block[4] = &v39;
+      block[5] = &v37;
       v8 = dispatch_block_create(DISPATCH_BLOCK_ASSIGN_CURRENT, block);
       object = v7;
       dispatch_async(v7, v8);
@@ -2587,41 +2692,42 @@ LABEL_21:
           dispatch_once(&qword_1ED71C800, &unk_1F0E3A778);
         }
 
-        LOWORD(v43) = 0;
-        v11 = _os_log_send_and_compose_impl();
+        LOWORD(v46) = 0;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C808, 0, "[MotionManager] setSidebandTimeSyncHandler: Waiting for time sync", &v46, 2, object);
+        v12 = v11;
         sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMotionManager setSidebandTimeSyncHandler:]", "CoreLocation: %s\n", v11);
-        if (v11 != buf)
+        if (v12 != buf)
         {
-          free(v11);
+          free(v12);
         }
       }
 
-      v12 = v42;
-      v13 = v40;
+      v13 = v45;
+      v14 = v43;
       while (dispatch_semaphore_wait(*(internal + 136), 0))
       {
-        v14 = dispatch_time(0, 250000000);
-        if (!dispatch_block_wait(v8, v14))
+        v15 = dispatch_time(0, 250000000);
+        if (!dispatch_block_wait(v8, v15))
         {
           if (qword_1ED71C800 != -1)
           {
             dispatch_once(&qword_1ED71C800, &unk_1F0E3A778);
           }
 
-          v22 = off_1ED71C808;
+          v24 = off_1ED71C808;
           if (os_log_type_enabled(off_1ED71C808, OS_LOG_TYPE_DEFAULT))
           {
-            v23 = *(v37[0] + 24);
-            v24 = *(v35[0] + 24);
+            v25 = *(v40[0] + 24);
+            v26 = *(v38[0] + 24);
             *buf = 134218240;
-            v48 = v23;
-            v49 = 2048;
-            v50 = v24;
-            _os_log_impl(&dword_19B41C000, v22, OS_LOG_TYPE_DEFAULT, "[MotionManager] setSidebandTimeSyncHandler: locationd TimeSync machTimestamp,%llu,oscarTimestamp,%llu", buf, 0x16u);
+            v51 = v25;
+            v52 = 2048;
+            v53 = v26;
+            _os_log_impl(&dword_19B41C000, v24, OS_LOG_TYPE_DEFAULT, "[MotionManager] setSidebandTimeSyncHandler: locationd TimeSync machTimestamp,%llu,oscarTimestamp,%llu", buf, 0x16u);
           }
 
-          v25 = sub_19B420058();
-          if (*(v25 + 160) > 1 || *(v25 + 164) > 1 || *(v25 + 168) > 1 || *(v25 + 152))
+          v27 = sub_19B420058();
+          if (*(v27 + 160) > 1 || *(v27 + 164) > 1 || *(v27 + 168) > 1 || *(v27 + 152))
           {
             bzero(buf, 0x65CuLL);
             if (qword_1ED71C800 != -1)
@@ -2629,22 +2735,24 @@ LABEL_21:
               dispatch_once(&qword_1ED71C800, &unk_1F0E3A778);
             }
 
-            v26 = *(v37[0] + 24);
-            v27 = *(v35[0] + 24);
-            v43 = 134218240;
-            v44 = v26;
-            v45 = 2048;
-            v46 = v27;
-            v28 = _os_log_send_and_compose_impl();
-            sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMotionManager setSidebandTimeSyncHandler:]", "CoreLocation: %s\n", v28);
-            if (v28 != buf)
+            v28 = *(v40[0] + 24);
+            v29 = *(v38[0] + 24);
+            v46 = 134218240;
+            v47 = v28;
+            v48 = 2048;
+            v49 = v29;
+            LODWORD(v33) = 22;
+            _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C808, 0, "[MotionManager] setSidebandTimeSyncHandler: locationd TimeSync machTimestamp,%llu,oscarTimestamp,%llu", &v46, v33);
+            v31 = v30;
+            sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMotionManager setSidebandTimeSyncHandler:]", "CoreLocation: %s\n", v30);
+            if (v31 != buf)
             {
-              free(v28);
+              free(v31);
             }
           }
 
-          v12 = v37;
-          v13 = v35;
+          v13 = v40;
+          v14 = v38;
           goto LABEL_46;
         }
 
@@ -2656,20 +2764,20 @@ LABEL_21:
         dispatch_once(&qword_1ED71C800, &unk_1F0E3A778);
       }
 
-      v15 = off_1ED71C808;
+      v16 = off_1ED71C808;
       if (os_log_type_enabled(off_1ED71C808, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = *(v42[0] + 24);
-        v17 = *(v40[0] + 24);
+        v17 = *(v45[0] + 24);
+        v18 = *(v43[0] + 24);
         *buf = 134218240;
-        v48 = v16;
-        v49 = 2048;
-        v50 = v17;
-        _os_log_impl(&dword_19B41C000, v15, OS_LOG_TYPE_DEFAULT, "[MotionManager] setSidebandTimeSyncHandler: Framework TimeSync machTimestamp,%llu,oscarTimestamp,%llu", buf, 0x16u);
+        v51 = v17;
+        v52 = 2048;
+        v53 = v18;
+        _os_log_impl(&dword_19B41C000, v16, OS_LOG_TYPE_DEFAULT, "[MotionManager] setSidebandTimeSyncHandler: Framework TimeSync machTimestamp,%llu,oscarTimestamp,%llu", buf, 0x16u);
       }
 
-      v18 = sub_19B420058();
-      if (*(v18 + 160) > 1 || *(v18 + 164) > 1 || *(v18 + 168) > 1 || *(v18 + 152))
+      v19 = sub_19B420058();
+      if (*(v19 + 160) > 1 || *(v19 + 164) > 1 || *(v19 + 168) > 1 || *(v19 + 152))
       {
         bzero(buf, 0x65CuLL);
         if (qword_1ED71C800 != -1)
@@ -2677,44 +2785,44 @@ LABEL_21:
           dispatch_once(&qword_1ED71C800, &unk_1F0E3A778);
         }
 
-        v19 = *(v42[0] + 24);
-        v20 = *(v40[0] + 24);
-        v43 = 134218240;
-        v44 = v19;
-        v45 = 2048;
-        v46 = v20;
-        v21 = _os_log_send_and_compose_impl();
-        sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMotionManager setSidebandTimeSyncHandler:]", "CoreLocation: %s\n", v21);
-        if (v21 != buf)
+        v20 = *(v45[0] + 24);
+        v21 = *(v43[0] + 24);
+        v46 = 134218240;
+        v47 = v20;
+        v48 = 2048;
+        v49 = v21;
+        LODWORD(v33) = 22;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C808, 0, "[MotionManager] setSidebandTimeSyncHandler: Framework TimeSync machTimestamp,%llu,oscarTimestamp,%llu", &v46, v33);
+        v23 = v22;
+        sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMotionManager setSidebandTimeSyncHandler:]", "CoreLocation: %s\n", v22);
+        if (v23 != buf)
         {
-          free(v21);
+          free(v23);
         }
       }
 
 LABEL_46:
-      (*(handler + 2))(handler, *(*v12 + 24), *(*v13 + 24));
+      (*(handler + 2))(handler, *(*v13 + 24), *(*v14 + 24));
       dispatch_release(object);
       _Block_release(v8);
-      _Block_object_dispose(&v34, 8);
-      _Block_object_dispose(&v36, 8);
+      _Block_object_dispose(&v37, 8);
       _Block_object_dispose(&v39, 8);
-      _Block_object_dispose(&v41, 8);
+      _Block_object_dispose(&v42, 8);
+      _Block_object_dispose(&v44, 8);
     }
 
     if (*(internal + 71))
     {
-      v29 = sub_19B420D84();
-      v32[0] = MEMORY[0x1E69E9820];
-      v32[1] = 3221225472;
-      v32[2] = sub_19B631F2C;
-      v32[3] = &unk_1E7532B68;
-      v32[4] = internal;
-      v32[5] = handler;
-      sub_19B420C9C(v29, v32);
+      v32 = sub_19B420D84();
+      v35[0] = MEMORY[0x1E69E9820];
+      v35[1] = 3221225472;
+      v35[2] = sub_19B631F2C;
+      v35[3] = &unk_1E7532B68;
+      v35[4] = internal;
+      v35[5] = handler;
+      sub_19B420C9C(v32, v35);
     }
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)shouldResetStartingReference
@@ -2876,7 +2984,7 @@ LABEL_46:
 - (id)predictedDeviceMotionAtTimestamp:(double)timestamp error:(id *)error
 {
   errorCopy = error;
-  v79 = *MEMORY[0x1E69E9840];
+  v83 = *MEMORY[0x1E69E9840];
   if ((objc_msgSend_isPredictedDeviceMotionAvailable(self, a2, error) & 1) == 0)
   {
     if (qword_1ED71C800 != -1)
@@ -2884,7 +2992,7 @@ LABEL_46:
       dispatch_once(&qword_1ED71C800, &unk_1F0E3A778);
     }
 
-    v52 = off_1ED71C808;
+    v55 = off_1ED71C808;
     p_vtable = "";
     internal = "assert";
     if (os_log_type_enabled(off_1ED71C808, OS_LOG_TYPE_FAULT))
@@ -2897,14 +3005,14 @@ LABEL_46:
       *&buf[20] = "assert";
       *&buf[28] = 2081;
       *&buf[30] = "[self isPredictedDeviceMotionAvailable]";
-      _os_log_impl(&dword_19B41C000, v52, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Predicted device motion is not available! Check [CMMotionManager isPredictedDeviceMotionAvailable] before making this call, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      _os_log_impl(&dword_19B41C000, v55, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Predicted device motion is not available! Check [CMMotionManager isPredictedDeviceMotionAvailable] before making this call, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
       if (qword_1ED71C800 != -1)
       {
         dispatch_once(&qword_1ED71C800, &unk_1F0E3A778);
       }
     }
 
-    v53 = off_1ED71C808;
+    v56 = off_1ED71C808;
     if (os_signpost_enabled(off_1ED71C808))
     {
       *buf = 68289539;
@@ -2915,7 +3023,7 @@ LABEL_46:
       *&buf[20] = "assert";
       *&buf[28] = 2081;
       *&buf[30] = "[self isPredictedDeviceMotionAvailable]";
-      _os_signpost_emit_with_name_impl(&dword_19B41C000, v53, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Predicted device motion is not available! Check [CMMotionManager isPredictedDeviceMotionAvailable] before making this call", "{msg%{public}.0s:Predicted device motion is not available! Check [CMMotionManager isPredictedDeviceMotionAvailable] before making this call, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      _os_signpost_emit_with_name_impl(&dword_19B41C000, v56, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Predicted device motion is not available! Check [CMMotionManager isPredictedDeviceMotionAvailable] before making this call", "{msg%{public}.0s:Predicted device motion is not available! Check [CMMotionManager isPredictedDeviceMotionAvailable] before making this call, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
       if (qword_1ED71C800 != -1)
       {
         dispatch_once(&qword_1ED71C800, &unk_1F0E3A778);
@@ -2936,7 +3044,7 @@ LABEL_46:
       _os_log_impl(&dword_19B41C000, errorCopy, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Predicted device motion is not available! Check [CMMotionManager isPredictedDeviceMotionAvailable] before making this call, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework/Framework/CoreMotion/Sensor/CMMotionManager.mm", 3003, "[CMMotionManager predictedDeviceMotionAtTimestamp:error:]");
     goto LABEL_80;
   }
 
@@ -2948,22 +3056,22 @@ LABEL_46:
     if (qword_1ED71C800 == -1)
     {
 LABEL_45:
-      v39 = off_1ED71C808;
+      v43 = off_1ED71C808;
       if (os_log_type_enabled(off_1ED71C808, OS_LOG_TYPE_DEBUG))
       {
-        v40.isa = errorCopy->isa;
-        v41 = *(internal + 74);
+        v44.isa = errorCopy->isa;
+        v45 = *(internal + 74);
         *buf = 138412546;
-        *&buf[4] = v40;
+        *&buf[4] = v44;
         *&buf[12] = 1024;
-        *&buf[14] = v41;
-        _os_log_impl(&dword_19B41C000, v39, OS_LOG_TYPE_DEBUG, "Predicted CMDeviceMotion: %@,mode,%d", buf, 0x12u);
+        *&buf[14] = v45;
+        _os_log_impl(&dword_19B41C000, v43, OS_LOG_TYPE_DEBUG, "Predicted CMDeviceMotion: %@,mode,%d", buf, 0x12u);
       }
 
-      v42 = sub_19B420058();
-      if (*(v42 + 160) <= 1 && *(v42 + 164) <= 1 && *(v42 + 168) <= 1 && !*(v42 + 152))
+      v46 = sub_19B420058();
+      if (*(v46 + 160) <= 1 && *(v46 + 164) <= 1 && *(v46 + 168) <= 1 && !*(v46 + 152))
       {
-        goto LABEL_67;
+        return 0;
       }
 
       bzero(buf, 0x65CuLL);
@@ -2972,12 +3080,14 @@ LABEL_45:
         dispatch_once(&qword_1ED71C800, &unk_1F0E3A778);
       }
 
-      v43.isa = errorCopy->isa;
-      v44 = *(internal + 74);
-      *v64 = 138412546;
-      *&v64[4] = v43;
-      *&v64[12] = 1024;
-      *&v64[14] = v44;
+      v47.isa = errorCopy->isa;
+      v48 = *(internal + 74);
+      *v68 = 138412546;
+      *&v68[4] = v47;
+      *&v68[12] = 1024;
+      *&v68[14] = v48;
+      LODWORD(v57) = 18;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C808, 2, "Predicted CMDeviceMotion: %@,mode,%d", v68, v57);
       goto LABEL_65;
     }
 
@@ -2986,13 +3096,13 @@ LABEL_80:
     goto LABEL_45;
   }
 
-  v74 = 0;
-  v55 = 100;
-  v54 = 0xBFF0000000000000;
+  v78 = 0;
+  v59 = 100;
+  v58 = 0xBFF0000000000000;
   v9 = sub_19B424AE0();
   *v10.i64 = timestamp;
-  sub_19B7201A0(v9, *(internal + 74), v64, &v55, &v54, v10);
-  objc_msgSend_applyNorthReference_(self, v11, v64);
+  sub_19B7201A0(v9, *(internal + 74), v68, &v59, &v58, v10);
+  objc_msgSend_applyNorthReference_(self, v11, v68);
   if (*(internal + 38) == 8 && *(sub_19B424AE0() + 96) < 0.0)
   {
     errorCopy->isa = objc_msgSend_CMErrorWithCode_(CMErrorUtils, v12, 102);
@@ -3013,7 +3123,7 @@ LABEL_80:
     v15 = sub_19B420058();
     if (*(v15 + 160) <= 1 && *(v15 + 164) <= 1 && *(v15 + 168) <= 1 && !*(v15 + 152))
     {
-      goto LABEL_67;
+      return 0;
     }
 
     bzero(buf, 0x65CuLL);
@@ -3023,48 +3133,47 @@ LABEL_80:
     }
 
     v16.isa = errorCopy->isa;
-    v56 = 138412290;
+    v60 = 138412290;
     isa = v16.isa;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C808, 2, "Predicted CMDeviceMotion: %@", &v60, 12);
 LABEL_65:
-    v49 = _os_log_send_and_compose_impl();
-    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMotionManager predictedDeviceMotionAtTimestamp:error:]", "CoreLocation: %s\n", v49);
-    if (v49 != buf)
+    v53 = v17;
+    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMotionManager predictedDeviceMotionAtTimestamp:error:]", "CoreLocation: %s\n", v17);
+    if (v53 != buf)
     {
-      free(v49);
+      free(v53);
     }
 
-LABEL_67:
-    v28 = 0;
-    goto LABEL_68;
+    return 0;
   }
 
-  if ((objc_msgSend_deviceMotionInitialized_(CMMotionManager, v12, v64) & 1) == 0)
+  if ((objc_msgSend_deviceMotionInitialized_(CMMotionManager, v12, v68) & 1) == 0)
   {
-    errorCopy->isa = objc_msgSend_CMErrorWithCode_(CMErrorUtils, v17, 109);
+    errorCopy->isa = objc_msgSend_CMErrorWithCode_(CMErrorUtils, v18, 109);
     if (qword_1ED71C800 != -1)
     {
       dispatch_once(&qword_1ED71C800, &unk_1F0E3A778);
     }
 
-    v45 = off_1ED71C808;
+    v49 = off_1ED71C808;
     if (os_log_type_enabled(off_1ED71C808, OS_LOG_TYPE_DEBUG))
     {
-      v46.isa = errorCopy->isa;
+      v50.isa = errorCopy->isa;
       *buf = 138413058;
-      *&buf[4] = v46;
+      *&buf[4] = v50;
       *&buf[12] = 2048;
-      *&buf[14] = v54;
+      *&buf[14] = v58;
       *&buf[22] = 2048;
       *&buf[24] = timestamp;
       *&buf[32] = 1024;
-      *&buf[34] = v74;
-      _os_log_impl(&dword_19B41C000, v45, OS_LOG_TYPE_DEBUG, "Predicted CMDeviceMotion: %@,lastSampleTimestamp,%f,timestamp,%f,status,%#02x", buf, 0x26u);
+      *&buf[34] = v78;
+      _os_log_impl(&dword_19B41C000, v49, OS_LOG_TYPE_DEBUG, "Predicted CMDeviceMotion: %@,lastSampleTimestamp,%f,timestamp,%f,status,%#02x", buf, 0x26u);
     }
 
-    v47 = sub_19B420058();
-    if (*(v47 + 160) <= 1 && *(v47 + 164) <= 1 && *(v47 + 168) <= 1 && !*(v47 + 152))
+    v51 = sub_19B420058();
+    if (*(v51 + 160) <= 1 && *(v51 + 164) <= 1 && *(v51 + 168) <= 1 && !*(v51 + 152))
     {
-      goto LABEL_67;
+      return 0;
     }
 
     bzero(buf, 0x65CuLL);
@@ -3073,39 +3182,40 @@ LABEL_67:
       dispatch_once(&qword_1ED71C800, &unk_1F0E3A778);
     }
 
-    v48.isa = errorCopy->isa;
-    v56 = 138413058;
-    isa = v48.isa;
-    v58 = 2048;
-    v59 = v54;
-    v60 = 2048;
+    v52.isa = errorCopy->isa;
+    v60 = 138413058;
+    isa = v52.isa;
+    v62 = 2048;
+    v63 = v58;
+    v64 = 2048;
     timestampCopy = timestamp;
-    v62 = 1024;
-    v63 = v74;
+    v66 = 1024;
+    v67 = v78;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C808, 2, "Predicted CMDeviceMotion: %@,lastSampleTimestamp,%f,timestamp,%f,status,%#02x", &v60, 38);
     goto LABEL_65;
   }
 
-  if (objc_msgSend_northAlignedReferenceFrame_(CMMotionManager, v17, *(internal + 38)) && DWORD1(v68) != -1 && SDWORD1(v68) <= 0)
+  if (objc_msgSend_northAlignedReferenceFrame_(CMMotionManager, v18, *(internal + 38)) && DWORD1(v72) != -1 && SDWORD1(v72) <= 0)
   {
-    errorCopy->isa = objc_msgSend_CMErrorWithCode_(CMErrorUtils, v18, 101);
+    errorCopy->isa = objc_msgSend_CMErrorWithCode_(CMErrorUtils, v19, 101);
     if (qword_1ED71C800 != -1)
     {
       dispatch_once(&qword_1ED71C800, &unk_1F0E3A778);
     }
 
-    v19 = off_1ED71C808;
+    v20 = off_1ED71C808;
     if (os_log_type_enabled(off_1ED71C808, OS_LOG_TYPE_DEBUG))
     {
-      v20.isa = errorCopy->isa;
+      v21.isa = errorCopy->isa;
       *buf = 138412546;
-      *&buf[4] = v20;
+      *&buf[4] = v21;
       *&buf[12] = 2048;
-      *&buf[14] = v54;
-      _os_log_impl(&dword_19B41C000, v19, OS_LOG_TYPE_DEBUG, "Predicted CMDeviceMotion: %@,lastSampleTimestamp,%f", buf, 0x16u);
+      *&buf[14] = v58;
+      _os_log_impl(&dword_19B41C000, v20, OS_LOG_TYPE_DEBUG, "Predicted CMDeviceMotion: %@,lastSampleTimestamp,%f", buf, 0x16u);
     }
 
-    v21 = sub_19B420058();
-    if (*(v21 + 160) > 1 || *(v21 + 164) > 1 || *(v21 + 168) > 1 || *(v21 + 152))
+    v22 = sub_19B420058();
+    if (*(v22 + 160) > 1 || *(v22 + 164) > 1 || *(v22 + 168) > 1 || *(v22 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1ED71C800 != -1)
@@ -3113,52 +3223,53 @@ LABEL_67:
         dispatch_once(&qword_1ED71C800, &unk_1F0E3A778);
       }
 
-      v22.isa = errorCopy->isa;
-      v56 = 138412546;
-      isa = v22.isa;
-      v58 = 2048;
-      v59 = v54;
-      v23 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMotionManager predictedDeviceMotionAtTimestamp:error:]", "CoreLocation: %s\n", v23);
-      if (v23 != buf)
+      v23.isa = errorCopy->isa;
+      v60 = 138412546;
+      isa = v23.isa;
+      v62 = 2048;
+      v63 = v58;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C808, 2, "Predicted CMDeviceMotion: %@,lastSampleTimestamp,%f", &v60, 22);
+      v25 = v24;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMotionManager predictedDeviceMotionAtTimestamp:error:]", "CoreLocation: %s\n", v24);
+      if (v25 != buf)
       {
-        free(v23);
+        free(v25);
       }
     }
   }
 
-  v24 = [CMDeviceMotion alloc];
-  *&buf[32] = v66;
-  v76 = v67;
-  v77 = v68;
-  v78 = v69;
-  *buf = *&v64[8];
-  *&buf[16] = v65;
-  LODWORD(v25) = v72;
-  LODWORD(v26) = v73;
-  v28 = objc_msgSend_initWithDeviceMotion_internal_timestamp_(v24, v27, buf, COERCE_DOUBLE(__PAIR64__(*&v64[12], v70)), COERCE_DOUBLE(__PAIR64__(DWORD1(v65), v71)), v25, v26, *v64);
+  v26 = [CMDeviceMotion alloc];
+  *&buf[32] = v70;
+  v80 = v71;
+  v81 = v72;
+  v82 = v73;
+  *buf = *&v68[8];
+  *&buf[16] = v69;
+  LODWORD(v27) = v76;
+  LODWORD(v28) = v77;
+  v30 = objc_msgSend_initWithDeviceMotion_internal_timestamp_(v26, v29, buf, COERCE_DOUBLE(__PAIR64__(*&v68[12], v74)), COERCE_DOUBLE(__PAIR64__(DWORD1(v69), v75)), v27, v28, *v68);
   if (qword_1ED71C800 != -1)
   {
     dispatch_once(&qword_1ED71C800, &unk_1F0E3A778);
   }
 
-  v29 = off_1ED71C808;
+  v31 = off_1ED71C808;
   if (os_log_type_enabled(off_1ED71C808, OS_LOG_TYPE_DEBUG))
   {
-    v30 = v54;
-    v31 = mach_absolute_time();
-    v32 = sub_19B41E070(v31);
+    v32 = v58;
+    v33 = mach_absolute_time();
+    v34 = sub_19B41E070(v33);
     *buf = 138412802;
-    *&buf[4] = v28;
+    *&buf[4] = v30;
     *&buf[12] = 2048;
-    *&buf[14] = v30;
+    *&buf[14] = v32;
     *&buf[22] = 2048;
-    *&buf[24] = v32;
-    _os_log_impl(&dword_19B41C000, v29, OS_LOG_TYPE_DEBUG, "Predicted CMDeviceMotion: %@,lastSampleTimestamp,%f,now,%f", buf, 0x20u);
+    *&buf[24] = v34;
+    _os_log_impl(&dword_19B41C000, v31, OS_LOG_TYPE_DEBUG, "Predicted CMDeviceMotion: %@,lastSampleTimestamp,%f,now,%f", buf, 0x20u);
   }
 
-  v33 = sub_19B420058();
-  if (*(v33 + 160) > 1 || *(v33 + 164) > 1 || *(v33 + 168) > 1 || *(v33 + 152))
+  v35 = sub_19B420058();
+  if (*(v35 + 160) > 1 || *(v35 + 164) > 1 || *(v35 + 168) > 1 || *(v35 + 152))
   {
     bzero(buf, 0x65CuLL);
     if (qword_1ED71C800 != -1)
@@ -3166,31 +3277,32 @@ LABEL_67:
       dispatch_once(&qword_1ED71C800, &unk_1F0E3A778);
     }
 
-    v34 = v54;
-    v35 = mach_absolute_time();
-    v36 = sub_19B41E070(v35);
-    v56 = 138412802;
-    isa = v28;
-    v58 = 2048;
-    v59 = v34;
-    v60 = 2048;
-    timestampCopy = v36;
-    v37 = _os_log_send_and_compose_impl();
-    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMotionManager predictedDeviceMotionAtTimestamp:error:]", "CoreLocation: %s\n", v37);
-    if (v37 != buf)
+    v36 = off_1ED71C808;
+    v37 = v58;
+    v38 = mach_absolute_time();
+    v39 = sub_19B41E070(v38);
+    v60 = 138412802;
+    isa = v30;
+    v62 = 2048;
+    v63 = v37;
+    v64 = 2048;
+    timestampCopy = v39;
+    LODWORD(v57) = 32;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v36, 2, "Predicted CMDeviceMotion: %@,lastSampleTimestamp,%f,now,%f", &v60, v57);
+    v41 = v40;
+    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMotionManager predictedDeviceMotionAtTimestamp:error:]", "CoreLocation: %s\n", v40);
+    if (v41 != buf)
     {
-      free(v37);
+      free(v41);
     }
   }
 
-LABEL_68:
-  v50 = *MEMORY[0x1E69E9840];
-  return v28;
+  return v30;
 }
 
 - (void)onAccelerometer:(const Sample *)accelerometer
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   internal = self->_internal;
   os_unfair_lock_lock(internal + 2);
   v5 = *&accelerometer->timestamp;
@@ -3223,9 +3335,9 @@ LABEL_68:
           {
             v17 = mach_absolute_time();
             *buf = 138412546;
-            v30 = v14;
-            v31 = 2048;
-            v32 = sub_19B41E070(v17);
+            v31 = v14;
+            v32 = 2048;
+            v33 = sub_19B41E070(v17);
             _os_log_impl(&dword_19B41C000, v16, OS_LOG_TYPE_DEBUG, "CMAccelerometerData: %@,now,%f", buf, 0x16u);
           }
 
@@ -3238,27 +3350,29 @@ LABEL_68:
               dispatch_once(&qword_1ED71C800, &unk_1F0E3A778);
             }
 
-            v20 = mach_absolute_time();
-            v25 = 138412546;
-            v26 = v14;
-            v27 = 2048;
-            v28 = sub_19B41E070(v20);
-            v21 = _os_log_send_and_compose_impl();
-            sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMotionManager onAccelerometer:]", "CoreLocation: %s\n", v21);
-            if (v21 != buf)
+            v20 = off_1ED71C808;
+            v21 = mach_absolute_time();
+            v26 = 138412546;
+            v27 = v14;
+            v28 = 2048;
+            v29 = sub_19B41E070(v21);
+            _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v20, 2, "CMAccelerometerData: %@,now,%f", &v26, 22);
+            v23 = v22;
+            sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMotionManager onAccelerometer:]", "CoreLocation: %s\n", v22);
+            if (v23 != buf)
             {
-              free(v21);
+              free(v23);
             }
           }
 
-          v22 = *(internal + 5);
-          v24[0] = MEMORY[0x1E69E9820];
-          v24[1] = 3221225472;
-          v24[2] = sub_19B6337B0;
-          v24[3] = &unk_1E7532B90;
-          v24[4] = v14;
-          v24[5] = v15;
-          objc_msgSend_addOperationWithBlock_(v22, v19, v24);
+          v24 = *(internal + 5);
+          v25[0] = MEMORY[0x1E69E9820];
+          v25[1] = 3221225472;
+          v25[2] = sub_19B6337B0;
+          v25[3] = &unk_1E7532B90;
+          v25[4] = v14;
+          v25[5] = v15;
+          objc_msgSend_addOperationWithBlock_(v24, v19, v25);
 
           objc_autoreleasePoolPop(v7);
           *(internal + 6) = *&accelerometer->timestamp;
@@ -3266,13 +3380,11 @@ LABEL_68:
       }
     }
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)onGyro:(const Sample *)gyro
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   internal = self->_internal;
   os_unfair_lock_lock(internal + 2);
   v5 = *&gyro->timestamp;
@@ -3305,9 +3417,9 @@ LABEL_68:
           {
             v17 = mach_absolute_time();
             *buf = 138412546;
-            v30 = v14;
-            v31 = 2048;
-            v32 = sub_19B41E070(v17);
+            v31 = v14;
+            v32 = 2048;
+            v33 = sub_19B41E070(v17);
             _os_log_impl(&dword_19B41C000, v16, OS_LOG_TYPE_DEBUG, "CMGyroData: %@,now,%f", buf, 0x16u);
           }
 
@@ -3320,27 +3432,29 @@ LABEL_68:
               dispatch_once(&qword_1ED71C800, &unk_1F0E3A778);
             }
 
-            v20 = mach_absolute_time();
-            v25 = 138412546;
-            v26 = v14;
-            v27 = 2048;
-            v28 = sub_19B41E070(v20);
-            v21 = _os_log_send_and_compose_impl();
-            sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMotionManager onGyro:]", "CoreLocation: %s\n", v21);
-            if (v21 != buf)
+            v20 = off_1ED71C808;
+            v21 = mach_absolute_time();
+            v26 = 138412546;
+            v27 = v14;
+            v28 = 2048;
+            v29 = sub_19B41E070(v21);
+            _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v20, 2, "CMGyroData: %@,now,%f", &v26, 22);
+            v23 = v22;
+            sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMotionManager onGyro:]", "CoreLocation: %s\n", v22);
+            if (v23 != buf)
             {
-              free(v21);
+              free(v23);
             }
           }
 
-          v22 = *(internal + 27);
-          v24[0] = MEMORY[0x1E69E9820];
-          v24[1] = 3221225472;
-          v24[2] = sub_19B633AC8;
-          v24[3] = &unk_1E7532B90;
-          v24[4] = v14;
-          v24[5] = v15;
-          objc_msgSend_addOperationWithBlock_(v22, v19, v24);
+          v24 = *(internal + 27);
+          v25[0] = MEMORY[0x1E69E9820];
+          v25[1] = 3221225472;
+          v25[2] = sub_19B633AC8;
+          v25[3] = &unk_1E7532B90;
+          v25[4] = v14;
+          v25[5] = v15;
+          objc_msgSend_addOperationWithBlock_(v24, v19, v25);
 
           objc_autoreleasePoolPop(v7);
           *(internal + 28) = *&gyro->timestamp;
@@ -3348,33 +3462,31 @@ LABEL_68:
       }
     }
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)onFactoryGyro:(const Sample *)gyro
 {
-  v97[1] = *MEMORY[0x1E69E9840];
+  v106[1] = *MEMORY[0x1E69E9840];
   internal = self->_internal;
   if (!*(internal + 87))
   {
-    goto LABEL_81;
+    return;
   }
 
   if (!*(internal + 86))
   {
-    goto LABEL_81;
+    return;
   }
 
   if (gyro->timestamp <= 0.0)
   {
-    goto LABEL_81;
+    return;
   }
 
   v5 = *(internal + 88);
   if (v5 > 0.0 && gyro->timestamp - v5 - *(internal + 83) < *(internal + 83) * -0.1)
   {
-    goto LABEL_81;
+    return;
   }
 
   context = objc_autoreleasePoolPush();
@@ -3389,9 +3501,9 @@ LABEL_68:
   else
   {
     v11 = MEMORY[0x1E696ABC0];
-    v96 = *MEMORY[0x1E696A578];
-    v97[0] = @"Invalid gyro temperature value.";
-    v12 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v6, v97, &v96, 1);
+    v105 = *MEMORY[0x1E696A578];
+    v106[0] = @"Invalid gyro temperature value.";
+    v12 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v6, v106, &v105, 1);
     v10 = objc_msgSend_errorWithDomain_code_userInfo_(v11, v13, @"CMErrorDomainFactory", 8, v12);
     if (qword_1ED71C810 != -1)
     {
@@ -3404,9 +3516,9 @@ LABEL_68:
       v15 = *(internal + 178);
       v16 = mach_absolute_time();
       *buf = 134218240;
-      v91 = v15;
-      v92 = 2048;
-      v93 = sub_19B41E070(v16);
+      v100 = v15;
+      v101 = 2048;
+      v102 = sub_19B41E070(v16);
       _os_log_impl(&dword_19B41C000, v14, OS_LOG_TYPE_ERROR, "Invalid gyro temperature value: %f,now,%f", buf, 0x16u);
     }
 
@@ -3419,17 +3531,20 @@ LABEL_68:
         dispatch_once(&qword_1ED71C810, &unk_1F0E3A898);
       }
 
-      v18 = *(internal + 178);
-      v19 = mach_absolute_time();
-      v84 = 134218240;
-      v85 = v18;
-      v86 = 2048;
-      v87 = sub_19B41E070(v19);
-      v20 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMMotionManager onFactoryGyro:]", "CoreLocation: %s\n", v20);
-      if (v20 != buf)
+      v18 = qword_1ED71C818;
+      v19 = *(internal + 178);
+      v20 = mach_absolute_time();
+      v93 = 134218240;
+      v94 = v19;
+      v95 = 2048;
+      v96 = sub_19B41E070(v20);
+      LODWORD(v87) = 22;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v18, 16, "Invalid gyro temperature value: %f,now,%f", COERCE_DOUBLE(&v93), v87);
+      v22 = v21;
+      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMMotionManager onFactoryGyro:]", "CoreLocation: %s\n", v21);
+      if (v22 != buf)
       {
-        free(v20);
+        free(v22);
       }
     }
   }
@@ -3441,18 +3556,18 @@ LABEL_68:
       dispatch_once(&qword_1ED71C810, &unk_1F0E3A898);
     }
 
-    v21 = qword_1ED71C818;
+    v23 = qword_1ED71C818;
     if (os_log_type_enabled(qword_1ED71C818, OS_LOG_TYPE_DEBUG))
     {
-      v22 = mach_absolute_time();
-      v23 = sub_19B41E070(v22);
+      v24 = mach_absolute_time();
+      v25 = sub_19B41E070(v24);
       *buf = 134217984;
-      v91 = v23;
-      _os_log_impl(&dword_19B41C000, v21, OS_LOG_TYPE_DEBUG, "Fit not computed,now,%f", buf, 0xCu);
+      v100 = v25;
+      _os_log_impl(&dword_19B41C000, v23, OS_LOG_TYPE_DEBUG, "Fit not computed,now,%f", buf, 0xCu);
     }
 
-    v24 = sub_19B420058();
-    if (*(v24 + 160) > 1 || *(v24 + 164) > 1 || *(v24 + 168) > 1 || *(v24 + 152))
+    v26 = sub_19B420058();
+    if (*(v26 + 160) > 1 || *(v26 + 164) > 1 || *(v26 + 168) > 1 || *(v26 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1ED71C810 != -1)
@@ -3460,14 +3575,17 @@ LABEL_68:
         dispatch_once(&qword_1ED71C810, &unk_1F0E3A898);
       }
 
-      v25 = mach_absolute_time();
-      v84 = 134217984;
-      v85 = sub_19B41E070(v25);
-      v26 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMotionManager onFactoryGyro:]", "CoreLocation: %s\n", v26);
-      if (v26 != buf)
+      v27 = qword_1ED71C818;
+      v28 = mach_absolute_time();
+      v29 = sub_19B41E070(v28);
+      v93 = 134217984;
+      v94 = v29;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v27, 2, "Fit not computed,now,%f", COERCE_DOUBLE(&v93));
+      v31 = v30;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMotionManager onFactoryGyro:]", "CoreLocation: %s\n", v30);
+      if (v31 != buf)
       {
-        free(v26);
+        free(v31);
       }
     }
   }
@@ -3483,28 +3601,29 @@ LABEL_68:
   if ((sub_19B421620() & 0x40000) != 0)
   {
     sub_19B71B784((internal + 717), *(internal + 178));
-    v32 = v31 * 57.296;
-    v34 = v33 * 57.296;
-    v36 = v35 * 57.296;
+    v37 = v36 * 57.296;
+    v39 = v38 * 57.296;
+    v41 = v40 * 57.296;
+    *(&v88 + 1) = z;
     if (qword_1ED71C810 != -1)
     {
       dispatch_once(&qword_1ED71C810, &unk_1F0E3A898);
     }
 
-    v37 = qword_1ED71C818;
+    v42 = qword_1ED71C818;
     if (os_log_type_enabled(qword_1ED71C818, OS_LOG_TYPE_DEBUG))
     {
       *buf = 134218496;
-      v91 = v32;
-      v92 = 2048;
-      v93 = v34;
-      v94 = 2048;
-      v95 = v36;
-      _os_log_impl(&dword_19B41C000, v37, OS_LOG_TYPE_DEBUG, "Fit bias: %f,%f,%f deg/s", buf, 0x20u);
+      v100 = v37;
+      v101 = 2048;
+      v102 = v39;
+      v103 = 2048;
+      v104 = v41;
+      _os_log_impl(&dword_19B41C000, v42, OS_LOG_TYPE_DEBUG, "Fit bias: %f,%f,%f deg/s", buf, 0x20u);
     }
 
-    v38 = sub_19B420058();
-    if (*(v38 + 160) > 1 || *(v38 + 164) > 1 || *(v38 + 168) > 1 || *(v38 + 152))
+    v43 = sub_19B420058();
+    if (*(v43 + 160) > 1 || *(v43 + 164) > 1 || *(v43 + 168) > 1 || *(v43 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1ED71C810 != -1)
@@ -3512,61 +3631,63 @@ LABEL_68:
         dispatch_once(&qword_1ED71C810, &unk_1F0E3A898);
       }
 
-      v84 = 134218496;
-      v85 = v32;
-      v86 = 2048;
-      v87 = v34;
-      v88 = 2048;
-      v89 = v36;
-      v39 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMotionManager onFactoryGyro:]", "CoreLocation: %s\n", v39);
-      if (v39 != buf)
+      v93 = 134218496;
+      v94 = v37;
+      v95 = 2048;
+      v96 = v39;
+      v97 = 2048;
+      v98 = v41;
+      LODWORD(v87) = 32;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1ED71C818, 2, "Fit bias: %f,%f,%f deg/s", COERCE_DOUBLE(&v93), v87, v88);
+      v45 = v44;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMotionManager onFactoryGyro:]", "CoreLocation: %s\n", v44);
+      if (v45 != buf)
       {
-        free(v39);
+        free(v45);
       }
     }
 
-    v40 = x - v32;
-    v41 = y - v34;
-    v42 = z - v36;
+    v46 = x - v37;
+    v47 = y - v39;
+    v48 = *(&v88 + 1) - v41;
     goto LABEL_67;
   }
 
   if ((sub_19B421620() & 0x20000) != 0)
   {
-    v43 = *(internal + 178);
-    v44 = (internal + 1012);
+    v49 = *(internal + 178);
+    v50 = (internal + 1012);
     for (i = 250; i != 253; ++i)
     {
-      v46 = *(v44 - 3);
-      v47 = *v44++;
-      *&v83[i - 250] = v47 + (v43 * v46);
+      v52 = *(v50 - 3);
+      v53 = *v50++;
+      *&v92[i - 250] = v53 + (v49 * v52);
     }
 
-    v48 = *v83;
-    v49 = *&v83[1];
-    v50 = *&v83[2];
+    v54 = *v92;
+    v55 = *&v92[1];
+    v56 = *&v92[2];
     if (qword_1ED71C810 != -1)
     {
       dispatch_once(&qword_1ED71C810, &unk_1F0E3A898);
     }
 
-    v51 = qword_1ED71C818;
-    v79 = v48;
-    v52 = v48;
+    v57 = qword_1ED71C818;
+    *&v88 = v54;
+    v58 = v54;
     if (os_log_type_enabled(qword_1ED71C818, OS_LOG_TYPE_DEBUG))
     {
       *buf = 134218496;
-      v91 = v52;
-      v92 = 2048;
-      v93 = v49;
-      v94 = 2048;
-      v95 = v50;
-      _os_log_impl(&dword_19B41C000, v51, OS_LOG_TYPE_DEBUG, "Fit bias: %f,%f,%f deg/s", buf, 0x20u);
+      v100 = v58;
+      v101 = 2048;
+      v102 = v55;
+      v103 = 2048;
+      v104 = v56;
+      _os_log_impl(&dword_19B41C000, v57, OS_LOG_TYPE_DEBUG, "Fit bias: %f,%f,%f deg/s", buf, 0x20u);
     }
 
-    v53 = sub_19B420058();
-    if (*(v53 + 160) > 1 || *(v53 + 164) > 1 || *(v53 + 168) > 1 || *(v53 + 152))
+    v59 = sub_19B420058();
+    if (*(v59 + 160) > 1 || *(v59 + 164) > 1 || *(v59 + 168) > 1 || *(v59 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1ED71C810 != -1)
@@ -3574,61 +3695,63 @@ LABEL_68:
         dispatch_once(&qword_1ED71C810, &unk_1F0E3A898);
       }
 
-      v84 = 134218496;
-      v85 = v52;
-      v86 = 2048;
-      v87 = v49;
-      v88 = 2048;
-      v89 = v50;
-      v54 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMotionManager onFactoryGyro:]", "CoreLocation: %s\n", v54);
-      if (v54 != buf)
+      v93 = 134218496;
+      v94 = v58;
+      v95 = 2048;
+      v96 = v55;
+      v97 = 2048;
+      v98 = v56;
+      LODWORD(v87) = 32;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1ED71C818, 2, "Fit bias: %f,%f,%f deg/s", COERCE_DOUBLE(&v93), v87, v88);
+      v61 = v60;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMotionManager onFactoryGyro:]", "CoreLocation: %s\n", v60);
+      if (v61 != buf)
       {
-        free(v54);
+        free(v61);
       }
     }
 
-    v40 = x - v79;
-    v41 = y - v49;
-    v42 = z - v50;
+    v46 = x - *&v88;
+    v47 = y - v55;
+    v48 = z - v56;
 LABEL_67:
-    v55 = [CMRotationRateData alloc];
-    *&v56 = v40;
-    *&v57 = v41;
-    *&v58 = v42;
-    v30 = objc_msgSend_initWithRotationRate_andTimestamp_(v55, v59, v60, v56, v57, v58, gyro->timestamp);
+    v62 = [CMRotationRateData alloc];
+    *&v63 = v46;
+    *&v64 = v47;
+    *&v65 = v48;
+    v35 = COERCE_DOUBLE(objc_msgSend_initWithRotationRate_andTimestamp_(v62, v66, v67, v63, v64, v65, gyro->timestamp));
     goto LABEL_68;
   }
 
 LABEL_38:
-  v30 = 0;
+  v35 = 0.0;
 LABEL_68:
-  v61 = [CMGyroData alloc];
-  *&v62 = gyro->acceleration.x;
-  *&v63 = gyro->acceleration.y;
-  *&v64 = gyro->acceleration.z;
-  v67 = objc_msgSend_initWithRotationRate_andTimestamp_(v61, v65, v66, v62, v63, v64, gyro->timestamp);
+  v68 = [CMGyroData alloc];
+  *&v69 = gyro->acceleration.x;
+  *&v70 = gyro->acceleration.y;
+  *&v71 = gyro->acceleration.z;
+  v74 = COERCE_DOUBLE(objc_msgSend_initWithRotationRate_andTimestamp_(v68, v72, v73, v69, v70, v71, gyro->timestamp));
   if (qword_1ED71C810 != -1)
   {
     dispatch_once(&qword_1ED71C810, &unk_1F0E3A898);
   }
 
-  v68 = qword_1ED71C818;
+  v75 = qword_1ED71C818;
   if (os_log_type_enabled(qword_1ED71C818, OS_LOG_TYPE_DEBUG))
   {
-    v69 = mach_absolute_time();
-    v70 = sub_19B41E070(v69);
+    v76 = mach_absolute_time();
+    v77 = sub_19B41E070(v76);
     *buf = 138412802;
-    v91 = *&v30;
-    v92 = 2112;
-    v93 = *&v67;
-    v94 = 2048;
-    v95 = v70;
-    _os_log_impl(&dword_19B41C000, v68, OS_LOG_TYPE_DEBUG, "CMFactoryGyroData: %@,%@,now,%f", buf, 0x20u);
+    v100 = v35;
+    v101 = 2112;
+    v102 = v74;
+    v103 = 2048;
+    v104 = v77;
+    _os_log_impl(&dword_19B41C000, v75, OS_LOG_TYPE_DEBUG, "CMFactoryGyroData: %@,%@,now,%f", buf, 0x20u);
   }
 
-  v71 = sub_19B420058();
-  if (*(v71 + 160) > 1 || *(v71 + 164) > 1 || *(v71 + 168) > 1 || *(v71 + 152))
+  v78 = sub_19B420058();
+  if (*(v78 + 160) > 1 || *(v78 + 164) > 1 || *(v78 + 168) > 1 || *(v78 + 152))
   {
     bzero(buf, 0x65CuLL);
     if (qword_1ED71C810 != -1)
@@ -3636,44 +3759,45 @@ LABEL_68:
       dispatch_once(&qword_1ED71C810, &unk_1F0E3A898);
     }
 
-    v73 = mach_absolute_time();
-    v74 = sub_19B41E070(v73);
-    v84 = 138412802;
-    v85 = *&v30;
-    v86 = 2112;
-    v87 = *&v67;
-    v88 = 2048;
-    v89 = v74;
-    v75 = _os_log_send_and_compose_impl();
-    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMotionManager onFactoryGyro:]", "CoreLocation: %s\n", v75);
-    if (v75 != buf)
+    v80 = qword_1ED71C818;
+    v81 = mach_absolute_time();
+    v82 = sub_19B41E070(v81);
+    v93 = 138412802;
+    v94 = v35;
+    v95 = 2112;
+    v96 = v74;
+    v97 = 2048;
+    v98 = v82;
+    LODWORD(v87) = 32;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v80, 2, "CMFactoryGyroData: %@,%@,now,%f", &v93, *&v87);
+    v84 = v83;
+    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMotionManager onFactoryGyro:]", "CoreLocation: %s\n", v83);
+    if (v84 != buf)
     {
-      free(v75);
+      free(v84);
     }
   }
 
-  v76 = *(internal + 178);
-  v77 = *(internal + 87);
-  v81[0] = MEMORY[0x1E69E9820];
-  v81[1] = 3221225472;
-  v81[2] = sub_19B634584;
-  v81[3] = &unk_1E7533960;
-  v81[4] = v30;
-  v81[5] = v67;
-  v82 = v76;
-  v81[6] = v10;
-  v81[7] = v7;
-  objc_msgSend_addOperationWithBlock_(v77, v72, v81);
+  v85 = *(internal + 178);
+  v86 = *(internal + 87);
+  v90[0] = MEMORY[0x1E69E9820];
+  v90[1] = 3221225472;
+  v90[2] = sub_19B634584;
+  v90[3] = &unk_1E7533960;
+  *&v90[4] = v35;
+  *&v90[5] = v74;
+  v91 = v85;
+  v90[6] = v10;
+  v90[7] = v7;
+  objc_msgSend_addOperationWithBlock_(v86, v79, v90);
 
   objc_autoreleasePoolPop(context);
   *(internal + 28) = *&gyro->timestamp;
-LABEL_81:
-  v78 = *MEMORY[0x1E69E9840];
 }
 
 - (void)onFactoryGyroTemperature:(const Temperature *)temperature
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   internal = self->_internal;
   os_unfair_lock_lock(internal + 2);
   internal[178]._os_unfair_lock_opaque = LODWORD(temperature->var1);
@@ -3690,11 +3814,11 @@ LABEL_81:
     var0 = temperature->var0;
     v8 = mach_absolute_time();
     *buf = 134218496;
-    v16 = var1;
-    v17 = 2048;
-    v18 = var0;
-    v19 = 2048;
-    v20 = sub_19B41E070(v8);
+    v24 = var1;
+    v25 = 2048;
+    v26 = var0;
+    v27 = 2048;
+    v28 = sub_19B41E070(v8);
     _os_log_impl(&dword_19B41C000, v5, OS_LOG_TYPE_DEBUG, "Factory gyro temp sample: %f,timestamp,%f,now,%f", buf, 0x20u);
   }
 
@@ -3707,24 +3831,30 @@ LABEL_81:
       dispatch_once(&qword_1ED71C810, &unk_1F0E3A898);
     }
 
-    v10 = temperature->var1;
-    v11 = temperature->var0;
-    v12 = mach_absolute_time();
-    sub_19B41E070(v12);
-    v13 = _os_log_send_and_compose_impl();
-    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMotionManager onFactoryGyroTemperature:]", "CoreLocation: %s\n", v13);
-    if (v13 != buf)
+    v10 = qword_1ED71C818;
+    v11 = temperature->var1;
+    v12 = temperature->var0;
+    v13 = mach_absolute_time();
+    v17 = 134218496;
+    v18 = v11;
+    v19 = 2048;
+    v20 = v12;
+    v21 = 2048;
+    v22 = sub_19B41E070(v13);
+    LODWORD(v16) = 32;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v10, 2, "Factory gyro temp sample: %f,timestamp,%f,now,%f", COERCE_DOUBLE(&v17), v16);
+    v15 = v14;
+    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMotionManager onFactoryGyroTemperature:]", "CoreLocation: %s\n", v14);
+    if (v15 != buf)
     {
-      free(v13);
+      free(v15);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)onMagnetometer:(const Sample *)magnetometer
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   internal = self->_internal;
   os_unfair_lock_lock(internal + 2);
   v5 = *&magnetometer->timestamp;
@@ -3757,9 +3887,9 @@ LABEL_81:
           {
             v17 = mach_absolute_time();
             *buf = 138412546;
-            v30 = v14;
-            v31 = 2048;
-            v32 = sub_19B41E070(v17);
+            v31 = v14;
+            v32 = 2048;
+            v33 = sub_19B41E070(v17);
             _os_log_impl(&dword_19B41C000, v16, OS_LOG_TYPE_DEBUG, "CMMagnetometerData: %@,now,%f", buf, 0x16u);
           }
 
@@ -3772,27 +3902,29 @@ LABEL_81:
               dispatch_once(&qword_1ED71C800, &unk_1F0E3A778);
             }
 
-            v20 = mach_absolute_time();
-            v25 = 138412546;
-            v26 = v14;
-            v27 = 2048;
-            v28 = sub_19B41E070(v20);
-            v21 = _os_log_send_and_compose_impl();
-            sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMotionManager onMagnetometer:]", "CoreLocation: %s\n", v21);
-            if (v21 != buf)
+            v20 = off_1ED71C808;
+            v21 = mach_absolute_time();
+            v26 = 138412546;
+            v27 = v14;
+            v28 = 2048;
+            v29 = sub_19B41E070(v21);
+            _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v20, 2, "CMMagnetometerData: %@,now,%f", &v26, 22);
+            v23 = v22;
+            sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMotionManager onMagnetometer:]", "CoreLocation: %s\n", v22);
+            if (v23 != buf)
             {
-              free(v21);
+              free(v23);
             }
           }
 
-          v22 = *(internal + 49);
-          v24[0] = MEMORY[0x1E69E9820];
-          v24[1] = 3221225472;
-          v24[2] = sub_19B634AE8;
-          v24[3] = &unk_1E7532B90;
-          v24[4] = v14;
-          v24[5] = v15;
-          objc_msgSend_addOperationWithBlock_(v22, v19, v24);
+          v24 = *(internal + 49);
+          v25[0] = MEMORY[0x1E69E9820];
+          v25[1] = 3221225472;
+          v25[2] = sub_19B634AE8;
+          v25[3] = &unk_1E7532B90;
+          v25[4] = v14;
+          v25[5] = v15;
+          objc_msgSend_addOperationWithBlock_(v24, v19, v25);
 
           objc_autoreleasePoolPop(v7);
           *(internal + 50) = *&magnetometer->timestamp;
@@ -3800,8 +3932,93 @@ LABEL_81:
       }
     }
   }
+}
 
-  v23 = *MEMORY[0x1E69E9840];
+- (BOOL)sendDeviceMotionError:(int)error
+{
+  v3 = *&error;
+  v27 = *MEMORY[0x1E69E9840];
+  internal = self->_internal;
+  v5 = internal[35];
+  if (v5)
+  {
+    LOBYTE(v5) = internal[34] != 0;
+  }
+
+  v6 = internal[78];
+  if (v6)
+  {
+    LOBYTE(v6) = internal[77] != 0;
+  }
+
+  v7 = v5 | v6;
+  if ((v5 | v6))
+  {
+    v8 = objc_autoreleasePoolPush();
+    v10 = objc_msgSend_CMErrorWithCode_(CMErrorUtils, v9, v3);
+    if (qword_1ED71C800 != -1)
+    {
+      dispatch_once(&qword_1ED71C800, &unk_1F0E3A778);
+    }
+
+    v11 = off_1ED71C808;
+    if (os_log_type_enabled(off_1ED71C808, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138543362;
+      v26 = v10;
+      _os_log_impl(&dword_19B41C000, v11, OS_LOG_TYPE_DEFAULT, "CMError: %{public}@", buf, 0xCu);
+    }
+
+    v12 = sub_19B420058();
+    if (*(v12 + 160) > 1 || *(v12 + 164) > 1 || *(v12 + 168) > 1 || *(v12 + 152))
+    {
+      bzero(buf, 0x65CuLL);
+      if (qword_1ED71C800 != -1)
+      {
+        dispatch_once(&qword_1ED71C800, &unk_1F0E3A778);
+      }
+
+      v23 = 138543362;
+      v24 = v10;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C808, 0, "CMError: %{public}@", &v23, 12);
+      v15 = v14;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMotionManager sendDeviceMotionError:]", "CoreLocation: %s\n", v14);
+      if (v15 != buf)
+      {
+        free(v15);
+      }
+    }
+
+    v16 = internal[34];
+    if (v16)
+    {
+      v17 = internal[35];
+      v22[0] = MEMORY[0x1E69E9820];
+      v22[1] = 3221225472;
+      v22[2] = sub_19B634DDC;
+      v22[3] = &unk_1E7532B90;
+      v22[4] = v10;
+      v22[5] = v16;
+      objc_msgSend_addOperationWithBlock_(v17, v13, v22);
+    }
+
+    v18 = internal[77];
+    if (v18)
+    {
+      v19 = internal[78];
+      v21[0] = MEMORY[0x1E69E9820];
+      v21[1] = 3221225472;
+      v21[2] = sub_19B634DF4;
+      v21[3] = &unk_1E7532B90;
+      v21[4] = v10;
+      v21[5] = v18;
+      objc_msgSend_addOperationWithBlock_(v19, v13, v21);
+    }
+
+    objc_autoreleasePoolPop(v8);
+  }
+
+  return v7 & 1;
 }
 
 + (BOOL)northAlignedReferenceFrame:(unint64_t)frame
@@ -3875,25 +4092,25 @@ LABEL_81:
 
 - (void)onDeviceMotion:(const Sample *)motion
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   internal = self->_internal;
   v6 = *&motion[3].acceleration.x;
-  *&v32[64] = *&motion[2].acceleration.z;
-  *&v32[80] = v6;
+  *&v33[64] = *&motion[2].acceleration.z;
+  *&v33[80] = v6;
   v7 = *&motion[4].acceleration.z;
-  v33 = *&motion[4].timestamp;
-  v34 = v7;
+  v34 = *&motion[4].timestamp;
+  v35 = v7;
   v8 = *&motion->acceleration.z;
-  *v32 = *&motion->timestamp;
-  *&v32[16] = v8;
+  *v33 = *&motion->timestamp;
+  *&v33[16] = v8;
   v9 = *&motion[2].timestamp;
-  *&v32[32] = *&motion[1].acceleration.x;
-  *&v32[48] = v9;
+  *&v33[32] = *&motion[1].acceleration.x;
+  *&v33[48] = v9;
   if (objc_msgSend_northAlignedReferenceFrame_(CMMotionManager, a2, *(internal + 38)))
   {
-    if (*&v32[76] < 1)
+    if (*&v33[76] < 1)
     {
-      if (*&v32[76] != -1)
+      if (*&v33[76] != -1)
       {
         *(internal + 313) = 0;
         objc_msgSend_showDeviceMovementDisplay(self, v10, v11);
@@ -3912,28 +4129,28 @@ LABEL_81:
     }
   }
 
-  objc_msgSend_applyNorthReference_(self, v10, v32);
-  objc_msgSend_applyInitialReference_(self, v12, v32);
+  objc_msgSend_applyNorthReference_(self, v10, v33);
+  objc_msgSend_applyInitialReference_(self, v12, v33);
   if (*(internal + 35))
   {
     if (*(internal + 34))
     {
-      if ((WORD5(v34) & 0x100) != 0 && *v32 > 0.0)
+      if ((WORD5(v35) & 0x100) != 0 && *v33 > 0.0)
       {
         v13 = *(internal + 36);
-        if (v13 <= 0.0 || *v32 - v13 - *(internal + 33) >= *(internal + 33) * -0.1)
+        if (v13 <= 0.0 || *v33 - v13 - *(internal + 33) >= *(internal + 33) * -0.1)
         {
           v14 = objc_autoreleasePoolPush();
           v15 = [CMDeviceMotion alloc];
-          v40 = *&v32[40];
-          v41 = *&v32[56];
-          v42 = *&v32[72];
-          v43 = *&v32[88];
-          *buf = *&v32[8];
-          *&buf[16] = *&v32[24];
-          LODWORD(v17) = HIDWORD(v33);
-          LODWORD(v16) = DWORD2(v33);
-          v19 = objc_msgSend_initWithDeviceMotion_internal_timestamp_(v15, v18, buf, COERCE_DOUBLE(__PAIR64__(*&v32[12], v33)), COERCE_DOUBLE(__PAIR64__(*&v32[28], DWORD1(v33))), v16, v17, *v32);
+          v41 = *&v33[40];
+          v42 = *&v33[56];
+          v43 = *&v33[72];
+          v44 = *&v33[88];
+          *buf = *&v33[8];
+          *&buf[16] = *&v33[24];
+          LODWORD(v17) = HIDWORD(v34);
+          LODWORD(v16) = DWORD2(v34);
+          v19 = objc_msgSend_initWithDeviceMotion_internal_timestamp_(v15, v18, buf, COERCE_DOUBLE(__PAIR64__(*&v33[12], v34)), COERCE_DOUBLE(__PAIR64__(*&v33[28], DWORD1(v34))), v16, v17, *v33);
           v20 = *(internal + 34);
           if (qword_1ED71C800 != -1)
           {
@@ -3961,28 +4178,30 @@ LABEL_81:
               dispatch_once(&qword_1ED71C800, &unk_1F0E3A778);
             }
 
-            v26 = mach_absolute_time();
-            v27 = sub_19B41E070(v26);
-            v35 = 138412546;
-            v36 = v19;
-            v37 = 2048;
-            v38 = v27;
-            v28 = _os_log_send_and_compose_impl();
-            sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMotionManager onDeviceMotion:]", "CoreLocation: %s\n", v28);
-            if (v28 != buf)
+            v26 = off_1ED71C808;
+            v27 = mach_absolute_time();
+            v28 = sub_19B41E070(v27);
+            v36 = 138412546;
+            v37 = v19;
+            v38 = 2048;
+            v39 = v28;
+            _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v26, 2, "CMDeviceMotion: %@,now,%f", &v36, 22);
+            v30 = v29;
+            sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMotionManager onDeviceMotion:]", "CoreLocation: %s\n", v29);
+            if (v30 != buf)
             {
-              free(v28);
+              free(v30);
             }
           }
 
-          v29 = *(internal + 35);
-          v31[0] = MEMORY[0x1E69E9820];
-          v31[1] = 3221225472;
-          v31[2] = sub_19B63538C;
-          v31[3] = &unk_1E7532B90;
-          v31[4] = v19;
-          v31[5] = v20;
-          objc_msgSend_addOperationWithBlock_(v29, v25, v31);
+          v31 = *(internal + 35);
+          v32[0] = MEMORY[0x1E69E9820];
+          v32[1] = 3221225472;
+          v32[2] = sub_19B63538C;
+          v32[3] = &unk_1E7532B90;
+          v32[4] = v19;
+          v32[5] = v20;
+          objc_msgSend_addOperationWithBlock_(v31, v25, v32);
 
           objc_autoreleasePoolPop(v14);
           *(internal + 36) = *&motion->timestamp;
@@ -3990,13 +4209,11 @@ LABEL_81:
       }
     }
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 - (void)onAmbientPressure:(const Sample *)pressure
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   internal = self->_internal;
   os_unfair_lock_lock(internal + 2);
   *(internal + 120) = *&pressure->timestamp;
@@ -4026,9 +4243,9 @@ LABEL_81:
           {
             v15 = mach_absolute_time();
             *buf = 138412546;
-            v28 = v12;
-            v29 = 2048;
-            v30 = sub_19B41E070(v15);
+            v29 = v12;
+            v30 = 2048;
+            v31 = sub_19B41E070(v15);
             _os_log_impl(&dword_19B41C000, v14, OS_LOG_TYPE_DEBUG, "CMAmbientPressureData: %@,now,%f", buf, 0x16u);
           }
 
@@ -4041,27 +4258,29 @@ LABEL_81:
               dispatch_once(&qword_1ED71C800, &unk_1F0E3A778);
             }
 
-            v18 = mach_absolute_time();
-            v23 = 138412546;
-            v24 = v12;
-            v25 = 2048;
-            v26 = sub_19B41E070(v18);
-            v19 = _os_log_send_and_compose_impl();
-            sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMotionManager onAmbientPressure:]", "CoreLocation: %s\n", v19);
-            if (v19 != buf)
+            v18 = off_1ED71C808;
+            v19 = mach_absolute_time();
+            v24 = 138412546;
+            v25 = v12;
+            v26 = 2048;
+            v27 = sub_19B41E070(v19);
+            _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v18, 2, "CMAmbientPressureData: %@,now,%f", &v24, 22);
+            v21 = v20;
+            sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMotionManager onAmbientPressure:]", "CoreLocation: %s\n", v20);
+            if (v21 != buf)
             {
-              free(v19);
+              free(v21);
             }
           }
 
-          v20 = *(internal + 13);
-          v22[0] = MEMORY[0x1E69E9820];
-          v22[1] = 3221225472;
-          v22[2] = sub_19B635698;
-          v22[3] = &unk_1E7532B90;
-          v22[4] = v12;
-          v22[5] = v13;
-          objc_msgSend_addOperationWithBlock_(v20, v17, v22);
+          v22 = *(internal + 13);
+          v23[0] = MEMORY[0x1E69E9820];
+          v23[1] = 3221225472;
+          v23[2] = sub_19B635698;
+          v23[3] = &unk_1E7532B90;
+          v23[4] = v12;
+          v23[5] = v13;
+          objc_msgSend_addOperationWithBlock_(v22, v17, v23);
 
           objc_autoreleasePoolPop(v6);
           *(internal + 14) = *&pressure->timestamp;
@@ -4069,13 +4288,11 @@ LABEL_81:
       }
     }
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)onCompensatedAmbientPressure:(const Sample *)pressure
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   internal = self->_internal;
   os_unfair_lock_lock(internal + 2);
   *(internal + 11) = *&pressure->timestamp;
@@ -4105,9 +4322,9 @@ LABEL_81:
           {
             v15 = mach_absolute_time();
             *buf = 138412546;
-            v28 = v12;
-            v29 = 2048;
-            v30 = sub_19B41E070(v15);
+            v29 = v12;
+            v30 = 2048;
+            v31 = sub_19B41E070(v15);
             _os_log_impl(&dword_19B41C000, v14, OS_LOG_TYPE_DEBUG, "CMCompensatedAmbientPressureData: %@,now,%f", buf, 0x16u);
           }
 
@@ -4120,27 +4337,29 @@ LABEL_81:
               dispatch_once(&qword_1ED71C800, &unk_1F0E3A778);
             }
 
-            v18 = mach_absolute_time();
-            v23 = 138412546;
-            v24 = v12;
-            v25 = 2048;
-            v26 = sub_19B41E070(v18);
-            v19 = _os_log_send_and_compose_impl();
-            sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMotionManager onCompensatedAmbientPressure:]", "CoreLocation: %s\n", v19);
-            if (v19 != buf)
+            v18 = off_1ED71C808;
+            v19 = mach_absolute_time();
+            v24 = 138412546;
+            v25 = v12;
+            v26 = 2048;
+            v27 = sub_19B41E070(v19);
+            _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v18, 2, "CMCompensatedAmbientPressureData: %@,now,%f", &v24, 22);
+            v21 = v20;
+            sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMotionManager onCompensatedAmbientPressure:]", "CoreLocation: %s\n", v20);
+            if (v21 != buf)
             {
-              free(v19);
+              free(v21);
             }
           }
 
-          v20 = *(internal + 20);
-          v22[0] = MEMORY[0x1E69E9820];
-          v22[1] = 3221225472;
-          v22[2] = sub_19B6359A4;
-          v22[3] = &unk_1E7532B90;
-          v22[4] = v12;
-          v22[5] = v13;
-          objc_msgSend_addOperationWithBlock_(v20, v17, v22);
+          v22 = *(internal + 20);
+          v23[0] = MEMORY[0x1E69E9820];
+          v23[1] = 3221225472;
+          v23[2] = sub_19B6359A4;
+          v23[3] = &unk_1E7532B90;
+          v23[4] = v12;
+          v23[5] = v13;
+          objc_msgSend_addOperationWithBlock_(v22, v17, v23);
 
           objc_autoreleasePoolPop(v6);
           *(internal + 21) = *&pressure->timestamp;
@@ -4148,8 +4367,6 @@ LABEL_81:
       }
     }
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)willResignActive:(id)active
@@ -4232,6 +4449,44 @@ LABEL_81:
   }
 
   return v2;
+}
+
++ (BOOL)configureM7Activity:(BOOL)activity stepCounting:(BOOL)counting activityForceCodeTransition:(BOOL)transition stepCountingForceCodeTransition:(BOOL)codeTransition threshold:(BOOL)threshold onBodyDetection:(BOOL)detection ispMode:(unsigned __int8)mode predictionInterval:(float)self0 logLevel:(char)self1 proactiveRevisitTime:(unsigned __int16)self2
+{
+  v12 = 0x10000000000;
+  if (!detection)
+  {
+    v12 = 0;
+  }
+
+  v13 = v12 | (mode << 48);
+  v14 = 0x100000000;
+  if (!threshold)
+  {
+    v14 = 0;
+  }
+
+  v15 = 0x1000000;
+  if (!codeTransition)
+  {
+    v15 = 0;
+  }
+
+  v16 = v14 | v15;
+  v17 = 0x10000;
+  if (!transition)
+  {
+    v17 = 0;
+  }
+
+  v18 = v16 | v17;
+  v19 = 256;
+  if (!counting)
+  {
+    v19 = 0;
+  }
+
+  return sub_19B707360(v13 | v18 | v19 | activity, ((level << 32) | (time << 48) | LODWORD(interval)), activity) != 0;
 }
 
 + ($27EAB7405FCF4138B96BF1D57C6DB1C9)gyroCalibrationDatabaseGetBiasFit
@@ -4362,7 +4617,7 @@ LABEL_6:
       _os_log_impl(&dword_19B41C000, v8, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Motion manager can not start device motion lite updates, use isDeviceMotionLiteAvailable before using this API, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework/Framework/CoreMotion/Sensor/CMMotionManager.mm", 3603, "[CMMotionManager startDeviceMotionLiteUpdatesForDeviceID:usingConfiguration:toQueue:withFusedHandler:]");
 LABEL_11:
     dispatch_once(&qword_1ED71C800, &unk_1F0E3A778);
   }
@@ -4370,7 +4625,7 @@ LABEL_11:
 
 - (void)startDeviceMotionLiteFusedUpdatesForDeviceID:(id)d toQueue:(id)queue withHandler:(id)handler
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (qword_1ED71C800 != -1)
   {
     dispatch_once(&qword_1ED71C800, &unk_1F0E3A778);
@@ -4393,20 +4648,21 @@ LABEL_11:
       dispatch_once(&qword_1ED71C800, &unk_1F0E3A778);
     }
 
-    v8 = _os_log_send_and_compose_impl();
+    v10 = 138412290;
+    dCopy2 = d;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C808, 0, "Motion manager asked to start device motion lite updates for device id %@", &v10, 12);
+    v9 = v8;
     sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMotionManager startDeviceMotionLiteFusedUpdatesForDeviceID:toQueue:withHandler:]", "CoreLocation: %s\n", v8);
-    if (v8 != buf)
+    if (v9 != buf)
     {
-      free(v8);
+      free(v9);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stopDeviceMotionLiteUpdatesForDeviceID:(id)d
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (qword_1ED71C800 != -1)
   {
     dispatch_once(&qword_1ED71C800, &unk_1F0E3A778);
@@ -4429,15 +4685,16 @@ LABEL_11:
       dispatch_once(&qword_1ED71C800, &unk_1F0E3A778);
     }
 
-    v6 = _os_log_send_and_compose_impl();
+    v8 = 138412290;
+    dCopy2 = d;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C808, 0, "Motion manager asked to stop device motion lite updates for device id %@", &v8, 12);
+    v7 = v6;
     sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMotionManager stopDeviceMotionLiteUpdatesForDeviceID:]", "CoreLocation: %s\n", v6);
-    if (v6 != buf)
+    if (v7 != buf)
     {
-      free(v6);
+      free(v7);
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startFactoryGyroUpdatesToQueue:(id)queue withHandler:(id)handler
@@ -4521,23 +4778,23 @@ LABEL_11:
 
 - (void)startFactoryGyroUpdatesPrivateToQueue:(id)queue atUpdateInterval:(double)interval withHandler:(id)handler residualHandler:(id)residualHandler
 {
-  v82 = *MEMORY[0x1E69E9840];
+  v90 = *MEMORY[0x1E69E9840];
   internal = self->_internal;
   if (qword_1ED71C810 != -1)
   {
     dispatch_once(&qword_1ED71C810, &unk_1F0E3A898);
   }
 
-  v10 = qword_1ED71C818;
+  v11 = qword_1ED71C818;
   if (os_log_type_enabled(qword_1ED71C818, OS_LOG_TYPE_DEFAULT))
   {
     buf = 134349056;
     buf_4 = interval;
-    _os_log_impl(&dword_19B41C000, v10, OS_LOG_TYPE_DEFAULT, "Starting factory gyro updates at rate: %{public}f", &buf, 0xCu);
+    _os_log_impl(&dword_19B41C000, v11, OS_LOG_TYPE_DEFAULT, "Starting factory gyro updates at rate: %{public}f", &buf, 0xCu);
   }
 
-  v11 = sub_19B420058();
-  if (*(v11 + 160) > 1 || *(v11 + 164) > 1 || *(v11 + 168) > 1 || *(v11 + 152))
+  v12 = sub_19B420058();
+  if (*(v12 + 160) > 1 || *(v12 + 164) > 1 || *(v12 + 168) > 1 || *(v12 + 152))
   {
     bzero(&buf, 0x65CuLL);
     if (qword_1ED71C810 != -1)
@@ -4545,13 +4802,14 @@ LABEL_11:
       dispatch_once(&qword_1ED71C810, &unk_1F0E3A898);
     }
 
-    v66 = 134349056;
+    v74 = 134349056;
     intervalCopy2 = interval;
-    v12 = _os_log_send_and_compose_impl();
-    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMotionManager startFactoryGyroUpdatesPrivateToQueue:atUpdateInterval:withHandler:residualHandler:]", "CoreLocation: %s\n", v12);
-    if (v12 != &buf)
+    _os_log_send_and_compose_impl(2, 0, &buf, 1628, &dword_19B41C000, qword_1ED71C818, 0, "Starting factory gyro updates at rate: %{public}f", &v74, 12);
+    v14 = v13;
+    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMotionManager startFactoryGyroUpdatesPrivateToQueue:atUpdateInterval:withHandler:residualHandler:]", "CoreLocation: %s\n", v13);
+    if (v14 != &buf)
     {
-      free(v12);
+      free(v14);
     }
   }
 
@@ -4562,16 +4820,16 @@ LABEL_11:
       dispatch_once(&qword_1ED71C810, &unk_1F0E3A898);
     }
 
-    v23 = qword_1ED71C818;
+    v26 = qword_1ED71C818;
     if (os_log_type_enabled(qword_1ED71C818, OS_LOG_TYPE_ERROR))
     {
       buf = 134349056;
       buf_4 = interval;
-      _os_log_impl(&dword_19B41C000, v23, OS_LOG_TYPE_ERROR, "Invalid update interval: %{public}f", &buf, 0xCu);
+      _os_log_impl(&dword_19B41C000, v26, OS_LOG_TYPE_ERROR, "Invalid update interval: %{public}f", &buf, 0xCu);
     }
 
-    v24 = sub_19B420058();
-    if ((*(v24 + 160) & 0x80000000) == 0 || (*(v24 + 164) & 0x80000000) == 0 || (*(v24 + 168) & 0x80000000) == 0 || *(v24 + 152))
+    v27 = sub_19B420058();
+    if ((*(v27 + 160) & 0x80000000) == 0 || (*(v27 + 164) & 0x80000000) == 0 || (*(v27 + 168) & 0x80000000) == 0 || *(v27 + 152))
     {
       bzero(&buf, 0x65CuLL);
       if (qword_1ED71C810 != -1)
@@ -4579,13 +4837,15 @@ LABEL_11:
         dispatch_once(&qword_1ED71C810, &unk_1F0E3A898);
       }
 
-      v66 = 134349056;
+      v74 = 134349056;
       intervalCopy2 = interval;
-      v25 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMMotionManager startFactoryGyroUpdatesPrivateToQueue:atUpdateInterval:withHandler:residualHandler:]", "CoreLocation: %s\n", v25);
-      if (v25 != &buf)
+      LODWORD(v60) = 12;
+      _os_log_send_and_compose_impl(2, 0, &buf, 1628, &dword_19B41C000, qword_1ED71C818, 16, "Invalid update interval: %{public}f", &v74, *&v60);
+      v29 = v28;
+      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMMotionManager startFactoryGyroUpdatesPrivateToQueue:atUpdateInterval:withHandler:residualHandler:]", "CoreLocation: %s\n", v28);
+      if (v29 != &buf)
       {
-        free(v25);
+        free(v29);
       }
     }
   }
@@ -4593,66 +4853,67 @@ LABEL_11:
   else
   {
     internal[83] = interval;
-    v13 = *(internal + 87);
-    if (v13 != queue)
+    v15 = *(internal + 87);
+    if (v15 != queue)
     {
 
       *(internal + 87) = queue;
     }
 
-    v14 = *(internal + 86);
-    if (v14 != handler)
+    v16 = *(internal + 86);
+    if (v16 != handler)
     {
 
-      *(internal + 86) = objc_msgSend_copy(handler, v15, v16);
+      *(internal + 86) = objc_msgSend_copy(handler, v17, v18);
     }
 
-    v59 = 0;
-    v60 = 0;
-    v61 = 0;
-    v58 = 0.0;
-    sub_19B747A9C(&v59, &v58);
-    if (v58 == 0.0)
+    v67 = 0;
+    v68 = 0;
+    v69 = 0;
+    v66 = 0.0;
+    sub_19B747A9C(&v67, &v66);
+    if (v66 == 0.0)
     {
-      v26 = v59;
-      v27 = v60;
-      if (v59 == v60)
+      selfCopy = self;
+      v30 = v67;
+      v31 = v68;
+      if (v67 == v68)
       {
-        v28 = 0;
+        v32 = 0;
         __src = 0;
       }
 
       else
       {
-        v28 = 0;
+        v32 = 0;
         __src = 0;
         do
         {
-          v30 = *v26;
-          v29 = v26[1];
-          v32 = v26[2];
-          v31 = v26[3];
+          v34 = *v30;
+          v33 = v30[1];
+          v36 = v30[2];
+          v35 = v30[3];
           if (qword_1ED71C810 != -1)
           {
             dispatch_once(&qword_1ED71C810, &unk_1F0E3A898);
           }
 
-          v33 = qword_1ED71C818;
+          v37 = qword_1ED71C818;
           if (os_log_type_enabled(qword_1ED71C818, OS_LOG_TYPE_DEFAULT))
           {
             buf = 134218752;
-            buf_4 = v30;
+            buf_4 = v34;
             buf_12 = 2048;
-            buf_14 = v29;
-            v78 = 2048;
-            v79 = v32;
-            v80 = 2048;
-            v81 = v31;
-            _os_log_impl(&dword_19B41C000, v33, OS_LOG_TYPE_DEFAULT, "GYTT temperature,%f,bias.x,%f,bias.y,%f,bias.z,%f", &buf, 0x2Au);
+            buf_14 = v33;
+            v86 = 2048;
+            v87 = v36;
+            v88 = 2048;
+            v89 = v35;
+            _os_log_impl(&dword_19B41C000, v37, OS_LOG_TYPE_DEFAULT, "GYTT temperature,%f,bias.x,%f,bias.y,%f,bias.z,%f", &buf, 0x2Au);
           }
 
-          v34 = sub_19B420058();
-          if (*(v34 + 160) > 1 || *(v34 + 164) > 1 || *(v34 + 168) > 1 || *(v34 + 152))
+          v38 = sub_19B420058();
+          if (*(v38 + 160) > 1 || *(v38 + 164) > 1 || *(v38 + 168) > 1 || *(v38 + 152))
           {
             bzero(&buf, 0x65CuLL);
             if (qword_1ED71C810 != -1)
@@ -4660,69 +4921,71 @@ LABEL_11:
               dispatch_once(&qword_1ED71C810, &unk_1F0E3A898);
             }
 
-            v66 = 134218752;
-            intervalCopy2 = v30;
-            v68 = 2048;
-            v69 = v29;
-            v70 = 2048;
-            v71 = v32;
-            v72 = 2048;
-            v73 = v31;
-            v35 = _os_log_send_and_compose_impl();
-            sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMotionManager startFactoryGyroUpdatesPrivateToQueue:atUpdateInterval:withHandler:residualHandler:]", "CoreLocation: %s\n", v35);
-            if (v35 != &buf)
+            v74 = 134218752;
+            intervalCopy2 = v34;
+            v76 = 2048;
+            v77 = v33;
+            v78 = 2048;
+            v79 = v36;
+            v80 = 2048;
+            v81 = v35;
+            LODWORD(v60) = 42;
+            _os_log_send_and_compose_impl(2, 0, &buf, 1628, &dword_19B41C000, qword_1ED71C818, 0, "GYTT temperature,%f,bias.x,%f,bias.y,%f,bias.z,%f", COERCE_DOUBLE(&v74), v60, v61, *&selfCopy);
+            v40 = v39;
+            sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMotionManager startFactoryGyroUpdatesPrivateToQueue:atUpdateInterval:withHandler:residualHandler:]", "CoreLocation: %s\n", v39);
+            if (v40 != &buf)
             {
-              free(v35);
+              free(v40);
             }
           }
 
-          v36 = v28 - __src;
-          v37 = 0xAAAAAAAAAAAAAAABLL * ((v28 - __src) >> 3);
-          v38 = v37 + 1;
-          if (v37 + 1 > 0xAAAAAAAAAAAAAAALL)
+          v41 = v32 - __src;
+          v42 = 0xAAAAAAAAAAAAAAABLL * ((v32 - __src) >> 3);
+          v43 = v42 + 1;
+          if (v42 + 1 > 0xAAAAAAAAAAAAAAALL)
           {
             sub_19B5BE690();
           }
 
-          if (0x5555555555555556 * (-__src >> 3) > v38)
+          if (0x5555555555555556 * (-__src >> 3) > v43)
           {
-            v38 = 0x5555555555555556 * (-__src >> 3);
+            v43 = 0x5555555555555556 * (-__src >> 3);
           }
 
           if (0xAAAAAAAAAAAAAAABLL * (-__src >> 3) >= 0x555555555555555)
           {
-            v39 = 0xAAAAAAAAAAAAAAALL;
+            v44 = 0xAAAAAAAAAAAAAAALL;
           }
 
           else
           {
-            v39 = v38;
+            v44 = v43;
           }
 
-          if (v39)
+          if (v44)
           {
-            sub_19B639B7C(v39);
+            sub_19B639B7C(v44);
           }
 
-          v40 = 8 * ((v28 - __src) >> 3);
-          *v40 = v30;
-          *(v40 + 4) = v29;
-          *(v40 + 8) = v32;
-          *(v40 + 12) = v31;
-          *(v40 + 16) = 0;
-          v28 = v40 + 24;
-          v41 = 24 * v37 + 24 * (v36 / -24);
-          memcpy((v40 + 24 * (v36 / -24)), __src, v36);
+          v45 = 8 * ((v32 - __src) >> 3);
+          *v45 = v34;
+          *(v45 + 4) = v33;
+          *(v45 + 8) = v36;
+          *(v45 + 12) = v35;
+          *(v45 + 16) = 0;
+          v32 = (v45 + 24);
+          v46 = 24 * v42 + 24 * (v41 / -24);
+          memcpy((v45 + 24 * (v41 / -24)), __src, v41);
           if (__src)
           {
             operator delete(__src);
           }
 
-          __src = v41;
-          v26 += 4;
+          __src = v46;
+          v30 += 4;
         }
 
-        while (v26 != v27);
+        while (v30 != v31);
       }
 
       if ((sub_19B421620() & 0x40000) != 0)
@@ -4734,31 +4997,31 @@ LABEL_11:
       {
         __p[0] = 0;
         __p[1] = 0;
-        v65 = 0;
-        sub_19B73A8BC(__src, v28, 0, 0, __p);
+        v73 = 0;
+        sub_19B73A8BC(__src, v32, 0, 0, __p);
       }
 
-      v43 = COERCE_DOUBLE(objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v42, @"Missing gyro linearity information. Please file a radar against CoreMotion Factory | All to add support for this device."));
-      v44 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v62 = *MEMORY[0x1E696A578];
-      v63 = v43;
-      v46 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v45, &v63, &v62, 1);
-      v58 = COERCE_DOUBLE(objc_msgSend_initWithDomain_code_userInfo_(v44, v47, @"CMErrorDomainFactory", 2, v46));
+      v48 = COERCE_DOUBLE(objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v47, @"Missing gyro linearity information. Please file a radar against CoreMotion Factory | All to add support for this device."));
+      v49 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v70 = *MEMORY[0x1E696A578];
+      v71 = v48;
+      v51 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v50, &v71, &v70, 1);
+      v66 = COERCE_DOUBLE(objc_msgSend_initWithDomain_code_userInfo_(v49, v52, @"CMErrorDomainFactory", 2, v51));
       if (qword_1ED71C810 != -1)
       {
         dispatch_once(&qword_1ED71C810, &unk_1F0E3A898);
       }
 
-      v48 = qword_1ED71C818;
+      v53 = qword_1ED71C818;
       if (os_log_type_enabled(qword_1ED71C818, OS_LOG_TYPE_ERROR))
       {
         buf = 138543362;
-        buf_4 = v43;
-        _os_log_impl(&dword_19B41C000, v48, OS_LOG_TYPE_ERROR, "%{public}@", &buf, 0xCu);
+        buf_4 = v48;
+        _os_log_impl(&dword_19B41C000, v53, OS_LOG_TYPE_ERROR, "%{public}@", &buf, 0xCu);
       }
 
-      v49 = sub_19B420058();
-      if ((*(v49 + 160) & 0x80000000) == 0 || (*(v49 + 164) & 0x80000000) == 0 || (*(v49 + 168) & 0x80000000) == 0 || *(v49 + 152))
+      v54 = sub_19B420058();
+      if ((*(v54 + 160) & 0x80000000) == 0 || (*(v54 + 164) & 0x80000000) == 0 || (*(v54 + 168) & 0x80000000) == 0 || *(v54 + 152))
       {
         bzero(&buf, 0x65CuLL);
         if (qword_1ED71C810 != -1)
@@ -4766,29 +5029,31 @@ LABEL_11:
           dispatch_once(&qword_1ED71C810, &unk_1F0E3A898);
         }
 
-        v66 = 138543362;
-        intervalCopy2 = v43;
-        v51 = _os_log_send_and_compose_impl();
-        sub_19B6BB7CC("Generic", 1, 0, 0, "[CMMotionManager startFactoryGyroUpdatesPrivateToQueue:atUpdateInterval:withHandler:residualHandler:]", "CoreLocation: %s\n", v51);
-        if (v51 != &buf)
+        v74 = 138543362;
+        intervalCopy2 = v48;
+        LODWORD(v60) = 12;
+        _os_log_send_and_compose_impl(2, 0, &buf, 1628, &dword_19B41C000, qword_1ED71C818, 16, "%{public}@", &v74, *&v60);
+        v57 = v56;
+        sub_19B6BB7CC("Generic", 1, 0, 0, "[CMMotionManager startFactoryGyroUpdatesPrivateToQueue:atUpdateInterval:withHandler:residualHandler:]", "CoreLocation: %s\n", v56);
+        if (v57 != &buf)
         {
-          free(v51);
+          free(v57);
         }
       }
 
-      v52 = *(internal + 87);
-      if (v52)
+      v58 = *(internal + 87);
+      if (v58)
       {
-        v53 = *(internal + 86);
-        if (v53)
+        v59 = *(internal + 86);
+        if (v59)
         {
-          v56[0] = MEMORY[0x1E69E9820];
-          v56[1] = 3221225472;
-          v56[2] = sub_19B6386FC;
-          v56[3] = &unk_1E7532B90;
-          *&v56[4] = v58;
-          v56[5] = v53;
-          objc_msgSend_addOperationWithBlock_(v52, v50, v56);
+          v64[0] = MEMORY[0x1E69E9820];
+          v64[1] = 3221225472;
+          v64[2] = sub_19B6386FC;
+          v64[3] = &unk_1E7532B90;
+          *&v64[4] = v66;
+          v64[5] = v59;
+          objc_msgSend_addOperationWithBlock_(v58, v55, v64);
         }
       }
 
@@ -4805,16 +5070,16 @@ LABEL_11:
         dispatch_once(&qword_1ED71C810, &unk_1F0E3A898);
       }
 
-      v17 = qword_1ED71C818;
+      v19 = qword_1ED71C818;
       if (os_log_type_enabled(qword_1ED71C818, OS_LOG_TYPE_ERROR))
       {
         buf = 138412290;
-        buf_4 = v58;
-        _os_log_impl(&dword_19B41C000, v17, OS_LOG_TYPE_ERROR, "Error found while reading GYTT: %@", &buf, 0xCu);
+        buf_4 = v66;
+        _os_log_impl(&dword_19B41C000, v19, OS_LOG_TYPE_ERROR, "Error found while reading GYTT: %@", &buf, 0xCu);
       }
 
-      v18 = sub_19B420058();
-      if ((*(v18 + 160) & 0x80000000) == 0 || (*(v18 + 164) & 0x80000000) == 0 || (*(v18 + 168) & 0x80000000) == 0 || *(v18 + 152))
+      v20 = sub_19B420058();
+      if ((*(v20 + 160) & 0x80000000) == 0 || (*(v20 + 164) & 0x80000000) == 0 || (*(v20 + 168) & 0x80000000) == 0 || *(v20 + 152))
       {
         bzero(&buf, 0x65CuLL);
         if (qword_1ED71C810 != -1)
@@ -4822,46 +5087,46 @@ LABEL_11:
           dispatch_once(&qword_1ED71C810, &unk_1F0E3A898);
         }
 
-        v66 = 138412290;
-        intervalCopy2 = v58;
-        v20 = _os_log_send_and_compose_impl();
-        sub_19B6BB7CC("Generic", 1, 0, 0, "[CMMotionManager startFactoryGyroUpdatesPrivateToQueue:atUpdateInterval:withHandler:residualHandler:]", "CoreLocation: %s\n", v20);
-        if (v20 != &buf)
+        v74 = 138412290;
+        intervalCopy2 = v66;
+        LODWORD(v60) = 12;
+        _os_log_send_and_compose_impl(2, 0, &buf, 1628, &dword_19B41C000, qword_1ED71C818, 16, "Error found while reading GYTT: %@", &v74, *&v60);
+        v23 = v22;
+        sub_19B6BB7CC("Generic", 1, 0, 0, "[CMMotionManager startFactoryGyroUpdatesPrivateToQueue:atUpdateInterval:withHandler:residualHandler:]", "CoreLocation: %s\n", v22);
+        if (v23 != &buf)
         {
-          free(v20);
+          free(v23);
         }
       }
 
-      v21 = *(internal + 87);
-      if (v21)
+      v24 = *(internal + 87);
+      if (v24)
       {
-        v22 = *(internal + 86);
-        if (v22)
+        v25 = *(internal + 86);
+        if (v25)
         {
-          v57[0] = MEMORY[0x1E69E9820];
-          v57[1] = 3221225472;
-          v57[2] = sub_19B6386DC;
-          v57[3] = &unk_1E7532B90;
-          *&v57[4] = v58;
-          v57[5] = v22;
-          objc_msgSend_addOperationWithBlock_(v21, v19, v57);
+          v65[0] = MEMORY[0x1E69E9820];
+          v65[1] = 3221225472;
+          v65[2] = sub_19B6386DC;
+          v65[3] = &unk_1E7532B90;
+          *&v65[4] = v66;
+          v65[5] = v25;
+          objc_msgSend_addOperationWithBlock_(v24, v21, v65);
         }
       }
     }
 
-    if (v59)
+    if (v67)
     {
-      v60 = v59;
-      operator delete(v59);
+      v68 = v67;
+      operator delete(v67);
     }
   }
-
-  v54 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stopFactoryGyroUpdatesPrivate
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   internal = self->_internal;
   if (qword_1ED71C810 != -1)
   {
@@ -4884,11 +5149,13 @@ LABEL_11:
       dispatch_once(&qword_1ED71C810, &unk_1F0E3A898);
     }
 
-    v5 = _os_log_send_and_compose_impl();
+    v14[0] = 0;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1ED71C818, 0, "Stopping factory gyro updates.", v14, 2);
+    v6 = v5;
     sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMotionManager stopFactoryGyroUpdatesPrivate]", "CoreLocation: %s\n", v5);
-    if (v5 != buf)
+    if (v6 != buf)
     {
-      free(v5);
+      free(v6);
     }
   }
 
@@ -4912,50 +5179,48 @@ LABEL_11:
   *(internal + 716) = 0u;
   if (*(internal + 82))
   {
-    v6 = sub_19B42AD98();
-    sub_19B426A14(v6, 0, *(internal + 82));
-    v7 = *(internal + 82);
-    if (v7)
+    v7 = sub_19B42AD98();
+    sub_19B426A14(v7, 0, *(internal + 82));
+    v8 = *(internal + 82);
+    if (v8)
     {
-      (*(*v7 + 8))(v7);
+      (*(*v8 + 8))(v8);
     }
 
     *(internal + 82) = 0;
-    v8 = *(internal + 81);
-    if (v8)
+    v9 = *(internal + 81);
+    if (v9)
     {
-      sub_19B72A398(v8, 2);
+      sub_19B72A398(v9, 2);
     }
   }
 
   if (*(internal + 84))
   {
-    v9 = sub_19B42AD98();
-    sub_19B426A14(v9, 1, *(internal + 84));
-    v10 = *(internal + 84);
-    if (v10)
+    v10 = sub_19B42AD98();
+    sub_19B426A14(v10, 1, *(internal + 84));
+    v11 = *(internal + 84);
+    if (v11)
     {
-      (*(*v10 + 8))(v10);
+      (*(*v11 + 8))(v11);
     }
 
     *(internal + 84) = 0;
   }
 
-  v11 = *(internal + 87);
-  if (v11)
+  v12 = *(internal + 87);
+  if (v12)
   {
 
     *(internal + 87) = 0;
   }
 
-  v12 = *(internal + 86);
-  if (v12)
+  v13 = *(internal + 86);
+  if (v13)
   {
 
     *(internal + 86) = 0;
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startDeviceMotionUpdatesForKeyboardMotionPrivateToQueue:(id)queue withGravityDeltaThreshold:(double)threshold notificationFrequency:(double)frequency andHandler:(id)handler
@@ -4984,25 +5249,26 @@ LABEL_11:
     }
 
     LOWORD(v26[0]) = 0;
-    v13 = _os_log_send_and_compose_impl();
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1ED71C818, 0, "Starting keyboard motion updates.", v26, 2);
+    v14 = v13;
     sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMotionManager startDeviceMotionUpdatesForKeyboardMotionPrivateToQueue:withGravityDeltaThreshold:notificationFrequency:andHandler:]", "CoreLocation: %s\n", v13);
-    if (v13 != buf)
+    if (v14 != buf)
     {
-      free(v13);
+      free(v14);
     }
   }
 
   if (sub_19B4426E4())
   {
-    v14 = *(internal + 129);
-    if (v14 != queue)
+    v15 = *(internal + 129);
+    if (v15 != queue)
     {
 
       *(internal + 129) = queue;
     }
 
-    v15 = *(internal + 128);
-    if (v15 != handler)
+    v16 = *(internal + 128);
+    if (v16 != handler)
     {
 
       *(internal + 128) = handler;
@@ -5010,13 +5276,13 @@ LABEL_11:
 
     sub_19B4315C8(buf, @"com.apple.CoreMotion", 1);
     v26[0] = 0;
-    v16 = sub_19B43D4DC(buf, @"KeyboardMotionGravityThreshold", v26);
-    v17 = *v26;
+    v17 = sub_19B43D4DC(buf, @"KeyboardMotionGravityThreshold", v26);
+    v18 = *v26;
     v26[0] = 0;
-    v18 = sub_19B43D4DC(buf, @"KeyboardMotionGravitySendFrequency", v26);
-    if (v16)
+    v19 = sub_19B43D4DC(buf, @"KeyboardMotionGravitySendFrequency", v26);
+    if (v17)
     {
-      thresholdCopy = v17;
+      thresholdCopy = v18;
     }
 
     else
@@ -5025,37 +5291,38 @@ LABEL_11:
     }
 
     frequencyCopy = *v26;
-    if (!v18)
+    if (!v19)
     {
       frequencyCopy = frequency;
     }
 
-    v21 = thresholdCopy;
-    v22 = frequencyCopy;
-    internal[267] = v21;
-    internal[268] = v22;
+    v22 = thresholdCopy;
+    v23 = frequencyCopy;
+    internal[267] = v22;
+    internal[268] = v23;
     if (!*(internal + 130))
     {
-      v23 = [CLDeviceMotionProperties alloc];
-      objc_msgSend_initWithMode_(v23, v24, 3);
+      v24 = [CLDeviceMotionProperties alloc];
+      objc_msgSend_initWithMode_(v24, v25, 3);
       operator new();
     }
 
     sub_19B421798();
-    if (sub_19B4426E4() && !*(internal + 135))
+    if (sub_19B4426E4())
     {
-      operator new();
+      if (!*(internal + 135))
+      {
+        operator new();
+      }
     }
 
     sub_19B60DA60(buf);
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stopDeviceMotionUpdatesForKeyboardMotionPrivate
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   internal = self->_internal;
   if (qword_1ED71C810 != -1)
   {
@@ -5078,11 +5345,13 @@ LABEL_11:
       dispatch_once(&qword_1ED71C810, &unk_1F0E3A898);
     }
 
-    v5 = _os_log_send_and_compose_impl();
+    v13[0] = 0;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1ED71C818, 0, "Stopping keyboard motion updates.", v13, 2);
+    v6 = v5;
     sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMotionManager stopDeviceMotionUpdatesForKeyboardMotionPrivate]", "CoreLocation: %s\n", v5);
-    if (v5 != buf)
+    if (v6 != buf)
     {
-      free(v5);
+      free(v6);
     }
   }
 
@@ -5090,12 +5359,12 @@ LABEL_11:
   {
     if (internal[130])
     {
-      v6 = sub_19B424AE0();
-      sub_19B425248(v6, internal[130]);
-      v7 = internal[130];
-      if (v7)
+      v7 = sub_19B424AE0();
+      sub_19B425248(v7, internal[130]);
+      v8 = internal[130];
+      if (v8)
       {
-        (*(*v7 + 8))(v7);
+        (*(*v8 + 8))(v8);
       }
 
       internal[130] = 0;
@@ -5103,33 +5372,31 @@ LABEL_11:
 
     if (internal[135])
     {
-      v8 = sub_19B677074();
-      sub_19B426A14(v8, 0, internal[135]);
-      v9 = internal[135];
-      if (v9)
+      v9 = sub_19B677074();
+      sub_19B426A14(v9, 0, internal[135]);
+      v10 = internal[135];
+      if (v10)
       {
-        (*(*v9 + 8))(v9);
+        (*(*v10 + 8))(v10);
       }
 
       internal[135] = 0;
     }
 
-    v10 = internal[129];
-    if (v10)
+    v11 = internal[129];
+    if (v11)
     {
 
       internal[129] = 0;
     }
 
-    v11 = internal[128];
-    if (v11)
+    v12 = internal[128];
+    if (v12)
     {
 
       internal[128] = 0;
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)sendDeviceMotionHostGravityToKeyboard:(id *)keyboard

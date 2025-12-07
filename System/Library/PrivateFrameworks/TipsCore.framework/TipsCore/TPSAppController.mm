@@ -211,29 +211,29 @@ uint64_t __30__TPSAppController_userGuides__block_invoke(uint64_t a1, void *a2, 
 
 - (id)tipsForCollection:(id)collection
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   tipIdentifiers = [collection tipIdentifiers];
   v5 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(tipIdentifiers, "count")}];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v6 = tipIdentifiers;
-  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v18;
+    v9 = *v17;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * i);
+        v11 = *(*(&v16 + 1) + 8 * i);
         tipMap = [(TPSAppController *)self tipMap];
         v13 = [tipMap objectForKeyedSubscript:v11];
 
@@ -243,14 +243,13 @@ uint64_t __30__TPSAppController_userGuides__block_invoke(uint64_t a1, void *a2, 
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v8);
   }
 
   v14 = [v5 copy];
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -294,36 +293,36 @@ uint64_t __30__TPSAppController_userGuides__block_invoke(uint64_t a1, void *a2, 
 
 - (void)updateContent
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   if (![(TPSAppController *)self updatingContent])
   {
     [(TPSAppController *)self setUpdatingContent:1];
-    v17 = 0;
-    v18 = &v17;
-    v19 = 0x3032000000;
-    v20 = __Block_byref_object_copy__0;
-    v21 = __Block_byref_object_dispose__0;
+    v16 = 0;
+    v17 = &v16;
+    v18 = 0x3032000000;
+    v19 = __Block_byref_object_copy__0;
+    v20 = __Block_byref_object_dispose__0;
     delegateEnumerator = [(TPSAppController *)self delegateEnumerator];
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
-    v3 = v18[5];
-    v4 = [v3 countByEnumeratingWithState:&v13 objects:v23 count:16];
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
+    v3 = v17[5];
+    v4 = [v3 countByEnumeratingWithState:&v12 objects:v22 count:16];
     if (v4)
     {
-      v5 = *v14;
+      v5 = *v13;
       do
       {
         v6 = 0;
         do
         {
-          if (*v14 != v5)
+          if (*v13 != v5)
           {
             objc_enumerationMutation(v3);
           }
 
-          v7 = *(*(&v13 + 1) + 8 * v6);
+          v7 = *(*(&v12 + 1) + 8 * v6);
           if (objc_opt_respondsToSelector())
           {
             [v7 appController:self loadingContent:{-[TPSAppController updatingContent](self, "updatingContent")}];
@@ -333,7 +332,7 @@ uint64_t __30__TPSAppController_userGuides__block_invoke(uint64_t a1, void *a2, 
         }
 
         while (v4 != v6);
-        v4 = [v3 countByEnumeratingWithState:&v13 objects:v23 count:16];
+        v4 = [v3 countByEnumeratingWithState:&v12 objects:v22 count:16];
       }
 
       while (v4);
@@ -341,26 +340,24 @@ uint64_t __30__TPSAppController_userGuides__block_invoke(uint64_t a1, void *a2, 
 
     objc_initWeak(&location, self);
     fullTipContentManager = [(TPSAppController *)self fullTipContentManager];
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __33__TPSAppController_updateContent__block_invoke;
-    v10[3] = &unk_1E8101F08;
-    objc_copyWeak(&v11, &location);
-    v10[4] = self;
-    v10[5] = &v17;
-    [fullTipContentManager contentWithCompletionHandler:v10];
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __33__TPSAppController_updateContent__block_invoke;
+    v9[3] = &unk_1E8101F08;
+    objc_copyWeak(&v10, &location);
+    v9[4] = self;
+    v9[5] = &v16;
+    [fullTipContentManager contentWithCompletionHandler:v9];
 
-    objc_destroyWeak(&v11);
+    objc_destroyWeak(&v10);
     objc_destroyWeak(&location);
-    _Block_object_dispose(&v17, 8);
+    _Block_object_dispose(&v16, 8);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __33__TPSAppController_updateContent__block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v65[1] = *MEMORY[0x1E69E9840];
+  v64[1] = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -375,36 +372,36 @@ void __33__TPSAppController_updateContent__block_invoke(uint64_t a1, void *a2, v
     v15 = [v7 language];
     v16 = [v13 isEqualToString:v15];
     v17 = [v7 collectionMap];
-    v53 = [v7 tipMap];
-    v51 = [v8 collectionMap];
-    v52 = [v7 userGuideMap];
+    v52 = [v7 tipMap];
+    v50 = [v8 collectionMap];
+    v51 = [v7 userGuideMap];
     v18 = [v7 featuredCollections];
-    v55 = [v18 firstObject];
+    v54 = [v18 firstObject];
 
-    v54 = [v7 orderedCollections];
+    v53 = [v7 orderedCollections];
     if (v16)
     {
       v19 = [WeakRetained featuredCollection];
-      if ([v55 isEqual:v19])
+      if ([v54 isEqual:v19])
       {
         v20 = [WeakRetained collections];
-        if ([v54 isEqualToArray:v20])
+        if ([v53 isEqualToArray:v20])
         {
-          v49 = v20;
+          v48 = v20;
           v21 = [WeakRetained tipMap];
-          if ([v53 isEqualToDictionary:v21])
+          if ([v52 isEqualToDictionary:v21])
           {
-            v48 = v21;
+            v47 = v21;
             v22 = [WeakRetained hmtCollectionMap];
-            if ([v51 isEqualToDictionary:?])
+            if ([v50 isEqualToDictionary:?])
             {
-              v46 = [WeakRetained userGuideMap];
-              v47 = [v52 isEqualToDictionary:v46];
+              v45 = [WeakRetained userGuideMap];
+              v46 = [v51 isEqualToDictionary:v45];
 
               v23 = +[TPSNetworkPathMonitor sharedMonitor];
               [v23 stop];
 
-              if (v47)
+              if (v46)
               {
 LABEL_26:
 
@@ -421,7 +418,7 @@ LABEL_18:
               }
 
               v26 = +[TPSAssetCacheController sharedInstance];
-              v50 = v15;
+              v49 = v15;
               [v26 setLanguageCode:v15];
 
               [*(a1 + 32) contentWillUpdate];
@@ -432,7 +429,7 @@ LABEL_18:
               v28 = [v7 collectionSectionMap];
               [WeakRetained setCollectionSectionMap:v28];
 
-              [WeakRetained setTipMap:v53];
+              [WeakRetained setTipMap:v52];
               v29 = +[TPSCommonDefines checklistCollectionIdentifier];
               v30 = [v17 objectForKeyedSubscript:v29];
               [WeakRetained setChecklistCollection:v30];
@@ -441,8 +438,8 @@ LABEL_18:
               v32 = [v17 objectForKeyedSubscript:v31];
               [WeakRetained setSavedTipsCollection:v32];
 
-              [WeakRetained setFeaturedCollection:v55];
-              [WeakRetained setCollections:v54];
+              [WeakRetained setFeaturedCollection:v54];
+              [WeakRetained setCollections:v53];
               v33 = [v7 collectionSections];
               [WeakRetained setCollectionSections:v33];
 
@@ -452,7 +449,7 @@ LABEL_18:
               v35 = [v8 collectionMap];
               [WeakRetained setHmtCollectionMap:v35];
 
-              [WeakRetained setUserGuideMap:v52];
+              [WeakRetained setUserGuideMap:v51];
               if (+[TPSCommonDefines isInternalDevice])
               {
                 v36 = [WeakRetained collectionSections];
@@ -463,8 +460,8 @@ LABEL_18:
                   if ([v37 count])
                   {
                     v38 = [[TPSCollectionSection alloc] initWithIdentifier:@"Blank" collections:v37];
-                    v65[0] = v38;
-                    v39 = [MEMORY[0x1E695DEC8] arrayWithObjects:v65 count:1];
+                    v64[0] = v38;
+                    v39 = [MEMORY[0x1E695DEC8] arrayWithObjects:v64 count:1];
                     [WeakRetained setCollectionSections:v39];
                   }
                 }
@@ -474,25 +471,25 @@ LABEL_18:
               block[1] = 3221225472;
               block[2] = __33__TPSAppController_updateContent__block_invoke_23;
               block[3] = &unk_1E8101EB8;
-              v58 = v17;
-              v15 = v50;
-              v40 = v50;
+              v57 = v17;
+              v15 = v49;
+              v40 = v49;
               v42 = *(a1 + 32);
               v41 = *(a1 + 40);
-              v59 = v40;
-              v60 = v42;
-              v61 = WeakRetained;
-              v62 = v41;
+              v58 = v40;
+              v59 = v42;
+              v60 = WeakRetained;
+              v61 = v41;
               dispatch_async(MEMORY[0x1E69E96A0], block);
               [*(a1 + 32) updateSavedTipsContent];
 
               goto LABEL_26;
             }
 
-            v21 = v48;
+            v21 = v47;
           }
 
-          v20 = v49;
+          v20 = v48;
         }
       }
     }
@@ -507,7 +504,7 @@ LABEL_18:
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v64 = v9;
+    v63 = v9;
     _os_log_impl(&dword_1C00A7000, v12, OS_LOG_TYPE_DEFAULT, "Tips feed load failed with %@", buf, 0xCu);
   }
 
@@ -520,23 +517,21 @@ LABEL_27:
 
   [WeakRetained setUpdatingContent:0];
   [WeakRetained setContentHasLoaded:1];
-  v56[0] = MEMORY[0x1E69E9820];
-  v56[1] = *(v11 + 393);
-  v56[2] = __33__TPSAppController_updateContent__block_invoke_25;
-  v56[3] = &unk_1E8101EE0;
+  v55[0] = MEMORY[0x1E69E9820];
+  v55[1] = *(v11 + 393);
+  v55[2] = __33__TPSAppController_updateContent__block_invoke_25;
+  v55[3] = &unk_1E8101EE0;
   v44 = *(a1 + 32);
   v43 = *(a1 + 40);
-  v56[5] = WeakRetained;
-  v56[6] = v43;
-  v56[4] = v44;
-  dispatch_async(MEMORY[0x1E69E96A0], v56);
-
-  v45 = *MEMORY[0x1E69E9840];
+  v55[5] = WeakRetained;
+  v55[6] = v43;
+  v55[4] = v44;
+  dispatch_async(MEMORY[0x1E69E96A0], v55);
 }
 
 void __33__TPSAppController_updateContent__block_invoke_23(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E695DFD8];
   v3 = [*(a1 + 32) allKeys];
   v4 = [v2 setWithArray:v3];
@@ -553,84 +548,80 @@ void __33__TPSAppController_updateContent__block_invoke_23(uint64_t a1)
   v10 = *(v9 + 40);
   *(v9 + 40) = v8;
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v11 = *(*(*(a1 + 64) + 8) + 40);
-  v12 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v18;
+    v14 = *v17;
     do
     {
       v15 = 0;
       do
       {
-        if (*v18 != v14)
+        if (*v17 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        [*(*(&v17 + 1) + 8 * v15++) appControllerContentUpdated:{*(a1 + 56), v17}];
+        [*(*(&v16 + 1) + 8 * v15++) appControllerContentUpdated:{*(a1 + 56), v16}];
       }
 
       while (v13 != v15);
-      v13 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v13);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __33__TPSAppController_updateContent__block_invoke_25(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) delegateEnumerator];
   v3 = *(*(a1 + 48) + 8);
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v5 = *(*(*(a1 + 48) + 8) + 40);
-  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * v9);
+        v10 = *(*(&v11 + 1) + 8 * v9);
         if (objc_opt_respondsToSelector())
         {
-          [v10 appController:*(a1 + 32) loadingContent:{objc_msgSend(*(a1 + 40), "updatingContent", v12)}];
+          [v10 appController:*(a1 + 32) loadingContent:{objc_msgSend(*(a1 + 40), "updatingContent", v11)}];
         }
 
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)contentForVariant:(id)variant completionHandler:(id)handler
@@ -670,18 +661,8 @@ void __33__TPSAppController_updateContent__block_invoke_25(uint64_t a1)
 - (id)collectionIdentifierForTipIdentifier:(id)identifier
 {
   v3 = [(TPSAppController *)self tipForIdentifier:identifier];
-  if (!v3)
+  if (!v3 || (+[TPSCommonDefines sharedInstance](TPSCommonDefines, "sharedInstance"), v4 = objc_claimAutoreleasedReturnValue(), [v3 collectionIdentifiers], v5 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v4, "collectionIdentifierToUseForCollectionIdentifiers:", v5), v6 = objc_claimAutoreleasedReturnValue(), v5, v4, !v6))
   {
-    goto LABEL_3;
-  }
-
-  v4 = +[TPSCommonDefines sharedInstance];
-  collectionIdentifiers = [v3 collectionIdentifiers];
-  v6 = [v4 collectionIdentifierToUseForCollectionIdentifiers:collectionIdentifiers];
-
-  if (!v6)
-  {
-LABEL_3:
     v6 = @"Unknown";
   }
 
@@ -727,31 +708,31 @@ LABEL_3:
 
 - (id)tipForCorrelationIdentifier:(id)identifier
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   if (identifierCopy)
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     tipMap = [(TPSAppController *)self tipMap];
     allValues = [tipMap allValues];
 
-    v7 = [allValues countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v7 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v7)
     {
-      v8 = *v16;
+      v8 = *v15;
       while (2)
       {
         for (i = 0; i != v7; i = i + 1)
         {
-          if (*v16 != v8)
+          if (*v15 != v8)
           {
             objc_enumerationMutation(allValues);
           }
 
-          v10 = *(*(&v15 + 1) + 8 * i);
+          v10 = *(*(&v14 + 1) + 8 * i);
           correlationID = [v10 correlationID];
           v12 = [correlationID isEqualToString:identifierCopy];
 
@@ -762,7 +743,7 @@ LABEL_3:
           }
         }
 
-        v7 = [allValues countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v7 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
         if (v7)
         {
           continue;
@@ -780,36 +761,34 @@ LABEL_12:
     v7 = 0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
-
   return v7;
 }
 
 - (id)tipForVariantIdentifier:(id)identifier
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   tipMap = [(TPSAppController *)self tipMap];
   allValues = [tipMap allValues];
 
-  v7 = [allValues countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
-    v8 = *v16;
+    v8 = *v15;
     while (2)
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         variantID = [v10 variantID];
         v12 = [variantID isEqualToString:identifierCopy];
 
@@ -820,7 +799,7 @@ LABEL_12:
         }
       }
 
-      v7 = [allValues countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v7)
       {
         continue;
@@ -832,14 +811,12 @@ LABEL_12:
 
 LABEL_11:
 
-  v13 = *MEMORY[0x1E69E9840];
-
   return v7;
 }
 
 - (id)tipsForCollectionIdentifier:(id)identifier
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   collectionMap = [(TPSAppController *)self collectionMap];
   v6 = [collectionMap objectForKeyedSubscript:identifierCopy];
@@ -848,30 +825,30 @@ LABEL_11:
   {
     tipIdentifiers = [v6 tipIdentifiers];
     v8 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(tipIdentifiers, "count")}];
+    v28 = 0u;
     v29 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v32 = 0u;
     v9 = tipIdentifiers;
-    v10 = [v9 countByEnumeratingWithState:&v29 objects:v33 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v28 objects:v32 count:16];
     if (v10)
     {
       v11 = v10;
-      v27 = v6;
-      v28 = identifierCopy;
+      v26 = v6;
+      v27 = identifierCopy;
       v12 = 0;
       v13 = 0;
-      v14 = *v30;
+      v14 = *v29;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v30 != v14)
+          if (*v29 != v14)
           {
             objc_enumerationMutation(v9);
           }
 
-          v16 = *(*(&v29 + 1) + 8 * i);
+          v16 = *(*(&v28 + 1) + 8 * i);
           tipMap = [(TPSAppController *)self tipMap];
           v18 = [tipMap objectForKeyedSubscript:v16];
 
@@ -897,16 +874,16 @@ LABEL_11:
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v29 objects:v33 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v28 objects:v32 count:16];
       }
 
       while (v11);
 
-      identifierCopy = v28;
+      identifierCopy = v27;
       if (v13)
       {
         v19 = +[TPSCommonDefines sharedInstance];
-        v20 = [v19 collectionStatusForCollectionIdentifier:v28];
+        v20 = [v19 collectionStatusForCollectionIdentifier:v27];
 
         firstViewedDate = [v20 firstViewedDate];
         if (!firstViewedDate || (v22 = firstViewedDate, v23 = [(TPSAppController *)self alwaysShowIntro], v22, v23))
@@ -920,7 +897,7 @@ LABEL_11:
         [v8 addObject:v12];
       }
 
-      v6 = v27;
+      v6 = v26;
     }
 
     else
@@ -939,8 +916,6 @@ LABEL_11:
   }
 
   v24 = [v8 copy];
-
-  v25 = *MEMORY[0x1E69E9840];
 
   return v24;
 }
@@ -982,15 +957,15 @@ LABEL_11:
 
 void __42__TPSAppController_updateSavedTipsContent__block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v2 = +[TPSSavedTipsManager sharedInstance];
   v3 = [v2 identifiers];
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __42__TPSAppController_updateSavedTipsContent__block_invoke_2;
-  v20[3] = &unk_1E81015A0;
-  v20[4] = *(a1 + 32);
-  v4 = [v3 na_filter:v20];
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __42__TPSAppController_updateSavedTipsContent__block_invoke_2;
+  v19[3] = &unk_1E81015A0;
+  v19[4] = *(a1 + 32);
+  v4 = [v3 na_filter:v19];
 
   v5 = [v4 count];
   v6 = [*(a1 + 32) savedTipsCollection];
@@ -1007,27 +982,27 @@ void __42__TPSAppController_updateSavedTipsContent__block_invoke(uint64_t a1)
 
   [v6 setTipIdentifiers:v8];
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v9 = [*(a1 + 32) delegateEnumerator];
-  v10 = [v9 countByEnumeratingWithState:&v16 objects:v21 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v15 objects:v20 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v17;
+    v12 = *v16;
     do
     {
       v13 = 0;
       do
       {
-        if (*v17 != v12)
+        if (*v16 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v16 + 1) + 8 * v13);
+        v14 = *(*(&v15 + 1) + 8 * v13);
         if (objc_opt_respondsToSelector())
         {
           [v14 appControllerUserUpdatedSavedTips:*(a1 + 32)];
@@ -1037,13 +1012,11 @@ void __42__TPSAppController_updateSavedTipsContent__block_invoke(uint64_t a1)
       }
 
       while (v11 != v13);
-      v11 = [v9 countByEnumeratingWithState:&v16 objects:v21 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v15 objects:v20 count:16];
     }
 
     while (v11);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 BOOL __42__TPSAppController_updateSavedTipsContent__block_invoke_2(uint64_t a1, void *a2)
@@ -1058,7 +1031,7 @@ BOOL __42__TPSAppController_updateSavedTipsContent__block_invoke_2(uint64_t a1, 
 
 - (void)tipViewed:(id)viewed collectionIdentifier:(id)identifier
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   viewedCopy = viewed;
   identifierCopy = identifier;
   if ([viewedCopy length])
@@ -1070,26 +1043,26 @@ BOOL __42__TPSAppController_updateSavedTipsContent__block_invoke_2(uint64_t a1, 
     [fullTipContentManager2 removeNotificationForIdentifier:viewedCopy];
 
     delegateEnumerator = [(TPSAppController *)self delegateEnumerator];
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
-    v11 = [delegateEnumerator countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v11 = [delegateEnumerator countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v18;
+      v13 = *v17;
       do
       {
         v14 = 0;
         do
         {
-          if (*v18 != v13)
+          if (*v17 != v13)
           {
             objc_enumerationMutation(delegateEnumerator);
           }
 
-          v15 = *(*(&v17 + 1) + 8 * v14);
+          v15 = *(*(&v16 + 1) + 8 * v14);
           if (objc_opt_respondsToSelector())
           {
             [v15 appControllerTipViewed:self tipIdentifier:viewedCopy collectionIdentifier:identifierCopy];
@@ -1099,14 +1072,12 @@ BOOL __42__TPSAppController_updateSavedTipsContent__block_invoke_2(uint64_t a1, 
         }
 
         while (v12 != v14);
-        v12 = [delegateEnumerator countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v12 = [delegateEnumerator countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v12);
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)collectionIdentifierViewed:(id)viewed
@@ -1134,31 +1105,31 @@ BOOL __42__TPSAppController_updateSavedTipsContent__block_invoke_2(uint64_t a1, 
 
 - (void)networkStateDidChange:(BOOL)change
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (change)
   {
     [(TPSAppController *)self updateContent];
     delegateEnumerator = [(TPSAppController *)self delegateEnumerator];
+    v10 = 0u;
     v11 = 0u;
     v12 = 0u;
     v13 = 0u;
-    v14 = 0u;
-    v5 = [delegateEnumerator countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v5 = [delegateEnumerator countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v12;
+      v7 = *v11;
       do
       {
         v8 = 0;
         do
         {
-          if (*v12 != v7)
+          if (*v11 != v7)
           {
             objc_enumerationMutation(delegateEnumerator);
           }
 
-          v9 = *(*(&v11 + 1) + 8 * v8);
+          v9 = *(*(&v10 + 1) + 8 * v8);
           if (objc_opt_respondsToSelector())
           {
             [v9 appControllerNetworkStateDidChangeToReachable:self];
@@ -1168,14 +1139,12 @@ BOOL __42__TPSAppController_updateSavedTipsContent__block_invoke_2(uint64_t a1, 
         }
 
         while (v6 != v8);
-        v6 = [delegateEnumerator countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v6 = [delegateEnumerator countByEnumeratingWithState:&v10 objects:v14 count:16];
       }
 
       while (v6);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)hasLocalVariant:(id)variant

@@ -49,15 +49,15 @@
   v18 = [(HKWorkoutActivity *)self _initWithUUID:v17 workoutConfiguration:v13 startDate:v12 endDate:v11 workoutEvents:MEMORY[0x1E695E0F0] startsPaused:0 duration:v10 metadata:0 statisticsPerType:?];
 
   v19 = v18;
-  v20 = HKDefaultObjectValidationConfiguration();
-  v22 = [(HKWorkoutActivity *)v19 _validateWithConfiguration:v20, v21];
-  v23 = v22;
-  if (v22)
+  v21 = HKDefaultObjectValidationConfiguration(v19, v20);
+  v23 = [(HKWorkoutActivity *)v19 _validateWithConfiguration:v21, v22];
+  v24 = v23;
+  if (v23)
   {
-    v24 = MEMORY[0x1E695DF30];
-    v25 = *MEMORY[0x1E695D940];
-    localizedDescription = [v22 localizedDescription];
-    [v24 raise:v25 format:{@"%@", localizedDescription}];
+    v25 = MEMORY[0x1E695DF30];
+    v26 = *MEMORY[0x1E695D940];
+    localizedDescription = [v23 localizedDescription];
+    [v25 raise:v26 format:{@"%@", localizedDescription}];
   }
 
   return v19;
@@ -115,11 +115,9 @@
 
 - (id)_deepCopy
 {
-  v3 = objc_alloc(objc_opt_class());
-  metadata = self->_metadata;
-  v5 = [v3 _initWithUUID:self->_UUID workoutConfiguration:self->_workoutConfiguration startDate:self->_startDate endDate:self->_endDate workoutEvents:self->_workoutEvents startsPaused:self->_startsPaused duration:self->_duration metadata:metadata statisticsPerType:self->_statisticsPerType];
+  v2 = [objc_alloc(objc_opt_class()) _initWithUUID:self->_UUID workoutConfiguration:self->_workoutConfiguration startDate:self->_startDate endDate:self->_endDate workoutEvents:self->_workoutEvents startsPaused:self->_startsPaused duration:self->_duration metadata:self->_metadata statisticsPerType:self->_statisticsPerType];
 
-  return v5;
+  return v2;
 }
 
 - (void)_setEndDate:(id)date
@@ -460,19 +458,19 @@ LABEL_19:
 
 - (HKWorkoutActivity)initWithCoder:(id)coder
 {
-  v27[2] = *MEMORY[0x1E69E9840];
+  v26[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v4 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"uuid"];
-  v24 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"configuration"];
-  v23 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"start_date"];
-  v22 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"end_date"];
+  v23 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"configuration"];
+  v22 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"start_date"];
+  v21 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"end_date"];
   v5 = MEMORY[0x1E695DFD8];
-  v27[0] = objc_opt_class();
-  v27[1] = objc_opt_class();
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:2];
-  v21 = [v5 setWithArray:v6];
+  v26[0] = objc_opt_class();
+  v26[1] = objc_opt_class();
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:2];
+  v20 = [v5 setWithArray:v6];
 
-  v7 = [coderCopy decodeObjectOfClasses:v21 forKey:@"events"];
+  v7 = [coderCopy decodeObjectOfClasses:v20 forKey:@"events"];
   [coderCopy decodeDoubleForKey:@"duration"];
   v9 = v8;
   hk_secureCodingClasses = [MEMORY[0x1E695DF20] hk_secureCodingClasses];
@@ -480,24 +478,23 @@ LABEL_19:
   hk_replaceKeysFromSharedStringCache = [v11 hk_replaceKeysFromSharedStringCache];
 
   v13 = MEMORY[0x1E695DFD8];
-  v26[0] = objc_opt_class();
-  v26[1] = objc_opt_class();
-  v26[2] = objc_opt_class();
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:3];
+  v25[0] = objc_opt_class();
+  v25[1] = objc_opt_class();
+  v25[2] = objc_opt_class();
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:3];
   v15 = [v13 setWithArray:v14];
 
   v16 = [coderCopy decodeObjectOfClasses:v15 forKey:@"statistics"];
   v17 = [coderCopy decodeBoolForKey:@"startsPaused"];
 
-  v18 = [(HKWorkoutActivity *)self _initWithUUID:v4 workoutConfiguration:v24 startDate:v23 endDate:v22 workoutEvents:v7 startsPaused:v17 duration:v9 metadata:hk_replaceKeysFromSharedStringCache statisticsPerType:v16];
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = [(HKWorkoutActivity *)self _initWithUUID:v4 workoutConfiguration:v23 startDate:v22 endDate:v21 workoutEvents:v7 startsPaused:v17 duration:v9 metadata:hk_replaceKeysFromSharedStringCache statisticsPerType:v16];
   return v18;
 }
 
 - (BOOL)unitTest_isEqualToActivity:(id)activity includingStatistics:(BOOL)statistics
 {
   statisticsCopy = statistics;
-  v93 = *MEMORY[0x1E69E9840];
+  v92 = *MEMORY[0x1E69E9840];
   activityCopy = activity;
   v7 = [(HKWorkoutActivity *)self isEqual:?];
   if (v7 && statisticsCopy)
@@ -508,25 +505,25 @@ LABEL_19:
 
     if (v8 == v10)
     {
-      v90 = 0u;
-      v91 = 0u;
-      v88 = 0u;
       v89 = 0u;
+      v90 = 0u;
+      v87 = 0u;
+      v88 = 0u;
       obj = self->_statisticsPerType;
-      v80 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v88 objects:v92 count:16];
-      if (v80)
+      v79 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v87 objects:v91 count:16];
+      if (v79)
       {
-        v79 = *v89;
+        v78 = *v88;
 LABEL_6:
         v11 = 0;
         while (1)
         {
-          if (*v89 != v79)
+          if (*v88 != v78)
           {
             objc_enumerationMutation(obj);
           }
 
-          v12 = *(*(&v88 + 1) + 8 * v11);
+          v12 = *(*(&v87 + 1) + 8 * v11);
           v13 = [(NSMutableDictionary *)self->_statisticsPerType objectForKeyedSubscript:v12];
           v14 = [activityCopy[1] objectForKeyedSubscript:v12];
           startDate = [v13 startDate];
@@ -542,7 +539,7 @@ LABEL_6:
 
             startDate4 = [v13 startDate];
             startDate5 = [v14 startDate];
-            v78 = startDate4;
+            v77 = startDate4;
             if (![startDate4 isEqualToDate:startDate5])
             {
               v35 = 1;
@@ -550,13 +547,13 @@ LABEL_6:
             }
           }
 
-          v83 = startDate3;
+          v82 = startDate3;
           endDate = [v13 endDate];
           [v14 endDate];
-          v85 = v82 = endDate;
-          v38 = endDate == v85;
-          endDate3 = v81;
-          minimumQuantity4 = v84;
+          v84 = v81 = endDate;
+          v38 = endDate == v84;
+          endDate3 = v80;
+          minimumQuantity4 = v83;
           if (!v38)
           {
             endDate2 = [v14 endDate];
@@ -567,23 +564,23 @@ LABEL_6:
               goto LABEL_77;
             }
 
-            v76 = startDate5;
+            v75 = startDate5;
             v21 = startDate2;
             v22 = startDate;
             endDate3 = [v13 endDate];
             endDate4 = [v14 endDate];
-            v70 = endDate4;
+            v69 = endDate4;
             if (([endDate3 isEqualToDate:endDate4] & 1) == 0)
             {
 
-              v81 = endDate3;
+              v80 = endDate3;
               v35 = 1;
               startDate = v22;
               startDate2 = v21;
               v39 = startDate == v21;
 LABEL_51:
-              startDate3 = v83;
-              startDate5 = v76;
+              startDate3 = v82;
+              startDate5 = v75;
               if (v39)
               {
                 goto LABEL_80;
@@ -596,19 +593,19 @@ LABEL_79:
 
             startDate = v22;
             startDate2 = v21;
-            minimumQuantity4 = v84;
+            minimumQuantity4 = v83;
           }
 
           sumQuantity = [v13 sumQuantity];
           sumQuantity2 = [v14 sumQuantity];
-          v81 = endDate3;
+          v80 = endDate3;
           if (sumQuantity != sumQuantity2)
           {
             sumQuantity3 = [v14 sumQuantity];
             if (!sumQuantity3)
             {
 
-              if (v82 != v85)
+              if (v81 != v84)
               {
               }
 
@@ -618,16 +615,16 @@ LABEL_79:
 
             v25 = startDate5;
             v26 = startDate;
-            v84 = minimumQuantity4;
-            v76 = v25;
+            v83 = minimumQuantity4;
+            v75 = v25;
             sumQuantity4 = [v13 sumQuantity];
             sumQuantity5 = [v14 sumQuantity];
-            v67 = sumQuantity5;
-            v68 = sumQuantity4;
+            v66 = sumQuantity5;
+            v67 = sumQuantity4;
             if (([sumQuantity4 isEqual:sumQuantity5] & 1) == 0)
             {
 
-              if (v82 != v85)
+              if (v81 != v84)
               {
               }
 
@@ -638,12 +635,12 @@ LABEL_79:
             }
 
             startDate = v26;
-            startDate5 = v76;
+            startDate5 = v75;
           }
 
           minimumQuantity = [v13 minimumQuantity];
           minimumQuantity2 = [v14 minimumQuantity];
-          v72 = minimumQuantity;
+          v71 = minimumQuantity;
           v38 = minimumQuantity == minimumQuantity2;
           v31 = minimumQuantity2;
           if (v38)
@@ -664,17 +661,17 @@ LABEL_79:
           if ([minimumQuantity4 isEqual:?])
           {
 LABEL_23:
-            v62 = sumQuantity;
+            v61 = sumQuantity;
             maximumQuantity = [v13 maximumQuantity];
             maximumQuantity2 = [v14 maximumQuantity];
-            v66 = maximumQuantity;
-            v84 = minimumQuantity4;
+            v65 = maximumQuantity;
+            v83 = minimumQuantity4;
             if (maximumQuantity == maximumQuantity2)
             {
-              v59 = v31;
-              v60 = startDate;
-              v77 = startDate5;
-              sumQuantity = v62;
+              v58 = v31;
+              v59 = startDate;
+              v76 = startDate5;
+              sumQuantity = v61;
               goto LABEL_38;
             }
 
@@ -683,25 +680,25 @@ LABEL_23:
             {
               maximumQuantity3 = 0;
               v35 = 1;
-              sumQuantity = v62;
+              sumQuantity = v61;
               goto LABEL_64;
             }
 
-            v59 = v31;
-            v60 = startDate;
-            v77 = startDate5;
+            v58 = v31;
+            v59 = startDate;
+            v76 = startDate5;
             maximumQuantity4 = [v13 maximumQuantity];
             maximumQuantity5 = [v14 maximumQuantity];
-            v56 = maximumQuantity4;
-            sumQuantity = v62;
-            v57 = maximumQuantity5;
+            v55 = maximumQuantity4;
+            sumQuantity = v61;
+            v56 = maximumQuantity5;
             if (([maximumQuantity4 isEqual:maximumQuantity5] & 1) == 0)
             {
 
               v35 = 1;
-              v36 = v72;
-              v37 = v59;
-              v38 = v72 == v59;
+              v36 = v71;
+              v37 = v58;
+              v38 = v71 == v58;
               goto LABEL_43;
             }
 
@@ -717,32 +714,32 @@ LABEL_38:
 
             else
             {
-              v63 = averageQuantity;
+              v62 = averageQuantity;
               averageQuantity3 = [v14 averageQuantity];
               if (averageQuantity3)
               {
-                v65 = averageQuantity3;
+                v64 = averageQuantity3;
                 averageQuantity4 = [v13 averageQuantity];
                 averageQuantity5 = [v14 averageQuantity];
                 v47 = v40;
                 v48 = averageQuantity4;
                 v35 = [averageQuantity4 isEqual:averageQuantity5] ^ 1;
 
-                if (v66 != v47)
+                if (v65 != v47)
                 {
                 }
 
-                v37 = v59;
-                v36 = v72;
-                v38 = v72 == v59;
-                minimumQuantity4 = v84;
+                v37 = v58;
+                v36 = v71;
+                v38 = v71 == v58;
+                minimumQuantity4 = v83;
 LABEL_43:
-                startDate = v60;
+                startDate = v59;
                 if (v38)
                 {
 
                   v49 = sumQuantity2;
-                  startDate5 = v77;
+                  startDate5 = v76;
                   if (sumQuantity != sumQuantity2)
                   {
                     goto LABEL_46;
@@ -753,25 +750,25 @@ LABEL_43:
                 {
                   v31 = v37;
 
-                  startDate5 = v77;
+                  startDate5 = v76;
 LABEL_45:
 
                   v49 = sumQuantity2;
                   if (sumQuantity != sumQuantity2)
                   {
 LABEL_46:
-                    v84 = minimumQuantity4;
+                    v83 = minimumQuantity4;
                     v50 = v49;
 
                     goto LABEL_57;
                   }
                 }
 
-                v84 = minimumQuantity4;
+                v83 = minimumQuantity4;
 
 LABEL_57:
-                v51 = v82;
-                if (v82 != v85)
+                v51 = v81;
+                if (v81 != v84)
                 {
                 }
 
@@ -780,14 +777,14 @@ LABEL_71:
               }
             }
 
-            if (v66 == maximumQuantity2)
+            if (v65 == maximumQuantity2)
             {
 
-              v31 = v59;
-              startDate = v60;
-              minimumQuantity4 = v84;
-              startDate5 = v77;
-              if (v72 != v59)
+              v31 = v58;
+              startDate = v59;
+              minimumQuantity4 = v83;
+              startDate5 = v76;
+              if (v71 != v58)
               {
                 goto LABEL_65;
               }
@@ -796,13 +793,13 @@ LABEL_71:
             else
             {
 
-              minimumQuantity4 = v84;
-              v31 = v59;
-              startDate = v60;
-              startDate5 = v77;
+              minimumQuantity4 = v83;
+              v31 = v58;
+              startDate = v59;
+              startDate5 = v76;
 LABEL_64:
 
-              if (v72 != v31)
+              if (v71 != v31)
               {
 LABEL_65:
               }
@@ -815,30 +812,30 @@ LABEL_65:
               v52 = sumQuantity2;
             }
 
-            v51 = v82;
-            v53 = v85;
-            if (v82 != v85)
+            v51 = v81;
+            v53 = v84;
+            if (v81 != v84)
             {
 
-              v53 = v85;
+              v53 = v84;
             }
 
             goto LABEL_71;
           }
 
-          v84 = minimumQuantity4;
+          v83 = minimumQuantity4;
           if (sumQuantity != sumQuantity2)
           {
           }
 
-          if (v82 != v85)
+          if (v81 != v84)
           {
           }
 
 LABEL_77:
           v35 = 1;
 LABEL_78:
-          startDate3 = v83;
+          startDate3 = v82;
           if (startDate != startDate2)
           {
             goto LABEL_79;
@@ -852,10 +849,10 @@ LABEL_80:
             goto LABEL_86;
           }
 
-          if (v80 == ++v11)
+          if (v79 == ++v11)
           {
-            v80 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v88 objects:v92 count:16];
-            if (v80)
+            v79 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v87 objects:v91 count:16];
+            if (v79)
             {
               goto LABEL_6;
             }
@@ -875,7 +872,6 @@ LABEL_86:
     }
   }
 
-  v54 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -910,10 +906,10 @@ LABEL_86:
   else
   {
     workoutConfiguration = self->_workoutConfiguration;
-    v18 = 0;
-    v7 = [(HKWorkoutConfiguration *)workoutConfiguration validateIgnoringDeviceSupport:1 error:&v18];
-    v8 = v18;
-    v9 = v8;
+    v19 = 0;
+    v7 = [(HKWorkoutConfiguration *)workoutConfiguration validateIgnoringDeviceSupport:1 error:&v19];
+    v8 = v19;
+    v10 = v8;
     if (v7)
     {
       v5 = 0;
@@ -921,16 +917,16 @@ LABEL_86:
       {
         if ((var0 & 8) == 0)
         {
-          v10 = HKApplicationSDKVersionToken();
-          v11 = [_HKEntitlements entitlementsForCurrentTaskWithError:0];
-          hasPrivateMetadataAccess = [v11 hasPrivateMetadataAccess];
+          v11 = HKApplicationSDKVersionToken(v8, v9);
+          v12 = [_HKEntitlements entitlementsForCurrentTaskWithError:0];
+          hasPrivateMetadataAccess = [v12 hasPrivateMetadataAccess];
 
           metadata = self->_metadata;
-          v17 = 0;
-          v14 = [(NSDictionary *)metadata hk_validateMetadataKeysAndValuesAllowingPrivateMetadataKeys:hasPrivateMetadataAccess applicationSDKVersionToken:v10 error:&v17];
-          v15 = v17;
-          v5 = v15;
-          if (v14)
+          v18 = 0;
+          v15 = [(NSDictionary *)metadata hk_validateMetadataKeysAndValuesAllowingPrivateMetadataKeys:hasPrivateMetadataAccess applicationSDKVersionToken:v11 error:&v18];
+          v16 = v18;
+          v5 = v16;
+          if (v15)
           {
 
             v5 = 0;

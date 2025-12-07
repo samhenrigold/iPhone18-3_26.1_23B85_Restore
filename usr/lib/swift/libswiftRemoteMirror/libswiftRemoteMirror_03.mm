@@ -1,4 +1,4 @@
-uint64_t swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readFullContextDescriptor<swift::TargetStructDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+unint64_t swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readFullContextDescriptor<swift::TargetStructDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   swift::remote::MemoryReader::readObj<swift::TargetStructDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>>(*(a1 + 2800), &v31);
   v6 = v31;
@@ -249,11 +249,11 @@ LABEL_25:
   }
 
 LABEL_64:
-  v29 = std::__throw_bad_function_call[abi:nn200100]();
+  std::__throw_bad_function_call[abi:nn200100]();
   return swift::ABI::trailing_objects_internal::TrailingObjectsImpl<4,swift::TargetClassDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::ABI::TrailingObjects<swift::TargetClassDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetTypeGenericContextDescriptorHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericParamDescriptor,swift::TargetGenericRequirementDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericPackShapeHeader,swift::GenericPackShapeDescriptor,swift::ConditionalInvertibleProtocolSet,swift::ConditionalInvertibleProtocolsRequirementCount,swift::TargetConditionalInvertibleProtocolRequirement<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericValueHeader,swift::GenericValueDescriptor,swift::TargetResilientSuperclass<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetForeignMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetSingletonMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetVTableDescriptorHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetObjCResilientClassStubInfo<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>>,swift::GenericParamDescriptor,swift::TargetGenericRequirementDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericPackShapeHeader,swift::GenericPackShapeDescriptor,swift::ConditionalInvertibleProtocolSet,swift::ConditionalInvertibleProtocolsRequirementCount,swift::TargetConditionalInvertibleProtocolRequirement<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericValueHeader,swift::GenericValueDescriptor,swift::TargetResilientSuperclass<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetForeignMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetSingletonMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetVTableDescriptorHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetObjCResilientClassStubInfo<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>>::sizeWithTrailingTypeCountImpl( v29,  v30);
 }
 
-uint64_t swift::ABI::trailing_objects_internal::TrailingObjectsImpl<4,swift::TargetClassDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::ABI::TrailingObjects<swift::TargetClassDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetTypeGenericContextDescriptorHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericParamDescriptor,swift::TargetGenericRequirementDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericPackShapeHeader,swift::GenericPackShapeDescriptor,swift::ConditionalInvertibleProtocolSet,swift::ConditionalInvertibleProtocolsRequirementCount,swift::TargetConditionalInvertibleProtocolRequirement<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericValueHeader,swift::GenericValueDescriptor,swift::TargetResilientSuperclass<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetForeignMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetSingletonMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetVTableDescriptorHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetObjCResilientClassStubInfo<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>>,swift::GenericParamDescriptor,swift::TargetGenericRequirementDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericPackShapeHeader,swift::GenericPackShapeDescriptor,swift::ConditionalInvertibleProtocolSet,swift::ConditionalInvertibleProtocolsRequirementCount,swift::TargetConditionalInvertibleProtocolRequirement<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericValueHeader,swift::GenericValueDescriptor,swift::TargetResilientSuperclass<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetForeignMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetSingletonMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetVTableDescriptorHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetObjCResilientClassStubInfo<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>>::sizeWithTrailingTypeCountImpl(_BYTE *a1, uint64_t a2)
+unint64_t swift::ABI::trailing_objects_internal::TrailingObjectsImpl<4,swift::TargetClassDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::ABI::TrailingObjects<swift::TargetClassDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetTypeGenericContextDescriptorHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericParamDescriptor,swift::TargetGenericRequirementDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericPackShapeHeader,swift::GenericPackShapeDescriptor,swift::ConditionalInvertibleProtocolSet,swift::ConditionalInvertibleProtocolsRequirementCount,swift::TargetConditionalInvertibleProtocolRequirement<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericValueHeader,swift::GenericValueDescriptor,swift::TargetResilientSuperclass<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetForeignMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetSingletonMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetVTableDescriptorHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetObjCResilientClassStubInfo<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>>,swift::GenericParamDescriptor,swift::TargetGenericRequirementDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericPackShapeHeader,swift::GenericPackShapeDescriptor,swift::ConditionalInvertibleProtocolSet,swift::ConditionalInvertibleProtocolsRequirementCount,swift::TargetConditionalInvertibleProtocolRequirement<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericValueHeader,swift::GenericValueDescriptor,swift::TargetResilientSuperclass<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetForeignMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetSingletonMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetVTableDescriptorHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetObjCResilientClassStubInfo<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>>::sizeWithTrailingTypeCountImpl(unsigned int *a1, uint64_t a2)
 {
   if (a2)
   {
@@ -268,7 +268,7 @@ uint64_t swift::ABI::trailing_objects_internal::TrailingObjectsImpl<4,swift::Tar
 
   else
   {
-    v4 = a1 + 44;
+    v4 = a1 + 11;
     if (!a1)
     {
       v5 = 0;
@@ -339,7 +339,7 @@ LABEL_8:
   return v11 - v3 + v12;
 }
 
-uint64_t swift::ABI::trailing_objects_internal::TrailingObjectsImpl<4,swift::TargetClassDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::ABI::TrailingObjects<swift::TargetClassDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetTypeGenericContextDescriptorHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericParamDescriptor,swift::TargetGenericRequirementDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericPackShapeHeader,swift::GenericPackShapeDescriptor,swift::ConditionalInvertibleProtocolSet,swift::ConditionalInvertibleProtocolsRequirementCount,swift::TargetConditionalInvertibleProtocolRequirement<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericValueHeader,swift::GenericValueDescriptor,swift::TargetResilientSuperclass<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetForeignMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetSingletonMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetVTableDescriptorHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetObjCResilientClassStubInfo<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>>,swift::TargetGenericRequirementDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericPackShapeHeader,swift::GenericPackShapeDescriptor,swift::ConditionalInvertibleProtocolSet,swift::ConditionalInvertibleProtocolsRequirementCount,swift::TargetConditionalInvertibleProtocolRequirement<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericValueHeader,swift::GenericValueDescriptor,swift::TargetResilientSuperclass<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetForeignMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetSingletonMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetVTableDescriptorHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetObjCResilientClassStubInfo<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>>::sizeWithTrailingTypeCountImpl(_BYTE *a1, uint64_t a2)
+unint64_t swift::ABI::trailing_objects_internal::TrailingObjectsImpl<4,swift::TargetClassDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::ABI::TrailingObjects<swift::TargetClassDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetTypeGenericContextDescriptorHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericParamDescriptor,swift::TargetGenericRequirementDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericPackShapeHeader,swift::GenericPackShapeDescriptor,swift::ConditionalInvertibleProtocolSet,swift::ConditionalInvertibleProtocolsRequirementCount,swift::TargetConditionalInvertibleProtocolRequirement<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericValueHeader,swift::GenericValueDescriptor,swift::TargetResilientSuperclass<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetForeignMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetSingletonMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetVTableDescriptorHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetObjCResilientClassStubInfo<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>>,swift::TargetGenericRequirementDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericPackShapeHeader,swift::GenericPackShapeDescriptor,swift::ConditionalInvertibleProtocolSet,swift::ConditionalInvertibleProtocolsRequirementCount,swift::TargetConditionalInvertibleProtocolRequirement<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericValueHeader,swift::GenericValueDescriptor,swift::TargetResilientSuperclass<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetForeignMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetSingletonMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetVTableDescriptorHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetObjCResilientClassStubInfo<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>>::sizeWithTrailingTypeCountImpl(unsigned int *a1, uint64_t a2)
 {
   if (a2)
   {
@@ -375,7 +375,7 @@ uint64_t swift::ABI::trailing_objects_internal::TrailingObjectsImpl<4,swift::Tar
     goto LABEL_7;
   }
 
-  v8 = a1 + 44;
+  v8 = a1 + 11;
   if (a1)
   {
 LABEL_7:
@@ -479,7 +479,7 @@ LABEL_23:
   return v23 - v7;
 }
 
-uint64_t swift::ABI::trailing_objects_internal::TrailingObjectsImpl<4,swift::TargetClassDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::ABI::TrailingObjects<swift::TargetClassDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetTypeGenericContextDescriptorHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericParamDescriptor,swift::TargetGenericRequirementDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericPackShapeHeader,swift::GenericPackShapeDescriptor,swift::ConditionalInvertibleProtocolSet,swift::ConditionalInvertibleProtocolsRequirementCount,swift::TargetConditionalInvertibleProtocolRequirement<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericValueHeader,swift::GenericValueDescriptor,swift::TargetResilientSuperclass<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetForeignMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetSingletonMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetVTableDescriptorHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetObjCResilientClassStubInfo<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>>,swift::GenericPackShapeDescriptor,swift::ConditionalInvertibleProtocolSet,swift::ConditionalInvertibleProtocolsRequirementCount,swift::TargetConditionalInvertibleProtocolRequirement<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericValueHeader,swift::GenericValueDescriptor,swift::TargetResilientSuperclass<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetForeignMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetSingletonMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetVTableDescriptorHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetObjCResilientClassStubInfo<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>>::sizeWithTrailingTypeCountImpl(_BYTE *a1, uint64_t a2)
+unint64_t swift::ABI::trailing_objects_internal::TrailingObjectsImpl<4,swift::TargetClassDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::ABI::TrailingObjects<swift::TargetClassDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetTypeGenericContextDescriptorHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericParamDescriptor,swift::TargetGenericRequirementDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericPackShapeHeader,swift::GenericPackShapeDescriptor,swift::ConditionalInvertibleProtocolSet,swift::ConditionalInvertibleProtocolsRequirementCount,swift::TargetConditionalInvertibleProtocolRequirement<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericValueHeader,swift::GenericValueDescriptor,swift::TargetResilientSuperclass<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetForeignMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetSingletonMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetVTableDescriptorHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetObjCResilientClassStubInfo<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>>,swift::GenericPackShapeDescriptor,swift::ConditionalInvertibleProtocolSet,swift::ConditionalInvertibleProtocolsRequirementCount,swift::TargetConditionalInvertibleProtocolRequirement<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericValueHeader,swift::GenericValueDescriptor,swift::TargetResilientSuperclass<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetForeignMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetSingletonMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetVTableDescriptorHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetObjCResilientClassStubInfo<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>>::sizeWithTrailingTypeCountImpl(unsigned int *a1, uint64_t a2)
 {
   switch(a2)
   {
@@ -628,7 +628,7 @@ LABEL_29:
   return swift::ABI::trailing_objects_internal::TrailingObjectsImpl<4,swift::TargetClassDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::ABI::TrailingObjects<swift::TargetClassDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetTypeGenericContextDescriptorHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericParamDescriptor,swift::TargetGenericRequirementDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericPackShapeHeader,swift::GenericPackShapeDescriptor,swift::ConditionalInvertibleProtocolSet,swift::ConditionalInvertibleProtocolsRequirementCount,swift::TargetConditionalInvertibleProtocolRequirement<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericValueHeader,swift::GenericValueDescriptor,swift::TargetResilientSuperclass<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetForeignMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetSingletonMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetVTableDescriptorHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetObjCResilientClassStubInfo<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>>,swift::TargetConditionalInvertibleProtocolRequirement<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericValueHeader,swift::GenericValueDescriptor,swift::TargetResilientSuperclass<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetForeignMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetSingletonMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetVTableDescriptorHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetObjCResilientClassStubInfo<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>>::sizeWithTrailingTypeCountImpl( a1,  v15);
 }
 
-uint64_t swift::ABI::trailing_objects_internal::TrailingObjectsImpl<4,swift::TargetClassDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::ABI::TrailingObjects<swift::TargetClassDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetTypeGenericContextDescriptorHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericParamDescriptor,swift::TargetGenericRequirementDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericPackShapeHeader,swift::GenericPackShapeDescriptor,swift::ConditionalInvertibleProtocolSet,swift::ConditionalInvertibleProtocolsRequirementCount,swift::TargetConditionalInvertibleProtocolRequirement<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericValueHeader,swift::GenericValueDescriptor,swift::TargetResilientSuperclass<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetForeignMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetSingletonMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetVTableDescriptorHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetObjCResilientClassStubInfo<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>>,swift::TargetConditionalInvertibleProtocolRequirement<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericValueHeader,swift::GenericValueDescriptor,swift::TargetResilientSuperclass<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetForeignMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetSingletonMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetVTableDescriptorHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetObjCResilientClassStubInfo<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>>::sizeWithTrailingTypeCountImpl(_BYTE *a1, uint64_t a2)
+unint64_t swift::ABI::trailing_objects_internal::TrailingObjectsImpl<4,swift::TargetClassDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::ABI::TrailingObjects<swift::TargetClassDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetTypeGenericContextDescriptorHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericParamDescriptor,swift::TargetGenericRequirementDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericPackShapeHeader,swift::GenericPackShapeDescriptor,swift::ConditionalInvertibleProtocolSet,swift::ConditionalInvertibleProtocolsRequirementCount,swift::TargetConditionalInvertibleProtocolRequirement<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericValueHeader,swift::GenericValueDescriptor,swift::TargetResilientSuperclass<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetForeignMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetSingletonMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetVTableDescriptorHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetObjCResilientClassStubInfo<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>>,swift::TargetConditionalInvertibleProtocolRequirement<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericValueHeader,swift::GenericValueDescriptor,swift::TargetResilientSuperclass<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetForeignMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetSingletonMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetVTableDescriptorHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetObjCResilientClassStubInfo<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>>::sizeWithTrailingTypeCountImpl(unsigned int *a1, uint64_t a2)
 {
   if (!a2)
   {
@@ -746,10 +746,10 @@ LABEL_30:
 
   v14 = a2 - 2;
 
-  return swift::ABI::trailing_objects_internal::TrailingObjectsImpl<4,swift::TargetClassDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::ABI::TrailingObjects<swift::TargetClassDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetTypeGenericContextDescriptorHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericParamDescriptor,swift::TargetGenericRequirementDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericPackShapeHeader,swift::GenericPackShapeDescriptor,swift::ConditionalInvertibleProtocolSet,swift::ConditionalInvertibleProtocolsRequirementCount,swift::TargetConditionalInvertibleProtocolRequirement<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericValueHeader,swift::GenericValueDescriptor,swift::TargetResilientSuperclass<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetForeignMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetSingletonMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetVTableDescriptorHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetObjCResilientClassStubInfo<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>>,swift::GenericValueDescriptor,swift::TargetResilientSuperclass<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetForeignMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetSingletonMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetVTableDescriptorHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetObjCResilientClassStubInfo<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>>::sizeWithTrailingTypeCountImpl(a1, v14);
+  return swift::ABI::trailing_objects_internal::TrailingObjectsImpl<4,swift::TargetClassDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::ABI::TrailingObjects<swift::TargetClassDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetTypeGenericContextDescriptorHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericParamDescriptor,swift::TargetGenericRequirementDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericPackShapeHeader,swift::GenericPackShapeDescriptor,swift::ConditionalInvertibleProtocolSet,swift::ConditionalInvertibleProtocolsRequirementCount,swift::TargetConditionalInvertibleProtocolRequirement<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericValueHeader,swift::GenericValueDescriptor,swift::TargetResilientSuperclass<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetForeignMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetSingletonMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetVTableDescriptorHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetObjCResilientClassStubInfo<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>>,swift::GenericValueDescriptor,swift::TargetResilientSuperclass<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetForeignMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetSingletonMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetVTableDescriptorHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetObjCResilientClassStubInfo<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>>::sizeWithTrailingTypeCountImpl( a1,  v14);
 }
 
-uint64_t swift::ABI::trailing_objects_internal::TrailingObjectsImpl<4,swift::TargetClassDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::ABI::TrailingObjects<swift::TargetClassDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetTypeGenericContextDescriptorHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericParamDescriptor,swift::TargetGenericRequirementDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericPackShapeHeader,swift::GenericPackShapeDescriptor,swift::ConditionalInvertibleProtocolSet,swift::ConditionalInvertibleProtocolsRequirementCount,swift::TargetConditionalInvertibleProtocolRequirement<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericValueHeader,swift::GenericValueDescriptor,swift::TargetResilientSuperclass<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetForeignMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetSingletonMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetVTableDescriptorHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetObjCResilientClassStubInfo<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>>,swift::GenericValueDescriptor,swift::TargetResilientSuperclass<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetForeignMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetSingletonMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetVTableDescriptorHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetObjCResilientClassStubInfo<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>>::sizeWithTrailingTypeCountImpl(_BYTE *a1, uint64_t a2)
+unint64_t swift::ABI::trailing_objects_internal::TrailingObjectsImpl<4,swift::TargetClassDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::ABI::TrailingObjects<swift::TargetClassDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetTypeGenericContextDescriptorHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericParamDescriptor,swift::TargetGenericRequirementDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericPackShapeHeader,swift::GenericPackShapeDescriptor,swift::ConditionalInvertibleProtocolSet,swift::ConditionalInvertibleProtocolsRequirementCount,swift::TargetConditionalInvertibleProtocolRequirement<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericValueHeader,swift::GenericValueDescriptor,swift::TargetResilientSuperclass<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetForeignMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetSingletonMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetVTableDescriptorHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetObjCResilientClassStubInfo<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>>,swift::GenericValueDescriptor,swift::TargetResilientSuperclass<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetForeignMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetSingletonMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetVTableDescriptorHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetObjCResilientClassStubInfo<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>>::sizeWithTrailingTypeCountImpl(unsigned int *a1, uint64_t a2)
 {
   if (!a2)
   {
@@ -866,10 +866,10 @@ LABEL_30:
 
   v14 = a2 - 2;
 
-  return swift::ABI::trailing_objects_internal::TrailingObjectsImpl<4,swift::TargetClassDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::ABI::TrailingObjects<swift::TargetClassDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetTypeGenericContextDescriptorHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericParamDescriptor,swift::TargetGenericRequirementDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericPackShapeHeader,swift::GenericPackShapeDescriptor,swift::ConditionalInvertibleProtocolSet,swift::ConditionalInvertibleProtocolsRequirementCount,swift::TargetConditionalInvertibleProtocolRequirement<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericValueHeader,swift::GenericValueDescriptor,swift::TargetResilientSuperclass<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetForeignMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetSingletonMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetVTableDescriptorHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetObjCResilientClassStubInfo<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>>,swift::TargetForeignMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetSingletonMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetVTableDescriptorHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetObjCResilientClassStubInfo<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>>::sizeWithTrailingTypeCountImpl(a1, v14);
+  return swift::ABI::trailing_objects_internal::TrailingObjectsImpl<4,swift::TargetClassDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::ABI::TrailingObjects<swift::TargetClassDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetTypeGenericContextDescriptorHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericParamDescriptor,swift::TargetGenericRequirementDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericPackShapeHeader,swift::GenericPackShapeDescriptor,swift::ConditionalInvertibleProtocolSet,swift::ConditionalInvertibleProtocolsRequirementCount,swift::TargetConditionalInvertibleProtocolRequirement<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericValueHeader,swift::GenericValueDescriptor,swift::TargetResilientSuperclass<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetForeignMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetSingletonMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetVTableDescriptorHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetObjCResilientClassStubInfo<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>>,swift::TargetForeignMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetSingletonMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetVTableDescriptorHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetObjCResilientClassStubInfo<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>>::sizeWithTrailingTypeCountImpl( a1,  v14);
 }
 
-uint64_t swift::ABI::trailing_objects_internal::TrailingObjectsImpl<4,swift::TargetClassDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::ABI::TrailingObjects<swift::TargetClassDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetTypeGenericContextDescriptorHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericParamDescriptor,swift::TargetGenericRequirementDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericPackShapeHeader,swift::GenericPackShapeDescriptor,swift::ConditionalInvertibleProtocolSet,swift::ConditionalInvertibleProtocolsRequirementCount,swift::TargetConditionalInvertibleProtocolRequirement<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericValueHeader,swift::GenericValueDescriptor,swift::TargetResilientSuperclass<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetForeignMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetSingletonMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetVTableDescriptorHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetObjCResilientClassStubInfo<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>>,swift::TargetForeignMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetSingletonMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetVTableDescriptorHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetObjCResilientClassStubInfo<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>>::sizeWithTrailingTypeCountImpl(_BYTE *a1, uint64_t a2)
+unint64_t swift::ABI::trailing_objects_internal::TrailingObjectsImpl<4,swift::TargetClassDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::ABI::TrailingObjects<swift::TargetClassDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetTypeGenericContextDescriptorHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericParamDescriptor,swift::TargetGenericRequirementDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericPackShapeHeader,swift::GenericPackShapeDescriptor,swift::ConditionalInvertibleProtocolSet,swift::ConditionalInvertibleProtocolsRequirementCount,swift::TargetConditionalInvertibleProtocolRequirement<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericValueHeader,swift::GenericValueDescriptor,swift::TargetResilientSuperclass<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetForeignMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetSingletonMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetVTableDescriptorHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetObjCResilientClassStubInfo<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>>,swift::TargetForeignMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetSingletonMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetVTableDescriptorHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetObjCResilientClassStubInfo<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideTableHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>>::sizeWithTrailingTypeCountImpl(unsigned int *a1, uint64_t a2)
 {
   if (a2 > 1)
   {
@@ -890,8 +890,6 @@ uint64_t swift::ABI::trailing_objects_internal::TrailingObjectsImpl<4,swift::Tar
         {
           v20 = 0;
         }
-
-        v18 = *(swift::ABI::trailing_objects_internal::TrailingObjectsImpl<4,swift::TargetClassDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::ABI::TrailingObjects<swift::TargetClassDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetTypeGenericContextDescriptorHeader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericParamDescriptor,swift::TargetGenericRequirementDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericPackShapeHeader,swift::GenericPackShapeDescriptor,swift::ConditionalInvertibleProtocolSet,swift::ConditionalInvertibleProtocolsRequirementCount,swift::TargetConditionalInvertibleProtocolRequirement<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericValueHeader,swift::GenericValueDescriptor,swift::TargetResilientSuperclass<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetForeignMetadataInitialization<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetSingletonMetadataInitialization<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetVTableDescriptorHeader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetOverrideTableHeader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodOverrideDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetObjCResilientClassStubInfo<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideTableHeader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>>,swift::TargetSingletonMetadataInitialization<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetVTableDescriptorHeader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetOverrideTableHeader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodOverrideDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetObjCResilientClassStubInfo<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideTableHeader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>>::getTrailingObjectsImpl(v20) + 4);
       }
 
       else
@@ -924,7 +922,6 @@ uint64_t swift::ABI::trailing_objects_internal::TrailingObjectsImpl<4,swift::Tar
           v19 = 0;
         }
 
-        v9 = *(swift::ABI::trailing_objects_internal::TrailingObjectsImpl<4,swift::TargetClassDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::ABI::TrailingObjects<swift::TargetClassDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetTypeGenericContextDescriptorHeader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericParamDescriptor,swift::TargetGenericRequirementDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericPackShapeHeader,swift::GenericPackShapeDescriptor,swift::ConditionalInvertibleProtocolSet,swift::ConditionalInvertibleProtocolsRequirementCount,swift::TargetConditionalInvertibleProtocolRequirement<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericValueHeader,swift::GenericValueDescriptor,swift::TargetResilientSuperclass<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetForeignMetadataInitialization<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetSingletonMetadataInitialization<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetVTableDescriptorHeader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetOverrideTableHeader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodOverrideDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetObjCResilientClassStubInfo<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideTableHeader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>>,swift::TargetSingletonMetadataInitialization<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetVTableDescriptorHeader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetOverrideTableHeader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodOverrideDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetObjCResilientClassStubInfo<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideTableHeader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>>::getTrailingObjectsImpl(v19) + 4);
         v10 = *a1;
       }
 
@@ -980,10 +977,10 @@ LABEL_13:
 LABEL_9:
   v11 = a2 - 4;
 
-  return swift::ABI::trailing_objects_internal::TrailingObjectsImpl<4,swift::TargetClassDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::ABI::TrailingObjects<swift::TargetClassDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetTypeGenericContextDescriptorHeader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericParamDescriptor,swift::TargetGenericRequirementDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericPackShapeHeader,swift::GenericPackShapeDescriptor,swift::ConditionalInvertibleProtocolSet,swift::ConditionalInvertibleProtocolsRequirementCount,swift::TargetConditionalInvertibleProtocolRequirement<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericValueHeader,swift::GenericValueDescriptor,swift::TargetResilientSuperclass<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetForeignMetadataInitialization<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetSingletonMetadataInitialization<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetVTableDescriptorHeader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetOverrideTableHeader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodOverrideDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetObjCResilientClassStubInfo<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideTableHeader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>>,swift::TargetOverrideTableHeader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodOverrideDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetObjCResilientClassStubInfo<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideTableHeader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>>::sizeWithTrailingTypeCountImpl(a1, v11);
+  return swift::ABI::trailing_objects_internal::TrailingObjectsImpl<4,swift::TargetClassDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::ABI::TrailingObjects<swift::TargetClassDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetTypeGenericContextDescriptorHeader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericParamDescriptor,swift::TargetGenericRequirementDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericPackShapeHeader,swift::GenericPackShapeDescriptor,swift::ConditionalInvertibleProtocolSet,swift::ConditionalInvertibleProtocolsRequirementCount,swift::TargetConditionalInvertibleProtocolRequirement<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericValueHeader,swift::GenericValueDescriptor,swift::TargetResilientSuperclass<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetForeignMetadataInitialization<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetSingletonMetadataInitialization<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetVTableDescriptorHeader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetOverrideTableHeader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodOverrideDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetObjCResilientClassStubInfo<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideTableHeader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>>,swift::TargetOverrideTableHeader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodOverrideDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetObjCResilientClassStubInfo<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadataAccessorsListEntry<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideTableHeader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetMethodDefaultOverrideDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>>::sizeWithTrailingTypeCountImpl( a1,  v11);
 }
 
-uint64_t swift::ABI::trailing_objects_internal::TrailingObjectsImpl<4,swift::TargetEnumDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::ABI::TrailingObjects<swift::TargetEnumDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetTypeGenericContextDescriptorHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericParamDescriptor,swift::TargetGenericRequirementDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericPackShapeHeader,swift::GenericPackShapeDescriptor,swift::ConditionalInvertibleProtocolSet,swift::ConditionalInvertibleProtocolsRequirementCount,swift::TargetConditionalInvertibleProtocolRequirement<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericValueHeader,swift::GenericValueDescriptor,swift::TargetForeignMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetSingletonMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>>,swift::GenericParamDescriptor,swift::TargetGenericRequirementDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericPackShapeHeader,swift::GenericPackShapeDescriptor,swift::ConditionalInvertibleProtocolSet,swift::ConditionalInvertibleProtocolsRequirementCount,swift::TargetConditionalInvertibleProtocolRequirement<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericValueHeader,swift::GenericValueDescriptor,swift::TargetForeignMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetSingletonMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>>::sizeWithTrailingTypeCountImpl(_BYTE *a1, uint64_t a2)
+unint64_t swift::ABI::trailing_objects_internal::TrailingObjectsImpl<4,swift::TargetEnumDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::ABI::TrailingObjects<swift::TargetEnumDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetTypeGenericContextDescriptorHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericParamDescriptor,swift::TargetGenericRequirementDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericPackShapeHeader,swift::GenericPackShapeDescriptor,swift::ConditionalInvertibleProtocolSet,swift::ConditionalInvertibleProtocolsRequirementCount,swift::TargetConditionalInvertibleProtocolRequirement<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericValueHeader,swift::GenericValueDescriptor,swift::TargetForeignMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetSingletonMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>>,swift::GenericParamDescriptor,swift::TargetGenericRequirementDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericPackShapeHeader,swift::GenericPackShapeDescriptor,swift::ConditionalInvertibleProtocolSet,swift::ConditionalInvertibleProtocolsRequirementCount,swift::TargetConditionalInvertibleProtocolRequirement<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericValueHeader,swift::GenericValueDescriptor,swift::TargetForeignMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetSingletonMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>>::sizeWithTrailingTypeCountImpl(_BYTE *a1, uint64_t a2)
 {
   if (a2)
   {
@@ -1069,7 +1066,7 @@ LABEL_8:
   return v11 - v3 + v12;
 }
 
-uint64_t swift::ABI::trailing_objects_internal::TrailingObjectsImpl<4,swift::TargetStructDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::ABI::TrailingObjects<swift::TargetStructDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetTypeGenericContextDescriptorHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericParamDescriptor,swift::TargetGenericRequirementDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericPackShapeHeader,swift::GenericPackShapeDescriptor,swift::ConditionalInvertibleProtocolSet,swift::ConditionalInvertibleProtocolsRequirementCount,swift::TargetConditionalInvertibleProtocolRequirement<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericValueHeader,swift::GenericValueDescriptor,swift::TargetForeignMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetSingletonMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>>,swift::GenericParamDescriptor,swift::TargetGenericRequirementDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericPackShapeHeader,swift::GenericPackShapeDescriptor,swift::ConditionalInvertibleProtocolSet,swift::ConditionalInvertibleProtocolsRequirementCount,swift::TargetConditionalInvertibleProtocolRequirement<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericValueHeader,swift::GenericValueDescriptor,swift::TargetForeignMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetSingletonMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>>::sizeWithTrailingTypeCountImpl(_BYTE *a1, uint64_t a2)
+unint64_t swift::ABI::trailing_objects_internal::TrailingObjectsImpl<4,swift::TargetStructDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::ABI::TrailingObjects<swift::TargetStructDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetTypeGenericContextDescriptorHeader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericParamDescriptor,swift::TargetGenericRequirementDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericPackShapeHeader,swift::GenericPackShapeDescriptor,swift::ConditionalInvertibleProtocolSet,swift::ConditionalInvertibleProtocolsRequirementCount,swift::TargetConditionalInvertibleProtocolRequirement<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericValueHeader,swift::GenericValueDescriptor,swift::TargetForeignMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetSingletonMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>>,swift::GenericParamDescriptor,swift::TargetGenericRequirementDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericPackShapeHeader,swift::GenericPackShapeDescriptor,swift::ConditionalInvertibleProtocolSet,swift::ConditionalInvertibleProtocolsRequirementCount,swift::TargetConditionalInvertibleProtocolRequirement<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericValueHeader,swift::GenericValueDescriptor,swift::TargetForeignMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetSingletonMetadataInitialization<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListCount<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasListEntry<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetCanonicalSpecializedMetadatasCachingOnceToken<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>,swift::InvertibleProtocolSet,swift::TargetSingletonMetadataPointer<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>>::sizeWithTrailingTypeCountImpl(_BYTE *a1, uint64_t a2)
 {
   if (a2)
   {
@@ -1155,7 +1152,7 @@ LABEL_8:
   return v11 - v3 + v12;
 }
 
-unint64_t swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::buildContextMangling(uint64_t a1, __int128 *a2, swift::Demangle::__runtime::NodeFactory *a3)
+swift::Demangle::__runtime *swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::buildContextMangling(uint64_t a1, __int128 *a2, swift::Demangle::__runtime::NodeFactory *a3)
 {
   v10 = *a2;
   v11 = *(a2 + 2);
@@ -1171,34 +1168,34 @@ unint64_t swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swi
   return result;
 }
 
-unint64_t swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::buildContextDescriptorMangling(uint64_t a1, void *a2, swift::Demangle::__runtime::NodeFactory *a3, int a4)
+uint64_t swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::buildContextDescriptorMangling(uint64_t a1, void *a2, swift::Demangle::__runtime::NodeFactory *a3, int a4)
 {
   if (a4 < 1)
   {
     return 0;
   }
 
-  v179 = v4;
-  v180 = v5;
-  v181 = v6;
+  v171 = v4;
+  v172 = v5;
+  v173 = v6;
   *__p = *a2;
   *&__p[16] = a2[2];
-  swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readParentContextDescriptor(a1, __p, v175);
-  v174 = 0;
+  swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readParentContextDescriptor(a1, __p, &v167);
+  v166 = 0;
   *__p = *a2;
   *&__p[16] = a2[2];
-  v173 = swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::adoptAnonymousContextName(a1, __p, v175, a3, &v174);
-  if (v178 != 1)
+  v165 = swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::adoptAnonymousContextName(a1, __p, &v167, a3, &v166);
+  if (v170 != 1)
   {
     goto LABEL_45;
   }
 
-  __p[0] = v175[0];
-  if (v175[0])
+  __p[0] = v167;
+  if (v167)
   {
-    *&__p[8] = v176;
-    v11 = v177;
-    v167[0] = v177;
+    *&__p[8] = v168;
+    v11 = v169;
+    v159[0] = v169;
     v12 = 1;
 LABEL_9:
     if (!v11)
@@ -1210,17 +1207,17 @@ LABEL_9:
     goto LABEL_11;
   }
 
-  if ((SHIBYTE(v177) & 0x80000000) == 0)
+  if ((SHIBYTE(v169) & 0x80000000) == 0)
   {
     v12 = 0;
-    *&__p[8] = v176;
-    v167[0] = v177;
+    *&__p[8] = v168;
+    v159[0] = v169;
     goto LABEL_11;
   }
 
-  std::string::__init_copy_ctor_external(&__p[8], v176, *(&v176 + 1));
+  std::string::__init_copy_ctor_external(&__p[8], v168, *(&v168 + 1));
   v12 = __p[0];
-  v11 = v167[0];
+  v11 = v159[0];
   if (__p[0])
   {
     goto LABEL_9;
@@ -1236,13 +1233,13 @@ LABEL_27:
 
   if (v12)
   {
-    v162 = *&__p[8];
-    v163 = v167[0];
-    v14 = swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::buildContextDescriptorMangling(a1, &v162, a3, (a4 - 1));
+    v154 = *&__p[8];
+    v155 = v159[0];
+    v14 = swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::buildContextDescriptorMangling(a1, &v154, a3, a4 - 1);
     goto LABEL_28;
   }
 
-  if (SHIBYTE(v167[0]) >= 0)
+  if (SHIBYTE(v159[0]) >= 0)
   {
     v15 = &__p[8];
   }
@@ -1252,9 +1249,9 @@ LABEL_27:
     v15 = *&__p[8];
   }
 
-  if (SHIBYTE(v167[0]) >= 0)
+  if (SHIBYTE(v159[0]) >= 0)
   {
-    v16 = SHIBYTE(v167[0]);
+    v16 = SHIBYTE(v159[0]);
   }
 
   else
@@ -1289,7 +1286,7 @@ LABEL_26:
   }
 
 LABEL_28:
-  if (v14 | v174)
+  if (v14 | v166)
   {
 LABEL_29:
     v19 = 1;
@@ -1309,7 +1306,7 @@ LABEL_29:
   }
 
 LABEL_32:
-  if (SHIBYTE(v167[0]) < 0)
+  if (SHIBYTE(v159[0]) < 0)
   {
     operator delete(*&__p[8]);
   }
@@ -1322,19 +1319,19 @@ LABEL_45:
     goto LABEL_46;
   }
 
-  if (v174 && (!v14 || *(v14 + 16) == 1))
+  if (v166 && (!v14 || *(v14 + 16) == 1))
   {
-    v14 = v174;
+    v14 = v166;
   }
 
   result = 0;
   __p[0] = 0;
-  v172 = 0;
-  *&v162 = &v173;
-  *(&v162 + 1) = a1;
-  v163 = a2;
-  v164 = __p;
-  v165 = a3;
+  v164 = 0;
+  *&v154 = &v165;
+  *(&v154 + 1) = a1;
+  v155 = a2;
+  v156 = __p;
+  v157 = a3;
   v20 = a2[2];
   v21 = *v20 & 0x1F;
   if (v21 > 3)
@@ -1343,9 +1340,9 @@ LABEL_45:
     {
       if (v21 == 17)
       {
-        if ((swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::buildContextDescriptorMangling(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const>,swift::Demangle::__runtime::Demangler &,int)::{lambda(void)#1}::operator()(&v162) & 1) == 0)
+        if ((swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::buildContextDescriptorMangling(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const>,swift::Demangle::__runtime::Demangler &,int)::{lambda(void)#1}::operator()(&v154) & 1) == 0)
         {
-          goto LABEL_180;
+          goto LABEL_174;
         }
 
         v25 = 0;
@@ -1356,12 +1353,12 @@ LABEL_45:
       {
         if (v21 != 18)
         {
-          goto LABEL_205;
+          goto LABEL_199;
         }
 
-        if ((swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::buildContextDescriptorMangling(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const>,swift::Demangle::__runtime::Demangler &,int)::{lambda(void)#1}::operator()(&v162) & 1) == 0)
+        if ((swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::buildContextDescriptorMangling(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const>,swift::Demangle::__runtime::Demangler &,int)::{lambda(void)#1}::operator()(&v154) & 1) == 0)
         {
-          goto LABEL_180;
+          goto LABEL_174;
         }
 
         v25 = 1;
@@ -1371,61 +1368,61 @@ LABEL_45:
 LABEL_83:
       if (!v14)
       {
-        goto LABEL_180;
+        goto LABEL_174;
       }
 
-      if (v172 == 1)
+      if (v164 == 1)
       {
-        v43 = v14;
-        while (*(v43 + 8) != 163)
+        v41 = v14;
+        while (*(v41 + 8) != 163)
         {
-          v44 = *(v43 + 18);
-          if ((v44 - 1) >= 2)
+          v42 = *(v41 + 18);
+          if ((v42 - 1) >= 2)
           {
-            if (v44 != 5 || !*(v43 + 2))
+            if (v42 != 5 || !*(v41 + 2))
             {
-              goto LABEL_175;
+              goto LABEL_169;
             }
 
-            v43 = *v43;
+            v41 = *v41;
           }
 
-          v43 = *v43;
-          if (!v43)
+          v41 = *v41;
+          if (!v41)
           {
-            goto LABEL_175;
+            goto LABEL_169;
           }
         }
 
-        if (v43[1] == (&dword_0 + 3))
+        if (v41[1] == (&dword_0 + 3))
         {
-          v45 = *v43;
-          v46 = *v45;
-          v47 = *(v45 + 2);
-          if (v46 == 24415 && v47 == 67)
+          v43 = *v41;
+          v44 = *v43;
+          v45 = *(v43 + 2);
+          if (v44 == 24415 && v45 == 67)
           {
-            if (std::operator==[abi:nn200100]<char,std::char_traits<char>,std::allocator<char>>(v167, "t"))
+            if (std::operator==[abi:nn200100]<char,std::char_traits<char>,std::allocator<char>>(v159, "t"))
             {
               v26 = 245;
             }
 
             else
             {
-              v124 = v168;
-              if ((v168 & 0x80u) != 0)
+              v116 = v160;
+              if ((v160 & 0x80u) != 0)
               {
-                v124 = v167[1];
+                v116 = v159[1];
               }
 
-              if (!v124)
+              if (!v116)
               {
-                v125 = v171;
-                if ((v171 & 0x80u) != 0)
+                v117 = v163;
+                if ((v163 & 0x80u) != 0)
                 {
-                  v125 = v170;
+                  v117 = v162;
                 }
 
-                if ((v25 & (v125 == 0)) != 0)
+                if ((v25 & (v117 == 0)) != 0)
                 {
                   v26 = 230;
                 }
@@ -1435,92 +1432,92 @@ LABEL_83:
         }
       }
 
-LABEL_175:
-      if (*(v14 + 16) != 1 || *(v173 + 8) != 103)
+LABEL_169:
+      if (*(v14 + 16) != 1 || *(v165 + 8) != 103)
       {
-        goto LABEL_193;
+        goto LABEL_187;
       }
 
-      v126 = *(v14 + 18);
-      if (v126 != 2 && (v126 != 5 || *(v14 + 8) < 2u))
+      v118 = *(v14 + 18);
+      if (v118 != 2 && (v118 != 5 || *(v14 + 8) < 2u))
       {
-        goto LABEL_180;
+        goto LABEL_174;
       }
 
       Node = swift::Demangle::__runtime::NodeFactory::createNode(a3, 186);
-      v130 = Node;
-      v131 = *(v14 + 18);
-      v132 = v14;
-      if ((v131 - 1) >= 2)
+      v122 = Node;
+      v123 = *(v14 + 18);
+      v124 = v14;
+      if ((v123 - 1) >= 2)
       {
-        if (v131 != 5 || !*(v14 + 8))
+        if (v123 != 5 || !*(v14 + 8))
         {
-          v133 = 0;
-LABEL_187:
-          swift::Demangle::__runtime::Node::addChild(Node, v133, a3, v128, v129);
-          swift::Demangle::__runtime::Node::addChild(v130, v173, a3, v134, v135);
-          v173 = v130;
-          v136 = *(v14 + 18);
-          if (v136 != 2)
+          v125 = 0;
+LABEL_181:
+          swift::Demangle::__runtime::Node::addChild(Node, v125, a3, v120, v121);
+          swift::Demangle::__runtime::Node::addChild(v122, v165, a3, v126, v127);
+          v165 = v122;
+          v128 = *(v14 + 18);
+          if (v128 != 2)
           {
-            if (v136 != 5 || *(v14 + 8) < 2u)
+            if (v128 != 5 || *(v14 + 8) < 2u)
             {
               v14 = 0;
-LABEL_193:
-              if (v172 == 1)
+LABEL_187:
+              if (v164 == 1)
               {
-                v137 = (v171 & 0x80u) == 0 ? v171 : v170;
-                if (v137)
+                v129 = (v163 & 0x80u) == 0 ? v163 : v162;
+                if (v129)
                 {
-                  if ((v171 & 0x80u) == 0)
+                  if ((v163 & 0x80u) == 0)
                   {
-                    v138 = &v169;
+                    v130 = &v161;
                   }
 
                   else
                   {
-                    v138 = v169;
+                    v130 = v161;
                   }
 
-                  v139 = swift::Demangle::__runtime::NodeFactory::createNode(a3, 103, v138, v137);
-                  v140 = swift::Demangle::__runtime::NodeFactory::createNode(a3, 216);
-                  swift::Demangle::__runtime::Node::addChild(v140, v139, a3, v141, v142);
-                  swift::Demangle::__runtime::Node::addChild(v140, v173, a3, v143, v144);
-                  v173 = v140;
+                  v131 = swift::Demangle::__runtime::NodeFactory::createNode(a3, 103, v130, v129);
+                  v132 = swift::Demangle::__runtime::NodeFactory::createNode(a3, 216);
+                  swift::Demangle::__runtime::Node::addChild(v132, v131, a3, v133, v134);
+                  swift::Demangle::__runtime::Node::addChild(v132, v165, a3, v135, v136);
+                  v165 = v132;
                 }
               }
 
-              v36 = swift::Demangle::__runtime::NodeFactory::createNode(a3, v26);
-              swift::Demangle::__runtime::Node::addChild(v36, v14, a3, v145, v146);
-              v42 = v173;
-              v41 = v36;
-              goto LABEL_203;
+              v34 = swift::Demangle::__runtime::NodeFactory::createNode(a3, v26);
+              swift::Demangle::__runtime::Node::addChild(v34, v14, a3, v137, v138);
+              v40 = v165;
+              v39 = v34;
+              goto LABEL_197;
             }
 
             v14 = *v14;
           }
 
           v14 = *(v14 + 8);
-          goto LABEL_193;
+          goto LABEL_187;
         }
 
-        v132 = *v14;
+        v124 = *v14;
       }
 
-      v133 = *v132;
-      goto LABEL_187;
+      v125 = *v124;
+      goto LABEL_181;
     }
 
     if (v21 != 4)
     {
       if (v21 != 16)
       {
-        goto LABEL_205;
+        goto LABEL_199;
       }
 
-      if ((swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::buildContextDescriptorMangling(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const>,swift::Demangle::__runtime::Demangler &,int)::{lambda(void)#1}::operator()(&v162) & 1) == 0)
+      if ((swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::buildContextDescriptorMangling(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const>,swift::Demangle::__runtime::Demangler &,int)::{lambda(void)#1}::operator()(&v154) & 1) == 0)
       {
-        goto LABEL_180;
+        goto LABEL_174;
       }
 
       v25 = 0;
@@ -1528,37 +1525,37 @@ LABEL_193:
       goto LABEL_83;
     }
 
-    if (v178 != 1)
+    if (v170 != 1)
     {
-      goto LABEL_180;
+      goto LABEL_174;
     }
 
     result = 0;
-    if (v175[0] != 1 || !v177)
+    if (v167 != 1 || !v169)
     {
-      goto LABEL_205;
+      goto LABEL_199;
     }
 
     v28 = *(v14 + 16);
     if (v28 == 163)
     {
-      v41 = swift::Demangle::__runtime::NodeFactory::createNode(a3, 323);
-      v36 = v41;
-      v42 = v14;
-      goto LABEL_203;
+      v39 = swift::Demangle::__runtime::NodeFactory::createNode(a3, 323);
+      v34 = v39;
+      v40 = v14;
+      goto LABEL_197;
     }
 
     if (v28 != 1)
     {
-      goto LABEL_180;
+      goto LABEL_174;
     }
 
-    *__str = v176;
-    v161 = v177;
+    *__str = v168;
+    v153 = v169;
     result = swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::demangleAnonymousContextName(a1, __str, a3);
     if (!result)
     {
-      goto LABEL_205;
+      goto LABEL_199;
     }
 
     v29 = result;
@@ -1570,7 +1567,7 @@ LABEL_193:
         if (v30 != 5 || !*(result + 8))
         {
           v29 = 0;
-          goto LABEL_214;
+          goto LABEL_208;
         }
 
         v29 = *result;
@@ -1579,11 +1576,11 @@ LABEL_193:
       v29 = *v29;
     }
 
-LABEL_214:
-    v150 = swift::Demangle::__runtime::NodeFactory::createNode(a3, 323);
-    swift::Demangle::__runtime::Node::addChild(v150, v29, a3, v151, v152);
-    result = v150;
-    goto LABEL_205;
+LABEL_208:
+    v142 = swift::Demangle::__runtime::NodeFactory::createNode(a3, 323);
+    swift::Demangle::__runtime::Node::addChild(v142, v29, a3, v143, v144);
+    result = v142;
+    goto LABEL_199;
   }
 
   if ((*v20 & 0x1Fu) > 1)
@@ -1592,12 +1589,12 @@ LABEL_214:
     {
       if (v21 != 3)
       {
-        goto LABEL_205;
+        goto LABEL_199;
       }
 
-      if (!swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::buildContextDescriptorMangling(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const>,swift::Demangle::__runtime::Demangler &,int)::{lambda(void)#1}::operator()(&v162))
+      if (!swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::buildContextDescriptorMangling(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const>,swift::Demangle::__runtime::Demangler &,int)::{lambda(void)#1}::operator()(&v154))
       {
-        goto LABEL_180;
+        goto LABEL_174;
       }
 
       v25 = 0;
@@ -1605,30 +1602,28 @@ LABEL_214:
       goto LABEL_83;
     }
 
-    v31 = *a2;
-    v32 = *(a2 + 8);
     (*(**(a1 + 2800) + 48))(__str);
     snprintf(__str, 0x12uLL, "$%llx", *a2);
-    v33 = swift::Demangle::__runtime::NodeFactory::createNode(a3, 1);
-    v159[0] = 0;
-    v159[1] = 0;
-    v34 = strlen(__str);
-    swift::Demangle::__runtime::CharVector::append(v159, __str, v34, a3);
-    v35 = swift::Demangle::__runtime::NodeFactory::createNode(a3, 103, v159);
-    v36 = v33;
-    swift::Demangle::__runtime::Node::addChild(v33, v35, a3, v37, v38);
+    v31 = swift::Demangle::__runtime::NodeFactory::createNode(a3, 1);
+    v151[0] = 0;
+    v151[1] = 0;
+    v32 = strlen(__str);
+    swift::Demangle::__runtime::CharVector::append(v151, __str, v32, a3);
+    v33 = swift::Demangle::__runtime::NodeFactory::createNode(a3, 103, v151);
+    v34 = v31;
+    swift::Demangle::__runtime::Node::addChild(v31, v33, a3, v35, v36);
     if (!v14)
     {
-LABEL_204:
-      result = v36;
-      goto LABEL_205;
+LABEL_198:
+      result = v34;
+      goto LABEL_199;
     }
 
-    v41 = v33;
-    v42 = v14;
-LABEL_203:
-    swift::Demangle::__runtime::Node::addChild(v41, v42, a3, v39, v40);
-    goto LABEL_204;
+    v39 = v31;
+    v40 = v14;
+LABEL_197:
+    swift::Demangle::__runtime::Node::addChild(v39, v40, a3, v37, v38);
+    goto LABEL_198;
   }
 
   if (!v21)
@@ -1646,75 +1641,75 @@ LABEL_203:
         v27 = &dword_8;
       }
 
-      v116 = *v27;
-      v117 = v27 - v20 + *a2 + v116;
-      if (v116)
+      v108 = *v27;
+      v109 = v27 - v20 + *a2 + v108;
+      if (v108)
       {
-        v118 = v117;
+        v110 = v109;
       }
 
       else
       {
-        v118 = 0;
+        v110 = 0;
       }
 
-      if (v116)
+      if (v108)
       {
-        v119 = *(a2 + 8);
+        v111 = *(a2 + 8);
       }
 
       else
       {
-        v119 = 0;
+        v111 = 0;
       }
 
       memset(__str, 0, sizeof(__str));
-      v161 = 0;
-      v120 = (*(**(a1 + 2800) + 16))(*(a1 + 2800), v118, v119, __str);
+      v153 = 0;
+      v112 = (*(**(a1 + 2800) + 16))(*(a1 + 2800), v110, v111, __str);
       result = 0;
-      if (v120)
+      if (v112)
       {
-        if ((v161 & 0x8000000000000000) == 0)
+        if ((v153 & 0x8000000000000000) == 0)
         {
-          v121 = __str;
+          v113 = __str;
         }
 
         else
         {
-          v121 = *__str;
+          v113 = *__str;
         }
 
-        if ((v161 & 0x8000000000000000) == 0)
+        if ((v153 & 0x8000000000000000) == 0)
         {
-          v122 = SHIBYTE(v161);
+          v114 = SHIBYTE(v153);
         }
 
         else
         {
-          v122 = *&__str[8];
+          v114 = *&__str[8];
         }
 
-        result = swift::Demangle::__runtime::NodeFactory::createNode(a3, 163, v121, v122);
+        result = swift::Demangle::__runtime::NodeFactory::createNode(a3, 163, v113, v114);
       }
 
-      if (SHIBYTE(v161) < 0)
+      if (SHIBYTE(v153) < 0)
       {
-        v123 = result;
+        v115 = result;
         operator delete(*__str);
-        result = v123;
+        result = v115;
       }
 
-      goto LABEL_205;
+      goto LABEL_199;
     }
 
-LABEL_180:
+LABEL_174:
     result = 0;
-    goto LABEL_205;
+    goto LABEL_199;
   }
 
   if (!v14)
   {
-    goto LABEL_180;
+    goto LABEL_174;
   }
 
   if (v20)
@@ -1730,271 +1725,253 @@ LABEL_180:
     v23 = &dword_8;
   }
 
-  v49 = *v23;
-  v50 = (v23 - v20 + *a2 + v49);
-  if (v49)
+  v47 = *v23;
+  v48 = (v23 - v20 + *a2 + v47);
+  if (v47)
   {
-    v51 = v50;
+    v49 = v48;
   }
 
   else
   {
-    v51 = 0;
+    v49 = 0;
   }
 
-  if (v49)
+  if (v47)
   {
-    v52 = *(a2 + 8);
+    v50 = *(a2 + 8);
   }
 
   else
   {
-    v52 = 0;
+    v50 = 0;
   }
 
-  result = swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readMangledName(a1, v51, v52, 0, a3);
+  result = swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readMangledName(a1, v49, v50, 0, a3);
   if (result)
   {
-    v53 = result;
-    v54 = swift::Demangle::__runtime::NodeFactory::createNode(a3, 73);
-    swift::Demangle::__runtime::Node::addChild(v54, v14, a3, v55, v56);
-    v158 = v54;
-    swift::Demangle::__runtime::Node::addChild(v54, v53, a3, v57, v58);
+    v51 = result;
+    v52 = swift::Demangle::__runtime::NodeFactory::createNode(a3, 73);
+    swift::Demangle::__runtime::Node::addChild(v52, v14, a3, v53, v54);
+    v150 = v52;
+    swift::Demangle::__runtime::Node::addChild(v52, v51, a3, v55, v56);
     GenericRequirements = swift::TrailingGenericContextObjects<swift::TargetExtensionContextDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetGenericContextDescriptorHeader>::getGenericRequirements(v22);
-    if (v60)
+    if (v58)
     {
-      v61 = GenericRequirements;
-      v62 = v60;
-      v156 = swift::Demangle::__runtime::NodeFactory::createNode(a3, 44);
-      v63 = 0;
-      v64 = 12 * v62;
-      v65 = v61 + 8;
-      v66 = (v61 + 8);
-      result = v158;
+      v59 = GenericRequirements;
+      v60 = v58;
+      v148 = swift::Demangle::__runtime::NodeFactory::createNode(a3, 44);
+      v61 = 0;
+      v62 = 12 * v60;
+      v63 = v59 + 8;
+      v64 = (v59 + 8);
+      result = v150;
       while (1)
       {
-        if (v63)
+        if (v61)
         {
-          goto LABEL_205;
+          goto LABEL_199;
         }
 
-        v67 = *(a2 + 8);
-        v68 = a2[2];
-        if (v68)
+        v65 = *(a2 + 8);
+        v66 = *(v64 - 1);
+        if (v66)
         {
-          v69 = a2[2];
-        }
-
-        v70 = *(v66 - 1);
-        if (v70)
-        {
-          v71 = (v65 + *a2 + v70 - v68 - 4);
+          v67 = (v63 + *a2 + v66 - a2[2] - 4);
         }
 
         else
         {
-          v71 = 0;
-        }
-
-        if (!v70)
-        {
           v67 = 0;
         }
 
-        v4 = v67 | v4 & 0xFFFFFFFFFFFFFF00;
-        MangledName = swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readMangledName(a1, v71, v4, 0, a3);
+        if (!v66)
+        {
+          v65 = 0;
+        }
+
+        v4 = v65 | v4 & 0xFFFFFFFFFFFFFF00;
+        MangledName = swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readMangledName(a1, v67, v4, 0, a3);
         if (!MangledName)
         {
           break;
         }
 
-        v75 = MangledName;
-        v76 = *(v66 - 2) & 0x1F;
-        result = v158;
-        if ((v76 - 1) < 2)
+        v71 = MangledName;
+        v72 = *(v64 - 2) & 0x1F;
+        result = v150;
+        if ((v72 - 1) < 2)
         {
-          v91 = *(a2 + 8);
-          v92 = a2[2];
-          if (v92)
+          v85 = *(a2 + 8);
+          v86 = *v64;
+          if (v86)
           {
-            v93 = a2[2];
-          }
-
-          v94 = *v66;
-          if (v94)
-          {
-            v95 = (v65 + *a2 + v94 - v92);
+            v87 = (v63 + *a2 + v86 - a2[2]);
           }
 
           else
           {
-            v95 = 0;
+            v87 = 0;
           }
 
-          if (!v94)
+          if (!v86)
           {
-            v91 = 0;
+            v85 = 0;
           }
 
-          v157 = v91 | v157 & 0xFFFFFFFFFFFFFF00;
-          v96 = swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readMangledName(a1, v95, v157, 0, a3);
-          if (!v96)
+          v149 = v85 | v149 & 0xFFFFFFFFFFFFFF00;
+          v88 = swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readMangledName(a1, v87, v149, 0, a3);
+          if (!v88)
           {
             break;
           }
 
-          v97 = v96;
-          if ((*(v66 - 2) & 0x1F) == 1)
+          v89 = v88;
+          if ((*(v64 - 2) & 0x1F) == 1)
           {
-            v98 = 40;
+            v90 = 40;
           }
 
           else
           {
-            v98 = 37;
+            v90 = 37;
           }
 
-          v99 = swift::Demangle::__runtime::NodeFactory::createNode(a3, v98);
-          swift::Demangle::__runtime::Node::addChild(v99, v75, a3, v100, v101);
-          swift::Demangle::__runtime::Node::addChild(v99, v97, a3, v102, v103);
-          swift::Demangle::__runtime::Node::addChild(v156, v99, a3, v104, v105);
-          v63 = 0;
+          v91 = swift::Demangle::__runtime::NodeFactory::createNode(a3, v90);
+          swift::Demangle::__runtime::Node::addChild(v91, v71, a3, v92, v93);
+          swift::Demangle::__runtime::Node::addChild(v91, v89, a3, v94, v95);
+          swift::Demangle::__runtime::Node::addChild(v148, v91, a3, v96, v97);
+          v61 = 0;
         }
 
-        else if (v76)
+        else if (v72)
         {
-          if (v76 != 31)
+          if (v72 != 31)
           {
-            v63 = 0;
+            v61 = 0;
             goto LABEL_112;
           }
 
-          v77 = a2[2];
-          if (v77)
-          {
-            v78 = a2[2];
-          }
-
-          v79 = *a2 - v77;
-          v80 = *(a2 + 8) | v154 & 0xFFFFFFFFFFFFFF00;
+          v73 = *a2 - a2[2];
+          v74 = *(a2 + 8) | v146 & 0xFFFFFFFFFFFFFF00;
           *__str = 0;
-          v154 = v80;
-          v81 = (*(**(a1 + 2800) + 32))(*(a1 + 2800), v65 + v79);
+          v146 = v74;
+          v75 = (*(**(a1 + 2800) + 32))(*(a1 + 2800), v63 + v73);
           if (*__str)
           {
-            v82 = 0;
+            v76 = 0;
           }
 
           else
           {
-            v82 = v81;
+            v76 = v75;
           }
 
-          if (v82 == 1)
+          if (v76 == 1)
           {
-            v83 = swift::Demangle::__runtime::NodeFactory::createNode(a3, 42);
-            swift::Demangle::__runtime::Node::addChild(v83, v75, a3, v84, v85);
-            v86 = swift::Demangle::__runtime::NodeFactory::createNode(a3, 103, "C");
-            swift::Demangle::__runtime::Node::addChild(v83, v86, a3, v87, v88);
-            swift::Demangle::__runtime::Node::addChild(v156, v83, a3, v89, v90);
+            v77 = swift::Demangle::__runtime::NodeFactory::createNode(a3, 42);
+            swift::Demangle::__runtime::Node::addChild(v77, v71, a3, v78, v79);
+            v80 = swift::Demangle::__runtime::NodeFactory::createNode(a3, 103, "C");
+            swift::Demangle::__runtime::Node::addChild(v77, v80, a3, v81, v82);
+            swift::Demangle::__runtime::Node::addChild(v148, v77, a3, v83, v84);
           }
 
-          v63 = v82 ^ 1;
+          v61 = v76 ^ 1;
         }
 
         else
         {
-          v106 = a2[2];
+          v98 = a2[2];
           *__str = *a2;
-          v161 = v106;
-          *__str = swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::resolveRelativeIndirectProtocol<swift::TargetContextDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const>(a1, __str, v66);
+          v153 = v98;
+          *__str = swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::resolveRelativeIndirectProtocol<swift::TargetContextDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>> const>(a1, __str, v64);
           *&__str[8] = *__str;
-          v155 = v155 & 0xFFFFFFFFFFFFFF00 | v107;
-          v161 = v155;
-          v108 = swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readProtocol<swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::buildContextDescriptorMangling(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>> const>,swift::Demangle::__runtime::Demangler &,int)::ProtocolResolver>(a1, __str, a3);
-          v63 = v108 == 0;
-          if (v108)
+          v147 = v147 & 0xFFFFFFFFFFFFFF00 | v99;
+          v153 = v147;
+          v100 = swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readProtocol<swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::buildContextDescriptorMangling(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>> const>,swift::Demangle::__runtime::Demangler &,int)::ProtocolResolver>(a1, __str, a3);
+          v61 = v100 == 0;
+          if (v100)
           {
-            v109 = v108;
-            v153 = swift::Demangle::__runtime::NodeFactory::createNode(a3, 37);
-            swift::Demangle::__runtime::Node::addChild(v153, v75, a3, v110, v111);
-            swift::Demangle::__runtime::Node::addChild(v153, v109, a3, v112, v113);
-            swift::Demangle::__runtime::Node::addChild(v156, v153, a3, v114, v115);
+            v101 = v100;
+            v145 = swift::Demangle::__runtime::NodeFactory::createNode(a3, 37);
+            swift::Demangle::__runtime::Node::addChild(v145, v71, a3, v102, v103);
+            swift::Demangle::__runtime::Node::addChild(v145, v101, a3, v104, v105);
+            swift::Demangle::__runtime::Node::addChild(v148, v145, a3, v106, v107);
           }
         }
 
-        result = v158;
+        result = v150;
 LABEL_112:
-        v66 += 3;
-        v65 += 12;
-        v64 -= 12;
-        if (!v64)
+        v64 += 3;
+        v63 += 12;
+        v62 -= 12;
+        if (!v62)
         {
-          if (v63)
+          if (v61)
           {
-            goto LABEL_205;
+            goto LABEL_199;
           }
 
-          swift::Demangle::__runtime::Node::addChild(v158, v156, a3, v73, v74);
+          swift::Demangle::__runtime::Node::addChild(v150, v148, a3, v69, v70);
           break;
         }
       }
     }
 
-    result = v158;
+    result = v150;
   }
 
-LABEL_205:
-  if (v172 != 1)
+LABEL_199:
+  if (v164 != 1)
   {
     goto LABEL_46;
   }
 
-  if (v171 < 0)
+  if (v163 < 0)
   {
-    v147 = result;
-    operator delete(v169);
-    result = v147;
-    if ((v168 & 0x80000000) == 0)
+    v139 = result;
+    operator delete(v161);
+    result = v139;
+    if ((v160 & 0x80000000) == 0)
     {
-LABEL_208:
+LABEL_202:
       if ((__p[23] & 0x80000000) != 0)
       {
-        goto LABEL_212;
+        goto LABEL_206;
       }
 
       goto LABEL_46;
     }
   }
 
-  else if ((v168 & 0x80000000) == 0)
+  else if ((v160 & 0x80000000) == 0)
   {
-    goto LABEL_208;
+    goto LABEL_202;
   }
 
-  v148 = result;
-  operator delete(v167[0]);
-  result = v148;
+  v140 = result;
+  operator delete(v159[0]);
+  result = v140;
   if ((__p[23] & 0x80000000) != 0)
   {
-LABEL_212:
-    v149 = result;
+LABEL_206:
+    v141 = result;
     operator delete(*__p);
-    result = v149;
+    result = v141;
   }
 
 LABEL_46:
-  if (v178 == 1 && (v175[0] & 1) == 0 && SHIBYTE(v177) < 0)
+  if (v170 == 1 && (v167 & 1) == 0 && SHIBYTE(v169) < 0)
   {
     v24 = result;
-    operator delete(v176);
+    operator delete(v168);
     return v24;
   }
 
   return result;
 }
 
-void swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readParentContextDescriptor(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+void swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readParentContextDescriptor(_BYTE *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   *v10 = *a2;
   *&v10[16] = *(a2 + 16);
@@ -2091,7 +2068,7 @@ LABEL_22:
   }
 }
 
-uint64_t swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::adoptAnonymousContextName(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, void *a5)
+uint64_t *swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::adoptAnonymousContextName(_BYTE *a1, uint64_t a2, uint64_t a3, void *a4, void *a5)
 {
   *a5 = 0;
   if (*(a3 + 32) != 1)
@@ -2099,31 +2076,30 @@ uint64_t swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swif
     return 0;
   }
 
-  v49 = v5;
-  v50 = v6;
+  v48 = v5;
+  v49 = v6;
   v7 = *(a3 + 24);
   if (*a3 != 1 || v7 == 0)
   {
     return 0;
   }
 
-  v48 = *(a3 + 8);
+  v47 = *(a3 + 8);
   v9 = *(a2 + 16);
-  v10 = *v9;
   if (v9)
   {
-    v11 = (*v9 & 0x10) == 0;
+    v10 = (*v9 & 0x10) == 0;
   }
 
   else
   {
-    v11 = 1;
+    v10 = 1;
   }
 
-  if (v11)
+  if (v10)
   {
-    v14 = 0;
-    v12 = 0;
+    v13 = 0;
+    v11 = 0;
     if (!v9)
     {
       goto LABEL_17;
@@ -2132,8 +2108,8 @@ uint64_t swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swif
 
   else
   {
-    v14 = v9 != 0;
-    v12 = 0;
+    v13 = v9 != 0;
+    v11 = 0;
     if (!v9)
     {
       goto LABEL_17;
@@ -2142,31 +2118,31 @@ uint64_t swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swif
 
   if ((*v9 & 0x1F) == 3)
   {
-    v12 = v9 != 0;
+    v11 = v9 != 0;
   }
 
 LABEL_17:
-  if (!v14 && !v12 || (*v7 & 0x1F) != 2 || !v7)
+  if (!v13 && !v11 || (*v7 & 0x1F) != 2 || !v7)
   {
     return 0;
   }
 
-  v45 = *(a3 + 8);
-  v46 = v7;
-  result = swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::demangleAnonymousContextName(a1, &v45, a4);
+  v44 = *(a3 + 8);
+  v45 = v7;
+  result = swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::demangleAnonymousContextName(a1, &v44, a4);
   if (!result)
   {
     return result;
   }
 
-  v19 = a2;
-  if (*(result + 16) == 101)
+  v18 = a2;
+  if (*(result + 8) == 101)
   {
-    v20 = *(result + 18);
-    v21 = a1;
-    if ((v20 - 1) >= 2)
+    v19 = *(result + 18);
+    v20 = a1;
+    if ((v19 - 1) >= 2)
     {
-      if (v20 != 5 || !*(result + 8))
+      if (v19 != 5 || !*(result + 2))
       {
         result = 0;
         goto LABEL_29;
@@ -2180,128 +2156,128 @@ LABEL_17:
 
   else
   {
-    v21 = a1;
+    v20 = a1;
   }
 
 LABEL_29:
-  v22 = *(result + 18);
-  v23 = result;
-  if (v22 != 2)
+  v21 = *(result + 18);
+  v22 = result;
+  if (v21 != 2)
   {
-    if (v22 != 5 || *(result + 8) < 2u)
+    if (v21 != 5 || *(result + 2) < 2u)
     {
       return 0;
     }
 
-    v23 = *result;
+    v22 = *result;
   }
 
+  v23 = *(v22 + 8);
   v24 = *(v23 + 8);
-  v25 = *(v24 + 8);
-  if (v25 != 186 && v25 != 146)
+  if (v24 != 186 && v24 != 146)
   {
     return 0;
   }
 
-  v26 = *(v24 + 18);
-  v27 = v24;
-  if (v26 != 2)
+  v25 = *(v23 + 18);
+  v26 = v23;
+  if (v25 != 2)
   {
-    if (v26 != 5 || *(v24 + 2) < 2u)
+    if (v25 != 5 || *(v23 + 2) < 2u)
     {
       return 0;
     }
 
-    v27 = *v24;
+    v26 = *v23;
   }
 
-  v28 = v27[1];
-  if (*(v28 + 16) != 103 || *(v28 + 18) != 3)
+  v27 = v26[1];
+  if (*(v27 + 16) != 103 || *(v27 + 18) != 3)
   {
     return 0;
   }
 
-  v29 = result;
-  LOBYTE(v45) = 0;
-  v47 = 0;
-  *__p = *v19;
-  v39 = *(v19 + 16);
-  swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readContextDescriptorName(v21, __p, &v45, v42);
-  v30 = v44;
-  if (v44 != 1)
+  v28 = result;
+  LOBYTE(v44) = 0;
+  v46 = 0;
+  *__p = *v18;
+  v38 = *(v18 + 16);
+  swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readContextDescriptorName(v20, __p, &v44, v41);
+  v29 = v43;
+  if (v43 != 1)
   {
-    v24 = 0;
+    v23 = 0;
     goto LABEL_67;
   }
 
-  if (v43 >= 0)
+  if (v42 >= 0)
+  {
+    v30 = v41;
+  }
+
+  else
+  {
+    v30 = v41[0];
+  }
+
+  if (v42 >= 0)
   {
     v31 = v42;
   }
 
   else
   {
-    v31 = v42[0];
+    v31 = v41[1];
   }
 
-  if (v43 >= 0)
+  if (v31 == *(v27 + 8) && (!v31 || !memcmp(v30, *v27, v31)))
   {
-    v32 = v43;
-  }
-
-  else
-  {
-    v32 = v42[1];
-  }
-
-  if (v32 == *(v28 + 8) && (!v32 || !memcmp(v31, *v28, v32)))
-  {
-    v36 = v48;
-    v37 = v7;
-    swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readParentContextDescriptor(a1, &v36, __p);
+    v35 = v47;
+    v36 = v7;
+    swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readParentContextDescriptor(a1, &v35, __p);
     std::__optional_move_assign_base<swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::ParentContextDescriptorRef,false>::operator=[abi:nn200100](a3, __p);
-    if (v41 == 1 && (__p[0] & 1) == 0 && v40 < 0)
+    if (v40 == 1 && (__p[0] & 1) == 0 && v39 < 0)
     {
       operator delete(__p[1]);
     }
 
-    v33 = *(v29 + 18);
-    if ((v33 - 1) >= 2)
+    v32 = *(v28 + 18);
+    if ((v32 - 1) >= 2)
     {
-      if (v33 != 5 || !*(v29 + 8))
+      if (v32 != 5 || !*(v28 + 8))
       {
-        v35 = 0;
+        v34 = 0;
         goto LABEL_66;
       }
 
-      v34 = *v29;
+      v33 = *v28;
     }
 
     else
     {
-      v34 = v29;
+      v33 = v28;
     }
 
-    v35 = *v34;
+    v34 = *v33;
 LABEL_66:
-    *a5 = v35;
-    v30 = v44;
+    *a5 = v34;
+    v29 = v43;
     goto LABEL_67;
   }
 
-  v24 = 0;
-  v30 = 1;
+  v23 = 0;
+  v29 = 1;
 LABEL_67:
-  if ((v30 & 1) != 0 && v43 < 0)
+  if ((v29 & 1) != 0 && v42 < 0)
   {
-    operator delete(v42[0]);
+    operator delete(v41[0]);
   }
 
-  std::optional<swift::TypeImportInfo<std::string>>::~optional(&v45);
-  return v24;
+  std::optional<swift::TypeImportInfo<std::string>>::~optional(&v44);
+  return v23;
 }
 
-uint64_t swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readProtocol<swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::buildContextDescriptorMangling(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>> const>,swift::Demangle::__runtime::Demangler &,int)::ProtocolResolver>(uint64_t a1, uint64_t a2, swift::Demangle::__runtime::NodeFactory *a3)
+swift::Demangle::__runtime *swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readProtocol<swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::buildContextDescriptorMangling(swift::remote::RemoteRef<swift::TargetContextDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>> const>,swift::Demangle::__runtime::Demangler &,int)::ProtocolResolver>(uint64_t a1, uint64_t a2, swift::Demangle::__runtime::NodeFactory *a3)
 {
   v6 = *a2 & 0xFFFFFFFFFFFFFFFELL;
   if (!*(a2 + 16))
@@ -2402,35 +2378,29 @@ LABEL_14:
   }
 
   v16 = (TrailingObjectsImpl + 12 * v12 + 4 * v14 + 4 * swift::ABI::TrailingObjects<swift::TargetAnonymousContextDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::TargetGenericContextDescriptorHeader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericParamDescriptor,swift::TargetGenericRequirementDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericPackShapeHeader,swift::GenericPackShapeDescriptor,swift::ConditionalInvertibleProtocolSet,swift::ConditionalInvertibleProtocolsRequirementCount,swift::TargetConditionalInvertibleProtocolRequirement<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>,swift::GenericValueHeader,swift::GenericValueDescriptor,swift::TargetMangledContextName<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>>::callNumTrailingObjects<swift::GenericValueDescriptor>(v8));
-  v17 = *(a2 + 16);
+  v17 = *v16;
+  v18 = v16 + *a2 - *(a2 + 16) + v17;
   if (v17)
   {
-    v18 = *(a2 + 16);
-  }
-
-  v19 = *v16;
-  v20 = v16 + *a2 - v17 + v19;
-  if (v19)
-  {
-    v21 = v20;
+    v19 = v18;
   }
 
   else
   {
-    v21 = 0;
+    v19 = 0;
   }
 
-  if (v19)
+  if (v17)
   {
-    v22 = *(a2 + 8);
+    v20 = *(a2 + 8);
   }
 
   else
   {
-    v22 = 0;
+    v20 = 0;
   }
 
-  return swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readMangledName(a1, v21, v22, 1, a3);
+  return swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readMangledName(a1, v19, v20, 1, a3);
 }
 
 uint64_t std::__function::__func<swift::reflection::TypeRefBuilder::TypeRefBuilder<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>(swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder> &,swift::remote::ExternalTypeRefCache *,swift::reflection::DescriptorFinder *)::{lambda(swift::remote::RemoteAddress,unsigned int)#1},std::allocator<swift::reflection::TypeRefBuilder::TypeRefBuilder<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>(swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder> &,swift::remote::ExternalTypeRefCache *,swift::reflection::DescriptorFinder *)::{lambda(swift::remote::RemoteAddress,unsigned int)#1}>,swift::reflection::TypeRef const* ()(swift::remote::RemoteAddress,unsigned int)>::__clone(uint64_t result, void *a2)
@@ -2457,7 +2427,7 @@ uint64_t std::__function::__func<swift::reflection::TypeRefBuilder::TypeRefBuild
   return 0;
 }
 
-void *swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readUnderlyingTypeForOpaqueTypeDescriptor@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, unsigned int a4@<W3>, uint64_t a5@<X8>)
+void *swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readUnderlyingTypeForOpaqueTypeDescriptor@<X0>(_BYTE *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
 {
   v10[1] = 0;
   v10[2] = 0;
@@ -2504,7 +2474,7 @@ void *swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::
   if (UnderlyingTypeManglingForOpaqueTypeDescriptor)
   {
     v50 = a1 + 328;
-    swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledType(&v50, UnderlyingTypeManglingForOpaqueTypeDescriptor, 0, 0, v8, a5);
+    swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledType(&v50, UnderlyingTypeManglingForOpaqueTypeDescriptor, 0, 0, a5, v8);
   }
 
   else
@@ -2535,7 +2505,7 @@ void *swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::
   return result;
 }
 
-uint64_t swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readUnderlyingTypeManglingForOpaqueTypeDescriptor(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4, void *a5)
+uint64_t swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readUnderlyingTypeManglingForOpaqueTypeDescriptor(_BYTE *a1, uint64_t a2, uint64_t a3, unsigned int a4, void *a5)
 {
   swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readContextDescriptor(a1, a2, a3, &v24);
   if (!v26)
@@ -2632,17 +2602,15 @@ uint64_t std::__function::__func<swift::reflection::TypeRefBuilder::TypeRefBuild
   return result;
 }
 
-double std::__function::__func<swift::reflection::TypeRefBuilder::TypeRefBuilder<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>(swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder> &,swift::remote::ExternalTypeRefCache *,swift::reflection::DescriptorFinder *)::{lambda(swift::remote::RemoteAddress)#1},std::allocator<swift::reflection::TypeRefBuilder::TypeRefBuilder<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>(swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder> &,swift::remote::ExternalTypeRefCache *,swift::reflection::DescriptorFinder *)::{lambda(swift::remote::RemoteAddress)#1}>,std::optional<swift::remote::RemoteAbsolutePointer> ()(swift::remote::RemoteAddress)>::operator()@<D0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
+double std::__function::__func<swift::reflection::TypeRefBuilder::TypeRefBuilder<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>(swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder> &,swift::remote::ExternalTypeRefCache *,swift::reflection::DescriptorFinder *)::{lambda(swift::remote::RemoteAddress)#1},std::allocator<swift::reflection::TypeRefBuilder::TypeRefBuilder<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>(swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder> &,swift::remote::ExternalTypeRefCache *,swift::reflection::DescriptorFinder *)::{lambda(swift::remote::RemoteAddress)#1}>,std::optional<swift::remote::RemoteAbsolutePointer> ()(swift::remote::RemoteAddress)>::operator()@<D0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v4 = a2[1];
-  v5 = *a2;
-  (*(**(*(a1 + 8) + 2800) + 72))(&v7);
-  *a3 = v7;
-  *(a3 + 16) = v8;
-  result = *&v9;
-  *(a3 + 24) = v9;
-  *(a3 + 40) = v10;
-  *(a3 + 48) = 1;
+  (*(**(*(a1 + 8) + 2800) + 72))(&v4);
+  *a2 = v4;
+  *(a2 + 16) = v5;
+  result = *&v6;
+  *(a2 + 24) = v6;
+  *(a2 + 40) = v7;
+  *(a2 + 48) = 1;
   return result;
 }
 
@@ -2678,8 +2646,8 @@ void SwiftReflectionContext::~SwiftReflectionContext(SwiftReflectionContext *thi
   if (!v2)
   {
 LABEL_35:
-    v15 = std::__throw_bad_function_call[abi:nn200100]();
-    std::__function::__func<std::string (*)(unsigned long long,unsigned long long),std::allocator<std::string (*)(unsigned long long,unsigned long long)>,std::string ()(unsigned long long,unsigned long long)>::~__func(v15);
+    std::__throw_bad_function_call[abi:nn200100]();
+    std::__function::__func<std::string (*)(unsigned long long,unsigned long long),std::allocator<std::string (*)(unsigned long long,unsigned long long)>,std::string ()(unsigned long long,unsigned long long)>::~__func();
     return;
   }
 
@@ -2698,10 +2666,10 @@ LABEL_35:
 
       if (v3 == v5)
       {
-        v17 = v16;
-        (*(**(v3 + 24) + 24))(*(v3 + 24), v16);
-        v6 = v17;
-        if (!v17)
+        v16 = v15;
+        (*(**(v3 + 24) + 24))(*(v3 + 24), v15);
+        v6 = v16;
+        if (!v16)
         {
           goto LABEL_35;
         }
@@ -2710,7 +2678,7 @@ LABEL_35:
       else
       {
         v6 = (*(*v5 + 16))(v5);
-        v17 = v6;
+        v16 = v6;
         if (!v6)
         {
           goto LABEL_35;
@@ -2718,14 +2686,14 @@ LABEL_35:
       }
 
       (*(*v6 + 48))(v6);
-      if (v17 == v16)
+      if (v16 == v15)
       {
-        (*(*v17 + 32))(v17);
+        (*(*v16 + 32))(v16);
       }
 
-      else if (v17)
+      else if (v16)
       {
-        (*(*v17 + 40))();
+        (*(*v16 + 40))();
       }
 
       v3 += 32;
@@ -2735,7 +2703,7 @@ LABEL_35:
       }
     }
 
-    v17 = 0;
+    v16 = 0;
     goto LABEL_35;
   }
 
@@ -2804,7 +2772,7 @@ LABEL_19:
   v14 = *(this + 2);
   if (v14 != -1)
   {
-    (off_E0968[v14])(v16, this);
+    (off_E0968[v14])(v15, this);
   }
 
   *(this + 2) = -1;
@@ -2824,9 +2792,9 @@ void *std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v
   if (v13 == 1)
   {
     v6 = a1 + *(*a1 - 24);
-    v7 = *(v6 + 40);
+    v7 = *(v6 + 5);
     v8 = a2 + a3;
-    if ((*(v6 + 8) & 0xB0) == 0x20)
+    if ((*(v6 + 2) & 0xB0) == 0x20)
     {
       v9 = v8;
     }
@@ -2836,14 +2804,14 @@ void *std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v
       v9 = a2;
     }
 
-    v10 = *(v6 + 144);
+    v10 = *(v6 + 36);
     if (v10 == -1)
     {
       std::ios_base::getloc((a1 + *(*a1 - 24)));
       v11 = std::locale::use_facet(&v14, &std::ctype<char>::id);
       v10 = (v11->__vftable[2].~facet_0)(v11, 32);
       std::locale::~locale(&v14);
-      *(v6 + 144) = v10;
+      *(v6 + 36) = v10;
     }
 
     if (!std::__pad_and_output[abi:nn200100]<char,std::char_traits<char>>(v7, a2, v9, v8, v6, v10))
@@ -3112,39 +3080,39 @@ void std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatch[
   }
 }
 
-uint64_t swift::reflection::ReflectionContext<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::addReflectionInfo(uint64_t a1, uint64_t a2)
+uint64_t swift::reflection::ReflectionContext<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::addReflectionInfo(uint64_t a1, __int128 *a2)
 {
   v18 = *a2;
-  v3 = *(a2 + 24);
-  v19 = *(a2 + 16);
+  v3 = *(a2 + 3);
+  v19 = *(a2 + 2);
   v20 = v3;
-  v21 = *(a2 + 32);
-  v4 = *(a2 + 56);
-  v22 = *(a2 + 48);
+  v21 = a2[2];
+  v4 = *(a2 + 7);
+  v22 = *(a2 + 6);
   v23 = v4;
-  v24 = *(a2 + 64);
-  v5 = *(a2 + 88);
-  v25 = *(a2 + 80);
+  v24 = a2[4];
+  v5 = *(a2 + 11);
+  v25 = *(a2 + 10);
   v26 = v5;
-  v27 = *(a2 + 96);
-  v6 = *(a2 + 120);
-  v28 = *(a2 + 112);
+  v27 = a2[6];
+  v6 = *(a2 + 15);
+  v28 = *(a2 + 14);
   v29 = v6;
-  v30 = *(a2 + 128);
-  v7 = *(a2 + 152);
-  v31 = *(a2 + 144);
+  v30 = a2[8];
+  v7 = *(a2 + 19);
+  v31 = *(a2 + 18);
   v32 = v7;
-  v33 = *(a2 + 160);
-  v8 = *(a2 + 184);
-  v34 = *(a2 + 176);
+  v33 = a2[10];
+  v8 = *(a2 + 23);
+  v34 = *(a2 + 22);
   v35 = v8;
-  v36 = *(a2 + 192);
-  v9 = *(a2 + 216);
-  v37 = *(a2 + 208);
+  v36 = a2[12];
+  v9 = *(a2 + 27);
+  v37 = *(a2 + 26);
   v38 = v9;
-  v39 = *(a2 + 224);
-  v10 = *(a2 + 248);
-  v40 = *(a2 + 240);
+  v39 = a2[14];
+  v10 = *(a2 + 31);
+  v40 = *(a2 + 30);
   v41 = v10;
   v42 = v44;
   v43 = 0x100000000;
@@ -3153,7 +3121,7 @@ uint64_t swift::reflection::ReflectionContext<swift::External<swift::WithObjCInt
     goto LABEL_9;
   }
 
-  v11 = *(a2 + 264);
+  v11 = *(a2 + 66);
   if (!v11)
   {
     goto LABEL_9;
@@ -3168,14 +3136,14 @@ uint64_t swift::reflection::ReflectionContext<swift::External<swift::WithObjCInt
 
   v12 = a2;
   __swift::__runtime::llvm::SmallVectorBase<unsigned int>::grow_pod(&v42, v44, v11, 16);
-  v13 = *(v12 + 264);
+  v13 = *(v12 + 66);
   if (v13)
   {
     a2 = v12;
     v14 = v42;
     v15 = 16 * v13;
 LABEL_7:
-    memcpy(v14, *(a2 + 256), v15);
+    memcpy(v14, *(a2 + 32), v15);
   }
 
   LODWORD(v43) = v11;
@@ -3191,7 +3159,7 @@ LABEL_9:
   return result;
 }
 
-uint64_t swift::reflection::TypeRefBuilder::addReflectionInfo(uint64_t *a1, __int128 *a2)
+uint64_t swift::reflection::TypeRefBuilder::addReflectionInfo(void **a1, __int128 *a2)
 {
   v31 = *a2;
   v3 = *(a2 + 3);
@@ -3270,39 +3238,39 @@ LABEL_9:
 
   *v16 = v31;
   v17 = v33;
-  *(v16 + 16) = v32;
-  *(v16 + 24) = v17;
-  *(v16 + 32) = v34;
+  *(v16 + 2) = v32;
+  *(v16 + 3) = v17;
+  v16[2] = v34;
   v18 = v36;
-  *(v16 + 48) = v35;
-  *(v16 + 56) = v18;
-  *(v16 + 64) = v37;
+  *(v16 + 6) = v35;
+  *(v16 + 7) = v18;
+  v16[4] = v37;
   v19 = v39;
-  *(v16 + 80) = v38;
-  *(v16 + 88) = v19;
-  *(v16 + 96) = v40;
+  *(v16 + 10) = v38;
+  *(v16 + 11) = v19;
+  v16[6] = v40;
   v20 = v42;
-  *(v16 + 112) = v41;
-  *(v16 + 120) = v20;
-  *(v16 + 128) = v43;
+  *(v16 + 14) = v41;
+  *(v16 + 15) = v20;
+  v16[8] = v43;
   v21 = v45;
-  *(v16 + 144) = v44;
-  *(v16 + 152) = v21;
-  *(v16 + 160) = v46;
+  *(v16 + 18) = v44;
+  *(v16 + 19) = v21;
+  v16[10] = v46;
   v22 = v48;
-  *(v16 + 176) = v47;
-  *(v16 + 184) = v22;
-  *(v16 + 192) = v49;
+  *(v16 + 22) = v47;
+  *(v16 + 23) = v22;
+  v16[12] = v49;
   v23 = v51;
-  *(v16 + 208) = v50;
-  *(v16 + 216) = v23;
-  *(v16 + 224) = v52;
+  *(v16 + 26) = v50;
+  *(v16 + 27) = v23;
+  v16[14] = v52;
   v24 = v54;
-  *(v16 + 240) = v53;
-  *(v16 + 248) = v24;
-  v25 = (v16 + 272);
-  *(v16 + 256) = v16 + 272;
-  *(v16 + 264) = 0x100000000;
+  *(v16 + 30) = v53;
+  *(v16 + 31) = v24;
+  v25 = v16 + 17;
+  *(v16 + 32) = v16 + 17;
+  *(v16 + 33) = 0x100000000;
   if (v16 != &v31)
   {
     v26 = v56;
@@ -3315,15 +3283,15 @@ LABEL_9:
 
       else
       {
-        __swift::__runtime::llvm::SmallVectorBase<unsigned int>::grow_pod(v16 + 256, v16 + 272, v56, 16);
+        __swift::__runtime::llvm::SmallVectorBase<unsigned int>::grow_pod((v16 + 16), (v16 + 17), v56, 16);
         if (!v56)
         {
 LABEL_18:
-          *(v16 + 264) = v26;
+          *(v16 + 66) = v26;
           goto LABEL_19;
         }
 
-        v25 = *(v16 + 256);
+        v25 = *(v16 + 32);
         v27 = 16 * v56;
       }
 
@@ -3333,7 +3301,7 @@ LABEL_18:
   }
 
 LABEL_19:
-  v28 = v16 + 288;
+  v28 = (v16 + 18);
 LABEL_20:
   a1[238] = v28;
   v29 = a1[237];
@@ -3345,7 +3313,7 @@ LABEL_20:
   return 954437177 * ((v28 - v29) >> 5) - 1;
 }
 
-uint64_t std::vector<swift::reflection::ReflectionInfo>::__emplace_back_slow_path<swift::reflection::ReflectionInfo const&>(uint64_t *a1, uint64_t a2)
+uint64_t std::vector<swift::reflection::ReflectionInfo>::__emplace_back_slow_path<swift::reflection::ReflectionInfo const&>(void **a1, uint64_t a2)
 {
   v2 = 0x8E38E38E38E38E39 * ((a1[1] - *a1) >> 5);
   v3 = v2 + 1;
@@ -3384,7 +3352,7 @@ uint64_t std::vector<swift::reflection::ReflectionInfo>::__emplace_back_slow_pat
   v7 = 288 * v2 + 288;
   v8 = *a1;
   v9 = a1[1];
-  v10 = v6 + *a1 - v9;
+  v10 = *a1 + v6 - v9;
   if (v9 != *a1)
   {
     v11 = *a1;
@@ -3835,7 +3803,7 @@ void std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatch[
   }
 }
 
-uint64_t std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<int SwiftReflectionContext::withContext<int,swift_reflection_addImage::$_0>(swift_reflection_addImage::$_0 const&)::{lambda(int&&)#1}> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,std::unique_ptr<swift::reflection::ReflectionContext<std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>>>>,std::__variant_detail::__base<swift<swift::reflection<std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>,std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>><std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>> &>(uint64_t ****a1, uint64_t *a2)
+unint64_t std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<int SwiftReflectionContext::withContext<int,swift_reflection_addImage::$_0>(swift_reflection_addImage::$_0 const&)::{lambda(int&&)#1}> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,std::unique_ptr<swift::reflection::ReflectionContext<std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>>>>,std::__variant_detail::__base<swift<swift::reflection<std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>,std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>><std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>> &>(uint64_t ****a1, uint64_t *a2)
 {
   v2 = **a1;
   v3 = *a2;
@@ -3851,7 +3819,7 @@ uint64_t std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispa
   return HIDWORD(v5) & 1;
 }
 
-uint64_t std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<int SwiftReflectionContext::withContext<int,swift_reflection_addImage::$_0>(swift_reflection_addImage::$_0 const&)::{lambda(int&&)#1}> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,std::unique_ptr<swift::reflection::ReflectionContext<std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>>>>,std::__variant_detail::__base<swift<swift::reflection<std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>,std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>><std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>> &>(uint64_t ****a1, uint64_t *a2)
+unint64_t std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<int SwiftReflectionContext::withContext<int,swift_reflection_addImage::$_0>(swift_reflection_addImage::$_0 const&)::{lambda(int&&)#1}> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,std::unique_ptr<swift::reflection::ReflectionContext<std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>>>>,std::__variant_detail::__base<swift<swift::reflection<std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>,std::__variant_detail::_Trait::External<std::__variant_detail::_Trait::WithObjCInterop<std::__variant_detail::_Trait::RuntimeTarget<8u>>><std::__variant_detail::_Trait::NoObjCInterop<std::__variant_detail::_Trait::WithObjCInterop>>>> &>(uint64_t ****a1, uint64_t *a2)
 {
   v2 = **a1;
   v3 = *a2;
@@ -3970,7 +3938,7 @@ LABEL_101:
           v39 = *(v7 + 2856);
           if (v39 >= *(v7 + 2864))
           {
-            v40 = std::vector<std::unique_ptr<void const,std::function<void ()(void const*)>>>::__emplace_back_slow_path<std::unique_ptr<void const,std::function<void ()(void const*)>>>(v7 + 2848, &v169);
+            v40 = std::vector<std::unique_ptr<void const,std::function<void ()(void const*)>>>::__emplace_back_slow_path<std::unique_ptr<void const,std::function<void ()(void const*)>>>((v7 + 2848), &v169);
           }
 
           else
@@ -4367,7 +4335,7 @@ LABEL_255:
                       v97 = *(v7 + 2856);
                       if (v97 >= *(v7 + 2864))
                       {
-                        v100 = std::vector<std::unique_ptr<void const,std::function<void ()(void const*)>>>::__emplace_back_slow_path<std::unique_ptr<void const,std::function<void ()(void const*)>>>(v7 + 2848, &v235);
+                        v100 = std::vector<std::unique_ptr<void const,std::function<void ()(void const*)>>>::__emplace_back_slow_path<std::unique_ptr<void const,std::function<void ()(void const*)>>>((v7 + 2848), &v235);
                       }
 
                       else
@@ -4401,7 +4369,7 @@ LABEL_255:
                       *(v7 + 2856) = v100;
                       if (v100 >= *(v7 + 2864))
                       {
-                        v110 = std::vector<std::unique_ptr<void const,std::function<void ()(void const*)>>>::__emplace_back_slow_path<std::unique_ptr<void const,std::function<void ()(void const*)>>>(v7 + 2848, &v228);
+                        v110 = std::vector<std::unique_ptr<void const,std::function<void ()(void const*)>>>::__emplace_back_slow_path<std::unique_ptr<void const,std::function<void ()(void const*)>>>((v7 + 2848), &v228);
                       }
 
                       else
@@ -4628,7 +4596,7 @@ LABEL_49:
     v30 = *(v7 + 2856);
     if (v30 >= *(v7 + 2864))
     {
-      v31 = std::vector<std::unique_ptr<void const,std::function<void ()(void const*)>>>::__emplace_back_slow_path<std::unique_ptr<void const,std::function<void ()(void const*)>>>(v7 + 2848, &v169);
+      v31 = std::vector<std::unique_ptr<void const,std::function<void ()(void const*)>>>::__emplace_back_slow_path<std::unique_ptr<void const,std::function<void ()(void const*)>>>((v7 + 2848), &v169);
     }
 
     else
@@ -4990,7 +4958,7 @@ LABEL_172:
   v89 = *(v7 + 2856);
   if (v89 >= *(v7 + 2864))
   {
-    v99 = std::vector<std::unique_ptr<void const,std::function<void ()(void const*)>>>::__emplace_back_slow_path<std::unique_ptr<void const,std::function<void ()(void const*)>>>(v7 + 2848, &v235);
+    v99 = std::vector<std::unique_ptr<void const,std::function<void ()(void const*)>>>::__emplace_back_slow_path<std::unique_ptr<void const,std::function<void ()(void const*)>>>((v7 + 2848), &v235);
   }
 
   else
@@ -5024,7 +4992,7 @@ LABEL_172:
   *(v7 + 2856) = v99;
   if (v99 >= *(v7 + 2864))
   {
-    v102 = std::vector<std::unique_ptr<void const,std::function<void ()(void const*)>>>::__emplace_back_slow_path<std::unique_ptr<void const,std::function<void ()(void const*)>>>(v7 + 2848, &v228);
+    v102 = std::vector<std::unique_ptr<void const,std::function<void ()(void const*)>>>::__emplace_back_slow_path<std::unique_ptr<void const,std::function<void ()(void const*)>>>((v7 + 2848), &v228);
   }
 
   else
@@ -5106,36 +5074,35 @@ LABEL_236:
   }
 
 LABEL_299:
-  v115 = std::__throw_bad_function_call[abi:nn200100]();
+  std::__throw_bad_function_call[abi:nn200100]();
   return swift::reflection::ReflectionContext<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::readPECOFF(v115, v116, v117, v118);
 }
 
 unint64_t swift::reflection::ReflectionContext<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::readPECOFF(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  (*(**(a1 + 2800) + 24))(&v27);
-  if (v27)
+  (*(**(a1 + 2800) + 24))(&v30);
+  if (v30)
   {
-    v8 = a2 + v27[15];
-    (*(**(a1 + 2800) + 24))(&v24);
-    std::unique_ptr<void const,std::function<void ()(void const*)>>::operator=[abi:nn200100](&v27, &v24);
-    v9 = v24;
-    v24 = 0;
-    if (v9)
+    (*(**(a1 + 2800) + 24))(&v27);
+    std::unique_ptr<void const,std::function<void ()(void const*)>>::operator=[abi:nn200100](&v30, &v27);
+    v8 = v27;
+    v27 = 0;
+    if (v8)
     {
-      v30 = v9;
-      if (!v26)
+      v33 = v8;
+      if (!v29)
       {
         goto LABEL_31;
       }
 
-      (*(*v26 + 48))(v26, &v30);
+      (*(*v29 + 48))(v29, &v33);
     }
 
-    if (v26 == &v25)
+    if (v29 == &v28)
     {
-      (*(*v26 + 32))(v26);
-      v10 = v27;
-      if (v27)
+      (*(*v29 + 32))(v29);
+      v9 = v30;
+      if (v30)
       {
         goto LABEL_9;
       }
@@ -5143,104 +5110,104 @@ unint64_t swift::reflection::ReflectionContext<swift::External<swift::WithObjCIn
 
     else
     {
-      if (v26)
+      if (v29)
       {
-        (*(*v26 + 40))();
+        (*(*v29 + 40))();
       }
 
-      v10 = v27;
-      if (v27)
+      v9 = v30;
+      if (v30)
       {
 LABEL_9:
-        if (*v10 != 17744)
+        if (*v9 != 17744)
         {
-          LODWORD(v11) = 0;
-          LOBYTE(v12) = 0;
-          v13 = 0;
-          v27 = 0;
+          LODWORD(v10) = 0;
+          LOBYTE(v11) = 0;
+          v12 = 0;
+          v30 = 0;
           goto LABEL_24;
         }
 
-        v21 = v23;
-        v22 = 0x100000000;
-        if (&v21 == a4 || (v14 = *(a4 + 8)) == 0)
+        v24 = v26;
+        v25 = 0x100000000;
+        if (&v24 == a4 || (v13 = *(a4 + 8)) == 0)
         {
 LABEL_21:
-          PECOFFSections = swift::reflection::ReflectionContext<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::readPECOFFSections(a1, a2, a3, &v21);
-          v13 = PECOFFSections;
-          v11 = PECOFFSections >> 8;
-          v12 = HIDWORD(PECOFFSections);
-          if (v21 != v23)
+          PECOFFSections = swift::reflection::ReflectionContext<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::readPECOFFSections(a1, a2, a3, &v24);
+          v12 = PECOFFSections;
+          v10 = PECOFFSections >> 8;
+          v11 = PECOFFSections >> 32;
+          if (v24 != v26)
           {
-            free(v21);
+            free(v24);
           }
 
-          v10 = v27;
-          v27 = 0;
-          if (!v10)
+          v9 = v30;
+          v30 = 0;
+          if (!v9)
           {
             goto LABEL_26;
           }
 
 LABEL_24:
-          v24 = v10;
-          if (v29)
+          v27 = v9;
+          if (v32)
           {
-            (*(*v29 + 48))(v29, &v24);
+            (*(*v32 + 48))(v32, &v27);
             goto LABEL_26;
           }
 
 LABEL_31:
-          v20 = std::__throw_bad_function_call[abi:nn200100]();
-          return swift::reflection::ReflectionContext<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::readELF(v20);
+          std::__throw_bad_function_call[abi:nn200100]();
+          return swift::reflection::ReflectionContext<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::readELF(v19, v20, v21, v22, v23);
         }
 
-        if (v14 < 2)
+        if (v13 < 2)
         {
-          v17 = 16;
-          v16 = v23;
+          v16 = 16;
+          v15 = v26;
         }
 
         else
         {
-          __swift::__runtime::llvm::SmallVectorBase<unsigned int>::grow_pod(&v21, v23, *(a4 + 8), 16);
-          v15 = *(a4 + 8);
-          if (!v15)
+          __swift::__runtime::llvm::SmallVectorBase<unsigned int>::grow_pod(&v24, v26, *(a4 + 8), 16);
+          v14 = *(a4 + 8);
+          if (!v14)
           {
 LABEL_20:
-            LODWORD(v22) = v14;
+            LODWORD(v25) = v13;
             goto LABEL_21;
           }
 
-          v16 = v21;
-          v17 = 16 * v15;
+          v15 = v24;
+          v16 = 16 * v14;
         }
 
-        memcpy(v16, *a4, v17);
+        memcpy(v15, *a4, v16);
         goto LABEL_20;
       }
     }
   }
 
-  LODWORD(v11) = 0;
-  LOBYTE(v12) = 0;
-  v13 = 0;
-  v27 = 0;
+  LODWORD(v10) = 0;
+  LOBYTE(v11) = 0;
+  v12 = 0;
+  v30 = 0;
 LABEL_26:
-  if (v29 == &v28)
+  if (v32 == &v31)
   {
-    (*(*v29 + 32))(v29);
+    (*(*v32 + 32))(v32);
   }
 
-  else if (v29)
+  else if (v32)
   {
-    (*(*v29 + 40))();
+    (*(*v32 + 40))();
   }
 
-  return (v11 << 8) | (v12 << 32) | v13;
+  return (v10 << 8) | (v11 << 32) | v12;
 }
 
-uint64_t swift::reflection::ReflectionContext<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::readELF(uint64_t a1, uint64_t a2, unint64_t a3, __int128 *a4, uint64_t a5)
+unint64_t swift::reflection::ReflectionContext<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::readELF(uint64_t a1, uint64_t a2, unint64_t a3, __int128 *a4, uint64_t a5)
 {
   (*(**(a1 + 2800) + 24))(&v191);
   v10 = v191;
@@ -5388,24 +5355,7 @@ LABEL_21:
         v61 = *(v310 + v60);
         v62 = *(v61 + 24);
         v309 = *(v61 + 32);
-        if (!v63)
         {
-          goto LABEL_78;
-        }
-
-        v300 = v63;
-        v308 = 0;
-        v301 = &v308;
-        v302 = &v310;
-        v303 = &v300;
-        v304 = &v309;
-        v305 = &v320;
-        v306 = &v189;
-        v307 = a1;
-        v194 = off_E0CC0;
-        if (v308)
-        {
-LABEL_78:
           v27 = 0;
           v11 = 0;
           v25 = 0;
@@ -5988,24 +5938,7 @@ LABEL_226:
       v56 = *(v310 + v55);
       v57 = *(v56 + 16);
       LODWORD(v194) = *(v56 + 20);
-      if (!v58)
       {
-        goto LABEL_72;
-      }
-
-      v309 = v58;
-      v308 = 0;
-      v301 = &v308;
-      v302 = &v310;
-      v303 = &v309;
-      v304 = &v194;
-      v305 = &v320;
-      v306 = &v189;
-      v307 = a1;
-      v300 = off_E0CC0;
-      if (v308)
-      {
-LABEL_72:
         v42 = 0;
         v43 = 0;
         v40 = 0;
@@ -6510,7 +6443,7 @@ LABEL_161:
   return ((a3 & 0xFFFFFF) << 8) | (v12 << 32) | v11;
 }
 
-uint64_t swift::reflection::ReflectionContext<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::readMachOSections<anonymous namespace::MachOTraits<4u>>(swift::remote::RemoteAddress,__swift::__runtime::llvm::SmallVector<__swift::__runtime::llvm::StringRef,1u>)::{lambda(__swift::__runtime::llvm::StringRef)#1}::operator()@<X0>(char *__s2@<X1>, uint64_t result@<X0>, void *a3@<X8>)
+uint64_t swift::reflection::ReflectionContext<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::readMachOSections<anonymous namespace::MachOTraits<4u>>(swift::remote::RemoteAddress,__swift::__runtime::llvm::SmallVector<__swift::__runtime::llvm::StringRef,1u>)::{lambda(__swift::__runtime::llvm::StringRef)#1}::operator()@<X0>(uint64_t *__return_ptr a1@<X8>, char *__s2@<X1>, uint64_t result@<X0>)
 {
   v4 = **result;
   if (v4)
@@ -6534,104 +6467,96 @@ uint64_t swift::reflection::ReflectionContext<swift::External<swift::WithObjCInt
     }
 
     v9 = *(v6 + 16);
-    v10 = *(v8 + 36);
-    v11 = *v9 + *(v8 + 32);
-    v12 = *(v9 + 8);
-    (*(**(v7 + 2800) + 24))(&v20);
-    v13 = v20;
-    if (v20)
+    v10 = *v9 + *(v8 + 32);
+    v11 = *(v9 + 8);
+    (*(**(v7 + 2800) + 24))(&v19);
+    v12 = v19;
+    if (v19)
     {
-      v14 = *(v7 + 2856);
-      if (v14 >= *(v7 + 2864))
+      v13 = *(v7 + 2856);
+      if (v13 >= *(v7 + 2864))
       {
-        v15 = std::vector<std::unique_ptr<void const,std::function<void ()(void const*)>>>::__emplace_back_slow_path<std::unique_ptr<void const,std::function<void ()(void const*)>>>(v7 + 2848, &v20);
+        v14 = std::vector<std::unique_ptr<void const,std::function<void ()(void const*)>>>::__emplace_back_slow_path<std::unique_ptr<void const,std::function<void ()(void const*)>>>((v7 + 2848), &v19);
       }
 
       else
       {
-        v20 = 0;
-        *v14 = v13;
-        if (v22)
+        v19 = 0;
+        *v13 = v12;
+        if (v21)
         {
-          if (v22 == v21)
+          if (v21 == v20)
           {
-            v14[4] = (v14 + 1);
-            (*(*v22 + 24))(v22);
+            v13[4] = (v13 + 1);
+            (*(*v21 + 24))(v21);
           }
 
           else
           {
-            v14[4] = v22;
-            v22 = 0;
+            v13[4] = v21;
+            v21 = 0;
           }
         }
 
         else
         {
-          v14[4] = 0;
+          v13[4] = 0;
         }
 
-        v15 = v14 + 5;
+        v14 = v13 + 5;
       }
 
-      *(v7 + 2856) = v15;
-      *a3 = v11;
-      a3[1] = v12;
-      v16 = *(v8 + 36);
-      a3[2] = v13;
-      a3[3] = v16;
-      v17 = v20;
-      v20 = 0;
-      if (v17)
+      *(v7 + 2856) = v14;
+      *a1 = v10;
+      a1[1] = v11;
+      v15 = *(v8 + 36);
+      a1[2] = v12;
+      a1[3] = v15;
+      v16 = v19;
+      v19 = 0;
+      if (v16)
       {
-        v23 = v17;
-        if (!v22)
+        v22 = v16;
+        if (!v21)
         {
-          v18 = std::__throw_bad_function_call[abi:nn200100]();
-          return swift::SwiftObjectFileFormatMachO::getSectionName(v18, v19);
+          std::__throw_bad_function_call[abi:nn200100]();
+          return swift::SwiftObjectFileFormatMachO::getSectionName(v17, v18);
         }
 
-        (*(*v22 + 48))(v22, &v23);
+        (*(*v21 + 48))(v21, &v22);
       }
     }
 
     else
     {
-      *a3 = 0;
-      *(a3 + 8) = 0;
-      a3[2] = 0;
-      a3[3] = 0;
+      *a1 = 0;
+      *(a1 + 8) = 0;
+      a1[2] = 0;
+      a1[3] = 0;
     }
 
-    result = v22;
-    if (v22 == v21)
+    result = v21;
+    if (v21 == v20)
     {
-      return (*(*v22 + 32))(v22);
+      return (*(*v21 + 32))(v21);
     }
 
-    else if (v22)
+    else if (v21)
     {
-      return (*(*v22 + 40))(v22);
+      return (*(*v21 + 40))(v21);
     }
   }
 
   else
   {
 LABEL_5:
-    *a3 = 0;
-    *(a3 + 8) = 0;
-    a3[2] = 0;
-    a3[3] = 0;
+    *a1 = 0;
+    *(a1 + 8) = 0;
+    a1[2] = 0;
+    a1[3] = 0;
   }
 
   return result;
-}
-
-char *swift::SwiftObjectFileFormatMachO::getSectionName(uint64_t a1, char a2)
-{
-  v2 = a2;
-  v3 = qword_DA7C0[a2];
-  return off_DC050[v2];
 }
 
 void std::vector<std::tuple<swift::remote::RemoteAddress,swift::remote::RemoteAddress>>::push_back[abi:nn200100](uint64_t a1, _OWORD *a2)
@@ -6701,20 +6626,20 @@ void std::vector<std::tuple<swift::remote::RemoteAddress,swift::remote::RemoteAd
   *(a1 + 8) = v6;
 }
 
-void *std::vector<std::unique_ptr<void const,std::function<void ()(void const*)>>>::__emplace_back_slow_path<std::unique_ptr<void const,std::function<void ()(void const*)>>>(uint64_t a1, uint64_t *a2)
+void *std::vector<std::unique_ptr<void const,std::function<void ()(void const*)>>>::__emplace_back_slow_path<std::unique_ptr<void const,std::function<void ()(void const*)>>>(void **a1, uint64_t *a2)
 {
-  v2 = 0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 8) - *a1) >> 3) + 1;
+  v2 = 0xCCCCCCCCCCCCCCCDLL * ((a1[1] - *a1) >> 3) + 1;
   if (v2 > 0x666666666666666)
   {
     std::string::__throw_length_error[abi:nn200100]();
   }
 
-  if (0x999999999999999ALL * ((*(a1 + 16) - *a1) >> 3) > v2)
+  if (0x999999999999999ALL * ((a1[2] - *a1) >> 3) > v2)
   {
-    v2 = 0x999999999999999ALL * ((*(a1 + 16) - *a1) >> 3);
+    v2 = 0x999999999999999ALL * ((a1[2] - *a1) >> 3);
   }
 
-  if (0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 16) - *a1) >> 3) >= 0x333333333333333)
+  if (0xCCCCCCCCCCCCCCCDLL * ((a1[2] - *a1) >> 3) >= 0x333333333333333)
   {
     v4 = 0x666666666666666;
   }
@@ -6734,7 +6659,7 @@ void *std::vector<std::unique_ptr<void const,std::function<void ()(void const*)>
     std::string::__throw_length_error[abi:nn200100]();
   }
 
-  v5 = (8 * ((*(a1 + 8) - *a1) >> 3));
+  v5 = (8 * ((a1[1] - *a1) >> 3));
   v6 = *a2;
   *a2 = 0;
   *v5 = v6;
@@ -6760,13 +6685,13 @@ void *std::vector<std::unique_ptr<void const,std::function<void ()(void const*)>
   }
 
   v8 = v5 + 5;
-  v9 = *(a1 + 8);
+  v9 = a1[1];
   v10 = v5 + *a1 - v9;
   std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<std::unique_ptr<void const,std::function<void ()(void const*)>>>,std::unique_ptr<void const,std::function<void ()(void const*)>>*>(a1, *a1, v9, v10);
   v11 = *a1;
   *a1 = v10;
-  *(a1 + 8) = v8;
-  *(a1 + 16) = 0;
+  a1[1] = v8;
+  a1[2] = 0;
   if (v11)
   {
     operator delete(v11);
@@ -6825,7 +6750,7 @@ void std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<std::u
           v16 = v12;
           if (!*v11)
           {
-            v15 = std::__throw_bad_function_call[abi:nn200100]();
+            std::__throw_bad_function_call[abi:nn200100]();
             swift::SwiftObjectFileFormatMachO::~SwiftObjectFileFormatMachO(v15);
             return;
           }
@@ -6892,7 +6817,7 @@ BOOL swift::SwiftObjectFileFormatMachO::sectionContainsReflectionData(uint64_t a
   return v4 && v3 == v5;
 }
 
-uint64_t swift::reflection::ReflectionContext<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::readMachOSections<anonymous namespace::MachOTraits<8u>>(swift::remote::RemoteAddress,__swift::__runtime::llvm::SmallVector<__swift::__runtime::llvm::StringRef,1u>)::{lambda(__swift::__runtime::llvm::StringRef)#1}::operator()@<X0>(char *__s2@<X1>, uint64_t result@<X0>, void *a3@<X8>)
+uint64_t swift::reflection::ReflectionContext<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::readMachOSections<anonymous namespace::MachOTraits<8u>>(swift::remote::RemoteAddress,__swift::__runtime::llvm::SmallVector<__swift::__runtime::llvm::StringRef,1u>)::{lambda(__swift::__runtime::llvm::StringRef)#1}::operator()@<X0>(uint64_t *__return_ptr a1@<X8>, char *__s2@<X1>, uint64_t result@<X0>)
 {
   v4 = **result;
   if (v4)
@@ -6916,152 +6841,112 @@ uint64_t swift::reflection::ReflectionContext<swift::External<swift::WithObjCInt
     }
 
     v9 = *(v6 + 16);
-    v10 = *(v8 + 40);
-    v11 = *(v8 + 32) + *v9;
-    v12 = *(v9 + 8);
-    (*(**(v7 + 2800) + 24))(&v22);
-    v13 = v22;
-    if (v22)
+    v10 = *(v8 + 32) + *v9;
+    v11 = *(v9 + 8);
+    (*(**(v7 + 2800) + 24))(&v21);
+    v12 = v21;
+    if (v21)
     {
-      v14 = *(v7 + 2856);
-      if (v14 >= *(v7 + 2864))
+      v13 = *(v7 + 2856);
+      if (v13 >= *(v7 + 2864))
       {
-        v15 = std::vector<std::unique_ptr<void const,std::function<void ()(void const*)>>>::__emplace_back_slow_path<std::unique_ptr<void const,std::function<void ()(void const*)>>>(v7 + 2848, &v22);
+        v14 = std::vector<std::unique_ptr<void const,std::function<void ()(void const*)>>>::__emplace_back_slow_path<std::unique_ptr<void const,std::function<void ()(void const*)>>>((v7 + 2848), &v21);
       }
 
       else
       {
-        v22 = 0;
-        *v14 = v13;
-        if (v24)
+        v21 = 0;
+        *v13 = v12;
+        if (v23)
         {
-          if (v24 == v23)
+          if (v23 == v22)
           {
-            v14[4] = (v14 + 1);
-            (*(*v24 + 24))(v24);
+            v13[4] = (v13 + 1);
+            (*(*v23 + 24))(v23);
           }
 
           else
           {
-            v14[4] = v24;
-            v24 = 0;
+            v13[4] = v23;
+            v23 = 0;
           }
         }
 
         else
         {
-          v14[4] = 0;
+          v13[4] = 0;
         }
 
-        v15 = v14 + 5;
+        v14 = v13 + 5;
       }
 
-      *(v7 + 2856) = v15;
-      *a3 = v11;
-      a3[1] = v12;
-      v16 = *(v8 + 40);
-      a3[2] = v13;
-      a3[3] = v16;
-      v17 = v22;
-      v22 = 0;
-      if (v17)
+      *(v7 + 2856) = v14;
+      *a1 = v10;
+      a1[1] = v11;
+      v15 = *(v8 + 40);
+      a1[2] = v12;
+      a1[3] = v15;
+      v16 = v21;
+      v21 = 0;
+      if (v16)
       {
-        v25 = v17;
-        if (!v24)
+        v24 = v16;
+        if (!v23)
         {
-          v18 = std::__throw_bad_function_call[abi:nn200100]();
-          return swift::reflection::ReflectionContext<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::readPECOFFSections(v18, v19, v20, v21);
+          std::__throw_bad_function_call[abi:nn200100]();
+          return swift::reflection::ReflectionContext<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::readPECOFFSections(v17, v18, v19, v20);
         }
 
-        (*(*v24 + 48))(v24, &v25);
+        (*(*v23 + 48))(v23, &v24);
       }
     }
 
     else
     {
-      *a3 = 0;
-      *(a3 + 8) = 0;
-      a3[2] = 0;
-      a3[3] = 0;
+      *a1 = 0;
+      *(a1 + 8) = 0;
+      a1[2] = 0;
+      a1[3] = 0;
     }
 
-    result = v24;
-    if (v24 == v23)
+    result = v23;
+    if (v23 == v22)
     {
-      return (*(*v24 + 32))(v24);
+      return (*(*v23 + 32))(v23);
     }
 
-    else if (v24)
+    else if (v23)
     {
-      return (*(*v24 + 40))(v24);
+      return (*(*v23 + 40))(v23);
     }
   }
 
   else
   {
 LABEL_5:
-    *a3 = 0;
-    *(a3 + 8) = 0;
-    a3[2] = 0;
-    a3[3] = 0;
+    *a1 = 0;
+    *(a1 + 8) = 0;
+    a1[2] = 0;
+    a1[3] = 0;
   }
 
   return result;
 }
 
-uint64_t swift::reflection::ReflectionContext<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::readPECOFFSections(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *swift::reflection::ReflectionContext<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::readPECOFFSections(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v5 = a3;
-  v139[0] = a2;
-  v139[1] = a3;
-  (*(**(a1 + 2800) + 24))(&v136);
-  if (v136)
+  v135[0] = a2;
+  v135[1] = a3;
+  (*(**(a1 + 2800) + 24))(&v132);
+  if (v132)
   {
-    v8 = a2 + *(v136 + 60);
-    (*(**(a1 + 2800) + 24))(&v133);
-    if (!v133)
-    {
-      LOBYTE(v19) = 0;
-      v18 = 0;
-LABEL_54:
-      if (v135 == &v134)
-      {
-        (*(*v135 + 32))(v135);
-      }
-
-      else if (v135)
-      {
-        (*(*v135 + 40))(v135, v9, v10, v11, v12, v13, v14, v15, v49, *(&v49 + 1), v50, v51, v52, *(&v52 + 1), v53, v54, v55, *(&v55 + 1), v56, v57, v58, *(&v58 + 1), v59, v60, v61, *(&v61 + 1), v62, v63, v64, *(&v64 + 1), v65, v66);
-      }
-
-      v43 = v136;
-      v136 = 0;
-      if (!v43)
-      {
-        goto LABEL_61;
-      }
-
-      *&v76 = v43;
-      if (v138)
-      {
-        (*(*v138 + 48))(v138, &v76);
-        goto LABEL_61;
-      }
-
-LABEL_66:
-      v45 = std::__throw_bad_function_call[abi:nn200100]();
-      return swift::reflection::ReflectionContext<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::readPECOFFSections(swift::remote::RemoteAddress,__swift::__runtime::llvm::SmallVector<__swift::__runtime::llvm::StringRef,1u>)::{lambda(__swift::__runtime::llvm::StringRef)#1}::operator()(v46, v45, v47, v48);
-    }
-
-    v132 = v133;
-    v16 = v8 + *(v133 + 16);
-    v17 = 40 * *(v133 + 2);
     (*(**(a1 + 2800) + 24))(&v129);
     if (!v129)
     {
-      LOBYTE(v19) = 0;
-      v18 = 0;
-LABEL_47:
+      LOBYTE(v15) = 0;
+      v14 = 0;
+LABEL_54:
       if (v131 == &v130)
       {
         (*(*v131 + 32))(v131);
@@ -7069,239 +6954,275 @@ LABEL_47:
 
       else if (v131)
       {
-        (*(*v131 + 40))(v131);
+        (*(*v131 + 40))(v131, v7, v8, v9, v10, v11, v12, v13, v45, *(&v45 + 1), v46, v47, v48, *(&v48 + 1), v49, v50, v51, *(&v51 + 1), v52, v53, v54, *(&v54 + 1), v55, v56, v57, *(&v57 + 1), v58, v59, v60, *(&v60 + 1), v61, v62);
       }
 
-      v42 = v133;
-      v133 = 0;
-      if (v42)
+      v39 = v132;
+      v132 = 0;
+      if (!v39)
       {
-        *&v76 = v42;
-        if (!v135)
+        goto LABEL_61;
+      }
+
+      *&v72 = v39;
+      if (v134)
+      {
+        (*(*v134 + 48))(v134, &v72);
+        goto LABEL_61;
+      }
+
+LABEL_66:
+      std::__throw_bad_function_call[abi:nn200100]();
+      return swift::reflection::ReflectionContext<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::readPECOFFSections(swift::remote::RemoteAddress,__swift::__runtime::llvm::SmallVector<__swift::__runtime::llvm::StringRef,1u>)::{lambda(__swift::__runtime::llvm::StringRef)#1}::operator()(v44, v42, v41, v43);
+    }
+
+    v128 = v129;
+    (*(**(a1 + 2800) + 24))(&v125);
+    if (!v125)
+    {
+      LOBYTE(v15) = 0;
+      v14 = 0;
+LABEL_47:
+      if (v127 == &v126)
+      {
+        (*(*v127 + 32))(v127);
+      }
+
+      else if (v127)
+      {
+        (*(*v127 + 40))(v127);
+      }
+
+      v38 = v129;
+      v129 = 0;
+      if (v38)
+      {
+        *&v72 = v38;
+        if (!v131)
         {
           goto LABEL_66;
         }
 
-        (*(*v135 + 48))(v135, &v76);
+        (*(*v131 + 48))(v131, &v72);
       }
 
       goto LABEL_54;
     }
 
-    v128[0] = &v132;
-    v128[1] = &v129;
-    v128[2] = v139;
-    v128[3] = a1;
-    v127 = off_E0C80;
-    swift::reflection::ReflectionContext<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::readPECOFFSections(swift::remote::RemoteAddress,__swift::__runtime::llvm::SmallVector<__swift::__runtime::llvm::StringRef,1u>)::{lambda(__swift::__runtime::llvm::StringRef)#1}::operator()(".sw5flmd", v128, 8uLL, &v124);
-    swift::reflection::ReflectionContext<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::readPECOFFSections(swift::remote::RemoteAddress,__swift::__runtime::llvm::SmallVector<__swift::__runtime::llvm::StringRef,1u>)::{lambda(__swift::__runtime::llvm::StringRef)#1}::operator()(".sw5asty", v128, 8uLL, &v121);
-    swift::reflection::ReflectionContext<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::readPECOFFSections(swift::remote::RemoteAddress,__swift::__runtime::llvm::SmallVector<__swift::__runtime::llvm::StringRef,1u>)::{lambda(__swift::__runtime::llvm::StringRef)#1}::operator()(".sw5bltn", v128, 8uLL, &v118);
-    swift::reflection::ReflectionContext<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::readPECOFFSections(swift::remote::RemoteAddress,__swift::__runtime::llvm::SmallVector<__swift::__runtime::llvm::StringRef,1u>)::{lambda(__swift::__runtime::llvm::StringRef)#1}::operator()(".sw5cptr", v128, 8uLL, &v115);
-    swift::reflection::ReflectionContext<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::readPECOFFSections(swift::remote::RemoteAddress,__swift::__runtime::llvm::SmallVector<__swift::__runtime::llvm::StringRef,1u>)::{lambda(__swift::__runtime::llvm::StringRef)#1}::operator()(".sw5tyrf", v128, 8uLL, &v112);
-    swift::reflection::ReflectionContext<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::readPECOFFSections(swift::remote::RemoteAddress,__swift::__runtime::llvm::SmallVector<__swift::__runtime::llvm::StringRef,1u>)::{lambda(__swift::__runtime::llvm::StringRef)#1}::operator()(".sw5rfst", v128, 8uLL, &v109);
-    swift::reflection::ReflectionContext<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::readPECOFFSections(swift::remote::RemoteAddress,__swift::__runtime::llvm::SmallVector<__swift::__runtime::llvm::StringRef,1u>)::{lambda(__swift::__runtime::llvm::StringRef)#1}::operator()(".sw5prtc$B", v128, 0xAuLL, &v106);
-    swift::reflection::ReflectionContext<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::readPECOFFSections(swift::remote::RemoteAddress,__swift::__runtime::llvm::SmallVector<__swift::__runtime::llvm::StringRef,1u>)::{lambda(__swift::__runtime::llvm::StringRef)#1}::operator()(".sw5mpen$B", v128, 0xAuLL, &v103);
-    if (!v124 && !BYTE8(v124) && !v121 && !BYTE8(v121) && !v118 && !BYTE8(v118) && !v115 && !BYTE8(v115) && !v112 && !BYTE8(v112) && !v109 && !BYTE8(v109) && !v106 && !BYTE8(v106) && !v103 && !BYTE8(v103))
+    v124[0] = &v128;
+    v124[1] = &v125;
+    v124[2] = v135;
+    v124[3] = a1;
+    v123 = off_E0C80;
+    swift::reflection::ReflectionContext<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::readPECOFFSections(swift::remote::RemoteAddress,__swift::__runtime::llvm::SmallVector<__swift::__runtime::llvm::StringRef,1u>)::{lambda(__swift::__runtime::llvm::StringRef)#1}::operator()(&v120, ".sw5flmd", v124, &dword_8);
+    swift::reflection::ReflectionContext<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::readPECOFFSections(swift::remote::RemoteAddress,__swift::__runtime::llvm::SmallVector<__swift::__runtime::llvm::StringRef,1u>)::{lambda(__swift::__runtime::llvm::StringRef)#1}::operator()(&v117, ".sw5asty", v124, &dword_8);
+    swift::reflection::ReflectionContext<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::readPECOFFSections(swift::remote::RemoteAddress,__swift::__runtime::llvm::SmallVector<__swift::__runtime::llvm::StringRef,1u>)::{lambda(__swift::__runtime::llvm::StringRef)#1}::operator()(&v114, ".sw5bltn", v124, &dword_8);
+    swift::reflection::ReflectionContext<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::readPECOFFSections(swift::remote::RemoteAddress,__swift::__runtime::llvm::SmallVector<__swift::__runtime::llvm::StringRef,1u>)::{lambda(__swift::__runtime::llvm::StringRef)#1}::operator()(&v111, ".sw5cptr", v124, &dword_8);
+    swift::reflection::ReflectionContext<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::readPECOFFSections(swift::remote::RemoteAddress,__swift::__runtime::llvm::SmallVector<__swift::__runtime::llvm::StringRef,1u>)::{lambda(__swift::__runtime::llvm::StringRef)#1}::operator()(&v108, ".sw5tyrf", v124, &dword_8);
+    swift::reflection::ReflectionContext<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::readPECOFFSections(swift::remote::RemoteAddress,__swift::__runtime::llvm::SmallVector<__swift::__runtime::llvm::StringRef,1u>)::{lambda(__swift::__runtime::llvm::StringRef)#1}::operator()(&v105, ".sw5rfst", v124, &dword_8);
+    swift::reflection::ReflectionContext<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::readPECOFFSections(swift::remote::RemoteAddress,__swift::__runtime::llvm::SmallVector<__swift::__runtime::llvm::StringRef,1u>)::{lambda(__swift::__runtime::llvm::StringRef)#1}::operator()(&v102, ".sw5prtc$B", v124, (&dword_8 + 2));
+    swift::reflection::ReflectionContext<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::readPECOFFSections(swift::remote::RemoteAddress,__swift::__runtime::llvm::SmallVector<__swift::__runtime::llvm::StringRef,1u>)::{lambda(__swift::__runtime::llvm::StringRef)#1}::operator()(&v99, ".sw5mpen$B", v124, (&dword_8 + 2));
+    if (!v120 && !BYTE8(v120) && !v117 && !BYTE8(v117) && !v114 && !BYTE8(v114) && !v111 && !BYTE8(v111) && !v108 && !BYTE8(v108) && !v105 && !BYTE8(v105) && !v102 && !BYTE8(v102) && !v99 && !BYTE8(v99))
     {
-      v18 = 0;
-      LOBYTE(v19) = 0;
+      v14 = 0;
+      LOBYTE(v15) = 0;
       goto LABEL_44;
     }
 
-    v20 = 0;
-    v76 = v124;
-    v77 = v125;
-    v78 = v126;
-    v79 = v121;
-    v21 = v122;
-    v22 = v123;
-    v80 = v122;
-    v81 = v123;
-    v82 = v118;
-    v23 = v119;
-    v24 = v120;
-    v83 = v119;
-    v84 = v120;
-    v85 = v115;
-    v25 = v116;
-    v26 = v117;
-    v86 = v116;
-    v87 = v117;
-    v88 = v112;
-    v27 = v113;
-    v28 = v114;
-    v89 = v113;
-    v90 = v114;
-    v91 = v109;
-    v29 = v110;
-    v30 = v111;
-    v92 = v110;
-    v93 = v111;
-    v94 = v106;
-    v31 = v107;
-    v32 = v108;
-    v95 = v107;
-    v96 = v108;
-    v97 = v103;
-    v33 = v104;
-    v34 = v105;
-    v98 = v104;
-    v99 = v105;
-    __src = v102;
-    v101 = 0x100000000;
-    if (&__src == a4 || (v35 = *(a4 + 8)) == 0)
+    v16 = 0;
+    v72 = v120;
+    v73 = v121;
+    v74 = v122;
+    v75 = v117;
+    v17 = v118;
+    v18 = v119;
+    v76 = v118;
+    v77 = v119;
+    v78 = v114;
+    v19 = v115;
+    v20 = v116;
+    v79 = v115;
+    v80 = v116;
+    v81 = v111;
+    v21 = v112;
+    v22 = v113;
+    v82 = v112;
+    v83 = v113;
+    v84 = v108;
+    v23 = v109;
+    v24 = v110;
+    v85 = v109;
+    v86 = v110;
+    v87 = v105;
+    v25 = v106;
+    v26 = v107;
+    v88 = v106;
+    v89 = v107;
+    v90 = v102;
+    v27 = v103;
+    v28 = v104;
+    v91 = v103;
+    v92 = v104;
+    v93 = v99;
+    v29 = v100;
+    v30 = v101;
+    v94 = v100;
+    v95 = v101;
+    __src = v98;
+    v97 = 0x100000000;
+    if (&__src == a4 || (v31 = *(a4 + 8)) == 0)
     {
 LABEL_32:
-      v49 = v76;
-      v50 = v77;
+      v45 = v72;
+      v46 = v73;
+      v47 = v74;
+      v48 = v75;
+      v49 = v17;
+      v50 = v18;
       v51 = v78;
-      v52 = v79;
-      v53 = v21;
-      v54 = v22;
-      v55 = v82;
-      v56 = v23;
-      v57 = v24;
-      v58 = v85;
-      v59 = v25;
-      v60 = v26;
-      v61 = v88;
-      v62 = v27;
-      v63 = v28;
-      v64 = v91;
-      v65 = v29;
-      v66 = v30;
-      v67 = v94;
-      v68 = v31;
-      v69 = v32;
-      v70 = v97;
-      v71 = v33;
-      v72 = v34;
-      __dst = v75;
-      v74 = 0x100000000;
-      if (!v20)
+      v52 = v19;
+      v53 = v20;
+      v54 = v81;
+      v55 = v21;
+      v56 = v22;
+      v57 = v84;
+      v58 = v23;
+      v59 = v24;
+      v60 = v87;
+      v61 = v25;
+      v62 = v26;
+      v63 = v90;
+      v64 = v27;
+      v65 = v28;
+      v66 = v93;
+      v67 = v29;
+      v68 = v30;
+      __dst = v71;
+      v70 = 0x100000000;
+      if (!v16)
       {
 LABEL_39:
-        v19 = swift::reflection::ReflectionContext<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::addReflectionInfo(a1, &v49);
-        if (__dst != v75)
+        v15 = swift::reflection::ReflectionContext<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::addReflectionInfo(a1, &v45);
+        if (__dst != v71)
         {
           free(__dst);
         }
 
-        if (__src != v102)
+        if (__src != v98)
         {
           free(__src);
         }
 
-        v5 = v19 >> 8;
-        v18 = 1;
+        v5 = v15 >> 8;
+        v14 = 1;
 LABEL_44:
-        v41 = v129;
-        v129 = 0;
-        if (v41)
+        v37 = v125;
+        v125 = 0;
+        if (v37)
         {
-          *&v76 = v41;
-          if (!v131)
+          *&v72 = v37;
+          if (!v127)
           {
             goto LABEL_66;
           }
 
-          (*(*v131 + 48))(v131, &v76);
+          (*(*v127 + 48))(v127, &v72);
         }
 
         goto LABEL_47;
       }
 
-      if (v20 == 1)
+      if (v16 == 1)
       {
-        v39 = 16;
-        v40 = v75;
+        v35 = 16;
+        v36 = v71;
       }
 
       else
       {
-        __swift::__runtime::llvm::SmallVectorBase<unsigned int>::grow_pod(&__dst, v75, v20, 16);
-        if (!v101)
+        __swift::__runtime::llvm::SmallVectorBase<unsigned int>::grow_pod(&__dst, v71, v16, 16);
+        if (!v97)
         {
 LABEL_38:
-          LODWORD(v74) = v20;
+          LODWORD(v70) = v16;
           goto LABEL_39;
         }
 
-        v40 = __dst;
-        v39 = 16 * v101;
+        v36 = __dst;
+        v35 = 16 * v97;
       }
 
-      memcpy(v40, __src, v39);
+      memcpy(v36, __src, v35);
       goto LABEL_38;
     }
 
-    if (v35 < 2)
+    if (v31 < 2)
     {
-      v38 = 16;
-      v37 = v102;
+      v34 = 16;
+      v33 = v98;
     }
 
     else
     {
-      __swift::__runtime::llvm::SmallVectorBase<unsigned int>::grow_pod(&__src, v102, *(a4 + 8), 16);
-      v36 = *(a4 + 8);
-      if (!v36)
+      __swift::__runtime::llvm::SmallVectorBase<unsigned int>::grow_pod(&__src, v98, *(a4 + 8), 16);
+      v32 = *(a4 + 8);
+      if (!v32)
       {
 LABEL_31:
-        LODWORD(v101) = v35;
-        v21 = v80;
-        v22 = v81;
-        v23 = v83;
-        v24 = v84;
-        v25 = v86;
-        v26 = v87;
-        v27 = v89;
-        v28 = v90;
-        v29 = v92;
-        v30 = v93;
-        v31 = v95;
-        v32 = v96;
-        v20 = v35;
-        v33 = v98;
-        v34 = v99;
+        LODWORD(v97) = v31;
+        v17 = v76;
+        v18 = v77;
+        v19 = v79;
+        v20 = v80;
+        v21 = v82;
+        v22 = v83;
+        v23 = v85;
+        v24 = v86;
+        v25 = v88;
+        v26 = v89;
+        v27 = v91;
+        v28 = v92;
+        v16 = v31;
+        v29 = v94;
+        v30 = v95;
         goto LABEL_32;
       }
 
-      v37 = __src;
-      v38 = 16 * v36;
+      v33 = __src;
+      v34 = 16 * v32;
     }
 
-    memcpy(v37, *a4, v38);
+    memcpy(v33, *a4, v34);
     goto LABEL_31;
   }
 
-  LOBYTE(v19) = 0;
-  v18 = 0;
+  LOBYTE(v15) = 0;
+  v14 = 0;
 LABEL_61:
-  if (v138 == &v137)
+  if (v134 == &v133)
   {
-    (*(*v138 + 32))(v138);
+    (*(*v134 + 32))(v134);
   }
 
-  else if (v138)
+  else if (v134)
   {
-    (*(*v138 + 40))();
+    (*(*v134 + 40))();
   }
 
-  return v19 | ((*&v5 & 0xFFFFFFLL) << 8) | (v18 << 32);
+  return (v15 | ((*&v5 & 0xFFFFFFLL) << 8) | (v14 << 32));
 }
 
-uint64_t swift::reflection::ReflectionContext<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::readPECOFFSections(swift::remote::RemoteAddress,__swift::__runtime::llvm::SmallVector<__swift::__runtime::llvm::StringRef,1u>)::{lambda(__swift::__runtime::llvm::StringRef)#1}::operator()@<X0>(void *__s2@<X1>, uint64_t result@<X0>, size_t a3@<X2>, uint64_t a4@<X8>)
+uint64_t swift::reflection::ReflectionContext<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::readPECOFFSections(swift::remote::RemoteAddress,__swift::__runtime::llvm::SmallVector<__swift::__runtime::llvm::StringRef,1u>)::{lambda(__swift::__runtime::llvm::StringRef)#1}::operator()@<X0>(uint64_t *__return_ptr a1@<X8>, void *__s2@<X1>, uint64_t result@<X0>, uint64_t *a4@<X2>)
 {
   v5 = **result;
   v6 = *(v5 + 2);
   if (!*(v5 + 2))
   {
 LABEL_15:
-    *a4 = 0;
-    *(a4 + 8) = 0;
-    *(a4 + 16) = 0;
-    *(a4 + 24) = 0;
+    *a1 = 0;
+    *(a1 + 8) = 0;
+    a1[2] = 0;
+    a1[3] = 0;
     return result;
   }
 
@@ -7310,12 +7231,12 @@ LABEL_15:
   v11 = (**(result + 8) + 12);
   while (*(v11 - 5))
   {
-    if (a3 != 8)
+    if (a4 != &dword_8)
     {
       goto LABEL_4;
     }
 
-    v12 = 8;
+    v12 = &dword_8;
 LABEL_3:
     result = memcmp(v11 - 3, __s2, v12);
     if (!result)
@@ -7332,198 +7253,169 @@ LABEL_4:
   }
 
   result = strlen(v11 - 12);
-  if (result != a3)
+  if (result != a4)
   {
     goto LABEL_4;
   }
 
-  v12 = a3;
-  if (a3)
+  v12 = a4;
+  if (a4)
   {
     goto LABEL_3;
   }
 
 LABEL_10:
   v13 = *(v9 + 16);
-  v14 = *(v11 - 1);
-  v15 = *v13 + *v11;
-  v16 = *(v13 + 8);
-  (*(**(v10 + 2800) + 24))(&v24);
-  v17 = v24;
-  if (!v24)
+  v14 = *v13 + *v11;
+  v15 = *(v13 + 8);
+  (*(**(v10 + 2800) + 24))(&v23);
+  v16 = v23;
+  if (!v23)
   {
-    *a4 = 0;
-    *(a4 + 8) = 0;
-    *(a4 + 16) = 0;
-    *(a4 + 24) = 0;
+    *a1 = 0;
+    *(a1 + 8) = 0;
+    a1[2] = 0;
+    a1[3] = 0;
 LABEL_25:
-    result = v26;
-    if (v26 == v25)
+    result = v25;
+    if (v25 == v24)
     {
-      return (*(*v26 + 32))(v26);
+      return (*(*v25 + 32))(v25);
     }
 
-    if (v26)
+    if (v25)
     {
-      return (*(*v26 + 40))(v26);
+      return (*(*v25 + 40))(v25);
     }
 
     return result;
   }
 
-  v18 = *(v10 + 2856);
-  if (v18 >= *(v10 + 2864))
+  v17 = *(v10 + 2856);
+  if (v17 >= *(v10 + 2864))
   {
-    v19 = std::vector<std::unique_ptr<void const,std::function<void ()(void const*)>>>::__emplace_back_slow_path<std::unique_ptr<void const,std::function<void ()(void const*)>>>(v10 + 2848, &v24);
+    v18 = std::vector<std::unique_ptr<void const,std::function<void ()(void const*)>>>::__emplace_back_slow_path<std::unique_ptr<void const,std::function<void ()(void const*)>>>((v10 + 2848), &v23);
   }
 
   else
   {
-    v24 = 0;
-    *v18 = v17;
-    if (v26)
+    v23 = 0;
+    *v17 = v16;
+    if (v25)
     {
-      if (v26 == v25)
+      if (v25 == v24)
       {
-        v18[4] = (v18 + 1);
-        (*(*v26 + 24))(v26);
+        v17[4] = (v17 + 1);
+        (*(*v25 + 24))(v25);
       }
 
       else
       {
-        v18[4] = v26;
-        v26 = 0;
+        v17[4] = v25;
+        v25 = 0;
       }
     }
 
     else
     {
-      v18[4] = 0;
+      v17[4] = 0;
     }
 
-    v19 = v18 + 5;
+    v18 = v17 + 5;
   }
 
-  *(v10 + 2856) = v19;
-  v20 = *(v11 - 1) - 16;
-  *a4 = v15 + 8;
-  *(a4 + 8) = v16;
-  *(a4 + 16) = v17 + 8;
-  *(a4 + 24) = v20;
-  v21 = v24;
-  v24 = 0;
-  if (!v21)
+  *(v10 + 2856) = v18;
+  v19 = *(v11 - 1) - 16;
+  *a1 = v14 + 8;
+  a1[1] = v15;
+  a1[2] = v16 + 8;
+  a1[3] = v19;
+  v20 = v23;
+  v23 = 0;
+  if (!v20)
   {
     goto LABEL_25;
   }
 
-  v27 = v21;
-  if (v26)
+  v26 = v20;
+  if (v25)
   {
-    (*(*v26 + 48))(v26, &v27);
+    (*(*v25 + 48))(v25, &v26);
     goto LABEL_25;
   }
 
-  v22 = std::__throw_bad_function_call[abi:nn200100]();
-  return swift::SwiftObjectFileFormatCOFF::getSectionName(v22, v23);
+  std::__throw_bad_function_call[abi:nn200100]();
+  return swift::SwiftObjectFileFormatCOFF::getSectionName(v21, v22);
 }
 
-char *swift::SwiftObjectFileFormatCOFF::getSectionName(uint64_t a1, char a2)
+void swift::reflection::ReflectionContext<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::readELFSections<anonymous namespace::ELFTraits<(unsigned char)2>>(swift::remote::RemoteAddress,std::optional<llvm::sys::MemoryBlock>,llvm::SmallVector<llvm::StringRef,1u>)::{lambda(unsigned long long,unsigned long long)#1}::operator()(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = a2;
-  v3 = qword_DA810[a2];
-  return off_DC0A0[v2];
-}
-
-uint64_t swift::reflection::ReflectionContext<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::readELFSections<anonymous namespace::ELFTraits<(unsigned char)2>>(swift::remote::RemoteAddress,std::optional<llvm::sys::MemoryBlock>,llvm::SmallVector<llvm::StringRef,1u>)::{lambda(unsigned long long,unsigned long long)#1}::operator()(void *a1, uint64_t a2, uint64_t a3)
-{
-  v3 = *a1;
-  if (*(*a1 + 24) == 1)
+  if (*(*a1 + 24) != 1)
   {
-    if ((a3 + a2) <= v3[1])
+    (*(**(*(a1 + 8) + 2800) + 24))(&v14);
+    v4 = v14;
+    if (v14)
     {
-      return *v3 + a2;
-    }
-
-    else
-    {
-      return 0;
-    }
-  }
-
-  v6 = a1[2];
-  v7 = *v6;
-  v8 = *(v6 + 8);
-  (*(**(a1[1] + 2800) + 24))(&v16);
-  v9 = v16;
-  if (!v16)
-  {
-    v4 = 0;
-    goto LABEL_18;
-  }
-
-  v10 = a1[3];
-  v11 = *(v10 + 8);
-  if (v11 >= *(v10 + 16))
-  {
-    v12 = std::vector<std::unique_ptr<void const,std::function<void ()(void const*)>>>::__emplace_back_slow_path<std::unique_ptr<void const,std::function<void ()(void const*)>>>(a1[3], &v16);
-  }
-
-  else
-  {
-    v16 = 0;
-    *v11 = v9;
-    if (v18)
-    {
-      if (v18 == v17)
+      v5 = *(a1 + 24);
+      v6 = *(v5 + 8);
+      if (v6 >= *(v5 + 16))
       {
-        v11[4] = (v11 + 1);
-        (*(*v18 + 24))(v18);
+        v7 = std::vector<std::unique_ptr<void const,std::function<void ()(void const*)>>>::__emplace_back_slow_path<std::unique_ptr<void const,std::function<void ()(void const*)>>>(*(a1 + 24), &v14);
       }
 
       else
       {
-        v11[4] = v18;
-        v18 = 0;
+        v14 = 0;
+        *v6 = v4;
+        if (v16)
+        {
+          if (v16 == v15)
+          {
+            v6[4] = (v6 + 1);
+            (*(*v16 + 24))(v16);
+          }
+
+          else
+          {
+            v6[4] = v16;
+            v16 = 0;
+          }
+        }
+
+        else
+        {
+          v6[4] = 0;
+        }
+
+        v7 = v6 + 5;
+      }
+
+      *(v5 + 8) = v7;
+      v8 = v14;
+      v14 = 0;
+      if (v8)
+      {
+        v17 = v8;
+        if (!v16)
+        {
+          std::__throw_bad_function_call[abi:nn200100]();
+          return;
+        }
+
+        (*(*v16 + 48))(v16, &v17);
       }
     }
 
-    else
+    if (v16 == v15)
     {
-      v11[4] = 0;
+      (*(*v16 + 32))(v16);
     }
 
-    v12 = v11 + 5;
-  }
-
-  *(v10 + 8) = v12;
-  v4 = *(*(a1[3] + 8) - 40);
-  v13 = v16;
-  v16 = 0;
-  if (!v13)
-  {
-    goto LABEL_18;
-  }
-
-  v19 = v13;
-  if (v18)
-  {
-    (*(*v18 + 48))(v18, &v19);
-LABEL_18:
-    if (v18 == v17)
+    else if (v16)
     {
-      (*(*v18 + 32))(v18);
+      (*(*v16 + 40))(v16);
     }
-
-    else if (v18)
-    {
-      (*(*v18 + 40))(v18);
-    }
-
-    return v4;
   }
-
-  v15 = std::__throw_bad_function_call[abi:nn200100]();
 }
 
 void swift::reflection::ReflectionContext<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>::readELFSections<anonymous namespace::ELFTraits<(unsigned char)2>>(swift::remote::RemoteAddress,std::optional<llvm::sys::MemoryBlock>,llvm::SmallVector<llvm::StringRef,1u>)::{lambda(llvm::StringRef,BOOL)#1}::operator()(uint64_t a1@<X0>, const void *a2@<X1>, size_t a3@<X2>, int a4@<W3>, uint64_t a5@<X8>)
@@ -7737,7 +7629,7 @@ LABEL_44:
   v36 = *(v43 + 2856);
   if (v36 >= *(v43 + 2864))
   {
-    v37 = std::vector<std::unique_ptr<void const,std::function<void ()(void const*)>>>::__emplace_back_slow_path<std::unique_ptr<void const,std::function<void ()(void const*)>>>(v43 + 2848, &v54);
+    v37 = std::vector<std::unique_ptr<void const,std::function<void ()(void const*)>>>::__emplace_back_slow_path<std::unique_ptr<void const,std::function<void ()(void const*)>>>((v43 + 2848), &v54);
   }
 
   else
@@ -7784,7 +7676,7 @@ LABEL_44:
     if (!v56)
     {
 LABEL_72:
-      v39 = std::__throw_bad_function_call[abi:nn200100]();
+      std::__throw_bad_function_call[abi:nn200100]();
       swift::SwiftObjectFileFormatELF::getSectionName(v39, v40);
       return;
     }
@@ -7835,13 +7727,6 @@ LABEL_27:
   }
 }
 
-char *swift::SwiftObjectFileFormatELF::getSectionName(uint64_t a1, char a2)
-{
-  v2 = a2;
-  v3 = qword_DA860[a2];
-  return off_DC0F0[v2];
-}
-
 BOOL swift::SwiftObjectFileFormatELF::sectionContainsReflectionData(uint64_t a1, _DWORD *a2, unint64_t a3)
 {
   if (a3 < 7)
@@ -7864,9 +7749,9 @@ LABEL_71:
     return;
   }
 
-  v42 = *(a1 + 48);
-  v10 = &v54;
-  v46 = v6[1];
+  v41 = *(a1 + 48);
+  v10 = &v53;
+  v45 = v6[1];
   while (1)
   {
     v12 = *v7;
@@ -7893,7 +7778,7 @@ LABEL_71:
       operator new();
     }
 
-    v57 = v18;
+    v56 = v18;
     if (v18)
     {
       memmove(__dst, (v16 + v15), v18);
@@ -7901,10 +7786,10 @@ LABEL_71:
 
     v10 = v14;
     *(__dst + v19) = 0;
-    v20 = v57;
+    v20 = v56;
     v22 = __dst[0];
     v21 = __dst[1];
-    if (v57 >= 0)
+    if (v56 >= 0)
     {
       v23 = __dst;
     }
@@ -7914,9 +7799,9 @@ LABEL_71:
       v23 = __dst[0];
     }
 
-    if (v57 >= 0)
+    if (v56 >= 0)
     {
-      v21 = v57;
+      v21 = v56;
     }
 
     a3 = v13;
@@ -7934,11 +7819,11 @@ LABEL_71:
     v25 = *(a1 + 32);
     v24 = *(a1 + 40);
     v26 = *v25 + v12[3];
-    v27 = v43 & 0xFFFFFFFFFFFFFF00 | *(v25 + 8);
+    v27 = v42 & 0xFFFFFFFFFFFFFF00 | *(v25 + 8);
     v28 = v12[5];
-    v53 = 0;
-    v55 = 0;
-    v43 = v27;
+    v52 = 0;
+    v54 = 0;
+    v42 = v27;
     if (*(v24 + 24) == 1)
     {
       v29 = v12[4];
@@ -7948,57 +7833,57 @@ LABEL_71:
         **a1 = 1;
         v11 = 2;
 LABEL_53:
-        v53 = 0;
-        v8 = v46;
+        v52 = 0;
+        v8 = v45;
         v10 = v14;
         goto LABEL_63;
       }
 
-      v41 = v26;
+      v40 = v26;
       v33 = malloc_type_malloc(v28, 0xFC2F0DA2uLL);
-      v48[0] = off_E0D48;
-      v49 = v48;
-      v50 = v33;
-      v40 = v33;
-      v52 = v51;
-      v51[0] = off_E0D48;
-      std::unique_ptr<void const,std::function<void ()(void const*)>>::operator=[abi:nn200100](&v53, &v50);
-      v34 = v50;
-      v50 = 0;
+      v47[0] = off_E0D48;
+      v48 = v47;
+      v49 = v33;
+      v39 = v33;
+      v51 = v50;
+      v50[0] = off_E0D48;
+      std::unique_ptr<void const,std::function<void ()(void const*)>>::operator=[abi:nn200100](&v52, &v49);
+      v34 = v49;
+      v49 = 0;
       if (v34)
       {
-        v58 = v34;
-        if (!v52)
+        v57 = v34;
+        if (!v51)
         {
           goto LABEL_72;
         }
 
-        (*(*v52 + 48))(v52, &v58);
+        (*(*v51 + 48))(v51, &v57);
       }
 
-      if (v52 == v51)
+      if (v51 == v50)
       {
-        (*(*v52 + 32))(v52);
+        (*(*v51 + 32))(v51);
       }
 
-      else if (v52)
+      else if (v51)
       {
-        (*(*v52 + 40))(v52);
+        (*(*v51 + 40))(v51);
       }
 
-      if (v49 == v48)
+      if (v48 == v47)
       {
-        (*(*v49 + 32))(v49);
+        (*(*v48 + 32))(v48);
       }
 
-      else if (v49)
+      else if (v48)
       {
-        (*(*v49 + 40))(v49);
+        (*(*v48 + 40))(v48);
       }
 
-      memcpy(v40, (**(a1 + 40) + v29), v28);
-      v32 = v53;
-      if (!v53)
+      memcpy(v39, (**(a1 + 40) + v29), v28);
+      v32 = v52;
+      if (!v52)
       {
 LABEL_52:
         *a5 = 0;
@@ -8006,39 +7891,39 @@ LABEL_52:
         *(a5 + 16) = 0;
         *(a5 + 24) = 0;
         v11 = 1;
-        v30 = v55;
+        v30 = v54;
         goto LABEL_53;
       }
     }
 
     else
     {
-      v41 = v26;
-      (*(**(v42 + 2800) + 24))(&v50);
-      std::unique_ptr<void const,std::function<void ()(void const*)>>::operator=[abi:nn200100](&v53, &v50);
-      v31 = v50;
-      v50 = 0;
+      v40 = v26;
+      (*(**(v41 + 2800) + 24))(&v49);
+      std::unique_ptr<void const,std::function<void ()(void const*)>>::operator=[abi:nn200100](&v52, &v49);
+      v31 = v49;
+      v49 = 0;
       if (v31)
       {
-        v48[0] = v31;
-        if (!v52)
+        v47[0] = v31;
+        if (!v51)
         {
           goto LABEL_72;
         }
 
-        (*(*v52 + 48))(v52, v48);
+        (*(*v51 + 48))(v51, v47);
       }
 
-      if (v52 == v51)
+      if (v51 == v50)
       {
-        (*(*v52 + 32))(v52);
+        (*(*v51 + 32))(v51);
       }
 
-      else if (v52)
+      else if (v51)
       {
-        (*(*v52 + 40))();
-        v32 = v53;
-        if (!v53)
+        (*(*v51 + 40))();
+        v32 = v52;
+        if (!v52)
         {
           goto LABEL_52;
         }
@@ -8046,37 +7931,37 @@ LABEL_52:
         goto LABEL_41;
       }
 
-      v32 = v53;
-      if (!v53)
+      v32 = v52;
+      if (!v52)
       {
         goto LABEL_52;
       }
     }
 
 LABEL_41:
-    v35 = v42;
-    v36 = *(v42 + 2856);
-    if (v36 >= *(v42 + 2864))
+    v35 = v41;
+    v36 = *(v41 + 2856);
+    if (v36 >= *(v41 + 2864))
     {
-      v37 = std::vector<std::unique_ptr<void const,std::function<void ()(void const*)>>>::__emplace_back_slow_path<std::unique_ptr<void const,std::function<void ()(void const*)>>>(v42 + 2848, &v53);
+      v37 = std::vector<std::unique_ptr<void const,std::function<void ()(void const*)>>>::__emplace_back_slow_path<std::unique_ptr<void const,std::function<void ()(void const*)>>>((v41 + 2848), &v52);
     }
 
     else
     {
-      v53 = 0;
+      v52 = 0;
       *v36 = v32;
-      if (v55)
+      if (v54)
       {
-        if (v55 == v14)
+        if (v54 == v14)
         {
           v36[4] = (v36 + 1);
-          (*(*v55 + 24))(v55);
+          (*(*v54 + 24))(v54);
         }
 
         else
         {
-          v36[4] = v55;
-          v55 = 0;
+          v36[4] = v54;
+          v54 = 0;
         }
       }
 
@@ -8086,22 +7971,22 @@ LABEL_41:
       }
 
       v37 = v36 + 5;
-      v35 = v42;
+      v35 = v41;
     }
 
     v10 = v14;
     *(v35 + 2856) = v37;
-    *a5 = v41;
-    *(a5 + 8) = v43;
+    *a5 = v40;
+    *(a5 + 8) = v42;
     *(a5 + 16) = v32;
     *(a5 + 24) = v28;
-    v38 = v53;
-    v30 = v55;
-    v53 = 0;
+    v38 = v52;
+    v30 = v54;
+    v52 = 0;
     if (!v38)
     {
       v11 = 1;
-      v8 = v46;
+      v8 = v45;
 LABEL_63:
       a3 = v13;
       if (v30 == v10)
@@ -8112,20 +7997,20 @@ LABEL_63:
       goto LABEL_64;
     }
 
-    v50 = v38;
-    v8 = v46;
-    if (!v55)
+    v49 = v38;
+    v8 = v45;
+    if (!v54)
     {
 LABEL_72:
-      v39 = std::__throw_bad_function_call[abi:nn200100]();
+      std::__throw_bad_function_call[abi:nn200100]();
       return;
     }
 
     a3 = v13;
-    (*(*v55 + 48))();
+    (*(*v54 + 48))();
     v11 = 1;
-    v30 = v55;
-    if (v55 == v14)
+    v30 = v54;
+    if (v54 == v14)
     {
 LABEL_60:
       (*(*v30 + 32))(v30);
@@ -8277,7 +8162,7 @@ LABEL_101:
           v39 = *(v7 + 2856);
           if (v39 >= *(v7 + 2864))
           {
-            v40 = std::vector<std::unique_ptr<void const,std::function<void ()(void const*)>>>::__emplace_back_slow_path<std::unique_ptr<void const,std::function<void ()(void const*)>>>(v7 + 2848, &v170);
+            v40 = std::vector<std::unique_ptr<void const,std::function<void ()(void const*)>>>::__emplace_back_slow_path<std::unique_ptr<void const,std::function<void ()(void const*)>>>((v7 + 2848), &v170);
           }
 
           else
@@ -8674,7 +8559,7 @@ LABEL_255:
                       v97 = *(v7 + 2856);
                       if (v97 >= *(v7 + 2864))
                       {
-                        v100 = std::vector<std::unique_ptr<void const,std::function<void ()(void const*)>>>::__emplace_back_slow_path<std::unique_ptr<void const,std::function<void ()(void const*)>>>(v7 + 2848, &v236);
+                        v100 = std::vector<std::unique_ptr<void const,std::function<void ()(void const*)>>>::__emplace_back_slow_path<std::unique_ptr<void const,std::function<void ()(void const*)>>>((v7 + 2848), &v236);
                       }
 
                       else
@@ -8708,7 +8593,7 @@ LABEL_255:
                       *(v7 + 2856) = v100;
                       if (v100 >= *(v7 + 2864))
                       {
-                        v110 = std::vector<std::unique_ptr<void const,std::function<void ()(void const*)>>>::__emplace_back_slow_path<std::unique_ptr<void const,std::function<void ()(void const*)>>>(v7 + 2848, &v229);
+                        v110 = std::vector<std::unique_ptr<void const,std::function<void ()(void const*)>>>::__emplace_back_slow_path<std::unique_ptr<void const,std::function<void ()(void const*)>>>((v7 + 2848), &v229);
                       }
 
                       else
@@ -8935,7 +8820,7 @@ LABEL_49:
     v30 = *(v7 + 2856);
     if (v30 >= *(v7 + 2864))
     {
-      v31 = std::vector<std::unique_ptr<void const,std::function<void ()(void const*)>>>::__emplace_back_slow_path<std::unique_ptr<void const,std::function<void ()(void const*)>>>(v7 + 2848, &v170);
+      v31 = std::vector<std::unique_ptr<void const,std::function<void ()(void const*)>>>::__emplace_back_slow_path<std::unique_ptr<void const,std::function<void ()(void const*)>>>((v7 + 2848), &v170);
     }
 
     else
@@ -9297,7 +9182,7 @@ LABEL_172:
   v89 = *(v7 + 2856);
   if (v89 >= *(v7 + 2864))
   {
-    v99 = std::vector<std::unique_ptr<void const,std::function<void ()(void const*)>>>::__emplace_back_slow_path<std::unique_ptr<void const,std::function<void ()(void const*)>>>(v7 + 2848, &v236);
+    v99 = std::vector<std::unique_ptr<void const,std::function<void ()(void const*)>>>::__emplace_back_slow_path<std::unique_ptr<void const,std::function<void ()(void const*)>>>((v7 + 2848), &v236);
   }
 
   else
@@ -9331,7 +9216,7 @@ LABEL_172:
   *(v7 + 2856) = v99;
   if (v99 >= *(v7 + 2864))
   {
-    v102 = std::vector<std::unique_ptr<void const,std::function<void ()(void const*)>>>::__emplace_back_slow_path<std::unique_ptr<void const,std::function<void ()(void const*)>>>(v7 + 2848, &v229);
+    v102 = std::vector<std::unique_ptr<void const,std::function<void ()(void const*)>>>::__emplace_back_slow_path<std::unique_ptr<void const,std::function<void ()(void const*)>>>((v7 + 2848), &v229);
   }
 
   else
@@ -9413,11 +9298,11 @@ LABEL_236:
   }
 
 LABEL_299:
-  v115 = std::__throw_bad_function_call[abi:nn200100]();
+  std::__throw_bad_function_call[abi:nn200100]();
   return swift::reflection::ReflectionContext<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>::readELF(v115, v116, v117, v118, v119);
 }
 
-uint64_t swift::reflection::ReflectionContext<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>::readELF(uint64_t a1, uint64_t a2, unint64_t a3, __int128 *a4, uint64_t a5)
+unint64_t swift::reflection::ReflectionContext<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>::readELF(uint64_t a1, uint64_t a2, unint64_t a3, __int128 *a4, uint64_t a5)
 {
   (*(**(a1 + 2800) + 24))(&v191);
   v10 = v191;
@@ -9565,24 +9450,7 @@ LABEL_21:
         v61 = *(v310 + v60);
         v62 = *(v61 + 24);
         v309 = *(v61 + 32);
-        if (!v63)
         {
-          goto LABEL_78;
-        }
-
-        v300 = v63;
-        v308 = 0;
-        v301 = &v308;
-        v302 = &v310;
-        v303 = &v300;
-        v304 = &v309;
-        v305 = &v320;
-        v306 = &v189;
-        v307 = a1;
-        v194 = off_E0CC0;
-        if (v308)
-        {
-LABEL_78:
           v27 = 0;
           v11 = 0;
           v25 = 0;
@@ -10165,24 +10033,7 @@ LABEL_226:
       v56 = *(v310 + v55);
       v57 = *(v56 + 16);
       LODWORD(v194) = *(v56 + 20);
-      if (!v58)
       {
-        goto LABEL_72;
-      }
-
-      v309 = v58;
-      v308 = 0;
-      v301 = &v308;
-      v302 = &v310;
-      v303 = &v309;
-      v304 = &v194;
-      v305 = &v320;
-      v306 = &v189;
-      v307 = a1;
-      v300 = off_E0CC0;
-      if (v308)
-      {
-LABEL_72:
         v42 = 0;
         v43 = 0;
         v40 = 0;

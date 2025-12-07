@@ -1,4 +1,5 @@
 @interface CacheDeleteManagedAssets
++ (CacheDeleteManagedAssets)cacheDeleteManagedAssetsWithInfo:(id)info atUrgency:(int)urgency;
 - (BOOL)dateHasExpired:(id)expired interval:(double)interval;
 - (BOOL)periodicShouldRemoveAsset:(id)asset;
 - (CacheDeleteManagedAssets)initWithInfo:(id)info atUrgency:(int)urgency;
@@ -55,6 +56,15 @@ LABEL_4:
 LABEL_9:
 
   return v13;
+}
+
++ (CacheDeleteManagedAssets)cacheDeleteManagedAssetsWithInfo:(id)info atUrgency:(int)urgency
+{
+  v4 = *&urgency;
+  infoCopy = info;
+  v6 = [[CacheDeleteManagedAssets alloc] initWithInfo:infoCopy atUrgency:v4];
+
+  return v6;
 }
 
 - (BOOL)dateHasExpired:(id)expired interval:(double)interval
@@ -632,50 +642,47 @@ void __51__CacheDeleteManagedAssets_purgeAssets_testObject___block_invoke(uint64
     }
 
     v2 = [*(a1 + 40) assetsFromArray:*(a1 + 32) forAmount:*(a1 + 72) - *(*(*(a1 + 64) + 8) + 24)];
+    v18 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
-    v23 = 0u;
-    v24 = 0u;
     v3 = v2;
-    v4 = [v3 countByEnumeratingWithState:&v21 objects:v26 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v18 objects:v23 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v22;
+      v6 = *v19;
 LABEL_5:
       v7 = 0;
       while (1)
       {
-        if (*v22 != v6)
+        if (*v19 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v21 + 1) + 8 * v7);
-        v9 = [v3 objectForKeyedSubscript:{v8, v17}];
-        v10 = *(a1 + 48);
-        v25 = v8;
-        v11 = [NSArray arrayWithObjects:&v25 count:1];
-        v18 = v9;
-        v19 = *(a1 + 40);
-        v20 = *(a1 + 72);
-        v17 = *(a1 + 56);
-        v12 = v17;
-        v13 = v9;
-        v14 = assert_group_cache_deletion();
+        v8 = *(*(&v18 + 1) + 8 * v7);
+        v9 = [v3 objectForKeyedSubscript:{v8, v16}];
+        v22 = v8;
+        v10 = [NSArray arrayWithObjects:&v22 count:1];
+        v17 = v9;
+        v16 = *(a1 + 56);
+        v11 = v16;
+        v12 = v9;
+        v13 = assert_group_cache_deletion();
 
-        [*(a1 + 32) removeObjectsInArray:v13];
-        v15 = *(a1 + 72);
-        v16 = *(*(*(a1 + 64) + 8) + 24);
+        [*(a1 + 32) removeObjectsInArray:v12];
+        v14 = *(a1 + 72);
+        v15 = *(*(*(a1 + 64) + 8) + 24);
 
-        if (v16 >= v15)
+        if (v15 >= v14)
         {
           break;
         }
 
         if (v5 == ++v7)
         {
-          v5 = [v3 countByEnumeratingWithState:&v21 objects:v26 count:16];
+          v5 = [v3 countByEnumeratingWithState:&v18 objects:v23 count:16];
           if (v5)
           {
             goto LABEL_5;
@@ -868,29 +875,28 @@ uint64_t __37__CacheDeleteManagedAssets_periodic___block_invoke(uint64_t a1, voi
 void __37__CacheDeleteManagedAssets_periodic___block_invoke_2(uint64_t a1)
 {
   v1 = [*(a1 + 32) objectForKeyedSubscript:*(a1 + 40)];
+  v6 = 0u;
   v7 = 0u;
   v8 = 0u;
   v9 = 0u;
-  v10 = 0u;
-  v2 = [v1 countByEnumeratingWithState:&v7 objects:v11 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v8;
+    v4 = *v7;
     do
     {
-      for (i = 0; i != v3; i = i + 1)
+      for (i = 0; i != v3; ++i)
       {
-        if (*v8 != v4)
+        if (*v7 != v4)
         {
           objc_enumerationMutation(v1);
         }
 
-        v6 = *(*(&v7 + 1) + 8 * i);
         CacheManagementRemove();
       }
 
-      v3 = [v1 countByEnumeratingWithState:&v7 objects:v11 count:16];
+      v3 = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
     }
 
     while (v3);

@@ -7,6 +7,7 @@
 - (BOOL)addGPUTimelineData:(id)data;
 - (BOOL)addShaderProfilerData:(id)data;
 - (GTMutableShaderProfilerStreamData)init;
+- (GTMutableShaderProfilerStreamData)initWithNewFileFormatV2Support:(BOOL)support;
 - (id)_copyForAddAPSData:(id)data prefix:(id)prefix;
 - (unint64_t)addString:(id)string;
 - (void)_commonInit;
@@ -435,6 +436,20 @@ LABEL_10:
   v29 = objc_opt_new();
   addLock = self->_addLock;
   self->_addLock = v29;
+}
+
+- (GTMutableShaderProfilerStreamData)initWithNewFileFormatV2Support:(BOOL)support
+{
+  v6.receiver = self;
+  v6.super_class = GTMutableShaderProfilerStreamData;
+  v3 = [(GTShaderProfilerStreamData *)&v6 initWithNewFileFormatV2Support:support];
+  v4 = v3;
+  if (v3)
+  {
+    [(GTMutableShaderProfilerStreamData *)v3 _commonInit];
+  }
+
+  return v4;
 }
 
 - (GTMutableShaderProfilerStreamData)init

@@ -11,54 +11,20 @@
 - (COMessagingRequest)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v19.receiver = self;
-  v19.super_class = COMessagingRequest;
-  v5 = [(COMeshCommand *)&v19 initWithCoder:coderCopy];
-  if (!v5)
+  v16.receiver = self;
+  v16.super_class = COMessagingRequest;
+  v5 = [(COMeshCommand *)&v16 initWithCoder:coderCopy];
+  if (!v5 || ([coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"requestID"], v6 = objc_claimAutoreleasedReturnValue(), v5->_requestID = objc_msgSend(v6, "unsignedIntValue"), v6, objc_msgSend(coderCopy, "decodeObjectOfClass:forKey:", objc_opt_class(), @"requestType"), v7 = objc_claimAutoreleasedReturnValue(), v5->_requestType = objc_msgSend(v7, "integerValue"), v7, objc_msgSend(coderCopy, "decodeObjectOfClass:forKey:", objc_opt_class(), @"payload"), v8 = objc_claimAutoreleasedReturnValue(), payload = v5->_payload, v5->_payload = v8, payload, objc_msgSend(coderCopy, "decodeObjectOfClass:forKey:", objc_opt_class(), @"payloadType"), v10 = objc_claimAutoreleasedReturnValue(), payloadType = v5->_payloadType, v5->_payloadType = v10, payloadType, objc_msgSend(coderCopy, "decodeObjectOfClass:forKey:", objc_opt_class(), @"topic"), v12 = objc_claimAutoreleasedReturnValue(), topic = v5->_topic, v5->_topic = v12, topic, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
-    goto LABEL_5;
-  }
-
-  v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"requestID"];
-  v5->_requestID = [v6 unsignedIntValue];
-
-  v7 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"requestType"];
-  v5->_requestType = [v7 integerValue];
-
-  v8 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"payload"];
-  payload = v5->_payload;
-  v5->_payload = v8;
-
-  v10 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"payloadType"];
-  payloadType = v5->_payloadType;
-  v5->_payloadType = v10;
-
-  v12 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"topic"];
-  topic = v5->_topic;
-  v5->_topic = v12;
-
-  v14 = v5->_payload;
-  objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
-  {
-    goto LABEL_6;
-  }
-
-  v15 = v5->_payloadType;
-  objc_opt_class();
-  if (objc_opt_isKindOfClass() & 1) != 0 && (v16 = v5->_topic, objc_opt_class(), (objc_opt_isKindOfClass()))
-  {
-LABEL_5:
-    v17 = v5;
+    v14 = v5;
   }
 
   else
   {
-LABEL_6:
-    v17 = 0;
+    v14 = 0;
   }
 
-  return v17;
+  return v14;
 }
 
 - (void)encodeWithCoder:(id)coder

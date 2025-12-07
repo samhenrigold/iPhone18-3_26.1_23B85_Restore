@@ -90,7 +90,7 @@
 
 - (void)_commonInitializationWithAccount:(id)account accountStore:(id)store username:(id)username accountDescription:(id)description presentationBlock:(id)block
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   storeCopy = store;
   usernameCopy = username;
@@ -115,9 +115,9 @@
   }
 
   [(DAEASOAuthWebViewController *)self setModalPresentationStyle:0];
-  v58 = 0;
-  v21 = [MEMORY[0x277CCA9C8] extensionWithIdentifier:@"com.apple.exchangesyncexpress.framework.EASOAuthService" error:&v58];
-  v49 = v58;
+  v57 = 0;
+  v21 = [MEMORY[0x277CCA9C8] extensionWithIdentifier:@"com.apple.exchangesyncexpress.framework.EASOAuthService" error:&v57];
+  v48 = v57;
   extension = self->_extension;
   self->_extension = v21;
 
@@ -127,23 +127,23 @@
   {
     v25 = self->_extension;
     *buf = 138412290;
-    v61 = v25;
+    v60 = v25;
     _os_log_impl(&dword_247E05000, v23, v24, "DAEASOAuthWebViewController got extension %@", buf, 0xCu);
   }
 
   objc_initWeak(&location, self);
-  v55[0] = MEMORY[0x277D85DD0];
-  v55[1] = 3221225472;
-  v55[2] = __123__DAEASOAuthWebViewController__commonInitializationWithAccount_accountStore_username_accountDescription_presentationBlock___block_invoke;
-  v55[3] = &unk_278EE0820;
-  objc_copyWeak(&v56, &location);
-  [(NSExtension *)self->_extension setRequestCancellationBlock:v55];
-  v53[0] = MEMORY[0x277D85DD0];
-  v53[1] = 3221225472;
-  v53[2] = __123__DAEASOAuthWebViewController__commonInitializationWithAccount_accountStore_username_accountDescription_presentationBlock___block_invoke_24;
-  v53[3] = &unk_278EE0870;
-  objc_copyWeak(&v54, &location);
-  [(NSExtension *)self->_extension set_requestPostCompletionBlockWithItems:v53];
+  v54[0] = MEMORY[0x277D85DD0];
+  v54[1] = 3221225472;
+  v54[2] = __123__DAEASOAuthWebViewController__commonInitializationWithAccount_accountStore_username_accountDescription_presentationBlock___block_invoke;
+  v54[3] = &unk_278EE0820;
+  objc_copyWeak(&v55, &location);
+  [(NSExtension *)self->_extension setRequestCancellationBlock:v54];
+  v52[0] = MEMORY[0x277D85DD0];
+  v52[1] = 3221225472;
+  v52[2] = __123__DAEASOAuthWebViewController__commonInitializationWithAccount_accountStore_username_accountDescription_presentationBlock___block_invoke_24;
+  v52[3] = &unk_278EE0870;
+  objc_copyWeak(&v53, &location);
+  [(NSExtension *)self->_extension set_requestPostCompletionBlockWithItems:v52];
   if (accountCopy)
   {
     accountDescription = [accountCopy accountDescription];
@@ -169,9 +169,9 @@
   if (os_log_type_enabled(v28, v24))
   {
     *buf = 138412546;
-    v61 = descriptionCopy;
-    v62 = 2112;
-    v63 = usernameCopy;
+    v60 = descriptionCopy;
+    v61 = 2112;
+    v62 = usernameCopy;
     _os_log_impl(&dword_247E05000, v28, v24, "DAEASOAuthWebViewController initializing for description %@ username %@", buf, 0x16u);
   }
 
@@ -251,20 +251,18 @@ LABEL_28:
 
   [v29 setUserInfo:v30];
   v46 = self->_extension;
-  v59 = v29;
-  v47 = [MEMORY[0x277CBEA60] arrayWithObjects:&v59 count:1];
-  v52[0] = MEMORY[0x277D85DD0];
-  v52[1] = 3221225472;
-  v52[2] = __123__DAEASOAuthWebViewController__commonInitializationWithAccount_accountStore_username_accountDescription_presentationBlock___block_invoke_58;
-  v52[3] = &unk_278EE0898;
-  v52[4] = self;
-  [(NSExtension *)v46 instantiateViewControllerWithInputItems:v47 listenerEndpoint:0 connectionHandler:v52];
+  v58 = v29;
+  v47 = [MEMORY[0x277CBEA60] arrayWithObjects:&v58 count:1];
+  v51[0] = MEMORY[0x277D85DD0];
+  v51[1] = 3221225472;
+  v51[2] = __123__DAEASOAuthWebViewController__commonInitializationWithAccount_accountStore_username_accountDescription_presentationBlock___block_invoke_58;
+  v51[3] = &unk_278EE0898;
+  v51[4] = self;
+  [(NSExtension *)v46 instantiateViewControllerWithInputItems:v47 listenerEndpoint:0 connectionHandler:v51];
 
-  objc_destroyWeak(&v54);
-  objc_destroyWeak(&v56);
+  objc_destroyWeak(&v53);
+  objc_destroyWeak(&v55);
   objc_destroyWeak(&location);
-
-  v48 = *MEMORY[0x277D85DE8];
 }
 
 void __123__DAEASOAuthWebViewController__commonInitializationWithAccount_accountStore_username_accountDescription_presentationBlock___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -287,7 +285,7 @@ void __123__DAEASOAuthWebViewController__commonInitializationWithAccount_account
 
 void __123__DAEASOAuthWebViewController__commonInitializationWithAccount_accountStore_username_accountDescription_presentationBlock___block_invoke_2(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
   {
@@ -297,17 +295,15 @@ void __123__DAEASOAuthWebViewController__commonInitializationWithAccount_account
     {
       v5 = *(a1 + 32);
       v6 = *(a1 + 40);
-      v8 = 138412546;
-      v9 = v5;
-      v10 = 2112;
-      v11 = v6;
-      _os_log_impl(&dword_247E05000, v3, v4, "DAEASOAuthWebViewController extension requestCancellationBlock requestIdentifier %@ error %@", &v8, 0x16u);
+      v7 = 138412546;
+      v8 = v5;
+      v9 = 2112;
+      v10 = v6;
+      _os_log_impl(&dword_247E05000, v3, v4, "DAEASOAuthWebViewController extension requestCancellationBlock requestIdentifier %@ error %@", &v7, 0x16u);
     }
 
     [WeakRetained _extensionRequestDidCancelWithError:*(a1 + 40)];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __123__DAEASOAuthWebViewController__commonInitializationWithAccount_accountStore_username_accountDescription_presentationBlock___block_invoke_24(uint64_t a1, void *a2, void *a3, void *a4)
@@ -333,7 +329,7 @@ void __123__DAEASOAuthWebViewController__commonInitializationWithAccount_account
 
 void __123__DAEASOAuthWebViewController__commonInitializationWithAccount_accountStore_username_accountDescription_presentationBlock___block_invoke_2_25(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   if (WeakRetained)
   {
@@ -343,22 +339,20 @@ void __123__DAEASOAuthWebViewController__commonInitializationWithAccount_account
     {
       v5 = *(a1 + 32);
       v6 = *(a1 + 40);
-      v8 = 138412546;
-      v9 = v5;
-      v10 = 2112;
-      v11 = v6;
-      _os_log_impl(&dword_247E05000, v3, v4, "DAEASOAuthWebViewController extension _requestPostCompletionBlockWithItems requestIdentifier %@ items %@", &v8, 0x16u);
+      v7 = 138412546;
+      v8 = v5;
+      v9 = 2112;
+      v10 = v6;
+      _os_log_impl(&dword_247E05000, v3, v4, "DAEASOAuthWebViewController extension _requestPostCompletionBlockWithItems requestIdentifier %@ items %@", &v7, 0x16u);
     }
 
     [WeakRetained _extensionRequestDidCompleteWithTokens:*(a1 + 40) extensionCompletion:*(a1 + 48)];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __123__DAEASOAuthWebViewController__commonInitializationWithAccount_accountStore_username_accountDescription_presentationBlock___block_invoke_58(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -366,13 +360,13 @@ void __123__DAEASOAuthWebViewController__commonInitializationWithAccount_account
   v11 = *(MEMORY[0x277D03988] + 7);
   if (os_log_type_enabled(v10, v11))
   {
-    v16 = 138412802;
-    v17 = v8;
-    v18 = 2112;
-    v19 = v9;
-    v20 = 2112;
-    v21 = v7;
-    _os_log_impl(&dword_247E05000, v10, v11, "DAEASOAuthWebViewController finished instantiate remote view controller %@ error %@ extension request identifier %@", &v16, 0x20u);
+    v15 = 138412802;
+    v16 = v8;
+    v17 = 2112;
+    v18 = v9;
+    v19 = 2112;
+    v20 = v7;
+    _os_log_impl(&dword_247E05000, v10, v11, "DAEASOAuthWebViewController finished instantiate remote view controller %@ error %@ extension request identifier %@", &v15, 0x20u);
   }
 
   v12 = *(a1 + 32);
@@ -381,31 +375,29 @@ void __123__DAEASOAuthWebViewController__commonInitializationWithAccount_account
   v14 = v8;
 
   [*(a1 + 32) _didInstantiateRemoteViewController];
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_didInstantiateRemoteViewController
 {
-  v29[1] = *MEMORY[0x277D85DE8];
-  serviceViewController = self->_serviceViewController;
+  v27[1] = *MEMORY[0x277D85DE8];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     objc_initWeak(&location, self);
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __66__DAEASOAuthWebViewController__didInstantiateRemoteViewController__block_invoke;
-    v23[3] = &unk_278EE08C0;
-    objc_copyWeak(&v24, &location);
-    [(UIViewController *)self->_serviceViewController setViewServiceTerminationBlock:v23];
-    objc_destroyWeak(&v24);
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __66__DAEASOAuthWebViewController__didInstantiateRemoteViewController__block_invoke;
+    v21[3] = &unk_278EE08C0;
+    objc_copyWeak(&v22, &location);
+    [(UIViewController *)self->_serviceViewController setViewServiceTerminationBlock:v21];
+    objc_destroyWeak(&v22);
     objc_destroyWeak(&location);
   }
 
-  v4 = self->_serviceViewController;
-  if (v4 && !self->_extensionCancellationError)
+  serviceViewController = self->_serviceViewController;
+  if (serviceViewController && !self->_extensionCancellationError)
   {
-    [(UIViewController *)v4 willMoveToParentViewController:self];
+    [(UIViewController *)serviceViewController willMoveToParentViewController:self];
     [(DAEASOAuthWebViewController *)self addChildViewController:self->_serviceViewController];
     view = [(DAEASOAuthWebViewController *)self view];
     view2 = [(UIViewController *)self->_serviceViewController view];
@@ -419,24 +411,24 @@ void __123__DAEASOAuthWebViewController__commonInitializationWithAccount_account
     view5 = [(UIViewController *)self->_serviceViewController view];
     [view5 setTranslatesAutoresizingMaskIntoConstraints:0];
 
-    v10 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v11 = MEMORY[0x277CCAAD0];
-    v28 = @"serviceView";
-    view6 = [(UIViewController *)self->_serviceViewController view];
-    v29[0] = view6;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:&v28 count:1];
-    v14 = [v11 constraintsWithVisualFormat:@"H:|[serviceView]|" options:0 metrics:0 views:v13];
-    [v10 addObjectsFromArray:v14];
-
-    v15 = MEMORY[0x277CCAAD0];
+    v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v10 = MEMORY[0x277CCAAD0];
     v26 = @"serviceView";
-    view7 = [(UIViewController *)self->_serviceViewController view];
-    v27 = view7;
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
-    v18 = [v15 constraintsWithVisualFormat:@"V:|[serviceView]|" options:0 metrics:0 views:v17];
-    [v10 addObjectsFromArray:v18];
+    view6 = [(UIViewController *)self->_serviceViewController view];
+    v27[0] = view6;
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:&v26 count:1];
+    v13 = [v10 constraintsWithVisualFormat:@"H:|[serviceView]|" options:0 metrics:0 views:v12];
+    [v9 addObjectsFromArray:v13];
 
-    [MEMORY[0x277CCAAD0] activateConstraints:v10];
+    v14 = MEMORY[0x277CCAAD0];
+    v24 = @"serviceView";
+    view7 = [(UIViewController *)self->_serviceViewController view];
+    v25 = view7;
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+    v17 = [v14 constraintsWithVisualFormat:@"V:|[serviceView]|" options:0 metrics:0 views:v16];
+    [v9 addObjectsFromArray:v17];
+
+    [MEMORY[0x277CCAAD0] activateConstraints:v9];
     view8 = [(DAEASOAuthWebViewController *)self view];
     [view8 setNeedsLayout];
 
@@ -447,10 +439,8 @@ void __123__DAEASOAuthWebViewController__commonInitializationWithAccount_account
     }
   }
 
-  v21 = self->_presentationBlock;
+  v20 = self->_presentationBlock;
   self->_presentationBlock = 0;
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __66__DAEASOAuthWebViewController__didInstantiateRemoteViewController__block_invoke(uint64_t a1)
@@ -570,45 +560,45 @@ LABEL_11:
 void __90__DAEASOAuthWebViewController__extensionRequestDidCompleteWithTokens_extensionCompletion___block_invoke_2(void *a1)
 {
   v2 = dispatch_semaphore_create(0);
-  v86 = 0;
-  v87 = &v86;
-  v88 = 0x3032000000;
-  v89 = __Block_byref_object_copy__0;
-  v90 = __Block_byref_object_dispose__0;
-  v91 = 0;
+  v85 = 0;
+  v86 = &v85;
+  v87 = 0x3032000000;
+  v88 = __Block_byref_object_copy__0;
+  v89 = __Block_byref_object_dispose__0;
+  v90 = 0;
   v3 = a1[4];
   v4 = *MEMORY[0x277CC2050];
-  v83[0] = MEMORY[0x277D85DD0];
-  v83[1] = 3221225472;
-  v83[2] = __90__DAEASOAuthWebViewController__extensionRequestDidCompleteWithTokens_extensionCompletion___block_invoke_76;
-  v83[3] = &unk_278EE08E8;
-  v85 = &v86;
+  v82[0] = MEMORY[0x277D85DD0];
+  v82[1] = 3221225472;
+  v82[2] = __90__DAEASOAuthWebViewController__extensionRequestDidCompleteWithTokens_extensionCompletion___block_invoke_76;
+  v82[3] = &unk_278EE08E8;
+  v84 = &v85;
   v5 = v2;
-  v84 = v5;
-  [v3 loadItemForTypeIdentifier:v4 options:0 completionHandler:v83];
+  v83 = v5;
+  [v3 loadItemForTypeIdentifier:v4 options:0 completionHandler:v82];
   dispatch_semaphore_wait(v5, 0xFFFFFFFFFFFFFFFFLL);
-  v77 = 0;
-  v78 = &v77;
-  v79 = 0x3032000000;
-  v80 = __Block_byref_object_copy__0;
-  v81 = __Block_byref_object_dispose__0;
-  v82 = [v87[5] objectForKeyedSubscript:@"accessToken"];
-  v6 = [v87[5] objectForKeyedSubscript:@"refreshToken"];
-  v7 = [v87[5] objectForKeyedSubscript:@"username"];
-  v8 = [v87[5] objectForKeyedSubscript:@"displayName"];
-  v9 = [v87[5] objectForKeyedSubscript:@"oauthURI"];
-  v10 = [v87[5] objectForKeyedSubscript:@"tokenRequestURI"];
-  v11 = [v87[5] objectForKeyedSubscript:@"jwksURI"];
-  v55 = v9;
-  v56 = v8;
-  v12 = [v87[5] objectForKeyedSubscript:@"issuer"];
-  v13 = [v87[5] objectForKeyedSubscript:@"jwksData"];
-  v75[0] = 0;
-  v75[1] = v75;
-  v75[2] = 0x3032000000;
-  v75[3] = __Block_byref_object_copy__0;
-  v75[4] = __Block_byref_object_dispose__0;
   v76 = 0;
+  v77 = &v76;
+  v78 = 0x3032000000;
+  v79 = __Block_byref_object_copy__0;
+  v80 = __Block_byref_object_dispose__0;
+  v81 = [v86[5] objectForKeyedSubscript:@"accessToken"];
+  v6 = [v86[5] objectForKeyedSubscript:@"refreshToken"];
+  v7 = [v86[5] objectForKeyedSubscript:@"username"];
+  v8 = [v86[5] objectForKeyedSubscript:@"displayName"];
+  v9 = [v86[5] objectForKeyedSubscript:@"oauthURI"];
+  v10 = [v86[5] objectForKeyedSubscript:@"tokenRequestURI"];
+  v11 = [v86[5] objectForKeyedSubscript:@"jwksURI"];
+  v54 = v9;
+  v55 = v8;
+  v12 = [v86[5] objectForKeyedSubscript:@"issuer"];
+  v13 = [v86[5] objectForKeyedSubscript:@"jwksData"];
+  v74[0] = 0;
+  v74[1] = v74;
+  v74[2] = 0x3032000000;
+  v74[3] = __Block_byref_object_copy__0;
+  v74[4] = __Block_byref_object_dispose__0;
+  v75 = 0;
   v14 = a1[5];
   if ((*(v14 + 1064) & 1) == 0)
   {
@@ -617,101 +607,100 @@ void __90__DAEASOAuthWebViewController__extensionRequestDidCompleteWithTokens_ex
       v15 = *(v14 + 992);
       if (v15)
       {
-        if (v78[5] && v6 && v7)
+        if (v77[5] && v6 && v7)
         {
           v16 = [v15 username];
           v17 = [v16 compare:v7 options:1];
 
           if (v17)
           {
-            v18 = a1[5];
             [objc_opt_class() presentUsernameMismatchAlert];
-            v19 = v78[5];
-            v78[5] = 0;
+            v18 = v77[5];
+            v77[5] = 0;
 LABEL_18:
 
             goto LABEL_19;
           }
 
-          v52 = [v87[5] objectForKeyedSubscript:@"oauthURI"];
-          if (!v52)
+          v51 = [v86[5] objectForKeyedSubscript:@"oauthURI"];
+          if (!v51)
           {
             goto LABEL_14;
           }
 
-          v20 = [v87[5] objectForKeyedSubscript:@"tokenRequestURI"];
-          if (v20)
+          v19 = [v86[5] objectForKeyedSubscript:@"tokenRequestURI"];
+          if (v19)
           {
-            v51 = [v87[5] objectForKeyedSubscript:@"jwksURI"];
-            if (v51)
+            v50 = [v86[5] objectForKeyedSubscript:@"jwksURI"];
+            if (v50)
             {
-              v21 = [v87[5] objectForKeyedSubscript:@"issuer"];
-              if (v21)
+              v20 = [v86[5] objectForKeyedSubscript:@"issuer"];
+              if (v20)
               {
-                v22 = v21;
-                [v87[5] objectForKeyedSubscript:@"jwksData"];
-                v23 = v50 = v20;
+                v21 = v20;
+                [v86[5] objectForKeyedSubscript:@"jwksData"];
+                v22 = v49 = v19;
 
-                if (v23)
+                if (v22)
                 {
 LABEL_15:
-                  v25 = [v87[5] objectForKeyedSubscript:{@"oauthURI", v50}];
-                  [*(a1[5] + 992) setObject:v25 forKeyedSubscript:*MEMORY[0x277D07AB0]];
+                  v24 = [v86[5] objectForKeyedSubscript:{@"oauthURI", v49}];
+                  [*(a1[5] + 992) setObject:v24 forKeyedSubscript:*MEMORY[0x277D07AB0]];
 
-                  v26 = [v87[5] objectForKeyedSubscript:@"tokenRequestURI"];
-                  [*(a1[5] + 992) setObject:v26 forKeyedSubscript:*MEMORY[0x277D07AD0]];
+                  v25 = [v86[5] objectForKeyedSubscript:@"tokenRequestURI"];
+                  [*(a1[5] + 992) setObject:v25 forKeyedSubscript:*MEMORY[0x277D07AD0]];
 
-                  v27 = [v87[5] objectForKeyedSubscript:@"jwksURI"];
-                  [*(a1[5] + 992) setObject:v27 forKeyedSubscript:*MEMORY[0x277D07A90]];
+                  v26 = [v86[5] objectForKeyedSubscript:@"jwksURI"];
+                  [*(a1[5] + 992) setObject:v26 forKeyedSubscript:*MEMORY[0x277D07A90]];
 
-                  v28 = [v87[5] objectForKeyedSubscript:@"issuer"];
-                  [*(a1[5] + 992) setObject:v28 forKeyedSubscript:*MEMORY[0x277D07AA8]];
+                  v27 = [v86[5] objectForKeyedSubscript:@"issuer"];
+                  [*(a1[5] + 992) setObject:v27 forKeyedSubscript:*MEMORY[0x277D07AA8]];
 
-                  v29 = [v87[5] objectForKeyedSubscript:@"jwksData"];
-                  [*(a1[5] + 992) setObject:v29 forKeyedSubscript:*MEMORY[0x277D07A80]];
+                  v28 = [v86[5] objectForKeyedSubscript:@"jwksData"];
+                  [*(a1[5] + 992) setObject:v28 forKeyedSubscript:*MEMORY[0x277D07A80]];
 
-                  v30 = MEMORY[0x277CCABB0];
-                  v31 = [MEMORY[0x277CBEAA8] date];
-                  [v31 timeIntervalSince1970];
-                  v32 = [v30 numberWithDouble:?];
-                  [*(a1[5] + 992) setObject:v32 forKeyedSubscript:*MEMORY[0x277D07A88]];
+                  v29 = MEMORY[0x277CCABB0];
+                  v30 = [MEMORY[0x277CBEAA8] date];
+                  [v30 timeIntervalSince1970];
+                  v31 = [v29 numberWithDouble:?];
+                  [*(a1[5] + 992) setObject:v31 forKeyedSubscript:*MEMORY[0x277D07A88]];
 
                   [*(a1[5] + 992) setObject:@"2" forKeyedSubscript:*MEMORY[0x277D07AB8]];
                   [*(a1[5] + 992) setObject:&stru_2859ED5C8 forKeyedSubscript:*MEMORY[0x277D07AC0]];
                   [*(a1[5] + 992) setObject:&stru_2859ED5C8 forKeyedSubscript:*MEMORY[0x277D07AC8]];
-                  v33 = objc_alloc(MEMORY[0x277CB8F38]);
-                  v34 = [v33 initWithOAuth2Token:v78[5] refreshToken:v6 expiryDate:0];
-                  [*(a1[5] + 992) setCredential:v34];
-                  v35 = DALoggingwithCategory();
-                  v53 = v34;
-                  v36 = *(MEMORY[0x277D03988] + 7);
-                  if (os_log_type_enabled(v35, v36))
+                  v32 = objc_alloc(MEMORY[0x277CB8F38]);
+                  v33 = [v32 initWithOAuth2Token:v77[5] refreshToken:v6 expiryDate:0];
+                  [*(a1[5] + 992) setCredential:v33];
+                  v34 = DALoggingwithCategory();
+                  v52 = v33;
+                  v35 = *(MEMORY[0x277D03988] + 7);
+                  if (os_log_type_enabled(v34, v35))
                   {
                     *buf = 0;
-                    _os_log_impl(&dword_247E05000, v35, v36, "DAEASOAuthWebViewController will save account with new credential", buf, 2u);
+                    _os_log_impl(&dword_247E05000, v34, v35, "DAEASOAuthWebViewController will save account with new credential", buf, 2u);
                   }
 
-                  v37 = a1[5];
-                  v38 = *(v37 + 1000);
-                  v54 = *(v37 + 992);
-                  v70[0] = MEMORY[0x277D85DD0];
-                  v70[1] = 3221225472;
-                  v70[2] = __90__DAEASOAuthWebViewController__extensionRequestDidCompleteWithTokens_extensionCompletion___block_invoke_121;
-                  v70[3] = &unk_278EE0910;
-                  v72 = v75;
-                  v73 = &v77;
-                  v39 = v5;
-                  v71 = v39;
-                  [v38 saveAccount:v54 withCompletionHandler:v70];
-                  v19 = v53;
-                  dispatch_semaphore_wait(v39, 0xFFFFFFFFFFFFFFFFLL);
+                  v36 = a1[5];
+                  v37 = *(v36 + 1000);
+                  v53 = *(v36 + 992);
+                  v69[0] = MEMORY[0x277D85DD0];
+                  v69[1] = 3221225472;
+                  v69[2] = __90__DAEASOAuthWebViewController__extensionRequestDidCompleteWithTokens_extensionCompletion___block_invoke_121;
+                  v69[3] = &unk_278EE0910;
+                  v71 = v74;
+                  v72 = &v76;
+                  v38 = v5;
+                  v70 = v38;
+                  [v37 saveAccount:v53 withCompletionHandler:v69];
+                  v18 = v52;
+                  dispatch_semaphore_wait(v38, 0xFFFFFFFFFFFFFFFFLL);
 
                   goto LABEL_18;
                 }
 
 LABEL_14:
-                v24 = [MEMORY[0x277CCA890] currentHandler];
-                [v24 handleFailureInMethod:a1[7] object:a1[5] file:@"DAEASOAuthWebViewController.m" lineNumber:286 description:{@"We have used these objects to fetch and verify the tokens, neither of these should be empty"}];
+                v23 = [MEMORY[0x277CCA890] currentHandler];
+                [v23 handleFailureInMethod:a1[7] object:a1[5] file:@"DAEASOAuthWebViewController.m" lineNumber:286 description:{@"We have used these objects to fetch and verify the tokens, neither of these should be empty"}];
 
                 goto LABEL_15;
               }
@@ -729,39 +718,39 @@ LABEL_19:
   block[1] = 3221225472;
   block[2] = __90__DAEASOAuthWebViewController__extensionRequestDidCompleteWithTokens_extensionCompletion___block_invoke_123;
   block[3] = &unk_278EE0938;
-  v58 = v6;
-  v59 = v56;
-  v60 = v7;
-  v61 = v55;
-  v62 = v10;
-  v63 = v11;
-  v64 = v12;
-  v65 = v13;
-  v40 = a1[5];
-  v41 = a1[6];
-  v68 = &v77;
+  v57 = v6;
+  v58 = v55;
+  v59 = v7;
+  v60 = v54;
+  v61 = v10;
+  v62 = v11;
+  v63 = v12;
+  v64 = v13;
+  v39 = a1[5];
+  v40 = a1[6];
+  v67 = &v76;
+  v65 = v39;
+  v68 = v74;
   v66 = v40;
-  v69 = v75;
-  v67 = v41;
-  v42 = v13;
-  v43 = v12;
-  v44 = v11;
-  v45 = v10;
-  v46 = v55;
-  v47 = v7;
-  v48 = v56;
-  v49 = v6;
+  v41 = v13;
+  v42 = v12;
+  v43 = v11;
+  v44 = v10;
+  v45 = v54;
+  v46 = v7;
+  v47 = v55;
+  v48 = v6;
   dispatch_async(MEMORY[0x277D85CD0], block);
 
-  _Block_object_dispose(v75, 8);
-  _Block_object_dispose(&v77, 8);
+  _Block_object_dispose(v74, 8);
+  _Block_object_dispose(&v76, 8);
 
-  _Block_object_dispose(&v86, 8);
+  _Block_object_dispose(&v85, 8);
 }
 
 void __90__DAEASOAuthWebViewController__extensionRequestDidCompleteWithTokens_extensionCompletion___block_invoke_76(uint64_t a1, void *a2, void *a3)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -771,7 +760,7 @@ void __90__DAEASOAuthWebViewController__extensionRequestDidCompleteWithTokens_ex
     if (os_log_type_enabled(v7, v8))
     {
       *buf = 138412290;
-      v27 = v6;
+      v25 = v6;
       _os_log_impl(&dword_247E05000, v7, v8, "DAEASOAuthWebViewController did loadItemForTypeIdentifier for response, got error %@", buf, 0xCu);
     }
   }
@@ -786,63 +775,61 @@ void __90__DAEASOAuthWebViewController__extensionRequestDidCompleteWithTokens_ex
       v11 = objc_opt_class();
       v12 = objc_opt_class();
       v13 = [v10 setWithObjects:{v11, v12, objc_opt_class(), 0}];
-      v25 = 0;
-      v14 = [v9 unarchivedObjectOfClasses:v13 fromData:v7 error:&v25];
-      v15 = v25;
+      v23 = 0;
+      v14 = [v9 unarchivedObjectOfClasses:v13 fromData:v7 error:&v23];
+      v15 = v23;
       v16 = *(*(a1 + 40) + 8);
       v17 = *(v16 + 40);
       *(v16 + 40) = v14;
 
-      v18 = *(*(*(a1 + 40) + 8) + 40);
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        v19 = DALoggingwithCategory();
-        v20 = *(MEMORY[0x277D03988] + 4);
-        if (os_log_type_enabled(v19, v20))
+        v18 = DALoggingwithCategory();
+        v19 = *(MEMORY[0x277D03988] + 4);
+        if (os_log_type_enabled(v18, v19))
         {
           *buf = 138412290;
-          v27 = v15;
-          _os_log_impl(&dword_247E05000, v19, v20, "Unable to decode response: %@", buf, 0xCu);
+          v25 = v15;
+          _os_log_impl(&dword_247E05000, v18, v19, "Unable to decode response: %@", buf, 0xCu);
         }
 
-        v21 = *(*(a1 + 40) + 8);
-        v22 = *(v21 + 40);
-        *(v21 + 40) = 0;
+        v20 = *(*(a1 + 40) + 8);
+        v21 = *(v20 + 40);
+        *(v20 + 40) = 0;
       }
     }
 
     else
     {
       v15 = DALoggingwithCategory();
-      v23 = *(MEMORY[0x277D03988] + 7);
-      if (os_log_type_enabled(v15, v23))
+      v22 = *(MEMORY[0x277D03988] + 7);
+      if (os_log_type_enabled(v15, v22))
       {
         *buf = 138412290;
-        v27 = v7;
-        _os_log_impl(&dword_247E05000, v15, v23, "DAEASOAuthWebViewController did loadItemForTypeIdentifier for response, got invalid response %@", buf, 0xCu);
+        v25 = v7;
+        _os_log_impl(&dword_247E05000, v15, v22, "DAEASOAuthWebViewController did loadItemForTypeIdentifier for response, got invalid response %@", buf, 0xCu);
       }
     }
   }
 
   dispatch_semaphore_signal(*(a1 + 32));
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __90__DAEASOAuthWebViewController__extensionRequestDidCompleteWithTokens_extensionCompletion___block_invoke_121(uint64_t a1, int a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = DALoggingwithCategory();
   v8 = *(MEMORY[0x277D03988] + 7);
   if (os_log_type_enabled(v7, v8))
   {
     v9 = *(*(*(a1 + 40) + 8) + 40);
-    v13[0] = 67109378;
-    v13[1] = a2;
-    v14 = 2112;
-    v15 = v9;
-    _os_log_impl(&dword_247E05000, v7, v8, "DAEASOAuthWebViewController did save account with success %d error %@", v13, 0x12u);
+    v12[0] = 67109378;
+    v12[1] = a2;
+    v13 = 2112;
+    v14 = v9;
+    _os_log_impl(&dword_247E05000, v7, v8, "DAEASOAuthWebViewController did save account with success %d error %@", v12, 0x12u);
   }
 
   if ((a2 & 1) == 0)
@@ -855,8 +842,6 @@ void __90__DAEASOAuthWebViewController__extensionRequestDidCompleteWithTokens_ex
   }
 
   dispatch_semaphore_signal(*(a1 + 32));
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __90__DAEASOAuthWebViewController__extensionRequestDidCompleteWithTokens_extensionCompletion___block_invoke_123(uint64_t a1)
@@ -961,44 +946,42 @@ void __89__DAEASOAuthWebViewController__dismissAndCompleteWithIdentity_error_ext
 
 + (void)presentInternetOfflineError
 {
-  v12[3] = *MEMORY[0x277D85DE8];
-  v11[0] = *MEMORY[0x277CBF188];
+  v11[3] = *MEMORY[0x277D85DE8];
+  v10[0] = *MEMORY[0x277CBF188];
   v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v4 = [v3 localizedStringForKey:@"SIGN_IN_ERROR_TITLE" value:&stru_2859ED5C8 table:@"EASOAuthSupport"];
-  v12[0] = v4;
-  v11[1] = *MEMORY[0x277CBF198];
+  v11[0] = v4;
+  v10[1] = *MEMORY[0x277CBF198];
   v5 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v6 = [v5 localizedStringForKey:@"SIGN_IN_ERROR_MESSAGE_NO_CONNECTION" value:&stru_2859ED5C8 table:@"EASOAuthSupport"];
-  v12[1] = v6;
-  v11[2] = *MEMORY[0x277CBF1E8];
+  v11[1] = v6;
+  v10[2] = *MEMORY[0x277CBF1E8];
   v7 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v8 = [v7 localizedStringForKey:@"SIGN_IN_ERROR_OK" value:&stru_2859ED5C8 table:@"EASOAuthSupport"];
-  v12[2] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:3];
+  v11[2] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:3];
 
   [self _presentAlertWithAlertParameters:v9];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 + (void)presentSSLError
 {
-  v12[3] = *MEMORY[0x277D85DE8];
-  v11[0] = *MEMORY[0x277CBF188];
+  v11[3] = *MEMORY[0x277D85DE8];
+  v10[0] = *MEMORY[0x277CBF188];
   v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v4 = [v3 localizedStringForKey:@"SIGN_IN_ERROR_TITLE" value:&stru_2859ED5C8 table:@"EASOAuthSupport"];
-  v12[0] = v4;
-  v11[1] = *MEMORY[0x277CBF198];
+  v11[0] = v4;
+  v10[1] = *MEMORY[0x277CBF198];
   v5 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v6 = [v5 localizedStringForKey:@"SIGN_IN_ERROR_MESSAGE_SSL_ERROR" value:&stru_2859ED5C8 table:@"EASOAuthSupport"];
-  v12[1] = v6;
-  v11[2] = *MEMORY[0x277CBF1E8];
+  v11[1] = v6;
+  v10[2] = *MEMORY[0x277CBF1E8];
   v7 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v8 = [v7 localizedStringForKey:@"SIGN_IN_ERROR_OK" value:&stru_2859ED5C8 table:@"EASOAuthSupport"];
-  v12[2] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:3];
+  v11[2] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:3];
 
   [self _presentAlertWithAlertParameters:v9];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_presentAlertWithAlertParameters:(id)parameters

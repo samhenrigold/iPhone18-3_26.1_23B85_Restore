@@ -56,8 +56,7 @@
       v7 = 1;
     }
 
-    [(MSDAirPlayAssistedSender *)v2 setState:v7];
-    v8 = sub_100063A54();
+    v8 = sub_100063A54([(MSDAirPlayAssistedSender *)v2 setState:v7]);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = [(MSDAirPlayAssistedSender *)v2 _NSStringFromSenderState:[(MSDAirPlayAssistedSender *)v2 state]];
@@ -94,11 +93,11 @@
 - (BOOL)activateSenderUsingParametersData:(id)data discoveryMode:(unint64_t)mode
 {
   dataCopy = data;
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x2020000000;
-  v23 = 0;
-  v7 = sub_100063A54();
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x2020000000;
+  v24 = 0;
+  v7 = sub_100063A54(dataCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
@@ -106,72 +105,73 @@
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "MSDAirPlayAssistedSender: Activating sender in discovery mode: %lu", buf, 0xCu);
   }
 
-  v19 = 0;
-  v8 = [NSPropertyListSerialization propertyListWithData:dataCopy options:0 format:0 error:&v19];
-  v9 = v19;
-  if (v8 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  v20 = 0;
+  v8 = [NSPropertyListSerialization propertyListWithData:dataCopy options:0 format:0 error:&v20];
+  isKindOfClass = v20;
+  v10 = isKindOfClass;
+  if (v8 && (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) != 0))
   {
     queue = [(MSDAirPlayAssistedSender *)self queue];
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_10003BAAC;
     block[3] = &unk_10016A970;
-    v17 = &v20;
+    v18 = &v21;
     block[4] = self;
-    v16 = v8;
+    v17 = v8;
     modeCopy2 = mode;
     dispatch_sync(queue, block);
 
-    v11 = *(v21 + 24);
+    v12 = *(v22 + 24);
   }
 
   else
   {
-    v12 = sub_100063A54();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = sub_100063A54(isKindOfClass);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      localizedDescription = [v9 localizedDescription];
-      sub_1000CEFAC(localizedDescription, buf, v12);
+      localizedDescription = [v10 localizedDescription];
+      sub_1000CEFAC(localizedDescription, buf, v13);
     }
 
-    v11 = 0;
+    v12 = 0;
   }
 
-  _Block_object_dispose(&v20, 8);
+  _Block_object_dispose(&v21, 8);
 
-  return v11 & 1;
+  return v12 & 1;
 }
 
 - (BOOL)_isAirPlayStreaming
 {
-  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
   avOutputContext = [(MSDAirPlayAssistedSender *)self avOutputContext];
   outputDevices = [avOutputContext outputDevices];
 
-  v4 = [outputDevices countByEnumeratingWithState:&v9 objects:v15 count:16];
+  v4 = [outputDevices countByEnumeratingWithState:&v10 objects:v16 count:16];
   if (v4)
   {
-    v5 = *v10;
+    v5 = *v11;
     while (2)
     {
       for (i = 0; i != v4; i = i + 1)
       {
-        if (*v10 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(outputDevices);
         }
 
-        if (![*(*(&v9 + 1) + 8 * i) deviceType])
+        if (![*(*(&v10 + 1) + 8 * i) deviceType])
         {
           LODWORD(v4) = 1;
           goto LABEL_11;
         }
       }
 
-      v4 = [outputDevices countByEnumeratingWithState:&v9 objects:v15 count:16];
+      v4 = [outputDevices countByEnumeratingWithState:&v10 objects:v16 count:16];
       if (v4)
       {
         continue;
@@ -183,12 +183,12 @@
 
 LABEL_11:
 
-  v7 = sub_100063A54();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = sub_100063A54(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v14 = v4;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "MSDAirPlayAssistedSender: Sender has AirPlay streaming=%{BOOL}d", buf, 8u);
+    v15 = v4;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "MSDAirPlayAssistedSender: Sender has AirPlay streaming=%{BOOL}d", buf, 8u);
   }
 
   return v4;
@@ -200,10 +200,11 @@ LABEL_11:
   queue = [(MSDAirPlayAssistedSender *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  if ([(MSDAirPlayAssistedSender *)self state]!= 1)
+  state = [(MSDAirPlayAssistedSender *)self state];
+  if (state != 1)
   {
-    v8 = sub_100063A54();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = sub_100063A54(state);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_1000CF004(self);
     }
@@ -211,7 +212,7 @@ LABEL_11:
     goto LABEL_10;
   }
 
-  [(MSDAirPlayAssistedSender *)self setState:2];
+  v9 = [(MSDAirPlayAssistedSender *)self setState:2];
   if (!mode)
   {
     goto LABEL_12;
@@ -221,8 +222,8 @@ LABEL_11:
   {
     if (mode != 1)
     {
-      v11 = sub_100063A54();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v14 = sub_100063A54(v9);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         sub_1000CF118();
       }
@@ -239,14 +240,15 @@ LABEL_17:
 
 LABEL_12:
     [(MSDAirPlayAssistedSender *)self _startTimeoutTimer];
-    if (!APSXPCClientSendCommandCreatingReply())
+    v12 = APSXPCClientSendCommandCreatingReply();
+    if (!v12)
     {
-      v9 = 1;
+      v11 = 1;
       goto LABEL_14;
     }
 
-    v11 = sub_100063A54();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v14 = sub_100063A54(v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       sub_1000CF0A4();
     }
@@ -262,27 +264,27 @@ LABEL_12:
 LABEL_18:
   sub_1000CF18C(self);
 LABEL_10:
-  v9 = 0;
+  v11 = 0;
 LABEL_14:
 
-  return v9;
+  return v11;
 }
 
 - (BOOL)_startAWDLDiscoveryUsingBonjour:(BOOL)bonjour
 {
   bonjourCopy = bonjour;
-  v5 = sub_100063A54();
+  v5 = sub_100063A54(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v12[0] = 67109120;
-    v12[1] = bonjourCopy;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "MSDAirPlayAssistedSender: Starting AWDL discovery using bonjour service: %{BOOL}d", v12, 8u);
+    v15[0] = 67109120;
+    v15[1] = bonjourCopy;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "MSDAirPlayAssistedSender: Starting AWDL discovery using bonjour service: %{BOOL}d", v15, 8u);
   }
 
   if (!bonjourCopy)
   {
-    v8 = [[AVOutputDeviceDiscoverySession alloc] initWithDeviceFeatures:2];
-    [(MSDAirPlayAssistedSender *)self setAvDiscoverySession:v8];
+    v10 = [[AVOutputDeviceDiscoverySession alloc] initWithDeviceFeatures:2];
+    [(MSDAirPlayAssistedSender *)self setAvDiscoverySession:v10];
 
     avDiscoverySession = [(MSDAirPlayAssistedSender *)self avDiscoverySession];
 
@@ -294,13 +296,14 @@ LABEL_14:
       return 1;
     }
 
-    sub_1000CF1BC();
+    sub_1000CF1BC(v12);
     return 0;
   }
 
-  if (BonjourBrowser_CreateEx())
+  v6 = BonjourBrowser_CreateEx();
+  if (v6)
   {
-    sub_1000CF220();
+    sub_1000CF220(v6);
     return 0;
   }
 
@@ -309,15 +312,16 @@ LABEL_14:
   BonjourBrowser_SetDispatchQueue();
 
   [(MSDAirPlayAssistedSender *)self bonjourBrowser];
-  if (BonjourBrowser_Start())
+  v8 = BonjourBrowser_Start();
+  if (v8)
   {
-    sub_1000CF2C0();
+    sub_1000CF2C0(v8);
     return 0;
   }
 
-  v7 = 1;
+  v9 = 1;
   sleep(1u);
-  return v7;
+  return v9;
 }
 
 - (void)_startTimeoutTimer
@@ -360,11 +364,11 @@ LABEL_14:
   queue = [(MSDAirPlayAssistedSender *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v4 = sub_100063A54();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = sub_100063A54(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    *v7 = 0;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "MSDAirPlayAssistedSender: Stopping AWDL discovery.", v7, 2u);
+    *v8 = 0;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "MSDAirPlayAssistedSender: Stopping AWDL discovery.", v8, 2u);
   }
 
   avDiscoverySession = [(MSDAirPlayAssistedSender *)self avDiscoverySession];
@@ -391,11 +395,11 @@ LABEL_14:
   queue = [(MSDAirPlayAssistedSender *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v4 = sub_100063A54();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = sub_100063A54(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    *v7 = 0;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "MSDAirPlayAssistedSender: Stopping timeout timer.", v7, 2u);
+    *v8 = 0;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "MSDAirPlayAssistedSender: Stopping timeout timer.", v8, 2u);
   }
 
   timeoutTimer = [(MSDAirPlayAssistedSender *)self timeoutTimer];
@@ -414,11 +418,11 @@ LABEL_14:
   queue = [(MSDAirPlayAssistedSender *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v4 = sub_100063A54();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = sub_100063A54(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    *v5 = 0;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "MSDAirPlayAssistedSender: Timed out waiting for sender to start streaming!", v5, 2u);
+    *v6 = 0;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "MSDAirPlayAssistedSender: Timed out waiting for sender to start streaming!", v6, 2u);
   }
 
   [(MSDAirPlayAssistedSender *)self _stopActivation];

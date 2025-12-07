@@ -1,4 +1,5 @@
 @interface HearingSettingsTitleValueSliderCell
++ (id)sliderLabelForValue:(float)value;
 - (HearingSettingsTitleValueSliderCell)initWithStyle:(int64_t)style reuseIdentifier:(id)identifier;
 - (double)sliderValue;
 - (id)_accessibilityUserTestingChildren;
@@ -116,6 +117,15 @@
   *&v13 = v13;
   v14 = [v11 sliderLabelForValue:v13];
   [valueLabel setText:v14];
+}
+
++ (id)sliderLabelForValue:(float)value
+{
+  *&v3 = value * 100.0;
+  v4 = [NSNumber numberWithFloat:v3];
+  v5 = AXFormatNumberWithOptions();
+
+  return v5;
 }
 
 - (id)_accessibilityUserTestingChildren

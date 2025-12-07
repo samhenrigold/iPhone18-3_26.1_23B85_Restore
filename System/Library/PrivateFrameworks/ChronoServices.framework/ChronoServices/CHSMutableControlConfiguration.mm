@@ -1,7 +1,9 @@
 @interface CHSMutableControlConfiguration
 - (CHSMutableControlConfiguration)init;
 - (CHSMutableControlConfiguration)initWithControlItems:(id)items;
+- (CHSMutableControlConfiguration)initWithControlItems:(id)items automaticallyOrphaned:(BOOL)orphaned;
 - (CHSMutableControlConfiguration)initWithControlItems:(id)items replicationPredicate:(id)predicate;
+- (CHSMutableControlConfiguration)initWithControlItems:(id)items replicationPredicate:(id)predicate automaticallyOrphaned:(BOOL)orphaned;
 - (id)copyWithZone:(void *)zone;
 - (void)setControlItems:(id)items;
 - (void)setReplicationPredicate:(id)predicate;
@@ -12,9 +14,7 @@
 - (void)setControlItems:(id)items
 {
   type metadata accessor for CHSControlConfigurationItem(0);
-  v4 = sub_195FA0B38();
-  v5 = *(&self->super.super.isa + OBJC_IVAR___CHSControlConfiguration__controlItems);
-  *(&self->super.super.isa + OBJC_IVAR___CHSControlConfiguration__controlItems) = v4;
+  *(&self->super.super.isa + OBJC_IVAR___CHSControlConfiguration__controlItems) = sub_195FA0B38();
 }
 
 - (void)setReplicationPredicate:(id)predicate
@@ -45,11 +45,25 @@
   return [(CHSControlConfiguration *)&v3 init];
 }
 
+- (CHSMutableControlConfiguration)initWithControlItems:(id)items automaticallyOrphaned:(BOOL)orphaned
+{
+  v5.receiver = self;
+  v5.super_class = CHSMutableControlConfiguration;
+  return [(CHSControlConfiguration *)&v5 initWithControlItems:items automaticallyOrphaned:orphaned];
+}
+
 - (CHSMutableControlConfiguration)initWithControlItems:(id)items replicationPredicate:(id)predicate
 {
   v5.receiver = self;
   v5.super_class = CHSMutableControlConfiguration;
   return [(CHSControlConfiguration *)&v5 initWithControlItems:items replicationPredicate:predicate];
+}
+
+- (CHSMutableControlConfiguration)initWithControlItems:(id)items replicationPredicate:(id)predicate automaticallyOrphaned:(BOOL)orphaned
+{
+  v6.receiver = self;
+  v6.super_class = CHSMutableControlConfiguration;
+  return [(CHSControlConfiguration *)&v6 initWithControlItems:items replicationPredicate:predicate automaticallyOrphaned:orphaned];
 }
 
 @end

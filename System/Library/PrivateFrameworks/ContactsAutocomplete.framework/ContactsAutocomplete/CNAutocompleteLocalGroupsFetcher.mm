@@ -63,31 +63,29 @@ id __109__CNAutocompleteLocalGroupsFetcher_autocompleteResultsForProperties_fetc
 
 id __109__CNAutocompleteLocalGroupsFetcher_autocompleteResultsForProperties_fetchResults_resultFactory_contactStore___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CBDA58];
   v5 = [*(a1 + 32) identifier];
   v6 = [v4 predicateForContactsInGroupWithIdentifier:v5];
 
   v7 = objc_alloc_init(CNAutocompleteLocalContactsFetcher);
-  v8 = CNALoggingContextDebug();
+  v8 = CNALoggingContextDebug(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = *(a1 + 32);
-    v14 = 138412290;
-    v15 = v9;
-    _os_log_impl(&dword_2155FE000, v8, OS_LOG_TYPE_DEFAULT, "About to fetch members for group: %@", &v14, 0xCu);
+    v13 = 138412290;
+    v14 = v9;
+    _os_log_impl(&dword_2155FE000, v8, OS_LOG_TYPE_DEFAULT, "About to fetch members for group: %@", &v13, 0xCu);
   }
 
   v10 = [(CNAutocompleteLocalContactsFetcher *)v7 autocompleteResultsForProperties:*(a1 + 40) contactPredicate:v6 contactStore:*(a1 + 48) resultFactory:*(a1 + 56) error:a2];
-  v11 = CNALoggingContextDebug();
+  v11 = CNALoggingContextDebug(v10);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 138412290;
-    v15 = v10;
-    _os_log_impl(&dword_2155FE000, v11, OS_LOG_TYPE_DEFAULT, "Did get members: %@", &v14, 0xCu);
+    v13 = 138412290;
+    v14 = v10;
+    _os_log_impl(&dword_2155FE000, v11, OS_LOG_TYPE_DEFAULT, "Did get members: %@", &v13, 0xCu);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

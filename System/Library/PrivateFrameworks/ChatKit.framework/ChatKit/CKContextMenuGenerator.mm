@@ -145,7 +145,7 @@
   if (handleCopy && conversationCopy)
   {
     v9 = MEMORY[0x1E69DC628];
-    v10 = CKFrameworkBundle();
+    v10 = CKFrameworkBundle(conversationCopy);
     v11 = [v10 localizedStringForKey:@"REMOVE_RECIPIENT" value:&stru_1F04268F8 table:@"ChatKit"];
     v13[0] = MEMORY[0x1E69E9820];
     v13[1] = 3221225472;
@@ -172,25 +172,25 @@ void __68__CKContextMenuGenerator_menuActionToRemoveHandle_fromConversation___bl
 {
   dCopy = d;
   v4 = dCopy;
-  if (dCopy && [dCopy length])
+  if (dCopy && (v5 = [dCopy length]) != 0)
   {
-    v5 = MEMORY[0x1E69DC628];
-    v6 = CKFrameworkBundle();
-    v7 = [v6 localizedStringForKey:@"SEND_PRIVATE_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __67__CKContextMenuGenerator_menuActionToSendPrivateMessageToHandleID___block_invoke;
-    v10[3] = &unk_1E72EC060;
-    v11 = v4;
-    v8 = [v5 actionWithTitle:v7 image:0 identifier:0 handler:v10];
+    v6 = MEMORY[0x1E69DC628];
+    v7 = CKFrameworkBundle(v5);
+    v8 = [v7 localizedStringForKey:@"SEND_PRIVATE_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __67__CKContextMenuGenerator_menuActionToSendPrivateMessageToHandleID___block_invoke;
+    v11[3] = &unk_1E72EC060;
+    v12 = v4;
+    v9 = [v6 actionWithTitle:v8 image:0 identifier:0 handler:v11];
   }
 
   else
   {
-    v8 = 0;
+    v9 = 0;
   }
 
-  return v8;
+  return v9;
 }
 
 void __67__CKContextMenuGenerator_menuActionToSendPrivateMessageToHandleID___block_invoke(uint64_t a1, void *a2)
@@ -223,8 +223,9 @@ void __67__CKContextMenuGenerator_menuActionToSendPrivateMessageToHandleID___blo
   }
 }
 
-void __67__CKContextMenuGenerator_menuActionToSendPrivateMessageToHandleID___block_invoke_58(uint64_t a1, int a2)
+void __67__CKContextMenuGenerator_menuActionToSendPrivateMessageToHandleID___block_invoke_58(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v11 = *MEMORY[0x1E69E9840];
   if (IMOSLoggingEnabled())
   {
@@ -233,7 +234,7 @@ void __67__CKContextMenuGenerator_menuActionToSendPrivateMessageToHandleID___blo
     {
       v5 = @"Failed";
       v6 = *(a1 + 32);
-      if (a2)
+      if (v2)
       {
         v5 = @"Succeeded";
       }
@@ -251,25 +252,25 @@ void __67__CKContextMenuGenerator_menuActionToSendPrivateMessageToHandleID___blo
 {
   addressCopy = address;
   v4 = addressCopy;
-  if (addressCopy && [addressCopy length])
+  if (addressCopy && (v5 = [addressCopy length]) != 0)
   {
-    v5 = MEMORY[0x1E69DC628];
-    v6 = CKFrameworkBundle();
-    v7 = [v6 localizedStringForKey:@"SEND_EMAIL" value:&stru_1F04268F8 table:@"ChatKit"];
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __57__CKContextMenuGenerator_menuActionToSendEmailToAddress___block_invoke;
-    v10[3] = &unk_1E72EC060;
-    v11 = v4;
-    v8 = [v5 actionWithTitle:v7 image:0 identifier:0 handler:v10];
+    v6 = MEMORY[0x1E69DC628];
+    v7 = CKFrameworkBundle(v5);
+    v8 = [v7 localizedStringForKey:@"SEND_EMAIL" value:&stru_1F04268F8 table:@"ChatKit"];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __57__CKContextMenuGenerator_menuActionToSendEmailToAddress___block_invoke;
+    v11[3] = &unk_1E72EC060;
+    v12 = v4;
+    v9 = [v6 actionWithTitle:v8 image:0 identifier:0 handler:v11];
   }
 
   else
   {
-    v8 = 0;
+    v9 = 0;
   }
 
-  return v8;
+  return v9;
 }
 
 void __57__CKContextMenuGenerator_menuActionToSendEmailToAddress___block_invoke(uint64_t a1)
@@ -293,23 +294,23 @@ void __57__CKContextMenuGenerator_menuActionToSendEmailToAddress___block_invoke(
   v4 = contactCopy;
   if (contactCopy && ([contactCopy identifier], (v5 = objc_claimAutoreleasedReturnValue()) != 0) && (v6 = v5, objc_msgSend(v4, "identifier"), v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v7, "length"), v7, v6, v8))
   {
-    v9 = MEMORY[0x1E69DC628];
-    v10 = CKFrameworkBundle();
-    v11 = [v10 localizedStringForKey:@"SHOW_CONTACT_CARD" value:&stru_1F04268F8 table:@"ChatKit"];
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __64__CKContextMenuGenerator_menuActionToOpenContactCardForContact___block_invoke;
-    v14[3] = &unk_1E72EC060;
-    v15 = v4;
-    v12 = [v9 actionWithTitle:v11 image:0 identifier:0 handler:v14];
+    v10 = MEMORY[0x1E69DC628];
+    v11 = CKFrameworkBundle(v9);
+    v12 = [v11 localizedStringForKey:@"SHOW_CONTACT_CARD" value:&stru_1F04268F8 table:@"ChatKit"];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __64__CKContextMenuGenerator_menuActionToOpenContactCardForContact___block_invoke;
+    v15[3] = &unk_1E72EC060;
+    v16 = v4;
+    v13 = [v10 actionWithTitle:v12 image:0 identifier:0 handler:v15];
   }
 
   else
   {
-    v12 = 0;
+    v13 = 0;
   }
 
-  return v12;
+  return v13;
 }
 
 void __64__CKContextMenuGenerator_menuActionToOpenContactCardForContact___block_invoke(uint64_t a1)
@@ -327,26 +328,27 @@ void __64__CKContextMenuGenerator_menuActionToOpenContactCardForContact___block_
 {
   dCopy = d;
   handlerCopy = handler;
-  if ([dCopy _appearsToBeBusinessID])
+  _appearsToBeBusinessID = [dCopy _appearsToBeBusinessID];
+  if (_appearsToBeBusinessID)
   {
-    v7 = 0;
+    v8 = 0;
   }
 
   else
   {
-    v8 = MEMORY[0x1E69DC628];
-    v9 = CKFrameworkBundle();
-    v10 = [v9 localizedStringForKey:@"ADD_TO_CONTACTS…" value:&stru_1F04268F8 table:@"ChatKit"];
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __65__CKContextMenuGenerator_menuActionToCreateContactForID_handler___block_invoke;
-    v12[3] = &unk_1E72EFE00;
-    v14 = handlerCopy;
-    v13 = dCopy;
-    v7 = [v8 actionWithTitle:v10 image:0 identifier:0 handler:v12];
+    v9 = MEMORY[0x1E69DC628];
+    v10 = CKFrameworkBundle(_appearsToBeBusinessID);
+    v11 = [v10 localizedStringForKey:@"ADD_TO_CONTACTS…" value:&stru_1F04268F8 table:@"ChatKit"];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __65__CKContextMenuGenerator_menuActionToCreateContactForID_handler___block_invoke;
+    v13[3] = &unk_1E72EFE00;
+    v15 = handlerCopy;
+    v14 = dCopy;
+    v8 = [v9 actionWithTitle:v11 image:0 identifier:0 handler:v13];
   }
 
-  return v7;
+  return v8;
 }
 
 uint64_t __65__CKContextMenuGenerator_menuActionToCreateContactForID_handler___block_invoke(uint64_t a1)
@@ -364,26 +366,26 @@ uint64_t __65__CKContextMenuGenerator_menuActionToCreateContactForID_handler___b
 {
   typeCopy = type;
   handlerCopy = handler;
-  if ([typeCopy _appearsToBeEmail] & 1) != 0 || (objc_msgSend(typeCopy, "_appearsToBeBusinessID"))
+  if ([typeCopy _appearsToBeEmail] & 1) != 0 || (v7 = objc_msgSend(typeCopy, "_appearsToBeBusinessID"), (v7))
   {
-    v7 = 0;
+    v8 = 0;
   }
 
   else
   {
-    v8 = MEMORY[0x1E69DC628];
-    v9 = CKFrameworkBundle();
-    v10 = [v9 localizedStringForKey:@"LARGE_TYPE" value:&stru_1F04268F8 table:@"ChatKit"];
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __64__CKContextMenuGenerator_menuActionToShowIDAsLargeType_handler___block_invoke;
-    v12[3] = &unk_1E72EFE00;
-    v14 = handlerCopy;
-    v13 = typeCopy;
-    v7 = [v8 actionWithTitle:v10 image:0 identifier:0 handler:v12];
+    v9 = MEMORY[0x1E69DC628];
+    v10 = CKFrameworkBundle(v7);
+    v11 = [v10 localizedStringForKey:@"LARGE_TYPE" value:&stru_1F04268F8 table:@"ChatKit"];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __64__CKContextMenuGenerator_menuActionToShowIDAsLargeType_handler___block_invoke;
+    v13[3] = &unk_1E72EFE00;
+    v15 = handlerCopy;
+    v14 = typeCopy;
+    v8 = [v9 actionWithTitle:v11 image:0 identifier:0 handler:v13];
   }
 
-  return v7;
+  return v8;
 }
 
 uint64_t __64__CKContextMenuGenerator_menuActionToShowIDAsLargeType_handler___block_invoke(uint64_t a1)
@@ -440,24 +442,24 @@ uint64_t __64__CKContextMenuGenerator_menuActionToShowIDAsLargeType_handler___bl
   managerCopy = manager;
   if (handleCopy && ([handleCopy ID], v10 = objc_claimAutoreleasedReturnValue(), v10, v10))
   {
-    v11 = MEMORY[0x1E69DC628];
-    v12 = CKFrameworkBundle();
-    v13 = [v12 localizedStringForKey:@"INVITE_TO_SHARE_MY_SCREEN" value:&stru_1F04268F8 table:@"ChatKit"];
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __95__CKContextMenuGenerator__menuActionToShareMyScreenWithHandle_conversation_andContactsManager___block_invoke;
-    v16[3] = &unk_1E72EFBD8;
-    v17 = managerCopy;
-    v18 = conversationCopy;
-    v14 = [v11 actionWithTitle:v13 image:0 identifier:0 handler:v16];
+    v12 = MEMORY[0x1E69DC628];
+    v13 = CKFrameworkBundle(v11);
+    v14 = [v13 localizedStringForKey:@"INVITE_TO_SHARE_MY_SCREEN" value:&stru_1F04268F8 table:@"ChatKit"];
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __95__CKContextMenuGenerator__menuActionToShareMyScreenWithHandle_conversation_andContactsManager___block_invoke;
+    v17[3] = &unk_1E72EFBD8;
+    v18 = managerCopy;
+    v19 = conversationCopy;
+    v15 = [v12 actionWithTitle:v14 image:0 identifier:0 handler:v17];
   }
 
   else
   {
-    v14 = 0;
+    v15 = 0;
   }
 
-  return v14;
+  return v15;
 }
 
 void __95__CKContextMenuGenerator__menuActionToShareMyScreenWithHandle_conversation_andContactsManager___block_invoke(uint64_t a1)
@@ -474,24 +476,24 @@ void __95__CKContextMenuGenerator__menuActionToShareMyScreenWithHandle_conversat
   managerCopy = manager;
   if (screenCopy && ([screenCopy ID], v10 = objc_claimAutoreleasedReturnValue(), v10, v10))
   {
-    v11 = MEMORY[0x1E69DC628];
-    v12 = CKFrameworkBundle();
-    v13 = [v12 localizedStringForKey:@"ASK_TO_SHARE_THEIR_SCREEN" value:&stru_1F04268F8 table:@"ChatKit"];
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __102__CKContextMenuGenerator__menuActionToInviteHandleToShareTheirScreen_conversation_andContactsManager___block_invoke;
-    v16[3] = &unk_1E72EFBD8;
-    v17 = managerCopy;
-    v18 = conversationCopy;
-    v14 = [v11 actionWithTitle:v13 image:0 identifier:0 handler:v16];
+    v12 = MEMORY[0x1E69DC628];
+    v13 = CKFrameworkBundle(v11);
+    v14 = [v13 localizedStringForKey:@"ASK_TO_SHARE_THEIR_SCREEN" value:&stru_1F04268F8 table:@"ChatKit"];
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __102__CKContextMenuGenerator__menuActionToInviteHandleToShareTheirScreen_conversation_andContactsManager___block_invoke;
+    v17[3] = &unk_1E72EFBD8;
+    v18 = managerCopy;
+    v19 = conversationCopy;
+    v15 = [v12 actionWithTitle:v14 image:0 identifier:0 handler:v17];
   }
 
   else
   {
-    v14 = 0;
+    v15 = 0;
   }
 
-  return v14;
+  return v15;
 }
 
 void __102__CKContextMenuGenerator__menuActionToInviteHandleToShareTheirScreen_conversation_andContactsManager___block_invoke(uint64_t a1)
@@ -510,7 +512,7 @@ void __102__CKContextMenuGenerator__menuActionToInviteHandleToShareTheirScreen_c
   if (handleCopy && managerCopy)
   {
     v9 = MEMORY[0x1E69DC628];
-    v10 = CKFrameworkBundle();
+    v10 = CKFrameworkBundle(managerCopy);
     v11 = [v10 localizedStringForKey:@"FACE_TIME_AUDIO" value:&stru_1F04268F8 table:@"ChatKit"];
     v13[0] = MEMORY[0x1E69E9820];
     v13[1] = 3221225472;
@@ -539,7 +541,7 @@ void __89__CKContextMenuGenerator_menuActionToInitiateFaceTimeAudioWithHandle_an
   if (handleCopy && managerCopy)
   {
     v9 = MEMORY[0x1E69DC628];
-    v10 = CKFrameworkBundle();
+    v10 = CKFrameworkBundle(managerCopy);
     v11 = [v10 localizedStringForKey:@"FACE_TIME" value:&stru_1F04268F8 table:@"ChatKit"];
     v13[0] = MEMORY[0x1E69E9820];
     v13[1] = 3221225472;
@@ -668,10 +670,11 @@ void __72__CKContextMenuGenerator_menuActionsToInitiateRelayPhoneCallWithHandle_
   }
 }
 
-void __72__CKContextMenuGenerator_menuActionsToInitiateRelayPhoneCallWithHandle___block_invoke_103(uint64_t a1, int a2)
+void __72__CKContextMenuGenerator_menuActionsToInitiateRelayPhoneCallWithHandle___block_invoke_103(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v3 = IMOSLoggingEnabled();
-  if (a2)
+  if (v2)
   {
     if (!v3)
     {
@@ -782,7 +785,7 @@ LABEL_9:
   if (conversation && managerCopy)
   {
     v8 = MEMORY[0x1E69DC628];
-    v9 = CKFrameworkBundle();
+    v9 = CKFrameworkBundle(managerCopy);
     v10 = [v9 localizedStringForKey:@"FACE_TIME" value:&stru_1F04268F8 table:@"ChatKit"];
     v12[0] = MEMORY[0x1E69E9820];
     v12[1] = 3221225472;
@@ -803,7 +806,7 @@ LABEL_9:
   if (conversation && managerCopy)
   {
     v8 = MEMORY[0x1E69DC628];
-    v9 = CKFrameworkBundle();
+    v9 = CKFrameworkBundle(managerCopy);
     v10 = [v9 localizedStringForKey:@"FACE_TIME_AUDIO" value:&stru_1F04268F8 table:@"ChatKit"];
     v12[0] = MEMORY[0x1E69E9820];
     v12[1] = 3221225472;
@@ -824,7 +827,7 @@ LABEL_9:
   if (conversation && managerCopy)
   {
     v8 = MEMORY[0x1E69DC628];
-    v9 = CKFrameworkBundle();
+    v9 = CKFrameworkBundle(managerCopy);
     v10 = [v9 localizedStringForKey:@"SEND_EMAIL" value:&stru_1F04268F8 table:@"ChatKit"];
     v12[0] = MEMORY[0x1E69E9820];
     v12[1] = 3221225472;

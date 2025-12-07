@@ -10,7 +10,7 @@
   uTF8String = [a3 UTF8String];
   if (uTF8String)
   {
-    [self auditToken];
+    objc_msgSend_auditToken(self, 0, 0, 0, 0);
     v7 = xpc_copy_entitlement_for_token();
     if (v7)
     {

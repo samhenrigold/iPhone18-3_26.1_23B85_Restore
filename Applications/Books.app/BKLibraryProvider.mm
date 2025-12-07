@@ -460,33 +460,34 @@
 - (void)configureFetchedResultsControllerWithFetchRequest:(id)request
 {
   requestCopy = request;
+  v5 = requestCopy;
   if (requestCopy)
   {
-    v5 = sub_1000F24B4();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = sub_1000F24B4(requestCopy);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      sub_10078EFC8(self, v5);
+      sub_10078EFC8(self, v6);
     }
 
     moc = self->_moc;
-    v9[0] = _NSConcreteStackBlock;
-    v9[1] = 3221225472;
-    v9[2] = sub_1000F3DB8;
-    v9[3] = &unk_100A03440;
-    v9[4] = self;
-    v10 = requestCopy;
-    [(NSManagedObjectContext *)moc performBlock:v9];
+    v10[0] = _NSConcreteStackBlock;
+    v10[1] = 3221225472;
+    v10[2] = sub_1000F3DB8;
+    v10[3] = &unk_100A03440;
+    v10[4] = self;
+    v11 = v5;
+    [(NSManagedObjectContext *)moc performBlock:v10];
   }
 
   else
   {
-    v7 = self->_moc;
-    v8[0] = _NSConcreteStackBlock;
-    v8[1] = 3221225472;
-    v8[2] = sub_1000F3FC0;
-    v8[3] = &unk_100A033C8;
-    v8[4] = self;
-    [(NSManagedObjectContext *)v7 performBlock:v8];
+    v8 = self->_moc;
+    v9[0] = _NSConcreteStackBlock;
+    v9[1] = 3221225472;
+    v9[2] = sub_1000F3FC0;
+    v9[3] = &unk_100A033C8;
+    v9[4] = self;
+    [(NSManagedObjectContext *)v8 performBlock:v9];
   }
 }
 
@@ -666,8 +667,8 @@
     v8 = [v6 initWithCount:{objc_msgSend(fetchedObjects, "count")}];
     [(BKLibraryProvider *)self setPendingUpdates:v8];
 
-    v9 = sub_1000F24B4();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v10 = sub_1000F24B4(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       sub_10078F24C(self, contentCopy);
     }
@@ -719,8 +720,8 @@ LABEL_14:
       }
     }
 
-    v16 = sub_1000F24B4();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+    v17 = sub_1000F24B4(v15);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
       sub_10078F328(self);
     }

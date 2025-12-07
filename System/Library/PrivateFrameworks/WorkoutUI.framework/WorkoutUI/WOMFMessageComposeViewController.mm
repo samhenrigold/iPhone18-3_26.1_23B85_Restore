@@ -31,8 +31,8 @@
     }
 
 LABEL_5:
-    v6 = 0;
-    return WOMFMessageComposeViewController.init(navigationBarClass:toolbarClass:)(ObjCClassMetadata, v6);
+    v7 = 0;
+    return WOMFMessageComposeViewController.init(navigationBarClass:toolbarClass:)(ObjCClassMetadata, v7, v4);
   }
 
   ObjCClassMetadata = swift_getObjCClassMetadata();
@@ -42,8 +42,8 @@ LABEL_5:
   }
 
 LABEL_3:
-  v6 = swift_getObjCClassMetadata();
-  return WOMFMessageComposeViewController.init(navigationBarClass:toolbarClass:)(ObjCClassMetadata, v6);
+  v7 = swift_getObjCClassMetadata();
+  return WOMFMessageComposeViewController.init(navigationBarClass:toolbarClass:)(ObjCClassMetadata, v7, v4);
 }
 
 - (_TtC9WorkoutUI32WOMFMessageComposeViewController)initWithRootViewController:(id)controller

@@ -39,27 +39,24 @@
 
 + (id)uniquedColumns
 {
-  v5[2] = *MEMORY[0x277D85DE8];
-  v5[0] = @"destination_object_id";
-  v5[1] = @"source_object_id";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:2];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[2] = *MEMORY[0x277D85DE8];
+  v4[0] = @"destination_object_id";
+  v4[1] = @"source_object_id";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:2];
 
   return v2;
 }
 
 + (id)indices
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v2 = objc_alloc(MEMORY[0x277D10B40]);
   v3 = objc_opt_class();
-  v9 = @"source_object_id";
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:&v9 count:1];
+  v8 = @"source_object_id";
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:&v8 count:1];
   v5 = [v2 initWithEntity:v3 name:@"source_object_id" columns:v4];
-  v10[0] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[0] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
 
   return v6;
 }
@@ -70,71 +67,66 @@
   if ([propertyCopy isEqualToString:@"parent_id_objects.uuid"])
   {
     v6 = @"destination_object_id";
-LABEL_5:
-    v7 = off_27860E7C8;
-    goto LABEL_6;
+    goto LABEL_5;
   }
 
   if ([propertyCopy isEqualToString:@"child_id_objects.uuid"])
   {
-LABEL_4:
-    v6 = @"source_object_id";
-    goto LABEL_5;
+    goto LABEL_4;
   }
 
   if (([propertyCopy isEqualToString:@"child_id_samples.end_date"] & 1) == 0)
   {
     if ([propertyCopy isEqualToString:@"child_id_objects.creation_date"])
     {
-      goto LABEL_4;
+LABEL_4:
+      v6 = @"source_object_id";
+      goto LABEL_5;
     }
 
     if (([propertyCopy isEqualToString:@"child_id_samples.data_type"] & 1) == 0 && !objc_msgSend(propertyCopy, "isEqualToString:", @"child_id_samples.data_id"))
     {
-      goto LABEL_15;
+      goto LABEL_14;
     }
   }
 
   v6 = @"source_object_id";
-  v7 = off_27860F338;
-LABEL_6:
-  v8 = *v7;
-  v9 = objc_opt_class();
-  if (!v9)
+LABEL_5:
+  v7 = objc_opt_class();
+  if (!v7)
   {
-LABEL_15:
-    v19.receiver = self;
-    v19.super_class = &OBJC_METACLASS___HDAssociationEntity;
-    v16 = objc_msgSendSuper2(&v19, sel_joinClausesForProperty_, propertyCopy);
-    goto LABEL_16;
+LABEL_14:
+    v17.receiver = self;
+    v17.super_class = &OBJC_METACLASS___HDAssociationEntity;
+    v14 = objc_msgSendSuper2(&v17, sel_joinClausesForProperty_, propertyCopy);
+    goto LABEL_15;
   }
 
-  v10 = v9;
-  v11 = [propertyCopy componentsSeparatedByString:@"."];
-  if ([v11 count] != 2)
+  v8 = v7;
+  v9 = [propertyCopy componentsSeparatedByString:@"."];
+  if ([v9 count] != 2)
   {
     currentHandler = [MEMORY[0x277CCA890] currentHandler];
     [currentHandler handleFailureInMethod:a2 object:self file:@"HDAssociationEntity.m" lineNumber:186 description:{@"Invalid parameter not satisfying: %@", @"[components count] == 2"}];
   }
 
-  v12 = MEMORY[0x277D10B50];
+  v10 = MEMORY[0x277D10B50];
   disambiguatedDatabaseTable = [self disambiguatedDatabaseTable];
-  v14 = [v11 objectAtIndexedSubscript:0];
-  v15 = [v12 innerJoinClauseFromTable:disambiguatedDatabaseTable toTargetEntity:v10 as:v14 localReference:v6 targetKey:@"data_id"];
+  v12 = [v9 objectAtIndexedSubscript:0];
+  v13 = [v10 innerJoinClauseFromTable:disambiguatedDatabaseTable toTargetEntity:v8 as:v12 localReference:v6 targetKey:@"data_id"];
 
-  v16 = [MEMORY[0x277CBEB98] setWithObject:v15];
+  v14 = [MEMORY[0x277CBEB98] setWithObject:v13];
 
-LABEL_16:
+LABEL_15:
 
-  return v16;
+  return v14;
 }
 
 + (id)privateSubEntities
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = objc_opt_class();
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = objc_opt_class();
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }
@@ -293,37 +285,37 @@ LABEL_16:
 + (BOOL)insertEntriesWithAssociation:(id)association objects:(id)objects type:(unint64_t)type behavior:(unint64_t)behavior destinationSubObject:(id)object enforceSameSource:(BOOL)source profile:(id)profile transaction:(id)self0 error:(id *)self1
 {
   sourceCopy = source;
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   associationCopy = association;
   objectsCopy = objects;
   objectCopy = object;
   profileCopy = profile;
   transactionCopy = transaction;
   v17 = objc_alloc_init(MEMORY[0x277CBEB28]);
+  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
   v18 = objectsCopy;
-  v19 = [v18 countByEnumeratingWithState:&v39 objects:v43 count:16];
+  v19 = [v18 countByEnumeratingWithState:&v38 objects:v42 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v40;
+    v21 = *v39;
     do
     {
       for (i = 0; i != v20; ++i)
       {
-        if (*v40 != v21)
+        if (*v39 != v21)
         {
           objc_enumerationMutation(v18);
         }
 
-        uUID = [*(*(&v39 + 1) + 8 * i) UUID];
+        uUID = [*(*(&v38 + 1) + 8 * i) UUID];
         [v17 hk_appendBytesWithUUID:uUID];
       }
 
-      v20 = [v18 countByEnumeratingWithState:&v39 objects:v43 count:16];
+      v20 = [v18 countByEnumeratingWithState:&v38 objects:v42 count:16];
     }
 
     while (v20);
@@ -347,14 +339,13 @@ LABEL_16:
   v30 = HDReferenceForAssociatableObject(objectCopy);
   v31 = [(HDAssociationEntity *)self _insertEntriesWithParentUUID:uUID2 childUUIDsData:v17 provenance:0 syncIdentity:currentSyncIdentityPersistentID type:typeCopy behavior:behavior deleted:0 creationDate:v25 destinationSubObjectReference:v30 lastInsertedEntityID:0 context:v28 error:error];
 
-  v32 = *MEMORY[0x277D85DE8];
   return v31;
 }
 
 + (uint64_t)_insertEntriesWithParentUUID:(void *)d childUUIDsData:(uint64_t)data provenance:(uint64_t)provenance syncIdentity:(uint64_t)identity type:(uint64_t)type behavior:(char)behavior deleted:(void *)deleted creationDate:(void *)self0 destinationSubObjectReference:(void *)self1 lastInsertedEntityID:(void *)self2 context:(void *)self3 error:
 {
-  v131 = *MEMORY[0x277D85DE8];
-  v77 = a2;
+  v130 = *MEMORY[0x277D85DE8];
+  v76 = a2;
   dCopy = d;
   deletedCopy = deleted;
   dateCopy = date;
@@ -363,22 +354,22 @@ LABEL_16:
   enforceSameSource = [iDCopy enforceSameSource];
   permitPendingAssociations = [iDCopy permitPendingAssociations];
   transaction = [iDCopy transaction];
-  v78 = [transaction databaseForEntityClass:v15];
+  v77 = [transaction databaseForEntityClass:v15];
 
-  v101 = 0;
-  v102 = &v101;
-  v103 = 0x3032000000;
-  v104 = __Block_byref_object_copy__43;
-  v105 = __Block_byref_object_dispose__43;
-  v106 = 0;
-  v17 = HDDataEntityPredicateForDataUUID();
   v100 = 0;
-  v76 = [HDDataEntity anyInDatabase:v78 predicate:v17 error:&v100];
-  v72 = v100;
+  v101 = &v100;
+  v102 = 0x3032000000;
+  v103 = __Block_byref_object_copy__43;
+  v104 = __Block_byref_object_dispose__43;
+  v105 = 0;
+  v17 = HDDataEntityPredicateForDataUUID();
+  v99 = 0;
+  v75 = [HDDataEntity anyInDatabase:v77 predicate:v17 error:&v99];
+  v71 = v99;
 
-  if (v76)
+  if (v75)
   {
-    persistentID = [v76 persistentID];
+    persistentID = [v75 persistentID];
     if (!enforceSameSource)
     {
       v36 = MEMORY[0x277CCACA8];
@@ -390,9 +381,9 @@ LABEL_11:
       if (dateCopy)
       {
         transaction2 = [iDCopy transaction];
-        v98 = 0;
-        v39 = [dateCopy persistentIDInTransaction:transaction2 error:&v98];
-        v21 = v98;
+        v97 = 0;
+        v39 = [dateCopy persistentIDInTransaction:transaction2 error:&v97];
+        v21 = v97;
       }
 
       else
@@ -404,41 +395,41 @@ LABEL_11:
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x3032000000;
-      v118 = __Block_byref_object_copy__43;
-      v119 = __Block_byref_object_dispose__43;
-      v120 = 0;
-      v111 = 0;
-      v112 = &v111;
-      v113 = 0x2020000000;
-      LOBYTE(v114) = 1;
-      v79[0] = MEMORY[0x277D85DD0];
-      v79[1] = 3221225472;
-      v79[2] = __191__HDAssociationEntity__insertEntriesWithParentUUID_childUUIDsData_provenance_syncIdentity_type_behavior_deleted_creationDate_destinationSubObjectReference_lastInsertedEntityID_context_error___block_invoke_428;
-      v79[3] = &unk_278619CE0;
-      v79[4] = v78;
+      v117 = __Block_byref_object_copy__43;
+      v118 = __Block_byref_object_dispose__43;
+      v119 = 0;
+      v110 = 0;
+      v111 = &v110;
+      v112 = 0x2020000000;
+      LOBYTE(v113) = 1;
+      v78[0] = MEMORY[0x277D85DD0];
+      v78[1] = 3221225472;
+      v78[2] = __191__HDAssociationEntity__insertEntriesWithParentUUID_childUUIDsData_provenance_syncIdentity_type_behavior_deleted_creationDate_destinationSubObjectReference_lastInsertedEntityID_context_error___block_invoke_428;
+      v78[3] = &unk_278619CE0;
+      v78[4] = v77;
       v32 = v32;
-      v95 = enforceSameSource;
-      v80 = v32;
-      v86 = &v111;
-      v87 = buf;
+      v94 = enforceSameSource;
+      v79 = v32;
+      v85 = &v110;
+      v86 = buf;
       uUIDString = uUIDString;
-      v81 = uUIDString;
+      v80 = uUIDString;
       behaviorCopy = behavior;
-      v82 = v77;
-      v89 = v15;
-      v90 = persistentID;
+      v81 = v76;
+      v88 = v15;
+      v89 = persistentID;
       dataCopy = data;
       provenanceCopy = provenance;
       identityCopy = identity;
       typeCopy = type;
       v18 = v39;
-      v83 = v18;
-      v84 = deletedCopy;
-      v88 = &v101;
-      v97 = permitPendingAssociations;
-      v85 = dateCopy;
-      [dCopy hk_enumerateUUIDBytesUsingBlock:v79];
-      if ((v112[3] & 1) == 0)
+      v82 = v18;
+      v83 = deletedCopy;
+      v87 = &v100;
+      v96 = permitPendingAssociations;
+      v84 = dateCopy;
+      [dCopy hk_enumerateUUIDBytesUsingBlock:v78];
+      if ((v111[3] & 1) == 0)
       {
         v53 = *(*&buf[8] + 40);
         v54 = v53;
@@ -459,41 +450,41 @@ LABEL_11:
 
       if (reference)
       {
-        v59 = v102[5];
+        v59 = v101[5];
         if (v59)
         {
           *reference = v59;
         }
       }
 
-      v35 = *(v112 + 24);
+      v35 = *(v111 + 24);
 
-      _Block_object_dispose(&v111, 8);
+      _Block_object_dispose(&v110, 8);
       _Block_object_dispose(buf, 8);
 
       goto LABEL_45;
     }
 
-    v18 = [v76 valueForProperty:? database:?];
+    v18 = [v75 valueForProperty:? database:?];
     profile = [iDCopy profile];
     sourceManager = [profile sourceManager];
-    v99 = 0;
-    v64 = [sourceManager clientSourceForPersistentID:v18 error:&v99];
-    v21 = v99;
+    v98 = 0;
+    v63 = [sourceManager clientSourceForPersistentID:v18 error:&v98];
+    v21 = v98;
 
-    if (v64)
+    if (v63)
     {
       profile2 = [iDCopy profile];
       sourceManager2 = [profile2 sourceManager];
-      bundleIdentifier = [v64 bundleIdentifier];
+      bundleIdentifier = [v63 bundleIdentifier];
       v25 = [sourceManager2 allSourcesForBundleIdentifier:bundleIdentifier error:context];
       uUIDString = [v25 hk_map:&__block_literal_global_418];
 
       if (uUIDString)
       {
         v27 = [HDDataEntity joinClausesForProperty:@"data_provenances.source_id"];
-        v62 = [v27 count];
-        if (v62 == 1)
+        v61 = [v27 count];
+        if (v61 == 1)
         {
           v28 = MEMORY[0x277CCACA8];
           v29 = +[(HDSQLiteSchemaEntity *)HDDataEntity];
@@ -519,7 +510,7 @@ LABEL_11:
           v32 = 0;
         }
 
-        if (v62 != 1)
+        if (v61 != 1)
         {
           v35 = 0;
 LABEL_46:
@@ -570,9 +561,9 @@ LABEL_37:
     goto LABEL_37;
   }
 
-  if (v72)
+  if (v71)
   {
-    v33 = v72;
+    v33 = v71;
     uUIDString = v33;
     if (context)
     {
@@ -591,53 +582,53 @@ LABEL_27:
   if (![iDCopy permitPendingAssociations])
   {
     v56 = MEMORY[0x277CCA9B8];
-    uUIDString = [v77 UUIDString];
+    uUIDString = [v76 UUIDString];
     [v56 hk_assignError:context code:3 format:{@"Unable to find parent object for UUID %@ when inserting associations.", uUIDString}];
     goto LABEL_27;
   }
 
   uUID = [dateCopy UUID];
-  v41 = v77;
+  v41 = v76;
   v42 = dCopy;
   v43 = deletedCopy;
   v44 = uUID;
-  v45 = v78;
+  v45 = v77;
   v46 = objc_opt_self();
-  v111 = 0;
-  v112 = &v111;
-  v113 = 0x3032000000;
-  v114 = __Block_byref_object_copy__43;
-  v115 = __Block_byref_object_dispose__43;
-  v116 = 0;
-  v107 = 0;
-  v108 = &v107;
-  v109 = 0x2020000000;
-  v110 = 1;
+  v110 = 0;
+  v111 = &v110;
+  v112 = 0x3032000000;
+  v113 = __Block_byref_object_copy__43;
+  v114 = __Block_byref_object_dispose__43;
+  v115 = 0;
+  v106 = 0;
+  v107 = &v106;
+  v108 = 0x2020000000;
+  v109 = 1;
   *buf = MEMORY[0x277D85DD0];
   *&buf[8] = 3221225472;
   *&buf[16] = __176__HDAssociationEntity__insertPendingAssociationsForParentUUID_childUUIDData_provenance_syncIdentity_type_behavior_deleted_creationDate_destinationSubObjectUUID_database_error___block_invoke;
-  v118 = &unk_278619E48;
-  v125 = v46;
+  v117 = &unk_278619E48;
+  v124 = v46;
   v47 = v41;
-  v119 = v47;
+  v118 = v47;
   dataCopy2 = data;
   provenanceCopy2 = provenance;
   identityCopy2 = identity;
   typeCopy2 = type;
   uUIDString = v44;
-  v120 = uUIDString;
+  v119 = uUIDString;
   behaviorCopy2 = behavior;
   v48 = v43;
-  v121 = v48;
+  v120 = v48;
   v49 = v45;
-  v122 = v49;
-  v123 = &v111;
-  v124 = &v107;
+  v121 = v49;
+  v122 = &v110;
+  v123 = &v106;
   [v42 hk_enumerateUUIDBytesUsingBlock:buf];
-  v35 = *(v108 + 24);
+  v35 = *(v107 + 24);
   if ((v35 & 1) == 0)
   {
-    v50 = v112[5];
+    v50 = v111[5];
     v51 = v50;
     if (v50)
     {
@@ -653,16 +644,15 @@ LABEL_27:
       }
     }
 
-    v35 = *(v108 + 24);
+    v35 = *(v107 + 24);
   }
 
-  _Block_object_dispose(&v107, 8);
-  _Block_object_dispose(&v111, 8);
+  _Block_object_dispose(&v106, 8);
+  _Block_object_dispose(&v110, 8);
 
 LABEL_47:
-  _Block_object_dispose(&v101, 8);
+  _Block_object_dispose(&v100, 8);
 
-  v60 = *MEMORY[0x277D85DE8];
   return v35 & 1;
 }
 
@@ -870,32 +860,31 @@ uint64_t __87__HDAssociationEntity_copyAssociationsFromObject_toObject_type_beha
 
 uint64_t __76__HDAssociationEntity_copyAssociationsFromChildID_toObjectID_profile_error___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v19[8] = *MEMORY[0x277D85DE8];
+  v18[8] = *MEMORY[0x277D85DE8];
   v5 = [a2 databaseForEntityClass:*(a1 + 56)];
   v6 = [MEMORY[0x277D10B18] predicateWithProperty:@"source_object_id" equalToValue:*(a1 + 32)];
-  v19[0] = @"destination_object_id";
-  v19[1] = @"sync_provenance";
-  v19[2] = @"sync_identity";
-  v19[3] = @"type";
-  v19[4] = @"behavior";
-  v19[5] = @"destination_sub_object_id";
-  v19[6] = @"deleted";
-  v19[7] = @"creation_date";
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:8];
+  v18[0] = @"destination_object_id";
+  v18[1] = @"sync_provenance";
+  v18[2] = @"sync_identity";
+  v18[3] = @"type";
+  v18[4] = @"behavior";
+  v18[5] = @"destination_sub_object_id";
+  v18[6] = @"deleted";
+  v18[7] = @"creation_date";
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:8];
   v8 = *(a1 + 56);
   v9 = [*(a1 + 40) database];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __76__HDAssociationEntity_copyAssociationsFromChildID_toObjectID_profile_error___block_invoke_2;
-  v15[3] = &unk_278617E98;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __76__HDAssociationEntity_copyAssociationsFromChildID_toObjectID_profile_error___block_invoke_2;
+  v14[3] = &unk_278617E98;
   v10 = *(a1 + 48);
-  v18 = *(a1 + 56);
-  v16 = v10;
-  v17 = v5;
+  v17 = *(a1 + 56);
+  v15 = v10;
+  v16 = v5;
   v11 = v5;
-  v12 = [v8 enumerateProperties:v7 withPredicate:v6 healthDatabase:v9 error:a3 enumerationHandler:v15];
+  v12 = [v8 enumerateProperties:v7 withPredicate:v6 healthDatabase:v9 error:a3 enumerationHandler:v14];
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -1011,7 +1000,6 @@ id __174__HDAssociationEntity__insertPendingAssociationForParentUUID_childUUIDBy
 
 uint64_t __174__HDAssociationEntity__insertPendingAssociationForParentUUID_childUUIDBytes_provenance_syncIdentity_type_behavior_destinationSubObjectID_deleted_creationDate_database_error___block_invoke_2(uint64_t a1, sqlite3_stmt *a2)
 {
-  v4 = *(a1 + 32);
   HDSQLiteBindFoundationValueToStatement();
   sqlite3_bind_blob(a2, 2, *(a1 + 56), 16, 0xFFFFFFFFFFFFFFFFLL);
   sqlite3_bind_int64(a2, 3, *(a1 + 64));
@@ -1020,7 +1008,7 @@ uint64_t __174__HDAssociationEntity__insertPendingAssociationForParentUUID_child
   sqlite3_bind_int64(a2, 6, *(a1 + 88));
   sqlite3_bind_int64(a2, 7, *(a1 + 96));
   [*(a1 + 40) timeIntervalSinceReferenceDate];
-  sqlite3_bind_double(a2, 8, v5);
+  sqlite3_bind_double(a2, 8, v4);
   if (*(a1 + 48))
   {
 
@@ -1036,35 +1024,35 @@ uint64_t __174__HDAssociationEntity__insertPendingAssociationForParentUUID_child
 
 + (id)journalEntryForAssociation:(id)association objects:(id)objects profile:(id)profile
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   associationCopy = association;
   objectsCopy = objects;
   profileCopy = profile;
   v10 = objc_alloc_init(MEMORY[0x277CBEB28]);
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   v11 = objectsCopy;
-  v12 = [v11 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v27;
+    v14 = *v26;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v27 != v14)
+        if (*v26 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        uUID = [*(*(&v26 + 1) + 8 * i) UUID];
+        uUID = [*(*(&v25 + 1) + 8 * i) UUID];
         [v10 hk_appendBytesWithUUID:uUID];
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v13);
@@ -1074,11 +1062,9 @@ uint64_t __174__HDAssociationEntity__insertPendingAssociationForParentUUID_child
   uUID2 = [associationCopy UUID];
   currentSyncIdentityPersistentID = [profileCopy currentSyncIdentityPersistentID];
   v20 = [MEMORY[0x277CBEAA8] now];
-  LOBYTE(v25) = 0;
   LOBYTE(v24) = 0;
-  v21 = [(_HDAssociationInsertionJournalEntry *)v17 initWithParentUUID:uUID2 childUUIDsData:v10 provenance:0 syncIdentity:currentSyncIdentityPersistentID type:0 behavior:0 deleted:v24 creationDate:v20 destinationSubObjectReference:0 enforceSameSource:v25, v26];
-
-  v22 = *MEMORY[0x277D85DE8];
+  LOBYTE(v23) = 0;
+  v21 = [(_HDAssociationInsertionJournalEntry *)v17 initWithParentUUID:uUID2 childUUIDsData:v10 provenance:0 syncIdentity:currentSyncIdentityPersistentID type:0 behavior:0 deleted:v23 creationDate:v20 destinationSubObjectReference:0 enforceSameSource:v24, v25];
 
   return v21;
 }
@@ -1093,43 +1079,43 @@ uint64_t __191__HDAssociationEntity__insertEntriesWithParentUUID_childUUIDsData_
 
 void __191__HDAssociationEntity__insertEntriesWithParentUUID_childUUIDsData_provenance_syncIdentity_type_behavior_deleted_creationDate_destinationSubObjectReference_lastInsertedEntityID_context_error___block_invoke_428(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
-  v96 = *MEMORY[0x277D85DE8];
-  v84 = 0;
-  v85 = &v84;
-  v86 = 0x2020000000;
-  v87 = 0;
-  v80 = 0;
-  v81 = &v80;
-  v82 = 0x2020000000;
+  v95 = *MEMORY[0x277D85DE8];
   v83 = 0;
-  v76 = 0;
-  v77 = &v76;
-  v78 = 0x2020000000;
-  v79 = -1;
-  v72 = 0;
-  v73 = &v72;
-  v74 = 0x2020000000;
-  v75 = -1;
+  v84 = &v83;
+  v85 = 0x2020000000;
+  v86 = 0;
+  v79 = 0;
+  v80 = &v79;
+  v81 = 0x2020000000;
+  v82 = 0;
+  v75 = 0;
+  v76 = &v75;
+  v77 = 0x2020000000;
+  v78 = -1;
+  v71 = 0;
+  v72 = &v71;
+  v73 = 0x2020000000;
+  v74 = -1;
   v6 = *(a1 + 32);
   v7 = *(a1 + 40);
-  v70[4] = a2;
-  v71 = 0;
-  v70[0] = MEMORY[0x277D85DD0];
-  v70[1] = 3221225472;
-  v70[2] = __191__HDAssociationEntity__insertEntriesWithParentUUID_childUUIDsData_provenance_syncIdentity_type_behavior_deleted_creationDate_destinationSubObjectReference_lastInsertedEntityID_context_error___block_invoke_2;
-  v70[3] = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l;
-  v68[0] = MEMORY[0x277D85DD0];
-  v68[1] = 3221225472;
-  v68[2] = __191__HDAssociationEntity__insertEntriesWithParentUUID_childUUIDsData_provenance_syncIdentity_type_behavior_deleted_creationDate_destinationSubObjectReference_lastInsertedEntityID_context_error___block_invoke_3;
-  v68[3] = &unk_278619CB8;
-  v68[4] = &v76;
-  v68[5] = &v80;
-  v69 = *(a1 + 160);
-  v68[6] = &v72;
-  v68[7] = &v84;
-  v8 = [v6 executeSQL:v7 error:&v71 bindingHandler:v70 enumerationHandler:v68];
-  v9 = v71;
-  v10 = v71;
+  v69[4] = a2;
+  v70 = 0;
+  v69[0] = MEMORY[0x277D85DD0];
+  v69[1] = 3221225472;
+  v69[2] = __191__HDAssociationEntity__insertEntriesWithParentUUID_childUUIDsData_provenance_syncIdentity_type_behavior_deleted_creationDate_destinationSubObjectReference_lastInsertedEntityID_context_error___block_invoke_2;
+  v69[3] = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l;
+  v67[0] = MEMORY[0x277D85DD0];
+  v67[1] = 3221225472;
+  v67[2] = __191__HDAssociationEntity__insertEntriesWithParentUUID_childUUIDsData_provenance_syncIdentity_type_behavior_deleted_creationDate_destinationSubObjectReference_lastInsertedEntityID_context_error___block_invoke_3;
+  v67[3] = &unk_278619CB8;
+  v67[4] = &v75;
+  v67[5] = &v79;
+  v68 = *(a1 + 160);
+  v67[6] = &v71;
+  v67[7] = &v83;
+  v8 = [v6 executeSQL:v7 error:&v70 bindingHandler:v69 enumerationHandler:v67];
+  v9 = v70;
+  v10 = v70;
   if ((v8 & 1) == 0)
   {
     *(*(*(a1 + 88) + 8) + 24) = 0;
@@ -1138,7 +1124,7 @@ void __191__HDAssociationEntity__insertEntriesWithParentUUID_childUUIDsData_prov
     goto LABEL_7;
   }
 
-  if (*(v81 + 24) == 1)
+  if (*(v80 + 24) == 1)
   {
     _HKInitializeLogging();
     v11 = *MEMORY[0x277CCC2A0];
@@ -1147,7 +1133,7 @@ void __191__HDAssociationEntity__insertEntriesWithParentUUID_childUUIDsData_prov
       v12 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:a2];
       v13 = [v12 UUIDString];
       *buf = 138543362;
-      v89 = v13;
+      v88 = v13;
       _os_log_impl(&dword_228986000, v11, OS_LOG_TYPE_DEFAULT, "Not inserting association since object %{public}@ was previously deleted", buf, 0xCu);
     }
 
@@ -1156,16 +1142,16 @@ LABEL_5:
     goto LABEL_7;
   }
 
-  if (*(v85 + 24) != 1)
+  if (*(v84 + 24) != 1)
   {
     if (*(a1 + 161) == 1)
     {
       *a3 = 1;
       *(*(*(a1 + 88) + 8) + 24) = 0;
-      v27 = [MEMORY[0x277CCA9B8] hk_error:118 description:@"Unable to find relationship for parentUUID and child."];
-      v28 = *(*(a1 + 96) + 8);
-      v29 = *(v28 + 40);
-      *(v28 + 40) = v27;
+      v26 = [MEMORY[0x277CCA9B8] hk_error:118 description:@"Unable to find relationship for parentUUID and child."];
+      v27 = *(*(a1 + 96) + 8);
+      v28 = *(v27 + 40);
+      *(v27 + 40) = v26;
 
       goto LABEL_7;
     }
@@ -1176,32 +1162,32 @@ LABEL_5:
       v11 = *MEMORY[0x277CCC2A0];
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v54 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:a2];
-        v55 = [v54 UUIDString];
+        v53 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:a2];
+        v54 = [v53 UUIDString];
         *buf = 138543362;
-        v89 = v55;
+        v88 = v54;
         _os_log_impl(&dword_228986000, v11, OS_LOG_TYPE_DEFAULT, "Not inserting association, unable to look up entity for object %{public}@ and pending associations are disabled.", buf, 0xCu);
       }
 
       goto LABEL_5;
     }
 
-    v30 = *(a1 + 112);
-    v31 = *(a1 + 56);
-    v62 = *(a1 + 136);
-    v63 = *(a1 + 128);
-    v32 = *(a1 + 144);
-    v33 = *(a1 + 152);
-    v34 = [*(a1 + 80) UUID];
-    v35 = *(a1 + 161);
-    v36 = *(a1 + 72);
-    v37 = *(a1 + 32);
-    v38 = *(*(a1 + 96) + 8);
-    v64 = *(v38 + 40);
-    v39 = [(HDAssociationEntity *)v30 _insertPendingAssociationForParentUUID:v31 childUUIDBytes:a2 provenance:v63 syncIdentity:v62 type:v32 behavior:v33 destinationSubObjectID:v34 deleted:v35 creationDate:v36 database:v37 error:&v64];
-    objc_storeStrong((v38 + 40), v64);
+    v29 = *(a1 + 112);
+    v30 = *(a1 + 56);
+    v61 = *(a1 + 136);
+    v62 = *(a1 + 128);
+    v31 = *(a1 + 144);
+    v32 = *(a1 + 152);
+    v33 = [*(a1 + 80) UUID];
+    v34 = *(a1 + 161);
+    v35 = *(a1 + 72);
+    v36 = *(a1 + 32);
+    v37 = *(*(a1 + 96) + 8);
+    v63 = *(v37 + 40);
+    v38 = [(HDAssociationEntity *)v29 _insertPendingAssociationForParentUUID:v30 childUUIDBytes:a2 provenance:v62 syncIdentity:v61 type:v31 behavior:v32 destinationSubObjectID:v33 deleted:v34 creationDate:v35 database:v36 error:&v63];
+    objc_storeStrong((v37 + 40), v63);
 
-    if (v39)
+    if (v38)
     {
       goto LABEL_7;
     }
@@ -1209,53 +1195,53 @@ LABEL_5:
     goto LABEL_21;
   }
 
-  if (*(a1 + 160) != 1 || (v15 = *(a1 + 48), [MEMORY[0x277CCABB0] numberWithLongLong:v73[3]], v16 = objc_claimAutoreleasedReturnValue(), LOBYTE(v15) = objc_msgSend(v15, "containsObject:", v16), v16, (v15 & 1) != 0))
+  if (*(a1 + 160) != 1 || (v14 = *(a1 + 48), [MEMORY[0x277CCABB0] numberWithLongLong:v72[3]], v15 = objc_claimAutoreleasedReturnValue(), LOBYTE(v14) = objc_msgSend(v14, "containsObject:", v15), v15, (v14 & 1) != 0))
   {
     if (*(a1 + 161) == 1)
     {
-      v17 = *(a1 + 112);
-      v18 = *(a1 + 120);
-      v19 = v77[3];
-      v20 = *(a1 + 144);
-      v21 = *(a1 + 152);
-      v22 = *(a1 + 64);
-      v23 = *(a1 + 32);
-      v24 = *(*(a1 + 96) + 8);
-      obj = *(v24 + 40);
-      v25 = [HDAssociationEntity _removeAssociationEntryWithParentID:v17 childID:v18 provenance:v19 syncIdentity:v20 type:v21 behavior:v22 destinationSubObjectID:v23 deleted:&obj database:? error:?];
-      objc_storeStrong((v24 + 40), obj);
-      if (!v25)
+      v16 = *(a1 + 112);
+      v17 = *(a1 + 120);
+      v18 = v76[3];
+      v19 = *(a1 + 144);
+      v20 = *(a1 + 152);
+      v21 = *(a1 + 64);
+      v22 = *(a1 + 32);
+      v23 = *(*(a1 + 96) + 8);
+      obj = *(v23 + 40);
+      v24 = [HDAssociationEntity _removeAssociationEntryWithParentID:v16 childID:v17 provenance:v18 syncIdentity:v19 type:v20 behavior:v21 destinationSubObjectID:v22 deleted:&obj database:? error:?];
+      objc_storeStrong((v23 + 40), obj);
+      if (!v24)
       {
         goto LABEL_21;
       }
 
-      v26 = *(a1 + 161);
+      v25 = *(a1 + 161);
     }
 
     else
     {
-      v26 = 0;
+      v25 = 0;
     }
 
-    v40 = *(a1 + 112);
-    v41 = *(a1 + 120);
-    v42 = v77[3];
-    v43 = *(a1 + 128);
-    v44 = *(a1 + 136);
-    v45 = *(a1 + 144);
-    v46 = *(a1 + 152);
-    v47 = *(a1 + 64);
-    v48 = *(a1 + 72);
-    v49 = *(a1 + 96);
-    v50 = *(*(a1 + 104) + 8);
-    v66 = *(v50 + 40);
-    v51 = *(a1 + 32);
-    v52 = *(v49 + 8);
-    v65 = *(v52 + 40);
-    v53 = [(HDAssociationEntity *)v40 _insertAssociationEntryWithParentID:v41 childID:v42 provenance:v43 syncIdentity:v44 type:v45 behavior:v46 destinationSubObjectID:v47 deleted:v26 & 1 creationDate:v48 lastInsertedEntityID:&v66 database:v51 error:&v65];
-    objc_storeStrong((v50 + 40), v66);
-    objc_storeStrong((v52 + 40), v65);
-    if (v53)
+    v39 = *(a1 + 112);
+    v40 = *(a1 + 120);
+    v41 = v76[3];
+    v42 = *(a1 + 128);
+    v43 = *(a1 + 136);
+    v44 = *(a1 + 144);
+    v45 = *(a1 + 152);
+    v46 = *(a1 + 64);
+    v47 = *(a1 + 72);
+    v48 = *(a1 + 96);
+    v49 = *(*(a1 + 104) + 8);
+    v65 = *(v49 + 40);
+    v50 = *(a1 + 32);
+    v51 = *(v48 + 8);
+    v64 = *(v51 + 40);
+    v52 = [(HDAssociationEntity *)v39 _insertAssociationEntryWithParentID:v40 childID:v41 provenance:v42 syncIdentity:v43 type:v44 behavior:v45 destinationSubObjectID:v46 deleted:v25 & 1 creationDate:v47 lastInsertedEntityID:&v65 database:v50 error:&v64];
+    objc_storeStrong((v49 + 40), v65);
+    objc_storeStrong((v51 + 40), v64);
+    if (v52)
     {
       goto LABEL_7;
     }
@@ -1267,31 +1253,30 @@ LABEL_21:
   }
 
   _HKInitializeLogging();
-  v56 = *MEMORY[0x277CCC2A0];
-  if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
+  v55 = *MEMORY[0x277CCC2A0];
+  if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
   {
-    v57 = [*(a1 + 56) UUIDString];
-    v58 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:a2];
-    v59 = [v58 UUIDString];
-    v60 = v73[3];
-    v61 = *(a1 + 48);
+    v56 = [*(a1 + 56) UUIDString];
+    v57 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:a2];
+    v58 = [v57 UUIDString];
+    v59 = v72[3];
+    v60 = *(a1 + 48);
     *buf = 138544130;
-    v89 = v57;
-    v90 = 2114;
-    v91 = v59;
-    v92 = 2048;
-    v93 = v60;
-    v94 = 2114;
-    v95 = v61;
-    _os_log_error_impl(&dword_228986000, v56, OS_LOG_TYPE_ERROR, "Not inserting assocation from %{public}@ to %{public}@ because child source ID %lld is not in the allowable set of parent source IDs %{public}@", buf, 0x2Au);
+    v88 = v56;
+    v89 = 2114;
+    v90 = v58;
+    v91 = 2048;
+    v92 = v59;
+    v93 = 2114;
+    v94 = v60;
+    _os_log_error_impl(&dword_228986000, v55, OS_LOG_TYPE_ERROR, "Not inserting assocation from %{public}@ to %{public}@ because child source ID %lld is not in the allowable set of parent source IDs %{public}@", buf, 0x2Au);
   }
 
 LABEL_7:
-  _Block_object_dispose(&v72, 8);
-  _Block_object_dispose(&v76, 8);
-  _Block_object_dispose(&v80, 8);
-  _Block_object_dispose(&v84, 8);
-  v14 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v71, 8);
+  _Block_object_dispose(&v75, 8);
+  _Block_object_dispose(&v79, 8);
+  _Block_object_dispose(&v83, 8);
 }
 
 uint64_t __191__HDAssociationEntity__insertEntriesWithParentUUID_childUUIDsData_provenance_syncIdentity_type_behavior_deleted_creationDate_destinationSubObjectReference_lastInsertedEntityID_context_error___block_invoke_2(uint64_t a1, sqlite3_stmt *a2)
@@ -1301,7 +1286,7 @@ uint64_t __191__HDAssociationEntity__insertEntriesWithParentUUID_childUUIDsData_
   return sqlite3_bind_int64(a2, 2, 1);
 }
 
-uint64_t __191__HDAssociationEntity__insertEntriesWithParentUUID_childUUIDsData_provenance_syncIdentity_type_behavior_deleted_creationDate_destinationSubObjectReference_lastInsertedEntityID_context_error___block_invoke_3(uint64_t a1)
+uint64_t __191__HDAssociationEntity__insertEntriesWithParentUUID_childUUIDsData_provenance_syncIdentity_type_behavior_deleted_creationDate_destinationSubObjectReference_lastInsertedEntityID_context_error___block_invoke_3(uint64_t a1, uint64_t a2)
 {
   *(*(*(a1 + 32) + 8) + 24) = HDSQLiteColumnAsInt64();
   *(*(*(a1 + 40) + 8) + 24) = HDSQLiteColumnAsInt64() == 2;
@@ -1512,37 +1497,35 @@ BOOL __160__HDAssociationEntity__bulkInsertEntriesWithParentUUID_childIDs_proven
   v6 = [[_HDAssociationInsertionContext alloc] initWithParentUUID:*(a1 + 32) enforceSameSource:0 permitPendingAssociations:0 profile:*(a1 + 40) transaction:v5];
 
   v7 = *(a1 + 32);
-  v57 = *(a1 + 80);
-  v58 = *(a1 + 96);
+  v55 = *(a1 + 80);
+  v56 = *(a1 + 96);
   v8 = *(a1 + 48);
   v9 = *(a1 + 56);
-  v12 = a1 + 64;
   v10 = *(a1 + 64);
-  v11 = *(v12 + 8);
-  v13 = v7;
-  v62 = v8;
-  v61 = v9;
-  v14 = v10;
-  v15 = v6;
-  v16 = objc_opt_self();
-  v17 = [(_HDAssociationInsertionContext *)v15 transaction];
-  v18 = [v17 databaseForEntityClass:v16];
+  v11 = v7;
+  v60 = v8;
+  v59 = v9;
+  v12 = v10;
+  v13 = v6;
+  v14 = objc_opt_self();
+  v15 = [(_HDAssociationInsertionContext *)v13 transaction];
+  v16 = [v15 databaseForEntityClass:v14];
 
-  v19 = HDDataEntityPredicateForDataUUID();
-  v65 = 0;
-  v60 = v18;
-  v20 = [HDDataEntity anyInDatabase:v18 predicate:v19 error:&v65];
-  v21 = v65;
+  v17 = HDDataEntityPredicateForDataUUID();
+  v63 = 0;
+  v58 = v16;
+  v18 = [HDDataEntity anyInDatabase:v16 predicate:v17 error:&v63];
+  v19 = v63;
 
-  if (!v20)
+  if (!v18)
   {
-    if (v21)
+    if (v19)
     {
       if (a3)
       {
-        v23 = v21;
-        v24 = 0;
-        *a3 = v21;
+        v21 = v19;
+        v22 = 0;
+        *a3 = v19;
         goto LABEL_27;
       }
 
@@ -1551,119 +1534,119 @@ BOOL __160__HDAssociationEntity__bulkInsertEntriesWithParentUUID_childIDs_proven
 
     else
     {
-      v46 = MEMORY[0x277CCA9B8];
-      v47 = [v13 UUIDString];
-      [v46 hk_assignError:a3 code:3 format:{@"Unable to find parent object for UUID %@ when inserting associations.", v47}];
+      v44 = MEMORY[0x277CCA9B8];
+      v45 = [v11 UUIDString];
+      [v44 hk_assignError:a3 code:3 format:{@"Unable to find parent object for UUID %@ when inserting associations.", v45}];
     }
 
-    v24 = 0;
+    v22 = 0;
     goto LABEL_27;
   }
 
-  v54 = v13;
-  v53 = v14;
-  v49 = a3;
-  v51 = v21;
-  if (v14)
+  v52 = v11;
+  v51 = v12;
+  v47 = a3;
+  v49 = v19;
+  if (v12)
   {
-    v22 = [(_HDAssociationInsertionContext *)v15 transaction];
-    v64 = 0;
-    v59 = [v14 persistentIDInTransaction:v22 error:&v64];
-    v50 = v64;
+    v20 = [(_HDAssociationInsertionContext *)v13 transaction];
+    v62 = 0;
+    v57 = [v12 persistentIDInTransaction:v20 error:&v62];
+    v48 = v62;
   }
 
   else
   {
-    v50 = 0;
-    v59 = 0;
+    v48 = 0;
+    v57 = 0;
   }
 
-  v52 = v20;
-  v56 = [v20 persistentID];
-  v25 = [v62 count];
-  v26 = 0;
-  v27 = 0;
-  v55 = *MEMORY[0x277D10A88];
+  v50 = v18;
+  v54 = [v18 persistentID];
+  v23 = [v60 count];
+  v24 = 0;
+  v25 = 0;
+  v53 = *MEMORY[0x277D10A88];
   do
   {
-    v24 = v26 >= v25;
-    if (v26 >= v25)
+    v22 = v24 >= v23;
+    if (v24 >= v23)
     {
-      v13 = v54;
-      v20 = v52;
-      v14 = v53;
-      v44 = v50;
-      v21 = v51;
+      v11 = v52;
+      v18 = v50;
+      v12 = v51;
+      v42 = v48;
+      v19 = v49;
       goto LABEL_26;
     }
 
-    if (v26 + v55 >= v25)
+    if (v24 + v53 >= v23)
     {
-      v28 = v25;
+      v26 = v23;
     }
 
     else
     {
-      v28 = v26 + v55;
+      v26 = v24 + v53;
     }
 
-    v29 = [v62 subarrayWithRange:{v26, v28 - v26}];
-    v63 = v27;
-    v30 = v29;
-    v31 = v59;
-    v32 = v61;
-    v33 = v60;
+    v27 = [v60 subarrayWithRange:{v24, v26 - v24}];
+    v61 = v25;
+    v28 = v27;
+    v29 = v57;
+    v30 = v59;
+    v31 = v58;
     objc_opt_self();
-    v34 = MEMORY[0x277CCAB68];
-    v35 = +[(HDSQLiteSchemaEntity *)HDAssociationEntity];
-    v36 = [v34 stringWithFormat:@"INSERT OR REPLACE INTO %@ (%@, %@, %@, %@, %@, %@, %@, %@, %@) VALUES ", v35, @"destination_object_id", @"source_object_id", @"sync_provenance", @"sync_identity", @"destination_sub_object_id", @"type", @"behavior", @"deleted", @"creation_date"];
+    v32 = MEMORY[0x277CCAB68];
+    v33 = +[(HDSQLiteSchemaEntity *)HDAssociationEntity];
+    v34 = [v32 stringWithFormat:@"INSERT OR REPLACE INTO %@ (%@, %@, %@, %@, %@, %@, %@, %@, %@) VALUES ", v33, @"destination_object_id", @"source_object_id", @"sync_provenance", @"sync_identity", @"destination_sub_object_id", @"type", @"behavior", @"deleted", @"creation_date"];
 
-    if ([v30 count])
+    if ([v28 count])
     {
-      v37 = 0;
+      v35 = 0;
       do
       {
-        [v36 appendString:{@"(?, ?, ?, ?, ?, ?, ?, ?, ?), "}];
-        ++v37;
+        [v34 appendString:{@"(?, ?, ?, ?, ?, ?, ?, ?, ?), "}];
+        ++v35;
       }
 
-      while ([v30 count] > v37);
+      while ([v28 count] > v35);
     }
 
-    [v36 deleteCharactersInRange:{objc_msgSend(v36, "length") - 1, 1}];
-    v66[0] = MEMORY[0x277D85DD0];
-    v66[1] = 3221225472;
-    v66[2] = __156__HDAssociationEntity__bulkInsertAssociationsForParentID_childIDs_provenance_syncIdentity_type_behavior_destinationSubObjectID_creationDate_database_error___block_invoke;
-    v66[3] = &unk_278619E20;
-    v67 = v30;
-    v68 = v31;
-    v72 = v58;
-    v71 = v57;
-    v69 = v32;
+    [v34 deleteCharactersInRange:{objc_msgSend(v34, "length") - 1, 1}];
+    v64[0] = MEMORY[0x277D85DD0];
+    v64[1] = 3221225472;
+    v64[2] = __156__HDAssociationEntity__bulkInsertAssociationsForParentID_childIDs_provenance_syncIdentity_type_behavior_destinationSubObjectID_creationDate_database_error___block_invoke;
+    v64[3] = &unk_278619E20;
+    v65 = v28;
+    v66 = v29;
     v70 = v56;
-    v38 = v32;
-    v39 = v31;
-    v40 = v30;
-    v41 = [v33 executeUncachedSQL:v36 error:&v63 bindingHandler:v66 enumerationHandler:0];
+    v69 = v55;
+    v67 = v30;
+    v68 = v54;
+    v36 = v30;
+    v37 = v29;
+    v38 = v28;
+    v39 = [v31 executeUncachedSQL:v34 error:&v61 bindingHandler:v64 enumerationHandler:0];
 
-    v42 = v63;
-    v26 = v28;
-    v27 = v42;
+    v40 = v61;
+    v24 = v26;
+    v25 = v40;
   }
 
-  while ((v41 & 1) != 0);
-  v43 = v42;
-  v27 = v43;
-  v13 = v54;
-  v14 = v53;
-  v44 = v50;
-  v21 = v51;
-  if (v43)
+  while ((v39 & 1) != 0);
+  v41 = v40;
+  v25 = v41;
+  v11 = v52;
+  v12 = v51;
+  v42 = v48;
+  v19 = v49;
+  if (v41)
   {
-    if (v49)
+    if (v47)
     {
-      v45 = v43;
-      *v49 = v27;
+      v43 = v41;
+      *v47 = v25;
     }
 
     else
@@ -1672,12 +1655,12 @@ BOOL __160__HDAssociationEntity__bulkInsertEntriesWithParentUUID_childIDs_proven
     }
   }
 
-  v20 = v52;
-  v24 = 0;
+  v18 = v50;
+  v22 = 0;
 LABEL_26:
 
 LABEL_27:
-  return v24;
+  return v22;
 }
 
 uint64_t __160__HDAssociationEntity__bulkInsertEntriesWithParentUUID_childIDs_provenance_syncIdentity_type_behavior_creationDate_destinationSubObjectReference_profile_error___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -1739,7 +1722,7 @@ uint64_t __160__HDAssociationEntity__bulkInsertEntriesWithParentUUID_childIDs_pr
       v18 = v37[5];
     }
 
-    v19 = [v18 copy];
+    v19 = objc_msgSend_copy(v18);
   }
 
   else
@@ -1770,12 +1753,12 @@ void *__125__HDAssociationEntity__findAssociationEntryWithParentID_childID_type_
   return result;
 }
 
-uint64_t __125__HDAssociationEntity__findAssociationEntryWithParentID_childID_type_behavior_destinationSubObjectID_deleted_database_error___block_invoke_2(uint64_t a1)
+uint64_t __125__HDAssociationEntity__findAssociationEntryWithParentID_childID_type_behavior_destinationSubObjectID_deleted_database_error___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x277CCABB0] numberWithLongLong:HDSQLiteColumnAsInt64()];
-  v3 = *(*(a1 + 32) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  v3 = [MEMORY[0x277CCABB0] numberWithLongLong:HDSQLiteColumnAsInt64()];
+  v4 = *(*(a1 + 32) + 8);
+  v5 = *(v4 + 40);
+  *(v4 + 40) = v3;
 
   return 1;
 }
@@ -1821,7 +1804,7 @@ uint64_t __185__HDAssociationEntity__insertAssociationEntryWithParentID_childID_
   return sqlite3_bind_double(a2, 9, v5);
 }
 
-unint64_t __156__HDAssociationEntity__bulkInsertAssociationsForParentID_childIDs_provenance_syncIdentity_type_behavior_destinationSubObjectID_creationDate_database_error___block_invoke(uint64_t a1, sqlite3_stmt *a2)
+void *__156__HDAssociationEntity__bulkInsertAssociationsForParentID_childIDs_provenance_syncIdentity_type_behavior_destinationSubObjectID_creationDate_database_error___block_invoke(uint64_t a1, sqlite3_stmt *a2)
 {
   result = [*(a1 + 32) count];
   if (result)
@@ -1888,7 +1871,7 @@ void __176__HDAssociationEntity__insertPendingAssociationsForParentUUID_childUUI
 
 + (BOOL)realizePendingAssociationsWithTransaction:(id)transaction startingAnchor:(int64_t)anchor error:(id *)error
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   transactionCopy = transaction;
   if (qword_27D86C110 != -1)
   {
@@ -1899,55 +1882,55 @@ void __176__HDAssociationEntity__insertPendingAssociationsForParentUUID_childUUI
   v10 = [transactionCopy databaseForEntityClass:self];
   v11 = _MergedGlobals_3;
   selfCopy = self;
-  v33[0] = MEMORY[0x277D85DD0];
-  v33[1] = 3221225472;
-  v33[2] = __86__HDAssociationEntity_realizePendingAssociationsWithTransaction_startingAnchor_error___block_invoke_2;
-  v33[3] = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l;
-  v33[4] = anchor;
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = __86__HDAssociationEntity_realizePendingAssociationsWithTransaction_startingAnchor_error___block_invoke_3;
-  v29[3] = &unk_278619E70;
+  v32[0] = MEMORY[0x277D85DD0];
+  v32[1] = 3221225472;
+  v32[2] = __86__HDAssociationEntity_realizePendingAssociationsWithTransaction_startingAnchor_error___block_invoke_2;
+  v32[3] = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l;
+  v32[4] = anchor;
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __86__HDAssociationEntity_realizePendingAssociationsWithTransaction_startingAnchor_error___block_invoke_3;
+  v28[3] = &unk_278619E70;
   v12 = v10;
-  v30 = v12;
+  v29 = v12;
   v13 = v9;
-  v31 = v13;
-  if ([v12 executeSQL:v11 error:error bindingHandler:v33 enumerationHandler:v29])
+  v30 = v13;
+  if ([v12 executeSQL:v11 error:error bindingHandler:v32 enumerationHandler:v28])
   {
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     v14 = v13;
-    v15 = [v14 countByEnumeratingWithState:&v25 objects:v34 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v24 objects:v33 count:16];
     if (v15)
     {
       v16 = v15;
-      v23 = v13;
-      v17 = *v26;
+      v22 = v13;
+      v17 = *v25;
       while (2)
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v26 != v17)
+          if (*v25 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          v19 = *(*(&v25 + 1) + 8 * i);
-          v24[0] = MEMORY[0x277D85DD0];
-          v24[1] = 3221225472;
-          v24[2] = __86__HDAssociationEntity_realizePendingAssociationsWithTransaction_startingAnchor_error___block_invoke_4;
-          v24[3] = &unk_278614860;
-          v24[4] = v19;
-          if (![v12 executeSQL:qword_27D86C108 error:error bindingHandler:v24 enumerationHandler:0])
+          v19 = *(*(&v24 + 1) + 8 * i);
+          v23[0] = MEMORY[0x277D85DD0];
+          v23[1] = 3221225472;
+          v23[2] = __86__HDAssociationEntity_realizePendingAssociationsWithTransaction_startingAnchor_error___block_invoke_4;
+          v23[3] = &unk_278614860;
+          v23[4] = v19;
+          if (![v12 executeSQL:qword_27D86C108 error:error bindingHandler:v23 enumerationHandler:0])
           {
             v20 = 0;
             goto LABEL_15;
           }
         }
 
-        v16 = [v14 countByEnumeratingWithState:&v25 objects:v34 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v24 objects:v33 count:16];
         if (v16)
         {
           continue;
@@ -1958,7 +1941,7 @@ void __176__HDAssociationEntity__insertPendingAssociationsForParentUUID_childUUI
 
       v20 = 1;
 LABEL_15:
-      v13 = v23;
+      v13 = v22;
     }
 
     else
@@ -1972,7 +1955,6 @@ LABEL_15:
     v20 = 0;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
@@ -2080,7 +2062,7 @@ uint64_t __86__HDAssociationEntity_realizePendingAssociationsWithTransaction_sta
 
 uint64_t __83__HDAssociationEntity_objectIDsForAssociationEntityWithPersistentID_profile_error___block_invoke(void *a1, void *a2, uint64_t a3)
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   v5 = [a2 databaseForEntityClass:a1[5]];
   v6 = MEMORY[0x277D10B18];
   v7 = [MEMORY[0x277CCABB0] numberWithLongLong:a1[6]];
@@ -2089,17 +2071,16 @@ uint64_t __83__HDAssociationEntity_objectIDsForAssociationEntityWithPersistentID
   v9 = objc_alloc_init(MEMORY[0x277D10B80]);
   [v9 setPredicate:v8];
   [v9 setEntityClass:a1[5]];
-  v16[0] = @"source_object_id";
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+  v15[0] = @"source_object_id";
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
   v11 = [objc_alloc(MEMORY[0x277D10B78]) initWithDatabase:v5 descriptor:v9];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __83__HDAssociationEntity_objectIDsForAssociationEntityWithPersistentID_profile_error___block_invoke_2;
-  v15[3] = &unk_278619E98;
-  v15[4] = a1[4];
-  v12 = [v11 enumerateProperties:v10 error:a3 enumerationHandler:v15];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __83__HDAssociationEntity_objectIDsForAssociationEntityWithPersistentID_profile_error___block_invoke_2;
+  v14[3] = &unk_278619E98;
+  v14[4] = a1[4];
+  v12 = [v11 enumerateProperties:v10 error:a3 enumerationHandler:v14];
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -2195,30 +2176,30 @@ uint64_t __83__HDAssociationEntity_objectIDsForAssociationEntityWithPersistentID
 
 uint64_t __143__HDAssociationEntity_objectsAssociatedWithObjectPID_subObjectReference_dataTypes_associationType_behavior_limit_sortDescending_profile_error___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v62 = *MEMORY[0x277D85DE8];
-  v49 = a2;
+  v61 = *MEMORY[0x277D85DE8];
+  v48 = a2;
+  v54 = 0u;
   v55 = 0u;
   v56 = 0u;
   v57 = 0u;
-  v58 = 0u;
   obj = *(a1 + 32);
-  v51 = [obj countByEnumeratingWithState:&v55 objects:v61 count:16];
-  if (v51)
+  v50 = [obj countByEnumeratingWithState:&v54 objects:v60 count:16];
+  if (v50)
   {
     v4 = 0x277D10000uLL;
     v5 = 0x277CCA000uLL;
-    v50 = *v56;
+    v49 = *v55;
     v6 = @"child_id_samples.data_type";
     while (2)
     {
-      for (i = 0; i != v51; ++i)
+      for (i = 0; i != v50; ++i)
       {
-        if (*v56 != v50)
+        if (*v55 != v49)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v55 + 1) + 8 * i);
+        v8 = *(*(&v54 + 1) + 8 * i);
         v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
         v10 = *(v4 + 2840);
         v11 = [*(v5 + 2992) numberWithLongLong:*(a1 + 80)];
@@ -2228,7 +2209,7 @@ uint64_t __143__HDAssociationEntity_objectsAssociatedWithObjectPID_subObjectRefe
         v13 = *(a1 + 40);
         if (v13)
         {
-          v14 = [v13 persistentIDInTransaction:v49 error:a3];
+          v14 = [v13 persistentIDInTransaction:v48 error:a3];
           if (!v14)
           {
             goto LABEL_25;
@@ -2271,10 +2252,10 @@ uint64_t __143__HDAssociationEntity_objectsAssociatedWithObjectPID_subObjectRefe
           v30 = [MEMORY[0x277D10B68] orderingTermWithProperty:@"creation_date" entityClass:objc_opt_class() ascending:0];
           v31 = [MEMORY[0x277D10B68] orderingTermWithProperty:v6 entityClass:objc_opt_class() ascending:0];
           v32 = [MEMORY[0x277D10B68] orderingTermWithProperty:@"ROWID" entityClass:*(a1 + 104) ascending:0];
-          v60[0] = v31;
-          v60[1] = v30;
-          v60[2] = v32;
-          v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v60 count:3];
+          v59[0] = v31;
+          v59[1] = v30;
+          v59[2] = v32;
+          v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v59 count:3];
         }
 
         else
@@ -2284,18 +2265,18 @@ uint64_t __143__HDAssociationEntity_objectsAssociatedWithObjectPID_subObjectRefe
 
         v34 = *(a1 + 104);
         v35 = v6;
-        v59[0] = v6;
-        v59[1] = @"child_id_samples.data_id";
-        v36 = [MEMORY[0x277CBEA60] arrayWithObjects:v59 count:2];
+        v58[0] = v6;
+        v58[1] = @"child_id_samples.data_id";
+        v36 = [MEMORY[0x277CBEA60] arrayWithObjects:v58 count:2];
         v37 = [MEMORY[0x277D10B20] predicateMatchingAllPredicates:v9];
         v38 = *(a1 + 112);
         v39 = [*(a1 + 48) database];
-        v53[0] = MEMORY[0x277D85DD0];
-        v53[1] = 3221225472;
-        v53[2] = __143__HDAssociationEntity_objectsAssociatedWithObjectPID_subObjectReference_dataTypes_associationType_behavior_limit_sortDescending_profile_error___block_invoke_2;
-        v53[3] = &unk_278619EE8;
-        v54 = *(a1 + 56);
-        LODWORD(v34) = [v34 enumerateProperties:v36 withPredicate:v37 orderingTerms:v33 groupBy:0 limit:v38 healthDatabase:v39 error:a3 enumerationHandler:v53];
+        v52[0] = MEMORY[0x277D85DD0];
+        v52[1] = 3221225472;
+        v52[2] = __143__HDAssociationEntity_objectsAssociatedWithObjectPID_subObjectReference_dataTypes_associationType_behavior_limit_sortDescending_profile_error___block_invoke_2;
+        v52[3] = &unk_278619EE8;
+        v53 = *(a1 + 56);
+        LODWORD(v34) = [v34 enumerateProperties:v36 withPredicate:v37 orderingTerms:v33 groupBy:0 limit:v38 healthDatabase:v39 error:a3 enumerationHandler:v52];
 
         if (!v34)
         {
@@ -2329,8 +2310,8 @@ LABEL_25:
       }
 
       v45 = 1;
-      v51 = [obj countByEnumeratingWithState:&v55 objects:v61 count:16];
-      if (v51)
+      v50 = [obj countByEnumeratingWithState:&v54 objects:v60 count:16];
+      if (v50)
       {
         continue;
       }
@@ -2346,21 +2327,20 @@ LABEL_25:
 
 LABEL_26:
 
-  v46 = *MEMORY[0x277D85DE8];
   return v45;
 }
 
-uint64_t __143__HDAssociationEntity_objectsAssociatedWithObjectPID_subObjectReference_dataTypes_associationType_behavior_limit_sortDescending_profile_error___block_invoke_2(uint64_t a1)
+uint64_t __143__HDAssociationEntity_objectsAssociatedWithObjectPID_subObjectReference_dataTypes_associationType_behavior_limit_sortDescending_profile_error___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = [MEMORY[0x277CCD8D8] dataTypeWithCode:HDSQLiteColumnAsInt64()];
-  v3 = *(*(a1 + 32) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  v5 = [MEMORY[0x277CCD8D8] dataTypeWithCode:HDSQLiteColumnAsInt64()];
+  v6 = *(*(a1 + 32) + 8);
+  v7 = *(v6 + 40);
+  *(v6 + 40) = v5;
 
-  v5 = HDSQLiteColumnAsInt64();
-  v6 = *(*(*(a1 + 40) + 8) + 40);
-  v7 = [MEMORY[0x277CCABB0] numberWithInteger:v5];
-  [v6 addObject:v7];
+  v8 = HDSQLiteColumnAsInt64();
+  v9 = *(*(*(a1 + 40) + 8) + 40);
+  v10 = [MEMORY[0x277CCABB0] numberWithInteger:v8];
+  [v9 addObject:v10];
 
   return 1;
 }
@@ -2411,60 +2391,59 @@ BOOL __110__HDAssociationEntity_countOfObjectsAssociatedWithObjectUUID_subObject
 {
   v5 = a2;
   v6 = [v5 protectedDatabase];
-  v7 = *(a1 + 32);
-  v8 = HDDataEntityPredicateForDataUUID();
-  v9 = [HDDataEntity anyInDatabase:v6 predicate:v8 error:a3];
+  v7 = HDDataEntityPredicateForDataUUID();
+  v8 = [HDDataEntity anyInDatabase:v6 predicate:v7 error:a3];
 
-  if (v9)
+  if (v8)
   {
-    v10 = objc_opt_new();
-    v11 = MEMORY[0x277D10B18];
-    v12 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(v9, "persistentID")}];
-    v13 = [v11 predicateWithProperty:@"destination_object_id" equalToValue:v12];
-    [v10 addObject:v13];
+    v9 = objc_opt_new();
+    v10 = MEMORY[0x277D10B18];
+    v11 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(v8, "persistentID")}];
+    v12 = [v10 predicateWithProperty:@"destination_object_id" equalToValue:v11];
+    [v9 addObject:v12];
 
-    v14 = *(a1 + 40);
-    if (v14)
+    v13 = *(a1 + 40);
+    if (v13)
     {
-      v15 = MEMORY[0x277D10B18];
-      v16 = [v14 UUID];
-      v17 = _HDSQLiteValueForUUID();
-      v18 = [v15 predicateWithProperty:@"child_id_objects.uuid" equalToValue:v17];
-      [v10 addObject:v18];
+      v14 = MEMORY[0x277D10B18];
+      v15 = [v13 UUID];
+      v16 = _HDSQLiteValueForUUID();
+      v17 = [v14 predicateWithProperty:@"child_id_objects.uuid" equalToValue:v16];
+      [v9 addObject:v17];
     }
 
     else
     {
-      v16 = [MEMORY[0x277D10B60] isNullPredicateWithProperty:@"destination_sub_object_id"];
-      [v10 addObject:v16];
+      v15 = [MEMORY[0x277D10B60] isNullPredicateWithProperty:@"destination_sub_object_id"];
+      [v9 addObject:v15];
     }
 
     if (*(a1 + 64) == 1)
     {
-      v20 = MEMORY[0x277D10B18];
-      v21 = [MEMORY[0x277CCABB0] numberWithInt:0];
-      v22 = [v20 predicateWithProperty:@"deleted" equalToValue:v21];
-      [v10 addObject:v22];
+      v19 = MEMORY[0x277D10B18];
+      v20 = [MEMORY[0x277CCABB0] numberWithInt:0];
+      v21 = [v19 predicateWithProperty:@"deleted" equalToValue:v20];
+      [v9 addObject:v21];
     }
 
-    v23 = *(a1 + 56);
-    v24 = *MEMORY[0x277D10A48];
-    v25 = [MEMORY[0x277D10B20] predicateMatchingAllPredicates:v10];
-    v26 = [v5 protectedDatabase];
-    v27 = [v23 countValueForProperty:v24 predicate:v25 database:v26 error:a3];
-    v28 = *(*(a1 + 48) + 8);
-    v29 = *(v28 + 40);
-    *(v28 + 40) = v27;
+    v22 = *(a1 + 56);
+    v23 = *MEMORY[0x277D10A48];
+    v24 = [MEMORY[0x277D10B20] predicateMatchingAllPredicates:v9];
+    v25 = [v5 protectedDatabase];
+    v26 = [v22 countValueForProperty:v23 predicate:v24 database:v25 error:a3];
+    v27 = *(*(a1 + 48) + 8);
+    v28 = *(v27 + 40);
+    *(v27 + 40) = v26;
 
-    v19 = *(*(*(a1 + 48) + 8) + 40) != 0;
+    v18 = *(*(*(a1 + 48) + 8) + 40) != 0;
   }
 
   else
   {
-    v19 = 0;
+    v18 = 0;
   }
 
-  return v19;
+  return v18;
 }
 
 + (id)countOfObjectsAssociatedWithObjectPID:(int64_t)d excludeDeleted:(BOOL)deleted associationType:(unint64_t)type behavior:(unint64_t)behavior anchor:(int64_t)anchor transaction:(id)transaction error:(id *)error
@@ -2551,136 +2530,134 @@ BOOL __110__HDAssociationEntity_countOfObjectsAssociatedWithObjectUUID_subObject
 
 uint64_t __132__HDAssociationEntity__UUIDsAssociatedWithUUID_subObjectReference_predicateProperty_enumerateProperty_excludeDeleted_profile_error___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v38[1] = *MEMORY[0x277D85DE8];
+  v36[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = [v5 protectedDatabase];
-  v7 = *(a1 + 32);
-  v8 = HDDataEntityPredicateForDataUUID();
-  v37 = 0;
-  v9 = [HDDataEntity anyInDatabase:v6 predicate:v8 error:&v37];
-  v10 = v37;
+  v7 = HDDataEntityPredicateForDataUUID();
+  v35 = 0;
+  v8 = [HDDataEntity anyInDatabase:v6 predicate:v7 error:&v35];
+  v9 = v35;
 
-  if (v9)
+  if (v8)
   {
-    v11 = *(a1 + 40);
-    if (v11)
+    v10 = *(a1 + 40);
+    if (v10)
     {
-      v36 = 0;
-      v12 = [v11 persistentIDInTransaction:v5 error:&v36];
-      v13 = v36;
-      if (!v12)
+      v34 = 0;
+      v11 = [v10 persistentIDInTransaction:v5 error:&v34];
+      v12 = v34;
+      if (!v11)
       {
-        v16 = v13;
-        if (v16)
+        v15 = v12;
+        if (v15)
         {
           if (a3)
           {
-            v31 = v16;
-            v15 = 0;
-            *a3 = v16;
+            v29 = v15;
+            v14 = 0;
+            *a3 = v15;
           }
 
           else
           {
             _HKLogDroppedError();
-            v15 = 0;
+            v14 = 0;
           }
 
-          v12 = v16;
+          v11 = v15;
         }
 
         else
         {
-          v12 = 0;
-          v15 = 1;
+          v11 = 0;
+          v14 = 1;
         }
 
         goto LABEL_15;
       }
 
-      v32 = a3;
+      v30 = a3;
     }
 
     else
     {
-      v32 = a3;
-      v12 = 0;
+      v30 = a3;
+      v11 = 0;
     }
 
-    v16 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v17 = MEMORY[0x277D10B18];
-    v18 = *(a1 + 48);
-    v19 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(v9, "persistentID")}];
-    v20 = [v17 predicateWithProperty:v18 equalToValue:v19];
-    [v16 addObject:v20];
+    v15 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v16 = MEMORY[0x277D10B18];
+    v17 = *(a1 + 48);
+    v18 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(v8, "persistentID")}];
+    v19 = [v16 predicateWithProperty:v17 equalToValue:v18];
+    [v15 addObject:v19];
 
-    if (v12)
+    if (v11)
     {
-      [MEMORY[0x277D10B18] predicateWithProperty:@"destination_sub_object_id" equalToValue:v12];
+      [MEMORY[0x277D10B18] predicateWithProperty:@"destination_sub_object_id" equalToValue:v11];
     }
 
     else
     {
       [MEMORY[0x277D10B60] isNullPredicateWithProperty:@"destination_sub_object_id"];
     }
-    v21 = ;
-    [v16 addObject:{v21, v32}];
+    v20 = ;
+    [v15 addObject:{v20, v30}];
 
     if (*(a1 + 88) == 1)
     {
-      v22 = MEMORY[0x277D10B18];
-      v23 = [MEMORY[0x277CCABB0] numberWithInt:0];
-      v24 = [v22 predicateWithProperty:@"deleted" equalToValue:v23];
-      [v16 addObject:v24];
+      v21 = MEMORY[0x277D10B18];
+      v22 = [MEMORY[0x277CCABB0] numberWithInt:0];
+      v23 = [v21 predicateWithProperty:@"deleted" equalToValue:v22];
+      [v15 addObject:v23];
     }
 
-    v25 = *(a1 + 80);
-    v38[0] = *(a1 + 56);
-    v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:1];
-    v27 = [MEMORY[0x277D10B20] predicateMatchingAllPredicates:v16];
-    v28 = [*(a1 + 64) database];
-    v34[0] = MEMORY[0x277D85DD0];
-    v34[1] = 3221225472;
-    v34[2] = __132__HDAssociationEntity__UUIDsAssociatedWithUUID_subObjectReference_predicateProperty_enumerateProperty_excludeDeleted_profile_error___block_invoke_2;
-    v34[3] = &unk_278615128;
-    v35 = *(a1 + 72);
-    v15 = [v25 enumerateProperties:v26 withPredicate:v27 healthDatabase:v28 error:v33 enumerationHandler:v34];
+    v24 = *(a1 + 80);
+    v36[0] = *(a1 + 56);
+    v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:1];
+    v26 = [MEMORY[0x277D10B20] predicateMatchingAllPredicates:v15];
+    v27 = [*(a1 + 64) database];
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = __132__HDAssociationEntity__UUIDsAssociatedWithUUID_subObjectReference_predicateProperty_enumerateProperty_excludeDeleted_profile_error___block_invoke_2;
+    v32[3] = &unk_278615128;
+    v33 = *(a1 + 72);
+    v14 = [v24 enumerateProperties:v25 withPredicate:v26 healthDatabase:v27 error:v31 enumerationHandler:v32];
 
 LABEL_15:
     goto LABEL_16;
   }
 
-  v12 = v10;
-  if (v12)
+  v11 = v9;
+  if (v11)
   {
     if (a3)
     {
-      v14 = v12;
-      v15 = 0;
-      *a3 = v12;
+      v13 = v11;
+      v14 = 0;
+      *a3 = v11;
     }
 
     else
     {
       _HKLogDroppedError();
-      v15 = 0;
+      v14 = 0;
     }
   }
 
   else
   {
-    v15 = 1;
+    v14 = 1;
   }
 
 LABEL_16:
 
-  v29 = *MEMORY[0x277D85DE8];
-  return v15;
+  return v14;
 }
 
 uint64_t __132__HDAssociationEntity__UUIDsAssociatedWithUUID_subObjectReference_predicateProperty_enumerateProperty_excludeDeleted_profile_error___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v5 = MEMORY[0x22AAC6CA0](a4, 0);
+  v5 = MEMORY[0x22AAC6CA0](a4, 0, a3);
   if (v5)
   {
     [*(a1 + 32) addObject:v5];
@@ -2693,28 +2670,28 @@ uint64_t __132__HDAssociationEntity__UUIDsAssociatedWithUUID_subObjectReference_
 {
   end = range.end;
   start = range.start;
-  v34[3] = *MEMORY[0x277D85DE8];
+  v33[3] = *MEMORY[0x277D85DE8];
   predicateCopy = predicate;
   sessionCopy = session;
   databaseCopy = database;
   blockCopy = block;
   v20 = [self predicateForSyncWithPredicate:predicateCopy syncEntityClass:class session:sessionCopy syncAnchorRange:{start, end}];
-  v30 = 0;
-  v31 = &v30;
-  v32 = 0x2020000000;
-  v33 = start;
-  v34[0] = @"parent_id_objects.uuid";
-  v34[1] = @"child_id_objects.uuid";
-  v34[2] = @"sync_identity";
-  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:3];
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __141__HDAssociationEntity__enumerateAssociationsWithPredicate_syncEntityClass_session_syncAnchorRange_lastSyncAnchor_healthDatabase_error_block___block_invoke;
-  v27[3] = &unk_278619FB0;
+  v29 = 0;
+  v30 = &v29;
+  v31 = 0x2020000000;
+  v32 = start;
+  v33[0] = @"parent_id_objects.uuid";
+  v33[1] = @"child_id_objects.uuid";
+  v33[2] = @"sync_identity";
+  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:3];
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __141__HDAssociationEntity__enumerateAssociationsWithPredicate_syncEntityClass_session_syncAnchorRange_lastSyncAnchor_healthDatabase_error_block___block_invoke;
+  v26[3] = &unk_278619FB0;
   v22 = blockCopy;
-  v28 = v22;
-  v29 = &v30;
-  v23 = [self enumerateProperties:v21 withPredicate:v20 healthDatabase:databaseCopy error:error enumerationHandler:v27];
+  v27 = v22;
+  v28 = &v29;
+  v23 = [self enumerateProperties:v21 withPredicate:v20 healthDatabase:databaseCopy error:error enumerationHandler:v26];
 
   v24 = v23 ^ 1;
   if (!anchor)
@@ -2724,28 +2701,25 @@ uint64_t __132__HDAssociationEntity__UUIDsAssociatedWithUUID_subObjectReference_
 
   if ((v24 & 1) == 0)
   {
-    *anchor = v31[3];
+    *anchor = v30[3];
   }
 
-  _Block_object_dispose(&v30, 8);
-  v25 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v29, 8);
   return v23;
 }
 
-uint64_t __141__HDAssociationEntity__enumerateAssociationsWithPredicate_syncEntityClass_session_syncAnchorRange_lastSyncAnchor_healthDatabase_error_block___block_invoke(uint64_t a1)
+uint64_t __141__HDAssociationEntity__enumerateAssociationsWithPredicate_syncEntityClass_session_syncAnchorRange_lastSyncAnchor_healthDatabase_error_block___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v4 = *(a1 + 32);
-  v5 = *(a1 + 40);
-  v2 = HKWithAutoreleasePool();
+  v7 = *(a1 + 32);
+  v5 = HKWithAutoreleasePool();
 
-  return v2;
+  return v5;
 }
 
 uint64_t __141__HDAssociationEntity__enumerateAssociationsWithPredicate_syncEntityClass_session_syncAnchorRange_lastSyncAnchor_healthDatabase_error_block___block_invoke_2(void *a1)
 {
   v2 = MEMORY[0x22AAC6CA0](a1[6], 0);
   v3 = MEMORY[0x22AAC6CA0](a1[6], 1);
-  v4 = a1[6];
   HDSQLiteColumnAsInt64();
   (*(a1[4] + 16))();
   *(*(a1[5] + 8) + 24) = a1[7];
@@ -2757,36 +2731,36 @@ uint64_t __141__HDAssociationEntity__enumerateAssociationsWithPredicate_syncEnti
 {
   end = range.end;
   start = range.start;
-  v38[8] = *MEMORY[0x277D85DE8];
+  v37[8] = *MEMORY[0x277D85DE8];
   predicateCopy = predicate;
   sessionCopy = session;
   databaseCopy = database;
   transactionCopy = transaction;
   blockCopy = block;
   v21 = [self predicateForSyncWithPredicate:predicateCopy syncEntityClass:class session:sessionCopy syncAnchorRange:{start, end}];
-  v34 = 0;
-  v35 = &v34;
-  v36 = 0x2020000000;
-  v37 = start;
-  v38[0] = @"parent_id_objects.uuid";
-  v38[1] = @"child_id_objects.uuid";
-  v38[2] = @"sync_identity";
-  v38[3] = @"type";
-  v38[4] = @"behavior";
-  v38[5] = @"deleted";
-  v38[6] = @"creation_date";
-  v38[7] = @"destination_sub_object_id";
-  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:8];
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __158__HDAssociationEntity__enumerateTypedAssociationsWithPredicate_syncEntityClass_session_syncAnchorRange_lastSyncAnchor_healthDatabase_transaction_error_block___block_invoke;
-  v30[3] = &unk_27861A000;
+  v33 = 0;
+  v34 = &v33;
+  v35 = 0x2020000000;
+  v36 = start;
+  v37[0] = @"parent_id_objects.uuid";
+  v37[1] = @"child_id_objects.uuid";
+  v37[2] = @"sync_identity";
+  v37[3] = @"type";
+  v37[4] = @"behavior";
+  v37[5] = @"deleted";
+  v37[6] = @"creation_date";
+  v37[7] = @"destination_sub_object_id";
+  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:8];
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __158__HDAssociationEntity__enumerateTypedAssociationsWithPredicate_syncEntityClass_session_syncAnchorRange_lastSyncAnchor_healthDatabase_transaction_error_block___block_invoke;
+  v29[3] = &unk_27861A000;
   v23 = transactionCopy;
-  v31 = v23;
+  v30 = v23;
   v24 = blockCopy;
-  v32 = v24;
-  v33 = &v34;
-  v25 = [self enumerateProperties:v22 withPredicate:v21 healthDatabase:databaseCopy error:error enumerationHandler:v30];
+  v31 = v24;
+  v32 = &v33;
+  v25 = [self enumerateProperties:v22 withPredicate:v21 healthDatabase:databaseCopy error:error enumerationHandler:v29];
 
   v26 = v25 ^ 1;
   if (!anchor)
@@ -2796,75 +2770,68 @@ uint64_t __141__HDAssociationEntity__enumerateAssociationsWithPredicate_syncEnti
 
   if ((v26 & 1) == 0)
   {
-    *anchor = v35[3];
+    *anchor = v34[3];
   }
 
-  _Block_object_dispose(&v34, 8);
-  v27 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v33, 8);
   return v25;
 }
 
-uint64_t __158__HDAssociationEntity__enumerateTypedAssociationsWithPredicate_syncEntityClass_session_syncAnchorRange_lastSyncAnchor_healthDatabase_transaction_error_block___block_invoke(uint64_t a1)
+uint64_t __158__HDAssociationEntity__enumerateTypedAssociationsWithPredicate_syncEntityClass_session_syncAnchorRange_lastSyncAnchor_healthDatabase_transaction_error_block___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v4 = *(a1 + 32);
-  v5 = *(a1 + 40);
-  v6 = *(a1 + 48);
-  v2 = HKWithAutoreleasePool();
+  v8 = *(a1 + 32);
+  v9 = *(a1 + 40);
+  v6 = HKWithAutoreleasePool();
 
-  return v2;
+  return v6;
 }
 
-uint64_t __158__HDAssociationEntity__enumerateTypedAssociationsWithPredicate_syncEntityClass_session_syncAnchorRange_lastSyncAnchor_healthDatabase_transaction_error_block___block_invoke_2(uint64_t a1, void *a2)
+uint64_t __158__HDAssociationEntity__enumerateTypedAssociationsWithPredicate_syncEntityClass_session_syncAnchorRange_lastSyncAnchor_healthDatabase_transaction_error_block___block_invoke_2(void *a1, void *a2)
 {
-  v4 = MEMORY[0x22AAC6CA0](*(a1 + 56), 0);
-  v5 = MEMORY[0x22AAC6CA0](*(a1 + 56), 1);
-  v6 = *(a1 + 56);
+  v4 = MEMORY[0x22AAC6CA0](a1[7], 0);
+  v5 = MEMORY[0x22AAC6CA0](a1[7], 1);
   HDSQLiteColumnAsInt64();
-  v7 = *(a1 + 56);
   HDSQLiteColumnAsInt64();
-  v8 = *(a1 + 56);
   HDSQLiteColumnAsInt64();
-  MEMORY[0x22AAC6C10](*(a1 + 56), 5);
-  v9 = MEMORY[0x22AAC6C40](*(a1 + 56), 6);
-  v10 = *(a1 + 56);
-  v11 = HDSQLiteColumnAsInt64();
-  v12 = HDReferenceForUnknownAssociatableObjectWithPersistentID(v11, *(a1 + 32), a2);
-  v13 = [v12 UUID];
-  (*(*(a1 + 40) + 16))(*(a1 + 40), v4, v5);
-  *(*(*(a1 + 48) + 8) + 24) = *(a1 + 64);
+  MEMORY[0x22AAC6C10](a1[7], 5);
+  v6 = MEMORY[0x22AAC6C40](a1[7], 6);
+  v7 = HDSQLiteColumnAsInt64();
+  v8 = HDReferenceForUnknownAssociatableObjectWithPersistentID(v7, a1[4], a2);
+  v9 = [v8 UUID];
+  (*(a1[5] + 16))(a1[5], v4, v5);
+  *(*(a1[6] + 8) + 24) = a1[8];
 
   return 1;
 }
 
 + (BOOL)_insertCodableObjectAssociations:(id)associations syncStore:(id)store profile:(id)profile error:(id *)error
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   associationsCopy = associations;
   storeCopy = store;
   profileCopy = profile;
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   obj = associationsCopy;
-  v11 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v11 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v23;
+    v13 = *v22;
     while (2)
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v23 != v13)
+        if (*v22 != v13)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v22 + 1) + 8 * i);
-        v20 = profileCopy;
-        v21 = storeCopy;
-        LODWORD(v15) = HKWithAutoreleasePool();
+        v19 = profileCopy;
+        v20 = storeCopy;
+        v15 = HKWithAutoreleasePool();
 
         if (!v15)
         {
@@ -2873,7 +2840,7 @@ uint64_t __158__HDAssociationEntity__enumerateTypedAssociationsWithPredicate_syn
         }
       }
 
-      v12 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v12 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
       if (v12)
       {
         continue;
@@ -2886,7 +2853,6 @@ uint64_t __158__HDAssociationEntity__enumerateTypedAssociationsWithPredicate_syn
   v16 = 1;
 LABEL_11:
 
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -2935,22 +2901,22 @@ BOOL __80__HDAssociationEntity__insertCodableObjectAssociations_syncStore_profil
 
 uint64_t __80__HDAssociationEntity__insertCodableObjectAssociations_syncStore_profile_error___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = a2;
   if ([*(a1 + 32) hasSyncIdentity])
   {
     v6 = [*(a1 + 32) syncIdentity];
-    v21 = 0;
-    v7 = [HDSyncIdentity syncIdentityWithCodable:v6 error:&v21];
-    v8 = v21;
+    v20 = 0;
+    v7 = [HDSyncIdentity syncIdentityWithCodable:v6 error:&v20];
+    v8 = v20;
 
     if (v7)
     {
       v9 = [*(a1 + 40) syncIdentityManager];
-      v20 = v8;
+      v19 = v8;
       v10 = 1;
-      v11 = [v9 concreteIdentityForIdentity:v7 shouldCreate:1 transaction:v5 error:&v20];
-      v12 = v20;
+      v11 = [v9 concreteIdentityForIdentity:v7 shouldCreate:1 transaction:v5 error:&v19];
+      v12 = v19;
 
       v13 = *(*(a1 + 48) + 8);
       v14 = *(v13 + 40);
@@ -2968,7 +2934,7 @@ LABEL_16:
       if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_FAULT))
       {
         *buf = 138543362;
-        v23 = v12;
+        v22 = v12;
         _os_log_fault_impl(&dword_228986000, v15, OS_LOG_TYPE_FAULT, "ConcreteSyncIdentity from received codable is nil %{public}@", buf, 0xCu);
       }
 
@@ -2996,7 +2962,7 @@ LABEL_8:
       if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_FAULT))
       {
         *buf = 138543362;
-        v23 = v8;
+        v22 = v8;
         _os_log_fault_impl(&dword_228986000, v16, OS_LOG_TYPE_FAULT, "SyncIdentity from received codable is nil %{public}@", buf, 0xCu);
       }
 
@@ -3020,7 +2986,6 @@ LABEL_8:
   v10 = 1;
 LABEL_17:
 
-  v18 = *MEMORY[0x277D85DE8];
   return v10;
 }
 

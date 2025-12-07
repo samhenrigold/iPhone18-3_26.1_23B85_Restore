@@ -1,11 +1,11 @@
 @interface GKNoiseMap
 + (GKNoiseMap)noiseMapWithNoise:(GKNoise *)noise;
++ (GKNoiseMap)noiseMapWithNoise:(GKNoise *)noise size:(vector_double2)size origin:(vector_double2)origin sampleCount:(vector_int2)sampleCount seamless:(BOOL)seamless;
 - (GKNoiseMap)init;
 - (GKNoiseMap)initWithNoise:(GKNoise *)noise;
 - (GKNoiseMap)initWithNoise:(GKNoise *)noise size:(vector_double2)size origin:(vector_double2)origin sampleCount:(vector_int2)sampleCount seamless:(BOOL)seamless;
 - (float)interpolatedValueAtPosition:(vector_float2)position;
 - (float)valueAtPosition:(vector_int2)position;
-- (id)__colorData;
 - (void)dealloc;
 - (void)setValue:(float)value atPosition:(vector_int2)position;
 @end
@@ -27,6 +27,17 @@
   v4 = [objc_alloc(objc_opt_class()) initWithNoise:v3];
 
   return v4;
+}
+
++ (GKNoiseMap)noiseMapWithNoise:(GKNoise *)noise size:(vector_double2)size origin:(vector_double2)origin sampleCount:(vector_int2)sampleCount seamless:(BOOL)seamless
+{
+  v7 = seamless;
+  v12 = size.f64[0];
+  v13 = origin.f64[0];
+  v9 = noise;
+  v10 = [objc_alloc(objc_opt_class()) initWithNoise:v9 size:v7 origin:v12 sampleCount:v13 seamless:*&sampleCount];
+
+  return v10;
 }
 
 - (GKNoiseMap)initWithNoise:(GKNoise *)noise
@@ -75,13 +86,6 @@
   v4.receiver = self;
   v4.super_class = GKNoiseMap;
   [(GKNoiseMap *)&v4 dealloc];
-}
-
-- (id)__colorData
-{
-  v4 = *MEMORY[0x277D85DE8];
-  v3 = 4 * (*&self->_sampleCount[7] * HIDWORD(*&self->_sampleCount[7]));
-  operator new[]();
 }
 
 uint64_t __25__GKNoiseMap___colorData__block_invoke(uint64_t a1, void *a2, void *a3)

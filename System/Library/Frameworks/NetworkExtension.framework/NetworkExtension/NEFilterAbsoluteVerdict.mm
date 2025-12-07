@@ -1,6 +1,8 @@
 @interface NEFilterAbsoluteVerdict
 - (NEFilterAbsoluteVerdict)initWithCoder:(id)coder;
+- (NEFilterAbsoluteVerdict)initWithDrop:(BOOL)drop inboundPassOffset:(unint64_t)offset inboundPeekOffset:(unint64_t)peekOffset outboundPassOffset:(unint64_t)passOffset outboundPeekOffset:(unint64_t)outboundPeekOffset;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 - (int64_t)filterAction;
 - (void)encodeWithCoder:(id)coder;
 @end
@@ -23,6 +25,49 @@
     {
       return 4;
     }
+  }
+
+  return result;
+}
+
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v11.receiver = self;
+  v11.super_class = NEFilterAbsoluteVerdict;
+  v7 = [NEFilterVerdict descriptionWithIndent:sel_descriptionWithIndent_options_ options:?];
+  [v7 appendPrettyInt:-[NEFilterAbsoluteVerdict inboundPassOffset](self withName:"inboundPassOffset") andIndent:@"inboundPassOffset" options:{v5, options}];
+  [v7 appendPrettyInt:-[NEFilterAbsoluteVerdict inboundPeekOffset](self withName:"inboundPeekOffset") andIndent:@"inboundPeekOffset" options:{v5, options}];
+  [v7 appendPrettyInt:-[NEFilterAbsoluteVerdict outboundPassOffset](self withName:"outboundPassOffset") andIndent:@"outboundPassOffset" options:{v5, options}];
+  [v7 appendPrettyInt:-[NEFilterAbsoluteVerdict outboundPeekOffset](self withName:"outboundPeekOffset") andIndent:@"outboundPeekOffset" options:{v5, options}];
+  statisticsReportFrequency = [(NEFilterAbsoluteVerdict *)self statisticsReportFrequency];
+  objc_opt_self();
+  if ((statisticsReportFrequency - 1) > 2)
+  {
+    v9 = @"none";
+  }
+
+  else
+  {
+    v9 = off_1E7F07850[statisticsReportFrequency - 1];
+  }
+
+  [v7 appendPrettyObject:v9 withName:@"statisticsReportFrequency" andIndent:v5 options:options];
+
+  return v7;
+}
+
+- (NEFilterAbsoluteVerdict)initWithDrop:(BOOL)drop inboundPassOffset:(unint64_t)offset inboundPeekOffset:(unint64_t)peekOffset outboundPassOffset:(unint64_t)passOffset outboundPeekOffset:(unint64_t)outboundPeekOffset
+{
+  v12.receiver = self;
+  v12.super_class = NEFilterAbsoluteVerdict;
+  result = [(NEFilterVerdict *)&v12 initWithDrop:drop remediate:0];
+  if (result)
+  {
+    result->_inboundPassOffset = offset;
+    result->_inboundPeekOffset = peekOffset;
+    result->_outboundPassOffset = passOffset;
+    result->_outboundPeekOffset = outboundPeekOffset;
   }
 
   return result;

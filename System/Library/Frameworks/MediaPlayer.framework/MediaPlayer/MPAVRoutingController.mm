@@ -1147,37 +1147,37 @@ LABEL_39:
   }
 }
 
-void __58__MPAVRoutingController__promptForHijackIfNeeded_handler___block_invoke_75(uint64_t a1)
+void __58__MPAVRoutingController__promptForHijackIfNeeded_handler___block_invoke_75(uint64_t a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v2 = [MRNowPlayingClientGetBundleIdentifier() copy];
-  v3 = [*(a1 + 32) presentedBundleID];
-  v4 = [v3 isEqualToString:v2];
+  v15 = *MEMORY[0x1E69E9840];
+  v3 = [MRNowPlayingClientGetBundleIdentifier() copy];
+  v4 = [*(a1 + 32) presentedBundleID];
+  v5 = [v4 isEqualToString:v3];
 
-  v5 = os_log_create("com.apple.amp.mediaplayer", "Routing");
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = os_log_create("com.apple.amp.mediaplayer", "Routing");
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    if (v4)
+    if (v5)
     {
-      v6 = @"does NOT represent NowPlaying App";
+      v7 = @"does NOT represent NowPlaying App";
     }
 
     else
     {
-      v6 = @"represents NowPlaying App";
+      v7 = @"represents NowPlaying App";
     }
 
-    v7 = [*(a1 + 32) presentedBundleID];
-    v8 = 138543874;
-    v9 = v6;
-    v10 = 2114;
-    v11 = v7;
-    v12 = 2114;
-    v13 = v2;
-    _os_log_impl(&dword_1A238D000, v5, OS_LOG_TYPE_DEFAULT, "Hijack - RoutingController %{public}@ Presenting: %{public}@ NowPlaying: %{public}@", &v8, 0x20u);
+    v8 = [*(a1 + 32) presentedBundleID];
+    v9 = 138543874;
+    v10 = v7;
+    v11 = 2114;
+    v12 = v8;
+    v13 = 2114;
+    v14 = v3;
+    _os_log_impl(&dword_1A238D000, v6, OS_LOG_TYPE_DEFAULT, "Hijack - RoutingController %{public}@ Presenting: %{public}@ NowPlaying: %{public}@", &v9, 0x20u);
   }
 
-  if (v4 & 1) == 0 && *(a1 + 64) == 1 && (objc_opt_respondsToSelector())
+  if (v5 & 1) == 0 && *(a1 + 64) == 1 && (objc_opt_respondsToSelector())
   {
     (*(*(a1 + 48) + 16))();
   }

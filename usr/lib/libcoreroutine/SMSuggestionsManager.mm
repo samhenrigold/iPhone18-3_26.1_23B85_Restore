@@ -95,27 +95,27 @@
 
 - (void)quickReplySuggestionURLWithCompletionHandler:(id)handler
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB57188);
-  MEMORY[0x28223BE20]();
-  v6 = &v13 - v5;
-  v7 = _Block_copy(handler);
-  v8 = swift_allocObject();
-  *(v8 + 16) = v7;
-  *(v8 + 24) = self;
-  v9 = sub_230ACA6FC();
-  (*(*(v9 - 8) + 56))(v6, 1, 1, v9);
-  v10 = swift_allocObject();
-  v10[2] = 0;
-  v10[3] = 0;
-  v10[4] = &unk_230AFD8E8;
-  v10[5] = v8;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB57188, &qword_230AFD8D8);
+  MEMORY[0x28223BE20](v5 - 8);
+  v7 = &v14 - v6;
+  v8 = _Block_copy(handler);
+  v9 = swift_allocObject();
+  *(v9 + 16) = v8;
+  *(v9 + 24) = self;
+  v10 = sub_230ACA6FC();
+  (*(*(v10 - 8) + 56))(v7, 1, 1, v10);
   v11 = swift_allocObject();
   v11[2] = 0;
   v11[3] = 0;
-  v11[4] = &unk_230AFD8F8;
-  v11[5] = v10;
+  v11[4] = &unk_230AFD8E8;
+  v11[5] = v9;
+  v12 = swift_allocObject();
+  v12[2] = 0;
+  v12[3] = 0;
+  v12[4] = &unk_230AFD8F8;
+  v12[5] = v11;
   selfCopy = self;
-  sub_2304C6B18(0, 0, v6, &unk_230AFD908, v11);
+  sub_2304C6B18(0, 0, v7, &unk_230AFD908, v12);
 }
 
 - (void)_sendTipsSignal

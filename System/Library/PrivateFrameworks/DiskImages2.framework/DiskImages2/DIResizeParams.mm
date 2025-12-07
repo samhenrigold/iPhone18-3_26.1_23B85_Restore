@@ -29,28 +29,13 @@
   v18.super_class = DIResizeParams;
   v10 = [(DIBaseParams *)&v18 initWithURL:inputURL error:error];
 
-  if (!v10)
-  {
-    goto LABEL_3;
-  }
-
-  v10->_size = size;
-  diskImageParamsXPC = [paramsCopy diskImageParamsXPC];
-  [(DIBaseParams *)v10 setDiskImageParamsXPC:diskImageParamsXPC];
-
-  shadowChain = [(DIBaseParams *)v10 shadowChain];
-  shadowChain2 = [paramsCopy shadowChain];
-  nodes = [shadowChain2 nodes];
-  v15 = [shadowChain addShadowNodes:nodes error:error];
-
-  if ((v15 & 1) == 0)
+  if (v10 && (v10->_size = size, [paramsCopy diskImageParamsXPC], v11 = objc_claimAutoreleasedReturnValue(), -[DIBaseParams setDiskImageParamsXPC:](v10, "setDiskImageParamsXPC:", v11), v11, -[DIBaseParams shadowChain](v10, "shadowChain"), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(paramsCopy, "shadowChain"), v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v13, "nodes"), v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v12, "addShadowNodes:error:", v14, error), v14, v13, v12, (v15 & 1) == 0))
   {
     v16 = 0;
   }
 
   else
   {
-LABEL_3:
     v16 = v10;
   }
 
@@ -82,196 +67,229 @@ LABEL_3:
 
 - (BOOL)resizeWithError:(id *)error
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   if ([(DIResizeParams *)self openExistingImageWithError:?])
   {
     v5 = *__error();
-    if (DIForwardLogs())
+    v6 = DIForwardLogs();
+    if (v6)
     {
-      v6 = getDIOSLog();
-      os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+      v47 = 0;
+      v8 = getDIOSLog(v6, v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      {
+        v9 = 3;
+      }
+
+      else
+      {
+        v9 = 2;
+      }
+
       *buf = 68158210;
       *&buf[4] = 34;
-      v38 = 2080;
-      v39 = "[DIResizeParams resizeWithError:]";
-      v40 = 2114;
+      v49 = 2080;
+      v50 = "[DIResizeParams resizeWithError:]";
+      v51 = 2114;
       selfCopy2 = self;
-      v7 = _os_log_send_and_compose_impl();
+      v10 = _os_log_send_and_compose_impl(v9, &v47, 0, 0, &dword_248DE0000, v8, 0, "%.*s: entry: %{public}@", buf, 28);
 
-      if (v7)
+      if (v10)
       {
-        fprintf(*MEMORY[0x277D85DF8], "%s\n", v7);
-        free(v7);
+        fprintf(*MEMORY[0x277D85DF8], "%s\n", v10);
+        free(v10);
       }
     }
 
     else
     {
-      v9 = getDIOSLog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v12 = getDIOSLog(v6, v7);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0x2204100302;
-        v38 = 2080;
-        v39 = "[DIResizeParams resizeWithError:]";
-        v40 = 2114;
+        v49 = 2080;
+        v50 = "[DIResizeParams resizeWithError:]";
+        v51 = 2114;
         selfCopy2 = self;
-        _os_log_impl(&dword_248DE0000, v9, OS_LOG_TYPE_DEFAULT, "%.*s: entry: %{public}@", buf, 0x1Cu);
+        _os_log_impl(&dword_248DE0000, v12, OS_LOG_TYPE_DEFAULT, "%.*s: entry: %{public}@", buf, 0x1Cu);
       }
     }
 
     *__error() = v5;
-    v10 = objc_alloc_init(DIClient2Controller_XPCHandler);
-    if (![(DIClient2Controller_XPCHandler *)v10 connectWithError:error]|| ![(DIBaseParams *)self prepareImageWithXpcHandler:v10 fileMode:1 error:error])
+    v13 = objc_alloc_init(DIClient2Controller_XPCHandler);
+    if (![(DIClient2Controller_XPCHandler *)v13 connectWithError:error]|| ![(DIBaseParams *)self prepareImageWithXpcHandler:v13 fileMode:1 error:error])
     {
-      v8 = 0;
-LABEL_29:
+      v11 = 0;
+LABEL_35:
 
-      goto LABEL_30;
+      return v11;
     }
 
     diskImageParamsXPC = [(DIBaseParams *)self diskImageParamsXPC];
     shadowChain = [(DIBaseParams *)self shadowChain];
-    shouldValidate = [shadowChain shouldValidate];
+    [shadowChain shouldValidate];
     if (diskImageParamsXPC)
     {
-      [diskImageParamsXPC createDiskImageWithCache:0 shadowValidation:shouldValidate];
-      v14 = *buf;
+      objc_msgSend_createDiskImageWithCache_shadowValidation_(diskImageParamsXPC);
+      v16 = *buf;
     }
 
     else
     {
-      v14 = 0;
+      v16 = 0;
     }
 
     *buf = 0;
 
-    if ((*(*v14 + 40))(v14))
+    if ((*(*v16 + 40))(v16))
     {
-      v15 = [(DIResizeParams *)self size];
-      v16 = (*(*v14 + 24))(v14);
-      v17 = (*(*v14 + 32))(v14);
-      v18 = (v15 + v16 - 1) / v16 * v16;
-      if ((*(*v14 + 24))(v14) * v17 == v18)
+      v17 = [(DIResizeParams *)self size];
+      v18 = (*(*v16 + 24))(v16);
+      v19 = (*(*v16 + 32))(v16);
+      v20 = (v17 + v18 - 1) / v18 * v18;
+      if ((*(*v16 + 24))(v16) * v19 == v20)
       {
-        v19 = *__error();
-        if (DIForwardLogs())
+        v21 = *__error();
+        v22 = DIForwardLogs();
+        if (v22)
         {
-          v20 = getDIOSLog();
-          os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT);
+          v47 = 0;
+          v24 = getDIOSLog(v22, v23);
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+          {
+            v25 = 3;
+          }
+
+          else
+          {
+            v25 = 2;
+          }
+
           *buf = 68157954;
           *&buf[4] = 34;
-          v38 = 2080;
-          v39 = "[DIResizeParams resizeWithError:]";
-          v21 = _os_log_send_and_compose_impl();
+          v49 = 2080;
+          v50 = "[DIResizeParams resizeWithError:]";
+          LODWORD(v45) = 18;
+          v26 = _os_log_send_and_compose_impl(v25, &v47, 0, 0, &dword_248DE0000, v24, 0, "%.*s: New disk image size is the same as previous", buf, v45);
 
-          if (v21)
+          if (v26)
           {
-            fprintf(*MEMORY[0x277D85DF8], "%s\n", v21);
-            free(v21);
+            fprintf(*MEMORY[0x277D85DF8], "%s\n", v26);
+            free(v26);
           }
         }
 
         else
         {
-          v25 = getDIOSLog();
-          if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+          v30 = getDIOSLog(v22, v23);
+          if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 68157954;
             *&buf[4] = 34;
-            v38 = 2080;
-            v39 = "[DIResizeParams resizeWithError:]";
-            _os_log_impl(&dword_248DE0000, v25, OS_LOG_TYPE_DEFAULT, "%.*s: New disk image size is the same as previous", buf, 0x12u);
+            v49 = 2080;
+            v50 = "[DIResizeParams resizeWithError:]";
+            _os_log_impl(&dword_248DE0000, v30, OS_LOG_TYPE_DEFAULT, "%.*s: New disk image size is the same as previous", buf, 0x12u);
           }
         }
 
-        *__error() = v19;
-        v8 = 1;
-        goto LABEL_28;
+        *__error() = v21;
+        v11 = 1;
+        goto LABEL_34;
       }
 
       diskImageParamsXPC2 = [(DIBaseParams *)self diskImageParamsXPC];
-      v24 = [diskImageParamsXPC2 setSizeWithDiskImage:v14 newSize:v18];
+      v29 = [diskImageParamsXPC2 setSizeWithDiskImage:v16 newSize:v20];
 
-      if (!v24)
+      if (!v29)
       {
-        v28 = (*(*v14 + 32))(v14);
-        [(DIResizeParams *)self setSize:(*(*v14 + 24))(v14) * v28];
-        v29 = *__error();
-        if (DIForwardLogs())
+        v32 = (*(*v16 + 32))(v16);
+        [(DIResizeParams *)self setSize:(*(*v16 + 24))(v16) * v32];
+        v33 = *__error();
+        v34 = DIForwardLogs();
+        if (v34)
         {
-          v30 = getDIOSLog();
-          os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT);
-          v31 = [(DIResizeParams *)self size];
+          v47 = 0;
+          v36 = getDIOSLog(v34, v35);
+          v37 = os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT);
+          v38 = [(DIResizeParams *)self size];
+          if (v37)
+          {
+            v39 = 3;
+          }
+
+          else
+          {
+            v39 = 2;
+          }
+
           *buf = 68158210;
           *&buf[4] = 34;
-          v38 = 2080;
-          v39 = "[DIResizeParams resizeWithError:]";
-          v40 = 2048;
-          selfCopy2 = v31;
-          v32 = _os_log_send_and_compose_impl();
+          v49 = 2080;
+          v50 = "[DIResizeParams resizeWithError:]";
+          v51 = 2048;
+          selfCopy2 = v38;
+          LODWORD(v45) = 28;
+          v40 = _os_log_send_and_compose_impl(v39, &v47, 0, 0, &dword_248DE0000, v36, 0, "%.*s: Disk image resized to %llu bytes", buf, v45, v46);
 
-          if (v32)
+          if (v40)
           {
-            fprintf(*MEMORY[0x277D85DF8], "%s\n", v32);
-            free(v32);
+            fprintf(*MEMORY[0x277D85DF8], "%s\n", v40);
+            free(v40);
           }
         }
 
         else
         {
-          v33 = getDIOSLog();
-          if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+          v41 = getDIOSLog(v34, v35);
+          if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
           {
-            v34 = [(DIResizeParams *)self size];
+            v42 = [(DIResizeParams *)self size];
             *buf = 68158210;
             *&buf[4] = 34;
-            v38 = 2080;
-            v39 = "[DIResizeParams resizeWithError:]";
-            v40 = 2048;
-            selfCopy2 = v34;
-            _os_log_impl(&dword_248DE0000, v33, OS_LOG_TYPE_DEFAULT, "%.*s: Disk image resized to %llu bytes", buf, 0x1Cu);
+            v49 = 2080;
+            v50 = "[DIResizeParams resizeWithError:]";
+            v51 = 2048;
+            selfCopy2 = v42;
+            _os_log_impl(&dword_248DE0000, v41, OS_LOG_TYPE_DEFAULT, "%.*s: Disk image resized to %llu bytes", buf, 0x1Cu);
           }
         }
 
-        *__error() = v29;
-        v35 = (*(*v14 + 144))(v14);
-        v36 = DiskImage::Context::flush(v35);
-        if (v36)
+        *__error() = v33;
+        v43 = (*(*v16 + 144))(v16);
+        v44 = DiskImage::Context::flush(v43);
+        if (v44)
         {
-          v8 = [DIError failWithPOSIXCode:v36 error:error];
+          v11 = [DIError failWithPOSIXCode:v44 error:error];
         }
 
         else
         {
-          v8 = 1;
+          v11 = 1;
         }
 
-        if (v35)
+        if (v43)
         {
-          (*(*v35 + 40))(v35);
+          (*(*v43 + 40))(v43);
         }
 
-        goto LABEL_28;
+        goto LABEL_34;
       }
 
-      v22 = [DIError failWithPOSIXCode:v24 verboseInfo:@"Failed to resize the image" error:error];
+      v27 = [DIError failWithPOSIXCode:v29 verboseInfo:@"Failed to resize the image" error:error];
     }
 
     else
     {
-      v22 = [DIError failWithPOSIXCode:45 verboseInfo:@"Image doesn't support resizing" error:error];
+      v27 = [DIError failWithPOSIXCode:45 verboseInfo:@"Image doesn't support resizing" error:error];
     }
 
-    v8 = v22;
-LABEL_28:
-    (*(*v14 + 16))(v14);
-    goto LABEL_29;
+    v11 = v27;
+LABEL_34:
+    (*(*v16 + 16))(v16);
+    goto LABEL_35;
   }
 
-  v8 = 0;
-LABEL_30:
-  v26 = *MEMORY[0x277D85DE8];
-  return v8;
+  return 0;
 }
 
 @end

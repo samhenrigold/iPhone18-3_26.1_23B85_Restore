@@ -122,7 +122,7 @@ void __52__VSAccountChannelsCenter__snapshotPreviousChannels__block_invoke_2(uin
 
 - (id)_storeIdentityProviderForAccount:(id)account
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   serialQueue = [(VSAccountChannelsCenter *)self serialQueue];
   dispatch_assert_queue_V2(serialQueue);
@@ -131,66 +131,67 @@ void __52__VSAccountChannelsCenter__snapshotPreviousChannels__block_invoke_2(uin
 
   forceUnwrapObject = [identityProviderID forceUnwrapObject];
 
-  v24 = 0;
-  v8 = VSLoadInterfaceFramework(&v24);
-  v9 = v24;
+  v26 = 0;
+  v8 = VSLoadInterfaceFramework(&v26);
+  v9 = v26;
+  v10 = v9;
   if (v8)
   {
-    v10 = [objc_alloc(NSClassFromString(@"VSIdentityProviderFetchOperation")) initWithIdentityProviderID:forceUnwrapObject];
-    [v10 setFetchFromStoreOnly:1];
+    v11 = [objc_alloc(NSClassFromString(@"VSIdentityProviderFetchOperation")) initWithIdentityProviderID:forceUnwrapObject];
+    [v11 setFetchFromStoreOnly:1];
     identityProviderFetchOperationBlock = [(VSAccountChannelsCenter *)self identityProviderFetchOperationBlock];
 
     if (identityProviderFetchOperationBlock)
     {
       identityProviderFetchOperationBlock2 = [(VSAccountChannelsCenter *)self identityProviderFetchOperationBlock];
-      v13 = identityProviderFetchOperationBlock2[2]();
+      v15 = identityProviderFetchOperationBlock2[2]();
 
-      v10 = v13;
+      v11 = v15;
     }
 
-    v14 = VSDefaultLogObject();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v16 = VSDefaultLogObject(v13);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v26 = forceUnwrapObject;
-      _os_log_impl(&dword_23AB8E000, v14, OS_LOG_TYPE_DEFAULT, "Fetching store identity provider for ID: %@", buf, 0xCu);
+      v28 = forceUnwrapObject;
+      _os_log_impl(&dword_23AB8E000, v16, OS_LOG_TYPE_DEFAULT, "Fetching store identity provider for ID: %@", buf, 0xCu);
     }
 
-    [objc_opt_class() _startOperationAndWaitForCompletion:v10];
-    result = [v10 result];
+    [objc_opt_class() _startOperationAndWaitForCompletion:v11];
+    result = [v11 result];
     forceUnwrapObject2 = [result forceUnwrapObject];
 
     object = [forceUnwrapObject2 object];
-    v18 = VSDefaultLogObject();
-    v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
+    v20 = VSDefaultLogObject(object);
+    v21 = os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT);
     if (object)
     {
-      if (v19)
+      if (v21)
       {
         *buf = 138412290;
-        v26 = forceUnwrapObject;
-        v20 = "Successfully fetched identity provider for ID: %@";
-        v21 = v18;
-        v22 = 12;
+        v28 = forceUnwrapObject;
+        v22 = "Successfully fetched identity provider for ID: %@";
+        v23 = v20;
+        v24 = 12;
 LABEL_14:
-        _os_log_impl(&dword_23AB8E000, v21, OS_LOG_TYPE_DEFAULT, v20, buf, v22);
+        _os_log_impl(&dword_23AB8E000, v23, OS_LOG_TYPE_DEFAULT, v22, buf, v24);
       }
     }
 
-    else if (v19)
+    else if (v21)
     {
       *buf = 0;
-      v20 = "Unable to fetch store identity provider for provider ID. Adam ID will be set to nil";
-      v21 = v18;
-      v22 = 2;
+      v22 = "Unable to fetch store identity provider for provider ID. Adam ID will be set to nil";
+      v23 = v20;
+      v24 = 2;
       goto LABEL_14;
     }
 
     goto LABEL_16;
   }
 
-  v10 = VSErrorLogObject();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  v11 = VSErrorLogObject(v9);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
     [VSAccountChannelsCenter _storeIdentityProviderForAccount:];
   }
@@ -257,45 +258,46 @@ LABEL_16:
 
 void __92__VSAccountChannelsCenter__savedAccountChannelsForIdentityProviderID_storeIdentityProvider___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 providerID];
-  if ([v4 isEqualToString:*(a1 + 32)])
+  v5 = [v4 isEqualToString:*(a1 + 32)];
+  if (v5)
   {
-    v5 = VSDefaultLogObject();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = VSDefaultLogObject(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = [v3 channelIDs];
-      v14 = 138412290;
-      v15 = v6;
-      _os_log_impl(&dword_23AB8E000, v5, OS_LOG_TYPE_DEFAULT, "Serialized account channels successfuly loaded and the provider matches the account provider. Channels: %@", &v14, 0xCu);
+      v7 = [v3 channelIDs];
+      v15 = 138412290;
+      v16 = v7;
+      _os_log_impl(&dword_23AB8E000, v6, OS_LOG_TYPE_DEFAULT, "Serialized account channels successfuly loaded and the provider matches the account provider. Channels: %@", &v15, 0xCu);
     }
 
-    v7 = *(*(a1 + 48) + 8);
-    v8 = v3;
-    v9 = *(v7 + 40);
-    *(v7 + 40) = v8;
+    v8 = *(*(a1 + 48) + 8);
+    v9 = v3;
+    v10 = *(v8 + 40);
+    *(v8 + 40) = v9;
   }
 
   else
   {
-    v10 = VSErrorLogObject();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = VSErrorLogObject(v5);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      __92__VSAccountChannelsCenter__savedAccountChannelsForIdentityProviderID_storeIdentityProvider___block_invoke_cold_1((a1 + 32), v4, v10);
+      __92__VSAccountChannelsCenter__savedAccountChannelsForIdentityProviderID_storeIdentityProvider___block_invoke_cold_1((a1 + 32), v4, v11);
     }
 
-    v11 = [*(a1 + 40) _removeSavedAccountChannels];
-    v12 = [objc_opt_class() _accountChannelsWithProviderID:*(a1 + 32)];
-    v13 = *(*(a1 + 48) + 8);
-    v9 = *(v13 + 40);
-    *(v13 + 40) = v12;
+    v12 = [*(a1 + 40) _removeSavedAccountChannels];
+    v13 = [objc_opt_class() _accountChannelsWithProviderID:*(a1 + 32)];
+    v14 = *(*(a1 + 48) + 8);
+    v10 = *(v14 + 40);
+    *(v14 + 40) = v13;
   }
 }
 
 void __92__VSAccountChannelsCenter__savedAccountChannelsForIdentityProviderID_storeIdentityProvider___block_invoke_19(uint64_t a1)
 {
-  v2 = VSErrorLogObject();
+  v2 = VSErrorLogObject(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __92__VSAccountChannelsCenter__savedAccountChannelsForIdentityProviderID_storeIdentityProvider___block_invoke_19_cold_1();
@@ -310,30 +312,30 @@ void __92__VSAccountChannelsCenter__savedAccountChannelsForIdentityProviderID_st
 
 - (id)_savedAccountChannels
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   serialQueue = [(VSAccountChannelsCenter *)self serialQueue];
   dispatch_assert_queue_V2(serialQueue);
 
-  v4 = VSDefaultLogObject();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = VSDefaultLogObject(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 136315138;
     *(&buf + 4) = "[VSAccountChannelsCenter _savedAccountChannels]";
-    _os_log_impl(&dword_23AB8E000, v4, OS_LOG_TYPE_DEFAULT, "Entering %s", &buf, 0xCu);
+    _os_log_impl(&dword_23AB8E000, v5, OS_LOG_TYPE_DEFAULT, "Entering %s", &buf, 0xCu);
   }
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v34 = 0x3032000000;
-  v35 = __Block_byref_object_copy__10;
-  v36 = __Block_byref_object_dispose__10;
-  v37 = 0;
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x3032000000;
-  v28 = __Block_byref_object_copy__10;
-  v29 = __Block_byref_object_dispose__10;
-  v30 = 0;
+  v35 = 0x3032000000;
+  v36 = __Block_byref_object_copy__10;
+  v37 = __Block_byref_object_dispose__10;
+  v38 = 0;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x3032000000;
+  v29 = __Block_byref_object_copy__10;
+  v30 = __Block_byref_object_dispose__10;
+  v31 = 0;
   accountStore = [(VSAccountChannelsCenter *)self accountStore];
   firstAccount = [accountStore firstAccount];
 
@@ -342,74 +344,73 @@ void __92__VSAccountChannelsCenter__savedAccountChannelsForIdentityProviderID_st
     accountStore2 = [(VSAccountChannelsCenter *)self accountStore];
     firstAccount2 = [accountStore2 firstAccount];
     channelsData = [firstAccount2 channelsData];
-    v10 = [VSOptional optionalWithObject:channelsData];
+    v11 = [VSOptional optionalWithObject:channelsData];
+
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __48__VSAccountChannelsCenter__savedAccountChannels__block_invoke;
+    v25[3] = &unk_278B74988;
+    v25[4] = self;
+    v25[5] = &buf;
+    [v11 conditionallyUnwrapObject:v25];
+  }
+
+  v12 = *(*(&buf + 1) + 40);
+  if (!v12)
+  {
+    fileURL = [(VSAccountChannelsCenter *)self fileURL];
+    v14 = objc_alloc_init(VSFileReadOperation);
+    v15 = VSDefaultLogObject([(VSFileReadOperation *)v14 setSource:fileURL]);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    {
+      *v32 = 138412290;
+      v33 = fileURL;
+      _os_log_impl(&dword_23AB8E000, v15, OS_LOG_TYPE_DEFAULT, "Reading account channels archive at: %@", v32, 0xCu);
+    }
+
+    [objc_opt_class() _startOperationAndWaitForCompletion:v14];
+    result = [(VSFileReadOperation *)v14 result];
+    forceUnwrapObject = [result forceUnwrapObject];
 
     v24[0] = MEMORY[0x277D85DD0];
     v24[1] = 3221225472;
-    v24[2] = __48__VSAccountChannelsCenter__savedAccountChannels__block_invoke;
-    v24[3] = &unk_278B74988;
-    v24[4] = self;
-    v24[5] = &buf;
-    [v10 conditionallyUnwrapObject:v24];
-  }
-
-  v11 = *(*(&buf + 1) + 40);
-  if (!v11)
-  {
-    fileURL = [(VSAccountChannelsCenter *)self fileURL];
-    v13 = objc_alloc_init(VSFileReadOperation);
-    [(VSFileReadOperation *)v13 setSource:fileURL];
-    v14 = VSDefaultLogObject();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
-    {
-      *v31 = 138412290;
-      v32 = fileURL;
-      _os_log_impl(&dword_23AB8E000, v14, OS_LOG_TYPE_DEFAULT, "Reading account channels archive at: %@", v31, 0xCu);
-    }
-
-    [objc_opt_class() _startOperationAndWaitForCompletion:v13];
-    result = [(VSFileReadOperation *)v13 result];
-    forceUnwrapObject = [result forceUnwrapObject];
-
+    v24[2] = __48__VSAccountChannelsCenter__savedAccountChannels__block_invoke_26;
+    v24[3] = &unk_278B749B0;
+    v24[4] = &buf;
     v23[0] = MEMORY[0x277D85DD0];
     v23[1] = 3221225472;
-    v23[2] = __48__VSAccountChannelsCenter__savedAccountChannels__block_invoke_26;
-    v23[3] = &unk_278B749B0;
-    v23[4] = &buf;
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __48__VSAccountChannelsCenter__savedAccountChannels__block_invoke_2;
-    v22[3] = &unk_278B73450;
-    v22[4] = &v25;
-    [forceUnwrapObject unwrapObject:v23 error:v22];
+    v23[2] = __48__VSAccountChannelsCenter__savedAccountChannels__block_invoke_2;
+    v23[3] = &unk_278B73450;
+    v23[4] = &v26;
+    [forceUnwrapObject unwrapObject:v24 error:v23];
 
-    v11 = *(*(&buf + 1) + 40);
+    v12 = *(*(&buf + 1) + 40);
   }
 
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __48__VSAccountChannelsCenter__savedAccountChannels__block_invoke_28;
+  v22[3] = &unk_278B749B0;
+  v22[4] = &v26;
   v21[0] = MEMORY[0x277D85DD0];
   v21[1] = 3221225472;
-  v21[2] = __48__VSAccountChannelsCenter__savedAccountChannels__block_invoke_28;
-  v21[3] = &unk_278B749B0;
-  v21[4] = &v25;
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __48__VSAccountChannelsCenter__savedAccountChannels__block_invoke_32;
-  v20[3] = &unk_278B74318;
-  v20[4] = &v25;
-  [v11 conditionallyUnwrapObject:v21 otherwise:v20];
-  v17 = v26[5];
-  if (!v17)
+  v21[2] = __48__VSAccountChannelsCenter__savedAccountChannels__block_invoke_32;
+  v21[3] = &unk_278B74318;
+  v21[4] = &v26;
+  [v12 conditionallyUnwrapObject:v22 otherwise:v21];
+  v18 = v27[5];
+  if (!v18)
   {
     [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"The result parameter must not be nil."];
-    v17 = v26[5];
+    v18 = v27[5];
   }
 
-  v18 = v17;
-  _Block_object_dispose(&v25, 8);
+  v19 = v18;
+  _Block_object_dispose(&v26, 8);
 
   _Block_object_dispose(&buf, 8);
 
-  return v18;
+  return v19;
 }
 
 id __48__VSAccountChannelsCenter__savedAccountChannels__block_invoke(uint64_t a1, uint64_t a2)
@@ -424,15 +425,18 @@ id __48__VSAccountChannelsCenter__savedAccountChannels__block_invoke(uint64_t a1
 
 uint64_t __48__VSAccountChannelsCenter__savedAccountChannels__block_invoke_26(uint64_t a1, uint64_t a2)
 {
-  *(*(*(a1 + 32) + 8) + 40) = [VSOptional optionalWithObject:a2];
+  v3 = [VSOptional optionalWithObject:a2];
+  v4 = *(*(a1 + 32) + 8);
+  v5 = *(v4 + 40);
+  *(v4 + 40) = v3;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v3, v5);
 }
 
 void __48__VSAccountChannelsCenter__savedAccountChannels__block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = VSErrorLogObject();
+  v4 = VSErrorLogObject(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __48__VSAccountChannelsCenter__savedAccountChannels__block_invoke_2_cold_1();
@@ -464,7 +468,7 @@ void __48__VSAccountChannelsCenter__savedAccountChannels__block_invoke_2_30(uint
 {
   v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = VSDefaultLogObject();
+  v4 = VSDefaultLogObject(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 138412290;
@@ -481,7 +485,7 @@ void __48__VSAccountChannelsCenter__savedAccountChannels__block_invoke_2_30(uint
 void __48__VSAccountChannelsCenter__savedAccountChannels__block_invoke_31(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = VSErrorLogObject();
+  v4 = VSErrorLogObject(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __48__VSAccountChannelsCenter__savedAccountChannels__block_invoke_31_cold_1();
@@ -495,7 +499,7 @@ void __48__VSAccountChannelsCenter__savedAccountChannels__block_invoke_31(uint64
 
 void __48__VSAccountChannelsCenter__savedAccountChannels__block_invoke_32(uint64_t a1)
 {
-  v2 = VSErrorLogObject();
+  v2 = VSErrorLogObject(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __48__VSAccountChannelsCenter__savedAccountChannels__block_invoke_32_cold_1();
@@ -510,7 +514,7 @@ void __48__VSAccountChannelsCenter__savedAccountChannels__block_invoke_32(uint64
 
 - (void)_enqueueRemoveSavedAccountChannelsAndWait
 {
-  v3 = VSDefaultLogObject();
+  v3 = VSDefaultLogObject(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -544,16 +548,16 @@ uint64_t __68__VSAccountChannelsCenter__enqueueRemoveSavedAccountChannelsAndWait
 
 - (id)_removeSavedAccountChannels
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   serialQueue = [(VSAccountChannelsCenter *)self serialQueue];
   dispatch_assert_queue_V2(serialQueue);
 
-  v4 = VSDefaultLogObject();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = VSDefaultLogObject(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 136315138;
-    v12 = "[VSAccountChannelsCenter _removeSavedAccountChannels]";
-    _os_log_impl(&dword_23AB8E000, v4, OS_LOG_TYPE_DEFAULT, "Entering %s", &v11, 0xCu);
+    v12 = 136315138;
+    v13 = "[VSAccountChannelsCenter _removeSavedAccountChannels]";
+    _os_log_impl(&dword_23AB8E000, v5, OS_LOG_TYPE_DEFAULT, "Entering %s", &v12, 0xCu);
   }
 
   [(VSAccountChannelsCenter *)self _snapshotPreviousChannels];
@@ -574,24 +578,24 @@ uint64_t __68__VSAccountChannelsCenter__enqueueRemoveSavedAccountChannelsAndWait
 
 - (id)_removeLocallySavedAccountChannels
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   fileURL = [(VSAccountChannelsCenter *)self fileURL];
   v3 = objc_alloc_init(VSFileRemoveOperation);
-  [(VSFileRemoveOperation *)v3 setFileURL:fileURL];
-  v4 = VSDefaultLogObject();
+  v4 = VSDefaultLogObject([(VSFileRemoveOperation *)v3 setFileURL:fileURL]);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = fileURL;
-    _os_log_impl(&dword_23AB8E000, v4, OS_LOG_TYPE_DEFAULT, "Removing account channels archive at: %@", &v8, 0xCu);
+    v9 = 138412290;
+    v10 = fileURL;
+    _os_log_impl(&dword_23AB8E000, v4, OS_LOG_TYPE_DEFAULT, "Removing account channels archive at: %@", &v9, 0xCu);
   }
 
   [objc_opt_class() _startOperationAndWaitForCompletion:v3];
   error = [(VSFileRemoveOperation *)v3 error];
+  v6 = error;
   if (error)
   {
-    v6 = VSErrorLogObject();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = VSErrorLogObject(error);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [VSAccountChannelsCenter _removeLocallySavedAccountChannels];
     }
@@ -599,21 +603,21 @@ uint64_t __68__VSAccountChannelsCenter__enqueueRemoveSavedAccountChannelsAndWait
 
   else
   {
-    v6 = VSDefaultLogObject();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = VSDefaultLogObject(0);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v8) = 0;
-      _os_log_impl(&dword_23AB8E000, v6, OS_LOG_TYPE_DEFAULT, "Account channels archive successfully removed", &v8, 2u);
+      LOWORD(v9) = 0;
+      _os_log_impl(&dword_23AB8E000, v7, OS_LOG_TYPE_DEFAULT, "Account channels archive successfully removed", &v9, 2u);
     }
   }
 
-  return error;
+  return v6;
 }
 
 - (void)_enqueueSaveAccountChannelsAndWait:(id)wait
 {
   waitCopy = wait;
-  v5 = VSDefaultLogObject();
+  v5 = VSDefaultLogObject(waitCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -649,70 +653,70 @@ uint64_t __62__VSAccountChannelsCenter__enqueueSaveAccountChannelsAndWait___bloc
 
 - (id)_saveAccountChannels:(id)channels
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   channelsCopy = channels;
   serialQueue = [(VSAccountChannelsCenter *)self serialQueue];
   dispatch_assert_queue_V2(serialQueue);
 
-  v6 = VSDefaultLogObject();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = VSDefaultLogObject(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 136315138;
     *(&buf + 4) = "[VSAccountChannelsCenter _saveAccountChannels:]";
-    _os_log_impl(&dword_23AB8E000, v6, OS_LOG_TYPE_DEFAULT, "Entering %s", &buf, 0xCu);
+    _os_log_impl(&dword_23AB8E000, v7, OS_LOG_TYPE_DEFAULT, "Entering %s", &buf, 0xCu);
   }
 
   [(VSAccountChannelsCenter *)self _snapshotPreviousChannels];
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v13 = 0x3032000000;
-  v14 = __Block_byref_object_copy__10;
-  v15 = __Block_byref_object_dispose__10;
-  v16 = 0;
+  v14 = 0x3032000000;
+  v15 = __Block_byref_object_copy__10;
+  v16 = __Block_byref_object_dispose__10;
+  v17 = 0;
   serializationResult = [channelsCopy serializationResult];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __48__VSAccountChannelsCenter__saveAccountChannels___block_invoke;
+  v12[3] = &unk_278B74078;
+  v12[4] = self;
   v11[0] = MEMORY[0x277D85DD0];
   v11[1] = 3221225472;
-  v11[2] = __48__VSAccountChannelsCenter__saveAccountChannels___block_invoke;
-  v11[3] = &unk_278B74078;
-  v11[4] = self;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __48__VSAccountChannelsCenter__saveAccountChannels___block_invoke_42;
-  v10[3] = &unk_278B73450;
-  v10[4] = &buf;
-  [serializationResult unwrapObject:v11 error:v10];
-  v8 = *(*(&buf + 1) + 40);
+  v11[2] = __48__VSAccountChannelsCenter__saveAccountChannels___block_invoke_42;
+  v11[3] = &unk_278B73450;
+  v11[4] = &buf;
+  [serializationResult unwrapObject:v12 error:v11];
+  v9 = *(*(&buf + 1) + 40);
 
   _Block_object_dispose(&buf, 8);
 
-  return v8;
+  return v9;
 }
 
 void __48__VSAccountChannelsCenter__saveAccountChannels___block_invoke(uint64_t a1, void *a2)
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) accountStore];
   v5 = [v4 firstAccount];
 
   if (v5)
   {
-    v6 = [*(a1 + 32) accountStore];
-    v7 = [v6 firstAccount];
+    v7 = [*(a1 + 32) accountStore];
+    v8 = [v7 firstAccount];
 
-    [v7 setChannelsData:v3];
-    v8 = [*(a1 + 32) accountStore];
-    v11[0] = v7;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
-    [v8 saveAccounts:v9 withCompletionHandler:&__block_literal_global_41];
+    [v8 setChannelsData:v3];
+    v9 = [*(a1 + 32) accountStore];
+    v12[0] = v8;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+    [v9 saveAccounts:v10 withCompletionHandler:&__block_literal_global_41];
 
-    v10 = [*(a1 + 32) _removeLocallySavedAccountChannels];
+    v11 = [*(a1 + 32) _removeLocallySavedAccountChannels];
   }
 
   else
   {
-    v7 = VSErrorLogObject();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = VSErrorLogObject(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __48__VSAccountChannelsCenter__saveAccountChannels___block_invoke_cold_1();
     }
@@ -723,7 +727,7 @@ void __48__VSAccountChannelsCenter__saveAccountChannels___block_invoke_2(uint64_
 {
   v9 = *MEMORY[0x277D85DE8];
   v4 = a3;
-  v5 = VSDefaultLogObject();
+  v5 = VSDefaultLogObject(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6[0] = 67109378;
@@ -797,7 +801,7 @@ void __34__VSAccountChannelsCenter_fileURL__block_invoke_2(uint64_t a1)
   v17 = *MEMORY[0x277D85DE8];
   channelsCopy = channels;
   handlerCopy = handler;
-  v8 = VSDefaultLogObject();
+  v8 = VSDefaultLogObject(handlerCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
@@ -838,7 +842,7 @@ void __70__VSAccountChannelsCenter__saveAccountChannels_withCompletionHandler___
 {
   v12 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
-  v5 = VSDefaultLogObject();
+  v5 = VSDefaultLogObject(handlerCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
@@ -934,7 +938,7 @@ void __76__VSAccountChannelsCenter__removeSavedAccountChannelsWithCompletionHand
 {
   v12 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
-  v5 = VSDefaultLogObject();
+  v5 = VSDefaultLogObject(handlerCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
@@ -1032,7 +1036,7 @@ void __69__VSAccountChannelsCenter_fetchAccountChannelsWithCompletionHandler___b
 
   else
   {
-    v8 = VSErrorLogObject();
+    v8 = VSErrorLogObject(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __69__VSAccountChannelsCenter_fetchAccountChannelsWithCompletionHandler___block_invoke_4_cold_1();
@@ -1069,7 +1073,7 @@ void __69__VSAccountChannelsCenter_fetchAccountChannelsWithCompletionHandler___b
 uint64_t __69__VSAccountChannelsCenter_fetchAccountChannelsWithCompletionHandler___block_invoke_6(uint64_t a1)
 {
   v7 = *MEMORY[0x277D85DE8];
-  v2 = VSDefaultLogObject();
+  v2 = VSDefaultLogObject(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -1083,7 +1087,7 @@ uint64_t __69__VSAccountChannelsCenter_fetchAccountChannelsWithCompletionHandler
 
 void __69__VSAccountChannelsCenter_fetchAccountChannelsWithCompletionHandler___block_invoke_54(uint64_t a1)
 {
-  v2 = VSErrorLogObject();
+  v2 = VSErrorLogObject(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __69__VSAccountChannelsCenter_fetchAccountChannelsWithCompletionHandler___block_invoke_54_cold_1();
@@ -1099,7 +1103,7 @@ void __69__VSAccountChannelsCenter_fetchAccountChannelsWithCompletionHandler___b
 
 uint64_t __69__VSAccountChannelsCenter_fetchAccountChannelsWithCompletionHandler___block_invoke_55(uint64_t a1)
 {
-  v2 = VSDefaultLogObject();
+  v2 = VSDefaultLogObject(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -1111,7 +1115,7 @@ uint64_t __69__VSAccountChannelsCenter_fetchAccountChannelsWithCompletionHandler
 
 uint64_t __69__VSAccountChannelsCenter_fetchAccountChannelsWithCompletionHandler___block_invoke_56(uint64_t a1)
 {
-  v2 = VSDefaultLogObject();
+  v2 = VSDefaultLogObject(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -1124,7 +1128,7 @@ uint64_t __69__VSAccountChannelsCenter_fetchAccountChannelsWithCompletionHandler
 void __69__VSAccountChannelsCenter_fetchAccountChannelsWithCompletionHandler___block_invoke_58(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = VSErrorLogObject();
+  v4 = VSErrorLogObject(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __69__VSAccountChannelsCenter_fetchAccountChannelsWithCompletionHandler___block_invoke_58_cold_1();
@@ -1140,7 +1144,7 @@ void __69__VSAccountChannelsCenter_fetchAccountChannelsWithCompletionHandler___b
 
 uint64_t __69__VSAccountChannelsCenter_fetchAccountChannelsWithCompletionHandler___block_invoke_59(uint64_t a1)
 {
-  v2 = VSDefaultLogObject();
+  v2 = VSDefaultLogObject(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;

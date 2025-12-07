@@ -8,16 +8,16 @@
 - (uint64_t)addCachedSuggestionIds:(uint64_t)ids;
 - (uint64_t)addCachedSuggestionSourceIds:(uint64_t)ids;
 - (uint64_t)cachedSuggestionIds;
-- (uint64_t)cachedSuggestionIdsCount;
 - (uint64_t)cachedSuggestionSourceIds;
-- (uint64_t)cachedSuggestionSourceIdsCount;
-- (uint64_t)clearCachedSuggestionIds;
-- (uint64_t)clearCachedSuggestionSourceIds;
 - (uint64_t)hasLength;
 - (uint64_t)length;
 - (uint64_t)setHasLength:(uint64_t)result;
 - (uint64_t)setLength:(uint64_t)result;
 - (unint64_t)hash;
+- (void)cachedSuggestionIdsCount;
+- (void)cachedSuggestionSourceIdsCount;
+- (void)clearCachedSuggestionIds;
+- (void)clearCachedSuggestionSourceIds;
 - (void)copyTo:(uint64_t)to;
 - (void)mergeFrom:(uint64_t)from;
 - (void)setCachedSuggestionIds:(uint64_t)ids;
@@ -307,7 +307,7 @@ LABEL_12:
   return result;
 }
 
-- (uint64_t)clearCachedSuggestionIds
+- (void)clearCachedSuggestionIds
 {
   if (result)
   {
@@ -341,7 +341,7 @@ LABEL_12:
   return MEMORY[0x1EEE66BB8](v3, v4);
 }
 
-- (uint64_t)cachedSuggestionIdsCount
+- (void)cachedSuggestionIdsCount
 {
   if (result)
   {
@@ -362,7 +362,7 @@ LABEL_12:
   return index;
 }
 
-- (uint64_t)clearCachedSuggestionSourceIds
+- (void)clearCachedSuggestionSourceIds
 {
   if (result)
   {
@@ -396,7 +396,7 @@ LABEL_12:
   return MEMORY[0x1EEE66BB8](v3, v4);
 }
 
-- (uint64_t)cachedSuggestionSourceIdsCount
+- (void)cachedSuggestionSourceIdsCount
 {
   if (result)
   {

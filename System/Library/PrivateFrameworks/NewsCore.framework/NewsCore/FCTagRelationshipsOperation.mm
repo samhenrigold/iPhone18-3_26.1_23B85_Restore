@@ -27,7 +27,7 @@
 
 - (void)performOperation
 {
-  v36[1] = *MEMORY[0x1E69E9840];
+  v35[1] = *MEMORY[0x1E69E9840];
   v3 = @"relatedChannelTagIDsForOnboarding";
   v4 = +[FCAppleAccount sharedAccount];
   contentStoreFrontID = [v4 contentStoreFrontID];
@@ -43,57 +43,56 @@
   v12 = [(FCTagRelationshipsOperation *)self tag];
   identifier = [v12 identifier];
   v14 = [v11 initWithRecordName:identifier];
-  v36[0] = v14;
-  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v36 count:1];
+  v35[0] = v14;
+  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:1];
   if (v7)
   {
     objc_setProperty_nonatomic_copy(v7, v15, v16, 384);
   }
 
-  v35[0] = v3;
-  v35[1] = v6;
-  v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:2];
+  v34[0] = v3;
+  v34[1] = v6;
+  v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:2];
   if (v7)
   {
     objc_setProperty_nonatomic_copy(v7, v17, v18, 400);
   }
 
-  v33[0] = 0;
-  v33[1] = v33;
-  v33[2] = 0x3032000000;
-  v33[3] = __Block_byref_object_copy__97;
-  v33[4] = __Block_byref_object_dispose__97;
-  v34 = 0;
+  v32[0] = 0;
+  v32[1] = v32;
+  v32[2] = 0x3032000000;
+  v32[3] = __Block_byref_object_copy__97;
+  v32[4] = __Block_byref_object_dispose__97;
+  v33 = 0;
   newValue[0] = MEMORY[0x1E69E9820];
   newValue[1] = 3221225472;
   newValue[2] = __47__FCTagRelationshipsOperation_performOperation__block_invoke;
   newValue[3] = &unk_1E7C39CA8;
-  newValue[4] = v33;
+  newValue[4] = v32;
   if (v7)
   {
     objc_setProperty_nonatomic_copy(v7, v19, newValue, 416);
   }
 
-  v24 = MEMORY[0x1E69E9820];
-  v25 = 3221225472;
-  v26 = __47__FCTagRelationshipsOperation_performOperation__block_invoke_2;
-  v27 = &unk_1E7C47A80;
+  v23 = MEMORY[0x1E69E9820];
+  v24 = 3221225472;
+  v25 = __47__FCTagRelationshipsOperation_performOperation__block_invoke_2;
+  v26 = &unk_1E7C47A80;
   selfCopy = self;
-  v31 = v33;
+  v30 = v32;
   v20 = v6;
-  v29 = v20;
+  v28 = v20;
   v22 = v3;
-  v30 = v22;
+  v29 = v22;
   if (v7)
   {
-    objc_setProperty_nonatomic_copy(v7, v21, &v24, 424);
+    objc_setProperty_nonatomic_copy(v7, v21, &v23, 424);
   }
 
-  [(FCOperation *)self associateChildOperation:v7, v24, v25, v26, v27, selfCopy];
+  [(FCOperation *)self associateChildOperation:v7, v23, v24, v25, v26, selfCopy];
   [(FCOperation *)v7 start];
 
-  _Block_object_dispose(v33, 8);
-  v23 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(v32, 8);
 }
 
 void __47__FCTagRelationshipsOperation_performOperation__block_invoke_2(uint64_t a1, void *a2)
@@ -102,42 +101,41 @@ void __47__FCTagRelationshipsOperation_performOperation__block_invoke_2(uint64_t
   v4 = v3;
   if (v3)
   {
-    v20 = MEMORY[0x1E69E9820];
-    v21 = 3221225472;
-    v22 = __47__FCTagRelationshipsOperation_performOperation__block_invoke_3;
-    v23 = &unk_1E7C36C58;
-    v24 = *(a1 + 32);
-    v25 = v3;
-    [v24 finishedPerformingOperationWithError:v25];
+    v19 = MEMORY[0x1E69E9820];
+    v20 = 3221225472;
+    v21 = __47__FCTagRelationshipsOperation_performOperation__block_invoke_3;
+    v22 = &unk_1E7C36C58;
+    v23 = *(a1 + 32);
+    v24 = v3;
+    [v23 finishedPerformingOperationWithError:v24];
   }
 
   else
   {
     v5 = [*(*(*(a1 + 56) + 8) + 40) objectForKeyedSubscript:*(a1 + 40)];
     v6 = [v5 count];
-    v7 = *(*(*(a1 + 56) + 8) + 40);
-    v8 = 40;
+    v7 = 40;
     if (!v6)
     {
-      v8 = 48;
+      v7 = 48;
     }
 
-    v9 = [*(*(*(a1 + 56) + 8) + 40) objectForKeyedSubscript:*(a1 + v8)];
+    v8 = [*(*(*(a1 + 56) + 8) + 40) objectForKeyedSubscript:*(a1 + v7)];
 
-    v10 = [*(a1 + 32) context];
-    v11 = [v10 tagController];
-    v12 = [v11 fetchOperationForTagsWithIDs:v9];
+    v9 = [*(a1 + 32) context];
+    v10 = [v9 tagController];
+    v11 = [v10 fetchOperationForTagsWithIDs:v8];
 
-    v14 = MEMORY[0x1E69E9820];
-    v15 = 3221225472;
-    v16 = __47__FCTagRelationshipsOperation_performOperation__block_invoke_4;
-    v17 = &unk_1E7C36CD0;
-    v18 = *(a1 + 32);
-    v19 = v9;
-    v13 = v9;
-    [v12 setFetchCompletionBlock:&v14];
-    [*(a1 + 32) associateChildOperation:{v12, v14, v15, v16, v17, v18}];
-    [v12 start];
+    v13 = MEMORY[0x1E69E9820];
+    v14 = 3221225472;
+    v15 = __47__FCTagRelationshipsOperation_performOperation__block_invoke_4;
+    v16 = &unk_1E7C36CD0;
+    v17 = *(a1 + 32);
+    v18 = v8;
+    v12 = v8;
+    [v11 setFetchCompletionBlock:&v13];
+    [*(a1 + 32) associateChildOperation:{v11, v13, v14, v15, v16, v17}];
+    [v11 start];
   }
 }
 

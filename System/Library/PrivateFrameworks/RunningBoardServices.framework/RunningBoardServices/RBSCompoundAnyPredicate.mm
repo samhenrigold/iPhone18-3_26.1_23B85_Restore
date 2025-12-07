@@ -12,38 +12,38 @@
 
 - (id)processIdentifier
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v2 = self->_predicates;
-  v3 = [(NSSet *)v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v3 = [(NSSet *)v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v3)
   {
     v4 = v3;
     v5 = 0;
-    v6 = *v16;
+    v6 = *v15;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v16 != v6)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(v2);
         }
 
-        processIdentifier = [*(*(&v15 + 1) + 8 * i) processIdentifier];
+        processIdentifier = [*(*(&v14 + 1) + 8 * i) processIdentifier];
         v9 = processIdentifier;
         if (processIdentifier)
         {
           if (v5)
           {
-            v10 = rbs_general_log();
+            v10 = rbs_general_log(processIdentifier);
             if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
             {
-              *v14 = 0;
-              _os_log_impl(&dword_18E8AD000, v10, OS_LOG_TYPE_DEFAULT, "Failed to get processIdentifier for predicate with multiple possibilities", v14, 2u);
+              *v13 = 0;
+              _os_log_impl(&dword_18E8AD000, v10, OS_LOG_TYPE_DEFAULT, "Failed to get processIdentifier for predicate with multiple possibilities", v13, 2u);
             }
 
             v11 = 0;
@@ -54,7 +54,7 @@
         }
       }
 
-      v4 = [(NSSet *)v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v4 = [(NSSet *)v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v4)
       {
         continue;
@@ -73,35 +73,33 @@
   v11 = v5;
 LABEL_17:
 
-  v12 = *MEMORY[0x1E69E9840];
-
   return v11;
 }
 
 - (id)processIdentifiers
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v2 = self->_predicates;
-  v3 = [(NSSet *)v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v3 = [(NSSet *)v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v3)
   {
     v4 = v3;
     v5 = 0;
-    v6 = *v14;
+    v6 = *v13;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(v2);
         }
 
-        processIdentifiers = [*(*(&v13 + 1) + 8 * i) processIdentifiers];
+        processIdentifiers = [*(*(&v12 + 1) + 8 * i) processIdentifiers];
         v9 = processIdentifiers;
         if (processIdentifiers)
         {
@@ -119,7 +117,7 @@ LABEL_17:
         }
       }
 
-      v4 = [(NSSet *)v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v4 = [(NSSet *)v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v4);
@@ -130,43 +128,41 @@ LABEL_17:
     v5 = 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return v5;
 }
 
 - (BOOL)matchesProcess:(id)process
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   processCopy = process;
   if ([(NSSet *)self->_predicates count])
   {
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
     v12 = 0u;
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
     v5 = self->_predicates;
-    v6 = [(NSSet *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v6 = [(NSSet *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (v6)
     {
-      v7 = *v12;
+      v7 = *v11;
       while (2)
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v12 != v7)
+          if (*v11 != v7)
           {
             objc_enumerationMutation(v5);
           }
 
-          if ([*(*(&v11 + 1) + 8 * i) matchesProcess:{processCopy, v11}])
+          if ([*(*(&v10 + 1) + 8 * i) matchesProcess:{processCopy, v10}])
           {
             LOBYTE(v6) = 1;
             goto LABEL_12;
           }
         }
 
-        v6 = [(NSSet *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v6 = [(NSSet *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
         if (v6)
         {
           continue;
@@ -184,7 +180,6 @@ LABEL_12:
     LOBYTE(v6) = 0;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v6;
 }
 

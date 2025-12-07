@@ -27,6 +27,7 @@
 - (void)URLSession:(id)session task:(id)task didCompleteWithError:(id)error;
 - (void)onConfigurationUpdate:(id)update;
 - (void)runAllConfigurationUpdateCallbacks;
+- (void)setBool:(BOOL)bool forKey:(id)key;
 - (void)setDouble:(double)double forKey:(id)key;
 - (void)setFloat:(float)float forKey:(id)key;
 - (void)setInteger:(int64_t)integer forKey:(id)key;
@@ -278,6 +279,16 @@ LABEL_16:
   v6 = +[NSUserDefaults standardUserDefaults];
   *&v7 = float;
   [v6 setFloat:keyCopy forKey:v7];
+
+  [(CSPersistentConfiguration *)self runAllConfigurationUpdateCallbacks];
+}
+
+- (void)setBool:(BOOL)bool forKey:(id)key
+{
+  boolCopy = bool;
+  keyCopy = key;
+  v6 = +[NSUserDefaults standardUserDefaults];
+  [v6 setBool:boolCopy forKey:keyCopy];
 
   [(CSPersistentConfiguration *)self runAllConfigurationUpdateCallbacks];
 }

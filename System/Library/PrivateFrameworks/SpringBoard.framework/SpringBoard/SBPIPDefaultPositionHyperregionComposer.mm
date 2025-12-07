@@ -61,7 +61,7 @@
   v11 = *&interaction->projectedPosition.y;
   v85 = *&interaction->isStashed;
   v86 = v11;
-  if ((SBPIPPositionInteractionStateContextIsEqualToContext(&pipCurrentSize, &v85) & 1) == 0)
+  if ((SBPIPPositionInteractionStateContextIsEqualToContext(&pipCurrentSize.width, &v85.width) & 1) == 0)
   {
     *&self->_lastInteractionStateContext.isStashed = *&interaction->isStashed;
     v12 = *&interaction->projectedPosition.y;

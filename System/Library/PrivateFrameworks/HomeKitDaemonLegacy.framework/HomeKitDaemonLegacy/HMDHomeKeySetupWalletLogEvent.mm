@@ -29,7 +29,7 @@
   v5 = [MEMORY[0x277CCABB0] numberWithBool:{-[HMDHomeKeySetupWalletLogEvent success](self, "success")}];
   [dictionary setObject:v5 forKeyedSubscript:@"success"];
 
-  v6 = [dictionary copy];
+  v6 = objc_msgSend_copy(dictionary);
 
   return v6;
 }

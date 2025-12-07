@@ -167,7 +167,7 @@ uint64_t __35__ICDeviceSupport_notesProductType__block_invoke()
   return deviceSupportsFirstGenPencil_supportsFirstGenPencil;
 }
 
-uint64_t __47__ICDeviceSupport_deviceSupportsFirstGenPencil__block_invoke(uint64_t a1)
+void *__47__ICDeviceSupport_deviceSupportsFirstGenPencil__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) deviceSupportsPencil];
   if (result)

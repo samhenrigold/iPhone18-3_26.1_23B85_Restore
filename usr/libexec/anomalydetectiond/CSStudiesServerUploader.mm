@@ -2,6 +2,7 @@
 - (BOOL)addOutOfBandMetadata:(id)metadata error:(id *)error;
 - (BOOL)enqueueFileWithFilename:(id)filename andMetadata:(id)metadata error:(id *)error;
 - (BOOL)isFileOldEnoughForDeletion:(id)deletion;
+- (BOOL)persistToDiskWithSpooledFile:(BOOL)file spoolerDir:(id)dir fileURL:(id)l enqueueTime:(double)time metadata:(id)metadata error:(id *)error;
 - (BOOL)registerForUploadingWithError:(id *)error;
 - (BOOL)startMonitoringWithError:(id *)error;
 - (CSStudiesServerUploader)initWithSpoolerFolder:(id)folder serverConfiguration:(id)configuration registrationPeriodInSeconds:(unint64_t)seconds retentionPeriodInSeconds:(unint64_t)inSeconds outOfBandMetadataTimeout:(double)timeout defaultsKeyPostfix:(id)postfix;
@@ -440,6 +441,44 @@ LABEL_13:
   }
 
   return v5;
+}
+
+- (BOOL)persistToDiskWithSpooledFile:(BOOL)file spoolerDir:(id)dir fileURL:(id)l enqueueTime:(double)time metadata:(id)metadata error:(id *)error
+{
+  fileCopy = file;
+  dirCopy = dir;
+  lCopy = l;
+  metadataCopy = metadata;
+  v17 = [[NSKeyedArchiver alloc] initRequiringSecureCoding:1];
+  [v17 encodeObject:metadataCopy forKey:@"metadata"];
+  [v17 encodeBool:fileCopy forKey:@"spooled"];
+  [v17 encodeDouble:@"enqueueTime" forKey:time];
+  if (!fileCopy)
+  {
+    path = [lCopy path];
+    [v17 encodeObject:path forKey:@"unspooledFilePath"];
+  }
+
+  [v17 finishEncoding];
+  [(CSStudiesServerUploader *)self oobTimeout];
+  if (v19 == 0.0)
+  {
+    v20 = @"metadata";
+  }
+
+  else
+  {
+    v20 = @"protodata";
+  }
+
+  lastPathComponent = [lCopy lastPathComponent];
+  v22 = [dirCopy URLByAppendingPathComponent:lastPathComponent];
+  v23 = [v22 URLByAppendingPathExtension:v20];
+
+  encodedData = [v17 encodedData];
+  v25 = [encodedData writeToURL:v23 options:805306369 error:error];
+
+  return v25;
 }
 
 - (BOOL)enqueueFileWithFilename:(id)filename andMetadata:(id)metadata error:(id *)error

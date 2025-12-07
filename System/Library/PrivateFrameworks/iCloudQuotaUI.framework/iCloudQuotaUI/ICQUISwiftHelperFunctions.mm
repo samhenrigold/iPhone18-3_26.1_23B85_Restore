@@ -9,7 +9,7 @@
 
 + (id)scaledImageURL:(id)l
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2809FD700);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2809FD700, &qword_2757A3FF0);
   MEMORY[0x28223BE20](v4 - 8);
   v6 = &v14 - v5;
   lCopy = l;
@@ -39,16 +39,16 @@
 
 + (id)platformColorFromString:(id)string
 {
-  sub_275797F50();
-  v3 = sub_275762780();
-  if (v3 == 43)
+  v3 = sub_275797F50();
+  v5 = sub_275762780(v3, v4);
+  if (v5 == 43)
   {
-    v3 = 17;
+    v5 = 17;
   }
 
-  v4 = sub_275761F08(v3);
+  v6 = sub_275761F08(v5);
 
-  return v4;
+  return v6;
 }
 
 - (_TtC13iCloudQuotaUI25ICQUISwiftHelperFunctions)init

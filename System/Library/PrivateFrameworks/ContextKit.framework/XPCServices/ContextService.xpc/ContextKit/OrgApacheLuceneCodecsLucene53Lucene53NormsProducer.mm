@@ -26,13 +26,13 @@
     {
       if (v8 == 4)
       {
-        v23 = self->data_;
-        if (v23)
+        v19 = self->data_;
+        if (v19)
         {
-          v24 = [(OrgApacheLuceneStoreIndexInput *)v23 randomAccessSliceWithLong:*(v6 + 2) withLong:4 * self->maxDoc_];
+          v20 = [(OrgApacheLuceneStoreIndexInput *)v19 randomAccessSliceWithLong:*(v6 + 2) withLong:4 * self->maxDoc_];
           v11 = [OrgApacheLuceneCodecsLucene53Lucene53NormsProducer__4 alloc];
-          JreStrongAssign(&v11->val$slice_, v24);
-          OrgApacheLuceneIndexNumericDocValues_init(v11, v25);
+          JreStrongAssign(&v11->val$slice_, v20);
+          OrgApacheLuceneIndexNumericDocValues_init();
           goto LABEL_21;
         }
 
@@ -41,13 +41,13 @@
 
       if (v8 == 8)
       {
-        v17 = self->data_;
-        if (v17)
+        v15 = self->data_;
+        if (v15)
         {
-          v18 = [(OrgApacheLuceneStoreIndexInput *)v17 randomAccessSliceWithLong:*(v6 + 2) withLong:8 * self->maxDoc_];
+          v16 = [(OrgApacheLuceneStoreIndexInput *)v15 randomAccessSliceWithLong:*(v6 + 2) withLong:8 * self->maxDoc_];
           v11 = [OrgApacheLuceneCodecsLucene53Lucene53NormsProducer__5 alloc];
-          JreStrongAssign(&v11->val$slice_, v18);
-          OrgApacheLuceneIndexNumericDocValues_init(v11, v19);
+          JreStrongAssign(&v11->val$slice_, v16);
+          OrgApacheLuceneIndexNumericDocValues_init();
           goto LABEL_21;
         }
 
@@ -60,13 +60,13 @@ LABEL_23:
     {
       if (v8 == 1)
       {
-        v20 = self->data_;
-        if (v20)
+        v17 = self->data_;
+        if (v17)
         {
-          v21 = [(OrgApacheLuceneStoreIndexInput *)v20 randomAccessSliceWithLong:*(v6 + 2) withLong:self->maxDoc_];
+          v18 = [(OrgApacheLuceneStoreIndexInput *)v17 randomAccessSliceWithLong:*(v6 + 2) withLong:self->maxDoc_];
           v11 = [OrgApacheLuceneCodecsLucene53Lucene53NormsProducer__2 alloc];
-          JreStrongAssign(&v11->val$slice_, v21);
-          OrgApacheLuceneIndexNumericDocValues_init(v11, v22);
+          JreStrongAssign(&v11->val$slice_, v18);
+          OrgApacheLuceneIndexNumericDocValues_init();
           goto LABEL_21;
         }
 
@@ -81,27 +81,27 @@ LABEL_23:
           v10 = [(OrgApacheLuceneStoreIndexInput *)v9 randomAccessSliceWithLong:*(v6 + 2) withLong:2 * self->maxDoc_];
           v11 = [OrgApacheLuceneCodecsLucene53Lucene53NormsProducer__3 alloc];
           JreStrongAssign(&v11->val$slice_, v10);
-          OrgApacheLuceneIndexNumericDocValues_init(v11, v12);
+          OrgApacheLuceneIndexNumericDocValues_init();
 LABEL_21:
-          v26 = v11;
+          v21 = v11;
           objc_sync_exit(data);
-          return v26;
+          return v21;
         }
 
         goto LABEL_23;
       }
     }
 
-    v27 = new_JavaLangAssertionError_init();
-    objc_exception_throw(v27);
+    v22 = new_JavaLangAssertionError_init();
+    objc_exception_throw(v22);
   }
 
-  v13 = *(v5 + 2);
-  v14 = [OrgApacheLuceneCodecsLucene53Lucene53NormsProducer__1 alloc];
-  v14->val$value_ = v13;
-  OrgApacheLuceneIndexNumericDocValues_init(v14, v15);
+  v12 = *(v5 + 2);
+  v13 = [OrgApacheLuceneCodecsLucene53Lucene53NormsProducer__1 alloc];
+  v13->val$value_ = v12;
+  OrgApacheLuceneIndexNumericDocValues_init();
 
-  return v14;
+  return v13;
 }
 
 - (void)close

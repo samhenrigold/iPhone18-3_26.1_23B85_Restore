@@ -21,16 +21,15 @@
 
   if (v3)
   {
-    v4 = CNALoggingContextDebug();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = CNALoggingContextDebug(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v7 = 138412290;
       v8 = @"CNDuetContactsInAutocomplete";
-      _os_log_impl(&dword_2155FE000, v4, OS_LOG_TYPE_DEFAULT, "Will not include predicted contacts: %@ is NO or not set", &v7, 0xCu);
+      _os_log_impl(&dword_2155FE000, v5, OS_LOG_TYPE_DEFAULT, "Will not include predicted contacts: %@ is NO or not set", &v7, 0xCu);
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v3 ^ 1;
 }
 
@@ -42,16 +41,15 @@
 
   if (v3)
   {
-    v4 = CNALoggingContextDebug();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = CNALoggingContextDebug(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v7 = 138412290;
       v8 = @"CNSupplementalContactsInAutocomplete";
-      _os_log_impl(&dword_2155FE000, v4, OS_LOG_TYPE_DEFAULT, "Will not include supplemental contacts: %@ is NO", &v7, 0xCu);
+      _os_log_impl(&dword_2155FE000, v5, OS_LOG_TYPE_DEFAULT, "Will not include supplemental contacts: %@ is NO", &v7, 0xCu);
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v3 ^ 1;
 }
 
@@ -79,16 +77,15 @@
 
   if (v3)
   {
-    v4 = CNALoggingContextDebug();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = CNALoggingContextDebug(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v7 = 138412290;
       v8 = @"CNLocalContactsInAutocomplete";
-      _os_log_impl(&dword_2155FE000, v4, OS_LOG_TYPE_DEFAULT, "Will not include local contacts: %@ is NO", &v7, 0xCu);
+      _os_log_impl(&dword_2155FE000, v5, OS_LOG_TYPE_DEFAULT, "Will not include local contacts: %@ is NO", &v7, 0xCu);
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v3 ^ 1;
 }
 
@@ -100,16 +97,15 @@
 
   if (v3)
   {
-    v4 = CNALoggingContextDebug();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = CNALoggingContextDebug(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v7 = 138412290;
       v8 = @"CNRecentContactsInAutocomplete";
-      _os_log_impl(&dword_2155FE000, v4, OS_LOG_TYPE_DEFAULT, "Will not include recent contacts: %@ is NO", &v7, 0xCu);
+      _os_log_impl(&dword_2155FE000, v5, OS_LOG_TYPE_DEFAULT, "Will not include recent contacts: %@ is NO", &v7, 0xCu);
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v3 ^ 1;
 }
 
@@ -121,16 +117,15 @@
 
   if (v3)
   {
-    v4 = CNALoggingContextDebug();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = CNALoggingContextDebug(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v7 = 138412290;
       v8 = @"CNStewieInAutocomplete";
-      _os_log_impl(&dword_2155FE000, v4, OS_LOG_TYPE_DEFAULT, "Will not include stewie contacts: %@ is NO", &v7, 0xCu);
+      _os_log_impl(&dword_2155FE000, v5, OS_LOG_TYPE_DEFAULT, "Will not include stewie contacts: %@ is NO", &v7, 0xCu);
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v3 ^ 1;
 }
 
@@ -142,16 +137,15 @@
 
   if (v3)
   {
-    v4 = CNALoggingContextDebug();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = CNALoggingContextDebug(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v7 = 138412290;
       v8 = @"CNSuggestedContactsInAutocomplete";
-      _os_log_impl(&dword_2155FE000, v4, OS_LOG_TYPE_DEFAULT, "Will not include suggested contacts: %@ is NO or not set", &v7, 0xCu);
+      _os_log_impl(&dword_2155FE000, v5, OS_LOG_TYPE_DEFAULT, "Will not include suggested contacts: %@ is NO or not set", &v7, 0xCu);
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v3 ^ 1;
 }
 
@@ -163,16 +157,15 @@
 
   if (v3)
   {
-    v4 = CNALoggingContextDebug();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = CNALoggingContextDebug(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v7 = 138412290;
       v8 = @"CNLocalExtensionContactsInAutocomplete";
-      _os_log_impl(&dword_2155FE000, v4, OS_LOG_TYPE_DEFAULT, "Will not include local extensions: %@ is NO or not set", &v7, 0xCu);
+      _os_log_impl(&dword_2155FE000, v5, OS_LOG_TYPE_DEFAULT, "Will not include local extensions: %@ is NO or not set", &v7, 0xCu);
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v3 ^ 1;
 }
 
@@ -184,16 +177,15 @@
 
   if (v3)
   {
-    v4 = CNALoggingContextDebug();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = CNALoggingContextDebug(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v7 = 138412290;
       v8 = @"CNServerContactsInAutocomplete";
-      _os_log_impl(&dword_2155FE000, v4, OS_LOG_TYPE_DEFAULT, "Will not include directory server contacts: %@ is NO", &v7, 0xCu);
+      _os_log_impl(&dword_2155FE000, v5, OS_LOG_TYPE_DEFAULT, "Will not include directory server contacts: %@ is NO", &v7, 0xCu);
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v3 ^ 1;
 }
 
@@ -205,16 +197,15 @@
 
   if (v3)
   {
-    v4 = CNALoggingContextDebug();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = CNALoggingContextDebug(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v7 = 138412290;
       v8 = @"CNCalendarServerContactsInAutocomplete";
-      _os_log_impl(&dword_2155FE000, v4, OS_LOG_TYPE_DEFAULT, "Will not include calendar server contacts: %@ is NO", &v7, 0xCu);
+      _os_log_impl(&dword_2155FE000, v5, OS_LOG_TYPE_DEFAULT, "Will not include calendar server contacts: %@ is NO", &v7, 0xCu);
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v3 ^ 1;
 }
 

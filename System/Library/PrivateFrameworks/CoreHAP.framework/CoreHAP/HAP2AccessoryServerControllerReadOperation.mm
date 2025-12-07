@@ -74,7 +74,7 @@ void __54__HAP2AccessoryServerControllerReadOperation__cleanUp__block_invoke(uin
 
 - (id)_HAP2AutoUpdateCachedCountdownCharacteristic:(id)characteristic
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   characteristicCopy = characteristic;
   type = [characteristicCopy type];
   if (([type isEqual:@"000000D4-0000-1000-8000-0026BB765291"] & 1) == 0)
@@ -121,24 +121,23 @@ LABEL_11:
       {
         v19 = v18;
         value4 = [v8 value];
-        v23 = 138412546;
+        v22 = 138412546;
         selfCopy = self;
-        v25 = 2112;
-        v26 = value4;
-        _os_log_impl(&dword_22AADC000, v19, OS_LOG_TYPE_DEFAULT, "%@ Auto updating countdown counter value to: %@", &v23, 0x16u);
+        v24 = 2112;
+        v25 = value4;
+        _os_log_impl(&dword_22AADC000, v19, OS_LOG_TYPE_DEFAULT, "%@ Auto updating countdown counter value to: %@", &v22, 0x16u);
       }
     }
   }
 
 LABEL_12:
-  v21 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 - (void)_sendRequest
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   if (![(HAP2AsynchronousOperation *)self isCancelled])
   {
     if (self)
@@ -149,10 +148,10 @@ LABEL_12:
       if (v3 != readRequest)
       {
 LABEL_26:
-        v30.receiver = self;
-        v30.super_class = HAP2AccessoryServerControllerReadOperation;
-        [(HAP2AccessoryServerControllerOperation *)&v30 _sendRequest];
-        goto LABEL_27;
+        v29.receiver = self;
+        v29.super_class = HAP2AccessoryServerControllerReadOperation;
+        [(HAP2AccessoryServerControllerOperation *)&v29 _sendRequest];
+        return;
       }
 
       v5 = self->_readRequest;
@@ -181,17 +180,17 @@ LABEL_26:
 
     v12 = v11;
     originalCharacteristics2 = [(HAP2ControllerReadRequest *)v12 originalCharacteristics];
-    v32[0] = MEMORY[0x277D85DD0];
-    v32[1] = 3221225472;
-    v32[2] = __58__HAP2AccessoryServerControllerReadOperation__sendRequest__block_invoke;
-    v32[3] = &unk_2786D3BB0;
-    v32[4] = self;
+    v31[0] = MEMORY[0x277D85DD0];
+    v31[1] = 3221225472;
+    v31[2] = __58__HAP2AccessoryServerControllerReadOperation__sendRequest__block_invoke;
+    v31[3] = &unk_2786D3BB0;
+    v31[4] = self;
     v14 = indexSet;
-    v33 = v14;
+    v32 = v14;
     v15 = v9;
 
-    v34 = v15;
-    [originalCharacteristics2 hmf_enumerateWithAutoreleasePoolUsingBlock:v32];
+    v33 = v15;
+    [originalCharacteristics2 hmf_enumerateWithAutoreleasePoolUsingBlock:v31];
 
     v16 = [v14 copy];
     if (self)
@@ -214,9 +213,9 @@ LABEL_26:
 
       v19 = encoding;
       v20 = [v15 copy];
-      v31 = 0;
-      v21 = [(HAP2AccessoryServerEncoding *)v19 readRequestForCharacteristics:v20 shouldEncrypt:1 error:&v31];
-      v22 = v31;
+      v30 = 0;
+      v21 = [(HAP2AccessoryServerEncoding *)v19 readRequestForCharacteristics:v20 shouldEncrypt:1 error:&v30];
+      v22 = v30;
 
       if (v21)
       {
@@ -236,8 +235,8 @@ LABEL_26:
         {
           *buf = 138412546;
           selfCopy4 = self;
-          v37 = 2112;
-          v38 = v22;
+          v36 = 2112;
+          v37 = v22;
           _os_log_error_impl(&dword_22AADC000, v28, OS_LOG_TYPE_ERROR, "%@ Unable to create request for characteristics: %@", buf, 0x16u);
         }
 
@@ -276,14 +275,11 @@ LABEL_26:
       goto LABEL_26;
     }
   }
-
-LABEL_27:
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void __58__HAP2AccessoryServerControllerReadOperation__sendRequest__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   if (![v5 hap2_canUseCachedValue] || (v6 = *(a1 + 32)) != 0 && (*(v6 + 344) & 4) != 0)
   {
@@ -306,17 +302,15 @@ void __58__HAP2AccessoryServerControllerReadOperation__sendRequest__block_invoke
       v10 = [v5 type];
       v11 = [HAPCharacteristic hap2_shortTypeFromUUID:v10];
       v12 = [v5 instanceID];
-      v14 = 138412802;
-      v15 = v8;
-      v16 = 2112;
-      v17 = v11;
-      v18 = 2112;
-      v19 = v12;
-      _os_log_impl(&dword_22AADC000, v9, OS_LOG_TYPE_INFO, "%@ Characteristic %@ [%@] is cached", &v14, 0x20u);
+      v13 = 138412802;
+      v14 = v8;
+      v15 = 2112;
+      v16 = v11;
+      v17 = 2112;
+      v18 = v12;
+      _os_log_impl(&dword_22AADC000, v9, OS_LOG_TYPE_INFO, "%@ Characteristic %@ [%@] is cached", &v13, 0x20u);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (HAP2AccessoryServerControllerReadOperation)initWithName:(id)name controller:(id)controller encoding:(id)encoding transport:(id)transport readRequest:(id)request endpoint:(id)endpoint mimeType:(id)type timeout:(double)self0 options:(unint64_t)self1 dscpPriority:(int64_t)self2

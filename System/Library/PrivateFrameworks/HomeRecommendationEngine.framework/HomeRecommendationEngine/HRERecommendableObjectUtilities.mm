@@ -87,17 +87,15 @@
 
 + (id)recommendableObject:(id)object actionBuildersDerivedFromActions:(id)actions
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CBEB98];
   objectCopy = object;
   v6 = MEMORY[0x277CBEA60];
   actionsCopy = actions;
   objectCopy2 = object;
   v9 = [v6 arrayWithObjects:&objectCopy count:1];
-  v10 = [v5 setWithArray:{v9, objectCopy, v15}];
+  v10 = [v5 setWithArray:{v9, objectCopy, v14}];
   v11 = [HREDerivedActionUtilities derivedActionsForActionableObjects:v10 fromActions:actionsCopy];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -140,30 +138,13 @@
 
   v12 = v11;
 
-  if (!v12)
-  {
-    goto LABEL_7;
-  }
-
-  v13 = [v12 flattenedMapEvaluatedForObject:objectCopy];
-
-  hre_characteristics = [objectCopy hre_characteristics];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __82__HRERecommendableObjectUtilities__actionMap_includesType_forRecommendableObject___block_invoke;
-  v18[3] = &unk_279776320;
-  v12 = v13;
-  v19 = v12;
-  LOBYTE(v13) = [hre_characteristics na_any:v18];
-
-  if (v13)
+  if (v12 && ([v12 flattenedMapEvaluatedForObject:objectCopy], v13 = objc_claimAutoreleasedReturnValue(), v12, objc_msgSend(objectCopy, "hre_characteristics"), v14 = objc_claimAutoreleasedReturnValue(), v18[0] = MEMORY[0x277D85DD0], v18[1] = 3221225472, v18[2] = __82__HRERecommendableObjectUtilities__actionMap_includesType_forRecommendableObject___block_invoke, v18[3] = &unk_279776320, v12 = v13, v19 = v12, LOBYTE(v13) = objc_msgSend(v14, "na_any:", v18), v14, v19, (v13 & 1) != 0))
   {
     v15 = 1;
   }
 
   else
   {
-LABEL_7:
     v16 = [mapCopy objectForKeyedSubscript:typeCopy];
     v15 = v16 != 0;
   }

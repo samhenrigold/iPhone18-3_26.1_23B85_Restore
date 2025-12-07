@@ -12,44 +12,42 @@
 - (PVInstructionGraphImageBufferSourceNode)initWithPVImageBuffer:(id)buffer transform:(CGAffineTransform *)transform
 {
   bufferCopy = buffer;
-  v16.receiver = self;
-  v16.super_class = PVInstructionGraphImageBufferSourceNode;
-  v8 = [(PVInstructionGraphSourceNode *)&v16 init];
-  v9 = v8;
-  v10 = v8;
+  v14.receiver = self;
+  v14.super_class = PVInstructionGraphImageBufferSourceNode;
+  v8 = [(PVInstructionGraphSourceNode *)&v14 init];
   if (v8)
   {
-    PVRenderManager::INSTANCE(v8, v15);
-    imageBuffer = v10->_imageBuffer;
-    v12 = *&v15[0];
-    if (imageBuffer == *&v15[0])
+    PVRenderManager::INSTANCE(v13);
+    v9 = *(v8 + 13);
+    v10 = *&v13[0];
+    if (v9 == *&v13[0])
     {
-      if (imageBuffer)
+      if (v9)
       {
-        (*(**&v15[0] + 24))();
+        (*(**&v13[0] + 24))();
       }
     }
 
     else
     {
-      if (imageBuffer)
+      if (v9)
       {
-        (*(imageBuffer->super.isa + 3))(v10->_imageBuffer);
-        v12 = *&v15[0];
+        (*(*v9 + 24))(*(v8 + 13));
+        v10 = *&v13[0];
       }
 
-      v10->_imageBuffer = v12;
+      *(v8 + 13) = v10;
     }
 
-    objc_storeStrong(&v9->super._transform.ty, buffer);
-    v13 = *&transform->c;
-    v15[0] = *&transform->a;
-    v15[1] = v13;
-    v15[2] = *&transform->tx;
-    [(PVInstructionGraphSourceNode *)v10 setTransform:v15];
+    objc_storeStrong(v8 + 12, buffer);
+    v11 = *&transform->c;
+    v13[0] = *&transform->a;
+    v13[1] = v11;
+    v13[2] = *&transform->tx;
+    [v8 setTransform:v13];
   }
 
-  return v10;
+  return v8;
 }
 
 - (HGRef<HGNode>)internalHGNodeForTime:(id *)time trackInputs:(const void *)inputs renderer:(const void *)renderer igContext:(HGRef<PVInstructionGraphContext>)context
@@ -84,7 +82,7 @@
     ty = self->super._transform.ty;
     if (canCreateCVPixelBuffer)
     {
-      v17 = [*&ty cvPixelBufferWithColorSpace:v12];
+      v17 = objc_msgSend_cvPixelBufferWithColorSpace_(*&ty);
       if (v17)
       {
         *v38 = *&time->var0;
@@ -141,7 +139,7 @@
 
       else
       {
-        [*&v24 hgBitmapWithColorSpace:v12];
+        objc_msgSend_hgBitmapWithColorSpace_(*&v24);
         if (v38[0])
         {
           v25 = HGObject::operator new(0x1F0uLL);
@@ -229,7 +227,7 @@
 LABEL_62:
       v41 = v11;
       (*(*v11 + 16))(v11);
-      [(PVInstructionGraphSourceNode *)self applyWrapModeToInput:&v41];
+      objc_msgSend_applyWrapModeToInput_(self);
       if (v11 == v38[0])
       {
         (*(*v38[0] + 24))(v38[0]);
@@ -254,7 +252,7 @@ LABEL_62:
         (*(*v35 + 16))(v35);
       }
 
-      [(PVInstructionGraphSourceNode *)self transform];
+      objc_msgSend_transform(self);
       v36 = (*(**context.m_Obj + 64))();
       HGXFormForCGAffineTransform(&v40, v38, v36, &v45);
       v37 = v45;
@@ -359,7 +357,7 @@ LABEL_62:
     v25 = v14;
     if (v14 > 0.0 && v13 > 0.0)
     {
-      [(PVInstructionGraphSourceNode *)self transform];
+      objc_msgSend_transform(self, v13);
       v15 = vaddq_f64(vmulq_n_f64(v28, v25), vmulq_n_f64(v29, v26));
       v16 = v15.f64[1];
       v27 = v15;

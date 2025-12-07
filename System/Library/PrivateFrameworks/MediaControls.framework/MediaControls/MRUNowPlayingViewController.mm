@@ -1065,7 +1065,7 @@ void __78__MRUNowPlayingViewController_routingViewController_didSelectRoutingVie
   v17 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v7 = MCLogCategoryDefault();
+  v7 = MCLogCategoryDefault(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = objc_opt_class();
@@ -1429,7 +1429,7 @@ uint64_t __51__MRUNowPlayingViewController_updateNowPlayingInfo__block_invoke(ui
 
 - (void)updateVolumeControls
 {
-  v65 = *MEMORY[0x1E69E9840];
+  v66 = *MEMORY[0x1E69E9840];
   view = [(MRUNowPlayingViewController *)self view];
   volumeControlsView = [view volumeControlsView];
 
@@ -1536,107 +1536,112 @@ LABEL_8:
   isOnCall = [v27 isOnCall];
 
   volumeControlCapabilities = [dataSource2 volumeControlCapabilities];
-  if (+[MRUFeatureFlagProvider isAutobahnEnabled])
+  isDeviceRoute = +[MRUFeatureFlagProvider isAutobahnEnabled];
+  if (isDeviceRoute)
   {
     [(MRUNowPlayingViewController *)self view];
-    v31 = v30 = route;
-    [v31 volumeControlsView];
-    v33 = v32 = volumeControlsView;
-    [v33 setOnScreen:v24];
+    v32 = v31 = route;
+    [v32 volumeControlsView];
+    v34 = v33 = volumeControlsView;
+    [v34 setOnScreen:v24];
 
     view2 = [(MRUNowPlayingViewController *)self view];
-    LODWORD(v33) = [view2 showVolumeControlsView];
+    LODWORD(v34) = [view2 showVolumeControlsView];
 
-    route = v30;
-    v26 = alwaysShowVolumeControls == v33;
-    volumeControlsView = v32;
+    route = v31;
+    v26 = alwaysShowVolumeControls == v34;
+    volumeControlsView = v33;
     if (!v26)
     {
-      v53[0] = MEMORY[0x1E69E9820];
-      v53[1] = 3221225472;
-      v53[2] = __51__MRUNowPlayingViewController_updateVolumeControls__block_invoke;
-      v53[3] = &unk_1E7663F38;
-      v53[4] = self;
-      v54 = alwaysShowVolumeControls;
-      [(MRUNowPlayingViewController *)self updateContentAnimated:v53 completion:0];
+      v54[0] = MEMORY[0x1E69E9820];
+      v54[1] = 3221225472;
+      v54[2] = __51__MRUNowPlayingViewController_updateVolumeControls__block_invoke;
+      v54[3] = &unk_1E7663F38;
+      v54[4] = self;
+      v55 = alwaysShowVolumeControls;
+      isDeviceRoute = [(MRUNowPlayingViewController *)self updateContentAnimated:v54 completion:0];
     }
   }
 
-  if (!(isOnCall & 1 | ((v24 & 1) == 0)) && ([route isDeviceRoute] & 1) == 0 && (volumeControlCapabilities & 3) != 0)
+  if (!(isOnCall & 1 | ((v24 & 1) == 0)))
   {
-    v42 = MCLogCategoryVolume();
-    if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+    isDeviceRoute = [route isDeviceRoute];
+    if ((isDeviceRoute & 1) == 0 && (volumeControlCapabilities & 3) != 0)
     {
-      v43 = objc_opt_class();
-      v44 = MRUNowPlayingLayoutDescription(self->_layout);
-      MRUNowPlayingContextDescription(self->_context);
-      v46 = v45 = route;
-      *buf = 138545154;
-      v56 = v43;
-      v57 = 1024;
-      v58 = 1;
-      v59 = 1024;
-      v60 = alwaysShowVolumeControls;
-      v61 = 1024;
-      v62 = 0;
-      v63 = 1024;
-      *v64 = 1;
-      *&v64[4] = 2114;
-      *&v64[6] = v44;
-      *&v64[14] = 2114;
-      *&v64[16] = v46;
-      *&v64[24] = 2114;
-      *&v64[26] = v45;
-      _os_log_impl(&dword_1A20FC000, v42, OS_LOG_TYPE_DEFAULT, "%{public}@ taking hardware assertion: on screen: %{BOOL}u | show: %{BOOL}u | call: %{BOOL}u | control: %{BOOL}u | layout: %{public}@ | context: %{public}@ | route: %{public}@", buf, 0x42u);
+      v43 = MCLogCategoryVolume(isDeviceRoute);
+      if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+      {
+        v44 = objc_opt_class();
+        v45 = MRUNowPlayingLayoutDescription(self->_layout);
+        MRUNowPlayingContextDescription(self->_context);
+        v47 = v46 = route;
+        *buf = 138545154;
+        v57 = v44;
+        v58 = 1024;
+        v59 = 1;
+        v60 = 1024;
+        v61 = alwaysShowVolumeControls;
+        v62 = 1024;
+        v63 = 0;
+        v64 = 1024;
+        *v65 = 1;
+        *&v65[4] = 2114;
+        *&v65[6] = v45;
+        *&v65[14] = 2114;
+        *&v65[16] = v47;
+        *&v65[24] = 2114;
+        *&v65[26] = v46;
+        _os_log_impl(&dword_1A20FC000, v43, OS_LOG_TYPE_DEFAULT, "%{public}@ taking hardware assertion: on screen: %{BOOL}u | show: %{BOOL}u | call: %{BOOL}u | control: %{BOOL}u | layout: %{public}@ | context: %{public}@ | route: %{public}@", buf, 0x42u);
 
-      route = v45;
-    }
+        route = v46;
+      }
 
-    v41 = +[MRUHardwareVolumeController sharedInstance];
-    v47 = objc_opt_class();
-    v48 = NSStringFromClass(v47);
-    v49 = [v41 requestControlsForVolumeDataSource:dataSource2 reason:v48];
-    hardwareVolumeControlAssertion = self->_hardwareVolumeControlAssertion;
-    self->_hardwareVolumeControlAssertion = v49;
+      v42 = +[MRUHardwareVolumeController sharedInstance];
+      v48 = objc_opt_class();
+      v49 = NSStringFromClass(v48);
+      v50 = [v42 requestControlsForVolumeDataSource:dataSource2 reason:v49];
+      hardwareVolumeControlAssertion = self->_hardwareVolumeControlAssertion;
+      self->_hardwareVolumeControlAssertion = v50;
 
 LABEL_43:
-    goto LABEL_44;
+      goto LABEL_44;
+    }
   }
 
   if (self->_hardwareVolumeControlAssertion)
   {
-    v35 = MCLogCategoryVolume();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+    v36 = MCLogCategoryVolume(isDeviceRoute);
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
     {
-      v51 = alwaysShowVolumeControls;
-      v36 = dataSource2;
-      v37 = route;
-      v38 = objc_opt_class();
+      v52 = alwaysShowVolumeControls;
+      v37 = dataSource2;
+      v38 = route;
+      v39 = objc_opt_class();
       MRUNowPlayingLayoutDescription(self->_layout);
-      v39 = v52 = volumeControlsView;
-      v40 = MRUNowPlayingContextDescription(self->_context);
+      v40 = v53 = volumeControlsView;
+      v41 = MRUNowPlayingContextDescription(self->_context);
       *buf = 138544898;
-      v56 = v38;
-      route = v37;
-      dataSource2 = v36;
-      v57 = 1024;
-      v58 = v24;
-      v59 = 1024;
-      v60 = v51;
-      v61 = 1024;
-      v62 = isOnCall;
-      v63 = 2114;
-      *v64 = v39;
-      *&v64[8] = 2114;
-      *&v64[10] = v40;
-      *&v64[18] = 2114;
-      *&v64[20] = route;
-      _os_log_impl(&dword_1A20FC000, v35, OS_LOG_TYPE_DEFAULT, "%{public}@ removing hardware assertion: on screen: %{BOOL}u | show: %{BOOL}u | call: %{BOOL}u | layout: %{public}@ | context: %{public}@ | route: %{public}@", buf, 0x3Cu);
+      v57 = v39;
+      route = v38;
+      dataSource2 = v37;
+      v58 = 1024;
+      v59 = v24;
+      v60 = 1024;
+      v61 = v52;
+      v62 = 1024;
+      v63 = isOnCall;
+      v64 = 2114;
+      *v65 = v40;
+      *&v65[8] = 2114;
+      *&v65[10] = v41;
+      *&v65[18] = 2114;
+      *&v65[20] = route;
+      _os_log_impl(&dword_1A20FC000, v36, OS_LOG_TYPE_DEFAULT, "%{public}@ removing hardware assertion: on screen: %{BOOL}u | show: %{BOOL}u | call: %{BOOL}u | layout: %{public}@ | context: %{public}@ | route: %{public}@", buf, 0x3Cu);
 
-      volumeControlsView = v52;
+      volumeControlsView = v53;
     }
 
-    v41 = self->_hardwareVolumeControlAssertion;
+    v42 = self->_hardwareVolumeControlAssertion;
     self->_hardwareVolumeControlAssertion = 0;
     goto LABEL_43;
   }
@@ -1981,7 +1986,7 @@ void __48__MRUNowPlayingViewController_updateSuggestions__block_invoke_2(uint64_
 
 - (void)presentRoutingControlsFromSourceView:(id)view
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   viewCopy = view;
   if (self->_routeControlsPresentation)
   {
@@ -2014,18 +2019,19 @@ void __48__MRUNowPlayingViewController_updateSuggestions__block_invoke_2(uint64_
 
     if (self->_routeControlsPresentation == 2)
     {
-      if (+[MRUFeatureFlagProvider isCayenneEnabled])
+      v14 = +[MRUFeatureFlagProvider isCayenneEnabled];
+      if (v14)
       {
-        v14 = MCLogCategoryDefault();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        v15 = MCLogCategoryDefault(v14);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
-          v15 = objc_opt_class();
+          v16 = objc_opt_class();
           routeUID = self->_routeUID;
           *buf = 138543618;
-          v32 = v15;
-          v33 = 2112;
-          v34 = routeUID;
-          _os_log_impl(&dword_1A20FC000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@ will present route picker with routeUID: %@", buf, 0x16u);
+          v33 = v16;
+          v34 = 2112;
+          v35 = routeUID;
+          _os_log_impl(&dword_1A20FC000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@ will present route picker with routeUID: %@", buf, 0x16u);
         }
 
         [v5 setRouteUID:self->_routeUID];
@@ -2042,30 +2048,30 @@ void __48__MRUNowPlayingViewController_updateSuggestions__block_invoke_2(uint64_
     objc_initWeak(buf, self);
     if ([MEMORY[0x1E696AAE8] mru_isProximityControl])
     {
-      v19 = [MRUViewServiceProvider viewControllerForConfiguration:v5];
-      [v19 setModalPresentationStyle:5];
-      v29[0] = MEMORY[0x1E69E9820];
-      v29[1] = 3221225472;
-      v29[2] = __68__MRUNowPlayingViewController_presentRoutingControlsFromSourceView___block_invoke;
-      v29[3] = &unk_1E7663AE8;
-      objc_copyWeak(&v30, buf);
-      [v19 setDismissalBlock:v29];
-      v27[0] = MEMORY[0x1E69E9820];
-      v27[1] = 3221225472;
-      v27[2] = __68__MRUNowPlayingViewController_presentRoutingControlsFromSourceView___block_invoke_2;
-      v27[3] = &unk_1E7663898;
-      v20 = v19;
-      v28 = v20;
-      [(MRUNowPlayingViewController *)self presentViewController:v20 animated:0 completion:v27];
+      v20 = [MRUViewServiceProvider viewControllerForConfiguration:v5];
+      [v20 setModalPresentationStyle:5];
+      v30[0] = MEMORY[0x1E69E9820];
+      v30[1] = 3221225472;
+      v30[2] = __68__MRUNowPlayingViewController_presentRoutingControlsFromSourceView___block_invoke;
+      v30[3] = &unk_1E7663AE8;
+      objc_copyWeak(&v31, buf);
+      [v20 setDismissalBlock:v30];
+      v28[0] = MEMORY[0x1E69E9820];
+      v28[1] = 3221225472;
+      v28[2] = __68__MRUNowPlayingViewController_presentRoutingControlsFromSourceView___block_invoke_2;
+      v28[3] = &unk_1E7663898;
+      v21 = v20;
+      v29 = v21;
+      [(MRUNowPlayingViewController *)self presentViewController:v21 animated:0 completion:v28];
 
-      objc_destroyWeak(&v30);
+      objc_destroyWeak(&v31);
     }
 
     else
     {
-      v21 = [objc_alloc(MEMORY[0x1E69705B0]) initWithConfiguration:v5 shouldObserveRoutingContextUIDChanges:0];
+      v22 = [objc_alloc(MEMORY[0x1E69705B0]) initWithConfiguration:v5 shouldObserveRoutingContextUIDChanges:0];
       mediaControls = self->_mediaControls;
-      self->_mediaControls = v21;
+      self->_mediaControls = v22;
 
       currentDevice = [MEMORY[0x1E69DC938] currentDevice];
       userInterfaceIdiom = [currentDevice userInterfaceIdiom];
@@ -2075,14 +2081,14 @@ void __48__MRUNowPlayingViewController_updateSuggestions__block_invoke_2(uint64_
         [(MPMediaControls *)self->_mediaControls setSourceView:viewCopy];
       }
 
-      v25[0] = MEMORY[0x1E69E9820];
-      v25[1] = 3221225472;
-      v25[2] = __68__MRUNowPlayingViewController_presentRoutingControlsFromSourceView___block_invoke_3;
-      v25[3] = &unk_1E7663AE8;
-      objc_copyWeak(&v26, buf);
-      [(MPMediaControls *)self->_mediaControls setDismissHandler:v25];
+      v26[0] = MEMORY[0x1E69E9820];
+      v26[1] = 3221225472;
+      v26[2] = __68__MRUNowPlayingViewController_presentRoutingControlsFromSourceView___block_invoke_3;
+      v26[3] = &unk_1E7663AE8;
+      objc_copyWeak(&v27, buf);
+      [(MPMediaControls *)self->_mediaControls setDismissHandler:v26];
       [(MPMediaControls *)self->_mediaControls present];
-      objc_destroyWeak(&v26);
+      objc_destroyWeak(&v27);
     }
 
     objc_destroyWeak(buf);

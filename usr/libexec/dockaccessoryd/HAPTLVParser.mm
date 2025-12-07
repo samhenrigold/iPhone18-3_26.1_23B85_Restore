@@ -43,7 +43,7 @@
   if (v5)
   {
     v6 = [[NSError alloc] initWithDomain:NSOSStatusErrorDomain code:v5 userInfo:0];
-    v7 = sub_10007FAA0();
+    v7 = sub_10007FAA0(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       v8 = sub_10007FAFC(0);
@@ -154,7 +154,7 @@
   if (!v5)
   {
     v8 = [[NSError alloc] initWithDomain:NSOSStatusErrorDomain code:i userInfo:0];
-    v9 = sub_10007FAA0();
+    v9 = sub_10007FAA0(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v10 = sub_10007FAFC(0);

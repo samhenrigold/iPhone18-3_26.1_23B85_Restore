@@ -191,9 +191,9 @@
 
 - (void)viewWillLayoutSubviews
 {
-  v49.receiver = self;
-  v49.super_class = PKDiscoveryArticleViewController;
-  [(PKDiscoveryArticleViewController *)&v49 viewWillLayoutSubviews];
+  v85.receiver = self;
+  v85.super_class = PKDiscoveryArticleViewController;
+  [(PKDiscoveryArticleViewController *)&v85 viewWillLayoutSubviews];
   isWritingDirectionRTL = [(PKDiscoveryArticleLayout *)self->_articleLayout isWritingDirectionRTL];
   if (isWritingDirectionRTL)
   {
@@ -216,6 +216,9 @@
   if (![(PKDiscoveryArticleViewController *)self isAnimatingCard])
   {
     [(UICollectionView *)self->_collectionView setFrame:v8, v10, v12, v14];
+    v81 = v20;
+    v83 = v16;
+    v80 = v22;
     if (self->_hasSafeAreaInsetOverride)
     {
       top = self->_safeAreaOverrideInsets.top;
@@ -242,19 +245,43 @@
     [(PKDiscoveryCardView *)self->_cardView setSafeAreaOverrideInsets:self->_safeAreaOverrideInsets.top, self->_safeAreaOverrideInsets.left, self->_safeAreaOverrideInsets.bottom, self->_safeAreaOverrideInsets.right];
     [(PKDiscoveryCardView *)self->_cardView setFrame:v8, v28, v30, v32];
     [(UILabel *)self->_downloadingLabel sizeThatFits:v12, v14];
-    PKSizeAlignedInRect();
-    PKSizeAlignedInRect();
-    v34 = v33;
-    v36 = v35;
-    v47 = v38;
-    v48 = v37;
-    PKSizeAlignedInRect();
-    v40 = v39;
-    v42 = v41;
-    v44 = v43;
-    v46 = v45;
-    [(UIActivityIndicatorView *)self->_activityIndicator setFrame:v34, v36, v48, v47];
-    [(UILabel *)self->_downloadingLabel setFrame:v40, v42, v44, v46];
+    v34 = *&v33;
+    v36 = *&v35;
+    v37.n128_f64[0] = v8 + v18;
+    v38.n128_f64[0] = v10 + v83;
+    v39.n128_f64[0] = v12 - (v18 + v80);
+    v40.n128_f64[0] = v14 - (v83 + v81);
+    v41.n128_f64[0] = fmax(v33, 20.0);
+    v42.n128_f64[0] = v35 + 26.0;
+    PKSizeAlignedInRect(0x100000001, v41, v42, v37, v38, v39, v40, v43);
+    v45 = v44;
+    v47 = v46;
+    v49 = v48;
+    v51 = v50;
+    v52.n128_u64[0] = 20.0;
+    v53.n128_u64[0] = 20.0;
+    v54.n128_u64[0] = v45;
+    v55.n128_u64[0] = v47;
+    v56.n128_u64[0] = v49;
+    v57.n128_u64[0] = v51;
+    PKSizeAlignedInRect(1, v52, v53, v54, v55, v56, v57, v58);
+    v60 = v59;
+    v62 = v61;
+    v82 = v64;
+    v84 = v63;
+    v65.n128_u64[0] = v34;
+    v66.n128_u64[0] = v36;
+    v67.n128_u64[0] = v45;
+    v68.n128_u64[0] = v47;
+    v69.n128_u64[0] = v49;
+    v70.n128_u64[0] = v51;
+    PKSizeAlignedInRect(0x200000001, v65, v66, v67, v68, v69, v70, v71);
+    v73 = v72;
+    v75 = v74;
+    v77 = v76;
+    v79 = v78;
+    [(UIActivityIndicatorView *)self->_activityIndicator setFrame:v60, v62, v84, v82];
+    [(UILabel *)self->_downloadingLabel setFrame:v73, v75, v77, v79];
   }
 }
 
@@ -464,11 +491,11 @@ uint64_t __53__PKDiscoveryArticleViewController_setIsDownloading___block_invoke(
   return [v3 setAlpha:v2];
 }
 
-uint64_t __53__PKDiscoveryArticleViewController_setIsDownloading___block_invoke_2(uint64_t result)
+id *__53__PKDiscoveryArticleViewController_setIsDownloading___block_invoke_2(id *result)
 {
-  if ((*(result + 40) & 1) == 0)
+  if ((result[5] & 1) == 0)
   {
-    return [*(result + 32) stopAnimating];
+    return [result[4] stopAnimating];
   }
 
   return result;
@@ -886,7 +913,7 @@ double __78__PKDiscoveryArticleViewController_defaultZoomTransitionForDiscoveryC
     if (!v4)
     {
 LABEL_10:
-      v10 = *MEMORY[0x1E695F050];
+      v28 = *MEMORY[0x1E695F050];
       goto LABEL_11;
     }
   }
@@ -914,12 +941,24 @@ LABEL_10:
   v7 = [v2 sourceView];
   v8 = [v4 cardView];
   [v7 frame];
-  [v8 frame];
-  PKSizeAlignedInRect();
   v10 = v9;
+  v12 = v11;
+  [v8 frame];
+  v14 = v13;
+  v16 = v15;
+  v18.n128_u64[0] = v17;
+  v20 = v19;
+  v21.n128_u64[0] = v10;
+  v22.n128_u64[0] = v12;
+  v23.n128_u64[0] = v14;
+  v24.n128_u64[0] = v16;
+  v25.n128_u64[0] = v18.n128_u64[0];
+  v26.n128_u64[0] = v20;
+  PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v21, v22, v23, v24, v25, v26, v18);
+  v28 = v27;
 
 LABEL_11:
-  return v10;
+  return v28;
 }
 
 id __78__PKDiscoveryArticleViewController_defaultZoomTransitionForDiscoveryCardView___block_invoke_2(uint64_t a1)

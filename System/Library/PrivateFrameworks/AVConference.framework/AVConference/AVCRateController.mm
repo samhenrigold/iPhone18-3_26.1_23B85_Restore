@@ -1095,17 +1095,17 @@ LABEL_22:
   return v8;
 }
 
-uint64_t __26__AVCRateController_start__block_invoke(uint64_t result, _DWORD *a2)
+id *__26__AVCRateController_start__block_invoke(id *result, _DWORD *a2)
 {
   if (*a2 == 15 || *a2 == 9)
   {
-    return [*(result + 32) triggerDeferredDelegateCallbacks];
+    return [result[4] triggerDeferredDelegateCallbacks];
   }
 
   return result;
 }
 
-void __26__AVCRateController_start__block_invoke_2(uint64_t a1, uint64_t a2)
+void __26__AVCRateController_start__block_invoke_2(uint64_t result, uint64_t a2)
 {
   v20 = *MEMORY[0x1E69E9840];
   v2 = *(a2 + 56);
@@ -1118,12 +1118,12 @@ void __26__AVCRateController_start__block_invoke_2(uint64_t a1, uint64_t a2)
     v14 = *(a2 + 40);
     LOWORD(v15) = *(a2 + 48);
     LODWORD(v17) = *(a2 + 52);
-    _AVCRateController_ConfigureInternal(*(a1 + 32), v13.i32);
+    _AVCRateController_ConfigureInternal(*(result + 32), v13.i32);
   }
 
   else
   {
-    v3 = *(a1 + 32);
+    v3 = *(result + 32);
     v4 = *(v3 + 1920);
     if (v4 && *(a2 + 24) == 12)
     {
@@ -1243,9 +1243,9 @@ void __26__AVCRateController_start__block_invoke_2(uint64_t a1, uint64_t a2)
     goto LABEL_9;
   }
 
-  [(VCRateControlAlgorithm *)rateControlAlgorithm config];
-  v6 = self->_rateControlAlgorithm;
-  if (!v6)
+  objc_msgSend_config(rateControlAlgorithm);
+  v7 = self->_rateControlAlgorithm;
+  if (!v7)
   {
     if (!v12)
     {
@@ -1255,28 +1255,28 @@ void __26__AVCRateController_start__block_invoke_2(uint64_t a1, uint64_t a2)
     goto LABEL_7;
   }
 
-  [(VCRateControlAlgorithm *)v6 reportStatistics];
-  v7 = 0;
+  objc_msgSend_reportStatistics(v7);
+  v6 = 0;
   if (v12 && !v11)
   {
 LABEL_7:
     v8 = self->_rateControlAlgorithm;
     if (v8)
     {
-      [(VCRateControlAlgorithm *)v8 reportStatistics];
-      v7 = v10;
+      objc_msgSend_reportStatistics(v8, v6);
+      LODWORD(v6) = v10;
       goto LABEL_10;
     }
 
 LABEL_9:
-    v7 = 0;
+    LODWORD(v6) = 0;
   }
 
 LABEL_10:
   v9 = experimentVersion | (intValue << 32);
+  result.var2 = v6;
   result.var0 = v9;
   result.var1 = HIDWORD(v9);
-  result.var2 = v7;
   return result;
 }
 
@@ -1285,7 +1285,7 @@ LABEL_10:
   rateControlAlgorithm = self->_rateControlAlgorithm;
   if (rateControlAlgorithm)
   {
-    return [(VCRateControlAlgorithm *)rateControlAlgorithm config];
+    return objc_msgSend_config(rateControlAlgorithm, a3);
   }
 
   bzero(retstr, 0x400uLL);
@@ -2173,8 +2173,8 @@ void __45__AVCRateController_setBtNotificationMonitor__block_invoke(uint64_t a1,
 {
   if (self->_isRateControlDumpFileEnabled)
   {
-    v17 = v3;
-    v18 = v2;
+    v11 = v3;
+    v12 = v2;
     mode = self->_configuration.mode;
     v8 = "VCRateControl";
     if (mode == 5)
@@ -2192,10 +2192,10 @@ void __45__AVCRateController_setBtNotificationMonitor__block_invoke(uint64_t a1,
       v9 = v8;
     }
 
-    v10 = VRLogfileAlloc(0, [(NSString *)self->_dumpID UTF8String:v17], v9, ".bbdump", "com.apple.VideoConference.VCRClogBB", 9);
+    v10 = VRLogfileAlloc(0, [(NSString *)self->_dumpID UTF8String:v11], v9, ".bbdump", "com.apple.VideoConference.VCRClogBB", 9);
     self->_logBasebandDump = v10;
 
-    VRLogfilePrintSync(v10, "STime\t\tV-R-A-F-T\tQD\tQD2\tXmitB\tLTxTS\tIBR\tIBR_OLD\tABRS\tABRL\tBDS\tBDCD\tNBDCD\tND\tTR\tAF\n", v11, v12, v13, v14, v15, v16, v19);
+    VRLogfilePrintSync(v10, "STime\t\tV-R-A-F-T\tQD\tQD2\tXmitB\tLTxTS\tIBR\tIBR_OLD\tABRS\tABRL\tBDS\tBDCD\tNBDCD\tND\tTR\tAF\n");
   }
 }
 
@@ -2206,7 +2206,7 @@ void __45__AVCRateController_setBtNotificationMonitor__block_invoke(uint64_t a1,
     v4 = VRLogfileAlloc(0, [(NSString *)self->_dumpID UTF8String], "VCRateControl", ".nwdump", "com.apple.VideoConference.VCRClogNW", 9);
     self->_logNWDump = v4;
 
-    VRLogfilePrintSync(v4, "STime\taTime\tTxTS\tVersion\tDirection\tTech\tByteCount\tQSize1\tQSize2\tDelay\tThroughput\tTxRate\tRateTrend\tFrequentScans\n", v5, v6, v7, v8, v9, v10, v11);
+    VRLogfilePrintSync(v4, "STime\taTime\tTxTS\tVersion\tDirection\tTech\tByteCount\tQSize1\tQSize2\tDelay\tThroughput\tTxRate\tRateTrend\tFrequentScans\n");
   }
 }
 
@@ -2222,22 +2222,22 @@ void __45__AVCRateController_setBtNotificationMonitor__block_invoke(uint64_t a1,
 
 - (void)releaseLogDumpFile:(void *)file
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if (*file)
   {
     *&v4 = 0xAAAAAAAAAAAAAAAALL;
     *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v11[6] = v4;
-    v11[7] = v4;
-    v11[4] = v4;
-    v11[5] = v4;
-    v11[2] = v4;
-    v11[3] = v4;
-    v11[0] = v4;
-    v11[1] = v4;
-    micro();
-    VRLogfileGetTimestamp(v11, 0x80u);
-    VRLogfilePrintSync(*file, "%s\t%8.3f\tEndOfFile\n", v5, v6, v7, v8, v9, v10, v11);
+    v6[6] = v4;
+    v6[7] = v4;
+    v6[4] = v4;
+    v6[5] = v4;
+    v6[2] = v4;
+    v6[3] = v4;
+    v6[0] = v4;
+    v6[1] = v4;
+    v5 = micro(self, a2);
+    VRLogfileGetTimestamp(v6, 0x80u);
+    VRLogfilePrintSync(*file, "%s\t%8.3f\tEndOfFile\n", v6, v5);
     VRLogfileFree(file);
     *file = 0;
   }
@@ -2350,13 +2350,13 @@ void __45__AVCRateController_setBtNotificationMonitor__block_invoke(uint64_t a1,
 
 void ___AVCRateController_RegisterStatisticsChangeHandlers_block_invoke_4(uint64_t a1, int *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
   if (*a2 == 14)
   {
     _AVCRateController_DoRateControl(v3, a2);
 
-    _AVCRateController_NotifyTargetBitrateChange(v3);
+    _AVCRateController_NotifyTargetBitrateChange(v3, v4);
   }
 
   else if (objc_opt_class() == v3)
@@ -2375,34 +2375,34 @@ void ___AVCRateController_RegisterStatisticsChangeHandlers_block_invoke_4(uint64
   {
     if (objc_opt_respondsToSelector())
     {
-      v4 = [v3 performSelector:sel_logPrefix];
+      v5 = [v3 performSelector:sel_logPrefix];
     }
 
     else
     {
-      v4 = &stru_1F570E008;
+      v5 = &stru_1F570E008;
     }
 
     if (VRTraceGetErrorLogLevelForModule() >= 3)
     {
-      v5 = VRTraceErrorLogLevelToCSTR();
-      v6 = *MEMORY[0x1E6986650];
+      v6 = VRTraceErrorLogLevelToCSTR();
+      v7 = *MEMORY[0x1E6986650];
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
       {
-        v7 = *a2;
-        v8 = 136316418;
-        v9 = v5;
-        v10 = 2080;
-        v11 = "_AVCRateController_DoRateControlWithLocalRCEvent";
-        v12 = 1024;
-        v13 = 3053;
-        v14 = 2112;
-        v15 = v4;
-        v16 = 2048;
-        v17 = v3;
-        v18 = 1024;
-        v19 = v7;
-        _os_log_error_impl(&dword_1DB56E000, v6, OS_LOG_TYPE_ERROR, "AVCRC [%s] %s:%d %@(%p) Wrong statistics type=%d", &v8, 0x36u);
+        v8 = *a2;
+        v9 = 136316418;
+        v10 = v6;
+        v11 = 2080;
+        v12 = "_AVCRateController_DoRateControlWithLocalRCEvent";
+        v13 = 1024;
+        v14 = 3053;
+        v15 = 2112;
+        v16 = v5;
+        v17 = 2048;
+        v18 = v3;
+        v19 = 1024;
+        v20 = v8;
+        _os_log_error_impl(&dword_1DB56E000, v7, OS_LOG_TYPE_ERROR, "AVCRC [%s] %s:%d %@(%p) Wrong statistics type=%d", &v9, 0x36u);
       }
     }
   }

@@ -195,7 +195,7 @@ LABEL_12:
   }
 
   object = [notificationCopy object];
-  if (object && ([(NSMutableArray *)self->_devices containsObject:object]& 1) == 0)
+  if (object && (objc_msgSend_containsObject_(self->_devices) & 1) == 0)
   {
     [(NSMutableArray *)self->_devices addObject:object];
     [(SBBluetoothController *)self noteDevicesChanged];

@@ -11,7 +11,7 @@
   v4 = [commandParams objectForKeyedSubscript:@"fences"];
 
   v5 = [v4 fm_map:&stru_10005DB10];
-  v6 = sub_100002830();
+  v6 = sub_100002830(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     sub_100037C9C(v5, v6);

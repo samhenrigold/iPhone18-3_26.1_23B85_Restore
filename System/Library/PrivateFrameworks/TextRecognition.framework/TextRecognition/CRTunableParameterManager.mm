@@ -174,11 +174,11 @@ LABEL_20:
   return v2;
 }
 
-void __42__CRTunableParameterManager_sharedManager__block_invoke()
+void __42__CRTunableParameterManager_sharedManager__block_invoke(uint64_t a1)
 {
-  v0 = objc_opt_new();
-  v1 = _MergedGlobals_10;
-  _MergedGlobals_10 = v0;
+  v1 = objc_opt_new();
+  v2 = _MergedGlobals_10;
+  _MergedGlobals_10 = v1;
 }
 
 - (id)parameterForKeyPath:(id)path

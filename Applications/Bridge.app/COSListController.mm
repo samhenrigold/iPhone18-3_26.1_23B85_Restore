@@ -55,7 +55,7 @@
 
       if (v13)
       {
-        [v4 removeObject:v13];
+        objc_msgSend_removeObject_(v4);
         v14 = +[PSSearchModel sharedInstance];
         [v14 reloadRootSpecifier:v13];
 LABEL_10:

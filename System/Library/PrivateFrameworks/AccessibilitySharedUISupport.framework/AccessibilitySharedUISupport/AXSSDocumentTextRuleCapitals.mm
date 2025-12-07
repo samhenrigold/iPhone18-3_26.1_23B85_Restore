@@ -97,7 +97,7 @@ LABEL_13:
 {
   length = range.length;
   location = range.location;
-  v46[1] = *MEMORY[0x277D85DE8];
+  v45[1] = *MEMORY[0x277D85DE8];
   wordCopy = word;
   previousWordCopy = previousWord;
   textCopy = text;
@@ -116,57 +116,57 @@ LABEL_13:
       v17 = @"[A-Z]{2,}[a-z]{2,}";
     }
 
-    v44 = 0;
-    v18 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:v17 options:0 error:&v44];
-    if (v44)
+    v43 = 0;
+    v18 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:v17 options:0 error:&v43];
+    if (v43)
     {
       [AXSSDocumentTextRuleCapitals issuesForWord:atRange:previousWord:previousWordRange:inText:ignoreRuleUntilIndex:];
     }
 
-    v38 = 0;
-    v39 = &v38;
-    v40 = 0x3032000000;
-    v41 = __Block_byref_object_copy__0;
-    v42 = __Block_byref_object_dispose__0;
-    v43 = 0;
+    v37 = 0;
+    v38 = &v37;
+    v39 = 0x3032000000;
+    v40 = __Block_byref_object_copy__0;
+    v41 = __Block_byref_object_dispose__0;
+    v42 = 0;
     v19 = [string length];
-    v33[0] = MEMORY[0x277D85DD0];
-    v33[1] = 3221225472;
-    v33[2] = __113__AXSSDocumentTextRuleCapitals_issuesForWord_atRange_previousWord_previousWordRange_inText_ignoreRuleUntilIndex___block_invoke;
-    v33[3] = &unk_278BF0418;
-    v36 = &v38;
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = __113__AXSSDocumentTextRuleCapitals_issuesForWord_atRange_previousWord_previousWordRange_inText_ignoreRuleUntilIndex___block_invoke;
+    v32[3] = &unk_278BF0418;
+    v35 = &v37;
     v20 = string;
-    v34 = v20;
+    v33 = v20;
     selfCopy = self;
-    v37 = v16;
-    [v18 enumerateMatchesInString:v20 options:0 range:0 usingBlock:{v19, v33}];
-    v21 = [v39[5] length];
+    v36 = v16;
+    [v18 enumerateMatchesInString:v20 options:0 range:0 usingBlock:{v19, v32}];
+    v21 = [v38[5] length];
     if (v21 < [v20 length])
     {
-      v22 = v39[5];
+      v22 = v38[5];
       v23 = [v20 substringFromIndex:{objc_msgSend(v22, "length")}];
       [v22 appendString:v23];
     }
 
-    if ([v39[5] length] && (objc_msgSend(v39[5], "isEqual:", v20) & 1) == 0)
+    if ([v38[5] length] && (objc_msgSend(v38[5], "isEqual:", v20) & 1) == 0)
     {
       v24 = objc_opt_new();
       [v24 setOffendingText:wordCopy];
       [v24 setRange:{location, length}];
-      v28 = objc_alloc(MEMORY[0x277CCA898]);
-      v29 = [v28 initWithString:v39[5]];
-      v46[0] = v29;
-      v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v46 count:1];
-      [v24 setSuggestions:v30];
+      v27 = objc_alloc(MEMORY[0x277CCA898]);
+      v28 = [v27 initWithString:v38[5]];
+      v45[0] = v28;
+      v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:1];
+      [v24 setSuggestions:v29];
 
       [v24 setKind:1];
-      v31 = [MEMORY[0x277CCACA8] stringWithFormat:@"The term %@ appears to have capitalization issues", v20];
-      [v24 setNote:v31];
+      v30 = [MEMORY[0x277CCACA8] stringWithFormat:@"The term %@ appears to have capitalization issues", v20];
+      [v24 setNote:v30];
 
       if (v24)
       {
-        v45 = v24;
-        v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v45 count:1];
+        v44 = v24;
+        v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v44 count:1];
         goto LABEL_12;
       }
     }
@@ -179,14 +179,12 @@ LABEL_13:
     v25 = MEMORY[0x277CBEBF8];
 LABEL_12:
 
-    _Block_object_dispose(&v38, 8);
+    _Block_object_dispose(&v37, 8);
     goto LABEL_14;
   }
 
   v25 = MEMORY[0x277CBEBF8];
 LABEL_14:
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return v25;
 }

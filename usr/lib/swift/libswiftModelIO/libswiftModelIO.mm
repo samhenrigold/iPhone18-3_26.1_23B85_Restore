@@ -1,4 +1,4 @@
-uint64_t (*MDLMatrix4x4Array.float4x4Array.modify(uint64_t *a1))(id *a1, uint64_t a2)
+unint64_t MDLMatrix4x4Array.float4x4Array.modify(uint64_t *a1)
 {
   a1[1] = v1;
   result = [v1 elementCount];
@@ -31,7 +31,7 @@ uint64_t (*MDLMatrix4x4Array.float4x4Array.modify(uint64_t *a1))(id *a1, uint64_
   return result;
 }
 
-unint64_t MDLMatrix4x4Array.float4x4Array.getter(void (*a1)(void), const char **a2)
+unint64_t MDLMatrix4x4Array.float4x4Array.getter(uint64_t (*a1)(void), const char **a2)
 {
   result = [v2 elementCount];
   if ((result & 0x8000000000000000) != 0)
@@ -64,7 +64,7 @@ unint64_t MDLMatrix4x4Array.float4x4Array.getter(void (*a1)(void), const char **
   return result;
 }
 
-unint64_t key path getter for MDLMatrix4x4Array.float4x4Array : MDLMatrix4x4Array@<X0>(id *a1@<X0>, void (*a2)(void)@<X3>, SEL *a3@<X4>, uint64_t *a4@<X8>)
+unint64_t key path getter for MDLMatrix4x4Array.float4x4Array : MDLMatrix4x4Array@<X0>(id *a1@<X0>, uint64_t (*a2)(void)@<X3>, SEL *a3@<X4>, uint64_t *a4@<X8>)
 {
   v7 = *a1;
   result = [*a1 elementCount];
@@ -103,7 +103,7 @@ uint64_t MDLMatrix4x4Array.float4x4Array.setter(uint64_t a1, SEL *a2)
   return MEMORY[0x2A1C73318](a1);
 }
 
-uint64_t (*MDLMatrix4x4Array.double4x4Array.modify(uint64_t *a1))(id *a1, uint64_t a2)
+unint64_t MDLMatrix4x4Array.double4x4Array.modify(uint64_t *a1)
 {
   a1[1] = v1;
   result = [v1 elementCount];
@@ -144,7 +144,7 @@ uint64_t MDLMatrix4x4Array.float4x4Array.modify(id *a1, uint64_t a2, SEL *a3)
   return MEMORY[0x2A1C73318](v3);
 }
 
-uint64_t MDLAnimatedScalarArray.floatArray(atTime:)(double a1, uint64_t a2, SEL *a3)
+uint64_t MDLAnimatedScalarArray.floatArray(atTime:)(uint64_t a1, SEL *a2, double a3)
 {
   result = [v3 elementCount];
   if (result < 0)
@@ -166,7 +166,7 @@ uint64_t MDLAnimatedScalarArray.floatArray(atTime:)(double a1, uint64_t a2, SEL 
       v8 = MEMORY[0x29EDCA190];
     }
 
-    [v3 *a3];
+    [v3 *a2];
     *(v8 + 16) = v7;
     return v8;
   }
@@ -215,7 +215,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -291,7 +290,7 @@ LABEL_8:
   return v12;
 }
 
-uint64_t MDLAnimatedQuaternionArray.floatQuaternionArray(atTime:)(void (*a1)(void), SEL *a2, double a3)
+uint64_t MDLAnimatedQuaternionArray.floatQuaternionArray(atTime:)(uint64_t (*a1)(void), SEL *a2, double a3)
 {
   result = [v3 elementCount];
   if (result < 0)
@@ -322,19 +321,19 @@ uint64_t MDLAnimatedQuaternionArray.floatQuaternionArray(atTime:)(void (*a1)(voi
   return result;
 }
 
-void type metadata accessor for simd_float4x4(uint64_t a1, unint64_t *a2)
+void type metadata accessor for simd_float4x4(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   if (!*a2)
   {
     ForeignTypeMetadata = swift_getForeignTypeMetadata();
-    if (!v4)
+    if (!v5)
     {
       atomic_store(ForeignTypeMetadata, a2);
     }
   }
 }
 
-uint64_t MDLAnimatedQuaternionArray.floatQuaternionArray.getter(void (*a1)(void), const char **a2)
+uint64_t MDLAnimatedQuaternionArray.floatQuaternionArray.getter(uint64_t (*a1)(void), const char **a2)
 {
   v5 = [v2 elementCount];
   result = [v2 timeSampleCount];
@@ -432,7 +431,7 @@ uint64_t MDLAnimatedVector2.float2Array.getter(uint64_t *a1, uint64_t *a2, SEL *
   return result;
 }
 
-uint64_t MDLAnimatedMatrix4x4.float4x4Array.getter(void (*a1)(void), SEL *a2)
+uint64_t MDLAnimatedMatrix4x4.float4x4Array.getter(uint64_t (*a1)(void), SEL *a2)
 {
   result = [v2 timeSampleCount];
   if (result < 0)

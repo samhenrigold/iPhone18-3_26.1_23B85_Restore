@@ -1,5 +1,6 @@
 @interface HVContentState
 - (BOOL)isEqual:(id)equal;
+- (HVContentState)initWithConsumers:(id)consumers levelOfService:(unsigned __int8)service;
 - (id)_initWithConsumers:(id)consumers levelOfService:(unsigned __int8)service;
 - (id)description;
 - (id)mutableCopyWithZone:(_NSZone *)zone;
@@ -10,32 +11,32 @@
 
 - (unint64_t)hash
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v3 = self->_consumers;
-  v4 = [(NSSet *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [(NSSet *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = 0;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       v7 = 0;
       do
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v5 += [*(*(&v11 + 1) + 8 * v7++) hash];
+        v5 += [*(*(&v10 + 1) + 8 * v7++) hash];
       }
 
       while (v4 != v7);
-      v4 = [(NSSet *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [(NSSet *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v4);
@@ -43,7 +44,6 @@
   }
 
   v8 = [(NSSet *)self->_consumers count];
-  v9 = *MEMORY[0x277D85DE8];
   return self->_levelOfService - (v8 + v4) + 32 * (v8 + v4);
 }
 
@@ -109,6 +109,28 @@
   }
 
   return v7;
+}
+
+- (HVContentState)initWithConsumers:(id)consumers levelOfService:(unsigned __int8)service
+{
+  serviceCopy = service;
+  consumersCopy = consumers;
+  if (initWithConsumers_levelOfService___pasOnceToken2 != -1)
+  {
+    dispatch_once(&initWithConsumers_levelOfService___pasOnceToken2, &__block_literal_global_1920);
+  }
+
+  v8 = initWithConsumers_levelOfService___pasExprOnceResult;
+  v9 = [[HVImmutableContentState alloc] initWithConsumers:consumersCopy levelOfService:serviceCopy];
+  v10 = [v8 intern:v9];
+
+  if (!v10)
+  {
+    currentHandler = [MEMORY[0x277CCA890] currentHandler];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"HVDataSourceContentState.m" lineNumber:68 description:{@"Invalid parameter not satisfying: %@", @"instance != nil"}];
+  }
+
+  return v10;
 }
 
 void __51__HVContentState_initWithConsumers_levelOfService___block_invoke()

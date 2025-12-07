@@ -1,1851 +1,3 @@
-void sub_10002B538(const __CFData *a1)
-{
-  if (a1)
-  {
-    if (CFDataGetLength(a1) >= 1)
-    {
-      v5[0] = CFDataGetBytePtr(a1);
-      v5[1] = CFDataGetLength(a1);
-      memset(v4, 170, sizeof(v4));
-      if (!DERDecodeItem(v5, v4) && SecCertificateParseGeneralNameContentProperty() == -26275)
-      {
-        v2 = sub_1000027AC("policy");
-        if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-        {
-          *v3 = 0;
-          _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "can't parse general name or not a type we support", v3, 2u);
-        }
-      }
-    }
-  }
-}
-
-uint64_t sub_10002B620(uint64_t a1, int a2, uint64_t a3)
-{
-  if (!a1)
-  {
-    return 4294941021;
-  }
-
-  if (*a1 != a2)
-  {
-    return 4294941021;
-  }
-
-  v4 = *(a1 + 16);
-  if (!v4)
-  {
-    return 4294941021;
-  }
-
-  v5 = *(a1 + 8);
-  if (!v5)
-  {
-    return 4294941021;
-  }
-
-  *v4 = 1;
-  result = 4294941021;
-  if (a2 <= 3)
-  {
-    if (a2 == 1)
-    {
-      v42 = *(v5 + 8);
-      if (v42 > 0x7FFFFFFFFFFFFFFELL || *(a3 + 8) > 0x7FFFFFFFFFFFFFFEuLL)
-      {
-        goto LABEL_13;
-      }
-
-      v10 = CFStringCreateWithBytes(kCFAllocatorDefault, *v5, v42, 0x8000100u, 0);
-      v43 = CFStringCreateWithBytes(kCFAllocatorDefault, *a3, *(a3 + 8), 0x8000100u, 0);
-      v12 = v43;
-      if (v10 && v43)
-      {
-        if (CFStringFind(v43, @"@", 0).location != -1)
-        {
-          v44 = CFStringCompare(v10, v12, 1uLL);
-LABEL_78:
-          v8 = v44 == kCFCompareEqualTo;
-          goto LABEL_79;
-        }
-
-        location = CFStringFind(v10, @"@", 0).location;
-        if (location != -1)
-        {
-          v50 = location;
-          Length = CFStringGetLength(v10);
-          if (CFStringGetCharacterAtIndex(v12, 0) != 46)
-          {
-            v48.location = v50 + 1;
-            v48.length = Length + ~v50;
-            v46 = v10;
-            v47 = v12;
-            goto LABEL_77;
-          }
-
-          if (CFStringGetCharacterAtIndex(v10, v50 + 1) != 46 && CFStringHasSuffix(v10, v12))
-          {
-            v8 = 1;
-            goto LABEL_79;
-          }
-        }
-
-        goto LABEL_24;
-      }
-    }
-
-    else
-    {
-      if (a2 != 2)
-      {
-        return result;
-      }
-
-      v9 = *(v5 + 8);
-      if (v9 > 0x7FFFFFFFFFFFFFFELL || *(a3 + 8) > 0x7FFFFFFFFFFFFFFEuLL)
-      {
-        goto LABEL_13;
-      }
-
-      v10 = CFStringCreateWithBytes(kCFAllocatorDefault, *v5, v9, 0x8000100u, 0);
-      v11 = CFStringCreateWithBytes(kCFAllocatorDefault, *a3, *(a3 + 8), 0x8000100u, 0);
-      v12 = v11;
-      if (v10 && v11)
-      {
-        v13 = CFStringGetLength(v11);
-        v14 = CFStringGetLength(v10);
-        v15 = v14 - v13;
-        if (v14 >= v13)
-        {
-          if (v14 == v13 || (v45 = v14, CFStringGetCharacterAtIndex(v12, 0) == 46) || CFStringGetCharacterAtIndex(v10, v45 + ~v13) == 46)
-          {
-            v46 = v10;
-            v47 = v12;
-            v48.location = v15;
-            v48.length = v13;
-LABEL_77:
-            v44 = CFStringCompareWithOptions(v46, v47, v48, 1uLL);
-            goto LABEL_78;
-          }
-        }
-
-LABEL_24:
-        v8 = 0;
-        goto LABEL_79;
-      }
-    }
-
-    v8 = 0;
-    if (!v10)
-    {
-      goto LABEL_80;
-    }
-
-LABEL_79:
-    CFRelease(v10);
-    goto LABEL_80;
-  }
-
-  switch(a2)
-  {
-    case 7:
-      v16 = *(a3 + 8);
-      if ((v16 == 32 || v16 == 8) && ((v17 = *(v5 + 8), v17 != 16) ? (v18 = v17 == 4) : (v18 = 1), v18 ? (v19 = v16 == 2 * v17) : (v19 = 0), v19))
-      {
-        v20 = *a3;
-        v21 = *v5;
-        v22 = v17 - 1;
-        do
-        {
-          v23 = *v21++;
-          v24 = (v23 ^ *v20) & v20[v17];
-          v8 = v24 == 0;
-          v26 = v22-- != 0;
-          if (v24)
-          {
-            break;
-          }
-
-          ++v20;
-        }
-
-        while (v26);
-      }
-
-      else
-      {
-        v8 = 0;
-      }
-
-      goto LABEL_83;
-    case 6:
-      v27 = *(v5 + 8);
-      if (v27 > 0x7FFFFFFFFFFFFFFELL || *(a3 + 8) > 0x7FFFFFFFFFFFFFFEuLL)
-      {
-        goto LABEL_13;
-      }
-
-      v28 = CFStringCreateWithBytes(kCFAllocatorDefault, *v5, v27, 0x8000100u, 0);
-      v29 = CFStringCreateWithBytes(kCFAllocatorDefault, *a3, *(a3 + 8), 0x8000100u, 0);
-      v12 = v29;
-      if (v28 && v29)
-      {
-        v30 = CFStringFind(v28, @"://", 0);
-        if (v30.location != -1)
-        {
-          v31 = CFStringGetLength(v28) - (v30.location + v30.length);
-          v32 = CFCharacterSetCreateWithCharactersInString(kCFAllocatorDefault, @":/");
-          __s1 = xmmword_100068A30;
-          v54.location = v30.location + v30.length;
-          v54.length = v31;
-          if (CFStringFindCharacterFromSet(v28, v32, v54, 0, &__s1))
-          {
-            v33 = CFStringGetLength(v28);
-            v31 = v31 - v33 + __s1.location;
-          }
-
-          v55.location = v30.location + v30.length;
-          v55.length = v31;
-          v34 = CFStringCreateWithSubstring(kCFAllocatorDefault, v28, v55);
-          if (CFStringGetCharacterAtIndex(v34, 0) == 46 || (v35 = CFStringGetLength(v34), v36 = CFStringGetLength(v12), v37 = v35 < v36, v38 = v35 - v36, v37))
-          {
-            v41 = 0;
-            if (v32)
-            {
-LABEL_55:
-              CFRelease(v32);
-            }
-          }
-
-          else
-          {
-            v39 = v36;
-            if (CFStringGetCharacterAtIndex(v12, 0) == 46)
-            {
-              v40.location = v38;
-            }
-
-            else
-            {
-              v40.location = 0;
-            }
-
-            v40.length = v39;
-            v41 = CFStringCompareWithOptions(v34, v12, v40, 1uLL) == kCFCompareEqualTo;
-            if (v32)
-            {
-              goto LABEL_55;
-            }
-          }
-
-          if (v34)
-          {
-            CFRelease(v34);
-          }
-
-          goto LABEL_58;
-        }
-
-        v41 = 0;
-LABEL_58:
-        CFRelease(v28);
-        v8 = v41;
-        goto LABEL_80;
-      }
-
-      v41 = 0;
-      v8 = 0;
-      if (v28)
-      {
-        goto LABEL_58;
-      }
-
-LABEL_80:
-      if (v12)
-      {
-        CFRelease(v12);
-      }
-
-      goto LABEL_82;
-    case 4:
-      memset(&__s1, 170, 24);
-      if (!DERDecodeItem(v5, &__s1))
-      {
-        memset(v52, 170, sizeof(v52));
-        if (!DERDecodeItem(a3, v52) && *(v5 + 8) > *(a3 + 8) && !memcmp(__s1.length, v52[1], v52[2]))
-        {
-          v8 = 1;
-          goto LABEL_82;
-        }
-      }
-
-LABEL_13:
-      v8 = 0;
-LABEL_82:
-      v4 = *(a1 + 16);
-LABEL_83:
-      result = 0;
-      v4[1] |= v8;
-      break;
-  }
-
-  return result;
-}
-
-void sub_10002BB84(const __CFData *a1, const __CFArray **a2)
-{
-  if (a1)
-  {
-    v3 = *a2;
-    v4 = a2[1];
-    if ((CFDataGetLength(a1) & 0x8000000000000000) == 0)
-    {
-      if (v3)
-      {
-        v19[0] = CFDataGetBytePtr(a1);
-        v19[1] = CFDataGetLength(a1);
-        memset(v18, 170, sizeof(v18));
-        if (!DERDecodeItem(v19, v18))
-        {
-          v5 = sub_10002BDB4(v18[0]);
-          v6 = v5;
-          if (v5 != 2 && v5 != 4)
-          {
-            CFArrayAppendValue(v4, a1);
-          }
-
-          Count = CFArrayGetCount(v3);
-          v17 = 0;
-          v14 = -1431655766;
-          v15 = &v18[1];
-          v13 = v6;
-          v16 = &v17;
-          if (Count >= 1)
-          {
-            v8 = 0;
-            while (1)
-            {
-              ValueAtIndex = CFArrayGetValueAtIndex(v3, v8);
-              if ((CFDataGetLength(ValueAtIndex) & 0x8000000000000000) == 0)
-              {
-                BytePtr = 0xAAAAAAAAAAAAAAAALL;
-                Length = 0xAAAAAAAAAAAAAAAALL;
-                BytePtr = CFDataGetBytePtr(ValueAtIndex);
-                Length = CFDataGetLength(ValueAtIndex);
-                memset(v10, 170, sizeof(v10));
-                if (!DERDecodeItem(&BytePtr, v10))
-                {
-                  if (!SecCertificateParseGeneralNameContentProperty() && v17 == 1 && HIBYTE(v17) == 1)
-                  {
-                    goto LABEL_19;
-                  }
-
-                  sub_10002BDB4(v10[0]);
-                  SecCertificateParseGeneralNameContentProperty();
-                }
-              }
-
-              if (Count == ++v8)
-              {
-                goto LABEL_20;
-              }
-            }
-          }
-
-          v8 = 0;
-LABEL_19:
-          if (v8 == Count)
-          {
-LABEL_20:
-            CFArrayAppendValue(v4, a1);
-          }
-
-          else if (v17 == 1 && HIBYTE(v17) == 1)
-          {
-            CFArraySetValueAtIndex(v3, v8, a1);
-          }
-        }
-      }
-    }
-  }
-}
-
-uint64_t sub_10002BDB4(int64_t a1)
-{
-  if (a1 <= 0x8000000000000007)
-  {
-    if (a1 > 0x8000000000000005)
-    {
-      if (a1 != 0x8000000000000006)
-      {
-        return 7;
-      }
-
-      return 6;
-    }
-
-    if (a1 == 0x8000000000000002)
-    {
-      v2 = 2;
-    }
-
-    else
-    {
-      v2 = 0;
-    }
-
-    if (a1 == 0x8000000000000001)
-    {
-      return 1;
-    }
-
-    else
-    {
-      return v2;
-    }
-  }
-
-  else if (a1 <= 0xA000000000000003)
-  {
-    if (a1 == 0xA000000000000003)
-    {
-      v3 = 3;
-    }
-
-    else
-    {
-      v3 = 0;
-    }
-
-    if (a1 == 0x8000000000000008)
-    {
-      return 8;
-    }
-
-    else
-    {
-      return v3;
-    }
-  }
-
-  else
-  {
-    switch(a1)
-    {
-      case 0xA000000000000004:
-        return 4;
-      case 0xA000000000000005:
-        return 5;
-      case 0xA000000000000006:
-        return 6;
-      default:
-        return 0;
-    }
-  }
-}
-
-uint64_t sub_10002BEA0(const __CFArray *a1)
-{
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2000000000;
-  v8 = 1;
-  context[0] = _NSConcreteStackBlock;
-  context[1] = 0x40000000;
-  context[2] = sub_10002BF6C;
-  context[3] = &unk_100082650;
-  context[4] = &v5;
-  v9.length = CFArrayGetCount(a1);
-  v9.location = 0;
-  CFArrayApplyFunction(a1, v9, sub_10002C010, context);
-  v2 = *(v6 + 24);
-  _Block_object_dispose(&v5, 8);
-  return v2;
-}
-
-CFIndex sub_10002BF6C(CFIndex result, CFDataRef theData)
-{
-  v2 = result;
-  if (!theData || (result = CFDataGetLength(theData), result < 0) || (v5[0] = CFDataGetBytePtr(theData), v5[1] = CFDataGetLength(theData), memset(v4, 170, sizeof(v4)), result = DERDecodeItem(v5, v4), result) || (result = sub_10002BDB4(v4[0]), result > 7) || ((1 << result) & 0xD6) == 0)
-  {
-    *(*(*(v2 + 32) + 8) + 24) = 0;
-  }
-
-  return result;
-}
-
-void sub_10002C028(id a1)
-{
-  v1 = sub_1000027AC("trustd");
-  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
-  {
-    *v2 = 0;
-    _os_log_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEFAULT, "variant does not allow file writes", v2, 2u);
-  }
-}
-
-void sub_10002C098(id a1)
-{
-  v1 = sub_1000027AC("trustd");
-  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
-  {
-    *v2 = 0;
-    _os_log_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEFAULT, "variant does not allow MobileAsset", v2, 2u);
-  }
-}
-
-void sub_10002C108(id a1)
-{
-  if (!objc_opt_class() || !objc_opt_class() || !objc_opt_class() || !objc_opt_class())
-  {
-    v1 = sub_1000027AC("OTATrust");
-    if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
-    {
-      *v2 = 0;
-      _os_log_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEFAULT, "Weak-linked MobileAsset framework missing.", v2, 2u);
-    }
-
-    byte_100092BC0 = 1;
-  }
-}
-
-void sub_10002C1C4(id a1)
-{
-  v1 = sub_1000027AC("trustd");
-  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
-  {
-    *v2 = 0;
-    _os_log_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEFAULT, "trustd running in PrivateCloudCompute variant", v2, 2u);
-  }
-}
-
-void sub_10002C234(id a1)
-{
-  v1 = MGCopyAnswer();
-  if ([v1 containsString:@"Darwin Cloud"])
-  {
-    byte_100092BD0 = 1;
-  }
-}
-
-void sub_10002C294(id a1)
-{
-  qword_100092BE8 = dispatch_workloop_create("com.apple.trustd.evaluation");
-
-  _objc_release_x1();
-}
-
-uint64_t sub_10002C2D0()
-{
-  block[0] = _NSConcreteStackBlock;
-  block[1] = 3221225472;
-  block[2] = sub_10002C368;
-  block[3] = &unk_100085428;
-  block[4] = &qword_100092C00;
-  if (qword_100092BF8 != -1)
-  {
-    dispatch_once(&qword_100092BF8, block);
-  }
-
-  return qword_100092C00;
-}
-
-void sub_10002C368(uint64_t a1)
-{
-  CFRetain(@"/System/Library/Security/Certificates.bundle");
-  v2 = CFURLCreateWithFileSystemPath(kCFAllocatorDefault, @"/System/Library/Security/Certificates.bundle", kCFURLPOSIXPathStyle, 1u);
-  if (v2)
-  {
-    v3 = v2;
-    **(a1 + 32) = CFBundleCreate(kCFAllocatorDefault, v2);
-    CFRelease(v3);
-  }
-
-  else
-  {
-    **(a1 + 32) = 0;
-  }
-
-  CFRelease(@"/System/Library/Security/Certificates.bundle");
-}
-
-id sub_10002C408(void *a1)
-{
-  v1 = a1;
-  +[NSMutableDictionary dictionaryWithCapacity:](NSMutableDictionary, "dictionaryWithCapacity:", [v1 count]);
-  v4[0] = _NSConcreteStackBlock;
-  v4[1] = 3221225472;
-  v4[2] = sub_10002C4CC;
-  v2 = v4[3] = &unk_1000827C0;
-  v5 = v2;
-  [v1 enumerateObjectsUsingBlock:v4];
-
-  return v2;
-}
-
-void sub_10002C4CC(uint64_t a1, void *a2, uint64_t a3)
-{
-  v5 = a2;
-  if (v5)
-  {
-    objc_opt_class();
-    if (objc_opt_isKindOfClass())
-    {
-      v6 = v5;
-      v7 = [v6 objectForKeyedSubscript:@"log_id"];
-      v8 = v7;
-      if (!v7 || (v9 = v7, objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v9, (isKindOfClass & 1) == 0))
-      {
-        v11 = sub_1000027AC("OTATrust");
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
-        {
-          v14 = 134217984;
-          v15 = a3;
-          _os_log_debug_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEBUG, "failed to read log_id from trusted CT log array entry at index %lu, computing log_id", &v14, 0xCu);
-        }
-
-        v12 = [v6 objectForKeyedSubscript:@"key"];
-        if (!v12 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
-        {
-          v13 = sub_1000027AC("SecError");
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
-          {
-            v14 = 134217984;
-            v15 = a3;
-            _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "failed to read key from trusted CT log array entry at index %lu", &v14, 0xCu);
-          }
-
-          goto LABEL_16;
-        }
-
-        v9 = SecSHA256DigestCreateFromData();
-      }
-
-      [*(a1 + 32) setObject:v6 forKey:v9];
-      v8 = v9;
-LABEL_16:
-
-      goto LABEL_17;
-    }
-  }
-
-  v6 = sub_1000027AC("SecError");
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
-  {
-    v14 = 134217984;
-    v15 = a3;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "OTATrust: failed to read entry from trusted CT logs array at index %lu", &v14, 0xCu);
-  }
-
-LABEL_17:
-}
-
-uint64_t sub_10002C734(uint64_t a1)
-{
-  result = _CFRuntimeRegisterClass();
-  **(a1 + 32) = result;
-  return result;
-}
-
-CFStringRef sub_10002C768(uint64_t a1)
-{
-  sub_1000264DC();
-  v2 = *(a1 + 128);
-  return CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"<SecOTAPKIRef: version %llu/%llu>", v2, *(a1 + 168));
-}
-
-void sub_10002C804(void *a1)
-{
-  v2 = a1[2];
-  if (v2)
-  {
-    a1[2] = 0;
-    CFRelease(v2);
-  }
-
-  v3 = a1[3];
-  if (v3)
-  {
-    a1[3] = 0;
-    CFRelease(v3);
-  }
-
-  v4 = a1[4];
-  if (v4)
-  {
-    a1[4] = 0;
-    CFRelease(v4);
-  }
-
-  v5 = a1[8];
-  if (v5)
-  {
-    a1[8] = 0;
-    CFRelease(v5);
-  }
-
-  v6 = a1[9];
-  if (v6)
-  {
-    a1[9] = 0;
-    CFRelease(v6);
-  }
-
-  v7 = a1[10];
-  if (v7)
-  {
-    a1[10] = 0;
-    CFRelease(v7);
-  }
-
-  v8 = a1[11];
-  if (v8)
-  {
-    a1[11] = 0;
-    CFRelease(v8);
-  }
-
-  v9 = a1[14];
-  if (v9)
-  {
-    a1[14] = 0;
-    CFRelease(v9);
-  }
-
-  v10 = a1[15];
-  if (v10)
-  {
-    a1[15] = 0;
-    CFRelease(v10);
-  }
-
-  v11 = a1[5];
-  if (v11)
-  {
-    a1[5] = 0;
-    CFRelease(v11);
-  }
-
-  v12 = a1[6];
-  if (v12)
-  {
-    a1[6] = 0;
-    CFRelease(v12);
-  }
-
-  v13 = a1[7];
-  if (v13)
-  {
-    a1[7] = 0;
-    CFRelease(v13);
-  }
-
-  v14 = a1[23];
-  if (v14)
-  {
-    a1[23] = 0;
-    CFRelease(v14);
-  }
-
-  v15 = a1[24];
-  if (v15)
-  {
-    a1[24] = 0;
-    CFRelease(v15);
-  }
-
-  v16 = a1[22];
-  if (v16)
-  {
-    a1[22] = 0;
-    CFRelease(v16);
-  }
-
-  v17 = a1[25];
-  if (v17)
-  {
-    a1[25] = 0;
-    CFRelease(v17);
-  }
-
-  v18 = a1[12];
-  if (v18)
-  {
-    free(v18);
-    a1[12] = 0;
-  }
-
-  v19 = a1[17];
-  if (v19)
-  {
-    free(v19);
-    a1[17] = 0;
-  }
-
-  v20 = a1[28];
-  a1[28] = 0;
-
-  v21 = a1[29];
-  if (v21)
-  {
-    a1[29] = 0;
-
-    CFRelease(v21);
-  }
-}
-
-CFTypeRef sub_10002C978(uint64_t a1)
-{
-  *(*(*(a1 + 32) + 8) + 24) = qword_100092C30;
-  result = *(*(*(a1 + 32) + 8) + 24);
-  if (result)
-  {
-    return CFRetain(result);
-  }
-
-  return result;
-}
-
-void sub_10002C9A4(id a1)
-{
-  v1 = objc_autoreleasePoolPush();
-  v2 = dispatch_queue_create("com.apple.security.OTAPKIQueue", 0);
-  v3 = qword_100092C10;
-  qword_100092C10 = v2;
-
-  v4 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_BACKGROUND, 0);
-  v5 = dispatch_queue_attr_make_with_autorelease_frequency(v4, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-
-  v6 = dispatch_queue_create("com.apple.security.OTAPKIBackgroundQueue", v5);
-  v7 = qword_100092C08;
-  qword_100092C08 = v6;
-
-  v8 = dispatch_queue_create("com.apple.security.OTAPKIReloadAssetQueue", 0);
-  v9 = qword_100092C18;
-  qword_100092C18 = v8;
-
-  v10 = qword_100092C10;
-  if (!qword_100092C10 || !qword_100092C08 || !qword_100092C18)
-  {
-    v11 = sub_1000027AC("SecError");
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
-    {
-      *v12 = 0;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Failed to create OTAPKI Queues. May crash later.", v12, 2u);
-    }
-
-    v10 = qword_100092C10;
-  }
-
-  dispatch_sync(v10, &stru_100082800);
-
-  objc_autoreleasePoolPop(v1);
-}
-
-void sub_10002CAEC(id a1)
-{
-  *buf = _NSConcreteStackBlock;
-  *&buf[8] = 3221225472;
-  *&buf[16] = sub_10002C734;
-  *&buf[24] = &unk_100085428;
-  *&buf[32] = &qword_100092C28;
-  if (qword_100092C20 != -1)
-  {
-    dispatch_once(&qword_100092C20, buf);
-  }
-
-  Instance = _CFRuntimeCreateInstance();
-  v2 = Instance;
-  if (Instance)
-  {
-    *(Instance + 16) = 0u;
-    v3 = (Instance + 16);
-    *(Instance + 136) = 0;
-    *(Instance + 32) = 0u;
-    *(Instance + 48) = 0u;
-    *(Instance + 64) = 0u;
-    *(Instance + 80) = 0u;
-    *(Instance + 96) = 0;
-    *(Instance + 112) = 0;
-    *(Instance + 120) = 0;
-    *(Instance + 176) = 0u;
-    *(Instance + 192) = 0u;
-    v4 = *(Instance + 224);
-    *(Instance + 224) = 0;
-
-    *(v2 + 232) = 0;
-    *(v2 + 240) = 0;
-    if (sub_100005E88())
-    {
-      v148 = 0;
-      v5 = [[OTAAutoAssetClient alloc] initWithError:&v148];
-      v6 = v148;
-      v7 = *(v2 + 224);
-      *(v2 + 224) = v5;
-
-      v8 = *(v2 + 224);
-      if (v8)
-      {
-        [v8 registerForAssetChangedNotificationsWithBlock:&stru_100082820];
-      }
-
-      else
-      {
-        v9 = sub_1000027AC("SecError");
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 138412290;
-          *&buf[4] = v6;
-          _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Error initializing OTAAutoAssetClient: %@", buf, 0xCu);
-        }
-      }
-    }
-
-    if (sub_100005E88())
-    {
-      v10 = sub_10002E29C(@"VersionNumber");
-      v11 = sub_10002E2F4(v2, @"VersionNumber");
-      v12 = sub_1000027AC("OTATrust");
-      v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
-      if (v11 > v10)
-      {
-        if (v13)
-        {
-          *buf = 134218240;
-          *&buf[4] = v11;
-          *&buf[12] = 2048;
-          *&buf[14] = v10;
-          _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Using asset trust store %llu instead of system trust store %llu", buf, 0x16u);
-        }
-
-        *(v2 + 240) = 1;
-        v14 = sub_10002E2F4(v2, @"VersionNumber");
-LABEL_20:
-        *(v2 + 128) = v14;
-        v15 = sub_10002E34C(@"Blocked");
-        v16 = sub_10002E3B0(v15);
-        if (v15)
-        {
-          CFRelease(v15);
-        }
-
-        *v3 = v16;
-        v17 = sub_10002E34C(@"GrayListedKeys");
-        v18 = sub_10002E3B0(v17);
-        if (v17)
-        {
-          CFRelease(v17);
-        }
-
-        *(v2 + 24) = v18;
-        *(v2 + 40) = sub_10002E45C(@"TrustedCTLogs.plist");
-        *(v2 + 48) = 0;
-        *(v2 + 56) = sub_10002E6B0(@"CertificatePinning", @"plist", 0);
-        if (sub_10002E7A0())
-        {
-          v19 = sub_10002E8A0(@"AnalyticsSamplingRates.plist");
-          *&valuePtr.st_dev = 0;
-          v20 = [NSDictionary dictionaryWithContentsOfURL:v19 error:&valuePtr];
-          v21 = *&valuePtr.st_dev;
-
-          if (!v20 || (v22 = v20, objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v22, (isKindOfClass & 1) == 0))
-          {
-            v24 = sub_1000027AC("SecError");
-            if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
-            {
-              *buf = 138412290;
-              *&buf[4] = v21;
-              _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "OTATrust: failed to read sampling rates from asset data: %@", buf, 0xCu);
-            }
-
-            *buf = v21;
-            sub_10002EB08(4, buf, 0);
-            if ((sub_10002EB94() & 1) == 0)
-            {
-              byte_100092C40 = 1;
-            }
-          }
-
-          v25 = [v20 objectForKeyedSubscript:@"Events"];
-          if (v25)
-          {
-            v26 = v25;
-            objc_opt_class();
-            v27 = objc_opt_isKindOfClass();
-
-            if (v27)
-            {
-              if (!v20)
-              {
-                goto LABEL_42;
-              }
-
-LABEL_38:
-              v30 = v20;
-              objc_opt_class();
-              v31 = objc_opt_isKindOfClass();
-
-              if (v31)
-              {
-                v32 = [v30 objectForKeyedSubscript:@"Events"];
-
-                if (!v32)
-                {
-                  v26 = 0;
-LABEL_43:
-
-                  *(v2 + 184) = v32;
-                  if (sub_10002E7A0())
-                  {
-                    v34 = sub_10002E8A0(@"AppleCertificateAuthorities.plist");
-                    *&valuePtr.st_dev = 0;
-                    v35 = [NSArray arrayWithContentsOfURL:v34 error:&valuePtr];
-                    v36 = *&valuePtr.st_dev;
-
-                    if (v35)
-                    {
-                      v37 = v35;
-                      objc_opt_class();
-                      v38 = objc_opt_isKindOfClass();
-
-                      if (v38)
-                      {
-                        goto LABEL_231;
-                      }
-                    }
-
-                    v39 = sub_1000027AC("SecError");
-                    if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
-                    {
-                      *buf = 138412290;
-                      *&buf[4] = v36;
-                      _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "OTATrust: failed to read Apple CAs list from asset data: %@", buf, 0xCu);
-                    }
-
-                    *buf = v36;
-                    sub_10002EB08(4, buf, 0);
-                    if ((sub_10002EB94() & 1) == 0)
-                    {
-                      byte_100092C40 = 1;
-                    }
-
-                    if (v35)
-                    {
-LABEL_231:
-                      v35 = v35;
-                      objc_opt_class();
-                      v40 = objc_opt_isKindOfClass();
-
-                      v41 = v35;
-                      if (v40)
-                      {
-                        goto LABEL_55;
-                      }
-                    }
-                  }
-
-                  else
-                  {
-                    v36 = 0;
-                    v35 = 0;
-                  }
-
-                  v42 = sub_10002EBFC(@"AppleCertificateAuthorities.plist");
-                  v41 = [NSArray arrayWithContentsOfURL:v42];
-
-                  if (!v41)
-                  {
-                    v43 = 0;
-                    goto LABEL_59;
-                  }
-
-LABEL_55:
-                  v43 = v41;
-                  objc_opt_class();
-                  v44 = objc_opt_isKindOfClass();
-
-                  if (v44)
-                  {
-                    v43 = v43;
-                    v41 = v43;
-                  }
-
-                  else
-                  {
-                    v41 = 0;
-                  }
-
-LABEL_59:
-
-                  *(v2 + 192) = v41;
-                  if (byte_100092C40)
-                  {
-                    if (*(v2 + 240) == 1)
-                    {
-                      v45 = sub_10002E2F4(v2, @"MobileAssetContentVersion");
-                    }
-
-                    else
-                    {
-                      v45 = sub_10002E29C(@"MobileAssetContentVersion");
-                    }
-
-                    *(v2 + 168) = v45;
-                  }
-
-                  else
-                  {
-                    *buf = 0;
-                    *(v2 + 168) = sub_10002ED10(buf);
-                    *(v2 + 176) = sub_10002EFD8();
-                    v46 = *buf;
-                    if (*buf)
-                    {
-                      *buf = 0;
-                      CFRelease(v46);
-                    }
-                  }
-
-                  *(v2 + 208) = 0;
-                  *buf = 0;
-                  *&valuePtr.st_dev = 0;
-                  *v153 = 0;
-                  v47 = sub_10002F180(@"ValidUpdate", @"plist", 0);
-                  if (v47)
-                  {
-                    v48 = v47;
-                    format = 0xAAAAAAAAAAAAAAAALL;
-                    v49 = CFPropertyListCreateWithData(kCFAllocatorDefault, v47, 0, &format, 0);
-                    if (v49)
-                    {
-                      v50 = v49;
-                      TypeID = CFDictionaryGetTypeID();
-                      if (TypeID == CFGetTypeID(v50))
-                      {
-                        Value = CFDictionaryGetValue(v50, @"Version");
-                        if (Value)
-                        {
-                          CFNumberGetValue(Value, kCFNumberCFIndexType, buf);
-                        }
-
-                        v53 = CFDictionaryGetValue(v50, @"Format");
-                        if (v53)
-                        {
-                          CFNumberGetValue(v53, kCFNumberCFIndexType, &valuePtr);
-                        }
-
-                        v54 = CFDictionaryGetValue(v50, @"Generation");
-                        if (v54)
-                        {
-                          CFNumberGetValue(v54, kCFNumberCFIndexType, v153);
-                        }
-                      }
-
-                      CFRelease(v50);
-                    }
-
-                    CFRelease(v48);
-                  }
-
-                  v55 = *&valuePtr.st_dev;
-                  v56 = *v153;
-                  *(v2 + 144) = *buf;
-                  *(v2 + 152) = v55;
-                  *(v2 + 160) = v56;
-                  *v153 = 0;
-                  v57 = sub_10002E6B0(@"valid", @"sqlite3", 0);
-                  if (v57)
-                  {
-                    v58 = v57;
-                    v59 = CFURLCopyFileSystemPath(v57, kCFURLPOSIXPathStyle);
-                    bzero(buf, 0x400uLL);
-                    if (v59)
-                    {
-                      CStringPtr = CFStringGetCStringPtr(v59, 0x8000100u);
-                      if (CStringPtr || (CStringPtr = buf, CFStringGetCString(v59, buf, 1024, 0x8000100u)))
-                      {
-                        asprintf(v153, "%s", CStringPtr);
-                      }
-
-                      else
-                      {
-                        v93 = sub_1000027AC("SecError");
-                        if (os_log_type_enabled(v93, OS_LOG_TYPE_DEFAULT))
-                        {
-                          valuePtr.st_dev = 136315138;
-                          *&valuePtr.st_mode = "could not get valid snapshot";
-                          _os_log_impl(&_mh_execute_header, v93, OS_LOG_TYPE_DEFAULT, "%s path as UTF8 string", &valuePtr, 0xCu);
-                        }
-                      }
-
-                      CFRelease(v59);
-                    }
-
-                    else
-                    {
-                      v62 = sub_1000027AC("SecError");
-                      if (os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
-                      {
-                        valuePtr.st_dev = 136315138;
-                        *&valuePtr.st_mode = "could not get valid snapshot";
-                        _os_log_impl(&_mh_execute_header, v62, OS_LOG_TYPE_DEFAULT, "%s path", &valuePtr, 0xCu);
-                      }
-                    }
-
-                    CFRelease(v58);
-                    v63 = *v153;
-                    if (!*v153)
-                    {
-                      goto LABEL_93;
-                    }
-
-                    *&v64 = 0xAAAAAAAAAAAAAAAALL;
-                    *(&v64 + 1) = 0xAAAAAAAAAAAAAAAALL;
-                    *&buf[112] = v64;
-                    *&buf[128] = v64;
-                    *&buf[80] = v64;
-                    *&buf[96] = v64;
-                    *&buf[48] = v64;
-                    *&buf[64] = v64;
-                    *&buf[16] = v64;
-                    *&buf[32] = v64;
-                    *buf = v64;
-                    v65 = stat(*v153, buf);
-                    v63 = *v153;
-                    if (!v65)
-                    {
-LABEL_93:
-                      *(v2 + 136) = v63;
-                      if (*(v2 + 240) == 1)
-                      {
-                        v66 = sub_10002F2AC(v2, @"EVRoots", @"plist", 0);
-                      }
-
-                      else
-                      {
-                        v66 = sub_10002F180(@"EVRoots", @"plist", 0);
-                      }
-
-                      v67 = v66;
-                      if (v66)
-                      {
-                        v68 = CFPropertyListCreateWithData(kCFAllocatorDefault, v66, 0, 0, 0);
-                        CFRelease(v67);
-                        if (v68)
-                        {
-                          v69 = CFGetTypeID(v68);
-                          if (v69 == CFDictionaryGetTypeID())
-                          {
-                            *(v2 + 64) = v68;
-                            v70 = *(v2 + 240);
-                            memset(buf, 170, sizeof(buf));
-                            LODWORD(format) = 0;
-                            if (v70 == 1)
-                            {
-                              v71 = sub_10002F2AC(v2, @"certsIndex", @"data", 0);
-                            }
-
-                            else
-                            {
-                              v71 = sub_10002F180(@"certsIndex", @"data", 0);
-                            }
-
-                            v75 = v71;
-                            if (v71)
-                            {
-                              if (v70)
-                              {
-LABEL_115:
-                                v76 = sub_10002F3C4(v2, @"certsTable", @"data", 0);
-                                goto LABEL_120;
-                              }
-                            }
-
-                            else
-                            {
-                              v77 = sub_1000027AC("SecError");
-                              if (os_log_type_enabled(v77, OS_LOG_TYPE_DEFAULT))
-                              {
-                                LOWORD(valuePtr.st_dev) = 0;
-                                _os_log_impl(&_mh_execute_header, v77, OS_LOG_TYPE_DEFAULT, "could not find certsIndex", &valuePtr, 2u);
-                              }
-
-                              if (v70)
-                              {
-                                goto LABEL_115;
-                              }
-                            }
-
-                            v76 = sub_10002E6B0(@"certsTable", @"data", 0);
-LABEL_120:
-                            v78 = v76;
-                            if (!v76)
-                            {
-                              v92 = sub_1000027AC("SecError");
-                              if (os_log_type_enabled(v92, OS_LOG_TYPE_DEFAULT))
-                              {
-                                LOWORD(valuePtr.st_dev) = 0;
-                                _os_log_impl(&_mh_execute_header, v92, OS_LOG_TYPE_DEFAULT, "could not find certsTable", &valuePtr, 2u);
-                              }
-
-                              goto LABEL_174;
-                            }
-
-                            v79 = CFURLCopyFileSystemPath(v76, kCFURLPOSIXPathStyle);
-                            if (!v79)
-                            {
-                              CFRelease(v78);
-                              goto LABEL_174;
-                            }
-
-                            v80 = v79;
-                            bzero(buf, 0x400uLL);
-                            v81 = CFStringGetCStringPtr(v80, 0x8000100u);
-                            if (!v81)
-                            {
-                              v81 = buf;
-                              if (!CFStringGetCString(v80, buf, 1024, 0x8000100u))
-                              {
-                                v98 = sub_1000027AC("SecError");
-                                if (os_log_type_enabled(v98, OS_LOG_TYPE_DEFAULT))
-                                {
-                                  *v153 = 0;
-                                  _os_log_impl(&_mh_execute_header, v98, OS_LOG_TYPE_DEFAULT, "MapFile: path or out_file_size was NULL", v153, 2u);
-                                }
-
-                                goto LABEL_148;
-                              }
-                            }
-
-                            v82.tv_sec = 0xAAAAAAAAAAAAAAAALL;
-                            v82.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
-                            *&valuePtr.st_blksize = v82;
-                            *valuePtr.st_qspare = v82;
-                            valuePtr.st_birthtimespec = v82;
-                            *&valuePtr.st_size = v82;
-                            valuePtr.st_mtimespec = v82;
-                            valuePtr.st_ctimespec = v82;
-                            *&valuePtr.st_uid = v82;
-                            valuePtr.st_atimespec = v82;
-                            *&valuePtr.st_dev = v82;
-                            v83 = open(v81, 0);
-                            if (v83 < 0)
-                            {
-                              v94 = sub_1000027AC("SecError");
-                              if (os_log_type_enabled(v94, OS_LOG_TYPE_DEFAULT))
-                              {
-                                v95 = *__error();
-                                *v153 = 136315394;
-                                *&v153[4] = v81;
-                                v154 = 1024;
-                                *v155 = v95;
-                                _os_log_impl(&_mh_execute_header, v94, OS_LOG_TYPE_DEFAULT, "MapFile: unable to open %s (errno %d)", v153, 0x12u);
-                              }
-
-                              goto LABEL_148;
-                            }
-
-                            v84 = v83;
-                            v85 = fstat(v83, &valuePtr);
-                            if (v85)
-                            {
-                              v86 = v85;
-                              v87 = sub_1000027AC("SecError");
-                              if (os_log_type_enabled(v87, OS_LOG_TYPE_DEFAULT))
-                              {
-                                v88 = *__error();
-                                *v153 = 136315650;
-                                *&v153[4] = v81;
-                                v154 = 1024;
-                                *v155 = v86;
-                                *&v155[4] = 1024;
-                                *&v155[6] = v88;
-                                v89 = "MapFile: fstat of %s returned %d (errno %d)";
-                                v90 = v87;
-                                v91 = 24;
-LABEL_128:
-                                _os_log_impl(&_mh_execute_header, v90, OS_LOG_TYPE_DEFAULT, v89, v153, v91);
-                              }
-                            }
-
-                            else
-                            {
-                              st_size = valuePtr.st_size;
-                              if (valuePtr.st_size >= 0x7FFFFFFF)
-                              {
-                                v97 = sub_1000027AC("SecError");
-                                if (os_log_type_enabled(v97, OS_LOG_TYPE_DEFAULT))
-                                {
-                                  *v153 = 136315394;
-                                  *&v153[4] = v81;
-                                  v154 = 2048;
-                                  *v155 = valuePtr.st_size;
-                                  _os_log_impl(&_mh_execute_header, v97, OS_LOG_TYPE_DEFAULT, "MapFile: %s is too large (%lld)", v153, 0x16u);
-                                }
-
-                                goto LABEL_130;
-                              }
-
-                              v119 = mmap(0, valuePtr.st_size, 1, 2, v84, 0);
-                              if (v119 + 1 > 1)
-                              {
-                                v100 = v119;
-                                close(v84);
-LABEL_151:
-                                CFRelease(v80);
-                                CFRelease(v78);
-                                if (v75 && v100)
-                                {
-                                  v145 = v100;
-                                  v146 = st_size;
-                                  BytePtr = CFDataGetBytePtr(v75);
-                                  cf = v75;
-                                  Length = CFDataGetLength(v75);
-                                  Mutable = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-                                  if (Length >= 1)
-                                  {
-                                    v104 = Length + 24;
-                                    do
-                                    {
-                                      LODWORD(format) = *(BytePtr + 5);
-                                      v105 = CFNumberCreate(kCFAllocatorDefault, kCFNumberIntType, &format);
-                                      v106 = CFDataCreate(kCFAllocatorDefault, BytePtr, 20);
-                                      v107 = CFDictionaryGetValue(Mutable, v106);
-                                      v108 = v107;
-                                      if (!v107)
-                                      {
-                                        v108 = CFArrayCreateMutable(kCFAllocatorDefault, 0, &kCFTypeArrayCallBacks);
-                                      }
-
-                                      CFArrayAppendValue(v108, v105);
-                                      CFDictionarySetValue(Mutable, v106, v108);
-                                      CFRelease(v105);
-                                      CFRelease(v106);
-                                      if (!v107)
-                                      {
-                                        CFRelease(v108);
-                                      }
-
-                                      BytePtr += 24;
-                                      v104 -= 24;
-                                    }
-
-                                    while (v104 > 24);
-                                  }
-
-                                  CFRelease(cf);
-                                  if (!Mutable)
-                                  {
-                                    sub_10002F534(v145, v146);
-                                    goto LABEL_109;
-                                  }
-
-                                  *(v2 + 88) = Mutable;
-                                  *(v2 + 96) = v145;
-                                  *(v2 + 104) = v146;
-                                  *&valuePtr.st_dev = 0;
-                                  *v153 = 0;
-                                  format = 0;
-                                  if ((sub_10002F610(&format, v153) & 1) == 0)
-                                  {
-                                    v109 = sub_1000027AC("OTATrust");
-                                    if (os_log_type_enabled(v109, OS_LOG_TYPE_DEFAULT))
-                                    {
-                                      *buf = 0;
-                                      _os_log_impl(&_mh_execute_header, v109, OS_LOG_TYPE_DEFAULT, "failed to load constrained test anchors", buf, 2u);
-                                    }
-                                  }
-
-                                  *(v2 + 72) = *v153;
-                                  if (sub_10002FEAC(v2, &valuePtr, format, *(v2 + 240)))
-                                  {
-                                    v110 = format;
-                                    if (format)
-                                    {
-                                      format = 0;
-                                      CFRelease(v110);
-                                    }
-
-                                    *(v2 + 80) = *&valuePtr.st_dev;
-                                    v111 = sub_1000301A0(v2);
-                                    if (!v111)
-                                    {
-                                      goto LABEL_198;
-                                    }
-
-                                    v112 = v111;
-                                    v113 = [NSString stringWithFormat:@"%@/../%@", v111, @"Info"];
-                                    CFRelease(v112);
-                                    v114 = [NSString stringWithFormat:@"%@.%@", v113, @"plist"];
-
-                                    v115 = [NSURL fileURLWithPath:v114 isDirectory:0];
-                                    if (v115)
-                                    {
-                                      v116 = [NSData dataWithContentsOfURL:v115];
-                                      if (v116)
-                                      {
-                                        v117 = v116;
-                                        v118 = v117;
-                                        goto LABEL_191;
-                                      }
-
-                                      v121 = [v115 fileSystemRepresentation];
-                                      v122 = sub_1000027AC("SecWarning");
-                                      if (os_log_type_enabled(v122, OS_LOG_TYPE_DEFAULT))
-                                      {
-                                        v123 = "";
-                                        if (v121)
-                                        {
-                                          v123 = v121;
-                                        }
-
-                                        *buf = 136315138;
-                                        *&buf[4] = v123;
-                                        _os_log_impl(&_mh_execute_header, v122, OS_LOG_TYPE_DEFAULT, "Unable to get data from %s", buf, 0xCu);
-                                      }
-
-                                      v117 = 0;
-                                    }
-
-                                    else
-                                    {
-                                      v117 = sub_1000027AC("SecWarning");
-                                      if (os_log_type_enabled(v117, OS_LOG_TYPE_DEFAULT))
-                                      {
-                                        *buf = 138412802;
-                                        *&buf[4] = @"Info";
-                                        *&buf[12] = 2112;
-                                        *&buf[14] = @"plist";
-                                        *&buf[22] = 2112;
-                                        *&buf[24] = 0;
-                                        _os_log_impl(&_mh_execute_header, v117, OS_LOG_TYPE_DEFAULT, "resource: %@.%@ in %@ not found", buf, 0x20u);
-                                      }
-                                    }
-
-                                    v118 = 0;
-LABEL_191:
-
-                                    if (v118)
-                                    {
-                                      *buf = 0xAAAAAAAAAAAAAAAALL;
-                                      v124 = CFPropertyListCreateWithData(kCFAllocatorDefault, v118, 0, buf, 0);
-                                      if (!v124)
-                                      {
-                                        v128 = 0;
-                                        goto LABEL_202;
-                                      }
-
-                                      v125 = v124;
-                                      v126 = CFGetTypeID(v124);
-                                      if (v126 == CFDictionaryGetTypeID())
-                                      {
-                                        v127 = CFDictionaryGetValue(v125, @"MobileAssetProperties");
-                                        v128 = v127;
-                                        if (!v127)
-                                        {
-LABEL_200:
-                                          CFRelease(v125);
-LABEL_202:
-                                          CFRelease(v118);
-                                          goto LABEL_203;
-                                        }
-
-                                        v129 = CFGetTypeID(v127);
-                                        if (v129 == CFDictionaryGetTypeID())
-                                        {
-                                          v130 = CFDictionaryGetValue(v128, @"AssetVersion");
-                                          v128 = v130;
-                                          if (v130)
-                                          {
-                                            CFRetain(v130);
-                                          }
-
-                                          goto LABEL_200;
-                                        }
-                                      }
-
-                                      v128 = 0;
-                                      goto LABEL_200;
-                                    }
-
-LABEL_198:
-                                    v128 = 0;
-LABEL_203:
-                                    *(v2 + 112) = v128;
-                                    v131 = *(v2 + 96);
-                                    v132 = *(v2 + 104);
-                                    v133 = SecSHA256DigestCreate();
-                                    if (v133)
-                                    {
-                                      v134 = v133;
-                                      v135 = CFDataGetLength(v133);
-                                      v136 = CFStringCreateMutable(kCFAllocatorDefault, 2 * v135);
-                                      v137 = CFDataGetBytePtr(v134);
-                                      v138 = CFDataGetLength(v134);
-                                      if (v138 >= 1)
-                                      {
-                                        v139 = v138;
-                                        do
-                                        {
-                                          v140 = *v137++;
-                                          CFStringAppendFormat(v136, 0, @"%02X", v140);
-                                          --v139;
-                                        }
-
-                                        while (v139);
-                                      }
-
-                                      CFRelease(v134);
-                                    }
-
-                                    else
-                                    {
-                                      v136 = 0;
-                                    }
-
-                                    *(v2 + 120) = v136;
-                                    if (sub_100005E88())
-                                    {
-                                      v141 = qword_100092C08;
-                                      if (sub_100005E88())
-                                      {
-                                        if (qword_100092C70 != -1)
-                                        {
-                                          dispatch_once(&qword_100092C70, &stru_100082A60);
-                                        }
-
-                                        if (byte_100092C68 == 1)
-                                        {
-                                          if (sub_100005E88())
-                                          {
-                                            *buf = 0;
-                                            notify_register_dispatch("com.apple.MobileAsset.PKITrustSupplementals.ma.cached-metadata-updated", buf, v141, &stru_100082880);
-                                          }
-
-                                          dispatch_async(v141, &stru_1000828A0);
-                                        }
-
-                                        else
-                                        {
-                                          v142 = sub_1000027AC("OTATrust");
-                                          if (os_log_type_enabled(v142, OS_LOG_TYPE_DEFAULT))
-                                          {
-                                            *buf = 0;
-                                            _os_log_impl(&_mh_execute_header, v142, OS_LOG_TYPE_DEFAULT, "Initializing listener for PKI Asset changes from system trustd.", buf, 2u);
-                                          }
-
-                                          *buf = 0;
-                                          notify_register_dispatch("com.apple.trustd.asset-updated", buf, v141, &stru_1000828C0);
-                                          out_token = 0;
-                                          notify_register_dispatch("com.apple.trustd.asset-check-in", &out_token, v141, &stru_1000828E0);
-                                          v150 = 0;
-                                          notify_register_dispatch("com.apple.trustd.kill-switch", &v150, v141, &stru_100082900);
-                                        }
-                                      }
-
-                                      *(v2 + 216) = sub_1000302AC(@"CTKillSwitch");
-                                      *(v2 + 217) = sub_1000302AC(@"CTKillSwitch_nonTLS");
-                                      v143 = qword_100092C08;
-                                      if (qword_100092C70 != -1)
-                                      {
-                                        dispatch_once(&qword_100092C70, &stru_100082A60);
-                                      }
-
-                                      if (byte_100092C68 == 1)
-                                      {
-                                        dispatch_async(v143, &stru_1000829D8);
-                                      }
-
-                                      else
-                                      {
-                                        v144 = sub_1000027AC("OTATrust");
-                                        if (os_log_type_enabled(v144, OS_LOG_TYPE_DEFAULT))
-                                        {
-                                          *buf = 0;
-                                          _os_log_impl(&_mh_execute_header, v144, OS_LOG_TYPE_DEFAULT, "Initializing listener for SecExperiment Asset changes from system trustd.", buf, 2u);
-                                        }
-
-                                        *buf = 0;
-                                        notify_register_dispatch("com.apple.trustd.secexperiment.asset-updated", buf, v143, &stru_1000829F8);
-                                      }
-                                    }
-
-                                    else
-                                    {
-                                      *(v2 + 216) = 257;
-                                    }
-
-                                    goto LABEL_110;
-                                  }
-
-                                  v74 = *&valuePtr.st_dev;
-                                  if (!*&valuePtr.st_dev)
-                                  {
-LABEL_109:
-                                    CFRelease(v2);
-                                    v2 = 0;
-                                    goto LABEL_110;
-                                  }
-
-LABEL_108:
-                                  CFRelease(v74);
-                                  goto LABEL_109;
-                                }
-
-                                if (v100)
-                                {
-                                  sub_10002F534(v100, st_size);
-                                }
-
-LABEL_174:
-                                if (!v75)
-                                {
-                                  goto LABEL_109;
-                                }
-
-                                v74 = v75;
-                                goto LABEL_108;
-                              }
-
-                              v87 = sub_1000027AC("SecError");
-                              if (os_log_type_enabled(v87, OS_LOG_TYPE_DEFAULT))
-                              {
-                                v120 = *__error();
-                                *v153 = 136315394;
-                                *&v153[4] = v81;
-                                v154 = 1024;
-                                *v155 = v120;
-                                v89 = "MapFile: unable to map %s (errno %d)";
-                                v90 = v87;
-                                v91 = 18;
-                                goto LABEL_128;
-                              }
-                            }
-
-LABEL_130:
-                            close(v84);
-LABEL_148:
-                            v99 = sub_1000027AC("SecError");
-                            if (os_log_type_enabled(v99, OS_LOG_TYPE_DEFAULT))
-                            {
-                              valuePtr.st_dev = 138412290;
-                              *&valuePtr.st_mode = v80;
-                              _os_log_impl(&_mh_execute_header, v99, OS_LOG_TYPE_DEFAULT, "InitializeAnchorTable: failed to map file at %@", &valuePtr, 0xCu);
-                            }
-
-                            v100 = 0;
-                            st_size = 0;
-                            goto LABEL_151;
-                          }
-
-                          v72 = 0;
-LABEL_104:
-                          v73 = sub_1000027AC("SecWarning");
-                          if (os_log_type_enabled(v73, OS_LOG_TYPE_DEFAULT))
-                          {
-                            *buf = 0;
-                            _os_log_impl(&_mh_execute_header, v73, OS_LOG_TYPE_DEFAULT, "EVRoot.plist is wrong type.", buf, 2u);
-                          }
-
-                          if (v72)
-                          {
-                            goto LABEL_109;
-                          }
-
-                          v74 = v68;
-                          goto LABEL_108;
-                        }
-                      }
-
-                      else
-                      {
-                        v68 = 0;
-                      }
-
-                      v72 = 1;
-                      goto LABEL_104;
-                    }
-
-                    free(*v153);
-                  }
-
-                  else
-                  {
-                    v61 = sub_1000027AC("SecError");
-                    if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
-                    {
-                      *buf = 136315138;
-                      *&buf[4] = "could not get valid snapshot";
-                      _os_log_impl(&_mh_execute_header, v61, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
-                    }
-                  }
-
-                  v63 = 0;
-                  goto LABEL_93;
-                }
-
-                v26 = v32;
-                objc_opt_class();
-                v33 = objc_opt_isKindOfClass();
-
-                if (v33)
-                {
-                  v26 = v26;
-                  v32 = v26;
-                  goto LABEL_43;
-                }
-              }
-
-LABEL_42:
-              v32 = 0;
-              goto LABEL_43;
-            }
-          }
-
-          else
-          {
-            v26 = 0;
-          }
-        }
-
-        else
-        {
-          v26 = 0;
-          v21 = 0;
-          v20 = 0;
-        }
-
-        v28 = sub_10002EBFC(@"AnalyticsSamplingRates.plist");
-        v29 = [NSDictionary dictionaryWithContentsOfURL:v28];
-
-        v20 = v29;
-        if (!v29)
-        {
-          goto LABEL_42;
-        }
-
-        goto LABEL_38;
-      }
-
-      if (v13)
-      {
-        *buf = 134218240;
-        *&buf[4] = v10;
-        *&buf[12] = 2048;
-        *&buf[14] = v11;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Using system trust store %llu instead of asset trust store %llu", buf, 0x16u);
-      }
-    }
-
-    *(v2 + 240) = 0;
-    v14 = sub_10002E29C(@"VersionNumber");
-    goto LABEL_20;
-  }
-
-LABEL_110:
-  qword_100092C30 = v2;
-}
-
 uint64_t sub_10002E29C(const void *a1)
 {
   v2 = sub_10002F180(@"AssetVersion", @"plist", 0);
@@ -2225,7 +377,7 @@ LABEL_16:
     }
 
     v19 = v8;
-    sub_10003168C(@"com.apple.MobileAsset.PKITrustSupplementals", &v19, 3, NSOSStatusErrorDomain, -67871, @"OTAContext.plist missing dictionary", v4, v5, v18);
+    sub_10003168C(@"com.apple.MobileAsset.PKITrustSupplementals", &v19, 3, NSOSStatusErrorDomain, 4294899425, @"OTAContext.plist missing dictionary", v4, v5, v18);
     v14 = v19;
 
     v13 = 0;
@@ -2273,7 +425,7 @@ LABEL_11:
     if (a1)
     {
       v20 = v8;
-      sub_10003168C(@"com.apple.MobileAsset.PKITrustSupplementals", &v20, 3, NSOSStatusErrorDomain, -67694, @"OTAContext.plist missing version", v10, v11, v18);
+      sub_10003168C(@"com.apple.MobileAsset.PKITrustSupplementals", &v20, 3, NSOSStatusErrorDomain, 4294899602, @"OTAContext.plist missing version", v10, v11, v18);
       v17 = v20;
 
       v8 = v17;
@@ -2312,7 +464,7 @@ void *sub_10002EFD8()
     v4 = 0;
 LABEL_8:
     v13 = v4;
-    sub_10003168C(@"com.apple.MobileAsset.PKITrustSupplementals", &v13, 3, NSOSStatusErrorDomain, -67871, @"OTAContext.plist missing dictionary", v0, v1, v12);
+    sub_10003168C(@"com.apple.MobileAsset.PKITrustSupplementals", &v13, 3, NSOSStatusErrorDomain, 4294899425, @"OTAContext.plist missing dictionary", v0, v1, v12);
     v9 = 0;
     v8 = v4;
     v4 = v13;
@@ -2346,7 +498,7 @@ LABEL_8:
   else
   {
     v14 = v4;
-    sub_10003168C(@"com.apple.MobileAsset.PKITrustSupplementals", &v14, 3, NSOSStatusErrorDomain, -67694, @"OTAContext.plist missing check-in", v6, v7, v12);
+    sub_10003168C(@"com.apple.MobileAsset.PKITrustSupplementals", &v14, 3, NSOSStatusErrorDomain, 4294899602, @"OTAContext.plist missing check-in", v6, v7, v12);
     v11 = v14;
 
     v9 = 0;
@@ -2995,7 +1147,7 @@ id sub_1000302AC(void *a1)
     v6 = 0;
 LABEL_10:
     v17 = v6;
-    sub_10003168C(@"com.apple.MobileAsset.PKITrustSupplementals", &v17, 3, NSOSStatusErrorDomain, -67871, @"OTAContext.plist missing dictionary", v2, v3, v16);
+    sub_10003168C(@"com.apple.MobileAsset.PKITrustSupplementals", &v17, 3, NSOSStatusErrorDomain, 4294899425, @"OTAContext.plist missing dictionary", v2, v3, v16);
     v12 = 0;
     v10 = v6;
     v6 = v17;
@@ -3039,7 +1191,7 @@ LABEL_10:
   else
   {
     v18 = v6;
-    sub_10003168C(@"com.apple.MobileAsset.PKITrustSupplementals", &v18, 3, NSOSStatusErrorDomain, -67694, @"OTAContext.plist missing kill switch", v8, v9, v16);
+    sub_10003168C(@"com.apple.MobileAsset.PKITrustSupplementals", &v18, 3, NSOSStatusErrorDomain, 4294899602, @"OTAContext.plist missing kill switch", v8, v9, v16);
     v14 = v18;
 
     v12 = 0;
@@ -3214,7 +1366,7 @@ LABEL_17:
           else
           {
             v30 = 0;
-            sub_10003168C(v10, &v30, 3, NSOSStatusErrorDomain, -25299, @"skipping asset %@ because we already have _ContentVersion %@ (or newer)", v18, v19, v10);
+            sub_10003168C(v10, &v30, 3, NSOSStatusErrorDomain, 4294941997, @"skipping asset %@ because we already have _ContentVersion %@ (or newer)", v18, v19, v10);
             v13 = v30;
           }
 
@@ -3233,7 +1385,7 @@ LABEL_16:
   }
 
   v33 = 0;
-  sub_10003168C(v3, &v33, 3, NSOSStatusErrorDomain, -67704, @"skipping asset %@ because Compatibility Version doesn't match %@", v6, v7, v3);
+  sub_10003168C(v3, &v33, 3, NSOSStatusErrorDomain, 4294899592, @"skipping asset %@ because Compatibility Version doesn't match %@", v6, v7, v3);
   v13 = v33;
   v14 = 0;
 LABEL_11:
@@ -3304,7 +1456,7 @@ id sub_100030B18(void *a1, void *a2, void *a3, uint64_t *a4)
       goto LABEL_21;
     }
 
-    sub_10003168C(@"com.apple.MobileAsset.SecExperimentAssets", a4, 4, NSOSStatusErrorDomain, -26276, @"missing url and version for downloaded SecExperiment asset", v20, v21, v32);
+    sub_10003168C(@"com.apple.MobileAsset.SecExperimentAssets", a4, 4, NSOSStatusErrorDomain, 4294941020, @"missing url and version for downloaded SecExperiment asset", v20, v21, v32);
     goto LABEL_20;
   }
 
@@ -3353,7 +1505,7 @@ id sub_100030B18(void *a1, void *a2, void *a3, uint64_t *a4)
 
 LABEL_17:
   v33 = [v10 getLocalFileUrl];
-  sub_10003168C(@"com.apple.MobileAsset.PKITrustSupplementals", a4, 4, NSOSStatusErrorDomain, -67695, @"Failed to install new asset version %@ from %@", v28, v29, v11);
+  sub_10003168C(@"com.apple.MobileAsset.PKITrustSupplementals", a4, 4, NSOSStatusErrorDomain, 4294899601, @"Failed to install new asset version %@ from %@", v28, v29, v11);
 
 LABEL_20:
   v18 = 0;
@@ -3574,20 +1726,21 @@ LABEL_49:
     goto LABEL_46;
   }
 
-  sub_10003168C(@"com.apple.MobileAsset.PKITrustSupplementals", a3, 4, NSOSStatusErrorDomain, -26276, @"missing url and version for downloaded asset", v7, v8, v33);
+  sub_10003168C(@"com.apple.MobileAsset.PKITrustSupplementals", a3, 4, NSOSStatusErrorDomain, 4294941020, @"missing url and version for downloaded asset", v7, v8, v33);
   v23 = 0;
 LABEL_50:
 
   return v23;
 }
 
-void sub_100031628(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35)
+void sub_100031628(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
 {
+  va_start(va, a34);
   _Block_object_dispose(&a19, 8);
   _Block_object_dispose(&a25, 8);
   _Block_object_dispose(&a31, 8);
-  _Block_object_dispose(&a35, 8);
-  _Block_object_dispose((v35 - 176), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v34 - 176), 8);
   _Unwind_Resume(a1);
 }
 
@@ -3940,9 +2093,9 @@ uint64_t sub_100031F40()
   return v1 & 1;
 }
 
-void sub_10003219C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_10003219C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4035,10 +2188,7 @@ LABEL_14:
 
 uint64_t sub_1000324F0(uint64_t a1)
 {
-  v2 = sub_10003257C();
-  v3 = *(*(a1 + 32) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 32) + 8) + 40) = sub_10003257C();
 
   return _objc_release_x1();
 }
@@ -4148,7 +2298,7 @@ void sub_1000326B0(void *a1)
   }
 }
 
-uint64_t sub_1000327C0(__CFString **a1)
+uint64_t sub_1000327C0(CFTypeRef *a1)
 {
   v2 = sub_100002A58();
   if (v2)
@@ -4166,7 +2316,7 @@ uint64_t sub_1000327C0(__CFString **a1)
   return v3;
 }
 
-uint64_t sub_100032810(__CFString **a1)
+uint64_t sub_100032810(CFTypeRef *a1)
 {
   v2 = sub_100002A58();
   if (v2)
@@ -4201,7 +2351,7 @@ BOOL sub_100032920(_BOOL8 a1, void *a2, void *a3)
   v5 = a2;
   if ((sub_100005E88() & 1) == 0)
   {
-    sub_10003168C(v5, a3, 3, NSOSStatusErrorDomain, -67585, @"MobileAsset disabled, skipping check.", v6, v7, v35);
+    sub_10003168C(v5, a3, 3, NSOSStatusErrorDomain, 4294899711, @"MobileAsset disabled, skipping check.", v6, v7, v35);
     goto LABEL_11;
   }
 
@@ -4267,7 +2417,7 @@ LABEL_15:
     if (dispatch_semaphore_wait(v25, v27))
     {
       sub_100033388();
-      sub_10003168C(v24, a3, 4, NSOSStatusErrorDomain, -67636, @"Failed to get asset %@ metadata within %d seconds.", v30, v31, v24);
+      sub_10003168C(v24, a3, 4, NSOSStatusErrorDomain, 4294899660, @"Failed to get asset %@ metadata within %d seconds.", v30, v31, v24);
     }
 
     else
@@ -4290,7 +2440,7 @@ LABEL_15:
         goto LABEL_23;
       }
 
-      sub_10003168C(v24, a3, 4, NSOSStatusErrorDomain, -2070, @"Unknown error occurred.", v28, v29, v35);
+      sub_10003168C(v24, a3, 4, NSOSStatusErrorDomain, 4294965226, @"Unknown error occurred.", v28, v29, v35);
     }
 
     a1 = 0;
@@ -4341,7 +2491,7 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  sub_10003168C(v8, a3, 3, NSOSStatusErrorDomain, -25297, @"last MobileAsset request for %@ too recent, skipping check.", v18, v19, v8);
+  sub_10003168C(v8, a3, 3, NSOSStatusErrorDomain, 4294941999, @"last MobileAsset request for %@ too recent, skipping check.", v18, v19, v8);
 LABEL_11:
   a1 = 0;
 LABEL_24:
@@ -4349,11 +2499,12 @@ LABEL_24:
   return a1;
 }
 
-void sub_100032E3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_100032E3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
+  va_start(va, a26);
   _Block_object_dispose(&a21, 8);
-  _Block_object_dispose(&a27, 8);
-  _Block_object_dispose((v27 - 176), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v26 - 176), 8);
   _Unwind_Resume(a1);
 }
 
@@ -4565,7 +2716,7 @@ LABEL_5:
 
   if (v12)
   {
-    sub_10003168C(v6, a5, 4, NSOSStatusErrorDomain, -26276, @"no results in MobileAsset query for %@", v13, v14, v6);
+    sub_10003168C(v6, a5, 4, NSOSStatusErrorDomain, 4294941020, @"no results in MobileAsset query for %@", v13, v14, v6);
     goto LABEL_5;
   }
 
@@ -4706,7 +2857,7 @@ LABEL_42:
               v36 = *(&buf + 1);
               v68 = *(*(&buf + 1) + 40);
               v37 = [v18 state];
-              sub_10003168C(v6, &v68, 4, NSOSStatusErrorDomain, -26276, @"unknown asset state %ld", v38, v39, v37);
+              sub_10003168C(v6, &v68, 4, NSOSStatusErrorDomain, 4294941020, @"unknown asset state %ld", v38, v39, v37);
               v40 = v68;
               goto LABEL_44;
             }
@@ -4794,10 +2945,11 @@ LABEL_59:
   return v54 & 1;
 }
 
-void sub_100033CCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, char a47)
+void sub_100033CCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, ...)
 {
-  _Block_object_dispose(&a47, 8);
-  _Block_object_dispose((v47 - 192), 8);
+  va_start(va, a46);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v46 - 192), 8);
   _Unwind_Resume(a1);
 }
 
@@ -5146,7 +3298,7 @@ void *sub_100034918(void *result)
   return result;
 }
 
-void *sub_100034984(__CFString **a1)
+void *sub_100034984(CFTypeRef *a1)
 {
   v2 = sub_100016504();
   v3 = objc_autoreleasePoolPush();
@@ -5236,7 +3388,7 @@ LABEL_12:
   return result;
 }
 
-uint64_t sub_100034BBC(__CFString **a1)
+uint64_t sub_100034BBC(CFTypeRef *a1)
 {
   v2 = sub_100002A58();
   if (v2)
@@ -5260,7 +3412,7 @@ uint64_t sub_100034BBC(__CFString **a1)
   return v4;
 }
 
-uint64_t sub_100034C20(__CFString **a1)
+uint64_t sub_100034C20(CFTypeRef *a1)
 {
   v2 = sub_100002A58();
   if (v2)
@@ -5284,7 +3436,7 @@ uint64_t sub_100034C20(__CFString **a1)
   return v4;
 }
 
-uint64_t sub_100034C84(uint64_t a1, __CFString **a2)
+uint64_t sub_100034C84(uint64_t a1, CFTypeRef *a2)
 {
   if (a1)
   {
@@ -5332,7 +3484,7 @@ uint64_t sub_100034DB8()
   return v0;
 }
 
-uint64_t sub_100034E00(__CFString **a1)
+uint64_t sub_100034E00(CFTypeRef *a1)
 {
   v2 = sub_100002A58();
   if (v2)
@@ -5350,7 +3502,7 @@ uint64_t sub_100034E00(__CFString **a1)
   return v3;
 }
 
-unint64_t sub_100034E50(__CFString **a1)
+unint64_t sub_100034E50(CFTypeRef *a1)
 {
   if (qword_100092C70 != -1)
   {
@@ -5385,7 +3537,7 @@ unint64_t sub_100034E50(__CFString **a1)
   return v5;
 }
 
-uint64_t sub_100034F2C(__CFString **a1)
+uint64_t sub_100034F2C(CFTypeRef *a1)
 {
   if (qword_100092C70 != -1)
   {
@@ -5883,7 +4035,7 @@ void sub_1000360DC(uint64_t a1)
       v16 = __error();
       v17 = strerror(*v16);
       *buf = 136315138;
-      v62 = v17;
+      v64 = v17;
       v6 = "unable to open ticket file: %s";
       goto LABEL_6;
     }
@@ -5900,7 +4052,7 @@ void sub_1000360DC(uint64_t a1)
       v19 = __error();
       v20 = strerror(*v19);
       *buf = 136315138;
-      v62 = v20;
+      v64 = v20;
       v21 = "failed to stat ticket file: %s";
       v22 = v18;
       v23 = 12;
@@ -5963,11 +4115,11 @@ LABEL_33:
             v31 = *(a1 + 56);
             v32 = *(a1 + 60);
             v33 = *(*(a1 + 40) + 8);
-            v60 = 0;
-            v59 = v32;
+            v62 = 0;
+            v61 = v32;
             BytePtr = CFDataGetBytePtr(v15);
             Length = CFDataGetLength(v15);
-            v36 = Img4DecodeParseLengthFromBufferWithTag(BytePtr, Length, 0x494D344Du, &v60);
+            v36 = Img4DecodeParseLengthFromBufferWithTag(BytePtr, Length, 0x494D344Du, &v62);
             if (v36)
             {
               v37 = v36;
@@ -6024,13 +4176,13 @@ LABEL_69:
             __b[3] = v42;
             __b[0] = v42;
             __b[1] = v42;
-            if (v60 != Length)
+            if (v62 != Length)
             {
               v45 = sub_1000027AC("personalization");
               if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
               {
                 __s2.st_dev = 134218240;
-                *&__s2.st_mode = v60;
+                *&__s2.st_mode = v62;
                 WORD2(__s2.st_ino) = 2048;
                 *(&__s2.st_ino + 6) = Length;
                 _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEFAULT, "Incorrect amount of data in retrieved manifest. Parsed length: %zu; Have: %zu", &__s2, 0x16u);
@@ -6042,7 +4194,7 @@ LABEL_69:
 
             cc_clear();
             v43 = CFDataGetBytePtr(v15);
-            inited = Img4DecodeInitManifest(v43, v60, __b);
+            inited = Img4DecodeInitManifest(v43, v62, __b);
             if (inited)
             {
               v37 = inited;
@@ -6081,7 +4233,7 @@ LABEL_69:
               if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 67109120;
-                LODWORD(v62) = v37;
+                LODWORD(v64) = v37;
                 v49 = "failed to read boot-manifest-hash from device tree: %d";
 LABEL_59:
                 _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEFAULT, v49, buf, 8u);
@@ -6094,19 +4246,19 @@ LABEL_59:
               v51 = Img4DecodeCopyManifestDigest(__b, &__s2, qword_100092D18, &xmmword_100092CC0);
               if (!v51)
               {
-                v56 = CFDataGetBytePtr(v46);
-                if (!memcmp(v56, &__s2, v50))
+                v58 = CFDataGetBytePtr(v46);
+                if (!memcmp(v58, &__s2, v50))
                 {
                   v37 = 0;
                 }
 
                 else
                 {
-                  v57 = sub_1000027AC("personalization");
-                  if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
+                  v59 = sub_1000027AC("personalization");
+                  if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 0;
-                    _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_DEFAULT, "manifest read does not match boot-manifest-hash", buf, 2u);
+                    _os_log_impl(&_mh_execute_header, v59, OS_LOG_TYPE_DEFAULT, "manifest read does not match boot-manifest-hash", buf, 2u);
                   }
 
                   v37 = 3;
@@ -6120,7 +4272,7 @@ LABEL_59:
               if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 67109120;
-                LODWORD(v62) = v37;
+                LODWORD(v64) = v37;
                 v49 = "unable to copy digest of manifest: %d";
                 goto LABEL_59;
               }
@@ -6134,10 +4286,10 @@ LABEL_60:
 
             if (!v37)
             {
-              v54 = Img4DecodePerformTrustEvaluation(0x6B726E6Cu, __b, sub_1000369BC, &xmmword_100092CC0, 0);
+              v54 = Img4DecodePerformTrustEvaluation(1802661484, __b, sub_1000369BC, &xmmword_100092CC0, 0);
               if (!v54)
               {
-                BooleanFromSection = Img4DecodeGetBooleanFromSection(__b, 0, v31, &v59);
+                BooleanFromSection = Img4DecodeGetBooleanFromSection(__b, 0, v31, &v61, v55, v56);
                 if (BooleanFromSection == 1)
                 {
                   v37 = 0;
@@ -6145,7 +4297,7 @@ LABEL_60:
 
                 else
                 {
-                  v32 = v59;
+                  v32 = v61;
                   v37 = BooleanFromSection;
                 }
 
@@ -6153,13 +4305,13 @@ LABEL_60:
               }
 
               v37 = v54;
-              v55 = sub_1000027AC("personalization");
-              if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
+              v57 = sub_1000027AC("personalization");
+              if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
               {
                 LOWORD(__s2.st_dev) = 0;
                 v39 = "failed to verify ap ticket";
                 p_s2 = &__s2;
-                v52 = v55;
+                v52 = v57;
                 v53 = 2;
                 goto LABEL_67;
               }
@@ -6187,7 +4339,7 @@ LABEL_65:
             v29 = __error();
             v30 = strerror(*v29);
             *buf = 136315138;
-            v62 = v30;
+            v64 = v30;
             _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "failed to read ticket data: %s", buf, 0xCu);
           }
 
@@ -6206,9 +4358,9 @@ LABEL_32:
         v26 = __error();
         v27 = strerror(*v26);
         *buf = 134218242;
-        v62 = st_size;
-        v63 = 2080;
-        v64 = v27;
+        v64 = st_size;
+        v65 = 2080;
+        v66 = v27;
         v21 = "failed to allocate %zu bytes: %s";
         v22 = v25;
         v23 = 22;
@@ -6224,7 +4376,7 @@ LABEL_32:
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v62 = v4;
+    v64 = v4;
     v6 = "failed to get ticket file path: %ld";
 LABEL_6:
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, v6, buf, 0xCu);
@@ -7106,6 +5258,13 @@ LABEL_6:
   }
 }
 
+void sub_1000388FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 uint64_t sub_100038934(uint64_t result, uint64_t a2)
 {
   *(result + 40) = *(a2 + 40);
@@ -7344,18 +5503,13 @@ void sub_100038FF0(uint64_t a1, CFDictionaryRef theDict)
       v8 = 1;
       do
       {
-        if (*v7)
+        v9 = SecCertificateCopySubjectPublicKeyInfoSHA256Digest();
+        if (v9)
         {
-          v9 = *(*v7 + 16);
-        }
-
-        v10 = SecCertificateCopySubjectPublicKeyInfoSHA256Digest();
-        if (v10)
-        {
-          v11 = v10;
-          v12 = CFEqual(v6, v10);
-          CFRelease(v11);
-          if (v12)
+          v10 = v9;
+          v11 = CFEqual(v6, v9);
+          CFRelease(v10);
+          if (v11)
           {
             if (v8 > *(v4 + 72))
             {
@@ -7952,16 +6106,15 @@ CFMutableArrayRef sub_100039BF0(uint64_t a1, __CFArray *a2)
 uint64_t sub_100039D88(uint64_t a1, __SecCertificate *a2)
 {
   NormalizedIssuerContent = SecCertificateGetNormalizedIssuerContent();
-  v5 = NormalizedIssuerContent;
+  v4 = NormalizedIssuerContent;
   if (NormalizedIssuerContent)
   {
     CFRetain(NormalizedIssuerContent);
   }
 
   error = 0;
-  v6 = SecCertificateCopySerialNumberData(a2, &error);
-  v7 = *(a1 + 24);
-  v8 = SecItemCertificateExists();
+  v5 = SecCertificateCopySerialNumberData(a2, &error);
+  v6 = SecItemCertificateExists();
   if (error)
   {
     CFErrorGetCode(error);
@@ -7971,17 +6124,17 @@ uint64_t sub_100039D88(uint64_t a1, __SecCertificate *a2)
     }
   }
 
-  if (v6)
-  {
-    CFRelease(v6);
-  }
-
   if (v5)
   {
     CFRelease(v5);
   }
 
-  return v8;
+  if (v4)
+  {
+    CFRelease(v4);
+  }
+
+  return v6;
 }
 
 void sub_100039E34(uint64_t a1, const __CFData *a2)
@@ -8223,11 +6376,11 @@ BOOL sub_10003A430(id a1, __OpaqueSecDb *a2, __OpaqueSecDbConnection *a3, BOOL a
   return v10 & 1;
 }
 
-uint64_t sub_10003A638(uint64_t a1, _BYTE *a2)
+uint64_t sub_10003A638(void *a1, _BYTE *a2)
 {
-  result = sub_1000183E0(*(a1 + 40), @"CREATE TABLE ocsp(issuerNameHash BLOB NOT NULL,issuerPubKeyHash BLOB NOT NULL,serialNum BLOB NOT NULL,hashAlgorithm BLOB NOT NULL,responseId INTEGER NOT NULL,certStatus INTEGER NOT NULL DEFAULT 255);CREATE INDEX iResponseId ON ocsp(responseId);CREATE INDEX iserialNum ON ocsp(serialNum);CREATE INDEX iSNumDAlg ON ocsp(serialNum,hashAlgorithm);CREATE TABLE responses(responseId INTEGER PRIMARY KEY,ocspResponse BLOB NOT NULL,responderURI BLOB,expires DOUBLE NOT NULL,lastUsed DOUBLE NOT NULL);CREATE INDEX iexpires ON responses(expires);CREATE TRIGGER tocspdel BEFORE DELETE ON responses FOR EACH ROW BEGIN DELETE FROM ocsp WHERE responseId=OLD.responseId; END;", *(a1 + 48));
-  *(*(*(a1 + 32) + 8) + 24) &= result;
-  *a2 = *(*(*(a1 + 32) + 8) + 24);
+  result = sub_1000183E0(a1[5], @"CREATE TABLE ocsp(issuerNameHash BLOB NOT NULL,issuerPubKeyHash BLOB NOT NULL,serialNum BLOB NOT NULL,hashAlgorithm BLOB NOT NULL,responseId INTEGER NOT NULL,certStatus INTEGER NOT NULL DEFAULT 255);CREATE INDEX iResponseId ON ocsp(responseId);CREATE INDEX iserialNum ON ocsp(serialNum);CREATE INDEX iSNumDAlg ON ocsp(serialNum,hashAlgorithm);CREATE TABLE responses(responseId INTEGER PRIMARY KEY,ocspResponse BLOB NOT NULL,responderURI BLOB,expires DOUBLE NOT NULL,lastUsed DOUBLE NOT NULL);CREATE INDEX iexpires ON responses(expires);CREATE TRIGGER tocspdel BEFORE DELETE ON responses FOR EACH ROW BEGIN DELETE FROM ocsp WHERE responseId=OLD.responseId; END;", a1[6]);
+  *(*(a1[4] + 8) + 24) &= result;
+  *a2 = *(*(a1[4] + 8) + 24);
   return result;
 }
 
@@ -8337,15 +6490,12 @@ uint64_t sub_10003A978(uint64_t a1, uint64_t a2)
 
 uint64_t sub_10003A9E4(uint64_t a1, __CFCalendar *a2)
 {
-  v5 = *(a1 + 32);
-  v4 = *(a1 + 40);
-  v11 = *(*(v5 + 8) + 24);
+  v8 = *(*(*(a1 + 32) + 8) + 24);
   SecCertificateNotValidBefore();
-  v7 = v6;
-  v8 = *(a1 + 40);
+  v5 = v4;
   SecCertificateNotValidAfter();
-  result = CFCalendarGetComponentDifference(a2, v7, v9, 0, "M", &v11);
-  *(*(*(a1 + 32) + 8) + 24) = v11;
+  result = CFCalendarGetComponentDifference(a2, v5, v6, 0, "M", &v8);
+  *(*(*(a1 + 32) + 8) + 24) = v8;
   return result;
 }
 

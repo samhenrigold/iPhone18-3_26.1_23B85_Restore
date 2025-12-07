@@ -1,10 +1,10 @@
 @interface UIResponder
-- (uint64_t)safari_becomeFirstResponderIfNeeded;
+- (void)safari_becomeFirstResponderIfNeeded;
 @end
 
 @implementation UIResponder
 
-- (uint64_t)safari_becomeFirstResponderIfNeeded
+- (void)safari_becomeFirstResponderIfNeeded
 {
   if (result)
   {

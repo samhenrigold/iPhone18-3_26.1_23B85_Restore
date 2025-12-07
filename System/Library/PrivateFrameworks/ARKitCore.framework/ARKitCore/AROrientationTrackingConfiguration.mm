@@ -10,15 +10,16 @@
 
 - (AROrientationTrackingConfiguration)init
 {
-  v4.receiver = self;
-  v4.super_class = AROrientationTrackingConfiguration;
-  initPrivate = [(ARConfiguration *)&v4 initPrivate];
-  if (initPrivate && ARShouldSupport1440pAndAutofocus())
+  v6.receiver = self;
+  v6.super_class = AROrientationTrackingConfiguration;
+  initPrivate = [(ARConfiguration *)&v6 initPrivate];
+  v4 = initPrivate;
+  if (initPrivate && ARShouldSupport1440pAndAutofocus(initPrivate, v3))
   {
-    [(ARConfiguration *)initPrivate setAutoFocusEnabled:1];
+    [(ARConfiguration *)v4 setAutoFocusEnabled:1];
   }
 
-  return initPrivate;
+  return v4;
 }
 
 + (id)supportedVideoFormats
@@ -81,13 +82,13 @@ uint64_t __59__AROrientationTrackingConfiguration_supportedVideoFormats__block_i
   v3 = [ARVideoFormat supportedVideoFormatsForDevicePosition:1 deviceType:*MEMORY[0x1E6986950]];
   [v2 addObjectsFromArray:v3];
 
-  if (ARLinkedOnOrAfterSydney())
+  if (ARLinkedOnOrAfterSydney(v4, v5))
   {
-    v4 = +[ARVideoFormat supportedVideoFormatsForStillImageCapture];
-    [v2 addObjectsFromArray:v4];
+    v6 = +[ARVideoFormat supportedVideoFormatsForStillImageCapture];
+    [v2 addObjectsFromArray:v6];
 
-    v5 = +[ARVideoFormat supportedVideoFormatsForHiResOrX420];
-    [v2 addObjectsFromArray:v5];
+    v7 = +[ARVideoFormat supportedVideoFormatsForHiResOrX420];
+    [v2 addObjectsFromArray:v7];
   }
 
   return v2;

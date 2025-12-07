@@ -6,9 +6,22 @@
 - (_TtC28LocalAuthenticationUIService22PINSheetViewController)initWithRequestID:(id)d endpoint:(id)endpoint remoteAlertPresentationMode:(int64_t)mode;
 - (void)dismissChildWithCompletionHandler:(id)handler;
 - (void)viewModel:(id)model didReceiveCustomPassword:(id)password handler:(id)handler;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation PINSheetViewController
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v7.receiver = self;
+  v7.super_class = swift_getObjectType();
+  v4 = v7.receiver;
+  [(TransitionViewController *)&v7 viewWillAppear:appearCopy];
+  v5 = closure #1 in PINSheetViewController.viewWillAppear(_:)(v4);
+  v6 = *&v4[OBJC_IVAR____TtC28LocalAuthenticationUIService22PINSheetViewController_authorizationViewManager];
+  *&v4[OBJC_IVAR____TtC28LocalAuthenticationUIService22PINSheetViewController_authorizationViewManager] = v5;
+}
 
 - (void)dismissChildWithCompletionHandler:(id)handler
 {
@@ -29,7 +42,7 @@
 
   selfCopy = self;
   PINSheetViewController.dismissChild(completionHandler:)(v7, v6);
-  outlined consume of (@escaping @callee_guaranteed () -> ())?(v7);
+  outlined consume of (@escaping @callee_guaranteed () -> ())?(v7, v6);
 }
 
 - (_TtC28LocalAuthenticationUIService22PINSheetViewController)initWithRequestID:(id)d endpoint:(id)endpoint

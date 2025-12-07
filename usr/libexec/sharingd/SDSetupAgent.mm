@@ -49,10 +49,14 @@
 - (void)_uiStartAuthenticateAccounts:(id)accounts;
 - (void)_uiStartForMacWithDevice:(id)device label:(id)label extraInfo:(id)info;
 - (void)_uiStartHomeKitDeviceDetectedWithURL:(id)l;
+- (void)_uiStartRepair:(id)repair flags:(unsigned int)flags;
 - (void)_uiStartSetupB238:(id)b238 extraInfo:(id)info;
+- (void)_uiStartSetupDovePeace:(id)peace actionType:(unsigned __int8)type payload:(id)payload autoStart:(BOOL)start;
 - (void)_uiStartSetupWatch:(id)watch;
+- (void)_uiStartSetupiOS:(id)s autoStart:(BOOL)start;
 - (void)_uiStartTVLatencyBanner:(id)banner forActionType:(unsigned __int8)type;
 - (void)_uiStartTVLatencySetup:(id)setup extraInfo:(id)info forActionType:(unsigned __int8)type;
+- (void)_uiStartTVLatencySetup:(id)setup forActionType:(unsigned __int8)type withBLEDevice:(id)device;
 - (void)_uiStartWiFiPasswordSharing:(id)sharing;
 - (void)_uiStartWithDevice:(id)device viewControllerName:(id)name xpcEndpoint:(id)endpoint label:(id)label extraInfo:(id)info;
 - (void)_uiStartWithDevice:(id)device viewControllerName:(id)name xpcEndpoint:(id)endpoint label:(id)label unlessApps:(id)apps extraInfo:(id)info;
@@ -177,10 +181,10 @@ LABEL_7:
 
 - (id)descriptionWithLevel:(int)level
 {
-  v146 = 0;
-  NSAppendPrintF();
-  v4 = 0;
-  v145 = v4;
+  v141 = 0;
+  NSAppendPrintF(&v141, "-- SDSetupAgent --\n");
+  v4 = v141;
+  v140 = v4;
   if (self->_deviceDiscovery)
   {
     deviceDiscovery = self->_deviceDiscovery;
@@ -191,17 +195,14 @@ LABEL_7:
     deviceDiscovery = @"off";
   }
 
-  v94 = [(NSMutableDictionary *)self->_devices count];
-  v96 = [(NSMutableDictionary *)self->_triggeredDevices count];
-  v87 = deviceDiscovery;
-  NSAppendPrintF();
-  v6 = v145;
+  NSAppendPrintF(&v140, "Discovery: %@, %ld needSetup, %ld triggered\n", deviceDiscovery, [(NSMutableDictionary *)self->_devices count], [(NSMutableDictionary *)self->_triggeredDevices count]);
+  v6 = v140;
 
   p_triggeredDevices = &self->_triggeredDevices;
   scanSeconds = self->_scanSeconds;
   if (scanSeconds >= 1)
   {
-    v144 = v6;
+    v139 = v6;
     if (self->_scanTimer)
     {
       v9 = "on";
@@ -212,26 +213,23 @@ LABEL_7:
       v9 = "off";
     }
 
-    v87 = v9;
-    v94 = scanSeconds;
-    NSAppendPrintF();
-    v10 = v144;
+    NSAppendPrintF(&v139, "ScanTimer: %s, %d seconds\n", v9, scanSeconds);
+    v10 = v139;
 
     v6 = v10;
   }
 
   if (self->_remoteAlertHandle)
   {
-    v143 = v6;
-    v87 = "yes";
-    NSAppendPrintF();
-    v11 = v6;
+    v138 = v6;
+    NSAppendPrintF(&v138, "Client UI Active: %s\n", "yes");
+    v11 = v138;
 
     v6 = v11;
   }
 
   selfCopy = self;
-  if ([(NSMutableDictionary *)self->_devices count:v87])
+  if ([(NSMutableDictionary *)self->_devices count])
   {
     p_devices = &self->_devices;
   }
@@ -242,31 +240,31 @@ LABEL_7:
   }
 
   v13 = *p_devices;
-  v139 = 0u;
-  v140 = 0u;
-  v141 = 0u;
-  v142 = 0u;
+  v134 = 0u;
+  v135 = 0u;
+  v136 = 0u;
+  v137 = 0u;
   obj = v13;
-  v14 = [(NSMutableDictionary *)v13 countByEnumeratingWithState:&v139 objects:v152 count:16];
+  v14 = [(NSMutableDictionary *)v13 countByEnumeratingWithState:&v134 objects:v147 count:16];
   if (v14)
   {
-    pinPairUUID2 = v14;
-    v16 = *v140;
+    v15 = v14;
+    v16 = *v135;
     do
     {
       v17 = 0;
       v18 = v6;
       do
       {
-        if (*v140 != v16)
+        if (*v135 != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v19 = *(*(&v139 + 1) + 8 * v17);
-        v138 = v18;
-        pinPairUUID = [(NSMutableDictionary *)*p_triggeredDevices objectForKeyedSubscript:v19, problemFlags, pinPairUUID];
-        if (pinPairUUID)
+        v19 = *(*(&v134 + 1) + 8 * v17);
+        v133 = v18;
+        v20 = [(NSMutableDictionary *)*p_triggeredDevices objectForKeyedSubscript:v19];
+        if (v20)
         {
           v21 = "TRIG";
         }
@@ -277,361 +275,350 @@ LABEL_7:
         }
 
         v22 = [(NSMutableDictionary *)obj objectForKeyedSubscript:v19];
-        [v22 description];
-        pinPairUUID = problemFlags = v21;
-        NSAppendPrintF();
-        v6 = v138;
+        v23 = [v22 description];
+        NSAppendPrintF(&v133, "    %s %@\n", v21, v23);
+        v6 = v133;
 
         v17 = v17 + 1;
         v18 = v6;
       }
 
-      while (pinPairUUID2 != v17);
-      pinPairUUID2 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v139 objects:v152 count:16, v21, pinPairUUID];
+      while (v15 != v17);
+      v15 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v134 objects:v147 count:16];
     }
 
-    while (pinPairUUID2);
+    while (v15);
   }
 
   pinPairService = selfCopy->_pinPairService;
   if (pinPairService)
   {
-    v137 = v6;
-    problemFlags = pinPairService;
-    NSAppendPrintF();
-    v24 = v6;
+    v132 = v6;
+    NSAppendPrintF(&v132, "PINPair service: %@\n", pinPairService);
+    v25 = v132;
 
-    v6 = v24;
+    v6 = v25;
   }
 
   pinPairSession = selfCopy->_pinPairSession;
   if (pinPairSession)
   {
-    v136 = v6;
-    problemFlags = pinPairSession;
-    pinPairUUID = selfCopy->_pinPairUUID;
-    NSAppendPrintF();
-    v26 = v6;
+    v131 = v6;
+    NSAppendPrintF(&v131, "PINPair session: %@, UUID %@\n", pinPairSession, selfCopy->_pinPairUUID);
+    v27 = v131;
 
-    v6 = v26;
+    v6 = v27;
   }
 
   if (selfCopy->_repairEnabled)
   {
-    v135 = v6;
-    problemFlags = selfCopy->_problemFlags;
-    pinPairUUID = &unk_1007F4888;
-    NSAppendPrintF();
-    v27 = v6;
+    v130 = v6;
+    NSAppendPrintF(&v130, "Problems: %#ll{flags}", selfCopy->_problemFlags, &unk_1007F4888);
+    v28 = v130;
 
     if (selfCopy->_repairService)
     {
-      v134 = v27;
-      NSAppendPrintF();
-      v28 = v27;
+      v129 = v28;
+      NSAppendPrintF(&v129, ", RepairService On");
+      v29 = v129;
 
-      v27 = v28;
+      v28 = v29;
     }
 
     wifiHealthMonitor = selfCopy->_wifiHealthMonitor;
     if (wifiHealthMonitor)
     {
-      v133 = v27;
-      problemFlags = wifiHealthMonitor;
-      NSAppendPrintF();
-      v30 = v27;
+      v128 = v28;
+      NSAppendPrintF(&v128, ", %@", wifiHealthMonitor);
+      v31 = v128;
 
-      v27 = v30;
+      v28 = v31;
     }
 
-    v132 = v27;
-    NSAppendPrintF();
-    v6 = v27;
+    v127 = v28;
+    NSAppendPrintF(&v127, "\n");
+    v6 = v127;
   }
 
   repairSession = selfCopy->_repairSession;
   if (repairSession)
   {
-    v131 = v6;
+    v126 = v6;
     peerDevice = [(SFDeviceRepairSession *)repairSession peerDevice];
-    problemFlags = [peerDevice identifier];
-    NSAppendPrintF();
-    v33 = v6;
+    identifier = [peerDevice identifier];
+    NSAppendPrintF(&v126, "RepairSession: Yes, %@\n", identifier);
+    v35 = v126;
 
-    v6 = v33;
+    v6 = v35;
   }
 
   watchSetupScanner = selfCopy->_watchSetupScanner;
   if (watchSetupScanner)
   {
-    v130 = v6;
-    problemFlags = watchSetupScanner;
-    NSAppendPrintF();
-    v35 = v6;
+    v125 = v6;
+    NSAppendPrintF(&v125, "WatchScanner: %@\n", watchSetupScanner);
+    v37 = v125;
 
-    v6 = v35;
+    v6 = v37;
   }
 
-  v128 = 0u;
-  v129 = 0u;
-  v126 = 0u;
-  v127 = 0u;
-  v36 = selfCopy->_watchSetupDevices;
-  v37 = [(NSMutableDictionary *)v36 countByEnumeratingWithState:&v126 objects:v151 count:16];
-  if (v37)
+  v123 = 0u;
+  v124 = 0u;
+  v121 = 0u;
+  v122 = 0u;
+  v38 = selfCopy->_watchSetupDevices;
+  v39 = [(NSMutableDictionary *)v38 countByEnumeratingWithState:&v121 objects:v146 count:16];
+  if (v39)
   {
-    problemFlags = v37;
-    v39 = *v127;
+    v40 = v39;
+    v41 = *v122;
     do
     {
-      v40 = 0;
-      v41 = v6;
+      v42 = 0;
+      v43 = v6;
       do
       {
-        if (*v127 != v39)
+        if (*v122 != v41)
         {
-          objc_enumerationMutation(v36);
+          objc_enumerationMutation(v38);
         }
 
-        v42 = *(*(&v126 + 1) + 8 * v40);
-        v125 = v41;
-        problemFlags = [(NSMutableDictionary *)selfCopy->_watchSetupDevices objectForKeyedSubscript:v42, problemFlags, pinPairUUID];
-        NSAppendPrintF();
-        v6 = v41;
+        v44 = *(*(&v121 + 1) + 8 * v42);
+        v120 = v43;
+        v45 = [(NSMutableDictionary *)selfCopy->_watchSetupDevices objectForKeyedSubscript:v44];
+        NSAppendPrintF(&v120, "    %@\n", v45);
+        v6 = v120;
 
-        v40 = v40 + 1;
-        v41 = v6;
+        v42 = v42 + 1;
+        v43 = v6;
       }
 
-      while (problemFlags != v40);
-      problemFlags = [(NSMutableDictionary *)v36 countByEnumeratingWithState:&v126 objects:v151 count:16, problemFlags];
+      while (v40 != v42);
+      v40 = [(NSMutableDictionary *)v38 countByEnumeratingWithState:&v121 objects:v146 count:16];
     }
 
-    while (problemFlags);
+    while (v40);
   }
 
-  v43 = +[SDStatusMonitor sharedMonitor];
-  wifiPasswordSharingAvailability = [v43 wifiPasswordSharingAvailability];
+  v46 = +[SDStatusMonitor sharedMonitor];
+  wifiPasswordSharingAvailability = [v46 wifiPasswordSharingAvailability];
 
-  v124 = v6;
+  v119 = v6;
   if (selfCopy->_pwsGrantingEnabled)
   {
-    v45 = "enabled";
+    v48 = "enabled";
   }
 
   else
   {
-    v45 = "disabled";
+    v48 = "disabled";
   }
 
-  v89 = v45;
-  NSAppendPrintF();
-  v46 = v124;
+  NSAppendPrintF(&v119, "Wi-Fi Password Sharing: granting %s, requesting availability: %#{flags}\n", v48, wifiPasswordSharingAvailability, &unk_1007F49A0);
+  v49 = v119;
 
   if (level <= 10)
   {
-    v47 = [SDAppleIDAgent sharedAgent:v89];
-    myAccount = [v47 myAccount];
+    v50 = +[SDAppleIDAgent sharedAgent];
+    myAccount = [v50 myAccount];
     validationRecord = [myAccount validationRecord];
 
     myAppleIDPhoneHash = [(SDStatusMonitor *)selfCopy->_statusMonitor myAppleIDPhoneHash];
-    v50 = [myAppleIDPhoneHash componentsSeparatedByString:{@", "}];
+    v53 = [myAppleIDPhoneHash componentsSeparatedByString:{@", "}];
 
-    if ([v50 count])
+    if ([v53 count])
     {
-      v123 = v46;
-      NSAppendPrintF();
-      v51 = v46;
+      v118 = v49;
+      NSAppendPrintF(&v118, "Status Monitor Phone Hashes:\n");
+      v54 = v118;
 
-      v121 = 0u;
-      v122 = 0u;
-      v119 = 0u;
-      v120 = 0u;
-      v52 = v50;
-      v53 = [v52 countByEnumeratingWithState:&v119 objects:v150 count:16];
-      if (v53)
+      v116 = 0u;
+      v117 = 0u;
+      v114 = 0u;
+      v115 = 0u;
+      v55 = v53;
+      v56 = [v55 countByEnumeratingWithState:&v114 objects:v145 count:16];
+      if (v56)
       {
-        v54 = v53;
-        v55 = *v120;
+        v57 = v56;
+        v58 = *v115;
         do
         {
-          v56 = 0;
-          v57 = v51;
+          v59 = 0;
+          v60 = v54;
           do
           {
-            if (*v120 != v55)
+            if (*v115 != v58)
             {
-              objc_enumerationMutation(v52);
+              objc_enumerationMutation(v55);
             }
 
-            v58 = *(*(&v119 + 1) + 8 * v56);
-            v118 = v57;
-            v90 = SFHexStringForBase64EncodedString();
-            NSAppendPrintF();
-            v51 = v57;
+            v113 = v60;
+            v61 = SFHexStringForBase64EncodedString();
+            NSAppendPrintF(&v113, "    %@\n", v61);
+            v54 = v113;
 
-            v56 = v56 + 1;
-            v57 = v51;
+            ++v59;
+            v60 = v54;
           }
 
-          while (v54 != v56);
-          v54 = [v52 countByEnumeratingWithState:&v119 objects:v150 count:{16, v90}];
+          while (v57 != v59);
+          v57 = [v55 countByEnumeratingWithState:&v114 objects:v145 count:16];
         }
 
-        while (v54);
+        while (v57);
       }
 
-      v46 = v51;
+      v49 = v54;
     }
 
     validatedPhoneHashes = [validationRecord validatedPhoneHashes];
 
     if ([validatedPhoneHashes count])
     {
-      v117 = v46;
-      NSAppendPrintF();
-      v60 = v46;
+      v112 = v49;
+      NSAppendPrintF(&v112, "Validation Record Phone Hashes:\n");
+      v63 = v112;
 
-      v115 = 0u;
-      v116 = 0u;
-      v113 = 0u;
-      v114 = 0u;
-      v61 = validatedPhoneHashes;
-      v62 = [v61 countByEnumeratingWithState:&v113 objects:v149 count:16];
-      if (v62)
+      v110 = 0u;
+      v111 = 0u;
+      v108 = 0u;
+      v109 = 0u;
+      v64 = validatedPhoneHashes;
+      v65 = [v64 countByEnumeratingWithState:&v108 objects:v144 count:16];
+      if (v65)
       {
-        v63 = v62;
-        v64 = *v114;
+        v66 = v65;
+        v67 = *v109;
         do
         {
-          v65 = 0;
-          v66 = v60;
+          v68 = 0;
+          v69 = v63;
           do
           {
-            if (*v114 != v64)
+            if (*v109 != v67)
             {
-              objc_enumerationMutation(v61);
+              objc_enumerationMutation(v64);
             }
 
-            v67 = *(*(&v113 + 1) + 8 * v65);
-            v112 = v66;
-            v91 = v67;
-            NSAppendPrintF();
-            v60 = v66;
+            v70 = *(*(&v108 + 1) + 8 * v68);
+            v107 = v69;
+            NSAppendPrintF(&v107, "    %@\n", v70);
+            v63 = v107;
 
-            v65 = v65 + 1;
-            v66 = v60;
+            v68 = v68 + 1;
+            v69 = v63;
           }
 
-          while (v63 != v65);
-          v63 = [v61 countByEnumeratingWithState:&v113 objects:v149 count:{16, v91}];
+          while (v66 != v68);
+          v66 = [v64 countByEnumeratingWithState:&v108 objects:v144 count:16];
         }
 
-        while (v63);
+        while (v66);
       }
 
-      v46 = v60;
+      v49 = v63;
     }
 
     myAppleIDEmailHash = [(SDStatusMonitor *)selfCopy->_statusMonitor myAppleIDEmailHash];
-    v69 = [myAppleIDEmailHash componentsSeparatedByString:{@", "}];
+    v72 = [myAppleIDEmailHash componentsSeparatedByString:{@", "}];
 
-    if ([v69 count])
+    if ([v72 count])
     {
-      v111 = v46;
-      NSAppendPrintF();
-      v70 = v46;
+      v106 = v49;
+      NSAppendPrintF(&v106, "Status Monitor Email Hashes:\n");
+      v73 = v106;
 
-      v110 = 0u;
-      v108 = 0u;
-      v109 = 0u;
-      v107 = 0u;
-      v71 = v69;
-      v72 = [v71 countByEnumeratingWithState:&v107 objects:v148 count:16];
-      if (v72)
+      v105 = 0u;
+      v103 = 0u;
+      v104 = 0u;
+      v102 = 0u;
+      v74 = v72;
+      v75 = [v74 countByEnumeratingWithState:&v102 objects:v143 count:16];
+      if (v75)
       {
-        v73 = v72;
-        v74 = *v108;
+        v76 = v75;
+        v77 = *v103;
         do
         {
-          v75 = 0;
-          v76 = v70;
+          v78 = 0;
+          v79 = v73;
           do
           {
-            if (*v108 != v74)
+            if (*v103 != v77)
             {
-              objc_enumerationMutation(v71);
+              objc_enumerationMutation(v74);
             }
 
-            v77 = *(*(&v107 + 1) + 8 * v75);
-            v106 = v76;
-            v92 = SFHexStringForBase64EncodedString();
-            NSAppendPrintF();
-            v70 = v76;
+            v101 = v79;
+            v80 = SFHexStringForBase64EncodedString();
+            NSAppendPrintF(&v101, "    %@\n", v80);
+            v73 = v101;
 
-            v75 = v75 + 1;
-            v76 = v70;
+            ++v78;
+            v79 = v73;
           }
 
-          while (v73 != v75);
-          v73 = [v71 countByEnumeratingWithState:&v107 objects:v148 count:{16, v92}];
+          while (v76 != v78);
+          v76 = [v74 countByEnumeratingWithState:&v102 objects:v143 count:16];
         }
 
-        while (v73);
+        while (v76);
       }
 
-      v46 = v70;
+      v49 = v73;
     }
 
     validatedEmailHashes = [validationRecord validatedEmailHashes];
 
     if ([validatedEmailHashes count])
     {
-      v105 = v46;
-      NSAppendPrintF();
-      v79 = v46;
+      v100 = v49;
+      NSAppendPrintF(&v100, "Validation Record Email Hashes:\n");
+      v82 = v100;
 
-      v103 = 0u;
-      v104 = 0u;
-      v101 = 0u;
-      v102 = 0u;
-      v80 = validatedEmailHashes;
-      v81 = [v80 countByEnumeratingWithState:&v101 objects:v147 count:16];
-      if (v81)
+      v98 = 0u;
+      v99 = 0u;
+      v96 = 0u;
+      v97 = 0u;
+      v83 = validatedEmailHashes;
+      v84 = [v83 countByEnumeratingWithState:&v96 objects:v142 count:16];
+      if (v84)
       {
-        v82 = v81;
-        v83 = *v102;
+        v85 = v84;
+        v86 = *v97;
         do
         {
-          v84 = 0;
-          v85 = v79;
+          v87 = 0;
+          v88 = v82;
           do
           {
-            if (*v102 != v83)
+            if (*v97 != v86)
             {
-              objc_enumerationMutation(v80);
+              objc_enumerationMutation(v83);
             }
 
-            v93 = *(*(&v101 + 1) + 8 * v84);
-            NSAppendPrintF();
-            v79 = v85;
+            v89 = *(*(&v96 + 1) + 8 * v87);
+            v95 = v88;
+            NSAppendPrintF(&v95, "    %@\n", v89);
+            v82 = v95;
 
-            v84 = v84 + 1;
-            v85 = v79;
+            v87 = v87 + 1;
+            v88 = v82;
           }
 
-          while (v82 != v84);
-          v82 = [v80 countByEnumeratingWithState:&v101 objects:v147 count:{16, v93}];
+          while (v85 != v87);
+          v85 = [v83 countByEnumeratingWithState:&v96 objects:v142 count:16];
         }
 
-        while (v82);
+        while (v85);
       }
 
-      v46 = v79;
+      v49 = v82;
     }
   }
 
-  return v46;
+  return v49;
 }
 
 - (void)activate
@@ -648,9 +635,12 @@ LABEL_7:
 - (void)_activate
 {
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  if (dword_10096FEF8 <= 30 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+  if (dword_10096FEF8 <= 30)
   {
-    sub_1000A488C();
+    if (dword_10096FEF8 != -1 || (v3 = _LogCategory_Initialize(), v3))
+    {
+      sub_1000A488C(v3, v4, v5);
+    }
   }
 
   if (self->_profilesNotifyToken == -1)
@@ -681,9 +671,12 @@ LABEL_7:
 - (void)_invalidate
 {
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  if (dword_10096FEF8 <= 30 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+  if (dword_10096FEF8 <= 30)
   {
-    sub_1000A48C4();
+    if (dword_10096FEF8 != -1 || (v3 = _LogCategory_Initialize(), v3))
+    {
+      sub_1000A48C4(v3, v4, v5);
+    }
   }
 
   profilesNotifyToken = self->_profilesNotifyToken;
@@ -726,7 +719,7 @@ LABEL_7:
   {
     if (dword_10096FEF8 <= 30 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
     {
-      sub_1000A4918();
+      sub_1000A4918(lCopy);
     }
 
     objc_storeStrong(&self->_setupURL, l);
@@ -755,22 +748,22 @@ LABEL_7:
   {
     if (dword_10096FEF8 <= 30 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
     {
-      sub_1000A4958();
+      sub_1000A4958(lCopy);
     }
   }
 
   else if (dword_10096FEF8 <= 60 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_10096FEF8, "[SDSetupAgent _openSetupURL:]", 60, "### Open setup URL failed: %@, %{error}\n", lCopy, v7);
   }
 }
 
 - (void)prefsChanged
 {
-  v27 = 0;
+  v25 = 0;
   dispatch_assert_queue_V2(self->_dispatchQueue);
   CFPrefs_GetData();
-  v3 = [[NSData alloc] initWithBytes:&v27 length:0];
+  v3 = [[NSData alloc] initWithBytes:&v25 length:0];
   bleAuthTagFilter = self->_bleAuthTagFilter;
   v5 = v3;
   v6 = bleAuthTagFilter;
@@ -790,9 +783,7 @@ LABEL_12:
 LABEL_7:
     if (dword_10096FEF8 <= 40 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
     {
-      v25 = self->_bleAuthTagFilter;
-      v26 = v5;
-      LogPrintF();
+      LogPrintF(&dword_10096FEF8, "[SDSetupAgent prefsChanged]", 40, "AuthTag filter: %@ -> %@\n", self->_bleAuthTagFilter, v5);
     }
 
     v10 = v5;
@@ -913,12 +904,10 @@ LABEL_13:
           goto LABEL_55;
         }
 
-        scanSeconds = self->_scanSeconds;
+        LODWORD(scanSeconds) = self->_scanSeconds;
       }
 
-      v25 = scanSeconds;
-      v26 = v20;
-      LogPrintF();
+      LogPrintF(&dword_10096FEF8, "[SDSetupAgent prefsChanged]", 40, "Scan seconds: %d -> %lld\n", scanSeconds, v20);
     }
 
 LABEL_55:
@@ -958,12 +947,12 @@ LABEL_55:
     self->_watchSetupEnabled = v24;
   }
 
-  [(SDSetupAgent *)self _update:v25];
+  [(SDSetupAgent *)self _update];
 }
 
 - (BOOL)reenableProxCardType:(unsigned __int8)type
 {
-  result = 0;
+  v5 = 0;
   if (type <= 24)
   {
     if (type <= 8)
@@ -980,7 +969,7 @@ LABEL_55:
           v6 = 152;
           break;
         default:
-          return result;
+          return v5;
       }
 
       goto LABEL_36;
@@ -1005,7 +994,7 @@ LABEL_55:
     {
       if (type != 13)
       {
-        return result;
+        return v5;
       }
 
       v6 = 169;
@@ -1021,7 +1010,7 @@ LABEL_55:
     {
       if (type != 25 && type != 30)
       {
-        return result;
+        return v5;
       }
 
       v6 = 158;
@@ -1032,7 +1021,7 @@ LABEL_55:
     {
       if (type != 33)
       {
-        return result;
+        return v5;
       }
 
 LABEL_24:
@@ -1049,7 +1038,7 @@ LABEL_24:
     {
       if (type != 43)
       {
-        return result;
+        return v5;
       }
 
 LABEL_31:
@@ -1066,7 +1055,8 @@ LABEL_36:
       sub_1000A4CCC(type);
     }
 
-    return 1;
+    LOBYTE(v5) = 1;
+    return v5;
   }
 
   if (type == 90)
@@ -1076,16 +1066,19 @@ LABEL_36:
 
   if (type == 100)
   {
-    if (dword_10096FEF8 <= 30 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+    if (dword_10096FEF8 <= 30)
     {
-      sub_1000A4CB0();
+      if (dword_10096FEF8 != -1 || (v5 = _LogCategory_Initialize(), v5))
+      {
+        sub_1000A4CB0(v5, a2, type);
+      }
     }
 
-    result = 1;
+    LOBYTE(v5) = 1;
     self->_renableB238SetupAfterWiFi = 1;
   }
 
-  return result;
+  return v5;
 }
 
 - (void)repairDevice:(id)device flags:(unsigned int)flags completion:(id)completion
@@ -1238,32 +1231,32 @@ LABEL_36:
     self->_systemMonitor = v7;
 
     [(CUSystemMonitor *)self->_systemMonitor setDispatchQueue:self->_dispatchQueue];
-    v54[0] = _NSConcreteStackBlock;
-    v54[1] = 3221225472;
-    v54[2] = sub_100098C58;
-    v54[3] = &unk_1008CDEA0;
-    v54[4] = self;
-    [(CUSystemMonitor *)self->_systemMonitor setPrimaryAppleIDChangedHandler:v54];
-    [(CUSystemMonitor *)self->_systemMonitor setCallChangedHandler:&stru_1008CE778];
-    v53[0] = _NSConcreteStackBlock;
-    v53[1] = 3221225472;
-    v53[2] = sub_100098C60;
-    v53[3] = &unk_1008CDEA0;
-    v53[4] = self;
-    [(CUSystemMonitor *)self->_systemMonitor setScreenLockedChangedHandler:v53];
     v52[0] = _NSConcreteStackBlock;
     v52[1] = 3221225472;
-    v52[2] = sub_100098C68;
+    v52[2] = sub_100098C58;
     v52[3] = &unk_1008CDEA0;
     v52[4] = self;
-    [(CUSystemMonitor *)self->_systemMonitor setWifiStateChangedHandler:v52];
-    v9 = self->_systemMonitor;
+    [(CUSystemMonitor *)self->_systemMonitor setPrimaryAppleIDChangedHandler:v52];
+    [(CUSystemMonitor *)self->_systemMonitor setCallChangedHandler:&stru_1008CE778];
     v51[0] = _NSConcreteStackBlock;
     v51[1] = 3221225472;
-    v51[2] = sub_100098C70;
+    v51[2] = sub_100098C60;
     v51[3] = &unk_1008CDEA0;
     v51[4] = self;
-    [(CUSystemMonitor *)v9 activateWithCompletion:v51];
+    [(CUSystemMonitor *)self->_systemMonitor setScreenLockedChangedHandler:v51];
+    v50[0] = _NSConcreteStackBlock;
+    v50[1] = 3221225472;
+    v50[2] = sub_100098C68;
+    v50[3] = &unk_1008CDEA0;
+    v50[4] = self;
+    [(CUSystemMonitor *)self->_systemMonitor setWifiStateChangedHandler:v50];
+    v9 = self->_systemMonitor;
+    v49[0] = _NSConcreteStackBlock;
+    v49[1] = 3221225472;
+    v49[2] = sub_100098C70;
+    v49[3] = &unk_1008CDEA0;
+    v49[4] = self;
+    [(CUSystemMonitor *)v9 activateWithCompletion:v49];
   }
 
   scanEligible = self->_scanEligible;
@@ -1316,9 +1309,7 @@ LABEL_16:
     v13 = "yes";
   }
 
-  v43 = v14;
-  v44 = v13;
-  LogPrintF();
+  LogPrintF(&dword_10096FEF8, "[SDSetupAgent _ensureClientStarted]", 30, "ScanEligible: %s -> %s\n", v14, v13);
   if (!self->_scanEligible)
   {
     goto LABEL_16;
@@ -1352,8 +1343,7 @@ LABEL_20:
           scanSeconds = self->_scanSeconds;
         }
 
-        v43 = scanSeconds;
-        LogPrintF();
+        LogPrintF(&dword_10096FEF8, "[SDSetupAgent _ensureClientStarted]", 30, "Start scan timer for %{dur}\n", scanSeconds);
       }
 
 LABEL_28:
@@ -1362,12 +1352,12 @@ LABEL_28:
       self->_scanTimer = v20;
 
       v22 = self->_scanTimer;
-      v50[0] = _NSConcreteStackBlock;
-      v50[1] = 3221225472;
-      v50[2] = sub_100098CAC;
-      v50[3] = &unk_1008CDEA0;
-      v50[4] = self;
-      dispatch_source_set_event_handler(v22, v50);
+      v48[0] = _NSConcreteStackBlock;
+      v48[1] = 3221225472;
+      v48[2] = sub_100098CAC;
+      v48[3] = &unk_1008CDEA0;
+      v48[4] = self;
+      dispatch_source_set_event_handler(v22, v48);
       v23 = 1000000000 * self->_scanSeconds;
       v24 = self->_scanTimer;
       v25 = dispatch_time(0, v23);
@@ -1396,24 +1386,24 @@ LABEL_29:
       [(SFDeviceDiscovery *)self->_deviceDiscovery setPurpose:@"SetupAgent"];
       [(SFDeviceDiscovery *)self->_deviceDiscovery setScanRate:20];
       [(SFDeviceDiscovery *)self->_deviceDiscovery setRssiThreshold:-70];
-      v49[0] = _NSConcreteStackBlock;
-      v49[1] = 3221225472;
-      v49[2] = sub_100098CB4;
-      v49[3] = &unk_1008CE7A0;
-      v49[4] = self;
-      [(SFDeviceDiscovery *)self->_deviceDiscovery setDeviceFoundHandler:v49];
-      v48[0] = _NSConcreteStackBlock;
-      v48[1] = 3221225472;
-      v48[2] = sub_100098CC0;
-      v48[3] = &unk_1008CE7A0;
-      v48[4] = self;
-      [(SFDeviceDiscovery *)self->_deviceDiscovery setDeviceLostHandler:v48];
       v47[0] = _NSConcreteStackBlock;
       v47[1] = 3221225472;
-      v47[2] = sub_10002FBEC;
-      v47[3] = &unk_1008CE7C8;
+      v47[2] = sub_100098CB4;
+      v47[3] = &unk_1008CE7A0;
       v47[4] = self;
-      [(SFDeviceDiscovery *)self->_deviceDiscovery setDeviceChangedHandler:v47];
+      [(SFDeviceDiscovery *)self->_deviceDiscovery setDeviceFoundHandler:v47];
+      v46[0] = _NSConcreteStackBlock;
+      v46[1] = 3221225472;
+      v46[2] = sub_100098CC0;
+      v46[3] = &unk_1008CE7A0;
+      v46[4] = self;
+      [(SFDeviceDiscovery *)self->_deviceDiscovery setDeviceLostHandler:v46];
+      v45[0] = _NSConcreteStackBlock;
+      v45[1] = 3221225472;
+      v45[2] = sub_10002FBEC;
+      v45[3] = &unk_1008CE7C8;
+      v45[4] = self;
+      [(SFDeviceDiscovery *)self->_deviceDiscovery setDeviceChangedHandler:v45];
       [(SFDeviceDiscovery *)self->_deviceDiscovery activateWithCompletion:&stru_1008CE7E8];
     }
 
@@ -1431,19 +1421,19 @@ LABEL_29:
       [(SFBLEScanner *)self->_watchSetupScanner setDispatchQueue:self->_dispatchQueue];
       [(SFBLEScanner *)self->_watchSetupScanner setChangeFlags:13];
       [(SFBLEScanner *)self->_watchSetupScanner setRssiThreshold:-60];
-      v46[0] = _NSConcreteStackBlock;
-      v46[1] = 3221225472;
-      v46[2] = sub_100098D7C;
-      v46[3] = &unk_1008CE810;
-      v46[4] = self;
-      [(SFBLEScanner *)self->_watchSetupScanner setDeviceFoundHandler:v46];
+      v44[0] = _NSConcreteStackBlock;
+      v44[1] = 3221225472;
+      v44[2] = sub_100098D7C;
+      v44[3] = &unk_1008CE810;
+      v44[4] = self;
+      [(SFBLEScanner *)self->_watchSetupScanner setDeviceFoundHandler:v44];
       [(SFBLEScanner *)self->_watchSetupScanner setDeviceLostHandler:&stru_1008CE850];
-      v45[0] = _NSConcreteStackBlock;
-      v45[1] = 3221225472;
-      v45[2] = sub_100098E84;
-      v45[3] = &unk_1008CE878;
-      v45[4] = self;
-      [(SFBLEScanner *)self->_watchSetupScanner setDeviceChangedHandler:v45];
+      v43[0] = _NSConcreteStackBlock;
+      v43[1] = 3221225472;
+      v43[2] = sub_100098E84;
+      v43[3] = &unk_1008CE878;
+      v43[4] = self;
+      [(SFBLEScanner *)self->_watchSetupScanner setDeviceChangedHandler:v43];
       [(SFBLEScanner *)self->_watchSetupScanner activateWithCompletion:&stru_1008CE898];
       if (!self->_proximityController)
       {
@@ -1472,7 +1462,7 @@ LABEL_29:
         sub_1000A4EA0();
       }
 
-      [(SFDeviceDiscovery *)self->_deviceDiscovery invalidate:v43];
+      [(SFDeviceDiscovery *)self->_deviceDiscovery invalidate];
       v35 = self->_deviceDiscovery;
       self->_deviceDiscovery = 0;
 
@@ -1541,9 +1531,12 @@ LABEL_29:
 
   if (self->_deviceDiscovery)
   {
-    if (dword_10096FEF8 <= 30 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+    if (dword_10096FEF8 <= 30)
     {
-      sub_1000A50E8();
+      if (dword_10096FEF8 != -1 || (v7 = _LogCategory_Initialize(), v7))
+      {
+        sub_1000A50E8(v7, v8, v9);
+      }
     }
 
     [(SFDeviceDiscovery *)self->_deviceDiscovery invalidate];
@@ -1559,9 +1552,9 @@ LABEL_29:
   scanTimer = self->_scanTimer;
   if (scanTimer)
   {
-    v10 = scanTimer;
-    dispatch_source_cancel(v10);
-    v11 = self->_scanTimer;
+    v13 = scanTimer;
+    dispatch_source_cancel(v13);
+    v14 = self->_scanTimer;
     self->_scanTimer = 0;
   }
 
@@ -1572,7 +1565,7 @@ LABEL_29:
   {
     [(SBSRemoteAlertHandle *)remoteAlertHandle removeObserver:self];
     [(SBSRemoteAlertHandle *)self->_remoteAlertHandle invalidate];
-    v13 = self->_remoteAlertHandle;
+    v16 = self->_remoteAlertHandle;
     self->_remoteAlertHandle = 0;
   }
 
@@ -1590,17 +1583,20 @@ LABEL_29:
   watchFastScanTimer = self->_watchFastScanTimer;
   if (watchFastScanTimer)
   {
-    v18 = watchFastScanTimer;
-    dispatch_source_cancel(v18);
-    v19 = self->_watchFastScanTimer;
+    v24 = watchFastScanTimer;
+    dispatch_source_cancel(v24);
+    v25 = self->_watchFastScanTimer;
     self->_watchFastScanTimer = 0;
   }
 
   if (self->_watchSetupScanner)
   {
-    if (dword_10096FEF8 <= 30 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+    if (dword_10096FEF8 <= 30)
     {
-      sub_1000A5104();
+      if (dword_10096FEF8 != -1 || (v20 = _LogCategory_Initialize(), v20))
+      {
+        sub_1000A5104(v20, v21, v22);
+      }
     }
 
     [(SFBLEScanner *)self->_watchSetupScanner invalidate];
@@ -1620,7 +1616,7 @@ LABEL_29:
   nameCopy = name;
   if (dword_10096FEF8 <= 30 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
   {
-    sub_1000A5120();
+    sub_1000A5120(nameCopy);
   }
 
   uTF8String = [nameCopy UTF8String];
@@ -1667,7 +1663,7 @@ LABEL_29:
     [v10 postNotificationName:@"com.apple.sharing.DeviceSetup" object:@"com.apple.sharingd" userInfo:v9 deliverImmediately:1];
     if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
     {
-      sub_1000A51E4();
+      sub_1000A51E4(v9);
     }
   }
 }
@@ -1736,10 +1732,11 @@ LABEL_29:
     manateeAvailable = [(CUSystemMonitor *)systemMonitor manateeAvailable];
     if (self->_d2dEncryptionAvailable != manateeAvailable)
     {
+      v5 = manateeAvailable;
       self->_d2dEncryptionAvailable = manateeAvailable;
       if (dword_10096FEF8 <= 30 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
       {
-        sub_1000A5340();
+        sub_1000A5340(v5);
       }
 
       [(SDSetupAgent *)self _resetTriggers];
@@ -1749,14 +1746,18 @@ LABEL_29:
 
 - (void)_iTunesAccountsChanged
 {
+  selfCopy = self;
   if (self->_triggeredUIB238Setup || self->_triggeredUIRepair)
   {
-    if (dword_10096FEF8 <= 30 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+    if (dword_10096FEF8 <= 30)
     {
-      sub_1000A5380();
+      if (dword_10096FEF8 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_1000A5380(self, a2, v2);
+      }
     }
 
-    [(SDSetupAgent *)self _resetTriggers];
+    [(SDSetupAgent *)selfCopy _resetTriggers];
   }
 }
 
@@ -1775,17 +1776,20 @@ LABEL_29:
 - (void)_scanTimerFired
 {
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  if (dword_10096FEF8 <= 30 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+  if (dword_10096FEF8 <= 30)
   {
-    sub_1000A539C();
+    if (dword_10096FEF8 != -1 || (v3 = _LogCategory_Initialize(), v3))
+    {
+      sub_1000A539C(v3, v4, v5);
+    }
   }
 
   scanTimer = self->_scanTimer;
   if (scanTimer)
   {
-    v4 = scanTimer;
-    dispatch_source_cancel(v4);
-    v5 = self->_scanTimer;
+    v7 = scanTimer;
+    dispatch_source_cancel(v7);
+    v8 = self->_scanTimer;
     self->_scanTimer = 0;
   }
 
@@ -1817,29 +1821,35 @@ LABEL_29:
 - (BOOL)_shouldOfferPassword:(id)password
 {
   passwordCopy = password;
-  v14 = 0;
+  v20 = 0;
   requestSSID = [passwordCopy requestSSID];
   contactIdentifier = [passwordCopy contactIdentifier];
 
   if (!contactIdentifier)
   {
-    if (dword_10096FEF8 <= 30 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+    if (dword_10096FEF8 <= 30)
     {
-      sub_1000A54F4();
+      if (dword_10096FEF8 != -1 || (v6 = _LogCategory_Initialize(), v6))
+      {
+        sub_1000A54F4(v6, v7, v8);
+      }
     }
 
     goto LABEL_23;
   }
 
-  v6 = +[SDStatusMonitor sharedMonitor];
+  v9 = +[SDStatusMonitor sharedMonitor];
   contactIdentifier2 = [passwordCopy contactIdentifier];
-  v8 = [v6 contactIdentifierIsBlocked:contactIdentifier2];
+  v11 = [v9 contactIdentifierIsBlocked:contactIdentifier2];
 
-  if (v8)
+  if (v11)
   {
-    if (dword_10096FEF8 <= 30 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+    if (dword_10096FEF8 <= 30)
     {
-      sub_1000A54D8();
+      if (dword_10096FEF8 != -1 || (v12 = _LogCategory_Initialize(), v12))
+      {
+        sub_1000A54D8(v12, v13, v14);
+      }
     }
 
     goto LABEL_23;
@@ -1847,41 +1857,44 @@ LABEL_29:
 
   if (!requestSSID)
   {
-    if (dword_10096FEF8 <= 30 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+    if (dword_10096FEF8 <= 30)
     {
-      sub_1000A54BC();
+      if (dword_10096FEF8 != -1 || (v12 = _LogCategory_Initialize(), v12))
+      {
+        sub_1000A54BC(v12, v13, v14);
+      }
     }
 
 LABEL_23:
-    v9 = 0;
-    v11 = 0;
+    v15 = 0;
+    v17 = 0;
     goto LABEL_11;
   }
 
-  v15 = @"ssid";
-  v16 = requestSSID;
-  [NSDictionary dictionaryWithObjects:&v16 forKeys:&v15 count:1];
-  v9 = WiFiCopyNetworkInfo();
-  v13 = 0;
+  v21 = @"ssid";
+  v22 = requestSSID;
+  [NSDictionary dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+  v15 = WiFiCopyNetworkInfo();
+  v19 = 0;
   if (CFDictionaryGetInt64Ranged() == 3)
   {
-    v10 = SFShareablePasswordForSSID();
-    v11 = v10 != 0;
+    v16 = SFShareablePasswordForSSID();
+    v17 = v16 != 0;
   }
 
   else
   {
-    v11 = 0;
+    v17 = 0;
   }
 
   if (dword_10096FEF8 <= 30 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
   {
-    sub_1000A5440();
+    sub_1000A5440(requestSSID, v17);
   }
 
 LABEL_11:
 
-  return v11;
+  return v17;
 }
 
 - (void)_uiLockStatusChanged
@@ -1933,6 +1946,17 @@ LABEL_11:
   }
 }
 
+- (void)_uiStartRepair:(id)repair flags:(unsigned int)flags
+{
+  v4 = *&flags;
+  v9 = @"repairFlags";
+  repairCopy = repair;
+  v7 = [NSNumber numberWithUnsignedInt:v4];
+  v10 = v7;
+  v8 = [NSDictionary dictionaryWithObjects:&v10 forKeys:&v9 count:1];
+  [(SDSetupAgent *)self _uiStartWithDevice:repairCopy viewControllerName:@"RepairMainController" label:@"RepairUI" unlessApps:0 extraInfo:v8];
+}
+
 - (void)_uiStartSetupB238:(id)b238 extraInfo:(id)info
 {
   if (info)
@@ -1954,6 +1978,65 @@ LABEL_11:
   [b238 setDeviceActionType:33];
   v11 = [v12 copy];
   [(SDSetupAgent *)self _uiStartWithDevice:b238 viewControllerName:@"HDSViewService.HomePodSetupFlowViewController" label:@"B238SetupUI" unlessApps:0 extraInfo:v11];
+}
+
+- (void)_uiStartSetupiOS:(id)s autoStart:(BOOL)start
+{
+  startCopy = start;
+  v11[0] = @"autoStart";
+  sCopy = s;
+  v7 = [NSNumber numberWithBool:startCopy];
+  v12[0] = v7;
+  v11[1] = @"deviceClassCode";
+  v8 = +[NSNumber numberWithUnsignedChar:](NSNumber, "numberWithUnsignedChar:", [sCopy deviceClassCode]);
+  v12[1] = v8;
+  v11[2] = @"deviceModelCode";
+  v9 = +[NSNumber numberWithUnsignedChar:](NSNumber, "numberWithUnsignedChar:", [sCopy deviceModelCode]);
+  v12[2] = v9;
+  v10 = [NSDictionary dictionaryWithObjects:v12 forKeys:v11 count:3];
+  [(SDSetupAgent *)self _uiStartWithDevice:sCopy viewControllerName:@"SharingViewService.D2DSetupFlowViewController" label:@"iOSSetupUI" unlessApps:0 extraInfo:v10];
+}
+
+- (void)_uiStartSetupDovePeace:(id)peace actionType:(unsigned __int8)type payload:(id)payload autoStart:(BOOL)start
+{
+  startCopy = start;
+  typeCopy = type;
+  peaceCopy = peace;
+  payloadCopy = payload;
+  if (dword_10096FEF8 <= 40 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+  {
+    LogPrintF(&dword_10096FEF8, "[SDSetupAgent _uiStartSetupDovePeace:actionType:payload:autoStart:]", 40, "in _uiStartSetupDovePeace notice. actionType: %i DovePeacePayload %@", typeCopy, payloadCopy);
+  }
+
+  if (payloadCopy)
+  {
+    v12 = payloadCopy;
+  }
+
+  else
+  {
+    v12 = &off_10090B868;
+  }
+
+  if ([(SDSetupAgent *)self _deviceHandlesDovePeaceSetup])
+  {
+    v18[0] = @"dpActionType";
+    v13 = [NSNumber numberWithUnsignedChar:typeCopy];
+    v19[0] = v13;
+    v19[1] = v12;
+    v18[1] = @"dpPayload";
+    v18[2] = @"autoStart";
+    v14 = [NSNumber numberWithBool:startCopy];
+    v19[2] = v14;
+    v18[3] = @"deviceClassCode";
+    v15 = +[NSNumber numberWithUnsignedChar:](NSNumber, "numberWithUnsignedChar:", [peaceCopy deviceClassCode]);
+    v19[3] = v15;
+    v18[4] = @"deviceModelCode";
+    v16 = +[NSNumber numberWithUnsignedChar:](NSNumber, "numberWithUnsignedChar:", [peaceCopy deviceModelCode]);
+    v19[4] = v16;
+    v17 = [NSDictionary dictionaryWithObjects:v19 forKeys:v18 count:5];
+    [(SDSetupAgent *)self _uiStartWithDevice:peaceCopy viewControllerName:@"BYDovePeaceRemoteViewController" label:@"dovePeaceSetupUI" unlessApps:0 extraInfo:v17];
+  }
 }
 
 - (BOOL)_deviceHandlesDovePeaceSetup
@@ -1988,20 +2071,20 @@ LABEL_11:
     }
 
     bleDevice = [watchCopy bleDevice];
-    advertisementFields = [bleDevice advertisementFields];
-    v10 = [advertisementFields objectForKeyedSubscript:@"wpv"];
+    v12 = objc_msgSend_advertisementFields(bleDevice);
+    v13 = [v12 objectForKeyedSubscript:@"wpv"];
 
-    if (v10)
+    if (v13)
     {
-      [v4 setObject:v10 forKeyedSubscript:@"pairingVersion"];
+      [v4 setObject:v13 forKeyedSubscript:@"pairingVersion"];
     }
 
     goto LABEL_9;
   }
 
   bleDevice2 = [watchCopy bleDevice];
-  advertisementFields2 = [bleDevice2 advertisementFields];
-  name = [advertisementFields2 objectForKeyedSubscript:@"wd"];
+  v6 = objc_msgSend_advertisementFields(bleDevice2);
+  name = [v6 objectForKeyedSubscript:@"wd"];
 
   if (name)
   {
@@ -2012,9 +2095,12 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  if (dword_10096FEF8 <= 90 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+  if (dword_10096FEF8 <= 90)
   {
-    sub_1000A5510();
+    if (dword_10096FEF8 != -1 || (v8 = _LogCategory_Initialize(), v8))
+    {
+      sub_1000A5510(v8, v9, v10);
+    }
   }
 
 LABEL_10:
@@ -2032,86 +2118,135 @@ LABEL_10:
   [(SDSetupAgent *)self _uiStartWithDevice:accountsCopy viewControllerName:v4 label:@"AuthenticateAccountsUI" unlessApps:0 extraInfo:0];
 }
 
+- (void)_uiStartTVLatencySetup:(id)setup forActionType:(unsigned __int8)type withBLEDevice:(id)device
+{
+  typeCopy = type;
+  setupCopy = setup;
+  deviceCopy = device;
+  DeviceClass = GestaltGetDeviceClass();
+  v10 = @"ColorCalibration";
+  if (typeCopy == 25)
+  {
+    v10 = &stru_1008EFBD0;
+  }
+
+  v11 = v10;
+  if ((DeviceClass - 3) <= 0xFFFFFFFD)
+  {
+    sub_1000A55AC(deviceCopy, v11);
+  }
+
+  else if (-[SDSetupAgent _screenLocked](self, "_screenLocked") || (+[SDStatusMonitor sharedMonitor](SDStatusMonitor, "sharedMonitor"), v12 = objc_claimAutoreleasedReturnValue(), v13 = [v12 deviceUIUnlocked], v12, (v13 & 1) == 0))
+  {
+    if (self->_triggeredUITVLatencySetup || self->_unoteTVLatencySetup)
+    {
+      sub_1000A552C(v11, deviceCopy);
+    }
+
+    else
+    {
+      [(SDSetupAgent *)self _uiStartTVLatencyBanner:setupCopy forActionType:typeCopy];
+    }
+  }
+
+  else if (self->_triggeredUITVLatencySetup)
+  {
+    if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+    {
+      LogPrintF(&dword_10096FEF8, "[SDSetupAgent _uiStartTVLatencySetup:forActionType:withBLEDevice:]", 50, "Ignoring proximity TVLatency%@ with another %@\n", v11, deviceCopy);
+    }
+  }
+
+  else
+  {
+    if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+    {
+      LogPrintF(&dword_10096FEF8, "[SDSetupAgent _uiStartTVLatencySetup:forActionType:withBLEDevice:]", 50, "Triggering proximity TVLatency%@ with %@\n", v11, deviceCopy);
+    }
+
+    self->_triggeredUITVLatencySetup = 1;
+    [(CUUserNotificationSession *)self->_unoteTVLatencySetup invalidate];
+    unoteTVLatencySetup = self->_unoteTVLatencySetup;
+    self->_unoteTVLatencySetup = 0;
+
+    [(SDSetupAgent *)self _uiStartTVLatencySetup:setupCopy extraInfo:0 forActionType:typeCopy];
+  }
+}
+
 - (void)_uiStartTVLatencyBanner:(id)banner forActionType:(unsigned __int8)type
 {
   typeCopy = type;
   bannerCopy = banner;
   unoteTVLatencySetup = self->_unoteTVLatencySetup;
-  if (!unoteTVLatencySetup)
+  if (!unoteTVLatencySetup || (-[CUUserNotificationSession identifier](unoteTVLatencySetup, "identifier"), v8 = objc_claimAutoreleasedReturnValue(), [bannerCopy identifier], v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "UUIDString"), v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v8, "isEqual:", v10), v10, v9, v8, (v11 & 1) == 0))
   {
-    goto LABEL_20;
-  }
-
-  identifier = [(CUUserNotificationSession *)unoteTVLatencySetup identifier];
-  identifier2 = [bannerCopy identifier];
-  uUIDString = [identifier2 UUIDString];
-  v11 = [identifier isEqual:uUIDString];
-
-  if ((v11 & 1) == 0)
-  {
-LABEL_20:
-    if (GestaltGetDeviceClass() == 1 && MGIsQuestionValid())
+    DeviceClass = GestaltGetDeviceClass();
+    if (DeviceClass == 1 && (DeviceClass = MGIsQuestionValid(), DeviceClass))
     {
-      v12 = MGGetBoolAnswer() ^ 1;
+      DeviceClass = MGGetBoolAnswer();
+      v15 = DeviceClass ^ 1;
     }
 
     else
     {
-      v12 = 1;
+      v15 = 1;
     }
 
-    if (typeCopy == 30 && v12)
+    if (typeCopy == 30 && v15)
     {
-      if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+      if (dword_10096FEF8 <= 50)
       {
-        sub_1000A562C();
+        if (dword_10096FEF8 != -1 || (DeviceClass = _LogCategory_Initialize(), DeviceClass))
+        {
+          sub_1000A562C(DeviceClass, v13, v14);
+        }
       }
     }
 
     else
     {
       [(CUUserNotificationSession *)self->_unoteTVLatencySetup invalidate];
-      v13 = objc_alloc_init(CUUserNotificationSession);
-      v14 = self->_unoteTVLatencySetup;
-      self->_unoteTVLatencySetup = v13;
+      v16 = objc_alloc_init(CUUserNotificationSession);
+      v17 = self->_unoteTVLatencySetup;
+      self->_unoteTVLatencySetup = v16;
 
-      [(CUUserNotificationSession *)v13 setBundleID:@"com.apple.SFUserNotificationTVLatency"];
-      [(CUUserNotificationSession *)v13 setCategoryID:@"SFUserNotificationTVLatency"];
-      [(CUUserNotificationSession *)v13 setDispatchQueue:self->_dispatchQueue];
-      v15 = SFLocalizedStringForKey();
-      [(CUUserNotificationSession *)v13 setHeader:v15];
+      [(CUUserNotificationSession *)v16 setBundleID:@"com.apple.SFUserNotificationTVLatency"];
+      [(CUUserNotificationSession *)v16 setCategoryID:@"SFUserNotificationTVLatency"];
+      [(CUUserNotificationSession *)v16 setDispatchQueue:self->_dispatchQueue];
+      v18 = SFLocalizedStringForKey();
+      [(CUUserNotificationSession *)v16 setHeader:v18];
 
-      [(CUUserNotificationSession *)v13 setFlags:1];
-      identifier3 = [bannerCopy identifier];
-      uUIDString2 = [identifier3 UUIDString];
-      [(CUUserNotificationSession *)v13 setIdentifier:uUIDString2];
+      [(CUUserNotificationSession *)v16 setFlags:1];
+      identifier = [bannerCopy identifier];
+      uUIDString = [identifier UUIDString];
+      [(CUUserNotificationSession *)v16 setIdentifier:uUIDString];
 
       if (typeCopy == 25)
       {
-        [(CUUserNotificationSession *)v13 setTitleKey:@"TV_LATENCY_TITLE"];
-        v18 = SFAddSuffixForCurrentDeviceClass();
-        [(CUUserNotificationSession *)v13 setBodyKey:v18];
+        [(CUUserNotificationSession *)v16 setTitleKey:@"TV_LATENCY_TITLE"];
+        v21 = SFAddSuffixForCurrentDeviceClass();
+        [(CUUserNotificationSession *)v16 setBodyKey:v21];
       }
 
       else
       {
-        v19 = SFLocalizedStringForKeyInStringsFileNamed();
-        [(CUUserNotificationSession *)v13 setTitleKey:v19];
+        v22 = SFLocalizedStringForKeyInStringsFileNamed();
+        [(CUUserNotificationSession *)v16 setTitleKey:v22];
 
-        v18 = SFAddSuffixForCurrentDeviceClass();
-        v20 = SFLocalizedStringForKeyInStringsFileNamed();
-        [(CUUserNotificationSession *)v13 setBodyKey:v20];
+        v21 = SFAddSuffixForCurrentDeviceClass();
+        v23 = SFLocalizedStringForKeyInStringsFileNamed();
+        [(CUUserNotificationSession *)v16 setBodyKey:v23];
       }
 
-      v21[0] = _NSConcreteStackBlock;
-      v21[1] = 3221225472;
-      v21[2] = sub_10009B1E0;
-      v21[3] = &unk_1008CE928;
-      v21[4] = self;
-      v22 = bannerCopy;
-      v23 = typeCopy;
-      [(CUUserNotificationSession *)v13 setActionHandler:v21];
-      [(CUUserNotificationSession *)v13 activate];
+      v24[0] = _NSConcreteStackBlock;
+      v24[1] = 3221225472;
+      v24[2] = sub_10009B1E0;
+      v24[3] = &unk_1008CE928;
+      v24[4] = self;
+      v25 = bannerCopy;
+      v26 = typeCopy;
+      [(CUUserNotificationSession *)v16 setActionHandler:v24];
+      [(CUUserNotificationSession *)v16 activate];
     }
   }
 }
@@ -2137,90 +2272,94 @@ LABEL_20:
   v5 = +[SDHotspotAgent sharedAgent];
   contactIdentifier = [sharingCopy contactIdentifier];
   requestSSID = [sharingCopy requestSSID];
-  v8 = requestSSID;
+  v10 = requestSSID;
   if (!contactIdentifier)
   {
-    sub_1000A5878();
+    sub_1000A5878(requestSSID, v8, v9);
     goto LABEL_19;
   }
 
   if (!requestSSID)
   {
-    sub_1000A5818();
+    sub_1000A5818(0, v8, v9);
     goto LABEL_19;
   }
 
-  v9 = objc_alloc_init(NSMutableDictionary);
+  v11 = objc_alloc_init(NSMutableDictionary);
   computerName = [(SDStatusMonitor *)self->_statusMonitor computerName];
   myAppleIDEmailHash = [(SDStatusMonitor *)self->_statusMonitor myAppleIDEmailHash];
   myAppleIDPhoneHash = [(SDStatusMonitor *)self->_statusMonitor myAppleIDPhoneHash];
-  if (!(myAppleIDEmailHash | myAppleIDPhoneHash) && dword_10096FEF8 <= 60 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+  v17 = myAppleIDPhoneHash;
+  if (!(myAppleIDEmailHash | myAppleIDPhoneHash) && dword_10096FEF8 <= 60)
   {
-    sub_1000A56A8();
+    if (dword_10096FEF8 != -1 || (myAppleIDPhoneHash = _LogCategory_Initialize(), myAppleIDPhoneHash))
+    {
+      sub_1000A56A8(myAppleIDPhoneHash, v15, v16);
+    }
   }
 
-  [v9 setObject:contactIdentifier forKeyedSubscript:@"cid"];
+  [v11 setObject:contactIdentifier forKeyedSubscript:@"cid"];
   if (computerName)
   {
-    [v9 setObject:computerName forKeyedSubscript:@"dn"];
+    [v11 setObject:computerName forKeyedSubscript:@"dn"];
   }
 
   if (myAppleIDEmailHash)
   {
-    [v9 setObject:myAppleIDEmailHash forKeyedSubscript:@"eh"];
+    [v11 setObject:myAppleIDEmailHash forKeyedSubscript:@"eh"];
   }
 
-  if (myAppleIDPhoneHash)
+  if (v17)
   {
-    [v9 setObject:myAppleIDPhoneHash forKeyedSubscript:@"ph"];
+    [v11 setObject:v17 forKeyedSubscript:@"ph"];
   }
 
-  [v9 setObject:v8 forKeyedSubscript:@"nw"];
+  [v11 setObject:v10 forKeyedSubscript:@"nw"];
   if ([v5 isTetheringInUse])
   {
     [v5 hotspotName];
-    v13 = v20 = v5;
-    v14 = [v8 isEqualToString:v13];
+    v18 = v25 = v5;
+    v19 = [v10 isEqualToString:v18];
 
-    v5 = v20;
-    if (v14)
+    v5 = v25;
+    if (v19)
     {
-      v19 = contactIdentifier;
-      v25 = 0;
-      memset(v24, 0, sizeof(v24));
-      hotspotName = [v20 hotspotName];
-      hotspotPassword = [v20 hotspotPassword];
-      v17 = WPAHashPSK();
+      v24 = contactIdentifier;
+      v30 = 0;
+      memset(v29, 0, sizeof(v29));
+      hotspotName = [v25 hotspotName];
+      hotspotPassword = [v25 hotspotPassword];
+      v22 = WPAHashPSK();
 
-      if (v17)
+      if (v22)
       {
-        sub_1000A56C4(v17, &v22, &v23, &v21);
-        v18 = v21;
+        sub_1000A56C4(v22, &v27, &v28, &v26);
+        v23 = v26;
       }
 
       else
       {
-        v18 = [NSString stringWithUTF8String:v24];
-        if ([v18 length] == 64)
+        v23 = [NSString stringWithUTF8String:v29];
+        if ([v23 length] == 64)
         {
-          [v9 setObject:&__kCFBooleanTrue forKeyedSubscript:@"hs"];
-          [v9 setObject:v18 forKeyedSubscript:@"psk"];
+          [v11 setObject:&__kCFBooleanTrue forKeyedSubscript:@"hs"];
+          [v11 setObject:v23 forKeyedSubscript:@"psk"];
 
-          contactIdentifier = v19;
-          v5 = v20;
+          contactIdentifier = v24;
+          v5 = v25;
           goto LABEL_18;
         }
       }
 
-      contactIdentifier = v19;
+      contactIdentifier = v24;
 
-      v5 = v20;
+      v5 = v25;
       goto LABEL_19;
     }
   }
 
 LABEL_18:
-  [(SDSetupAgent *)self _uiStartWithDevice:sharingCopy viewControllerName:@"SharingViewService.PasswordSharingFlowViewController" xpcEndpoint:0 label:@"WiFiPasswordSharing" extraInfo:v9];
+  [(SDSetupAgent *)self _uiStartWithDevice:sharingCopy viewControllerName:@"SharingViewService.PasswordSharingFlowViewController" xpcEndpoint:0 label:@"WiFiPasswordSharing" extraInfo:v11];
 
 LABEL_19:
 }
@@ -2244,7 +2383,7 @@ LABEL_19:
     v55 = 0;
     if (dword_10096FEF8 <= 30 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_10096FEF8, "[SDSetupAgent _uiStartWithDevice:viewControllerName:xpcEndpoint:label:unlessApps:extraInfo:]", 30, "%@: Checking if apps are frontmost: %##@\n", labelCopy, appsCopy);
     }
 
     v22 = dispatch_group_create();
@@ -2275,7 +2414,7 @@ LABEL_19:
           dispatch_group_enter(v22);
           if (dword_10096FEF8 <= 20 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
           {
-            LogPrintF();
+            LogPrintF(&dword_10096FEF8, "[SDSetupAgent _uiStartWithDevice:viewControllerName:xpcEndpoint:label:unlessApps:extraInfo:]", 20, "%@: Checking frontmost state of %@\n", v21, v28);
           }
 
           v45[0] = _NSConcreteStackBlock;
@@ -2335,14 +2474,14 @@ LABEL_19:
   identifier = [deviceCopy identifier];
   uUIDString = [identifier UUIDString];
 
-  v51 = uUIDString;
-  v48 = bleDevice;
-  v49 = deviceCopy;
+  v52 = uUIDString;
+  v49 = bleDevice;
+  v50 = deviceCopy;
   if (uUIDString)
   {
-    v46 = nameCopy;
-    v47 = labelCopy;
-    advertisementFields = [bleDevice advertisementFields];
+    v47 = nameCopy;
+    v48 = labelCopy;
+    v20 = objc_msgSend_advertisementFields(bleDevice);
     Int64Ranged = CFDictionaryGetInt64Ranged();
 
     v22 = +[NSUUID UUID];
@@ -2363,15 +2502,15 @@ LABEL_19:
       v26 = 0.0;
     }
 
-    v53[0] = @"colorCode";
+    v54[0] = @"colorCode";
     v27 = [NSNumber numberWithUnsignedChar:Int64Ranged];
-    v54[0] = v27;
-    v53[1] = @"deviceActionType";
+    v55[0] = v27;
+    v54[1] = @"deviceActionType";
     v28 = +[NSNumber numberWithUnsignedChar:](NSNumber, "numberWithUnsignedChar:", [deviceCopy deviceActionType]);
-    v54[1] = v28;
-    v54[2] = v51;
-    v53[2] = @"deviceIdentifier";
-    v53[3] = @"name";
+    v55[1] = v28;
+    v55[2] = v52;
+    v54[2] = @"deviceIdentifier";
+    v54[3] = @"name";
     name = [deviceCopy name];
     v30 = name;
     v31 = &stru_1008EFBD0;
@@ -2380,19 +2519,19 @@ LABEL_19:
       v31 = name;
     }
 
-    v54[3] = v31;
-    v53[4] = @"osVersion";
+    v55[3] = v31;
+    v54[4] = @"osVersion";
     v32 = +[NSNumber numberWithUnsignedChar:](NSNumber, "numberWithUnsignedChar:", [deviceCopy osVersion]);
-    v54[4] = v32;
-    v53[5] = @"rssi";
+    v55[4] = v32;
+    v54[5] = @"rssi";
     v33 = [NSNumber numberWithInteger:smoothedRSSI];
-    v54[5] = v33;
-    v54[6] = uUIDString2;
-    v53[6] = @"sessionUUID";
-    v53[7] = @"triggerSecs";
+    v55[5] = v33;
+    v55[6] = uUIDString2;
+    v54[6] = @"sessionUUID";
+    v54[7] = @"triggerSecs";
     v34 = [NSNumber numberWithDouble:v26];
-    v54[7] = v34;
-    v35 = [NSDictionary dictionaryWithObjects:v54 forKeys:v53 count:8];
+    v55[7] = v34;
+    v35 = [NSDictionary dictionaryWithObjects:v55 forKeys:v54 count:8];
 
     infoCopy = v23;
     v36 = v23;
@@ -2404,8 +2543,8 @@ LABEL_19:
       v35 = v37;
     }
 
-    nameCopy = v46;
-    if ([v46 isEqualToString:@"HDSViewService.HomePodSetupFlowViewController"])
+    nameCopy = v47;
+    if ([v47 isEqualToString:@"HDSViewService.HomePodSetupFlowViewController"])
     {
       v38 = @"com.apple.HDSViewService";
     }
@@ -2416,9 +2555,9 @@ LABEL_19:
     }
 
     endpointCopy = v24;
-    if ([v46 isEqualToString:@"BYDovePeaceRemoteViewController"])
+    if ([v47 isEqualToString:@"BYDovePeaceRemoteViewController"])
     {
-      labelCopy = v47;
+      labelCopy = v48;
       if ([(SDSetupAgent *)self _deviceHandlesDovePeaceSetup])
       {
         if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
@@ -2432,25 +2571,25 @@ LABEL_19:
 
     else
     {
-      labelCopy = v47;
+      labelCopy = v48;
     }
 
-    if ([v46 isEqualToString:@"TVSetupUIService.TVSetupAlertViewController"])
+    if ([v47 isEqualToString:@"TVSetupUIService.TVSetupAlertViewController"])
     {
       v38 = @"com.apple.TVSetupUIService";
     }
 
-    if ([v46 isEqualToString:@"AppleIDSetupUIService.SetupAlertViewController"])
+    if ([v47 isEqualToString:@"AppleIDSetupUIService.SetupAlertViewController"])
     {
       v38 = @"com.apple.AppleIDSetupUIService";
     }
 
     if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
     {
-      sub_1000A59C4();
+      sub_1000A59C4(v38);
     }
 
-    v39 = [[SBSRemoteAlertDefinition alloc] initWithServiceName:v38 viewControllerClassName:v46];
+    v39 = [[SBSRemoteAlertDefinition alloc] initWithServiceName:v38 viewControllerClassName:v47];
     v40 = objc_alloc_init(SBSRemoteAlertConfigurationContext);
     if (endpointCopy)
     {
@@ -2475,27 +2614,27 @@ LABEL_19:
     {
       [(SBSRemoteAlertHandle *)v45 addObserver:self];
       [(SBSRemoteAlertHandle *)self->_remoteAlertHandle activateWithContext:0];
-      if (dword_10096FEF8 > 50 || dword_10096FEF8 == -1 && !_LogCategory_Initialize())
+      if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
       {
-        goto LABEL_35;
+        LogPrintF(&dword_10096FEF8, "[SDSetupAgent _uiStartWithDevice:viewControllerName:xpcEndpoint:label:extraInfo:]", 50, "%@: StartRemoteAlert SID %@, RSSI %ld", labelCopy, uUIDString2, smoothedRSSI);
       }
 
-LABEL_33:
-      LogPrintF();
       goto LABEL_35;
     }
 
     if (dword_10096FEF8 <= 60 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
     {
-      sub_1000A5A04();
+      sub_1000A5A04(labelCopy);
     }
+
+    v46 = 4294960556;
   }
 
   else
   {
     if (dword_10096FEF8 <= 60 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_10096FEF8, "[SDSetupAgent _uiStartWithDevice:viewControllerName:xpcEndpoint:label:extraInfo:]", 60, "%@: ### No device identifier for %@\n", labelCopy, deviceCopy);
     }
 
     v35 = 0;
@@ -2503,11 +2642,12 @@ LABEL_33:
     v39 = 0;
     v40 = 0;
     uUIDString2 = 0;
+    v46 = 4294960535;
   }
 
   if (dword_10096FEF8 <= 60 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
   {
-    goto LABEL_33;
+    LogPrintF(&dword_10096FEF8, "[SDSetupAgent _uiStartWithDevice:viewControllerName:xpcEndpoint:label:extraInfo:]", 60, "%@: ### Start UI failed: %#m\n", labelCopy, v46);
   }
 
 LABEL_35:
@@ -2520,21 +2660,21 @@ LABEL_35:
   infoCopy = info;
   if (dword_10096FEF8 <= 30 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
   {
-    sub_1000A5A44();
+    sub_1000A5A44(labelCopy);
   }
 }
 
 - (void)_uiStopIfNeededWithDevice:(id)device
 {
   deviceCopy = device;
-  v4 = deviceCopy;
+  v5 = deviceCopy;
   if (dword_10096FEF8 <= 30)
   {
     v6 = deviceCopy;
-    if (dword_10096FEF8 != -1 || (v5 = _LogCategory_Initialize(), v4 = v6, v5))
+    if (dword_10096FEF8 != -1 || (deviceCopy = _LogCategory_Initialize(), v5 = v6, deviceCopy))
     {
-      sub_1000A5A84();
-      v4 = v6;
+      sub_1000A5A84(deviceCopy, v5, v4);
+      v5 = v6;
     }
   }
 }
@@ -2543,29 +2683,27 @@ LABEL_35:
 {
   allowedCopy = allowed;
   mach_absolute_time();
-  watchFastScanLastEndTicks = self->_watchFastScanLastEndTicks;
   if (UpTicksToSeconds() >= 0x64 && [(SFBLEScanner *)self->_watchSetupScanner scanRate]!= 50)
   {
     if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
     {
-      sub_1000A5AA0();
+      sub_1000A5AA0(allowedCopy);
     }
 
     [(SFBLEScanner *)self->_watchSetupScanner setScanRate:50];
     if (!self->_watchFastScanTimer)
     {
-      v6 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_dispatchQueue);
+      v5 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_dispatchQueue);
       watchFastScanTimer = self->_watchFastScanTimer;
-      self->_watchFastScanTimer = v6;
+      self->_watchFastScanTimer = v5;
 
-      v8 = self->_watchFastScanTimer;
+      v7 = self->_watchFastScanTimer;
       handler[0] = _NSConcreteStackBlock;
       handler[1] = 3221225472;
       handler[2] = sub_10009C414;
       handler[3] = &unk_1008CDEA0;
       handler[4] = self;
-      dispatch_source_set_event_handler(v8, handler);
-      v9 = self->_watchFastScanTimer;
+      dispatch_source_set_event_handler(v7, handler);
       SFDispatchTimerSet();
       dispatch_resume(self->_watchFastScanTimer);
     }
@@ -2574,11 +2712,15 @@ LABEL_35:
 
 - (void)_watchFastScanStop
 {
-  if ([(SFBLEScanner *)self->_watchSetupScanner scanRate]!= 20)
+  scanRate = [(SFBLEScanner *)self->_watchSetupScanner scanRate];
+  if (scanRate != 20)
   {
-    if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+    if (dword_10096FEF8 <= 50)
     {
-      sub_1000A5AE0();
+      if (dword_10096FEF8 != -1 || (scanRate = _LogCategory_Initialize(), scanRate))
+      {
+        sub_1000A5AE0(scanRate, v4, v5);
+      }
     }
 
     [(SFBLEScanner *)self->_watchSetupScanner setScanRate:20];
@@ -2586,9 +2728,9 @@ LABEL_35:
     watchFastScanTimer = self->_watchFastScanTimer;
     if (watchFastScanTimer)
     {
-      v5 = watchFastScanTimer;
-      dispatch_source_cancel(v5);
-      v4 = self->_watchFastScanTimer;
+      v8 = watchFastScanTimer;
+      dispatch_source_cancel(v8);
+      v7 = self->_watchFastScanTimer;
       self->_watchFastScanTimer = 0;
     }
   }
@@ -2602,37 +2744,43 @@ LABEL_35:
     sharedInstance = [(objc_class *)off_10096FF68() sharedInstance];
     v6 = [sharedInstance getDevicesMatching:&stru_1008CE9B8];
 
-    v17 = 0u;
     v18 = 0u;
-    v15 = 0u;
+    v19 = 0u;
     v16 = 0u;
+    v17 = 0u;
     v7 = v6;
-    v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v9 = v8;
     if (v8)
     {
-      v9 = *v16;
+      v10 = *v17;
       while (2)
       {
-        for (i = 0; i != v8; i = i + 1)
+        v11 = 0;
+        do
         {
-          if (*v16 != v9)
+          if (*v17 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v11 = *(*(&v15 + 1) + 8 * i);
-          v12 = off_10096FF80();
-          v13 = [v11 valueForProperty:{v12, v15}];
+          v12 = *(*(&v16 + 1) + 8 * v11);
+          v13 = off_10096FF80(v8);
+          v14 = [v12 valueForProperty:{v13, v16}];
 
-          if ([v13 isEqual:migratingCopy])
+          if ([v14 isEqual:migratingCopy])
           {
-            v8 = v11;
+            v9 = v12;
 
             goto LABEL_13;
           }
+
+          v11 = v11 + 1;
         }
 
-        v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        while (v9 != v11);
+        v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v9 = v8;
         if (v8)
         {
           continue;
@@ -2647,16 +2795,16 @@ LABEL_13:
 
   else
   {
-    v8 = 0;
+    v9 = 0;
   }
 
-  return v8;
+  return v9;
 }
 
 - (void)_watchStartMigration:(id)migration
 {
   migrationCopy = migration;
-  sharedMigrator = [(objc_class *)off_10096FF88() sharedMigrator];
+  sharedMigrator = [(objc_class *)off_10096FF88(migrationCopy) sharedMigrator];
   v6[0] = _NSConcreteStackBlock;
   v6[1] = 3221225472;
   v6[2] = sub_10009C7FC;
@@ -2668,11 +2816,15 @@ LABEL_13:
 
 - (void)_wifiStateChanged
 {
-  if ([(CUSystemMonitor *)self->_systemMonitor wifiState]== 40 && (self->_renableB238SetupAfterWiFi || self->_triggeredUIRepair))
+  wifiState = [(CUSystemMonitor *)self->_systemMonitor wifiState];
+  if (wifiState == 40 && (self->_renableB238SetupAfterWiFi || self->_triggeredUIRepair))
   {
-    if (dword_10096FEF8 <= 30 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+    if (dword_10096FEF8 <= 30)
     {
-      sub_1000A5B40();
+      if (dword_10096FEF8 != -1 || (wifiState = _LogCategory_Initialize(), wifiState))
+      {
+        sub_1000A5B40(wifiState, v4, v5);
+      }
     }
 
     [(SDSetupAgent *)self _resetTriggers];
@@ -2683,89 +2835,100 @@ LABEL_13:
 {
   if (!self->_pinPairService)
   {
-    v12[5] = v5;
-    v12[6] = v4;
-    v12[9] = v2;
-    v12[10] = v3;
-    if (dword_10096FEF8 <= 30 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+    v13[5] = v6;
+    v13[6] = v5;
+    v13[9] = v3;
+    v13[10] = v4;
+    selfCopy = self;
+    if (dword_10096FEF8 <= 30)
     {
-      sub_1000A5B5C();
+      if (dword_10096FEF8 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_1000A5B5C(self, a2, v2);
+      }
     }
 
-    v7 = objc_alloc_init(SFService);
-    pinPairService = self->_pinPairService;
-    self->_pinPairService = v7;
+    v8 = objc_alloc_init(SFService);
+    pinPairService = selfCopy->_pinPairService;
+    selfCopy->_pinPairService = v8;
 
-    [(SFService *)self->_pinPairService setIdentifier:SFServiceIdentifierPINPair];
+    [(SFService *)selfCopy->_pinPairService setIdentifier:SFServiceIdentifierPINPair];
+    v13[0] = _NSConcreteStackBlock;
+    v13[1] = 3221225472;
+    v13[2] = sub_10009CB08;
+    v13[3] = &unk_1008CDF90;
+    v13[4] = selfCopy;
+    [(SFService *)selfCopy->_pinPairService setErrorHandler:v13];
+    [(SFService *)selfCopy->_pinPairService setInvalidationHandler:&stru_1008CE9D8];
     v12[0] = _NSConcreteStackBlock;
     v12[1] = 3221225472;
-    v12[2] = sub_10009CB08;
-    v12[3] = &unk_1008CDF90;
-    v12[4] = self;
-    [(SFService *)self->_pinPairService setErrorHandler:v12];
-    [(SFService *)self->_pinPairService setInvalidationHandler:&stru_1008CE9D8];
+    v12[2] = sub_10009CBF8;
+    v12[3] = &unk_1008CEA00;
+    v12[4] = selfCopy;
+    [(SFService *)selfCopy->_pinPairService setRequestMessageHandler:v12];
+    v10 = selfCopy->_pinPairService;
     v11[0] = _NSConcreteStackBlock;
     v11[1] = 3221225472;
-    v11[2] = sub_10009CBF8;
-    v11[3] = &unk_1008CEA00;
-    v11[4] = self;
-    [(SFService *)self->_pinPairService setRequestMessageHandler:v11];
-    v9 = self->_pinPairService;
-    v10[0] = _NSConcreteStackBlock;
-    v10[1] = 3221225472;
-    v10[2] = sub_10009CC88;
-    v10[3] = &unk_1008CDF90;
-    v10[4] = self;
-    [(SFService *)v9 activateWithCompletion:v10];
+    v11[2] = sub_10009CC88;
+    v11[3] = &unk_1008CDF90;
+    v11[4] = selfCopy;
+    [(SFService *)v10 activateWithCompletion:v11];
   }
 }
 
 - (void)_ensureServerStopped
 {
+  selfCopy = self;
   if (self->_pinPairService)
   {
-    if (dword_10096FEF8 <= 30 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+    if (dword_10096FEF8 <= 30)
     {
-      sub_1000A5C70();
+      if (dword_10096FEF8 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_1000A5C70(self, a2, v2);
+      }
     }
 
-    [(SFService *)self->_pinPairService invalidate];
-    pinPairService = self->_pinPairService;
-    self->_pinPairService = 0;
+    [(SFService *)selfCopy->_pinPairService invalidate];
+    pinPairService = selfCopy->_pinPairService;
+    selfCopy->_pinPairService = 0;
   }
 
-  if (self->_pinPairSession)
+  if (selfCopy->_pinPairSession)
   {
-    if (dword_10096FEF8 <= 30 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+    if (dword_10096FEF8 <= 30)
     {
-      sub_1000A5C8C();
+      if (dword_10096FEF8 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_1000A5C8C(self, a2, v2);
+      }
     }
 
-    [(SFPINPairSession *)self->_pinPairSession invalidate];
-    pinPairSession = self->_pinPairSession;
-    self->_pinPairSession = 0;
+    [(SFPINPairSession *)selfCopy->_pinPairSession invalidate];
+    pinPairSession = selfCopy->_pinPairSession;
+    selfCopy->_pinPairSession = 0;
   }
 
-  pinPairUUID = self->_pinPairUUID;
-  self->_pinPairUUID = 0;
+  pinPairUUID = selfCopy->_pinPairUUID;
+  selfCopy->_pinPairUUID = 0;
 }
 
 - (void)_pinPairHandleRequest:(id)request
 {
   requestCopy = request;
-  v18[0] = 0;
-  v18[1] = 0;
+  v16[0] = 0;
+  v16[1] = 0;
   headerFields = [requestCopy headerFields];
   UUIDEx = CFDictionaryGetUUIDEx();
 
   if (UUIDEx)
   {
-    sub_1000A5CA8();
+    sub_1000A5CA8(UUIDEx);
   }
 
   else
   {
-    v7 = [[NSUUID alloc] initWithUUIDBytes:v18];
+    v7 = [[NSUUID alloc] initWithUUIDBytes:v16];
     if (v7)
     {
       v8 = v7;
@@ -2773,12 +2936,10 @@ LABEL_13:
       {
         if (dword_10096FEF8 <= 30 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
         {
-          pinPairUUID = self->_pinPairUUID;
-          v14 = v8;
-          LogPrintF();
+          LogPrintF(&dword_10096FEF8, "[SDSetupAgent _pinPairHandleRequest:]", 30, "PINPair session %@ ending for %@\n", self->_pinPairUUID, v8);
         }
 
-        [(SFPINPairSession *)self->_pinPairSession invalidate:pinPairUUID];
+        [(SFPINPairSession *)self->_pinPairSession invalidate];
         pinPairSession = self->_pinPairSession;
         self->_pinPairSession = 0;
       }
@@ -2788,7 +2949,7 @@ LABEL_13:
       {
         if (dword_10096FEF8 <= 30 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
         {
-          sub_1000A5D28();
+          sub_1000A5D28(v8);
         }
 
         objc_storeStrong(&self->_pinPairUUID, v8);
@@ -2798,24 +2959,24 @@ LABEL_13:
 
         [(SFPINPairSession *)self->_pinPairSession setDispatchQueue:self->_dispatchQueue];
         [(SFPINPairSession *)self->_pinPairSession setSfService:self->_pinPairService];
-        v17[0] = _NSConcreteStackBlock;
-        v17[1] = 3221225472;
-        v17[2] = sub_10009D108;
-        v17[3] = &unk_1008CDF90;
-        v17[4] = self;
-        [(SFPINPairSession *)self->_pinPairSession setCompletionHandler:v17];
-        v16[0] = _NSConcreteStackBlock;
-        v16[1] = 3221225472;
-        v16[2] = sub_10009D1A4;
-        v16[3] = &unk_1008CEA28;
-        v16[4] = self;
-        [(SFPINPairSession *)self->_pinPairSession setShowPINHandler:v16];
         v15[0] = _NSConcreteStackBlock;
         v15[1] = 3221225472;
-        v15[2] = sub_10009D1AC;
-        v15[3] = &unk_1008CDEA0;
+        v15[2] = sub_10009D108;
+        v15[3] = &unk_1008CDF90;
         v15[4] = self;
-        [(SFPINPairSession *)self->_pinPairSession setHidePINHandler:v15];
+        [(SFPINPairSession *)self->_pinPairSession setCompletionHandler:v15];
+        v14[0] = _NSConcreteStackBlock;
+        v14[1] = 3221225472;
+        v14[2] = sub_10009D1A4;
+        v14[3] = &unk_1008CEA28;
+        v14[4] = self;
+        [(SFPINPairSession *)self->_pinPairSession setShowPINHandler:v14];
+        v13[0] = _NSConcreteStackBlock;
+        v13[1] = 3221225472;
+        v13[2] = sub_10009D1AC;
+        v13[3] = &unk_1008CDEA0;
+        v13[4] = self;
+        [(SFPINPairSession *)self->_pinPairSession setHidePINHandler:v13];
         [(SFPINPairSession *)self->_pinPairSession activate];
         v10 = self->_pinPairSession;
       }
@@ -2834,9 +2995,13 @@ LABEL_13:
 {
   deviceCopy = device;
   infoCopy = info;
-  if (dword_10096FEF8 <= 60 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+  v9 = infoCopy;
+  if (dword_10096FEF8 <= 60)
   {
-    sub_1000A5E18();
+    if (dword_10096FEF8 != -1 || (infoCopy = _LogCategory_Initialize(), infoCopy))
+    {
+      sub_1000A5E18(infoCopy, v7, v8);
+    }
   }
 }
 
@@ -2849,7 +3014,7 @@ LABEL_13:
     v8 = infoCopy;
     if (dword_10096FEF8 != -1 || (v7 = _LogCategory_Initialize(), v6 = v8, v7))
     {
-      sub_1000A5E34(event);
+      sub_1000A5E34(event, v8);
       v6 = v8;
     }
   }
@@ -2857,145 +3022,149 @@ LABEL_13:
 
 - (void)_repairEnsuredStarted
 {
+  selfCopy = self;
   if (self->_problemNotifyToken == -1)
   {
-    if (dword_10096FEF8 <= 30 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+    if (dword_10096FEF8 <= 30)
     {
-      sub_1000A5FE4();
+      if (dword_10096FEF8 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_1000A5FE4(self, a2, v2);
+      }
     }
 
-    notify_register_check("com.apple.sharing.problems", &self->_problemNotifyToken);
+    self = notify_register_check("com.apple.sharing.problems", &selfCopy->_problemNotifyToken);
   }
 
-  if (self->_cfuNotifyToken == -1 && (self->_prefRepairAccounts || self->_prefRepairHomeKit))
+  p_cfuNotifyToken = &selfCopy->_cfuNotifyToken;
+  if (selfCopy->_cfuNotifyToken == -1 && (selfCopy->_prefRepairAccounts || selfCopy->_prefRepairHomeKit))
   {
-    dispatchQueue = self->_dispatchQueue;
+    dispatchQueue = selfCopy->_dispatchQueue;
     handler[0] = _NSConcreteStackBlock;
     handler[1] = 3221225472;
     handler[2] = sub_10009D84C;
     handler[3] = &unk_1008CE690;
-    handler[4] = self;
-    notify_register_dispatch("com.apple.corefollowup.items_changed", &self->_cfuNotifyToken, dispatchQueue, handler);
-    [(SDSetupAgent *)self _repairHandleCFUItemsChanged];
+    handler[4] = selfCopy;
+    notify_register_dispatch("com.apple.corefollowup.items_changed", p_cfuNotifyToken, dispatchQueue, handler);
+    self = [(SDSetupAgent *)selfCopy _repairHandleCFUItemsChanged];
   }
 
-  if (!self->_manateeMonitor && self->_cdpEnabled)
+  if (!selfCopy->_manateeMonitor && selfCopy->_cdpEnabled)
   {
-    v4 = objc_alloc_init(CUSystemMonitor);
-    manateeMonitor = self->_manateeMonitor;
-    self->_manateeMonitor = v4;
+    v6 = objc_alloc_init(CUSystemMonitor);
+    manateeMonitor = selfCopy->_manateeMonitor;
+    selfCopy->_manateeMonitor = v6;
 
-    [(CUSystemMonitor *)self->_manateeMonitor setDispatchQueue:self->_dispatchQueue];
+    [(CUSystemMonitor *)selfCopy->_manateeMonitor setDispatchQueue:selfCopy->_dispatchQueue];
+    v28[0] = _NSConcreteStackBlock;
+    v28[1] = 3221225472;
+    v28[2] = sub_10009D8C8;
+    v28[3] = &unk_1008CDEA0;
+    v28[4] = selfCopy;
+    [(CUSystemMonitor *)selfCopy->_manateeMonitor setManateeChangedHandler:v28];
     v27[0] = _NSConcreteStackBlock;
     v27[1] = 3221225472;
-    v27[2] = sub_10009D8C8;
+    v27[2] = sub_10009D8D0;
     v27[3] = &unk_1008CDEA0;
-    v27[4] = self;
-    [(CUSystemMonitor *)self->_manateeMonitor setManateeChangedHandler:v27];
+    v27[4] = selfCopy;
+    [(CUSystemMonitor *)selfCopy->_manateeMonitor setPrimaryAppleIDChangedHandler:v27];
+    v8 = selfCopy->_manateeMonitor;
     v26[0] = _NSConcreteStackBlock;
     v26[1] = 3221225472;
-    v26[2] = sub_10009D8D0;
+    v26[2] = sub_10009D8D8;
     v26[3] = &unk_1008CDEA0;
-    v26[4] = self;
-    [(CUSystemMonitor *)self->_manateeMonitor setPrimaryAppleIDChangedHandler:v26];
-    v6 = self->_manateeMonitor;
-    v25[0] = _NSConcreteStackBlock;
-    v25[1] = 3221225472;
-    v25[2] = sub_10009D8D8;
-    v25[3] = &unk_1008CDEA0;
-    v25[4] = self;
-    [(CUSystemMonitor *)v6 activateWithCompletion:v25];
+    v26[4] = selfCopy;
+    self = [(CUSystemMonitor *)v8 activateWithCompletion:v26];
   }
 
-  if (!self->_vpnCnx && self->_prefRepairVPN)
+  if (!selfCopy->_vpnCnx && selfCopy->_prefRepairVPN)
   {
-    createConnectionForEnabledEnterpriseConfiguration = [(objc_class *)off_10096FF90() createConnectionForEnabledEnterpriseConfiguration];
-    vpnCnx = self->_vpnCnx;
-    self->_vpnCnx = createConnectionForEnabledEnterpriseConfiguration;
+    v9 = [off_10096FF90(self p_cfuNotifyToken)];
+    vpnCnx = selfCopy->_vpnCnx;
+    selfCopy->_vpnCnx = v9;
 
-    [(NEVPNConnection *)self->_vpnCnx addObserver:self forKeyPath:@"lastDisconnectError" options:0 context:0];
-    lastDisconnectError = [(NEVPNConnection *)self->_vpnCnx lastDisconnectError];
+    [(NEVPNConnection *)selfCopy->_vpnCnx addObserver:selfCopy forKeyPath:@"lastDisconnectError" options:0 context:0];
+    lastDisconnectError = [(NEVPNConnection *)selfCopy->_vpnCnx lastDisconnectError];
     if (dword_10096FEF8 <= 40 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
     {
-      sub_1000A6000();
+      sub_1000A6000(lastDisconnectError);
     }
 
-    [(SDSetupAgent *)self _repairVPNError:lastDisconnectError];
+    [(SDSetupAgent *)selfCopy _repairVPNError:lastDisconnectError];
   }
 
-  if (!self->_wifiHealthMonitor && self->_prefRepairWiFi)
+  if (!selfCopy->_wifiHealthMonitor && selfCopy->_prefRepairWiFi)
   {
-    v10 = objc_alloc_init(SFWiFiHealthMonitor);
-    wifiHealthMonitor = self->_wifiHealthMonitor;
-    self->_wifiHealthMonitor = v10;
+    v12 = objc_alloc_init(SFWiFiHealthMonitor);
+    wifiHealthMonitor = selfCopy->_wifiHealthMonitor;
+    selfCopy->_wifiHealthMonitor = v12;
 
-    [(SFWiFiHealthMonitor *)self->_wifiHealthMonitor setDispatchQueue:self->_dispatchQueue];
+    [(SFWiFiHealthMonitor *)selfCopy->_wifiHealthMonitor setDispatchQueue:selfCopy->_dispatchQueue];
+    v25[0] = _NSConcreteStackBlock;
+    v25[1] = 3221225472;
+    v25[2] = sub_10009D8E0;
+    v25[3] = &unk_1008CEA50;
+    v25[4] = selfCopy;
+    [(SFWiFiHealthMonitor *)selfCopy->_wifiHealthMonitor setStatusHandler:v25];
+    [(SFWiFiHealthMonitor *)selfCopy->_wifiHealthMonitor activate];
+  }
+
+  if (SFDeviceClassCodeGet() == 4 && selfCopy->_cnsNotifyToken == -1)
+  {
+    v14 = selfCopy->_dispatchQueue;
     v24[0] = _NSConcreteStackBlock;
     v24[1] = 3221225472;
-    v24[2] = sub_10009D8E0;
-    v24[3] = &unk_1008CEA50;
-    v24[4] = self;
-    [(SFWiFiHealthMonitor *)self->_wifiHealthMonitor setStatusHandler:v24];
-    [(SFWiFiHealthMonitor *)self->_wifiHealthMonitor activate];
+    v24[2] = sub_10009D9D4;
+    v24[3] = &unk_1008CE690;
+    v24[4] = selfCopy;
+    notify_register_dispatch(kCNUserInteractionRequirementNotifyKey, &selfCopy->_cnsNotifyToken, v14, v24);
+    [(SDSetupAgent *)selfCopy _repairHandleCNSStateChanged];
   }
 
-  if (SFDeviceClassCodeGet() == 4 && self->_cnsNotifyToken == -1)
-  {
-    v12 = self->_dispatchQueue;
-    v23[0] = _NSConcreteStackBlock;
-    v23[1] = 3221225472;
-    v23[2] = sub_10009D9D4;
-    v23[3] = &unk_1008CE690;
-    v23[4] = self;
-    notify_register_dispatch(kCNUserInteractionRequirementNotifyKey, &self->_cnsNotifyToken, v12, v23);
-    [(SDSetupAgent *)self _repairHandleCNSStateChanged];
-  }
-
-  if (!self->_repairService)
+  if (!selfCopy->_repairService)
   {
     if (dword_10096FEF8 <= 30 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
     {
       sub_1000A6040();
     }
 
-    v13 = objc_alloc_init(SFDeviceRepairService);
-    repairService = self->_repairService;
-    self->_repairService = v13;
+    v15 = objc_alloc_init(SFDeviceRepairService);
+    repairService = selfCopy->_repairService;
+    selfCopy->_repairService = v15;
 
-    [(SFDeviceRepairService *)self->_repairService setDispatchQueue:self->_dispatchQueue];
-    [(SFDeviceRepairService *)self->_repairService setProblemFlags:0];
-    v15 = +[SDStatusMonitor sharedMonitor];
-    myAltDSID = [v15 myAltDSID];
-    [(SFDeviceRepairService *)self->_repairService setAltDSID:myAltDSID];
+    [(SFDeviceRepairService *)selfCopy->_repairService setDispatchQueue:selfCopy->_dispatchQueue];
+    [(SFDeviceRepairService *)selfCopy->_repairService setProblemFlags:0];
+    v17 = +[SDStatusMonitor sharedMonitor];
+    myAltDSID = [v17 myAltDSID];
+    [(SFDeviceRepairService *)selfCopy->_repairService setAltDSID:myAltDSID];
 
+    v23[0] = _NSConcreteStackBlock;
+    v23[1] = 3221225472;
+    v23[2] = sub_10009DA50;
+    v23[3] = &unk_1008CEA78;
+    v23[4] = selfCopy;
+    [(SFDeviceRepairService *)selfCopy->_repairService setProgressHandler:v23];
+    [(SFDeviceRepairService *)selfCopy->_repairService activate];
+  }
+
+  if (!selfCopy->_repairTimer)
+  {
+    v19 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, selfCopy->_dispatchQueue);
+    repairTimer = selfCopy->_repairTimer;
+    selfCopy->_repairTimer = v19;
+
+    v21 = selfCopy->_repairTimer;
     v22[0] = _NSConcreteStackBlock;
     v22[1] = 3221225472;
-    v22[2] = sub_10009DA50;
-    v22[3] = &unk_1008CEA78;
-    v22[4] = self;
-    [(SFDeviceRepairService *)self->_repairService setProgressHandler:v22];
-    [(SFDeviceRepairService *)self->_repairService activate];
-  }
-
-  if (!self->_repairTimer)
-  {
-    v17 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_dispatchQueue);
-    repairTimer = self->_repairTimer;
-    self->_repairTimer = v17;
-
-    v19 = self->_repairTimer;
-    v21[0] = _NSConcreteStackBlock;
-    v21[1] = 3221225472;
-    v21[2] = sub_10009E34C;
-    v21[3] = &unk_1008CDEA0;
-    v21[4] = self;
-    dispatch_source_set_event_handler(v19, v21);
-    v20 = self->_repairTimer;
+    v22[2] = sub_10009E34C;
+    v22[3] = &unk_1008CDEA0;
+    v22[4] = selfCopy;
+    dispatch_source_set_event_handler(v21, v22);
     SFDispatchTimerSet();
-    dispatch_activate(self->_repairTimer);
+    dispatch_activate(selfCopy->_repairTimer);
   }
 
-  [(SDSetupAgent *)self _repairProblemFlagsChanged];
+  [(SDSetupAgent *)selfCopy _repairProblemFlagsChanged];
 }
 
 - (void)_repairEnsuredStopped
@@ -3043,12 +3212,15 @@ LABEL_13:
 
   self->_cnsNeedsUI = 0;
   self->_problemFlags = 0;
-  [(SDSetupAgent *)self _repairProblemFlagsChanged];
+  _repairProblemFlagsChanged = [(SDSetupAgent *)self _repairProblemFlagsChanged];
   if (self->_repairService)
   {
-    if (dword_10096FEF8 <= 30 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+    if (dword_10096FEF8 <= 30)
     {
-      sub_1000A616C();
+      if (dword_10096FEF8 != -1 || (_repairProblemFlagsChanged = _LogCategory_Initialize(), _repairProblemFlagsChanged))
+      {
+        sub_1000A616C(_repairProblemFlagsChanged, v13, v14);
+      }
     }
 
     [(SFDeviceRepairService *)self->_repairService invalidateWithFlags:1];
@@ -3059,11 +3231,14 @@ LABEL_13:
   problemNotifyToken = self->_problemNotifyToken;
   if (problemNotifyToken != -1)
   {
-    notify_cancel(problemNotifyToken);
+    v17 = notify_cancel(problemNotifyToken);
     self->_problemNotifyToken = -1;
-    if (dword_10096FEF8 <= 30 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+    if (dword_10096FEF8 <= 30)
     {
-      sub_1000A6188();
+      if (dword_10096FEF8 != -1 || (v17 = _LogCategory_Initialize(), v17))
+      {
+        sub_1000A6188(v17, v18, v19);
+      }
     }
   }
 }
@@ -3095,43 +3270,53 @@ LABEL_13:
         if (v15 >= 86400.0)
         {
 LABEL_6:
-          v16 = +[ACAccountStore defaultStore];
-          v17 = sub_10001F47C(v16);
-          v18 = v17;
-          if (v17)
+          v19 = +[ACAccountStore defaultStore];
+          v20 = sub_10001F47C(v19);
+          v23 = v20;
+          if (v20)
           {
-            if (![v17 isWarmingUp])
+            isWarmingUp = [v20 isWarmingUp];
+            if (!isWarmingUp)
             {
-              if (dword_10096FEF8 <= 30 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+              if (dword_10096FEF8 <= 30)
               {
-                sub_1000A61C0();
+                if (dword_10096FEF8 != -1 || (isWarmingUp = _LogCategory_Initialize(), isWarmingUp))
+                {
+                  sub_1000A61C0(isWarmingUp, v25, v26);
+                }
               }
 
-              v19 = +[NSDate now];
+              v27 = +[NSDate now];
               lastRenewalAttempt = self->_lastRenewalAttempt;
-              self->_lastRenewalAttempt = v19;
+              self->_lastRenewalAttempt = v27;
 
-              v21[0] = _NSConcreteStackBlock;
-              v21[1] = 3221225472;
-              v21[2] = sub_10009E930;
-              v21[3] = &unk_1008CEAE0;
-              v24 = v8;
-              v22 = itemsCopy;
-              v23 = v9;
-              [v16 renewCredentialsForAccount:v18 completion:v21];
+              v29[0] = _NSConcreteStackBlock;
+              v29[1] = 3221225472;
+              v29[2] = sub_10009E930;
+              v29[3] = &unk_1008CEAE0;
+              v32 = v8;
+              v30 = itemsCopy;
+              v31 = v9;
+              [v19 renewCredentialsForAccount:v23 completion:v29];
 
               goto LABEL_26;
             }
 
-            if (dword_10096FEF8 <= 30 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+            if (dword_10096FEF8 <= 30)
             {
-              sub_1000A61DC();
+              if (dword_10096FEF8 != -1 || (isWarmingUp = _LogCategory_Initialize(), isWarmingUp))
+              {
+                sub_1000A61DC(isWarmingUp, v25, v26);
+              }
             }
           }
 
-          else if (dword_10096FEF8 <= 90 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+          else if (dword_10096FEF8 <= 90)
           {
-            sub_1000A61F8();
+            if (dword_10096FEF8 != -1 || (v20 = _LogCategory_Initialize(), v20))
+            {
+              sub_1000A61F8(v20, v21, v22);
+            }
           }
 
           (v8)[2](v8, itemsCopy);
@@ -3146,9 +3331,12 @@ LABEL_26:
         goto LABEL_6;
       }
 
-      if (dword_10096FEF8 <= 30 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+      if (dword_10096FEF8 <= 30)
       {
-        sub_1000A61A4();
+        if (dword_10096FEF8 != -1 || (v16 = _LogCategory_Initialize(), v16))
+        {
+          sub_1000A61A4(v16, v17, v18);
+        }
       }
     }
 
@@ -3164,7 +3352,7 @@ LABEL_28:
 
 - (void)_repairHandleCFUItemsChanged
 {
-  v3 = [objc_alloc(off_10096FF98()) initWithClientIdentifier:0];
+  v3 = [objc_alloc(off_10096FF98(self a2))];
   v4[0] = _NSConcreteStackBlock;
   v4[1] = 3221225472;
   v4[2] = sub_10009EADC;
@@ -3206,45 +3394,49 @@ LABEL_28:
     v7 = v6;
   }
 
-  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
   v8 = itemsCopy;
-  v9 = [v8 countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (v9)
   {
     v10 = v9;
-    v25 = v27;
+    v26 = v28;
     p_cache = _TtC16DaemoniOSLibrary28SDAirDropMoveToAppShareSheet.cache;
-    v12 = *v29;
+    v12 = *v30;
     do
     {
       v13 = 0;
       do
       {
-        if (*v29 != v12)
+        if (*v30 != v12)
         {
           objc_enumerationMutation(v8);
         }
 
-        v14 = *(*(&v28 + 1) + 8 * v13);
+        v14 = *(*(&v29 + 1) + 8 * v13);
         uniqueIdentifier = [v14 uniqueIdentifier];
-        v16 = *(p_cache + 958);
+        v16 = uniqueIdentifier;
+        v17 = *(p_cache + 958);
         if (uniqueIdentifier)
         {
-          if (v16 <= 50 && (v16 != -1 || _LogCategory_Initialize()))
+          if (v17 <= 50)
           {
-            sub_1000A62DC();
+            if (v17 != -1 || (uniqueIdentifier = _LogCategory_Initialize(), uniqueIdentifier))
+            {
+              uniqueIdentifier = sub_1000A62DC(v16);
+            }
           }
 
           if (self->_prefRepairHomeKit)
           {
-            v17 = off_10096FFA0();
-            v18 = [uniqueIdentifier isEqual:v17];
+            v18 = off_10096FFA0(uniqueIdentifier);
+            v19 = [v16 isEqual:v18];
 
             p_cache = (_TtC16DaemoniOSLibrary28SDAirDropMoveToAppShareSheet + 16);
-            if (v18)
+            if (v19)
             {
 LABEL_22:
               v7 |= 8uLL;
@@ -3252,7 +3444,7 @@ LABEL_22:
             }
           }
 
-          if ([uniqueIdentifier isEqual:@"com.apple.homekit.PrimaryResident"])
+          if ([v16 isEqual:@"com.apple.homekit.PrimaryResident"])
           {
             v7 |= 0x400000uLL;
             goto LABEL_56;
@@ -3264,7 +3456,7 @@ LABEL_22:
             [(SDSetupAgent *)self _fetchSymptomsReport];
             if (SFIsDeviceAppleTV())
             {
-              v20 = 2;
+              v21 = 2;
             }
 
             else
@@ -3272,153 +3464,153 @@ LABEL_22:
               defaultStore = [(objc_class *)off_10096FFA8() defaultStore];
               activeAccount = [defaultStore activeAccount];
 
-              v23 = activeAccount == 0;
+              v24 = activeAccount == 0;
               p_cache = (_TtC16DaemoniOSLibrary28SDAirDropMoveToAppShareSheet + 16);
-              v20 = 2;
-              if (!v23)
+              v21 = 2;
+              if (!v24)
               {
-                v20 = 6;
+                v21 = 6;
               }
             }
 
-            v7 |= v20;
+            v7 |= v21;
           }
 
           else
           {
-            if (self->_prefRepairAccounts && [uniqueIdentifier isEqual:@"com.apple.SSFollowUpIdentifier.RenewCredentials"] && !-[SDSetupAgent _useSymptomsReport](self, "_useSymptomsReport"))
+            if (self->_prefRepairAccounts && [v16 isEqual:@"com.apple.SSFollowUpIdentifier.RenewCredentials"] && !-[SDSetupAgent _useSymptomsReport](self, "_useSymptomsReport"))
             {
               goto LABEL_55;
             }
 
-            if ([uniqueIdentifier isEqual:@"RepairCDPState"])
+            if ([v16 isEqual:@"RepairCDPState"])
             {
               dispatchQueue = self->_dispatchQueue;
               block[0] = _NSConcreteStackBlock;
               block[1] = 3221225472;
-              v27[0] = sub_10009F2BC;
-              v27[1] = &unk_1008CDEA0;
-              v27[2] = self;
+              v28[0] = sub_10009F2BC;
+              v28[1] = &unk_1008CDEA0;
+              v28[2] = self;
               dispatch_async(dispatchQueue, block);
               goto LABEL_56;
             }
 
-            if ([uniqueIdentifier isEqual:@"x-bt"])
+            if ([v16 isEqual:@"x-bt"])
             {
               v7 |= 0x200uLL;
               goto LABEL_56;
             }
 
-            if ([uniqueIdentifier isEqual:@"x-cdp"])
+            if ([v16 isEqual:@"x-cdp"])
             {
               v7 |= 0x20000uLL;
               goto LABEL_56;
             }
 
-            if ([uniqueIdentifier isEqual:@"x-homekit"])
+            if ([v16 isEqual:@"x-homekit"])
             {
               goto LABEL_22;
             }
 
-            if ([uniqueIdentifier isEqual:@"x-hw"])
+            if ([v16 isEqual:@"x-hw"])
             {
               v7 |= 0x100uLL;
               goto LABEL_56;
             }
 
-            if ([uniqueIdentifier isEqual:@"x-icloud"])
+            if ([v16 isEqual:@"x-icloud"])
             {
               v7 |= 2uLL;
               goto LABEL_56;
             }
 
-            if ([uniqueIdentifier isEqual:@"x-inet"])
+            if ([v16 isEqual:@"x-inet"])
             {
               v7 |= 0x80uLL;
               goto LABEL_56;
             }
 
-            if ([uniqueIdentifier isEqual:@"x-itunes"])
+            if ([v16 isEqual:@"x-itunes"])
             {
 LABEL_55:
               v7 |= 4uLL;
             }
 
-            else if ([uniqueIdentifier isEqual:@"x-profile"])
+            else if ([v16 isEqual:@"x-profile"])
             {
               v7 |= 0x40000uLL;
             }
 
-            else if ([uniqueIdentifier isEqual:@"x-recovery"])
+            else if ([v16 isEqual:@"x-recovery"])
             {
               v7 |= 0x800uLL;
             }
 
-            else if ([uniqueIdentifier isEqual:@"x-StereoError"])
+            else if ([v16 isEqual:@"x-StereoError"])
             {
               v7 |= 0x4000uLL;
             }
 
-            else if ([uniqueIdentifier isEqual:@"x-StereoNotFound"])
+            else if ([v16 isEqual:@"x-StereoNotFound"])
             {
               v7 |= 0x1000uLL;
             }
 
-            else if ([uniqueIdentifier isEqual:@"x-StereoVersion"])
+            else if ([v16 isEqual:@"x-StereoVersion"])
             {
               v7 |= 0x2000uLL;
             }
 
-            else if ([uniqueIdentifier isEqual:@"x-thermal"])
+            else if ([v16 isEqual:@"x-thermal"])
             {
               v7 |= 0x400uLL;
             }
 
-            else if ([uniqueIdentifier isEqual:@"x-wifi"])
+            else if ([v16 isEqual:@"x-wifi"])
             {
               v7 |= 0x10uLL;
             }
 
-            else if ([uniqueIdentifier isEqual:@"x-wifi8021x"])
+            else if ([v16 isEqual:@"x-wifi8021x"])
             {
               v7 |= 0x10000uLL;
             }
 
-            else if ([uniqueIdentifier isEqual:@"x-wifiperf"])
+            else if ([v16 isEqual:@"x-wifiperf"])
             {
               v7 |= 0x40uLL;
             }
 
-            else if ([uniqueIdentifier isEqual:@"x-vpn"])
+            else if ([v16 isEqual:@"x-vpn"])
             {
               v7 |= 0x8000uLL;
             }
 
-            else if ([uniqueIdentifier isEqual:@"x-netnoshare"])
+            else if ([v16 isEqual:@"x-netnoshare"])
             {
               v7 |= 0x80000uLL;
             }
 
-            else if ([uniqueIdentifier isEqual:@"x-netneedprofile"])
+            else if ([v16 isEqual:@"x-netneedprofile"])
             {
               v7 |= 0x100000uLL;
             }
 
-            else if ([uniqueIdentifier isEqual:@"x-captivenetwork"])
+            else if ([v16 isEqual:@"x-captivenetwork"])
             {
               v7 |= 0x200000uLL;
             }
 
-            else if ([uniqueIdentifier isEqual:@"x-hkprimary"])
+            else if ([v16 isEqual:@"x-hkprimary"])
             {
               v7 |= 0x400000uLL;
             }
           }
         }
 
-        else if (v16 <= 60 && (v16 != -1 || _LogCategory_Initialize()))
+        else if (v17 <= 60 && (v17 != -1 || _LogCategory_Initialize()))
         {
-          sub_1000A631C();
+          sub_1000A631C(v14);
         }
 
 LABEL_56:
@@ -3427,11 +3619,11 @@ LABEL_56:
       }
 
       while (v10 != v13);
-      v24 = [v8 countByEnumeratingWithState:&v28 objects:v32 count:16];
-      v10 = v24;
+      v25 = [v8 countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v10 = v25;
     }
 
-    while (v24);
+    while (v25);
   }
 
   if (v7 != self->_problemFlags)
@@ -3461,50 +3653,60 @@ LABEL_56:
   {
     if (!self->_repairController)
     {
-      v5 = objc_alloc_init(off_10096FFB0());
+      v8 = objc_alloc_init(off_10096FFB0());
       repairController = self->_repairController;
-      self->_repairController = v5;
+      self->_repairController = v8;
     }
 
-    if (dword_10096FEF8 <= 30 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+    if (dword_10096FEF8 <= 30)
     {
-      sub_1000A635C();
+      if (dword_10096FEF8 != -1 || (v5 = _LogCategory_Initialize(), v5))
+      {
+        sub_1000A635C(v5, v6, v7);
+      }
     }
 
-    v7 = [objc_alloc(off_10096FFB8()) initWithAltDSID:myAltDSID];
-    v8 = [NSSet setWithObjects:AIDAServiceTypeCloud, AIDAServiceTypeStore, 0];
-    [v7 setRequiredServiceTypes:v8];
+    v10 = [objc_alloc(off_10096FFB8()) initWithAltDSID:myAltDSID];
+    v11 = [NSSet setWithObjects:AIDAServiceTypeCloud, AIDAServiceTypeStore, 0];
+    [v10 setRequiredServiceTypes:v11];
 
-    v9 = self->_repairController;
-    v10[0] = _NSConcreteStackBlock;
-    v10[1] = 3221225472;
-    v10[2] = sub_10009F4A0;
-    v10[3] = &unk_1008CEB30;
-    v10[4] = self;
-    [(AISRepairController *)v9 generateSymptomReportWithContext:v7 completionHandler:v10];
+    v12 = self->_repairController;
+    v13[0] = _NSConcreteStackBlock;
+    v13[1] = 3221225472;
+    v13[2] = sub_10009F4A0;
+    v13[3] = &unk_1008CEB30;
+    v13[4] = self;
+    [(AISRepairController *)v12 generateSymptomReportWithContext:v10 completionHandler:v13];
   }
 
-  else if (dword_10096FEF8 <= 30 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+  else if (dword_10096FEF8 <= 30)
   {
-    sub_1000A6378();
+    if (dword_10096FEF8 != -1 || (v5 = _LogCategory_Initialize(), v5))
+    {
+      sub_1000A6378(v5, v6, v7);
+    }
   }
 }
 
 - (void)_repairHandleCompletion
 {
-  if (dword_10096FEF8 <= 30 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_10096FEF8 <= 30)
   {
-    sub_1000A63E4();
+    if (dword_10096FEF8 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_1000A63E4(self, a2, v2);
+    }
   }
 
-  if (self->_repairTimer)
+  if (selfCopy->_repairTimer)
   {
     SFDispatchTimerSet();
   }
 
-  self->_problemFlags = 0;
-  [(SDSetupAgent *)self _repairProblemFlagsChanged];
-  wifiHealthMonitor = self->_wifiHealthMonitor;
+  selfCopy->_problemFlags = 0;
+  [(SDSetupAgent *)selfCopy _repairProblemFlagsChanged];
+  wifiHealthMonitor = selfCopy->_wifiHealthMonitor;
 
   [(SFWiFiHealthMonitor *)wifiHealthMonitor reset];
 }
@@ -3547,7 +3749,7 @@ LABEL_56:
   IsRequired = CNUserInteractionIsRequired();
   if (dword_10096FEF8 <= 30 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
   {
-    sub_1000A6400(self);
+    sub_1000A6400(self, IsRequired != 0);
     if (IsRequired)
     {
 LABEL_5:
@@ -3608,9 +3810,10 @@ LABEL_13:
 - (void)_repairProblemFlagsChanged
 {
   IsRequired = CNUserInteractionIsRequired();
-  if (dword_10096FEF8 > 30 || dword_10096FEF8 == -1 && !_LogCategory_Initialize())
+  v6 = IsRequired;
+  if (dword_10096FEF8 > 30 || dword_10096FEF8 == -1 && (IsRequired = _LogCategory_Initialize(), !IsRequired))
   {
-    if (IsRequired)
+    if (v6)
     {
       goto LABEL_5;
     }
@@ -3620,16 +3823,19 @@ LABEL_10:
     goto LABEL_11;
   }
 
-  sub_1000A64B0();
-  if (!IsRequired)
+  IsRequired = sub_1000A64B0(v6 == 0);
+  if (!v6)
   {
     goto LABEL_10;
   }
 
 LABEL_5:
-  if (dword_10096FEF8 <= 30 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+  if (dword_10096FEF8 <= 30)
   {
-    sub_1000A6508();
+    if (dword_10096FEF8 != -1 || (IsRequired = _LogCategory_Initialize(), IsRequired))
+    {
+      sub_1000A6508(IsRequired, v4, v5);
+    }
   }
 
   problemFlags = self->_problemFlags | 0x200010;
@@ -3637,24 +3843,24 @@ LABEL_5:
 LABEL_11:
   if (dword_10096FEF8 <= 30 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
   {
-    sub_1000A6524();
+    sub_1000A6524(problemFlags);
   }
 
   if (problemFlags)
   {
-    v5 = problemFlags | 1;
+    v8 = problemFlags | 1;
   }
 
   else
   {
-    v5 = 0;
+    v8 = 0;
   }
 
-  [(SFDeviceRepairService *)self->_repairService setProblemFlags:v5];
+  [(SFDeviceRepairService *)self->_repairService setProblemFlags:v8];
   problemNotifyToken = self->_problemNotifyToken;
   if (problemNotifyToken != -1)
   {
-    notify_set_state(problemNotifyToken, v5);
+    notify_set_state(problemNotifyToken, v8);
 
     notify_post("com.apple.sharing.problems");
   }
@@ -3663,11 +3869,15 @@ LABEL_11:
 - (void)_repairSilentStart:(id)start
 {
   startCopy = start;
-  if (([startCopy problemFlags] & 0x10000) != 0)
+  problemFlags = [startCopy problemFlags];
+  if ((problemFlags & 0x10000) != 0)
   {
-    if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+    if (dword_10096FEF8 <= 50)
     {
-      sub_1000A656C();
+      if (dword_10096FEF8 != -1 || (problemFlags = _LogCategory_Initialize(), problemFlags))
+      {
+        sub_1000A656C(problemFlags, v6, v7);
+      }
     }
   }
 
@@ -3676,16 +3886,20 @@ LABEL_11:
     if (([startCopy problemFlags] & 0x10) != 0)
     {
       model = [startCopy model];
-      v6 = [model hasPrefix:@"AudioAccessory"];
+      v9 = [model hasPrefix:@"AudioAccessory"];
 
-      if (v6)
+      if (v9)
       {
-        v7 = WiFiCopyCurrentNetworkInfo();
-        if (CFDictionaryGetInt64() || ([startCopy problemFlags] & 0x200000) != 0)
+        v10 = WiFiCopyCurrentNetworkInfo();
+        Int64 = CFDictionaryGetInt64();
+        if (Int64 || (Int64 = [startCopy problemFlags], (Int64 & 0x200000) != 0))
         {
-          if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+          if (dword_10096FEF8 <= 50)
           {
-            sub_1000A6588();
+            if (dword_10096FEF8 != -1 || (Int64 = _LogCategory_Initialize(), Int64))
+            {
+              sub_1000A6588(Int64, v12, v13);
+            }
           }
 
           goto LABEL_27;
@@ -3696,42 +3910,42 @@ LABEL_11:
     if (([startCopy problemFlags] & 0x22001E) != 0)
     {
       [(SFDeviceRepairSession *)self->_repairSession invalidate];
-      v8 = objc_alloc_init(SFDeviceRepairSession);
+      v14 = objc_alloc_init(SFDeviceRepairSession);
       repairSession = self->_repairSession;
-      self->_repairSession = v8;
+      self->_repairSession = v14;
 
       [(SFDeviceRepairSession *)self->_repairSession setPeerDevice:startCopy];
-      v10 = +[SDStatusMonitor sharedMonitor];
-      myAltDSID = [v10 myAltDSID];
+      v16 = +[SDStatusMonitor sharedMonitor];
+      myAltDSID = [v16 myAltDSID];
       [(SFDeviceRepairSession *)self->_repairSession setAltDSID:myAltDSID];
 
       [(SFDeviceRepairSession *)self->_repairSession setOperationType:3];
-      v16[0] = _NSConcreteStackBlock;
-      v16[1] = 3221225472;
-      v16[2] = sub_10009FD48;
-      v16[3] = &unk_1008CEA78;
-      v16[4] = self;
-      [(SFDeviceRepairSession *)self->_repairSession setProgressHandler:v16];
+      v22[0] = _NSConcreteStackBlock;
+      v22[1] = 3221225472;
+      v22[2] = sub_10009FD48;
+      v22[3] = &unk_1008CEA78;
+      v22[4] = self;
+      [(SFDeviceRepairSession *)self->_repairSession setProgressHandler:v22];
       bleDevice = [startCopy bleDevice];
       foundTicks = [bleDevice foundTicks];
 
       if (foundTicks)
       {
         mach_absolute_time();
-        v14 = UpTicksToMilliseconds();
+        v20 = UpTicksToMilliseconds();
       }
 
       else
       {
-        v14 = 0;
+        v20 = 0;
       }
 
-      [(SFDeviceRepairSession *)self->_repairSession setTriggerMs:v14];
-      v15 = +[IDSServerBag sharedInstance];
-      v7 = [v15 objectForKey:@"SDDisableRepairSilentAuth"];
+      [(SFDeviceRepairSession *)self->_repairSession setTriggerMs:v20];
+      v21 = +[IDSServerBag sharedInstance];
+      v10 = [v21 objectForKey:@"SDDisableRepairSilentAuth"];
 
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) != 0 && [v7 BOOLValue])
+      if ((objc_opt_isKindOfClass() & 1) != 0 && [v10 BOOLValue])
       {
         [(SFDeviceRepairSession *)self->_repairSession setDisableSilentAuth:1];
       }
@@ -3754,16 +3968,23 @@ LABEL_28:
 - (void)_repairSilentProgress:(unsigned int)progress info:(id)info
 {
   infoCopy = info;
-  if (dword_10096FEF8 <= 30 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+  v12 = infoCopy;
+  if (dword_10096FEF8 <= 30)
   {
-    sub_1000A65F0(progress);
+    if (dword_10096FEF8 != -1 || (infoCopy = _LogCategory_Initialize(), infoCopy))
+    {
+      infoCopy = sub_1000A65F0(progress, v12);
+    }
   }
 
   if (progress == 20)
   {
-    if (dword_10096FEF8 <= 30 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+    if (dword_10096FEF8 <= 30)
     {
-      sub_1000A6650();
+      if (dword_10096FEF8 != -1 || (infoCopy = _LogCategory_Initialize(), infoCopy))
+      {
+        sub_1000A6650(infoCopy, v7, v8);
+      }
     }
 
     self->_triggeredUIRepair = 0;
@@ -3776,7 +3997,7 @@ LABEL_28:
       peerDevice = [(SFDeviceRepairSession *)self->_repairSession peerDevice];
       if (dword_10096FEF8 <= 30 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
       {
-        sub_1000A666C();
+        sub_1000A666C(peerDevice);
       }
 
       [(SFDeviceRepairSession *)self->_repairSession invalidate];
@@ -3797,12 +4018,12 @@ LABEL_28:
       peerDevice = CFDictionaryGetTypedValue();
       [(SDSetupAgent *)self _repairUpdateIDSCache];
       [(SFDeviceRepairSession *)self->_repairSession invalidate];
-      v7 = self->_repairSession;
+      v10 = self->_repairSession;
       self->_repairSession = 0;
 
       if (dword_10096FEF8 <= 30 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
       {
-        sub_1000A66AC();
+        sub_1000A66AC(peerDevice);
       }
     }
   }
@@ -3890,7 +4111,7 @@ LABEL_20:
   detectedCopy = detected;
   if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
   {
-    sub_1000A6868();
+    sub_1000A6868(detectedCopy);
   }
 
   dispatchQueue = self->_dispatchQueue;
@@ -3907,7 +4128,7 @@ LABEL_20:
   iCopy = i;
   if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
   {
-    sub_1000A68A8();
+    sub_1000A68A8(iCopy);
   }
 
   dispatchQueue = self->_dispatchQueue;
@@ -3924,7 +4145,7 @@ LABEL_20:
   iCopy = i;
   if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
   {
-    sub_1000A68E8();
+    sub_1000A68E8(iCopy);
   }
 
   v5 = objc_alloc_init(SFDevice);
@@ -3951,7 +4172,7 @@ LABEL_20:
   iCopy = i;
   if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
   {
-    sub_1000A6928();
+    sub_1000A6928(iCopy);
   }
 
   v5 = objc_alloc_init(SFDevice);
@@ -3998,7 +4219,7 @@ LABEL_20:
   b238Copy = b238;
   if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
   {
-    sub_1000A6968();
+    sub_1000A6968(b238Copy);
   }
 
   v5 = objc_alloc_init(SFDevice);
@@ -4085,41 +4306,42 @@ LABEL_20:
   v9 = objc_alloc_init(SFBLEDevice);
   [v5 setBleDevice:v9];
   [v5 setDeviceClassCode:4];
-  [v5 setDeviceModelCode:{-[SDSetupAgent extractParameter:inString:](self, "extractParameter:inString:", @"device", b238Copy)}];
-  v10 = [(SDSetupAgent *)self extractParameter:@"color" inString:b238Copy];
-  if (v10)
+  v10 = [(SDSetupAgent *)self extractParameter:@"device" inString:b238Copy];
+  [v5 setDeviceModelCode:v10];
+  v11 = [(SDSetupAgent *)self extractParameter:@"color" inString:b238Copy];
+  if (v11)
   {
-    v11 = v10;
+    v12 = v11;
   }
 
   else
   {
-    v11 = 2;
+    v12 = 2;
   }
 
   [v5 setDeviceActionType:33];
-  v20 = @"cc";
-  v12 = [NSNumber numberWithInteger:v11];
-  v21 = v12;
-  v13 = [NSDictionary dictionaryWithObjects:&v21 forKeys:&v20 count:1];
-  [v9 setAdvertisementFields:v13];
+  v21 = @"cc";
+  v13 = [NSNumber numberWithInteger:v12];
+  v22 = v13;
+  v14 = [NSDictionary dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+  [v9 setAdvertisementFields:v14];
 
   if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
   {
-    sub_1000A69A8(v5);
+    sub_1000A69A8(v5, v10, v12);
   }
 
   dispatchQueue = self->_dispatchQueue;
-  v17[0] = _NSConcreteStackBlock;
-  v17[1] = 3221225472;
-  v17[2] = sub_1000A0EAC;
-  v17[3] = &unk_1008CE900;
-  v17[4] = self;
-  v18 = v5;
-  v19 = b238Copy;
-  v15 = b238Copy;
-  v16 = v5;
-  dispatch_async(dispatchQueue, v17);
+  v18[0] = _NSConcreteStackBlock;
+  v18[1] = 3221225472;
+  v18[2] = sub_1000A0EAC;
+  v18[3] = &unk_1008CE900;
+  v18[4] = self;
+  v19 = v5;
+  v20 = b238Copy;
+  v16 = b238Copy;
+  v17 = v5;
+  dispatch_async(dispatchQueue, v18);
 }
 
 - (int64_t)extractParameter:(id)parameter inString:(id)string
@@ -4174,7 +4396,7 @@ LABEL_11:
   sCopy = s;
   if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
   {
-    sub_1000A6A04();
+    sub_1000A6A04(sCopy);
   }
 
   v5 = objc_alloc_init(SFDevice);
@@ -4229,7 +4451,7 @@ LABEL_10:
   sharingCopy = sharing;
   if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
   {
-    sub_1000A6A44();
+    sub_1000A6A44(sharingCopy);
   }
 
   v5 = objc_alloc_init(SFDevice);
@@ -4290,7 +4512,7 @@ LABEL_10:
   watchCopy = watch;
   if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
   {
-    sub_1000A6A84();
+    sub_1000A6A84(watchCopy);
   }
 
   v5 = objc_alloc_init(SFDevice);
@@ -4314,7 +4536,7 @@ LABEL_10:
   aCopy = a;
   if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
   {
-    sub_1000A6AC4();
+    sub_1000A6AC4(aCopy);
   }
 
   v5 = objc_alloc_init(SFDevice);
@@ -4395,7 +4617,7 @@ LABEL_10:
   setupCopy = setup;
   if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
   {
-    sub_1000A6B04();
+    sub_1000A6B04(setupCopy);
   }
 
   v5 = objc_alloc_init(SFDevice);
@@ -4422,7 +4644,7 @@ LABEL_10:
   audioCopy = audio;
   if (dword_10096FEF8 <= 30 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
   {
-    sub_1000A6B44();
+    sub_1000A6B44(audioCopy);
   }
 
   v4 = objc_alloc_init(SFProxCardSessionClient);
@@ -4452,7 +4674,7 @@ LABEL_10:
   setupCopy = setup;
   if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
   {
-    sub_1000A6C20();
+    sub_1000A6C20(setupCopy);
   }
 
   v5 = objc_alloc_init(SFDevice);
@@ -4479,7 +4701,7 @@ LABEL_10:
   setupCopy = setup;
   if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
   {
-    sub_1000A6C60();
+    sub_1000A6C60(setupCopy);
   }
 
   v5 = objc_alloc_init(SFDevice);
@@ -4530,11 +4752,720 @@ LABEL_10:
   v8 = 0;
   if (!self->_deviceDiscovery || !identifier)
   {
-    goto LABEL_196;
+    goto LABEL_200;
   }
 
   v8 = [(NSMutableDictionary *)self->_devices objectForKeyedSubscript:identifier];
-  if (![foundCopy needsSetup])
+  if ([foundCopy needsSetup])
+  {
+    devices = self->_devices;
+    if (!devices)
+    {
+      v10 = objc_alloc_init(NSMutableDictionary);
+      v11 = self->_devices;
+      self->_devices = v10;
+
+      devices = self->_devices;
+    }
+
+    [(NSMutableDictionary *)devices setObject:foundCopy forKeyedSubscript:identifier];
+    if ((gSDProxCardsSuppressed & 1) == 0 && ![(SDSetupAgent *)self _uiShowing])
+    {
+      systemUIFlags = [(SDStatusMonitor *)self->_statusMonitor systemUIFlags];
+      if (deviceActionType == 30 || deviceActionType == 25)
+      {
+        if ((systemUIFlags & 0x7C808) != 0)
+        {
+          goto LABEL_200;
+        }
+      }
+
+      else
+      {
+        if ((systemUIFlags & 0x7C809) != 0)
+        {
+          goto LABEL_200;
+        }
+
+        if (deviceActionType <= 0x1B && ((1 << deviceActionType) & 0x8021100) != 0)
+        {
+          v18 = [(NSMutableDictionary *)self->_triggeredDevices objectForKeyedSubscript:identifier];
+
+          if (v18)
+          {
+            goto LABEL_200;
+          }
+        }
+      }
+
+      [(SDProximityController *)self->_proximityController sender:self notifyBluetoothSample:foundCopy];
+      if ([bleDevice triggered])
+      {
+        sub_1000A2A90();
+        if (v20 ^ v21 | v25 && (v19 != -1 || _LogCategory_Initialize()))
+        {
+          deviceActionType2 = [foundCopy deviceActionType];
+          v23 = [foundCopy description];
+          LogPrintF(&dword_10096FEF8, "[SDSetupAgent _deviceFound:]", 50, "#ni_estimator SDSetupAgent trigger launched with actiontype: %d for device: %@", deviceActionType2, v23);
+        }
+
+        v25 = deviceActionType == 33 || deviceActionType == 11;
+        if (!v25 || ![(CUSystemMonitor *)self->_systemMonitor activeCallCount])
+        {
+          _screenLocked = [(SDSetupAgent *)self _screenLocked];
+          if (deviceActionType <= 0x24 && ((1 << deviceActionType) & 0x1042000200) != 0 || deviceActionType == 90)
+          {
+            if (_screenLocked)
+            {
+              v27 = CACurrentMediaTime();
+              BKSHIDServicesLastUserEventTime();
+              if (v27 - v28 > 30.0)
+              {
+                if (dword_10096FEF8 <= 30 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+                {
+                  v77 = bleDevice;
+                  v29 = "Ignoring proximity for non-user initiated lock screen: %@\n";
+                  v30 = 30;
+LABEL_46:
+                  LogPrintF(&dword_10096FEF8, "[SDSetupAgent _deviceFound:]", v30, v29, v77);
+                }
+
+                goto LABEL_200;
+              }
+            }
+          }
+
+          else if (_screenLocked)
+          {
+            goto LABEL_200;
+          }
+
+          if (!self->_bleAuthTagFilter)
+          {
+            goto LABEL_54;
+          }
+
+          v31 = objc_msgSend_advertisementFields(bleDevice);
+          CFDataGetTypeID();
+          v32 = CFDictionaryGetTypedValue();
+
+          bleAuthTagFilter = self->_bleAuthTagFilter;
+          v34 = v32;
+          v35 = bleAuthTagFilter;
+          v36 = v35;
+          if (v34 == v35)
+          {
+
+LABEL_54:
+            if (SFStoreDemoMode() & 1) != 0 || (SFLostMode())
+            {
+              goto LABEL_200;
+            }
+
+            triggeredDevices = self->_triggeredDevices;
+            if (!triggeredDevices)
+            {
+              v39 = objc_alloc_init(NSMutableDictionary);
+              v40 = self->_triggeredDevices;
+              self->_triggeredDevices = v39;
+
+              triggeredDevices = self->_triggeredDevices;
+            }
+
+            [(NSMutableDictionary *)triggeredDevices setObject:foundCopy forKeyedSubscript:identifier];
+            [sub_100021E5C() _postDeviceSetupNotificationForDevice:? present:?];
+            [(SFDeviceDiscovery *)self->_deviceDiscovery fastScanCancel:@"Triggered"];
+            switch(deviceActionType)
+            {
+              case 1:
+                if ([foundCopy osVersion] >= 0xE)
+                {
+                  if (dword_10096FEF8 <= 10 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+                  {
+                    LogPrintF(&dword_10096FEF8, "[SDSetupAgent _deviceFound:]", 10, "Ignoring non-legacy AppleTVSetup: %@", bleDevice);
+                  }
+                }
+
+                else if (self->_triggeredUIAppleTVSetup)
+                {
+                  if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+                  {
+                    v77 = bleDevice;
+                    v29 = "Ignoring proximity AppleTVSetup with another %@\n";
+                    goto LABEL_103;
+                  }
+                }
+
+                else
+                {
+                  v52 = +[MCProfileConnection sharedConnection];
+                  isProximitySetupToNewDeviceAllowed = [v52 isProximitySetupToNewDeviceAllowed];
+
+                  if (isProximitySetupToNewDeviceAllowed)
+                  {
+                    self->_triggeredUIAppleTVSetup = 1;
+                    if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+                    {
+                      LogPrintF(&dword_10096FEF8, "[SDSetupAgent _deviceFound:]", 50, "Triggering proximity AppleTVSetup with %@\n", bleDevice);
+                    }
+
+                    [sub_100021E5C() _uiStartAppleTVSetup:? extraInfo:?];
+                    goto LABEL_198;
+                  }
+
+                  if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+                  {
+                    v77 = bleDevice;
+                    v29 = "Ignoring proximity AppleTVSetup when not allowed for %@\n";
+                    goto LABEL_103;
+                  }
+                }
+
+                goto LABEL_200;
+              case 2:
+              case 3:
+              case 4:
+              case 5:
+              case 7:
+              case 14:
+              case 15:
+              case 16:
+              case 18:
+              case 19:
+              case 20:
+              case 21:
+              case 22:
+              case 23:
+              case 24:
+              case 26:
+              case 28:
+              case 29:
+              case 31:
+              case 34:
+              case 35:
+                goto LABEL_200;
+              case 6:
+                if (self->_triggeredUIAppleTVPair)
+                {
+                  if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+                  {
+                    v77 = bleDevice;
+                    v29 = "Ignoring proximity AppleTVPair with another %@\n";
+                    goto LABEL_103;
+                  }
+                }
+
+                else
+                {
+                  v54 = +[MCProfileConnection sharedConnection];
+                  isProximitySetupToNewDeviceAllowed2 = [v54 isProximitySetupToNewDeviceAllowed];
+
+                  if (isProximitySetupToNewDeviceAllowed2)
+                  {
+                    self->_triggeredUIAppleTVPair = 1;
+                    if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+                    {
+                      LogPrintF(&dword_10096FEF8, "[SDSetupAgent _deviceFound:]", 50, "Triggering proximity AppleTVPair with %@\n", bleDevice);
+                    }
+
+                    [sub_100021E5C() _uiStartPair:? extraInfo:?];
+                    goto LABEL_198;
+                  }
+
+                  if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+                  {
+                    v77 = bleDevice;
+                    v29 = "Ignoring proximity AppleTVPair when not allowed for %@\n";
+                    goto LABEL_103;
+                  }
+                }
+
+                goto LABEL_200;
+              case 8:
+                v56 = +[MCProfileConnection sharedConnection];
+                isWiFiPasswordSharingAllowed = [v56 isWiFiPasswordSharingAllowed];
+
+                if (isWiFiPasswordSharingAllowed)
+                {
+                  if (self->_pwsGrantingEnabled && [sub_100021E5C() _shouldOfferPassword:?])
+                  {
+                    if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+                    {
+                      LogPrintF(&dword_10096FEF8, "[SDSetupAgent _deviceFound:]", 50, "WPS: Triggering Wi-Fi Password Sharing with %@\n", bleDevice);
+                    }
+
+                    [sub_100021E5C() _uiStartWiFiPasswordSharing:?];
+                  }
+
+                  else if (dword_10096FEF8 <= 30 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+                  {
+                    v76 = bleDevice;
+                    v47 = "WPS: Shouldn't offer password, ignoring triggered device: %@\n";
+                    v62 = 30;
+                    goto LABEL_143;
+                  }
+
+                  goto LABEL_198;
+                }
+
+                if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+                {
+                  v77 = bleDevice;
+                  v29 = "WPS: Ignoring Wi-Fi Password Sharing request when not allowed for %@";
+                  goto LABEL_103;
+                }
+
+                goto LABEL_200;
+              case 9:
+                if (self->_triggeredUIiOSSetup)
+                {
+                  if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+                  {
+                    v77 = bleDevice;
+                    v29 = "Ignoring proximity iOSSetup with another %@\n";
+                    goto LABEL_103;
+                  }
+                }
+
+                else
+                {
+                  v58 = +[MCProfileConnection sharedConnection];
+                  isProximitySetupToNewDeviceAllowed3 = [v58 isProximitySetupToNewDeviceAllowed];
+
+                  if (isProximitySetupToNewDeviceAllowed3)
+                  {
+                    if (([foundCopy deviceFlags] & 0x100) == 0)
+                    {
+                      if ([(SDStatusMonitor *)self->_statusMonitor eduModeEnabled])
+                      {
+                        if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+                        {
+                          v47 = "Ignoring proximity iOSSetup in EDU mode\n";
+                          goto LABEL_139;
+                        }
+                      }
+
+                      else
+                      {
+                        if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+                        {
+                          LogPrintF(&dword_10096FEF8, "[SDSetupAgent _deviceFound:]", 50, "Triggering proximity iOSSetup with %@\n", bleDevice);
+                        }
+
+                        self->_triggeredUIiOSSetup = 1;
+                        [sub_100021E5C() _uiStartSetupiOS:? autoStart:?];
+                      }
+
+                      goto LABEL_198;
+                    }
+
+                    if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+                    {
+                      v77 = bleDevice;
+                      v29 = "Ignoring proximity iOSSetup during resume: %@\n";
+                      goto LABEL_103;
+                    }
+                  }
+
+                  else if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+                  {
+                    v77 = bleDevice;
+                    v29 = "Ignoring proximity iOSSetup when not allowed for %@\n";
+                    goto LABEL_103;
+                  }
+                }
+
+                goto LABEL_200;
+              case 10:
+                if (self->_triggeredUIRepair)
+                {
+                  if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+                  {
+                    v77 = bleDevice;
+                    v29 = "Ignoring proximity Repair with another %@\n";
+                    goto LABEL_103;
+                  }
+                }
+
+                else
+                {
+                  v50 = +[MCProfileConnection sharedConnection];
+                  isProximitySetupToNewDeviceAllowed4 = [v50 isProximitySetupToNewDeviceAllowed];
+
+                  if (isProximitySetupToNewDeviceAllowed4)
+                  {
+                    if (([foundCopy paired] & 1) != 0 || objc_msgSend(foundCopy, "systemPairState") > 0x13)
+                    {
+                      if (self->_repairSilent)
+                      {
+                        self->_triggeredUIRepair = 1;
+                        if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+                        {
+                          LogPrintF(&dword_10096FEF8, "[SDSetupAgent _deviceFound:]", 50, "Triggering proximity Repair silent with %@\n", bleDevice);
+                        }
+
+                        [sub_100021E5C() _repairSilentStart:?];
+                      }
+
+                      goto LABEL_198;
+                    }
+
+                    if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+                    {
+                      v77 = bleDevice;
+                      v29 = "Ignoring unpaired proximity Repair with %@\n";
+                      goto LABEL_103;
+                    }
+                  }
+
+                  else if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+                  {
+                    v77 = bleDevice;
+                    v29 = "Ignoring proximity Repair when not allowed for %@\n";
+                    goto LABEL_103;
+                  }
+                }
+
+                goto LABEL_200;
+              case 11:
+              case 33:
+                if (self->_triggeredUIB238Setup)
+                {
+                  if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+                  {
+                    v77 = bleDevice;
+                    v29 = "Ignoring proximity HomePodSetup with another %@\n";
+                    goto LABEL_103;
+                  }
+                }
+
+                else
+                {
+                  v41 = +[MCProfileConnection sharedConnection];
+                  isProximitySetupToNewDeviceAllowed5 = [v41 isProximitySetupToNewDeviceAllowed];
+
+                  if (isProximitySetupToNewDeviceAllowed5)
+                  {
+                    self->_triggeredUIB238Setup = 1;
+                    sub_1000A2A84();
+                    if (v20 ^ v21 | v25)
+                    {
+                      if (v43 != -1 || _LogCategory_Initialize())
+                      {
+                        LogPrintF(&dword_10096FEF8, "[SDSetupAgent _deviceFound:]", 50, "Triggering proximity HomePodSetup with %@\n", bleDevice);
+                      }
+
+                      sub_1000A2A84();
+                      if (v20 ^ v21 | v25 && (v64 != -1 || _LogCategory_Initialize()))
+                      {
+                        v65 = sub_10009773C(deviceActionType);
+                        LogPrintF(&dword_10096FEF8, "[SDSetupAgent _deviceFound:]", 50, "HomePodSetup action type is %s\n", v65);
+                      }
+                    }
+
+                    [sub_100021E5C() _uiStartSetupB238:? extraInfo:?];
+                    goto LABEL_198;
+                  }
+
+                  if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+                  {
+                    v77 = bleDevice;
+                    v29 = "Ignoring proximity HomePodSetup when not allowed for %@\n";
+                    goto LABEL_103;
+                  }
+                }
+
+                goto LABEL_200;
+              case 12:
+                if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+                {
+                  LogPrintF(&dword_10096FEF8, "[SDSetupAgent _deviceFound:]", 50, "Triggering proximity ApplePay with %@\n", bleDevice);
+                }
+
+                notify_post("com.apple.applepay.proximity");
+                goto LABEL_198;
+              case 13:
+                if (self->_triggeredUIWHASetup)
+                {
+                  if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+                  {
+                    v77 = bleDevice;
+                    v29 = "Ignoring proximity WHASetup with another %@\n";
+                    goto LABEL_103;
+                  }
+                }
+
+                else
+                {
+                  v60 = +[MCProfileConnection sharedConnection];
+                  isProximitySetupToNewDeviceAllowed6 = [v60 isProximitySetupToNewDeviceAllowed];
+
+                  if (isProximitySetupToNewDeviceAllowed6)
+                  {
+                    self->_triggeredUIWHASetup = 1;
+                    if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+                    {
+                      LogPrintF(&dword_10096FEF8, "[SDSetupAgent _deviceFound:]", 50, "Triggering proximity WHASetup with %@\n", bleDevice);
+                    }
+
+                    [sub_100021E5C() _uiStartSetupWHA:?];
+                    goto LABEL_198;
+                  }
+
+                  if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+                  {
+                    v77 = bleDevice;
+                    v29 = "Ignoring proximity WHASetup when not allowed for %@\n";
+                    goto LABEL_103;
+                  }
+                }
+
+                goto LABEL_200;
+              case 17:
+                if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+                {
+                  LogPrintF(&dword_10096FEF8, "[SDSetupAgent _deviceFound:]", 50, "Triggering proximity DeviceDiagnostics with %@\n", bleDevice);
+                }
+
+                [(SDSetupAgent *)self _launchAppWithMachServiceName:@"com.apple.diagnosticextensionsd.sharing-wakeup"];
+                goto LABEL_198;
+              case 25:
+                if (!self->_triggeredUITVLatencySetup)
+                {
+                  goto LABEL_92;
+                }
+
+                if (dword_10096FEF8 > 50 || dword_10096FEF8 == -1 && !_LogCategory_Initialize())
+                {
+                  goto LABEL_200;
+                }
+
+                v77 = bleDevice;
+                v29 = "Ignoring proximity TVLatency with another %@\n";
+                goto LABEL_103;
+              case 27:
+                if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+                {
+                  LogPrintF(&dword_10096FEF8, "[SDSetupAgent _deviceFound:]", 50, "Triggering proximity ShareAudio: %@\n", bleDevice);
+                }
+
+                v66 = +[SDNearbyAgent sharedNearbyAgent];
+                [v66 setBoostNearbyInfo:1];
+
+                goto LABEL_198;
+              case 30:
+                if (!self->_triggeredUITVLatencySetup)
+                {
+LABEL_92:
+                  [sub_100021E5C() _uiStartTVLatencySetup:? forActionType:? withBLEDevice:?];
+                  goto LABEL_198;
+                }
+
+                if (dword_10096FEF8 > 50 || dword_10096FEF8 == -1 && !_LogCategory_Initialize())
+                {
+                  goto LABEL_200;
+                }
+
+                v77 = bleDevice;
+                v29 = "Ignoring proximity TVColorCalibration with another %@\n";
+                goto LABEL_103;
+              case 32:
+                goto LABEL_79;
+              case 36:
+                goto LABEL_70;
+              default:
+                if (deviceActionType == 43)
+                {
+LABEL_79:
+                  if (self->_triggeredUIAuthenticateAccounts)
+                  {
+                    if (dword_10096FEF8 > 50 || dword_10096FEF8 == -1 && !_LogCategory_Initialize())
+                    {
+                      goto LABEL_200;
+                    }
+
+                    v77 = bleDevice;
+                    v29 = "Ignoring proximity AuthenticateAccounts with another %@\n";
+                  }
+
+                  else
+                  {
+                    v48 = +[MCProfileConnection sharedConnection];
+                    isProximitySetupToNewDeviceAllowed7 = [v48 isProximitySetupToNewDeviceAllowed];
+
+                    if (isProximitySetupToNewDeviceAllowed7)
+                    {
+                      self->_triggeredUIAuthenticateAccounts = 1;
+                      if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+                      {
+                        LogPrintF(&dword_10096FEF8, "[SDSetupAgent _deviceFound:]", 50, "Triggering proximity AuthenticateAccounts with %@\n", bleDevice);
+                      }
+
+                      [sub_100021E5C() _uiStartAuthenticateAccounts:?];
+                      goto LABEL_198;
+                    }
+
+                    if (dword_10096FEF8 > 50 || dword_10096FEF8 == -1 && !_LogCategory_Initialize())
+                    {
+                      goto LABEL_200;
+                    }
+
+                    v77 = bleDevice;
+                    v29 = "Ignoring proximity AuthenticateAccounts when not allowed for %@\n";
+                  }
+                }
+
+                else
+                {
+                  if (deviceActionType != 90)
+                  {
+                    goto LABEL_200;
+                  }
+
+LABEL_70:
+                  if (![(SDSetupAgent *)self _deviceHandlesDovePeaceSetup])
+                  {
+                    if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+                    {
+                      v47 = "Ignoring proximity dovePeace setup on this type of device\n";
+LABEL_139:
+                      v62 = 50;
+LABEL_143:
+                      LogPrintF(&dword_10096FEF8, "[SDSetupAgent _deviceFound:]", v62, v47, v76);
+                    }
+
+LABEL_198:
+                    if (!arc4random_uniform(0xAu))
+                    {
+                      v80[0] = @"_cat";
+                      v80[1] = @"_op";
+                      v81[0] = @"Setup";
+                      v81[1] = @"Triggered";
+                      v80[2] = @"action";
+                      v69 = [NSNumber numberWithUnsignedChar:deviceActionType];
+                      v81[2] = v69;
+                      v80[3] = @"rssi";
+                      v70 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [bleDevice rssiEstimate]);
+                      v81[3] = v70;
+                      v71 = [NSDictionary dictionaryWithObjects:v81 forKeys:v80 count:4];
+                      SFDashboardLogJSON();
+
+                      v78[0] = @"action";
+                      v72 = [NSNumber numberWithUnsignedChar:deviceActionType];
+                      v78[1] = @"rssi";
+                      v79[0] = v72;
+                      v73 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [bleDevice rssiEstimate]);
+                      v79[1] = v73;
+                      v74 = [NSDictionary dictionaryWithObjects:v79 forKeys:v78 count:2];
+                      SFMetricsLog();
+                    }
+
+                    goto LABEL_200;
+                  }
+
+                  if (self->_triggeredUIDovePeace)
+                  {
+                    if (dword_10096FEF8 > 50 || dword_10096FEF8 == -1 && !_LogCategory_Initialize())
+                    {
+                      goto LABEL_200;
+                    }
+
+                    v77 = bleDevice;
+                    v29 = "Ignoring proximity dovePeace setup with another %@\n";
+                  }
+
+                  else
+                  {
+                    v44 = +[MCProfileConnection sharedConnection];
+                    isProximitySetupToNewDeviceAllowed8 = [v44 isProximitySetupToNewDeviceAllowed];
+
+                    if (isProximitySetupToNewDeviceAllowed8)
+                    {
+                      if (([foundCopy deviceFlags] & 0x100) == 0)
+                      {
+                        if ([(SDStatusMonitor *)self->_statusMonitor eduModeEnabled])
+                        {
+                          sub_1000A2A84();
+                          if (v20 ^ v21 | v25 && (v46 != -1 || _LogCategory_Initialize()))
+                          {
+                            v47 = "Ignoring proximity dovePeace setup in EDU mode\n";
+                            goto LABEL_139;
+                          }
+                        }
+
+                        else if (_os_feature_enabled_impl())
+                        {
+                          sub_1000A2A84();
+                          if (v20 ^ v21 | v25 && (v63 != -1 || _LogCategory_Initialize()))
+                          {
+                            LogPrintF(&dword_10096FEF8, "[SDSetupAgent _deviceFound:]", 50, "Triggering proximity dovePeace setup with %@\n", bleDevice);
+                          }
+
+                          self->_triggeredUIDovePeace = 1;
+                          if (deviceActionType == 90)
+                          {
+                            v67 = objc_msgSend_advertisementFields(bleDevice);
+                            v68 = [v67 objectForKeyedSubscript:@"dpp"];
+                          }
+
+                          else
+                          {
+                            v68 = 0;
+                          }
+
+                          [sub_100021E5C() _uiStartSetupDovePeace:? actionType:? payload:? autoStart:?];
+                        }
+
+                        goto LABEL_198;
+                      }
+
+                      sub_1000A2A84();
+                      if (!(v20 ^ v21 | v25) || v75 == -1 && !_LogCategory_Initialize())
+                      {
+                        goto LABEL_200;
+                      }
+
+                      v77 = bleDevice;
+                      v29 = "Ignoring proximity dovePeace setup during resume: %@\n";
+                    }
+
+                    else
+                    {
+                      if (dword_10096FEF8 > 50 || dword_10096FEF8 == -1 && !_LogCategory_Initialize())
+                      {
+                        goto LABEL_200;
+                      }
+
+                      v77 = bleDevice;
+                      v29 = "Ignoring proximity dovePeace setup when not allowed for %@\n";
+                    }
+                  }
+                }
+
+LABEL_103:
+                v30 = 50;
+                goto LABEL_46;
+            }
+          }
+
+          if ((v34 != 0) == (v35 == 0))
+          {
+
+            goto LABEL_200;
+          }
+
+          v37 = [(NSData *)v34 isEqual:v35];
+
+          if (v37)
+          {
+            goto LABEL_54;
+          }
+        }
+      }
+    }
+  }
+
+  else
   {
     if (v8)
     {
@@ -4549,8 +5480,8 @@ LABEL_10:
 
     else if ([v8 deviceActionType] == 27)
     {
-      v23 = +[SDNearbyAgent sharedNearbyAgent];
-      [v23 setBoostNearbyInfo:0];
+      v24 = +[SDNearbyAgent sharedNearbyAgent];
+      [v24 setBoostNearbyInfo:0];
     }
 
     else if ([v8 deviceActionType] == 8)
@@ -4572,656 +5503,9 @@ LABEL_10:
         self->_unoteTVLatencySetup = 0;
       }
     }
-
-    goto LABEL_196;
   }
 
-  devices = self->_devices;
-  if (!devices)
-  {
-    v10 = objc_alloc_init(NSMutableDictionary);
-    v11 = self->_devices;
-    self->_devices = v10;
-
-    devices = self->_devices;
-  }
-
-  [(NSMutableDictionary *)devices setObject:foundCopy forKeyedSubscript:identifier];
-  if ((gSDProxCardsSuppressed & 1) == 0 && ![(SDSetupAgent *)self _uiShowing])
-  {
-    systemUIFlags = [(SDStatusMonitor *)self->_statusMonitor systemUIFlags];
-    if (deviceActionType == 30 || deviceActionType == 25)
-    {
-      if ((systemUIFlags & 0x7C808) != 0)
-      {
-        goto LABEL_196;
-      }
-    }
-
-    else
-    {
-      if ((systemUIFlags & 0x7C809) != 0)
-      {
-        goto LABEL_196;
-      }
-
-      if (deviceActionType <= 0x1B && ((1 << deviceActionType) & 0x8021100) != 0)
-      {
-        v18 = [(NSMutableDictionary *)self->_triggeredDevices objectForKeyedSubscript:identifier];
-
-        if (v18)
-        {
-          goto LABEL_196;
-        }
-      }
-    }
-
-    [(SDProximityController *)self->_proximityController sender:self notifyBluetoothSample:foundCopy];
-    if ([bleDevice triggered])
-    {
-      sub_1000A2A90();
-      if (v20 ^ v21 | v24 && (v19 != -1 || _LogCategory_Initialize()))
-      {
-        deviceActionType2 = [foundCopy deviceActionType];
-        [foundCopy description];
-        v72 = v70 = deviceActionType2;
-        LogPrintF();
-      }
-
-      v24 = deviceActionType == 33 || deviceActionType == 11;
-      if (!v24 || ![(CUSystemMonitor *)self->_systemMonitor activeCallCount])
-      {
-        v25 = [(SDSetupAgent *)self _screenLocked:v70];
-        if (deviceActionType <= 0x24 && ((1 << deviceActionType) & 0x1042000200) != 0 || deviceActionType == 90)
-        {
-          if (v25)
-          {
-            v26 = CACurrentMediaTime();
-            BKSHIDServicesLastUserEventTime();
-            if (v26 - v27 > 30.0)
-            {
-              if (dword_10096FEF8 <= 30 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
-              {
-LABEL_45:
-                LogPrintF();
-                goto LABEL_196;
-              }
-
-              goto LABEL_196;
-            }
-          }
-        }
-
-        else if (v25)
-        {
-          goto LABEL_196;
-        }
-
-        if (self->_bleAuthTagFilter)
-        {
-          advertisementFields = [bleDevice advertisementFields];
-          CFDataGetTypeID();
-          v29 = CFDictionaryGetTypedValue();
-
-          bleAuthTagFilter = self->_bleAuthTagFilter;
-          v31 = v29;
-          v32 = bleAuthTagFilter;
-          v33 = v32;
-          if (v31 == v32)
-          {
-          }
-
-          else
-          {
-            if ((v31 != 0) == (v32 == 0))
-            {
-
-              goto LABEL_196;
-            }
-
-            v34 = [(NSData *)v31 isEqual:v32];
-
-            if (!v34)
-            {
-              goto LABEL_196;
-            }
-          }
-        }
-
-        if (SFStoreDemoMode() & 1) != 0 || (SFLostMode())
-        {
-          goto LABEL_196;
-        }
-
-        triggeredDevices = self->_triggeredDevices;
-        if (!triggeredDevices)
-        {
-          v36 = objc_alloc_init(NSMutableDictionary);
-          v37 = self->_triggeredDevices;
-          self->_triggeredDevices = v36;
-
-          triggeredDevices = self->_triggeredDevices;
-        }
-
-        [(NSMutableDictionary *)triggeredDevices setObject:foundCopy forKeyedSubscript:identifier];
-        [sub_100021E5C() _postDeviceSetupNotificationForDevice:? present:?];
-        [(SFDeviceDiscovery *)self->_deviceDiscovery fastScanCancel:@"Triggered"];
-        switch(deviceActionType)
-        {
-          case 1:
-            if ([foundCopy osVersion] >= 0xE)
-            {
-              if (dword_10096FEF8 <= 10 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
-              {
-                goto LABEL_45;
-              }
-            }
-
-            else if (self->_triggeredUIAppleTVSetup)
-            {
-              if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
-              {
-                goto LABEL_45;
-              }
-            }
-
-            else
-            {
-              v48 = +[MCProfileConnection sharedConnection];
-              isProximitySetupToNewDeviceAllowed = [v48 isProximitySetupToNewDeviceAllowed];
-
-              if (isProximitySetupToNewDeviceAllowed)
-              {
-                self->_triggeredUIAppleTVSetup = 1;
-                if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
-                {
-                  LogPrintF();
-                }
-
-                [sub_100021E5C() _uiStartAppleTVSetup:? extraInfo:?];
-                goto LABEL_194;
-              }
-
-              if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
-              {
-                goto LABEL_45;
-              }
-            }
-
-            break;
-          case 2:
-          case 3:
-          case 4:
-          case 5:
-          case 7:
-          case 14:
-          case 15:
-          case 16:
-          case 18:
-          case 19:
-          case 20:
-          case 21:
-          case 22:
-          case 23:
-          case 24:
-          case 26:
-          case 28:
-          case 29:
-          case 31:
-          case 34:
-          case 35:
-            break;
-          case 6:
-            if (self->_triggeredUIAppleTVPair)
-            {
-              if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
-              {
-                goto LABEL_45;
-              }
-            }
-
-            else
-            {
-              v50 = +[MCProfileConnection sharedConnection];
-              isProximitySetupToNewDeviceAllowed2 = [v50 isProximitySetupToNewDeviceAllowed];
-
-              if (isProximitySetupToNewDeviceAllowed2)
-              {
-                self->_triggeredUIAppleTVPair = 1;
-                if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
-                {
-                  LogPrintF();
-                }
-
-                [sub_100021E5C() _uiStartPair:? extraInfo:?];
-                goto LABEL_194;
-              }
-
-              if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
-              {
-                goto LABEL_45;
-              }
-            }
-
-            break;
-          case 8:
-            v52 = +[MCProfileConnection sharedConnection];
-            isWiFiPasswordSharingAllowed = [v52 isWiFiPasswordSharingAllowed];
-
-            if (isWiFiPasswordSharingAllowed)
-            {
-              if (self->_pwsGrantingEnabled && [sub_100021E5C() _shouldOfferPassword:?])
-              {
-                if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
-                {
-                  LogPrintF();
-                }
-
-                [sub_100021E5C() _uiStartWiFiPasswordSharing:?];
-                goto LABEL_194;
-              }
-
-              if (dword_10096FEF8 > 30 || dword_10096FEF8 == -1 && !_LogCategory_Initialize())
-              {
-                goto LABEL_194;
-              }
-
-              goto LABEL_139;
-            }
-
-            if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
-            {
-              goto LABEL_45;
-            }
-
-            break;
-          case 9:
-            if (self->_triggeredUIiOSSetup)
-            {
-              if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
-              {
-                goto LABEL_45;
-              }
-            }
-
-            else
-            {
-              v54 = +[MCProfileConnection sharedConnection];
-              isProximitySetupToNewDeviceAllowed3 = [v54 isProximitySetupToNewDeviceAllowed];
-
-              if (isProximitySetupToNewDeviceAllowed3)
-              {
-                if (([foundCopy deviceFlags] & 0x100) == 0)
-                {
-                  if (![(SDStatusMonitor *)self->_statusMonitor eduModeEnabled])
-                  {
-                    if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
-                    {
-                      LogPrintF();
-                    }
-
-                    self->_triggeredUIiOSSetup = 1;
-                    [sub_100021E5C() _uiStartSetupiOS:? autoStart:?];
-                    goto LABEL_194;
-                  }
-
-                  if (dword_10096FEF8 > 50 || dword_10096FEF8 == -1 && !_LogCategory_Initialize())
-                  {
-                    goto LABEL_194;
-                  }
-
-                  goto LABEL_139;
-                }
-
-                if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
-                {
-                  goto LABEL_45;
-                }
-              }
-
-              else if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
-              {
-                goto LABEL_45;
-              }
-            }
-
-            break;
-          case 10:
-            if (self->_triggeredUIRepair)
-            {
-              if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
-              {
-                goto LABEL_45;
-              }
-            }
-
-            else
-            {
-              v46 = +[MCProfileConnection sharedConnection];
-              isProximitySetupToNewDeviceAllowed4 = [v46 isProximitySetupToNewDeviceAllowed];
-
-              if (isProximitySetupToNewDeviceAllowed4)
-              {
-                if (([foundCopy paired] & 1) != 0 || objc_msgSend(foundCopy, "systemPairState") > 0x13)
-                {
-                  if (self->_repairSilent)
-                  {
-                    self->_triggeredUIRepair = 1;
-                    if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
-                    {
-                      LogPrintF();
-                    }
-
-                    [sub_100021E5C() _repairSilentStart:?];
-                  }
-
-                  goto LABEL_194;
-                }
-
-                if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
-                {
-                  goto LABEL_45;
-                }
-              }
-
-              else if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
-              {
-                goto LABEL_45;
-              }
-            }
-
-            break;
-          case 11:
-          case 33:
-            if (self->_triggeredUIB238Setup)
-            {
-              if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
-              {
-                goto LABEL_45;
-              }
-            }
-
-            else
-            {
-              v38 = +[MCProfileConnection sharedConnection];
-              isProximitySetupToNewDeviceAllowed5 = [v38 isProximitySetupToNewDeviceAllowed];
-
-              if (isProximitySetupToNewDeviceAllowed5)
-              {
-                self->_triggeredUIB238Setup = 1;
-                sub_1000A2A84();
-                if (v20 ^ v21 | v24)
-                {
-                  if (v40 != -1 || _LogCategory_Initialize())
-                  {
-                    LogPrintF();
-                  }
-
-                  sub_1000A2A84();
-                  if (v20 ^ v21 | v24 && (v59 != -1 || _LogCategory_Initialize()))
-                  {
-                    sub_10009773C(deviceActionType);
-                    LogPrintF();
-                  }
-                }
-
-                [sub_100021E5C() _uiStartSetupB238:? extraInfo:?];
-                goto LABEL_194;
-              }
-
-              if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
-              {
-                goto LABEL_45;
-              }
-            }
-
-            break;
-          case 12:
-            if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
-            {
-              LogPrintF();
-            }
-
-            notify_post("com.apple.applepay.proximity");
-            goto LABEL_194;
-          case 13:
-            if (self->_triggeredUIWHASetup)
-            {
-              if (dword_10096FEF8 > 50 || dword_10096FEF8 == -1 && !_LogCategory_Initialize())
-              {
-                break;
-              }
-            }
-
-            else
-            {
-              v56 = +[MCProfileConnection sharedConnection];
-              isProximitySetupToNewDeviceAllowed6 = [v56 isProximitySetupToNewDeviceAllowed];
-
-              if (isProximitySetupToNewDeviceAllowed6)
-              {
-                self->_triggeredUIWHASetup = 1;
-                if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
-                {
-                  LogPrintF();
-                }
-
-                [sub_100021E5C() _uiStartSetupWHA:?];
-                goto LABEL_194;
-              }
-
-              if (dword_10096FEF8 > 50 || dword_10096FEF8 == -1 && !_LogCategory_Initialize())
-              {
-                break;
-              }
-            }
-
-            goto LABEL_45;
-          case 17:
-            if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
-            {
-              v71 = bleDevice;
-              LogPrintF();
-            }
-
-            [(SDSetupAgent *)self _launchAppWithMachServiceName:@"com.apple.diagnosticextensionsd.sharing-wakeup", v71];
-            goto LABEL_194;
-          case 25:
-            if (!self->_triggeredUITVLatencySetup)
-            {
-              goto LABEL_91;
-            }
-
-            if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
-            {
-              goto LABEL_45;
-            }
-
-            break;
-          case 27:
-            if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
-            {
-              v71 = bleDevice;
-              LogPrintF();
-            }
-
-            v60 = +[SDNearbyAgent sharedNearbyAgent];
-            [v60 setBoostNearbyInfo:1];
-
-            goto LABEL_194;
-          case 30:
-            if (!self->_triggeredUITVLatencySetup)
-            {
-LABEL_91:
-              [sub_100021E5C() _uiStartTVLatencySetup:? forActionType:? withBLEDevice:?];
-              goto LABEL_194;
-            }
-
-            if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
-            {
-              goto LABEL_45;
-            }
-
-            break;
-          case 32:
-            goto LABEL_78;
-          case 36:
-            goto LABEL_69;
-          default:
-            if (deviceActionType == 43)
-            {
-LABEL_78:
-              if (self->_triggeredUIAuthenticateAccounts)
-              {
-                if (dword_10096FEF8 > 50 || dword_10096FEF8 == -1 && !_LogCategory_Initialize())
-                {
-                  break;
-                }
-
-                goto LABEL_45;
-              }
-
-              v44 = +[MCProfileConnection sharedConnection];
-              isProximitySetupToNewDeviceAllowed7 = [v44 isProximitySetupToNewDeviceAllowed];
-
-              if ((isProximitySetupToNewDeviceAllowed7 & 1) == 0)
-              {
-                if (dword_10096FEF8 > 50 || dword_10096FEF8 == -1 && !_LogCategory_Initialize())
-                {
-                  break;
-                }
-
-                goto LABEL_45;
-              }
-
-              self->_triggeredUIAuthenticateAccounts = 1;
-              if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
-              {
-                LogPrintF();
-              }
-
-              [sub_100021E5C() _uiStartAuthenticateAccounts:?];
-            }
-
-            else
-            {
-              if (deviceActionType != 90)
-              {
-                break;
-              }
-
-LABEL_69:
-              if ([(SDSetupAgent *)self _deviceHandlesDovePeaceSetup])
-              {
-                if (self->_triggeredUIDovePeace)
-                {
-                  if (dword_10096FEF8 > 50 || dword_10096FEF8 == -1 && !_LogCategory_Initialize())
-                  {
-                    break;
-                  }
-
-                  goto LABEL_45;
-                }
-
-                v41 = +[MCProfileConnection sharedConnection];
-                isProximitySetupToNewDeviceAllowed8 = [v41 isProximitySetupToNewDeviceAllowed];
-
-                if ((isProximitySetupToNewDeviceAllowed8 & 1) == 0)
-                {
-                  if (dword_10096FEF8 > 50 || dword_10096FEF8 == -1 && !_LogCategory_Initialize())
-                  {
-                    break;
-                  }
-
-                  goto LABEL_45;
-                }
-
-                if (([foundCopy deviceFlags] & 0x100) != 0)
-                {
-                  sub_1000A2A84();
-                  if (!(v20 ^ v21 | v24) || v69 == -1 && !_LogCategory_Initialize())
-                  {
-                    break;
-                  }
-
-                  goto LABEL_45;
-                }
-
-                if (![(SDStatusMonitor *)self->_statusMonitor eduModeEnabled])
-                {
-                  if (_os_feature_enabled_impl())
-                  {
-                    sub_1000A2A84();
-                    if (v20 ^ v21 | v24 && (v58 != -1 || _LogCategory_Initialize()))
-                    {
-                      LogPrintF();
-                    }
-
-                    self->_triggeredUIDovePeace = 1;
-                    if (deviceActionType == 90)
-                    {
-                      advertisementFields2 = [bleDevice advertisementFields];
-                      v62 = [advertisementFields2 objectForKeyedSubscript:@"dpp"];
-                    }
-
-                    else
-                    {
-                      v62 = 0;
-                    }
-
-                    [sub_100021E5C() _uiStartSetupDovePeace:? actionType:? payload:? autoStart:?];
-                  }
-
-                  goto LABEL_194;
-                }
-
-                sub_1000A2A84();
-                if (v20 ^ v21 | v24 && (v43 != -1 || _LogCategory_Initialize()))
-                {
-                  goto LABEL_139;
-                }
-              }
-
-              else if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
-              {
-LABEL_139:
-                LogPrintF();
-              }
-            }
-
-LABEL_194:
-            if (!arc4random_uniform(0xAu))
-            {
-              v75[0] = @"_cat";
-              v75[1] = @"_op";
-              v76[0] = @"Setup";
-              v76[1] = @"Triggered";
-              v75[2] = @"action";
-              v63 = [NSNumber numberWithUnsignedChar:deviceActionType];
-              v76[2] = v63;
-              v75[3] = @"rssi";
-              v64 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [bleDevice rssiEstimate]);
-              v76[3] = v64;
-              v65 = [NSDictionary dictionaryWithObjects:v76 forKeys:v75 count:4];
-              SFDashboardLogJSON();
-
-              v73[0] = @"action";
-              v66 = [NSNumber numberWithUnsignedChar:deviceActionType];
-              v73[1] = @"rssi";
-              v74[0] = v66;
-              v67 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [bleDevice rssiEstimate]);
-              v74[1] = v67;
-              v68 = [NSDictionary dictionaryWithObjects:v74 forKeys:v73 count:2];
-              SFMetricsLog();
-            }
-
-            break;
-        }
-      }
-    }
-  }
-
-LABEL_196:
+LABEL_200:
 }
 
 - (void)_deviceLost:(id)lost
@@ -5265,7 +5549,7 @@ LABEL_196:
     }
   }
 
-  _objc_release_x2();
+  _objc_release_x2(v4);
 }
 
 - (void)_watchFound:(id)found
@@ -5326,7 +5610,7 @@ LABEL_47:
     {
       if (v13 != -1 || _LogCategory_Initialize())
       {
-        LogPrintF();
+        LogPrintF(&dword_10096FEF8, "[SDSetupAgent _watchFound:]", 50, "#ni_estimator watch triggered");
       }
     }
   }
@@ -5362,9 +5646,9 @@ LABEL_41:
   if (self->_triggeredUIWatchSetup)
   {
     sub_1000A2A90();
-    if (v15 ^ v16 | v14 && (v26 != -1 || _LogCategory_Initialize()))
+    if (v15 ^ v16 | v14 && (v27 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_10096FEF8, "[SDSetupAgent _watchFound:]", 50, "Ignoring proximity WatchSetup with another %@\n", foundCopy);
     }
 
     goto LABEL_41;
@@ -5375,10 +5659,9 @@ LABEL_41:
   if (!v20)
   {
     sub_1000A2A90();
-    if (v15 ^ v16 | v14 && (v23 != -1 || _LogCategory_Initialize()))
+    if (v15 ^ v16 | v14 && (v24 != -1 || _LogCategory_Initialize()))
     {
-      v27 = foundCopy;
-      LogPrintF();
+      LogPrintF(&dword_10096FEF8, "[SDSetupAgent _watchFound:]", 50, "Triggering proximity WatchSetup with %@\n", foundCopy);
     }
 
     [(SDSetupAgent *)self _watchFastScanStop];
@@ -5388,9 +5671,9 @@ LABEL_41:
     v29[0] = @"WatchSetup";
     v29[1] = @"Triggered";
     v28[2] = @"rssi";
-    v24 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [setupProximityEstimator estimatedRSSI]);
-    v29[2] = v24;
-    v25 = [NSDictionary dictionaryWithObjects:v29 forKeys:v28 count:3];
+    v25 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [setupProximityEstimator estimatedRSSI]);
+    v29[2] = v25;
+    v26 = [NSDictionary dictionaryWithObjects:v29 forKeys:v28 count:3];
     SFDashboardLogJSON();
 
     goto LABEL_41;
@@ -5403,8 +5686,7 @@ LABEL_41:
   {
     if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
     {
-      v27 = foundCopy;
-      LogPrintF();
+      LogPrintF(&dword_10096FEF8, "[SDSetupAgent _watchFound:]", 50, "Triggering proximity WatchMigration with %@\n", foundCopy);
     }
 
     [(SDSetupAgent *)self _watchFastScanStop];
@@ -5414,8 +5696,8 @@ LABEL_41:
 
   else if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
   {
-    UpTicksToSeconds();
-    LogPrintF();
+    v23 = UpTicksToSeconds();
+    LogPrintF(&dword_10096FEF8, "[SDSetupAgent _watchFound:]", 50, "Ignoring WatchMigration...too soon (%llu < %d secs)\n", v23, 14400);
   }
 
 LABEL_46:

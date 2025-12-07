@@ -76,7 +76,7 @@ void __31__NLSessionActivityTimer_start__block_invoke(id *a1, void *a2)
     date = [MEMORY[0x277CBEAA8] date];
     endDate = self->_endDate;
     self->_endDate = date;
-    MEMORY[0x277D82BD8](endDate);
+    *&v4 = MEMORY[0x277D82BD8](endDate).n128_u64[0];
     if (self->_timer)
     {
       [(BSAbsoluteMachTimer *)self->_timer invalidate];
@@ -115,9 +115,9 @@ void __31__NLSessionActivityTimer_start__block_invoke(id *a1, void *a2)
   location[0] = 0;
   objc_storeStrong(location, fired);
   delegate = [(NLSessionActivityTimer *)selfCopy delegate];
-  v5 = objc_opt_respondsToSelector();
-  MEMORY[0x277D82BD8](delegate);
-  if (v5)
+  v6 = objc_opt_respondsToSelector();
+  *&v3 = MEMORY[0x277D82BD8](delegate).n128_u64[0];
+  if (v6)
   {
     delegate2 = [(NLSessionActivityTimer *)selfCopy delegate];
     [(NLSessionActivityTimerDelegate *)delegate2 activityTimerFired:selfCopy];

@@ -73,31 +73,30 @@
 
 - (int64_t)_currentStatusForUseCase:(id)case
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   caseCopy = case;
-  v11 = 0;
-  v12 = &v11;
-  v13 = 0x2050000000;
+  v10 = 0;
+  v11 = &v10;
+  v12 = 0x2050000000;
   v4 = getGMAvailabilityWrapperClass_softClass;
-  v14 = getGMAvailabilityWrapperClass_softClass;
+  v13 = getGMAvailabilityWrapperClass_softClass;
   if (!getGMAvailabilityWrapperClass_softClass)
   {
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __getGMAvailabilityWrapperClass_block_invoke;
-    v10[3] = &unk_278D2B060;
-    v10[4] = &v11;
-    __getGMAvailabilityWrapperClass_block_invoke(v10);
-    v4 = v12[3];
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __getGMAvailabilityWrapperClass_block_invoke;
+    v9[3] = &unk_278D2B060;
+    v9[4] = &v10;
+    __getGMAvailabilityWrapperClass_block_invoke(v9);
+    v4 = v11[3];
   }
 
   v5 = v4;
-  _Block_object_dispose(&v11, 8);
-  v15[0] = caseCopy;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+  _Block_object_dispose(&v10, 8);
+  v14[0] = caseCopy;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
   v7 = [v4 currentWithUseCaseIdentifiers:v6];
 
-  v8 = *MEMORY[0x277D85DE8];
   return v7;
 }
 

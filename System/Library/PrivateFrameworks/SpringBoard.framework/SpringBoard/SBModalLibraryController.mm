@@ -503,11 +503,11 @@ LABEL_16:
       return;
     }
 
-    v13 = SBLogAppLibrary();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = SBLogAppLibrary(v9);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      *v14 = 0;
-      _os_log_impl(&dword_21ED4E000, v13, OS_LOG_TYPE_DEFAULT, "[Modal Library Controller] Updating resign active assertion to: Relinquished", v14, 2u);
+      *v15 = 0;
+      _os_log_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_DEFAULT, "[Modal Library Controller] Updating resign active assertion to: Relinquished", v15, 2u);
     }
 
     resignActiveAssertion2 = [(SBModalLibraryController *)self resignActiveAssertion];
@@ -516,11 +516,11 @@ LABEL_16:
 
   else
   {
-    v9 = SBLogAppLibrary();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = SBLogAppLibrary(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "[Modal Library Controller] Updating resign active assertion to: Acquired", buf, 2u);
+      _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "[Modal Library Controller] Updating resign active assertion to: Acquired", buf, 2u);
     }
 
     resignActiveAssertion2 = [(SBModalLibraryController *)self resignActiveAssertion];

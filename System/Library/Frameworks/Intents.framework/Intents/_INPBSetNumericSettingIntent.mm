@@ -1,6 +1,8 @@
 @interface _INPBSetNumericSettingIntent
 - (BOOL)isEqual:(id)equal;
 - (_INPBSetNumericSettingIntent)initWithCoder:(id)coder;
+- (id)actionAsString:(int)string;
+- (id)boundedValueAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
 - (int)StringAsAction:(id)action;
@@ -309,13 +311,11 @@ LABEL_31:
   toCopy = to;
   if ([(_INPBSetNumericSettingIntent *)self hasAction])
   {
-    action = self->_action;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBSetNumericSettingIntent *)self hasBoundedValue])
   {
-    boundedValue = self->_boundedValue;
     PBDataWriterWriteInt32Field();
   }
 
@@ -345,13 +345,13 @@ LABEL_31:
 
   temporalEventTrigger = [(_INPBSetNumericSettingIntent *)self temporalEventTrigger];
 
-  v13 = toCopy;
+  v11 = toCopy;
   if (temporalEventTrigger)
   {
     temporalEventTrigger2 = [(_INPBSetNumericSettingIntent *)self temporalEventTrigger];
     PBDataWriterWriteSubmessage();
 
-    v13 = toCopy;
+    v11 = toCopy;
   }
 }
 
@@ -376,6 +376,21 @@ LABEL_31:
   else
   {
     v4 = 1;
+  }
+
+  return v4;
+}
+
+- (id)boundedValueAsString:(int)string
+{
+  if ((string - 1) >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1E7287DA0 + (string - 1));
   }
 
   return v4;
@@ -432,6 +447,21 @@ LABEL_31:
   else
   {
     v4 = 1;
+  }
+
+  return v4;
+}
+
+- (id)actionAsString:(int)string
+{
+  if ((string - 1) >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1E7287D88 + (string - 1));
   }
 
   return v4;

@@ -2,6 +2,7 @@
 - (BKIOHIDServiceMatcher)initWithMatchingDictionary:(id)dictionary dataProvider:(id)provider;
 - (BKIOHIDServiceMatcher)initWithMatchingDictionary:(id)dictionary serviceClass:(Class)class dataProvider:(id)provider;
 - (BKIOHIDServiceMatcher)initWithSenderDescriptor:(id)descriptor dataProvider:(id)provider;
+- (BKIOHIDServiceMatcher)initWithUsagePage:(int)page usage:(int)usage builtIn:(BOOL)in dataProvider:(id)provider;
 - (id)_lock_didAddIOHIDServiceRefs:(os_unfair_lock *)refs;
 - (id)_servicesForIOHIDServiceRefs:(id)refs;
 - (id)_startObserving:(void *)observing queue:(int)queue sync:;
@@ -38,7 +39,7 @@
 
 void __54__BKIOHIDServiceMatcher__servicesForIOHIDServiceRefs___block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 48);
   v4 = a2;
   v5 = [[v3 alloc] initWithHIDServiceRef:v4];
@@ -51,9 +52,9 @@ void __54__BKIOHIDServiceMatcher__servicesForIOHIDServiceRefs___block_invoke(uin
 
   v6 = [v5 senderDescriptor];
   v7 = *(*(a1 + 32) + 16);
-  v12 = 0;
-  v8 = [v6 matchesDescriptor:v7 failureReason:&v12];
-  v9 = v12;
+  v11 = 0;
+  v8 = [v6 matchesDescriptor:v7 failureReason:&v11];
+  v9 = v11;
 
   if (v8)
   {
@@ -70,9 +71,9 @@ LABEL_9:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      v14 = v5;
-      v15 = 2114;
-      v16 = v9;
+      v13 = v5;
+      v14 = 2114;
+      v15 = v9;
       _os_log_impl(&dword_223CBE000, v10, OS_LOG_TYPE_DEFAULT, "service %{public}@ did not match: %{public}@", buf, 0x16u);
     }
 
@@ -80,13 +81,11 @@ LABEL_9:
   }
 
 LABEL_10:
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidate
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   os_unfair_lock_assert_not_owner(&self->_lock);
   os_unfair_lock_lock(&self->_lock);
   if (self->_startedMatching)
@@ -98,16 +97,16 @@ LABEL_10:
     {
       v6 = objc_opt_class();
       matchingDictionary = self->_matchingDictionary;
-      v10 = 134218754;
+      v9 = 134218754;
       selfCopy = self;
-      v12 = 2114;
-      v13 = v6;
-      v14 = 2114;
-      v15 = serviceClass;
-      v16 = 2114;
-      v17 = matchingDictionary;
+      v11 = 2114;
+      v12 = v6;
+      v13 = 2114;
+      v14 = serviceClass;
+      v15 = 2114;
+      v16 = matchingDictionary;
       v8 = v6;
-      _os_log_impl(&dword_223CBE000, v5, OS_LOG_TYPE_INFO, "%p %{public}@ stopped matching %{public}@ with dictionary %{public}@", &v10, 0x2Au);
+      _os_log_impl(&dword_223CBE000, v5, OS_LOG_TYPE_INFO, "%p %{public}@ stopped matching %{public}@ with dictionary %{public}@", &v9, 0x2Au);
     }
 
     atomic_store(1u, &self->_invalidated);
@@ -117,12 +116,11 @@ LABEL_10:
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_lock_didAddIOHIDServiceRefs:(os_unfair_lock *)refs
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
   os_unfair_lock_assert_owner(refs + 2);
   v4 = [(os_unfair_lock *)refs _servicesForIOHIDServiceRefs:v3];
@@ -130,71 +128,69 @@ LABEL_10:
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
-    v19 = v4;
+    v18 = v4;
     _os_log_impl(&dword_223CBE000, v5, OS_LOG_TYPE_INFO, "Services added: %{public}@", buf, 0xCu);
   }
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v6 = v4;
-  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v14;
+    v9 = *v13;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [*(*(&v13 + 1) + 8 * i) setServiceStatus:{1, v13}];
+        [*(*(&v12 + 1) + 8 * i) setServiceStatus:{1, v12}];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 - (void)_lock_asyncNotifyServicesAdded:(uint64_t)added
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (*(added + 24) == 1)
   {
-    v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"wrong code path, pal"];
+    v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"wrong code path, pal"];
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v12 = NSStringFromSelector(sel__lock_asyncNotifyServicesAdded_);
-      v13 = objc_opt_class();
-      v14 = NSStringFromClass(v13);
+      v11 = NSStringFromSelector(sel__lock_asyncNotifyServicesAdded_);
+      v12 = objc_opt_class();
+      v13 = NSStringFromClass(v12);
       *buf = 138544642;
-      v23 = v12;
-      v24 = 2114;
-      v25 = v14;
-      v26 = 2048;
+      v22 = v11;
+      v23 = 2114;
+      v24 = v13;
+      v25 = 2048;
       addedCopy2 = added;
-      v28 = 2114;
-      v29 = @"BKIOHIDServiceMatcher.m";
-      v30 = 1024;
-      v31 = 229;
-      v32 = 2114;
-      v33 = v11;
+      v27 = 2114;
+      v28 = @"BKIOHIDServiceMatcher.m";
+      v29 = 1024;
+      v30 = 229;
+      v31 = 2114;
+      v32 = v10;
       _os_log_error_impl(&dword_223CBE000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [v11 UTF8String];
+    [v10 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x223CD7380);
@@ -205,28 +201,28 @@ LABEL_10:
   v6 = objc_loadWeakRetained((added + 56));
   if (!v6)
   {
-    v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"shouldn't be possible to be invalid here"];
+    v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"shouldn't be possible to be invalid here"];
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v16 = NSStringFromSelector(sel__lock_asyncNotifyServicesAdded_);
-      v17 = objc_opt_class();
-      v18 = NSStringFromClass(v17);
+      v15 = NSStringFromSelector(sel__lock_asyncNotifyServicesAdded_);
+      v16 = objc_opt_class();
+      v17 = NSStringFromClass(v16);
       *buf = 138544642;
-      v23 = v16;
-      v24 = 2114;
-      v25 = v18;
-      v26 = 2048;
+      v22 = v15;
+      v23 = 2114;
+      v24 = v17;
+      v25 = 2048;
       addedCopy2 = added;
-      v28 = 2114;
-      v29 = @"BKIOHIDServiceMatcher.m";
-      v30 = 1024;
-      v31 = 234;
-      v32 = 2114;
-      v33 = v15;
+      v27 = 2114;
+      v28 = @"BKIOHIDServiceMatcher.m";
+      v29 = 1024;
+      v30 = 234;
+      v31 = 2114;
+      v32 = v14;
       _os_log_error_impl(&dword_223CBE000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [v15 UTF8String];
+    [v14 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x223CD746CLL);
@@ -238,21 +234,19 @@ LABEL_10:
   block[2] = __56__BKIOHIDServiceMatcher__lock_asyncNotifyServicesAdded___block_invoke;
   block[3] = &unk_2784F6B30;
   block[4] = added;
-  v20 = WeakRetained;
+  v19 = WeakRetained;
   v8 = v4;
-  v21 = v8;
+  v20 = v8;
   v9 = WeakRetained;
   dispatch_async(v7, block);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __56__BKIOHIDServiceMatcher__lock_asyncNotifyServicesAdded___block_invoke(uint64_t result)
+void *__56__BKIOHIDServiceMatcher__lock_asyncNotifyServicesAdded___block_invoke(void *result)
 {
-  v1 = atomic_load((*(result + 32) + 26));
+  v1 = atomic_load((*(result + 4) + 26));
   if ((v1 & 1) == 0)
   {
-    return [*(result + 40) matcher:*(result + 32) servicesDidMatch:*(result + 48)];
+    return [*(result + 5) matcher:*(result + 4) servicesDidMatch:*(result + 6)];
   }
 
   return result;
@@ -260,7 +254,7 @@ uint64_t __56__BKIOHIDServiceMatcher__lock_asyncNotifyServicesAdded___block_invo
 
 - (id)_startObserving:(void *)observing queue:(int)queue sync:
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v7 = a2;
   observingCopy = observing;
   if (self)
@@ -269,28 +263,28 @@ uint64_t __56__BKIOHIDServiceMatcher__lock_asyncNotifyServicesAdded___block_invo
     os_unfair_lock_lock((self + 8));
     if (!observingCopy && (queue & 1) == 0)
     {
-      v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"missing queue for async case"];
+      v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"missing queue for async case"];
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        v21 = NSStringFromSelector(sel__startObserving_queue_sync_);
-        v22 = objc_opt_class();
-        v23 = NSStringFromClass(v22);
-        v32 = 138544642;
-        selfCopy3 = v21;
-        v34 = 2114;
-        v35 = v23;
-        v36 = 2048;
+        v20 = NSStringFromSelector(sel__startObserving_queue_sync_);
+        v21 = objc_opt_class();
+        v22 = NSStringFromClass(v21);
+        v31 = 138544642;
+        selfCopy3 = v20;
+        v33 = 2114;
+        v34 = v22;
+        v35 = 2048;
         selfCopy4 = self;
-        v38 = 2114;
-        v39 = @"BKIOHIDServiceMatcher.m";
-        v40 = 1024;
-        v41 = 125;
-        v42 = 2114;
-        v43 = v20;
-        _os_log_error_impl(&dword_223CBE000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v32, 0x3Au);
+        v37 = 2114;
+        v38 = @"BKIOHIDServiceMatcher.m";
+        v39 = 1024;
+        v40 = 125;
+        v41 = 2114;
+        v42 = v19;
+        _os_log_error_impl(&dword_223CBE000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v31, 0x3Au);
       }
 
-      [v20 UTF8String];
+      [v19 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x223CD77B0);
@@ -298,28 +292,28 @@ uint64_t __56__BKIOHIDServiceMatcher__lock_asyncNotifyServicesAdded___block_invo
 
     if (*(self + 25) == 1)
     {
-      v24 = [MEMORY[0x277CCACA8] stringWithFormat:@"already started matching -- only one observer per matcher, plz"];
+      v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"already started matching -- only one observer per matcher, plz"];
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        v25 = NSStringFromSelector(sel__startObserving_queue_sync_);
-        v26 = objc_opt_class();
-        v27 = NSStringFromClass(v26);
-        v32 = 138544642;
-        selfCopy3 = v25;
-        v34 = 2114;
-        v35 = v27;
-        v36 = 2048;
+        v24 = NSStringFromSelector(sel__startObserving_queue_sync_);
+        v25 = objc_opt_class();
+        v26 = NSStringFromClass(v25);
+        v31 = 138544642;
+        selfCopy3 = v24;
+        v33 = 2114;
+        v34 = v26;
+        v35 = 2048;
         selfCopy4 = self;
-        v38 = 2114;
-        v39 = @"BKIOHIDServiceMatcher.m";
-        v40 = 1024;
-        v41 = 126;
-        v42 = 2114;
-        v43 = v24;
-        _os_log_error_impl(&dword_223CBE000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v32, 0x3Au);
+        v37 = 2114;
+        v38 = @"BKIOHIDServiceMatcher.m";
+        v39 = 1024;
+        v40 = 126;
+        v41 = 2114;
+        v42 = v23;
+        _os_log_error_impl(&dword_223CBE000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v31, 0x3Au);
       }
 
-      [v24 UTF8String];
+      [v23 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x223CD789CLL);
@@ -335,43 +329,43 @@ uint64_t __56__BKIOHIDServiceMatcher__lock_asyncNotifyServicesAdded___block_invo
       v10 = objc_opt_class();
       v12 = *(self + 32);
       v11 = *(self + 40);
-      v32 = 134218754;
+      v31 = 134218754;
       selfCopy3 = self;
-      v34 = 2114;
-      v35 = v10;
-      v36 = 2114;
+      v33 = 2114;
+      v34 = v10;
+      v35 = 2114;
       selfCopy4 = v11;
-      v38 = 2114;
-      v39 = v12;
+      v37 = 2114;
+      v38 = v12;
       v13 = v10;
-      _os_log_impl(&dword_223CBE000, v9, OS_LOG_TYPE_DEFAULT, "%p %{public}@ started matching %{public}@ with dictionary %{public}@", &v32, 0x2Au);
+      _os_log_impl(&dword_223CBE000, v9, OS_LOG_TYPE_DEFAULT, "%p %{public}@ started matching %{public}@ with dictionary %{public}@", &v31, 0x2Au);
     }
 
     v14 = *(self + 64);
     if (!v14)
     {
-      v28 = [MEMORY[0x277CCACA8] stringWithFormat:@"must have a data provider"];
+      v27 = [MEMORY[0x277CCACA8] stringWithFormat:@"must have a data provider"];
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        v29 = NSStringFromSelector(sel__startObserving_queue_sync_);
-        v30 = objc_opt_class();
-        v31 = NSStringFromClass(v30);
-        v32 = 138544642;
-        selfCopy3 = v29;
-        v34 = 2114;
-        v35 = v31;
-        v36 = 2048;
+        v28 = NSStringFromSelector(sel__startObserving_queue_sync_);
+        v29 = objc_opt_class();
+        v30 = NSStringFromClass(v29);
+        v31 = 138544642;
+        selfCopy3 = v28;
+        v33 = 2114;
+        v34 = v30;
+        v35 = 2048;
         selfCopy4 = self;
-        v38 = 2114;
-        v39 = @"BKIOHIDServiceMatcher.m";
-        v40 = 1024;
-        v41 = 137;
-        v42 = 2114;
-        v43 = v28;
-        _os_log_error_impl(&dword_223CBE000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v32, 0x3Au);
+        v37 = 2114;
+        v38 = @"BKIOHIDServiceMatcher.m";
+        v39 = 1024;
+        v40 = 137;
+        v41 = 2114;
+        v42 = v27;
+        _os_log_error_impl(&dword_223CBE000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v31, 0x3Au);
       }
 
-      [v28 UTF8String];
+      [v27 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x223CD7988);
@@ -403,28 +397,24 @@ uint64_t __56__BKIOHIDServiceMatcher__lock_asyncNotifyServicesAdded___block_invo
     existingServices = 0;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return existingServices;
 }
 
 - (id)existingServices
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = [(BKIOHIDServiceMatcherDataProviding *)self->_dataProvider IOHIDServicesMatching:self->_matchingDictionary];
   v4 = [(BKIOHIDServiceMatcher *)self _servicesForIOHIDServiceRefs:v3];
   v5 = BKLogHID();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     matchingDictionary = self->_matchingDictionary;
-    v9 = 138543618;
-    v10 = v4;
-    v11 = 2114;
-    v12 = matchingDictionary;
-    _os_log_impl(&dword_223CBE000, v5, OS_LOG_TYPE_DEFAULT, "Services discovered: %{public}@ for:%{public}@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v4;
+    v10 = 2114;
+    v11 = matchingDictionary;
+    _os_log_impl(&dword_223CBE000, v5, OS_LOG_TYPE_DEFAULT, "Services discovered: %{public}@ for:%{public}@", &v8, 0x16u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -439,41 +429,39 @@ uint64_t __56__BKIOHIDServiceMatcher__lock_asyncNotifyServicesAdded___block_invo
 
 - (void)_expectDeallocation
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (self->_startedMatching)
   {
     v3 = atomic_load(&self->_invalidated);
     if ((v3 & 1) == 0)
     {
-      v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"dealloc without invalidation"];
+      v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"dealloc without invalidation"];
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        v7 = NSStringFromSelector(a2);
-        v8 = objc_opt_class();
-        v9 = NSStringFromClass(v8);
-        v10 = 138544642;
-        v11 = v7;
-        v12 = 2114;
-        v13 = v9;
-        v14 = 2048;
+        v6 = NSStringFromSelector(a2);
+        v7 = objc_opt_class();
+        v8 = NSStringFromClass(v7);
+        v9 = 138544642;
+        v10 = v6;
+        v11 = 2114;
+        v12 = v8;
+        v13 = 2048;
         selfCopy = self;
-        v16 = 2114;
-        v17 = @"BKIOHIDServiceMatcher.m";
-        v18 = 1024;
-        v19 = 89;
-        v20 = 2114;
-        v21 = v6;
-        _os_log_error_impl(&dword_223CBE000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v10, 0x3Au);
+        v15 = 2114;
+        v16 = @"BKIOHIDServiceMatcher.m";
+        v17 = 1024;
+        v18 = 89;
+        v19 = 2114;
+        v20 = v5;
+        _os_log_error_impl(&dword_223CBE000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v9, 0x3Au);
       }
 
-      [v6 UTF8String];
+      [v5 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x223CD7C48);
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (BKIOHIDServiceMatcher)initWithMatchingDictionary:(id)dictionary serviceClass:(Class)class dataProvider:(id)provider
@@ -504,6 +492,51 @@ uint64_t __56__BKIOHIDServiceMatcher__lock_asyncNotifyServicesAdded___block_invo
   v8 = [(BKIOHIDServiceMatcher *)self initWithMatchingDictionary:dictionaryCopy serviceClass:objc_opt_class() dataProvider:providerCopy];
 
   return v8;
+}
+
+- (BKIOHIDServiceMatcher)initWithUsagePage:(int)page usage:(int)usage builtIn:(BOOL)in dataProvider:(id)provider
+{
+  v7 = *&usage;
+  v8 = *&page;
+  v26[3] = *MEMORY[0x277D85DE8];
+  if (in)
+  {
+    v25[0] = @"DeviceUsagePage";
+    v10 = MEMORY[0x277CCABB0];
+    providerCopy = provider;
+    v12 = [v10 numberWithInt:v8];
+    v26[0] = v12;
+    v25[1] = @"DeviceUsage";
+    v13 = [MEMORY[0x277CCABB0] numberWithInt:v7];
+    v25[2] = @"Built-In";
+    v26[1] = v13;
+    v26[2] = MEMORY[0x277CBEC38];
+    v14 = MEMORY[0x277CBEAC0];
+    v15 = v26;
+    v16 = v25;
+    v17 = 3;
+  }
+
+  else
+  {
+    v23[0] = @"DeviceUsagePage";
+    v18 = MEMORY[0x277CCABB0];
+    providerCopy2 = provider;
+    v12 = [v18 numberWithInt:v8];
+    v23[1] = @"DeviceUsage";
+    v24[0] = v12;
+    v13 = [MEMORY[0x277CCABB0] numberWithInt:v7];
+    v24[1] = v13;
+    v14 = MEMORY[0x277CBEAC0];
+    v15 = v24;
+    v16 = v23;
+    v17 = 2;
+  }
+
+  v20 = [v14 dictionaryWithObjects:v15 forKeys:v16 count:v17];
+
+  v21 = [(BKIOHIDServiceMatcher *)self initWithMatchingDictionary:v20 dataProvider:provider];
+  return v21;
 }
 
 - (BKIOHIDServiceMatcher)initWithSenderDescriptor:(id)descriptor dataProvider:(id)provider

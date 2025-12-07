@@ -330,18 +330,23 @@ LABEL_11:
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v16 = 0;
-    v7 = sub_100003A58();
-    if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    LODWORD(v7) = sub_100003A58();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v7 &= ~1u;
+      v7 = v7;
+    }
+
+    else
+    {
+      v7 = v7 & 0xFFFFFFFE;
     }
 
     if (v7)
     {
       v8 = v6;
-      v17 = 67109120;
-      v18 = [(RDClient *)selfCopy pid];
-      v9 = _os_log_send_and_compose_impl();
+      v17[0] = 67109120;
+      v17[1] = [(RDClient *)selfCopy pid];
+      v9 = _os_log_send_and_compose_impl(v7, &v16, 0, 0, &_mh_execute_header, v8, 0, "RDCLient: calling personaUpdateCallbackForMachServiceCompletionHandler to Pid:%d", v17);
 
       if (v9)
       {
@@ -382,17 +387,24 @@ LABEL_11:
   v9 = qword_100011988;
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = sub_100003A58();
-    if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v14 = 0;
+    LODWORD(v10) = sub_100003A58();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v10 &= ~1u;
+      v10 = v10;
+    }
+
+    else
+    {
+      v10 = v10 & 0xFFFFFFFE;
     }
 
     if (v10)
     {
       v11 = v9;
-      [(RDClient *)selfCopy pid];
-      v12 = _os_log_send_and_compose_impl();
+      v15[0] = 67109120;
+      v15[1] = [(RDClient *)selfCopy pid];
+      v12 = _os_log_send_and_compose_impl(v10, &v14, 0, 0, &_mh_execute_header, v11, 0, "RDCLient: calling readyToSwitchToUser to Pid:%d", v15);
 
       if (v12)
       {
@@ -425,17 +437,24 @@ LABEL_11:
   v9 = qword_100011988;
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = sub_100003A58();
-    if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v14 = 0;
+    LODWORD(v10) = sub_100003A58();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v10 &= ~1u;
+      v10 = v10;
+    }
+
+    else
+    {
+      v10 = v10 & 0xFFFFFFFE;
     }
 
     if (v10)
     {
       v11 = v9;
-      [(RDClient *)selfCopy pid];
-      v12 = _os_log_send_and_compose_impl();
+      v15[0] = 67109120;
+      v15[1] = [(RDClient *)selfCopy pid];
+      v12 = _os_log_send_and_compose_impl(v10, &v14, 0, 0, &_mh_execute_header, v11, 0, "RDCLient: calling readyToSwitchToLoginSession to Pid:%d", v15);
 
       if (v12)
       {
@@ -491,6 +510,7 @@ LABEL_11:
   v3 = qword_100011988;
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
+    v9 = 0;
     v4 = sub_100003A58();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
@@ -504,7 +524,8 @@ LABEL_11:
 
     if (v5)
     {
-      v6 = _os_log_send_and_compose_impl();
+      v8 = 0;
+      v6 = _os_log_send_and_compose_impl(v5, &v9, 0, 0, &_mh_execute_header, v3, 0, "IN bubbleShouldPop: RDClient", &v8, 2);
       if (v6)
       {
         sub_100003A60();

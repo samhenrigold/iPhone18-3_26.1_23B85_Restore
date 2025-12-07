@@ -8,28 +8,28 @@
 - (NSRTFReader)initWithRTF:(id)f;
 - (NSRTFReader)initWithRTFD:(id)d;
 - (NSRTFReader)initWithRTFDFileWrapper:(id)wrapper;
-- (double)_updateFontSizeForTextScalingIfNeeded:(uint64_t)needed;
+- (double)_updateFontSizeForTextScalingIfNeeded:(unint64_t)needed;
+- (id)_clearTableCells;
 - (id)_currentTableCell;
 - (id)_mutableParagraphStyle;
+- (id)_setTableCells;
 - (id)attributedString;
 - (id)attributedStringToEndOfGroup;
 - (id)attributesAtEndOfGroup;
 - (id)defaultParagraphStyle;
 - (id)documentAttributes;
 - (id)mutableAttributes;
-- (uint64_t)_beginTableRow;
-- (uint64_t)_clearTableCells;
-- (uint64_t)_determineFinalTextScalingType;
 - (uint64_t)_determineSourceTextScalingType;
-- (uint64_t)_documentInfoDictionary;
-- (uint64_t)_ensureTableCells;
-- (uint64_t)_setTableCells;
+- (unint64_t)_determineFinalTextScalingType;
 - (void)_addListDefinition:(id)definition forKey:(int64_t)key;
 - (void)_addOverride:(int64_t)override forKey:(int64_t)key;
+- (void)_beginTableRow;
 - (void)_currentTableCellIsPlaceholder;
+- (void)_documentInfoDictionary;
 - (void)_endTableCell;
 - (void)_endTableCellDefinition;
 - (void)_endTableRow;
+- (void)_ensureTableCells;
 - (void)_mergeTableCellsHorizontally;
 - (void)_mergeTableCellsVertically;
 - (void)_paragraphInTable;
@@ -444,7 +444,7 @@ LABEL_21:
 
 - (void)dealloc
 {
-  _NSRTFDealloc(&self->_private, a2);
+  _NSRTFDealloc(&self->_private);
 
   cachedRTFFontTable = self->_cachedRTFFontTable;
   if (cachedRTFFontTable)
@@ -515,14 +515,14 @@ LABEL_14:
   return result;
 }
 
-- (uint64_t)_determineFinalTextScalingType
+- (unint64_t)_determineFinalTextScalingType
 {
   if (result)
   {
     v1 = result;
     result = _NSTextScalingTypeForCurrentEnvironment();
     v2 = result;
-    if (result < 0)
+    if ((result & 0x8000000000000000) != 0)
     {
       result = [objc_msgSend(MEMORY[0x1E696AAA8] "currentHandler")];
     }
@@ -1168,7 +1168,7 @@ LABEL_6:
 
 - (void)finalize
 {
-  _NSRTFDealloc(&self->_private, a2);
+  _NSRTFDealloc(&self->_private);
 
   cachedRTFFontTable = self->_cachedRTFFontTable;
   if (cachedRTFFontTable)
@@ -1200,76 +1200,77 @@ LABEL_6:
   return [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:5];
 }
 
-- (uint64_t)_ensureTableCells
+- (void)_ensureTableCells
 {
   if (result)
   {
     v1 = result;
-    v2 = *(result + 2888);
+    v2 = result[361];
     if (!v2)
     {
       v2 = objc_alloc_init(MEMORY[0x1E695DF70]);
-      *(v1 + 2888) = v2;
+      v1[361] = v2;
     }
 
-    if (!*(v1 + 2872))
+    if (!v1[359])
     {
       v3 = objc_alloc_init(NSTextTable);
-      *(v1 + 2872) = v3;
+      v1[359] = v3;
       [(NSTextTable *)v3 setNumberOfColumns:1];
-      [*(v1 + 2872) setLayoutAlgorithm:0];
-      [*(v1 + 2872) setCollapsesBorders:1];
-      [*(v1 + 2872) setHidesEmptyCells:0];
-      *(v1 + 2904) = 0;
-      v2 = *(v1 + 2888);
+      [v1[359] setLayoutAlgorithm:0];
+      [v1[359] setCollapsesBorders:1];
+      [v1[359] setHidesEmptyCells:0];
+      *(v1 + 726) = 0;
+      v2 = v1[361];
     }
 
     result = [v2 count];
-    for (i = result; i <= *(v1 + 2908) || i <= *(v1 + 2912); i = result)
+    for (i = result; i <= *(v1 + 727) || i <= *(v1 + 728); i = result)
     {
-      v5 = [[NSTextTableBlock alloc] initWithTable:*(v1 + 2872) startingRow:*(v1 + 2904) rowSpan:1 startingColumn:i columnSpan:1];
+      v5 = [[NSTextTableBlock alloc] initWithTable:v1[359] startingRow:*(v1 + 726) rowSpan:1 startingColumn:i columnSpan:1];
       [(NSTextBlock *)v5 setWidth:0 type:0 forLayer:1.0];
       [OUTLINED_FUNCTION_0_6() setWidth:? type:? forLayer:? edge:?];
       [OUTLINED_FUNCTION_0_6() setWidth:? type:? forLayer:? edge:?];
-      [(NSTextBlock *)v5 setVerticalAlignment:1];
-      [(NSTextBlock *)v5 setBorderColor:[(objc_class *)getNSColorClass_3() colorWithCalibratedWhite:0.75 alpha:1.0]];
-      [*(v1 + 2888) addObject:v5];
+      v6 = [(NSTextBlock *)v5 setVerticalAlignment:1];
+      getNSColorClass_3(v6);
+      -[NSTextBlock setBorderColor:](v5, "setBorderColor:", [v7 colorWithCalibratedWhite:0.75 alpha:1.0]);
+      [v1[361] addObject:v5];
 
-      result = [*(v1 + 2888) count];
+      result = [v1[361] count];
     }
   }
 
   return result;
 }
 
-- (uint64_t)_beginTableRow
+- (void)_beginTableRow
 {
   if (result)
   {
     v1 = result;
-    if (!*(result + 2888))
+    if (!result[361])
     {
-      *(result + 2888) = objc_alloc_init(MEMORY[0x1E695DF70]);
+      result[361] = objc_alloc_init(MEMORY[0x1E695DF70]);
     }
 
-    if (!*(v1 + 2872))
+    if (!v1[359])
     {
-      v2 = *(v1 + 2880);
+      v2 = v1[360];
       if (v2)
       {
-        *(v1 + 2872) = v2;
-        *(v1 + 2880) = 0;
+        v1[359] = v2;
+        v1[360] = 0;
       }
 
       else
       {
         v3 = objc_alloc_init(NSTextTable);
-        *(v1 + 2872) = v3;
+        v1[359] = v3;
         [(NSTextTable *)v3 setNumberOfColumns:1];
-        [*(v1 + 2872) setLayoutAlgorithm:0];
-        [*(v1 + 2872) setCollapsesBorders:1];
-        [*(v1 + 2872) setHidesEmptyCells:0];
-        *(v1 + 2904) = 0;
+        [v1[359] setLayoutAlgorithm:0];
+        [v1[359] setCollapsesBorders:1];
+        [v1[359] setHidesEmptyCells:0];
+        *(v1 + 726) = 0;
       }
     }
 
@@ -1344,12 +1345,12 @@ LABEL_6:
   }
 }
 
-- (uint64_t)_setTableCells
+- (id)_setTableCells
 {
   if (result)
   {
     v1 = result;
-    v2 = *(result + 2864);
+    v2 = result[358];
     if (v2)
     {
       v3 = [v2 count];
@@ -1359,11 +1360,11 @@ LABEL_6:
         v4 = objc_alloc_init(MEMORY[0x1E695DF70]);
         for (i = 0; i != v3; ++i)
         {
-          v6 = [*(v1 + 2864) objectAtIndex:i];
+          v6 = [v1[358] objectAtIndex:i];
           [v4 addObject:{objc_msgSend(*(v6 + 24), "objectAtIndex:", *(v6 + 44))}];
         }
 
-        [v4 addObject:{objc_msgSend(*(v1 + 2888), "objectAtIndex:", *(v1 + 2908))}];
+        [v4 addObject:{objc_msgSend(v1[361], "objectAtIndex:", *(v1 + 727))}];
         goto LABEL_9;
       }
     }
@@ -1372,9 +1373,9 @@ LABEL_6:
     {
     }
 
-    v4 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithObjects:{objc_msgSend(*(v1 + 2888), "objectAtIndex:", *(v1 + 2908)), 0}];
+    v4 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithObjects:{objc_msgSend(v1[361], "objectAtIndex:", *(v1 + 727)), 0}];
 LABEL_9:
-    *(v1 + 2856) = v4;
+    v1[357] = v4;
     result = [objc_msgSend(v1 "_mutableParagraphStyle")];
     *(v1 + 2917) = 1;
   }
@@ -1382,13 +1383,13 @@ LABEL_9:
   return result;
 }
 
-- (uint64_t)_clearTableCells
+- (id)_clearTableCells
 {
   if (result)
   {
     v1 = result;
 
-    *(v1 + 2856) = 0;
+    v1[357] = 0;
     result = [objc_msgSend(v1 "_mutableParagraphStyle")];
     *(v1 + 2917) = 0;
   }
@@ -1417,7 +1418,7 @@ LABEL_9:
 
   [(NSRTFReader *)self _ensureTableCells];
 
-  [(NSRTFReader *)self _setTableCells];
+  [(NSRTFReader *)&self->super.isa _setTableCells];
 }
 
 - (void)_endTableCell
@@ -1437,12 +1438,12 @@ LABEL_9:
 
   [(NSRTFReader *)self _ensureTableCells];
 
-  [(NSRTFReader *)self _setTableCells];
+  [(NSRTFReader *)&self->super.isa _setTableCells];
 }
 
 - (void)_endTableRow
 {
-  [(NSRTFReader *)self _clearTableCells];
+  [(NSRTFReader *)&self->super.isa _clearTableCells];
   ++self->_currentRow;
   *&self->_currentColumn = 0;
 
@@ -1470,23 +1471,23 @@ LABEL_9:
   self->_currentRowIsLast = 0;
 }
 
-- (uint64_t)_documentInfoDictionary
+- (void)_documentInfoDictionary
 {
   if (result)
   {
     v1 = result;
-    result = *(result + 472);
+    result = result[59];
     if (!result)
     {
       result = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:10];
-      *(v1 + 472) = result;
+      v1[59] = result;
     }
   }
 
   return result;
 }
 
-- (double)_updateFontSizeForTextScalingIfNeeded:(uint64_t)needed
+- (double)_updateFontSizeForTextScalingIfNeeded:(unint64_t)needed
 {
   if (!needed)
   {
@@ -1555,9 +1556,9 @@ LABEL_9:
   return result;
 }
 
-- (uint64_t)_setTableNestingLevel:(uint64_t)a1 .cold.2(uint64_t a1)
+- (id)_setTableNestingLevel:(id *)a1 .cold.2(id *a1)
 {
-  if (!*(a1 + 2872))
+  if (!a1[359])
   {
     [(NSRTFReader *)a1 _beginTableRow];
   }

@@ -8,6 +8,7 @@
 - (id)_runHomeKitAutoSelectHome:(BOOL)home;
 - (id)findStereoCounterpartsWithSupportedVersions:(unint64_t)versions;
 - (id)findTVs;
+- (uint64_t)_updateHomeStats;
 - (void)_cleanup;
 - (void)_completeWithError:(id)error;
 - (void)_removeAccessoryIfNeeded;
@@ -44,20 +45,19 @@
 
 - (SFDeviceOperationHomeKitSetup)init
 {
-  v7.receiver = self;
-  v7.super_class = SFDeviceOperationHomeKitSetup;
-  v2 = [(SFDeviceOperationHomeKitSetup *)&v7 init];
-  v3 = v2;
+  v6.receiver = self;
+  v6.super_class = SFDeviceOperationHomeKitSetup;
+  v2 = [(SFDeviceOperationHomeKitSetup *)&v6 init];
   if (v2)
   {
-    v4 = SFMainQueue(v2);
-    dispatchQueue = v3->_dispatchQueue;
-    v3->_dispatchQueue = v4;
+    v3 = SFMainQueue();
+    dispatchQueue = v2->_dispatchQueue;
+    v2->_dispatchQueue = v3;
 
-    v3->_timeoutInSeconds = 300.0;
+    v2->_timeoutInSeconds = 300.0;
   }
 
-  return v3;
+  return v2;
 }
 
 - (void)activate
@@ -71,17 +71,21 @@
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __41__SFDeviceOperationHomeKitSetup_activate__block_invoke(uint64_t a1)
+uint64_t __41__SFDeviceOperationHomeKitSetup_activate__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30 && (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || _LogCategory_Initialize()))
+  v3 = a1;
+  if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30)
   {
-    __41__SFDeviceOperationHomeKitSetup_activate__block_invoke_cold_1();
+    if (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      __41__SFDeviceOperationHomeKitSetup_activate__block_invoke_cold_1(a1, a2, a3);
+    }
   }
 
-  *(*(a1 + 32) + 8) = 1;
-  v2 = *(a1 + 32);
+  *(*(v3 + 32) + 8) = 1;
+  v4 = *(v3 + 32);
 
-  return [v2 _run];
+  return [v4 _run];
 }
 
 - (void)invalidate
@@ -98,7 +102,7 @@ uint64_t __41__SFDeviceOperationHomeKitSetup_activate__block_invoke(uint64_t a1)
 void __43__SFDeviceOperationHomeKitSetup_invalidate__block_invoke(uint64_t a1)
 {
   v1 = *(a1 + 32);
-  v2 = NSErrorWithOSStatusF();
+  v2 = NSErrorWithOSStatusF(4294960573, "Invalidated");
   [v1 _completeWithError:v2];
 }
 
@@ -174,17 +178,17 @@ void __43__SFDeviceOperationHomeKitSetup_invalidate__block_invoke(uint64_t a1)
 void __57__SFDeviceOperationHomeKitSetup__removeAccessoryIfNeeded__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = v2;
+  v4 = v2;
   if (v2)
   {
     if (gLogCategory_SFDeviceOperationHomeKitSetup <= 90)
     {
       v6 = v2;
-      if (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || (v4 = _LogCategory_Initialize(), v3 = v6, v4))
+      if (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || (v5 = _LogCategory_Initialize(), v4 = v6, v5))
       {
-        __57__SFDeviceOperationHomeKitSetup__removeAccessoryIfNeeded__block_invoke_cold_1();
+        __57__SFDeviceOperationHomeKitSetup__removeAccessoryIfNeeded__block_invoke_cold_1(v4);
 LABEL_13:
-        v3 = v6;
+        v4 = v6;
       }
     }
   }
@@ -192,9 +196,9 @@ LABEL_13:
   else if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30)
   {
     v6 = 0;
-    if (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || (v5 = _LogCategory_Initialize(), v3 = 0, v5))
+    if (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || (v2 = _LogCategory_Initialize(), v4 = 0, v2))
     {
-      __57__SFDeviceOperationHomeKitSetup__removeAccessoryIfNeeded__block_invoke_cold_2();
+      __57__SFDeviceOperationHomeKitSetup__removeAccessoryIfNeeded__block_invoke_cold_2(v2, v4, v3);
       goto LABEL_13;
     }
   }
@@ -203,63 +207,77 @@ LABEL_13:
 - (void)_completeWithError:(id)error
 {
   errorCopy = error;
-  v13 = errorCopy;
+  v6 = errorCopy;
+  v17 = errorCopy;
   if (self->_homeKitHomeManager && self->_isCLIMode && self->_hdsutilHKToken)
   {
-    if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30 && (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30)
     {
-      [SFDeviceOperationHomeKitSetup _completeWithError:];
+      if (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || (errorCopy = _LogCategory_Initialize(), errorCopy))
+      {
+        [(SFDeviceOperationHomeKitSetup *)errorCopy _completeWithError:v6, v5];
+      }
     }
 
     [(HMHomeManager *)self->_homeKitHomeManager _endActiveAssertion:self->_hdsutilHKToken];
-    errorCopy = v13;
+    v6 = v17;
   }
 
   if (self->_active)
   {
-    if (errorCopy)
+    if (v6)
     {
       self->_state = 3;
       [(SFDeviceOperationHomeKitSetup *)self _removeAccessoryIfNeeded];
-      if ([v13 code] == -6723)
+      code = [v17 code];
+      if (code == -6723)
       {
-        if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30 && (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || _LogCategory_Initialize()))
+        if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30)
         {
-          [SFDeviceOperationHomeKitSetup _completeWithError:];
+          if (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || (code = _LogCategory_Initialize(), code))
+          {
+            [(SFDeviceOperationHomeKitSetup *)code _completeWithError:v8, v9];
+          }
         }
       }
 
-      else if (gLogCategory_SFDeviceOperationHomeKitSetup <= 60 && (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || _LogCategory_Initialize()))
+      else
       {
-        [SFDeviceOperationHomeKitSetup _completeWithError:];
+        v14 = v17;
+        if (gLogCategory_SFDeviceOperationHomeKitSetup <= 60)
+        {
+          if (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || (v15 = _LogCategory_Initialize(), v14 = v17, v15))
+          {
+            [SFDeviceOperationHomeKitSetup _completeWithError:v14];
+          }
+        }
       }
     }
 
     else
     {
       mach_absolute_time();
-      startTicks = self->_startTicks;
       UpTicksToSecondsF();
-      v7 = v6;
+      v11 = v10;
       if (gLogCategory_SFDeviceOperationHomeKitSetup >= 31)
       {
-        self->_metricNonUserSeconds = v6 + self->_metricNonUserSeconds;
+        self->_metricNonUserSeconds = v10 + self->_metricNonUserSeconds;
         self->_state = 4;
         goto LABEL_26;
       }
 
       if (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || _LogCategory_Initialize())
       {
-        [SFDeviceOperationHomeKitSetup _completeWithError:];
+        [SFDeviceOperationHomeKitSetup _completeWithError:v11];
       }
 
-      v8 = gLogCategory_SFDeviceOperationHomeKitSetup;
-      metricNonUserSeconds = v7 + self->_metricNonUserSeconds;
+      v12 = gLogCategory_SFDeviceOperationHomeKitSetup;
+      metricNonUserSeconds = v11 + self->_metricNonUserSeconds;
       self->_metricNonUserSeconds = metricNonUserSeconds;
       self->_state = 4;
-      if (v8 <= 30)
+      if (v12 <= 30)
       {
-        if (v8 == -1)
+        if (v12 == -1)
         {
           if (!_LogCategory_Initialize())
           {
@@ -269,9 +287,7 @@ LABEL_13:
           metricNonUserSeconds = self->_metricNonUserSeconds;
         }
 
-        v11 = metricNonUserSeconds;
-        metricUserSeconds = self->_metricUserSeconds;
-        LogPrintF();
+        LogPrintF(&gLogCategory_SFDeviceOperationHomeKitSetup, "[SFDeviceOperationHomeKitSetup _completeWithError:]", 30, "Succeeded (non-user %f seconds, user %f seconds)\n", metricNonUserSeconds, self->_metricUserSeconds);
       }
     }
   }
@@ -280,10 +296,10 @@ LABEL_26:
   completionHandler = self->_completionHandler;
   if (completionHandler)
   {
-    completionHandler[2](completionHandler, v13);
+    completionHandler[2](completionHandler, v17);
   }
 
-  [(SFDeviceOperationHomeKitSetup *)self _cleanup:*&v11];
+  [(SFDeviceOperationHomeKitSetup *)self _cleanup];
 }
 
 - (void)homeAppInstallChoice:(BOOL)choice
@@ -298,9 +314,9 @@ LABEL_26:
   dispatch_async(dispatchQueue, v4);
 }
 
-uint64_t __54__SFDeviceOperationHomeKitSetup_homeAppInstallChoice___block_invoke(uint64_t result)
+void *__54__SFDeviceOperationHomeKitSetup_homeAppInstallChoice___block_invoke(void *result)
 {
-  if (*(*(result + 32) + 8) == 1)
+  if (*(result[4] + 8) == 1)
   {
     v2 = result;
     if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30 && (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || _LogCategory_Initialize()))
@@ -308,13 +324,13 @@ uint64_t __54__SFDeviceOperationHomeKitSetup_homeAppInstallChoice___block_invoke
       __54__SFDeviceOperationHomeKitSetup_homeAppInstallChoice___block_invoke_cold_1(v2);
     }
 
-    *(*(v2 + 32) + 72) = 1;
+    *(v2[4] + 72) = 1;
     if (*(v2 + 40) == 1)
     {
-      [*(v2 + 32) _restoreHomeApp];
+      [v2[4] _restoreHomeApp];
     }
 
-    v3 = *(v2 + 32);
+    v3 = v2[4];
 
     return [v3 _run];
   }
@@ -333,37 +349,40 @@ uint64_t __54__SFDeviceOperationHomeKitSetup_homeAppInstallChoice___block_invoke
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __39__SFDeviceOperationHomeKitSetup_resume__block_invoke(uint64_t result)
+void *__39__SFDeviceOperationHomeKitSetup_resume__block_invoke(void *result, uint64_t a2, uint64_t a3)
 {
-  v2 = *(result + 32);
-  if (*(v2 + 8) == 1)
+  v4 = result[4];
+  if (*(v4 + 8) == 1)
   {
-    v3 = result;
+    v5 = result;
     if (gLogCategory_SFDeviceOperationHomeKitSetup >= 31)
     {
-      *(v2 + 9) = 0;
+      *(v4 + 9) = 0;
     }
 
     else
     {
-      if (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || _LogCategory_Initialize())
+      if (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || (result = _LogCategory_Initialize(), result))
       {
-        __39__SFDeviceOperationHomeKitSetup_resume__block_invoke_cold_1();
+        result = __39__SFDeviceOperationHomeKitSetup_resume__block_invoke_cold_1(result, a2, a3);
       }
 
-      v4 = gLogCategory_SFDeviceOperationHomeKitSetup;
-      *(*(v3 + 32) + 9) = 0;
-      if (v4 <= 30 && (v4 != -1 || _LogCategory_Initialize()))
+      v6 = gLogCategory_SFDeviceOperationHomeKitSetup;
+      *(v5[4] + 9) = 0;
+      if (v6 <= 30)
       {
-        __39__SFDeviceOperationHomeKitSetup_resume__block_invoke_cold_2();
+        if (v6 != -1 || (result = _LogCategory_Initialize(), result))
+        {
+          __39__SFDeviceOperationHomeKitSetup_resume__block_invoke_cold_2(result, a2, a3);
+        }
       }
     }
 
-    *(*(v3 + 32) + 16) = mach_absolute_time();
-    [*(v3 + 32) _startTimeout:*(*(v3 + 32) + 384)];
-    v5 = *(v3 + 32);
+    *(v5[4] + 16) = mach_absolute_time();
+    [v5[4] _startTimeout:*(v5[4] + 384)];
+    v7 = v5[4];
 
-    return [v5 _run];
+    return [v7 _run];
   }
 
   return result;
@@ -383,64 +402,71 @@ uint64_t __39__SFDeviceOperationHomeKitSetup_resume__block_invoke(uint64_t resul
   dispatch_async(dispatchQueue, v7);
 }
 
-void __44__SFDeviceOperationHomeKitSetup_selectHome___block_invoke(uint64_t a1)
+void __44__SFDeviceOperationHomeKitSetup_selectHome___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (*(*(a1 + 32) + 8) == 1)
   {
-    if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30 && (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || _LogCategory_Initialize()))
+    v3 = a1;
+    if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30)
     {
-      __44__SFDeviceOperationHomeKitSetup_selectHome___block_invoke_cold_1();
+      if (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || (a1 = _LogCategory_Initialize(), a1))
+      {
+        __44__SFDeviceOperationHomeKitSetup_selectHome___block_invoke_cold_1(a1, a2, a3);
+      }
     }
 
     mach_absolute_time();
-    v2 = *(*(a1 + 32) + 16);
     UpTicksToSecondsF();
-    *(*(a1 + 32) + 248) = v3 + *(*(a1 + 32) + 248);
-    if ([*(a1 + 32) _isOwnerOfHome:*(a1 + 40)])
+    *(*(v3 + 32) + 248) = v4 + *(*(v3 + 32) + 248);
+    if ([*(v3 + 32) _isOwnerOfHome:*(v3 + 40)])
     {
-      objc_storeStrong((*(a1 + 32) + 208), *(a1 + 40));
-      *(*(a1 + 32) + 16) = mach_absolute_time();
-      if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30 && (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || _LogCategory_Initialize()))
+      objc_storeStrong((*(v3 + 32) + 208), *(v3 + 40));
+      v5 = mach_absolute_time();
+      *(*(v3 + 32) + 16) = v5;
+      if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30)
       {
-        __44__SFDeviceOperationHomeKitSetup_selectHome___block_invoke_cold_2();
+        if (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || (v5 = _LogCategory_Initialize(), v5))
+        {
+          __44__SFDeviceOperationHomeKitSetup_selectHome___block_invoke_cold_2(v5, v6, v7);
+        }
       }
 
-      [*(a1 + 32) _startTimeout:*(*(a1 + 32) + 384)];
-      v4 = *(a1 + 32);
+      [*(v3 + 32) _startTimeout:*(*(v3 + 32) + 384)];
+      v8 = *(v3 + 32);
 
-      [v4 _run];
+      [v8 _run];
     }
 
     else
     {
-      v16 = NSErrorWithOSStatusF();
-      v5 = [v16 userInfo];
-      v6 = [v5 mutableCopy];
-      v7 = v6;
-      if (v6)
+      v20 = NSErrorWithOSStatusF(301018, "HomeKitSetupNonOwnerHome");
+      v9 = [v20 userInfo];
+      v10 = [v9 mutableCopy];
+      v11 = v10;
+      if (v10)
       {
-        v8 = v6;
+        v12 = v10;
       }
 
       else
       {
-        v8 = objc_alloc_init(MEMORY[0x1E695DF90]);
+        v12 = objc_alloc_init(MEMORY[0x1E695DF90]);
       }
 
-      v9 = v8;
+      v13 = v12;
 
-      v10 = [*(a1 + 40) name];
-      [v9 setObject:v10 forKeyedSubscript:@"SFErrorKeyHomeName"];
+      v14 = [*(v3 + 40) name];
+      [v13 setObject:v14 forKeyedSubscript:@"SFErrorKeyHomeName"];
 
-      v11 = [*(a1 + 40) owner];
-      v12 = [v11 name];
-      [v9 setObject:v12 forKeyedSubscript:@"SFErrorKeyHomeOwnerAccount"];
+      v15 = [*(v3 + 40) owner];
+      v16 = [v15 name];
+      [v13 setObject:v16 forKeyedSubscript:@"SFErrorKeyHomeOwnerAccount"];
 
-      v13 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v14 = [v16 domain];
-      v15 = [v13 initWithDomain:v14 code:objc_msgSend(v16 userInfo:{"code"), v9}];
+      v17 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v18 = [v20 domain];
+      v19 = [v17 initWithDomain:v18 code:objc_msgSend(v20 userInfo:{"code"), v13}];
 
-      [*(a1 + 32) _completeWithError:v15];
+      [*(v3 + 32) _completeWithError:v19];
     }
   }
 }
@@ -456,20 +482,23 @@ void __44__SFDeviceOperationHomeKitSetup_selectHome___block_invoke(uint64_t a1)
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __45__SFDeviceOperationHomeKitSetup_reselectHome__block_invoke(uint64_t result)
+void *__45__SFDeviceOperationHomeKitSetup_reselectHome__block_invoke(void *result, uint64_t a2, uint64_t a3)
 {
-  if (*(*(result + 32) + 8) == 1)
+  if (*(result[4] + 8) == 1)
   {
-    v2 = result;
-    if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30 && (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || _LogCategory_Initialize()))
+    v4 = result;
+    if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30)
     {
-      __45__SFDeviceOperationHomeKitSetup_reselectHome__block_invoke_cold_1();
+      if (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || (result = _LogCategory_Initialize(), result))
+      {
+        __45__SFDeviceOperationHomeKitSetup_reselectHome__block_invoke_cold_1(result, a2, a3);
+      }
     }
 
-    *(*(v2 + 32) + 96) = 1;
-    v3 = *(v2 + 32);
+    *(v4[4] + 96) = 1;
+    v5 = v4[4];
 
-    return [v3 _run];
+    return [v5 _run];
   }
 
   return result;
@@ -489,9 +518,9 @@ uint64_t __45__SFDeviceOperationHomeKitSetup_reselectHome__block_invoke(uint64_t
   dispatch_async(dispatchQueue, v7);
 }
 
-uint64_t __44__SFDeviceOperationHomeKitSetup_selectRoom___block_invoke(uint64_t result)
+void *__44__SFDeviceOperationHomeKitSetup_selectRoom___block_invoke(void *result)
 {
-  if (*(*(result + 32) + 8) == 1)
+  if (*(result[4] + 8) == 1)
   {
     v2 = result;
     if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30 && (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || _LogCategory_Initialize()))
@@ -500,20 +529,23 @@ uint64_t __44__SFDeviceOperationHomeKitSetup_selectRoom___block_invoke(uint64_t 
     }
 
     mach_absolute_time();
-    v3 = *(*(v2 + 32) + 16);
     UpTicksToSecondsF();
-    *(*(v2 + 32) + 248) = v4 + *(*(v2 + 32) + 248);
-    *(*(v2 + 32) + 16) = mach_absolute_time();
-    if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30 && (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || _LogCategory_Initialize()))
+    *(v2[4] + 248) = v3 + *(v2[4] + 248);
+    v4 = mach_absolute_time();
+    *(v2[4] + 16) = v4;
+    if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30)
     {
-      __44__SFDeviceOperationHomeKitSetup_selectRoom___block_invoke_cold_2();
+      if (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || (v4 = _LogCategory_Initialize(), v4))
+      {
+        __44__SFDeviceOperationHomeKitSetup_selectRoom___block_invoke_cold_2(v4, v5, v6);
+      }
     }
 
-    objc_storeStrong((*(v2 + 32) + 216), *(v2 + 40));
-    [*(v2 + 32) _startTimeout:*(*(v2 + 32) + 384)];
-    v5 = *(v2 + 32);
+    objc_storeStrong((v2[4] + 216), v2[5]);
+    [v2[4] _startTimeout:*(v2[4] + 384)];
+    v7 = v2[4];
 
-    return [v5 _run];
+    return [v7 _run];
   }
 
   return result;
@@ -561,8 +593,7 @@ void __47__SFDeviceOperationHomeKitSetup__startTimeout___block_invoke(uint64_t a
 
   if (gLogCategory_SFDeviceOperationHomeKitSetup <= 60 && (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || _LogCategory_Initialize()))
   {
-    v9 = *(a1 + 40);
-    LogPrintF();
+    LogPrintF(&gLogCategory_SFDeviceOperationHomeKitSetup, "[SFDeviceOperationHomeKitSetup _startTimeout:]_block_invoke", 60, "### Timeout after %f seconds (%s)\n", *(a1 + 40), v3);
   }
 
   v4 = *(*(a1 + 32) + 40);
@@ -576,13 +607,13 @@ void __47__SFDeviceOperationHomeKitSetup__startTimeout___block_invoke(uint64_t a
   }
 
   v8 = *(a1 + 32);
-  v10 = NSErrorWithOSStatusF();
-  [v8 _completeWithError:{v10, v3}];
+  v9 = NSErrorWithOSStatusF(4294896133, "%s", v3);
+  [v8 _completeWithError:v9];
 }
 
 - (void)_run
 {
-  v39[1] = *MEMORY[0x1E69E9840];
+  v38[1] = *MEMORY[0x1E69E9840];
   v3 = *MEMORY[0x1E696A768];
   v4 = *MEMORY[0x1E696A578];
   state = self->_state;
@@ -620,7 +651,7 @@ void __47__SFDeviceOperationHomeKitSetup__startTimeout___block_invoke(uint64_t a
 
           SFMetricsLog(@"com.apple.sharing.HomeResetRequired", MEMORY[0x1E695E0F8]);
           v18 = MEMORY[0x1E696ABC0];
-          v38 = v4;
+          v37 = v4;
           v19 = [MEMORY[0x1E696AEC0] stringWithUTF8String:DebugGetErrorString()];
           v20 = v19;
           v21 = @"?";
@@ -629,8 +660,8 @@ void __47__SFDeviceOperationHomeKitSetup__startTimeout___block_invoke(uint64_t a
             v21 = v19;
           }
 
-          v39[0] = v21;
-          v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v39 forKeys:&v38 count:1];
+          v38[0] = v21;
+          v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v38 forKeys:&v37 count:1];
           v23 = 301024;
           v24 = v18;
           v25 = v3;
@@ -650,7 +681,7 @@ LABEL_112:
 
           SFMetricsLog(@"com.apple.sharing.HomeKitKeychainNotEnabled", MEMORY[0x1E695E0F8]);
           v28 = MEMORY[0x1E696ABC0];
-          v36 = v4;
+          v35 = v4;
           v29 = [MEMORY[0x1E696AEC0] stringWithUTF8String:DebugGetErrorString()];
           v20 = v29;
           v30 = @"?";
@@ -659,8 +690,8 @@ LABEL_112:
             v30 = v29;
           }
 
-          v37 = v30;
-          v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
+          v36 = v30;
+          v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
           v24 = v28;
           v25 = v3;
           v23 = 301011;
@@ -703,7 +734,6 @@ LABEL_121:
           continue;
         }
 
-        v34 = *MEMORY[0x1E69E9840];
         return;
       case 13:
         if (self->_keyExchangeOnly)
@@ -939,9 +969,9 @@ LABEL_87:
 
         goto LABEL_121;
       case 34:
-        v35 = 0;
-        v26 = [(SFDeviceOperationHomeKitSetup *)self _runHomeKitConfigureStereoPairAndReturnError:&v35];
-        v27 = v35;
+        v34 = 0;
+        v26 = [(SFDeviceOperationHomeKitSetup *)self _runHomeKitConfigureStereoPairAndReturnError:&v34];
+        v27 = v34;
         if (v27)
         {
           [(SFDeviceOperationHomeKitSetup *)self _completeWithError:v27];
@@ -1052,128 +1082,152 @@ LABEL_91:
 
 - (void)_runInit
 {
-  if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30 && (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30)
   {
-    [SFDeviceOperationHomeKitSetup _runInit];
-  }
-
-  self->_startTicks = mach_absolute_time();
-  if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30 && (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || _LogCategory_Initialize()))
-  {
-    [SFDeviceOperationHomeKitSetup _runInit];
-  }
-
-  [(SFDeviceOperationHomeKitSetup *)self _startTimeout:self->_timeoutInSeconds];
-  v3 = objc_alloc_init(getTROperationQueueClass_0());
-  trOperationQueue = self->_trOperationQueue;
-  self->_trOperationQueue = v3;
-
-  if (self->_isCLIMode)
-  {
-    if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30 && (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || (self = _LogCategory_Initialize(), self))
     {
-      [SFDeviceOperationHomeKitSetup _runInit];
+      [(SFDeviceOperationHomeKitSetup *)self _runInit];
+    }
+  }
+
+  v4 = mach_absolute_time();
+  selfCopy->_startTicks = v4;
+  if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30)
+  {
+    if (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || (v4 = _LogCategory_Initialize(), v4))
+    {
+      [(SFDeviceOperationHomeKitSetup *)v4 _runInit];
+    }
+  }
+
+  v7 = [(SFDeviceOperationHomeKitSetup *)selfCopy _startTimeout:selfCopy->_timeoutInSeconds];
+  v8 = objc_alloc_init(getTROperationQueueClass_0(v7));
+  trOperationQueue = selfCopy->_trOperationQueue;
+  selfCopy->_trOperationQueue = v8;
+
+  if (selfCopy->_isCLIMode)
+  {
+    if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30)
+    {
+      if (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || (_runInit = _LogCategory_Initialize(), _runInit))
+      {
+        [(SFDeviceOperationHomeKitSetup *)_runInit _runInit];
+      }
     }
 
     defaultConfiguration = [(objc_class *)getHMMutableHomeManagerConfigurationClass() defaultConfiguration];
-    v6 = [defaultConfiguration mutableCopy];
-    [v6 setAdaptive:1];
-    v7 = [objc_alloc(getHMHomeManagerClass_0()) initWithConfiguration:v6];
-    homeKitHomeManager = self->_homeKitHomeManager;
-    self->_homeKitHomeManager = v7;
+    v14 = [defaultConfiguration mutableCopy];
+    v15 = [v14 setAdaptive:1];
+    v16 = [objc_alloc(getHMHomeManagerClass_0(v15)) initWithConfiguration:v14];
+    homeKitHomeManager = selfCopy->_homeKitHomeManager;
+    selfCopy->_homeKitHomeManager = v16;
 
-    v9 = [(HMHomeManager *)self->_homeKitHomeManager _beginActiveAssertionWithReason:@"tvsetuputil Started"];
-    hdsutilHKToken = self->_hdsutilHKToken;
-    self->_hdsutilHKToken = v9;
+    v18 = [(HMHomeManager *)selfCopy->_homeKitHomeManager _beginActiveAssertionWithReason:@"tvsetuputil Started"];
+    hdsutilHKToken = selfCopy->_hdsutilHKToken;
+    selfCopy->_hdsutilHKToken = v18;
   }
 
   else
   {
-    if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30 && (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30)
     {
-      [SFDeviceOperationHomeKitSetup _runInit];
+      if (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || (_runInit = _LogCategory_Initialize(), _runInit))
+      {
+        _runInit = [(SFDeviceOperationHomeKitSetup *)_runInit _runInit];
+      }
     }
 
-    v11 = objc_alloc_init(getHMHomeManagerClass_0());
-    defaultConfiguration = self->_homeKitHomeManager;
-    self->_homeKitHomeManager = v11;
+    v20 = objc_alloc_init(getHMHomeManagerClass_0(_runInit));
+    defaultConfiguration = selfCopy->_homeKitHomeManager;
+    selfCopy->_homeKitHomeManager = v20;
   }
 
-  v12 = self->_homeKitHomeManager;
+  v21 = selfCopy->_homeKitHomeManager;
 
-  [(HMHomeManager *)v12 setDelegate:self];
+  [(HMHomeManager *)v21 setDelegate:selfCopy];
 }
 
 - (void)_runHomeKitDeviceSetup
 {
-  if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30 && (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30)
   {
-    [SFDeviceOperationHomeKitSetup _runHomeKitDeviceSetup];
+    if (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      self = [(SFDeviceOperationHomeKitSetup *)self _runHomeKitDeviceSetup];
+    }
   }
 
-  if (!self->_keyExchangeOnly)
+  if (!selfCopy->_keyExchangeOnly)
   {
-    if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30 && (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30)
     {
-      [SFDeviceOperationHomeKitSetup _runHomeKitDeviceSetup];
+      if (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        [(SFDeviceOperationHomeKitSetup *)self _runHomeKitDeviceSetup];
+      }
     }
 
-    v3 = objc_alloc_init(getHMAccessoryBrowserClass());
-    homeKitBrowser = self->_homeKitBrowser;
-    self->_homeKitBrowser = v3;
+    v4 = objc_alloc_init(getHMAccessoryBrowserClass());
+    homeKitBrowser = selfCopy->_homeKitBrowser;
+    selfCopy->_homeKitBrowser = v4;
 
-    [(HMAccessoryBrowser *)self->_homeKitBrowser setDelegate:self];
-    [(HMAccessoryBrowser *)self->_homeKitBrowser startSearchingForNewAccessories];
+    [(HMAccessoryBrowser *)selfCopy->_homeKitBrowser setDelegate:selfCopy];
+    [(HMAccessoryBrowser *)selfCopy->_homeKitBrowser startSearchingForNewAccessories];
   }
 
-  v5 = self->_trSession;
-  if (v5)
+  v6 = selfCopy->_trSession;
+  if (v6)
   {
-    sessionID = self->_sessionID;
-    v7 = objc_alloc(getHMDeviceSetupOperationClass());
+    sessionID = selfCopy->_sessionID;
+    v8 = objc_alloc(getHMDeviceSetupOperationClass());
     if (sessionID)
     {
-      v8 = [v7 initWithSession:v5 sessionIdentifier:self->_sessionID];
-      homeKitDeviceSetupOperation = self->_homeKitDeviceSetupOperation;
-      self->_homeKitDeviceSetupOperation = v8;
+      v9 = [v8 initWithSession:v6 sessionIdentifier:selfCopy->_sessionID];
+      homeKitDeviceSetupOperation = selfCopy->_homeKitDeviceSetupOperation;
+      selfCopy->_homeKitDeviceSetupOperation = v9;
 
       if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30 && (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || _LogCategory_Initialize()))
       {
-        [(SFDeviceOperationHomeKitSetup *)&self->_sessionID _runHomeKitDeviceSetup];
+        [(SFDeviceOperationHomeKitSetup *)&selfCopy->_sessionID _runHomeKitDeviceSetup];
       }
     }
 
     else
     {
-      v11 = [v7 initWithSession:v5];
-      v12 = self->_homeKitDeviceSetupOperation;
-      self->_homeKitDeviceSetupOperation = v11;
+      v12 = [v8 initWithSession:v6];
+      v13 = selfCopy->_homeKitDeviceSetupOperation;
+      selfCopy->_homeKitDeviceSetupOperation = v12;
 
-      if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30 && (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || _LogCategory_Initialize()))
+      if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30)
       {
-        [SFDeviceOperationHomeKitSetup _runHomeKitDeviceSetup];
+        if (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || (v14 = _LogCategory_Initialize(), v14))
+        {
+          [(SFDeviceOperationHomeKitSetup *)v14 _runHomeKitDeviceSetup];
+        }
       }
     }
 
-    if (self->_userInteractive)
+    if (selfCopy->_userInteractive)
     {
-      v13 = 33;
+      v17 = 33;
     }
 
     else
     {
-      v13 = 9;
+      v17 = 9;
     }
 
-    [(HMDeviceSetupOperation *)self->_homeKitDeviceSetupOperation setQualityOfService:v13];
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __55__SFDeviceOperationHomeKitSetup__runHomeKitDeviceSetup__block_invoke;
-    v14[3] = &unk_1E788B198;
-    v14[4] = self;
-    [(HMDeviceSetupOperation *)self->_homeKitDeviceSetupOperation setCompletionBlock:v14];
-    [(TROperationQueue *)self->_trOperationQueue addOperation:self->_homeKitDeviceSetupOperation];
-    self->_startTicksForHomeKitSteps = mach_absolute_time();
+    [(HMDeviceSetupOperation *)selfCopy->_homeKitDeviceSetupOperation setQualityOfService:v17];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __55__SFDeviceOperationHomeKitSetup__runHomeKitDeviceSetup__block_invoke;
+    v18[3] = &unk_1E788B198;
+    v18[4] = selfCopy;
+    [(HMDeviceSetupOperation *)selfCopy->_homeKitDeviceSetupOperation setCompletionBlock:v18];
+    [(TROperationQueue *)selfCopy->_trOperationQueue addOperation:selfCopy->_homeKitDeviceSetupOperation];
+    selfCopy->_startTicksForHomeKitSteps = mach_absolute_time();
     if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30 && (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || _LogCategory_Initialize()))
     {
       [SFDeviceOperationHomeKitSetup _runHomeKitDeviceSetup];
@@ -1182,8 +1236,8 @@ LABEL_91:
 
   else
   {
-    v10 = NSErrorWithOSStatusF();
-    [(SFDeviceOperationHomeKitSetup *)self _completeWithError:v10];
+    v11 = NSErrorWithOSStatusF(4294960556, "HomeKitSetupNoTRSession");
+    [(SFDeviceOperationHomeKitSetup *)selfCopy _completeWithError:v11];
   }
 }
 
@@ -1202,11 +1256,9 @@ void __55__SFDeviceOperationHomeKitSetup__runHomeKitDeviceSetup__block_invoke(ui
 void __55__SFDeviceOperationHomeKitSetup__runHomeKitDeviceSetup__block_invoke_2(uint64_t a1)
 {
   mach_absolute_time();
-  v3 = *(a1 + 32);
   v2 = a1 + 32;
-  v4 = *(v3 + 24);
   UpTicksToSecondsF();
-  *(*v2 + 256) = v5;
+  *(*v2 + 256) = v3;
   if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30 && (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || _LogCategory_Initialize()))
   {
     __55__SFDeviceOperationHomeKitSetup__runHomeKitDeviceSetup__block_invoke_2_cold_1(v2);
@@ -1214,83 +1266,99 @@ void __55__SFDeviceOperationHomeKitSetup__runHomeKitDeviceSetup__block_invoke_2(
 
   if (*(*v2 + 8) == 1)
   {
-    v6 = [*(*v2 + 80) accessory];
-    v7 = *(*v2 + 88);
-    *(*v2 + 88) = v6;
+    v4 = [*(*v2 + 80) accessory];
+    v5 = *(*v2 + 88);
+    *(*v2 + 88) = v4;
 
-    v8 = *v2;
-    if (*(*v2 + 88))
+    v6 = *v2;
+    v7 = *(*v2 + 88);
+    if (v7)
     {
       if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30)
       {
         if (gLogCategory_SFDeviceOperationHomeKitSetup == -1)
         {
-          v9 = _LogCategory_Initialize();
-          v8 = *v2;
-          if (!v9)
+          v8 = _LogCategory_Initialize();
+          v6 = *v2;
+          if (!v8)
           {
             goto LABEL_14;
           }
 
-          v11 = *(v8 + 88);
+          v7 = *(v6 + 88);
         }
 
-        LogPrintF();
-        v8 = *v2;
+        LogPrintF(&gLogCategory_SFDeviceOperationHomeKitSetup, "[SFDeviceOperationHomeKitSetup _runHomeKitDeviceSetup]_block_invoke_2", 30, "HomeKit DeviceSetup done: %@\n", v7);
+        v6 = *v2;
       }
 
 LABEL_14:
-      *(v8 + 32) = 25;
-      v10 = *v2;
+      *(v6 + 32) = 25;
+      v9 = *v2;
 
-      [v10 _run];
+      [v9 _run];
       return;
     }
 
-    v12 = NSErrorWithOSStatusF();
-    [v8 _completeWithError:v12];
+    v10 = NSErrorWithOSStatusF(4294960584, "HomeKitSetupNoAccessory");
+    [v6 _completeWithError:v10];
   }
 }
 
 - (id)_runHomeKitAutoSelectHome:(BOOL)home
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   homes = [(HMHomeManager *)self->_homeKitHomeManager homes];
-  v6 = homes;
+  v8 = homes;
   if (!home)
   {
-    if (![homes count])
+    v9 = [homes count];
+    if (!v9)
     {
-      if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30 && (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || _LogCategory_Initialize()))
+      if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30)
       {
-        [SFDeviceOperationHomeKitSetup _runHomeKitAutoSelectHome:];
+        if (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || (v9 = _LogCategory_Initialize(), v9))
+        {
+          [(SFDeviceOperationHomeKitSetup *)v9 _runHomeKitAutoSelectHome:v10, v11];
+        }
       }
 
       [(SFDeviceOperationHomeKitSetup *)self _runHomeKitAddHome];
-LABEL_47:
+LABEL_49:
       firstObject = 0;
-      goto LABEL_48;
+      goto LABEL_50;
     }
 
-    if ([v6 count] == 1)
+    homes = [v8 count];
+    if (homes == 1)
     {
-      firstObject = [v6 firstObject];
-      if (firstObject && [(SFDeviceOperationHomeKitSetup *)self _isOwnerOfHome:firstObject])
+      firstObject = [v8 firstObject];
+      if (firstObject)
       {
-        if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30 && (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || _LogCategory_Initialize()))
+        v13 = [(SFDeviceOperationHomeKitSetup *)self _isOwnerOfHome:firstObject];
+        if (v13)
         {
-          [SFDeviceOperationHomeKitSetup _runHomeKitAutoSelectHome:];
-        }
+          if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30)
+          {
+            if (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || (v13 = _LogCategory_Initialize(), v13))
+            {
+              [(SFDeviceOperationHomeKitSetup *)v13 _runHomeKitAutoSelectHome:v14, v15];
+            }
+          }
 
-        goto LABEL_48;
+          goto LABEL_50;
+        }
       }
     }
   }
 
-  v8 = &unk_1EB3AF000;
-  if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30 && (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || _LogCategory_Initialize()))
+  v16 = &unk_1EB3AF000;
+  if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30)
   {
-    [SFDeviceOperationHomeKitSetup _runHomeKitAutoSelectHome:v6];
+    if (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || (homes = _LogCategory_Initialize(), homes))
+    {
+      homes = [SFDeviceOperationHomeKitSetup _runHomeKitAutoSelectHome:v8];
+    }
   }
 
   if (self->_promptForHomeHandler)
@@ -1300,84 +1368,94 @@ LABEL_47:
 
     if (uniqueIdentifier)
     {
-      v34 = 0u;
-      v35 = 0u;
-      v32 = 0u;
-      v33 = 0u;
-      v11 = v6;
-      v12 = [v11 countByEnumeratingWithState:&v32 objects:v36 count:16];
-      if (v12)
+      v40 = 0u;
+      v41 = 0u;
+      v38 = 0u;
+      v39 = 0u;
+      v19 = v8;
+      v20 = [v19 countByEnumeratingWithState:&v38 objects:v42 count:16];
+      if (v20)
       {
-        v13 = v12;
-        v31 = v6;
-        v14 = 0;
-        v15 = *v33;
+        v21 = v20;
+        v37 = v8;
+        v22 = 0;
+        v23 = *v39;
 LABEL_22:
-        v16 = 0;
-        v17 = v14;
-        v14 += v13;
+        v24 = 0;
+        v25 = v22;
+        v22 += v21;
         while (1)
         {
-          if (*v33 != v15)
+          if (*v39 != v23)
           {
-            objc_enumerationMutation(v11);
+            objc_enumerationMutation(v19);
           }
 
-          uniqueIdentifier2 = [*(*(&v32 + 1) + 8 * v16) uniqueIdentifier];
-          v19 = [uniqueIdentifier2 isEqual:uniqueIdentifier];
+          uniqueIdentifier2 = [*(*(&v38 + 1) + 8 * v24) uniqueIdentifier];
+          v27 = [uniqueIdentifier2 isEqual:uniqueIdentifier];
 
-          if (v19)
+          if (v27)
           {
             break;
           }
 
-          ++v17;
-          if (v13 == ++v16)
+          ++v25;
+          if (v21 == ++v24)
           {
-            v13 = [v11 countByEnumeratingWithState:&v32 objects:v36 count:16];
-            if (v13)
+            v21 = [v19 countByEnumeratingWithState:&v38 objects:v42 count:16];
+            if (v21)
             {
               goto LABEL_22;
             }
 
+            v25 = 0;
             break;
           }
         }
 
-        v6 = v31;
-        v8 = &unk_1EB3AF000;
+        v8 = v37;
+        v16 = &unk_1EB3AF000;
+      }
+
+      else
+      {
+        v25 = 0;
       }
     }
 
-    v20 = v8[338];
-    if (v20 <= 30 && (v20 != -1 || _LogCategory_Initialize()))
+    else
     {
-      [SFDeviceOperationHomeKitSetup _runHomeKitAutoSelectHome:];
+      v25 = 0;
+    }
+
+    v28 = v16[338];
+    if (v28 <= 30 && (v28 != -1 || _LogCategory_Initialize()))
+    {
+      [SFDeviceOperationHomeKitSetup _runHomeKitAutoSelectHome:v25];
     }
 
     timeoutTimer = self->_timeoutTimer;
     if (timeoutTimer)
     {
-      v22 = timeoutTimer;
-      dispatch_source_cancel(v22);
-      v23 = self->_timeoutTimer;
+      v30 = timeoutTimer;
+      dispatch_source_cancel(v30);
+      v31 = self->_timeoutTimer;
       self->_timeoutTimer = 0;
     }
 
     mach_absolute_time();
-    startTicks = self->_startTicks;
     UpTicksToSecondsF();
-    v26 = v25;
-    v27 = v8[338];
-    if (v27 <= 30 && (v27 != -1 || _LogCategory_Initialize()))
+    v33 = v32;
+    v34 = v16[338];
+    if (v34 <= 30 && (v34 != -1 || _LogCategory_Initialize()))
     {
-      [SFDeviceOperationHomeKitSetup _runHomeKitAutoSelectHome:];
+      [SFDeviceOperationHomeKitSetup _runHomeKitAutoSelectHome:v33];
     }
 
-    self->_metricNonUserSeconds = v26 + self->_metricNonUserSeconds;
+    self->_metricNonUserSeconds = v33 + self->_metricNonUserSeconds;
     self->_startTicks = mach_absolute_time();
-    v28 = v8[338];
-    if (v28 <= 30 && (v28 != -1 || _LogCategory_Initialize()))
+    v35 = v16[338];
+    if (v35 <= 30 && (v35 != -1 || _LogCategory_Initialize()))
     {
       [SFDeviceOperationHomeKitSetup _runHomeKitAutoSelectHome:];
     }
@@ -1385,18 +1463,19 @@ LABEL_22:
     self->_state = 17;
     (*(self->_promptForHomeHandler + 2))();
 
-    goto LABEL_47;
+    goto LABEL_49;
   }
 
-  if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30 && (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || _LogCategory_Initialize()))
+  if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30)
   {
-    [SFDeviceOperationHomeKitSetup _runHomeKitAutoSelectHome:];
+    if (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || (homes = _LogCategory_Initialize(), homes))
+    {
+      [(SFDeviceOperationHomeKitSetup *)homes _runHomeKitAutoSelectHome:v6, v7];
+    }
   }
 
-  firstObject = [v6 firstObject];
-LABEL_48:
-
-  v29 = *MEMORY[0x1E69E9840];
+  firstObject = [v8 firstObject];
+LABEL_50:
 
   return firstObject;
 }
@@ -1432,334 +1511,345 @@ void __51__SFDeviceOperationHomeKitSetup__runHomeKitAddHome__block_invoke(uint64
   dispatch_async(v8, block);
 }
 
-void __51__SFDeviceOperationHomeKitSetup__runHomeKitAddHome__block_invoke_2(uint64_t a1)
+void __51__SFDeviceOperationHomeKitSetup__runHomeKitAddHome__block_invoke_2(void *a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
-  if (v1[8] == 1)
+  v2 = a1[4];
+  if (v2[8] == 1)
   {
-    if (*(a1 + 40))
+    v3 = a1;
+    v4 = a1[5];
+    if (v4)
     {
-      v3 = *(a1 + 32);
+      v5 = a1[4];
 
-      [v3 _completeWithError:?];
+      [v5 _completeWithError:?];
     }
 
-    else if (*(a1 + 48))
+    else if (a1[6])
     {
-      if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30 && (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || _LogCategory_Initialize()))
+      if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30)
       {
-        __51__SFDeviceOperationHomeKitSetup__runHomeKitAddHome__block_invoke_2_cold_1();
+        if (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || (a1 = _LogCategory_Initialize(), a1))
+        {
+          __51__SFDeviceOperationHomeKitSetup__runHomeKitAddHome__block_invoke_2_cold_1(a1, a2, v4);
+        }
       }
 
-      objc_storeStrong((*(a1 + 32) + 208), *(a1 + 48));
-      v4 = *(a1 + 32);
+      objc_storeStrong((v3[4] + 208), v3[6]);
+      v6 = v3[4];
 
-      [v4 _run];
+      [v6 _run];
     }
 
     else
     {
-      v5 = NSErrorWithOSStatusF();
-      [v1 _completeWithError:v5];
+      v7 = NSErrorWithOSStatusF(4294960556, "HomeKitSetupAddHomeNoHome");
+      [v2 _completeWithError:v7];
     }
   }
 }
 
 - (void)_runHomeKitSelectRoom
 {
-  v86 = *MEMORY[0x1E69E9840];
+  v85 = *MEMORY[0x1E69E9840];
   v3 = self->_homeKitSelectedHome;
-  v52 = v3;
+  v6 = v3;
+  v51 = v3;
   selfCopy = self;
-  if (*&self->_promptForRoomHandler == 0)
+  if (self->_promptForRoomHandler || self->_promptForRoomHandlerDetailed)
   {
-    if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30 && (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || _LogCategory_Initialize()))
-    {
-      [SFDeviceOperationHomeKitSetup _runHomeKitSelectRoom];
-    }
-
-    roomForEntireHome = [(HMHome *)v3 roomForEntireHome];
-    homeKitSelectedRoom = self->_homeKitSelectedRoom;
-    self->_homeKitSelectedRoom = roomForEntireHome;
-
-    if (!self->_homeKitSelectedRoom)
-    {
-      v43 = NSErrorWithOSStatusF();
-      [(SFDeviceOperationHomeKitSetup *)self _completeWithError:v43];
-    }
-  }
-
-  else
-  {
-    v59 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v58 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v78 = 0u;
     v79 = 0u;
     v80 = 0u;
     v81 = 0u;
-    v82 = 0u;
-    rooms = [(HMHome *)v3 rooms];
-    v5 = [rooms countByEnumeratingWithState:&v79 objects:v85 count:16];
-    if (v5)
+    rooms = [(HMHome *)v6 rooms];
+    v8 = [rooms countByEnumeratingWithState:&v78 objects:v84 count:16];
+    if (v8)
     {
-      v6 = *v80;
+      v9 = *v79;
       do
       {
-        for (i = 0; i != v5; ++i)
+        for (i = 0; i != v8; ++i)
         {
-          if (*v80 != v6)
+          if (*v79 != v9)
           {
             objc_enumerationMutation(rooms);
           }
 
-          name = [*(*(&v79 + 1) + 8 * i) name];
-          if (name && ([v59 containsObject:name] & 1) == 0)
+          name = [*(*(&v78 + 1) + 8 * i) name];
+          if (name && ([v58 containsObject:name] & 1) == 0)
           {
-            [v59 addObject:name];
+            [v58 addObject:name];
           }
         }
 
-        v5 = [rooms countByEnumeratingWithState:&v79 objects:v85 count:16];
+        v8 = [rooms countByEnumeratingWithState:&v78 objects:v84 count:16];
       }
 
-      while (v5);
+      while (v8);
     }
 
-    [v59 sortUsingSelector:?];
-    v54 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v77 = 0u;
-    v78 = 0u;
-    v75 = 0u;
+    [v58 sortUsingSelector:?];
+    v53 = objc_alloc_init(MEMORY[0x1E695DF70]);
     v76 = 0u;
-    v9 = [&unk_1F1D7D898 countByEnumeratingWithState:&v75 objects:v84 count:16];
-    if (v9)
+    v77 = 0u;
+    v74 = 0u;
+    v75 = 0u;
+    v12 = [&unk_1F1D7D898 countByEnumeratingWithState:&v74 objects:v83 count:16];
+    if (v12)
     {
-      v10 = 0;
-      v53 = 0;
-      v11 = *v76;
+      v13 = 0;
+      v52 = 0;
+      v14 = *v75;
       do
       {
-        v12 = 0;
-        v56 = v10;
-        v13 = 10 - v10;
+        v15 = 0;
+        v55 = v13;
+        v16 = 10 - v13;
         do
         {
-          if (*v76 != v11)
+          if (*v75 != v14)
           {
             objc_enumerationMutation(&unk_1F1D7D898);
           }
 
-          v14 = SFLocalizedStringForKey(*(*(&v75 + 1) + 8 * v12));
-          if (v14)
+          v17 = SFLocalizedStringForKey(*(*(&v74 + 1) + 8 * v15));
+          if (v17)
           {
-            v15 = [(SFDeviceOperationHomeKitSetup *)selfCopy _normalizedString:v14];
-            v74[0] = MEMORY[0x1E69E9820];
-            v74[1] = 3221225472;
-            v74[2] = __54__SFDeviceOperationHomeKitSetup__runHomeKitSelectRoom__block_invoke;
-            v74[3] = &unk_1E788F390;
-            v74[4] = v15;
-            if ([v59 indexOfObjectPassingTest:v74] == 0x7FFFFFFFFFFFFFFFLL)
+            v18 = [(SFDeviceOperationHomeKitSetup *)selfCopy _normalizedString:v17];
+            v73[0] = MEMORY[0x1E69E9820];
+            v73[1] = 3221225472;
+            v73[2] = __54__SFDeviceOperationHomeKitSetup__runHomeKitSelectRoom__block_invoke;
+            v73[3] = &unk_1E788F390;
+            v73[4] = v18;
+            if ([v58 indexOfObjectPassingTest:v73] == 0x7FFFFFFFFFFFFFFFLL)
             {
-              [v54 addObject:v14];
-              if (v13 == v12)
+              [v53 addObject:v17];
+              if (v16 == v15)
               {
-                v16 = v14;
+                v19 = v17;
 
-                v53 = v16;
+                v52 = v19;
               }
             }
           }
 
-          ++v12;
+          ++v15;
         }
 
-        while (v9 != v12);
-        v17 = [&unk_1F1D7D898 countByEnumeratingWithState:&v75 objects:v84 count:16];
-        v10 = v56 + v9;
-        v9 = v17;
+        while (v12 != v15);
+        v20 = [&unk_1F1D7D898 countByEnumeratingWithState:&v74 objects:v83 count:16];
+        v13 = v55 + v12;
+        v12 = v20;
       }
 
-      while (v17);
+      while (v20);
     }
 
     else
     {
-      v53 = 0;
+      v52 = 0;
     }
 
-    [(SFDeviceOperationHomeKitSetup *)selfCopy _removeSimilarRoomNames:v54 home:v52];
-    [v54 sortUsingSelector:sel_localizedStandardCompare_];
-    v51 = [v59 arrayByAddingObjectsFromArray:v54];
+    [(SFDeviceOperationHomeKitSetup *)selfCopy _removeSimilarRoomNames:v53 home:v51];
+    [v53 sortUsingSelector:sel_localizedStandardCompare_];
+    v50 = [v58 arrayByAddingObjectsFromArray:v53];
     timeoutTimer = selfCopy->_timeoutTimer;
     if (timeoutTimer)
     {
-      v19 = timeoutTimer;
-      dispatch_source_cancel(v19);
-      v20 = selfCopy->_timeoutTimer;
+      v22 = timeoutTimer;
+      dispatch_source_cancel(v22);
+      v23 = selfCopy->_timeoutTimer;
       selfCopy->_timeoutTimer = 0;
     }
 
     mach_absolute_time();
-    startTicks = selfCopy->_startTicks;
     UpTicksToSecondsF();
-    v23 = v22;
+    v25 = v24;
     if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30 && (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || _LogCategory_Initialize()))
     {
-      [SFDeviceOperationHomeKitSetup _runHomeKitSelectRoom];
+      [(SFDeviceOperationHomeKitSetup *)v25 _runHomeKitSelectRoom];
     }
 
-    selfCopy->_metricNonUserSeconds = v23 + selfCopy->_metricNonUserSeconds;
-    v24 = mach_absolute_time();
-    v25 = selfCopy;
-    selfCopy->_startTicks = v24;
+    selfCopy->_metricNonUserSeconds = v25 + selfCopy->_metricNonUserSeconds;
+    v26 = mach_absolute_time();
+    v27 = selfCopy;
+    selfCopy->_startTicks = v26;
     if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30)
     {
-      if (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || (v26 = _LogCategory_Initialize(), v25 = selfCopy, v26))
+      if (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || (v28 = _LogCategory_Initialize(), v27 = selfCopy, v28))
       {
         [SFDeviceOperationHomeKitSetup _runHomeKitSelectRoom];
-        v25 = selfCopy;
+        v27 = selfCopy;
       }
     }
 
-    if (v25->_promptForRoomHandler && v25->_promptForRoomHandlerDetailed && gLogCategory_SFDeviceOperationHomeKitSetup <= 30 && (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || _LogCategory_Initialize()))
+    if (v27->_promptForRoomHandler && v27->_promptForRoomHandlerDetailed && gLogCategory_SFDeviceOperationHomeKitSetup <= 30 && (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || _LogCategory_Initialize()))
     {
       [SFDeviceOperationHomeKitSetup _runHomeKitSelectRoom];
     }
 
-    v50 = [v59 count];
-    v27 = selfCopy;
+    v49 = [v58 count];
+    v29 = selfCopy;
     if (selfCopy->_promptForRoomHandlerDetailed)
     {
-      v28 = dispatch_group_create();
-      v57 = objc_opt_new();
-      v68 = 0;
-      v69 = &v68;
-      v70 = 0x3032000000;
-      v71 = __Block_byref_object_copy__10;
-      v72 = __Block_byref_object_dispose__10;
-      v73 = 0;
+      v30 = dispatch_group_create();
+      v56 = objc_opt_new();
+      v67 = 0;
+      v68 = &v67;
+      v69 = 0x3032000000;
+      v70 = __Block_byref_object_copy__10;
+      v71 = __Block_byref_object_dispose__10;
+      v72 = 0;
+      v63 = 0u;
       v64 = 0u;
       v65 = 0u;
       v66 = 0u;
-      v67 = 0u;
-      obj = v54;
-      v29 = [obj countByEnumeratingWithState:&v64 objects:v83 count:16];
-      if (v29)
+      obj = v53;
+      v31 = [obj countByEnumeratingWithState:&v63 objects:v82 count:16];
+      if (v31)
       {
-        v30 = *v65;
+        v32 = *v64;
         do
         {
-          for (j = 0; j != v29; ++j)
+          for (j = 0; j != v31; ++j)
           {
-            if (*v65 != v30)
+            if (*v64 != v32)
             {
               objc_enumerationMutation(obj);
             }
 
-            v32 = *(*(&v64 + 1) + 8 * j);
-            dispatch_group_enter(v28);
+            v34 = *(*(&v63 + 1) + 8 * j);
+            dispatch_group_enter(v30);
             homeKitHomeManager = selfCopy->_homeKitHomeManager;
             homeKitSelectedHome = selfCopy->_homeKitSelectedHome;
-            v60[0] = MEMORY[0x1E69E9820];
-            v60[1] = 3221225472;
-            v60[2] = __54__SFDeviceOperationHomeKitSetup__runHomeKitSelectRoom__block_invoke_264;
-            v60[3] = &unk_1E788F3B8;
-            v60[4] = v32;
-            v63 = &v68;
-            v61 = v57;
-            v62 = v28;
-            [(HMHomeManager *)homeKitHomeManager checkName:v32 inHome:homeKitSelectedHome withValidationOptions:4 completionHandler:v60];
+            v59[0] = MEMORY[0x1E69E9820];
+            v59[1] = 3221225472;
+            v59[2] = __54__SFDeviceOperationHomeKitSetup__runHomeKitSelectRoom__block_invoke_264;
+            v59[3] = &unk_1E788F3B8;
+            v59[4] = v34;
+            v62 = &v67;
+            v60 = v56;
+            v61 = v30;
+            [(HMHomeManager *)homeKitHomeManager checkName:v34 inHome:homeKitSelectedHome withValidationOptions:4 completionHandler:v59];
           }
 
-          v29 = [obj countByEnumeratingWithState:&v64 objects:v83 count:16];
+          v31 = [obj countByEnumeratingWithState:&v63 objects:v82 count:16];
         }
 
-        while (v29);
+        while (v31);
       }
 
-      v35 = dispatch_time(0, 30000000000);
-      dispatch_group_wait(v28, v35);
-      if ([v59 count] || objc_msgSend(v57, "count") || !v69[5])
+      v37 = dispatch_time(0, 30000000000);
+      dispatch_group_wait(v30, v37);
+      if ([v58 count] || objc_msgSend(v56, "count") || !v68[5])
       {
         [MEMORY[0x1E696AC88] indexPathForRow:0 inSection:0];
-        v37 = v36 = v52;
-        if (!v50)
+        v39 = v38 = v51;
+        if (!v49)
         {
           if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30 && (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || _LogCategory_Initialize()))
           {
-            v47 = v53;
-            LogPrintF();
+            LogPrintF(&gLogCategory_SFDeviceOperationHomeKitSetup, "[SFDeviceOperationHomeKitSetup _runHomeKitSelectRoom]", 30, "Prompt for room: use default: %@", v52);
           }
 
-          if (v53)
+          if (v52)
           {
-            [v57 indexOfObject:?];
+            [v56 indexOfObject:?];
           }
 
-          v38 = [MEMORY[0x1E696AC88] indexPathForRow:v47 inSection:?];
+          v41 = [MEMORY[0x1E696AC88] indexPathForRow:? inSection:?];
 
-          v37 = v38;
-          v36 = v52;
+          v39 = v41;
+          v38 = v51;
         }
 
         if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30 && (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || _LogCategory_Initialize()))
         {
-          v48 = obj;
-          v49 = v37;
-          v47 = v59;
-          LogPrintF();
+          LogPrintF(&gLogCategory_SFDeviceOperationHomeKitSetup, "[SFDeviceOperationHomeKitSetup _runHomeKitSelectRoom]", 30, "Prompt for room: existing rooms: %##@, suggested rooms: %##@, default will be %@\n", v58, obj, v39);
         }
 
         promptForRoomHandlerDetailed = selfCopy->_promptForRoomHandlerDetailed;
-        v40 = [(HMHome *)v36 name:v47];
-        promptForRoomHandlerDetailed[2](promptForRoomHandlerDetailed, v40, v59, v57, v37);
+        name2 = [(HMHome *)v38 name];
+        promptForRoomHandlerDetailed[2](promptForRoomHandlerDetailed, name2, v58, v56, v39);
       }
 
       else
       {
         if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30 && (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF();
+          LogPrintF(&gLogCategory_SFDeviceOperationHomeKitSetup, "[SFDeviceOperationHomeKitSetup _runHomeKitSelectRoom]", 30, "Prompt for room not called, erroring out since there are no rooms to show the User\n");
         }
 
-        [(SFDeviceOperationHomeKitSetup *)selfCopy _completeWithError:v69[5]];
+        [(SFDeviceOperationHomeKitSetup *)selfCopy _completeWithError:v68[5]];
       }
 
-      _Block_object_dispose(&v68, 8);
+      _Block_object_dispose(&v67, 8);
     }
 
     else
     {
-      if (!v50)
+      if (v49)
       {
-        if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30)
-        {
-          if (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || (v44 = _LogCategory_Initialize(), v27 = selfCopy, v44))
-          {
-            [SFDeviceOperationHomeKitSetup _runHomeKitSelectRoom];
-            v27 = selfCopy;
-          }
-        }
-
-        if (v53)
-        {
-          [v51 indexOfObject:?];
-          v27 = selfCopy;
-        }
+        goto LABEL_61;
       }
 
       if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30)
       {
-        if (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || (v45 = _LogCategory_Initialize(), v27 = selfCopy, v45))
+        if (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || (v47 = _LogCategory_Initialize(), v29 = selfCopy, v47))
         {
-          LogPrintF();
-          v27 = selfCopy;
+          [(SFDeviceOperationHomeKitSetup *)v52 _runHomeKitSelectRoom];
+          v29 = selfCopy;
         }
       }
 
-      (*(v27->_promptForRoomHandler + 2))(v27->_promptForRoomHandler, v51);
+      if (!v52)
+      {
+LABEL_61:
+        v40 = 0;
+      }
+
+      else
+      {
+        v40 = [v50 indexOfObject:?];
+        v29 = selfCopy;
+      }
+
+      if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30)
+      {
+        if (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || (v48 = _LogCategory_Initialize(), v29 = selfCopy, v48))
+        {
+          LogPrintF(&gLogCategory_SFDeviceOperationHomeKitSetup, "[SFDeviceOperationHomeKitSetup _runHomeKitSelectRoom]", 30, "Prompt for room (Legacy): rooms: %##@, default will be index: %d\n", v50, v40);
+          v29 = selfCopy;
+        }
+      }
+
+      (*(v29->_promptForRoomHandler + 2))();
     }
   }
 
-  v46 = *MEMORY[0x1E69E9840];
+  else
+  {
+    if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30)
+    {
+      if (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        [(SFDeviceOperationHomeKitSetup *)v3 _runHomeKitSelectRoom];
+        v6 = v51;
+      }
+    }
+
+    roomForEntireHome = [(HMHome *)v6 roomForEntireHome];
+    homeKitSelectedRoom = self->_homeKitSelectedRoom;
+    self->_homeKitSelectedRoom = roomForEntireHome;
+
+    if (!self->_homeKitSelectedRoom)
+    {
+      v46 = NSErrorWithOSStatusF(4294960569, "HomeKitSetupAutoSelectNoRoom");
+      [(SFDeviceOperationHomeKitSetup *)self _completeWithError:v46];
+    }
+  }
 }
 
 BOOL __54__SFDeviceOperationHomeKitSetup__runHomeKitSelectRoom__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
@@ -1775,14 +1865,13 @@ BOOL __54__SFDeviceOperationHomeKitSetup__runHomeKitSelectRoom__block_invoke(uin
 
 void __54__SFDeviceOperationHomeKitSetup__runHomeKitSelectRoom__block_invoke_264(uint64_t a1, int a2, void *a3, void *a4)
 {
-  v9 = a3;
+  v8 = a3;
   v7 = a4;
-  if (v9 | v7)
+  if (v8 | v7)
   {
     if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30 && (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || _LogCategory_Initialize()))
     {
-      v8 = *(a1 + 32);
-      LogPrintF();
+      LogPrintF(&gLogCategory_SFDeviceOperationHomeKitSetup, "[SFDeviceOperationHomeKitSetup _runHomeKitSelectRoom]_block_invoke", 30, "Prompt for room: error while checking name %@ | conflictName %@ | %{error}\n", *(a1 + 32), v8, v7);
     }
 
     if (v7)
@@ -1806,29 +1895,29 @@ void __54__SFDeviceOperationHomeKitSetup__runHomeKitSelectRoom__block_invoke_264
 
 - (void)_runHomeKitAddAccessory
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   self->_state = 26;
   uniqueIdentifier = [(HMAccessory *)self->_homeKitAccessory uniqueIdentifier];
+  v19 = 0u;
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
-  v24 = 0u;
   accessories = [(HMHome *)self->_homeKitSelectedHome accessories];
-  v5 = [accessories countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v5 = [accessories countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v22;
+    v7 = *v20;
 LABEL_3:
     v8 = 0;
     while (1)
     {
-      if (*v22 != v7)
+      if (*v20 != v7)
       {
         objc_enumerationMutation(accessories);
       }
 
-      v9 = *(*(&v21 + 1) + 8 * v8);
+      v9 = *(*(&v19 + 1) + 8 * v8);
       uniqueIdentifier2 = [v9 uniqueIdentifier];
       v11 = [uniqueIdentifier2 isEqual:uniqueIdentifier];
 
@@ -1839,7 +1928,7 @@ LABEL_3:
 
       if (v6 == ++v8)
       {
-        v6 = [accessories countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v6 = [accessories countByEnumeratingWithState:&v19 objects:v23 count:16];
         if (v6)
         {
           goto LABEL_3;
@@ -1877,18 +1966,14 @@ LABEL_15:
     pairedPeer = [(SFDeviceOperationHomeKitSetup *)self pairedPeer];
     identifier = [pairedPeer identifier];
 
-    if (identifier)
+    if (identifier && (objc_opt_respondsToSelector() & 1) != 0)
     {
-      v16 = self->_homeKitAccessory;
-      if (objc_opt_respondsToSelector())
+      if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30 && (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || _LogCategory_Initialize()))
       {
-        if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30 && (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || _LogCategory_Initialize()))
-        {
-          [SFDeviceOperationHomeKitSetup _runHomeKitAddAccessory];
-        }
-
-        [(HMAccessory *)self->_homeKitAccessory setPeerIdentifier:identifier];
+        [(SFDeviceOperationHomeKitSetup *)identifier _runHomeKitAddAccessory];
       }
+
+      [(HMAccessory *)self->_homeKitAccessory setPeerIdentifier:identifier];
     }
 
     if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30 && (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || _LogCategory_Initialize()))
@@ -1897,16 +1982,14 @@ LABEL_15:
     }
 
     homeKitSelectedHome = self->_homeKitSelectedHome;
-    v18 = self->_homeKitAccessory;
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __56__SFDeviceOperationHomeKitSetup__runHomeKitAddAccessory__block_invoke;
-    v20[3] = &unk_1E788B238;
-    v20[4] = self;
-    [(HMHome *)homeKitSelectedHome addAccessory:v18 completionHandler:v20];
+    v17 = self->_homeKitAccessory;
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __56__SFDeviceOperationHomeKitSetup__runHomeKitAddAccessory__block_invoke;
+    v18[3] = &unk_1E788B238;
+    v18[4] = self;
+    [(HMHome *)homeKitSelectedHome addAccessory:v17 completionHandler:v18];
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __56__SFDeviceOperationHomeKitSetup__runHomeKitAddAccessory__block_invoke(uint64_t a1, void *a2)
@@ -1924,61 +2007,65 @@ void __56__SFDeviceOperationHomeKitSetup__runHomeKitAddAccessory__block_invoke(u
   dispatch_async(v5, v7);
 }
 
-uint64_t __56__SFDeviceOperationHomeKitSetup__runHomeKitAddAccessory__block_invoke_2(uint64_t a1)
+void __56__SFDeviceOperationHomeKitSetup__runHomeKitAddAccessory__block_invoke_2(uint64_t a1)
 {
   mach_absolute_time();
   v2 = (a1 + 32);
-  v3 = *(*(a1 + 32) + 24);
-  result = UpTicksToSecondsF();
-  *(*(a1 + 32) + 264) = v5;
+  v3 = UpTicksToSecondsF();
+  *(*(a1 + 32) + 264) = v6;
   if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30)
   {
-    if (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || (result = _LogCategory_Initialize(), result))
+    if (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || (v3 = _LogCategory_Initialize(), v3))
     {
-      result = __56__SFDeviceOperationHomeKitSetup__runHomeKitAddAccessory__block_invoke_2_cold_1(a1 + 32);
+      v3 = __56__SFDeviceOperationHomeKitSetup__runHomeKitAddAccessory__block_invoke_2_cold_1(a1 + 32);
     }
   }
 
   if (*(*v2 + 8) == 1)
   {
-    if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30 && (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30)
     {
-      __56__SFDeviceOperationHomeKitSetup__runHomeKitAddAccessory__block_invoke_2_cold_2();
+      if (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        __56__SFDeviceOperationHomeKitSetup__runHomeKitAddAccessory__block_invoke_2_cold_2(v3, v4, v5);
+      }
     }
 
     [*(*(a1 + 32) + 64) stopSearchingForNewAccessories];
-    v6 = *(a1 + 32);
-    v7 = *(v6 + 64);
-    *(v6 + 64) = 0;
+    v7 = *(a1 + 32);
+    v8 = *(v7 + 64);
+    *(v7 + 64) = 0;
 
-    if (*(a1 + 40))
+    v11 = *(a1 + 40);
+    if (v11)
     {
-      v8 = *v2;
+      v12 = *v2;
 
-      return [v8 _completeWithError:?];
+      [v12 _completeWithError:?];
     }
 
     else
     {
-      if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30 && (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || _LogCategory_Initialize()))
+      if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30)
       {
-        __56__SFDeviceOperationHomeKitSetup__runHomeKitAddAccessory__block_invoke_2_cold_3();
+        if (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || (v9 = _LogCategory_Initialize(), v9))
+        {
+          __56__SFDeviceOperationHomeKitSetup__runHomeKitAddAccessory__block_invoke_2_cold_3(v9, v10, v11);
+        }
       }
 
       *(*v2 + 156) = 1;
       [*v2 _updateAccount];
-      v9 = *v2;
+      v13 = *v2;
 
-      return [v9 _run];
+      [v13 _run];
     }
   }
-
-  return result;
 }
 
 - (void)_runHomeKitSetupRoom:(BOOL)room
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v5 = self->_homeKitSelectedRoom;
   if (v5)
   {
@@ -1998,38 +2085,38 @@ LABEL_3:
 
   else
   {
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     rooms = [(HMHome *)self->_homeKitSelectedHome rooms];
-    v11 = [rooms countByEnumeratingWithState:&v22 objects:v26 count:16];
-    if (v11)
+    v10 = [rooms countByEnumeratingWithState:&v21 objects:v25 count:16];
+    if (v10)
     {
-      v12 = v11;
-      v13 = *v23;
+      v11 = v10;
+      v12 = *v22;
 LABEL_10:
-      v14 = 0;
+      v13 = 0;
       while (1)
       {
-        if (*v23 != v13)
+        if (*v22 != v12)
         {
           objc_enumerationMutation(rooms);
         }
 
-        v15 = *(*(&v22 + 1) + 8 * v14);
-        name = [v15 name];
-        v17 = [name isEqual:self->_homeKitSelectedRoomName];
+        v14 = *(*(&v21 + 1) + 8 * v13);
+        name = [v14 name];
+        v16 = [name isEqual:self->_homeKitSelectedRoomName];
 
-        if (v17)
+        if (v16)
         {
           break;
         }
 
-        if (v12 == ++v14)
+        if (v11 == ++v13)
         {
-          v12 = [rooms countByEnumeratingWithState:&v22 objects:v26 count:16];
-          if (v12)
+          v11 = [rooms countByEnumeratingWithState:&v21 objects:v25 count:16];
+          if (v11)
           {
             goto LABEL_10;
           }
@@ -2038,7 +2125,7 @@ LABEL_10:
         }
       }
 
-      v6 = v15;
+      v6 = v14;
 
       if (v6)
       {
@@ -2061,23 +2148,21 @@ LABEL_16:
 
       self->_state = 28;
       homeKitSelectedHome = self->_homeKitSelectedHome;
-      v20[0] = MEMORY[0x1E69E9820];
-      v20[1] = 3221225472;
-      v20[2] = __54__SFDeviceOperationHomeKitSetup__runHomeKitSetupRoom___block_invoke;
-      v20[3] = &unk_1E788F408;
-      v20[4] = self;
+      v19[0] = MEMORY[0x1E69E9820];
+      v19[1] = 3221225472;
+      v19[2] = __54__SFDeviceOperationHomeKitSetup__runHomeKitSetupRoom___block_invoke;
+      v19[3] = &unk_1E788F408;
+      v19[4] = self;
       roomCopy = room;
-      [(HMHome *)homeKitSelectedHome addRoomWithName:v8 completionHandler:v20];
+      [(HMHome *)homeKitSelectedHome addRoomWithName:v8 completionHandler:v19];
     }
 
     else
     {
-      v19 = NSErrorWithOSStatusF();
-      [(SFDeviceOperationHomeKitSetup *)self _completeWithError:v19];
+      v18 = NSErrorWithOSStatusF(4294960552, "HomeKitSetupNoRoomName");
+      [(SFDeviceOperationHomeKitSetup *)self _completeWithError:v18];
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __54__SFDeviceOperationHomeKitSetup__runHomeKitSetupRoom___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -2109,17 +2194,17 @@ void __54__SFDeviceOperationHomeKitSetup__runHomeKitSetupRoom___block_invoke_2(u
     {
       if ([v3 code] == 1 && (*(a1 + 56) & 1) == 0)
       {
-        v8 = dispatch_time(0, 2000000000);
-        v9 = *(*(a1 + 32) + 192);
+        v11 = dispatch_time(0, 2000000000);
+        v12 = *(*(a1 + 32) + 192);
         block[0] = MEMORY[0x1E69E9820];
         block[1] = 3221225472;
         block[2] = __54__SFDeviceOperationHomeKitSetup__runHomeKitSetupRoom___block_invoke_3;
         block[3] = &unk_1E788A658;
-        v10 = *(a1 + 40);
-        v11 = *(a1 + 32);
-        v14 = v10;
-        v15 = v11;
-        dispatch_after(v8, v9, block);
+        v13 = *(a1 + 40);
+        v14 = *(a1 + 32);
+        v17 = v13;
+        v18 = v14;
+        dispatch_after(v11, v12, block);
       }
 
       else
@@ -2134,8 +2219,8 @@ void __54__SFDeviceOperationHomeKitSetup__runHomeKitSetupRoom___block_invoke_2(u
 
         else
         {
-          v12 = NSErrorWithOSStatusF();
-          [v4 _completeWithError:v12];
+          v15 = NSErrorWithOSStatusF(4294960556, "HomeKitSetupAddRoomNoRoom");
+          [v4 _completeWithError:v15];
         }
       }
     }
@@ -2143,15 +2228,18 @@ void __54__SFDeviceOperationHomeKitSetup__runHomeKitSetupRoom___block_invoke_2(u
     else
     {
       objc_storeStrong((v1 + 104), v6);
-      if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30 && (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || _LogCategory_Initialize()))
+      if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30)
       {
-        __54__SFDeviceOperationHomeKitSetup__runHomeKitSetupRoom___block_invoke_2_cold_1();
+        if (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || (v7 = _LogCategory_Initialize(), v7))
+        {
+          __54__SFDeviceOperationHomeKitSetup__runHomeKitSetupRoom___block_invoke_2_cold_1(v7, v8, v9);
+        }
       }
 
       *(*(a1 + 32) + 32) = 29;
-      v7 = *(a1 + 32);
+      v10 = *(a1 + 32);
 
-      [v7 _run];
+      [v10 _run];
     }
   }
 }
@@ -2172,7 +2260,7 @@ uint64_t __54__SFDeviceOperationHomeKitSetup__runHomeKitSetupRoom___block_invoke
 - (void)_runHomeKitAssignRoom
 {
   name = [*(self + 104) name];
-  LogPrintF();
+  LogPrintF(&gLogCategory_SFDeviceOperationHomeKitSetup, "[SFDeviceOperationHomeKitSetup _runHomeKitAssignRoom]", 30, "Assigning accessory to room: '%@'\n", name);
 }
 
 void __54__SFDeviceOperationHomeKitSetup__runHomeKitAssignRoom__block_invoke(uint64_t a1, void *a2)
@@ -2194,7 +2282,6 @@ void *__54__SFDeviceOperationHomeKitSetup__runHomeKitAssignRoom__block_invoke_2(
 {
   mach_absolute_time();
   v2 = a1 + 32;
-  v3 = *(*(a1 + 32) + 24);
   UpTicksToSecondsF();
   *(*(a1 + 32) + 272) = v4;
   if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30 && (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || _LogCategory_Initialize()))
@@ -2205,7 +2292,8 @@ void *__54__SFDeviceOperationHomeKitSetup__runHomeKitAssignRoom__block_invoke_2(
   result = *v2;
   if (*(*v2 + 8) == 1)
   {
-    if (*(a1 + 40))
+    v6 = *(a1 + 40);
+    if (v6)
     {
 
       return [result _completeWithError:?];
@@ -2213,15 +2301,18 @@ void *__54__SFDeviceOperationHomeKitSetup__runHomeKitAssignRoom__block_invoke_2(
 
     else
     {
-      if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30 && (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || _LogCategory_Initialize()))
+      if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30)
       {
-        __54__SFDeviceOperationHomeKitSetup__runHomeKitAssignRoom__block_invoke_2_cold_2();
+        if (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || (result = _LogCategory_Initialize(), result))
+        {
+          __54__SFDeviceOperationHomeKitSetup__runHomeKitAssignRoom__block_invoke_2_cold_2(result, v3, v6);
+        }
       }
 
       *(*v2 + 32) = 31;
-      v6 = *v2;
+      v7 = *v2;
 
-      return [v6 _run];
+      return [v7 _run];
     }
   }
 
@@ -2230,36 +2321,40 @@ void *__54__SFDeviceOperationHomeKitSetup__runHomeKitAssignRoom__block_invoke_2(
 
 - (void)_runHomeKitAddAppData
 {
-  if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30 && (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30)
   {
-    [SFDeviceOperationHomeKitSetup _runHomeKitAddAppData];
+    if (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      [(SFDeviceOperationHomeKitSetup *)self _runHomeKitAddAppData];
+    }
   }
 
-  homeKitAccessory = self->_homeKitAccessory;
+  homeKitAccessory = selfCopy->_homeKitAccessory;
   if (homeKitAccessory)
   {
     applicationData = [(HMAccessory *)homeKitAccessory applicationData];
-    appDataSelf = self->_appDataSelf;
+    appDataSelf = selfCopy->_appDataSelf;
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __54__SFDeviceOperationHomeKitSetup__runHomeKitAddAppData__block_invoke;
+    v11[3] = &unk_1E788F430;
+    v12 = applicationData;
+    v7 = applicationData;
+    [(NSDictionary *)appDataSelf enumerateKeysAndObjectsUsingBlock:v11];
+    v8 = selfCopy->_homeKitAccessory;
     v10[0] = MEMORY[0x1E69E9820];
     v10[1] = 3221225472;
-    v10[2] = __54__SFDeviceOperationHomeKitSetup__runHomeKitAddAppData__block_invoke;
-    v10[3] = &unk_1E788F430;
-    v11 = applicationData;
-    v6 = applicationData;
-    [(NSDictionary *)appDataSelf enumerateKeysAndObjectsUsingBlock:v10];
-    v7 = self->_homeKitAccessory;
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __54__SFDeviceOperationHomeKitSetup__runHomeKitAddAppData__block_invoke_2;
-    v9[3] = &unk_1E788B238;
-    v9[4] = self;
-    [(HMAccessory *)v7 updateApplicationData:v6 completionHandler:v9];
+    v10[2] = __54__SFDeviceOperationHomeKitSetup__runHomeKitAddAppData__block_invoke_2;
+    v10[3] = &unk_1E788B238;
+    v10[4] = selfCopy;
+    [(HMAccessory *)v8 updateApplicationData:v7 completionHandler:v10];
   }
 
   else
   {
-    v8 = NSErrorWithOSStatusF();
-    [(SFDeviceOperationHomeKitSetup *)self _completeWithError:v8];
+    v9 = NSErrorWithOSStatusF(4294960596, "No HomeKit accessory to add AppData");
+    [(SFDeviceOperationHomeKitSetup *)selfCopy _completeWithError:v9];
   }
 }
 
@@ -2278,39 +2373,42 @@ void __54__SFDeviceOperationHomeKitSetup__runHomeKitAddAppData__block_invoke_2(u
   dispatch_async(v5, v7);
 }
 
-uint64_t __54__SFDeviceOperationHomeKitSetup__runHomeKitAddAppData__block_invoke_3(uint64_t result)
+void *__54__SFDeviceOperationHomeKitSetup__runHomeKitAddAppData__block_invoke_3(void *result, uint64_t a2)
 {
-  if (*(*(result + 32) + 8) == 1)
+  if (*(result[4] + 8) == 1)
   {
-    v1 = result;
-    v2 = *(result + 40);
-    if (v2)
+    v2 = result;
+    v3 = result[5];
+    if (v3)
     {
       if (gLogCategory_SFDeviceOperationHomeKitSetup <= 60)
       {
-        if (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || (v4 = _LogCategory_Initialize(), v2 = *(v1 + 40), v4))
+        if (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || (v5 = _LogCategory_Initialize(), v3 = v2[5], v5))
         {
-          LogPrintF();
-          v2 = *(v1 + 40);
+          LogPrintF(&gLogCategory_SFDeviceOperationHomeKitSetup, "[SFDeviceOperationHomeKitSetup _runHomeKitAddAppData]_block_invoke_3", 60, "### Add AppData failed: %{error}\n", v3);
+          v3 = v2[5];
         }
       }
 
-      v5 = *(v1 + 32);
+      v6 = v2[4];
 
-      return [v5 _completeWithError:v2];
+      return [v6 _completeWithError:v3];
     }
 
     else
     {
-      if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30 && (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || _LogCategory_Initialize()))
+      if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30)
       {
-        __54__SFDeviceOperationHomeKitSetup__runHomeKitAddAppData__block_invoke_3_cold_1();
+        if (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || (result = _LogCategory_Initialize(), result))
+        {
+          __54__SFDeviceOperationHomeKitSetup__runHomeKitAddAppData__block_invoke_3_cold_1(result, a2, v3);
+        }
       }
 
-      *(*(v1 + 32) + 112) = 1;
-      v3 = *(v1 + 32);
+      *(v2[4] + 112) = 1;
+      v4 = v2[4];
 
-      return [v3 _run];
+      return [v4 _run];
     }
   }
 
@@ -2319,61 +2417,66 @@ uint64_t __54__SFDeviceOperationHomeKitSetup__runHomeKitAddAppData__block_invoke
 
 - (BOOL)_runHomeKitConfigureStereoPairAndReturnError:(id *)error
 {
-  v37[2] = *MEMORY[0x1E69E9840];
+  v39[2] = *MEMORY[0x1E69E9840];
   v5 = self->_stereoCounterpart;
+  v8 = v5;
   if (!v5 || (self->_stereoRole & 0xFFFFFFFE) != 2)
   {
-    goto LABEL_18;
+    goto LABEL_19;
   }
 
-  if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30 && (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || _LogCategory_Initialize()))
+  if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30)
   {
-    [SFDeviceOperationHomeKitSetup _runHomeKitConfigureStereoPairAndReturnError:];
+    if (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || (v5 = _LogCategory_Initialize(), v5))
+    {
+      [(SFDeviceOperationHomeKitSetup *)v5 _runHomeKitConfigureStereoPairAndReturnError:v6, v7];
+    }
   }
 
   if (!self->_homeKitAccessory)
   {
     if (error)
     {
-      goto LABEL_17;
+      NSErrorWithOSStatusF(4294960591, "StereoPair: No homekit accessory");
+LABEL_18:
+      *error = v19 = 0;
+      goto LABEL_20;
     }
 
-    goto LABEL_18;
+LABEL_19:
+    v19 = 0;
+    goto LABEL_20;
   }
 
   HMMediaSystemBuilderClass = getHMMediaSystemBuilderClass();
   homeKitAccessory = self->_homeKitAccessory;
-  v37[0] = v5;
-  v37[1] = homeKitAccessory;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v37 count:2];
-  LOBYTE(HMMediaSystemBuilderClass) = [(objc_class *)HMMediaSystemBuilderClass isStereoPairingSupportedForAccessories:v8];
+  v39[0] = v8;
+  v39[1] = homeKitAccessory;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:2];
+  LOBYTE(HMMediaSystemBuilderClass) = [(objc_class *)HMMediaSystemBuilderClass isStereoPairingSupportedForAccessories:v11];
 
   if ((HMMediaSystemBuilderClass & 1) == 0)
   {
     if (error)
     {
-LABEL_17:
-      NSErrorWithOSStatusF();
-      *error = v16 = 0;
-      goto LABEL_19;
+      NSErrorWithOSStatusF(4294960591, "StereoPair: isStereoPairingSupportedForAccessories == false");
+      goto LABEL_18;
     }
 
-LABEL_18:
-    v16 = 0;
     goto LABEL_19;
   }
 
-  v9 = self->_homeKitSelectedHome;
-  if (v9)
+  v12 = self->_homeKitSelectedHome;
+  if (v12)
   {
-    v10 = self->_homeKitSelectedRoomName;
-    if (v10)
+    v13 = self->_homeKitSelectedRoomName;
+    if (v13)
     {
-      v11 = [objc_alloc(getHMMediaSystemBuilderClass()) initWithHome:v9];
-      v12 = v11;
-      if (v11)
+      v14 = [objc_alloc(getHMMediaSystemBuilderClass()) initWithHome:v12];
+      v15 = v14;
+      if (v14)
       {
-        [v11 setName:v10];
+        [v14 setName:v13];
         mediaProfile = [(HMAccessory *)self->_homeKitAccessory mediaProfile];
         if (mediaProfile)
         {
@@ -2388,66 +2491,66 @@ LABEL_18:
           {
             [(objc_class *)HMMediaSystemRoleClass rightRole];
           }
-          v19 = ;
-          v32 = [objc_alloc(getHMMediaSystemComponentClass()) initWithMediaProfile:mediaProfile role:v19];
-          v33 = v19;
-          if (v32)
+          v21 = ;
+          v34 = [objc_alloc(getHMMediaSystemComponentClass()) initWithMediaProfile:mediaProfile role:v21];
+          v35 = v21;
+          if (v34)
           {
-            mediaProfile2 = [(HMAccessory *)v5 mediaProfile];
+            mediaProfile2 = [(HMAccessory *)v8 mediaProfile];
             if (mediaProfile2)
             {
-              v20 = self->_stereoRole;
-              v21 = getHMMediaSystemRoleClass();
-              if (v20 == 2)
+              v22 = self->_stereoRole;
+              v23 = getHMMediaSystemRoleClass();
+              if (v22 == 2)
               {
-                [(objc_class *)v21 rightRole];
+                [(objc_class *)v23 rightRole];
               }
 
               else
               {
-                [(objc_class *)v21 leftRole];
+                [(objc_class *)v23 leftRole];
               }
-              v30 = ;
-              v22 = [objc_alloc(getHMMediaSystemComponentClass()) initWithMediaProfile:mediaProfile2 role:v30];
-              v16 = v22 != 0;
-              if (v22)
+              v32 = ;
+              v24 = [objc_alloc(getHMMediaSystemComponentClass()) initWithMediaProfile:mediaProfile2 role:v32];
+              v19 = v24 != 0;
+              if (v24)
               {
                 if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30)
                 {
-                  if (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || (v23 = v22, v24 = _LogCategory_Initialize(), v22 = v23, v24))
+                  if (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || (v25 = v24, v26 = _LogCategory_Initialize(), v24 = v25, v26))
                   {
-                    v29 = v22;
+                    v31 = v24;
                     [SFDeviceOperationHomeKitSetup _runHomeKitConfigureStereoPairAndReturnError:];
-                    v22 = v29;
+                    v24 = v31;
                   }
                 }
 
-                v25 = v32;
-                v36[0] = v32;
-                v36[1] = v22;
-                v26 = v22;
-                v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:v36 count:2];
-                [v12 setComponents:v27];
+                v27 = v34;
+                v38[0] = v34;
+                v38[1] = v24;
+                v28 = v24;
+                v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:v38 count:2];
+                [v15 setComponents:v29];
 
-                v34[0] = MEMORY[0x1E69E9820];
-                v34[1] = 3221225472;
-                v34[2] = __78__SFDeviceOperationHomeKitSetup__runHomeKitConfigureStereoPairAndReturnError___block_invoke;
-                v34[3] = &unk_1E788F458;
-                v34[4] = self;
-                v35 = v12;
-                [v35 commitWithCompletionHandler:v34];
+                v36[0] = MEMORY[0x1E69E9820];
+                v36[1] = 3221225472;
+                v36[2] = __78__SFDeviceOperationHomeKitSetup__runHomeKitConfigureStereoPairAndReturnError___block_invoke;
+                v36[3] = &unk_1E788F458;
+                v36[4] = self;
+                v37 = v15;
+                [v37 commitWithCompletionHandler:v36];
 
-                v22 = v26;
+                v24 = v28;
               }
 
               else
               {
-                v25 = v32;
+                v27 = v34;
                 if (error)
                 {
-                  v28 = NSErrorWithOSStatusF();
-                  v22 = 0;
-                  *error = v28;
+                  v30 = NSErrorWithOSStatusF(4294960591, "StereoPair: Create peer component failed");
+                  v24 = 0;
+                  *error = v30;
                 }
               }
             }
@@ -2456,16 +2559,16 @@ LABEL_18:
             {
               if (error)
               {
-                NSErrorWithOSStatusF();
-                *error = v16 = 0;
+                NSErrorWithOSStatusF(4294960591, "StereoPair: No peer profile");
+                *error = v19 = 0;
               }
 
               else
               {
-                v16 = 0;
+                v19 = 0;
               }
 
-              v25 = v32;
+              v27 = v34;
             }
           }
 
@@ -2473,69 +2576,68 @@ LABEL_18:
           {
             if (error)
             {
-              NSErrorWithOSStatusF();
-              *error = v16 = 0;
+              NSErrorWithOSStatusF(4294960591, "StereoPair: Create self component failed");
+              *error = v19 = 0;
             }
 
             else
             {
-              v16 = 0;
+              v19 = 0;
             }
 
-            v25 = 0;
+            v27 = 0;
           }
         }
 
         else if (error)
         {
-          NSErrorWithOSStatusF();
-          *error = v16 = 0;
+          NSErrorWithOSStatusF(4294960591, "StereoPair: No self profile");
+          *error = v19 = 0;
         }
 
         else
         {
-          v16 = 0;
+          v19 = 0;
         }
       }
 
       else if (error)
       {
-        NSErrorWithOSStatusF();
-        *error = v16 = 0;
+        NSErrorWithOSStatusF(4294960591, "StereoPair: Create builder failed");
+        *error = v19 = 0;
       }
 
       else
       {
-        v16 = 0;
+        v19 = 0;
       }
     }
 
     else if (error)
     {
-      NSErrorWithOSStatusF();
-      *error = v16 = 0;
+      NSErrorWithOSStatusF(4294960591, "StereoPair: No room name");
+      *error = v19 = 0;
     }
 
     else
     {
-      v16 = 0;
+      v19 = 0;
     }
   }
 
   else if (error)
   {
-    NSErrorWithOSStatusF();
-    *error = v16 = 0;
+    NSErrorWithOSStatusF(4294960591, "StereoPair: No home");
+    *error = v19 = 0;
   }
 
   else
   {
-    v16 = 0;
+    v19 = 0;
   }
 
-LABEL_19:
-  v17 = *MEMORY[0x1E69E9840];
-  return v16;
+LABEL_20:
+  return v19;
 }
 
 void __78__SFDeviceOperationHomeKitSetup__runHomeKitConfigureStereoPairAndReturnError___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -2567,16 +2669,16 @@ void __78__SFDeviceOperationHomeKitSetup__runHomeKitConfigureStereoPairAndReturn
   {
     if (gLogCategory_SFDeviceOperationHomeKitSetup <= 90)
     {
-      if (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || (v6 = _LogCategory_Initialize(), v2 = *(a1 + 32), v6))
+      if (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || (v7 = _LogCategory_Initialize(), v2 = *(a1 + 32), v7))
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_SFDeviceOperationHomeKitSetup, "[SFDeviceOperationHomeKitSetup _runHomeKitConfigureStereoPairAndReturnError:]_block_invoke_2", 90, "### Configure stereo pair failed: %{error}\n", v2);
         v2 = *(a1 + 32);
       }
     }
 
-    v7 = *(a1 + 40);
+    v8 = *(a1 + 40);
 
-    [v7 _completeWithError:v2];
+    [v8 _completeWithError:v2];
     return;
   }
 
@@ -2596,16 +2698,16 @@ void __78__SFDeviceOperationHomeKitSetup__runHomeKitConfigureStereoPairAndReturn
       }
 
       v4 = [v3 uniqueIdentifier];
-      v9 = [*(a1 + 56) name];
-      LogPrintF();
+      v5 = [*(a1 + 56) name];
+      LogPrintF(&gLogCategory_SFDeviceOperationHomeKitSetup, "[SFDeviceOperationHomeKitSetup _runHomeKitConfigureStereoPairAndReturnError:]_block_invoke_2", 30, "Configured stereo pair: %@ '%@'\n", v4, v5);
     }
 
 LABEL_20:
     *(*(a1 + 40) + 113) = 1;
     objc_storeStrong((*(a1 + 40) + 120), *(a1 + 48));
-    v8 = *(a1 + 40);
+    v9 = *(a1 + 40);
 
-    [v8 _run];
+    [v9 _run];
     return;
   }
 
@@ -2614,61 +2716,69 @@ LABEL_20:
     __78__SFDeviceOperationHomeKitSetup__runHomeKitConfigureStereoPairAndReturnError___block_invoke_2_cold_1();
   }
 
-  v5 = *(a1 + 40);
-  v10 = NSErrorWithOSStatusF();
-  [v5 _completeWithError:v10];
+  v6 = *(a1 + 40);
+  v10 = NSErrorWithOSStatusF(4294960591, "Media system not available");
+  [v6 _completeWithError:v10];
 }
 
 - (void)_runHomeKitUpdateAppleTVAudioDestination
 {
   self->_odeonStartTicks = mach_absolute_time();
   audioDestinationController = [(HMAccessory *)self->_tvAudioInput audioDestinationController];
+  v6 = audioDestinationController;
   if (audioDestinationController)
   {
-    v4 = 88;
+    v7 = 88;
     if (self->_configuredStereoPair)
     {
-      v4 = 120;
+      v7 = 120;
     }
 
-    v5 = *(&self->super.isa + v4);
-    if (v5)
+    v8 = *(&self->super.isa + v7);
+    v11 = v8;
+    if (v8)
     {
       if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30 && (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_SFDeviceOperationHomeKitSetup, "[SFDeviceOperationHomeKitSetup _runHomeKitUpdateAppleTVAudioDestination]", 30, "Setting destination %@ on audio destination controller %@\n", v11, v6);
       }
 
-      v7[0] = MEMORY[0x1E69E9820];
-      v7[1] = 3221225472;
-      v7[2] = __73__SFDeviceOperationHomeKitSetup__runHomeKitUpdateAppleTVAudioDestination__block_invoke;
-      v7[3] = &unk_1E788B520;
-      v7[4] = self;
-      v8 = audioDestinationController;
-      [v8 updateDestination:v5 options:2 completionHandler:v7];
+      v13[0] = MEMORY[0x1E69E9820];
+      v13[1] = 3221225472;
+      v13[2] = __73__SFDeviceOperationHomeKitSetup__runHomeKitUpdateAppleTVAudioDestination__block_invoke;
+      v13[3] = &unk_1E788B520;
+      v13[4] = self;
+      v14 = v6;
+      [v14 updateDestination:v11 options:2 completionHandler:v13];
     }
 
     else
     {
-      if (gLogCategory_SFDeviceOperationHomeKitSetup <= 115 && (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || _LogCategory_Initialize()))
+      if (gLogCategory_SFDeviceOperationHomeKitSetup <= 115)
       {
-        [SFDeviceOperationHomeKitSetup _runHomeKitUpdateAppleTVAudioDestination];
+        if (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || (v8 = _LogCategory_Initialize(), v8))
+        {
+          [(SFDeviceOperationHomeKitSetup *)v8 _runHomeKitUpdateAppleTVAudioDestination];
+        }
       }
 
-      v6 = NSErrorWithOSStatusF();
-      [(SFDeviceOperationHomeKitSetup *)self _completeWithError:v6];
+      v12 = NSErrorWithOSStatusF(4294960587, "Audio destination object not available");
+      [(SFDeviceOperationHomeKitSetup *)self _completeWithError:v12];
     }
   }
 
   else
   {
-    if (gLogCategory_SFDeviceOperationHomeKitSetup <= 115 && (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_SFDeviceOperationHomeKitSetup <= 115)
     {
-      [SFDeviceOperationHomeKitSetup _runHomeKitUpdateAppleTVAudioDestination];
+      if (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || (audioDestinationController = _LogCategory_Initialize(), audioDestinationController))
+      {
+        [(SFDeviceOperationHomeKitSetup *)audioDestinationController _runHomeKitUpdateAppleTVAudioDestination];
+      }
     }
 
-    v5 = NSErrorWithOSStatusF();
-    [(SFDeviceOperationHomeKitSetup *)self _completeWithError:v5];
+    v11 = NSErrorWithOSStatusF(4294960587, "Audio destination controller not available");
+    [(SFDeviceOperationHomeKitSetup *)self _completeWithError:v11];
   }
 }
 
@@ -2676,21 +2786,20 @@ void __73__SFDeviceOperationHomeKitSetup__runHomeKitUpdateAppleTVAudioDestinatio
 {
   v3 = a2;
   mach_absolute_time();
-  v4 = *(*(a1 + 32) + 136);
   UpTicksToSecondsF();
-  *(*(a1 + 32) + 392) = v5;
-  v6 = *(a1 + 32);
-  if (*(v6 + 8) == 1)
+  *(*(a1 + 32) + 392) = v4;
+  v5 = *(a1 + 32);
+  if (*(v5 + 8) == 1)
   {
-    v7 = *(v6 + 192);
+    v6 = *(v5 + 192);
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __73__SFDeviceOperationHomeKitSetup__runHomeKitUpdateAppleTVAudioDestination__block_invoke_2;
     block[3] = &unk_1E788BD88;
-    block[4] = v6;
-    v9 = v3;
-    v10 = *(a1 + 40);
-    dispatch_async(v7, block);
+    block[4] = v5;
+    v8 = v3;
+    v9 = *(a1 + 40);
+    dispatch_async(v6, block);
   }
 }
 
@@ -2698,24 +2807,23 @@ uint64_t __73__SFDeviceOperationHomeKitSetup__runHomeKitUpdateAppleTVAudioDestin
 {
   mach_absolute_time();
   v2 = a1 + 32;
-  v3 = *(*(a1 + 32) + 136);
   UpTicksToSecondsF();
-  *(*(a1 + 32) + 392) = v4;
-  v5 = *(a1 + 40);
-  if (v5)
+  *(*(a1 + 32) + 392) = v3;
+  v4 = *(a1 + 40);
+  if (v4)
   {
     if (gLogCategory_SFDeviceOperationHomeKitSetup <= 60)
     {
-      if (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || (v8 = _LogCategory_Initialize(), v5 = *(a1 + 40), v8))
+      if (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || (v7 = _LogCategory_Initialize(), v4 = *(a1 + 40), v7))
       {
-        LogPrintF();
-        v5 = *(a1 + 40);
+        LogPrintF(&gLogCategory_SFDeviceOperationHomeKitSetup, "[SFDeviceOperationHomeKitSetup _runHomeKitUpdateAppleTVAudioDestination]_block_invoke_2", 60, "### Setting audio destination failed: %{error}\n", v4);
+        v4 = *(a1 + 40);
       }
     }
 
-    v9 = *v2;
+    v8 = *v2;
 
-    return [v9 _completeWithError:v5];
+    return [v8 _completeWithError:v4];
   }
 
   else
@@ -2726,37 +2834,37 @@ uint64_t __73__SFDeviceOperationHomeKitSetup__runHomeKitUpdateAppleTVAudioDestin
     }
 
     *(*v2 + 56) = 1;
-    v6 = *v2;
+    v5 = *v2;
 
-    return [v6 _run];
+    return [v5 _run];
   }
 }
 
 - (id)_homeKitFindSettingsWithKeyPath:(id)path group:(id)group
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   groupCopy = group;
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   settings = [groupCopy settings];
-  v9 = [settings countByEnumeratingWithState:&v28 objects:v33 count:16];
+  v9 = [settings countByEnumeratingWithState:&v27 objects:v32 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v29;
+    v11 = *v28;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v29 != v11)
+        if (*v28 != v11)
         {
           objc_enumerationMutation(settings);
         }
 
-        v13 = *(*(&v28 + 1) + 8 * i);
+        v13 = *(*(&v27 + 1) + 8 * i);
         keyPath = [v13 keyPath];
         v15 = [keyPath isEqual:pathCopy];
 
@@ -2767,7 +2875,7 @@ uint64_t __73__SFDeviceOperationHomeKitSetup__runHomeKitUpdateAppleTVAudioDestin
         }
       }
 
-      v10 = [settings countByEnumeratingWithState:&v28 objects:v33 count:16];
+      v10 = [settings countByEnumeratingWithState:&v27 objects:v32 count:16];
       if (v10)
       {
         continue;
@@ -2777,26 +2885,26 @@ uint64_t __73__SFDeviceOperationHomeKitSetup__runHomeKitUpdateAppleTVAudioDestin
     }
   }
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   settings = [groupCopy groups];
-  v16 = [settings countByEnumeratingWithState:&v24 objects:v32 count:16];
+  v16 = [settings countByEnumeratingWithState:&v23 objects:v31 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v25;
+    v18 = *v24;
 LABEL_11:
     v19 = 0;
     while (1)
     {
-      if (*v25 != v18)
+      if (*v24 != v18)
       {
         objc_enumerationMutation(settings);
       }
 
-      v20 = [(SFDeviceOperationHomeKitSetup *)self _homeKitFindSettingsWithKeyPath:pathCopy group:*(*(&v24 + 1) + 8 * v19)];
+      v20 = [(SFDeviceOperationHomeKitSetup *)self _homeKitFindSettingsWithKeyPath:pathCopy group:*(*(&v23 + 1) + 8 * v19)];
       if (v20)
       {
         break;
@@ -2804,7 +2912,7 @@ LABEL_11:
 
       if (v17 == ++v19)
       {
-        v17 = [settings countByEnumeratingWithState:&v24 objects:v32 count:16];
+        v17 = [settings countByEnumeratingWithState:&v23 objects:v31 count:16];
         if (v17)
         {
           goto LABEL_11;
@@ -2823,8 +2931,6 @@ LABEL_19:
 LABEL_17:
     v21 = 0;
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return v21;
 }
@@ -2849,27 +2955,31 @@ LABEL_17:
       {
         v13 = [owner userListeningHistoryUpdateControlForHome:v4];
         v14 = [v13 mutableCopy];
+        v17 = v14;
         if (v14)
         {
-          if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30 && (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || _LogCategory_Initialize()))
+          if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30)
           {
-            [SFDeviceOperationHomeKitSetup _runUpdateUserListeningHistoryStart];
+            if (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || (v14 = _LogCategory_Initialize(), v14))
+            {
+              [(SFDeviceOperationHomeKitSetup *)v14 _runUpdateUserListeningHistoryStart];
+            }
           }
 
-          [v14 addAccessory:v3];
+          [v17 addAccessory:v3];
           self->_startTicksForHomeKitSteps = mach_absolute_time();
-          v16[0] = MEMORY[0x1E69E9820];
-          v16[1] = 3221225472;
-          v16[2] = __68__SFDeviceOperationHomeKitSetup__runUpdateUserListeningHistoryStart__block_invoke;
-          v16[3] = &unk_1E788B238;
-          v16[4] = self;
-          [owner updateUserListeningHistoryUpdateControl:v14 forHome:v4 completionHandler:v16];
+          v19[0] = MEMORY[0x1E69E9820];
+          v19[1] = 3221225472;
+          v19[2] = __68__SFDeviceOperationHomeKitSetup__runUpdateUserListeningHistoryStart__block_invoke;
+          v19[3] = &unk_1E788B238;
+          v19[4] = self;
+          [owner updateUserListeningHistoryUpdateControl:v17 forHome:v4 completionHandler:v19];
         }
 
         else
         {
-          v15 = NSErrorWithOSStatusF();
-          [(SFDeviceOperationHomeKitSetup *)self _completeWithError:v15];
+          v18 = NSErrorWithOSStatusF(4294960596, "ULH create access failed");
+          [(SFDeviceOperationHomeKitSetup *)self _completeWithError:v18];
         }
       }
 
@@ -2886,14 +2996,14 @@ LABEL_17:
 
     else
     {
-      settings = NSErrorWithOSStatusF();
+      settings = NSErrorWithOSStatusF(4294960596, "ULH no owner user");
       [(SFDeviceOperationHomeKitSetup *)self _completeWithError:settings];
     }
   }
 
   else
   {
-    v4 = NSErrorWithOSStatusF();
+    v4 = NSErrorWithOSStatusF(4294960596, "ULH no accessory");
     [(SFDeviceOperationHomeKitSetup *)self _completeWithError:v4];
   }
 }
@@ -2913,18 +3023,17 @@ void __68__SFDeviceOperationHomeKitSetup__runUpdateUserListeningHistoryStart__bl
   dispatch_async(v5, v7);
 }
 
-uint64_t __68__SFDeviceOperationHomeKitSetup__runUpdateUserListeningHistoryStart__block_invoke_2(uint64_t a1)
+void __68__SFDeviceOperationHomeKitSetup__runUpdateUserListeningHistoryStart__block_invoke_2(uint64_t a1)
 {
   mach_absolute_time();
   v2 = a1 + 32;
-  v3 = *(*(a1 + 32) + 24);
-  result = UpTicksToSecondsF();
+  v3 = UpTicksToSecondsF();
   *(*(a1 + 32) + 288) = v5;
   if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30)
   {
-    if (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || (result = _LogCategory_Initialize(), result))
+    if (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || (v3 = _LogCategory_Initialize(), v3))
     {
-      result = __68__SFDeviceOperationHomeKitSetup__runUpdateUserListeningHistoryStart__block_invoke_2_cold_1(a1 + 32);
+      v3 = __68__SFDeviceOperationHomeKitSetup__runUpdateUserListeningHistoryStart__block_invoke_2_cold_1(a1 + 32);
     }
   }
 
@@ -2937,98 +3046,104 @@ uint64_t __68__SFDeviceOperationHomeKitSetup__runUpdateUserListeningHistoryStart
       {
         if (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || (v8 = _LogCategory_Initialize(), v6 = *(a1 + 40), v8))
         {
-          LogPrintF();
+          LogPrintF(&gLogCategory_SFDeviceOperationHomeKitSetup, "[SFDeviceOperationHomeKitSetup _runUpdateUserListeningHistoryStart]_block_invoke_2", 60, "### ULH update access control failed: %{error}\n", v6);
           v6 = *(a1 + 40);
         }
       }
 
       v9 = *v2;
 
-      return [v9 _completeWithError:v6];
+      [v9 _completeWithError:v6];
     }
 
     else
     {
-      if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30 && (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || _LogCategory_Initialize()))
+      if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30)
       {
-        __68__SFDeviceOperationHomeKitSetup__runUpdateUserListeningHistoryStart__block_invoke_2_cold_2();
+        if (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || (v3 = _LogCategory_Initialize(), v3))
+        {
+          __68__SFDeviceOperationHomeKitSetup__runUpdateUserListeningHistoryStart__block_invoke_2_cold_2(v3, v4, v6);
+        }
       }
 
       *(*v2 + 129) = 1;
       v7 = *v2;
 
-      return [v7 _run];
+      [v7 _run];
     }
   }
-
-  return result;
 }
 
 - (void)_runPersonalRequestsStart
 {
-  v35 = *MEMORY[0x1E69E9840];
+  selfCopy = self;
+  v38 = *MEMORY[0x1E69E9840];
   if (self->_personalRequestsEnabled)
   {
-    v28 = self->_homeKitAccessory;
-    if (v28)
+    v31 = self->_homeKitAccessory;
+    if (v31)
     {
-      v3 = self->_homeKitSelectedHome;
-      owner = [(HMHome *)self->_homeKitSelectedHome owner];
-      v5 = owner;
+      v4 = selfCopy->_homeKitSelectedHome;
+      owner = [(HMHome *)selfCopy->_homeKitSelectedHome owner];
+      v6 = owner;
       if (owner)
       {
-        v6 = [owner assistantAccessControlForHome:v3];
-        v7 = [v6 mutableCopy];
-        if (v7)
+        v7 = [owner assistantAccessControlForHome:v4];
+        v8 = [v7 mutableCopy];
+        v11 = v8;
+        if (v8)
         {
-          if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30 && (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || _LogCategory_Initialize()))
+          if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30)
           {
-            [SFDeviceOperationHomeKitSetup _runPersonalRequestsStart];
+            if (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || (v8 = _LogCategory_Initialize(), v8))
+            {
+              [(SFDeviceOperationHomeKitSetup *)v8 _runPersonalRequestsStart];
+            }
           }
 
-          [v7 setEnabled:1];
+          [v11 setEnabled:1];
           if (_os_feature_enabled_impl())
           {
-            v23 = v7;
-            v24 = v6;
-            v25 = v5;
-            v32 = 0u;
+            v26 = v11;
+            v27 = v7;
+            v28 = v6;
+            v35 = 0u;
+            v36 = 0u;
             v33 = 0u;
-            v30 = 0u;
-            v31 = 0u;
-            v26 = v3;
-            obj = [(HMHome *)v3 accessories];
-            v8 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
-            if (v8)
+            v34 = 0u;
+            v29 = v4;
+            obj = [(HMHome *)v4 accessories];
+            v12 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+            if (v12)
             {
-              v9 = v8;
-              v10 = *v31;
+              v13 = v12;
+              v14 = *v34;
               do
               {
-                for (i = 0; i != v9; ++i)
+                for (i = 0; i != v13; ++i)
                 {
-                  if (*v31 != v10)
+                  if (*v34 != v14)
                   {
                     objc_enumerationMutation(obj);
                   }
 
-                  v12 = *(*(&v30 + 1) + 8 * i);
-                  category = [v12 category];
+                  v16 = *(*(&v33 + 1) + 8 * i);
+                  category = [v16 category];
                   categoryType = [category categoryType];
-                  v15 = getHMAccessoryCategoryTypeHomePod_0();
-                  if ([categoryType isEqualToString:v15])
+                  v19 = (getHMAccessoryCategoryTypeHomePod_0)(categoryType);
+                  if ([categoryType isEqualToString:v19])
                   {
-                    uniqueIdentifier = [v12 uniqueIdentifier];
-                    uniqueIdentifier2 = [(HMAccessory *)v28 uniqueIdentifier];
-                    v18 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+                    uniqueIdentifier = [v16 uniqueIdentifier];
+                    uniqueIdentifier2 = [(HMAccessory *)v31 uniqueIdentifier];
+                    v22 = [uniqueIdentifier isEqual:uniqueIdentifier2];
 
-                    if (!v18)
+                    if (!v22)
                     {
 
-                      v5 = v25;
-                      v3 = v26;
-                      v7 = v23;
-                      v6 = v24;
+                      v6 = v28;
+                      v4 = v29;
+                      v11 = v26;
+                      v7 = v27;
                       goto LABEL_31;
                     }
                   }
@@ -3038,10 +3153,10 @@ uint64_t __68__SFDeviceOperationHomeKitSetup__runUpdateUserListeningHistoryStart
                   }
                 }
 
-                v9 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
+                v13 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
               }
 
-              while (v9);
+              while (v13);
             }
 
             if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30 && (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || _LogCategory_Initialize()))
@@ -3049,56 +3164,57 @@ uint64_t __68__SFDeviceOperationHomeKitSetup__runUpdateUserListeningHistoryStart
               [SFDeviceOperationHomeKitSetup _runPersonalRequestsStart];
             }
 
-            v7 = v23;
-            [v23 setAllowUnauthenticatedRequests:1];
-            v5 = v25;
-            v3 = v26;
-            v6 = v24;
+            v11 = v26;
+            [v26 setAllowUnauthenticatedRequests:1];
+            v6 = v28;
+            v4 = v29;
+            v7 = v27;
           }
 
 LABEL_31:
-          self->_startTicksForHomeKitSteps = mach_absolute_time();
-          [v7 addAccessory:v28];
-          v29[0] = MEMORY[0x1E69E9820];
-          v29[1] = 3221225472;
-          v29[2] = __58__SFDeviceOperationHomeKitSetup__runPersonalRequestsStart__block_invoke;
-          v29[3] = &unk_1E788B238;
-          v29[4] = self;
-          [v5 updateAssistantAccessControl:v7 forHome:v3 completionHandler:v29];
+          selfCopy->_startTicksForHomeKitSteps = mach_absolute_time();
+          [v11 addAccessory:v31];
+          v32[0] = MEMORY[0x1E69E9820];
+          v32[1] = 3221225472;
+          v32[2] = __58__SFDeviceOperationHomeKitSetup__runPersonalRequestsStart__block_invoke;
+          v32[3] = &unk_1E788B238;
+          v32[4] = selfCopy;
+          [v6 updateAssistantAccessControl:v11 forHome:v4 completionHandler:v32];
         }
 
         else
         {
-          v21 = NSErrorWithOSStatusF();
-          [(SFDeviceOperationHomeKitSetup *)self _completeWithError:v21];
+          v25 = NSErrorWithOSStatusF(4294960596, "PersonalRequests create access failed");
+          [(SFDeviceOperationHomeKitSetup *)selfCopy _completeWithError:v25];
         }
       }
 
       else
       {
-        v20 = NSErrorWithOSStatusF();
-        [(SFDeviceOperationHomeKitSetup *)self _completeWithError:v20];
+        v24 = NSErrorWithOSStatusF(4294960596, "PersonalRequests no owner user");
+        [(SFDeviceOperationHomeKitSetup *)selfCopy _completeWithError:v24];
       }
     }
 
     else
     {
-      v19 = NSErrorWithOSStatusF();
-      [(SFDeviceOperationHomeKitSetup *)self _completeWithError:v19];
+      v23 = NSErrorWithOSStatusF(4294960596, "PersonalRequests no accessory");
+      [(SFDeviceOperationHomeKitSetup *)selfCopy _completeWithError:v23];
     }
   }
 
   else
   {
-    if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30 && (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30)
     {
-      [SFDeviceOperationHomeKitSetup _runPersonalRequestsStart];
+      if (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        [(SFDeviceOperationHomeKitSetup *)self _runPersonalRequestsStart];
+      }
     }
 
-    self->_personalRequestsDone = 1;
+    selfCopy->_personalRequestsDone = 1;
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __58__SFDeviceOperationHomeKitSetup__runPersonalRequestsStart__block_invoke(uint64_t a1, void *a2)
@@ -3116,18 +3232,17 @@ void __58__SFDeviceOperationHomeKitSetup__runPersonalRequestsStart__block_invoke
   dispatch_async(v5, v7);
 }
 
-uint64_t __58__SFDeviceOperationHomeKitSetup__runPersonalRequestsStart__block_invoke_2(uint64_t a1)
+void __58__SFDeviceOperationHomeKitSetup__runPersonalRequestsStart__block_invoke_2(uint64_t a1)
 {
   mach_absolute_time();
   v2 = a1 + 32;
-  v3 = *(*(a1 + 32) + 24);
-  result = UpTicksToSecondsF();
+  v3 = UpTicksToSecondsF();
   *(*(a1 + 32) + 280) = v5;
   if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30)
   {
-    if (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || (result = _LogCategory_Initialize(), result))
+    if (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || (v3 = _LogCategory_Initialize(), v3))
     {
-      result = __58__SFDeviceOperationHomeKitSetup__runPersonalRequestsStart__block_invoke_2_cold_1(a1 + 32);
+      v3 = __58__SFDeviceOperationHomeKitSetup__runPersonalRequestsStart__block_invoke_2_cold_1(a1 + 32);
     }
   }
 
@@ -3140,31 +3255,32 @@ uint64_t __58__SFDeviceOperationHomeKitSetup__runPersonalRequestsStart__block_in
       {
         if (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || (v8 = _LogCategory_Initialize(), v6 = *(a1 + 40), v8))
         {
-          LogPrintF();
+          LogPrintF(&gLogCategory_SFDeviceOperationHomeKitSetup, "[SFDeviceOperationHomeKitSetup _runPersonalRequestsStart]_block_invoke_2", 60, "### PersonalRequests update access control failed: %{error}\n", v6);
           v6 = *(a1 + 40);
         }
       }
 
       v9 = *v2;
 
-      return [v9 _completeWithError:v6];
+      [v9 _completeWithError:v6];
     }
 
     else
     {
-      if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30 && (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || _LogCategory_Initialize()))
+      if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30)
       {
-        __58__SFDeviceOperationHomeKitSetup__runPersonalRequestsStart__block_invoke_2_cold_2();
+        if (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || (v3 = _LogCategory_Initialize(), v3))
+        {
+          __58__SFDeviceOperationHomeKitSetup__runPersonalRequestsStart__block_invoke_2_cold_2(v3, v4, v6);
+        }
       }
 
       *(*v2 + 128) = 1;
       v7 = *v2;
 
-      return [v7 _run];
+      [v7 _run];
     }
   }
-
-  return result;
 }
 
 - (void)homeManagerDidUpdateDataSyncState:(id)state
@@ -3181,9 +3297,9 @@ uint64_t __58__SFDeviceOperationHomeKitSetup__runPersonalRequestsStart__block_in
   dispatch_async(dispatchQueue, v7);
 }
 
-uint64_t __67__SFDeviceOperationHomeKitSetup_homeManagerDidUpdateDataSyncState___block_invoke(uint64_t result)
+void *__67__SFDeviceOperationHomeKitSetup_homeManagerDidUpdateDataSyncState___block_invoke(void *result)
 {
-  if (*(*(result + 32) + 8) == 1)
+  if (*(result[4] + 8) == 1)
   {
     v2 = result;
     if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30 && (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || _LogCategory_Initialize()))
@@ -3191,7 +3307,7 @@ uint64_t __67__SFDeviceOperationHomeKitSetup_homeManagerDidUpdateDataSyncState__
       __67__SFDeviceOperationHomeKitSetup_homeManagerDidUpdateDataSyncState___block_invoke_cold_1(v2);
     }
 
-    v3 = *(v2 + 32);
+    v3 = v2[4];
 
     return [v3 _run];
   }
@@ -3210,20 +3326,23 @@ uint64_t __67__SFDeviceOperationHomeKitSetup_homeManagerDidUpdateDataSyncState__
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __59__SFDeviceOperationHomeKitSetup_homeManagerDidUpdateHomes___block_invoke(uint64_t result)
+void *__59__SFDeviceOperationHomeKitSetup_homeManagerDidUpdateHomes___block_invoke(void *result, uint64_t a2, uint64_t a3)
 {
-  if (*(*(result + 32) + 8) == 1)
+  if (*(result[4] + 8) == 1)
   {
-    v2 = result;
-    if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30 && (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || _LogCategory_Initialize()))
+    v4 = result;
+    if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30)
     {
-      __59__SFDeviceOperationHomeKitSetup_homeManagerDidUpdateHomes___block_invoke_cold_1();
+      if (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || (result = _LogCategory_Initialize(), result))
+      {
+        __59__SFDeviceOperationHomeKitSetup_homeManagerDidUpdateHomes___block_invoke_cold_1(result, a2, a3);
+      }
     }
 
-    *(*(v2 + 32) + 157) = 1;
-    v3 = *(v2 + 32);
+    *(v4[4] + 157) = 1;
+    v5 = v4[4];
 
-    return [v3 _run];
+    return [v5 _run];
   }
 
   return result;
@@ -3241,9 +3360,9 @@ uint64_t __59__SFDeviceOperationHomeKitSetup_homeManagerDidUpdateHomes___block_i
   dispatch_async(dispatchQueue, v5);
 }
 
-uint64_t __61__SFDeviceOperationHomeKitSetup_homeManager_didUpdateStatus___block_invoke(uint64_t result)
+void *__61__SFDeviceOperationHomeKitSetup_homeManager_didUpdateStatus___block_invoke(void *result)
 {
-  if (*(*(result + 32) + 8) == 1)
+  if (*(result[4] + 8) == 1)
   {
     v2 = result;
     if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30 && (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || _LogCategory_Initialize()))
@@ -3251,7 +3370,7 @@ uint64_t __61__SFDeviceOperationHomeKitSetup_homeManager_didUpdateStatus___block
       __61__SFDeviceOperationHomeKitSetup_homeManager_didUpdateStatus___block_invoke_cold_1(v2);
     }
 
-    v3 = *(v2 + 32);
+    v3 = v2[4];
 
     return [v3 _run];
   }
@@ -3261,7 +3380,7 @@ uint64_t __61__SFDeviceOperationHomeKitSetup_homeManager_didUpdateStatus___block
 
 - (id)findStereoCounterpartsWithSupportedVersions:(unint64_t)versions
 {
-  v61 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_dispatchQueue);
   v5 = self->_homeKitSelectedRoom;
   versionsCopy = versions;
@@ -3271,28 +3390,28 @@ uint64_t __61__SFDeviceOperationHomeKitSetup_homeManager_didUpdateStatus___block
     goto LABEL_3;
   }
 
-  v57 = 0u;
-  v58 = 0u;
+  v54 = 0u;
   v55 = 0u;
-  v56 = 0u;
+  v52 = 0u;
+  v53 = 0u;
   rooms = [(HMHome *)self->_homeKitSelectedHome rooms];
-  v10 = [rooms countByEnumeratingWithState:&v55 objects:v60 count:16];
+  v10 = [rooms countByEnumeratingWithState:&v52 objects:v57 count:16];
   if (!v10)
   {
     goto LABEL_79;
   }
 
-  v11 = *v56;
+  v11 = *v53;
 LABEL_7:
   v12 = 0;
   while (1)
   {
-    if (*v56 != v11)
+    if (*v53 != v11)
     {
       objc_enumerationMutation(rooms);
     }
 
-    v13 = *(*(&v55 + 1) + 8 * v12);
+    v13 = *(*(&v52 + 1) + 8 * v12);
     name = [v13 name];
     v15 = [name isEqual:self->_homeKitSelectedRoomName];
 
@@ -3303,7 +3422,7 @@ LABEL_7:
 
     if (v10 == ++v12)
     {
-      v10 = [rooms countByEnumeratingWithState:&v55 objects:v60 count:16];
+      v10 = [rooms countByEnumeratingWithState:&v52 objects:v57 count:16];
       if (!v10)
       {
 LABEL_79:
@@ -3325,47 +3444,47 @@ LABEL_3:
     if (v7)
     {
       v8 = v7;
-      v49 = SFNormalizeEmailAddress(v7, 1);
+      v46 = SFNormalizeEmailAddress(v7, 1);
     }
 
     else
     {
-      v49 = 0;
+      v46 = 0;
     }
 
     selfCopy = self;
-    v46 = v6;
-    v47 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v43 = v6;
+    v44 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v48 = 0u;
+    v49 = 0u;
+    v50 = 0u;
     v51 = 0u;
-    v52 = 0u;
-    v53 = 0u;
-    v54 = 0u;
     accessories = [(HMRoom *)v6 accessories];
-    v17 = [accessories countByEnumeratingWithState:&v51 objects:v59 count:16];
+    v17 = [accessories countByEnumeratingWithState:&v48 objects:v56 count:16];
     if (!v17)
     {
 LABEL_78:
 
-      v10 = [v47 copy];
-      rooms = v46;
+      v10 = [v44 copy];
+      rooms = v43;
       goto LABEL_79;
     }
 
     v18 = v17;
-    v19 = *v52;
+    v19 = *v49;
 LABEL_17:
     v20 = 0;
     while (1)
     {
-      if (*v52 != v19)
+      if (*v49 != v19)
       {
         objc_enumerationMutation(accessories);
       }
 
-      v21 = *(*(&v51 + 1) + 8 * v20);
+      v21 = *(*(&v48 + 1) + 8 * v20);
       category = [v21 category];
       categoryType = [category categoryType];
-      v24 = getHMAccessoryCategoryTypeHomePod_0();
+      v24 = getHMAccessoryCategoryTypeHomePod_0(categoryType);
       v25 = [categoryType isEqual:v24];
 
       if (!v25)
@@ -3384,7 +3503,7 @@ LABEL_22:
 LABEL_23:
       if (v18 == ++v20)
       {
-        v41 = [accessories countByEnumeratingWithState:&v51 objects:v59 count:16];
+        v41 = [accessories countByEnumeratingWithState:&v48 objects:v56 count:16];
         v18 = v41;
         if (!v41)
         {
@@ -3399,7 +3518,7 @@ LABEL_23:
     {
       if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30 && (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || _LogCategory_Initialize()))
       {
-        [SFDeviceOperationHomeKitSetup findStereoCounterpartsWithSupportedVersions:v21];
+        [(SFDeviceOperationHomeKitSetup *)v21 findStereoCounterpartsWithSupportedVersions:versions];
       }
 
       goto LABEL_22;
@@ -3478,7 +3597,7 @@ LABEL_23:
     }
 
     v37 = v36;
-    v38 = v49;
+    v38 = v46;
     v39 = v38;
     if (v37 == v38)
     {
@@ -3486,15 +3605,13 @@ LABEL_23:
 
     else
     {
-      if ((v49 == 0) == (v37 != 0))
+      if ((v46 == 0) == (v37 != 0))
       {
 
 LABEL_69:
         if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30 && (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || _LogCategory_Initialize()))
         {
-          v44 = v39;
-          v45 = v37;
-          LogPrintF();
+          LogPrintF(&gLogCategory_SFDeviceOperationHomeKitSetup, "[SFDeviceOperationHomeKitSetup findStereoCounterpartsWithSupportedVersions:]", 30, "Skipping stereo counterpart for account mismatch: '%{mask}' vs '%{mask}'\n", v39, v37);
         }
 
         goto LABEL_73;
@@ -3508,7 +3625,7 @@ LABEL_69:
       }
     }
 
-    [v47 addObject:v21];
+    [v44 addObject:v21];
 LABEL_73:
 
     versions = versionsCopy;
@@ -3517,45 +3634,44 @@ LABEL_73:
 
   v10 = 0;
 LABEL_80:
-  v42 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 - (id)findTVs
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_dispatchQueue);
   v3 = self->_homeKitSelectedRoom;
   if (v3)
   {
     v4 = v3;
 LABEL_3:
-    v27 = v4;
-    v28 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v26 = v4;
+    v27 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v28 = 0u;
     v29 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v32 = 0u;
     accessories = [(HMRoom *)v4 accessories];
-    v6 = [accessories countByEnumeratingWithState:&v29 objects:v37 count:16];
+    v6 = [accessories countByEnumeratingWithState:&v28 objects:v36 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v30;
+      v8 = *v29;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v30 != v8)
+          if (*v29 != v8)
           {
             objc_enumerationMutation(accessories);
           }
 
-          v10 = *(*(&v29 + 1) + 8 * i);
+          v10 = *(*(&v28 + 1) + 8 * i);
           category = [v10 category];
           categoryType = [category categoryType];
-          v13 = getHMAccessoryCategoryTypeAppleTV();
+          v13 = (getHMAccessoryCategoryTypeAppleTV)(categoryType);
           v14 = [categoryType isEqual:v13];
 
           if (v14)
@@ -3571,40 +3687,40 @@ LABEL_3:
               {
                 if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30 && (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || _LogCategory_Initialize()))
                 {
-                  [SFDeviceOperationHomeKitSetup findTVs];
+                  [(SFDeviceOperationHomeKitSetup *)v10 findTVs];
                 }
               }
 
               else
               {
-                [v28 addObject:v10];
+                [v27 addObject:v10];
               }
             }
 
             else if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30 && (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || _LogCategory_Initialize()))
             {
-              [SFDeviceOperationHomeKitSetup findTVs];
+              [(SFDeviceOperationHomeKitSetup *)v10 findTVs];
             }
           }
         }
 
-        v7 = [accessories countByEnumeratingWithState:&v29 objects:v37 count:16];
+        v7 = [accessories countByEnumeratingWithState:&v28 objects:v36 count:16];
       }
 
       while (v7);
     }
 
-    v18 = [v28 copy];
-    rooms = v27;
+    v18 = [v27 copy];
+    rooms = v26;
     goto LABEL_24;
   }
 
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   rooms = [(HMHome *)self->_homeKitSelectedHome rooms];
-  v18 = [rooms countByEnumeratingWithState:&v33 objects:v38 count:16];
+  v18 = [rooms countByEnumeratingWithState:&v32 objects:v37 count:16];
   if (!v18)
   {
 LABEL_24:
@@ -3612,28 +3728,28 @@ LABEL_24:
     goto LABEL_25;
   }
 
-  v22 = *v34;
+  v21 = *v33;
 LABEL_30:
-  v23 = 0;
+  v22 = 0;
   while (1)
   {
-    if (*v34 != v22)
+    if (*v33 != v21)
     {
       objc_enumerationMutation(rooms);
     }
 
-    v24 = *(*(&v33 + 1) + 8 * v23);
-    name = [v24 name];
-    v26 = [name isEqual:self->_homeKitSelectedRoomName];
+    v23 = *(*(&v32 + 1) + 8 * v22);
+    name = [v23 name];
+    v25 = [name isEqual:self->_homeKitSelectedRoomName];
 
-    if (v26)
+    if (v25)
     {
       break;
     }
 
-    if (v18 == ++v23)
+    if (v18 == ++v22)
     {
-      v18 = [rooms countByEnumeratingWithState:&v33 objects:v38 count:16];
+      v18 = [rooms countByEnumeratingWithState:&v32 objects:v37 count:16];
       if (v18)
       {
         goto LABEL_30;
@@ -3643,7 +3759,7 @@ LABEL_30:
     }
   }
 
-  v4 = v24;
+  v4 = v23;
 
   if (v4)
   {
@@ -3652,7 +3768,6 @@ LABEL_30:
 
   v18 = 0;
 LABEL_25:
-  v20 = *MEMORY[0x1E69E9840];
 
   return v18;
 }
@@ -3677,53 +3792,53 @@ LABEL_25:
 
 - (id)_mediaSystemForAccessory:(id)accessory
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   accessoryCopy = accessory;
   uniqueIdentifier = [accessoryCopy uniqueIdentifier];
   home = [accessoryCopy home];
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   mediaSystems = [home mediaSystems];
-  v24 = [mediaSystems countByEnumeratingWithState:&v30 objects:v35 count:16];
-  if (v24)
+  v23 = [mediaSystems countByEnumeratingWithState:&v29 objects:v34 count:16];
+  if (v23)
   {
-    v7 = *v31;
-    v22 = home;
-    v23 = accessoryCopy;
-    v25 = mediaSystems;
-    v21 = *v31;
+    v7 = *v30;
+    v21 = home;
+    v22 = accessoryCopy;
+    v24 = mediaSystems;
+    v20 = *v30;
     do
     {
-      for (i = 0; i != v24; ++i)
+      for (i = 0; i != v23; ++i)
       {
-        if (*v31 != v7)
+        if (*v30 != v7)
         {
           objc_enumerationMutation(mediaSystems);
         }
 
-        v9 = *(*(&v30 + 1) + 8 * i);
+        v9 = *(*(&v29 + 1) + 8 * i);
+        v25 = 0u;
         v26 = 0u;
         v27 = 0u;
         v28 = 0u;
-        v29 = 0u;
         components = [v9 components];
-        v11 = [components countByEnumeratingWithState:&v26 objects:v34 count:16];
+        v11 = [components countByEnumeratingWithState:&v25 objects:v33 count:16];
         if (v11)
         {
           v12 = v11;
-          v13 = *v27;
+          v13 = *v26;
           while (2)
           {
             for (j = 0; j != v12; ++j)
             {
-              if (*v27 != v13)
+              if (*v26 != v13)
               {
                 objc_enumerationMutation(components);
               }
 
-              mediaProfile = [*(*(&v26 + 1) + 8 * j) mediaProfile];
+              mediaProfile = [*(*(&v25 + 1) + 8 * j) mediaProfile];
               accessory = [mediaProfile accessory];
               uniqueIdentifier2 = [accessory uniqueIdentifier];
 
@@ -3731,14 +3846,14 @@ LABEL_25:
               {
                 v18 = v9;
 
-                home = v22;
-                accessoryCopy = v23;
-                mediaSystems = v25;
+                home = v21;
+                accessoryCopy = v22;
+                mediaSystems = v24;
                 goto LABEL_19;
               }
             }
 
-            v12 = [components countByEnumeratingWithState:&v26 objects:v34 count:16];
+            v12 = [components countByEnumeratingWithState:&v25 objects:v33 count:16];
             if (v12)
             {
               continue;
@@ -3748,17 +3863,17 @@ LABEL_25:
           }
         }
 
-        mediaSystems = v25;
-        v7 = v21;
+        mediaSystems = v24;
+        v7 = v20;
       }
 
       v18 = 0;
-      home = v22;
-      accessoryCopy = v23;
-      v24 = [v25 countByEnumeratingWithState:&v30 objects:v35 count:16];
+      home = v21;
+      accessoryCopy = v22;
+      v23 = [v24 countByEnumeratingWithState:&v29 objects:v34 count:16];
     }
 
-    while (v24);
+    while (v23);
   }
 
   else
@@ -3767,8 +3882,6 @@ LABEL_25:
   }
 
 LABEL_19:
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v18;
 }
@@ -3786,7 +3899,7 @@ LABEL_19:
 
 - (void)_removeSimilarRoomNames:(id)names home:(id)home
 {
-  v76 = *MEMORY[0x1E69E9840];
+  v72 = *MEMORY[0x1E69E9840];
   namesCopy = names;
   homeCopy = home;
   name = [homeCopy name];
@@ -3799,8 +3912,8 @@ LABEL_19:
     {
       v10 = v9;
       v11 = 0;
-      v52 = v8;
-      v53 = namesCopy;
+      v48 = v8;
+      v49 = namesCopy;
       do
       {
         v12 = [namesCopy objectAtIndexedSubscript:v11];
@@ -3808,27 +3921,27 @@ LABEL_19:
 
         if ([v13 caseInsensitiveCompare:v8])
         {
-          v54 = v10;
-          v70 = 0u;
-          v71 = 0u;
-          v68 = 0u;
-          v69 = 0u;
+          v50 = v10;
+          v66 = 0u;
+          v67 = 0u;
+          v64 = 0u;
+          v65 = 0u;
           actionSets = [homeCopy actionSets];
-          v15 = [actionSets countByEnumeratingWithState:&v68 objects:v75 count:16];
+          v15 = [actionSets countByEnumeratingWithState:&v64 objects:v71 count:16];
           if (v15)
           {
             v16 = v15;
-            v17 = *v69;
+            v17 = *v65;
 LABEL_7:
             v18 = 0;
             while (1)
             {
-              if (*v69 != v17)
+              if (*v65 != v17)
               {
                 objc_enumerationMutation(actionSets);
               }
 
-              v19 = *(*(&v68 + 1) + 8 * v18);
+              v19 = *(*(&v64 + 1) + 8 * v18);
               name2 = [v19 name];
               v21 = [(SFDeviceOperationHomeKitSetup *)self _normalizedString:name2];
 
@@ -3842,7 +3955,7 @@ LABEL_7:
 
               if (v16 == ++v18)
               {
-                v16 = [actionSets countByEnumeratingWithState:&v68 objects:v75 count:16];
+                v16 = [actionSets countByEnumeratingWithState:&v64 objects:v71 count:16];
                 if (v16)
                 {
                   goto LABEL_7;
@@ -3867,26 +3980,26 @@ LABEL_7:
 LABEL_14:
 
 LABEL_18:
-            v66 = 0u;
-            v67 = 0u;
-            v64 = 0u;
-            v65 = 0u;
+            v62 = 0u;
+            v63 = 0u;
+            v60 = 0u;
+            v61 = 0u;
             serviceGroups = [homeCopy serviceGroups];
-            v25 = [serviceGroups countByEnumeratingWithState:&v64 objects:v74 count:16];
+            v25 = [serviceGroups countByEnumeratingWithState:&v60 objects:v70 count:16];
             if (v25)
             {
               v26 = v25;
-              v27 = *v65;
+              v27 = *v61;
 LABEL_20:
               v28 = 0;
               while (1)
               {
-                if (*v65 != v27)
+                if (*v61 != v27)
                 {
                   objc_enumerationMutation(serviceGroups);
                 }
 
-                v29 = *(*(&v64 + 1) + 8 * v28);
+                v29 = *(*(&v60 + 1) + 8 * v28);
                 name4 = [v29 name];
                 v31 = [(SFDeviceOperationHomeKitSetup *)self _normalizedString:name4];
 
@@ -3900,7 +4013,7 @@ LABEL_20:
 
                 if (v26 == ++v28)
                 {
-                  v26 = [serviceGroups countByEnumeratingWithState:&v64 objects:v74 count:16];
+                  v26 = [serviceGroups countByEnumeratingWithState:&v60 objects:v70 count:16];
                   if (v26)
                   {
                     goto LABEL_20;
@@ -3925,26 +4038,26 @@ LABEL_20:
 LABEL_27:
 
 LABEL_30:
-              v62 = 0u;
-              v63 = 0u;
-              v60 = 0u;
-              v61 = 0u;
+              v58 = 0u;
+              v59 = 0u;
+              v56 = 0u;
+              v57 = 0u;
               triggers = [homeCopy triggers];
-              v33 = [triggers countByEnumeratingWithState:&v60 objects:v73 count:16];
+              v33 = [triggers countByEnumeratingWithState:&v56 objects:v69 count:16];
               if (v33)
               {
                 v34 = v33;
-                v35 = *v61;
+                v35 = *v57;
 LABEL_32:
                 v36 = 0;
                 while (1)
                 {
-                  if (*v61 != v35)
+                  if (*v57 != v35)
                   {
                     objc_enumerationMutation(triggers);
                   }
 
-                  v37 = *(*(&v60 + 1) + 8 * v36);
+                  v37 = *(*(&v56 + 1) + 8 * v36);
                   name5 = [v37 name];
                   v39 = [(SFDeviceOperationHomeKitSetup *)self _normalizedString:name5];
 
@@ -3958,7 +4071,7 @@ LABEL_32:
 
                   if (v34 == ++v36)
                   {
-                    v34 = [triggers countByEnumeratingWithState:&v60 objects:v73 count:16];
+                    v34 = [triggers countByEnumeratingWithState:&v56 objects:v69 count:16];
                     if (v34)
                     {
                       goto LABEL_32;
@@ -3983,36 +4096,36 @@ LABEL_32:
 LABEL_39:
 
 LABEL_42:
-                v58 = 0u;
-                v59 = 0u;
-                v56 = 0u;
-                v57 = 0u;
+                v54 = 0u;
+                v55 = 0u;
+                v52 = 0u;
+                v53 = 0u;
                 zones = [homeCopy zones];
-                v41 = [zones countByEnumeratingWithState:&v56 objects:v72 count:16];
+                v41 = [zones countByEnumeratingWithState:&v52 objects:v68 count:16];
                 if (!v41)
                 {
 LABEL_51:
 
 LABEL_62:
                   ++v11;
-                  v8 = v52;
-                  namesCopy = v53;
-                  v10 = v54;
+                  v8 = v48;
+                  namesCopy = v49;
+                  v10 = v50;
                   goto LABEL_60;
                 }
 
                 v42 = v41;
-                v43 = *v57;
+                v43 = *v53;
 LABEL_44:
                 v44 = 0;
                 while (1)
                 {
-                  if (*v57 != v43)
+                  if (*v53 != v43)
                   {
                     objc_enumerationMutation(zones);
                   }
 
-                  v45 = *(*(&v56 + 1) + 8 * v44);
+                  v45 = *(*(&v52 + 1) + 8 * v44);
                   name6 = [v45 name];
                   v47 = [(SFDeviceOperationHomeKitSetup *)self _normalizedString:name6];
 
@@ -4026,7 +4139,7 @@ LABEL_44:
 
                   if (v42 == ++v44)
                   {
-                    v42 = [zones countByEnumeratingWithState:&v56 objects:v72 count:16];
+                    v42 = [zones countByEnumeratingWithState:&v52 objects:v68 count:16];
                     if (v42)
                     {
                       goto LABEL_44;
@@ -4048,9 +4161,9 @@ LABEL_44:
             }
           }
 
-          v8 = v52;
-          namesCopy = v53;
-          v10 = v54;
+          v8 = v48;
+          namesCopy = v49;
+          v10 = v50;
         }
 
         else
@@ -4061,13 +4174,10 @@ LABEL_44:
 
         if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30 && (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || _LogCategory_Initialize()))
         {
-          v50 = name3;
-          v51 = v23;
-          v49 = v13;
-          LogPrintF();
+          LogPrintF(&gLogCategory_SFDeviceOperationHomeKitSetup, "[SFDeviceOperationHomeKitSetup _removeSimilarRoomNames:home:]", 30, "Removing room name '%@' for similar name '%@' (%s)\n", v13, name3, v23);
         }
 
-        [namesCopy removeObjectAtIndex:{v11, v49, v50, v51}];
+        [namesCopy removeObjectAtIndex:v11];
         --v10;
 
 LABEL_60:
@@ -4076,26 +4186,28 @@ LABEL_60:
       while (v11 < v10);
     }
   }
-
-  v48 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_restoreHomeApp
 {
-  if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30 && (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30)
   {
-    [SFDeviceOperationHomeKitSetup _restoreHomeApp];
+    if (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      [(SFDeviceOperationHomeKitSetup *)self _restoreHomeApp];
+    }
   }
 
-  v3 = [objc_alloc(getASDSystemAppRequestClass()) initWithBundleID:@"com.apple.Home"];
-  v5[0] = MEMORY[0x1E69E9820];
-  v5[1] = 3221225472;
-  v5[2] = __48__SFDeviceOperationHomeKitSetup__restoreHomeApp__block_invoke;
-  v5[3] = &unk_1E788B520;
-  v5[4] = self;
-  v6 = v3;
-  v4 = v3;
-  [v4 startWithErrorHandler:v5];
+  v4 = [objc_alloc(getASDSystemAppRequestClass()) initWithBundleID:@"com.apple.Home"];
+  v6[0] = MEMORY[0x1E69E9820];
+  v6[1] = 3221225472;
+  v6[2] = __48__SFDeviceOperationHomeKitSetup__restoreHomeApp__block_invoke;
+  v6[3] = &unk_1E788B520;
+  v6[4] = selfCopy;
+  v7 = v4;
+  v5 = v4;
+  [v5 startWithErrorHandler:v6];
 }
 
 void __48__SFDeviceOperationHomeKitSetup__restoreHomeApp__block_invoke(uint64_t a1, void *a2)
@@ -4112,22 +4224,23 @@ void __48__SFDeviceOperationHomeKitSetup__restoreHomeApp__block_invoke(uint64_t 
   dispatch_async(v4, v6);
 }
 
-void __48__SFDeviceOperationHomeKitSetup__restoreHomeApp__block_invoke_2(uint64_t a1)
+void __48__SFDeviceOperationHomeKitSetup__restoreHomeApp__block_invoke_2(uint64_t result)
 {
-  if (*(a1 + 32))
+  v2 = *(result + 32);
+  if (v2)
   {
     if (gLogCategory_SFDeviceOperationHomeKitSetup <= 90)
     {
       if (gLogCategory_SFDeviceOperationHomeKitSetup != -1)
       {
 LABEL_4:
-        LogPrintF();
+        LogPrintF(&gLogCategory_SFDeviceOperationHomeKitSetup, "[SFDeviceOperationHomeKitSetup _restoreHomeApp]_block_invoke_2", 90, "### Restore Home app failed: %{error}\n", v2);
         return;
       }
 
       if (_LogCategory_Initialize())
       {
-        v2 = *(a1 + 32);
+        v2 = *(result + 32);
         goto LABEL_4;
       }
     }
@@ -4135,7 +4248,7 @@ LABEL_4:
 
   else if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30 && (gLogCategory_SFDeviceOperationHomeKitSetup != -1 || _LogCategory_Initialize()))
   {
-    __48__SFDeviceOperationHomeKitSetup__restoreHomeApp__block_invoke_2_cold_1(a1);
+    __48__SFDeviceOperationHomeKitSetup__restoreHomeApp__block_invoke_2_cold_1(result);
   }
 }
 
@@ -4163,7 +4276,7 @@ LABEL_4:
 
         category = [*(*(&v16 + 1) + 8 * i) category];
         categoryType = [category categoryType];
-        v10 = getHMAccessoryCategoryTypeHomePod_0();
+        v10 = (getHMAccessoryCategoryTypeHomePod_0)(categoryType);
         v11 = [categoryType isEqual:v10];
 
         if (v11)
@@ -4193,6 +4306,7 @@ LABEL_11:
   users = [(HMHome *)self->_homeKitSelectedHome users];
   v13 = [users count];
 
+  hasMultipleUsers = v13 != 0;
   self->_hasMultipleUsers = v13 != 0;
   if (gLogCategory_SFDeviceOperationHomeKitSetup <= 30)
   {
@@ -4200,23 +4314,30 @@ LABEL_11:
     {
       if (!_LogCategory_Initialize())
       {
-        goto LABEL_18;
+        return;
       }
 
       hasMultipleUsers = self->_hasMultipleUsers;
     }
 
-    LogPrintF();
-  }
+    if (hasMultipleUsers)
+    {
+      v15 = "yes";
+    }
 
-LABEL_18:
-  v14 = *MEMORY[0x1E69E9840];
+    else
+    {
+      v15 = "no";
+    }
+
+    LogPrintF(&gLogCategory_SFDeviceOperationHomeKitSetup, "[SFDeviceOperationHomeKitSetup _updateHomeStats]", 30, "Home has multiple users: %s (%d)\n", v15, v13);
+  }
 }
 
 - (void)_updateAccount
 {
   username = [self username];
-  LogPrintF();
+  LogPrintF(&gLogCategory_SFDeviceOperationHomeKitSetup, "[SFDeviceOperationHomeKitSetup _updateAccount]", 30, "Updating accessory account to '%@'\n", username);
 }
 
 void __47__SFDeviceOperationHomeKitSetup__updateAccount__block_invoke(uint64_t a1, void *a2)
@@ -4242,7 +4363,7 @@ void __47__SFDeviceOperationHomeKitSetup__updateAccount__block_invoke(uint64_t a
     }
 
     v5 = [*(a1 + 32) username];
-    LogPrintF();
+    LogPrintF(&gLogCategory_SFDeviceOperationHomeKitSetup, "[SFDeviceOperationHomeKitSetup _updateAccount]_block_invoke", 90, "### Update accessory account to '%@' failed: %{error}\n", v5, v8);
 LABEL_5:
 
     v4 = v8;
@@ -4263,24 +4384,39 @@ LABEL_5:
 LABEL_11:
 }
 
+uint64_t __54__SFDeviceOperationHomeKitSetup_homeAppInstallChoice___block_invoke_cold_1(uint64_t a1)
+{
+  if (*(a1 + 40))
+  {
+    v1 = "yes";
+  }
+
+  else
+  {
+    v1 = "no";
+  }
+
+  return LogPrintF(&gLogCategory_SFDeviceOperationHomeKitSetup, "[SFDeviceOperationHomeKitSetup homeAppInstallChoice:]_block_invoke", 30, "HomeAppInstallChoice: %s\n", v1);
+}
+
 void __73__SFDeviceOperationHomeKitSetup__runHomeKitUpdateAppleTVAudioDestination__block_invoke_2_cold_1(uint64_t a1, uint64_t a2)
 {
   v2 = *(a1 + 48);
   v3 = [*(*a2 + 176) name];
-  LogPrintF();
+  LogPrintF(&gLogCategory_SFDeviceOperationHomeKitSetup, "[SFDeviceOperationHomeKitSetup _runHomeKitUpdateAppleTVAudioDestination]_block_invoke_2", 30, "Configured audio destination controller: %@ '%@'\n", v2, v3);
 }
 
 - (void)findStereoCounterpartsWithSupportedVersions:(void *)a1 .cold.2(void *a1)
 {
   v1 = [a1 remoteLoginHandler];
-  LogPrintF();
+  LogPrintF(&gLogCategory_SFDeviceOperationHomeKitSetup, "[SFDeviceOperationHomeKitSetup findStereoCounterpartsWithSupportedVersions:]", 30, "Existing potential HomePod remoteLoginHandler: %@\n", v1);
 }
 
 - (void)findStereoCounterpartsWithSupportedVersions:(void *)a1 .cold.4(void *a1)
 {
   v1 = [a1 remoteLoginHandler];
   v2 = [v1 loggedInAccount];
-  LogPrintF();
+  LogPrintF(&gLogCategory_SFDeviceOperationHomeKitSetup, "[SFDeviceOperationHomeKitSetup findStereoCounterpartsWithSupportedVersions:]", 30, "Existing potential HomePod loggedInAccount: %@\n", v2);
 }
 
 - (void)findStereoCounterpartsWithSupportedVersions:(void *)a1 .cold.6(void *a1)
@@ -4288,21 +4424,37 @@ void __73__SFDeviceOperationHomeKitSetup__runHomeKitUpdateAppleTVAudioDestinatio
   v1 = [a1 remoteLoginHandler];
   v2 = [v1 loggedInAccount];
   v3 = [v2 username];
-  LogPrintF();
+  LogPrintF(&gLogCategory_SFDeviceOperationHomeKitSetup, "[SFDeviceOperationHomeKitSetup findStereoCounterpartsWithSupportedVersions:]", 30, "Existing potential HomePod username: %@\n", v3);
 }
 
 void __48__SFDeviceOperationHomeKitSetup__restoreHomeApp__block_invoke_2_cold_1(uint64_t a1)
 {
   v1 = [*(a1 + 40) bundleID];
-  LogPrintF();
+  LogPrintF(&gLogCategory_SFDeviceOperationHomeKitSetup, "[SFDeviceOperationHomeKitSetup _restoreHomeApp]_block_invoke_2", 30, "Restore Home app started (%@)\n", v1);
+}
+
+- (uint64_t)_updateHomeStats
+{
+  if (*(self + 154))
+  {
+    v1 = "yes";
+  }
+
+  else
+  {
+    v1 = "no";
+  }
+
+  return LogPrintF(&gLogCategory_SFDeviceOperationHomeKitSetup, "[SFDeviceOperationHomeKitSetup _updateHomeStats]", 30, "Home has existing HomePod? %s\n", v1);
 }
 
 void __47__SFDeviceOperationHomeKitSetup__updateAccount__block_invoke_cold_1(uint64_t a1, uint64_t *a2)
 {
-  *a2 = [*(a1 + 32) username];
-  v5 = [*(a1 + 40) loggedInAccount];
-  v4 = [v5 username];
-  LogPrintF();
+  v4 = [*(a1 + 32) username];
+  *a2 = v4;
+  v6 = [*(a1 + 40) loggedInAccount];
+  v5 = [v6 username];
+  LogPrintF(&gLogCategory_SFDeviceOperationHomeKitSetup, "[SFDeviceOperationHomeKitSetup _updateAccount]_block_invoke", 30, "Updated accessory account to '%@' (%@)\n", v4, v5);
 }
 
 @end

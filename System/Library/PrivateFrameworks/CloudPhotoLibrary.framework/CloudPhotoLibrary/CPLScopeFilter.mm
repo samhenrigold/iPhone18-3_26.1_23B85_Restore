@@ -129,7 +129,7 @@ LABEL_6:
 
 - (id)_setOfScopeIdentifiersFromEnumeration:(id)enumeration
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   enumerationCopy = enumeration;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -140,36 +140,34 @@ LABEL_6:
   else
   {
     v4 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+    v11 = 0u;
     v12 = 0u;
     v13 = 0u;
     v14 = 0u;
-    v15 = 0u;
     v5 = enumerationCopy;
-    v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v13;
+      v8 = *v12;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v13 != v8)
+          if (*v12 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          [v4 addObject:{*(*(&v12 + 1) + 8 * i), v12}];
+          [v4 addObject:{*(*(&v11 + 1) + 8 * i), v11}];
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v7);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

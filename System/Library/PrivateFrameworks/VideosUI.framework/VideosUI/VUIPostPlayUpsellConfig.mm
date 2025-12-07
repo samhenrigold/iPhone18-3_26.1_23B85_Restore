@@ -46,43 +46,44 @@ uint64_t __41__VUIPostPlayUpsellConfig_sharedInstance__block_invoke()
 
 - (void)configureUsingDictionary:(id)dictionary
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  if ([dictionaryCopy count])
+  v5 = [dictionaryCopy count];
+  if (v5)
   {
-    v5 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = VUIDefaultLogObject(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 138412290;
-      v15 = dictionaryCopy;
-      _os_log_impl(&dword_1E323F000, v5, OS_LOG_TYPE_DEFAULT, "VUIPostPlayUpsellConfig - setting via JS %@", &v14, 0xCu);
+      v15 = 138412290;
+      v16 = dictionaryCopy;
+      _os_log_impl(&dword_1E323F000, v6, OS_LOG_TYPE_DEFAULT, "VUIPostPlayUpsellConfig - setting via JS %@", &v15, 0xCu);
     }
 
     -[VUIPostPlayUpsellConfig disableUpsellOnPlaybackExit:](self, "disableUpsellOnPlaybackExit:", [dictionaryCopy vui_BOOLForKey:@"isDisabled" defaultValue:0]);
     -[VUIPostPlayUpsellConfig enableUpsellOnPIPPlaybackExit:](self, "enableUpsellOnPIPPlaybackExit:", [dictionaryCopy vui_BOOLForKey:@"isPIPEnabled" defaultValue:0]);
-    v6 = [dictionaryCopy vui_numberForKey:@"minPlaybackProgressPercentage"];
-    v7 = v6;
-    if (v6)
+    v7 = [dictionaryCopy vui_numberForKey:@"minPlaybackProgressPercentage"];
+    v8 = v7;
+    if (v7)
     {
-      [v6 doubleValue];
+      [v7 doubleValue];
       [(VUIPostPlayUpsellConfig *)self setMinPlaybackProgressPercentageForUpsellOnExit:?];
     }
 
-    v8 = [dictionaryCopy vui_numberForKey:@"maxCountPerChannel"];
-    if (v8)
+    v9 = [dictionaryCopy vui_numberForKey:@"maxCountPerChannel"];
+    if (v9)
     {
-      v9 = [dictionaryCopy vui_numberForKey:@"countDurationHrsPerChannel"];
-      unsignedIntegerValue = [v8 unsignedIntegerValue];
-      [v9 doubleValue];
+      v10 = [dictionaryCopy vui_numberForKey:@"countDurationHrsPerChannel"];
+      unsignedIntegerValue = [v9 unsignedIntegerValue];
+      [v10 doubleValue];
       [(VUIPostPlayUpsellConfig *)self setChannelLevelUpsellRateOfMaxCount:unsignedIntegerValue inHours:?];
     }
 
-    v11 = [dictionaryCopy vui_numberForKey:@"maxCountPerShow"];
-    if (v11)
+    v12 = [dictionaryCopy vui_numberForKey:@"maxCountPerShow"];
+    if (v12)
     {
-      v12 = [dictionaryCopy vui_numberForKey:@"countDurationHrsPerShow"];
-      unsignedIntegerValue2 = [v11 unsignedIntegerValue];
-      [v12 doubleValue];
+      v13 = [dictionaryCopy vui_numberForKey:@"countDurationHrsPerShow"];
+      unsignedIntegerValue2 = [v12 unsignedIntegerValue];
+      [v13 doubleValue];
       [(VUIPostPlayUpsellConfig *)self setShowLevelUpsellRateOfMaxCount:unsignedIntegerValue2 inHours:?];
     }
   }
@@ -94,7 +95,7 @@ uint64_t __41__VUIPostPlayUpsellConfig_sharedInstance__block_invoke()
   if (self->_isUpsellOnPlaybackExitDisabled != exit)
   {
     exitCopy = exit;
-    v5 = VUIDefaultLogObject();
+    v5 = VUIDefaultLogObject(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = "enable";
@@ -118,7 +119,7 @@ uint64_t __41__VUIPostPlayUpsellConfig_sharedInstance__block_invoke()
   if (self->_isUpsellOnPIPPlaybackExitEnabled != exit)
   {
     exitCopy = exit;
-    v5 = VUIDefaultLogObject();
+    v5 = VUIDefaultLogObject(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = "disable";
@@ -141,7 +142,7 @@ uint64_t __41__VUIPostPlayUpsellConfig_sharedInstance__block_invoke()
   v8 = *MEMORY[0x1E69E9840];
   if (self->_minPlaybackProgressPercentage != exit)
   {
-    v5 = VUIDefaultLogObject();
+    v5 = VUIDefaultLogObject(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = 134217984;
@@ -158,7 +159,7 @@ uint64_t __41__VUIPostPlayUpsellConfig_sharedInstance__block_invoke()
   v12 = *MEMORY[0x1E69E9840];
   if (count && hours >= 0.001 || self->_upsellMaxCountPerShow != count || self->_upsellCountDurationPerShow != hours)
   {
-    v7 = VUIDefaultLogObject();
+    v7 = VUIDefaultLogObject(self);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = 134218240;
@@ -187,7 +188,7 @@ uint64_t __41__VUIPostPlayUpsellConfig_sharedInstance__block_invoke()
   v12 = *MEMORY[0x1E69E9840];
   if (count && hours >= 0.001 || self->_upsellMaxCountPerChannel != count || self->_upsellCountDurationPerChannel != hours)
   {
-    v7 = VUIDefaultLogObject();
+    v7 = VUIDefaultLogObject(self);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = 134218240;
@@ -223,7 +224,7 @@ uint64_t __41__VUIPostPlayUpsellConfig_sharedInstance__block_invoke()
 - (void)setHasShownPostPlay:(BOOL)play
 {
   v9 = *MEMORY[0x1E69E9840];
-  v5 = VUIDefaultLogObject();
+  v5 = VUIDefaultLogObject(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = VUIBoolLogString();
@@ -323,7 +324,7 @@ void __83__VUIPostPlayUpsellConfig__canShowUpsellForPolicy_duration_elapsedTime_
 
 - (BOOL)_canShowUpsellForChannelId:(id)id showId:(id)showId duration:(double)duration elapsedTime:(double)time
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   idCopy = id;
   showIdCopy = showId;
   standardUserDefaults = [MEMORY[0x1E695E000] standardUserDefaults];
@@ -331,24 +332,25 @@ void __83__VUIPostPlayUpsellConfig__canShowUpsellForPolicy_duration_elapsedTime_
 
   if (self->_isUpsellLimitedPerChannel)
   {
-    v14 = [v13 vui_dictionaryForKey:@"PostPlayUpsellChannelHistory"];
-    v15 = [v14 vui_arrayForKey:idCopy];
-    if ([(VUIPostPlayUpsellConfig *)self _isHistoryArrayFull:v15 forMaxCount:self->_upsellMaxCountPerChannel inDurationWindow:self->_upsellCountDurationPerChannel])
+    v15 = [v13 vui_dictionaryForKey:@"PostPlayUpsellChannelHistory"];
+    v16 = [v15 vui_arrayForKey:idCopy];
+    v17 = [(VUIPostPlayUpsellConfig *)self _isHistoryArrayFull:v16 forMaxCount:self->_upsellMaxCountPerChannel inDurationWindow:self->_upsellCountDurationPerChannel];
+    if (v17)
     {
-      v16 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v18 = VUIDefaultLogObject(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         upsellMaxCountPerChannel = self->_upsellMaxCountPerChannel;
         upsellCountDurationPerChannel = self->_upsellCountDurationPerChannel;
-        v28 = 134218498;
-        v29 = *&upsellMaxCountPerChannel;
-        v30 = 2048;
-        v31 = upsellCountDurationPerChannel;
-        v32 = 2112;
-        v33 = idCopy;
-        v19 = "VUIPostPlayUpsellConfig - post play upsell reached its per channel rate(%lu/%fhrs) limit for channel %@";
+        v31 = 134218498;
+        v32 = *&upsellMaxCountPerChannel;
+        v33 = 2048;
+        v34 = upsellCountDurationPerChannel;
+        v35 = 2112;
+        v36 = idCopy;
+        v21 = "VUIPostPlayUpsellConfig - post play upsell reached its per channel rate(%lu/%fhrs) limit for channel %@";
 LABEL_10:
-        _os_log_impl(&dword_1E323F000, v16, OS_LOG_TYPE_DEFAULT, v19, &v28, 0x20u);
+        _os_log_impl(&dword_1E323F000, v18, OS_LOG_TYPE_DEFAULT, v21, &v31, 0x20u);
         goto LABEL_11;
       }
 
@@ -358,22 +360,23 @@ LABEL_10:
 
   if (self->_isUpsellLimitedPerShow)
   {
-    v14 = [v13 vui_dictionaryForKey:@"PostPlayUpsellShowHistory"];
-    v15 = [v14 vui_arrayForKey:showIdCopy];
-    if ([(VUIPostPlayUpsellConfig *)self _isHistoryArrayFull:v15 forMaxCount:self->_upsellMaxCountPerShow inDurationWindow:self->_upsellCountDurationPerShow])
+    v15 = [v13 vui_dictionaryForKey:@"PostPlayUpsellShowHistory"];
+    v16 = [v15 vui_arrayForKey:showIdCopy];
+    v22 = [(VUIPostPlayUpsellConfig *)self _isHistoryArrayFull:v16 forMaxCount:self->_upsellMaxCountPerShow inDurationWindow:self->_upsellCountDurationPerShow];
+    if (v22)
     {
-      v16 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v18 = VUIDefaultLogObject(v22);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         upsellMaxCountPerShow = self->_upsellMaxCountPerShow;
         upsellCountDurationPerShow = self->_upsellCountDurationPerShow;
-        v28 = 134218498;
-        v29 = *&upsellMaxCountPerShow;
-        v30 = 2048;
-        v31 = upsellCountDurationPerShow;
-        v32 = 2112;
-        v33 = showIdCopy;
-        v19 = "VUIPostPlayUpsellConfig - post play upsell reached its per show rate(%lu/%fhrs) limit for show %@";
+        v31 = 134218498;
+        v32 = *&upsellMaxCountPerShow;
+        v33 = 2048;
+        v34 = upsellCountDurationPerShow;
+        v35 = 2112;
+        v36 = showIdCopy;
+        v21 = "VUIPostPlayUpsellConfig - post play upsell reached its per show rate(%lu/%fhrs) limit for show %@";
         goto LABEL_10;
       }
 
@@ -391,43 +394,43 @@ LABEL_11:
 
   if (*MEMORY[0x1E69D5A80] == duration)
   {
-    v23 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    v26 = VUIDefaultLogObject(v14);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v28) = 0;
-      _os_log_impl(&dword_1E323F000, v23, OS_LOG_TYPE_DEFAULT, "VUIPostPlayUpsellConfig - unknown content playback duration", &v28, 2u);
+      LOWORD(v31) = 0;
+      _os_log_impl(&dword_1E323F000, v26, OS_LOG_TYPE_DEFAULT, "VUIPostPlayUpsellConfig - unknown content playback duration", &v31, 2u);
     }
 
     goto LABEL_19;
   }
 
-  v25 = time / duration;
-  if (v25 >= minPlaybackProgressPercentage)
+  v28 = time / duration;
+  if (v28 >= minPlaybackProgressPercentage)
   {
 LABEL_21:
     [(VUIPostPlayUpsellConfig *)self _recordUpsellHistoryForShowId:showIdCopy onChannelId:idCopy];
-    v24 = 1;
+    v27 = 1;
     goto LABEL_22;
   }
 
-  v14 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v15 = VUIDefaultLogObject(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    v27 = self->_minPlaybackProgressPercentage;
-    v28 = 134218240;
-    v29 = v25;
-    v30 = 2048;
-    v31 = v27;
-    _os_log_impl(&dword_1E323F000, v14, OS_LOG_TYPE_DEFAULT, "VUIPostPlayUpsellConfig - not enough played, playbackProgressPercentage %f < _minPlaybackProgressPercentage %f", &v28, 0x16u);
+    v30 = self->_minPlaybackProgressPercentage;
+    v31 = 134218240;
+    v32 = v28;
+    v33 = 2048;
+    v34 = v30;
+    _os_log_impl(&dword_1E323F000, v15, OS_LOG_TYPE_DEFAULT, "VUIPostPlayUpsellConfig - not enough played, playbackProgressPercentage %f < _minPlaybackProgressPercentage %f", &v31, 0x16u);
   }
 
 LABEL_12:
 
 LABEL_19:
-  v24 = 0;
+  v27 = 0;
 LABEL_22:
 
-  return v24;
+  return v27;
 }
 
 - (void)_recordUpsellHistoryForShowId:(id)id onChannelId:(id)channelId

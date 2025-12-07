@@ -7,10 +7,10 @@
 
 - (HKSPAnalyticsSleepNotificationEvent)initWithType:(unint64_t)type action:(unint64_t)action
 {
-  v19[2] = *MEMORY[0x277D85DE8];
-  v17.receiver = self;
-  v17.super_class = HKSPAnalyticsSleepNotificationEvent;
-  v6 = [(HKSPAnalyticsSleepNotificationEvent *)&v17 init];
+  v18[2] = *MEMORY[0x277D85DE8];
+  v16.receiver = self;
+  v16.super_class = HKSPAnalyticsSleepNotificationEvent;
+  v6 = [(HKSPAnalyticsSleepNotificationEvent *)&v16 init];
   v7 = v6;
   if (v6)
   {
@@ -21,9 +21,9 @@
       v8 = @"BedtimeReminder";
     }
 
-    v18[0] = @"notificationType";
-    v18[1] = @"notificationAction";
-    v19[0] = v8;
+    v17[0] = @"notificationType";
+    v17[1] = @"notificationAction";
+    v18[0] = v8;
     if (action - 1 > 3)
     {
       v9 = @"Fired";
@@ -34,17 +34,16 @@
       v9 = off_279C76528[action - 1];
     }
 
-    v19[1] = v9;
+    v18[1] = v9;
     v10 = MEMORY[0x277CBEAC0];
     v11 = v8;
-    v12 = [v10 dictionaryWithObjects:v19 forKeys:v18 count:2];
+    v12 = [v10 dictionaryWithObjects:v18 forKeys:v17 count:2];
     eventPayload = v7->_eventPayload;
     v7->_eventPayload = v12;
 
     v14 = v7;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v7;
 }
 

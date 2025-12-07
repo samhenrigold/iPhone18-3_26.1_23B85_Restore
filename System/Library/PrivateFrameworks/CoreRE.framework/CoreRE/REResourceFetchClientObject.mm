@@ -27,7 +27,7 @@
     objc_storeStrong(&v10->_voucher, voucher);
     if (*connection)
     {
-      [*connection auditToken];
+      objc_msgSend_auditToken(*connection);
     }
 
     else
@@ -358,32 +358,32 @@ LABEL_18:
   resourceFetchManager = self->_resourceFetchManager;
   commitCopy = commit;
   selfCopy = self;
-  v14 = selfCopy;
+  v15 = selfCopy;
   object = [commitCopy object];
 
   v7 = object;
   dispatch_assert_queue_V2(*(resourceFetchManager + 4));
   os_unfair_lock_lock(resourceFetchManager + 32);
-  v8 = *(resourceFetchManager + 49);
-  if (v8)
+  v9 = *(resourceFetchManager + 49);
+  if (v9)
   {
-    v9 = *(resourceFetchManager + 19);
-    if (v9)
+    v10 = *(resourceFetchManager + 19);
+    if (v10)
     {
-      v10 = v9 << 6;
-      v11 = (*(resourceFetchManager + 21) + 8);
-      while (*v11 != selfCopy)
+      v11 = v10 << 6;
+      v12 = (*(resourceFetchManager + 21) + 8);
+      while (*v12 != selfCopy)
       {
-        v11 += 8;
-        v10 -= 64;
-        if (!v10)
+        v12 += 8;
+        v11 -= 64;
+        if (!v11)
         {
           goto LABEL_8;
         }
       }
 
-      v12 = re::directMeshConnectionId(&v14);
-      (*(*v8 + 48))(v8, v7, v12);
+      v13 = re::directMeshConnectionId(&v15, v8);
+      (*(*v9 + 48))(v9, v7, v13);
     }
   }
 
@@ -436,7 +436,7 @@ LABEL_8:
   if (self->_peerID)
   {
     re::internal::assertLog(4, v8, "assertion failure: '%s' (%s:line %i) Tried to set peer ID on a connection twice", "_peerID == 0", "[REResourceFetchClientObject associateConnectionWithPeerID:clientPorts:]", 1315);
-    _os_crash();
+    _os_crash("assertion failure: (_peerID == 0) Tried to set peer ID on a connection twice");
     __break(1u);
   }
 
@@ -548,7 +548,7 @@ LABEL_15:
   else
   {
     re::internal::assertLog(4, v12, "assertion failure: '%s' (%s:line %i) ", "shaderGraphLoader", "[REResourceFetchClientObject decodeShaderGraph:withFnConsts:withReply:]", 1352);
-    _os_crash();
+    _os_crash("assertion failure: (shaderGraphLoader) ");
     __break(1u);
   }
 }

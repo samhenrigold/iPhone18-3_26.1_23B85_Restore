@@ -1,4 +1,5 @@
 @interface STUnique
++ (BOOL)_updateScreenTimeSettingsForAppAndWebsiteActivityEnabled:(BOOL)enabled inContext:(id)context error:(id *)error;
 + (BOOL)addHistoryToken:(id)token toMetadataForStore:(id)store error:(id *)error;
 + (Class)_internalClassForSerializableClassName:(id)name;
 + (id)cloudToLocalMapping;
@@ -67,34 +68,34 @@ void __31__STUnique_localToCloudMapping__block_invoke()
 
 void __31__STUnique_cloudToLocalMapping__block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v1 = [*(a1 + 32) localToCloudMapping];
   v2 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(v1, "count")}];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v3 = [v1 allKeys];
-  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
+        v8 = *(*(&v11 + 1) + 8 * i);
         v9 = [v1 objectForKeyedSubscript:v8];
         [v2 setObject:v8 forKeyedSubscript:v9];
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
@@ -102,8 +103,6 @@ void __31__STUnique_cloudToLocalMapping__block_invoke(uint64_t a1)
 
   v10 = cloudToLocalMapping_entityMapping;
   cloudToLocalMapping_entityMapping = v2;
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 + (id)mirroredEntityNames
@@ -125,35 +124,35 @@ void __31__STUnique_cloudToLocalMapping__block_invoke(uint64_t a1)
 
 void __31__STUnique_mirroredEntityNames__block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v1 = [*(a1 + 32) localToCloudMapping];
   v2 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:{2 * objc_msgSend(v1, "count")}];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v3 = [v1 allKeys];
-  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
+        v8 = *(*(&v11 + 1) + 8 * i);
         [v2 addObject:v8];
         v9 = [v1 objectForKeyedSubscript:v8];
         [v2 addObject:v9];
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
@@ -161,8 +160,6 @@ void __31__STUnique_mirroredEntityNames__block_invoke(uint64_t a1)
 
   v10 = mirroredEntityNames_entityNames;
   mirroredEntityNames_entityNames = v2;
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 + (Class)_internalClassForSerializableClassName:(id)name
@@ -183,41 +180,39 @@ void __31__STUnique_mirroredEntityNames__block_invoke(uint64_t a1)
 
 void __51__STUnique__internalClassForSerializableClassName___block_invoke()
 {
-  v14[10] = *MEMORY[0x1E69E9840];
+  v13[10] = *MEMORY[0x1E69E9840];
   v0 = +[STTestSyncableObject serializableClassName];
-  v14[0] = @"STTestSyncableObject";
+  v13[0] = @"STTestSyncableObject";
   v1 = +[STBlueprint serializableClassName];
-  v13[1] = v1;
-  v14[1] = @"STBlueprint";
+  v12[1] = v1;
+  v13[1] = @"STBlueprint";
   v2 = +[STFamilyOrganizationSettings serializableClassName];
-  v13[2] = v2;
-  v14[2] = @"STFamilyOrganizationSettings";
+  v12[2] = v2;
+  v13[2] = @"STFamilyOrganizationSettings";
   v3 = +[STiCloudOrganizationSettings serializableClassName];
-  v13[3] = v3;
-  v14[3] = @"STiCloudOrganizationSettings";
+  v12[3] = v3;
+  v13[3] = @"STiCloudOrganizationSettings";
   v4 = +[STUserDeviceState serializableClassName];
-  v13[4] = v4;
-  v14[4] = @"STUserDeviceState";
+  v12[4] = v4;
+  v13[4] = @"STUserDeviceState";
   v5 = +[STInstalledApp serializableClassName];
-  v13[5] = v5;
-  v14[5] = @"STInstalledApp";
+  v12[5] = v5;
+  v13[5] = @"STInstalledApp";
   v6 = +[STLocalOrganization serializableClassName];
-  v13[6] = v6;
-  v14[6] = @"STLocalOrganization";
+  v12[6] = v6;
+  v13[6] = @"STLocalOrganization";
   v7 = +[STiCloudOrganization serializableClassName];
-  v13[7] = v7;
-  v14[7] = @"STiCloudOrganization";
+  v12[7] = v7;
+  v13[7] = @"STiCloudOrganization";
   v8 = +[STFamilyOrganization serializableClassName];
-  v13[8] = v8;
-  v14[8] = @"STFamilyOrganization";
+  v12[8] = v8;
+  v13[8] = @"STFamilyOrganization";
   v9 = +[STAppException serializableClassName];
-  v13[9] = v9;
-  v14[9] = @"STAppException";
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:10];
+  v12[9] = v9;
+  v13[9] = @"STAppException";
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:10];
   v11 = _internalClassForSerializableClassName__mapping;
   _internalClassForSerializableClassName__mapping = v10;
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)areLocalChangesInterestingWithError:(id *)error
@@ -415,15 +410,15 @@ void __48__STUnique_areLocalChangesInterestingWithError___block_invoke(uint64_t 
 
 void __29__STUnique_migrateWithError___block_invoke(uint64_t a1)
 {
-  v164 = *MEMORY[0x1E69E9840];
+  v163 = *MEMORY[0x1E69E9840];
   v2 = objc_opt_new();
   v3 = *(a1 + 32);
   v4 = *(a1 + 40);
   v5 = *(a1 + 48);
-  v152 = 0;
-  v122 = v2;
-  v6 = [v2 initializeCachesWithManagedObjectContext:v3 withCloudStore:v4 andLocalStore:v5 error:&v152];
-  v7 = v152;
+  v151 = 0;
+  v121 = v2;
+  v6 = [v2 initializeCachesWithManagedObjectContext:v3 withCloudStore:v4 andLocalStore:v5 error:&v151];
+  v7 = v151;
   v8 = v7;
   v9 = 0x1E7CE5000uLL;
   if (!v6)
@@ -439,7 +434,7 @@ void __29__STUnique_migrateWithError___block_invoke(uint64_t a1)
 
   v10 = objc_opt_new();
   v11 = [*(a1 + 56) historyTokenFromStore:*(a1 + 48)];
-  v113 = [*(a1 + 56) historyTokenFromStore:*(a1 + 40)];
+  v112 = [*(a1 + 56) historyTokenFromStore:*(a1 + 40)];
   v12 = +[STLog mirroring];
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
@@ -454,65 +449,65 @@ void __29__STUnique_migrateWithError___block_invoke(uint64_t a1)
 
   v14 = *(a1 + 48);
   v15 = *(a1 + 32);
-  v150 = v8;
-  v151 = 0;
+  v149 = v8;
+  v150 = 0;
   v16 = v8;
-  v17 = [v10 deltasForStore:v14 inManagedObjectContext:v15 sinceToken:v11 ignoreAuthor:@"STUnique" finalToken:&v151 error:&v150];
-  v112 = v151;
-  v18 = v150;
+  v17 = [v10 deltasForStore:v14 inManagedObjectContext:v15 sinceToken:v11 ignoreAuthor:@"STUnique" finalToken:&v150 error:&v149];
+  v111 = v150;
+  v18 = v149;
 
   v20 = *(a1 + 32);
   v19 = *(a1 + 40);
-  v148 = v18;
-  v149 = 0;
-  v21 = [v10 deltasForStore:v19 inManagedObjectContext:v20 sinceToken:v113 ignoreAuthor:@"STUnique" finalToken:&v149 error:&v148];
-  v111 = v149;
-  v123 = v148;
+  v147 = v18;
+  v148 = 0;
+  v21 = [v10 deltasForStore:v19 inManagedObjectContext:v20 sinceToken:v112 ignoreAuthor:@"STUnique" finalToken:&v148 error:&v147];
+  v110 = v148;
+  v122 = v147;
 
-  v114 = v17;
+  v113 = v17;
   if ([v17 count] && objc_msgSend(v21, "count"))
   {
     [*(a1 + 56) newResolveConflictsBetweenLocalDeltas:v17 cloudDeltas:v21];
   }
 
-  v119 = a1;
-  v109 = v11;
-  v110 = v10;
-  v107 = v21;
+  v118 = a1;
+  v108 = v11;
+  v109 = v10;
+  v106 = v21;
   if ([v21 count])
   {
-    v115 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v21, "count", v21)}];
+    v114 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v21, "count", v21)}];
     v22 = +[STLog mirroring];
     if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       v23 = [v21 count];
       *buf = 134217984;
-      v158 = v23;
+      v157 = v23;
       _os_log_impl(&dword_1B831F000, v22, OS_LOG_TYPE_DEFAULT, "Detected %lu cloud changes", buf, 0xCu);
     }
 
-    v146 = 0u;
-    v147 = 0u;
-    v144 = 0u;
     v145 = 0u;
+    v146 = 0u;
+    v143 = 0u;
+    v144 = 0u;
     v24 = [v21 allValues];
-    v25 = [v24 countByEnumeratingWithState:&v144 objects:v163 count:16];
+    v25 = [v24 countByEnumeratingWithState:&v143 objects:v162 count:16];
     if (v25)
     {
       v26 = v25;
-      v27 = *v145;
-      v117 = v24;
-      v116 = *v145;
+      v27 = *v144;
+      v116 = v24;
+      v115 = *v144;
       do
       {
         for (i = 0; i != v26; ++i)
         {
-          if (*v145 != v27)
+          if (*v144 != v27)
           {
             objc_enumerationMutation(v24);
           }
 
-          v29 = *(*(&v144 + 1) + 8 * i);
+          v29 = *(*(&v143 + 1) + 8 * i);
           if ([v29 changeType] != 2)
           {
             v34 = [v29 dictionary];
@@ -526,21 +521,21 @@ void __29__STUnique_migrateWithError___block_invoke(uint64_t a1)
                 v36 = v35;
                 v37 = [v29 dictionary];
                 v38 = *(a1 + 32);
-                v140 = v123;
-                v39 = [(objc_class *)v36 fetchOrCreateWithDictionaryRepresentation:v37 inContext:v38 error:&v140];
-                v40 = v140;
+                v139 = v122;
+                v39 = [(objc_class *)v36 fetchOrCreateWithDictionaryRepresentation:v37 inContext:v38 error:&v139];
+                v40 = v139;
 
                 if (v37 && v39)
                 {
-                  v162[0] = v39;
-                  v161[0] = @"object";
-                  v161[1] = @"dictionary";
+                  v161[0] = v39;
+                  v160[0] = @"object";
+                  v160[1] = @"dictionary";
                   v41 = [v29 dictionary];
-                  v162[1] = v41;
-                  v42 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v162 forKeys:v161 count:2];
-                  [v115 addObject:v42];
+                  v161[1] = v41;
+                  v42 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v161 forKeys:v160 count:2];
+                  [v114 addObject:v42];
 
-                  v24 = v117;
+                  v24 = v116;
                 }
 
                 else
@@ -549,7 +544,7 @@ void __29__STUnique_migrateWithError___block_invoke(uint64_t a1)
                   if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
                   {
                     *buf = 138543362;
-                    v158 = v40;
+                    v157 = v40;
                     _os_log_error_impl(&dword_1B831F000, v41, OS_LOG_TYPE_ERROR, "Could not find/create local object: %{public}@", buf, 0xCu);
                   }
                 }
@@ -559,15 +554,15 @@ void __29__STUnique_migrateWithError___block_invoke(uint64_t a1)
                 {
                   v44 = [v29 uniqueIdentifier];
                   *buf = 138543618;
-                  v158 = v36;
-                  v159 = 2114;
-                  v160 = v44;
+                  v157 = v36;
+                  v158 = 2114;
+                  v159 = v44;
                   _os_log_impl(&dword_1B831F000, v43, OS_LOG_TYPE_DEFAULT, "Mirroring change: Updated local object (%{public}@) %{public}@", buf, 0x16u);
 
-                  v24 = v117;
+                  v24 = v116;
                 }
 
-                v27 = v116;
+                v27 = v115;
                 goto LABEL_36;
               }
 
@@ -575,7 +570,7 @@ void __29__STUnique_migrateWithError___block_invoke(uint64_t a1)
               if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
-                v158 = v32;
+                v157 = v32;
                 _os_log_error_impl(&dword_1B831F000, v37, OS_LOG_TYPE_ERROR, "External to internal mapping missing for: %@", buf, 0xCu);
               }
             }
@@ -585,15 +580,15 @@ void __29__STUnique_migrateWithError___block_invoke(uint64_t a1)
               v37 = [*(v9 + 3824) mirroring];
               if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
               {
-                __29__STUnique_migrateWithError___block_invoke_cold_3(&v141, v142, v37);
+                __29__STUnique_migrateWithError___block_invoke_cold_3(&v140, v141, v37);
               }
             }
 
-            v40 = v123;
+            v40 = v122;
 LABEL_36:
 
-            v123 = v40;
-            a1 = v119;
+            v122 = v40;
+            a1 = v118;
             v9 = 0x1E7CE5000;
             goto LABEL_37;
           }
@@ -603,47 +598,47 @@ LABEL_36:
           {
             v31 = [v29 uniqueIdentifier];
             *buf = 138543362;
-            v158 = v31;
+            v157 = v31;
             _os_log_impl(&dword_1B831F000, v30, OS_LOG_TYPE_DEFAULT, "Mirroring change: Deleted local copy of %{public}@", buf, 0xCu);
           }
 
           v32 = [v29 uniqueIdentifier];
           v33 = *(a1 + 32);
-          v143 = 0;
-          [v122 deleteLocalObjectWithUniqueIdentifier:v32 managedObjectContext:v33 error:&v143];
+          v142 = 0;
+          [v121 deleteLocalObjectWithUniqueIdentifier:v32 managedObjectContext:v33 error:&v142];
 LABEL_37:
         }
 
-        v26 = [v24 countByEnumeratingWithState:&v144 objects:v163 count:16];
+        v26 = [v24 countByEnumeratingWithState:&v143 objects:v162 count:16];
       }
 
       while (v26);
     }
 
-    v138 = 0u;
-    v139 = 0u;
-    v136 = 0u;
     v137 = 0u;
-    obj = v115;
-    v45 = [obj countByEnumeratingWithState:&v136 objects:v156 count:16];
+    v138 = 0u;
+    v135 = 0u;
+    v136 = 0u;
+    obj = v114;
+    v45 = [obj countByEnumeratingWithState:&v135 objects:v155 count:16];
     if (v45)
     {
       v46 = v45;
-      v47 = *v137;
+      v47 = *v136;
       v48 = @"class";
       v49 = @"object";
       do
       {
         v50 = 0;
-        v118 = v46;
+        v117 = v46;
         do
         {
-          if (*v137 != v47)
+          if (*v136 != v47)
           {
             objc_enumerationMutation(obj);
           }
 
-          v51 = *(*(&v136 + 1) + 8 * v50);
+          v51 = *(*(&v135 + 1) + 8 * v50);
           v52 = [v51 objectForKeyedSubscript:v49];
           v53 = [v51 objectForKeyedSubscript:@"dictionary"];
           [v52 updateWithDictionaryRepresentation:v53];
@@ -658,17 +653,17 @@ LABEL_37:
               v58 = v47;
               v59 = v49;
               v60 = [v55 BOOLValue];
-              v61 = *(v119 + 32);
-              v135 = 0;
-              v62 = [STUnique _updateScreenTimeSettingsForAppAndWebsiteActivityEnabled:v60 inContext:v61 error:&v135];
-              v63 = v135;
+              v61 = *(v118 + 32);
+              v134 = 0;
+              v62 = [STUnique _updateScreenTimeSettingsForAppAndWebsiteActivityEnabled:v60 inContext:v61 error:&v134];
+              v63 = v134;
               if (!v62)
               {
                 v64 = +[STLog mirroring];
                 if (os_log_type_enabled(v64, OS_LOG_TYPE_FAULT))
                 {
                   *buf = 138543362;
-                  v158 = v63;
+                  v157 = v63;
                   _os_log_fault_impl(&dword_1B831F000, v64, OS_LOG_TYPE_FAULT, "Failed to update Screen Time settings: %{public}@", buf, 0xCu);
                 }
               }
@@ -676,7 +671,7 @@ LABEL_37:
               v49 = v59;
               v47 = v58;
               v48 = v57;
-              v46 = v118;
+              v46 = v117;
             }
           }
 
@@ -684,56 +679,56 @@ LABEL_37:
         }
 
         while (v46 != v50);
-        v46 = [obj countByEnumeratingWithState:&v136 objects:v156 count:16];
+        v46 = [obj countByEnumeratingWithState:&v135 objects:v155 count:16];
       }
 
       while (v46);
     }
 
-    a1 = v119;
-    v11 = v109;
-    v10 = v110;
+    a1 = v118;
+    v11 = v108;
+    v10 = v109;
   }
 
-  if ([v114 count])
+  if ([v113 count])
   {
     *(*(*(a1 + 64) + 8) + 24) = 1;
     v65 = +[STLog mirroring];
     if (os_log_type_enabled(v65, OS_LOG_TYPE_DEFAULT))
     {
-      v66 = [v114 count];
+      v66 = [v113 count];
       *buf = 134217984;
-      v158 = v66;
+      v157 = v66;
       _os_log_impl(&dword_1B831F000, v65, OS_LOG_TYPE_DEFAULT, "Detected %lu local changes", buf, 0xCu);
     }
 
-    v133 = 0u;
-    v134 = 0u;
-    v131 = 0u;
     v132 = 0u;
-    v67 = [v114 allValues];
-    obja = [v67 countByEnumeratingWithState:&v131 objects:v155 count:16];
+    v133 = 0u;
+    v130 = 0u;
+    v131 = 0u;
+    v67 = [v113 allValues];
+    obja = [v67 countByEnumeratingWithState:&v130 objects:v154 count:16];
     if (obja)
     {
-      v68 = *v132;
+      v68 = *v131;
       do
       {
         v69 = 0;
         do
         {
-          if (*v132 != v68)
+          if (*v131 != v68)
           {
             objc_enumerationMutation(v67);
           }
 
-          v70 = *(*(&v131 + 1) + 8 * v69);
+          v70 = *(*(&v130 + 1) + 8 * v69);
           if ([v70 changeType] == 2)
           {
             v71 = [v70 uniqueIdentifier];
             v72 = *(a1 + 32);
-            v130 = 0;
-            v73 = [v122 deleteCloudObjectWithUniqueIdentifier:v71 managedObjectContext:v72 error:&v130];
-            v74 = v130;
+            v129 = 0;
+            v73 = [v121 deleteCloudObjectWithUniqueIdentifier:v71 managedObjectContext:v72 error:&v129];
+            v74 = v129;
 
             if (v73)
             {
@@ -746,7 +741,7 @@ LABEL_37:
                 {
                   v78 = [v70 uniqueIdentifier];
                   *buf = 138543362;
-                  v158 = v78;
+                  v157 = v78;
                   _os_log_impl(&dword_1B831F000, v77, OS_LOG_TYPE_DEFAULT, "Mirroring change: Deleted cloud copy of %{public}@", buf, 0xCu);
                   goto LABEL_68;
                 }
@@ -754,7 +749,7 @@ LABEL_37:
 
               else if (os_log_type_enabled(v76, OS_LOG_TYPE_ERROR))
               {
-                __29__STUnique_migrateWithError___block_invoke_cold_5(v153, v70, &v154, v77);
+                __29__STUnique_migrateWithError___block_invoke_cold_5(v152, v70, &v153, v77);
               }
             }
 
@@ -765,9 +760,9 @@ LABEL_37:
               {
                 v78 = [v70 uniqueIdentifier];
                 *buf = 138543618;
-                v158 = v78;
-                v159 = 2114;
-                v160 = v74;
+                v157 = v78;
+                v158 = 2114;
+                v159 = v74;
                 _os_log_error_impl(&dword_1B831F000, v77, OS_LOG_TYPE_ERROR, "Mirroring change: Failed to delete cloud copy of %{public}@: %{public}@", buf, 0x16u);
 LABEL_68:
               }
@@ -788,23 +783,23 @@ LABEL_68:
               v82 = [v70 uniqueIdentifier];
               v83 = [v70 dictionary];
               v84 = *(a1 + 32);
-              v127 = v123;
-              v85 = [v122 updateCloudObjectWithUniqueIdentifier:v82 dictionary:v83 managedObjectContext:v84 error:&v127];
-              v86 = v127;
+              v126 = v122;
+              v85 = [v121 updateCloudObjectWithUniqueIdentifier:v82 dictionary:v83 managedObjectContext:v84 error:&v126];
+              v86 = v126;
 
               v73 = +[STLog mirroring];
               if (os_log_type_enabled(v73, OS_LOG_TYPE_DEFAULT))
               {
                 v87 = [v70 uniqueIdentifier];
                 *buf = 138543618;
-                v158 = v81;
-                v159 = 2114;
-                v160 = v87;
+                v157 = v81;
+                v158 = 2114;
+                v159 = v87;
                 _os_log_impl(&dword_1B831F000, v73, OS_LOG_TYPE_DEFAULT, "Mirroring change: Updated cloud object (%{public}@) %{public}@", buf, 0x16u);
               }
 
-              v123 = v86;
-              a1 = v119;
+              v122 = v86;
+              a1 = v118;
             }
 
             else
@@ -813,7 +808,7 @@ LABEL_68:
               if (os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
-                v158 = v74;
+                v157 = v74;
                 _os_log_error_impl(&dword_1B831F000, v73, OS_LOG_TYPE_ERROR, "External to internal mapping missing for: %@", buf, 0xCu);
               }
             }
@@ -824,7 +819,7 @@ LABEL_68:
             v73 = +[STLog mirroring];
             if (os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
             {
-              __29__STUnique_migrateWithError___block_invoke_cold_4(&v128, v129, v73);
+              __29__STUnique_migrateWithError___block_invoke_cold_4(&v127, v128, v73);
             }
           }
 
@@ -834,26 +829,26 @@ LABEL_81:
         }
 
         while (obja != v69);
-        v88 = [v67 countByEnumeratingWithState:&v131 objects:v155 count:16];
+        v88 = [v67 countByEnumeratingWithState:&v130 objects:v154 count:16];
         obja = v88;
       }
 
       while (v88);
     }
 
-    v11 = v109;
-    v10 = v110;
+    v11 = v108;
+    v10 = v109;
   }
 
   if (*(*(*(a1 + 72) + 8) + 24) == 1)
   {
-    if (v112)
+    if (v111)
     {
       v90 = *(a1 + 48);
       v89 = *(a1 + 56);
-      v126 = v123;
-      [v89 addHistoryToken:v112 toMetadataForStore:v90 error:&v126];
-      v91 = v126;
+      v125 = v122;
+      [v89 addHistoryToken:v111 toMetadataForStore:v90 error:&v125];
+      v91 = v125;
 
       v92 = +[STLog mirroring];
       if (os_log_type_enabled(v92, OS_LOG_TYPE_DEBUG))
@@ -861,16 +856,16 @@ LABEL_81:
         __48__STUnique_areLocalChangesInterestingWithError___block_invoke_cold_1();
       }
 
-      v123 = v91;
+      v122 = v91;
     }
 
-    if (v111)
+    if (v110)
     {
       v93 = *(a1 + 56);
       v94 = *(a1 + 40);
-      v125 = v123;
-      [v93 addHistoryToken:v111 toMetadataForStore:v94 error:&v125];
-      v95 = v125;
+      v124 = v122;
+      [v93 addHistoryToken:v110 toMetadataForStore:v94 error:&v124];
+      v95 = v124;
 
       v96 = +[STLog mirroring];
       if (os_log_type_enabled(v96, OS_LOG_TYPE_DEBUG))
@@ -883,21 +878,21 @@ LABEL_81:
 
     else
     {
-      v97 = v123;
+      v97 = v122;
     }
 
     v98 = [*(a1 + 56) persistenceController];
     v99 = *(a1 + 32);
-    v124 = v97;
-    v100 = [v98 saveContext:v99 error:&v124];
-    v101 = v124;
+    v123 = v97;
+    v100 = [v98 saveContext:v99 error:&v123];
+    v101 = v123;
 
     *(*(*(a1 + 72) + 8) + 24) = v100;
-    v123 = v101;
+    v122 = v101;
   }
 
-  v8 = v123;
-  if (v123)
+  v8 = v122;
+  if (v122)
   {
 LABEL_101:
     v102 = +[STLog mirroring];
@@ -913,38 +908,36 @@ LABEL_101:
   }
 
 LABEL_104:
-
-  v106 = *MEMORY[0x1E69E9840];
 }
 
 - (void)newResolveConflictsBetweenLocalDeltas:(id)deltas cloudDeltas:(id)cloudDeltas
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   deltasCopy = deltas;
   cloudDeltasCopy = cloudDeltas;
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   allKeys = [deltasCopy allKeys];
-  v8 = [allKeys countByEnumeratingWithState:&v22 objects:v28 count:16];
+  v8 = [allKeys countByEnumeratingWithState:&v21 objects:v27 count:16];
   if (v8)
   {
     v10 = v8;
-    v11 = *v23;
+    v11 = *v22;
     *&v9 = 138543362;
-    v21 = v9;
+    v20 = v9;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v23 != v11)
+        if (*v22 != v11)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v13 = *(*(&v22 + 1) + 8 * i);
-        v14 = [deltasCopy objectForKeyedSubscript:{v13, v21}];
+        v13 = *(*(&v21 + 1) + 8 * i);
+        v14 = [deltasCopy objectForKeyedSubscript:{v13, v20}];
         v15 = [cloudDeltasCopy objectForKeyedSubscript:v13];
         v16 = v15;
         if (v15)
@@ -957,8 +950,8 @@ LABEL_104:
               v17 = +[STLog mirroring];
               if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
               {
-                *buf = v21;
-                v27 = v13;
+                *buf = v20;
+                v26 = v13;
                 v18 = v17;
                 v19 = "Conflict: remote change and local change: %{public}@";
                 goto LABEL_15;
@@ -976,8 +969,8 @@ LABEL_16:
               goto LABEL_16;
             }
 
-            *buf = v21;
-            v27 = v13;
+            *buf = v20;
+            v26 = v13;
             v18 = v17;
             v19 = "Conflict: remote change and local delete: %{public}@";
           }
@@ -991,8 +984,8 @@ LABEL_16:
               goto LABEL_16;
             }
 
-            *buf = v21;
-            v27 = v13;
+            *buf = v20;
+            v26 = v13;
             v18 = v17;
             v19 = "Conflict: remote delete: %{public}@";
           }
@@ -1005,55 +998,53 @@ LABEL_15:
 LABEL_17:
       }
 
-      v10 = [allKeys countByEnumeratingWithState:&v22 objects:v28 count:16];
+      v10 = [allKeys countByEnumeratingWithState:&v21 objects:v27 count:16];
     }
 
     while (v10);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resolveConflictsBetweenLocalDeltas:(id)deltas cloudDeltas:(id)cloudDeltas
 {
-  v64 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   deltasCopy = deltas;
   cloudDeltasCopy = cloudDeltas;
+  v54 = 0u;
   v55 = 0u;
   v56 = 0u;
   v57 = 0u;
-  v58 = 0u;
   allKeys = [deltasCopy allKeys];
-  v8 = [allKeys countByEnumeratingWithState:&v55 objects:v63 count:16];
+  v8 = [allKeys countByEnumeratingWithState:&v54 objects:v62 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v56;
-    v37 = cloudDeltasCopy;
-    v38 = deltasCopy;
-    v35 = *v56;
-    v36 = allKeys;
+    v10 = *v55;
+    v36 = cloudDeltasCopy;
+    v37 = deltasCopy;
+    v34 = *v55;
+    v35 = allKeys;
     do
     {
       v11 = 0;
-      v39 = v9;
+      v38 = v9;
       do
       {
-        if (*v56 != v10)
+        if (*v55 != v10)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v12 = *(*(&v55 + 1) + 8 * v11);
+        v12 = *(*(&v54 + 1) + 8 * v11);
         v13 = [deltasCopy objectForKeyedSubscript:v12];
         v14 = [cloudDeltasCopy objectForKeyedSubscript:v12];
         if (v14)
         {
-          v46 = v13;
+          v45 = v13;
           v15 = v12;
           v16 = v14;
-          v40 = v11;
-          v41 = v14;
+          v39 = v11;
+          v40 = v14;
           if ([v14 changeType] == 1)
           {
             if ([v13 changeType] == 1)
@@ -1062,18 +1053,18 @@ LABEL_17:
               if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138543362;
-                v62 = v15;
+                v61 = v15;
                 v18 = v17;
                 v19 = "Conflict: remote insert and local insert: %{public}@";
                 goto LABEL_44;
               }
 
 LABEL_45:
-              v13 = v46;
+              v13 = v45;
 LABEL_46:
 
-              v11 = v40;
-              v14 = v41;
+              v11 = v39;
+              v14 = v40;
               goto LABEL_47;
             }
 
@@ -1084,7 +1075,7 @@ LABEL_46:
               if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138543362;
-                v62 = v15;
+                v61 = v15;
                 _os_log_impl(&dword_1B831F000, v17, OS_LOG_TYPE_DEFAULT, "Conflict: remote insert and local update: %{public}@", buf, 0xCu);
               }
 
@@ -1099,7 +1090,7 @@ LABEL_46:
             }
 
             *buf = 138543362;
-            v62 = v15;
+            v61 = v15;
             v18 = v17;
             v19 = "Conflict: remote insert and local delete: %{public}@";
           }
@@ -1116,7 +1107,7 @@ LABEL_46:
               }
 
               *buf = 138543362;
-              v62 = v15;
+              v61 = v15;
               v18 = v17;
               v19 = "Conflict: remote update and local insert: %{public}@";
             }
@@ -1125,49 +1116,49 @@ LABEL_46:
             {
               if ([v13 changeType] == 2)
               {
-                v53 = 0u;
-                v54 = 0u;
-                v51 = 0u;
                 v52 = 0u;
-                obj = [v41 updatedProperties];
-                v44 = [obj countByEnumeratingWithState:&v51 objects:v60 count:16];
-                if (v44)
+                v53 = 0u;
+                v50 = 0u;
+                v51 = 0u;
+                obj = [v40 updatedProperties];
+                v43 = [obj countByEnumeratingWithState:&v50 objects:v59 count:16];
+                if (v43)
                 {
-                  v43 = *v52;
+                  v42 = *v51;
                   do
                   {
                     v21 = 0;
                     do
                     {
-                      if (*v52 != v43)
+                      if (*v51 != v42)
                       {
                         objc_enumerationMutation(obj);
                       }
 
-                      v45 = v21;
-                      v22 = *(*(&v51 + 1) + 8 * v21);
+                      v44 = v21;
+                      v22 = *(*(&v50 + 1) + 8 * v21);
+                      v46 = 0u;
                       v47 = 0u;
                       v48 = 0u;
                       v49 = 0u;
-                      v50 = 0u;
-                      updatedProperties = [v46 updatedProperties];
+                      updatedProperties = [v45 updatedProperties];
                       v24 = [updatedProperties copy];
 
-                      v25 = [v24 countByEnumeratingWithState:&v47 objects:v59 count:16];
+                      v25 = [v24 countByEnumeratingWithState:&v46 objects:v58 count:16];
                       if (v25)
                       {
                         v26 = v25;
-                        v27 = *v48;
+                        v27 = *v47;
                         do
                         {
                           for (i = 0; i != v26; ++i)
                           {
-                            if (*v48 != v27)
+                            if (*v47 != v27)
                             {
                               objc_enumerationMutation(v24);
                             }
 
-                            v29 = *(*(&v47 + 1) + 8 * i);
+                            v29 = *(*(&v46 + 1) + 8 * i);
                             name = [v22 name];
                             name2 = [v29 name];
                             v32 = [name isEqualToString:name2];
@@ -1175,40 +1166,40 @@ LABEL_46:
                             if (v32)
                             {
                               name3 = [v29 name];
-                              [v46 removePropertyWithName:name3];
+                              [v45 removePropertyWithName:name3];
                             }
                           }
 
                           v20 = v15;
-                          v26 = [v24 countByEnumeratingWithState:&v47 objects:v59 count:16];
+                          v26 = [v24 countByEnumeratingWithState:&v46 objects:v58 count:16];
                         }
 
                         while (v26);
                       }
 
-                      v21 = v45 + 1;
+                      v21 = v44 + 1;
                     }
 
-                    while (v45 + 1 != v44);
-                    v44 = [obj countByEnumeratingWithState:&v51 objects:v60 count:16];
+                    while (v44 + 1 != v43);
+                    v43 = [obj countByEnumeratingWithState:&v50 objects:v59 count:16];
                   }
 
-                  while (v44);
+                  while (v43);
                 }
 
                 v17 = +[STLog mirroring];
                 if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138543362;
-                  v62 = v20;
+                  v61 = v20;
                   _os_log_impl(&dword_1B831F000, v17, OS_LOG_TYPE_DEFAULT, "Conflict: remote update and local update: %{public}@", buf, 0xCu);
                 }
 
-                cloudDeltasCopy = v37;
-                deltasCopy = v38;
-                v10 = v35;
-                allKeys = v36;
-                v9 = v39;
+                cloudDeltasCopy = v36;
+                deltasCopy = v37;
+                v10 = v34;
+                allKeys = v35;
+                v9 = v38;
                 goto LABEL_45;
               }
 
@@ -1220,7 +1211,7 @@ LABEL_46:
               }
 
               *buf = 138543362;
-              v62 = v15;
+              v61 = v15;
               v18 = v17;
               v19 = "Conflict: remote update and local delete: %{public}@";
             }
@@ -1236,7 +1227,7 @@ LABEL_46:
             }
 
             *buf = 138543362;
-            v62 = v15;
+            v61 = v15;
             v18 = v17;
             v19 = "Conflict: remote delete: %{public}@";
           }
@@ -1252,13 +1243,11 @@ LABEL_47:
       }
 
       while (v11 != v9);
-      v9 = [allKeys countByEnumeratingWithState:&v55 objects:v63 count:16];
+      v9 = [allKeys countByEnumeratingWithState:&v54 objects:v62 count:16];
     }
 
     while (v9);
   }
-
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 + (id)historyTokenFromStore:(id)store
@@ -1316,28 +1305,97 @@ LABEL_5:
   return v11;
 }
 
-void __48__STUnique_areLocalChangesInterestingWithError___block_invoke_cold_1()
++ (BOOL)_updateScreenTimeSettingsForAppAndWebsiteActivityEnabled:(BOOL)enabled inContext:(id)context error:(id *)error
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3_0(&dword_1B831F000, v0, v1, "Saved token - local: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
+  enabledCopy = enabled;
+  v28 = *MEMORY[0x1E69E9840];
+  contextCopy = context;
+  v25 = 0;
+  v8 = [STScreenTimeSettings fetchScreenTimeSettingsInContext:contextCopy error:&v25];
+  v9 = v25;
+  if (v8)
+  {
+    v24 = v9;
+    v10 = [STCoreUser fetchLocalUserInContext:contextCopy error:&v24];
+    v11 = v24;
 
-void __29__STUnique_migrateWithError___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3_0(&dword_1B831F000, v0, v1, "Previous token - local: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
+    v12 = v10 != 0;
+    if (v10)
+    {
+      unmodeledManagingOrganizationSettings = [v10 unmodeledManagingOrganizationSettings];
+      cloudSettings = [v10 cloudSettings];
 
-void __29__STUnique_migrateWithError___block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3_0(&dword_1B831F000, v0, v1, "Previous token - cloud: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+      if (unmodeledManagingOrganizationSettings == cloudSettings)
+      {
+        if ([v8 screenTimeEnabled] != enabledCopy)
+        {
+          v20 = +[STLog mirroring];
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+          {
+            v21 = @"NO";
+            if (enabledCopy)
+            {
+              v21 = @"YES";
+            }
+
+            v22 = v21;
+            *buf = 138543362;
+            v27 = v22;
+            _os_log_impl(&dword_1B831F000, v20, OS_LOG_TYPE_DEFAULT, "Updating ScreenTimeEnabled setting to: %{public}@", buf, 0xCu);
+          }
+
+          [v8 setScreenTimeEnabled:enabledCopy];
+        }
+      }
+
+      else
+      {
+        v15 = +[STLog mirroring];
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 0;
+          _os_log_impl(&dword_1B831F000, v15, OS_LOG_TYPE_DEFAULT, "User is not using iCloud organization settings. Will not update Screen Time Settings based on iCloud organization settings.", buf, 2u);
+        }
+      }
+    }
+
+    else if (error)
+    {
+      v18 = +[STLog mirroring];
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      {
+        +[STUnique _updateScreenTimeSettingsForAppAndWebsiteActivityEnabled:inContext:error:];
+      }
+
+      v19 = v11;
+      *error = v11;
+    }
+  }
+
+  else
+  {
+    if (error)
+    {
+      v16 = +[STLog mirroring];
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      {
+        +[STUnique _updateScreenTimeSettingsForAppAndWebsiteActivityEnabled:inContext:error:];
+      }
+
+      v17 = v9;
+      v12 = 0;
+      *error = v9;
+    }
+
+    else
+    {
+      v12 = 0;
+    }
+
+    v11 = v9;
+  }
+
+  return v12;
 }
 
 void __29__STUnique_migrateWithError___block_invoke_cold_3(uint8_t *buf, _BYTE *a2, os_log_t log)
@@ -1362,49 +1420,37 @@ void __29__STUnique_migrateWithError___block_invoke_cold_5(uint8_t *a1, void *a2
   _os_log_error_impl(&dword_1B831F000, a4, OS_LOG_TYPE_ERROR, "Mirroring change: Unable to delete cloud copy of %{public}@ : Missing cloud object", a1, 0xCu);
 }
 
-void __29__STUnique_migrateWithError___block_invoke_cold_7()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3_0(&dword_1B831F000, v0, v1, "Saved token - cloud: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 void __29__STUnique_migrateWithError___block_invoke_cold_8()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
-  _os_log_fault_impl(&dword_1B831F000, v0, OS_LOG_TYPE_FAULT, "Error occurred during mirroring migration: %{public}@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_1B831F000, v0, OS_LOG_TYPE_FAULT, "Error occurred during mirroring migration: %{public}@", v1, 0xCu);
 }
 
 + (void)historyTokenFromStore:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v4 = 138543874;
-  v5 = @"STUnique";
-  v6 = 2114;
-  v7 = a1;
-  v8 = 2114;
-  v9 = a2;
-  _os_log_error_impl(&dword_1B831F000, log, OS_LOG_TYPE_ERROR, "Failed to deserialize history token for '%{public}@' in store: %{public}@\n%{public}@", &v4, 0x20u);
-  v3 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
+  v3 = 138543874;
+  v4 = @"STUnique";
+  v5 = 2114;
+  v6 = a1;
+  v7 = 2114;
+  v8 = a2;
+  _os_log_error_impl(&dword_1B831F000, log, OS_LOG_TYPE_ERROR, "Failed to deserialize history token for '%{public}@' in store: %{public}@\n%{public}@", &v3, 0x20u);
 }
 
 + (void)_updateScreenTimeSettingsForAppAndWebsiteActivityEnabled:inContext:error:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(&dword_1B831F000, v0, OS_LOG_TYPE_ERROR, "Failed to fetch local user: %{public}@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1B831F000, v0, OS_LOG_TYPE_ERROR, "Failed to fetch local user: %{public}@", v1, 0xCu);
 }
 
 + (void)_updateScreenTimeSettingsForAppAndWebsiteActivityEnabled:inContext:error:.cold.2()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(&dword_1B831F000, v0, OS_LOG_TYPE_ERROR, "Failed to find Screen Time Settings: %{public}@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1B831F000, v0, OS_LOG_TYPE_ERROR, "Failed to find Screen Time Settings: %{public}@", v1, 0xCu);
 }
 
 @end

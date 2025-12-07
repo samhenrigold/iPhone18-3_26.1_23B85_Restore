@@ -46,7 +46,7 @@
 {
   if (gvnode_logger_onceToken != -1)
   {
-    [GVNode setFrame:];
+    [(GVNode *)frame.origin setFrame:?];
   }
 
   v3 = gvnode_logger_logger;
@@ -69,7 +69,7 @@
 {
   if (gvnode_logger_onceToken != -1)
   {
-    [GVNode setFrame:];
+    [(GVNode *)origin setFrame:?];
   }
 
   v3 = gvnode_logger_logger;
@@ -94,7 +94,7 @@
 {
   if (gvnode_logger_onceToken != -1)
   {
-    [GVNode setFrame:];
+    [(GVNode *)center setFrame:?];
   }
 
   v3 = gvnode_logger_logger;
@@ -136,23 +136,23 @@
 
 - (void)setFrame:(uint64_t)a3 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2507D1000, a1, a3, "%{public}s frame property is read-only.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[GVNode setFrame:]";
+  OUTLINED_FUNCTION_0(&dword_2507D1000, a1, a3, "%{public}s frame property is read-only.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)setOrigin:(uint64_t)a3 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2507D1000, a1, a3, "%{public}s origin property is read-only.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[GVNode setOrigin:]";
+  OUTLINED_FUNCTION_0(&dword_2507D1000, a1, a3, "%{public}s origin property is read-only.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)setCenter:(uint64_t)a3 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2507D1000, a1, a3, "%{public}s center property is read-only.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[GVNode setCenter:]";
+  OUTLINED_FUNCTION_0(&dword_2507D1000, a1, a3, "%{public}s center property is read-only.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

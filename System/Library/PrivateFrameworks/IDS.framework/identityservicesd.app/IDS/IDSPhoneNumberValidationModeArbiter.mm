@@ -174,7 +174,7 @@ LABEL_16:
   v5 = 360.0;
   if (v4 && ![(IDSPhoneNumberValidationModeArbiter *)self isValidationModeLegacy])
   {
-    [v4 doubleValue];
+    objc_msgSend_doubleValue(v4);
     v5 = v6;
   }
 

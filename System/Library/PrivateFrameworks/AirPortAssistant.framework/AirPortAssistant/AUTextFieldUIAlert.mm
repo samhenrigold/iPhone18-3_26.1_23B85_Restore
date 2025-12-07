@@ -7,21 +7,21 @@
 
 - (void)prepareToShow
 {
-  v5.receiver = self;
-  v5.super_class = AUTextFieldUIAlert;
-  [(AUUIAlert *)&v5 prepareToShow];
-  objc_msgSend_addTextField(self, v3, v4);
+  v6.receiver = self;
+  v6.super_class = AUTextFieldUIAlert;
+  [(AUUIAlert *)&v6 prepareToShow];
+  objc_msgSend_addTextField(self, v3, v4, v5);
 }
 
 - (id)textFieldAtIndex:(unint64_t)index
 {
-  v4 = objc_msgSend_textFields(self->super.alert, a2, index);
-  if (objc_msgSend_count(v4, v5, v6) <= index)
+  v5 = objc_msgSend_textFields(self->super.alert, a2, index, v3);
+  if (objc_msgSend_count(v5, v6, v7, v8) <= index)
   {
     return 0;
   }
 
-  return objc_msgSend_objectAtIndexedSubscript_(v4, v7, index);
+  return objc_msgSend_objectAtIndexedSubscript_(v5, v9, index, v10);
 }
 
 @end

@@ -18,12 +18,12 @@
   uCopy = u;
   detectionCopy = detection;
   modelCopy = model;
-  v49 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   optionsCopy = options;
-  v46.receiver = self;
-  v46.super_class = VCPImageHandsAnalyzer;
-  v20 = [(VCPImageHandsAnalyzer *)&v46 init];
+  v48.receiver = self;
+  v48.super_class = VCPImageHandsAnalyzer;
+  v20 = [(VCPImageHandsAnalyzer *)&v48 init];
   v21 = v20;
   if (v20)
   {
@@ -45,7 +45,7 @@
       {
         [v26 floatValue];
         *buf = 134217984;
-        v48 = v27;
+        v50 = v27;
         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "ImageHandAnalyzer: input image aspectRatio = %f", buf, 0xCu);
       }
 
@@ -53,7 +53,7 @@
       {
         v28 = 0;
 LABEL_24:
-        v35 = v28;
+        v37 = v28;
 
         goto LABEL_25;
       }
@@ -82,31 +82,31 @@ LABEL_24:
     }
 
     v21->_maxNumRegions = optionCopy;
-    [objc_opt_class() getExtendRatio];
-    v21->_extendRatio = v31;
+    getExtendRatio = [objc_opt_class() getExtendRatio];
+    v21->_extendRatio = v33;
     if (detectionCopy)
     {
-      if (handDetectionCopy && DeviceHasANE())
+      if (handDetectionCopy && DeviceHasANE(getExtendRatio, v32))
       {
-        *&v32 = v21->_extendRatio;
-        v33 = [VCPANSTHandsDetector anstHandsDetectorWithExtendRatio:optionsCopy options:v32];
-        v34 = &OBJC_IVAR___VCPImageHandsAnalyzer__anstHandsDetector;
+        *&v34 = v21->_extendRatio;
+        v35 = [VCPANSTHandsDetector anstHandsDetectorWithExtendRatio:optionsCopy options:v34];
+        v36 = &OBJC_IVAR___VCPImageHandsAnalyzer__anstHandsDetector;
       }
 
       else
       {
-        v33 = [VCPCNNHandsDetector detector:v21->_maxNumRegions forceCPU:uCopy sharedModel:modelCopy inputConfig:v21->_resConfig revision:revision];
-        v34 = &OBJC_IVAR___VCPImageHandsAnalyzer__handsDetector;
+        v35 = [VCPCNNHandsDetector detector:v21->_maxNumRegions forceCPU:uCopy sharedModel:modelCopy inputConfig:v21->_resConfig revision:revision];
+        v36 = &OBJC_IVAR___VCPImageHandsAnalyzer__handsDetector;
       }
 
-      v36 = *v34;
-      v37 = *(&v21->super.super.isa + v36);
-      *(&v21->super.super.isa + v36) = v33;
+      v38 = *v36;
+      v39 = *(&v21->super.super.isa + v38);
+      *(&v21->super.super.isa + v38) = v35;
     }
 
-    v38 = [VCPCNNHandKeypointsDetector detector:uCopy sharedModel:modelCopy modelName:nameCopy enableHandObject:object options:optionsCopy];
+    v40 = [VCPCNNHandKeypointsDetector detector:uCopy sharedModel:modelCopy modelName:nameCopy enableHandObject:object options:optionsCopy];
     handsKeypointsDetector = v21->_handsKeypointsDetector;
-    v21->_handsKeypointsDetector = v38;
+    v21->_handsKeypointsDetector = v40;
 
     array = [MEMORY[0x1E695DF70] array];
     results = v21->_results;
@@ -117,10 +117,10 @@ LABEL_24:
     goto LABEL_24;
   }
 
-  v35 = 0;
+  v37 = 0;
 LABEL_25:
 
-  return v35;
+  return v37;
 }
 
 - (int64_t)getClosestAspectRatio:(id)ratio
@@ -594,7 +594,7 @@ LABEL_25:
 
 - (int)analyzePixelBuffer:(__CVBuffer *)buffer rotationInDegrees:(id)degrees flags:(unint64_t *)flags results:(id *)results cancel:(id)cancel
 {
-  v95 = *MEMORY[0x1E69E9840];
+  v104 = *MEMORY[0x1E69E9840];
   degreesCopy = degrees;
   cancelCopy = cancel;
   Width = CVPixelBufferGetWidth(buffer);
@@ -603,47 +603,53 @@ LABEL_25:
   if (MediaAnalysisLogLevel() >= 7 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
   {
     *buf = 67109376;
-    v89 = Width;
-    v90 = 1024;
-    v91 = Height;
+    v98 = Width;
+    v99 = 1024;
+    v100 = Height;
     _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "HandPoseInputBuffer: width = %d,  height = %d", buf, 0xEu);
   }
 
   array = [MEMORY[0x1E695DF70] array];
-  v94 = 0;
-  memset(v93, 0, sizeof(v93));
+  v103 = 0;
+  memset(v102, 0, sizeof(v102));
   [(NSMutableArray *)self->_results removeAllObjects];
   if (self->_anstHandsDetector)
   {
-    if (MediaAnalysisLogLevel() >= 6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
+    v14 = MediaAnalysisLogLevel();
+    if (v14 >= 6)
     {
-      *buf = 0;
-      _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "HandPoseInputBuffer: running VCPANSTHandsDetector", buf, 2u);
+      v14 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO);
+      if (v14)
+      {
+        *buf = 0;
+        _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "HandPoseInputBuffer: running VCPANSTHandsDetector", buf, 2u);
+      }
     }
 
-    v14 = VCPSignPostLog();
-    v15 = os_signpost_id_generate(v14);
+    v15 = VCPSignPostLog(v14);
+    v16 = os_signpost_id_generate(v15);
 
-    v16 = VCPSignPostLog();
-    v17 = v16;
-    if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
+    v18 = VCPSignPostLog(v17);
+    v19 = v18;
+    if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v17, OS_SIGNPOST_INTERVAL_BEGIN, v15, "VCPImageHandsAnalyzer_anstHandDetection", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v16, "VCPImageHandsAnalyzer_anstHandDetection", "", buf, 2u);
     }
 
-    v18 = [(VCPANSTHandsDetector *)self->_anstHandsDetector handsDetection:buffer rotationInDegrees:degreesCopy handsRegions:array cancel:cancelCopy];
-    if (v18)
+    v20 = [(VCPANSTHandsDetector *)self->_anstHandsDetector handsDetection:buffer rotationInDegrees:degreesCopy handsRegions:array cancel:cancelCopy];
+    v21 = v20;
+    if (v20)
     {
       goto LABEL_56;
     }
 
-    v19 = VCPSignPostLog();
-    v20 = v19;
-    if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
+    v22 = VCPSignPostLog(v20);
+    v23 = v22;
+    if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v22))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v20, OS_SIGNPOST_INTERVAL_END, v15, "VCPImageHandsAnalyzer_anstHandDetection", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v23, OS_SIGNPOST_INTERVAL_END, v16, "VCPImageHandsAnalyzer_anstHandDetection", "", buf, 2u);
     }
   }
 
@@ -651,72 +657,72 @@ LABEL_25:
   {
     if (!self->_handsDetector)
     {
-      v84 = 0u;
-      v85 = 0u;
-      v82 = 0u;
-      v83 = 0u;
-      v75 = 120;
+      v93 = 0u;
+      v94 = 0u;
+      v91 = 0u;
+      v92 = 0u;
+      v84 = 120;
       obj = self->_handObjects;
-      v26 = [(NSArray *)obj countByEnumeratingWithState:&v82 objects:v92 count:16];
-      if (v26)
+      v32 = [(NSArray *)obj countByEnumeratingWithState:&v91 objects:v101 count:16];
+      if (v32)
       {
-        v27 = Width;
-        v28 = *v83;
-        v29 = Height;
+        v33 = Width;
+        v34 = *v92;
+        v35 = Height;
         while (2)
         {
-          for (i = 0; i != v26; ++i)
+          for (i = 0; i != v32; ++i)
           {
-            if (*v83 != v28)
+            if (*v92 != v34)
             {
               objc_enumerationMutation(obj);
             }
 
-            v31 = *(*(&v82 + 1) + 8 * i);
-            [v31 bounds];
-            v33 = v32;
-            v35 = v34;
-            v37 = v36;
+            v37 = *(*(&v91 + 1) + 8 * i);
+            [v37 bounds];
             v39 = v38;
-            v40 = [VCPBoundingBox alloc];
-            [v31 confidence];
-            LODWORD(v42) = v41;
-            *&v43 = v39;
-            *&v44 = v37;
-            v45 = 1.0 - v35 - v39;
-            *&v46 = v45;
-            *&v45 = v33;
-            v47 = [(VCPBoundingBox *)v40 initWithXYAndSize:v45 y:v46 width:v44 height:v43 confidence:v42];
-            -[VCPBoundingBox setClassIndex:](v47, "setClassIndex:", [v31 chirality]);
-            -[VCPBoundingBox setTrackID:](v47, "setTrackID:", [v31 handID]);
-            -[VCPBoundingBox setGroupID:](v47, "setGroupID:", [v31 groupID]);
-            [(VCPBoundingBox *)v47 minX];
-            *&v49 = v48 * v27;
-            [(VCPBoundingBox *)v47 setMinX:v49];
-            [(VCPBoundingBox *)v47 maxX];
-            *&v51 = v50 * v27;
-            [(VCPBoundingBox *)v47 setMaxX:v51];
-            [(VCPBoundingBox *)v47 minY];
-            *&v53 = v52 * v29;
-            [(VCPBoundingBox *)v47 setMinY:v53];
-            [(VCPBoundingBox *)v47 maxY];
-            *&v55 = v54 * v29;
-            [(VCPBoundingBox *)v47 setMaxY:v55];
-            *&v56 = self->_extendRatio;
-            *&v57 = v27;
-            *&v58 = v29;
-            v18 = [(VCPBoundingBox *)v47 extendBoxBy:v56 scaleX:v57 scaleY:v58];
-            if (v18)
+            v41 = v40;
+            v43 = v42;
+            v45 = v44;
+            v46 = [VCPBoundingBox alloc];
+            [v37 confidence];
+            LODWORD(v48) = v47;
+            *&v49 = v45;
+            *&v50 = v43;
+            v51 = 1.0 - v41 - v45;
+            *&v52 = v51;
+            *&v51 = v39;
+            v53 = [(VCPBoundingBox *)v46 initWithXYAndSize:v51 y:v52 width:v50 height:v49 confidence:v48];
+            -[VCPBoundingBox setClassIndex:](v53, "setClassIndex:", [v37 chirality]);
+            -[VCPBoundingBox setTrackID:](v53, "setTrackID:", [v37 handID]);
+            -[VCPBoundingBox setGroupID:](v53, "setGroupID:", [v37 groupID]);
+            [(VCPBoundingBox *)v53 minX];
+            *&v55 = v54 * v33;
+            [(VCPBoundingBox *)v53 setMinX:v55];
+            [(VCPBoundingBox *)v53 maxX];
+            *&v57 = v56 * v33;
+            [(VCPBoundingBox *)v53 setMaxX:v57];
+            [(VCPBoundingBox *)v53 minY];
+            *&v59 = v58 * v35;
+            [(VCPBoundingBox *)v53 setMinY:v59];
+            [(VCPBoundingBox *)v53 maxY];
+            *&v61 = v60 * v35;
+            [(VCPBoundingBox *)v53 setMaxY:v61];
+            *&v62 = self->_extendRatio;
+            *&v63 = v33;
+            *&v64 = v35;
+            v21 = [(VCPBoundingBox *)v53 extendBoxBy:v62 scaleX:v63 scaleY:v64];
+            if (v21)
             {
 
               goto LABEL_56;
             }
 
-            [array addObject:v47];
+            [array addObject:v53];
           }
 
-          v26 = [(NSArray *)obj countByEnumeratingWithState:&v82 objects:v92 count:16];
-          if (v26)
+          v32 = [(NSArray *)obj countByEnumeratingWithState:&v91 objects:v101 count:16];
+          if (v32)
           {
             continue;
           }
@@ -727,112 +733,124 @@ LABEL_25:
 
       if (MediaAnalysisLogLevel() >= 5 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
       {
-        v59 = [*(&self->super.super.isa + v75) count];
+        v65 = [*(&self->super.super.isa + v84) count];
         *buf = 67109120;
-        v89 = v59;
+        v98 = v65;
         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "VCPImageHandAnalyzer - analyze %d handObjects", buf, 8u);
       }
 
       goto LABEL_39;
     }
 
-    if (MediaAnalysisLogLevel() >= 6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
+    v24 = MediaAnalysisLogLevel();
+    if (v24 >= 6)
     {
-      *buf = 0;
-      _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "HandPoseInputBuffer: running VCPCNNHandsDetector", buf, 2u);
+      v24 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO);
+      if (v24)
+      {
+        *buf = 0;
+        _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "HandPoseInputBuffer: running VCPCNNHandsDetector", buf, 2u);
+      }
     }
 
-    v21 = VCPSignPostLog();
-    v22 = os_signpost_id_generate(v21);
+    v25 = VCPSignPostLog(v24);
+    v26 = os_signpost_id_generate(v25);
 
-    v23 = VCPSignPostLog();
-    v24 = v23;
-    if (v22 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v23))
+    v28 = VCPSignPostLog(v27);
+    v29 = v28;
+    if (v26 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v28))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v24, OS_SIGNPOST_INTERVAL_BEGIN, v22, "VCPImageHandsAnalyzer_handDetection", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v29, OS_SIGNPOST_INTERVAL_BEGIN, v26, "VCPImageHandsAnalyzer_handDetection", "", buf, 2u);
     }
 
-    v18 = [(VCPCNNHandsDetector *)self->_handsDetector handsDetection:buffer handsRegions:array cancel:cancelCopy];
-    if (v18)
+    v30 = [(VCPCNNHandsDetector *)self->_handsDetector handsDetection:buffer handsRegions:array cancel:cancelCopy];
+    v21 = v30;
+    if (v30)
     {
       goto LABEL_56;
     }
 
-    v25 = VCPSignPostLog();
-    v20 = v25;
-    if (v22 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v25))
+    v31 = VCPSignPostLog(v30);
+    v23 = v31;
+    if (v26 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v31))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v20, OS_SIGNPOST_INTERVAL_END, v22, "VCPImageHandsAnalyzer_handDetection", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v23, OS_SIGNPOST_INTERVAL_END, v26, "VCPImageHandsAnalyzer_handDetection", "", buf, 2u);
     }
   }
 
 LABEL_39:
-  for (j = 0; [array count] > j; ++j)
+  for (j = 0; ; ++j)
   {
-    v61 = VCPSignPostLog();
-    v62 = os_signpost_id_generate(v61);
-
-    v63 = VCPSignPostLog();
-    v64 = v63;
-    if (v62 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v63))
+    v67 = [array count];
+    if (v67 <= j)
     {
-      *v81 = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v64, OS_SIGNPOST_INTERVAL_BEGIN, v62, "VCPImageHandsAnalyzer_keypointsPerHand", "", v81, 2u);
+      break;
     }
 
-    *v81 = 0;
-    handsKeypointsDetector = self->_handsKeypointsDetector;
-    v66 = [array objectAtIndexedSubscript:j];
-    v18 = [(VCPCNNHandKeypointsDetector *)handsKeypointsDetector handKeypointsDetection:buffer box:v66 keypoints:buf keypointConfidence:v93 handHoldsObjectConfidence:v81];
+    v68 = VCPSignPostLog(v67);
+    v69 = os_signpost_id_generate(v68);
 
-    if (v18)
+    v71 = VCPSignPostLog(v70);
+    v72 = v71;
+    if (v69 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v71))
+    {
+      *v90 = 0;
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v72, OS_SIGNPOST_INTERVAL_BEGIN, v69, "VCPImageHandsAnalyzer_keypointsPerHand", "", v90, 2u);
+    }
+
+    *v90 = 0;
+    handsKeypointsDetector = self->_handsKeypointsDetector;
+    v74 = [array objectAtIndexedSubscript:j];
+    v21 = [(VCPCNNHandKeypointsDetector *)handsKeypointsDetector handKeypointsDetection:buffer box:v74 keypoints:buf keypointConfidence:v102 handHoldsObjectConfidence:v90];
+
+    if (v21)
     {
       goto LABEL_56;
     }
 
-    v67 = VCPSignPostLog();
-    v68 = v67;
-    if (v62 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v67))
+    v76 = VCPSignPostLog(v75);
+    v77 = v76;
+    if (v69 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v76))
     {
-      *v80 = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v68, OS_SIGNPOST_INTERVAL_END, v62, "VCPImageHandsAnalyzer_keypointsPerHand", "", v80, 2u);
+      *v89 = 0;
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v77, OS_SIGNPOST_INTERVAL_END, v69, "VCPImageHandsAnalyzer_keypointsPerHand", "", v89, 2u);
     }
 
     if (self->_enableRejectHandsNearBoundaries)
     {
-      v69 = [array objectAtIndexedSubscript:j];
-      v70 = [(VCPImageHandsAnalyzer *)self keypointsOutsideInset:buf handRegion:v69];
+      v78 = [array objectAtIndexedSubscript:j];
+      v79 = [(VCPImageHandsAnalyzer *)self keypointsOutsideInset:buf handRegion:v78];
 
-      if (v70)
+      if (v79)
       {
         continue;
       }
     }
 
-    v71 = [array objectAtIndexedSubscript:j];
-    LODWORD(v72) = *v81;
-    [(VCPImageHandsAnalyzer *)self convertSingleResultToDict:buf keypointConfidence:v93 box:v71 handHoldsObjectConfidence:self->_results results:v72];
+    v80 = [array objectAtIndexedSubscript:j];
+    LODWORD(v81) = *v90;
+    [(VCPImageHandsAnalyzer *)self convertSingleResultToDict:buf keypointConfidence:v102 box:v80 handHoldsObjectConfidence:self->_results results:v81];
   }
 
   results = self->_results;
   if (results)
   {
-    v86 = @"HandsResults";
+    v95 = @"HandsResults";
     resultsCopy2 = results;
-    [MEMORY[0x1E695DF20] dictionaryWithObjects:&resultsCopy2 forKeys:&v86 count:1];
-    *resultsCopy = v18 = 0;
+    [MEMORY[0x1E695DF20] dictionaryWithObjects:&resultsCopy2 forKeys:&v95 count:1];
+    *resultsCopy = v21 = 0;
   }
 
   else
   {
-    v18 = 0;
+    v21 = 0;
   }
 
 LABEL_56:
 
-  return v18;
+  return v21;
 }
 
 - (int)preferredInputFormat:(int *)format height:(int *)height format:(unsigned int *)a5

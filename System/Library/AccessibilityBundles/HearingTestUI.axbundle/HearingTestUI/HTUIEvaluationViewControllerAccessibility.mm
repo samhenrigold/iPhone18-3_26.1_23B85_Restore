@@ -15,6 +15,7 @@
 - (void)resumeHearingTestSession;
 - (void)scheduleEvaluationStart;
 - (void)viewDidLoad;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation HTUIEvaluationViewControllerAccessibility
@@ -84,40 +85,40 @@
 
 - (void)viewDidLoad
 {
-  v27 = *MEMORY[0x29EDCA608];
-  v24.receiver = self;
-  v24.super_class = HTUIEvaluationViewControllerAccessibility;
-  [(HTUIEvaluationViewControllerAccessibility *)&v24 viewDidLoad];
+  v26 = *MEMORY[0x29EDCA608];
+  v23.receiver = self;
+  v23.super_class = HTUIEvaluationViewControllerAccessibility;
+  [(HTUIEvaluationViewControllerAccessibility *)&v23 viewDidLoad];
   if (UIAccessibilityIsSwitchControlRunning())
   {
-    v23 = 0;
+    v22 = 0;
     objc_opt_class();
     v3 = __UIAccessibilityCastAsClass();
     navigationItem = [v3 navigationItem];
 
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     rightBarButtonItems = [navigationItem rightBarButtonItems];
-    v6 = [rightBarButtonItems countByEnumeratingWithState:&v19 objects:v26 count:16];
+    v6 = [rightBarButtonItems countByEnumeratingWithState:&v18 objects:v25 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v20;
+      v8 = *v19;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v20 != v8)
+          if (*v19 != v8)
           {
             objc_enumerationMutation(rightBarButtonItems);
           }
 
-          [*(*(&v19 + 1) + 8 * i) setIsAccessibilityElement:0];
+          [*(*(&v18 + 1) + 8 * i) setIsAccessibilityElement:0];
         }
 
-        v7 = [rightBarButtonItems countByEnumeratingWithState:&v19 objects:v26 count:16];
+        v7 = [rightBarButtonItems countByEnumeratingWithState:&v18 objects:v25 count:16];
       }
 
       while (v7);
@@ -129,26 +130,41 @@
     v12 = objc_alloc(MEMORY[0x29EDC78E0]);
     v13 = accessibilityLocalizedString(@"HEARING_TEST_CANCEL_BUTTON");
     v14 = [MEMORY[0x29EDC7AC8] systemImageNamed:@"xmark"];
-    v18[0] = MEMORY[0x29EDCA5F8];
-    v18[1] = 3221225472;
-    v18[2] = __56__HTUIEvaluationViewControllerAccessibility_viewDidLoad__block_invoke;
-    v18[3] = &unk_29F2C5808;
-    v18[4] = self;
-    v15 = [v12 initWithName:v13 image:v14 actionHandler:v18];
+    v17[0] = MEMORY[0x29EDCA5F8];
+    v17[1] = 3221225472;
+    v17[2] = __56__HTUIEvaluationViewControllerAccessibility_viewDidLoad__block_invoke;
+    v17[3] = &unk_29F2C5808;
+    v17[4] = self;
+    v15 = [v12 initWithName:v13 image:v14 actionHandler:v17];
 
-    v25 = v15;
-    v16 = [MEMORY[0x29EDB8D80] arrayWithObjects:&v25 count:1];
+    v24 = v15;
+    v16 = [MEMORY[0x29EDB8D80] arrayWithObjects:&v24 count:1];
     [_axTapHearButton setAccessibilityCustomActions:v16];
   }
-
-  v17 = *MEMORY[0x29EDCA608];
 }
 
-uint64_t __56__HTUIEvaluationViewControllerAccessibility_viewDidLoad__block_invoke(uint64_t a1)
+- (void)viewWillDisappear:(BOOL)disappear
 {
-  v2 = *(a1 + 32);
-  AXPerformSafeBlock();
-  return 1;
+  v8.receiver = self;
+  v8.super_class = HTUIEvaluationViewControllerAccessibility;
+  [(HTUIEvaluationViewControllerAccessibility *)&v8 viewWillDisappear:disappear];
+  [(HTUIEvaluationViewControllerAccessibility *)self _axSetAnnouncementState:0];
+  _axContentViewCategory = [(HTUIEvaluationViewControllerAccessibility *)self _axContentViewCategory];
+  [_axContentViewCategory _axStopPlayingTones];
+
+  defaultCenter = [MEMORY[0x29EDBA068] defaultCenter];
+  [defaultCenter removeObserver:self name:*MEMORY[0x29EDC7EB8] object:0];
+
+  defaultCenter2 = [MEMORY[0x29EDBA068] defaultCenter];
+  [defaultCenter2 removeObserver:self name:*MEMORY[0x29EDC7E98] object:0];
+
+  v7 = AXLogHearingTest();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  {
+    [HTUIEvaluationViewControllerAccessibility viewWillDisappear:];
+  }
+
+  [(HTUIEvaluationViewControllerAccessibility *)self _axSetIsSubscribed:0];
 }
 
 - (void)scheduleEvaluationStart
@@ -197,19 +213,18 @@ uint64_t __56__HTUIEvaluationViewControllerAccessibility_viewDidLoad__block_invo
 
 - (void)didTapAction
 {
-  v6 = *MEMORY[0x29EDCA608];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 - (void)_axStartAnnouncement
 {
   v6 = *MEMORY[0x29EDCA608];
-  OUTLINED_FUNCTION_1_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x29EDCA608];
+  v3 = [MEMORY[0x29EDBA070] numberWithInteger:self];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_debug_impl(&dword_29BE6E000, a2, OS_LOG_TYPE_DEBUG, "Test: StartAnnouncement announcementState %@", &v4, 0xCu);
 }
 
 - (void)_axAnnouncementFinished
@@ -446,34 +461,28 @@ LABEL_37:
 
 - (void)_axHandleElementFocusedNotification:(NSObject *)a3 .cold.3(void *a1, void *a2, NSObject *a3)
 {
-  v12 = *MEMORY[0x29EDCA608];
+  v11 = *MEMORY[0x29EDCA608];
   v5 = [a1 accessibilityLabel];
   v6 = [a2 accessibilityLabel];
-  v8 = 138412546;
-  v9 = v5;
-  v10 = 2112;
-  v11 = v6;
-  _os_log_debug_impl(&dword_29BE6E000, a3, OS_LOG_TYPE_DEBUG, "Test: focused notification, element focused: %@, unfocused: %@", &v8, 0x16u);
-
-  v7 = *MEMORY[0x29EDCA608];
+  v7 = 138412546;
+  v8 = v5;
+  v9 = 2112;
+  v10 = v6;
+  _os_log_debug_impl(&dword_29BE6E000, a3, OS_LOG_TYPE_DEBUG, "Test: focused notification, element focused: %@, unfocused: %@", &v7, 0x16u);
 }
 
 - (void)_axHandleElementFocusedNotification:.cold.5()
 {
-  v6 = *MEMORY[0x29EDCA608];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 - (void)_axIsSessionActive
 {
-  v6 = *MEMORY[0x29EDCA608];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 @end

@@ -379,18 +379,18 @@ void __45__PHMemory_propertySetAccessorsByPropertySet__block_invoke()
   return v5;
 }
 
-void __43__PHMemory_propertySetClassForPropertySet___block_invoke()
+void __43__PHMemory_propertySetClassForPropertySet___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v3[3] = *MEMORY[0x1E69E9840];
-  v2[0] = @"PHMemoryPropertySetIdentifier";
-  v3[0] = objc_opt_class();
-  v2[1] = @"PHMemoryPropertySetCore";
-  v3[1] = objc_opt_class();
-  v2[2] = @"PHMemoryPropertySetUserFeedback";
-  v3[2] = objc_opt_class();
-  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v3 forKeys:v2 count:3];
-  v1 = propertySetClassForPropertySet__propertySetClassByPropertySetName_13146;
-  propertySetClassForPropertySet__propertySetClassByPropertySetName_13146 = v0;
+  v5[3] = *MEMORY[0x1E69E9840];
+  v4[0] = @"PHMemoryPropertySetIdentifier";
+  v5[0] = objc_opt_class();
+  v4[1] = @"PHMemoryPropertySetCore";
+  v5[1] = objc_opt_class();
+  v4[2] = @"PHMemoryPropertySetUserFeedback";
+  v5[2] = objc_opt_class();
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:v4 count:3];
+  v3 = propertySetClassForPropertySet__propertySetClassByPropertySetName_13146;
+  propertySetClassForPropertySet__propertySetClassByPropertySetName_13146 = v2;
 }
 
 - (id)userFeedbackProperties
@@ -2986,9 +2986,11 @@ uint64_t __38__PHMemory_propertiesToFetchWithHint___block_invoke()
   v1 = propertiesToFetchWithHint__propertiesToFetchByHint_13447;
   propertiesToFetchWithHint__propertiesToFetchByHint_13447 = v0;
 
-  propertiesToFetchWithHint__propertyQueue_13446 = dispatch_queue_create("com.apple.photos.personpropertyhints", 0);
+  v2 = dispatch_queue_create("com.apple.photos.personpropertyhints", 0);
+  v3 = propertiesToFetchWithHint__propertyQueue_13446;
+  propertiesToFetchWithHint__propertyQueue_13446 = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v3);
 }
 
 + (id)_composePropertiesToFetchWithHint:(unint64_t)hint

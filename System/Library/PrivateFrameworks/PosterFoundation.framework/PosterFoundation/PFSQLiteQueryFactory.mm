@@ -593,16 +593,15 @@ LABEL_16:
 
 void __82__PFSQLiteQueryFactory_bindToStatement_objectDescriptor_fromCoder_database_error___block_invoke_cold_1(uint64_t a1, uint64_t a2)
 {
-  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Column '%@' has marked as nonnull but is attempting to bind null to a query."];
+  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Column '%@' has marked as nonnull but is attempting to bind null to a query.", a1];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(*(a2 + 48));
     objc_claimAutoreleasedReturnValue();
     v5 = OUTLINED_FUNCTION_2_1();
     v6 = NSStringFromClass(v5);
-    v7 = *(a2 + 56);
     OUTLINED_FUNCTION_0_2();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, a1, v14, v15);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v4 UTF8String];
@@ -612,16 +611,15 @@ void __82__PFSQLiteQueryFactory_bindToStatement_objectDescriptor_fromCoder_datab
 
 void __82__PFSQLiteQueryFactory_bindToStatement_objectDescriptor_fromCoder_database_error___block_invoke_cold_2(uint64_t a1, uint64_t a2)
 {
-  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Column '%@' has marked as nonnull but is attempting to bind null to a query."];
+  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Column '%@' has marked as nonnull but is attempting to bind null to a query.", a1];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(*(a2 + 48));
     objc_claimAutoreleasedReturnValue();
     v5 = OUTLINED_FUNCTION_2_1();
     v6 = NSStringFromClass(v5);
-    v7 = *(a2 + 56);
     OUTLINED_FUNCTION_0_2();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, a1, v14, v15);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v4 UTF8String];
@@ -631,16 +629,15 @@ void __82__PFSQLiteQueryFactory_bindToStatement_objectDescriptor_fromCoder_datab
 
 void __82__PFSQLiteQueryFactory_bindToStatement_objectDescriptor_fromCoder_database_error___block_invoke_cold_3(uint64_t a1, uint64_t a2)
 {
-  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Column '%@' has marked as nonnull but is attempting to bind null to a query."];
+  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Column '%@' has marked as nonnull but is attempting to bind null to a query.", a1];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(*(a2 + 48));
     objc_claimAutoreleasedReturnValue();
     v5 = OUTLINED_FUNCTION_2_1();
     v6 = NSStringFromClass(v5);
-    v7 = *(a2 + 56);
     OUTLINED_FUNCTION_0_2();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, a1, v14, v15);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v4 UTF8String];
@@ -650,16 +647,15 @@ void __82__PFSQLiteQueryFactory_bindToStatement_objectDescriptor_fromCoder_datab
 
 void __82__PFSQLiteQueryFactory_bindToStatement_objectDescriptor_fromCoder_database_error___block_invoke_cold_4(uint64_t a1, uint64_t a2)
 {
-  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Column '%@' has marked as nonnull but is attempting to bind null to a query."];
+  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Column '%@' has marked as nonnull but is attempting to bind null to a query.", a1];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(*(a2 + 48));
     objc_claimAutoreleasedReturnValue();
     v5 = OUTLINED_FUNCTION_2_1();
     v6 = NSStringFromClass(v5);
-    v7 = *(a2 + 56);
     OUTLINED_FUNCTION_0_2();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, a1, v14, v15);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v4 UTF8String];
@@ -669,16 +665,15 @@ void __82__PFSQLiteQueryFactory_bindToStatement_objectDescriptor_fromCoder_datab
 
 void __82__PFSQLiteQueryFactory_bindToStatement_objectDescriptor_fromCoder_database_error___block_invoke_cold_5(uint64_t a1, uint64_t a2)
 {
-  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Column '%@' has marked as nonnull but is attempting to bind null to a query."];
+  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Column '%@' has marked as nonnull but is attempting to bind null to a query.", a1];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(*(a2 + 48));
     objc_claimAutoreleasedReturnValue();
     v5 = OUTLINED_FUNCTION_2_1();
     v6 = NSStringFromClass(v5);
-    v7 = *(a2 + 56);
     OUTLINED_FUNCTION_0_2();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, a1, v14, v15);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v4 UTF8String];

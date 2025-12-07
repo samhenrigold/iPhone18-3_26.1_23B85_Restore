@@ -335,12 +335,12 @@ LABEL_9:
     [v8 setControlOpacities:0];
     [v8 setBlendForm:{-[UIKBRenderFactory enabledBlendForm](self, "enabledBlendForm")}];
     v12 = [(UIKBRenderFactory10Key_Round *)self roundCornersForKey:keyCopy onKeyplane:keyplaneCopy];
-    geometry = [v8 geometry];
-    [geometry setRoundRectCorners:v12];
+    v13 = objc_msgSend_geometry(v8);
+    [v13 setRoundRectCorners:v12];
 
     v14 = [(UIKBRenderFactory10Key *)self displayContentsForKey:keyCopy];
-    geometry2 = [v8 geometry];
-    [(UIKBRenderFactory10Key_Round *)self _customizeGeometry:geometry2 forKey:keyCopy contents:v14 onKeyplane:keyplaneCopy];
+    v15 = objc_msgSend_geometry(v8);
+    [(UIKBRenderFactory10Key_Round *)self _customizeGeometry:v15 forKey:keyCopy contents:v14 onKeyplane:keyplaneCopy];
 
     if (v11)
     {
@@ -738,8 +738,8 @@ LABEL_13:
   v104.size.width = v46;
   v104.size.height = v48;
   v61 = Width - CGRectGetMaxX(v104);
-  geometry = [rect_24 geometry];
-  [geometry setLayoutMargins:{rect_16, rect_8, v59, v61}];
+  v62 = objc_msgSend_geometry(rect_24);
+  [v62 setLayoutMargins:{rect_16, rect_8, v59, v61}];
 
   [v38 popupRect];
   v64 = v63;
@@ -766,12 +766,12 @@ LABEL_13:
   y = v107.origin.y;
   v85 = v107.size.width;
   v86 = v107.size.height;
-  geometry2 = [rect_24 geometry];
-  [geometry2 setDisplayFrame:{x, y, v85, v86}];
+  v87 = objc_msgSend_geometry(rect_24);
+  [v87 setDisplayFrame:{x, y, v85, v86}];
 
   [rect_24 setBlurBlending:1];
-  geometry3 = [rect_24 geometry];
-  [geometry3 setPopupBias:40];
+  v88 = objc_msgSend_geometry(rect_24);
+  [v88 setPopupBias:40];
 
   renderingContext4 = [(UIKBRenderFactory *)self renderingContext];
   isColorAdaptiveNonLinearCarplayKeyboard = [renderingContext4 isColorAdaptiveNonLinearCarplayKeyboard];

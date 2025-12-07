@@ -1,3 +1,99 @@
+id sub_1002A8C04()
+{
+  v2.receiver = v0;
+  v2.super_class = type metadata accessor for WorkoutGradientPathRenderer();
+  return objc_msgSendSuper2(&v2, "dealloc");
+}
+
+void (*sub_1002A8C6C(uint64_t *a1, uint64_t a2))(uint64_t a1)
+{
+  if (&_swift_coroFrameAlloc)
+  {
+    v4 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v4 = malloc(0x50uLL);
+  }
+
+  v5 = v4;
+  *a1 = v4;
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v5[8] = sub_1002A8ED4(v5);
+  v5[9] = sub_1002A8D70((v5 + 4), a2, isUniquelyReferenced_nonNull_native);
+  return sub_1002A8D10;
+}
+
+void sub_1002A8D10(uint64_t a1)
+{
+  v1 = *a1;
+  v2 = *(*a1 + 64);
+  (*(*a1 + 72))();
+  v2(v1, 0);
+
+  free(v1);
+}
+
+Swift::Int (*sub_1002A8D70(uint64_t a1, uint64_t a2, char a3))(Swift::Int result)
+{
+  v4 = v3;
+  *(a1 + 8) = v3;
+  *(a1 + 24) = a2;
+  v8 = *v3;
+  v9 = sub_10009D0BC(a2);
+  *(a1 + 25) = v10 & 1;
+  v11 = *(v8 + 16);
+  v12 = (v10 & 1) == 0;
+  v13 = __OFADD__(v11, v12);
+  v14 = v11 + v12;
+  if (v13)
+  {
+    __break(1u);
+    goto LABEL_13;
+  }
+
+  v15 = v10;
+  v16 = *(v8 + 24);
+  if (v16 < v14 || (a3 & 1) == 0)
+  {
+    if (v16 >= v14 && (a3 & 1) == 0)
+    {
+      v17 = v9;
+      sub_100823B18();
+      v9 = v17;
+      goto LABEL_8;
+    }
+
+    sub_10081F9C8(v14, a3 & 1);
+    v9 = sub_10009D0BC(a2);
+    if ((v15 & 1) == (v18 & 1))
+    {
+      goto LABEL_8;
+    }
+
+LABEL_13:
+    result = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
+    __break(1u);
+    return result;
+  }
+
+LABEL_8:
+  *(a1 + 16) = v9;
+  if (v15)
+  {
+    v19 = *(*(*v4 + 56) + 8 * v9);
+  }
+
+  else
+  {
+    v19 = 0;
+  }
+
+  *a1 = v19;
+  return sub_1002A8E8C;
+}
+
 Swift::Int sub_1002A8E8C(Swift::Int result)
 {
   v1 = *result;
@@ -42,8 +138,8 @@ double sub_1002A8F08(double *a1, unsigned __int8 a2, double a3, double a4, doubl
     v15 = a1[4];
     v16 = a1[5];
     v17 = &a1[2 * v14 + 4];
-    v18 = *(v17 - 16);
-    v19 = *(v17 - 8);
+    v18 = *(v17 - 2);
+    v19 = *(v17 - 1);
   }
 
   else
@@ -314,32 +410,27 @@ id sub_1002A979C(double a1, double a2)
   }
 }
 
-uint64_t sub_1002A990C(void *a1, void *a2, double a3, double a4, double a5, double a6)
+void sub_1002A990C(void *a1, void *a2, double a3, double a4, double a5, double a6)
 {
   v16 = OBJC_IVAR____TtC7Journal17RouteMapGenerator_routeCoordinates;
   v17 = *&v6[OBJC_IVAR____TtC7Journal17RouteMapGenerator_routeCoordinates];
   if (v17 >> 62)
   {
-    result = _CocoaArrayWrapper.endIndex.getter();
-    if (!result)
+    if (!_CocoaArrayWrapper.endIndex.getter())
     {
-      return result;
+      return;
     }
   }
 
-  else
+  else if (!*((v17 & 0xFFFFFFFFFFFFFF8) + 0x10))
   {
-    result = *((v17 & 0xFFFFFFFFFFFFFF8) + 0x10);
-    if (!result)
-    {
-      return result;
-    }
+    return;
   }
 
   if ((v17 & 0xC000000000000001) != 0)
   {
 
-    v19 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+    v18 = specialized _ArrayBuffer._getElementSlowPath(_:)();
   }
 
   else
@@ -347,131 +438,129 @@ uint64_t sub_1002A990C(void *a1, void *a2, double a3, double a4, double a5, doub
     if (!*((v17 & 0xFFFFFFFFFFFFFF8) + 0x10))
     {
       __break(1u);
+LABEL_23:
+      __break(1u);
       goto LABEL_24;
     }
 
-    v19 = *(v17 + 32);
+    v18 = *(v17 + 32);
   }
 
   p_ivar_lyt = &InsightsPlacesDetailView.ContentViewController.ivar_lyt;
-  [v19 coordinate];
-  v8 = v20;
-  v9 = v21;
+  [v18 coordinate];
+  v8 = v19;
+  v9 = v20;
 
-  v22 = *&v6[v16];
-  if (!(v22 >> 62))
+  v21 = *&v6[v16];
+  if (v21 >> 62)
   {
-    result = *((v22 & 0xFFFFFFFFFFFFFF8) + 0x10);
-    if (!result)
+    v22 = _CocoaArrayWrapper.endIndex.getter();
+    if (!v22)
     {
-      return result;
+      return;
     }
+  }
 
-LABEL_8:
-    v23 = result - 1;
-    if (!__OFSUB__(result, 1))
+  else
+  {
+    v22 = *((v21 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    if (!v22)
     {
-      v49 = a5;
-      v51 = a6;
-      if ((v22 & 0xC000000000000001) == 0)
-      {
-        if ((v23 & 0x8000000000000000) != 0)
-        {
-          __break(1u);
-LABEL_27:
-          __break(1u);
-          goto LABEL_28;
-        }
-
-        if (v23 >= *((v22 & 0xFFFFFFFFFFFFFF8) + 0x10))
-        {
-LABEL_28:
-          __break(1u);
-          return result;
-        }
-
-        v24 = *(v22 + 8 * v23 + 32);
-LABEL_13:
-        [v24 p:*&v49 ivar:*&v51lyt[511]];
-        v26 = v25;
-        v28 = v27;
-
-        v29 = v6[OBJC_IVAR____TtC7Journal17RouteMapGenerator_sizeType];
-        if (v29 == 8)
-        {
-          v30 = [a2 image];
-          [v30 size];
-          v32 = v31;
-          v34 = v33;
-
-          LOBYTE(v29) = sub_100119774(0.0, 0.0, v32, v34);
-        }
-
-        v35 = [a2 image];
-        [v35 size];
-        v37 = v36;
-        v39 = v38;
-
-        v40 = sub_1002A979C(v37, v39);
-        v41 = swift_allocObject();
-        *(v41 + 16) = a2;
-        *(v41 + 24) = v29;
-        *(v41 + 32) = v6;
-        *(v41 + 40) = v8;
-        *(v41 + 48) = v9;
-        *(v41 + 56) = a1;
-        *(v41 + 64) = a3;
-        *(v41 + 72) = a4;
-        *(v41 + 80) = v50;
-        *(v41 + 88) = v52;
-        *(v41 + 96) = v26;
-        *(v41 + 104) = v28;
-        v42 = swift_allocObject();
-        *(v42 + 16) = sub_1002A9CC0;
-        *(v42 + 24) = v41;
-        aBlock[4] = sub_1000240D8;
-        aBlock[5] = v42;
-        aBlock[0] = _NSConcreteStackBlock;
-        aBlock[1] = 1107296256;
-        aBlock[2] = sub_100012D78;
-        aBlock[3] = &unk_100A63268;
-        v43 = _Block_copy(aBlock);
-        v44 = a2;
-        v45 = v6;
-        v46 = a1;
-
-        v47 = [v40 imageWithActions:v43];
-
-        _Block_release(v43);
-        isEscapingClosureAtFileLocation = swift_isEscapingClosureAtFileLocation();
-
-        if ((isEscapingClosureAtFileLocation & 1) == 0)
-        {
-          return v47;
-        }
-
-        goto LABEL_27;
-      }
-
-LABEL_25:
-
-      v24 = specialized _ArrayBuffer._getElementSlowPath(_:)();
-
-      goto LABEL_13;
+      return;
     }
+  }
 
+  v23 = v22 - 1;
+  if (__OFSUB__(v22, 1))
+  {
+    goto LABEL_23;
+  }
+
+  v48 = a5;
+  v50 = a6;
+  if ((v21 & 0xC000000000000001) != 0)
+  {
 LABEL_24:
-    __break(1u);
-    goto LABEL_25;
+
+    v24 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+
+    goto LABEL_13;
   }
 
-  result = _CocoaArrayWrapper.endIndex.getter();
-  if (result)
+  if ((v23 & 0x8000000000000000) != 0)
   {
-    goto LABEL_8;
+    __break(1u);
+LABEL_26:
+    __break(1u);
+    goto LABEL_27;
   }
 
-  return result;
+  if (v23 >= *((v21 & 0xFFFFFFFFFFFFFF8) + 0x10))
+  {
+LABEL_27:
+    __break(1u);
+    return;
+  }
+
+  v24 = *(v21 + 8 * v23 + 32);
+LABEL_13:
+  [v24 p:*&v48 ivar:*&v50lyt[511]];
+  v26 = v25;
+  v28 = v27;
+
+  v29 = v6[OBJC_IVAR____TtC7Journal17RouteMapGenerator_sizeType];
+  if (v29 == 8)
+  {
+    v30 = [a2 image];
+    [v30 size];
+    v32 = v31;
+    v34 = v33;
+
+    LOBYTE(v29) = sub_100119774(0.0, 0.0, v32, v34);
+  }
+
+  v35 = [a2 image];
+  [v35 size];
+  v37 = v36;
+  v39 = v38;
+
+  v40 = sub_1002A979C(v37, v39);
+  v41 = swift_allocObject();
+  *(v41 + 16) = a2;
+  *(v41 + 24) = v29;
+  *(v41 + 32) = v6;
+  *(v41 + 40) = v8;
+  *(v41 + 48) = v9;
+  *(v41 + 56) = a1;
+  *(v41 + 64) = a3;
+  *(v41 + 72) = a4;
+  *(v41 + 80) = v49;
+  *(v41 + 88) = v51;
+  *(v41 + 96) = v26;
+  *(v41 + 104) = v28;
+  v42 = swift_allocObject();
+  *(v42 + 16) = sub_1002A9CC0;
+  *(v42 + 24) = v41;
+  aBlock[4] = sub_1000240D8;
+  aBlock[5] = v42;
+  aBlock[0] = _NSConcreteStackBlock;
+  aBlock[1] = 1107296256;
+  aBlock[2] = sub_100012D78;
+  aBlock[3] = &unk_100A63268;
+  v43 = _Block_copy(aBlock);
+  v44 = a2;
+  v45 = v6;
+  v46 = a1;
+
+  [v40 imageWithActions:v43];
+
+  _Block_release(v43);
+  isEscapingClosureAtFileLocation = swift_isEscapingClosureAtFileLocation();
+
+  if (isEscapingClosureAtFileLocation)
+  {
+    goto LABEL_26;
+  }
 }
 
 uint64_t sub_1002A9CE4(uint64_t a1, uint64_t a2)
@@ -481,7 +570,7 @@ uint64_t sub_1002A9CE4(uint64_t a1, uint64_t a2)
   *(a1 + 40) = v2;
 }
 
-id sub_1002A9CFC(char a1, char a2)
+id sub_1002A9CFC(char a1, uint64_t a2)
 {
   if (qword_100ACFBC8 != -1)
   {
@@ -541,7 +630,7 @@ id sub_1002A9CFC(char a1, char a2)
     else
     {
       swift_endAccess();
-      sub_1000F24EC(&qword_100ADBE58);
+      sub_1000F24EC(&qword_100ADBE58, &qword_10094BE88);
       inited = swift_initStackObject();
       *(inited + 16) = xmmword_100940080;
       *(inited + 32) = a1 & 1;
@@ -550,7 +639,7 @@ id sub_1002A9CFC(char a1, char a2)
       v24 = sub_100363B10(inited);
       swift_setDeallocating();
       v16 = v16;
-      sub_100004F84(v23, &qword_100ADBE60);
+      sub_100004F84(v23, &qword_100ADBE60, &unk_10094BE90);
       swift_beginAccess();
       v25 = swift_isUniquelyReferenced_nonNull_native();
       v29 = off_100ADBD48;
@@ -708,7 +797,7 @@ LABEL_23:
 
             else
             {
-              sub_1000F24EC(&qword_100AD6560);
+              sub_1000F24EC(&qword_100AD6560, &unk_100945230);
               v47 = swift_allocObject();
               *(v47 + 16) = v53;
               *(v47 + 32) = 0;
@@ -886,7 +975,7 @@ LABEL_23:
             CGMutablePathRef.addLine(to:transform:)();
             if (v43 > 5.0)
             {
-              sub_1000F24EC(&qword_100AD6560);
+              sub_1000F24EC(&qword_100AD6560, &unk_100945230);
               v28 = swift_allocObject();
               *(v28 + 16) = v47;
               *(v28 + 32) = 0;
@@ -959,19 +1048,19 @@ unint64_t sub_1002AABB8()
   return result;
 }
 
-uint64_t sub_1002AAC28()
+uint64_t sub_1002AAC28(unsigned __int8 a1)
 {
-  v0 = type metadata accessor for LocalizedStringResource.BundleDescription();
-  v1 = *(v0 - 8);
-  __chkstk_darwin(v0);
-  v3 = &v7 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v4 = type metadata accessor for Locale();
-  __chkstk_darwin(v4 - 8);
-  v5 = type metadata accessor for String.LocalizationValue();
+  v1 = type metadata accessor for LocalizedStringResource.BundleDescription();
+  v2 = *(v1 - 8);
+  __chkstk_darwin(v1);
+  v4 = &v8 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = type metadata accessor for Locale();
   __chkstk_darwin(v5 - 8);
+  v6 = type metadata accessor for String.LocalizationValue();
+  __chkstk_darwin(v6 - 8);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
-  (*(v1 + 104))(v3, enum case for LocalizedStringResource.BundleDescription.main(_:), v0);
+  (*(v2 + 104))(v4, enum case for LocalizedStringResource.BundleDescription.main(_:), v1);
   return LocalizedStringResource.init(_:defaultValue:table:locale:bundle:comment:)();
 }
 
@@ -993,10 +1082,10 @@ id sub_1002AB08C()
   v2 = *(v1 - 8);
   __chkstk_darwin(v1);
   v4 = &v21 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = sub_1000F24EC(&qword_100AD50C8);
+  v5 = sub_1000F24EC(&qword_100AD50C8, qword_100943CE0);
   __chkstk_darwin(v5 - 8);
   v7 = &v21 - v6;
-  v8 = sub_1000F24EC(&unk_100AD6DD0);
+  v8 = sub_1000F24EC(&unk_100AD6DD0, &qword_1009437C0);
   __chkstk_darwin(v8 - 8);
   v10 = &v21 - v9;
   v11 = type metadata accessor for URL();
@@ -1012,14 +1101,14 @@ id sub_1002AB08C()
 
   if ((*(v2 + 48))(v7, 1, v1))
   {
-    sub_100004F84(v7, &qword_100AD50C8);
+    sub_100004F84(v7, &qword_100AD50C8, qword_100943CE0);
 LABEL_4:
     (*(v12 + 56))(v10, 1, 1, v11, v13);
     goto LABEL_5;
   }
 
   (*(v2 + 16))(v4, v7, v1);
-  sub_100004F84(v7, &qword_100AD50C8);
+  sub_100004F84(v7, &qword_100AD50C8, qword_100943CE0);
   LinkAssetMetadata.url.getter();
   (*(v2 + 8))(v4, v1);
   if ((*(v12 + 48))(v10, 1, v11) != 1)
@@ -1034,7 +1123,7 @@ LABEL_4:
   }
 
 LABEL_5:
-  sub_100004F84(v10, &unk_100AD6DD0);
+  sub_100004F84(v10, &unk_100AD6DD0, &qword_1009437C0);
   return [objc_allocWithZone(NSItemProvider) init];
 }
 
@@ -1044,7 +1133,7 @@ id sub_1002AB400()
   v2 = *(v1 - 8);
   __chkstk_darwin(v1);
   v4 = &v14 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = sub_1000F24EC(&qword_100AD50C8);
+  v5 = sub_1000F24EC(&qword_100AD50C8, qword_100943CE0);
   __chkstk_darwin(v5 - 8);
   v7 = &v14 - v6;
   if (!*(v0 + OBJC_IVAR____TtC7Journal9LinkAsset_metadata))
@@ -1056,12 +1145,12 @@ id sub_1002AB400()
 
   if ((*(v2 + 48))(v7, 1, v1))
   {
-    sub_100004F84(v7, &qword_100AD50C8);
+    sub_100004F84(v7, &qword_100AD50C8, qword_100943CE0);
     return 0;
   }
 
   (*(v2 + 16))(v4, v7, v1);
-  sub_100004F84(v7, &qword_100AD50C8);
+  sub_100004F84(v7, &qword_100AD50C8, qword_100943CE0);
   v9 = LinkAssetMetadata.data.getter();
   v11 = v10;
   (*(v2 + 8))(v4, v1);
@@ -1131,7 +1220,7 @@ id sub_1002AB720()
   }
 
   __chkstk_darwin(v11);
-  type metadata accessor for LivePhotoAssetView();
+  type metadata accessor for LivePhotoAssetView(0);
   KeyPath = swift_getKeyPath();
   __chkstk_darwin(KeyPath);
   swift_getKeyPath();
@@ -1165,7 +1254,7 @@ char *sub_1002AB954(double a1, double a2, double a3, double a4)
   v12 = qword_100ADBE80;
   *(v4 + v12) = [objc_allocWithZone(UILabel) init];
   *(v4 + qword_100ADBE88) = 0;
-  type metadata accessor for LivePhotoAssetView();
+  type metadata accessor for LivePhotoAssetView(0);
   v13 = [objc_allocWithZone(swift_getObjCClassFromMetadata()) init];
   v14 = sub_10087224C(v13, a1, a2, a3, a4);
   v15 = v14;
@@ -1293,7 +1382,7 @@ void sub_1002ABFB0()
 id sub_1002AC048()
 {
   v2.receiver = v0;
-  v2.super_class = type metadata accessor for FullScreenLivePhotoCollectionViewCell();
+  v2.super_class = type metadata accessor for FullScreenLivePhotoCollectionViewCell(0);
   return objc_msgSendSuper2(&v2, "dealloc");
 }
 
@@ -1307,7 +1396,7 @@ void sub_1002AC080(uint64_t a1)
   v4 = *(a1 + qword_100ADBE80);
 }
 
-uint64_t type metadata accessor for FullScreenLivePhotoCollectionViewCell()
+uint64_t type metadata accessor for FullScreenLivePhotoCollectionViewCell(uint64_t a1)
 {
   result = qword_100ADBEB8;
   if (!qword_100ADBEB8)
@@ -1318,10 +1407,10 @@ uint64_t type metadata accessor for FullScreenLivePhotoCollectionViewCell()
   return result;
 }
 
-uint64_t sub_1002AC168()
+uint64_t sub_1002AC168(uint64_t a1)
 {
   result = type metadata accessor for Logger();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = swift_initClassMetadata2();
     if (!result)
@@ -1382,14 +1471,14 @@ void sub_1002AC350()
 
 uint64_t sub_1002AC4A8()
 {
-  v1 = sub_1000F24EC(&qword_100ADE5A0);
+  v1 = sub_1000F24EC(&qword_100ADE5A0, &unk_10094F330);
   __chkstk_darwin(v1 - 8);
   v3 = v18 - v2;
   v4 = type metadata accessor for UnsupportedEntryMode();
   v5 = *(v4 - 8);
-  v6 = __chkstk_darwin(v4);
-  v8 = v18 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v6);
+  __chkstk_darwin(v4);
+  v7 = v18 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v8);
   v10 = v18 - v9;
   v18[1] = *(v0 + 32);
   type metadata accessor for JournalEntryMO();
@@ -1420,11 +1509,11 @@ uint64_t sub_1002AC4A8()
       v14 = *(v5 + 104);
     }
 
-    v14(v8, v13, v4);
+    v14(v7, v13, v4);
     sub_1002AC794();
     v15 = dispatch thunk of static Equatable.== infix(_:_:)();
     v16 = *(v5 + 8);
-    v16(v8, v4);
+    v16(v7, v4);
     v16(v10, v4);
     v11 = v15 ^ 1;
   }
@@ -1434,7 +1523,7 @@ uint64_t sub_1002AC4A8()
 
 uint64_t sub_1002AC72C(uint64_t a1)
 {
-  v2 = sub_1000F24EC(&qword_100ADE5A0);
+  v2 = sub_1000F24EC(&qword_100ADE5A0, &unk_10094F330);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
@@ -1452,33 +1541,33 @@ unint64_t sub_1002AC794()
   return result;
 }
 
-uint64_t sub_1002AC7FC@<X0>(uint64_t *a1@<X8>)
+uint64_t sub_1002AC7FC@<X0>(uint64_t *a2@<X8>)
 {
-  v2 = sub_1000F24EC(&qword_100ADC258);
-  v3 = *(v2 - 8);
-  __chkstk_darwin(v2);
-  v5 = &v11[-v4];
-  v6 = sub_1000F24EC(&qword_100ADC260);
-  v7 = *(v6 - 8);
-  __chkstk_darwin(v6);
-  v9 = &v11[-v8];
-  sub_10000B58C(&qword_100ADC268, &qword_100ADC260);
+  v3 = sub_1000F24EC(&qword_100ADC258, &unk_100966670);
+  v4 = *(v3 - 8);
+  __chkstk_darwin(v3);
+  v6 = &v12[-v5];
+  v7 = sub_1000F24EC(&qword_100ADC260, &qword_10094C2D0);
+  v8 = *(v7 - 8);
+  __chkstk_darwin(v7);
+  v10 = &v12[-v9];
+  sub_10000B58C(&qword_100ADC268, &qword_100ADC260, &qword_10094C2D0, &protocol conformance descriptor for PredicateExpressions.Variable<A>);
   static PredicateExpressions.build_Arg<A>(_:)();
-  v11[15] = 2;
+  v12[15] = 2;
   static PredicateExpressions.build_Arg<A>(_:)();
-  a1[3] = sub_1000F24EC(&qword_100ADC270);
-  a1[4] = sub_1002AD32C();
-  sub_10001A770(a1);
-  sub_10000B58C(&qword_100ADC290, &qword_100ADC258);
+  a2[3] = sub_1000F24EC(&qword_100ADC270, &qword_10094C2D8);
+  a2[4] = sub_1002AD32C();
+  sub_10001A770(a2);
+  sub_10000B58C(&qword_100ADC290, &qword_100ADC258, &unk_100966670, &protocol conformance descriptor for PredicateExpressions.Value<A>);
   sub_1000B1674();
   static PredicateExpressions.build_Equal<A, B>(lhs:rhs:)();
-  (*(v3 + 8))(v5, v2);
-  return (*(v7 + 8))(v9, v6);
+  (*(v4 + 8))(v6, v3);
+  return (*(v8 + 8))(v10, v7);
 }
 
 uint64_t sub_1002ACB54()
 {
-  v0 = sub_1000F24EC(&qword_100ADC240);
+  v0 = sub_1000F24EC(&qword_100ADC240, &unk_10094C2C0);
   v1 = *(v0 - 8);
   __chkstk_darwin(v0);
   v3 = &v11 - v2;
@@ -1504,12 +1593,12 @@ uint64_t sub_1002ACB54()
   return v9;
 }
 
-uint64_t sub_1002ACD78@<X0>(uint64_t *a1@<X8>)
+uint64_t sub_1002ACD78@<X0>(uint64_t *a2@<X8>)
 {
   sub_1002AD3E4();
   result = Tip.id.getter();
-  *a1 = result;
-  a1[1] = v3;
+  *a2 = result;
+  a2[1] = v4;
   return result;
 }
 
@@ -1527,13 +1616,13 @@ unint64_t sub_1002ACDBC()
 
 uint64_t sub_1002ACE10()
 {
-  v0 = sub_1000F24EC(&qword_100ADC220);
+  v0 = sub_1000F24EC(&qword_100ADC220, &unk_10094C2A0);
   v1 = *(v0 - 8);
   v36 = v0;
   v37 = v1;
   __chkstk_darwin(v0);
   v34 = &v28 - v2;
-  v33 = sub_1000F24EC(&qword_100ADC228);
+  v33 = sub_1000F24EC(&qword_100ADC228, &unk_100957BF0);
   v35 = *(v33 - 8);
   __chkstk_darwin(v33);
   v31 = &v28 - v3;
@@ -1541,7 +1630,7 @@ uint64_t sub_1002ACE10()
   v5 = *(v4 - 8);
   __chkstk_darwin(v4);
   v7 = &v28 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v30 = sub_1000F24EC(&qword_100ADC230);
+  v30 = sub_1000F24EC(&qword_100ADC230, &qword_10094C2B0);
   v32 = *(v30 - 8);
   __chkstk_darwin(v30);
   v9 = &v28 - v8;
@@ -1549,7 +1638,7 @@ uint64_t sub_1002ACE10()
   v11 = *(v10 - 8);
   __chkstk_darwin(v10);
   v13 = &v28 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = sub_1000F24EC(&qword_100ADC238);
+  v14 = sub_1000F24EC(&qword_100ADC238, &qword_10094C2B8);
   v29 = *(v14 - 8);
   __chkstk_darwin(v14);
   v16 = &v28 - v15;
@@ -1594,8 +1683,8 @@ unint64_t sub_1002AD32C()
   result = qword_100ADC278;
   if (!qword_100ADC278)
   {
-    sub_1000F2A18(&qword_100ADC270);
-    sub_10000B58C(&qword_100ADC280, &qword_100ADC260);
+    sub_1000F2A18(&qword_100ADC270, &qword_10094C2D8);
+    sub_10000B58C(&qword_100ADC280, &qword_100ADC260, &qword_10094C2D0, &protocol conformance descriptor for PredicateExpressions.Variable<A>);
     sub_1000B15E8();
     result = swift_getWitnessTable();
     atomic_store(result, &qword_100ADC278);
@@ -1701,7 +1790,7 @@ void sub_1002AD438(uint64_t a1)
           }
 
           v2 = v33;
-          sub_1000F24EC(&unk_100ADC2C0);
+          sub_1000F24EC(&unk_100ADC2C0, &qword_10094C2E0);
           v6 = Set.Index._asCocoa.modify();
           __CocoaSet.formIndex(after:isUnique:)();
           v6(v37, 0);
@@ -1821,111 +1910,111 @@ uint64_t sub_1002AD7A0()
   return v3(v1, v2, v0);
 }
 
-uint64_t sub_1002AD868(unint64_t a1)
+double sub_1002AD868(unint64_t a1, uint64_t a2)
 {
-  v2 = sub_1002AE228(&enum case for CKSyncEngine.PendingRecordZoneChange.saveRecord(_:));
-  v3 = sub_100890E6C(v2);
+  v3 = sub_1002AE228(&enum case for CKSyncEngine.PendingRecordZoneChange.saveRecord(_:));
+  v4 = sub_100890E6C(v3);
 
-  v4 = sub_1002AE228(&enum case for CKSyncEngine.PendingRecordZoneChange.deleteRecord(_:));
-  v5 = sub_100890E6C(v4);
+  v5 = sub_1002AE228(&enum case for CKSyncEngine.PendingRecordZoneChange.deleteRecord(_:));
+  v6 = sub_100890E6C(v5);
 
-  v7 = sub_100890E6C(v6);
+  v8 = sub_100890E6C(v7);
 
-  v8 = sub_1002AF20C(v3, v7);
-  v9 = v8;
-  v10 = v8 & 0xC000000000000001;
-  if ((v8 & 0xC000000000000001) != 0)
+  v9 = sub_1002AF20C(v4, v8);
+  v10 = v9;
+  v11 = v9 & 0xC000000000000001;
+  if ((v9 & 0xC000000000000001) != 0)
   {
-    v11 = __CocoaSet.count.getter();
+    v12 = __CocoaSet.count.getter();
   }
 
   else
   {
-    v11 = *(v8 + 16);
+    v12 = *(v9 + 16);
   }
 
-  if (v11)
+  if (v12)
   {
     if (qword_100ACFBD0 != -1)
     {
       swift_once();
     }
 
-    v12 = type metadata accessor for Logger();
-    sub_10000617C(v12, qword_100ADC2A8);
+    v13 = type metadata accessor for Logger();
+    sub_10000617C(v13, qword_100ADC2A8);
 
-    v13 = Logger.logObject.getter();
-    v14 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v13, v14))
+    v14 = Logger.logObject.getter();
+    v15 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v14, v15))
     {
-      v83 = v7;
-      v15 = swift_slowAlloc();
+      v84 = v8;
       v16 = swift_slowAlloc();
-      v89 = v16;
-      *v15 = 134218242;
-      v85 = v5;
-      v87 = v3;
-      if (v10)
+      v17 = swift_slowAlloc();
+      v90 = v17;
+      *v16 = 134218242;
+      v86 = v6;
+      v88 = v4;
+      if (v11)
       {
-        v17 = __CocoaSet.count.getter();
+        v18 = __CocoaSet.count.getter();
       }
 
       else
       {
-        v17 = *(v9 + 16);
+        v18 = *(v10 + 16);
       }
 
-      *(v15 + 4) = v17;
+      *(v16 + 4) = v18;
 
-      *(v15 + 12) = 2080;
-      sub_1002AD438(v9);
-      v18 = Array.description.getter();
-      v20 = v19;
+      *(v16 + 12) = 2080;
+      sub_1002AD438(v10);
+      v19 = Array.description.getter();
+      v21 = v20;
 
-      v21 = sub_100008458(v18, v20, &v89);
+      v22 = sub_100008458(v19, v21, &v90);
 
-      *(v15 + 14) = v21;
-      _os_log_impl(&_mh_execute_header, v13, v14, "Removing %ld records from pending save, as they are now being marked for deletion. IDs: %s", v15, 0x16u);
-      sub_10000BA7C(v16);
+      *(v16 + 14) = v22;
+      _os_log_impl(&_mh_execute_header, v14, v15, "Removing %ld records from pending save, as they are now being marked for deletion. IDs: %s", v16, 0x16u);
+      sub_10000BA7C(v17);
 
-      v3 = v87;
-      v7 = v83;
-      v5 = v85;
+      v4 = v88;
+      v8 = v84;
+      v6 = v86;
     }
 
     else
     {
     }
 
-    v22 = sub_10060FF8C(v9);
+    v23 = sub_10060FF8C(v10);
 
-    sub_1002AE580(v22);
+    sub_1002AE580(v23);
   }
 
-  sub_1003DE518(v23, v5);
-  v25 = v24;
+  sub_1003DE518(v24, v6);
+  v26 = v25;
 
-  v27 = sub_100890E6C(v26);
+  v28 = sub_100890E6C(v27);
 
-  v28 = sub_1002AE9AC(v25, v27);
-  v29 = sub_1002AE9AC(v3, v28);
-  v30 = v29;
-  v31 = v29 & 0xC000000000000001;
-  if ((v29 & 0xC000000000000001) != 0)
+  v29 = sub_1002AE9AC(v26, v28);
+  v30 = sub_1002AE9AC(v4, v29);
+  v31 = v30;
+  v32 = v30 & 0xC000000000000001;
+  if ((v30 & 0xC000000000000001) != 0)
   {
-    v32 = __CocoaSet.count.getter();
+    v33 = __CocoaSet.count.getter();
     if (!(a1 >> 62))
     {
       goto LABEL_17;
     }
 
 LABEL_20:
-    v33 = v31;
     v34 = v32;
-    v35 = _CocoaArrayWrapper.endIndex.getter();
-    v36 = v34;
-    v31 = v33;
-    if (v36 == v35)
+    v35 = v33;
+    v36 = _CocoaArrayWrapper.endIndex.getter();
+    v37 = v35;
+    v32 = v34;
+    if (v37 == v36)
     {
       goto LABEL_18;
     }
@@ -1933,14 +2022,14 @@ LABEL_20:
     goto LABEL_21;
   }
 
-  v32 = *(v29 + 16);
+  v33 = *(v30 + 16);
   if (a1 >> 62)
   {
     goto LABEL_20;
   }
 
 LABEL_17:
-  if (v32 == *((a1 & 0xFFFFFFFFFFFFFF8) + 0x10))
+  if (v33 == *((a1 & 0xFFFFFFFFFFFFFF8) + 0x10))
   {
 LABEL_18:
 
@@ -1948,15 +2037,15 @@ LABEL_18:
   }
 
 LABEL_21:
-  v88 = v3;
+  v89 = v4;
 
-  v38 = sub_100890E6C(v37);
+  v39 = sub_100890E6C(v38);
 
-  v39 = sub_1002AF20C(v25, v38);
+  v40 = sub_1002AF20C(v26, v39);
 
-  if ((v39 & 0xC000000000000001) != 0)
+  if ((v40 & 0xC000000000000001) != 0)
   {
-    v86 = v31;
+    v87 = v32;
     if (__CocoaSet.count.getter())
     {
 LABEL_23:
@@ -1965,43 +2054,43 @@ LABEL_23:
         swift_once();
       }
 
-      v40 = type metadata accessor for Logger();
-      sub_10000617C(v40, qword_100ADC2A8);
+      v41 = type metadata accessor for Logger();
+      sub_10000617C(v41, qword_100ADC2A8);
 
-      v41 = Logger.logObject.getter();
-      v42 = static os_log_type_t.default.getter();
-      if (os_log_type_enabled(v41, v42))
+      v42 = Logger.logObject.getter();
+      v43 = static os_log_type_t.default.getter();
+      if (os_log_type_enabled(v42, v43))
       {
-        v84 = v7;
-        v43 = swift_slowAlloc();
+        v85 = v8;
         v44 = swift_slowAlloc();
-        v89 = v44;
-        *v43 = 134218242;
-        if ((v39 & 0xC000000000000001) != 0)
+        v45 = swift_slowAlloc();
+        v90 = v45;
+        *v44 = 134218242;
+        if ((v40 & 0xC000000000000001) != 0)
         {
-          v45 = __CocoaSet.count.getter();
+          v46 = __CocoaSet.count.getter();
         }
 
         else
         {
-          v45 = *(v39 + 16);
+          v46 = *(v40 + 16);
         }
 
-        *(v43 + 4) = v45;
+        *(v44 + 4) = v46;
 
-        *(v43 + 12) = 2080;
-        sub_1002AD438(v39);
+        *(v44 + 12) = 2080;
+        sub_1002AD438(v40);
 
-        v46 = Array.description.getter();
-        v48 = v47;
+        v47 = Array.description.getter();
+        v49 = v48;
 
-        v49 = sub_100008458(v46, v48, &v89);
+        v50 = sub_100008458(v47, v49, &v90);
 
-        *(v43 + 14) = v49;
-        _os_log_impl(&_mh_execute_header, v41, v42, "Excluded %ld save records from being sent to the sync engine, as they are being marked for deletion. IDs: %s", v43, 0x16u);
-        sub_10000BA7C(v44);
+        *(v44 + 14) = v50;
+        _os_log_impl(&_mh_execute_header, v42, v43, "Excluded %ld save records from being sent to the sync engine, as they are being marked for deletion. IDs: %s", v44, 0x16u);
+        sub_10000BA7C(v45);
 
-        v7 = v84;
+        v8 = v85;
       }
 
       else
@@ -2014,72 +2103,72 @@ LABEL_23:
 
   else
   {
-    v86 = v31;
-    if (*(v39 + 16))
+    v87 = v32;
+    if (*(v40 + 16))
     {
       goto LABEL_23;
     }
   }
 
 LABEL_33:
-  v50 = sub_1002AF20C(v88, v38);
+  v51 = sub_1002AF20C(v89, v39);
 
-  if ((v50 & 0xC000000000000001) != 0)
+  if ((v51 & 0xC000000000000001) != 0)
   {
-    v51 = __CocoaSet.count.getter();
+    v52 = __CocoaSet.count.getter();
   }
 
   else
   {
-    v51 = *(v50 + 16);
+    v52 = *(v51 + 16);
   }
 
-  v31 = v86;
-  if (v51)
+  v32 = v87;
+  if (v52)
   {
     if (qword_100ACFBD0 != -1)
     {
       swift_once();
     }
 
-    v52 = type metadata accessor for Logger();
-    sub_10000617C(v52, qword_100ADC2A8);
+    v53 = type metadata accessor for Logger();
+    sub_10000617C(v53, qword_100ADC2A8);
 
-    v53 = Logger.logObject.getter();
-    v54 = static os_log_type_t.debug.getter();
-    if (os_log_type_enabled(v53, v54))
+    v54 = Logger.logObject.getter();
+    v55 = static os_log_type_t.debug.getter();
+    if (os_log_type_enabled(v54, v55))
     {
-      v55 = swift_slowAlloc();
       v56 = swift_slowAlloc();
-      v89 = v56;
-      *v55 = 134218242;
-      v57 = v7;
-      if ((v50 & 0xC000000000000001) != 0)
+      v57 = swift_slowAlloc();
+      v90 = v57;
+      *v56 = 134218242;
+      v58 = v8;
+      if ((v51 & 0xC000000000000001) != 0)
       {
-        v58 = __CocoaSet.count.getter();
+        v59 = __CocoaSet.count.getter();
       }
 
       else
       {
-        v58 = *(v50 + 16);
+        v59 = *(v51 + 16);
       }
 
-      *(v55 + 4) = v58;
+      *(v56 + 4) = v59;
 
-      *(v55 + 12) = 2080;
-      sub_1002AD438(v50);
+      *(v56 + 12) = 2080;
+      sub_1002AD438(v51);
 
-      v59 = Array.description.getter();
-      v61 = v60;
+      v60 = Array.description.getter();
+      v62 = v61;
 
-      v62 = sub_100008458(v59, v61, &v89);
+      v63 = sub_100008458(v60, v62, &v90);
 
-      *(v55 + 14) = v62;
-      _os_log_impl(&_mh_execute_header, v53, v54, "Excluded %ld save records from being sent to the sync engine, as they are already pending save. IDs: %s", v55, 0x16u);
-      sub_10000BA7C(v56);
+      *(v56 + 14) = v63;
+      _os_log_impl(&_mh_execute_header, v54, v55, "Excluded %ld save records from being sent to the sync engine, as they are already pending save. IDs: %s", v56, 0x16u);
+      sub_10000BA7C(v57);
 
-      v7 = v57;
-      v31 = v86;
+      v8 = v58;
+      v32 = v87;
     }
 
     else
@@ -2097,63 +2186,63 @@ LABEL_46:
     swift_once();
   }
 
-  v63 = type metadata accessor for Logger();
-  sub_10000617C(v63, qword_100ADC2A8);
+  v64 = type metadata accessor for Logger();
+  sub_10000617C(v64, qword_100ADC2A8);
 
-  v64 = Logger.logObject.getter();
-  v65 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v64, v65))
+  v65 = Logger.logObject.getter();
+  v66 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v65, v66))
   {
-    v66 = swift_slowAlloc();
-    v89 = swift_slowAlloc();
-    *v66 = 134218754;
-    if (v31)
-    {
-      v67 = __CocoaSet.count.getter();
-    }
-
-    else
-    {
-      v67 = *(v30 + 16);
-    }
-
-    *(v66 + 4) = v67;
-
-    *(v66 + 12) = 2048;
-    if ((v7 & 0xC000000000000001) != 0)
+    v67 = swift_slowAlloc();
+    v90 = swift_slowAlloc();
+    *v67 = 134218754;
+    if (v32)
     {
       v68 = __CocoaSet.count.getter();
     }
 
     else
     {
-      v68 = *(v7 + 16);
+      v68 = *(v31 + 16);
     }
 
-    *(v66 + 14) = v68;
+    *(v67 + 4) = v68;
 
-    *(v66 + 22) = 2080;
-    sub_1002AD438(v30);
-    v69 = v30;
-    v70 = v7;
-    v71 = Array.description.getter();
-    v73 = v72;
+    *(v67 + 12) = 2048;
+    if ((v8 & 0xC000000000000001) != 0)
+    {
+      v69 = __CocoaSet.count.getter();
+    }
 
-    v74 = v71;
-    v7 = v70;
-    v30 = v69;
-    v75 = sub_100008458(v74, v73, &v89);
+    else
+    {
+      v69 = *(v8 + 16);
+    }
 
-    *(v66 + 24) = v75;
-    *(v66 + 32) = 2080;
-    sub_1002AD438(v7);
-    v76 = Array.description.getter();
-    v78 = v77;
+    *(v67 + 14) = v69;
 
-    v79 = sub_100008458(v76, v78, &v89);
+    *(v67 + 22) = 2080;
+    sub_1002AD438(v31);
+    v70 = v31;
+    v71 = v8;
+    v72 = Array.description.getter();
+    v74 = v73;
 
-    *(v66 + 34) = v79;
-    _os_log_impl(&_mh_execute_header, v64, v65, "Adding record zone changes to sync engine:\nSaving %ld records,\nDeleting %ld records,\nSaving IDs: %s\nDeleting IDs: %s", v66, 0x2Au);
+    v75 = v72;
+    v8 = v71;
+    v31 = v70;
+    v76 = sub_100008458(v75, v74, &v90);
+
+    *(v67 + 24) = v76;
+    *(v67 + 32) = 2080;
+    sub_1002AD438(v8);
+    v77 = Array.description.getter();
+    v79 = v78;
+
+    v80 = sub_100008458(v77, v79, &v90);
+
+    *(v67 + 34) = v80;
+    _os_log_impl(&_mh_execute_header, v65, v66, "Adding record zone changes to sync engine:\nSaving %ld records,\nDeleting %ld records,\nSaving IDs: %s\nDeleting IDs: %s", v67, 0x2Au);
     swift_arrayDestroy();
   }
 
@@ -2161,14 +2250,16 @@ LABEL_46:
   {
   }
 
-  v80 = sub_10060FF8C(v30);
+  v81 = sub_10060FF8C(v31);
 
-  v81 = sub_10060FF8C(v7);
+  v82 = sub_10060FF8C(v8);
 
-  sub_1002AEAA0(v80, v81);
+  sub_1002AEAA0(v81, v82);
+
+  return result;
 }
 
-double *sub_1002AE228(int *a1)
+double *sub_1002AE228(unsigned int *a1)
 {
   v3 = type metadata accessor for CKSyncEngine.PendingRecordZoneChange();
   v4 = *(v3 - 8);
@@ -2256,14 +2347,14 @@ double *sub_1002AE228(int *a1)
   return v17;
 }
 
-void sub_1002AE580(unint64_t a1)
+double sub_1002AE580(unint64_t a1)
 {
   v3 = type metadata accessor for CKSyncEngine.PendingRecordZoneChange();
   v4 = *(v3 - 8);
   __chkstk_darwin(v3);
-  v6 = (v25 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v6 = (v26 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
   __chkstk_darwin(v7);
-  v9 = (v25 - v8);
+  v9 = (v26 - v8);
   v10 = *(v1 + OBJC_IVAR____TtC7Journal25JournalSyncEngineDelegate_syncEngine);
   if (v10)
   {
@@ -2282,30 +2373,30 @@ void sub_1002AE580(unint64_t a1)
       if (v11)
       {
 LABEL_4:
-        v26 = a1;
-        v29 = _swiftEmptyArrayStorage;
+        v27 = a1;
+        v30 = _swiftEmptyArrayStorage;
 
         sub_100199EDC(0, v11 & ~(v11 >> 63), 0);
         if ((v11 & 0x8000000000000000) == 0)
         {
-          v25[0] = v10;
-          v12 = v29;
-          if ((v26 & 0xC000000000000001) != 0)
+          v26[0] = v10;
+          v12 = v30;
+          if ((v27 & 0xC000000000000001) != 0)
           {
             v13 = 0;
-            LODWORD(v28) = enum case for CKSyncEngine.PendingRecordZoneChange.saveRecord(_:);
-            v27 = v4 + 32;
+            LODWORD(v29) = enum case for CKSyncEngine.PendingRecordZoneChange.saveRecord(_:);
+            v28 = v4 + 32;
             do
             {
               *v9 = specialized _ArrayBuffer._getElementSlowPath(_:)();
-              (*(v4 + 104))(v9, v28, v3);
-              v29 = v12;
+              (*(v4 + 104))(v9, v29, v3);
+              v30 = v12;
               v15 = *(v12 + 2);
               v14 = *(v12 + 3);
               if (v15 >= v14 >> 1)
               {
-                sub_100199EDC(v14 > 1, v15 + 1, 1);
-                v12 = v29;
+                sub_100199EDC((v14 > 1), v15 + 1, 1);
+                v12 = v30;
               }
 
               ++v13;
@@ -2318,29 +2409,29 @@ LABEL_4:
 
           else
           {
-            v20 = (v26 + 32);
-            LODWORD(v28) = enum case for CKSyncEngine.PendingRecordZoneChange.saveRecord(_:);
-            v26 = *(v4 + 104);
-            v27 = v4 + 104;
-            v25[1] = v4 + 32;
+            v21 = (v27 + 32);
+            LODWORD(v29) = enum case for CKSyncEngine.PendingRecordZoneChange.saveRecord(_:);
+            v27 = *(v4 + 104);
+            v28 = v4 + 104;
+            v26[1] = v4 + 32;
             do
             {
-              v21 = *v20;
-              *v6 = *v20;
-              (v26)(v6, v28, v3);
-              v29 = v12;
-              v23 = *(v12 + 2);
-              v22 = *(v12 + 3);
-              v24 = v21;
-              if (v23 >= v22 >> 1)
+              v22 = *v21;
+              *v6 = *v21;
+              (v27)(v6, v29, v3);
+              v30 = v12;
+              v24 = *(v12 + 2);
+              v23 = *(v12 + 3);
+              v25 = v22;
+              if (v24 >= v23 >> 1)
               {
-                sub_100199EDC(v22 > 1, v23 + 1, 1);
-                v12 = v29;
+                sub_100199EDC((v23 > 1), v24 + 1, 1);
+                v12 = v30;
               }
 
-              *(v12 + 2) = v23 + 1;
-              (*(v4 + 32))(v12 + ((*(v4 + 80) + 32) & ~*(v4 + 80)) + *(v4 + 72) * v23, v6, v3);
-              ++v20;
+              *(v12 + 2) = v24 + 1;
+              (*(v4 + 32))(v12 + ((*(v4 + 80) + 32) & ~*(v4 + 80)) + *(v4 + 72) * v24, v6, v3);
+              ++v21;
               --v11;
             }
 
@@ -2360,7 +2451,7 @@ LABEL_24:
     CKSyncEngine.state.getter();
     CKSyncEngine.State.remove(pendingRecordZoneChanges:)(v12);
 
-    return;
+    return result;
   }
 
   if (qword_100ACFBD0 != -1)
@@ -2371,16 +2462,18 @@ LABEL_26:
 
   v16 = type metadata accessor for Logger();
   sub_10000617C(v16, qword_100ADC2A8);
-  v28 = Logger.logObject.getter();
+  v29 = Logger.logObject.getter();
   v17 = static os_log_type_t.error.getter();
-  if (os_log_type_enabled(v28, v17))
+  if (os_log_type_enabled(v29, v17))
   {
     v18 = swift_slowAlloc();
     *v18 = 0;
-    _os_log_impl(&_mh_execute_header, v28, v17, "The syncEngine has not been initialized yet", v18, 2u);
+    _os_log_impl(&_mh_execute_header, v29, v17, "The syncEngine has not been initialized yet", v18, 2u);
   }
 
-  v19 = v28;
+  v19 = v29;
+
+  return result;
 }
 
 void *sub_1002AE9AC(uint64_t a1, Swift::Int a2)
@@ -2401,7 +2494,7 @@ LABEL_9:
     }
 
 LABEL_13:
-    sub_100353DE8(a1);
+    sub_100353DE8(a1, a2);
     return v2;
   }
 
@@ -2434,19 +2527,19 @@ LABEL_10:
   return sub_10025899C(a1, v2);
 }
 
-void sub_1002AEAA0(unint64_t a1, NSObject *a2)
+double sub_1002AEAA0(unint64_t a1, NSObject *a2)
 {
-  v53 = a2;
+  v54 = a2;
   v4 = type metadata accessor for CKSyncEngine.PendingRecordZoneChange();
-  v56 = *(v4 - 8);
+  v57 = *(v4 - 8);
   __chkstk_darwin(v4);
-  v49 = (&v48 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v50 = (&v49 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
   __chkstk_darwin(v6);
-  v8 = (&v48 - v7);
+  v8 = (&v49 - v7);
   __chkstk_darwin(v9);
-  v50 = (&v48 - v10);
+  v51 = (&v49 - v10);
   __chkstk_darwin(v11);
-  v13 = (&v48 - v12);
+  v13 = (&v49 - v12);
   v14 = *(v2 + OBJC_IVAR____TtC7Journal25JournalSyncEngineDelegate_syncEngine);
   if (v14)
   {
@@ -2460,11 +2553,11 @@ void sub_1002AEAA0(unint64_t a1, NSObject *a2)
       v15 = *((a1 & 0xFFFFFFFFFFFFFF8) + 0x10);
     }
 
-    v16 = v53;
-    v51 = v14;
+    v16 = v54;
+    v52 = v14;
     if (v15)
     {
-      v57 = _swiftEmptyArrayStorage;
+      v58 = _swiftEmptyArrayStorage;
 
       sub_100199EDC(0, v15 & ~(v15 >> 63), 0);
       if (v15 < 0)
@@ -2475,33 +2568,33 @@ LABEL_42:
         goto LABEL_43;
       }
 
-      v17 = v57;
+      v17 = v58;
       v18 = a1;
       if ((a1 & 0xC000000000000001) != 0)
       {
         v19 = 0;
-        v55 = enum case for CKSyncEngine.PendingRecordZoneChange.saveRecord(_:);
-        v20 = v56 + 13;
-        isa = &v56[4];
-        v16 = v53;
+        v56 = enum case for CKSyncEngine.PendingRecordZoneChange.saveRecord(_:);
+        v20 = v57 + 13;
+        isa = &v57[4];
+        v16 = v54;
         do
         {
           v21 = v18;
           *v13 = specialized _ArrayBuffer._getElementSlowPath(_:)();
-          (v20->isa)(v13, v55, v4);
-          v57 = v17;
+          (v20->isa)(v13, v56, v4);
+          v58 = v17;
           v23 = *(v17 + 2);
           v22 = *(v17 + 3);
           if (v23 >= v22 >> 1)
           {
-            sub_100199EDC(v22 > 1, v23 + 1, 1);
-            v16 = v53;
-            v17 = v57;
+            sub_100199EDC((v22 > 1), v23 + 1, 1);
+            v16 = v54;
+            v17 = v58;
           }
 
           ++v19;
           *(v17 + 2) = v23 + 1;
-          (v56[4].isa)(v17 + ((LOBYTE(v56[10].isa) + 32) & ~LOBYTE(v56[10].isa)) + v56[9].isa * v23, v13, v4);
+          (v57[4].isa)(v17 + ((LOBYTE(v57[10].isa) + 32) & ~LOBYTE(v57[10].isa)) + v57[9].isa * v23, v13, v4);
           v18 = v21;
         }
 
@@ -2510,30 +2603,30 @@ LABEL_42:
 
       else
       {
-        v36 = (a1 + 32);
-        v55 = enum case for CKSyncEngine.PendingRecordZoneChange.saveRecord(_:);
-        isa = v56[13].isa;
-        v52 = v56 + 4;
+        v37 = (a1 + 32);
+        v56 = enum case for CKSyncEngine.PendingRecordZoneChange.saveRecord(_:);
+        isa = v57[13].isa;
+        v53 = v57 + 4;
         do
         {
-          v37 = *v36;
-          *v8 = *v36;
-          (isa)(v8, v55, v4);
-          v57 = v17;
-          v39 = *(v17 + 2);
-          v38 = *(v17 + 3);
-          v40 = v37;
-          if (v39 >= v38 >> 1)
+          v38 = *v37;
+          *v8 = *v37;
+          (isa)(v8, v56, v4);
+          v58 = v17;
+          v40 = *(v17 + 2);
+          v39 = *(v17 + 3);
+          v41 = v38;
+          if (v40 >= v39 >> 1)
           {
-            sub_100199EDC(v38 > 1, v39 + 1, 1);
-            v17 = v57;
+            sub_100199EDC((v39 > 1), v40 + 1, 1);
+            v17 = v58;
           }
 
-          *(v17 + 2) = v39 + 1;
-          (v56[4].isa)(v17 + ((LOBYTE(v56[10].isa) + 32) & ~LOBYTE(v56[10].isa)) + v56[9].isa * v39, v8, v4);
-          ++v36;
+          *(v17 + 2) = v40 + 1;
+          (v57[4].isa)(v17 + ((LOBYTE(v57[10].isa) + 32) & ~LOBYTE(v57[10].isa)) + v57[9].isa * v40, v8, v4);
+          ++v37;
           --v15;
-          v16 = v53;
+          v16 = v54;
         }
 
         while (v15);
@@ -2548,92 +2641,92 @@ LABEL_42:
 
     if (v16 >> 62)
     {
-      v28 = _CocoaArrayWrapper.endIndex.getter();
+      v29 = _CocoaArrayWrapper.endIndex.getter();
     }
 
     else
     {
-      v28 = *((v16 & 0xFFFFFFFFFFFFFF8) + 0x10);
+      v29 = *((v16 & 0xFFFFFFFFFFFFFF8) + 0x10);
     }
 
-    v29 = _swiftEmptyArrayStorage;
-    if (!v28)
+    v30 = _swiftEmptyArrayStorage;
+    if (!v29)
     {
 LABEL_38:
       CKSyncEngine.state.getter();
       CKSyncEngine.State.add(pendingRecordZoneChanges:)(v17);
 
       CKSyncEngine.state.getter();
-      CKSyncEngine.State.add(pendingRecordZoneChanges:)(v29);
+      CKSyncEngine.State.add(pendingRecordZoneChanges:)(v30);
 
-      return;
+      return result;
     }
 
-    v57 = _swiftEmptyArrayStorage;
-    sub_100199EDC(0, v28 & ~(v28 >> 63), 0);
-    if ((v28 & 0x8000000000000000) == 0)
+    v58 = _swiftEmptyArrayStorage;
+    sub_100199EDC(0, v29 & ~(v29 >> 63), 0);
+    if ((v29 & 0x8000000000000000) == 0)
     {
-      v30 = v4;
-      v29 = v57;
-      if ((v53 & 0xC000000000000001) != 0)
+      v31 = v4;
+      v30 = v58;
+      if ((v54 & 0xC000000000000001) != 0)
       {
-        v31 = 0;
-        v55 = enum case for CKSyncEngine.PendingRecordZoneChange.deleteRecord(_:);
-        v32 = v56 + 13;
-        isa = &v56[4];
-        v33 = v50;
+        v32 = 0;
+        v56 = enum case for CKSyncEngine.PendingRecordZoneChange.deleteRecord(_:);
+        v33 = v57 + 13;
+        isa = &v57[4];
+        v34 = v51;
         do
         {
-          *v33 = specialized _ArrayBuffer._getElementSlowPath(_:)();
-          (v32->isa)(v33, v55, v4);
-          v57 = v29;
-          v35 = *(v29 + 2);
-          v34 = *(v29 + 3);
-          if (v35 >= v34 >> 1)
+          *v34 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+          (v33->isa)(v34, v56, v4);
+          v58 = v30;
+          v36 = *(v30 + 2);
+          v35 = *(v30 + 3);
+          if (v36 >= v35 >> 1)
           {
-            sub_100199EDC(v34 > 1, v35 + 1, 1);
-            v29 = v57;
+            sub_100199EDC((v35 > 1), v36 + 1, 1);
+            v30 = v58;
           }
 
-          ++v31;
-          *(v29 + 2) = v35 + 1;
-          (v56[4].isa)(v29 + ((LOBYTE(v56[10].isa) + 32) & ~LOBYTE(v56[10].isa)) + v56[9].isa * v35, v33, v4);
+          ++v32;
+          *(v30 + 2) = v36 + 1;
+          (v57[4].isa)(v30 + ((LOBYTE(v57[10].isa) + 32) & ~LOBYTE(v57[10].isa)) + v57[9].isa * v36, v34, v4);
         }
 
-        while (v28 != v31);
+        while (v29 != v32);
       }
 
       else
       {
-        v41 = (v53 + 32);
-        v55 = enum case for CKSyncEngine.PendingRecordZoneChange.deleteRecord(_:);
-        v42 = v56[13].isa;
-        v52 = v56 + 13;
-        v53 = &v56[4];
-        isa = v42;
-        v43 = v49;
+        v42 = (v54 + 32);
+        v56 = enum case for CKSyncEngine.PendingRecordZoneChange.deleteRecord(_:);
+        v43 = v57[13].isa;
+        v53 = v57 + 13;
+        v54 = &v57[4];
+        isa = v43;
+        v44 = v50;
         do
         {
-          v44 = *v41;
-          *v43 = *v41;
-          (isa)(v43, v55, v30);
-          v57 = v29;
-          v46 = *(v29 + 2);
-          v45 = *(v29 + 3);
-          v47 = v44;
-          if (v46 >= v45 >> 1)
+          v45 = *v42;
+          *v44 = *v42;
+          (isa)(v44, v56, v31);
+          v58 = v30;
+          v47 = *(v30 + 2);
+          v46 = *(v30 + 3);
+          v48 = v45;
+          if (v47 >= v46 >> 1)
           {
-            sub_100199EDC(v45 > 1, v46 + 1, 1);
-            v29 = v57;
+            sub_100199EDC((v46 > 1), v47 + 1, 1);
+            v30 = v58;
           }
 
-          *(v29 + 2) = v46 + 1;
-          (v56[4].isa)(v29 + ((LOBYTE(v56[10].isa) + 32) & ~LOBYTE(v56[10].isa)) + v56[9].isa * v46, v43, v30);
-          ++v41;
-          --v28;
+          *(v30 + 2) = v47 + 1;
+          (v57[4].isa)(v30 + ((LOBYTE(v57[10].isa) + 32) & ~LOBYTE(v57[10].isa)) + v57[9].isa * v47, v44, v31);
+          ++v42;
+          --v29;
         }
 
-        while (v28);
+        while (v29);
       }
 
       goto LABEL_38;
@@ -2650,16 +2743,18 @@ LABEL_43:
 
   v24 = type metadata accessor for Logger();
   sub_10000617C(v24, qword_100ADC2A8);
-  v56 = Logger.logObject.getter();
+  v57 = Logger.logObject.getter();
   v25 = static os_log_type_t.error.getter();
-  if (os_log_type_enabled(v56, v25))
+  if (os_log_type_enabled(v57, v25))
   {
     v26 = swift_slowAlloc();
     *v26 = 0;
-    _os_log_impl(&_mh_execute_header, v56, v25, "The syncEngine has not been initialized yet", v26, 2u);
+    _os_log_impl(&_mh_execute_header, v57, v25, "The syncEngine has not been initialized yet", v26, 2u);
   }
 
-  v27 = v56;
+  v27 = v57;
+
+  return result;
 }
 
 void *sub_1002AF17C(void *result, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -2739,13 +2834,13 @@ void *sub_1002AF20C(uint64_t a1, Swift::Int a2)
             }
           }
 
-          v14 = *(&_swiftEmptySetSingleton + 2);
-          if (*(&_swiftEmptySetSingleton + 3) <= v14)
+          v14 = _swiftEmptySetSingleton[2];
+          if (_swiftEmptySetSingleton[3] <= v14)
           {
             sub_10028ED40(v14 + 1);
           }
 
-          sub_10029A8A8(v15, &_swiftEmptySetSingleton);
+          sub_10029A8A8();
         }
 
         else
@@ -2757,7 +2852,7 @@ LABEL_13:
       while (__CocoaSet.Iterator.next()());
     }
 
-    return &_swiftEmptySetSingleton;
+    return _swiftEmptySetSingleton;
   }
 
   else
@@ -2928,7 +3023,7 @@ LABEL_24:
 
         __break(1u);
 LABEL_28:
-        sub_100014FF8();
+        sub_100014FF8(v4);
 
         sub_10065201C(a1, a2, v32, a4);
         return;
@@ -3225,7 +3320,7 @@ LABEL_44:
   __break(1u);
 }
 
-uint64_t sub_1002AFE54(unint64_t a1)
+void *sub_1002AFE54(unint64_t a1)
 {
   v2 = sub_100363C14(_swiftEmptyArrayStorage);
   if (a1 >> 62)
@@ -3404,7 +3499,7 @@ uint64_t sub_1002B0148(uint64_t a1, void *a2, void *a3, double a4, double a5, do
 
 char *sub_1002B01F0(unint64_t a1, uint64_t *a2, unint64_t a3)
 {
-  v6 = sub_1000F24EC(&qword_100AD1420);
+  v6 = sub_1000F24EC(&qword_100AD1420, &unk_10093C080);
   __chkstk_darwin(v6 - 8);
   v8 = &v39 - v7;
   v9 = type metadata accessor for UUID();
@@ -3489,7 +3584,7 @@ char *sub_1002B01F0(unint64_t a1, uint64_t *a2, unint64_t a3)
         v49 = v22;
         dispatch thunk of AssetTextAttachmentProtocol.assetID.getter();
         v57 = v21;
-        if (!*(v21 + 16) || (v24 = v57, sub_10008D118(&qword_100AD4B40, &type metadata accessor for UUID), v25 = dispatch thunk of Hashable._rawHashValue(seed:)(), v26 = v24 + 56, v27 = -1 << *(v24 + 32), v28 = v25 & ~v27, ((*(v24 + 56 + ((v28 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v28) & 1) == 0))
+        if (!*(v21 + 16) || (v24 = v57, sub_10008D118(&qword_100AD4B40, &type metadata accessor for UUID, &protocol conformance descriptor for UUID), v25 = dispatch thunk of Hashable._rawHashValue(seed:)(), v26 = v24 + 56, v27 = -1 << *(v24 + 32), v28 = v25 & ~v27, ((*(v24 + 56 + ((v28 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v28) & 1) == 0))
         {
 LABEL_22:
 
@@ -3500,7 +3595,7 @@ LABEL_22:
           dispatch thunk of AssetTextAttachmentProtocol.assetID.getter();
 
           (*(v35 + 56))(v36, 0, 1, v9);
-          sub_100014318(v36, v46, &qword_100AD1420);
+          sub_100014318(v36, v46, &qword_100AD1420, &unk_10093C080);
           return v52;
         }
 
@@ -3511,7 +3606,7 @@ LABEL_22:
         {
           v32 = v55;
           v31(v55, *(v57 + 48) + v30 * v28, v9);
-          sub_10008D118(&qword_100AD9220, &type metadata accessor for UUID);
+          sub_10008D118(&qword_100AD9220, &type metadata accessor for UUID, &protocol conformance descriptor for UUID);
           v33 = dispatch thunk of static Equatable.== infix(_:_:)();
           v34 = *v56;
           (*v56)(v32, v9);
@@ -3558,175 +3653,175 @@ void sub_1002B0690()
 {
   v1 = v0;
   v2 = type metadata accessor for MergeResult();
-  v79 = *(v2 - 8);
-  v80 = v2;
+  v80 = *(v2 - 8);
+  v81 = v2;
   __chkstk_darwin(v2);
-  v78 = &v67 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v77 = sub_1000F24EC(&qword_100ADC6F8);
-  v76 = *(v77 - 8);
-  __chkstk_darwin(v77);
-  v82 = &v67 - v4;
-  v5 = sub_1000F24EC(&qword_100AE4C80);
-  v86 = *(v5 - 8);
-  v87 = v5;
-  v6 = __chkstk_darwin(v5);
-  v83 = &v67 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = __chkstk_darwin(v6);
-  v81 = &v67 - v9;
-  __chkstk_darwin(v8);
-  v84 = &v67 - v10;
+  v79 = &v68 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v78 = sub_1000F24EC(&qword_100ADC6F8, &qword_10094C5E8);
+  v77 = *(v78 - 8);
+  __chkstk_darwin(v78);
+  v83 = &v68 - v4;
+  v5 = sub_1000F24EC(&qword_100AE4C80, &qword_10094A970);
+  v87 = *(v5 - 8);
+  v88 = v5;
+  __chkstk_darwin(v5);
+  v84 = &v68 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v7);
+  v82 = &v68 - v8;
+  __chkstk_darwin(v9);
+  v85 = &v68 - v10;
   v11 = type metadata accessor for MergeableEntryAttributes();
-  v85 = *(v11 - 8);
+  v86 = *(v11 - 8);
   __chkstk_darwin(v11);
-  v13 = &v67 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = sub_1000F24EC(&qword_100AD6260);
-  v15 = __chkstk_darwin(v14 - 8);
-  v17 = &v67 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v15);
-  v19 = &v67 - v18;
-  v20 = sub_1000F24EC(&unk_100AEBE80);
+  v13 = &v68 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = sub_1000F24EC(&qword_100AD6260, &qword_100944D10);
+  __chkstk_darwin(v14 - 8);
+  v16 = &v68 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v17);
+  v19 = &v68 - v18;
+  v20 = sub_1000F24EC(&unk_100AEBE80, &unk_100956FA0);
   __chkstk_darwin(v20 - 8);
-  v22 = &v67 - v21;
+  v22 = &v68 - v21;
   v23 = type metadata accessor for JournalFeatureFlags();
   v24 = *(v23 - 8);
-  __chkstk_darwin(v23);
-  v26 = &v67 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v24 + 104))(v26, enum case for JournalFeatureFlags.enhancedSync(_:), v23);
-  v27 = JournalFeatureFlags.isEnabled.getter();
-  v28 = v26;
-  v29 = v1;
-  (*(v24 + 8))(v28, v23);
-  if ((v27 & 1) == 0)
+  v25 = __chkstk_darwin(v23);
+  v27 = &v68 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v24 + 104))(v27, enum case for JournalFeatureFlags.enhancedSync(_:), v23, v25);
+  v28 = JournalFeatureFlags.isEnabled.getter();
+  v29 = v27;
+  v30 = v1;
+  (*(v24 + 8))(v29, v23);
+  if ((v28 & 1) == 0)
   {
     goto LABEL_9;
   }
 
-  v30 = [v1 textStorage];
-  sub_1000F24EC(&qword_100ADC5F8);
-  v31 = swift_dynamicCastClass();
-  if (v31)
+  v31 = [v1 textStorage];
+  sub_1000F24EC(&qword_100ADC5F8, &qword_10094C3A8);
+  v32 = swift_dynamicCastClass();
+  if (v32)
   {
-    v32 = *&v29[OBJC_IVAR____TtC7Journal15JournalTextView_journalEntry];
-    if (!v32)
+    v33 = *&v30[OBJC_IVAR____TtC7Journal15JournalTextView_journalEntry];
+    if (!v33)
     {
 
       goto LABEL_8;
     }
 
-    v74 = OBJC_IVAR____TtC7Journal15JournalTextView_journalEntry;
-    v75 = v13;
-    v73 = v31;
-    v33 = OBJC_IVAR____TtC7Journal14EntryViewModel_mergeableAttributes;
+    v75 = OBJC_IVAR____TtC7Journal15JournalTextView_journalEntry;
+    v76 = v13;
+    v74 = v32;
+    v34 = OBJC_IVAR____TtC7Journal14EntryViewModel_mergeableAttributes;
     swift_beginAccess();
-    sub_1000082B4(v32 + v33, v19, &qword_100AD6260);
-    v34 = v85;
-    v35 = (v85 + 6);
-    v36 = v85[6];
-    if (v36(v19, 1, v11))
+    sub_1000082B4(v33 + v34, v19, &qword_100AD6260, &qword_100944D10);
+    v35 = v86;
+    v36 = (v86 + 6);
+    v37 = v86[6];
+    if (v37(v19, 1, v11))
     {
 
-      sub_100004F84(v19, &qword_100AD6260);
+      sub_100004F84(v19, &qword_100AD6260, &qword_100944D10);
 LABEL_8:
-      (*(v86 + 56))(v22, 1, 1, v87);
-      sub_100004F84(v22, &unk_100AEBE80);
+      (*(v87 + 56))(v22, 1, 1, v88);
+      sub_100004F84(v22, &unk_100AEBE80, &unk_100956FA0);
       goto LABEL_9;
     }
 
-    v70 = v35;
     v71 = v36;
-    v37 = v34[2];
-    v38 = v75;
-    v69 = v34 + 2;
-    v68 = v37;
-    v37(v75, v19, v11);
+    v72 = v37;
+    v38 = v35[2];
+    v39 = v76;
+    v70 = v35 + 2;
+    v69 = v38;
+    v38(v76, v19, v11);
 
-    sub_100004F84(v19, &qword_100AD6260);
-    v72 = v29;
+    sub_100004F84(v19, &qword_100AD6260, &qword_100944D10);
+    v73 = v30;
     MergeableEntryAttributes.text.getter();
 
-    v39 = v34[1];
-    v39(v38, v11);
-    (*(v86 + 56))(v22, 0, 1, v87);
-    sub_100004F84(v22, &unk_100AEBE80);
-    v40 = *&v72[v74];
-    if (!v40)
+    v40 = v35[1];
+    v40(v39, v11);
+    (*(v87 + 56))(v22, 0, 1, v88);
+    sub_100004F84(v22, &unk_100AEBE80, &unk_100956FA0);
+    v41 = *&v73[v75];
+    if (!v41)
     {
 
       return;
     }
 
-    v41 = OBJC_IVAR____TtC7Journal14EntryViewModel_mergeableAttributes;
+    v42 = OBJC_IVAR____TtC7Journal14EntryViewModel_mergeableAttributes;
     swift_beginAccess();
-    sub_1000082B4(v40 + v41, v17, &qword_100AD6260);
-    if (v71(v17, 1, v11))
+    sub_1000082B4(v41 + v42, v16, &qword_100AD6260, &qword_100944D10);
+    if (v72(v16, 1, v11))
     {
 
-      sub_100004F84(v17, &qword_100AD6260);
+      sub_100004F84(v16, &qword_100AD6260, &qword_100944D10);
       return;
     }
 
-    v85 = v30;
-    v42 = v75;
-    v68(v75, v17, v11);
+    v86 = v31;
+    v43 = v76;
+    v69(v76, v16, v11);
 
-    sub_100004F84(v17, &qword_100AD6260);
-    v43 = v81;
+    sub_100004F84(v16, &qword_100AD6260, &qword_100944D10);
+    v44 = v82;
     MergeableEntryAttributes.text.getter();
 
-    v39(v42, v11);
-    v45 = v86;
-    v44 = v87;
-    (*(v86 + 32))(v84, v43, v87);
-    v46 = v73;
-    v47 = *((swift_isaMask & *v73) + 0x68);
+    v40(v43, v11);
+    v46 = v87;
+    v45 = v88;
+    (*(v87 + 32))(v85, v44, v88);
+    v47 = v74;
+    v48 = *((swift_isaMask & *v74) + 0x68);
     swift_beginAccess();
-    v48 = *(v45 + 16);
-    v48(v83, &v46[v47], v44);
-    v49 = v72;
-    v50 = [v72 selectedRange];
-    v51 = [v49 selectedRange];
-    v53 = __OFADD__(v51, v52);
-    v54 = &v51[v52];
-    if (v53)
+    v49 = *(v46 + 16);
+    v49(v84, &v47[v48], v45);
+    v50 = v73;
+    v51 = [v73 selectedRange];
+    v52 = [v50 selectedRange];
+    v54 = __OFADD__(v52, v53);
+    v55 = &v52[v53];
+    if (v54)
     {
       __break(1u);
     }
 
-    else if (v54 >= v50)
+    else if (v55 >= v51)
     {
-      v55 = v87;
-      v56 = v83;
+      v56 = v88;
+      v57 = v84;
       CRAttributedString.cursor(range:)();
-      v57 = *(v86 + 8);
-      v57(v56, v55);
-      v58 = v73;
-      v48(v56, &v73[v47], v55);
+      v58 = *(v87 + 8);
+      v58(v57, v56);
+      v59 = v74;
+      v49(v57, &v74[v48], v56);
       swift_beginAccess();
-      v59 = v78;
+      v60 = v79;
       CRAttributedString.merge(_:)();
       swift_endAccess();
-      (*(v79 + 8))(v59, v80);
-      sub_1002CF9C4(v56);
-      v57(v56, v55);
-      v60 = v58 + v47;
-      v61 = v82;
-      v48(v56, v60, v55);
-      v62 = CRAttributedString.range(of:)();
-      v64 = v63;
-      v66 = v65;
-      v57(v56, v55);
-      if (v66)
+      (*(v80 + 8))(v60, v81);
+      sub_1002CF9C4(v57);
+      v58(v57, v56);
+      v61 = v59 + v48;
+      v62 = v83;
+      v49(v57, v61, v56);
+      v63 = CRAttributedString.range(of:)();
+      v65 = v64;
+      v67 = v66;
+      v58(v57, v56);
+      if (v67)
       {
 LABEL_20:
 
-        (*(v76 + 8))(v61, v77);
-        v57(v84, v87);
+        (*(v77 + 8))(v62, v78);
+        v58(v85, v88);
         return;
       }
 
-      if (!__OFSUB__(v64, v62))
+      if (!__OFSUB__(v65, v63))
       {
-        [v72 setSelectedRange:{v62, v64 - v62}];
+        [v73 setSelectedRange:{v63, v65 - v63}];
         goto LABEL_20;
       }
 
@@ -3746,10 +3841,10 @@ LABEL_9:
 void sub_1002B1018()
 {
   v1 = v0;
-  v2 = sub_1000F24EC(&qword_100AD5170);
+  v2 = sub_1000F24EC(&qword_100AD5170, &unk_100943680);
   __chkstk_darwin(v2 - 8);
   v4 = &v29 - v3;
-  v5 = sub_1000F24EC(&unk_100ADC5E0);
+  v5 = sub_1000F24EC(&unk_100ADC5E0, &qword_10094C390);
   __chkstk_darwin(v5 - 8);
   v7 = &v29 - v6;
   v8 = type metadata accessor for PaperMarkup();
@@ -3774,7 +3869,7 @@ void sub_1002B1018()
   if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
 LABEL_7:
-    sub_100004F84(v7, &unk_100ADC5E0);
+    sub_100004F84(v7, &unk_100ADC5E0, &qword_10094C390);
     goto LABEL_8;
   }
 
@@ -3813,7 +3908,7 @@ LABEL_8:
   (*(v9 + 8))(v15, v8);
 LABEL_9:
   v20 = [v1 textStorage];
-  sub_1000F24EC(&qword_100ADC5F8);
+  sub_1000F24EC(&qword_100ADC5F8, &qword_10094C3A8);
   v21 = swift_dynamicCastClass();
 
   if (!v21)
@@ -3852,15 +3947,15 @@ void sub_1002B14BC(void *a1)
 void sub_1002B1568(uint64_t a1)
 {
   v2 = v1;
-  v4 = sub_1000F24EC(&unk_100ADC6A0);
+  v4 = sub_1000F24EC(&unk_100ADC6A0, &unk_10094C590);
   __chkstk_darwin(v4 - 8);
   v6 = &v33 - v5;
-  v7 = sub_1000F24EC(&qword_100AE4C80);
+  v7 = sub_1000F24EC(&qword_100AE4C80, &qword_10094A970);
   v8 = *(v7 - 8);
   *&v9 = __chkstk_darwin(v7).n128_u64[0];
   v11 = &v33 - v10;
   v34 = [v2 textStorage];
-  sub_1000F24EC(&qword_100ADC5F8);
+  sub_1000F24EC(&qword_100ADC5F8, &qword_10094C3A8);
   v12 = swift_dynamicCastClass();
   if (v12)
   {
@@ -3868,14 +3963,14 @@ void sub_1002B1568(uint64_t a1)
     v14 = v12;
     swift_beginAccess();
     (*(v8 + 16))(v11, &v14[v13], v7);
-    v15 = sub_1000F24EC(&qword_100ADC6B0);
+    v15 = sub_1000F24EC(&qword_100ADC6B0, &qword_10094C5A0);
     v16 = *(v15 - 8);
     (*(v16 + 16))(v6, a1, v15);
     (*(v16 + 56))(v6, 0, 1, v15);
     swift_beginAccess();
     CRAttributedString.apply(_:)();
     swift_endAccess();
-    sub_100004F84(v6, &unk_100ADC6A0);
+    sub_100004F84(v6, &unk_100ADC6A0, &unk_10094C590);
     sub_1002CF9C4(v11);
     v17 = (*(v8 + 8))(v11, v7);
     if (!*&v2[OBJC_IVAR____TtC7Journal14CanvasTextView_currentCanvas])
@@ -3945,41 +4040,43 @@ LABEL_8:
   }
 }
 
-uint64_t sub_1002B1A74()
+double sub_1002B1A74()
 {
-  v1 = sub_1000F24EC(&qword_100AD5170);
+  v1 = sub_1000F24EC(&qword_100AD5170, &unk_100943680);
   __chkstk_darwin(v1 - 8);
   v3 = v10 - v2;
   Notification.object.getter();
-  if (!v12)
+  if (v12)
   {
-    return sub_100004F84(v11, &qword_100AD13D0);
+    type metadata accessor for EntryViewModel(0);
+    if (swift_dynamicCast())
+    {
+      v5 = *&v0[OBJC_IVAR____TtC7Journal15JournalTextView_journalEntry];
+      if (v5 && v10[1] == v5)
+      {
+        v6 = type metadata accessor for TaskPriority();
+        (*(*(v6 - 8) + 56))(v3, 1, 1, v6);
+        type metadata accessor for MainActor();
+        swift_retain_n();
+        v7 = v0;
+        v8 = static MainActor.shared.getter();
+        v9 = swift_allocObject();
+        v9[2] = v8;
+        v9[3] = &protocol witness table for MainActor;
+        v9[4] = v7;
+        v9[5] = v5;
+        sub_1003E9628(0, 0, v3, &unk_10094C588, v9);
+      }
+
+      else
+      {
+      }
+    }
   }
 
-  type metadata accessor for EntryViewModel();
-  result = swift_dynamicCast();
-  if (result)
+  else
   {
-    v5 = *&v0[OBJC_IVAR____TtC7Journal15JournalTextView_journalEntry];
-    if (v5 && v10[1] == v5)
-    {
-      v6 = type metadata accessor for TaskPriority();
-      (*(*(v6 - 8) + 56))(v3, 1, 1, v6);
-      type metadata accessor for MainActor();
-      swift_retain_n();
-      v7 = v0;
-      v8 = static MainActor.shared.getter();
-      v9 = swift_allocObject();
-      v9[2] = v8;
-      v9[3] = &protocol witness table for MainActor;
-      v9[4] = v7;
-      v9[5] = v5;
-      sub_1003E9628(0, 0, v3, &unk_10094C588, v9);
-    }
-
-    else
-    {
-    }
+    sub_100004F84(v11, &qword_100AD13D0, &unk_100942DB0);
   }
 
   return result;
@@ -3994,54 +4091,54 @@ id sub_1002B1C48()
 
   v5 = [v1 typingAttributes];
   type metadata accessor for Key(0);
-  sub_10008D118(&qword_100ADC650, type metadata accessor for Key);
+  sub_10008D118(&qword_100ADC650, type metadata accessor for Key, &unk_10093BF84);
   v6 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
 
-  if (*(v6 + 16) && (v7 = sub_100051964(NSParagraphStyleAttributeName), (v8 & 1) != 0))
+  if (*(v6 + 16) && (v8 = sub_100051964(NSParagraphStyleAttributeName, v7), (v9 & 1) != 0))
   {
-    sub_10000BA20(*(v6 + 56) + 32 * v7, v18);
+    sub_10000BA20(*(v6 + 56) + 32 * v8, v21);
 
-    sub_10002432C(v18, &v19);
-    sub_10000CA14(&v19, v20);
+    sub_10002432C(v21, &v22);
+    sub_10000CA14(&v22, v23);
     [v4 addAttribute:NSParagraphStyleAttributeName value:_bridgeAnythingToObjectiveC<A>(_:)() range:{0, objc_msgSend(v4, "length")}];
     swift_unknownObjectRelease();
-    sub_10000BA7C(&v19);
+    sub_10000BA7C(&v22);
   }
 
   else
   {
   }
 
-  v9 = [v1 typingAttributes];
-  v10 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
+  v10 = [v1 typingAttributes];
+  v11 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
 
-  if (*(v10 + 16) && (v11 = sub_100051964(NSFontAttributeName), (v12 & 1) != 0))
+  if (*(v11 + 16) && (v13 = sub_100051964(NSFontAttributeName, v12), (v14 & 1) != 0))
   {
-    sub_10000BA20(*(v10 + 56) + 32 * v11, v18);
+    sub_10000BA20(*(v11 + 56) + 32 * v13, v21);
 
-    sub_10002432C(v18, &v19);
-    sub_10000CA14(&v19, v20);
+    sub_10002432C(v21, &v22);
+    sub_10000CA14(&v22, v23);
     [v4 addAttribute:NSFontAttributeName value:_bridgeAnythingToObjectiveC<A>(_:)() range:{0, objc_msgSend(v4, "length")}];
     swift_unknownObjectRelease();
-    sub_10000BA7C(&v19);
+    sub_10000BA7C(&v22);
   }
 
   else
   {
   }
 
-  v13 = [v1 typingAttributes];
-  v14 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
+  v15 = [v1 typingAttributes];
+  v16 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
 
-  if (*(v14 + 16) && (v15 = sub_100051964(NSForegroundColorAttributeName), (v16 & 1) != 0))
+  if (*(v16 + 16) && (v18 = sub_100051964(NSForegroundColorAttributeName, v17), (v19 & 1) != 0))
   {
-    sub_10000BA20(*(v14 + 56) + 32 * v15, v18);
+    sub_10000BA20(*(v16 + 56) + 32 * v18, v21);
 
-    sub_10002432C(v18, &v19);
-    sub_10000CA14(&v19, v20);
+    sub_10002432C(v21, &v22);
+    sub_10000CA14(&v22, v23);
     [v4 addAttribute:NSForegroundColorAttributeName value:_bridgeAnythingToObjectiveC<A>(_:)() range:{0, objc_msgSend(v4, "length")}];
     swift_unknownObjectRelease();
-    sub_10000BA7C(&v19);
+    sub_10000BA7C(&v22);
   }
 
   else
@@ -4067,7 +4164,7 @@ void sub_1002B1FB8()
     v8 = *(v0 + OBJC_IVAR____TtC7Journal14CanvasTextView_currentCanvas);
     if (v8)
     {
-      type metadata accessor for PaperKitDrawingCanvasView();
+      type metadata accessor for PaperKitDrawingCanvasView(0);
       v9 = v8;
       v10 = v6;
       v11 = static NSObject.== infix(_:_:)();
@@ -4112,7 +4209,7 @@ void sub_1002B1FB8()
             {
               sub_10000BA20(v25, v37);
               sub_10000BA20(v37, v36);
-              sub_1000065A8(0, &unk_100AD43A0);
+              sub_1000065A8(0, &unk_100AD43A0, NSObject_ptr);
               if (swift_dynamicCast())
               {
                 v26 = v18;
@@ -4154,7 +4251,7 @@ void sub_1002B1FB8()
 
                   memset(v37, 0, sizeof(v37));
 LABEL_38:
-                  sub_100004F84(v37, &qword_100AD13D0);
+                  sub_100004F84(v37, &qword_100AD13D0, &unk_100942DB0);
                   goto LABEL_31;
                 }
               }
@@ -4210,7 +4307,7 @@ LABEL_40:
 
 void sub_1002B2438(uint64_t isEscapingClosureAtFileLocation@<X8>)
 {
-  v3 = sub_1000F24EC(&unk_100ADC5E0);
+  v3 = sub_1000F24EC(&unk_100ADC5E0, &qword_10094C390);
   __chkstk_darwin(v3 - 8);
   v5 = aBlock - v4;
   v6 = type metadata accessor for PaperMarkup();
@@ -4233,7 +4330,7 @@ void sub_1002B2438(uint64_t isEscapingClosureAtFileLocation@<X8>)
         dispatch thunk of PaperMarkupViewController.markup.getter();
 
 LABEL_9:
-        sub_100014318(v5, isEscapingClosureAtFileLocation, &unk_100ADC5E0);
+        sub_100014318(v5, isEscapingClosureAtFileLocation, &unk_100ADC5E0, &qword_10094C390);
         return;
       }
 
@@ -4243,16 +4340,16 @@ LABEL_8:
     }
   }
 
-  v14 = __chkstk_darwin(v9);
+  __chkstk_darwin(v9);
   aBlock[-2] = v1;
   aBlock[-1] = isEscapingClosureAtFileLocation;
-  __chkstk_darwin(v14);
+  *&v15 = __chkstk_darwin(v14).n128_u64[0];
   aBlock[-2] = sub_1002D7FC0;
-  aBlock[-1] = v15;
-  v16 = [v1 textStorage];
-  v17 = [v16 length];
+  aBlock[-1] = v16;
+  v17 = [v1 textStorage];
+  v18 = [v17 length];
 
-  if ((v17 & 0x8000000000000000) != 0)
+  if ((v18 & 0x8000000000000000) != 0)
   {
     __break(1u);
     return;
@@ -4260,23 +4357,23 @@ LABEL_8:
 
   v5 = [v1 textStorage];
   v7 = NSParagraphAttachmentAttributeName;
-  v18 = swift_allocObject();
-  *(v18 + 16) = sub_1002D835C;
-  *(v18 + 24) = &aBlock[-4];
+  v19 = swift_allocObject();
+  *(v19 + 16) = sub_1002D835C;
+  *(v19 + 24) = &aBlock[-4];
   v6 = swift_allocObject();
   *(v6 + 16) = sub_1002D8270;
-  *(v6 + 24) = v18;
+  *(v6 + 24) = v19;
   aBlock[4] = sub_1002D826C;
   aBlock[5] = v6;
   aBlock[0] = _NSConcreteStackBlock;
   aBlock[1] = 1107296256;
   aBlock[2] = sub_10007E0A4;
   aBlock[3] = &unk_100A64EC8;
-  v19 = _Block_copy(aBlock);
+  v20 = _Block_copy(aBlock);
 
-  [v5 enumerateAttribute:v7 inRange:0 options:v17 usingBlock:{0, v19}];
+  [v5 enumerateAttribute:v7 inRange:0 options:v18 usingBlock:{0, v20}];
 
-  _Block_release(v19);
+  _Block_release(v20);
   isEscapingClosureAtFileLocation = swift_isEscapingClosureAtFileLocation();
 
   if (isEscapingClosureAtFileLocation)
@@ -4289,10 +4386,10 @@ LABEL_8:
 void sub_1002B279C(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
-  v68 = type metadata accessor for CharacterSet();
-  v6 = *(v68 - 8);
-  __chkstk_darwin(v68);
-  v8 = &v68 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v70 = type metadata accessor for CharacterSet();
+  v6 = *(v70 - 8);
+  __chkstk_darwin(v70);
+  v8 = &v70 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   v9 = objc_allocWithZone(type metadata accessor for FollowUpPromptAttachment());
 
   v10 = sub_10085DEDC(a1, a2);
@@ -4300,9 +4397,9 @@ void sub_1002B279C(uint64_t a1, uint64_t a2)
   v12 = String._bridgeToObjectiveC()();
   type metadata accessor for Key(0);
   v14 = v13;
-  v15 = sub_10008D118(&qword_100ADC650, type metadata accessor for Key);
-  v72 = v14;
-  v73 = v15;
+  v15 = sub_10008D118(&qword_100ADC650, type metadata accessor for Key, &unk_10093BF84);
+  v74 = v14;
+  v75 = v15;
   isa = Dictionary._bridgeToObjectiveC()().super.isa;
   v17 = [v11 initWithString:v12 attributes:isa];
 
@@ -4311,8 +4408,8 @@ void sub_1002B279C(uint64_t a1, uint64_t a2)
 
   sub_10085E324(a1, a2, v3, v10);
   *&v19 = sub_1002B2ED8(v18);
-  v70 = v20;
-  v71 = v19;
+  v72 = v20;
+  v73 = v19;
   v21 = [v3 text];
   if (!v21)
   {
@@ -4323,7 +4420,7 @@ void sub_1002B279C(uint64_t a1, uint64_t a2)
   v22 = v21;
   static String._unconditionallyBridgeFromObjectiveC(_:)();
 
-  v69 = String.count.getter();
+  v71 = String.count.getter();
 
   v23 = [v3 text];
   if (!v23)
@@ -4348,13 +4445,13 @@ LABEL_21:
       v31 = static String._unconditionallyBridgeFromObjectiveC(_:)();
       v33 = v32;
 
-      *&v75 = v31;
-      *(&v75 + 1) = v33;
+      *&v77 = v31;
+      *(&v77 + 1) = v33;
       static CharacterSet.whitespacesAndNewlines.getter();
       sub_1000777B4();
       v34 = StringProtocol.trimmingCharacters(in:)();
       v36 = v35;
-      (*(v6 + 8))(v8, v68);
+      (*(v6 + 8))(v8, v70);
 
       v37 = HIBYTE(v36) & 0xF;
       if ((v36 & 0x2000000000000000) == 0)
@@ -4376,8 +4473,8 @@ LABEL_9:
   v38 = objc_allocWithZone(type metadata accessor for FollowUpPromptViewTextAttachment());
 
   v39 = sub_1003EA41C(a1, a2, &_mh_execute_header, 1);
-  *&v40.f64[0] = v71;
-  *&v40.f64[1] = v70;
+  *&v40.f64[0] = v73;
+  *&v40.f64[1] = v72;
   __asm { FMOV            V0.2D, #1.0 }
 
   v46 = vbslq_s8(vcgtq_f64(v40, _Q0), _Q0, v40);
@@ -4386,7 +4483,7 @@ LABEL_9:
   *&v39[OBJC_IVAR____TtC7Journal27ResizableViewTextAttachment_preferredRatioSize] = vbslq_s8(vcgeq_f64(_Q1, v46), _Q1, v46);
   *&v39[OBJC_IVAR____TtC7Journal27ResizableViewTextAttachment_resizeDelegate + 8] = &off_100A63538;
   swift_unknownObjectWeakAssign();
-  sub_1000065A8(0, &qword_100ADB9C0);
+  sub_1000065A8(0, &qword_100ADB9C0, NSMutableAttributedString_ptr);
   v48 = [swift_getObjCClassFromMetadata() attributedStringWithAttachment:v39];
   if (v28)
   {
@@ -4405,49 +4502,49 @@ LABEL_9:
   v55 = [v3 typingAttributes];
   v56 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
 
-  if (*(v56 + 16) && (v57 = sub_100051964(NSParagraphStyleAttributeName), (v58 & 1) != 0))
+  if (*(v56 + 16) && (v58 = sub_100051964(NSParagraphStyleAttributeName, v57), (v59 & 1) != 0))
   {
-    sub_10000BA20(*(v56 + 56) + 32 * v57, v74);
+    sub_10000BA20(*(v56 + 56) + 32 * v58, v76);
 
-    sub_10002432C(v74, &v75);
-    sub_10000CA14(&v75, v76);
+    sub_10002432C(v76, &v77);
+    sub_10000CA14(&v77, v78);
     [v48 addAttribute:NSParagraphStyleAttributeName value:_bridgeAnythingToObjectiveC<A>(_:)() range:{0, objc_msgSend(v48, "length")}];
     swift_unknownObjectRelease();
-    sub_10000BA7C(&v75);
+    sub_10000BA7C(&v77);
   }
 
   else
   {
   }
 
-  v59 = [v3 typingAttributes];
-  v60 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
+  v60 = [v3 typingAttributes];
+  v61 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
 
-  if (*(v60 + 16) && (v61 = sub_100051964(NSFontAttributeName), (v62 & 1) != 0))
+  if (*(v61 + 16) && (v63 = sub_100051964(NSFontAttributeName, v62), (v64 & 1) != 0))
   {
-    sub_10000BA20(*(v60 + 56) + 32 * v61, v74);
+    sub_10000BA20(*(v61 + 56) + 32 * v63, v76);
 
-    sub_10002432C(v74, &v75);
-    sub_10000CA14(&v75, v76);
+    sub_10002432C(v76, &v77);
+    sub_10000CA14(&v77, v78);
     [v48 addAttribute:NSFontAttributeName value:_bridgeAnythingToObjectiveC<A>(_:)() range:{0, objc_msgSend(v48, "length")}];
     swift_unknownObjectRelease();
-    sub_10000BA7C(&v75);
+    sub_10000BA7C(&v77);
   }
 
   else
   {
   }
 
-  v63 = v69;
-  v64 = [v3 textStorage];
-  [v64 insertAttributedString:v48 atIndex:v63];
+  v65 = v71;
+  v66 = [v3 textStorage];
+  [v66 insertAttributedString:v48 atIndex:v65];
 
   [v3 setNeedsLayout];
-  v65 = [v3 endOfDocument];
-  v66 = [v3 endOfDocument];
-  v67 = [v3 textRangeFromPosition:v65 toPosition:v66];
+  v67 = [v3 endOfDocument];
+  v68 = [v3 endOfDocument];
+  v69 = [v3 textRangeFromPosition:v67 toPosition:v68];
 
-  [v3 setSelectedTextRange:v67];
+  [v3 setSelectedTextRange:v69];
 }
 
 double sub_1002B2ED8(double a1)
@@ -4656,9 +4753,9 @@ LABEL_13:
   v21();
 }
 
-void sub_1002B383C(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, char **a5)
+void sub_1002B383C(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, double **a5)
 {
-  type metadata accessor for ResizableAssetViewTextAttachment();
+  type metadata accessor for ResizableAssetViewTextAttachment(0);
   v10 = swift_dynamicCastClass();
   if (v10)
   {
@@ -4693,7 +4790,7 @@ void sub_1002B383C(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, char **a5)
 
       v19 = *a5;
       *(v19 + 2) = v18 + 1;
-      v20 = &v19[16 * v18];
+      v20 = &v19[2 * v18];
       *(v20 + 4) = a2;
       *(v20 + 5) = a3;
     }
@@ -4768,7 +4865,7 @@ uint64_t sub_1002B3AA4(void *a1, unint64_t a2)
 LABEL_8:
         a1 = v36;
 LABEL_9:
-        sub_1000065A8(0, &unk_100ADC630);
+        sub_1000065A8(0, &unk_100ADC630, UIMenuElement_ptr);
         isa = Array._bridgeToObjectiveC()().super.isa;
 
         v33 = type metadata accessor for CanvasTextView();
@@ -4779,7 +4876,7 @@ LABEL_9:
         return v34;
       }
 
-      sub_1000065A8(0, &qword_100AD4420);
+      sub_1000065A8(0, &qword_100AD4420, UIAction_ptr);
       String.LocalizationValue.init(stringLiteral:)();
       static Locale.current.getter();
       String.init(localized:table:bundle:locale:comment:)();
@@ -4811,11 +4908,24 @@ LABEL_7:
   return result;
 }
 
-void sub_1002B3FE4()
+void sub_1002B3FE4(uint64_t a1, uint64_t a2)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
-  if (Strong && (v1 = Strong, v2 = [Strong textStorage], v1, v3 = objc_msgSend(v2, "length"), v2, !v3))
+  if (Strong && (v3 = Strong, v4 = [Strong textStorage], v3, v5 = objc_msgSend(v4, "length"), v4, !v5))
+  {
+    swift_beginAccess();
+    v8 = swift_unknownObjectWeakLoadStrong();
+    if (!v8)
+    {
+      return;
+    }
+
+    v7 = v8;
+    sub_1002B40C8();
+  }
+
+  else
   {
     swift_beginAccess();
     v6 = swift_unknownObjectWeakLoadStrong();
@@ -4824,20 +4934,7 @@ void sub_1002B3FE4()
       return;
     }
 
-    v5 = v6;
-    sub_1002B40C8();
-  }
-
-  else
-  {
-    swift_beginAccess();
-    v4 = swift_unknownObjectWeakLoadStrong();
-    if (!v4)
-    {
-      return;
-    }
-
-    v5 = v4;
+    v7 = v6;
     sub_1002B4C98();
   }
 }
@@ -4845,7 +4942,7 @@ void sub_1002B3FE4()
 void sub_1002B40C8()
 {
   v1 = v0;
-  v2 = sub_1000F24EC(&unk_100ADC5E0);
+  v2 = sub_1000F24EC(&unk_100ADC5E0, &qword_10094C390);
   __chkstk_darwin(v2 - 8);
   v4 = &v94 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v5);
@@ -4938,7 +5035,7 @@ LABEL_9:
   }
 
 LABEL_10:
-  v35 = &unk_100AE5000;
+  v35 = &qword_100AE5000;
   if ((sub_10029EF80() & 1) == 0)
   {
     v36 = [v1 textStorage];
@@ -4957,7 +5054,7 @@ LABEL_10:
 LABEL_18:
     (*(v103 + 56))(v4, 1, 1, v11);
 
-    sub_100004F84(v4, &unk_100ADC5E0);
+    sub_100004F84(v4, &unk_100ADC5E0, &qword_10094C390);
     goto LABEL_19;
   }
 
@@ -4973,9 +5070,9 @@ LABEL_18:
   if (v43(v10, 1, v11) == 1)
   {
 
-    sub_100004F84(v10, &unk_100ADC5E0);
+    sub_100004F84(v10, &unk_100ADC5E0, &qword_10094C390);
 LABEL_17:
-    v35 = &unk_100AE5000;
+    v35 = &qword_100AE5000;
     goto LABEL_18;
   }
 
@@ -5007,7 +5104,7 @@ LABEL_17:
     v78 = v95;
     if (v98(v7, 1, v95) == 1)
     {
-      sub_100004F84(v7, &unk_100ADC5E0);
+      sub_100004F84(v7, &unk_100ADC5E0, &qword_10094C390);
       v79 = v103;
     }
 
@@ -5085,9 +5182,9 @@ LABEL_59:
     v82 = v79;
     v83 = sub_1002B5D1C(v4, 0);
 
-    sub_100004F84(v4, &unk_100ADC5E0);
+    sub_100004F84(v4, &unk_100ADC5E0, &qword_10094C390);
     (*(v82 + 8))(v81, v78);
-    v35 = &unk_100AE5000;
+    v35 = &qword_100AE5000;
 LABEL_19:
     v45 = *&v1[OBJC_IVAR____TtC7Journal14CanvasTextView_currentCanvas];
     if (!v45)
@@ -5099,7 +5196,7 @@ LABEL_19:
 
         if (v59)
         {
-          v61 = sub_1002B7540(0);
+          sub_1002B7540(0);
           sub_1002B30D0(v61);
         }
 
@@ -5206,7 +5303,7 @@ LABEL_57:
 
 void sub_1002B4C98()
 {
-  v1 = sub_1000F24EC(&qword_100AD5170);
+  v1 = sub_1000F24EC(&qword_100AD5170, &unk_100943680);
   *&v2 = __chkstk_darwin(v1 - 8).n128_u64[0];
   v4 = &v25 - v3;
   if ([v0 isFirstResponder])
@@ -5276,7 +5373,7 @@ void sub_1002B5090(char a1)
       {
 
         v11 = [v2 textStorage];
-        sub_1000F24EC(&qword_100ADC5F8);
+        sub_1000F24EC(&qword_100ADC5F8, &qword_10094C3A8);
         v12 = swift_dynamicCastClass();
         if (!v12)
         {
@@ -5286,8 +5383,8 @@ void sub_1002B5090(char a1)
 
         v13 = v12;
         sub_100086C04(v12 + *((swift_isaMask & *v12) + 0x78), &aBlock);
-        sub_1000F24EC(&qword_100ADC600);
-        type metadata accessor for CustomAttributeProviderConcrete();
+        sub_1000F24EC(&qword_100ADC600, &qword_10094C3B0);
+        type metadata accessor for CustomAttributeProviderConcrete(0);
         if ((swift_dynamicCast() & 1) == 0)
         {
 
@@ -5446,31 +5543,39 @@ LABEL_28:
   }
 }
 
-void sub_1002B5840(uint64_t a1, int a2, int a3, id a4)
+void sub_1002B5840(uint64_t a1, int a2, uint64_t a3, id a4)
 {
-  [a4 isEditable];
-  v6 = sub_1007C8C2C();
-  if (v6)
+  v6 = [a4 isEditable];
+  v7 = sub_1007C8C2C();
+  if (v7)
   {
     type metadata accessor for DrawingAssetView();
-    v7 = swift_dynamicCastClass();
-    if (v7)
+    v8 = swift_dynamicCastClass();
+    if (v8)
     {
-      v8 = v7;
+      v9 = v8;
     }
 
     else
     {
-      v8 = v6;
+      v9 = v7;
     }
+
+    v7 = (v8 != 0) << 8;
   }
 
-  sub_1007C8B44();
+  v10 = 0x100010000;
+  if (!v6)
+  {
+    v10 = 0;
+  }
+
+  sub_1007C8B44(v10 | v6 | v7);
   if ([a4 isEditable])
   {
-    sub_1002D2548(a4, a1);
-    v9 = sub_1007C8C2C();
-    if (!v9)
+    sub_1002D2548(a4, a1, v11);
+    v12 = sub_1007C8C2C();
+    if (!v12)
     {
       return;
     }
@@ -5479,20 +5584,20 @@ void sub_1002B5840(uint64_t a1, int a2, int a3, id a4)
   else
   {
     sub_1007C927C();
-    v9 = sub_1007C8C2C();
-    if (!v9)
+    v12 = sub_1007C8C2C();
+    if (!v12)
     {
       return;
     }
   }
 
-  v10 = v9;
-  [v9 setUserInteractionEnabled:{objc_msgSend(a4, "isEditable")}];
+  v13 = v12;
+  [v12 setUserInteractionEnabled:{objc_msgSend(a4, "isEditable")}];
 }
 
 void sub_1002B5964(void *a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5)
 {
-  v8 = sub_1000F24EC(&unk_100ADC5E0);
+  v8 = sub_1000F24EC(&unk_100ADC5E0, &qword_10094C390);
   __chkstk_darwin(v8 - 8);
   v10 = &v32 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v11);
@@ -5501,7 +5606,7 @@ void sub_1002B5964(void *a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5)
   v15 = *(v14 - 8);
   __chkstk_darwin(v14);
   v17 = &v32 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  type metadata accessor for ResizableAssetViewTextAttachment();
+  type metadata accessor for ResizableAssetViewTextAttachment(0);
   v18 = swift_dynamicCastClass();
   if (!v18)
   {
@@ -5558,7 +5663,7 @@ LABEL_13:
   {
 
 LABEL_17:
-    sub_100004F84(v13, &unk_100ADC5E0);
+    sub_100004F84(v13, &unk_100ADC5E0, &qword_10094C390);
     return;
   }
 
@@ -5568,236 +5673,236 @@ LABEL_17:
   (*(v15 + 56))(v10, 0, 1, v14);
   v31 = sub_1002B5D1C(v10, 0);
 
-  sub_100004F84(v10, &unk_100ADC5E0);
+  sub_100004F84(v10, &unk_100ADC5E0, &qword_10094C390);
   (*(v15 + 8))(v17, v14);
 }
 
-id sub_1002B5D1C(uint64_t a1, char a2)
+char *sub_1002B5D1C(char *a1, char a2)
 {
   v3 = v2;
-  v84 = a1;
-  v5 = sub_1000F24EC(&unk_100ADC5E0);
+  v85 = a1;
+  v5 = sub_1000F24EC(&unk_100ADC5E0, &qword_10094C390);
   __chkstk_darwin(v5 - 8);
-  v7 = &v79 - v6;
+  v7 = &v80 - v6;
   v8 = type metadata accessor for PaperMarkup();
   v9 = *(v8 - 8);
   __chkstk_darwin(v8);
-  v11 = &v79 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = &v80 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   v12 = type metadata accessor for JournalFeatureFlags();
   v13 = *(v12 - 8);
-  __chkstk_darwin(v12);
-  v15 = &v79 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v13 + 104))(v15, enum case for JournalFeatureFlags.richCanvas(_:), v12);
-  v16 = JournalFeatureFlags.isEnabled.getter();
-  (*(v13 + 8))(v15, v12);
-  if ((v16 & 1) == 0)
+  v14 = __chkstk_darwin(v12);
+  v16 = &v80 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v13 + 104))(v16, enum case for JournalFeatureFlags.richCanvas(_:), v12, v14);
+  v17 = JournalFeatureFlags.isEnabled.getter();
+  (*(v13 + 8))(v16, v12);
+  if ((v17 & 1) == 0)
   {
     return 0;
   }
 
-  v17 = [v3 superview];
-  if (!v17)
+  v18 = [v3 superview];
+  if (!v18)
   {
     return 0;
   }
 
-  v18 = v17;
+  v19 = v18;
   sub_1002B1FB8();
-  if ((a2 & 1) == 0 && (v19 = [v3 textStorage], v20 = objc_msgSend(v19, "length"), v19, v20) || (v21 = *(v9 + 48), v21(v84, 1, v8) == 1) && *(v3 + OBJC_IVAR____TtC7Journal14CanvasTextView_initialDrawingCanvas))
+  if ((a2 & 1) == 0 && (v20 = [v3 textStorage], v21 = objc_msgSend(v20, "length"), v20, v21) || (v22 = *(v9 + 48), v22(v85, 1, v8) == 1) && *(v3 + OBJC_IVAR____TtC7Journal14CanvasTextView_initialDrawingCanvas))
   {
-    v22 = 0;
+    v23 = 0;
   }
 
   else
   {
-    v81 = v21;
-    v82 = v9 + 48;
-    v23 = type metadata accessor for PaperKitDrawingCanvasView();
-    v24 = [objc_allocWithZone(swift_getObjCClassFromMetadata()) init];
-    [v24 setAccessibilityElementsHidden:1];
+    v82 = v22;
+    v83 = v9 + 48;
+    v24 = type metadata accessor for PaperKitDrawingCanvasView(0);
+    v25 = [objc_allocWithZone(swift_getObjCClassFromMetadata()) init];
+    [v25 setAccessibilityElementsHidden:1];
     Strong = swift_unknownObjectWeakLoadStrong();
     swift_unknownObjectWeakAssign();
 
-    v22 = v24;
-    [v18 addSubview:v22];
-    v26 = v18;
-    v27 = [v26 accessibilityElements];
-    v80 = v9;
-    v83 = v26;
-    if (v27)
+    v23 = v25;
+    [v19 addSubview:v23];
+    v27 = v19;
+    v28 = [v27 accessibilityElements];
+    v81 = v9;
+    v84 = v27;
+    if (v28)
     {
-      v28 = v27;
-      v29 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+      v29 = v28;
+      v30 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
-      v86 = v23;
-      *&v85 = v22;
-      v30 = v22;
+      v87 = v24;
+      *&v86 = v23;
+      v31 = v23;
       if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
       {
-        v29 = sub_10005DA70(0, *(v29 + 16) + 1, 1, v29);
+        v30 = sub_10005DA70(0, *(v30 + 16) + 1, 1, v30);
       }
 
-      v32 = *(v29 + 16);
-      v31 = *(v29 + 24);
-      if (v32 >= v31 >> 1)
+      v33 = *(v30 + 16);
+      v32 = *(v30 + 24);
+      if (v33 >= v32 >> 1)
       {
-        v29 = sub_10005DA70((v31 > 1), v32 + 1, 1, v29);
+        v30 = sub_10005DA70((v32 > 1), v33 + 1, 1, v30);
       }
 
-      *(v29 + 16) = v32 + 1;
-      sub_10002432C(&v85, (v29 + 32 * v32 + 32));
+      *(v30 + 16) = v33 + 1;
+      sub_10002432C(&v86, (v30 + 32 * v33 + 32));
       isa = Array._bridgeToObjectiveC()().super.isa;
 
-      v34 = v83;
-      [v83 setAccessibilityElements:isa];
+      v35 = v84;
+      [v84 setAccessibilityElements:isa];
     }
 
     else
     {
-      [v26 setAccessibilityElements:0];
+      [v27 setAccessibilityElements:0];
     }
 
-    v35 = [v22 superview];
-    v36 = &selRef_setSuggestedName_;
-    if (v35)
+    v36 = [v23 superview];
+    v37 = &selRef_setSuggestedName_;
+    if (v36)
     {
-      v37 = v35;
-      [v22 setTranslatesAutoresizingMaskIntoConstraints:0];
-      v38 = [v22 leadingAnchor];
-      v39 = [v37 safeAreaLayoutGuide];
-      v40 = [v39 leadingAnchor];
+      v38 = v36;
+      [v23 setTranslatesAutoresizingMaskIntoConstraints:0];
+      v39 = [v23 leadingAnchor];
+      v40 = [v38 safeAreaLayoutGuide];
+      v41 = [v40 leadingAnchor];
 
-      v41 = [v38 constraintEqualToAnchor:v40];
-      v36 = &selRef_setSuggestedName_;
-      [v41 setConstant:0.0];
-      [v41 setActive:1];
+      v42 = [v39 constraintEqualToAnchor:v41];
+      v37 = &selRef_setSuggestedName_;
+      [v42 setConstant:0.0];
+      [v42 setActive:1];
     }
 
-    v42 = [v22 superview];
-    if (v42)
+    v43 = [v23 superview];
+    if (v43)
     {
-      v43 = v42;
-      [v22 setTranslatesAutoresizingMaskIntoConstraints:0];
-      v44 = [v22 trailingAnchor];
-      v79 = v7;
-      v45 = v8;
-      v46 = v11;
-      v47 = v36;
-      v48 = v44;
-      v49 = [v43 safeAreaLayoutGuide];
-      v50 = [v49 trailingAnchor];
+      v44 = v43;
+      [v23 setTranslatesAutoresizingMaskIntoConstraints:0];
+      v45 = [v23 trailingAnchor];
+      v80 = v7;
+      v46 = v8;
+      v47 = v11;
+      v48 = v37;
+      v49 = v45;
+      v50 = [v44 safeAreaLayoutGuide];
+      v51 = [v50 trailingAnchor];
 
-      v51 = [v48 constraintEqualToAnchor:v50];
-      v36 = v47;
-      v11 = v46;
-      v8 = v45;
-      v7 = v79;
+      v52 = [v49 constraintEqualToAnchor:v51];
+      v37 = v48;
+      v11 = v47;
+      v8 = v46;
+      v7 = v80;
 
-      [v51 setConstant:0.0];
-      [v51 v36[263]];
+      [v52 setConstant:0.0];
+      [v52 v37[263]];
     }
 
-    v52 = sub_100028DA0(0, 1, 0.0);
-    v18 = v52;
-    if (v52)
+    v53 = sub_100028DA0(0, 1, 0.0);
+    v19 = v53;
+    if (v53)
     {
-      LODWORD(v53) = 1132068864;
-      [v52 setPriority:v53];
+      LODWORD(v54) = 1132068864;
+      [v53 setPriority:v54];
     }
 
-    v54 = *(v3 + OBJC_IVAR____TtC7Journal15JournalTextView_topAccessoryView);
-    if (v54)
+    v55 = *(v3 + OBJC_IVAR____TtC7Journal15JournalTextView_topAccessoryView);
+    if (v55)
     {
-      v55 = v54;
-      v56 = [v3 traitCollection];
-      [v56 displayScale];
-      v58 = v57;
+      v56 = v55;
+      v57 = [v3 traitCollection];
+      [v57 displayScale];
+      v59 = v58;
 
-      if (v58 < 1.0)
+      if (v59 < 1.0)
       {
-        v59 = -1.0;
+        v60 = -1.0;
       }
 
       else
       {
-        v59 = -v58;
+        v60 = -v59;
       }
 
-      [v22 setTranslatesAutoresizingMaskIntoConstraints:0];
-      v60 = [v22 topAnchor];
-      v61 = [v55 bottomAnchor];
-      v62 = [v60 constraintEqualToAnchor:v61];
+      [v23 setTranslatesAutoresizingMaskIntoConstraints:0];
+      v61 = [v23 topAnchor];
+      v62 = [v56 bottomAnchor];
+      v63 = [v61 constraintEqualToAnchor:v62];
 
-      [v62 setConstant:v59];
-      [v62 setActive:1];
+      [v63 setConstant:v60];
+      [v63 setActive:1];
     }
 
     else
     {
-      [v22 setTranslatesAutoresizingMaskIntoConstraints:0];
-      v63 = [v22 topAnchor];
-      v64 = [v83 topAnchor];
-      v62 = [v63 constraintEqualToAnchor:v64 constant:0.0];
+      [v23 setTranslatesAutoresizingMaskIntoConstraints:0];
+      v64 = [v23 topAnchor];
+      v65 = [v84 topAnchor];
+      v63 = [v64 constraintEqualToAnchor:v65 constant:0.0];
 
-      [v62 v36[263]];
+      [v63 v37[263]];
     }
 
-    v65 = *(v3 + OBJC_IVAR____TtC7Journal14CanvasTextView_initialDrawingCanvas);
-    *(v3 + OBJC_IVAR____TtC7Journal14CanvasTextView_initialDrawingCanvas) = v22;
-    v66 = v22;
+    v66 = *(v3 + OBJC_IVAR____TtC7Journal14CanvasTextView_initialDrawingCanvas);
+    *(v3 + OBJC_IVAR____TtC7Journal14CanvasTextView_initialDrawingCanvas) = v23;
+    v67 = v23;
 
-    v67 = [v3 backgroundColor];
-    v68 = *&v66[OBJC_IVAR____TtC7Journal25PaperKitDrawingCanvasView_opaqueColor];
-    *&v66[OBJC_IVAR____TtC7Journal25PaperKitDrawingCanvasView_opaqueColor] = v67;
+    v68 = [v3 backgroundColor];
+    v69 = *&v67[OBJC_IVAR____TtC7Journal25PaperKitDrawingCanvasView_opaqueColor];
+    *&v67[OBJC_IVAR____TtC7Journal25PaperKitDrawingCanvasView_opaqueColor] = v68;
 
-    *&v66[OBJC_IVAR____TtC7Journal25PaperKitDrawingCanvasView_paperCanvasDelegate + 8] = &off_100A63588;
-    v69 = swift_unknownObjectWeakAssign();
-    v66[OBJC_IVAR____TtC7Journal25PaperKitDrawingCanvasView_tapToDismiss] = 1;
-    v66[OBJC_IVAR____TtC7Journal25PaperKitDrawingCanvasView_allowContentGrowth] = (*((swift_isaMask & *v3) + 0x350))(v69) & 1;
-    v66[OBJC_IVAR____TtC7Journal25PaperKitDrawingCanvasView_allowContentZoom] = (*((swift_isaMask & *v3) + 0x358))() & 1;
-    v66[OBJC_IVAR____TtC7Journal25PaperKitDrawingCanvasView_hasFixedHeight] = (*((swift_isaMask & *v3) + 0x360))() & 1;
-    *&v66[OBJC_IVAR____TtC7Journal25PaperKitDrawingCanvasView_maxZoomRange] = (*((swift_isaMask & *v3) + 0x368))();
-    [v66 setUserInteractionEnabled:(*((swift_isaMask & *v3) + 0x370))() & 1];
+    *&v67[OBJC_IVAR____TtC7Journal25PaperKitDrawingCanvasView_paperCanvasDelegate + 8] = &off_100A63588;
+    v70 = swift_unknownObjectWeakAssign();
+    v67[OBJC_IVAR____TtC7Journal25PaperKitDrawingCanvasView_tapToDismiss] = 1;
+    v67[OBJC_IVAR____TtC7Journal25PaperKitDrawingCanvasView_allowContentGrowth] = (*((swift_isaMask & *v3) + 0x350))(v70) & 1;
+    v67[OBJC_IVAR____TtC7Journal25PaperKitDrawingCanvasView_allowContentZoom] = (*((swift_isaMask & *v3) + 0x358))() & 1;
+    v67[OBJC_IVAR____TtC7Journal25PaperKitDrawingCanvasView_hasFixedHeight] = (*((swift_isaMask & *v3) + 0x360))() & 1;
+    *&v67[OBJC_IVAR____TtC7Journal25PaperKitDrawingCanvasView_maxZoomRange] = (*((swift_isaMask & *v3) + 0x368))();
+    [v67 setUserInteractionEnabled:(*((swift_isaMask & *v3) + 0x370))() & 1];
 
-    sub_1000082B4(v84, v7, &unk_100ADC5E0);
-    LODWORD(v65) = v81(v7, 1, v8);
+    sub_1000082B4(v85, v7, &unk_100ADC5E0, &qword_10094C390);
+    LODWORD(v66) = v82(v7, 1, v8);
 
-    if (v65 == 1)
+    if (v66 == 1)
     {
-      sub_100004F84(v7, &unk_100ADC5E0);
-      v70 = sub_100544E50();
-      v71 = [v70 selectedToolItem];
+      sub_100004F84(v7, &unk_100ADC5E0, &qword_10094C390);
+      v71 = sub_100544E50();
+      v72 = [v71 selectedToolItem];
 
       objc_opt_self();
-      v72 = swift_dynamicCastObjCClass() == 0;
+      v73 = swift_dynamicCastObjCClass() == 0;
 
-      [v66 setUserInteractionEnabled:v72];
+      [v67 setUserInteractionEnabled:v73];
     }
 
     else
     {
-      v73 = v80;
-      (*(v80 + 32))(v11, v7, v8);
+      v74 = v81;
+      (*(v81 + 32))(v11, v7, v8);
       sub_10049862C(v11);
-      v74 = [v3 backgroundColor];
-      [v66 setBackgroundColor:v74];
+      v75 = [v3 backgroundColor];
+      [v67 setBackgroundColor:v75];
 
-      (*(v73 + 8))(v11, v8);
+      (*(v74 + 8))(v11, v8);
     }
 
     [v3 resignFirstResponder];
-    v75 = v66;
-    sub_1002B14BC(v22);
-    [v75 becomeFirstResponder];
-    v76 = [v3 undoManager];
-    if (v76)
+    v76 = v67;
+    sub_1002B14BC(v23);
+    [v76 becomeFirstResponder];
+    v77 = [v3 undoManager];
+    if (v77)
     {
-      v77 = v76;
+      v78 = v77;
       sub_10012ACEC();
     }
   }
 
-  return v22;
+  return v23;
 }
 
 id sub_1002B68C4()
@@ -5835,13 +5940,13 @@ id sub_1002B68C4()
 
 void sub_1002B69D4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v9 = sub_1000F24EC(&qword_100AD5170);
+  v9 = sub_1000F24EC(&qword_100AD5170, &unk_100943680);
   __chkstk_darwin(v9 - 8);
   v11 = v24 - v10;
-  sub_1000082B4(a1, v25, &qword_100AD13D0);
+  sub_1000082B4(a1, v25, &qword_100AD13D0, &unk_100942DB0);
   if (!v26)
   {
-    sub_100004F84(v25, &qword_100AD13D0);
+    sub_100004F84(v25, &qword_100AD13D0, &unk_100942DB0);
     return;
   }
 
@@ -5928,28 +6033,30 @@ uint64_t sub_1002B6CCC()
   v11 = sub_1002B2ED8(v8);
   v13 = v12;
   [v1 bounds];
-  Width = CGRectGetWidth(v25);
+  Width = CGRectGetWidth(v27);
   [v1 textContainerInset];
   v16 = Width - v15;
   [v1 textContainerInset];
-  sub_1007C8F34(1, v11, v13, v16 - v17);
+  v18.n128_f64[0] = v16 - v17;
+  v19.n128_u64[0] = v13;
+  sub_1007C8F34(1, v11, v19, v18);
   [v3 setBounds:{0.0, 0.0, v8, v10}];
-  v18 = [v1 textLayoutManager];
-  if (v18)
+  v20 = [v1 textLayoutManager];
+  if (v20)
   {
-    v19 = v18;
-    v20 = sub_1000F59DC(*(v0 + 48), *(v0 + 56));
+    v21 = v20;
+    v22 = sub_1000F59DC(*(v0 + 48), *(v0 + 56));
 
-    if (v20)
+    if (v22)
     {
-      v21 = [*(v0 + 32) textLayoutManager];
-      [v21 invalidateLayoutForRange:v20];
+      v23 = [*(v0 + 32) textLayoutManager];
+      [v23 invalidateLayoutForRange:v22];
     }
   }
 
-  v22 = *(v0 + 8);
+  v24 = *(v0 + 8);
 
-  return v22();
+  return v24();
 }
 
 void sub_1002B6E88(char *a1, uint64_t a2, uint64_t a3, char *a4, char a5)
@@ -5959,32 +6066,32 @@ void sub_1002B6E88(char *a1, uint64_t a2, uint64_t a3, char *a4, char a5)
   swift_unknownObjectWeakAssign();
   if (a5)
   {
-    sub_1002D2548(a4, a1);
-    v8 = sub_1007C8C2C();
-    if (v8)
+    sub_1002D2548(a4, a1, v8);
+    v9 = sub_1007C8C2C();
+    if (v9)
     {
-      v17 = v8;
+      v18 = v9;
       type metadata accessor for DrawingAssetView();
-      v9 = swift_dynamicCastClass();
-      if (v9)
+      v10 = swift_dynamicCastClass();
+      if (v10)
       {
-        v10 = v9;
-        v11 = OBJC_IVAR____TtC7Journal16DrawingAssetView_paperKitCanvasView;
-        v12 = *(v9 + OBJC_IVAR____TtC7Journal16DrawingAssetView_paperKitCanvasView);
-        if (v12)
+        v11 = v10;
+        v12 = OBJC_IVAR____TtC7Journal16DrawingAssetView_paperKitCanvasView;
+        v13 = *(v10 + OBJC_IVAR____TtC7Journal16DrawingAssetView_paperKitCanvasView);
+        if (v13)
         {
-          *(v12 + OBJC_IVAR____TtC7Journal25PaperKitDrawingCanvasView_paperCanvasDelegate + 8) = &off_100A63588;
+          *(v13 + OBJC_IVAR____TtC7Journal25PaperKitDrawingCanvasView_paperCanvasDelegate + 8) = &off_100A63588;
           swift_unknownObjectWeakAssign();
         }
 
-        v13 = *&a4[OBJC_IVAR____TtC7Journal14CanvasTextView_toolPicker];
+        v14 = *&a4[OBJC_IVAR____TtC7Journal14CanvasTextView_toolPicker];
         Strong = swift_unknownObjectWeakLoadStrong();
         swift_unknownObjectWeakAssign();
-        v15 = *(v10 + v11);
-        if (v15)
+        v16 = *(v11 + v12);
+        if (v16)
         {
-          v16 = v15;
-          sub_100498548(v13, Strong);
+          v17 = v16;
+          sub_100498548(v14, Strong);
         }
       }
     }
@@ -6000,67 +6107,69 @@ void sub_1002B6FFC(void *a1, double a2, double a3)
 {
   v4 = v3;
   [v3 bounds];
-  Width = CGRectGetWidth(v30);
+  Width = CGRectGetWidth(v32);
   [v3 textContainerInset];
   v10 = Width - v9;
   [v3 textContainerInset];
-  if (sub_1007C8F34(a2 > 0.75, a2, a3, v10 - v11))
+  v12.n128_f64[0] = v10 - v11;
+  v13.n128_f64[0] = a3;
+  if (sub_1007C8F34(a2 > 0.75, a2, v13, v12))
   {
-    v12 = [v3 textLayoutManager];
-    if (v12)
+    v14 = [v3 textLayoutManager];
+    if (v14)
     {
-      v13 = v12;
-      v14 = [v3 textStorage];
-      v15 = [v14 length];
+      v15 = v14;
+      v16 = [v3 textStorage];
+      v17 = [v16 length];
 
-      if (v15 < 0)
+      if (v17 < 0)
       {
         goto LABEL_11;
       }
 
-      v16 = sub_1000F59DC(0, v15);
+      v18 = sub_1000F59DC(0, v17);
 
-      if (v16)
+      if (v18)
       {
-        v17 = [v4 textLayoutManager];
-        [v17 invalidateLayoutForRange:v16];
+        v19 = [v4 textLayoutManager];
+        [v19 invalidateLayoutForRange:v18];
 
-        v18 = [v4 textLayoutManager];
-        [v18 invalidateRenderingAttributesForTextRange:v16];
+        v20 = [v4 textLayoutManager];
+        [v20 invalidateRenderingAttributesForTextRange:v18];
       }
     }
 
-    v19 = [v4 textStorage];
-    v20 = NSParagraphAttachmentAttributeName;
     v21 = [v4 textStorage];
-    v22 = [v21 length];
+    v22 = NSParagraphAttachmentAttributeName;
+    v23 = [v4 textStorage];
+    v24 = [v23 length];
 
-    if ((v22 & 0x8000000000000000) != 0)
+    if ((v24 & 0x8000000000000000) != 0)
     {
       __break(1u);
     }
 
     else
     {
-      v23 = swift_allocObject();
-      *(v23 + 16) = a1;
-      *(v23 + 24) = v4;
-      v24 = swift_allocObject();
-      *(v24 + 16) = sub_1002D374C;
-      *(v24 + 24) = v23;
-      v29[4] = sub_1002D826C;
-      v29[5] = v24;
-      v29[0] = _NSConcreteStackBlock;
-      v29[1] = 1107296256;
-      v29[2] = sub_10007E0A4;
-      v29[3] = &unk_100A63E38;
-      v25 = _Block_copy(v29);
-      v26 = a1;
-      v27 = v4;
+      v25 = swift_allocObject();
+      *(v25 + 16) = a1;
+      *(v25 + 24) = v4;
+      v26 = swift_allocObject();
+      *(v26 + 16) = sub_1002D374C;
+      *(v26 + 24) = v25;
+      v31[4] = sub_1002D826C;
+      v31[5] = v26;
+      v31[0] = _NSConcreteStackBlock;
+      v31[1] = 1107296256;
+      v31[2] = sub_10007E0A4;
+      v31[3] = &unk_100A63E38;
+      v27 = _Block_copy(v31);
+      v28 = a1;
+      v29 = v4;
 
-      [v19 enumerateAttribute:v20 inRange:0 options:v22 usingBlock:{0, v25}];
+      [v21 enumerateAttribute:v22 inRange:0 options:v24 usingBlock:{0, v27}];
 
-      _Block_release(v25);
+      _Block_release(v27);
       isEscapingClosureAtFileLocation = swift_isEscapingClosureAtFileLocation();
 
       if ((isEscapingClosureAtFileLocation & 1) == 0)
@@ -6075,14 +6184,14 @@ LABEL_11:
   }
 }
 
-uint64_t sub_1002B7318(uint64_t a1)
+double sub_1002B7318(uint64_t a1)
 {
   v2 = type metadata accessor for PaperMarkup();
   v3 = *(v2 - 8);
   v4 = *(v3 + 64);
   __chkstk_darwin(v2);
   v5 = &v15 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = sub_1000F24EC(&qword_100AD5170);
+  v6 = sub_1000F24EC(&qword_100AD5170, &unk_100943680);
   __chkstk_darwin(v6 - 8);
   v8 = &v15 - v7;
   v9 = type metadata accessor for TaskPriority();
@@ -6101,216 +6210,214 @@ uint64_t sub_1002B7318(uint64_t a1)
   (*(v3 + 32))(&v13[v12], v5, v2);
 
   sub_1003E9628(0, 0, v8, &unk_10094C458, v13);
+
+  return result;
 }
 
-uint64_t sub_1002B7540(int a1)
+void sub_1002B7540(int a1)
 {
   v2 = v1;
-  LODWORD(v71) = a1;
+  LODWORD(v72) = a1;
   v3 = type metadata accessor for PaperMarkup();
   v4 = *(v3 - 8);
   __chkstk_darwin(v3);
-  v6 = &v61 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = sub_1000F24EC(&qword_100ADC608);
+  v6 = &v62 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = sub_1000F24EC(&qword_100ADC608, &qword_10094C3B8);
   __chkstk_darwin(v7);
-  v9 = &v61 - v8;
-  v10 = sub_1000F24EC(&unk_100ADC5E0);
-  v11 = __chkstk_darwin(v10 - 8);
-  v13 = &v61 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = __chkstk_darwin(v11);
-  v16 = &v61 - v15;
-  __chkstk_darwin(v14);
-  v18 = &v61 - v17;
-  v19 = OBJC_IVAR____TtC7Journal14CanvasTextView_bottomCanvasAttachment;
-  if (!*&v2[OBJC_IVAR____TtC7Journal14CanvasTextView_bottomCanvasAttachment])
+  v9 = &v62 - v8;
+  v10 = sub_1000F24EC(&unk_100ADC5E0, &qword_10094C390);
+  __chkstk_darwin(v10 - 8);
+  v12 = &v62 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v13);
+  v15 = &v62 - v14;
+  *&v17 = __chkstk_darwin(v16).n128_u64[0];
+  v19 = &v62 - v18;
+  v20 = OBJC_IVAR____TtC7Journal14CanvasTextView_bottomCanvasAttachment;
+  if (*&v2[OBJC_IVAR____TtC7Journal14CanvasTextView_bottomCanvasAttachment])
   {
-    return 0;
-  }
+    v67 = v7;
+    v69 = v4;
+    v74 = 0;
+    v21 = [v2 textStorage];
+    v22 = [v21 length];
 
-  v66 = v7;
-  v68 = v4;
-  v73 = 0;
-  v20 = [v2 textStorage];
-  v21 = [v20 length];
-
-  result = String.count.getter();
-  v23 = &v21[-result];
-  if (__OFSUB__(v21, result))
-  {
-    __break(1u);
-  }
-
-  else
-  {
-    v67 = v16;
-    v69 = v18;
-    v70 = v19;
-    v62 = v6;
-    v63 = v13;
-    v64 = v9;
-    v65 = v3;
-    v24 = String.count.getter();
-    v25 = __chkstk_darwin(v24);
-    *(&v61 - 2) = &v73;
-    *(&v61 - 1) = v2;
-    __chkstk_darwin(v25);
-    *(&v61 - 2) = sub_1002D3070;
-    *(&v61 - 1) = v26;
-    v27 = [v2 textStorage];
-    v28 = NSParagraphAttachmentAttributeName;
-    v29 = swift_allocObject();
-    *(v29 + 16) = sub_1002D835C;
-    *(v29 + 24) = &v61 - 4;
-    v30 = swift_allocObject();
-    *(v30 + 16) = sub_1002D8270;
-    *(v30 + 24) = v29;
-    aBlock[4] = sub_1002D826C;
-    aBlock[5] = v30;
-    aBlock[0] = _NSConcreteStackBlock;
-    aBlock[1] = 1107296256;
-    aBlock[2] = sub_10007E0A4;
-    aBlock[3] = &unk_100A63820;
-    v31 = _Block_copy(aBlock);
-
-    [v27 enumerateAttribute:v28 inRange:v23 options:v24 usingBlock:{0, v31}];
-
-    _Block_release(v31);
-    LOBYTE(v27) = swift_isEscapingClosureAtFileLocation();
-
-    if ((v27 & 1) == 0)
+    v23 = String.count.getter();
+    v24 = &v22[-v23];
+    if (__OFSUB__(v22, v23))
     {
-      v32 = v73;
-      v33 = v70;
-      if ((v73 & 1) == 0 && (v71 & 1) == 0)
+      __break(1u);
+    }
+
+    else
+    {
+      v68 = v15;
+      v70 = v19;
+      v71 = v20;
+      v63 = v6;
+      v64 = v12;
+      v65 = v9;
+      v66 = v3;
+      v25 = String.count.getter();
+      __chkstk_darwin(v25);
+      *(&v62 - 2) = &v74;
+      *(&v62 - 1) = v2;
+      *&v27 = __chkstk_darwin(v26).n128_u64[0];
+      *(&v62 - 2) = sub_1002D3070;
+      *(&v62 - 1) = v28;
+      v29 = [v2 textStorage];
+      v30 = NSParagraphAttachmentAttributeName;
+      v31 = swift_allocObject();
+      *(v31 + 16) = sub_1002D835C;
+      *(v31 + 24) = &v62 - 4;
+      v32 = swift_allocObject();
+      *(v32 + 16) = sub_1002D8270;
+      *(v32 + 24) = v31;
+      aBlock[4] = sub_1002D826C;
+      aBlock[5] = v32;
+      aBlock[0] = _NSConcreteStackBlock;
+      aBlock[1] = 1107296256;
+      aBlock[2] = sub_10007E0A4;
+      aBlock[3] = &unk_100A63820;
+      v33 = _Block_copy(aBlock);
+
+      [v29 enumerateAttribute:v30 inRange:v24 options:v25 usingBlock:{0, v33}];
+
+      _Block_release(v33);
+      LOBYTE(v29) = swift_isEscapingClosureAtFileLocation();
+
+      if ((v29 & 1) == 0)
       {
-        goto LABEL_25;
-      }
+        v34 = v71;
+        if ((v74 & 1) == 0 && (v72 & 1) == 0)
+        {
+          goto LABEL_25;
+        }
 
-      v34 = [v2 textStorage];
-      [v34 deleteCharactersInRange:{v23, v24}];
+        v35 = [v2 textStorage];
+        [v35 deleteCharactersInRange:{v24, v25}];
 
-      v35 = *&v2[v33];
-      if (!v35)
-      {
-        goto LABEL_25;
-      }
+        v36 = *&v2[v34];
+        if (!v36)
+        {
+          goto LABEL_25;
+        }
 
-      v36 = v35;
-      v37 = sub_1007C8C2C();
+        v37 = v36;
+        v38 = sub_1007C8C2C();
 
-      if (!v37)
-      {
-        goto LABEL_25;
-      }
+        if (!v38)
+        {
+          goto LABEL_25;
+        }
 
-      type metadata accessor for DrawingAssetView();
-      v38 = swift_dynamicCastClass();
-      if (v38)
-      {
-        v71 = v37;
-        v39 = *(v38 + OBJC_IVAR____TtC7Journal16DrawingAssetView_paperKitCanvasView);
+        type metadata accessor for DrawingAssetView();
+        v39 = swift_dynamicCastClass();
         if (v39)
         {
-          v40 = *&v39[OBJC_IVAR____TtC7Journal25PaperKitDrawingCanvasView_paperKitViewController];
-          v41 = v39;
-          v42 = v40;
-          dispatch thunk of PaperMarkupViewController.markup.getter();
-
-          v43 = v64;
-          v44 = v65;
-          v45 = v68;
-        }
-
-        else
-        {
-          v45 = v68;
-          v44 = v65;
-          (*(v68 + 56))(v69, 1, 1, v65);
-          v43 = v64;
-        }
-
-        v46 = *&v2[OBJC_IVAR____TtC7Journal14CanvasTextView_currentCanvas];
-        if (v46)
-        {
-          v47 = *&v46[OBJC_IVAR____TtC7Journal25PaperKitDrawingCanvasView_paperKitViewController];
-          v48 = v46;
-          v49 = v47;
-          v50 = v67;
-          dispatch thunk of PaperMarkupViewController.markup.getter();
-        }
-
-        else
-        {
-          v50 = v67;
-          (*(v45 + 56))(v67, 1, 1, v44);
-        }
-
-        v51 = *(v66 + 48);
-        v52 = v69;
-        sub_1000082B4(v69, v43, &unk_100ADC5E0);
-        v66 = v51;
-        sub_1000082B4(v50, v43 + v51, &unk_100ADC5E0);
-        v53 = v68;
-        v54 = *(v68 + 48);
-        if (v54(v43, 1, v44) == 1)
-        {
-          sub_100004F84(v50, &unk_100ADC5E0);
-          sub_100004F84(v52, &unk_100ADC5E0);
-          if (v54(v43 + v66, 1, v44) == 1)
+          v72 = v38;
+          v40 = *(v39 + OBJC_IVAR____TtC7Journal16DrawingAssetView_paperKitCanvasView);
+          if (v40)
           {
-            sub_100004F84(v43, &unk_100ADC5E0);
-            v37 = v71;
+            v41 = *&v40[OBJC_IVAR____TtC7Journal25PaperKitDrawingCanvasView_paperKitViewController];
+            v42 = v40;
+            v43 = v41;
+            dispatch thunk of PaperMarkupViewController.markup.getter();
+
+            v44 = v65;
+            v45 = v66;
+            v46 = v69;
+          }
+
+          else
+          {
+            v46 = v69;
+            v45 = v66;
+            (*(v69 + 56))(v70, 1, 1, v66);
+            v44 = v65;
+          }
+
+          v47 = *&v2[OBJC_IVAR____TtC7Journal14CanvasTextView_currentCanvas];
+          if (v47)
+          {
+            v48 = *&v47[OBJC_IVAR____TtC7Journal25PaperKitDrawingCanvasView_paperKitViewController];
+            v49 = v47;
+            v50 = v48;
+            v51 = v68;
+            dispatch thunk of PaperMarkupViewController.markup.getter();
+          }
+
+          else
+          {
+            v51 = v68;
+            (*(v46 + 56))(v68, 1, 1, v45);
+          }
+
+          v52 = *(v67 + 48);
+          v53 = v70;
+          sub_1000082B4(v70, v44, &unk_100ADC5E0, &qword_10094C390);
+          v67 = v52;
+          sub_1000082B4(v51, v44 + v52, &unk_100ADC5E0, &qword_10094C390);
+          v54 = v69;
+          v55 = *(v69 + 48);
+          if (v55(v44, 1, v45) == 1)
+          {
+            sub_100004F84(v51, &unk_100ADC5E0, &qword_10094C390);
+            sub_100004F84(v53, &unk_100ADC5E0, &qword_10094C390);
+            if (v55(v44 + v67, 1, v45) == 1)
+            {
+              sub_100004F84(v44, &unk_100ADC5E0, &qword_10094C390);
+              v38 = v72;
 LABEL_23:
-            sub_1002B14BC(0);
+              sub_1002B14BC(0);
+              goto LABEL_24;
+            }
+
+            goto LABEL_21;
+          }
+
+          v56 = v64;
+          sub_1000082B4(v44, v64, &unk_100ADC5E0, &qword_10094C390);
+          v57 = v67;
+          if (v55(v44 + v67, 1, v45) == 1)
+          {
+            sub_100004F84(v68, &unk_100ADC5E0, &qword_10094C390);
+            sub_100004F84(v70, &unk_100ADC5E0, &qword_10094C390);
+            (*(v54 + 8))(v56, v45);
+LABEL_21:
+            sub_100004F84(v44, &qword_100ADC608, &qword_10094C3B8);
+            v38 = v72;
             goto LABEL_24;
           }
 
-          goto LABEL_21;
+          v58 = v63;
+          (*(v54 + 32))(v63, v44 + v57, v45);
+          sub_10008D118(&qword_100ADC610, &type metadata accessor for PaperMarkup, &protocol conformance descriptor for PaperMarkup);
+          v59 = dispatch thunk of static Equatable.== infix(_:_:)();
+          v60 = *(v54 + 8);
+          v60(v58, v45);
+          sub_100004F84(v68, &unk_100ADC5E0, &qword_10094C390);
+          sub_100004F84(v70, &unk_100ADC5E0, &qword_10094C390);
+          v60(v64, v45);
+          sub_100004F84(v44, &unk_100ADC5E0, &qword_10094C390);
+          v38 = v72;
+          if (v59)
+          {
+            goto LABEL_23;
+          }
         }
-
-        v55 = v63;
-        sub_1000082B4(v43, v63, &unk_100ADC5E0);
-        v56 = v66;
-        if (v54(v43 + v66, 1, v44) == 1)
-        {
-          sub_100004F84(v67, &unk_100ADC5E0);
-          sub_100004F84(v69, &unk_100ADC5E0);
-          (*(v53 + 8))(v55, v44);
-LABEL_21:
-          sub_100004F84(v43, &qword_100ADC608);
-          v37 = v71;
-          goto LABEL_24;
-        }
-
-        v57 = v62;
-        (*(v53 + 32))(v62, v43 + v56, v44);
-        sub_10008D118(&qword_100ADC610, &type metadata accessor for PaperMarkup);
-        v58 = dispatch thunk of static Equatable.== infix(_:_:)();
-        v59 = *(v53 + 8);
-        v59(v57, v44);
-        sub_100004F84(v67, &unk_100ADC5E0);
-        sub_100004F84(v69, &unk_100ADC5E0);
-        v59(v63, v44);
-        sub_100004F84(v43, &unk_100ADC5E0);
-        v37 = v71;
-        if (v58)
-        {
-          goto LABEL_23;
-        }
-      }
 
 LABEL_24:
 
 LABEL_25:
-      v60 = *&v2[v33];
-      *&v2[v33] = 0;
+        v61 = *&v2[v34];
+        *&v2[v34] = 0;
 
-      return v32;
+        return;
+      }
     }
-  }
 
-  __break(1u);
-  return result;
+    __break(1u);
+  }
 }
 
 uint64_t sub_1002B7D50(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -6383,7 +6490,7 @@ uint64_t sub_1002B812C()
 
 void sub_1002B8270(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5)
 {
-  v10 = sub_1000F24EC(&unk_100ADC5E0);
+  v10 = sub_1000F24EC(&unk_100ADC5E0, &qword_10094C390);
   __chkstk_darwin(v10 - 8);
   v12 = &v24 - v11;
   v13 = *(a1 + OBJC_IVAR____TtC7Journal27ResizableViewTextAttachment_currentProvider);
@@ -6404,7 +6511,7 @@ void sub_1002B8270(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5)
     }
   }
 
-  type metadata accessor for PaperKitDrawingCanvasView();
+  type metadata accessor for PaperKitDrawingCanvasView(0);
   v18 = swift_dynamicCastClass();
   if (!v18 || a2)
   {
@@ -6426,7 +6533,7 @@ void sub_1002B8270(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5)
     v23 = *(v19 + OBJC_IVAR____TtC7Journal25PaperKitDrawingCanvasView_paperKitViewController);
     dispatch thunk of PaperMarkupViewController.markup.getter();
 
-    sub_100014318(v12, a5, &unk_100ADC5E0);
+    sub_100014318(v12, a5, &unk_100ADC5E0, &qword_10094C390);
   }
 
   else
@@ -6438,10 +6545,10 @@ LABEL_10:
 
 void sub_1002B8440(uint64_t a1)
 {
-  sub_1000082B4(a1, v2, &qword_100AD13D0);
+  sub_1000082B4(a1, v2, &qword_100AD13D0, &unk_100942DB0);
   if (v3)
   {
-    sub_1000065A8(0, &qword_100ADC5F0);
+    sub_1000065A8(0, &qword_100ADC5F0, NSTextParagraphAnchoredAttachment_ptr);
     if (swift_dynamicCast())
     {
       sub_1002D3788(v1);
@@ -6450,7 +6557,7 @@ void sub_1002B8440(uint64_t a1)
 
   else
   {
-    sub_100004F84(v2, &qword_100AD13D0);
+    sub_100004F84(v2, &qword_100AD13D0, &unk_100942DB0);
   }
 }
 
@@ -6663,13 +6770,13 @@ unint64_t sub_1002B8E98(void *a1, uint64_t a2, uint64_t a3, void *a4)
   return result;
 }
 
-uint64_t sub_1002B8F2C()
+void sub_1002B8F2C()
 {
   v2 = v0;
-  v52 = _swiftEmptyArrayStorage;
-  v45 = &v52;
-  v42 = sub_1002D8274;
-  v43 = &v44;
+  v51 = _swiftEmptyArrayStorage;
+  v44 = &v51;
+  v41 = sub_1002D8274;
+  v42 = &v43;
   v3 = [v0 textStorage];
   v4 = [v3 length];
 
@@ -6682,20 +6789,20 @@ uint64_t sub_1002B8F2C()
   v6 = NSParagraphAttachmentAttributeName;
   v7 = swift_allocObject();
   *(v7 + 16) = sub_1002D835C;
-  *(v7 + 24) = &v41;
+  *(v7 + 24) = &v40;
   v8 = swift_allocObject();
   *(v8 + 16) = sub_1002D8270;
   *(v8 + 24) = v7;
-  v50 = sub_1002D826C;
-  v51 = v8;
+  v49 = sub_1002D826C;
+  v50 = v8;
   aBlock = _NSConcreteStackBlock;
   v1 = 1107296256;
-  v47 = 1107296256;
-  v48 = sub_10007E0A4;
-  v49 = &unk_100A63BB8;
+  v46 = 1107296256;
+  v47 = sub_10007E0A4;
+  v48 = &unk_100A63BB8;
   v9 = _Block_copy(&aBlock);
 
-  v37 = v6;
+  v36 = v6;
   [v5 enumerateAttribute:v6 inRange:0 options:v4 usingBlock:{0, v9}];
 
   _Block_release(v9);
@@ -6706,33 +6813,33 @@ uint64_t sub_1002B8F2C()
     goto LABEL_23;
   }
 
-  v3 = v52;
-  if (v52 >> 62)
+  v3 = v51;
+  if (v51 >> 62)
   {
     goto LABEL_24;
   }
 
-  v11 = *((v52 & 0xFFFFFFFFFFFFFF8) + 0x10);
+  v11 = *((v51 & 0xFFFFFFFFFFFFFF8) + 0x10);
   for (i = &selRef_setRegion_; v11; i = &selRef_setRegion_)
   {
     v13 = 0;
-    v40 = v3 & 0xC000000000000001;
-    v38 = OBJC_IVAR____TtC7Journal14CanvasTextView_bottomCanvasAttachment;
-    v39 = v3 & 0xFFFFFFFFFFFFFF8;
-    v34 = &v48;
-    v36 = v2;
-    v35 = v11;
-    v33 = v3;
+    v39 = v3 & 0xC000000000000001;
+    v37 = OBJC_IVAR____TtC7Journal14CanvasTextView_bottomCanvasAttachment;
+    v38 = v3 & 0xFFFFFFFFFFFFFF8;
+    v33 = &v47;
+    v35 = v2;
+    v34 = v11;
+    v32 = v3;
     while (1)
     {
-      if (v40)
+      if (v39)
       {
         v14 = specialized _ArrayBuffer._getElementSlowPath(_:)();
       }
 
       else
       {
-        if (v13 >= *(v39 + 16))
+        if (v13 >= *(v38 + 16))
         {
           goto LABEL_19;
         }
@@ -6747,7 +6854,7 @@ uint64_t sub_1002B8F2C()
         break;
       }
 
-      v17 = *&v2[v38];
+      v17 = *&v2[v37];
       if (v17 && (type metadata accessor for ResizableViewTextAttachment(), v18 = v15, v19 = v17, v20 = v15, v21 = v19, v22 = static NSObject.== infix(_:_:)(), v21, v15 = v20, v18, (v22 & 1) != 0))
       {
         sub_1002B7540(1);
@@ -6756,9 +6863,9 @@ uint64_t sub_1002B8F2C()
       else
       {
         *&v23 = __chkstk_darwin(v14).n128_u64[0];
-        v3 = v32;
-        v32[2] = v15;
-        v32[3] = v2;
+        v3 = v31;
+        v31[2] = v15;
+        v31[3] = v2;
         v24 = [v2 i[417]];
         v25 = [v24 length];
 
@@ -6770,28 +6877,28 @@ uint64_t sub_1002B8F2C()
         v26 = [v2 i[417]];
         v27 = swift_allocObject();
         *(v27 + 16) = sub_1002D8360;
-        *(v27 + 24) = v32;
+        *(v27 + 24) = v31;
         v28 = swift_allocObject();
         *(v28 + 16) = sub_1002D8270;
         *(v28 + 24) = v27;
-        v50 = sub_1002D826C;
-        v51 = v28;
+        v49 = sub_1002D826C;
+        v50 = v28;
         aBlock = _NSConcreteStackBlock;
-        v47 = v1;
-        v48 = sub_10007E0A4;
-        v49 = &unk_100A63C30;
+        v46 = v1;
+        v47 = sub_10007E0A4;
+        v48 = &unk_100A63C30;
         v29 = _Block_copy(&aBlock);
 
         i = &selRef_setRegion_;
 
-        [v26 enumerateAttribute:v37 inRange:0 options:v25 usingBlock:{0, v29}];
+        [v26 enumerateAttribute:v36 inRange:0 options:v25 usingBlock:{0, v29}];
 
-        v2 = v36;
+        v2 = v35;
         _Block_release(v29);
         v30 = swift_isEscapingClosureAtFileLocation();
 
-        v3 = v33;
-        v11 = v35;
+        v3 = v32;
+        v11 = v34;
         if (v30)
         {
           goto LABEL_21;
@@ -6801,6 +6908,7 @@ uint64_t sub_1002B8F2C()
       ++v13;
       if (v16 == v11)
       {
+        goto LABEL_25;
       }
     }
 
@@ -6818,6 +6926,8 @@ LABEL_23:
 LABEL_24:
     v11 = _CocoaArrayWrapper.endIndex.getter();
   }
+
+LABEL_25:
 }
 
 void sub_1002B9458(void *a1)
@@ -7026,11 +7136,11 @@ LABEL_21:
     if (!*(&v80 + 1))
     {
 
-      sub_100004F84(&aBlock, &qword_100AD13D0);
+      sub_100004F84(&aBlock, &qword_100AD13D0, &unk_100942DB0);
       goto LABEL_28;
     }
 
-    sub_1000065A8(0, &qword_100ADC5F0);
+    sub_1000065A8(0, &qword_100ADC5F0, NSTextParagraphAnchoredAttachment_ptr);
     if ((swift_dynamicCast() & 1) == 0 || (v77, [v1 selectedRange], v48))
     {
 LABEL_26:
@@ -7081,7 +7191,7 @@ LABEL_38:
     v55 = [v54 attributesAtIndex:v72 effectiveRange:0];
 
     type metadata accessor for Key(0);
-    sub_10008D118(&qword_100ADC650, type metadata accessor for Key);
+    sub_10008D118(&qword_100ADC650, type metadata accessor for Key, &unk_10093BF84);
     static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
 
     v56 = objc_allocWithZone(NSAttributedString);
@@ -7136,7 +7246,7 @@ uint64_t sub_1002BA06C(uint64_t a1)
 {
   v2[14] = a1;
   v2[15] = v1;
-  sub_1000F24EC(&unk_100ADC5E0);
+  sub_1000F24EC(&unk_100ADC5E0, &qword_10094C390);
   v2[16] = swift_task_alloc();
   type metadata accessor for MainActor();
   v2[17] = static MainActor.shared.getter();
@@ -7147,55 +7257,55 @@ uint64_t sub_1002BA06C(uint64_t a1)
   return _swift_task_switch(sub_1002BA13C, v4, v3);
 }
 
-uint64_t sub_1002BA13C()
+uint64_t sub_1002BA13C(uint64_t a1)
 {
   PaperMarkup.contentsRenderFrame.getter();
-  v29.origin.x = 0.0;
-  v29.origin.y = 0.0;
-  v29.size.width = 0.0;
-  v29.size.height = 0.0;
-  if (CGRectEqualToRect(v25, v29) || (PaperMarkup.contentsRenderFrame.getter(), v30.origin.x = CGRectNull.origin.x, v30.origin.y = CGRectNull.origin.y, v30.size.width = CGRectNull.size.width, v30.size.height = CGRectNull.size.height, CGRectEqualToRect(v26, v30)) || (v1 = [*(v0 + 120) selectedTextRange], (*(v0 + 160) = v1) == 0))
+  v30.origin.x = 0.0;
+  v30.origin.y = 0.0;
+  v30.size.width = 0.0;
+  v30.size.height = 0.0;
+  if (CGRectEqualToRect(v26, v30) || (PaperMarkup.contentsRenderFrame.getter(), v31.origin.x = CGRectNull.origin.x, v31.origin.y = CGRectNull.origin.y, v31.size.width = CGRectNull.size.width, v31.size.height = CGRectNull.size.height, CGRectEqualToRect(v27, v31)) || (v2 = [*(v1 + 120) selectedTextRange], (*(v1 + 160) = v2) == 0))
   {
 
-    v23 = *(v0 + 8);
+    v24 = *(v1 + 8);
 
-    return v23();
+    return v24();
   }
 
   else
   {
-    v2 = v1;
-    v4 = *(v0 + 120);
-    v3 = *(v0 + 128);
-    v5 = *(v0 + 112);
-    v6 = [v4 beginningOfDocument];
-    v7 = [v2 start];
-    v8 = [v2 end];
-    v9 = [v4 offsetFromPosition:v6 toPosition:v7];
-    v10 = [v4 offsetFromPosition:v7 toPosition:v8];
+    v3 = v2;
+    v5 = *(v1 + 120);
+    v4 = *(v1 + 128);
+    v6 = *(v1 + 112);
+    v7 = [v5 beginningOfDocument];
+    v8 = [v3 start];
+    v9 = [v3 end];
+    v10 = [v5 offsetFromPosition:v7 toPosition:v8];
+    v11 = [v5 offsetFromPosition:v8 toPosition:v9];
 
     PaperMarkup.contentsRenderFrame.getter();
     PaperMarkup.contentsRenderFrame.getter();
-    CGRectGetHeight(v27);
-    [v4 bounds];
-    Width = CGRectGetWidth(v28);
-    [v4 textContainerInset];
-    v13 = Width - v12;
-    [v4 textContainerInset];
-    v15 = sub_1002B2ED8(v13 - v14);
-    v17 = v16;
-    *(v4 + OBJC_IVAR____TtC7Journal14CanvasTextView_ignoreCanvasRemovalRequests) = 1;
-    v18 = type metadata accessor for PaperMarkup();
-    v19 = *(v18 - 8);
-    (*(v19 + 16))(v3, v5, v18);
-    (*(v19 + 56))(v3, 0, 1, v18);
-    v20 = swift_task_alloc();
-    *(v0 + 168) = v20;
-    *v20 = v0;
-    v20[1] = sub_1002BA444;
-    v21 = *(v0 + 128);
+    CGRectGetHeight(v28);
+    [v5 bounds];
+    Width = CGRectGetWidth(v29);
+    [v5 textContainerInset];
+    v14 = Width - v13;
+    [v5 textContainerInset];
+    v16 = sub_1002B2ED8(v14 - v15);
+    v18 = v17;
+    *(v5 + OBJC_IVAR____TtC7Journal14CanvasTextView_ignoreCanvasRemovalRequests) = 1;
+    v19 = type metadata accessor for PaperMarkup();
+    v20 = *(v19 - 8);
+    (*(v20 + 16))(v4, v6, v19);
+    (*(v20 + 56))(v4, 0, 1, v19);
+    v21 = swift_task_alloc();
+    *(v1 + 168) = v21;
+    *v21 = v1;
+    v21[1] = sub_1002BA444;
+    v22 = *(v1 + 128);
 
-    return sub_1002BA78C(v9, v10, v21, 1, v15, v17);
+    return sub_1002BA78C(v10, v11, v22, 1, v16, v18);
   }
 }
 
@@ -7204,7 +7314,7 @@ uint64_t sub_1002BA444(void *a1)
   v3 = *v1;
   v4 = *(*v1 + 128);
 
-  sub_100004F84(v4, &unk_100ADC5E0);
+  sub_100004F84(v4, &unk_100ADC5E0, &qword_10094C390);
   v5 = *(v3 + 152);
   v6 = *(v3 + 144);
 
@@ -7258,7 +7368,7 @@ uint64_t sub_1002BA78C(uint64_t a1, uint64_t a2, uint64_t a3, char a4, double a5
   *(v7 + 24) = a2;
   *(v7 + 32) = a3;
   *(v7 + 16) = a1;
-  sub_1000F24EC(&qword_100AD1420);
+  sub_1000F24EC(&qword_100AD1420, &unk_10093C080);
   *(v7 + 64) = swift_task_alloc();
   v8 = type metadata accessor for NSManagedObjectContext.ScheduledTaskType();
   *(v7 + 72) = v8;
@@ -7276,7 +7386,7 @@ uint64_t sub_1002BA78C(uint64_t a1, uint64_t a2, uint64_t a3, char a4, double a5
   *(v7 + 144) = v11;
   *(v7 + 152) = *(v11 - 8);
   *(v7 + 160) = swift_task_alloc();
-  sub_1000F24EC(&unk_100ADC5E0);
+  sub_1000F24EC(&unk_100ADC5E0, &qword_10094C390);
   *(v7 + 168) = swift_task_alloc();
   *(v7 + 176) = swift_task_alloc();
   v12 = type metadata accessor for PaperMarkup();
@@ -7313,18 +7423,18 @@ uint64_t sub_1002BAA7C()
   v2 = *(v0 + 184);
   v3 = *(v0 + 192);
   v4 = *(v0 + 176);
-  sub_1000082B4(*(v0 + 32), v4, &unk_100ADC5E0);
+  sub_1000082B4(*(v0 + 32), v4, &unk_100ADC5E0, &qword_10094C390);
   if ((*(v3 + 48))(v4, 1, v2) == 1)
   {
     v5 = *(v0 + 176);
 
-    sub_100004F84(v5, &unk_100ADC5E0);
+    sub_100004F84(v5, &unk_100ADC5E0, &qword_10094C390);
 LABEL_24:
     v15 = *(v0 + 208);
     v16 = *(v0 + 168);
     v17 = *(v0 + 32);
     (*(*(v0 + 152) + 104))(*(v0 + 160), enum case for AssetSource.drawingCanvas(_:), *(v0 + 144));
-    sub_1000082B4(v17, v16, &unk_100ADC5E0);
+    sub_1000082B4(v17, v16, &unk_100ADC5E0, &qword_10094C390);
 
     v18 = swift_task_alloc();
     *(v0 + 264) = v18;
@@ -7393,7 +7503,7 @@ LABEL_31:
       goto LABEL_32;
     }
 
-    type metadata accessor for DrawingAsset();
+    type metadata accessor for DrawingAsset(0);
     v14 = swift_dynamicCastClass();
     *(v0 + 248) = v14;
     if (v14)
@@ -7540,10 +7650,10 @@ uint64_t sub_1002BB5E0()
   v2[1] = sub_1002BB6D8;
   v3 = v0[11];
 
-  return NSManagedObjectContext.perform<A>(schedule:_:)(v2, v3, sub_1002D2D78, v1, &type metadata for () + 8);
+  return NSManagedObjectContext.perform<A>(schedule:_:)(v2, v3, sub_1002D2D78, v1, &type metadata for () + 1);
 }
 
-uint64_t sub_1002BB6D8()
+void sub_1002BB6D8()
 {
   v2 = *v1;
 
@@ -7555,10 +7665,10 @@ uint64_t sub_1002BB6D8()
   {
     (*(v2[10] + 8))(v2[11], v2[9]);
 
-    v4 = v2[35];
-    v5 = v2[36];
+    v3 = v2[35];
+    v4 = v2[36];
 
-    return _swift_task_switch(sub_1002BB9D8, v4, v5);
+    _swift_task_switch(sub_1002BB9D8, v3, v4);
   }
 }
 
@@ -7596,7 +7706,7 @@ uint64_t sub_1002BB9D8()
   (*(v6 + 16))(v3, &v2[v4], v5);
   (*(v6 + 56))(v3, 0, 1, v5);
   sub_1001F81C4(v3);
-  sub_100004F84(v3, &qword_100AD1420);
+  sub_100004F84(v3, &qword_100AD1420, &unk_10093C080);
   sub_10056B00C(v2, v1);
   v8 = *(v0 + 16);
   v7 = *(v0 + 17);
@@ -7669,7 +7779,7 @@ id sub_1002BBC70(id result, _BYTE *a2)
 
 void sub_1002BBE04(void *a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v8 = sub_1000F24EC(&unk_100ADC5E0);
+  v8 = sub_1000F24EC(&unk_100ADC5E0, &qword_10094C390);
   __chkstk_darwin(v8 - 8);
   v10 = &v36 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v11);
@@ -7691,7 +7801,7 @@ void sub_1002BBE04(void *a1, uint64_t a2, uint64_t a3, void *a4)
 
     if (v20 - a3 <= 1)
     {
-      type metadata accessor for ResizableAssetViewTextAttachment();
+      type metadata accessor for ResizableAssetViewTextAttachment(0);
       if (swift_dynamicCastClass())
       {
         v37 = a1;
@@ -7720,7 +7830,7 @@ void sub_1002BBE04(void *a1, uint64_t a2, uint64_t a3, void *a4)
             {
 
 LABEL_16:
-              sub_100004F84(v13, &unk_100ADC5E0);
+              sub_100004F84(v13, &unk_100ADC5E0, &qword_10094C390);
               return;
             }
 
@@ -7728,7 +7838,7 @@ LABEL_16:
             (*(v15 + 16))(v10, v18, v14);
             (*(v15 + 56))(v10, 0, 1, v14);
             v28 = sub_1002B5D1C(v10, 1);
-            sub_100004F84(v10, &unk_100ADC5E0);
+            sub_100004F84(v10, &unk_100ADC5E0, &qword_10094C390);
             if (v28)
             {
               [v28 setAlpha:0.0];
@@ -7964,7 +8074,7 @@ LABEL_15:
 uint64_t sub_1002BCAA8(char a1)
 {
   v2 = v1;
-  v4 = sub_1000F24EC(&qword_100AD5170);
+  v4 = sub_1000F24EC(&qword_100AD5170, &unk_100943680);
   __chkstk_darwin(v4 - 8);
   v6 = &v18 - v5;
   if (*&v1[OBJC_IVAR____TtC7Journal15JournalTextView_journalEntry])
@@ -8005,7 +8115,7 @@ uint64_t sub_1002BCAA8(char a1)
   return 0;
 }
 
-id sub_1002BCD24(char *a1, void *a2, void *a3, int a4, unint64_t a5, uint64_t a6, void *a7, double a8, double a9, double a10, double a11)
+char *sub_1002BCD24(char *a1, void *a2, void *a3, int a4, unint64_t a5, uint64_t a6, char *a7, double a8, double a9, double a10, double a11)
 {
   v105 = a7;
   LODWORD(v106) = a4;
@@ -8014,7 +8124,7 @@ id sub_1002BCD24(char *a1, void *a2, void *a3, int a4, unint64_t a5, uint64_t a6
   v20 = *(v19 - 8);
   __chkstk_darwin(v19);
   v22 = &v103[-((v21 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v23 = sub_1000F24EC(&qword_100AD5170);
+  v23 = sub_1000F24EC(&qword_100AD5170, &unk_100943680);
   __chkstk_darwin(v23 - 8);
   v25 = &v103[-v24];
   v108 = a2;
@@ -8032,9 +8142,9 @@ id sub_1002BCD24(char *a1, void *a2, void *a3, int a4, unint64_t a5, uint64_t a6
     v27 = vand_s8(vmovn_s32(vmvnq_s8(vuzp1q_s32(vceqzq_s64(vandq_s8(v28, xmmword_10094C2F0)), vceqzq_s64(vandq_s8(v28, xmmword_10094C300))))), 0x1000100010001);
   }
 
-  type metadata accessor for DrawingAsset();
+  type metadata accessor for DrawingAsset(0);
   v104 = (swift_dynamicCastClass() != 0) | v26;
-  v29 = objc_allocWithZone(type metadata accessor for ResizableAssetViewTextAttachment());
+  v29 = objc_allocWithZone(type metadata accessor for ResizableAssetViewTextAttachment(0));
   v30 = OBJC_IVAR____TtC7Journal5Asset_id;
   v31 = OBJC_IVAR____TtC7Journal32ResizableAssetViewTextAttachment_assetID;
   v32 = type metadata accessor for UUID();
@@ -8083,7 +8193,7 @@ id sub_1002BCD24(char *a1, void *a2, void *a3, int a4, unint64_t a5, uint64_t a6
   sub_1003E9628(0, 0, v25, &unk_10094C3A0, v43);
 
   (*(v20 + 104))(v22, enum case for AssetType.drawing(_:), v19);
-  sub_10008D118(&qword_100AD5B40, &type metadata accessor for AssetType);
+  sub_10008D118(&qword_100AD5B40, &type metadata accessor for AssetType, &protocol conformance descriptor for AssetType);
   dispatch thunk of RawRepresentable.rawValue.getter();
   dispatch thunk of RawRepresentable.rawValue.getter();
   if (aBlock == v116[0] && v111 == v116[1])
@@ -8110,9 +8220,9 @@ id sub_1002BCD24(char *a1, void *a2, void *a3, int a4, unint64_t a5, uint64_t a6
   }
 
   v49 = [v45 v46[417]];
-  sub_1000F24EC(&qword_100ADC5F8);
+  sub_1000F24EC(&qword_100ADC5F8, &qword_10094C3A8);
   v50 = swift_dynamicCastClass();
-  if (v50 && (sub_100086C04(v50 + *((swift_isaMask & *v50) + 0x78), &aBlock), sub_1000F24EC(&qword_100ADC600), type metadata accessor for CustomAttributeProviderConcrete(), (swift_dynamicCast() & 1) != 0))
+  if (v50 && (sub_100086C04(v50 + *((swift_isaMask & *v50) + 0x78), &aBlock), sub_1000F24EC(&qword_100ADC600, &qword_10094C3B0), type metadata accessor for CustomAttributeProviderConcrete(0), (swift_dynamicCast() & 1) != 0))
   {
     v51 = v116[0];
     swift_beginAccess();
@@ -8310,7 +8420,7 @@ uint64_t sub_1002BD9DC(double a1, double a2, uint64_t a3, uint64_t a4, uint64_t 
   *(v8 + 72) = a7;
   *(v8 + 80) = a8;
   *(v8 + 64) = a6;
-  sub_1000F24EC(&unk_100ADC5E0);
+  sub_1000F24EC(&unk_100ADC5E0, &qword_10094C390);
   *(v8 + 104) = swift_task_alloc();
   type metadata accessor for MainActor();
   *(v8 + 112) = static MainActor.shared.getter();
@@ -8367,7 +8477,7 @@ uint64_t sub_1002BDC34(void *a1)
   v4 = *(*v1 + 136);
   v5 = *(*v1 + 104);
 
-  sub_100004F84(v5, &unk_100ADC5E0);
+  sub_100004F84(v5, &unk_100ADC5E0, &qword_10094C390);
   v6 = *(v3 + 128);
   v7 = *(v3 + 120);
 
@@ -8394,7 +8504,7 @@ uint64_t sub_1002BDE48(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char 
 {
   *(v5 + 104) = a5;
   *(v5 + 40) = a4;
-  sub_1000F24EC(&unk_100ADC5E0);
+  sub_1000F24EC(&unk_100ADC5E0, &qword_10094C390);
   *(v5 + 48) = swift_task_alloc();
   type metadata accessor for MainActor();
   *(v5 + 56) = static MainActor.shared.getter();
@@ -8442,7 +8552,7 @@ uint64_t sub_1002BE0AC(uint64_t a1)
   v3 = *(*v1 + 48);
   *(*v1 + 96) = a1;
 
-  sub_100004F84(v3, &unk_100ADC5E0);
+  sub_100004F84(v3, &unk_100ADC5E0, &qword_10094C390);
   v4 = *(v2 + 72);
   v5 = *(v2 + 64);
 
@@ -8492,10 +8602,10 @@ uint64_t sub_1002BE208()
 
 void sub_1002BE338(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4, void *a5)
 {
-  v8 = sub_1000F24EC(&qword_100AD5170);
+  v8 = sub_1000F24EC(&qword_100AD5170, &unk_100943680);
   __chkstk_darwin(v8 - 8);
   v10 = &v36 - v9;
-  v11 = sub_1000F24EC(&unk_100ADC5E0);
+  v11 = sub_1000F24EC(&unk_100ADC5E0, &qword_10094C390);
   __chkstk_darwin(v11 - 8);
   v13 = &v36 - v12;
   v14 = type metadata accessor for PaperMarkup();
@@ -8542,7 +8652,7 @@ void sub_1002BE338(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4, void *a5)
     {
 
 LABEL_14:
-      sub_100004F84(v13, &unk_100ADC5E0);
+      sub_100004F84(v13, &unk_100ADC5E0, &qword_10094C390);
       return;
     }
 
@@ -8637,7 +8747,7 @@ uint64_t sub_1002BE920()
 {
   v2 = v0[4];
   v1 = v0[5];
-  sub_1000F24EC(&unk_100AE1A40);
+  sub_1000F24EC(&unk_100AE1A40, &qword_10094C3D0);
   v3 = type metadata accessor for UUID();
   v4 = *(v3 - 8);
   v5 = (*(v4 + 80) + 32) & ~*(v4 + 80);
@@ -8767,21 +8877,21 @@ LABEL_15:
   }
 }
 
-void sub_1002BF058(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void sub_1002BF058(uint64_t a1, __n128 a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v5 = *(a1 + OBJC_IVAR____TtC7Journal27ResizableViewTextAttachment_currentProvider);
-  if (v5 && (v6 = *(v5 + OBJC_IVAR____TtC7JournalP33_1C06B2E6919F8D96964EAFC32087680D35ResizableTextAttachmentViewProvider_resizableAttachmentView)) != 0 && (v7 = *(v6 + OBJC_IVAR____TtC7JournalP33_1C06B2E6919F8D96964EAFC32087680D23ResizableAttachmentView_attachmentView)) != 0)
+  v6 = *(a1 + OBJC_IVAR____TtC7Journal27ResizableViewTextAttachment_currentProvider);
+  if (v6 && (v7 = *(v6 + OBJC_IVAR____TtC7JournalP33_1C06B2E6919F8D96964EAFC32087680D35ResizableTextAttachmentViewProvider_resizableAttachmentView)) != 0 && (v8 = *(v7 + OBJC_IVAR____TtC7JournalP33_1C06B2E6919F8D96964EAFC32087680D23ResizableAttachmentView_attachmentView)) != 0)
   {
-    v10 = v7;
+    v11 = v8;
   }
 
   else
   {
-    v8 = sub_1007C8890();
-    v9 = *&v8[OBJC_IVAR____TtC7JournalP33_1C06B2E6919F8D96964EAFC32087680D23ResizableAttachmentView_attachmentView];
-    v10 = v9;
+    v9 = sub_1007C8890();
+    v10 = *&v9[OBJC_IVAR____TtC7JournalP33_1C06B2E6919F8D96964EAFC32087680D23ResizableAttachmentView_attachmentView];
+    v11 = v10;
 
-    if (!v9)
+    if (!v10)
     {
       return;
     }
@@ -8790,50 +8900,50 @@ void sub_1002BF058(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   type metadata accessor for DrawingAssetView();
   if (swift_dynamicCastClass())
   {
-    sub_10071C024(*(a4 + OBJC_IVAR____TtC7Journal14CanvasTextView_toolPicker), 0);
+    sub_10071C024(*(a5 + OBJC_IVAR____TtC7Journal14CanvasTextView_toolPicker), 0);
   }
 }
 
-void sub_1002BF140(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void sub_1002BF140(uint64_t a1, __n128 a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v5 = *(a1 + OBJC_IVAR____TtC7Journal27ResizableViewTextAttachment_currentProvider);
-  if (v5 && (v6 = *(v5 + OBJC_IVAR____TtC7JournalP33_1C06B2E6919F8D96964EAFC32087680D35ResizableTextAttachmentViewProvider_resizableAttachmentView)) != 0 && (v7 = *(v6 + OBJC_IVAR____TtC7JournalP33_1C06B2E6919F8D96964EAFC32087680D23ResizableAttachmentView_attachmentView)) != 0)
+  v6 = *(a1 + OBJC_IVAR____TtC7Journal27ResizableViewTextAttachment_currentProvider);
+  if (v6 && (v7 = *(v6 + OBJC_IVAR____TtC7JournalP33_1C06B2E6919F8D96964EAFC32087680D35ResizableTextAttachmentViewProvider_resizableAttachmentView)) != 0 && (v8 = *(v7 + OBJC_IVAR____TtC7JournalP33_1C06B2E6919F8D96964EAFC32087680D23ResizableAttachmentView_attachmentView)) != 0)
   {
-    v17 = v7;
+    v18 = v8;
   }
 
   else
   {
-    v8 = sub_1007C8890();
-    v9 = *&v8[OBJC_IVAR____TtC7JournalP33_1C06B2E6919F8D96964EAFC32087680D23ResizableAttachmentView_attachmentView];
-    v17 = v9;
+    v9 = sub_1007C8890();
+    v10 = *&v9[OBJC_IVAR____TtC7JournalP33_1C06B2E6919F8D96964EAFC32087680D23ResizableAttachmentView_attachmentView];
+    v18 = v10;
 
-    if (!v9)
+    if (!v10)
     {
       return;
     }
   }
 
   type metadata accessor for DrawingAssetView();
-  v10 = swift_dynamicCastClass();
-  if (v10)
+  v11 = swift_dynamicCastClass();
+  if (v11)
   {
-    v11 = v10;
-    sub_10071C024(*(a4 + OBJC_IVAR____TtC7Journal14CanvasTextView_toolPicker), 1);
-    v12 = *(v11 + OBJC_IVAR____TtC7Journal16DrawingAssetView_paperKitCanvasView);
-    if (v12)
+    v12 = v11;
+    sub_10071C024(*(a5 + OBJC_IVAR____TtC7Journal14CanvasTextView_toolPicker), 1);
+    v13 = *(v12 + OBJC_IVAR____TtC7Journal16DrawingAssetView_paperKitCanvasView);
+    if (v13)
     {
-      v13 = *&v12[OBJC_IVAR____TtC7Journal25PaperKitDrawingCanvasView_paperKitViewController];
-      v14 = v12;
-      v15 = [v13 view];
-      if (!v15)
+      v14 = *&v13[OBJC_IVAR____TtC7Journal25PaperKitDrawingCanvasView_paperKitViewController];
+      v15 = v13;
+      v16 = [v14 view];
+      if (!v16)
       {
         __break(1u);
         return;
       }
 
-      v16 = v15;
-      [v15 becomeFirstResponder];
+      v17 = v16;
+      [v16 becomeFirstResponder];
     }
   }
 }
@@ -8849,7 +8959,7 @@ void sub_1002BF290(char *a1)
   v4 = *&v1[OBJC_IVAR____TtC7Journal14CanvasTextView_initialDrawingCanvas];
   if (v4)
   {
-    type metadata accessor for PaperKitDrawingCanvasView();
+    type metadata accessor for PaperKitDrawingCanvasView(0);
     v5 = a1;
     v6 = v4;
     v7 = static NSObject.== infix(_:_:)();
@@ -8897,10 +9007,10 @@ LABEL_13:
 void sub_1002BF440(char *a1)
 {
   v2 = v1;
-  v4 = sub_1000F24EC(&qword_100AD5170);
+  v4 = sub_1000F24EC(&qword_100AD5170, &unk_100943680);
   __chkstk_darwin(v4 - 8);
   v87 = &v78 - v5;
-  v6 = sub_1000F24EC(&unk_100ADC5E0);
+  v6 = sub_1000F24EC(&unk_100ADC5E0, &qword_10094C390);
   __chkstk_darwin(v6 - 8);
   v8 = &v78 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v9);
@@ -8915,7 +9025,7 @@ void sub_1002BF440(char *a1)
   *&v17 = __chkstk_darwin(v16).n128_u64[0];
   v84 = &v78 - v18;
   v19 = *&v1[OBJC_IVAR____TtC7Journal14CanvasTextView_initialDrawingCanvas];
-  if (!v19 || (type metadata accessor for PaperKitDrawingCanvasView(), v20 = a1, v21 = v19, v22 = static NSObject.== infix(_:_:)(), v21, v83 = v20, v20, (v22 & 1) == 0))
+  if (!v19 || (type metadata accessor for PaperKitDrawingCanvasView(0), v20 = a1, v21 = v19, v22 = static NSObject.== infix(_:_:)(), v21, v83 = v20, v20, (v22 & 1) == 0))
   {
     v31 = v11;
     v32 = [a1 superview];
@@ -8935,7 +9045,7 @@ void sub_1002BF440(char *a1)
         if ((*(v31 + 48))(v8, 1, v88) == 1)
         {
 
-          sub_100004F84(v8, &unk_100ADC5E0);
+          sub_100004F84(v8, &unk_100ADC5E0, &qword_10094C390);
         }
 
         else
@@ -9036,7 +9146,7 @@ LABEL_43:
       goto LABEL_44;
     }
 
-    type metadata accessor for DrawingAsset();
+    type metadata accessor for DrawingAsset(0);
     v30 = swift_dynamicCastClass();
     if (v30)
     {
@@ -9061,7 +9171,7 @@ LABEL_43:
   if ((*(v81 + 48))(v61, 1, v88) == 1)
   {
 
-    sub_100004F84(v61, &unk_100ADC5E0);
+    sub_100004F84(v61, &unk_100ADC5E0, &qword_10094C390);
     return;
   }
 
@@ -9232,96 +9342,96 @@ uint64_t sub_1002C0170()
   return _swift_task_switch(sub_1000EC728, v3, v2);
 }
 
-void sub_1002C02B4(void *a1)
+double sub_1002C02B4(void *a1)
 {
   v2 = v1;
-  v4 = sub_1000F24EC(&qword_100AD5170);
+  v4 = sub_1000F24EC(&qword_100AD5170, &unk_100943680);
   *&v5 = __chkstk_darwin(v4 - 8).n128_u64[0];
-  v7 = &v22 - v6;
+  v7 = &v23 - v6;
   if (![v2 isEditable])
   {
-    return;
+    return result;
   }
 
-  v8 = *&v2[OBJC_IVAR____TtC7Journal14CanvasTextView_initialDrawingCanvas];
-  if (!v8)
+  v9 = *&v2[OBJC_IVAR____TtC7Journal14CanvasTextView_initialDrawingCanvas];
+  if (!v9)
   {
-    return;
+    return result;
   }
 
-  type metadata accessor for PaperKitDrawingCanvasView();
-  v9 = a1;
-  v10 = v8;
-  v11 = static NSObject.== infix(_:_:)();
+  type metadata accessor for PaperKitDrawingCanvasView(0);
+  v10 = a1;
+  v11 = v9;
+  v12 = static NSObject.== infix(_:_:)();
 
-  if ((v11 & 1) == 0)
+  if ((v12 & 1) == 0)
   {
-    return;
+    return result;
   }
 
-  v12 = *&v2[OBJC_IVAR____TtC7Journal15JournalTextView_journalEntry];
-  if (!v12)
+  v13 = *&v2[OBJC_IVAR____TtC7Journal15JournalTextView_journalEntry];
+  if (!v13)
   {
-    return;
+    return result;
   }
 
   if ((sub_10029EF80() & 1) == 0)
   {
 LABEL_19:
-    v19 = type metadata accessor for TaskPriority();
-    (*(*(v19 - 8) + 56))(v7, 1, 1, v19);
+    v20 = type metadata accessor for TaskPriority();
+    (*(*(v20 - 8) + 56))(v7, 1, 1, v20);
     type metadata accessor for MainActor();
 
-    v20 = static MainActor.shared.getter();
-    v21 = swift_allocObject();
-    v21[2] = v20;
-    v21[3] = &protocol witness table for MainActor;
-    v21[4] = v12;
-    sub_1003E9628(0, 0, v7, &unk_10094C448, v21);
+    v21 = static MainActor.shared.getter();
+    v22 = swift_allocObject();
+    v22[2] = v21;
+    v22[3] = &protocol witness table for MainActor;
+    v22[4] = v13;
+    sub_1003E9628(0, 0, v7, &unk_10094C448, v22);
 
-    return;
+    return result;
   }
 
-  v13 = *(v12 + OBJC_IVAR____TtC7Journal14EntryViewModel_canvasAssets);
-  if (v13 >> 62)
+  v14 = *(v13 + OBJC_IVAR____TtC7Journal14EntryViewModel_canvasAssets);
+  if (v14 >> 62)
   {
 LABEL_26:
-    v14 = _CocoaArrayWrapper.endIndex.getter();
+    v15 = _CocoaArrayWrapper.endIndex.getter();
   }
 
   else
   {
-    v14 = *((v13 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    v15 = *((v14 & 0xFFFFFFFFFFFFFF8) + 0x10);
   }
 
-  if (!v14)
+  if (!v15)
   {
 LABEL_18:
 
     goto LABEL_19;
   }
 
-  v15 = 0;
+  v16 = 0;
   while (1)
   {
-    if ((v13 & 0xC000000000000001) != 0)
+    if ((v14 & 0xC000000000000001) != 0)
     {
-      v16 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+      v17 = specialized _ArrayBuffer._getElementSlowPath(_:)();
     }
 
     else
     {
-      if (v15 >= *((v13 & 0xFFFFFFFFFFFFFF8) + 0x10))
+      if (v16 >= *((v14 & 0xFFFFFFFFFFFFFF8) + 0x10))
       {
         goto LABEL_25;
       }
 
-      v16 = *(v13 + 8 * v15 + 32);
+      v17 = *(v14 + 8 * v16 + 32);
     }
 
-    v17 = v16;
-    v18 = v15 + 1;
-    if (__OFADD__(v15, 1))
+    v18 = v17;
+    v19 = v16 + 1;
+    if (__OFADD__(v16, 1))
     {
       __break(1u);
 LABEL_25:
@@ -9329,24 +9439,26 @@ LABEL_25:
       goto LABEL_26;
     }
 
-    type metadata accessor for DrawingAsset();
+    type metadata accessor for DrawingAsset(0);
     if (swift_dynamicCastClass())
     {
       break;
     }
 
-    ++v15;
-    if (v18 == v14)
+    ++v16;
+    if (v19 == v15)
     {
       goto LABEL_18;
     }
   }
+
+  return result;
 }
 
 uint64_t sub_1002C0588(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v4[2] = a4;
-  sub_1000F24EC(&qword_100AD1420);
+  sub_1000F24EC(&qword_100AD1420, &unk_10093C080);
   v4[3] = swift_task_alloc();
   v5 = type metadata accessor for NSManagedObjectContext.ScheduledTaskType();
   v4[4] = v5;
@@ -9459,10 +9571,10 @@ uint64_t sub_1002C0B80()
   v2 = v0[6];
   v3 = v0[2];
 
-  return NSManagedObjectContext.perform<A>(schedule:_:)(v1, v2, sub_1002D8344, v3, &type metadata for () + 8);
+  return NSManagedObjectContext.perform<A>(schedule:_:)(v1, v2, sub_1002D8344, v3, &type metadata for () + 1);
 }
 
-uint64_t sub_1002C0C78()
+void sub_1002C0C78()
 {
   v2 = *v1;
 
@@ -9474,10 +9586,10 @@ uint64_t sub_1002C0C78()
   {
     (*(v2[5] + 8))(v2[6], v2[4]);
 
-    v4 = v2[20];
-    v5 = v2[21];
+    v3 = v2[20];
+    v4 = v2[21];
 
-    return _swift_task_switch(sub_1002C0F78, v4, v5);
+    _swift_task_switch(sub_1002C0F78, v3, v4);
   }
 }
 
@@ -9515,7 +9627,7 @@ uint64_t sub_1002C0F78()
   (*(v6 + 16))(v3, &v2[v4], v5);
   (*(v6 + 56))(v3, 0, 1, v5);
   sub_1001F81C4(v3);
-  sub_100004F84(v3, &qword_100AD1420);
+  sub_100004F84(v3, &qword_100AD1420, &unk_10093C080);
   sub_10056B00C(v2, v1);
   v8 = *(v0 + 11);
   v7 = *(v0 + 12);
@@ -9638,7 +9750,7 @@ void sub_1002C1590(void *a1)
   v3 = *&v1[OBJC_IVAR____TtC7Journal14CanvasTextView_initialDrawingCanvas];
   if (v3)
   {
-    type metadata accessor for PaperKitDrawingCanvasView();
+    type metadata accessor for PaperKitDrawingCanvasView(0);
     v5 = a1;
     v6 = v3;
     LOBYTE(a1) = static NSObject.== infix(_:_:)();
@@ -9648,158 +9760,6 @@ void sub_1002C1590(void *a1)
       sub_1002B1FB8();
 
       [v2 becomeFirstResponder];
-    }
-  }
-}
-
-void sub_1002C1654(void *a1, double a2, double a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
-{
-  v12 = sub_1000F24EC(&qword_100AE4290);
-  *&v13 = __chkstk_darwin(v12 - 8).n128_u64[0];
-  v15 = &v33 - v14;
-  v34 = [a1 textAttachment];
-  type metadata accessor for ResizableAssetViewTextAttachment();
-  if (swift_dynamicCastClass() && (v16 = sub_1007C8C2C()) != 0)
-  {
-    v33 = v16;
-    [v16 bounds];
-    v18 = v17;
-    v20 = v19;
-    v22 = v21;
-    v24 = v23;
-    [v33 convertPoint:a6 fromCoordinateSpace:{a2, a3}];
-    v36.x = v25;
-    v36.y = v26;
-    v37.origin.x = v18;
-    v37.origin.y = v20;
-    v37.size.width = v22;
-    v37.size.height = v24;
-    if (CGRectContainsPoint(v37, v36))
-    {
-      v27 = sub_1006B7F9C();
-
-      if (v27)
-      {
-        v28 = OBJC_IVAR____TtC7Journal5Asset_type;
-        v29 = type metadata accessor for AssetType();
-        v30 = *(v29 - 8);
-        (*(v30 + 16))(v15, &v27[v28], v29);
-
-        (*(v30 + 56))(v15, 0, 1, v29);
-      }
-
-      else
-      {
-        v32 = type metadata accessor for AssetType();
-        (*(*(v32 - 8) + 56))(v15, 1, 1, v32);
-      }
-
-      sub_100014318(v15, a7, &qword_100AE4290);
-      return;
-    }
-
-    v31 = v33;
-  }
-
-  else
-  {
-    v31 = v34;
-  }
-}
-
-void sub_1002C1960(void *a1)
-{
-  type metadata accessor for ResizableAssetViewTextAttachment();
-  if (!swift_dynamicCastClass())
-  {
-    return;
-  }
-
-  v3 = a1;
-  v4 = sub_1006B7F9C();
-  if (v4)
-  {
-    if (swift_unknownObjectWeakLoadStrong())
-    {
-      sub_10048314C(v4);
-
-      swift_unknownObjectRelease();
-      return;
-    }
-
-    v2 = v4;
-  }
-
-  else
-  {
-    v2 = v3;
-  }
-}
-
-void sub_1002C1A58(uint64_t a1)
-{
-  v2 = v1;
-  sub_1002C1C88(a1);
-  type metadata accessor for TimelineTextView();
-  if (!swift_dynamicCastClass())
-  {
-    v3 = sub_1007C8C2C();
-    if (v3)
-    {
-      v4 = v3;
-      [v3 setUserInteractionEnabled:{objc_msgSend(v2, "isEditable")}];
-    }
-
-    [v2 isEditable];
-    sub_1007C8CA4();
-    sub_1007C8B44();
-    v5 = sub_1007C8C2C();
-    if (v5)
-    {
-      v19 = v5;
-      type metadata accessor for DrawingAssetView();
-      v6 = swift_dynamicCastClass();
-      if (v6)
-      {
-        v7 = v6;
-        v8 = OBJC_IVAR____TtC7Journal16DrawingAssetView_paperKitCanvasView;
-        v9 = *(v6 + OBJC_IVAR____TtC7Journal16DrawingAssetView_paperKitCanvasView);
-        if (v9)
-        {
-          *(v9 + OBJC_IVAR____TtC7Journal25PaperKitDrawingCanvasView_paperCanvasDelegate + 8) = &off_100A63588;
-          swift_unknownObjectWeakAssign();
-        }
-
-        v10 = *&v2[OBJC_IVAR____TtC7Journal14CanvasTextView_toolPicker];
-        Strong = swift_unknownObjectWeakLoadStrong();
-        swift_unknownObjectWeakAssign();
-        v12 = *(v7 + v8);
-        if (v12)
-        {
-          v13 = v12;
-          sub_100498548(v10, Strong);
-        }
-
-        if (v2[OBJC_IVAR____TtC7Journal14CanvasTextView_showDrawingToolsPending] == 1)
-        {
-          sub_10071C024(v10, 1);
-          v14 = *(v7 + v8);
-          if (v14)
-          {
-            v15 = *&v14[OBJC_IVAR____TtC7Journal25PaperKitDrawingCanvasView_paperKitViewController];
-            v16 = v14;
-            v17 = [v15 view];
-            if (!v17)
-            {
-              __break(1u);
-              return;
-            }
-
-            v18 = v17;
-            [v17 becomeFirstResponder];
-          }
-        }
-      }
     }
   }
 }

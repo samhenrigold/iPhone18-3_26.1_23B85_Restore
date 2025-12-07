@@ -18,18 +18,18 @@
   dCopy = d;
   infoCopy = info;
   identifierCopy = identifier;
-  v49.receiver = self;
-  v49.super_class = IMTapbackSender;
-  v20 = [(IMTapbackSender *)&v49 init];
-  if (!v20)
+  v43.receiver = self;
+  v43.super_class = IMTapbackSender;
+  v18 = [(IMTapbackSender *)&v43 init];
+  if (!v18)
   {
     goto LABEL_10;
   }
 
   if (!tapbackCopy)
   {
-    v38 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+    v32 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
       sub_1A84E1044();
     }
@@ -39,8 +39,8 @@
 
   if (!chatCopy)
   {
-    v38 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+    v32 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
       sub_1A84E1010();
     }
@@ -50,8 +50,8 @@
 
   if (!dCopy)
   {
-    v38 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+    v32 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
       sub_1A84E0FDC();
     }
@@ -61,8 +61,8 @@
 
   if (!infoCopy)
   {
-    v38 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+    v32 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
       sub_1A84E0FA8();
     }
@@ -72,57 +72,57 @@ LABEL_19:
     goto LABEL_20;
   }
 
-  v42 = chatCopy;
-  v21 = objc_msgSend___im_associatedMessageContentType(infoCopy, v18, v19);
+  v36 = chatCopy;
+  __im_associatedMessageContentType = [infoCopy __im_associatedMessageContentType];
 
-  if (v21)
+  if (__im_associatedMessageContentType)
   {
-    objc_storeStrong(v20 + 8, chat);
-    objc_storeStrong(v20 + 1, tapback);
-    objc_storeStrong(v20 + 2, d);
-    *(v20 + 9) = location;
-    *(v20 + 10) = length;
-    objc_storeStrong(v20 + 4, identifier);
-    v23 = objc_msgSend_adjustMessageSummaryInfoForSending_(tapbackCopy, v22, infoCopy);
-    v24 = *(v20 + 3);
-    *(v20 + 3) = v23;
+    objc_storeStrong(&v18->_chat, chat);
+    objc_storeStrong(&v18->_tapback, tapback);
+    objc_storeStrong(&v18->_messageGUID, d);
+    v18->_messagePartRange.location = location;
+    v18->_messagePartRange.length = length;
+    objc_storeStrong(&v18->_threadIdentifier, identifier);
+    v20 = [tapbackCopy adjustMessageSummaryInfoForSending:infoCopy];
+    messageSummaryInfo = v18->_messageSummaryInfo;
+    v18->_messageSummaryInfo = v20;
 
-    v27 = objc_msgSend_sharedInstance(IMFileTransferCenter, v25, v26);
+    v22 = +[IMFileTransferCenter sharedInstance];
     aBlock[0] = MEMORY[0x1E69E9820];
     aBlock[1] = 3221225472;
     aBlock[2] = sub_1A8310330;
     aBlock[3] = &unk_1E7811040;
-    v28 = v27;
-    v48 = v28;
-    v29 = _Block_copy(aBlock);
-    v45[0] = MEMORY[0x1E69E9820];
-    v45[1] = 3221225472;
-    v45[2] = sub_1A8310370;
-    v45[3] = &unk_1E7811040;
-    v30 = v28;
-    v46 = v30;
-    v31 = _Block_copy(v45);
-    v33 = objc_msgSend_backwardCompatibilityStringWithMessageSummaryInfo_isAdaptiveImageGlyphProvider_isCommSafetySensitiveProvider_(tapbackCopy, v32, *(v20 + 3), v29, v31);
-    v34 = *(v20 + 6);
-    *(v20 + 6) = v33;
+    v23 = v22;
+    v42 = v23;
+    v24 = _Block_copy(aBlock);
+    v39[0] = MEMORY[0x1E69E9820];
+    v39[1] = 3221225472;
+    v39[2] = sub_1A8310370;
+    v39[3] = &unk_1E7811040;
+    v25 = v23;
+    v40 = v25;
+    v26 = _Block_copy(v39);
+    v27 = [tapbackCopy backwardCompatibilityStringWithMessageSummaryInfo:v18->_messageSummaryInfo isAdaptiveImageGlyphProvider:v24 isCommSafetySensitiveProvider:v26];
+    backwardCompatibilityString = v18->_backwardCompatibilityString;
+    v18->_backwardCompatibilityString = v27;
 
-    if (*(v20 + 6))
+    if (v18->_backwardCompatibilityString)
     {
-      v35 = IMCreateSuperFormatStringFromPlainTextString();
-      v36 = *(v20 + 7);
-      *(v20 + 7) = v35;
+      v29 = IMCreateSuperFormatStringFromPlainTextString();
+      attributedContentString = v18->_attributedContentString;
+      v18->_attributedContentString = v29;
 
-      chatCopy = v42;
-      if (*(v20 + 7))
+      chatCopy = v36;
+      if (v18->_attributedContentString)
       {
 
 LABEL_10:
-        v37 = v20;
+        v31 = v18;
         goto LABEL_21;
       }
 
-      v41 = IMLogHandleForCategory();
-      if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+      v35 = IMLogHandleForCategory();
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
       {
         sub_1A84E0F0C();
       }
@@ -130,30 +130,30 @@ LABEL_10:
 
     else
     {
-      v41 = IMLogHandleForCategory();
-      chatCopy = v42;
-      if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+      v35 = IMLogHandleForCategory();
+      chatCopy = v36;
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
       {
         sub_1A84E0F40();
       }
     }
 
 LABEL_20:
-    v37 = 0;
+    v31 = 0;
     goto LABEL_21;
   }
 
-  v40 = IMLogHandleForCategory();
-  if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+  v34 = IMLogHandleForCategory();
+  if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
   {
     sub_1A84E0F74();
   }
 
-  v37 = 0;
-  chatCopy = v42;
+  v31 = 0;
+  chatCopy = v36;
 LABEL_21:
 
-  return v37;
+  return v31;
 }
 
 - (IMTapbackSender)initWithTapback:(id)tapback chat:(id)chat messagePartChatItem:(id)item
@@ -161,102 +161,96 @@ LABEL_21:
   itemCopy = item;
   chatCopy = chat;
   tapbackCopy = tapback;
-  v13 = objc_msgSend_originalMessagePartRange(itemCopy, v11, v12);
-  v15 = v14;
-  v17 = objc_msgSend_guid(itemCopy, v14, v16);
-  v20 = objc_msgSend_messageSummaryInfo(itemCopy, v18, v19);
-  v23 = objc_msgSend_threadIdentifierForTapback(itemCopy, v21, v22);
+  originalMessagePartRange = [itemCopy originalMessagePartRange];
+  v13 = v12;
+  guid = [itemCopy guid];
+  messageSummaryInfo = [itemCopy messageSummaryInfo];
+  threadIdentifierForTapback = [itemCopy threadIdentifierForTapback];
 
-  v25 = objc_msgSend_initWithTapback_chat_messageGUID_messagePartRange_messageSummaryInfo_threadIdentifier_(self, v24, tapbackCopy, chatCopy, v17, v13, v15, v20, v23);
-  return v25;
+  v17 = [(IMTapbackSender *)self initWithTapback:tapbackCopy chat:chatCopy messageGUID:guid messagePartRange:originalMessagePartRange messageSummaryInfo:v13 threadIdentifier:messageSummaryInfo, threadIdentifierForTapback];
+  return v17;
 }
 
 - (void)send
 {
-  v62 = *MEMORY[0x1E69E9840];
-  v4 = objc_msgSend_tapback(self, a2, v2);
-  v7 = objc_msgSend_chat(self, v5, v6);
-  v10 = objc_msgSend_messageGUID(self, v8, v9);
-  v13 = objc_msgSend_messagePartRange(self, v11, v12);
-  v15 = v14;
-  v17 = objc_msgSend_messageSummaryInfo(self, v14, v16);
-  v20 = objc_msgSend_threadIdentifier(self, v18, v19);
-  v22 = objc_msgSend_messageForChat_messageGUID_messagePartRange_messageSummaryInfo_threadIdentifier_(v4, v21, v7, v10, v13, v15, v17, v20);
+  v30 = *MEMORY[0x1E69E9840];
+  tapback = [(IMTapbackSender *)self tapback];
+  chat = [(IMTapbackSender *)self chat];
+  messageGUID = [(IMTapbackSender *)self messageGUID];
+  messagePartRange = [(IMTapbackSender *)self messagePartRange];
+  v8 = v7;
+  messageSummaryInfo = [(IMTapbackSender *)self messageSummaryInfo];
+  threadIdentifier = [(IMTapbackSender *)self threadIdentifier];
+  v11 = [tapback messageForChat:chat messageGUID:messageGUID messagePartRange:messagePartRange messageSummaryInfo:v8 threadIdentifier:{messageSummaryInfo, threadIdentifier}];
 
-  v25 = objc_msgSend_chat(self, v23, v24);
-  v28 = objc_msgSend_account(v25, v26, v27);
+  chat2 = [(IMTapbackSender *)self chat];
+  account = [chat2 account];
 
-  v59 = 0u;
-  v60 = 0u;
-  v57 = 0u;
-  v58 = 0u;
-  v31 = objc_msgSend_fileTransferGUIDs(v22, v29, v30, 0);
-  v33 = objc_msgSend_countByEnumeratingWithState_objects_count_(v31, v32, &v57, v61, 16);
-  if (v33)
+  v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  fileTransferGUIDs = [v11 fileTransferGUIDs];
+  v15 = [fileTransferGUIDs countByEnumeratingWithState:&v25 objects:v29 count:16];
+  if (v15)
   {
-    v36 = v33;
-    v37 = *v58;
+    v16 = v15;
+    v17 = *v26;
     do
     {
-      v38 = 0;
+      v18 = 0;
       do
       {
-        if (*v58 != v37)
+        if (*v26 != v17)
         {
-          objc_enumerationMutation(v31);
+          objc_enumerationMutation(fileTransferGUIDs);
         }
 
-        v39 = *(*(&v57 + 1) + 8 * v38);
-        v40 = objc_msgSend_sharedInstance(IMFileTransferCenter, v34, v35);
-        objc_msgSend_assignTransfer_toMessage_account_(v40, v41, v39, v22, v28);
+        v19 = *(*(&v25 + 1) + 8 * v18);
+        v20 = +[IMFileTransferCenter sharedInstance];
+        [v20 assignTransfer:v19 toMessage:v11 account:account];
 
-        ++v38;
+        ++v18;
       }
 
-      while (v36 != v38);
-      v36 = objc_msgSend_countByEnumeratingWithState_objects_count_(v31, v34, &v57, v61, 16);
+      while (v16 != v18);
+      v16 = [fileTransferGUIDs countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
-    while (v36);
+    while (v16);
   }
 
-  v44 = objc_msgSend_chat(self, v42, v43);
-  objc_msgSend_sendMessage_(v44, v45, v22);
+  chat3 = [(IMTapbackSender *)self chat];
+  [chat3 sendMessage:v11];
 
-  v48 = objc_msgSend___im_associatedMessageContentType(self->_messageSummaryInfo, v46, v47);
-  v51 = objc_msgSend_integerValue(v48, v49, v50);
+  __im_associatedMessageContentType = [(NSDictionary *)self->_messageSummaryInfo __im_associatedMessageContentType];
+  integerValue = [__im_associatedMessageContentType integerValue];
 
-  v54 = objc_msgSend_serviceName(v28, v52, v53);
-  objc_msgSend__trackSentTapbackWithContentType_serviceName_(self, v55, v51, v54);
-
-  v56 = *MEMORY[0x1E69E9840];
+  serviceName = [account serviceName];
+  [(IMTapbackSender *)self _trackSentTapbackWithContentType:integerValue serviceName:serviceName];
 }
 
 - (void)_trackSentTapbackWithContentType:(unsigned __int8)type serviceName:(id)name
 {
-  v26[4] = *MEMORY[0x1E69E9840];
+  v14[4] = *MEMORY[0x1E69E9840];
   v5 = MEMORY[0x1E69A8168];
   nameCopy = name;
-  v9 = objc_msgSend_sharedInstance(v5, v7, v8);
-  v10 = *MEMORY[0x1E69A76C0];
-  v25[0] = *MEMORY[0x1E69A76B0];
-  v11 = objc_opt_class();
-  v13 = objc_msgSend__metricIdentifierForTapback_(v11, v12, self->_tapback);
-  v26[0] = v13;
-  v25[1] = *MEMORY[0x1E69A76B8];
-  v14 = MEMORY[0x1E696AD98];
-  isRemoved = objc_msgSend_isRemoved(self->_tapback, v15, v16);
-  v19 = objc_msgSend_numberWithBool_(v14, v18, isRemoved);
-  v26[1] = v19;
-  v25[2] = *MEMORY[0x1E69A76A8];
-  v20 = IMMetricsValueForAssociatedMessageContentType();
-  v25[3] = *MEMORY[0x1E69A76C8];
-  v26[2] = v20;
-  v26[3] = nameCopy;
-  v22 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v21, v26, v25, 4);
+  sharedInstance = [v5 sharedInstance];
+  v8 = *MEMORY[0x1E69A76C0];
+  v13[0] = *MEMORY[0x1E69A76B0];
+  v9 = [objc_opt_class() _metricIdentifierForTapback:self->_tapback];
+  v14[0] = v9;
+  v13[1] = *MEMORY[0x1E69A76B8];
+  v10 = [MEMORY[0x1E696AD98] numberWithBool:{-[IMTapback isRemoved](self->_tapback, "isRemoved")}];
+  v14[1] = v10;
+  v13[2] = *MEMORY[0x1E69A76A8];
+  v11 = IMMetricsValueForAssociatedMessageContentType();
+  v13[3] = *MEMORY[0x1E69A76C8];
+  v14[2] = v11;
+  v14[3] = nameCopy;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:4];
 
-  objc_msgSend_trackEvent_withDictionary_(v9, v23, v10, v22);
-  v24 = *MEMORY[0x1E69E9840];
+  [sharedInstance trackEvent:v8 withDictionary:v12];
 }
 
 + (id)_metricIdentifierForTapback:(id)tapback
@@ -265,24 +259,24 @@ LABEL_21:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v6 = objc_msgSend_visibleTapbackCounterpart(tapbackCopy, v4, v5);
-    v9 = objc_msgSend_associatedMessageType(v6, v7, v8);
+    visibleTapbackCounterpart = [tapbackCopy visibleTapbackCounterpart];
+    associatedMessageType = [visibleTapbackCounterpart associatedMessageType];
 
-    if ((v9 - 2000) < 6)
+    if ((associatedMessageType - 2000) < 6)
     {
-      v10 = off_1E78122D8[v9 - 2000];
+      v6 = off_1E78122D8[associatedMessageType - 2000];
       goto LABEL_21;
     }
 
 LABEL_11:
-    v10 = @"unknown";
+    v6 = @"unknown";
     goto LABEL_21;
   }
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v10 = @"emoji";
+    v6 = @"emoji";
     goto LABEL_21;
   }
 
@@ -292,52 +286,52 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  v13 = objc_msgSend_transferGUID(tapbackCopy, v11, v12);
-  v16 = objc_msgSend_sharedInstance(IMFileTransferCenter, v14, v15);
-  v18 = objc_msgSend_transferForGUID_(v16, v17, v13);
+  transferGUID = [tapbackCopy transferGUID];
+  v8 = +[IMFileTransferCenter sharedInstance];
+  v9 = [v8 transferForGUID:transferGUID];
 
-  if (v18)
+  if (v9)
   {
-    if (objc_msgSend_isSticker(v18, v19, v20))
+    if ([v9 isSticker])
     {
-      v23 = objc_msgSend_stickerUserInfo(v18, v21, v22);
-      v25 = objc_msgSend_objectForKeyedSubscript_(v23, v24, *MEMORY[0x1E69A7CB0]);
+      stickerUserInfo = [v9 stickerUserInfo];
+      v11 = [stickerUserInfo objectForKeyedSubscript:*MEMORY[0x1E69A7CB0]];
 
-      v26 = IMBalloonBundleIDFromExtensionID();
-      if (objc_msgSend_isEqualToString_(v26, v27, *MEMORY[0x1E69A68F8]))
+      v12 = IMBalloonBundleIDFromExtensionID();
+      if ([v12 isEqualToString:*MEMORY[0x1E69A68F8]])
       {
-        v10 = @"sticker-user-generated";
+        v6 = @"sticker-user-generated";
       }
 
-      else if (objc_msgSend_isEqualToString_(v26, v28, *MEMORY[0x1E69A6980]))
+      else if ([v12 isEqualToString:*MEMORY[0x1E69A6980]])
       {
-        v10 = @"sticker-animoji";
+        v6 = @"sticker-animoji";
       }
 
-      else if (objc_msgSend_isAdaptiveImageGlyph(v18, v29, v30))
+      else if ([v9 isAdaptiveImageGlyph])
       {
-        v10 = @"sticker-adaptive-glyph";
+        v6 = @"sticker-adaptive-glyph";
       }
 
       else
       {
-        v10 = @"sticker-other";
+        v6 = @"sticker-other";
       }
     }
 
     else
     {
-      v10 = @"file-transfer-other";
+      v6 = @"file-transfer-other";
     }
   }
 
   else
   {
-    v10 = @"file-transfer-missing";
+    v6 = @"file-transfer-missing";
   }
 
 LABEL_21:
-  return v10;
+  return v6;
 }
 
 - (_NSRange)messagePartRange

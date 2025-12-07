@@ -313,7 +313,7 @@ id __61__PBFPosterExtensionDataStoreXPCServiceGlue_initWithOptions___block_invok
   v34 = 0;
   [v14 acquireWithError:&v34];
   v15 = v34;
-  v16 = PBFLogCommon();
+  v16 = PBFLogCommon(v15);
   v17 = v16;
   if (v15)
   {
@@ -395,7 +395,7 @@ LABEL_25:
 void __70__PBFPosterExtensionDataStoreXPCServiceGlue__lock_dataStoreWithError___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = PBFLogCommon();
+  v3 = PBFLogCommon(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __70__PBFPosterExtensionDataStoreXPCServiceGlue__lock_dataStoreWithError___block_invoke_cold_1();
@@ -416,33 +416,33 @@ void __70__PBFPosterExtensionDataStoreXPCServiceGlue__lock_dataStoreWithError___
 
 - (BOOL)_mutateDataStoreState:(unint64_t)state error:(id *)error
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   if ((state & 0x3F) != 0)
   {
     stateCopy = state;
     os_unfair_lock_lock(&self->_lock);
-    v7 = PBFLogReaper();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = PBFLogReaper(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_21B526000, v7, OS_LOG_TYPE_INFO, "Tearing down data store", buf, 2u);
+      _os_log_impl(&dword_21B526000, v8, OS_LOG_TYPE_INFO, "Tearing down data store", buf, 2u);
     }
 
-    v30 = 0;
-    [(PBFPosterExtensionDataStoreXPCServiceGlue *)self _lock_teardownDataStoreWithError:&v30];
-    v8 = v30;
-    v9 = v8;
-    v10 = v8 == 0;
-    if ((stateCopy & 2) == 0 || v8)
+    v32 = 0;
+    [(PBFPosterExtensionDataStoreXPCServiceGlue *)self _lock_teardownDataStoreWithError:&v32];
+    v9 = v32;
+    v10 = v9;
+    v11 = v9 == 0;
+    if ((stateCopy & 2) == 0 || v9)
     {
-      if (v8)
+      if (v9)
       {
         os_unfair_lock_unlock(&self->_lock);
         [(PBFPosterExtensionDataStoreXPCServiceGlue *)self _postDidTearDownNotification];
         if (error)
         {
-          v12 = v9;
-          *error = v9;
+          v13 = v10;
+          *error = v10;
         }
 
         goto LABEL_34;
@@ -451,91 +451,95 @@ void __70__PBFPosterExtensionDataStoreXPCServiceGlue__lock_dataStoreWithError___
 
     else
     {
-      v11 = PBFLogReaper();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+      v12 = PBFLogReaper(0);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_21B526000, v11, OS_LOG_TYPE_INFO, "Reaping snapshots", buf, 2u);
+        _os_log_impl(&dword_21B526000, v12, OS_LOG_TYPE_INFO, "Reaping snapshots", buf, 2u);
       }
 
-      [(PBFPosterExtensionDataStoreXPCServiceGlue *)self _lock_reapSnapshots:1];
+      v9 = [(PBFPosterExtensionDataStoreXPCServiceGlue *)self _lock_reapSnapshots:1];
     }
 
     if ((stateCopy & 0xC) != 0)
     {
-      v13 = stateCopy & 8;
-      v14 = PBFLogReaper();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+      v14 = stateCopy & 8;
+      v15 = PBFLogReaper(v9);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
         *buf = 67109120;
-        v33 = v13 >> 3;
-        _os_log_impl(&dword_21B526000, v14, OS_LOG_TYPE_INFO, "Reaping transient data (all? %{BOOL}u", buf, 8u);
+        v35 = v14 >> 3;
+        _os_log_impl(&dword_21B526000, v15, OS_LOG_TYPE_INFO, "Reaping transient data (all? %{BOOL}u", buf, 8u);
       }
 
-      [(PBFPosterExtensionDataStoreXPCServiceGlue *)self _lock_reapTransientData:v13 != 0];
+      v9 = [(PBFPosterExtensionDataStoreXPCServiceGlue *)self _lock_reapTransientData:v14 != 0];
     }
 
     if ((stateCopy & 0x10) != 0)
     {
-      v15 = PBFLogReaper();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+      v16 = PBFLogReaper(v9);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_21B526000, v15, OS_LOG_TYPE_INFO, "Reaping data store", buf, 2u);
+        _os_log_impl(&dword_21B526000, v16, OS_LOG_TYPE_INFO, "Reaping data store", buf, 2u);
       }
 
       [(PBFPosterExtensionDataStoreXPCServiceGlue *)self _lock_reapEntirePosterBoardDataStore];
     }
 
-    if ((stateCopy & 0x20) != 0 && MEMORY[0x21CEF7340]("[PBFPosterExtensionDataStoreXPCServiceGlue _mutateDataStoreState:error:]"))
+    if ((stateCopy & 0x20) != 0)
     {
-      v16 = PBFLogReaper();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+      v17 = MEMORY[0x21CEF7340]("[PBFPosterExtensionDataStoreXPCServiceGlue _mutateDataStoreState:error:]");
+      if (v17)
       {
-        *buf = 0;
-        _os_log_impl(&dword_21B526000, v16, OS_LOG_TYPE_INFO, "Messing up data protections", buf, 2u);
-      }
-
-      _baseDataStoreURL = [(PBFPosterExtensionDataStoreXPCServiceGlue *)self _baseDataStoreURL];
-      v26 = 0u;
-      v27 = 0u;
-      v28 = 0u;
-      v29 = 0u;
-      defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-      v19 = [defaultManager enumeratorAtURL:_baseDataStoreURL includingPropertiesForKeys:MEMORY[0x277CBEBF8] options:0 errorHandler:0];
-
-      v20 = [v19 countByEnumeratingWithState:&v26 objects:v31 count:16];
-      if (v20)
-      {
-        v21 = v20;
-        v22 = *v27;
-        v23 = *MEMORY[0x277CBE7E0];
-        do
+        v18 = PBFLogReaper(v17);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
         {
-          for (i = 0; i != v21; ++i)
-          {
-            if (*v27 != v22)
-            {
-              objc_enumerationMutation(v19);
-            }
-
-            [*(*(&v26 + 1) + 8 * i) pbf_setFileProtection:v23 error:0];
-          }
-
-          v21 = [v19 countByEnumeratingWithState:&v26 objects:v31 count:16];
+          *buf = 0;
+          _os_log_impl(&dword_21B526000, v18, OS_LOG_TYPE_INFO, "Messing up data protections", buf, 2u);
         }
 
-        while (v21);
-      }
+        _baseDataStoreURL = [(PBFPosterExtensionDataStoreXPCServiceGlue *)self _baseDataStoreURL];
+        v28 = 0u;
+        v29 = 0u;
+        v30 = 0u;
+        v31 = 0u;
+        defaultManager = [MEMORY[0x277CCAA00] defaultManager];
+        v21 = [defaultManager enumeratorAtURL:_baseDataStoreURL includingPropertiesForKeys:MEMORY[0x277CBEBF8] options:0 errorHandler:0];
 
-      [MEMORY[0x277CBEBD0] pbf_setNeedsFileProtectionsReset:1];
+        v22 = [v21 countByEnumeratingWithState:&v28 objects:v33 count:16];
+        if (v22)
+        {
+          v23 = v22;
+          v24 = *v29;
+          v25 = *MEMORY[0x277CBE7E0];
+          do
+          {
+            for (i = 0; i != v23; ++i)
+            {
+              if (*v29 != v24)
+              {
+                objc_enumerationMutation(v21);
+              }
+
+              [*(*(&v28 + 1) + 8 * i) pbf_setFileProtection:v25 error:0];
+            }
+
+            v23 = [v21 countByEnumeratingWithState:&v28 objects:v33 count:16];
+          }
+
+          while (v23);
+        }
+
+        [MEMORY[0x277CBEBD0] pbf_setNeedsFileProtectionsReset:1];
+      }
     }
 
     os_unfair_lock_unlock(&self->_lock);
     [(PBFPosterExtensionDataStoreXPCServiceGlue *)self _postDidTearDownNotification];
 LABEL_34:
 
-    return v10;
+    return v11;
   }
 
   return 0;
@@ -618,7 +622,7 @@ LABEL_34:
 
 - (id)_baseDataStoreURL:(BOOL)l
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   if (l)
   {
     mEMORY[0x277D3E928] = [MEMORY[0x277D3E928] sharedInstance];
@@ -626,72 +630,72 @@ LABEL_34:
 
     if (sharedResourcesDirectoryURL)
     {
-      v5 = PBFLogDataStore();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v6 = PBFLogDataStore(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         absoluteString = [sharedResourcesDirectoryURL absoluteString];
         *buf = 138412290;
-        v30 = absoluteString;
-        _os_log_impl(&dword_21B526000, v5, OS_LOG_TYPE_DEFAULT, "Opting to place data store at shared resources directory (system container): %@", buf, 0xCu);
+        v31 = absoluteString;
+        _os_log_impl(&dword_21B526000, v6, OS_LOG_TYPE_DEFAULT, "Opting to place data store at shared resources directory (system container): %@", buf, 0xCu);
       }
 
       sharedResourcesDirectoryURL = sharedResourcesDirectoryURL;
-      v7 = 0;
-      v8 = sharedResourcesDirectoryURL;
+      v8 = 0;
+      v9 = sharedResourcesDirectoryURL;
     }
 
     else
     {
-      v7 = 0;
       v8 = 0;
+      v9 = 0;
     }
   }
 
   else
   {
     sharedResourcesDirectoryURL = [MEMORY[0x277CCAA00] defaultManager];
-    v24 = 0;
-    v8 = [sharedResourcesDirectoryURL URLForDirectory:14 inDomain:1 appropriateForURL:0 create:1 error:&v24];
-    v7 = v24;
+    v25 = 0;
+    v9 = [sharedResourcesDirectoryURL URLForDirectory:14 inDomain:1 appropriateForURL:0 create:1 error:&v25];
+    v8 = v25;
   }
 
-  if (!v8)
+  if (!v9)
   {
-    v12 = MEMORY[0x277CBEAD8];
-    v13 = *MEMORY[0x277CBE658];
-    v27[0] = @"dataStoreURL";
-    v14 = objc_alloc_init(MEMORY[0x277CBEBC0]);
-    v27[1] = *MEMORY[0x277CCA7E8];
-    v28[0] = v14;
-    v28[1] = v7;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:2];
-    v16 = [v12 exceptionWithName:v13 reason:@"Unable to setup dataStore URL" userInfo:v15];
-    v17 = v16;
+    v13 = MEMORY[0x277CBEAD8];
+    v14 = *MEMORY[0x277CBE658];
+    v28[0] = @"dataStoreURL";
+    v15 = objc_alloc_init(MEMORY[0x277CBEBC0]);
+    v28[1] = *MEMORY[0x277CCA7E8];
+    v29[0] = v15;
+    v29[1] = v8;
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:2];
+    v17 = [v13 exceptionWithName:v14 reason:@"Unable to setup dataStore URL" userInfo:v16];
+    v18 = v17;
 
     goto LABEL_15;
   }
 
-  v23 = 0;
-  v9 = [v8 checkResourceIsReachableAndReturnError:&v23];
-  v10 = v23;
-  if ((v9 & 1) == 0)
+  v24 = 0;
+  v10 = [v9 checkResourceIsReachableAndReturnError:&v24];
+  v11 = v24;
+  if ((v10 & 1) == 0)
   {
-    v18 = MEMORY[0x277CBEAD8];
-    v19 = *MEMORY[0x277CBE658];
-    v20 = *MEMORY[0x277CCA7E8];
-    v25[0] = @"dataStoreURL";
-    v25[1] = v20;
-    v26[0] = v8;
-    v26[1] = v10;
-    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:2];
-    v16 = [v18 exceptionWithName:v19 reason:@"Unable to reach dataStore URL" userInfo:v21];
-    v22 = v16;
+    v19 = MEMORY[0x277CBEAD8];
+    v20 = *MEMORY[0x277CBE658];
+    v21 = *MEMORY[0x277CCA7E8];
+    v26[0] = @"dataStoreURL";
+    v26[1] = v21;
+    v27[0] = v9;
+    v27[1] = v11;
+    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:2];
+    v17 = [v19 exceptionWithName:v20 reason:@"Unable to reach dataStore URL" userInfo:v22];
+    v23 = v17;
 
 LABEL_15:
-    objc_exception_throw(v16);
+    objc_exception_throw(v17);
   }
 
-  return v8;
+  return v9;
 }
 
 - (void)server:(id)server deleteTransientDataWithCompletion:(id)completion
@@ -841,32 +845,32 @@ uint64_t __85__PBFPosterExtensionDataStoreXPCServiceGlue__handleLaunchServicesUp
 
 - (void)_resetRole:(id)role completion:(id)completion
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   roleCopy = role;
   completionCopy = completion;
   os_unfair_lock_lock(&self->_lock);
-  v8 = PBFLogReaper();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v9 = PBFLogReaper(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
-    v14 = roleCopy;
-    _os_log_impl(&dword_21B526000, v8, OS_LOG_TYPE_INFO, "Resetting role %{public}@", buf, 0xCu);
+    v15 = roleCopy;
+    _os_log_impl(&dword_21B526000, v9, OS_LOG_TYPE_INFO, "Resetting role %{public}@", buf, 0xCu);
   }
 
-  v12 = 0;
-  v9 = [(PBFPosterExtensionDataStoreXPCServiceGlue *)self _lock_dataStoreWithError:&v12];
-  v10 = v12;
-  if (!v10)
+  v13 = 0;
+  v10 = [(PBFPosterExtensionDataStoreXPCServiceGlue *)self _lock_dataStoreWithError:&v13];
+  v11 = v13;
+  if (!v11)
   {
-    v11 = 0;
-    [v9 resetRole:roleCopy error:&v11];
-    v10 = v11;
+    v12 = 0;
+    [v10 resetRole:roleCopy error:&v12];
+    v11 = v12;
   }
 
   os_unfair_lock_unlock(&self->_lock);
   if (completionCopy)
   {
-    completionCopy[2](completionCopy, v10);
+    completionCopy[2](completionCopy, v11);
   }
 }
 
@@ -877,40 +881,40 @@ uint64_t __85__PBFPosterExtensionDataStoreXPCServiceGlue__handleLaunchServicesUp
 
   if (dataMigratorDeterminedLegacyWallpaperMigrationRequired)
   {
-    v5 = PBFLogMigration();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = PBFLogMigration(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v9 = 0;
-      _os_log_impl(&dword_21B526000, v5, OS_LOG_TYPE_DEFAULT, "Data migrator requested posterboard data store be reset so that a legacy wallpaper migration can occur.", v9, 2u);
+      *v10 = 0;
+      _os_log_impl(&dword_21B526000, v6, OS_LOG_TYPE_DEFAULT, "Data migrator requested posterboard data store be reset so that a legacy wallpaper migration can occur.", v10, 2u);
     }
 
     [(PBFPosterExtensionDataStoreXPCServiceGlue *)self _lock_reapEntirePosterBoardDataStore];
     [(PBFPosterExtensionDataStoreXPCServiceGlue *)self _lock_reapTransientData:1];
-    v6 = +[PBFWallpaperKitBridge defaultBridge];
-    [v6 clearLegacyWallpaperMigrationKeys];
+    v7 = +[PBFWallpaperKitBridge defaultBridge];
+    [v7 clearLegacyWallpaperMigrationKeys];
   }
 
-  v7 = objc_alloc_init(MEMORY[0x277D37C70]);
-  [v7 performMigrationWithFailureHandler:&__block_literal_global_101];
-  [v7 setWallpaperMode:2];
-  [v7 performMigrationWithFailureHandler:&__block_literal_global_104_0];
-  dataStores = [v7 dataStores];
+  v8 = objc_alloc_init(MEMORY[0x277D37C70]);
+  [v8 performMigrationWithFailureHandler:&__block_literal_global_101];
+  [v8 setWallpaperMode:2];
+  [v8 performMigrationWithFailureHandler:&__block_literal_global_104_0];
+  dataStores = [v8 dataStores];
   [dataStores enumerateObjectsUsingBlock:&__block_literal_global_108];
 }
 
-void __69__PBFPosterExtensionDataStoreXPCServiceGlue__lock_runLegacyMigration__block_invoke()
+void __69__PBFPosterExtensionDataStoreXPCServiceGlue__lock_runLegacyMigration__block_invoke(uint64_t a1)
 {
-  v0 = PBFLogMigration();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = PBFLogMigration(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __69__PBFPosterExtensionDataStoreXPCServiceGlue__lock_runLegacyMigration__block_invoke_cold_1();
   }
 }
 
-void __69__PBFPosterExtensionDataStoreXPCServiceGlue__lock_runLegacyMigration__block_invoke_102()
+void __69__PBFPosterExtensionDataStoreXPCServiceGlue__lock_runLegacyMigration__block_invoke_102(uint64_t a1)
 {
-  v0 = PBFLogMigration();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = PBFLogMigration(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __69__PBFPosterExtensionDataStoreXPCServiceGlue__lock_runLegacyMigration__block_invoke_102_cold_1();
   }
@@ -918,7 +922,7 @@ void __69__PBFPosterExtensionDataStoreXPCServiceGlue__lock_runLegacyMigration__b
 
 - (void)_lock_reapTransientData:(BOOL)data
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   if (self->_lock_dataStore)
   {
     [(PBFPosterExtensionDataStoreXPCServiceGlue *)MEMORY[0x277CCACA8] _lock_reapTransientData:a2];
@@ -929,75 +933,77 @@ void __69__PBFPosterExtensionDataStoreXPCServiceGlue__lock_runLegacyMigration__b
   v5 = MEMORY[0x277CBEBC0];
   v6 = PFTemporaryDirectory();
   v7 = [v5 fileURLWithPath:v6 isDirectory:1];
-  v23 = defaultManager;
+  v25 = defaultManager;
   v8 = [defaultManager contentsOfDirectoryAtURL:v7 includingPropertiesForKeys:MEMORY[0x277CBEBF8] options:5 error:0];
 
+  v29 = 0u;
+  v30 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v25 = 0u;
-  v26 = 0u;
   v9 = v8;
-  v10 = [v9 countByEnumeratingWithState:&v25 objects:v33 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v27 objects:v35 count:16];
   if (v10)
   {
     v12 = v10;
-    v13 = *v26;
+    v13 = *v28;
     *&v11 = 138543618;
-    v21 = v11;
+    v23 = v11;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v26 != v13)
+        if (*v28 != v13)
         {
           objc_enumerationMutation(v9);
         }
 
-        v15 = *(*(&v25 + 1) + 8 * i);
+        v15 = *(*(&v27 + 1) + 8 * i);
         lastPathComponent = [v15 lastPathComponent];
-        if ([lastPathComponent hasPrefix:@"TransientInfo"])
+        v17 = [lastPathComponent hasPrefix:@"TransientInfo"];
+        if (v17)
         {
-          if (data || ![lastPathComponent containsString:pbf_bootInstanceIdentifier])
+          if (data || (v17 = [lastPathComponent containsString:pbf_bootInstanceIdentifier], !v17))
           {
-            v18 = PBFLogReaper();
-            if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+            v19 = PBFLogReaper(v17);
+            if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
             {
               *buf = 138543362;
-              v30 = v15;
-              _os_log_impl(&dword_21B526000, v18, OS_LOG_TYPE_INFO, "Deleting transient info: %{public}@", buf, 0xCu);
+              v32 = v15;
+              _os_log_impl(&dword_21B526000, v19, OS_LOG_TYPE_INFO, "Deleting transient info: %{public}@", buf, 0xCu);
             }
 
-            v24 = 0;
-            v19 = [v23 removeItemAtURL:v15 error:&v24];
-            v17 = v24;
-            if ((v19 & 1) == 0)
+            v26 = 0;
+            v20 = [v25 removeItemAtURL:v15 error:&v26];
+            v21 = v26;
+            v18 = v21;
+            if ((v20 & 1) == 0)
             {
-              v20 = PBFLogReaper();
-              if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+              v22 = PBFLogReaper(v21);
+              if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
               {
-                *buf = v21;
-                v30 = v15;
-                v31 = 2114;
-                v32 = v17;
-                _os_log_error_impl(&dword_21B526000, v20, OS_LOG_TYPE_ERROR, "Unable to delete transient info %{public}@: %{public}@", buf, 0x16u);
+                *buf = v23;
+                v32 = v15;
+                v33 = 2114;
+                v34 = v18;
+                _os_log_error_impl(&dword_21B526000, v22, OS_LOG_TYPE_ERROR, "Unable to delete transient info %{public}@: %{public}@", buf, 0x16u);
               }
             }
           }
 
           else
           {
-            v17 = PBFLogReaper();
-            if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+            v18 = PBFLogReaper(v17);
+            if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138543362;
-              v30 = v15;
-              _os_log_debug_impl(&dword_21B526000, v17, OS_LOG_TYPE_DEBUG, "Skipping deletion of transient info for '%{public}@'; is valid for current boot identifier.", buf, 0xCu);
+              v32 = v15;
+              _os_log_debug_impl(&dword_21B526000, v18, OS_LOG_TYPE_DEBUG, "Skipping deletion of transient info for '%{public}@'; is valid for current boot identifier.", buf, 0xCu);
             }
           }
         }
       }
 
-      v12 = [v9 countByEnumeratingWithState:&v25 objects:v33 count:16];
+      v12 = [v9 countByEnumeratingWithState:&v27 objects:v35 count:16];
     }
 
     while (v12);
@@ -1006,71 +1012,71 @@ void __69__PBFPosterExtensionDataStoreXPCServiceGlue__lock_runLegacyMigration__b
 
 - (void)_lock_fixFileProtections
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   _baseDataStoreURL = [(PBFPosterExtensionDataStoreXPCServiceGlue *)self _baseDataStoreURL];
   v3 = [MEMORY[0x277CBEBC0] pbf_dataStoreExtensionContainerURLForBaseURL:_baseDataStoreURL version:{+[PBFPosterExtensionDataStore dataStoreVersion](PBFPosterExtensionDataStore, "dataStoreVersion")}];
   v4 = _PBFExtensionStoreCoordinatorsForDataStoreExtensionContainerURL(v3, 0);
   [v4 enumerateObjectsUsingBlock:&__block_literal_global_117];
 
+  v27 = 0u;
+  v28 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v23 = 0u;
-  v24 = 0u;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v20 = _baseDataStoreURL;
+  v22 = _baseDataStoreURL;
   v6 = [defaultManager enumeratorAtURL:_baseDataStoreURL includingPropertiesForKeys:MEMORY[0x277CBEBF8] options:0 errorHandler:0];
 
-  v7 = [v6 countByEnumeratingWithState:&v23 objects:v31 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v25 objects:v33 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v24;
+    v9 = *v26;
     v10 = *MEMORY[0x277CBE800];
     do
     {
       v11 = 0;
       do
       {
-        if (*v24 != v9)
+        if (*v26 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v23 + 1) + 8 * v11);
+        v12 = *(*(&v25 + 1) + 8 * v11);
         defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
         v14 = PFFileProtectionNoneAttributes();
         path = [v12 path];
-        v22 = 0;
-        [defaultManager2 setAttributes:v14 ofItemAtPath:path error:&v22];
-        v16 = v22;
+        v24 = 0;
+        [defaultManager2 setAttributes:v14 ofItemAtPath:path error:&v24];
+        v16 = v24;
 
         if (v16)
         {
-          v17 = PBFLogReaper();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+          v18 = PBFLogReaper(v17);
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543618;
-            v28 = v12;
-            v29 = 2114;
-            v30 = v16;
-            _os_log_error_impl(&dword_21B526000, v17, OS_LOG_TYPE_ERROR, "Unable to fix file attributes for %{public}@: %{public}@", buf, 0x16u);
+            v30 = v12;
+            v31 = 2114;
+            v32 = v16;
+            _os_log_error_impl(&dword_21B526000, v18, OS_LOG_TYPE_ERROR, "Unable to fix file attributes for %{public}@: %{public}@", buf, 0x16u);
           }
         }
 
-        v21 = 0;
-        [v12 pbf_setFileProtection:v10 error:&v21];
-        v18 = v21;
+        v23 = 0;
+        [v12 pbf_setFileProtection:v10 error:&v23];
+        v19 = v23;
 
-        if (v18)
+        if (v19)
         {
-          v19 = PBFLogReaper();
-          if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+          v21 = PBFLogReaper(v20);
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543618;
-            v28 = v12;
-            v29 = 2114;
-            v30 = v18;
-            _os_log_error_impl(&dword_21B526000, v19, OS_LOG_TYPE_ERROR, "Unable to fix file protections for %{public}@: %{public}@", buf, 0x16u);
+            v30 = v12;
+            v31 = 2114;
+            v32 = v19;
+            _os_log_error_impl(&dword_21B526000, v21, OS_LOG_TYPE_ERROR, "Unable to fix file protections for %{public}@: %{public}@", buf, 0x16u);
           }
         }
 
@@ -1078,7 +1084,7 @@ void __69__PBFPosterExtensionDataStoreXPCServiceGlue__lock_runLegacyMigration__b
       }
 
       while (v8 != v11);
-      v8 = [v6 countByEnumeratingWithState:&v23 objects:v31 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v25 objects:v33 count:16];
     }
 
     while (v8);
@@ -1200,7 +1206,7 @@ id __90__PBFPosterExtensionDataStoreXPCServiceGlue__lock_migrateGlassToVibrantGl
 
 - (BOOL)_lock_reapSnapshots:(BOOL)snapshots
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   if (self->_lock_dataStore)
   {
     [PBFPosterExtensionDataStoreXPCServiceGlue _lock_reapSnapshots:a2];
@@ -1210,22 +1216,22 @@ id __90__PBFPosterExtensionDataStoreXPCServiceGlue__lock_migrateGlassToVibrantGl
   _baseDataStoreURL = [(PBFPosterExtensionDataStoreXPCServiceGlue *)self _baseDataStoreURL];
   v4 = [PBFPosterExtensionDataStore dataStoreExtensionContainerURLForBaseURL:?];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v32 = v4;
+  v39 = v4;
   v6 = [defaultManager enumeratorAtURL:v4 includingPropertiesForKeys:0 options:4 errorHandler:&__block_literal_global_202];
-  v7 = PBFLogReaper();
+  v7 = PBFLogReaper(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    LODWORD(v44) = snapshotsCopy;
+    LODWORD(v51) = snapshotsCopy;
     _os_log_impl(&dword_21B526000, v7, OS_LOG_TYPE_DEFAULT, "Attempting to reap snapshots; will reap runtime snapshot? %{BOOL}u", buf, 8u);
   }
 
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
-  v40 = 0u;
+  v48 = 0u;
+  v49 = 0u;
+  v46 = 0u;
+  v47 = 0u;
   v8 = v6;
-  v9 = [v8 countByEnumeratingWithState:&v39 objects:v47 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v46 objects:v54 count:16];
   if (!v9)
   {
     LOBYTE(v11) = 0;
@@ -1234,35 +1240,37 @@ id __90__PBFPosterExtensionDataStoreXPCServiceGlue__lock_migrateGlassToVibrantGl
 
   v10 = v9;
   v11 = 0;
-  v35 = *v40;
-  v34 = v8;
+  v42 = *v47;
+  v41 = v8;
   do
   {
     for (i = 0; i != v10; ++i)
     {
-      if (*v40 != v35)
+      if (*v47 != v42)
       {
         objc_enumerationMutation(v8);
       }
 
-      v13 = *(*(&v39 + 1) + 8 * i);
-      if ([v13 pbf_isSnapshotBundle])
+      v13 = *(*(&v46 + 1) + 8 * i);
+      pbf_isSnapshotBundle = [v13 pbf_isSnapshotBundle];
+      if (pbf_isSnapshotBundle)
       {
-        v14 = PBFLogReaper();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+        v15 = PBFLogReaper(pbf_isSnapshotBundle);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
         {
           *buf = 138543362;
-          v44 = v13;
-          _os_log_impl(&dword_21B526000, v14, OS_LOG_TYPE_INFO, "Reaping snapshot cache @ URL: %{public}@", buf, 0xCu);
+          v51 = v13;
+          _os_log_impl(&dword_21B526000, v15, OS_LOG_TYPE_INFO, "Reaping snapshot cache @ URL: %{public}@", buf, 0xCu);
         }
 
-        v38 = 0;
-        v15 = [defaultManager removeItemAtURL:v13 error:&v38];
-        pathExtension = v38;
-        if ((v15 & 1) == 0)
+        v45 = 0;
+        v16 = [defaultManager removeItemAtURL:v13 error:&v45];
+        v17 = v45;
+        pathExtension = v17;
+        if ((v16 & 1) == 0)
         {
-          v17 = PBFLogReaper();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+          v19 = PBFLogReaper(v17);
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_38;
           }
@@ -1275,20 +1283,21 @@ LABEL_30:
         goto LABEL_40;
       }
 
-      if ([v13 pbf_isLegacyPosterSnapshot])
+      pbf_isLegacyPosterSnapshot = [v13 pbf_isLegacyPosterSnapshot];
+      if (pbf_isLegacyPosterSnapshot)
       {
         if (!snapshotsCopy)
         {
           lastPathComponent = [v13 lastPathComponent];
-          v19 = [lastPathComponent containsString:@"RuntimeSnapshot-"];
+          v22 = [lastPathComponent containsString:@"RuntimeSnapshot-"];
 
-          if (v19)
+          if (v22)
           {
-            pathExtension = PBFLogReaper();
+            pathExtension = PBFLogReaper(pbf_isLegacyPosterSnapshot);
             if (os_log_type_enabled(pathExtension, OS_LOG_TYPE_INFO))
             {
               *buf = 138543362;
-              v44 = v13;
+              v51 = v13;
               _os_log_impl(&dword_21B526000, pathExtension, OS_LOG_TYPE_INFO, "Skipping Reap of snapshot URL; runtime snapshots excluded %{public}@", buf, 0xCu);
             }
 
@@ -1296,28 +1305,29 @@ LABEL_30:
           }
         }
 
-        v25 = PBFLogReaper();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+        v29 = PBFLogReaper(pbf_isLegacyPosterSnapshot);
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
         {
           *buf = 138543362;
-          v44 = v13;
-          _os_log_impl(&dword_21B526000, v25, OS_LOG_TYPE_INFO, "Reaping snapshot URL: %{public}@", buf, 0xCu);
+          v51 = v13;
+          _os_log_impl(&dword_21B526000, v29, OS_LOG_TYPE_INFO, "Reaping snapshot URL: %{public}@", buf, 0xCu);
         }
 
-        v37 = 0;
-        v26 = [defaultManager removeItemAtURL:v13 error:&v37];
-        pathExtension = v37;
-        if ((v26 & 1) == 0)
+        v44 = 0;
+        v30 = [defaultManager removeItemAtURL:v13 error:&v44];
+        v31 = v44;
+        pathExtension = v31;
+        if ((v30 & 1) == 0)
         {
-          v17 = PBFLogReaper();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+          v19 = PBFLogReaper(v31);
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
           {
 LABEL_38:
             *buf = 138543618;
-            v44 = v13;
-            v45 = 2114;
-            v46 = pathExtension;
-            _os_log_error_impl(&dword_21B526000, v17, OS_LOG_TYPE_ERROR, "FAILED Reaping snapshot URL @ %{public}@: %{public}@", buf, 0x16u);
+            v51 = v13;
+            v52 = 2114;
+            v53 = pathExtension;
+            _os_log_error_impl(&dword_21B526000, v19, OS_LOG_TYPE_ERROR, "FAILED Reaping snapshot URL @ %{public}@: %{public}@", buf, 0x16u);
           }
 
 LABEL_39:
@@ -1331,38 +1341,39 @@ LABEL_39:
       pathExtension = [v13 pathExtension];
       if ([pathExtension isEqualToString:@"plist"])
       {
-        v20 = v11;
+        v23 = v11;
         lastPathComponent2 = [v13 lastPathComponent];
-        v22 = snapshotsCopy;
-        v23 = [lastPathComponent2 hasPrefix:@"RuntimeSnapshot"];
+        v25 = snapshotsCopy;
+        v26 = [lastPathComponent2 hasPrefix:@"RuntimeSnapshot"];
 
-        v24 = v23 == 0;
-        snapshotsCopy = v22;
-        v24 = v24 || !v22;
-        if (v24)
+        v28 = v26 == 0;
+        snapshotsCopy = v25;
+        v28 = v28 || !v25;
+        if (v28)
         {
-          v11 = v20;
-          v8 = v34;
+          v11 = v23;
+          v8 = v41;
           continue;
         }
 
-        v27 = PBFLogReaper();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+        v32 = PBFLogReaper(v27);
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
         {
           *buf = 138543362;
-          v44 = v13;
-          _os_log_impl(&dword_21B526000, v27, OS_LOG_TYPE_INFO, "Reaping snapshot metadata URL: %{public}@", buf, 0xCu);
+          v51 = v13;
+          _os_log_impl(&dword_21B526000, v32, OS_LOG_TYPE_INFO, "Reaping snapshot metadata URL: %{public}@", buf, 0xCu);
         }
 
-        v36 = 0;
-        v29 = [defaultManager removeItemAtURL:v13 error:&v36];
-        pathExtension = v36;
-        if ((v29 & 1) == 0)
+        v43 = 0;
+        v34 = [defaultManager removeItemAtURL:v13 error:&v43];
+        v35 = v43;
+        pathExtension = v35;
+        if ((v34 & 1) == 0)
         {
-          v11 = v20;
-          v17 = PBFLogReaper();
-          v8 = v34;
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+          v11 = v23;
+          v19 = PBFLogReaper(v35);
+          v8 = v41;
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_38;
           }
@@ -1371,24 +1382,24 @@ LABEL_39:
         }
 
         v11 = 1;
-        v8 = v34;
+        v8 = v41;
       }
 
 LABEL_40:
     }
 
-    v10 = [v8 countByEnumeratingWithState:&v39 objects:v47 count:16];
+    v10 = [v8 countByEnumeratingWithState:&v46 objects:v54 count:16];
   }
 
   while (v10);
 LABEL_45:
 
-  v30 = PBFLogReaper();
-  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+  v37 = PBFLogReaper(v36);
+  if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    LODWORD(v44) = v11 & 1;
-    _os_log_impl(&dword_21B526000, v30, OS_LOG_TYPE_DEFAULT, "Did reap snapshots? %{BOOL}u", buf, 8u);
+    LODWORD(v51) = v11 & 1;
+    _os_log_impl(&dword_21B526000, v37, OS_LOG_TYPE_DEFAULT, "Did reap snapshots? %{BOOL}u", buf, 8u);
   }
 
   return v11 & 1;
@@ -1397,7 +1408,7 @@ LABEL_45:
 uint64_t __65__PBFPosterExtensionDataStoreXPCServiceGlue__lock_reapSnapshots___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v3 = a3;
-  v4 = PBFLogCommon();
+  v4 = PBFLogCommon(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __65__PBFPosterExtensionDataStoreXPCServiceGlue__lock_reapSnapshots___block_invoke_cold_1();
@@ -1408,7 +1419,7 @@ uint64_t __65__PBFPosterExtensionDataStoreXPCServiceGlue__lock_reapSnapshots___b
 
 - (BOOL)_lock_reapClassicSnapshots
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   if (self->_lock_dataStore)
   {
     [(PBFPosterExtensionDataStoreXPCServiceGlue *)a2 _lock_reapClassicSnapshots];
@@ -1417,41 +1428,41 @@ uint64_t __65__PBFPosterExtensionDataStoreXPCServiceGlue__lock_reapSnapshots___b
   _baseDataStoreURL = [(PBFPosterExtensionDataStoreXPCServiceGlue *)self _baseDataStoreURL];
   v2 = [PBFPosterExtensionDataStore dataStoreExtensionContainerURLForBaseURL:?];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v26 = v2;
+  v31 = v2;
   v3 = [defaultManager enumeratorAtURL:v2 includingPropertiesForKeys:0 options:4 errorHandler:&__block_literal_global_213_0];
-  v4 = PBFLogReaper();
+  v4 = PBFLogReaper(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&dword_21B526000, v4, OS_LOG_TYPE_DEFAULT, "Attempting to reap classic snapshots", buf, 2u);
   }
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
-  v33 = 0u;
+  v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v32 objects:v40 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v37 objects:v45 count:16];
   if (!v6)
   {
-    v28 = 0;
+    v33 = 0;
     goto LABEL_35;
   }
 
   v7 = v6;
-  v28 = 0;
-  v8 = *v33;
+  v33 = 0;
+  v8 = *v38;
   do
   {
     v9 = 0;
     do
     {
-      if (*v33 != v8)
+      if (*v38 != v8)
       {
         objc_enumerationMutation(v5);
       }
 
-      v10 = *(*(&v32 + 1) + 8 * v9);
+      v10 = *(*(&v37 + 1) + 8 * v9);
       if (([v10 pbf_isSnapshotBundle] & 1) == 0)
       {
         if ([v10 pbf_isLegacyPosterSnapshot])
@@ -1459,49 +1470,50 @@ uint64_t __65__PBFPosterExtensionDataStoreXPCServiceGlue__lock_reapSnapshots___b
           lastPathComponent = [v10 lastPathComponent];
           v12 = [lastPathComponent containsString:@"RuntimeSnapshot"];
 
-          pathExtension = PBFLogReaper();
-          v14 = os_log_type_enabled(pathExtension, OS_LOG_TYPE_INFO);
+          pathExtension = PBFLogReaper(v13);
+          v15 = os_log_type_enabled(pathExtension, OS_LOG_TYPE_INFO);
           if (v12)
           {
-            if (v14)
+            if (v15)
             {
               *buf = 138543362;
-              v37 = v10;
+              v42 = v10;
               _os_log_impl(&dword_21B526000, pathExtension, OS_LOG_TYPE_INFO, "Skipping Reap of snapshot URL; runtime snapshots excluded %{public}@", buf, 0xCu);
             }
 
             goto LABEL_27;
           }
 
-          if (v14)
+          if (v15)
           {
             *buf = 138543362;
-            v37 = v10;
+            v42 = v10;
             _os_log_impl(&dword_21B526000, pathExtension, OS_LOG_TYPE_INFO, "Reaping classic snapshot URL: %{public}@", buf, 0xCu);
           }
 
-          v31 = 0;
-          v22 = [defaultManager removeItemAtURL:v10 error:&v31];
-          pathExtension = v31;
-          if (v22)
+          v36 = 0;
+          v25 = [defaultManager removeItemAtURL:v10 error:&v36];
+          v26 = v36;
+          pathExtension = v26;
+          if (v25)
           {
 LABEL_24:
-            v28 = 1;
+            v33 = 1;
             goto LABEL_27;
           }
 
-          v19 = PBFLogReaper();
-          if (!os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+          v22 = PBFLogReaper(v26);
+          if (!os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_26;
           }
 
           *buf = 138543618;
-          v37 = v10;
-          v38 = 2114;
-          v39 = pathExtension;
-          v20 = v19;
-          v21 = "FAILED Reaping classic snapshot URL @ %{public}@: %{public}@";
+          v42 = v10;
+          v43 = 2114;
+          v44 = pathExtension;
+          v23 = v22;
+          v24 = "FAILED Reaping classic snapshot URL @ %{public}@: %{public}@";
         }
 
         else
@@ -1515,31 +1527,32 @@ LABEL_27:
           }
 
           lastPathComponent2 = [v10 lastPathComponent];
-          v16 = [lastPathComponent2 hasPrefix:@"RuntimeSnapshot"];
+          v17 = [lastPathComponent2 hasPrefix:@"RuntimeSnapshot"];
 
-          if (!v16)
+          if (!v17)
           {
             goto LABEL_28;
           }
 
-          v17 = PBFLogReaper();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+          v19 = PBFLogReaper(v18);
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
           {
             *buf = 138543362;
-            v37 = v10;
-            _os_log_impl(&dword_21B526000, v17, OS_LOG_TYPE_INFO, "Reaping snapshot metadata URL: %{public}@", buf, 0xCu);
+            v42 = v10;
+            _os_log_impl(&dword_21B526000, v19, OS_LOG_TYPE_INFO, "Reaping snapshot metadata URL: %{public}@", buf, 0xCu);
           }
 
-          v30 = 0;
-          v18 = [defaultManager removeItemAtURL:v10 error:&v30];
-          pathExtension = v30;
-          if (v18)
+          v35 = 0;
+          v20 = [defaultManager removeItemAtURL:v10 error:&v35];
+          v21 = v35;
+          pathExtension = v21;
+          if (v20)
           {
             goto LABEL_24;
           }
 
-          v19 = PBFLogReaper();
-          if (!os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+          v22 = PBFLogReaper(v21);
+          if (!os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
           {
 LABEL_26:
 
@@ -1547,14 +1560,14 @@ LABEL_26:
           }
 
           *buf = 138543618;
-          v37 = v10;
-          v38 = 2114;
-          v39 = pathExtension;
-          v20 = v19;
-          v21 = "FAILED Reaping classic  snapshot URL @ %{public}@: %{public}@";
+          v42 = v10;
+          v43 = 2114;
+          v44 = pathExtension;
+          v23 = v22;
+          v24 = "FAILED Reaping classic  snapshot URL @ %{public}@: %{public}@";
         }
 
-        _os_log_error_impl(&dword_21B526000, v20, OS_LOG_TYPE_ERROR, v21, buf, 0x16u);
+        _os_log_error_impl(&dword_21B526000, v23, OS_LOG_TYPE_ERROR, v24, buf, 0x16u);
         goto LABEL_26;
       }
 
@@ -1563,28 +1576,28 @@ LABEL_28:
     }
 
     while (v7 != v9);
-    v23 = [v5 countByEnumeratingWithState:&v32 objects:v40 count:16];
-    v7 = v23;
+    v27 = [v5 countByEnumeratingWithState:&v37 objects:v45 count:16];
+    v7 = v27;
   }
 
-  while (v23);
+  while (v27);
 LABEL_35:
 
-  v24 = PBFLogReaper();
-  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+  v29 = PBFLogReaper(v28);
+  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    LODWORD(v37) = v28 & 1;
-    _os_log_impl(&dword_21B526000, v24, OS_LOG_TYPE_DEFAULT, "Did reap snapshots? %{BOOL}u", buf, 8u);
+    LODWORD(v42) = v33 & 1;
+    _os_log_impl(&dword_21B526000, v29, OS_LOG_TYPE_DEFAULT, "Did reap snapshots? %{BOOL}u", buf, 8u);
   }
 
-  return v28 & 1;
+  return v33 & 1;
 }
 
 uint64_t __71__PBFPosterExtensionDataStoreXPCServiceGlue__lock_reapClassicSnapshots__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v3 = a3;
-  v4 = PBFLogCommon();
+  v4 = PBFLogCommon(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __65__PBFPosterExtensionDataStoreXPCServiceGlue__lock_reapSnapshots___block_invoke_cold_1();
@@ -1603,7 +1616,7 @@ uint64_t __71__PBFPosterExtensionDataStoreXPCServiceGlue__lock_reapClassicSnapsh
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_7();
-    OUTLINED_FUNCTION_14(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_14(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9);
   }
 
   [v2 UTF8String];
@@ -1614,7 +1627,7 @@ uint64_t __71__PBFPosterExtensionDataStoreXPCServiceGlue__lock_reapClassicSnapsh
 uint64_t __66__PBFPosterExtensionDataStoreXPCServiceGlue__lock_reapDescriptors__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v3 = a3;
-  v4 = PBFLogCommon();
+  v4 = PBFLogCommon(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __66__PBFPosterExtensionDataStoreXPCServiceGlue__lock_reapDescriptors__block_invoke_cold_1();
@@ -1633,7 +1646,7 @@ uint64_t __66__PBFPosterExtensionDataStoreXPCServiceGlue__lock_reapDescriptors__
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_7();
-    OUTLINED_FUNCTION_14(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_14(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9);
   }
 
   [v2 UTF8String];
@@ -1644,7 +1657,7 @@ uint64_t __66__PBFPosterExtensionDataStoreXPCServiceGlue__lock_reapDescriptors__
 uint64_t __76__PBFPosterExtensionDataStoreXPCServiceGlue__lock_reapExtensionProviderInfo__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v3 = a3;
-  v4 = PBFLogCommon();
+  v4 = PBFLogCommon(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __76__PBFPosterExtensionDataStoreXPCServiceGlue__lock_reapExtensionProviderInfo__block_invoke_cold_1();
@@ -1655,46 +1668,47 @@ uint64_t __76__PBFPosterExtensionDataStoreXPCServiceGlue__lock_reapExtensionProv
 
 - (void)_lock_reapTemporaryDirectory
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
   pf_temporaryDirectoryURL = [MEMORY[0x277CBEBC0] pf_temporaryDirectoryURL];
   v4 = [defaultManager enumeratorAtURL:pf_temporaryDirectoryURL includingPropertiesForKeys:0 options:1 errorHandler:0];
 
-  v5 = [v4 countByEnumeratingWithState:&v15 objects:v23 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v16 objects:v24 count:16];
   if (v5)
   {
     v7 = v5;
-    v8 = *v16;
+    v8 = *v17;
     *&v6 = 138543618;
-    v13 = v6;
+    v14 = v6;
     do
     {
       v9 = 0;
       do
       {
-        if (*v16 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * v9);
-        v14 = 0;
-        [defaultManager removeItemAtURL:v10 error:{&v14, v13}];
-        v11 = v14;
+        v10 = *(*(&v16 + 1) + 8 * v9);
+        v15 = 0;
+        [defaultManager removeItemAtURL:v10 error:{&v15, v14}];
+        v11 = v15;
+        v12 = v11;
         if (v11)
         {
-          v12 = PBFLogReaper();
-          if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+          v13 = PBFLogReaper(v11);
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
           {
-            *buf = v13;
-            v20 = v10;
-            v21 = 2112;
-            v22 = v11;
-            _os_log_error_impl(&dword_21B526000, v12, OS_LOG_TYPE_ERROR, "Failed to reap item within temporary directory %{public}@: %@", buf, 0x16u);
+            *buf = v14;
+            v21 = v10;
+            v22 = 2112;
+            v23 = v12;
+            _os_log_error_impl(&dword_21B526000, v13, OS_LOG_TYPE_ERROR, "Failed to reap item within temporary directory %{public}@: %@", buf, 0x16u);
           }
         }
 
@@ -1702,7 +1716,7 @@ uint64_t __76__PBFPosterExtensionDataStoreXPCServiceGlue__lock_reapExtensionProv
       }
 
       while (v7 != v9);
-      v7 = [v4 countByEnumeratingWithState:&v15 objects:v23 count:16];
+      v7 = [v4 countByEnumeratingWithState:&v16 objects:v24 count:16];
     }
 
     while (v7);
@@ -1719,7 +1733,7 @@ uint64_t __76__PBFPosterExtensionDataStoreXPCServiceGlue__lock_reapExtensionProv
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_7();
-    OUTLINED_FUNCTION_14(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_14(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9);
   }
 
   [v2 UTF8String];
@@ -1737,7 +1751,7 @@ uint64_t __76__PBFPosterExtensionDataStoreXPCServiceGlue__lock_reapExtensionProv
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_7();
-    OUTLINED_FUNCTION_14(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_14(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9);
   }
 
   [v2 UTF8String];
@@ -1814,7 +1828,7 @@ uint64_t __76__PBFPosterExtensionDataStoreXPCServiceGlue__lock_reapExtensionProv
   v54 = v9;
   [v9 acquireWithError:v63];
   v10 = v63[0];
-  v11 = PBFLogMigration();
+  v11 = PBFLogMigration(v10);
   v12 = v11;
   if (v10)
   {
@@ -2068,7 +2082,7 @@ void __113__PBFPosterExtensionDataStoreXPCServiceGlue__lock_performNecessaryMigr
 {
   v8 = *MEMORY[0x277D85DE8];
   v3 = a3;
-  v4 = PBFLogCommon();
+  v4 = PBFLogCommon(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [v3 descriptionWithMultilinePrefix:0];
@@ -2080,35 +2094,35 @@ void __113__PBFPosterExtensionDataStoreXPCServiceGlue__lock_performNecessaryMigr
 
 void __113__PBFPosterExtensionDataStoreXPCServiceGlue__lock_performNecessaryMigrationsForDataStoreAtURL_shouldForce_error___block_invoke_241(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v10 = MEMORY[0x277CCACA8];
   v11 = a2;
   v12 = [[v10 alloc] initWithFormat:v11 arguments:&a9];
 
-  v13 = PBFLogMigration();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v14 = PBFLogMigration(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v16 = v12;
-    _os_log_impl(&dword_21B526000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
+    v17 = v12;
+    _os_log_impl(&dword_21B526000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
   }
 
   if (v12)
   {
-    v14 = v12;
+    v15 = v12;
   }
 
   else
   {
-    v14 = @"(null entry)";
+    v15 = @"(null entry)";
   }
 
-  [*(a1 + 32) addObject:v14];
+  [*(a1 + 32) addObject:v15];
 }
 
 + (BOOL)_checkIfLanguageChangeOccurred:(id)occurred
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   occurredCopy = occurred;
   if (([MEMORY[0x277CBEBD0] pbf_snapshotsLocaleDidChange] & 1) == 0)
   {
@@ -2134,20 +2148,20 @@ void __113__PBFPosterExtensionDataStoreXPCServiceGlue__lock_performNecessaryMigr
 
     else
     {
-      v11 = [PBFPosterExtensionDataStore galleryCacheURLForBaseURL:occurredCopy];
-      v12 = [[PBFPosterGalleryLayoutPersistence alloc] initWithURL:v11];
-      v13 = [(PBFPosterGalleryLayoutPersistence *)v12 loadNewestUsableGalleryLayoutReturningError:0];
-      locale = [v13 locale];
+      v12 = [PBFPosterExtensionDataStore galleryCacheURLForBaseURL:occurredCopy];
+      v13 = [[PBFPosterGalleryLayoutPersistence alloc] initWithURL:v12];
+      v14 = [(PBFPosterGalleryLayoutPersistence *)v13 loadNewestUsableGalleryLayoutReturningError:0];
+      locale = [v14 locale];
       localeIdentifier2 = [locale localeIdentifier];
 
-      v16 = PBFLogMigration();
-      v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
+      v18 = PBFLogMigration(v17);
+      v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
       if (localeIdentifier2)
       {
-        if (v17)
+        if (v19)
         {
-          LOWORD(v20) = 0;
-          _os_log_impl(&dword_21B526000, v16, OS_LOG_TYPE_DEFAULT, "Found gallery; using gallery locale to populate stashedLocaleIdentifier", &v20, 2u);
+          LOWORD(v22) = 0;
+          _os_log_impl(&dword_21B526000, v18, OS_LOG_TYPE_DEFAULT, "Found gallery; using gallery locale to populate stashedLocaleIdentifier", &v22, 2u);
         }
 
         v10 = [MEMORY[0x277CBEAF8] canonicalLocaleIdentifierFromString:localeIdentifier2];
@@ -2156,10 +2170,10 @@ void __113__PBFPosterExtensionDataStoreXPCServiceGlue__lock_performNecessaryMigr
 
       else
       {
-        if (v17)
+        if (v19)
         {
-          LOWORD(v20) = 0;
-          _os_log_impl(&dword_21B526000, v16, OS_LOG_TYPE_DEFAULT, "We have no gallery and no stashed locale identifier; Treating locale as unchanged", &v20, 2u);
+          LOWORD(v22) = 0;
+          _os_log_impl(&dword_21B526000, v18, OS_LOG_TYPE_DEFAULT, "We have no gallery and no stashed locale identifier; Treating locale as unchanged", &v22, 2u);
         }
 
         v10 = 0;
@@ -2174,14 +2188,14 @@ LABEL_19:
       }
     }
 
-    v18 = PBFLogMigration();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v20 = PBFLogMigration(v11);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = 138543618;
-      v21 = v7;
-      v22 = 2114;
-      v23 = v10;
-      _os_log_impl(&dword_21B526000, v18, OS_LOG_TYPE_DEFAULT, "Checking current locale: %{public}@ vs stashed locale: %{public}@", &v20, 0x16u);
+      v22 = 138543618;
+      v23 = v7;
+      v24 = 2114;
+      v25 = v10;
+      _os_log_impl(&dword_21B526000, v20, OS_LOG_TYPE_DEFAULT, "Checking current locale: %{public}@ vs stashed locale: %{public}@", &v22, 0x16u);
     }
 
     v4 = [v10 isEqualToString:v7] ^ 1;
@@ -2221,7 +2235,7 @@ LABEL_20:
 
 - (void)_localeDidChange:(id)change
 {
-  v4 = PBFLogMigration();
+  v4 = PBFLogMigration(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     [PBFPosterExtensionDataStoreXPCServiceGlue _localeDidChange:];
@@ -2232,8 +2246,8 @@ LABEL_20:
   os_unfair_lock_lock(&self->_lock);
   [(PBFPosterExtensionDataStore *)self->_lock_dataStore cancel];
   os_unfair_lock_unlock(&self->_lock);
-  v5 = PBFLogMigration();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  v6 = PBFLogMigration(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     [PBFPosterExtensionDataStoreXPCServiceGlue _localeDidChange:];
   }
@@ -2255,8 +2269,8 @@ uint64_t __62__PBFPosterExtensionDataStoreXPCServiceGlue__localeDidChange___bloc
   dispatch_source_set_timer(v2, v3, 0xFFFFFFFFFFFFFFFFLL, 0);
   dispatch_source_set_event_handler(PBFPosterExtensionDataStoreDidTearDownNotification_block_invoke_timerSource, &__block_literal_global_353);
   dispatch_resume(PBFPosterExtensionDataStoreDidTearDownNotification_block_invoke_timerSource);
-  v4 = PBFLogMigration();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = PBFLogMigration(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     __62__PBFPosterExtensionDataStoreXPCServiceGlue__localeDidChange___block_invoke_cold_1();
   }
@@ -2264,21 +2278,21 @@ uint64_t __62__PBFPosterExtensionDataStoreXPCServiceGlue__localeDidChange___bloc
   return xpc_transaction_exit_clean();
 }
 
-void __62__PBFPosterExtensionDataStoreXPCServiceGlue__localeDidChange___block_invoke_2()
+void __62__PBFPosterExtensionDataStoreXPCServiceGlue__localeDidChange___block_invoke_2(uint64_t a1)
 {
-  v0 = PBFLogMigration();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
-  {
-    *buf = 0;
-    _os_log_error_impl(&dword_21B526000, v0, OS_LOG_TYPE_ERROR, "[_localeDidChange] Second time calling xpc_transaction_exit_clean()", buf, 2u);
-  }
-
-  xpc_transaction_try_exit_clean();
-  v1 = PBFLogMigration();
+  v1 = PBFLogMigration(a1);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    *v2 = 0;
-    _os_log_error_impl(&dword_21B526000, v1, OS_LOG_TYPE_ERROR, "[_localeDidChange] Hard Exit...", v2, 2u);
+    *buf = 0;
+    _os_log_error_impl(&dword_21B526000, v1, OS_LOG_TYPE_ERROR, "[_localeDidChange] Second time calling xpc_transaction_exit_clean()", buf, 2u);
+  }
+
+  v2 = xpc_transaction_try_exit_clean();
+  v3 = PBFLogMigration(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  {
+    *v4 = 0;
+    _os_log_error_impl(&dword_21B526000, v3, OS_LOG_TYPE_ERROR, "[_localeDidChange] Hard Exit...", v4, 2u);
   }
 
   exit(0);
@@ -2492,34 +2506,34 @@ uint64_t __112__PBFPosterExtensionDataStoreXPCServiceGlue_server_refreshPosterDe
 
 void __112__PBFPosterExtensionDataStoreXPCServiceGlue_server_refreshPosterDescriptorsForExtension_sessionInfo_completion___block_invoke_2(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  (*(*(a1 + 48) + 16))();
+  v11 = *MEMORY[0x277D85DE8];
+  v2 = (*(*(a1 + 48) + 16))();
   if (*(a1 + 56) == 1)
   {
-    v2 = PBFLogCommon();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = PBFLogCommon(v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = *(a1 + 32);
+      v4 = *(a1 + 32);
       *buf = 138412290;
-      v9 = v3;
-      _os_log_impl(&dword_21B526000, v2, OS_LOG_TYPE_DEFAULT, "Will refresh snapshots for %@", buf, 0xCu);
+      v10 = v4;
+      _os_log_impl(&dword_21B526000, v3, OS_LOG_TYPE_DEFAULT, "Will refresh snapshots for %@", buf, 0xCu);
     }
 
-    v4 = *(a1 + 32);
-    v5 = *(a1 + 40);
-    v6[0] = MEMORY[0x277D85DD0];
-    v6[1] = 3221225472;
-    v6[2] = __112__PBFPosterExtensionDataStoreXPCServiceGlue_server_refreshPosterDescriptorsForExtension_sessionInfo_completion___block_invoke_362;
-    v6[3] = &unk_2782C59F0;
-    v7 = v4;
-    [v5 refreshSnapshotForGalleryItemsMatchingDescriptorIdentifier:0 extensionIdentifier:v7 completion:v6];
+    v5 = *(a1 + 32);
+    v6 = *(a1 + 40);
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __112__PBFPosterExtensionDataStoreXPCServiceGlue_server_refreshPosterDescriptorsForExtension_sessionInfo_completion___block_invoke_362;
+    v7[3] = &unk_2782C59F0;
+    v8 = v5;
+    [v6 refreshSnapshotForGalleryItemsMatchingDescriptorIdentifier:0 extensionIdentifier:v8 completion:v7];
   }
 }
 
 void __112__PBFPosterExtensionDataStoreXPCServiceGlue_server_refreshPosterDescriptorsForExtension_sessionInfo_completion___block_invoke_362(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PBFLogCommon();
+  v4 = PBFLogCommon(v3);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
   if (v3)
   {
@@ -2991,29 +3005,30 @@ LABEL_33:
 {
   dCopy = d;
   completionCopy = completion;
-  v23 = 0;
-  v9 = [(PBFPosterExtensionDataStoreXPCServiceGlue *)self _dataStoreWithError:&v23];
-  v10 = v23;
+  v24 = 0;
+  v9 = [(PBFPosterExtensionDataStoreXPCServiceGlue *)self _dataStoreWithError:&v24];
+  v10 = v24;
   if (v9)
   {
-    v22 = 0;
-    v11 = [v9 exportPosterConfigurationMatchingUUID:dCopy error:&v22];
-    v12 = v22;
+    v23 = 0;
+    v11 = [v9 exportPosterConfigurationMatchingUUID:dCopy error:&v23];
+    v12 = v23;
 
     if (v11)
     {
-      v21 = v12;
-      v13 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:v11 options:1 error:&v21];
-      v10 = v21;
+      v22 = v12;
+      v13 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:v11 options:1 error:&v22];
+      v10 = v22;
 
       v14 = objc_alloc_init(MEMORY[0x277CCAA00]);
-      v20 = 0;
-      v15 = [v14 removeItemAtURL:v11 error:&v20];
-      v16 = v20;
+      v21 = 0;
+      v15 = [v14 removeItemAtURL:v11 error:&v21];
+      v16 = v21;
+      v17 = v16;
       if ((v15 & 1) == 0)
       {
-        v17 = PBFLogCommon();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+        v18 = PBFLogCommon(v16);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
           [PBFPosterExtensionDataStoreXPCServiceGlue server:exportPosterConfigurationMatchingUUID:completion:];
         }
@@ -3021,17 +3036,17 @@ LABEL_33:
 
       if (v13)
       {
-        v18 = v13;
-        v19 = 0;
+        v19 = v13;
+        v20 = 0;
       }
 
       else
       {
-        v18 = 0;
-        v19 = v10;
+        v19 = 0;
+        v20 = v10;
       }
 
-      completionCopy[2](completionCopy, v18, v19);
+      completionCopy[2](completionCopy, v19, v20);
     }
 
     else
@@ -3455,27 +3470,28 @@ LABEL_8:
 - (BOOL)_hasComplicationsForPosterConfiguration:(id)configuration
 {
   configurationCopy = configuration;
-  v9 = 0;
-  v4 = [configurationCopy pr_loadComplicationLayoutWithError:&v9];
-  v5 = v9;
+  v10 = 0;
+  v4 = [configurationCopy pr_loadComplicationLayoutWithError:&v10];
+  v5 = v10;
+  v6 = v5;
   if (v5)
   {
-    complications = PBFLogCommon();
+    complications = PBFLogCommon(v5);
     if (os_log_type_enabled(complications, OS_LOG_TYPE_ERROR))
     {
-      [(PBFPosterExtensionDataStoreXPCServiceGlue *)configurationCopy _hasComplicationsForPosterConfiguration:v5, complications];
+      [(PBFPosterExtensionDataStoreXPCServiceGlue *)configurationCopy _hasComplicationsForPosterConfiguration:v6, complications];
     }
 
-    v7 = 0;
+    v8 = 0;
   }
 
   else
   {
     complications = [v4 complications];
-    v7 = [complications count]!= 0;
+    v8 = [complications count]!= 0;
   }
 
-  return v7;
+  return v8;
 }
 
 - (CGRect)_screenBoundsForOrientation:(int64_t)orientation
@@ -3816,40 +3832,40 @@ LABEL_8:
 
 - (void)server:(id)server removeAllFocusConfigurationsMatchingFocusUUID:(id)d completion:(id)completion
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   dCopy = d;
   completionCopy = completion;
-  v33 = 0;
-  v9 = [(PBFPosterExtensionDataStoreXPCServiceGlue *)self _dataStoreWithError:&v33];
-  v10 = v33;
+  v34 = 0;
+  v9 = [(PBFPosterExtensionDataStoreXPCServiceGlue *)self _dataStoreWithError:&v34];
+  v10 = v34;
   v11 = v10;
   if (v9)
   {
-    v24 = v10;
-    v26 = v9;
-    v27 = completionCopy;
+    v25 = v10;
+    v27 = v9;
+    v28 = completionCopy;
     switcherConfiguration = [v9 switcherConfiguration];
     v12 = [switcherConfiguration mutableCopy];
-    v29 = 0u;
     v30 = 0u;
     v31 = 0u;
     v32 = 0u;
+    v33 = 0u;
     configurations = [v12 configurations];
-    v14 = [configurations countByEnumeratingWithState:&v29 objects:v34 count:16];
+    v14 = [configurations countByEnumeratingWithState:&v30 objects:v35 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v30;
+      v16 = *v31;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v30 != v16)
+          if (*v31 != v16)
           {
             objc_enumerationMutation(configurations);
           }
 
-          v18 = *(*(&v29 + 1) + 8 * i);
+          v18 = *(*(&v30 + 1) + 8 * i);
           v19 = [v18 loadFocusConfigurationWithError:0];
           activityUUID = [v19 activityUUID];
           v21 = [activityUUID isEqual:dCopy];
@@ -3860,28 +3876,28 @@ LABEL_8:
           }
         }
 
-        v15 = [configurations countByEnumeratingWithState:&v29 objects:v34 count:16];
+        v15 = [configurations countByEnumeratingWithState:&v30 objects:v35 count:16];
       }
 
       while (v15);
     }
 
-    v28 = 0;
-    v9 = v26;
-    v22 = [v26 updateDataStoreForSwitcherConfiguration:v12 reason:@"remove all focus configurations XPC" error:&v28];
-    v11 = v28;
+    v29 = 0;
+    v9 = v27;
+    v22 = [v27 updateDataStoreForSwitcherConfiguration:v12 reason:@"remove all focus configurations XPC" error:&v29];
+    v11 = v29;
 
-    completionCopy = v27;
+    completionCopy = v28;
     if (v11)
     {
-      v23 = PBFLogCommon();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      v24 = PBFLogCommon(v23);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         [PBFPosterExtensionDataStoreXPCServiceGlue server:removeAllFocusConfigurationsMatchingFocusUUID:completion:];
       }
     }
 
-    v27[2](v27, v11);
+    v28[2](v28, v11);
   }
 
   else
@@ -3892,34 +3908,34 @@ LABEL_8:
 
 - (void)server:(id)server notifyFocusModeDidChange:(id)change completion:(id)completion
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   completionCopy = completion;
-  v16 = 0;
-  v9 = [(PBFPosterExtensionDataStoreXPCServiceGlue *)self _dataStoreWithError:&v16];
-  v10 = v16;
+  v17 = 0;
+  v9 = [(PBFPosterExtensionDataStoreXPCServiceGlue *)self _dataStoreWithError:&v17];
+  v10 = v17;
   v11 = v10;
   if (v9)
   {
-    v15 = 0;
-    [v9 updateDataStoreForIncomingFocusModeChange:changeCopy error:&v15];
-    v12 = v15;
+    v16 = 0;
+    [v9 updateDataStoreForIncomingFocusModeChange:changeCopy error:&v16];
+    v12 = v16;
 
-    v13 = PBFLogCommon();
-    v14 = v13;
+    v14 = PBFLogCommon(v13);
+    v15 = v14;
     if (v12)
     {
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         [PBFPosterExtensionDataStoreXPCServiceGlue server:notifyFocusModeDidChange:completion:];
       }
     }
 
-    else if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    else if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v18 = changeCopy;
-      _os_log_impl(&dword_21B526000, v14, OS_LOG_TYPE_DEFAULT, "Successfully updated switcher configuration to match mode change to %{public}@", buf, 0xCu);
+      v19 = changeCopy;
+      _os_log_impl(&dword_21B526000, v15, OS_LOG_TYPE_DEFAULT, "Successfully updated switcher configuration to match mode change to %{public}@", buf, 0xCu);
     }
   }
 
@@ -3952,34 +3968,34 @@ LABEL_8:
 
 - (void)server:(id)server notifyActiveChargerIdentifierDidUpdate:(id)update completion:(id)completion
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   completionCopy = completion;
-  v16 = 0;
-  v9 = [(PBFPosterExtensionDataStoreXPCServiceGlue *)self _dataStoreWithError:&v16];
-  v10 = v16;
+  v17 = 0;
+  v9 = [(PBFPosterExtensionDataStoreXPCServiceGlue *)self _dataStoreWithError:&v17];
+  v10 = v17;
   v11 = v10;
   if (v9)
   {
-    v15 = 0;
-    [v9 updateDataStoreForIncomingActiveChargerIdentifierUpdate:updateCopy error:&v15];
-    v12 = v15;
+    v16 = 0;
+    [v9 updateDataStoreForIncomingActiveChargerIdentifierUpdate:updateCopy error:&v16];
+    v12 = v16;
 
-    v13 = PBFLogCommon();
-    v14 = v13;
+    v14 = PBFLogCommon(v13);
+    v15 = v14;
     if (v12)
     {
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         [PBFPosterExtensionDataStoreXPCServiceGlue server:notifyActiveChargerIdentifierDidUpdate:completion:];
       }
     }
 
-    else if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    else if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v18 = updateCopy;
-      _os_log_impl(&dword_21B526000, v14, OS_LOG_TYPE_DEFAULT, "Successfully updated data store for activeChargerIdentifier update to %{public}@", buf, 0xCu);
+      v19 = updateCopy;
+      _os_log_impl(&dword_21B526000, v15, OS_LOG_TYPE_DEFAULT, "Successfully updated data store for activeChargerIdentifier update to %{public}@", buf, 0xCu);
     }
   }
 
@@ -4115,174 +4131,175 @@ LABEL_8:
 - (void)server:(id)server runMigration:(BOOL)migration migrationDescriptor:(id)descriptor completion:(id)completion
 {
   migrationCopy = migration;
-  v118 = *MEMORY[0x277D85DE8];
+  v127 = *MEMORY[0x277D85DE8];
   descriptorCopy = descriptor;
   completionCopy = completion;
   _baseDataStoreURL = [(PBFPosterExtensionDataStoreXPCServiceGlue *)self _baseDataStoreURL];
-  v11 = PBFLogMigration();
+  v11 = PBFLogMigration(_baseDataStoreURL);
   v12 = os_signpost_id_generate(v11);
 
-  v13 = PBFLogMigration();
-  v14 = v13;
-  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+  v14 = PBFLogMigration(v13);
+  v15 = v14;
+  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_21B526000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v12, "Migration", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_21B526000, v15, OS_SIGNPOST_INTERVAL_BEGIN, v12, "Migration", "", buf, 2u);
   }
 
   os_unfair_lock_lock(&self->_lock);
-  v114 = 0;
-  [(PBFPosterExtensionDataStoreXPCServiceGlue *)self _lock_teardownDataStoreWithError:&v114];
-  v15 = v114;
-  v16 = [[PBFPosterExtensionDataStoreMigrator alloc] initWithBaseURL:_baseDataStoreURL];
-  availableDataStoreVersions = [(PBFPosterExtensionDataStoreMigrator *)v16 availableDataStoreVersions];
+  v123 = 0;
+  [(PBFPosterExtensionDataStoreXPCServiceGlue *)self _lock_teardownDataStoreWithError:&v123];
+  v16 = v123;
+  v17 = [[PBFPosterExtensionDataStoreMigrator alloc] initWithBaseURL:_baseDataStoreURL];
+  availableDataStoreVersions = [(PBFPosterExtensionDataStoreMigrator *)v17 availableDataStoreVersions];
   lastIndex = [availableDataStoreVersions lastIndex];
 
-  v102 = v12 - 1;
+  v111 = v12 - 1;
   if (lastIndex == 0x7FFFFFFFFFFFFFFFLL)
   {
-    v19 = v12;
-    v20 = descriptorCopy;
-    v21 = _baseDataStoreURL;
-    v22 = PBFLogMigration();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    v21 = v12;
+    v22 = descriptorCopy;
+    v23 = _baseDataStoreURL;
+    v24 = PBFLogMigration(v20);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_21B526000, v22, OS_LOG_TYPE_DEFAULT, "Pre-migration; data store never ever initialized!", buf, 2u);
+      _os_log_impl(&dword_21B526000, v24, OS_LOG_TYPE_DEFAULT, "Pre-migration; data store never ever initialized!", buf, 2u);
     }
   }
 
   else
   {
-    v99 = v15;
-    v100 = descriptorCopy;
-    v19 = v12;
-    v23 = [PBFPosterExtensionDataStoreIntrospector alloc];
-    v21 = _baseDataStoreURL;
-    v24 = [MEMORY[0x277CBEBC0] pbf_dataStoreURLForBaseURL:_baseDataStoreURL version:lastIndex];
-    v25 = [(PBFPosterExtensionDataStoreIntrospector *)v23 initWithURL:v24 error:0];
-    v26 = [(PBFPosterExtensionDataStoreIntrospector *)v25 numberOfPostersForRole:*MEMORY[0x277D3EEF0]];
+    v108 = v16;
+    v109 = descriptorCopy;
+    v21 = v12;
+    v25 = [PBFPosterExtensionDataStoreIntrospector alloc];
+    v23 = _baseDataStoreURL;
+    v26 = [MEMORY[0x277CBEBC0] pbf_dataStoreURLForBaseURL:_baseDataStoreURL version:lastIndex];
+    v27 = [(PBFPosterExtensionDataStoreIntrospector *)v25 initWithURL:v26 error:0];
+    v28 = [(PBFPosterExtensionDataStoreIntrospector *)v27 numberOfPostersForRole:*MEMORY[0x277D3EEF0]];
 
-    v27 = PBFLogMigration();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+    v30 = PBFLogMigration(v29);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v117 = v26;
-      _os_log_impl(&dword_21B526000, v27, OS_LOG_TYPE_DEFAULT, "Pre-migration number of lock screen posters: %lu", buf, 0xCu);
+      v126 = v28;
+      _os_log_impl(&dword_21B526000, v30, OS_LOG_TYPE_DEFAULT, "Pre-migration number of lock screen posters: %lu", buf, 0xCu);
     }
 
-    v22 = PBFLogMigration();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    v24 = PBFLogMigration(v31);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v117 = lastIndex;
-      _os_log_impl(&dword_21B526000, v22, OS_LOG_TYPE_DEFAULT, "Pre-migration data store version: %lu", buf, 0xCu);
+      v126 = lastIndex;
+      _os_log_impl(&dword_21B526000, v24, OS_LOG_TYPE_DEFAULT, "Pre-migration data store version: %lu", buf, 0xCu);
     }
 
-    v15 = v99;
-    v20 = v100;
+    v16 = v108;
+    v22 = v109;
   }
 
-  if (!v15)
+  if (!v16)
   {
-    v113 = 0;
-    v29 = v21;
-    [(PBFPosterExtensionDataStoreXPCServiceGlue *)self _lock_performNecessaryMigrationsForDataStoreAtURL:v21 shouldForce:migrationCopy error:&v113];
-    v28 = v113;
-    v30 = v20;
-    if (v28)
+    v122 = 0;
+    v34 = v23;
+    [(PBFPosterExtensionDataStoreXPCServiceGlue *)self _lock_performNecessaryMigrationsForDataStoreAtURL:v23 shouldForce:migrationCopy error:&v122];
+    v32 = v122;
+    v33 = v32;
+    v35 = v22;
+    if (v32)
     {
       goto LABEL_15;
     }
 
-    v112 = 0;
-    v37 = [(PBFPosterExtensionDataStoreXPCServiceGlue *)self _lock_dataStoreWithError:&v112];
-    v28 = v112;
+    v121 = 0;
+    v43 = [(PBFPosterExtensionDataStoreXPCServiceGlue *)self _lock_dataStoreWithError:&v121];
+    v33 = v121;
 
-    if (!v37)
+    if (!v43)
     {
       goto LABEL_15;
     }
 
-    v38 = [[PBFPosterExtensionDataStoreMigrator alloc] initWithBaseURL:v29];
-    [(PBFPosterExtensionDataStoreMigrator *)v38 availableDataStoreVersions];
-    v40 = v39 = v29;
-    lastIndex2 = [v40 lastIndex];
+    v44 = [[PBFPosterExtensionDataStoreMigrator alloc] initWithBaseURL:v34];
+    [(PBFPosterExtensionDataStoreMigrator *)v44 availableDataStoreVersions];
+    v46 = v45 = v34;
+    lastIndex2 = [v46 lastIndex];
 
-    v42 = [PBFPosterExtensionDataStoreIntrospector alloc];
-    v95 = v39;
-    v43 = [MEMORY[0x277CBEBC0] pbf_dataStoreURLForBaseURL:v39 version:lastIndex2];
-    v111 = 0;
-    v44 = [(PBFPosterExtensionDataStoreIntrospector *)v42 initWithURL:v43 error:&v111];
-    v96 = v111;
+    v48 = [PBFPosterExtensionDataStoreIntrospector alloc];
+    v104 = v45;
+    v49 = [MEMORY[0x277CBEBC0] pbf_dataStoreURLForBaseURL:v45 version:lastIndex2];
+    v120 = 0;
+    v50 = [(PBFPosterExtensionDataStoreIntrospector *)v48 initWithURL:v49 error:&v120];
+    v105 = v120;
 
-    v105 = v44;
-    v45 = [(PBFPosterExtensionDataStoreIntrospector *)v44 numberOfPostersForRole:*MEMORY[0x277D3EEF0]];
-    v46 = PBFLogMigration();
-    if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
+    v114 = v50;
+    v51 = [(PBFPosterExtensionDataStoreIntrospector *)v50 numberOfPostersForRole:*MEMORY[0x277D3EEF0]];
+    v52 = PBFLogMigration(v51);
+    if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v117 = v45;
-      _os_log_impl(&dword_21B526000, v46, OS_LOG_TYPE_DEFAULT, "Post-migration number of lock screen posters: %lu", buf, 0xCu);
+      v126 = v51;
+      _os_log_impl(&dword_21B526000, v52, OS_LOG_TYPE_DEFAULT, "Post-migration number of lock screen posters: %lu", buf, 0xCu);
     }
 
-    v47 = PBFLogMigration();
-    if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+    v54 = PBFLogMigration(v53);
+    if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v117 = lastIndex2;
-      _os_log_impl(&dword_21B526000, v47, OS_LOG_TYPE_DEFAULT, "Post-migration data store version: %lu", buf, 0xCu);
+      v126 = lastIndex2;
+      _os_log_impl(&dword_21B526000, v54, OS_LOG_TYPE_DEFAULT, "Post-migration data store version: %lu", buf, 0xCu);
     }
 
-    v29 = v95;
-    if (v96)
+    v34 = v104;
+    if (v105)
     {
-      homeScreenTintColor2 = PBFLogMigration();
-      v30 = v20;
+      homeScreenTintColor2 = PBFLogMigration(v55);
+      v35 = v22;
       if (os_log_type_enabled(homeScreenTintColor2, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v117 = v96;
+        v126 = v105;
         _os_log_impl(&dword_21B526000, homeScreenTintColor2, OS_LOG_TYPE_DEFAULT, "Post-migration introspector error: %{public}@", buf, 0xCu);
       }
 
-      v32 = v19;
-      v33 = v102;
+      v37 = v21;
+      v38 = v111;
 LABEL_73:
 
 LABEL_74:
-      v31 = v96;
+      v36 = v105;
       goto LABEL_18;
     }
 
-    v30 = v20;
-    homeScreenTintColor = [v20 homeScreenTintColor];
+    v35 = v22;
+    homeScreenTintColor = [v22 homeScreenTintColor];
     if (homeScreenTintColor)
     {
       isHomeScreenDim = homeScreenTintColor;
-      v32 = v19;
+      v37 = v21;
     }
 
     else
     {
-      homeScreenIconTintSource = [v20 homeScreenIconTintSource];
-      v32 = v19;
+      homeScreenIconTintSource = [v22 homeScreenIconTintSource];
+      v37 = v21;
       if (!homeScreenIconTintSource)
       {
-        isHomeScreenDim = [v30 isHomeScreenDim];
-        v33 = v102;
+        isHomeScreenDim = [v35 isHomeScreenDim];
+        v38 = v111;
         if (([isHomeScreenDim BOOLValue] & 1) == 0)
         {
-          homeScreenIconStyle = [v30 homeScreenIconStyle];
+          homeScreenIconStyle = [v35 homeScreenIconStyle];
           if (!homeScreenIconStyle)
           {
-            homeScreenIconStyle = [v30 homeScreenIconStyleVariant];
+            homeScreenIconStyle = [v35 homeScreenIconStyleVariant];
             if (!homeScreenIconStyle)
             {
-              homeScreenIconStyle = [v30 homeScreenIconSize];
+              homeScreenIconStyle = [v35 homeScreenIconSize];
               if (!homeScreenIconStyle)
               {
-                homeScreenIconStyleVariantsForStyles = [v30 homeScreenIconStyleVariantsForStyles];
+                homeScreenIconStyleVariantsForStyles = [v35 homeScreenIconStyleVariantsForStyles];
 
                 if (!homeScreenIconStyleVariantsForStyles)
                 {
@@ -4298,161 +4315,162 @@ LABEL_74:
 LABEL_42:
 
 LABEL_43:
-        homeScreenTintColor2 = [v30 homeScreenTintColor];
-        isHomeScreenDim2 = [v30 isHomeScreenDim];
-        homeScreenIconTintSource2 = [v30 homeScreenIconTintSource];
-        homeScreenIconSize = [v30 homeScreenIconSize];
-        homeScreenIconStyle2 = [v30 homeScreenIconStyle];
-        homeScreenIconStyleVariant = [v30 homeScreenIconStyleVariant];
-        homeScreenIconStyleVariantsForStyles2 = [v30 homeScreenIconStyleVariantsForStyles];
-        v88 = [(PBFPosterExtensionDataStoreIntrospector *)v105 sortedPosterUUIDsForRole:*MEMORY[0x277D3EBC0] error:0];
-        if ([v88 count])
+        homeScreenTintColor2 = [v35 homeScreenTintColor];
+        isHomeScreenDim2 = [v35 isHomeScreenDim];
+        homeScreenIconTintSource2 = [v35 homeScreenIconTintSource];
+        homeScreenIconSize = [v35 homeScreenIconSize];
+        homeScreenIconStyle2 = [v35 homeScreenIconStyle];
+        homeScreenIconStyleVariant = [v35 homeScreenIconStyleVariant];
+        homeScreenIconStyleVariantsForStyles2 = [v35 homeScreenIconStyleVariantsForStyles];
+        v97 = [(PBFPosterExtensionDataStoreIntrospector *)v114 sortedPosterUUIDsForRole:*MEMORY[0x277D3EBC0] error:0];
+        if ([v97 count])
         {
           selfCopy = self;
-          v53 = 0x277D3E000;
-          v87 = homeScreenTintColor2;
-          v94 = homeScreenIconStyleVariant;
-          v101 = v30;
-          v103 = objc_opt_new();
+          v61 = 0x277D3E000;
+          v96 = homeScreenTintColor2;
+          v103 = homeScreenIconStyleVariant;
+          v110 = v35;
+          v112 = objc_opt_new();
           if (homeScreenTintColor2)
           {
             uIColor = [homeScreenTintColor2 UIColor];
-            v54 = objc_opt_new();
-            [v54 setAccentColor:uIColor];
-            v55 = MEMORY[0x277D3E9C8];
-            v56 = MEMORY[0x277CCABB0];
-            [v54 variation];
-            v57 = [v56 numberWithDouble:?];
-            v58 = MEMORY[0x277CCABB0];
-            [v54 saturation];
-            v59 = [v58 numberWithDouble:?];
-            v60 = v28;
-            v61 = MEMORY[0x277CCABB0];
-            [v54 luminance];
-            v62 = [v61 numberWithDouble:?];
-            v63 = [v55 posterUpdateHomeScreenTintWithVariation:v57 saturation:v59 luminance:v62 alpha:&unk_282D0A2F8];
-            [v103 bs_safeAddObject:v63];
+            v62 = objc_opt_new();
+            [v62 setAccentColor:uIColor];
+            v63 = MEMORY[0x277D3E9C8];
+            v64 = MEMORY[0x277CCABB0];
+            [v62 variation];
+            v65 = [v64 numberWithDouble:?];
+            v66 = MEMORY[0x277CCABB0];
+            [v62 saturation];
+            v67 = [v66 numberWithDouble:?];
+            v68 = v33;
+            v69 = MEMORY[0x277CCABB0];
+            [v62 luminance];
+            v70 = [v69 numberWithDouble:?];
+            v71 = [v63 posterUpdateHomeScreenTintWithVariation:v65 saturation:v67 luminance:v70 alpha:&unk_282D0A2F8];
+            [v112 bs_safeAddObject:v71];
 
-            v53 = 0x277D3E000uLL;
-            v28 = v60;
+            v61 = 0x277D3E000uLL;
+            v33 = v68;
 
-            homeScreenIconStyleVariant = v94;
-            homeScreenTintColor2 = v87;
+            homeScreenIconStyleVariant = v103;
+            homeScreenTintColor2 = v96;
           }
 
           if (isHomeScreenDim2)
           {
-            v64 = [*(v53 + 2504) posterUpdateHomeScreenAppearanceDimWithValue:{objc_msgSend(isHomeScreenDim2, "BOOLValue")}];
-            [v103 bs_safeAddObject:v64];
+            v72 = [*(v61 + 2504) posterUpdateHomeScreenAppearanceDimWithValue:{objc_msgSend(isHomeScreenDim2, "BOOLValue")}];
+            [v112 bs_safeAddObject:v72];
 
-            homeScreenIconStyleVariant = v94;
+            homeScreenIconStyleVariant = v103;
           }
 
           if (homeScreenIconSize)
           {
-            v65 = MEMORY[0x277D3E9C8];
-            v66 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(homeScreenIconSize, "isEqual:", *MEMORY[0x277D3EE90])}];
-            v67 = [v65 posterUpdateShouldUseLargeHomeScreenIcons:v66];
-            [v103 bs_safeAddObject:v67];
+            v73 = MEMORY[0x277D3E9C8];
+            v74 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(homeScreenIconSize, "isEqual:", *MEMORY[0x277D3EE90])}];
+            v75 = [v73 posterUpdateShouldUseLargeHomeScreenIcons:v74];
+            [v112 bs_safeAddObject:v75];
 
-            homeScreenIconStyleVariant = v94;
-            homeScreenTintColor2 = v87;
+            homeScreenIconStyleVariant = v103;
+            homeScreenTintColor2 = v96;
           }
 
           if (homeScreenIconStyle2)
           {
-            v68 = [MEMORY[0x277D3E9C8] posterUpdateHomeScreenIconUserInterfaceStyle:homeScreenIconStyle2];
-            [v103 bs_safeAddObject:v68];
+            v76 = [MEMORY[0x277D3E9C8] posterUpdateHomeScreenIconUserInterfaceStyle:homeScreenIconStyle2];
+            [v112 bs_safeAddObject:v76];
 
-            homeScreenIconStyleVariant = v94;
+            homeScreenIconStyleVariant = v103;
           }
 
           self = selfCopy;
           if (homeScreenIconStyleVariant)
           {
-            v69 = [MEMORY[0x277D3E9C8] posterUpdateHomeScreenIconUserInterfaceStyleVariant:homeScreenIconStyleVariant];
-            [v103 bs_safeAddObject:v69];
+            v77 = [MEMORY[0x277D3E9C8] posterUpdateHomeScreenIconUserInterfaceStyleVariant:homeScreenIconStyleVariant];
+            [v112 bs_safeAddObject:v77];
 
-            homeScreenIconStyleVariant = v94;
+            homeScreenIconStyleVariant = v103;
           }
 
           if (homeScreenIconStyleVariantsForStyles2)
           {
-            v70 = [MEMORY[0x277D3E9C8] posterUpdateUserSelectedHomeScreenIconStyleVariantsForTypes:?];
-            [v103 bs_safeAddObject:v70];
+            v78 = [MEMORY[0x277D3E9C8] posterUpdateUserSelectedHomeScreenIconStyleVariantsForTypes:?];
+            [v112 bs_safeAddObject:v78];
 
-            homeScreenIconStyleVariant = v94;
+            homeScreenIconStyleVariant = v103;
           }
 
           if (homeScreenIconTintSource2)
           {
-            v71 = [MEMORY[0x277D3E9C8] posterUpdateHomeScreenIconTintSource:homeScreenIconTintSource2];
-            [v103 bs_safeAddObject:v71];
+            v79 = [MEMORY[0x277D3E9C8] posterUpdateHomeScreenIconTintSource:homeScreenIconTintSource2];
+            [v112 bs_safeAddObject:v79];
 
-            homeScreenIconStyleVariant = v94;
+            homeScreenIconStyleVariant = v103;
           }
 
-          if ([v103 count])
+          if ([v112 count])
           {
-            v85 = v28;
-            v98 = completionCopy;
-            v109 = 0u;
-            v110 = 0u;
-            v107 = 0u;
-            v108 = 0u;
-            v72 = v88;
-            v73 = [v72 countByEnumeratingWithState:&v107 objects:v115 count:16];
-            v74 = v103;
-            if (v73)
+            v94 = v33;
+            v107 = completionCopy;
+            v118 = 0u;
+            v119 = 0u;
+            v116 = 0u;
+            v117 = 0u;
+            v80 = v97;
+            v81 = [v80 countByEnumeratingWithState:&v116 objects:v124 count:16];
+            v82 = v112;
+            if (v81)
             {
-              v75 = v73;
-              v76 = *v108;
+              v83 = v81;
+              v84 = *v117;
               do
               {
-                for (i = 0; i != v75; ++i)
+                for (i = 0; i != v83; ++i)
                 {
-                  if (*v108 != v76)
+                  if (*v117 != v84)
                   {
-                    objc_enumerationMutation(v72);
+                    objc_enumerationMutation(v80);
                   }
 
-                  v78 = [(PBFPosterExtensionDataStoreIntrospector *)v105 posterWithUUID:*(*(&v107 + 1) + 8 * i)];
-                  _path = [v78 _path];
-                  v80 = [MEMORY[0x277D3E9F0] updaterForPath:_path];
-                  v106 = 0;
-                  [v80 applyUpdatesLocally:v74 error:&v106];
-                  v81 = v106;
-                  if (v81)
+                  v86 = [(PBFPosterExtensionDataStoreIntrospector *)v114 posterWithUUID:*(*(&v116 + 1) + 8 * i)];
+                  _path = [v86 _path];
+                  v88 = [MEMORY[0x277D3E9F0] updaterForPath:_path];
+                  v115 = 0;
+                  [v88 applyUpdatesLocally:v82 error:&v115];
+                  v89 = v115;
+                  v90 = v89;
+                  if (v89)
                   {
-                    v82 = PBFLogMigration();
-                    if (os_log_type_enabled(v82, OS_LOG_TYPE_ERROR))
+                    v91 = PBFLogMigration(v89);
+                    if (os_log_type_enabled(v91, OS_LOG_TYPE_ERROR))
                     {
                       *buf = 138543362;
-                      v117 = v81;
-                      _os_log_error_impl(&dword_21B526000, v82, OS_LOG_TYPE_ERROR, "tint color updates failed to apply: %{public}@", buf, 0xCu);
+                      v126 = v90;
+                      _os_log_error_impl(&dword_21B526000, v91, OS_LOG_TYPE_ERROR, "tint color updates failed to apply: %{public}@", buf, 0xCu);
                     }
 
-                    v74 = v103;
+                    v82 = v112;
                   }
                 }
 
-                v75 = [v72 countByEnumeratingWithState:&v107 objects:v115 count:16];
+                v83 = [v80 countByEnumeratingWithState:&v116 objects:v124 count:16];
               }
 
-              while (v75);
+              while (v83);
             }
 
-            v30 = v101;
-            v33 = v102;
-            completionCopy = v98;
+            v35 = v110;
+            v38 = v111;
+            completionCopy = v107;
             self = selfCopy;
-            v28 = v85;
-            homeScreenTintColor2 = v87;
-            homeScreenIconStyleVariant = v94;
+            v33 = v94;
+            homeScreenTintColor2 = v96;
+            homeScreenIconStyleVariant = v103;
           }
 
-          v29 = v95;
-          v15 = 0;
+          v34 = v104;
+          v16 = 0;
         }
 
         goto LABEL_73;
@@ -4461,47 +4479,47 @@ LABEL_43:
       isHomeScreenDim = homeScreenIconTintSource;
     }
 
-    v33 = v102;
+    v38 = v111;
     goto LABEL_42;
   }
 
-  v28 = 0;
-  v29 = v21;
-  v30 = v20;
+  v33 = 0;
+  v34 = v23;
+  v35 = v22;
 LABEL_15:
-  v31 = PBFLogMigration();
-  if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+  v36 = PBFLogMigration(v32);
+  if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
   {
     [PBFPosterExtensionDataStoreXPCServiceGlue server:runMigration:migrationDescriptor:completion:];
   }
 
-  v32 = v19;
-  v33 = v102;
+  v37 = v21;
+  v38 = v111;
 LABEL_18:
 
   os_unfair_lock_unlock(&self->_lock);
-  v34 = PBFLogMigration();
-  v35 = v34;
-  if (v33 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v34))
+  v40 = PBFLogMigration(v39);
+  v41 = v40;
+  if (v38 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v40))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_21B526000, v35, OS_SIGNPOST_INTERVAL_END, v32, "Migration", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_21B526000, v41, OS_SIGNPOST_INTERVAL_END, v37, "Migration", "", buf, 2u);
   }
 
   [(PBFPosterExtensionDataStoreXPCServiceGlue *)self _postDidTearDownNotification];
   if (completionCopy)
   {
-    if (v15)
+    if (v16)
     {
-      v36 = v15;
+      v42 = v16;
     }
 
     else
     {
-      v36 = v28;
+      v42 = v33;
     }
 
-    (completionCopy)[2](completionCopy, v36);
+    (completionCopy)[2](completionCopy, v42);
   }
 }
 
@@ -5285,42 +5303,43 @@ void __102__PBFPosterExtensionDataStoreXPCServiceGlue_posterExtensionDataStore_s
   os_unfair_lock_lock(&self->_lock);
   if (!self->_lock_dataStore)
   {
-    if ([MEMORY[0x277D3EF30] platformSupportsDataMigrator] && -[PBFPosterExtensionDataStoreXPCServiceGlue _migrationIsPending](self, "_migrationIsPending"))
+    platformSupportsDataMigrator = [MEMORY[0x277D3EF30] platformSupportsDataMigrator];
+    if (platformSupportsDataMigrator && (platformSupportsDataMigrator = [(PBFPosterExtensionDataStoreXPCServiceGlue *)self _migrationIsPending], platformSupportsDataMigrator))
     {
-      v3 = PBFLogDataStore();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+      v4 = PBFLogDataStore(platformSupportsDataMigrator);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_21B526000, v3, OS_LOG_TYPE_DEFAULT, "wallpaperPublisherDidReceiveObserverConnection: Deferring dataStore init because migration is pending!", buf, 2u);
+        _os_log_impl(&dword_21B526000, v4, OS_LOG_TYPE_DEFAULT, "wallpaperPublisherDidReceiveObserverConnection: Deferring dataStore init because migration is pending!", buf, 2u);
       }
     }
 
     else
     {
-      v4 = PBFLogDataStore();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      v5 = PBFLogDataStore(platformSupportsDataMigrator);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
-        *v10 = 0;
-        _os_log_impl(&dword_21B526000, v4, OS_LOG_TYPE_DEFAULT, "wallpaperPublisherDidReceiveObserverConnection: Gonna init the datastore", v10, 2u);
+        *v11 = 0;
+        _os_log_impl(&dword_21B526000, v5, OS_LOG_TYPE_DEFAULT, "wallpaperPublisherDidReceiveObserverConnection: Gonna init the datastore", v11, 2u);
       }
 
-      v9 = 0;
-      v5 = [(PBFPosterExtensionDataStoreXPCServiceGlue *)self _lock_dataStoreWithError:&v9];
-      v3 = v9;
-      v6 = PBFLogDataStore();
-      v7 = v6;
-      if (v3)
+      v10 = 0;
+      v6 = [(PBFPosterExtensionDataStoreXPCServiceGlue *)self _lock_dataStoreWithError:&v10];
+      v4 = v10;
+      v7 = PBFLogDataStore(v4);
+      v8 = v7;
+      if (v4)
       {
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
         {
           [PBFPosterExtensionDataStoreXPCServiceGlue wallpaperPublisherDidReceiveObserverConnection];
         }
       }
 
-      else if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      else if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        *v8 = 0;
-        _os_log_impl(&dword_21B526000, v7, OS_LOG_TYPE_DEFAULT, "wallpaperPublisherDidReceiveObserverConnection: Successfully initialized the datastore", v8, 2u);
+        *v9 = 0;
+        _os_log_impl(&dword_21B526000, v8, OS_LOG_TYPE_DEFAULT, "wallpaperPublisherDidReceiveObserverConnection: Successfully initialized the datastore", v9, 2u);
       }
     }
   }
@@ -5364,7 +5383,7 @@ void __61__PBFPosterExtensionDataStoreXPCServiceGlue_initWithOptions___block_inv
     v4 = OUTLINED_FUNCTION_3();
     v5 = NSStringFromClass(v4);
     OUTLINED_FUNCTION_0_7();
-    OUTLINED_FUNCTION_14(&dword_21B526000, MEMORY[0x277D86220], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v11);
+    OUTLINED_FUNCTION_14(&dword_21B526000, MEMORY[0x277D86220], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10);
   }
 
   [v3 UTF8String];
@@ -5382,7 +5401,7 @@ void __61__PBFPosterExtensionDataStoreXPCServiceGlue_initWithOptions___block_inv
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_7();
-    OUTLINED_FUNCTION_14(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_14(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9);
   }
 
   [v2 UTF8String];
@@ -5400,7 +5419,7 @@ void __61__PBFPosterExtensionDataStoreXPCServiceGlue_initWithOptions___block_inv
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_7();
-    OUTLINED_FUNCTION_14(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_14(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9);
   }
 
   [v2 UTF8String];
@@ -5410,7 +5429,7 @@ void __61__PBFPosterExtensionDataStoreXPCServiceGlue_initWithOptions___block_inv
 
 - (void)_lock_performNecessaryMigrationsForDataStoreAtURL:(char *)a1 shouldForce:error:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSURLClass]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -5418,7 +5437,7 @@ void __61__PBFPosterExtensionDataStoreXPCServiceGlue_initWithOptions___block_inv
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSURLClass]", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -5436,7 +5455,7 @@ void __61__PBFPosterExtensionDataStoreXPCServiceGlue_initWithOptions___block_inv
 
 - (void)_lock_performNecessaryMigrationsForDataStoreAtURL:(char *)a1 shouldForce:error:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -5444,7 +5463,7 @@ void __61__PBFPosterExtensionDataStoreXPCServiceGlue_initWithOptions___block_inv
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -5461,6 +5480,13 @@ void __112__PBFPosterExtensionDataStoreXPCServiceGlue_server_refreshPosterDescri
   OUTLINED_FUNCTION_2_1(&dword_21B526000, a2, a3, "Failed to refresh snapshots for %@: %{public}@", *v3, *&v3[8], *&v3[16], *MEMORY[0x277D85DE8]);
 }
 
+void __112__PBFPosterExtensionDataStoreXPCServiceGlue_server_refreshPosterDescriptorsForExtension_sessionInfo_completion___block_invoke_362_cold_2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(a1 + 32);
+  OUTLINED_FUNCTION_2(&dword_21B526000, a2, a3, "Successfully refreshed snapshots poster reload for %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 - (void)_hasComplicationsForPosterConfiguration:(NSObject *)a3 .cold.1(void *a1, uint64_t a2, NSObject *a3)
 {
   v9 = *MEMORY[0x277D85DE8];
@@ -5473,7 +5499,7 @@ void __112__PBFPosterExtensionDataStoreXPCServiceGlue_server_refreshPosterDescri
 
 - (void)posterExtensionDataStore:(char *)a1 didInitializeWithSwitcherConfiguration:withChanges:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"switcherConfig"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -5481,7 +5507,7 @@ void __112__PBFPosterExtensionDataStoreXPCServiceGlue_server_refreshPosterDescri
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"switcherConfig", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -5491,7 +5517,7 @@ void __112__PBFPosterExtensionDataStoreXPCServiceGlue_server_refreshPosterDescri
 
 - (void)posterExtensionDataStore:(char *)a1 didUpdateSelectedConfiguration:associatedConfiguration:reason:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"newlySelectedConfiguration"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -5499,7 +5525,7 @@ void __112__PBFPosterExtensionDataStoreXPCServiceGlue_server_refreshPosterDescri
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"newlySelectedConfiguration", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -5509,7 +5535,7 @@ void __112__PBFPosterExtensionDataStoreXPCServiceGlue_server_refreshPosterDescri
 
 - (void)posterExtensionDataStore:(char *)a1 didUpdateActiveConfiguration:associatedConfiguration:reason:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"newlyActivatedConfiguration"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -5517,7 +5543,7 @@ void __112__PBFPosterExtensionDataStoreXPCServiceGlue_server_refreshPosterDescri
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"newlyActivatedConfiguration", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];

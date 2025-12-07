@@ -1,8 +1,10 @@
 @interface RMModelAnyDeclaration
 + (id)buildWithType:(id)type identifier:(id)identifier payload:(id)payload;
++ (id)load:(id)load serializationType:(signed __int16)type error:(id *)error;
 - (BOOL)loadPayloadFromDictionary:(id)dictionary serializationType:(signed __int16)type error:(id *)error;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)declarationClassType;
+- (id)serializePayloadWithType:(signed __int16)type;
 @end
 
 @implementation RMModelAnyDeclaration
@@ -22,6 +24,26 @@
   [v10 updateServerToken];
 
   return v10;
+}
+
++ (id)load:(id)load serializationType:(signed __int16)type error:(id *)error
+{
+  typeCopy = type;
+  loadCopy = load;
+  v8 = objc_opt_new();
+  LODWORD(error) = [v8 loadFromDictionary:loadCopy serializationType:typeCopy error:error];
+
+  if (error)
+  {
+    v9 = v8;
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  return v9;
 }
 
 - (id)declarationClassType
@@ -70,6 +92,14 @@
   [(RMModelAnyDeclaration *)self setPayload:v6];
 
   return 1;
+}
+
+- (id)serializePayloadWithType:(signed __int16)type
+{
+  payload = [(RMModelAnyDeclaration *)self payload];
+  v4 = [payload copy];
+
+  return v4;
 }
 
 - (id)copyWithZone:(_NSZone *)zone

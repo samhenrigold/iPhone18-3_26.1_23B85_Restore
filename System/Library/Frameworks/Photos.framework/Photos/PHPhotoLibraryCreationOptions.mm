@@ -49,9 +49,11 @@
 
 - (void)setContainerIdentifier:(id)identifier
 {
-  self->_containerIdentifier = [identifier copy];
+  v4 = [identifier copy];
+  containerIdentifier = self->_containerIdentifier;
+  self->_containerIdentifier = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, containerIdentifier);
 }
 
 - (NSString)containerIdentifier

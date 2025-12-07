@@ -1,4 +1,5 @@
 @interface DataStreamSetupOperation
++ (id)hapSetupOperationWithAccessory:(id)accessory queue:(id)queue logIdentifier:(id)identifier transferManagementService:(id)service maxControllerTransportMTU:(unint64_t)u setupOperationReadRequired:(BOOL)required;
 - (BOOL)removeBulkSendListener:(id)listener;
 - (DataStreamSetupOperation)initWithAccessory:(id)accessory queue:(id)queue logIdentifier:(id)identifier transferManagementService:(id)service;
 - (DataStreamSetupOperationDelegate)delegate;
@@ -14,6 +15,18 @@
 @end
 
 @implementation DataStreamSetupOperation
+
++ (id)hapSetupOperationWithAccessory:(id)accessory queue:(id)queue logIdentifier:(id)identifier transferManagementService:(id)service maxControllerTransportMTU:(unint64_t)u setupOperationReadRequired:(BOOL)required
+{
+  requiredCopy = required;
+  serviceCopy = service;
+  identifierCopy = identifier;
+  queueCopy = queue;
+  accessoryCopy = accessory;
+  v17 = [[DataStreamHAPSetupOperation alloc] initWithAccessory:accessoryCopy queue:queueCopy logIdentifier:identifierCopy transferManagementService:serviceCopy maxControllerTransportMTU:u setupOperationReadRequired:requiredCopy];
+
+  return v17;
+}
 
 - (DataStreamSetupOperation)initWithAccessory:(id)accessory queue:(id)queue logIdentifier:(id)identifier transferManagementService:(id)service
 {
@@ -82,7 +95,7 @@
 {
   responseCopy = response;
   selfCopy = self;
-  v6 = sub_10007FAA0();
+  v6 = sub_10007FAA0(selfCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     v7 = sub_10007FAFC(selfCopy);
@@ -144,7 +157,7 @@ LABEL_5:
     if (error)
     {
       v19 = selfCopy;
-      v20 = sub_10007FAA0();
+      v20 = sub_10007FAA0(v19);
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         v21 = sub_10007FAFC(v19);
@@ -170,7 +183,7 @@ LABEL_5:
     if (v29 || !v28)
     {
       v34 = selfCopy;
-      v35 = sub_10007FAA0();
+      v35 = sub_10007FAA0(v34);
       if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
       {
         v36 = sub_10007FAFC(v34);
@@ -192,7 +205,7 @@ LABEL_5:
     if (!status)
     {
       v38 = selfCopy;
-      v39 = sub_10007FAA0();
+      v39 = sub_10007FAA0(v38);
       if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
       {
         v40 = sub_10007FAFC(v38);
@@ -231,7 +244,7 @@ LABEL_37:
         if (v29)
         {
           v38 = selfCopy;
-          v42 = sub_10007FAA0();
+          v42 = sub_10007FAA0(v38);
           if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
           {
             v43 = sub_10007FAFC(v38);
@@ -256,7 +269,7 @@ LABEL_37:
         }
 
         v38 = selfCopy;
-        v39 = sub_10007FAA0();
+        v39 = sub_10007FAA0(v38);
         if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
         {
           v40 = sub_10007FAFC(v38);
@@ -280,7 +293,7 @@ LABEL_11:
 
 LABEL_17:
   v24 = selfCopy;
-  v25 = sub_10007FAA0();
+  v25 = sub_10007FAA0(v24);
   if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
   {
     v26 = sub_10007FAFC(v24);

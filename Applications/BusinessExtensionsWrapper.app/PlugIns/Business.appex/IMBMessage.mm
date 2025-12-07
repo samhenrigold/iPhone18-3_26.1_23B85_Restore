@@ -26,24 +26,23 @@
 {
   meCopy = me;
   v10 = sub_10000413C(&unk_1000F06A0, &unk_1000B0450);
-  v11 = *(*(v10 - 8) + 64);
-  __chkstk_darwin(v10 - 8, v12);
-  v14 = &v28 - v13;
+  __chkstk_darwin(v10 - 8);
+  v12 = &v26 - v11;
   if (data)
   {
     urlCopy = url;
     dCopy = d;
     dataCopy = data;
     data = sub_1000AB73C();
-    v19 = v18;
+    v17 = v16;
 
     if (url)
     {
 LABEL_3:
       sub_1000AB6AC();
 
-      v20 = sub_1000AB6EC();
-      (*(*(v20 - 8) + 56))(v14, 0, 1, v20);
+      v18 = sub_1000AB6EC();
+      (*(*(v18 - 8) + 56))(v12, 0, 1, v18);
       goto LABEL_6;
     }
   }
@@ -52,29 +51,29 @@ LABEL_3:
   {
     urlCopy2 = url;
     dCopy2 = d;
-    v19 = 0xF000000000000000;
+    v17 = 0xF000000000000000;
     if (url)
     {
       goto LABEL_3;
     }
   }
 
-  v23 = sub_1000AB6EC();
-  (*(*(v23 - 8) + 56))(v14, 1, 1, v23);
+  v21 = sub_1000AB6EC();
+  (*(*(v21 - 8) + 56))(v12, 1, 1, v21);
 LABEL_6:
   if (d)
   {
-    v24 = sub_1000AC06C();
-    v26 = v25;
+    v22 = sub_1000AC06C();
+    v24 = v23;
   }
 
   else
   {
+    v22 = 0;
     v24 = 0;
-    v26 = 0;
   }
 
-  return sub_10003BF6C(data, v19, v14, v24, v26, meCopy);
+  return sub_10003BF6C(data, v17, v12, v22, v24, meCopy);
 }
 
 - (id)initFromOriginalMessage:(id)message rootKey:(id)key rootObject:(id)object receivedMessage:(id)receivedMessage replyMessage:(id)replyMessage

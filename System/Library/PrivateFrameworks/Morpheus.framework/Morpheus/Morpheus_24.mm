@@ -1,446 +1,3 @@
-void sub_25A3E01DC(_Unwind_Exception *a1)
-{
-  mlx::core::ContiguousIterator::~ContiguousIterator((v1 - 176));
-  std::tuple<std::vector<int>,std::vector<std::vector<long long>>>::~tuple(v1 - 232);
-  _Unwind_Resume(a1);
-}
-
-void mlx::core::anonymous namespace::copy_general_general<mlx::core::complex64_t,float>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t a6, uint64_t a7, _BYTE *a8, _BYTE *a9)
-{
-  v137 = *MEMORY[0x277D85DE8];
-  if (a8[16] == 1)
-  {
-    v11 = *(*a8 + 152);
-  }
-
-  else
-  {
-    v11 = 0;
-  }
-
-  v12 = (*(*a1 + 152) + 8 * a6);
-  v13 = (*(*a2 + 152) + 4 * a7);
-  if (a9[16] == 1)
-  {
-    v14 = *(*a9 + 152);
-  }
-
-  else
-  {
-    v14 = 0;
-  }
-
-  if (*a3 == *(a3 + 8))
-  {
-    *v13 = *v12;
-    goto LABEL_85;
-  }
-
-  v113 = *(*a1 + 48);
-  v128 = 0;
-  v129 = 0;
-  v130 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v128, *a4, a4[1], (a4[1] - *a4) >> 3);
-  v131 = 0;
-  v132 = 0;
-  v133 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v131, *a5, a5[1], (a5[1] - *a5) >> 3);
-  v117 = 0;
-  v118 = 0;
-  v119 = 0;
-  std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v117, &v128, &v134, 2uLL);
-  mlx::core::collapse_contiguous_dims(a3, &v117, 0x7FFFFFFFuLL, &v124);
-  v127 = &v117;
-  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v127);
-  for (i = 0; i != -48; i -= 24)
-  {
-    v16 = *(&v131 + i);
-    if (v16)
-    {
-      *(&v132 + i) = v16;
-      operator delete(v16);
-    }
-  }
-
-  v17 = (v125 - v124) >> 2;
-  if (v17 > 2)
-  {
-    if (v11)
-    {
-      v12 += 2 * *v11;
-    }
-
-    if (v14)
-    {
-      v13 += *v14;
-    }
-
-    v21 = (v17 - 3);
-    mlx::core::ContiguousIterator::ContiguousIterator(&v128, &v124, v126, v17 - 3);
-    mlx::core::ContiguousIterator::ContiguousIterator(&v117, &v124, v126 + 3, v17 - 3);
-    v22 = v125 - 12;
-    v23 = 1;
-    do
-    {
-      v24 = *v22;
-      v22 += 4;
-      v23 *= v24;
-    }
-
-    while (v22 != v125);
-    if (!v113)
-    {
-      v82 = v122;
-      if (v122)
-      {
-LABEL_64:
-        v123 = v82;
-        operator delete(v82);
-      }
-
-LABEL_65:
-      if (v120)
-      {
-        v121 = v120;
-        operator delete(v120);
-      }
-
-      if (v118)
-      {
-        v119 = v118;
-        operator delete(v118);
-      }
-
-      if (v135)
-      {
-        v136 = v135;
-        operator delete(v135);
-      }
-
-      if (v132)
-      {
-        v133 = v132;
-        operator delete(v132);
-      }
-
-      if (v129)
-      {
-        v130 = v129;
-        operator delete(v129);
-      }
-
-      goto LABEL_83;
-    }
-
-    v107 = v12;
-    v108 = v13;
-    v25 = 0;
-    v26 = v128;
-    v27 = v132;
-    v28 = v124;
-    v29 = *v126;
-    v30 = v126[3];
-    v106 = v17 - 2;
-    v31 = v17 - 1;
-    v32 = (((v130 - v129) << 30) - 0x100000000) >> 32;
-    v101 = v135;
-    v105 = v32;
-    v103 = &v129[4 * v32];
-    v33 = ((v130 - v129) >> 2) & 0x7FFFFFFF;
-    v100 = v33 - 1;
-    v34 = v117;
-    v35 = v120;
-    v36 = (((v119 - v118) << 30) - 0x100000000) >> 32;
-    __p = v122;
-    v114 = &v122[4 * v36];
-    v115 = &v135[4 * v32];
-    v37 = ((v119 - v118) >> 2) & 0x7FFFFFFF;
-    v111 = v23;
-    v112 = (v130 - v129) >> 2;
-    v38 = 4 * v33;
-    v98 = v129 - 8;
-    v99 = v37 - 1;
-    v39 = 4 * v37;
-    v97 = v118 - 8;
-    v104 = v36;
-    v109 = v118 + 4 * v36;
-    v110 = (v119 - v118) >> 2;
-    while (1)
-    {
-      v116 = v25;
-      v40 = v21;
-      v41 = *&v28[4 * v21];
-      if (v41 >= 1)
-      {
-        v42 = 0;
-        v43 = *&v28[4 * v106];
-        v44 = &v108[v34];
-        v45 = 8 * *(v29 + 8 * v21);
-        v46 = 8 * *(v29 + 8 * v106);
-        v47 = 4 * *(v30 + 8 * v21);
-        v48 = 4 * *(v30 + 8 * v106);
-        v49 = &v107[2 * v26];
-        do
-        {
-          if (v43 >= 1)
-          {
-            v50 = 0;
-            v51 = *&v28[4 * v31];
-            v52 = 8 * *(v29 + 8 * v31);
-            v53 = 4 * *(v30 + 8 * v31);
-            v54 = v44;
-            v55 = v49;
-            do
-            {
-              if (v51 >= 1)
-              {
-                v56 = 0;
-                v57 = 0;
-                v58 = v51;
-                do
-                {
-                  *(v54 + v56) = *(v55 + v57);
-                  v57 += v52;
-                  v56 += v53;
-                  --v58;
-                }
-
-                while (v58);
-              }
-
-              ++v50;
-              v55 = (v55 + v46);
-              v54 = (v54 + v48);
-            }
-
-            while (v50 != v43);
-          }
-
-          ++v42;
-          v49 = (v49 + v45);
-          v44 = (v44 + v47);
-        }
-
-        while (v42 != v41);
-      }
-
-      if (!v112)
-      {
-        v21 = v40;
-        v62 = v116;
-        v68 = v109;
-        v60 = v110;
-        if (v110)
-        {
-          goto LABEL_54;
-        }
-
-        goto LABEL_62;
-      }
-
-      v59 = *v115;
-      v21 = v40;
-      v60 = v110;
-      if (v112 < 2)
-      {
-        break;
-      }
-
-      v61 = v103;
-      v62 = v116;
-      if (v59 != *v103 - 1)
-      {
-        v64 = v105;
-        v71 = v115;
-LABEL_52:
-        v68 = v109;
-        goto LABEL_53;
-      }
-
-      v64 = v100;
-      v63 = v101;
-      v65 = v98;
-      v66 = v115;
-      v67 = v105;
-      v68 = v109;
-      do
-      {
-        v69 = v64;
-        *v66 = 0;
-        v26 = (v26 - v27[v67] * (*v61 - 1));
-        v128 = v26;
-        --v64;
-        v66 = &v63[v38 - 8];
-        v59 = *v66;
-        v63 -= 4;
-        if (v69 < 2)
-        {
-          break;
-        }
-
-        v61 = &v65[v38];
-        v70 = *&v65[v38] - 1;
-        v65 -= 4;
-        v67 = v64;
-      }
-
-      while (v59 == v70);
-      v71 = &v63[v38 - 4];
-LABEL_53:
-      *v71 = v59 + 1;
-      v26 = (v26 + v27[v64]);
-      v128 = v26;
-      if (v110)
-      {
-LABEL_54:
-        v72 = *v114;
-        if (v60 >= 2 && v72 == *v68 - 1)
-        {
-          v73 = __p;
-          v74 = v97;
-          v75 = v99;
-          v76 = v68;
-          v77 = v114;
-          v78 = v104;
-          do
-          {
-            v79 = v75;
-            *v77 = 0;
-            v34 -= v35[v78] * (*v76 - 1);
-            v117 = v34;
-            --v75;
-            v77 = &v73[v39 - 8];
-            v72 = *v77;
-            v73 -= 4;
-            if (v79 < 2)
-            {
-              break;
-            }
-
-            v76 = &v74[v39];
-            v80 = *&v74[v39] - 1;
-            v74 -= 4;
-            v78 = v75;
-          }
-
-          while (v72 == v80);
-          v81 = &v73[v39 - 4];
-        }
-
-        else
-        {
-          v75 = v104;
-          v81 = v114;
-        }
-
-        *v81 = v72 + 1;
-        v34 += v35[v75];
-        v117 = v34;
-      }
-
-LABEL_62:
-      v25 = v62 + v111;
-      if (v25 >= v113)
-      {
-        v82 = __p;
-        if (__p)
-        {
-          goto LABEL_64;
-        }
-
-        goto LABEL_65;
-      }
-    }
-
-    v64 = v105;
-    v71 = v115;
-    v62 = v116;
-    goto LABEL_52;
-  }
-
-  if (v11)
-  {
-    v12 += 2 * *v11;
-  }
-
-  if (v14)
-  {
-    v13 += *v14;
-  }
-
-  if (v17 == 2)
-  {
-    v83 = *v124;
-    if (*v124 >= 1)
-    {
-      v84 = 0;
-      v85 = v126[3];
-      v86 = *v85;
-      v87 = v85[1];
-      v88 = 8 * **v126;
-      v89 = 8 * *(*v126 + 8);
-      v90 = *(v124 + 1);
-      v91 = 4 * v86;
-      v92 = 4 * v87;
-      do
-      {
-        if (v90 >= 1)
-        {
-          v93 = v13;
-          v94 = v12;
-          v95 = v90;
-          do
-          {
-            *v93 = *v94;
-            v94 = (v94 + v89);
-            v93 = (v93 + v92);
-            --v95;
-          }
-
-          while (v95);
-        }
-
-        ++v84;
-        v12 = (v12 + v88);
-        v13 = (v13 + v91);
-      }
-
-      while (v84 != v83);
-    }
-  }
-
-  else if (v17 == 1)
-  {
-    v18 = *v124;
-    if (*v124 >= 1)
-    {
-      v19 = *v126[3];
-      v20 = 8 * **v126;
-      do
-      {
-        *v13 = *v12;
-        v12 = (v12 + v20);
-        v13 += v19;
-        --v18;
-      }
-
-      while (v18);
-    }
-  }
-
-LABEL_83:
-  v128 = &v126;
-  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v128);
-  if (v124)
-  {
-    v125 = v124;
-    operator delete(v124);
-  }
-
-LABEL_85:
-  v96 = *MEMORY[0x277D85DE8];
-}
-
 void sub_25A3E0934(_Unwind_Exception *a1)
 {
   mlx::core::ContiguousIterator::~ContiguousIterator((v1 - 176));
@@ -448,9 +5,9 @@ void sub_25A3E0934(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void mlx::core::anonymous namespace::copy_general_general<mlx::core::complex64_t,double>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t a6, uint64_t a7, _BYTE *a8, _BYTE *a9)
+void mlx::core::anonymous namespace::copy_general_general<mlx::core::complex64_t,double>(uint64_t a1, uint64_t a2, int **a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, _BYTE *a8, _BYTE *a9)
 {
-  v137 = *MEMORY[0x277D85DE8];
+  v136 = *MEMORY[0x277D85DE8];
   if (a8[16] == 1)
   {
     v11 = *(*a8 + 152);
@@ -473,39 +30,39 @@ void mlx::core::anonymous namespace::copy_general_general<mlx::core::complex64_t
     v14 = 0;
   }
 
-  if (*a3 == *(a3 + 8))
+  if (*a3 == a3[1])
   {
     *v13 = *v12;
-    goto LABEL_85;
+    return;
   }
 
-  v113 = *(*a1 + 48);
+  v112 = *(*a1 + 48);
+  v127 = 0;
   v128 = 0;
   v129 = 0;
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v127, *a4, *(a4 + 8), (*(a4 + 8) - *a4) >> 3);
   v130 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v128, *a4, a4[1], (a4[1] - *a4) >> 3);
   v131 = 0;
   v132 = 0;
-  v133 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v131, *a5, a5[1], (a5[1] - *a5) >> 3);
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v130, *a5, *(a5 + 8), (*(a5 + 8) - *a5) >> 3);
+  v116 = 0;
   v117 = 0;
   v118 = 0;
-  v119 = 0;
-  std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v117, &v128, &v134, 2uLL);
-  mlx::core::collapse_contiguous_dims(a3, &v117, 0x7FFFFFFFuLL, &v124);
-  v127 = &v117;
-  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v127);
+  std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v116, &v127, &v133, 2uLL);
+  mlx::core::collapse_contiguous_dims(a3, &v116, 0x7FFFFFFFuLL, &v123);
+  v126 = &v116;
+  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v126);
   for (i = 0; i != -48; i -= 24)
   {
-    v16 = *(&v131 + i);
+    v16 = *(&v130 + i);
     if (v16)
     {
-      *(&v132 + i) = v16;
+      *(&v131 + i) = v16;
       operator delete(v16);
     }
   }
 
-  v17 = (v125 - v124) >> 2;
+  v17 = (v124 - v123) >> 2;
   if (v17 > 2)
   {
     if (v11)
@@ -519,118 +76,117 @@ void mlx::core::anonymous namespace::copy_general_general<mlx::core::complex64_t
     }
 
     v21 = (v17 - 3);
-    mlx::core::ContiguousIterator::ContiguousIterator(&v128, &v124, v126, v17 - 3);
-    mlx::core::ContiguousIterator::ContiguousIterator(&v117, &v124, v126 + 3, v17 - 3);
-    v22 = v125 - 12;
+    mlx::core::ContiguousIterator::ContiguousIterator(&v127, &v123, v125, v17 - 3);
+    mlx::core::ContiguousIterator::ContiguousIterator(&v116, &v123, v125 + 3, v17 - 3);
+    v22 = v124 - 3;
     v23 = 1;
     do
     {
-      v24 = *v22;
-      v22 += 4;
+      v24 = *v22++;
       v23 *= v24;
     }
 
-    while (v22 != v125);
-    if (!v113)
+    while (v22 != v124);
+    if (!v112)
     {
-      v82 = v122;
-      if (v122)
+      v82 = v121;
+      if (v121)
       {
 LABEL_64:
-        v123 = v82;
+        v122 = v82;
         operator delete(v82);
       }
 
 LABEL_65:
-      if (v120)
+      if (v119)
       {
-        v121 = v120;
-        operator delete(v120);
+        v120 = v119;
+        operator delete(v119);
       }
 
-      if (v118)
+      if (v117)
       {
-        v119 = v118;
-        operator delete(v118);
+        v118 = v117;
+        operator delete(v117);
       }
 
-      if (v135)
+      if (v134)
       {
-        v136 = v135;
-        operator delete(v135);
+        v135 = v134;
+        operator delete(v134);
       }
 
-      if (v132)
+      if (v131)
       {
-        v133 = v132;
-        operator delete(v132);
+        v132 = v131;
+        operator delete(v131);
       }
 
-      if (v129)
+      if (v128)
       {
-        v130 = v129;
-        operator delete(v129);
+        v129 = v128;
+        operator delete(v128);
       }
 
       goto LABEL_83;
     }
 
-    v107 = v12;
-    v108 = v13;
+    v106 = v12;
+    v107 = v13;
     v25 = 0;
-    v26 = v128;
-    v27 = v132;
-    v28 = v124;
-    v29 = *v126;
-    v30 = v126[3];
-    v106 = v17 - 2;
+    v26 = v127;
+    v27 = v131;
+    v28 = v123;
+    v29 = *v125;
+    v30 = v125[3];
+    v105 = v17 - 2;
     v31 = v17 - 1;
-    v32 = (((v130 - v129) << 30) - 0x100000000) >> 32;
-    v101 = v135;
-    v105 = v32;
-    v103 = &v129[4 * v32];
-    v33 = ((v130 - v129) >> 2) & 0x7FFFFFFF;
-    v100 = v33 - 1;
-    v34 = v117;
-    v35 = v120;
-    v36 = (((v119 - v118) << 30) - 0x100000000) >> 32;
-    __p = v122;
-    v114 = &v122[4 * v36];
-    v115 = &v135[4 * v32];
-    v37 = ((v119 - v118) >> 2) & 0x7FFFFFFF;
-    v111 = v23;
-    v112 = (v130 - v129) >> 2;
+    v32 = (((v129 - v128) << 30) - 0x100000000) >> 32;
+    v100 = v134;
+    v104 = v32;
+    v102 = &v128[4 * v32];
+    v33 = ((v129 - v128) >> 2) & 0x7FFFFFFF;
+    v99 = v33 - 1;
+    v34 = v116;
+    v35 = v119;
+    v36 = (((v118 - v117) << 30) - 0x100000000) >> 32;
+    __p = v121;
+    v113 = &v121[4 * v36];
+    v114 = &v134[4 * v32];
+    v37 = ((v118 - v117) >> 2) & 0x7FFFFFFF;
+    v110 = v23;
+    v111 = (v129 - v128) >> 2;
     v38 = 4 * v33;
-    v98 = v129 - 8;
-    v99 = v37 - 1;
+    v97 = v128 - 8;
+    v98 = v37 - 1;
     v39 = 4 * v37;
-    v97 = v118 - 8;
-    v104 = v36;
-    v109 = v118 + 4 * v36;
-    v110 = (v119 - v118) >> 2;
+    v96 = v117 - 8;
+    v103 = v36;
+    v108 = v117 + 4 * v36;
+    v109 = (v118 - v117) >> 2;
     while (1)
     {
-      v116 = v25;
+      v115 = v25;
       v40 = v21;
-      v41 = *&v28[4 * v21];
+      v41 = v28[v21];
       if (v41 >= 1)
       {
         v42 = 0;
-        v43 = *&v28[4 * v106];
-        v44 = &v108[v34];
-        v45 = 8 * *(v29 + 8 * v21);
-        v46 = 8 * *(v29 + 8 * v106);
-        v47 = 8 * *(v30 + 8 * v21);
-        v48 = 8 * *(v30 + 8 * v106);
-        v49 = &v107[2 * v26];
+        v43 = v28[v105];
+        v44 = &v107[v34];
+        v45 = 8 * v29[v21];
+        v46 = 8 * v29[v105];
+        v47 = 8 * v30[v21];
+        v48 = 8 * v30[v105];
+        v49 = &v106[2 * v26];
         do
         {
           if (v43 >= 1)
           {
             v50 = 0;
-            v51 = *&v28[4 * v31];
-            v52 = 8 * *(v29 + 8 * v31);
-            v53 = 8 * *(v30 + 8 * v31);
+            v51 = v28[v31];
+            v52 = 8 * v29[v31];
+            v53 = 8 * v30[v31];
             v54 = v44;
             v55 = v49;
             do
@@ -667,13 +223,13 @@ LABEL_65:
         while (v42 != v41);
       }
 
-      if (!v112)
+      if (!v111)
       {
         v21 = v40;
-        v62 = v116;
-        v68 = v109;
-        v60 = v110;
-        if (v110)
+        v62 = v115;
+        v68 = v108;
+        v60 = v109;
+        if (v109)
         {
           goto LABEL_54;
         }
@@ -681,37 +237,37 @@ LABEL_65:
         goto LABEL_62;
       }
 
-      v59 = *v115;
+      v59 = *v114;
       v21 = v40;
-      v60 = v110;
-      if (v112 < 2)
+      v60 = v109;
+      if (v111 < 2)
       {
         break;
       }
 
-      v61 = v103;
-      v62 = v116;
-      if (v59 != *v103 - 1)
+      v61 = v102;
+      v62 = v115;
+      if (v59 != *v102 - 1)
       {
-        v64 = v105;
-        v71 = v115;
+        v64 = v104;
+        v71 = v114;
 LABEL_52:
-        v68 = v109;
+        v68 = v108;
         goto LABEL_53;
       }
 
-      v64 = v100;
-      v63 = v101;
-      v65 = v98;
-      v66 = v115;
-      v67 = v105;
-      v68 = v109;
+      v64 = v99;
+      v63 = v100;
+      v65 = v97;
+      v66 = v114;
+      v67 = v104;
+      v68 = v108;
       do
       {
         v69 = v64;
         *v66 = 0;
         v26 = (v26 - v27[v67] * (*v61 - 1));
-        v128 = v26;
+        v127 = v26;
         --v64;
         v66 = &v63[v38 - 8];
         v59 = *v66;
@@ -732,25 +288,25 @@ LABEL_52:
 LABEL_53:
       *v71 = v59 + 1;
       v26 = (v26 + v27[v64]);
-      v128 = v26;
-      if (v110)
+      v127 = v26;
+      if (v109)
       {
 LABEL_54:
-        v72 = *v114;
+        v72 = *v113;
         if (v60 >= 2 && v72 == *v68 - 1)
         {
           v73 = __p;
-          v74 = v97;
-          v75 = v99;
+          v74 = v96;
+          v75 = v98;
           v76 = v68;
-          v77 = v114;
-          v78 = v104;
+          v77 = v113;
+          v78 = v103;
           do
           {
             v79 = v75;
             *v77 = 0;
             v34 -= v35[v78] * (*v76 - 1);
-            v117 = v34;
+            v116 = v34;
             --v75;
             v77 = &v73[v39 - 8];
             v72 = *v77;
@@ -772,18 +328,18 @@ LABEL_54:
 
         else
         {
-          v75 = v104;
-          v81 = v114;
+          v75 = v103;
+          v81 = v113;
         }
 
         *v81 = v72 + 1;
         v34 += v35[v75];
-        v117 = v34;
+        v116 = v34;
       }
 
 LABEL_62:
-      v25 = v62 + v111;
-      if (v25 >= v113)
+      v25 = v62 + v110;
+      if (v25 >= v112)
       {
         v82 = __p;
         if (__p)
@@ -795,9 +351,9 @@ LABEL_62:
       }
     }
 
-    v64 = v105;
-    v71 = v115;
-    v62 = v116;
+    v64 = v104;
+    v71 = v114;
+    v62 = v115;
     goto LABEL_52;
   }
 
@@ -813,16 +369,16 @@ LABEL_62:
 
   if (v17 == 2)
   {
-    v83 = *v124;
-    if (*v124 >= 1)
+    v83 = *v123;
+    if (*v123 >= 1)
     {
       v84 = 0;
-      v85 = v126[3];
+      v85 = v125[3];
       v86 = *v85;
       v87 = v85[1];
-      v88 = 8 * **v126;
-      v89 = 8 * *(*v126 + 8);
-      v90 = *(v124 + 1);
+      v88 = 8 * **v125;
+      v89 = 8 * (*v125)[1];
+      v90 = *(v123 + 1);
       v91 = 8 * v86;
       v92 = 8 * v87;
       do
@@ -854,11 +410,11 @@ LABEL_62:
 
   else if (v17 == 1)
   {
-    v18 = *v124;
-    if (*v124 >= 1)
+    v18 = *v123;
+    if (*v123 >= 1)
     {
-      v19 = *v126[3];
-      v20 = 8 * **v126;
+      v19 = *v125[3];
+      v20 = 8 * **v125;
       do
       {
         *v13 = *v12;
@@ -872,16 +428,13 @@ LABEL_62:
   }
 
 LABEL_83:
-  v128 = &v126;
-  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v128);
-  if (v124)
+  v127 = &v125;
+  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v127);
+  if (v123)
   {
-    v125 = v124;
-    operator delete(v124);
+    v124 = v123;
+    operator delete(v123);
   }
-
-LABEL_85:
-  v96 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25A3E109C(_Unwind_Exception *a1)
@@ -913,9 +466,9 @@ uint64_t mlx::core::anonymous namespace::copy_vector<mlx::core::complex64_t,mlx:
   return result;
 }
 
-void mlx::core::anonymous namespace::copy_general_general<mlx::core::complex64_t,mlx::core::_MLX_BFloat16>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t a6, uint64_t a7, _BYTE *a8, _BYTE *a9)
+void mlx::core::anonymous namespace::copy_general_general<mlx::core::complex64_t,mlx::core::_MLX_BFloat16>(uint64_t a1, uint64_t a2, int **a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, _BYTE *a8, _BYTE *a9)
 {
-  v135 = *MEMORY[0x277D85DE8];
+  v134 = *MEMORY[0x277D85DE8];
   if (a8[16] == 1)
   {
     v11 = *(*a8 + 152);
@@ -938,39 +491,39 @@ void mlx::core::anonymous namespace::copy_general_general<mlx::core::complex64_t
     v14 = 0;
   }
 
-  if (*a3 == *(a3 + 8))
+  if (*a3 == a3[1])
   {
     *v13 = (*v12 + (HIWORD(*v12) & 1u) + 0x7FFF) >> 16;
-    goto LABEL_83;
+    return;
   }
 
-  v110 = *(*a1 + 48);
+  v109 = *(*a1 + 48);
+  v125 = 0;
   v126 = 0;
   v127 = 0;
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v125, *a4, *(a4 + 8), (*(a4 + 8) - *a4) >> 3);
   v128 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v126, *a4, a4[1], (a4[1] - *a4) >> 3);
   v129 = 0;
   v130 = 0;
-  v131 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v129, *a5, a5[1], (a5[1] - *a5) >> 3);
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v128, *a5, *(a5 + 8), (*(a5 + 8) - *a5) >> 3);
+  v114 = 0;
   v115 = 0;
   v116 = 0;
-  v117 = 0;
-  std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v115, &v126, &v132, 2uLL);
-  mlx::core::collapse_contiguous_dims(a3, &v115, 0x7FFFFFFFuLL, &v122);
-  v125 = &v115;
-  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v125);
+  std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v114, &v125, &v131, 2uLL);
+  mlx::core::collapse_contiguous_dims(a3, &v114, 0x7FFFFFFFuLL, &v121);
+  v124 = &v114;
+  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v124);
   for (i = 0; i != -48; i -= 24)
   {
-    v16 = *(&v129 + i);
+    v16 = *(&v128 + i);
     if (v16)
     {
-      *(&v130 + i) = v16;
+      *(&v129 + i) = v16;
       operator delete(v16);
     }
   }
 
-  v17 = (v123 - v122) >> 2;
+  v17 = (v122 - v121) >> 2;
   if (v17 > 2)
   {
     if (v11)
@@ -984,117 +537,116 @@ void mlx::core::anonymous namespace::copy_general_general<mlx::core::complex64_t
     }
 
     v21 = v17 - 3;
-    mlx::core::ContiguousIterator::ContiguousIterator(&v126, &v122, v124, v17 - 3);
-    mlx::core::ContiguousIterator::ContiguousIterator(&v115, &v122, v124 + 3, v17 - 3);
-    v22 = v123 - 12;
+    mlx::core::ContiguousIterator::ContiguousIterator(&v125, &v121, v123, v17 - 3);
+    mlx::core::ContiguousIterator::ContiguousIterator(&v114, &v121, v123 + 3, v17 - 3);
+    v22 = v122 - 3;
     v23 = 1;
     do
     {
-      v24 = *v22;
-      v22 += 4;
+      v24 = *v22++;
       v23 *= v24;
     }
 
-    while (v22 != v123);
-    if (!v110)
+    while (v22 != v122);
+    if (!v109)
     {
-      v80 = v120;
-      if (v120)
+      v80 = v119;
+      if (v119)
       {
 LABEL_62:
-        v121 = v80;
+        v120 = v80;
         operator delete(v80);
       }
 
 LABEL_63:
-      if (v118)
+      if (v117)
       {
-        v119 = v118;
-        operator delete(v118);
+        v118 = v117;
+        operator delete(v117);
       }
 
-      if (v116)
+      if (v115)
       {
-        v117 = v116;
-        operator delete(v116);
+        v116 = v115;
+        operator delete(v115);
       }
 
-      if (v133)
+      if (v132)
       {
-        v134 = v133;
-        operator delete(v133);
+        v133 = v132;
+        operator delete(v132);
       }
 
-      if (v130)
+      if (v129)
       {
-        v131 = v130;
-        operator delete(v130);
+        v130 = v129;
+        operator delete(v129);
       }
 
-      if (v127)
+      if (v126)
       {
-        v128 = v127;
-        operator delete(v127);
+        v127 = v126;
+        operator delete(v126);
       }
 
       goto LABEL_81;
     }
 
-    v104 = v12;
-    v105 = v13;
+    v103 = v12;
+    v104 = v13;
     v25 = 0;
-    v26 = v126;
-    v27 = v122;
-    v28 = *v124;
-    v29 = v124[3];
-    v102 = v17 - 2;
+    v26 = v125;
+    v27 = v121;
+    v28 = *v123;
+    v29 = v123[3];
+    v101 = v17 - 2;
     v30 = v17 - 1;
-    v31 = (((v128 - v127) << 30) - 0x100000000) >> 32;
-    v97 = v133;
-    v101 = v31;
-    v99 = &v127[4 * v31];
-    v32 = ((v128 - v127) >> 2) & 0x7FFFFFFF;
-    v96 = v32 - 1;
-    v33 = v115;
-    v34 = (((v117 - v116) << 30) - 0x100000000) >> 32;
-    __p = v120;
-    v111 = &v120[4 * v34];
-    v112 = &v133[4 * v31];
-    v35 = ((v117 - v116) >> 2) & 0x7FFFFFFF;
-    v109 = (v128 - v127) >> 2;
+    v31 = (((v127 - v126) << 30) - 0x100000000) >> 32;
+    v96 = v132;
+    v100 = v31;
+    v98 = &v126[4 * v31];
+    v32 = ((v127 - v126) >> 2) & 0x7FFFFFFF;
+    v95 = v32 - 1;
+    v33 = v114;
+    v34 = (((v116 - v115) << 30) - 0x100000000) >> 32;
+    __p = v119;
+    v110 = &v119[4 * v34];
+    v111 = &v132[4 * v31];
+    v35 = ((v116 - v115) >> 2) & 0x7FFFFFFF;
+    v108 = (v127 - v126) >> 2;
     v36 = 4 * v32;
-    v94 = v127 - 8;
-    v95 = v35 - 1;
+    v93 = v126 - 8;
+    v94 = v35 - 1;
     v37 = 4 * v35;
-    v93 = v116 - 8;
-    v100 = v34;
-    v113 = v17 - 3;
-    v103 = v130;
-    v107 = (v117 - v116) >> 2;
-    v108 = v118;
-    v106 = v116 + 4 * v34;
+    v92 = v115 - 8;
+    v99 = v34;
+    v112 = v17 - 3;
+    v102 = v129;
+    v106 = (v116 - v115) >> 2;
+    v107 = v117;
+    v105 = v115 + 4 * v34;
     while (1)
     {
-      v114 = v25;
-      v38 = *&v27[4 * v21];
+      v113 = v25;
+      v38 = v27[v21];
       if (v38 >= 1)
       {
         v39 = 0;
-        v40 = *&v27[4 * v102];
-        v41 = &v105[v33];
-        v42 = 8 * *(v28 + 8 * v113);
-        v43 = 8 * *(v28 + 8 * v102);
-        v44 = 2 * *(v29 + 8 * v113);
-        v45 = 2 * *(v29 + 8 * v102);
-        v46 = &v104[2 * v26];
+        v40 = v27[v101];
+        v41 = &v104[v33];
+        v42 = 8 * v28[v112];
+        v43 = 8 * v28[v101];
+        v44 = 2 * v29[v112];
+        v45 = 2 * v29[v101];
+        v46 = &v103[2 * v26];
         do
         {
           if (v40 >= 1)
           {
             v47 = 0;
-            v48 = *&v27[4 * v30];
-            v49 = 8 * *(v28 + 8 * v30);
-            v50 = 2 * *(v29 + 8 * v30);
+            v48 = v27[v30];
+            v49 = 8 * v28[v30];
+            v50 = 2 * v29[v30];
             v51 = v41;
             v52 = v46;
             do
@@ -1131,24 +683,24 @@ LABEL_63:
         while (v39 != v38);
       }
 
-      if (v109)
+      if (v108)
       {
         break;
       }
 
-      v21 = v113;
-      v64 = v114;
-      v57 = v107;
-      v65 = v108;
-      v66 = v106;
-      if (v107)
+      v21 = v112;
+      v64 = v113;
+      v57 = v106;
+      v65 = v107;
+      v66 = v105;
+      if (v106)
       {
         goto LABEL_52;
       }
 
 LABEL_60:
       v25 = v64 + v23;
-      if (v25 >= v110)
+      if (v25 >= v109)
       {
         v80 = __p;
         if (__p)
@@ -1160,26 +712,26 @@ LABEL_60:
       }
     }
 
-    v56 = *v112;
-    v21 = v113;
-    v57 = v107;
-    if (v109 >= 2 && v56 == *v99 - 1)
+    v56 = *v111;
+    v21 = v112;
+    v57 = v106;
+    if (v108 >= 2 && v56 == *v98 - 1)
     {
-      v59 = v96;
-      v58 = v97;
-      v60 = v94;
-      v61 = v99;
-      v62 = v112;
-      v63 = v101;
-      v64 = v114;
-      v65 = v108;
-      v66 = v106;
+      v59 = v95;
+      v58 = v96;
+      v60 = v93;
+      v61 = v98;
+      v62 = v111;
+      v63 = v100;
+      v64 = v113;
+      v65 = v107;
+      v66 = v105;
       do
       {
         v67 = v59;
         *v62 = 0;
-        v26 = (v26 - v103[v63] * (*v61 - 1));
-        v126 = v26;
+        v26 = (v26 - v102[v63] * (*v61 - 1));
+        v125 = v26;
         --v59;
         v62 = &v58[v36 - 8];
         v56 = *v62;
@@ -1201,37 +753,37 @@ LABEL_60:
 
     else
     {
-      v59 = v101;
-      v69 = v112;
-      v64 = v114;
-      v65 = v108;
-      v66 = v106;
+      v59 = v100;
+      v69 = v111;
+      v64 = v113;
+      v65 = v107;
+      v66 = v105;
     }
 
     *v69 = v56 + 1;
-    v26 = (v26 + v103[v59]);
-    v126 = v26;
-    if (!v107)
+    v26 = (v26 + v102[v59]);
+    v125 = v26;
+    if (!v106)
     {
       goto LABEL_60;
     }
 
 LABEL_52:
-    v70 = *v111;
+    v70 = *v110;
     if (v57 >= 2 && v70 == *v66 - 1)
     {
       v71 = __p;
-      v72 = v93;
-      v73 = v95;
+      v72 = v92;
+      v73 = v94;
       v74 = v66;
-      v75 = v111;
-      v76 = v100;
+      v75 = v110;
+      v76 = v99;
       do
       {
         v77 = v73;
         *v75 = 0;
         v33 -= v65[v76] * (*v74 - 1);
-        v115 = v33;
+        v114 = v33;
         --v73;
         v75 = &v71[v37 - 8];
         v70 = *v75;
@@ -1253,13 +805,13 @@ LABEL_52:
 
     else
     {
-      v73 = v100;
-      v79 = v111;
+      v73 = v99;
+      v79 = v110;
     }
 
     *v79 = v70 + 1;
     v33 += v65[v73];
-    v115 = v33;
+    v114 = v33;
     goto LABEL_60;
   }
 
@@ -1275,16 +827,16 @@ LABEL_52:
 
   if (v17 == 2)
   {
-    v81 = *v122;
-    if (*v122 >= 1)
+    v81 = *v121;
+    if (*v121 >= 1)
     {
       v82 = 0;
-      v83 = v124[3];
+      v83 = v123[3];
       v84 = *v83;
       v85 = v83[1];
-      v86 = 8 * **v124;
-      v87 = 8 * *(*v124 + 8);
-      v88 = *(v122 + 1);
+      v86 = 8 * **v123;
+      v87 = 8 * (*v123)[1];
+      v88 = *(v121 + 1);
       do
       {
         if (v88 >= 1)
@@ -1314,11 +866,11 @@ LABEL_52:
 
   else if (v17 == 1)
   {
-    v18 = *v122;
-    if (*v122 >= 1)
+    v18 = *v121;
+    if (*v121 >= 1)
     {
-      v19 = 8 * **v124;
-      v20 = 2 * *v124[3];
+      v19 = 8 * **v123;
+      v20 = 2 * *v123[3];
       do
       {
         *v13 = (*v12 + (HIWORD(*v12) & 1u) + 0x7FFF) >> 16;
@@ -1332,16 +884,13 @@ LABEL_52:
   }
 
 LABEL_81:
-  v126 = &v124;
-  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v126);
-  if (v122)
+  v125 = &v123;
+  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v125);
+  if (v121)
   {
-    v123 = v122;
-    operator delete(v122);
+    v122 = v121;
+    operator delete(v121);
   }
-
-LABEL_83:
-  v92 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25A3E18FC(_Unwind_Exception *a1)
@@ -1351,9 +900,9 @@ void sub_25A3E18FC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void mlx::core::anonymous namespace::copy_general_general<mlx::core::complex64_t,mlx::core::complex64_t>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t a6, uint64_t a7, _BYTE *a8, _BYTE *a9)
+void mlx::core::anonymous namespace::copy_general_general<mlx::core::complex64_t,mlx::core::complex64_t>(uint64_t a1, uint64_t a2, int **a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, _BYTE *a8, _BYTE *a9)
 {
-  v110 = *MEMORY[0x277D85DE8];
+  v109 = *MEMORY[0x277D85DE8];
   if (a8[16] == 1)
   {
     v11 = *(*a8 + 152);
@@ -1376,7 +925,7 @@ void mlx::core::anonymous namespace::copy_general_general<mlx::core::complex64_t
     v14 = 0;
   }
 
-  if (*a3 == *(a3 + 8))
+  if (*a3 == a3[1])
   {
     *v13 = *v12;
   }
@@ -1384,33 +933,33 @@ void mlx::core::anonymous namespace::copy_general_general<mlx::core::complex64_t
   else
   {
     v15 = *(*a1 + 48);
+    v100 = 0;
     v101 = 0;
     v102 = 0;
+    std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v100, *a4, *(a4 + 8), (*(a4 + 8) - *a4) >> 3);
     v103 = 0;
-    std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v101, *a4, a4[1], (a4[1] - *a4) >> 3);
     v104 = 0;
     v105 = 0;
-    v106 = 0;
-    std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v104, *a5, a5[1], (a5[1] - *a5) >> 3);
+    std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v103, *a5, *(a5 + 8), (*(a5 + 8) - *a5) >> 3);
+    v89 = 0;
     v90 = 0;
     v91 = 0;
-    v92 = 0;
-    std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v90, &v101, &v107, 2uLL);
-    mlx::core::collapse_contiguous_dims(a3, &v90, 0x7FFFFFFFuLL, &v97);
-    v100 = &v90;
-    std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v100);
+    std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v89, &v100, &v106, 2uLL);
+    mlx::core::collapse_contiguous_dims(a3, &v89, 0x7FFFFFFFuLL, &v96);
+    v99 = &v89;
+    std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v99);
     for (i = 0; i != -48; i -= 24)
     {
-      v17 = *(&v104 + i);
+      v17 = *(&v103 + i);
       if (v17)
       {
-        *(&v105 + i) = v17;
+        *(&v104 + i) = v17;
         operator delete(v17);
       }
     }
 
-    v18 = v97;
-    v19 = (v98 - v97) >> 2;
+    v18 = v96;
+    v19 = (v97 - v96) >> 2;
     if (v19 > 2)
     {
       if (v11)
@@ -1424,9 +973,9 @@ void mlx::core::anonymous namespace::copy_general_general<mlx::core::complex64_t
       }
 
       v23 = v19 - 3;
-      mlx::core::ContiguousIterator::ContiguousIterator(&v101, &v97, v99, v19 - 3);
-      mlx::core::ContiguousIterator::ContiguousIterator(&v90, &v97, v99 + 3, v19 - 3);
-      v24 = v98 - 3;
+      mlx::core::ContiguousIterator::ContiguousIterator(&v100, &v96, v98, v19 - 3);
+      mlx::core::ContiguousIterator::ContiguousIterator(&v89, &v96, v98 + 3, v19 - 3);
+      v24 = v97 - 3;
       v25 = 1;
       do
       {
@@ -1434,42 +983,42 @@ void mlx::core::anonymous namespace::copy_general_general<mlx::core::complex64_t
         v25 *= v26;
       }
 
-      while (v24 != v98);
+      while (v24 != v97);
       if (v15)
       {
         v27 = 0;
         v28 = v19 - 2;
         v29 = v19 - 1;
-        v30 = v99;
+        v30 = v98;
         do
         {
-          v31 = *(v97 + v23);
+          v31 = *(v96 + v23);
           if (v31 >= 1)
           {
             v32 = 0;
-            v33 = &v13[v90];
-            v34 = &v12[v101];
-            v35 = 8 * *(*v30 + 8 * v23);
-            v36 = 8 * *(v30[3] + 8 * v23);
+            v33 = &v13[v89];
+            v34 = &v12[v100];
+            v35 = 8 * (*v30)[v23];
+            v36 = 8 * v30[3][v23];
             do
             {
-              v37 = *(v97 + v28);
+              v37 = *(v96 + v28);
               if (v37 >= 1)
               {
                 v38 = 0;
-                v39 = 8 * *(*v30 + 8 * v28);
-                v40 = 8 * *(v30[3] + 8 * v28);
+                v39 = 8 * (*v30)[v28];
+                v40 = 8 * v30[3][v28];
                 v41 = v33;
                 v42 = v34;
                 do
                 {
-                  v43 = *(v97 + v29);
+                  v43 = *(v96 + v29);
                   if (v43 >= 1)
                   {
                     v44 = 0;
                     v45 = 0;
-                    v46 = 8 * *(*v30 + 8 * v29);
-                    v47 = 8 * *(v30[3] + 8 * v29);
+                    v46 = 8 * (*v30)[v29];
+                    v47 = 8 * v30[3][v29];
                     do
                     {
                       *(v41 + v44) = *(v42 + v45);
@@ -1497,29 +1046,29 @@ void mlx::core::anonymous namespace::copy_general_general<mlx::core::complex64_t
             while (v32 != v31);
           }
 
-          v48 = v103 - v102;
-          v49 = (v103 - v102) >> 2;
+          v48 = v102 - v101;
+          v49 = (v102 - v101) >> 2;
           if (v49)
           {
-            v50 = v108;
+            v50 = v107;
             v51 = ((v48 << 30) - 0x100000000) >> 32;
-            v52 = v108 + 4 * v51;
+            v52 = v107 + 4 * v51;
             v53 = *v52;
-            v54 = v102 + 4 * v51;
-            v55 = v105;
-            v56 = v101;
+            v54 = v101 + 4 * v51;
+            v55 = v104;
+            v56 = v100;
             if (v49 >= 2 && v53 == *v54 - 1)
             {
               v59 = (v48 >> 2) & 0x7FFFFFFF;
               v58 = v59 - 1;
               v60 = 4 * v59;
-              v61 = v102 - 8;
+              v61 = v101 - 8;
               do
               {
                 v62 = v58;
                 *v52 = 0;
                 v56 = (v56 - v55[v51] * (*v54 - 1));
-                v101 = v56;
+                v100 = v56;
                 --v58;
                 v52 = &v50[v60 - 8];
                 v53 = *v52;
@@ -1545,31 +1094,31 @@ void mlx::core::anonymous namespace::copy_general_general<mlx::core::complex64_t
             }
 
             *v52 = v53 + 1;
-            v101 = (v56 + v55[v58]);
+            v100 = (v56 + v55[v58]);
           }
 
-          v64 = v92 - v91;
-          v65 = (v92 - v91) >> 2;
+          v64 = v91 - v90;
+          v65 = (v91 - v90) >> 2;
           if (v65)
           {
             v66 = __p;
             v67 = ((v64 << 30) - 0x100000000) >> 32;
             v68 = __p + 4 * v67;
             v69 = *v68;
-            v70 = v93;
-            v71 = v90;
-            if (v65 >= 2 && (v72 = v91 + 4 * v67, v69 == *v72 - 1))
+            v70 = v92;
+            v71 = v89;
+            if (v65 >= 2 && (v72 = v90 + 4 * v67, v69 == *v72 - 1))
             {
               v73 = (v64 >> 2) & 0x7FFFFFFF;
               v74 = v73 - 1;
               v75 = 4 * v73;
-              v76 = v91 - 8;
+              v76 = v90 - 8;
               do
               {
                 v77 = v74;
                 *v68 = 0;
                 v71 -= v70[v67] * (*v72 - 1);
-                v90 = v71;
+                v89 = v71;
                 --v74;
                 v68 = &v66[v75 - 8];
                 v69 = *v68;
@@ -1595,7 +1144,7 @@ void mlx::core::anonymous namespace::copy_general_general<mlx::core::complex64_t
             }
 
             *v68 = v69 + 1;
-            v90 = v70[v74] + v71;
+            v89 = v70[v74] + v71;
           }
 
           v27 += v25;
@@ -1606,38 +1155,38 @@ void mlx::core::anonymous namespace::copy_general_general<mlx::core::complex64_t
 
       if (__p)
       {
-        v96 = __p;
+        v95 = __p;
         operator delete(__p);
       }
 
-      if (v93)
+      if (v92)
       {
-        v94 = v93;
-        operator delete(v93);
+        v93 = v92;
+        operator delete(v92);
       }
 
-      if (v91)
+      if (v90)
       {
-        v92 = v91;
-        operator delete(v91);
+        v91 = v90;
+        operator delete(v90);
       }
 
-      if (v108)
+      if (v107)
       {
-        v109 = v108;
-        operator delete(v108);
+        v108 = v107;
+        operator delete(v107);
       }
 
-      if (v105)
+      if (v104)
       {
-        v106 = v105;
-        operator delete(v105);
+        v105 = v104;
+        operator delete(v104);
       }
 
-      if (v102)
+      if (v101)
       {
-        v103 = v102;
-        operator delete(v102);
+        v102 = v101;
+        operator delete(v101);
       }
     }
 
@@ -1655,20 +1204,20 @@ void mlx::core::anonymous namespace::copy_general_general<mlx::core::complex64_t
 
       if (v19 == 2)
       {
-        v79 = *v97;
-        if (*v97 >= 1)
+        v79 = *v96;
+        if (*v96 >= 1)
         {
           v80 = 0;
-          v81 = v99;
-          v82 = 8 * **v99;
-          v83 = 8 * *v99[3];
+          v81 = v98;
+          v82 = 8 * **v98;
+          v83 = 8 * *v98[3];
           do
           {
             v84 = v18[1];
             if (v84 >= 1)
             {
-              v85 = 8 * *(*v81 + 8);
-              v86 = 8 * *(v81[3] + 8);
+              v85 = 8 * (*v81)[1];
+              v86 = 8 * v81[3][1];
               v87 = v13;
               v88 = v12;
               do
@@ -1693,11 +1242,11 @@ void mlx::core::anonymous namespace::copy_general_general<mlx::core::complex64_t
 
       else if (v19 == 1)
       {
-        v20 = *v97;
-        if (*v97 >= 1)
+        v20 = *v96;
+        if (*v96 >= 1)
         {
-          v21 = 8 * **v99;
-          v22 = 8 * *v99[3];
+          v21 = 8 * **v98;
+          v22 = 8 * *v98[3];
           do
           {
             *v13 = *v12;
@@ -1711,19 +1260,17 @@ void mlx::core::anonymous namespace::copy_general_general<mlx::core::complex64_t
       }
     }
 
-    v101 = &v99;
-    std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v101);
-    if (v97)
+    v100 = &v98;
+    std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v100);
+    if (v96)
     {
-      v98 = v97;
-      operator delete(v97);
+      v97 = v96;
+      operator delete(v96);
     }
   }
-
-  v89 = *MEMORY[0x277D85DE8];
 }
 
-void sub_25A3E1FA0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, void *__p, uint64_t a28)
+void sub_25A3E1FA0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, void *__p, uint64_t a28)
 {
   mlx::core::ContiguousIterator::~ContiguousIterator(&__p);
   std::tuple<std::vector<int>,std::vector<std::vector<long long>>>::~tuple(&a20);
@@ -1849,15 +1396,15 @@ uint64_t mlx::core::copy_inplace(mlx::core::array const&,mlx::core::array&,std::
   *(a1 + 32) = 0;
   *(a1 + 40) = 0;
   *(a1 + 48) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 32, *(a2 + 32), *(a2 + 40), (*(a2 + 40) - *(a2 + 32)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 32), *(a2 + 32), *(a2 + 40), (*(a2 + 40) - *(a2 + 32)) >> 2);
   *(a1 + 56) = 0;
   *(a1 + 64) = 0;
   *(a1 + 72) = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(a1 + 56, *(a2 + 56), *(a2 + 64), (*(a2 + 64) - *(a2 + 56)) >> 3);
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>((a1 + 56), *(a2 + 56), *(a2 + 64), (*(a2 + 64) - *(a2 + 56)) >> 3);
   *(a1 + 80) = 0;
   *(a1 + 88) = 0;
   *(a1 + 96) = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(a1 + 80, *(a2 + 80), *(a2 + 88), (*(a2 + 88) - *(a2 + 80)) >> 3);
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>((a1 + 80), *(a2 + 80), *(a2 + 88), (*(a2 + 88) - *(a2 + 80)) >> 3);
   v4 = *(a2 + 104);
   *(a1 + 120) = *(a2 + 120);
   *(a1 + 104) = v4;
@@ -2111,15 +1658,15 @@ uint64_t std::__bind<mlx::core::copy_inplace(mlx::core::array const&,mlx::core::
   *(a1 + 32) = 0;
   *(a1 + 40) = 0;
   *(a1 + 48) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 32, *(a2 + 32), *(a2 + 40), (*(a2 + 40) - *(a2 + 32)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 32), *(a2 + 32), *(a2 + 40), (*(a2 + 40) - *(a2 + 32)) >> 2);
   *(a1 + 56) = 0;
   *(a1 + 64) = 0;
   *(a1 + 72) = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(a1 + 56, *(a2 + 56), *(a2 + 64), (*(a2 + 64) - *(a2 + 56)) >> 3);
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>((a1 + 56), *(a2 + 56), *(a2 + 64), (*(a2 + 64) - *(a2 + 56)) >> 3);
   *(a1 + 80) = 0;
   *(a1 + 88) = 0;
   *(a1 + 96) = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(a1 + 80, *(a2 + 80), *(a2 + 88), (*(a2 + 88) - *(a2 + 80)) >> 3);
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>((a1 + 80), *(a2 + 80), *(a2 + 88), (*(a2 + 88) - *(a2 + 80)) >> 3);
   v6 = *(a2 + 104);
   *(a1 + 120) = *(a2 + 120);
   *(a1 + 104) = v6;
@@ -2378,7 +1925,7 @@ uint64_t std::__function::__func<std::__bind<mlx::core::copy_inplace(mlx::core::
   }
 }
 
-void mlx::core::LUF::eval_cpu(uint64_t a1, uint64_t *a2, uint64_t *a3)
+void mlx::core::LUF::eval_cpu(uint64_t a1, mlx::core::array **a2, void *a3)
 {
   v4 = *a2;
   if (a2[1] - *a2 == 16)
@@ -2391,8 +1938,9 @@ void mlx::core::LUF::eval_cpu(uint64_t a1, uint64_t *a2, uint64_t *a3)
         v6 = *a3;
         v7 = *(a1 + 8);
         v8 = *(a1 + 16);
+        v9 = (*a3 + 16);
 
-        mlx::core::luf_impl<float>(v4, v6);
+        mlx::core::luf_impl<float>(v4, v6, v9, (v6 + 32), v7, v8);
       }
 
       exception = __cxa_allocate_exception(0x10uLL);
@@ -2400,52 +1948,43 @@ void mlx::core::LUF::eval_cpu(uint64_t a1, uint64_t *a2, uint64_t *a3)
       __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
     }
 
-    v9 = *a3;
-    v10 = *(a1 + 8);
-    v11 = *(a1 + 16);
+    v10 = *a3;
+    v11 = *(a1 + 8);
+    v12 = *(a1 + 16);
+    v13 = (*a3 + 16);
 
-    mlx::core::luf_impl<double>(v4, v9);
+    mlx::core::luf_impl<double>(v4, v10, v13, (v10 + 32), v11, v12);
   }
 
   mlx::core::LUF::eval_cpu();
 }
 
-void mlx::core::luf_impl<float>(uint64_t a1, uint64_t a2)
+void mlx::core::luf_impl<float>(mlx::core::array *a1, uint64_t *a2, int ***a3, int ***a4, uint64_t a5, unsigned int a6)
 {
-  v17[4] = *MEMORY[0x277D85DE8];
+  v20[4] = *MEMORY[0x277D85DE8];
   if (*(*a1 + 8) - **a1 > 4uLL)
   {
-    v3 = *(*a1 + 8);
-    v4 = *(v3 - 8);
-    if (*(v3 - 4) >= v4)
-    {
-      v5 = *(v3 - 8);
-    }
-
-    else
-    {
-      v5 = *(v3 - 4);
-    }
-
-    v6 = *a2;
-    v7 = *(*a2 + 8) - **a2;
-    v8 = *(*a2 + 168);
-    v14 = 0;
-    v15 = 0;
-    v16 = 0;
-    std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v14, *(v6 + 24), *(v6 + 32), (*(v6 + 32) - *(v6 + 24)) >> 3);
-    v9 = v14 + 8 * (v7 >> 2);
-    *(v9 - 2) = 1;
-    *(v9 - 1) = v4;
-    v10 = mlx::core::allocator::malloc((*(*a2 + 60) * *(*a2 + 48)));
-    v12 = *(*a2 + 48);
-    v11 = *(*a2 + 56);
+    v7 = *(*(*a1 + 8) - 8);
+    v8 = *a2;
+    v9 = *(*a2 + 8) - **a2;
+    v10 = v9 == 8;
+    v11 = *(*a2 + 168);
+    v17 = 0;
+    v18 = 0;
+    v19 = 0;
+    std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v17, *(v8 + 24), *(v8 + 32), (*(v8 + 32) - *(v8 + 24)) >> 3);
+    v12 = v17 + 8 * (v9 >> 2);
+    *(v12 - 2) = 1;
+    *(v12 - 1) = v7;
+    v13 = mlx::core::allocator::malloc((*(*a2 + 60) * *(*a2 + 48)));
+    v15 = *(*a2 + 48);
+    v14 = *(*a2 + 56);
     memset(__p, 0, sizeof(__p));
-    std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(__p, v14, v15, (v15 - v14) >> 3);
-    v17[0] = &unk_286BE3468;
-    v17[1] = mlx::core::allocator::free;
-    v17[3] = v17;
-    mlx::core::array::set_data(a2, v10);
+    std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(__p, v17, v18, (v18 - v17) >> 3);
+    v20[0] = &unk_286BE3468;
+    v20[1] = mlx::core::allocator::free;
+    v20[3] = v20;
+    mlx::core::array::set_data(a2, v13, BYTE4(v14) * v15, __p, v11 & 0xF8 | (4 * v10) | 1, v20);
   }
 
   std::vector<mlx::core::array>::__throw_out_of_range[abi:ne200100]();
@@ -2461,42 +2000,32 @@ void sub_25A3F93F0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void mlx::core::luf_impl<double>(uint64_t a1, uint64_t a2)
+void mlx::core::luf_impl<double>(mlx::core::array *a1, uint64_t *a2, int ***a3, int ***a4, uint64_t a5, unsigned int a6)
 {
-  v17[4] = *MEMORY[0x277D85DE8];
+  v20[4] = *MEMORY[0x277D85DE8];
   if (*(*a1 + 8) - **a1 > 4uLL)
   {
-    v3 = *(*a1 + 8);
-    v4 = *(v3 - 8);
-    if (*(v3 - 4) >= v4)
-    {
-      v5 = *(v3 - 8);
-    }
-
-    else
-    {
-      v5 = *(v3 - 4);
-    }
-
-    v6 = *a2;
-    v7 = *(*a2 + 8) - **a2;
-    v8 = *(*a2 + 168);
-    v14 = 0;
-    v15 = 0;
-    v16 = 0;
-    std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v14, *(v6 + 24), *(v6 + 32), (*(v6 + 32) - *(v6 + 24)) >> 3);
-    v9 = v14 + 8 * (v7 >> 2);
-    *(v9 - 2) = 1;
-    *(v9 - 1) = v4;
-    v10 = mlx::core::allocator::malloc((*(*a2 + 60) * *(*a2 + 48)));
-    v12 = *(*a2 + 48);
-    v11 = *(*a2 + 56);
+    v7 = *(*(*a1 + 8) - 8);
+    v8 = *a2;
+    v9 = *(*a2 + 8) - **a2;
+    v10 = v9 == 8;
+    v11 = *(*a2 + 168);
+    v17 = 0;
+    v18 = 0;
+    v19 = 0;
+    std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v17, *(v8 + 24), *(v8 + 32), (*(v8 + 32) - *(v8 + 24)) >> 3);
+    v12 = v17 + 8 * (v9 >> 2);
+    *(v12 - 2) = 1;
+    *(v12 - 1) = v7;
+    v13 = mlx::core::allocator::malloc((*(*a2 + 60) * *(*a2 + 48)));
+    v15 = *(*a2 + 48);
+    v14 = *(*a2 + 56);
     memset(__p, 0, sizeof(__p));
-    std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(__p, v14, v15, (v15 - v14) >> 3);
-    v17[0] = &unk_286BE3468;
-    v17[1] = mlx::core::allocator::free;
-    v17[3] = v17;
-    mlx::core::array::set_data(a2, v10);
+    std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(__p, v17, v18, (v18 - v17) >> 3);
+    v20[0] = &unk_286BE3468;
+    v20[1] = mlx::core::allocator::free;
+    v20[3] = v20;
+    mlx::core::array::set_data(a2, v13, BYTE4(v14) * v15, __p, v11 & 0xF8 | (4 * v10) | 1, v20);
   }
 
   std::vector<mlx::core::array>::__throw_out_of_range[abi:ne200100]();
@@ -2543,7 +2072,7 @@ void mlx::core::scheduler::StreamThread::enqueue<void mlx::core::cpu::CommandEnc
   std::mutex::lock(a1);
   if (a1[2].__m_.__opaque[24] != 1)
   {
-    std::deque<std::function<void ()(void)>>::emplace_back<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::luf_impl<float>(mlx::core::array const&,mlx::core::array&,mlx::core::array&,mlx::core::array&,mlx::core::Stream)::{lambda(void)#1}>(void mlx::core::luf_impl<float>(mlx::core::array const&,mlx::core::array&,mlx::core::array&,mlx::core::array&,mlx::core::Stream)::{lambda(void)#1} &&)::{lambda(void)#1}>(&a1[1].__m_.__sig, a2);
+    std::deque<std::function<void ()(void)>>::emplace_back<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::luf_impl<float>(mlx::core::array const&,mlx::core::array&,mlx::core::array&,mlx::core::array&,mlx::core::Stream)::{lambda(void)#1}>(void mlx::core::luf_impl<float>(mlx::core::array const&,mlx::core::array&,mlx::core::array&,mlx::core::array&,mlx::core::Stream)::{lambda(void)#1} &&)::{lambda(void)#1}>(&a1[1], a2);
   }
 
   exception = __cxa_allocate_exception(0x10uLL);
@@ -2558,41 +2087,35 @@ void sub_25A3F9A38(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void std::deque<std::function<void ()(void)>>::emplace_back<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::luf_impl<float>(mlx::core::array const&,mlx::core::array&,mlx::core::array&,mlx::core::array&,mlx::core::Stream)::{lambda(void)#1}>(void mlx::core::luf_impl<float>(mlx::core::array const&,mlx::core::array&,mlx::core::array&,mlx::core::array&,mlx::core::Stream)::{lambda(void)#1} &&)::{lambda(void)#1}>(void *a1, __int128 *a2)
+void std::deque<std::function<void ()(void)>>::emplace_back<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::luf_impl<float>(mlx::core::array const&,mlx::core::array&,mlx::core::array&,mlx::core::array&,mlx::core::Stream)::{lambda(void)#1}>(void mlx::core::luf_impl<float>(mlx::core::array const&,mlx::core::array&,mlx::core::array&,mlx::core::array&,mlx::core::Stream)::{lambda(void)#1} &&)::{lambda(void)#1}>(unint64_t *a1, __int128 *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v4 = a1[1];
-  v5 = a1[2];
-  v6 = 16 * (v5 - v4) - 1;
-  if (v5 == v4)
+  v3 = a1[1];
+  v4 = a1[2];
+  v5 = 16 * (v4 - v3) - 1;
+  if (v4 == v3)
   {
-    v6 = 0;
+    v5 = 0;
   }
 
-  if (v6 == a1[5] + a1[4])
+  if (v5 == a1[5] + a1[4])
   {
     std::deque<std::function<void ()(void)>>::__add_back_capacity(a1);
-    v4 = a1[1];
-    v5 = a1[2];
+    v3 = a1[1];
+    v4 = a1[2];
   }
 
-  if (v5 == v4)
+  if (v4 == v3)
   {
-    v8 = 0;
+    v7 = 0;
   }
 
   else
   {
-    v7 = a1[5] + a1[4];
-    v8 = *(v4 + ((v7 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v7 & 0x7F);
+    v6 = a1[5] + a1[4];
+    v7 = *(v3 + ((v6 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v6 & 0x7F);
   }
 
-  v11 = a2[2];
-  v12 = a2[3];
-  v13 = *(a2 + 8);
-  v9 = *a2;
-  v10 = a2[1];
-  *(v8 + 24) = 0;
+  *(v7 + 24) = 0;
   operator new();
 }
 
@@ -2630,108 +2153,106 @@ uint64_t _ZNKSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchI
   }
 }
 
-void *mlx::core::luf_impl<float>(mlx::core::array const&,mlx::core::array&,mlx::core::array&,mlx::core::array&,mlx::core::Stream)::{lambda(void)#1}::operator()(void *result)
+uint64_t *mlx::core::luf_impl<float>(mlx::core::array const&,mlx::core::array&,mlx::core::array&,mlx::core::array&,mlx::core::Stream)::{lambda(void)#1}::operator()(uint64_t *result)
 {
   if (result[3])
   {
     v1 = result;
     v2 = 0;
-    v24 = 0;
-    v3 = *result;
-    v4 = result[1];
+    v22 = 0;
     do
     {
       result = sgetrf_NEWLAPACK();
-      if (v24)
+      if (v22)
       {
-        std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v22);
-        v16 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v23, "[LUF::eval_cpu] sgetrf_ failed with code ", 41);
-        v17 = MEMORY[0x25F851360](v16, v24);
-        if (v24 <= 0)
+        std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v20);
+        v14 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v21, "[LUF::eval_cpu] sgetrf_ failed with code ", 41);
+        v15 = MEMORY[0x25F851360](v14, v22);
+        if (v22 <= 0)
         {
-          v18 = " because argument had an illegal value";
+          v16 = " because argument had an illegal value";
         }
 
         else
         {
-          v18 = " because matrix is singular";
+          v16 = " because matrix is singular";
         }
 
-        if (v24 <= 0)
+        if (v22 <= 0)
         {
-          v19 = 38;
+          v17 = 38;
         }
 
         else
         {
-          v19 = 27;
+          v17 = 27;
         }
 
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v17, v18, v19);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v15, v16, v17);
         exception = __cxa_allocate_exception(0x10uLL);
-        std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100](v22, v21);
-        MEMORY[0x25F851100](exception, v21);
+        std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100](v20, v19);
+        MEMORY[0x25F851100](exception, v19);
         __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
       }
 
-      LODWORD(v5) = *(v1 + 10);
-      v6 = v1[2];
-      if (v5 < 1)
+      LODWORD(v3) = *(v1 + 10);
+      v4 = v1[2];
+      if (v3 < 1)
       {
-        v9 = 0;
+        v7 = 0;
       }
 
       else
       {
-        v7 = 0;
-        v8 = v1[1];
+        v5 = 0;
+        v6 = v1[1];
         do
         {
-          --*(v8 + 4 * v7);
-          *(v6 + 4 * v7) = v7;
+          --*(v6 + 4 * v5);
+          *(v4 + 4 * v5) = v5;
+          ++v5;
+          v3 = *(v1 + 10);
+        }
+
+        while (v5 < v3);
+        v7 = v5;
+      }
+
+      v8 = *(v1 + 8);
+      if (v7 < v8)
+      {
+        do
+        {
+          *(v4 + 4 * v7) = v7;
           ++v7;
-          v5 = *(v1 + 10);
+          v8 = *(v1 + 8);
         }
 
-        while (v7 < v5);
-        v9 = v7;
+        while (v8 > v7);
+        LODWORD(v3) = *(v1 + 10);
       }
 
-      v10 = *(v1 + 8);
-      if (v9 < v10)
+      v9 = v1[1];
+      if (v3 >= 1)
       {
+        v10 = v3 - 1;
         do
         {
-          *(v6 + 4 * v9) = v9;
-          ++v9;
-          v10 = *(v1 + 8);
+          v11 = *(v9 + 4 * v10);
+          v12 = *(v4 + 4 * v10);
+          *(v4 + 4 * v10) = *(v4 + 4 * v11);
+          *(v4 + 4 * v11) = v12;
+          v13 = v10-- + 1;
         }
 
-        while (v10 > v9);
-        LODWORD(v5) = *(v1 + 10);
+        while (v13 > 1);
+        v8 = *(v1 + 8);
+        LODWORD(v3) = *(v1 + 10);
       }
 
-      v11 = v1[1];
-      if (v5 >= 1)
-      {
-        v12 = v5 - 1;
-        do
-        {
-          v13 = *(v11 + 4 * v12);
-          v14 = *(v6 + 4 * v12);
-          *(v6 + 4 * v12) = *(v6 + 4 * v13);
-          *(v6 + 4 * v13) = v14;
-          v15 = v12-- + 1;
-        }
-
-        while (v15 > 1);
-        v10 = *(v1 + 8);
-        LODWORD(v5) = *(v1 + 10);
-      }
-
-      *v1 += 4 * *(v1 + 9) * v10;
-      v1[1] = v11 + 4 * v5;
-      v1[2] = v6 + 4 * v10;
+      *v1 += 4 * *(v1 + 9) * v8;
+      v1[1] = v9 + 4 * v3;
+      v1[2] = v4 + 4 * v8;
       ++v2;
     }
 
@@ -2763,7 +2284,7 @@ LABEL_6:
   goto LABEL_6;
 }
 
-const void *std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100]@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+const void *std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100]@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   result = std::stringbuf::view[abi:ne200100](a1 + 24);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -2777,13 +2298,13 @@ const void *std::basic_stringstream<char,std::char_traits<char>,std::allocator<c
     operator new();
   }
 
-  a2[23] = v4;
+  *(a2 + 23) = v4;
   if (v4)
   {
     result = memmove(a2, result, v4);
   }
 
-  a2[v5] = 0;
+  *(a2 + v5) = 0;
   return result;
 }
 
@@ -2792,7 +2313,7 @@ void mlx::core::scheduler::StreamThread::enqueue<std::__bind<void mlx::core::luf
   std::mutex::lock(a1);
   if (a1[2].__m_.__opaque[24] != 1)
   {
-    std::deque<std::function<void ()(void)>>::emplace_back<std::__bind<void mlx::core::luf_impl<float>(mlx::core::array const&,mlx::core::array&,mlx::core::array&,mlx::core::array&,mlx::core::Stream)::{lambda(void)#1}>>(&a1[1].__m_.__sig, a2);
+    std::deque<std::function<void ()(void)>>::emplace_back<std::__bind<void mlx::core::luf_impl<float>(mlx::core::array const&,mlx::core::array&,mlx::core::array&,mlx::core::array&,mlx::core::Stream)::{lambda(void)#1}>>(&a1[1], a2);
   }
 
   exception = __cxa_allocate_exception(0x10uLL);
@@ -2807,40 +2328,35 @@ void sub_25A3FA0B0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void std::deque<std::function<void ()(void)>>::emplace_back<std::__bind<void mlx::core::luf_impl<float>(mlx::core::array const&,mlx::core::array&,mlx::core::array&,mlx::core::array&,mlx::core::Stream)::{lambda(void)#1}>>(void *a1, __int128 *a2)
+void std::deque<std::function<void ()(void)>>::emplace_back<std::__bind<void mlx::core::luf_impl<float>(mlx::core::array const&,mlx::core::array&,mlx::core::array&,mlx::core::array&,mlx::core::Stream)::{lambda(void)#1}>>(unint64_t *a1, __int128 *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v4 = a1[1];
-  v5 = a1[2];
-  v6 = 16 * (v5 - v4) - 1;
-  if (v5 == v4)
+  v3 = a1[1];
+  v4 = a1[2];
+  v5 = 16 * (v4 - v3) - 1;
+  if (v4 == v3)
   {
-    v6 = 0;
+    v5 = 0;
   }
 
-  if (v6 == a1[5] + a1[4])
+  if (v5 == a1[5] + a1[4])
   {
     std::deque<std::function<void ()(void)>>::__add_back_capacity(a1);
-    v4 = a1[1];
-    v5 = a1[2];
+    v3 = a1[1];
+    v4 = a1[2];
   }
 
-  if (v5 == v4)
+  if (v4 == v3)
   {
-    v8 = 0;
+    v7 = 0;
   }
 
   else
   {
-    v7 = a1[5] + a1[4];
-    v8 = *(v4 + ((v7 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v7 & 0x7F);
+    v6 = a1[5] + a1[4];
+    v7 = *(v3 + ((v6 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v6 & 0x7F);
   }
 
-  v9 = *a2;
-  v10 = a2[1];
-  v11 = a2[2];
-  v12 = *(a2 + 6);
-  *(v8 + 24) = 0;
+  *(v7 + 24) = 0;
   operator new();
 }
 
@@ -2902,7 +2418,7 @@ void mlx::core::scheduler::StreamThread::enqueue<void mlx::core::cpu::CommandEnc
   std::mutex::lock(a1);
   if (a1[2].__m_.__opaque[24] != 1)
   {
-    std::deque<std::function<void ()(void)>>::emplace_back<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::luf_impl<double>(mlx::core::array const&,mlx::core::array&,mlx::core::array&,mlx::core::array&,mlx::core::Stream)::{lambda(void)#1}>(void mlx::core::luf_impl<double>(mlx::core::array const&,mlx::core::array&,mlx::core::array&,mlx::core::array&,mlx::core::Stream)::{lambda(void)#1} &&)::{lambda(void)#1}>(&a1[1].__m_.__sig, a2);
+    std::deque<std::function<void ()(void)>>::emplace_back<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::luf_impl<double>(mlx::core::array const&,mlx::core::array&,mlx::core::array&,mlx::core::array&,mlx::core::Stream)::{lambda(void)#1}>(void mlx::core::luf_impl<double>(mlx::core::array const&,mlx::core::array&,mlx::core::array&,mlx::core::array&,mlx::core::Stream)::{lambda(void)#1} &&)::{lambda(void)#1}>(&a1[1], a2);
   }
 
   exception = __cxa_allocate_exception(0x10uLL);
@@ -2917,41 +2433,35 @@ void sub_25A3FA524(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void std::deque<std::function<void ()(void)>>::emplace_back<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::luf_impl<double>(mlx::core::array const&,mlx::core::array&,mlx::core::array&,mlx::core::array&,mlx::core::Stream)::{lambda(void)#1}>(void mlx::core::luf_impl<double>(mlx::core::array const&,mlx::core::array&,mlx::core::array&,mlx::core::array&,mlx::core::Stream)::{lambda(void)#1} &&)::{lambda(void)#1}>(void *a1, __int128 *a2)
+void std::deque<std::function<void ()(void)>>::emplace_back<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::luf_impl<double>(mlx::core::array const&,mlx::core::array&,mlx::core::array&,mlx::core::array&,mlx::core::Stream)::{lambda(void)#1}>(void mlx::core::luf_impl<double>(mlx::core::array const&,mlx::core::array&,mlx::core::array&,mlx::core::array&,mlx::core::Stream)::{lambda(void)#1} &&)::{lambda(void)#1}>(unint64_t *a1, __int128 *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v4 = a1[1];
-  v5 = a1[2];
-  v6 = 16 * (v5 - v4) - 1;
-  if (v5 == v4)
+  v3 = a1[1];
+  v4 = a1[2];
+  v5 = 16 * (v4 - v3) - 1;
+  if (v4 == v3)
   {
-    v6 = 0;
+    v5 = 0;
   }
 
-  if (v6 == a1[5] + a1[4])
+  if (v5 == a1[5] + a1[4])
   {
     std::deque<std::function<void ()(void)>>::__add_back_capacity(a1);
-    v4 = a1[1];
-    v5 = a1[2];
+    v3 = a1[1];
+    v4 = a1[2];
   }
 
-  if (v5 == v4)
+  if (v4 == v3)
   {
-    v8 = 0;
+    v7 = 0;
   }
 
   else
   {
-    v7 = a1[5] + a1[4];
-    v8 = *(v4 + ((v7 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v7 & 0x7F);
+    v6 = a1[5] + a1[4];
+    v7 = *(v3 + ((v6 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v6 & 0x7F);
   }
 
-  v11 = a2[2];
-  v12 = a2[3];
-  v13 = *(a2 + 8);
-  v9 = *a2;
-  v10 = a2[1];
-  *(v8 + 24) = 0;
+  *(v7 + 24) = 0;
   operator new();
 }
 
@@ -2989,108 +2499,106 @@ uint64_t _ZNKSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchI
   }
 }
 
-void *mlx::core::luf_impl<double>(mlx::core::array const&,mlx::core::array&,mlx::core::array&,mlx::core::array&,mlx::core::Stream)::{lambda(void)#1}::operator()(void *result)
+uint64_t *mlx::core::luf_impl<double>(mlx::core::array const&,mlx::core::array&,mlx::core::array&,mlx::core::array&,mlx::core::Stream)::{lambda(void)#1}::operator()(uint64_t *result)
 {
   if (result[3])
   {
     v1 = result;
     v2 = 0;
-    v24 = 0;
-    v3 = *result;
-    v4 = result[1];
+    v22 = 0;
     do
     {
       result = dgetrf_NEWLAPACK();
-      if (v24)
+      if (v22)
       {
-        std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v22);
-        v16 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v23, "[LUF::eval_cpu] sgetrf_ failed with code ", 41);
-        v17 = MEMORY[0x25F851360](v16, v24);
-        if (v24 <= 0)
+        std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v20);
+        v14 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v21, "[LUF::eval_cpu] sgetrf_ failed with code ", 41);
+        v15 = MEMORY[0x25F851360](v14, v22);
+        if (v22 <= 0)
         {
-          v18 = " because argument had an illegal value";
+          v16 = " because argument had an illegal value";
         }
 
         else
         {
-          v18 = " because matrix is singular";
+          v16 = " because matrix is singular";
         }
 
-        if (v24 <= 0)
+        if (v22 <= 0)
         {
-          v19 = 38;
+          v17 = 38;
         }
 
         else
         {
-          v19 = 27;
+          v17 = 27;
         }
 
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v17, v18, v19);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v15, v16, v17);
         exception = __cxa_allocate_exception(0x10uLL);
-        std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100](v22, v21);
-        MEMORY[0x25F851100](exception, v21);
+        std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100](v20, v19);
+        MEMORY[0x25F851100](exception, v19);
         __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
       }
 
-      LODWORD(v5) = *(v1 + 10);
-      v6 = v1[2];
-      if (v5 < 1)
+      LODWORD(v3) = *(v1 + 10);
+      v4 = v1[2];
+      if (v3 < 1)
       {
-        v9 = 0;
+        v7 = 0;
       }
 
       else
       {
-        v7 = 0;
-        v8 = v1[1];
+        v5 = 0;
+        v6 = v1[1];
         do
         {
-          --*(v8 + 4 * v7);
-          *(v6 + 4 * v7) = v7;
+          --*(v6 + 4 * v5);
+          *(v4 + 4 * v5) = v5;
+          ++v5;
+          v3 = *(v1 + 10);
+        }
+
+        while (v5 < v3);
+        v7 = v5;
+      }
+
+      v8 = *(v1 + 8);
+      if (v7 < v8)
+      {
+        do
+        {
+          *(v4 + 4 * v7) = v7;
           ++v7;
-          v5 = *(v1 + 10);
+          v8 = *(v1 + 8);
         }
 
-        while (v7 < v5);
-        v9 = v7;
+        while (v8 > v7);
+        LODWORD(v3) = *(v1 + 10);
       }
 
-      v10 = *(v1 + 8);
-      if (v9 < v10)
+      v9 = v1[1];
+      if (v3 >= 1)
       {
+        v10 = v3 - 1;
         do
         {
-          *(v6 + 4 * v9) = v9;
-          ++v9;
-          v10 = *(v1 + 8);
+          v11 = *(v9 + 4 * v10);
+          v12 = *(v4 + 4 * v10);
+          *(v4 + 4 * v10) = *(v4 + 4 * v11);
+          *(v4 + 4 * v11) = v12;
+          v13 = v10-- + 1;
         }
 
-        while (v10 > v9);
-        LODWORD(v5) = *(v1 + 10);
+        while (v13 > 1);
+        v8 = *(v1 + 8);
+        LODWORD(v3) = *(v1 + 10);
       }
 
-      v11 = v1[1];
-      if (v5 >= 1)
-      {
-        v12 = v5 - 1;
-        do
-        {
-          v13 = *(v11 + 4 * v12);
-          v14 = *(v6 + 4 * v12);
-          *(v6 + 4 * v12) = *(v6 + 4 * v13);
-          *(v6 + 4 * v13) = v14;
-          v15 = v12-- + 1;
-        }
-
-        while (v15 > 1);
-        v10 = *(v1 + 8);
-        LODWORD(v5) = *(v1 + 10);
-      }
-
-      *v1 += 8 * *(v1 + 9) * v10;
-      v1[1] = v11 + 4 * v5;
-      v1[2] = v6 + 4 * v10;
+      *v1 += 8 * *(v1 + 9) * v8;
+      v1[1] = v9 + 4 * v3;
+      v1[2] = v4 + 4 * v8;
       ++v2;
     }
 
@@ -3127,7 +2635,7 @@ void mlx::core::scheduler::StreamThread::enqueue<std::__bind<void mlx::core::luf
   std::mutex::lock(a1);
   if (a1[2].__m_.__opaque[24] != 1)
   {
-    std::deque<std::function<void ()(void)>>::emplace_back<std::__bind<void mlx::core::luf_impl<double>(mlx::core::array const&,mlx::core::array&,mlx::core::array&,mlx::core::array&,mlx::core::Stream)::{lambda(void)#1}>>(&a1[1].__m_.__sig, a2);
+    std::deque<std::function<void ()(void)>>::emplace_back<std::__bind<void mlx::core::luf_impl<double>(mlx::core::array const&,mlx::core::array&,mlx::core::array&,mlx::core::array&,mlx::core::Stream)::{lambda(void)#1}>>(&a1[1], a2);
   }
 
   exception = __cxa_allocate_exception(0x10uLL);
@@ -3142,40 +2650,35 @@ void sub_25A3FAAF4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void std::deque<std::function<void ()(void)>>::emplace_back<std::__bind<void mlx::core::luf_impl<double>(mlx::core::array const&,mlx::core::array&,mlx::core::array&,mlx::core::array&,mlx::core::Stream)::{lambda(void)#1}>>(void *a1, __int128 *a2)
+void std::deque<std::function<void ()(void)>>::emplace_back<std::__bind<void mlx::core::luf_impl<double>(mlx::core::array const&,mlx::core::array&,mlx::core::array&,mlx::core::array&,mlx::core::Stream)::{lambda(void)#1}>>(unint64_t *a1, __int128 *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v4 = a1[1];
-  v5 = a1[2];
-  v6 = 16 * (v5 - v4) - 1;
-  if (v5 == v4)
+  v3 = a1[1];
+  v4 = a1[2];
+  v5 = 16 * (v4 - v3) - 1;
+  if (v4 == v3)
   {
-    v6 = 0;
+    v5 = 0;
   }
 
-  if (v6 == a1[5] + a1[4])
+  if (v5 == a1[5] + a1[4])
   {
     std::deque<std::function<void ()(void)>>::__add_back_capacity(a1);
-    v4 = a1[1];
-    v5 = a1[2];
+    v3 = a1[1];
+    v4 = a1[2];
   }
 
-  if (v5 == v4)
+  if (v4 == v3)
   {
-    v8 = 0;
+    v7 = 0;
   }
 
   else
   {
-    v7 = a1[5] + a1[4];
-    v8 = *(v4 + ((v7 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v7 & 0x7F);
+    v6 = a1[5] + a1[4];
+    v7 = *(v3 + ((v6 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v6 & 0x7F);
   }
 
-  v9 = *a2;
-  v10 = a2[1];
-  v11 = a2[2];
-  v12 = *(a2 + 6);
-  *(v8 + 24) = 0;
+  *(v7 + 24) = 0;
   operator new();
 }
 
@@ -3208,7 +2711,7 @@ uint64_t std::__function::__func<std::__bind<void mlx::core::luf_impl<double>(ml
 
 void mlx::core::Softmax::eval_cpu(uint64_t a1, uint64_t a2, mlx::core::array *this)
 {
-  v169 = *MEMORY[0x277D85DE8];
+  v144 = *MEMORY[0x277D85DE8];
   v3 = *a2;
   if (*(a2 + 8) - *a2 != 16)
   {
@@ -3225,27 +2728,27 @@ void mlx::core::Softmax::eval_cpu(uint64_t a1, uint64_t a2, mlx::core::array *th
     if (*(v8[3] + 2 * (v10 - v9) - 8) == 1)
     {
       v11 = v3[1];
-      if (!v11 || v11[1] || (v117 = v8[18]) == 0 || *(v117 + 8))
+      if (!v11 || v11[1] || (v93 = v8[18]) == 0 || v93[1])
       {
         v12 = mlx::core::allocator::malloc((*(v8 + 60) * v8[20]));
         v13 = *v3;
         v14 = (*v3)[20];
-        v163 = 0;
-        v164 = 0;
+        v138 = 0;
+        v139 = 0;
         __p = 0;
         std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&__p, v13[3], v13[4], (v13[4] - v13[3]) >> 3);
         v15 = *(*v3 + 168);
-        v166[0] = &unk_286BE3468;
-        v166[1] = mlx::core::allocator::free;
-        v168 = v166;
-        mlx::core::array::set_data(this, v12);
+        v141[0] = &unk_286BE3468;
+        v141[1] = mlx::core::allocator::free;
+        v143 = v141;
+        mlx::core::array::set_data(this, v12, v14, &__p, v15, v141);
       }
 
       mlx::core::array::copy_shared_buffer(this, v3);
       v16 = *v3;
       v17 = v3[1];
-      v159[0] = *v3;
-      v159[1] = v17;
+      v135[0] = *v3;
+      v135[1] = v17;
       if (v17)
       {
         atomic_fetch_add_explicit(v17 + 1, 1uLL, memory_order_relaxed);
@@ -3263,33 +2766,33 @@ void mlx::core::Softmax::eval_cpu(uint64_t a1, uint64_t a2, mlx::core::array *th
     v18 = (v10 - v9) >> 2;
   }
 
-  v166[0] = 0;
-  v166[1] = 0;
-  v167 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v166, v9, v10, v18);
+  v141[0] = 0;
+  v141[1] = 0;
+  v142 = 0;
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v141, v9, v10, v18);
   v19 = (*v3)[7];
-  v160 = 0;
-  v161 = 0;
-  v163 = 0;
-  v164 = 0;
+  v135[2] = 0;
+  v136 = 0;
+  v138 = 0;
+  v139 = 0;
   __p = 0;
-  mlx::core::array::array(v159, v166, v19 & 0xFFFFFFFFFFLL, &v160, &__p);
+  mlx::core::array::array(v135, v141, v19 & 0xFFFFFFFFFFLL);
   p_p = &__p;
   std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&p_p);
-  if (v161)
+  if (v136)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v161);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v136);
   }
 
-  if (v166[0])
+  if (v141[0])
   {
-    v166[1] = v166[0];
-    operator delete(v166[0]);
+    v141[1] = v141[0];
+    operator delete(v141[0]);
   }
 
-  mlx::core::copy(v3, v159, 2u, v6, v7);
-  mlx::core::array::copy_shared_buffer(this, v159);
-  v16 = v159[0];
+  mlx::core::copy(v3, v135, 2, v6, v7);
+  mlx::core::array::copy_shared_buffer(this, v135);
+  v16 = v135[0];
 LABEL_16:
   v20 = *(v16 + 14);
   if (v20 > 10)
@@ -3297,46 +2800,42 @@ LABEL_16:
     if (v20 == 11)
     {
       command_encoder = mlx::core::cpu::get_command_encoder(*(a1 + 8), *(a1 + 16));
-      v65 = *(*this + 152);
-      v66 = *(*(v159[0] + 8) - 4);
-      v68 = *(v159[0] + 152);
-      v67 = *(v159[0] + 160);
-      v69 = (*(command_encoder + 10) + 1) % 10;
-      *(command_encoder + 10) = v69;
-      v70 = mlx::core::scheduler::scheduler(command_encoder);
-      if (v69)
+      v53 = (*(command_encoder + 10) + 1) % 10;
+      *(command_encoder + 10) = v53;
+      v54 = mlx::core::scheduler::scheduler(command_encoder);
+      if (v53)
       {
-        v71 = *(v70[1] + 8 * *command_encoder);
-        std::mutex::lock(v71);
-        if (*(v71 + 160) != 1)
+        v55 = *(v54[1] + 8 * *command_encoder);
+        std::mutex::lock(v55);
+        if (*(v55 + 160) != 1)
         {
-          v72 = *(v71 + 72);
-          v73 = *(v71 + 80);
-          v74 = 16 * (v73 - v72) - 1;
-          if (v73 == v72)
+          v56 = *(v55 + 72);
+          v57 = *(v55 + 80);
+          v58 = 16 * (v57 - v56) - 1;
+          if (v57 == v56)
           {
-            v74 = 0;
+            v58 = 0;
           }
 
-          if (v74 == *(v71 + 104) + *(v71 + 96))
+          if (v58 == *(v55 + 104) + *(v55 + 96))
           {
-            std::deque<std::function<void ()(void)>>::__add_back_capacity((v71 + 64));
-            v72 = *(v71 + 72);
-            v73 = *(v71 + 80);
+            std::deque<std::function<void ()(void)>>::__add_back_capacity((v55 + 64));
+            v56 = *(v55 + 72);
+            v57 = *(v55 + 80);
           }
 
-          if (v73 == v72)
+          if (v57 == v56)
           {
-            v76 = 0;
+            v60 = 0;
           }
 
           else
           {
-            v75 = *(v71 + 104) + *(v71 + 96);
-            v76 = *(v72 + ((v75 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v75 & 0x7F);
+            v59 = *(v55 + 104) + *(v55 + 96);
+            v60 = *(v56 + ((v59 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v59 & 0x7F);
           }
 
-          *(v76 + 24) = 0;
+          *(v60 + 24) = 0;
           operator new();
         }
 
@@ -3345,234 +2844,226 @@ LABEL_16:
         __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
       }
 
-      mlx::core::scheduler::Scheduler::notify_new_task(v70);
-      v166[0] = *command_encoder;
-      LODWORD(v166[1]) = *(command_encoder + 2);
-      v104 = *(*(mlx::core::scheduler::scheduler(v103) + 1) + 8 * *command_encoder);
-      std::mutex::lock(v104);
-      if (*(v104 + 160) != 1)
+      mlx::core::scheduler::Scheduler::notify_new_task(v54);
+      v141[0] = *command_encoder;
+      LODWORD(v141[1]) = *(command_encoder + 2);
+      v80 = *(mlx::core::scheduler::scheduler(v79)[1] + 8 * *command_encoder);
+      std::mutex::lock(v80);
+      if (*(v80 + 160) != 1)
       {
-        v105 = *(v104 + 72);
-        v106 = *(v104 + 80);
-        v107 = 16 * (v106 - v105) - 1;
-        if (v106 == v105)
+        v81 = *(v80 + 72);
+        v82 = *(v80 + 80);
+        v83 = 16 * (v82 - v81) - 1;
+        if (v82 == v81)
         {
-          v107 = 0;
+          v83 = 0;
         }
 
-        if (v107 == *(v104 + 104) + *(v104 + 96))
+        if (v83 == *(v80 + 104) + *(v80 + 96))
         {
-          std::deque<std::function<void ()(void)>>::__add_back_capacity((v104 + 64));
-          v105 = *(v104 + 72);
-          v106 = *(v104 + 80);
+          std::deque<std::function<void ()(void)>>::__add_back_capacity((v80 + 64));
+          v81 = *(v80 + 72);
+          v82 = *(v80 + 80);
         }
 
-        if (v106 == v105)
+        if (v82 == v81)
         {
-          v109 = 0;
+          v85 = 0;
         }
 
         else
         {
-          v108 = *(v104 + 104) + *(v104 + 96);
-          v109 = *(v105 + ((v108 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v108 & 0x7F);
+          v84 = *(v80 + 104) + *(v80 + 96);
+          v85 = *(v81 + ((v84 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v84 & 0x7F);
         }
 
-        *(v109 + 24) = 0;
+        *(v85 + 24) = 0;
         operator new();
       }
 
-      v149 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v149, "Cannot enqueue work after stream is stopped.");
-      __cxa_throw(v149, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+      v125 = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(v125, "Cannot enqueue work after stream is stopped.");
+      __cxa_throw(v125, MEMORY[0x277D82760], MEMORY[0x277D82600]);
     }
 
     if (v20 == 12)
     {
-      v34 = *(a1 + 8);
-      v35 = *(a1 + 16);
+      v30 = *(a1 + 8);
+      v31 = *(a1 + 16);
       if (*(a1 + 20) == 1)
       {
-        v36 = mlx::core::cpu::get_command_encoder(v34, v35);
-        v37 = *(*this + 152);
-        v38 = *(*(v159[0] + 8) - 4);
-        v40 = *(v159[0] + 152);
-        v39 = *(v159[0] + 160);
-        v41 = (*(v36 + 10) + 1) % 10;
-        *(v36 + 10) = v41;
-        v42 = mlx::core::scheduler::scheduler(v36);
-        if (v41)
+        v32 = mlx::core::cpu::get_command_encoder(v30, v31);
+        v33 = (*(v32 + 10) + 1) % 10;
+        *(v32 + 10) = v33;
+        v34 = mlx::core::scheduler::scheduler(v32);
+        if (v33)
         {
-          v43 = *(v42[1] + 8 * *v36);
-          std::mutex::lock(v43);
-          if (*(v43 + 160) != 1)
+          v35 = *(v34[1] + 8 * *v32);
+          std::mutex::lock(v35);
+          if (*(v35 + 160) != 1)
           {
-            v44 = *(v43 + 72);
-            v45 = *(v43 + 80);
-            v46 = 16 * (v45 - v44) - 1;
-            if (v45 == v44)
+            v36 = *(v35 + 72);
+            v37 = *(v35 + 80);
+            v38 = 16 * (v37 - v36) - 1;
+            if (v37 == v36)
             {
-              v46 = 0;
+              v38 = 0;
             }
 
-            if (v46 == *(v43 + 104) + *(v43 + 96))
+            if (v38 == *(v35 + 104) + *(v35 + 96))
             {
-              std::deque<std::function<void ()(void)>>::__add_back_capacity((v43 + 64));
-              v44 = *(v43 + 72);
-              v45 = *(v43 + 80);
+              std::deque<std::function<void ()(void)>>::__add_back_capacity((v35 + 64));
+              v36 = *(v35 + 72);
+              v37 = *(v35 + 80);
             }
 
-            if (v45 == v44)
+            if (v37 == v36)
             {
-              v48 = 0;
+              v40 = 0;
             }
 
             else
             {
-              v47 = *(v43 + 104) + *(v43 + 96);
-              v48 = *(v44 + ((v47 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v47 & 0x7F);
+              v39 = *(v35 + 104) + *(v35 + 96);
+              v40 = *(v36 + ((v39 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v39 & 0x7F);
             }
 
-            *(v48 + 24) = 0;
+            *(v40 + 24) = 0;
             operator new();
           }
 
-          v151 = __cxa_allocate_exception(0x10uLL);
-          std::runtime_error::runtime_error(v151, "Cannot enqueue work after stream is stopped.");
-          __cxa_throw(v151, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+          v127 = __cxa_allocate_exception(0x10uLL);
+          std::runtime_error::runtime_error(v127, "Cannot enqueue work after stream is stopped.");
+          __cxa_throw(v127, MEMORY[0x277D82760], MEMORY[0x277D82600]);
         }
 
-        mlx::core::scheduler::Scheduler::notify_new_task(v42);
-        v166[0] = *v36;
-        LODWORD(v166[1]) = *(v36 + 2);
-        v133 = *(*(mlx::core::scheduler::scheduler(v132) + 1) + 8 * *v36);
-        std::mutex::lock(v133);
-        if (*(v133 + 160) != 1)
+        mlx::core::scheduler::Scheduler::notify_new_task(v34);
+        v141[0] = *v32;
+        LODWORD(v141[1]) = *(v32 + 2);
+        v109 = *(mlx::core::scheduler::scheduler(v108)[1] + 8 * *v32);
+        std::mutex::lock(v109);
+        if (*(v109 + 160) != 1)
         {
-          v134 = *(v133 + 72);
-          v135 = *(v133 + 80);
-          v136 = 16 * (v135 - v134) - 1;
-          if (v135 == v134)
+          v110 = *(v109 + 72);
+          v111 = *(v109 + 80);
+          v112 = 16 * (v111 - v110) - 1;
+          if (v111 == v110)
           {
-            v136 = 0;
+            v112 = 0;
           }
 
-          if (v136 == *(v133 + 104) + *(v133 + 96))
+          if (v112 == *(v109 + 104) + *(v109 + 96))
           {
-            std::deque<std::function<void ()(void)>>::__add_back_capacity((v133 + 64));
-            v134 = *(v133 + 72);
-            v135 = *(v133 + 80);
+            std::deque<std::function<void ()(void)>>::__add_back_capacity((v109 + 64));
+            v110 = *(v109 + 72);
+            v111 = *(v109 + 80);
           }
 
-          if (v135 == v134)
+          if (v111 == v110)
           {
-            v138 = 0;
+            v114 = 0;
           }
 
           else
           {
-            v137 = *(v133 + 104) + *(v133 + 96);
-            v138 = *(v134 + ((v137 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v137 & 0x7F);
+            v113 = *(v109 + 104) + *(v109 + 96);
+            v114 = *(v110 + ((v113 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v113 & 0x7F);
           }
 
-          *(v138 + 24) = 0;
+          *(v114 + 24) = 0;
           operator new();
         }
 
-        v157 = __cxa_allocate_exception(0x10uLL);
-        std::runtime_error::runtime_error(v157, "Cannot enqueue work after stream is stopped.");
-        __cxa_throw(v157, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+        v133 = __cxa_allocate_exception(0x10uLL);
+        std::runtime_error::runtime_error(v133, "Cannot enqueue work after stream is stopped.");
+        __cxa_throw(v133, MEMORY[0x277D82760], MEMORY[0x277D82600]);
       }
 
-      v90 = mlx::core::cpu::get_command_encoder(v34, v35);
-      v91 = *(*this + 152);
-      v92 = *(*(v159[0] + 8) - 4);
-      v94 = *(v159[0] + 152);
-      v93 = *(v159[0] + 160);
-      v95 = (*(v90 + 10) + 1) % 10;
-      *(v90 + 10) = v95;
-      v96 = mlx::core::scheduler::scheduler(v90);
-      if (v95)
+      v70 = mlx::core::cpu::get_command_encoder(v30, v31);
+      v71 = (*(v70 + 10) + 1) % 10;
+      *(v70 + 10) = v71;
+      v72 = mlx::core::scheduler::scheduler(v70);
+      if (v71)
       {
-        v97 = *(v96[1] + 8 * *v90);
-        std::mutex::lock(v97);
-        if (*(v97 + 160) != 1)
+        v73 = *(v72[1] + 8 * *v70);
+        std::mutex::lock(v73);
+        if (*(v73 + 160) != 1)
         {
-          v98 = *(v97 + 72);
-          v99 = *(v97 + 80);
-          v100 = 16 * (v99 - v98) - 1;
-          if (v99 == v98)
+          v74 = *(v73 + 72);
+          v75 = *(v73 + 80);
+          v76 = 16 * (v75 - v74) - 1;
+          if (v75 == v74)
           {
-            v100 = 0;
+            v76 = 0;
           }
 
-          if (v100 == *(v97 + 104) + *(v97 + 96))
+          if (v76 == *(v73 + 104) + *(v73 + 96))
           {
-            std::deque<std::function<void ()(void)>>::__add_back_capacity((v97 + 64));
-            v98 = *(v97 + 72);
-            v99 = *(v97 + 80);
+            std::deque<std::function<void ()(void)>>::__add_back_capacity((v73 + 64));
+            v74 = *(v73 + 72);
+            v75 = *(v73 + 80);
           }
 
-          if (v99 == v98)
+          if (v75 == v74)
           {
-            v102 = 0;
+            v78 = 0;
           }
 
           else
           {
-            v101 = *(v97 + 104) + *(v97 + 96);
-            v102 = *(v98 + ((v101 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v101 & 0x7F);
+            v77 = *(v73 + 104) + *(v73 + 96);
+            v78 = *(v74 + ((v77 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v77 & 0x7F);
           }
 
-          *(v102 + 24) = 0;
+          *(v78 + 24) = 0;
           operator new();
         }
 
-        v154 = __cxa_allocate_exception(0x10uLL);
-        std::runtime_error::runtime_error(v154, "Cannot enqueue work after stream is stopped.");
-        __cxa_throw(v154, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+        v130 = __cxa_allocate_exception(0x10uLL);
+        std::runtime_error::runtime_error(v130, "Cannot enqueue work after stream is stopped.");
+        __cxa_throw(v130, MEMORY[0x277D82760], MEMORY[0x277D82600]);
       }
 
-      mlx::core::scheduler::Scheduler::notify_new_task(v96);
-      v166[0] = *v90;
-      LODWORD(v166[1]) = *(v90 + 2);
-      v140 = *(*(mlx::core::scheduler::scheduler(v139) + 1) + 8 * *v90);
-      std::mutex::lock(v140);
-      if (*(v140 + 160) != 1)
+      mlx::core::scheduler::Scheduler::notify_new_task(v72);
+      v141[0] = *v70;
+      LODWORD(v141[1]) = *(v70 + 2);
+      v116 = *(mlx::core::scheduler::scheduler(v115)[1] + 8 * *v70);
+      std::mutex::lock(v116);
+      if (*(v116 + 160) != 1)
       {
-        v141 = *(v140 + 72);
-        v142 = *(v140 + 80);
-        v143 = 16 * (v142 - v141) - 1;
-        if (v142 == v141)
+        v117 = *(v116 + 72);
+        v118 = *(v116 + 80);
+        v119 = 16 * (v118 - v117) - 1;
+        if (v118 == v117)
         {
-          v143 = 0;
+          v119 = 0;
         }
 
-        if (v143 == *(v140 + 104) + *(v140 + 96))
+        if (v119 == *(v116 + 104) + *(v116 + 96))
         {
-          std::deque<std::function<void ()(void)>>::__add_back_capacity((v140 + 64));
-          v141 = *(v140 + 72);
-          v142 = *(v140 + 80);
+          std::deque<std::function<void ()(void)>>::__add_back_capacity((v116 + 64));
+          v117 = *(v116 + 72);
+          v118 = *(v116 + 80);
         }
 
-        if (v142 == v141)
+        if (v118 == v117)
         {
-          v145 = 0;
+          v121 = 0;
         }
 
         else
         {
-          v144 = *(v140 + 104) + *(v140 + 96);
-          v145 = *(v141 + ((v144 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v144 & 0x7F);
+          v120 = *(v116 + 104) + *(v116 + 96);
+          v121 = *(v117 + ((v120 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v120 & 0x7F);
         }
 
-        *(v145 + 24) = 0;
+        *(v121 + 24) = 0;
         operator new();
       }
 
-      v158 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v158, "Cannot enqueue work after stream is stopped.");
-      __cxa_throw(v158, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+      v134 = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(v134, "Cannot enqueue work after stream is stopped.");
+      __cxa_throw(v134, MEMORY[0x277D82760], MEMORY[0x277D82600]);
     }
   }
 
@@ -3580,292 +3071,280 @@ LABEL_16:
   {
     if (v20 == 9)
     {
-      v49 = *(a1 + 8);
-      v50 = *(a1 + 16);
+      v41 = *(a1 + 8);
+      v42 = *(a1 + 16);
       if (*(a1 + 20) == 1)
       {
-        v51 = mlx::core::cpu::get_command_encoder(v49, v50);
-        v52 = *(*this + 152);
-        v53 = *(*(v159[0] + 8) - 4);
-        v55 = *(v159[0] + 152);
-        v54 = *(v159[0] + 160);
-        v56 = (*(v51 + 10) + 1) % 10;
-        *(v51 + 10) = v56;
-        v57 = mlx::core::scheduler::scheduler(v51);
-        if (v56)
+        v43 = mlx::core::cpu::get_command_encoder(v41, v42);
+        v44 = (*(v43 + 10) + 1) % 10;
+        *(v43 + 10) = v44;
+        v45 = mlx::core::scheduler::scheduler(v43);
+        if (v44)
         {
-          v58 = *(v57[1] + 8 * *v51);
-          std::mutex::lock(v58);
-          if (*(v58 + 160) != 1)
+          v46 = *(v45[1] + 8 * *v43);
+          std::mutex::lock(v46);
+          if (*(v46 + 160) != 1)
           {
-            v59 = *(v58 + 72);
-            v60 = *(v58 + 80);
-            v61 = 16 * (v60 - v59) - 1;
-            if (v60 == v59)
+            v47 = *(v46 + 72);
+            v48 = *(v46 + 80);
+            v49 = 16 * (v48 - v47) - 1;
+            if (v48 == v47)
             {
-              v61 = 0;
+              v49 = 0;
             }
 
-            if (v61 == *(v58 + 104) + *(v58 + 96))
+            if (v49 == *(v46 + 104) + *(v46 + 96))
             {
-              std::deque<std::function<void ()(void)>>::__add_back_capacity((v58 + 64));
-              v59 = *(v58 + 72);
-              v60 = *(v58 + 80);
+              std::deque<std::function<void ()(void)>>::__add_back_capacity((v46 + 64));
+              v47 = *(v46 + 72);
+              v48 = *(v46 + 80);
             }
 
-            if (v60 == v59)
+            if (v48 == v47)
             {
-              v63 = 0;
+              v51 = 0;
             }
 
             else
             {
-              v62 = *(v58 + 104) + *(v58 + 96);
-              v63 = *(v59 + ((v62 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v62 & 0x7F);
+              v50 = *(v46 + 104) + *(v46 + 96);
+              v51 = *(v47 + ((v50 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v50 & 0x7F);
             }
 
-            *(v63 + 24) = 0;
+            *(v51 + 24) = 0;
             operator new();
           }
 
-          v152 = __cxa_allocate_exception(0x10uLL);
-          std::runtime_error::runtime_error(v152, "Cannot enqueue work after stream is stopped.");
-          __cxa_throw(v152, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+          v128 = __cxa_allocate_exception(0x10uLL);
+          std::runtime_error::runtime_error(v128, "Cannot enqueue work after stream is stopped.");
+          __cxa_throw(v128, MEMORY[0x277D82760], MEMORY[0x277D82600]);
         }
 
-        mlx::core::scheduler::Scheduler::notify_new_task(v57);
-        v166[0] = *v51;
-        LODWORD(v166[1]) = *(v51 + 2);
-        v119 = *(*(mlx::core::scheduler::scheduler(v118) + 1) + 8 * *v51);
-        std::mutex::lock(v119);
-        if (*(v119 + 160) != 1)
+        mlx::core::scheduler::Scheduler::notify_new_task(v45);
+        v141[0] = *v43;
+        LODWORD(v141[1]) = *(v43 + 2);
+        v95 = *(mlx::core::scheduler::scheduler(v94)[1] + 8 * *v43);
+        std::mutex::lock(v95);
+        if (*(v95 + 160) != 1)
         {
-          v120 = *(v119 + 72);
-          v121 = *(v119 + 80);
-          v122 = 16 * (v121 - v120) - 1;
-          if (v121 == v120)
+          v96 = *(v95 + 72);
+          v97 = *(v95 + 80);
+          v98 = 16 * (v97 - v96) - 1;
+          if (v97 == v96)
           {
-            v122 = 0;
+            v98 = 0;
           }
 
-          if (v122 == *(v119 + 104) + *(v119 + 96))
+          if (v98 == *(v95 + 104) + *(v95 + 96))
           {
-            std::deque<std::function<void ()(void)>>::__add_back_capacity((v119 + 64));
-            v120 = *(v119 + 72);
-            v121 = *(v119 + 80);
+            std::deque<std::function<void ()(void)>>::__add_back_capacity((v95 + 64));
+            v96 = *(v95 + 72);
+            v97 = *(v95 + 80);
           }
 
-          if (v121 == v120)
+          if (v97 == v96)
           {
-            v124 = 0;
+            v100 = 0;
           }
 
           else
           {
-            v123 = *(v119 + 104) + *(v119 + 96);
-            v124 = *(v120 + ((v123 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v123 & 0x7F);
+            v99 = *(v95 + 104) + *(v95 + 96);
+            v100 = *(v96 + ((v99 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v99 & 0x7F);
           }
 
-          *(v124 + 24) = 0;
+          *(v100 + 24) = 0;
           operator new();
         }
 
-        v155 = __cxa_allocate_exception(0x10uLL);
-        std::runtime_error::runtime_error(v155, "Cannot enqueue work after stream is stopped.");
-        __cxa_throw(v155, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+        v131 = __cxa_allocate_exception(0x10uLL);
+        std::runtime_error::runtime_error(v131, "Cannot enqueue work after stream is stopped.");
+        __cxa_throw(v131, MEMORY[0x277D82760], MEMORY[0x277D82600]);
       }
 
-      v77 = mlx::core::cpu::get_command_encoder(v49, v50);
-      v78 = *(*this + 152);
-      v79 = *(*(v159[0] + 8) - 4);
-      v81 = *(v159[0] + 152);
-      v80 = *(v159[0] + 160);
-      v82 = (*(v77 + 10) + 1) % 10;
-      *(v77 + 10) = v82;
-      v83 = mlx::core::scheduler::scheduler(v77);
-      if (v82)
+      v61 = mlx::core::cpu::get_command_encoder(v41, v42);
+      v62 = (*(v61 + 10) + 1) % 10;
+      *(v61 + 10) = v62;
+      v63 = mlx::core::scheduler::scheduler(v61);
+      if (v62)
       {
-        v84 = *(v83[1] + 8 * *v77);
-        std::mutex::lock(v84);
-        if (*(v84 + 160) != 1)
+        v64 = *(v63[1] + 8 * *v61);
+        std::mutex::lock(v64);
+        if (*(v64 + 160) != 1)
         {
-          v85 = *(v84 + 72);
-          v86 = *(v84 + 80);
-          v87 = 16 * (v86 - v85) - 1;
-          if (v86 == v85)
+          v65 = *(v64 + 72);
+          v66 = *(v64 + 80);
+          v67 = 16 * (v66 - v65) - 1;
+          if (v66 == v65)
           {
-            v87 = 0;
+            v67 = 0;
           }
 
-          if (v87 == *(v84 + 104) + *(v84 + 96))
+          if (v67 == *(v64 + 104) + *(v64 + 96))
           {
-            std::deque<std::function<void ()(void)>>::__add_back_capacity((v84 + 64));
-            v85 = *(v84 + 72);
-            v86 = *(v84 + 80);
+            std::deque<std::function<void ()(void)>>::__add_back_capacity((v64 + 64));
+            v65 = *(v64 + 72);
+            v66 = *(v64 + 80);
           }
 
-          if (v86 == v85)
+          if (v66 == v65)
           {
-            v89 = 0;
+            v69 = 0;
           }
 
           else
           {
-            v88 = *(v84 + 104) + *(v84 + 96);
-            v89 = *(v85 + ((v88 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v88 & 0x7F);
+            v68 = *(v64 + 104) + *(v64 + 96);
+            v69 = *(v65 + ((v68 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v68 & 0x7F);
           }
 
-          *(v89 + 24) = 0;
+          *(v69 + 24) = 0;
           operator new();
         }
 
-        v153 = __cxa_allocate_exception(0x10uLL);
-        std::runtime_error::runtime_error(v153, "Cannot enqueue work after stream is stopped.");
-        __cxa_throw(v153, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+        v129 = __cxa_allocate_exception(0x10uLL);
+        std::runtime_error::runtime_error(v129, "Cannot enqueue work after stream is stopped.");
+        __cxa_throw(v129, MEMORY[0x277D82760], MEMORY[0x277D82600]);
       }
 
-      mlx::core::scheduler::Scheduler::notify_new_task(v83);
-      v166[0] = *v77;
-      LODWORD(v166[1]) = *(v77 + 2);
-      v126 = *(*(mlx::core::scheduler::scheduler(v125) + 1) + 8 * *v77);
-      std::mutex::lock(v126);
-      if (*(v126 + 160) != 1)
+      mlx::core::scheduler::Scheduler::notify_new_task(v63);
+      v141[0] = *v61;
+      LODWORD(v141[1]) = *(v61 + 2);
+      v102 = *(mlx::core::scheduler::scheduler(v101)[1] + 8 * *v61);
+      std::mutex::lock(v102);
+      if (*(v102 + 160) != 1)
       {
-        v127 = *(v126 + 72);
-        v128 = *(v126 + 80);
-        v129 = 16 * (v128 - v127) - 1;
-        if (v128 == v127)
+        v103 = *(v102 + 72);
+        v104 = *(v102 + 80);
+        v105 = 16 * (v104 - v103) - 1;
+        if (v104 == v103)
         {
-          v129 = 0;
+          v105 = 0;
         }
 
-        if (v129 == *(v126 + 104) + *(v126 + 96))
+        if (v105 == *(v102 + 104) + *(v102 + 96))
         {
-          std::deque<std::function<void ()(void)>>::__add_back_capacity((v126 + 64));
-          v127 = *(v126 + 72);
-          v128 = *(v126 + 80);
+          std::deque<std::function<void ()(void)>>::__add_back_capacity((v102 + 64));
+          v103 = *(v102 + 72);
+          v104 = *(v102 + 80);
         }
 
-        if (v128 == v127)
+        if (v104 == v103)
         {
-          v131 = 0;
+          v107 = 0;
         }
 
         else
         {
-          v130 = *(v126 + 104) + *(v126 + 96);
-          v131 = *(v127 + ((v130 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v130 & 0x7F);
+          v106 = *(v102 + 104) + *(v102 + 96);
+          v107 = *(v103 + ((v106 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v106 & 0x7F);
         }
 
-        *(v131 + 24) = 0;
+        *(v107 + 24) = 0;
         operator new();
       }
 
-      v156 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v156, "Cannot enqueue work after stream is stopped.");
-      __cxa_throw(v156, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+      v132 = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(v132, "Cannot enqueue work after stream is stopped.");
+      __cxa_throw(v132, MEMORY[0x277D82760], MEMORY[0x277D82600]);
     }
 
     if (v20 == 10)
     {
       v21 = mlx::core::cpu::get_command_encoder(*(a1 + 8), *(a1 + 16));
-      v22 = *(*this + 152);
-      v23 = *(*(v159[0] + 8) - 4);
-      v25 = *(v159[0] + 152);
-      v24 = *(v159[0] + 160);
-      v26 = (*(v21 + 10) + 1) % 10;
-      *(v21 + 10) = v26;
-      v27 = mlx::core::scheduler::scheduler(v21);
-      if (v26)
+      v22 = (*(v21 + 10) + 1) % 10;
+      *(v21 + 10) = v22;
+      v23 = mlx::core::scheduler::scheduler(v21);
+      if (v22)
       {
-        v28 = *(v27[1] + 8 * *v21);
-        std::mutex::lock(v28);
-        if (*(v28 + 160) != 1)
+        v24 = *(v23[1] + 8 * *v21);
+        std::mutex::lock(v24);
+        if (*(v24 + 160) != 1)
         {
-          v29 = *(v28 + 72);
-          v30 = *(v28 + 80);
-          v31 = 16 * (v30 - v29) - 1;
-          if (v30 == v29)
+          v25 = *(v24 + 72);
+          v26 = *(v24 + 80);
+          v27 = 16 * (v26 - v25) - 1;
+          if (v26 == v25)
           {
-            v31 = 0;
+            v27 = 0;
           }
 
-          if (v31 == *(v28 + 104) + *(v28 + 96))
+          if (v27 == *(v24 + 104) + *(v24 + 96))
           {
-            std::deque<std::function<void ()(void)>>::__add_back_capacity((v28 + 64));
-            v29 = *(v28 + 72);
-            v30 = *(v28 + 80);
+            std::deque<std::function<void ()(void)>>::__add_back_capacity((v24 + 64));
+            v25 = *(v24 + 72);
+            v26 = *(v24 + 80);
           }
 
-          if (v30 == v29)
+          if (v26 == v25)
           {
-            v33 = 0;
+            v29 = 0;
           }
 
           else
           {
-            v32 = *(v28 + 104) + *(v28 + 96);
-            v33 = *(v29 + ((v32 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v32 & 0x7F);
+            v28 = *(v24 + 104) + *(v24 + 96);
+            v29 = *(v25 + ((v28 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v28 & 0x7F);
           }
 
-          *(v33 + 24) = 0;
+          *(v29 + 24) = 0;
           operator new();
         }
 
-        v147 = __cxa_allocate_exception(0x10uLL);
-        std::runtime_error::runtime_error(v147, "Cannot enqueue work after stream is stopped.");
-        __cxa_throw(v147, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+        v123 = __cxa_allocate_exception(0x10uLL);
+        std::runtime_error::runtime_error(v123, "Cannot enqueue work after stream is stopped.");
+        __cxa_throw(v123, MEMORY[0x277D82760], MEMORY[0x277D82600]);
       }
 
-      mlx::core::scheduler::Scheduler::notify_new_task(v27);
-      v166[0] = *v21;
-      LODWORD(v166[1]) = *(v21 + 2);
-      v111 = *(*(mlx::core::scheduler::scheduler(v110) + 1) + 8 * *v21);
-      std::mutex::lock(v111);
-      if (*(v111 + 160) != 1)
+      mlx::core::scheduler::Scheduler::notify_new_task(v23);
+      v141[0] = *v21;
+      LODWORD(v141[1]) = *(v21 + 2);
+      v87 = *(mlx::core::scheduler::scheduler(v86)[1] + 8 * *v21);
+      std::mutex::lock(v87);
+      if (*(v87 + 160) != 1)
       {
-        v112 = *(v111 + 72);
-        v113 = *(v111 + 80);
-        v114 = 16 * (v113 - v112) - 1;
-        if (v113 == v112)
+        v88 = *(v87 + 72);
+        v89 = *(v87 + 80);
+        v90 = 16 * (v89 - v88) - 1;
+        if (v89 == v88)
         {
-          v114 = 0;
+          v90 = 0;
         }
 
-        if (v114 == *(v111 + 104) + *(v111 + 96))
+        if (v90 == *(v87 + 104) + *(v87 + 96))
         {
-          std::deque<std::function<void ()(void)>>::__add_back_capacity((v111 + 64));
-          v112 = *(v111 + 72);
-          v113 = *(v111 + 80);
+          std::deque<std::function<void ()(void)>>::__add_back_capacity((v87 + 64));
+          v88 = *(v87 + 72);
+          v89 = *(v87 + 80);
         }
 
-        if (v113 == v112)
+        if (v89 == v88)
         {
-          v116 = 0;
+          v92 = 0;
         }
 
         else
         {
-          v115 = *(v111 + 104) + *(v111 + 96);
-          v116 = *(v112 + ((v115 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v115 & 0x7F);
+          v91 = *(v87 + 104) + *(v87 + 96);
+          v92 = *(v88 + ((v91 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v91 & 0x7F);
         }
 
-        *(v116 + 24) = 0;
+        *(v92 + 24) = 0;
         operator new();
       }
 
-      v150 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v150, "Cannot enqueue work after stream is stopped.");
-      __cxa_throw(v150, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+      v126 = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(v126, "Cannot enqueue work after stream is stopped.");
+      __cxa_throw(v126, MEMORY[0x277D82760], MEMORY[0x277D82600]);
     }
   }
 
-  v146 = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(v146, "[softmax] Only defined for floating point types.");
-  __cxa_throw(v146, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  v122 = __cxa_allocate_exception(0x10uLL);
+  std::runtime_error::runtime_error(v122, "[softmax] Only defined for floating point types.");
+  __cxa_throw(v122, MEMORY[0x277D82760], MEMORY[0x277D82600]);
 }
 
-void sub_25A3FBF30(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, _Unwind_Exception *exception_object, char a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19)
+void sub_25A3FBF30(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, _Unwind_Exception *exception_object, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19)
 {
   __cxa_free_exception(v20);
   std::mutex::unlock(v19);
@@ -3873,25 +3352,23 @@ void sub_25A3FBF30(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void mlx::core::Softmax::output_shapes(uint64_t ***a1@<X1>, void *a2@<X8>)
+void mlx::core::Softmax::output_shapes(uint64_t **a1@<X1>, uint64_t *a2@<X8>)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = **a1;
+  v5 = 0;
   v6 = 0;
-  v7 = 0;
   __p = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, *v3, v3[1], (v3[1] - *v3) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, *v3, *(v3 + 8), (*(v3 + 8) - *v3) >> 2);
   *a2 = 0;
   a2[1] = 0;
   a2[2] = 0;
-  std::vector<std::vector<int>>::__init_with_size[abi:ne200100]<std::vector<int> const*,std::vector<int> const*>(a2, &__p, &v8, 1uLL);
+  std::vector<std::vector<int>>::__init_with_size[abi:ne200100]<std::vector<int> const*,std::vector<int> const*>(a2, &__p, &v7, 1uLL);
   if (__p)
   {
-    v6 = __p;
+    v5 = __p;
     operator delete(__p);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25A3FC0DC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10)
@@ -4799,14 +4276,14 @@ uint64_t _ZNKSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchI
   }
 }
 
-uint64_t std::__bind<void mlx::core::anonymous namespace::softmax<mlx::core::_MLX_BFloat16,mlx::core::_MLX_BFloat16>(mlx::core::array const&,mlx::core::array&,mlx::core::Stream)::{lambda(void)#1}>::operator()[abi:ne200100]<>(uint64_t result)
+unsigned __int16 **std::__bind<void mlx::core::anonymous namespace::softmax<mlx::core::_MLX_BFloat16,mlx::core::_MLX_BFloat16>(mlx::core::array const&,mlx::core::array&,mlx::core::Stream)::{lambda(void)#1}>::operator()[abi:ne200100]<>(unsigned __int16 **result)
 {
-  if (*(result + 20) >= 1)
+  if (*(result + 5) >= 1)
   {
     v1 = result;
     v2 = 0;
     v3 = *result;
-    v4 = *(result + 16);
+    v4 = *(result + 4);
     do
     {
       if (v4)
@@ -5181,19 +4658,19 @@ uint64_t std::__function::__func<std::__bind<void mlx::core::anonymous namespace
   }
 }
 
-void mlx::core::Eigh::eval_cpu(uint64_t a1, uint64_t ***a2, void **a3)
+void mlx::core::Eigh::eval_cpu(uint64_t a1, mlx::core::array **a2, int ****a3)
 {
-  v17[4] = *MEMORY[0x277D85DE8];
+  v16[4] = *MEMORY[0x277D85DE8];
   v3 = *a2;
   v4 = *a3;
   if (*(a1 + 48) == 1)
   {
     v5 = v4[3];
-    v16[0] = v4[2];
-    v16[1] = v5;
+    v15[0] = v4[2];
+    v15[1] = v5;
     if (v5)
     {
-      atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(v5 + 1, 1uLL, memory_order_relaxed);
     }
   }
 
@@ -5201,36 +4678,35 @@ void mlx::core::Eigh::eval_cpu(uint64_t a1, uint64_t ***a2, void **a3)
   {
     v6 = *v3;
     __p = 0;
+    v13 = 0;
     v14 = 0;
-    v15 = 0;
-    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, *v6, v6[1], (v6[1] - *v6) >> 2);
-    v7 = (*v3)[7];
+    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, *v6, *(v6 + 8), (*(v6 + 8) - *v6) >> 2);
+    v7 = *(*v3 + 56);
     v11 = 0;
-    v12 = 0;
     memset(v10, 0, sizeof(v10));
-    mlx::core::array::array(v16, &__p, v7 & 0xFFFFFFFFFFLL, &v11, v10);
+    mlx::core::array::array(v15, &__p, v7 & 0xFFFFFFFFFFLL);
     v9[0] = v10;
     std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](v9);
-    if (v12)
+    if (v11)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v12);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v11);
     }
 
     if (__p)
     {
-      v14 = __p;
+      v13 = __p;
       operator delete(__p);
     }
   }
 
-  v8 = mlx::core::allocator::malloc((*(*v4 + 60) * *(*v4 + 48)));
-  v17[0] = &unk_286BE3468;
-  v17[1] = mlx::core::allocator::free;
-  v17[3] = v17;
-  mlx::core::array::set_data(v4, v8);
+  v8 = mlx::core::allocator::malloc((*(*v4 + 60) * (*v4)[6]));
+  v16[0] = &unk_286BE3468;
+  v16[1] = mlx::core::allocator::free;
+  v16[3] = v16;
+  mlx::core::array::set_data(v4, v8, v16);
 }
 
-void sub_25A3FEB28(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, uint64_t a19, char a20, uint64_t a21, char a22)
+void sub_25A3FEB28(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22)
 {
   __cxa_free_exception(v23);
   std::mutex::unlock(v22);
@@ -5289,64 +4765,61 @@ uint64_t _ZNKSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchI
   }
 }
 
-void std::__bind<void mlx::core::anonymous namespace::eigh_impl<float>(mlx::core::array &,mlx::core::array &,std::string const&,BOOL,mlx::core::Stream)::{lambda(void)#1}>::operator()[abi:ne200100]<>(uint64_t *a1)
+void std::__bind<void mlx::core::anonymous namespace::eigh_impl<float>(mlx::core::array &,mlx::core::array &,std::string const&,BOOL,mlx::core::Stream)::{lambda(void)#1}>::operator()[abi:ne200100]<>(uint64_t a1)
 {
-  v24[4] = *MEMORY[0x277D85DE8];
-  v16 = 0;
-  LODWORD(v14[0]) = 0;
-  LODWORD(v23) = 0;
+  v21[4] = *MEMORY[0x277D85DE8];
+  v13 = 0;
+  LODWORD(v11[0]) = 0;
+  LODWORD(v20) = 0;
   ssyevd_NEWLAPACK();
-  v17 = v23;
-  v18 = 0.0;
+  v14 = v20;
+  v15 = 0.0;
   v2 = mlx::core::allocator::malloc((4 * 0.0));
-  v22[0] = &unk_286BE3468;
-  v22[1] = mlx::core::allocator::free;
-  v22[3] = v22;
-  v23 = v2;
-  std::__function::__value_func<void ()(mlx::core::allocator::Buffer)>::__value_func[abi:ne200100](v24, v22);
-  std::__function::__value_func<void ()(mlx::core::allocator::Buffer)>::~__value_func[abi:ne200100](v22);
-  v3 = mlx::core::allocator::malloc((4 * v17));
   v19[0] = &unk_286BE3468;
   v19[1] = mlx::core::allocator::free;
   v19[3] = v19;
-  v20 = v3;
-  std::__function::__value_func<void ()(mlx::core::allocator::Buffer)>::__value_func[abi:ne200100](&v21, v19);
+  v20 = v2;
+  std::__function::__value_func<void ()(mlx::core::allocator::Buffer)>::__value_func[abi:ne200100](v21, v19);
   std::__function::__value_func<void ()(mlx::core::allocator::Buffer)>::~__value_func[abi:ne200100](v19);
-  if (a1[3] >= (*(a1 + 5) * *(a1 + 5)))
+  v3 = mlx::core::allocator::malloc((4 * v14));
+  v16[0] = &unk_286BE3468;
+  v16[1] = mlx::core::allocator::free;
+  v16[3] = v16;
+  v17 = v3;
+  std::__function::__value_func<void ()(mlx::core::allocator::Buffer)>::__value_func[abi:ne200100](&v18, v16);
+  std::__function::__value_func<void ()(mlx::core::allocator::Buffer)>::~__value_func[abi:ne200100](v16);
+  if (*(a1 + 24) >= (*(a1 + 20) * *(a1 + 20)))
   {
     v4 = 0;
-    v5 = *a1;
-    v6 = a1[1];
     do
     {
-      mlx::core::allocator::Buffer::raw_ptr(&v23);
       mlx::core::allocator::Buffer::raw_ptr(&v20);
+      mlx::core::allocator::Buffer::raw_ptr(&v17);
       ssyevd_NEWLAPACK();
-      v7 = *(a1 + 5);
-      v8 = (v7 * v7);
-      v9 = a1[1] + 4 * v7;
-      *a1 += 4 * v8;
-      a1[1] = v9;
-      if (v16)
+      v5 = *(a1 + 20);
+      v6 = (v5 * v5);
+      v7 = *(a1 + 8) + 4 * v5;
+      *a1 += 4 * v6;
+      *(a1 + 8) = v7;
+      if (v13)
       {
-        std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v14);
-        v11 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v15, "[Eigh::eval_cpu] Eigenvalue decomposition failed with error code ", 65);
-        MEMORY[0x25F851360](v11, v16);
+        std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v11);
+        v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, "[Eigh::eval_cpu] Eigenvalue decomposition failed with error code ", 65);
+        MEMORY[0x25F851360](v8, v13);
         exception = __cxa_allocate_exception(0x10uLL);
-        std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100](v14, v13);
-        MEMORY[0x25F851100](exception, v13);
+        std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100](v11, v10);
+        MEMORY[0x25F851100](exception, v10);
         __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
       }
 
       ++v4;
     }
 
-    while (v4 < a1[3] / v8);
+    while (v4 < *(a1 + 24) / v6);
   }
 
+  mlx::core::array::Data::~Data(&v17);
   mlx::core::array::Data::~Data(&v20);
-  mlx::core::array::Data::~Data(&v23);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25A3FF0C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, char a18)
@@ -5430,64 +4903,61 @@ uint64_t _ZNKSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchI
   }
 }
 
-void std::__bind<void mlx::core::anonymous namespace::eigh_impl<double>(mlx::core::array &,mlx::core::array &,std::string const&,BOOL,mlx::core::Stream)::{lambda(void)#1}>::operator()[abi:ne200100]<>(uint64_t *a1)
+void std::__bind<void mlx::core::anonymous namespace::eigh_impl<double>(mlx::core::array &,mlx::core::array &,std::string const&,BOOL,mlx::core::Stream)::{lambda(void)#1}>::operator()[abi:ne200100]<>(uint64_t a1)
 {
-  v24[4] = *MEMORY[0x277D85DE8];
-  v16 = 0;
-  v14[0] = 0;
-  LODWORD(v23) = 0;
+  v21[4] = *MEMORY[0x277D85DE8];
+  v13 = 0;
+  v11[0] = 0;
+  LODWORD(v20) = 0;
   dsyevd_NEWLAPACK();
-  v17 = v23;
-  v18 = 0.0;
+  v14 = v20;
+  v15 = 0.0;
   v2 = mlx::core::allocator::malloc((8 * 0.0));
-  v22[0] = &unk_286BE3468;
-  v22[1] = mlx::core::allocator::free;
-  v22[3] = v22;
-  v23 = v2;
-  std::__function::__value_func<void ()(mlx::core::allocator::Buffer)>::__value_func[abi:ne200100](v24, v22);
-  std::__function::__value_func<void ()(mlx::core::allocator::Buffer)>::~__value_func[abi:ne200100](v22);
-  v3 = mlx::core::allocator::malloc((4 * v17));
   v19[0] = &unk_286BE3468;
   v19[1] = mlx::core::allocator::free;
   v19[3] = v19;
-  v20 = v3;
-  std::__function::__value_func<void ()(mlx::core::allocator::Buffer)>::__value_func[abi:ne200100](&v21, v19);
+  v20 = v2;
+  std::__function::__value_func<void ()(mlx::core::allocator::Buffer)>::__value_func[abi:ne200100](v21, v19);
   std::__function::__value_func<void ()(mlx::core::allocator::Buffer)>::~__value_func[abi:ne200100](v19);
-  if (a1[3] >= (*(a1 + 5) * *(a1 + 5)))
+  v3 = mlx::core::allocator::malloc((4 * v14));
+  v16[0] = &unk_286BE3468;
+  v16[1] = mlx::core::allocator::free;
+  v16[3] = v16;
+  v17 = v3;
+  std::__function::__value_func<void ()(mlx::core::allocator::Buffer)>::__value_func[abi:ne200100](&v18, v16);
+  std::__function::__value_func<void ()(mlx::core::allocator::Buffer)>::~__value_func[abi:ne200100](v16);
+  if (*(a1 + 24) >= (*(a1 + 20) * *(a1 + 20)))
   {
     v4 = 0;
-    v5 = *a1;
-    v6 = a1[1];
     do
     {
-      mlx::core::allocator::Buffer::raw_ptr(&v23);
       mlx::core::allocator::Buffer::raw_ptr(&v20);
+      mlx::core::allocator::Buffer::raw_ptr(&v17);
       dsyevd_NEWLAPACK();
-      v7 = *(a1 + 5);
-      v8 = (v7 * v7);
-      v9 = a1[1] + 8 * v7;
-      *a1 += 8 * v8;
-      a1[1] = v9;
-      if (v16)
+      v5 = *(a1 + 20);
+      v6 = (v5 * v5);
+      v7 = *(a1 + 8) + 8 * v5;
+      *a1 += 8 * v6;
+      *(a1 + 8) = v7;
+      if (v13)
       {
-        std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v14);
-        v11 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v15, "[Eigh::eval_cpu] Eigenvalue decomposition failed with error code ", 65);
-        MEMORY[0x25F851360](v11, v16);
+        std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v11);
+        v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, "[Eigh::eval_cpu] Eigenvalue decomposition failed with error code ", 65);
+        MEMORY[0x25F851360](v8, v13);
         exception = __cxa_allocate_exception(0x10uLL);
-        std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100](v14, v13);
-        MEMORY[0x25F851100](exception, v13);
+        std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100](v11, v10);
+        MEMORY[0x25F851100](exception, v10);
         __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
       }
 
       ++v4;
     }
 
-    while (v4 < a1[3] / v8);
+    while (v4 < *(a1 + 24) / v6);
   }
 
+  mlx::core::array::Data::~Data(&v17);
   mlx::core::array::Data::~Data(&v20);
-  mlx::core::array::Data::~Data(&v23);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25A3FF67C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, char a18)
@@ -5539,17 +5009,17 @@ uint64_t std::__function::__func<std::__bind<void mlx::core::anonymous namespace
   }
 }
 
-void mlx::core::BlockMaskedMM::eval_cpu(uint64_t a1, uint64_t a2, uint64_t a3)
+void mlx::core::BlockMaskedMM::eval_cpu(uint64_t a1, void *a2, int ***a3)
 {
   v7[150] = *MEMORY[0x277D85DE8];
-  v3 = *(*a3 + 56);
+  v3 = (*a3)[7];
   if (v3 == 10)
   {
-    v5 = mlx::core::allocator::malloc((*(*a3 + 48) * BYTE4(v3)));
+    v5 = mlx::core::allocator::malloc(((*a3)[6] * BYTE4(v3)));
     v7[0] = &unk_286BE3468;
     v7[1] = mlx::core::allocator::free;
     v7[3] = v7;
-    mlx::core::array::set_data(a3, v5);
+    mlx::core::array::set_data(a3, v5, v7);
   }
 
   exception = __cxa_allocate_exception(0x10uLL);
@@ -5566,7 +5036,7 @@ void sub_25A400B60(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void mlx::core::BlockMaskedMM::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_0::operator()(uint64_t a1@<X0>, uint64_t **a2@<X1>, int a3@<W2>, char a4@<W3>, uint64_t a5@<X8>)
+void mlx::core::BlockMaskedMM::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_0::operator()(uint64_t a1@<X0>, const void ***a2@<X1>, int a3@<W2>, char a4@<W3>, uint64_t a5@<X8>)
 {
   v10 = *a2;
   v11 = **a2;
@@ -5583,9 +5053,9 @@ void mlx::core::BlockMaskedMM::eval_cpu(std::vector<mlx::core::array> const&,mlx
   }
 
   v19 = v10[3];
-  v20 = *(v19 + 8 * (v13 - 2));
-  v21 = *(v19 + 8 * (v13 - 1));
-  if (v20 != *(v11 + 4 * (v13 - 1)) || v21 != 1)
+  v20 = v19[v13 - 2];
+  v21 = v19[v13 - 1];
+  if (v20 != *(v11 + v13 - 1) || v21 != 1)
   {
     if (v20 != 1)
     {
@@ -5594,36 +5064,35 @@ void mlx::core::BlockMaskedMM::eval_cpu(std::vector<mlx::core::array> const&,mlx
 
     if (v13 > 1)
     {
-      if (v21 == *(v11 + 4 * (v13 - 2)))
+      if (v21 == *(v11 + v13 - 2))
       {
         if (a3)
         {
-          v37 = 0;
-          v38 = 0;
-          v36 = 0;
-          std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v36, v11, v12, v13);
-          v23 = (*a2)[7];
-          v34 = 0;
           v35 = 0;
-          memset(v33, 0, sizeof(v33));
-          mlx::core::array::array(&v45, &v36, v23 & 0xFFFFFFFFFFLL, &v34, v33);
-          v47 = v33;
-          std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&v47);
-          if (v35)
+          v36 = 0;
+          v34 = 0;
+          std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v34, v11, v12, v13);
+          v23 = (*a2)[7];
+          v33 = 0;
+          memset(v32, 0, sizeof(v32));
+          mlx::core::array::array(&v42, &v34, v23 & 0xFFFFFFFFFFLL);
+          v44 = v32;
+          std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&v44);
+          if (v33)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v35);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v33);
           }
 
-          if (v36)
+          if (v34)
           {
-            v37 = v36;
-            operator delete(v36);
+            v35 = v34;
+            operator delete(v34);
           }
 
-          mlx::core::copy(a2, &v45, 1u, *a1, *(a1 + 8));
+          mlx::core::copy(a2, &v42, 1, *a1, *(a1 + 8));
           *a5 = 1;
-          v24 = v45;
-          v17 = v46;
+          v24 = v42;
+          v17 = v43;
           *(a5 + 8) = v21;
 LABEL_32:
           *(a5 + 16) = v24;
@@ -5635,7 +5104,7 @@ LABEL_8:
           }
 
           *(a5 + 32) = 1;
-          mlx::core::array::~array(&v45);
+          mlx::core::array::~array(&v42);
           return;
         }
 
@@ -5645,39 +5114,38 @@ LABEL_8:
       }
 
 LABEL_2:
+      v30 = 0;
       v31 = 0;
-      v32 = 0;
       __p = 0;
       std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, v11, v12, v13);
       v14 = (*a2)[7];
       v28 = 0;
-      v29 = 0;
       memset(v27, 0, sizeof(v27));
-      mlx::core::array::array(&v45, &__p, v14 & 0xFFFFFFFFFFLL, &v28, v27);
-      v47 = v27;
-      std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&v47);
-      if (v29)
+      mlx::core::array::array(&v42, &__p, v14 & 0xFFFFFFFFFFLL);
+      v44 = v27;
+      std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&v44);
+      if (v28)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v29);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v28);
       }
 
       if (__p)
       {
-        v31 = __p;
+        v30 = __p;
         operator delete(__p);
       }
 
-      mlx::core::copy(a2, &v45, 2u, *a1, *(a1 + 8));
+      mlx::core::copy(a2, &v42, 2, *a1, *(a1 + 8));
       v15 = (*a2)[1];
       if (v15 == **a2)
       {
         std::vector<mlx::core::array>::__throw_out_of_range[abi:ne200100]();
       }
 
-      v16 = *(v15 - 4);
+      v16 = *(v15 - 1);
       *a5 = 0;
-      v18 = v45;
-      v17 = v46;
+      v18 = v42;
+      v17 = v43;
       *(a5 + 8) = v16;
       *(a5 + 16) = v18;
       goto LABEL_8;
@@ -5689,32 +5157,31 @@ LABEL_39:
 
   if (a3)
   {
-    v43 = 0;
-    v44 = 0;
-    v42 = 0;
-    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v42, v11, v12, v13);
-    v25 = (*a2)[7];
     v40 = 0;
     v41 = 0;
-    memset(v39, 0, sizeof(v39));
-    mlx::core::array::array(&v45, &v42, v25 & 0xFFFFFFFFFFLL, &v40, v39);
-    v47 = v39;
-    std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&v47);
-    if (v41)
+    v39 = 0;
+    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v39, v11, v12, v13);
+    v25 = (*a2)[7];
+    v38 = 0;
+    memset(v37, 0, sizeof(v37));
+    mlx::core::array::array(&v42, &v39, v25 & 0xFFFFFFFFFFLL);
+    v44 = v37;
+    std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&v44);
+    if (v38)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v41);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v38);
     }
 
-    if (v42)
+    if (v39)
     {
-      v43 = v42;
-      operator delete(v42);
+      v40 = v39;
+      operator delete(v39);
     }
 
-    mlx::core::copy(a2, &v45, 1u, *a1, *(a1 + 8));
+    mlx::core::copy(a2, &v42, 1, *a1, *(a1 + 8));
     *a5 = 0;
-    v24 = v45;
-    v17 = v46;
+    v24 = v42;
+    v17 = v43;
     *(a5 + 8) = v20;
     goto LABEL_32;
   }
@@ -5808,17 +5275,17 @@ void *mlx::core::BlockMaskedMM::eval_cpu(std::vector<mlx::core::array> const&,ml
   return a1;
 }
 
-void mlx::core::GatherMM::eval_cpu(uint64_t a1, uint64_t a2, uint64_t a3)
+void mlx::core::GatherMM::eval_cpu(uint64_t a1, uint64_t *a2, int ***a3)
 {
   v7[123] = *MEMORY[0x277D85DE8];
-  v3 = *(*a3 + 56);
+  v3 = (*a3)[7];
   if (v3 == 10)
   {
-    v5 = mlx::core::allocator::malloc((*(*a3 + 48) * BYTE4(v3)));
+    v5 = mlx::core::allocator::malloc(((*a3)[6] * BYTE4(v3)));
     v7[0] = &unk_286BE3468;
     v7[1] = mlx::core::allocator::free;
     v7[3] = v7;
-    mlx::core::array::set_data(a3, v5);
+    mlx::core::array::set_data(a3, v5, v7);
   }
 
   exception = __cxa_allocate_exception(0x10uLL);
@@ -5837,7 +5304,7 @@ void sub_25A40225C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t mlx::core::GatherMM::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_1::operator()@<X0>(uint64_t result@<X0>, mlx::core::array *a2@<X1>, uint64_t a3@<X8>)
+void mlx::core::GatherMM::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_1::operator()(uint64_t a1@<X0>, const void ***a2@<X1>, uint64_t a3@<X8>)
 {
   v5 = *a2;
   v6 = **a2;
@@ -5852,16 +5319,15 @@ uint64_t mlx::core::GatherMM::eval_cpu(std::vector<mlx::core::array> const&,mlx:
   v10 = (v8 >> 2) - 2;
   v11 = (v8 >> 2) - 1;
   v12 = v5[3];
-  v13 = *(v12 + 8 * v10);
-  v14 = *(v12 + 8 * v11);
-  if (v13 == *(v6 + 4 * v11) && v14 == 1)
+  v13 = v12[v10];
+  v14 = v12[v11];
+  if (v13 == v6[v11] && v14 == 1)
   {
     *a3 = 0;
     *(a3 + 8) = v13;
     goto LABEL_11;
   }
 
-  v16 = result;
   if (v13 == 1)
   {
     if (v9 <= 1)
@@ -5869,52 +5335,51 @@ uint64_t mlx::core::GatherMM::eval_cpu(std::vector<mlx::core::array> const&,mlx:
       goto LABEL_21;
     }
 
-    if (v14 == *(v6 + 4 * v10))
+    if (v14 == v6[v10])
     {
       *a3 = 1;
       *(a3 + 8) = v14;
 LABEL_11:
       *(a3 + 16) = v5;
-      v17 = *(a2 + 1);
+      v17 = a2[1];
       goto LABEL_18;
     }
   }
 
-  v18 = *(result + 16);
+  v18 = *(a1 + 16);
+  v27 = 0;
   v28 = 0;
-  v29 = 0;
   __p = 0;
   std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, v6, v7, v9);
-  v19 = *(*a2 + 56);
+  v19 = (*a2)[7];
   v25 = 0;
-  v26 = 0;
   memset(v24, 0, sizeof(v24));
-  mlx::core::array::array(v30, &__p, v19 & 0xFFFFFFFFFFLL, &v25, v24);
-  std::vector<mlx::core::array>::push_back[abi:ne200100](v18, v30);
-  mlx::core::array::~array(v30);
-  v31 = v24;
-  std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&v31);
-  if (v26)
+  mlx::core::array::array(v29, &__p, v19 & 0xFFFFFFFFFFLL);
+  std::vector<mlx::core::array>::push_back[abi:ne200100](v18, v29);
+  mlx::core::array::~array(v29);
+  v30 = v24;
+  std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&v30);
+  if (v25)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v26);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v25);
   }
 
   if (__p)
   {
-    v28 = __p;
+    v27 = __p;
     operator delete(__p);
   }
 
-  result = mlx::core::copy(a2, (*(*(v16 + 16) + 8) - 16), 2u, *v16, *(v16 + 8));
-  v20 = *(*a2 + 8);
+  mlx::core::copy(a2, (*(*(a1 + 16) + 8) - 16), 2, *a1, *(a1 + 8));
+  v20 = (*a2)[1];
   if (v20 == **a2)
   {
 LABEL_21:
     std::vector<mlx::core::array>::__throw_out_of_range[abi:ne200100]();
   }
 
-  v21 = *(v20 - 4);
-  v22 = *(*(v16 + 16) + 8);
+  v21 = *(v20 - 1);
+  v22 = *(*(a1 + 16) + 8);
   *a3 = 0;
   v23 = *(v22 - 16);
   v17 = *(v22 - 8);
@@ -5924,10 +5389,8 @@ LABEL_18:
   *(a3 + 24) = v17;
   if (v17)
   {
-    atomic_fetch_add_explicit((v17 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(v17 + 1, 1uLL, memory_order_relaxed);
   }
-
-  return result;
 }
 
 void sub_25A402654(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, std::__shared_weak_count *a14, void *__p, uint64_t a16)
@@ -6096,7 +5559,7 @@ mlx::core::array *std::vector<mlx::core::array>::__insert_with_size[abi:ne200100
       *v19 = 0;
       *(v19 + 8) = 0;
       v19 += 16;
-      ++v18;
+      v18 += 16;
     }
 
     while (v19 != a4);
@@ -6115,9 +5578,9 @@ LABEL_18:
   return v5;
 }
 
-void sub_25A402934(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25A402934(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<mlx::core::array>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -6209,7 +5672,7 @@ void _ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_
 
 void _ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_13BlockMaskedMM8eval_cpuERKNS_6vectorINS3_5arrayENS_9allocatorIS9_EEEERS9_E3__2JEEEvOT_DpOT0_EUlvE_NSA_ISM_EEFvvEEclEv(uint64_t a1)
 {
-  v1 = std::__bind<mlx::core::BlockMaskedMM::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_2>::operator()[abi:ne200100]<>(a1 + 24);
+  v1 = std::__bind<mlx::core::BlockMaskedMM::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_2>::operator()[abi:ne200100]<>((a1 + 24));
   v2 = mlx::core::scheduler::scheduler(v1);
 
   mlx::core::scheduler::Scheduler::notify_task_completion(v2);
@@ -6246,43 +5709,43 @@ uint64_t std::__bind<mlx::core::BlockMaskedMM::eval_cpu(std::vector<mlx::core::a
   *(a1 + 120) = 0;
   *(a1 + 128) = 0;
   *(a1 + 136) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 120, *(a2 + 15), *(a2 + 16), (*(a2 + 16) - *(a2 + 15)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 120), *(a2 + 15), *(a2 + 16), (*(a2 + 16) - *(a2 + 15)) >> 2);
   *(a1 + 144) = 0;
   *(a1 + 152) = 0;
   *(a1 + 160) = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(a1 + 144, *(a2 + 18), *(a2 + 19), (*(a2 + 19) - *(a2 + 18)) >> 3);
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>((a1 + 144), *(a2 + 18), *(a2 + 19), (*(a2 + 19) - *(a2 + 18)) >> 3);
   *(a1 + 168) = 0;
   *(a1 + 176) = 0;
   *(a1 + 184) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 168, *(a2 + 21), *(a2 + 22), (*(a2 + 22) - *(a2 + 21)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 168), *(a2 + 21), *(a2 + 22), (*(a2 + 22) - *(a2 + 21)) >> 2);
   *(a1 + 192) = 0;
   *(a1 + 200) = 0;
   *(a1 + 208) = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(a1 + 192, *(a2 + 24), *(a2 + 25), (*(a2 + 25) - *(a2 + 24)) >> 3);
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>((a1 + 192), *(a2 + 24), *(a2 + 25), (*(a2 + 25) - *(a2 + 24)) >> 3);
   *(a1 + 216) = 0;
   *(a1 + 224) = 0;
   *(a1 + 232) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 216, *(a2 + 27), *(a2 + 28), (*(a2 + 28) - *(a2 + 27)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 216), *(a2 + 27), *(a2 + 28), (*(a2 + 28) - *(a2 + 27)) >> 2);
   *(a1 + 240) = 0;
   *(a1 + 248) = 0;
   *(a1 + 256) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 240, *(a2 + 30), *(a2 + 31), (*(a2 + 31) - *(a2 + 30)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 240), *(a2 + 30), *(a2 + 31), (*(a2 + 31) - *(a2 + 30)) >> 2);
   *(a1 + 264) = 0;
   *(a1 + 272) = 0;
   *(a1 + 280) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 264, *(a2 + 33), *(a2 + 34), (*(a2 + 34) - *(a2 + 33)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 264), *(a2 + 33), *(a2 + 34), (*(a2 + 34) - *(a2 + 33)) >> 2);
   *(a1 + 288) = 0;
   *(a1 + 296) = 0;
   *(a1 + 304) = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(a1 + 288, *(a2 + 36), *(a2 + 37), (*(a2 + 37) - *(a2 + 36)) >> 3);
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>((a1 + 288), *(a2 + 36), *(a2 + 37), (*(a2 + 37) - *(a2 + 36)) >> 3);
   *(a1 + 312) = 0;
   *(a1 + 320) = 0;
   *(a1 + 328) = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(a1 + 312, *(a2 + 39), *(a2 + 40), (*(a2 + 40) - *(a2 + 39)) >> 3);
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>((a1 + 312), *(a2 + 39), *(a2 + 40), (*(a2 + 40) - *(a2 + 39)) >> 3);
   *(a1 + 336) = 0;
   *(a1 + 344) = 0;
   *(a1 + 352) = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(a1 + 336, *(a2 + 42), *(a2 + 43), (*(a2 + 43) - *(a2 + 42)) >> 3);
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>((a1 + 336), *(a2 + 42), *(a2 + 43), (*(a2 + 43) - *(a2 + 42)) >> 3);
   v10 = *(a2 + 361);
   *(a1 + 363) = *(a2 + 363);
   *(a1 + 361) = v10;
@@ -6357,30 +5820,30 @@ void sub_25A402FA8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::__bind<mlx::core::BlockMaskedMM::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_2>::operator()[abi:ne200100]<>(uint64_t result)
+uint64_t *std::__bind<mlx::core::BlockMaskedMM::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_2>::operator()[abi:ne200100]<>(uint64_t *result)
 {
-  if (*(result + 56))
+  if (result[7])
   {
     v1 = result;
     v2 = 0;
-    v39 = (result + 288);
-    v40 = (result + 216);
-    v37 = (result + 312);
-    v38 = (result + 240);
-    v35 = (result + 336);
-    v36 = (result + 264);
+    v31 = result + 36;
+    v32 = result + 27;
+    v29 = result + 39;
+    v30 = result + 30;
+    v27 = result + 42;
+    v28 = result + 33;
     do
     {
-      v41 = *v1;
+      v33 = *v1;
       v3 = *(v1 + 80);
       v4 = *(v1 + 120);
       v5 = (*(v1 + 128) - v4) >> 2;
-      v42 = *(v1 + 64);
+      v34 = *(v1 + 64);
       v6 = (v5 - 1);
       v7 = 0;
       if (v5 - 1 >= 0)
       {
-        quot = v42 * v2 * v3;
+        quot = v34 * v2 * v3;
         v9 = *(v1 + 144);
         do
         {
@@ -6412,69 +5875,59 @@ uint64_t std::__bind<mlx::core::BlockMaskedMM::eval_cpu(std::vector<mlx::core::a
         while (v16 != -1);
       }
 
-      v20 = (v41 + 4 * v7);
+      v20 = (v33 + 4 * v7);
       v21 = (v11 + 4 * v15);
       v22 = *(v1 + 16);
       if (*(v1 + 48) == 1)
       {
-        v23 = *(v1 + 96);
         if (*(v1 + 88))
         {
-          v24 = 1;
+          v23 = 1;
         }
 
         else
+        {
+          v23 = *(v1 + 96);
+        }
+
+        if (*(v1 + 88))
         {
           v24 = *(v1 + 96);
         }
 
-        if (*(v1 + 88))
+        else
         {
-          v25 = *(v1 + 96);
+          v24 = 1;
         }
 
-        else
+        mlx::core::BlockMaskedMM::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_3::operator()(*(v1 + 24), v20, *(v1 + 52), v2, v34, v3, v23, v24, v32, v31, *(v1 + 361));
+        if (*(v1 + 89))
         {
           v25 = 1;
         }
 
-        mlx::core::BlockMaskedMM::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_3::operator()(*(v1 + 24), v20, *(v1 + 52), v2, v42, v3, v24, v25, v40, v39, *(v1 + 361));
-        v26 = *(v1 + 104);
-        if (*(v1 + 89))
-        {
-          v27 = 1;
-        }
-
         else
         {
-          v27 = *(v1 + 104);
+          v25 = *(v1 + 104);
         }
 
         if (*(v1 + 89))
         {
-          v28 = *(v1 + 104);
+          v26 = *(v1 + 104);
         }
 
         else
         {
-          v28 = 1;
+          v26 = 1;
         }
 
-        mlx::core::BlockMaskedMM::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_3::operator()(*(v1 + 32), v21, *(v1 + 52), v2, *(v1 + 80), *(v1 + 72), v27, v28, v38, v37, *(v1 + 362));
-        v29 = *(v1 + 64);
-        v30 = *(v1 + 72);
-        v31 = *(v1 + 80);
+        mlx::core::BlockMaskedMM::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_3::operator()(*(v1 + 32), v21, *(v1 + 52), v2, *(v1 + 80), *(v1 + 72), v25, v26, v30, v29, *(v1 + 362));
       }
 
-      *(v1 + 88);
-      *(v1 + 89);
-      v32 = *(v1 + 96);
-      v34 = *(v1 + 112);
-      v33 = *(v1 + 104);
       result = cblas_sgemm_NEWLAPACK();
       if (*(v1 + 49) == 1)
       {
-        result = mlx::core::BlockMaskedMM::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_3::operator()(*(v1 + 40), (v22 + 4 * v42 * v2 * v12), *(v1 + 52), v2, *(v1 + 64), *(v1 + 72), *(v1 + 72), 1, v36, v35, *(v1 + 363));
+        result = mlx::core::BlockMaskedMM::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_3::operator()(*(v1 + 40), (v22 + 4 * v34 * v2 * v12), *(v1 + 52), v2, *(v1 + 64), *(v1 + 72), *(v1 + 72), 1, v28, v27, *(v1 + 363));
       }
 
       ++v2;
@@ -6486,7 +5939,7 @@ uint64_t std::__bind<mlx::core::BlockMaskedMM::eval_cpu(std::vector<mlx::core::a
   return result;
 }
 
-uint64_t mlx::core::elem_to_loc(int quot, uint64_t *a2, uint64_t *a3)
+uint64_t mlx::core::elem_to_loc(uint64_t quot, uint64_t *a2, uint64_t *a3)
 {
   v3 = *a2;
   v4 = (a2[1] - *a2) >> 2;
@@ -6498,7 +5951,7 @@ uint64_t mlx::core::elem_to_loc(int quot, uint64_t *a2, uint64_t *a3)
     do
     {
       v8 = ldiv(quot, *(v3 + 4 * v6));
-      quot = v8.quot;
+      LODWORD(quot) = v8.quot;
       v5 += *(v7 + 8 * v6--) * v8.rem;
     }
 
@@ -6513,7 +5966,7 @@ uint64_t mlx::core::BlockMaskedMM::eval_cpu(std::vector<mlx::core::array> const&
   v17 = (a9[1] - *a9) >> 2;
   v18 = v17 - 1;
   v19 = v17 - 2;
-  result = mlx::core::elem_to_loc(*(*a9 + 4 * (v17 - 1)) * a4 * *(*a9 + 4 * (v17 - 2)), a9, a10);
+  result = mlx::core::elem_to_loc((*(*a9 + 4 * (v17 - 1)) * a4 * *(*a9 + 4 * (v17 - 2))), a9, a10);
   v73 = *(*a10 + 8 * v19);
   v21 = *(*a10 + 8 * v18);
   v22 = a3 - 1;
@@ -6912,7 +6365,7 @@ void _ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_
 
 void _ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_8GatherMM8eval_cpuERKNS_6vectorINS3_5arrayENS_9allocatorIS9_EEEERS9_E3__3JEEEvOT_DpOT0_EUlvE_NSA_ISM_EEFvvEEclEv(uint64_t a1)
 {
-  v1 = std::__bind<mlx::core::GatherMM::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_3>::operator()[abi:ne200100]<>(a1 + 24);
+  v1 = std::__bind<mlx::core::GatherMM::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_3>::operator()[abi:ne200100]<>((a1 + 24));
   v2 = mlx::core::scheduler::scheduler(v1);
 
   mlx::core::scheduler::Scheduler::notify_task_completion(v2);
@@ -6945,37 +6398,37 @@ uint64_t std::__bind<mlx::core::GatherMM::eval_cpu(std::vector<mlx::core::array>
   *(a1 + 88) = 0;
   *(a1 + 96) = 0;
   *(a1 + 104) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 88, *(a2 + 88), *(a2 + 96), (*(a2 + 96) - *(a2 + 88)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 88), *(a2 + 88), *(a2 + 96), (*(a2 + 96) - *(a2 + 88)) >> 2);
   *(a1 + 112) = 0;
   *(a1 + 120) = 0;
   *(a1 + 128) = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(a1 + 112, *(a2 + 112), *(a2 + 120), (*(a2 + 120) - *(a2 + 112)) >> 3);
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>((a1 + 112), *(a2 + 112), *(a2 + 120), (*(a2 + 120) - *(a2 + 112)) >> 3);
   *(a1 + 136) = 0;
   *(a1 + 144) = 0;
   *(a1 + 152) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 136, *(a2 + 136), *(a2 + 144), (*(a2 + 144) - *(a2 + 136)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 136), *(a2 + 136), *(a2 + 144), (*(a2 + 144) - *(a2 + 136)) >> 2);
   *(a1 + 160) = 0;
   *(a1 + 168) = 0;
   *(a1 + 176) = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(a1 + 160, *(a2 + 160), *(a2 + 168), (*(a2 + 168) - *(a2 + 160)) >> 3);
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>((a1 + 160), *(a2 + 160), *(a2 + 168), (*(a2 + 168) - *(a2 + 160)) >> 3);
   v8 = *(a2 + 184);
   *(a1 + 200) = 0;
   *(a1 + 184) = v8;
   *(a1 + 208) = 0;
   *(a1 + 216) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 200, *(a2 + 200), *(a2 + 208), (*(a2 + 208) - *(a2 + 200)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 200), *(a2 + 200), *(a2 + 208), (*(a2 + 208) - *(a2 + 200)) >> 2);
   *(a1 + 224) = 0;
   *(a1 + 232) = 0;
   *(a1 + 240) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 224, *(a2 + 224), *(a2 + 232), (*(a2 + 232) - *(a2 + 224)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 224), *(a2 + 224), *(a2 + 232), (*(a2 + 232) - *(a2 + 224)) >> 2);
   *(a1 + 248) = 0;
   *(a1 + 256) = 0;
   *(a1 + 264) = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(a1 + 248, *(a2 + 248), *(a2 + 256), (*(a2 + 256) - *(a2 + 248)) >> 3);
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>((a1 + 248), *(a2 + 248), *(a2 + 256), (*(a2 + 256) - *(a2 + 248)) >> 3);
   *(a1 + 272) = 0;
   *(a1 + 280) = 0;
   *(a1 + 288) = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(a1 + 272, *(a2 + 272), *(a2 + 280), (*(a2 + 280) - *(a2 + 272)) >> 3);
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>((a1 + 272), *(a2 + 272), *(a2 + 280), (*(a2 + 280) - *(a2 + 272)) >> 3);
   return a1;
 }
 
@@ -7033,22 +6486,22 @@ void sub_25A403F90(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::__bind<mlx::core::GatherMM::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_3>::operator()[abi:ne200100]<>(uint64_t result)
+void *std::__bind<mlx::core::GatherMM::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_3>::operator()[abi:ne200100]<>(void *result)
 {
-  if (*(result + 184))
+  if (result[23])
   {
     v1 = result;
     v2 = 0;
     do
     {
-      v3 = *(v1 + 72);
-      v4 = *(v1 + 88);
-      v5 = (*(v1 + 96) - v4) >> 2;
+      v3 = v1[9];
+      v4 = v1[11];
+      v5 = (v1[12] - v4) >> 2;
       v6 = 0;
       v7 = (v5 - 1);
       if (v5 - 1 >= 0)
       {
-        v8 = *(v1 + 112);
+        v8 = v1[14];
         quot = v2;
         do
         {
@@ -7061,14 +6514,14 @@ uint64_t std::__bind<mlx::core::GatherMM::eval_cpu(std::vector<mlx::core::array>
       }
 
       v11 = *(v3 + 4 * v6);
-      v12 = *(v1 + 80);
-      v13 = *(v1 + 136);
-      v14 = (*(v1 + 144) - v13) >> 2;
+      v12 = v1[10];
+      v13 = v1[17];
+      v14 = (v1[18] - v13) >> 2;
       v15 = 0;
       v16 = (v14 - 1);
       if (v14 - 1 >= 0)
       {
-        v17 = *(v1 + 160);
+        v17 = v1[20];
         v18 = v2;
         do
         {
@@ -7081,19 +6534,13 @@ uint64_t std::__bind<mlx::core::GatherMM::eval_cpu(std::vector<mlx::core::array>
       }
 
       v20 = *(v12 + 4 * v15);
-      *(v1 + 64);
-      *(v1 + 65);
-      v40 = *(v1 + 32);
-      v41 = *(v1 + 24);
-      v39 = *(v1 + 40);
-      v38 = *v1;
-      v21 = *(v1 + 200);
-      v22 = (*(v1 + 208) - v21) >> 2;
+      v21 = v1[25];
+      v22 = (v1[26] - v21) >> 2;
       v23 = 0;
       v24 = (v22 - 1);
       if (v22 - 1 >= 0)
       {
-        v25 = *(v1 + 248);
+        v25 = v1[31];
         do
         {
           v26 = ldiv(v11, *(v21 + 4 * v24));
@@ -7104,33 +6551,28 @@ uint64_t std::__bind<mlx::core::GatherMM::eval_cpu(std::vector<mlx::core::array>
         while (v24 != -1);
       }
 
-      v27 = *(v1 + 48);
-      v28 = *(v1 + 8);
-      v29 = *(v1 + 224);
-      v30 = (*(v1 + 232) - v29) >> 2;
-      v31 = 0;
-      v32 = (v30 - 1);
-      if (v30 - 1 >= 0)
+      v27 = v1[28];
+      v28 = (v1[29] - v27) >> 2;
+      v29 = 0;
+      v30 = (v28 - 1);
+      if (v28 - 1 >= 0)
       {
-        v33 = *(v1 + 272);
+        v31 = v1[34];
         do
         {
-          v34 = ldiv(v20, *(v29 + 4 * v32));
-          v31 += *(v33 + 8 * v32--) * v34.rem;
-          v20 = v34.quot;
+          v32 = ldiv(v20, *(v27 + 4 * v30));
+          v29 += *(v31 + 8 * v30--) * v32.rem;
+          v20 = v32.quot;
         }
 
-        while (v32 != -1);
+        while (v30 != -1);
       }
 
-      v37 = *(v1 + 68);
-      v36 = *(v1 + 16) + 4 * *(v1 + 192) * v2;
-      v35 = *(v1 + 56);
       result = cblas_sgemm_NEWLAPACK();
       ++v2;
     }
 
-    while (*(v1 + 184) > v2);
+    while (v1[23] > v2);
   }
 
   return result;
@@ -7179,211 +6621,171 @@ uint64_t std::__function::__func<std::__bind<mlx::core::GatherMM::eval_cpu(std::
   }
 }
 
-void mlx::core::Convolution::eval_cpu(uint64_t a1, uint64_t a2, uint64_t a3)
+void mlx::core::Convolution::eval_cpu(uint64_t a1, int ****a2, int ***a3)
 {
   v6 = *MEMORY[0x277D85DE8];
-  v4 = mlx::core::allocator::malloc((*(*a3 + 60) * *(*a3 + 48)));
+  v4 = mlx::core::allocator::malloc((*(*a3 + 60) * (*a3)[6]));
   v5[0] = &unk_286BE3468;
   v5[1] = mlx::core::allocator::free;
   v5[3] = v5;
-  mlx::core::array::set_data(a3, v4);
+  mlx::core::array::set_data(a3, v4, v5);
 }
 
-void sub_25A4069B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25A4069B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   mlx::core::array::~array(&STACK[0x418]);
   mlx::core::array::~array(va);
   _Unwind_Resume(a1);
 }
 
-void mlx::core::anonymous namespace::conv_1D_cpu(__int128 **a1, __int128 **a2, uint64_t a3, int **a4, int **a5, int **a6, int **a7, uint64_t a8, uint64_t a9, int a10)
+void mlx::core::anonymous namespace::conv_1D_cpu(int ***a1, uint64_t **a2, uint64_t ***a3, int **a4, int **a5, int **a6, int **a7, uint64_t a8, uint64_t a9, unsigned int a10)
 {
-  *&v208[20] = *MEMORY[0x277D85DE8];
-  v16 = *a1;
+  v111 = *MEMORY[0x277D85DE8];
+  v13 = *a1;
   if (**a6 == 1)
   {
-    v17 = *(v16 + 1);
-    v18 = **a7;
-    if (v18 == 1 && (a8 & 1) == 0)
+    v14 = v13[1];
+    v15 = **a7;
+    if (v15 == 1 && (a8 & 1) == 0)
     {
-      v19 = *a3;
-      v20 = *(a3 + 8);
-      v195[2] = *a3;
-      v195[3] = v20;
-      if (v20)
+      v16 = *a3;
+      v17 = a3[1];
+      v98[2] = *a3;
+      v98[3] = v17;
+      if (v17)
       {
-        atomic_fetch_add_explicit((v20 + 8), 1uLL, memory_order_relaxed);
-        v16 = *a1;
-        v17 = *(*a1 + 1);
+        atomic_fetch_add_explicit(v17 + 1, 1uLL, memory_order_relaxed);
+        v13 = *a1;
+        v14 = (*a1)[1];
       }
 
-      v21 = *v16;
-      v22 = v17 - v21;
-      if (v22 > 4 && v22 != 8)
+      v18 = *v13;
+      v19 = v14 - v18;
+      if (v19 > 4 && v19 != 8 && v16[1] - *v16 >= 5uLL)
       {
-        v24 = v19;
-        v23 = *v19;
-        if ((v24[1] - v23) >= 5)
+        v20 = (*a2)[1] - **a2;
+        if (v20 > 4 && v20 != 8)
         {
-          v25 = **a2;
-          v26 = *(*a2 + 1) - v25;
-          if (v26 > 4 && v26 != 8)
+          v22 = *v18;
+          v21 = v18[1];
+          v23 = v18[2];
+          mlx::core::cpu::get_command_encoder(a9, a10);
+          LODWORD(v108) = v22;
+          HIDWORD(v108) = v21 + 2 * **a4;
+          v109 = v23;
+          v106 = 0;
+          v107 = 0;
+          v105 = 0;
+          std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&v105, &v108, &v110, 3uLL);
+          v102 = 0;
+          v103 = 0;
+          v101 = 0;
+          std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v101, v105, v106, (v106 - v105) >> 2);
+          v100 = 0;
+          memset(v99, 0, sizeof(v99));
+          mlx::core::array::array(&v104, &v101, 0x40000000ALL);
+          v108 = v99;
+          std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&v108);
+          if (v100)
           {
-            v28 = *v21;
-            v27 = v21[1];
-            v29 = v21[2];
-            v30 = *(v23 + 4);
-            v180 = *v25;
-            v185 = v25[1];
-            v181 = v25[2];
-            mlx::core::cpu::get_command_encoder(a9, a10);
-            LODWORD(v206) = v28;
-            HIDWORD(v206) = v27 + 2 * **a4;
-            v207 = v29;
-            v204 = 0;
-            v205 = 0;
-            v203 = 0;
-            std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&v203, &v206, v208, 3uLL);
-            v200 = 0;
-            v201 = 0;
-            v199 = 0;
-            std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v199, v203, v204, (v204 - v203) >> 2);
-            v197 = 0;
-            v198 = 0;
-            memset(v196, 0, sizeof(v196));
-            mlx::core::array::array(&v202, &v199, 0x40000000ALL, &v197, v196);
-            v206 = v196;
-            std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&v206);
-            if (v198)
-            {
-              std::__shared_weak_count::__release_shared[abi:ne200100](v198);
-            }
-
-            if (v199)
-            {
-              v200 = v199;
-              operator delete(v199);
-            }
-
-            memset(&v195[72], 0, 24);
-            mlx::core::array::array<int>();
+            std::__shared_weak_count::__release_shared[abi:ne200100](v100);
           }
+
+          if (v101)
+          {
+            v102 = v101;
+            operator delete(v101);
+          }
+
+          memset(&v98[72], 0, 24);
+          mlx::core::array::array<int>(&v108, 0, 0x40000000ALL);
         }
       }
 
       std::vector<mlx::core::array>::__throw_out_of_range[abi:ne200100]();
     }
 
-    if (v18 == 1 && *(v17 - 4) / *(*(*a2 + 1) - 4) == 1)
+    if (v15 == 1 && *(v14 - 1) / *((*a2)[1] - 4) == 1)
     {
-      v31 = *(a3 + 8);
-      v195[0] = *a3;
-      v195[1] = v31;
-      if (v31)
+      v24 = a3[1];
+      v98[0] = *a3;
+      v98[1] = v24;
+      if (v24)
       {
-        atomic_fetch_add_explicit((v31 + 8), 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(v24 + 1, 1uLL, memory_order_relaxed);
       }
     }
   }
 
-  v32 = *a3;
-  v33 = *(a3 + 8);
-  if (v33)
+  v25 = *a3;
+  v26 = a3[1];
+  if (v26)
   {
-    atomic_fetch_add_explicit((v33 + 8), 1uLL, memory_order_relaxed);
-    v16 = *a1;
+    atomic_fetch_add_explicit(v26 + 1, 1uLL, memory_order_relaxed);
+    v13 = *a1;
   }
 
-  v34 = *(v16 + 14);
-  if (v34 != 9)
+  v27 = *(v13 + 14);
+  if (v27 != 9)
   {
-    if (v34 != 12)
+    if (v27 != 12)
     {
-      if (v34 == 10)
+      if (v27 == 10)
       {
-        v203 = v32;
-        v204 = v33;
-        if (v33)
+        v105 = v25;
+        v106 = v26;
+        if (v26)
         {
-          atomic_fetch_add_explicit((v33 + 8), 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(v26 + 1, 1uLL, memory_order_relaxed);
         }
 
         command_encoder = mlx::core::cpu::get_command_encoder(a9, a10);
-        v36 = *a1;
-        v38 = **a1;
-        v37 = *(*a1 + 1);
-        v39 = v37 - v38;
-        if (v37 != v38 && v39 >= 5 && v203[1] - *v203 >= 5uLL)
+        v30 = **a1;
+        v29 = (*a1)[1];
+        v31 = v29 - v30;
+        if (v29 != v30 && v31 >= 5 && v105[1] - *v105 >= 5uLL)
         {
-          v40 = *a2;
-          v41 = **a2;
-          v42 = *(*a2 + 1) - v41;
-          if (v42 >= 5 && v39 != 8 && v42 != 8)
+          v32 = (*a2)[1] - **a2;
+          if (v32 >= 5 && v31 != 8 && v32 != 8)
           {
-            v43 = command_encoder;
-            v153 = *(v36 + 19);
-            v156 = *(v40 + 19);
-            v44 = **a7;
-            v45 = *(v38 + 1);
-            v150 = *(*v203 + 4);
-            v46 = *(v38 + 2);
-            v47 = v41[1];
-            v48 = v41[2];
-            v144 = *v38;
-            v147 = *v41;
-            v49 = *(v36 + 3);
-            v159 = *v49;
-            v162 = v203[19];
-            v165 = v49[1];
-            v171 = v49[2];
-            v50 = *(v40 + 3);
-            v51 = v50[1];
-            v168 = *v50;
-            v52 = v50[2];
-            v53 = v203[3];
-            v177 = *v53;
-            v182 = v53[1];
-            v186 = v53[2];
-            v189 = **a5;
-            v192 = **a4;
-            v174 = **a6;
-            v54 = (*(command_encoder + 10) + 1) % 10;
-            *(command_encoder + 10) = v54;
-            v55 = mlx::core::scheduler::scheduler(command_encoder);
-            if (v54)
+            v33 = command_encoder;
+            v34 = (*(command_encoder + 10) + 1) % 10;
+            *(command_encoder + 10) = v34;
+            v35 = mlx::core::scheduler::scheduler(command_encoder);
+            if (v34)
             {
-              v56 = *(v55[1] + 8 * *v43);
-              std::mutex::lock(v56);
-              if (*(v56 + 160) != 1)
+              v36 = *(v35[1] + 8 * *v33);
+              std::mutex::lock(v36);
+              if (*(v36 + 160) != 1)
               {
-                v57 = *(v56 + 72);
-                v58 = *(v56 + 80);
-                v59 = 16 * (v58 - v57) - 1;
-                if (v58 == v57)
+                v37 = *(v36 + 72);
+                v38 = *(v36 + 80);
+                v39 = 16 * (v38 - v37) - 1;
+                if (v38 == v37)
                 {
-                  v59 = 0;
+                  v39 = 0;
                 }
 
-                if (v59 == *(v56 + 104) + *(v56 + 96))
+                if (v39 == *(v36 + 104) + *(v36 + 96))
                 {
-                  std::deque<std::function<void ()(void)>>::__add_back_capacity((v56 + 64));
-                  v57 = *(v56 + 72);
-                  v58 = *(v56 + 80);
+                  std::deque<std::function<void ()(void)>>::__add_back_capacity((v36 + 64));
+                  v37 = *(v36 + 72);
+                  v38 = *(v36 + 80);
                 }
 
-                if (v58 == v57)
+                if (v38 == v37)
                 {
-                  v61 = 0;
+                  v41 = 0;
                 }
 
                 else
                 {
-                  v60 = *(v56 + 104) + *(v56 + 96);
-                  v61 = *(v57 + ((v60 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v60 & 0x7F);
+                  v40 = *(v36 + 104) + *(v36 + 96);
+                  v41 = *(v37 + ((v40 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v40 & 0x7F);
                 }
 
-                *(v61 + 24) = 0;
+                *(v41 + 24) = 0;
                 operator new();
               }
 
@@ -7392,331 +6794,273 @@ void mlx::core::anonymous namespace::conv_1D_cpu(__int128 **a1, __int128 **a2, u
               __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
             }
 
-            mlx::core::scheduler::Scheduler::notify_new_task(v55);
-            v206 = *v43;
-            v207 = *(v43 + 2);
-            v131 = *(*(mlx::core::scheduler::scheduler(v130) + 1) + 8 * *v43);
-            std::mutex::lock(v131);
-            if (*(v131 + 160) != 1)
+            mlx::core::scheduler::Scheduler::notify_new_task(v35);
+            v108 = *v33;
+            v109 = *(v33 + 2);
+            v85 = *(mlx::core::scheduler::scheduler(v84)[1] + 8 * *v33);
+            std::mutex::lock(v85);
+            if (*(v85 + 160) != 1)
             {
-              v132 = *(v131 + 72);
-              v133 = *(v131 + 80);
-              v134 = 16 * (v133 - v132) - 1;
-              if (v133 == v132)
+              v86 = *(v85 + 72);
+              v87 = *(v85 + 80);
+              v88 = 16 * (v87 - v86) - 1;
+              if (v87 == v86)
               {
-                v134 = 0;
+                v88 = 0;
               }
 
-              if (v134 == *(v131 + 104) + *(v131 + 96))
+              if (v88 == *(v85 + 104) + *(v85 + 96))
               {
-                std::deque<std::function<void ()(void)>>::__add_back_capacity((v131 + 64));
-                v132 = *(v131 + 72);
-                v133 = *(v131 + 80);
+                std::deque<std::function<void ()(void)>>::__add_back_capacity((v85 + 64));
+                v86 = *(v85 + 72);
+                v87 = *(v85 + 80);
               }
 
-              if (v133 == v132)
+              if (v87 == v86)
               {
-                v136 = 0;
+                v90 = 0;
               }
 
               else
               {
-                v135 = *(v131 + 104) + *(v131 + 96);
-                v136 = *(v132 + ((v135 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v135 & 0x7F);
+                v89 = *(v85 + 104) + *(v85 + 96);
+                v90 = *(v86 + ((v89 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v89 & 0x7F);
               }
 
-              *(v136 + 24) = 0;
+              *(v90 + 24) = 0;
               operator new();
             }
 
-            v143 = __cxa_allocate_exception(0x10uLL);
-            std::runtime_error::runtime_error(v143, "Cannot enqueue work after stream is stopped.");
-            __cxa_throw(v143, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+            v97 = __cxa_allocate_exception(0x10uLL);
+            std::runtime_error::runtime_error(v97, "Cannot enqueue work after stream is stopped.");
+            __cxa_throw(v97, MEMORY[0x277D82760], MEMORY[0x277D82600]);
           }
         }
 
         std::vector<mlx::core::array>::__throw_out_of_range[abi:ne200100]();
       }
 
-      v137 = __cxa_allocate_exception(0x10uLL);
-      std::logic_error::logic_error(v137, "[Convolution::eval] got unsupported data type.");
-      v137->__vftable = (MEMORY[0x277D828F8] + 16);
-      __cxa_throw(v137, off_279921408, MEMORY[0x277D82610]);
+      v91 = __cxa_allocate_exception(0x10uLL);
+      std::logic_error::logic_error(v91, "[Convolution::eval] got unsupported data type.");
+      v91->__vftable = (MEMORY[0x277D828F8] + 16);
+      __cxa_throw(v91, off_279921408, MEMORY[0x277D82610]);
     }
 
-    v203 = v32;
-    v204 = v33;
-    if (v33)
+    v105 = v25;
+    v106 = v26;
+    if (v26)
     {
-      atomic_fetch_add_explicit((v33 + 8), 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(v26 + 1, 1uLL, memory_order_relaxed);
     }
 
-    v62 = mlx::core::cpu::get_command_encoder(a9, a10);
-    v63 = *a1;
-    v65 = **a1;
-    v64 = *(*a1 + 1);
-    v66 = v64 - v65;
-    if (v64 != v65 && v66 >= 5 && v203[1] - *v203 >= 5uLL)
+    v42 = mlx::core::cpu::get_command_encoder(a9, a10);
+    v44 = **a1;
+    v43 = (*a1)[1];
+    v45 = v43 - v44;
+    if (v43 != v44 && v45 >= 5 && v105[1] - *v105 >= 5uLL)
     {
-      v67 = *a2;
-      v68 = **a2;
-      v69 = *(*a2 + 1) - v68;
-      if (v69 >= 5 && v66 != 8 && v69 != 8)
+      v46 = (*a2)[1] - **a2;
+      if (v46 >= 5 && v45 != 8 && v46 != 8)
       {
-        v70 = v62;
-        v154 = *(v63 + 19);
-        v157 = *(v67 + 19);
-        v71 = **a7;
-        v72 = *(v65 + 1);
-        v151 = *(*v203 + 4);
-        v73 = *(v65 + 2);
-        v74 = v68[1];
-        v75 = v68[2];
-        v145 = *v65;
-        v148 = *v68;
-        v76 = *(v63 + 3);
-        v160 = *v76;
-        v163 = v203[19];
-        v166 = v76[1];
-        v172 = v76[2];
-        v77 = *(v67 + 3);
-        v78 = v77[1];
-        v169 = *v77;
-        v79 = v77[2];
-        v80 = v203[3];
-        v178 = *v80;
-        v183 = v80[1];
-        v187 = v80[2];
-        v190 = **a5;
-        v193 = **a4;
-        v175 = **a6;
-        v81 = (*(v62 + 10) + 1) % 10;
-        *(v62 + 10) = v81;
-        v82 = mlx::core::scheduler::scheduler(v62);
-        if (v81)
+        v47 = v42;
+        v48 = (*(v42 + 10) + 1) % 10;
+        *(v42 + 10) = v48;
+        v49 = mlx::core::scheduler::scheduler(v42);
+        if (v48)
         {
-          v83 = *(v82[1] + 8 * *v70);
-          std::mutex::lock(v83);
-          if (*(v83 + 160) != 1)
+          v50 = *(v49[1] + 8 * *v47);
+          std::mutex::lock(v50);
+          if (*(v50 + 160) != 1)
           {
-            v84 = *(v83 + 72);
-            v85 = *(v83 + 80);
-            v86 = 16 * (v85 - v84) - 1;
-            if (v85 == v84)
+            v51 = *(v50 + 72);
+            v52 = *(v50 + 80);
+            v53 = 16 * (v52 - v51) - 1;
+            if (v52 == v51)
             {
-              v86 = 0;
+              v53 = 0;
             }
 
-            if (v86 == *(v83 + 104) + *(v83 + 96))
+            if (v53 == *(v50 + 104) + *(v50 + 96))
             {
-              std::deque<std::function<void ()(void)>>::__add_back_capacity((v83 + 64));
-              v84 = *(v83 + 72);
-              v85 = *(v83 + 80);
+              std::deque<std::function<void ()(void)>>::__add_back_capacity((v50 + 64));
+              v51 = *(v50 + 72);
+              v52 = *(v50 + 80);
             }
 
-            if (v85 == v84)
+            if (v52 == v51)
             {
-              v88 = 0;
+              v55 = 0;
             }
 
             else
             {
-              v87 = *(v83 + 104) + *(v83 + 96);
-              v88 = *(v84 + ((v87 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v87 & 0x7F);
+              v54 = *(v50 + 104) + *(v50 + 96);
+              v55 = *(v51 + ((v54 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v54 & 0x7F);
             }
 
-            *(v88 + 24) = 0;
+            *(v55 + 24) = 0;
             operator new();
           }
 
-          v138 = __cxa_allocate_exception(0x10uLL);
-          std::runtime_error::runtime_error(v138, "Cannot enqueue work after stream is stopped.");
-          __cxa_throw(v138, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+          v92 = __cxa_allocate_exception(0x10uLL);
+          std::runtime_error::runtime_error(v92, "Cannot enqueue work after stream is stopped.");
+          __cxa_throw(v92, MEMORY[0x277D82760], MEMORY[0x277D82600]);
         }
 
-        mlx::core::scheduler::Scheduler::notify_new_task(v82);
-        v206 = *v70;
-        v207 = *(v70 + 2);
-        v117 = *(*(mlx::core::scheduler::scheduler(v116) + 1) + 8 * *v70);
-        std::mutex::lock(v117);
-        if (*(v117 + 160) != 1)
+        mlx::core::scheduler::Scheduler::notify_new_task(v49);
+        v108 = *v47;
+        v109 = *(v47 + 2);
+        v71 = *(mlx::core::scheduler::scheduler(v70)[1] + 8 * *v47);
+        std::mutex::lock(v71);
+        if (*(v71 + 160) != 1)
         {
-          v118 = *(v117 + 72);
-          v119 = *(v117 + 80);
-          v120 = 16 * (v119 - v118) - 1;
-          if (v119 == v118)
+          v72 = *(v71 + 72);
+          v73 = *(v71 + 80);
+          v74 = 16 * (v73 - v72) - 1;
+          if (v73 == v72)
           {
-            v120 = 0;
+            v74 = 0;
           }
 
-          if (v120 == *(v117 + 104) + *(v117 + 96))
+          if (v74 == *(v71 + 104) + *(v71 + 96))
           {
-            std::deque<std::function<void ()(void)>>::__add_back_capacity((v117 + 64));
-            v118 = *(v117 + 72);
-            v119 = *(v117 + 80);
+            std::deque<std::function<void ()(void)>>::__add_back_capacity((v71 + 64));
+            v72 = *(v71 + 72);
+            v73 = *(v71 + 80);
           }
 
-          if (v119 == v118)
+          if (v73 == v72)
           {
-            v122 = 0;
+            v76 = 0;
           }
 
           else
           {
-            v121 = *(v117 + 104) + *(v117 + 96);
-            v122 = *(v118 + ((v121 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v121 & 0x7F);
+            v75 = *(v71 + 104) + *(v71 + 96);
+            v76 = *(v72 + ((v75 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v75 & 0x7F);
           }
 
-          *(v122 + 24) = 0;
+          *(v76 + 24) = 0;
           operator new();
         }
 
-        v141 = __cxa_allocate_exception(0x10uLL);
-        std::runtime_error::runtime_error(v141, "Cannot enqueue work after stream is stopped.");
-        __cxa_throw(v141, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+        v95 = __cxa_allocate_exception(0x10uLL);
+        std::runtime_error::runtime_error(v95, "Cannot enqueue work after stream is stopped.");
+        __cxa_throw(v95, MEMORY[0x277D82760], MEMORY[0x277D82600]);
       }
     }
 
     std::vector<mlx::core::array>::__throw_out_of_range[abi:ne200100]();
   }
 
-  v203 = v32;
-  v204 = v33;
-  if (v33)
+  v105 = v25;
+  v106 = v26;
+  if (v26)
   {
-    atomic_fetch_add_explicit((v33 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(v26 + 1, 1uLL, memory_order_relaxed);
   }
 
-  v89 = mlx::core::cpu::get_command_encoder(a9, a10);
-  v90 = *a1;
-  v92 = **a1;
-  v91 = *(*a1 + 1);
-  v93 = v91 - v92;
-  if (v91 != v92 && v93 >= 5 && v203[1] - *v203 >= 5uLL)
+  v56 = mlx::core::cpu::get_command_encoder(a9, a10);
+  v58 = **a1;
+  v57 = (*a1)[1];
+  v59 = v57 - v58;
+  if (v57 != v58 && v59 >= 5 && v105[1] - *v105 >= 5uLL)
   {
-    v94 = *a2;
-    v95 = **a2;
-    v96 = *(*a2 + 1) - v95;
-    if (v96 >= 5 && v93 != 8 && v96 != 8)
+    v60 = (*a2)[1] - **a2;
+    if (v60 >= 5 && v59 != 8 && v60 != 8)
     {
-      v97 = v89;
-      v155 = *(v90 + 19);
-      v158 = *(v94 + 19);
-      v98 = **a7;
-      v99 = *(v92 + 1);
-      v152 = *(*v203 + 4);
-      v100 = *(v92 + 2);
-      v101 = v95[1];
-      v102 = v95[2];
-      v146 = *v92;
-      v149 = *v95;
-      v103 = *(v90 + 3);
-      v161 = *v103;
-      v164 = v203[19];
-      v167 = v103[1];
-      v173 = v103[2];
-      v104 = *(v94 + 3);
-      v105 = v104[1];
-      v170 = *v104;
-      v106 = v104[2];
-      v107 = v203[3];
-      v179 = *v107;
-      v184 = v107[1];
-      v188 = v107[2];
-      v191 = **a5;
-      v194 = **a4;
-      v176 = **a6;
-      v108 = (*(v89 + 10) + 1) % 10;
-      *(v89 + 10) = v108;
-      v109 = mlx::core::scheduler::scheduler(v89);
-      if (v108)
+      v61 = v56;
+      v62 = (*(v56 + 10) + 1) % 10;
+      *(v56 + 10) = v62;
+      v63 = mlx::core::scheduler::scheduler(v56);
+      if (v62)
       {
-        v110 = *(v109[1] + 8 * *v97);
-        std::mutex::lock(v110);
-        if (*(v110 + 160) != 1)
+        v64 = *(v63[1] + 8 * *v61);
+        std::mutex::lock(v64);
+        if (*(v64 + 160) != 1)
         {
-          v111 = *(v110 + 72);
-          v112 = *(v110 + 80);
-          v113 = 16 * (v112 - v111) - 1;
-          if (v112 == v111)
+          v65 = *(v64 + 72);
+          v66 = *(v64 + 80);
+          v67 = 16 * (v66 - v65) - 1;
+          if (v66 == v65)
           {
-            v113 = 0;
+            v67 = 0;
           }
 
-          if (v113 == *(v110 + 104) + *(v110 + 96))
+          if (v67 == *(v64 + 104) + *(v64 + 96))
           {
-            std::deque<std::function<void ()(void)>>::__add_back_capacity((v110 + 64));
-            v111 = *(v110 + 72);
-            v112 = *(v110 + 80);
+            std::deque<std::function<void ()(void)>>::__add_back_capacity((v64 + 64));
+            v65 = *(v64 + 72);
+            v66 = *(v64 + 80);
           }
 
-          if (v112 == v111)
+          if (v66 == v65)
           {
-            v115 = 0;
+            v69 = 0;
           }
 
           else
           {
-            v114 = *(v110 + 104) + *(v110 + 96);
-            v115 = *(v111 + ((v114 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v114 & 0x7F);
+            v68 = *(v64 + 104) + *(v64 + 96);
+            v69 = *(v65 + ((v68 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v68 & 0x7F);
           }
 
-          *(v115 + 24) = 0;
+          *(v69 + 24) = 0;
           operator new();
         }
 
-        v139 = __cxa_allocate_exception(0x10uLL);
-        std::runtime_error::runtime_error(v139, "Cannot enqueue work after stream is stopped.");
-        __cxa_throw(v139, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+        v93 = __cxa_allocate_exception(0x10uLL);
+        std::runtime_error::runtime_error(v93, "Cannot enqueue work after stream is stopped.");
+        __cxa_throw(v93, MEMORY[0x277D82760], MEMORY[0x277D82600]);
       }
 
-      mlx::core::scheduler::Scheduler::notify_new_task(v109);
-      v206 = *v97;
-      v207 = *(v97 + 2);
-      v124 = *(*(mlx::core::scheduler::scheduler(v123) + 1) + 8 * *v97);
-      std::mutex::lock(v124);
-      if (*(v124 + 160) != 1)
+      mlx::core::scheduler::Scheduler::notify_new_task(v63);
+      v108 = *v61;
+      v109 = *(v61 + 2);
+      v78 = *(mlx::core::scheduler::scheduler(v77)[1] + 8 * *v61);
+      std::mutex::lock(v78);
+      if (*(v78 + 160) != 1)
       {
-        v125 = *(v124 + 72);
-        v126 = *(v124 + 80);
-        v127 = 16 * (v126 - v125) - 1;
-        if (v126 == v125)
+        v79 = *(v78 + 72);
+        v80 = *(v78 + 80);
+        v81 = 16 * (v80 - v79) - 1;
+        if (v80 == v79)
         {
-          v127 = 0;
+          v81 = 0;
         }
 
-        if (v127 == *(v124 + 104) + *(v124 + 96))
+        if (v81 == *(v78 + 104) + *(v78 + 96))
         {
-          std::deque<std::function<void ()(void)>>::__add_back_capacity((v124 + 64));
-          v125 = *(v124 + 72);
-          v126 = *(v124 + 80);
+          std::deque<std::function<void ()(void)>>::__add_back_capacity((v78 + 64));
+          v79 = *(v78 + 72);
+          v80 = *(v78 + 80);
         }
 
-        if (v126 == v125)
+        if (v80 == v79)
         {
-          v129 = 0;
+          v83 = 0;
         }
 
         else
         {
-          v128 = *(v124 + 104) + *(v124 + 96);
-          v129 = *(v125 + ((v128 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v128 & 0x7F);
+          v82 = *(v78 + 104) + *(v78 + 96);
+          v83 = *(v79 + ((v82 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v82 & 0x7F);
         }
 
-        *(v129 + 24) = 0;
+        *(v83 + 24) = 0;
         operator new();
       }
 
-      v142 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v142, "Cannot enqueue work after stream is stopped.");
-      __cxa_throw(v142, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+      v96 = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(v96, "Cannot enqueue work after stream is stopped.");
+      __cxa_throw(v96, MEMORY[0x277D82760], MEMORY[0x277D82600]);
     }
   }
 
   std::vector<mlx::core::array>::__throw_out_of_range[abi:ne200100]();
 }
 
-void sub_25A408940(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_25A408940(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, __int128 a27)
 {
   __cxa_free_exception(v27);
   std::mutex::unlock(v28);
@@ -7790,83 +7134,79 @@ void mlx::core::Convolution::~Convolution(mlx::core::Convolution *this)
   JUMPOUT(0x25F851760);
 }
 
-void mlx::core::anonymous namespace::explicit_gemm_conv_ND_cpu(__int128 **a1, __int128 **a2, uint64_t a3, int **a4, uint64_t a5, uint64_t a6, uint64_t a7, int a8)
+void mlx::core::anonymous namespace::explicit_gemm_conv_ND_cpu(int ***a1, uint64_t **a2, mlx::core::array *a3, int **a4, int **a5, int a6, uint64_t a7, unsigned int a8)
 {
-  v49 = *MEMORY[0x277D85DE8];
-  v9 = **a1;
-  v10 = *(*a1 + 1);
-  v11 = **a1;
-  if (v10 != v11)
+  v45 = *MEMORY[0x277D85DE8];
+  v9 = (*a1)[1];
+  v10 = **a1;
+  if (v9 != v10)
   {
-    v16 = *v11;
-    v45 = 0;
-    v46 = 0;
-    v47 = 0;
-    std::vector<int>::__init_with_size[abi:ne200100]<std::__wrap_iter<int const*>,std::__wrap_iter<int const*>>(&v45, (v11 + 1), (v10 - 1), v10 - 1 - (v11 + 1));
-    v17 = **a3 + 4;
-    v18 = *(*a3 + 8) - 4;
-    memset(v44, 0, sizeof(v44));
-    std::vector<int>::__init_with_size[abi:ne200100]<std::__wrap_iter<int const*>,std::__wrap_iter<int const*>>(v44, v17, v18, (v18 - v17) >> 2);
+    v15 = *v10;
+    v41 = 0;
+    v42 = 0;
+    v43 = 0;
+    std::vector<int>::__init_with_size[abi:ne200100]<std::__wrap_iter<int const*>,std::__wrap_iter<int const*>>(&v41, v10 + 1, v9 - 1, v9 - 1 - (v10 + 1));
+    v16 = (**a3 + 4);
+    v17 = (*(*a3 + 8) - 4);
+    memset(v40, 0, sizeof(v40));
+    std::vector<int>::__init_with_size[abi:ne200100]<std::__wrap_iter<int const*>,std::__wrap_iter<int const*>>(v40, v16, v17, v17 - v16);
+    v18 = (*a2)[1];
     v19 = **a2;
-    v20 = *(*a2 + 1);
-    v21 = **a2;
-    if (v20 != v21)
+    if (v18 != v19)
     {
-      v22 = *v21;
-      v23 = *(v20 - 1);
-      memset(v43, 0, sizeof(v43));
-      std::vector<int>::__init_with_size[abi:ne200100]<std::__wrap_iter<int const*>,std::__wrap_iter<int const*>>(v43, (v21 + 1), (v20 - 1), v20 - 1 - (v21 + 1));
+      v20 = *(v18 - 4);
+      memset(v39, 0, sizeof(v39));
+      std::vector<int>::__init_with_size[abi:ne200100]<std::__wrap_iter<int const*>,std::__wrap_iter<int const*>>(v39, (v19 + 4), (v18 - 4), (v18 - 4 - (v19 + 4)) >> 2);
       mlx::core::cpu::get_command_encoder(a7, a8);
-      std::vector<int>::vector[abi:ne200100](&v41, (*(*a1 + 1) - **a1) >> 2);
-      v24 = v41;
-      *v41 = v16;
-      v25 = v45;
-      if (v46 != v45)
+      std::vector<int>::vector[abi:ne200100](&v37, (*a1)[1] - **a1);
+      v21 = v37;
+      *v37 = v15;
+      v22 = v41;
+      if (v42 != v41)
       {
-        v26 = v46 - v45;
-        v27 = *a4;
-        if (v26 <= 1)
+        v23 = v42 - v41;
+        v24 = *a4;
+        if (v23 <= 1)
         {
-          v26 = 1;
+          v23 = 1;
         }
 
-        v28 = v24 + 4;
+        v25 = v21 + 1;
         do
         {
-          v30 = *v25++;
-          v29 = v30;
-          v31 = *v27++;
-          *v28++ = v29 + 2 * v31;
-          --v26;
+          v27 = *v22++;
+          v26 = v27;
+          v28 = *v24++;
+          *v25++ = v26 + 2 * v28;
+          --v23;
         }
 
-        while (v26);
+        while (v23);
       }
 
-      v32 = v42;
-      *(v42 - 4) = v23;
-      v39 = 0;
-      v38 = 0;
-      __p = 0;
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, v24, v32, (v32 - v24) >> 2);
-      v36 = 0;
+      v29 = v38;
+      *(v38 - 4) = v20;
       v35 = 0;
-      memset(v34, 0, sizeof(v34));
-      mlx::core::array::array(&v40, &__p, 0x40000000ALL, &v35, v34);
-      *&v48 = v34;
-      std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&v48);
-      if (v36)
+      v34 = 0;
+      __p = 0;
+      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, v21, v29, (v29 - v21) >> 2);
+      v32 = 0;
+      memset(v31, 0, sizeof(v31));
+      mlx::core::array::array(&v36, &__p, 0x40000000ALL);
+      *&v44[0] = v31;
+      std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](v44);
+      if (v32)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v36);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v32);
       }
 
       if (__p)
       {
-        v38 = __p;
+        v34 = __p;
         operator delete(__p);
       }
 
-      mlx::core::array::array<int>();
+      mlx::core::array::array<int>(v44, 0, 0x40000000ALL);
     }
 
     std::vector<mlx::core::array>::__throw_out_of_range[abi:ne200100]();
@@ -7875,10 +7215,10 @@ void mlx::core::anonymous namespace::explicit_gemm_conv_ND_cpu(__int128 **a1, __
   std::vector<mlx::core::array>::__throw_out_of_range[abi:ne200100]();
 }
 
-void sub_25A409E38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, char a43, uint64_t a44, char a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, void *a53, uint64_t a54, uint64_t a55, char a56, uint64_t a57, void *__p, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_25A409E38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, void *a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, void *__p, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  __cxa_free_exception(v72);
-  std::mutex::unlock(v73);
+  __cxa_free_exception(v67);
+  std::mutex::unlock(v68);
   mlx::core::array::~array(&a33);
   mlx::core::array::~array(&a43);
   mlx::core::array::~array(&a45);
@@ -7889,50 +7229,50 @@ void sub_25A409E38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(__p);
   }
 
-  mlx::core::array::~array(&a69);
-  if (a71)
+  mlx::core::array::~array(&a65);
+  if (a66)
   {
-    a72 = a71;
-    operator delete(a71);
+    a67 = a66;
+    operator delete(a66);
   }
 
-  v76 = STACK[0x208];
+  v71 = STACK[0x208];
   if (STACK[0x208])
   {
-    STACK[0x210] = v76;
-    operator delete(v76);
+    STACK[0x210] = v71;
+    operator delete(v71);
   }
 
   mlx::core::array::~array(&STACK[0x260]);
   STACK[0x208] = &STACK[0x270];
   std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&STACK[0x208]);
   mlx::core::array::~array(&STACK[0x2D0]);
-  v77 = STACK[0x2E0];
+  v72 = STACK[0x2E0];
   if (STACK[0x2E0])
   {
-    STACK[0x2E8] = v77;
-    operator delete(v77);
+    STACK[0x2E8] = v72;
+    operator delete(v72);
   }
 
-  v78 = *(v74 - 248);
-  if (v78)
+  v73 = *(v69 - 248);
+  if (v73)
   {
-    *(v74 - 240) = v78;
-    operator delete(v78);
+    *(v69 - 240) = v73;
+    operator delete(v73);
   }
 
-  v79 = *(v74 - 224);
-  if (v79)
+  v74 = *(v69 - 224);
+  if (v74)
   {
-    *(v74 - 216) = v79;
-    operator delete(v79);
+    *(v69 - 216) = v74;
+    operator delete(v74);
   }
 
-  v80 = *(v74 - 200);
-  if (v80)
+  v75 = *(v69 - 200);
+  if (v75)
   {
-    *(v74 - 192) = v80;
-    operator delete(v80);
+    *(v69 - 192) = v75;
+    operator delete(v75);
   }
 
   _Unwind_Resume(a1);
@@ -8066,7 +7406,7 @@ void _ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_
   JUMPOUT(0x25F851760);
 }
 
-uint64_t _ZNKSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_12_GLOBAL__N_125explicit_gemm_conv_ND_cpuERKNS3_5arrayESA_S8_RKNS_6vectorIiNS_9allocatorIiEEEESG_SG_bNS3_6StreamEE3__1JEEEvOT_DpOT0_EUlvE_NSC_ISO_EEFvvEE7__cloneEPNS0_6__baseISQ_EE(uint64_t a1, uint64_t a2)
+uint64_t *_ZNKSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_12_GLOBAL__N_125explicit_gemm_conv_ND_cpuERKNS3_5arrayESA_S8_RKNS_6vectorIiNS_9allocatorIiEEEESG_SG_bNS3_6StreamEE3__1JEEEvOT_DpOT0_EUlvE_NSC_ISO_EEFvvEE7__cloneEPNS0_6__baseISQ_EE(uint64_t a1, uint64_t a2)
 {
   *a2 = &unk_286BF4E00;
   v3 = *(a1 + 8);
@@ -8080,7 +7420,7 @@ uint64_t _ZNKSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchI
   *(a2 + 24) = v4;
   *(a2 + 56) = 0;
   *(a2 + 64) = 0;
-  result = std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a2 + 48, *(a1 + 48), *(a1 + 56), (*(a1 + 56) - *(a1 + 48)) >> 2);
+  result = std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a2 + 48), *(a1 + 48), *(a1 + 56), (*(a1 + 56) - *(a1 + 48)) >> 2);
   *(v6 + 24) = *(a1 + 72);
   return result;
 }
@@ -8126,18 +7466,6 @@ uint64_t _ZNKSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchI
   }
 }
 
-uint64_t std::__bind<mlx::core::anonymous namespace::explicit_gemm_conv_ND_cpu(mlx::core::array const&,mlx::core::array const&,mlx::core::array,std::vector<int> const&,std::vector<int> const&,std::vector<int> const&,BOOL,mlx::core::Stream)::$_1>::operator()[abi:ne200100]<>(uint64_t *a1)
-{
-  v1 = a1[3];
-  v2 = *v1;
-  v3 = *a1;
-  v8 = *(a1 + 12);
-  v7 = a1[2];
-  v6 = v1[1];
-  v5 = a1[1];
-  return cblas_sgemm_NEWLAPACK();
-}
-
 void *std::__function::__func<std::__bind<mlx::core::anonymous namespace::explicit_gemm_conv_ND_cpu(mlx::core::array const&,mlx::core::array const&,mlx::core::array,std::vector<int> const&,std::vector<int> const&,std::vector<int> const&,BOOL,mlx::core::Stream)::$_1>,std::allocator<std::__bind<mlx::core::anonymous namespace::explicit_gemm_conv_ND_cpu(mlx::core::array const&,mlx::core::array const&,mlx::core::array,std::vector<int> const&,std::vector<int> const&,std::vector<int> const&,BOOL,mlx::core::Stream)::$_1>>,void ()(void)>::~__func(void *a1)
 {
   *a1 = &unk_286BF4E80;
@@ -8164,7 +7492,7 @@ void std::__function::__func<std::__bind<mlx::core::anonymous namespace::explici
   JUMPOUT(0x25F851760);
 }
 
-uint64_t std::__function::__func<std::__bind<mlx::core::anonymous namespace::explicit_gemm_conv_ND_cpu(mlx::core::array const&,mlx::core::array const&,mlx::core::array,std::vector<int> const&,std::vector<int> const&,std::vector<int> const&,BOOL,mlx::core::Stream)::$_1>,std::allocator<std::__bind<mlx::core::anonymous namespace::explicit_gemm_conv_ND_cpu(mlx::core::array const&,mlx::core::array const&,mlx::core::array,std::vector<int> const&,std::vector<int> const&,std::vector<int> const&,BOOL,mlx::core::Stream)::$_1>>,void ()(void)>::__clone(uint64_t a1, uint64_t a2)
+uint64_t *std::__function::__func<std::__bind<mlx::core::anonymous namespace::explicit_gemm_conv_ND_cpu(mlx::core::array const&,mlx::core::array const&,mlx::core::array,std::vector<int> const&,std::vector<int> const&,std::vector<int> const&,BOOL,mlx::core::Stream)::$_1>,std::allocator<std::__bind<mlx::core::anonymous namespace::explicit_gemm_conv_ND_cpu(mlx::core::array const&,mlx::core::array const&,mlx::core::array,std::vector<int> const&,std::vector<int> const&,std::vector<int> const&,BOOL,mlx::core::Stream)::$_1>>,void ()(void)>::__clone(uint64_t a1, uint64_t a2)
 {
   *a2 = &unk_286BF4E80;
   v3 = *(a1 + 8);
@@ -8175,7 +7503,7 @@ uint64_t std::__function::__func<std::__bind<mlx::core::anonymous namespace::exp
   *(a2 + 8) = v3;
   *(a2 + 40) = 0;
   *(a2 + 48) = 0;
-  result = std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a2 + 32, *(a1 + 32), *(a1 + 40), (*(a1 + 40) - *(a1 + 32)) >> 2);
+  result = std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a2 + 32), *(a1 + 32), *(a1 + 40), (*(a1 + 40) - *(a1 + 32)) >> 2);
   v5[6] = *(a1 + 56);
   *(v5 + 33) = 0;
   v5[9] = 0;
@@ -8308,19 +7636,19 @@ uint64_t mlx::core::anonymous namespace::slow_conv_3D<float>(mlx::core::array co
   *(a1 + 192) = 0;
   *(a1 + 200) = 0;
   *(a1 + 208) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 192, *(a2 + 24), *(a2 + 25), (*(a2 + 25) - *(a2 + 24)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 192), *(a2 + 24), *(a2 + 25), (*(a2 + 25) - *(a2 + 24)) >> 2);
   *(a1 + 216) = 0;
   *(a1 + 224) = 0;
   *(a1 + 232) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 216, *(a2 + 27), *(a2 + 28), (*(a2 + 28) - *(a2 + 27)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 216), *(a2 + 27), *(a2 + 28), (*(a2 + 28) - *(a2 + 27)) >> 2);
   *(a1 + 240) = 0;
   *(a1 + 248) = 0;
   *(a1 + 256) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 240, *(a2 + 30), *(a2 + 31), (*(a2 + 31) - *(a2 + 30)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 240), *(a2 + 30), *(a2 + 31), (*(a2 + 31) - *(a2 + 30)) >> 2);
   *(a1 + 264) = 0;
   *(a1 + 272) = 0;
   *(a1 + 280) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 264, *(a2 + 33), *(a2 + 34), (*(a2 + 34) - *(a2 + 33)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 264), *(a2 + 33), *(a2 + 34), (*(a2 + 34) - *(a2 + 33)) >> 2);
   *(a1 + 288) = *(a2 + 288);
   return a1;
 }
@@ -8537,19 +7865,19 @@ uint64_t std::__bind<void mlx::core::anonymous namespace::slow_conv_3D<float>(ml
   *(a1 + 192) = 0;
   *(a1 + 200) = 0;
   *(a1 + 208) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 192, *(a2 + 24), *(a2 + 25), (*(a2 + 25) - *(a2 + 24)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 192), *(a2 + 24), *(a2 + 25), (*(a2 + 25) - *(a2 + 24)) >> 2);
   *(a1 + 216) = 0;
   *(a1 + 224) = 0;
   *(a1 + 232) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 216, *(a2 + 27), *(a2 + 28), (*(a2 + 28) - *(a2 + 27)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 216), *(a2 + 27), *(a2 + 28), (*(a2 + 28) - *(a2 + 27)) >> 2);
   *(a1 + 240) = 0;
   *(a1 + 248) = 0;
   *(a1 + 256) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 240, *(a2 + 30), *(a2 + 31), (*(a2 + 31) - *(a2 + 30)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 240), *(a2 + 30), *(a2 + 31), (*(a2 + 31) - *(a2 + 30)) >> 2);
   *(a1 + 264) = 0;
   *(a1 + 272) = 0;
   *(a1 + 280) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 264, *(a2 + 33), *(a2 + 34), (*(a2 + 34) - *(a2 + 33)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 264), *(a2 + 33), *(a2 + 34), (*(a2 + 34) - *(a2 + 33)) >> 2);
   *(a1 + 288) = *(a2 + 288);
   return a1;
 }
@@ -8591,7 +7919,7 @@ void std::__bind<void mlx::core::anonymous namespace::slow_conv_3D<float>(mlx::c
   v6 = *(v1 + 240);
   v7 = (v1 + 216);
   v8 = (v1 + 60);
-  v135 = (v1 + 240);
+  v135 = v1 + 240;
   v136 = (v1 + 68);
   v9 = *v6;
   v127 = (v1 + 64);
@@ -9018,14 +8346,14 @@ void std::__bind<void mlx::core::anonymous namespace::slow_conv_3D<float>(mlx::c
                                       v95 = v92;
                                     }
 
-                                    v96 = (v77 + 4 * *(v135 - 19) * (v80 + *(*v135 + 4) * v93) + 4 * *(v135 - 20) * (v79 + **v135 * v90) + 4 * *(v135 - 18) * (v81 + v95 * *(*v135 + 8)));
+                                    v96 = (v77 + 4 * *(v135 - 152) * (v80 + *(*v135 + 4) * v93) + 4 * *(v135 - 160) * (v79 + **v135 * v90) + 4 * *(v135 - 144) * (v81 + v95 * *(*v135 + 8)));
                                     v97 = v94;
                                     v98 = *v133;
                                     do
                                     {
                                       v88 = v88 + (*v96 * *v97);
-                                      v96 += *(v135 - 17);
-                                      v97 += *(v135 - 12);
+                                      v96 += *(v135 - 136);
+                                      v97 += *(v135 - 96);
                                       --v98;
                                     }
 
@@ -9033,21 +8361,21 @@ void std::__bind<void mlx::core::anonymous namespace::slow_conv_3D<float>(mlx::c
                                   }
 
                                   ++v92;
-                                  v94 += *(v135 - 13);
+                                  v94 += *(v135 - 104);
                                 }
 
                                 while (v92 != v87);
                               }
 
                               ++v89;
-                              v91 += *(v135 - 14);
+                              v91 += *(v135 - 112);
                             }
 
                             while (v89 != v85);
                           }
 
                           ++v86;
-                          v83 += 4 * *(v135 - 15);
+                          v83 += 4 * *(v135 - 120);
                         }
 
                         while (v86 != v78);
@@ -9196,7 +8524,7 @@ void sub_25A40BC5C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::lcm[abi:ne200100]<int,int>(int a1, int a2)
+uint64_t std::lcm[abi:ne200100]<int,int>(unsigned int a1, int a2)
 {
   v2 = 0;
   if (a1 && a2)
@@ -9211,7 +8539,7 @@ uint64_t std::lcm[abi:ne200100]<int,int>(int a1, int a2)
       v3 = -a1;
     }
 
-    if (a1 >= 0)
+    if ((a1 & 0x80000000) == 0)
     {
       v4 = a1;
     }
@@ -9260,7 +8588,7 @@ uint64_t void mlx::core::anonymous namespace::slow_conv_3D<float>(mlx::core::arr
     v10 = v8[2] * a7 - v9[2];
     v11 = *(**(result + 56) + 4 * (a6 % **(result + 64)));
     v12 = *(**(result + 72) + 4 * (a7 % **(result + 80)));
-    v13 = (a4 + 4 * **result * a5 + 4 * **(result + 8) * a6 + 4 * **(result + 16) * a7);
+    v13 = a4 + 4 * **result * a5 + 4 * **(result + 8) * a6 + 4 * **(result + 16) * a7;
     v49 = **(result + 96);
     v41 = 4 * **(result + 280);
     v43 = *(**(result + 40) + 4 * (a5 % **(result + 48)));
@@ -9628,19 +8956,19 @@ uint64_t mlx::core::anonymous namespace::slow_conv_3D<half>(mlx::core::array con
   *(a1 + 192) = 0;
   *(a1 + 200) = 0;
   *(a1 + 208) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 192, *(a2 + 24), *(a2 + 25), (*(a2 + 25) - *(a2 + 24)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 192), *(a2 + 24), *(a2 + 25), (*(a2 + 25) - *(a2 + 24)) >> 2);
   *(a1 + 216) = 0;
   *(a1 + 224) = 0;
   *(a1 + 232) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 216, *(a2 + 27), *(a2 + 28), (*(a2 + 28) - *(a2 + 27)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 216), *(a2 + 27), *(a2 + 28), (*(a2 + 28) - *(a2 + 27)) >> 2);
   *(a1 + 240) = 0;
   *(a1 + 248) = 0;
   *(a1 + 256) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 240, *(a2 + 30), *(a2 + 31), (*(a2 + 31) - *(a2 + 30)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 240), *(a2 + 30), *(a2 + 31), (*(a2 + 31) - *(a2 + 30)) >> 2);
   *(a1 + 264) = 0;
   *(a1 + 272) = 0;
   *(a1 + 280) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 264, *(a2 + 33), *(a2 + 34), (*(a2 + 34) - *(a2 + 33)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 264), *(a2 + 33), *(a2 + 34), (*(a2 + 34) - *(a2 + 33)) >> 2);
   *(a1 + 288) = *(a2 + 288);
   return a1;
 }
@@ -9857,19 +9185,19 @@ uint64_t std::__bind<void mlx::core::anonymous namespace::slow_conv_3D<half>(mlx
   *(a1 + 192) = 0;
   *(a1 + 200) = 0;
   *(a1 + 208) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 192, *(a2 + 24), *(a2 + 25), (*(a2 + 25) - *(a2 + 24)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 192), *(a2 + 24), *(a2 + 25), (*(a2 + 25) - *(a2 + 24)) >> 2);
   *(a1 + 216) = 0;
   *(a1 + 224) = 0;
   *(a1 + 232) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 216, *(a2 + 27), *(a2 + 28), (*(a2 + 28) - *(a2 + 27)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 216), *(a2 + 27), *(a2 + 28), (*(a2 + 28) - *(a2 + 27)) >> 2);
   *(a1 + 240) = 0;
   *(a1 + 248) = 0;
   *(a1 + 256) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 240, *(a2 + 30), *(a2 + 31), (*(a2 + 31) - *(a2 + 30)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 240), *(a2 + 30), *(a2 + 31), (*(a2 + 31) - *(a2 + 30)) >> 2);
   *(a1 + 264) = 0;
   *(a1 + 272) = 0;
   *(a1 + 280) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 264, *(a2 + 33), *(a2 + 34), (*(a2 + 34) - *(a2 + 33)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 264), *(a2 + 33), *(a2 + 34), (*(a2 + 34) - *(a2 + 33)) >> 2);
   *(a1 + 288) = *(a2 + 288);
   return a1;
 }
@@ -9898,4 +9226,797 @@ void sub_25A40C9B4(_Unwind_Exception *exception_object)
   }
 
   _Unwind_Resume(exception_object);
+}
+
+void std::__bind<void mlx::core::anonymous namespace::slow_conv_3D<half>(mlx::core::array const&,mlx::core::array const&,mlx::core::array,std::vector<int> const&,std::vector<int> const&,std::vector<int> const&,std::vector<int> const&,BOOL,mlx::core::Stream)::{lambda(void)#1}>::operator()[abi:ne200100]<>(uint64_t a1)
+{
+  v2 = (a1 + 264);
+  v3 = *(a1 + 264);
+  v4 = *v3;
+  v5 = *v3 == 1 && v3[1] == 1 && v3[2] == 1;
+  v165 = v5;
+  v6 = *(a1 + 240);
+  v7 = (a1 + 216);
+  v8 = (a1 + 60);
+  v9 = (a1 + 68);
+  v148 = (a1 + 240);
+  v10 = *v6;
+  v144 = a1;
+  v136 = (a1 + 64);
+  if (*(a1 + 288))
+  {
+    v11 = -v10;
+    v13 = v6[1];
+    v12 = v6[2];
+    v14 = -v13;
+    v15 = -v12;
+    v16 = (*v8 - 1) * v10;
+    v154 = (*(a1 + 64) - 1) * v13;
+    v17 = (*v9 - 1) * v12;
+  }
+
+  else
+  {
+    v154 = 0;
+    v16 = 0;
+    v17 = 0;
+    v14 = v6[1];
+    v15 = v6[2];
+    v11 = *v6;
+  }
+
+  v18 = std::lcm[abi:ne200100]<int,int>(v4, v10);
+  v19 = *(*v148 + 4);
+  v164 = v18 / **v148;
+  v20 = std::lcm[abi:ne200100]<int,int>((*v2)[1], v19);
+  v21 = *(*v148 + 8);
+  v163 = v20 / *(*v148 + 4);
+  v162 = std::lcm[abi:ne200100]<int,int>((*v2)[2], v21) / *(*v148 + 8);
+  v22 = std::lcm[abi:ne200100]<int,int>(**v2, **v7);
+  v23 = (*v7)[1];
+  v161 = v22 / **v7;
+  v24 = std::lcm[abi:ne200100]<int,int>((*v2)[1], v23);
+  v25 = (*v7)[2];
+  v160 = v24 / (*v7)[1];
+  v159 = std::lcm[abi:ne200100]<int,int>((*v2)[2], v25) / (*v7)[2];
+  std::vector<int>::vector[abi:ne200100](v158, v161);
+  std::vector<int>::vector[abi:ne200100](v157, v160);
+  std::vector<int>::vector[abi:ne200100](v156, v159);
+  v26 = (v148 - 48);
+  if (v161 >= 1)
+  {
+    v27 = 0;
+    v28 = *v7;
+    v29 = *v26;
+    v30 = v158[0];
+    v31 = *v2;
+    do
+    {
+      if (*v8 < 1)
+      {
+        v32 = 0;
+      }
+
+      else
+      {
+        v32 = 0;
+        v33 = v16 + *v28 * v27 - *v29;
+        while (v33 % *v31)
+        {
+          ++v32;
+          v33 += v11;
+          if (*v8 == v32)
+          {
+            v32 = *v8;
+            break;
+          }
+        }
+      }
+
+      v30[v27++] = v32;
+    }
+
+    while (v27 < v161);
+  }
+
+  v147 = v148 + 48;
+  v146 = (v148 - 184);
+  if (v160 >= 1)
+  {
+    v34 = 0;
+    v35 = *v7;
+    v36 = *v26;
+    v37 = v157[0];
+    v38 = *v2;
+    do
+    {
+      if (*v136 < 1)
+      {
+        v39 = 0;
+      }
+
+      else
+      {
+        v39 = 0;
+        v40 = v154 + v35[1] * v34 - v36[1];
+        while (v40 % v38[1])
+        {
+          ++v39;
+          v40 += v14;
+          if (*v136 == v39)
+          {
+            v39 = *v136;
+            break;
+          }
+        }
+      }
+
+      v37[v34++] = v39;
+    }
+
+    while (v34 < v160);
+  }
+
+  if (v159 >= 1)
+  {
+    v41 = 0;
+    v42 = *v7;
+    v43 = *v26;
+    v44 = v156[0];
+    v45 = *v2;
+    do
+    {
+      if (*v9 < 1)
+      {
+        v46 = 0;
+      }
+
+      else
+      {
+        v46 = 0;
+        v47 = v17 + v42[2] * v41 - v43[2];
+        while (v47 % v45[2])
+        {
+          ++v46;
+          v47 += v15;
+          if (*v9 == v46)
+          {
+            v46 = *v9;
+            break;
+          }
+        }
+      }
+
+      v44[v41++] = v46;
+    }
+
+    while (v41 < v159);
+  }
+
+  v155[0] = v148 - 80;
+  v155[1] = v148 - 72;
+  v155[2] = v148 - 64;
+  v155[3] = v7;
+  v155[4] = v148 - 48;
+  v155[5] = v158;
+  v155[6] = &v161;
+  v155[7] = v157;
+  v155[8] = &v160;
+  v155[9] = v156;
+  v155[10] = &v159;
+  v155[11] = v148 - 188;
+  v155[12] = v8;
+  v155[13] = &v164;
+  v155[14] = v136;
+  v155[15] = &v163;
+  v155[16] = v9;
+  v155[17] = &v162;
+  v155[18] = v148 + 48;
+  v155[19] = v148;
+  v48 = v144;
+  v155[20] = v144 + 28;
+  v155[21] = v144 + 32;
+  v155[22] = v144 + 36;
+  v155[23] = v148 - 120;
+  v155[24] = v148 - 112;
+  v155[25] = v148 - 104;
+  v155[26] = &v165;
+  v155[27] = v2;
+  v155[28] = v148 - 160;
+  v155[29] = v148 - 152;
+  v155[30] = v148 - 144;
+  v155[31] = v148 - 184;
+  v155[32] = v148 - 136;
+  v155[33] = v148 - 96;
+  v155[34] = v148 - 56;
+  v155[35] = v148 - 128;
+  v49 = *(v144 + 192);
+  v50 = *(v144 + 216);
+  v51 = *v50;
+  if (v165)
+  {
+    v52 = (*v49 + v51 - 1) / v51;
+    v127 = *(v144 + 40);
+  }
+
+  else
+  {
+    v127 = *(v144 + 40);
+    v52 = v127;
+  }
+
+  v53 = *v148;
+  v54 = (*(v144 + 28) + *v49 - **v148 * *v8) / v51;
+  v123 = v54;
+  if (v52 > v54)
+  {
+    v54 = v52;
+  }
+
+  v128 = v54;
+  v55 = v49[1];
+  v56 = v50[1];
+  v131 = *(v144 + 44);
+  if (v165)
+  {
+    v57 = (v55 + v56 - 1) / v56;
+  }
+
+  else
+  {
+    v57 = *(v144 + 44);
+  }
+
+  v58 = (*(v144 + 32) + v55 - *(v53 + 4) * *(v144 + 64)) / v56;
+  v129 = v57;
+  v126 = v58;
+  if (v57 > v58)
+  {
+    v58 = v57;
+  }
+
+  v132 = v58;
+  if (v165)
+  {
+    v59 = v49[2];
+    v60 = v50[2];
+    v61 = *(v144 + 48);
+    v62 = (v59 + v60 - 1) / v60;
+  }
+
+  else
+  {
+    v61 = *(v144 + 48);
+    v59 = v49[2];
+    v60 = v50[2];
+    v62 = v61;
+  }
+
+  v63 = (*(v144 + 36) + v59 - *(v53 + 8) * *(v144 + 68)) / v60;
+  v142 = v62;
+  v130 = v63;
+  if (v62 > v63)
+  {
+    v63 = v62;
+  }
+
+  v133 = v63;
+  if (*(v144 + 24) >= 1)
+  {
+    v64 = 0;
+    v125 = v52;
+    v122 = v52;
+    v141 = v61;
+    v145 = v9;
+    do
+    {
+      v124 = v64;
+      if (v52 >= 1)
+      {
+        v65 = 0;
+        v66 = *(v48 + 44);
+        do
+        {
+          if (v66 >= 1)
+          {
+            v67 = 0;
+            v68 = *(v48 + 48);
+            do
+            {
+              if (v68 >= 1)
+              {
+                for (i = 0; i < v68; ++i)
+                {
+                  v48 = v144;
+                  v68 = *(v144 + 48);
+                }
+
+                v66 = *(v144 + 44);
+              }
+
+              ++v67;
+            }
+
+            while (v67 < v66);
+          }
+
+          ++v65;
+        }
+
+        while (v65 != v52);
+      }
+
+      v70 = v122;
+      if (v123 > v52)
+      {
+        do
+        {
+          v135 = v70;
+          v71 = v129;
+          if (v129 >= 1)
+          {
+            v72 = 0;
+            v73 = *(v48 + 48);
+            do
+            {
+              if (v73 >= 1)
+              {
+                for (j = 0; j < v73; ++j)
+                {
+                  v48 = v144;
+                  v73 = *(v144 + 48);
+                }
+
+                v71 = v129;
+              }
+
+              ++v72;
+            }
+
+            while (v72 != v71);
+          }
+
+          if (v126 > v71)
+          {
+            v75 = v129;
+            do
+            {
+              v76 = v142;
+              if (v142 >= 1)
+              {
+                v77 = v48;
+                for (k = 0; k != v142; ++k)
+                {
+                  v76 = v142;
+                }
+              }
+
+              v134 = v75;
+              if (v130 > v76)
+              {
+                v79 = *(v144 + 216);
+                v80 = *(v144 + 192);
+                v151 = *(v144 + 52);
+                v81 = *(v144 + 8);
+                v139 = *v144;
+                v138 = *(v144 + 16) + 2 * *(v144 + 160) * v135 + 2 * *(v144 + 168) * v75;
+                v82 = *(v144 + 60);
+                v137 = *(v144 + 176);
+                v150 = *(v144 + 184);
+                v83 = v135 * *v79 - *v80;
+                v84 = v79[1] * v75 - v80[1];
+                v140 = v79[2];
+                v85 = v142 * v140 - v80[2];
+                v149 = 2 * *(v144 + 112);
+                v143 = v142;
+                do
+                {
+                  if (v151 >= 1)
+                  {
+                    v86 = 0;
+                    v87 = v139;
+                    v88 = (v138 + 2 * v143 * v137);
+                    v89 = *v136;
+                    do
+                    {
+                      if (v82 < 1)
+                      {
+                        _H0 = 0;
+                      }
+
+                      else
+                      {
+                        v153 = v88;
+                        v90 = 0;
+                        v91 = *v9;
+                        _S0 = 0.0;
+                        v152 = v87;
+                        do
+                        {
+                          if (v89 >= 1)
+                          {
+                            v93 = 0;
+                            if (*v147)
+                            {
+                              v94 = v82 + ~v90;
+                            }
+
+                            else
+                            {
+                              v94 = v90;
+                            }
+
+                            v95 = v87;
+                            do
+                            {
+                              if (v91 >= 1)
+                              {
+                                v96 = 0;
+                                v97 = v89 + ~v93;
+                                if ((*v147 & 1) == 0)
+                                {
+                                  v97 = v93;
+                                }
+
+                                v98 = v95;
+                                do
+                                {
+                                  if (*v146 >= 1)
+                                  {
+                                    v99 = v91 + ~v96;
+                                    if ((*v147 & 1) == 0)
+                                    {
+                                      v99 = v96;
+                                    }
+
+                                    v100 = (v81 + 2 * *(v148 - 19) * (v84 + *(*v148 + 4) * v97) + 2 * *(v148 - 20) * (v83 + **v148 * v94) + 2 * *(v148 - 18) * (v85 + v99 * *(*v148 + 8)));
+                                    v101 = v98;
+                                    v102 = *v146;
+                                    do
+                                    {
+                                      _H1 = *v100;
+                                      __asm { FCVT            S1, H1 }
+
+                                      _H2 = *v101;
+                                      __asm { FCVT            S2, H2 }
+
+                                      _S0 = _S0 + (_S1 * _S2);
+                                      v100 += *(v148 - 17);
+                                      v101 += *(v148 - 12);
+                                      --v102;
+                                    }
+
+                                    while (v102);
+                                  }
+
+                                  ++v96;
+                                  v98 += *(v148 - 13);
+                                }
+
+                                while (v96 != v91);
+                              }
+
+                              ++v93;
+                              v95 += *(v148 - 14);
+                            }
+
+                            while (v93 != v89);
+                          }
+
+                          ++v90;
+                          v87 += 2 * *(v148 - 15);
+                        }
+
+                        while (v90 != v82);
+                        __asm { FCVT            H0, S0 }
+
+                        v9 = v145;
+                        v87 = v152;
+                        v88 = v153;
+                      }
+
+                      *v88 = _H0;
+                      v88 += v150;
+                      ++v86;
+                      v87 += v149;
+                    }
+
+                    while (v86 != v151);
+                  }
+
+                  v85 += v140;
+                  ++v143;
+                }
+
+                while (v143 != v133);
+              }
+
+              if (v133 < v141)
+              {
+                v112 = v133;
+                do
+                {
+                }
+
+                while (v141 != v112);
+              }
+
+              ++v75;
+              v48 = v144;
+            }
+
+            while (v132 != v134 + 1);
+          }
+
+          v52 = v125;
+          if (v132 < v131)
+          {
+            v113 = *(v48 + 48);
+            v114 = v132;
+            do
+            {
+              if (v113 >= 1)
+              {
+                for (m = 0; m < v113; ++m)
+                {
+                  v48 = v144;
+                  v113 = *(v144 + 48);
+                }
+              }
+
+              ++v114;
+            }
+
+            while (v114 != v131);
+          }
+
+          v70 = v135 + 1;
+        }
+
+        while (v128 != v135 + 1);
+      }
+
+      if (v128 < v127)
+      {
+        v116 = *(v48 + 44);
+        v117 = v128;
+        do
+        {
+          if (v116 >= 1)
+          {
+            v118 = 0;
+            v119 = *(v48 + 48);
+            do
+            {
+              if (v119 >= 1)
+              {
+                for (n = 0; n < v119; ++n)
+                {
+                  v48 = v144;
+                  v119 = *(v144 + 48);
+                }
+
+                v116 = *(v144 + 44);
+              }
+
+              ++v118;
+            }
+
+            while (v118 < v116);
+          }
+
+          ++v117;
+        }
+
+        while (v117 != v127);
+      }
+
+      v121 = *(v48 + 16) + 2 * *(v48 + 152);
+      *(v48 + 8) += 2 * *(v48 + 72);
+      *(v48 + 16) = v121;
+      v64 = v124 + 1;
+    }
+
+    while (v124 + 1 < *(v48 + 24));
+  }
+
+  if (v156[0])
+  {
+    v156[1] = v156[0];
+    operator delete(v156[0]);
+  }
+
+  if (v157[0])
+  {
+    v157[1] = v157[0];
+    operator delete(v157[0]);
+  }
+
+  if (v158[0])
+  {
+    v158[1] = v158[0];
+    operator delete(v158[0]);
+  }
+}
+
+void sub_25A40D5AC(_Unwind_Exception *exception_object)
+{
+  v3 = *(v1 - 168);
+  if (v3)
+  {
+    *(v1 - 160) = v3;
+    operator delete(v3);
+  }
+
+  v4 = *(v1 - 144);
+  if (v4)
+  {
+    *(v1 - 136) = v4;
+    operator delete(v4);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t void mlx::core::anonymous namespace::slow_conv_3D<half>(mlx::core::array const&,mlx::core::array const&,mlx::core::array,std::vector<int> const&,std::vector<int> const&,std::vector<int> const&,std::vector<int> const&,BOOL,mlx::core::Stream)::{lambda(void)#1}::operator()(void)::{lambda(half const*,half const*,half *,int,int,int)#2}::operator()(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, int a5, int a6, int a7)
+{
+  v7 = **(result + 88);
+  if (v7 >= 1)
+  {
+    v8 = 0;
+    v9 = **(result + 24);
+    v10 = **(result + 32);
+    v64 = *v9 * a5 - *v10;
+    v63 = v9[1] * a6 - v10[1];
+    v11 = v9[2] * a7 - v10[2];
+    v12 = *(**(result + 56) + 4 * (a6 % **(result + 64)));
+    v13 = *(**(result + 72) + 4 * (a7 % **(result + 80)));
+    v14 = *(**(result + 40) + 4 * (a5 % **(result + 48)));
+    v15 = (a4 + 2 * **result * a5 + 2 * **(result + 8) * a6 + 2 * **(result + 16) * a7);
+    v62 = **(result + 96);
+    v16 = 2 * **(result + 280);
+    v53 = 2 * v14;
+    v54 = v16;
+    v17 = **(result + 272);
+    v59 = 2 * v12;
+    v60 = v12;
+    v56 = **(result + 88);
+    v55 = v14;
+    v52 = v17;
+    do
+    {
+      _H0 = 0;
+      if (v14 < v62)
+      {
+        v57 = v15;
+        v58 = v8;
+        v19 = **(result + 112);
+        v61 = **(result + 104);
+        _S0 = 0.0;
+        v21 = v53;
+        do
+        {
+          if (v12 < v19)
+          {
+            v22 = **(result + 128);
+            v23 = **(result + 120);
+            v24 = v59;
+            do
+            {
+              if (v13 < v22)
+              {
+                v25 = **(result + 152);
+                v26 = *v25;
+                v27 = v25[1];
+                v28 = v25[2];
+                v29 = **(result + 136);
+                if (**(result + 144))
+                {
+                  v30 = v19 + ~v12;
+                }
+
+                else
+                {
+                  v30 = v12;
+                }
+
+                v31 = v62 + ~v14;
+                if (!**(result + 144))
+                {
+                  v31 = v14;
+                }
+
+                v32 = v64 + v26 * v31;
+                v33 = v63 + v27 * v30;
+                v34 = 2 * v13;
+                v35 = v13;
+                do
+                {
+                  v36 = v22 + ~v35;
+                  if (!**(result + 144))
+                  {
+                    v36 = v35;
+                  }
+
+                  if ((v32 & 0x80000000) == 0 && v32 < **(result + 160) && (v33 & 0x80000000) == 0 && v33 < **(result + 168))
+                  {
+                    v37 = v11 + v28 * v36;
+                    if ((v37 & 0x80000000) == 0 && v37 < **(result + 176))
+                    {
+                      v38 = v33;
+                      v39 = v32;
+                      if ((**(result + 208) & 1) == 0)
+                      {
+                        v40 = **(result + 216);
+                        v39 = v32 / *v40;
+                        v38 = v33 / v40[1];
+                        v37 /= v40[2];
+                      }
+
+                      v41 = **(result + 248);
+                      if (v41 >= 1)
+                      {
+                        v42 = (a2 + 2 * **(result + 224) * v39 + 2 * **(result + 232) * v38 + 2 * **(result + 240) * v37);
+                        v43 = v24 * **(result + 192) + v21 * **(result + 184) + **(result + 200) * v34;
+                        do
+                        {
+                          _H1 = *v42;
+                          _H2 = *(a3 + v43);
+                          __asm
+                          {
+                            FCVT            S1, H1
+                            FCVT            S2, H2
+                          }
+
+                          _S0 = _S0 + (_S1 * _S2);
+                          v42 += **(result + 256);
+                          v43 += 2 * **(result + 264);
+                          --v41;
+                        }
+
+                        while (v41);
+                      }
+                    }
+                  }
+
+                  v35 += v29;
+                  v34 += 2 * v29;
+                }
+
+                while (v35 < v22);
+              }
+
+              v12 += v23;
+              v24 += 2 * v23;
+            }
+
+            while (v12 < v19);
+          }
+
+          v14 += v61;
+          v21 += 2 * v61;
+          v12 = v60;
+        }
+
+        while (v14 < v62);
+        __asm { FCVT            H0, S0 }
+
+        v7 = v56;
+        v8 = v58;
+        v16 = v54;
+        v14 = v55;
+        v15 = v57;
+        v17 = v52;
+      }
+
+      *v15 = _H0;
+      v15 += v17;
+      ++v8;
+      a3 += v16;
+    }
+
+    while (v8 != v7);
+  }
+
+  return result;
 }

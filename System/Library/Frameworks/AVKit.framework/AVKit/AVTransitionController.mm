@@ -635,7 +635,7 @@ void __43__AVTransitionController__finishTransition__block_invoke(uint64_t a1)
     v29 = currentTransition;
     if (currentTransition)
     {
-      [currentTransition rotationTransform];
+      objc_msgSend_rotationTransform(currentTransition);
     }
 
     else
@@ -957,7 +957,7 @@ LABEL_11:
   v67 = currentTransition2;
   if (currentTransition2)
   {
-    [currentTransition2 rotationTransform];
+    objc_msgSend_rotationTransform(currentTransition2);
   }
 
   else

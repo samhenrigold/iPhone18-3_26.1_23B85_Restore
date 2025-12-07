@@ -4,6 +4,7 @@
 - (void)setColoringWithColorScheme:(id)scheme;
 - (void)setContentChildView:(id)view;
 - (void)setTitle:(id)title;
+- (void)title;
 @end
 
 @implementation SKUIGallerySwooshCollectionViewCell
@@ -23,11 +24,11 @@
     }
   }
 
-  primaryTextColor = [schemeCopy primaryTextColor];
+  v13 = objc_msgSend_primaryTextColor(schemeCopy);
   titleColor = self->_titleColor;
-  if (titleColor != primaryTextColor && ([(UIColor *)titleColor isEqual:primaryTextColor]& 1) == 0)
+  if (titleColor != v13 && ([(UIColor *)titleColor isEqual:v13]& 1) == 0)
   {
-    objc_storeStrong(&self->_titleColor, primaryTextColor);
+    objc_storeStrong(&self->_titleColor, v13);
     titleLabel = self->_titleLabel;
     if (self->_titleColor)
     {
@@ -95,7 +96,7 @@
 
   text = [(UILabel *)self->_titleLabel text];
   v14 = text;
-  if (text != titleCopy && ([text isEqualToString:titleCopy] & 1) == 0)
+  if (text != titleCopy && (objc_msgSend_isEqualToString_(text) & 1) == 0)
   {
     titleLabel = self->_titleLabel;
     if (titleCopy)
@@ -168,53 +169,32 @@
 
 - (void)layoutSubviews
 {
-  if (os_variant_has_internal_content())
-  {
-    if (_os_feature_enabled_impl())
-    {
-      v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v3)
-      {
-        [(SKUIGallerySwooshCollectionViewCell *)v3 layoutSubviews:v4];
-      }
-    }
-  }
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIGallerySwooshCollectionViewCell layoutSubviews]";
+}
 
-  v27.receiver = self;
-  v27.super_class = SKUIGallerySwooshCollectionViewCell;
-  [(SKUIGallerySwooshCollectionViewCell *)&v27 layoutSubviews];
-  contentView = [(SKUIGallerySwooshCollectionViewCell *)self contentView];
-  [contentView bounds];
-  v13 = v12;
-  v15 = v14;
-  v17 = v16;
-  v19 = v18;
+- (void)setColoringWithColorScheme:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIGallerySwooshCollectionViewCell setColoringWithColorScheme:]";
+}
 
-  v28.origin.x = v13;
-  v28.origin.y = v15;
-  v28.size.width = v17;
-  v28.size.height = v19;
-  MaxY = CGRectGetMaxY(v28);
-  titleLabel = self->_titleLabel;
-  if (titleLabel)
-  {
-    [(UILabel *)titleLabel frame];
-    v23 = v22;
-    v24 = MaxY - v22;
-    [(UILabel *)self->_titleLabel setFrame:0.0, v24, v17];
-    v29.origin.x = 0.0;
-    v29.origin.y = v24;
-    v29.size.width = v17;
-    v29.size.height = v23;
-    MaxY = CGRectGetMinY(v29) + -6.0;
-  }
+- (void)setContentChildView:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIGallerySwooshCollectionViewCell setContentChildView:]";
+}
 
-  contentChildView = self->_contentChildView;
-  if (contentChildView)
-  {
-    [(UIView *)contentChildView frame];
-    [(UIView *)self->_contentChildView setFrame:0.0, MaxY - v26];
-  }
+- (void)setTitle:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIGallerySwooshCollectionViewCell setTitle:]";
+}
+
+- (void)title
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIGallerySwooshCollectionViewCell title]";
 }
 
 @end

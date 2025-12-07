@@ -19,9 +19,9 @@
 
 - (APCarPlayAVVCDevice)initWithXPCClient:(OpaqueFigXPCRemoteClient *)client
 {
-  v22.receiver = self;
-  v22.super_class = APCarPlayAVVCDevice;
-  v4 = [(APCarPlayAVVCDevice *)&v22 init];
+  v20.receiver = self;
+  v20.super_class = APCarPlayAVVCDevice;
+  v4 = [(APCarPlayAVVCDevice *)&v20 init];
   v5 = v4;
   if (!v4)
   {
@@ -40,14 +40,14 @@
   if (!v6)
   {
 LABEL_24:
-    sub_3938();
+    v7 = sub_3938();
     goto LABEL_19;
   }
 
   v7 = APEndpointCarPlayRemoteCreate();
   if (v7)
   {
-    v20 = v7;
+    v18 = v7;
     if (v7 == -6720)
     {
       goto LABEL_19;
@@ -58,13 +58,11 @@ LABEL_24:
 
   LocalCenter = CFNotificationCenterGetLocalCenter();
   CFNotificationCenterAddObserver(LocalCenter, v5, sub_1C68, @"avvcDevice_ConnectionLost", v5->_remote.endpoint, CFNotificationSuspensionBehaviorDeliverImmediately);
-  client = v5->_remote.client;
-  endpoint = v5->_remote.endpoint;
-  v11 = APEndpointStreamCarPlayAudioRemoteCreate();
-  if (v11)
+  v7 = APEndpointStreamCarPlayAudioRemoteCreate();
+  if (v7)
   {
-    v20 = v11;
-    if (v11 == -6720)
+    v18 = v7;
+    if (v7 == -6720)
     {
       goto LABEL_19;
     }
@@ -72,64 +70,84 @@ LABEL_24:
     goto LABEL_17;
   }
 
-  v12 = v5->_remote.endpoint;
   CMBaseObject = FigEndpointGetCMBaseObject();
-  v14 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-  if (!v14)
+  v12 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+  if (!v12)
   {
-    v20 = -12782;
+    v18 = -12782;
 LABEL_17:
-    APSLogErrorAt();
+    v7 = APSLogErrorAt();
     goto LABEL_18;
   }
 
-  v15 = v14(CMBaseObject, kFigEndpointProperty_ID, 0, &v5->_deviceIdentifier);
-  if (v15)
+  v13 = v12(CMBaseObject, kFigEndpointProperty_ID, 0, &v5->_deviceIdentifier);
+  if (v13)
   {
-    v20 = v15;
+    v18 = v13;
     goto LABEL_17;
   }
 
   readSupportedFormats = [(APCarPlayAVVCDevice *)v5 readSupportedFormats];
   if (readSupportedFormats)
   {
-    v20 = readSupportedFormats;
-    sub_388C();
+    v18 = readSupportedFormats;
+    v7 = sub_388C(readSupportedFormats);
 LABEL_18:
-    if (v20 != -6720)
+    if (v18 != -6720)
     {
-LABEL_32:
+LABEL_35:
       if (dword_CAE0 <= 90 && (dword_CAE0 != -1 || _LogCategory_Initialize()))
       {
-        sub_38F4();
+        sub_38F4(v18);
       }
 
-LABEL_35:
+LABEL_38:
 
       return 0;
     }
 
 LABEL_19:
-    if (dword_CAE0 <= 30 && (dword_CAE0 != -1 || _LogCategory_Initialize()))
+    if (dword_CAE0 <= 30)
     {
-      sub_3964();
+      if (dword_CAE0 != -1 || (v7 = _LogCategory_Initialize(), v7))
+      {
+        sub_3964(v7, v8, v9);
+      }
     }
 
-    goto LABEL_35;
+    goto LABEL_38;
   }
 
   v5->_dataProcessing.avvcCompletionBlock = 0;
   v5->_dataProcessing.isActive = 0;
   CFAllocatorGetDefault();
-  v17 = APSPowerAssertionCreate();
-  v5->_dataProcessing.powerAssertion = v17;
-  if (!v17 || (v18 = FigDispatchQueueCreateWithPriority(), (v5->_dataProcessing.queue = v18) == 0) || (v19 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, v18), (v5->_dataProcessing.timer = v19) == 0))
+  v15 = APSPowerAssertionCreate();
+  v5->_dataProcessing.powerAssertion = v15;
+  if (!v15)
   {
+    v18 = -6718;
+LABEL_34:
     APSLogErrorAt();
-    goto LABEL_32;
+    goto LABEL_35;
   }
 
-  dispatch_set_context(v19, v5);
+  v16 = FigDispatchQueueCreateWithPriority();
+  v5->_dataProcessing.queue = v16;
+  if (!v16)
+  {
+    v18 = -6728;
+    goto LABEL_34;
+  }
+
+  v17 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, v16);
+  v5->_dataProcessing.timer = v17;
+  if (!v17)
+  {
+    v18 = -6718;
+    goto LABEL_34;
+  }
+
+  dispatch_set_context(v17, v5);
   dispatch_source_set_event_handler_f(v5->_dataProcessing.timer, j__objc_msgSend_sendAllAvailableAudioDataToAVVC);
   if (dword_CAE0 <= 30 && (dword_CAE0 != -1 || _LogCategory_Initialize()))
   {
@@ -143,7 +161,7 @@ LABEL_19:
 {
   if (dword_CAE0 <= 30 && (dword_CAE0 != -1 || _LogCategory_Initialize()))
   {
-    sub_39C0(self);
+    sub_39C0(self, a2, v2);
   }
 
   [(APCarPlayAVVCDevice *)self stopRecordingWithOptionalForcedError:0];
@@ -153,7 +171,6 @@ LABEL_19:
     if (!self->_dataProcessing.isActive)
     {
       dispatch_resume(timer);
-      v4 = self->_dataProcessing.timer;
     }
 
     dispatch_source_cancel_and_wait();
@@ -222,7 +239,7 @@ LABEL_19:
   {
     v8 = Mutable;
     Int64 = CFDictionaryGetInt64();
-    v10 = Int64;
+    v12 = Int64;
     if (dword_CAE0 > 50)
     {
       if (!Int64)
@@ -235,32 +252,32 @@ LABEL_19:
     {
       if (dword_CAE0 != -1 || _LogCategory_Initialize())
       {
-        sub_3A3C();
+        sub_3A3C(v12, v10, v11);
       }
 
-      if (!v10)
+      if (!v12)
       {
         if (dword_CAE0 <= 50)
         {
-          if (dword_CAE0 != -1 || (v10 = v6, _LogCategory_Initialize()))
+          if (dword_CAE0 != -1 || (v12 = v6, _LogCategory_Initialize()))
           {
-            sub_3AB4();
-            v10 = v6;
+            sub_3AB4(v6, v10, v11);
+            v12 = v6;
           }
 
 LABEL_20:
           if (dword_CAE0 <= 50 && (dword_CAE0 != -1 || _LogCategory_Initialize()))
           {
-            sub_3AF0();
+            sub_3AF0(v6, v12);
           }
 
           goto LABEL_25;
         }
 
 LABEL_24:
-        v10 = v6;
+        v12 = v6;
 LABEL_25:
-        self->_dataProcessing.streamStartTimestamp = v10;
+        self->_dataProcessing.streamStartTimestamp = v12;
         CFDictionarySetInt64();
         *options = v8;
         return;
@@ -268,25 +285,29 @@ LABEL_25:
     }
 
     CFPreferenceNumberWithDefault = FigGetCFPreferenceNumberWithDefault();
-    v12 = FigGetCFPreferenceNumberWithDefault();
-    if (v12 >= CFPreferenceNumberWithDefault)
+    v14 = FigGetCFPreferenceNumberWithDefault();
+    if (v14 >= CFPreferenceNumberWithDefault)
     {
-      v13 = CFPreferenceNumberWithDefault;
+      v15 = CFPreferenceNumberWithDefault;
     }
 
     else
     {
-      v13 = v12;
+      v15 = v14;
     }
 
-    if (v13 && v10 > MillisecondsToUpTicks())
+    if (v15)
     {
-      if (dword_CAE0 <= 50 && (dword_CAE0 != -1 || _LogCategory_Initialize()))
+      v16 = v15;
+      if (v12 > MillisecondsToUpTicks())
       {
-        sub_3A78();
-      }
+        if (dword_CAE0 <= 50 && (dword_CAE0 != -1 || _LogCategory_Initialize()))
+        {
+          sub_3A78(v16, v17, v18);
+        }
 
-      v10 -= MillisecondsToUpTicks();
+        v12 -= MillisecondsToUpTicks();
+      }
     }
 
     goto LABEL_20;
@@ -325,75 +346,74 @@ LABEL_25:
 {
   theArray = 0;
   cf = 0;
-  endpointStream = self->_remote.endpointStream;
   CMBaseObject = FigEndpointStreamGetCMBaseObject();
-  v5 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-  if (!v5)
+  v4 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+  if (!v4)
   {
-    v18 = -12782;
+    v17 = -12782;
 LABEL_14:
     APSLogErrorAt();
     goto LABEL_15;
   }
 
-  v6 = v5(CMBaseObject, kAPEndpointStreamCarPlayAudioProperty_CarPlayAudioFormats, 0, &cf);
-  if (v6)
+  v5 = v4(CMBaseObject, kAPEndpointStreamCarPlayAudioProperty_CarPlayAudioFormats, 0, &cf);
+  if (v5)
   {
-    v18 = v6;
+    v17 = v5;
     goto LABEL_14;
   }
 
-  v7 = APCarPlayAudioFormatsCopyAudioFormatInfosForStreamAndType();
-  if (v7)
+  v6 = APCarPlayAudioFormatsCopyAudioFormatInfosForStreamAndType();
+  if (v6)
   {
-    v18 = v7;
-    sub_3E4C();
+    v17 = v6;
+    sub_3E4C(v6);
   }
 
   else
   {
     Count = CFArrayGetCount(theArray);
-    v9 = [[NSMutableArray alloc] initWithCapacity:Count];
-    if (v9)
+    v8 = [[NSMutableArray alloc] initWithCapacity:Count];
+    if (v8)
     {
-      v10 = v9;
+      v9 = v8;
       if (Count < 1)
       {
 LABEL_12:
-        self->supportedFormats = v10;
-        v18 = 0;
+        self->supportedFormats = v9;
+        v17 = 0;
         self->format = [(APCarPlayAVVCDevice *)self pickDefaultFormat];
         goto LABEL_15;
       }
 
-      v11 = 0;
-      v12 = 1;
+      v10 = 0;
+      v11 = 1;
       while (1)
       {
-        CFArrayGetValueAtIndex(theArray, v11);
-        v22 = 0;
+        CFArrayGetValueAtIndex(theArray, v10);
+        v21 = 0;
+        v19 = 0u;
         v20 = 0u;
-        v21 = 0u;
         Description = APCarPlayAudioFormatInfoGetDescription();
-        v14 = *(Description + 32);
-        v15 = *(Description + 16);
-        v20 = *Description;
-        v21 = v15;
-        v22 = v14;
-        if (DWORD2(v20) == 1819304813)
+        v13 = *(Description + 32);
+        v14 = *(Description + 16);
+        v19 = *Description;
+        v20 = v14;
+        v21 = v13;
+        if (DWORD2(v19) == 1819304813)
         {
-          HIDWORD(v20) &= ~2u;
+          HIDWORD(v19) &= ~2u;
         }
 
-        v16 = [[AVAudioFormat alloc] initWithStreamDescription:&v20];
-        [(NSArray *)v10 setObject:v16 atIndexedSubscript:v11, v20];
-        if (![(NSArray *)v10 objectAtIndexedSubscript:v11])
+        v15 = [[AVAudioFormat alloc] initWithStreamDescription:&v19];
+        [(NSArray *)v9 setObject:v15 atIndexedSubscript:v10, v19];
+        if (![(NSArray *)v9 objectAtIndexedSubscript:v10])
         {
           break;
         }
 
-        v11 = v12;
-        if (Count <= v12++)
+        v10 = v11;
+        if (Count <= v11++)
         {
           goto LABEL_12;
         }
@@ -407,7 +427,7 @@ LABEL_12:
       sub_3EA0();
     }
 
-    v18 = 0;
+    v17 = 0;
   }
 
 LABEL_15:
@@ -421,7 +441,7 @@ LABEL_15:
     CFRelease(theArray);
   }
 
-  return v18;
+  return v17;
 }
 
 - (id)pickDefaultFormat
@@ -437,8 +457,8 @@ LABEL_15:
 
 - (int)readCompressedBuffer:(id *)buffer numOutputSamples:(unsigned int *)samples
 {
-  v19 = 1440;
-  v18 = 0;
+  v18 = 1440;
+  v17 = 0;
   if (*([(AVAudioFormat *)self->format streamDescription]+ 2) == 1819304813)
   {
     sub_3EE0();
@@ -459,45 +479,44 @@ LABEL_15:
   v12 = *(CMBaseObjectGetVTable() + 16);
   if (*v12 < 2uLL)
   {
-    v16 = -12781;
-    goto LABEL_11;
+    v15 = -12781;
+    goto LABEL_10;
   }
 
   v13 = v12[7];
   if (!v13)
   {
-    v16 = -12782;
+    v15 = -12782;
+    goto LABEL_10;
+  }
+
+  v14 = v13(xpcAudioSink, 0, v10, 1440, packetDescriptions, 1, &v18, &v17);
+  v15 = v14;
+  if (v14 == -6765)
+  {
+LABEL_11:
+
+    return v15;
+  }
+
+  if (v14)
+  {
+LABEL_10:
+    APSLogErrorAt();
     goto LABEL_11;
   }
 
-  v14 = v12[7];
-  v15 = v13(xpcAudioSink, 0, v10, 1440, packetDescriptions, 1, &v19, &v18);
-  v16 = v15;
-  if (v15 == -6765)
-  {
-    goto LABEL_12;
-  }
-
-  if (v15)
-  {
-LABEL_11:
-    APSLogErrorAt();
-LABEL_12:
-
-    return v16;
-  }
-
-  [v8 setByteLength:v19];
-  [v8 setPacketCount:v18];
+  [v8 setByteLength:v18];
+  [v8 setPacketCount:v17];
   *samples = *([(AVAudioFormat *)self->format streamDescription]+ 5);
   *buffer = v8;
-  return v16;
+  return v15;
 }
 
 - (int)readPCMBuffer:(id *)buffer numOutputSamples:(unsigned int *)samples
 {
-  v19 = 1440;
-  v18 = 0;
+  v18 = 1440;
+  v17 = 0;
   if (*([(AVAudioFormat *)self->format streamDescription]+ 2) != 1819304813)
   {
     sub_3EF4();
@@ -518,38 +537,37 @@ LABEL_12:
   v12 = *(CMBaseObjectGetVTable() + 16);
   if (*v12 < 2uLL)
   {
-    v16 = -12781;
-    goto LABEL_11;
+    v15 = -12781;
+    goto LABEL_10;
   }
 
   v13 = v12[7];
   if (!v13)
   {
-    v16 = -12782;
+    v15 = -12782;
+    goto LABEL_10;
+  }
+
+  v14 = v13(xpcAudioSink, 0, v11, 1440, 0, frameCapacity, &v18, &v17);
+  v15 = v14;
+  if (v14 == -6765)
+  {
+LABEL_11:
+
+    return v15;
+  }
+
+  if (v14)
+  {
+LABEL_10:
+    APSLogErrorAt();
     goto LABEL_11;
   }
 
-  v14 = v12[7];
-  v15 = v13(xpcAudioSink, 0, v11, 1440, 0, frameCapacity, &v19, &v18);
-  v16 = v15;
-  if (v15 == -6765)
-  {
-    goto LABEL_12;
-  }
-
-  if (v15)
-  {
-LABEL_11:
-    APSLogErrorAt();
-LABEL_12:
-
-    return v16;
-  }
-
-  [v8 setFrameLength:v18];
+  [v8 setFrameLength:v17];
   *buffer = v8;
-  *samples = v18;
-  return v16;
+  *samples = v17;
+  return v15;
 }
 
 - (void)handleNotification:(__CFString *)notification fromCenter:(__CFNotificationCenter *)center fromObject:(const void *)object withUserInfo:(__CFDictionary *)info
@@ -596,7 +614,7 @@ LABEL_12:
   {
     if (dword_CAE0 <= 50 && (dword_CAE0 != -1 || _LogCategory_Initialize()))
     {
-      sub_18FC();
+      sub_18FC(&dword_CAE0, "[APCarPlayAVVCDevice actionCompleted:WithResult:]", completed, "%@ completed, reporting error %d\n");
     }
 
     if (result)
@@ -619,41 +637,39 @@ LABEL_12:
 
 - (int)readAndSendPacketToAVVC
 {
-  v14 = 0;
-  v13 = 0;
+  v11 = 0;
+  v10 = 0;
   if (*([(AVAudioFormat *)self->format streamDescription]+ 2) == 1819304813)
   {
-    v3 = [(APCarPlayAVVCDevice *)self readPCMBuffer:&v14 numOutputSamples:&v13];
+    v3 = [(APCarPlayAVVCDevice *)self readPCMBuffer:&v11 numOutputSamples:&v10];
   }
 
   else
   {
-    v3 = [(APCarPlayAVVCDevice *)self readCompressedBuffer:&v14 numOutputSamples:&v13];
+    v3 = [(APCarPlayAVVCDevice *)self readCompressedBuffer:&v11 numOutputSamples:&v10];
   }
 
-  v5 = v3;
+  v4 = v3;
   if (!v3)
   {
-    if (!self->audioInputBlock || !v14)
+    if (!self->audioInputBlock || !v11)
     {
       goto LABEL_9;
     }
 
-    v6 = [AVAudioTime alloc];
+    v5 = [AVAudioTime alloc];
     [(AVAudioFormat *)self->format sampleRate];
-    v7 = [v6 initWithAudioTimeStamp:&self->_dataProcessing.timestamp sampleRate:?];
-    if (v7)
+    v6 = [v5 initWithAudioTimeStamp:&self->_dataProcessing.timestamp sampleRate:?];
+    if (v6)
     {
-      v8 = v7;
-      audioOptions = self->_dataProcessing.audioOptions;
+      v7 = v6;
       (*(self->audioInputBlock + 2))();
 
 LABEL_9:
-      LODWORD(v4) = v13;
-      v10 = v4 / *[(AVAudioFormat *)self->format streamDescription];
+      [(AVAudioFormat *)self->format streamDescription];
       self->_dataProcessing.timestamp.mHostTime += SecondsToUpTicksF();
-      LODWORD(v11) = v13;
-      self->_dataProcessing.timestamp.mSampleTime = self->_dataProcessing.timestamp.mSampleTime + v11;
+      LODWORD(v8) = v10;
+      self->_dataProcessing.timestamp.mSampleTime = self->_dataProcessing.timestamp.mSampleTime + v8;
       ++self->_dataProcessing.numPacketsProcessed;
       goto LABEL_10;
     }
@@ -662,11 +678,11 @@ LABEL_9:
   }
 
 LABEL_10:
-  if (v14)
+  if (v11)
   {
   }
 
-  return v5;
+  return v4;
 }
 
 - (void)sendAllAvailableAudioDataToAVVC

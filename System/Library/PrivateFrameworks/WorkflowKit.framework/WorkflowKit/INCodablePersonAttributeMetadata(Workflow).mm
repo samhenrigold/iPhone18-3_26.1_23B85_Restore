@@ -1,7 +1,7 @@
 @interface INCodablePersonAttributeMetadata(Workflow)
+- (WFEmailAddressSubstitutableState)wf_parameterStateForIntentValue:()Workflow parameterDefinition:;
 - (id)wf_contentItemForValue:()Workflow;
 - (id)wf_parameterClass;
-- (id)wf_parameterStateForIntentValue:()Workflow parameterDefinition:;
 @end
 
 @implementation INCodablePersonAttributeMetadata(Workflow)
@@ -28,16 +28,16 @@
   return v7;
 }
 
-- (id)wf_parameterStateForIntentValue:()Workflow parameterDefinition:
+- (WFEmailAddressSubstitutableState)wf_parameterStateForIntentValue:()Workflow parameterDefinition:
 {
-  v34[1] = *MEMORY[0x1E69E9840];
+  v33[1] = *MEMORY[0x1E69E9840];
   v7 = a3;
   v8 = a4;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v34[0] = v7;
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:1];
+    v33[0] = v7;
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:1];
   }
 
   else
@@ -55,37 +55,37 @@
   v10 = v9;
   if (v9)
   {
-    v30 = 0;
-    v31 = &v30;
-    v32 = 0x2050000000;
+    v29 = 0;
+    v30 = &v29;
+    v31 = 0x2050000000;
     v11 = getCNContactStoreClass_softClass_67072;
-    v33 = getCNContactStoreClass_softClass_67072;
+    v32 = getCNContactStoreClass_softClass_67072;
     if (!getCNContactStoreClass_softClass_67072)
     {
-      v29[0] = MEMORY[0x1E69E9820];
-      v29[1] = 3221225472;
-      v29[2] = __getCNContactStoreClass_block_invoke_67073;
-      v29[3] = &unk_1E837FAC0;
-      v29[4] = &v30;
-      __getCNContactStoreClass_block_invoke_67073(v29);
-      v11 = v31[3];
+      v28[0] = MEMORY[0x1E69E9820];
+      v28[1] = 3221225472;
+      v28[2] = __getCNContactStoreClass_block_invoke_67073;
+      v28[3] = &unk_1E837FAC0;
+      v28[4] = &v29;
+      __getCNContactStoreClass_block_invoke_67073(v28);
+      v11 = v30[3];
     }
 
     v12 = v11;
-    _Block_object_dispose(&v30, 8);
+    _Block_object_dispose(&v29, 8);
     v13 = objc_alloc_init(v11);
     requiredKeysToFetch = [MEMORY[0x1E6996CC8] requiredKeysToFetch];
     IsAuthorizedToAccessContact = WFCNContactIsAuthorizedToAccessContact();
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = __98__INCodablePersonAttributeMetadata_Workflow__wf_parameterStateForIntentValue_parameterDefinition___block_invoke_2;
-    v25[3] = &unk_1E837E4E0;
-    v28 = IsAuthorizedToAccessContact;
+    v24[0] = MEMORY[0x1E69E9820];
+    v24[1] = 3221225472;
+    v24[2] = __98__INCodablePersonAttributeMetadata_Workflow__wf_parameterStateForIntentValue_parameterDefinition___block_invoke_2;
+    v24[3] = &unk_1E837E4E0;
+    v27 = IsAuthorizedToAccessContact;
     v16 = v13;
-    v26 = v16;
+    v25 = v16;
     v17 = requiredKeysToFetch;
-    v27 = v17;
-    v18 = [v10 if_map:v25];
+    v26 = v17;
+    v18 = [v10 if_map:v24];
     type = [self type];
     if (type <= 1)
     {
@@ -139,31 +139,27 @@ LABEL_22:
   }
 
 LABEL_23:
-  v24.receiver = self;
-  v24.super_class = &off_1F4B0F560;
-  v4 = objc_msgSendSuper2(&v24, sel_wf_parameterStateForIntentValue_parameterDefinition_, v7, v8);
+  v23.receiver = self;
+  v23.super_class = &off_1F4B0F560;
+  v4 = objc_msgSendSuper2(&v23, sel_wf_parameterStateForIntentValue_parameterDefinition_, v7, v8);
 LABEL_24:
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
 
 - (id)wf_parameterClass
 {
-  type = [self type];
-  if (type > 3)
+  if ([self type] > 3)
   {
-    v3 = 0;
+    v1 = 0;
   }
 
   else
   {
-    v2 = *off_1E837E518[type];
-    v3 = objc_opt_class();
+    v1 = objc_opt_class();
   }
 
-  return v3;
+  return v1;
 }
 
 @end

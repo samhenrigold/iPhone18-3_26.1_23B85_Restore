@@ -26,7 +26,7 @@
 {
   fromCopy = from;
   v4 = fromCopy;
-  if (fromCopy && [fromCopy count])
+  if (fromCopy && objc_msgSend_count(fromCopy))
   {
     v5 = [v4 sortedArrayUsingSelector:"caseInsensitiveCompare:"];
     v6 = [v5 componentsJoinedByString:{@", "}];

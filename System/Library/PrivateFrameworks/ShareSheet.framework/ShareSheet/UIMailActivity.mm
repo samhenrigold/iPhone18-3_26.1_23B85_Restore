@@ -1105,7 +1105,7 @@ LABEL_46:
       [UIMailActivity prepareWithActivityItems:];
     }
 
-    if ([cloudSharingResult length] || (-[objc_class sharedConnection](getMCProfileConnectionClass_0(), "sharedConnection"), v29 = objc_claimAutoreleasedReturnValue(), getMCFeatureAccountModificationAllowed(), v30 = objc_claimAutoreleasedReturnValue(), v31 = objc_msgSend(v29, "effectiveBoolValueForSetting:", v30) == 2, v30, v29, v31) || (objc_msgSend(MEMORY[0x1E695DFF8], "URLWithString:", @"prefs:root=ACCOUNTS_AND_PASSWORDS&path=ADD_ACCOUNT"), v32 = objc_claimAutoreleasedReturnValue(), objc_msgSend(MEMORY[0x1E6963608], "defaultWorkspace"), v33 = objc_claimAutoreleasedReturnValue(), v34 = objc_msgSend(v33, "openSensitiveURL:withOptions:", v32, 0), v33, v32, (v34 & 1) == 0))
+    if ([cloudSharingResult length] || (-[objc_class sharedConnection](getMCProfileConnectionClass_0(), "sharedConnection"), v29 = objc_claimAutoreleasedReturnValue(), getMCFeatureAccountModificationAllowed(v29), v30 = objc_claimAutoreleasedReturnValue(), v31 = objc_msgSend(v29, "effectiveBoolValueForSetting:", v30) == 2, v30, v29, v31) || (objc_msgSend(MEMORY[0x1E695DFF8], "URLWithString:", @"prefs:root=ACCOUNTS_AND_PASSWORDS&path=ADD_ACCOUNT"), v32 = objc_claimAutoreleasedReturnValue(), objc_msgSend(MEMORY[0x1E6963608], "defaultWorkspace"), v33 = objc_claimAutoreleasedReturnValue(), v34 = objc_msgSend(v33, "openSensitiveURL:withOptions:", v32, 0), v33, v32, (v34 & 1) == 0))
     {
       array = objc_alloc_init(MEMORY[0x1E696AF20]);
       [array setScheme:@"mailto"];

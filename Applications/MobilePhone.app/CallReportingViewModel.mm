@@ -44,7 +44,7 @@
 
 - (BOOL)isBlockedWithContacts:(id)contacts
 {
-  type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CNContact);
+  type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CNContact, CNContact_ptr);
   v4 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
   v6 = specialized CallReportingViewModel.isBlocked(contacts:)(v4);
@@ -138,7 +138,7 @@
 
 - (id)getCarrierNameOfCallForCall:(id)call
 {
-  v9[3] = type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CHRecentCall);
+  v9[3] = type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CHRecentCall, CHRecentCall_ptr);
   v9[4] = &protocol witness table for CHRecentCall;
   v9[0] = call;
   callCopy = call;

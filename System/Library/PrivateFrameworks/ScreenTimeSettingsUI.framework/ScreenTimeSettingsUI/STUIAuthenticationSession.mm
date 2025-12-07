@@ -22,13 +22,13 @@
   return v2;
 }
 
-uint64_t __35__STUIAuthenticationSession_shared__block_invoke()
+uint64_t __35__STUIAuthenticationSession_shared__block_invoke(uint64_t a1)
 {
-  v0 = objc_opt_new();
-  v1 = shared_singleton;
-  shared_singleton = v0;
+  v1 = objc_opt_new();
+  v2 = shared_singleton;
+  shared_singleton = v1;
 
-  return MEMORY[0x2821F96F8](v0, v1);
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 - (STUIAuthenticationSession)init

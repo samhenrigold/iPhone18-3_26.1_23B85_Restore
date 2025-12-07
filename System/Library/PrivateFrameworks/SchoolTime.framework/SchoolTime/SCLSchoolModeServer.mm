@@ -60,15 +60,15 @@
   targetQueue = [(SCLSchoolModeServer *)self targetQueue];
   dispatch_assert_queue_V2(targetQueue);
 
-  v8 = scl_framework_log();
-  v9 = os_signpost_id_generate(v8);
+  v9 = scl_framework_log(v8);
+  v10 = os_signpost_id_generate(v9);
 
-  v10 = scl_framework_log();
-  v11 = v10;
-  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+  v12 = scl_framework_log(v11);
+  v13 = v12;
+  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
     LOWORD(buf) = 0;
-    _os_signpost_emit_with_name_impl(&dword_264829000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v9, "startWithScheduleSettings", &unk_26485B361, &buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_264829000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v10, "startWithScheduleSettings", &unk_26485B361, &buf, 2u);
   }
 
   out_token = -1;
@@ -78,7 +78,7 @@
   handler[1] = 3221225472;
   handler[2] = __75__SCLSchoolModeServer_startWithScheduleSettings_shouldStartManuallyActive___block_invoke;
   handler[3] = &unk_279B6C4F0;
-  objc_copyWeak(&v23, &buf);
+  objc_copyWeak(&v25, &buf);
   notify_register_dispatch("SignificantTimeChangeNotification", &out_token, queue, handler);
 
   [(SCLSchoolModeServer *)self setTimeChangeToken:out_token];
@@ -92,16 +92,16 @@
   block[1] = 3221225472;
   block[2] = __75__SCLSchoolModeServer_startWithScheduleSettings_shouldStartManuallyActive___block_invoke_2;
   block[3] = &unk_279B6C540;
-  v18 = settingsCopy;
+  v20 = settingsCopy;
   selfCopy = self;
   activeCopy = active;
-  v20 = v9;
-  v15 = settingsCopy;
-  v16 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, QOS_CLASS_USER_INITIATED, -1, block);
-  dispatch_async(self->_queue, v16);
+  v22 = v10;
+  v17 = settingsCopy;
+  v18 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, QOS_CLASS_USER_INITIATED, -1, block);
+  dispatch_async(self->_queue, v18);
   dispatch_activate(self->_queue);
 
-  objc_destroyWeak(&v23);
+  objc_destroyWeak(&v25);
   objc_destroyWeak(&buf);
 }
 
@@ -113,66 +113,65 @@ void __75__SCLSchoolModeServer_startWithScheduleSettings_shouldStartManuallyActi
 
 void __75__SCLSchoolModeServer_startWithScheduleSettings_shouldStartManuallyActive___block_invoke_2(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
-  v2 = scl_framework_log();
+  v29 = *MEMORY[0x277D85DE8];
+  v2 = scl_framework_log(a1);
   v3 = os_signpost_id_generate(v2);
 
-  v4 = scl_framework_log();
-  v5 = v4;
-  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
+  v5 = scl_framework_log(v4);
+  v6 = v5;
+  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
   {
     LODWORD(buf.opaque[0]) = 67109120;
     HIDWORD(buf.opaque[0]) = qos_class_self();
-    _os_signpost_emit_with_name_impl(&dword_264829000, v5, OS_SIGNPOST_INTERVAL_BEGIN, v3, "School Mode Server Initial Evaluation", "qosClass: 0x%x", &buf, 8u);
+    _os_signpost_emit_with_name_impl(&dword_264829000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v3, "School Mode Server Initial Evaluation", "qosClass: 0x%x", &buf, 8u);
   }
 
-  v6 = [SCLSchedulingEngine alloc];
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __75__SCLSchoolModeServer_startWithScheduleSettings_shouldStartManuallyActive___block_invoke_6;
-  v22[3] = &unk_279B6C518;
-  v7 = *(a1 + 32);
-  v8 = *(a1 + 40);
-  v23 = v7;
-  v24 = v8;
-  v9 = [(SCLSchedulingEngine *)v6 initWithParametersBlock:v22 shouldStartManuallyActive:*(a1 + 56)];
-  [(SCLSchedulingEngine *)v9 setDelegate:*(a1 + 40)];
-  [*(a1 + 40) setSchedulingEngine:v9];
-  v10 = _os_activity_create(&dword_264829000, "School Mode Server Initial Evaluation", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_DEFAULT);
+  v7 = [SCLSchedulingEngine alloc];
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __75__SCLSchoolModeServer_startWithScheduleSettings_shouldStartManuallyActive___block_invoke_6;
+  v25[3] = &unk_279B6C518;
+  v8 = *(a1 + 32);
+  v9 = *(a1 + 40);
+  v26 = v8;
+  v27 = v9;
+  v10 = [(SCLSchedulingEngine *)v7 initWithParametersBlock:v25 shouldStartManuallyActive:*(a1 + 56)];
+  [(SCLSchedulingEngine *)v10 setDelegate:*(a1 + 40)];
+  [*(a1 + 40) setSchedulingEngine:v10];
+  v11 = _os_activity_create(&dword_264829000, "School Mode Server Initial Evaluation", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_DEFAULT);
   buf.opaque[0] = 0;
   buf.opaque[1] = 0;
-  os_activity_scope_enter(v10, &buf);
-  v11 = scl_framework_log();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  os_activity_scope_enter(v11, &buf);
+  v13 = scl_framework_log(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    *v21 = 0;
-    _os_log_impl(&dword_264829000, v11, OS_LOG_TYPE_DEFAULT, "Initial server evaluation", v21, 2u);
+    *v24 = 0;
+    _os_log_impl(&dword_264829000, v13, OS_LOG_TYPE_DEFAULT, "Initial server evaluation", v24, 2u);
   }
 
-  v12 = *(a1 + 40);
-  v13 = [(SCLSchedulingEngine *)v9 state];
-  v14 = [(SCLSchedulingEngine *)v9 nextEvaluationDate];
-  [v12 schedulingEngine:v9 didUpdateState:v13 fromState:0 nextEvaluationDate:v14];
+  v14 = *(a1 + 40);
+  v15 = [(SCLSchedulingEngine *)v10 state];
+  v16 = [(SCLSchedulingEngine *)v10 nextEvaluationDate];
+  [v14 schedulingEngine:v10 didUpdateState:v15 fromState:0 nextEvaluationDate:v16];
 
-  v15 = scl_framework_log();
-  v16 = v15;
-  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
+  v18 = scl_framework_log(v17);
+  v19 = v18;
+  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
   {
-    *v21 = 0;
-    _os_signpost_emit_with_name_impl(&dword_264829000, v16, OS_SIGNPOST_INTERVAL_END, v3, "School Mode Server Initial Evaluation", &unk_26485B361, v21, 2u);
+    *v24 = 0;
+    _os_signpost_emit_with_name_impl(&dword_264829000, v19, OS_SIGNPOST_INTERVAL_END, v3, "School Mode Server Initial Evaluation", &unk_26485B361, v24, 2u);
   }
 
-  v17 = scl_framework_log();
-  v18 = v17;
-  v19 = *(a1 + 48);
-  if (v19 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
+  v21 = scl_framework_log(v20);
+  v22 = v21;
+  v23 = *(a1 + 48);
+  if (v23 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
   {
-    *v21 = 0;
-    _os_signpost_emit_with_name_impl(&dword_264829000, v18, OS_SIGNPOST_INTERVAL_END, v19, "startWithScheduleSettings", &unk_26485B361, v21, 2u);
+    *v24 = 0;
+    _os_signpost_emit_with_name_impl(&dword_264829000, v22, OS_SIGNPOST_INTERVAL_END, v23, "startWithScheduleSettings", &unk_26485B361, v24, 2u);
   }
 
   os_activity_scope_leave(&buf);
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __75__SCLSchoolModeServer_startWithScheduleSettings_shouldStartManuallyActive___block_invoke_6(uint64_t a1, void *a2)
@@ -369,15 +368,16 @@ void __41__SCLSchoolModeServer_handleLocaleChange__block_invoke_2(uint64_t a1, v
 
 - (void)_scheduleTimerForDate:(id)date
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   dateCopy = date;
+  v5 = dateCopy;
   if (self->_timerSource)
   {
-    v5 = scl_framework_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v6 = scl_framework_log(dateCopy);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_264829000, v5, OS_LOG_TYPE_INFO, "Cancelling timer", buf, 2u);
+      _os_log_impl(&dword_264829000, v6, OS_LOG_TYPE_INFO, "Cancelling timer", buf, 2u);
     }
 
     dispatch_source_cancel(self->_timerSource);
@@ -385,58 +385,56 @@ void __41__SCLSchoolModeServer_handleLocaleChange__block_invoke_2(uint64_t a1, v
     self->_timerSource = 0;
   }
 
-  if (dateCopy)
+  if (v5)
   {
-    v7 = os_transaction_create();
+    v8 = os_transaction_create();
     activeTransaction = self->_activeTransaction;
-    self->_activeTransaction = v7;
+    self->_activeTransaction = v8;
 
-    v9 = scl_framework_log();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v11 = scl_framework_log(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      v10 = MEMORY[0x277CCABB0];
-      [dateCopy timeIntervalSinceNow];
-      *&v11 = v11;
-      *&v11 = roundf(*&v11);
-      v12 = [v10 numberWithFloat:v11];
-      v13 = self->_activeTransaction;
+      v12 = MEMORY[0x277CCABB0];
+      [v5 timeIntervalSinceNow];
+      *&v13 = v13;
+      *&v13 = roundf(*&v13);
+      v14 = [v12 numberWithFloat:v13];
+      v15 = self->_activeTransaction;
       *buf = 138412546;
-      v25 = v12;
-      v26 = 2112;
-      v27 = v13;
-      _os_log_impl(&dword_264829000, v9, OS_LOG_TYPE_INFO, "Setting timer for duration: %@ with transaction %@", buf, 0x16u);
+      v26 = v14;
+      v27 = 2112;
+      v28 = v15;
+      _os_log_impl(&dword_264829000, v11, OS_LOG_TYPE_INFO, "Setting timer for duration: %@ with transaction %@", buf, 0x16u);
     }
 
-    [(SCLSchoolModeWakeScheduler *)self->_wakeScheduler scheduleWakeForDate:dateCopy];
-    v14 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, self->_queue);
-    v15 = self->_timerSource;
-    self->_timerSource = v14;
+    [(SCLSchoolModeWakeScheduler *)self->_wakeScheduler scheduleWakeForDate:v5];
+    v16 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, self->_queue);
+    v17 = self->_timerSource;
+    self->_timerSource = v16;
 
-    v16 = self->_timerSource;
-    [dateCopy timeIntervalSinceNow];
-    v18 = dispatch_walltime(0, (v17 * 1000000000.0));
-    dispatch_source_set_timer(v16, v18, 0xFFFFFFFFFFFFFFFFLL, 0x6FC23AC00uLL);
+    v18 = self->_timerSource;
+    [v5 timeIntervalSinceNow];
+    v20 = dispatch_walltime(0, (v19 * 1000000000.0));
+    dispatch_source_set_timer(v18, v20, 0xFFFFFFFFFFFFFFFFLL, 0x6FC23AC00uLL);
     objc_initWeak(buf, self);
-    v19 = self->_timerSource;
+    v21 = self->_timerSource;
     handler[0] = MEMORY[0x277D85DD0];
     handler[1] = 3221225472;
     handler[2] = __45__SCLSchoolModeServer__scheduleTimerForDate___block_invoke;
     handler[3] = &unk_279B6C3A8;
-    objc_copyWeak(&v23, buf);
-    dispatch_source_set_event_handler(v19, handler);
+    objc_copyWeak(&v24, buf);
+    dispatch_source_set_event_handler(v21, handler);
     dispatch_resume(self->_timerSource);
-    objc_destroyWeak(&v23);
+    objc_destroyWeak(&v24);
     objc_destroyWeak(buf);
   }
 
   else
   {
     [(SCLSchoolModeWakeScheduler *)self->_wakeScheduler cancelWake];
-    v20 = self->_activeTransaction;
+    v22 = self->_activeTransaction;
     self->_activeTransaction = 0;
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __45__SCLSchoolModeServer__scheduleTimerForDate___block_invoke(uint64_t a1)
@@ -447,7 +445,7 @@ void __45__SCLSchoolModeServer__scheduleTimerForDate___block_invoke(uint64_t a1)
 
 - (void)schedulingEngine:(id)engine didUpdateState:(id)state fromState:(id)fromState nextEvaluationDate:(id)date
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   fromStateCopy = fromState;
   dateCopy = date;
@@ -460,38 +458,36 @@ void __45__SCLSchoolModeServer__scheduleTimerForDate___block_invoke(uint64_t a1)
     observers = [(SCLSchoolModeServer *)self observers];
     allObjects = [observers allObjects];
 
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     v15 = allObjects;
-    v16 = [v15 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v22;
+      v18 = *v21;
       do
       {
         v19 = 0;
         do
         {
-          if (*v22 != v18)
+          if (*v21 != v18)
           {
             objc_enumerationMutation(v15);
           }
 
-          [*(*(&v21 + 1) + 8 * v19++) server:self didUpdateState:stateCopy fromState:{fromStateCopy, v21}];
+          [*(*(&v20 + 1) + 8 * v19++) server:self didUpdateState:stateCopy fromState:{fromStateCopy, v20}];
         }
 
         while (v17 != v19);
-        v17 = [v15 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v17 = [v15 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v17);
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)assertionManager:(id)manager didUpdateAssertionsStatus:(unint64_t)status

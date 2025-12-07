@@ -1377,86 +1377,85 @@ NLWorkoutComplicationAnimatedWrapperView *__61__NLWorkoutComplicationDataSource_
   }
 }
 
-void __60__NLWorkoutComplicationDataSource__updateActiveWorkoutState__block_invoke(uint64_t a1)
+void __60__NLWorkoutComplicationDataSource__updateActiveWorkoutState__block_invoke(id *a1)
 {
-  v27[2] = a1;
-  v27[1] = a1;
-  v27[0] = objc_loadWeakRetained((a1 + 40));
-  if (v27[0])
+  v26[2] = a1;
+  v26[1] = a1;
+  v26[0] = objc_loadWeakRetained(a1 + 5);
+  if (v26[0])
   {
-    v9 = [v27[0] healthStore];
+    v8 = [v26[0] healthStore];
 
-    if (v9)
+    if (v8)
     {
       _HKInitializeLogging();
-      v19 = HKLogWorkouts;
-      v18 = OS_LOG_TYPE_DEFAULT;
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v18 = HKLogWorkouts;
+      v17 = OS_LOG_TYPE_DEFAULT;
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        v3 = v19;
-        v4 = v18;
-        __os_log_helper_16_0_0(v17);
-        _os_log_impl(&dword_0, v3, v4, "[NLWorkoutComplicationDataSource] Calling _HKWorkoutObserver's currentWorkoutSnapshotWithCompletion", v17, 2u);
+        v2 = v18;
+        v3 = v17;
+        __os_log_helper_16_0_0(v16);
+        _os_log_impl(&dword_0, v2, v3, "[NLWorkoutComplicationDataSource] Calling _HKWorkoutObserver's currentWorkoutSnapshotWithCompletion", v16, 2u);
       }
 
-      objc_storeStrong(&v19, 0);
-      v2 = [v27[0] workoutObserver];
-      v11 = _NSConcreteStackBlock;
-      v12 = -1073741824;
-      v13 = 0;
-      v14 = __60__NLWorkoutComplicationDataSource__updateActiveWorkoutState__block_invoke_420;
-      v15 = &unk_10458;
-      objc_copyWeak(&v16, (a1 + 40));
-      [v2 currentWorkoutSnapshotWithCompletion:&v11];
+      objc_storeStrong(&v18, 0);
+      v1 = [v26[0] workoutObserver];
+      v10 = _NSConcreteStackBlock;
+      v11 = -1073741824;
+      v12 = 0;
+      v13 = __60__NLWorkoutComplicationDataSource__updateActiveWorkoutState__block_invoke_420;
+      v14 = &unk_10458;
+      objc_copyWeak(&v15, a1 + 5);
+      [v1 currentWorkoutSnapshotWithCompletion:&v10];
 
-      objc_destroyWeak(&v16);
-      v26 = 0;
+      objc_destroyWeak(&v15);
+      v25 = 0;
     }
 
     else
     {
       _HKInitializeLogging();
-      v25 = HKLogWorkouts;
-      v24 = OS_LOG_TYPE_ERROR;
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      v24 = HKLogWorkouts;
+      v23 = OS_LOG_TYPE_ERROR;
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
-        v1 = *(a1 + 32);
         aClass = objc_opt_class();
-        v7 = NSStringFromClass(aClass);
-        location = v7;
-        __os_log_helper_16_2_1_8_64(v28, location);
-        _os_log_error_impl(&dword_0, v25, v24, "%@ healthStore is nil", v28, 0xCu);
+        v6 = NSStringFromClass(aClass);
+        location = v6;
+        __os_log_helper_16_2_1_8_64(v27, location);
+        _os_log_error_impl(&dword_0, v24, v23, "%@ healthStore is nil", v27, 0xCu);
 
         objc_storeStrong(&location, 0);
       }
 
-      objc_storeStrong(&v25, 0);
+      objc_storeStrong(&v24, 0);
       if (NTKInternalBuild())
       {
         _HKInitializeLogging();
-        v22 = HKLogWorkouts;
-        v21 = 17;
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
+        v21 = HKLogWorkouts;
+        v20 = 17;
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
         {
-          v5 = v22;
-          v6 = v21;
-          __os_log_helper_16_0_0(v20);
-          _os_log_fault_impl(&dword_0, v5, v6, "Workout Complication Health Store is nil", v20, 2u);
+          v4 = v21;
+          v5 = v20;
+          __os_log_helper_16_0_0(v19);
+          _os_log_fault_impl(&dword_0, v4, v5, "Workout Complication Health Store is nil", v19, 2u);
         }
 
-        objc_storeStrong(&v22, 0);
+        objc_storeStrong(&v21, 0);
       }
 
-      v26 = 1;
+      v25 = 1;
     }
   }
 
   else
   {
-    v26 = 1;
+    v25 = 1;
   }
 
-  objc_storeStrong(v27, 0);
+  objc_storeStrong(v26, 0);
 }
 
 void __60__NLWorkoutComplicationDataSource__updateActiveWorkoutState__block_invoke_420(id *a1, void *a2, void *a3)

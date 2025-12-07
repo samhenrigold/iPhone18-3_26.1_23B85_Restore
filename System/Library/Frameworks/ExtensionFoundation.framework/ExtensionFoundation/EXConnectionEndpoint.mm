@@ -55,15 +55,13 @@
 
 - (OS_xpc_object)xpcEndpoint
 {
-  v2 = *(self + OBJC_IVAR___EXConnectionEndpoint_xpcEndpoint);
-  v3 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v3;
+  return v2;
 }
 
 - (void)setXpcEndpoint:(id)endpoint
 {
-  v3 = *(self + OBJC_IVAR___EXConnectionEndpoint_xpcEndpoint);
   *(self + OBJC_IVAR___EXConnectionEndpoint_xpcEndpoint) = endpoint;
   swift_unknownObjectRetain();
 

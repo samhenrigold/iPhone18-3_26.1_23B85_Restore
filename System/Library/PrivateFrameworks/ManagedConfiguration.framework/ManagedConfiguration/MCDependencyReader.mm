@@ -73,7 +73,7 @@
 
   else
   {
-    v2 = MCSystemDependencyFilePath();
+    v2 = MCSystemDependencyFilePath(self);
   }
 
   return v2;
@@ -88,7 +88,7 @@
 
   else
   {
-    v2 = MCUserDependencyFilePath();
+    v2 = MCUserDependencyFilePath(self);
   }
 
   return v2;
@@ -371,10 +371,7 @@ void __37__MCDependencyReader_userDomainsDict__block_invoke(uint64_t a1)
 
 uint64_t __38__MCDependencyReader_parentsInDomain___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) memberQueueParentsInDomain:*(a1 + 40)];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) memberQueueParentsInDomain:*(a1 + 40)];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -410,10 +407,7 @@ uint64_t __38__MCDependencyReader_parentsInDomain___block_invoke(uint64_t a1)
 
 uint64_t __50__MCDependencyReader_dependentsOfParent_inDomain___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) memberQueueDependentsOfParent:*(a1 + 40) inDomain:*(a1 + 48)];
-  v3 = *(*(a1 + 56) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 56) + 8) + 40) = [*(a1 + 32) memberQueueDependentsOfParent:*(a1 + 40) inDomain:*(a1 + 48)];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -446,10 +440,7 @@ uint64_t __50__MCDependencyReader_dependentsOfParent_inDomain___block_invoke(uin
 
 uint64_t __44__MCDependencyReader_parentsInSystemDomain___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) memberQueueParentsInSystemDomain:*(a1 + 40)];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) memberQueueParentsInSystemDomain:*(a1 + 40)];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -482,10 +473,7 @@ uint64_t __44__MCDependencyReader_parentsInSystemDomain___block_invoke(uint64_t 
 
 uint64_t __42__MCDependencyReader_parentsInUserDomain___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) memberQueueParentsInUserDomain:*(a1 + 40)];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) memberQueueParentsInUserDomain:*(a1 + 40)];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -521,10 +509,7 @@ uint64_t __42__MCDependencyReader_parentsInUserDomain___block_invoke(uint64_t a1
 
 uint64_t __56__MCDependencyReader_dependentsOfParent_inSystemDomain___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) memberQueueDependentsOfParent:*(a1 + 40) inSystemDomain:*(a1 + 48)];
-  v3 = *(*(a1 + 56) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 56) + 8) + 40) = [*(a1 + 32) memberQueueDependentsOfParent:*(a1 + 40) inSystemDomain:*(a1 + 48)];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -560,10 +545,7 @@ uint64_t __56__MCDependencyReader_dependentsOfParent_inSystemDomain___block_invo
 
 uint64_t __54__MCDependencyReader_dependentsOfParent_inUserDomain___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) memberQueueDependentsOfParent:*(a1 + 40) inUserDomain:*(a1 + 48)];
-  v3 = *(*(a1 + 56) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 56) + 8) + 40) = [*(a1 + 32) memberQueueDependentsOfParent:*(a1 + 40) inUserDomain:*(a1 + 48)];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -582,18 +564,17 @@ uint64_t __54__MCDependencyReader_dependentsOfParent_inUserDomain___block_invoke
   v5 = [defaultManager fileExistsAtPath:v4];
 
   getpid();
-  v6 = *MEMORY[0x1E69E9BD0];
-  v7 = +[MCDependencyReader systemStoragePath];
-  fileSystemRepresentation = [v7 fileSystemRepresentation];
-  v8 = sandbox_check();
+  v6 = +[MCDependencyReader systemStoragePath];
+  fileSystemRepresentation = [v6 fileSystemRepresentation];
+  v7 = sandbox_check();
 
-  if (v5 && v8)
+  if (v5 && v7)
   {
-    v9 = _MCLogObjects;
+    v8 = _MCLogObjects;
     if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_1A795B000, v9, OS_LOG_TYPE_ERROR, "Cannot access system dependency file due to sandboxing.", buf, 2u);
+      _os_log_impl(&dword_1A795B000, v8, OS_LOG_TYPE_ERROR, "Cannot access system dependency file due to sandboxing.", buf, 2u);
     }
 
     memberQueueSystemDomainsDict = self->_memberQueueSystemDomainsDict;
@@ -602,19 +583,19 @@ uint64_t __54__MCDependencyReader_dependentsOfParent_inUserDomain___block_invoke
 
   else
   {
-    v11 = MEMORY[0x1E696AE40];
-    v12 = MEMORY[0x1E695DEF0];
-    v13 = +[MCDependencyReader systemStoragePath];
-    v14 = [v12 dataWithContentsOfFile:v13];
-    memberQueueSystemDomainsDict = [v11 MCSafePropertyListWithData:v14 options:0 format:0 error:0];
+    v10 = MEMORY[0x1E696AE40];
+    v11 = MEMORY[0x1E695DEF0];
+    v12 = +[MCDependencyReader systemStoragePath];
+    v13 = [v11 dataWithContentsOfFile:v12];
+    memberQueueSystemDomainsDict = [v10 MCSafePropertyListWithData:v13 options:0 format:0 error:0];
 
     if (memberQueueSystemDomainsDict && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
-      v15 = _MCLogObjects;
+      v14 = _MCLogObjects;
       if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_DEBUG))
       {
-        *v21 = 0;
-        _os_log_impl(&dword_1A795B000, v15, OS_LOG_TYPE_DEBUG, "Reading system dependency information from file.", v21, 2u);
+        *v20 = 0;
+        _os_log_impl(&dword_1A795B000, v14, OS_LOG_TYPE_DEBUG, "Reading system dependency information from file.", v20, 2u);
       }
 
       mCMutableDeepCopy = [memberQueueSystemDomainsDict MCMutableDeepCopy];
@@ -622,17 +603,17 @@ uint64_t __54__MCDependencyReader_dependentsOfParent_inUserDomain___block_invoke
 
     else
     {
-      v17 = _MCLogObjects;
+      v16 = _MCLogObjects;
       if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_INFO))
       {
-        *v22 = 0;
-        _os_log_impl(&dword_1A795B000, v17, OS_LOG_TYPE_INFO, "No system dependency information found. Creating an empty dictionary.", v22, 2u);
+        *v21 = 0;
+        _os_log_impl(&dword_1A795B000, v16, OS_LOG_TYPE_INFO, "No system dependency information found. Creating an empty dictionary.", v21, 2u);
       }
 
       mCMutableDeepCopy = objc_alloc_init(MEMORY[0x1E695DF90]);
     }
 
-    v18 = self->_memberQueueSystemDomainsDict;
+    v17 = self->_memberQueueSystemDomainsDict;
     self->_memberQueueSystemDomainsDict = mCMutableDeepCopy;
   }
 }
@@ -644,18 +625,17 @@ uint64_t __54__MCDependencyReader_dependentsOfParent_inUserDomain___block_invoke
   v5 = [defaultManager fileExistsAtPath:v4];
 
   getpid();
-  v6 = *MEMORY[0x1E69E9BD0];
-  v7 = +[MCDependencyReader userStoragePath];
-  fileSystemRepresentation = [v7 fileSystemRepresentation];
-  v8 = sandbox_check();
+  v6 = +[MCDependencyReader userStoragePath];
+  fileSystemRepresentation = [v6 fileSystemRepresentation];
+  v7 = sandbox_check();
 
-  if (v5 && v8)
+  if (v5 && v7)
   {
-    v9 = _MCLogObjects;
+    v8 = _MCLogObjects;
     if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_1A795B000, v9, OS_LOG_TYPE_ERROR, "Cannot access user dependency file due to sandboxing.", buf, 2u);
+      _os_log_impl(&dword_1A795B000, v8, OS_LOG_TYPE_ERROR, "Cannot access user dependency file due to sandboxing.", buf, 2u);
     }
 
     memberQueueUserDomainsDict = self->_memberQueueUserDomainsDict;
@@ -664,19 +644,19 @@ uint64_t __54__MCDependencyReader_dependentsOfParent_inUserDomain___block_invoke
 
   else
   {
-    v11 = MEMORY[0x1E696AE40];
-    v12 = MEMORY[0x1E695DEF0];
-    v13 = +[MCDependencyReader userStoragePath];
-    v14 = [v12 dataWithContentsOfFile:v13];
-    memberQueueUserDomainsDict = [v11 MCSafePropertyListWithData:v14 options:0 format:0 error:0];
+    v10 = MEMORY[0x1E696AE40];
+    v11 = MEMORY[0x1E695DEF0];
+    v12 = +[MCDependencyReader userStoragePath];
+    v13 = [v11 dataWithContentsOfFile:v12];
+    memberQueueUserDomainsDict = [v10 MCSafePropertyListWithData:v13 options:0 format:0 error:0];
 
     if (memberQueueUserDomainsDict && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
-      v15 = _MCLogObjects;
+      v14 = _MCLogObjects;
       if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_DEBUG))
       {
-        *v21 = 0;
-        _os_log_impl(&dword_1A795B000, v15, OS_LOG_TYPE_DEBUG, "Reading user dependency information from file.", v21, 2u);
+        *v20 = 0;
+        _os_log_impl(&dword_1A795B000, v14, OS_LOG_TYPE_DEBUG, "Reading user dependency information from file.", v20, 2u);
       }
 
       mCMutableDeepCopy = [memberQueueUserDomainsDict MCMutableDeepCopy];
@@ -684,17 +664,17 @@ uint64_t __54__MCDependencyReader_dependentsOfParent_inUserDomain___block_invoke
 
     else
     {
-      v17 = _MCLogObjects;
+      v16 = _MCLogObjects;
       if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_INFO))
       {
-        *v22 = 0;
-        _os_log_impl(&dword_1A795B000, v17, OS_LOG_TYPE_INFO, "No user dependency information found. Creating an empty dictionary.", v22, 2u);
+        *v21 = 0;
+        _os_log_impl(&dword_1A795B000, v16, OS_LOG_TYPE_INFO, "No user dependency information found. Creating an empty dictionary.", v21, 2u);
       }
 
       mCMutableDeepCopy = objc_alloc_init(MEMORY[0x1E695DF90]);
     }
 
-    v18 = self->_memberQueueUserDomainsDict;
+    v17 = self->_memberQueueUserDomainsDict;
     self->_memberQueueUserDomainsDict = mCMutableDeepCopy;
   }
 }

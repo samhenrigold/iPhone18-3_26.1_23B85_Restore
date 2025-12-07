@@ -162,7 +162,7 @@ LABEL_8:
   *&buf[8] = 0;
   sub_100007F88(buf, &self->audioDeviceMapMutex);
   stdCopy = std;
-  *(sub_10043E1FC(&self->audioDevices, std) + 56) = v6;
+  sub_10043E1FC(&self->audioDevices, std, &unk_1008A9BD0, &stdCopy, &v16)[7] = v6;
   if (*(&std->var0.var1 + 23) < 0)
   {
     sub_100008904(__p, std->var0.var1.var0, std->var0.var1.var1);
@@ -585,7 +585,7 @@ LABEL_15:
   self->audioDevices.__tree_.__end_node_.__left_ = 0;
   self->xpcClients.__cap_ = 0;
   self->audioDevices.__tree_.__begin_node_ = &self->audioDevices.__tree_.__end_node_;
-  sub_100044BBC(&self->audioDeviceMapMutex);
+  sub_100044BBC(&self->audioDeviceMapMutex.fMutex);
   return self;
 }
 

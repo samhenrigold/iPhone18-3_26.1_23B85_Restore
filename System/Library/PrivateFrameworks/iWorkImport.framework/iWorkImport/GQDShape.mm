@@ -44,8 +44,6 @@
     {
       return 0;
     }
-
-    mPath = self->mPath;
   }
 
   objc_opt_class();
@@ -54,9 +52,9 @@
     return 0;
   }
 
-  v8 = self->mPath;
+  mPath = self->mPath;
 
-  return [(GQDPath *)v8 isRectangular];
+  return [(GQDPath *)mPath isRectangular];
 }
 
 - (CGPath)createBezierPath

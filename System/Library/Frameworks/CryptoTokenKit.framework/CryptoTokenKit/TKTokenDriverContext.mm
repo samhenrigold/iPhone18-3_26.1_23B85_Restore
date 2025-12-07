@@ -6,8 +6,9 @@
 - (id)configurationForTokenID:(id)d;
 - (void)_setupDriver;
 - (void)acquireTokenWithInstanceID:(id)d reply:(id)reply;
+- (void)acquireTokenWithSlot:(id)slot AID:(id)d proprietaryCardUsage:(BOOL)usage reply:(id)reply;
+- (void)auditAuthOperation:(id)operation auditToken:(id *)token success:(BOOL)success;
 - (void)configureWithReply:(id)reply;
-- (void)idleTimeout;
 - (void)releaseTokenWithInstanceID:(id)d reply:(id)reply;
 - (void)setConfigurationEndpoint:(id)endpoint reply:(id)reply;
 - (void)setup;
@@ -55,10 +56,23 @@
   return v7;
 }
 
+- (void)auditAuthOperation:(id)operation auditToken:(id *)token success:(BOOL)success
+{
+  successCopy = success;
+  operationCopy = operation;
+  _auxiliaryConnection = [(TKTokenDriverContext *)self _auxiliaryConnection];
+  v10 = [_auxiliaryConnection remoteObjectProxyWithErrorHandler:&__block_literal_global_268];
+
+  v11 = *&token->var0[4];
+  v12[0] = *token->var0;
+  v12[1] = v11;
+  [v10 auditAuthOperation:operationCopy auditToken:v12 success:successCopy];
+}
+
 void __62__TKTokenDriverContext_auditAuthOperation_auditToken_success___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = TK_LOG_token();
+  v3 = TK_LOG_token(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __62__TKTokenDriverContext_auditAuthOperation_auditToken_success___block_invoke_cold_1();
@@ -79,10 +93,10 @@ void __62__TKTokenDriverContext_auditAuthOperation_auditToken_success___block_in
     v6 = 5.0;
     if (objc_opt_isKindOfClass())
     {
-      [v5 doubleValue];
-      v6 = v7;
-      v8 = TK_LOG_token();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+      doubleValue = [v5 doubleValue];
+      v6 = v8;
+      v9 = TK_LOG_token(doubleValue);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         [TKTokenDriverContext idleTimeout];
       }
@@ -158,31 +172,32 @@ void __62__TKTokenDriverContext_auditAuthOperation_auditToken_success___block_in
 void __36__TKTokenDriverContext__setupDriver__block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = TK_LOG_token();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+    v3 = TK_LOG_token(WeakRetained);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      __36__TKTokenDriverContext__setupDriver__block_invoke_cold_1(WeakRetained);
+      __36__TKTokenDriverContext__setupDriver__block_invoke_cold_1(v2);
     }
 
-    v3 = [WeakRetained driver];
-    [v3 terminate];
+    v4 = [v2 driver];
+    [v4 terminate];
 
-    v4 = TK_LOG_token();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    v6 = TK_LOG_token(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       __36__TKTokenDriverContext__setupDriver__block_invoke_cold_2();
     }
 
-    v5 = WeakRetained[5];
-    WeakRetained[5] = 0;
+    v7 = v2[5];
+    v2[5] = 0;
 
-    v6 = [MEMORY[0x1E696ABC0] errorWithDomain:@"CryptoTokenKit" code:-7 userInfo:0];
-    [WeakRetained cancelRequestWithError:v6];
+    v8 = [MEMORY[0x1E696ABC0] errorWithDomain:@"CryptoTokenKit" code:-7 userInfo:0];
+    [v2 cancelRequestWithError:v8];
 
-    v7 = TK_LOG_token();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v10 = TK_LOG_token(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       __36__TKTokenDriverContext__setupDriver__block_invoke_cold_3();
     }
@@ -191,31 +206,31 @@ void __36__TKTokenDriverContext__setupDriver__block_invoke(uint64_t a1)
 
 - (BOOL)_setupWithDriver:(id)driver error:(id *)error
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   driverCopy = driver;
   if (_setupWithDriver_error__onceToken != -1)
   {
     [TKTokenDriverContext _setupWithDriver:error:];
   }
 
-  v14 = 0;
-  v8 = SecTaskCopyValueForEntitlement(_setupWithDriver_error__selfTask, @"com.apple.private.ctk.virtual-token", &v14);
+  v13 = 0;
+  v8 = SecTaskCopyValueForEntitlement(_setupWithDriver_error__selfTask, @"com.apple.private.ctk.virtual-token", &v13);
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0 || ![v8 BOOLValue])
   {
     if (error)
     {
-      if (v14)
+      if (v13)
       {
         v9 = 0;
-        *error = v14;
+        *error = v13;
         goto LABEL_11;
       }
 
       v10 = MEMORY[0x1E696ABC0];
-      v15 = *MEMORY[0x1E696A578];
-      v16[0] = @"missing virtual token entitlement";
-      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+      v14 = *MEMORY[0x1E696A578];
+      v15[0] = @"missing virtual token entitlement";
+      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
       *error = [v10 errorWithDomain:@"CryptoTokenKit" code:-8 userInfo:v11];
     }
 
@@ -228,7 +243,6 @@ void __36__TKTokenDriverContext__setupDriver__block_invoke(uint64_t a1)
   v9 = 1;
 LABEL_11:
 
-  v12 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -253,29 +267,29 @@ SecTaskRef __47__TKTokenDriverContext__setupWithDriver_error___block_invoke()
   if (driver)
   {
     initialKeepAlive = self->_initialKeepAlive;
-    v8 = initialKeepAlive;
+    v9 = initialKeepAlive;
     if (!initialKeepAlive)
     {
       error = [(TKTokenDriverContext *)self driver];
       keepAliveResourceSlot = [error keepAliveResourceSlot];
-      v8 = [keepAliveResourceSlot resourceWithError:0];
+      v9 = [keepAliveResourceSlot resourceWithError:0];
     }
 
     driver2 = [(TKTokenDriverContext *)self driver];
-    [driver2 setKeepAlive:v8];
+    [driver2 setKeepAlive:v9];
 
     if (!initialKeepAlive)
     {
     }
 
-    v10 = self->_initialKeepAlive;
+    v11 = self->_initialKeepAlive;
     self->_initialKeepAlive = 0;
   }
 
   else
   {
-    v11 = TK_LOG_token();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v12 = TK_LOG_token(v7);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
       [TKTokenDriverContext startRequestWithError:];
     }
@@ -325,10 +339,10 @@ void __57__TKTokenDriverContext_acquireTokenWithInstanceID_reply___block_invoke(
 {
   v5 = a3;
   v6 = a2;
-  v7 = TK_LOG_token();
+  v7 = TK_LOG_token(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    __57__TKTokenDriverContext_acquireTokenWithInstanceID_reply___block_invoke_cold_1(a1);
+    __57__TKTokenDriverContext_acquireTokenWithInstanceID_reply___block_invoke_cold_1();
   }
 
   (*(*(a1 + 48) + 16))();
@@ -336,12 +350,45 @@ void __57__TKTokenDriverContext_acquireTokenWithInstanceID_reply___block_invoke(
   [v8 setKeepAlive:0];
 }
 
+- (void)acquireTokenWithSlot:(id)slot AID:(id)d proprietaryCardUsage:(BOOL)usage reply:(id)reply
+{
+  usageCopy = usage;
+  slotCopy = slot;
+  dCopy = d;
+  replyCopy = reply;
+  v20 = 0;
+  v13 = [(TKTokenDriverContext *)self startRequestWithError:&v20];
+  v14 = v20;
+  if (v13)
+  {
+    v15 = _os_activity_create(&dword_1DF413000, "acquire token by slot", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
+    state.opaque[0] = 0;
+    state.opaque[1] = 0;
+    os_activity_scope_enter(v15, &state);
+    driver = [(TKTokenDriverContext *)self driver];
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __76__TKTokenDriverContext_acquireTokenWithSlot_AID_proprietaryCardUsage_reply___block_invoke;
+    v17[3] = &unk_1E86B6EE8;
+    v17[4] = self;
+    v18 = replyCopy;
+    [driver acquireTokenWithSlot:slotCopy AID:dCopy proprietaryCardUsage:usageCopy reply:v17];
+
+    os_activity_scope_leave(&state);
+  }
+
+  else
+  {
+    (*(replyCopy + 2))(replyCopy, 0, 0, v14);
+  }
+}
+
 void __76__TKTokenDriverContext_acquireTokenWithSlot_AID_proprietaryCardUsage_reply___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
   v7 = a3;
   v8 = a4;
   v9 = a2;
-  v10 = TK_LOG_token();
+  v10 = TK_LOG_token(v9);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     __76__TKTokenDriverContext_acquireTokenWithSlot_AID_proprietaryCardUsage_reply___block_invoke_cold_1();
@@ -385,7 +432,7 @@ void __76__TKTokenDriverContext_acquireTokenWithSlot_AID_proprietaryCardUsage_re
 void __43__TKTokenDriverContext_configureWithReply___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
-  v5 = TK_LOG_token();
+  v5 = TK_LOG_token(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     __43__TKTokenDriverContext_configureWithReply___block_invoke_cold_1(a1);
@@ -427,29 +474,17 @@ void __43__TKTokenDriverContext_configureWithReply___block_invoke(uint64_t a1, u
 
 void __62__TKTokenDriverContext_auditAuthOperation_auditToken_success___block_invoke_cold_1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(&dword_1DF413000, v0, OS_LOG_TYPE_ERROR, "Failed to get host proxy: %{public}@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
-}
-
-- (void)idleTimeout
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1DF413000, v0, OS_LOG_TYPE_ERROR, "Failed to get host proxy: %{public}@", v1, 0xCu);
 }
 
 void __36__TKTokenDriverContext__setupDriver__block_invoke_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 driver];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __36__TKTokenDriverContext__setupDriver__block_invoke_cold_2()
@@ -473,34 +508,20 @@ void __36__TKTokenDriverContext__setupDriver__block_invoke_cold_3()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __57__TKTokenDriverContext_acquireTokenWithInstanceID_reply___block_invoke_cold_1(uint64_t a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *(a1 + 32);
-  OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 void __76__TKTokenDriverContext_acquireTokenWithSlot_AID_proprietaryCardUsage_reply___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __43__TKTokenDriverContext_configureWithReply___block_invoke_cold_1(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v1 = [*(a1 + 32) driver];
   v2 = [v1 classID];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 @end

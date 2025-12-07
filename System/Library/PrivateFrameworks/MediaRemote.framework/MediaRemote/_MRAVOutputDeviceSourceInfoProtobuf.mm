@@ -45,18 +45,17 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (self->_routingContextUID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    multipleBuiltInDevices = self->_multipleBuiltInDevices;
     PBDataWriterWriteBOOLField();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 

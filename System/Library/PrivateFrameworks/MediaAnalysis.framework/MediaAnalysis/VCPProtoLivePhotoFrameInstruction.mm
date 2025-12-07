@@ -68,13 +68,14 @@
   }
 
   [array addObject:&unk_1F49BB0C8];
-  memset(&v10, 0, sizeof(v10));
-  CMTimeMake(&v10, [(VCPProtoLivePhotoFrameInstruction *)self timeValue], [(VCPProtoLivePhotoFrameInstruction *)self timeScale]);
-  v10.epoch = [(VCPProtoLivePhotoFrameInstruction *)self epoch];
-  v10.flags = [(VCPProtoLivePhotoFrameInstruction *)self flags];
-  time = v10;
-  v8 = CMTimeCopyAsDictionary(&time, 0);
-  [dictionary setObject:v8 forKeyedSubscript:@"rawTime"];
+  memset(&v11, 0, sizeof(v11));
+  v8 = objc_msgSend_timeValue(self);
+  CMTimeMake(&v11, v8, [(VCPProtoLivePhotoFrameInstruction *)self timeScale]);
+  v11.epoch = [(VCPProtoLivePhotoFrameInstruction *)self epoch];
+  v11.flags = [(VCPProtoLivePhotoFrameInstruction *)self flags];
+  time = v11;
+  v9 = CMTimeCopyAsDictionary(&time, 0);
+  [dictionary setObject:v9 forKeyedSubscript:@"rawTime"];
 
   [dictionary setObject:array forKeyedSubscript:@"homography"];
 

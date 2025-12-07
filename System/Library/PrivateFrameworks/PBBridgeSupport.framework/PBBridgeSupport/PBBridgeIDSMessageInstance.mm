@@ -1,9 +1,26 @@
 @interface PBBridgeIDSMessageInstance
++ (id)newMessageInstanceOfType:(unsigned __int16)type retryCount:(int64_t)count retryInterval:(double)interval withAction:(id)action;
 - (PBBridgeIDSMessageInstance)init;
 - (id)description;
 @end
 
 @implementation PBBridgeIDSMessageInstance
+
++ (id)newMessageInstanceOfType:(unsigned __int16)type retryCount:(int64_t)count retryInterval:(double)interval withAction:(id)action
+{
+  typeCopy = type;
+  actionCopy = action;
+  v10 = objc_alloc_init(PBBridgeIDSMessageInstance);
+  v11 = [MEMORY[0x277CCABB0] numberWithDouble:CFAbsoluteTimeGetCurrent()];
+  [(PBBridgeIDSMessageInstance *)v10 setSentAbsoluteTime:v11];
+
+  [(PBBridgeIDSMessageInstance *)v10 setTypeID:typeCopy];
+  [(PBBridgeIDSMessageInstance *)v10 setRetryAction:actionCopy];
+
+  [(PBBridgeIDSMessageInstance *)v10 setRetryCount:count];
+  [(PBBridgeIDSMessageInstance *)v10 setRetryInterval:interval];
+  return v10;
+}
 
 - (PBBridgeIDSMessageInstance)init
 {

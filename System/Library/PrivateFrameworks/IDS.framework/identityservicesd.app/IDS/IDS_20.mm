@@ -809,7 +809,7 @@ void sub_10063D830(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
   v5 = [v4 clientID];
-  v6 = [v5 isEqualToIgnoringCase:*(a1 + 32)];
+  v6 = objc_msgSend_isEqualToIgnoringCase_(v5);
 
   if (v6)
   {
@@ -1597,9 +1597,9 @@ void sub_100640B60(uint64_t a1, char a2)
   }
 }
 
-void sub_100640D40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100640D40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1671,9 +1671,9 @@ void sub_10064115C(uint64_t a1, uint64_t a2, void *a3)
   }
 }
 
-void sub_100641534(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100641534(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1694,9 +1694,9 @@ uint64_t sub_100641554(uint64_t result, char a2)
   return result;
 }
 
-void sub_10064177C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10064177C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1758,9 +1758,9 @@ void sub_10064185C(uint64_t a1, uint64_t a2, void *a3)
   }
 }
 
-void sub_100641C38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100641C38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1822,9 +1822,9 @@ void sub_100641D18(uint64_t a1, uint64_t a2, void *a3)
   }
 }
 
-void sub_100642020(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100642020(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1876,9 +1876,9 @@ void sub_100642180(uint64_t a1, uint64_t a2, void *a3)
   }
 }
 
-void sub_10064231C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10064231C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6114,18 +6114,18 @@ LABEL_30:
 
 void sub_100659CA0(uint64_t a1)
 {
-  v78 = [*(a1 + 32) localObject];
+  v77 = [*(a1 + 32) localObject];
   v2 = *(a1 + 40);
   if (v2)
   {
-    v76 = [v2 keyType];
-    v77 = [*(a1 + 40) keyDiversifier];
+    v75 = [v2 keyType];
+    v76 = [*(a1 + 40) keyDiversifier];
   }
 
   else
   {
-    v77 = 0;
     v76 = 0;
+    v75 = 0;
   }
 
   v3 = OSLogHandleForIDSCategory();
@@ -6139,48 +6139,48 @@ void sub_100659CA0(uint64_t a1)
     v10 = *(a1 + 40);
     v9 = *(a1 + 48);
     *buf = 138413826;
-    v94 = v9;
-    v95 = 2112;
-    v96 = v4;
-    v97 = 2112;
-    v98 = v5;
-    v99 = 2048;
-    v100 = v6;
-    v101 = 2112;
-    v102 = v7;
-    v103 = 2112;
-    v104 = v8;
-    v105 = 2112;
-    v106 = v10;
+    v93 = v9;
+    v94 = 2112;
+    v95 = v4;
+    v96 = 2112;
+    v97 = v5;
+    v98 = 2048;
+    v99 = v6;
+    v100 = 2112;
+    v101 = v7;
+    v102 = 2112;
+    v103 = v8;
+    v104 = 2112;
+    v105 = v10;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Daemon received verifySignedData request {requestID: %@, signedData: %@, data: %@, algo: %ld, service: %@, uri: %@, options: %@}", buf, 0x48u);
   }
 
   if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
   {
-    v65 = *(a1 + 80);
-    v66 = *(a1 + 40);
-    v63 = *(a1 + 96);
-    v64 = *(a1 + 72);
-    v61 = *(a1 + 64);
-    v59 = *(a1 + 48);
+    v64 = *(a1 + 80);
+    v65 = *(a1 + 40);
+    v62 = *(a1 + 96);
+    v63 = *(a1 + 72);
+    v60 = *(a1 + 64);
+    v58 = *(a1 + 48);
     _IDSLogV();
   }
 
   if (*(a1 + 56) && *(a1 + 64) && *(a1 + 72) && *(a1 + 80) && *(a1 + 48) && IDSIsValidSigningAlgorithm() && (IDSIsValidSigningKeyType() & 1) != 0)
   {
-    if ([*(a1 + 88) validateListenerForLocalObject:v78 andCheckEntitlement:kIDSMessagingEntitlement forAccessToServiceWithIdentifier:*(a1 + 72)])
+    if ([*(a1 + 88) validateListenerForLocalObject:v77 andCheckEntitlement:kIDSMessagingEntitlement forAccessToServiceWithIdentifier:*(a1 + 72)])
     {
       if ([*(a1 + 80) isTokenURI])
       {
-        v69 = [*(a1 + 88) _signatureTypeForSigningAlgorithm:*(a1 + 96)];
-        if (v69 != -1000 || v76)
+        v68 = [*(a1 + 88) _signatureTypeForSigningAlgorithm:*(a1 + 96)];
+        if (v68 != -1000 || v75)
         {
           v28 = [*(a1 + 80) prefixedURI];
-          v90 = 0;
-          v17 = [v28 _stripPotentialTokenURIWithToken:&v90];
-          v14 = v90;
+          v89 = 0;
+          v17 = [v28 _stripPotentialTokenURIWithToken:&v89];
+          v14 = v89;
 
-          v68 = [[IDSURI alloc] initWithPrefixedURI:v17];
+          v67 = [[IDSURI alloc] initWithPrefixedURI:v17];
           if (v14 && v17)
           {
             v29 = +[IDSDAccountController sharedInstance];
@@ -6188,65 +6188,64 @@ void sub_100659CA0(uint64_t a1)
             v31 = [v30 serviceWithIdentifier:*(a1 + 72)];
             v32 = [v29 registeredAccountsOnService:v31];
 
-            v88 = 0u;
-            v89 = 0u;
-            v86 = 0u;
             v87 = 0u;
+            v88 = 0u;
+            v85 = 0u;
+            v86 = 0u;
             obj = v32;
-            v72 = [obj countByEnumeratingWithState:&v86 objects:v92 count:16];
-            if (v72)
+            v71 = [obj countByEnumeratingWithState:&v85 objects:v91 count:16];
+            if (v71)
             {
-              v75 = 0;
+              v74 = 0;
               v33 = 0;
-              v71 = *v87;
-              v34 = kIDSServiceDefaultsSentinelAlias;
+              v70 = *v86;
               while (2)
               {
-                v35 = 0;
+                v34 = 0;
                 do
                 {
-                  if (*v87 != v71)
+                  if (*v86 != v70)
                   {
-                    v36 = v35;
+                    v35 = v34;
                     objc_enumerationMutation(obj);
-                    v35 = v36;
+                    v34 = v35;
                   }
 
-                  v73 = v35;
-                  v37 = *(*(&v86 + 1) + 8 * v35);
-                  v38 = [v37 primaryRegistration];
-                  v74 = [v38 registrationCert];
+                  v72 = v34;
+                  v36 = *(*(&v85 + 1) + 8 * v34);
+                  v37 = [v36 primaryRegistration];
+                  v73 = [v37 registrationCert];
 
-                  v84 = 0u;
-                  v85 = 0u;
-                  v82 = 0u;
                   v83 = 0u;
-                  v39 = [v37 unprefixedURIStringsFromRegistration];
-                  v40 = [v39 countByEnumeratingWithState:&v82 objects:v91 count:16];
-                  if (v40)
+                  v84 = 0u;
+                  v81 = 0u;
+                  v82 = 0u;
+                  v38 = [v36 unprefixedURIStringsFromRegistration];
+                  v39 = [v38 countByEnumeratingWithState:&v81 objects:v90 count:16];
+                  if (v39)
                   {
-                    v41 = *v83;
+                    v40 = *v82;
                     while (2)
                     {
-                      for (i = 0; i != v40; i = i + 1)
+                      for (i = 0; i != v39; i = i + 1)
                       {
-                        if (*v83 != v41)
+                        if (*v82 != v40)
                         {
-                          objc_enumerationMutation(v39);
+                          objc_enumerationMutation(v38);
                         }
 
-                        v43 = *(*(&v82 + 1) + 8 * i);
-                        if (([v43 isEqualToIgnoringCase:v34] & 1) == 0)
+                        v42 = *(*(&v81 + 1) + 8 * i);
+                        if ((objc_msgSend_isEqualToIgnoringCase_(v42) & 1) == 0)
                         {
-                          v44 = [[IDSURI alloc] initWithUnprefixedURI:v43];
+                          v43 = [[IDSURI alloc] initWithUnprefixedURI:v42];
 
-                          v75 = v44;
+                          v74 = v43;
                           goto LABEL_64;
                         }
                       }
 
-                      v40 = [v39 countByEnumeratingWithState:&v82 objects:v91 count:16];
-                      if (v40)
+                      v39 = [v38 countByEnumeratingWithState:&v81 objects:v90 count:16];
+                      if (v39)
                       {
                         continue;
                       }
@@ -6257,34 +6256,34 @@ void sub_100659CA0(uint64_t a1)
 
 LABEL_64:
 
-                  v33 = v74;
-                  if (v74 && v75)
+                  v33 = v73;
+                  if (v73 && v74)
                   {
 
-                    v49 = +[IDSEncryptionController sharedInstance];
-                    v50 = *(a1 + 56);
-                    v51 = *(a1 + 64);
-                    v52 = *(a1 + 72);
-                    v79[0] = _NSConcreteStackBlock;
-                    v79[1] = 3221225472;
-                    v79[2] = sub_10065AA04;
-                    v79[3] = &unk_100BD71D8;
-                    v80 = *(a1 + 48);
-                    v81 = *(a1 + 32);
-                    LOBYTE(v67) = 0;
-                    LODWORD(v62) = v76;
-                    [v49 publicKeyVerifySignedData:v50 matchesData:v51 forSignatureType:v69 identity:v74 toURI:v68 pushToken:v14 service:v52 localURI:v75 withKeyType:v62 keyDiversifier:v77 priority:300 completion:v79 avoidMainQueue:v67];
+                    v48 = +[IDSEncryptionController sharedInstance];
+                    v49 = *(a1 + 56);
+                    v50 = *(a1 + 64);
+                    v51 = *(a1 + 72);
+                    v78[0] = _NSConcreteStackBlock;
+                    v78[1] = 3221225472;
+                    v78[2] = sub_10065AA04;
+                    v78[3] = &unk_100BD71D8;
+                    v79 = *(a1 + 48);
+                    v80 = *(a1 + 32);
+                    LOBYTE(v66) = 0;
+                    LODWORD(v61) = v75;
+                    [v48 publicKeyVerifySignedData:v49 matchesData:v50 forSignatureType:v68 identity:v73 toURI:v67 pushToken:v14 service:v51 localURI:v74 withKeyType:v61 keyDiversifier:v76 priority:300 completion:v78 avoidMainQueue:v66];
 
-                    v53 = v80;
+                    v52 = v79;
                     goto LABEL_83;
                   }
 
-                  v35 = v73 + 1;
+                  v34 = v72 + 1;
                 }
 
-                while ((v73 + 1) != v72);
-                v72 = [obj countByEnumeratingWithState:&v86 objects:v92 count:16];
-                if (v72)
+                while ((v72 + 1) != v71);
+                v71 = [obj countByEnumeratingWithState:&v85 objects:v91 count:16];
+                if (v71)
                 {
                   continue;
                 }
@@ -6296,58 +6295,58 @@ LABEL_64:
             else
             {
               v33 = 0;
-              v75 = 0;
+              v74 = 0;
             }
 
-            v54 = OSLogHandleForIDSCategory();
-            if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
+            v53 = OSLogHandleForIDSCategory();
+            if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
             {
-              v55 = *(a1 + 48);
+              v54 = *(a1 + 48);
               *buf = 138412290;
-              v94 = v55;
-              _os_log_impl(&_mh_execute_header, v54, OS_LOG_TYPE_DEFAULT, "Daemon dropping request %@ because we are not registered", buf, 0xCu);
+              v93 = v54;
+              _os_log_impl(&_mh_execute_header, v53, OS_LOG_TYPE_DEFAULT, "Daemon dropping request %@ because we are not registered", buf, 0xCu);
             }
 
             if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
             {
-              v60 = *(a1 + 48);
+              v59 = *(a1 + 48);
               _IDSLogV();
             }
 
-            v53 = [NSError errorWithDomain:IDSSigningErrorDomain code:14 userInfo:0, v60];
+            v52 = [NSError errorWithDomain:IDSSigningErrorDomain code:14 userInfo:0, v59];
             [*(a1 + 32) setReply:1];
-            v56 = +[IDSDaemon sharedInstance];
-            v57 = [*(a1 + 32) localObject];
-            v58 = [v56 broadcasterForLocalObject:v57 messageContext:*(a1 + 32)];
+            v55 = +[IDSDaemon sharedInstance];
+            v56 = [*(a1 + 32) localObject];
+            v57 = [v55 broadcasterForLocalObject:v56 messageContext:*(a1 + 32)];
 
-            [v58 finishedVerifyingSignedDataForRequest:*(a1 + 48) success:0 error:v53];
+            [v57 finishedVerifyingSignedDataForRequest:*(a1 + 48) success:0 error:v52];
 LABEL_83:
           }
 
           else
           {
-            v45 = OSLogHandleForIDSCategory();
-            if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+            v44 = OSLogHandleForIDSCategory();
+            if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
             {
-              v46 = *(a1 + 48);
+              v45 = *(a1 + 48);
               *buf = 138412290;
-              v94 = v46;
-              _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEFAULT, "Daemon dropping request %@ because tokenURI malformed", buf, 0xCu);
+              v93 = v45;
+              _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "Daemon dropping request %@ because tokenURI malformed", buf, 0xCu);
             }
 
             if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
             {
-              v60 = *(a1 + 48);
+              v59 = *(a1 + 48);
               _IDSLogV();
             }
 
-            v33 = [NSError errorWithDomain:IDSSigningErrorDomain code:2 userInfo:0, v60];
+            v33 = [NSError errorWithDomain:IDSSigningErrorDomain code:2 userInfo:0, v59];
             [*(a1 + 32) setReply:1];
-            v47 = +[IDSDaemon sharedInstance];
-            v48 = [*(a1 + 32) localObject];
-            v75 = [v47 broadcasterForLocalObject:v48 messageContext:*(a1 + 32)];
+            v46 = +[IDSDaemon sharedInstance];
+            v47 = [*(a1 + 32) localObject];
+            v74 = [v46 broadcasterForLocalObject:v47 messageContext:*(a1 + 32)];
 
-            [v75 finishedVerifyingSignedDataForRequest:*(a1 + 48) success:0 error:v33];
+            [v74 finishedVerifyingSignedDataForRequest:*(a1 + 48) success:0 error:v33];
           }
         }
 
@@ -6359,23 +6358,23 @@ LABEL_83:
             v12 = *(a1 + 48);
             v13 = *(a1 + 96);
             *buf = 138412802;
-            v94 = v12;
-            v95 = 2048;
-            v96 = v13;
-            v97 = 2048;
-            v98 = 0;
+            v93 = v12;
+            v94 = 2048;
+            v95 = v13;
+            v96 = 2048;
+            v97 = 0;
             _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Daemon dropping request %@ because it has a mismatched verification algorithm %ld and key type %ld", buf, 0x20u);
           }
 
           if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
           {
-            *(&v59 + 1) = *(a1 + 96);
-            v61 = 0;
-            *&v59 = *(a1 + 48);
+            *(&v58 + 1) = *(a1 + 96);
+            v60 = 0;
+            *&v58 = *(a1 + 48);
             _IDSLogV();
           }
 
-          v14 = [NSError errorWithDomain:IDSSigningErrorDomain code:1 userInfo:0, v59, v61, v63, v64, v65, v66];
+          v14 = [NSError errorWithDomain:IDSSigningErrorDomain code:1 userInfo:0, v58, v60, v62, v63, v64, v65];
           [*(a1 + 32) setReply:1];
           v15 = +[IDSDaemon sharedInstance];
           v16 = [*(a1 + 32) localObject];
@@ -6392,17 +6391,17 @@ LABEL_83:
         {
           v25 = *(a1 + 48);
           *buf = 138412290;
-          v94 = v25;
+          v93 = v25;
           _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Daemon dropping request %@ because it is not a token URI", buf, 0xCu);
         }
 
         if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
         {
-          *&v59 = *(a1 + 48);
+          *&v58 = *(a1 + 48);
           _IDSLogV();
         }
 
-        v14 = [NSError errorWithDomain:IDSSigningErrorDomain code:2 userInfo:0, v59, v61, v63, v64, v65, v66];
+        v14 = [NSError errorWithDomain:IDSSigningErrorDomain code:2 userInfo:0, v58, v60, v62, v63, v64, v65];
         [*(a1 + 32) setReply:1];
         v26 = +[IDSDaemon sharedInstance];
         v27 = [*(a1 + 32) localObject];
@@ -6419,17 +6418,17 @@ LABEL_83:
       {
         v21 = *(a1 + 48);
         *buf = 138412290;
-        v94 = v21;
+        v93 = v21;
         _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Daemon dropping request %@ because unentitled", buf, 0xCu);
       }
 
       if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
       {
-        *&v59 = *(a1 + 48);
+        *&v58 = *(a1 + 48);
         _IDSLogV();
       }
 
-      v14 = [NSError errorWithDomain:IDSSigningErrorDomain code:4 userInfo:0, v59, v61, v63, v64, v65, v66];
+      v14 = [NSError errorWithDomain:IDSSigningErrorDomain code:4 userInfo:0, v58, v60, v62, v63, v64, v65];
       [*(a1 + 32) setReply:1];
       v22 = +[IDSDaemon sharedInstance];
       v23 = [*(a1 + 32) localObject];
@@ -6446,7 +6445,7 @@ LABEL_83:
   {
     v19 = *(a1 + 48);
     *buf = 138412290;
-    v94 = v19;
+    v93 = v19;
     _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Daemon dropping request %@ because it is missing required parameter", buf, 0xCu);
   }
 
@@ -6458,7 +6457,7 @@ LABEL_83:
   if (*(a1 + 48))
   {
     v14 = [NSError errorWithDomain:IDSSigningErrorDomain code:1 userInfo:0];
-    v17 = [*(a1 + 88) listenerRemoteObjectForLocalObject:v78];
+    v17 = [*(a1 + 88) listenerRemoteObjectForLocalObject:v77];
     [v17 finishedVerifyingSignedDataForRequest:*(a1 + 48) success:0 error:v14];
 LABEL_33:
   }

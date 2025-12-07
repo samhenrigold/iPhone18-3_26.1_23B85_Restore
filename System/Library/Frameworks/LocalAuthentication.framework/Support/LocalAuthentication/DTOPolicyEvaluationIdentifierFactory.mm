@@ -40,7 +40,7 @@
   processId = [clientCopy processId];
   if (clientCopy)
   {
-    [clientCopy auditToken];
+    objc_msgSend_auditToken(clientCopy);
   }
 
   else

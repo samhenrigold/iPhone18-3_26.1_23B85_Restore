@@ -72,121 +72,124 @@ void __37__MSUFreeSpaceManager_sharedInstance__block_invoke(id a1)
 {
   objc_sync_enter(self);
   v2 = +[NSFileManager defaultManager];
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
-  v15 = 0u;
-  v3 = 0;
-  v4 = [&off_100058870 countByEnumeratingWithState:&v14 objects:v23 count:16];
-  if (v4)
+  v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v3 = [&off_100058870 countByEnumeratingWithState:&v18 objects:v27 count:16];
+  v5 = 0;
+  v6 = v3;
+  if (v3)
   {
-    v5 = *v15;
+    v7 = *v19;
     do
     {
-      v6 = 0;
+      v8 = 0;
       do
       {
-        if (*v15 != v5)
+        if (*v19 != v7)
         {
           objc_enumerationMutation(&off_100058870);
         }
 
-        v7 = *(*(&v14 + 1) + 8 * v6);
-        memset(&v22, 0, sizeof(v22));
-        if (!lstat([v7 UTF8String], &v22))
+        v9 = *(*(&v18 + 1) + 8 * v8);
+        memset(&v26, 0, sizeof(v26));
+        if (!lstat([v9 UTF8String], &v26))
         {
-          v13 = 0;
-          v8 = size_directory([v7 UTF8String]);
-          if (([v7 hasSuffix:@"/"] & 1) == 0 && -[NSFileManager removeItemAtPath:error:](v2, "removeItemAtPath:error:", v7, &v13) || objc_msgSend(v7, "hasSuffix:", @"/") && -[NSFileManager removeItemsUnderPath:error:](v2, "removeItemsUnderPath:error:", v7, &v13))
+          v17 = 0;
+          v10 = size_directory([v9 UTF8String]);
+          if ([v9 hasSuffix:@"/"] & 1) == 0 && (v11 = -[NSFileManager removeItemAtPath:error:](v2, "removeItemAtPath:error:", v9, &v17), (v11) || (v11 = objc_msgSend(v9, "hasSuffix:", @"/"), v11) && (v11 = -[NSFileManager removeItemsUnderPath:error:](v2, "removeItemsUnderPath:error:", v9, &v17), v11))
           {
-            v9 = msuSharedLogger();
-            v3 += v8;
-            if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+            v13 = msuSharedLogger(v11, v12);
+            v5 += v10;
+            if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v19 = v7;
-              _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Successfully removed old CacheDelete path %@", buf, 0xCu);
+              v23 = v9;
+              _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Successfully removed old CacheDelete path %@", buf, 0xCu);
             }
           }
 
           else
           {
-            v10 = msuSharedLogger();
-            if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+            v14 = msuSharedLogger(v11, v12);
+            if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412546;
-              v19 = v7;
-              v20 = 2112;
-              v21 = v13;
-              _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "Failed to remove old CacheDelete path %@: %@", buf, 0x16u);
+              v23 = v9;
+              v24 = 2112;
+              v25 = v17;
+              _os_log_error_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "Failed to remove old CacheDelete path %@: %@", buf, 0x16u);
             }
           }
         }
 
-        v6 = v6 + 1;
+        v8 = v8 + 1;
       }
 
-      while (v4 != v6);
-      v4 = [&off_100058870 countByEnumeratingWithState:&v14 objects:v23 count:16];
+      while (v6 != v8);
+      v3 = [&off_100058870 countByEnumeratingWithState:&v18 objects:v27 count:16];
+      v6 = v3;
     }
 
-    while (v4);
+    while (v3);
   }
 
-  v11 = msuSharedLogger();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v15 = msuSharedLogger(v3, v4);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    v22.st_dev = 134218240;
-    *&v22.st_mode = v3;
-    WORD2(v22.st_ino) = 2048;
-    *(&v22.st_ino + 6) = v3 / 0x100000;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Manually purged %lld bytes (%lld MB) from old CacheDelete paths.", &v22, 0x16u);
+    v26.st_dev = 134218240;
+    *&v26.st_mode = v5;
+    WORD2(v26.st_ino) = 2048;
+    *(&v26.st_ino + 6) = v5 / 0x100000;
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Manually purged %lld bytes (%lld MB) from old CacheDelete paths.", &v26, 0x16u);
   }
 
-  self->_manuallyPurged += v3;
+  self->_manuallyPurged += v5;
   objc_sync_exit(self);
 }
 
 - (unsigned)getAPFSFreeBlocksThreshold:(id *)threshold
 {
   objc_sync_enter(self);
-  v14 = 0;
-  v13 = 4;
-  if (sysctlbyname("vfs.generic.apfs.proc_free_blocks_threshold", &v14, &v13, 0, 0))
+  v16 = 0;
+  v15 = 4;
+  v5 = sysctlbyname("vfs.generic.apfs.proc_free_blocks_threshold", &v16, &v15, 0, 0);
+  if (v5)
   {
-    v5 = *__error();
-    v17 = NSDebugDescriptionErrorKey;
-    v6 = __error();
-    v18 = [NSString stringWithFormat:@"sysctlbyname(%s) failed: %s", "vfs.generic.apfs.proc_free_blocks_threshold", strerror(*v6)];
-    v7 = [NSError errorWithDomain:NSPOSIXErrorDomain code:v5 userInfo:[NSDictionary dictionaryWithObjects:&v18 forKeys:&v17 count:1]];
-    v15[0] = NSDebugDescriptionErrorKey;
-    v15[1] = NSUnderlyingErrorKey;
-    v16[0] = @"failed to get APFS free blocks threshold";
-    v16[1] = v7;
-    v8 = [NSError errorWithDomain:@"MobileSoftwareUpdateErrorDomain" code:71 userInfo:[NSDictionary dictionaryWithObjects:v16 forKeys:v15 count:2]];
+    v7 = *__error();
+    v19 = NSDebugDescriptionErrorKey;
+    v8 = __error();
+    v20 = [NSString stringWithFormat:@"sysctlbyname(%s) failed: %s", "vfs.generic.apfs.proc_free_blocks_threshold", strerror(*v8)];
+    v9 = [NSError errorWithDomain:NSPOSIXErrorDomain code:v7 userInfo:[NSDictionary dictionaryWithObjects:&v20 forKeys:&v19 count:1]];
+    v17[0] = NSDebugDescriptionErrorKey;
+    v17[1] = NSUnderlyingErrorKey;
+    v18[0] = @"failed to get APFS free blocks threshold";
+    v18[1] = v9;
+    v10 = [NSError errorWithDomain:@"MobileSoftwareUpdateErrorDomain" code:71 userInfo:[NSDictionary dictionaryWithObjects:v18 forKeys:v17 count:2]];
   }
 
   else
   {
-    v9 = v14;
+    v11 = v16;
     blockSize = self->_blockSize;
-    v11 = msuSharedLogger();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = msuSharedLogger(v5, v6);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109376;
-      v20 = v14;
-      v21 = 2048;
-      v22 = (blockSize * v9) >> 20;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Successfully got APFS free blocks threshold: %d blocks (%lld MB)", buf, 0x12u);
+      v22 = v16;
+      v23 = 2048;
+      v24 = (blockSize * v11) >> 20;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Successfully got APFS free blocks threshold: %d blocks (%lld MB)", buf, 0x12u);
     }
 
-    v8 = 0;
+    v10 = 0;
   }
 
   objc_sync_exit(self);
   if (threshold)
   {
-    *threshold = v8;
+    *threshold = v10;
   }
 
   return 0;
@@ -284,16 +287,17 @@ LABEL_7:
 {
   objc_sync_enter(self);
   self->_dataMountPoint = [point copy];
-  bzero(&v11, 0x878uLL);
+  bzero(&v13, 0x878uLL);
   uTF8String = [point UTF8String];
-  if (statfs(uTF8String, &v11))
+  v6 = statfs(uTF8String, &v13);
+  if (v6)
   {
-    v6 = msuSharedLogger();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = msuSharedLogger(v6, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v7 = __error();
-      v8 = strerror(*v7);
-      [(MSUFreeSpaceManager *)v8 setDataMountPoint:v10, uTF8String, v6];
+      v9 = __error();
+      v10 = strerror(*v9);
+      [(MSUFreeSpaceManager *)v10 setDataMountPoint:v12, uTF8String, v8];
     }
 
     f_bsize = 4096;
@@ -301,7 +305,7 @@ LABEL_7:
 
   else
   {
-    f_bsize = v11.f_bsize;
+    f_bsize = v13.f_bsize;
   }
 
   self->_blockSize = f_bsize;

@@ -221,7 +221,7 @@
 
 - (void)setPreferredProminentColor:(id)color
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   colorCopy = color;
   preferredProminentColor = self->_preferredProminentColor;
   p_preferredProminentColor = &self->_preferredProminentColor;
@@ -231,32 +231,37 @@
     if (colorCopy)
     {
       [colorCopy alphaComponent];
-      if ((BSFloatEqualToFloat() & 1) == 0)
+      v8 = BSFloatEqualToFloat();
+      if ((v8 & 1) == 0)
       {
-        v8 = PRLogCommon();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+        v9 = PRLogCommon(v8);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v16 = colorCopy;
-          _os_log_impl(&dword_1A8AA7000, v8, OS_LOG_TYPE_DEFAULT, "new preferred prominent color %@ has alpha component that is not 1 - so this won't look good. This will default to white.", buf, 0xCu);
+          v18 = colorCopy;
+          _os_log_impl(&dword_1A8AA7000, v9, OS_LOG_TYPE_DEFAULT, "new preferred prominent color %@ has alpha component that is not 1 - so this won't look good. This will default to white.", buf, 0xCu);
         }
       }
 
-      v13 = 0;
+      v15 = 0;
+      v16 = 0;
       v14 = 0;
-      v12 = 0;
-      v9 = MEMORY[0x1E69DC888];
+      v10 = MEMORY[0x1E69DC888];
       discreteGradientVariatedColors = [MEMORY[0x1E69C5558] discreteGradientVariatedColors];
-      [v9 pui_determineVarianceAndLuminanceForColor:colorCopy amongstColors:discreteGradientVariatedColors outVariance:&v13 outLuminance:&v14 outSaturation:&v12];
+      [v10 pui_determineVarianceAndLuminanceForColor:colorCopy amongstColors:discreteGradientVariatedColors outVariance:&v15 outLuminance:&v16 outSaturation:&v14];
 
-      if (BSFloatIsZero() && BSFloatIsZero())
+      if (BSFloatIsZero())
       {
-        v11 = PRLogCommon();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        IsZero = BSFloatIsZero();
+        if (IsZero)
         {
-          *buf = 138412290;
-          v16 = colorCopy;
-          _os_log_impl(&dword_1A8AA7000, v11, OS_LOG_TYPE_DEFAULT, "new preferred prominent color %@ may not map cleanly into the style slider. We will try to clamp to a better value but... - please try a new color.  This may default to white.", buf, 0xCu);
+          v13 = PRLogCommon(IsZero);
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 138412290;
+            v18 = colorCopy;
+            _os_log_impl(&dword_1A8AA7000, v13, OS_LOG_TYPE_DEFAULT, "new preferred prominent color %@ may not map cleanly into the style slider. We will try to clamp to a better value but... - please try a new color.  This may default to white.", buf, 0xCu);
+          }
         }
       }
     }
@@ -269,7 +274,7 @@
   if (![(NSArray *)self->_requestedRenderingEventTypes isEqualToArray:?])
   {
     v4 = [MEMORY[0x1E695DFA8] setWithArray:typesCopy];
-    v5 = PRValidRenderingEventTypes();
+    v5 = PRValidRenderingEventTypes(v4);
     [v4 intersectSet:v5];
 
     allObjects = [v4 allObjects];
@@ -284,7 +289,7 @@
   if (![(NSArray *)self->_requestedRenderingTransitionTypes isEqualToArray:?])
   {
     v4 = [MEMORY[0x1E695DFA8] setWithArray:typesCopy];
-    v5 = PRValidRenderingTransitionTypes();
+    v5 = PRValidRenderingTransitionTypes(v4);
     [v4 intersectSet:v5];
 
     allObjects = [v4 allObjects];

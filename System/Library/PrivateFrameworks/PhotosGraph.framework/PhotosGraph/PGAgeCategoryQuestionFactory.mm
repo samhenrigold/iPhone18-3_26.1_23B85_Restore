@@ -7,27 +7,27 @@
 
 - (BOOL)_shouldAddNewAgeCategoryQuestionForPersonUUID:(id)d
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   [(PGSurveyQuestionFactory *)self existingQuestionsForEntityIdentifier:d];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v3 = v15 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v3 = v14 = 0u;
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
+        v8 = *(*(&v11 + 1) + 8 * i);
         if ([v8 state] == 2 || !objc_msgSend(v8, "state"))
         {
           v9 = 0;
@@ -35,7 +35,7 @@
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
       v9 = 1;
       if (v5)
       {
@@ -53,7 +53,6 @@
 
 LABEL_13:
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -81,7 +80,7 @@ LABEL_13:
 
 void __73__PGAgeCategoryQuestionFactory_generateQuestionsWithLimit_progressBlock___block_invoke(uint64_t a1, void *a2)
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _Block_copy(*(a1 + 48));
   if (!v4)
@@ -93,42 +92,42 @@ void __73__PGAgeCategoryQuestionFactory_generateQuestionsWithLimit_progressBlock
     }
 
 LABEL_10:
-    v46 = v3;
+    v45 = v3;
     v9 = [v3 graph];
-    v49 = [*(a1 + 32) _sortedAgeCategories];
-    v45 = v9;
+    v48 = [*(a1 + 32) _sortedAgeCategories];
+    v44 = v9;
     v10 = [v9 personNodesIncludingMe:1];
     v11 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"localIdentifier" ascending:0];
-    v63 = v11;
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v63 count:1];
-    v44 = v10;
+    v62 = v11;
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v62 count:1];
+    v43 = v10;
     v13 = [v10 sortedArrayUsingDescriptors:v12];
 
-    v58 = 0u;
-    v59 = 0u;
-    v56 = 0u;
     v57 = 0u;
+    v58 = 0u;
+    v55 = 0u;
+    v56 = 0u;
     v14 = v13;
-    v51 = [v14 countByEnumeratingWithState:&v56 objects:v62 count:16];
-    if (!v51)
+    v50 = [v14 countByEnumeratingWithState:&v55 objects:v61 count:16];
+    if (!v50)
     {
 LABEL_55:
 
-      v3 = v46;
+      v3 = v45;
       if (v4)
       {
         if (CFAbsoluteTimeGetCurrent() - v6 >= 0.01)
         {
-          v60 = 0;
-          v4[2](v4, &v60, 1.0);
-          if (v60)
+          v59 = 0;
+          v4[2](v4, &v59, 1.0);
+          if (v59)
           {
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
             {
               *buf = 67109378;
-              *v65 = 116;
-              *&v65[4] = 2080;
-              *&v65[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Questions/Survey/AgeCategory/PGAgeCategoryQuestionFactory.m";
+              *v64 = 116;
+              *&v64[4] = 2080;
+              *&v64[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Questions/Survey/AgeCategory/PGAgeCategoryQuestionFactory.m";
               _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
             }
           }
@@ -140,21 +139,21 @@ LABEL_60:
       goto LABEL_61;
     }
 
-    v50 = *v57;
+    v49 = *v56;
     *&v15 = 138412290;
-    v43 = v15;
-    v47 = v4;
-    v48 = v14;
+    v42 = v15;
+    v46 = v4;
+    v47 = v14;
 LABEL_12:
     v16 = 0;
     while (1)
     {
-      if (*v57 != v50)
+      if (*v56 != v49)
       {
         objc_enumerationMutation(v14);
       }
 
-      v17 = *(*(&v56 + 1) + 8 * v16);
+      v17 = *(*(&v55 + 1) + 8 * v16);
       v18 = [*(a1 + 40) count];
       if (v4)
       {
@@ -163,20 +162,20 @@ LABEL_12:
         Current = CFAbsoluteTimeGetCurrent();
         if (Current - v6 >= 0.01)
         {
-          v60 = 0;
-          v4[2](v4, &v60, v19 / v20);
-          if (v60)
+          v59 = 0;
+          v4[2](v4, &v59, v19 / v20);
+          if (v59)
           {
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
             {
               *buf = 67109378;
-              *v65 = 62;
-              *&v65[4] = 2080;
-              *&v65[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Questions/Survey/AgeCategory/PGAgeCategoryQuestionFactory.m";
+              *v64 = 62;
+              *&v64[4] = 2080;
+              *&v64[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Questions/Survey/AgeCategory/PGAgeCategoryQuestionFactory.m";
               _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
             }
 
-            v3 = v46;
+            v3 = v45;
             goto LABEL_60;
           }
 
@@ -196,7 +195,7 @@ LABEL_12:
         goto LABEL_29;
       }
 
-      v24 = [v49 mutableCopy];
+      v24 = [v48 mutableCopy];
       v25 = [v17 ageCategory];
       if (v25)
       {
@@ -209,7 +208,7 @@ LABEL_12:
           v29 = *(a1 + 56);
 
           v30 = v28 >= v29;
-          v14 = v48;
+          v14 = v47;
           if (v30)
           {
             goto LABEL_55;
@@ -222,26 +221,26 @@ LABEL_12:
         [v24 removeObject:v33];
       }
 
-      v54 = 0u;
-      v55 = 0u;
-      v52 = 0u;
       v53 = 0u;
+      v54 = 0u;
+      v51 = 0u;
+      v52 = 0u;
       v34 = v24;
-      v35 = [v34 countByEnumeratingWithState:&v52 objects:v61 count:16];
+      v35 = [v34 countByEnumeratingWithState:&v51 objects:v60 count:16];
       if (v35)
       {
         v36 = v35;
-        v37 = *v53;
+        v37 = *v52;
         while (2)
         {
           for (i = 0; i != v36; ++i)
           {
-            if (*v53 != v37)
+            if (*v52 != v37)
             {
               objc_enumerationMutation(v34);
             }
 
-            v39 = -[PGAgeCategoryQuestion initWithPersonUUID:ageCategory:localFactoryScore:]([PGAgeCategoryQuestion alloc], "initWithPersonUUID:ageCategory:localFactoryScore:", v23, [*(*(&v52 + 1) + 8 * i) unsignedIntegerValue], 0.5);
+            v39 = -[PGAgeCategoryQuestion initWithPersonUUID:ageCategory:localFactoryScore:]([PGAgeCategoryQuestion alloc], "initWithPersonUUID:ageCategory:localFactoryScore:", v23, [*(*(&v51 + 1) + 8 * i) unsignedIntegerValue], 0.5);
             if ([*(a1 + 32) shouldAddQuestion:v39 toAlreadyGeneratedQuestions:*(a1 + 40)])
             {
               [*(a1 + 40) addObject:v39];
@@ -250,7 +249,7 @@ LABEL_12:
             }
           }
 
-          v36 = [v34 countByEnumeratingWithState:&v52 objects:v61 count:16];
+          v36 = [v34 countByEnumeratingWithState:&v51 objects:v60 count:16];
           if (v36)
           {
             continue;
@@ -266,8 +265,8 @@ LABEL_41:
       v41 = *(a1 + 56);
 
       v30 = v40 >= v41;
-      v4 = v47;
-      v14 = v48;
+      v4 = v46;
+      v14 = v47;
       if (v30)
       {
 
@@ -277,10 +276,10 @@ LABEL_41:
 LABEL_42:
 
 LABEL_43:
-      if (++v16 == v51)
+      if (++v16 == v50)
       {
-        v51 = [v14 countByEnumeratingWithState:&v56 objects:v62 count:16];
-        if (v51)
+        v50 = [v14 countByEnumeratingWithState:&v55 objects:v61 count:16];
+        if (v50)
         {
           goto LABEL_12;
         }
@@ -294,8 +293,8 @@ LABEL_43:
 
     if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
-      *buf = v43;
-      *v65 = v22;
+      *buf = v42;
+      *v64 = v22;
       _os_log_error_impl(&dword_22F0FC000, v32, OS_LOG_TYPE_ERROR, "Person uuid found to be nil given local identifier %@", buf, 0xCu);
     }
 
@@ -308,16 +307,16 @@ LABEL_29:
   if (v5 >= 0.01)
   {
     v7 = v5;
-    v60 = 0;
-    v4[2](v4, &v60, 0.0);
-    if (v60 == 1)
+    v59 = 0;
+    v4[2](v4, &v59, 0.0);
+    if (v59 == 1)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         *buf = 67109378;
-        *v65 = 45;
-        *&v65[4] = 2080;
-        *&v65[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Questions/Survey/AgeCategory/PGAgeCategoryQuestionFactory.m";
+        *v64 = 45;
+        *&v64[4] = 2080;
+        *&v64[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Questions/Survey/AgeCategory/PGAgeCategoryQuestionFactory.m";
         v8 = MEMORY[0x277D86220];
 LABEL_50:
         _os_log_impl(&dword_22F0FC000, v8, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
@@ -337,16 +336,16 @@ LABEL_50:
 
   if (CFAbsoluteTimeGetCurrent() - v6 >= 0.01)
   {
-    v60 = 0;
-    v4[2](v4, &v60, 1.0);
-    if (v60)
+    v59 = 0;
+    v4[2](v4, &v59, 1.0);
+    if (v59)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         *buf = 67109378;
-        *v65 = 49;
-        *&v65[4] = 2080;
-        *&v65[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Questions/Survey/AgeCategory/PGAgeCategoryQuestionFactory.m";
+        *v64 = 49;
+        *&v64[4] = 2080;
+        *&v64[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Questions/Survey/AgeCategory/PGAgeCategoryQuestionFactory.m";
         v8 = MEMORY[0x277D86220];
         goto LABEL_50;
       }
@@ -354,8 +353,6 @@ LABEL_50:
   }
 
 LABEL_61:
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 @end

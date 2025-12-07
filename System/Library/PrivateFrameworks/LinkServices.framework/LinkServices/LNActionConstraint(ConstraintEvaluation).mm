@@ -7,7 +7,7 @@
 
 - (uint64_t)evaluateInContext:()ConstraintEvaluation error:
 {
-  v23[6] = *MEMORY[0x1E69E9840];
+  v22[6] = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = [v6 objectForKey:@"action"];
   condition = [self condition];
@@ -59,9 +59,9 @@
           v17 = [message localizedStringForLocaleIdentifier:localeIdentifier];
 
           v18 = MEMORY[0x1E696ABC0];
-          v22 = *MEMORY[0x1E696A578];
-          v23[0] = v17;
-          v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+          v21 = *MEMORY[0x1E696A578];
+          v22[0] = v17;
+          v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
           *a4 = [v18 errorWithDomain:@"AppIntentConstraints" code:1 userInfo:v19];
         }
 
@@ -70,38 +70,37 @@
     }
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return requirement;
 }
 
 + (uint64_t)evaluate:()ConstraintEvaluation inContext:error:
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v7 = a3;
   v8 = a4;
   if (v7 && [v7 count])
   {
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v9 = v7;
-    v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v20;
+      v12 = *v19;
       v13 = -1;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v20 != v12)
+          if (*v19 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v15 = [*(*(&v19 + 1) + 8 * i) evaluateInContext:v8 error:{a5, v19}];
+          v15 = [*(*(&v18 + 1) + 8 * i) evaluateInContext:v8 error:{a5, v18}];
           if (v15)
           {
             if (v15 == 1 || v15 == 9999)
@@ -117,7 +116,7 @@
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v11);
@@ -136,7 +135,6 @@ LABEL_21:
     v13 = 0;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v13;
 }
 

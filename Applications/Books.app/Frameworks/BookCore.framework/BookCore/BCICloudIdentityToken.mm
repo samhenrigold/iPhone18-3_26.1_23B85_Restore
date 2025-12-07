@@ -18,42 +18,44 @@
 
   if ((isUserSignedInToiCloud & 1) == 0)
   {
-    v6 = BCUbiquityEnabledLog();
-    if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v9 = BCUbiquityEnabledLog(v4);
+    if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_14;
     }
 
-    v13 = 0;
-    v7 = "BCICloudIdentityToken: isUserSignedInToiCloud=NO. Returning nil";
-    v8 = &v13;
+    v16 = 0;
+    v10 = "BCICloudIdentityToken: isUserSignedInToiCloud=NO. Returning nil";
+    v11 = &v16;
 LABEL_13:
-    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, v7, v8, 2u);
+    _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, v10, v11, 2u);
     goto LABEL_14;
   }
 
-  if (!+[BCSyncUserDefaults isICloudDriveSyncOptedIn])
+  v5 = +[BCSyncUserDefaults isICloudDriveSyncOptedIn];
+  if ((v5 & 1) == 0)
   {
-    v6 = BCUbiquityEnabledLog();
-    if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v9 = BCUbiquityEnabledLog(v5);
+    if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_14;
     }
 
-    v12 = 0;
-    v7 = "BCICloudIdentityToken: isICloudDriveSyncOptedIn=NO. Returning nil";
-    v8 = &v12;
+    v15 = 0;
+    v10 = "BCICloudIdentityToken: isICloudDriveSyncOptedIn=NO. Returning nil";
+    v11 = &v15;
     goto LABEL_13;
   }
 
-  if (!+[BCSyncUserDefaults isGlobalICloudDriveSyncOptedIn])
+  v6 = +[BCSyncUserDefaults isGlobalICloudDriveSyncOptedIn];
+  if ((v6 & 1) == 0)
   {
-    v6 = BCUbiquityEnabledLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v9 = BCUbiquityEnabledLog(v6);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v7 = "BCICloudIdentityToken: isGlobalICloudDriveSyncOptedIn=NO. Returning nil";
-      v8 = buf;
+      v10 = "BCICloudIdentityToken: isGlobalICloudDriveSyncOptedIn=NO. Returning nil";
+      v11 = buf;
       goto LABEL_13;
     }
 
@@ -63,20 +65,20 @@ LABEL_14:
   }
 
   initWithCurrentIdentity = [[BCICloudIdentityToken alloc] initWithCurrentIdentity];
-  v5 = BCUbiquityEnabledLog();
-  v6 = v5;
+  v8 = BCUbiquityEnabledLog(initWithCurrentIdentity);
+  v9 = v8;
   if (initWithCurrentIdentity)
   {
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      *v10 = 0;
-      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "BCICloudIdentityToken: new token generated", v10, 2u);
+      *v13 = 0;
+      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "BCICloudIdentityToken: new token generated", v13, 2u);
     }
   }
 
-  else if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
-    sub_1E9D10(v6);
+    sub_1E9D10(v9);
   }
 
 LABEL_15:
@@ -126,20 +128,20 @@ LABEL_15:
   v3 = +[BUAccountsProvider sharedProvider];
   iCloudIdentity = [v3 iCloudIdentity];
 
-  v5 = BCUbiquityEnabledLog();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = BCUbiquityEnabledLog(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 141558274;
-    v10 = 1752392040;
-    v11 = 2112;
-    v12 = iCloudIdentity;
-    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "BCICloudIdentityToken: initWithCurrentIdentity: %{mask.hash}@", &v9, 0x16u);
+    v10 = 141558274;
+    v11 = 1752392040;
+    v12 = 2112;
+    v13 = iCloudIdentity;
+    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "BCICloudIdentityToken: initWithCurrentIdentity: %{mask.hash}@", &v10, 0x16u);
   }
 
-  v6 = [(BCICloudIdentityToken *)self _hashFor:iCloudIdentity];
-  v7 = [(BCICloudIdentityToken *)self initWithToken:v6];
+  v7 = [(BCICloudIdentityToken *)self _hashFor:iCloudIdentity];
+  v8 = [(BCICloudIdentityToken *)self initWithToken:v7];
 
-  return v7;
+  return v8;
 }
 
 - (BOOL)isEqual:(id)equal

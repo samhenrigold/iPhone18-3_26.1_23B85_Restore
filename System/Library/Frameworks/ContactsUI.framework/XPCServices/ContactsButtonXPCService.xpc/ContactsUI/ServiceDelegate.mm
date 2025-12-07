@@ -27,7 +27,7 @@
   v5 = sub_1000023A4(v4, qword_10002E558);
   (*(*(v4 - 8) + 16))(self + v3, v5, v4);
   v7.receiver = self;
-  v7.super_class = type metadata accessor for ServiceDelegate();
+  v7.super_class = type metadata accessor for ServiceDelegate(0);
   return [(ServiceDelegate *)&v7 init];
 }
 

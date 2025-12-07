@@ -11,7 +11,7 @@ uint64_t GPUTools::GL::DYTexGenParameterComponentCount(GPUTools::GL *this)
   }
 }
 
-double GPUTools::GL::DYGetShaderVariableTypeInfo(int a1, uint64_t a2)
+double GPUTools::GL::DYGetShaderVariableTypeInfo(uint64_t a1, uint64_t a2)
 {
   if (!a2)
   {
@@ -609,7 +609,7 @@ int *GPUTools::GL::GetCompressedFormatInfo(GPUTools::GL *this)
     v2 -= 60;
     if (!v2)
     {
-      dy_abort();
+      dy_abort("unknown or invalid internal format 0x%04X", this);
       return v1;
     }
   }
@@ -1084,7 +1084,7 @@ LABEL_73:
         }
 
 LABEL_98:
-        dy_abort();
+        dy_abort("invalid or unsupported pixel component type: 0x%04X", v5);
         goto LABEL_99;
       }
 
@@ -1131,11 +1131,11 @@ LABEL_98:
   }
 
 LABEL_99:
-  v13 = dy_abort();
+  v13 = dy_abort("unknown or invalid base internal format: 0x%04X", v4);
   return GPUTools::GL::TypeMatchingComponentSpecification(v13, v14);
 }
 
-uint64_t GPUTools::GL::TypeMatchingComponentSpecification(GPUTools::GL *this, int a2)
+uint64_t GPUTools::GL::TypeMatchingComponentSpecification(GPUTools::GL *this, unsigned int a2)
 {
   if (!a2)
   {
@@ -1227,19 +1227,19 @@ LABEL_16:
   }
 
 LABEL_30:
-  v3 = dy_abort();
-  return GPUTools::GL::DYProcessImageUploadFormatForLegacyES(v3);
+  v3 = dy_abort("invalid or unsupported pixel component type: 0x%04X", this);
+  return GPUTools::GL::DYProcessImageUploadFormatForLegacyES(v3, v4);
 }
 
-int *GPUTools::GL::DYProcessImageUploadFormatForLegacyES(int *result)
+int *GPUTools::GL::DYProcessImageUploadFormatForLegacyES(int *result, uint64_t a2)
 {
   if (!result)
   {
     GPUTools::GL::DYProcessImageUploadFormatForLegacyES();
   }
 
-  v1 = result[1];
-  if (v1 == 32993)
+  v2 = result[1];
+  if (v2 == 32993)
   {
     *result = 6408;
   }
@@ -1248,15 +1248,15 @@ int *GPUTools::GL::DYProcessImageUploadFormatForLegacyES(int *result)
   {
     if (*result == 35905)
     {
-      v1 = 35904;
+      v2 = 35904;
     }
 
     if (*result == 35907)
     {
-      v1 = 35906;
+      v2 = 35906;
     }
 
-    *result = v1;
+    *result = v2;
   }
 
   return result;
@@ -1607,8 +1607,8 @@ LABEL_10:
       return result;
     }
 
-    dy_string_from_enum(v1);
-    IsCompressedFormat = dy_abort();
+    v9 = dy_string_from_enum(v1);
+    IsCompressedFormat = dy_abort("unknown or invalid DEPTH_STENCIL format: %s", v9);
 LABEL_16:
     if ((IsCompressedFormat & 1) == 0)
     {
@@ -1617,14 +1617,14 @@ LABEL_16:
 
 LABEL_17:
     v5 = &GPUTools::GL::sCompressedFormatsTable;
-    v9 = 4980;
+    v10 = 4980;
     while (*v5 != v1)
     {
       v5 += 15;
-      v9 -= 60;
-      if (!v9)
+      v10 -= 60;
+      if (!v10)
       {
-        dy_abort();
+        dy_abort("unknown or invalid internal format 0x%04X", v1);
         goto LABEL_21;
       }
     }
@@ -1634,109 +1634,109 @@ LABEL_21:
   result = 0x19030000822ELL;
   if ((v1 - 33189) >= 3 && v1 != 6402 && v1 != 36012)
   {
-    dy_string_from_enum(v1);
-    v7 = dy_abort();
+    v11 = dy_string_from_enum(v1);
+    v7 = dy_abort("unknown or invalid DEPTH_COMPONENT format: %s", v11);
 LABEL_25:
-    v10 = *(v5 + 47);
-    v11 = v5[2];
-    if (v11)
+    v12 = *(v5 + 47);
+    v13 = v5[2];
+    if (v13)
     {
-      v12 = *(v5 + 44);
-      v13 = *(v5 + 45);
-      v14 = *(v5 + 46);
-      if (v14 <= v10)
+      v14 = *(v5 + 44);
+      v15 = *(v5 + 45);
+      v16 = *(v5 + 46);
+      if (v16 <= v12)
       {
-        v14 = v10;
+        v16 = v12;
       }
 
-      if (v13 > v14)
+      if (v15 > v16)
       {
-        v14 = v13;
+        v16 = v15;
       }
 
-      if (v12 <= v14)
+      if (v14 <= v16)
       {
-        v10 = v14;
+        v12 = v16;
       }
 
       else
       {
-        v10 = v12;
+        v12 = v14;
       }
     }
 
     else
     {
-      v11 = v5[9];
-      if (v11)
+      v13 = v5[9];
+      if (v13)
       {
-        v15 = *(v5 + 51);
-        if (v15 <= v10)
+        v17 = *(v5 + 51);
+        if (v17 <= v12)
         {
-          v10 = v10;
+          v12 = v12;
         }
 
         else
         {
-          v10 = v15;
+          v12 = v17;
         }
       }
 
       else
       {
-        v11 = v5[10];
-        if (v11)
+        v13 = v5[10];
+        if (v13)
         {
-          v10 = *(v5 + 52);
+          v12 = *(v5 + 52);
         }
 
         else
         {
-          v11 = v5[5];
-          if (!v11)
+          v13 = v5[5];
+          if (!v13)
           {
-            v21 = v5[7];
-            v22 = v5[8];
-            v23 = *(v5 + 49);
-            v24 = *(v5 + 50);
-            if (v22)
+            v23 = v5[7];
+            v24 = v5[8];
+            v25 = *(v5 + 49);
+            v26 = *(v5 + 50);
+            if (v24)
             {
-              v25 = v24 << 32;
+              v27 = v26 << 32;
             }
 
             else
             {
-              v25 = 0;
+              v27 = 0;
             }
 
-            if (!v22)
+            if (!v24)
             {
-              v22 = 0;
+              v24 = 0;
             }
 
-            if (v21)
+            if (v23)
             {
-              v16 = v23 << 32;
+              v18 = v25 << 32;
             }
 
             else
             {
-              v16 = v25;
+              v18 = v27;
             }
 
-            if (v21)
+            if (v23)
             {
-              v26 = v21;
+              v28 = v23;
             }
 
             else
             {
-              v26 = v22;
+              v28 = v24;
             }
 
-            v17 = v26 | v16;
-            v18 = GPUTools::GL::dy_format_element_count(v7);
-            if (v17 > 5125)
+            v19 = v28 | v18;
+            v20 = GPUTools::GL::dy_format_element_count(v7);
+            if (v19 > 5125)
             {
               goto LABEL_41;
             }
@@ -1747,80 +1747,80 @@ LABEL_25:
       }
     }
 
-    v16 = v10 << 32;
-    v17 = v11;
-    v18 = GPUTools::GL::dy_format_element_count(v7);
-    if (v17 > 5125)
+    v18 = v12 << 32;
+    v19 = v13;
+    v20 = GPUTools::GL::dy_format_element_count(v7);
+    if (v19 > 5125)
     {
 LABEL_41:
-      switch(v17)
+      switch(v19)
       {
         case 5126:
-          v19 = 2;
-          v20 = HIDWORD(v16);
-          if (HIDWORD(v16) < 9)
+          v21 = 2;
+          v22 = HIDWORD(v18);
+          if (HIDWORD(v18) < 9)
           {
             goto LABEL_70;
           }
 
           goto LABEL_65;
         case 35863:
-          v19 = 0;
-          v20 = HIDWORD(v16);
-          if (HIDWORD(v16) < 9)
+          v21 = 0;
+          v22 = HIDWORD(v18);
+          if (HIDWORD(v18) < 9)
           {
             goto LABEL_70;
           }
 
           goto LABEL_65;
         case 36764:
-          v19 = 1;
-          v20 = HIDWORD(v16);
-          if (HIDWORD(v16) < 9)
+          v21 = 1;
+          v22 = HIDWORD(v18);
+          if (HIDWORD(v18) < 9)
           {
             goto LABEL_70;
           }
 
 LABEL_65:
-          if (v20 >= 0x11)
+          if (v22 >= 0x11)
           {
-            if (v20 >= 0x21)
+            if (v22 >= 0x21)
             {
-              if (v20 >= 0x41)
+              if (v22 >= 0x41)
               {
 LABEL_91:
-                v35 = dy_abort();
-                return GPUTools::GL::ColorRenderableFormatMatchingDepthStencilFormat(v35);
+                v41 = dy_abort("unsupported component size: %d bits", v22);
+                return GPUTools::GL::ColorRenderableFormatMatchingDepthStencilFormat(v41, v42);
               }
 
-              v27 = 3;
+              v29 = 3;
             }
 
             else
             {
-              v27 = 2;
+              v29 = 2;
             }
           }
 
           else
           {
-            v27 = 1;
+            v29 = 1;
           }
 
           goto LABEL_71;
       }
 
 LABEL_90:
-      dy_abort();
+      dy_abort("unknown component type: 0x%04x", v19);
       goto LABEL_91;
     }
 
 LABEL_62:
-    if (v17 == 5124)
+    if (v19 == 5124)
     {
-      v19 = 3;
-      v20 = HIDWORD(v16);
-      if (HIDWORD(v16) >= 9)
+      v21 = 3;
+      v22 = HIDWORD(v18);
+      if (HIDWORD(v18) >= 9)
       {
         goto LABEL_65;
       }
@@ -1828,63 +1828,65 @@ LABEL_62:
 
     else
     {
-      if (v17 != 5125)
+      if (v19 != 5125)
       {
         goto LABEL_90;
       }
 
-      v19 = 4;
-      v20 = HIDWORD(v16);
-      if (HIDWORD(v16) >= 9)
+      v21 = 4;
+      v22 = HIDWORD(v18);
+      if (HIDWORD(v18) >= 9)
       {
         goto LABEL_65;
       }
     }
 
 LABEL_70:
-    v27 = 0;
+    v29 = 0;
 LABEL_71:
-    v28 = 1;
-    if (v18 != 2)
+    v30 = 1;
+    if (v20 != 2)
     {
-      v28 = 2;
+      v30 = 2;
     }
 
-    if (v18 == 1)
+    if (v20 == 1)
     {
-      v28 = 0;
+      v30 = 0;
     }
 
-    v29 = &GPUTools::GL::s_renderableFormats + 48 * v19 + 12 * v27;
-    v30 = *&v29[4 * v28];
-    if (v30)
+    v31 = &GPUTools::GL::s_renderableFormats + 48 * v21 + 12 * v29;
+    v32 = *&v31[4 * v30];
+    if (v32)
     {
-      v31 = *&v29[4 * v28];
-      if (GPUTools::GL::IsCompressedFormat(v30))
+      v33 = *&v31[4 * v30];
+      if (GPUTools::GL::IsCompressedFormat(v32))
       {
-        return v31;
+        return v33;
       }
 
-      v33 = &GPUTools::GL::sInternalFormatsTable;
-      v34 = 6660;
-      result = v31;
-      while (*v33 != v31)
+      v35 = &GPUTools::GL::sInternalFormatsTable;
+      v36 = 6660;
+      result = v33;
+      while (*v35 != v33)
       {
-        v33 += 15;
-        v34 -= 60;
-        if (!v34)
+        v35 += 15;
+        v36 -= 60;
+        if (!v36)
         {
           return result;
         }
       }
 
-      return GPUTools::GL::GetImageUploadFormatInfo(v33, 1, v32);
+      return GPUTools::GL::GetImageUploadFormatInfo(v35, 1, v34);
     }
 
-    dy_string_from_enum(v1);
-    dy_string_from_enum(a1[1]);
-    dy_string_from_enum(a1[2]);
-    dy_abort();
+    v37 = dy_string_from_enum(v1);
+    v19 = *a1;
+    v38 = dy_string_from_enum(a1[1]);
+    v39 = a1[1];
+    v40 = dy_string_from_enum(a1[2]);
+    dy_abort("no color renderable format for image format: iformat=%s (0x%04x), format=%s (0x%04x), type=%s (0x%04x)", v37, v19, v38, v39, v40, a1[2]);
     goto LABEL_90;
   }
 
@@ -1909,9 +1911,9 @@ uint64_t GPUTools::GL::ColorRenderableFormatMatchingDepthStencilFormat(int *a1, 
 
   else
   {
-    dy_string_from_enum(v2);
-    v5 = dy_abort();
-    return GPUTools::GL::ColorRenderableFormatMatchingDepthFormat(v5);
+    v5 = dy_string_from_enum(v2);
+    v6 = dy_abort("unknown or invalid DEPTH_STENCIL format: %s", v5);
+    return GPUTools::GL::ColorRenderableFormatMatchingDepthFormat(v6);
   }
 }
 
@@ -1923,9 +1925,9 @@ uint64_t GPUTools::GL::ColorRenderableFormatMatchingDepthFormat(int *a1)
     return 0x19030000822ELL;
   }
 
-  dy_string_from_enum(v1);
-  v4 = dy_abort();
-  return GPUTools::GL::dy_format_element_count(v4);
+  v4 = dy_string_from_enum(v1);
+  v5 = dy_abort("unknown or invalid DEPTH_COMPONENT format: %s", v4);
+  return GPUTools::GL::dy_format_element_count(v5);
 }
 
 uint64_t GPUTools::GL::dy_format_element_count(GPUTools::GL *this)
@@ -2207,7 +2209,7 @@ uint64_t GPUTools::GL::dy_pixel_row_bytes(GPUTools::GL *this, int a2, int a3, un
   return result;
 }
 
-uint64_t GPUTools::GL::ComputeClientImageSize(unsigned int *a1, int *a2)
+uint64_t GPUTools::GL::ComputeClientImageSize(unsigned int *a1, unsigned int *a2)
 {
   v4 = GPUTools::GL::dy_pixel_group_size(a1[1], a1[2]);
   if (a1[10] <= 1)
@@ -2283,14 +2285,14 @@ uint64_t GPUTools::GL::ComputeReadPixelsImageSize(int a1, int a2, GPUTools::GL *
   return (a5[2] * v8 + (a5[1] + a2) * v9);
 }
 
-const signed __int8 *GPUTools::GL::NormalizeIntegerComponents(const signed __int8 *this, unint64_t a2, unint64_t a3, double a4, double a5, __n128 a6)
+float32x4_t *GPUTools::GL::NormalizeIntegerComponents(float32x4_t *this, int8x16_t *a2, unint64_t a3, double a4, double a5, __n128 a6)
 {
   if (!a3)
   {
     return this;
   }
 
-  if (a3 >= 4 && (a2 + a3 <= this || &this[4 * a3] <= a2))
+  if (a3 >= 4 && (&a2->i8[a3] <= this || &this->f32[a3] <= a2))
   {
     if (a3 >= 0x10)
     {
@@ -2333,8 +2335,8 @@ const signed __int8 *GPUTools::GL::NormalizeIntegerComponents(const signed __int
 
     v19 = v6;
     v6 = a3 & 0xFFFFFFFFFFFFFFFCLL;
-    v20 = (a2 + v19);
-    v21 = &this[4 * v19];
+    v20 = (a2->u32 + v19);
+    v21 = &this->f32[v19];
     v22 = v19 - (a3 & 0xFFFFFFFFFFFFFFFCLL);
     v23 = vdupq_n_s32(0x42FE0000u);
     do
@@ -2365,9 +2367,9 @@ const signed __int8 *GPUTools::GL::NormalizeIntegerComponents(const signed __int
   }
 
 LABEL_6:
-  v7 = (a3 - v6);
-  v8 = &this[4 * v6];
-  v9 = (a2 + v6);
+  v7 = a3 - v6;
+  v8 = &this->f32[v6];
+  v9 = &a2->i8[v6];
   do
   {
     v11 = *v9++;
@@ -2385,11 +2387,11 @@ LABEL_6:
   return this;
 }
 
-const unsigned __int8 *GPUTools::GL::NormalizeIntegerComponents(const unsigned __int8 *this, unint64_t a2, unint64_t a3, double a4, __n128 a5)
+float32x4_t *GPUTools::GL::NormalizeIntegerComponents(float32x4_t *this, float32_t *a2, unint64_t a3, double a4, __n128 a5)
 {
   if (a3)
   {
-    if (a3 < 4 || a2 + a3 > this && &this[4 * a3] > a2)
+    if (a3 < 4 || a2 + a3 > this && &this->f32[a3] > a2)
     {
       v5 = 0;
       goto LABEL_6;
@@ -2423,9 +2425,9 @@ const unsigned __int8 *GPUTools::GL::NormalizeIntegerComponents(const unsigned _
       if ((a3 & 0xC) == 0)
       {
 LABEL_6:
-        v6 = (a3 - v5);
-        v7 = &this[4 * v5];
-        v8 = (a2 + v5);
+        v6 = a3 - v5;
+        v7 = &this->f32[v5];
+        v8 = a2 + v5;
         do
         {
           v9 = *v8++;
@@ -2446,7 +2448,7 @@ LABEL_6:
     v15 = v5;
     v5 = a3 & 0xFFFFFFFFFFFFFFFCLL;
     v16 = (a2 + v15);
-    v17 = &this[4 * v15];
+    v17 = &this->f32[v15];
     v18 = v15 - (a3 & 0xFFFFFFFFFFFFFFFCLL);
     v19 = vdupq_n_s32(0x437F0000u);
     do
@@ -2544,7 +2546,7 @@ float32x4_t *GPUTools::GL::NormalizeIntegerComponents(float32x4_t *this, int16x8
   }
 
 LABEL_13:
-  v19 = (a3 - v3);
+  v19 = a3 - v3;
   v20 = &this->f32[v3];
   v21 = &a2->i16[v3];
   do
@@ -2604,7 +2606,7 @@ float32x4_t *GPUTools::GL::NormalizeIntegerComponents(float32x4_t *this, uint16x
       if ((a3 & 0xC) == 0)
       {
 LABEL_13:
-        v17 = (a3 - v3);
+        v17 = a3 - v3;
         v18 = &this->f32[v3];
         v19 = a2 + v3;
         do
@@ -2684,7 +2686,7 @@ float GPUTools::GL::NormalizeIntegerComponents(GPUTools::GL *this, int32x4_t *a2
       v4 = 0;
     }
 
-    v11 = (a3 - v4);
+    v11 = a3 - v4;
     v12 = v4;
     v13 = (this + 4 * v4);
     v14 = &a2->i32[v12];
@@ -2716,10 +2718,10 @@ float32x4_t *GPUTools::GL::NormalizeIntegerComponents(float32x4_t *this, uint32x
     {
       v3 = 0;
 LABEL_7:
-      v9 = (a3 - v3);
+      v9 = a3 - v3;
       v10 = v3;
       v11 = &this->f32[v3];
-      v12 = &a2->i32[v10];
+      v12 = &a2->u32[v10];
       do
       {
         v13 = *v12++;
@@ -3131,7 +3133,7 @@ LABEL_7:
   return v5;
 }
 
-void GPUTools::GL::DYResolveMSAABuffer(GPUTools::GL *this, unint64_t a2, int8x16_t *__src, size_t __n, int32x4_t *__b, void *a6)
+void GPUTools::GL::DYResolveMSAABuffer(GPUTools::GL *this, GPUTools::GL *a2, int8x16_t *__src, size_t __n, float32x2_t *__b, void *a6)
 {
   v6 = __b;
   v8 = __src;
@@ -3162,12 +3164,12 @@ void GPUTools::GL::DYResolveMSAABuffer(GPUTools::GL *this, unint64_t a2, int8x16
           case 36208:
             GPUTools::GL::MSAABufferResolver<unsigned long long>::resolve<8u,16u,true,31ull,0ull,63ull,32ull,0ull,0ull,0ull,0ull>(a2, v8->i8, __n, v6);
 
-            GPUTools::GL::MSAABufferResolver<unsigned long long>::resolve<8u,16u,true,31ull,0ull,63ull,32ull,0ull,0ull,0ull,0ull>(a2, &v8->i8[8], __n, &v6->i64[1]);
+            GPUTools::GL::MSAABufferResolver<unsigned long long>::resolve<8u,16u,true,31ull,0ull,63ull,32ull,0ull,0ull,0ull,0ull>(a2, &v8->i8[8], __n, &v6[1]);
             break;
           case 36209:
             GPUTools::GL::MSAABufferResolver<unsigned long long>::resolve<8u,12u,true,31ull,0ull,63ull,32ull,0ull,0ull,0ull,0ull>(a2, v8, __n, v6);
 
-            GPUTools::GL::MSAABufferResolver<unsigned long long>::resolve<4u,12u,true,63ull,32ull,0ull,0ull,0ull,0ull,0ull,0ull>(a2, &v8->i32[2], __n, &v6->i64[1]);
+            GPUTools::GL::MSAABufferResolver<unsigned long long>::resolve<4u,12u,true,63ull,32ull,0ull,0ull,0ull,0ull,0ull,0ull>(a2, &v8->i32[2], __n, &v6[1]);
             break;
           case 36214:
 
@@ -3184,12 +3186,12 @@ void GPUTools::GL::DYResolveMSAABuffer(GPUTools::GL *this, unint64_t a2, int8x16
           case 36226:
             GPUTools::GL::MSAABufferResolver<long long>::resolve<8u,16u,true,31ull,0ull,63ull,32ull,0ull,0ull,0ull,0ull>(a2, v8->i8, __n, v6);
 
-            GPUTools::GL::MSAABufferResolver<long long>::resolve<8u,16u,true,31ull,0ull,63ull,32ull,0ull,0ull,0ull,0ull>(a2, &v8->i8[8], __n, &v6->i64[1]);
+            GPUTools::GL::MSAABufferResolver<long long>::resolve<8u,16u,true,31ull,0ull,63ull,32ull,0ull,0ull,0ull,0ull>(a2, &v8->i8[8], __n, &v6[1]);
             break;
           case 36227:
             GPUTools::GL::MSAABufferResolver<long long>::resolve<8u,12u,true,31ull,0ull,63ull,32ull,0ull,0ull,0ull,0ull>(a2, v8->i64, __n, v6);
 
-            GPUTools::GL::MSAABufferResolver<long long>::resolve<4u,12u,true,63ull,32ull,0ull,0ull,0ull,0ull,0ull,0ull>(a2, &v8->i32[2], __n, &v6->i64[1]);
+            GPUTools::GL::MSAABufferResolver<long long>::resolve<4u,12u,true,63ull,32ull,0ull,0ull,0ull,0ull,0ull,0ull>(a2, &v8->i32[2], __n, &v6[1]);
             break;
           case 36232:
 
@@ -3558,7 +3560,7 @@ LABEL_284:
         else if (v11 == 35898)
         {
 
-          GPUTools::GL::MSAABufferResolver<float>::resolve<4u,(unsigned char)11,(unsigned char)11,(unsigned char)10,(unsigned char)0>(a2, v8->i8, __n, v6->i32);
+          GPUTools::GL::MSAABufferResolver<float>::resolve<4u,(unsigned char)11,(unsigned char)11,(unsigned char)10,(unsigned char)0>(a2, v8->i8, __n, v6);
         }
       }
 
@@ -3602,7 +3604,7 @@ LABEL_284:
 
                 while (a2 != v456);
                 v8 = (v8 + 4 * v9 + 4);
-                *v6->i32 = v457;
+                v6->f32[0] = v457;
                 v6 = (v6 + 4);
               }
 
@@ -3628,7 +3630,7 @@ LABEL_60:
       if (v11 == 35901)
       {
 
-        GPUTools::GL::MSAABufferResolverResolveRGB9E5(a2, v8, __n, v6->i32, v12, v13);
+        GPUTools::GL::MSAABufferResolverResolveRGB9E5(a2, v8, __n, v6, v12, v13);
       }
 
       else if (v11 == 35905)
@@ -4393,7 +4395,7 @@ LABEL_106:
         return;
       case 33326:
 
-        GPUTools::GL::MSAABufferResolver<float>::resolve<4u,(unsigned char)32,(unsigned char)0,(unsigned char)0,(unsigned char)0>(a2, v8->i32, __n, v6->i32);
+        GPUTools::GL::MSAABufferResolver<float>::resolve<4u,(unsigned char)32,(unsigned char)0,(unsigned char)0,(unsigned char)0>(a2, v8->i32, __n, v6);
         return;
       case 33327:
 
@@ -4401,7 +4403,7 @@ LABEL_106:
         return;
       case 33328:
 
-        GPUTools::GL::MSAABufferResolver<float>::resolve<8u,(unsigned char)32,(unsigned char)32,(unsigned char)0,(unsigned char)0>(a2, v8, __n, v6->i32, v13);
+        GPUTools::GL::MSAABufferResolver<float>::resolve<8u,(unsigned char)32,(unsigned char)32,(unsigned char)0,(unsigned char)0>(a2, v8, __n, v6, v13);
         return;
       case 33329:
         if (!__n)
@@ -4725,7 +4727,7 @@ LABEL_240:
 
       case 33333:
 
-        GPUTools::GL::MSAABufferResolver<long long>::resolve<4u,4u,true,63ull,32ull,0ull,0ull,0ull,0ull,0ull,0ull>(a2, v8->i32, __n, v6);
+        GPUTools::GL::MSAABufferResolver<long long>::resolve<4u,4u,true,63ull,32ull,0ull,0ull,0ull,0ull,0ull,0ull>(a2, v8, __n, v6);
         return;
       case 33334:
 
@@ -4767,7 +4769,7 @@ LABEL_240:
         else if (v11 == 34837)
         {
 
-          GPUTools::GL::MSAABufferResolver<float>::resolve<12u,(unsigned char)32,(unsigned char)32,(unsigned char)32,(unsigned char)0>(a2, v8, __n, v6->i32, v13);
+          GPUTools::GL::MSAABufferResolver<float>::resolve<12u,(unsigned char)32,(unsigned char)32,(unsigned char)32,(unsigned char)0>(a2, v8, __n, v6, v13);
         }
 
         return;
@@ -5386,11 +5388,11 @@ uint64_t GPUTools::GL::MSAABufferResolver<unsigned long long>::resolve<4u,4u,tru
   return result;
 }
 
-uint64_t GPUTools::GL::MSAABufferResolver<long long>::resolve<4u,4u,true,63ull,32ull,0ull,0ull,0ull,0ull,0ull,0ull>(uint64_t result, int *a2, unsigned int a3, uint64_t a4)
+uint64_t GPUTools::GL::MSAABufferResolver<long long>::resolve<4u,4u,true,63ull,32ull,0ull,0ull,0ull,0ull,0ull,0ull>(uint64_t result, int32x4_t *a2, unsigned int a3, uint64_t a4)
 {
   if (a3)
   {
-    v4 = (a2 + a3);
+    v4 = (a2->i32 + a3);
     if (result <= 1)
     {
       v5 = 1;
@@ -5405,56 +5407,56 @@ uint64_t GPUTools::GL::MSAABufferResolver<long long>::resolve<4u,4u,true,63ull,3
     {
       do
       {
-        v17 = *a2;
+        v17 = a2->i32[0];
         if (result < 2)
         {
-          ++a2;
+          a2 = (a2 + 4);
         }
 
         else
         {
-          v17 += a2[1];
+          v17 += a2->i32[1];
           if (result == 2)
           {
-            a2 += 2;
+            a2 = (a2 + 8);
           }
 
           else
           {
-            v17 += a2[2];
+            v17 += a2->i32[2];
             if (result == 3)
             {
-              a2 += 3;
+              a2 = (a2 + 12);
             }
 
             else
             {
-              v17 += a2[3];
+              v17 += a2->i32[3];
               if (result == 4)
               {
-                a2 += 4;
+                ++a2;
               }
 
               else
               {
-                v17 += a2[4];
+                v17 += a2[1].i32[0];
                 if (result == 5)
                 {
-                  a2 += 5;
+                  a2 = (a2 + 20);
                 }
 
                 else
                 {
-                  v17 += a2[5];
+                  v17 += a2[1].i32[1];
                   if (result == 6)
                   {
-                    a2 += 6;
+                    a2 = (a2 + 24);
                   }
 
                   else
                   {
-                    v17 += a2[6];
-                    a2 += 7;
+                    v17 += a2[1].i32[2];
+                    a2 = (a2 + 28);
                   }
                 }
               }
@@ -5477,12 +5479,12 @@ uint64_t GPUTools::GL::MSAABufferResolver<long long>::resolve<4u,4u,true,63ull,3
       v6 = 4 * (v5 & 0xFFFFFFF8);
       if ((v5 & 0xFFFFFFF8) == v5)
       {
-        v7 = (a2 + 4);
+        i32 = a2[1].i32;
         do
         {
           a2 = (a2 + v6);
           v8 = 0uLL;
-          v9 = v7;
+          v9 = i32;
           v10 = v5 & 0xFFFFFFF8;
           v11 = 0uLL;
           v12 = 0uLL;
@@ -5504,7 +5506,7 @@ uint64_t GPUTools::GL::MSAABufferResolver<long long>::resolve<4u,4u,true,63ull,3
           *(a4 + 2) = (v15 / v5) >> 16;
           *(a4 + 3) = (v15 / v5) >> 24;
           a4 += 4;
-          v7 = (v7 + v6);
+          i32 = (i32 + v6);
         }
 
         while (a2 < v4);
@@ -5514,7 +5516,7 @@ uint64_t GPUTools::GL::MSAABufferResolver<long long>::resolve<4u,4u,true,63ull,3
       {
         do
         {
-          v18 = (a2 + 4);
+          v18 = a2 + 1;
           a2 = (a2 + v6);
           v19 = 0uLL;
           v20 = v5 & 0xFFFFFFF8;
@@ -5537,7 +5539,8 @@ uint64_t GPUTools::GL::MSAABufferResolver<long long>::resolve<4u,4u,true,63ull,3
           v26 = v5 - (v5 & 0xFFFFFFF8);
           do
           {
-            v27 = *a2++;
+            v27 = a2->i32[0];
+            a2 = (a2 + 4);
             v25 += v27;
             --v26;
           }
@@ -6005,7 +6008,7 @@ uint64_t GPUTools::GL::MSAABufferResolver<unsigned long long>::resolve<8u,8u,tru
 {
   if (a3)
   {
-    v4 = a2->u64 + a3;
+    v4 = (a2 + a3);
     if (result <= 1)
     {
       v5 = 1;
@@ -6110,7 +6113,7 @@ uint64_t GPUTools::GL::MSAABufferResolver<long long>::resolve<8u,8u,true,31ull,0
 {
   if (a3)
   {
-    v4 = a2->u64 + a3;
+    v4 = (a2 + a3);
     if (result <= 1)
     {
       v5 = 1;
@@ -6127,7 +6130,7 @@ uint64_t GPUTools::GL::MSAABufferResolver<long long>::resolve<8u,8u,true,31ull,0
       if (result > 3)
       {
         v15 = 0uLL;
-        v14 = &a2->i64[v5 & 0xFFFFFFFC];
+        v14 = (a2 + 8 * (v5 & 0xFFFFFFFC));
         v16 = 0uLL;
         v17 = a2 + 1;
         v18 = v5 & 0xFFFFFFFC;
@@ -6179,7 +6182,8 @@ uint64_t GPUTools::GL::MSAABufferResolver<long long>::resolve<8u,8u,true,31ull,0
       v28 = v5 - v13;
       do
       {
-        v29 = *v14++;
+        v29 = v14->i64[0];
+        v14 = (v14 + 8);
         v9 += v29;
         v10 += v29 >> 32;
         v11 -= v29 & 1;
@@ -7526,7 +7530,7 @@ uint64_t GPUTools::GL::MSAABufferResolver<unsigned long long>::resolve<4u,4u,tru
 {
   if (a3)
   {
-    v4 = a2 + a3;
+    v4 = (a2 + a3);
     if (result <= 1)
     {
       v5 = 1;
@@ -8301,7 +8305,7 @@ LABEL_9:
         v8 = v8 + v20;
         v10 = v10 + v23;
         v11 = v11 + v13;
-        ++v9;
+        v9 += 4;
         ++v7;
       }
 
@@ -8382,7 +8386,7 @@ void GPUTools::GL::MSAABufferResolverResolveRGB9E5(GPUTools::GL *this, unsigned 
   {
     v7 = a2;
     v8 = this;
-    v9 = a2 + a3;
+    v9 = (a2 + a3);
     *&a6 = this;
     v10 = 4 * (this - 1) + 4;
     v39 = this;
@@ -8952,7 +8956,7 @@ LABEL_28:
 LABEL_29:
       v19 = v19 + v31;
       v21 = v21 + v23;
-      ++v20;
+      v20 += 4;
       if (++v18 == result)
       {
         a2 += 4 * (result - 1) + 4;
@@ -8968,7 +8972,7 @@ LABEL_29:
   return result;
 }
 
-uint64_t GPUTools::GL::MSAABufferResolver<float>::resolve<8u,(unsigned char)32,(unsigned char)32,(unsigned char)0,(unsigned char)0>(uint64_t result, unint64_t a2, unsigned int a3, float *a4, double a5)
+uint64_t GPUTools::GL::MSAABufferResolver<float>::resolve<8u,(unsigned char)32,(unsigned char)32,(unsigned char)0,(unsigned char)0>(uint64_t result, unint64_t a2, unsigned int a3, float32x2_t *a4, double a5)
 {
   if (a3)
   {
@@ -8978,9 +8982,9 @@ uint64_t GPUTools::GL::MSAABufferResolver<float>::resolve<8u,(unsigned char)32,(
       v9 = 0.0 / *&a5;
       while (1)
       {
-        *a4 = v9;
-        a4[1] = v9;
-        a4 += 2;
+        a4->f32[0] = v9;
+        a4->f32[1] = v9;
+        ++a4;
       }
     }
 
@@ -8997,8 +9001,7 @@ uint64_t GPUTools::GL::MSAABufferResolver<float>::resolve<8u,(unsigned char)32,(
 
       while (result != v7);
       a2 += 8 * (result - 1) + 8;
-      *a4 = vdiv_f32(v8, v6);
-      a4 += 2;
+      *a4++ = vdiv_f32(v8, v6);
     }
 
     while (a2 < v5);

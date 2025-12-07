@@ -36,7 +36,7 @@
 
 + (id)decodeSettingFromEvent:(id)event error:(id *)error
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   v6 = [HMImmutableSettingsProtoSettingChangeEvent alloc];
   encodedData = [eventCopy encodedData];
@@ -62,11 +62,11 @@ LABEL_9:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       v14 = HMFGetLogIdentifier();
-      v17 = 138543618;
-      v18 = v14;
-      v19 = 2112;
-      v20 = eventCopy;
-      _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_ERROR, "%{public}@Unable to decode proto setting change event from event: %@", &v17, 0x16u);
+      v16 = 138543618;
+      v17 = v14;
+      v18 = 2112;
+      v19 = eventCopy;
+      _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_ERROR, "%{public}@Unable to decode proto setting change event from event: %@", &v16, 0x16u);
     }
 
     objc_autoreleasePoolPop(v12);
@@ -78,8 +78,6 @@ LABEL_9:
 
     v10 = 0;
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

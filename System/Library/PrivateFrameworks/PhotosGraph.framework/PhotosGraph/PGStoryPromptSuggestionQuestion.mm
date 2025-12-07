@@ -20,12 +20,10 @@
 
 - (NSString)entityIdentifier
 {
-  v2 = *(&self->super.super.isa + OBJC_IVAR___PGStoryPromptSuggestionQuestion_storedEntityIdentifier);
-  v3 = *(&self->super.state + OBJC_IVAR___PGStoryPromptSuggestionQuestion_storedEntityIdentifier);
 
-  v4 = sub_22F740DF0();
+  v2 = sub_22F740DF0();
 
-  return v4;
+  return v2;
 }
 
 - (NSDictionary)additionalInfo

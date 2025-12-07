@@ -484,15 +484,15 @@ LABEL_26:
       [(FIUIActivityDataModel *)self->_dataModel appleExerciseTimeCompletionPercentage];
       v14 = v13;
       v15 = ARUIRingPercentageValueNoRing;
-      [(FIUIActivityDataModel *)self->_dataModel appleStandHourCompletionPercentage];
-      v17 = v16;
-      v18 = ARUIRingPercentageValueNoRing;
-      v19 = sub_83C0();
-      v20 = NLActivityComplicationLocalizedString(@"ACTIVITY_MIN_INVALID_DATA");
-      v21 = v20;
+      appleStandHourCompletionPercentage = [(FIUIActivityDataModel *)self->_dataModel appleStandHourCompletionPercentage];
+      v18 = v17;
+      v19 = ARUIRingPercentageValueNoRing;
+      v20 = sub_83C0(appleStandHourCompletionPercentage);
+      v21 = NLActivityComplicationLocalizedString(@"ACTIVITY_MIN_INVALID_DATA");
+      v22 = v21;
       if (v11 == v12)
       {
-        v22 = v20;
+        v23 = v21;
       }
 
       else
@@ -500,70 +500,70 @@ LABEL_26:
         if (activityMoveMode == &dword_0 + 2)
         {
           [(FIUIActivityDataModel *)self->_dataModel appleMoveTimeTotal];
-          v24 = v23;
+          v25 = v24;
         }
 
         else
         {
-          v25 = +[FIUIActivityDataModel formattingManager];
-          unitManager = [v25 unitManager];
+          v26 = +[FIUIActivityDataModel formattingManager];
+          unitManager = [v26 unitManager];
           userActiveEnergyBurnedUnit = [unitManager userActiveEnergyBurnedUnit];
 
           activeEnergyTotal = [(FIUIActivityDataModel *)self->_dataModel activeEnergyTotal];
           [activeEnergyTotal doubleValueForUnit:userActiveEnergyBurnedUnit];
-          v24 = floor(v29);
+          v25 = floor(v30);
         }
 
-        v30 = [NSNumber numberWithDouble:v24];
-        v22 = [v19 stringFromNumber:v30];
+        v31 = [NSNumber numberWithDouble:v25];
+        v23 = [v20 stringFromNumber:v31];
       }
 
       if (v14 == v15)
       {
-        v31 = v21;
+        v32 = v22;
       }
 
       else
       {
         [(FIUIActivityDataModel *)self->_dataModel appleExerciseTimeTotal];
-        v32 = [NSNumber numberWithDouble:?];
-        v31 = [v19 stringFromNumber:v32];
+        v33 = [NSNumber numberWithDouble:?];
+        v32 = [v20 stringFromNumber:v33];
       }
 
-      v51 = v19;
-      v52 = v21;
-      if (v17 == v18)
+      v52 = v20;
+      v53 = v22;
+      if (v18 == v19)
       {
-        v33 = v21;
+        v34 = v22;
       }
 
       else
       {
-        v34 = [NSNumber numberWithDouble:[(FIUIActivityDataModel *)self->_dataModel appleStandHoursTotal]];
-        v33 = [v19 stringFromNumber:v34];
+        v35 = [NSNumber numberWithDouble:[(FIUIActivityDataModel *)self->_dataModel appleStandHoursTotal]];
+        v34 = [v20 stringFromNumber:v35];
       }
 
-      v35 = [CLKSimpleTextProvider textProviderWithText:v22];
-      v36 = NTKMoveNonGradientTextColor();
-      [v35 setTintColor:v36];
+      v36 = [CLKSimpleTextProvider textProviderWithText:v23];
+      v37 = NTKMoveNonGradientTextColor();
+      [v36 setTintColor:v37];
 
-      v37 = [CLKSimpleTextProvider textProviderWithText:v31];
-      v38 = NTKExerciseNonGradientTextColor();
-      [v37 setTintColor:v38];
+      v38 = [CLKSimpleTextProvider textProviderWithText:v32];
+      v39 = NTKExerciseNonGradientTextColor();
+      [v38 setTintColor:v39];
 
-      v39 = [CLKSimpleTextProvider textProviderWithText:v33];
-      v40 = NTKStandNonGradientTextColor();
-      [v39 setTintColor:v40];
+      v40 = [CLKSimpleTextProvider textProviderWithText:v34];
+      v41 = NTKStandNonGradientTextColor();
+      [v40 setTintColor:v41];
 
-      v41 = NLActivityComplicationLocalizedString(@"ACTIVITY_SIGNATURE_CORNER_SEPARATOR");
+      v42 = NLActivityComplicationLocalizedString(@"ACTIVITY_SIGNATURE_CORNER_SEPARATOR");
       NLActivityComplicationLocalizedString(@"ACTIVITY_SIGNATURE_CORNER_FORMAT_%@_%@_%@_%@_%@");
-      v42 = v50 = v22;
-      v4 = [CLKTextProvider textProviderWithFormat:v42, v35, v41, v37, v41, v39];
+      v43 = v51 = v23;
+      v4 = [CLKTextProvider textProviderWithFormat:v43, v36, v42, v38, v42, v40];
       +[UIColor systemGrayColor];
-      v44 = v43 = v31;
-      [v4 setTintColor:v44];
+      v45 = v44 = v32;
+      [v4 setTintColor:v45];
 
-      v6 = v51;
+      v6 = v52;
       goto LABEL_26;
     }
 
@@ -580,16 +580,16 @@ LABEL_26:
 LABEL_26:
 
 LABEL_27:
-  v45 = [CLKFullColorImageProvider fullColorImageProviderWithImageViewClass:objc_opt_class()];
-  v53 = @"NLActivityRichComplicationActivityTemplateKey";
-  v46 = [(NLActivityTimelineEntryModel *)self _activityTemplateWithFamily:8];
-  v54 = v46;
-  v47 = [NSDictionary dictionaryWithObjects:&v54 forKeys:&v53 count:1];
-  [v45 setMetadata:v47];
+  v46 = [CLKFullColorImageProvider fullColorImageProviderWithImageViewClass:objc_opt_class()];
+  v54 = @"NLActivityRichComplicationActivityTemplateKey";
+  v47 = [(NLActivityTimelineEntryModel *)self _activityTemplateWithFamily:8];
+  v55 = v47;
+  v48 = [NSDictionary dictionaryWithObjects:&v55 forKeys:&v54 count:1];
+  [v46 setMetadata:v48];
 
-  v48 = [CLKComplicationTemplateGraphicCornerTextImage templateWithTextProvider:v4 imageProvider:v45];
+  v49 = [CLKComplicationTemplateGraphicCornerTextImage templateWithTextProvider:v4 imageProvider:v46];
 
-  return v48;
+  return v49;
 }
 
 - (id)_signatureBezelTemplate
@@ -757,8 +757,7 @@ LABEL_26:
     v11 = +[UIColor whiteColor];
     [v10 setTintColor:v11];
 
-    [v3 setObject:v10 forKeyedSubscript:@"NLActivityRichComplicationRectangularViewActivityText"];
-    v62 = sub_83C0();
+    v62 = sub_83C0([v3 setObject:v10 forKeyedSubscript:@"NLActivityRichComplicationRectangularViewActivityText"]);
     activityMoveMode = [(FIUIActivityDataModel *)self->_dataModel activityMoveMode];
     v13 = [NSNumber numberWithInteger:activityMoveMode];
     [v3 setObject:v13 forKeyedSubscript:@"NLActivityRichComplicationRectangularViewActivityMoveMode"];

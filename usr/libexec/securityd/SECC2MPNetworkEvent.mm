@@ -192,7 +192,7 @@ LABEL_25:
       goto LABEL_39;
     }
 
-    [(SECC2MPError *)networkFatalError mergeFrom:?];
+    networkFatalError = [(SECC2MPError *)networkFatalError mergeFrom:?];
   }
 
   else
@@ -202,7 +202,7 @@ LABEL_25:
       goto LABEL_39;
     }
 
-    [(SECC2MPNetworkEvent *)self setNetworkFatalError:?];
+    networkFatalError = [(SECC2MPNetworkEvent *)self setNetworkFatalError:?];
   }
 
   v5 = v13;
@@ -215,7 +215,7 @@ LABEL_39:
 
   if (v5[27])
   {
-    [(SECC2MPNetworkEvent *)self setNetworkRequestUri:?];
+    networkFatalError = [(SECC2MPNetworkEvent *)self setNetworkRequestUri:?];
     v5 = v13;
   }
 
@@ -389,7 +389,7 @@ LABEL_55:
 LABEL_56:
   if (v5[30])
   {
-    [(SECC2MPNetworkEvent *)self setOptionsQualityOfService:?];
+    networkFatalError = [(SECC2MPNetworkEvent *)self setOptionsQualityOfService:?];
     v5 = v13;
   }
 
@@ -473,13 +473,13 @@ LABEL_64:
 LABEL_65:
   if (v5[31])
   {
-    [(SECC2MPNetworkEvent *)self setOptionsSourceApplicationBundleIdentifier:?];
+    networkFatalError = [(SECC2MPNetworkEvent *)self setOptionsSourceApplicationBundleIdentifier:?];
     v5 = v13;
   }
 
   if (v5[32])
   {
-    [(SECC2MPNetworkEvent *)self setOptionsSourceApplicationSecondaryIdentifier:?];
+    networkFatalError = [(SECC2MPNetworkEvent *)self setOptionsSourceApplicationSecondaryIdentifier:?];
     v5 = v13;
   }
 
@@ -497,7 +497,7 @@ LABEL_65:
     *&self->_has |= 0x20000000u;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(networkFatalError, v5);
 }
 
 - (unint64_t)hash
@@ -992,7 +992,6 @@ LABEL_65:
       goto LABEL_35;
     }
 
-    v18 = *(equalCopy + 272);
     if (self->_networkConnectionReused)
     {
       if ((*(equalCopy + 272) & 1) == 0)
@@ -1306,7 +1305,6 @@ LABEL_65:
       goto LABEL_35;
     }
 
-    v22 = *(equalCopy + 276);
     if (self->_optionsOutOfProcess)
     {
       if ((*(equalCopy + 276) & 1) == 0)
@@ -1333,7 +1331,6 @@ LABEL_65:
       goto LABEL_35;
     }
 
-    v23 = *(equalCopy + 277);
     if (self->_optionsOutOfProcessForceDiscretionary)
     {
       if ((*(equalCopy + 277) & 1) == 0)
@@ -1360,7 +1357,6 @@ LABEL_65:
       goto LABEL_35;
     }
 
-    v24 = *(equalCopy + 273);
     if (self->_optionsAllowExpensiveAccess)
     {
       if ((*(equalCopy + 273) & 1) == 0)
@@ -1387,7 +1383,6 @@ LABEL_65:
       goto LABEL_35;
     }
 
-    v25 = *(equalCopy + 274);
     if (self->_optionsAllowPowerNapScheduling)
     {
       if ((*(equalCopy + 274) & 1) == 0)
@@ -1448,16 +1443,15 @@ LABEL_65:
     }
   }
 
-  v28 = self->_has;
-  v29 = *(equalCopy + 70);
-  if ((*&v28 & 0x4000000) != 0)
+  v23 = self->_has;
+  v24 = *(equalCopy + 70);
+  if ((*&v23 & 0x4000000) != 0)
   {
-    if ((v29 & 0x4000000) == 0)
+    if ((v24 & 0x4000000) == 0)
     {
       goto LABEL_35;
     }
 
-    v30 = *(equalCopy + 275);
     if (self->_optionsAppleIdContext)
     {
       if ((*(equalCopy + 275) & 1) == 0)
@@ -1472,18 +1466,18 @@ LABEL_65:
     }
   }
 
-  else if ((v29 & 0x4000000) != 0)
+  else if ((v24 & 0x4000000) != 0)
   {
     goto LABEL_35;
   }
 
-  if ((*&v28 & 0x20000000) == 0)
+  if ((*&v23 & 0x20000000) == 0)
   {
-    v16 = (v29 & 0x20000000) == 0;
+    v16 = (v24 & 0x20000000) == 0;
     goto LABEL_36;
   }
 
-  if ((v29 & 0x20000000) != 0)
+  if ((v24 & 0x20000000) != 0)
   {
     if (self->_optionsTlsPinningRequired)
     {
@@ -2372,7 +2366,6 @@ LABEL_53:
   has = self->_has;
   if ((*&has & 0x20000) != 0)
   {
-    triggers = self->_triggers;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((*&has & 8) == 0)
@@ -2392,12 +2385,10 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  reportFrequency = self->_reportFrequency;
   PBDataWriterWriteUint64Field();
   if ((*&self->_has & 0x10) != 0)
   {
 LABEL_4:
-    reportFrequencyBase = self->_reportFrequencyBase;
     PBDataWriterWriteUint64Field();
   }
 
@@ -2424,7 +2415,6 @@ LABEL_5:
 
   if ((*(&self->_has + 2) & 0x80) != 0)
   {
-    networkConnectionReused = self->_networkConnectionReused;
     PBDataWriterWriteBOOLField();
   }
 
@@ -2438,16 +2428,15 @@ LABEL_5:
     PBDataWriterWriteStringField();
   }
 
-  v7 = self->_has;
-  if ((*&v7 & 0x80000) != 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x80000) != 0)
   {
-    networkRequestHeaderSize = self->_networkRequestHeaderSize;
     PBDataWriterWriteUint32Field();
-    v7 = self->_has;
-    if ((*&v7 & 1) == 0)
+    v5 = self->_has;
+    if ((*&v5 & 1) == 0)
     {
 LABEL_21:
-      if ((*&v7 & 0x100000) == 0)
+      if ((*&v5 & 0x100000) == 0)
       {
         goto LABEL_22;
       }
@@ -2456,18 +2445,17 @@ LABEL_21:
     }
   }
 
-  else if ((*&v7 & 1) == 0)
+  else if ((*&v5 & 1) == 0)
   {
     goto LABEL_21;
   }
 
-  networkRequestBodyBytesSent = self->_networkRequestBodyBytesSent;
   PBDataWriterWriteUint64Field();
-  v7 = self->_has;
-  if ((*&v7 & 0x100000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x100000) == 0)
   {
 LABEL_22:
-    if ((*&v7 & 2) == 0)
+    if ((*&v5 & 2) == 0)
     {
       goto LABEL_23;
     }
@@ -2476,13 +2464,12 @@ LABEL_22:
   }
 
 LABEL_69:
-  networkResponseHeaderSize = self->_networkResponseHeaderSize;
   PBDataWriterWriteUint32Field();
-  v7 = self->_has;
-  if ((*&v7 & 2) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 2) == 0)
   {
 LABEL_23:
-    if ((*&v7 & 0x40000) == 0)
+    if ((*&v5 & 0x40000) == 0)
     {
       goto LABEL_25;
     }
@@ -2491,12 +2478,10 @@ LABEL_23:
   }
 
 LABEL_70:
-  networkResponseBodyBytesReceived = self->_networkResponseBodyBytesReceived;
   PBDataWriterWriteUint64Field();
   if ((*&self->_has & 0x40000) != 0)
   {
 LABEL_24:
-    networkPreviousAttemptCount = self->_networkPreviousAttemptCount;
     PBDataWriterWriteUint32Field();
   }
 
@@ -2508,7 +2493,6 @@ LABEL_25:
 
   if ((*&self->_has & 4) != 0)
   {
-    networkStatusCode = self->_networkStatusCode;
     PBDataWriterWriteUint64Field();
   }
 
@@ -2517,16 +2501,15 @@ LABEL_25:
     PBDataWriterWriteStringField();
   }
 
-  v10 = self->_has;
-  if ((*&v10 & 0x20) != 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x20) != 0)
   {
-    timestampC2Init = self->_timestampC2Init;
     PBDataWriterWriteUint64Field();
-    v10 = self->_has;
-    if ((*&v10 & 0x80) == 0)
+    v6 = self->_has;
+    if ((*&v6 & 0x80) == 0)
     {
 LABEL_33:
-      if ((*&v10 & 0x40) == 0)
+      if ((*&v6 & 0x40) == 0)
       {
         goto LABEL_34;
       }
@@ -2535,18 +2518,17 @@ LABEL_33:
     }
   }
 
-  else if ((*&v10 & 0x80) == 0)
+  else if ((*&v6 & 0x80) == 0)
   {
     goto LABEL_33;
   }
 
-  timestampC2Start = self->_timestampC2Start;
   PBDataWriterWriteUint64Field();
-  v10 = self->_has;
-  if ((*&v10 & 0x40) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x40) == 0)
   {
 LABEL_34:
-    if ((*&v10 & 0x200) == 0)
+    if ((*&v6 & 0x200) == 0)
     {
       goto LABEL_35;
     }
@@ -2555,13 +2537,12 @@ LABEL_34:
   }
 
 LABEL_74:
-  timestampC2Now = self->_timestampC2Now;
   PBDataWriterWriteUint64Field();
-  v10 = self->_has;
-  if ((*&v10 & 0x200) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x200) == 0)
   {
 LABEL_35:
-    if ((*&v10 & 0x100) == 0)
+    if ((*&v6 & 0x100) == 0)
     {
       goto LABEL_36;
     }
@@ -2570,13 +2551,12 @@ LABEL_35:
   }
 
 LABEL_75:
-  timestampDnsStart = self->_timestampDnsStart;
   PBDataWriterWriteUint64Field();
-  v10 = self->_has;
-  if ((*&v10 & 0x100) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x100) == 0)
   {
 LABEL_36:
-    if ((*&v10 & 0x10000) == 0)
+    if ((*&v6 & 0x10000) == 0)
     {
       goto LABEL_37;
     }
@@ -2585,13 +2565,12 @@ LABEL_36:
   }
 
 LABEL_76:
-  timestampDnsEnd = self->_timestampDnsEnd;
   PBDataWriterWriteUint64Field();
-  v10 = self->_has;
-  if ((*&v10 & 0x10000) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x10000) == 0)
   {
 LABEL_37:
-    if ((*&v10 & 0x8000) == 0)
+    if ((*&v6 & 0x8000) == 0)
     {
       goto LABEL_38;
     }
@@ -2600,13 +2579,12 @@ LABEL_37:
   }
 
 LABEL_77:
-  timestampTcpStart = self->_timestampTcpStart;
   PBDataWriterWriteUint64Field();
-  v10 = self->_has;
-  if ((*&v10 & 0x8000) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x8000) == 0)
   {
 LABEL_38:
-    if ((*&v10 & 0x4000) == 0)
+    if ((*&v6 & 0x4000) == 0)
     {
       goto LABEL_39;
     }
@@ -2615,13 +2593,12 @@ LABEL_38:
   }
 
 LABEL_78:
-  timestampTcpEnd = self->_timestampTcpEnd;
   PBDataWriterWriteUint64Field();
-  v10 = self->_has;
-  if ((*&v10 & 0x4000) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x4000) == 0)
   {
 LABEL_39:
-    if ((*&v10 & 0x800) == 0)
+    if ((*&v6 & 0x800) == 0)
     {
       goto LABEL_40;
     }
@@ -2630,13 +2607,12 @@ LABEL_39:
   }
 
 LABEL_79:
-  timestampSslStart = self->_timestampSslStart;
   PBDataWriterWriteUint64Field();
-  v10 = self->_has;
-  if ((*&v10 & 0x800) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x800) == 0)
   {
 LABEL_40:
-    if ((*&v10 & 0x400) == 0)
+    if ((*&v6 & 0x400) == 0)
     {
       goto LABEL_41;
     }
@@ -2645,13 +2621,12 @@ LABEL_40:
   }
 
 LABEL_80:
-  timestampRequestStart = self->_timestampRequestStart;
   PBDataWriterWriteUint64Field();
-  v10 = self->_has;
-  if ((*&v10 & 0x400) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x400) == 0)
   {
 LABEL_41:
-    if ((*&v10 & 0x2000) == 0)
+    if ((*&v6 & 0x2000) == 0)
     {
       goto LABEL_42;
     }
@@ -2660,13 +2635,12 @@ LABEL_41:
   }
 
 LABEL_81:
-  timestampRequestEnd = self->_timestampRequestEnd;
   PBDataWriterWriteUint64Field();
-  v10 = self->_has;
-  if ((*&v10 & 0x2000) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x2000) == 0)
   {
 LABEL_42:
-    if ((*&v10 & 0x1000) == 0)
+    if ((*&v6 & 0x1000) == 0)
     {
       goto LABEL_44;
     }
@@ -2675,12 +2649,10 @@ LABEL_42:
   }
 
 LABEL_82:
-  timestampResponseStart = self->_timestampResponseStart;
   PBDataWriterWriteUint64Field();
   if ((*&self->_has & 0x1000) != 0)
   {
 LABEL_43:
-    timestampResponseEnd = self->_timestampResponseEnd;
     PBDataWriterWriteUint64Field();
   }
 
@@ -2690,16 +2662,15 @@ LABEL_44:
     PBDataWriterWriteStringField();
   }
 
-  v12 = self->_has;
-  if ((*&v12 & 0x8000000) != 0)
+  v7 = self->_has;
+  if ((*&v7 & 0x8000000) != 0)
   {
-    optionsOutOfProcess = self->_optionsOutOfProcess;
     PBDataWriterWriteBOOLField();
-    v12 = self->_has;
-    if ((*&v12 & 0x10000000) == 0)
+    v7 = self->_has;
+    if ((*&v7 & 0x10000000) == 0)
     {
 LABEL_48:
-      if ((*&v12 & 0x1000000) == 0)
+      if ((*&v7 & 0x1000000) == 0)
       {
         goto LABEL_49;
       }
@@ -2708,18 +2679,17 @@ LABEL_48:
     }
   }
 
-  else if ((*&v12 & 0x10000000) == 0)
+  else if ((*&v7 & 0x10000000) == 0)
   {
     goto LABEL_48;
   }
 
-  optionsOutOfProcessForceDiscretionary = self->_optionsOutOfProcessForceDiscretionary;
   PBDataWriterWriteBOOLField();
-  v12 = self->_has;
-  if ((*&v12 & 0x1000000) == 0)
+  v7 = self->_has;
+  if ((*&v7 & 0x1000000) == 0)
   {
 LABEL_49:
-    if ((*&v12 & 0x2000000) == 0)
+    if ((*&v7 & 0x2000000) == 0)
     {
       goto LABEL_50;
     }
@@ -2728,13 +2698,12 @@ LABEL_49:
   }
 
 LABEL_86:
-  optionsAllowExpensiveAccess = self->_optionsAllowExpensiveAccess;
   PBDataWriterWriteBOOLField();
-  v12 = self->_has;
-  if ((*&v12 & 0x2000000) == 0)
+  v7 = self->_has;
+  if ((*&v7 & 0x2000000) == 0)
   {
 LABEL_50:
-    if ((*&v12 & 0x200000) == 0)
+    if ((*&v7 & 0x200000) == 0)
     {
       goto LABEL_51;
     }
@@ -2743,13 +2712,12 @@ LABEL_50:
   }
 
 LABEL_87:
-  optionsAllowPowerNapScheduling = self->_optionsAllowPowerNapScheduling;
   PBDataWriterWriteBOOLField();
-  v12 = self->_has;
-  if ((*&v12 & 0x200000) == 0)
+  v7 = self->_has;
+  if ((*&v7 & 0x200000) == 0)
   {
 LABEL_51:
-    if ((*&v12 & 0x400000) == 0)
+    if ((*&v7 & 0x400000) == 0)
     {
       goto LABEL_53;
     }
@@ -2758,12 +2726,10 @@ LABEL_51:
   }
 
 LABEL_88:
-  optionsTimeoutIntervalForRequest = self->_optionsTimeoutIntervalForRequest;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x400000) != 0)
   {
 LABEL_52:
-    optionsTimeoutIntervalForResource = self->_optionsTimeoutIntervalForResource;
     PBDataWriterWriteUint32Field();
   }
 
@@ -2778,17 +2744,15 @@ LABEL_53:
     PBDataWriterWriteStringField();
   }
 
-  v14 = self->_has;
-  if ((*&v14 & 0x4000000) != 0)
+  v8 = self->_has;
+  if ((*&v8 & 0x4000000) != 0)
   {
-    optionsAppleIdContext = self->_optionsAppleIdContext;
     PBDataWriterWriteBOOLField();
-    v14 = self->_has;
+    v8 = self->_has;
   }
 
-  if ((*&v14 & 0x20000000) != 0)
+  if ((*&v8 & 0x20000000) != 0)
   {
-    optionsTlsPinningRequired = self->_optionsTlsPinningRequired;
     PBDataWriterWriteBOOLField();
   }
 }

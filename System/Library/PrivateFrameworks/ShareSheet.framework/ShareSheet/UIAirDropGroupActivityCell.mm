@@ -1670,29 +1670,29 @@ LABEL_4:
     textSlotView = [(UIAirDropGroupActivityCell *)self textSlotView];
     [textSlotView setAlpha:1.0];
 
-    v23 = _ShareSheetDeviceScreenScale();
+    v25 = _ShareSheetDeviceScreenScale(v23, v24);
     textSlotView2 = [(UIAirDropGroupActivityCell *)self textSlotView];
     layer = [textSlotView2 layer];
-    [layer setContentsScale:v23];
+    [layer setContentsScale:v25];
 
-    v26 = _ShareSheetDeviceScreenScale();
+    v30 = _ShareSheetDeviceScreenScale(v28, v29);
     textSlotView3 = [(UIAirDropGroupActivityCell *)self textSlotView];
     layer2 = [textSlotView3 layer];
-    [layer2 setRasterizationScale:v26];
+    [layer2 setRasterizationScale:v30];
 
     if (v17)
     {
-      v29 = v20;
+      v33 = v20;
     }
 
     else
     {
-      v29 = *MEMORY[0x1E6979DB8];
+      v33 = *MEMORY[0x1E6979DB8];
     }
 
     textSlotView4 = [(UIAirDropGroupActivityCell *)self textSlotView];
     layer3 = [textSlotView4 layer];
-    [layer3 setContentsGravity:v29];
+    [layer3 setContentsGravity:v33];
 
     textSlotView5 = [(UIAirDropGroupActivityCell *)self textSlotView];
     layer4 = [textSlotView5 layer];
@@ -1708,16 +1708,16 @@ LABEL_4:
 
   if (textSlotID)
   {
-    v34 = 1.0;
+    v38 = 1.0;
   }
 
   else
   {
-    v34 = 0.0;
+    v38 = 0.0;
   }
 
   textSlotView7 = [(UIAirDropGroupActivityCell *)self textSlotView];
-  [textSlotView7 setAlpha:v34];
+  [textSlotView7 setAlpha:v38];
 
   if (v4 || textSlotID)
   {
@@ -1727,9 +1727,9 @@ LABEL_4:
     titleLabel = [(UIAirDropGroupActivityCell *)self titleLabel];
     [titleLabel setAlpha:0.0];
 
-    v38 = [objc_opt_class() _placeholderStringForSingleLine:1 isAccessibilityContentSize:IsAccessibilityCategory];
+    v42 = [objc_opt_class() _placeholderStringForSingleLine:1 isAccessibilityContentSize:IsAccessibilityCategory];
     titleLabel2 = [(UIAirDropGroupActivityCell *)self titleLabel];
-    [titleLabel2 setText:v38];
+    [titleLabel2 setText:v42];
   }
 }
 
@@ -1803,29 +1803,29 @@ LABEL_4:
     v23 = MEMORY[0x1E6979320];
     v24 = *v22;
     titleSlotView5 = [v23 objectForSlot:{-[UIAirDropGroupActivityCell textSlotID](self, "textSlotID")}];
-    v26 = _ShareSheetDeviceScreenScale();
+    v27 = _ShareSheetDeviceScreenScale(titleSlotView5, v26);
     titleSlotView = [(UIAirDropGroupActivityCell *)self titleSlotView];
     layer = [titleSlotView layer];
-    [layer setContentsScale:v26];
+    [layer setContentsScale:v27];
 
-    v29 = _ShareSheetDeviceScreenScale();
+    v32 = _ShareSheetDeviceScreenScale(v30, v31);
     titleSlotView2 = [(UIAirDropGroupActivityCell *)self titleSlotView];
     layer2 = [titleSlotView2 layer];
-    [layer2 setRasterizationScale:v29];
+    [layer2 setRasterizationScale:v32];
 
     if (v21)
     {
-      v32 = v24;
+      v35 = v24;
     }
 
     else
     {
-      v32 = *MEMORY[0x1E6979DB8];
+      v35 = *MEMORY[0x1E6979DB8];
     }
 
     titleSlotView3 = [(UIAirDropGroupActivityCell *)self titleSlotView];
     layer3 = [titleSlotView3 layer];
-    [layer3 setContentsGravity:v32];
+    [layer3 setContentsGravity:v35];
 
     titleSlotView4 = [(UIAirDropGroupActivityCell *)self titleSlotView];
     layer4 = [titleSlotView4 layer];
@@ -1841,16 +1841,16 @@ LABEL_4:
 
   if (textSlotID)
   {
-    v37 = 1.0;
+    v40 = 1.0;
   }
 
   else
   {
-    v37 = 0.0;
+    v40 = 0.0;
   }
 
   titleSlotView6 = [(UIAirDropGroupActivityCell *)self titleSlotView];
-  [titleSlotView6 setAlpha:v37];
+  [titleSlotView6 setAlpha:v40];
 
   if (v4 || textSlotID)
   {
@@ -1860,9 +1860,9 @@ LABEL_4:
     textLabel = [(UIAirDropGroupActivityCell *)self textLabel];
     [textLabel setAlpha:0.0];
 
-    v41 = [objc_opt_class() _placeholderStringForSingleLine:0 isAccessibilityContentSize:IsAccessibilityCategory];
+    v44 = [objc_opt_class() _placeholderStringForSingleLine:0 isAccessibilityContentSize:IsAccessibilityCategory];
     textLabel2 = [(UIAirDropGroupActivityCell *)self textLabel];
-    [textLabel2 setText:v41];
+    [textLabel2 setText:v44];
   }
 }
 
@@ -1919,29 +1919,29 @@ LABEL_4:
     v19 = MEMORY[0x1E6979320];
     v20 = *v18;
     subtitleSlotView5 = [v19 objectForSlot:{-[UIAirDropGroupActivityCell subtitleSlotID](self, "subtitleSlotID")}];
-    v22 = _ShareSheetDeviceScreenScale();
+    v23 = _ShareSheetDeviceScreenScale(subtitleSlotView5, v22);
     subtitleSlotView = [(UIAirDropGroupActivityCell *)self subtitleSlotView];
     layer = [subtitleSlotView layer];
-    [layer setContentsScale:v22];
+    [layer setContentsScale:v23];
 
-    v25 = _ShareSheetDeviceScreenScale();
+    v28 = _ShareSheetDeviceScreenScale(v26, v27);
     subtitleSlotView2 = [(UIAirDropGroupActivityCell *)self subtitleSlotView];
     layer2 = [subtitleSlotView2 layer];
-    [layer2 setRasterizationScale:v25];
+    [layer2 setRasterizationScale:v28];
 
     if (v17)
     {
-      v28 = v20;
+      v31 = v20;
     }
 
     else
     {
-      v28 = *MEMORY[0x1E6979DB8];
+      v31 = *MEMORY[0x1E6979DB8];
     }
 
     subtitleSlotView3 = [(UIAirDropGroupActivityCell *)self subtitleSlotView];
     layer3 = [subtitleSlotView3 layer];
-    [layer3 setContentsGravity:v28];
+    [layer3 setContentsGravity:v31];
 
     subtitleSlotView4 = [(UIAirDropGroupActivityCell *)self subtitleSlotView];
     layer4 = [subtitleSlotView4 layer];
@@ -1957,16 +1957,16 @@ LABEL_4:
 
   if (subtitleSlotID)
   {
-    v33 = 1.0;
+    v36 = 1.0;
   }
 
   else
   {
-    v33 = 0.0;
+    v36 = 0.0;
   }
 
   subtitleSlotView6 = [(UIAirDropGroupActivityCell *)self subtitleSlotView];
-  [subtitleSlotView6 setAlpha:v33];
+  [subtitleSlotView6 setAlpha:v36];
 }
 
 - (void)_updateImageView

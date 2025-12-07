@@ -8,9 +8,9 @@ void SidecarTransferLocked(os_unfair_lock_s *a1, void *a2)
   os_unfair_lock_unlock(a1 + 4);
 }
 
-void sub_26604D6D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_26604D6D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -24,7 +24,7 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
 
 id SidecarTransferReceiverHandleMessage(void *a1, void *a2)
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
   v5 = v4;
@@ -36,72 +36,72 @@ id SidecarTransferReceiverHandleMessage(void *a1, void *a2)
     goto LABEL_27;
   }
 
-  v46 = 0;
-  v47[0] = &v46;
-  v47[1] = 0x3032000000;
-  v47[2] = __Block_byref_object_copy_;
-  v47[3] = __Block_byref_object_dispose_;
-  v48 = 0;
-  v43 = 0;
-  v44[0] = &v43;
-  v44[1] = 0x3032000000;
-  v44[2] = __Block_byref_object_copy_;
-  v44[3] = __Block_byref_object_dispose_;
   v45 = 0;
+  v46[0] = &v45;
+  v46[1] = 0x3032000000;
+  v46[2] = __Block_byref_object_copy_;
+  v46[3] = __Block_byref_object_dispose_;
+  v47 = 0;
+  v42 = 0;
+  v43[0] = &v42;
+  v43[1] = 0x3032000000;
+  v43[2] = __Block_byref_object_copy_;
+  v43[3] = __Block_byref_object_dispose_;
+  v44 = 0;
   TransferID = SidecarMessageGetTransferID(v4);
-  v40 = v3;
-  v38 = v5;
+  v39 = v3;
+  v37 = v5;
   v9 = v5;
   v10 = [MEMORY[0x277CCABB0] numberWithInteger:TransferID];
-  v39 = [v40[7] objectForKey:v10];
-  if (!v39)
+  v38 = [v39[7] objectForKey:v10];
+  if (!v38)
   {
-    if (!v40[7])
+    if (!v39[7])
     {
       v11 = objc_alloc_init(MEMORY[0x277CBEB38]);
-      v12 = v40[7];
-      v40[7] = v11;
+      v12 = v39[7];
+      v39[7] = v11;
 
       v13 = objc_alloc_init(MEMORY[0x277CBEB18]);
-      v14 = v40[8];
-      v40[8] = v13;
+      v14 = v39[8];
+      v39[8] = v13;
     }
 
-    v39 = [[SidecarTransferGroup alloc] initWithMessage:v9];
-    [v40[8] addObject:v10];
-    [v40[7] setObject:v39 forKey:v10];
+    v38 = [[SidecarTransferGroup alloc] initWithMessage:v9];
+    [v39[8] addObject:v10];
+    [v39[7] setObject:v38 forKey:v10];
   }
 
-  v15 = (v47[0] + 40);
-  obj = *(v47[0] + 40);
-  v16 = [(SidecarTransferGroup *)v39 handleMessage:v9 error:&obj];
+  v15 = (v46[0] + 40);
+  obj = *(v46[0] + 40);
+  v16 = [(SidecarTransferGroup *)v38 handleMessage:v9 error:&obj];
   objc_storeStrong(v15, obj);
   if (v16)
   {
-    if ([(SidecarTransferGroup *)v39 isComplete])
+    if ([(SidecarTransferGroup *)v38 isComplete])
     {
-      v17 = v40;
+      v17 = v39;
       v18 = [v17[8] copy];
-      v51 = 0u;
-      v52 = 0u;
-      v49 = 0u;
       v50 = 0u;
+      v51 = 0u;
+      v48 = 0u;
+      v49 = 0u;
       v19 = v18;
       v20 = 0;
-      v21 = [v19 countByEnumeratingWithState:&v49 objects:buf count:16];
+      v21 = [v19 countByEnumeratingWithState:&v48 objects:buf count:16];
       if (v21)
       {
-        v22 = *v50;
+        v22 = *v49;
         while (2)
         {
           for (i = 0; i != v21; ++i)
           {
-            if (*v50 != v22)
+            if (*v49 != v22)
             {
               objc_enumerationMutation(v19);
             }
 
-            v24 = *(*(&v49 + 1) + 8 * i);
+            v24 = *(*(&v48 + 1) + 8 * i);
             v25 = [v17[7] objectForKey:v24];
             if (![v25 isComplete])
             {
@@ -119,7 +119,7 @@ id SidecarTransferReceiverHandleMessage(void *a1, void *a2)
             [v17[7] removeObjectForKey:v24];
           }
 
-          v21 = [v19 countByEnumeratingWithState:&v49 objects:buf count:16];
+          v21 = [v19 countByEnumeratingWithState:&v48 objects:buf count:16];
           if (v21)
           {
             continue;
@@ -131,69 +131,68 @@ id SidecarTransferReceiverHandleMessage(void *a1, void *a2)
 
 LABEL_24:
 
-      v27 = v44;
+      v27 = v43;
       goto LABEL_25;
     }
   }
 
-  else if (!*(v47[0] + 40))
+  else if (!*(v46[0] + 40))
   {
     v26 = v9;
     v20 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"SidecarErrorDomain" code:-1010 userInfo:0];
     if (v20)
     {
-      v32 = SidecarCoreLogSubsystem(OS_LOG_TYPE_ERROR);
-      v33 = v32;
-      if (v32)
+      v31 = SidecarCoreLogSubsystem(OS_LOG_TYPE_ERROR);
+      v32 = v31;
+      if (v31)
       {
-        v34 = v32;
-        if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+        v33 = v31;
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
         {
-          v35 = [v20 domain];
-          v36 = [v20 code];
-          v37 = [v20 localizedDescription];
+          v34 = [v20 domain];
+          v35 = [v20 code];
+          v36 = [v20 localizedDescription];
           *buf = 138543875;
-          v54 = v35;
-          v55 = 2048;
-          v56 = v36;
-          v57 = 2113;
-          v58 = v37;
-          _os_log_impl(&dword_26604C000, v34, OS_LOG_TYPE_ERROR, "%{public}@ (%ld) %{private}@", buf, 0x20u);
+          v53 = v34;
+          v54 = 2048;
+          v55 = v35;
+          v56 = 2113;
+          v57 = v36;
+          _os_log_impl(&dword_26604C000, v33, OS_LOG_TYPE_ERROR, "%{public}@ (%ld) %{private}@", buf, 0x20u);
         }
       }
     }
 
-    v27 = v47;
+    v27 = v46;
 LABEL_25:
     v28 = *v27;
     v29 = *(v28 + 40);
     *(v28 + 40) = v20;
   }
 
-  v41[0] = MEMORY[0x277D85DD0];
-  v41[1] = 3221225472;
-  v41[2] = __SidecarTransferReceiverHandleMessage_block_invoke;
-  v41[3] = &unk_279BC2FD0;
-  v41[4] = v40;
-  v41[5] = &v43;
-  v41[6] = &v46;
-  v7 = MEMORY[0x266777D20](v41);
+  v40[0] = MEMORY[0x277D85DD0];
+  v40[1] = 3221225472;
+  v40[2] = __SidecarTransferReceiverHandleMessage_block_invoke;
+  v40[3] = &unk_279BC2FD0;
+  v40[4] = v39;
+  v40[5] = &v42;
+  v40[6] = &v45;
+  v7 = MEMORY[0x266777D20](v40);
 
-  _Block_object_dispose(&v43, 8);
-  _Block_object_dispose(&v46, 8);
+  _Block_object_dispose(&v42, 8);
+  _Block_object_dispose(&v45, 8);
 
-  v5 = v38;
+  v5 = v37;
 LABEL_27:
-
-  v30 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
-void sub_26604E258(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_26604E258(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
+  va_start(va, a26);
   _Block_object_dispose(&a21, 8);
-  _Block_object_dispose(&a27, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -218,29 +217,29 @@ void SidecarTransferMessageEnqueue(void *a1, void *a2)
 
 void __SidecarTransferReceiverHandleMessage_block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) delegate];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v3 = *(*(*(a1 + 40) + 8) + 40);
-  v4 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v16;
+    v7 = *v15;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(v3);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
+        v9 = *(*(&v14 + 1) + 8 * i);
         v10 = [v9 type];
         v6 |= v10 == 4;
         v11 = *(a1 + 32);
@@ -248,7 +247,7 @@ void __SidecarTransferReceiverHandleMessage_block_invoke(uint64_t a1)
         [v2 sidecarTransfer:v11 receivedItems:v12 messageType:v10];
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v5);
@@ -257,7 +256,7 @@ void __SidecarTransferReceiverHandleMessage_block_invoke(uint64_t a1)
     {
       v13 = *(*(*(a1 + 48) + 8) + 40);
 LABEL_12:
-      [v2 sidecarTransfer:*(a1 + 32) didComplete:{v13, v15}];
+      [v2 sidecarTransfer:*(a1 + 32) didComplete:{v13, v14}];
       goto LABEL_13;
     }
   }
@@ -273,13 +272,11 @@ LABEL_12:
   }
 
 LABEL_13:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
-void sub_26604E5F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_26604E5F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -311,9 +308,9 @@ uint64_t SidecarTransferSenderSliceData(void *a1)
   return v2;
 }
 
-void sub_26604E960(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26604E960(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -702,9 +699,9 @@ void SidecarRequestDisconnectSession(void *a1)
   _Block_object_dispose(&v5, 8);
 }
 
-void sub_26604FB14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26604FB14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -727,35 +724,33 @@ void __SidecarRequestDisconnectSession_block_invoke(uint64_t a1)
 
 void __SidecarRequestDisconnectSession_block_invoke_2(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = a2;
   if (v2)
   {
-    v4 = SidecarCoreLogSubsystem(OS_LOG_TYPE_ERROR);
-    if (v4)
+    v3 = SidecarCoreLogSubsystem(OS_LOG_TYPE_ERROR);
+    if (v3)
     {
-      log = v4;
-      v5 = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
-      v4 = log;
-      if (v5)
+      log = v3;
+      v4 = os_log_type_enabled(v3, OS_LOG_TYPE_ERROR);
+      v3 = log;
+      if (v4)
       {
-        v6 = [v2 domain];
-        v7 = [v2 code];
-        v8 = [v2 localizedDescription];
+        v5 = [v2 domain];
+        v6 = [v2 code];
+        v7 = [v2 localizedDescription];
         *buf = 138543875;
-        v11 = v6;
-        v12 = 2048;
-        v13 = v7;
-        v14 = 2113;
-        v15 = v8;
+        v10 = v5;
+        v11 = 2048;
+        v12 = v6;
+        v13 = 2113;
+        v14 = v7;
         _os_log_impl(&dword_26604C000, log, OS_LOG_TYPE_ERROR, "%{public}@ (%ld) %{private}@", buf, 0x20u);
 
-        v4 = log;
+        v3 = log;
       }
     }
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void __SidecarRequestEnsureTransferReceiver_block_invoke(void *a1)
@@ -776,9 +771,9 @@ void __SidecarRequestEnsureTransferReceiver_block_invoke(void *a1)
   }
 }
 
-void sub_266050474(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_266050474(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -816,7 +811,7 @@ void SidecarRequestSendMessage(void *a1, void *a2, uint64_t a3)
 
 void __SidecarRequestSendMessage_block_invoke(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(a1 + 40);
   v5 = *(a1 + 32);
@@ -825,30 +820,30 @@ void __SidecarRequestSendMessage_block_invoke(uint64_t a1, void *a2)
   {
     if (v5)
     {
-      v8 = v4 == 0;
+      v7 = v4 == 0;
     }
 
     else
     {
-      v8 = 1;
+      v7 = 1;
     }
 
-    if (v8)
+    if (v7)
     {
-      v9 = SidecarCoreLogSubsystem(OS_LOG_TYPE_ERROR);
-      v10 = v9;
-      if (v9 && os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v8 = SidecarCoreLogSubsystem(OS_LOG_TYPE_ERROR);
+      v9 = v8;
+      if (v8 && os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        v11 = [v6 domain];
-        v12 = [v6 code];
-        v13 = [v6 localizedDescription];
-        v14 = 138543875;
-        v15 = v11;
-        v16 = 2048;
-        v17 = v12;
-        v18 = 2113;
-        v19 = v13;
-        _os_log_impl(&dword_26604C000, v10, OS_LOG_TYPE_ERROR, "%{public}@ (%ld) %{private}@", &v14, 0x20u);
+        v10 = [v6 domain];
+        v11 = [v6 code];
+        v12 = [v6 localizedDescription];
+        v13 = 138543875;
+        v14 = v10;
+        v15 = 2048;
+        v16 = v11;
+        v17 = 2113;
+        v18 = v12;
+        _os_log_impl(&dword_26604C000, v9, OS_LOG_TYPE_ERROR, "%{public}@ (%ld) %{private}@", &v13, 0x20u);
       }
     }
 
@@ -863,13 +858,11 @@ void __SidecarRequestSendMessage_block_invoke(uint64_t a1, void *a2)
   else
   {
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
-void sub_266050A30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_266050A30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -898,16 +891,16 @@ uint64_t __SidecarRequestTransferCompleted_block_invoke(uint64_t a1)
   return MEMORY[0x2821F96F8]();
 }
 
-void sub_266050D2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_266050D2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void __SidecarRequestCreateSendTransfer_block_invoke(void *a1)
 {
-  v11[2] = *MEMORY[0x277D85DE8];
+  v10[2] = *MEMORY[0x277D85DE8];
   v2 = *(a1[4] + 96);
   if (!v2)
   {
@@ -916,10 +909,10 @@ void __SidecarRequestCreateSendTransfer_block_invoke(void *a1)
   }
 
   v3 = a1[5];
-  v11[0] = 0;
-  v11[1] = 0;
-  [v3 getUUIDBytes:v11];
-  v4 = bswap32(v11[0]);
+  v10[0] = 0;
+  v10[1] = 0;
+  [v3 getUUIDBytes:v10];
+  v4 = bswap32(v10[0]);
   v5 = [MEMORY[0x277CBEB68] null];
   v6 = SidecarMapTableAddObject(v2, v5);
 
@@ -930,48 +923,47 @@ void __SidecarRequestCreateSendTransfer_block_invoke(void *a1)
 
   [*(*(a1[7] + 8) + 40) setDelegate:a1[4]];
   SidecarMapTableReplaceObject(v2, v6, *(*(a1[7] + 8) + 40));
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
-void sub_266051174(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_266051174(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
+  va_start(va, a26);
   _Block_object_dispose(&a21, 8);
-  _Block_object_dispose(&a27, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_2660512EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_266051498(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2660512EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_26605195C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_266051498(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_266051C74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26605195C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_266051E3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_266051C74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_266051E3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1089,14 +1081,14 @@ id SidecarRelayConnection()
 
 void __SidecarRelayConnection_block_invoke_2()
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v0 = SidecarCoreLogSubsystem(OS_LOG_TYPE_INFO);
   v1 = v0;
   if (v0 && os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
   {
-    v7 = 138543362;
-    v8 = @"com.apple.sidecar-relay";
-    _os_log_impl(&dword_26604C000, v1, OS_LOG_TYPE_INFO, "%{public}@: connection interrupted", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = @"com.apple.sidecar-relay";
+    _os_log_impl(&dword_26604C000, v1, OS_LOG_TYPE_INFO, "%{public}@: connection interrupted", &v6, 0xCu);
   }
 
   v2 = +[SidecarProviderProxy defaultProxy];
@@ -1114,81 +1106,73 @@ void __SidecarRelayConnection_block_invoke_2()
   {
     [v5 sidecarServicePresenterTerminate];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __SidecarRelayConnection_block_invoke()
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   v0 = SidecarCoreLogSubsystem(OS_LOG_TYPE_ERROR);
   v1 = v0;
   if (v0 && os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
   {
-    v3 = 138543362;
-    v4 = @"com.apple.sidecar-relay";
-    _os_log_impl(&dword_26604C000, v1, OS_LOG_TYPE_ERROR, "%{public}@: connection invalid", &v3, 0xCu);
+    v2 = 138543362;
+    v3 = @"com.apple.sidecar-relay";
+    _os_log_impl(&dword_26604C000, v1, OS_LOG_TYPE_ERROR, "%{public}@: connection invalid", &v2, 0xCu);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void _SidecarCoreLogAPIError(const void *a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  memset(&v11, 0, sizeof(v11));
-  dladdr(a1, &v11);
+  memset(&v10, 0, sizeof(v10));
+  dladdr(a1, &v10);
   v4 = SidecarCoreLogSubsystem(OS_LOG_TYPE_ERROR);
   v5 = v4;
   if (v4 && os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    dli_sname = v11.dli_sname;
-    v8 = [v3 domain];
-    v9 = [v3 code];
-    v10 = [v3 localizedDescription];
+    dli_sname = v10.dli_sname;
+    v7 = [v3 domain];
+    v8 = [v3 code];
+    v9 = [v3 localizedDescription];
     *buf = 136446979;
-    v13 = dli_sname;
-    v14 = 2114;
-    v15 = v8;
-    v16 = 2048;
-    v17 = v9;
-    v18 = 2113;
-    v19 = v10;
+    v12 = dli_sname;
+    v13 = 2114;
+    v14 = v7;
+    v15 = 2048;
+    v16 = v8;
+    v17 = 2113;
+    v18 = v9;
     _os_log_impl(&dword_26604C000, v5, OS_LOG_TYPE_ERROR, "%{public}s: %{public}@ (%ld) %{private}@", buf, 0x2Au);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void _SidecarCoreLogObjCAPIError(void *a1, const char *a2, void *a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = a3;
   v7 = SidecarCoreLogSubsystem(OS_LOG_TYPE_ERROR);
   v8 = v7;
   if (v7 && os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    v10 = [v5 description];
-    v11 = NSStringFromSelector(a2);
-    v12 = [v6 domain];
-    v13 = [v6 code];
-    v14 = [v6 localizedDescription];
-    v15 = 138544387;
-    v16 = v10;
-    v17 = 2114;
-    v18 = v11;
-    v19 = 2114;
-    v20 = v12;
-    v21 = 2048;
-    v22 = v13;
-    v23 = 2113;
-    v24 = v14;
-    _os_log_impl(&dword_26604C000, v8, OS_LOG_TYPE_ERROR, "[%{public}@ %{public}@]: %{public}@ (%ld) %{private}@", &v15, 0x34u);
+    v9 = [v5 description];
+    v10 = NSStringFromSelector(a2);
+    v11 = [v6 domain];
+    v12 = [v6 code];
+    v13 = [v6 localizedDescription];
+    v14 = 138544387;
+    v15 = v9;
+    v16 = 2114;
+    v17 = v10;
+    v18 = 2114;
+    v19 = v11;
+    v20 = 2048;
+    v21 = v12;
+    v22 = 2113;
+    v23 = v13;
+    _os_log_impl(&dword_26604C000, v8, OS_LOG_TYPE_ERROR, "[%{public}@ %{public}@]: %{public}@ (%ld) %{private}@", &v14, 0x34u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 id SidecarRelayProxyAsync(uint64_t a1, void *a2)
@@ -1219,7 +1203,7 @@ void __SidecarRelayProxyAsync_block_invoke(uint64_t a1, void *a2)
 
 void SidecarCoreLogAPIError(const void *a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   if (v3)
@@ -1231,26 +1215,24 @@ void SidecarCoreLogAPIError(const void *a1, void *a2)
 
     else
     {
-      v6 = v3;
-      v7 = SidecarCoreLogSubsystem(OS_LOG_TYPE_ERROR);
-      v8 = v7;
-      if (v7 && os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v5 = v3;
+      v6 = SidecarCoreLogSubsystem(OS_LOG_TYPE_ERROR);
+      v7 = v6;
+      if (v6 && os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        v9 = [v6 domain];
-        v10 = [v6 code];
-        v11 = [v6 localizedDescription];
-        v12 = 138543875;
-        v13 = v9;
-        v14 = 2048;
-        v15 = v10;
-        v16 = 2113;
-        v17 = v11;
-        _os_log_impl(&dword_26604C000, v8, OS_LOG_TYPE_ERROR, "%{public}@ (%ld) %{private}@", &v12, 0x20u);
+        v8 = [v5 domain];
+        v9 = [v5 code];
+        v10 = [v5 localizedDescription];
+        v11 = 138543875;
+        v12 = v8;
+        v13 = 2048;
+        v14 = v9;
+        v15 = 2113;
+        v16 = v10;
+        _os_log_impl(&dword_26604C000, v7, OS_LOG_TYPE_ERROR, "%{public}@ (%ld) %{private}@", &v11, 0x20u);
       }
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 id SidecarRelayProxySync(uint64_t a1, void *a2)
@@ -1278,9 +1260,9 @@ id SidecarRelayProxySync(uint64_t a1, void *a2)
   return v5;
 }
 
-void sub_266053024(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_266053024(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1357,9 +1339,9 @@ id SidecarDiagnose(uint64_t a1)
   return v5;
 }
 
-void sub_2660532F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_2660532F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1394,25 +1376,24 @@ void __SidecarDiagnose_block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 
 unint64_t SidecarGetProcessUniqueID()
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   result = atomic_load(&SidecarGetProcessUniqueID_uniqueId);
   if (!result)
   {
-    v7 = 0;
-    v5 = 0u;
-    v6 = 0u;
+    v6 = 0;
     v4 = 0u;
-    v2 = getpid();
-    v3 = proc_pidinfo(v2, 17, 1uLL, &v4, 56);
+    v5 = 0u;
+    v3 = 0u;
+    v1 = getpid();
+    v2 = proc_pidinfo(v1, 17, 1uLL, &v3, 56);
     result = 0;
-    if (v3 == 56)
+    if (v2 == 56)
     {
-      result = v5;
-      atomic_store(v5, &SidecarGetProcessUniqueID_uniqueId);
+      result = v4;
+      atomic_store(v4, &SidecarGetProcessUniqueID_uniqueId);
     }
   }
 
-  v1 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1604,58 +1585,57 @@ void SidecarMessageSetItemData(void *a1, uint64_t a2, void *a3)
 
 void SidecarMessageSetItemMetaData(void *a1, void *a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
-  v17 = a1;
+  v25 = *MEMORY[0x277D85DE8];
+  v16 = a1;
   v3 = a2;
   v4 = [v3 count];
   v5 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:v4];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   obj = v3;
-  v6 = [obj countByEnumeratingWithState:&v19 objects:v25 count:16];
+  v6 = [obj countByEnumeratingWithState:&v18 objects:v24 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v20;
+    v8 = *v19;
     do
     {
       v9 = 0;
       do
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * v9);
-        v23[0] = &unk_2877BFC50;
+        v10 = *(*(&v18 + 1) + 8 * v9);
+        v22[0] = &unk_2877BFC50;
         v11 = MEMORY[0x277CCABB0];
         v12 = [v10 data];
         v13 = [v11 numberWithUnsignedInteger:{objc_msgSend(v12, "length")}];
-        v23[1] = &unk_2877BFC68;
-        v24[0] = v13;
+        v22[1] = &unk_2877BFC68;
+        v23[0] = v13;
         v14 = [v10 type];
-        v24[1] = v14;
-        v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:2];
+        v23[1] = v14;
+        v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:2];
 
         [v5 addObject:v15];
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [obj countByEnumeratingWithState:&v19 objects:v25 count:16];
+      v7 = [obj countByEnumeratingWithState:&v18 objects:v24 count:16];
     }
 
     while (v7);
   }
 
-  [v17 setObject:v5 forKey:&unk_2877BFC80];
-  v16 = *MEMORY[0x277D85DE8];
+  [v16 setObject:v5 forKey:&unk_2877BFC80];
 }
 
-uint64_t SidecarMessageGetType(void *a1)
+char *SidecarMessageGetType(void *a1)
 {
   v1 = [a1 objectForKey:&unk_2877BFC98];
   objc_opt_class();
@@ -1883,10 +1863,11 @@ void SidecarMapTableIterateObjects(void *a1, void *a2)
   NSEndMapTableEnumeration(&enumerator);
 }
 
-void sub_266056150(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, char a43)
+void sub_266056150(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, ...)
 {
+  va_start(va, a42);
   _Block_object_dispose(&a37, 8);
-  _Block_object_dispose(&a43, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -1925,40 +1906,40 @@ id SidecarDevicesForService(void *a1)
   return v4;
 }
 
-void sub_266056458(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_266056458(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void __SidecarDevicesForService_block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
   {
-    v10 = SidecarCoreLogSubsystem(OS_LOG_TYPE_ERROR);
-    if (v10)
+    v9 = SidecarCoreLogSubsystem(OS_LOG_TYPE_ERROR);
+    if (v9)
     {
-      log = v10;
-      v11 = os_log_type_enabled(v10, OS_LOG_TYPE_ERROR);
-      v10 = log;
-      if (v11)
+      log = v9;
+      v10 = os_log_type_enabled(v9, OS_LOG_TYPE_ERROR);
+      v9 = log;
+      if (v10)
       {
-        v12 = [v6 domain];
-        v13 = [v6 code];
-        v14 = [v6 localizedDescription];
+        v11 = [v6 domain];
+        v12 = [v6 code];
+        v13 = [v6 localizedDescription];
         *buf = 138543875;
-        v17 = v12;
-        v18 = 2048;
-        v19 = v13;
-        v20 = 2113;
-        v21 = v14;
+        v16 = v11;
+        v17 = 2048;
+        v18 = v12;
+        v19 = 2113;
+        v20 = v13;
         _os_log_impl(&dword_26604C000, log, OS_LOG_TYPE_ERROR, "%{public}@ (%ld) %{private}@", buf, 0x20u);
 
-        v10 = log;
+        v9 = log;
       }
     }
   }
@@ -1966,8 +1947,6 @@ void __SidecarDevicesForService_block_invoke(uint64_t a1, void *a2, void *a3)
   v7 = *(*(a1 + 32) + 8);
   v8 = *(v7 + 40);
   *(v7 + 40) = v5;
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __SidecarDeviceGeneration_block_invoke_2()
@@ -2183,9 +2162,9 @@ id SidecarSessionWithHandle(uint64_t a1, int a2)
   return v2;
 }
 
-void sub_266059538(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_266059538(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2211,9 +2190,9 @@ id SidecarSessionGetFromRemoteMapTable(uint64_t a1)
   return v1;
 }
 
-void sub_266059650(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_266059650(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2227,15 +2206,12 @@ uint64_t __Block_byref_object_copy__711(uint64_t result, uint64_t a2)
 
 uint64_t __SidecarSessionGetFromLocalMapTable_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v3 = SidecarMapTableGetObject(a2, *(a1 + 40));
-  v4 = *(*(a1 + 32) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 32) + 8) + 40) = SidecarMapTableGetObject(a2, *(a1 + 40));
 
   return MEMORY[0x2821F96F8]();
 }
 
-void SidecarSessionWithMapTable(void (*a1)(void), uint64_t *a2, void *a3)
+void SidecarSessionWithMapTable(uint64_t (*a1)(void), uint64_t *a2, void *a3)
 {
   v5 = a3;
   os_unfair_lock_lock(&SidecarSessionWithMapTable_lock);
@@ -2250,10 +2226,7 @@ void SidecarSessionWithMapTable(void (*a1)(void), uint64_t *a2, void *a3)
 
 uint64_t __SidecarSessionGetFromRemoteMapTable_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v3 = SidecarMapTableGetObject(a2, *(a1 + 40));
-  v4 = *(*(a1 + 32) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 32) + 8) + 40) = SidecarMapTableGetObject(a2, *(a1 + 40));
 
   return MEMORY[0x2821F96F8]();
 }
@@ -2277,7 +2250,7 @@ id sessionCompletion(void *a1, uint64_t a2, void *a3)
 
 void __sessionCompletion_block_invoke(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -2296,26 +2269,26 @@ void __sessionCompletion_block_invoke(uint64_t a1, void *a2)
 
     if (v7)
     {
-      v10 = SidecarCoreLogSubsystem(OS_LOG_TYPE_ERROR);
-      if (v10)
+      v9 = SidecarCoreLogSubsystem(OS_LOG_TYPE_ERROR);
+      if (v9)
       {
-        log = v10;
-        v11 = os_log_type_enabled(v10, OS_LOG_TYPE_ERROR);
-        v10 = log;
-        if (v11)
+        log = v9;
+        v10 = os_log_type_enabled(v9, OS_LOG_TYPE_ERROR);
+        v9 = log;
+        if (v10)
         {
-          v12 = [v6 domain];
-          v13 = [v6 code];
-          v14 = [v6 localizedDescription];
+          v11 = [v6 domain];
+          v12 = [v6 code];
+          v13 = [v6 localizedDescription];
           *buf = 138543875;
-          v20 = v12;
-          v21 = 2048;
-          v22 = v13;
-          v23 = 2113;
-          v24 = v14;
+          v19 = v11;
+          v20 = 2048;
+          v21 = v12;
+          v22 = 2113;
+          v23 = v13;
           _os_log_impl(&dword_26604C000, log, OS_LOG_TYPE_ERROR, "%{public}@ (%ld) %{private}@", buf, 0x20u);
 
-          v10 = log;
+          v9 = log;
         }
       }
     }
@@ -2333,12 +2306,10 @@ void __sessionCompletion_block_invoke(uint64_t a1, void *a2)
     block[1] = 3221225472;
     block[2] = __sessionCompletion_block_invoke_2;
     block[3] = &unk_279BC34C8;
-    v18 = *(a1 + 40);
-    v17 = v3;
+    v17 = *(a1 + 40);
+    v16 = v3;
     dispatch_async(v8, block);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 atomic_ullong *SidecarSessionSetState(void *a1, int64_t a2)
@@ -2360,16 +2331,16 @@ atomic_ullong *SidecarSessionSetState(void *a1, int64_t a2)
   return result;
 }
 
-void sub_26605B2A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_26605B2A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void __SidecarSessionAddToLocalMapTable_block_invoke(uint64_t a1, void *a2)
 {
-  v11[2] = *MEMORY[0x277D85DE8];
+  v10[2] = *MEMORY[0x277D85DE8];
   v3 = a2;
   do
   {
@@ -2379,17 +2350,15 @@ void __SidecarSessionAddToLocalMapTable_block_invoke(uint64_t a1, void *a2)
     *(v5 + 40) = v4;
 
     v7 = *(*(*(a1 + 40) + 8) + 40);
-    v11[0] = 0;
-    v11[1] = 0;
-    [v7 getUUIDBytes:v11];
-    v8 = bswap32(v11[0]);
+    v10[0] = 0;
+    v10[1] = 0;
+    [v7 getUUIDBytes:v10];
+    v8 = bswap32(v10[0]);
     v9 = SidecarMapTableGetObject(v3, v8);
   }
 
   while (v9);
   SidecarMapTableReplaceObject(v3, v8, *(a1 + 32));
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 id SidecarOPACKEncode(void *a1, void *a2)
@@ -2514,16 +2483,16 @@ void SidecarUpdateStateNotification(uint64_t a1, void *a2)
 
 double __SidecarTimeScale_block_invoke()
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   info = 0;
   v0 = mach_timebase_info(&info);
   if (v0)
   {
-    v5 = v0;
+    v4 = v0;
     if (os_log_type_enabled(0, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      v8 = v5;
+      v7 = v4;
       _os_log_impl(&dword_26604C000, 0, OS_LOG_TYPE_ERROR, "%{mach.errno}d", buf, 8u);
     }
   }
@@ -2532,7 +2501,6 @@ double __SidecarTimeScale_block_invoke()
   LODWORD(v2) = info.denom;
   result = v1 / v2 * 0.000000001;
   SidecarTimeScale_scale = *&result;
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -2573,9 +2541,9 @@ id filterTargetDevice(void *a1, void *a2, uint64_t a3)
   return v9;
 }
 
-void sub_26605C33C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26605C33C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2713,7 +2681,7 @@ void __SidecarServicePresenterReady_block_invoke_2(uint64_t a1, void *a2)
 
 void SidecarCoreLogObjCAPIError(void *a1, const char *a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = a3;
   v7 = v6;
@@ -2726,26 +2694,24 @@ void SidecarCoreLogObjCAPIError(void *a1, const char *a2, void *a3)
 
     else
     {
-      v9 = v6;
-      v10 = SidecarCoreLogSubsystem(OS_LOG_TYPE_ERROR);
-      v11 = v10;
-      if (v10 && os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v8 = v6;
+      v9 = SidecarCoreLogSubsystem(OS_LOG_TYPE_ERROR);
+      v10 = v9;
+      if (v9 && os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        v12 = [v9 domain];
-        v13 = [v9 code];
-        v14 = [v9 localizedDescription];
-        v15 = 138543875;
-        v16 = v12;
-        v17 = 2048;
-        v18 = v13;
-        v19 = 2113;
-        v20 = v14;
-        _os_log_impl(&dword_26604C000, v11, OS_LOG_TYPE_ERROR, "%{public}@ (%ld) %{private}@", &v15, 0x20u);
+        v11 = [v8 domain];
+        v12 = [v8 code];
+        v13 = [v8 localizedDescription];
+        v14 = 138543875;
+        v15 = v11;
+        v16 = 2048;
+        v17 = v12;
+        v18 = 2113;
+        v19 = v13;
+        _os_log_impl(&dword_26604C000, v10, OS_LOG_TYPE_ERROR, "%{public}@ (%ld) %{private}@", &v14, 0x20u);
       }
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void streamCompletion(void *a1, const char *a2, void *a3, void *a4, void *a5)

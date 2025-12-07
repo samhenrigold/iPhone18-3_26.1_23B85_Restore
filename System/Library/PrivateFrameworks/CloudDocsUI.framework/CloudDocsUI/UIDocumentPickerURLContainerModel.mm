@@ -135,7 +135,7 @@ void __79___UIDocumentPickerURLContainerModel_arrayController_modelChanged_diffe
 
 void __59___UIDocumentPickerURLContainerModel_updateObserverForURL___block_invoke(uint64_t a1)
 {
-  v2 = cdui_default_log();
+  v2 = cdui_default_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __59___UIDocumentPickerURLContainerModel_updateObserverForURL___block_invoke_cold_1(v2);

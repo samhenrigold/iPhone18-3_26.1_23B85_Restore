@@ -11,12 +11,10 @@
 
 - (NSArray)requiredEntitlements
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   v2 = +[HKFeatureAvailabilityRequirementEntitlement healthKitAccessEntitlement];
-  v6[0] = v2;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
-
-  v4 = *MEMORY[0x1E69E9840];
+  v5[0] = v2;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
 
   return v3;
 }
@@ -24,42 +22,42 @@
 - (id)isSatisfiedWithDataSource:(id)source error:(id *)error
 {
   sourceCopy = source;
-  v6 = [HKObjectType characteristicTypeForIdentifier:@"HKCharacteristicTypeIdentifierDateOfBirth"];
+  v7 = [HKObjectType characteristicTypeForIdentifier:@"HKCharacteristicTypeIdentifierDateOfBirth"];
   healthDataSource = [sourceCopy healthDataSource];
 
-  v14 = 0;
-  v8 = [healthDataSource userCharacteristicForDataType:v6 error:&v14];
-  v9 = v14;
+  v19 = 0;
+  v9 = [healthDataSource userCharacteristicForDataType:v7 error:&v19];
+  v10 = v19;
 
-  if (v9)
+  if (v10)
   {
-    _HKInitializeLogging();
-    v10 = HKLogInfrastructure();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    _HKInitializeLogging(v11, v12);
+    v15 = HKLogInfrastructure(v13, v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      [HKFeatureAvailabilityRequirementAgeIsPresent isSatisfiedWithDataSource:error:];
+      [HKFeatureAvailabilityRequirementAgeIsPresent isSatisfiedWithDataSource:? error:?];
     }
 
     if (error)
     {
-      v11 = v9;
-      v12 = 0;
-      *error = v9;
+      v16 = v10;
+      v17 = 0;
+      *error = v10;
     }
 
     else
     {
-      _HKLogDroppedError(v9);
-      v12 = 0;
+      _HKLogDroppedError(v10);
+      v17 = 0;
     }
   }
 
   else
   {
-    v12 = [MEMORY[0x1E696AD98] numberWithInt:v8 != 0];
+    v17 = [MEMORY[0x1E696AD98] numberWithInt:v9 != 0];
   }
 
-  return v12;
+  return v17;
 }
 
 - (void)registerObserver:(id)observer forDataSource:(id)source
@@ -96,9 +94,10 @@ void __79__HKFeatureAvailabilityRequirementAgeIsPresent_registerObserver_forData
   {
     v6 = *(a1 + 32);
     v5 = (a1 + 32);
-    v10 = 0;
-    v7 = [v6 isSatisfiedWithDataSource:WeakRetained error:&v10];
-    v8 = v10;
+    v14 = 0;
+    v7 = [v6 isSatisfiedWithDataSource:WeakRetained error:&v14];
+    v8 = v14;
+    v10 = v8;
     if (v7)
     {
       [v3 featureAvailabilityRequirement:*v5 didUpdateSatisfaction:{objc_msgSend(v7, "BOOLValue")}];
@@ -106,9 +105,9 @@ void __79__HKFeatureAvailabilityRequirementAgeIsPresent_registerObserver_forData
 
     else
     {
-      _HKInitializeLogging();
-      v9 = HKLogInfrastructure();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      _HKInitializeLogging(v8, v9);
+      v13 = HKLogInfrastructure(v11, v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         __79__HKFeatureAvailabilityRequirementAgeIsPresent_registerObserver_forDataSource___block_invoke_cold_1(v5);
       }
@@ -145,25 +144,18 @@ void __79__HKFeatureAvailabilityRequirementAgeIsPresent_registerObserver_forData
   return v4;
 }
 
-- (void)isSatisfiedWithDataSource:error:.cold.1()
+- (void)isSatisfiedWithDataSource:(uint64_t)a1 error:.cold.1(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v0 = objc_opt_class();
-  v1 = OUTLINED_FUNCTION_0_11(v0);
-  OUTLINED_FUNCTION_1_5(&dword_19197B000, v2, v3, "[%{public}@] Error while pulling date of birth characteristic: %{public}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  v1 = objc_opt_class();
+  v2 = OUTLINED_FUNCTION_0_11(v1);
+  OUTLINED_FUNCTION_1_5(&dword_19197B000, v3, v4, "[%{public}@] Error while pulling date of birth characteristic: %{public}@", v5, v6, v7, v8);
 }
 
-void __79__HKFeatureAvailabilityRequirementAgeIsPresent_registerObserver_forDataSource___block_invoke_cold_1(uint64_t *a1)
+void __79__HKFeatureAvailabilityRequirementAgeIsPresent_registerObserver_forDataSource___block_invoke_cold_1(void *a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v1 = *a1;
-  v2 = objc_opt_class();
-  v3 = OUTLINED_FUNCTION_0_11(v2);
-  OUTLINED_FUNCTION_1_5(&dword_19197B000, v4, v5, "[%{public}@]: Error determining satisfaction in response to change in feature availability: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x1E69E9840];
+  v1 = objc_opt_class();
+  v2 = OUTLINED_FUNCTION_0_11(v1);
+  OUTLINED_FUNCTION_1_5(&dword_19197B000, v3, v4, "[%{public}@]: Error determining satisfaction in response to change in feature availability: %{public}@", v5, v6, v7, v8);
 }
 
 @end

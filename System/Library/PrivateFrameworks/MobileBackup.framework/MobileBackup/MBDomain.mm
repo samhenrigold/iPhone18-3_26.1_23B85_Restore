@@ -73,7 +73,7 @@
 
 + (id)_setOfStringsFromValue:(id)value forKey:(id)key
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   valueCopy = value;
   keyCopy = key;
   objc_opt_class();
@@ -83,43 +83,41 @@
   }
 
   v7 = [MEMORY[0x1E695DFA8] setWithCapacity:{objc_msgSend(valueCopy, "count")}];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v8 = valueCopy;
-  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v17;
+    v11 = *v16;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v17 != v11)
+        if (*v16 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = [MBDomain _stringByRemovingCommentsFromValue:*(*(&v16 + 1) + 8 * i) forKey:keyCopy];
+        v13 = [MBDomain _stringByRemovingCommentsFromValue:*(*(&v15 + 1) + 8 * i) forKey:keyCopy];
         [v7 addObject:v13];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v10);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 + (id)_dictionaryOfStringsToStringFromValue:(id)value forKey:(id)key
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   valueCopy = value;
   keyCopy = key;
   objc_opt_class();
@@ -131,29 +129,29 @@ LABEL_14:
   }
 
   v7 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(valueCopy, "count")}];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v8 = valueCopy;
-  v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (!v9)
   {
     goto LABEL_10;
   }
 
   v10 = v9;
-  v11 = *v20;
+  v11 = *v19;
   do
   {
     for (i = 0; i != v10; ++i)
     {
-      if (*v20 != v11)
+      if (*v19 != v11)
       {
         objc_enumerationMutation(v8);
       }
 
-      v13 = *(*(&v19 + 1) + 8 * i);
+      v13 = *(*(&v18 + 1) + 8 * i);
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
@@ -166,13 +164,11 @@ LABEL_14:
       [v7 setObject:v15 forKeyedSubscript:keyCopy];
     }
 
-    v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
   }
 
   while (v10);
 LABEL_10:
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -191,82 +187,80 @@ LABEL_10:
 
 + (id)_relativePathsByAddingSQLiteJournals:(id)journals
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   journalsCopy = journals;
-  v4 = MBSQLitePathExtensions();
-  v5 = [journalsCopy mutableCopy];
-  v27 = 0u;
-  v28 = 0u;
+  v5 = MBSQLitePathExtensions(journalsCopy, v4);
+  v6 = [journalsCopy mutableCopy];
   v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   obj = journalsCopy;
-  v6 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
-  if (v6)
+  v7 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
+  if (v7)
   {
-    v7 = v6;
-    v8 = *v28;
+    v8 = v7;
+    v9 = *v30;
     do
     {
-      v9 = 0;
-      v21 = v7;
+      v10 = 0;
+      v23 = v8;
       do
       {
-        if (*v28 != v8)
+        if (*v30 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v27 + 1) + 8 * v9);
-        pathExtension = [v10 pathExtension];
-        v12 = [v4 containsObject:pathExtension];
+        v11 = *(*(&v29 + 1) + 8 * v10);
+        pathExtension = [v11 pathExtension];
+        v13 = [v5 containsObject:pathExtension];
 
-        if (v12)
+        if (v13)
         {
+          v27 = 0u;
+          v28 = 0u;
           v25 = 0u;
           v26 = 0u;
-          v23 = 0u;
-          v24 = 0u;
-          v13 = MBSQLiteJournalSuffixes();
-          v14 = [v13 countByEnumeratingWithState:&v23 objects:v31 count:16];
-          if (v14)
+          v16 = MBSQLiteJournalSuffixes(v14, v15);
+          v17 = [v16 countByEnumeratingWithState:&v25 objects:v33 count:16];
+          if (v17)
           {
-            v15 = v14;
-            v16 = *v24;
+            v18 = v17;
+            v19 = *v26;
             do
             {
-              for (i = 0; i != v15; ++i)
+              for (i = 0; i != v18; ++i)
               {
-                if (*v24 != v16)
+                if (*v26 != v19)
                 {
-                  objc_enumerationMutation(v13);
+                  objc_enumerationMutation(v16);
                 }
 
-                v18 = [v10 stringByAppendingString:*(*(&v23 + 1) + 8 * i)];
-                [v5 addObject:v18];
+                v21 = [v11 stringByAppendingString:*(*(&v25 + 1) + 8 * i)];
+                [v6 addObject:v21];
               }
 
-              v15 = [v13 countByEnumeratingWithState:&v23 objects:v31 count:16];
+              v18 = [v16 countByEnumeratingWithState:&v25 objects:v33 count:16];
             }
 
-            while (v15);
+            while (v18);
           }
 
-          v7 = v21;
+          v8 = v23;
         }
 
-        ++v9;
+        ++v10;
       }
 
-      while (v9 != v7);
-      v7 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
+      while (v10 != v8);
+      v8 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
     }
 
-    while (v7);
+    while (v8);
   }
 
-  v19 = *MEMORY[0x1E69E9840];
-
-  return v5;
+  return v6;
 }
 
 + (BOOL)isContainerizedName:(id)name
@@ -279,27 +273,27 @@ LABEL_10:
 
 + (id)containerIDWithName:(id)name
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   nameCopy = name;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v4 = [&unk_1F59DC790 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [&unk_1F59DC790 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v14;
+    v6 = *v13;
 LABEL_3:
     v7 = 0;
     while (1)
     {
-      if (*v14 != v6)
+      if (*v13 != v6)
       {
         objc_enumerationMutation(&unk_1F59DC790);
       }
 
-      v8 = *(*(&v13 + 1) + 8 * v7);
+      v8 = *(*(&v12 + 1) + 8 * v7);
       if ([nameCopy hasPrefix:v8])
       {
         break;
@@ -307,7 +301,7 @@ LABEL_3:
 
       if (v5 == ++v7)
       {
-        v5 = [&unk_1F59DC790 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v5 = [&unk_1F59DC790 countByEnumeratingWithState:&v12 objects:v16 count:16];
         if (v5)
         {
           goto LABEL_3;
@@ -331,8 +325,6 @@ LABEL_3:
 LABEL_12:
     v10 = 0;
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -627,7 +619,7 @@ LABEL_16:
 
 - (BOOL)_loadSystemDomain:(id)domain plist:(id)plist volumeMountPoint:(id)point
 {
-  v122 = *MEMORY[0x1E69E9840];
+  v95 = *MEMORY[0x1E69E9840];
   domainCopy = domain;
   plistCopy = plist;
   pointCopy = point;
@@ -654,381 +646,381 @@ LABEL_16:
   }
 
   self->_isExternalConfig = 1;
-  if (![(MBDomain *)self _loadDomainFromExternalPlist:v12])
+  v13 = [(MBDomain *)self _loadDomainFromExternalPlist:v12];
+  if (!v13)
   {
-    v24 = MBGetDefaultLog();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+    v21 = MBGetDefaultLog(v13);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       name = self->_name;
       *buf = 138412546;
-      v119 = name;
-      v120 = 2112;
-      v121 = v12;
-      _os_log_impl(&dword_1DEB5D000, v24, OS_LOG_TYPE_DEFAULT, "Failed to load backup rules for '%@' from external plist at '%@'", buf, 0x16u);
-      v108 = v12;
-      _MBLog(@"Df", "Failed to load backup rules for '%@' from external plist at '%@'", v26, v27, v28, v29, v30, v31, self->_name);
+      v92 = name;
+      v93 = 2112;
+      v94 = v12;
+      _os_log_impl(&dword_1DEB5D000, v21, OS_LOG_TYPE_DEFAULT, "Failed to load backup rules for '%@' from external plist at '%@'", buf, 0x16u);
+      _MBLog(@"Df", "Failed to load backup rules for '%@' from external plist at '%@'", self->_name, v12);
     }
 
-    v32 = [plistCopy objectForKeyedSubscript:@"HasFallbackConfig"];
+    v23 = [plistCopy objectForKeyedSubscript:@"HasFallbackConfig"];
 
-    if (!v32)
+    if (!v23)
     {
-      v94 = [plistCopy objectForKeyedSubscript:@"RootPath"];
-      v95 = [MBDomain _stringByRemovingCommentsFromValue:v94 forKey:@"RootPath"];
+      v75 = [plistCopy objectForKeyedSubscript:@"RootPath"];
+      v76 = [MBDomain _stringByRemovingCommentsFromValue:v75 forKey:@"RootPath"];
       rootPath = self->_rootPath;
-      self->_rootPath = v95;
+      self->_rootPath = v76;
 
-      v23 = 1;
+      v20 = 1;
       goto LABEL_99;
     }
 
-    v33 = MBGetDefaultLog();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+    v25 = MBGetDefaultLog(v24);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
-      v34 = self->_name;
+      v26 = self->_name;
       *buf = 138412290;
-      v119 = v34;
-      _os_log_impl(&dword_1DEB5D000, v33, OS_LOG_TYPE_DEFAULT, "Unable to load external config for domain '%@', falling back to system definition", buf, 0xCu);
-      _MBLog(@"Df", "Unable to load external config for domain '%@', falling back to system definition", v35, v36, v37, v38, v39, v40, self->_name);
+      v92 = v26;
+      _os_log_impl(&dword_1DEB5D000, v25, OS_LOG_TYPE_DEFAULT, "Unable to load external config for domain '%@', falling back to system definition", buf, 0xCu);
+      _MBLog(@"Df", "Unable to load external config for domain '%@', falling back to system definition", self->_name);
     }
 
     self->_isExternalConfig = 0;
 LABEL_16:
-    v41 = v11;
-    v111 = domainCopy;
-    v109 = v11;
-    if ([v41 hasPrefix:@"/private"])
+    v27 = v11;
+    v84 = domainCopy;
+    v82 = v11;
+    if ([v27 hasPrefix:@"/private"])
     {
-      v42 = [v41 substringFromIndex:{objc_msgSend(@"/private", "length")}];
+      v28 = [v27 substringFromIndex:{objc_msgSend(@"/private", "length")}];
 
-      v41 = v42;
+      v27 = v28;
     }
 
-    v115 = 0u;
-    v116 = 0u;
-    v113 = 0u;
-    v114 = 0u;
-    v110 = plistCopy;
-    v43 = plistCopy;
-    v44 = [v43 countByEnumeratingWithState:&v113 objects:v117 count:16];
-    if (!v44)
+    v88 = 0u;
+    v89 = 0u;
+    v86 = 0u;
+    v87 = 0u;
+    v83 = plistCopy;
+    v29 = plistCopy;
+    v30 = [v29 countByEnumeratingWithState:&v86 objects:v90 count:16];
+    if (!v30)
     {
 LABEL_91:
 
-      v23 = 1;
-      plistCopy = v110;
-      domainCopy = v111;
-      v11 = v109;
+      v20 = 1;
+      plistCopy = v83;
+      domainCopy = v84;
+      v11 = v82;
       goto LABEL_99;
     }
 
-    v45 = v44;
-    v46 = *v114;
-    v112 = v41;
+    v31 = v30;
+    v32 = *v87;
+    v85 = v27;
 LABEL_20:
-    v47 = 0;
+    v33 = 0;
     while (1)
     {
-      if (*v114 != v46)
+      if (*v87 != v32)
       {
-        objc_enumerationMutation(v43);
+        objc_enumerationMutation(v29);
       }
 
-      v48 = *(*(&v113 + 1) + 8 * v47);
+      v34 = *(*(&v86 + 1) + 8 * v33);
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        v108 = [[MBException alloc] initWithCode:11 format:@"Domain plist key not a string", v107, v108];
+        v80 = [[MBException alloc] initWithCode:11 format:@"Domain plist key not a string", v81];
         goto LABEL_104;
       }
 
-      v49 = [v43 objectForKeyedSubscript:v48];
-      if ([v48 isEqualToString:@"RootPath"])
+      v35 = [v29 objectForKeyedSubscript:v34];
+      if ([v34 isEqualToString:@"RootPath"])
       {
-        v50 = [MBDomain _stringByRemovingCommentsFromValue:v49 forKey:v48];
+        v36 = [MBDomain _stringByRemovingCommentsFromValue:v35 forKey:v34];
         relativePathsToOnlyBackupEncrypted = self->_rootPath;
-        self->_rootPath = v50;
+        self->_rootPath = v36;
       }
 
       else
       {
-        if ([v48 isEqualToString:@"RootPathRelativeToVolumeMountPoint"])
+        if ([v34 isEqualToString:@"RootPathRelativeToVolumeMountPoint"])
         {
-          v52 = [MBDomain _stringByRemovingCommentsFromValue:v49 forKey:v48];
-          v53 = [v41 stringByAppendingPathComponent:v52];
+          v38 = [MBDomain _stringByRemovingCommentsFromValue:v35 forKey:v34];
+          v39 = [v27 stringByAppendingPathComponent:v38];
           relativePathsToBackupAndRestore = self->_rootPath;
-          self->_rootPath = v53;
+          self->_rootPath = v39;
 LABEL_29:
 
           goto LABEL_33;
         }
 
-        if ([v48 isEqualToString:@"BackupRulesPlistPath"])
+        if ([v34 isEqualToString:@"BackupRulesPlistPath"])
         {
           goto LABEL_33;
         }
 
-        if ([v48 isEqualToString:@"ShouldDigest"])
+        if ([v34 isEqualToString:@"ShouldDigest"])
         {
-          self->_shouldDigest = [MBDomain _BOOLFromValue:v49 forKey:v48];
+          self->_shouldDigest = [MBDomain _BOOLFromValue:v35 forKey:v34];
           goto LABEL_33;
         }
 
-        if ([v48 isEqualToString:@"RelativePathsToBackupAndRestore"])
+        if ([v34 isEqualToString:@"RelativePathsToBackupAndRestore"])
         {
-          v52 = [MBDomain _setOfStringsFromValue:v49 forKey:v48];
-          v41 = v112;
-          v55 = [MBDomain _relativePathsByAddingSQLiteJournals:v52];
+          v38 = [MBDomain _setOfStringsFromValue:v35 forKey:v34];
+          v27 = v85;
+          v41 = [MBDomain _relativePathsByAddingSQLiteJournals:v38];
           relativePathsToBackupAndRestore = self->_relativePathsToBackupAndRestore;
-          self->_relativePathsToBackupAndRestore = v55;
+          self->_relativePathsToBackupAndRestore = v41;
           goto LABEL_29;
         }
 
-        if ([v48 isEqualToString:@"RelativePathsToBackupLive"])
+        if ([v34 isEqualToString:@"RelativePathsToBackupLive"])
         {
-          v52 = [MBDomain _setOfStringsFromValue:v49 forKey:v48];
-          v41 = v112;
-          v56 = [MBDomain _relativePathsByAddingSQLiteJournals:v52];
+          v38 = [MBDomain _setOfStringsFromValue:v35 forKey:v34];
+          v27 = v85;
+          v42 = [MBDomain _relativePathsByAddingSQLiteJournals:v38];
           relativePathsToBackupAndRestore = self->_relativePathsToBackupLive;
-          self->_relativePathsToBackupLive = v56;
+          self->_relativePathsToBackupLive = v42;
           goto LABEL_29;
         }
 
-        if ([v48 isEqualToString:@"RelativePathsNotToBackup"])
+        if ([v34 isEqualToString:@"RelativePathsNotToBackup"])
         {
-          v52 = [MBDomain _setOfStringsFromValue:v49 forKey:v48];
-          v41 = v112;
-          v57 = [MBDomain _relativePathsByAddingSQLiteJournals:v52];
+          v38 = [MBDomain _setOfStringsFromValue:v35 forKey:v34];
+          v27 = v85;
+          v43 = [MBDomain _relativePathsByAddingSQLiteJournals:v38];
           relativePathsToBackupAndRestore = self->_relativePathsNotToBackup;
-          self->_relativePathsNotToBackup = v57;
+          self->_relativePathsNotToBackup = v43;
           goto LABEL_29;
         }
 
-        if ([v48 isEqualToString:@"RelativePathsNotToBackupToDrive"])
+        if ([v34 isEqualToString:@"RelativePathsNotToBackupToDrive"])
         {
-          v52 = [MBDomain _setOfStringsFromValue:v49 forKey:v48];
-          v41 = v112;
-          v58 = [MBDomain _relativePathsByAddingSQLiteJournals:v52];
+          v38 = [MBDomain _setOfStringsFromValue:v35 forKey:v34];
+          v27 = v85;
+          v44 = [MBDomain _relativePathsByAddingSQLiteJournals:v38];
           relativePathsToBackupAndRestore = self->_relativePathsNotToBackupToDrive;
-          self->_relativePathsNotToBackupToDrive = v58;
+          self->_relativePathsNotToBackupToDrive = v44;
           goto LABEL_29;
         }
 
-        if ([v48 isEqualToString:@"RelativePathsNotToBackupToService"])
+        if ([v34 isEqualToString:@"RelativePathsNotToBackupToService"])
         {
-          v52 = [MBDomain _setOfStringsFromValue:v49 forKey:v48];
-          v41 = v112;
-          v59 = [MBDomain _relativePathsByAddingSQLiteJournals:v52];
+          v38 = [MBDomain _setOfStringsFromValue:v35 forKey:v34];
+          v27 = v85;
+          v45 = [MBDomain _relativePathsByAddingSQLiteJournals:v38];
           relativePathsToBackupAndRestore = self->_relativePathsNotToBackupToService;
-          self->_relativePathsNotToBackupToService = v59;
+          self->_relativePathsNotToBackupToService = v45;
           goto LABEL_29;
         }
 
-        if ([v48 isEqualToString:@"RelativePathsNotToBackupToLocal"])
+        if ([v34 isEqualToString:@"RelativePathsNotToBackupToLocal"])
         {
-          v52 = [MBDomain _setOfStringsFromValue:v49 forKey:v48];
-          v41 = v112;
-          v60 = [MBDomain _relativePathsByAddingSQLiteJournals:v52];
+          v38 = [MBDomain _setOfStringsFromValue:v35 forKey:v34];
+          v27 = v85;
+          v46 = [MBDomain _relativePathsByAddingSQLiteJournals:v38];
           relativePathsToBackupAndRestore = self->_relativePathsNotToBackupToLocal;
-          self->_relativePathsNotToBackupToLocal = v60;
+          self->_relativePathsNotToBackupToLocal = v46;
           goto LABEL_29;
         }
 
-        if ([v48 isEqualToString:@"RelativePathsToOnlyBackupEncrypted"])
+        if ([v34 isEqualToString:@"RelativePathsToOnlyBackupEncrypted"])
         {
-          v61 = [MBDomain _setOfStringsFromValue:v49 forKey:v48];
+          v47 = [MBDomain _setOfStringsFromValue:v35 forKey:v34];
           relativePathsToOnlyBackupEncrypted = self->_relativePathsToOnlyBackupEncrypted;
-          self->_relativePathsToOnlyBackupEncrypted = v61;
+          self->_relativePathsToOnlyBackupEncrypted = v47;
         }
 
-        else if ([v48 isEqualToString:@"RelativePathsNotToCheckIfModifiedDuringBackup"])
+        else if ([v34 isEqualToString:@"RelativePathsNotToCheckIfModifiedDuringBackup"])
         {
-          v62 = [MBDomain _setOfStringsFromValue:v49 forKey:v48];
+          v48 = [MBDomain _setOfStringsFromValue:v35 forKey:v34];
           relativePathsToOnlyBackupEncrypted = self->_relativePathsNotToCheckIfModifiedDuringBackup;
-          self->_relativePathsNotToCheckIfModifiedDuringBackup = v62;
+          self->_relativePathsNotToCheckIfModifiedDuringBackup = v48;
         }
 
         else
         {
-          if ([v48 isEqualToString:@"RelativePathsToRestoreOnly"])
+          if ([v34 isEqualToString:@"RelativePathsToRestoreOnly"])
           {
-            v52 = [MBDomain _setOfStringsFromValue:v49 forKey:v48];
-            v41 = v112;
-            v63 = [MBDomain _relativePathsByAddingSQLiteJournals:v52];
+            v38 = [MBDomain _setOfStringsFromValue:v35 forKey:v34];
+            v27 = v85;
+            v49 = [MBDomain _relativePathsByAddingSQLiteJournals:v38];
             relativePathsToBackupAndRestore = self->_relativePathsToRestoreOnly;
-            self->_relativePathsToRestoreOnly = v63;
+            self->_relativePathsToRestoreOnly = v49;
             goto LABEL_29;
           }
 
-          if ([v48 isEqualToString:@"RelativePathsToRestoreOnlyFromService"])
+          if ([v34 isEqualToString:@"RelativePathsToRestoreOnlyFromService"])
           {
-            v52 = [MBDomain _setOfStringsFromValue:v49 forKey:v48];
-            v41 = v112;
-            v64 = [MBDomain _relativePathsByAddingSQLiteJournals:v52];
+            v38 = [MBDomain _setOfStringsFromValue:v35 forKey:v34];
+            v27 = v85;
+            v50 = [MBDomain _relativePathsByAddingSQLiteJournals:v38];
             relativePathsToBackupAndRestore = self->_relativePathsToRestoreOnlyFromService;
-            self->_relativePathsToRestoreOnlyFromService = v64;
+            self->_relativePathsToRestoreOnlyFromService = v50;
             goto LABEL_29;
           }
 
-          if ([v48 isEqualToString:@"RelativePathsToRemoveOnRestore"])
+          if ([v34 isEqualToString:@"RelativePathsToRemoveOnRestore"])
           {
-            v52 = [MBDomain _setOfStringsFromValue:v49 forKey:v48];
-            v41 = v112;
-            v65 = [MBDomain _relativePathsByAddingSQLiteJournals:v52];
+            v38 = [MBDomain _setOfStringsFromValue:v35 forKey:v34];
+            v27 = v85;
+            v51 = [MBDomain _relativePathsByAddingSQLiteJournals:v38];
             relativePathsToBackupAndRestore = self->_relativePathsToRemoveOnRestore;
-            self->_relativePathsToRemoveOnRestore = v65;
+            self->_relativePathsToRemoveOnRestore = v51;
             goto LABEL_29;
           }
 
-          if ([v48 isEqualToString:@"RelativePathsOfSystemFilesToAlwaysRestore"])
+          if ([v34 isEqualToString:@"RelativePathsOfSystemFilesToAlwaysRestore"])
           {
-            v52 = [MBDomain _setOfStringsFromValue:v49 forKey:v48];
-            v41 = v112;
-            v66 = [MBDomain _relativePathsByAddingSQLiteJournals:v52];
+            v38 = [MBDomain _setOfStringsFromValue:v35 forKey:v34];
+            v27 = v85;
+            v52 = [MBDomain _relativePathsByAddingSQLiteJournals:v38];
             relativePathsToBackupAndRestore = self->_relativePathsOfSystemFilesToAlwaysRestore;
-            self->_relativePathsOfSystemFilesToAlwaysRestore = v66;
+            self->_relativePathsOfSystemFilesToAlwaysRestore = v52;
             goto LABEL_29;
           }
 
-          if ([v48 isEqualToString:@"RelativePathsOfSystemFilesToAlwaysRemoveOnRestore"])
+          if ([v34 isEqualToString:@"RelativePathsOfSystemFilesToAlwaysRemoveOnRestore"])
           {
-            v52 = [MBDomain _setOfStringsFromValue:v49 forKey:v48];
-            v41 = v112;
-            v67 = [MBDomain _relativePathsByAddingSQLiteJournals:v52];
+            v38 = [MBDomain _setOfStringsFromValue:v35 forKey:v34];
+            v27 = v85;
+            v53 = [MBDomain _relativePathsByAddingSQLiteJournals:v38];
             relativePathsToBackupAndRestore = self->_relativePathsOfSystemFilesToAlwaysRemoveOnRestore;
-            self->_relativePathsOfSystemFilesToAlwaysRemoveOnRestore = v67;
+            self->_relativePathsOfSystemFilesToAlwaysRemoveOnRestore = v53;
             goto LABEL_29;
           }
 
-          if ([v48 isEqualToString:@"RelativePathsNotToRestore"])
+          if ([v34 isEqualToString:@"RelativePathsNotToRestore"])
           {
-            v52 = [MBDomain _setOfStringsFromValue:v49 forKey:v48];
-            v41 = v112;
-            v68 = [MBDomain _relativePathsByAddingSQLiteJournals:v52];
+            v38 = [MBDomain _setOfStringsFromValue:v35 forKey:v34];
+            v27 = v85;
+            v54 = [MBDomain _relativePathsByAddingSQLiteJournals:v38];
             relativePathsToBackupAndRestore = self->_relativePathsNotToRestore;
-            self->_relativePathsNotToRestore = v68;
+            self->_relativePathsNotToRestore = v54;
             goto LABEL_29;
           }
 
-          if ([v48 isEqualToString:@"RelativePathsNotToRestoreFromLocal"])
+          if ([v34 isEqualToString:@"RelativePathsNotToRestoreFromLocal"])
           {
-            v52 = [MBDomain _setOfStringsFromValue:v49 forKey:v48];
-            v41 = v112;
-            v69 = [MBDomain _relativePathsByAddingSQLiteJournals:v52];
+            v38 = [MBDomain _setOfStringsFromValue:v35 forKey:v34];
+            v27 = v85;
+            v55 = [MBDomain _relativePathsByAddingSQLiteJournals:v38];
             relativePathsToBackupAndRestore = self->_relativePathsNotToRestoreFromLocal;
-            self->_relativePathsNotToRestoreFromLocal = v69;
+            self->_relativePathsNotToRestoreFromLocal = v55;
             goto LABEL_29;
           }
 
-          if ([v48 isEqualToString:@"RelativePathsNotToMigrate"])
+          if ([v34 isEqualToString:@"RelativePathsNotToMigrate"])
           {
-            v70 = [MBDomain _setOfStringsFromValue:v49 forKey:v48];
+            v56 = [MBDomain _setOfStringsFromValue:v35 forKey:v34];
             relativePathsToOnlyBackupEncrypted = self->_relativePathsNotToMigrate;
-            self->_relativePathsNotToMigrate = v70;
+            self->_relativePathsNotToMigrate = v56;
           }
 
-          else if ([v48 isEqualToString:@"RelativePathsToBackgroundRestore"])
+          else if ([v34 isEqualToString:@"RelativePathsToBackgroundRestore"])
           {
-            v71 = [MBDomain _setOfStringsFromValue:v49 forKey:v48];
+            v57 = [MBDomain _setOfStringsFromValue:v35 forKey:v34];
             relativePathsToOnlyBackupEncrypted = self->_relativePathsToBackgroundRestore;
-            self->_relativePathsToBackgroundRestore = v71;
+            self->_relativePathsToBackgroundRestore = v57;
           }
 
-          else if ([v48 isEqualToString:@"RelativePathsNotToRemoveIfNotRestored"])
+          else if ([v34 isEqualToString:@"RelativePathsNotToRemoveIfNotRestored"])
           {
-            v72 = [MBDomain _setOfStringsFromValue:v49 forKey:v48];
+            v58 = [MBDomain _setOfStringsFromValue:v35 forKey:v34];
             relativePathsToOnlyBackupEncrypted = self->_relativePathsNotToRemoveIfNotRestored;
-            self->_relativePathsNotToRemoveIfNotRestored = v72;
+            self->_relativePathsNotToRemoveIfNotRestored = v58;
           }
 
           else
           {
-            if (![v48 isEqualToString:@"RelativePathAggregateDictionaryGroups"])
+            if (![v34 isEqualToString:@"RelativePathAggregateDictionaryGroups"])
             {
-              if ([v48 isEqualToString:@"RelativePathDomainRedirects"])
+              if ([v34 isEqualToString:@"RelativePathDomainRedirects"])
               {
-                v74 = [MBDomain _dictionaryOfStringsToStringFromValue:v49 forKey:v48];
+                v60 = [MBDomain _dictionaryOfStringsToStringFromValue:v35 forKey:v34];
                 relativePathDomainRedirects = self->_relativePathDomainRedirects;
-                self->_relativePathDomainRedirects = v74;
+                self->_relativePathDomainRedirects = v60;
                 goto LABEL_75;
               }
 
-              if ([v48 isEqualToString:@"RelativePathsToBackupIgnoringProtectionClass"])
+              if ([v34 isEqualToString:@"RelativePathsToBackupIgnoringProtectionClass"])
               {
-                v76 = [MBDomain _setOfStringsFromValue:v49 forKey:v48];
-                v77 = [MBDomain _relativePathsByAddingSQLiteJournals:v76];
+                v62 = [MBDomain _setOfStringsFromValue:v35 forKey:v34];
+                v63 = [MBDomain _relativePathsByAddingSQLiteJournals:v62];
                 relativePathsToBackupIgnoringProtectionClass = self->_relativePathsToBackupIgnoringProtectionClass;
-                self->_relativePathsToBackupIgnoringProtectionClass = v77;
+                self->_relativePathsToBackupIgnoringProtectionClass = v63;
                 goto LABEL_78;
               }
 
-              if ([v48 isEqualToString:@"RelativePathsToIgnoreExclusionsForDrive"])
+              if ([v34 isEqualToString:@"RelativePathsToIgnoreExclusionsForDrive"])
               {
-                v79 = [MBDomain _setOfStringsFromValue:v49 forKey:v48];
+                v65 = [MBDomain _setOfStringsFromValue:v35 forKey:v34];
                 relativePathDomainRedirects = self->_relativePathsToIgnoreExclusionsForDrive;
-                self->_relativePathsToIgnoreExclusionsForDrive = v79;
+                self->_relativePathsToIgnoreExclusionsForDrive = v65;
 LABEL_75:
               }
 
               else
               {
-                v41 = v112;
-                if ([v48 isEqualToString:@"BackupRulesPath"] & 1) != 0 || (objc_msgSend(v48, "isEqualToString:", @"HasFallbackConfig"))
+                v27 = v85;
+                if ([v34 isEqualToString:@"BackupRulesPath"] & 1) != 0 || (objc_msgSend(v34, "isEqualToString:", @"HasFallbackConfig"))
                 {
                   goto LABEL_33;
                 }
 
-                if ([v48 isEqualToString:@"RelativePathsToBackupToDriveAndStandardAccount"])
+                if ([v34 isEqualToString:@"RelativePathsToBackupToDriveAndStandardAccount"])
                 {
-                  v76 = [MBDomain _setOfStringsFromValue:v49 forKey:v48];
-                  v80 = [MBDomain _relativePathsByAddingSQLiteJournals:v76];
+                  v62 = [MBDomain _setOfStringsFromValue:v35 forKey:v34];
+                  v66 = [MBDomain _relativePathsByAddingSQLiteJournals:v62];
                   relativePathsToBackupIgnoringProtectionClass = self->_relativePathsToBackupToDriveAndStandardAccount;
-                  self->_relativePathsToBackupToDriveAndStandardAccount = v80;
+                  self->_relativePathsToBackupToDriveAndStandardAccount = v66;
                 }
 
-                else if ([v48 isEqualToString:@"RelativePathsNotToBackupInMegaBackup"])
+                else if ([v34 isEqualToString:@"RelativePathsNotToBackupInMegaBackup"])
                 {
-                  v76 = [MBDomain _setOfStringsFromValue:v49 forKey:v48];
-                  v81 = [MBDomain _relativePathsByAddingSQLiteJournals:v76];
+                  v62 = [MBDomain _setOfStringsFromValue:v35 forKey:v34];
+                  v67 = [MBDomain _relativePathsByAddingSQLiteJournals:v62];
                   relativePathsToBackupIgnoringProtectionClass = self->_relativePathsNotToBackupInMegaBackup;
-                  self->_relativePathsNotToBackupInMegaBackup = v81;
+                  self->_relativePathsNotToBackupInMegaBackup = v67;
                 }
 
                 else
                 {
-                  if (![v48 isEqualToString:@"RelativePathsNotToTransferDeviceToDevice"])
+                  if (![v34 isEqualToString:@"RelativePathsNotToTransferDeviceToDevice"])
                   {
-                    v108 = [[MBException alloc] initWithCode:11 format:@"Unexpected domain plist key: %@", v48, v108];
+                    v80 = [[MBException alloc] initWithCode:11 format:@"Unexpected domain plist key: %@", v34];
 LABEL_104:
-                    objc_exception_throw(v108);
+                    objc_exception_throw(v80);
                   }
 
-                  v76 = [MBDomain _setOfStringsFromValue:v49 forKey:v48];
-                  v82 = [MBDomain _relativePathsByAddingSQLiteJournals:v76];
+                  v62 = [MBDomain _setOfStringsFromValue:v35 forKey:v34];
+                  v68 = [MBDomain _relativePathsByAddingSQLiteJournals:v62];
                   relativePathsToBackupIgnoringProtectionClass = self->_relativePathsNotToTransferDeviceToDevice;
-                  self->_relativePathsNotToTransferDeviceToDevice = v82;
+                  self->_relativePathsNotToTransferDeviceToDevice = v68;
                 }
 
 LABEL_78:
               }
 
-              v41 = v112;
+              v27 = v85;
               goto LABEL_33;
             }
 
-            v73 = [MBDomain _dictionaryOfStringsToStringFromValue:v49 forKey:v48];
+            v59 = [MBDomain _dictionaryOfStringsToStringFromValue:v35 forKey:v34];
             relativePathsToOnlyBackupEncrypted = self->_relativePathAggregateDictionaryGroups;
-            self->_relativePathAggregateDictionaryGroups = v73;
+            self->_relativePathAggregateDictionaryGroups = v59;
           }
         }
       }
 
 LABEL_33:
-      if (v45 == ++v47)
+      if (v31 == ++v33)
       {
-        v83 = [v43 countByEnumeratingWithState:&v113 objects:v117 count:16];
-        v45 = v83;
-        if (!v83)
+        v69 = [v29 countByEnumeratingWithState:&v86 objects:v90 count:16];
+        v31 = v69;
+        if (!v69)
         {
           goto LABEL_91;
         }
@@ -1038,213 +1030,219 @@ LABEL_33:
     }
   }
 
-  v13 = self->_rootPath;
-  v14 = [plistCopy objectForKeyedSubscript:@"RootPath"];
-  LOBYTE(v13) = [(NSString *)v13 isEqualToString:v14];
+  v14 = self->_rootPath;
+  v15 = [plistCopy objectForKeyedSubscript:@"RootPath"];
+  LOBYTE(v14) = [(NSString *)v14 isEqualToString:v15];
 
-  if (v13)
+  if (v14)
   {
-    v15 = MBGetDefaultLog();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v18 = MBGetDefaultLog(v16);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = self->_name;
+      v19 = self->_name;
       *buf = 138412546;
-      v119 = v16;
-      v120 = 2112;
-      v121 = v12;
-      _os_log_impl(&dword_1DEB5D000, v15, OS_LOG_TYPE_DEFAULT, "Loaded backup rules for '%@' from external plist at '%@'", buf, 0x16u);
-      _MBLog(@"Df", "Loaded backup rules for '%@' from external plist at '%@'", v17, v18, v19, v20, v21, v22, self->_name);
+      v92 = v19;
+      v93 = 2112;
+      v94 = v12;
+      _os_log_impl(&dword_1DEB5D000, v18, OS_LOG_TYPE_DEFAULT, "Loaded backup rules for '%@' from external plist at '%@'", buf, 0x16u);
+      _MBLog(@"Df", "Loaded backup rules for '%@' from external plist at '%@'", self->_name, v12);
     }
 
-    v23 = 1;
+    v20 = 1;
     self->_hasExternalConfig = 1;
   }
 
   else
   {
-    v84 = MBIsInternalInstall();
-    v85 = MBGetDefaultLog();
-    v86 = v85;
-    if (v84)
+    v70 = MBIsInternalInstall(v16, v17);
+    v71 = v70;
+    v72 = MBGetDefaultLog(v70);
+    v73 = v72;
+    if (v71)
     {
-      if (os_log_type_enabled(v85, OS_LOG_TYPE_FAULT))
+      if (os_log_type_enabled(v72, OS_LOG_TYPE_FAULT))
       {
-        v87 = self->_name;
+        v74 = self->_name;
         *buf = 138412546;
-        v119 = v87;
-        v120 = 2112;
-        v121 = v12;
-        _os_log_impl(&dword_1DEB5D000, v86, OS_LOG_TYPE_FAULT, "Backup rules plist does not match parent RootPath for '%@' at '%@'. Domain will be skipped.", buf, 0x16u);
-        _MBLog(@"F ", "Backup rules plist does not match parent RootPath for '%@' at '%@'. Domain will be skipped.", v88, v89, v90, v91, v92, v93, self->_name);
+        v92 = v74;
+        v93 = 2112;
+        v94 = v12;
+        _os_log_impl(&dword_1DEB5D000, v73, OS_LOG_TYPE_FAULT, "Backup rules plist does not match parent RootPath for '%@' at '%@'. Domain will be skipped.", buf, 0x16u);
+        _MBLog(@"F ", "Backup rules plist does not match parent RootPath for '%@' at '%@'. Domain will be skipped.", self->_name, v12);
       }
     }
 
-    else if (os_log_type_enabled(v85, OS_LOG_TYPE_ERROR))
+    else if (os_log_type_enabled(v72, OS_LOG_TYPE_ERROR))
     {
-      v97 = self->_name;
+      v78 = self->_name;
       *buf = 138412546;
-      v119 = v97;
-      v120 = 2112;
-      v121 = v12;
-      _os_log_impl(&dword_1DEB5D000, v86, OS_LOG_TYPE_ERROR, "Backup rules plist does not match parent RootPath for '%@' at '%@'. Domain will be skipped.", buf, 0x16u);
-      _MBLog(@"E ", "Backup rules plist does not match parent RootPath for '%@' at '%@'. Domain will be skipped.", v98, v99, v100, v101, v102, v103, self->_name);
+      v92 = v78;
+      v93 = 2112;
+      v94 = v12;
+      _os_log_impl(&dword_1DEB5D000, v73, OS_LOG_TYPE_ERROR, "Backup rules plist does not match parent RootPath for '%@' at '%@'. Domain will be skipped.", buf, 0x16u);
+      _MBLog(@"E ", "Backup rules plist does not match parent RootPath for '%@' at '%@'. Domain will be skipped.", self->_name, v12);
     }
 
-    v23 = 0;
+    v20 = 0;
   }
 
 LABEL_99:
 
-  v104 = *MEMORY[0x1E69E9840];
-  return v23;
+  return v20;
 }
 
 - (BOOL)_loadDomainFromExternalPlist:(id)plist
 {
-  v113 = *MEMORY[0x1E69E9840];
+  v85 = *MEMORY[0x1E69E9840];
   plistCopy = plist;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   v6 = [defaultManager fileExistsAtPath:plistCopy];
 
   if ((v6 & 1) == 0)
   {
-    v37 = MBIsInternalInstall();
-    v38 = MBGetDefaultLog();
-    v10 = v38;
-    if (v37)
+    v47 = MBIsInternalInstall(v7, v8);
+    v48 = v47;
+    v49 = MBGetDefaultLog(v47);
+    v12 = v49;
+    if (v48)
     {
-      if (os_log_type_enabled(v38, OS_LOG_TYPE_FAULT))
+      if (os_log_type_enabled(v49, OS_LOG_TYPE_FAULT))
       {
         *buf = 138412290;
-        v110 = plistCopy;
-        _os_log_impl(&dword_1DEB5D000, v10, OS_LOG_TYPE_FAULT, "System plist specifies external plist at '%@' that DOES NOT EXIST on the filesystem. Domain will be skipped.", buf, 0xCu);
-        _MBLog(@"F ", "System plist specifies external plist at '%@' that DOES NOT EXIST on the filesystem. Domain will be skipped.", v39, v40, v41, v42, v43, v44, plistCopy);
+        v82 = plistCopy;
+        _os_log_impl(&dword_1DEB5D000, v12, OS_LOG_TYPE_FAULT, "System plist specifies external plist at '%@' that DOES NOT EXIST on the filesystem. Domain will be skipped.", buf, 0xCu);
+        _MBLog(@"F ", "System plist specifies external plist at '%@' that DOES NOT EXIST on the filesystem. Domain will be skipped.", plistCopy);
       }
     }
 
-    else if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+    else if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v110 = plistCopy;
-      _os_log_impl(&dword_1DEB5D000, v10, OS_LOG_TYPE_ERROR, "System plist specifies external plist at '%@' that DOES NOT EXIST on the filesystem. Domain will be skipped.", buf, 0xCu);
-      _MBLog(@"E ", "System plist specifies external plist at '%@' that DOES NOT EXIST on the filesystem. Domain will be skipped.", v45, v46, v47, v48, v49, v50, plistCopy);
+      v82 = plistCopy;
+      _os_log_impl(&dword_1DEB5D000, v12, OS_LOG_TYPE_ERROR, "System plist specifies external plist at '%@' that DOES NOT EXIST on the filesystem. Domain will be skipped.", buf, 0xCu);
+      _MBLog(@"E ", "System plist specifies external plist at '%@' that DOES NOT EXIST on the filesystem. Domain will be skipped.", plistCopy);
     }
 
-    v35 = 0;
+    v45 = 0;
     goto LABEL_66;
   }
 
-  v7 = MEMORY[0x1E695DF20];
-  v8 = [MEMORY[0x1E695DFF8] fileURLWithPath:plistCopy];
-  v106 = 0;
-  v9 = [v7 dictionaryWithContentsOfURL:v8 error:&v106];
-  v10 = v106;
+  v9 = MEMORY[0x1E695DF20];
+  v10 = [MEMORY[0x1E695DFF8] fileURLWithPath:plistCopy];
+  v78 = 0;
+  v11 = [v9 dictionaryWithContentsOfURL:v10 error:&v78];
+  v12 = v78;
 
-  if (!v9)
+  if (!v11)
   {
-    v51 = MBIsInternalInstall();
-    v52 = MBGetDefaultLog();
-    v36 = v52;
+    v50 = MBIsInternalInstall(v13, v14);
+    v51 = v50;
+    v52 = MBGetDefaultLog(v50);
+    v46 = v52;
     if (v51)
     {
       if (os_log_type_enabled(v52, OS_LOG_TYPE_FAULT))
       {
         *buf = 138412546;
-        v110 = plistCopy;
-        v111 = 2112;
-        v112 = v10;
-        _os_log_impl(&dword_1DEB5D000, v36, OS_LOG_TYPE_FAULT, "System plist specifies external plist at '%@' but error loading plist: %@. Domain will be skipped.", buf, 0x16u);
-        _MBLog(@"F ", "System plist specifies external plist at '%@' but error loading plist: %@. Domain will be skipped.", v53, v54, v55, v56, v57, v58, plistCopy);
+        v82 = plistCopy;
+        v83 = 2112;
+        v84 = v12;
+        _os_log_impl(&dword_1DEB5D000, v46, OS_LOG_TYPE_FAULT, "System plist specifies external plist at '%@' but error loading plist: %@. Domain will be skipped.", buf, 0x16u);
+        _MBLog(@"F ", "System plist specifies external plist at '%@' but error loading plist: %@. Domain will be skipped.", plistCopy, v12);
       }
     }
 
     else if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v110 = plistCopy;
-      v111 = 2112;
-      v112 = v10;
-      _os_log_impl(&dword_1DEB5D000, v36, OS_LOG_TYPE_ERROR, "System plist specifies external plist at '%@' but error loading plist: %@. Domain will be skipped.", buf, 0x16u);
-      _MBLog(@"E ", "System plist specifies external plist at '%@' but error loading plist: %@. Domain will be skipped.", v71, v72, v73, v74, v75, v76, plistCopy);
+      v82 = plistCopy;
+      v83 = 2112;
+      v84 = v12;
+      _os_log_impl(&dword_1DEB5D000, v46, OS_LOG_TYPE_ERROR, "System plist specifies external plist at '%@' but error loading plist: %@. Domain will be skipped.", buf, 0x16u);
+      _MBLog(@"E ", "System plist specifies external plist at '%@' but error loading plist: %@. Domain will be skipped.", plistCopy, v12);
     }
 
     goto LABEL_64;
   }
 
-  v97 = [MEMORY[0x1E695DFD8] setWithArray:&unk_1F59DC7A8];
-  v102 = 0u;
-  v103 = 0u;
-  v104 = 0u;
-  v105 = 0u;
-  v11 = v9;
-  v12 = [v11 countByEnumeratingWithState:&v102 objects:v108 count:16];
-  if (v12)
+  v69 = [MEMORY[0x1E695DFD8] setWithArray:&unk_1F59DC7A8];
+  v74 = 0u;
+  v75 = 0u;
+  v76 = 0u;
+  v77 = 0u;
+  v15 = v11;
+  v16 = [v15 countByEnumeratingWithState:&v74 objects:v80 count:16];
+  if (v16)
   {
-    v13 = v12;
-    v14 = *v103;
+    v17 = v16;
+    v18 = *v75;
     do
     {
-      for (i = 0; i != v13; ++i)
+      for (i = 0; i != v17; ++i)
       {
-        if (*v103 != v14)
+        if (*v75 != v18)
         {
-          objc_enumerationMutation(v11);
+          objc_enumerationMutation(v15);
         }
 
-        v16 = *(*(&v102 + 1) + 8 * i);
-        if (([v97 containsObject:v16]& 1) == 0)
+        v20 = *(*(&v74 + 1) + 8 * i);
+        v21 = [v69 containsObject:v20];
+        if ((v21 & 1) == 0)
         {
-          v59 = MBIsInternalInstall();
-          v60 = MBGetDefaultLog();
-          v61 = v60;
-          if (v59)
+          v53 = MBIsInternalInstall(v21, v22);
+          v54 = v53;
+          v55 = MBGetDefaultLog(v53);
+          v56 = v55;
+          if (v54)
           {
-            if (os_log_type_enabled(v60, OS_LOG_TYPE_FAULT))
+            if (os_log_type_enabled(v55, OS_LOG_TYPE_FAULT))
             {
 LABEL_54:
               *buf = 138412546;
-              v110 = plistCopy;
-              v111 = 2112;
-              v112 = v16;
-              _os_log_impl(&dword_1DEB5D000, v61, OS_LOG_TYPE_FAULT, "External plist at '%@' includes invalid key: '%@'. Domain will be skipped.", buf, 0x16u);
-              v70 = @"F ";
+              v82 = plistCopy;
+              v83 = 2112;
+              v84 = v20;
+              _os_log_impl(&dword_1DEB5D000, v56, OS_LOG_TYPE_FAULT, "External plist at '%@' includes invalid key: '%@'. Domain will be skipped.", buf, 0x16u);
+              v60 = @"F ";
               goto LABEL_61;
             }
 
 LABEL_62:
-            v36 = v97;
+            v46 = v69;
 LABEL_63:
 
             goto LABEL_64;
           }
 
-          if (!os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
+          if (!os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_62;
           }
 
 LABEL_60:
           *buf = 138412546;
-          v110 = plistCopy;
-          v111 = 2112;
-          v112 = v16;
-          _os_log_impl(&dword_1DEB5D000, v61, OS_LOG_TYPE_ERROR, "External plist at '%@' includes invalid key: '%@'. Domain will be skipped.", buf, 0x16u);
-          v70 = @"E ";
+          v82 = plistCopy;
+          v83 = 2112;
+          v84 = v20;
+          _os_log_impl(&dword_1DEB5D000, v56, OS_LOG_TYPE_ERROR, "External plist at '%@' includes invalid key: '%@'. Domain will be skipped.", buf, 0x16u);
+          v60 = @"E ";
 LABEL_61:
-          v36 = v97;
-          _MBLog(v70, "External plist at '%@' includes invalid key: '%@'. Domain will be skipped.", v64, v65, v66, v67, v68, v69, plistCopy);
+          v46 = v69;
+          _MBLog(v60, "External plist at '%@' includes invalid key: '%@'. Domain will be skipped.", plistCopy, v20);
           goto LABEL_63;
         }
 
         objc_opt_class();
-        if ((objc_opt_isKindOfClass() & 1) == 0)
+        isKindOfClass = objc_opt_isKindOfClass();
+        if ((isKindOfClass & 1) == 0)
         {
-          v62 = MBIsInternalInstall();
-          v63 = MBGetDefaultLog();
-          v61 = v63;
-          if (v62)
+          v57 = MBIsInternalInstall(isKindOfClass, v24);
+          v58 = v57;
+          v59 = MBGetDefaultLog(v57);
+          v56 = v59;
+          if (v58)
           {
-            if (os_log_type_enabled(v63, OS_LOG_TYPE_FAULT))
+            if (os_log_type_enabled(v59, OS_LOG_TYPE_FAULT))
             {
               goto LABEL_54;
             }
@@ -1252,7 +1250,7 @@ LABEL_61:
             goto LABEL_62;
           }
 
-          if (!os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
+          if (!os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_62;
           }
@@ -1261,165 +1259,165 @@ LABEL_61:
         }
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v102 objects:v108 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v74 objects:v80 count:16];
     }
 
-    while (v13);
+    while (v17);
   }
 
-  v94 = v9;
-  v95 = v10;
-  v96 = plistCopy;
+  v66 = v11;
+  v67 = v12;
+  v68 = plistCopy;
 
-  v100 = 0u;
-  v101 = 0u;
-  v98 = 0u;
-  v99 = 0u;
-  v17 = v11;
-  v18 = [v17 countByEnumeratingWithState:&v98 objects:v107 count:16];
-  if (!v18)
+  v72 = 0u;
+  v73 = 0u;
+  v70 = 0u;
+  v71 = 0u;
+  v25 = v15;
+  v26 = [v25 countByEnumeratingWithState:&v70 objects:v79 count:16];
+  if (!v26)
   {
     goto LABEL_38;
   }
 
-  v19 = v18;
-  v20 = *v99;
+  v27 = v26;
+  v28 = *v71;
   do
   {
-    v21 = 0;
+    v29 = 0;
     do
     {
-      if (*v99 != v20)
+      if (*v71 != v28)
       {
-        objc_enumerationMutation(v17);
+        objc_enumerationMutation(v25);
       }
 
-      v22 = *(*(&v98 + 1) + 8 * v21);
-      v23 = [v17 objectForKeyedSubscript:v22];
-      if ([v22 isEqualToString:@"RootPath"])
+      v30 = *(*(&v70 + 1) + 8 * v29);
+      v31 = [v25 objectForKeyedSubscript:v30];
+      if ([v30 isEqualToString:@"RootPath"])
       {
-        v24 = [MBDomain _stringByRemovingCommentsFromValue:v23 forKey:v22];
+        v32 = [MBDomain _stringByRemovingCommentsFromValue:v31 forKey:v30];
         rootPath = self->_rootPath;
-        self->_rootPath = v24;
+        self->_rootPath = v32;
         goto LABEL_24;
       }
 
-      if ([v22 isEqualToString:@"RelativePathsToBackupAndRestore"])
+      if ([v30 isEqualToString:@"RelativePathsToBackupAndRestore"])
       {
-        rootPath = [MBDomain _setOfStringsFromValue:v23 forKey:v22];
-        v26 = [MBDomain _relativePathsByAddingSQLiteJournals:rootPath];
+        rootPath = [MBDomain _setOfStringsFromValue:v31 forKey:v30];
+        v34 = [MBDomain _relativePathsByAddingSQLiteJournals:rootPath];
         relativePathsToBackupAndRestore = self->_relativePathsToBackupAndRestore;
-        self->_relativePathsToBackupAndRestore = v26;
+        self->_relativePathsToBackupAndRestore = v34;
         goto LABEL_21;
       }
 
-      if ([v22 isEqualToString:@"RelativePathsToOnlyBackupEncrypted"])
+      if ([v30 isEqualToString:@"RelativePathsToOnlyBackupEncrypted"])
       {
-        v28 = [MBDomain _setOfStringsFromValue:v23 forKey:v22];
+        v36 = [MBDomain _setOfStringsFromValue:v31 forKey:v30];
         rootPath = self->_relativePathsToOnlyBackupEncrypted;
-        self->_relativePathsToOnlyBackupEncrypted = v28;
+        self->_relativePathsToOnlyBackupEncrypted = v36;
         goto LABEL_24;
       }
 
-      if ([v22 isEqualToString:@"RelativePathsNotToBackup"])
+      if ([v30 isEqualToString:@"RelativePathsNotToBackup"])
       {
-        rootPath = [MBDomain _setOfStringsFromValue:v23 forKey:v22];
-        v29 = [MBDomain _relativePathsByAddingSQLiteJournals:rootPath];
+        rootPath = [MBDomain _setOfStringsFromValue:v31 forKey:v30];
+        v37 = [MBDomain _relativePathsByAddingSQLiteJournals:rootPath];
         relativePathsToBackupAndRestore = self->_relativePathsNotToBackup;
-        self->_relativePathsNotToBackup = v29;
+        self->_relativePathsNotToBackup = v37;
         goto LABEL_21;
       }
 
-      if ([v22 isEqualToString:@"RelativePathsNotToBackupToDrive"])
+      if ([v30 isEqualToString:@"RelativePathsNotToBackupToDrive"])
       {
-        rootPath = [MBDomain _setOfStringsFromValue:v23 forKey:v22];
-        v30 = [MBDomain _relativePathsByAddingSQLiteJournals:rootPath];
+        rootPath = [MBDomain _setOfStringsFromValue:v31 forKey:v30];
+        v38 = [MBDomain _relativePathsByAddingSQLiteJournals:rootPath];
         relativePathsToBackupAndRestore = self->_relativePathsNotToBackupToDrive;
-        self->_relativePathsNotToBackupToDrive = v30;
+        self->_relativePathsNotToBackupToDrive = v38;
         goto LABEL_21;
       }
 
-      if ([v22 isEqualToString:@"RelativePathsToBackgroundRestore"])
+      if ([v30 isEqualToString:@"RelativePathsToBackgroundRestore"])
       {
-        v31 = [MBDomain _setOfStringsFromValue:v23 forKey:v22];
+        v39 = [MBDomain _setOfStringsFromValue:v31 forKey:v30];
         rootPath = self->_relativePathsToBackgroundRestore;
-        self->_relativePathsToBackgroundRestore = v31;
+        self->_relativePathsToBackgroundRestore = v39;
         goto LABEL_24;
       }
 
-      if ([v22 isEqualToString:@"RelativePathsToRemoveOnRestore"])
+      if ([v30 isEqualToString:@"RelativePathsToRemoveOnRestore"])
       {
-        rootPath = [MBDomain _setOfStringsFromValue:v23 forKey:v22];
-        v32 = [MBDomain _relativePathsByAddingSQLiteJournals:rootPath];
+        rootPath = [MBDomain _setOfStringsFromValue:v31 forKey:v30];
+        v40 = [MBDomain _relativePathsByAddingSQLiteJournals:rootPath];
         relativePathsToBackupAndRestore = self->_relativePathsToRemoveOnRestore;
-        self->_relativePathsToRemoveOnRestore = v32;
+        self->_relativePathsToRemoveOnRestore = v40;
         goto LABEL_21;
       }
 
-      if ([v22 isEqualToString:@"RelativePathsNotToTransferDeviceToDevice"])
+      if ([v30 isEqualToString:@"RelativePathsNotToTransferDeviceToDevice"])
       {
-        rootPath = [MBDomain _setOfStringsFromValue:v23 forKey:v22];
-        v33 = [MBDomain _relativePathsByAddingSQLiteJournals:rootPath];
+        rootPath = [MBDomain _setOfStringsFromValue:v31 forKey:v30];
+        v41 = [MBDomain _relativePathsByAddingSQLiteJournals:rootPath];
         relativePathsToBackupAndRestore = self->_relativePathsNotToTransferDeviceToDevice;
-        self->_relativePathsNotToTransferDeviceToDevice = v33;
+        self->_relativePathsNotToTransferDeviceToDevice = v41;
 LABEL_21:
 
 LABEL_24:
       }
 
-      ++v21;
+      ++v29;
     }
 
-    while (v19 != v21);
-    v34 = [v17 countByEnumeratingWithState:&v98 objects:v107 count:16];
-    v19 = v34;
+    while (v27 != v29);
+    v42 = [v25 countByEnumeratingWithState:&v70 objects:v79 count:16];
+    v27 = v42;
   }
 
-  while (v34);
+  while (v42);
 LABEL_38:
 
-  plistCopy = v96;
+  plistCopy = v68;
   if (self->_rootPath)
   {
-    v35 = 1;
-    v9 = v94;
-    v10 = v95;
-    v36 = v97;
+    v45 = 1;
+    v11 = v66;
+    v12 = v67;
+    v46 = v69;
     goto LABEL_65;
   }
 
-  v79 = MBIsInternalInstall();
-  v80 = MBGetDefaultLog();
-  v81 = v80;
-  v9 = v94;
-  v10 = v95;
-  v36 = v97;
-  if (v79)
+  v62 = MBIsInternalInstall(v43, v44);
+  v63 = v62;
+  v64 = MBGetDefaultLog(v62);
+  v65 = v64;
+  v11 = v66;
+  v12 = v67;
+  v46 = v69;
+  if (v63)
   {
-    if (os_log_type_enabled(v80, OS_LOG_TYPE_FAULT))
+    if (os_log_type_enabled(v64, OS_LOG_TYPE_FAULT))
     {
       *buf = 138412290;
-      v110 = v96;
-      _os_log_impl(&dword_1DEB5D000, v81, OS_LOG_TYPE_FAULT, "System plist specifies external plist at '%@' but plist is MALFORMED. Domain will be skipped.", buf, 0xCu);
-      _MBLog(@"F ", "System plist specifies external plist at '%@' but plist is MALFORMED. Domain will be skipped.", v82, v83, v84, v85, v86, v87, v96);
+      v82 = v68;
+      _os_log_impl(&dword_1DEB5D000, v65, OS_LOG_TYPE_FAULT, "System plist specifies external plist at '%@' but plist is MALFORMED. Domain will be skipped.", buf, 0xCu);
+      _MBLog(@"F ", "System plist specifies external plist at '%@' but plist is MALFORMED. Domain will be skipped.", v68);
     }
   }
 
-  else if (os_log_type_enabled(v80, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v110 = v96;
-    _os_log_impl(&dword_1DEB5D000, v81, OS_LOG_TYPE_ERROR, "System plist specifies external plist at '%@' but plist is MALFORMED. Domain will be skipped.", buf, 0xCu);
-    _MBLog(@"E ", "System plist specifies external plist at '%@' but plist is MALFORMED. Domain will be skipped.", v88, v89, v90, v91, v92, v93, v96);
+    v82 = v68;
+    _os_log_impl(&dword_1DEB5D000, v65, OS_LOG_TYPE_ERROR, "System plist specifies external plist at '%@' but plist is MALFORMED. Domain will be skipped.", buf, 0xCu);
+    _MBLog(@"E ", "System plist specifies external plist at '%@' but plist is MALFORMED. Domain will be skipped.", v68);
   }
 
 LABEL_64:
-  v35 = 0;
+  v45 = 0;
 LABEL_65:
 
 LABEL_66:
-  v77 = *MEMORY[0x1E69E9840];
-  return v35;
+  return v45;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -1508,33 +1506,33 @@ LABEL_66:
 
 - (BOOL)shouldBackUpAnyChildOfRelativePath:(id)path
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   v5 = [pathCopy length];
   if (v5)
   {
     v6 = v5;
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0u;
     v41 = 0u;
+    v42 = 0u;
+    v39 = 0u;
+    v40 = 0u;
     selfCopy = self;
     relativePathsNotToBackup = [(MBDomain *)self relativePathsNotToBackup];
-    v8 = [relativePathsNotToBackup countByEnumeratingWithState:&v40 objects:v45 count:16];
+    v8 = [relativePathsNotToBackup countByEnumeratingWithState:&v39 objects:v44 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v41;
+      v10 = *v40;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v41 != v10)
+          if (*v40 != v10)
           {
             objc_enumerationMutation(relativePathsNotToBackup);
           }
 
-          v12 = *(*(&v40 + 1) + 8 * i);
+          v12 = *(*(&v39 + 1) + 8 * i);
           v13 = pathCopy;
           v14 = v12;
           v15 = [v13 length];
@@ -1560,32 +1558,32 @@ LABEL_66:
           }
         }
 
-        v9 = [relativePathsNotToBackup countByEnumeratingWithState:&v40 objects:v45 count:16];
+        v9 = [relativePathsNotToBackup countByEnumeratingWithState:&v39 objects:v44 count:16];
       }
 
       while (v9);
     }
 
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
     v37 = 0u;
+    v38 = 0u;
+    v35 = 0u;
+    v36 = 0u;
     relativePathsNotToBackup = [(MBDomain *)selfCopy relativePathsToBackup];
-    v19 = [relativePathsNotToBackup countByEnumeratingWithState:&v36 objects:v44 count:16];
+    v19 = [relativePathsNotToBackup countByEnumeratingWithState:&v35 objects:v43 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v37;
+      v21 = *v36;
       while (2)
       {
         for (j = 0; j != v20; ++j)
         {
-          if (*v37 != v21)
+          if (*v36 != v21)
           {
             objc_enumerationMutation(relativePathsNotToBackup);
           }
 
-          v23 = *(*(&v36 + 1) + 8 * j);
+          v23 = *(*(&v35 + 1) + 8 * j);
           v24 = [v23 length];
           if (!v24)
           {
@@ -1630,7 +1628,7 @@ LABEL_30:
           }
         }
 
-        v20 = [relativePathsNotToBackup countByEnumeratingWithState:&v36 objects:v44 count:16];
+        v20 = [relativePathsNotToBackup countByEnumeratingWithState:&v35 objects:v43 count:16];
         if (v20)
         {
           continue;
@@ -1650,33 +1648,32 @@ LABEL_31:
     v32 = 1;
   }
 
-  v33 = *MEMORY[0x1E69E9840];
   return v32;
 }
 
 - (BOOL)shouldBackupRelativePathIgnoringProtectionClass:(id)class
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   classCopy = class;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   relativePathsToBackupIgnoringProtectionClass = [(MBDomain *)self relativePathsToBackupIgnoringProtectionClass];
-  v6 = [relativePathsToBackupIgnoringProtectionClass countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v6 = [relativePathsToBackupIgnoringProtectionClass countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v6)
   {
-    v7 = *v19;
+    v7 = *v18;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v19 != v7)
+        if (*v18 != v7)
         {
           objc_enumerationMutation(relativePathsToBackupIgnoringProtectionClass);
         }
 
-        v9 = *(*(&v18 + 1) + 8 * i);
+        v9 = *(*(&v17 + 1) + 8 * i);
         v10 = classCopy;
         v11 = v9;
         v12 = [v10 length];
@@ -1704,7 +1701,7 @@ LABEL_13:
         }
       }
 
-      v6 = [relativePathsToBackupIgnoringProtectionClass countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v6 = [relativePathsToBackupIgnoringProtectionClass countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v6)
       {
         continue;
@@ -1716,13 +1713,12 @@ LABEL_13:
 
 LABEL_14:
 
-  v16 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (BOOL)shouldBackupRelativePathFromLiveFileSystem:(id)system
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   systemCopy = system;
   name = [(MBDomain *)self name];
   v6 = [name isEqualToString:@"SkippedFilesDomain"];
@@ -1738,26 +1734,26 @@ LABEL_14:
     if ([(NSSet *)v8 count])
     {
       stringByStandardizingPath = [systemCopy stringByStandardizingPath];
+      v22 = 0u;
       v23 = 0u;
       v24 = 0u;
       v25 = 0u;
-      v26 = 0u;
       v10 = v8;
-      v7 = [(NSSet *)v10 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v7 = [(NSSet *)v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
       if (v7)
       {
-        v22 = v8;
-        v11 = *v24;
+        v21 = v8;
+        v11 = *v23;
         while (2)
         {
           for (i = 0; i != v7; ++i)
           {
-            if (*v24 != v11)
+            if (*v23 != v11)
             {
               objc_enumerationMutation(v10);
             }
 
-            v13 = *(*(&v23 + 1) + 8 * i);
+            v13 = *(*(&v22 + 1) + 8 * i);
             v14 = stringByStandardizingPath;
             v15 = v13;
             v16 = [v14 length];
@@ -1785,7 +1781,7 @@ LABEL_16:
             }
           }
 
-          v7 = [(NSSet *)v10 countByEnumeratingWithState:&v23 objects:v27 count:16];
+          v7 = [(NSSet *)v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
           if (v7)
           {
             continue;
@@ -1795,7 +1791,7 @@ LABEL_16:
         }
 
 LABEL_17:
-        v8 = v22;
+        v8 = v21;
       }
     }
 
@@ -1805,7 +1801,6 @@ LABEL_17:
     }
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

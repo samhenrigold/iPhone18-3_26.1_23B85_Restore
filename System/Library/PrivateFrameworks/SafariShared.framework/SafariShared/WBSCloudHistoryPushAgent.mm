@@ -65,46 +65,46 @@
 
   if (!v7)
   {
-    v9 = WBS_LOG_CHANNEL_PREFIXCloudHistory();
-    if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v13 = WBS_LOG_CHANNEL_PREFIXCloudHistory(v8, v9);
+    if (!os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_13;
     }
 
     *buf = 0;
-    v10 = "Ignoring push notification because notification is nil";
+    v14 = "Ignoring push notification because notification is nil";
     goto LABEL_12;
   }
 
   containerIdentifier = [v7 containerIdentifier];
   if (![containerIdentifier isEqualToString:@"com.apple.SafariShared.History"])
   {
-    v11 = [containerIdentifier isEqualToString:@"com.apple.SafariShared.WBSCloudHistoryStore"];
+    v15 = [containerIdentifier isEqualToString:@"com.apple.SafariShared.WBSCloudHistoryStore"];
 
-    if (v11)
+    if (v15)
     {
       goto LABEL_7;
     }
 
-    v9 = WBS_LOG_CHANNEL_PREFIXCloudHistory();
-    if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v13 = WBS_LOG_CHANNEL_PREFIXCloudHistory(v11, v12);
+    if (!os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_13;
     }
 
     *buf = 0;
-    v10 = "Ignoring push notification because it is not about history";
+    v14 = "Ignoring push notification because it is not about history";
 LABEL_12:
-    _os_log_impl(&dword_1BB6F3000, v9, OS_LOG_TYPE_DEFAULT, v10, buf, 2u);
+    _os_log_impl(&dword_1BB6F3000, v13, OS_LOG_TYPE_DEFAULT, v14, buf, 2u);
     goto LABEL_13;
   }
 
 LABEL_7:
-  v12 = WBS_LOG_CHANNEL_PREFIXCloudHistory();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v16 = WBS_LOG_CHANNEL_PREFIXCloudHistory(v11, v12);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1BB6F3000, v12, OS_LOG_TYPE_DEFAULT, "Received CloudHistory related push notification", buf, 2u);
+    _os_log_impl(&dword_1BB6F3000, v16, OS_LOG_TYPE_DEFAULT, "Received CloudHistory related push notification", buf, 2u);
   }
 
   pushNotificationStateQueue = self->_pushNotificationStateQueue;
@@ -126,15 +126,15 @@ void __65__WBSCloudHistoryPushAgent_connection_didReceiveIncomingMessage___block
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   v6 = [connectionCopy valueForEntitlement:@"com.apple.private.safari.can-use-history-push-agent"];
   bOOLValue = [v6 BOOLValue];
 
   if (bOOLValue)
   {
-    v8 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F3AA3B38];
-    [connectionCopy setExportedInterface:v8];
+    v10 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F3AA3B38];
+    [connectionCopy setExportedInterface:v10];
 
     [connectionCopy setExportedObject:self];
     [connectionCopy resume];
@@ -142,10 +142,10 @@ void __65__WBSCloudHistoryPushAgent_connection_didReceiveIncomingMessage___block
 
   else
   {
-    v9 = WBS_LOG_CHANNEL_PREFIXCloudHistory();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = WBS_LOG_CHANNEL_PREFIXCloudHistory(v8, v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      -[WBSCloudHistoryPushAgent listener:shouldAcceptNewConnection:].cold.1(v11, [connectionCopy processIdentifier], v9);
+      -[WBSCloudHistoryPushAgent listener:shouldAcceptNewConnection:].cold.1(v13, [connectionCopy processIdentifier], v11);
     }
   }
 
@@ -196,7 +196,7 @@ uint64_t __49__WBSCloudHistoryPushAgent_getPushNotifications___block_invoke(uint
   dispatch_async(pushNotificationStateQueue, block);
 }
 
-uint64_t __63__WBSCloudHistoryPushAgent_acknowledgePendingPushNotifications__block_invoke(uint64_t a1)
+void *__63__WBSCloudHistoryPushAgent_acknowledgePendingPushNotifications__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _hasUnacknowledgedPushNotifications];
   if (result)

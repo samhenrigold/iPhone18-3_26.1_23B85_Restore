@@ -770,9 +770,9 @@ void __35__PKDiagnostics__secureElementData__block_invoke(uint64_t a1, void *a2)
 
         v12 = *(*(&v20 + 1) + 8 * i);
         pathExtension = [v12 pathExtension];
-        v14 = [pathExtension isEqualToString:@"pkpass"];
+        isEqualToString = objc_msgSend_isEqualToString_(pathExtension);
 
-        if (v14)
+        if (isEqualToString)
         {
           v15 = [v4 stringByAppendingPathComponent:v12];
           v16 = [v15 stringByAppendingPathComponent:@"pass.json"];

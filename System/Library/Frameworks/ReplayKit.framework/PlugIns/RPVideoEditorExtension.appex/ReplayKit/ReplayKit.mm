@@ -56,7 +56,7 @@ LABEL_9:
     _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, v3, v6, 0x12u);
 LABEL_10:
     v4 = *(a1 + 40);
-    v5 = [NSError _rpUserErrorForCode:-5818 userInfo:0, *v6, *&v6[16]];
+    v5 = [NSError _rpUserErrorForCode:-5818 userInfo:0, *v6, *&v6[8]];
     (*(v4 + 16))(v4, v5);
 
     return;
@@ -74,10 +74,11 @@ LABEL_10:
   (*(*(a1 + 40) + 16))();
 }
 
-void sub_100001E14(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100001E14(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x12u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x12u);
 }
 
 void sub_100003018(uint64_t a1)
@@ -93,7 +94,7 @@ void sub_100003018(uint64_t a1)
     v7 = v6;
     if (v6)
     {
-      [v6 currentTime];
+      objc_msgSend_currentTime(v6);
     }
 
     else
@@ -381,7 +382,7 @@ void sub_100006924(uint64_t a1)
     v7 = v6;
     if (v6)
     {
-      [v6 currentTime];
+      objc_msgSend_currentTime(v6);
     }
 
     else
@@ -520,7 +521,7 @@ void sub_100007818(uint64_t a1)
   v5 = v4;
   if (v4)
   {
-    [v4 currentTime];
+    objc_msgSend_currentTime(v4);
     LODWORD(v4) = v6;
   }
 
@@ -536,7 +537,7 @@ void sub_100007968(uint64_t a1)
   v5 = v4;
   if (v4)
   {
-    [v4 currentTime];
+    objc_msgSend_currentTime(v4);
     LODWORD(v4) = v6;
   }
 
@@ -633,14 +634,15 @@ id sub_100009D9C(uint64_t a1)
   return [*(a1 + 32) setupVideoEditorController];
 }
 
-void sub_10000A398(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, char a45)
+void sub_10000A398(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, ...)
 {
+  va_start(va, a44);
   _Block_object_dispose(&a33, 8);
   _Block_object_dispose(&a39, 8);
-  _Block_object_dispose(&a45, 8);
-  _Block_object_dispose((v45 - 224), 8);
-  _Block_object_dispose((v45 - 176), 8);
-  _Block_object_dispose((v45 - 128), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v44 - 224), 8);
+  _Block_object_dispose((v44 - 176), 8);
+  _Block_object_dispose((v44 - 128), 8);
   _Unwind_Resume(a1);
 }
 
@@ -801,7 +803,7 @@ void sub_10000B494(uint64_t a1, void *a2)
   if (__RPLogLevel <= 2 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
   {
     sub_100001E00();
-    sub_100001E14(&_mh_execute_header, &_os_log_default, v4, " [ERROR] %{public}s:%d Failed to get videoCodecType for asset", v5, v6, v7, v8, v9);
+    sub_100001E14(&_mh_execute_header, &_os_log_default, v4, " [ERROR] %{public}s:%d Failed to get videoCodecType for asset", v5, v6, v7, v8);
   }
 
   *a2 = a1;

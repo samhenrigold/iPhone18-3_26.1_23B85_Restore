@@ -424,7 +424,7 @@ LABEL_9:
   v11 = 0;
   if (width > 0.00000011920929)
   {
-    [(SUUIProductLockupLayout *)self layoutWidthsForWidth:width];
+    objc_msgSend_layoutWidthsForWidth_(self, width);
     v11 = v29[0];
     v10 = v30;
     v9 = v32;
@@ -754,7 +754,7 @@ BOOL __66__SUUIProductLockupLayout_hasBottomRightElementWithRightAlignment__bloc
   return v13;
 }
 
-uint64_t __52__SUUIProductLockupLayout_topPaddingForViewElement___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
+void *__52__SUUIProductLockupLayout_topPaddingForViewElement___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   result = [*(a1 + 32) topPaddingForViewElement:a2];
   *(*(*(a1 + 40) + 8) + 24) = v6;

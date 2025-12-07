@@ -1,5 +1,6 @@
 @interface PRWordLanguageModel
 + (id)languageModelWithLocalization:(id)localization appIdentifier:(id)identifier lexicon:(id)lexicon;
+- (BOOL)getConditionalProbabilityForTokenID:(unsigned int)d context:(const unsigned int *)context length:(unint64_t)length probability:(double *)probability;
 - (PRWordLanguageModel)initWithLocalization:(id)localization appIdentifier:(id)identifier lexicon:(id)lexicon;
 - (id)_descriptionForTokenSequence:(const unsigned int *)sequence length:(unint64_t)length;
 - (id)description;
@@ -95,6 +96,28 @@
   {
     return [(NLTokenIDConverter *)self->_converter stringForTokenID:?];
   }
+}
+
+- (BOOL)getConditionalProbabilityForTokenID:(unsigned int)d context:(const unsigned int *)context length:(unint64_t)length probability:(double *)probability
+{
+  v7 = [(NLLMLanguageModelSession *)self->_session conditionalProbabilityForTokenID:*&d contextTokenIDs:context length:length];
+  if (v7)
+  {
+    v8 = v7;
+    LODWORD(v7) = [v7 isValid];
+    if (v7)
+    {
+      [v8 log10Probability];
+      if (probability)
+      {
+        *probability = v9;
+      }
+
+      LOBYTE(v7) = 1;
+    }
+  }
+
+  return v7;
 }
 
 - (id)_descriptionForTokenSequence:(const unsigned int *)sequence length:(unint64_t)length

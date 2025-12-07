@@ -16,7 +16,7 @@
 
   if (currentLegIndex >= v10)
   {
-    v52 = 0;
+    v56 = 0;
   }
 
   else
@@ -31,8 +31,8 @@
     v18 = v17;
     v20 = v19;
 
-    v54 = 0.0;
-    v55 = -1.0;
+    v58 = 0.0;
+    v59 = -1.0;
     data4 = [(_MNLocationSimulationState *)self data];
     lastLocation = [data4 lastLocation];
 
@@ -45,51 +45,54 @@
       v28 = v27;
       v30 = v29;
 
-      [(_MNLocationSimulationState *)self _projectedCoordinateOffRouteFrom:&v55 toCoordinate:&v54 overTimeDelta:v26 outCourse:v28 outSpeed:v30, v16, v18, v20, time];
-      v32 = v31;
-      v34 = v33;
+      time = [(_MNLocationSimulationState *)self _projectedCoordinateOffRouteFrom:&v59 toCoordinate:&v58 overTimeDelta:v26 outCourse:v28 outSpeed:v30, v16, v18, v20, time];
       v36 = v35;
+      v38 = v37;
+      v40 = v39;
     }
 
     else
     {
       [routeToFollow pointAt:{objc_msgSend(v13, "endPointIndex")}];
-      v32 = v37;
-      v34 = v38;
-      v36 = v39;
-      [routeToFollow courseAtRouteCoordinateIndex:{objc_msgSend(v13, "endPointIndex")}];
-      v55 = v40;
+      v36 = v41;
+      v38 = v42;
+      v40 = v43;
+      time = [routeToFollow courseAtRouteCoordinateIndex:{objc_msgSend(v13, "endPointIndex")}];
+      v59 = v44;
     }
 
-    GEOCalculateDistance();
-    if (v41 < 0.000001)
+    v61.var0 = v36;
+    v61.var1 = v38;
+    v61.var2 = v16;
+    v45 = v18;
+    if (GEOCalculateDistance(time, v32, v61, *(&v33 - 1)) < 0.000001)
     {
       data6 = [(_MNLocationSimulationState *)self data];
       currentLegIndex2 = [data6 currentLegIndex];
       legs3 = [routeToFollow legs];
-      v45 = [legs3 count] - 1;
+      v49 = [legs3 count] - 1;
 
-      if (currentLegIndex2 >= v45 && (-[_MNLocationSimulationState data](self, "data"), v46 = objc_claimAutoreleasedReturnValue(), v47 = [v46 endAtFinalDestination], v46, v47))
+      if (currentLegIndex2 >= v49 && (-[_MNLocationSimulationState data](self, "data"), v50 = objc_claimAutoreleasedReturnValue(), v51 = [v50 endAtFinalDestination], v50, v51))
       {
-        v48 = objc_alloc_init(_MNLocationSimulationState_End);
+        v52 = objc_alloc_init(_MNLocationSimulationState_End);
       }
 
       else
       {
-        v49 = [_MNLocationSimulationState_WaitingAtWaypoint alloc];
+        v53 = [_MNLocationSimulationState_WaitingAtWaypoint alloc];
         data7 = [(_MNLocationSimulationState *)self data];
         [data7 currentTime];
-        v48 = [_MNLocationSimulationState_WaitingAtWaypoint initWithStartTime:v49 waitDuration:"initWithStartTime:waitDuration:"];
+        v52 = [_MNLocationSimulationState_WaitingAtWaypoint initWithStartTime:v53 waitDuration:"initWithStartTime:waitDuration:"];
       }
 
       delegate = [(_MNLocationSimulationState *)self delegate];
-      [delegate changeState:v48];
+      [delegate changeState:v52];
     }
 
-    v52 = [(_MNLocationSimulationState *)self _locationWithCoordinate:v32 course:v34 speed:v36, v55, v54];
+    v56 = [(_MNLocationSimulationState *)self _locationWithCoordinate:v36 course:v38 speed:v40, v59, v58];
   }
 
-  return v52;
+  return v56;
 }
 
 @end

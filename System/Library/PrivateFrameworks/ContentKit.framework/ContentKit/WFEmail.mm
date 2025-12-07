@@ -329,7 +329,7 @@ void __49__WFEmail_fetchAttachmentsWithCompletionHandler___block_invoke_2_16(uin
   interface = self->_interface;
   if (!interface)
   {
-    v4 = objc_alloc_init(getEMDaemonInterfaceClass());
+    v4 = objc_alloc_init(getEMDaemonInterfaceClass(0, a2));
     v5 = self->_interface;
     self->_interface = v4;
 

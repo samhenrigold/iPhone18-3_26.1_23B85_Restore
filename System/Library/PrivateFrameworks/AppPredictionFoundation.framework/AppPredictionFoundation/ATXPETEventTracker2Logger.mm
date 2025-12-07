@@ -2,6 +2,7 @@
 - (void)logMessage:(id)message;
 - (void)trackDistributionForMessage:(id)message value:(double)value;
 - (void)trackScalarForMessage:(id)message;
+- (void)trackScalarForMessage:(id)message count:(int)count;
 @end
 
 @implementation ATXPETEventTracker2Logger
@@ -20,6 +21,15 @@
   messageCopy = message;
   sharedInstance = [v3 sharedInstance];
   [sharedInstance trackScalarForMessage:messageCopy];
+}
+
+- (void)trackScalarForMessage:(id)message count:(int)count
+{
+  v4 = *&count;
+  v5 = MEMORY[0x277D41DA8];
+  messageCopy = message;
+  sharedInstance = [v5 sharedInstance];
+  [sharedInstance trackScalarForMessage:messageCopy count:v4];
 }
 
 - (void)trackDistributionForMessage:(id)message value:(double)value

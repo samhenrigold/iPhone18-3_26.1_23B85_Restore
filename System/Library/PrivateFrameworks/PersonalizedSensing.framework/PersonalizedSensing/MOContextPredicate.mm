@@ -69,80 +69,77 @@
 
 + (id)contextPredicateForContextType:(unint64_t)type withMetadata:(id)metadata startDate:(id)date endDate:(id)endDate
 {
-  v30[3] = *MEMORY[0x277D85DE8];
+  v29[3] = *MEMORY[0x277D85DE8];
   v9 = MEMORY[0x277CCA9C0];
   endDateCopy = endDate;
   dateCopy = date;
   metadataCopy = metadata;
-  v29 = [v9 expressionForKeyPath:@"startDate"];
-  v28 = [MEMORY[0x277CCA9C0] expressionForKeyPath:@"endDate"];
+  v28 = [v9 expressionForKeyPath:@"startDate"];
+  v27 = [MEMORY[0x277CCA9C0] expressionForKeyPath:@"endDate"];
   v13 = [MEMORY[0x277CCA9C0] expressionForKeyPath:@"contextType"];
-  v26 = [MEMORY[0x277CCA9C0] expressionForConstantValue:dateCopy];
+  v25 = [MEMORY[0x277CCA9C0] expressionForConstantValue:dateCopy];
 
-  v27 = [MEMORY[0x277CCA9C0] expressionForConstantValue:endDateCopy];
+  v26 = [MEMORY[0x277CCA9C0] expressionForConstantValue:endDateCopy];
 
   v14 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:type];
   v15 = [MEMORY[0x277CCA9C0] expressionForConstantValue:v14];
-  v16 = [MOContextPredicateBuilder createPredicateWithLeftExpression:v29 rightExpression:v27 operation:4];
-  v17 = [MOContextPredicateBuilder createPredicateWithLeftExpression:v28 rightExpression:v26 operation:3];
+  v16 = [MOContextPredicateBuilder createPredicateWithLeftExpression:v28 rightExpression:v26 operation:4];
+  v17 = [MOContextPredicateBuilder createPredicateWithLeftExpression:v27 rightExpression:v25 operation:3];
   v18 = [MOContextPredicateBuilder createPredicateWithLeftExpression:v13 rightExpression:v15 operation:0];
-  v30[0] = v16;
-  v30[1] = v17;
-  v30[2] = v18;
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:3];
+  v29[0] = v16;
+  v29[1] = v17;
+  v29[2] = v18;
+  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:3];
   v20 = [MOContextPredicateBuilder createAndPredicate:v19];
 
   v21 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v20 requiringSecureCoding:1 error:0];
   v22 = [MOContextPredicate alloc];
   v23 = [(MOContextPredicate *)v22 initWithPredicate:v21 filter:MEMORY[0x277CBEC10] metadataTypes:metadataCopy];
 
-  v24 = *MEMORY[0x277D85DE8];
-
   return v23;
 }
 
 + (id)contextPredicateForContextType:(unint64_t)type withMetadata:(id)metadata startDate:(id)date endDate:(id)endDate aroundLocation:(id)location withDistanceThreshold:(double)threshold
 {
-  v43[3] = *MEMORY[0x277D85DE8];
+  v42[3] = *MEMORY[0x277D85DE8];
   v13 = MEMORY[0x277CCA9C0];
   locationCopy = location;
   endDateCopy = endDate;
   dateCopy = date;
   metadataCopy = metadata;
-  v37 = [v13 expressionForKeyPath:@"startDate"];
-  v35 = [MEMORY[0x277CCA9C0] expressionForKeyPath:@"endDate"];
-  v32 = [MEMORY[0x277CCA9C0] expressionForKeyPath:@"contextType"];
-  v33 = [MEMORY[0x277CCA9C0] expressionForConstantValue:dateCopy];
+  v36 = [v13 expressionForKeyPath:@"startDate"];
+  v34 = [MEMORY[0x277CCA9C0] expressionForKeyPath:@"endDate"];
+  v31 = [MEMORY[0x277CCA9C0] expressionForKeyPath:@"contextType"];
+  v32 = [MEMORY[0x277CCA9C0] expressionForConstantValue:dateCopy];
 
-  v34 = [MEMORY[0x277CCA9C0] expressionForConstantValue:endDateCopy];
+  v33 = [MEMORY[0x277CCA9C0] expressionForConstantValue:endDateCopy];
 
-  v36 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:type];
-  v17 = [MEMORY[0x277CCA9C0] expressionForConstantValue:v36];
-  v18 = [MOContextPredicateBuilder createPredicateWithLeftExpression:v37 rightExpression:v34 operation:4];
-  v19 = [MOContextPredicateBuilder createPredicateWithLeftExpression:v35 rightExpression:v33 operation:3];
+  v35 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:type];
+  v17 = [MEMORY[0x277CCA9C0] expressionForConstantValue:v35];
+  v18 = [MOContextPredicateBuilder createPredicateWithLeftExpression:v36 rightExpression:v33 operation:4];
+  v19 = [MOContextPredicateBuilder createPredicateWithLeftExpression:v34 rightExpression:v32 operation:3];
   v20 = v17;
-  v21 = [MOContextPredicateBuilder createPredicateWithLeftExpression:v32 rightExpression:v17 operation:0];
-  v43[0] = v18;
-  v43[1] = v19;
-  v43[2] = v21;
-  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:3];
+  v21 = [MOContextPredicateBuilder createPredicateWithLeftExpression:v31 rightExpression:v17 operation:0];
+  v42[0] = v18;
+  v42[1] = v19;
+  v42[2] = v21;
+  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:3];
   v23 = [MOContextPredicateBuilder createAndPredicate:v22];
 
   v24 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v23 requiringSecureCoding:1 error:0];
   v25 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:locationCopy requiringSecureCoding:1 error:0];
 
-  v41 = @"distanceFromLocation";
-  v39[0] = @"targetLocation";
-  v39[1] = @"maxDistance";
-  v40[0] = v25;
+  v40 = @"distanceFromLocation";
+  v38[0] = @"targetLocation";
+  v38[1] = @"maxDistance";
+  v39[0] = v25;
   v26 = [MEMORY[0x277CCABB0] numberWithDouble:threshold];
-  v40[1] = v26;
-  v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:v39 count:2];
-  v42 = v27;
-  v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
+  v39[1] = v26;
+  v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:2];
+  v41 = v27;
+  v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
 
   v29 = [[MOContextPredicate alloc] initWithPredicate:v24 filter:v28 metadataTypes:metadataCopy];
-  v30 = *MEMORY[0x277D85DE8];
 
   return v29;
 }

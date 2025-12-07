@@ -30,7 +30,7 @@
 
 - (BOOL)setSQLiteValueFromRow:(id)row sqliteContext:(sqlite3_context *)context error:(id *)error
 {
-  v34[1] = *MEMORY[0x1E69E9840];
+  v31[1] = *MEMORY[0x1E69E9840];
   rowCopy = row;
   extractBlock = [(BMSQLColumn *)self extractBlock];
   v10 = (extractBlock)[2](extractBlock, rowCopy, error);
@@ -46,42 +46,41 @@
     goto LABEL_17;
   }
 
-  v14 = v10;
+  v13 = v10;
   selfCopy = self;
-  dataType = [(BMSQLColumn *)selfCopy dataType];
-  if (dataType <= 6 && (v17 = **(&unk_1E6E534B0 + dataType), v18 = objc_opt_class(), v18))
+  if ([(BMSQLColumn *)selfCopy dataType]<= 6 && (v15 = objc_opt_class(), v15))
   {
     if (objc_opt_isKindOfClass())
     {
       goto LABEL_11;
     }
 
-    v19 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v34[0] = *MEMORY[0x1E696A578];
-    v20 = MEMORY[0x1E696AEC0];
+    v16 = objc_alloc(MEMORY[0x1E696ABC0]);
+    v31[0] = *MEMORY[0x1E696A578];
+    v17 = MEMORY[0x1E696AEC0];
     name = [(BMSQLColumn *)selfCopy name];
-    v22 = [v20 stringWithFormat:@"value for column (%@) is type %@ instead of expected type %@", name, objc_opt_class(), v18];
-    v33[0] = v22;
-    v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:v34 count:1];
-    v24 = v19;
-    v25 = 20;
+    v19 = [v17 stringWithFormat:@"value for column (%@) is type %@ instead of expected type %@", name, objc_opt_class(), v15];
+    v30[0] = v19;
+    v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:v31 count:1];
+    v21 = v16;
+    v22 = 20;
   }
 
   else
   {
-    v26 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v34[0] = *MEMORY[0x1E696A578];
-    v27 = MEMORY[0x1E696AEC0];
-    dataType2 = [(BMSQLColumn *)selfCopy dataType];
+    v23 = objc_alloc(MEMORY[0x1E696ABC0]);
+    v31[0] = *MEMORY[0x1E696A578];
+    v24 = MEMORY[0x1E696AEC0];
+    dataType = [(BMSQLColumn *)selfCopy dataType];
     name = [(BMSQLColumn *)selfCopy name];
-    v22 = [v27 stringWithFormat:@"unknown data type (%ld) for column '%@'", dataType2, name];
-    v33[0] = v22;
-    v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:v34 count:1];
-    v24 = v26;
-    v25 = 1;
+    v19 = [v24 stringWithFormat:@"unknown data type (%ld) for column '%@'", dataType, name];
+    v30[0] = v19;
+    v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:v31 count:1];
+    v21 = v23;
+    v22 = 1;
   }
 
-  *error = [v24 initWithDomain:@"BMSQLDatabaseErrorDomain" code:v25 userInfo:v23];
+  *error = [v21 initWithDomain:@"BMSQLDatabaseErrorDomain" code:v22 userInfo:v20];
 
 LABEL_11:
   if (*error)
@@ -91,68 +90,67 @@ LABEL_2:
     goto LABEL_3;
   }
 
-  dataType3 = [(BMSQLColumn *)selfCopy dataType];
+  dataType2 = [(BMSQLColumn *)selfCopy dataType];
   v11 = 1;
-  if (dataType3 <= 2)
+  if (dataType2 <= 2)
   {
-    if (!dataType3)
+    if (!dataType2)
     {
-      sqlite3_result_int64(context, [v14 longLongValue]);
+      sqlite3_result_int64(context, [v13 longLongValue]);
       goto LABEL_3;
     }
 
-    if (dataType3 == 1)
+    if (dataType2 == 1)
     {
-      [v14 doubleValue];
+      [v13 doubleValue];
       goto LABEL_29;
     }
 
-    if (dataType3 != 2)
+    if (dataType2 != 2)
     {
       goto LABEL_3;
     }
 
 LABEL_25:
-    v31 = v14;
-    sqlite3_result_text(context, [v31 UTF8String], -1, 0xFFFFFFFFFFFFFFFFLL);
+    v28 = v13;
+    sqlite3_result_text(context, [v28 UTF8String], -1, 0xFFFFFFFFFFFFFFFFLL);
 
     goto LABEL_3;
   }
 
-  if (dataType3 <= 4)
+  if (dataType2 <= 4)
   {
-    if (dataType3 != 3)
+    if (dataType2 != 3)
     {
-      v30 = v14;
-      sqlite3_result_blob(context, [v30 bytes], objc_msgSend(v30, "length"), 0xFFFFFFFFFFFFFFFFLL);
+      v27 = v13;
+      sqlite3_result_blob(context, [v27 bytes], objc_msgSend(v27, "length"), 0xFFFFFFFFFFFFFFFFLL);
 
 LABEL_17:
       v11 = 1;
       goto LABEL_3;
     }
 
-    [v14 timeIntervalSince1970];
+    [v13 timeIntervalSince1970];
 LABEL_29:
-    sqlite3_result_double(context, v32);
+    sqlite3_result_double(context, v29);
     goto LABEL_3;
   }
 
-  if (dataType3 == 5)
+  if (dataType2 == 5)
   {
     goto LABEL_25;
   }
 
-  if (dataType3 == 6)
+  if (dataType2 == 6)
   {
-    v33[0] = 0;
-    v33[1] = 0;
-    [v14 getUUIDBytes:v33];
-    sqlite3_result_blob(context, v33, 16, 0xFFFFFFFFFFFFFFFFLL);
+    v30[0] = 0;
+    v30[1] = 0;
+    [v13 getUUIDBytes:v30];
+    sqlite3_result_blob(context, v30, 16, 0xFFFFFFFFFFFFFFFFLL);
   }
 
 LABEL_3:
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

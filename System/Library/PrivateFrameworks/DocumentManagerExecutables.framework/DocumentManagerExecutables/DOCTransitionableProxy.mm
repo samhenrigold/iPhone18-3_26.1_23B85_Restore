@@ -51,7 +51,7 @@
 - (void)revealWithNodes:(id)nodes selectEvenIfVisible:(BOOL)visible completionBlock:(id)block
 {
   v6 = _Block_copy(block);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7DOCNode_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7DOCNode_pMd, &_sSo7DOCNode_pMR);
   v7 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   v8 = swift_allocObject();
   *(v8 + 16) = v6;

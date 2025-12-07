@@ -18,7 +18,7 @@
 - (_TtC21HearingModeSettingsUI33_HearingAidInternalViewController)init
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for _HearingAidInternalViewController();
+  v3.super_class = type metadata accessor for _HearingAidInternalViewController(self, a2);
   return [(_HearingAidInternalViewController *)&v3 init];
 }
 

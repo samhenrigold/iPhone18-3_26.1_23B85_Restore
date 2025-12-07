@@ -29,10 +29,18 @@ void sub_1000014C8(uint64_t a1)
   }
 }
 
-void sub_100001544(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100001544(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
+}
+
+void sub_100001560(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  sub_100001544(&_mh_execute_header, a2, a3, "[Rename] Rename API failed no sandbox access. Error: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_1000015CC(uint64_t a1, NSObject *a2)
@@ -42,4 +50,18 @@ void sub_1000015CC(uint64_t a1, NSObject *a2)
   v4 = 2112;
   v5 = a1;
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "[Rename] Could not determine bundle of caller, using generic fallback: %@. Error %@.", &v2, 0x16u);
+}
+
+void sub_100001658(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  sub_100001544(&_mh_execute_header, a2, a3, "[Rename] Import API failed no sandbox access. Error: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1000016C4(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  sub_100001544(&_mh_execute_header, a2, a3, "[Rename] Import API failed no host bunlde identifier. Error: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }

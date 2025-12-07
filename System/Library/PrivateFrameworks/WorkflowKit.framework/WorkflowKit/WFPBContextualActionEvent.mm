@@ -105,7 +105,6 @@ LABEL_3:
       goto LABEL_13;
     }
 
-    v9 = *(equalCopy + 32);
     if (self->_hasTrackpad)
     {
       if ((*(equalCopy + 32) & 1) == 0)
@@ -205,33 +204,31 @@ LABEL_14:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v8 = toCopy;
+  v6 = toCopy;
   if (self->_key)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_source)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 2) != 0)
   {
-    hasTrackpad = self->_hasTrackpad;
     PBDataWriterWriteBOOLField();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if (has)
   {
-    itemCount = self->_itemCount;
     PBDataWriterWriteUint32Field();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 

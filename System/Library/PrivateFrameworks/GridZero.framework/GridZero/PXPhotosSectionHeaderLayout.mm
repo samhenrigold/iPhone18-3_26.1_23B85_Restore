@@ -98,13 +98,13 @@
 
 - (CGRect)axSpriteFrame
 {
-  [(PXPhotosSectionHeaderLayout *)self geometryForSpriteAtIndex:2];
+  objc_msgSend_geometryForSpriteAtIndex_(self, a2, 2);
   PXRectWithCenterAndSize();
   v4 = v3;
   v6 = v5;
   v8 = v7;
   v10 = v9;
-  [(PXPhotosSectionHeaderLayout *)self geometryForSpriteAtIndex:6];
+  objc_msgSend_geometryForSpriteAtIndex_(self);
   PXRectWithCenterAndSize();
   v24 = v12;
   v25 = v11;
@@ -1946,17 +1946,20 @@ LABEL_5:
   if (buttonTitleAttributes != attributesCopy)
   {
     v8 = attributesCopy;
-    if (([(NSDictionary *)buttonTitleAttributes isEqual:attributesCopy]& 1) == 0)
+    buttonTitleAttributes = [buttonTitleAttributes isEqual:attributesCopy];
+    attributesCopy = v8;
+    if ((buttonTitleAttributes & 1) == 0)
     {
-      v6 = [(NSDictionary *)v8 copy];
+      v6 = [v8 copy];
       v7 = self->_buttonTitleAttributes;
       self->_buttonTitleAttributes = v6;
 
-      [(PXPhotosSectionHeaderLayout *)self _invalidateButtonTitleMediaVersion];
+      buttonTitleAttributes = [(PXPhotosSectionHeaderLayout *)self _invalidateButtonTitleMediaVersion];
+      attributesCopy = v8;
     }
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](buttonTitleAttributes, attributesCopy);
 }
 
 - (void)setBadgeAttributes:(id)attributes
@@ -1966,17 +1969,20 @@ LABEL_5:
   if (badgeAttributes != attributesCopy)
   {
     v8 = attributesCopy;
-    if (([(NSDictionary *)badgeAttributes isEqual:attributesCopy]& 1) == 0)
+    badgeAttributes = [badgeAttributes isEqual:attributesCopy];
+    attributesCopy = v8;
+    if ((badgeAttributes & 1) == 0)
     {
-      v6 = [(NSDictionary *)v8 copy];
+      v6 = [v8 copy];
       v7 = self->_badgeAttributes;
       self->_badgeAttributes = v6;
 
-      [(PXPhotosSectionHeaderLayout *)self _invalidateBadgeMediaVersion];
+      badgeAttributes = [(PXPhotosSectionHeaderLayout *)self _invalidateBadgeMediaVersion];
+      attributesCopy = v8;
     }
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](badgeAttributes, attributesCopy);
 }
 
 - (void)setButtonTitle:(id)title
@@ -1986,17 +1992,20 @@ LABEL_5:
   if (buttonTitle != titleCopy)
   {
     v8 = titleCopy;
-    if (![(NSString *)buttonTitle isEqualToString:titleCopy])
+    buttonTitle = [buttonTitle isEqualToString:titleCopy];
+    titleCopy = v8;
+    if ((buttonTitle & 1) == 0)
     {
-      v6 = [(NSString *)v8 copy];
+      v6 = [v8 copy];
       v7 = self->_buttonTitle;
       self->_buttonTitle = v6;
 
-      [(PXPhotosSectionHeaderLayout *)self _invalidateButtonTitleMediaVersion];
+      buttonTitle = [(PXPhotosSectionHeaderLayout *)self _invalidateButtonTitleMediaVersion];
+      titleCopy = v8;
     }
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](buttonTitle, titleCopy);
 }
 
 - (void)setBadgeTitle:(id)title
@@ -2006,18 +2015,21 @@ LABEL_5:
   if (badgeTitle != titleCopy)
   {
     v8 = titleCopy;
-    if (([(NSString *)badgeTitle isEqual:titleCopy]& 1) == 0)
+    badgeTitle = [badgeTitle isEqual:titleCopy];
+    titleCopy = v8;
+    if ((badgeTitle & 1) == 0)
     {
-      v6 = [(NSString *)v8 copy];
+      v6 = [v8 copy];
       v7 = self->_badgeTitle;
       self->_badgeTitle = v6;
 
       [(PXPhotosSectionHeaderLayout *)self _invalidateFinalTitle];
-      [(PXPhotosSectionHeaderLayout *)self _invalidateBadgeMediaVersion];
+      badgeTitle = [(PXPhotosSectionHeaderLayout *)self _invalidateBadgeMediaVersion];
+      titleCopy = v8;
     }
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](badgeTitle, titleCopy);
 }
 
 - (void)setIsBadgeVisible:(BOOL)visible
@@ -2035,120 +2047,156 @@ LABEL_5:
 - (void)setSubtitle:(id)subtitle
 {
   subtitleCopy = subtitle;
+  v5 = subtitleCopy;
   if (self->_subtitle != subtitleCopy)
   {
-    v7 = subtitleCopy;
-    if (![(NSString *)subtitleCopy isEqualToString:?])
+    v8 = subtitleCopy;
+    subtitleCopy = [subtitleCopy isEqualToString:?];
+    v5 = v8;
+    if ((subtitleCopy & 1) == 0)
     {
-      v5 = [(NSString *)v7 copy];
+      v6 = [v8 copy];
       subtitle = self->_subtitle;
-      self->_subtitle = v5;
+      self->_subtitle = v6;
 
-      [(PXPhotosSectionHeaderLayout *)self _invalidateSubtitleMediaVersion];
+      subtitleCopy = [(PXPhotosSectionHeaderLayout *)self _invalidateSubtitleMediaVersion];
+      v5 = v8;
     }
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](subtitleCopy, v5);
 }
 
 - (void)setSubtitleAttributes:(id)attributes
 {
   attributesCopy = attributes;
+  v5 = attributesCopy;
   if (self->_subtitleAttributes != attributesCopy)
   {
-    v7 = attributesCopy;
-    if (([(NSDictionary *)attributesCopy isEqual:?]& 1) == 0)
+    v8 = attributesCopy;
+    attributesCopy = [attributesCopy isEqual:?];
+    v5 = v8;
+    if ((attributesCopy & 1) == 0)
     {
-      v5 = [(NSDictionary *)v7 copy];
+      v6 = [v8 copy];
       subtitleAttributes = self->_subtitleAttributes;
-      self->_subtitleAttributes = v5;
+      self->_subtitleAttributes = v6;
 
-      [(PXPhotosSectionHeaderLayout *)self _invalidateSubtitleMediaVersion];
+      attributesCopy = [(PXPhotosSectionHeaderLayout *)self _invalidateSubtitleMediaVersion];
+      v5 = v8;
     }
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](attributesCopy, v5);
 }
 
 - (void)setFinalTitle:(id)title
 {
   titleCopy = title;
-  if (self->_finalTitle != titleCopy && ![(NSString *)titleCopy isEqualToString:?])
+  v6 = titleCopy;
+  if (self->_finalTitle != titleCopy)
   {
-    objc_storeStrong(&self->_finalTitle, title);
-    [(PXPhotosSectionHeaderLayout *)self _invalidateFinalTitleMediaVersion];
+    v7 = titleCopy;
+    titleCopy = [titleCopy isEqualToString:?];
+    v6 = v7;
+    if ((titleCopy & 1) == 0)
+    {
+      objc_storeStrong(&self->_finalTitle, title);
+      titleCopy = [(PXPhotosSectionHeaderLayout *)self _invalidateFinalTitleMediaVersion];
+      v6 = v7;
+    }
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](titleCopy, v6);
 }
 
 - (void)setTitle:(id)title
 {
   titleCopy = title;
+  v5 = titleCopy;
   if (self->_title != titleCopy)
   {
-    v7 = titleCopy;
-    if (![(NSString *)titleCopy isEqualToString:?])
+    v8 = titleCopy;
+    titleCopy = [titleCopy isEqualToString:?];
+    v5 = v8;
+    if ((titleCopy & 1) == 0)
     {
-      v5 = [(NSString *)v7 copy];
+      v6 = [v8 copy];
       title = self->_title;
-      self->_title = v5;
+      self->_title = v6;
 
-      [(PXPhotosSectionHeaderLayout *)self _invalidateFinalTitle];
+      titleCopy = [(PXPhotosSectionHeaderLayout *)self _invalidateFinalTitle];
+      v5 = v8;
     }
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](titleCopy, v5);
 }
 
 - (void)setFinalTitleLightGradientAttributess:(id)attributess
 {
   attributessCopy = attributess;
+  v5 = attributessCopy;
   if (self->_finalTitleLightGradientAttributes != attributessCopy)
   {
-    v7 = attributessCopy;
-    if (([(NSDictionary *)attributessCopy isEqual:?]& 1) == 0)
+    v8 = attributessCopy;
+    attributessCopy = [attributessCopy isEqual:?];
+    v5 = v8;
+    if ((attributessCopy & 1) == 0)
     {
-      v5 = [(NSDictionary *)v7 copy];
+      v6 = [v8 copy];
       finalTitleLightGradientAttributes = self->_finalTitleLightGradientAttributes;
-      self->_finalTitleLightGradientAttributes = v5;
+      self->_finalTitleLightGradientAttributes = v6;
 
-      [(PXPhotosSectionHeaderLayout *)self _invalidateFinalTitleMediaVersion];
+      attributessCopy = [(PXPhotosSectionHeaderLayout *)self _invalidateFinalTitleMediaVersion];
+      v5 = v8;
     }
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](attributessCopy, v5);
 }
 
 - (void)setFinalTitleAttributes:(id)attributes
 {
   attributesCopy = attributes;
+  v5 = attributesCopy;
   if (self->_finalTitleAttributes != attributesCopy)
   {
-    v7 = attributesCopy;
-    if (([(NSDictionary *)attributesCopy isEqual:?]& 1) == 0)
+    v8 = attributesCopy;
+    attributesCopy = [attributesCopy isEqual:?];
+    v5 = v8;
+    if ((attributesCopy & 1) == 0)
     {
-      v5 = [(NSDictionary *)v7 copy];
+      v6 = [v8 copy];
       finalTitleAttributes = self->_finalTitleAttributes;
-      self->_finalTitleAttributes = v5;
+      self->_finalTitleAttributes = v6;
 
-      [(PXPhotosSectionHeaderLayout *)self _invalidateFinalTitleMediaVersion];
+      attributesCopy = [(PXPhotosSectionHeaderLayout *)self _invalidateFinalTitleMediaVersion];
+      v5 = v8;
     }
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](attributesCopy, v5);
 }
 
 - (void)setDividerColor:(id)color
 {
   colorCopy = color;
-  if (self->_dividerColor != colorCopy && ([(UIColor *)colorCopy isEqual:?]& 1) == 0)
+  v6 = colorCopy;
+  if (self->_dividerColor != colorCopy)
   {
-    objc_storeStrong(&self->_dividerColor, color);
-    [(PXPhotosSectionHeaderLayout *)self _invalidateDividerMediaVersion];
+    v7 = colorCopy;
+    colorCopy = [colorCopy isEqual:?];
+    v6 = v7;
+    if ((colorCopy & 1) == 0)
+    {
+      objc_storeStrong(&self->_dividerColor, color);
+      colorCopy = [(PXPhotosSectionHeaderLayout *)self _invalidateDividerMediaVersion];
+      v6 = v7;
+    }
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](colorCopy, v6);
 }
 
 - (PXPhotosLayoutSpec)spec
@@ -2168,15 +2216,23 @@ LABEL_5:
 - (void)setSpec:(id)spec
 {
   specCopy = spec;
-  if (self->_spec != specCopy && ([(PXPhotosLayoutSpec *)specCopy isEqual:?]& 1) == 0)
+  v6 = specCopy;
+  if (self->_spec != specCopy)
   {
-    objc_storeStrong(&self->_spec, spec);
-    [(PXPhotosSectionHeaderLayout *)self _invalidateAttributes];
-    [(PXPhotosSectionHeaderLayout *)self _invalidateContent];
-    [(PXPhotosSectionHeaderLayout *)self _invalidateSpritesAlpha];
+    v7 = specCopy;
+    specCopy = [specCopy isEqual:?];
+    v6 = v7;
+    if ((specCopy & 1) == 0)
+    {
+      objc_storeStrong(&self->_spec, spec);
+      [(PXPhotosSectionHeaderLayout *)self _invalidateAttributes];
+      [(PXPhotosSectionHeaderLayout *)self _invalidateContent];
+      specCopy = [(PXPhotosSectionHeaderLayout *)self _invalidateSpritesAlpha];
+      v6 = v7;
+    }
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](specCopy, v6);
 }
 
 - (BOOL)wantsButton
@@ -2216,14 +2272,22 @@ LABEL_5:
 - (void)setAssetCollectionReference:(id)reference
 {
   referenceCopy = reference;
-  if (self->_assetCollectionReference != referenceCopy && ([(PXAssetCollectionReference *)referenceCopy isEqual:?]& 1) == 0)
+  v6 = referenceCopy;
+  if (self->_assetCollectionReference != referenceCopy)
   {
-    objc_storeStrong(&self->_assetCollectionReference, reference);
-    [(PXPhotosSectionHeaderLayout *)self _invalidateContent];
-    [(PXPhotosSectionHeaderLayout *)self _invalidateSpritesAlpha];
+    v7 = referenceCopy;
+    referenceCopy = [referenceCopy isEqual:?];
+    v6 = v7;
+    if ((referenceCopy & 1) == 0)
+    {
+      objc_storeStrong(&self->_assetCollectionReference, reference);
+      [(PXPhotosSectionHeaderLayout *)self _invalidateContent];
+      referenceCopy = [(PXPhotosSectionHeaderLayout *)self _invalidateSpritesAlpha];
+      v6 = v7;
+    }
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](referenceCopy, v6);
 }
 
 - (PXPhotosSectionHeaderLayout)init

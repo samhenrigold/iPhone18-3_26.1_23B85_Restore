@@ -1,43 +1,8 @@
-uint64_t uarpPlatformEndpointRescindAsset(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  if (!a1)
-  {
-    return 30;
-  }
-
-  if (!a2)
-  {
-    return 30;
-  }
-
-  if (!a3)
-  {
-    return 30;
-  }
-
-  v3 = *(a1 + 632);
-  if (!v3)
-  {
-    return 30;
-  }
-
-  while (*(v3 + 304) != 1 || *(v3 + 704) != a3)
-  {
-    v3 = *(v3 + 712);
-    if (!v3)
-    {
-      return 30;
-    }
-  }
-
-  return uarpAssetRescind(a1, a2, *(v3 + 44));
-}
-
 uint64_t uarpPlatformEndpointRescindAllAssets(uint64_t a1, uint64_t a2)
 {
   if (a1 && a2)
   {
-    return uarpAssetRescind(a1, a2, 0xFFFFu);
+    return uarpAssetRescind(a1, a2, 0xFFFFLL);
   }
 
   else
@@ -51,7 +16,7 @@ uint64_t uarpPlatformEndpointApplyStagedAssets(uint64_t a1, uint64_t a2)
   result = 30;
   if (a1 && a2)
   {
-    v5 = uarpAllocPrepareTransmitBuffer2(a1, a2, 0xAu, 6u, 1);
+    v5 = uarpAllocPrepareTransmitBuffer2(a1, a2, 10, 6u, 1);
     if (v5)
     {
 
@@ -128,7 +93,7 @@ uint64_t uarpPlatformEndpointSolicitDynamicAsset(uint64_t a1, uint64_t a2, _DWOR
   return uarpSolicitDynamicAsset(a1, a2, a3);
 }
 
-uint64_t uarpPlatformEndpointSendVendorSpecific(uint64_t a1, uint64_t a2, __int16 *a3, unsigned int a4, const void *a5, unsigned int a6)
+uint64_t uarpPlatformEndpointSendVendorSpecific(uint64_t a1, uint64_t a2, __int16 *a3, uint64_t a4, const void *a5, unsigned int a6)
 {
   if (a1 && a2 && a3 && a5)
   {
@@ -249,7 +214,7 @@ uint64_t uarpPlatformDelegateForDownstreamID(uint64_t a1, uint64_t a2, int a3)
 
 uint64_t uarpPlatformNoFirmwareUpdateAvailable(uint64_t a1, uint64_t a2)
 {
-  v4 = uarpAllocPrepareTransmitBuffer2(a1, a2, 0x1Du, 6u, 1);
+  v4 = uarpAllocPrepareTransmitBuffer2(a1, a2, 29, 6u, 1);
   if (!v4)
   {
     return 11;
@@ -260,7 +225,7 @@ uint64_t uarpPlatformNoFirmwareUpdateAvailable(uint64_t a1, uint64_t a2)
 
 uint64_t uarpPlatformEndpointDiscoverEndpointIDs(uint64_t a1, uint64_t a2)
 {
-  v4 = uarpAllocPrepareTransmitBuffer2(a1, a2, 0x1Fu, 6u, 1);
+  v4 = uarpAllocPrepareTransmitBuffer2(a1, a2, 31, 6u, 1);
   if (!v4)
   {
     return 11;
@@ -271,7 +236,7 @@ uint64_t uarpPlatformEndpointDiscoverEndpointIDs(uint64_t a1, uint64_t a2)
 
 uint64_t uarpPlatformQueryEndpointComponentDiscovery(uint64_t a1, uint64_t a2, unsigned int a3)
 {
-  v6 = uarpAllocPrepareTransmitBuffer2(a1, a2, 0x21u, 8u, 1);
+  v6 = uarpAllocPrepareTransmitBuffer2(a1, a2, 33, 8u, 1);
   if (!v6)
   {
     return 11;
@@ -299,7 +264,7 @@ uint64_t uarpPlatformEndpointBulkInfoQuery(uint64_t a1, uint64_t a2, unsigned in
           v11 = a6;
           if (a6)
           {
-            v13 = uarpAllocPrepareTransmitBuffer2(a1, a2, 0x23u, (4 * a5 + 16) & 0xFFFC, 1);
+            v13 = uarpAllocPrepareTransmitBuffer2(a1, a2, 35, (4 * a5 + 16) & 0xFFFC, 1);
             if (v13)
             {
               v14 = v13;
@@ -430,7 +395,7 @@ uint64_t uarpPlatformEndpointBulkInfoResponse(uint64_t a1, uint64_t a2, unsigned
   result = 30;
   if (a1 && a2 && a4 && a5 && a6)
   {
-    v13 = uarpAllocPrepareTransmitBuffer2(a1, a2, 0x25u, (a6 + 12), 1);
+    v13 = uarpAllocPrepareTransmitBuffer2(a1, a2, 37, (a6 + 12), 1);
     if (v13)
     {
       v14 = v13;
@@ -827,49 +792,30 @@ uint64_t uarpPlatformConfigureEndpointTags(uint64_t a1, uint64_t a2, int a3, int
 
 void uarpFilepathForRemotePath_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void uarpFilepathForRemotePath_cold_2(uint64_t *a1)
+void uarpFilepathForRemotePath_cold_3()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *a1;
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void uarpFilepathForRemotePath_cold_3(uint64_t a1, uint64_t *a2)
-{
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
 void mobileAssetCacheFileURLForRemoteURL_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void mobileAssetCacheFileURLForRemoteURL_cold_2(uint64_t a1, uint64_t *a2)
+void mobileAssetCacheFileURLForRemoteURL_cold_2()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
 void latestMobileAssetCacheFileURL_cold_1(uint8_t *buf, uint64_t a2, void *a3)
@@ -881,25 +827,23 @@ void latestMobileAssetCacheFileURL_cold_1(uint8_t *buf, uint64_t a2, void *a3)
 
 void getSuperBinaryVersionForAsset_cold_1(uint64_t a1, int a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 1026;
-  v7 = a2;
-  _os_log_error_impl(&dword_2701F5000, log, OS_LOG_TYPE_ERROR, "SuperBinary file %{public}@ has invalid length %{public}u", &v4, 0x12u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 1026;
+  v6 = a2;
+  _os_log_error_impl(&dword_2701F5000, log, OS_LOG_TYPE_ERROR, "SuperBinary file %{public}@ has invalid length %{public}u", &v3, 0x12u);
 }
 
 void getSuperBinaryVersionForAsset_cold_2(uint64_t a1, uint64_t *a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *a2;
-  v5 = 138543618;
-  v6 = a1;
-  v7 = 2114;
-  v8 = v3;
-  _os_log_error_impl(&dword_2701F5000, log, OS_LOG_TYPE_ERROR, "Failed to open file %{public}@ with error %{public}@", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138543618;
+  v5 = a1;
+  v6 = 2114;
+  v7 = v3;
+  _os_log_error_impl(&dword_2701F5000, log, OS_LOG_TYPE_ERROR, "Failed to open file %{public}@ with error %{public}@", &v4, 0x16u);
 }
 
 void UARPArrayOfExpiredFiles_cold_1(uint8_t *buf, uint64_t a2, void *a3)
@@ -911,48 +855,45 @@ void UARPArrayOfExpiredFiles_cold_1(uint8_t *buf, uint64_t a2, void *a3)
 
 void uarpLogError_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3(&dword_2701F5000, a1, a3, "%s\n", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = uarpLogError_logBuffer;
+  OUTLINED_FUNCTION_0_3(&dword_2701F5000, a1, a3, "%s\n", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void uarpLogDebug_cold_1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = &uarpLogDebug_logBuffer;
-  _os_log_debug_impl(&dword_2701F5000, log, OS_LOG_TYPE_DEBUG, "%s\n", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = uarpLogDebug_logBuffer;
+  _os_log_debug_impl(&dword_2701F5000, log, OS_LOG_TYPE_DEBUG, "%s\n", &v1, 0xCu);
 }
 
 void uarpLogFault_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3(&dword_2701F5000, a1, a3, "%s\n", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = uarpLogFault_logBuffer;
+  OUTLINED_FUNCTION_0_3(&dword_2701F5000, a1, a3, "%s\n", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void uarpPlatformDarwinLogError_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3(&dword_2701F5000, a1, a3, "%s\n", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = uarpPlatformDarwinLogError_logBuffer;
+  OUTLINED_FUNCTION_0_3(&dword_2701F5000, a1, a3, "%s\n", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void uarpPlatformDarwinLogDebug_cold_1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = &uarpPlatformDarwinLogDebug_logBuffer;
-  _os_log_debug_impl(&dword_2701F5000, log, OS_LOG_TYPE_DEBUG, "%s\n", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = uarpPlatformDarwinLogDebug_logBuffer;
+  _os_log_debug_impl(&dword_2701F5000, log, OS_LOG_TYPE_DEBUG, "%s\n", &v1, 0xCu);
 }
 
 void uarpPlatformDarwinLogFault_cold_1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = &uarpPlatformDarwinLogFault_logBuffer;
-  _os_log_fault_impl(&dword_2701F5000, log, OS_LOG_TYPE_FAULT, "%s\n", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = uarpPlatformDarwinLogFault_logBuffer;
+  _os_log_fault_impl(&dword_2701F5000, log, OS_LOG_TYPE_FAULT, "%s\n", &v1, 0xCu);
 }

@@ -40,15 +40,15 @@
 
 - (id)coalesceAppLaunches:(id)launches
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   launchesCopy = launches;
-  v23 = objc_opt_new();
+  v22 = objc_opt_new();
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   v5 = launchesCopy;
-  v6 = [v5 countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v27 objects:v31 count:16];
   obj = v5;
   if (!v6)
   {
@@ -57,26 +57,26 @@
 
   v7 = v6;
   v5 = 0;
-  v8 = *v29;
-  v22 = *v29;
+  v8 = *v28;
+  v21 = *v28;
   do
   {
     v9 = 0;
-    v24 = v7;
+    v23 = v7;
     do
     {
-      if (*v29 != v8)
+      if (*v28 != v8)
       {
         objc_enumerationMutation(obj);
       }
 
-      v10 = *(*(&v28 + 1) + 8 * v9);
+      v10 = *(*(&v27 + 1) + 8 * v9);
       v11 = objc_autoreleasePoolPush();
       if (v5)
       {
         if ([(ATXAppSessionModeLoggingHelper *)self shouldCoalesceLaunch:v5 nextLaunch:v10])
         {
-          v26 = objc_alloc(MEMORY[0x277CEBBD8]);
+          v25 = objc_alloc(MEMORY[0x277CEBBD8]);
           bundleID = [v5 bundleID];
           parentBundleID = [v5 parentBundleID];
           extensionHostID = [v5 extensionHostID];
@@ -84,18 +84,18 @@
           appSessionEndTime = [v10 appSessionEndTime];
           [v5 launchReason];
           v18 = v17 = self;
-          v27 = [v26 initWithBundleId:bundleID type:1 parentBundleID:parentBundleID extensionHostID:extensionHostID appSessionStartTime:appSessionStartTime appSessionEndTime:appSessionEndTime launchReason:v18];
+          v26 = [v25 initWithBundleId:bundleID type:1 parentBundleID:parentBundleID extensionHostID:extensionHostID appSessionStartTime:appSessionStartTime appSessionEndTime:appSessionEndTime launchReason:v18];
 
           self = v17;
-          v7 = v24;
+          v7 = v23;
 
-          v8 = v22;
-          v5 = v27;
+          v8 = v21;
+          v5 = v26;
         }
 
         else
         {
-          [v23 addObject:v5];
+          [v22 addObject:v5];
           v19 = v10;
 
           v5 = v19;
@@ -112,20 +112,18 @@
     }
 
     while (v7 != v9);
-    v7 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+    v7 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
   }
 
   while (v7);
 
   if (v5)
   {
-    [v23 addObject:v5];
+    [v22 addObject:v5];
 LABEL_15:
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-
-  return v23;
+  return v22;
 }
 
 - (BOOL)shouldCoalesceLaunch:(id)launch nextLaunch:(id)nextLaunch

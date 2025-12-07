@@ -11,15 +11,15 @@
 
 - (CMContinuityCaptureTimeSyncClock)initWithClockIdentifier:(unint64_t)identifier
 {
-  v4 = [objc_alloc(MEMORY[0x277D714D8]) initWithClockIdentifier:identifier];
-  v5 = [(CMContinuityCaptureTimeSyncClock *)self initWithClock:v4];
+  v4 = [objc_alloc(MEMORY[0x277D714D8]) initWithClockIdentifier:?];
+  v5 = [(CMContinuityCaptureTimeSyncClock *)self initWithClock:?];
 
   return v5;
 }
 
 - (void)dealloc
 {
-  [(TSgPTPClock *)self->_ptpClock removeClient:self];
+  [(TSgPTPClock *)self->_ptpClock removeClient:?];
   [(CMContinuityCaptureTimeSyncClock *)self stopEmittingHeartBeatSignposts];
   v3.receiver = self;
   v3.super_class = CMContinuityCaptureTimeSyncClock;
@@ -84,9 +84,9 @@
   if (v6)
   {
     objc_storeStrong(&v6->_ptpClock, clock);
-    [(TSgPTPClock *)v7->_ptpClock addClient:v7];
+    [(TSgPTPClock *)v7->_ptpClock addClient:?];
     clockIdentifier = [clockCopy clockIdentifier];
-    v9 = [MEMORY[0x277D714D0] timeSyncAudioClockDeviceUIDForClockIdentifier:clockIdentifier];
+    v9 = [MEMORY[0x277D714D0] timeSyncAudioClockDeviceUIDForClockIdentifier:?];
     clockDeviceUID = v7->_clockDeviceUID;
     v7->_clockDeviceUID = v9;
 

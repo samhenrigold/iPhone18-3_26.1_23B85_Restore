@@ -28,7 +28,9 @@
 - (NSString)userVisibleLabel;
 - (id)name;
 - (unsigned)trailingButtonState;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
+- (void)setTrailingButtonState:(unsigned __int8)state;
 - (void)unregisterObserver:(id)observer;
 @end
 
@@ -385,6 +387,13 @@
   return buttonActionValue;
 }
 
+- (void)setTrailingButtonState:(unsigned __int8)state
+{
+  stateCopy = state;
+  trailingButtonStateCharacteristic = [(CAFAutomakerSettingsRemoteNotification *)self trailingButtonStateCharacteristic];
+  [trailingButtonStateCharacteristic setButtonActionValue:stateCopy];
+}
+
 - (CAFArrayCharacteristic)automakerSettingsNotificationButtonsCharacteristic
 {
   v3 = [(CAFService *)self car];
@@ -417,6 +426,210 @@
   arrayValue = [automakerSettingsNotificationButtonsCharacteristic arrayValue];
 
   return arrayValue;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x0000000030000001"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    userVisibleLabelCharacteristic = [(CAFAutomakerSettingsRemoteNotification *)self userVisibleLabelCharacteristic];
+    uniqueIdentifier2 = [userVisibleLabelCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      userVisibleLabel = [(CAFAutomakerSettingsRemoteNotification *)self userVisibleLabel];
+      [observers automakerSettingsRemoteNotificationService:self didUpdateUserVisibleLabel:userVisibleLabel];
+      goto LABEL_25;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType2 = [updateCopy characteristicType];
+  if ([characteristicType2 isEqual:@"0x0000000030000005"])
+  {
+    uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+    userVisibleDescriptionCharacteristic = [(CAFAutomakerSettingsRemoteNotification *)self userVisibleDescriptionCharacteristic];
+    uniqueIdentifier4 = [userVisibleDescriptionCharacteristic uniqueIdentifier];
+    v18 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+    if (v18)
+    {
+      observers = [(CAFService *)self observers];
+      userVisibleLabel = [(CAFAutomakerSettingsRemoteNotification *)self userVisibleDescription];
+      [observers automakerSettingsRemoteNotificationService:self didUpdateUserVisibleDescription:userVisibleLabel];
+      goto LABEL_25;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType3 = [updateCopy characteristicType];
+  if ([characteristicType3 isEqual:@"0x0000000030000019"])
+  {
+    uniqueIdentifier5 = [updateCopy uniqueIdentifier];
+    identifierCharacteristic = [(CAFAutomakerSettingsRemoteNotification *)self identifierCharacteristic];
+    uniqueIdentifier6 = [identifierCharacteristic uniqueIdentifier];
+    v23 = [uniqueIdentifier5 isEqual:uniqueIdentifier6];
+
+    if (v23)
+    {
+      observers2 = [(CAFService *)self observers];
+      identifier = [(CAFAutomakerSettingsRemoteNotification *)self identifier];
+      [observers2 automakerSettingsRemoteNotificationService:self didUpdateIdentifier:identifier];
+LABEL_24:
+
+      observers = [(CAFService *)self observers];
+      userVisibleLabel = [(CAFAutomakerSettingsRemoteNotification *)self name];
+      [observers automakerSettingsRemoteNotificationService:self didUpdateName:userVisibleLabel];
+      goto LABEL_25;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType4 = [updateCopy characteristicType];
+  if ([characteristicType4 isEqual:@"0x0000000037000008"])
+  {
+    uniqueIdentifier7 = [updateCopy uniqueIdentifier];
+    symbolNameAndColorCharacteristic = [(CAFAutomakerSettingsRemoteNotification *)self symbolNameAndColorCharacteristic];
+    uniqueIdentifier8 = [symbolNameAndColorCharacteristic uniqueIdentifier];
+    v30 = [uniqueIdentifier7 isEqual:uniqueIdentifier8];
+
+    if (v30)
+    {
+      observers = [(CAFService *)self observers];
+      userVisibleLabel = [(CAFAutomakerSettingsRemoteNotification *)self symbolNameAndColor];
+      [observers automakerSettingsRemoteNotificationService:self didUpdateSymbolNameAndColor:userVisibleLabel];
+      goto LABEL_25;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType5 = [updateCopy characteristicType];
+  if ([characteristicType5 isEqual:@"0x0000000037000007"])
+  {
+    uniqueIdentifier9 = [updateCopy uniqueIdentifier];
+    displayPanelIdentifierCharacteristic = [(CAFAutomakerSettingsRemoteNotification *)self displayPanelIdentifierCharacteristic];
+    uniqueIdentifier10 = [displayPanelIdentifierCharacteristic uniqueIdentifier];
+    v35 = [uniqueIdentifier9 isEqual:uniqueIdentifier10];
+
+    if (v35)
+    {
+      observers2 = [(CAFService *)self observers];
+      identifier = [(CAFAutomakerSettingsRemoteNotification *)self displayPanelIdentifier];
+      [observers2 automakerSettingsRemoteNotificationService:self didUpdateDisplayPanelIdentifier:identifier];
+      goto LABEL_24;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType6 = [updateCopy characteristicType];
+  if ([characteristicType6 isEqual:@"0x000000003700000B"])
+  {
+    uniqueIdentifier11 = [updateCopy uniqueIdentifier];
+    displayZoneIdentifierCharacteristic = [(CAFAutomakerSettingsRemoteNotification *)self displayZoneIdentifierCharacteristic];
+    uniqueIdentifier12 = [displayZoneIdentifierCharacteristic uniqueIdentifier];
+    v40 = [uniqueIdentifier11 isEqual:uniqueIdentifier12];
+
+    if (v40)
+    {
+      observers2 = [(CAFService *)self observers];
+      identifier = [(CAFAutomakerSettingsRemoteNotification *)self displayZoneIdentifier];
+      [observers2 automakerSettingsRemoteNotificationService:self didUpdateDisplayZoneIdentifier:identifier];
+      goto LABEL_24;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType7 = [updateCopy characteristicType];
+  if ([characteristicType7 isEqual:@"0x000000003700000C"])
+  {
+    uniqueIdentifier13 = [updateCopy uniqueIdentifier];
+    trailingButtonCharacteristic = [(CAFAutomakerSettingsRemoteNotification *)self trailingButtonCharacteristic];
+    uniqueIdentifier14 = [trailingButtonCharacteristic uniqueIdentifier];
+    v45 = [uniqueIdentifier13 isEqual:uniqueIdentifier14];
+
+    if (v45)
+    {
+      observers = [(CAFService *)self observers];
+      userVisibleLabel = [(CAFAutomakerSettingsRemoteNotification *)self trailingButton];
+      [observers automakerSettingsRemoteNotificationService:self didUpdateTrailingButton:userVisibleLabel];
+      goto LABEL_25;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType8 = [updateCopy characteristicType];
+  if ([characteristicType8 isEqual:@"0x000000003700000D"])
+  {
+    uniqueIdentifier15 = [updateCopy uniqueIdentifier];
+    trailingButtonStateCharacteristic = [(CAFAutomakerSettingsRemoteNotification *)self trailingButtonStateCharacteristic];
+    uniqueIdentifier16 = [trailingButtonStateCharacteristic uniqueIdentifier];
+    v50 = [uniqueIdentifier15 isEqual:uniqueIdentifier16];
+
+    if (v50)
+    {
+      observers = [(CAFService *)self observers];
+      [observers automakerSettingsRemoteNotificationService:self didUpdateTrailingButtonState:{-[CAFAutomakerSettingsRemoteNotification trailingButtonState](self, "trailingButtonState")}];
+      goto LABEL_26;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers = [updateCopy characteristicType];
+  if (![observers isEqual:@"0x0000000037000012"])
+  {
+    goto LABEL_26;
+  }
+
+  uniqueIdentifier17 = [updateCopy uniqueIdentifier];
+  automakerSettingsNotificationButtonsCharacteristic = [(CAFAutomakerSettingsRemoteNotification *)self automakerSettingsNotificationButtonsCharacteristic];
+  uniqueIdentifier18 = [automakerSettingsNotificationButtonsCharacteristic uniqueIdentifier];
+  v54 = [uniqueIdentifier17 isEqual:uniqueIdentifier18];
+
+  if (!v54)
+  {
+    goto LABEL_27;
+  }
+
+  observers = [(CAFService *)self observers];
+  userVisibleLabel = [(CAFAutomakerSettingsRemoteNotification *)self automakerSettingsNotificationButtons];
+  [observers automakerSettingsRemoteNotificationService:self didUpdateAutomakerSettingsNotificationButtons:userVisibleLabel];
+LABEL_25:
+
+LABEL_26:
+LABEL_27:
+  v55.receiver = self;
+  v55.super_class = CAFAutomakerSettingsRemoteNotification;
+  [(CAFService *)&v55 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForUserVisibleLabel

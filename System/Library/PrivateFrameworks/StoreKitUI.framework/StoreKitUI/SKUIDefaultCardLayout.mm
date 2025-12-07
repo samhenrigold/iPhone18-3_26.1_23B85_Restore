@@ -44,18 +44,18 @@
   v17 = SKUIViewElementAlignmentForStyle(v15);
   if (v17)
   {
-    v18 = SKUIViewElementNSTextAlignmentForIKElementAlignment(v17);
+    v19 = SKUIViewElementNSTextAlignmentForIKElementAlignment(v17, v18);
   }
 
   else
   {
-    v18 = 1;
+    v19 = 1;
   }
 
   buttonText = [buttonCopy buttonText];
-  v20 = [buttonText attributedStringWithDefaultFont:v16 foregroundColor:0 textAlignment:v18 style:v15];
+  v21 = [buttonText attributedStringWithDefaultFont:v16 foregroundColor:0 textAlignment:v19 style:v15];
 
-  return v20;
+  return v21;
 }
 
 - (id)attributedStringForLabel:(id)label
@@ -82,12 +82,12 @@
   v18 = SKUIViewElementAlignmentForStyle(style);
   if (v18)
   {
-    v19 = SKUIViewElementNSTextAlignmentForIKElementAlignment(v18);
+    v20 = SKUIViewElementNSTextAlignmentForIKElementAlignment(v18, v19);
   }
 
   else
   {
-    v19 = 1;
+    v20 = 1;
   }
 
   labelViewStyle = [labelCopy labelViewStyle];
@@ -142,9 +142,9 @@
 
 LABEL_21:
   text = [labelCopy text];
-  v23 = [text attributedStringWithDefaultFont:v14 foregroundColor:v17 textAlignment:v19];
+  v24 = [text attributedStringWithDefaultFont:v14 foregroundColor:v17 textAlignment:v20];
 
-  return v23;
+  return v24;
 }
 
 - (double)topInsetForViewElement:(id)element previousViewElement:(id)viewElement width:(double)width
@@ -208,6 +208,24 @@ LABEL_21:
   }
 
   return v23;
+}
+
+- (void)attributedStringForButton:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIDefaultCardLayout attributedStringForButton:]";
+}
+
+- (void)attributedStringForLabel:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIDefaultCardLayout attributedStringForLabel:]";
+}
+
+- (void)topInsetForViewElement:(uint64_t)a3 previousViewElement:(uint64_t)a4 width:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIDefaultCardLayout topInsetForViewElement:previousViewElement:width:]";
 }
 
 @end

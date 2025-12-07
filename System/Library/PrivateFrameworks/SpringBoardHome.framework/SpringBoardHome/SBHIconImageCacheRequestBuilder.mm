@@ -28,12 +28,13 @@
 {
   iconCopy = icon;
   appearanceCopy = appearance;
-  if ([objc_opt_class() hasIconImage])
+  hasIconImage = [objc_opt_class() hasIconImage];
+  if (hasIconImage)
   {
     if (self)
     {
-      v12 = self->_reason;
-      v13 = self->_sharedCancellation;
+      v13 = self->_reason;
+      v14 = self->_sharedCancellation;
       WeakRetained = objc_loadWeakRetained(&self->_iconImageCache);
       completionGroup = self->_completionGroup;
     }
@@ -42,13 +43,13 @@
     {
       [SBHIconImageVariantCache performSynchronousCacheRequest:];
       WeakRetained = 0;
-      v12 = 0;
       v13 = 0;
+      v14 = 0;
       completionGroup = 0;
     }
 
-    v16 = completionGroup;
-    v17 = [WeakRetained currentImageGenerationForIcon:iconCopy];
+    v17 = completionGroup;
+    v18 = [WeakRetained currentImageGenerationForIcon:iconCopy];
     if ((options & 2) != 0)
     {
       if ((options & 1) == 0)
@@ -59,15 +60,15 @@
 
     else
     {
-      dispatch_group_enter(v16);
-      v20 = [SBHIconImageCacheRequest alloc];
-      v25[0] = MEMORY[0x1E69E9820];
-      v25[1] = 3221225472;
-      v25[2] = __76__SBHIconImageCacheRequestBuilder_addIcon_imageAppearance_priority_options___block_invoke;
-      v25[3] = &unk_1E8089000;
-      v26 = v16;
-      v21 = [(SBHIconImageCacheRequest *)&v20->super.isa initWithIcon:iconCopy imageAppearance:appearanceCopy priority:priority reason:v12 imageGeneration:v17 variant:0 options:options sharedCancellation:v13 iconImageCache:WeakRetained completionHandler:v25];
-      [(NSMutableArray *)self->_requests addObject:v21];
+      dispatch_group_enter(v17);
+      v21 = [SBHIconImageCacheRequest alloc];
+      v26[0] = MEMORY[0x1E69E9820];
+      v26[1] = 3221225472;
+      v26[2] = __76__SBHIconImageCacheRequestBuilder_addIcon_imageAppearance_priority_options___block_invoke;
+      v26[3] = &unk_1E8089000;
+      v27 = v17;
+      v22 = [(SBHIconImageCacheRequest *)&v21->super.isa initWithIcon:iconCopy imageAppearance:appearanceCopy priority:priority reason:v13 imageGeneration:v18 variant:0 options:options sharedCancellation:v14 iconImageCache:WeakRetained completionHandler:v26];
+      [(NSMutableArray *)self->_requests addObject:v22];
 
       if ((options & 1) == 0)
       {
@@ -94,15 +95,15 @@ LABEL_10:
       }
     }
 
-    dispatch_group_enter(v16);
-    v22 = [SBHIconImageCacheRequest alloc];
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __76__SBHIconImageCacheRequestBuilder_addIcon_imageAppearance_priority_options___block_invoke_2;
-    v23[3] = &unk_1E8089000;
-    v24 = v16;
-    v19 = [(SBHIconImageCacheRequest *)&v22->super.isa initWithIcon:iconCopy imageAppearance:appearanceCopy priority:priority reason:v12 imageGeneration:v17 variant:1 options:options sharedCancellation:v13 iconImageCache:WeakRetained completionHandler:v23];
-    [(NSMutableArray *)self->_requests addObject:v19];
+    dispatch_group_enter(v17);
+    v23 = [SBHIconImageCacheRequest alloc];
+    v24[0] = MEMORY[0x1E69E9820];
+    v24[1] = 3221225472;
+    v24[2] = __76__SBHIconImageCacheRequestBuilder_addIcon_imageAppearance_priority_options___block_invoke_2;
+    v24[3] = &unk_1E8089000;
+    v25 = v17;
+    v20 = [(SBHIconImageCacheRequest *)&v23->super.isa initWithIcon:iconCopy imageAppearance:appearanceCopy priority:priority reason:v13 imageGeneration:v18 variant:1 options:options sharedCancellation:v14 iconImageCache:WeakRetained completionHandler:v24];
+    [(NSMutableArray *)self->_requests addObject:v20];
 
     if ((options & 0x10) != 0)
     {
@@ -112,10 +113,10 @@ LABEL_10:
     goto LABEL_10;
   }
 
-  v12 = SBLogIconImageCache();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v13 = SBLogIconImageCache(hasIconImage);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
-    [SBHIconImageCacheRequestBuilder addIcon:v12 imageAppearance:? priority:? options:?];
+    [SBHIconImageCacheRequestBuilder addIcon:v13 imageAppearance:? priority:? options:?];
   }
 
 LABEL_13:

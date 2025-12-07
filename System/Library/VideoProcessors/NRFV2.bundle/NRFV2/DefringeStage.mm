@@ -1,7 +1,6 @@
 @interface DefringeStage
 + (int)prewarmShaders:(id)shaders tuningParameters:(id)parameters;
 - (DefringeStage)initWithMetalContext:(id)context;
-- (id)_functionNameForProgram:(int)program;
 - (int)_compileShaders;
 - (int)defringePyramid:(id)pyramid outputPyramid:(id)outputPyramid chromaScratch:(id)scratch tuningParameters:(id)parameters;
 - (void)_collapseFilteredChroma:(id)chroma usingInputDown:(id)down inputUp:(id)up into:(id)into;
@@ -117,22 +116,6 @@ LABEL_16:
   return v47;
 }
 
-- (id)_functionNameForProgram:(int)program
-{
-  if (!program)
-  {
-    return @"defringe_still";
-  }
-
-  if (program == 1)
-  {
-    return @"collapse_cbcr";
-  }
-
-  FigDebugAssert3();
-  return 0;
-}
-
 - (int)_compileShaders
 {
   metalContext = self->_metalContext;
@@ -171,16 +154,17 @@ LABEL_16:
 - (DefringeStage)initWithMetalContext:(id)context
 {
   contextCopy = context;
-  v12.receiver = self;
-  v12.super_class = DefringeStage;
-  v6 = [(DefringeStage *)&v12 init];
+  v13.receiver = self;
+  v13.super_class = DefringeStage;
+  v6 = [(DefringeStage *)&v13 init];
   v7 = v6;
   if (v6)
   {
     objc_storeStrong(&v6->_metalContext, context);
-    if (objc_msgSend__compileShaders(v7, v8, v9, v10))
+    v11 = objc_msgSend__compileShaders(v7, v8, v9, v10);
+    if (v11)
     {
-      sub_2958933B8();
+      sub_2958933B8(v11);
     }
   }
 
@@ -318,28 +302,28 @@ LABEL_16:
 
   if (v28 <= 1)
   {
-    sub_29589390C(&v80);
+    sub_29589390C(&v76);
 LABEL_26:
-    v76 = v80;
+    v72 = v76;
     goto LABEL_23;
   }
 
   if (v29 <= 1)
   {
-    sub_295893884(&v80);
+    sub_295893884(&v76);
     goto LABEL_26;
   }
 
   v31 = objc_msgSend_pixelFormat(scratchCopy, v13, v14, v15);
   if (v31 != objc_msgSend_pixelFormat(*(outputPyramidCopy + 62), v32, v33, v34))
   {
-    sub_2958934CC(&v80);
+    sub_2958934CC(&v76);
     goto LABEL_26;
   }
 
   if (!parametersCopy)
   {
-    sub_2958937FC(&v80);
+    sub_2958937FC(&v76);
     goto LABEL_26;
   }
 
@@ -348,17 +332,15 @@ LABEL_26:
   v37 = outputPyramidCopy;
   do
   {
-    v38 = *(v36 + 62);
     if ((FigMetalIsValid() & 1) == 0)
     {
-      sub_295893554(&v80);
+      sub_295893554(&v76);
       goto LABEL_26;
     }
 
-    v39 = *(v37 + 62);
     if ((FigMetalIsValid() & 1) == 0)
     {
-      sub_2958935DC(&v80);
+      sub_2958935DC(&v76);
       goto LABEL_26;
     }
 
@@ -370,69 +352,67 @@ LABEL_26:
   while (v35);
   if ((FigMetalIsValid() & 1) == 0)
   {
-    sub_295893664(&v80);
+    sub_295893664(&v76);
     goto LABEL_26;
   }
 
-  v40 = *(pyramidCopy + 43);
   if ((FigMetalIsValid() & 1) == 0)
   {
-    sub_2958936EC(&v80);
+    sub_2958936EC(&v76);
     goto LABEL_26;
   }
 
-  v41 = *(pyramidCopy + 44);
   if ((FigMetalIsValid() & 1) == 0)
   {
-    sub_295893774(&v80);
+    sub_295893774(&v76);
     goto LABEL_26;
   }
 
   objc_storeStrong(&self->_tuningParameters, parameters);
-  objc_msgSend_commit(self->_metalContext, v42, v43, v44);
-  v48 = objc_msgSend_commandBuffer(self->_metalContext, v45, v46, v47);
-  objc_msgSend_setLabel_(v48, v49, @"defringe", v50);
+  objc_msgSend_commit(self->_metalContext, v38, v39, v40);
+  v44 = objc_msgSend_commandBuffer(self->_metalContext, v41, v42, v43);
+  objc_msgSend_setLabel_(v44, v45, @"defringe", v46);
 
   if (v30 >= 3)
   {
-    v52 = v30 + 1;
-    v53 = 8 * v30 - 8;
-    v54 = &outputPyramidCopy[v53];
-    v55 = &pyramidCopy[v53];
+    v48 = v30 + 1;
+    v49 = 8 * v30 - 8;
+    v50 = &outputPyramidCopy[v49];
+    v51 = &pyramidCopy[v49];
     do
     {
-      objc_msgSend__copyFromTexture_toTexture_(self, v51, *(v55 + 62), *(v54 + 62));
-      --v52;
-      v54 -= 8;
-      v55 -= 8;
+      objc_msgSend__copyFromTexture_toTexture_(self, v47, *(v51 + 62), *(v50 + 62));
+      --v48;
+      v50 -= 8;
+      v51 -= 8;
     }
 
-    while (v52 > 3);
+    while (v48 > 3);
   }
 
-  objc_msgSend__defringeLuma_chroma_into_(self, v51, *(pyramidCopy + 44), *(pyramidCopy + 63), *(outputPyramidCopy + 63));
-  objc_msgSend__collapseFilteredChroma_usingInputDown_inputUp_into_(self, v56, *(outputPyramidCopy + 63), *(pyramidCopy + 63), *(pyramidCopy + 62), scratchCopy);
-  objc_msgSend__defringeLuma_chroma_into_(self, v57, *(pyramidCopy + 43), scratchCopy, *(outputPyramidCopy + 62));
-  objc_msgSend_commit(self->_metalContext, v58, v59, v60);
+  objc_msgSend__defringeLuma_chroma_into_(self, v47, *(pyramidCopy + 44), *(pyramidCopy + 63), *(outputPyramidCopy + 63));
+  objc_msgSend__collapseFilteredChroma_usingInputDown_inputUp_into_(self, v52, *(outputPyramidCopy + 63), *(pyramidCopy + 63), *(pyramidCopy + 62), scratchCopy);
+  objc_msgSend__defringeLuma_chroma_into_(self, v53, *(pyramidCopy + 43), scratchCopy, *(outputPyramidCopy + 62));
+  objc_msgSend_commit(self->_metalContext, v54, v55, v56);
   if (*MEMORY[0x29EDB9270])
   {
-    v64 = objc_msgSend_commandQueue(self->_metalContext, v61, v62, v63);
-    v68 = objc_msgSend_commandBuffer(v64, v65, v66, v67);
+    v60 = objc_msgSend_commandQueue(self->_metalContext, v57, v58, v59);
+    v64 = objc_msgSend_commandBuffer(v60, v61, v62, v63);
 
-    objc_msgSend_setLabel_(v68, v69, @"KTRACE_END_MTL", v70);
-    v79[0] = MEMORY[0x29EDCA5F8];
-    v79[1] = 3221225472;
-    v79[2] = sub_29581E520;
-    v79[3] = &unk_29EDDBE78;
-    memset(&v79[4], 0, 24);
-    objc_msgSend_addCompletedHandler_(v68, v71, v79, v72);
-    objc_msgSend_commit(v68, v73, v74, v75);
+    objc_msgSend_setLabel_(v64, v65, @"KTRACE_END_MTL", v66);
+    v75[0] = MEMORY[0x29EDCA5F8];
+    v75[1] = 3221225472;
+    v75[2] = sub_29581E520;
+    v75[3] = &unk_29EDDBE78;
+    memset(&v75[4], 0, 24);
+    objc_msgSend_addCompletedHandler_(v64, v67, v75, v68);
+    objc_msgSend_commit(v64, v69, v70, v71);
   }
 
-  v76 = 0;
+  v72 = 0;
 LABEL_23:
 
-  return v76;
+  return v72;
 }
 
 @end

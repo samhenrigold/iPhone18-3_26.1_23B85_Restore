@@ -43,17 +43,16 @@
 - (NSString)debugDescription
 {
   v3 = [[NSMutableString alloc] initWithFormat:@"<%@:%p {\n", objc_opt_class(), self];
-  service = self->_service;
-  v5 = MRCreateIndentedDebugDescriptionFromObject();
-  [v3 appendFormat:@" Service = %@\n", v5];
+  v4 = MRCreateIndentedDebugDescriptionFromObject();
+  [v3 appendFormat:@" Service = %@\n", v4];
 
   allValues = [(NSMutableDictionary *)self->_discoveryChannels allValues];
-  v7 = MRCreateIndentedDebugDescriptionFromArray();
-  [v3 appendFormat:@" DiscoveryChannels = %@\n", v7];
+  v6 = MRCreateIndentedDebugDescriptionFromArray();
+  [v3 appendFormat:@" DiscoveryChannels = %@\n", v6];
 
   allValues2 = [(NSMutableDictionary *)self->_remoteControlChannels allValues];
-  v9 = MRCreateIndentedDebugDescriptionFromArray();
-  [v3 appendFormat:@" RemoteControlChannels = %@\n", v9];
+  v8 = MRCreateIndentedDebugDescriptionFromArray();
+  [v3 appendFormat:@" RemoteControlChannels = %@\n", v8];
 
   [v3 appendFormat:@"}>"];
 

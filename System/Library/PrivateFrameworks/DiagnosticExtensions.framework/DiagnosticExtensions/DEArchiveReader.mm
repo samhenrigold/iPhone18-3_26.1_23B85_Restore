@@ -9,58 +9,43 @@
 - (DEArchiveReader)initWithURL:(id)l
 {
   lCopy = l;
-  v13.receiver = self;
-  v13.super_class = DEArchiveReader;
-  v5 = [(DEArchiveReader *)&v13 init];
-  if (!v5)
+  v11.receiver = self;
+  v11.super_class = DEArchiveReader;
+  v5 = [(DEArchiveReader *)&v11 init];
+  if (v5 && (v5->_archive = archive_read_new(), archive_read_support_filter_all(), archive_read_support_format_all(), [lCopy path], v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "UTF8String"), open_filename = archive_read_open_filename(), v6, open_filename))
   {
-    goto LABEL_6;
-  }
-
-  v5->_archive = archive_read_new();
-  archive_read_support_filter_all();
-  archive = v5->_archive;
-  archive_read_support_format_all();
-  v7 = v5->_archive;
-  path = [lCopy path];
-  [path UTF8String];
-  open_filename = archive_read_open_filename();
-
-  if (open_filename)
-  {
-    v10 = +[DELogging fwHandle];
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v8 = +[DELogging fwHandle];
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [(DEArchiveReader *)lCopy initWithURL:v10];
+      [(DEArchiveReader *)lCopy initWithURL:v8];
     }
 
-    v11 = 0;
+    v9 = 0;
   }
 
   else
   {
-LABEL_6:
-    v11 = v5;
+    v9 = v5;
   }
 
-  return v11;
+  return v9;
 }
 
 - (id)listContainedPaths
 {
-  v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  for (i = self->_archive; !archive_read_next_header(); archive = self->_archive)
+  v2 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  while (!archive_read_next_header())
   {
-    v5 = [MEMORY[0x277CCACA8] stringWithCString:archive_entry_pathname() encoding:4];
-    if (v5)
+    v3 = [MEMORY[0x277CCACA8] stringWithCString:archive_entry_pathname() encoding:4];
+    if (v3)
     {
-      [v3 addObject:v5];
+      [v2 addObject:v3];
     }
   }
 
-  v7 = [v3 copy];
+  v4 = [v2 copy];
 
-  return v7;
+  return v4;
 }
 
 - (void)closeArchive
@@ -76,13 +61,12 @@ LABEL_6:
 
 - (void)initWithURL:(os_log_t)log .cold.1(uint64_t a1, int a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 1024;
-  v7 = a2;
-  _os_log_error_impl(&dword_248AB3000, log, OS_LOG_TYPE_ERROR, "Error opening archive at path %@ %d", &v4, 0x12u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 1024;
+  v6 = a2;
+  _os_log_error_impl(&dword_248AB3000, log, OS_LOG_TYPE_ERROR, "Error opening archive at path %@ %d", &v3, 0x12u);
 }
 
 @end

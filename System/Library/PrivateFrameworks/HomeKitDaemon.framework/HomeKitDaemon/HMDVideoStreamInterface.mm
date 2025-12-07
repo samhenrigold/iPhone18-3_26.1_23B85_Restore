@@ -6,6 +6,7 @@
 + (id)logCategory;
 + (int)_createLocalRTPSocketWithRemoteSender:(id)sender localNetworkConfig:(id)config;
 - (HMDVideoStreamInterface)initWithSessionID:(id)d workQueue:(id)queue delegate:(id)delegate sessionHandler:(id)handler localNetworkConfig:(id)config;
+- (HMDVideoStreamInterface)initWithSessionID:(id)d workQueue:(id)queue delegate:(id)delegate sessionHandler:(id)handler videoStream:(id)stream localRTPSocket:(int)socket videoStreamReconfigure:(id)reconfigure dataSource:(id)self0;
 - (HMDVideoStreamInterfaceDelegate)delegate;
 - (HMDVideoStreamLastDecodedFrameDelegate)snapshotDelegate;
 - (NSNumber)streamToken;
@@ -29,6 +30,7 @@
 - (void)streamDidRTPTimeOut:(id)out;
 - (void)streamDidServerDie:(id)die;
 - (void)streamDidStop:(id)stop;
+- (void)updateReconfigurationMode:(BOOL)mode;
 - (void)updateStreamConfiguration:(id)configuration;
 - (void)videoStreamReconfigureDidNetworkDeteriorate:(id)deteriorate;
 - (void)videoStreamReconfigureDidNetworkImprove:(id)improve;
@@ -79,20 +81,19 @@
 
 void __48__HMDVideoStreamInterface_streamDidRTCPTimeOut___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v7 = 138543362;
-    v8 = v5;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Video stream RTCP has timed out", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = v5;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Video stream RTCP has timed out", &v6, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)streamDidRTPTimeOut:(id)out
@@ -108,24 +109,22 @@ void __48__HMDVideoStreamInterface_streamDidRTCPTimeOut___block_invoke(uint64_t 
 
 void __47__HMDVideoStreamInterface_streamDidRTPTimeOut___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     v5 = HMFGetLogIdentifier();
-    v9 = 138543362;
-    v10 = v5;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_ERROR, "%{public}@Video stream RTP has timed out", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v5;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_ERROR, "%{public}@Video stream RTP has timed out", &v8, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
   v6 = *(a1 + 32);
   v7 = [MEMORY[0x277CCA9B8] hmInternalErrorWithCode:1012];
   [v6 _callStopped:v7];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)streamDidServerDie:(id)die
@@ -141,24 +140,22 @@ void __47__HMDVideoStreamInterface_streamDidRTPTimeOut___block_invoke(uint64_t a
 
 void __46__HMDVideoStreamInterface_streamDidServerDie___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     v5 = HMFGetLogIdentifier();
-    v9 = 138543362;
-    v10 = v5;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_ERROR, "%{public}@Video stream server died", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v5;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_ERROR, "%{public}@Video stream server died", &v8, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
   v6 = *(a1 + 32);
   v7 = [MEMORY[0x277CCA9B8] hmInternalErrorWithCode:1014];
   [v6 _callStopped:v7];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)streamDidStop:(id)stop
@@ -174,22 +171,20 @@ void __46__HMDVideoStreamInterface_streamDidServerDie___block_invoke(uint64_t a1
 
 uint64_t __41__HMDVideoStreamInterface_streamDidStop___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@streamDidStop", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@streamDidStop", &v7, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
-  result = [*(a1 + 32) _callStopped:0];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _callStopped:0];
 }
 
 - (void)stream:(id)stream didGetLastDecodedFrame:(id)frame
@@ -243,29 +238,26 @@ void __59__HMDVideoStreamInterface_stream_downlinkQualityDidChange___block_invok
 
 uint64_t __68__HMDVideoStreamInterface_stream_didUpdateVideoConfiguration_error___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v6 = *(a1 + 48);
-    v7 = HMFBooleanToString();
-    v8 = *(a1 + 40);
-    v11 = 138543874;
-    v12 = v5;
+    v6 = HMFBooleanToString();
+    v7 = *(a1 + 40);
+    v9 = 138543874;
+    v10 = v5;
+    v11 = 2112;
+    v12 = v6;
     v13 = 2112;
     v14 = v7;
-    v15 = 2112;
-    v16 = v8;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Video stream did update video configuration: %@ error: %@", &v11, 0x20u);
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Video stream did update video configuration: %@ error: %@", &v9, 0x20u);
   }
 
   objc_autoreleasePoolPop(v2);
-  result = [*(a1 + 32) _callDidUpdateConfiguration];
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _callDidUpdateConfiguration];
 }
 
 - (void)stream:(id)stream didStart:(BOOL)start error:(id)error
@@ -285,34 +277,31 @@ uint64_t __68__HMDVideoStreamInterface_stream_didUpdateVideoConfiguration_error_
 
 uint64_t __49__HMDVideoStreamInterface_stream_didStart_error___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v6 = *(a1 + 48);
-    v7 = HMFBooleanToString();
-    v8 = *(a1 + 40);
-    v11 = 138543874;
-    v12 = v5;
+    v6 = HMFBooleanToString();
+    v7 = *(a1 + 40);
+    v9 = 138543874;
+    v10 = v5;
+    v11 = 2112;
+    v12 = v6;
     v13 = 2112;
     v14 = v7;
-    v15 = 2112;
-    v16 = v8;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Video stream did start: %@ error: %@", &v11, 0x20u);
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Video stream did start: %@ error: %@", &v9, 0x20u);
   }
 
   objc_autoreleasePoolPop(v2);
-  result = [*(a1 + 32) _callStarted:*(a1 + 40)];
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _callStarted:*(a1 + 40)];
 }
 
 - (void)_callDidGetLastDecodedFrame:(id)frame
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   frameCopy = frame;
   workQueue = [(HMDStreamInterface *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -324,9 +313,9 @@ uint64_t __49__HMDVideoStreamInterface_stream_didStart_error___block_invoke(uint
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     v10 = HMFGetLogIdentifier();
-    v22 = 138543362;
-    v23 = v10;
-    _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Calling delegate videoStream:didGetLastDecodedFrame:", &v22, 0xCu);
+    v21 = 138543362;
+    v22 = v10;
+    _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Calling delegate videoStream:didGetLastDecodedFrame:", &v21, 0xCu);
   }
 
   objc_autoreleasePoolPop(v7);
@@ -356,13 +345,11 @@ uint64_t __49__HMDVideoStreamInterface_stream_didStart_error___block_invoke(uint
   {
     [snapshotDelegate videoStream:selfCopy didGetLastDecodedFrame:v20];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_callDidUpdateConfiguration
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDStreamInterface *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -372,9 +359,9 @@ uint64_t __49__HMDVideoStreamInterface_stream_didStart_error___block_invoke(uint
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v10 = 138543362;
-    v11 = v7;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Calling delegate videoStreamDidUpdateConfiguration", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v7;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Calling delegate videoStreamDidUpdateConfiguration", &v9, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -383,13 +370,11 @@ uint64_t __49__HMDVideoStreamInterface_stream_didStart_error___block_invoke(uint
   {
     [delegate videoStreamDidUpdateConfiguration:selfCopy];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_callNetworkDeteriorated
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDStreamInterface *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -399,9 +384,9 @@ uint64_t __49__HMDVideoStreamInterface_stream_didStart_error___block_invoke(uint
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v10 = 138543362;
-    v11 = v7;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Calling delegate videoStreamDidNetworkDeteriorate", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v7;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Calling delegate videoStreamDidNetworkDeteriorate", &v9, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -410,13 +395,11 @@ uint64_t __49__HMDVideoStreamInterface_stream_didStart_error___block_invoke(uint
   {
     [delegate videoStreamDidNetworkDeteriorate:selfCopy];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_callNetworkImproved
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDStreamInterface *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -426,9 +409,9 @@ uint64_t __49__HMDVideoStreamInterface_stream_didStart_error___block_invoke(uint
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v10 = 138543362;
-    v11 = v7;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Calling delegate videoStreamDidNetworkImprove", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v7;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Calling delegate videoStreamDidNetworkImprove", &v9, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -437,13 +420,11 @@ uint64_t __49__HMDVideoStreamInterface_stream_didStart_error___block_invoke(uint
   {
     [delegate videoStreamDidNetworkImprove:selfCopy];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_callStopped:(id)stopped
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   stoppedCopy = stopped;
   workQueue = [(HMDStreamInterface *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -455,9 +436,9 @@ uint64_t __49__HMDVideoStreamInterface_stream_didStart_error___block_invoke(uint
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v12 = 138543362;
-    v13 = v9;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Calling delegate videoStream:didStop", &v12, 0xCu);
+    v11 = 138543362;
+    v12 = v9;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Calling delegate videoStream:didStop", &v11, 0xCu);
   }
 
   objc_autoreleasePoolPop(v6);
@@ -466,13 +447,11 @@ uint64_t __49__HMDVideoStreamInterface_stream_didStart_error___block_invoke(uint
   {
     [delegate videoStream:selfCopy didStop:stoppedCopy];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_callStarted:(id)started
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   startedCopy = started;
   workQueue = [(HMDStreamInterface *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -483,9 +462,9 @@ uint64_t __49__HMDVideoStreamInterface_stream_didStart_error___block_invoke(uint
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v12 = 138543362;
-    v13 = v9;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Calling delegate videoStream:didStart", &v12, 0xCu);
+    v11 = 138543362;
+    v12 = v9;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Calling delegate videoStream:didStart", &v11, 0xCu);
   }
 
   objc_autoreleasePoolPop(v6);
@@ -496,13 +475,11 @@ uint64_t __49__HMDVideoStreamInterface_stream_didStart_error___block_invoke(uint
   }
 
   [(HMDStreamInterface *)selfCopy setState:2];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)captureSnapshot
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDStreamInterface *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -515,21 +492,19 @@ uint64_t __49__HMDVideoStreamInterface_stream_didStart_error___block_invoke(uint
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v11 = 138543362;
-    v12 = v8;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Requesting last decoded frame", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = v8;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Requesting last decoded frame", &v10, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
   videoStream = [(HMDVideoStreamInterface *)selfCopy videoStream];
   [videoStream requestLastDecodedFrame];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopStream
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDStreamInterface *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -539,21 +514,19 @@ uint64_t __49__HMDVideoStreamInterface_stream_didStart_error___block_invoke(uint
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v10 = 138543362;
-    v11 = v7;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Stopping video stream", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v7;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Stopping video stream", &v9, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
   videoStream = [(HMDVideoStreamInterface *)selfCopy videoStream];
   [videoStream stop];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateStreamConfiguration:(id)configuration
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   workQueue = [(HMDStreamInterface *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -565,24 +538,32 @@ uint64_t __49__HMDVideoStreamInterface_stream_didStart_error___block_invoke(uint
   {
     v9 = HMFGetLogIdentifier();
     video = [configurationCopy video];
-    v14 = 138543618;
-    v15 = v9;
-    v16 = 2112;
-    v17 = video;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Updating video stream with video configuration: %@", &v14, 0x16u);
+    v13 = 138543618;
+    v14 = v9;
+    v15 = 2112;
+    v16 = video;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Updating video stream with video configuration: %@", &v13, 0x16u);
   }
 
   objc_autoreleasePoolPop(v6);
   videoStream = [(HMDVideoStreamInterface *)selfCopy videoStream];
   video2 = [configurationCopy video];
   [videoStream updateVideoConfiguration:video2];
+}
 
-  v13 = *MEMORY[0x277D85DE8];
+- (void)updateReconfigurationMode:(BOOL)mode
+{
+  modeCopy = mode;
+  workQueue = [(HMDStreamInterface *)self workQueue];
+  dispatch_assert_queue_V2(workQueue);
+
+  videoStreamReconfigure = [(HMDVideoStreamInterface *)self videoStreamReconfigure];
+  [videoStreamReconfigure updateReconfigurationMode:modeCopy];
 }
 
 - (void)startStreamWithConfig:(id)config
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   configCopy = config;
   workQueue = [(HMDStreamInterface *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -598,7 +579,7 @@ uint64_t __49__HMDVideoStreamInterface_stream_didStart_error___block_invoke(uint
     {
       v20 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v25 = v20;
+      v24 = v20;
       _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Failed to load misc fields to video config", buf, 0xCu);
     }
 
@@ -611,17 +592,17 @@ uint64_t __49__HMDVideoStreamInterface_stream_didStart_error___block_invoke(uint
   {
     v11 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v25 = v11;
-    v26 = 2112;
-    v27 = configCopy;
+    v24 = v11;
+    v25 = 2112;
+    v26 = configCopy;
     _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Configuring video stream with configuration: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v7);
   videoStream = [(HMDVideoStreamInterface *)selfCopy videoStream];
-  v23 = 0;
-  v13 = [videoStream configure:configCopy error:&v23];
-  v14 = v23;
+  v22 = 0;
+  v13 = [videoStream configure:configCopy error:&v22];
+  v14 = v22;
 
   v15 = objc_autoreleasePoolPush();
   selfCopy = selfCopy;
@@ -633,9 +614,9 @@ uint64_t __49__HMDVideoStreamInterface_stream_didStart_error___block_invoke(uint
     {
       v21 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v25 = v21;
-      v26 = 2112;
-      v27 = v14;
+      v24 = v21;
+      v25 = 2112;
+      v26 = v14;
       _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_ERROR, "%{public}@Failed to configure video stream: %@", buf, 0x16u);
     }
 
@@ -649,7 +630,7 @@ LABEL_14:
   {
     v18 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v25 = v18;
+    v24 = v18;
     _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Starting video stream", buf, 0xCu);
   }
 
@@ -658,7 +639,6 @@ LABEL_14:
   [videoStream2 start];
 
 LABEL_15:
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (NSNumber)streamToken
@@ -687,7 +667,7 @@ LABEL_15:
 
 - (void)dealloc
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -695,15 +675,14 @@ LABEL_15:
   {
     v6 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v10 = v6;
+    v9 = v6;
     _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Deallocating HMDVideoStreamInterface object", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
-  v8.receiver = selfCopy;
-  v8.super_class = HMDVideoStreamInterface;
-  [(HMDStreamInterface *)&v8 dealloc];
-  v7 = *MEMORY[0x277D85DE8];
+  v7.receiver = selfCopy;
+  v7.super_class = HMDVideoStreamInterface;
+  [(HMDStreamInterface *)&v7 dealloc];
 }
 
 - (id)logIdentifier
@@ -714,16 +693,39 @@ LABEL_15:
   return v3;
 }
 
+- (HMDVideoStreamInterface)initWithSessionID:(id)d workQueue:(id)queue delegate:(id)delegate sessionHandler:(id)handler videoStream:(id)stream localRTPSocket:(int)socket videoStreamReconfigure:(id)reconfigure dataSource:(id)self0
+{
+  v10 = *&socket;
+  delegateCopy = delegate;
+  streamCopy = stream;
+  reconfigureCopy = reconfigure;
+  sourceCopy = source;
+  v23.receiver = self;
+  v23.super_class = HMDVideoStreamInterface;
+  v18 = [(HMDStreamInterface *)&v23 initWithSessionID:d workQueue:queue sessionHandler:handler localRTPSocket:v10];
+  v19 = v18;
+  if (v18)
+  {
+    objc_storeWeak(&v18->_delegate, delegateCopy);
+    objc_storeStrong(&v19->_videoStream, stream);
+    [(HMDAVCVideoStream *)v19->_videoStream setDelegate:v19, reconfigureCopy, streamCopy];
+    objc_storeStrong(&v19->_videoStreamReconfigure, reconfigure);
+    objc_storeStrong(&v19->_dataSource, source);
+  }
+
+  return v19;
+}
+
 - (HMDVideoStreamInterface)initWithSessionID:(id)d workQueue:(id)queue delegate:(id)delegate sessionHandler:(id)handler localNetworkConfig:(id)config
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   dCopy = d;
   queueCopy = queue;
   delegateCopy = delegate;
   handlerCopy = handler;
   configCopy = config;
-  v30 = -1;
-  v17 = [objc_opt_class() _createVideoStreamWithSessionHandler:handlerCopy localNetworkConfig:configCopy localRTPSocket:&v30 sessionID:dCopy];
+  v29 = -1;
+  v17 = [objc_opt_class() _createVideoStreamWithSessionHandler:handlerCopy localNetworkConfig:configCopy localRTPSocket:&v29 sessionID:dCopy];
   if (isWatch() || cameraStreamNetworkAdaptation != 1)
   {
     v18 = 0;
@@ -734,11 +736,11 @@ LABEL_15:
     v18 = [[HMDVideoStreamReconfigure alloc] initWithSessionID:dCopy workQueue:queueCopy delegate:self];
   }
 
-  v19 = v30;
+  v19 = v29;
   v20 = objc_alloc_init(HMDVideoStreamInterfaceDataSource);
   v21 = [(HMDVideoStreamInterface *)self initWithSessionID:dCopy workQueue:queueCopy delegate:delegateCopy sessionHandler:handlerCopy videoStream:v17 localRTPSocket:v19 videoStreamReconfigure:v18 dataSource:v20];
 
-  if (v17 || v30 != -1)
+  if (v17 || v29 != -1)
   {
     v25 = v21;
   }
@@ -751,25 +753,24 @@ LABEL_15:
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       HMFGetLogIdentifier();
-      v24 = v28 = delegateCopy;
+      v24 = v27 = delegateCopy;
       *buf = 138543362;
-      v32 = v24;
+      v31 = v24;
       _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_ERROR, "%{public}@Failed to create video stream interface", buf, 0xCu);
 
-      delegateCopy = v28;
+      delegateCopy = v27;
     }
 
     objc_autoreleasePoolPop(context);
     v25 = 0;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return v25;
 }
 
 + (id)_createLocalStreamAndRTPSocket:(int *)socket localNetworkConfig:(id)config sessionID:(id)d
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   configCopy = config;
   dCopy = d;
   v10 = [self openSocketWithNetworkConfig:configCopy];
@@ -786,11 +787,11 @@ LABEL_15:
       stringValue = [rtpPort stringValue];
       v26 = *__error();
       *buf = 138543874;
-      v37 = v23;
-      v38 = 2112;
-      v39 = stringValue;
-      v40 = 1024;
-      v41 = v26;
+      v36 = v23;
+      v37 = 2112;
+      v38 = stringValue;
+      v39 = 1024;
+      v40 = v26;
       _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Could not create rtp socket with port %@ %d", buf, 0x1Cu);
     }
 
@@ -804,9 +805,9 @@ LABEL_15:
     {
       v15 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v37 = v15;
-      v38 = 1024;
-      LODWORD(v39) = v10;
+      v36 = v15;
+      v37 = 1024;
+      LODWORD(v38) = v10;
       _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Creating local video stream with socket %d", buf, 0x12u);
     }
 
@@ -814,13 +815,13 @@ LABEL_15:
     v16 = xpc_dictionary_create(0, 0, 0);
     xpc_dictionary_set_fd(v16, *MEMORY[0x277CE5788], v10);
     v17 = objc_alloc(MEMORY[0x277CE5758]);
-    v34 = *MEMORY[0x277CE57D8];
+    v33 = *MEMORY[0x277CE57D8];
     v18 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:dCopy];
-    v35 = v18;
-    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
-    v33 = 0;
-    v20 = [v17 initWithNetworkSockets:v16 options:v19 error:&v33];
-    v21 = v33;
+    v34 = v18;
+    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
+    v32 = 0;
+    v20 = [v17 initWithNetworkSockets:v16 options:v19 error:&v32];
+    v21 = v32;
 
     if (v20)
     {
@@ -837,9 +838,9 @@ LABEL_15:
       {
         v30 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v37 = v30;
-        v38 = 2112;
-        v39 = v21;
+        v36 = v30;
+        v37 = 2112;
+        v38 = v21;
         _os_log_impl(&dword_229538000, v29, OS_LOG_TYPE_ERROR, "%{public}@Failed to create local AVCVideoStream: %@", buf, 0x16u);
       }
 
@@ -848,14 +849,12 @@ LABEL_15:
     }
   }
 
-  v31 = *MEMORY[0x277D85DE8];
-
   return v20;
 }
 
 + (int)_createLocalRTPSocketWithRemoteSender:(id)sender localNetworkConfig:(id)config
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   senderCopy = sender;
   configCopy = config;
   v8 = [self openSocketWithNetworkConfig:configCopy];
@@ -870,25 +869,24 @@ LABEL_15:
       rtpPort = [configCopy rtpPort];
       stringValue = [rtpPort stringValue];
       v15 = *__error();
-      v18 = 138543874;
-      v19 = v12;
-      v20 = 2112;
-      v21 = stringValue;
-      v22 = 1024;
-      v23 = v15;
-      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Could not create rtp socket with port %@ %d", &v18, 0x1Cu);
+      v17 = 138543874;
+      v18 = v12;
+      v19 = 2112;
+      v20 = stringValue;
+      v21 = 1024;
+      v22 = v15;
+      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Could not create rtp socket with port %@ %d", &v17, 0x1Cu);
     }
 
     objc_autoreleasePoolPop(v9);
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 + (id)_createStreamWithRemoteSocketReceiver:(id)receiver sessionID:(id)d
 {
-  v31[1] = *MEMORY[0x277D85DE8];
+  v30[1] = *MEMORY[0x277D85DE8];
   receiverCopy = receiver;
   dCopy = d;
   v8 = objc_autoreleasePoolPush();
@@ -898,9 +896,9 @@ LABEL_15:
   {
     v11 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v27 = v11;
-    v28 = 1024;
-    LODWORD(v29) = [receiverCopy remoteVideoSocket];
+    v26 = v11;
+    v27 = 1024;
+    LODWORD(v28) = [receiverCopy remoteVideoSocket];
     _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Creating video stream with socket %d", buf, 0x12u);
   }
 
@@ -908,13 +906,13 @@ LABEL_15:
   v12 = xpc_dictionary_create(0, 0, 0);
   xpc_dictionary_set_fd(v12, *MEMORY[0x277CE5788], [receiverCopy remoteVideoSocket]);
   v13 = objc_alloc(MEMORY[0x277CE5758]);
-  v30 = *MEMORY[0x277CE57D8];
+  v29 = *MEMORY[0x277CE57D8];
   v14 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:dCopy];
-  v31[0] = v14;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:&v30 count:1];
-  v25 = 0;
-  v16 = [v13 initWithNetworkSockets:v12 options:v15 error:&v25];
-  v17 = v25;
+  v30[0] = v14;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:&v29 count:1];
+  v24 = 0;
+  v16 = [v13 initWithNetworkSockets:v12 options:v15 error:&v24];
+  v17 = v24;
 
   if (v16)
   {
@@ -930,23 +928,21 @@ LABEL_15:
     {
       v22 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v27 = v22;
-      v28 = 2112;
-      v29 = v17;
+      v26 = v22;
+      v27 = 2112;
+      v28 = v17;
       _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_ERROR, "%{public}@Failed to create remote socket receiver AVCVideoStream: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v19);
   }
 
-  v23 = *MEMORY[0x277D85DE8];
-
   return v16;
 }
 
 + (id)_createStreamWithRemoteDestinationReceiver:(id)receiver sessionID:(id)d
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   receiverCopy = receiver;
   dCopy = d;
   v8 = objc_autoreleasePoolPush();
@@ -957,22 +953,22 @@ LABEL_15:
     v11 = HMFGetLogIdentifier();
     remoteDestination = [receiverCopy remoteDestination];
     *buf = 138543618;
-    v30 = v11;
-    v31 = 2112;
-    v32 = remoteDestination;
+    v29 = v11;
+    v30 = 2112;
+    v31 = remoteDestination;
     _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Creating video stream with destination: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
   v13 = objc_alloc(MEMORY[0x277CE5758]);
   remoteDestination2 = [receiverCopy remoteDestination];
-  v27 = *MEMORY[0x277CE57D8];
+  v26 = *MEMORY[0x277CE57D8];
   v15 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:dCopy];
-  v28 = v15;
-  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
-  v26 = 0;
-  v17 = [v13 initWithIDSDestination:remoteDestination2 options:v16 error:&v26];
-  v18 = v26;
+  v27 = v15;
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+  v25 = 0;
+  v17 = [v13 initWithIDSDestination:remoteDestination2 options:v16 error:&v25];
+  v18 = v25;
 
   if (v17)
   {
@@ -988,23 +984,21 @@ LABEL_15:
     {
       v23 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v30 = v23;
-      v31 = 2112;
-      v32 = v18;
+      v29 = v23;
+      v30 = 2112;
+      v31 = v18;
       _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_ERROR, "%{public}@Failed to create remote destination receiver AVCVideoStream: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v20);
   }
 
-  v24 = *MEMORY[0x277D85DE8];
-
   return v17;
 }
 
 + (id)_createVideoStreamWithSessionHandler:(id)handler localNetworkConfig:(id)config localRTPSocket:(int *)socket sessionID:(id)d
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   configCopy = config;
   dCopy = d;
@@ -1014,9 +1008,9 @@ LABEL_15:
   if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
     v16 = HMFGetLogIdentifier();
-    v31 = 138543362;
-    v32 = v16;
-    _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Creating the video stream", &v31, 0xCu);
+    v30 = 138543362;
+    v31 = v16;
+    _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Creating the video stream", &v30, 0xCu);
   }
 
   objc_autoreleasePoolPop(v13);
@@ -1090,8 +1084,6 @@ LABEL_15:
     }
   }
 
-  v29 = *MEMORY[0x277D85DE8];
-
   return v21;
 }
 
@@ -1109,10 +1101,9 @@ LABEL_15:
 
 void __38__HMDVideoStreamInterface_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v2_22435;
-  logCategory__hmf_once_v2_22435 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v2_22435;
+  logCategory__hmf_once_v2_22435 = v0;
 }
 
 @end

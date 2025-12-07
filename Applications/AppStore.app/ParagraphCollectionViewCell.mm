@@ -12,7 +12,7 @@
   v5 = type metadata accessor for ItemLayoutContext();
   (*(*(v5 - 8) + 56))(self + v4, 1, 1, v5);
   v6 = OBJC_IVAR____TtC8AppStore27ParagraphCollectionViewCell_expandableTextView;
-  sub_100005744(0, &qword_100970180);
+  sub_100005744(0, &qword_100970180, UIColor_ptr);
   v7 = static UIColor.defaultBackground.getter();
   v8 = objc_allocWithZone(type metadata accessor for ExpandableTextView());
   *(&self->super.super.super.super.super.isa + v6) = sub_10059F344(v7, 0.0, 0.0, 0.0, 0.0);
@@ -28,7 +28,7 @@
   v2 = v17.receiver;
   [(ParagraphCollectionViewCell *)&v17 layoutSubviews];
   contentView = [v2 contentView];
-  sub_100005744(0, &qword_100972EB0);
+  sub_100005744(0, &qword_100972EB0, UIView_ptr);
   LayoutMarginsAware<>.layoutFrame.getter();
   v5 = v4;
   v7 = v6;
@@ -57,10 +57,10 @@
 
 - (void)prepareForReuse
 {
-  v7.receiver = self;
-  v7.super_class = swift_getObjectType();
-  v2 = v7.receiver;
-  [(ParagraphCollectionViewCell *)&v7 prepareForReuse];
+  v8.receiver = self;
+  v8.super_class = swift_getObjectType();
+  v2 = v8.receiver;
+  [(ParagraphCollectionViewCell *)&v8 prepareForReuse];
   v3 = OBJC_IVAR____TtC8AppStore27ParagraphCollectionViewCell_expandableTextView;
   sub_10059FAC0(0, 0);
   *(*&v2[v3] + OBJC_IVAR____TtC8AppStore18ExpandableTextView_hasMoreButton) = 0;
@@ -68,10 +68,11 @@
   v4 = *&v2[v3];
   v5 = (v4 + OBJC_IVAR____TtC8AppStore18ExpandableTextView_moreTapHandler);
   v6 = *(v4 + OBJC_IVAR____TtC8AppStore18ExpandableTextView_moreTapHandler);
+  v7 = *(v4 + OBJC_IVAR____TtC8AppStore18ExpandableTextView_moreTapHandler + 8);
   *v5 = 0;
   v5[1] = 0;
-  sub_10001F63C(v6);
-  [*(v4 + OBJC_IVAR____TtC8AppStore18ExpandableTextView_moreButton) setUserInteractionEnabled:{0, v7.receiver, v7.super_class}];
+  sub_10001F63C(v6, v7);
+  [*(v4 + OBJC_IVAR____TtC8AppStore18ExpandableTextView_moreButton) setUserInteractionEnabled:{0, v8.receiver, v8.super_class}];
 }
 
 @end

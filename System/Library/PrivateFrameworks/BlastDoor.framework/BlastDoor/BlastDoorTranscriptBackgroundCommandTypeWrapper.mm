@@ -84,39 +84,38 @@
 - (BlastDoorBackgroundRequestInfo)request
 {
   memcpy(__dst, self + OBJC_IVAR___BlastDoorTranscriptBackgroundCommandTypeWrapper_transcriptBackgroundCommandType, sizeof(__dst));
-  memcpy(v20, self + OBJC_IVAR___BlastDoorTranscriptBackgroundCommandTypeWrapper_transcriptBackgroundCommandType, 0x122uLL);
-  if (sub_2143215E0(v20) == 2)
+  memcpy(v19, self + OBJC_IVAR___BlastDoorTranscriptBackgroundCommandTypeWrapper_transcriptBackgroundCommandType, 0x122uLL);
+  if (sub_2143215E0(v19) == 2)
   {
-    v3 = sub_213FBF540(v20);
+    v3 = sub_213FBF540(v19);
     v4 = *(v3 + 16);
     v5 = *(v3 + 24);
     v6 = *(v3 + 32);
     v7 = type metadata accessor for _ObjCBackgroundRequestInfoWrapper();
-    v16 = *v3;
+    v15 = *v3;
     v8 = objc_allocWithZone(v7);
     v9 = &v8[OBJC_IVAR___BlastDoorBackgroundRequestInfo_backgroundRequestInfo];
-    *v9 = v16;
+    *v9 = v15;
     *(v9 + 2) = v4;
     *(v9 + 3) = v5;
     v9[32] = v6;
-    memcpy(v18, __dst, 0x122uLL);
-    v10 = sub_213FBF540(v18);
-    v11 = v10[1];
-    v12 = v10[2];
-    v13 = v10[3];
+    memcpy(v17, __dst, 0x122uLL);
+    v10 = sub_213FBF540(v17);
+    v11 = *(v10 + 16);
+    v12 = *(v10 + 24);
 
-    sub_213FDC9D0(v12, v13);
-    v17.receiver = v8;
-    v17.super_class = v7;
-    v14 = [(BlastDoorTranscriptBackgroundCommandTypeWrapper *)&v17 init];
+    sub_213FDC9D0(v11, v12);
+    v16.receiver = v8;
+    v16.super_class = v7;
+    v13 = [(BlastDoorTranscriptBackgroundCommandTypeWrapper *)&v16 init];
   }
 
   else
   {
-    v14 = 0;
+    v13 = 0;
   }
 
-  return v14;
+  return v13;
 }
 
 - (BlastDoorBackgroundUpdateInfo)requestResponse

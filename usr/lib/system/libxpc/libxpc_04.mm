@@ -1,6 +1,6 @@
-unint64_t der_vm_execute@<X0>(unint64_t result@<X0>, unint64_t a2@<X1>, uint64_t a3@<X8>)
+unint64_t der_vm_execute@<X0>(unint64_t result@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
 {
-  if (a2 + 256 < a2)
+  if (a2 + 32 < a2)
   {
     __break(0x5519u);
   }
@@ -90,7 +90,7 @@ uint64_t der_vm_CEType_from_ccder_tag(uint64_t a1, uint64_t a2)
   return 0;
 }
 
-uint64_t der_vm_CEType_from_context(uint64_t a1, uint64_t *a2)
+uint64_t der_vm_CEType_from_context(uint64_t *a1, uint64_t *a2)
 {
   v8 = 0;
   if (*(a1 + 33) != 1)
@@ -99,7 +99,7 @@ uint64_t der_vm_CEType_from_context(uint64_t a1, uint64_t *a2)
   }
 
   v4 = *a1;
-  v7 = *(a1 + 40);
+  v7 = *(a1 + 5);
   result = der_decode_next(v4, &v8, 0, 0, &v7);
   if (result)
   {
@@ -109,7 +109,7 @@ uint64_t der_vm_CEType_from_context(uint64_t a1, uint64_t *a2)
       *a2 = v8;
     }
 
-    return der_vm_CEType_from_ccder_tag(*(a1 + 24), v6);
+    return der_vm_CEType_from_ccder_tag(a1[3], v6);
   }
 
   return result;
@@ -378,7 +378,7 @@ void *CEValidateWithOptions(void *result, _DWORD *a2, uint64_t *a3, unsigned __i
           {
             if (v21 != 1)
             {
-              v14 = *(v5 + 24);
+              v14 = v5[3];
               if (!v14)
               {
                 return &unk_1E74AC058;
@@ -410,7 +410,7 @@ LABEL_23:
               goto LABEL_33;
             }
 
-            v14 = *(v5 + 24);
+            v14 = v5[3];
             if (v14)
             {
 LABEL_27:
@@ -423,7 +423,7 @@ LABEL_28:
 
         else
         {
-          v14 = *(v5 + 24);
+          v14 = v5[3];
           if (v14)
           {
             goto LABEL_27;
@@ -454,7 +454,7 @@ LABEL_33:
           return *v13;
         }
 
-        v14 = *(v5 + 24);
+        v14 = v5[3];
         if (v14)
         {
           goto LABEL_27;
@@ -515,7 +515,7 @@ uint64_t CEAcquireUnmanagedContext(uint64_t result, void *a2, uint64_t a3)
       v9[1] = v6;
       v9[2] = *(a3 + 32);
       v10 = v4;
-      der_vm_execute_nocopy(v9, &_CESelectValueOperation, v11);
+      der_vm_execute_nocopy(v9, _CESelectValueOperation, v11);
       v7 = v11[1];
       *a3 = v11[0];
       *(a3 + 16) = v7;
@@ -1740,7 +1740,7 @@ char *der_size_element(uint64_t *a1, char **a2, uint64_t *a3)
         v7 = HIBYTE(v6);
         if (HIBYTE(v6) - 255 > 0xFFFFFF01)
         {
-          v19 = 8;
+          v20 = 8;
         }
 
         else
@@ -1756,31 +1756,31 @@ char *der_size_element(uint64_t *a1, char **a2, uint64_t *a3)
             if (v7 != v11)
             {
               v10 = v8 - 1;
-              goto LABEL_35;
+              goto LABEL_36;
             }
           }
 
           v8 = 2;
-LABEL_35:
+LABEL_36:
           if ((((v6 >> (8 * v10 - 8)) ^ v7) & 0x80) != 0)
           {
-            v19 = v8;
+            v20 = v8;
           }
 
           else
           {
-            v19 = v10;
+            v20 = v10;
           }
         }
 
-        *a3 = ccder_sizeof(2, v19);
-        a1[2] = v19;
+        *a3 = ccder_sizeof(2, v20);
+        a1[2] = v20;
         return &Errors;
       default:
         return &unk_1E74AC038;
     }
 
-LABEL_28:
+LABEL_29:
     *a3 = ccder_sizeof(v14, v13);
     return &Errors;
   }
@@ -1788,22 +1788,22 @@ LABEL_28:
   switch(v5)
   {
     case 5:
-      while (1)
+      for (i = 0; ; i += v21)
       {
         result = *a2;
-        v16 = a2[1];
-        if (*a2 >= v16)
+        v17 = a2[1];
+        if (*a2 >= v17)
         {
           return &unk_1E74AC058;
         }
 
-        v17 = result + 32;
-        if ((result + 32) > v16 || result >= v17)
+        v18 = result + 32;
+        if (result + 32 > v17 || result >= v18)
         {
           break;
         }
 
-        *a2 = v17;
+        *a2 = v18;
         if (!result)
         {
           return &unk_1E74AC058;
@@ -1811,17 +1811,18 @@ LABEL_28:
 
         if (*result == 6)
         {
-          *a3 = ccder_sizeof(0x2000000000000010, 0);
-          a1[2] = 0;
+          *a3 = ccder_sizeof(0x2000000000000010, i);
+          a1[2] = i;
           return &Errors;
         }
 
-        if (result >= v17)
+        v21 = 0;
+        if (result >= v18)
         {
           break;
         }
 
-        result = der_size_element();
+        result = der_size_element(result, a2, &v21);
         if (result != &Errors)
         {
           return result;
@@ -1832,11 +1833,11 @@ LABEL_28:
       break;
     case 7:
 
-      return der_size_dictionary();
+      return der_size_dictionary(a1, a2, a3);
     case 9:
       v13 = a1[2];
       v14 = 4;
-      goto LABEL_28;
+      goto LABEL_29;
     default:
       return &unk_1E74AC038;
   }
@@ -1844,7 +1845,7 @@ LABEL_28:
   return result;
 }
 
-uint64_t der_size_dictionary(uint64_t result, uint64_t a2, uint64_t *a3)
+uint64_t der_size_dictionary(uint64_t result, uint64_t a2, unint64_t *a3)
 {
   v5 = result;
   v6 = 0;
@@ -2033,8 +2034,8 @@ void _xpc_mach_message_request_handoff_reply_cold_1(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -2043,8 +2044,8 @@ void _xpc_remote_message_request_get_reply_msg_id_cold_1(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -2053,8 +2054,8 @@ void _xpc_received_message_set_connection_cold_1(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -2063,8 +2064,8 @@ void xpc_graph_unpack_cold_1(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -2073,8 +2074,8 @@ void _xpc_graph_unpack_impl_cold_1(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -2083,8 +2084,8 @@ void _xpc_graph_deserializer_init_clone_cold_1(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -2093,8 +2094,8 @@ void _xpc_graph_deserializer_set_ool_callback_cold_1(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -2103,8 +2104,8 @@ void _xpc_graph_deserializer_set_key_string_cache_cold_1(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -2113,8 +2114,8 @@ void _xpc_graph_deserializer_set_value_string_cache_cold_1(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -2123,8 +2124,8 @@ void _xpc_graph_deserializer_restore_depth_cold_1(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -2133,8 +2134,8 @@ void xpc_mach_payload_ool_port_count_cold_1(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -2150,12 +2151,12 @@ void _xpc_payload_create_from_mach_msg_cold_1(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
-void _xpc_get_extension_vtable_cold_1(uint64_t *a1, _OWORD *a2)
+void _xpc_get_extension_vtable_cold_1(void *a1, _OWORD *a2)
 {
   *a1 = 0;
   a2[3] = 0u;
@@ -2165,12 +2166,11 @@ void _xpc_get_extension_vtable_cold_1(uint64_t *a1, _OWORD *a2)
   *a2 = 0u;
   os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
   _os_log_send_and_compose_impl();
-  v3 = *a1;
   _os_crash_msg();
   __break(1u);
 }
 
-void _xpc_rich_error_serialize_cold_1(uint64_t *a1, _OWORD *a2)
+void _xpc_rich_error_serialize_cold_1(void *a1, _OWORD *a2)
 {
   *a1 = 0;
   a2[3] = 0u;
@@ -2180,12 +2180,11 @@ void _xpc_rich_error_serialize_cold_1(uint64_t *a1, _OWORD *a2)
   *a2 = 0u;
   os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
   _os_log_send_and_compose_impl();
-  v3 = *a1;
   _os_crash_msg();
   __break(1u);
 }
 
-void launch_job_query_get_additional_job_properties_cold_1(uint64_t *a1, _OWORD *a2)
+void launch_job_query_get_additional_job_properties_cold_1(void *a1, _OWORD *a2)
 {
   *a1 = 0;
   a2[3] = 0u;
@@ -2195,7 +2194,6 @@ void launch_job_query_get_additional_job_properties_cold_1(uint64_t *a1, _OWORD 
   *a2 = 0u;
   os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
   _os_log_send_and_compose_impl();
-  v3 = *a1;
   _os_crash_msg();
   __break(1u);
 }
@@ -2205,8 +2203,7 @@ void _xpc_strict_close_cold_1(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  v3 = *v2;
+  OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
   _os_crash_msg();
   __break(1u);
 }
@@ -2221,14 +2218,22 @@ void _xpc_interface_routine_cold_1(int a1)
 void _xpc_alloc_typed_cold_1(void *a1, _OWORD *a2)
 {
   OUTLINED_FUNCTION_1_0(a1, a2);
-  os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-  OUTLINED_FUNCTION_0_1();
-  v3 = *v2;
+  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  {
+    v5 = 3;
+  }
+
+  else
+  {
+    v5 = 2;
+  }
+
+  OUTLINED_FUNCTION_0_1(v5, v2, v3, v4, &dword_197263000);
   _os_crash_msg();
   __break(1u);
 }
 
-void _xpc_look_up_endpoint_cold_1(uint64_t *a1, _OWORD *a2)
+void _xpc_look_up_endpoint_cold_1(void *a1, _OWORD *a2)
 {
   *a1 = 0;
   a2[3] = 0u;
@@ -2236,14 +2241,22 @@ void _xpc_look_up_endpoint_cold_1(uint64_t *a1, _OWORD *a2)
   a2[1] = 0u;
   a2[2] = 0u;
   *a2 = 0u;
-  os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-  OUTLINED_FUNCTION_0();
-  v3 = *a1;
+  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  {
+    v5 = 3;
+  }
+
+  else
+  {
+    v5 = 2;
+  }
+
+  OUTLINED_FUNCTION_0(v5, v2, v3, v4, &dword_197263000);
   _os_crash_msg();
   __break(1u);
 }
 
-void _launchd_service_instance_create_request_cold_1(uint64_t *a1, _OWORD *a2)
+void _launchd_service_instance_create_request_cold_1(void *a1, _OWORD *a2)
 {
   *a1 = 0;
   a2[3] = 0u;
@@ -2251,9 +2264,17 @@ void _launchd_service_instance_create_request_cold_1(uint64_t *a1, _OWORD *a2)
   a2[1] = 0u;
   a2[2] = 0u;
   *a2 = 0u;
-  os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-  OUTLINED_FUNCTION_0();
-  v3 = *a1;
+  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  {
+    v5 = 3;
+  }
+
+  else
+  {
+    v5 = 2;
+  }
+
+  OUTLINED_FUNCTION_0(v5, v2, v3, v4, &dword_197263000);
   _os_crash_msg();
   __break(1u);
 }
@@ -2263,8 +2284,7 @@ void launch_cryptex_terminate_cold_1(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1_0(a1, a2);
   os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_1();
-  v3 = *v2;
+  OUTLINED_FUNCTION_0_1(v2, v3, v4, v5, &dword_197263000);
   _os_crash_msg();
   __break(1u);
 }
@@ -2281,8 +2301,8 @@ void _xpc_base_desc_cold_1(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -2291,8 +2311,8 @@ void _xpc_make_serialization_with_ool_impl_cold_1(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -2301,12 +2321,12 @@ void xpc_array_get_data_cold_1(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
-void xpc_binprefs_cpu_type_cold_1(uint64_t *a1, _OWORD *a2)
+void xpc_binprefs_cpu_type_cold_1(void *a1, _OWORD *a2)
 {
   *a1 = 0;
   a2[3] = 0u;
@@ -2314,14 +2334,22 @@ void xpc_binprefs_cpu_type_cold_1(uint64_t *a1, _OWORD *a2)
   a2[1] = 0u;
   a2[2] = 0u;
   *a2 = 0u;
-  os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-  OUTLINED_FUNCTION_0();
-  v3 = *a1;
+  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  {
+    v5 = 3;
+  }
+
+  else
+  {
+    v5 = 2;
+  }
+
+  OUTLINED_FUNCTION_0(v5, v2, v3, v4, &dword_197263000);
   _os_crash_msg();
   __break(1u);
 }
 
-void xpc_binprefs_set_psattr_cold_1(uint64_t *a1, _OWORD *a2)
+void xpc_binprefs_set_psattr_cold_1(void *a1, _OWORD *a2)
 {
   *a1 = 0;
   a2[3] = 0u;
@@ -2331,7 +2359,6 @@ void xpc_binprefs_set_psattr_cold_1(uint64_t *a1, _OWORD *a2)
   *a2 = 0u;
   os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
   _os_log_send_and_compose_impl();
-  v3 = *a1;
   _os_crash_msg();
   __break(1u);
 }
@@ -2341,8 +2368,8 @@ void __xpc_event_publisher_set_handler_block_invoke_cold_1(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -2351,8 +2378,8 @@ void _xpc_event_publisher_dispose_cold_1(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -2369,8 +2396,8 @@ void _xpc_event_publisher_set_subscriptions_cold_1(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -2379,8 +2406,8 @@ void _xpc_event_publisher_set_subscriptions_cold_2(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -2389,8 +2416,8 @@ void _xpc_event_publisher_set_subscriptions_cold_3(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -2399,8 +2426,8 @@ void _xpc_event_publisher_set_subscriptions_cold_4(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -2409,8 +2436,8 @@ void xpc_event_publisher_set_throttling_cold_1(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -2419,8 +2446,8 @@ void _xpc_event_publisher_cancel_complete_cold_1(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -2429,8 +2456,8 @@ void _xpc_token_cache_get_at_index_cold_1(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -2439,8 +2466,8 @@ void ___xpc_event_publisher_fire_impl_block_invoke_cold_1(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -2449,8 +2476,8 @@ void ___xpc_event_publisher_fire_impl_block_invoke_cold_2(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -2459,8 +2486,8 @@ void ___xpc_event_publisher_check_and_update_inflight_count_block_invoke_cold_1(
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -2469,8 +2496,8 @@ void _xpc_connection_dispose_cold_1(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -2479,8 +2506,8 @@ void _xpc_connection_cancel_cold_1(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -2535,12 +2562,12 @@ void _xpc_connection_unpack_message_cold_2(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
-void ___xpc_connection_pass2mig_block_invoke_cold_1(uint64_t *a1, _OWORD *a2)
+void ___xpc_connection_pass2mig_block_invoke_cold_1(void *a1, _OWORD *a2)
 {
   *a1 = 0;
   a2[3] = 0u;
@@ -2550,7 +2577,6 @@ void ___xpc_connection_pass2mig_block_invoke_cold_1(uint64_t *a1, _OWORD *a2)
   *a2 = 0u;
   os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
   _os_log_send_and_compose_impl();
-  v3 = *a1;
   _os_crash_msg();
   __break(1u);
 }
@@ -2560,12 +2586,12 @@ void _xpc_connection_init_cold_1(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
-uint64_t _xpc_connection_init_cold_4(uint64_t a1, mach_port_name_t *a2)
+uint64_t _xpc_connection_init_cold_4(unsigned int a1, mach_port_name_t *a2)
 {
   _os_assumes_log();
   result = _xpc_mach_port_release(*a2);
@@ -2582,8 +2608,8 @@ void _xpc_connection_init_send_port_cold_2(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -2613,8 +2639,8 @@ void _xpc_connection_mach_event_cold_7(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -2623,8 +2649,8 @@ void _xpc_connection_handle_sent_event_cold_1(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -2635,7 +2661,7 @@ void _xpc_connection_handle_sent_event_cold_3(int a1)
   __break(1u);
 }
 
-void xpc_data_create_cold_1(uint64_t *a1, _OWORD *a2)
+void xpc_data_create_cold_1(void *a1, _OWORD *a2)
 {
   *a1 = 0;
   a2[3] = 0u;
@@ -2643,14 +2669,22 @@ void xpc_data_create_cold_1(uint64_t *a1, _OWORD *a2)
   a2[1] = 0u;
   a2[2] = 0u;
   *a2 = 0u;
-  os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-  OUTLINED_FUNCTION_0();
-  v3 = *a1;
+  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  {
+    v5 = 3;
+  }
+
+  else
+  {
+    v5 = 2;
+  }
+
+  OUTLINED_FUNCTION_0(v5, v2, v3, v4, &dword_197263000);
   _os_crash_msg();
   __break(1u);
 }
 
-void _xpc_data_map_cold_1(uint64_t *a1, _OWORD *a2)
+void _xpc_data_map_cold_1(void *a1, _OWORD *a2)
 {
   *a1 = 0;
   a2[3] = 0u;
@@ -2658,9 +2692,17 @@ void _xpc_data_map_cold_1(uint64_t *a1, _OWORD *a2)
   a2[1] = 0u;
   a2[2] = 0u;
   *a2 = 0u;
-  os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-  OUTLINED_FUNCTION_0();
-  v3 = *a1;
+  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  {
+    v5 = 3;
+  }
+
+  else
+  {
+    v5 = 2;
+  }
+
+  OUTLINED_FUNCTION_0(v5, v2, v3, v4, &dword_197263000);
   _os_crash_msg();
   __break(1u);
 }
@@ -2670,8 +2712,8 @@ void xpc_install_remote_hooks_cold_1(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -2680,8 +2722,8 @@ void xpc_install_remote_hooks_cold_2(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -2690,8 +2732,8 @@ void xpc_install_remote_hooks_cold_3(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -2700,8 +2742,8 @@ void xpc_install_remote_hooks_cold_4(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -2710,8 +2752,8 @@ void xpc_install_remote_hooks_cold_5(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -2720,8 +2762,8 @@ void xpc_install_remote_hooks_cold_6(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -2734,7 +2776,7 @@ void _xpc_get_service_instance_cold_1(void *a1, int a2)
   __break(1u);
 }
 
-void _xpc_deallocate_buffer_cold_1(uint64_t *a1, _OWORD *a2)
+void _xpc_deallocate_buffer_cold_1(void *a1, _OWORD *a2)
 {
   *a1 = 0;
   a2[3] = 0u;
@@ -2744,7 +2786,6 @@ void _xpc_deallocate_buffer_cold_1(uint64_t *a1, _OWORD *a2)
   *a2 = 0u;
   os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
   _os_log_send_and_compose_impl();
-  v3 = *a1;
   _os_crash_msg();
   __break(1u);
 }
@@ -2754,8 +2795,8 @@ void _xpc_dictionary_create_from_received_message_cold_2(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -2764,8 +2805,8 @@ void _xpc_dictionary_set_remote_connection_cold_1(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -2774,8 +2815,8 @@ void _xpc_dictionary_set_remote_connection_cold_2(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -2784,8 +2825,8 @@ void _xpc_dictionary_set_remote_connection_cold_3(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -2794,8 +2835,8 @@ void _xpc_dictionary_set_reply_msg_id_cold_1(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -2806,15 +2847,32 @@ void _libxpc_initializer_cold_1(int a1)
   __break(1u);
 }
 
-uint64_t _libxpc_initializer_cold_2()
+uint64_t _libxpc_initializer_cold_2(int a1)
 {
-  _dyld_get_image_uuid();
-  if (_dyld_get_shared_cache_uuid())
+  v4 = 0;
+  v5 = 0;
+  v6 = 0;
+  v7 = 0;
+  if ((_dyld_get_image_uuid() & 1) == 0)
   {
-    _dyld_get_shared_cache_range();
+    v4 = 0;
+    v5 = 0;
   }
 
-  result = _os_log_simple();
+  if (_dyld_get_shared_cache_uuid())
+  {
+    v8 = 0;
+    shared_cache_range = _dyld_get_shared_cache_range();
+  }
+
+  else
+  {
+    shared_cache_range = 0;
+    v6 = 0;
+    v7 = 0;
+  }
+
+  result = _os_log_simple(&dword_197263000, &v4, &v6, shared_cache_range, 16, 0, "Could not get bootstrap port: %d", a1);
   qword_1EAF1E800 = "Bug in libxpc: Could not get bootstrap port.";
   __break(1u);
   return result;
@@ -2835,7 +2893,7 @@ char *_fetch_xpcservice_info_cold_1(int a1)
   return result;
 }
 
-void _xpc_copy_own_bundle_cold_1(uint64_t *a1, _OWORD *a2)
+void _xpc_copy_own_bundle_cold_1(void *a1, _OWORD *a2)
 {
   *a1 = 0;
   a2[3] = 0u;
@@ -2843,14 +2901,22 @@ void _xpc_copy_own_bundle_cold_1(uint64_t *a1, _OWORD *a2)
   a2[1] = 0u;
   a2[2] = 0u;
   *a2 = 0u;
-  os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-  OUTLINED_FUNCTION_0();
-  v3 = *a1;
+  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  {
+    v5 = 3;
+  }
+
+  else
+  {
+    v5 = 2;
+  }
+
+  OUTLINED_FUNCTION_0(v5, v2, v3, v4, &dword_197263000);
   _os_crash_msg();
   __break(1u);
 }
 
-void _xpc_init_pid_domain_cold_1(uint64_t *a1, _OWORD *a2)
+void _xpc_init_pid_domain_cold_1(void *a1, _OWORD *a2)
 {
   *a1 = 0;
   a2[3] = 0u;
@@ -2858,9 +2924,17 @@ void _xpc_init_pid_domain_cold_1(uint64_t *a1, _OWORD *a2)
   a2[1] = 0u;
   a2[2] = 0u;
   *a2 = 0u;
-  os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-  OUTLINED_FUNCTION_0();
-  v3 = *a1;
+  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  {
+    v5 = 3;
+  }
+
+  else
+  {
+    v5 = 2;
+  }
+
+  OUTLINED_FUNCTION_0(v5, v2, v3, v4, &dword_197263000);
   _os_crash_msg();
   __break(1u);
 }
@@ -2868,8 +2942,8 @@ void _xpc_init_pid_domain_cold_1(uint64_t *a1, _OWORD *a2)
 void _xpc_copy_xpcservice_dictionary_cold_1()
 {
   fwrite("An XPC Service cannot be run directly.\n", 0x27uLL, 1uLL, *MEMORY[0x1E69E9848]);
-  v0 = abort_with_reason();
-  _xpc_copy_xpcservice_dictionary_cold_2(v0);
+  abort_with_reason();
+  _xpc_copy_xpcservice_dictionary_cold_2();
 }
 
 void _xpc_copy_xpcservice_dictionary_cold_2()
@@ -2879,7 +2953,7 @@ void _xpc_copy_xpcservice_dictionary_cold_2()
   __break(1u);
 }
 
-void _xpc_serializer_pack_cold_1(uint64_t *a1, _OWORD *a2)
+void _xpc_serializer_pack_cold_1(void *a1, _OWORD *a2)
 {
   *a1 = 0;
   a2[3] = 0u;
@@ -2889,7 +2963,6 @@ void _xpc_serializer_pack_cold_1(uint64_t *a1, _OWORD *a2)
   *a2 = 0u;
   os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
   _os_log_send_and_compose_impl();
-  v3 = *a1;
   _os_crash_msg();
   __break(1u);
 }
@@ -2908,8 +2981,8 @@ void _xpc_serializer_reap_combined_send_receive_cold_1(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -2918,8 +2991,8 @@ void _xpc_serializer_reap_combined_send_receive_cold_2(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -2928,8 +3001,8 @@ void _xpc_serializer_reap_combined_send_receive_cold_3(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -2938,8 +3011,8 @@ void _xpc_serializer_destroy_cold_1(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -2948,8 +3021,8 @@ void ___create_with_format_and_arguments_block_invoke_cold_1(void *a1, _OWORD *a
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -2958,8 +3031,8 @@ void ___create_with_format_and_arguments_block_invoke_10_cold_1(void *a1, _OWORD
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -2968,8 +3041,8 @@ void ___create_with_format_and_arguments_block_invoke_10_cold_2(void *a1, _OWORD
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -2978,8 +3051,8 @@ void ___create_with_format_and_arguments_block_invoke_2_40_cold_2(void *a1, _OWO
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -2988,8 +3061,7 @@ void _xpc_session_dispose_cold_2(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  v3 = *v2;
+  OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
   _os_crash_msg();
   __break(1u);
 }
@@ -2999,8 +3071,7 @@ void _xpc_session_create_with_connection_cold_1(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  v3 = *v2;
+  OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
   _os_crash_msg();
   __break(1u);
 }
@@ -3017,8 +3088,7 @@ void __xpc_session_send_message_with_reply_async_block_invoke_2_cold_1(void *a1,
   OUTLINED_FUNCTION_1(a1, a2);
   os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  v3 = *v2;
+  OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
   _os_crash_msg();
   __break(1u);
 }
@@ -3028,8 +3098,8 @@ void _xpc_endpoint_create_bs_cold_1(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -3038,8 +3108,8 @@ void _xpc_endpoint_create_bs_cold_2(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -3048,8 +3118,8 @@ void xpc_endpoint_get_bs_job_handle_cold_1(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -3058,8 +3128,8 @@ void xpc_endpoint_get_bs_job_handle_cold_2(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -3068,8 +3138,7 @@ void _xpc_listener_dispose_cold_2(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  v3 = *v2;
+  OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
   _os_crash_msg();
   __break(1u);
 }
@@ -3079,8 +3148,7 @@ void _xpc_listener_create_with_connection_cold_1(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  v3 = *v2;
+  OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
   _os_crash_msg();
   __break(1u);
 }
@@ -3090,8 +3158,7 @@ void _xpc_listener_activate_cold_3(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  v3 = *v2;
+  OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
   _os_crash_msg();
   __break(1u);
 }
@@ -3108,12 +3175,12 @@ void _xpc_mach_port_get_context_cold_1(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1_0(a1, a2);
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_5();
+  v6 = OUTLINED_FUNCTION_0_1(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_5(v6);
   __break(1u);
 }
 
-void _transaction_snapshot_new_locked_cold_1(uint64_t *a1, _OWORD *a2)
+void _transaction_snapshot_new_locked_cold_1(void *a1, _OWORD *a2)
 {
   *a1 = 0;
   a2[3] = 0u;
@@ -3123,12 +3190,11 @@ void _transaction_snapshot_new_locked_cold_1(uint64_t *a1, _OWORD *a2)
   *a2 = 0u;
   os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
   _os_log_send_and_compose_impl();
-  v3 = *a1;
   _os_crash_msg();
   __break(1u);
 }
 
-void xpc_track_activity_cold_2(uint64_t *a1, _OWORD *a2)
+void xpc_track_activity_cold_2(void *a1, _OWORD *a2)
 {
   *a1 = 0;
   a2[3] = 0u;
@@ -3138,12 +3204,11 @@ void xpc_track_activity_cold_2(uint64_t *a1, _OWORD *a2)
   *a2 = 0u;
   os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
   _os_log_send_and_compose_impl();
-  v3 = *a1;
   _os_crash_msg();
   __break(1u);
 }
 
-void _xpc_bundle_copy_container_cold_1(uint64_t *a1, _OWORD *a2)
+void _xpc_bundle_copy_container_cold_1(void *a1, _OWORD *a2)
 {
   *a1 = 0;
   a2[3] = 0u;
@@ -3151,9 +3216,17 @@ void _xpc_bundle_copy_container_cold_1(uint64_t *a1, _OWORD *a2)
   a2[1] = 0u;
   a2[2] = 0u;
   *a2 = 0u;
-  os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-  OUTLINED_FUNCTION_0();
-  v3 = *a1;
+  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  {
+    v5 = 3;
+  }
+
+  else
+  {
+    v5 = 2;
+  }
+
+  OUTLINED_FUNCTION_0(v5, v2, v3, v4, &dword_197263000);
   _os_crash_msg();
   __break(1u);
 }
@@ -3163,8 +3236,8 @@ void string_builder_new_cold_1(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -3173,8 +3246,8 @@ void string_builder_appendf_cold_1(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -3183,8 +3256,8 @@ void string_builder_appendf_cold_2(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -3193,12 +3266,12 @@ void string_builder_appendf_cold_3(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
-void _xpc_spawnattr_binprefs_pack_cold_1(uint64_t *a1, _OWORD *a2)
+void _xpc_spawnattr_binprefs_pack_cold_1(void *a1, _OWORD *a2)
 {
   *a1 = 0;
   a2[3] = 0u;
@@ -3208,7 +3281,6 @@ void _xpc_spawnattr_binprefs_pack_cold_1(uint64_t *a1, _OWORD *a2)
   *a2 = 0u;
   os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
   _os_log_send_and_compose_impl();
-  v3 = *a1;
   _os_crash_msg();
   __break(1u);
 }
@@ -3220,7 +3292,7 @@ void _xpc_pipe_routine_cold_1(int a1)
   __break(1u);
 }
 
-void _xpc_pipe_pack_message_cold_1(uint64_t *a1, _OWORD *a2)
+void _xpc_pipe_pack_message_cold_1(void *a1, _OWORD *a2)
 {
   *a1 = 0;
   a2[3] = 0u;
@@ -3230,7 +3302,6 @@ void _xpc_pipe_pack_message_cold_1(uint64_t *a1, _OWORD *a2)
   *a2 = 0u;
   os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
   _os_log_send_and_compose_impl();
-  v3 = *a1;
   _os_crash_msg();
   __break(1u);
 }
@@ -3240,12 +3311,12 @@ void _xpc_mmap_anon_cold_1(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1_0(a1, a2);
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_5();
+  v6 = OUTLINED_FUNCTION_0_1(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_5(v6);
   __break(1u);
 }
 
-void xpc_bundle_resolve_sync_cold_1(uint64_t a1, uint64_t *a2, _OWORD *a3)
+void xpc_bundle_resolve_sync_cold_1(uint64_t a1, void *a2, _OWORD *a3)
 {
   *a2 = 0;
   a3[3] = 0u;
@@ -3255,12 +3326,11 @@ void xpc_bundle_resolve_sync_cold_1(uint64_t a1, uint64_t *a2, _OWORD *a3)
   *a3 = 0u;
   os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
   _os_log_send_and_compose_impl();
-  v4 = *a2;
   _os_crash_msg();
   __break(1u);
 }
 
-void _xpc_token_satisfies_lwcr_cold_1(uint64_t *a1, _OWORD *a2)
+void _xpc_token_satisfies_lwcr_cold_1(void *a1, _OWORD *a2)
 {
   *a1 = 0;
   a2[3] = 0u;
@@ -3268,14 +3338,22 @@ void _xpc_token_satisfies_lwcr_cold_1(uint64_t *a1, _OWORD *a2)
   a2[1] = 0u;
   a2[2] = 0u;
   *a2 = 0u;
-  os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-  OUTLINED_FUNCTION_0();
-  v3 = *a1;
+  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  {
+    v5 = 3;
+  }
+
+  else
+  {
+    v5 = 2;
+  }
+
+  OUTLINED_FUNCTION_0(v5, v2, v3, v4, &dword_197263000);
   _os_crash_msg();
   __break(1u);
 }
 
-void _xpc_token_satisfies_lwcr_cold_2(uint64_t *a1, _OWORD *a2)
+void _xpc_token_satisfies_lwcr_cold_2(void *a1, _OWORD *a2)
 {
   *a1 = 0;
   a2[3] = 0u;
@@ -3283,9 +3361,17 @@ void _xpc_token_satisfies_lwcr_cold_2(uint64_t *a1, _OWORD *a2)
   a2[1] = 0u;
   a2[2] = 0u;
   *a2 = 0u;
-  os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-  OUTLINED_FUNCTION_0();
-  v3 = *a1;
+  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  {
+    v5 = 3;
+  }
+
+  else
+  {
+    v5 = 2;
+  }
+
+  OUTLINED_FUNCTION_0(v5, v2, v3, v4, &dword_197263000);
   _os_crash_msg();
   __break(1u);
 }
@@ -3295,8 +3381,8 @@ void _xpc_file_transfer_serialize_cold_1(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -3305,8 +3391,8 @@ void _xpc_file_transfer_serialize_cold_2(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -3315,8 +3401,8 @@ void _xpc_file_transfer_serialize_cold_3(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -3325,12 +3411,12 @@ void _xpc_file_transfer_serialize_cold_5(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
-void _xpc_file_transfer_deserialize_cold_1(uint64_t *a1, _OWORD *a2)
+void _xpc_file_transfer_deserialize_cold_1(void *a1, _OWORD *a2)
 {
   *a1 = 0;
   a2[3] = 0u;
@@ -3340,7 +3426,6 @@ void _xpc_file_transfer_deserialize_cold_1(uint64_t *a1, _OWORD *a2)
   *a2 = 0u;
   os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
   _os_log_send_and_compose_impl();
-  v3 = *a1;
   _os_crash_msg();
   __break(1u);
 }
@@ -3350,19 +3435,28 @@ void _xpc_file_transfer_dispose_cold_1(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
 void xpc_file_transfer_create_with_fd_cold_1(void *a1, _OWORD *a2)
 {
   OUTLINED_FUNCTION_1(a1, a2);
-  OUTLINED_FUNCTION_4();
-  v2 = *__error();
+  if (OUTLINED_FUNCTION_4())
+  {
+    v2 = 3;
+  }
+
+  else
+  {
+    v2 = 2;
+  }
+
+  __error();
   OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -3371,8 +3465,8 @@ void _xpc_file_transfer_write_to_fd_impl_cold_2(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -3381,8 +3475,8 @@ void xpc_file_transfer_write_to_path_cold_1(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -3391,8 +3485,8 @@ void xpc_file_transfer_set_transport_writing_callbacks_cold_2(void *a1, _OWORD *
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -3401,8 +3495,8 @@ void xpc_file_transfer_set_transport_writing_callbacks_cold_3(void *a1, _OWORD *
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -3411,8 +3505,8 @@ void xpc_file_transfer_write_finished_cold_1(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -3421,8 +3515,8 @@ void xpc_file_transfer_write_finished_cold_2(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -3431,8 +3525,8 @@ void xpc_file_transfer_write_finished_cold_3(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -3441,8 +3535,8 @@ void _xpc_file_transfer_create_cold_1(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -3451,34 +3545,52 @@ void _xpc_file_transfer_create_io_for_fd_cold_1(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
 void _xpc_file_transfer_create_io_for_fd_cold_2(void *a1, _OWORD *a2)
 {
   OUTLINED_FUNCTION_1(a1, a2);
-  OUTLINED_FUNCTION_4();
-  v2 = *__error();
+  if (OUTLINED_FUNCTION_4())
+  {
+    v2 = 3;
+  }
+
+  else
+  {
+    v2 = 2;
+  }
+
+  __error();
   OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
 void ___xpc_file_transfer_create_io_for_fd_block_invoke_cold_1(void *a1, _OWORD *a2)
 {
   OUTLINED_FUNCTION_1(a1, a2);
-  OUTLINED_FUNCTION_4();
-  v2 = *__error();
+  if (OUTLINED_FUNCTION_4())
+  {
+    v2 = 3;
+  }
+
+  else
+  {
+    v2 = 2;
+  }
+
+  __error();
   OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
-void _launch_service_stats_copy_impl_cold_1(uint64_t *a1, _OWORD *a2)
+void _launch_service_stats_copy_impl_cold_1(void *a1, _OWORD *a2)
 {
   *a1 = 0;
   a2[3] = 0u;
@@ -3488,12 +3600,11 @@ void _launch_service_stats_copy_impl_cold_1(uint64_t *a1, _OWORD *a2)
   *a2 = 0u;
   os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
   _os_log_send_and_compose_impl();
-  v3 = *a1;
   _os_crash_msg();
   __break(1u);
 }
 
-void xpc_service_set_attach_handler_cold_1(uint64_t *a1, _OWORD *a2)
+void xpc_service_set_attach_handler_cold_1(void *a1, _OWORD *a2)
 {
   *a1 = 0;
   a2[3] = 0u;
@@ -3503,7 +3614,6 @@ void xpc_service_set_attach_handler_cold_1(uint64_t *a1, _OWORD *a2)
   *a2 = 0u;
   os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
   _os_log_send_and_compose_impl();
-  v3 = *a1;
   _os_crash_msg();
   __break(1u);
 }
@@ -3513,8 +3623,8 @@ void _xpc_activity_dispose_cold_2(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -3523,8 +3633,8 @@ void _xpc_activity_set_criteria_cold_2(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -3533,12 +3643,12 @@ void ___xpc_activity_dispatch_block_invoke_115_cold_2(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
-void ___xpc_activity_dispatch_block_invoke_115_cold_3(uint64_t *a1, _OWORD *a2)
+void ___xpc_activity_dispatch_block_invoke_115_cold_3(void *a1, _OWORD *a2)
 {
   *a1 = 0;
   a2[3] = 0u;
@@ -3548,7 +3658,6 @@ void ___xpc_activity_dispatch_block_invoke_115_cold_3(uint64_t *a1, _OWORD *a2)
   *a2 = 0u;
   os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
   _os_log_send_and_compose_impl();
-  v3 = *a1;
   _os_crash_msg();
   __break(1u);
 }
@@ -3558,8 +3667,8 @@ void ___xpc_activity_dispatch_block_invoke_115_cold_4(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  OUTLINED_FUNCTION_3(v6);
   __break(1u);
 }
 
@@ -3568,8 +3677,8 @@ void ___xpc_activity_dispatch_block_invoke_115_cold_6(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0();
-  v2 = OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_197263000);
+  v7 = OUTLINED_FUNCTION_3(v6);
   __break(1u);
-  OSAtomicDequeue(v2, v3);
+  OSAtomicDequeue(v7, v8);
 }

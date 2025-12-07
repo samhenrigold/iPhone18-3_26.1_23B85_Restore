@@ -6,8 +6,12 @@
 - (BOOL)isEqual:(id)equal;
 - (CCSet)init;
 - (CCSet)initWithCoder:(id)coder;
+- (CCSet)initWithItemType:(unsigned __int16)type personaIdentifier:(id)identifier descriptors:(id)descriptors options:(unsigned __int8)options error:(id *)error;
+- (CCSet)initWithItemType:(unsigned __int16)type personaIdentifier:(id)identifier encodedDescriptors:(id)descriptors descriptors:(id)a6 options:(unsigned __int8)options error:(id *)error;
+- (CCSet)initWithItemType:(unsigned __int16)type personaIdentifier:(id)identifier encodedDescriptors:(id)descriptors options:(unsigned __int8)options error:(id *)error;
 - (CCSet)initWithSet:(id)set error:(id *)error;
 - (id)_computeUniqueHash;
+- (id)copyWithOptions:(unsigned __int8)options error:(id *)error;
 - (id)description;
 - (id)descriptorWithKey:(id)key;
 - (id)dictionaryRepresentation;
@@ -50,7 +54,7 @@
 
 - (id)toResourceSpecifier
 {
-  v3 = CCTypeIdentifierRegistryBridge();
+  v3 = CCTypeIdentifierRegistryBridge(self);
   v4 = [v3 setIdentifierForItemType:self->_itemType];
 
   v5 = [objc_alloc(MEMORY[0x1E698E9F8]) initWithType:4 name:v4 descriptors:self->_descriptors options:self->_options];
@@ -95,7 +99,7 @@
   v8 = MEMORY[0x1E696AEC0];
   v9 = objc_opt_class();
   v10 = NSStringFromClass(v9);
-  v11 = CCTypeIdentifierRegistryBridge();
+  v11 = CCTypeIdentifierRegistryBridge(v10);
   v12 = [v11 setIdentifierForItemType:self->_itemType];
   v13 = [v8 stringWithFormat:@"{%@: %@%@%@%@}", v10, v12, v3, v4, v7];
 
@@ -112,27 +116,27 @@
 
 + (id)descriptorWithKey:(id)key descriptors:(id)descriptors
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   keyCopy = key;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   descriptorsCopy = descriptors;
-  v7 = [descriptorsCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [descriptorsCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
-    v8 = *v16;
+    v8 = *v15;
     while (2)
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(descriptorsCopy);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         v11 = [v10 key];
         v12 = [v11 isEqual:keyCopy];
 
@@ -143,7 +147,7 @@
         }
       }
 
-      v7 = [descriptorsCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [descriptorsCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v7)
       {
         continue;
@@ -154,8 +158,6 @@
   }
 
 LABEL_11:
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -170,7 +172,7 @@ LABEL_11:
 {
   specifierCopy = specifier;
   containerCopy = container;
-  v9 = CCTypeIdentifierRegistryBridge();
+  v9 = CCTypeIdentifierRegistryBridge(containerCopy);
   name = [specifierCopy name];
   v11 = [v9 itemTypeForSetIdentifier:name];
 
@@ -201,6 +203,101 @@ LABEL_11:
 LABEL_6:
 
   return v18;
+}
+
+- (CCSet)initWithItemType:(unsigned __int16)type personaIdentifier:(id)identifier descriptors:(id)descriptors options:(unsigned __int8)options error:(id *)error
+{
+  optionsCopy = options;
+  typeCopy = type;
+  identifierCopy = identifier;
+  descriptorsCopy = descriptors;
+  v14 = [(BMResourceDescriptor *)CCSetDescriptor encodedStringFromDescriptors:descriptorsCopy error:error];
+  if (v14)
+  {
+    self = [(CCSet *)self initWithItemType:typeCopy personaIdentifier:identifierCopy encodedDescriptors:v14 descriptors:descriptorsCopy options:optionsCopy error:error];
+    selfCopy = self;
+  }
+
+  else
+  {
+    selfCopy = 0;
+  }
+
+  return selfCopy;
+}
+
+- (CCSet)initWithItemType:(unsigned __int16)type personaIdentifier:(id)identifier encodedDescriptors:(id)descriptors options:(unsigned __int8)options error:(id *)error
+{
+  optionsCopy = options;
+  typeCopy = type;
+  identifierCopy = identifier;
+  descriptorsCopy = descriptors;
+  v14 = [(BMResourceDescriptor *)CCSetDescriptor descriptorsFromEncodedString:descriptorsCopy error:error];
+  if (v14)
+  {
+    self = [(CCSet *)self initWithItemType:typeCopy personaIdentifier:identifierCopy encodedDescriptors:descriptorsCopy descriptors:v14 options:optionsCopy error:error];
+    selfCopy = self;
+  }
+
+  else
+  {
+    selfCopy = 0;
+  }
+
+  return selfCopy;
+}
+
+- (CCSet)initWithItemType:(unsigned __int16)type personaIdentifier:(id)identifier encodedDescriptors:(id)descriptors descriptors:(id)a6 options:(unsigned __int8)options error:(id *)error
+{
+  typeCopy = type;
+  identifierCopy = identifier;
+  descriptorsCopy = descriptors;
+  v17 = a6;
+  v31.receiver = self;
+  v31.super_class = CCSet;
+  v18 = [(CCSet *)&v31 init];
+  v19 = v18;
+  if (v18)
+  {
+    v18->_itemType = typeCopy;
+    objc_storeStrong(&v18->_descriptors, a6);
+    objc_storeStrong(&v19->_encodedDescriptors, descriptors);
+    objc_storeStrong(&v19->_personaIdentifier, identifier);
+    v19->_options = options;
+    _computeUniqueHash = [(CCSet *)v19 _computeUniqueHash];
+    uniqueHash = v19->_uniqueHash;
+    v19->_uniqueHash = _computeUniqueHash;
+  }
+
+  v22 = CCTypeIdentifierRegistryBridge(v18);
+  v23 = [v22 isValidItemType:typeCopy];
+
+  if ((v23 & 1) != 0 && (CCTypeIdentifierRegistryBridge(v24), v25 = objc_claimAutoreleasedReturnValue(), [v25 setIdentifierForItemType:typeCopy], v26 = objc_claimAutoreleasedReturnValue(), v27 = objc_msgSend(v26, "length"), v26, v25, v27))
+  {
+    v28 = v19;
+  }
+
+  else
+  {
+    v29 = CCInvalidSetItemTypeIdentifierErrorForIdentifier(typeCopy);
+    CCSetError(error, v29);
+
+    v28 = 0;
+  }
+
+  return v28;
+}
+
+- (id)copyWithOptions:(unsigned __int8)options error:(id *)error
+{
+  optionsCopy = options;
+  v7 = objc_alloc(objc_opt_class());
+  itemType = self->_itemType;
+  encodedDescriptors = self->_encodedDescriptors;
+  descriptors = self->_descriptors;
+  personaIdentifier = self->_personaIdentifier;
+
+  return [v7 initWithItemType:itemType personaIdentifier:personaIdentifier encodedDescriptors:encodedDescriptors descriptors:descriptors options:optionsCopy error:error];
 }
 
 - (CCSet)initWithSet:(id)set error:(id *)error
@@ -395,14 +492,14 @@ LABEL_6:
 
 - (id)dictionaryRepresentation
 {
-  v13[3] = *MEMORY[0x1E69E9840];
+  v12[3] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E695DF90]);
   v4 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:{-[CCSet itemType](self, "itemType")}];
   encodedDescriptors = [(CCSet *)self encodedDescriptors];
-  v13[1] = encodedDescriptors;
+  v12[1] = encodedDescriptors;
   v6 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:{-[CCSet options](self, "options")}];
-  v13[2] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:3];
+  v12[2] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:3];
   v8 = [v3 initWithObjects:v7 forKeys:&unk_1F2EC9690];
 
   personaIdentifier = [(CCSet *)self personaIdentifier];
@@ -413,18 +510,15 @@ LABEL_6:
     [v8 setObject:personaIdentifier2 forKeyedSubscript:@"personaIdentifier"];
   }
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return v8;
 }
 
 - (void)initFromDictionary:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B6DB2000, a2, OS_LOG_TYPE_ERROR, "Failed to initialize CCSet from OPACK with error %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B6DB2000, a2, OS_LOG_TYPE_ERROR, "Failed to initialize CCSet from OPACK with error %@", &v2, 0xCu);
 }
 
 @end

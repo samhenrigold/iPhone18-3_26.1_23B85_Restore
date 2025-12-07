@@ -10,6 +10,7 @@
 - (NSSet)publicEventNodes;
 - (NSString)featureIdentifier;
 - (PGGraphBusinessNode)initWithLabel:(id)label domain:(unsigned __int16)domain properties:(id)properties;
+- (PGGraphBusinessNode)initWithLabel:(id)label domain:(unsigned __int16)domain weight:(float)weight properties:(id)properties;
 - (PGGraphBusinessNode)initWithMuid:(unint64_t)muid name:(id)name venueCapacity:(int64_t)capacity coordinates:(CLLocationCoordinate2D)coordinates radius:(double)radius;
 - (PGGraphBusinessNodeCollection)collection;
 - (PPNamedEntity)pg_namedEntity;
@@ -92,11 +93,11 @@ void __48__PGGraphBusinessNode_associatedNodesForRemoval__block_invoke(uint64_t 
 
 - (id)keywordDescription
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   businessCategories = [(PGGraphBusinessNode *)self businessCategories];
   v4 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:0 ascending:1 selector:sel_localizedCompare_];
-  v15[0] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+  v14[0] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
   v6 = [businessCategories sortedArrayUsingDescriptors:v5];
 
   venueCapacity = [(PGGraphBusinessNode *)self venueCapacity];
@@ -114,8 +115,6 @@ void __48__PGGraphBusinessNode_associatedNodesForRemoval__block_invoke(uint64_t 
   name = [(PGGraphBusinessNode *)self name];
   v11 = [v6 componentsJoinedByString:{@", "}];
   v12 = [v9 stringWithFormat:@"%@ [%@] [cap:%@]", name, v11, v8];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -140,28 +139,26 @@ void __48__PGGraphBusinessNode_associatedNodesForRemoval__block_invoke(uint64_t 
 
 - (id)propertyDictionary
 {
-  v13[6] = *MEMORY[0x277D85DE8];
-  v12[0] = @"muid";
+  v12[6] = *MEMORY[0x277D85DE8];
+  v11[0] = @"muid";
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_muid];
   name = self->_name;
-  v13[0] = v3;
-  v13[1] = name;
-  v12[1] = @"name";
-  v12[2] = @"venueCapacity";
+  v12[0] = v3;
+  v12[1] = name;
+  v11[1] = @"name";
+  v11[2] = @"venueCapacity";
   v5 = [MEMORY[0x277CCABB0] numberWithInteger:self->_venueCapacity];
-  v13[2] = v5;
-  v12[3] = @"latitude";
+  v12[2] = v5;
+  v11[3] = @"latitude";
   v6 = [MEMORY[0x277CCABB0] numberWithDouble:self->_coordinates.latitude];
-  v13[3] = v6;
-  v12[4] = @"longitude";
+  v12[3] = v6;
+  v11[4] = @"longitude";
   v7 = [MEMORY[0x277CCABB0] numberWithDouble:self->_coordinates.longitude];
-  v13[4] = v7;
-  v12[5] = @"radius";
+  v12[4] = v7;
+  v11[5] = @"radius";
   v8 = [MEMORY[0x277CCABB0] numberWithDouble:self->_radius];
-  v13[5] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:6];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v12[5] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:6];
 
   return v9;
 }
@@ -174,64 +171,40 @@ void __48__PGGraphBusinessNode_associatedNodesForRemoval__block_invoke(uint64_t 
   {
     v6 = [v5 objectForKeyedSubscript:@"muid"];
     v7 = v6;
-    if (v6 && [v6 unsignedIntegerValue] != self->_muid)
+    v16 = 0;
+    if (!v6 || [v6 unsignedIntegerValue] == self->_muid)
     {
-      goto LABEL_15;
-    }
 
-    v8 = [v5 objectForKeyedSubscript:@"name"];
-    v7 = v8;
-    if (v8)
-    {
-      if (![v8 isEqual:self->_name])
+      v8 = [v5 objectForKeyedSubscript:@"name"];
+      v7 = v8;
+      if (!v8 || [v8 isEqual:self->_name])
       {
-        goto LABEL_15;
+
+        v9 = [v5 objectForKeyedSubscript:@"venueCapacity"];
+        v7 = v9;
+        if (!v9 || [v9 integerValue] == self->_venueCapacity)
+        {
+
+          v10 = [v5 objectForKeyedSubscript:@"latitude"];
+          v7 = v10;
+          if (!v10 || ([v10 doubleValue], v11 == self->_coordinates.latitude))
+          {
+
+            v12 = [v5 objectForKeyedSubscript:@"longitude"];
+            v7 = v12;
+            if (!v12 || ([v12 doubleValue], v13 == self->_coordinates.longitude))
+            {
+
+              v14 = [v5 objectForKeyedSubscript:@"radius"];
+              v7 = v14;
+              if (!v14 || ([v14 doubleValue], v15 == self->_radius))
+              {
+                v16 = 1;
+              }
+            }
+          }
+        }
       }
-    }
-
-    v9 = [v5 objectForKeyedSubscript:@"venueCapacity"];
-    v7 = v9;
-    if (v9)
-    {
-      if ([v9 integerValue] != self->_venueCapacity)
-      {
-        goto LABEL_15;
-      }
-    }
-
-    v10 = [v5 objectForKeyedSubscript:@"latitude"];
-    v7 = v10;
-    if (v10)
-    {
-      [v10 doubleValue];
-      if (v11 != self->_coordinates.latitude)
-      {
-        goto LABEL_15;
-      }
-    }
-
-    v12 = [v5 objectForKeyedSubscript:@"longitude"];
-    v7 = v12;
-    if (v12)
-    {
-      [v12 doubleValue];
-      if (v13 != self->_coordinates.longitude)
-      {
-        goto LABEL_15;
-      }
-    }
-
-    v14 = [v5 objectForKeyedSubscript:@"radius"];
-    v7 = v14;
-    if (!v14 || ([v14 doubleValue], v15 == self->_radius))
-    {
-      v16 = 1;
-    }
-
-    else
-    {
-LABEL_15:
-      v16 = 0;
     }
   }
 
@@ -241,6 +214,73 @@ LABEL_15:
   }
 
   return v16;
+}
+
+- (PGGraphBusinessNode)initWithLabel:(id)label domain:(unsigned __int16)domain weight:(float)weight properties:(id)properties
+{
+  domainCopy = domain;
+  labelCopy = label;
+  propertiesCopy = properties;
+  v11 = [propertiesCopy objectForKeyedSubscript:@"muid"];
+
+  if (v11)
+  {
+    v12 = propertiesCopy;
+  }
+
+  else
+  {
+    v12 = [objc_alloc(MEMORY[0x277CBEB38]) initWithDictionary:propertiesCopy];
+    v13 = MEMORY[0x277CCABB0];
+    v14 = [propertiesCopy objectForKeyedSubscript:@"id"];
+    v15 = [v13 numberWithInteger:{objc_msgSend(v14, "integerValue")}];
+    [v12 setObject:v15 forKeyedSubscript:@"muid"];
+
+    [v12 setObject:0 forKeyedSubscript:@"id"];
+    v16 = [propertiesCopy objectForKeyedSubscript:@"vncpct"];
+
+    if (v16)
+    {
+      v17 = [propertiesCopy objectForKeyedSubscript:@"vncpct"];
+      [v12 setObject:v17 forKeyedSubscript:@"venueCapacity"];
+
+      [v12 setObject:0 forKeyedSubscript:@"vncpct"];
+    }
+
+    v18 = [propertiesCopy objectForKeyedSubscript:@"lat"];
+
+    if (v18)
+    {
+      v19 = [propertiesCopy objectForKeyedSubscript:@"lat"];
+      [v12 setObject:v19 forKeyedSubscript:@"latitude"];
+
+      [v12 setObject:0 forKeyedSubscript:@"lat"];
+    }
+
+    v20 = [propertiesCopy objectForKeyedSubscript:@"lng"];
+
+    if (v20)
+    {
+      v21 = [propertiesCopy objectForKeyedSubscript:@"lng"];
+      [v12 setObject:v21 forKeyedSubscript:@"longitude"];
+
+      [v12 setObject:0 forKeyedSubscript:@"lng"];
+    }
+
+    v22 = [propertiesCopy objectForKeyedSubscript:@"radius"];
+
+    if (v22)
+    {
+      v23 = [propertiesCopy objectForKeyedSubscript:@"radius"];
+      [v12 setObject:v23 forKeyedSubscript:@"radius"];
+
+      [v12 setObject:0 forKeyedSubscript:@"radius"];
+    }
+  }
+
+  v24 = [(PGGraphBusinessNode *)self initWithLabel:labelCopy domain:domainCopy properties:v12];
+
+  return v24;
 }
 
 - (PGGraphBusinessNode)initWithLabel:(id)label domain:(unsigned __int16)domain properties:(id)properties
@@ -332,15 +372,13 @@ LABEL_15:
 
 + (id)filterWithMuid:(unint64_t)muid
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   filter = [self filter];
-  v10 = @"muid";
+  v9 = @"muid";
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:muid];
-  v11[0] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v10[0] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   v7 = [filter filterBySettingProperties:v6];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

@@ -43,32 +43,31 @@
 
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
-  v7 = HMFGetOSLogHandle();
-  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
+  v8 = HMFGetOSLogHandle(selfCopy, v7);
+  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG);
   if (v4)
   {
-    if (v8)
+    if (v9)
     {
-      v9 = HMFGetLogIdentifier(selfCopy);
+      v10 = HMFGetLogIdentifier(selfCopy);
       *buf = 138543362;
-      v14 = v9;
-      v10 = "%{public}@Successfully marked";
+      v14 = v10;
+      v11 = "%{public}@Successfully marked";
 LABEL_6:
-      _os_log_impl(&dword_22ADEC000, v7, OS_LOG_TYPE_DEBUG, v10, buf, 0xCu);
+      _os_log_impl(&dword_22ADEC000, v8, OS_LOG_TYPE_DEBUG, v11, buf, 0xCu);
     }
   }
 
-  else if (v8)
+  else if (v9)
   {
-    v9 = HMFGetLogIdentifier(selfCopy);
+    v10 = HMFGetLogIdentifier(selfCopy);
     *buf = 138543362;
-    v14 = v9;
-    v10 = "%{public}@Failed to mark";
+    v14 = v10;
+    v11 = "%{public}@Failed to mark";
     goto LABEL_6;
   }
 
   objc_autoreleasePoolPop(v5);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

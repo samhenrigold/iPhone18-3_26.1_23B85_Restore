@@ -122,23 +122,22 @@ LABEL_23:
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
   clientID = self->_clientID;
-  clientSecret = self->_clientSecret;
-  v8 = HKStringFromBool();
-  v9 = v8;
-  v10 = self->_PKCEAlgorithm - 1;
-  if (v10 > 2)
+  v7 = HKStringFromBool();
+  v8 = v7;
+  v9 = self->_PKCEAlgorithm - 1;
+  if (v9 > 2)
   {
-    v11 = @"none";
+    v10 = @"none";
   }
 
   else
   {
-    v11 = off_2796DC918[v10];
+    v10 = off_2796DC918[v9];
   }
 
-  v12 = [v3 stringWithFormat:@"<%@ %p, client ID: %@, has client secret: %@, PKCE: %@>", v5, self, clientID, v8, v11];
+  v11 = [v3 stringWithFormat:@"<%@ %p, client ID: %@, has client secret: %@, PKCE: %@>", v5, self, clientID, v7, v10];
 
-  return v12;
+  return v11;
 }
 
 - (void)encodeWithCoder:(id)coder

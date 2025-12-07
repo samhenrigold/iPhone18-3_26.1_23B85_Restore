@@ -86,31 +86,28 @@ LABEL_6:
 - (id)serializeAndReturnError:(id *)error
 {
   v4 = type metadata accessor for DediscoDonation(0);
-  v5 = *(*(v4 - 8) + 64);
   __chkstk_darwin(v4);
-  v7 = &v14[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v6 = &v13[-((v5 + 15) & 0xFFFFFFFFFFFFFFF0)];
   selfCopy = self;
-  sub_1000326FC(&qword_10007D5E0, type metadata accessor for DediscoDonation);
+  sub_1000326FC(&qword_10007D5E0, type metadata accessor for DediscoDonation, &protocol conformance descriptor for DediscoDonation);
   selfCopy2 = self;
   sub_1000504E0();
-  v9 = sub_1000504B0();
-  v11 = v10;
+  v8 = sub_1000504B0();
+  v10 = v9;
 
-  sub_10003228C(v7);
-  v12.super.isa = sub_1000502F0().super.isa;
-  sub_100013E20(v9, v11);
+  sub_10003228C(v6);
+  v11.super.isa = sub_1000502F0().super.isa;
+  sub_100013E20(v8, v10);
 
-  return v12.super.isa;
+  return v11.super.isa;
 }
 
 - (id)getCollectionId
 {
-  v2 = *(&self->super.isa + OBJC_IVAR____DPDediscoPayload_collectionId);
-  v3 = *&self->collectionId[OBJC_IVAR____DPDediscoPayload_collectionId];
 
-  v4 = sub_100050750();
+  v2 = sub_100050750();
 
-  return v4;
+  return v2;
 }
 
 - (id)getReport

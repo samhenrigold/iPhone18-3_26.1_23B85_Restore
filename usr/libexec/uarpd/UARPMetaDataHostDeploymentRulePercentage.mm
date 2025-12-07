@@ -103,7 +103,7 @@ LABEL_14:
   {
     if (length != 5)
     {
-      v12 = 0;
+      v11 = 0;
       goto LABEL_6;
     }
 
@@ -113,17 +113,16 @@ LABEL_14:
     v6->_percentageLimit = *(value + 4);
     v7 = objc_opt_new();
     [v7 setDateFormat:@"yyyy-MM-dd"];
-    untilMonth = v6->_untilMonth;
-    v9 = [NSString stringWithFormat:@"%lu-%lu-%lu", v6->_untilYear, untilMonth, v6->_untilDay];
-    v10 = [v7 dateFromString:v9];
+    v8 = [NSString stringWithFormat:@"%lu-%lu-%lu", v6->_untilYear, v6->_untilMonth, v6->_untilDay];
+    v9 = [v7 dateFromString:v8];
     untilDate = v6->_untilDate;
-    v6->_untilDate = v10;
+    v6->_untilDate = v9;
   }
 
-  v12 = v6;
+  v11 = v6;
 LABEL_6:
 
-  return v12;
+  return v11;
 }
 
 - (id)tlvValue

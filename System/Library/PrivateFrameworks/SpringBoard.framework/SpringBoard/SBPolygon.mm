@@ -131,16 +131,14 @@
   return v5;
 }
 
-uint64_t __48__SBPolygon_distanceOfFarthestPointFromCentroid__block_invoke(uint64_t a1)
+void __48__SBPolygon_distanceOfFarthestPointFromCentroid__block_invoke(void *a1, __n128 a2, __n128 a3, __n128 a4, __n128 a5)
 {
-  result = UIDistanceBetweenPoints();
-  v4 = *(*(a1 + 32) + 8);
-  if (v3 > *(v4 + 24))
+  UIDistanceBetweenPoints();
+  v7 = *(a1[4] + 8);
+  if (v6 > *(v7 + 24))
   {
-    *(v4 + 24) = v3;
+    *(v7 + 24) = v6;
   }
-
-  return result;
 }
 
 - (void)enumeratePointsUsingBlock:(id)block
@@ -558,17 +556,17 @@ LABEL_11:
   return v3;
 }
 
-double __24__SBPolygon__meanRadius__block_invoke(uint64_t a1, uint64_t a2)
+double __24__SBPolygon__meanRadius__block_invoke(uint64_t a1, uint64_t a2, double a3, double a4)
 {
   [*(a1 + 32) _weightAtIndex:a2];
-  v5 = v4;
+  v7 = v6;
   [*(a1 + 32) _centroid];
   UIDistanceBetweenPoints();
-  *(*(*(a1 + 40) + 8) + 24) = *(*(*(a1 + 40) + 8) + 24) + v5 * v6;
+  *(*(*(a1 + 40) + 8) + 24) = *(*(*(a1 + 40) + 8) + 24) + v7 * v8;
   [*(a1 + 32) _weightAtIndex:a2];
-  v7 = *(*(a1 + 48) + 8);
-  result = v8 + *(v7 + 24);
-  *(v7 + 24) = result;
+  v9 = *(*(a1 + 48) + 8);
+  result = v10 + *(v9 + 24);
+  *(v9 + 24) = result;
   return result;
 }
 

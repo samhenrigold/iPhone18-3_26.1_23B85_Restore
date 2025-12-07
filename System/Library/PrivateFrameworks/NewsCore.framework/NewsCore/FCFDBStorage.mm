@@ -17,12 +17,12 @@
 
 - (FCFDBStorage)initWithPath:(id)path options:(int64_t)options pruningPolicy:(id)policy
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   policyCopy = policy;
-  v38.receiver = self;
-  v38.super_class = FCFDBStorage;
-  v10 = [(FCFDBStorage *)&v38 init];
+  v37.receiver = self;
+  v37.super_class = FCFDBStorage;
+  v10 = [(FCFDBStorage *)&v37 init];
   if (v10)
   {
     v11 = [[FCFDBConnection alloc] initWithPath:pathCopy];
@@ -81,7 +81,7 @@
       if (os_log_type_enabled(FCFeedDatabaseLog, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v40 = pathCopy;
+        v39 = pathCopy;
         _os_log_error_impl(&dword_1B63EF000, v35, OS_LOG_TYPE_ERROR, "failed to establish connection to SQL database at path=%{public}@", buf, 0xCu);
       }
 
@@ -90,7 +90,6 @@
     }
   }
 
-  v36 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -113,7 +112,7 @@
 
 - (id)feedForFeedID:(id)d
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   dCopy = d;
   cachedFeeds = [(FCFDBStorage *)self cachedFeeds];
   v6 = [cachedFeeds objectForKey:dCopy];
@@ -125,13 +124,11 @@
 
   else
   {
-    v12[0] = dCopy;
-    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
+    v11[0] = dCopy;
+    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
     v9 = [(FCFDBStorage *)self feedsForFeedIDs:v8];
     v7 = [v9 objectForKey:dCopy];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -244,14 +241,14 @@ void __32__FCFDBStorage_accessWithBlock___block_invoke(uint64_t a1)
 
 void __32__FCFDBStorage_accessWithBlock___block_invoke_2(uint64_t a1)
 {
-  v44[2] = *MEMORY[0x1E69E9840];
+  v43[2] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc(MEMORY[0x1E69C7548]);
   v3 = [MEMORY[0x1E69C7640] currentProcess];
   v4 = [MEMORY[0x1E69C7560] attributeWithDomain:@"com.apple.common" name:@"FinishTaskUninterruptable"];
-  v44[0] = v4;
+  v43[0] = v4;
   v5 = [MEMORY[0x1E69C7530] attributeWithCompletionPolicy:1];
-  v44[1] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v44 count:2];
+  v43[1] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v43 count:2];
   v7 = [v2 initWithExplanation:@"News feed item storage write" target:v3 attributes:v6];
 
   [v7 acquireWithError:0];
@@ -285,39 +282,39 @@ void __32__FCFDBStorage_accessWithBlock___block_invoke_2(uint64_t a1)
 
   if (([*(a1 + 32) options] & 4) != 0 && objc_msgSend(*(*(*(a1 + 64) + 8) + 40), "count"))
   {
-    v34 = v7;
-    v37 = [MEMORY[0x1E695DF70] array];
+    v33 = v7;
+    v36 = [MEMORY[0x1E695DF70] array];
+    v37 = 0u;
     v38 = 0u;
     v39 = 0u;
     v40 = 0u;
-    v41 = 0u;
     obj = *(*(*(a1 + 64) + 8) + 40);
-    v17 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
+    v17 = [obj countByEnumeratingWithState:&v37 objects:v42 count:16];
     if (v17)
     {
       v18 = v17;
-      v36 = *v39;
+      v35 = *v38;
       do
       {
         v19 = 0;
         do
         {
-          if (*v39 != v36)
+          if (*v38 != v35)
           {
             objc_enumerationMutation(obj);
           }
 
-          v20 = *(*(&v38 + 1) + 8 * v19);
+          v20 = *(*(&v37 + 1) + 8 * v19);
           v21 = [*(a1 + 32) writeDBConnection];
           [MEMORY[0x1E696AD98] numberWithLongLong:{objc_msgSend(v20, "feedLookupID")}];
           v23 = v22 = a1;
-          v42 = v23;
-          v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v42 count:1];
+          v41 = v23;
+          v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v41 count:1];
           v25 = [v20 trailingEmptyRegion];
           v26 = [v21 selectFeedItemIDsWithFeedLookupIDs:v24 feedRange:v25 feature:0 maxCountByFeedLookupID:0 totalMaxCount:0];
 
           a1 = v22;
-          [v37 addObjectsFromArray:v26];
+          [v36 addObjectsFromArray:v26];
           v27 = [*(v22 + 32) writeDBConnection];
           v28 = [MEMORY[0x1E696AD98] numberWithLongLong:{objc_msgSend(v20, "feedLookupID")}];
           v29 = [v20 trailingEmptyRegion];
@@ -327,44 +324,43 @@ void __32__FCFDBStorage_accessWithBlock___block_invoke_2(uint64_t a1)
         }
 
         while (v18 != v19);
-        v18 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
+        v18 = [obj countByEnumeratingWithState:&v37 objects:v42 count:16];
       }
 
       while (v18);
     }
 
     v30 = [*(a1 + 32) writeDBConnection];
-    [v30 deleteFeedItemsWithIDs:v37];
+    [v30 deleteFeedItemsWithIDs:v36];
 
     v31 = [*(a1 + 32) writeDBConnection];
     [v31 incrementalVacuum];
 
-    v7 = v34;
+    v7 = v33;
   }
 
   v32 = [*(a1 + 32) writeDBConnection];
   [v32 commitTransaction];
 
   [v7 invalidateWithError:0];
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 - (id)feedsForFeedIDs:(id)ds
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   v5 = FCFDBStorageAccessQueueUnique;
   if (dispatch_get_specific(FCFDBStorageAccessQueueUnique) != v5 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v28 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"accessing fdb storage outside the access queue"];
+    v27 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"accessing fdb storage outside the access queue"];
     *buf = 136315906;
-    v39 = "[FCFDBStorage feedsForFeedIDs:]";
-    v40 = 2080;
-    v41 = "FCFDBStorage.m";
-    v42 = 1024;
-    v43 = 209;
-    v44 = 2114;
-    v45 = v28;
+    v38 = "[FCFDBStorage feedsForFeedIDs:]";
+    v39 = 2080;
+    v40 = "FCFDBStorage.m";
+    v41 = 1024;
+    v42 = 209;
+    v43 = 2114;
+    v44 = v27;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
@@ -383,9 +379,9 @@ void __32__FCFDBStorage_accessWithBlock___block_invoke_2(uint64_t a1)
     v12 = [v7 fc_arrayByRemovingKeysInDictionary:v10];
     if ([v12 count])
     {
-      v32 = dsCopy;
+      v31 = dsCopy;
       lastFeedLookupID = [(FCFDBStorage *)self lastFeedLookupID];
-      v31 = v9;
+      v30 = v9;
       if (lastFeedLookupID)
       {
         [(FCFDBStorage *)self setLastFeedLookupID:lastFeedLookupID];
@@ -397,35 +393,35 @@ void __32__FCFDBStorage_accessWithBlock___block_invoke_2(uint64_t a1)
         -[FCFDBStorage setLastFeedLookupID:](self, "setLastFeedLookupID:", [readDBConnection2 selectMaxFeedLookupID]);
       }
 
-      v29 = v12;
-      v30 = v10;
-      v35 = 0u;
-      v36 = 0u;
-      v33 = 0u;
+      v28 = v12;
+      v29 = v10;
       v34 = 0u;
+      v35 = 0u;
+      v32 = 0u;
+      v33 = 0u;
       v15 = v12;
-      v16 = [v15 countByEnumeratingWithState:&v33 objects:v37 count:16];
+      v16 = [v15 countByEnumeratingWithState:&v32 objects:v36 count:16];
       if (v16)
       {
         v17 = v16;
-        v18 = *v34;
+        v18 = *v33;
         do
         {
           for (i = 0; i != v17; ++i)
           {
-            if (*v34 != v18)
+            if (*v33 != v18)
             {
               objc_enumerationMutation(v15);
             }
 
-            v20 = *(*(&v33 + 1) + 8 * i);
-            [(FCFDBStorage *)self setLastFeedLookupID:[(FCFDBStorage *)self lastFeedLookupID:v29]+ 1];
+            v20 = *(*(&v32 + 1) + 8 * i);
+            [(FCFDBStorage *)self setLastFeedLookupID:[(FCFDBStorage *)self lastFeedLookupID:v28]+ 1];
             v21 = [[FCFDBFeed alloc] initWithFeedID:v20 feedLookupID:[(FCFDBStorage *)self lastFeedLookupID]];
             cachedFeeds3 = [(FCFDBStorage *)self cachedFeeds];
             [cachedFeeds3 setObject:v21 forKey:v20];
           }
 
-          v17 = [v15 countByEnumeratingWithState:&v33 objects:v37 count:16];
+          v17 = [v15 countByEnumeratingWithState:&v32 objects:v36 count:16];
         }
 
         while (v17);
@@ -434,24 +430,22 @@ void __32__FCFDBStorage_accessWithBlock___block_invoke_2(uint64_t a1)
       modifiedFeedIDs = [(FCFDBStorage *)self modifiedFeedIDs];
       [modifiedFeedIDs addObjectsFromArray:v15];
 
-      v9 = v31;
-      dsCopy = v32;
-      v12 = v29;
-      v10 = v30;
+      v9 = v30;
+      dsCopy = v31;
+      v12 = v28;
+      v10 = v29;
     }
   }
 
-  v24 = [(FCFDBStorage *)self cachedFeeds:v29];
+  v24 = [(FCFDBStorage *)self cachedFeeds:v28];
   v25 = [v24 fc_subdictionaryForKeys:dsCopy];
-
-  v26 = *MEMORY[0x1E69E9840];
 
   return v25;
 }
 
 - (id)feedItemsForFeedIDs:(id)ds feedRange:(id)range feature:(id)feature maxCountByFeed:(id)feed totalMaxCount:(unint64_t)count
 {
-  v67 = *MEMORY[0x1E69E9840];
+  v66 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   rangeCopy = range;
   featureCopy = feature;
@@ -459,59 +453,59 @@ void __32__FCFDBStorage_accessWithBlock___block_invoke_2(uint64_t a1)
   v16 = FCFDBStorageAccessQueueUnique;
   if (dispatch_get_specific(FCFDBStorageAccessQueueUnique) != v16 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v40 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"accessing fdb storage outside the access queue"];
+    v39 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"accessing fdb storage outside the access queue"];
     *buf = 136315906;
-    v60 = "[FCFDBStorage feedItemsForFeedIDs:feedRange:feature:maxCountByFeed:totalMaxCount:]";
-    v61 = 2080;
-    v62 = "FCFDBStorage.m";
-    v63 = 1024;
-    v64 = 243;
-    v65 = 2114;
-    v66 = v40;
+    v59 = "[FCFDBStorage feedItemsForFeedIDs:feedRange:feature:maxCountByFeed:totalMaxCount:]";
+    v60 = 2080;
+    v61 = "FCFDBStorage.m";
+    v62 = 1024;
+    v63 = 243;
+    v64 = 2114;
+    v65 = v39;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v58[0] = MEMORY[0x1E69E9820];
-  v58[1] = 3221225472;
-  v58[2] = __83__FCFDBStorage_feedItemsForFeedIDs_feedRange_feature_maxCountByFeed_totalMaxCount___block_invoke;
-  v58[3] = &unk_1E7C38D38;
-  v58[4] = self;
-  v17 = [dsCopy fc_arrayByTransformingWithBlock:v58];
   v57[0] = MEMORY[0x1E69E9820];
   v57[1] = 3221225472;
-  v57[2] = __83__FCFDBStorage_feedItemsForFeedIDs_feedRange_feature_maxCountByFeed_totalMaxCount___block_invoke_2;
-  v57[3] = &unk_1E7C442D8;
+  v57[2] = __83__FCFDBStorage_feedItemsForFeedIDs_feedRange_feature_maxCountByFeed_totalMaxCount___block_invoke;
+  v57[3] = &unk_1E7C38D38;
   v57[4] = self;
-  v18 = [feedCopy fc_dictionaryByTransformingKeysWithBlock:v57];
+  v17 = [dsCopy fc_arrayByTransformingWithBlock:v57];
+  v56[0] = MEMORY[0x1E69E9820];
+  v56[1] = 3221225472;
+  v56[2] = __83__FCFDBStorage_feedItemsForFeedIDs_feedRange_feature_maxCountByFeed_totalMaxCount___block_invoke_2;
+  v56[3] = &unk_1E7C442D8;
+  v56[4] = self;
+  v18 = [feedCopy fc_dictionaryByTransformingKeysWithBlock:v56];
   readDBConnection = [(FCFDBStorage *)self readDBConnection];
-  v43 = v18;
-  v44 = v17;
+  v42 = v18;
+  v43 = v17;
   countCopy = count;
   v20 = [readDBConnection selectFeedItemIDsWithFeedLookupIDs:v17 feedRange:rangeCopy feature:featureCopy maxCountByFeedLookupID:v18 totalMaxCount:count];
 
   v21 = MEMORY[0x1E695DEC8];
-  v53[0] = MEMORY[0x1E69E9820];
-  v53[1] = 3221225472;
-  v53[2] = __83__FCFDBStorage_feedItemsForFeedIDs_feedRange_feature_maxCountByFeed_totalMaxCount___block_invoke_3;
-  v53[3] = &unk_1E7C3B1F8;
-  v41 = dsCopy;
-  v54 = v41;
+  v52[0] = MEMORY[0x1E69E9820];
+  v52[1] = 3221225472;
+  v52[2] = __83__FCFDBStorage_feedItemsForFeedIDs_feedRange_feature_maxCountByFeed_totalMaxCount___block_invoke_3;
+  v52[3] = &unk_1E7C3B1F8;
+  v40 = dsCopy;
+  v53 = v40;
   selfCopy = self;
   v22 = rangeCopy;
-  v56 = v22;
-  v23 = [v21 fc_array:v53];
-  v48[0] = MEMORY[0x1E69E9820];
-  v48[1] = 3221225472;
-  v48[2] = __83__FCFDBStorage_feedItemsForFeedIDs_feedRange_feature_maxCountByFeed_totalMaxCount___block_invoke_5;
-  v48[3] = &unk_1E7C44328;
+  v55 = v22;
+  v23 = [v21 fc_array:v52];
+  v47[0] = MEMORY[0x1E69E9820];
+  v47[1] = 3221225472;
+  v47[2] = __83__FCFDBStorage_feedItemsForFeedIDs_feedRange_feature_maxCountByFeed_totalMaxCount___block_invoke_5;
+  v47[3] = &unk_1E7C44328;
   v24 = feedCopy;
-  v49 = v24;
+  v48 = v24;
   v25 = v23;
-  v50 = v25;
+  v49 = v25;
   v26 = v20;
-  v51 = v26;
+  v50 = v26;
   selfCopy2 = self;
-  v27 = __83__FCFDBStorage_feedItemsForFeedIDs_feedRange_feature_maxCountByFeed_totalMaxCount___block_invoke_5(v48);
+  v27 = __83__FCFDBStorage_feedItemsForFeedIDs_feedRange_feature_maxCountByFeed_totalMaxCount___block_invoke_5(v47);
   allObjects = [v27 allObjects];
   cachedFeedItems = [(FCFDBStorage *)self cachedFeedItems];
   v30 = [allObjects fc_arrayByRemovingKeysInDictionary:cachedFeedItems];
@@ -531,12 +525,12 @@ void __32__FCFDBStorage_accessWithBlock___block_invoke_2(uint64_t a1)
 
   if (featureCopy)
   {
-    v46[0] = MEMORY[0x1E69E9820];
-    v46[1] = 3221225472;
-    v46[2] = __83__FCFDBStorage_feedItemsForFeedIDs_feedRange_feature_maxCountByFeed_totalMaxCount___block_invoke_9;
-    v46[3] = &unk_1E7C44350;
-    v47 = featureCopy;
-    v37 = [v36 indexesOfObjectsPassingTest:v46];
+    v45[0] = MEMORY[0x1E69E9820];
+    v45[1] = 3221225472;
+    v45[2] = __83__FCFDBStorage_feedItemsForFeedIDs_feedRange_feature_maxCountByFeed_totalMaxCount___block_invoke_9;
+    v45[3] = &unk_1E7C44350;
+    v46 = featureCopy;
+    v37 = [v36 indexesOfObjectsPassingTest:v45];
     [v36 removeObjectsAtIndexes:v37];
   }
 
@@ -545,8 +539,6 @@ void __32__FCFDBStorage_accessWithBlock___block_invoke_2(uint64_t a1)
   {
     [v36 fc_trimToMaxCount:?];
   }
-
-  v38 = *MEMORY[0x1E69E9840];
 
   return v36;
 }
@@ -569,50 +561,48 @@ uint64_t __83__FCFDBStorage_feedItemsForFeedIDs_feedRange_feature_maxCountByFeed
 
 void __83__FCFDBStorage_feedItemsForFeedIDs_feedRange_feature_maxCountByFeed_totalMaxCount___block_invoke_3(id *a1, void *a2)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   obj = a1[4];
-  v4 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v4 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v21;
+    v6 = *v20;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v21 != v6)
+        if (*v20 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v20 + 1) + 8 * i);
+        v8 = *(*(&v19 + 1) + 8 * i);
         v9 = [a1[5] _feedLookupIDForFeedID:v8];
         v10 = [a1[5] cachedFeedItemOrders];
         v11 = [v10 objectForKey:v8];
 
         v12 = [a1[6] nsRange];
         v14 = v13;
-        v17[0] = MEMORY[0x1E69E9820];
-        v17[1] = 3221225472;
-        v17[2] = __83__FCFDBStorage_feedItemsForFeedIDs_feedRange_feature_maxCountByFeed_totalMaxCount___block_invoke_4;
-        v17[3] = &unk_1E7C44300;
-        v18 = v3;
-        v19 = v9;
-        [v11 enumerateIndexesInRange:v12 options:v14 usingBlock:{0, v17}];
+        v16[0] = MEMORY[0x1E69E9820];
+        v16[1] = 3221225472;
+        v16[2] = __83__FCFDBStorage_feedItemsForFeedIDs_feedRange_feature_maxCountByFeed_totalMaxCount___block_invoke_4;
+        v16[3] = &unk_1E7C44300;
+        v17 = v3;
+        v18 = v9;
+        [v11 enumerateIndexesInRange:v12 options:v14 usingBlock:{0, v16}];
       }
 
-      v5 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v5 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v5);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __83__FCFDBStorage_feedItemsForFeedIDs_feedRange_feature_maxCountByFeed_totalMaxCount___block_invoke_4(uint64_t a1, uint64_t a2)
@@ -624,52 +614,52 @@ void __83__FCFDBStorage_feedItemsForFeedIDs_feedRange_feature_maxCountByFeed_tot
 
 id __83__FCFDBStorage_feedItemsForFeedIDs_feedRange_feature_maxCountByFeed_totalMaxCount___block_invoke_5(uint64_t a1)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if (*(a1 + 32))
   {
-    v17 = [MEMORY[0x1E695DFA8] set];
+    v16 = [MEMORY[0x1E695DFA8] set];
     v2 = [MEMORY[0x1E695DFA0] orderedSet];
     [v2 addObjectsFromArray:*(a1 + 48)];
     [v2 addObjectsFromArray:*(a1 + 40)];
     [v2 sortUsingComparator:&__block_literal_global_131];
     v3 = *(a1 + 32);
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = __83__FCFDBStorage_feedItemsForFeedIDs_feedRange_feature_maxCountByFeed_totalMaxCount___block_invoke_8;
-    v22[3] = &unk_1E7C442D8;
-    v22[4] = *(a1 + 56);
-    v4 = [v3 fc_dictionaryByTransformingKeysWithBlock:v22];
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __83__FCFDBStorage_feedItemsForFeedIDs_feedRange_feature_maxCountByFeed_totalMaxCount___block_invoke_8;
+    v21[3] = &unk_1E7C442D8;
+    v21[4] = *(a1 + 56);
+    v4 = [v3 fc_dictionaryByTransformingKeysWithBlock:v21];
     v5 = [MEMORY[0x1E696AB50] set];
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
     v6 = v2;
-    v7 = [v6 countByEnumeratingWithState:&v18 objects:v26 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v17 objects:v25 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v19;
+      v9 = *v18;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v19 != v9)
+          if (*v18 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v18 + 1) + 8 * i);
+          v11 = *(*(&v17 + 1) + 8 * i);
           v12 = [MEMORY[0x1E696AD98] numberWithLongLong:{objc_msgSend(v11, "unsignedLongLongValue") & 0xFFFFF}];
           v13 = [v4 objectForKeyedSubscript:v12];
           if (!v13 || (v14 = [v5 countForObject:v12], v14 < objc_msgSend(v13, "unsignedIntegerValue")))
           {
-            [v17 addObject:v11];
+            [v16 addObject:v11];
             [v5 addObject:v12];
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v18 objects:v26 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v17 objects:v25 count:16];
       }
 
       while (v8);
@@ -678,20 +668,18 @@ id __83__FCFDBStorage_feedItemsForFeedIDs_feedRange_feature_maxCountByFeed_total
 
   else
   {
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __83__FCFDBStorage_feedItemsForFeedIDs_feedRange_feature_maxCountByFeed_totalMaxCount___block_invoke_6;
-    v23[3] = &unk_1E7C397D0;
-    v24 = *(a1 + 40);
-    v25 = *(a1 + 48);
-    v17 = __83__FCFDBStorage_feedItemsForFeedIDs_feedRange_feature_maxCountByFeed_totalMaxCount___block_invoke_6(v23);
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __83__FCFDBStorage_feedItemsForFeedIDs_feedRange_feature_maxCountByFeed_totalMaxCount___block_invoke_6;
+    v22[3] = &unk_1E7C397D0;
+    v23 = *(a1 + 40);
+    v24 = *(a1 + 48);
+    v16 = __83__FCFDBStorage_feedItemsForFeedIDs_feedRange_feature_maxCountByFeed_totalMaxCount___block_invoke_6(v22);
 
-    v6 = v24;
+    v6 = v23;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
-
-  return v17;
+  return v16;
 }
 
 id __83__FCFDBStorage_feedItemsForFeedIDs_feedRange_feature_maxCountByFeed_totalMaxCount___block_invoke_6(uint64_t a1)
@@ -713,44 +701,44 @@ uint64_t __83__FCFDBStorage_feedItemsForFeedIDs_feedRange_feature_maxCountByFeed
 
 - (void)insertFeedItems:(id)items
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
   v5 = FCFDBStorageAccessQueueUnique;
   if (dispatch_get_specific(FCFDBStorageAccessQueueUnique) != v5 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v24 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"accessing fdb storage outside the access queue"];
+    v23 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"accessing fdb storage outside the access queue"];
     *buf = 136315906;
-    v33 = "[FCFDBStorage insertFeedItems:]";
-    v34 = 2080;
-    v35 = "FCFDBStorage.m";
-    v36 = 1024;
-    v37 = 343;
-    v38 = 2114;
-    v39 = v24;
+    v32 = "[FCFDBStorage insertFeedItems:]";
+    v33 = 2080;
+    v34 = "FCFDBStorage.m";
+    v35 = 1024;
+    v36 = 343;
+    v37 = 2114;
+    v38 = v23;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
   dictionary = [MEMORY[0x1E695DF90] dictionary];
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   obj = itemsCopy;
-  v6 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v6 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v28;
+    v8 = *v27;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v28 != v8)
+        if (*v27 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v27 + 1) + 8 * i);
+        v10 = *(*(&v26 + 1) + 8 * i);
         feedID = [v10 feedID];
         v12 = [(FCFDBStorage *)self _feedLookupIDForFeedID:feedID];
 
@@ -772,7 +760,7 @@ uint64_t __83__FCFDBStorage_feedItemsForFeedIDs_feedRange_feature_maxCountByFeed
         [dictionary setObject:v10 forKey:v19];
       }
 
-      v7 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v7 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
     while (v7);
@@ -784,28 +772,26 @@ uint64_t __83__FCFDBStorage_feedItemsForFeedIDs_feedRange_feature_maxCountByFeed
   modifiedFeedItemIDs = [(FCFDBStorage *)self modifiedFeedItemIDs];
   allKeys = [dictionary allKeys];
   [modifiedFeedItemIDs addObjectsFromArray:allKeys];
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateFeedID:(id)d refreshedFromOrder:(unint64_t)order refreshedToOrder:(unint64_t)toOrder fetchedRange:(id)range
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   dCopy = d;
   rangeCopy = range;
   v12 = FCFDBStorageAccessQueueUnique;
   if (dispatch_get_specific(FCFDBStorageAccessQueueUnique) != v12 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v18 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"accessing fdb storage outside the access queue"];
-    v19 = 136315906;
-    v20 = "[FCFDBStorage updateFeedID:refreshedFromOrder:refreshedToOrder:fetchedRange:]";
-    v21 = 2080;
-    v22 = "FCFDBStorage.m";
-    v23 = 1024;
-    v24 = 374;
-    v25 = 2114;
-    v26 = v18;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v19, 0x26u);
+    v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"accessing fdb storage outside the access queue"];
+    v18 = 136315906;
+    v19 = "[FCFDBStorage updateFeedID:refreshedFromOrder:refreshedToOrder:fetchedRange:]";
+    v20 = 2080;
+    v21 = "FCFDBStorage.m";
+    v22 = 1024;
+    v23 = 374;
+    v24 = 2114;
+    v25 = v17;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v18, 0x26u);
   }
 
   v13 = [(FCFDBStorage *)self feedForFeedID:dCopy];
@@ -815,8 +801,6 @@ uint64_t __83__FCFDBStorage_feedItemsForFeedIDs_feedRange_feature_maxCountByFeed
 
   modifiedFeedIDs = [(FCFDBStorage *)self modifiedFeedIDs];
   [modifiedFeedIDs addObject:dCopy];
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)flushChanges
@@ -835,20 +819,20 @@ uint64_t __83__FCFDBStorage_feedItemsForFeedIDs_feedRange_feature_maxCountByFeed
 
 - (id)_pruneFeedsIfNeeded:(id)needed
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   neededCopy = needed;
   v5 = FCFDBStorageAccessQueueUnique;
   if (dispatch_get_specific(FCFDBStorageAccessQueueUnique) != v5 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v25 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"accessing fdb storage outside the access queue"];
+    v24 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"accessing fdb storage outside the access queue"];
     *buf = 136315906;
-    v45 = "[FCFDBStorage _pruneFeedsIfNeeded:]";
-    v46 = 2080;
-    v47 = "FCFDBStorage.m";
-    v48 = 1024;
-    v49 = 401;
-    v50 = 2114;
-    v51 = v25;
+    v44 = "[FCFDBStorage _pruneFeedsIfNeeded:]";
+    v45 = 2080;
+    v46 = "FCFDBStorage.m";
+    v47 = 1024;
+    v48 = 401;
+    v49 = 2114;
+    v50 = v24;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
@@ -860,31 +844,31 @@ uint64_t __83__FCFDBStorage_feedItemsForFeedIDs_feedRange_feature_maxCountByFeed
     if (feedRangeToPrune)
     {
       v6 = feedRangeToPrune;
+      v28 = 0u;
       v29 = 0u;
       v30 = 0u;
       v31 = 0u;
-      v32 = 0u;
-      v26 = neededCopy;
+      v25 = neededCopy;
       v10 = neededCopy;
-      v11 = [v10 countByEnumeratingWithState:&v29 objects:v43 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v28 objects:v42 count:16];
       if (v11)
       {
         v12 = v11;
         selfCopy = self;
         v13 = 0;
-        v14 = *v30;
+        v14 = *v29;
         do
         {
           v15 = 0;
-          v28 = v12;
+          v27 = v12;
           do
           {
-            if (*v30 != v14)
+            if (*v29 != v14)
             {
               objc_enumerationMutation(v10);
             }
 
-            v16 = *(*(&v29 + 1) + 8 * v15);
+            v16 = *(*(&v28 + 1) + 8 * v15);
             v17 = [v10 objectForKey:v16];
             if ([v17 hasFetchedRangesInRange:v6])
             {
@@ -903,14 +887,14 @@ uint64_t __83__FCFDBStorage_feedItemsForFeedIDs_feedRange_feature_maxCountByFeed
               [prunedFeedIDs addObject:v16];
 
               v6 = v18;
-              v12 = v28;
+              v12 = v27;
             }
 
             ++v15;
           }
 
           while (v12 != v15);
-          v12 = [v10 countByEnumeratingWithState:&v29 objects:v43 count:16];
+          v12 = [v10 countByEnumeratingWithState:&v28 objects:v42 count:16];
         }
 
         while (v12);
@@ -933,17 +917,17 @@ uint64_t __83__FCFDBStorage_feedItemsForFeedIDs_feedRange_feature_maxCountByFeed
 
       v7 = v22;
 
-      neededCopy = v26;
+      neededCopy = v25;
     }
 
     else
     {
-      v33 = MEMORY[0x1E69E9820];
-      v34 = 3221225472;
-      v35 = __36__FCFDBStorage__pruneFeedsIfNeeded___block_invoke_2;
-      v36 = &unk_1E7C36F98;
-      v37 = neededCopy;
-      v7 = v37;
+      v32 = MEMORY[0x1E69E9820];
+      v33 = 3221225472;
+      v34 = __36__FCFDBStorage__pruneFeedsIfNeeded___block_invoke_2;
+      v35 = &unk_1E7C36F98;
+      v36 = neededCopy;
+      v7 = v36;
 
       v6 = 0;
     }
@@ -951,16 +935,14 @@ uint64_t __83__FCFDBStorage_feedItemsForFeedIDs_feedRange_feature_maxCountByFeed
 
   else
   {
-    v38 = MEMORY[0x1E69E9820];
-    v39 = 3221225472;
-    v40 = __36__FCFDBStorage__pruneFeedsIfNeeded___block_invoke;
-    v41 = &unk_1E7C36F98;
-    v42 = neededCopy;
-    v6 = v42;
+    v37 = MEMORY[0x1E69E9820];
+    v38 = 3221225472;
+    v39 = __36__FCFDBStorage__pruneFeedsIfNeeded___block_invoke;
+    v40 = &unk_1E7C36F98;
+    v41 = neededCopy;
+    v6 = v41;
     v7 = v6;
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

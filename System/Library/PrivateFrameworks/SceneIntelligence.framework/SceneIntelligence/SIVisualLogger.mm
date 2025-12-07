@@ -80,66 +80,60 @@ LABEL_6:
 
 - (void)registerSubloggers:(id)subloggers
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   subloggersCopy = subloggers;
-  if (SIInternalOSBuild())
+  if (SIInternalOSBuild(subloggersCopy, v6))
   {
     objc_storeStrong(&self->_registeredSubloggers, subloggers);
     os_unfair_lock_lock(&self->_register_lock);
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
-    v6 = self->_registeredSubloggers;
-    v7 = [(NSSet *)v6 countByEnumeratingWithState:&v17 objects:v22 count:16];
-    if (v7)
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
+    v7 = self->_registeredSubloggers;
+    v8 = [(NSSet *)v7 countByEnumeratingWithState:&v16 objects:v21 count:16];
+    if (v8)
     {
-      v8 = *v18;
+      v9 = *v17;
       do
       {
-        for (i = 0; i != v7; ++i)
+        for (i = 0; i != v8; ++i)
         {
-          if (*v18 != v8)
+          if (*v17 != v9)
           {
-            objc_enumerationMutation(v6);
+            objc_enumerationMutation(v7);
           }
 
-          v10 = *(*(&v17 + 1) + 8 * i);
-          visualLogger = self->_visualLogger;
-          v12 = v10;
-          [v10 UTF8String];
+          v11 = *(*(&v16 + 1) + 8 * i);
+          v12 = v11;
+          [v11 UTF8String];
           SubLoggerMutable = VZLoggerGetSubLoggerMutable();
-          v14 = v10;
-          uTF8String = [v10 UTF8String];
-          v21 = &uTF8String;
-          std::__hash_table<std::__hash_value_type<char const*,VZSubLogger *>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,VZSubLogger *>,std::hash<char const*>,std::equal_to<char const*>,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,VZSubLogger *>,std::equal_to<char const*>,std::hash<char const*>,true>,std::allocator<std::__hash_value_type<char const*,VZSubLogger *>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const*&&>,std::tuple<>>(&self->_vlSubloggerMap.__table_.__bucket_list_.__ptr_, &uTF8String)[3] = SubLoggerMutable;
+          v14 = v11;
+          uTF8String = [v11 UTF8String];
+          v20 = &uTF8String;
+          std::__hash_table<std::__hash_value_type<char const*,VZSubLogger *>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,VZSubLogger *>,std::hash<char const*>,std::equal_to<char const*>,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,VZSubLogger *>,std::equal_to<char const*>,std::hash<char const*>,true>,std::allocator<std::__hash_value_type<char const*,VZSubLogger *>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const*&&>,std::tuple<>>(&self->_vlSubloggerMap.__table_.__bucket_list_.__ptr_, &uTF8String, &std::piecewise_construct, &v20)[3] = SubLoggerMutable;
         }
 
-        v7 = [(NSSet *)v6 countByEnumeratingWithState:&v17 objects:v22 count:16];
+        v8 = [(NSSet *)v7 countByEnumeratingWithState:&v16 objects:v21 count:16];
       }
 
-      while (v7);
+      while (v8);
     }
 
     os_unfair_lock_unlock(&self->_register_lock);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
 {
   [(SIVisualLogger *)self _stopLoggingToFile];
   [(SIVisualLogger *)self _stopLoggingToHost];
-  networkDestination = self->_networkDestination;
   VZRelease();
-  fileDestination = self->_fileDestination;
   VZRelease();
-  visualLogger = self->_visualLogger;
   VZRelease();
-  v6.receiver = self;
-  v6.super_class = SIVisualLogger;
-  [(SIVisualLogger *)&v6 dealloc];
+  v3.receiver = self;
+  v3.super_class = SIVisualLogger;
+  [(SIVisualLogger *)&v3 dealloc];
 }
 
 + (id)_discoverSubloggers
@@ -182,36 +176,34 @@ LABEL_6:
 
 - (void)logAndReleaseError:(__CFError *)error
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (error)
   {
-    v4 = __SceneIntelligenceLogSharedInstance();
+    v4 = __SceneIntelligenceLogSharedInstance(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       code = [(__CFError *)error code];
       v6 = [(__CFError *)error description];
-      v8 = 136381443;
-      v9 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/VisualLogger/SIVisualLogger.mm";
-      v10 = 1025;
-      v11 = 185;
-      v12 = 2048;
-      v13 = code;
-      v14 = 2113;
-      v15 = v6;
-      _os_log_impl(&dword_21DE0D000, v4, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Error.\nCode: %zu\nDescription: %{private}@ ***", &v8, 0x26u);
+      v7 = 136381443;
+      v8 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/VisualLogger/SIVisualLogger.mm";
+      v9 = 1025;
+      v10 = 185;
+      v11 = 2048;
+      v12 = code;
+      v13 = 2113;
+      v14 = v6;
+      _os_log_impl(&dword_21DE0D000, v4, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Error.\nCode: %zu\nDescription: %{private}@ ***", &v7, 0x26u);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enableLogger:(id)logger
 {
   loggerCopy = logger;
   os_unfair_lock_lock(&self->_register_lock);
-  v7[0] = [loggerCopy UTF8String];
-  v7[2] = v7;
-  v5 = std::__hash_table<std::__hash_value_type<char const*,VZSubLogger *>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,VZSubLogger *>,std::hash<char const*>,std::equal_to<char const*>,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,VZSubLogger *>,std::equal_to<char const*>,std::hash<char const*>,true>,std::allocator<std::__hash_value_type<char const*,VZSubLogger *>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const*&&>,std::tuple<>>(&self->_vlSubloggerMap.__table_.__bucket_list_.__ptr_, v7)[3];
+  uTF8String = [loggerCopy UTF8String];
+  v7 = &uTF8String;
+  v5 = std::__hash_table<std::__hash_value_type<char const*,VZSubLogger *>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,VZSubLogger *>,std::hash<char const*>,std::equal_to<char const*>,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,VZSubLogger *>,std::equal_to<char const*>,std::hash<char const*>,true>,std::allocator<std::__hash_value_type<char const*,VZSubLogger *>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const*&&>,std::tuple<>>(&self->_vlSubloggerMap.__table_.__bucket_list_.__ptr_, &uTF8String, &std::piecewise_construct, &v7)[3];
   os_unfair_lock_unlock(&self->_register_lock);
   if (v5)
   {
@@ -220,7 +212,6 @@ LABEL_6:
 
   else
   {
-    visualLogger = self->_visualLogger;
     [loggerCopy UTF8String];
     VZLoggerEnable();
   }
@@ -229,54 +220,54 @@ LABEL_6:
 - (BOOL)isLoggerEnabled:(id)enabled
 {
   enabledCopy = enabled;
-  if ((SIInternalOSBuild() & 1) != 0 && self->_visualLogger)
+  if ((SIInternalOSBuild(enabledCopy, v5) & 1) != 0 && self->_visualLogger)
   {
-    v10[0] = [enabledCopy UTF8String];
+    uTF8String = [enabledCopy UTF8String];
     os_unfair_lock_lock(&self->_register_lock);
-    v10[2] = v10;
-    v5 = std::__hash_table<std::__hash_value_type<char const*,VZSubLogger *>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,VZSubLogger *>,std::hash<char const*>,std::equal_to<char const*>,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,VZSubLogger *>,std::equal_to<char const*>,std::hash<char const*>,true>,std::allocator<std::__hash_value_type<char const*,VZSubLogger *>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const*&&>,std::tuple<>>(&self->_vlSubloggerMap.__table_.__bucket_list_.__ptr_, v10)[3];
+    v11 = &uTF8String;
+    v6 = std::__hash_table<std::__hash_value_type<char const*,VZSubLogger *>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,VZSubLogger *>,std::hash<char const*>,std::equal_to<char const*>,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,VZSubLogger *>,std::equal_to<char const*>,std::hash<char const*>,true>,std::allocator<std::__hash_value_type<char const*,VZSubLogger *>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const*&&>,std::tuple<>>(&self->_vlSubloggerMap.__table_.__bucket_list_.__ptr_, &uTF8String, &std::piecewise_construct, &v11)[3];
     os_unfair_lock_unlock(&self->_register_lock);
-    if (v5)
+    if (v6)
     {
-      v6 = VZSubLoggerEnabled();
+      v7 = VZSubLoggerEnabled();
     }
 
     else
     {
-      visualLogger = self->_visualLogger;
       [enabledCopy UTF8String];
-      v6 = VZLoggerEnabled();
+      v7 = VZLoggerEnabled();
     }
 
-    v7 = v6;
+    v8 = v7;
   }
 
   else
   {
-    v7 = 0;
+    v8 = 0;
   }
 
-  return v7;
+  return v8;
 }
 
 - (BOOL)startLoggingToFile:(id)file synchronously:(BOOL)synchronously
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   fileCopy = file;
+  v6 = fileCopy;
   if (fileCopy)
   {
     if (self->_fileDestination)
     {
-      defaultManager = __SceneIntelligenceLogSharedInstance();
+      defaultManager = __SceneIntelligenceLogSharedInstance(fileCopy);
       if (os_log_type_enabled(defaultManager, OS_LOG_TYPE_ERROR))
       {
         buf[0] = 136380931;
         *&buf[1] = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/VisualLogger/SIVisualLogger.mm";
-        v19 = 1025;
-        v20 = 232;
-        v7 = " %{private}s:%{private}d *** Request to start file logging, but we already have a file destination. ***";
+        v20 = 1025;
+        v21 = 232;
+        v8 = " %{private}s:%{private}d *** Request to start file logging, but we already have a file destination. ***";
 LABEL_7:
-        _os_log_impl(&dword_21DE0D000, defaultManager, OS_LOG_TYPE_ERROR, v7, buf, 0x12u);
+        _os_log_impl(&dword_21DE0D000, defaultManager, OS_LOG_TYPE_ERROR, v8, buf, 0x12u);
         goto LABEL_21;
       }
 
@@ -284,71 +275,71 @@ LABEL_7:
     }
 
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-    if ([defaultManager fileExistsAtPath:fileCopy])
+    if ([defaultManager fileExistsAtPath:v6])
     {
-      v17 = 0;
-      v8 = [defaultManager removeItemAtPath:fileCopy error:&v17];
-      v9 = v17;
-      v10 = v9;
-      if ((v8 & 1) == 0)
+      v18 = 0;
+      v9 = [defaultManager removeItemAtPath:v6 error:&v18];
+      v10 = v18;
+      v11 = v10;
+      if ((v9 & 1) == 0)
       {
-        v13 = __SceneIntelligenceLogSharedInstance();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+        v15 = __SceneIntelligenceLogSharedInstance(v10);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
           buf[0] = 136381187;
           *&buf[1] = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/VisualLogger/SIVisualLogger.mm";
-          v19 = 1025;
-          v20 = 243;
-          v21 = 2113;
-          v22 = v10;
-          _os_log_impl(&dword_21DE0D000, v13, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Failed to remove item: %{private}@ ***", buf, 0x1Cu);
+          v20 = 1025;
+          v21 = 243;
+          v22 = 2113;
+          v23 = v11;
+          _os_log_impl(&dword_21DE0D000, v15, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Failed to remove item: %{private}@ ***", buf, 0x1Cu);
         }
 
         goto LABEL_20;
       }
     }
 
-    v16 = 0;
-    v11 = [defaultManager createDirectoryAtPath:fileCopy withIntermediateDirectories:1 attributes:0 error:&v16];
-    v10 = v16;
-    if (v11)
+    v17 = 0;
+    v12 = [defaultManager createDirectoryAtPath:v6 withIntermediateDirectories:1 attributes:0 error:&v17];
+    v13 = v17;
+    v11 = v13;
+    if (v12)
     {
       VZFileExportOptionsCreate();
       operator new();
     }
 
-    v12 = __SceneIntelligenceLogSharedInstance();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v14 = __SceneIntelligenceLogSharedInstance(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       buf[0] = 136381443;
       *&buf[1] = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/VisualLogger/SIVisualLogger.mm";
-      v19 = 1025;
-      v20 = 252;
-      v21 = 2113;
-      v22 = fileCopy;
-      v23 = 2113;
-      v24 = v10;
-      _os_log_impl(&dword_21DE0D000, v12, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Failed to create visual logger directory %{private}@. Error: %{private}@ ***", buf, 0x26u);
+      v20 = 1025;
+      v21 = 252;
+      v22 = 2113;
+      v23 = v6;
+      v24 = 2113;
+      v25 = v11;
+      _os_log_impl(&dword_21DE0D000, v14, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Failed to create visual logger directory %{private}@. Error: %{private}@ ***", buf, 0x26u);
     }
 
 LABEL_20:
     goto LABEL_21;
   }
 
-  defaultManager = __SceneIntelligenceLogSharedInstance();
+  defaultManager = __SceneIntelligenceLogSharedInstance(0);
   if (os_log_type_enabled(defaultManager, OS_LOG_TYPE_ERROR))
   {
     buf[0] = 136380931;
     *&buf[1] = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/VisualLogger/SIVisualLogger.mm";
-    v19 = 1025;
-    v20 = 227;
-    v7 = " %{private}s:%{private}d *** Must have a non-nil logPath ***";
+    v20 = 1025;
+    v21 = 227;
+    v8 = " %{private}s:%{private}d *** Must have a non-nil logPath ***";
     goto LABEL_7;
   }
 
 LABEL_21:
 
-  v14 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -361,7 +352,6 @@ LABEL_21:
 
   VZLoggerRemoveDestination();
   v3 = 1;
-  fileDestination = self->_fileDestination;
   VZRelease();
   self->_fileDestination = 0;
   return v3;
@@ -371,6 +361,7 @@ LABEL_21:
 {
   v11 = *MEMORY[0x277D85DE8];
   hostCopy = host;
+  v5 = hostCopy;
   if (hostCopy)
   {
     if (!self->_networkDestination)
@@ -379,31 +370,30 @@ LABEL_21:
       operator new();
     }
 
-    v5 = __SceneIntelligenceLogSharedInstance();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = __SceneIntelligenceLogSharedInstance(hostCopy);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v8[0] = 136380931;
       *&v8[1] = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/VisualLogger/SIVisualLogger.mm";
       v9 = 1025;
       v10 = 322;
-      _os_log_impl(&dword_21DE0D000, v5, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Request to start network logging, but we already have a network destination. ***", v8, 0x12u);
+      _os_log_impl(&dword_21DE0D000, v6, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Request to start network logging, but we already have a network destination. ***", v8, 0x12u);
     }
   }
 
   else
   {
-    v5 = __SceneIntelligenceLogSharedInstance();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = __SceneIntelligenceLogSharedInstance(0);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v8[0] = 136380931;
       *&v8[1] = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/VisualLogger/SIVisualLogger.mm";
       v9 = 1025;
       v10 = 317;
-      _os_log_impl(&dword_21DE0D000, v5, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Invalid host address ***", v8, 0x12u);
+      _os_log_impl(&dword_21DE0D000, v6, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Invalid host address ***", v8, 0x12u);
     }
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -416,7 +406,6 @@ LABEL_21:
 
   VZLoggerRemoveDestination();
   v3 = 1;
-  networkDestination = self->_networkDestination;
   VZRelease();
   self->_networkDestination = 0;
   return v3;
@@ -439,102 +428,94 @@ LABEL_21:
 
 - (BOOL)logPixelBuffer:(__CVBuffer *)buffer at:(double)at sublogger:(id)sublogger name:(id)name
 {
-  v13 = *MEMORY[0x277D85DE8];
   subloggerCopy = sublogger;
   nameCopy = name;
   if ([(SIVisualLogger *)self isLoggerEnabled:subloggerCopy])
   {
-    [(SIVisualLogger *)self createDataInfoAt:nameCopy name:at];
+    objc_msgSend_createDataInfoAt_name_(self, at);
     VZDataCreateImageWithCVPixelBuffer();
     operator new();
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (BOOL)logIOSurface:(__IOSurface *)surface at:(double)at sublogger:(id)sublogger name:(id)name
 {
-  v13 = *MEMORY[0x277D85DE8];
   subloggerCopy = sublogger;
   nameCopy = name;
   if ([(SIVisualLogger *)self isLoggerEnabled:subloggerCopy])
   {
-    [(SIVisualLogger *)self createDataInfoAt:nameCopy name:at];
+    objc_msgSend_createDataInfoAt_name_(self, at);
     VZDataCreateImageWithIOSurface();
     operator new();
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (BOOL)logDictionary:(id)dictionary at:(double)at sublogger:(id)sublogger name:(id)name
 {
-  v15 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   subloggerCopy = sublogger;
   nameCopy = name;
   if ([(SIVisualLogger *)self isLoggerEnabled:subloggerCopy])
   {
-    [(SIVisualLogger *)self createDataInfoAt:nameCopy name:at];
+    objc_msgSend_createDataInfoAt_name_(self, at);
     VZDataCreateDictionaryWithCFDictionary();
     operator new();
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (BOOL)logBinaryData:(id)data at:(double)at sublogger:(id)sublogger name:(id)name
 {
-  v15 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   subloggerCopy = sublogger;
   nameCopy = name;
   if ([(SIVisualLogger *)self isLoggerEnabled:subloggerCopy])
   {
-    [(SIVisualLogger *)self createDataInfoAt:nameCopy name:at];
+    objc_msgSend_createDataInfoAt_name_(self, at);
     VZDataCreateBlobWithCFData();
     operator new();
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (id)_arrayOfNumbersToData:(id)data valueType:(unint64_t *)type
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v6 = dataCopy;
   if (dataCopy && [dataCopy count])
   {
     v7 = [objc_alloc(MEMORY[0x277CBEB28]) initWithCapacity:{8 * objc_msgSend(v6, "count")}];
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v8 = v6;
-    v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v9)
     {
-      v10 = *v17;
+      v10 = *v16;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v17 != v10)
+          if (*v16 != v10)
           {
             objc_enumerationMutation(v8);
           }
 
-          [*(*(&v16 + 1) + 8 * i) doubleValue];
-          v15 = v12;
-          [v7 appendBytes:&v15 length:8];
+          [*(*(&v15 + 1) + 8 * i) doubleValue];
+          v14 = v12;
+          [v7 appendBytes:&v14 length:8];
         }
 
-        v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v9);
@@ -548,45 +529,40 @@ LABEL_21:
     v7 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (BOOL)logNumbers:(id)numbers at:(double)at sublogger:(id)sublogger name:(id)name
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   numbersCopy = numbers;
   subloggerCopy = sublogger;
   nameCopy = name;
   if (-[SIVisualLogger isLoggerEnabled:](self, "isLoggerEnabled:", subloggerCopy) && [numbersCopy count])
   {
-    [(SIVisualLogger *)self createDataInfoAt:nameCopy name:at];
-    v15 = *MEMORY[0x277D79738];
-    [(SIVisualLogger *)self _arrayOfNumbersToData:numbersCopy valueType:&v15];
+    objc_msgSend_createDataInfoAt_name_(self, at);
+    v14 = *MEMORY[0x277D79738];
+    [(SIVisualLogger *)self _arrayOfNumbersToData:numbersCopy valueType:&v14];
     objc_claimAutoreleasedReturnValue();
     VZDataCreateNumbersWithCFData();
     operator new();
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (BOOL)logNumber:(id)number at:(double)at sublogger:(id)sublogger name:(id)name
 {
-  v15 = *MEMORY[0x277D85DE8];
   numberCopy = number;
   subloggerCopy = sublogger;
   nameCopy = name;
   if ([(SIVisualLogger *)self isLoggerEnabled:subloggerCopy])
   {
-    [(SIVisualLogger *)self createDataInfoAt:nameCopy name:at];
+    objc_msgSend_createDataInfoAt_name_(self, at);
     VZDataCreateNumberWithCFNumber();
     operator new();
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return 0;
 }
 

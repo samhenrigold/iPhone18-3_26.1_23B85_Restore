@@ -503,7 +503,7 @@ LABEL_15:
     v13 = view;
     if (view)
     {
-      [view transform];
+      objc_msgSend_transform(view);
     }
 
     else

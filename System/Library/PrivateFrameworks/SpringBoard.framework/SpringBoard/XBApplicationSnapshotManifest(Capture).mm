@@ -30,10 +30,10 @@
       [v14 setInterfaceOrientation:{objc_msgSend(settings, "interfaceOrientation")}];
     }
 
-    [configuration frame];
+    objc_msgSend_frame(configuration);
     [v14 setReferenceSize:{v17, v18}];
     settings2 = [configuration settings];
-    [settings2 frame];
+    objc_msgSend_frame(settings2);
     v21 = v20;
     v23 = v22;
     settings3 = [configuration settings];

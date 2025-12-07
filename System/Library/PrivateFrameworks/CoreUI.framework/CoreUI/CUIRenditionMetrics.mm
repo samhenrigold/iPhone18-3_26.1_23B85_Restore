@@ -16,7 +16,7 @@
 - (CGSize)imageSize;
 - (double)initwithImageSize:(double)size scale:(double)scale;
 - (id)copyWithZone:(_NSZone *)zone;
-- (id)initWithImageSize:(int)size defaultImageSize:(double)imageSize edgeBottomLeft:(double)left edgeTopRight:(double)right contentBottomLeft:(double)bottomLeft contentTopRight:(double)topRight baseline:(double)baseline auxiliary1BottomLeft:(double)self0 auxiliary1TopRight:(double)self1 auxiliary2BottomLeft:(uint64_t)self2 auxiliary2TopRight:(uint64_t)self3 scalesVertically:(uint64_t)self4 scalesHorizontally:(uint64_t)self5 scale:(uint64_t)self6;
+- (id)initWithImageSize:(uint64_t)size defaultImageSize:(double)imageSize edgeBottomLeft:(double)left edgeTopRight:(double)right contentBottomLeft:(double)bottomLeft contentTopRight:(double)topRight baseline:(double)baseline auxiliary1BottomLeft:(double)self0 auxiliary1TopRight:(double)self1 auxiliary2BottomLeft:(uint64_t)self2 auxiliary2TopRight:(uint64_t)self3 scalesVertically:(uint64_t)self4 scalesHorizontally:(uint64_t)self5 scale:(uint64_t)self6;
 - (id)metricsByMirroringHorizontally;
 @end
 
@@ -225,13 +225,14 @@
   return result;
 }
 
-- (id)initWithImageSize:(int)size defaultImageSize:(double)imageSize edgeBottomLeft:(double)left edgeTopRight:(double)right contentBottomLeft:(double)bottomLeft contentTopRight:(double)topRight baseline:(double)baseline auxiliary1BottomLeft:(double)self0 auxiliary1TopRight:(double)self1 auxiliary2BottomLeft:(uint64_t)self2 auxiliary2TopRight:(uint64_t)self3 scalesVertically:(uint64_t)self4 scalesHorizontally:(uint64_t)self5 scale:(uint64_t)self6
+- (id)initWithImageSize:(uint64_t)size defaultImageSize:(double)imageSize edgeBottomLeft:(double)left edgeTopRight:(double)right contentBottomLeft:(double)bottomLeft contentTopRight:(double)topRight baseline:(double)baseline auxiliary1BottomLeft:(double)self0 auxiliary1TopRight:(double)self1 auxiliary2BottomLeft:(uint64_t)self2 auxiliary2TopRight:(uint64_t)self3 scalesVertically:(uint64_t)self4 scalesHorizontally:(uint64_t)self5 scale:(uint64_t)self6
 {
   if (result)
   {
+    sizeCopy = size;
     v42.receiver = result;
     v42.super_class = CUIRenditionMetrics;
-    result = objc_msgSendSuper2(&v42, sel_init);
+    result = objc_msgSendSuper2(&v42, sel_init, size, auxiliary2BottomLeft, auxiliary2TopRight, vertically, horizontally, scale);
     if (result)
     {
       *(result + 1) = imageSize;
@@ -257,7 +258,7 @@
       v40 = *(result + 92) & 0xFFFC;
       *(result + 21) = a29;
       *(result + 22) = a30;
-      if (size)
+      if (sizeCopy)
       {
         v41 = 2;
       }

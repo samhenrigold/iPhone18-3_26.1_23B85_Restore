@@ -26,7 +26,7 @@ void __remoteXPCAIG_EnsureClientEstablished_block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __remoteXPCMutableMovieClient_EnsureClientEstablished_block_invoke(uint64_t a1)
+uint64_t __remoteXPCMutableMovieClient_EnsureClientEstablished_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (!FigRemote_ShouldConnectToMediaparserdForFileParsing())
   {
@@ -38,7 +38,7 @@ uint64_t __remoteXPCMutableMovieClient_EnsureClientEstablished_block_invoke(uint
   return result;
 }
 
-uint64_t __frbs_EnsureClientEstablished_block_invoke()
+uint64_t __frbs_EnsureClientEstablished_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   FigRemote_ShouldConnectToMediaparserdForFileParsing();
   FigRemote_ShouldConnectToMediaplaybackd();
@@ -47,7 +47,7 @@ uint64_t __frbs_EnsureClientEstablished_block_invoke()
   return result;
 }
 
-uint64_t __remoteXPCCPEClient_EnsureClientEstablished_block_invoke(uint64_t a1)
+uint64_t __remoteXPCCPEClient_EnsureClientEstablished_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   FigRemote_ShouldConnectToMediaparserdForFileParsing();
   FigRemote_ShouldConnectToMediaplaybackd();
@@ -56,7 +56,7 @@ uint64_t __remoteXPCCPEClient_EnsureClientEstablished_block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t __aptapR_EnsureClientEstablished_block_invoke()
+uint64_t __aptapR_EnsureClientEstablished_block_invoke(uint64_t a1)
 {
   if (FigRemote_ShouldConnectToAirplayd())
   {
@@ -65,15 +65,15 @@ uint64_t __aptapR_EnsureClientEstablished_block_invoke()
 
   else
   {
-    __aptapR_EnsureClientEstablished_block_invoke_cold_1(&v1);
-    result = v1;
+    __aptapR_EnsureClientEstablished_block_invoke_cold_1(&v2);
+    result = v2;
   }
 
   aptapR_EnsureClientEstablished_err = result;
   return result;
 }
 
-uint64_t __aptapR_EnsureClientEstablished_block_invoke_2()
+uint64_t __aptapR_EnsureClientEstablished_block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   FigRemote_ShouldConnectToMediaparserdForFileParsing();
   FigRemote_ShouldConnectToMediaplaybackd();
@@ -108,7 +108,7 @@ void __remoteXPCVisualContextClient_EnsureClientEstablished_block_invoke()
   }
 }
 
-uint64_t __remoteXPCMutableCompositionClient_EnsureClientEstablished_block_invoke()
+uint64_t __remoteXPCMutableCompositionClient_EnsureClientEstablished_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   FigRemote_ShouldConnectToMediaparserdForFileParsing();
   FigRemote_ShouldConnectToMediaplaybackd();
@@ -144,16 +144,13 @@ void __remoteXPCCPEProtectorClient_EnsureClientEstablished_block_invoke()
   }
 }
 
-uint64_t __remoteXPCFigCaptionGroupConverterClient_EnsureClientEstablished_block_invoke()
+void __remoteXPCFigCaptionGroupConverterClient_EnsureClientEstablished_block_invoke()
 {
-  result = FigXPCRemoteClientCreate();
-  _MergedGlobals_145 = result;
-  if (result)
+  _MergedGlobals_145 = FigXPCRemoteClientCreate();
+  if (_MergedGlobals_145)
   {
-    return __remoteXPCFigCaptionGroupConverterClient_EnsureClientEstablished_block_invoke_cold_1();
+    __remoteXPCFigCaptionGroupConverterClient_EnsureClientEstablished_block_invoke_cold_1();
   }
-
-  return result;
 }
 
 void __remoteVideoCompositor_EnsureClientEstablished_block_invoke(uint64_t a1)
@@ -170,7 +167,7 @@ void __remoteVideoCompositor_EnsureClientEstablished_block_invoke(uint64_t a1)
   }
 }
 
-void __remoteXPCPlayerClient_EnsureClientEstablished_block_invoke()
+void __remoteXPCPlayerClient_EnsureClientEstablished_block_invoke(uint64_t a1)
 {
   FigNote_AllowInternalDefaultLogs();
   OUTLINED_FUNCTION_36_8();
@@ -199,22 +196,20 @@ void __remoteXPCPlayerClient_EnsureClientEstablished_block_invoke()
   }
 }
 
-uint64_t __aptapR_EnsureClientEstablished_block_invoke_cold_1(_DWORD *a1)
+void __aptapR_EnsureClientEstablished_block_invoke_cold_1(_DWORD *a1)
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
-  result = FigSignalErrorAtGM();
-  *a1 = result;
-  return result;
+  FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
+  *a1 = v2;
 }
 
-uint64_t __remoteXPCFigCaptionGroupConverterClient_EnsureClientEstablished_block_invoke_cold_1()
+void __remoteXPCFigCaptionGroupConverterClient_EnsureClientEstablished_block_invoke_cold_1()
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
-  result = FigSignalErrorAtGM();
-  _MergedGlobals_145 = result;
-  return result;
+  FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v1, v2, vars0);
+  _MergedGlobals_145 = v0;
 }
 
 @end

@@ -6,8 +6,10 @@
 - (void)fetchNumberOfPasswordAndPasskeySavedAccountsWithCompletion:(id)completion;
 - (void)fetchSharingGroupsThatIncludeFamilyMembers:(id)members;
 - (void)groupsUpdatedWithInfos:(id)infos;
+- (void)groupsUpdatedWithInfos:(id)infos shouldForceShowingNotifications:(BOOL)notifications completionHandler:(id)handler;
 - (void)leaveGroupWithID:(id)d completionHandler:(id)handler;
 - (void)notifyUserAboutSharedSavedAccountsInRecentlyDeleted:(id)deleted;
+- (void)setDebugIgnoreDateChecksForRecentlyDeletedNotificationsDefault:(BOOL)default;
 @end
 
 @implementation WBSAuthenticationServicesAgentCredentialSharingGroupsProxy
@@ -37,44 +39,44 @@
 - (void)_setUpConnection:(id)connection
 {
   connectionCopy = connection;
-  objc_initWeak(&location, self);
-  v5 = WBSAuthenticationServicesAgentCredentialSharingGroupsUserNotificationsInterface();
-  [connectionCopy setRemoteObjectInterface:v5];
+  inited = objc_initWeak(&location, self);
+  v6 = WBSAuthenticationServicesAgentCredentialSharingGroupsUserNotificationsInterface(inited);
+  [connectionCopy setRemoteObjectInterface:v6];
 
-  v8 = MEMORY[0x1E69E9820];
-  v9 = 3221225472;
-  v10 = __79__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy__setUpConnection___block_invoke;
-  v11 = &unk_1E7CF15E8;
-  objc_copyWeak(&v12, &location);
-  v6 = _Block_copy(&v8);
-  [connectionCopy setInvalidationHandler:{v6, v8, v9, v10, v11}];
-  [connectionCopy setInterruptionHandler:v6];
-  v7 = WBSAuthenticationServicesAgentCredentialSharingGroupsUserNotificationsInterface();
-  [connectionCopy setExportedInterface:v7];
+  v9 = MEMORY[0x1E69E9820];
+  v10 = 3221225472;
+  v11 = __79__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy__setUpConnection___block_invoke;
+  v12 = &unk_1E7CF15E8;
+  objc_copyWeak(&v13, &location);
+  v7 = _Block_copy(&v9);
+  [connectionCopy setInvalidationHandler:{v7, v9, v10, v11, v12}];
+  v8 = WBSAuthenticationServicesAgentCredentialSharingGroupsUserNotificationsInterface([connectionCopy setInterruptionHandler:v7]);
+  [connectionCopy setExportedInterface:v8];
 
   [connectionCopy setExportedObject:self];
   [connectionCopy resume];
 
-  objc_destroyWeak(&v12);
+  objc_destroyWeak(&v13);
   objc_destroyWeak(&location);
 }
 
 void __79__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy__setUpConnection___block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v3 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = WBS_LOG_CHANNEL_PREFIXPasswords();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v4 = WBS_LOG_CHANNEL_PREFIXPasswords(WeakRetained, v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __79__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy__setUpConnection___block_invoke_cold_1(v2);
+      __79__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy__setUpConnection___block_invoke_cold_1(v4);
     }
 
-    os_unfair_lock_lock(WeakRetained + 4);
-    v3 = *&WeakRetained[2]._os_unfair_lock_opaque;
-    *&WeakRetained[2]._os_unfair_lock_opaque = 0;
+    os_unfair_lock_lock(v3 + 4);
+    v5 = *&v3[2]._os_unfair_lock_opaque;
+    *&v3[2]._os_unfair_lock_opaque = 0;
 
-    os_unfair_lock_unlock(WeakRetained + 4);
+    os_unfair_lock_unlock(v3 + 4);
   }
 }
 
@@ -104,20 +106,37 @@ void __79__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy__setUpConn
 void __114__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy_notifyUserAboutSharedSavedAccountsInRecentlyDeleted___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = WBS_LOG_CHANNEL_PREFIXPasswords();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXPasswords(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __114__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy_notifyUserAboutSharedSavedAccountsInRecentlyDeleted___block_invoke_cold_1(a1, v4);
+    __114__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy_notifyUserAboutSharedSavedAccountsInRecentlyDeleted___block_invoke_cold_1(a1, v5);
+  }
+}
+
+- (void)setDebugIgnoreDateChecksForRecentlyDeletedNotificationsDefault:(BOOL)default
+{
+  defaultCopy = default;
+  connection = [(WBSAuthenticationServicesAgentCredentialSharingGroupsProxy *)self connection];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __125__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy_setDebugIgnoreDateChecksForRecentlyDeletedNotificationsDefault___block_invoke;
+  v7[3] = &__block_descriptor_40_e17_v16__0__NSError_8l;
+  v7[4] = a2;
+  v6 = [connection remoteObjectProxyWithErrorHandler:v7];
+
+  if (v6)
+  {
+    [v6 setDebugIgnoreDateChecksForRecentlyDeletedNotificationsDefault:defaultCopy];
   }
 }
 
 void __125__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy_setDebugIgnoreDateChecksForRecentlyDeletedNotificationsDefault___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = WBS_LOG_CHANNEL_PREFIXPasswords();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXPasswords(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __114__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy_notifyUserAboutSharedSavedAccountsInRecentlyDeleted___block_invoke_cold_1(a1, v4);
+    __114__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy_notifyUserAboutSharedSavedAccountsInRecentlyDeleted___block_invoke_cold_1(a1, v5);
   }
 }
 
@@ -150,15 +169,15 @@ void __125__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy_setDebugI
 void __97__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy_leaveGroupWithID_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = WBS_LOG_CHANNEL_PREFIXPasswords();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXPasswords(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __97__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy_leaveGroupWithID_completionHandler___block_invoke_cold_1(a1, v4);
+    __97__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy_leaveGroupWithID_completionHandler___block_invoke_cold_1(a1, v5);
   }
 
-  v5 = *(a1 + 32);
-  v6 = [MEMORY[0x1E696ABC0] safari_errorWithDomain:*MEMORY[0x1E696A250] code:4099 privacyPreservingDescription:@"Couldn't connect to AuthenticationServicesAgent"];
-  (*(v5 + 16))(v5, v6);
+  v6 = *(a1 + 32);
+  v7 = [MEMORY[0x1E696ABC0] safari_errorWithDomain:*MEMORY[0x1E696A250] code:4099 privacyPreservingDescription:@"Couldn't connect to AuthenticationServicesAgent"];
+  (*(v6 + 16))(v6, v7);
 }
 
 - (void)deleteGroupWithID:(id)d completionHandler:(id)handler
@@ -190,24 +209,48 @@ void __97__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy_leaveGroup
 void __98__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy_deleteGroupWithID_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = WBS_LOG_CHANNEL_PREFIXPasswords();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXPasswords(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __97__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy_leaveGroupWithID_completionHandler___block_invoke_cold_1(a1, v4);
+    __97__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy_leaveGroupWithID_completionHandler___block_invoke_cold_1(a1, v5);
   }
 
-  v5 = *(a1 + 32);
-  v6 = [MEMORY[0x1E696ABC0] safari_errorWithDomain:*MEMORY[0x1E696A250] code:4099 privacyPreservingDescription:@"Couldn't connect to AuthenticationServicesAgent"];
-  (*(v5 + 16))(v5, v6);
+  v6 = *(a1 + 32);
+  v7 = [MEMORY[0x1E696ABC0] safari_errorWithDomain:*MEMORY[0x1E696A250] code:4099 privacyPreservingDescription:@"Couldn't connect to AuthenticationServicesAgent"];
+  (*(v6 + 16))(v6, v7);
+}
+
+- (void)groupsUpdatedWithInfos:(id)infos shouldForceShowingNotifications:(BOOL)notifications completionHandler:(id)handler
+{
+  notificationsCopy = notifications;
+  infosCopy = infos;
+  handlerCopy = handler;
+  connection = [(WBSAuthenticationServicesAgentCredentialSharingGroupsProxy *)self connection];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __135__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy_groupsUpdatedWithInfos_shouldForceShowingNotifications_completionHandler___block_invoke;
+  v13[3] = &__block_descriptor_40_e17_v16__0__NSError_8l;
+  v13[4] = a2;
+  v12 = [connection remoteObjectProxyWithErrorHandler:v13];
+
+  if (v12)
+  {
+    [v12 groupsUpdatedWithInfos:infosCopy shouldForceShowingNotifications:notificationsCopy completionHandler:handlerCopy];
+  }
+
+  else
+  {
+    handlerCopy[2](handlerCopy);
+  }
 }
 
 void __135__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy_groupsUpdatedWithInfos_shouldForceShowingNotifications_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = WBS_LOG_CHANNEL_PREFIXPasswords();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXPasswords(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __114__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy_notifyUserAboutSharedSavedAccountsInRecentlyDeleted___block_invoke_cold_1(a1, v4);
+    __114__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy_notifyUserAboutSharedSavedAccountsInRecentlyDeleted___block_invoke_cold_1(a1, v5);
   }
 }
 
@@ -231,10 +274,10 @@ void __135__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy_groupsUpd
 void __85__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy_groupsUpdatedWithInfos___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = WBS_LOG_CHANNEL_PREFIXPasswords();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXPasswords(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __114__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy_notifyUserAboutSharedSavedAccountsInRecentlyDeleted___block_invoke_cold_1(a1, v4);
+    __114__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy_notifyUserAboutSharedSavedAccountsInRecentlyDeleted___block_invoke_cold_1(a1, v5);
   }
 }
 
@@ -266,15 +309,15 @@ void __85__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy_groupsUpda
 void __105__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy_fetchSharingGroupsThatIncludeFamilyMembers___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = WBS_LOG_CHANNEL_PREFIXPasswords();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXPasswords(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __97__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy_leaveGroupWithID_completionHandler___block_invoke_cold_1(a1, v4);
+    __97__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy_leaveGroupWithID_completionHandler___block_invoke_cold_1(a1, v5);
   }
 
-  v5 = *(a1 + 32);
-  v6 = [MEMORY[0x1E696ABC0] safari_errorWithDomain:*MEMORY[0x1E696A250] code:4099 privacyPreservingDescription:@"Couldn't connect to AuthenticationServicesAgent"];
-  (*(v5 + 16))(v5, 0, v6);
+  v6 = *(a1 + 32);
+  v7 = [MEMORY[0x1E696ABC0] safari_errorWithDomain:*MEMORY[0x1E696A250] code:4099 privacyPreservingDescription:@"Couldn't connect to AuthenticationServicesAgent"];
+  (*(v6 + 16))(v6, 0, v7);
 }
 
 - (void)fetchNumberOfPasswordAndPasskeySavedAccountsWithCompletion:(id)completion
@@ -305,15 +348,15 @@ void __105__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy_fetchShar
 void __121__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy_fetchNumberOfPasswordAndPasskeySavedAccountsWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = WBS_LOG_CHANNEL_PREFIXPasswords();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXPasswords(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __97__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy_leaveGroupWithID_completionHandler___block_invoke_cold_1(a1, v4);
+    __97__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy_leaveGroupWithID_completionHandler___block_invoke_cold_1(a1, v5);
   }
 
-  v5 = *(a1 + 32);
-  v6 = [MEMORY[0x1E696ABC0] safari_errorWithDomain:*MEMORY[0x1E696A250] code:4099 privacyPreservingDescription:@"Couldn't connect to AuthenticationServicesAgent"];
-  (*(v5 + 16))(v5, 0, v6);
+  v6 = *(a1 + 32);
+  v7 = [MEMORY[0x1E696ABC0] safari_errorWithDomain:*MEMORY[0x1E696A250] code:4099 privacyPreservingDescription:@"Couldn't connect to AuthenticationServicesAgent"];
+  (*(v6 + 16))(v6, 0, v7);
 }
 
 - (id)connection
@@ -327,30 +370,24 @@ void __121__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy_fetchNumb
 
 void __114__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy_notifyUserAboutSharedSavedAccountsInRecentlyDeleted___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v4 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_5(a1, a2);
-  v5 = OUTLINED_FUNCTION_3();
-  NSStringFromSelector(v5);
+  v4 = OUTLINED_FUNCTION_3();
+  NSStringFromSelector(v4);
   objc_claimAutoreleasedReturnValue();
-  v6 = [OUTLINED_FUNCTION_2_0() safari_privacyPreservingDescription];
+  v5 = [OUTLINED_FUNCTION_2_0() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_1B8447000, v7, v8, "Could not create AuthenticationServicesAgent proxy object in %{public}@: %{public}@", v9, v10, v11, v12, v14);
-
-  v13 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_1B8447000, v6, v7, "Could not create AuthenticationServicesAgent proxy object in %{public}@: %{public}@", v8, v9, v10, v11);
 }
 
 void __97__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy_leaveGroupWithID_completionHandler___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v4 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4(a1, a2);
-  v5 = OUTLINED_FUNCTION_3();
-  NSStringFromSelector(v5);
+  v4 = OUTLINED_FUNCTION_3();
+  NSStringFromSelector(v4);
   objc_claimAutoreleasedReturnValue();
-  v6 = [OUTLINED_FUNCTION_2_0() safari_privacyPreservingDescription];
+  v5 = [OUTLINED_FUNCTION_2_0() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_1B8447000, v7, v8, "Could not create AuthenticationServicesAgent proxy object in %{public}@: %{public}@", v9, v10, v11, v12, v14);
-
-  v13 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_1B8447000, v6, v7, "Could not create AuthenticationServicesAgent proxy object in %{public}@: %{public}@", v8, v9, v10, v11);
 }
 
 @end

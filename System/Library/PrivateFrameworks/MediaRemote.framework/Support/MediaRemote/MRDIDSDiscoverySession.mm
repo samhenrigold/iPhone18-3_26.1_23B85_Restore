@@ -33,17 +33,16 @@
   selfCopy = self;
   objc_sync_enter(selfCopy);
   selfCopy = [[NSMutableString alloc] initWithFormat:@"<%@ %p {\n", objc_opt_class(), selfCopy];
-  discoveryMode = selfCopy->_discoveryMode;
-  v5 = MRMediaRemoteCopyRouteDiscoveryModeDescription();
-  [selfCopy appendFormat:@"  discoveryMode = %@\n", v5];
+  v4 = MRMediaRemoteCopyRouteDiscoveryModeDescription();
+  [selfCopy appendFormat:@"  discoveryMode = %@\n", v4];
 
   devices = [(IDSService *)selfCopy->_idsService devices];
-  v7 = MRCreateIndentedDebugDescriptionFromArray();
-  [selfCopy appendFormat:@"  idsService = %@\n", v7];
+  v6 = MRCreateIndentedDebugDescriptionFromArray();
+  [selfCopy appendFormat:@"  idsService = %@\n", v6];
 
   availableOutputDevices = [(MRDIDSDiscoverySession *)selfCopy availableOutputDevices];
-  v9 = MRCreateIndentedDebugDescriptionFromArray();
-  [selfCopy appendFormat:@"  outputDevices = %@\n", v9];
+  v8 = MRCreateIndentedDebugDescriptionFromArray();
+  [selfCopy appendFormat:@"  outputDevices = %@\n", v8];
 
   [selfCopy appendString:@"}>"];
   objc_sync_exit(selfCopy);

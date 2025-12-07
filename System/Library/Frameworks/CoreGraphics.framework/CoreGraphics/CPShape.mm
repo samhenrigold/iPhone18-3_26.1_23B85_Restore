@@ -92,7 +92,7 @@
   {
     if (shape)
     {
-      [shape paintTransform];
+      objc_msgSend_paintTransform(shape);
     }
 
     else
@@ -134,7 +134,7 @@ LABEL_9:
     p_paintTransform = &self->paintTransform;
     if (with)
     {
-      [with paintTransform];
+      objc_msgSend_paintTransform(with);
       v8 = v10[0].f64[0];
     }
 
@@ -163,7 +163,7 @@ LABEL_11:
 - (BOOL)isVisible
 {
   fillColor = self->fillColor;
-  result = fillColor && ((fillColor & 0x8000000000000000) == 0 ? (Alpha = *(fillColor + 8 * *(fillColor + 56) + 64)) : (Alpha = CGTaggedColorGetAlpha(fillColor, a2, v2, v3, v4, v5, v6, v7)), Alpha > 0.0) || (strokeColor = self->strokeColor) != 0 && ((strokeColor & 0x8000000000000000) == 0 ? (v12 = *(strokeColor + 8 * *(strokeColor + 56) + 64)) : (v12 = CGTaggedColorGetAlpha(strokeColor, a2, v2, v3, v4, v5, v6, v7)), v12 > 0.0) || self->fillObject || self->strokeObject != 0;
+  result = fillColor && ((fillColor & 0x8000000000000000) == 0 ? (Alpha = *(fillColor + 8 * *(fillColor + 56) + 64)) : (Alpha = CGTaggedColorGetAlpha(fillColor)), Alpha > 0.0) || (strokeColor = self->strokeColor) != 0 && ((strokeColor & 0x8000000000000000) == 0 ? (v6 = *(strokeColor + 8 * *(strokeColor + 56) + 64)) : (v6 = CGTaggedColorGetAlpha(strokeColor)), v6 > 0.0) || self->fillObject || self->strokeObject != 0;
   return result;
 }
 

@@ -50,9 +50,7 @@
     setupBlock = self->_setupBlock;
     if (setupBlock)
     {
-      v4 = setupBlock[2](setupBlock, a2);
-      instanceObject = self->_instanceObject;
-      self->_instanceObject = v4;
+      self->_instanceObject = setupBlock[2](setupBlock, a2);
 
       MEMORY[0x1EEE66BB8]();
     }

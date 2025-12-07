@@ -86,25 +86,7 @@
     notification2 = [(CALNNotificationResponse *)responseCopy notification];
     v7 = CalEqualObjects();
 
-    if (!v7)
-    {
-      goto LABEL_6;
-    }
-
-    actionIdentifier = [(CALNNotificationResponse *)self actionIdentifier];
-    actionIdentifier2 = [(CALNNotificationResponse *)responseCopy actionIdentifier];
-    v10 = CalEqualStrings();
-
-    if (!v10)
-    {
-      goto LABEL_6;
-    }
-
-    originIdentifier = [(CALNNotificationResponse *)self originIdentifier];
-    originIdentifier2 = [(CALNNotificationResponse *)responseCopy originIdentifier];
-    v13 = CalEqualStrings();
-
-    if (v13)
+    if (v7 && ([(CALNNotificationResponse *)self actionIdentifier], v8 = objc_claimAutoreleasedReturnValue(), [(CALNNotificationResponse *)responseCopy actionIdentifier], v9 = objc_claimAutoreleasedReturnValue(), v10 = CalEqualStrings(), v9, v8, v10) && ([(CALNNotificationResponse *)self originIdentifier], v11 = objc_claimAutoreleasedReturnValue(), [(CALNNotificationResponse *)responseCopy originIdentifier], v12 = objc_claimAutoreleasedReturnValue(), v13 = CalEqualStrings(), v12, v11, v13))
     {
       targetConnectionEndpoint = [(CALNNotificationResponse *)self targetConnectionEndpoint];
       targetConnectionEndpoint2 = [(CALNNotificationResponse *)responseCopy targetConnectionEndpoint];
@@ -113,7 +95,6 @@
 
     else
     {
-LABEL_6:
       v16 = 0;
     }
   }

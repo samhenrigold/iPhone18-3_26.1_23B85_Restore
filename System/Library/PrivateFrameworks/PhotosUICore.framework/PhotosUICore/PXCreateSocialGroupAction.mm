@@ -8,7 +8,7 @@
 
 - (NSString)localizedActionName
 {
-  sub_1A3C38BD4();
+  sub_1A3C38BD4(0xD000000000000024);
   v2 = sub_1A524C634();
 
   return v2;

@@ -26,13 +26,13 @@
 
 - (PLXPCResponderOperatorComposition)initWithWorkQueue:(id)queue withRegistration:(id)registration withBlock:(id)block
 {
-  v21[2] = *MEMORY[0x1E69E9840];
+  v20[2] = *MEMORY[0x1E69E9840];
   queueCopy = queue;
   registrationCopy = registration;
   blockCopy = block;
-  v19.receiver = self;
-  v19.super_class = PLXPCResponderOperatorComposition;
-  v12 = [(PLXPCResponderOperatorComposition *)&v19 init];
+  v18.receiver = self;
+  v18.super_class = PLXPCResponderOperatorComposition;
+  v12 = [(PLXPCResponderOperatorComposition *)&v18 init];
   v13 = v12;
   if (v12)
   {
@@ -42,15 +42,14 @@
     v13->_operatorBlock = v14;
 
     objc_storeStrong(&v13->_registration, registration);
-    v20[0] = @"type";
-    v20[1] = @"registration";
-    v21[0] = @"Query";
-    v21[1] = registrationCopy;
-    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:2];
+    v19[0] = @"type";
+    v19[1] = @"registration";
+    v20[0] = @"Query";
+    v20[1] = registrationCopy;
+    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:2];
     [PLUtilities postNotificationName:@"register.PLXPCService" object:v13 userInfo:v16];
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v13;
 }
 

@@ -72,7 +72,7 @@
     swift_task_reportUnexpectedExecutor();
   }
 
-  type metadata accessor for UIViewController(0, &lazy cache variable for type metadata for UIViewController);
+  type metadata accessor for UIViewController(0, &lazy cache variable for type metadata for UIViewController, 0x1E69DD258);
   v6 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   controllerCopy = controller;
   selfCopy = self;

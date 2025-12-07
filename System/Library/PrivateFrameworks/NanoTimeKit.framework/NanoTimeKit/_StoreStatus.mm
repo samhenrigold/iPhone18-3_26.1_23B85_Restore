@@ -2,6 +2,7 @@
 - (BOOL)needsResetSync;
 - (_StoreStatus)initWithPersistencePath:(id)path;
 - (void)_persistStatus;
+- (void)setNeedsResetSync:(BOOL)sync;
 - (void)setSeqId:(id)id;
 @end
 
@@ -46,6 +47,15 @@
   bOOLValue = [v2 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setNeedsResetSync:(BOOL)sync
+{
+  status = self->_status;
+  v5 = [NSNumber numberWithBool:sync];
+  [(NSMutableDictionary *)status setObject:v5 forKey:@"needs-reset-sync"];
+
+  [(_StoreStatus *)self _persistStatus];
 }
 
 - (void)setSeqId:(id)id

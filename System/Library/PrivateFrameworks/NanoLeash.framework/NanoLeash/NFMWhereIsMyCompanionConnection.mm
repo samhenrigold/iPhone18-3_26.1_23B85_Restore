@@ -10,6 +10,8 @@
 - (void)playNearbySoundOnPhone;
 - (void)playSoundAndLightsOnCompanionWithCompletion:(id)completion;
 - (void)playSoundOnCompanionWithCompletion:(id)completion;
+- (void)playedSound:(BOOL)sound;
+- (void)playedSoundAndLED:(BOOL)d;
 - (void)setPlaySoundAndLEDCompletion:(void *)completion;
 - (void)setPlaySoundCompletion:(void *)completion;
 - (void)setServerConnection:(uint64_t)connection;
@@ -56,7 +58,7 @@ uint64_t __57__NFMWhereIsMyCompanionConnection_sharedDeviceConnection__block_inv
 - (id)serverConnection
 {
   selfCopy = self;
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if (self)
   {
     v2 = self[1];
@@ -81,46 +83,43 @@ uint64_t __57__NFMWhereIsMyCompanionConnection_sharedDeviceConnection__block_inv
       [v8 setExportedInterface:v9];
 
       [selfCopy[1] setExportedObject:selfCopy];
-      [selfCopy[1] resume];
-      v10 = nfm_log();
+      v10 = nfm_log([selfCopy[1] resume]);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v23 = NFMFindLocalDeviceServerName;
-        v24 = 2080;
-        v25 = "[NFMWhereIsMyCompanionConnection serverConnection]";
+        v22 = NFMFindLocalDeviceServerName;
+        v23 = 2080;
+        v24 = "[NFMWhereIsMyCompanionConnection serverConnection]";
         _os_log_impl(&dword_25B17F000, v10, OS_LOG_TYPE_DEFAULT, "########### XPC Connection created: %@ at %s", buf, 0x16u);
       }
 
       objc_initWeak(buf, selfCopy);
       objc_initWeak(&location, selfCopy[1]);
       v11 = selfCopy[1];
-      v18[0] = MEMORY[0x277D85DD0];
-      v18[1] = 3221225472;
-      v18[2] = __51__NFMWhereIsMyCompanionConnection_serverConnection__block_invoke;
-      v18[3] = &unk_279933840;
-      objc_copyWeak(&v19, buf);
-      objc_copyWeak(&v20, &location);
-      [v11 setInterruptionHandler:v18];
+      v17[0] = MEMORY[0x277D85DD0];
+      v17[1] = 3221225472;
+      v17[2] = __51__NFMWhereIsMyCompanionConnection_serverConnection__block_invoke;
+      v17[3] = &unk_279933840;
+      objc_copyWeak(&v18, buf);
+      objc_copyWeak(&v19, &location);
+      [v11 setInterruptionHandler:v17];
       v12 = selfCopy[1];
-      v15[0] = MEMORY[0x277D85DD0];
-      v15[1] = 3221225472;
-      v15[2] = __51__NFMWhereIsMyCompanionConnection_serverConnection__block_invoke_60;
-      v15[3] = &unk_279933840;
-      objc_copyWeak(&v16, buf);
-      objc_copyWeak(&v17, &location);
-      [v12 setInvalidationHandler:v15];
+      v14[0] = MEMORY[0x277D85DD0];
+      v14[1] = 3221225472;
+      v14[2] = __51__NFMWhereIsMyCompanionConnection_serverConnection__block_invoke_60;
+      v14[3] = &unk_279933840;
+      objc_copyWeak(&v15, buf);
+      objc_copyWeak(&v16, &location);
+      [v12 setInvalidationHandler:v14];
       selfCopy = selfCopy[1];
-      objc_destroyWeak(&v17);
       objc_destroyWeak(&v16);
-      objc_destroyWeak(&v20);
+      objc_destroyWeak(&v15);
       objc_destroyWeak(&v19);
+      objc_destroyWeak(&v18);
       objc_destroyWeak(&location);
       objc_destroyWeak(buf);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return selfCopy;
 }
@@ -135,46 +134,42 @@ uint64_t __57__NFMWhereIsMyCompanionConnection_sharedDeviceConnection__block_inv
 
 void __51__NFMWhereIsMyCompanionConnection_serverConnection__block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = objc_loadWeakRetained((a1 + 40));
   v4 = v3;
   if (WeakRetained && v3)
   {
-    [WeakRetained _cleanUpServerConnection:v3];
+    v3 = [WeakRetained _cleanUpServerConnection:v3];
   }
 
-  v5 = nfm_log();
+  v5 = nfm_log(v3);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = NFMFindLocalDeviceServerName;
-    _os_log_impl(&dword_25B17F000, v5, OS_LOG_TYPE_DEFAULT, "########### XPC Connection interrupted: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = NFMFindLocalDeviceServerName;
+    _os_log_impl(&dword_25B17F000, v5, OS_LOG_TYPE_DEFAULT, "########### XPC Connection interrupted: %@", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __51__NFMWhereIsMyCompanionConnection_serverConnection__block_invoke_60(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = objc_loadWeakRetained((a1 + 40));
   v4 = v3;
   if (WeakRetained && v3)
   {
-    [WeakRetained _cleanUpServerConnection:v3];
+    v3 = [WeakRetained _cleanUpServerConnection:v3];
   }
 
-  v5 = nfm_log();
+  v5 = nfm_log(v3);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = NFMFindLocalDeviceServerName;
-    _os_log_impl(&dword_25B17F000, v5, OS_LOG_TYPE_DEFAULT, "########### XPC Connection invalidated: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = NFMFindLocalDeviceServerName;
+    _os_log_impl(&dword_25B17F000, v5, OS_LOG_TYPE_DEFAULT, "########### XPC Connection invalidated: %@", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_cleanUpServerConnection:(id)connection
@@ -187,7 +182,7 @@ void __51__NFMWhereIsMyCompanionConnection_serverConnection__block_invoke_60(uin
 - (void)playSoundOnCompanionWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = nfm_log();
+  v5 = nfm_log(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v10 = 0;
@@ -206,7 +201,7 @@ void __51__NFMWhereIsMyCompanionConnection_serverConnection__block_invoke_60(uin
 - (void)playSoundAndLightsOnCompanionWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = nfm_log();
+  v5 = nfm_log(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v10 = 0;
@@ -222,9 +217,51 @@ void __51__NFMWhereIsMyCompanionConnection_serverConnection__block_invoke_60(uin
   [remoteObjectProxy playSoundAndFlashRemotely];
 }
 
+- (void)playedSound:(BOOL)sound
+{
+  soundCopy = sound;
+  v9 = *MEMORY[0x277D85DE8];
+  v5 = nfm_log(self);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v8[0] = 67109120;
+    v8[1] = soundCopy;
+    _os_log_impl(&dword_25B17F000, v5, OS_LOG_TYPE_DEFAULT, "########### Played Sound: %{BOOL}d", v8, 8u);
+  }
+
+  playSoundCompletion = self->_playSoundCompletion;
+  if (playSoundCompletion)
+  {
+    playSoundCompletion[2](playSoundCompletion, soundCopy);
+    v7 = self->_playSoundCompletion;
+    self->_playSoundCompletion = 0;
+  }
+}
+
+- (void)playedSoundAndLED:(BOOL)d
+{
+  dCopy = d;
+  v9 = *MEMORY[0x277D85DE8];
+  v5 = nfm_log(self);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v8[0] = 67109120;
+    v8[1] = dCopy;
+    _os_log_impl(&dword_25B17F000, v5, OS_LOG_TYPE_DEFAULT, "########### Played Light and Sound: %{BOOL}d", v8, 8u);
+  }
+
+  playSoundAndLEDCompletion = self->_playSoundAndLEDCompletion;
+  if (playSoundAndLEDCompletion)
+  {
+    playSoundAndLEDCompletion[2](playSoundAndLEDCompletion, dCopy);
+    v7 = self->_playSoundAndLEDCompletion;
+    self->_playSoundAndLEDCompletion = 0;
+  }
+}
+
 - (void)startRangingOnPhone
 {
-  v3 = nfm_log();
+  v3 = nfm_log(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -238,7 +275,7 @@ void __51__NFMWhereIsMyCompanionConnection_serverConnection__block_invoke_60(uin
 
 - (void)stopRangingOnPhone
 {
-  v3 = nfm_log();
+  v3 = nfm_log(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -252,7 +289,7 @@ void __51__NFMWhereIsMyCompanionConnection_serverConnection__block_invoke_60(uin
 
 - (void)playNearbySoundOnPhone
 {
-  v3 = nfm_log();
+  v3 = nfm_log(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;

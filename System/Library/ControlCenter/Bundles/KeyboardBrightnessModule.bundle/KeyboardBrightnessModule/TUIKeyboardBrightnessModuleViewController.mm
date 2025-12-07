@@ -6,8 +6,12 @@
 - (void)dealloc;
 - (void)sliderEditingDidEnd:(id)end;
 - (void)sliderValueDidChange:(id)change;
+- (void)suspendIdleDimming:(BOOL)dimming;
 - (void)updateControls;
+- (void)updateControlsForValue:(float)value animated:(BOOL)animated;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 - (void)viewWillLayoutSubviews;
 @end
 
@@ -68,6 +72,22 @@
   objc_destroyWeak(&location);
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v7.receiver = self;
+  v7.super_class = TUIKeyboardBrightnessModuleViewController;
+  [(TUIKeyboardBrightnessModuleViewController *)&v7 viewWillAppear:appear];
+  objc_msgSend_suspendIdleDimming_(self, v4, 1, v5, v6);
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v7.receiver = self;
+  v7.super_class = TUIKeyboardBrightnessModuleViewController;
+  [(TUIKeyboardBrightnessModuleViewController *)&v7 viewDidDisappear:disappear];
+  objc_msgSend_suspendIdleDimming_(self, v4, 0, v5, v6);
+}
+
 - (void)viewWillLayoutSubviews
 {
   v7.receiver = self;
@@ -95,6 +115,18 @@
   return v17;
 }
 
+- (void)suspendIdleDimming:(BOOL)dimming
+{
+  dimmingCopy = dimming;
+  if (objc_opt_respondsToSelector())
+  {
+    keyboardBrightnessClient = self->_keyboardBrightnessClient;
+    v7 = *MEMORY[0x29EDC0DB8];
+
+    MEMORY[0x2A1C70FE8](keyboardBrightnessClient, sel_suspendIdleDimming_forKeyboard_, dimmingCopy, v7, v5);
+  }
+}
+
 - (void)sliderValueDidChange:(id)change
 {
   keyboardBrightnessClient = self->_keyboardBrightnessClient;
@@ -118,6 +150,36 @@
   objc_msgSend_brightnessForKeyboard_(self->_keyboardBrightnessClient, a2, *MEMORY[0x29EDC0DB8], v2, v3);
 
   objc_msgSend_updateControlsForValue_animated_(self, v5, 0, v6, v7);
+}
+
+- (void)updateControlsForValue:(float)value animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  isHardwareKeyboardAvailable = objc_msgSend_isHardwareKeyboardAvailable(self, a2, animated, v4, v5);
+  v14 = objc_msgSend_buttonView(self, v10, v11, v12, v13);
+  objc_msgSend_setEnabled_(v14, v15, isHardwareKeyboardAvailable, v16, v17);
+
+  if (isHardwareKeyboardAvailable)
+  {
+    v46 = objc_msgSend_sliderView(self, v18, v19, v20, v21);
+    isBacklightSaturatedOnKeyboard = objc_msgSend_isBacklightSaturatedOnKeyboard_(self->_keyboardBrightnessClient, v22, *MEMORY[0x29EDC0DB8], v23, v24);
+    objc_msgSend_setInoperative_(v46, v26, isBacklightSaturatedOnKeyboard, v27, v28);
+    *&v29 = value;
+    objc_msgSend_setValue_animated_(v46, v30, animatedCopy, v31, v32, v29);
+    objc_msgSend_setSelected_(self, v33, value > 0.0, v34, v35);
+  }
+
+  else
+  {
+    objc_msgSend_setSelected_(self, v18, 0, v20, v21);
+    if (!objc_msgSend_isExpanded(self, v36, v37, v38, v39))
+    {
+      return;
+    }
+
+    v46 = objc_msgSend_presentingViewController(self, v40, v41, v42, v43);
+    objc_msgSend_dismissViewControllerAnimated_completion_(v46, v44, 1, 0, v45);
+  }
 }
 
 - (BOOL)isHardwareKeyboardAvailable

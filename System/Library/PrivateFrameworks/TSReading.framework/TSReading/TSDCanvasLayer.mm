@@ -327,19 +327,19 @@ LABEL_5:
 - (CGRect)p_boundsRect
 {
   TSDMultiplySizeScalar(self->mUnscaledSize.width, self->mUnscaledSize.height, self->mViewScale);
-  v3 = TSDRectWithSize();
+  v4 = TSDRectWithSize();
   top = self->mContentInset.top;
   left = self->mContentInset.left;
-  v6 = v3 + left;
-  v8 = v7 + top;
-  v10 = v9 - (left + self->mContentInset.right);
-  v12 = v11 - (top + self->mContentInset.bottom);
+  v7 = v4 + left;
+  v9 = v8 + top;
+  v11 = v10 - (left + self->mContentInset.right);
+  v13 = v12 - (top + self->mContentInset.bottom);
 
-  v13 = TSDRoundedRectForMainScreen(v6, v8, v10, v12);
-  result.size.height = v16;
-  result.size.width = v15;
-  result.origin.y = v14;
-  result.origin.x = v13;
+  v14 = TSDRoundedRectForMainScreen(v3, v7, v9, v11, v13);
+  result.size.height = v17;
+  result.size.width = v16;
+  result.origin.y = v15;
+  result.origin.x = v14;
   return result;
 }
 
@@ -703,7 +703,7 @@ LABEL_5:
     v87 = v68;
     selfCopy2 = self;
     blockCopy = block;
-    [(TSDCanvasLayer *)self affineTransform];
+    objc_msgSend_affineTransform(self);
     t1 = v97;
     if (CGAffineTransformEqualToTransform(&v95, &t1))
     {
@@ -839,21 +839,27 @@ uint64_t __99__TSDCanvasLayer_animateToViewScale_contentCenter_contentInset_dura
   if (!enclosingScrollView)
   {
 LABEL_11:
-    v10 = 1;
+    v16 = *MEMORY[0x277CBF348];
+    v18 = *(MEMORY[0x277CBF348] + 8);
+    v14 = 1;
     goto LABEL_12;
   }
 
   [(TSKScrollView *)enclosingScrollView contentOffset];
+  v11 = v10;
+  v13 = v12;
   [(TSKScrollView *)v9 contentSize];
-  v10 = 0;
+  v14 = 0;
+  v16 = v11 / v15;
+  v18 = v13 / v17;
 LABEL_12:
   [(TSDCanvasLayer *)self p_setViewScale:scale];
   [(TSDCanvasLayer *)self p_setEnclosingScrollViewZoomParameters];
   [(TSDCanvasLayer *)self fixFrameAndScrollView];
-  if ((v10 & 1) == 0)
+  if ((v14 & 1) == 0)
   {
-    [(TSKScrollView *)v9 contentSize];
-    [(TSKScrollView *)v9 setContentOffset:0 animated:TSDRoundedPoint()];
+    contentSize = [(TSKScrollView *)v9 contentSize];
+    [(TSKScrollView *)v9 setContentOffset:0 animated:TSDRoundedPoint(contentSize, v16 * v20, v18 * v21)];
   }
 
   mController = self->mController;
@@ -882,10 +888,10 @@ LABEL_12:
   p_mUnscaledSize = &self->mUnscaledSize;
   if (self->mUnscaledSize.width == *MEMORY[0x277CBF3A8] && self->mUnscaledSize.height == *(MEMORY[0x277CBF3A8] + 8))
   {
-    v35 = *(MEMORY[0x277CBF3A0] + 16);
-    v36 = *(MEMORY[0x277CBF3A0] + 24);
-    v37 = *MEMORY[0x277CBF3A0];
-    v38 = *(MEMORY[0x277CBF3A0] + 8);
+    v36 = *(MEMORY[0x277CBF3A0] + 16);
+    v37 = *(MEMORY[0x277CBF3A0] + 24);
+    v38 = *MEMORY[0x277CBF3A0];
+    v39 = *(MEMORY[0x277CBF3A0] + 8);
   }
 
   else
@@ -931,17 +937,19 @@ LABEL_12:
       else
       {
         v34 = v31;
-        if ([(TSDCanvasLayer *)self horizontallyCenteredInScrollView])
+        horizontallyCenteredInScrollView = [(TSDCanvasLayer *)self horizontallyCenteredInScrollView];
+        if (horizontallyCenteredInScrollView)
         {
-          v22 = TSDFloorForScale(v22 + v34 * -0.5, v30);
+          v22 = TSDFloorForScale(horizontallyCenteredInScrollView, v22 + v34 * -0.5, v30);
         }
       }
 
       if (v33 > 0.0)
       {
-        if ([(TSDCanvasLayer *)self verticallyCenteredInScrollView])
+        verticallyCenteredInScrollView = [(TSDCanvasLayer *)self verticallyCenteredInScrollView];
+        if (verticallyCenteredInScrollView)
         {
-          v24 = TSDFloorForScale(v24 + v33 * -0.5, v30);
+          v24 = TSDFloorForScale(verticallyCenteredInScrollView, v24 + v33 * -0.5, v30);
         }
 
         v28 = height;
@@ -954,16 +962,16 @@ LABEL_12:
     }
 
     [(TSDCanvas *)[(TSDInteractiveCanvasController *)self->mController canvas] contentsScale];
-    v37 = TSDRoundedRectForScale(v22, v24, width, v28, v39);
+    v38 = TSDRoundedRectForScale(v22, v24, width, v28, v40);
   }
 
   mController = self->mController;
 
-  [(TSDInteractiveCanvasController *)mController canvasViewBoundsWithBounds:v37, v38, v35, v36, inset.left, inset.bottom, inset.right];
-  result.size.height = v44;
-  result.size.width = v43;
-  result.origin.y = v42;
-  result.origin.x = v41;
+  [(TSDInteractiveCanvasController *)mController canvasViewBoundsWithBounds:v38, v39, v36, v37, inset.left, inset.bottom, inset.right];
+  result.size.height = v45;
+  result.size.width = v44;
+  result.origin.y = v43;
+  result.origin.x = v42;
   return result;
 }
 

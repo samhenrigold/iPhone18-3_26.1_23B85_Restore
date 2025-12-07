@@ -52,9 +52,10 @@
 
 - (id)buttonSpringLoadedInteractionEffect
 {
-  v2 = [objc_allocWithZone(type metadata accessor for ButtonBarButtonVisualProvider.SpringLoadedBlinkingEffect()) init];
+  type metadata accessor for ButtonBarButtonVisualProvider.SpringLoadedBlinkingEffect();
+  v3 = [objc_allocWithZone(v2) init];
 
-  return v2;
+  return v3;
 }
 
 - (void)updateButton:(id)button forEnabledState:(BOOL)state

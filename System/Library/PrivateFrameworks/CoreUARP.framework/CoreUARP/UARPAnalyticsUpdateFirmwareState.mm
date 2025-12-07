@@ -45,15 +45,15 @@
 
 - (void)stagingStartedWithUserIntent:(BOOL)intent
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   log = self->_log;
   if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
   {
-    v9 = 136315394;
-    v10 = "[UARPAnalyticsUpdateFirmwareState stagingStartedWithUserIntent:]";
-    v11 = 2112;
+    v8 = 136315394;
+    v9 = "[UARPAnalyticsUpdateFirmwareState stagingStartedWithUserIntent:]";
+    v10 = 2112;
     selfCopy = self;
-    _os_log_impl(&dword_247AA7000, log, OS_LOG_TYPE_INFO, "%s: %@", &v9, 0x16u);
+    _os_log_impl(&dword_247AA7000, log, OS_LOG_TYPE_INFO, "%s: %@", &v8, 0x16u);
   }
 
   if ((self->_state | 2) == 2)
@@ -69,35 +69,39 @@
 
   else if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
   {
-    [UARPAnalyticsUpdateFirmwareState stagingStartedWithUserIntent:?];
+    [UARPAnalyticsUpdateFirmwareState stagingStartedWithUserIntent:];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stagingInterrupted
 {
-  OUTLINED_FUNCTION_0_1(self, *MEMORY[0x277D85DE8]);
-  if (!(!v9 & v8))
+  OUTLINED_FUNCTION_0_1(*MEMORY[0x277D85DE8]);
+  if (!v8 & v7)
   {
-    v10 = off_278EC1898[v7];
+    v9 = "unrecognized";
   }
 
-  OUTLINED_FUNCTION_0_0(&dword_247AA7000, v1, v2, "Staging interrupted while in an unexpected state: %s", v3, v4, v5, v6, 2u);
-  v11 = *MEMORY[0x277D85DE8];
+  else
+  {
+    v9 = off_278EC1898[v6];
+  }
+
+  LODWORD(v10) = 136315138;
+  *(&v10 + 4) = v9;
+  OUTLINED_FUNCTION_0_0(&dword_247AA7000, v0, v1, "Staging interrupted while in an unexpected state: %s", v2, v3, v4, v5, v10, DWORD2(v10));
 }
 
 - (void)stagingCompleteWithStatus:(unint64_t)status
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   log = self->_log;
   if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
   {
-    v10 = 136315394;
-    v11 = "[UARPAnalyticsUpdateFirmwareState stagingCompleteWithStatus:]";
-    v12 = 2112;
+    v9 = 136315394;
+    v10 = "[UARPAnalyticsUpdateFirmwareState stagingCompleteWithStatus:]";
+    v11 = 2112;
     selfCopy = self;
-    _os_log_impl(&dword_247AA7000, log, OS_LOG_TYPE_INFO, "%s: %@", &v10, 0x16u);
+    _os_log_impl(&dword_247AA7000, log, OS_LOG_TYPE_INFO, "%s: %@", &v9, 0x16u);
   }
 
   if (self->_state == 1)
@@ -121,10 +125,8 @@
 
   else if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
   {
-    [UARPAnalyticsUpdateFirmwareState stagingCompleteWithStatus:?];
+    [UARPAnalyticsUpdateFirmwareState stagingCompleteWithStatus:];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateStagingDuration
@@ -148,7 +150,7 @@
 
 - (void)setState:(int64_t)state
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   state = self->_state;
   if (state > 3)
   {
@@ -173,17 +175,16 @@
   log = self->_log;
   if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
   {
-    v10 = 138412802;
+    v9 = 138412802;
     selfCopy = self;
-    v12 = 2080;
-    v13 = v6;
-    v14 = 2080;
-    v15 = v7;
-    _os_log_impl(&dword_247AA7000, log, OS_LOG_TYPE_INFO, "%@ state change: %s -> %s", &v10, 0x20u);
+    v11 = 2080;
+    v12 = v6;
+    v13 = 2080;
+    v14 = v7;
+    _os_log_impl(&dword_247AA7000, log, OS_LOG_TYPE_INFO, "%@ state change: %s -> %s", &v9, 0x20u);
   }
 
   self->_state = state;
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)age
@@ -265,28 +266,40 @@
   return v11;
 }
 
-- (void)stagingStartedWithUserIntent:(uint64_t *)a1 .cold.1(uint64_t *a1)
+- (void)stagingStartedWithUserIntent:.cold.1()
 {
-  OUTLINED_FUNCTION_0_1(a1, *MEMORY[0x277D85DE8]);
-  if (!(!v9 & v8))
+  OUTLINED_FUNCTION_0_1(*MEMORY[0x277D85DE8]);
+  if (!v8 & v7)
   {
-    v10 = off_278EC1898[v7];
+    v9 = "unrecognized";
   }
 
-  OUTLINED_FUNCTION_0_0(&dword_247AA7000, v1, v2, "Staging started while in an unexpected state: %s", v3, v4, v5, v6, 2u);
-  v11 = *MEMORY[0x277D85DE8];
+  else
+  {
+    v9 = off_278EC1898[v6];
+  }
+
+  LODWORD(v10) = 136315138;
+  *(&v10 + 4) = v9;
+  OUTLINED_FUNCTION_0_0(&dword_247AA7000, v0, v1, "Staging started while in an unexpected state: %s", v2, v3, v4, v5, v10, DWORD2(v10));
 }
 
-- (void)stagingCompleteWithStatus:(uint64_t *)a1 .cold.1(uint64_t *a1)
+- (void)stagingCompleteWithStatus:.cold.1()
 {
-  OUTLINED_FUNCTION_0_1(a1, *MEMORY[0x277D85DE8]);
-  if (!(!v9 & v8))
+  OUTLINED_FUNCTION_0_1(*MEMORY[0x277D85DE8]);
+  if (!v8 & v7)
   {
-    v10 = off_278EC1898[v7];
+    v9 = "unrecognized";
   }
 
-  OUTLINED_FUNCTION_0_0(&dword_247AA7000, v1, v2, "Staging completed while in unexpected state: %s", v3, v4, v5, v6, 2u);
-  v11 = *MEMORY[0x277D85DE8];
+  else
+  {
+    v9 = off_278EC1898[v6];
+  }
+
+  LODWORD(v10) = 136315138;
+  *(&v10 + 4) = v9;
+  OUTLINED_FUNCTION_0_0(&dword_247AA7000, v0, v1, "Staging completed while in unexpected state: %s", v2, v3, v4, v5, v10, DWORD2(v10));
 }
 
 @end

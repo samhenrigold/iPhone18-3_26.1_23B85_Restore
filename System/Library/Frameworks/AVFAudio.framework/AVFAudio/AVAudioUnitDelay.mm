@@ -14,81 +14,10 @@
 
 - (float)lowPassCutoff
 {
-  AVAudioNodeImplBase::GetAttachAndEngineLock(&v6, [(AVAudioNode *)self impl]);
+  v3 = objc_msgSend_impl(self, a2);
+  AVAudioNodeImplBase::GetAttachAndEngineLock(&v7, v3);
   [(AVAudioUnit *)self valueForParam:3];
-  v4 = v3;
-  if (v9 == 1)
-  {
-    std::recursive_mutex::unlock(v8);
-  }
-
-  if (v7 == 1)
-  {
-    std::recursive_mutex::unlock(v6);
-  }
-
-  return v4;
-}
-
-- (float)feedback
-{
-  AVAudioNodeImplBase::GetAttachAndEngineLock(&v6, [(AVAudioNode *)self impl]);
-  [(AVAudioUnit *)self valueForParam:2];
-  v4 = v3;
-  if (v9 == 1)
-  {
-    std::recursive_mutex::unlock(v8);
-  }
-
-  if (v7 == 1)
-  {
-    std::recursive_mutex::unlock(v6);
-  }
-
-  return v4;
-}
-
-- (NSTimeInterval)delayTime
-{
-  AVAudioNodeImplBase::GetAttachAndEngineLock(&v6, [(AVAudioNode *)self impl]);
-  [(AVAudioUnit *)self valueForParam:1];
-  v4 = v3;
-  if (v9 == 1)
-  {
-    std::recursive_mutex::unlock(v8);
-  }
-
-  if (v7 == 1)
-  {
-    std::recursive_mutex::unlock(v6);
-  }
-
-  return v4;
-}
-
-- (float)wetDryMix
-{
-  AVAudioNodeImplBase::GetAttachAndEngineLock(&v6, [(AVAudioNode *)self impl]);
-  [(AVAudioUnit *)self valueForParam:0];
-  v4 = v3;
-  if (v9 == 1)
-  {
-    std::recursive_mutex::unlock(v8);
-  }
-
-  if (v7 == 1)
-  {
-    std::recursive_mutex::unlock(v6);
-  }
-
-  return v4;
-}
-
-- (void)setLowPassCutoff:(float)lowPassCutoff
-{
-  AVAudioNodeImplBase::GetAttachAndEngineLock(&v7, [(AVAudioNode *)self impl]);
-  *&v5 = lowPassCutoff;
-  [(AVAudioUnit *)self setValue:3 forParam:v5];
+  v5 = v4;
   if (v10 == 1)
   {
     std::recursive_mutex::unlock(v9);
@@ -96,63 +25,142 @@
 
   if (v8 == 1)
   {
-    v6 = v7;
+    std::recursive_mutex::unlock(v7);
+  }
 
-    std::recursive_mutex::unlock(v6);
+  return v5;
+}
+
+- (float)feedback
+{
+  v3 = objc_msgSend_impl(self, a2);
+  AVAudioNodeImplBase::GetAttachAndEngineLock(&v7, v3);
+  [(AVAudioUnit *)self valueForParam:2];
+  v5 = v4;
+  if (v10 == 1)
+  {
+    std::recursive_mutex::unlock(v9);
+  }
+
+  if (v8 == 1)
+  {
+    std::recursive_mutex::unlock(v7);
+  }
+
+  return v5;
+}
+
+- (NSTimeInterval)delayTime
+{
+  v3 = objc_msgSend_impl(self, a2);
+  AVAudioNodeImplBase::GetAttachAndEngineLock(&v7, v3);
+  [(AVAudioUnit *)self valueForParam:1];
+  v5 = v4;
+  if (v10 == 1)
+  {
+    std::recursive_mutex::unlock(v9);
+  }
+
+  if (v8 == 1)
+  {
+    std::recursive_mutex::unlock(v7);
+  }
+
+  return v5;
+}
+
+- (float)wetDryMix
+{
+  v3 = objc_msgSend_impl(self, a2);
+  AVAudioNodeImplBase::GetAttachAndEngineLock(&v7, v3);
+  [(AVAudioUnit *)self valueForParam:0];
+  v5 = v4;
+  if (v10 == 1)
+  {
+    std::recursive_mutex::unlock(v9);
+  }
+
+  if (v8 == 1)
+  {
+    std::recursive_mutex::unlock(v7);
+  }
+
+  return v5;
+}
+
+- (void)setLowPassCutoff:(float)lowPassCutoff
+{
+  v5 = objc_msgSend_impl(self, a2);
+  AVAudioNodeImplBase::GetAttachAndEngineLock(&v8, v5);
+  *&v6 = lowPassCutoff;
+  [(AVAudioUnit *)self setValue:3 forParam:v6];
+  if (v11 == 1)
+  {
+    std::recursive_mutex::unlock(v10);
+  }
+
+  if (v9 == 1)
+  {
+    v7 = v8;
+
+    std::recursive_mutex::unlock(v7);
   }
 }
 
 - (void)setFeedback:(float)feedback
 {
-  AVAudioNodeImplBase::GetAttachAndEngineLock(&v7, [(AVAudioNode *)self impl]);
-  *&v5 = feedback;
-  [(AVAudioUnit *)self setValue:2 forParam:v5];
-  if (v10 == 1)
+  v5 = objc_msgSend_impl(self, a2);
+  AVAudioNodeImplBase::GetAttachAndEngineLock(&v8, v5);
+  *&v6 = feedback;
+  [(AVAudioUnit *)self setValue:2 forParam:v6];
+  if (v11 == 1)
   {
-    std::recursive_mutex::unlock(v9);
+    std::recursive_mutex::unlock(v10);
   }
 
-  if (v8 == 1)
+  if (v9 == 1)
   {
-    v6 = v7;
+    v7 = v8;
 
-    std::recursive_mutex::unlock(v6);
+    std::recursive_mutex::unlock(v7);
   }
 }
 
 - (void)setDelayTime:(NSTimeInterval)delayTime
 {
-  AVAudioNodeImplBase::GetAttachAndEngineLock(&v7, [(AVAudioNode *)self impl]);
-  *&v5 = delayTime;
-  [(AVAudioUnit *)self setValue:1 forParam:v5];
-  if (v10 == 1)
+  v5 = objc_msgSend_impl(self, a2);
+  AVAudioNodeImplBase::GetAttachAndEngineLock(&v8, v5);
+  *&v6 = delayTime;
+  [(AVAudioUnit *)self setValue:1 forParam:v6];
+  if (v11 == 1)
   {
-    std::recursive_mutex::unlock(v9);
+    std::recursive_mutex::unlock(v10);
   }
 
-  if (v8 == 1)
+  if (v9 == 1)
   {
-    v6 = v7;
+    v7 = v8;
 
-    std::recursive_mutex::unlock(v6);
+    std::recursive_mutex::unlock(v7);
   }
 }
 
 - (void)setWetDryMix:(float)wetDryMix
 {
-  AVAudioNodeImplBase::GetAttachAndEngineLock(&v7, [(AVAudioNode *)self impl]);
-  *&v5 = wetDryMix;
-  [(AVAudioUnit *)self setValue:0 forParam:v5];
-  if (v10 == 1)
+  v5 = objc_msgSend_impl(self, a2);
+  AVAudioNodeImplBase::GetAttachAndEngineLock(&v8, v5);
+  *&v6 = wetDryMix;
+  [(AVAudioUnit *)self setValue:0 forParam:v6];
+  if (v11 == 1)
   {
-    std::recursive_mutex::unlock(v9);
+    std::recursive_mutex::unlock(v10);
   }
 
-  if (v8 == 1)
+  if (v9 == 1)
   {
-    v6 = v7;
+    v7 = v8;
 
-    std::recursive_mutex::unlock(v6);
+    std::recursive_mutex::unlock(v7);
   }
 }
 

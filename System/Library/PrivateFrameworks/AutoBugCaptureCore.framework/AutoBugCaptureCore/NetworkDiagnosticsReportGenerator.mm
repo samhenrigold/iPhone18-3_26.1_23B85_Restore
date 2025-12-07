@@ -107,48 +107,48 @@ void __70__NetworkDiagnosticsReportGenerator_startNetDiagnosticsTaskWithReply___
 
     else
     {
-      v23 = [v5 objectForKeyedSubscript:@"filepaths"];
-      v10 = v23;
-      if (v23)
+      v24 = [v5 objectForKeyedSubscript:@"filepaths"];
+      v10 = v24;
+      if (v24)
       {
         v44 = 0u;
         v45 = 0u;
         v42 = 0u;
         v43 = 0u;
-        v24 = [v23 countByEnumeratingWithState:&v42 objects:v50 count:16];
-        if (v24)
+        v25 = [v24 countByEnumeratingWithState:&v42 objects:v50 count:16];
+        if (v25)
         {
-          v25 = v24;
+          v26 = v25;
           v40 = a1;
           v41 = v7;
-          v26 = 0;
-          v27 = *v43;
+          v27 = 0;
+          v28 = *v43;
           do
           {
-            v28 = 0;
-            v29 = v26;
+            v29 = 0;
+            v30 = v27;
             do
             {
-              if (*v43 != v27)
+              if (*v43 != v28)
               {
                 objc_enumerationMutation(v10);
               }
 
-              v26 = *(*(&v42 + 1) + 8 * v28);
+              v27 = *(*(&v42 + 1) + 8 * v29);
 
-              v30 = [MEMORY[0x277CBEBC0] fileURLWithPath:v26];
-              v31 = [v30 absoluteString];
-              [v12 addObject:v31];
+              v31 = [MEMORY[0x277CBEBC0] fileURLWithPath:v27];
+              v32 = [v31 absoluteString];
+              [v12 addObject:v32];
 
-              ++v28;
-              v29 = v26;
+              ++v29;
+              v30 = v27;
             }
 
-            while (v25 != v28);
-            v25 = [v10 countByEnumeratingWithState:&v42 objects:v50 count:16];
+            while (v26 != v29);
+            v26 = [v10 countByEnumeratingWithState:&v42 objects:v50 count:16];
           }
 
-          while (v25);
+          while (v26);
 
           v7 = v41;
           a1 = v40;
@@ -164,10 +164,10 @@ void __70__NetworkDiagnosticsReportGenerator_startNetDiagnosticsTaskWithReply___
 
     if (!v17)
     {
-      v32 = *(a1 + 32);
-      if (v32)
+      v33 = *(a1 + 32);
+      if (v33)
       {
-        (*(v32 + 16))(v32, v11, 0);
+        (*(v33 + 16))(v33, v11, 0);
       }
 
       goto LABEL_29;
@@ -175,42 +175,42 @@ void __70__NetworkDiagnosticsReportGenerator_startNetDiagnosticsTaskWithReply___
 
     if (v17 == -1)
     {
-      v18 = *(a1 + 32);
-      if (!v18)
+      v19 = *(a1 + 32);
+      if (!v19)
       {
 LABEL_29:
 
         goto LABEL_30;
       }
 
-      v19 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:5 userInfo:&unk_285379FB8];
-      (*(v18 + 16))(v18, 0, v19);
+      v20 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:5 userInfo:&unk_285379FB8];
+      (*(v19 + 16))(v19, 0, v20);
     }
 
     else
     {
-      v33 = diagreportLogHandle();
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
+      v34 = diagreportLogHandle(v18);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
       {
         *buf = 134217984;
         v49 = v17;
-        _os_log_impl(&dword_241804000, v33, OS_LOG_TYPE_DEBUG, "Unknown kNetDiagStatus %lld\n", buf, 0xCu);
+        _os_log_impl(&dword_241804000, v34, OS_LOG_TYPE_DEBUG, "Unknown kNetDiagStatus %lld\n", buf, 0xCu);
       }
 
-      v34 = *(a1 + 32);
-      if (!v34)
+      v35 = *(a1 + 32);
+      if (!v35)
       {
         goto LABEL_29;
       }
 
-      v35 = MEMORY[0x277CCA9B8];
-      v36 = *MEMORY[0x277CCA5B8];
+      v36 = MEMORY[0x277CCA9B8];
+      v37 = *MEMORY[0x277CCA5B8];
       v46 = @"error";
-      v19 = [*(v8 + 3240) stringWithFormat:@"Unknown kNetDiagStatus %lld\n", v17];
-      v47 = v19;
-      v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v47 forKeys:&v46 count:1];
-      v38 = [v35 errorWithDomain:v36 code:5 userInfo:v37];
-      (*(v34 + 16))(v34, 0, v38);
+      v20 = [*(v8 + 3240) stringWithFormat:@"Unknown kNetDiagStatus %lld\n", v17];
+      v47 = v20;
+      v38 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v47 forKeys:&v46 count:1];
+      v39 = [v36 errorWithDomain:v37 code:5 userInfo:v38];
+      (*(v35 + 16))(v35, 0, v39);
     }
 
     goto LABEL_29;
@@ -218,25 +218,23 @@ LABEL_29:
 
   if (v6)
   {
-    v20 = diagreportLogHandle();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+    v21 = diagreportLogHandle(v6);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
     {
-      v21 = [v7 userInfo];
+      v22 = [v7 userInfo];
       *buf = 138412290;
-      v49 = v21;
-      _os_log_impl(&dword_241804000, v20, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+      v49 = v22;
+      _os_log_impl(&dword_241804000, v21, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
     }
 
-    v22 = *(a1 + 32);
-    if (v22)
+    v23 = *(a1 + 32);
+    if (v23)
     {
-      (*(v22 + 16))(v22, 0, v7);
+      (*(v23 + 16))(v23, 0, v7);
     }
   }
 
 LABEL_30:
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)startReportGeneration
@@ -264,7 +262,7 @@ LABEL_30:
 
 void __58__NetworkDiagnosticsReportGenerator_startReportGeneration__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -275,14 +273,14 @@ void __58__NetworkDiagnosticsReportGenerator_startReportGeneration__block_invoke
       goto LABEL_21;
     }
 
-    v10 = diagreportLogHandle();
+    v10 = diagreportLogHandle(v6);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v11 = *(a1 + 32);
       *buf = 138412546;
-      v32 = v11;
-      v33 = 2112;
-      v34 = v7;
+      v30 = v11;
+      v31 = 2112;
+      v32 = v7;
       _os_log_impl(&dword_241804000, v10, OS_LOG_TYPE_ERROR, "Start task %@ failed with error: %@", buf, 0x16u);
     }
 
@@ -303,47 +301,46 @@ LABEL_20:
 
     v14 = objc_alloc_init(MEMORY[0x277CBEB38]);
     [v14 setObject:*(*(a1 + 40) + 80) forKey:@"reportStart"];
-    v15 = *(a1 + 40);
-    v16 = objc_opt_class();
-    v17 = NSStringFromClass(v16);
-    [v14 setObject:v17 forKey:@"reportCreator"];
+    v15 = objc_opt_class();
+    v16 = NSStringFromClass(v15);
+    [v14 setObject:v16 forKey:@"reportCreator"];
 
-    v18 = [MEMORY[0x277CBEAA8] date];
-    [v14 setObject:v18 forKey:@"reportEnd"];
+    v17 = [MEMORY[0x277CBEAA8] date];
+    [v14 setObject:v17 forKey:@"reportEnd"];
 
     [v14 setObject:@"Error" forKey:@"reportEndStatus"];
-    v19 = [v7 description];
-    v20 = [v19 length];
+    v18 = [v7 description];
+    v19 = [v18 length];
 
-    if (v20)
+    if (v19)
     {
-      v21 = [v7 description];
+      v20 = [v7 description];
     }
 
     else
     {
-      v22 = MEMORY[0x277CCACA8];
-      v23 = [v7 domain];
-      v24 = [v7 code];
-      v25 = [v7 userInfo];
-      v26 = v25;
-      v27 = &stru_285368168;
-      if (v25)
+      v21 = MEMORY[0x277CCACA8];
+      v22 = [v7 domain];
+      v23 = [v7 code];
+      v24 = [v7 userInfo];
+      v25 = v24;
+      v26 = &stru_285368168;
+      if (v24)
       {
-        v27 = v25;
+        v26 = v24;
       }
 
-      v21 = [v22 stringWithFormat:@"Error Domain: %@ Error Code: %ld %@", v23, v24, v27];
+      v20 = [v21 stringWithFormat:@"Error Domain: %@ Error Code: %ld %@", v22, v23, v26];
     }
 
-    [v14 setObject:v21 forKey:@"Error"];
+    [v14 setObject:v20 forKey:@"Error"];
 
-    v28 = [*(a1 + 40) completionHandler];
+    v27 = [*(a1 + 40) completionHandler];
 
-    if (v28)
+    if (v27)
     {
-      v29 = [*(a1 + 40) completionHandler];
-      (v29)[2](v29, v14, v7);
+      v28 = [*(a1 + 40) completionHandler];
+      (v28)[2](v28, v14, v7);
 
       [*(a1 + 40) setCompletionHandler:0];
     }
@@ -356,26 +353,24 @@ LABEL_20:
     goto LABEL_20;
   }
 
-  v8 = diagreportLogHandle();
+  v8 = diagreportLogHandle(v6);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = *(a1 + 32);
     *buf = 138412546;
-    v32 = v9;
-    v33 = 2112;
-    v34 = v5;
+    v30 = v9;
+    v31 = 2112;
+    v32 = v5;
     _os_log_impl(&dword_241804000, v8, OS_LOG_TYPE_DEFAULT, "Started task %@ with info: %@", buf, 0x16u);
   }
 
   [*(a1 + 40) setNetDiagsResults:v5];
 LABEL_21:
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)netDiagnosticTaskStatusChangedFor:(id)for toStatus:(int)status
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   forCopy = for;
   options = [(NetworkDiagnosticsReportGenerator *)self options];
   v8 = [options objectForKeyedSubscript:@"taskName"];
@@ -383,15 +378,15 @@ LABEL_21:
   v9 = [forCopy isEqualToString:v8];
   if (status == 3 && v9)
   {
-    v10 = diagreportLogHandle();
+    v10 = diagreportLogHandle(v9);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       netDiagsResults = [(NetworkDiagnosticsReportGenerator *)self netDiagsResults];
-      v25 = 138412546;
-      v26 = forCopy;
-      v27 = 2112;
-      v28 = netDiagsResults;
-      _os_log_impl(&dword_241804000, v10, OS_LOG_TYPE_DEFAULT, "%@ changed to ending. Signaling completion with results %@", &v25, 0x16u);
+      v24 = 138412546;
+      v25 = forCopy;
+      v26 = 2112;
+      v27 = netDiagsResults;
+      _os_log_impl(&dword_241804000, v10, OS_LOG_TYPE_DEFAULT, "%@ changed to ending. Signaling completion with results %@", &v24, 0x16u);
     }
 
     delegate = [(DiagnosticReportGenerator *)self delegate];
@@ -446,8 +441,6 @@ LABEL_21:
     [(NetworkDiagnosticsReportGenerator *)self setNetDiags:0];
     [(DiagnosticReportGenerator *)self setDiagCase:0];
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (id)createDefaultTaskDictionaryWithTaskName:(const char *)name

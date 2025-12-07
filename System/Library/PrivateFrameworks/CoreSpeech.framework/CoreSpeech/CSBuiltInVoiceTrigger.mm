@@ -23,6 +23,7 @@
 - (void)CSAudioServerCrashMonitorDidReceiveServerRestart:(id)restart;
 - (void)CSBluetoothWirelessSplitterMonitor:(id)monitor didReceiveSplitterStateChange:(unint64_t)change shouldDisableSpeakerVerificationInSplitterMode:(BOOL)mode;
 - (void)CSPhoneCallStateMonitor:(id)monitor didRecievePhoneCallStateChange:(unint64_t)change;
+- (void)CSVoiceTriggerEnabledMonitor:(id)monitor didReceiveEnabled:(BOOL)enabled;
 - (void)CSVoiceTriggerXPCServiceProxy:(id)proxy bypassPhraseSpotter:(BOOL)spotter;
 - (void)_APModeValidationTimerFired;
 - (void)_addAudioStreamHold:(id)hold;
@@ -36,6 +37,7 @@
 - (void)_keywordAnalyzerNDAPI:(id)i hasResultAvailable:(id)available forChannel:(unint64_t)channel;
 - (void)_notifyEvent:(unint64_t)event;
 - (void)_receivedHearstRoutedEvent:(int64_t)event;
+- (void)_receivedJarvisConnectionEvent:(BOOL)event;
 - (void)_reportVoiceTriggerFirstPassFireFromAPWithSource:(unint64_t)source voiceTriggerFirstPassInfo:(id)info;
 - (void)_requestStartAudioStreamWithSource:(unint64_t)source context:(id)context completion:(id)completion;
 - (void)_reset;
@@ -388,6 +390,15 @@
   return name;
 }
 
+- (void)CSVoiceTriggerEnabledMonitor:(id)monitor didReceiveEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v8 = +[CSPowerLogger sharedPowerLogger];
+  v6 = [CSUtils getSiriLanguageWithFallback:@"en-US"];
+  configVersion = [(CSAsset *)self->_currentAsset configVersion];
+  [v8 powerLogSiriConfigWithVoiceTriggerEnabled:enabledCopy withLanguage:v6 withModelVersion:configVersion];
+}
+
 - (void)didIgnoreEvent:(int64_t)event from:(int64_t)from
 {
   v7 = CSLogCategoryVT;
@@ -671,6 +682,29 @@ LABEL_8:
   }
 
   self->_hearstRouteStatus = event;
+}
+
+- (void)_receivedJarvisConnectionEvent:(BOOL)event
+{
+  eventCopy = event;
+  v5 = CSLogCategoryVT;
+  if (os_log_type_enabled(CSLogCategoryVT, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = @"Diconnect";
+    if (eventCopy)
+    {
+      v6 = @"Connect";
+    }
+
+    v7 = 136315394;
+    v8 = "[CSBuiltInVoiceTrigger _receivedJarvisConnectionEvent:]";
+    v9 = 2114;
+    v10 = v6;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%s Received Jarvis %{public}@ event", &v7, 0x16u);
+  }
+
+  self->_isJarvisConnected = eventCopy;
+  [(CSBuiltInVoiceTrigger *)self _forceUpdateCarPlayEndpointWithJarvisConnected:eventCopy];
 }
 
 - (void)CSAudioRouteChangeMonitor:(id)monitor didReceiveAudioRouteChangeEvent:(int64_t)event

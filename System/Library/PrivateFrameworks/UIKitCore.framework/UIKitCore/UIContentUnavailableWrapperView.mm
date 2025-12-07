@@ -56,11 +56,11 @@ uint64_t __57___UIContentUnavailableWrapperView__updateBackgroundView__block_inv
   return [v2 layoutIfNeeded];
 }
 
-uint64_t __57___UIContentUnavailableWrapperView__updateBackgroundView__block_invoke_2(uint64_t result, uint64_t a2, uint64_t a3)
+id *__57___UIContentUnavailableWrapperView__updateBackgroundView__block_invoke_2(id *result, uint64_t a2, uint64_t a3)
 {
   if (!a3)
   {
-    return [*(result + 32) removeFromSuperview];
+    return [result[4] removeFromSuperview];
   }
 
   return result;

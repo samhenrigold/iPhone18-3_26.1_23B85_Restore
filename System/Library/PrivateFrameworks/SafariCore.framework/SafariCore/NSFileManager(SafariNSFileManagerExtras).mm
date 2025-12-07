@@ -206,9 +206,9 @@ LABEL_4:
     [NSFileManager(SafariNSFileManagerExtras) safari_mobileSafariAppContainerDirectoryURLFromOutsideSafariAppContainer];
   }
 
-  v1 = [NSFileManager(SafariNSFileManagerExtras) safari_mobileSafariAppContainerDirectoryURLFromOutsideSafariAppContainer]::containerURL;
+  v2 = [NSFileManager(SafariNSFileManagerExtras) safari_mobileSafariAppContainerDirectoryURLFromOutsideSafariAppContainer]::containerURL;
 
-  return v1;
+  return v2;
 }
 
 - (void)_safari_getPasswordsAppContainerDirectoryURL:()SafariNSFileManagerExtras isContainerized:
@@ -239,39 +239,37 @@ LABEL_4:
 
 - (id)safari_ensureDirectoryExists:()SafariNSFileManagerExtras
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v4 = a3;
   path = [v4 path];
-  v15 = 0;
-  v6 = [self createDirectoryAtPath:path withIntermediateDirectories:1 attributes:0 error:&v15];
-  v7 = v15;
+  v18 = 0;
+  v6 = [self createDirectoryAtPath:path withIntermediateDirectories:1 attributes:0 error:&v18];
+  v7 = v18;
 
   if (v6)
   {
-    v8 = 0;
+    v10 = 0;
   }
 
   else
   {
-    v9 = WBS_LOG_CHANNEL_PREFIXFileManager();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = WBS_LOG_CHANNEL_PREFIXFileManager(v8, v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       safari_privacyPreservingDescription = [v7 safari_privacyPreservingDescription];
-      [(NSFileManager(SafariNSFileManagerExtras) *)safari_privacyPreservingDescription safari_ensureDirectoryExists:buf, v9];
+      [(NSFileManager(SafariNSFileManagerExtras) *)safari_privacyPreservingDescription safari_ensureDirectoryExists:buf, v11];
     }
 
-    v11 = WBS_LOG_CHANNEL_PREFIXFileManager();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v15 = WBS_LOG_CHANNEL_PREFIXFileManager(v13, v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
       path2 = [v4 path];
-      [(NSFileManager(SafariNSFileManagerExtras) *)path2 safari_ensureDirectoryExists:v16, v11];
+      [(NSFileManager(SafariNSFileManagerExtras) *)path2 safari_ensureDirectoryExists:v19, v15];
     }
 
-    v8 = v4;
+    v10 = v4;
     v4 = 0;
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -370,9 +368,9 @@ LABEL_6:
     [NSFileManager(SafariNSFileManagerExtras) safari_nonContaineredSettingsDirectoryURL];
   }
 
-  v1 = [NSFileManager(SafariNSFileManagerExtras) safari_nonContaineredSettingsDirectoryURL]::nonContaineredSettingsDirectoryURL;
+  v2 = [NSFileManager(SafariNSFileManagerExtras) safari_nonContaineredSettingsDirectoryURL]::nonContaineredSettingsDirectoryURL;
 
-  return v1;
+  return v2;
 }
 
 - (id)safari_productionSafariSettingsDirectory
@@ -437,18 +435,17 @@ LABEL_6:
 - (BOOL)safari_getFileSystemSupportsExclusiveRename:()SafariNSFileManagerExtras atFileHandle:error:
 {
   v7 = a4;
-  v15[2] = 0;
-  v15[0] = 5;
-  v15[1] = 0x20000;
-  v14 = 0;
-  memset(v13, 0, sizeof(v13));
-  v8 = fgetattrlist([v7 fileDescriptor], v15, v13, 0x24uLL, 0);
+  v13[2] = 0;
+  v13[0] = 5;
+  v13[1] = 0x20000;
+  v12 = 0;
+  memset(v11, 0, sizeof(v11));
+  v8 = fgetattrlist([v7 fileDescriptor], v13, v11, 0x24uLL, 0);
   if (v8)
   {
-    v9 = __error();
+    __error();
     if (a5)
     {
-      v10 = *v9;
       safari_fileURL = [v7 safari_fileURL];
       *a5 = _NSErrorWithFilePathAndErrno();
     }
@@ -456,7 +453,7 @@ LABEL_6:
 
   else
   {
-    *a3 = (DWORD2(v13[0]) & 0x80000) != 0;
+    *a3 = (DWORD2(v11[0]) & 0x80000) != 0;
   }
 
   return v8 == 0;
@@ -496,7 +493,7 @@ LABEL_6:
 
 - (void)safari_subpathOfURL:()SafariNSFileManagerExtras relativeToDirectoryAtURL:error:
 {
-  v30[2] = *MEMORY[0x1E69E9840];
+  v29[2] = *MEMORY[0x1E69E9840];
   v7 = a3;
   v8 = a4;
   v9 = [MEMORY[0x1E696AC00] safari_fileHandleWithURL:v8 options:0 createMode:0 error:a5];
@@ -540,11 +537,11 @@ LABEL_15:
     {
       v23 = MEMORY[0x1E696ABC0];
       v24 = *MEMORY[0x1E696A998];
-      v27[0] = *MEMORY[0x1E696A578];
-      v27[1] = v24;
-      v28[0] = @"URL is not a parent of the tested URL";
-      v28[1] = v8;
-      v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:v27 count:2];
+      v26[0] = *MEMORY[0x1E696A578];
+      v26[1] = v24;
+      v27[0] = @"URL is not a parent of the tested URL";
+      v27[1] = v8;
+      v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:2];
       v20 = [v23 errorWithDomain:*MEMORY[0x1E696A250] code:256 userInfo:v19];
       goto LABEL_9;
     }
@@ -554,11 +551,11 @@ LABEL_15:
   {
     v17 = MEMORY[0x1E696ABC0];
     v18 = *MEMORY[0x1E696A998];
-    v29[0] = *MEMORY[0x1E696A578];
-    v29[1] = v18;
-    v30[0] = @"URL is not a parent of the tested URL";
-    v30[1] = v8;
-    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:v29 count:2];
+    v28[0] = *MEMORY[0x1E696A578];
+    v28[1] = v18;
+    v29[0] = @"URL is not a parent of the tested URL";
+    v29[1] = v8;
+    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:v28 count:2];
     v20 = [v17 errorWithDomain:*MEMORY[0x1E696A250] code:256 userInfo:v19];
 LABEL_9:
     *a5 = v20;
@@ -570,22 +567,21 @@ LABEL_10:
 LABEL_16:
 
 LABEL_17:
-  v25 = *MEMORY[0x1E69E9840];
 
   return a5;
 }
 
 - (id)safari_createDirectoryWithUniqueName:()SafariNSFileManagerExtras relativeToDirectoryFileHandle:error:
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v7 = a3;
   v8 = a4;
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v9 = [[WBSUniqueFilenameEnumerator alloc] initWithFilename:v7];
-  v10 = [(WBSUniqueFilenameEnumerator *)v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v10 = [(WBSUniqueFilenameEnumerator *)v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (!v10)
   {
 LABEL_15:
@@ -593,17 +589,17 @@ LABEL_15:
     goto LABEL_16;
   }
 
-  v11 = *v22;
+  v11 = *v21;
   while (2)
   {
     for (i = 0; i != v10; ++i)
     {
-      if (*v22 != v11)
+      if (*v21 != v11)
       {
         objc_enumerationMutation(v9);
       }
 
-      v13 = *(*(&v21 + 1) + 8 * i);
+      v13 = *(*(&v20 + 1) + 8 * i);
       fileDescriptor = [v8 fileDescriptor];
       v15 = v13;
       if (!mkdirat(fileDescriptor, [v13 fileSystemRepresentation], 0x1C0u))
@@ -631,7 +627,7 @@ LABEL_14:
       }
     }
 
-    v10 = [(WBSUniqueFilenameEnumerator *)v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v10 = [(WBSUniqueFilenameEnumerator *)v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
     v16 = 0;
     if (v10)
     {
@@ -642,8 +638,6 @@ LABEL_14:
   }
 
 LABEL_16:
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
@@ -657,16 +651,16 @@ LABEL_16:
 
 - (id)safari_moveFileAtSubpath:()SafariNSFileManagerExtras relativeToFileHandle:toUniqueSubpath:relativeToFileHandle:error:usingExistingFileRecoveryBlock:
 {
-  v61 = *MEMORY[0x1E69E9840];
-  v53 = a3;
-  v52 = a4;
-  v51 = a5;
+  v60 = *MEMORY[0x1E69E9840];
+  v52 = a3;
+  v51 = a4;
+  v50 = a5;
   v14 = a6;
   v15 = a8;
-  v59 = 0;
-  if ([self safari_getFileSystemSupportsExclusiveRename:&v59 atFileHandle:v14 error:a7])
+  v58 = 0;
+  if ([self safari_getFileSystemSupportsExclusiveRename:&v58 atFileHandle:v14 error:a7])
   {
-    if (v59)
+    if (v58)
     {
       v16 = 20;
     }
@@ -676,49 +670,49 @@ LABEL_16:
       v16 = 16;
     }
 
-    v57 = 0u;
-    v58 = 0u;
-    v55 = 0u;
     v56 = 0u;
-    obj = [[WBSUniqueFilenameEnumerator alloc] initWithFilename:v51];
-    v17 = [(WBSUniqueFilenameEnumerator *)obj countByEnumeratingWithState:&v55 objects:v60 count:16];
+    v57 = 0u;
+    v54 = 0u;
+    v55 = 0u;
+    obj = [[WBSUniqueFilenameEnumerator alloc] initWithFilename:v50];
+    v17 = [(WBSUniqueFilenameEnumerator *)obj countByEnumeratingWithState:&v54 objects:v59 count:16];
     if (v17)
     {
-      v18 = *v56;
-      v47 = *v56;
+      v18 = *v55;
+      v46 = *v55;
       do
       {
         v19 = 0;
-        v48 = v17;
+        v47 = v17;
         while (2)
         {
-          if (*v56 != v18)
+          if (*v55 != v18)
           {
             objc_enumerationMutation(obj);
           }
 
           v20 = 0;
-          v49 = v19;
-          v21 = *(*(&v55 + 1) + 8 * v19);
+          v48 = v19;
+          v21 = *(*(&v54 + 1) + 8 * v19);
           do
           {
-            if (v59)
+            if (v58)
             {
               goto LABEL_38;
             }
 
-            v54 = 0;
-            if (([self safari_getFileExists:&v54 atSubpath:v21 relativeToFileHandle:v14 error:a7] & 1) == 0)
+            v53 = 0;
+            if (([self safari_getFileExists:&v53 atSubpath:v21 relativeToFileHandle:v14 error:a7] & 1) == 0)
             {
               goto LABEL_31;
             }
 
-            if ((v54 & 1) == 0)
+            if ((v53 & 1) == 0)
             {
 LABEL_38:
-              fileDescriptor = [v52 fileDescriptor];
-              v23 = v53;
-              fileSystemRepresentation = [v53 fileSystemRepresentation];
+              fileDescriptor = [v51 fileDescriptor];
+              v23 = v52;
+              fileSystemRepresentation = [v52 fileSystemRepresentation];
               fileDescriptor2 = [v14 fileDescriptor];
               v26 = v21;
               if (!renameatx_np(fileDescriptor, fileSystemRepresentation, fileDescriptor2, [v21 fileSystemRepresentation], v16))
@@ -734,8 +728,8 @@ LABEL_38:
               {
                 if (a7)
                 {
-                  safari_fileURL2 = [v52 safari_fileURL];
-                  v34 = [safari_fileURL2 URLByAppendingPathComponent:v53];
+                  safari_fileURL2 = [v51 safari_fileURL];
+                  v34 = [safari_fileURL2 URLByAppendingPathComponent:v52];
 
                   safari_fileURL3 = [v14 safari_fileURL];
                   v36 = [safari_fileURL3 URLByAppendingPathComponent:v21];
@@ -787,9 +781,9 @@ LABEL_38:
           }
 
           while ((v30 & 1) != 0);
-          v19 = v49 + 1;
-          v18 = v47;
-          if (v49 + 1 != v48)
+          v19 = v48 + 1;
+          v18 = v46;
+          if (v48 + 1 != v47)
           {
             continue;
           }
@@ -797,7 +791,7 @@ LABEL_38:
           break;
         }
 
-        v17 = [(WBSUniqueFilenameEnumerator *)obj countByEnumeratingWithState:&v55 objects:v60 count:16];
+        v17 = [(WBSUniqueFilenameEnumerator *)obj countByEnumeratingWithState:&v54 objects:v59 count:16];
         v31 = 0;
       }
 
@@ -817,8 +811,6 @@ LABEL_32:
   {
     v31 = 0;
   }
-
-  v45 = *MEMORY[0x1E69E9840];
 
   return v31;
 }
@@ -909,39 +901,39 @@ LABEL_32:
 
 - (void)safari_removeContentsOfDirectory:()SafariNSFileManagerExtras preservingContainerManagerMetadata:
 {
-  v43 = *MEMORY[0x1E69E9840];
-  v26 = a3;
+  v44 = *MEMORY[0x1E69E9840];
+  v27 = a3;
   v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
   context = objc_autoreleasePoolPush();
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v35[0] = MEMORY[0x1E69E9820];
-  v35[1] = 3221225472;
-  v35[2] = __112__NSFileManager_SafariNSFileManagerExtras__safari_removeContentsOfDirectory_preservingContainerManagerMetadata___block_invoke;
-  v35[3] = &__block_descriptor_40_e27_B24__0__NSURL_8__NSError_16l;
-  v35[4] = a2;
-  v7 = [defaultManager enumeratorAtURL:v26 includingPropertiesForKeys:0 options:17 errorHandler:v35];
+  v36[0] = MEMORY[0x1E69E9820];
+  v36[1] = 3221225472;
+  v36[2] = __112__NSFileManager_SafariNSFileManagerExtras__safari_removeContentsOfDirectory_preservingContainerManagerMetadata___block_invoke;
+  v36[3] = &__block_descriptor_40_e27_B24__0__NSURL_8__NSError_16l;
+  v36[4] = a2;
+  v7 = [defaultManager enumeratorAtURL:v27 includingPropertiesForKeys:0 options:17 errorHandler:v36];
 
-  v33 = 0u;
   v34 = 0u;
-  v31 = 0u;
+  v35 = 0u;
   v32 = 0u;
+  v33 = 0u;
   v8 = v7;
-  v9 = [v8 countByEnumeratingWithState:&v31 objects:v42 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v32 objects:v43 count:16];
   if (v9)
   {
-    v10 = *v32;
+    v10 = *v33;
     do
     {
       v11 = 0;
       do
       {
-        if (*v32 != v10)
+        if (*v33 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
-        v12 = *(*(&v31 + 1) + 8 * v11);
-        if (!a4 || ([*(*(&v31 + 1) + 8 * v11) lastPathComponent], v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v13, "isEqualToString:", @".com.apple.mobile_container_manager.metadata.plist"), v13, (v14 & 1) == 0))
+        v12 = *(*(&v32 + 1) + 8 * v11);
+        if (!a4 || ([*(*(&v32 + 1) + 8 * v11) lastPathComponent], v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v13, "isEqualToString:", @".com.apple.mobile_container_manager.metadata.plist"), v13, (v14 & 1) == 0))
         {
           [v5 addObject:v12];
         }
@@ -950,47 +942,45 @@ LABEL_32:
       }
 
       while (v9 != v11);
-      v9 = [v8 countByEnumeratingWithState:&v31 objects:v42 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v32 objects:v43 count:16];
     }
 
     while (v9);
   }
 
   objc_autoreleasePoolPop(context);
-  v15 = WBS_LOG_CHANNEL_PREFIXFileManager();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v17 = WBS_LOG_CHANNEL_PREFIXFileManager(v15, v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = NSStringFromSelector(a2);
-    v17 = [v5 count];
+    v18 = NSStringFromSelector(a2);
+    v19 = [v5 count];
     *buf = 138543875;
-    v37 = v16;
-    v38 = 2048;
-    v39 = v17;
-    v40 = 2113;
-    v41 = v26;
-    _os_log_impl(&dword_1B8447000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@: about to remove %zu items from %{private}@", buf, 0x20u);
+    v38 = v18;
+    v39 = 2048;
+    v40 = v19;
+    v41 = 2113;
+    v42 = v27;
+    _os_log_impl(&dword_1B8447000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@: about to remove %zu items from %{private}@", buf, 0x20u);
   }
 
-  v18 = dispatch_queue_attr_make_with_autorelease_frequency(MEMORY[0x1E69E96A8], DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-  v19 = dispatch_queue_create("com.apple.Safari.Core.safari_removeContentsOfDirectory", v18);
+  v20 = dispatch_queue_attr_make_with_autorelease_frequency(MEMORY[0x1E69E96A8], DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+  v21 = dispatch_queue_create("com.apple.Safari.Core.safari_removeContentsOfDirectory", v20);
 
-  v20 = [v5 count];
+  v22 = [v5 count];
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __112__NSFileManager_SafariNSFileManagerExtras__safari_removeContentsOfDirectory_preservingContainerManagerMetadata___block_invoke_82;
   block[3] = &unk_1E7CF2948;
-  v28 = v5;
+  v29 = v5;
   selfCopy = self;
-  v30 = a2;
-  v21 = v5;
-  dispatch_apply(v20, v19, block);
-
-  v22 = *MEMORY[0x1E69E9840];
+  v31 = a2;
+  v23 = v5;
+  dispatch_apply(v22, v21, block);
 }
 
 - (uint64_t)safari_replaceItemAtURL:()SafariNSFileManagerExtras withItemFromURL:error:
 {
-  v26[3] = *MEMORY[0x1E69E9840];
+  v33[3] = *MEMORY[0x1E69E9840];
   v8 = a3;
   v9 = a4;
   path = [v8 path];
@@ -998,24 +988,24 @@ LABEL_32:
 
   if (!v11)
   {
-    v18 = WBS_LOG_CHANNEL_PREFIXFileManager();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v24 = WBS_LOG_CHANNEL_PREFIXFileManager(v12, v13);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      [NSFileManager(SafariNSFileManagerExtras) safari_replaceItemAtURL:v18 withItemFromURL:? error:?];
+      [NSFileManager(SafariNSFileManagerExtras) safari_replaceItemAtURL:v24 withItemFromURL:? error:?];
     }
 
     goto LABEL_16;
   }
 
   path2 = [v9 path];
-  v13 = [self isReadableFileAtPath:path2];
+  v15 = [self isReadableFileAtPath:path2];
 
-  if ((v13 & 1) == 0)
+  if ((v15 & 1) == 0)
   {
-    v19 = WBS_LOG_CHANNEL_PREFIXFileManager();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v25 = WBS_LOG_CHANNEL_PREFIXFileManager(v16, v17);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
-      [NSFileManager(SafariNSFileManagerExtras) safari_replaceItemAtURL:v9 withItemFromURL:v8 error:v19];
+      [NSFileManager(SafariNSFileManagerExtras) safari_replaceItemAtURL:v9 withItemFromURL:v8 error:v25];
     }
 
     goto LABEL_16;
@@ -1023,44 +1013,44 @@ LABEL_32:
 
   [self removeItemAtURL:v8 error:a5];
   path3 = [v8 path];
-  v15 = [self isReadableFileAtPath:path3];
+  v19 = [self isReadableFileAtPath:path3];
 
-  if (v15)
+  if (v19)
   {
-    v16 = WBS_LOG_CHANNEL_PREFIXFileManager();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v22 = WBS_LOG_CHANNEL_PREFIXFileManager(v20, v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       safari_privacyPreservingDescription = [*a5 safari_privacyPreservingDescription];
-      [NSFileManager(SafariNSFileManagerExtras) safari_replaceItemAtURL:v8 withItemFromURL:safari_privacyPreservingDescription error:v26];
+      [NSFileManager(SafariNSFileManagerExtras) safari_replaceItemAtURL:v8 withItemFromURL:safari_privacyPreservingDescription error:v33];
     }
 
 LABEL_15:
 
 LABEL_16:
-    v22 = 0;
+    v30 = 0;
     goto LABEL_17;
   }
 
   uRLByDeletingLastPathComponent = [v8 URLByDeletingLastPathComponent];
-  v21 = [self safari_ensureDirectoryExists:uRLByDeletingLastPathComponent];
+  v27 = [self safari_ensureDirectoryExists:uRLByDeletingLastPathComponent];
 
-  if (([self copyItemAtURL:v9 toURL:v8 error:a5] & 1) == 0)
+  v28 = [self copyItemAtURL:v9 toURL:v8 error:a5];
+  if ((v28 & 1) == 0)
   {
-    v16 = WBS_LOG_CHANNEL_PREFIXFileManager();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v22 = WBS_LOG_CHANNEL_PREFIXFileManager(v28, v29);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       safari_privacyPreservingDescription2 = [*a5 safari_privacyPreservingDescription];
-      [NSFileManager(SafariNSFileManagerExtras) safari_replaceItemAtURL:v8 withItemFromURL:safari_privacyPreservingDescription2 error:v26];
+      [NSFileManager(SafariNSFileManagerExtras) safari_replaceItemAtURL:v8 withItemFromURL:safari_privacyPreservingDescription2 error:v33];
     }
 
     goto LABEL_15;
   }
 
-  v22 = 1;
+  v30 = 1;
 LABEL_17:
 
-  v24 = *MEMORY[0x1E69E9840];
-  return v22;
+  return v30;
 }
 
 - (id)safari_createTemporaryDirectoryAppropriateForURL:()SafariNSFileManagerExtras error:
@@ -1072,45 +1062,46 @@ LABEL_17:
 
 - (id)safari_topLevelDirectoriesAtURL:()SafariNSFileManagerExtras
 {
-  v37[1] = *MEMORY[0x1E69E9840];
-  v19 = a3;
+  v38[1] = *MEMORY[0x1E69E9840];
+  v20 = a3;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   v4 = *MEMORY[0x1E695DB78];
-  v37[0] = *MEMORY[0x1E695DB78];
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v37 count:1];
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 3221225472;
-  v29[2] = __76__NSFileManager_SafariNSFileManagerExtras__safari_topLevelDirectoriesAtURL___block_invoke;
-  v29[3] = &__block_descriptor_40_e27_B24__0__NSURL_8__NSError_16l;
-  v29[4] = a2;
-  v18 = [defaultManager enumeratorAtURL:v19 includingPropertiesForKeys:v5 options:1 errorHandler:v29];
+  v38[0] = *MEMORY[0x1E695DB78];
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v38 count:1];
+  v30[0] = MEMORY[0x1E69E9820];
+  v30[1] = 3221225472;
+  v30[2] = __76__NSFileManager_SafariNSFileManagerExtras__safari_topLevelDirectoriesAtURL___block_invoke;
+  v30[3] = &__block_descriptor_40_e27_B24__0__NSURL_8__NSError_16l;
+  v30[4] = a2;
+  v19 = [defaultManager enumeratorAtURL:v20 includingPropertiesForKeys:v5 options:1 errorHandler:v30];
 
   array = [MEMORY[0x1E695DF70] array];
-  v27 = 0u;
   v28 = 0u;
-  v25 = 0u;
+  v29 = 0u;
   v26 = 0u;
-  obj = v18;
-  v6 = [obj countByEnumeratingWithState:&v25 objects:v36 count:16];
+  v27 = 0u;
+  obj = v19;
+  v6 = [obj countByEnumeratingWithState:&v26 objects:v37 count:16];
   if (v6)
   {
-    v7 = *v26;
+    v7 = *v27;
     do
     {
       v8 = 0;
       do
       {
-        if (*v26 != v7)
+        if (*v27 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v25 + 1) + 8 * v8);
-        v23 = 0;
+        v9 = *(*(&v26 + 1) + 8 * v8);
         v24 = 0;
-        v10 = [v9 getResourceValue:&v24 forKey:v4 error:{&v23, v18}];
-        v11 = v24;
-        v12 = v23;
+        v25 = 0;
+        v10 = [v9 getResourceValue:&v25 forKey:v4 error:{&v24, v19}];
+        v11 = v25;
+        v12 = v24;
+        v14 = v12;
         if (((v12 == 0) & v10) != 0)
         {
           if ([v11 BOOLValue])
@@ -1121,18 +1112,18 @@ LABEL_17:
 
         else
         {
-          v13 = WBS_LOG_CHANNEL_PREFIXFileManager();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+          v15 = WBS_LOG_CHANNEL_PREFIXFileManager(v12, v13);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
           {
-            v14 = NSStringFromSelector(a2);
-            safari_privacyPreservingDescription = [v12 safari_privacyPreservingDescription];
+            v16 = NSStringFromSelector(a2);
+            safari_privacyPreservingDescription = [v14 safari_privacyPreservingDescription];
             *buf = 138543875;
-            v31 = v14;
-            v32 = 2113;
-            v33 = v9;
-            v34 = 2114;
-            v35 = safari_privacyPreservingDescription;
-            _os_log_error_impl(&dword_1B8447000, v13, OS_LOG_TYPE_ERROR, "%{public}@: error while getting NSURLIsDirectoryKey resource value for %{private}@: %{public}@", buf, 0x20u);
+            v32 = v16;
+            v33 = 2113;
+            v34 = v9;
+            v35 = 2114;
+            v36 = safari_privacyPreservingDescription;
+            _os_log_error_impl(&dword_1B8447000, v15, OS_LOG_TYPE_ERROR, "%{public}@: error while getting NSURLIsDirectoryKey resource value for %{private}@: %{public}@", buf, 0x20u);
           }
         }
 
@@ -1140,20 +1131,18 @@ LABEL_17:
       }
 
       while (v6 != v8);
-      v6 = [obj countByEnumeratingWithState:&v25 objects:v36 count:16];
+      v6 = [obj countByEnumeratingWithState:&v26 objects:v37 count:16];
     }
 
     while (v6);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return array;
 }
 
 - (BOOL)safari_zipContentsFromDirectory:()SafariNSFileManagerExtras toZipFileURL:shouldKeepParent:error:
 {
-  v28[4] = *MEMORY[0x1E69E9840];
+  v27[4] = *MEMORY[0x1E69E9840];
   v9 = a3;
   v10 = a4;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
@@ -1163,16 +1152,16 @@ LABEL_17:
   if (v13)
   {
     v14 = MEMORY[0x1E695E118];
-    v27[0] = @"createPKZip";
-    v27[1] = @"sequesterResources";
-    v28[0] = MEMORY[0x1E695E118];
-    v28[1] = MEMORY[0x1E695E118];
-    v27[2] = @"keepParent";
+    v26[0] = @"createPKZip";
+    v26[1] = @"sequesterResources";
+    v27[0] = MEMORY[0x1E695E118];
+    v27[1] = MEMORY[0x1E695E118];
+    v26[2] = @"keepParent";
     v15 = [MEMORY[0x1E696AD98] numberWithBool:a5];
-    v27[3] = @"copyResources";
-    v28[2] = v15;
-    v28[3] = v14;
-    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:v27 count:4];
+    v26[3] = @"copyResources";
+    v27[2] = v15;
+    v27[3] = v14;
+    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:4];
 
     _SL_BOMCopierNew();
     v18 = v17;
@@ -1200,31 +1189,30 @@ LABEL_17:
     v24 = 0;
   }
 
-  v25 = *MEMORY[0x1E69E9840];
   return v24;
 }
 
 - (BOOL)safari_extractZipArchiveFromPath:()SafariNSFileManagerExtras toDestination:copyQuarantine:
 {
-  v20[7] = *MEMORY[0x1E69E9840];
+  v19[7] = *MEMORY[0x1E69E9840];
   v7 = a3;
   v8 = a4;
-  v20[0] = MEMORY[0x1E695E118];
-  v19[0] = @"extractPKZip";
-  v19[1] = @"copyQuarantine";
+  v19[0] = MEMORY[0x1E695E118];
+  v18[0] = @"extractPKZip";
+  v18[1] = @"copyQuarantine";
   v9 = [MEMORY[0x1E696AD98] numberWithBool:a5];
-  v20[1] = v9;
-  v20[2] = MEMORY[0x1E695E110];
-  v19[2] = @"copyResources";
-  v19[3] = @"copyExtendedAttributes";
-  v20[3] = MEMORY[0x1E695E110];
-  v20[4] = MEMORY[0x1E695E110];
-  v19[4] = @"copyACLs";
-  v19[5] = @"applySourcePermissions";
-  v19[6] = @"symlinkTreatment";
-  v20[5] = MEMORY[0x1E695E110];
-  v20[6] = @"error";
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:7];
+  v19[1] = v9;
+  v19[2] = MEMORY[0x1E695E110];
+  v18[2] = @"copyResources";
+  v18[3] = @"copyExtendedAttributes";
+  v19[3] = MEMORY[0x1E695E110];
+  v19[4] = MEMORY[0x1E695E110];
+  v18[4] = @"copyACLs";
+  v18[5] = @"applySourcePermissions";
+  v18[6] = @"symlinkTreatment";
+  v19[5] = MEMORY[0x1E695E110];
+  v19[6] = @"error";
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:7];
 
   _SL_BOMCopierNew();
   v12 = v11;
@@ -1235,7 +1223,6 @@ LABEL_17:
   LODWORD(fileSystemRepresentation) = v16;
   _SL_BOMCopierFree(v12);
 
-  v17 = *MEMORY[0x1E69E9840];
   return fileSystemRepresentation == 0;
 }
 
@@ -1274,13 +1261,12 @@ LABEL_17:
 
 - (void)safari_replaceItemAtURL:()SafariNSFileManagerExtras withItemFromURL:error:.cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_error_impl(&dword_1B8447000, log, OS_LOG_TYPE_ERROR, "Origin file is not readable %{public}@. Cancelling replacement of %{public}@.", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 2114;
+  v6 = a2;
+  _os_log_error_impl(&dword_1B8447000, log, OS_LOG_TYPE_ERROR, "Origin file is not readable %{public}@. Cancelling replacement of %{public}@.", &v3, 0x16u);
 }
 
 - (void)safari_replaceItemAtURL:()SafariNSFileManagerExtras withItemFromURL:error:.cold.2(uint64_t a1, void *a2, uint64_t a3)

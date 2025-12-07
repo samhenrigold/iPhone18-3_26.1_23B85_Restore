@@ -26,8 +26,6 @@ void __74__NSString_ContactsFoundation___cn_rangeOfCommonPrefixWithString_option
   if (a3 + a4 <= [*(a1 + 32) length])
   {
     v12 = [*(a1 + 32) substringWithRange:{a3, a4}];
-    v13 = *(a1 + 56);
-    v14 = v12;
     if (![*(a1 + 40) compare:? options:? range:?])
     {
       *(*(*(a1 + 48) + 8) + 24) = v11;
@@ -83,17 +81,15 @@ void __44__NSString_ContactsFoundation___cn_flatMap___block_invoke(uint64_t a1)
 
 void __76__NSString_ContactsFoundationPhoneNumbers___cn_phoneNumberInvalidCharacters__block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = [objc_opt_class() _cn_LTRControlCharacters];
-  v8 = [v3 mutableCopy];
+  v1 = [objc_opt_class() _cn_LTRControlCharacters];
+  v5 = [v1 mutableCopy];
 
-  v4 = *(a1 + 32);
-  v5 = [objc_opt_class() _cn_whitespaceExceptAscii32CharacterSet];
-  [v8 formUnionWithCharacterSet:v5];
+  v2 = [objc_opt_class() _cn_whitespaceExceptAscii32CharacterSet];
+  [v5 formUnionWithCharacterSet:v2];
 
-  v6 = [v8 copy];
-  v7 = _cn_phoneNumberInvalidCharacters_cn_once_object_1;
-  _cn_phoneNumberInvalidCharacters_cn_once_object_1 = v6;
+  v3 = [v5 copy];
+  v4 = _cn_phoneNumberInvalidCharacters_cn_once_object_1;
+  _cn_phoneNumberInvalidCharacters_cn_once_object_1 = v3;
 }
 
 @end

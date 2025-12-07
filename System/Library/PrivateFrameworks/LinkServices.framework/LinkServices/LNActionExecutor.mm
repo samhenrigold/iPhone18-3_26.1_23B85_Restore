@@ -175,22 +175,22 @@ void __65__LNActionExecutor_OneShot__performOneShotWithConnectionOptions___block
 
 - (BOOL)validateEntitlementsForConnection:(id)connection
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   processInfo = [MEMORY[0x1E696AE30] processInfo];
   v6 = processInfo;
   if (processInfo)
   {
-    [processInfo if_auditToken];
+    objc_msgSend_if_auditToken(processInfo);
   }
 
   else
   {
+    v37 = 0u;
     v38 = 0u;
-    v39 = 0u;
   }
 
-  v7 = [LNEntitlementsValidator valueForEntitlement:@"com.apple.private.appintents.exception.restricted-allowed" auditToken:&v38];
+  v7 = [LNEntitlementsValidator valueForEntitlement:@"com.apple.private.appintents.exception.restricted-allowed" auditToken:&v37];
 
   if (v7)
   {
@@ -211,22 +211,22 @@ void __65__LNActionExecutor_OneShot__performOneShotWithConnectionOptions___block
     v8 = 0;
   }
 
-  v32 = v8;
+  v31 = v8;
 
   xpcConnection = [connectionCopy xpcConnection];
   v10 = xpcConnection;
   if (xpcConnection)
   {
-    [xpcConnection auditToken];
+    objc_msgSend_auditToken(xpcConnection);
   }
 
   else
   {
+    v37 = 0u;
     v38 = 0u;
-    v39 = 0u;
   }
 
-  v11 = [LNEntitlementsValidator valueForEntitlement:@"com.apple.private.appintents.restricted" auditToken:&v38];
+  v11 = [LNEntitlementsValidator valueForEntitlement:@"com.apple.private.appintents.restricted" auditToken:&v37];
 
   if (v11)
   {
@@ -249,27 +249,27 @@ void __65__LNActionExecutor_OneShot__performOneShotWithConnectionOptions___block
 
   v13 = v12;
 
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   obj = [v13 allKeys];
-  v14 = [obj countByEnumeratingWithState:&v34 objects:v40 count:16];
+  v14 = [obj countByEnumeratingWithState:&v33 objects:v39 count:16];
   if (v14)
   {
     v15 = v14;
-    v31 = connectionCopy;
-    v16 = *v35;
+    v30 = connectionCopy;
+    v16 = *v34;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v35 != v16)
+        if (*v34 != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v18 = *(*(&v34 + 1) + 8 * i);
+        v18 = *(*(&v33 + 1) + 8 * i);
         v19 = [v13 objectForKeyedSubscript:v18];
         if (v19)
         {
@@ -318,7 +318,7 @@ void __65__LNActionExecutor_OneShot__performOneShotWithConnectionOptions___block
         identifier = [action identifier];
         if ([v24 containsObject:identifier])
         {
-          v27 = [v32 containsObject:v18];
+          v27 = [v31 containsObject:v18];
 
           if ((v27 & 1) == 0)
           {
@@ -333,13 +333,13 @@ void __65__LNActionExecutor_OneShot__performOneShotWithConnectionOptions___block
         }
       }
 
-      v15 = [obj countByEnumeratingWithState:&v34 objects:v40 count:16];
+      v15 = [obj countByEnumeratingWithState:&v33 objects:v39 count:16];
     }
 
     while (v15);
     v28 = 1;
 LABEL_39:
-    connectionCopy = v31;
+    connectionCopy = v30;
   }
 
   else
@@ -347,13 +347,12 @@ LABEL_39:
     v28 = 1;
   }
 
-  v29 = *MEMORY[0x1E69E9840];
   return v28;
 }
 
 - (void)didInvalidateLiveActivityBackgroundAssertion:(id)assertion error:(id)error
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   invalidationReason = [assertion invalidationReason];
   v7 = getLNLogCategoryExecution();
@@ -362,31 +361,29 @@ LABEL_39:
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 138543362;
-      v15 = @"Live Activity assertion invalidated";
+      v13 = 138543362;
+      v14 = @"Live Activity assertion invalidated";
       v9 = "%{public}@";
       v10 = v8;
       v11 = OS_LOG_TYPE_DEFAULT;
       v12 = 12;
 LABEL_6:
-      _os_log_impl(&dword_19763D000, v10, v11, v9, &v14, v12);
+      _os_log_impl(&dword_19763D000, v10, v11, v9, &v13, v12);
     }
   }
 
   else if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    v14 = 138543618;
-    v15 = @"Live Activity assertion invalidated";
-    v16 = 2114;
-    v17 = errorCopy;
+    v13 = 138543618;
+    v14 = @"Live Activity assertion invalidated";
+    v15 = 2114;
+    v16 = errorCopy;
     v9 = "%{public}@ with error: %{public}@.";
     v10 = v8;
     v11 = OS_LOG_TYPE_ERROR;
     v12 = 22;
     goto LABEL_6;
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setLastCheckIn:(id)in
@@ -511,7 +508,7 @@ LABEL_6:
 
 - (void)requestOpenURL:(id)l completionHandler:(id)handler
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   lCopy = l;
   [lCopy setCompletionHandler:handler];
   v7 = getLNLogCategoryExecution();
@@ -519,7 +516,7 @@ LABEL_6:
   {
     v8 = [lCopy url];
     *buf = 138412290;
-    v20 = v8;
+    v19 = v8;
   }
 
   v9 = [LNURLLaunchRequest alloc];
@@ -539,15 +536,13 @@ LABEL_6:
 
   [(LNURLLaunchRequest *)v11 setDismissSiri:shouldDismissSiri];
   validateURLSchemeBeforeLaunching = [(LNActionExecutor *)self validateURLSchemeBeforeLaunching];
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __53__LNActionExecutor_requestOpenURL_completionHandler___block_invoke;
-  v17[3] = &unk_1E74B1B90;
-  v18 = lCopy;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __53__LNActionExecutor_requestOpenURL_completionHandler___block_invoke;
+  v16[3] = &unk_1E74B1B90;
+  v17 = lCopy;
   v15 = lCopy;
-  [(LNURLLaunchRequest *)v11 performValidatingURLScheme:validateURLSchemeBeforeLaunching completionHandler:v17];
-
-  v16 = *MEMORY[0x1E69E9840];
+  [(LNURLLaunchRequest *)v11 performValidatingURLScheme:validateURLSchemeBeforeLaunching completionHandler:v16];
 }
 
 uint64_t __53__LNActionExecutor_requestOpenURL_completionHandler___block_invoke(uint64_t a1, uint64_t a2)
@@ -566,13 +561,13 @@ uint64_t __53__LNActionExecutor_requestOpenURL_completionHandler___block_invoke(
 
 - (void)requestContinueInApp:(id)app completionHandler:(id)handler
 {
-  v70 = *MEMORY[0x1E69E9840];
+  v69 = *MEMORY[0x1E69E9840];
   appCopy = app;
   handlerCopy = handler;
-  v61 = 0;
-  v62 = &v61;
-  v63 = 0x2020000000;
-  v64 = 0;
+  v60 = 0;
+  v61 = &v60;
+  v62 = 0x2020000000;
+  v63 = 0;
   bundleIdentifier = [appCopy bundleIdentifier];
   v9 = bundleIdentifier == 0;
 
@@ -613,7 +608,7 @@ uint64_t __53__LNActionExecutor_requestOpenURL_completionHandler___block_invoke(
     v12 = xpcConnection2;
     if (xpcConnection2)
     {
-      [xpcConnection2 auditToken];
+      objc_msgSend_auditToken(xpcConnection2);
     }
 
     else
@@ -626,8 +621,8 @@ uint64_t __53__LNActionExecutor_requestOpenURL_completionHandler___block_invoke(
     if (!v17)
     {
       v20 = MEMORY[0x1E696ABC0];
-      v67 = *MEMORY[0x1E696A578];
-      bundleIdentifier2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v68 forKeys:&v67 count:1];
+      v66 = *MEMORY[0x1E696A578];
+      bundleIdentifier2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v67 forKeys:&v66 count:1];
       v21 = [v20 errorWithDomain:@"LNActionExecutorErrorDomain" code:2018 userInfo:bundleIdentifier2];
       handlerCopy[2](handlerCopy, 0, v21);
       goto LABEL_49;
@@ -635,7 +630,7 @@ uint64_t __53__LNActionExecutor_requestOpenURL_completionHandler___block_invoke(
 
     bundleIdentifier2 = [appCopy bundleIdentifier];
     options = [appCopy options];
-    *(v62 + 24) = options & 1;
+    *(v61 + 24) = options & 1;
   }
 
   v21 = [objc_alloc(MEMORY[0x1E69635F8]) initWithBundleIdentifier:bundleIdentifier2 allowPlaceholder:0 error:0];
@@ -705,19 +700,19 @@ LABEL_48:
 
     sceneOptions = [appCopy sceneOptions];
     completionHandler = [appCopy completionHandler];
-    v55[0] = MEMORY[0x1E69E9820];
-    v55[1] = 3221225472;
-    v55[2] = __59__LNActionExecutor_requestContinueInApp_completionHandler___block_invoke_226;
-    v55[3] = &unk_1E74B1E20;
-    v55[4] = self;
+    v54[0] = MEMORY[0x1E69E9820];
+    v54[1] = 3221225472;
+    v54[2] = __59__LNActionExecutor_requestContinueInApp_completionHandler___block_invoke_226;
+    v54[3] = &unk_1E74B1E20;
+    v54[4] = self;
     v29 = sceneOptions;
-    v56 = v29;
-    v60 = &v61;
-    v57 = bundleIdentifier2;
-    v58 = handlerCopy;
+    v55 = v29;
+    v59 = &v60;
+    v56 = bundleIdentifier2;
+    v57 = handlerCopy;
     v30 = completionHandler;
-    v59 = v30;
-    [appCopy setCompletionHandler:v55];
+    v58 = v30;
+    [appCopy setCompletionHandler:v54];
     if ([appCopy requestConfirmation])
     {
       goto LABEL_35;
@@ -732,13 +727,13 @@ LABEL_48:
 
     else
     {
-      v53 = LNEntitlementsValidator;
+      v52 = LNEntitlementsValidator;
       connection4 = [(LNActionExecutor *)self connection];
       xpcConnection3 = [connection4 xpcConnection];
       v51 = xpcConnection3;
       if (xpcConnection3)
       {
-        [xpcConnection3 auditToken];
+        objc_msgSend_auditToken(xpcConnection3);
       }
 
       else
@@ -746,9 +741,9 @@ LABEL_48:
         memset(buf, 0, 32);
       }
 
-      LODWORD(v53) = [LNEntitlementsValidator validateEntitlement:@"com.apple.private.appintents.exception.continue-in-foreground-no-prompt-allowed" auditToken:buf validator:&__block_literal_global_241];
+      LODWORD(v52) = [LNEntitlementsValidator validateEntitlement:@"com.apple.private.appintents.exception.continue-in-foreground-no-prompt-allowed" auditToken:buf validator:&__block_literal_global_241];
 
-      if (!v53)
+      if (!v52)
       {
 LABEL_35:
         connection5 = [(LNActionExecutor *)self connection];
@@ -792,8 +787,8 @@ LABEL_46:
   if ([appCopy requestConfirmation])
   {
     v28 = MEMORY[0x1E696ABC0];
-    v65 = *MEMORY[0x1E696A578];
-    v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v66 forKeys:&v65 count:1];
+    v64 = *MEMORY[0x1E696A578];
+    v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v65 forKeys:&v64 count:1];
     v30 = [v28 errorWithDomain:@"LNActionExecutorErrorDomain" code:2018 userInfo:v29];
     handlerCopy[2](handlerCopy, 0, v30);
 LABEL_47:
@@ -804,13 +799,12 @@ LABEL_47:
   [appCopy respondWithSuccess];
 LABEL_49:
 
-  _Block_object_dispose(&v61, 8);
-  v52 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v60, 8);
 }
 
 void __59__LNActionExecutor_requestContinueInApp_completionHandler___block_invoke_226(uint64_t a1, void *a2)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -867,7 +861,7 @@ void __59__LNActionExecutor_requestContinueInApp_completionHandler___block_invok
     if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v31 = v4;
+      v30 = v4;
       _os_log_impl(&dword_19763D000, v19, OS_LOG_TYPE_INFO, "INCAppLaunchRequest with options %@", buf, 0xCu);
     }
 
@@ -887,23 +881,21 @@ void __59__LNActionExecutor_requestContinueInApp_completionHandler___block_invok
     v23 = [v4 copy];
     v24 = [v21 initWithBundleIdentifier:v22 options:v23 URL:0 userActivity:0 retainsSiri:(*(*(*(a1 + 72) + 8) + 24) & 1) == 0];
 
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __59__LNActionExecutor_requestContinueInApp_completionHandler___block_invoke_233;
-    v26[3] = &unk_1E74B1DF8;
-    v26[4] = *(a1 + 32);
-    v28 = *(a1 + 56);
-    v29 = *(a1 + 64);
-    v27 = v3;
-    [v24 performWithCompletionHandler:v26];
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __59__LNActionExecutor_requestContinueInApp_completionHandler___block_invoke_233;
+    v25[3] = &unk_1E74B1DF8;
+    v25[4] = *(a1 + 32);
+    v27 = *(a1 + 56);
+    v28 = *(a1 + 64);
+    v26 = v3;
+    [v24 performWithCompletionHandler:v25];
   }
 
   else
   {
     (*(*(a1 + 64) + 16))();
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __59__LNActionExecutor_requestContinueInApp_completionHandler___block_invoke_239(uint64_t a1, void *a2)
@@ -946,20 +938,19 @@ void __59__LNActionExecutor_requestContinueInApp_completionHandler___block_invok
     v8 = getLNLogCategoryExecution();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      *v11 = 0;
-      _os_log_impl(&dword_19763D000, v8, OS_LOG_TYPE_INFO, "App Launch request succeeded", v11, 2u);
+      *v10 = 0;
+      _os_log_impl(&dword_19763D000, v8, OS_LOG_TYPE_INFO, "App Launch request succeeded", v10, 2u);
     }
 
-    v9 = *(a1 + 40);
-    v10 = *(*(a1 + 56) + 16);
+    v9 = *(*(a1 + 56) + 16);
   }
 
   else
   {
-    v10 = *(*(a1 + 48) + 16);
+    v9 = *(*(a1 + 48) + 16);
   }
 
-  v10();
+  v9();
 }
 
 uint64_t __59__LNActionExecutor_requestContinueInApp_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -1326,7 +1317,7 @@ void __67__LNActionExecutor_requestParameterConfirmation_completionHandler___blo
 
 - (void)runShowOutputActionIfNecessary:(id)necessary completionHandler:(id)handler
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   necessaryCopy = necessary;
   handlerCopy = handler;
   state.opaque[0] = 0;
@@ -1358,16 +1349,16 @@ LABEL_9:
         if (!v15)
         {
           [(LNActionExecutor *)self setState:90];
-          v44[0] = MEMORY[0x1E69E9820];
-          v44[1] = 3221225472;
-          v44[2] = __69__LNActionExecutor_runShowOutputActionIfNecessary_completionHandler___block_invoke;
-          v44[3] = &unk_1E74B1CB8;
-          v46 = handlerCopy;
+          v43[0] = MEMORY[0x1E69E9820];
+          v43[1] = 3221225472;
+          v43[2] = __69__LNActionExecutor_runShowOutputActionIfNecessary_completionHandler___block_invoke;
+          v43[3] = &unk_1E74B1CB8;
+          v45 = handlerCopy;
           showOutputAction = showOutputAction;
-          v45 = showOutputAction;
-          [(LNActionExecutor *)self openActionURL:showOutputAction completionHandler:v44];
+          v44 = showOutputAction;
+          [(LNActionExecutor *)self openActionURL:showOutputAction completionHandler:v43];
 
-          v16 = v46;
+          v16 = v45;
 LABEL_24:
 
           goto LABEL_25;
@@ -1385,21 +1376,21 @@ LABEL_24:
           connection2 = [(LNActionExecutor *)self connection];
           appBundleIdentifier2 = [connection2 appBundleIdentifier];
           identifier = [showOutputAction identifier];
-          v43 = 0;
-          v22 = [v18 actionForBundleIdentifier:appBundleIdentifier2 andActionIdentifier:identifier error:&v43];
-          v39 = connection2;
-          v16 = v43;
+          v42 = 0;
+          v22 = [v18 actionForBundleIdentifier:appBundleIdentifier2 andActionIdentifier:identifier error:&v42];
+          v38 = connection2;
+          v16 = v42;
           v23 = self->_showOutputActionMetadata;
           self->_showOutputActionMetadata = v22;
 
           if (!self->_showOutputActionMetadata)
           {
-            v38 = getLNLogCategoryExecution();
-            if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+            v37 = getLNLogCategoryExecution();
+            if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
             {
               *buf = 138543362;
-              v49 = v16;
-              _os_log_impl(&dword_19763D000, v38, OS_LOG_TYPE_ERROR, "Failed to read intent metadata: %{public}@.", buf, 0xCu);
+              v48 = v16;
+              _os_log_impl(&dword_19763D000, v37, OS_LOG_TYPE_ERROR, "Failed to read intent metadata: %{public}@.", buf, 0xCu);
             }
 
             (*(handlerCopy + 2))(handlerCopy, 0, v16);
@@ -1409,10 +1400,10 @@ LABEL_24:
           showOutputActionMetadata = self->_showOutputActionMetadata;
         }
 
-        v24 = [LNConnectionPolicy policyWithActionMetadata:showOutputActionMetadata, v39];
-        v42 = v16;
-        v25 = [v24 connectionWithError:&v42];
-        v26 = v42;
+        v24 = [LNConnectionPolicy policyWithActionMetadata:showOutputActionMetadata, v38];
+        v41 = v16;
+        v25 = [v24 connectionWithError:&v41];
+        v26 = v41;
 
         if (v25)
         {
@@ -1421,12 +1412,12 @@ LABEL_24:
 
           v29 = [LNActionExecutorPassthroughDelegate alloc];
           delegate3 = [(LNActionExecutor *)self delegate];
-          v40[0] = MEMORY[0x1E69E9820];
-          v40[1] = 3221225472;
-          v40[2] = __69__LNActionExecutor_runShowOutputActionIfNecessary_completionHandler___block_invoke_188;
-          v40[3] = &unk_1E74B1CE0;
-          v41 = handlerCopy;
-          v31 = [(LNActionExecutorPassthroughDelegate *)v29 initWithShowOutputActionDelegate:delegate3 performCompletionHandler:v40];
+          v39[0] = MEMORY[0x1E69E9820];
+          v39[1] = 3221225472;
+          v39[2] = __69__LNActionExecutor_runShowOutputActionIfNecessary_completionHandler___block_invoke_188;
+          v39[3] = &unk_1E74B1CE0;
+          v40 = handlerCopy;
+          v31 = [(LNActionExecutorPassthroughDelegate *)v29 initWithShowOutputActionDelegate:delegate3 performCompletionHandler:v39];
           [(LNActionExecutor *)self setShowOutputActionPassthroughDelegate:v31];
 
           options = [(LNActionExecutor *)self options];
@@ -1450,7 +1441,7 @@ LABEL_24:
           if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543362;
-            v49 = v26;
+            v48 = v26;
             _os_log_impl(&dword_19763D000, v36, OS_LOG_TYPE_ERROR, "Failed to initialize connection: %{public}@.", buf, 0xCu);
           }
 
@@ -1474,37 +1465,35 @@ LABEL_23:
 LABEL_25:
 
   os_activity_scope_leave(&state);
-  v37 = *MEMORY[0x1E69E9840];
 }
 
 void __69__LNActionExecutor_runShowOutputActionIfNecessary_completionHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
-    v3 = *(a1 + 40);
-    v4 = *(*(a1 + 40) + 16);
+    v3 = *(*(a1 + 40) + 16);
 
-    v4();
+    v3();
   }
 
   else
   {
-    v5 = [LNActionOutput alloc];
-    v6 = [MEMORY[0x1E696AFB0] UUID];
-    LOBYTE(v11) = 0;
+    v4 = [LNActionOutput alloc];
+    v5 = [MEMORY[0x1E696AFB0] UUID];
     LOBYTE(v10) = 0;
-    v12 = [(LNActionOutput *)v5 initWithIdentifier:v6 dialog:0 viewSnippet:0 snippetAction:0 attribution:0 value:0 showOutputAction:0 showOutputActionHint:0 showOutputActionOptions:0 deferred:v10 nextAction:0 suggestedFollowUpActions:0 activityIdentifier:0 confirmationActionName:0 showPrompt:v11 confirmationConditions:0 undoContext:0];
+    LOBYTE(v9) = 0;
+    v11 = [(LNActionOutput *)v4 initWithIdentifier:v5 dialog:0 viewSnippet:0 snippetAction:0 attribution:0 value:0 showOutputAction:0 showOutputActionHint:0 showOutputActionOptions:0 deferred:v9 nextAction:0 suggestedFollowUpActions:0 activityIdentifier:0 confirmationActionName:0 showPrompt:v10 confirmationConditions:0 undoContext:0];
 
-    v7 = *(a1 + 40);
-    v8 = [LNSuccessResult alloc];
-    v9 = [(LNSuccessResult *)v8 initWithAction:*(a1 + 32) output:v12 actionAppContext:0 predictions:MEMORY[0x1E695E0F0]];
-    (*(v7 + 16))(v7, v9, 0);
+    v6 = *(a1 + 40);
+    v7 = [LNSuccessResult alloc];
+    v8 = [(LNSuccessResult *)v7 initWithAction:*(a1 + 32) output:v11 actionAppContext:0 predictions:MEMORY[0x1E695E0F0]];
+    (*(v6 + 16))(v6, v8, 0);
   }
 }
 
 - (void)donateActionIfNecessary:(id)necessary result:(id)result completionHandler:(id)handler
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   necessaryCopy = necessary;
   resultCopy = result;
   handlerCopy = handler;
@@ -1513,7 +1502,7 @@ void __69__LNActionExecutor_runShowOutputActionIfNecessary_completionHandler___b
 
   if (resultCopy && (donateToTranscript & 1) != 0)
   {
-    v30 = handlerCopy;
+    v29 = handlerCopy;
     v13 = [LNTranscriptActionRecord alloc];
     connection = [(LNActionExecutor *)self connection];
     bundleIdentifier = [connection bundleIdentifier];
@@ -1524,49 +1513,47 @@ void __69__LNActionExecutor_runShowOutputActionIfNecessary_completionHandler___b
     options4 = [(LNActionExecutor *)self options];
     executionUUID = [options4 executionUUID];
     date = [MEMORY[0x1E695DF00] date];
-    v39 = 0;
-    v15 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:necessaryCopy requiringSecureCoding:1 error:&v39];
-    v16 = v39;
+    v38 = 0;
+    v15 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:necessaryCopy requiringSecureCoding:1 error:&v38];
+    v16 = v38;
     if (v16 || !v15)
     {
       v17 = getLNLogCategoryGeneral();
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v41 = necessaryCopy;
-        v42 = 2112;
-        v43 = v16;
+        v40 = necessaryCopy;
+        v41 = 2112;
+        v42 = v16;
         _os_log_impl(&dword_19763D000, v17, OS_LOG_TYPE_ERROR, "Object archival failed for %@: %@", buf, 0x16u);
       }
     }
 
     actionData = [resultCopy actionData];
     [resultCopy outputData];
-    v19 = v36 = necessaryCopy;
+    v19 = v35 = necessaryCopy;
     predictionsData = [resultCopy predictionsData];
     output = [resultCopy output];
     nextAction = [output nextAction];
-    LOBYTE(v25) = nextAction != 0;
-    v26 = [(LNTranscriptActionRecord *)v13 initWithBundleIdentifier:bundleIdentifier source:source clientLabel:clientLabel executionUUID:executionUUID executionDate:date actionData:v15 resolvedActionData:actionData actionOutputData:v19 predictionsData:predictionsData hasNextAction:v25];
+    LOBYTE(v24) = nextAction != 0;
+    v25 = [(LNTranscriptActionRecord *)v13 initWithBundleIdentifier:bundleIdentifier source:source clientLabel:clientLabel executionUUID:executionUUID executionDate:date actionData:v15 resolvedActionData:actionData actionOutputData:v19 predictionsData:predictionsData hasNextAction:v24];
 
     v23 = +[LNConnectionManager sharedInstance];
-    v37[0] = MEMORY[0x1E69E9820];
-    v37[1] = 3221225472;
-    v37[2] = __69__LNActionExecutor_donateActionIfNecessary_result_completionHandler___block_invoke;
-    v37[3] = &unk_1E74B2848;
-    handlerCopy = v30;
-    v38 = v30;
-    [v23 donateActionRecord:v26 completionHandler:v37];
+    v36[0] = MEMORY[0x1E69E9820];
+    v36[1] = 3221225472;
+    v36[2] = __69__LNActionExecutor_donateActionIfNecessary_result_completionHandler___block_invoke;
+    v36[3] = &unk_1E74B2848;
+    handlerCopy = v29;
+    v37 = v29;
+    [v23 donateActionRecord:v25 completionHandler:v36];
 
-    necessaryCopy = v36;
+    necessaryCopy = v35;
   }
 
   else
   {
     (*(handlerCopy + 2))(handlerCopy, 0);
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)shouldDismissSiriWithDefault:(BOOL)default
@@ -1604,15 +1591,15 @@ void __69__LNActionExecutor_runShowOutputActionIfNecessary_completionHandler___b
 
 - (void)openActionURL:(id)l completionHandler:(id)handler
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   lCopy = l;
   handlerCopy = handler;
   v8 = getLNLogCategoryExecution();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = [lCopy url];
-    v18 = 138412290;
-    v19 = v9;
+    v17 = 138412290;
+    v18 = v9;
   }
 
   delegate = [(LNActionExecutor *)self delegate];
@@ -1633,21 +1620,19 @@ void __69__LNActionExecutor_runShowOutputActionIfNecessary_completionHandler___b
       v16 = getLNLogCategoryExecution();
       if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v18) = 0;
-        _os_log_impl(&dword_19763D000, v16, OS_LOG_TYPE_INFO, "Siri will be dismissed (if it's running) before opening URL", &v18, 2u);
+        LOWORD(v17) = 0;
+        _os_log_impl(&dword_19763D000, v16, OS_LOG_TYPE_INFO, "Siri will be dismissed (if it's running) before opening URL", &v17, 2u);
       }
     }
 
     [(LNURLLaunchRequest *)v14 setDismissSiri:shouldDismissSiri];
     [(LNURLLaunchRequest *)v14 performValidatingURLScheme:[(LNActionExecutor *)self validateURLSchemeBeforeLaunching] completionHandler:handlerCopy];
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)linkUndoManagerToMainAppIfNecessary:(id)necessary completionHandler:(id)handler
 {
-  v61 = *MEMORY[0x1E69E9840];
+  v60 = *MEMORY[0x1E69E9840];
   necessaryCopy = necessary;
   handlerCopy = handler;
   if (necessaryCopy)
@@ -1669,9 +1654,9 @@ void __69__LNActionExecutor_runShowOutputActionIfNecessary_completionHandler___b
     }
 
     v10 = [MEMORY[0x1E69C7610] predicateMatchingBundleIdentifier:appBundleIdentifier];
-    v58 = 0;
-    v11 = [MEMORY[0x1E69C7618] statesForPredicate:v10 withDescriptor:0 error:&v58];
-    v12 = v58;
+    v57 = 0;
+    v11 = [MEMORY[0x1E69C7618] statesForPredicate:v10 withDescriptor:0 error:&v57];
+    v12 = v57;
     if (!v11)
     {
       (handlerCopy)[2](handlerCopy, v12);
@@ -1737,9 +1722,9 @@ LABEL_27:
     }
 
     v20 = [LNConnectionPolicy policyWithBundleIdentifier:appBundleIdentifier];
-    v57 = v12;
-    v21 = [v20 connectionWithError:&v57];
-    v22 = v57;
+    v56 = v12;
+    v21 = [v20 connectionWithError:&v56];
+    v22 = v56;
 
     if (!v21)
     {
@@ -1750,7 +1735,7 @@ LABEL_48:
       goto LABEL_29;
     }
 
-    v51 = v21;
+    v50 = v21;
     v23 = getLNLogCategoryExecution();
     if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
     {
@@ -1763,7 +1748,7 @@ LABEL_48:
     v26 = connection2;
     if (connection2)
     {
-      [connection2 auditToken];
+      objc_msgSend_auditToken(connection2);
     }
 
     else
@@ -1771,101 +1756,101 @@ LABEL_48:
       memset(buf, 0, sizeof(buf));
     }
 
-    v28 = [v24 tokenFromAuditToken:buf];
+    v27 = [v24 tokenFromAuditToken:buf];
 
-    v50 = v28;
-    v29 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(v28, "pid")}];
-    v56 = 0;
-    v30 = [MEMORY[0x1E69C75D0] handleForIdentifier:v29 error:&v56];
-    v31 = v56;
+    v49 = v27;
+    v28 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(v27, "pid")}];
+    v55 = 0;
+    v29 = [MEMORY[0x1E69C75D0] handleForIdentifier:v28 error:&v55];
+    v30 = v55;
 
-    if (!v30)
+    if (!v29)
     {
-      (handlerCopy)[2](handlerCopy, v31);
+      (handlerCopy)[2](handlerCopy, v30);
 LABEL_47:
 
-      v22 = v31;
-      v21 = v51;
+      v22 = v30;
+      v21 = v50;
       goto LABEL_48;
     }
 
-    v48 = v29;
-    v49 = v20;
-    v32 = +[LNExtensionUndoAssertionCache shared];
-    v33 = [v32 extendAssertionForHandle:v30];
+    v47 = v28;
+    v48 = v20;
+    v31 = +[LNExtensionUndoAssertionCache shared];
+    v32 = [v31 extendAssertionForHandle:v29];
 
-    if (v33)
+    if (v32)
     {
-      v34 = getLNLogCategoryExecution();
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
+      v33 = getLNLogCategoryExecution();
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_19763D000, v34, OS_LOG_TYPE_INFO, "Existing assertion found and extended", buf, 2u);
+        _os_log_impl(&dword_19763D000, v33, OS_LOG_TYPE_INFO, "Existing assertion found and extended", buf, 2u);
       }
 
-      v35 = 0;
+      v34 = 0;
     }
 
     else
     {
-      v36 = @"com.apple.siri";
-      v37 = @"AppIntentsExtensionConnection";
-      v38 = [MEMORY[0x1E69C7560] attributeWithDomain:@"com.apple.siri" name:@"AppIntentsExtensionConnection"];
-      v59 = v38;
-      v39 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v59 count:1];
+      v35 = @"com.apple.siri";
+      v36 = @"AppIntentsExtensionConnection";
+      v37 = [MEMORY[0x1E69C7560] attributeWithDomain:@"com.apple.siri" name:@"AppIntentsExtensionConnection"];
+      v58 = v37;
+      v38 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v58 count:1];
 
-      v40 = objc_alloc(MEMORY[0x1E69C7548]);
-      v47 = v30;
-      v41 = [MEMORY[0x1E69C7640] targetWithProcessIdentifier:v30];
-      v46 = v39;
-      v35 = [v40 initWithExplanation:@"Extension connection" target:v41 attributes:v39];
+      v39 = objc_alloc(MEMORY[0x1E69C7548]);
+      v46 = v29;
+      v40 = [MEMORY[0x1E69C7640] targetWithProcessIdentifier:v29];
+      v45 = v38;
+      v34 = [v39 initWithExplanation:@"Extension connection" target:v40 attributes:v38];
 
-      v42 = +[LNExtensionUndoAssertionCache shared];
-      v55 = v31;
-      LODWORD(v39) = [v42 addAssertion:v35 error:&v55];
-      v43 = v55;
+      v41 = +[LNExtensionUndoAssertionCache shared];
+      v54 = v30;
+      LODWORD(v38) = [v41 addAssertion:v34 error:&v54];
+      v42 = v54;
 
-      if (!v39)
+      if (!v38)
       {
-        [(__CFString *)v35 invalidate];
-        (handlerCopy)[2](handlerCopy, v43);
+        [(__CFString *)v34 invalidate];
+        (handlerCopy)[2](handlerCopy, v42);
 
-        v45 = @"com.apple.siri";
-        v20 = v49;
-        v31 = v43;
-        v30 = v47;
+        v44 = @"com.apple.siri";
+        v20 = v48;
+        v30 = v42;
+        v29 = v46;
         goto LABEL_46;
       }
 
-      v44 = getLNLogCategoryExecution();
-      if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
+      v43 = getLNLogCategoryExecution();
+      if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
       {
         *buf = 138543618;
         *&buf[4] = @"com.apple.siri";
         *&buf[12] = 2114;
         *&buf[14] = @"AppIntentsExtensionConnection";
-        _os_log_impl(&dword_19763D000, v44, OS_LOG_TYPE_INFO, "Acquired assertion %{public}@:%{public}@, sending linking message with undo manager reference", buf, 0x16u);
+        _os_log_impl(&dword_19763D000, v43, OS_LOG_TYPE_INFO, "Acquired assertion %{public}@:%{public}@, sending linking message with undo manager reference", buf, 0x16u);
       }
 
-      v34 = @"com.apple.siri";
-      v20 = v49;
-      v31 = v43;
-      v30 = v47;
+      v33 = @"com.apple.siri";
+      v20 = v48;
+      v30 = v42;
+      v29 = v46;
     }
 
-    v52[0] = MEMORY[0x1E69E9820];
-    v52[1] = 3221225472;
-    v52[2] = __74__LNActionExecutor_linkUndoManagerToMainAppIfNecessary_completionHandler___block_invoke;
-    v52[3] = &unk_1E74B1CB8;
-    v35 = v35;
-    v53 = v35;
-    v54 = handlerCopy;
-    [v51 linkUndoManager:necessaryCopy completionHandler:v52];
+    v51[0] = MEMORY[0x1E69E9820];
+    v51[1] = 3221225472;
+    v51[2] = __74__LNActionExecutor_linkUndoManagerToMainAppIfNecessary_completionHandler___block_invoke;
+    v51[3] = &unk_1E74B1CB8;
+    v34 = v34;
+    v52 = v34;
+    v53 = handlerCopy;
+    [v50 linkUndoManager:necessaryCopy completionHandler:v51];
 
-    v45 = v53;
+    v44 = v52;
 LABEL_46:
 
-    v29 = v48;
+    v28 = v47;
     goto LABEL_47;
   }
 
@@ -1878,8 +1863,6 @@ LABEL_46:
 
   handlerCopy[2](handlerCopy, 0);
 LABEL_31:
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 void __74__LNActionExecutor_linkUndoManagerToMainAppIfNecessary_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -1903,7 +1886,7 @@ void __74__LNActionExecutor_linkUndoManagerToMainAppIfNecessary_completionHandle
 
 - (void)performWithoutValidation
 {
-  v78[1] = *MEMORY[0x1E69E9840];
+  v77[1] = *MEMORY[0x1E69E9840];
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(self->_activity, &state);
@@ -1915,12 +1898,12 @@ void __74__LNActionExecutor_linkUndoManagerToMainAppIfNecessary_completionHandle
   if (!v5)
   {
     action2 = [(LNActionExecutor *)self action];
-    v69[0] = MEMORY[0x1E69E9820];
-    v69[1] = 3221225472;
-    v69[2] = __44__LNActionExecutor_performWithoutValidation__block_invoke;
-    v69[3] = &unk_1E74B1B90;
-    v69[4] = self;
-    [(LNActionExecutor *)self openActionURL:action2 completionHandler:v69];
+    v68[0] = MEMORY[0x1E69E9820];
+    v68[1] = 3221225472;
+    v68[2] = __44__LNActionExecutor_performWithoutValidation__block_invoke;
+    v68[3] = &unk_1E74B1B90;
+    v68[4] = self;
+    [(LNActionExecutor *)self openActionURL:action2 completionHandler:v68];
 
     goto LABEL_34;
   }
@@ -1935,9 +1918,9 @@ void __74__LNActionExecutor_linkUndoManagerToMainAppIfNecessary_completionHandle
     if (isKindOfClass)
     {
       v10 = MEMORY[0x1E696ABC0];
-      v77 = *MEMORY[0x1E696A578];
-      v78[0] = @"openAppWhenRun is not supported in extensions";
-      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v78 forKeys:&v77 count:1];
+      v76 = *MEMORY[0x1E696A578];
+      v77[0] = @"openAppWhenRun is not supported in extensions";
+      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v77 forKeys:&v76 count:1];
       v12 = [v10 errorWithDomain:@"LNContextErrorDomain" code:2001 userInfo:v11];
       [(LNActionExecutor *)self setCompletedWithError:v12];
 
@@ -1966,9 +1949,9 @@ void __74__LNActionExecutor_linkUndoManagerToMainAppIfNecessary_completionHandle
       if (([v20 isLocked]& 1) != 0 || [v20 isHidden])
       {
         v21 = MEMORY[0x1E696ABC0];
-        v75 = *MEMORY[0x1E696A578];
-        v76 = @"Audio Recording is not allowed when an app is locked";
-        v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v76 forKeys:&v75 count:1];
+        v74 = *MEMORY[0x1E696A578];
+        v75 = @"Audio Recording is not allowed when an app is locked";
+        v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v75 forKeys:&v74 count:1];
         v23 = [v21 errorWithDomain:@"LNContextErrorDomain" code:2023 userInfo:v22];
         [(LNActionExecutor *)self setCompletedWithError:v23];
 
@@ -2019,12 +2002,12 @@ void __74__LNActionExecutor_linkUndoManagerToMainAppIfNecessary_completionHandle
 
       objc_initWeak(&location, self);
       v41 = objc_alloc(MEMORY[0x1E69CA940]);
-      v66[0] = MEMORY[0x1E69E9820];
-      v66[1] = 3221225472;
-      v66[2] = __44__LNActionExecutor_performWithoutValidation__block_invoke_2;
-      v66[3] = &unk_1E74B1BB8;
-      objc_copyWeak(&v67, &location);
-      v42 = [v41 initWithExplanation:v40 target:options invalidationHandler:v66];
+      v65[0] = MEMORY[0x1E69E9820];
+      v65[1] = 3221225472;
+      v65[2] = __44__LNActionExecutor_performWithoutValidation__block_invoke_2;
+      v65[3] = &unk_1E74B1BB8;
+      objc_copyWeak(&v66, &location);
+      v42 = [v41 initWithExplanation:v40 target:options invalidationHandler:v65];
       [(LNActionExecutor *)self setLiveActivityAssertion:v42];
 
       v43 = getLNLogCategoryExecution();
@@ -2035,13 +2018,13 @@ void __74__LNActionExecutor_linkUndoManagerToMainAppIfNecessary_completionHandle
         action7 = [(LNActionExecutor *)self action];
         identifier2 = [action7 identifier];
         *buf = 138412546;
-        v72 = bundleIdentifier3;
-        v73 = 2112;
-        v74 = identifier2;
+        v71 = bundleIdentifier3;
+        v72 = 2112;
+        v73 = identifier2;
         _os_log_impl(&dword_19763D000, v43, OS_LOG_TYPE_DEFAULT, "Requested a Live Activity assertion for %@::%@", buf, 0x16u);
       }
 
-      objc_destroyWeak(&v67);
+      objc_destroyWeak(&v66);
       objc_destroyWeak(&location);
     }
 
@@ -2083,9 +2066,9 @@ LABEL_25:
     options8 = [(LNActionExecutor *)self options];
     executionUUID = [options8 executionUUID];
     *buf = 138412546;
-    v72 = executionUUID;
-    v73 = 2112;
-    v74 = v57;
+    v71 = executionUUID;
+    v72 = 2112;
+    v73 = v57;
     _os_log_impl(&dword_19763D000, v59, OS_LOG_TYPE_INFO, "Performing action with UUID: %@, connection options: %@", buf, 0x16u);
   }
 
@@ -2099,22 +2082,21 @@ LABEL_25:
 
   else
   {
-    v65[0] = MEMORY[0x1E69E9820];
-    v65[1] = 3221225472;
-    v65[2] = __44__LNActionExecutor_performWithoutValidation__block_invoke_136;
-    v65[3] = &unk_1E74B1C90;
-    v65[4] = self;
-    [(LNActionExecutor *)self getConnectionInterfaceWithOptions:v57 completionHandler:v65];
+    v64[0] = MEMORY[0x1E69E9820];
+    v64[1] = 3221225472;
+    v64[2] = __44__LNActionExecutor_performWithoutValidation__block_invoke_136;
+    v64[3] = &unk_1E74B1C90;
+    v64[4] = self;
+    [(LNActionExecutor *)self getConnectionInterfaceWithOptions:v57 completionHandler:v64];
   }
 
 LABEL_34:
   os_activity_scope_leave(&state);
-  v64 = *MEMORY[0x1E69E9840];
 }
 
 void __44__LNActionExecutor_performWithoutValidation__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) setCompletedWithError:a2];
   if (!a2)
   {
@@ -2123,12 +2105,10 @@ void __44__LNActionExecutor_performWithoutValidation__block_invoke(uint64_t a1, 
     {
       v5 = [*(a1 + 32) action];
       v6 = [v5 url];
-      v8 = 138412290;
-      v9 = v6;
+      v7 = 138412290;
+      v8 = v6;
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __44__LNActionExecutor_performWithoutValidation__block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -2143,7 +2123,7 @@ void __44__LNActionExecutor_performWithoutValidation__block_invoke_2(uint64_t a1
 
 void __44__LNActionExecutor_performWithoutValidation__block_invoke_136(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
 {
-  v40[1] = *MEMORY[0x1E69E9840];
+  v39[1] = *MEMORY[0x1E69E9840];
   v9 = a2;
   v10 = a3;
   v11 = a4;
@@ -2159,27 +2139,27 @@ void __44__LNActionExecutor_performWithoutValidation__block_invoke_136(uint64_t 
       *(*(a1 + 32) + 12) = [v9 allowsExtendingTimeoutOnProgressUpdates];
       objc_initWeak(&location, *(a1 + 32));
       v14 = MEMORY[0x1E696AE38];
-      v35[0] = MEMORY[0x1E69E9820];
-      v35[1] = 3221225472;
-      v35[2] = __44__LNActionExecutor_performWithoutValidation__block_invoke_2_140;
-      v35[3] = &unk_1E74B1BE0;
-      objc_copyWeak(&v36, &location);
-      v15 = [v14 _addSubscriberForCategory:@"com.apple.PerformActionProgressCategory" usingPublishingHandler:v35];
+      v34[0] = MEMORY[0x1E69E9820];
+      v34[1] = 3221225472;
+      v34[2] = __44__LNActionExecutor_performWithoutValidation__block_invoke_2_140;
+      v34[3] = &unk_1E74B1BE0;
+      objc_copyWeak(&v35, &location);
+      v15 = [v14 _addSubscriberForCategory:@"com.apple.PerformActionProgressCategory" usingPublishingHandler:v34];
       [*(a1 + 32) setProgressSubscriber:v15];
 
-      v31 = [LNPerformActionConnectionOperation alloc];
+      v30 = [LNPerformActionConnectionOperation alloc];
       v16 = *(a1 + 32);
       v17 = [v16 activity];
       v18 = [v9 queue];
-      v32[0] = MEMORY[0x1E69E9820];
-      v32[1] = 3221225472;
-      v32[2] = __44__LNActionExecutor_performWithoutValidation__block_invoke_4;
-      v32[3] = &unk_1E74B1C68;
-      v32[4] = *(a1 + 32);
-      v33 = v10;
+      v31[0] = MEMORY[0x1E69E9820];
+      v31[1] = 3221225472;
+      v31[2] = __44__LNActionExecutor_performWithoutValidation__block_invoke_4;
+      v31[3] = &unk_1E74B1C68;
+      v31[4] = *(a1 + 32);
+      v32 = v10;
       v19 = v9;
-      v34 = v19;
-      v20 = [(LNPerformActionConnectionOperation *)v31 initWithConnectionInterface:v11 action:v33 executor:v16 executorActivity:v17 queue:v18 completionHandler:v32];
+      v33 = v19;
+      v20 = [(LNPerformActionConnectionOperation *)v30 initWithConnectionInterface:v11 action:v32 executor:v16 executorActivity:v17 queue:v18 completionHandler:v31];
 
       v21 = [MEMORY[0x1E695DF00] date];
       [*(a1 + 32) setLastCheckIn:v21];
@@ -2187,7 +2167,7 @@ void __44__LNActionExecutor_performWithoutValidation__block_invoke_136(uint64_t 
       [*(a1 + 32) setState:90];
       [v19 enqueueConnectionOperation:v20];
 
-      objc_destroyWeak(&v36);
+      objc_destroyWeak(&v35);
       objc_destroyWeak(&location);
     }
 
@@ -2195,13 +2175,13 @@ void __44__LNActionExecutor_performWithoutValidation__block_invoke_136(uint64_t 
     {
       v22 = *(a1 + 32);
       v23 = MEMORY[0x1E696ABC0];
-      v39 = *MEMORY[0x1E696A578];
+      v38 = *MEMORY[0x1E696A578];
       v24 = MEMORY[0x1E696AEC0];
       v25 = [v22 action];
       v26 = [v25 identifier];
       v27 = [v24 stringWithFormat:@"This client is not entitled to perform %@", v26];
-      v40[0] = v27;
-      v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v40 forKeys:&v39 count:1];
+      v39[0] = v27;
+      v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v39 forKeys:&v38 count:1];
       v29 = [v23 errorWithDomain:@"LNContextErrorDomain" code:2021 userInfo:v28];
       [v22 setCompletedWithError:v29];
     }
@@ -2213,8 +2193,6 @@ void __44__LNActionExecutor_performWithoutValidation__block_invoke_136(uint64_t 
   }
 
   os_activity_scope_leave(&state);
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 id __44__LNActionExecutor_performWithoutValidation__block_invoke_2_140(uint64_t a1, void *a2)
@@ -2259,40 +2237,40 @@ id __44__LNActionExecutor_performWithoutValidation__block_invoke_2_140(uint64_t 
 
 void __44__LNActionExecutor_performWithoutValidation__block_invoke_4(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v63 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
   [*(a1 + 32) unsubscribeProgressObservation];
-  v53 = 0;
-  v54 = &v53;
-  v55 = 0x3032000000;
-  v56 = __Block_byref_object_copy__10568;
-  v57 = __Block_byref_object_dispose__10569;
-  v58 = 0;
+  v52 = 0;
+  v53 = &v52;
+  v54 = 0x3032000000;
+  v55 = __Block_byref_object_copy__10568;
+  v56 = __Block_byref_object_dispose__10569;
+  v57 = 0;
   if (v9)
   {
     v10 = getLNLogCategoryExecution();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v62 = v9;
+      v61 = v9;
       _os_log_impl(&dword_19763D000, v10, OS_LOG_TYPE_ERROR, "Perform action connection operation completed with error: %{public}@", buf, 0xCu);
     }
 
     v11 = MEMORY[0x1E696ABC0];
-    v59[0] = *MEMORY[0x1E696A578];
+    v58[0] = *MEMORY[0x1E696A578];
     v12 = MEMORY[0x1E696AEC0];
     v13 = @"LNActionExecutorErrorCodePerformAction";
     v14 = [v9 localizedDescription];
     v15 = [v12 stringWithFormat:@"%@. Underlying error: %@", @"LNActionExecutorErrorCodePerformAction", v14];
-    v59[1] = @"LNActionExecutorErrorUnderlyingError";
-    v60[0] = v15;
-    v60[1] = v9;
-    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v60 forKeys:v59 count:2];
+    v58[1] = @"LNActionExecutorErrorUnderlyingError";
+    v59[0] = v15;
+    v59[1] = v9;
+    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v59 forKeys:v58 count:2];
     v17 = [v11 errorWithDomain:@"LNActionExecutorErrorDomain" code:3001 userInfo:v16];
-    v18 = v54[5];
-    v54[5] = v17;
+    v18 = v53[5];
+    v53[5] = v17;
   }
 
   [*(a1 + 32) setState:100];
@@ -2328,38 +2306,38 @@ void __44__LNActionExecutor_performWithoutValidation__block_invoke_4(uint64_t a1
   dispatch_group_enter(v27);
   v28 = *(a1 + 32);
   v29 = *(a1 + 40);
-  v49[0] = MEMORY[0x1E69E9820];
-  v49[1] = 3221225472;
-  v49[2] = __44__LNActionExecutor_performWithoutValidation__block_invoke_155;
-  v49[3] = &unk_1E74B2388;
-  v50 = *(a1 + 48);
+  v48[0] = MEMORY[0x1E69E9820];
+  v48[1] = 3221225472;
+  v48[2] = __44__LNActionExecutor_performWithoutValidation__block_invoke_155;
+  v48[3] = &unk_1E74B2388;
+  v49 = *(a1 + 48);
   v30 = v7;
-  v51 = v30;
+  v50 = v30;
   v31 = v27;
-  v52 = v31;
-  [v28 donateActionIfNecessary:v29 result:v8 completionHandler:v49];
+  v51 = v31;
+  [v28 donateActionIfNecessary:v29 result:v8 completionHandler:v48];
   dispatch_group_enter(v31);
   v32 = *(a1 + 32);
   v33 = [v8 output];
-  v46[0] = MEMORY[0x1E69E9820];
-  v46[1] = 3221225472;
-  v46[2] = __44__LNActionExecutor_performWithoutValidation__block_invoke_2_157;
-  v46[3] = &unk_1E74B1C18;
-  v48 = &v53;
+  v45[0] = MEMORY[0x1E69E9820];
+  v45[1] = 3221225472;
+  v45[2] = __44__LNActionExecutor_performWithoutValidation__block_invoke_2_157;
+  v45[3] = &unk_1E74B1C18;
+  v47 = &v52;
   v34 = v31;
-  v47 = v34;
-  [v32 runShowOutputActionIfNecessary:v33 completionHandler:v46];
+  v46 = v34;
+  [v32 runShowOutputActionIfNecessary:v33 completionHandler:v45];
 
   dispatch_group_enter(v34);
   v35 = *(a1 + 32);
   v36 = [v8 undoReference];
-  v44[0] = MEMORY[0x1E69E9820];
-  v44[1] = 3221225472;
-  v44[2] = __44__LNActionExecutor_performWithoutValidation__block_invoke_3_159;
-  v44[3] = &unk_1E74B1B90;
+  v43[0] = MEMORY[0x1E69E9820];
+  v43[1] = 3221225472;
+  v43[2] = __44__LNActionExecutor_performWithoutValidation__block_invoke_3_159;
+  v43[3] = &unk_1E74B1B90;
   v37 = v34;
-  v45 = v37;
-  [v35 linkUndoManagerToMainAppIfNecessary:v36 completionHandler:v44];
+  v44 = v37;
+  [v35 linkUndoManagerToMainAppIfNecessary:v36 completionHandler:v43];
 
   v38 = dispatch_get_global_queue(2, 0);
   block[0] = MEMORY[0x1E69E9820];
@@ -2367,18 +2345,17 @@ void __44__LNActionExecutor_performWithoutValidation__block_invoke_4(uint64_t a1
   block[2] = __44__LNActionExecutor_performWithoutValidation__block_invoke_160;
   block[3] = &unk_1E74B1C40;
   block[4] = *(a1 + 32);
-  v42 = v8;
-  v43 = &v53;
+  v41 = v8;
+  v42 = &v52;
   v39 = v8;
   dispatch_group_notify(v37, v38, block);
 
-  _Block_object_dispose(&v53, 8);
-  v40 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v52, 8);
 }
 
 void __44__LNActionExecutor_performWithoutValidation__block_invoke_155(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -2386,41 +2363,40 @@ void __44__LNActionExecutor_performWithoutValidation__block_invoke_155(uint64_t 
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v11 = v3;
+      v10 = v3;
       _os_log_impl(&dword_19763D000, v4, OS_LOG_TYPE_ERROR, "Biome donation has failed with error: %{public}@", buf, 0xCu);
     }
   }
 
   v5 = [*(a1 + 32) queue];
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = __44__LNActionExecutor_performWithoutValidation__block_invoke_156;
-  v7[3] = &unk_1E74B27A0;
-  v8 = *(a1 + 32);
-  v9 = *(a1 + 40);
-  dispatch_async(v5, v7);
+  v6[0] = MEMORY[0x1E69E9820];
+  v6[1] = 3221225472;
+  v6[2] = __44__LNActionExecutor_performWithoutValidation__block_invoke_156;
+  v6[3] = &unk_1E74B27A0;
+  v7 = *(a1 + 32);
+  v8 = *(a1 + 40);
+  dispatch_async(v5, v6);
 
   dispatch_group_leave(*(a1 + 48));
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __44__LNActionExecutor_performWithoutValidation__block_invoke_2_157(uint64_t a1, void *a2, void *a3)
 {
-  v18[2] = *MEMORY[0x1E69E9840];
+  v17[2] = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6 && !*(*(*(a1 + 40) + 8) + 40))
   {
     v7 = MEMORY[0x1E696ABC0];
-    v17[0] = *MEMORY[0x1E696A578];
+    v16[0] = *MEMORY[0x1E696A578];
     v8 = MEMORY[0x1E696AEC0];
     v9 = @"LNActionExecutorErrorCodePerformShowOutputAction";
     v10 = [v6 localizedDescription];
     v11 = [v8 stringWithFormat:@"%@. Underlying error: %@", @"LNActionExecutorErrorCodePerformShowOutputAction", v10];
-    v17[1] = @"LNActionExecutorErrorUnderlyingError";
-    v18[0] = v11;
-    v18[1] = v6;
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:2];
+    v16[1] = @"LNActionExecutorErrorUnderlyingError";
+    v17[0] = v11;
+    v17[1] = v6;
+    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:2];
     v13 = [v7 errorWithDomain:@"LNActionExecutorErrorDomain" code:3003 userInfo:v12];
     v14 = *(*(a1 + 40) + 8);
     v15 = *(v14 + 40);
@@ -2428,28 +2404,24 @@ void __44__LNActionExecutor_performWithoutValidation__block_invoke_2_157(uint64_
   }
 
   dispatch_group_leave(*(a1 + 32));
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __44__LNActionExecutor_performWithoutValidation__block_invoke_3_159(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
     v4 = getLNLogCategoryExecution();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v6 = 138543362;
-      v7 = v3;
-      _os_log_impl(&dword_19763D000, v4, OS_LOG_TYPE_ERROR, "Undo manager linking has failed with error: %{public}@", &v6, 0xCu);
+      v5 = 138543362;
+      v6 = v3;
+      _os_log_impl(&dword_19763D000, v4, OS_LOG_TYPE_ERROR, "Undo manager linking has failed with error: %{public}@", &v5, 0xCu);
     }
   }
 
   dispatch_group_leave(*(a1 + 32));
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __44__LNActionExecutor_performWithoutValidation__block_invoke_160(uint64_t a1)
@@ -2566,15 +2538,15 @@ LABEL_8:
 
 void __27__LNActionExecutor_perform__block_invoke(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = a2;
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(*(*(a1 + 32) + 136), &state);
   v4 = [*(a1 + 32) action];
-  v16 = 0;
-  v5 = [v4 evaluateConstraintsInContext:v3 error:&v16];
-  v6 = v16;
+  v15 = 0;
+  v5 = [v4 evaluateConstraintsInContext:v3 error:&v15];
+  v6 = v15;
 
   if (v5 > 0)
   {
@@ -2589,10 +2561,10 @@ void __27__LNActionExecutor_perform__block_invoke(uint64_t a1, void *a2)
 
       v10 = *(a1 + 32);
       v11 = MEMORY[0x1E696ABC0];
-      v18 = *MEMORY[0x1E696A578];
+      v17 = *MEMORY[0x1E696A578];
       v12 = [v6 localizedDescription];
-      v19 = v12;
-      v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
+      v18 = v12;
+      v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
       v14 = [v11 errorWithDomain:@"LNContextErrorDomain" code:2024 userInfo:v13];
       [v10 setCompletedWithError:v14];
 
@@ -2609,7 +2581,7 @@ void __27__LNActionExecutor_perform__block_invoke(uint64_t a1, void *a2)
       {
         v8 = [v6 debugDescription];
         *buf = 138412290;
-        v21 = v8;
+        v20 = v8;
         _os_log_impl(&dword_19763D000, v7, OS_LOG_TYPE_INFO, "Intent constraints had unknown/system failure outcome: %@", buf, 0xCu);
       }
 
@@ -2636,7 +2608,6 @@ LABEL_14:
   [*(a1 + 32) performWithoutValidation];
 
   os_activity_scope_leave(&state);
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getXPCListenerConnectionInterfaceWithOptions:(id)options completionHandler:(id)handler
@@ -2699,7 +2670,7 @@ void __83__LNActionExecutor_getXPCListenerConnectionInterfaceWithOptions_complet
     v24 = [v23 userIdentity];
     if (v10)
     {
-      [v10 if_auditToken];
+      objc_msgSend_if_auditToken(v10);
     }
 
     else
@@ -2890,49 +2861,75 @@ void __72__LNActionExecutor_getConnectionInterfaceWithOptions_completionHandler_
 
 - (void)_logTransitionFromState:(int64_t)state toState:(int64_t)toState
 {
-  v31 = *MEMORY[0x1E69E9840];
-  if (state == toState)
+  v30 = *MEMORY[0x1E69E9840];
+  if (state != toState)
   {
-    goto LABEL_50;
-  }
-
-  v7 = getLNLogCategoryExecution();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
-  {
-    v8 = LNActionExecutorStateAsString(state);
-    v9 = LNActionExecutorStateAsString(toState);
-    v27 = 138543618;
-    v28 = v8;
-    v29 = 2114;
-    v30 = v9;
-  }
-
-  if (state > 39)
-  {
-    if ((state - 40) >= 4 && state != 80)
+    v7 = getLNLogCategoryExecution();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      if (state == 90)
+      v8 = LNActionExecutorStateAsString(state);
+      v9 = LNActionExecutorStateAsString(toState);
+      v26 = 138543618;
+      v27 = v8;
+      v28 = 2114;
+      v29 = v9;
+    }
+
+    if (state <= 39)
+    {
+      if (state == 10)
       {
-        v10 = getLNLogCategoryExecution();
-        v11 = v10;
-        if (&self->super.isa + 1 < 2 || !os_signpost_enabled(v10))
+        v14 = getLNLogCategoryExecution();
+        v11 = v14;
+        if (&self->super.isa + 1 < 2 || !os_signpost_enabled(v14))
         {
           goto LABEL_22;
         }
 
-        LOWORD(v27) = 0;
-        v12 = "performing";
-LABEL_17:
-        _os_signpost_emit_with_name_impl(&dword_19763D000, v11, OS_SIGNPOST_INTERVAL_END, self, v12, "", &v27, 2u);
-LABEL_22:
+        LOWORD(v26) = 0;
+        v12 = "validatingConstraints";
+        goto LABEL_17;
+      }
 
+      if (state == 11)
+      {
+        v15 = getLNLogCategoryExecution();
+        v11 = v15;
+        if (&self->super.isa + 1 < 2 || !os_signpost_enabled(v15))
+        {
+          goto LABEL_22;
+        }
+
+        LOWORD(v26) = 0;
+        v12 = "connecting";
+        goto LABEL_17;
+      }
+
+      if (state != 30)
+      {
+        goto LABEL_23;
+      }
+    }
+
+    else if ((state - 40) >= 4 && state != 80)
+    {
+      if (state != 90)
+      {
         goto LABEL_23;
       }
 
-      goto LABEL_23;
+      v10 = getLNLogCategoryExecution();
+      v11 = v10;
+      if (&self->super.isa + 1 < 2 || !os_signpost_enabled(v10))
+      {
+        goto LABEL_22;
+      }
+
+      LOWORD(v26) = 0;
+      v12 = "performing";
+      goto LABEL_17;
     }
 
-LABEL_14:
     v13 = getLNLogCategoryExecution();
     v11 = v13;
     if (&self->super.isa + 1 < 2 || !os_signpost_enabled(v13))
@@ -2940,140 +2937,116 @@ LABEL_14:
       goto LABEL_22;
     }
 
-    LOWORD(v27) = 0;
+    LOWORD(v26) = 0;
     v12 = "waiting";
-    goto LABEL_17;
-  }
-
-  switch(state)
-  {
-    case 10:
-      v14 = getLNLogCategoryExecution();
-      v11 = v14;
-      if (&self->super.isa + 1 < 2 || !os_signpost_enabled(v14))
-      {
-        goto LABEL_22;
-      }
-
-      LOWORD(v27) = 0;
-      v12 = "validatingConstraints";
-      goto LABEL_17;
-    case 11:
-      v15 = getLNLogCategoryExecution();
-      v11 = v15;
-      if (&self->super.isa + 1 < 2 || !os_signpost_enabled(v15))
-      {
-        goto LABEL_22;
-      }
-
-      LOWORD(v27) = 0;
-      v12 = "connecting";
-      goto LABEL_17;
-    case 30:
-      goto LABEL_14;
-  }
+LABEL_17:
+    _os_signpost_emit_with_name_impl(&dword_19763D000, v11, OS_SIGNPOST_INTERVAL_END, self, v12, "", &v26, 2u);
+LABEL_22:
 
 LABEL_23:
-  if (toState <= 28)
-  {
-    switch(toState)
+    if (toState <= 28)
     {
-      case 10:
-        v24 = getLNLogCategoryExecution();
-        v17 = v24;
-        if (&self->super.isa + 1 < 2 || !os_signpost_enabled(v24))
-        {
-          goto LABEL_49;
-        }
+      switch(toState)
+      {
+        case 10:
+          v24 = getLNLogCategoryExecution();
+          v17 = v24;
+          if (&self->super.isa + 1 < 2 || !os_signpost_enabled(v24))
+          {
+            goto LABEL_49;
+          }
 
-        LOWORD(v27) = 0;
-        v18 = "validatingConstraints";
-        break;
-      case 11:
-        v25 = getLNLogCategoryExecution();
-        v17 = v25;
-        if (&self->super.isa + 1 < 2 || !os_signpost_enabled(v25))
-        {
-          goto LABEL_49;
-        }
+          LOWORD(v26) = 0;
+          v18 = "validatingConstraints";
+          break;
+        case 11:
+          v25 = getLNLogCategoryExecution();
+          v17 = v25;
+          if (&self->super.isa + 1 < 2 || !os_signpost_enabled(v25))
+          {
+            goto LABEL_49;
+          }
 
-        LOWORD(v27) = 0;
-        v18 = "connecting";
-        break;
-      case 20:
-        v21 = getLNLogCategoryExecution();
-        v17 = v21;
-        if (&self->super.isa + 1 < 2 || !os_signpost_enabled(v21))
-        {
-          goto LABEL_49;
-        }
+          LOWORD(v26) = 0;
+          v18 = "connecting";
+          break;
+        case 20:
+          v21 = getLNLogCategoryExecution();
+          v17 = v21;
+          if (&self->super.isa + 1 < 2 || !os_signpost_enabled(v21))
+          {
+            goto LABEL_49;
+          }
 
-        LOWORD(v27) = 0;
-        v18 = "resolving";
-        break;
-      default:
-        goto LABEL_50;
+          LOWORD(v26) = 0;
+          v18 = "resolving";
+          break;
+        default:
+          return;
+      }
     }
 
-LABEL_29:
+    else
+    {
+      if ((toState - 29) > 0x3D)
+      {
+        return;
+      }
+
+      if (((1 << (toState - 29)) & 0x8000000007802) != 0)
+      {
+        v16 = getLNLogCategoryExecution();
+        v17 = v16;
+        if (&self->super.isa + 1 < 2 || !os_signpost_enabled(v16))
+        {
+          goto LABEL_49;
+        }
+
+        LOWORD(v26) = 0;
+        v18 = "waiting";
+      }
+
+      else
+      {
+        if (toState == 29)
+        {
+          v23 = getLNLogCategoryExecution();
+          v17 = v23;
+          if (&self->super.isa + 1 < 2 || !os_signpost_enabled(v23))
+          {
+            goto LABEL_49;
+          }
+
+          LOWORD(v26) = 0;
+          v18 = "resolving";
+          v19 = v17;
+          v20 = OS_SIGNPOST_INTERVAL_END;
+          goto LABEL_30;
+        }
+
+        if (toState != 90)
+        {
+          return;
+        }
+
+        v22 = getLNLogCategoryExecution();
+        v17 = v22;
+        if (&self->super.isa + 1 < 2 || !os_signpost_enabled(v22))
+        {
+          goto LABEL_49;
+        }
+
+        LOWORD(v26) = 0;
+        v18 = "performing";
+      }
+    }
+
     v19 = v17;
     v20 = OS_SIGNPOST_INTERVAL_BEGIN;
 LABEL_30:
-    _os_signpost_emit_with_name_impl(&dword_19763D000, v19, v20, self, v18, "", &v27, 2u);
+    _os_signpost_emit_with_name_impl(&dword_19763D000, v19, v20, self, v18, "", &v26, 2u);
 LABEL_49:
-
-    goto LABEL_50;
   }
-
-  if ((toState - 29) <= 0x3D)
-  {
-    if (((1 << (toState - 29)) & 0x8000000007802) != 0)
-    {
-      v16 = getLNLogCategoryExecution();
-      v17 = v16;
-      if (&self->super.isa + 1 < 2 || !os_signpost_enabled(v16))
-      {
-        goto LABEL_49;
-      }
-
-      LOWORD(v27) = 0;
-      v18 = "waiting";
-      goto LABEL_29;
-    }
-
-    if (toState == 29)
-    {
-      v23 = getLNLogCategoryExecution();
-      v17 = v23;
-      if (&self->super.isa + 1 < 2 || !os_signpost_enabled(v23))
-      {
-        goto LABEL_49;
-      }
-
-      LOWORD(v27) = 0;
-      v18 = "resolving";
-      v19 = v17;
-      v20 = OS_SIGNPOST_INTERVAL_END;
-      goto LABEL_30;
-    }
-
-    if (toState == 90)
-    {
-      v22 = getLNLogCategoryExecution();
-      v17 = v22;
-      if (&self->super.isa + 1 < 2 || !os_signpost_enabled(v22))
-      {
-        goto LABEL_49;
-      }
-
-      LOWORD(v27) = 0;
-      v18 = "performing";
-      goto LABEL_29;
-    }
-  }
-
-LABEL_50:
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setState:(int64_t)state

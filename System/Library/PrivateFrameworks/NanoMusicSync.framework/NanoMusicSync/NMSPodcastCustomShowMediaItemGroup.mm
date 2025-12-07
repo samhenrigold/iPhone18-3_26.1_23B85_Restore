@@ -59,17 +59,17 @@ void __66__NMSPodcastCustomShowMediaItemGroup_identifiersForContainerType___bloc
 
 void __46__NMSPodcastCustomShowMediaItemGroup_itemList__block_invoke(uint64_t a1)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v2 = a1 + 32;
   v3 = [*(a1 + 32) referenceObj];
   v4 = +[NMSPodcastsFetchRequests legacy_fetchRequestForEpisodesWithFeedURL:downloadedOnly:ctx:](NMSPodcastsFetchRequests, "legacy_fetchRequestForEpisodesWithFeedURL:downloadedOnly:ctx:", v3, [*v2 downloadedItemsOnly], *(v2 + 8));
 
   [v4 setFetchBatchSize:20];
   v5 = *(v2 + 8);
-  v30 = 0;
-  v25 = v4;
-  v6 = [v5 executeFetchRequest:v4 error:&v30];
-  v7 = v30;
+  v29 = 0;
+  v24 = v4;
+  v6 = [v5 executeFetchRequest:v4 error:&v29];
+  v7 = v29;
   if (v7)
   {
     v8 = NMLogForCategory(5);
@@ -79,28 +79,28 @@ void __46__NMSPodcastCustomShowMediaItemGroup_itemList__block_invoke(uint64_t a1
     }
   }
 
-  v24 = v7;
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
+  v23 = v7;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v9 = v6;
-  v10 = [v9 countByEnumeratingWithState:&v26 objects:v31 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v25 objects:v30 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v27;
+    v12 = *v26;
     do
     {
       v13 = 0;
       do
       {
-        if (*v27 != v12)
+        if (*v26 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v26 + 1) + 8 * v13);
+        v14 = *(*(&v25 + 1) + 8 * v13);
         v15 = *(a1 + 48);
         v16 = [*(a1 + 32) referenceObj];
         [v14 duration];
@@ -116,23 +116,18 @@ void __46__NMSPodcastCustomShowMediaItemGroup_itemList__block_invoke(uint64_t a1
       }
 
       while (v11 != v13);
-      v11 = [v9 countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v25 objects:v30 count:16];
     }
 
     while (v11);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __46__NMSPodcastCustomShowMediaItemGroup_itemList__block_invoke_cold_1(id *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [*a1 referenceObj];
   OUTLINED_FUNCTION_2_1();
-  OUTLINED_FUNCTION_4_0(&dword_25B27B000, v2, v3, "Failed to fetch show episodes itemList for show %@ - %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_0(&dword_25B27B000, v2, v3, "Failed to fetch show episodes itemList for show %@ - %@", v4, v5, v6, v7);
 }
 
 @end

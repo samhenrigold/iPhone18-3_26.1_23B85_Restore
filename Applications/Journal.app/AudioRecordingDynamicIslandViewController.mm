@@ -52,7 +52,7 @@
   v4 = *(v3 - 8);
   __chkstk_darwin(v3);
   v6 = &v14 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_1000065A8(0, &qword_100AD4C70);
+  sub_1000065A8(0, &qword_100AD4C70, UIColor_ptr);
   v7 = qword_100AD0CB0;
   selfCopy = self;
   if (v7 != -1)

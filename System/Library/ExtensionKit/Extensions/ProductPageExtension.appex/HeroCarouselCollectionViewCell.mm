@@ -29,7 +29,7 @@
 
 - (BOOL)gestureRecognizer:(id)recognizer shouldReceiveTouch:(id)touch
 {
-  sub_100016F40(0, &qword_10094D040);
+  sub_100016F40(0, &qword_10094D040, NSObject_ptr);
   recognizerCopy = recognizer;
   touchCopy = touch;
   selfCopy = self;
@@ -61,12 +61,13 @@
   v3 = *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC20ProductPageExtension30HeroCarouselCollectionViewCell_didSelectHandler);
   if (v3)
   {
-    v4 = *(*(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC20ProductPageExtension30HeroCarouselCollectionViewCell_carouselView) + OBJC_IVAR____TtC20ProductPageExtension16HeroCarouselView_pageControl);
+    v4 = *&self->carouselView[OBJC_IVAR____TtC20ProductPageExtension30HeroCarouselCollectionViewCell_didSelectHandler];
+    v5 = *(*(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC20ProductPageExtension30HeroCarouselCollectionViewCell_carouselView) + OBJC_IVAR____TtC20ProductPageExtension16HeroCarouselView_pageControl);
     selfCopy = self;
-    sub_10001CE50(v3);
-    v3([v4 currentPage]);
+    sub_10001CE50(v3, v4);
+    v3([v5 currentPage]);
 
-    sub_1000167E0(v3);
+    sub_1000167E0(v3, v4);
   }
 }
 

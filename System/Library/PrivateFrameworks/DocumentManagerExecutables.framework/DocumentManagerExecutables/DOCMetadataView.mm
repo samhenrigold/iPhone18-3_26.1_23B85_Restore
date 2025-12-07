@@ -22,7 +22,7 @@
 {
   swift_beginAccess();
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7DOCNode_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7DOCNode_pMd, &_sSo7DOCNode_pMR);
   v2.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v2.super.isa;
@@ -30,7 +30,7 @@
 
 - (void)setNodes:(id)nodes
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7DOCNode_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7DOCNode_pMd, &_sSo7DOCNode_pMR);
   v4 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   v5 = OBJC_IVAR____TtC26DocumentManagerExecutables15DOCMetadataView_nodes;
   swift_beginAccess();
@@ -107,7 +107,7 @@
 
 + (Class)layerClass
 {
-  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for CALayer);
+  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for CALayer, 0x277CD9ED0);
 
   return swift_getObjCClassFromMetadata();
 }

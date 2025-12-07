@@ -73,11 +73,25 @@
 
 - (void)_initBlob
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if ((*self->_fmt_cmd & 7) == 0)
   {
-    os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
+    v5 = 0;
+    memset(v8, 0, sizeof(v8));
+    v3 = MEMORY[0x277D86220];
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      v4 = 3;
+    }
+
+    else
+    {
+      v4 = 2;
+    }
+
+    v6 = 134217984;
+    v7 = 0;
+    _os_log_send_and_compose_impl(v4, &v5, v8, 80, &dword_22E01A000, v3, 16, "assertion failure: privacy_flags -> %llu", &v6);
     _os_crash_msg();
     __break(1u);
   }
@@ -127,7 +141,6 @@ LABEL_11:
 
 LABEL_12:
   self->_initialized = 1;
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 @end

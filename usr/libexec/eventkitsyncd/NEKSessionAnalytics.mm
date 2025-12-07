@@ -1,6 +1,7 @@
 @interface NEKSessionAnalytics
 - (NEKSessionAnalytics)initWithFileManager:(id)manager;
 - (void)flush;
+- (void)recordSessionType:(int)type;
 @end
 
 @implementation NEKSessionAnalytics
@@ -84,6 +85,13 @@
     v19 = v8;
     _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Daily tally: D: %d R: %d F: %d", &v16, 0x14u);
   }
+}
+
+- (void)recordSessionType:(int)type
+{
+  v3 = *&type;
+  store = [(NEKSessionAnalytics *)self store];
+  [store countSessionType:v3];
 }
 
 @end

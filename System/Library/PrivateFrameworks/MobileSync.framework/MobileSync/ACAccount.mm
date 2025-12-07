@@ -10,7 +10,7 @@ id __46__ACAccount_SyncPrivate__applySyncProperties___block_invoke()
   return result;
 }
 
-uint64_t __46__ACAccount_SyncPrivate__applySyncProperties___block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
+void *__46__ACAccount_SyncPrivate__applySyncProperties___block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
 {
   result = [applySyncProperties__accountKeysToIgnore containsObject:a2];
   if ((result & 1) == 0)

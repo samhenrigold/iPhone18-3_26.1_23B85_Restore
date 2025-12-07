@@ -275,73 +275,69 @@ void __72__HDCloudSyncDiagnosticOperation__reportCloudSyncKeyValuesWithDatabase_
 
 - (void)_reportCloudSyncErrors
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = CFPreferencesCopyValue(*MEMORY[0x277D10478], *MEMORY[0x277CCE408], *MEMORY[0x277CBF020], *MEMORY[0x277CBF010]);
   if ([v3 count])
   {
     [(HDDiagnosticOperation *)self appendNewline];
     [(HDDiagnosticOperation *)self appendString:@"Recent Periodic Sync Errors:"];
-    v12 = 0u;
-    v13 = 0u;
-    v10 = 0u;
     v11 = 0u;
+    v12 = 0u;
+    v9 = 0u;
+    v10 = 0u;
     v4 = v3;
-    v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v11;
+      v7 = *v10;
       do
       {
         v8 = 0;
         do
         {
-          if (*v11 != v7)
+          if (*v10 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          [(HDDiagnosticOperation *)self appendFormat:@"\t%@", *(*(&v10 + 1) + 8 * v8++)];
+          [(HDDiagnosticOperation *)self appendFormat:@"\t%@", *(*(&v9 + 1) + 8 * v8++)];
         }
 
         while (v6 != v8);
-        v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
       }
 
       while (v6);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_reportCloudSyncStoreDetailsWithDatabase:(id)database
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   databaseCopy = database;
   v5 = [MEMORY[0x277D10B18] predicateWithProperty:*MEMORY[0x277D104D0] equalToValue:&unk_286389038];
   v6 = [MEMORY[0x277D108F0] queryWithDatabase:databaseCopy predicate:v5];
   v7 = *MEMORY[0x277D104D8];
-  v16[0] = *MEMORY[0x277D10A40];
-  v16[1] = v7;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
-  v15 = 0;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __75__HDCloudSyncDiagnosticOperation__reportCloudSyncStoreDetailsWithDatabase___block_invoke;
-  v13[3] = &unk_2796C0C90;
-  v13[4] = self;
+  v15[0] = *MEMORY[0x277D10A40];
+  v15[1] = v7;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
+  v14 = 0;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __75__HDCloudSyncDiagnosticOperation__reportCloudSyncStoreDetailsWithDatabase___block_invoke;
+  v12[3] = &unk_2796C0C90;
+  v12[4] = self;
   v9 = databaseCopy;
-  v14 = v9;
-  v10 = [v6 enumerateProperties:v8 error:&v15 enumerationHandler:v13];
-  v11 = v15;
+  v13 = v9;
+  v10 = [v6 enumerateProperties:v8 error:&v14 enumerationHandler:v12];
+  v11 = v14;
 
   if ((v10 & 1) == 0)
   {
     [(HDDiagnosticOperation *)self log:@"ERROR: Failed to query for Cloud Sync stores: %@", v11];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __75__HDCloudSyncDiagnosticOperation__reportCloudSyncStoreDetailsWithDatabase___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -430,24 +426,23 @@ uint64_t __75__HDCloudSyncDiagnosticOperation__reportCloudSyncStoreDetailsWithDa
 
 void __100__HDCloudSyncDiagnosticOperation__reportCloudSyncStoreDetailsWithSyncProvenance_storeUUID_database___block_invoke(uint64_t a1, void *a2, void *a3, __CFString *a4)
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   v7 = @"(null)";
   if (a4)
   {
     v7 = a4;
   }
 
-  v15[0] = a3;
-  v15[1] = v7;
+  v14[0] = a3;
+  v14[1] = v7;
   v8 = MEMORY[0x277CBEA60];
   v9 = v7;
   v10 = a4;
   v11 = a3;
   v12 = a2;
-  v13 = [v8 arrayWithObjects:v15 count:2];
+  v13 = [v8 arrayWithObjects:v14 count:2];
 
   [v12 appendRow:v13];
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_reportCloudSyncDescriptionWithHealthStore:(id)store

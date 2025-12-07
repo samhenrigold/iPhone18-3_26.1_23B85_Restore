@@ -714,9 +714,9 @@ LABEL_5:
   renderable = [v4 renderable];
   [renderable setHidden:hasTextOverflowGlyph];
 
-  v34.receiver = self;
-  v34.super_class = CRLWPShapeRep;
-  overlayRenderables = [(CRLShapeRep *)&v34 overlayRenderables];
+  v35.receiver = self;
+  v35.super_class = CRLWPShapeRep;
+  overlayRenderables = [(CRLShapeRep *)&v35 overlayRenderables];
   if ([(CRLWPShapeRep *)self hasTextOverflowGlyph]&& [(CRLCanvasRep *)self isSelectedIgnoringLocking])
   {
     [(CRLWPShapeRep *)self p_resetOverflowGlyphRenderableIfNecessary];
@@ -731,15 +731,15 @@ LABEL_5:
     v22 = sub_10011F31C(v14, v16, v21);
     v24 = v23;
     canvas = [interactiveCanvasController canvas];
-    [canvas contentsScale];
-    v27 = sub_10012218C(v22, v24, v26);
-    v29 = sub_10011F334(v27, v28, v21);
-    v31 = v30;
+    contentsScale = [canvas contentsScale];
+    v28 = sub_10012218C(contentsScale, v22, v24, v27);
+    v30 = sub_10011F334(v28, v29, v21);
+    v32 = v31;
 
-    [(CRLCanvasRenderable *)self->_overflowGlyphRenderable setPosition:v29, v31];
-    v32 = [overlayRenderables arrayByAddingObject:self->_overflowGlyphRenderable];
+    [(CRLCanvasRenderable *)self->_overflowGlyphRenderable setPosition:v30, v32];
+    v33 = [overlayRenderables arrayByAddingObject:self->_overflowGlyphRenderable];
 
-    overlayRenderables = v32;
+    overlayRenderables = v33;
   }
 
   return overlayRenderables;
@@ -747,9 +747,9 @@ LABEL_5:
 
 - (id)additionalRenderablesOverRenderable
 {
-  v35.receiver = self;
-  v35.super_class = CRLWPShapeRep;
-  additionalRenderablesOverRenderable = [(CRLShapeRep *)&v35 additionalRenderablesOverRenderable];
+  v36.receiver = self;
+  v36.super_class = CRLWPShapeRep;
+  additionalRenderablesOverRenderable = [(CRLShapeRep *)&v36 additionalRenderablesOverRenderable];
   if ([(CRLWPShapeRep *)self hasTextOverflowGlyph]&& ![(CRLCanvasRep *)self isSelectedIgnoringLocking])
   {
     [(CRLWPShapeRep *)self p_resetOverflowGlyphRenderableIfNecessary];
@@ -775,15 +775,15 @@ LABEL_5:
     }
 
     canvas = [interactiveCanvasController canvas];
-    [canvas contentsScale];
-    v28 = sub_10012218C(v19, v21, v27);
-    v30 = sub_10011F334(v28, v29, v18);
-    v32 = v31;
+    contentsScale = [canvas contentsScale];
+    v29 = sub_10012218C(contentsScale, v19, v21, v28);
+    v31 = sub_10011F334(v29, v30, v18);
+    v33 = v32;
 
-    [(CRLCanvasRenderable *)self->_overflowGlyphRenderable setPosition:v30, v32];
-    v33 = [additionalRenderablesOverRenderable arrayByAddingObject:self->_overflowGlyphRenderable];
+    [(CRLCanvasRenderable *)self->_overflowGlyphRenderable setPosition:v31, v33];
+    v34 = [additionalRenderablesOverRenderable arrayByAddingObject:self->_overflowGlyphRenderable];
 
-    additionalRenderablesOverRenderable = v33;
+    additionalRenderablesOverRenderable = v34;
   }
 
   return additionalRenderablesOverRenderable;
@@ -877,7 +877,7 @@ LABEL_5:
   v9 = originalPureGeometry;
   if (originalPureGeometry)
   {
-    [originalPureGeometry fullTransform];
+    objc_msgSend_fullTransform(originalPureGeometry);
   }
 
   else

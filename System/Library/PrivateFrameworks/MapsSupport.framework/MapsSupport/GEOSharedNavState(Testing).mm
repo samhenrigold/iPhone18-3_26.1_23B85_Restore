@@ -150,9 +150,9 @@
     +[GEOSharedNavState(Testing) _msp_testTripsByIdentifier];
   }
 
-  v1 = _msp_testTripsByIdentifier_tripsByID;
+  v2 = _msp_testTripsByIdentifier_tripsByID;
 
-  return v1;
+  return v2;
 }
 
 + (id)_msp_blockedTestTripIdentifiers
@@ -162,9 +162,9 @@
     +[GEOSharedNavState(Testing) _msp_blockedTestTripIdentifiers];
   }
 
-  v1 = _msp_blockedTestTripIdentifiers_set;
+  v2 = _msp_blockedTestTripIdentifiers_set;
 
-  return v1;
+  return v2;
 }
 
 + (id)preciseSanFrancisco

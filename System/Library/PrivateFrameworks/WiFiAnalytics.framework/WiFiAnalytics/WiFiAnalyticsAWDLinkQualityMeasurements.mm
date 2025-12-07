@@ -2442,7 +2442,6 @@ LABEL_131:
   v5 = *(&self->_has + 1);
   if ((v5 & 0x8000) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     v5 = *(&self->_has + 1);
     if ((v5 & 0x4000000) == 0)
@@ -2462,7 +2461,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  txOutputBelowExpectedTrue = self->_txOutputBelowExpectedTrue;
   PBDataWriterWriteUint64Field();
   v5 = *(&self->_has + 1);
   if ((v5 & 0x2000000) == 0)
@@ -2477,7 +2475,6 @@ LABEL_4:
   }
 
 LABEL_138:
-  txOutputBelowExpectedFalse = self->_txOutputBelowExpectedFalse;
   PBDataWriterWriteUint64Field();
   v5 = *(&self->_has + 1);
   if ((v5 & 0x10000000) == 0)
@@ -2492,7 +2489,6 @@ LABEL_5:
   }
 
 LABEL_139:
-  txOutputBelowInputTrue = self->_txOutputBelowInputTrue;
   PBDataWriterWriteUint64Field();
   v5 = *(&self->_has + 1);
   if ((v5 & 0x8000000) == 0)
@@ -2507,7 +2503,6 @@ LABEL_6:
   }
 
 LABEL_140:
-  txOutputBelowInputFalse = self->_txOutputBelowInputFalse;
   PBDataWriterWriteUint64Field();
   v5 = *(&self->_has + 1);
   if ((v5 & 0x1000000) == 0)
@@ -2522,7 +2517,6 @@ LABEL_7:
   }
 
 LABEL_141:
-  txLowFrameCountTrue = self->_txLowFrameCountTrue;
   PBDataWriterWriteUint64Field();
   v5 = *(&self->_has + 1);
   if ((v5 & 0x800000) == 0)
@@ -2537,7 +2531,6 @@ LABEL_8:
   }
 
 LABEL_142:
-  txLowFrameCountFalse = self->_txLowFrameCountFalse;
   PBDataWriterWriteUint64Field();
   v5 = *(&self->_has + 1);
   if ((v5 & 8) == 0)
@@ -2552,26 +2545,23 @@ LABEL_9:
   }
 
 LABEL_143:
-  rxLowFrameCountTrue = self->_rxLowFrameCountTrue;
   PBDataWriterWriteUint64Field();
   if ((*(&self->_has + 1) & 4) != 0)
   {
 LABEL_10:
-    rxLowFrameCountFalse = self->_rxLowFrameCountFalse;
     PBDataWriterWriteUint64Field();
   }
 
 LABEL_11:
-  v7 = *p_has;
+  v6 = *p_has;
   if ((*p_has & 0x20000000) != 0)
   {
-    highTxLatencyTrue = self->_highTxLatencyTrue;
     PBDataWriterWriteUint64Field();
-    v7 = *p_has;
+    v6 = *p_has;
     if ((*p_has & 0x10000000) == 0)
     {
 LABEL_13:
-      if ((v7 & 0x2000000000000) == 0)
+      if ((v6 & 0x2000000000000) == 0)
       {
         goto LABEL_14;
       }
@@ -2580,18 +2570,17 @@ LABEL_13:
     }
   }
 
-  else if ((v7 & 0x10000000) == 0)
+  else if ((v6 & 0x10000000) == 0)
   {
     goto LABEL_13;
   }
 
-  highTxLatencyFalse = self->_highTxLatencyFalse;
   PBDataWriterWriteUint64Field();
-  v7 = *p_has;
+  v6 = *p_has;
   if ((*p_has & 0x2000000000000) == 0)
   {
 LABEL_14:
-    if ((v7 & 0x1000000000000) == 0)
+    if ((v6 & 0x1000000000000) == 0)
     {
       goto LABEL_15;
     }
@@ -2600,13 +2589,12 @@ LABEL_14:
   }
 
 LABEL_147:
-  lowTxPhyRateTrue = self->_lowTxPhyRateTrue;
   PBDataWriterWriteUint64Field();
-  v7 = *p_has;
+  v6 = *p_has;
   if ((*p_has & 0x1000000000000) == 0)
   {
 LABEL_15:
-    if ((v7 & 0x80000000) == 0)
+    if ((v6 & 0x80000000) == 0)
     {
       goto LABEL_16;
     }
@@ -2615,13 +2603,12 @@ LABEL_15:
   }
 
 LABEL_148:
-  lowTxPhyRateFalse = self->_lowTxPhyRateFalse;
   PBDataWriterWriteUint64Field();
-  v7 = *p_has;
+  v6 = *p_has;
   if ((*p_has & 0x80000000) == 0)
   {
 LABEL_16:
-    if ((v7 & 0x40000000) == 0)
+    if ((v6 & 0x40000000) == 0)
     {
       goto LABEL_17;
     }
@@ -2630,13 +2617,12 @@ LABEL_16:
   }
 
 LABEL_149:
-  highTxPerTrue = self->_highTxPerTrue;
   PBDataWriterWriteUint64Field();
-  v7 = *p_has;
+  v6 = *p_has;
   if ((*p_has & 0x40000000) == 0)
   {
 LABEL_17:
-    if ((v7 & 0x200000000) == 0)
+    if ((v6 & 0x200000000) == 0)
     {
       goto LABEL_18;
     }
@@ -2645,13 +2631,12 @@ LABEL_17:
   }
 
 LABEL_150:
-  highTxPerFalse = self->_highTxPerFalse;
   PBDataWriterWriteUint64Field();
-  v7 = *p_has;
+  v6 = *p_has;
   if ((*p_has & 0x200000000) == 0)
   {
 LABEL_18:
-    if ((v7 & 0x100000000) == 0)
+    if ((v6 & 0x100000000) == 0)
     {
       goto LABEL_20;
     }
@@ -2660,40 +2645,35 @@ LABEL_18:
   }
 
 LABEL_151:
-  highTxRetriesTrue = self->_highTxRetriesTrue;
   PBDataWriterWriteUint64Field();
   if ((*p_has & 0x100000000) != 0)
   {
 LABEL_19:
-    highTxRetriesFalse = self->_highTxRetriesFalse;
     PBDataWriterWriteUint64Field();
   }
 
 LABEL_20:
-  v9 = *(&self->_has + 1);
-  if ((v9 & 0x80000000) != 0)
+  v7 = *(&self->_has + 1);
+  if ((v7 & 0x80000000) != 0)
   {
-    txQueueFullTrue = self->_txQueueFullTrue;
     PBDataWriterWriteUint64Field();
-    v9 = *(&self->_has + 1);
+    v7 = *(&self->_has + 1);
   }
 
-  if ((v9 & 0x40000000) != 0)
+  if ((v7 & 0x40000000) != 0)
   {
-    txQueueFullFalse = self->_txQueueFullFalse;
     PBDataWriterWriteUint64Field();
   }
 
-  v12 = *p_has;
+  v8 = *p_has;
   if ((*p_has & 0x800000000000) != 0)
   {
-    lowTxAMPDUDensityTrue = self->_lowTxAMPDUDensityTrue;
     PBDataWriterWriteUint64Field();
-    v12 = *p_has;
+    v8 = *p_has;
     if ((*p_has & 0x400000000000) == 0)
     {
 LABEL_26:
-      if ((v12 & 0x8000000) == 0)
+      if ((v8 & 0x8000000) == 0)
       {
         goto LABEL_27;
       }
@@ -2702,18 +2682,17 @@ LABEL_26:
     }
   }
 
-  else if ((v12 & 0x400000000000) == 0)
+  else if ((v8 & 0x400000000000) == 0)
   {
     goto LABEL_26;
   }
 
-  lowTxAMPDUDensityFalse = self->_lowTxAMPDUDensityFalse;
   PBDataWriterWriteUint64Field();
-  v12 = *p_has;
+  v8 = *p_has;
   if ((*p_has & 0x8000000) == 0)
   {
 LABEL_27:
-    if ((v12 & 0x4000000) == 0)
+    if ((v8 & 0x4000000) == 0)
     {
       goto LABEL_28;
     }
@@ -2722,13 +2701,12 @@ LABEL_27:
   }
 
 LABEL_155:
-  highRxRetriesTrue = self->_highRxRetriesTrue;
   PBDataWriterWriteUint64Field();
-  v12 = *p_has;
+  v8 = *p_has;
   if ((*p_has & 0x4000000) == 0)
   {
 LABEL_28:
-    if ((v12 & 0x800000) == 0)
+    if ((v8 & 0x800000) == 0)
     {
       goto LABEL_29;
     }
@@ -2737,13 +2715,12 @@ LABEL_28:
   }
 
 LABEL_156:
-  highRxRetriesFalse = self->_highRxRetriesFalse;
   PBDataWriterWriteUint64Field();
-  v12 = *p_has;
+  v8 = *p_has;
   if ((*p_has & 0x800000) == 0)
   {
 LABEL_29:
-    if ((v12 & 0x400000) == 0)
+    if ((v8 & 0x400000) == 0)
     {
       goto LABEL_30;
     }
@@ -2752,13 +2729,12 @@ LABEL_29:
   }
 
 LABEL_157:
-  highRxPhyPERTrue = self->_highRxPhyPERTrue;
   PBDataWriterWriteUint64Field();
-  v12 = *p_has;
+  v8 = *p_has;
   if ((*p_has & 0x400000) == 0)
   {
 LABEL_30:
-    if ((v12 & 0x80000) == 0)
+    if ((v8 & 0x80000) == 0)
     {
       goto LABEL_31;
     }
@@ -2767,13 +2743,12 @@ LABEL_30:
   }
 
 LABEL_158:
-  highRxPhyPERFalse = self->_highRxPhyPERFalse;
   PBDataWriterWriteUint64Field();
-  v12 = *p_has;
+  v8 = *p_has;
   if ((*p_has & 0x80000) == 0)
   {
 LABEL_31:
-    if ((v12 & 0x40000) == 0)
+    if ((v8 & 0x40000) == 0)
     {
       goto LABEL_32;
     }
@@ -2782,13 +2757,12 @@ LABEL_31:
   }
 
 LABEL_159:
-  highRxFCSErrsTrue = self->_highRxFCSErrsTrue;
   PBDataWriterWriteUint64Field();
-  v12 = *p_has;
+  v8 = *p_has;
   if ((*p_has & 0x40000) == 0)
   {
 LABEL_32:
-    if ((v12 & 0x200000) == 0)
+    if ((v8 & 0x200000) == 0)
     {
       goto LABEL_33;
     }
@@ -2797,13 +2771,12 @@ LABEL_32:
   }
 
 LABEL_160:
-  highRxFCSErrsFalse = self->_highRxFCSErrsFalse;
   PBDataWriterWriteUint64Field();
-  v12 = *p_has;
+  v8 = *p_has;
   if ((*p_has & 0x200000) == 0)
   {
 LABEL_33:
-    if ((v12 & 0x100000) == 0)
+    if ((v8 & 0x100000) == 0)
     {
       goto LABEL_34;
     }
@@ -2812,13 +2785,12 @@ LABEL_33:
   }
 
 LABEL_161:
-  highRxOverflowsTrue = self->_highRxOverflowsTrue;
   PBDataWriterWriteUint64Field();
-  v12 = *p_has;
+  v8 = *p_has;
   if ((*p_has & 0x100000) == 0)
   {
 LABEL_34:
-    if ((v12 & 0x20000) == 0)
+    if ((v8 & 0x20000) == 0)
     {
       goto LABEL_35;
     }
@@ -2827,13 +2799,12 @@ LABEL_34:
   }
 
 LABEL_162:
-  highRxOverflowsFalse = self->_highRxOverflowsFalse;
   PBDataWriterWriteUint64Field();
-  v12 = *p_has;
+  v8 = *p_has;
   if ((*p_has & 0x20000) == 0)
   {
 LABEL_35:
-    if ((v12 & 0x10000) == 0)
+    if ((v8 & 0x10000) == 0)
     {
       goto LABEL_36;
     }
@@ -2842,13 +2813,12 @@ LABEL_35:
   }
 
 LABEL_163:
-  highRxDupsTrue = self->_highRxDupsTrue;
   PBDataWriterWriteUint64Field();
-  v12 = *p_has;
+  v8 = *p_has;
   if ((*p_has & 0x10000) == 0)
   {
 LABEL_36:
-    if ((v12 & 0x2000000) == 0)
+    if ((v8 & 0x2000000) == 0)
     {
       goto LABEL_37;
     }
@@ -2857,13 +2827,12 @@ LABEL_36:
   }
 
 LABEL_164:
-  highRxDupsFalse = self->_highRxDupsFalse;
   PBDataWriterWriteUint64Field();
-  v12 = *p_has;
+  v8 = *p_has;
   if ((*p_has & 0x2000000) == 0)
   {
 LABEL_37:
-    if ((v12 & 0x1000000) == 0)
+    if ((v8 & 0x1000000) == 0)
     {
       goto LABEL_38;
     }
@@ -2872,13 +2841,12 @@ LABEL_37:
   }
 
 LABEL_165:
-  highRxReplaysTrue = self->_highRxReplaysTrue;
   PBDataWriterWriteUint64Field();
-  v12 = *p_has;
+  v8 = *p_has;
   if ((*p_has & 0x1000000) == 0)
   {
 LABEL_38:
-    if ((v12 & 0x8000) == 0)
+    if ((v8 & 0x8000) == 0)
     {
       goto LABEL_39;
     }
@@ -2887,13 +2855,12 @@ LABEL_38:
   }
 
 LABEL_166:
-  highRxReplaysFalse = self->_highRxReplaysFalse;
   PBDataWriterWriteUint64Field();
-  v12 = *p_has;
+  v8 = *p_has;
   if ((*p_has & 0x8000) == 0)
   {
 LABEL_39:
-    if ((v12 & 0x4000) == 0)
+    if ((v8 & 0x4000) == 0)
     {
       goto LABEL_40;
     }
@@ -2902,13 +2869,12 @@ LABEL_39:
   }
 
 LABEL_167:
-  highRxDecryptErrsTrue = self->_highRxDecryptErrsTrue;
   PBDataWriterWriteUint64Field();
-  v12 = *p_has;
+  v8 = *p_has;
   if ((*p_has & 0x4000) == 0)
   {
 LABEL_40:
-    if ((v12 & 0x2000) == 0)
+    if ((v8 & 0x2000) == 0)
     {
       goto LABEL_41;
     }
@@ -2917,13 +2883,12 @@ LABEL_40:
   }
 
 LABEL_168:
-  highRxDecryptErrsFalse = self->_highRxDecryptErrsFalse;
   PBDataWriterWriteUint64Field();
-  v12 = *p_has;
+  v8 = *p_has;
   if ((*p_has & 0x2000) == 0)
   {
 LABEL_41:
-    if ((v12 & 0x1000) == 0)
+    if ((v8 & 0x1000) == 0)
     {
       goto LABEL_42;
     }
@@ -2932,13 +2897,12 @@ LABEL_41:
   }
 
 LABEL_169:
-  highRxDataPERTrue = self->_highRxDataPERTrue;
   PBDataWriterWriteUint64Field();
-  v12 = *p_has;
+  v8 = *p_has;
   if ((*p_has & 0x1000) == 0)
   {
 LABEL_42:
-    if ((v12 & 0x20000000000) == 0)
+    if ((v8 & 0x20000000000) == 0)
     {
       goto LABEL_43;
     }
@@ -2947,13 +2911,12 @@ LABEL_42:
   }
 
 LABEL_170:
-  highRxDataPERFalse = self->_highRxDataPERFalse;
   PBDataWriterWriteUint64Field();
-  v12 = *p_has;
+  v8 = *p_has;
   if ((*p_has & 0x20000000000) == 0)
   {
 LABEL_43:
-    if ((v12 & 0x10000000000) == 0)
+    if ((v8 & 0x10000000000) == 0)
     {
       goto LABEL_44;
     }
@@ -2962,13 +2925,12 @@ LABEL_43:
   }
 
 LABEL_171:
-  lowAvailWLANDurTrue = self->_lowAvailWLANDurTrue;
   PBDataWriterWriteUint64Field();
-  v12 = *p_has;
+  v8 = *p_has;
   if ((*p_has & 0x10000000000) == 0)
   {
 LABEL_44:
-    if ((v12 & 0x200000000000) == 0)
+    if ((v8 & 0x200000000000) == 0)
     {
       goto LABEL_45;
     }
@@ -2977,13 +2939,12 @@ LABEL_44:
   }
 
 LABEL_172:
-  lowAvailWLANDurFalse = self->_lowAvailWLANDurFalse;
   PBDataWriterWriteUint64Field();
-  v12 = *p_has;
+  v8 = *p_has;
   if ((*p_has & 0x200000000000) == 0)
   {
 LABEL_45:
-    if ((v12 & 0x100000000000) == 0)
+    if ((v8 & 0x100000000000) == 0)
     {
       goto LABEL_46;
     }
@@ -2992,13 +2953,12 @@ LABEL_45:
   }
 
 LABEL_173:
-  lowAvailWLANTxDurTrue = self->_lowAvailWLANTxDurTrue;
   PBDataWriterWriteUint64Field();
-  v12 = *p_has;
+  v8 = *p_has;
   if ((*p_has & 0x100000000000) == 0)
   {
 LABEL_46:
-    if ((v12 & 0x80000000000) == 0)
+    if ((v8 & 0x80000000000) == 0)
     {
       goto LABEL_47;
     }
@@ -3007,13 +2967,12 @@ LABEL_46:
   }
 
 LABEL_174:
-  lowAvailWLANTxDurFalse = self->_lowAvailWLANTxDurFalse;
   PBDataWriterWriteUint64Field();
-  v12 = *p_has;
+  v8 = *p_has;
   if ((*p_has & 0x80000000000) == 0)
   {
 LABEL_47:
-    if ((v12 & 0x40000000000) == 0)
+    if ((v8 & 0x40000000000) == 0)
     {
       goto LABEL_48;
     }
@@ -3022,13 +2981,12 @@ LABEL_47:
   }
 
 LABEL_175:
-  lowAvailWLANRxDurTrue = self->_lowAvailWLANRxDurTrue;
   PBDataWriterWriteUint64Field();
-  v12 = *p_has;
+  v8 = *p_has;
   if ((*p_has & 0x40000000000) == 0)
   {
 LABEL_48:
-    if ((v12 & 0x100) == 0)
+    if ((v8 & 0x100) == 0)
     {
       goto LABEL_49;
     }
@@ -3037,13 +2995,12 @@ LABEL_48:
   }
 
 LABEL_176:
-  lowAvailWLANRxDurFalse = self->_lowAvailWLANRxDurFalse;
   PBDataWriterWriteUint64Field();
-  v12 = *p_has;
+  v8 = *p_has;
   if ((*p_has & 0x100) == 0)
   {
 LABEL_49:
-    if ((v12 & 0x400000000000000) == 0)
+    if ((v8 & 0x400000000000000) == 0)
     {
       goto LABEL_51;
     }
@@ -3052,26 +3009,23 @@ LABEL_49:
   }
 
 LABEL_177:
-  cCA = self->_cCA;
   PBDataWriterWriteUint64Field();
   if ((*p_has & 0x400000000000000) != 0)
   {
 LABEL_50:
-    rSSI = self->_rSSI;
     PBDataWriterWriteInt64Field();
   }
 
 LABEL_51:
-  v14 = *(&self->_has + 1);
-  if ((v14 & 0x20000000) != 0)
+  v9 = *(&self->_has + 1);
+  if ((v9 & 0x20000000) != 0)
   {
-    txPhyRate = self->_txPhyRate;
     PBDataWriterWriteUint64Field();
-    v14 = *(&self->_has + 1);
-    if ((v14 & 0x40) == 0)
+    v9 = *(&self->_has + 1);
+    if ((v9 & 0x40) == 0)
     {
 LABEL_53:
-      if ((v14 & 0x10000) == 0)
+      if ((v9 & 0x10000) == 0)
       {
         goto LABEL_55;
       }
@@ -3080,65 +3034,57 @@ LABEL_53:
     }
   }
 
-  else if ((v14 & 0x40) == 0)
+  else if ((v9 & 0x40) == 0)
   {
     goto LABEL_53;
   }
 
-  rxPhyRate = self->_rxPhyRate;
   PBDataWriterWriteUint64Field();
   if ((*(&self->_has + 1) & 0x10000) != 0)
   {
 LABEL_54:
-    txAMPDUDensity = self->_txAMPDUDensity;
     PBDataWriterWriteUint64Field();
   }
 
 LABEL_55:
-  v16 = *p_has;
+  v10 = *p_has;
   if ((*p_has & 0x8000000000000) != 0)
   {
-    measurementDurMS = self->_measurementDurMS;
     PBDataWriterWriteUint64Field();
-    v16 = *p_has;
+    v10 = *p_has;
   }
 
-  if ((v16 & 0x200) != 0)
+  if ((v10 & 0x200) != 0)
   {
-    concurrentIntDurMS = self->_concurrentIntDurMS;
     PBDataWriterWriteUint64Field();
   }
 
   if ((*(&self->_has + 9) & 0x10) != 0)
   {
-    tVPMActiveDurationMS = self->_tVPMActiveDurationMS;
     PBDataWriterWriteUint64Field();
   }
 
-  v20 = *p_has;
+  v11 = *p_has;
   if ((*p_has & 0x80000000000000) != 0)
   {
-    phyTxActivityDurMS = self->_phyTxActivityDurMS;
     PBDataWriterWriteUint64Field();
-    v20 = *p_has;
+    v11 = *p_has;
   }
 
-  if ((v20 & 0x40000000000000) != 0)
+  if ((v11 & 0x40000000000000) != 0)
   {
-    phyRxActivityDurMS = self->_phyRxActivityDurMS;
     PBDataWriterWriteUint64Field();
   }
 
-  v23 = *(&self->_has + 1);
-  if ((v23 & 0x200000000) != 0)
+  v12 = *(&self->_has + 1);
+  if ((v12 & 0x200000000) != 0)
   {
-    txSubBytes = self->_txSubBytes;
     PBDataWriterWriteUint64Field();
-    v23 = *(&self->_has + 1);
-    if ((v23 & 0x20000) == 0)
+    v12 = *(&self->_has + 1);
+    if ((v12 & 0x20000) == 0)
     {
 LABEL_67:
-      if ((v23 & 0x80000) == 0)
+      if ((v12 & 0x80000) == 0)
       {
         goto LABEL_69;
       }
@@ -3147,51 +3093,45 @@ LABEL_67:
     }
   }
 
-  else if ((v23 & 0x20000) == 0)
+  else if ((v12 & 0x20000) == 0)
   {
     goto LABEL_67;
   }
 
-  txCompBytes = self->_txCompBytes;
   PBDataWriterWriteUint64Field();
   if ((*(&self->_has + 1) & 0x80000) != 0)
   {
 LABEL_68:
-    txDelayBytes = self->_txDelayBytes;
     PBDataWriterWriteUint64Field();
   }
 
 LABEL_69:
   if ((*(&self->_has + 6) & 0x10) != 0)
   {
-    offChanDurMS = self->_offChanDurMS;
     PBDataWriterWriteUint64Field();
   }
 
-  v26 = *(&self->_has + 1);
-  if ((v26 & 0x400000000) != 0)
+  v13 = *(&self->_has + 1);
+  if ((v13 & 0x400000000) != 0)
   {
-    txSubPkts = self->_txSubPkts;
     PBDataWriterWriteUint64Field();
-    v26 = *(&self->_has + 1);
+    v13 = *(&self->_has + 1);
   }
 
-  if ((v26 & 0x40000) != 0)
+  if ((v13 & 0x40000) != 0)
   {
-    txCompPkts = self->_txCompPkts;
     PBDataWriterWriteUint64Field();
   }
 
-  v29 = *p_has;
+  v14 = *p_has;
   if ((*p_has & 0x4000000000000) != 0)
   {
-    maxQueueFullDurMS = self->_maxQueueFullDurMS;
     PBDataWriterWriteUint64Field();
-    v29 = *p_has;
+    v14 = *p_has;
     if ((*p_has & 0x20) == 0)
     {
 LABEL_77:
-      if ((v29 & 0x40) == 0)
+      if ((v14 & 0x40) == 0)
       {
         goto LABEL_78;
       }
@@ -3200,18 +3140,17 @@ LABEL_77:
     }
   }
 
-  else if ((v29 & 0x20) == 0)
+  else if ((v14 & 0x20) == 0)
   {
     goto LABEL_77;
   }
 
-  avgTxLatencyMS = self->_avgTxLatencyMS;
   PBDataWriterWriteUint64Field();
-  v29 = *p_has;
+  v14 = *p_has;
   if ((*p_has & 0x40) == 0)
   {
 LABEL_78:
-    if ((v29 & 0x20000000000000) == 0)
+    if ((v14 & 0x20000000000000) == 0)
     {
       goto LABEL_79;
     }
@@ -3220,13 +3159,12 @@ LABEL_78:
   }
 
 LABEL_187:
-  bTAntennaDurMS = self->_bTAntennaDurMS;
   PBDataWriterWriteUint64Field();
-  v29 = *p_has;
+  v14 = *p_has;
   if ((*p_has & 0x20000000000000) == 0)
   {
 LABEL_79:
-    if ((v29 & 0x800000000) == 0)
+    if ((v14 & 0x800000000) == 0)
     {
       goto LABEL_80;
     }
@@ -3235,13 +3173,12 @@ LABEL_79:
   }
 
 LABEL_188:
-  outputThroughput = self->_outputThroughput;
   PBDataWriterWriteUint64Field();
-  v29 = *p_has;
+  v14 = *p_has;
   if ((*p_has & 0x800000000) == 0)
   {
 LABEL_80:
-    if ((v29 & 0x800) == 0)
+    if ((v14 & 0x800) == 0)
     {
       goto LABEL_81;
     }
@@ -3250,13 +3187,12 @@ LABEL_80:
   }
 
 LABEL_189:
-  inputThroughput = self->_inputThroughput;
   PBDataWriterWriteUint64Field();
-  v29 = *p_has;
+  v14 = *p_has;
   if ((*p_has & 0x800) == 0)
   {
 LABEL_81:
-    if ((v29 & 0x400) == 0)
+    if ((v14 & 0x400) == 0)
     {
       goto LABEL_82;
     }
@@ -3265,13 +3201,12 @@ LABEL_81:
   }
 
 LABEL_190:
-  expectedThroughput = self->_expectedThroughput;
   PBDataWriterWriteUint64Field();
-  v29 = *p_has;
+  v14 = *p_has;
   if ((*p_has & 0x400) == 0)
   {
 LABEL_82:
-    if ((v29 & 4) == 0)
+    if ((v14 & 4) == 0)
     {
       goto LABEL_83;
     }
@@ -3280,13 +3215,12 @@ LABEL_82:
   }
 
 LABEL_191:
-  delayedThroughput = self->_delayedThroughput;
   PBDataWriterWriteUint64Field();
-  v29 = *p_has;
+  v14 = *p_has;
   if ((*p_has & 4) == 0)
   {
 LABEL_83:
-    if ((v29 & 0x10) == 0)
+    if ((v14 & 0x10) == 0)
     {
       goto LABEL_84;
     }
@@ -3295,13 +3229,12 @@ LABEL_83:
   }
 
 LABEL_192:
-  availWLANDurMS = self->_availWLANDurMS;
   PBDataWriterWriteUint64Field();
-  v29 = *p_has;
+  v14 = *p_has;
   if ((*p_has & 0x10) == 0)
   {
 LABEL_84:
-    if ((v29 & 8) == 0)
+    if ((v14 & 8) == 0)
     {
       goto LABEL_86;
     }
@@ -3310,26 +3243,23 @@ LABEL_84:
   }
 
 LABEL_193:
-  availWLANTxDurMS = self->_availWLANTxDurMS;
   PBDataWriterWriteUint64Field();
   if ((*p_has & 8) != 0)
   {
 LABEL_85:
-    availWLANRxDurMS = self->_availWLANRxDurMS;
     PBDataWriterWriteUint64Field();
   }
 
 LABEL_86:
-  v31 = *(&self->_has + 1);
-  if ((v31 & 0x100000000) != 0)
+  v15 = *(&self->_has + 1);
+  if ((v15 & 0x100000000) != 0)
   {
-    txRetries = self->_txRetries;
     PBDataWriterWriteUint64Field();
-    v31 = *(&self->_has + 1);
-    if ((v31 & 0x200000) == 0)
+    v15 = *(&self->_has + 1);
+    if ((v15 & 0x200000) == 0)
     {
 LABEL_88:
-      if ((v31 & 0x400000) == 0)
+      if ((v15 & 0x400000) == 0)
       {
         goto LABEL_89;
       }
@@ -3338,18 +3268,17 @@ LABEL_88:
     }
   }
 
-  else if ((v31 & 0x200000) == 0)
+  else if ((v15 & 0x200000) == 0)
   {
     goto LABEL_88;
   }
 
-  txFails = self->_txFails;
   PBDataWriterWriteUint64Field();
-  v31 = *(&self->_has + 1);
-  if ((v31 & 0x400000) == 0)
+  v15 = *(&self->_has + 1);
+  if ((v15 & 0x400000) == 0)
   {
 LABEL_89:
-    if ((v31 & 0x10) == 0)
+    if ((v15 & 0x10) == 0)
     {
       goto LABEL_91;
     }
@@ -3358,64 +3287,55 @@ LABEL_89:
   }
 
 LABEL_197:
-  txFrames = self->_txFrames;
   PBDataWriterWriteUint64Field();
   if ((*(&self->_has + 1) & 0x10) != 0)
   {
 LABEL_90:
-    rxOvflErrs = self->_rxOvflErrs;
     PBDataWriterWriteUint64Field();
   }
 
 LABEL_91:
   if ((*p_has & 0x8000000000000000) != 0)
   {
-    rxFCSErrs = self->_rxFCSErrs;
     PBDataWriterWriteUint64Field();
   }
 
   if ((*(&self->_has + 8) & 0x20) != 0)
   {
-    rxPLCPErrs = self->_rxPLCPErrs;
     PBDataWriterWriteUint64Field();
   }
 
-  v35 = *p_has;
+  v16 = *p_has;
   if ((*p_has & 0x1000000000000000) != 0)
   {
-    rxCRSErrs = self->_rxCRSErrs;
     PBDataWriterWriteUint64Field();
-    v35 = *p_has;
+    v16 = *p_has;
   }
 
-  if ((v35 & 0x4000000000000000) != 0)
+  if ((v16 & 0x4000000000000000) != 0)
   {
-    rxDupErrs = self->_rxDupErrs;
     PBDataWriterWriteUint64Field();
   }
 
   if ((*(&self->_has + 8) & 0x80) != 0)
   {
-    rxReplayErrs = self->_rxReplayErrs;
     PBDataWriterWriteUint64Field();
   }
 
   if ((*(&self->_has + 7) & 0x20) != 0)
   {
-    rxDecryErrs = self->_rxDecryErrs;
     PBDataWriterWriteUint64Field();
   }
 
-  v40 = *(&self->_has + 1);
-  if ((v40 & 0x100) != 0)
+  v17 = *(&self->_has + 1);
+  if ((v17 & 0x100) != 0)
   {
-    rxRetries = self->_rxRetries;
     PBDataWriterWriteUint64Field();
-    v40 = *(&self->_has + 1);
-    if ((v40 & 2) == 0)
+    v17 = *(&self->_has + 1);
+    if ((v17 & 2) == 0)
     {
 LABEL_105:
-      if ((v40 & 1) == 0)
+      if ((v17 & 1) == 0)
       {
         goto LABEL_106;
       }
@@ -3424,18 +3344,17 @@ LABEL_105:
     }
   }
 
-  else if ((v40 & 2) == 0)
+  else if ((v17 & 2) == 0)
   {
     goto LABEL_105;
   }
 
-  rxGoodPlcps = self->_rxGoodPlcps;
   PBDataWriterWriteUint64Field();
-  v40 = *(&self->_has + 1);
-  if ((v40 & 1) == 0)
+  v17 = *(&self->_has + 1);
+  if ((v17 & 1) == 0)
   {
 LABEL_106:
-    if ((v40 & 0x400) == 0)
+    if ((v17 & 0x400) == 0)
     {
       goto LABEL_107;
     }
@@ -3444,13 +3363,12 @@ LABEL_106:
   }
 
 LABEL_201:
-  rxFrames = self->_rxFrames;
   PBDataWriterWriteUint64Field();
-  v40 = *(&self->_has + 1);
-  if ((v40 & 0x400) == 0)
+  v17 = *(&self->_has + 1);
+  if ((v17 & 0x400) == 0)
   {
 LABEL_107:
-    if ((v40 & 0x100000) == 0)
+    if ((v17 & 0x100000) == 0)
     {
       goto LABEL_109;
     }
@@ -3459,26 +3377,23 @@ LABEL_107:
   }
 
 LABEL_202:
-  sNR = self->_sNR;
   PBDataWriterWriteUint64Field();
   if ((*(&self->_has + 1) & 0x100000) != 0)
   {
 LABEL_108:
-    txExpectedAMPDUDensity = self->_txExpectedAMPDUDensity;
     PBDataWriterWriteUint64Field();
   }
 
 LABEL_109:
-  v42 = *p_has;
+  v18 = *p_has;
   if ((*p_has & 0x100000000000000) != 0)
   {
-    rC1CoexDurationMS = self->_rC1CoexDurationMS;
     PBDataWriterWriteUint64Field();
-    v42 = *p_has;
+    v18 = *p_has;
     if ((*p_has & 0x200000000000000) == 0)
     {
 LABEL_111:
-      if ((v42 & 0x4000000000) == 0)
+      if ((v18 & 0x4000000000) == 0)
       {
         goto LABEL_113;
       }
@@ -3487,57 +3402,50 @@ LABEL_111:
     }
   }
 
-  else if ((v42 & 0x200000000000000) == 0)
+  else if ((v18 & 0x200000000000000) == 0)
   {
     goto LABEL_111;
   }
 
-  rC2CoexDurationMS = self->_rC2CoexDurationMS;
   PBDataWriterWriteUint64Field();
   if ((*p_has & 0x4000000000) != 0)
   {
 LABEL_112:
-    lTECoexDurationMS = self->_lTECoexDurationMS;
     PBDataWriterWriteUint64Field();
   }
 
 LABEL_113:
   if ((*(&self->_has + 9) & 2) != 0)
   {
-    rxThroughput = self->_rxThroughput;
     PBDataWriterWriteUint64Field();
   }
 
-  v45 = *p_has;
+  v19 = *p_has;
   if (*p_has)
   {
-    aPTxDataStall = self->_aPTxDataStall;
     PBDataWriterWriteUint64Field();
-    v45 = *p_has;
+    v19 = *p_has;
   }
 
-  if ((v45 & 0x800000000000000) != 0)
+  if ((v19 & 0x800000000000000) != 0)
   {
-    rxAmpduTxBaMismatch = self->_rxAmpduTxBaMismatch;
     PBDataWriterWriteUint64Field();
   }
 
   if ((*(&self->_has + 9) & 8) != 0)
   {
-    symptomsFails = self->_symptomsFails;
     PBDataWriterWriteUint64Field();
   }
 
-  v49 = *p_has;
+  v20 = *p_has;
   if ((*p_has & 0x1000000000) != 0)
   {
-    is2GBand = self->_is2GBand;
     PBDataWriterWriteUint64Field();
-    v49 = *p_has;
+    v20 = *p_has;
     if ((*p_has & 0x2000000000) == 0)
     {
 LABEL_123:
-      if ((v49 & 0x80) == 0)
+      if ((v20 & 0x80) == 0)
       {
         goto LABEL_125;
       }
@@ -3546,37 +3454,33 @@ LABEL_123:
     }
   }
 
-  else if ((v49 & 0x2000000000) == 0)
+  else if ((v20 & 0x2000000000) == 0)
   {
     goto LABEL_123;
   }
 
-  isFGTraffic = self->_isFGTraffic;
   PBDataWriterWriteUint64Field();
   if ((*p_has & 0x80) != 0)
   {
 LABEL_124:
-    baselineThroughput = self->_baselineThroughput;
     PBDataWriterWriteUint64Field();
   }
 
 LABEL_125:
   if ((*(&self->_has + 9) & 0x20) != 0)
   {
-    testThroughput = self->_testThroughput;
     PBDataWriterWriteUint64Field();
   }
 
-  v52 = *p_has;
+  v21 = *p_has;
   if ((*p_has & 0x400000000) != 0)
   {
-    infraDutyCycle = self->_infraDutyCycle;
     PBDataWriterWriteUint64Field();
-    v52 = *p_has;
+    v21 = *p_has;
     if ((*p_has & 0x8000000000) == 0)
     {
 LABEL_129:
-      if ((v52 & 2) == 0)
+      if ((v21 & 2) == 0)
       {
         goto LABEL_131;
       }
@@ -3585,24 +3489,21 @@ LABEL_129:
     }
   }
 
-  else if ((v52 & 0x8000000000) == 0)
+  else if ((v21 & 0x8000000000) == 0)
   {
     goto LABEL_129;
   }
 
-  lastScanReason = self->_lastScanReason;
   PBDataWriterWriteUint64Field();
   if ((*p_has & 2) != 0)
   {
 LABEL_130:
-    accessPointOUI = self->_accessPointOUI;
     PBDataWriterWriteUint64Field();
   }
 
 LABEL_131:
   if ((*(&self->_has + 9) & 0x40) != 0)
   {
-    timeSinceLastRecovery = self->_timeSinceLastRecovery;
     PBDataWriterWriteUint64Field();
   }
 }

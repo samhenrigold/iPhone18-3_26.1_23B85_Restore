@@ -51,7 +51,6 @@
 
 - (unint64_t)unsatisfiedConstraints
 {
-  queue = self->super._queue;
   BSDispatchQueueAssert();
   if (!self->_queue_isRestoring)
   {
@@ -63,16 +62,14 @@
 
 - (void)_queue_restoreStateChanged
 {
-  queue = self->super._queue;
   BSDispatchQueueAssert();
   state64 = 0;
-  notify_get_state(self->_queue_restoreToken, &state64);
+  state = notify_get_state(self->_queue_restoreToken, &state64);
   v4 = state64 - 1 < 2;
   if (self->_queue_isRestoring != v4)
   {
     self->_queue_isRestoring = v4;
-    v5 = SULogInstallConstraints();
-    self->_queue_isRestoring;
+    v5 = SULogInstallConstraints(state);
     SULogInfoForSubsystem(v5, @"%@ - iCloud restore constraint changed (satisfied? %@)", v6, v7, v8, v9, v10, v11, self);
 
     delegate = [(SUInstallationConstraintMonitorBase *)self delegate];

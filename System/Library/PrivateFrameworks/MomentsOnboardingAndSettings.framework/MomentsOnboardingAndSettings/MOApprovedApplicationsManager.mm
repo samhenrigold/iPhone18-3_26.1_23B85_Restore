@@ -97,7 +97,7 @@
 
 uint64_t __79__MOApprovedApplicationsManager__getApprovedApplicationsArrayAndRequireAccess___block_invoke(uint64_t a1, void *a2)
 {
-  v99 = *MEMORY[0x277D85DE8];
+  v98 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 entitlements];
   v5 = [v3 bundleIdentifier];
@@ -107,30 +107,30 @@ uint64_t __79__MOApprovedApplicationsManager__getApprovedApplicationsArrayAndReq
     goto LABEL_15;
   }
 
-  v63 = v3;
-  v85 = 0u;
-  v86 = 0u;
-  v83 = 0u;
+  v62 = v3;
   v84 = 0u;
+  v85 = 0u;
+  v82 = 0u;
+  v83 = 0u;
   v7 = v6;
-  v8 = [v7 countByEnumeratingWithState:&v83 objects:v98 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v82 objects:v97 count:16];
   if (!v8)
   {
     goto LABEL_14;
   }
 
   v9 = v8;
-  v10 = *v84;
+  v10 = *v83;
   while (2)
   {
     for (i = 0; i != v9; ++i)
     {
-      if (*v84 != v10)
+      if (*v83 != v10)
       {
         objc_enumerationMutation(v7);
       }
 
-      v12 = *(*(&v83 + 1) + 8 * i);
+      v12 = *(*(&v82 + 1) + 8 * i);
       if ([v12 isEqualToString:v5])
       {
         v13 = [*(a1 + 32) objectForKey:v12];
@@ -141,9 +141,9 @@ uint64_t __79__MOApprovedApplicationsManager__getApprovedApplicationsArrayAndReq
           if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412546;
-            v91 = @"ApprovedJournalingApplicationsOverrideForcedList";
-            v92 = 2112;
-            v93 = v5;
+            v90 = @"ApprovedJournalingApplicationsOverrideForcedList";
+            v91 = 2112;
+            v92 = v5;
             _os_log_error_impl(&dword_25A200000, v14, OS_LOG_TYPE_ERROR, "Invalid defaults value type in %@.%@", buf, 0x16u);
           }
 
@@ -155,14 +155,14 @@ uint64_t __79__MOApprovedApplicationsManager__getApprovedApplicationsArrayAndReq
         v31 = os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT);
         if (v28)
         {
-          v3 = v63;
+          v3 = v62;
           if (v31)
           {
             v32 = *(a1 + 40);
             *buf = 138412546;
-            v91 = v32;
-            v92 = 2112;
-            v93 = v5;
+            v90 = v32;
+            v91 = 2112;
+            v92 = v5;
             v33 = "%@: [%@:OverrideForcedSelected]";
 LABEL_46:
             _os_log_impl(&dword_25A200000, v30, OS_LOG_TYPE_DEFAULT, v33, buf, 0x16u);
@@ -171,14 +171,14 @@ LABEL_46:
 
         else
         {
-          v3 = v63;
+          v3 = v62;
           if (v31)
           {
             v34 = *(a1 + 40);
             *buf = 138412546;
-            v91 = v34;
-            v92 = 2112;
-            v93 = v5;
+            v90 = v34;
+            v91 = 2112;
+            v92 = v5;
             v33 = "%@: [%@:OverrideForcedUnselected]";
             goto LABEL_46;
           }
@@ -188,7 +188,7 @@ LABEL_46:
       }
     }
 
-    v9 = [v7 countByEnumeratingWithState:&v83 objects:v98 count:16];
+    v9 = [v7 countByEnumeratingWithState:&v82 objects:v97 count:16];
     if (v9)
     {
       continue;
@@ -199,30 +199,30 @@ LABEL_46:
 
 LABEL_14:
 
-  v3 = v63;
+  v3 = v62;
 LABEL_15:
-  v81 = 0u;
-  v82 = 0u;
-  v79 = 0u;
   v80 = 0u;
-  v15 = [&unk_286BE0E30 countByEnumeratingWithState:&v79 objects:v97 count:16];
+  v81 = 0u;
+  v78 = 0u;
+  v79 = 0u;
+  v15 = [&unk_286BE0E30 countByEnumeratingWithState:&v78 objects:v96 count:16];
   if (v15)
   {
     v16 = v15;
     v7 = 0;
-    v17 = *v80;
+    v17 = *v79;
     while (2)
     {
       v18 = 0;
       v19 = v7;
       do
       {
-        if (*v80 != v17)
+        if (*v79 != v17)
         {
           objc_enumerationMutation(&unk_286BE0E30);
         }
 
-        v7 = *(*(&v79 + 1) + 8 * v18);
+        v7 = *(*(&v78 + 1) + 8 * v18);
 
         if ([v5 isEqualToString:v7])
         {
@@ -231,9 +231,9 @@ LABEL_15:
           {
             v29 = *(a1 + 40);
             *buf = 138412546;
-            v91 = v29;
-            v92 = 2112;
-            v93 = v5;
+            v90 = v29;
+            v91 = 2112;
+            v92 = v5;
             _os_log_impl(&dword_25A200000, v13, OS_LOG_TYPE_DEFAULT, "%@: [%@:SpecialCaseUnselected]", buf, 0x16u);
           }
 
@@ -246,7 +246,7 @@ LABEL_15:
       }
 
       while (v16 != v18);
-      v16 = [&unk_286BE0E30 countByEnumeratingWithState:&v79 objects:v97 count:16];
+      v16 = [&unk_286BE0E30 countByEnumeratingWithState:&v78 objects:v96 count:16];
       if (v16)
       {
         continue;
@@ -256,28 +256,28 @@ LABEL_15:
     }
   }
 
-  v77 = 0u;
-  v78 = 0u;
-  v75 = 0u;
   v76 = 0u;
-  v20 = [&unk_286BE0E48 countByEnumeratingWithState:&v75 objects:v96 count:16];
+  v77 = 0u;
+  v74 = 0u;
+  v75 = 0u;
+  v20 = [&unk_286BE0E48 countByEnumeratingWithState:&v74 objects:v95 count:16];
   if (v20)
   {
     v21 = v20;
     v7 = 0;
-    v22 = *v76;
+    v22 = *v75;
     while (2)
     {
       v23 = 0;
       v24 = v7;
       do
       {
-        if (*v76 != v22)
+        if (*v75 != v22)
         {
           objc_enumerationMutation(&unk_286BE0E48);
         }
 
-        v7 = *(*(&v75 + 1) + 8 * v23);
+        v7 = *(*(&v74 + 1) + 8 * v23);
 
         if ([v5 isEqualToString:v7])
         {
@@ -302,11 +302,11 @@ LABEL_15:
               v36 = @"Selected";
             }
 
-            v91 = v35;
-            v92 = 2112;
-            v93 = v5;
-            v94 = 2112;
-            v95 = v36;
+            v90 = v35;
+            v91 = 2112;
+            v92 = v5;
+            v93 = 2112;
+            v94 = v36;
             _os_log_impl(&dword_25A200000, v13, OS_LOG_TYPE_DEFAULT, "%@: [%@:Access%@]", buf, 0x20u);
           }
 
@@ -318,7 +318,7 @@ LABEL_15:
       }
 
       while (v21 != v23);
-      v21 = [&unk_286BE0E48 countByEnumeratingWithState:&v75 objects:v96 count:16];
+      v21 = [&unk_286BE0E48 countByEnumeratingWithState:&v74 objects:v95 count:16];
       if (v21)
       {
         continue;
@@ -330,18 +330,18 @@ LABEL_15:
 
   v25 = [v4 objectForKey:@"com.apple.momentsd.internal" ofClass:objc_opt_class()];
   v13 = v25;
-  v65 = v4;
-  if (v25 && (memset(v74, 0, sizeof(v74)), [v25 countByEnumeratingWithState:v74 objects:v89 count:16]))
+  v64 = v4;
+  if (v25 && (memset(v73, 0, sizeof(v73)), [v25 countByEnumeratingWithState:v73 objects:v88 count:16]))
   {
-    v7 = **(&v74[0] + 1);
+    v7 = **(&v73[0] + 1);
     v26 = _mo_log_facility_get_os_log(MOLogFacilitySettings);
     if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
       v27 = *(a1 + 40);
       *buf = 138412546;
-      v91 = v27;
-      v92 = 2112;
-      v93 = v5;
+      v90 = v27;
+      v91 = 2112;
+      v92 = v5;
       _os_log_impl(&dword_25A200000, v26, OS_LOG_TYPE_DEFAULT, "%@: [%@:InternalEntitlementSelected]", buf, 0x16u);
     }
 
@@ -354,30 +354,30 @@ LABEL_15:
     v38 = v37;
     if (v37)
     {
-      v72 = 0u;
-      v73 = 0u;
-      v70 = 0u;
       v71 = 0u;
+      v72 = 0u;
+      v69 = 0u;
+      v70 = 0u;
       v26 = v37;
-      v39 = [v26 countByEnumeratingWithState:&v70 objects:v88 count:16];
+      v39 = [v26 countByEnumeratingWithState:&v69 objects:v87 count:16];
       if (v39)
       {
         v40 = v39;
-        v61 = v38;
+        v60 = v38;
         v7 = 0;
-        v41 = *v71;
+        v41 = *v70;
         while (2)
         {
           v42 = 0;
           v43 = v7;
           do
           {
-            if (*v71 != v41)
+            if (*v70 != v41)
             {
               objc_enumerationMutation(v26);
             }
 
-            v7 = *(*(&v70 + 1) + 8 * v42);
+            v7 = *(*(&v69 + 1) + 8 * v42);
 
             if ([v7 isEqualToString:@"suggestions"])
             {
@@ -402,11 +402,11 @@ LABEL_15:
                   v55 = @"Selected";
                 }
 
-                v91 = v54;
-                v92 = 2112;
-                v93 = v5;
-                v94 = 2112;
-                v95 = v55;
+                v90 = v54;
+                v91 = 2112;
+                v92 = v5;
+                v93 = 2112;
+                v94 = v55;
                 _os_log_impl(&dword_25A200000, v53, OS_LOG_TYPE_DEFAULT, "%@: [%@:EntitlementAccess%@]", buf, 0x20u);
               }
 
@@ -418,7 +418,7 @@ LABEL_15:
           }
 
           while (v40 != v42);
-          v40 = [v26 countByEnumeratingWithState:&v70 objects:v88 count:16];
+          v40 = [v26 countByEnumeratingWithState:&v69 objects:v87 count:16];
           if (v40)
           {
             continue;
@@ -427,42 +427,42 @@ LABEL_15:
           break;
         }
 
-        v38 = v61;
+        v38 = v60;
       }
 
-      v4 = v65;
+      v4 = v64;
     }
 
     v44 = [v4 objectForKey:@"com.apple.developer.journal.allow" ofClass:objc_opt_class()];
     v45 = v44;
     if (v44)
     {
-      v64 = v3;
-      v68 = 0u;
-      v69 = 0u;
-      v66 = 0u;
+      v63 = v3;
       v67 = 0u;
+      v68 = 0u;
+      v65 = 0u;
+      v66 = 0u;
       v46 = v44;
-      v47 = [v46 countByEnumeratingWithState:&v66 objects:v87 count:16];
+      v47 = [v46 countByEnumeratingWithState:&v65 objects:v86 count:16];
       if (v47)
       {
         v48 = v47;
-        v60 = v45;
-        v62 = v38;
+        v59 = v45;
+        v61 = v38;
         v7 = 0;
-        v49 = *v67;
+        v49 = *v66;
         while (2)
         {
           v50 = 0;
           v51 = v7;
           do
           {
-            if (*v67 != v49)
+            if (*v66 != v49)
             {
               objc_enumerationMutation(v46);
             }
 
-            v7 = *(*(&v66 + 1) + 8 * v50);
+            v7 = *(*(&v65 + 1) + 8 * v50);
 
             if ([v7 isEqualToString:@"suggestions"])
             {
@@ -476,8 +476,8 @@ LABEL_15:
                 v28 = 1;
               }
 
-              v45 = v60;
-              v38 = v62;
+              v45 = v59;
+              v38 = v61;
               v52 = _mo_log_facility_get_os_log(MOLogFacilitySettings);
               if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
               {
@@ -489,11 +489,11 @@ LABEL_15:
                   v57 = @"Selected";
                 }
 
-                v91 = v56;
-                v92 = 2112;
-                v93 = v5;
-                v94 = 2112;
-                v95 = v57;
+                v90 = v56;
+                v91 = 2112;
+                v92 = v5;
+                v93 = 2112;
+                v94 = v57;
                 _os_log_impl(&dword_25A200000, v52, OS_LOG_TYPE_DEFAULT, "%@: [%@:EntitlementAccess%@]", buf, 0x20u);
               }
 
@@ -505,7 +505,7 @@ LABEL_15:
           }
 
           while (v48 != v50);
-          v48 = [v46 countByEnumeratingWithState:&v66 objects:v87 count:16];
+          v48 = [v46 countByEnumeratingWithState:&v65 objects:v86 count:16];
           if (v48)
           {
             continue;
@@ -517,8 +517,8 @@ LABEL_15:
         v28 = 0;
         v52 = v7;
         v7 = 0;
-        v45 = v60;
-        v38 = v62;
+        v45 = v59;
+        v38 = v61;
 LABEL_93:
       }
 
@@ -528,7 +528,7 @@ LABEL_93:
         v28 = 0;
       }
 
-      v3 = v64;
+      v3 = v63;
     }
 
     else
@@ -542,10 +542,9 @@ LABEL_93:
 
 LABEL_96:
 
-  v4 = v65;
+  v4 = v64;
 LABEL_97:
 
-  v58 = *MEMORY[0x277D85DE8];
   return v28;
 }
 
@@ -592,12 +591,68 @@ uint64_t __47__MOApprovedApplicationsManager_sharedInstance__block_invoke(uint64
 
 - (BOOL)isJournalingSuggestionsAvailableForBundleIdentifier:(id)identifier
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v5 = identifierCopy;
   if (identifierCopy && ([identifierCopy isEqualToString:&stru_286BDDEB8] & 1) == 0)
   {
     [(MOApprovedApplicationsManager *)self _getApprovedApplicationsArray];
+    v13 = 0u;
+    v14 = 0u;
+    v15 = 0u;
+    v7 = v16 = 0u;
+    v6 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    if (v6)
+    {
+      v8 = *v14;
+      while (2)
+      {
+        for (i = 0; i != v6; ++i)
+        {
+          if (*v14 != v8)
+          {
+            objc_enumerationMutation(v7);
+          }
+
+          bundleIdentifier = [*(*(&v13 + 1) + 8 * i) bundleIdentifier];
+          v11 = [v5 isEqualToString:bundleIdentifier];
+
+          if (v11)
+          {
+            LOBYTE(v6) = 1;
+            goto LABEL_14;
+          }
+        }
+
+        v6 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        if (v6)
+        {
+          continue;
+        }
+
+        break;
+      }
+    }
+
+LABEL_14:
+  }
+
+  else
+  {
+    LOBYTE(v6) = 0;
+  }
+
+  return v6;
+}
+
+- (id)getJournalingSuggestionsApprovedApplicationRecordForBundleIdentifier:(id)identifier
+{
+  v19 = *MEMORY[0x277D85DE8];
+  identifierCopy = identifier;
+  v5 = identifierCopy;
+  if (identifierCopy && ([identifierCopy isEqualToString:&stru_286BDDEB8] & 1) == 0)
+  {
+    [(MOApprovedApplicationsManager *)self _getApprovedApplicationsWithAccessArray];
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
@@ -608,19 +663,20 @@ uint64_t __47__MOApprovedApplicationsManager_sharedInstance__block_invoke(uint64
       v8 = *v15;
       while (2)
       {
-        for (i = 0; i != v6; ++i)
+        for (i = 0; i != v6; i = i + 1)
         {
           if (*v15 != v8)
           {
             objc_enumerationMutation(v7);
           }
 
-          bundleIdentifier = [*(*(&v14 + 1) + 8 * i) bundleIdentifier];
-          v11 = [v5 isEqualToString:bundleIdentifier];
+          v10 = *(*(&v14 + 1) + 8 * i);
+          bundleIdentifier = [v10 bundleIdentifier];
+          v12 = [v5 isEqualToString:bundleIdentifier];
 
-          if (v11)
+          if (v12)
           {
-            LOBYTE(v6) = 1;
+            v6 = [v10 copy];
             goto LABEL_14;
           }
         }
@@ -640,68 +696,8 @@ LABEL_14:
 
   else
   {
-    LOBYTE(v6) = 0;
-  }
-
-  v12 = *MEMORY[0x277D85DE8];
-  return v6;
-}
-
-- (id)getJournalingSuggestionsApprovedApplicationRecordForBundleIdentifier:(id)identifier
-{
-  v20 = *MEMORY[0x277D85DE8];
-  identifierCopy = identifier;
-  v5 = identifierCopy;
-  if (identifierCopy && ([identifierCopy isEqualToString:&stru_286BDDEB8] & 1) == 0)
-  {
-    [(MOApprovedApplicationsManager *)self _getApprovedApplicationsWithAccessArray];
-    v15 = 0u;
-    v16 = 0u;
-    v17 = 0u;
-    v7 = v18 = 0u;
-    v6 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
-    if (v6)
-    {
-      v8 = *v16;
-      while (2)
-      {
-        for (i = 0; i != v6; i = i + 1)
-        {
-          if (*v16 != v8)
-          {
-            objc_enumerationMutation(v7);
-          }
-
-          v10 = *(*(&v15 + 1) + 8 * i);
-          bundleIdentifier = [v10 bundleIdentifier];
-          v12 = [v5 isEqualToString:bundleIdentifier];
-
-          if (v12)
-          {
-            v6 = [v10 copy];
-            goto LABEL_14;
-          }
-        }
-
-        v6 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
-        if (v6)
-        {
-          continue;
-        }
-
-        break;
-      }
-    }
-
-LABEL_14:
-  }
-
-  else
-  {
     v6 = 0;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

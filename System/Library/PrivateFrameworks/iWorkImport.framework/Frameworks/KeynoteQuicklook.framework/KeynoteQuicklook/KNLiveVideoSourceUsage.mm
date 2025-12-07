@@ -16,148 +16,146 @@
 - (KNLiveVideoSourceUsage)initWithEntriesForLiveVideoSourceUUIDs:(id)ds
 {
   dsCopy = ds;
-  v11.receiver = self;
-  v11.super_class = KNLiveVideoSourceUsage;
-  v7 = [(KNLiveVideoSourceUsage *)&v11 init];
-  if (v7)
+  v9.receiver = self;
+  v9.super_class = KNLiveVideoSourceUsage;
+  v5 = [(KNLiveVideoSourceUsage *)&v9 init];
+  if (v5)
   {
-    v8 = objc_msgSend_copy(dsCopy, v5, v6);
-    entriesForLiveVideoSourceUUIDs = v7->_entriesForLiveVideoSourceUUIDs;
-    v7->_entriesForLiveVideoSourceUUIDs = v8;
+    v6 = [dsCopy copy];
+    entriesForLiveVideoSourceUUIDs = v5->_entriesForLiveVideoSourceUUIDs;
+    v5->_entriesForLiveVideoSourceUUIDs = v6;
   }
 
-  return v7;
+  return v5;
 }
 
 - (KNLiveVideoSourceUsage)initWithLiveVideoInfos:(id)infos
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   infosCopy = infos;
-  v3 = objc_alloc(MEMORY[0x277CBEB38]);
-  v6 = objc_msgSend_count(infosCopy, v4, v5);
-  v8 = objc_msgSend_initWithCapacity_(v3, v7, v6);
-  v72 = 0u;
-  v73 = 0u;
-  v70 = 0u;
-  v71 = 0u;
+  v3 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(infosCopy, "count")}];
+  v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   obj = infosCopy;
-  v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v9, &v70, v74, 16);
-  if (v12)
+  v4 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+  if (v4)
   {
-    v69 = *v71;
+    v33 = *v35;
     do
     {
-      for (i = 0; i != v12; ++i)
+      for (i = 0; i != v4; ++i)
       {
-        if (*v71 != v69)
+        if (*v35 != v33)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v70 + 1) + 8 * i);
-        v17 = objc_msgSend_i_sourceId(v14, v10, v11);
-        if (!v17)
+        v6 = *(*(&v34 + 1) + 8 * i);
+        i_sourceId = [v6 i_sourceId];
+        if (!i_sourceId)
         {
           objc_opt_class();
-          v20 = objc_msgSend_context(v14, v18, v19);
-          v23 = objc_msgSend_documentRoot(v20, v21, v22);
-          v24 = TSUCheckedDynamicCast();
+          context = [v6 context];
+          documentRoot = [context documentRoot];
+          v10 = TSUCheckedDynamicCast();
 
-          v27 = objc_msgSend_show(v24, v25, v26);
-          v30 = objc_msgSend_theme(v27, v28, v29);
-          v33 = objc_msgSend_liveVideoSourceCollection(v30, v31, v32);
-          v36 = objc_msgSend_defaultSource(v33, v34, v35);
-          v17 = objc_msgSend_objectUUID(v36, v37, v38);
+          show = [v10 show];
+          theme = [show theme];
+          liveVideoSourceCollection = [theme liveVideoSourceCollection];
+          defaultSource = [liveVideoSourceCollection defaultSource];
+          i_sourceId = [defaultSource objectUUID];
 
-          if (!v17)
+          if (!i_sourceId)
           {
-            v40 = MEMORY[0x277D81150];
-            v41 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v39, "[KNLiveVideoSourceUsage initWithLiveVideoInfos:]");
-            v43 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v42, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNLiveVideoSourceUsage.mm");
-            objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v40, v44, v41, v43, 80, 0, "invalid nil value for '%{public}s'", "defaultLiveVideoSourceUUID");
+            v15 = MEMORY[0x277D81150];
+            v16 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNLiveVideoSourceUsage initWithLiveVideoInfos:]"];
+            v17 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNLiveVideoSourceUsage.mm"];
+            [v15 handleFailureInFunction:v16 file:v17 lineNumber:80 isFatal:0 description:{"invalid nil value for '%{public}s'", "defaultLiveVideoSourceUUID"}];
 
-            objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v45, v46);
+            [MEMORY[0x277D81150] logBacktraceThrottled];
           }
         }
 
-        v47 = objc_msgSend_i_archivedBackgroundKind(v14, v15, v16);
-        v48 = [KNLiveVideoSourceUsageEntry alloc];
-        v49 = MEMORY[0x277CBEB98];
-        v51 = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], v50, v47);
-        v53 = objc_msgSend_setWithObject_(v49, v52, v51);
-        v55 = objc_msgSend_initWithArchivedBackgroundKinds_(v48, v54, v53);
+        i_archivedBackgroundKind = [v6 i_archivedBackgroundKind];
+        v19 = [KNLiveVideoSourceUsageEntry alloc];
+        v20 = MEMORY[0x277CBEB98];
+        v21 = [MEMORY[0x277CCABB0] numberWithInteger:i_archivedBackgroundKind];
+        v22 = [v20 setWithObject:v21];
+        v23 = [(KNLiveVideoSourceUsageEntry *)v19 initWithArchivedBackgroundKinds:v22];
 
-        v57 = objc_msgSend_objectForKeyedSubscript_(v8, v56, v17);
-        v59 = v57;
-        if (v57)
+        v24 = [v3 objectForKeyedSubscript:i_sourceId];
+        v25 = v24;
+        if (v24)
         {
-          v60 = objc_msgSend_entryByMergingEntry_(v57, v58, v55);
+          v26 = [v24 entryByMergingEntry:v23];
         }
 
         else
         {
-          v60 = v55;
+          v26 = v23;
         }
 
-        v62 = v60;
-        objc_msgSend_setObject_forKeyedSubscript_(v8, v61, v60, v17);
+        v27 = v26;
+        [v3 setObject:v26 forKeyedSubscript:i_sourceId];
       }
 
-      v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v10, &v70, v74, 16);
+      v4 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
     }
 
-    while (v12);
+    while (v4);
   }
 
-  v64 = objc_msgSend_initWithEntriesForLiveVideoSourceUUIDs_(self, v63, v8);
-  return v64;
+  v28 = [(KNLiveVideoSourceUsage *)self initWithEntriesForLiveVideoSourceUUIDs:v3];
+  return v28;
 }
 
 - (KNLiveVideoSourceUsage)initWithMergedUsages:(id)usages
 {
   selfCopy = self;
-  v24 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   usagesCopy = usages;
   v4 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
-  v20 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v5 = usagesCopy;
-  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v19, v23, 16);
-  if (v9)
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  if (v6)
   {
-    v10 = *v20;
+    v7 = *v15;
     do
     {
-      v11 = 0;
+      v8 = 0;
       do
       {
-        if (*v20 != v10)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v12 = objc_msgSend_entriesForLiveVideoSourceUUIDs(*(*(&v19 + 1) + 8 * v11), v7, v8, selfCopy);
-        v18[0] = MEMORY[0x277D85DD0];
-        v18[1] = 3221225472;
-        v18[2] = sub_275D974E8;
-        v18[3] = &unk_27A6988B0;
-        v18[4] = v4;
-        objc_msgSend_enumerateKeysAndObjectsUsingBlock_(v12, v13, v18);
+        entriesForLiveVideoSourceUUIDs = [*(*(&v14 + 1) + 8 * v8) entriesForLiveVideoSourceUUIDs];
+        v13[0] = MEMORY[0x277D85DD0];
+        v13[1] = 3221225472;
+        v13[2] = sub_275D974E8;
+        v13[3] = &unk_27A6988B0;
+        v13[4] = v4;
+        [entriesForLiveVideoSourceUUIDs enumerateKeysAndObjectsUsingBlock:v13];
 
-        ++v11;
+        ++v8;
       }
 
-      while (v9 != v11);
-      v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v7, &v19, v23, 16);
+      while (v6 != v8);
+      v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
-    while (v9);
+    while (v6);
   }
 
-  v15 = objc_msgSend_initWithEntriesForLiveVideoSourceUUIDs_(selfCopy, v14, v4);
-  return v15;
+  v10 = [(KNLiveVideoSourceUsage *)selfCopy initWithEntriesForLiveVideoSourceUUIDs:v4];
+  return v10;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -165,128 +163,126 @@
   equalCopy = equal;
   if (self == equalCopy)
   {
-    isEqual = 1;
+    v8 = 1;
   }
 
   else
   {
     objc_opt_class();
-    v7 = TSUDynamicCast();
-    if (v7)
+    v5 = TSUDynamicCast();
+    if (v5)
     {
-      v8 = objc_msgSend_entriesForLiveVideoSourceUUIDs(self, v5, v6);
-      v11 = objc_msgSend_entriesForLiveVideoSourceUUIDs(v7, v9, v10);
-      isEqual = objc_msgSend_isEqual_(v8, v12, v11);
+      entriesForLiveVideoSourceUUIDs = [(KNLiveVideoSourceUsage *)self entriesForLiveVideoSourceUUIDs];
+      entriesForLiveVideoSourceUUIDs2 = [v5 entriesForLiveVideoSourceUUIDs];
+      v8 = [entriesForLiveVideoSourceUUIDs isEqual:entriesForLiveVideoSourceUUIDs2];
     }
 
     else
     {
-      isEqual = 0;
+      v8 = 0;
     }
   }
 
-  return isEqual;
+  return v8;
 }
 
 - (unint64_t)hash
 {
-  v3 = objc_msgSend_entriesForLiveVideoSourceUUIDs(self, a2, v2);
-  v6 = objc_msgSend_hash(v3, v4, v5);
+  entriesForLiveVideoSourceUUIDs = [(KNLiveVideoSourceUsage *)self entriesForLiveVideoSourceUUIDs];
+  v3 = [entriesForLiveVideoSourceUUIDs hash];
 
-  return v6;
+  return v3;
 }
 
 - (id)usedSourcesInContext:(id)context
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   contextCopy = context;
-  v39 = objc_msgSend_entriesForLiveVideoSourceUUIDs(self, v4, v5);
-  v6 = objc_alloc(MEMORY[0x277CBEB58]);
-  v9 = objc_msgSend_count(v39, v7, v8);
-  v43 = objc_msgSend_initWithCapacity_(v6, v10, v9);
+  entriesForLiveVideoSourceUUIDs = [(KNLiveVideoSourceUsage *)self entriesForLiveVideoSourceUUIDs];
+  v21 = [objc_alloc(MEMORY[0x277CBEB58]) initWithCapacity:{objc_msgSend(entriesForLiveVideoSourceUUIDs, "count")}];
   objc_opt_class();
-  v13 = objc_msgSend_documentRoot(contextCopy, v11, v12);
-  v14 = TSUCheckedDynamicCast();
+  documentRoot = [contextCopy documentRoot];
+  v5 = TSUCheckedDynamicCast();
 
-  v40 = v14;
-  v17 = objc_msgSend_show(v14, v15, v16);
-  v20 = objc_msgSend_theme(v17, v18, v19);
-  v23 = objc_msgSend_liveVideoSourceCollection(v20, v21, v22);
+  v18 = v5;
+  show = [v5 show];
+  theme = [show theme];
+  liveVideoSourceCollection = [theme liveVideoSourceCollection];
 
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
-  v45 = 0u;
-  obj = v39;
-  v26 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v24, &v44, v48, 16);
-  if (v26)
+  v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  obj = entriesForLiveVideoSourceUUIDs;
+  v9 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+  if (v9)
   {
-    v27 = *v45;
+    v10 = *v23;
     do
     {
-      for (i = 0; i != v26; ++i)
+      for (i = 0; i != v9; ++i)
       {
-        if (*v45 != v27)
+        if (*v23 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v30 = objc_msgSend_sourceWithObjectUUID_(v23, v25, *(*(&v44 + 1) + 8 * i));
-        if (v30)
+        v12 = [liveVideoSourceCollection sourceWithObjectUUID:*(*(&v22 + 1) + 8 * i)];
+        if (v12)
         {
-          objc_msgSend_addObject_(v43, v29, v30);
+          [v21 addObject:v12];
         }
 
         else
         {
-          v31 = MEMORY[0x277D81150];
-          v32 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v29, "[KNLiveVideoSourceUsage usedSourcesInContext:]");
-          v34 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v33, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNLiveVideoSourceUsage.mm");
-          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v31, v35, v32, v34, 166, 0, "invalid nil value for '%{public}s'", "usedSource", v39);
+          v13 = MEMORY[0x277D81150];
+          v14 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNLiveVideoSourceUsage usedSourcesInContext:]"];
+          v15 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNLiveVideoSourceUsage.mm"];
+          [v13 handleFailureInFunction:v14 file:v15 lineNumber:166 isFatal:0 description:{"invalid nil value for '%{public}s'", "usedSource", entriesForLiveVideoSourceUUIDs}];
 
-          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v36, v37);
+          [MEMORY[0x277D81150] logBacktraceThrottled];
         }
       }
 
-      v26 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v25, &v44, v48, 16);
+      v9 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
-    while (v26);
+    while (v9);
   }
 
-  return v43;
+  return v21;
 }
 
 - (BOOL)usesSource:(id)source withBackgroundKind:(int64_t)kind
 {
   sourceCopy = source;
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x2020000000;
-  v36 = 0;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x2020000000;
+  v23 = 0;
   objc_opt_class();
-  v9 = objc_msgSend_context(sourceCopy, v7, v8);
-  v12 = objc_msgSend_documentRoot(v9, v10, v11);
-  v13 = TSUCheckedDynamicCast();
+  context = [sourceCopy context];
+  documentRoot = [context documentRoot];
+  v9 = TSUCheckedDynamicCast();
 
-  v16 = objc_msgSend_show(v13, v14, v15);
-  v19 = objc_msgSend_theme(v16, v17, v18);
-  v22 = objc_msgSend_liveVideoSourceCollection(v19, v20, v21);
+  show = [v9 show];
+  theme = [show theme];
+  liveVideoSourceCollection = [theme liveVideoSourceCollection];
 
-  v25 = objc_msgSend_entriesForLiveVideoSourceUUIDs(self, v23, v24);
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = sub_275D97C1C;
-  v29[3] = &unk_27A6988D8;
-  v29[4] = v22;
-  v26 = sourceCopy;
-  v30 = v26;
-  v31 = &v33;
+  entriesForLiveVideoSourceUUIDs = [(KNLiveVideoSourceUsage *)self entriesForLiveVideoSourceUUIDs];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = sub_275D97C1C;
+  v16[3] = &unk_27A6988D8;
+  v16[4] = liveVideoSourceCollection;
+  v14 = sourceCopy;
+  v17 = v14;
+  v18 = &v20;
   kindCopy = kind;
-  objc_msgSend_enumerateKeysAndObjectsUsingBlock_(v25, v27, v29);
+  [entriesForLiveVideoSourceUUIDs enumerateKeysAndObjectsUsingBlock:v16];
 
-  LOBYTE(sourceCopy) = *(v34 + 24);
-  _Block_object_dispose(&v33, 8);
+  LOBYTE(sourceCopy) = *(v21 + 24);
+  _Block_object_dispose(&v20, 8);
 
   return sourceCopy;
 }
@@ -294,78 +290,73 @@
 - (BOOL)usesSourceWithUUID:(id)d
 {
   dCopy = d;
-  v7 = objc_msgSend_entriesForLiveVideoSourceUUIDs(self, v5, v6);
-  v9 = objc_msgSend_objectForKeyedSubscript_(v7, v8, dCopy);
-  v10 = v9 != 0;
+  entriesForLiveVideoSourceUUIDs = [(KNLiveVideoSourceUsage *)self entriesForLiveVideoSourceUUIDs];
+  v6 = [entriesForLiveVideoSourceUUIDs objectForKeyedSubscript:dCopy];
+  v7 = v6 != 0;
 
-  return v10;
+  return v7;
 }
 
 - (KNLiveVideoSourceUsage)initWithLiveVideoSourceUUIDMessages:(const void *)messages entryMessages:(const void *)entryMessages unarchiver:(id)unarchiver
 {
   unarchiverCopy = unarchiver;
-  v10 = *(messages + 2);
-  v11 = *(entryMessages + 2);
-  if (v10 == v11)
+  v9 = *(messages + 2);
+  v10 = *(entryMessages + 2);
+  if (v9 == v10)
   {
-    v42.receiver = self;
-    v42.super_class = KNLiveVideoSourceUsage;
-    v12 = [(KNLiveVideoSourceUsage *)&v42 init];
-    if (v12)
+    v27.receiver = self;
+    v27.super_class = KNLiveVideoSourceUsage;
+    v11 = [(KNLiveVideoSourceUsage *)&v27 init];
+    if (v11)
     {
-      v14 = objc_alloc(MEMORY[0x277CBEB38]);
-      if ((v10 & 0x80000000) != 0)
+      v12 = objc_alloc(MEMORY[0x277CBEB38]);
+      v13 = v9;
+      if ((v9 & 0x80000000) != 0)
       {
-        v34 = MEMORY[0x277D81150];
-        v35 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, "[KNLiveVideoSourceUsage initWithLiveVideoSourceUUIDMessages:entryMessages:unarchiver:]");
-        v37 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v36, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNLiveVideoSourceUsage.mm");
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v34, v38, v35, v37, 222, 0, "Out-of-bounds type assignment was clamped to min");
+        v24 = MEMORY[0x277D81150];
+        v25 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNLiveVideoSourceUsage initWithLiveVideoSourceUUIDMessages:entryMessages:unarchiver:]"];
+        v26 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNLiveVideoSourceUsage.mm"];
+        [v24 handleFailureInFunction:v25 file:v26 lineNumber:222 isFatal:0 description:"Out-of-bounds type assignment was clamped to min"];
 
-        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v39, v40);
-        v15 = objc_msgSend_initWithCapacity_(v14, v41, 0);
+        [MEMORY[0x277D81150] logBacktraceThrottled];
+        v13 = 0;
       }
 
-      else
+      v14 = [v12 initWithCapacity:v13];
+      if (v9 >= 1)
       {
-        v15 = objc_msgSend_initWithCapacity_(v14, v13, v10);
-      }
-
-      v17 = v15;
-      if (v10 >= 1)
-      {
-        v18 = 8;
+        v15 = 8;
         do
         {
-          v19 = objc_msgSend_readWeakObjectUUIDReferenceMessage_(unarchiverCopy, v16, *(*(messages + 2) + v18));
-          v20 = [KNLiveVideoSourceUsageEntry alloc];
-          v22 = objc_msgSend_initWithMessage_unarchiver_(v20, v21, *(*(entryMessages + 2) + v18), unarchiverCopy);
-          objc_msgSend_setObject_forKeyedSubscript_(v17, v23, v22, v19);
+          v16 = [unarchiverCopy readWeakObjectUUIDReferenceMessage:*(*(messages + 2) + v15)];
+          v17 = [[KNLiveVideoSourceUsageEntry alloc] initWithMessage:*(*(entryMessages + 2) + v15) unarchiver:unarchiverCopy];
+          [(NSDictionary *)v14 setObject:v17 forKeyedSubscript:v16];
 
-          v18 += 8;
-          --v10;
+          v15 += 8;
+          --v9;
         }
 
-        while (v10);
+        while (v9);
       }
 
-      entriesForLiveVideoSourceUUIDs = v12->_entriesForLiveVideoSourceUUIDs;
-      v12->_entriesForLiveVideoSourceUUIDs = v17;
+      entriesForLiveVideoSourceUUIDs = v11->_entriesForLiveVideoSourceUUIDs;
+      v11->_entriesForLiveVideoSourceUUIDs = v14;
     }
 
-    self = v12;
+    self = v11;
     selfCopy = self;
   }
 
   else
   {
-    if (v11)
+    if (v10)
     {
-      v26 = MEMORY[0x277D81150];
-      v27 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "[KNLiveVideoSourceUsage initWithLiveVideoSourceUUIDMessages:entryMessages:unarchiver:]");
-      v29 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v28, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNLiveVideoSourceUsage.mm");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v26, v30, v27, v29, 215, 0, "If there is a mismatch between live video source UUIDs and usage entries, the usage entries should be empty (i.e. when upgrading from an old version.)");
+      v20 = MEMORY[0x277D81150];
+      v21 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNLiveVideoSourceUsage initWithLiveVideoSourceUUIDMessages:entryMessages:unarchiver:]"];
+      v22 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNLiveVideoSourceUsage.mm"];
+      [v20 handleFailureInFunction:v21 file:v22 lineNumber:215 isFatal:0 description:{"If there is a mismatch between live video source UUIDs and usage entries, the usage entries should be empty (i.e. when upgrading from an old version.)"}];
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v31, v32);
+      [MEMORY[0x277D81150] logBacktraceThrottled];
     }
 
     selfCopy = 0;
@@ -376,109 +367,107 @@
 
 - (void)saveToLiveVideoSourceUUIDMessages:(void *)messages entryMessages:(void *)entryMessages archiver:(id)archiver
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   archiverCopy = archiver;
-  v9 = objc_alloc(MEMORY[0x277CBEB18]);
-  v12 = objc_msgSend_count(self->_entriesForLiveVideoSourceUUIDs, v10, v11);
-  v14 = objc_msgSend_initWithCapacity_(v9, v13, v12);
+  v9 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSDictionary count](self->_entriesForLiveVideoSourceUUIDs, "count")}];
   entriesForLiveVideoSourceUUIDs = self->_entriesForLiveVideoSourceUUIDs;
-  v50[0] = MEMORY[0x277D85DD0];
-  v50[1] = 3221225472;
-  v50[2] = sub_275D98434;
-  v50[3] = &unk_27A6988B0;
-  v50[4] = v14;
-  objc_msgSend_enumerateKeysAndObjectsUsingBlock_(entriesForLiveVideoSourceUUIDs, v16, v50);
-  objc_msgSend_sortUsingComparator_(v14, v17, &unk_2884D4F70);
-  v48 = 0u;
-  v49 = 0u;
-  v46 = 0u;
-  v47 = 0u;
-  v18 = v14;
-  v22 = objc_msgSend_countByEnumeratingWithState_objects_count_(v18, v19, &v46, v51, 16);
-  if (v22)
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = sub_275D98434;
+  v34[3] = &unk_27A6988B0;
+  v34[4] = v9;
+  [(NSDictionary *)entriesForLiveVideoSourceUUIDs enumerateKeysAndObjectsUsingBlock:v34];
+  [v9 sortUsingComparator:&unk_2884D4F70];
+  v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
+  v11 = v9;
+  v12 = [v11 countByEnumeratingWithState:&v30 objects:v35 count:16];
+  if (v12)
   {
-    v23 = *v47;
+    v13 = *v31;
     do
     {
-      for (i = 0; i != v22; ++i)
+      for (i = 0; i != v12; ++i)
       {
-        if (*v47 != v23)
+        if (*v31 != v13)
         {
-          objc_enumerationMutation(v18);
+          objc_enumerationMutation(v11);
         }
 
-        v25 = *(*(&v46 + 1) + 8 * i);
-        v27 = objc_msgSend_first(v25, v20, v21, v46);
-        v28 = *(messages + 2);
-        if (!v28)
+        v15 = *(*(&v30 + 1) + 8 * i);
+        first = [v15 first];
+        v17 = *(messages + 2);
+        if (!v17)
         {
           goto LABEL_11;
         }
 
-        v29 = *(messages + 2);
-        v30 = *v28;
-        if (v29 >= *v28)
+        v18 = *(messages + 2);
+        v19 = *v17;
+        if (v18 >= *v17)
         {
-          if (v30 == *(messages + 3))
+          if (v19 == *(messages + 3))
           {
 LABEL_11:
             google::protobuf::internal::RepeatedPtrFieldBase::Reserve(messages);
-            v28 = *(messages + 2);
-            v30 = *v28;
+            v17 = *(messages + 2);
+            v19 = *v17;
           }
 
-          *v28 = v30 + 1;
-          v31 = MEMORY[0x277C8F000](*messages);
-          v32 = *(messages + 2);
-          v33 = *(messages + 2) + 8 * v32;
-          *(messages + 2) = v32 + 1;
-          *(v33 + 8) = v31;
-          objc_msgSend_setWeakReferenceToObjectUUID_message_(archiverCopy, v34, v27, v31);
+          *v17 = v19 + 1;
+          v20 = MEMORY[0x277C8F000](*messages);
+          v21 = *(messages + 2);
+          v22 = *(messages + 2) + 8 * v21;
+          *(messages + 2) = v21 + 1;
+          *(v22 + 8) = v20;
           goto LABEL_13;
         }
 
-        *(messages + 2) = v29 + 1;
-        objc_msgSend_setWeakReferenceToObjectUUID_message_(archiverCopy, v26, v27, *&v28[2 * v29 + 2]);
+        *(messages + 2) = v18 + 1;
+        v20 = *&v17[2 * v18 + 2];
 LABEL_13:
+        [archiverCopy setWeakReferenceToObjectUUID:first message:v20];
 
-        v38 = objc_msgSend_second(v25, v35, v36);
-        v39 = *(entryMessages + 2);
-        if (!v39)
+        second = [v15 second];
+        v24 = *(entryMessages + 2);
+        if (!v24)
         {
           goto LABEL_18;
         }
 
-        v40 = *(entryMessages + 2);
-        v41 = *v39;
-        if (v40 < *v39)
+        v25 = *(entryMessages + 2);
+        v26 = *v24;
+        if (v25 < *v24)
         {
-          *(entryMessages + 2) = v40 + 1;
-          objc_msgSend_saveToMessage_archiver_(v38, v37, *&v39[2 * v40 + 2], archiverCopy);
+          *(entryMessages + 2) = v25 + 1;
+          v27 = *&v24[2 * v25 + 2];
           goto LABEL_20;
         }
 
-        if (v41 == *(entryMessages + 3))
+        if (v26 == *(entryMessages + 3))
         {
 LABEL_18:
           google::protobuf::internal::RepeatedPtrFieldBase::Reserve(entryMessages);
-          v39 = *(entryMessages + 2);
-          v41 = *v39;
+          v24 = *(entryMessages + 2);
+          v26 = *v24;
         }
 
-        *v39 = v41 + 1;
-        v42 = sub_275E2196C(*entryMessages);
-        v43 = *(entryMessages + 2);
-        v44 = *(entryMessages + 2) + 8 * v43;
-        *(entryMessages + 2) = v43 + 1;
-        *(v44 + 8) = v42;
-        objc_msgSend_saveToMessage_archiver_(v38, v45, v42, archiverCopy);
+        *v24 = v26 + 1;
+        v27 = sub_275E2196C(*entryMessages);
+        v28 = *(entryMessages + 2);
+        v29 = *(entryMessages + 2) + 8 * v28;
+        *(entryMessages + 2) = v28 + 1;
+        *(v29 + 8) = v27;
 LABEL_20:
+        [second saveToMessage:v27 archiver:archiverCopy];
       }
 
-      v22 = objc_msgSend_countByEnumeratingWithState_objects_count_(v18, v20, &v46, v51, 16);
+      v12 = [v11 countByEnumeratingWithState:&v30 objects:v35 count:16];
     }
 
-    while (v22);
+    while (v12);
   }
 }
 

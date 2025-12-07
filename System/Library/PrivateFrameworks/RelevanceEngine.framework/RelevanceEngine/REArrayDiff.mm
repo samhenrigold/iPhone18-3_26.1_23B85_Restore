@@ -9,42 +9,42 @@
 
 + (id)diffFromElements:(id)elements toElements:(id)toElements equalComparator:(id)comparator hashGenerator:(id)generator changeComparator:(id)changeComparator
 {
-  v129 = *MEMORY[0x277D85DE8];
+  v128 = *MEMORY[0x277D85DE8];
   elementsCopy = elements;
   toElementsCopy = toElements;
   comparatorCopy = comparator;
   generatorCopy = generator;
   changeComparatorCopy = changeComparator;
-  v83 = objc_opt_new();
-  v75 = elementsCopy;
+  v82 = objc_opt_new();
+  v74 = elementsCopy;
   v16 = [self _createSetFromElementArray:elementsCopy equalComparator:comparatorCopy hashGenerator:generatorCopy];
   selfCopy = self;
-  v79 = comparatorCopy;
-  v81 = toElementsCopy;
-  v77 = generatorCopy;
+  v78 = comparatorCopy;
+  v80 = toElementsCopy;
+  v76 = generatorCopy;
   v17 = [self _createSetFromElementArray:toElementsCopy equalComparator:comparatorCopy hashGenerator:generatorCopy];
   v18 = [MEMORY[0x277CBEB58] set];
   v19 = [MEMORY[0x277CBEB58] set];
+  v121 = 0u;
   v122 = 0u;
   v123 = 0u;
   v124 = 0u;
-  v125 = 0u;
   v20 = v16;
-  v21 = [v20 countByEnumeratingWithState:&v122 objects:v128 count:16];
+  v21 = [v20 countByEnumeratingWithState:&v121 objects:v127 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v123;
+    v23 = *v122;
     do
     {
       for (i = 0; i != v22; ++i)
       {
-        if (*v123 != v23)
+        if (*v122 != v23)
         {
           objc_enumerationMutation(v20);
         }
 
-        v25 = *(*(&v122 + 1) + 8 * i);
+        v25 = *(*(&v121 + 1) + 8 * i);
         if ([v17 containsObject:v25])
         {
           v26 = v19;
@@ -58,36 +58,36 @@
         [v26 addObject:v25];
       }
 
-      v22 = [v20 countByEnumeratingWithState:&v122 objects:v128 count:16];
+      v22 = [v20 countByEnumeratingWithState:&v121 objects:v127 count:16];
     }
 
     while (v22);
   }
 
-  v85 = v18;
+  v84 = v18;
 
   v27 = [MEMORY[0x277CBEB58] set];
   v28 = [MEMORY[0x277CBEB58] set];
+  v117 = 0u;
   v118 = 0u;
   v119 = 0u;
   v120 = 0u;
-  v121 = 0u;
   obj = v17;
-  v29 = [obj countByEnumeratingWithState:&v118 objects:v127 count:16];
+  v29 = [obj countByEnumeratingWithState:&v117 objects:v126 count:16];
   if (v29)
   {
     v30 = v29;
-    v31 = *v119;
+    v31 = *v118;
     do
     {
       for (j = 0; j != v30; ++j)
       {
-        if (*v119 != v31)
+        if (*v118 != v31)
         {
           objc_enumerationMutation(obj);
         }
 
-        v33 = *(*(&v118 + 1) + 8 * j);
+        v33 = *(*(&v117 + 1) + 8 * j);
         if ([v20 containsObject:v33])
         {
           v34 = v28;
@@ -101,46 +101,46 @@
         [v34 addObject:v33];
       }
 
-      v30 = [obj countByEnumeratingWithState:&v118 objects:v127 count:16];
+      v30 = [obj countByEnumeratingWithState:&v117 objects:v126 count:16];
     }
 
     while (v30);
   }
 
-  v70 = v28;
-  v84 = v27;
-  v82 = v20;
+  v69 = v28;
+  v83 = v27;
+  v81 = v20;
 
   indexSet = [MEMORY[0x277CCAB58] indexSet];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   indexSet2 = [MEMORY[0x277CCAB58] indexSet];
+  v113 = 0u;
   v114 = 0u;
   v115 = 0u;
   v116 = 0u;
-  v117 = 0u;
   v35 = v19;
-  v36 = [v35 countByEnumeratingWithState:&v114 objects:v126 count:16];
+  v36 = [v35 countByEnumeratingWithState:&v113 objects:v125 count:16];
   if (v36)
   {
     v37 = v36;
-    v38 = *v115;
-    v86 = *MEMORY[0x277CBE658];
+    v38 = *v114;
+    v85 = *MEMORY[0x277CBE658];
     do
     {
       for (k = 0; k != v37; ++k)
       {
-        if (*v115 != v38)
+        if (*v114 != v38)
         {
           objc_enumerationMutation(v35);
         }
 
-        v40 = *(*(&v114 + 1) + 8 * k);
+        v40 = *(*(&v113 + 1) + 8 * k);
         v41 = [obj member:v40];
         if (!v41)
         {
           v42 = MEMORY[0x277CBEAD8];
           object = [v40 object];
-          [v42 raise:v86 format:{@"Missing object %@ in toSet", object}];
+          [v42 raise:v85 format:{@"Missing object %@ in toSet", object}];
         }
 
         object2 = [v40 object];
@@ -161,92 +161,90 @@
         }
       }
 
-      v37 = [v35 countByEnumeratingWithState:&v114 objects:v126 count:16];
+      v37 = [v35 countByEnumeratingWithState:&v113 objects:v125 count:16];
     }
 
     while (v37);
   }
 
-  v72 = v35;
+  v71 = v35;
 
-  v49 = [selfCopy _indexSetFromSet:v85];
-  v69 = [selfCopy _indexSetFromSet:v84];
+  v49 = [selfCopy _indexSetFromSet:v84];
+  v68 = [selfCopy _indexSetFromSet:v83];
   v50 = [MEMORY[0x277CBEB58] set];
   v51 = [v49 mutableCopy];
-  v52 = [v69 mutableCopy];
-  v106[0] = MEMORY[0x277D85DD0];
-  v106[1] = 3221225472;
-  v106[2] = __90__REArrayDiff_diffFromElements_toElements_equalComparator_hashGenerator_changeComparator___block_invoke;
-  v106[3] = &unk_2785FD558;
-  v53 = v75;
-  v112 = v79;
-  v113 = v77;
-  v107 = v53;
-  v108 = v70;
-  v109 = v51;
-  v110 = v52;
-  v111 = v50;
+  v52 = [v68 mutableCopy];
+  v105[0] = MEMORY[0x277D85DD0];
+  v105[1] = 3221225472;
+  v105[2] = __90__REArrayDiff_diffFromElements_toElements_equalComparator_hashGenerator_changeComparator___block_invoke;
+  v105[3] = &unk_2785FD558;
+  v53 = v74;
+  v111 = v78;
+  v112 = v76;
+  v106 = v53;
+  v107 = v69;
+  v108 = v51;
+  v109 = v52;
+  v110 = v50;
   v54 = v50;
-  v87 = v52;
-  v76 = v51;
-  v74 = v70;
-  v78 = v77;
-  v80 = v79;
-  v55 = MEMORY[0x22AABC5E0](v106);
+  v86 = v52;
+  v75 = v51;
+  v73 = v69;
+  v77 = v76;
+  v79 = v78;
+  v55 = MEMORY[0x22AABC5E0](v105);
   [indexSet enumerateIndexesUsingBlock:v55];
   [indexSet2 enumerateIndexesUsingBlock:v55];
   array = [MEMORY[0x277CBEB18] array];
-  v103[0] = MEMORY[0x277D85DD0];
-  v103[1] = 3221225472;
-  v103[2] = __90__REArrayDiff_diffFromElements_toElements_equalComparator_hashGenerator_changeComparator___block_invoke_2;
-  v103[3] = &unk_2785FD580;
-  v104 = dictionary;
+  v102[0] = MEMORY[0x277D85DD0];
+  v102[1] = 3221225472;
+  v102[2] = __90__REArrayDiff_diffFromElements_toElements_equalComparator_hashGenerator_changeComparator___block_invoke_2;
+  v102[3] = &unk_2785FD580;
+  v103 = dictionary;
   v57 = array;
-  v105 = v57;
-  v89 = dictionary;
-  [indexSet enumerateIndexesUsingBlock:v103];
-  v100[0] = MEMORY[0x277D85DD0];
-  v100[1] = 3221225472;
-  v100[2] = __90__REArrayDiff_diffFromElements_toElements_equalComparator_hashGenerator_changeComparator___block_invoke_3;
-  v100[3] = &unk_2785FD580;
-  v101 = v53;
+  v104 = v57;
+  v88 = dictionary;
+  [indexSet enumerateIndexesUsingBlock:v102];
+  v99[0] = MEMORY[0x277D85DD0];
+  v99[1] = 3221225472;
+  v99[2] = __90__REArrayDiff_diffFromElements_toElements_equalComparator_hashGenerator_changeComparator___block_invoke_3;
+  v99[3] = &unk_2785FD580;
+  v100 = v53;
   v58 = v57;
-  v102 = v58;
-  v71 = v53;
-  [v49 enumerateIndexesWithOptions:2 usingBlock:v100];
+  v101 = v58;
+  v70 = v53;
+  [v49 enumerateIndexesWithOptions:2 usingBlock:v99];
   allObjects = [v54 allObjects];
   v60 = [allObjects sortedArrayUsingComparator:&__block_literal_global_108];
-  v97[0] = MEMORY[0x277D85DD0];
-  v97[1] = 3221225472;
-  v97[2] = __90__REArrayDiff_diffFromElements_toElements_equalComparator_hashGenerator_changeComparator___block_invoke_5;
-  v97[3] = &unk_2785FD5C8;
-  v61 = v81;
-  v98 = v61;
+  v96[0] = MEMORY[0x277D85DD0];
+  v96[1] = 3221225472;
+  v96[2] = __90__REArrayDiff_diffFromElements_toElements_equalComparator_hashGenerator_changeComparator___block_invoke_5;
+  v96[3] = &unk_2785FD5C8;
+  v61 = v80;
+  v97 = v61;
   v62 = v58;
-  v99 = v62;
-  [v60 enumerateObjectsUsingBlock:v97];
+  v98 = v62;
+  [v60 enumerateObjectsUsingBlock:v96];
 
-  v94[0] = MEMORY[0x277D85DD0];
-  v94[1] = 3221225472;
-  v94[2] = __90__REArrayDiff_diffFromElements_toElements_equalComparator_hashGenerator_changeComparator___block_invoke_6;
-  v94[3] = &unk_2785FD580;
-  v95 = v61;
+  v93[0] = MEMORY[0x277D85DD0];
+  v93[1] = 3221225472;
+  v93[2] = __90__REArrayDiff_diffFromElements_toElements_equalComparator_hashGenerator_changeComparator___block_invoke_6;
+  v93[3] = &unk_2785FD580;
+  v94 = v61;
   v63 = v62;
-  v96 = v63;
+  v95 = v63;
   v64 = v61;
-  [v69 enumerateIndexesUsingBlock:v94];
-  v65 = v83[1];
-  v83[1] = v63;
+  [v68 enumerateIndexesUsingBlock:v93];
+  v65 = v82[1];
+  v82[1] = v63;
   v66 = v63;
 
-  v67 = *MEMORY[0x277D85DE8];
-
-  return v83;
+  return v82;
 }
 
 void __90__REArrayDiff_diffFromElements_toElements_equalComparator_hashGenerator_changeComparator___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   v4 = [*(a1 + 32) objectAtIndex:a2];
   v5 = [_REDiffItem itemWithObject:v4 index:a2 comparator:*(a1 + 72) hashGenerator:*(a1 + 80)];
 
@@ -261,17 +259,15 @@ void __90__REArrayDiff_diffFromElements_toElements_equalComparator_hashGenerator
     {
       v11 = *(a1 + 64);
       v12 = MEMORY[0x277CCAA70];
-      v15[0] = [v5 index];
-      v15[1] = [v6 index];
-      v13 = [v12 indexPathWithIndexes:v15 length:2];
+      v14[0] = [v5 index];
+      v14[1] = [v6 index];
+      v13 = [v12 indexPathWithIndexes:v14 length:2];
       [v11 addObject:v13];
 
       [*(a1 + 48) addIndex:{objc_msgSend(v5, "index")}];
       [*(a1 + 56) addIndex:{objc_msgSend(v6, "index")}];
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __90__REArrayDiff_diffFromElements_toElements_equalComparator_hashGenerator_changeComparator___block_invoke_2(uint64_t a1, uint64_t a2)
@@ -341,38 +337,36 @@ void __45__REArrayDiff_enumerateOperationsUsingBlock___block_invoke(uint64_t a1,
 
 + (id)_indexSetFromSet:(id)set
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   setCopy = set;
   indexSet = [MEMORY[0x277CCAB58] indexSet];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v5 = setCopy;
-  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [indexSet addIndex:{objc_msgSend(*(*(&v12 + 1) + 8 * i), "index", v12)}];
+        [indexSet addIndex:{objc_msgSend(*(*(&v11 + 1) + 8 * i), "index", v11)}];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return indexSet;
 }

@@ -91,7 +91,7 @@
 
 - (void)_process:(id)_process didUpdateState:(id)state
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   _processCopy = _process;
   stateCopy = state;
   state = [stateCopy state];
@@ -106,15 +106,15 @@
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     name = [_processCopy name];
-    LODWORD(v26) = 67109891;
-    HIDWORD(v26) = v15;
-    v27 = 1024;
-    v28 = v11;
-    v29 = 2113;
-    v30 = name;
-    v31 = 1024;
-    v32 = v16;
-    _os_log_impl(&dword_271001000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "VisionHWAServer: previousState: %d, state: %d, name: %{private}@, pid: %d", &v26, 0x1Eu);
+    LODWORD(v25) = 67109891;
+    HIDWORD(v25) = v15;
+    v26 = 1024;
+    v27 = v11;
+    v28 = 2113;
+    v29 = name;
+    v30 = 1024;
+    v31 = v16;
+    _os_log_impl(&dword_271001000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "VisionHWAServer: previousState: %d, state: %d, name: %{private}@, pid: %d", &v25, 0x1Eu);
   }
 
   os_unfair_lock_lock(&self->_lock);
@@ -153,18 +153,16 @@
     }
   }
 
-  objc_initWeak(&v26, self);
+  objc_initWeak(&v25, self);
   if ((v15 - 3) <= 1 && (v11 - 5) <= 0xFFFFFFFD)
   {
     CMNotificationCenterGetDefaultLocalCenter();
-    v24 = objc_loadWeakRetained(&v26);
+    v24 = objc_loadWeakRetained(&v25);
     CMNotificationCenterPostNotification();
   }
 
-  objc_destroyWeak(&v26);
+  objc_destroyWeak(&v25);
 LABEL_13:
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (id).cxx_construct

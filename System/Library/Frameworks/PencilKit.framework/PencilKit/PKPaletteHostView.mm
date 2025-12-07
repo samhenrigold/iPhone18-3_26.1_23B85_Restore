@@ -1135,11 +1135,11 @@ uint64_t __74__PKPaletteHostView__dockPaletteToPosition_isFromUserReposition_ani
   return [v2 layoutIfNeeded];
 }
 
-uint64_t __74__PKPaletteHostView__dockPaletteToPosition_isFromUserReposition_animated___block_invoke_2(uint64_t result, int a2)
+id *__74__PKPaletteHostView__dockPaletteToPosition_isFromUserReposition_animated___block_invoke_2(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) _paletteDidDockToPosition:*(result + 40) fromUserReposition:*(result + 48)];
+    return [result[4] _paletteDidDockToPosition:result[5] fromUserReposition:*(result + 48)];
   }
 
   return result;
@@ -2595,12 +2595,12 @@ uint64_t __40__PKPaletteHostView__panGestureHandler___block_invoke_4(uint64_t a1
   return [v2 layoutIfNeeded];
 }
 
-uint64_t __40__PKPaletteHostView__panGestureHandler___block_invoke_5(uint64_t result)
+void *__40__PKPaletteHostView__panGestureHandler___block_invoke_5(void *result)
 {
-  v1 = *(result + 40);
+  v1 = *(result + 5);
   if (v1)
   {
-    return [*(result + 32) _paletteDidDockToPosition:v1 fromUserReposition:1];
+    return [*(result + 4) _paletteDidDockToPosition:v1 fromUserReposition:1];
   }
 
   return result;

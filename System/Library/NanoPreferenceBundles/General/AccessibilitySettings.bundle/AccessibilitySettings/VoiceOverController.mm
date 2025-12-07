@@ -18,6 +18,7 @@
 - (void)dealloc;
 - (void)setSpeakingRate:(id)rate specifier:(id)specifier;
 - (void)setVoiceOverTouchEnabled:(id)enabled specifier:(id)specifier;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation VoiceOverController
@@ -38,6 +39,31 @@
   return v2;
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v17[1] = *MEMORY[0x277D85DE8];
+  v16.receiver = self;
+  v16.super_class = VoiceOverController;
+  [(AccessibilityBridgeBaseController *)&v16 viewWillAppear:appear];
+  [(VoiceOverController *)self reload];
+  v4 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v5 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
+  bundleURL = [v4 bundleURL];
+  v8 = [v5 initWithKey:@"VOICEOVER_TITLE" table:@"AccessibilitySettings" locale:currentLocale bundleURL:bundleURL];
+
+  v9 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale2 = [MEMORY[0x277CBEAF8] currentLocale];
+  bundleURL2 = [v4 bundleURL];
+  v12 = [v9 initWithKey:@"ACCESSIBILITY_TITLE" table:@"AccessibilitySettings" locale:currentLocale2 bundleURL:bundleURL2];
+
+  v13 = MEMORY[0x277CF3470];
+  v17[0] = v12;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
+  v15 = [MEMORY[0x277CBEBC0] URLWithString:@"bridge:root=ACCESSIBILITY_ID&path=VOICEOVER_ID"];
+  [v13 emitNavigationEventForSystemSettingWithIconSpecifierIdentifier:@"ACCESSIBILITY_ID" title:v8 localizedNavigationComponents:v14 deepLink:v15];
+}
+
 - (void)dealloc
 {
   DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
@@ -51,18 +77,18 @@
 
 - (id)specifiers
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   v3 = *(&self->super.super.super.super.super.super.isa + *MEMORY[0x277D3FC48]);
   if (!v3)
   {
-    v50 = *MEMORY[0x277D3FC48];
-    v52 = [objc_allocWithZone(MEMORY[0x277CBEB18]) init];
+    v49 = *MEMORY[0x277D3FC48];
+    v51 = [objc_allocWithZone(MEMORY[0x277CBEB18]) init];
     [(VoiceOverController *)self loadSpecifiersFromPlistName:@"VoiceOverSettings" target:self];
+    v56 = 0u;
     v57 = 0u;
     v58 = 0u;
-    v59 = 0u;
-    obj = v60 = 0u;
-    v4 = [obj countByEnumeratingWithState:&v57 objects:v61 count:16];
+    obj = v59 = 0u;
+    v4 = [obj countByEnumeratingWithState:&v56 objects:v60 count:16];
     if (!v4)
     {
       goto LABEL_48;
@@ -70,21 +96,21 @@
 
     v5 = v4;
     v6 = *MEMORY[0x277D3FFF0];
-    v51 = *MEMORY[0x277D3FF38];
-    v55 = *MEMORY[0x277D400E0];
-    v56 = *v58;
-    v54 = *MEMORY[0x277D400D0];
+    v50 = *MEMORY[0x277D3FF38];
+    v54 = *MEMORY[0x277D400E0];
+    v55 = *v57;
+    v53 = *MEMORY[0x277D400D0];
     v7 = *MEMORY[0x277D3FFB8];
     while (1)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v58 != v56)
+        if (*v57 != v55)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v57 + 1) + 8 * i);
+        v9 = *(*(&v56 + 1) + 8 * i);
         v10 = [v9 propertyForKey:v6];
         v11 = [v10 isEqualToString:@"VoiceOverTouchEnabled"];
 
@@ -103,7 +129,7 @@
           }
 
           v15 = [MEMORY[0x277CCABB0] numberWithInt:bOOLValue];
-          [v9 setProperty:v15 forKey:v51];
+          [v9 setProperty:v15 forKey:v50];
         }
 
         v16 = [v9 propertyForKey:v6];
@@ -112,10 +138,10 @@
         if (v17)
         {
           v18 = AXHareImage();
-          [v9 setProperty:v18 forKey:v55];
+          [v9 setProperty:v18 forKey:v54];
 
           v19 = AXTortoiseImage();
-          [v9 setProperty:v19 forKey:v54];
+          [v9 setProperty:v19 forKey:v53];
         }
 
         if (AXActivePairedDeviceIsLighthouseOrLater())
@@ -135,10 +161,10 @@
         if (v23)
         {
           v24 = AXVolumeMaxImage();
-          [v9 setProperty:v24 forKey:v55];
+          [v9 setProperty:v24 forKey:v54];
 
           v25 = AXVolumeMinImage();
-          [v9 setProperty:v25 forKey:v54];
+          [v9 setProperty:v25 forKey:v53];
         }
 
         if (![(VoiceOverController *)self _gizmoHasTapticTime])
@@ -233,7 +259,7 @@
           }
 
 LABEL_45:
-          [v52 addObject:v9];
+          [v51 addObject:v9];
           continue;
         }
 
@@ -243,20 +269,18 @@ LABEL_45:
         }
       }
 
-      v5 = [obj countByEnumeratingWithState:&v57 objects:v61 count:16];
+      v5 = [obj countByEnumeratingWithState:&v56 objects:v60 count:16];
       if (!v5)
       {
 LABEL_48:
-        v47 = *(&self->super.super.super.super.super.super.isa + v50);
-        *(&self->super.super.super.super.super.super.isa + v50) = v52;
+        v47 = *(&self->super.super.super.super.super.super.isa + v49);
+        *(&self->super.super.super.super.super.super.isa + v49) = v51;
 
-        v3 = *(&self->super.super.super.super.super.super.isa + v50);
+        v3 = *(&self->super.super.super.super.super.super.isa + v49);
         break;
       }
     }
   }
-
-  v48 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -375,8 +399,6 @@ void __58__VoiceOverController_setVoiceOverTouchEnabled_specifier___block_invoke
 {
   accessibilityDomainAccessor = [(AccessibilityBridgeBaseController *)self accessibilityDomainAccessor];
   [accessibilityDomainAccessor doubleForKey:@"VoiceOverDoubleTapInterval"];
-
-  *MEMORY[0x277CE6A20];
 
   return AXLocalizedTimeSummary();
 }

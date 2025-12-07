@@ -206,32 +206,32 @@ void __59__REElement_initWithDictionary_relevanceProviderGenerator___block_invok
 
 - (id)dictionaryEncodingWithRelevanceProviderGenerator:(id)generator
 {
-  v38[1] = *MEMORY[0x277D85DE8];
+  v37[1] = *MEMORY[0x277D85DE8];
   generatorCopy = generator;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
-  v33[0] = MEMORY[0x277D85DD0];
-  v33[1] = 3221225472;
-  v33[2] = __62__REElement_dictionaryEncodingWithRelevanceProviderGenerator___block_invoke;
-  v33[3] = &unk_2785FD2F8;
-  v33[4] = self;
-  v6 = MEMORY[0x22AABC5E0](v33);
-  v38[0] = @"REContentHeaderTextKey";
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:1];
+  v32[0] = MEMORY[0x277D85DD0];
+  v32[1] = 3221225472;
+  v32[2] = __62__REElement_dictionaryEncodingWithRelevanceProviderGenerator___block_invoke;
+  v32[3] = &unk_2785FD2F8;
+  v32[4] = self;
+  v6 = MEMORY[0x22AABC5E0](v32);
+  v37[0] = @"REContentHeaderTextKey";
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:1];
   v8 = (v6)[2](v6, v7);
   [dictionary setObject:v8 forKeyedSubscript:@"title"];
 
-  v37 = @"REContentDescription1TextKey";
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v37 count:1];
+  v36 = @"REContentDescription1TextKey";
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v36 count:1];
   v10 = (v6)[2](v6, v9);
   [dictionary setObject:v10 forKeyedSubscript:@"description1"];
 
-  v36 = @"REContentDescription2TextKey";
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v36 count:1];
+  v35 = @"REContentDescription2TextKey";
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v35 count:1];
   v12 = (v6)[2](v6, v11);
   [dictionary setObject:v12 forKeyedSubscript:@"description2"];
 
-  v35 = @"REContentDescription3TextKey";
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v35 count:1];
+  v34 = @"REContentDescription3TextKey";
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v34 count:1];
   v14 = (v6)[2](v6, v13);
   [dictionary setObject:v14 forKeyedSubscript:@"description3"];
 
@@ -256,67 +256,66 @@ void __59__REElement_initWithDictionary_relevanceProviderGenerator___block_invok
 
   [dictionary setObject:self->_applicationBundleIdentifier forKeyedSubscript:@"app_bundle_id"];
   [dictionary setObject:self->_namespacedIdentifier forKeyedSubscript:@"namespaced_identifier"];
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   v20 = self->_relevanceProviders;
-  v21 = [(NSArray *)v20 countByEnumeratingWithState:&v29 objects:v34 count:16];
+  v21 = [(NSArray *)v20 countByEnumeratingWithState:&v28 objects:v33 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v30;
+    v23 = *v29;
     do
     {
       for (i = 0; i != v22; ++i)
       {
-        if (*v30 != v23)
+        if (*v29 != v23)
         {
           objc_enumerationMutation(v20);
         }
 
-        v25 = [generatorCopy encodeRelevaneProvider:{*(*(&v29 + 1) + 8 * i), v29}];
+        v25 = [generatorCopy encodeRelevaneProvider:{*(*(&v28 + 1) + 8 * i), v28}];
         if (v25)
         {
           [dictionary addEntriesFromDictionary:v25];
         }
       }
 
-      v22 = [(NSArray *)v20 countByEnumeratingWithState:&v29 objects:v34 count:16];
+      v22 = [(NSArray *)v20 countByEnumeratingWithState:&v28 objects:v33 count:16];
     }
 
     while (v22);
   }
 
   v26 = [dictionary copy];
-  v27 = *MEMORY[0x277D85DE8];
 
   return v26;
 }
 
 id __62__REElement_dictionaryEncodingWithRelevanceProviderGenerator___block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v3 = a2;
-  v4 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v15;
+    v6 = *v14;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v14 + 1) + 8 * i);
+        v8 = *(*(&v13 + 1) + 8 * i);
         v9 = [*(a1 + 32) content];
         v10 = [v9 objectForKey:v8];
 
@@ -331,7 +330,7 @@ id __62__REElement_dictionaryEncodingWithRelevanceProviderGenerator___block_invo
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v5)
       {
         continue;
@@ -343,8 +342,6 @@ id __62__REElement_dictionaryEncodingWithRelevanceProviderGenerator___block_invo
 
   v11 = 0;
 LABEL_13:
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -439,26 +436,25 @@ LABEL_13:
 
 - (BOOL)isNoContentElement
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
-  v12 = 0u;
   v2 = self->_relevanceProviders;
-  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
-    v4 = *v10;
+    v4 = *v8;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v10 != v4)
+        if (*v8 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        v6 = *(*(&v9 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -467,7 +463,7 @@ LABEL_13:
         }
       }
 
-      v3 = [(NSArray *)v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v3 = [(NSArray *)v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
       if (v3)
       {
         continue;
@@ -479,7 +475,6 @@ LABEL_13:
 
 LABEL_11:
 
-  v7 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -495,38 +490,38 @@ LABEL_11:
 
 - (BOOL)_relevanceProvidersEqualToElement:(id)element
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   relevanceProviders = [element relevanceProviders];
   v5 = [(NSArray *)self->_relevanceProviders count];
   if (v5 == [relevanceProviders count])
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     v6 = self->_relevanceProviders;
-    v7 = [(NSArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v7 = [(NSArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v15;
+      v9 = *v14;
       while (2)
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v15 != v9)
+          if (*v14 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          if (![relevanceProviders containsObject:{*(*(&v14 + 1) + 8 * i), v14}])
+          if (![relevanceProviders containsObject:{*(*(&v13 + 1) + 8 * i), v13}])
           {
             v11 = 0;
             goto LABEL_13;
           }
         }
 
-        v8 = [(NSArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 = [(NSArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
         if (v8)
         {
           continue;
@@ -545,7 +540,6 @@ LABEL_13:
     v11 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -670,11 +664,10 @@ LABEL_27:
 
 void __59__REElement_initWithDictionary_relevanceProviderGenerator___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_22859F000, a2, OS_LOG_TYPE_ERROR, "Unable to create relevance provider with type: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_22859F000, a2, OS_LOG_TYPE_ERROR, "Unable to create relevance provider with type: %@", &v2, 0xCu);
 }
 
 @end

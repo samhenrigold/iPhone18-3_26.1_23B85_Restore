@@ -6,17 +6,17 @@
 
 + (int64_t)activationPresentationForPresentationIdentifiers:(id)identifiers
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   v4 = MEMORY[0x1E698D0A0];
   v5 = *MEMORY[0x1E698D0A0];
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 136315394;
-    v16 = "+[SASPresentationDecision activationPresentationForPresentationIdentifiers:]";
-    v17 = 2112;
-    v18 = identifiersCopy;
-    _os_log_impl(&dword_1C8137000, v5, OS_LOG_TYPE_DEFAULT, "%s #activation SASPresentationDecision deciding between: %@", &v15, 0x16u);
+    v14 = 136315394;
+    v15 = "+[SASPresentationDecision activationPresentationForPresentationIdentifiers:]";
+    v16 = 2112;
+    v17 = identifiersCopy;
+    _os_log_impl(&dword_1C8137000, v5, OS_LOG_TYPE_DEFAULT, "%s #activation SASPresentationDecision deciding between: %@", &v14, 0x16u);
   }
 
   if ([identifiersCopy count] == 1)
@@ -36,10 +36,10 @@
 
     if ((v11 & 1) == 0)
     {
-      v14 = *v4;
+      v13 = *v4;
       if (os_log_type_enabled(*v4, OS_LOG_TYPE_ERROR))
       {
-        [(SASPresentationDecision *)v14 activationPresentationForPresentationIdentifiers:identifiersCopy];
+        [(SASPresentationDecision *)v13 activationPresentationForPresentationIdentifiers:identifiersCopy];
       }
 
 LABEL_4:
@@ -48,22 +48,19 @@ LABEL_4:
     }
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return siriPresentationIdentifier;
 }
 
 + (void)activationPresentationForPresentationIdentifiers:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = [a2 firstObject];
-  v6 = 136315394;
-  v7 = "+[SASPresentationDecision activationPresentationForPresentationIdentifiers:]";
-  v8 = 2112;
-  v9 = v4;
-  _os_log_error_impl(&dword_1C8137000, v3, OS_LOG_TYPE_ERROR, "%s ERROR: Multiple connected presentations, but none of them have precedence. Taking the first object, %@", &v6, 0x16u);
-
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 136315394;
+  v6 = "+[SASPresentationDecision activationPresentationForPresentationIdentifiers:]";
+  v7 = 2112;
+  v8 = v4;
+  _os_log_error_impl(&dword_1C8137000, v3, OS_LOG_TYPE_ERROR, "%s ERROR: Multiple connected presentations, but none of them have precedence. Taking the first object, %@", &v5, 0x16u);
 }
 
 @end

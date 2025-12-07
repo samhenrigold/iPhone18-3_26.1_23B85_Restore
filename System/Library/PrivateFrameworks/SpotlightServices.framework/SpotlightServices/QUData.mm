@@ -18,7 +18,7 @@
       if (v6)
       {
         queryUnderstandingOutput = [contextCopy queryUnderstandingOutput];
-        v8 = [queryUnderstandingOutput count];
+        v8 = objc_msgSend_count(queryUnderstandingOutput);
 
         if (v8 >= 2)
         {

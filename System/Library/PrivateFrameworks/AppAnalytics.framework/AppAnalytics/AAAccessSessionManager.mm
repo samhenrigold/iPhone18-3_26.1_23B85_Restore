@@ -11,11 +11,10 @@
 
 - (BOOL)isActive
 {
-  v2 = *(&self->super.isa + OBJC_IVAR___AAAccessSessionManager_accessSessionManager);
   selfCopy = self;
-  LOBYTE(v2) = AccessSessionManager.isActive.getter();
+  v3 = AccessSessionManager.isActive.getter();
 
-  return v2 & 1;
+  return v3 & 1;
 }
 
 - (void)pushSessionData:(id)data

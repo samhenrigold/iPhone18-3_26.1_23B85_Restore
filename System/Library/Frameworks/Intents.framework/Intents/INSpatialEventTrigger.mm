@@ -59,8 +59,8 @@ LABEL_8:
 
 - (id)_dictionaryRepresentation
 {
-  v13[4] = *MEMORY[0x1E69E9840];
-  v12[0] = @"placemark";
+  v12[4] = *MEMORY[0x1E69E9840];
+  v11[0] = @"placemark";
   placemark = self->_placemark;
   null = placemark;
   if (!placemark)
@@ -68,11 +68,11 @@ LABEL_8:
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v13[0] = null;
-  v12[1] = @"event";
+  v12[0] = null;
+  v11[1] = @"event";
   v5 = [MEMORY[0x1E696AD98] numberWithInteger:self->_event];
-  v13[1] = v5;
-  v12[2] = @"suggestedValues";
+  v12[1] = v5;
+  v11[2] = @"suggestedValues";
   suggestedValues = self->_suggestedValues;
   null2 = suggestedValues;
   if (!suggestedValues)
@@ -80,11 +80,11 @@ LABEL_8:
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v13[2] = null2;
-  v12[3] = @"mobileSpace";
+  v12[2] = null2;
+  v11[3] = @"mobileSpace";
   v8 = [MEMORY[0x1E696AD98] numberWithInteger:self->_mobileSpace];
-  v13[3] = v8;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:4];
+  v12[3] = v8;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:4];
 
   if (!suggestedValues)
   {
@@ -93,8 +93,6 @@ LABEL_8:
   if (!placemark)
   {
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -171,21 +169,20 @@ LABEL_8:
 
 - (INSpatialEventTrigger)initWithCoder:(id)coder
 {
-  v15[2] = *MEMORY[0x1E69E9840];
+  v14[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"placemark"];
   v6 = [coderCopy decodeIntegerForKey:@"event"];
   v7 = MEMORY[0x1E695DFD8];
-  v15[0] = objc_opt_class();
-  v15[1] = objc_opt_class();
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
+  v14[0] = objc_opt_class();
+  v14[1] = objc_opt_class();
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:2];
   v9 = [v7 setWithArray:v8];
   v10 = [coderCopy decodeObjectOfClasses:v9 forKey:@"suggestedValues"];
 
   v11 = [coderCopy decodeIntegerForKey:@"mobileSpace"];
   v12 = [(INSpatialEventTrigger *)self initWithPlacemark:v5 event:v6 suggestedValues:v10 mobileSpace:v11];
 
-  v13 = *MEMORY[0x1E69E9840];
   return v12;
 }
 

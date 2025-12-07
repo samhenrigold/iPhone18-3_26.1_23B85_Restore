@@ -34,33 +34,7 @@
   }
 
   v10->_root = root;
-  if (!verifyCopy)
-  {
-    goto LABEL_13;
-  }
-
-  bytes2 = [(NSData *)v10->_data bytes];
-  v13 = [(NSData *)v10->_data length];
-  root = v10->_root;
-  if (root < bytes2 || root > bytes2 + v13)
-  {
-    goto LABEL_14;
-  }
-
-  bytes3 = [(NSData *)v10->_data bytes];
-  v17 = [(NSData *)v10->_data length];
-  v21[0] = bytes3;
-  v21[1] = v17;
-  v22 = xmmword_233005E20;
-  v23 = 0;
-  v24 = 1;
-  v18 = v10->_root;
-  if (!v18)
-  {
-    goto LABEL_13;
-  }
-
-  if (!siri::speech::schema_fb::SetRequestOrigin::Verify(v18, v21))
+  if (verifyCopy && ((v12 = [(NSData *)v10->_data bytes], v13 = [(NSData *)v10->_data length], root = v10->_root, root >= v12) ? (v15 = root > v12 + v13) : (v15 = 1), v15 || (v16 = [(NSData *)v10->_data bytes], v17 = [(NSData *)v10->_data length], v21[0] = v16, v21[1] = v17, v22 = xmmword_233005E20, v23 = 0, v24 = 1, (v18 = v10->_root) != 0) && !siri::speech::schema_fb::SetRequestOrigin::Verify(v18, v21)))
   {
 LABEL_14:
     v19 = 0;
@@ -118,20 +92,19 @@ LABEL_13:
 
 - (Offset<siri::speech::schema_fb::SetRequestOrigin>)addObjectToBuffer:(void *)buffer
 {
-  selfCopy = self;
   [(FTSetRequestOrigin *)self latitude];
   v6 = v5;
-  [(FTSetRequestOrigin *)selfCopy longitude];
+  [(FTSetRequestOrigin *)self longitude];
   v8 = v7;
-  LODWORD(selfCopy) = [(FTSetRequestOrigin *)selfCopy enable_geo_location_features];
+  enable_geo_location_features = [(FTSetRequestOrigin *)self enable_geo_location_features];
   *(buffer + 70) = 1;
-  v9 = *(buffer + 10);
-  v10 = *(buffer + 8) - *(buffer + 12);
+  v10 = *(buffer + 10);
+  v11 = *(buffer + 8) - *(buffer + 12);
   apple::aiml::flatbuffers2::FlatBufferBuilder::AddElement<double>(buffer, 4, v6, 0.0);
   apple::aiml::flatbuffers2::FlatBufferBuilder::AddElement<double>(buffer, 6, v8, 0.0);
-  apple::aiml::flatbuffers2::FlatBufferBuilder::AddElement<unsigned char>(buffer, 8, selfCopy, 0);
+  apple::aiml::flatbuffers2::FlatBufferBuilder::AddElement<unsigned char>(buffer, 8, enable_geo_location_features, 0);
 
-  return apple::aiml::flatbuffers2::FlatBufferBuilder::EndTable(buffer, v10 + v9);
+  return apple::aiml::flatbuffers2::FlatBufferBuilder::EndTable(buffer, v11 + v10);
 }
 
 - (id)flatbuffData

@@ -114,10 +114,7 @@
 
 uint64_t __57__UNSNotificationCategoryRepository_allBundleIdentifiers__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 8) allKeys];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 8) allKeys];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -150,10 +147,7 @@ uint64_t __57__UNSNotificationCategoryRepository_allBundleIdentifiers__block_inv
 
 uint64_t __67__UNSNotificationCategoryRepository_categoriesForBundleIdentifier___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _queue_categoriesForBundleIdentifier:*(a1 + 40)];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) _queue_categoriesForBundleIdentifier:*(a1 + 40)];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -230,32 +224,32 @@ uint64_t __67__UNSNotificationCategoryRepository_categoriesForBundleIdentifier__
 
 - (id)categoryWithIdentifier:(id)identifier bundleIdentifier:(id)bundleIdentifier
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   bundleIdentifierCopy = bundleIdentifier;
   if (identifierCopy)
   {
     v8 = [(UNSNotificationCategoryRepository *)self categoriesForBundleIdentifier:bundleIdentifierCopy];
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
-    v9 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v9)
     {
       v10 = v9;
       v11 = 0;
-      v12 = *v21;
+      v12 = *v20;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v21 != v12)
+          if (*v20 != v12)
           {
             objc_enumerationMutation(v8);
           }
 
-          v14 = *(*(&v20 + 1) + 8 * i);
+          v14 = *(*(&v19 + 1) + 8 * i);
           identifier = [v14 identifier];
           v16 = [identifierCopy isEqual:identifier];
 
@@ -267,7 +261,7 @@ uint64_t __67__UNSNotificationCategoryRepository_categoriesForBundleIdentifier__
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v10);
@@ -284,48 +278,44 @@ uint64_t __67__UNSNotificationCategoryRepository_categoriesForBundleIdentifier__
     v11 = 0;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
-
   return v11;
 }
 
 - (void)_queue_notificationSourcesDidUninstall:(id)uninstall
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   uninstallCopy = uninstall;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v5 = [uninstallCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [uninstallCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       v8 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(uninstallCopy);
         }
 
-        bundleIdentifier = [*(*(&v11 + 1) + 8 * v8) bundleIdentifier];
+        bundleIdentifier = [*(*(&v10 + 1) + 8 * v8) bundleIdentifier];
         [(UNCKeyedDataStoreRepository *)self->_repository removeStoreForKey:bundleIdentifier];
 
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [uninstallCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [uninstallCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -35,7 +35,7 @@
 
 - (void)finishDecryption
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (*MEMORY[0x277CBC880] != -1)
   {
     dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
@@ -44,11 +44,11 @@
   v3 = *MEMORY[0x277CBC830];
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
   {
-    v11 = v3;
-    v14 = objc_msgSend_operationID(self, v12, v13);
-    v15 = 138543362;
-    v16 = v14;
-    _os_log_debug_impl(&dword_22506F000, v11, OS_LOG_TYPE_DEBUG, "Finishing decryption operation %{public}@", &v15, 0xCu);
+    v10 = v3;
+    v13 = objc_msgSend_operationID(self, v11, v12);
+    v14 = 138543362;
+    v15 = v13;
+    _os_log_debug_impl(&dword_22506F000, v10, OS_LOG_TYPE_DEBUG, "Finishing decryption operation %{public}@", &v14, 0xCu);
   }
 
   selfCopy = self;
@@ -65,17 +65,15 @@
     objc_msgSend_setMarkedToFinish_(selfCopy, v7, 1);
     objc_sync_exit(selfCopy);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_finishDecryptOperation
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   if (objc_msgSend_isFinished(self, a2, v2))
   {
-    v29 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v5, v6);
-    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v29, v30, a2, self, @"CKDDecryptRecordsOperation.m", 709, @"You can't finish a decrypt operation twice");
+    v28 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v5, v6);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v28, v29, a2, self, @"CKDDecryptRecordsOperation.m", 709, @"You can't finish a decrypt operation twice");
   }
 
   v7 = MEMORY[0x277CBC880];
@@ -88,11 +86,11 @@
   v9 = *MEMORY[0x277CBC830];
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
   {
-    v21 = v9;
-    v24 = objc_msgSend_operationID(self, v22, v23);
+    v20 = v9;
+    v23 = objc_msgSend_operationID(self, v21, v22);
     *buf = 138543362;
-    v33 = v24;
-    _os_log_debug_impl(&dword_22506F000, v21, OS_LOG_TYPE_DEBUG, "Finishing decrypt records operation %{public}@", buf, 0xCu);
+    v32 = v23;
+    _os_log_debug_impl(&dword_22506F000, v20, OS_LOG_TYPE_DEBUG, "Finishing decrypt records operation %{public}@", buf, 0xCu);
   }
 
   v12 = objc_msgSend_recordDecryptQueue(self, v10, v11);
@@ -106,11 +104,11 @@
   v13 = *v8;
   if (os_log_type_enabled(*v8, OS_LOG_TYPE_DEBUG))
   {
-    v25 = v13;
-    v28 = objc_msgSend_operationID(self, v26, v27);
+    v24 = v13;
+    v27 = objc_msgSend_operationID(self, v25, v26);
     *buf = 138543362;
-    v33 = v28;
-    _os_log_debug_impl(&dword_22506F000, v25, OS_LOG_TYPE_DEBUG, "Decrypt operation %{public}@ is finishing. Waiting for all records to finish decrypting first...", buf, 0xCu);
+    v32 = v27;
+    _os_log_debug_impl(&dword_22506F000, v24, OS_LOG_TYPE_DEBUG, "Decrypt operation %{public}@ is finishing. Waiting for all records to finish decrypting first...", buf, 0xCu);
   }
 
   v16 = objc_msgSend_recordDecryptGroup(self, v14, v15);
@@ -121,13 +119,11 @@
   block[3] = &unk_278545A00;
   block[4] = self;
   dispatch_group_notify(v16, v19, block);
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)main
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if (objc_msgSend_isMarkedToFinish(selfCopy, v3, v4))
@@ -142,11 +138,11 @@
     v6 = *MEMORY[0x277CBC830];
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
     {
-      v14 = v6;
-      v17 = objc_msgSend_operationID(selfCopy, v15, v16);
-      v22 = 138543362;
-      v23 = v17;
-      _os_log_debug_impl(&dword_22506F000, v14, OS_LOG_TYPE_DEBUG, "Record decrypt operation %{public}@ was asked to finish before it started", &v22, 0xCu);
+      v13 = v6;
+      v16 = objc_msgSend_operationID(selfCopy, v14, v15);
+      v21 = 138543362;
+      v22 = v16;
+      _os_log_debug_impl(&dword_22506F000, v13, OS_LOG_TYPE_DEBUG, "Record decrypt operation %{public}@ was asked to finish before it started", &v21, 0xCu);
     }
 
     objc_msgSend__finishDecryptOperation(selfCopy, v7, v8);
@@ -165,18 +161,16 @@
     v9 = *MEMORY[0x277CBC830];
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
     {
-      v18 = v9;
-      v21 = objc_msgSend_operationID(selfCopy, v19, v20);
-      v22 = 138543362;
-      v23 = v21;
-      _os_log_debug_impl(&dword_22506F000, v18, OS_LOG_TYPE_DEBUG, "Starting decrypt records operation %{public}@", &v22, 0xCu);
+      v17 = v9;
+      v20 = objc_msgSend_operationID(selfCopy, v18, v19);
+      v21 = 138543362;
+      v22 = v20;
+      _os_log_debug_impl(&dword_22506F000, v17, OS_LOG_TYPE_DEBUG, "Starting decrypt records operation %{public}@", &v21, 0xCu);
     }
 
     v12 = objc_msgSend_recordDecryptQueue(selfCopy, v10, v11);
     dispatch_activate(v12);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (CKDDecryptRecordsOperation)initWithOperationInfo:(id)info container:(id)container
@@ -211,13 +205,13 @@
 
 - (void)decryptRecord:(id)record withCompletion:(id)completion
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   completionCopy = completion;
   if (objc_msgSend_isMarkedToFinish(self, v9, v10))
   {
-    v39 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v11, v12);
-    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v39, v40, a2, self, @"CKDDecryptRecordsOperation.m", 117, @"Operation %@ has already been marked to finished. You can't enqueue any more decrypts", self);
+    v38 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v11, v12);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v38, v39, a2, self, @"CKDDecryptRecordsOperation.m", 117, @"Operation %@ has already been marked to finished. You can't enqueue any more decrypts", self);
   }
 
   v13 = objc_msgSend_recordDecryptGroup(self, v11, v12);
@@ -234,7 +228,7 @@
     v15 = v14;
     v18 = objc_msgSend_recordID(recordCopy, v16, v17);
     *buf = 138412290;
-    v47 = v18;
+    v46 = v18;
     _os_log_impl(&dword_22506F000, v15, OS_LOG_TYPE_INFO, "Enqueuing decryption for record %@", buf, 0xCu);
   }
 
@@ -243,15 +237,15 @@
   v24 = objc_msgSend_initWithRecord_callbackQueue_(v19, v23, recordCopy, v22);
 
   objc_initWeak(buf, v24);
-  v43[0] = MEMORY[0x277D85DD0];
-  v43[1] = 3221225472;
-  v43[2] = sub_225255104;
-  v43[3] = &unk_27854B140;
-  v43[4] = self;
-  objc_copyWeak(&v45, buf);
+  v42[0] = MEMORY[0x277D85DD0];
+  v42[1] = 3221225472;
+  v42[2] = sub_225255104;
+  v42[3] = &unk_27854B140;
+  v42[4] = self;
+  objc_copyWeak(&v44, buf);
   v25 = completionCopy;
-  v44 = v25;
-  objc_msgSend_setCallback_(v24, v26, v43);
+  v43 = v25;
+  objc_msgSend_setCallback_(v24, v26, v42);
   v29 = objc_msgSend_outstandingDecryptions(self, v27, v28);
   objc_sync_enter(v29);
   v32 = objc_msgSend_outstandingDecryptions(self, v30, v31);
@@ -264,19 +258,17 @@
   block[2] = sub_225255160;
   block[3] = &unk_278545898;
   block[4] = self;
-  v42 = v24;
+  v41 = v24;
   v37 = v24;
   dispatch_async(v36, block);
 
-  objc_destroyWeak(&v45);
+  objc_destroyWeak(&v44);
   objc_destroyWeak(buf);
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_recordInfoWasDecrypted:(id)decrypted nextSteps:(id)steps
 {
-  v83 = *MEMORY[0x277D85DE8];
+  v82 = *MEMORY[0x277D85DE8];
   decryptedCopy = decrypted;
   stepsCopy = steps;
   v10 = objc_msgSend_callbackQueue(self, v8, v9);
@@ -316,13 +308,13 @@
       v29 = &stru_28385ED00;
     }
 
-    v77 = 138412802;
-    v78 = v20;
-    v79 = 2114;
-    v80 = v26;
-    v81 = 2112;
-    v82 = v29;
-    _os_log_impl(&dword_22506F000, v14, OS_LOG_TYPE_INFO, "Record %@ was decrypted%{public}@%@", &v77, 0x20u);
+    v76 = 138412802;
+    v77 = v20;
+    v78 = 2114;
+    v79 = v26;
+    v80 = 2112;
+    v81 = v29;
+    _os_log_impl(&dword_22506F000, v14, OS_LOG_TYPE_INFO, "Record %@ was decrypted%{public}@%@", &v76, 0x20u);
   }
 
   v32 = objc_msgSend_error(decryptedCopy, v12, v13);
@@ -350,9 +342,9 @@
           v43 = v41;
           v46 = objc_msgSend_record(decryptedCopy, v44, v45);
           v49 = objc_msgSend_recordID(v46, v47, v48);
-          v77 = 138412290;
-          v78 = v49;
-          _os_log_impl(&dword_22506F000, v43, OS_LOG_TYPE_INFO, "Clearing protection data for record %@ and retrying decryption", &v77, 0xCu);
+          v76 = 138412290;
+          v77 = v49;
+          _os_log_impl(&dword_22506F000, v43, OS_LOG_TYPE_INFO, "Clearing protection data for record %@ and retrying decryption", &v76, 0xCu);
         }
 
         objc_msgSend_setError_(decryptedCopy, v42, 0);
@@ -375,9 +367,9 @@
         v57 = v56;
         v60 = objc_msgSend_record(decryptedCopy, v58, v59);
         v63 = objc_msgSend_recordID(v60, v61, v62);
-        v77 = 138412290;
-        v78 = v63;
-        _os_log_impl(&dword_22506F000, v57, OS_LOG_TYPE_INFO, "Decryption has failed for record %@ too many times. Giving up", &v77, 0xCu);
+        v76 = 138412290;
+        v77 = v63;
+        _os_log_impl(&dword_22506F000, v57, OS_LOG_TYPE_INFO, "Decryption has failed for record %@ too many times. Giving up", &v76, 0xCu);
       }
     }
   }
@@ -399,7 +391,6 @@
   dispatch_group_leave(v75);
 
 LABEL_26:
-  v76 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_clearProtectionDataForRecordInfo:(id)info
@@ -438,7 +429,7 @@ LABEL_26:
 
 - (void)_decryptRecordInfo:(id)info
 {
-  v86 = *MEMORY[0x277D85DE8];
+  v84 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   v7 = objc_msgSend_record(infoCopy, v5, v6);
   v10 = objc_msgSend_numUnwrapAttempts(infoCopy, v8, v9);
@@ -496,51 +487,50 @@ LABEL_22:
           dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
         }
 
-        v60 = *MEMORY[0x277CBC830];
+        v59 = *MEMORY[0x277CBC830];
         if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
         {
-          v80 = v60;
-          v83 = objc_msgSend_recordID(v7, v81, v82);
+          v78 = v59;
+          v81 = objc_msgSend_recordID(v7, v79, v80);
           *buf = 138412290;
-          v85 = v83;
-          _os_log_debug_impl(&dword_22506F000, v80, OS_LOG_TYPE_DEBUG, "We need to decrypt properties on record %@. Fetching PCS data for that record", buf, 0xCu);
+          v83 = v81;
+          _os_log_debug_impl(&dword_22506F000, v78, OS_LOG_TYPE_DEBUG, "We need to decrypt properties on record %@. Fetching PCS data for that record", buf, 0xCu);
         }
 
-        objc_msgSend__handleProtectionDataForRecordInfo_(self, v61, infoCopy);
+        objc_msgSend__handleProtectionDataForRecordInfo_(self, v60, infoCopy);
         goto LABEL_20;
       }
 
-      v57 = objc_msgSend_zoneishKeyID(v7, v47, v48);
+      v56 = objc_msgSend_zoneishKeyID(v7, v47, v48);
 
-      if (v57)
+      if (v56)
       {
         goto LABEL_22;
       }
 
-      v62 = objc_msgSend_forcePCSDecrypt(self, v58, v59);
-      v63 = *MEMORY[0x277CBC878];
-      v64 = *MEMORY[0x277CBC880];
-      if (hasPropertiesRequiringDecryption & 1 | ((v62 & 1) == 0))
+      v61 = objc_msgSend_forcePCSDecrypt(self, v57, v58);
+      v62 = *MEMORY[0x277CBC878];
+      if (hasPropertiesRequiringDecryption & 1 | ((v61 & 1) == 0))
       {
         if (*MEMORY[0x277CBC880] != -1)
         {
-          dispatch_once(MEMORY[0x277CBC880], v63);
+          dispatch_once(MEMORY[0x277CBC880], v62);
         }
 
-        v65 = *MEMORY[0x277CBC830];
+        v63 = *MEMORY[0x277CBC830];
         if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_INFO))
         {
-          v68 = v65;
-          v71 = objc_msgSend_recordID(v7, v69, v70);
+          v66 = v63;
+          v69 = objc_msgSend_recordID(v7, v67, v68);
           *buf = 138412290;
-          v85 = v71;
-          _os_log_impl(&dword_22506F000, v68, OS_LOG_TYPE_INFO, "Record %@ has items that require encryption but no protection data was found on the record", buf, 0xCu);
+          v83 = v69;
+          _os_log_impl(&dword_22506F000, v66, OS_LOG_TYPE_INFO, "Record %@ has items that require encryption but no protection data was found on the record", buf, 0xCu);
         }
 
-        v72 = MEMORY[0x277CBC560];
-        v73 = *MEMORY[0x277CBC120];
-        v74 = objc_msgSend_recordID(v7, v66, v67);
-        v33 = objc_msgSend_errorWithDomain_code_format_(v72, v75, v73, 5001, @"Record %@ has items that require encryption but no protection data was found on the record", v74);
+        v70 = MEMORY[0x277CBC560];
+        v71 = *MEMORY[0x277CBC120];
+        v72 = objc_msgSend_recordID(v7, v64, v65);
+        v33 = objc_msgSend_errorWithDomain_code_format_(v70, v73, v71, 5001, @"Record %@ has items that require encryption but no protection data was found on the record", v72);
 
         if (!v33)
         {
@@ -554,16 +544,16 @@ LABEL_18:
 
       if (*MEMORY[0x277CBC880] != -1)
       {
-        dispatch_once(MEMORY[0x277CBC880], v63);
+        dispatch_once(MEMORY[0x277CBC880], v62);
       }
 
-      v76 = *MEMORY[0x277CBC830];
+      v74 = *MEMORY[0x277CBC830];
       if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_INFO))
       {
-        v33 = v76;
-        v79 = objc_msgSend_recordID(v7, v77, v78);
+        v33 = v74;
+        v77 = objc_msgSend_recordID(v7, v75, v76);
         *buf = 138412290;
-        v85 = v79;
+        v83 = v77;
         _os_log_impl(&dword_22506F000, v33, OS_LOG_TYPE_INFO, "Suppressing error for record %@ because no protection data was found on the record while forcing decryption and it has no properties requiring decryption", buf, 0xCu);
 
         goto LABEL_19;
@@ -583,7 +573,7 @@ LABEL_18:
         v51 = v49;
         v54 = objc_msgSend_recordID(v7, v52, v53);
         *buf = 138412290;
-        v85 = v54;
+        v83 = v54;
         _os_log_impl(&dword_22506F000, v51, OS_LOG_TYPE_INFO, "Encryption is disabled, so we're only going to pretend to unwrap the data on record %@. You asked for it!", buf, 0xCu);
       }
 
@@ -598,22 +588,20 @@ LABEL_18:
 LABEL_20:
   v55 = objc_msgSend_decryptGroup(infoCopy, v38, v39);
   dispatch_group_leave(v55);
-
-  v56 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_decryptRecordInfo:(id)info usingWebSharingIdentityData:(id)data
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   dataCopy = data;
   v10 = objc_msgSend_record(infoCopy, v8, v9);
   v13 = objc_msgSend_container(self, v11, v12);
   v16 = objc_msgSend_pcsManager(v13, v14, v15);
-  v46 = 0;
-  v18 = objc_msgSend_createSharingIdentityFromData_error_(v16, v17, dataCopy, &v46);
+  v45 = 0;
+  v18 = objc_msgSend_createSharingIdentityFromData_error_(v16, v17, dataCopy, &v45);
 
-  v19 = v46;
+  v19 = v45;
   if (v19 || !v18)
   {
     if (*MEMORY[0x277CBC880] != -1)
@@ -625,7 +613,7 @@ LABEL_20:
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v48 = v19;
+      v47 = v19;
       _os_log_error_impl(&dword_22506F000, v36, OS_LOG_TYPE_ERROR, "Couldn't create a sharing identity from sharing identity data: %@", buf, 0xCu);
       if (v19)
       {
@@ -651,9 +639,9 @@ LABEL_15:
   v22 = objc_msgSend_container(self, v20, v21);
   v25 = objc_msgSend_pcsManager(v22, v23, v24);
   v28 = objc_msgSend_protectionData(v10, v26, v27);
-  v45 = 0;
-  v30 = objc_msgSend_createSharePCSFromData_sharingIdentity_error_(v25, v29, v28, v18, &v45);
-  v19 = v45;
+  v44 = 0;
+  v30 = objc_msgSend_createSharePCSFromData_sharingIdentity_error_(v25, v29, v28, v18, &v44);
+  v19 = v44;
 
   v31 = *MEMORY[0x277CBC878];
   v32 = *MEMORY[0x277CBC880];
@@ -667,13 +655,13 @@ LABEL_15:
     v33 = *MEMORY[0x277CBC830];
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
     {
-      v41 = v33;
-      v44 = objc_msgSend_recordID(v10, v42, v43);
+      v40 = v33;
+      v43 = objc_msgSend_recordID(v10, v41, v42);
       *buf = 138412546;
-      v48 = v44;
-      v49 = 2112;
-      v50 = v30;
-      _os_log_debug_impl(&dword_22506F000, v41, OS_LOG_TYPE_DEBUG, "Setting CKRecordPCS on record %@: %@", buf, 0x16u);
+      v47 = v43;
+      v48 = 2112;
+      v49 = v30;
+      _os_log_debug_impl(&dword_22506F000, v40, OS_LOG_TYPE_DEBUG, "Setting CKRecordPCS on record %@: %@", buf, 0x16u);
     }
 
     objc_msgSend_setRecordPCS_(v10, v34, v30);
@@ -698,7 +686,7 @@ LABEL_15:
   }
 
   *buf = 138412290;
-  v48 = v19;
+  v47 = v19;
   _os_log_error_impl(&dword_22506F000, v38, OS_LOG_TYPE_ERROR, "Couldn't create a sharing identity from sharing identity data: %@", buf, 0xCu);
   if (!v19)
   {
@@ -717,8 +705,6 @@ LABEL_24:
   CFRelease(v18);
 LABEL_25:
   objc_msgSend_setError_(infoCopy, v37, v19);
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleZoneProtectionDataForRecordInfo:(id)info
@@ -779,7 +765,7 @@ LABEL_25:
 
 - (id)_decryptRecordPCSForRecord:(id)record usingZonePCS:(id)s
 {
-  v118 = *MEMORY[0x277D85DE8];
+  v117 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   sCopy = s;
   v10 = objc_msgSend_zoneishKeyID(recordCopy, v8, v9);
@@ -809,13 +795,13 @@ LABEL_24:
         v91 = *MEMORY[0x277CBC830];
         if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
         {
-          v107 = v91;
-          v110 = objc_msgSend_recordID(recordCopy, v108, v109);
+          v106 = v91;
+          v109 = objc_msgSend_recordID(recordCopy, v107, v108);
           *buf = 138412546;
-          v115 = v110;
-          v116 = 2112;
-          v117 = v16;
-          _os_log_debug_impl(&dword_22506F000, v107, OS_LOG_TYPE_DEBUG, "Setting CKRecordPCS on record %@: %@", buf, 0x16u);
+          v114 = v109;
+          v115 = 2112;
+          v116 = v16;
+          _os_log_debug_impl(&dword_22506F000, v106, OS_LOG_TYPE_DEBUG, "Setting CKRecordPCS on record %@: %@", buf, 0x16u);
         }
 
         objc_msgSend_setRecordPCS_(recordCopy, v92, v16);
@@ -838,7 +824,7 @@ LABEL_24:
       v23 = objc_msgSend_recordID(recordCopy, v21, v22);
       v26 = objc_msgSend_zoneID(v23, v24, v25);
       *buf = 138412290;
-      v115 = v26;
+      v114 = v26;
       _os_log_impl(&dword_22506F000, v20, OS_LOG_TYPE_INFO, "Couldn't get a zoneish PCS for zone %@. We'll try the record PCS if it exists, just in case.", buf, 0xCu);
     }
   }
@@ -856,18 +842,18 @@ LABEL_24:
     if (v38)
     {
       v53 = objc_msgSend_validatedTrusts(CKDServerTrustCache, v50, v51);
-      v113 = 0;
-      v16 = objc_msgSend_createPCSObjectFromData_ofType_sharedToPCS_trusts_error_(v44, v54, v47, 1, v52, v53, &v113);
-      v18 = v113;
+      v112 = 0;
+      v16 = objc_msgSend_createPCSObjectFromData_ofType_sharedToPCS_trusts_error_(v44, v54, v47, 1, v52, v53, &v112);
+      v18 = v112;
 
       if (!v18)
       {
         v56 = objc_msgSend_container(self, v17, v55);
         v59 = objc_msgSend_pcsManager(v56, v57, v58);
         v62 = objc_msgSend_protectionData(recordCopy, v60, v61);
-        v112 = 0;
-        v64 = objc_msgSend_recordProtectionDataNeedsCounterSign_error_(v59, v63, v62, &v112);
-        v18 = v112;
+        v111 = 0;
+        v64 = objc_msgSend_recordProtectionDataNeedsCounterSign_error_(v59, v63, v62, &v111);
+        v18 = v111;
 
         if (v64)
         {
@@ -878,9 +864,9 @@ LABEL_24:
 
     else
     {
-      v111 = 0;
-      v16 = objc_msgSend_createPCSObjectFromData_ofType_sharedToPCS_error_(v44, v50, v47, 1, v52, &v111);
-      v18 = v111;
+      v110 = 0;
+      v16 = objc_msgSend_createPCSObjectFromData_ofType_sharedToPCS_error_(v44, v50, v47, 1, v52, &v110);
+      v18 = v110;
     }
 
     if (v16)
@@ -899,9 +885,9 @@ LABEL_24:
       v97 = v94;
       v100 = objc_msgSend_recordID(recordCopy, v98, v99);
       *buf = 138412546;
-      v115 = v100;
-      v116 = 2112;
-      v117 = v18;
+      v114 = v100;
+      v115 = 2112;
+      v116 = v18;
       _os_log_impl(&dword_22506F000, v97, OS_LOG_TYPE_INFO, "Couldn't create record PCS for record %@: %@", buf, 0x16u);
     }
 
@@ -932,9 +918,9 @@ LABEL_24:
       }
 
       *buf = 138412546;
-      v115 = v74;
-      v116 = 2114;
-      v117 = v78;
+      v114 = v74;
+      v115 = 2114;
+      v116 = v78;
       _os_log_impl(&dword_22506F000, v68, OS_LOG_TYPE_INFO, "Couldn't fetch a PCS for zone %@%{public}@", buf, 0x16u);
     }
 
@@ -946,23 +932,21 @@ LABEL_24:
 
 LABEL_34:
 
-  v105 = *MEMORY[0x277D85DE8];
-
   return v83;
 }
 
 - (id)_decryptRecordPCSForRecord:(id)record usingSharePCS:(id)s
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   sCopy = s;
   v10 = objc_msgSend_container(self, v8, v9);
   v13 = objc_msgSend_pcsManager(v10, v11, v12);
   v16 = objc_msgSend_protectionData(recordCopy, v14, v15);
   v19 = objc_msgSend_pcs(sCopy, v17, v18);
-  v52 = 0;
-  v21 = objc_msgSend_createPCSObjectFromData_ofType_sharedToPCS_error_(v13, v20, v16, 1, v19, &v52);
-  v22 = v52;
+  v51 = 0;
+  v21 = objc_msgSend_createPCSObjectFromData_ofType_sharedToPCS_error_(v13, v20, v16, 1, v19, &v51);
+  v22 = v51;
 
   if (v21)
   {
@@ -980,13 +964,13 @@ LABEL_34:
     v31 = *MEMORY[0x277CBC830];
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
     {
-      v48 = v31;
-      v51 = objc_msgSend_recordID(recordCopy, v49, v50);
+      v47 = v31;
+      v50 = objc_msgSend_recordID(recordCopy, v48, v49);
       *buf = 138412546;
-      v54 = v51;
-      v55 = 2112;
-      v56 = v21;
-      _os_log_debug_impl(&dword_22506F000, v48, OS_LOG_TYPE_DEBUG, "Setting CKRecordPCS on record %@: %@", buf, 0x16u);
+      v53 = v50;
+      v54 = 2112;
+      v55 = v21;
+      _os_log_debug_impl(&dword_22506F000, v47, OS_LOG_TYPE_DEBUG, "Setting CKRecordPCS on record %@: %@", buf, 0x16u);
     }
 
     objc_msgSend_setRecordPCS_(recordCopy, v32, v21);
@@ -1008,9 +992,9 @@ LABEL_34:
       v38 = v35;
       v41 = objc_msgSend_recordID(recordCopy, v39, v40);
       *buf = 138412546;
-      v54 = v41;
-      v55 = 2112;
-      v56 = v22;
+      v53 = v41;
+      v54 = 2112;
+      v55 = v22;
       _os_log_impl(&dword_22506F000, v38, OS_LOG_TYPE_INFO, "Couldn't create record PCS for record %@ from share: %@", buf, 0x16u);
     }
 
@@ -1019,21 +1003,19 @@ LABEL_34:
     v34 = objc_msgSend__possiblyWrapError_forRecordWithID_withCode_format_(self, v45, v22, v24, 5001, @"Record %@ has items that require encryption but no protection data was found", v44);
   }
 
-  v46 = *MEMORY[0x277D85DE8];
-
   return v34;
 }
 
 - (id)_decryptRecordPCSForRecord:(id)record usingChainPCS:(id)s
 {
-  v93 = *MEMORY[0x277D85DE8];
+  v92 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   sCopy = s;
   v10 = objc_msgSend_container(self, v8, v9);
   v13 = objc_msgSend_pcsManager(v10, v11, v12);
   v15 = objc_msgSend_decryptChainPCSForRecordPCS_(v13, v14, sCopy);
 
-  if (v15 || (objc_msgSend_chainPCSData(sCopy, v16, v17), v39 = objc_claimAutoreleasedReturnValue(), v42 = objc_msgSend_pcs(v39, v40, v41), v39, !v42))
+  if (v15 || (objc_msgSend_chainPCSData(sCopy, v16, v17), v38 = objc_claimAutoreleasedReturnValue(), v41 = objc_msgSend_pcs(v38, v39, v40), v38, !v41))
   {
     if (*MEMORY[0x277CBC880] != -1)
     {
@@ -1046,9 +1028,9 @@ LABEL_34:
       v21 = v18;
       v24 = objc_msgSend_recordID(recordCopy, v22, v23);
       *buf = 138412546;
-      v90 = v24;
-      v91 = 2112;
-      v92 = v15;
+      v89 = v24;
+      v90 = 2112;
+      v91 = v15;
       _os_log_impl(&dword_22506F000, v21, OS_LOG_TYPE_INFO, "Couldn't create record PCS for record %@ from parent PCS: %@", buf, 0x16u);
     }
 
@@ -1061,45 +1043,45 @@ LABEL_34:
 
   else
   {
-    v45 = objc_msgSend_container(self, v43, v44);
-    v48 = objc_msgSend_pcsManager(v45, v46, v47);
-    v51 = objc_msgSend_protectionData(recordCopy, v49, v50);
-    v54 = objc_msgSend_chainPCSData(sCopy, v52, v53);
-    v57 = objc_msgSend_pcs(v54, v55, v56);
-    v88 = 0;
-    v59 = objc_msgSend_createPCSObjectFromData_ofType_sharedToPCS_error_(v48, v58, v51, 1, v57, &v88);
-    v60 = v88;
+    v44 = objc_msgSend_container(self, v42, v43);
+    v47 = objc_msgSend_pcsManager(v44, v45, v46);
+    v50 = objc_msgSend_protectionData(recordCopy, v48, v49);
+    v53 = objc_msgSend_chainPCSData(sCopy, v51, v52);
+    v56 = objc_msgSend_pcs(v53, v54, v55);
+    v87 = 0;
+    v58 = objc_msgSend_createPCSObjectFromData_ofType_sharedToPCS_error_(v47, v57, v50, 1, v56, &v87);
+    v59 = v87;
 
-    if (!v60 && v59)
+    if (!v59 && v58)
     {
-      v62 = objc_msgSend_dataWithRecord_(CKDRecordPCSData, v61, recordCopy);
-      objc_msgSend_setPcs_(v62, v63, v59);
-      objc_msgSend_setParentPCSData_(v62, v64, sCopy);
-      v67 = objc_msgSend_recordID(recordCopy, v65, v66);
-      objc_msgSend_setPCSData_forFetchedRecordID_(self, v68, v62, v67);
+      v61 = objc_msgSend_dataWithRecord_(CKDRecordPCSData, v60, recordCopy);
+      objc_msgSend_setPcs_(v61, v62, v58);
+      objc_msgSend_setParentPCSData_(v61, v63, sCopy);
+      v66 = objc_msgSend_recordID(recordCopy, v64, v65);
+      objc_msgSend_setPCSData_forFetchedRecordID_(self, v67, v61, v66);
 
       if (*MEMORY[0x277CBC880] != -1)
       {
         dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
       }
 
-      v69 = *MEMORY[0x277CBC830];
+      v68 = *MEMORY[0x277CBC830];
       if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
       {
-        v84 = v69;
-        v87 = objc_msgSend_recordID(recordCopy, v85, v86);
+        v83 = v68;
+        v86 = objc_msgSend_recordID(recordCopy, v84, v85);
         *buf = 138412546;
-        v90 = v87;
-        v91 = 2112;
-        v92 = v59;
-        _os_log_debug_impl(&dword_22506F000, v84, OS_LOG_TYPE_DEBUG, "Setting CKRecordPCS on record %@: %@", buf, 0x16u);
+        v89 = v86;
+        v90 = 2112;
+        v91 = v58;
+        _os_log_debug_impl(&dword_22506F000, v83, OS_LOG_TYPE_DEBUG, "Setting CKRecordPCS on record %@: %@", buf, 0x16u);
       }
 
-      objc_msgSend_setRecordPCS_(recordCopy, v70, v59);
-      v36 = objc_msgSend__unwrapEncryptedPropertiesOnRecord_withPCS_(self, v71, recordCopy, v59);
+      objc_msgSend_setRecordPCS_(recordCopy, v69, v58);
+      v36 = objc_msgSend__unwrapEncryptedPropertiesOnRecord_withPCS_(self, v70, recordCopy, v58);
 
 LABEL_23:
-      CFRelease(v59);
+      CFRelease(v58);
       goto LABEL_7;
     }
 
@@ -1108,31 +1090,29 @@ LABEL_23:
       dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
     }
 
-    v72 = *MEMORY[0x277CBC830];
+    v71 = *MEMORY[0x277CBC830];
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_INFO))
     {
-      v75 = v72;
-      v78 = objc_msgSend_recordID(recordCopy, v76, v77);
+      v74 = v71;
+      v77 = objc_msgSend_recordID(recordCopy, v75, v76);
       *buf = 138412546;
-      v90 = v78;
-      v91 = 2112;
-      v92 = 0;
-      _os_log_impl(&dword_22506F000, v75, OS_LOG_TYPE_INFO, "Couldn't create record PCS for record %@ from parent PCS: %@", buf, 0x16u);
+      v89 = v77;
+      v90 = 2112;
+      v91 = 0;
+      _os_log_impl(&dword_22506F000, v74, OS_LOG_TYPE_INFO, "Couldn't create record PCS for record %@ from parent PCS: %@", buf, 0x16u);
     }
 
-    v79 = objc_msgSend_recordID(recordCopy, v73, v74);
-    v82 = objc_msgSend_recordID(recordCopy, v80, v81);
-    v36 = objc_msgSend__possiblyWrapError_forRecordWithID_withCode_format_(self, v83, v60, v79, 5001, @"Record %@ has items that require encryption but no protection data was found", v82);
+    v78 = objc_msgSend_recordID(recordCopy, v72, v73);
+    v81 = objc_msgSend_recordID(recordCopy, v79, v80);
+    v36 = objc_msgSend__possiblyWrapError_forRecordWithID_withCode_format_(self, v82, v59, v78, 5001, @"Record %@ has items that require encryption but no protection data was found", v81);
 
-    if (v59)
+    if (v58)
     {
       goto LABEL_23;
     }
   }
 
 LABEL_7:
-
-  v37 = *MEMORY[0x277D85DE8];
 
   return v36;
 }
@@ -1246,7 +1226,7 @@ LABEL_9:
 
 - (void)_handleProtectionDataForRecordInfo:(id)info
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   v8 = objc_msgSend_record(infoCopy, v6, v7);
   if (*MEMORY[0x277CBC880] != -1)
@@ -1257,17 +1237,17 @@ LABEL_9:
   v9 = *MEMORY[0x277CBC830];
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
   {
-    v44 = v9;
-    v47 = objc_msgSend_recordID(v8, v45, v46);
-    v50 = objc_msgSend_recordID(v8, v48, v49);
-    v53 = objc_msgSend_zoneID(v50, v51, v52);
-    v54 = 134218498;
-    v55 = v8;
-    v56 = 2112;
-    v57 = v47;
-    v58 = 2112;
-    v59 = v53;
-    _os_log_debug_impl(&dword_22506F000, v44, OS_LOG_TYPE_DEBUG, "Fetching PCS data. Record %p recordID %@ zoneID %@", &v54, 0x20u);
+    v43 = v9;
+    v46 = objc_msgSend_recordID(v8, v44, v45);
+    v49 = objc_msgSend_recordID(v8, v47, v48);
+    v52 = objc_msgSend_zoneID(v49, v50, v51);
+    v53 = 134218498;
+    v54 = v8;
+    v55 = 2112;
+    v56 = v46;
+    v57 = 2112;
+    v58 = v52;
+    _os_log_debug_impl(&dword_22506F000, v43, OS_LOG_TYPE_DEBUG, "Fetching PCS data. Record %p recordID %@ zoneID %@", &v53, 0x20u);
   }
 
   v12 = objc_msgSend_container(self, v10, v11);
@@ -1312,13 +1292,11 @@ LABEL_9:
   }
 
 LABEL_14:
-
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_unwrapAssetKeyForAsset:(id)asset inRecordWithID:(id)d forField:(id)field withPCS:(_OpaquePCSShareProtection *)s
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   assetCopy = asset;
   dCopy = d;
   fieldCopy = field;
@@ -1355,15 +1333,15 @@ LABEL_3:
     v32 = objc_msgSend_mergeableDeltaID(assetCopy, v30, v31);
     v35 = objc_msgSend_signature(assetCopy, v33, v34);
     v38 = objc_msgSend_referenceSignature(assetCopy, v36, v37);
-    v60 = fieldCopy;
+    v59 = fieldCopy;
     v40 = objc_msgSend_initWithRecordID_fieldName_mergeableDeltaID_fileSignature_referenceSignature_(v29, v39, dCopy, fieldCopy, v32, v35, v38);
 
     v43 = objc_msgSend_container(self, v41, v42);
     v46 = objc_msgSend_pcsManager(v43, v44, v45);
     v49 = objc_msgSend_wrappedAssetKey(assetCopy, v47, v48);
-    v61 = 0;
-    v51 = objc_msgSend_unwrapAssetKey_withRecordPCS_inContext_withError_(v46, v50, v49, s, v40, &v61);
-    v52 = v61;
+    v60 = 0;
+    v51 = objc_msgSend_unwrapAssetKey_withRecordPCS_inContext_withError_(v46, v50, v49, s, v40, &v60);
+    v52 = v60;
 
     if (v51)
     {
@@ -1376,7 +1354,7 @@ LABEL_3:
       v54 = objc_msgSend__possiblyWrapError_forRecordWithID_withCode_format_(self, v53, v52, dCopy, 5004, @"Error unwrapping asset key with PCS %@ for record %@", s, dCopy);
     }
 
-    fieldCopy = v60;
+    fieldCopy = v59;
   }
 
   else
@@ -1390,7 +1368,7 @@ LABEL_3:
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v63 = dCopy;
+      v62 = dCopy;
       _os_log_impl(&dword_22506F000, v55, OS_LOG_TYPE_INFO, "Couldn't get a PCS object for record %@", buf, 0xCu);
     }
 
@@ -1402,35 +1380,34 @@ LABEL_3:
 LABEL_15:
   v57 = v54;
 
-  v58 = *MEMORY[0x277D85DE8];
   return v54;
 }
 
 - (id)_unwrapPackageAssets:(id)assets inRecordWithID:(id)d forField:(id)field withPCS:(_OpaquePCSShareProtection *)s
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   dCopy = d;
   fieldCopy = field;
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   v14 = objc_msgSend_assets(assets, v12, v13, 0);
-  v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v15, &v25, v29, 16);
+  v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v15, &v24, v28, 16);
   if (v16)
   {
     v18 = v16;
-    v19 = *v26;
+    v19 = *v25;
     while (2)
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v26 != v19)
+        if (*v25 != v19)
         {
           objc_enumerationMutation(v14);
         }
 
-        v21 = objc_msgSend__unwrapAssetKeyForAsset_inRecordWithID_forField_withPCS_(self, v17, *(*(&v25 + 1) + 8 * i), dCopy, fieldCopy, s);
+        v21 = objc_msgSend__unwrapAssetKeyForAsset_inRecordWithID_forField_withPCS_(self, v17, *(*(&v24 + 1) + 8 * i), dCopy, fieldCopy, s);
         if (v21)
         {
           v22 = v21;
@@ -1438,7 +1415,7 @@ LABEL_15:
         }
       }
 
-      v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v17, &v25, v29, 16);
+      v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v17, &v24, v28, 16);
       if (v18)
       {
         continue;
@@ -1451,14 +1428,12 @@ LABEL_15:
   v22 = 0;
 LABEL_11:
 
-  v23 = *MEMORY[0x277D85DE8];
-
   return v22;
 }
 
 - (id)_unwrapMergeableRecordValue:(id)value inRecordWithID:(id)d forField:(id)field withPCS:(_OpaquePCSShareProtection *)s
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   v11 = objc_msgSend_useEncryption(self, v9, v10);
   v12 = 0;
@@ -1470,28 +1445,28 @@ LABEL_11:
     v20 = objc_msgSend_pcsManager(v17, v18, v19);
     objc_msgSend_setPcsManager_(v13, v21, v20);
 
-    v40 = 0u;
-    v41 = 0u;
-    v38 = 0u;
     v39 = 0u;
+    v40 = 0u;
+    v37 = 0u;
+    v38 = 0u;
     v24 = objc_msgSend_unmergedDeltas(valueCopy, v22, v23);
-    v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v24, v25, &v38, v44, 16);
+    v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v24, v25, &v37, v43, 16);
     if (v12)
     {
-      v27 = *v39;
+      v27 = *v38;
       while (2)
       {
         for (i = 0; i != v12; i = i + 1)
         {
-          if (*v39 != v27)
+          if (*v38 != v27)
           {
             objc_enumerationMutation(v24);
           }
 
-          v29 = *(*(&v38 + 1) + 8 * i);
-          v37 = 0;
-          v30 = objc_msgSend_decryptWithContext_error_(v29, v26, v13, &v37);
-          v31 = v37;
+          v29 = *(*(&v37 + 1) + 8 * i);
+          v36 = 0;
+          v30 = objc_msgSend_decryptWithContext_error_(v29, v26, v13, &v36);
+          v31 = v36;
           v32 = v31;
           if ((v30 & 1) == 0)
           {
@@ -1504,7 +1479,7 @@ LABEL_11:
             if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v43 = v32;
+              v42 = v32;
               _os_log_error_impl(&dword_22506F000, v33, OS_LOG_TYPE_ERROR, "Failed to decrypt mergeable delta with error: %@", buf, 0xCu);
             }
 
@@ -1514,7 +1489,7 @@ LABEL_11:
           }
         }
 
-        v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v24, v26, &v38, v44, 16);
+        v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v24, v26, &v37, v43, 16);
         if (v12)
         {
           continue;
@@ -1527,21 +1502,19 @@ LABEL_11:
 LABEL_17:
   }
 
-  v35 = *MEMORY[0x277D85DE8];
-
   return v12;
 }
 
 - (id)_unwrapEncryptedPropertiesForRecordValueStore:(id)store withPCS:(_OpaquePCSShareProtection *)s
 {
-  v133 = *MEMORY[0x277D85DE8];
+  v130 = *MEMORY[0x277D85DE8];
   storeCopy = store;
+  v121 = 0u;
+  v122 = 0u;
+  v123 = 0u;
   v124 = 0u;
-  v125 = 0u;
-  v126 = 0u;
-  v127 = 0u;
   obj = objc_msgSend_allKeys(storeCopy, v6, v7);
-  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v8, &v124, v132, 16);
+  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v8, &v121, v129, 16);
   if (!v9)
   {
     goto LABEL_65;
@@ -1549,112 +1522,110 @@ LABEL_17:
 
   v11 = v9;
   v12 = 0x277CBC000uLL;
-  v106 = *v125;
+  v103 = *v122;
   do
   {
     v13 = 0;
     do
     {
-      if (*v125 != v106)
+      if (*v122 != v103)
       {
         objc_enumerationMutation(obj);
       }
 
-      v14 = *(*(&v124 + 1) + 8 * v13);
-      v15 = objc_msgSend_rawValueForKey_(storeCopy, v10, v14, v94);
-      v16 = *(v12 + 744);
+      v14 = *(*(&v121 + 1) + 8 * v13);
+      v15 = objc_msgSend_rawValueForKey_(storeCopy, v10, v14, v91);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v17 = v12;
-        v18 = [CKDWrappingContext alloc];
-        v21 = objc_msgSend_recordID(storeCopy, v19, v20);
-        v23 = objc_msgSend_initWithRecordID_fieldName_mergeableDeltaID_fileSignature_referenceSignature_(v18, v22, v21, v14, 0, 0, 0);
+        v16 = v12;
+        v17 = [CKDWrappingContext alloc];
+        v20 = objc_msgSend_recordID(storeCopy, v18, v19);
+        v22 = objc_msgSend_initWithRecordID_fieldName_mergeableDeltaID_fileSignature_referenceSignature_(v17, v21, v20, v14, 0, 0, 0);
 
-        v26 = objc_msgSend_container(self, v24, v25);
-        v29 = objc_msgSend_pcsManager(v26, v27, v28);
-        v31 = objc_msgSend_unwrapEncryptedData_withPCS_inContext_(v29, v30, v15, s, v23);
+        v25 = objc_msgSend_container(self, v23, v24);
+        v28 = objc_msgSend_pcsManager(v25, v26, v27);
+        v30 = objc_msgSend_unwrapEncryptedData_withPCS_inContext_(v28, v29, v15, s, v22);
 
-        v12 = v17;
+        v12 = v16;
         goto LABEL_15;
       }
 
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v23 = objc_msgSend_recordID(storeCopy, v32, v33);
-        v35 = objc_msgSend__unwrapAssetKeyForAsset_inRecordWithID_forField_withPCS_(self, v34, v15, v23, v14, s);
+        v22 = objc_msgSend_recordID(storeCopy, v31, v32);
+        v34 = objc_msgSend__unwrapAssetKeyForAsset_inRecordWithID_forField_withPCS_(self, v33, v15, v22, v14, s);
 LABEL_14:
-        v31 = v35;
+        v30 = v34;
         goto LABEL_15;
       }
 
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v23 = objc_msgSend_recordID(storeCopy, v36, v37);
-        v35 = objc_msgSend__unwrapPackageAssets_inRecordWithID_forField_withPCS_(self, v38, v15, v23, v14, s);
+        v22 = objc_msgSend_recordID(storeCopy, v35, v36);
+        v34 = objc_msgSend__unwrapPackageAssets_inRecordWithID_forField_withPCS_(self, v37, v15, v22, v14, s);
         goto LABEL_14;
       }
 
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v23 = objc_msgSend_recordID(storeCopy, v39, v40);
-        v35 = objc_msgSend__unwrapMergeableRecordValue_inRecordWithID_forField_withPCS_(self, v41, v15, v23, v14, s);
+        v22 = objc_msgSend_recordID(storeCopy, v38, v39);
+        v34 = objc_msgSend__unwrapMergeableRecordValue_inRecordWithID_forField_withPCS_(self, v40, v15, v22, v14, s);
         goto LABEL_14;
       }
 
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) == 0 || !objc_msgSend_count(v15, v42, v43))
+      if ((objc_opt_isKindOfClass() & 1) == 0 || !objc_msgSend_count(v15, v41, v42))
       {
         goto LABEL_63;
       }
 
-      v23 = objc_msgSend_firstObject(v15, v44, v45);
-      v46 = *(v12 + 744);
+      v22 = objc_msgSend_firstObject(v15, v43, v44);
       objc_opt_class();
       selfCopy = self;
-      v94 = v11;
+      v91 = v11;
       if (objc_opt_isKindOfClass())
       {
-        v122 = 0u;
-        v123 = 0u;
+        v119 = 0u;
         v120 = 0u;
-        v121 = 0u;
-        v95 = v15;
-        v100 = objc_msgSend_countByEnumeratingWithState_objects_count_(v95, v47, &v120, v131, 16);
-        if (v100)
+        v117 = 0u;
+        v118 = 0u;
+        v92 = v15;
+        v97 = objc_msgSend_countByEnumeratingWithState_objects_count_(v92, v45, &v117, v128, 16);
+        if (v97)
         {
-          v96 = *v121;
+          v93 = *v118;
 LABEL_23:
-          v48 = 0;
+          v46 = 0;
           while (1)
           {
-            if (*v121 != v96)
+            if (*v118 != v93)
             {
-              objc_enumerationMutation(v95);
+              objc_enumerationMutation(v92);
             }
 
-            v49 = *(*(&v120 + 1) + 8 * v48);
-            v50 = [CKDWrappingContext alloc];
-            v53 = objc_msgSend_recordID(storeCopy, v51, v52);
-            v55 = objc_msgSend_initWithRecordID_fieldName_mergeableDeltaID_fileSignature_referenceSignature_(v50, v54, v53, v14, 0, 0, 0);
+            v47 = *(*(&v117 + 1) + 8 * v46);
+            v48 = [CKDWrappingContext alloc];
+            v51 = objc_msgSend_recordID(storeCopy, v49, v50);
+            v53 = objc_msgSend_initWithRecordID_fieldName_mergeableDeltaID_fileSignature_referenceSignature_(v48, v52, v51, v14, 0, 0, 0);
 
-            v58 = objc_msgSend_container(selfCopy, v56, v57);
-            v61 = objc_msgSend_pcsManager(v58, v59, v60);
-            v31 = objc_msgSend_unwrapEncryptedData_withPCS_inContext_(v61, v62, v49, s, v55);
+            v56 = objc_msgSend_container(selfCopy, v54, v55);
+            v59 = objc_msgSend_pcsManager(v56, v57, v58);
+            v30 = objc_msgSend_unwrapEncryptedData_withPCS_inContext_(v59, v60, v47, s, v53);
 
-            if (v31)
+            if (v30)
             {
               goto LABEL_61;
             }
 
-            if (v100 == ++v48)
+            if (v97 == ++v46)
             {
-              v31 = 0;
-              v100 = objc_msgSend_countByEnumeratingWithState_objects_count_(v95, v63, &v120, v131, 16);
-              if (v100)
+              v30 = 0;
+              v97 = objc_msgSend_countByEnumeratingWithState_objects_count_(v92, v61, &v117, v128, 16);
+              if (v97)
               {
                 goto LABEL_23;
               }
@@ -1670,39 +1641,39 @@ LABEL_23:
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v118 = 0u;
-          v119 = 0u;
+          v115 = 0u;
           v116 = 0u;
-          v117 = 0u;
-          v97 = v15;
-          v65 = objc_msgSend_countByEnumeratingWithState_objects_count_(v97, v64, &v116, v130, 16);
-          if (v65)
+          v113 = 0u;
+          v114 = 0u;
+          v94 = v15;
+          v63 = objc_msgSend_countByEnumeratingWithState_objects_count_(v94, v62, &v113, v127, 16);
+          if (v63)
           {
-            v68 = v65;
-            v101 = *v117;
+            v66 = v63;
+            v98 = *v114;
 LABEL_33:
-            v69 = 0;
+            v67 = 0;
             while (1)
             {
-              if (*v117 != v101)
+              if (*v114 != v98)
               {
-                objc_enumerationMutation(v97);
+                objc_enumerationMutation(v94);
               }
 
-              v70 = *(*(&v116 + 1) + 8 * v69);
-              v71 = objc_msgSend_recordID(storeCopy, v66, v67, v94);
-              v31 = objc_msgSend__unwrapAssetKeyForAsset_inRecordWithID_forField_withPCS_(selfCopy, v72, v70, v71, v14, s);
+              v68 = *(*(&v113 + 1) + 8 * v67);
+              v69 = objc_msgSend_recordID(storeCopy, v64, v65, v91);
+              v30 = objc_msgSend__unwrapAssetKeyForAsset_inRecordWithID_forField_withPCS_(selfCopy, v70, v68, v69, v14, s);
 
-              if (v31)
+              if (v30)
               {
                 goto LABEL_61;
               }
 
-              if (v68 == ++v69)
+              if (v66 == ++v67)
               {
-                v68 = objc_msgSend_countByEnumeratingWithState_objects_count_(v97, v66, &v116, v130, 16);
-                v31 = 0;
-                if (v68)
+                v66 = objc_msgSend_countByEnumeratingWithState_objects_count_(v94, v64, &v113, v127, 16);
+                v30 = 0;
+                if (v66)
                 {
                   goto LABEL_33;
                 }
@@ -1718,39 +1689,39 @@ LABEL_33:
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v114 = 0u;
-            v115 = 0u;
+            v111 = 0u;
             v112 = 0u;
-            v113 = 0u;
-            v98 = v15;
-            v74 = objc_msgSend_countByEnumeratingWithState_objects_count_(v98, v73, &v112, v129, 16);
-            if (v74)
+            v109 = 0u;
+            v110 = 0u;
+            v95 = v15;
+            v72 = objc_msgSend_countByEnumeratingWithState_objects_count_(v95, v71, &v109, v126, 16);
+            if (v72)
             {
-              v77 = v74;
-              v102 = *v113;
+              v75 = v72;
+              v99 = *v110;
 LABEL_43:
-              v78 = 0;
+              v76 = 0;
               while (1)
               {
-                if (*v113 != v102)
+                if (*v110 != v99)
                 {
-                  objc_enumerationMutation(v98);
+                  objc_enumerationMutation(v95);
                 }
 
-                v79 = *(*(&v112 + 1) + 8 * v78);
-                v80 = objc_msgSend_recordID(storeCopy, v75, v76, v94);
-                v31 = objc_msgSend__unwrapPackageAssets_inRecordWithID_forField_withPCS_(selfCopy, v81, v79, v80, v14, s);
+                v77 = *(*(&v109 + 1) + 8 * v76);
+                v78 = objc_msgSend_recordID(storeCopy, v73, v74, v91);
+                v30 = objc_msgSend__unwrapPackageAssets_inRecordWithID_forField_withPCS_(selfCopy, v79, v77, v78, v14, s);
 
-                if (v31)
+                if (v30)
                 {
                   goto LABEL_61;
                 }
 
-                if (v77 == ++v78)
+                if (v75 == ++v76)
                 {
-                  v77 = objc_msgSend_countByEnumeratingWithState_objects_count_(v98, v75, &v112, v129, 16);
-                  v31 = 0;
-                  if (v77)
+                  v75 = objc_msgSend_countByEnumeratingWithState_objects_count_(v95, v73, &v109, v126, 16);
+                  v30 = 0;
+                  if (v75)
                   {
                     goto LABEL_43;
                   }
@@ -1771,39 +1742,39 @@ LABEL_63:
               goto LABEL_16;
             }
 
-            v110 = 0u;
-            v111 = 0u;
+            v107 = 0u;
             v108 = 0u;
-            v109 = 0u;
-            v99 = v15;
-            v83 = objc_msgSend_countByEnumeratingWithState_objects_count_(v99, v82, &v108, v128, 16);
-            if (v83)
+            v105 = 0u;
+            v106 = 0u;
+            v96 = v15;
+            v81 = objc_msgSend_countByEnumeratingWithState_objects_count_(v96, v80, &v105, v125, 16);
+            if (v81)
             {
-              v86 = v83;
-              v103 = *v109;
+              v84 = v81;
+              v100 = *v106;
 LABEL_53:
-              v87 = 0;
+              v85 = 0;
               while (1)
               {
-                if (*v109 != v103)
+                if (*v106 != v100)
                 {
-                  objc_enumerationMutation(v99);
+                  objc_enumerationMutation(v96);
                 }
 
-                v88 = *(*(&v108 + 1) + 8 * v87);
-                v89 = objc_msgSend_recordID(storeCopy, v84, v85, v94);
-                v31 = objc_msgSend__unwrapMergeableRecordValue_inRecordWithID_forField_withPCS_(selfCopy, v90, v88, v89, v14, s);
+                v86 = *(*(&v105 + 1) + 8 * v85);
+                v87 = objc_msgSend_recordID(storeCopy, v82, v83, v91);
+                v30 = objc_msgSend__unwrapMergeableRecordValue_inRecordWithID_forField_withPCS_(selfCopy, v88, v86, v87, v14, s);
 
-                if (v31)
+                if (v30)
                 {
                   goto LABEL_61;
                 }
 
-                if (v86 == ++v87)
+                if (v84 == ++v85)
                 {
-                  v86 = objc_msgSend_countByEnumeratingWithState_objects_count_(v99, v84, &v108, v128, 16);
-                  v31 = 0;
-                  if (v86)
+                  v84 = objc_msgSend_countByEnumeratingWithState_objects_count_(v96, v82, &v105, v125, 16);
+                  v30 = 0;
+                  if (v84)
                   {
                     goto LABEL_53;
                   }
@@ -1816,15 +1787,15 @@ LABEL_53:
         }
       }
 
-      v31 = 0;
+      v30 = 0;
 LABEL_61:
 
       self = selfCopy;
       v12 = 0x277CBC000;
-      v11 = v94;
+      v11 = v91;
 LABEL_15:
 
-      if (v31)
+      if (v30)
       {
         goto LABEL_66;
       }
@@ -1834,23 +1805,21 @@ LABEL_16:
     }
 
     while (v13 != v11);
-    v91 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v10, &v124, v132, 16);
-    v11 = v91;
+    v89 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v10, &v121, v129, 16);
+    v11 = v89;
   }
 
-  while (v91);
+  while (v89);
 LABEL_65:
-  v31 = 0;
+  v30 = 0;
 LABEL_66:
 
-  v92 = *MEMORY[0x277D85DE8];
-
-  return v31;
+  return v30;
 }
 
 - (id)_unwrapEncryptedPropertiesOnRecord:(id)record withPCS:(_OpaquePCSShareProtection *)s
 {
-  v136 = *MEMORY[0x277D85DE8];
+  v135 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   if (!s && objc_msgSend_useEncryption(self, v6, v7))
   {
@@ -1865,7 +1834,7 @@ LABEL_66:
       v12 = v9;
       v15 = objc_msgSend_recordID(recordCopy, v13, v14);
       *buf = 138412290;
-      v132 = v15;
+      v131 = v15;
       _os_log_impl(&dword_22506F000, v12, OS_LOG_TYPE_INFO, "Couldn't get a PCS object for the record %@", buf, 0xCu);
     }
 
@@ -1888,39 +1857,24 @@ LABEL_8:
 
     if (!v20)
     {
-      v31 = objc_msgSend_chainPrivateKey(recordCopy, v27, v28);
-      v34 = objc_msgSend_encryptedData(v31, v32, v33);
+      v30 = objc_msgSend_chainPrivateKey(recordCopy, v27, v28);
+      v33 = objc_msgSend_encryptedData(v30, v31, v32);
 
-      if (!v34)
+      if (!v33 || (v36 = [CKDWrappingContext alloc], objc_msgSend_recordID(recordCopy, v37, v38), v39 = objc_claimAutoreleasedReturnValue(), v41 = objc_msgSend_initWithRecordID_fieldName_(v36, v40, v39, *MEMORY[0x277CBC8B0]), v39, objc_msgSend_container(self, v42, v43), v44 = objc_claimAutoreleasedReturnValue(), objc_msgSend_pcsManager(v44, v45, v46), v47 = objc_claimAutoreleasedReturnValue(), objc_msgSend_chainPrivateKey(recordCopy, v48, v49), v50 = objc_claimAutoreleasedReturnValue(), objc_msgSend_unwrapEncryptedData_withPCS_inContext_(v47, v51, v50, s, v41), v20 = objc_claimAutoreleasedReturnValue(), v50, v47, v44, v41, !v20))
       {
-        goto LABEL_16;
-      }
+        v52 = objc_msgSend_mutableEncryptedPSK(recordCopy, v34, v35);
+        v55 = objc_msgSend_encryptedData(v52, v53, v54);
 
-      v37 = [CKDWrappingContext alloc];
-      v40 = objc_msgSend_recordID(recordCopy, v38, v39);
-      v42 = objc_msgSend_initWithRecordID_fieldName_(v37, v41, v40, *MEMORY[0x277CBC8B0]);
-
-      v45 = objc_msgSend_container(self, v43, v44);
-      v48 = objc_msgSend_pcsManager(v45, v46, v47);
-      v51 = objc_msgSend_chainPrivateKey(recordCopy, v49, v50);
-      v20 = objc_msgSend_unwrapEncryptedData_withPCS_inContext_(v48, v52, v51, s, v42);
-
-      if (!v20)
-      {
-LABEL_16:
-        v53 = objc_msgSend_mutableEncryptedPSK(recordCopy, v35, v36);
-        v56 = objc_msgSend_encryptedData(v53, v54, v55);
-
-        if (v56)
+        if (v55)
         {
-          v57 = [CKDWrappingContext alloc];
-          v60 = objc_msgSend_recordID(recordCopy, v58, v59);
-          v18 = objc_msgSend_initWithRecordID_fieldName_(v57, v61, v60, *MEMORY[0x277CBC900]);
+          v56 = [CKDWrappingContext alloc];
+          v59 = objc_msgSend_recordID(recordCopy, v57, v58);
+          v18 = objc_msgSend_initWithRecordID_fieldName_(v56, v60, v59, *MEMORY[0x277CBC900]);
 
-          v64 = objc_msgSend_container(self, v62, v63);
-          v67 = objc_msgSend_pcsManager(v64, v65, v66);
-          v70 = objc_msgSend_mutableEncryptedPSK(recordCopy, v68, v69);
-          v20 = objc_msgSend_unwrapEncryptedData_withPCS_inContext_(v67, v71, v70, s, v18);
+          v63 = objc_msgSend_container(self, v61, v62);
+          v66 = objc_msgSend_pcsManager(v63, v64, v65);
+          v69 = objc_msgSend_mutableEncryptedPSK(recordCopy, v67, v68);
+          v20 = objc_msgSend_unwrapEncryptedData_withPCS_inContext_(v66, v70, v69, s, v18);
 
           if (v20)
           {
@@ -1929,17 +1883,17 @@ LABEL_16:
               dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
             }
 
-            v72 = *MEMORY[0x277CBC830];
+            v71 = *MEMORY[0x277CBC830];
             if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
             {
-              v109 = v72;
-              v112 = objc_msgSend_recordID(recordCopy, v110, v111);
+              v108 = v71;
+              v111 = objc_msgSend_recordID(recordCopy, v109, v110);
               *buf = 138412290;
-              v132 = v112;
-              _os_log_debug_impl(&dword_22506F000, v109, OS_LOG_TYPE_DEBUG, "Record %@ is unable to decrypt its mutableEncryptedPSK.  Dropping the value", buf, 0xCu);
+              v131 = v111;
+              _os_log_debug_impl(&dword_22506F000, v108, OS_LOG_TYPE_DEBUG, "Record %@ is unable to decrypt its mutableEncryptedPSK.  Dropping the value", buf, 0xCu);
             }
 
-            objc_msgSend_setMutableEncryptedPSK_(recordCopy, v73, 0);
+            objc_msgSend_setMutableEncryptedPSK_(recordCopy, v72, 0);
             goto LABEL_8;
           }
         }
@@ -1948,43 +1902,43 @@ LABEL_16:
         if (objc_opt_isKindOfClass())
         {
           selfCopy = self;
-          v120 = recordCopy;
+          v119 = recordCopy;
           v18 = recordCopy;
-          objc_msgSend_oneTimeURLMetadatasByParticipantID(v18, v74, v75);
+          objc_msgSend_oneTimeURLMetadatasByParticipantID(v18, v73, v74);
+          v126 = 0u;
           v127 = 0u;
           v128 = 0u;
-          v129 = 0u;
-          v121 = v130 = 0u;
-          obj = objc_msgSend_allValues(v121, v76, v77);
-          v126 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v78, &v127, v135, 16);
-          if (v126)
+          v120 = v129 = 0u;
+          obj = objc_msgSend_allValues(v120, v75, v76);
+          v125 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v77, &v126, v134, 16);
+          if (v125)
           {
-            v125 = *v128;
-            v123 = *MEMORY[0x277CBC8F8];
+            v124 = *v127;
+            v122 = *MEMORY[0x277CBC8F8];
             while (2)
             {
-              for (i = 0; i != v126; ++i)
+              for (i = 0; i != v125; ++i)
               {
-                if (*v128 != v125)
+                if (*v127 != v124)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v82 = *(*(&v127 + 1) + 8 * i);
-                v83 = objc_msgSend_encryptedOneTimeFullToken(v82, v79, v80);
-                v86 = objc_msgSend_encryptedData(v83, v84, v85);
+                v81 = *(*(&v126 + 1) + 8 * i);
+                v82 = objc_msgSend_encryptedOneTimeFullToken(v81, v78, v79);
+                v85 = objc_msgSend_encryptedData(v82, v83, v84);
 
-                if (v86)
+                if (v85)
                 {
-                  v87 = [CKDWrappingContext alloc];
-                  v88 = v18;
-                  v91 = objc_msgSend_recordID(v18, v89, v90);
-                  v93 = objc_msgSend_initWithRecordID_fieldName_(v87, v92, v91, v123);
+                  v86 = [CKDWrappingContext alloc];
+                  v87 = v18;
+                  v90 = objc_msgSend_recordID(v18, v88, v89);
+                  v92 = objc_msgSend_initWithRecordID_fieldName_(v86, v91, v90, v122);
 
-                  v96 = objc_msgSend_container(selfCopy, v94, v95);
-                  v99 = objc_msgSend_pcsManager(v96, v97, v98);
-                  v102 = objc_msgSend_encryptedOneTimeFullToken(v82, v100, v101);
-                  v20 = objc_msgSend_unwrapEncryptedData_withPCS_inContext_(v99, v103, v102, s, v93);
+                  v95 = objc_msgSend_container(selfCopy, v93, v94);
+                  v98 = objc_msgSend_pcsManager(v95, v96, v97);
+                  v101 = objc_msgSend_encryptedOneTimeFullToken(v81, v99, v100);
+                  v20 = objc_msgSend_unwrapEncryptedData_withPCS_inContext_(v98, v102, v101, s, v92);
 
                   if (v20)
                   {
@@ -1993,33 +1947,33 @@ LABEL_16:
                       dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
                     }
 
-                    v18 = v88;
-                    recordCopy = v120;
-                    v108 = *MEMORY[0x277CBC830];
+                    v18 = v87;
+                    recordCopy = v119;
+                    v107 = *MEMORY[0x277CBC830];
                     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
                     {
-                      v113 = v108;
-                      v116 = objc_msgSend_recordID(v88, v114, v115);
-                      v119 = objc_msgSend_participantID(v82, v117, v118);
+                      v112 = v107;
+                      v115 = objc_msgSend_recordID(v87, v113, v114);
+                      v118 = objc_msgSend_participantID(v81, v116, v117);
                       *buf = 138412546;
-                      v132 = v116;
-                      v133 = 2112;
-                      v134 = v119;
-                      _os_log_debug_impl(&dword_22506F000, v113, OS_LOG_TYPE_DEBUG, "Record %@ is unable to decrypt its encryptedOneTimeFullToken for participant %@. Bailing.", buf, 0x16u);
+                      v131 = v115;
+                      v132 = 2112;
+                      v133 = v118;
+                      _os_log_debug_impl(&dword_22506F000, v112, OS_LOG_TYPE_DEBUG, "Record %@ is unable to decrypt its encryptedOneTimeFullToken for participant %@. Bailing.", buf, 0x16u);
 
-                      v18 = v88;
+                      v18 = v87;
                     }
 
-                    v104 = v121;
+                    v103 = v120;
                     goto LABEL_44;
                   }
 
-                  v18 = v88;
+                  v18 = v87;
                 }
               }
 
-              v126 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v79, &v127, v135, 16);
-              if (v126)
+              v125 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v78, &v126, v134, 16);
+              if (v125)
               {
                 continue;
               }
@@ -2028,14 +1982,14 @@ LABEL_16:
             }
           }
 
-          v104 = v121;
-          if (objc_msgSend_count(v121, v105, v106))
+          v103 = v120;
+          if (objc_msgSend_count(v120, v104, v105))
           {
-            objc_msgSend_setOneTimeURLMetadatasByParticipantID_(v18, v107, v121);
+            objc_msgSend_setOneTimeURLMetadatasByParticipantID_(v18, v106, v120);
           }
 
           v20 = 0;
-          recordCopy = v120;
+          recordCopy = v119;
 LABEL_44:
 
           goto LABEL_8;
@@ -2048,14 +2002,12 @@ LABEL_44:
 
 LABEL_11:
 
-  v29 = *MEMORY[0x277D85DE8];
-
   return v20;
 }
 
 - (void)_finishOnCallbackQueueWithError:(id)error
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v6 = MEMORY[0x277CBC880];
   if (*MEMORY[0x277CBC880] != -1)
@@ -2067,18 +2019,18 @@ LABEL_11:
   v8 = *MEMORY[0x277CBC830];
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
   {
-    v23 = v8;
-    v26 = objc_msgSend_operationID(self, v24, v25);
+    v22 = v8;
+    v25 = objc_msgSend_operationID(self, v23, v24);
     *buf = 138543362;
-    v40 = v26;
-    _os_log_debug_impl(&dword_22506F000, v23, OS_LOG_TYPE_DEBUG, "Finished decrypt operation %{public}@", buf, 0xCu);
+    v39 = v25;
+    _os_log_debug_impl(&dword_22506F000, v22, OS_LOG_TYPE_DEBUG, "Finished decrypt operation %{public}@", buf, 0xCu);
   }
 
   if (objc_msgSend_isFinished(self, v9, v10))
   {
-    v31 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v11, v12);
-    v34 = objc_msgSend_operationID(self, v32, v33);
-    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v31, v35, a2, self, @"CKDDecryptRecordsOperation.m", 678, @"Operation %@ was already marked as finished", v34);
+    v30 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v11, v12);
+    v33 = objc_msgSend_operationID(self, v31, v32);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v30, v34, a2, self, @"CKDDecryptRecordsOperation.m", 678, @"Operation %@ was already marked as finished", v33);
   }
 
   v13 = objc_msgSend_recordDecryptQueue(self, v11, v12);
@@ -2092,11 +2044,11 @@ LABEL_11:
   v14 = *v7;
   if (os_log_type_enabled(*v7, OS_LOG_TYPE_DEBUG))
   {
-    v27 = v14;
-    v30 = objc_msgSend_operationID(self, v28, v29);
+    v26 = v14;
+    v29 = objc_msgSend_operationID(self, v27, v28);
     *buf = 138543362;
-    v40 = v30;
-    _os_log_debug_impl(&dword_22506F000, v27, OS_LOG_TYPE_DEBUG, "Decrypt operation %{public}@ is finishing. Waiting for all records to finish decrypting in case it never started", buf, 0xCu);
+    v39 = v29;
+    _os_log_debug_impl(&dword_22506F000, v26, OS_LOG_TYPE_DEBUG, "Decrypt operation %{public}@ is finishing. Waiting for all records to finish decrypting in case it never started", buf, 0xCu);
   }
 
   v17 = objc_msgSend_recordDecryptGroup(self, v15, v16);
@@ -2105,13 +2057,11 @@ LABEL_11:
   block[1] = 3221225472;
   block[2] = sub_22525A1D0;
   block[3] = &unk_278545E20;
-  v37 = errorCopy;
-  v38 = a2;
+  v36 = errorCopy;
+  v37 = a2;
   block[4] = self;
   v21 = errorCopy;
   dispatch_group_notify(v17, v20, block);
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_possiblyWrapError:(id)error forRecordWithID:(id)d withCode:(int64_t)code format:(id)format

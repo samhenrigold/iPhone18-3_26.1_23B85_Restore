@@ -5,14 +5,14 @@
 
 void ___BBDataProviderGetSectionInfoWithCompletion_block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = BBLogGeneral;
   if (os_log_type_enabled(BBLogGeneral, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v8 = 138543362;
-    v9 = v3;
-    _os_log_impl(&dword_241EFF000, v2, OS_LOG_TYPE_DEFAULT, "BBDataProvider: Get info for section %{public}@", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v3;
+    _os_log_impl(&dword_241EFF000, v2, OS_LOG_TYPE_DEFAULT, "BBDataProvider: Get info for section %{public}@", &v7, 0xCu);
   }
 
   v4 = objc_autoreleasePoolPush();
@@ -24,7 +24,6 @@ void ___BBDataProviderGetSectionInfoWithCompletion_block_invoke(uint64_t a1)
   }
 
   objc_autoreleasePoolPop(v4);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

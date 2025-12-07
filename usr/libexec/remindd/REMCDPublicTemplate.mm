@@ -27,8 +27,7 @@
 {
   v2 = type metadata accessor for UUID();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  __chkstk_darwin(v2);
+  __chkstk_darwin(v2, v4);
   v6 = &v12 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   UUID.init()();
   v7 = objc_allocWithZone(REMObjectID);
@@ -44,8 +43,7 @@
 {
   v3 = type metadata accessor for UUID();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  __chkstk_darwin(v3);
+  __chkstk_darwin(v3, v5);
   v7 = &v13 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
   v8 = objc_allocWithZone(REMObjectID);

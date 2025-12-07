@@ -3,6 +3,7 @@
 - (BOOL)_setTouchedDidChangeHandler:(id)handler;
 - (BOOL)isEqualToInput:(_BOOL8)input;
 - (BOOL)isTouched;
+- (BOOL)update:(uint64_t)update withValue:(uint64_t)value timestamp:(float)timestamp;
 - (BOOL)update:(void *)update forUsages:(unint64_t)usages with:(id)with;
 - (NSSet)sources;
 - (NSString)description;
@@ -13,14 +14,13 @@
 - (double)_value;
 - (double)lastTouchedStateLatency;
 - (double)lastTouchedStateTimestamp;
-- (uint64_t)__setLastTouchedTimestamp:(uint64_t)result;
-- (uint64_t)__setValue:(uint64_t)result;
-- (uint64_t)_setLastTouchedTimestamp:(uint64_t)result;
-- (uint64_t)_setSources:(uint64_t)result;
-- (uint64_t)_setTouchedThreshold:(uint64_t)result;
-- (uint64_t)_setValue:(uint64_t)result;
-- (uint64_t)_sources;
-- (uint64_t)update:(uint64_t)update withValue:(uint64_t)value timestamp:(float)timestamp;
+- (id)__setLastTouchedTimestamp:(id *)result;
+- (id)__setValue:(id *)result;
+- (id)_setLastTouchedTimestamp:(id *)result;
+- (id)_setSources:(id *)result;
+- (id)_setTouchedThreshold:(id *)result;
+- (id)_setValue:(id *)result;
+- (id)_sources;
 - (void)postCommit:(const void *)commit sender:(id)sender;
 - (void)preCommit:(const void *)commit sender:(id)sender;
 @end
@@ -80,7 +80,7 @@ LABEL_3:
   }
 
   _sources = [(_GCDevicePhysicalInputTouchInput *)with _sources];
-  v12 = [(_GCDevicePhysicalInputTouchInput *)self _setSources:_sources];
+  v12 = [(_GCDevicePhysicalInputTouchInput *)&self->super.super.isa _setSources:_sources];
   *(update + v10) = *(update + v10) & 0xFE | v12;
 
   if (with)
@@ -105,7 +105,7 @@ LABEL_37:
   }
 
 LABEL_9:
-  v15 = [(_GCDevicePhysicalInputView *)self _testAndSetPrimitiveValue:&self->_touchedThresholdSlot forSlot:?];
+  v15 = [(_GCDevicePhysicalInputView *)&self->super.super.isa _testAndSetPrimitiveValue:&self->_touchedThresholdSlot forSlot:?];
   if (v15)
   {
     v16 = 2;
@@ -145,7 +145,7 @@ LABEL_17:
       if (self)
       {
 LABEL_19:
-        v23 = [(_GCDevicePhysicalInputView *)self _testAndSetPrimitiveValue:&self->_valueSlot forSlot:?];
+        v23 = [(_GCDevicePhysicalInputView *)&self->super.super.isa _testAndSetPrimitiveValue:&self->_valueSlot forSlot:?];
         if (v23)
         {
           v24 = 8;
@@ -191,7 +191,7 @@ LABEL_22:
       if (self)
       {
 LABEL_27:
-        v28 = [(_GCDevicePhysicalInputView *)self _testAndSetPrimitiveValue:v27 forSlot:&self->_touchedTimestampSlot];
+        v28 = [(_GCDevicePhysicalInputView *)&self->super.super.isa _testAndSetPrimitiveValue:v27 forSlot:&self->_touchedTimestampSlot];
         if (v28)
         {
           v29 = 32;
@@ -390,7 +390,7 @@ LABEL_13:
 - (BOOL)_setTouchedDidChangeHandler:(id)handler
 {
   v4 = _Block_copy(handler);
-  LOBYTE(self) = [(_GCDevicePhysicalInputView *)self _testAndSetObjectValue:v4 forSlot:&self->_touchedChangedHandlerSlot policy:771];
+  LOBYTE(self) = [(_GCDevicePhysicalInputView *)&self->super.super.isa _testAndSetObjectValue:v4 forSlot:&self->_touchedChangedHandlerSlot policy:771];
 
   return self;
 }
@@ -398,13 +398,13 @@ LABEL_13:
 - (_GCDevicePhysicalInputTouchInput)initWithParameters:(id)parameters
 {
   parametersCopy = parameters;
-  v12.receiver = self;
-  v12.super_class = _GCDevicePhysicalInputTouchInput;
-  v5 = [(_GCDevicePhysicalInputView *)&v12 initWithParameters:parametersCopy];
+  v11.receiver = self;
+  v11.super_class = _GCDevicePhysicalInputTouchInput;
+  v5 = [(_GCDevicePhysicalInputView *)&v11 initWithParameters:parametersCopy];
   v6 = v5;
   if (!parametersCopy)
   {
-    [(_GCDevicePhysicalInputTouchInput *)v5 _setSources:?];
+    [(_GCDevicePhysicalInputTouchInput *)&v5->super.super.isa _setSources:?];
     if (!v6)
     {
       goto LABEL_4;
@@ -413,13 +413,12 @@ LABEL_13:
     goto LABEL_3;
   }
 
-  [(_GCDevicePhysicalInputTouchInput *)v5 _setSources:?];
-  v7 = parametersCopy[2];
+  [(_GCDevicePhysicalInputTouchInput *)&v5->super.super.isa _setSources:?];
   if (v6)
   {
 LABEL_3:
-    v8 = OUTLINED_FUNCTION_2_3();
-    [(_GCDevicePhysicalInputView *)v8 _testAndSetPrimitiveValue:v9 forSlot:v10];
+    v7 = OUTLINED_FUNCTION_2_3();
+    [(_GCDevicePhysicalInputView *)v7 _testAndSetPrimitiveValue:v8 forSlot:v9];
   }
 
 LABEL_4:
@@ -427,7 +426,7 @@ LABEL_4:
   return v6;
 }
 
-- (uint64_t)_setSources:(uint64_t)result
+- (id)_setSources:(id *)result
 {
   if (result)
   {
@@ -446,7 +445,7 @@ LABEL_4:
   return result;
 }
 
-- (uint64_t)_setTouchedThreshold:(uint64_t)result
+- (id)_setTouchedThreshold:(id *)result
 {
   if (result)
   {
@@ -456,7 +455,7 @@ LABEL_4:
   return result;
 }
 
-- (uint64_t)_sources
+- (id)_sources
 {
   if (result)
   {
@@ -491,7 +490,7 @@ LABEL_4:
   return result;
 }
 
-- (uint64_t)_setValue:(uint64_t)result
+- (id)_setValue:(id *)result
 {
   if (result)
   {
@@ -514,7 +513,7 @@ LABEL_4:
   }
 }
 
-- (uint64_t)_setLastTouchedTimestamp:(uint64_t)result
+- (id)_setLastTouchedTimestamp:(id *)result
 {
   if (result)
   {
@@ -578,7 +577,7 @@ LABEL_11:
   return inputCopy;
 }
 
-- (uint64_t)__setValue:(uint64_t)result
+- (id)__setValue:(id *)result
 {
   if (result)
   {
@@ -588,7 +587,7 @@ LABEL_11:
   return result;
 }
 
-- (uint64_t)__setLastTouchedTimestamp:(uint64_t)result
+- (id)__setLastTouchedTimestamp:(id *)result
 {
   if (result)
   {
@@ -603,8 +602,8 @@ LABEL_11:
   if (self)
   {
     selfCopy = self;
-    v3 = COERCE_DOUBLE([(_GCDevicePhysicalInputView *)self _primitiveValueForSlot:?]);
-    v4 = [(_GCDevicePhysicalInputView *)selfCopy _primitiveValueForSlot:?];
+    v3 = COERCE_DOUBLE([(_GCDevicePhysicalInputView *)&self->super.super.isa _primitiveValueForSlot:?]);
+    v4 = [(_GCDevicePhysicalInputView *)&selfCopy->super.super.isa _primitiveValueForSlot:?];
     LOBYTE(self) = (v3 - OUTLINED_FUNCTION_3_3(v4)) > 0.00000011921;
   }
 
@@ -615,7 +614,7 @@ LABEL_11:
 {
   if (self)
   {
-    return COERCE_DOUBLE([(_GCDevicePhysicalInputView *)self _primitiveValueForSlot:?]);
+    return COERCE_DOUBLE([(_GCDevicePhysicalInputView *)&self->super.super.isa _primitiveValueForSlot:?]);
   }
 
   else
@@ -633,7 +632,7 @@ LABEL_11:
 
   if (self)
   {
-    v3 = COERCE_DOUBLE([(_GCDevicePhysicalInputView *)self _primitiveValueForSlot:?]);
+    v3 = COERCE_DOUBLE([(_GCDevicePhysicalInputView *)&self->super.super.isa _primitiveValueForSlot:?]);
   }
 
   else
@@ -646,12 +645,12 @@ LABEL_11:
 
 - (NSSet)sources
 {
-  _sources = [(_GCDevicePhysicalInputTouchInput *)self _sources];
+  _sources = [(_GCDevicePhysicalInputTouchInput *)&self->super.super.isa _sources];
 
   return _sources;
 }
 
-- (uint64_t)update:(uint64_t)update withValue:(uint64_t)value timestamp:(float)timestamp
+- (BOOL)update:(uint64_t)update withValue:(uint64_t)value timestamp:(float)timestamp
 {
   if (!update)
   {

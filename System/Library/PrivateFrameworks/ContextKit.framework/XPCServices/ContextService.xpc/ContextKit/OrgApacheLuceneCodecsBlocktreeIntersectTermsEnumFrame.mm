@@ -8,6 +8,7 @@
 - (void)loadNextFloorBlock;
 - (void)load__WithOrgApacheLuceneUtilBytesRef:(id)ref;
 - (void)nextLeaf;
+- (void)setStateWithInt:(int)int;
 @end
 
 @implementation OrgApacheLuceneCodecsBlocktreeIntersectTermsEnumFrame
@@ -55,6 +56,46 @@ LABEL_11:
 LABEL_8:
 
   [(OrgApacheLuceneCodecsBlocktreeIntersectTermsEnumFrame *)self load__WithOrgApacheLuceneUtilBytesRef:0];
+}
+
+- (void)setStateWithInt:(int)int
+{
+  v3 = *&int;
+  self->state_ = int;
+  self->transitionIndex_ = 0;
+  Weak = objc_loadWeak(&self->ite_);
+  if (!Weak)
+  {
+    goto LABEL_9;
+  }
+
+  v6 = Weak[5];
+  if (!v6)
+  {
+    goto LABEL_9;
+  }
+
+  v7 = [v6 getNumTransitionsWithInt:v3];
+  self->transitionCount_ = v7;
+  if (!v7)
+  {
+    transition = self->transition_;
+    if (transition)
+    {
+      transition->min_ = -1;
+      self->transition_->max_ = -1;
+      return;
+    }
+
+LABEL_9:
+    JreThrowNullPointerException();
+  }
+
+  [*(objc_loadWeak(&self->ite_) + 5) initTransitionWithInt:v3 withOrgApacheLuceneUtilAutomatonTransition:self->transition_];
+  v8 = *(objc_loadWeak(&self->ite_) + 5);
+  v9 = self->transition_;
+
+  [v8 getNextTransitionWithOrgApacheLuceneUtilAutomatonTransition:v9];
 }
 
 - (void)load__WithOrgApacheLuceneUtilBytesRef:(id)ref

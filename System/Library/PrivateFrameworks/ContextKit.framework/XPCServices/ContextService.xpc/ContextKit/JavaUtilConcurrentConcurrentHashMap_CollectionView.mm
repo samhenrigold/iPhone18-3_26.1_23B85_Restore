@@ -58,83 +58,83 @@ LABEL_22:
   if (mappingCount >= 2147483640)
   {
 LABEL_23:
-    v15 = new_JavaLangOutOfMemoryError_initWithNSString_(off_100550518);
-    objc_exception_throw(v15);
+    v16 = new_JavaLangOutOfMemoryError_initWithNSString_(off_100550518);
+    objc_exception_throw(v16);
   }
 
-  v5 = mappingCount;
-  v6 = [IOSObjectArray arrayWithLength:mappingCount type:NSObject_class_()];
-  v16 = 0u;
+  LODWORD(v6) = mappingCount;
+  v7 = [IOSObjectArray arrayWithLength:mappingCount type:NSObject_class_(mappingCount, v5)];
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v7 = [(JavaUtilConcurrentConcurrentHashMap_CollectionView *)self countByEnumeratingWithState:&v16 objects:v20 count:16];
-  if (v7)
+  v20 = 0u;
+  v8 = [(JavaUtilConcurrentConcurrentHashMap_CollectionView *)self countByEnumeratingWithState:&v17 objects:v21 count:16];
+  if (v8)
   {
-    v8 = v7;
-    v9 = 0;
-    v10 = *v17;
+    v9 = v8;
+    LODWORD(v10) = 0;
+    v11 = *v18;
     do
     {
-      v11 = 0;
-      v12 = v9;
+      v12 = 0;
+      v13 = v10;
       do
       {
-        if (*v17 != v10)
+        if (*v18 != v11)
         {
           objc_enumerationMutation(self);
         }
 
-        v13 = *(*(&v16 + 1) + 8 * v11);
-        if (v12 == v5)
+        v14 = *(*(&v17 + 1) + 8 * v12);
+        if (v13 == v6)
         {
-          if (v5 > 2147483638)
+          if (v6 > 2147483638)
           {
             goto LABEL_23;
           }
 
-          if (v5 >= 1073741819)
+          if (v6 >= 1073741819)
           {
-            v5 = 2147483639;
+            v6 = 2147483639;
           }
 
           else
           {
-            v5 += (v5 >> 1) + 1;
+            v6 = v6 + (v6 >> 1) + 1;
           }
 
-          v6 = JavaUtilArrays_copyOfWithNSObjectArray_withInt_(v6, v5);
+          v7 = JavaUtilArrays_copyOfWithNSObjectArray_withInt_(v7, v6);
         }
 
-        if (!v6)
+        if (!v7)
         {
           goto LABEL_22;
         }
 
-        v9 = v12 + 1;
-        IOSObjectArray_Set(v6, v12, v13);
-        ++v11;
+        v10 = (v13 + 1);
+        IOSObjectArray_Set(v7, v13, v14);
         ++v12;
+        ++v13;
       }
 
-      while (v8 != v11);
-      v8 = [(JavaUtilConcurrentConcurrentHashMap_CollectionView *)self countByEnumeratingWithState:&v16 objects:v20 count:16];
+      while (v9 != v12);
+      v9 = [(JavaUtilConcurrentConcurrentHashMap_CollectionView *)self countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
-    while (v8);
+    while (v9);
   }
 
   else
   {
-    v9 = 0;
+    v10 = 0;
   }
 
-  if (v9 != v5)
+  if (v10 != v6)
   {
-    return JavaUtilArrays_copyOfWithNSObjectArray_withInt_(v6, v9);
+    return JavaUtilArrays_copyOfWithNSObjectArray_withInt_(v7, v10);
   }
 
-  return v6;
+  return v7;
 }
 
 - (id)toArrayWithNSObjectArray:(id)array
@@ -159,7 +159,7 @@ LABEL_29:
     JreThrowNullPointerException();
   }
 
-  v7 = *(array + 2);
+  LODWORD(v7) = *(array + 2);
   arrayCopy = array;
   if (v7 < mappingCount)
   {
@@ -170,7 +170,7 @@ LABEL_29:
       JreThrowClassCastException();
     }
 
-    v7 = arrayCopy[2];
+    LODWORD(v7) = arrayCopy[2];
   }
 
   arrayCopy2 = array;
@@ -182,7 +182,7 @@ LABEL_29:
   if (v9)
   {
     v10 = v9;
-    v11 = 0;
+    LODWORD(v11) = 0;
     v12 = *v21;
     do
     {
@@ -210,7 +210,7 @@ LABEL_29:
 
           else
           {
-            v7 += (v7 >> 1) + 1;
+            v7 = v7 + (v7 >> 1) + 1;
           }
 
           v16 = JavaUtilArrays_copyOfWithNSObjectArray_withInt_(arrayCopy, v7);
@@ -222,7 +222,7 @@ LABEL_29:
           arrayCopy = v16;
         }
 
-        v11 = v14 + 1;
+        v11 = (v14 + 1);
         IOSObjectArray_Set(arrayCopy, v14, v15);
         ++v13;
         ++v14;

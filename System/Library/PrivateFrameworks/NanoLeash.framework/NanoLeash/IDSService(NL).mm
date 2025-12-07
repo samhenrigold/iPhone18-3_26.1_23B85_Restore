@@ -34,33 +34,33 @@
 
 - (id)nl_defaultPairedDeviceIDIncludingTinkerDevices
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
+  v6 = 0u;
   v7 = 0u;
   v8 = 0u;
   v9 = 0u;
-  v10 = 0u;
   nl_mineTinkerDevices = [self nl_mineTinkerDevices];
-  v2 = [nl_mineTinkerDevices countByEnumeratingWithState:&v7 objects:v11 count:16];
+  v2 = [nl_mineTinkerDevices countByEnumeratingWithState:&v6 objects:v10 count:16];
   if (v2)
   {
-    v3 = *v8;
+    v3 = *v7;
     while (2)
     {
       for (i = 0; i != v2; i = i + 1)
       {
-        if (*v8 != v3)
+        if (*v7 != v3)
         {
           objc_enumerationMutation(nl_mineTinkerDevices);
         }
 
-        if ([*(*(&v7 + 1) + 8 * i) isDefaultPairedDevice])
+        if ([*(*(&v6 + 1) + 8 * i) isDefaultPairedDevice])
         {
           v2 = IDSCopyIDForDevice();
           goto LABEL_11;
         }
       }
 
-      v2 = [nl_mineTinkerDevices countByEnumeratingWithState:&v7 objects:v11 count:16];
+      v2 = [nl_mineTinkerDevices countByEnumeratingWithState:&v6 objects:v10 count:16];
       if (v2)
       {
         continue;
@@ -71,8 +71,6 @@
   }
 
 LABEL_11:
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v2;
 }

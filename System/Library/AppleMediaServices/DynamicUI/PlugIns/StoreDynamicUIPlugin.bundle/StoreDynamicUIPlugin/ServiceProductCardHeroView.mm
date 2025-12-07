@@ -17,27 +17,27 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  v6 = sub_FFF88();
-  v8 = v7;
-  v10 = v9;
-  v12 = v11;
+  v7 = sub_FFF88(in);
+  v9 = v8;
+  v11 = v10;
+  v13 = v12;
   swift_unknownObjectRelease();
 
-  v13 = v6;
-  v14 = v8;
-  v15 = v10;
-  v16 = v12;
-  result.var3 = v16;
-  result.var2 = v15;
-  result.var1 = v14;
-  result.var0 = v13;
+  v14 = v7;
+  v15 = v9;
+  v16 = v11;
+  v17 = v13;
+  result.var3 = v17;
+  result.var2 = v16;
+  result.var1 = v15;
+  result.var0 = v14;
   return result;
 }
 
 - (void)tintColorDidChange
 {
   selfCopy = self;
-  sub_100134();
+  sub_100134(v2);
 }
 
 - (void)offerButtonActionWithSender:(id)sender

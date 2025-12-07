@@ -16,14 +16,12 @@
 
 - (id)attributeDescriptions
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   uUID = [(HMDPersonDataBatchChange *)self UUID];
   v5 = [v3 initWithName:@"UUID" value:uUID];
-  v9[0] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v8[0] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
 
   return v6;
 }
@@ -38,7 +36,7 @@
 
 - (void)_commitLocalInput
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   localInput = [(HMDPersonDataBatchChange *)self localInput];
 
   if (localInput)
@@ -50,7 +48,7 @@
     {
       v7 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v23 = v7;
+      v22 = v7;
       _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_DEBUG, "%{public}@Committing person data batch change local input", buf, 0xCu);
     }
 
@@ -62,9 +60,9 @@
     v12 = [v8 optionsWithLabel:v11];
 
     localInput2 = [(HMDPersonDataBatchChange *)selfCopy localInput];
-    v21 = 0;
-    v14 = [localInput2 commitWithOptions:v12 error:&v21];
-    v15 = v21;
+    v20 = 0;
+    v14 = [localInput2 commitWithOptions:v12 error:&v20];
+    v15 = v20;
 
     if (!v14)
     {
@@ -75,17 +73,15 @@
       {
         v19 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v23 = v19;
-        v24 = 2112;
-        v25 = v15;
+        v22 = v19;
+        v23 = 2112;
+        v24 = v15;
         _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_ERROR, "%{public}@Failed to commit person data batch change local input: %@", buf, 0x16u);
       }
 
       objc_autoreleasePoolPop(v16);
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_commitInMemoryModels
@@ -98,29 +94,28 @@
 
 - (id)commit
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     v6 = HMFGetLogIdentifier();
-    v10 = 138543362;
-    v11 = v6;
-    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEBUG, "%{public}@Committing person data batch change", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v6;
+    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEBUG, "%{public}@Committing person data batch change", &v9, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
   [(HMDPersonDataBatchChange *)selfCopy _commitLocalInput];
   _commitInMemoryModels = [(HMDPersonDataBatchChange *)selfCopy _commitInMemoryModels];
-  v8 = *MEMORY[0x277D85DE8];
 
   return _commitInMemoryModels;
 }
 
 - (void)removeFaceCropWithUUID:(id)d
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -128,23 +123,21 @@
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     v8 = HMFGetLogIdentifier();
-    v11 = 138543618;
-    v12 = v8;
-    v13 = 2112;
-    v14 = dCopy;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Removing face crop with UUID: %@", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = v8;
+    v12 = 2112;
+    v13 = dCopy;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Removing face crop with UUID: %@", &v10, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
   localInput = [(HMDPersonDataBatchChange *)selfCopy localInput];
   [localInput stageRemovalForModelWithID:dCopy error:0];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removePersonWithUUID:(id)d
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -152,23 +145,21 @@
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     v8 = HMFGetLogIdentifier();
-    v11 = 138543618;
-    v12 = v8;
-    v13 = 2112;
-    v14 = dCopy;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Removing person with UUID: %@", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = v8;
+    v12 = 2112;
+    v13 = dCopy;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Removing person with UUID: %@", &v10, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
   localInput = [(HMDPersonDataBatchChange *)selfCopy localInput];
   [localInput stageRemovalForModelWithID:dCopy error:0];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addOrUpdateFaceCrop:(id)crop
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   cropCopy = crop;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -176,11 +167,11 @@
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     v8 = HMFGetLogIdentifier();
-    v16 = 138543618;
-    v17 = v8;
-    v18 = 2112;
-    v19 = cropCopy;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Adding/updating face crop: %@", &v16, 0x16u);
+    v15 = 138543618;
+    v16 = v8;
+    v17 = 2112;
+    v18 = cropCopy;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Adding/updating face crop: %@", &v15, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -212,13 +203,11 @@
 
   localInput = [(HMDPersonDataBatchChange *)selfCopy localInput];
   [localInput stageAdditionForModel:v13 error:0];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addOrUpdatePerson:(id)person
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   personCopy = person;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -226,19 +215,17 @@
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     v8 = HMFGetLogIdentifier();
-    v12 = 138543618;
-    v13 = v8;
-    v14 = 2112;
-    v15 = personCopy;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Adding/updating person: %@", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v8;
+    v13 = 2112;
+    v14 = personCopy;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Adding/updating person: %@", &v11, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
   localInput = [(HMDPersonDataBatchChange *)selfCopy localInput];
   v10 = [[HMDPersonModel alloc] initWithPerson:personCopy];
   [localInput stageAdditionForModel:v10 error:0];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDPersonDataBatchChange)initWithLocalInput:(id)input
@@ -283,12 +270,11 @@
 
 uint64_t __39__HMDPersonDataBatchChange_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v9_138669;
-  logCategory__hmf_once_v9_138669 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v9_138669;
+  logCategory__hmf_once_v9_138669 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

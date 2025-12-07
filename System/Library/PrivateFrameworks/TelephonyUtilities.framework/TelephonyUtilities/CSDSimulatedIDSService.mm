@@ -12,7 +12,7 @@
 - (NSSet)availableOutgoingRelayCallerIDs;
 - (NSString)callerID;
 - (NSString)name;
-- (id)accountWithCallerID:;
+- (id)accountWithCallerID:(uint64_t)d;
 - (id)createGroupSessionProviderWithGroupID:(id)d participantDestinationIDs:(id)ds callerID:(id)iD account:(id)account queue:(id)queue isOneToOneModeEnabled:(BOOL)enabled localMember:(id)member avLess:(BOOL)self0 isScreenSharingRequest:(BOOL)self1 ABTestConfiguration:(id)self2 isInitiator:(BOOL)self3;
 - (id)deviceDestinationsWithCapability:(id)capability localHandle:(id)handle;
 - (id)devicesWithCapability:(id)capability;
@@ -29,7 +29,7 @@
 
 @implementation CSDSimulatedIDSService
 
-- (id)accountWithCallerID:
+- (id)accountWithCallerID:(uint64_t)d
 {
   static String._unconditionallyBridgeFromObjectiveC(_:)();
 
@@ -180,25 +180,23 @@
 {
   v4 = type metadata accessor for Date();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  __chkstk_darwin(v4, v7);
-  v9 = &v10 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v4);
+  v7 = &v8 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   static Date._unconditionallyBridgeFromObjectiveC(_:)();
-  (*(v5 + 8))(v9, v4);
+  (*(v5 + 8))(v7, v4);
 }
 
 - (void)addFirewallEntriesForHandles:(id)handles lastSeenDate:(id)date
 {
   v4 = type metadata accessor for Date();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  __chkstk_darwin(v4, v7);
-  v9 = &v10 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v4);
+  v7 = &v8 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_100006AF0(0, &qword_1006A2640, TUHandle_ptr);
   static Array._unconditionallyBridgeFromObjectiveC(_:)();
   static Date._unconditionallyBridgeFromObjectiveC(_:)();
 
-  (*(v5 + 8))(v9, v4);
+  (*(v5 + 8))(v7, v4);
 }
 
 - (void)removeFirewallEntries:(id)entries
@@ -299,9 +297,8 @@ LABEL_7:
 {
   v11 = type metadata accessor for URL();
   v12 = *(v11 - 8);
-  v13 = *(v12 + 64);
-  __chkstk_darwin(v11, v14);
-  v16 = &v18 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v11);
+  v14 = &v16 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
   static URL._unconditionallyBridgeFromObjectiveC(_:)();
   if (metadata)
   {
@@ -314,7 +311,7 @@ LABEL_7:
     static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
-  (*(v12 + 8))(v16, v11);
+  (*(v12 + 8))(v14, v11);
 
   return 1;
 }

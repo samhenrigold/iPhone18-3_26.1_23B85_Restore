@@ -9,7 +9,7 @@
 
 - (void)wrapData:(id)data completion:(id)completion
 {
-  v20[2] = *MEMORY[0x1E69E9840];
+  v19[2] = *MEMORY[0x1E69E9840];
   dataCopy = data;
   completionCopy = completion;
   if (![dataCopy length])
@@ -32,10 +32,10 @@ LABEL_10:
   {
     v9 = objc_alloc(getTKBERTLVRecordClass());
     v10 = [objc_alloc(getTKBERTLVRecordClass()) initWithTag:2 value:_generateNonce];
-    v20[0] = v10;
+    v19[0] = v10;
     v11 = [objc_alloc(getTKBERTLVRecordClass()) initWithTag:3 value:dataCopy];
-    v20[1] = v11;
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:2];
+    v19[1] = v11;
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:2];
     v13 = [v9 initWithTag:1 records:v12];
 
     data = [v13 data];
@@ -59,7 +59,6 @@ LABEL_10:
   }
 
 LABEL_14:
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)unwrapData:(id)data completion:(id)completion
@@ -136,7 +135,7 @@ LABEL_16:
 
 - (id)_generateNonce
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if (SecRandomCopyBytes(*MEMORY[0x1E697B308], 0x10uLL, bytes))
   {
     v2 = 0;
@@ -146,8 +145,6 @@ LABEL_16:
   {
     v2 = [MEMORY[0x1E695DEF0] dataWithBytes:bytes length:16];
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 
   return v2;
 }

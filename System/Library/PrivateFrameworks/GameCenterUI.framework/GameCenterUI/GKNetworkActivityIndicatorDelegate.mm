@@ -16,11 +16,11 @@
   dispatch_async(MEMORY[0x277D85CD0], block);
 }
 
-void __58__GKNetworkActivityIndicatorDelegate_beginNetworkActivity__block_invoke()
+void __58__GKNetworkActivityIndicatorDelegate_beginNetworkActivity__block_invoke(uint64_t a1)
 {
-  v0 = GKAtomicIncrement32() > 0;
-  v1 = [MEMORY[0x277D75128] sharedApplication];
-  [v1 setNetworkActivityIndicatorVisible:v0];
+  v1 = GKAtomicIncrement32() > 0;
+  v2 = [MEMORY[0x277D75128] sharedApplication];
+  [v2 setNetworkActivityIndicatorVisible:v1];
 }
 
 - (void)endNetworkActivity
@@ -53,12 +53,12 @@ void __56__GKNetworkActivityIndicatorDelegate_endNetworkActivity__block_invoke(u
   dispatch_async(MEMORY[0x277D85CD0], block);
 }
 
-void __58__GKNetworkActivityIndicatorDelegate_resetNetworkActivity__block_invoke()
+void __58__GKNetworkActivityIndicatorDelegate_resetNetworkActivity__block_invoke(uint64_t a1)
 {
   if (GKAtomicCompareAndSwap32())
   {
-    v0 = [MEMORY[0x277D75128] sharedApplication];
-    [v0 setNetworkActivityIndicatorVisible:0];
+    v1 = [MEMORY[0x277D75128] sharedApplication];
+    [v1 setNetworkActivityIndicatorVisible:0];
   }
 }
 

@@ -2,6 +2,7 @@
 - (APNSURLSessionTaskInfo)initWithTask:(id)task delegate:(id)delegate modes:(id)modes;
 - (NSURLSessionDataDelegate)delegate;
 - (void)invalidate;
+- (void)perform:(id)perform waitUntilDone:(BOOL)done;
 @end
 
 @implementation APNSURLSessionTaskInfo
@@ -30,6 +31,16 @@
   }
 
   return v13;
+}
+
+- (void)perform:(id)perform waitUntilDone:(BOOL)done
+{
+  doneCopy = done;
+  v19 = objc_msgSend_copy(perform, a2, perform, done, v4);
+  v11 = objc_msgSend_thread(self, v7, v8, v9, v10);
+  v12 = MEMORY[0x2666F5110](v19);
+  v17 = objc_msgSend_modes(self, v13, v14, v15, v16);
+  objc_msgSend_performSelector_onThread_withObject_waitUntilDone_modes_(self, v18, sel_performBlockOnClientThread_, v11, v12, doneCopy, v17);
 }
 
 - (void)invalidate

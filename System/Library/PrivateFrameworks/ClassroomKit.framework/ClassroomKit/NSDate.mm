@@ -3,15 +3,15 @@
 
 @implementation NSDate
 
-uint64_t __47__NSDate_CRKAdditions__crk_sharedDateFormatter__block_invoke()
+uint64_t __47__NSDate_CRKAdditions__crk_sharedDateFormatter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_new();
-  v1 = crk_sharedDateFormatter_formatter;
-  crk_sharedDateFormatter_formatter = v0;
+  v2 = objc_opt_new();
+  v3 = crk_sharedDateFormatter_formatter;
+  crk_sharedDateFormatter_formatter = v2;
 
-  v2 = crk_sharedDateFormatter_formatter;
+  v4 = crk_sharedDateFormatter_formatter;
 
-  return [v2 setFormatOptions:1907];
+  return [v4 setFormatOptions:1907];
 }
 
 @end

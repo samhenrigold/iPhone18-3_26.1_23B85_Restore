@@ -1213,6 +1213,7 @@ LABEL_30:
 
 void __31__PXGGridLayout__updateSprites__block_invoke_5(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, float32x2_t *a5)
 {
+  v5 = a3;
   v6 = a2;
   v8 = HIDWORD(a2);
   v49 = [*(a1 + 32) presentationType];
@@ -1353,16 +1354,16 @@ LABEL_22:
       v42.f64[1] = v51;
       v44 = *(a1 + 216) + v37 * *(a1 + 232) + *(a1 + 248) + v39;
       v45 = *(a1 + 260);
-      *a3 = *(a1 + 208) + v38 * *(a1 + 224) + *(a1 + 240) + v40;
-      *(a3 + 8) = v44;
-      *(a3 + 16) = v45;
-      *(a3 + 24) = vcvt_f32_f64(v42);
+      *v5 = *(a1 + 208) + v38 * *(a1 + 224) + *(a1 + 240) + v40;
+      *(v5 + 8) = v44;
+      *(v5 + 16) = v45;
+      *(v5 + 24) = vcvt_f32_f64(v42);
       v9->i8[0] = v49;
       v9->i8[1] = v48;
       v9[4].i8[2] = v47;
       v9[1] = vcvt_f32_f64(v50);
       ++v6;
-      a3 += 32;
+      v5 += 32;
       v9 += 5;
       LODWORD(v8) = v8 - 1;
     }
@@ -1705,7 +1706,7 @@ uint64_t __36__PXGGridLayout__updateSpriteStyles__block_invoke(uint64_t a1, uint
   v29 = 0u;
   if (hintCopy)
   {
-    [hintCopy interactionTransform];
+    objc_msgSend_interactionTransform(hintCopy);
     v9 = vcvt_hight_f32_f64(vcvt_f32_f64(v34), v35);
     v10 = vcvt_hight_f32_f64(vcvt_f32_f64(v32), v33);
     v11 = vcvt_hight_f32_f64(vcvt_f32_f64(v30), v31);
@@ -4636,20 +4637,20 @@ uint64_t __36__PXGGridLayout__updateSpriteStyles__block_invoke_3(uint64_t result
     v8 = a4;
     do
     {
-      v9 = *(v5 + 80) + v7;
+      v9 = *(v5 + 10) + v7;
       v10 = xmmword_21AE2D390;
-      if (*(v5 + 176) == 1)
+      if (v5[176] == 1)
       {
-        [*(v5 + 32) itemsLayout:*(v5 + 40) bestCropRectForItem:*(v5 + 80) + v7 withAspectRatio:*(v5 + 88)];
+        [*(v5 + 4) itemsLayout:*(v5 + 5) bestCropRectForItem:*(v5 + 10) + v7 withAspectRatio:*(v5 + 11)];
         v12.f64[1] = v11;
         v14.f64[1] = v13;
         v10 = vcvt_hight_f32_f64(vcvt_f32_f64(v14), v12);
       }
 
-      if (*(v5 + 177) == 1)
+      if (v5[177] == 1)
       {
         v34 = v10;
-        [*(v5 + 48) itemsLayout:*(v5 + 40) cornerRadiusForItem:v9];
+        [*(v5 + 6) itemsLayout:*(v5 + 5) cornerRadiusForItem:v9];
         v10 = v34;
         v19.i64[0] = __PAIR64__(v16, v15);
         v19.i64[1] = __PAIR64__(v18, v17);
@@ -4660,24 +4661,24 @@ uint64_t __36__PXGGridLayout__updateSpriteStyles__block_invoke_3(uint64_t result
         v19 = *(v5 + 136);
       }
 
-      if (*(v5 + 178) == 1 && *(v5 + 179) == 1 && (vmaxv_u16(vmovn_s32(vmvnq_s8(vceqzq_f32(v19)))) & 1) != 0 && (*(v5 + 180) & 1) == 0)
+      if (v5[178] == 1 && v5[179] == 1 && (vmaxv_u16(vmovn_s32(vmvnq_s8(vceqzq_f32(v19)))) & 1) != 0 && (v5[180] & 1) == 0)
       {
         v33 = v19;
         v35 = v10;
-        v20 = (*(*(v5 + 72) + 16))();
-        if ((*(v5 + 181) & 1) != 0 || v20)
+        v20 = (*(*(v5 + 9) + 16))();
+        if ((v5[181] & 1) != 0 || v20)
         {
           v10 = v35;
           v19 = v33;
-          if ((*(v5 + 183) & 1) == 0 && v20 == *(v5 + 96))
+          if ((v5[183] & 1) == 0 && v20 == *(v5 + 12))
           {
-            v19 = vbslq_s8(vcltzq_s32(vshlq_n_s32(vmovl_u16(vdup_n_s16(*(v5 + 182))), 0x1FuLL)), vtrn2q_s32(v32, v33), vtrn2q_s32(vrev64q_s32(v33), 0));
+            v19 = vbslq_s8(vcltzq_s32(vshlq_n_s32(vmovl_u16(vdup_n_s16(v5[182])), 0x1FuLL)), vtrn2q_s32(v32, v33), vtrn2q_s32(vrev64q_s32(v33), 0));
           }
         }
 
         else
         {
-          v19 = vbslq_s8(vcltzq_s32(vshlq_n_s32(vmovl_u16(vdup_n_s16(*(v5 + 182))), 0x1FuLL)), vtrn2q_s32(vrev64q_s32(v33), 0), vtrn2q_s32(v32, v33));
+          v19 = vbslq_s8(vcltzq_s32(vshlq_n_s32(vmovl_u16(vdup_n_s16(v5[182])), 0x1FuLL)), vtrn2q_s32(vrev64q_s32(v33), 0), vtrn2q_s32(v32, v33));
           v10 = v35;
         }
       }
@@ -4694,15 +4695,15 @@ uint64_t __36__PXGGridLayout__updateSpriteStyles__block_invoke_3(uint64_t result
       *(v8 + 16) = unk_21AE2E270;
       *(v8 + 4) = v10;
       *(v8 + 36) = v19;
-      v21 = *(v5 + 104);
+      v21 = *(v5 + 13);
       *v8 = v21;
-      result = [*(v5 + 56) itemsLayout:*(v5 + 40) rotationAngleForItem:{v9, *&v32}];
+      result = [*(v5 + 7) itemsLayout:*(v5 + 5) rotationAngleForItem:{v9, *&v32}];
       *&v22 = v22;
       *(v8 + 56) = LODWORD(v22);
-      if (*(v5 + 184) == 1 && (*(v5 + 180) & 1) == 0)
+      if (v5[184] == 1 && (v5[180] & 1) == 0)
       {
-        result = [*(v5 + 64) itemsLayout:*(v5 + 40) aspectRatioForItem:v9];
-        v24 = *(v5 + 88);
+        result = [*(v5 + 8) itemsLayout:*(v5 + 5) aspectRatioForItem:v9];
+        v24 = *(v5 + 11);
         if ((v24 <= 0.99 || v24 >= 1.01) && (v23 <= 0.99 || v23 >= 1.01) && (v23 < 1.0 && v24 > 1.0 || v23 > 1.0 && v24 < 1.0))
         {
           *(v8 + 70) = 1;
@@ -4717,23 +4718,23 @@ uint64_t __36__PXGGridLayout__updateSpriteStyles__block_invoke_3(uint64_t result
     while (v6);
   }
 
-  if ((vmaxv_u16(vmovn_s32(vmvnq_s8(vceqzq_f32(*(v5 + 152))))) & 1) != 0 && *(v5 + 112) >= 1)
+  if ((vmaxv_u16(vmovn_s32(vmvnq_s8(vceqzq_f32(*(v5 + 152))))) & 1) != 0 && *(v5 + 14) >= 1)
   {
-    v25 = [*(v5 + 40) numberOfVisualRows] - 1;
-    v26 = [*(v5 + 40) numberOfVisualColumns] - 1;
-    result = [*(v5 + 40) numberOfRows];
+    v25 = [*(v5 + 5) numberOfVisualRows] - 1;
+    v26 = [*(v5 + 5) numberOfVisualColumns] - 1;
+    result = [*(v5 + 5) numberOfRows];
     v27 = 0;
     v40[0] = 0;
     v40[1] = result * v26;
     v40[2] = result - 1;
     v40[3] = result * v26 + result - 1;
-    v28 = *(v5 + 168);
+    v28 = *(v5 + 42);
     v36 = 0;
     v37 = (v28 - 1);
     v38 = v25 * v28;
     v39 = v25 * v28 + v37;
     v29 = &v36;
-    if (*(v5 + 120) == 2)
+    if (*(v5 + 15) == 2)
     {
       v29 = v40;
     }
@@ -4741,10 +4742,10 @@ uint64_t __36__PXGGridLayout__updateSpriteStyles__block_invoke_3(uint64_t result
     do
     {
       v30 = v29[v27];
-      v31 = *(v5 + 128);
-      if (v30 - v31 >= 0 && v30 - v31 < *(v5 + 172))
+      v31 = *(v5 + 16);
+      if (v30 - v31 >= 0 && v30 - v31 < *(v5 + 43))
       {
-        *(a4 + 36 + 160 * v30 - 160 * v31 + 4 * v27) = *(v5 + 152 + 4 * v27);
+        *(a4 + 36 + 160 * v30 - 160 * v31 + 4 * v27) = *&v5[4 * v27 + 152];
       }
 
       ++v27;
@@ -4794,6 +4795,7 @@ float __36__PXGGridLayout__updateSpriteStyles__block_invoke_4(uint64_t a1, unint
 
 double __31__PXGGridLayout__updateSprites__block_invoke_6(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, float32x2_t *a5)
 {
+  v6 = a3;
   v7 = a2;
   v9 = HIDWORD(a2);
   v10 = [*(a1 + 32) accessoryPresentationType];
@@ -4816,15 +4818,15 @@ double __31__PXGGridLayout__updateSprites__block_invoke_6(uint64_t a1, unint64_t
       result = v16 + *(a1 + 112) + v14 * *(a1 + 128) + *(a1 + 144);
       v19 = *(a1 + 120) + v15 * *(a1 + 136) + *(a1 + 152);
       v20 = *(a1 + 168);
-      *a3 = result;
-      *(a3 + 8) = v19;
-      *(a3 + 16) = v20;
-      *(a3 + 24) = v17;
+      *v6 = result;
+      *(v6 + 8) = v19;
+      *(v6 + 16) = v20;
+      *(v6 + 24) = v17;
       a5->i8[0] = v10;
       a5->i8[1] = v13;
       a5[1] = v18;
       ++v7;
-      a3 += 32;
+      v6 += 32;
       a5 += 5;
       LODWORD(v9) = v9 - 1;
     }

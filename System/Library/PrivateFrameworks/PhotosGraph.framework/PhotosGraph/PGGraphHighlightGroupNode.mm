@@ -52,18 +52,16 @@ uint64_t __68__PGGraphHighlightGroupNode_enumerateMomentEdgesAndNodesUsingBlock_
 
 - (NSArray)sortedHighlightNodes
 {
-  v10[3] = *MEMORY[0x277D85DE8];
+  v9[3] = *MEMORY[0x277D85DE8];
   highlightNodes = [(PGGraphHighlightGroupNode *)self highlightNodes];
   v3 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"universalStartDate" ascending:1];
   v4 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"universalEndDate" ascending:{1, v3}];
-  v10[1] = v4;
+  v9[1] = v4;
   v5 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"UUID" ascending:1];
-  v10[2] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:3];
+  v9[2] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:3];
 
   v7 = [highlightNodes sortedArrayUsingDescriptors:v6];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -147,16 +145,14 @@ uint64_t __68__PGGraphHighlightGroupNode_enumerateMomentEdgesAndNodesUsingBlock_
 
 + (id)momentInHighlight
 {
-  v9[2] = *MEMORY[0x277D85DE8];
+  v8[2] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277D22C90];
   v3 = +[PGGraphHighlightGroupNode highlightOfHighlightGroup];
-  v9[0] = v3;
+  v8[0] = v3;
   v4 = +[PGGraphHighlightNode momentInDayHighlight];
-  v9[1] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:2];
+  v8[1] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:2];
   v6 = [v2 chain:v5];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -179,16 +175,15 @@ uint64_t __68__PGGraphHighlightGroupNode_enumerateMomentEdgesAndNodesUsingBlock_
 
 + (id)filterWithUUIDs:(id)ds
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277D22C78];
   dsCopy = ds;
   v5 = [v3 alloc];
-  v10 = @"id";
-  v11[0] = dsCopy;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v9 = @"id";
+  v10[0] = dsCopy;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
 
   v7 = [v5 initWithLabel:@"HighlightGroup" domain:102 properties:v6];
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

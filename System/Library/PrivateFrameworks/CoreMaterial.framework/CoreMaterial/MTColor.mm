@@ -32,14 +32,14 @@
 
 + (id)colorWithWhite:(double)white alpha:(double)alpha
 {
-  v4 = [[MTWhiteColor alloc] initWithWhite:white alpha:alpha];
+  v4 = [MTWhiteColor initWithWhite:"initWithWhite:alpha:" alpha:?];
 
   return v4;
 }
 
 + (id)colorWithRed:(double)red green:(double)green blue:(double)blue alpha:(double)alpha
 {
-  v6 = [[MTRGBColor alloc] initWithRed:red green:green blue:blue alpha:alpha];
+  v6 = [MTRGBColor initWithRed:"initWithRed:green:blue:alpha:" green:? blue:? alpha:?];
 
   return v6;
 }
@@ -54,7 +54,7 @@
       +[MTColor colorWithCGColor:];
     }
 
-    if (ColorSpace != RGBColorSpace___RGBColorSpace || (v6 = [[MTRGBColor alloc] _initWithCGColor:color]) == 0)
+    if (ColorSpace != RGBColorSpace___RGBColorSpace || (v5 = [[MTRGBColor alloc] _initWithCGColor:?]) == 0)
     {
       if (GrayColorSpace_onceToken != -1)
       {
@@ -63,49 +63,49 @@
 
       if (ColorSpace == GrayColorSpace___GrayColorSpace)
       {
-        v6 = [[MTWhiteColor alloc] _initWithCGColor:color];
+        v5 = [[MTWhiteColor alloc] _initWithCGColor:?];
       }
 
       else
       {
-        v6 = 0;
+        v5 = 0;
       }
     }
   }
 
   else
   {
-    v6 = 0;
+    v5 = 0;
   }
 
-  return v6;
+  return v5;
 }
 
 + (id)colorWithDescription:(id)description
 {
   descriptionCopy = description;
-  v4 = [descriptionCopy objectForKey:@"alpha"];
+  v4 = [descriptionCopy objectForKey:?];
 
   if (v4)
   {
-    v5 = [descriptionCopy objectForKey:@"white"];
+    v5 = [descriptionCopy objectForKey:?];
 
     if (v5)
     {
       v6 = MTWhiteColor;
 LABEL_4:
-      v4 = [[v6 alloc] _initWithDescription:descriptionCopy];
+      v4 = [[v6 alloc] _initWithDescription:?];
       goto LABEL_5;
     }
 
-    v4 = [descriptionCopy objectForKey:@"red"];
+    v4 = [descriptionCopy objectForKey:?];
     if (v4)
     {
-      v8 = [descriptionCopy objectForKey:@"green"];
+      v8 = [descriptionCopy objectForKey:?];
       if (v8)
       {
         v9 = v8;
-        v10 = [descriptionCopy objectForKey:@"blue"];
+        v10 = [descriptionCopy objectForKey:?];
 
         if (v10)
         {
@@ -130,7 +130,7 @@ LABEL_5:
 - (id)_initWithCGColor:(CGColor *)color
 {
   currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-  [currentHandler handleFailureInMethod:a2 object:self file:@"MTColor.m" lineNumber:256 description:@"Abstract"];
+  [currentHandler handleFailureInMethod:? object:? file:? lineNumber:? description:?];
 
   return 0;
 }
@@ -138,7 +138,7 @@ LABEL_5:
 - (id)_initWithDescription:(id)description
 {
   currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-  [currentHandler handleFailureInMethod:a2 object:self file:@"MTColor.m" lineNumber:261 description:@"Abstract"];
+  [currentHandler handleFailureInMethod:? object:? file:? lineNumber:? description:?];
 
   return 0;
 }
@@ -146,7 +146,7 @@ LABEL_5:
 - (CGColor)CGColor
 {
   currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-  [currentHandler handleFailureInMethod:a2 object:self file:@"MTColor.m" lineNumber:272 description:@"Abstract"];
+  [currentHandler handleFailureInMethod:? object:? file:? lineNumber:? description:?];
 
   return 0;
 }
@@ -154,7 +154,7 @@ LABEL_5:
 - (id)colorDescription
 {
   currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-  [currentHandler handleFailureInMethod:a2 object:self file:@"MTColor.m" lineNumber:277 description:@"Abstract"];
+  [currentHandler handleFailureInMethod:? object:? file:? lineNumber:? description:?];
 
   return 0;
 }
@@ -162,7 +162,7 @@ LABEL_5:
 - (MTColor)colorWithAlphaComponent:(double)component
 {
   currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-  [currentHandler handleFailureInMethod:a2 object:self file:@"MTColor.m" lineNumber:282 description:@"Abstract"];
+  [currentHandler handleFailureInMethod:? object:? file:? lineNumber:? description:?];
 
   return 0;
 }
@@ -170,7 +170,7 @@ LABEL_5:
 - (MTColor)colorWithAdditionalAlphaComponent:(double)component
 {
   currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-  [currentHandler handleFailureInMethod:a2 object:self file:@"MTColor.m" lineNumber:287 description:@"Abstract"];
+  [currentHandler handleFailureInMethod:? object:? file:? lineNumber:? description:?];
 
   return 0;
 }
@@ -178,7 +178,7 @@ LABEL_5:
 - (id)colorBlendedWithColor:(id)color
 {
   currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-  [currentHandler handleFailureInMethod:a2 object:self file:@"MTColor.m" lineNumber:292 description:@"Abstract"];
+  [currentHandler handleFailureInMethod:? object:? file:? lineNumber:? description:?];
 
   return 0;
 }
@@ -186,23 +186,23 @@ LABEL_5:
 - (CAColorMatrix)sourceOverColorMatrix
 {
   currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-  [currentHandler handleFailureInMethod:a3 object:self file:@"MTColor.m" lineNumber:297 description:@"Abstract"];
+  [currentHandler handleFailureInMethod:? object:? file:? lineNumber:? description:?];
 
-  v8 = MEMORY[0x1E6979280];
-  v9 = *(MEMORY[0x1E6979280] + 48);
+  v6 = MEMORY[0x1E6979280];
+  v7 = *(MEMORY[0x1E6979280] + 48);
   *&retstr->m24 = *(MEMORY[0x1E6979280] + 32);
-  *&retstr->m33 = v9;
-  *&retstr->m42 = v8[4];
-  v10 = v8[1];
-  *&retstr->m11 = *v8;
-  *&retstr->m15 = v10;
+  *&retstr->m33 = v7;
+  *&retstr->m42 = v6[4];
+  v8 = v6[1];
+  *&retstr->m11 = *v6;
+  *&retstr->m15 = v8;
   return result;
 }
 
 - (id)_rgbColor
 {
   currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-  [currentHandler handleFailureInMethod:a2 object:self file:@"MTColor.m" lineNumber:302 description:@"Abstract"];
+  [currentHandler handleFailureInMethod:? object:? file:? lineNumber:? description:?];
 
   return 0;
 }

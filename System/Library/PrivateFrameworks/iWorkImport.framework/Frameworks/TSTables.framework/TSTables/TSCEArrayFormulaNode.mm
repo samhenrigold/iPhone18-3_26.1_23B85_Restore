@@ -36,43 +36,43 @@
 
 - (void)appendToNodeArray:(TSCEASTNodeArray *)array hostCellRef:(const TSCECellRef *)ref symbolTable:(void *)table calcEngine:(id)engine
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   engineCopy = engine;
-  objc_msgSend_children(self, v11, v12, v13, v14);
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
-  v15 = v34 = 0u;
-  v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v15, v16, &v33, v37, 16);
-  if (v18)
+  objc_msgSend_children(self, v11, v12, v13);
+  v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v14 = v30 = 0u;
+  v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v15, &v29, v33, 16);
+  if (v17)
   {
-    v19 = *v34;
+    v18 = *v30;
     do
     {
-      v20 = 0;
+      v19 = 0;
       do
       {
-        if (*v34 != v19)
+        if (*v30 != v18)
         {
-          objc_enumerationMutation(v15);
+          objc_enumerationMutation(v14);
         }
 
-        objc_msgSend_appendToNodeArray_hostCellRef_symbolTable_calcEngine_(*(*(&v33 + 1) + 8 * v20++), v17, array, ref, table, engineCopy, v33);
+        objc_msgSend_appendToNodeArray_hostCellRef_symbolTable_calcEngine_(*(*(&v29 + 1) + 8 * v19++), v16, array, ref, table, engineCopy, v29);
       }
 
-      while (v18 != v20);
-      v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v15, v17, &v33, v37, 16);
+      while (v17 != v19);
+      v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v16, &v29, v33, 16);
     }
 
-    while (v18);
+    while (v17);
   }
 
-  TSCEASTArrayElement::appendArrayNode(array, *(&self->super._nodeType + 1), *(&self->super._nodeType + 2), v21, v22);
-  v27 = objc_msgSend_whitespaceBefore(self, v23, v24, v25, v26);
-  TSCEASTWhitespaceElement::appendWhitespaceElement(array, 31, v27);
+  TSCEASTArrayElement::appendArrayNode(array, *(&self->super._nodeType + 1), *(&self->super._nodeType + 2), v20);
+  v24 = objc_msgSend_whitespaceBefore(self, v21, v22, v23);
+  TSCEASTWhitespaceElement::appendWhitespaceElement(array, 31, v24);
 
-  v32 = objc_msgSend_whitespaceAfter(self, v28, v29, v30, v31);
-  TSCEASTWhitespaceElement::appendWhitespaceElement(array, 32, v32);
+  v28 = objc_msgSend_whitespaceAfter(self, v25, v26, v27);
+  TSCEASTWhitespaceElement::appendWhitespaceElement(array, 32, v28);
 }
 
 @end

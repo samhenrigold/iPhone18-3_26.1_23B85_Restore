@@ -4,6 +4,7 @@
 - (id)cd_generateValueForModelObjectFromManagedObject:(id)object modelObjectField:(id)field modelFieldInfo:(id)info;
 - (id)cd_generateValueForProperty:(id)property managedObjectField:(id)field context:(id)context;
 - (id)dependentUUIDs;
+- (void)setNaturalLightingEnabled:(BOOL)enabled;
 @end
 
 @implementation HMDLightProfileNaturalLightingActionModel
@@ -27,35 +28,33 @@
 
 void __55__HMDLightProfileNaturalLightingActionModel_properties__block_invoke(uint64_t a1)
 {
-  v16[4] = *MEMORY[0x277D85DE8];
-  v13.receiver = *(a1 + 32);
-  v13.super_class = &OBJC_METACLASS___HMDLightProfileNaturalLightingActionModel;
-  v1 = objc_msgSendSuper2(&v13, sel_properties);
+  v15[4] = *MEMORY[0x277D85DE8];
+  v12.receiver = *(a1 + 32);
+  v12.super_class = &OBJC_METACLASS___HMDLightProfileNaturalLightingActionModel;
+  v1 = objc_msgSendSuper2(&v12, sel_properties);
   v2 = [v1 mutableCopy];
 
-  v15[0] = @"naturalLightingEnabledField";
+  v14[0] = @"naturalLightingEnabledField";
   v3 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v16[0] = v3;
-  v15[1] = @"lightProfileUUID";
+  v15[0] = v3;
+  v14[1] = @"lightProfileUUID";
   v4 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v16[1] = v4;
-  v15[2] = @"accessoryUUID";
+  v15[1] = v4;
+  v14[2] = @"accessoryUUID";
   v5 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v16[2] = v5;
-  v15[3] = @"serviceUUIDs";
+  v15[2] = v5;
+  v14[3] = @"serviceUUIDs";
   v6 = objc_opt_class();
-  v14 = objc_opt_class();
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
+  v13 = objc_opt_class();
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v13 count:1];
   v8 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:v6 additionalDecodeClasses:v7];
-  v16[3] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:4];
+  v15[3] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:4];
   [v2 addEntriesFromDictionary:v9];
 
-  v10 = [v2 copy];
+  v10 = objc_msgSend_copy(v2);
   v11 = properties_properties;
   properties_properties = v10;
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)dependentUUIDs
@@ -90,7 +89,7 @@ void __55__HMDLightProfileNaturalLightingActionModel_properties__block_invoke(ui
     [v4 addObjectsFromArray:allObjects];
   }
 
-  v12 = [v4 copy];
+  v12 = objc_msgSend_copy(v4);
 
   return v12;
 }
@@ -101,6 +100,12 @@ void __55__HMDLightProfileNaturalLightingActionModel_properties__block_invoke(ui
   bOOLValue = [naturalLightingEnabledField BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setNaturalLightingEnabled:(BOOL)enabled
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:enabled];
+  [(HMDLightProfileNaturalLightingActionModel *)self setNaturalLightingEnabledField:v4];
 }
 
 - (id)cd_generateValueForProperty:(id)property managedObjectField:(id)field context:(id)context

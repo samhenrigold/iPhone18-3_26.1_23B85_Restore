@@ -20,7 +20,7 @@
 
 - (FHTrialModel)initWithModelName:(id)name fhExperiment:(id)experiment modelFactorName:(id)factorName defaultModel:(id)model
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   experimentCopy = experiment;
   factorNameCopy = factorName;
   modelCopy = model;
@@ -54,9 +54,9 @@
     if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315394;
-      v33 = "[FHTrialModel initWithModelName:fhExperiment:modelFactorName:defaultModel:]";
-      v34 = 2112;
-      v35 = modelCopy;
+      v32 = "[FHTrialModel initWithModelName:fhExperiment:modelFactorName:defaultModel:]";
+      v33 = 2112;
+      v34 = modelCopy;
       _os_log_impl(&dword_226DD4000, v23, OS_LOG_TYPE_DEBUG, "%s Loading default model %@", buf, 0x16u);
     }
 
@@ -65,9 +65,9 @@
     self->_trialId = &stru_283A7B918;
   }
 
-  v31.receiver = self;
-  v31.super_class = FHTrialModel;
-  v25 = [(FHModel *)&v31 initWithModelURL:uRLByStandardizingPath modelName:nameCopy];
+  v30.receiver = self;
+  v30.super_class = FHTrialModel;
+  v25 = [(FHModel *)&v30 initWithModelURL:uRLByStandardizingPath modelName:nameCopy];
 
   if (v25)
   {
@@ -79,9 +79,9 @@
       if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315394;
-        v33 = "[FHTrialModel initWithModelName:fhExperiment:modelFactorName:defaultModel:]";
-        v34 = 2112;
-        v35 = modelCopy;
+        v32 = "[FHTrialModel initWithModelName:fhExperiment:modelFactorName:defaultModel:]";
+        v33 = 2112;
+        v34 = modelCopy;
         _os_log_impl(&dword_226DD4000, v27, OS_LOG_TYPE_DEBUG, "%s Loading default model %@", buf, 0x16u);
       }
 
@@ -92,22 +92,21 @@
     }
   }
 
-  v29 = *MEMORY[0x277D85DE8];
   return v25;
 }
 
 - (void)updateFactors
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = FinHealthLogObject(@"FinHealthCore");
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     modelFactorName = self->_modelFactorName;
-    v12 = 136315394;
-    v13 = "[FHTrialModel updateFactors]";
-    v14 = 2112;
-    v15 = modelFactorName;
-    _os_log_impl(&dword_226DD4000, v3, OS_LOG_TYPE_DEBUG, "%s Updating trial model with factor name: %@", &v12, 0x16u);
+    v11 = 136315394;
+    v12 = "[FHTrialModel updateFactors]";
+    v13 = 2112;
+    v14 = modelFactorName;
+    _os_log_impl(&dword_226DD4000, v3, OS_LOG_TYPE_DEBUG, "%s Updating trial model with factor name: %@", &v11, 0x16u);
   }
 
   v5 = [(FHExperiment *)self->_fhExperiment getFilePathForFactor:self->_modelFactorName];
@@ -126,8 +125,6 @@
       [(FHModel *)self _deleteModelFile:compiledModelURL];
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

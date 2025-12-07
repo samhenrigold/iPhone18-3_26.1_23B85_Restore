@@ -37,64 +37,62 @@
 
 - (NSMutableArray)flattenedSavedAccountsFromTree
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   allValues = [(NSMutableDictionary *)self->_accountStoreTreeMatchingSearchCriteria allValues];
-  v5 = [allValues countByEnumeratingWithState:&v21 objects:v26 count:16];
+  v5 = [allValues countByEnumeratingWithState:&v20 objects:v25 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v22;
+    v7 = *v21;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v22 != v7)
+        if (*v21 != v7)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v9 = *(*(&v21 + 1) + 8 * i);
+        v9 = *(*(&v20 + 1) + 8 * i);
+        v16 = 0u;
         v17 = 0u;
         v18 = 0u;
         v19 = 0u;
-        v20 = 0u;
         allValues2 = [v9 allValues];
-        v11 = [allValues2 countByEnumeratingWithState:&v17 objects:v25 count:16];
+        v11 = [allValues2 countByEnumeratingWithState:&v16 objects:v24 count:16];
         if (v11)
         {
           v12 = v11;
-          v13 = *v18;
+          v13 = *v17;
           do
           {
             for (j = 0; j != v12; ++j)
             {
-              if (*v18 != v13)
+              if (*v17 != v13)
               {
                 objc_enumerationMutation(allValues2);
               }
 
-              [array addObjectsFromArray:*(*(&v17 + 1) + 8 * j)];
+              [array addObjectsFromArray:*(*(&v16 + 1) + 8 * j)];
             }
 
-            v12 = [allValues2 countByEnumeratingWithState:&v17 objects:v25 count:16];
+            v12 = [allValues2 countByEnumeratingWithState:&v16 objects:v24 count:16];
           }
 
           while (v12);
         }
       }
 
-      v6 = [allValues countByEnumeratingWithState:&v21 objects:v26 count:16];
+      v6 = [allValues countByEnumeratingWithState:&v20 objects:v25 count:16];
     }
 
     while (v6);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return array;
 }
@@ -133,88 +131,86 @@
 
 uint64_t __92__WBSSavedAccountTreeMatch_pruneUsernameTreesNotMatchingUserNameQuery_orPasskeyIdentifiers___block_invoke_2(uint64_t a1, void *a2)
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = *(a1 + 32);
-  v5 = [objc_opt_class() userName:v3 matchesQuery:*(a1 + 40)] ^ 1;
+  v4 = [objc_opt_class() userName:v3 matchesQuery:*(a1 + 40)] ^ 1;
   if ([*(a1 + 48) count])
   {
-    v20 = v3;
+    v18 = v3;
     [*(*(a1 + 32) + 8) objectForKeyedSubscript:v3];
+    v26 = 0u;
+    v27 = 0u;
     v28 = 0u;
-    v29 = 0u;
-    v30 = 0u;
-    v21 = v31 = 0u;
-    obj = [v21 allKeys];
-    v6 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
-    if (v6)
+    v19 = v29 = 0u;
+    obj = [v19 allKeys];
+    v5 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
+    if (v5)
     {
-      v7 = v6;
-      v8 = *v29;
+      v6 = v5;
+      v7 = *v27;
       do
       {
-        v9 = 0;
-        v22 = v7;
+        v8 = 0;
+        v20 = v6;
         do
         {
-          if (*v29 != v8)
+          if (*v27 != v7)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = *(*(&v28 + 1) + 8 * v9);
-          if (([v10 integerValue] & 2) != 0)
+          v9 = *(*(&v26 + 1) + 8 * v8);
+          if (([v9 integerValue] & 2) != 0)
           {
-            v11 = [v21 objectForKeyedSubscript:v10];
+            v10 = [v19 objectForKeyedSubscript:v9];
+            v22 = 0u;
+            v23 = 0u;
             v24 = 0u;
             v25 = 0u;
-            v26 = 0u;
-            v27 = 0u;
-            v12 = [v11 countByEnumeratingWithState:&v24 objects:v32 count:16];
-            if (v12)
+            v11 = [v10 countByEnumeratingWithState:&v22 objects:v30 count:16];
+            if (v11)
             {
-              v13 = v12;
-              v14 = *v25;
+              v12 = v11;
+              v13 = *v23;
               do
               {
-                for (i = 0; i != v13; ++i)
+                for (i = 0; i != v12; ++i)
                 {
-                  if (*v25 != v14)
+                  if (*v23 != v13)
                   {
-                    objc_enumerationMutation(v11);
+                    objc_enumerationMutation(v10);
                   }
 
-                  v16 = *(a1 + 48);
-                  v17 = [*(*(&v24 + 1) + 8 * i) passkeyCredentialID];
-                  LOBYTE(v16) = [v16 containsObject:v17];
+                  v15 = *(a1 + 48);
+                  v16 = [*(*(&v22 + 1) + 8 * i) passkeyCredentialID];
+                  LOBYTE(v15) = [v15 containsObject:v16];
 
-                  LOBYTE(v5) = (v16 ^ 1) & v5;
+                  LOBYTE(v4) = (v15 ^ 1) & v4;
                 }
 
-                v13 = [v11 countByEnumeratingWithState:&v24 objects:v32 count:16];
+                v12 = [v10 countByEnumeratingWithState:&v22 objects:v30 count:16];
               }
 
-              while (v13);
+              while (v12);
             }
 
-            v7 = v22;
+            v6 = v20;
           }
 
-          ++v9;
+          ++v8;
         }
 
-        while (v9 != v7);
-        v7 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
+        while (v8 != v6);
+        v6 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
       }
 
-      while (v7);
+      while (v6);
     }
 
-    v3 = v20;
+    v3 = v18;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
-  return v5 & 1;
+  return v4 & 1;
 }
 
 + (BOOL)userName:(id)name matchesQuery:(id)query
@@ -323,28 +319,28 @@ uint64_t __68__WBSSavedAccountTreeMatch_pruneUsernameTreesNotMatchingTitleQuery_
 
 void __68__WBSSavedAccountTreeMatch_pruneUsernameTreesNotMatchingTitleQuery___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v4 = a3;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v19;
+    v7 = *v18;
     do
     {
       v8 = 0;
       do
       {
-        if (*v19 != v7)
+        if (*v18 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v18 + 1) + 8 * v8);
+        v9 = *(*(&v17 + 1) + 8 * v8);
         v10 = [*(a1 + 32) matchingType];
         if (v10 == 1)
         {
@@ -378,13 +374,11 @@ void __68__WBSSavedAccountTreeMatch_pruneUsernameTreesNotMatchingTitleQuery___bl
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v6);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)userNameString:(id)string matchesPotentiallyObfuscatedUserNameString:(id)nameString
@@ -426,84 +420,82 @@ void __68__WBSSavedAccountTreeMatch_pruneUsernameTreesNotMatchingTitleQuery___bl
 
 - (void)pruneTreesWithoutPasswordOrMatchingPasskeyIdentifiers:(id)identifiers
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v4 = [identifiers safari_setByApplyingBlock:&__block_literal_global_19_3];
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   obj = [(NSMutableDictionary *)self->_accountStoreTreeMatchingSearchCriteria allValues];
-  v19 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
-  if (v19)
+  v18 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
+  if (v18)
   {
-    v18 = *v31;
+    v17 = *v30;
     do
     {
       v5 = 0;
       do
       {
-        if (*v31 != v18)
+        if (*v30 != v17)
         {
           objc_enumerationMutation(obj);
         }
 
-        v20 = v5;
-        v6 = *(*(&v30 + 1) + 8 * v5);
+        v19 = v5;
+        v6 = *(*(&v29 + 1) + 8 * v5);
+        v25 = 0u;
         v26 = 0u;
         v27 = 0u;
         v28 = 0u;
-        v29 = 0u;
         allKeys = [v6 allKeys];
-        v8 = [allKeys countByEnumeratingWithState:&v26 objects:v34 count:16];
+        v8 = [allKeys countByEnumeratingWithState:&v25 objects:v33 count:16];
         if (v8)
         {
           v9 = v8;
-          v10 = *v27;
+          v10 = *v26;
           do
           {
             for (i = 0; i != v9; ++i)
             {
-              if (*v27 != v10)
+              if (*v26 != v10)
               {
                 objc_enumerationMutation(allKeys);
               }
 
-              v12 = *(*(&v26 + 1) + 8 * i);
+              v12 = *(*(&v25 + 1) + 8 * i);
               v13 = [v6 objectForKeyedSubscript:v12];
               integerValue = [v12 integerValue];
-              v21[0] = MEMORY[0x1E69E9820];
-              v21[1] = 3221225472;
-              v21[2] = __82__WBSSavedAccountTreeMatch_pruneTreesWithoutPasswordOrMatchingPasskeyIdentifiers___block_invoke_2;
-              v21[3] = &unk_1E7CF4FF0;
-              v24 = integerValue;
+              v20[0] = MEMORY[0x1E69E9820];
+              v20[1] = 3221225472;
+              v20[2] = __82__WBSSavedAccountTreeMatch_pruneTreesWithoutPasswordOrMatchingPasskeyIdentifiers___block_invoke_2;
+              v20[3] = &unk_1E7CF4FF0;
+              v23 = integerValue;
               v15 = v4;
-              v25 = 256;
-              v22 = v15;
-              v23 = &stru_1F3064D08;
-              [v13 safari_removeObjectsPassingTest:v21];
+              v24 = 256;
+              v21 = v15;
+              v22 = &stru_1F3064D08;
+              [v13 safari_removeObjectsPassingTest:v20];
               if (![v13 count])
               {
                 [v6 removeObjectForKey:v12];
               }
             }
 
-            v9 = [allKeys countByEnumeratingWithState:&v26 objects:v34 count:16];
+            v9 = [allKeys countByEnumeratingWithState:&v25 objects:v33 count:16];
           }
 
           while (v9);
         }
 
-        v5 = v20 + 1;
+        v5 = v19 + 1;
       }
 
-      while (v20 + 1 != v19);
-      v19 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
+      while (v19 + 1 != v18);
+      v18 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
     }
 
-    while (v19);
+    while (v18);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __82__WBSSavedAccountTreeMatch_pruneTreesWithoutPasswordOrMatchingPasskeyIdentifiers___block_invoke_2(void *a1, void *a2)

@@ -16,13 +16,13 @@
 
 + (id)parseFromAccountInfoPlist:(id)plist error:(id *)error
 {
-  v191 = *MEMORY[0x277D85DE8];
+  v190 = *MEMORY[0x277D85DE8];
   plistCopy = plist;
   v7 = objc_msgSend_objectForKeyedSubscript_(plistCopy, v6, @"label");
   isEqualToString = objc_msgSend_isEqualToString_(@"com.apple.protectedcloudstorage.record", v8, v7);
   if (objc_msgSend_isEqualToString_(@"com.apple.protectedcloudstorage.guitarfish.record", v10, v7) & 1) != 0 || (isEqualToString)
   {
-    v186 = v7;
+    v185 = v7;
     v13 = objc_msgSend_objectForKeyedSubscript_(plistCopy, v11, @"metadata");
     v15 = objc_msgSend_objectForKeyedSubscript_(v13, v14, @"ClientMetadata");
     v16 = objc_alloc_init(CSStingrayRecord);
@@ -144,9 +144,9 @@
     v154 = objc_msgSend_objectForKeyedSubscript_(v15, v152, @"SecureBackupKeyRegistry");
     if (v154)
     {
-      v188 = 0;
-      v155 = objc_msgSend_parseFromKeyRegistryPlist_error_(CSStingrayRecordClientMetadataKeyRegistry, v153, v154, &v188);
-      v156 = v188;
+      v187 = 0;
+      v155 = objc_msgSend_parseFromKeyRegistryPlist_error_(CSStingrayRecordClientMetadataKeyRegistry, v153, v154, &v187);
+      v156 = v187;
       v159 = objc_msgSend_clientMetadata(v16, v157, v158);
       objc_msgSend_setKeyRegistry_(v159, v160, v155);
 
@@ -159,7 +159,7 @@
         if (os_log_type_enabled(v167, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v190 = v156;
+          v189 = v156;
           _os_log_impl(&dword_22E9CA000, v167, OS_LOG_TYPE_DEFAULT, "failed to parse key registry: %@", buf, 0xCu);
         }
       }
@@ -168,9 +168,9 @@
     v169 = objc_msgSend_objectForKeyedSubscript_(v15, v153, @"SecureBackupStableMetadata");
     if (v169)
     {
-      v187 = 0;
-      v170 = objc_msgSend_parseFromStableMetadataPlist_error_(CSStingrayRecordClientMetadataStableMetadata, v168, v169, &v187);
-      v171 = v187;
+      v186 = 0;
+      v170 = objc_msgSend_parseFromStableMetadataPlist_error_(CSStingrayRecordClientMetadataStableMetadata, v168, v169, &v186);
+      v171 = v186;
       v174 = objc_msgSend_clientMetadata(v16, v172, v173);
       objc_msgSend_setStableMetadata_(v174, v175, v170);
 
@@ -183,7 +183,7 @@
         if (os_log_type_enabled(v182, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v190 = v171;
+          v189 = v171;
           _os_log_impl(&dword_22E9CA000, v182, OS_LOG_TYPE_DEFAULT, "failed to parse stable metadata: %@", buf, 0xCu);
         }
       }
@@ -192,7 +192,7 @@
     v12 = v16;
 LABEL_27:
 
-    v7 = v186;
+    v7 = v185;
     goto LABEL_28;
   }
 
@@ -208,8 +208,6 @@ LABEL_27:
   }
 
 LABEL_28:
-
-  v184 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -306,51 +304,49 @@ LABEL_28:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v8 = toCopy;
+  v6 = toCopy;
   if (self->_clientMetadata)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 2) != 0)
   {
-    triggerUpdate = self->_triggerUpdate;
     PBDataWriterWriteBOOLField();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if (has)
   {
-    containsiCloudIdentity = self->_containsiCloudIdentity;
     PBDataWriterWriteBOOLField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_backupKeybagDigest)
   {
     PBDataWriterWriteDataField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_metadataHash)
   {
     PBDataWriterWriteDataField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_timestamp)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_backupKeybagSHA256)
   {
     PBDataWriterWriteDataField();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 
@@ -477,7 +473,6 @@ LABEL_28:
       goto LABEL_25;
     }
 
-    v20 = *(equalCopy + 49);
     if (self->_triggerUpdate)
     {
       if ((*(equalCopy + 49) & 1) == 0)

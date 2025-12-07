@@ -11,33 +11,34 @@
 
 - (void)_readCSSAttributes:(CGSVGAttributeMap *)attributes styleAttributes:(CGSVGAttributeMap *)styleAttributes
 {
-  v15.receiver = self;
-  v15.super_class = CUIVectorGlyphMulticolorLayer;
-  [(CUIVectorGlyphLayer *)&v15 _readCSSAttributes:attributes styleAttributes:?];
+  v17.receiver = self;
+  v17.super_class = CUIVectorGlyphMulticolorLayer;
+  [(CUIVectorGlyphLayer *)&v17 _readCSSAttributes:attributes styleAttributes:?];
   v6 = [objc_opt_class() _fillColorFromStyle:styleAttributes];
   v7 = [objc_opt_class() _strokeColorFromStyle:styleAttributes];
   v8 = [objc_opt_class() _colorNameForRenderingStyle:{-[CUIVectorGlyphLayer name](self, "name")}];
   v9 = v8;
   if (!v6)
   {
-    if ([v8 isEqualToString:@"white"])
+    v10 = [v8 isEqualToString:@"white"];
+    if (v10)
     {
       SRGBWhite = _CUIColorGetSRGBWhite();
     }
 
     else
     {
-      SRGBWhite = _CUIColorGetSRGBBlack();
+      SRGBWhite = _CUIColorGetSRGBBlack(v10, v11);
     }
 
     v6 = SRGBWhite;
   }
 
   _symbolDefaults = [(CUIVectorGlyhLayerDelegate *)[(CUIVectorGlyphLayer *)self delegate] _symbolDefaults];
-  if ([objc_msgSend(_symbolDefaults objectForKeyedSubscript:{CUIVectorGlyphDefaultsKeyFillImageNames), "containsObject:", v9}] && (v12 = -[CUIVectorGlyhLayerDelegate fillImageWithName:](-[CUIVectorGlyphLayer delegate](self, "delegate"), "fillImageWithName:", v9)) != 0)
+  if ([objc_msgSend(_symbolDefaults objectForKeyedSubscript:{CUIVectorGlyphDefaultsKeyFillImageNames), "containsObject:", v9}] && (v14 = -[CUIVectorGlyhLayerDelegate fillImageWithName:](-[CUIVectorGlyphLayer delegate](self, "delegate"), "fillImageWithName:", v9)) != 0)
   {
-    v13 = CGImageRetain(v12);
-    v14 = &OBJC_IVAR___CUIVectorGlyphMulticolorLayer__fillImage;
+    v15 = CGImageRetain(v14);
+    v16 = &OBJC_IVAR___CUIVectorGlyphMulticolorLayer__fillImage;
   }
 
   else
@@ -45,11 +46,11 @@
     self->_fillColor = CGColorCreateCopy(v6);
     self->_fillColorName = [v9 copy];
     self->_strokeColor = CGColorCreateCopy(v7);
-    v13 = [v9 copy];
-    v14 = &OBJC_IVAR___CUIVectorGlyphMulticolorLayer__strokeColorName;
+    v15 = [v9 copy];
+    v16 = &OBJC_IVAR___CUIVectorGlyphMulticolorLayer__strokeColorName;
   }
 
-  *(&self->super.super.isa + *v14) = v13;
+  *(&self->super.super.isa + *v16) = v15;
 }
 
 - (void)dealloc
@@ -183,41 +184,41 @@ uint64_t __118__CUIVectorGlyphMulticolorLayer_drawInContext_scaleFactor_targetSi
   width = size.width;
   v14 = size.width * factor;
   v15 = size.height * factor;
-  SRGB = _CUIColorSpaceGetSRGB();
-  v19 = CUICGBitmapContextCreate(vcvtpd_u64_f64(v14), vcvtpd_u64_f64(v15), 8uLL, 0, SRGB, 8193, v17, v18);
+  SRGB = _CUIColorSpaceGetSRGB(self, a2);
+  v17 = CUICGBitmapContextCreate(vcvtpd_u64_f64(v14), vcvtpd_u64_f64(v15), 8uLL, 0, SRGB, 0x2001u);
+  v25 = 0u;
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
-  v30 = 0u;
   sublayers = [(CUIVectorGlyphLayer *)self sublayers];
-  v21 = [(NSArray *)sublayers countByEnumeratingWithState:&v27 objects:v31 count:16];
-  if (v21)
+  v19 = [(NSArray *)sublayers countByEnumeratingWithState:&v25 objects:v29 count:16];
+  if (v19)
   {
-    v22 = v21;
-    v23 = *v28;
+    v20 = v19;
+    v21 = *v26;
     do
     {
-      v24 = 0;
+      v22 = 0;
       do
       {
-        if (*v28 != v23)
+        if (*v26 != v21)
         {
           objc_enumerationMutation(sublayers);
         }
 
-        [*(*(&v27 + 1) + 8 * v24) drawInContext:v19 scaleFactor:resolver targetSize:factor variableMinValue:width variableMaxValue:height colorResolver:{value, maxValue}];
-        v24 = v24 + 1;
+        [*(*(&v25 + 1) + 8 * v22) drawInContext:v17 scaleFactor:resolver targetSize:factor variableMinValue:width variableMaxValue:height colorResolver:{value, maxValue}];
+        v22 = v22 + 1;
       }
 
-      while (v22 != v24);
-      v22 = [(NSArray *)sublayers countByEnumeratingWithState:&v27 objects:v31 count:16];
+      while (v20 != v22);
+      v20 = [(NSArray *)sublayers countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
-    while (v22);
+    while (v20);
   }
 
-  Image = CGBitmapContextCreateImage(v19);
-  CGContextRelease(v19);
+  Image = CGBitmapContextCreateImage(v17);
+  CGContextRelease(v17);
   return Image;
 }
 

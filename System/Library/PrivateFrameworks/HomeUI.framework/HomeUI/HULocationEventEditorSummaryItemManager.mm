@@ -332,120 +332,120 @@ id __61__HULocationEventEditorSummaryItemManager__userPickerOptions__block_invok
 
 - (id)_buildItemModulesForHome:(id)home
 {
-  v29[2] = *MEMORY[0x277D85DE8];
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __68__HULocationEventEditorSummaryItemManager__buildItemModulesForHome___block_invoke;
-  v27[3] = &unk_277DC0DC0;
-  v27[4] = self;
+  v30[2] = *MEMORY[0x277D85DE8];
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __68__HULocationEventEditorSummaryItemManager__buildItemModulesForHome___block_invoke;
+  v28[3] = &unk_277DC0DC0;
+  v28[4] = self;
   homeCopy = home;
-  v5 = __68__HULocationEventEditorSummaryItemManager__buildItemModulesForHome___block_invoke(v27);
-  v6 = [HUPresenceUserPickerItemModule alloc];
+  v6 = __68__HULocationEventEditorSummaryItemManager__buildItemModulesForHome___block_invoke(v28, v5);
+  v7 = [HUPresenceUserPickerItemModule alloc];
   flow = [(HULocationEventEditorSummaryItemManager *)self flow];
   triggerBuilder = [flow triggerBuilder];
   home = [triggerBuilder home];
-  v10 = home;
+  v11 = home;
   if (home)
   {
-    v11 = home;
+    v12 = home;
   }
 
   else
   {
-    v11 = homeCopy;
+    v12 = homeCopy;
   }
 
   _userPickerOptions = [(HULocationEventEditorSummaryItemManager *)self _userPickerOptions];
-  v13 = [(HUPresenceUserPickerItemModule *)v6 initWithItemUpdater:self home:v11 presenceEvent:v5 options:_userPickerOptions delegate:self];
+  v14 = [(HUPresenceUserPickerItemModule *)v7 initWithItemUpdater:self home:v12 presenceEvent:v6 options:_userPickerOptions delegate:self];
 
   userPickerModule = self->_userPickerModule;
-  self->_userPickerModule = v13;
+  self->_userPickerModule = v14;
 
   if (_os_feature_enabled_impl())
   {
     userPickerModule = [(HULocationEventEditorSummaryItemManager *)self userPickerModule];
-    v28 = userPickerModule;
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v28 count:1];
+    v29 = userPickerModule;
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v29 count:1];
   }
 
   else
   {
-    v17 = [HUTriggerConditionEditorItemModule alloc];
+    v18 = [HUTriggerConditionEditorItemModule alloc];
     home2 = [(HULocationEventEditorSummaryItemManager *)self home];
     flow2 = [(HULocationEventEditorSummaryItemManager *)self flow];
     triggerBuilder2 = [flow2 triggerBuilder];
     conditionCollection = [triggerBuilder2 conditionCollection];
-    v22 = [MEMORY[0x277CBEB98] setWithObject:&unk_282491CE8];
-    v23 = [(HUTriggerConditionEditorItemModule *)v17 initWithItemUpdater:self home:home2 conditionCollection:conditionCollection disallowedConditionTypes:v22];
+    v23 = [MEMORY[0x277CBEB98] setWithObject:&unk_282491CE8];
+    v24 = [(HUTriggerConditionEditorItemModule *)v18 initWithItemUpdater:self home:home2 conditionCollection:conditionCollection disallowedConditionTypes:v23];
     conditionEditorModule = self->_conditionEditorModule;
-    self->_conditionEditorModule = v23;
+    self->_conditionEditorModule = v24;
 
     userPickerModule = [(HULocationEventEditorSummaryItemManager *)self userPickerModule];
-    v29[0] = userPickerModule;
+    v30[0] = userPickerModule;
     conditionEditorModule = [(HULocationEventEditorSummaryItemManager *)self conditionEditorModule];
-    v29[1] = conditionEditorModule;
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:2];
+    v30[1] = conditionEditorModule;
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:2];
   }
 
-  return v16;
+  return v17;
 }
 
-id __68__HULocationEventEditorSummaryItemManager__buildItemModulesForHome___block_invoke(uint64_t a1)
+id __68__HULocationEventEditorSummaryItemManager__buildItemModulesForHome___block_invoke(uint64_t a1, uint64_t a2)
 {
   objc_opt_class();
-  v2 = [*(a1 + 32) flow];
-  v3 = [v2 eventBuilderItem];
-  v4 = [v3 locationEventBuilder];
+  v3 = [*(a1 + 32) flow];
+  v4 = [v3 eventBuilderItem];
+  v5 = [v4 locationEventBuilder];
   if (objc_opt_isKindOfClass())
   {
-    v5 = v4;
+    v6 = v5;
   }
 
   else
   {
-    v5 = 0;
+    v6 = 0;
   }
 
-  v6 = v5;
+  v7 = v6;
 
-  if (!v6)
+  if (!v7)
   {
-    v4 = objc_alloc_init(MEMORY[0x277D14978]);
-    v7 = [*(a1 + 32) flow];
-    v8 = [v7 eventType];
+    v5 = objc_alloc_init(MEMORY[0x277D14978]);
+    v8 = [*(a1 + 32) flow];
+    v9 = [v8 eventType];
 
-    if (v8 == 1)
+    if (v9 == 1)
     {
-      v9 = 1;
+      v10 = 1;
     }
 
     else
     {
-      v10 = [*(a1 + 32) flow];
-      v11 = [v10 eventType];
+      v11 = [*(a1 + 32) flow];
+      v12 = [v11 eventType];
 
-      if (v11 != 2)
+      if (v12 != 2)
       {
 LABEL_10:
-        v12 = [MEMORY[0x277D14A70] currentUserCollection];
-        [v4 setUsers:v12];
+        v13 = [MEMORY[0x277D14A70] currentUserCollection];
+        [v5 setUsers:v13];
 
-        [v4 setActivationGranularity:0];
+        [v5 setActivationGranularity:0];
         goto LABEL_11;
       }
 
-      v9 = 2;
+      v10 = 2;
     }
 
-    [v4 setLocationEventType:v9];
+    [v5 setLocationEventType:v10];
     goto LABEL_10;
   }
 
 LABEL_11:
-  v13 = [v4 buildNewEventsFromCurrentState];
-  v14 = [v13 anyObject];
+  v14 = [v5 buildNewEventsFromCurrentState];
+  v15 = [v14 anyObject];
 
-  return v14;
+  return v15;
 }
 
 - (id)_buildItemProvidersForHome:(id)home

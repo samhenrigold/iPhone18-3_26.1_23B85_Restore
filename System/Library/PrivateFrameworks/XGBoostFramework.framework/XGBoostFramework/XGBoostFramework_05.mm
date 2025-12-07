@@ -1,509 +1,3 @@
-uint64_t std::vector<std::thread>::push_back[abi:ne200100](uint64_t result, std::__libcpp_thread_t *a2)
-{
-  v2 = result;
-  v4 = *(result + 8);
-  v3 = *(result + 16);
-  if (v4 >= v3)
-  {
-    v6 = *result;
-    v7 = v4 - *v2;
-    v8 = v7 + 1;
-    if ((v7 + 1) >> 61)
-    {
-      std::vector<void *>::__throw_length_error[abi:ne200100]();
-    }
-
-    v9 = v3 - v6;
-    if (v9 >> 2 > v8)
-    {
-      v8 = v9 >> 2;
-    }
-
-    if (v9 >= 0x7FFFFFFFFFFFFFF8)
-    {
-      v10 = 0x1FFFFFFFFFFFFFFFLL;
-    }
-
-    else
-    {
-      v10 = v8;
-    }
-
-    v18[4] = v2;
-    if (v10)
-    {
-      if (!(v10 >> 61))
-      {
-        operator new();
-      }
-
-      std::__throw_bad_array_new_length[abi:ne200100]();
-    }
-
-    v11 = v7;
-    v12 = (8 * v7);
-    v13 = &v12[-v11];
-    v12->__t_ = *a2;
-    v5 = v12 + 1;
-    *a2 = 0;
-    if (v6 != v4)
-    {
-      v14 = v6;
-      p_t = &v13->__t_;
-      do
-      {
-        *p_t++ = v14->__t_;
-        v14->__t_ = 0;
-        ++v14;
-      }
-
-      while (v14 != v4);
-      do
-      {
-        std::thread::~thread(v6);
-        v6 = v16 + 1;
-      }
-
-      while (v6 != v4);
-      v6 = *v2;
-    }
-
-    *v2 = v13;
-    v2[1] = v5;
-    v17 = v2[2];
-    v2[2] = 0;
-    v18[2] = v6;
-    v18[3] = v17;
-    v18[0] = v6;
-    v18[1] = v6;
-    result = std::__split_buffer<std::thread>::~__split_buffer(v18);
-  }
-
-  else
-  {
-    v4->__t_ = *a2;
-    *a2 = 0;
-    v5 = v4 + 1;
-  }
-
-  v2[1] = v5;
-  return result;
-}
-
-uint64_t std::__split_buffer<dmlc::data::RowBlockContainer<unsigned int,float>>::~__split_buffer(uint64_t a1)
-{
-  v3 = *(a1 + 8);
-  for (i = *(a1 + 16); i != v3; i = *(a1 + 16))
-  {
-    *(a1 + 16) = i - 176;
-    dmlc::data::RowBlockContainer<unsigned int,float>::~RowBlockContainer(i - 176);
-  }
-
-  if (*a1)
-  {
-    operator delete(*a1);
-  }
-
-  return a1;
-}
-
-uint64_t std::__split_buffer<std::thread>::~__split_buffer(uint64_t a1)
-{
-  v3 = *(a1 + 8);
-  for (i = *(a1 + 16); i != v3; i = *(a1 + 16))
-  {
-    *(a1 + 16) = i - 8;
-    std::thread::~thread((i - 8));
-  }
-
-  if (*a1)
-  {
-    operator delete(*a1);
-  }
-
-  return a1;
-}
-
-uint64_t std::__thread_proxy[abi:ne200100]<std::tuple<std::unique_ptr<std::__thread_struct>,dmlc::data::TextParserBase<unsigned int,float>::FillData(std::vector<dmlc::data::RowBlockContainer<unsigned int,float>> *)::{lambda(void)#1}>>(uint64_t *a1)
-{
-  v18 = a1;
-  v2 = std::__thread_local_data();
-  v3 = *a1;
-  *a1 = 0;
-  pthread_setspecific(v2->__key_, v3);
-  v4 = v18[2];
-  v5 = *(v18[1] + 8);
-  v7 = *(v18 + 8);
-  v6 = *(v18 + 9);
-  v8 = (v5 + v7 - 1) / v7;
-  if (v5 >= v8 * v6)
-  {
-    v9 = v8 * v6;
-  }
-
-  else
-  {
-    v9 = *(v18[1] + 8);
-  }
-
-  v10 = v8 * (v6 + 1);
-  if (v5 >= v10)
-  {
-    v5 = v10;
-  }
-
-  v11 = v18[2];
-  if (v9)
-  {
-    v11 = (v4 + v9);
-    while (1)
-    {
-      v12 = *v11;
-      if (v12 == 10 || v12 == 13)
-      {
-        break;
-      }
-
-      if (--v11 == v4)
-      {
-        v11 = v18[2];
-        break;
-      }
-    }
-  }
-
-  if (v6 + 1 == v7)
-  {
-    v14 = (v4 + v5);
-  }
-
-  else if (v5)
-  {
-    v14 = (v4 + v5);
-    while (1)
-    {
-      v15 = *v14;
-      if (v15 == 10 || v15 == 13)
-      {
-        break;
-      }
-
-      if (--v14 == v4)
-      {
-        goto LABEL_23;
-      }
-    }
-  }
-
-  else
-  {
-LABEL_23:
-    v14 = v18[2];
-  }
-
-  (*(*v18[5] + 56))(v18[5], v11, v14, *v18[3] + 176 * v6);
-  std::unique_ptr<std::tuple<std::unique_ptr<std::__thread_struct>,dmlc::data::TextParserBase<unsigned int,float>::FillData(std::vector<dmlc::data::RowBlockContainer<unsigned int,float>> *)::{lambda(void)#1}>>::~unique_ptr[abi:ne200100](&v18);
-  return 0;
-}
-
-uint64_t **std::unique_ptr<std::tuple<std::unique_ptr<std::__thread_struct>,dmlc::data::TextParserBase<unsigned int,float>::FillData(std::vector<dmlc::data::RowBlockContainer<unsigned int,float>> *)::{lambda(void)#1}>>::~unique_ptr[abi:ne200100](uint64_t **a1)
-{
-  v2 = *a1;
-  *a1 = 0;
-  if (v2)
-  {
-    v3 = std::unique_ptr<std::__thread_struct>::~unique_ptr[abi:ne200100](v2);
-    MEMORY[0x277C69180](v3, 0x1070C400BD5E6E0);
-  }
-
-  return a1;
-}
-
-void std::vector<std::thread>::__destroy_vector::operator()[abi:ne200100](void ***a1)
-{
-  v1 = *a1;
-  v2 = **a1;
-  if (v2)
-  {
-    v4 = v1[1];
-    v5 = v2;
-    if (v4 != v2)
-    {
-      do
-      {
-        std::thread::~thread(v4 - 1);
-      }
-
-      while (v4 != v2);
-      v5 = **a1;
-    }
-
-    v1[1] = v2;
-
-    operator delete(v5);
-  }
-}
-
-float dmlc::ParseFloat<float,false>(unsigned __int8 *a1, unsigned __int8 **a2)
-{
-  while (1)
-  {
-    v2 = *a1;
-    if (v2 > 0x2D)
-    {
-      break;
-    }
-
-    if (((1 << v2) & 0x100003600) == 0)
-    {
-      if (v2 == 43)
-      {
-        ++a1;
-      }
-
-      else if (v2 == 45)
-      {
-        v3 = 0;
-        ++a1;
-        goto LABEL_9;
-      }
-
-      break;
-    }
-
-    ++a1;
-  }
-
-  v3 = 1;
-LABEL_9:
-  v4 = 0;
-  v5 = a1 + 8;
-  while ((a1[v4] | 0x20) == aInfinity[v4])
-  {
-    if (++v4 == 8)
-    {
-      goto LABEL_15;
-    }
-  }
-
-  v5 = &a1[v4];
-  if (v4 == 8 || v4 == 3)
-  {
-LABEL_15:
-    if (a2)
-    {
-      *a2 = v5;
-    }
-
-    result = -INFINITY;
-    if (v3)
-    {
-      return INFINITY;
-    }
-
-    return result;
-  }
-
-  v7 = 0;
-  v8 = a1 + 3;
-  while ((a1[v7] | 0x20) == aNan[v7])
-  {
-    if (++v7 == 3)
-    {
-      if (*v8 == 40)
-      {
-        for (i = (a1 + 4); ; ++i)
-        {
-          v10 = *i;
-          if ((v10 - 48) >= 0xA && v10 != 95 && (v10 & 0xFFFFFFDF) - 65 > 0x19)
-          {
-            break;
-          }
-        }
-
-        v33 = 41;
-        if (v10 != 41)
-        {
-          dmlc::LogCheckFormat<char,char>(i, &v33);
-        }
-
-        v8 = (i + 1);
-      }
-
-      if (a2)
-      {
-        *a2 = v8;
-      }
-
-      return NAN;
-    }
-  }
-
-  v12 = *a1;
-  result = 0.0;
-  if (v12 - 48 <= 9)
-  {
-    v13 = 0;
-    do
-    {
-      v13 = 10 * v13 + v12 - 48;
-      v14 = *++a1;
-      v12 = v14;
-    }
-
-    while (v14 - 48 < 0xA);
-    result = v13;
-  }
-
-  if (v12 == 46)
-  {
-    v15 = *++a1;
-    v12 = v15;
-    v16 = 0.0;
-    if (v15 - 48 <= 9)
-    {
-      v17 = 0;
-      v18 = 0;
-      v19 = 1;
-      do
-      {
-        v20 = 10 * v18 + v12 - 48;
-        if (v17 < 0x13)
-        {
-          v19 *= 10;
-          v18 = v20;
-        }
-
-        ++v17;
-        v21 = *++a1;
-        v12 = v21;
-      }
-
-      while (v21 - 48 < 0xA);
-      v16 = v18 / v19;
-    }
-
-    result = result + v16;
-  }
-
-  if ((v12 | 0x20) != 0x65)
-  {
-    v23 = a1;
-    goto LABEL_77;
-  }
-
-  v22 = a1[1];
-  v23 = a1 + 2;
-  v24 = v22 == 45 || v22 == 43;
-  v25 = 1;
-  if (v24)
-  {
-    v25 = 2;
-  }
-
-  else
-  {
-    v23 = a1 + 1;
-  }
-
-  v12 = a1[v25];
-  v26 = 1.0;
-  if (v12 - 48 <= 9)
-  {
-    v27 = 0;
-    do
-    {
-      v27 = v12 + 10 * v27 - 48;
-      v28 = *++v23;
-      v12 = v28;
-    }
-
-    while (v28 - 48 < 0xA);
-    if (v27 >= 0x26)
-    {
-      v29 = 38;
-    }
-
-    else
-    {
-      v29 = v27;
-    }
-
-    if (v27 < 0x26)
-    {
-      v26 = 1.0;
-      if (v27 < 8)
-      {
-        goto LABEL_72;
-      }
-    }
-
-    else
-    {
-      v30 = 3.4028;
-      v31 = result > 3.4028;
-      if (v22 == 45)
-      {
-        v31 = result < 1.1755;
-        v30 = 1.1755;
-      }
-
-      if (v31)
-      {
-        result = v30;
-      }
-    }
-
-    v26 = 1.0;
-    do
-    {
-      v26 = v26 * 100000000.0;
-      v29 -= 8;
-    }
-
-    while (v29 > 7);
-LABEL_72:
-    while (v29)
-    {
-      v26 = v26 * 10.0;
-      --v29;
-    }
-  }
-
-  if (v22 == 45)
-  {
-    result = result / v26;
-  }
-
-  else
-  {
-    result = result * v26;
-  }
-
-LABEL_77:
-  if ((v12 | 0x20) == 0x66)
-  {
-    v32 = v23 + 1;
-  }
-
-  else
-  {
-    v32 = v23;
-  }
-
-  if (a2)
-  {
-    *a2 = v32;
-  }
-
-  if (!v3)
-  {
-    return -result;
-  }
-
-  return result;
-}
-
 void sub_274D08C80(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9, __int16 a10, char a11, uint64_t a12)
 {
   v13 = a12;
@@ -575,19 +69,19 @@ void sub_274D08E14(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void dmlc::LogCheckFormat<BOOL,BOOL>(unsigned __int8 *a1, unsigned __int8 *a2)
 {
-  std::ostringstream::basic_ostringstream[abi:ne200100](&v8);
-  v4 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v8, " (", 2);
-  v5 = MEMORY[0x277C68DF0](v4, *a1);
-  v6 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, " vs. ", 5);
-  v7 = MEMORY[0x277C68DF0](v6, *a2);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, ") ", 2);
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v9);
+  v5 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v9, " (", 2);
+  v6 = MEMORY[0x277C68DF0](v5, *a1);
+  v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, " vs. ", 5);
+  v8 = MEMORY[0x277C68DF0](v7, *a2);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, ") ", 2);
   operator new();
 }
 
-void sub_274D08FFC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_274D08FFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  MEMORY[0x277C69180](v2, 0x1012C40EC159624);
+  va_start(va, a3);
+  MEMORY[0x277C69180](v3, 0x1012C40EC159624);
   std::ostringstream::~ostringstream(va);
   _Unwind_Resume(a1);
 }
@@ -939,11 +433,10 @@ void sub_274D09B20(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::deque<std::vector<dmlc::data::RowBlockContainer<unsigned int,float>> *,std::allocator<std::vector<dmlc::data::RowBlockContainer<unsigned int,float>> *>>::push_back(void *result, void *a2)
+void std::deque<std::vector<dmlc::data::RowBlockContainer<unsigned int,float>> *,std::allocator<std::vector<dmlc::data::RowBlockContainer<unsigned int,float>> *>>::push_back(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  v5 = result[2];
+  v4 = a1[1];
+  v5 = a1[2];
   if (v5 == v4)
   {
     v6 = 0;
@@ -954,22 +447,22 @@ void *std::deque<std::vector<dmlc::data::RowBlockContainer<unsigned int,float>> 
     v6 = ((v5 - v4) << 6) - 1;
   }
 
-  v8 = result[4];
-  v7 = result[5];
+  v8 = a1[4];
+  v7 = a1[5];
   v9 = v7 + v8;
   if (v6 == v7 + v8)
   {
     if (v8 < 0x200)
     {
-      v10 = result[3];
-      v11 = v10 - *result;
+      v10 = a1[3];
+      v11 = v10 - *a1;
       if (v5 - v4 < v11)
       {
         operator new();
       }
 
       v12 = v11 >> 2;
-      if (v10 == *result)
+      if (v10 == *a1)
       {
         v13 = 1;
       }
@@ -982,18 +475,17 @@ void *std::deque<std::vector<dmlc::data::RowBlockContainer<unsigned int,float>> 
       std::__allocate_at_least[abi:ne200100]<std::allocator<dmlc::data::RowBlockContainer<unsigned int,float> **>>(v13);
     }
 
-    result[4] = v8 - 512;
+    a1[4] = v8 - 512;
     v14 = *v4;
-    result[1] = v4 + 8;
-    result = std::__split_buffer<dmlc::data::RowBlockContainer<unsigned int,float> **,std::allocator<dmlc::data::RowBlockContainer<unsigned int,float> **>>::emplace_back<dmlc::data::RowBlockContainer<unsigned int,float> **&>(result, &v14);
-    v4 = v3[1];
-    v7 = v3[5];
-    v9 = v3[4] + v7;
+    a1[1] = (v4 + 1);
+    std::__split_buffer<dmlc::data::RowBlockContainer<unsigned int,float> **,std::allocator<dmlc::data::RowBlockContainer<unsigned int,float> **>>::emplace_back<dmlc::data::RowBlockContainer<unsigned int,float> **&>(a1, &v14);
+    v4 = a1[1];
+    v7 = a1[5];
+    v9 = a1[4] + v7;
   }
 
-  *(*&v4[(v9 >> 6) & 0x3FFFFFFFFFFFFF8] + 8 * (v9 & 0x1FF)) = *a2;
-  v3[5] = v7 + 1;
-  return result;
+  *(*(v4 + ((v9 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v9 & 0x1FF)) = *a2;
+  a1[5] = v7 + 1;
 }
 
 void sub_274D0A044(_Unwind_Exception *a1)
@@ -1155,7 +647,7 @@ uint64_t std::__function::__value_func<BOOL ()(std::vector<dmlc::data::RowBlockC
   return a1;
 }
 
-void std::__thread_proxy[abi:ne200100]<std::tuple<std::unique_ptr<std::__thread_struct>,dmlc::ThreadedIter<std::vector<dmlc::data::RowBlockContainer<unsigned int,float>>>::Init(std::function<BOOL ()(std::vector<dmlc::data::RowBlockContainer<unsigned int,float>>**)>,std::function<void ()(void)>)::{lambda(void)#1}>>(uint64_t *a1)
+void std::__thread_proxy[abi:ne200100]<std::tuple<std::unique_ptr<std::__thread_struct>,dmlc::ThreadedIter<std::vector<dmlc::data::RowBlockContainer<unsigned int,float>>>::Init(std::function<BOOL ()(std::vector<dmlc::data::RowBlockContainer<unsigned int,float>>**)>,std::function<void ()(void)>)::{lambda(void)#1}>>(const void **a1)
 {
   v19 = a1;
   v2 = std::__thread_local_data();
@@ -1312,7 +804,7 @@ LABEL_24:
   __break(1u);
 }
 
-void sub_274D0A724(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, __int128 a9, uint64_t a10, uint64_t *a11, std::exception_ptr a12, char a13)
+void sub_274D0A724(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, __int128 a9, uint64_t a10, uint64_t a11, std::exception_ptr a12, char a13)
 {
   std::mutex::unlock(v15);
   if (a2 != 1)
@@ -1657,12 +1149,12 @@ uint64_t dmlc::data::TextParserBase<unsigned long long,float>::~TextParserBase(u
   return a1;
 }
 
-void sub_274D0B130(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **a10)
+void sub_274D0B130(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   std::mutex::~mutex((v10 + 144));
   std::exception_ptr::~exception_ptr((v10 + 136));
   *v10 = &unk_2883E0278;
-  a10 = (v10 + 24);
+  a10 = v10 + 24;
   std::vector<dmlc::data::RowBlockContainer<unsigned long long,float>>::__destroy_vector::operator()[abi:ne200100](&a10);
   _Unwind_Resume(a1);
 }
@@ -2080,7 +1572,7 @@ LABEL_76:
           goto LABEL_90;
         }
 
-        v31 = (v28 + 4);
+        v31 = v28 + 4;
         v80 = atoll(v28 + 4);
         if (v28 + 4 != a2)
         {
@@ -2348,9 +1840,9 @@ LABEL_166:
   }
 }
 
-void sub_274D0C09C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_274D0C09C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   dmlc::LogMessageFatal::~LogMessageFatal(va);
   _Unwind_Resume(a1);
 }
@@ -2884,11 +2376,10 @@ void sub_274D0CFEC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::deque<std::vector<dmlc::data::RowBlockContainer<unsigned long long,float>> *,std::allocator<std::vector<dmlc::data::RowBlockContainer<unsigned long long,float>> *>>::push_back(void *result, void *a2)
+void std::deque<std::vector<dmlc::data::RowBlockContainer<unsigned long long,float>> *,std::allocator<std::vector<dmlc::data::RowBlockContainer<unsigned long long,float>> *>>::push_back(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  v5 = result[2];
+  v4 = a1[1];
+  v5 = a1[2];
   if (v5 == v4)
   {
     v6 = 0;
@@ -2899,22 +2390,22 @@ void *std::deque<std::vector<dmlc::data::RowBlockContainer<unsigned long long,fl
     v6 = ((v5 - v4) << 6) - 1;
   }
 
-  v8 = result[4];
-  v7 = result[5];
+  v8 = a1[4];
+  v7 = a1[5];
   v9 = v7 + v8;
   if (v6 == v7 + v8)
   {
     if (v8 < 0x200)
     {
-      v10 = result[3];
-      v11 = v10 - *result;
+      v10 = a1[3];
+      v11 = v10 - *a1;
       if (v5 - v4 < v11)
       {
         operator new();
       }
 
       v12 = v11 >> 2;
-      if (v10 == *result)
+      if (v10 == *a1)
       {
         v13 = 1;
       }
@@ -2927,18 +2418,17 @@ void *std::deque<std::vector<dmlc::data::RowBlockContainer<unsigned long long,fl
       std::__allocate_at_least[abi:ne200100]<std::allocator<dmlc::data::RowBlockContainer<unsigned int,float> **>>(v13);
     }
 
-    result[4] = v8 - 512;
+    a1[4] = v8 - 512;
     v14 = *v4;
-    result[1] = v4 + 8;
-    result = std::__split_buffer<dmlc::data::RowBlockContainer<unsigned int,float> **,std::allocator<dmlc::data::RowBlockContainer<unsigned int,float> **>>::emplace_back<dmlc::data::RowBlockContainer<unsigned int,float> **&>(result, &v14);
-    v4 = v3[1];
-    v7 = v3[5];
-    v9 = v3[4] + v7;
+    a1[1] = (v4 + 1);
+    std::__split_buffer<dmlc::data::RowBlockContainer<unsigned int,float> **,std::allocator<dmlc::data::RowBlockContainer<unsigned int,float> **>>::emplace_back<dmlc::data::RowBlockContainer<unsigned int,float> **&>(a1, &v14);
+    v4 = a1[1];
+    v7 = a1[5];
+    v9 = a1[4] + v7;
   }
 
-  *(*&v4[(v9 >> 6) & 0x3FFFFFFFFFFFFF8] + 8 * (v9 & 0x1FF)) = *a2;
-  v3[5] = v7 + 1;
-  return result;
+  *(*(v4 + ((v9 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v9 & 0x1FF)) = *a2;
+  a1[5] = v7 + 1;
 }
 
 void sub_274D0D510(_Unwind_Exception *a1)
@@ -3100,7 +2590,7 @@ uint64_t std::__function::__value_func<BOOL ()(std::vector<dmlc::data::RowBlockC
   return a1;
 }
 
-void std::__thread_proxy[abi:ne200100]<std::tuple<std::unique_ptr<std::__thread_struct>,dmlc::ThreadedIter<std::vector<dmlc::data::RowBlockContainer<unsigned long long,float>>>::Init(std::function<BOOL ()(std::vector<dmlc::data::RowBlockContainer<unsigned long long,float>>**)>,std::function<void ()(void)>)::{lambda(void)#1}>>(uint64_t *a1)
+void std::__thread_proxy[abi:ne200100]<std::tuple<std::unique_ptr<std::__thread_struct>,dmlc::ThreadedIter<std::vector<dmlc::data::RowBlockContainer<unsigned long long,float>>>::Init(std::function<BOOL ()(std::vector<dmlc::data::RowBlockContainer<unsigned long long,float>>**)>,std::function<void ()(void)>)::{lambda(void)#1}>>(const void **a1)
 {
   v19 = a1;
   v2 = std::__thread_local_data();
@@ -3257,7 +2747,7 @@ LABEL_24:
   __break(1u);
 }
 
-void sub_274D0DBF0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, __int128 a9, uint64_t a10, uint64_t *a11, std::exception_ptr a12, char a13)
+void sub_274D0DBF0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, __int128 a9, uint64_t a10, uint64_t a11, std::exception_ptr a12, char a13)
 {
   std::mutex::unlock(v15);
   if (a2 != 1)
@@ -4119,14 +3609,14 @@ LABEL_120:
   }
 }
 
-void sub_274D0EDA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_274D0EDA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   dmlc::LogMessageFatal::~LogMessageFatal(va);
   _Unwind_Resume(a1);
 }
 
-void dmlc::LogCheckFormat<std::string,char [6]>(uint64_t a1, uint64_t a2)
+void dmlc::LogCheckFormat<std::string,char [6]>(void *a1, uint64_t **a2)
 {
   std::ostringstream::basic_ostringstream[abi:ne200100](&v10);
   v3 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, " (", 2);
@@ -4148,7 +3638,7 @@ void dmlc::LogCheckFormat<std::string,char [6]>(uint64_t a1, uint64_t a2)
 
   else
   {
-    v6 = *(a2 + 8);
+    v6 = a2[1];
   }
 
   v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v3, v5, v6);
@@ -4158,10 +3648,10 @@ void dmlc::LogCheckFormat<std::string,char [6]>(uint64_t a1, uint64_t a2)
   operator new();
 }
 
-void sub_274D0EF9C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_274D0EF9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  MEMORY[0x277C69180](v2, 0x1012C40EC159624);
+  va_start(va, a3);
+  MEMORY[0x277C69180](v3, 0x1012C40EC159624);
   std::ostringstream::~ostringstream(va);
   _Unwind_Resume(a1);
 }
@@ -4860,12 +4350,12 @@ LABEL_44:
       v23 = 0;
       v24 = 0;
       v60 = 2143289344;
-      v61 = 0.0;
+      v61 = 0;
       do
       {
         v62 = 0;
-        v59 = 0.0;
-        v25 = dmlc::ParseFloat<float,false>(v18, &v62);
+        v59 = 0;
+        *&v25 = dmlc::ParseFloat<float,false>(v18, &v62);
         v59 = v25;
         if (v24 == *(a1 + 224))
         {
@@ -4874,7 +4364,7 @@ LABEL_44:
 
         else if (v24 == *(a1 + 256))
         {
-          v60 = LODWORD(v25);
+          v60 = v25;
         }
 
         else
@@ -4899,7 +4389,7 @@ LABEL_44:
           v26 = v62;
         }
 
-        v18 = (v26 - 1);
+        v18 = v26 - 1;
         do
         {
           v28 = v18 + 1;
@@ -4998,7 +4488,7 @@ LABEL_44:
 
       std::vector<float>::push_back[abi:ne200100](v55, &v61);
       std::vector<float>::push_back[abi:ne200100](v54, &v60);
-      v62 = (v53[16] - v53[15]) >> 2;
+      v62 = ((v53[16] - v53[15]) >> 2);
       std::vector<unsigned long>::push_back[abi:ne200100](v53, &v62);
       if (a2 == a3)
       {
@@ -5036,14 +4526,14 @@ LABEL_91:
   }
 }
 
-void sub_274D0FE04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_274D0FE04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   dmlc::LogMessageFatal::~LogMessageFatal(va);
   _Unwind_Resume(a1);
 }
 
-void dmlc::LogCheckFormat<std::string,char [4]>(uint64_t a1, uint64_t a2)
+void dmlc::LogCheckFormat<std::string,char [4]>(void *a1, uint64_t **a2)
 {
   std::ostringstream::basic_ostringstream[abi:ne200100](&v10);
   v3 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, " (", 2);
@@ -5065,7 +4555,7 @@ void dmlc::LogCheckFormat<std::string,char [4]>(uint64_t a1, uint64_t a2)
 
   else
   {
-    v6 = *(a2 + 8);
+    v6 = a2[1];
   }
 
   v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v3, v5, v6);
@@ -5075,10 +4565,10 @@ void dmlc::LogCheckFormat<std::string,char [4]>(uint64_t a1, uint64_t a2)
   operator new();
 }
 
-void sub_274D10008(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_274D10008(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  MEMORY[0x277C69180](v2, 0x1012C40EC159624);
+  va_start(va, a3);
+  MEMORY[0x277C69180](v3, 0x1012C40EC159624);
   std::ostringstream::~ostringstream(va);
   _Unwind_Resume(a1);
 }
@@ -5228,12 +4718,12 @@ LABEL_44:
       v23 = 0;
       v24 = 0;
       v60 = 2143289344;
-      v61 = 0.0;
+      v61 = 0;
       do
       {
         v62 = 0;
-        v59 = 0.0;
-        v25 = dmlc::ParseFloat<float,false>(v18, &v62);
+        v59 = 0;
+        *&v25 = dmlc::ParseFloat<float,false>(v18, &v62);
         v59 = v25;
         if (v24 == *(a1 + 232))
         {
@@ -5242,7 +4732,7 @@ LABEL_44:
 
         else if (v24 == *(a1 + 264))
         {
-          v60 = LODWORD(v25);
+          v60 = v25;
         }
 
         else
@@ -5267,7 +4757,7 @@ LABEL_44:
           v26 = v62;
         }
 
-        v18 = (v26 - 1);
+        v18 = v26 - 1;
         do
         {
           v28 = v18 + 1;
@@ -5366,7 +4856,7 @@ LABEL_44:
 
       std::vector<float>::push_back[abi:ne200100](v55, &v61);
       std::vector<float>::push_back[abi:ne200100](v54, &v60);
-      v62 = (v53[16] - v53[15]) >> 3;
+      v62 = ((v53[16] - v53[15]) >> 3);
       std::vector<unsigned long>::push_back[abi:ne200100](v53, &v62);
       if (a2 == a3)
       {
@@ -5404,9 +4894,9 @@ LABEL_91:
   }
 }
 
-void sub_274D105DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_274D105DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   dmlc::LogMessageFatal::~LogMessageFatal(va);
   _Unwind_Resume(a1);
 }
@@ -5769,7 +5259,7 @@ LABEL_44:
           v29 = v28;
         }
 
-        v20 = (v29 - 1);
+        v20 = v29 - 1;
         do
         {
           v31 = v20 + 1;
@@ -5906,9 +5396,9 @@ LABEL_89:
   }
 }
 
-void sub_274D1139C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_274D1139C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   dmlc::LogMessageFatal::~LogMessageFatal(va);
   _Unwind_Resume(a1);
 }
@@ -5995,7 +5485,7 @@ LABEL_23:
   return 0;
 }
 
-void std::vector<int>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
+void std::vector<int>::push_back[abi:ne200100](const void **a1, int *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -6044,7 +5534,7 @@ void std::vector<int>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 4;
   }
 
   a1[1] = v6;
@@ -6409,7 +5899,7 @@ LABEL_44:
           v29 = v28;
         }
 
-        v20 = (v29 - 1);
+        v20 = v29 - 1;
         do
         {
           v31 = v20 + 1;
@@ -6546,9 +6036,9 @@ LABEL_89:
   }
 }
 
-void sub_274D12414(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_274D12414(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   dmlc::LogMessageFatal::~LogMessageFatal(va);
   _Unwind_Resume(a1);
 }
@@ -6993,7 +6483,7 @@ LABEL_44:
           v29 = v28;
         }
 
-        v20 = (v29 - 1);
+        v20 = v29 - 1;
         do
         {
           v31 = v20 + 1;
@@ -7130,9 +6620,9 @@ LABEL_89:
   }
 }
 
-void sub_274D133AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_274D133AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   dmlc::LogMessageFatal::~LogMessageFatal(va);
   _Unwind_Resume(a1);
 }
@@ -7578,7 +7068,7 @@ LABEL_44:
           v29 = v28;
         }
 
-        v20 = (v29 - 1);
+        v20 = v29 - 1;
         do
         {
           v31 = v20 + 1;
@@ -7715,9 +7205,9 @@ LABEL_89:
   }
 }
 
-void sub_274D14344(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_274D14344(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   dmlc::LogMessageFatal::~LogMessageFatal(va);
   _Unwind_Resume(a1);
 }
@@ -7862,7 +7352,7 @@ void xgboost::tree::ColMaker::~ColMaker(void **this)
   }
 }
 
-void xgboost::tree::ColMaker::LoadConfig(xgboost::tree::ColMaker *this, char ***a2)
+void xgboost::tree::ColMaker::LoadConfig(xgboost::tree::ColMaker *this, const xgboost::Json *a2)
 {
   v3 = xgboost::Cast<xgboost::JsonObject const,xgboost::Value const>(*a2);
   std::string::basic_string[abi:ne200100]<0>(&__p, "train_param");
@@ -7888,9 +7378,9 @@ void xgboost::tree::ColMaker::LoadConfig(xgboost::tree::ColMaker *this, char ***
     do
     {
       v9 = xgboost::Cast<xgboost::JsonString const,xgboost::Value const>(v7[7]);
-      v23 = v7 + 4;
-      v10 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&__p, v7 + 4);
-      v6 = std::string::operator=((v10 + 56), (v9 + 16));
+      v24 = v7 + 4;
+      v10 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&__p, v7 + 4, &std::piecewise_construct, &v24, &v23);
+      v6 = std::string::operator=((v10 + 7), (v9 + 16));
       v11 = v7[1];
       if (v11)
       {
@@ -7964,15 +7454,15 @@ void sub_274D148D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void xgboost::tree::ColMaker::SaveConfig(xgboost::tree::ColMaker *this, xgboost::Json *a2)
 {
-  xgboost::ToJson<xgboost::tree::TrainParam>((this + 16), &v4);
+  xgboost::ToJson<xgboost::tree::TrainParam>((this + 16), &v5);
   std::string::basic_string[abi:ne200100]<0>(&__p, "train_param");
-  (*(**a2 + 24))(*a2, &__p);
-  xgboost::Json::operator=();
+  v3 = (*(**a2 + 24))(*a2, &__p);
+  xgboost::Json::operator=(v3, &v5);
 }
 
 void xgboost::tree::ColMaker::Configure(uint64_t a1, uint64_t *a2)
 {
-  xgboost::XGBoostParameter<xgboost::tree::TrainParam>::UpdateAllowUnknown<std::vector<std::pair<std::string,std::string>>>((a1 + 16), a2, v8);
+  xgboost::XGBoostParameter<xgboost::tree::TrainParam>::UpdateAllowUnknown<std::vector<std::pair<std::string,std::string>>>(v8, (a1 + 16), a2);
   v9 = v8;
   std::vector<std::pair<std::string,std::string>>::__destroy_vector::operator()[abi:ne200100](&v9);
   v5 = *(a1 + 152);
@@ -8001,9 +7491,9 @@ void sub_274D14D4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-std::string *xgboost::tree::ColMaker::Update(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t **a4)
+void xgboost::tree::ColMaker::Update(uint64_t a1, void *a2, uint64_t a3, uint64_t **a4)
 {
-  Engine = rabit::engine::GetEngine(a1);
+  Engine = rabit::engine::GetEngine(a1, a2, a3);
   if ((*(*Engine + 80))(Engine))
   {
     Entry = dmlc::LogMessageFatal::GetEntry(&__p);
@@ -8024,73 +7514,70 @@ std::string *xgboost::tree::ColMaker::Update(uint64_t a1, uint64_t a2, uint64_t 
   {
     v12 = (**a3)(a3);
     std::vector<unsigned long>::vector[abi:ne200100](&__p, *(v12 + 8));
-    (*(*a3 + 88))(&v43, a3);
-    v42[2] = v43;
-    v42[3] = v44;
-    if (v44)
+    (*(*a3 + 88))(&v40, a3);
+    v39[2] = v40;
+    v39[3] = v41;
+    if (v41)
     {
-      atomic_fetch_add_explicit((v44 + 8), 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit((v41 + 8), 1uLL, memory_order_relaxed);
     }
 
-    xgboost::BatchIterator<xgboost::SortedCSCPage>::BatchIterator(v42, 0);
+    xgboost::BatchIterator<xgboost::SortedCSCPage>::BatchIterator(v39, 0);
   }
 
   v13 = *(a1 + 20);
   *(a1 + 20) = v13 / (a4[1] - *a4);
   v14 = (**a3)(a3);
-  result = xgboost::FeatureInteractionConstraintHost::Configure((a1 + 192), (a1 + 16), *v14);
+  xgboost::FeatureInteractionConstraintHost::Configure((a1 + 192), (a1 + 16), *v14);
   if (*a4 != a4[1])
   {
-    v16 = **a4;
     if (!*(a1 + 8))
     {
-      v19 = dmlc::LogMessageFatal::GetEntry(&__p);
-      dmlc::LogMessageFatal::Entry::Init(v19, "/Library/Caches/com.apple.xbs/Sources/CoreML/xgboost/src/tree/updater_colmaker.cc", 117);
-      v20 = dmlc::LogMessageFatal::GetEntry(&__p);
-      v21 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v20, "Check failed: ctx_", 18);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v21, ": ", 2);
+      v16 = dmlc::LogMessageFatal::GetEntry(&__p);
+      dmlc::LogMessageFatal::Entry::Init(v16, "/Library/Caches/com.apple.xbs/Sources/CoreML/xgboost/src/tree/updater_colmaker.cc", 117);
+      v17 = dmlc::LogMessageFatal::GetEntry(&__p);
+      v18 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v17, "Check failed: ctx_", 18);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v18, ": ", 2);
       dmlc::LogMessageFatal::~LogMessageFatal(&__p);
     }
 
-    v23 = 0;
-    v22 = 0uLL;
-    std::vector<std::unordered_set<unsigned int>>::__init_with_size[abi:ne200100]<std::unordered_set<unsigned int>*,std::unordered_set<unsigned int>*>(&v22, *(a1 + 192), *(a1 + 200), 0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 200) - *(a1 + 192)) >> 3));
-    v24 = 0uLL;
-    v25 = 0;
-    std::vector<std::unordered_set<unsigned int>>::__init_with_size[abi:ne200100]<std::unordered_set<unsigned int>*,std::unordered_set<unsigned int>*>(&v24, *(a1 + 216), *(a1 + 224), 0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 224) - *(a1 + 216)) >> 3));
-    v26 = 0uLL;
-    v27 = 0;
-    std::vector<std::unordered_set<unsigned int>>::__init_with_size[abi:ne200100]<std::unordered_set<unsigned int>*,std::unordered_set<unsigned int>*>(&v26, *(a1 + 240), *(a1 + 248), 0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 248) - *(a1 + 240)) >> 3));
+    v20 = 0;
+    v19 = 0uLL;
+    std::vector<std::unordered_set<unsigned int>>::__init_with_size[abi:ne200100]<std::unordered_set<unsigned int>*,std::unordered_set<unsigned int>*>(&v19, *(a1 + 192), *(a1 + 200), 0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 200) - *(a1 + 192)) >> 3));
+    v21 = 0uLL;
+    v22 = 0;
+    std::vector<std::unordered_set<unsigned int>>::__init_with_size[abi:ne200100]<std::unordered_set<unsigned int>*,std::unordered_set<unsigned int>*>(&v21, *(a1 + 216), *(a1 + 224), 0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 224) - *(a1 + 216)) >> 3));
+    v23 = 0uLL;
+    v24 = 0;
+    std::vector<std::unordered_set<unsigned int>>::__init_with_size[abi:ne200100]<std::unordered_set<unsigned int>*,std::unordered_set<unsigned int>*>(&v23, *(a1 + 240), *(a1 + 248), 0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 248) - *(a1 + 240)) >> 3));
     if (*(a1 + 287) < 0)
     {
-      std::string::__init_copy_ctor_external(&v28, *(a1 + 264), *(a1 + 272));
+      std::string::__init_copy_ctor_external(&v25, *(a1 + 264), *(a1 + 272));
     }
 
     else
     {
-      v28 = *(a1 + 264);
+      v25 = *(a1 + 264);
     }
 
-    v29 = *(a1 + 288);
-    v30 = *(a1 + 292);
-    v17 = *(a1 + 8);
+    v26 = *(a1 + 288);
+    v27 = *(a1 + 292);
+    v15 = *(a1 + 8);
     __p = &unk_2883E0C70;
-    v32 = (a1 + 16);
-    v33 = a1 + 152;
-    v34 = v17;
-    xgboost::common::ColumnSampler::ColumnSampler(v35);
-    v39 = 0u;
-    v40 = 0u;
-    v37 = 0u;
-    v38 = 0u;
-    *&v35[2584] = 0u;
+    v29 = (a1 + 16);
+    v30 = a1 + 152;
+    v31 = v15;
+    xgboost::common::ColumnSampler::ColumnSampler(v32);
     v36 = 0u;
-    v18 = *(a1 + 176) - *(a1 + 168);
-    xgboost::tree::TreeEvaluator::TreeEvaluator(&v41, v32);
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
+    *&v32[2584] = 0u;
+    v33 = 0u;
+    xgboost::tree::TreeEvaluator::TreeEvaluator(&v38, v29, (*(a1 + 176) - *(a1 + 168)) >> 2, -1);
   }
 
   *(a1 + 20) = v13;
-  return result;
 }
 
 void xgboost::FeatureInteractionConstraintHost::~FeatureInteractionConstraintHost(void **this)
@@ -8160,8 +7647,8 @@ uint64_t std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<un
 
 void xgboost::tree::ColMaker::Builder::Update(uint64_t a1, float32x2_t **a2, uint64_t a3, uint64_t a4)
 {
-  v60 = *MEMORY[0x277D85DE8];
-  v50 = (a1 + 2616);
+  v59 = *MEMORY[0x277D85DE8];
+  v47 = (a1 + 2616);
   std::vector<int>::resize((a1 + 2616), a2[1] - *a2);
   v7 = (*(*a3 + 24))(a3);
   __p.n128_u64[0] = (*(a1 + 2624) - *(a1 + 2616)) >> 2;
@@ -8232,7 +7719,7 @@ void xgboost::tree::ColMaker::Builder::Update(uint64_t a1, float32x2_t **a2, uin
         {
           v23 = std::mersenne_twister_engine<unsigned int,32ul,624ul,397ul,31ul,2567483615u,11ul,4294967295u,7ul,2636928640u,15ul,4022730752u,18ul,1812433253u>::operator()(v19);
           v24 = std::mersenne_twister_engine<unsigned int,32ul,624ul,397ul,31ul,2567483615u,11ul,4294967295u,7ul,2636928640u,15ul,4022730752u,18ul,1812433253u>::operator()(v19);
-          v18 = *v50;
+          v18 = *v47;
           if ((v23 + v24 * 4294967300.0) * 5.42101086e-20 >= v21)
           {
             *(v18 + 4 * v20) = ~*(v18 + 4 * v20);
@@ -8249,9 +7736,9 @@ void xgboost::tree::ColMaker::Builder::Update(uint64_t a1, float32x2_t **a2, uin
 
   v25 = *((*(*a3 + 24))(a3) + 8);
   v26 = *((*(*a3 + 24))(a3) + 176);
-  v56 = 0;
+  v53 = 0;
   __p = 0uLL;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&__p, *v26, v26[1], (v26[1] - *v26) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&__p, *v26, *(v26 + 8), (*(v26 + 8) - *v26) >> 2);
   xgboost::common::ColumnSampler::Init((a1 + 32), v25, &__p, *(*(a1 + 8) + 56), *(*(a1 + 8) + 60), *(*(a1 + 8) + 64));
   if (__p.n128_u64[0])
   {
@@ -8264,10 +7751,10 @@ void xgboost::tree::ColMaker::Builder::Update(uint64_t a1, float32x2_t **a2, uin
   if (v27 == v28)
   {
     v29 = 0;
-    v52 = 0;
-    v53 = 0;
+    v49 = 0;
+    v50 = 0;
     v31 = v27;
-    v54 = 0;
+    v51 = 0;
 LABEL_33:
     v32 = *(a1 + 2656);
     if (0xAAAAAAAAAAAAAAABLL * ((v32 - v31) >> 3) < 1 - v29)
@@ -8289,7 +7776,7 @@ LABEL_33:
         v35 = v34;
       }
 
-      v59 = (a1 + 2640);
+      v58 = (a1 + 2640);
       if (v35 <= 0xAAAAAAAAAAAAAAALL)
       {
         operator new();
@@ -8305,7 +7792,7 @@ LABEL_33:
       *v28 = 0;
       *(v28 + 1) = 0;
       *(v28 + 2) = 0;
-      std::vector<xgboost::tree::ColMaker::ThreadEntry>::__init_with_size[abi:ne200100]<xgboost::tree::ColMaker::ThreadEntry*,xgboost::tree::ColMaker::ThreadEntry*>(v28, v52, v53, 0x4EC4EC4EC4EC4EC5 * ((v53 - v52) >> 3));
+      std::vector<xgboost::tree::ColMaker::ThreadEntry>::__init_with_size[abi:ne200100]<xgboost::tree::ColMaker::ThreadEntry*,xgboost::tree::ColMaker::ThreadEntry*>(v28, v49, v50, 0x4EC4EC4EC4EC4EC5 * ((v50 - v49) >> 3));
       v28 += 24;
       v36 -= 24;
     }
@@ -8317,16 +7804,16 @@ LABEL_33:
   do
   {
     v27 -= 24;
-    v58.__ptr_ = v27;
-    std::vector<xgboost::tree::ColMaker::ThreadEntry>::__destroy_vector::operator()[abi:ne200100](&v58);
+    v57.__ptr_ = v27;
+    std::vector<xgboost::tree::ColMaker::ThreadEntry>::__destroy_vector::operator()[abi:ne200100](&v57);
   }
 
   while (v27 != v28);
   v27 = *(a1 + 2640);
   *(a1 + 2648) = v28;
-  v52 = 0;
-  v53 = 0;
-  v54 = 0;
+  v49 = 0;
+  v50 = 0;
+  v51 = 0;
   v29 = 0xAAAAAAAAAAAAAAABLL * ((v28 - v27) >> 3);
   if (v28 == v27)
   {
@@ -8343,89 +7830,85 @@ LABEL_33:
   while (v28 != v30)
   {
     v28 -= 24;
-    v58.__ptr_ = v28;
-    std::vector<xgboost::tree::ColMaker::ThreadEntry>::__destroy_vector::operator()[abi:ne200100](&v58);
+    v57.__ptr_ = v28;
+    std::vector<xgboost::tree::ColMaker::ThreadEntry>::__destroy_vector::operator()[abi:ne200100](&v57);
   }
 
 LABEL_43:
   *(a1 + 2648) = v30;
 LABEL_44:
-  v58.__ptr_ = &v52;
-  std::vector<xgboost::tree::ColMaker::ThreadEntry>::__destroy_vector::operator()[abi:ne200100](&v58);
+  v57.__ptr_ = &v49;
+  std::vector<xgboost::tree::ColMaker::ThreadEntry>::__destroy_vector::operator()[abi:ne200100](&v57);
   v37 = *(a1 + 2640);
   for (i = *(a1 + 2648); v37 != i; v37 += 3)
   {
     std::vector<xgboost::tree::ColMaker::ThreadEntry>::clear[abi:ne200100](v37);
     if ((0x4EC4EC4EC4EC4EC5 * ((v37[2] - *v37) >> 3)) <= 0xFF)
     {
-      v39 = v37[1];
-      v59 = v37;
+      v58 = v37;
       operator new();
     }
   }
 
   if ((0x4EC4EC4EC4EC4EC5 * ((*(a1 + 2680) - *(a1 + 2664)) >> 3)) <= 0xFF)
   {
-    v40 = *(a1 + 2672);
-    v59 = (a1 + 2664);
+    v58 = (a1 + 2664);
     operator new();
   }
 
   std::vector<int>::reserve((a1 + 2688), 0x100uLL);
   *(a1 + 2696) = *(a1 + 2688);
-  LODWORD(v58.__ptr_) = 0;
-  std::vector<int>::push_back[abi:ne200100]((a1 + 2688), &v58);
+  LODWORD(v57.__ptr_) = 0;
+  std::vector<int>::push_back[abi:ne200100]((a1 + 2688), &v57);
   xgboost::tree::ColMaker::Builder::InitNewNode(a1, (a1 + 2688), a2, a3, a4);
   __p.n128_u32[0] = *(*(a1 + 8) + 12);
-  LODWORD(v52) = 0;
+  LODWORD(v49) = 0;
   if (__p.n128_i32[0] < 1)
   {
-    dmlc::LogCheckFormat<int,int>(&__p, &v52);
+    dmlc::LogCheckFormat<int,int>(&__p, &v49);
   }
 
   if (*(*(a1 + 8) + 12) > 0)
   {
-    xgboost::tree::TreeEvaluator::GetEvaluator<xgboost::tree::TrainParam>((a1 + 2712), &v58);
-    xgboost::common::ColumnSampler::GetFeatureSet((a1 + 32), 0, &__p);
-    (*(*a3 + 88))(&v52, a3);
-    v57[2].__ptr_ = v52;
-    v57[3].__ptr_ = v53;
-    if (v53)
+    xgboost::tree::TreeEvaluator::GetEvaluator<xgboost::tree::TrainParam>((a1 + 2712), &v57);
+    xgboost::common::ColumnSampler::GetFeatureSet(&__p, (a1 + 32), 0);
+    (*(*a3 + 88))(&v49, a3);
+    v55 = v49;
+    v56 = v50;
+    if (v50)
     {
-      atomic_fetch_add_explicit(v53 + 1, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(v50 + 1, 1uLL, memory_order_relaxed);
     }
 
-    xgboost::BatchIterator<xgboost::SortedCSCPage>::BatchIterator(v57, 0);
+    xgboost::BatchIterator<xgboost::SortedCSCPage>::BatchIterator(v54, 0);
   }
 
-  v41 = *(a1 + 2688);
-  for (j = *(a1 + 2696); v41 != j; *(v44 + 4) = -1)
+  v39 = *(a1 + 2688);
+  for (j = *(a1 + 2696); v39 != j; *(v42 + 4) = -1)
   {
-    v43 = *v41++;
-    v44 = *(a4 + 160) + 20 * v43;
-    *(v44 + 16) = *(*(a1 + 2664) + 104 * v43 + 20) * *(*(a1 + 8) + 4);
+    v41 = *v39++;
+    v42 = *(a4 + 160) + 20 * v41;
+    *(v42 + 16) = *(*(a1 + 2664) + 104 * v41 + 20) * *(*(a1 + 8) + 4);
   }
 
-  v45 = *(a4 + 12);
-  if (v45 >= 1)
+  v43 = *(a4 + 12);
+  if (v43 >= 1)
   {
-    v46 = (*(a1 + 2664) + 24);
-    v47 = (*(a4 + 208) + 8);
+    v44 = (*(a1 + 2664) + 24);
+    v45 = (*(a4 + 208) + 8);
     do
     {
-      *(v47 - 2) = *v46;
-      *v47 = *(v46 - 1);
-      v48 = *(v46 - 2);
-      *(v47 - 1) = v48;
-      v46 += 13;
-      v47 += 4;
-      --v45;
+      *(v45 - 2) = *v44;
+      *v45 = *(v44 - 1);
+      v46 = *(v44 - 2);
+      *(v45 - 1) = v46;
+      v44 += 13;
+      v45 += 4;
+      --v43;
     }
 
-    while (v45);
+    while (v43);
   }
-
-  v49 = *MEMORY[0x277D85DE8];
 }
 
 void sub_274D166AC(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, void *__p, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34)
@@ -8532,6 +8015,19 @@ uint64_t *xgboost::BatchIterator<xgboost::SortedCSCPage>::operator++(uint64_t *a
   return a1;
 }
 
+uint64_t *std::vector<unsigned long>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
+{
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  if (a2)
+  {
+    std::vector<unsigned long>::__vallocate[abi:ne200100](a1, a2);
+  }
+
+  return a1;
+}
+
 void sub_274D16AD0(_Unwind_Exception *exception_object)
 {
   v3 = *v1;
@@ -8635,13 +8131,13 @@ uint64_t std::unordered_set<unsigned int>::unordered_set(uint64_t a1, uint64_t a
   std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__rehash<true>(a1, *(a2 + 8));
   for (i = *(a2 + 16); i; i = *i)
   {
-    std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int const&>(a1, i + 4);
+    std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int const&>(a1, i + 4, i + 4);
   }
 
   return a1;
 }
 
-void std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__rehash<true>(uint64_t a1, size_t __n)
+void std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__rehash<true>(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -8657,7 +8153,7 @@ void std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsign
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -8665,7 +8161,7 @@ void std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsign
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -8689,7 +8185,7 @@ void std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsign
     {
 LABEL_6:
 
-      std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__do_rehash<true>(a1, prime);
+      std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__do_rehash<true>(result, prime);
     }
   }
 }
@@ -8716,33 +8212,33 @@ void std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsign
   *(a1 + 8) = 0;
 }
 
-uint64_t *std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int const&>(void *a1, unsigned int *a2)
+uint64_t *std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int const&>(void *a1, unsigned int *a2, _DWORD *a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = a1[1];
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v6 = *a2;
+    if (*&v4 <= v3)
     {
-      v5 = v2 % v3.i32[0];
+      v6 = v3 % v4.i32[0];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v6 = (v4.i32[0] - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -8750,91 +8246,90 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v8 + 4) != v3)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v8;
 }
 
 void xgboost::tree::ColMaker::Builder::UpdateSolution(uint64_t a1, uint64_t **a2, uint64_t *a3, uint64_t a4)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v9 = *a3;
   v8 = a3[1];
   if (!*(a1 + 24))
   {
-    Entry = dmlc::LogMessageFatal::GetEntry(&v21);
+    Entry = dmlc::LogMessageFatal::GetEntry(&v20);
     dmlc::LogMessageFatal::Entry::Init(Entry, "/Library/Caches/com.apple.xbs/Sources/CoreML/xgboost/src/tree/updater_colmaker.cc", 451);
-    v17 = dmlc::LogMessageFatal::GetEntry(&v21);
-    v18 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v17, "Check failed: this->ctx_", 24);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v18, ": ", 2);
-    dmlc::LogMessageFatal::~LogMessageFatal(&v21);
+    v16 = dmlc::LogMessageFatal::GetEntry(&v20);
+    v17 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v16, "Check failed: this->ctx_", 24);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v17, ": ", 2);
+    dmlc::LogMessageFatal::~LogMessageFatal(&v20);
   }
 
   v10 = **a2;
   v11 = *a2[1];
   v12 = a2[1][1] - v11;
-  v19[0] = ((*a2)[1] - v10) >> 3;
-  v19[1] = v10;
-  v19[2] = v12 >> 3;
-  v19[3] = v11;
-  v21.__ptr_ = 0;
-  v22.__m_.__sig = 850045863;
-  memset(v22.__m_.__opaque, 0, sizeof(v22.__m_.__opaque));
+  v18[0] = ((*a2)[1] - v10) >> 3;
+  v18[1] = v10;
+  v18[2] = v12 >> 3;
+  v18[3] = v11;
+  v20.__ptr_ = 0;
+  v21.__m_.__sig = 850045863;
+  memset(v21.__m_.__opaque, 0, sizeof(v21.__m_.__opaque));
   if (v8 != v9)
   {
     v13 = 0;
     v14 = (v8 - v9) >> 2;
     do
     {
-      v20[0] = a1;
-      v20[1] = a3;
-      v20[2] = v19;
-      v20[3] = a4;
-      _ZN4dmlc12OMPException3RunIZN7xgboost4tree8ColMaker7Builder14UpdateSolutionERKNS2_13SortedCSCPageERKNSt3__16vectorIjNS9_9allocatorIjEEEERKNSA_INS2_6detail20GradientPairInternalIfEENSB_ISI_EEEEPNS2_7DMatrixEEUlT_E_JmEEEvSP_DpT0_(&v21, v20, v13++);
+      v19[0] = a1;
+      v19[1] = a3;
+      v19[2] = v18;
+      v19[3] = a4;
+      _ZN4dmlc12OMPException3RunIZN7xgboost4tree8ColMaker7Builder14UpdateSolutionERKNS2_13SortedCSCPageERKNSt3__16vectorIjNS9_9allocatorIjEEEERKNSA_INS2_6detail20GradientPairInternalIfEENSB_ISI_EEEEPNS2_7DMatrixEEUlT_E_JmEEEvSP_DpT0_(&v20, v19, v13++);
     }
 
     while (v14 != v13);
   }
 
-  dmlc::OMPException::Rethrow(&v21);
-  std::mutex::~mutex(&v22);
-  std::exception_ptr::~exception_ptr(&v21);
-  v15 = *MEMORY[0x277D85DE8];
+  dmlc::OMPException::Rethrow(&v20);
+  std::mutex::~mutex(&v21);
+  std::exception_ptr::~exception_ptr(&v20);
 }
 
 void xgboost::tree::ColMaker::Builder::SyncBestSolution(uint64_t a1, int **a2)
@@ -9044,18 +8539,18 @@ xgboost::common::ColumnSampler *xgboost::common::ColumnSampler::ColumnSampler(xg
   *(this + 322) = 0;
   v11 = dmlc::ThreadLocalStore<xgboost::common::RandomThreadLocalEntry>::Get();
   v12 = std::mersenne_twister_engine<unsigned int,32ul,624ul,397ul,31ul,2567483615u,11ul,4294967295u,7ul,2636928640u,15ul,4022730752u,18ul,1812433253u>::operator()(v11);
-  v19 = v12;
-  Engine = rabit::engine::GetEngine(v12);
-  (*(*Engine + 16))(Engine, &v19, 4, 0);
-  v14 = v19;
-  *(this + 20) = v19;
-  v15 = 1;
+  v21 = v12;
+  Engine = rabit::engine::GetEngine(v12, v13, v14);
+  (*(*Engine + 16))(Engine, &v21, 4, 0);
+  v16 = v21;
+  *(this + 20) = v21;
+  v17 = 1;
   for (i = 21; i != 644; ++i)
   {
-    v17 = 1812433253 * (v14 ^ (v14 >> 30));
-    v14 = v17 + v15;
-    *(this + i) = i + v17 - 20;
-    ++v15;
+    v19 = 1812433253 * (v16 ^ (v16 >> 30));
+    v16 = v19 + v17;
+    *(this + i) = i + v19 - 20;
+    ++v17;
   }
 
   *(this + 322) = 0;
@@ -9283,7 +8778,7 @@ void std::vector<int>::__append(std::vector<int> *this, std::vector<int>::size_t
   }
 }
 
-void std::vector<int>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<int>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 62))
   {
@@ -9325,7 +8820,7 @@ void std::vector<xgboost::tree::ColMaker::NodeEntry>::__destroy_vector::operator
   }
 }
 
-void std::vector<std::vector<xgboost::tree::ColMaker::ThreadEntry>>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+void std::vector<std::vector<xgboost::tree::ColMaker::ThreadEntry>>::__destroy_vector::operator()[abi:ne200100](void ****a1)
 {
   v1 = *a1;
   v2 = **a1;
@@ -9438,7 +8933,7 @@ LABEL_12:
     }
   }
 
-  xgboost::tree::ColMaker::Builder::EnumerateSplit(v5, v13 - 2, (v12 - 8), -1, v7, a2[3], *(v5 + 2640), v17);
+  xgboost::tree::ColMaker::Builder::EnumerateSplit(v5, v13 - 2, (v12 - 8), 0xFFFFFFFFLL, v7, a2[3], *(v5 + 2640), v17);
 }
 
 uint64_t **xgboost::tree::TreeEvaluator::GetEvaluator<xgboost::tree::TrainParam>@<X0>(uint64_t **result@<X0>, uint64_t a2@<X8>)
@@ -9471,21 +8966,22 @@ uint64_t **xgboost::tree::TreeEvaluator::GetEvaluator<xgboost::tree::TrainParam>
   return result;
 }
 
-void xgboost::tree::ColMaker::Builder::EnumerateSplit(void *a1, unsigned int *a2, unsigned int *a3, int a4, unsigned int a5, uint64_t *a6, uint64_t *a7, void *a8)
+void xgboost::tree::ColMaker::Builder::EnumerateSplit(void *a1, unsigned int *a2, unsigned int *a3, uint64_t a4, uint64_t a5, uint64_t *a6, void *a7, void *a8)
 {
-  v78 = *MEMORY[0x277D85DE8];
-  v73 = a7;
-  v74 = a4;
+  v8 = a5;
+  v77 = *MEMORY[0x277D85DE8];
+  v72 = a7;
+  v73 = a4;
   if ((*(a1[1] + 76) & 1) == 0)
   {
-    Entry = dmlc::LogMessageFatal::GetEntry(v76);
+    Entry = dmlc::LogMessageFatal::GetEntry(v75);
     dmlc::LogMessageFatal::Entry::Init(Entry, "/Library/Caches/com.apple.xbs/Sources/CoreML/xgboost/src/tree/updater_colmaker.cc", 369);
-    v66 = dmlc::LogMessageFatal::GetEntry(v76);
-    v67 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v66, "Check failed: param_.cache_opt", 30);
-    v68 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v67, ": ", 2);
-    dmlc::LogMessageFatal::~LogMessageFatal(v76);
-    a7 = v73;
-    a4 = v74;
+    v65 = dmlc::LogMessageFatal::GetEntry(v75);
+    v66 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v65, "Check failed: param_.cache_opt", 30);
+    v67 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v66, ": ", 2);
+    dmlc::LogMessageFatal::~LogMessageFatal(v75);
+    a7 = v72;
+    LODWORD(a4) = v73;
   }
 
   v11 = a1[336];
@@ -9496,9 +8992,9 @@ void xgboost::tree::ColMaker::Builder::EnumerateSplit(void *a1, unsigned int *a2
     *v14 = 0;
   }
 
-  v75 = 0uLL;
-  memset(v77, 0, sizeof(v77));
+  v74 = 0uLL;
   memset(v76, 0, sizeof(v76));
+  memset(v75, 0, sizeof(v75));
   v15 = a3;
   if (a4 <= 0)
   {
@@ -9522,10 +9018,10 @@ void xgboost::tree::ColMaker::Builder::EnumerateSplit(void *a1, unsigned int *a2
   }
 
   v18 = ((v16 - v15) >> 3) / v17;
-  v71 = &a2[64 * v18];
+  v70 = &a2[64 * v18];
   if (v18)
   {
-    v19 = 8 * v74;
+    v19 = 8 * v73;
     do
     {
       v20 = 0;
@@ -9535,23 +9031,23 @@ void xgboost::tree::ColMaker::Builder::EnumerateSplit(void *a1, unsigned int *a2
       do
       {
         v24 = *v23;
-        *(v77 + v20) = *(v21 + 4 * v24);
-        *(v76 + v20++) = *(v22 + 8 * v24);
+        *(v76 + v20) = *(v21 + 4 * v24);
+        *(v75 + v20++) = *(v22 + 8 * v24);
         v23 = (v23 + v19);
       }
 
       while (v20 != 32);
       v25 = 0;
       v26 = 4;
-      v27 = v76 + 1;
+      v27 = v75 + 1;
       do
       {
-        v28 = *(v77 + v25);
-        if ((v28 & 0x80000000) == 0 && xgboost::FeatureInteractionConstraintHost::Query((a1 + 343), *(v77 + v25), a5))
+        v28 = *(v76 + v25);
+        if ((v28 & 0x80000000) == 0 && xgboost::FeatureInteractionConstraintHost::Query((a1 + 343), *(v76 + v25), v8))
         {
           v29.i32[0] = *(v27 - 1);
           v30.i32[0] = *v27;
-          xgboost::tree::ColMaker::Builder::UpdateEnumeration(a1, v28, v74, a5, v75.i64, *v73, a8, v29, v30, *(a2 + v26));
+          xgboost::tree::ColMaker::Builder::UpdateEnumeration(a1, v28, v73, v8, v74.i64, *v72, a8, v29, v30, *(a2 + v26));
         }
 
         v25 += 4;
@@ -9560,58 +9056,58 @@ void xgboost::tree::ColMaker::Builder::EnumerateSplit(void *a1, unsigned int *a2
       }
 
       while (v25 != 128);
-      a2 += 64 * v74;
+      a2 += 64 * v73;
     }
 
-    while (a2 != v71);
+    while (a2 != v70);
   }
 
-  if (v71 != a3)
+  if (v70 != a3)
   {
     v31 = a1[327];
     v32 = *a6;
-    v33 = v76;
-    v34 = v77;
-    v35 = v71;
+    v33 = v75;
+    v34 = v76;
+    v35 = v70;
     do
     {
       v36 = *v35;
       *v34++ = *(v31 + 4 * v36);
       *v33++ = *(v32 + 8 * v36);
-      v35 += 2 * v74;
+      v35 += 2 * v73;
     }
 
     while (v35 != a3);
-    v37 = v76 + 1;
-    v38 = v77;
+    v37 = v75 + 1;
+    v38 = v76;
     do
     {
       v40 = *v38++;
       v39 = v40;
-      if ((v40 & 0x80000000) == 0 && xgboost::FeatureInteractionConstraintHost::Query((a1 + 343), v39, a5))
+      if ((v40 & 0x80000000) == 0 && xgboost::FeatureInteractionConstraintHost::Query((a1 + 343), v39, v8))
       {
         v41.i32[0] = *(v37 - 1);
         v42.i32[0] = *v37;
-        xgboost::tree::ColMaker::Builder::UpdateEnumeration(a1, v39, v74, a5, v75.i64, *v73, a8, v41, v42, *(v71 + 1));
+        xgboost::tree::ColMaker::Builder::UpdateEnumeration(a1, v39, v73, v8, v74.i64, *v72, a8, v41, v42, *(v70 + 1));
       }
 
       v37 += 2;
-      v71 += 2 * v74;
+      v70 += 2 * v73;
     }
 
-    while (v71 != a3);
+    while (v70 != a3);
   }
 
   v43 = a1[336];
   v44 = a1[337];
-  v45 = v73;
-  for (j = v74; v43 != v44; ++v43)
+  v45 = v72;
+  for (j = v73; v43 != v44; ++v43)
   {
     v47 = *v43;
-    v48 = *v45 + 104 * *v43;
+    v48 = *v45 + 104 * v47;
     v49 = *v48;
-    v52 = vsubq_f64(*(a1[333] + 104 * *v43), *v48);
-    v75 = v52;
+    v52 = vsubq_f64(*(a1[333] + 104 * v47), *v48);
+    v74 = v52;
     v49.i64[0] = *(v48 + 8);
     v50 = a1[1];
     v51 = v50[8];
@@ -9625,14 +9121,14 @@ void xgboost::tree::ColMaker::Builder::EnumerateSplit(void *a1, unsigned int *a2
     v54 = *v52.i32 + 0.000001;
     if (j == -1)
     {
-      xgboost::tree::TreeEvaluator::SplitEvaluator<xgboost::tree::TrainParam>::CalcSplitGain(a8, v50, v47, a5, v75.i64, v48, v52, v49);
+      xgboost::tree::TreeEvaluator::SplitEvaluator<xgboost::tree::TrainParam>::CalcSplitGain(a8, v50, v47, v8, v74.i64, v48, v52, v49);
       v59 = v58 - *(a1[333] + 104 * v47 + 16);
-      v45 = v73;
-      j = v74;
+      v45 = v72;
+      j = v73;
       if (fabsf(v59) != INFINITY)
       {
         v60 = *(v48 + 24);
-        if ((*(v48 + 28) & 0x7FFFFFFFu) > a5)
+        if ((*(v48 + 28) & 0x7FFFFFFFu) > v8)
         {
           if (v60 > v59)
           {
@@ -9642,8 +9138,8 @@ void xgboost::tree::ColMaker::Builder::EnumerateSplit(void *a1, unsigned int *a2
 LABEL_49:
           v61 = *(v48 + 16) - v54;
           *(v48 + 24) = v59;
-          *(v48 + 28) = a5 | 0x80000000;
-          v63 = &v75;
+          *(v48 + 28) = v8 | 0x80000000;
+          v63 = &v74;
           v62 = v48;
 LABEL_50:
           *(v48 + 32) = v61;
@@ -9668,17 +9164,17 @@ LABEL_50:
         v54 = -v54;
       }
 
-      xgboost::tree::TreeEvaluator::SplitEvaluator<xgboost::tree::TrainParam>::CalcSplitGain(a8, v50, v47, a5, v48, v75.i64, v52, v49);
+      xgboost::tree::TreeEvaluator::SplitEvaluator<xgboost::tree::TrainParam>::CalcSplitGain(a8, v50, v47, v8, v48, v74.i64, v52, v49);
       v56 = v55 - *(a1[333] + 104 * v47 + 16);
-      v45 = v73;
-      j = v74;
+      v45 = v72;
+      j = v73;
       if (fabsf(v56) == INFINITY)
       {
         continue;
       }
 
       v57 = *(v48 + 24);
-      if ((*(v48 + 28) & 0x7FFFFFFFu) > a5)
+      if ((*(v48 + 28) & 0x7FFFFFFFu) > v8)
       {
         if (v57 > v56)
         {
@@ -9688,8 +9184,8 @@ LABEL_50:
 LABEL_47:
         v61 = v54 + *(v48 + 16);
         *(v48 + 24) = v56;
-        *(v48 + 28) = a5;
-        v62 = &v75;
+        *(v48 + 28) = v8;
+        v62 = &v74;
         v63 = v48;
         goto LABEL_50;
       }
@@ -9700,18 +9196,16 @@ LABEL_47:
       }
     }
   }
-
-  v64 = *MEMORY[0x277D85DE8];
 }
 
-void sub_274D18B44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_274D18B44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   dmlc::LogMessageFatal::~LogMessageFatal(va);
   _Unwind_Resume(a1);
 }
 
-BOOL xgboost::FeatureInteractionConstraintHost::Query(xgboost::FeatureInteractionConstraintHost *this, int a2, unsigned int a3)
+BOOL xgboost::FeatureInteractionConstraintHost::Query(xgboost::FeatureInteractionConstraintHost *this, int a2, int a3)
 {
   v8 = a3;
   if (*(this + 100) != 1)
@@ -9728,7 +9222,7 @@ BOOL xgboost::FeatureInteractionConstraintHost::Query(xgboost::FeatureInteractio
   return v6 != 0;
 }
 
-void xgboost::tree::ColMaker::Builder::UpdateEnumeration(uint64_t a1, unsigned int a2, int a3, unsigned int a4, double *a5, uint64_t a6, void *a7, int8x16_t a8, int8x16_t a9, float a10)
+void xgboost::tree::ColMaker::Builder::UpdateEnumeration(uint64_t a1, uint64_t a2, int a3, unsigned int a4, double *a5, uint64_t a6, void *a7, int8x16_t a8, int8x16_t a9, float a10)
 {
   v11 = a6 + 104 * a2;
   v12 = *(v11 + 8);
@@ -9897,4 +9391,521 @@ LABEL_6:
   v13 = (v11 + 16);
 LABEL_7:
   *v13 = a10;
+}
+
+void xgboost::tree::TreeEvaluator::SplitEvaluator<xgboost::tree::TrainParam>::CalcSplitGain(void *a1, float *a2, uint64_t a3, unsigned int a4, double *a5, double *a6, int8x16_t a7, int8x16_t a8)
+{
+  if (*a1 <= a4)
+  {
+    std::terminate();
+  }
+
+  v10 = a3;
+  *v13.i32 = xgboost::tree::TreeEvaluator::SplitEvaluator<xgboost::tree::TrainParam>::CalcWeight(a1, a3, a2, a5, a7, a8);
+  v14 = *v13.i32;
+  v16 = xgboost::tree::TreeEvaluator::SplitEvaluator<xgboost::tree::TrainParam>::CalcWeight(a1, v10, a2, a6, v13, v15);
+  xgboost::tree::TreeEvaluator::SplitEvaluator<xgboost::tree::TrainParam>::CalcGainGivenWeight(a1, a2, a5, v14);
+  xgboost::tree::TreeEvaluator::SplitEvaluator<xgboost::tree::TrainParam>::CalcGainGivenWeight(a1, a2, a6, v16);
+}
+
+uint64_t *std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::find<unsigned int>(void *a1, unsigned int *a2)
+{
+  v2 = a1[1];
+  if (!*&v2)
+  {
+    return 0;
+  }
+
+  v3 = *a2;
+  v4 = vcnt_s8(v2);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
+  {
+    v5 = *a2;
+    if (*&v2 <= v3)
+    {
+      v5 = v3 % v2.i32[0];
+    }
+  }
+
+  else
+  {
+    v5 = (v2.i32[0] - 1) & v3;
+  }
+
+  v6 = *(*a1 + 8 * v5);
+  if (!v6)
+  {
+    return 0;
+  }
+
+  for (result = *v6; result; result = *result)
+  {
+    v8 = result[1];
+    if (v8 == v3)
+    {
+      if (*(result + 4) == v3)
+      {
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v4.u32[0] > 1uLL)
+      {
+        if (v8 >= *&v2)
+        {
+          v8 %= *&v2;
+        }
+      }
+
+      else
+      {
+        v8 &= *&v2 - 1;
+      }
+
+      if (v8 != v5)
+      {
+        return 0;
+      }
+    }
+  }
+
+  return result;
+}
+
+float xgboost::tree::TreeEvaluator::SplitEvaluator<xgboost::tree::TrainParam>::CalcWeight(uint64_t a1, int a2, float *a3, double *a4, int8x16_t a5, int8x16_t a6)
+{
+  v6 = a4[1];
+  a6.i64[0] = 0;
+  v7 = v6 <= 0.0 || v6 < a3[8];
+  if (!v7)
+  {
+    v8 = *a4;
+    v9 = a3[10];
+    v10 = v9;
+    v7 = *a4 < -v9;
+    v11 = *a4 + v9;
+    if (!v7)
+    {
+      v11 = 0.0;
+    }
+
+    v12 = v8 <= v10;
+    v13 = v8 - v10;
+    if (v12)
+    {
+      v13 = v11;
+    }
+
+    *a6.i64 = -v13 / (v6 + a3[9]);
+    v14 = a3[11];
+    if (v14 != 0.0)
+    {
+      *a5.i64 = v14;
+      if (fabs(*a6.i64) > *a5.i64)
+      {
+        v15.f64[0] = NAN;
+        v15.f64[1] = NAN;
+        a6.i64[0] = vbslq_s8(vnegq_f64(v15), a5, a6).u64[0];
+      }
+    }
+  }
+
+  v16 = *a6.i64;
+  if (a2 == 0x7FFFFFFF || (*(a1 + 48) & 1) == 0)
+  {
+    return v16;
+  }
+
+  if (*(a1 + 16) <= a2)
+  {
+    goto LABEL_21;
+  }
+
+  result = *(*(a1 + 24) + 4 * a2);
+  if (result > v16)
+  {
+    return result;
+  }
+
+  if (*(a1 + 32) <= a2)
+  {
+LABEL_21:
+    std::terminate();
+  }
+
+  result = v16;
+  if (*(*(a1 + 40) + 4 * a2) < v16)
+  {
+    return *(*(a1 + 40) + 4 * a2);
+  }
+
+  return result;
+}
+
+float xgboost::tree::TreeEvaluator::SplitEvaluator<xgboost::tree::TrainParam>::CalcGainGivenWeight(uint64_t a1, float *a2, double *a3, float a4)
+{
+  v4 = a3[1];
+  v5 = 0.0;
+  if (v4 > 0.0)
+  {
+    if (a2[11] == 0.0 && (*(a1 + 48) & 1) == 0)
+    {
+      v8 = *a3;
+      v9 = a2[10];
+      v10 = v9;
+      if (*a3 <= v9)
+      {
+        v12 = -v9;
+        v11 = 0.0;
+        if (v8 < v12)
+        {
+          v11 = v8 + v10;
+        }
+      }
+
+      else
+      {
+        v11 = v8 - v10;
+      }
+
+      return v11 * v11 / (v4 + a2[9]);
+    }
+
+    else
+    {
+      v6 = *a3;
+      v7 = v4;
+      return -(((a4 * a4) * (a2[9] + v7)) + ((v6 + v6) * a4));
+    }
+  }
+
+  return v5;
+}
+
+int *std::__unique[abi:ne200100]<std::_ClassicAlgPolicy,std::__wrap_iter<unsigned int *>,std::__wrap_iter<unsigned int *>,std::__equal_to &>(int *a1, int *a2)
+{
+  result = a2;
+  if (a1 != a2)
+  {
+    v4 = a1 + 1;
+    while (v4 != a2)
+    {
+      v5 = *(v4 - 1);
+      v6 = *v4++;
+      if (v5 == v6)
+      {
+        v7 = v4 - 2;
+        goto LABEL_7;
+      }
+    }
+
+    v7 = a2;
+LABEL_7:
+    result = a2;
+    if (v7 != a2)
+    {
+      v8 = v7 + 2;
+      if (v7 + 2 != a2)
+      {
+        v9 = *v7;
+        do
+        {
+          v10 = v9;
+          v9 = *v8;
+          if (v10 != *v8)
+          {
+            v7[1] = v9;
+            ++v7;
+          }
+
+          ++v8;
+        }
+
+        while (v8 != a2);
+      }
+
+      return v7 + 1;
+    }
+  }
+
+  return result;
+}
+
+void xgboost::tree::ColMaker::Builder::InitNewNode(uint64_t a1, int **a2, float32x2_t **a3, uint64_t a4, uint64_t a5)
+{
+  v71 = *MEMORY[0x277D85DE8];
+  v7 = *(a1 + 2640);
+  v67 = *(a1 + 2648);
+  if (v7 != v67)
+  {
+    while (1)
+    {
+      v8 = *(a5 + 12);
+      memset(v68, 0, sizeof(v68));
+      v9 = *v7;
+      v10 = v7[1];
+      v11 = 0x4EC4EC4EC4EC4EC5 * ((v10 - *v7) >> 3);
+      v12 = v8 - v11;
+      if (v8 > v11)
+      {
+        break;
+      }
+
+      if (v8 < v11)
+      {
+        v17 = v9 + 104 * v8;
+        while (v10 != v17)
+        {
+          v18 = *(v10 - 64);
+          if (v18)
+          {
+            *(v10 - 56) = v18;
+            operator delete(v18);
+          }
+
+          v10 -= 104;
+        }
+
+        goto LABEL_19;
+      }
+
+LABEL_20:
+      v7 += 3;
+      if (v7 == v67)
+      {
+        goto LABEL_21;
+      }
+    }
+
+    v13 = v7[2];
+    if (0x4EC4EC4EC4EC4EC5 * ((v13 - v10) >> 3) < v12)
+    {
+      if ((v8 & 0x80000000) == 0)
+      {
+        v14 = 0x4EC4EC4EC4EC4EC5 * ((v13 - v9) >> 3);
+        v15 = 2 * v14;
+        if (2 * v14 <= v8)
+        {
+          v15 = v8;
+        }
+
+        if (v14 >= 0x13B13B13B13B13BLL)
+        {
+          v16 = 0x276276276276276;
+        }
+
+        else
+        {
+          v16 = v15;
+        }
+
+        std::__allocate_at_least[abi:ne200100]<std::allocator<xgboost::tree::ColMaker::ThreadEntry>>(v16);
+      }
+
+      std::vector<void *>::__throw_length_error[abi:ne200100]();
+    }
+
+    v17 = v10 + 104 * v12;
+    v19 = v10 + 40;
+    v20 = 104 * v8 - 104 * v11;
+    do
+    {
+      *(v19 - 40) = 0u;
+      *(v19 - 24) = 0;
+      *(v19 - 16) = 0;
+      *(v19 - 8) = 0;
+      *(v19 + 8) = 0;
+      *(v19 + 16) = 0;
+      *v19 = 0;
+      std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(v19, 0, 0, 0);
+      *(v19 + 24) = *&v68[1].__ptr_;
+      *(v19 + 40) = *&v68[3].__ptr_;
+      *(v19 + 56) = v68[5];
+      v19 += 104;
+      v20 -= 104;
+    }
+
+    while (v20);
+LABEL_19:
+    v7[1] = v17;
+    goto LABEL_20;
+  }
+
+LABEL_21:
+  v21 = *(a5 + 12);
+  memset(v68, 0, sizeof(v68));
+  v22 = *(a1 + 2672);
+  v23 = *(a1 + 2664);
+  v24 = 0x4EC4EC4EC4EC4EC5 * ((v22 - v23) >> 3);
+  v25 = v21 >= v24;
+  v26 = v21 - v24;
+  if (v21 <= v24)
+  {
+    v32 = a4;
+    v31 = a2;
+    if (!v25)
+    {
+      v33 = v23 + 104 * v21;
+      while (v22 != v33)
+      {
+        v34 = *(v22 - 64);
+        if (v34)
+        {
+          *(v22 - 56) = v34;
+          operator delete(v34);
+        }
+
+        v22 -= 104;
+      }
+
+      *(a1 + 2672) = v33;
+    }
+  }
+
+  else
+  {
+    v27 = *(a1 + 2680);
+    if (0x4EC4EC4EC4EC4EC5 * ((v27 - v22) >> 3) < v26)
+    {
+      if ((v21 & 0x80000000) == 0)
+      {
+        v28 = 0x4EC4EC4EC4EC4EC5 * ((v27 - v23) >> 3);
+        v29 = 2 * v28;
+        if (2 * v28 <= v21)
+        {
+          v29 = v21;
+        }
+
+        if (v28 >= 0x13B13B13B13B13BLL)
+        {
+          v30 = 0x276276276276276;
+        }
+
+        else
+        {
+          v30 = v29;
+        }
+
+        if (v30 <= 0x276276276276276)
+        {
+          operator new();
+        }
+
+        std::__throw_bad_array_new_length[abi:ne200100]();
+      }
+
+      std::vector<void *>::__throw_length_error[abi:ne200100]();
+    }
+
+    v35 = v22 + 104 * v26;
+    v36 = v22 + 40;
+    v37 = 104 * v21 - 104 * v24;
+    do
+    {
+      *(v36 - 40) = 0u;
+      *(v36 - 24) = 0u;
+      *(v36 - 8) = 0;
+      *(v36 + 8) = 0;
+      *(v36 + 16) = 0;
+      *v36 = 0;
+      std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(v36, 0, 0, 0);
+      *(v36 + 24) = *&v68[1].__ptr_;
+      *(v36 + 40) = *&v68[3].__ptr_;
+      *(v36 + 56) = v68[5];
+      v36 += 104;
+      v37 -= 104;
+    }
+
+    while (v37);
+    *(a1 + 2672) = v35;
+    v32 = a4;
+    v31 = a2;
+  }
+
+  v38 = *(*(*v32 + 24))(v32);
+  v68[0].__ptr_ = 0;
+  v68[1].__ptr_ = 850045863;
+  memset(&v68[2], 0, 32);
+  v69 = 0u;
+  v70 = 0;
+  if (v38)
+  {
+    v39 = *(a1 + 2616);
+    v40 = *a3;
+    do
+    {
+      v42 = *v39++;
+      v41 = v42;
+      if ((v42 & 0x80000000) == 0)
+      {
+        *(**(a1 + 2640) + 104 * v41) = vaddq_f64(*(**(a1 + 2640) + 104 * v41), vcvtq_f64_f32(*v40));
+      }
+
+      ++v40;
+      --v38;
+    }
+
+    while (v38);
+  }
+
+  dmlc::OMPException::Rethrow(v68);
+  std::mutex::~mutex(&v68[1]);
+  std::exception_ptr::~exception_ptr(v68);
+  v43 = *v31;
+  v44 = v31[1];
+  if (*v31 != v44)
+  {
+    v45 = *(a1 + 2640);
+    v46 = *(a1 + 2648);
+    v47 = *(a1 + 2664);
+    do
+    {
+      v48 = *v43;
+      v49 = 0uLL;
+      if (v45 != v46)
+      {
+        v50 = v45;
+        do
+        {
+          v51 = *v50;
+          v50 += 3;
+          v49 = vaddq_f64(v49, *(v51 + 104 * v48));
+        }
+
+        while (v50 != v46);
+      }
+
+      *(v47 + 104 * v48) = v49;
+      ++v43;
+    }
+
+    while (v43 != v44);
+  }
+
+  xgboost::tree::TreeEvaluator::GetEvaluator<xgboost::tree::TrainParam>((a1 + 2712), v68);
+  v54 = *v31;
+  v55 = v31[1];
+  if (*v31 != v55)
+  {
+    v56 = *(a1 + 2664);
+    do
+    {
+      v57 = *v54;
+      v58 = *(*(a5 + 160) + 20 * *v54);
+      *v59.i32 = xgboost::tree::TreeEvaluator::SplitEvaluator<xgboost::tree::TrainParam>::CalcWeight(v68, v58 & 0x7FFFFFFF, *(a1 + 8), (v56 + 104 * *v54), v52, v53);
+      v60 = *(a1 + 2664) + 104 * v57;
+      *(v60 + 20) = v59.i32[0];
+      v61 = *(a1 + 8);
+      v63 = xgboost::tree::TreeEvaluator::SplitEvaluator<xgboost::tree::TrainParam>::CalcWeight(v68, v58 & 0x7FFFFFFF, v61, v60, v59, v62);
+      *v52.i32 = xgboost::tree::TreeEvaluator::SplitEvaluator<xgboost::tree::TrainParam>::CalcGainGivenWeight(v68, v61, v60, v63);
+      v56 = *(a1 + 2664);
+      *(v56 + 104 * v57 + 16) = v52.i32[0];
+      ++v54;
+    }
+
+    while (v54 != v55);
+  }
 }

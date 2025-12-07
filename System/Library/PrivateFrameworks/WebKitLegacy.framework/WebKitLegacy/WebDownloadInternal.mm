@@ -7,11 +7,11 @@
 - (uint64_t)download:(WTF *)this didFailWithError:(void *)error;
 - (uint64_t)download:(WTF *)this didReceiveDataOfLength:(void *)length;
 - (uint64_t)download:(WTF *)this didReceiveResponse:(void *)response;
-- (uint64_t)download:(id)&& shouldDecodeSourceDataOfMIMEType:;
 - (uint64_t)download:(uint64_t)download didReceiveResponse:;
 - (uint64_t)downloadDidBegin:(WTF *)this;
 - (uint64_t)downloadDidFinish:(WTF *)this;
 - (void)dealloc;
+- (void)download:(id)&& shouldDecodeSourceDataOfMIMEType:;
 - (void)download:(id)&& willSendRequest:redirectResponse:;
 - (void)download:(id)download decideDestinationWithSuggestedFilename:(id)filename;
 - (void)download:(id)download didCreateDestination:(id)destination;
@@ -516,7 +516,7 @@ LABEL_7:
   return WTF::fastFree(this, length);
 }
 
-- (uint64_t)download:(id)&& shouldDecodeSourceDataOfMIMEType:
+- (void)download:(id)&& shouldDecodeSourceDataOfMIMEType:
 {
   result = [*(**(self + 16) + 8) download:**(self + 24) shouldDecodeSourceDataOfMIMEType:**(self + 32)];
   **(self + 8) = result;

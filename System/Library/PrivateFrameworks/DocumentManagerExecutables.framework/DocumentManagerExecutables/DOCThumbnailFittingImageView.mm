@@ -22,10 +22,10 @@
 
 - (NSURL)url
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
   MEMORY[0x28223BE20](v3 - 8, v4);
   v6 = &v14 - v5;
-  outlined init with copy of DOCGridLayout.Spec?(self + OBJC_IVAR____TtC26DocumentManagerExecutables28DOCThumbnailFittingImageView_url, &v14 - v5, &_s10Foundation3URLVSgMd);
+  outlined init with copy of DOCGridLayout.Spec?(self + OBJC_IVAR____TtC26DocumentManagerExecutables28DOCThumbnailFittingImageView_url, &v14 - v5, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
   v7 = type metadata accessor for URL();
   v8 = *(v7 - 8);
   v9 = (*(v8 + 48))(v6, 1, v7);
@@ -76,7 +76,7 @@
 - (void)didMoveToWindow
 {
   v4.receiver = self;
-  v4.super_class = type metadata accessor for DOCThumbnailFittingImageView();
+  v4.super_class = type metadata accessor for DOCThumbnailFittingImageView(0);
   v2 = v4.receiver;
   [(DOCThumbnailFittingImageView *)&v4 didMoveToWindow];
   window = [v2 window];

@@ -54,30 +54,28 @@
 - (matrix_float4x4)leftProjectionMatrix
 {
   v2 = sub_239F1622C(self->super._camera, (self->_interPupillaryDistance * -0.01) / self->super._worldToMetersConversionScale);
-  result.columns[3].i64[1] = v10;
-  result.columns[3].i64[0] = v9;
-  result.columns[2].i64[1] = v8;
-  result.columns[2].i64[0] = v7;
-  result.columns[1].i64[1] = v6;
-  result.columns[1].i64[0] = v5;
-  result.columns[0].i64[1] = v4;
-  result.columns[0].f32[1] = v3;
-  result.columns[0].f32[0] = v2;
+  result.columns[3].i64[1] = v9;
+  result.columns[3].i64[0] = v8;
+  result.columns[2].i64[1] = v7;
+  result.columns[2].i64[0] = v6;
+  result.columns[1].i64[1] = v5;
+  result.columns[1].i64[0] = v4;
+  result.columns[0].i64[1] = v3;
+  *result.columns[0].i64 = v2;
   return result;
 }
 
 - (matrix_float4x4)rightProjectionMatrix
 {
   v2 = sub_239F1622C(self->super._camera, (self->_interPupillaryDistance * 0.01) / self->super._worldToMetersConversionScale);
-  result.columns[3].i64[1] = v10;
-  result.columns[3].i64[0] = v9;
-  result.columns[2].i64[1] = v8;
-  result.columns[2].i64[0] = v7;
-  result.columns[1].i64[1] = v6;
-  result.columns[1].i64[0] = v5;
-  result.columns[0].i64[1] = v4;
-  result.columns[0].f32[1] = v3;
-  result.columns[0].f32[0] = v2;
+  result.columns[3].i64[1] = v9;
+  result.columns[3].i64[0] = v8;
+  result.columns[2].i64[1] = v7;
+  result.columns[2].i64[0] = v6;
+  result.columns[1].i64[1] = v5;
+  result.columns[1].i64[0] = v4;
+  result.columns[0].i64[1] = v3;
+  *result.columns[0].i64 = v2;
   return result;
 }
 

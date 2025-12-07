@@ -10,16 +10,18 @@
 
 - (void)cardViewController:(id)controller preferredContentSizeDidChange:(CGSize)change animated:(BOOL)animated
 {
+  height = change.height;
+  width = change.width;
   controllerCopy = controller;
   selfCopy = self;
-  sub_21DFF26EC(controller);
+  sub_21DFF26EC(controller, width, height);
 }
 
 - (void)presentViewController:(id)controller
 {
   controllerCopy = controller;
   selfCopy = self;
-  sub_21DFF11EC(controller);
+  sub_21DFF11EC(controller, v6);
 }
 
 - (BOOL)canPerformCommand:(id)command

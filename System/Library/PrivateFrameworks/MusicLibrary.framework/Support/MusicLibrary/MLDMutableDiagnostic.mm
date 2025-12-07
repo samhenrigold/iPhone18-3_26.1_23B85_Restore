@@ -20,9 +20,7 @@
 {
   if (self->super._libraryConnectionDiagnostics != diagnostics)
   {
-    v5 = [diagnostics copy];
-    libraryConnectionDiagnostics = self->super._libraryConnectionDiagnostics;
-    self->super._libraryConnectionDiagnostics = v5;
+    self->super._libraryConnectionDiagnostics = [diagnostics copy];
 
     _objc_release_x1();
   }
@@ -32,9 +30,7 @@
 {
   if (self->super._suspendedImportOperations != operations)
   {
-    v5 = [operations copy];
-    suspendedImportOperations = self->super._suspendedImportOperations;
-    self->super._suspendedImportOperations = v5;
+    self->super._suspendedImportOperations = [operations copy];
 
     _objc_release_x1();
   }
@@ -44,9 +40,7 @@
 {
   if (self->super._activeImportOperations != operations)
   {
-    v5 = [operations copy];
-    activeImportOperations = self->super._activeImportOperations;
-    self->super._activeImportOperations = v5;
+    self->super._activeImportOperations = [operations copy];
 
     _objc_release_x1();
   }
@@ -69,9 +63,7 @@
 {
   if (self->super._enqueuedLimitedQueueOperations != operations)
   {
-    v5 = [operations copy];
-    enqueuedLimitedQueueOperations = self->super._enqueuedLimitedQueueOperations;
-    self->super._enqueuedLimitedQueueOperations = v5;
+    self->super._enqueuedLimitedQueueOperations = [operations copy];
 
     _objc_release_x1();
   }
@@ -81,9 +73,7 @@
 {
   if (self->super._enqueuedSerialOperations != operations)
   {
-    v5 = [operations copy];
-    enqueuedSerialOperations = self->super._enqueuedSerialOperations;
-    self->super._enqueuedSerialOperations = v5;
+    self->super._enqueuedSerialOperations = [operations copy];
 
     _objc_release_x1();
   }
@@ -93,9 +83,7 @@
 {
   if (self->super._enqueuedConcurrentOperations != operations)
   {
-    v5 = [operations copy];
-    enqueuedConcurrentOperations = self->super._enqueuedConcurrentOperations;
-    self->super._enqueuedConcurrentOperations = v5;
+    self->super._enqueuedConcurrentOperations = [operations copy];
 
     _objc_release_x1();
   }
@@ -105,9 +93,7 @@
 {
   if (self->super._activeTransactions != transactions)
   {
-    v5 = [transactions copy];
-    activeTransactions = self->super._activeTransactions;
-    self->super._activeTransactions = v5;
+    self->super._activeTransactions = [transactions copy];
 
     _objc_release_x1();
   }
@@ -117,9 +103,7 @@
 {
   if (self->super._databaseFileDiagnostics != diagnostics)
   {
-    v5 = [diagnostics copy];
-    databaseFileDiagnostics = self->super._databaseFileDiagnostics;
-    self->super._databaseFileDiagnostics = v5;
+    self->super._databaseFileDiagnostics = [diagnostics copy];
 
     _objc_release_x1();
   }
@@ -129,9 +113,7 @@
 {
   if (self->super._activeXPCTransactions != transactions)
   {
-    v5 = [transactions copy];
-    activeXPCTransactions = self->super._activeXPCTransactions;
-    self->super._activeXPCTransactions = v5;
+    self->super._activeXPCTransactions = [transactions copy];
 
     _objc_release_x1();
   }
@@ -141,9 +123,7 @@
 {
   if (self->super._activeClients != clients)
   {
-    v5 = [clients copy];
-    activeClients = self->super._activeClients;
-    self->super._activeClients = v5;
+    self->super._activeClients = [clients copy];
 
     _objc_release_x1();
   }

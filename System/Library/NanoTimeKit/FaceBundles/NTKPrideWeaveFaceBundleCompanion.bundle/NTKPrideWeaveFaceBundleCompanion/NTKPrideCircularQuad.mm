@@ -12,6 +12,7 @@
 - (float)_dampingFactorForSpline:(int)spline;
 - (float)_dialRadiusForSpline:(int)spline;
 - (float)_rectRadiusForSpline:(int)spline;
+- (float)computeAmplitudeForControlPoint:(int)point inSpline:(int)spline atTime:(double)time;
 - (float)currentSplineWidth;
 - (float)globalAmplitudeForTime:(double)time;
 - (float)interpolationStepSizeForSpline:(int)spline;
@@ -23,10 +24,12 @@
 - (int)_numVertsForSpline:(int)spline;
 - (int)numControlPointsPerSpline;
 - (int)numSplines;
+- (void)_colorSequenceForStartIndex:(int)index reverseDirection:(BOOL)direction colorSequence:(id)sequence;
 - (void)_generateControlPointDampingCoefficients;
 - (void)applyTransitionFromDialToFullScreenWithFraction:(double)fraction;
 - (void)clearWaves;
 - (void)dealloc;
+- (void)generateControlPointsForSpline:(int)spline;
 - (void)handleScreenOff;
 - (void)initializePerSplineData;
 - (void)performWristRaiseAnimation;
@@ -53,16 +56,15 @@
 
 - (float)currentSplineWidth
 {
-  v7 = 0uLL;
-  v9 = 0;
-  v8 = 0;
+  v5 = 0uLL;
+  v7 = 0;
+  v6 = 0;
   clkDevice = [(NTKPrideMetalQuad *)self clkDevice];
-  sub_120BC(clkDevice, &v7);
+  sub_120BC(clkDevice, &v5);
 
-  v4 = *&self->_perSplineData;
   CLKInterpolateBetweenFloatsClipped();
-  *&v5 = v5;
-  return (*&v5 - *(&v7 + 3)) / (v7 - 1);
+  *&v3 = v3;
+  return (*&v3 - *(&v5 + 3)) / (v5 - 1);
 }
 
 - (void)processSpline:(int)spline
@@ -216,6 +218,65 @@
   [(NTKPrideCircularQuad *)self setColorConfig:v6, v5];
 }
 
+- (void)_colorSequenceForStartIndex:(int)index reverseDirection:(BOOL)direction colorSequence:(id)sequence
+{
+  directionCopy = direction;
+  v6 = *&index;
+  sequenceCopy = sequence;
+  v22 = 0uLL;
+  v23 = 0;
+  v24 = 0;
+  clkDevice = [(NTKPrideMetalQuad *)self clkDevice];
+  sub_120BC(clkDevice, &v22);
+
+  v9 = v22;
+  if (v22 >= 1)
+  {
+    v10 = 0;
+    v11 = v6 + 16;
+    v12 = v6 + 23;
+    do
+    {
+      v13 = dword_1B278[v10];
+      v14 = v12 - v13;
+      v15 = v11 + v13;
+      if (directionCopy)
+      {
+        v15 = v14;
+      }
+
+      v16 = v15 & 7;
+      v18 = -v15;
+      v17 = v18 < 0;
+      v19 = v18 & 7;
+      if (v17)
+      {
+        v20 = v16;
+      }
+
+      else
+      {
+        v20 = -v19;
+      }
+
+      if (self->_currentColorConfig.endReversed)
+      {
+        CLKUIConvertToRGBfFromXRSRGBf();
+      }
+
+      else
+      {
+        v6 = v6 & 0xFFFFFFFF00000000 | PRIDE_COLORS_2019[v20];
+        CLKUIConvertToRGBfFromSRGB8_fast();
+      }
+
+      sequenceCopy[2](sequenceCopy, v10++);
+    }
+
+    while (v9 != v10);
+  }
+}
+
 - (void)setColorConfig:(id)config
 {
   v3 = *&config.var2;
@@ -355,6 +416,49 @@ LABEL_5:
   sub_120BC(clkDevice, &v6);
 
   return *(&v6 + 3) + ((spline / (v6 - 1)) * (*(&v7 + 1) - *(&v6 + 3)));
+}
+
+- (void)generateControlPointsForSpline:(int)spline
+{
+  v3 = *&spline;
+  v20 = 0uLL;
+  v22 = 0;
+  v21 = 0;
+  clkDevice = [(NTKPrideMetalQuad *)self clkDevice];
+  sub_120BC(clkDevice, &v20);
+
+  [(NTKPrideCircularQuad *)self _dialRadiusForSpline:v3];
+  v19 = v6;
+  [(NTKPrideCircularQuad *)self _rectRadiusForSpline:v3];
+  v18 = v7;
+  clkDevice2 = [(NTKPrideMetalQuad *)self clkDevice];
+  deviceCategory = [clkDevice2 deviceCategory];
+
+  v10 = 0;
+  if (deviceCategory <= 6)
+  {
+    v10 = *(&off_24B50 + deviceCategory);
+  }
+
+  v11 = *&self->super._amplitudeMultiplier + 704 * v3;
+  *(v11 + 692) = v18;
+  *(v11 + 696) = v19;
+  v12 = DWORD1(v20);
+  if (SDWORD1(v20) >= 1)
+  {
+    v13 = 0;
+    v14 = 704 * v3;
+    do
+    {
+      v15 = ((v13 / v12) + (v13 / v12)) * 3.14159265;
+      v16 = __sincosf_stret(v15);
+      v17 = vmla_f32(0x3F0000003F000000, 0x3F0000003F000000, vmul_n_f32(__PAIR64__(LODWORD(v16.__sinval), LODWORD(v16.__cosval)), v19));
+      *(*&self->super._amplitudeMultiplier + v14 + 8 * v13) = vmla_n_f32(v17, vsub_f32(vmla_f32(0x3F0000003F000000, 0x3F0000003F000000, vmul_n_f32(*(v10 + 8 * v13), v18)), v17), 1.0 - *&self->_perSplineData);
+      ++v13;
+    }
+
+    while (v12 != v13);
+  }
 }
 
 - (int)_numVertsForSpline:(int)spline
@@ -601,6 +705,20 @@ LABEL_5:
   self->_currentFade = -10.0;
   LOBYTE(self->_displayMode) = 0;
   HIDWORD(self->_perSplineData) = 1065353216;
+}
+
+- (float)computeAmplitudeForControlPoint:(int)point inSpline:(int)spline atTime:(double)time
+{
+  v7 = *&spline;
+  *&v5 = time;
+  LODWORD(v6) = 1.5;
+  [(NTKPrideSplinesQuad *)self combinedAmplitudeForControlPointAtPosition:*(*&self->super._amplitudeMultiplier + 704 * spline + 8 * point) currentTime:v5 waveSpeed:v6];
+  v10 = v9;
+  touchCrownHandler = [(NTKPrideSplinesQuad *)self touchCrownHandler];
+  [touchCrownHandler strumAmplitudeForSpline:v7];
+  v13 = v12;
+
+  return fabsf(v13) * 1.5 + v10 * 0.2;
 }
 
 - (float)globalAmplitudeForTime:(double)time

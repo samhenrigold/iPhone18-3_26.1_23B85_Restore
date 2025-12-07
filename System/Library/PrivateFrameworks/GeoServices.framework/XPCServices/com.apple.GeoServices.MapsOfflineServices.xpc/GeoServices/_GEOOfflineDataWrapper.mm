@@ -2,6 +2,7 @@
 - (BOOL)hasDataForKey:(id)key;
 - (id)getDataFileURLSync:(id)sync sandboxExtensionOwner:(id *)owner;
 - (id)getDataSync:(id)sync;
+- (void)getAvailableKeysForLayer:(unsigned int)layer callback:(id)callback;
 - (void)getAvailableRegionsWithCallback:(id)callback;
 - (void)getDataAsync:(id)async callback:(id)callback;
 - (void)getDataFileURLAsync:(id)async callback:(id)callback;
@@ -23,6 +24,23 @@
   v8 = callbackCopy;
   v6 = callbackCopy;
   [v4 getFullyDownloadedRegionsWithCallbackQueue:global_queue callback:v7];
+}
+
+- (void)getAvailableKeysForLayer:(unsigned int)layer callback:(id)callback
+{
+  v4 = *&layer;
+  callbackCopy = callback;
+  v6 = +[GEOOfflineDataAccess sharedInstance];
+  qos_class_self();
+  global_queue = geo_get_global_queue();
+  v9[0] = _NSConcreteStackBlock;
+  v9[1] = 3221225472;
+  v9[2] = sub_10000164C;
+  v9[3] = &unk_100008298;
+  v11 = v4;
+  v10 = callbackCopy;
+  v8 = callbackCopy;
+  [v6 getAvailableKeysForLayer:v4 callbackQueue:global_queue callback:v9];
 }
 
 - (BOOL)hasDataForKey:(id)key

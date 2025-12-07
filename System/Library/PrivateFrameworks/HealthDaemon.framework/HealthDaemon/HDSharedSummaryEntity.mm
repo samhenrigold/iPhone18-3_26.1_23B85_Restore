@@ -12,6 +12,7 @@
 + (int64_t)countOfObjectsForTransactionID:(int64_t)d healthDatabase:(id)database error:(id *)error;
 + (uint64_t)_enumerateEntitiesWithTransactionID:(void *)d package:(void *)package names:(void *)names reuseTransactionID:(void *)iD databaseTransaction:(uint64_t)transaction error:(void *)error enumerationHandler:;
 - (BOOL)setReuseTransactionID:(id)d databaseTransaction:(id)transaction error:(id *)error;
+- (BOOL)setSynced:(BOOL)synced databaseTransaction:(id)transaction error:(id *)error;
 - (BOOL)syncedInDatabaseTransaction:(id)transaction error:(id *)error;
 - (id)UUIDInDatabaseTransaction:(id)transaction error:(id *)error;
 - (id)summaryDataInDatabaseTransaction:(id)transaction error:(id *)error;
@@ -21,32 +22,29 @@
 
 + (id)foreignKeys
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"transaction_id";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"transaction_id";
   v2 = +[(HDHealthEntity *)HDSharedSummaryTransactionEntity];
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
 
 + (id)uniquedColumns
 {
-  v5[3] = *MEMORY[0x277D85DE8];
-  v5[0] = @"package";
-  v5[1] = @"name";
-  v5[2] = @"transaction_id";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:3];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[3] = *MEMORY[0x277D85DE8];
+  v4[0] = @"package";
+  v4[1] = @"name";
+  v4[2] = @"transaction_id";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:3];
 
   return v2;
 }
 
 + (id)insertOrReplaceWithUUID:(id)d package:(id)package name:(id)name version:(id)version compatibilityVersion:(id)compatibilityVersion transactionID:(unint64_t)iD summaryData:(id)data databaseTransaction:(id)self0 error:(id *)self1
 {
-  v42[8] = *MEMORY[0x277D85DE8];
+  v41[8] = *MEMORY[0x277D85DE8];
   dCopy = d;
   packageCopy = package;
   nameCopy = name;
@@ -54,35 +52,33 @@
   compatibilityVersionCopy = compatibilityVersion;
   dataCopy = data;
   v21 = [transaction databaseForEntityClass:self];
-  v42[0] = @"uuid";
-  v42[1] = @"package";
-  v42[2] = @"name";
-  v42[3] = @"version";
-  v42[4] = @"compatibility_version";
-  v42[5] = @"transaction_id";
-  v42[6] = @"summary_data";
-  v42[7] = @"synced";
-  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:8];
-  v34[0] = MEMORY[0x277D85DD0];
-  v34[1] = 3221225472;
-  v34[2] = __143__HDSharedSummaryEntity_insertOrReplaceWithUUID_package_name_version_compatibilityVersion_transactionID_summaryData_databaseTransaction_error___block_invoke;
-  v34[3] = &unk_278618818;
-  v35 = dCopy;
-  v36 = packageCopy;
-  v37 = nameCopy;
-  v38 = versionCopy;
-  v40 = dataCopy;
+  v41[0] = @"uuid";
+  v41[1] = @"package";
+  v41[2] = @"name";
+  v41[3] = @"version";
+  v41[4] = @"compatibility_version";
+  v41[5] = @"transaction_id";
+  v41[6] = @"summary_data";
+  v41[7] = @"synced";
+  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:8];
+  v33[0] = MEMORY[0x277D85DD0];
+  v33[1] = 3221225472;
+  v33[2] = __143__HDSharedSummaryEntity_insertOrReplaceWithUUID_package_name_version_compatibilityVersion_transactionID_summaryData_databaseTransaction_error___block_invoke;
+  v33[3] = &unk_278618818;
+  v34 = dCopy;
+  v35 = packageCopy;
+  v36 = nameCopy;
+  v37 = versionCopy;
+  v39 = dataCopy;
   iDCopy = iD;
-  v39 = compatibilityVersionCopy;
+  v38 = compatibilityVersionCopy;
   v23 = dataCopy;
   v24 = compatibilityVersionCopy;
   v25 = versionCopy;
   v26 = nameCopy;
   v27 = packageCopy;
   v28 = dCopy;
-  v29 = [self insertOrReplaceEntity:1 database:v21 properties:v22 error:error bindingHandler:v34];
-
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = [self insertOrReplaceEntity:1 database:v21 properties:v22 error:error bindingHandler:v33];
 
   return v29;
 }
@@ -165,7 +161,7 @@ void __143__HDSharedSummaryEntity_insertOrReplaceWithUUID_package_name_version_c
 
 + (BOOL)enumerateSummariesWithTransactionID:(unint64_t)d package:(id)package names:(id)names includedObjectTypes:(id)types databaseTransaction:(id)transaction error:(id *)error enumerationHandler:(id)handler
 {
-  v62[2] = *MEMORY[0x277D85DE8];
+  v61[2] = *MEMORY[0x277D85DE8];
   v14 = MEMORY[0x277CCABB0];
   handlerCopy = handler;
   transactionCopy = transaction;
@@ -175,8 +171,8 @@ void __143__HDSharedSummaryEntity_insertOrReplaceWithUUID_package_name_version_c
   v20 = [v14 numberWithUnsignedLongLong:d];
   v21 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:d];
   v22 = typesCopy;
-  v53 = transactionCopy;
-  v52 = handlerCopy;
+  v52 = transactionCopy;
+  v51 = handlerCopy;
   v23 = v21;
   v24 = namesCopy;
   v25 = packageCopy;
@@ -184,10 +180,10 @@ void __143__HDSharedSummaryEntity_insertOrReplaceWithUUID_package_name_version_c
   v27 = objc_opt_self();
   v28 = [HDSharedSummaryEntity _predicateForTransactionID:v26 package:v25 names:v24 reuseTransactionID:v23];
 
-  v56 = v24;
-  v54 = v25;
+  v55 = v24;
+  v53 = v25;
 
-  v55 = v26;
+  v54 = v26;
   v29 = 0x277CBE000;
   if (v22)
   {
@@ -206,9 +202,9 @@ void __143__HDSharedSummaryEntity_insertOrReplaceWithUUID_package_name_version_c
 
     v40 = [MEMORY[0x277D10B90] predicateWithSQL:v39 overProperties:MEMORY[0x277CBEBF8] values:v34];
     v41 = MEMORY[0x277D10B20];
-    v62[0] = v28;
-    v62[1] = v40;
-    v42 = [MEMORY[0x277CBEA60] arrayWithObjects:v62 count:2];
+    v61[0] = v28;
+    v61[1] = v40;
+    v42 = [MEMORY[0x277CBEA60] arrayWithObjects:v61 count:2];
     v43 = [v41 predicateMatchingAllPredicates:v42];
 
     v23 = v37;
@@ -217,26 +213,25 @@ void __143__HDSharedSummaryEntity_insertOrReplaceWithUUID_package_name_version_c
     v28 = v43;
   }
 
-  v44 = [v53 databaseForEntityClass:objc_opt_class()];
+  v44 = [v52 databaseForEntityClass:objc_opt_class()];
   v45 = [v27 queryWithDatabase:v44 predicate:v28];
-  v61[0] = @"uuid";
-  v61[1] = @"package";
-  v61[2] = @"name";
-  v61[3] = @"version";
-  v61[4] = @"compatibility_version";
-  v61[5] = @"summary_data";
-  v46 = [*(v29 + 2656) arrayWithObjects:v61 count:6];
-  v58[0] = MEMORY[0x277D85DD0];
-  v58[1] = 3221225472;
-  v58[2] = __160__HDSharedSummaryEntity__enumerateSummariesWithTransactionID_package_names_includedObjectTypes_reuseTransactionID_databaseTransaction_error_enumerationHandler___block_invoke_3;
-  v58[3] = &unk_278618880;
-  v59 = v53;
-  v60 = v52;
-  v47 = v52;
-  v48 = v53;
-  v49 = [v45 enumeratePersistentIDsAndProperties:v46 error:error enumerationHandler:v58];
+  v60[0] = @"uuid";
+  v60[1] = @"package";
+  v60[2] = @"name";
+  v60[3] = @"version";
+  v60[4] = @"compatibility_version";
+  v60[5] = @"summary_data";
+  v46 = [*(v29 + 2656) arrayWithObjects:v60 count:6];
+  v57[0] = MEMORY[0x277D85DD0];
+  v57[1] = 3221225472;
+  v57[2] = __160__HDSharedSummaryEntity__enumerateSummariesWithTransactionID_package_names_includedObjectTypes_reuseTransactionID_databaseTransaction_error_enumerationHandler___block_invoke_3;
+  v57[3] = &unk_278618880;
+  v58 = v52;
+  v59 = v51;
+  v47 = v51;
+  v48 = v52;
+  v49 = [v45 enumeratePersistentIDsAndProperties:v46 error:error enumerationHandler:v57];
 
-  v50 = *MEMORY[0x277D85DE8];
   return v49;
 }
 
@@ -364,6 +359,17 @@ id __82__HDSharedSummaryEntity_reuseSummariesForTransactionID_databaseTransactio
   return v12;
 }
 
+- (BOOL)setSynced:(BOOL)synced databaseTransaction:(id)transaction error:(id *)error
+{
+  syncedCopy = synced;
+  v8 = MEMORY[0x277CCABB0];
+  transactionCopy = transaction;
+  v10 = [v8 numberWithBool:syncedCopy];
+  LOBYTE(error) = [(HDHealthEntity *)self setNumber:v10 forProperty:@"synced" transaction:transactionCopy error:error];
+
+  return error;
+}
+
 - (BOOL)syncedInDatabaseTransaction:(id)transaction error:(id *)error
 {
   v4 = [(HDHealthEntity *)self numberForProperty:@"synced" transaction:transaction error:error];
@@ -394,22 +400,21 @@ id __82__HDSharedSummaryEntity_reuseSummariesForTransactionID_databaseTransactio
 
 - (BOOL)setReuseTransactionID:(id)d databaseTransaction:(id)transaction error:(id *)error
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   dCopy = d;
   transactionCopy = transaction;
   v10 = [transactionCopy databaseForEntityClass:objc_opt_class()];
 
-  v17[0] = @"reuse_transaction_id";
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __73__HDSharedSummaryEntity_setReuseTransactionID_databaseTransaction_error___block_invoke;
-  v15[3] = &unk_278614508;
-  v16 = dCopy;
+  v16[0] = @"reuse_transaction_id";
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __73__HDSharedSummaryEntity_setReuseTransactionID_databaseTransaction_error___block_invoke;
+  v14[3] = &unk_278614508;
+  v15 = dCopy;
   v12 = dCopy;
-  LOBYTE(error) = [(HDSQLiteEntity *)self updateProperties:v11 database:v10 error:error bindingHandler:v15];
+  LOBYTE(error) = [(HDSQLiteEntity *)self updateProperties:v11 database:v10 error:error bindingHandler:v14];
 
-  v13 = *MEMORY[0x277D85DE8];
   return error;
 }
 
@@ -428,7 +433,7 @@ void __73__HDSharedSummaryEntity_setReuseTransactionID_databaseTransaction_error
 
 + (id)_predicateForTransactionID:(void *)d package:(void *)package names:(void *)names reuseTransactionID:
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v8 = a2;
   dCopy = d;
   packageCopy = package;
@@ -462,34 +467,34 @@ void __73__HDSharedSummaryEntity_setReuseTransactionID_databaseTransaction_error
 
   if (packageCopy)
   {
-    v27 = v12;
-    v28 = namesCopy;
-    v29 = packageCopy;
-    v30 = dCopy;
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
+    v26 = v12;
+    v27 = namesCopy;
+    v28 = packageCopy;
+    v29 = dCopy;
     v33 = 0u;
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
     v17 = packageCopy;
-    v18 = [v17 countByEnumeratingWithState:&v32 objects:v36 count:16];
-    v31 = v8;
+    v18 = [v17 countByEnumeratingWithState:&v31 objects:v35 count:16];
+    v30 = v8;
     if (v18)
     {
       v19 = v18;
       v20 = 0;
-      v21 = *v33;
+      v21 = *v32;
       do
       {
         v22 = 0;
         v23 = v20;
         do
         {
-          if (*v33 != v21)
+          if (*v32 != v21)
           {
             objc_enumerationMutation(v17);
           }
 
-          v24 = [MEMORY[0x277D10B18] predicateWithProperty:@"name" equalToValue:*(*(&v32 + 1) + 8 * v22)];
+          v24 = [MEMORY[0x277D10B18] predicateWithProperty:@"name" equalToValue:*(*(&v31 + 1) + 8 * v22)];
           v20 = [MEMORY[0x277D10B70] disjunctionWithPredicate:v23 otherPredicate:v24];
 
           ++v22;
@@ -497,7 +502,7 @@ void __73__HDSharedSummaryEntity_setReuseTransactionID_databaseTransaction_error
         }
 
         while (v19 != v22);
-        v19 = [v17 countByEnumeratingWithState:&v32 objects:v36 count:16];
+        v19 = [v17 countByEnumeratingWithState:&v31 objects:v35 count:16];
       }
 
       while (v19);
@@ -508,15 +513,13 @@ void __73__HDSharedSummaryEntity_setReuseTransactionID_databaseTransaction_error
       v20 = 0;
     }
 
-    v12 = [MEMORY[0x277D10B70] compoundPredicateWithPredicate:v27 otherPredicate:v20];
+    v12 = [MEMORY[0x277D10B70] compoundPredicateWithPredicate:v26 otherPredicate:v20];
 
-    dCopy = v30;
-    v8 = v31;
-    namesCopy = v28;
-    packageCopy = v29;
+    dCopy = v29;
+    v8 = v30;
+    namesCopy = v27;
+    packageCopy = v28;
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

@@ -448,23 +448,23 @@ void __68__PLWarningHelper__enumerateWarningMessagesUsingBlock_sectionBlock___bl
   (*(*(a1 + 40) + 16))();
 }
 
-void __68__PLWarningHelper__enumerateWarningMessagesUsingBlock_sectionBlock___block_invoke_2(void *a1)
+void __68__PLWarningHelper__enumerateWarningMessagesUsingBlock_sectionBlock___block_invoke_2(void *a1, uint64_t a2)
 {
-  v2 = PLLocalizedKeyForAssetType();
-  v3 = a1[4];
-  v11 = 0;
+  v3 = PLLocalizedKeyForAssetType();
+  v4 = a1[4];
   v12 = 0;
-  v10 = 0;
-  [v3 _getWarningTitle:&v12 message:&v11 buttonTitle:&v10 forItemSuffix:v2 count:a1[6] operation:a1[7] clientName:@"SomeApp"];
-  v4 = v12;
-  v5 = v11;
-  v6 = v10;
-  v7 = MEMORY[0x1E696AEC0];
-  v8 = [MEMORY[0x1E696AD98] numberWithInteger:a1[7]];
-  v9 = [v7 stringWithFormat:@"Operation: %@, Kind: %@", v8, v2];
+  v13 = 0;
+  v11 = 0;
+  [v4 _getWarningTitle:&v13 message:&v12 buttonTitle:&v11 forItemSuffix:v3 count:a1[6] operation:a1[7] clientName:@"SomeApp"];
+  v5 = v13;
+  v6 = v12;
+  v7 = v11;
+  v8 = MEMORY[0x1E696AEC0];
+  v9 = [MEMORY[0x1E696AD98] numberWithInteger:a1[7]];
+  v10 = [v8 stringWithFormat:@"Operation: %@, Kind: %@", v9, v3];
 
   (*(a1[5] + 16))();
-  if (v5)
+  if (v6)
   {
     (*(a1[5] + 16))();
   }
@@ -539,8 +539,8 @@ void __48__PLWarningHelper_allWarningMessageCombinations__block_invoke(uint64_t 
   albumsCopy = albums;
   foldersCopy = folders;
   nameCopy = name;
-  v16 = [albumsCopy count];
-  v17 = [foldersCopy count];
+  v16 = objc_msgSend_count(albumsCopy);
+  v17 = objc_msgSend_count(foldersCopy);
   if (!(v17 + v16))
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
@@ -868,7 +868,7 @@ LABEL_69:
   contributorsCopy = contributors;
   v18 = PLLocalizedKeyForAssetType();
   LODWORD(contributors) = [(PLPhotoLibrary *)self->_photoLibrary isCloudPhotoLibraryEnabled];
-  v65 = [contributorsCopy count];
+  v65 = objc_msgSend_count(contributorsCopy);
   contributorsCopy2 = contributors;
   if (contributors)
   {
@@ -896,7 +896,7 @@ LABEL_69:
       }
 
       v23 = v22;
-      if ([assetsCopy count] == scopeCount)
+      if (objc_msgSend_count(assetsCopy) == scopeCount)
       {
         if (v65 >= 3)
         {
@@ -1176,7 +1176,7 @@ LABEL_69:
 {
   assetsCopy = assets;
   v7 = [(PLWarningHelper *)self _assetsInLibraryScopeCountFromAssets:assetsCopy];
-  v8 = [assetsCopy count];
+  v8 = objc_msgSend_count(assetsCopy);
   v24 = 0;
   photoLibrary = [(PLWarningHelper *)self photoLibrary];
   v10 = [photoLibrary countOfLocalAlbumsContainingAssets:assetsCopy assetsInSomeAlbumCount:&v24];
@@ -1685,7 +1685,7 @@ LABEL_124:
             {
               v17 = v9;
               v18 = MEMORY[0x1E695DF90];
-              v19 = [assetsCopy count];
+              v19 = objc_msgSend_count(assetsCopy);
               v20 = v18;
               v9 = v17;
               v16 = [v20 dictionaryWithCapacity:v19];
@@ -1696,7 +1696,7 @@ LABEL_124:
             ++v41;
             assetsCount = [(PLAvalanche *)v15 assetsCount];
             userFavorites = [(PLAvalanche *)v15 userFavorites];
-            v23 = [userFavorites count];
+            v23 = objc_msgSend_count(userFavorites);
 
             v45 += v23;
             v46 = assetsCount + v46 - v23;
@@ -1834,7 +1834,7 @@ LABEL_40:
       }
     }
 
-    *warning = -[PLWarningHelper _avalancheDeleteWarningForAvalancheStacksCount:nonAvalancheItemsToDeleteCount:nonAvalancheItemsToDeleteType:avalanchePhotosToDeleteCount:survivingAvalancheFavoritesCount:avalancheUnrelatedFavoritesCount:assetCount:](self, "_avalancheDeleteWarningForAvalancheStacksCount:nonAvalancheItemsToDeleteCount:nonAvalancheItemsToDeleteType:avalanchePhotosToDeleteCount:survivingAvalancheFavoritesCount:avalancheUnrelatedFavoritesCount:assetCount:", v41, v27, v36, v46, v45, v28, [obj count]);
+    *warning = [(PLWarningHelper *)self _avalancheDeleteWarningForAvalancheStacksCount:v41 nonAvalancheItemsToDeleteCount:v27 nonAvalancheItemsToDeleteType:v36 avalanchePhotosToDeleteCount:v46 survivingAvalancheFavoritesCount:v45 avalancheUnrelatedFavoritesCount:v28 assetCount:objc_msgSend_count(obj)];
   }
 }
 
@@ -1852,7 +1852,7 @@ LABEL_40:
   }
 
   v17 = v16;
-  v18 = [contributorsCopy count];
+  v18 = objc_msgSend_count(contributorsCopy);
   if (enabledCopy)
   {
     if (v18 < 3)
@@ -1938,7 +1938,7 @@ LABEL_30:
   v19 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"EXPUNGE_%@%@_WARNING_MESSAGE_WITH_ICLOUD_OFF", v15, v41];
   v23 = PLServicesLocalizedFrameworkString();
   v24 = contributorsCopy;
-  if ([nameCopy isEqualToString:@"iPhone"])
+  if (objc_msgSend_isEqualToString_(nameCopy))
   {
     v25 = nameCopy;
     titleCopy3 = title;
@@ -1948,7 +1948,7 @@ LABEL_30:
   else
   {
     titleCopy3 = title;
-    if ([nameCopy isEqualToString:@"iPad"])
+    if (objc_msgSend_isEqualToString_(nameCopy))
     {
       v25 = nameCopy;
       v27 = @"IPAD";
@@ -1957,7 +1957,7 @@ LABEL_30:
     else
     {
       v25 = nameCopy;
-      if ([nameCopy isEqualToString:@"iPod touch"])
+      if (objc_msgSend_isEqualToString_(nameCopy))
       {
         v27 = @"IPOD_TOUCH";
       }
@@ -2069,7 +2069,7 @@ LABEL_31:
 - (void)getExpungeWarningMessage:(id *)message buttonTitle:(id *)title forAssets:(id)assets
 {
   assetsCopy = assets;
-  v10 = [assetsCopy count];
+  v10 = objc_msgSend_count(assetsCopy);
   if (message)
   {
     if (title)
@@ -2111,7 +2111,7 @@ LABEL_3:
 {
   _assets = [(PLWarningHelper *)self _assets];
   _style = [(PLWarningHelper *)self _style];
-  v54 = [_assets count];
+  v54 = objc_msgSend_count(_assets);
   v10 = PLSuffixForItems();
   lastObject = [_assets lastObject];
   collectionShare = [lastObject collectionShare];
@@ -2425,7 +2425,7 @@ LABEL_3:
   nameCopy = name;
   assetsCopy = assets;
   v15 = PLSuffixForItems();
-  v16 = [assetsCopy count];
+  v16 = objc_msgSend_count(assetsCopy);
 
   if (v16 != 1)
   {
@@ -2483,15 +2483,16 @@ LABEL_3:
 
   if (isCloudSharedAsset)
   {
-    v9 = +[PLWarningHelper _sharedAlbumWarningMessageForAssetCount:assetType:albumTitle:](PLWarningHelper, "_sharedAlbumWarningMessageForAssetCount:assetType:albumTitle:", [assetsCopy count], PLAssetTypeForItems(), titleCopy);
+    v9 = PLAssetTypeForItems();
+    v10 = [PLWarningHelper _sharedAlbumWarningMessageForAssetCount:objc_msgSend_count(assetsCopy) assetType:v9 albumTitle:titleCopy];
   }
 
   else
   {
-    v9 = 0;
+    v10 = 0;
   }
 
-  return v9;
+  return v10;
 }
 
 @end

@@ -121,9 +121,8 @@
     {
       v10 = MEMORY[0x1E695DF20];
       v11 = [(NSMutableArray *)self->_errors objectAtIndex:0];
-      v12 = *MEMORY[0x1E696AA08];
-      v13 = [v10 dictionaryWithObjectsAndKeys:{v11, *MEMORY[0x1E696AA08], self->_errors, *MEMORY[0x1E696A750], 0}];
-      self->_error = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:objc_msgSend(-[NSMutableArray objectAtIndex:](self->_errors code:"objectAtIndex:" userInfo:{0), "domain"), 1, v13}];
+      v12 = [v10 dictionaryWithObjectsAndKeys:{v11, *MEMORY[0x1E696AA08], self->_errors, *MEMORY[0x1E696A750], 0}];
+      self->_error = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:objc_msgSend(-[NSMutableArray objectAtIndex:](self->_errors code:"objectAtIndex:" userInfo:{0), "domain"), 1, v12}];
     }
 
     internalCompletionHandler = self->_internalCompletionHandler;

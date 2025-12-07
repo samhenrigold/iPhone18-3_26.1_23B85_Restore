@@ -19,8 +19,7 @@
   suggestion = [(CTLazuliChatBotSuggestedAction *)self suggestion];
   [v3 appendFormat:@", suggestion = %@", suggestion];
 
-  action = self->_action;
-  [v3 appendFormat:@", action {%@} = %@", objc_opt_class(), action];
+  [v3 appendFormat:@", action {%@} = %@", objc_opt_class(), self->_action];
   [v3 appendString:@">"];
 
   return v3;

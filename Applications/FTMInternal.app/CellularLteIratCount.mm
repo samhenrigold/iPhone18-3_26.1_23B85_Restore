@@ -349,102 +349,97 @@
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    durationSeconds = self->_durationSeconds;
     PBDataWriterWriteUint32Field();
   }
 
-  v56 = 0u;
-  v57 = 0u;
-  v54 = 0u;
-  v55 = 0u;
-  v8 = self->_fromLteHoCounts;
-  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v54 objects:v62 count:16];
-  if (v9)
-  {
-    v10 = v9;
-    v11 = *v55;
-    do
-    {
-      for (i = 0; i != v10; i = i + 1)
-      {
-        if (*v55 != v11)
-        {
-          objc_enumerationMutation(v8);
-        }
-
-        v13 = *(*(&v54 + 1) + 8 * i);
-        PBDataWriterWriteSubmessage();
-      }
-
-      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v54 objects:v62 count:16];
-    }
-
-    while (v10);
-  }
-
-  v52 = 0u;
-  v53 = 0u;
-  v50 = 0u;
-  v51 = 0u;
-  v14 = self->_fromLteReselCounts;
-  v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v50 objects:v61 count:16];
-  if (v15)
-  {
-    v16 = v15;
-    v17 = *v51;
-    do
-    {
-      for (j = 0; j != v16; j = j + 1)
-      {
-        if (*v51 != v17)
-        {
-          objc_enumerationMutation(v14);
-        }
-
-        v19 = *(*(&v50 + 1) + 8 * j);
-        PBDataWriterWriteSubmessage();
-      }
-
-      v16 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v50 objects:v61 count:16];
-    }
-
-    while (v16);
-  }
-
-  v48 = 0u;
   v49 = 0u;
-  v46 = 0u;
+  v50 = 0u;
   v47 = 0u;
-  v20 = self->_fromLteRedirCounts;
-  v21 = [(NSMutableArray *)v20 countByEnumeratingWithState:&v46 objects:v60 count:16];
-  if (v21)
+  v48 = 0u;
+  v6 = self->_fromLteHoCounts;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v47 objects:v55 count:16];
+  if (v7)
   {
-    v22 = v21;
-    v23 = *v47;
+    v8 = v7;
+    v9 = *v48;
     do
     {
-      for (k = 0; k != v22; k = k + 1)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v47 != v23)
+        if (*v48 != v9)
         {
-          objc_enumerationMutation(v20);
+          objc_enumerationMutation(v6);
         }
 
-        v25 = *(*(&v46 + 1) + 8 * k);
         PBDataWriterWriteSubmessage();
       }
 
-      v22 = [(NSMutableArray *)v20 countByEnumeratingWithState:&v46 objects:v60 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v47 objects:v55 count:16];
     }
 
-    while (v22);
+    while (v8);
+  }
+
+  v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
+  v11 = self->_fromLteReselCounts;
+  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v43 objects:v54 count:16];
+  if (v12)
+  {
+    v13 = v12;
+    v14 = *v44;
+    do
+    {
+      for (j = 0; j != v13; ++j)
+      {
+        if (*v44 != v14)
+        {
+          objc_enumerationMutation(v11);
+        }
+
+        PBDataWriterWriteSubmessage();
+      }
+
+      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v43 objects:v54 count:16];
+    }
+
+    while (v13);
+  }
+
+  v41 = 0u;
+  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
+  v16 = self->_fromLteRedirCounts;
+  v17 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v39 objects:v53 count:16];
+  if (v17)
+  {
+    v18 = v17;
+    v19 = *v40;
+    do
+    {
+      for (k = 0; k != v18; ++k)
+      {
+        if (*v40 != v19)
+        {
+          objc_enumerationMutation(v16);
+        }
+
+        PBDataWriterWriteSubmessage();
+      }
+
+      v18 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v39 objects:v53 count:16];
+    }
+
+    while (v18);
   }
 
   if (self->_wtolHoCount)
@@ -457,62 +452,60 @@
     PBDataWriterWriteSubmessage();
   }
 
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
-  v43 = 0u;
-  v26 = self->_wtolRedirCounts;
-  v27 = [(NSMutableArray *)v26 countByEnumeratingWithState:&v42 objects:v59 count:16];
+  v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
+  v21 = self->_wtolRedirCounts;
+  v22 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v35 objects:v52 count:16];
+  if (v22)
+  {
+    v23 = v22;
+    v24 = *v36;
+    do
+    {
+      for (m = 0; m != v23; ++m)
+      {
+        if (*v36 != v24)
+        {
+          objc_enumerationMutation(v21);
+        }
+
+        PBDataWriterWriteSubmessage();
+      }
+
+      v23 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v35 objects:v52 count:16];
+    }
+
+    while (v23);
+  }
+
+  v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
+  v26 = self->_ctolReselCounts;
+  v27 = [(NSMutableArray *)v26 countByEnumeratingWithState:&v31 objects:v51 count:16];
   if (v27)
   {
     v28 = v27;
-    v29 = *v43;
+    v29 = *v32;
     do
     {
-      for (m = 0; m != v28; m = m + 1)
+      for (n = 0; n != v28; ++n)
       {
-        if (*v43 != v29)
+        if (*v32 != v29)
         {
           objc_enumerationMutation(v26);
         }
 
-        v31 = *(*(&v42 + 1) + 8 * m);
         PBDataWriterWriteSubmessage();
       }
 
-      v28 = [(NSMutableArray *)v26 countByEnumeratingWithState:&v42 objects:v59 count:16];
+      v28 = [(NSMutableArray *)v26 countByEnumeratingWithState:&v31 objects:v51 count:16];
     }
 
     while (v28);
-  }
-
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
-  v39 = 0u;
-  v32 = self->_ctolReselCounts;
-  v33 = [(NSMutableArray *)v32 countByEnumeratingWithState:&v38 objects:v58 count:16];
-  if (v33)
-  {
-    v34 = v33;
-    v35 = *v39;
-    do
-    {
-      for (n = 0; n != v34; n = n + 1)
-      {
-        if (*v39 != v35)
-        {
-          objc_enumerationMutation(v32);
-        }
-
-        v37 = *(*(&v38 + 1) + 8 * n);
-        PBDataWriterWriteSubmessage();
-      }
-
-      v34 = [(NSMutableArray *)v32 countByEnumeratingWithState:&v38 objects:v58 count:16];
-    }
-
-    while (v34);
   }
 }
 
@@ -802,7 +795,6 @@
     goto LABEL_26;
   }
 
-  v5 = *(equalCopy + 80);
   if (*&self->_has)
   {
     if ((*(equalCopy + 80) & 1) == 0 || self->_timestamp != *(equalCopy + 1))
@@ -814,7 +806,7 @@
   else if (*(equalCopy + 80))
   {
 LABEL_26:
-    v13 = 0;
+    v12 = 0;
     goto LABEL_27;
   }
 
@@ -885,17 +877,17 @@ LABEL_26:
   ctolReselCounts = self->_ctolReselCounts;
   if (ctolReselCounts | *(equalCopy + 2))
   {
-    v13 = [(NSMutableArray *)ctolReselCounts isEqual:?];
+    v12 = [(NSMutableArray *)ctolReselCounts isEqual:?];
   }
 
   else
   {
-    v13 = 1;
+    v12 = 1;
   }
 
 LABEL_27:
 
-  return v13;
+  return v12;
 }
 
 - (unint64_t)hash

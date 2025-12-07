@@ -21,13 +21,14 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_1D12DA3FC();
+  sub_1D12DA3FC(selfCopy, v2);
 }
 
 - (void)viewWillAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_1D12DABFC(appear);
+  sub_1D12DABFC(appearCopy, v4);
 }
 
 - (void)addRecords

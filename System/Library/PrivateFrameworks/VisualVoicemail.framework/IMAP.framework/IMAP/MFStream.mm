@@ -38,32 +38,30 @@
 
 + (void)createTheOnlyNetworkThread
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   if (__theOnlyNetworkThread)
   {
     +[MFStream createTheOnlyNetworkThread];
   }
 
-  v4 = 0;
+  v3 = 0;
   v2 = [objc_alloc(MEMORY[0x277CCA930]) initWithCondition:0];
-  pthread_attr_init(&v5);
-  pthread_attr_setdetachstate(&v5, 2);
-  pthread_create(&v4, &v5, _MFSocketTheOnlyNetworkThread_runloop, v2);
+  pthread_attr_init(&v4);
+  pthread_attr_setdetachstate(&v4, 2);
+  pthread_create(&v3, &v4, _MFSocketTheOnlyNetworkThread_runloop, v2);
   [v2 lockWhenCondition:1];
   [v2 unlock];
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (MFStream)initWithMambaID:(const char *)d rumba:(id)rumba callBack:(id)back onDispatchQueue:(id)queue
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   rumbaCopy = rumba;
   backCopy = back;
   queueCopy = queue;
-  v19.receiver = self;
-  v19.super_class = MFStream;
-  v12 = [(MFStream *)&v19 init];
+  v18.receiver = self;
+  v18.super_class = MFStream;
+  v12 = [(MFStream *)&v18 init];
   if (v12)
   {
     if (!backCopy)
@@ -91,26 +89,25 @@
     operator new();
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (void)dealloc
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = ctu::OsLogLogger::getOsLogHandle(self->logger.__ptr_);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     mambaID = self->mambaID;
     rumbaID = self->rumbaID;
     *buf = 136315906;
-    v14 = mambaID;
-    v15 = 2080;
-    v16 = " ";
-    v17 = 2114;
-    v18 = rumbaID;
-    v19 = 2080;
-    v20 = " ";
+    v13 = mambaID;
+    v14 = 2080;
+    v15 = " ";
+    v16 = 2114;
+    v17 = rumbaID;
+    v18 = 2080;
+    v19 = " ";
     _os_log_impl(&dword_2720B1000, v3, OS_LOG_TYPE_DEFAULT, "#I %s%s%{public}@%sstream deleting", buf, 0x2Au);
   }
 
@@ -127,20 +124,19 @@
     v9 = self->mambaID;
     v10 = self->rumbaID;
     *buf = 136315906;
-    v14 = v9;
-    v15 = 2080;
-    v16 = " ";
-    v17 = 2114;
-    v18 = v10;
-    v19 = 2080;
-    v20 = " ";
+    v13 = v9;
+    v14 = 2080;
+    v15 = " ";
+    v16 = 2114;
+    v17 = v10;
+    v18 = 2080;
+    v19 = " ";
     _os_log_impl(&dword_2720B1000, v8, OS_LOG_TYPE_DEFAULT, "#I %s%s%{public}@%sstream destroyed", buf, 0x2Au);
   }
 
-  v12.receiver = self;
-  v12.super_class = MFStream;
-  [(MFStream *)&v12 dealloc];
-  v11 = *MEMORY[0x277D85DE8];
+  v11.receiver = self;
+  v11.super_class = MFStream;
+  [(MFStream *)&v11 dealloc];
 }
 
 - (BOOL)isOpen
@@ -214,12 +210,12 @@ uint64_t __27__MFStream_propertyForKey___block_invoke(uint64_t a1)
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (BOOL)__setProperty:(id)property forKey:(id)key
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   propertyCopy = property;
   keyCopy = key;
   rStream = self->_rStream;
@@ -238,19 +234,19 @@ uint64_t __27__MFStream_propertyForKey___block_invoke(uint64_t a1)
         v12 = "";
       }
 
-      v22 = 136316418;
-      v23 = mambaID;
-      v24 = 2080;
-      v25 = " ";
-      v26 = 2114;
-      v27 = rumbaID;
-      v28 = 2080;
-      v29 = " ";
-      v30 = 2112;
-      v31 = keyCopy;
-      v32 = 2080;
-      v33 = v12;
-      _os_log_impl(&dword_2720B1000, v11, OS_LOG_TYPE_DEFAULT, "#I %s%s%{public}@%sset property %@ with%s success", &v22, 0x3Eu);
+      v21 = 136316418;
+      v22 = mambaID;
+      v23 = 2080;
+      v24 = " ";
+      v25 = 2114;
+      v26 = rumbaID;
+      v27 = 2080;
+      v28 = " ";
+      v29 = 2112;
+      v30 = keyCopy;
+      v31 = 2080;
+      v32 = v12;
+      _os_log_impl(&dword_2720B1000, v11, OS_LOG_TYPE_DEFAULT, "#I %s%s%{public}@%sset property %@ with%s success", &v21, 0x3Eu);
     }
   }
 
@@ -259,9 +255,9 @@ uint64_t __27__MFStream_propertyForKey___block_invoke(uint64_t a1)
     properties = self->_properties;
     if (!properties)
     {
-      v18 = objc_alloc_init(MEMORY[0x277CBEB38]);
-      v19 = self->_properties;
-      self->_properties = v18;
+      v17 = objc_alloc_init(MEMORY[0x277CBEB38]);
+      v18 = self->_properties;
+      self->_properties = v17;
 
       properties = self->_properties;
     }
@@ -270,25 +266,24 @@ uint64_t __27__MFStream_propertyForKey___block_invoke(uint64_t a1)
     v9 = ctu::OsLogLogger::getOsLogHandle(self->logger.__ptr_);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = self->mambaID;
-      v21 = self->rumbaID;
-      v22 = 136316162;
-      v23 = v20;
-      v24 = 2080;
-      v25 = " ";
-      v26 = 2114;
-      v27 = v21;
-      v28 = 2080;
-      v29 = " ";
-      v30 = 2112;
-      v31 = keyCopy;
-      _os_log_impl(&dword_2720B1000, v9, OS_LOG_TYPE_DEFAULT, "#I %s%s%{public}@%sset property %@", &v22, 0x34u);
+      v19 = self->mambaID;
+      v20 = self->rumbaID;
+      v21 = 136316162;
+      v22 = v19;
+      v23 = 2080;
+      v24 = " ";
+      v25 = 2114;
+      v26 = v20;
+      v27 = 2080;
+      v28 = " ";
+      v29 = 2112;
+      v30 = keyCopy;
+      _os_log_impl(&dword_2720B1000, v9, OS_LOG_TYPE_DEFAULT, "#I %s%s%{public}@%sset property %@", &v21, 0x34u);
     }
 
     LOBYTE(v10) = 1;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -317,7 +312,7 @@ uint64_t __27__MFStream_propertyForKey___block_invoke(uint64_t a1)
   return propertyCopy;
 }
 
-uint64_t __31__MFStream_setProperty_forKey___block_invoke(uint64_t a1)
+void *__31__MFStream_setProperty_forKey___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) __setProperty:*(a1 + 40) forKey:*(a1 + 48)];
   *(*(*(a1 + 56) + 8) + 24) = result;
@@ -326,7 +321,7 @@ uint64_t __31__MFStream_setProperty_forKey___block_invoke(uint64_t a1)
 
 - (void)__openToHostName:(id)name port:(int64_t)port
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   if (*&self->_rStream != 0)
   {
@@ -339,21 +334,21 @@ uint64_t __31__MFStream_setProperty_forKey___block_invoke(uint64_t a1)
     mambaID = self->mambaID;
     rumbaID = self->rumbaID;
     *buf = 136316418;
-    v40 = mambaID;
-    v41 = 2080;
-    v42 = " ";
-    v43 = 2114;
-    v44 = rumbaID;
-    v45 = 2080;
-    v46 = " ";
-    v47 = 2112;
-    v48 = nameCopy;
-    v49 = 2048;
+    v39 = mambaID;
+    v40 = 2080;
+    v41 = " ";
+    v42 = 2114;
+    v43 = rumbaID;
+    v44 = 2080;
+    v45 = " ";
+    v46 = 2112;
+    v47 = nameCopy;
+    v48 = 2048;
     portCopy = port;
     _os_log_impl(&dword_2720B1000, v7, OS_LOG_TYPE_DEFAULT, "#I %s%s%{public}@%sOpening stream to %@:%ld", buf, 0x3Eu);
   }
 
-  v37[0] = @"stream";
+  v36[0] = @"stream";
   v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"%p", self];
   v11 = v10;
   v12 = &stru_288159858;
@@ -362,13 +357,13 @@ uint64_t __31__MFStream_setProperty_forKey___block_invoke(uint64_t a1)
     v12 = nameCopy;
   }
 
-  v38[0] = v10;
-  v38[1] = v12;
-  v37[1] = @"host";
-  v37[2] = @"port";
+  v37[0] = v10;
+  v37[1] = v12;
+  v36[1] = @"host";
+  v36[2] = @"port";
   v13 = [MEMORY[0x277CCABB0] numberWithInteger:port];
-  v38[2] = v13;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:3];
+  v37[2] = v13;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:3];
   [MFPowerController powerlog:@"StreamOpen" eventData:v14];
 
   error = self->_error;
@@ -377,31 +372,31 @@ uint64_t __31__MFStream_setProperty_forKey___block_invoke(uint64_t a1)
   [(MFStream *)self _createPairWithSocketToHostName:nameCopy port:port];
   [(NSInputStream *)self->_rStream setDelegate:self];
   [(NSOutputStream *)self->_wStream setDelegate:self];
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   v16 = self->_properties;
-  v17 = [(NSMutableDictionary *)v16 countByEnumeratingWithState:&v32 objects:v36 count:16];
+  v17 = [(NSMutableDictionary *)v16 countByEnumeratingWithState:&v31 objects:v35 count:16];
   if (v17)
   {
-    v18 = *v33;
+    v18 = *v32;
     do
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v33 != v18)
+        if (*v32 != v18)
         {
           objc_enumerationMutation(v16);
         }
 
-        v20 = *(*(&v32 + 1) + 8 * i);
+        v20 = *(*(&v31 + 1) + 8 * i);
         rStream = self->_rStream;
         v22 = [(NSMutableDictionary *)self->_properties objectForKey:v20];
         [(NSInputStream *)rStream setProperty:v22 forKey:v20];
       }
 
-      v17 = [(NSMutableDictionary *)v16 countByEnumeratingWithState:&v32 objects:v36 count:16];
+      v17 = [(NSMutableDictionary *)v16 countByEnumeratingWithState:&v31 objects:v35 count:16];
     }
 
     while (v17);
@@ -424,21 +419,19 @@ uint64_t __31__MFStream_setProperty_forKey___block_invoke(uint64_t a1)
     v29 = self->_rStream;
     wStream = self->_wStream;
     *buf = 136316418;
-    v40 = v27;
-    v41 = 2080;
-    v42 = " ";
-    v43 = 2114;
-    v44 = v28;
-    v45 = 2080;
-    v46 = " ";
-    v47 = 2048;
-    v48 = v29;
-    v49 = 2048;
+    v39 = v27;
+    v40 = 2080;
+    v41 = " ";
+    v42 = 2114;
+    v43 = v28;
+    v44 = 2080;
+    v45 = " ";
+    v46 = 2048;
+    v47 = v29;
+    v48 = 2048;
     portCopy = wStream;
     _os_log_impl(&dword_2720B1000, v26, OS_LOG_TYPE_DEFAULT, "#I %s%s%{public}@%sopened read stream (%p), write stream (%p)", buf, 0x3Eu);
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)openToHostName:(id)name port:(int64_t)port
@@ -471,7 +464,7 @@ uint64_t __31__MFStream_setProperty_forKey___block_invoke(uint64_t a1)
 
 - (void)_closeAndReleaseStream:(id)stream logMessage:(id)message
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   streamCopy = stream;
   messageCopy = message;
   v8 = __theOnlyNetworkThread;
@@ -496,15 +489,15 @@ uint64_t __31__MFStream_setProperty_forKey___block_invoke(uint64_t a1)
         mambaID = self->mambaID;
         rumbaID = self->rumbaID;
         *buf = 136316162;
-        v25 = mambaID;
-        v26 = 2080;
-        v27 = " ";
-        v28 = 2114;
-        v29 = rumbaID;
-        v30 = 2080;
-        v31 = " ";
-        v32 = 2112;
-        v33 = messageCopy;
+        v24 = mambaID;
+        v25 = 2080;
+        v26 = " ";
+        v27 = 2114;
+        v28 = rumbaID;
+        v29 = 2080;
+        v30 = " ";
+        v31 = 2112;
+        v32 = messageCopy;
         _os_log_impl(&dword_2720B1000, v11, OS_LOG_TYPE_DEFAULT, "#I %s%s%{public}@%s%@", buf, 0x34u);
       }
     }
@@ -517,36 +510,34 @@ uint64_t __31__MFStream_setProperty_forKey___block_invoke(uint64_t a1)
         v15 = self->mambaID;
         v16 = self->rumbaID;
         *buf = 136315906;
-        v25 = v15;
-        v26 = 2080;
-        v27 = " ";
-        v28 = 2114;
-        v29 = v16;
-        v30 = 2080;
-        v31 = " ";
+        v24 = v15;
+        v25 = 2080;
+        v26 = " ";
+        v27 = 2114;
+        v28 = v16;
+        v29 = 2080;
+        v30 = " ";
         _os_log_impl(&dword_2720B1000, v14, OS_LOG_TYPE_DEFAULT, "#I %s%s%{public}@%shas been fully closed", buf, 0x2Au);
       }
 
-      v22[0] = @"stream";
+      v21[0] = @"stream";
       v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"%p", self];
-      v23[0] = v17;
-      v22[1] = @"rx";
+      v22[0] = v17;
+      v21[1] = @"rx";
       v18 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_bytesRead];
-      v23[1] = v18;
-      v22[2] = @"tx";
+      v22[1] = v18;
+      v21[2] = @"tx";
       v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_bytesWritten];
-      v23[2] = v19;
-      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:3];
+      v22[2] = v19;
+      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:3];
       [MFPowerController powerlog:@"StreamClose" eventData:v20];
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)indicateEnd
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   if (self->_error)
   {
     v3 = @"MFStreamEventErrorOccurred";
@@ -569,166 +560,160 @@ uint64_t __31__MFStream_setProperty_forKey___block_invoke(uint64_t a1)
     v11 = @" error: ";
     *buf = 136316674;
     v12 = &stru_288159858;
-    v19 = mambaID;
-    v20 = 2080;
-    v21 = " ";
+    v18 = mambaID;
+    v19 = 2080;
+    v20 = " ";
     if (!error)
     {
       v11 = &stru_288159858;
     }
 
-    v22 = 2114;
+    v21 = 2114;
     if (vf_publicDescription)
     {
       v12 = vf_publicDescription;
     }
 
-    v23 = rumbaID;
-    v24 = 2080;
-    v25 = " ";
-    v26 = 2112;
-    v27 = v4;
-    v28 = 2112;
-    v29 = v11;
-    v30 = 2114;
-    v31 = v12;
+    v22 = rumbaID;
+    v23 = 2080;
+    v24 = " ";
+    v25 = 2112;
+    v26 = v4;
+    v27 = 2112;
+    v28 = v11;
+    v29 = 2114;
+    v30 = v12;
     _os_log_impl(&dword_2720B1000, v5, OS_LOG_TYPE_DEFAULT, "#W %s%s%{public}@%sindicateEnd, dispatching %@%@%{public}@", buf, 0x48u);
   }
 
   callback_queue = self->_callback_queue;
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __23__MFStream_indicateEnd__block_invoke;
-  v16[3] = &unk_279E34500;
-  v16[4] = self;
-  v17 = v4;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __23__MFStream_indicateEnd__block_invoke;
+  v15[3] = &unk_279E34500;
+  v15[4] = self;
+  v16 = v4;
   v14 = v4;
-  dispatch_async(callback_queue, v16);
-
-  v15 = *MEMORY[0x277D85DE8];
+  dispatch_async(callback_queue, v15);
 }
 
 - (int64_t)__read:(char *)__read maxLength:(unint64_t)length
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   p_length = &self->_length;
   length = self->_length;
-  if (length)
+  if (!length)
   {
-    if (length >= length)
-    {
-      lengthCopy = length;
-    }
+    return -1;
+  }
 
-    else
-    {
-      lengthCopy = self->_length;
-    }
-
-    memmove(__read, self->_buffer, lengthCopy);
-    buffer = self->_buffer;
-    v9 = self->_length - lengthCopy;
-    self->_length = v9;
-    memmove(buffer, &buffer[lengthCopy], v9);
-    v10 = ctu::OsLogLogger::getOsLogHandle(self->logger.__ptr_);
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
-    {
-      [MFStream __read:? maxLength:?];
-    }
-
-    self->_bytesRead += lengthCopy;
-    self->_dispatchedBytesAvailable = 0;
-    if (self->_streamCanRead)
-    {
-      [(MFStream *)self _readBytesFromStream];
-    }
-
-    else if (*p_length)
-    {
-      v11 = ctu::OsLogLogger::getOsLogHandle(self->logger.__ptr_);
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
-      {
-        [MFStream __read:? maxLength:?];
-      }
-
-      self->_dispatchedBytesAvailable = 1;
-      callback_queue = self->_callback_queue;
-      block[0] = MEMORY[0x277D85DD0];
-      block[1] = 3221225472;
-      block[2] = __29__MFStream___read_maxLength___block_invoke;
-      block[3] = &unk_279E34528;
-      block[4] = self;
-      dispatch_async(callback_queue, block);
-    }
-
-    else if (![(MFStream *)self isOpen])
-    {
-      if (self->_error)
-      {
-        v13 = @"MFStreamEventErrorOccurred";
-      }
-
-      else
-      {
-        v13 = @"MFStreamEventEndEncountered";
-      }
-
-      v14 = v13;
-      v15 = ctu::OsLogLogger::getOsLogHandle(self->logger.__ptr_);
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
-      {
-        mambaID = self->mambaID;
-        rumbaID = self->rumbaID;
-        error = self->_error;
-        vf_publicDescription = [(NSError *)error vf_publicDescription];
-        v20 = vf_publicDescription;
-        v21 = @" error: ";
-        v22 = &stru_288159858;
-        *buf = 136316674;
-        v31 = mambaID;
-        v32 = 2080;
-        v33 = " ";
-        v34 = 2114;
-        if (!error)
-        {
-          v21 = &stru_288159858;
-        }
-
-        v35 = rumbaID;
-        if (vf_publicDescription)
-        {
-          v22 = vf_publicDescription;
-        }
-
-        v36 = 2080;
-        v37 = " ";
-        v38 = 2112;
-        v39 = v14;
-        v40 = 2112;
-        v41 = v21;
-        v42 = 2114;
-        v43 = v22;
-        _os_log_impl(&dword_2720B1000, v15, OS_LOG_TYPE_DEFAULT, "#W %s%s%{public}@%sdispatching %@%@%{public}@", buf, 0x48u);
-      }
-
-      v23 = self->_callback_queue;
-      v27[0] = MEMORY[0x277D85DD0];
-      v27[1] = 3221225472;
-      v27[2] = __29__MFStream___read_maxLength___block_invoke_69;
-      v27[3] = &unk_279E34500;
-      v27[4] = self;
-      v28 = v14;
-      v24 = v14;
-      dispatch_async(v23, v27);
-    }
+  if (length >= length)
+  {
+    lengthCopy = length;
   }
 
   else
   {
-    lengthCopy = -1;
+    lengthCopy = self->_length;
   }
 
-  v25 = *MEMORY[0x277D85DE8];
+  memmove(__read, self->_buffer, lengthCopy);
+  buffer = self->_buffer;
+  v9 = self->_length - lengthCopy;
+  self->_length = v9;
+  memmove(buffer, &buffer[lengthCopy], v9);
+  v10 = ctu::OsLogLogger::getOsLogHandle(self->logger.__ptr_);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  {
+    [MFStream __read:maxLength:];
+  }
+
+  self->_bytesRead += lengthCopy;
+  self->_dispatchedBytesAvailable = 0;
+  if (self->_streamCanRead)
+  {
+    [(MFStream *)self _readBytesFromStream];
+  }
+
+  else if (*p_length)
+  {
+    v11 = ctu::OsLogLogger::getOsLogHandle(self->logger.__ptr_);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    {
+      [MFStream __read:maxLength:];
+    }
+
+    self->_dispatchedBytesAvailable = 1;
+    callback_queue = self->_callback_queue;
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = __29__MFStream___read_maxLength___block_invoke;
+    block[3] = &unk_279E34528;
+    block[4] = self;
+    dispatch_async(callback_queue, block);
+  }
+
+  else if (![(MFStream *)self isOpen])
+  {
+    if (self->_error)
+    {
+      v13 = @"MFStreamEventErrorOccurred";
+    }
+
+    else
+    {
+      v13 = @"MFStreamEventEndEncountered";
+    }
+
+    v14 = v13;
+    v15 = ctu::OsLogLogger::getOsLogHandle(self->logger.__ptr_);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    {
+      mambaID = self->mambaID;
+      rumbaID = self->rumbaID;
+      error = self->_error;
+      vf_publicDescription = [(NSError *)error vf_publicDescription];
+      v20 = vf_publicDescription;
+      v21 = @" error: ";
+      v22 = &stru_288159858;
+      *buf = 136316674;
+      v30 = mambaID;
+      v31 = 2080;
+      v32 = " ";
+      v33 = 2114;
+      if (!error)
+      {
+        v21 = &stru_288159858;
+      }
+
+      v34 = rumbaID;
+      if (vf_publicDescription)
+      {
+        v22 = vf_publicDescription;
+      }
+
+      v35 = 2080;
+      v36 = " ";
+      v37 = 2112;
+      v38 = v14;
+      v39 = 2112;
+      v40 = v21;
+      v41 = 2114;
+      v42 = v22;
+      _os_log_impl(&dword_2720B1000, v15, OS_LOG_TYPE_DEFAULT, "#W %s%s%{public}@%sdispatching %@%@%{public}@", buf, 0x48u);
+    }
+
+    v23 = self->_callback_queue;
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __29__MFStream___read_maxLength___block_invoke_69;
+    v26[3] = &unk_279E34500;
+    v26[4] = self;
+    v27 = v14;
+    v24 = v14;
+    dispatch_async(v23, v26);
+  }
+
   return lengthCopy;
 }
 
@@ -752,7 +737,7 @@ uint64_t __31__MFStream_setProperty_forKey___block_invoke(uint64_t a1)
   return v4;
 }
 
-uint64_t __27__MFStream_read_maxLength___block_invoke(uint64_t a1)
+void *__27__MFStream_read_maxLength___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) __read:*(a1 + 48) maxLength:*(a1 + 56)];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -761,7 +746,7 @@ uint64_t __27__MFStream_read_maxLength___block_invoke(uint64_t a1)
 
 - (int64_t)__write:(const char *)__write maxLength:(unint64_t)length
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   wStream = self->_wStream;
   if (!wStream || self->_treatAsDead)
   {
@@ -771,14 +756,14 @@ uint64_t __27__MFStream_read_maxLength___block_invoke(uint64_t a1)
       mambaID = self->mambaID;
       rumbaID = self->rumbaID;
       *buf = 136316162;
-      v32 = mambaID;
-      v33 = 2080;
-      v34 = " ";
-      v35 = 2114;
-      v36 = rumbaID;
-      v37 = 2080;
-      v38 = " ";
-      v39 = 2048;
+      v31 = mambaID;
+      v32 = 2080;
+      v33 = " ";
+      v34 = 2114;
+      v35 = rumbaID;
+      v36 = 2080;
+      v37 = " ";
+      v38 = 2048;
       lengthCopy = length;
       _os_log_impl(&dword_2720B1000, &v7->super.super, OS_LOG_TYPE_DEFAULT, "#W %s%s%{public}@%sno longer has an open write stream, aborting write of %lu bytes", buf, 0x34u);
     }
@@ -786,7 +771,7 @@ uint64_t __27__MFStream_read_maxLength___block_invoke(uint64_t a1)
     v10 = -1;
 LABEL_6:
 
-    goto LABEL_7;
+    return v10;
   }
 
   if (!self->_streamCanWrite)
@@ -796,17 +781,17 @@ LABEL_6:
 
   self->_streamCanWrite = 0;
   v10 = [(NSOutputStream *)wStream write:__write maxLength:length];
-  v13 = ctu::OsLogLogger::getOsLogHandle(self->logger.__ptr_);
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+  v12 = ctu::OsLogLogger::getOsLogHandle(self->logger.__ptr_);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
-    [MFStream __write:? maxLength:?];
+    [MFStream __write:maxLength:];
   }
 
   self->_bytesWritten += v10;
   if (v10 < 0)
   {
     v7 = self->_wStream;
-    v14 = self->_wStream;
+    v13 = self->_wStream;
     self->_wStream = 0;
 
     if (!self->_error)
@@ -821,68 +806,66 @@ LABEL_6:
     {
       if (self->_error)
       {
-        v17 = @"MFStreamEventErrorOccurred";
+        v16 = @"MFStreamEventErrorOccurred";
       }
 
       else
       {
-        v17 = @"MFStreamEventEndEncountered";
+        v16 = @"MFStreamEventEndEncountered";
       }
 
-      v18 = v17;
-      v19 = ctu::OsLogLogger::getOsLogHandle(self->logger.__ptr_);
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v17 = v16;
+      v18 = ctu::OsLogLogger::getOsLogHandle(self->logger.__ptr_);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        v21 = self->mambaID;
-        v20 = self->rumbaID;
-        v22 = self->_error;
-        vf_publicDescription = [(NSError *)v22 vf_publicDescription];
-        v24 = vf_publicDescription;
-        v25 = @" error: ";
+        v20 = self->mambaID;
+        v19 = self->rumbaID;
+        v21 = self->_error;
+        vf_publicDescription = [(NSError *)v21 vf_publicDescription];
+        v23 = vf_publicDescription;
+        v24 = @" error: ";
         *buf = 136316674;
-        v26 = &stru_288159858;
-        v32 = v21;
-        v33 = 2080;
-        v34 = " ";
-        if (!v22)
+        v25 = &stru_288159858;
+        v31 = v20;
+        v32 = 2080;
+        v33 = " ";
+        if (!v21)
         {
-          v25 = &stru_288159858;
+          v24 = &stru_288159858;
         }
 
-        v35 = 2114;
+        v34 = 2114;
         if (vf_publicDescription)
         {
-          v26 = vf_publicDescription;
+          v25 = vf_publicDescription;
         }
 
-        v36 = v20;
-        v37 = 2080;
-        v38 = " ";
-        v39 = 2112;
-        lengthCopy = v18;
-        v41 = 2112;
-        v42 = v25;
-        v43 = 2114;
-        v44 = v26;
-        _os_log_impl(&dword_2720B1000, v19, OS_LOG_TYPE_DEFAULT, "#W %s%s%{public}@%sdispatching %@%@%{public}@", buf, 0x48u);
+        v35 = v19;
+        v36 = 2080;
+        v37 = " ";
+        v38 = 2112;
+        lengthCopy = v17;
+        v40 = 2112;
+        v41 = v24;
+        v42 = 2114;
+        v43 = v25;
+        _os_log_impl(&dword_2720B1000, v18, OS_LOG_TYPE_DEFAULT, "#W %s%s%{public}@%sdispatching %@%@%{public}@", buf, 0x48u);
       }
 
       callback_queue = self->_callback_queue;
-      v29[0] = MEMORY[0x277D85DD0];
-      v29[1] = 3221225472;
-      v29[2] = __30__MFStream___write_maxLength___block_invoke;
-      v29[3] = &unk_279E34500;
-      v29[4] = self;
-      v30 = v18;
-      v28 = v18;
-      dispatch_async(callback_queue, v29);
+      v28[0] = MEMORY[0x277D85DD0];
+      v28[1] = 3221225472;
+      v28[2] = __30__MFStream___write_maxLength___block_invoke;
+      v28[3] = &unk_279E34500;
+      v28[4] = self;
+      v29 = v17;
+      v27 = v17;
+      dispatch_async(callback_queue, v28);
     }
 
     goto LABEL_6;
   }
 
-LABEL_7:
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -906,7 +889,7 @@ LABEL_7:
   return v4;
 }
 
-uint64_t __28__MFStream_write_maxLength___block_invoke(uint64_t a1)
+void *__28__MFStream_write_maxLength___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) __write:*(a1 + 48) maxLength:*(a1 + 56)];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -962,17 +945,16 @@ uint64_t __28__MFStream_write_maxLength___block_invoke(uint64_t a1)
 
 - (void)_readBytesFromStream
 {
-  OUTLINED_FUNCTION_4(self, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_4(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_2720B1000, v1, v2, "#D %s%s%{public}@%sbuffered %ld bytes");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_2720B1000, v0, v1, "#D %s%s%{public}@%sbuffered %ld bytes");
 }
 
 - (void)stream:(id)stream handleEvent:(unint64_t)event
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   streamCopy = stream;
   v7 = ctu::OsLogLogger::getOsLogHandle(self->logger.__ptr_);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
@@ -980,16 +962,16 @@ uint64_t __28__MFStream_write_maxLength___block_invoke(uint64_t a1)
     mambaID = self->mambaID;
     rumbaID = self->rumbaID;
     *buf = 136316418;
-    v26 = mambaID;
-    v27 = 2080;
-    v28 = " ";
-    v29 = 2114;
-    v30 = rumbaID;
-    v31 = 2080;
-    v32 = " ";
-    v33 = 2112;
-    v34 = streamCopy;
-    v35 = 2048;
+    v25 = mambaID;
+    v26 = 2080;
+    v27 = " ";
+    v28 = 2114;
+    v29 = rumbaID;
+    v30 = 2080;
+    v31 = " ";
+    v32 = 2112;
+    v33 = streamCopy;
+    v34 = 2048;
     eventCopy = event;
     _os_log_debug_impl(&dword_2720B1000, v7, OS_LOG_TYPE_DEBUG, "#D %s%s%{public}@%s%@ handleEvent:%lu", buf, 0x3Eu);
   }
@@ -1021,24 +1003,24 @@ uint64_t __28__MFStream_write_maxLength___block_invoke(uint64_t a1)
         v16 = self->mambaID;
         v15 = self->rumbaID;
         v17 = self->_error;
-        ctu::hex(self->_buffer, self->_length);
-        v18 = v23 >= 0 ? &__p : __p;
+        ctu::hex(__p, self->_buffer, self->_length);
+        v18 = v22 >= 0 ? __p : __p[0];
         *buf = 136316418;
-        v26 = v16;
-        v27 = 2080;
-        v28 = " ";
-        v29 = 2114;
-        v30 = v15;
-        v31 = 2080;
-        v32 = " ";
-        v33 = 2112;
-        v34 = v17;
-        v35 = 2080;
+        v25 = v16;
+        v26 = 2080;
+        v27 = " ";
+        v28 = 2114;
+        v29 = v15;
+        v30 = 2080;
+        v31 = " ";
+        v32 = 2112;
+        v33 = v17;
+        v34 = 2080;
         eventCopy = v18;
         _os_log_impl(&dword_2720B1000, v14, OS_LOG_TYPE_DEFAULT, "#I %s%s%{public}@%send encountered, err:%@, missed data? > '%s'", buf, 0x3Eu);
-        if (v23 < 0)
+        if (v22 < 0)
         {
-          operator delete(__p);
+          operator delete(__p[0]);
         }
       }
 
@@ -1055,7 +1037,7 @@ uint64_t __28__MFStream_write_maxLength___block_invoke(uint64_t a1)
         v10 = ctu::OsLogLogger::getOsLogHandle(self->logger.__ptr_);
         if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
         {
-          [MFStream stream:? handleEvent:?];
+          [MFStream stream:handleEvent:];
         }
 
         callback_queue = self->_callback_queue;
@@ -1081,47 +1063,40 @@ uint64_t __28__MFStream_write_maxLength___block_invoke(uint64_t a1)
   }
 
 LABEL_25:
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
-- (void)__read:(uint64_t)a1 maxLength:.cold.1(uint64_t a1)
+- (void)__read:maxLength:.cold.1()
 {
-  OUTLINED_FUNCTION_4(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_4(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_2720B1000, v1, v2, "#D %s%s%{public}@%sread %lu bytes");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_2720B1000, v0, v1, "#D %s%s%{public}@%sread %lu bytes");
 }
 
-- (void)__read:(uint64_t)a1 maxLength:.cold.2(uint64_t a1)
+- (void)__read:maxLength:.cold.2()
 {
-  OUTLINED_FUNCTION_4(a1, *MEMORY[0x277D85DE8]);
-  v2 = *v1;
+  OUTLINED_FUNCTION_4(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_3(&dword_2720B1000, v3, v4, "#D %s%s%{public}@%sdispatching MFStreamEventHasBytesAvailable (%ld)");
-  v5 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_2720B1000, v0, v1, "#D %s%s%{public}@%sdispatching MFStreamEventHasBytesAvailable (%ld)");
 }
 
-- (void)__write:(uint64_t)a1 maxLength:.cold.2(uint64_t a1)
+- (void)__write:maxLength:.cold.2()
 {
-  OUTLINED_FUNCTION_4(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_4(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_2720B1000, v1, v2, "#D %s%s%{public}@%swrote %ld bytes");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_2720B1000, v0, v1, "#D %s%s%{public}@%swrote %ld bytes");
 }
 
-- (void)stream:(uint64_t)a1 handleEvent:.cold.1(uint64_t a1)
+- (void)stream:handleEvent:.cold.1()
 {
-  OUTLINED_FUNCTION_4(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_4(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_1_1();
-  _os_log_debug_impl(&dword_2720B1000, v1, OS_LOG_TYPE_DEBUG, "#D %s%s%{public}@%sdispatching MFStreamEventCanAcceptBytes", v3, 0x2Au);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_2720B1000, v0, OS_LOG_TYPE_DEBUG, "#D %s%s%{public}@%sdispatching MFStreamEventCanAcceptBytes", v1, 0x2Au);
 }
 
 @end

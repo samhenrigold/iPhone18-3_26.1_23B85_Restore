@@ -43,7 +43,7 @@
 
 + (void)simulateCrashWithDescription:(id)description
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   descriptionCopy = description;
   if (descriptionCopy)
   {
@@ -57,12 +57,10 @@
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT))
   {
-    v6 = 138412290;
-    v7 = v4;
-    _os_log_fault_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "Simulating crash, reason: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v4;
+    _os_log_fault_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "Simulating crash, reason: %@", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

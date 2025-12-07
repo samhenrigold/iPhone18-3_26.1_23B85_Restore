@@ -32,67 +32,65 @@
 
 - (void)_messageAttachmentStorageLocationsDidChangeNotification:(id)notification
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   obj = [objc_msgSend(notification "userInfo")];
-  v4 = [obj countByEnumeratingWithState:&v21 objects:v26 count:16];
+  v4 = [obj countByEnumeratingWithState:&v20 objects:v25 count:16];
   if (v4)
   {
     v5 = v4;
-    v16 = *v22;
+    v15 = *v21;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v22 != v16)
+        if (*v21 != v15)
         {
           objc_enumerationMutation(obj);
         }
 
-        libraryID = [*(*(&v21 + 1) + 8 * i) libraryID];
+        libraryID = [*(*(&v20 + 1) + 8 * i) libraryID];
+        v16 = 0u;
         v17 = 0u;
         v18 = 0u;
         v19 = 0u;
-        v20 = 0u;
         allKeys = [(NSMutableDictionary *)self->super.super._metadata allKeys];
-        v9 = [allKeys countByEnumeratingWithState:&v17 objects:v25 count:16];
+        v9 = [allKeys countByEnumeratingWithState:&v16 objects:v24 count:16];
         if (v9)
         {
           v10 = v9;
-          v11 = *v18;
+          v11 = *v17;
           do
           {
             for (j = 0; j != v10; ++j)
             {
-              if (*v18 != v11)
+              if (*v17 != v11)
               {
                 objc_enumerationMutation(allKeys);
               }
 
-              v13 = *(*(&v17 + 1) + 8 * j);
+              v13 = *(*(&v16 + 1) + 8 * j);
               if ([v13 mf_rowID] == libraryID)
               {
                 [(NSMutableDictionary *)self->super.super._metadata removeObjectForKey:v13];
               }
             }
 
-            v10 = [allKeys countByEnumeratingWithState:&v17 objects:v25 count:16];
+            v10 = [allKeys countByEnumeratingWithState:&v16 objects:v24 count:16];
           }
 
           while (v10);
         }
       }
 
-      v5 = [obj countByEnumeratingWithState:&v21 objects:v26 count:16];
+      v5 = [obj countByEnumeratingWithState:&v20 objects:v25 count:16];
     }
 
     while (v5);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_dataProviderForAttachmentURL:(id)l error:(id *)error
@@ -151,30 +149,30 @@
 
 - (id)attachmentsForMessage:(id)message withSchemes:(id)schemes
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   messageBodyIfAvailable = [message messageBodyIfAvailable];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   attachments = [messageBodyIfAvailable attachments];
-  v9 = [attachments countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v9 = [attachments countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v20;
+    v11 = *v19;
     do
     {
       v12 = 0;
       do
       {
-        if (*v20 != v11)
+        if (*v19 != v11)
         {
           objc_enumerationMutation(attachments);
         }
 
-        v13 = [objc_msgSend(*(*(&v19 + 1) + 8 * v12) "mimePart")];
+        v13 = [objc_msgSend(*(*(&v18 + 1) + 8 * v12) "mimePart")];
         if (([message messageFlags] & 8) != 0)
         {
           v14 = 0;
@@ -219,13 +217,12 @@ LABEL_16:
       }
 
       while (v10 != v12);
-      v10 = [attachments countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v10 = [attachments countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v10);
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return array;
 }
 

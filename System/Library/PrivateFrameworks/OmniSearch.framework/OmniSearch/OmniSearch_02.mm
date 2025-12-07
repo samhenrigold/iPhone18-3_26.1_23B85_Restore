@@ -1,2793 +1,138 @@
-uint64_t specialized _merge<A>(low:mid:high:buffer:by:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t *a6, void (*a7)(unint64_t, int64_t, unint64_t), void (*a8)(unint64_t *, unint64_t *, unint64_t *))
+uint64_t GlobalResolutionService.resolveFlight(reservation:clientId:)(uint64_t a1)
 {
-  v58 = a8;
-  v70 = a4;
-  v9 = a3;
-  v10 = a2;
-  v11 = a1;
-  v66 = a5;
-  v67 = a6;
-  v12 = OUTLINED_FUNCTION_82(a1, a2, a3, a4, a5);
-  v65 = __swift_instantiateConcreteTypeFromMangledNameV2(v12, v13);
-  v14 = *(*(v65 - 8) + 64);
-  v15 = MEMORY[0x28223BE20](v65);
-  v68 = &v56 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  result = MEMORY[0x28223BE20](v15);
-  v69 = &v56 - v18;
-  v20 = *(v19 + 72);
-  if (!v20)
-  {
-    __break(1u);
-LABEL_61:
-    __break(1u);
-LABEL_62:
-    __break(1u);
-    return result;
-  }
-
-  v21 = v10 - v11 == 0x8000000000000000 && v20 == -1;
-  if (v21)
-  {
-    goto LABEL_61;
-  }
-
-  v22 = v9 - v10;
-  if (v9 - v10 == 0x8000000000000000 && v20 == -1)
-  {
-    goto LABEL_62;
-  }
-
-  v24 = (v10 - v11) / v20;
-  v73 = v11;
-  v72 = v70;
-  v25 = v22 / v20;
-  if (v24 >= v22 / v20)
-  {
-    v38 = v70;
-    a7(v10, v22 / v20, v70);
-    v39 = v38 + v25 * v20;
-    v40 = -v20;
-    v41 = v39;
-    v60 = -v20;
-    v61 = v11;
-LABEL_37:
-    v42 = v9;
-    v57 = v41;
-    v62 = v10 + v40;
-    v63 = v10;
-    while (1)
-    {
-      if (v39 <= v70)
-      {
-        v73 = v10;
-        v71 = v41;
-        goto LABEL_59;
-      }
-
-      if (v10 <= v11)
-      {
-        break;
-      }
-
-      v59 = v41;
-      v43 = v42 + v40;
-      v44 = v39 + v40;
-      v45 = v69;
-      v46 = v66;
-      v47 = v39;
-      v48 = v67;
-      outlined init with copy of EagerResolutionService?();
-      v49 = v68;
-      outlined init with copy of EagerResolutionService?();
-      v64 = *v45;
-      v50 = *v49;
-      outlined destroy of EagerResolutionService?(v49, v46, v48);
-      outlined destroy of EagerResolutionService?(v45, v46, v48);
-      if (v50 >= v64)
-      {
-        v39 = v47;
-        v52 = v42 < v63 || v43 >= v63;
-        v9 = v43;
-        if (v52)
-        {
-          v10 = v62;
-          OUTLINED_FUNCTION_116();
-          swift_arrayInitWithTakeFrontToBack();
-          v41 = v59;
-          v40 = v60;
-          v11 = v61;
-        }
-
-        else
-        {
-          v40 = v60;
-          v41 = v59;
-          v11 = v61;
-          v53 = v62;
-          v10 = v62;
-          if (v42 != v63)
-          {
-            OUTLINED_FUNCTION_116();
-            v55 = v54;
-            swift_arrayInitWithTakeBackToFront();
-            v10 = v53;
-            v41 = v55;
-          }
-        }
-
-        goto LABEL_37;
-      }
-
-      if (v42 < v47 || v43 >= v47)
-      {
-        OUTLINED_FUNCTION_116();
-        swift_arrayInitWithTakeFrontToBack();
-        v42 = v43;
-        v39 = v44;
-        v41 = v44;
-        v40 = v60;
-        v11 = v61;
-        v10 = v63;
-      }
-
-      else
-      {
-        v41 = v44;
-        v21 = v47 == v42;
-        v42 = v43;
-        v39 = v44;
-        v40 = v60;
-        v11 = v61;
-        v10 = v63;
-        if (!v21)
-        {
-          OUTLINED_FUNCTION_116();
-          swift_arrayInitWithTakeBackToFront();
-          v42 = v43;
-          v39 = v44;
-          v41 = v44;
-        }
-      }
-    }
-
-    v73 = v10;
-    v71 = v57;
-  }
-
-  else
-  {
-    v26 = v70;
-    a7(v11, (v10 - v11) / v20, v70);
-    v63 = v9;
-    v64 = v26 + v24 * v20;
-    v71 = v64;
-    while (v70 < v64 && v10 < v9)
-    {
-      v28 = v20;
-      v29 = v69;
-      v31 = v66;
-      v30 = v67;
-      outlined init with copy of EagerResolutionService?();
-      v32 = v68;
-      outlined init with copy of EagerResolutionService?();
-      v33 = *v29;
-      v34 = *v32;
-      outlined destroy of EagerResolutionService?(v32, v31, v30);
-      outlined destroy of EagerResolutionService?(v29, v31, v30);
-      if (v34 >= v33)
-      {
-        v20 = v28;
-        if (v11 < v10 || v11 >= v10 + v28)
-        {
-          OUTLINED_FUNCTION_180();
-          OUTLINED_FUNCTION_116();
-          swift_arrayInitWithTakeFrontToBack();
-          v10 += v28;
-          v9 = v63;
-        }
-
-        else
-        {
-          v9 = v63;
-          if (v11 != v10)
-          {
-            OUTLINED_FUNCTION_180();
-            OUTLINED_FUNCTION_116();
-            swift_arrayInitWithTakeBackToFront();
-          }
-
-          v10 += v28;
-        }
-      }
-
-      else
-      {
-        v20 = v28;
-        v35 = v70 + v28;
-        if (v11 < v70 || v11 >= v35)
-        {
-          OUTLINED_FUNCTION_116();
-          swift_arrayInitWithTakeFrontToBack();
-          v9 = v63;
-        }
-
-        else
-        {
-          v9 = v63;
-          if (v11 != v70)
-          {
-            OUTLINED_FUNCTION_116();
-            swift_arrayInitWithTakeBackToFront();
-          }
-        }
-
-        v72 = v35;
-        v70 = v35;
-      }
-
-      v11 += v20;
-      v73 = v11;
-    }
-  }
-
-LABEL_59:
-  v58(&v73, &v72, &v71);
-  return 1;
-}
-
-uint64_t specialized _merge<A>(low:mid:high:buffer:by:)(char *a1, char *a2, char *a3, char *a4)
-{
-  v4 = a4;
-  v5 = a3;
-  v6 = a2;
-  v7 = a1;
-  v8 = (a2 - a1) / 16;
-  v9 = (a3 - a2) / 16;
-  if (v8 < v9)
-  {
-    specialized UnsafeMutablePointer.moveInitialize(from:count:)(a1, (a2 - a1) / 16, a4);
-    v10 = &v4[16 * v8];
-    while (1)
-    {
-      if (v4 >= v10 || v6 >= v5)
-      {
-        v6 = v7;
-        goto LABEL_28;
-      }
-
-      if (*v4 >= *v6)
-      {
-        break;
-      }
-
-      v12 = v4;
-      v13 = v7 == v4;
-      v4 += 16;
-      if (!v13)
-      {
-        goto LABEL_12;
-      }
-
-LABEL_13:
-      v7 += 16;
-    }
-
-    v12 = v6;
-    v13 = v7 == v6;
-    v6 += 16;
-    if (v13)
-    {
-      goto LABEL_13;
-    }
-
-LABEL_12:
-    *v7 = *v12;
-    goto LABEL_13;
-  }
-
-  specialized UnsafeMutablePointer.moveInitialize(from:count:)(a2, (a3 - a2) / 16, a4);
-  v10 = &v4[16 * v9];
-LABEL_15:
-  v14 = v6 - 16;
-  for (v5 -= 16; v10 > v4 && v6 > v7; v5 -= 16)
-  {
-    if (*v14 >= *(v10 - 2))
-    {
-      v13 = v5 + 16 == v6;
-      v6 -= 16;
-      if (!v13)
-      {
-        *v5 = *v14;
-        v6 = v14;
-      }
-
-      goto LABEL_15;
-    }
-
-    if (v10 != v5 + 16)
-    {
-      *v5 = *(v10 - 1);
-    }
-
-    v10 -= 16;
-  }
-
-LABEL_28:
-  v16 = (v10 - v4) / 16;
-  if (v6 != v4 || v6 >= &v4[16 * v16])
-  {
-    memmove(v6, v4, 16 * v16);
-  }
-
-  return 1;
-}
-
-{
-  v4 = a4;
-  v5 = a3;
-  v6 = a2;
-  v7 = a1;
-  v8 = (a2 - a1) / 32;
-  v9 = (a3 - a2) / 32;
-  if (v8 < v9)
-  {
-    specialized UnsafeMutablePointer.moveInitialize(from:count:)(a1, (a2 - a1) / 32, a4);
-    v10 = &v4[32 * v8];
-    while (1)
-    {
-      if (v4 >= v10 || v6 >= v5)
-      {
-        v6 = v7;
-        goto LABEL_28;
-      }
-
-      if (*v4 >= *v6)
-      {
-        break;
-      }
-
-      v12 = v4;
-      v13 = v7 == v4;
-      v4 += 32;
-      if (!v13)
-      {
-        goto LABEL_12;
-      }
-
-LABEL_13:
-      v7 += 32;
-    }
-
-    v12 = v6;
-    v13 = v7 == v6;
-    v6 += 32;
-    if (v13)
-    {
-      goto LABEL_13;
-    }
-
-LABEL_12:
-    v14 = *(v12 + 1);
-    *v7 = *v12;
-    *(v7 + 1) = v14;
-    goto LABEL_13;
-  }
-
-  specialized UnsafeMutablePointer.moveInitialize(from:count:)(a2, (a3 - a2) / 32, a4);
-  v10 = &v4[32 * v9];
-LABEL_15:
-  v15 = v6 - 32;
-  for (v5 -= 32; v10 > v4 && v6 > v7; v5 -= 32)
-  {
-    if (*v15 >= *(v10 - 4))
-    {
-      v13 = v5 + 32 == v6;
-      v6 -= 32;
-      if (!v13)
-      {
-        v18 = *(v15 + 1);
-        *v5 = *v15;
-        *(v5 + 1) = v18;
-        v6 = v15;
-      }
-
-      goto LABEL_15;
-    }
-
-    if (v10 != v5 + 32)
-    {
-      v17 = *(v10 - 1);
-      *v5 = *(v10 - 2);
-      *(v5 + 1) = v17;
-    }
-
-    v10 -= 32;
-  }
-
-LABEL_28:
-  v19 = (v10 - v4) / 32;
-  if (v6 != v4 || v6 >= &v4[32 * v19])
-  {
-    memmove(v6, v4, 32 * v19);
-  }
-
-  return 1;
-}
-
-uint64_t specialized closure #1 in Array.oms_mapWithTaskGroup<A>(ignoreOrder:itemTransform:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
-{
-  *(v5 + 16) = a1;
-  v10 = swift_task_alloc();
-  *(v5 + 24) = v10;
-  *v10 = v5;
-  v10[1] = specialized closure #1 in Array.oms_mapWithTaskGroup<A>(ignoreOrder:itemTransform:);
-
-  return specialized closure #1 in Array.oms_mapWithTaskGroup<A>(ignoreOrder:itemTransform:)(a2, a3, a4, a5);
-}
-
-{
-  *(v5 + 16) = a1;
-  v10 = swift_task_alloc();
-  *(v5 + 24) = v10;
-  *v10 = v5;
-  v10[1] = specialized closure #1 in Array.oms_mapWithTaskGroup<A>(ignoreOrder:itemTransform:);
-
-  return specialized closure #1 in Array.oms_mapWithTaskGroup<A>(ignoreOrder:itemTransform:)(a2, a3, a4, a5);
-}
-
-{
-  *(v5 + 16) = a1;
-  v10 = swift_task_alloc();
-  *(v5 + 24) = v10;
-  *v10 = v5;
-  v10[1] = specialized closure #1 in Array.oms_mapWithTaskGroup<A>(ignoreOrder:itemTransform:);
-
-  return specialized closure #1 in Array.oms_mapWithTaskGroup<A>(ignoreOrder:itemTransform:)(a2, a3, a4, a5);
-}
-
-{
-  *(v5 + 16) = a1;
-  v10 = swift_task_alloc();
-  *(v5 + 24) = v10;
-  *v10 = v5;
-  v10[1] = specialized closure #1 in Array.oms_mapWithTaskGroup<A>(ignoreOrder:itemTransform:);
-
-  return specialized closure #1 in Array.oms_mapWithTaskGroup<A>(ignoreOrder:itemTransform:)(a2, a3, a4, a5);
-}
-
-{
-  *(v5 + 16) = a1;
-  v10 = swift_task_alloc();
-  *(v5 + 24) = v10;
-  *v10 = v5;
-  v10[1] = specialized closure #1 in Array.oms_mapWithTaskGroup<A>(ignoreOrder:itemTransform:);
-
-  return specialized closure #1 in Array.oms_mapWithTaskGroup<A>(ignoreOrder:itemTransform:)(a2, a3, a4, a5);
-}
-
-uint64_t specialized closure #1 in closure #1 in Array.oms_mapWithTaskGroup<A>(ignoreOrder:itemTransform:)(uint64_t a1, uint64_t a2, uint64_t a3, int *a4, uint64_t a5, uint64_t *a6, uint64_t a7)
-{
-  *(v7 + 16) = a1;
-  v13 = *a6;
-  v14 = swift_task_alloc();
-  *(v7 + 24) = v14;
-  *v14 = v7;
-  v14[1] = specialized closure #1 in closure #1 in Array.oms_mapWithTaskGroup<A>(ignoreOrder:itemTransform:);
-
-  return specialized closure #1 in closure #1 in Array.oms_mapWithTaskGroup<A>(ignoreOrder:itemTransform:)(a2, a3, a4, a5, v13, a7);
-}
-
-uint64_t _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzlTRSi_Say10OmniSearch0D6ResultVGt_TG5(uint64_t a1, int *a2)
-{
-  *(v2 + 32) = a1;
-  v6 = (a2 + *a2);
-  v3 = a2[1];
-  v4 = swift_task_alloc();
-  *(v2 + 40) = v4;
-  *v4 = v2;
-  v4[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzlTRSi_Say10OmniSearch0D6ResultVGt_TG5TQ0_;
-
-  return v6(v2 + 16);
-}
-
-uint64_t _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzlTRSi_Say10OmniSearch0D6ResultVGt_TG5TQ0_()
-{
-  OUTLINED_FUNCTION_78();
-  v1 = *v0;
-  v2 = *(*v0 + 40);
-  v3 = *(*v0 + 32);
-  v4 = *v0;
-  OUTLINED_FUNCTION_11();
-  *v5 = v4;
-
-  v6 = *(v1 + 24);
-  *v3 = *(v1 + 16);
-  v3[1] = v6;
-  v7 = *(v4 + 8);
-
-  return v7();
-}
-
-uint64_t partial apply for specialized closure #1 in Array.oms_mapWithTaskGroup<A>(ignoreOrder:itemTransform:)()
-{
-  OUTLINED_FUNCTION_205();
-  OUTLINED_FUNCTION_72();
-  OUTLINED_FUNCTION_41();
-  v0 = swift_task_alloc();
-  v1 = OUTLINED_FUNCTION_23(v0);
-  *v1 = v2;
-  OUTLINED_FUNCTION_3(v1);
-  OUTLINED_FUNCTION_204();
-
-  return v8(v3, v4, v5, v6, v7, v8, v9, v10);
-}
-
-{
-  OUTLINED_FUNCTION_205();
-  OUTLINED_FUNCTION_72();
-  OUTLINED_FUNCTION_41();
-  v0 = swift_task_alloc();
-  v1 = OUTLINED_FUNCTION_23(v0);
-  *v1 = v2;
-  OUTLINED_FUNCTION_3(v1);
-  OUTLINED_FUNCTION_204();
-
-  return v8(v3, v4, v5, v6, v7, v8, v9, v10);
-}
-
-{
-  OUTLINED_FUNCTION_205();
-  OUTLINED_FUNCTION_72();
-  OUTLINED_FUNCTION_41();
-  v0 = swift_task_alloc();
-  v1 = OUTLINED_FUNCTION_23(v0);
-  *v1 = v2;
-  OUTLINED_FUNCTION_3(v1);
-  OUTLINED_FUNCTION_204();
-
-  return v8(v3, v4, v5, v6, v7, v8, v9, v10);
-}
-
-{
-  OUTLINED_FUNCTION_205();
-  OUTLINED_FUNCTION_72();
-  OUTLINED_FUNCTION_41();
-  v0 = swift_task_alloc();
-  v1 = OUTLINED_FUNCTION_23(v0);
-  *v1 = v2;
-  OUTLINED_FUNCTION_3(v1);
-  OUTLINED_FUNCTION_204();
-
-  return v8(v3, v4, v5, v6, v7, v8, v9, v10);
-}
-
-{
-  OUTLINED_FUNCTION_205();
-  OUTLINED_FUNCTION_72();
-  OUTLINED_FUNCTION_41();
-  v0 = swift_task_alloc();
-  v1 = OUTLINED_FUNCTION_23(v0);
-  *v1 = v2;
-  OUTLINED_FUNCTION_3(v1);
-  OUTLINED_FUNCTION_204();
-
-  return v8(v3, v4, v5, v6, v7, v8, v9, v10);
-}
-
-uint64_t outlined init with copy of ExtractionRule(uint64_t a1, uint64_t a2)
-{
-  v3 = *(a1 + 24);
-  *(a2 + 24) = v3;
-  *(a2 + 32) = *(a1 + 32);
-  OUTLINED_FUNCTION_51(v3);
-  (*v4)(a2);
-  return a2;
-}
-
-void specialized closure #1 in closure #1 in Array.oms_mapWithTaskGroup<A>(ignoreOrder:itemTransform:)()
-{
-  OUTLINED_FUNCTION_72();
-  v4 = v3;
-  OUTLINED_FUNCTION_176();
-  v6 = v5;
-  OUTLINED_FUNCTION_52();
-  v8 = *(v7 + 24);
-  v9 = *(v7 + 16);
-  v10 = *v2;
-  OUTLINED_FUNCTION_11();
-  *v11 = v10;
-
-  *v9 = v6;
-  v9[1] = v1;
-  v9[2] = v0;
-  v9[3] = v4;
-  OUTLINED_FUNCTION_127();
-  OUTLINED_FUNCTION_201();
-
-  __asm { BRAA            X1, X16 }
-}
-
-uint64_t partial apply for specialized closure #1 in closure #1 in Array.oms_mapWithTaskGroup<A>(ignoreOrder:itemTransform:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
-{
-  OUTLINED_FUNCTION_169();
-  OUTLINED_FUNCTION_75();
-  v11 = v10[2];
-  v12 = v10[3];
-  v13 = v10[4];
-  v14 = v10[5];
-  v15 = v10[11];
-  v16 = swift_task_alloc();
-  v17 = OUTLINED_FUNCTION_23(v16);
-  *v17 = v18;
-  v17[1] = partial apply for specialized closure #1 in Array.oms_mapWithTaskGroup<A>(ignoreOrder:itemTransform:);
-  OUTLINED_FUNCTION_19();
-  OUTLINED_FUNCTION_168();
-
-  return v26(v19, v20, v21, v22, v23, v24, v25, v26, a9, a10);
-}
-
-{
-  OUTLINED_FUNCTION_169();
-  OUTLINED_FUNCTION_75();
-  v11 = v10[2];
-  v12 = v10[3];
-  v13 = v10[4];
-  v14 = v10[5];
-  v15 = v10[7];
-  v16 = swift_task_alloc();
-  v17 = OUTLINED_FUNCTION_23(v16);
-  *v17 = v18;
-  v17[1] = partial apply for specialized closure #1 in Array.oms_mapWithTaskGroup<A>(ignoreOrder:itemTransform:);
-  OUTLINED_FUNCTION_19();
-  OUTLINED_FUNCTION_168();
-
-  return v26(v19, v20, v21, v22, v23, v24, v25, v26, a9, a10);
-}
-
-uint64_t _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzlTRSi_SS_SaySSGtt_TG5(uint64_t a1, int *a2)
-{
-  *(v2 + 48) = a1;
-  v6 = (a2 + *a2);
-  v3 = a2[1];
-  v4 = swift_task_alloc();
-  *(v2 + 56) = v4;
-  *v4 = v2;
-  v4[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzlTRSi_SS_SaySSGtt_TG5TQ0_;
-
-  return v6(v2 + 16);
-}
-
-uint64_t _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzlTRSi_SS_SaySSGtt_TG5TQ0_()
-{
-  OUTLINED_FUNCTION_48();
-  OUTLINED_FUNCTION_52();
-  v2 = v1;
-  OUTLINED_FUNCTION_47();
-  *v3 = v2;
-  v5 = *(v4 + 56);
-  v6 = *(v4 + 48);
-  v7 = *v0;
-  OUTLINED_FUNCTION_11();
-  *v8 = v7;
-
-  v9 = *(v2 + 32);
-  *v6 = *(v2 + 16);
-  v6[1] = v9;
-  OUTLINED_FUNCTION_106();
-
-  return v10();
-}
-
-uint64_t _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzlTRSi_SS_SaySSGtt_TG5TA()
-{
-  OUTLINED_FUNCTION_78();
-  OUTLINED_FUNCTION_151();
-  v0 = swift_task_alloc();
-  v1 = OUTLINED_FUNCTION_23(v0);
-  *v1 = v2;
-  v3 = OUTLINED_FUNCTION_12(v1);
-
-  return v4(v3);
-}
-
-uint64_t outlined init with copy of ExtractedInfo()
-{
-  OUTLINED_FUNCTION_134();
-  v2 = v1(0);
-  OUTLINED_FUNCTION_17(v2);
-  v4 = *(v3 + 16);
-  v5 = OUTLINED_FUNCTION_94();
-  v6(v5);
-  return v0;
-}
-
-uint64_t outlined consume of Data._Representation(uint64_t a1, unint64_t a2)
-{
-  if (a2 >> 62 != 1)
-  {
-    if (a2 >> 62 != 2)
-    {
-      return result;
-    }
-  }
-}
-
-uint64_t partial apply for specialized closure #1 in closure #1 in Array.oms_mapWithTaskGroup<A>(ignoreOrder:itemTransform:)()
-{
-  OUTLINED_FUNCTION_169();
-  OUTLINED_FUNCTION_75();
-  v0 = OUTLINED_FUNCTION_120();
-  v1 = type metadata accessor for SearchEntity(v0);
-  OUTLINED_FUNCTION_21(v1);
-  v3 = (*(v2 + 80) + 48) & ~*(v2 + 80);
-  OUTLINED_FUNCTION_57(*(v4 + 64));
-  v5 = swift_task_alloc();
-  v6 = OUTLINED_FUNCTION_143(v5);
-  *v6 = v7;
-  v6[1] = partial apply for specialized closure #1 in Array.oms_mapWithTaskGroup<A>(ignoreOrder:itemTransform:);
-  OUTLINED_FUNCTION_19();
-  OUTLINED_FUNCTION_168();
-
-  return specialized closure #1 in closure #1 in Array.oms_mapWithTaskGroup<A>(ignoreOrder:itemTransform:)(v8, v9, v10, v11, v12, v13, v14);
-}
-
-{
-  OUTLINED_FUNCTION_169();
-  OUTLINED_FUNCTION_75();
-  v0 = OUTLINED_FUNCTION_120();
-  v1 = type metadata accessor for SearchResult(v0);
-  OUTLINED_FUNCTION_21(v1);
-  v3 = (*(v2 + 80) + 48) & ~*(v2 + 80);
-  OUTLINED_FUNCTION_57(*(v4 + 64));
-  v5 = swift_task_alloc();
-  v6 = OUTLINED_FUNCTION_143(v5);
-  *v6 = v7;
-  v6[1] = partial apply for specialized closure #1 in Array.oms_mapWithTaskGroup<A>(ignoreOrder:itemTransform:);
-  OUTLINED_FUNCTION_19();
-  OUTLINED_FUNCTION_168();
-
-  return specialized closure #1 in closure #1 in Array.oms_mapWithTaskGroup<A>(ignoreOrder:itemTransform:)(v8, v9, v10, v11, v12, v13, v14);
-}
-
-{
-  OUTLINED_FUNCTION_169();
-  OUTLINED_FUNCTION_75();
-  v0 = OUTLINED_FUNCTION_120();
-  v1 = type metadata accessor for ExtractedInfo(v0);
-  OUTLINED_FUNCTION_21(v1);
-  v3 = (*(v2 + 80) + 48) & ~*(v2 + 80);
-  OUTLINED_FUNCTION_57(*(v4 + 64));
-  v5 = swift_task_alloc();
-  v6 = OUTLINED_FUNCTION_143(v5);
-  *v6 = v7;
-  v6[1] = partial apply for specialized closure #1 in Array.oms_mapWithTaskGroup<A>(ignoreOrder:itemTransform:);
-  OUTLINED_FUNCTION_19();
-  OUTLINED_FUNCTION_168();
-
-  return specialized closure #1 in closure #1 in Array.oms_mapWithTaskGroup<A>(ignoreOrder:itemTransform:)(v8, v9, v10, v11, v12, v13, v14);
-}
-
-uint64_t _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzlTRSi_10OmniSearch0D9CATEntityVt_Tg5TA()
-{
-  OUTLINED_FUNCTION_78();
-  OUTLINED_FUNCTION_151();
-  v0 = swift_task_alloc();
-  v1 = OUTLINED_FUNCTION_23(v0);
-  *v1 = v2;
-  v3 = OUTLINED_FUNCTION_12(v1);
-
-  return v4(v3);
-}
-
-uint64_t outlined init with copy of EagerResolutionService?()
-{
-  OUTLINED_FUNCTION_134();
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
-  OUTLINED_FUNCTION_17(v3);
-  v5 = *(v4 + 16);
-  v6 = OUTLINED_FUNCTION_94();
-  v7(v6);
-  return v0;
-}
-
-uint64_t _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzlTRSi_10OmniSearch0D6ResultVt_Tg5TA()
-{
-  OUTLINED_FUNCTION_78();
-  OUTLINED_FUNCTION_151();
-  v0 = swift_task_alloc();
-  v1 = OUTLINED_FUNCTION_23(v0);
-  *v1 = v2;
-  v3 = OUTLINED_FUNCTION_12(v1);
-
-  return v4(v3);
-}
-
-uint64_t _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzlTRSi_Say10OmniSearch0D6ResultVGt_TG5TA()
-{
-  OUTLINED_FUNCTION_78();
-  OUTLINED_FUNCTION_151();
-  v0 = swift_task_alloc();
-  v1 = OUTLINED_FUNCTION_23(v0);
-  *v1 = v2;
-  v3 = OUTLINED_FUNCTION_12(v1);
-
-  return v4(v3);
-}
-
-uint64_t outlined init with take of (Int, SearchCATEntity)()
-{
-  OUTLINED_FUNCTION_134();
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
-  OUTLINED_FUNCTION_17(v3);
-  v5 = *(v4 + 32);
-  v6 = OUTLINED_FUNCTION_94();
-  v7(v6);
-  return v0;
-}
-
-uint64_t outlined destroy of EagerResolutionService?(uint64_t a1, uint64_t *a2, uint64_t *a3)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(a2, a3);
-  OUTLINED_FUNCTION_2(v4);
-  (*(v5 + 8))(a1);
-  return a1;
-}
-
-uint64_t outlined init with take of ExtractedInfo()
-{
-  OUTLINED_FUNCTION_134();
-  v2 = v1(0);
-  OUTLINED_FUNCTION_17(v2);
-  v4 = *(v3 + 32);
-  v5 = OUTLINED_FUNCTION_94();
-  v6(v5);
-  return v0;
-}
-
-uint64_t outlined destroy of ExtractedInfo(uint64_t a1, uint64_t (*a2)(void))
-{
-  v3 = a2(0);
-  OUTLINED_FUNCTION_2(v3);
-  (*(v4 + 8))(a1);
-  return a1;
-}
-
-uint64_t outlined init with copy of Any(uint64_t a1, uint64_t a2)
-{
-  v3 = *(a1 + 24);
-  *(a2 + 24) = v3;
-  (**(v3 - 8))(a2, a1);
-  return a2;
-}
-
-uint64_t getEnumTagSinglePayload for os_unfair_lock_s(uint64_t a1, int a2)
-{
-  if (a2 && *(a1 + 4))
-  {
-    return (*a1 + 1);
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t storeEnumTagSinglePayload for os_unfair_lock_s(uint64_t result, int a2, int a3)
-{
-  if (a2)
-  {
-    *result = a2 - 1;
-    if (!a3)
-    {
-      return result;
-    }
-
-    v3 = 1;
-  }
-
-  else
-  {
-    if (!a3)
-    {
-      return result;
-    }
-
-    v3 = 0;
-  }
-
-  *(result + 4) = v3;
-  return result;
-}
-
-__n128 __swift_memcpy16_8(__n128 *a1, __n128 *a2)
-{
-  result = *a2;
-  *a1 = *a2;
-  return result;
-}
-
-uint64_t getEnumTagSinglePayload for _NSRange(uint64_t a1, int a2)
-{
-  if (a2 && *(a1 + 16))
-  {
-    return (*a1 + 1);
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t storeEnumTagSinglePayload for _NSRange(uint64_t result, int a2, int a3)
-{
-  if (a2)
-  {
-    *result = (a2 - 1);
-    *(result + 8) = 0;
-    if (!a3)
-    {
-      return result;
-    }
-
-    v3 = 1;
-  }
-
-  else
-  {
-    if (!a3)
-    {
-      return result;
-    }
-
-    v3 = 0;
-  }
-
-  *(result + 16) = v3;
-  return result;
-}
-
-void type metadata accessor for SFImageCornerRoundingStyle(uint64_t a1, unint64_t *a2)
-{
-  if (!*a2)
-  {
-    ForeignTypeMetadata = swift_getForeignTypeMetadata();
-    if (!v4)
-    {
-      atomic_store(ForeignTypeMetadata, a2);
-    }
-  }
-}
-
-uint64_t _ss20_SwiftNewtypeWrapperPss21_ObjectiveCBridgeable8RawValueRpzrlE026_unconditionallyBridgeFromD1CyxAD_01_D5CTypeQZSgFZSo11NLTagSchemea_Tt1gq5Tm()
-{
-  v0 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v1 = MEMORY[0x25F89F4C0](v0);
-
-  return v1;
-}
-
-size_t OUTLINED_FUNCTION_1(void *a1)
-{
-  result = _swift_stdlib_malloc_size(a1);
-  a1[2] = v1;
-  a1[3] = 2 * ((result - 32) / v2);
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_3(uint64_t a1)
-{
-  *(a1 + 8) = v1;
-  v4 = v3 + *v3;
-  return v2;
-}
-
-uint64_t OUTLINED_FUNCTION_4()
-{
-
-  return swift_once();
-}
-
-uint64_t OUTLINED_FUNCTION_12(uint64_t a1)
-{
-  *(a1 + 8) = v1;
-  v4 = v3 + *v3;
-  return v2;
-}
-
-double OUTLINED_FUNCTION_13(uint64_t a1)
-{
-  *(a1 + 16) = 10;
-  *(a1 + 24) = 2;
-  result = 0.0;
-  *(a1 + 104) = 0u;
-  *(a1 + 120) = 0;
-  return result;
-}
-
-void OUTLINED_FUNCTION_15(uint64_t a1@<X8>)
-{
-  if (a1 <= *(v1 + 16))
-  {
-    v2 = *(v1 + 16);
-  }
-}
-
-uint64_t OUTLINED_FUNCTION_18(uint64_t result)
-{
-  *(v2 + 16) = v1;
-  *(v2 + 24) = 2 * ((result - 32) / 8);
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_20(uint64_t a1)
-{
-  *(a1 + 8) = AnswerResolver.applyRules(query:result:assistantLocale:);
-  result = v1[38];
-  v3 = v1[30];
-  v4 = v1[31];
-  v5 = v1[28];
-  v6 = v1[29];
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_22()
-{
-
-  return swift_once();
-}
-
-unint64_t OUTLINED_FUNCTION_27(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
-{
-  v16 = *(v15 + 160);
-  result = *(v15 + 80) + ((*(a13 + 80) + 32) & ~*(a13 + 80)) + *(a13 + 72) * v14;
-  v18 = *(a14 + 48);
-  **(v15 + 152) = v14;
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_32(uint64_t a1)
-{
-  *(a1 + 8) = v1;
-  v3 = v2[9];
-  result = v2[6];
-  v5 = v2[7];
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_33()
-{
-
-  return swift_arrayInitWithCopy();
-}
-
-void OUTLINED_FUNCTION_35()
-{
-  v1 = v0[13];
-  v3 = v0[18];
-  v2 = *(v0[10] + 16);
-}
-
-uint64_t OUTLINED_FUNCTION_37(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15)
-{
-  a1[2] = 0;
-  a1[3] = 0;
-  a1[4] = a15;
-  a1[5] = v15;
-  return v16;
-}
-
-uint64_t OUTLINED_FUNCTION_40(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
-{
-  v16 = *(v14 + 136);
-  v23 = *(v14 + 128);
-  v17 = *(v14 + 120);
-  v18 = *(v14 + 96);
-  v21 = *(v14 + 88);
-  v22 = **(v14 + 168);
-  v19 = *(a14 + 48);
-
-  return type metadata accessor for TaskPriority();
-}
-
-void OUTLINED_FUNCTION_41()
-{
-  v1 = v0[2];
-  v2 = v0[3];
-  v3 = v0[4];
-}
-
-uint64_t OUTLINED_FUNCTION_50()
-{
-
-  return swift_allocObject();
-}
-
-uint64_t OUTLINED_FUNCTION_54()
-{
-
-  return swift_arrayInitWithCopy();
-}
-
-void OUTLINED_FUNCTION_57(uint64_t a1@<X8>)
-{
-  v3 = v1[2];
-  v4 = v1[3];
-  v5 = v1[4];
-  v6 = v1[5];
-  v7 = *(v1 + ((a1 + v2 + 7) & 0xFFFFFFFFFFFFFFF8));
-}
-
-uint64_t OUTLINED_FUNCTION_60@<X0>(int *a1@<X8>)
-{
-  result = a1[1];
-  v2 = a1 + *a1;
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_64(uint64_t a1, __n128 a2)
-{
-  *(a1 + 88) = a2;
-  *(a1 + 72) = v2;
-  *(a1 + 80) = v3;
-
-  return swift_beginAccess();
-}
-
-uint64_t OUTLINED_FUNCTION_66()
-{
-
-  return swift_allocObject();
-}
-
-uint64_t OUTLINED_FUNCTION_67(uint64_t a1)
-{
-  *(a1 + 8) = AnswerResolver.extractInfo(query:results:assistantLocale:);
-  result = v1[14];
-  v3 = v1[10];
-  v4 = v1[11];
-  v5 = v1[9];
-  v6 = v1[7];
-  return result;
-}
-
-__n128 OUTLINED_FUNCTION_71(uint64_t a1)
-{
-  *(v2 + 96) = a1;
-  result = *(v2 + 24);
-  *(a1 + 16) = v1;
-  *(a1 + 24) = result;
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_76(uint64_t result)
-{
-  *(result + 8) = specialized TaskGroup.oms_results.getter;
-  v2 = *(v1 + 72);
-  v3 = *(v1 + 56);
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_77(uint64_t result)
-{
-  *(result + 8) = specialized TaskGroup.oms_results.getter;
-  v2 = *(v1 + 56);
-  v3 = *(v1 + 40);
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_80(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17)
-{
-  *(v18 + v17) = a17;
-
-  return outlined init with copy of EagerResolutionService?();
-}
-
-uint64_t OUTLINED_FUNCTION_81()
-{
-  v2 = (*(v0 + 80) + 32) & ~*(v0 + 80);
-
-  return swift_allocObject();
-}
-
-uint64_t OUTLINED_FUNCTION_83(uint64_t a1, uint64_t a2)
-{
-  v3 = *(v2 + 160);
-  __swift_storeEnumTagSinglePayload(v3, a2, 1, *(v2 + 144));
-  return v3;
-}
-
-uint64_t OUTLINED_FUNCTION_91()
-{
-
-  return swift_arrayInitWithCopy();
-}
-
-uint64_t OUTLINED_FUNCTION_95(uint64_t a1)
-{
-
-  return __swift_getEnumTagSinglePayload(v1 + v2, 1, a1);
-}
-
-void OUTLINED_FUNCTION_96(uint64_t a1@<X8>)
-{
-  if (a1 <= *(v1 + 16))
-  {
-    v2 = *(v1 + 16);
-  }
-}
-
-void OUTLINED_FUNCTION_98(uint64_t a1@<X8>)
-{
-  if (a1 <= *(v1 + 16))
-  {
-    v2 = *(v1 + 16);
-  }
-}
-
-uint64_t OUTLINED_FUNCTION_100()
-{
-
-  return swift_allocObject();
-}
-
-void OUTLINED_FUNCTION_101(uint64_t a1@<X8>)
-{
-  v3 = v1[17];
-  v1[6] = 1;
-  v1[7] = a1;
-  v1[8] = v2;
-}
-
-uint64_t OUTLINED_FUNCTION_105@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  v2[3] = a1;
-  v2[4] = a2;
-  *v2 = v3;
-  return v3;
-}
-
-uint64_t OUTLINED_FUNCTION_106()
-{
-  result = v0 + 8;
-  v2 = *(v0 + 8);
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_108()
-{
-  v1 = v0[6];
-  __swift_project_boxed_opaque_existential_1(v0 + 2, v0[5]);
-  result = v1 + 16;
-  v3 = *(v1 + 16);
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_118()
-{
-  v5 = *(v3 + 32);
-  result = *(v3 + 40);
-  *(v1 + 16) = v0;
-  v6 = v1 + ((*(v5 + 80) + 32) & ~*(v5 + 80)) + *(v5 + 72) * v2;
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_125()
-{
-
-  return swift_allocObject();
-}
-
-uint64_t OUTLINED_FUNCTION_126()
-{
-
-  return swift_task_create();
-}
-
-uint64_t OUTLINED_FUNCTION_127()
-{
-  result = v0 + 8;
-  v2 = *(v0 + 8);
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_128(uint64_t a1)
-{
-  v3 = v1 + *(a1 + 20);
-
-  return swift_storeEnumTagMultiPayload();
-}
-
-uint64_t OUTLINED_FUNCTION_129()
-{
-  v3 = v0[20];
-  v2 = v0[21];
-  v4 = v0[18];
-  v6 = v0[15];
-  v5 = v0[16];
-  v7 = v0[14];
-}
-
-void OUTLINED_FUNCTION_136(uint64_t a1@<X8>)
-{
-  if (a1 <= *(v1 + 16))
-  {
-    v2 = *(v1 + 16);
-  }
-}
-
-void OUTLINED_FUNCTION_141(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10)
-{
-  *a10 = 0;
-  a10[1] = 0;
-  *(v12 + 32) = v10;
-  *(v12 + 40) = v11;
-}
-
-uint64_t OUTLINED_FUNCTION_142(uint64_t result)
-{
-  *(result + 8) = v1;
-  v5 = *(v3 + 48);
-  *(v4 + 16) = v2;
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_144()
-{
-  v2 = v0[11];
-  v4 = v0[8];
-  v3 = v0[9];
-
-  return outlined init with copy of EagerResolutionService?();
-}
-
-__n128 OUTLINED_FUNCTION_152(uint64_t a1)
-{
-  *(v2 + 48) = a1;
-  result = *(v2 + 24);
-  *(a1 + 16) = v1;
-  *(a1 + 24) = result;
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_154()
-{
-  v1 = v0[7];
-  v2 = v0[5];
-  v3 = *(v0[8] + 8);
-  return v0[9];
-}
-
-uint64_t OUTLINED_FUNCTION_160()
-{
-
-  return swift_task_alloc();
-}
-
-uint64_t OUTLINED_FUNCTION_161()
-{
-
-  return swift_allocObject();
-}
-
-uint64_t OUTLINED_FUNCTION_163()
-{
-
-  return swift_slowAlloc();
-}
-
-uint64_t OUTLINED_FUNCTION_164@<X0>(uint64_t a1@<X8>)
-{
-  v3 = *(v1 + a1 + 8);
-}
-
-uint64_t OUTLINED_FUNCTION_165()
-{
-
-  return swift_unknownObjectRelease();
-}
-
-uint64_t OUTLINED_FUNCTION_167()
-{
-  v3 = v0[37];
-  v2 = v0[38];
-  v5 = v0[35];
-  v4 = v0[36];
-  v6 = v0[34];
-}
-
-uint64_t OUTLINED_FUNCTION_170(uint64_t a1)
-{
-  v2 = *(a1 + 48);
-  v3 = *(a1 + 52);
-
-  return swift_allocObject();
-}
-
-uint64_t OUTLINED_FUNCTION_171(uint64_t a1, uint64_t a2)
-{
-  __swift_getEnumTagSinglePayload(a1, a2, v2);
-}
-
-uint64_t OUTLINED_FUNCTION_172()
-{
-
-  return swift_slowAlloc();
-}
-
-uint64_t OUTLINED_FUNCTION_173()
-{
-
-  return swift_allocObject();
-}
-
-uint64_t OUTLINED_FUNCTION_181()
-{
-  result = v0;
-  v3 = *(v1 - 112);
-  return result;
-}
-
-void OUTLINED_FUNCTION_193(void *a1, uint64_t a2, uint64_t a3, os_signpost_id_t a4, const char *a5, const char *a6)
-{
-
-  _os_signpost_emit_with_name_impl(a1, v6, v7, a4, a5, a6, v8, 2u);
-}
-
-id OUTLINED_FUNCTION_194()
-{
-  *(v1 + 4) = v2;
-  *(v1 + 12) = 2112;
-
-  return v0;
-}
-
-uint64_t OUTLINED_FUNCTION_195@<X0>(uint64_t a1@<X8>)
-{
-
-  return outlined init with copy of ExtractionRule(v1 + 40 * a1 + 32, v2 + 16);
-}
-
-void OUTLINED_FUNCTION_196(void *a1, uint64_t a2, uint64_t a3, const char *a4)
-{
-
-  _os_log_impl(a1, v4, v6, a4, v5, 0x16u);
-}
-
-uint64_t OUTLINED_FUNCTION_197()
-{
-
-  return outlined init with take of (Int, SearchCATEntity)();
-}
-
-uint64_t OUTLINED_FUNCTION_199()
-{
-
-  return swift_task_alloc();
-}
-
-uint64_t GlobalResolutionService.__allocating_init(globalSearch:)(uint64_t a1)
-{
-  result = swift_allocObject();
-  *(result + 16) = a1;
-  return result;
-}
-
-uint64_t specialized Array.count.getter(unint64_t a1)
-{
-  if (a1 >> 62)
-  {
-    JUMPOUT(0x25F8A01B0);
-  }
-
-  return *((a1 & 0xFFFFFFFFFFFFFF8) + 0x10);
-}
-
-uint64_t EagerResolutionService.resolveExtractedInfo(_:clientId:)()
-{
-  OUTLINED_FUNCTION_48();
-  v1[10] = v2;
-  v1[11] = v0;
-  v1[8] = v3;
-  v1[9] = v4;
-  v1[6] = v5;
-  v1[7] = v6;
-  v1[5] = v7;
-  v8 = type metadata accessor for URL();
-  v1[12] = v8;
-  OUTLINED_FUNCTION_21(v8);
-  v1[13] = v9;
-  v11 = *(v10 + 64);
-  v1[14] = OUTLINED_FUNCTION_199();
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents17IntentApplicationVSgMd, &_s10AppIntents17IntentApplicationVSgMR);
-  OUTLINED_FUNCTION_114(v12);
-  v14 = *(v13 + 64);
-  v1[15] = OUTLINED_FUNCTION_160();
-  v1[16] = swift_task_alloc();
-  v15 = type metadata accessor for FlightReservation();
-  v1[17] = v15;
-  OUTLINED_FUNCTION_21(v15);
-  v1[18] = v16;
-  v18 = *(v17 + 64);
-  v1[19] = OUTLINED_FUNCTION_199();
-  v19 = type metadata accessor for ExtractionRuleType(0);
-  v1[20] = v19;
-  OUTLINED_FUNCTION_114(v19);
-  v21 = *(v20 + 64);
-  v1[21] = OUTLINED_FUNCTION_199();
-  v22 = OUTLINED_FUNCTION_29();
-
-  return MEMORY[0x2822009F8](v22, v23, v24);
-}
-
-{
-  OUTLINED_FUNCTION_48();
-  OUTLINED_FUNCTION_52();
-  OUTLINED_FUNCTION_56_0();
-  *v3 = v2;
-  v5 = *(v4 + 176);
-  v6 = *v1;
-  OUTLINED_FUNCTION_11();
-  *v7 = v6;
-  *(v8 + 184) = v0;
-
-  OUTLINED_FUNCTION_69();
-
-  return MEMORY[0x2822009F8](v9, v10, v11);
-}
-
-{
-  OUTLINED_FUNCTION_72();
-  (*(v0[18] + 8))(v0[19], v0[17]);
-  OUTLINED_FUNCTION_18_0();
-  OUTLINED_FUNCTION_81_0();
-  OUTLINED_FUNCTION_44_0();
-  __swift_storeEnumTagSinglePayload(v1, v2, v3, v4);
-
-  OUTLINED_FUNCTION_106();
-
-  return v5();
-}
-
-{
-  OUTLINED_FUNCTION_78();
-  v2 = *v1;
-  OUTLINED_FUNCTION_19_0();
-  *v4 = v3;
-  v5 = v2[25];
-  *v4 = *v1;
-  v3[26] = v0;
-
-  v6 = v2[24];
-  outlined destroy of IntentApplication?(v2[16], &_s10AppIntents17IntentApplicationVSgMd, &_s10AppIntents17IntentApplicationVSgMR);
-
-  OUTLINED_FUNCTION_69();
-
-  return MEMORY[0x2822009F8](v7, v8, v9);
-}
-
-{
-  OUTLINED_FUNCTION_72();
-  OUTLINED_FUNCTION_18_0();
-  OUTLINED_FUNCTION_81_0();
-  OUTLINED_FUNCTION_44_0();
-  __swift_storeEnumTagSinglePayload(v0, v1, v2, v3);
-
-  OUTLINED_FUNCTION_106();
-
-  return v4();
-}
-
-{
-  OUTLINED_FUNCTION_78();
-  v2 = *v1;
-  OUTLINED_FUNCTION_19_0();
-  *v4 = v3;
-  v5 = v2[28];
-  *v4 = *v1;
-  v3[29] = v0;
-
-  v6 = v2[27];
-  outlined destroy of IntentApplication?(v2[15], &_s10AppIntents17IntentApplicationVSgMd, &_s10AppIntents17IntentApplicationVSgMR);
-
-  OUTLINED_FUNCTION_69();
-
-  return MEMORY[0x2822009F8](v7, v8, v9);
-}
-
-{
-  OUTLINED_FUNCTION_48();
-  OUTLINED_FUNCTION_52();
-  OUTLINED_FUNCTION_56_0();
-  *v3 = v2;
-  v5 = *(v4 + 240);
-  v6 = *v1;
-  OUTLINED_FUNCTION_11();
-  *v7 = v6;
-  *(v8 + 248) = v0;
-
-  OUTLINED_FUNCTION_69();
-
-  return MEMORY[0x2822009F8](v9, v10, v11);
-}
-
-{
-  OUTLINED_FUNCTION_72();
-  (*(v0[13] + 8))(v0[14], v0[12]);
-  OUTLINED_FUNCTION_18_0();
-  OUTLINED_FUNCTION_81_0();
-  OUTLINED_FUNCTION_44_0();
-  __swift_storeEnumTagSinglePayload(v1, v2, v3, v4);
-
-  OUTLINED_FUNCTION_106();
-
-  return v5();
-}
-
-{
-  OUTLINED_FUNCTION_48();
-  v1 = *(v0 + 256);
-  v2 = *(v0 + 264);
-  swift_beginAccess();
-  MessageAccumulationContext.record(_:from:)(v1, 1);
-  swift_endAccess();
-  v3 = OUTLINED_FUNCTION_29();
-
-  return MEMORY[0x2822009F8](v3, v4, v5);
-}
-
-{
-  OUTLINED_FUNCTION_75();
-  v1 = v0[32];
-  v2 = v0[21];
-  v3 = v0[19];
-  v5 = v0[15];
-  v4 = v0[16];
-  v6 = v0[14];
-  swift_willThrow();
-
-  OUTLINED_FUNCTION_127();
-  v8 = v0[32];
-
-  return v7();
-}
-
-{
-  OUTLINED_FUNCTION_48();
-  v1 = (*(v0[18] + 8))(v0[19], v0[17]);
-  v0[32] = v0[23];
-  if (one-time initialization token for shared != -1)
-  {
-    v1 = OUTLINED_FUNCTION_5_0();
-  }
-
-  v2 = OUTLINED_FUNCTION_4_0(v1, static ContextManager.shared);
-
-  return MEMORY[0x2822009F8](v2, v3, v4);
-}
-
-{
-  OUTLINED_FUNCTION_48();
-  *(v0 + 256) = *(v0 + 208);
-  if (one-time initialization token for shared != -1)
-  {
-    v1 = OUTLINED_FUNCTION_5_0();
-  }
-
-  v2 = OUTLINED_FUNCTION_4_0(v1, static ContextManager.shared);
-
-  return MEMORY[0x2822009F8](v2, v3, v4);
-}
-
-{
-  OUTLINED_FUNCTION_48();
-  *(v0 + 256) = *(v0 + 232);
-  if (one-time initialization token for shared != -1)
-  {
-    v1 = OUTLINED_FUNCTION_5_0();
-  }
-
-  v2 = OUTLINED_FUNCTION_4_0(v1, static ContextManager.shared);
-
-  return MEMORY[0x2822009F8](v2, v3, v4);
-}
-
-{
-  OUTLINED_FUNCTION_48();
-  v1 = (*(v0[13] + 8))(v0[14], v0[12]);
-  v0[32] = v0[31];
-  if (one-time initialization token for shared != -1)
-  {
-    v1 = OUTLINED_FUNCTION_5_0();
-  }
-
-  v2 = OUTLINED_FUNCTION_4_0(v1, static ContextManager.shared);
-
-  return MEMORY[0x2822009F8](v2, v3, v4);
-}
-
-void EagerResolutionService.resolveExtractedInfo(_:clientId:)()
-{
-  OUTLINED_FUNCTION_75();
-  v1 = v0[20];
-  v2 = v0[21];
-  v3 = v0[6];
-  v4 = *(type metadata accessor for ExtractedInfo(0) + 20);
-  outlined init with copy of ExtractionRuleType();
-  switch(swift_getEnumCaseMultiPayload())
-  {
-    case 1u:
-      v76 = v0[10];
-      (*(v0[13] + 32))(v0[14], v0[21], v0[12]);
-      v54 = *(v76 + 32);
-      OUTLINED_FUNCTION_59();
-      v72 = v55 + *v55;
-      v57 = *(v56 + 4);
-      swift_task_alloc();
-      OUTLINED_FUNCTION_53();
-      v0[30] = v58;
-      *v58 = v59;
-      v58[1] = EagerResolutionService.resolveExtractedInfo(_:clientId:);
-      v60 = v0[14];
-      OUTLINED_FUNCTION_52_0();
-      OUTLINED_FUNCTION_85_0();
-
-      __asm { BRAA            X6, X16 }
-
-      return;
-    case 2u:
-      v74 = v0[10];
-      (*(v0[18] + 32))(v0[19], v0[21], v0[17]);
-      v23 = *(v74 + 8);
-      OUTLINED_FUNCTION_59();
-      v70 = v24 + *v24;
-      v26 = *(v25 + 4);
-      swift_task_alloc();
-      OUTLINED_FUNCTION_53();
-      v0[22] = v27;
-      *v27 = v28;
-      v27[1] = EagerResolutionService.resolveExtractedInfo(_:clientId:);
-      v29 = v0[19];
-      OUTLINED_FUNCTION_52_0();
-      OUTLINED_FUNCTION_85_0();
-
-      __asm { BRAA            X6, X16 }
-
-      return;
-    case 3u:
-      v32 = v0[21];
-      v33 = v0[16];
-      v75 = v0[10];
-      v34 = *v32;
-      v0[24] = v32[1];
-      type metadata accessor for IntentApplication();
-      OUTLINED_FUNCTION_92();
-      __swift_storeEnumTagSinglePayload(v35, v36, v37, v38);
-      v39 = *(v75 + 16);
-      OUTLINED_FUNCTION_59();
-      v71 = v40 + *v40;
-      v42 = *(v41 + 4);
-      swift_task_alloc();
-      OUTLINED_FUNCTION_53();
-      v0[25] = v43;
-      *v43 = v44;
-      v43[1] = EagerResolutionService.resolveExtractedInfo(_:clientId:);
-      v45 = v0[16];
-      v46 = v0[10];
-      v47 = v0[11];
-      v48 = v0[8];
-      v49 = v0[9];
-      v50 = v0[7];
-      v51 = v0[5];
-      OUTLINED_FUNCTION_85_0();
-
-      __asm { BRAA            X8, X16 }
-
-      return;
-    case 4u:
-      outlined destroy of ExtractionRuleType(v0[21], type metadata accessor for ExtractionRuleType);
-      break;
-    case 5u:
-      break;
-    default:
-      v5 = v0[21];
-      v6 = v0[15];
-      v73 = v0[10];
-      v7 = *v5;
-      v0[27] = v5[1];
-      type metadata accessor for IntentApplication();
-      OUTLINED_FUNCTION_92();
-      __swift_storeEnumTagSinglePayload(v8, v9, v10, v11);
-      v12 = *(v73 + 24);
-      OUTLINED_FUNCTION_59();
-      v69 = v13 + *v13;
-      v15 = *(v14 + 4);
-      swift_task_alloc();
-      OUTLINED_FUNCTION_53();
-      v0[28] = v16;
-      *v16 = v17;
-      v16[1] = EagerResolutionService.resolveExtractedInfo(_:clientId:);
-      v18 = v0[15];
-      v19 = v0[11];
-      v20 = v0[8];
-      v21 = v0[7];
-      v22 = v0[5];
-      v78 = v0[9];
-      v79 = v0[10];
-
-      __asm { BRAA            X8, X16 }
-
-      return;
-  }
-
-  OUTLINED_FUNCTION_18_0();
-  OUTLINED_FUNCTION_81_0();
-  OUTLINED_FUNCTION_92();
-  __swift_storeEnumTagSinglePayload(v63, v64, v65, v66);
-
-  OUTLINED_FUNCTION_106();
-  OUTLINED_FUNCTION_85_0();
-
-  __asm { BRAA            X1, X16 }
-}
-
-Swift::Int EagerResolutionError.hashValue.getter(unsigned __int8 a1)
-{
-  Hasher.init(_seed:)();
-  MEMORY[0x25F8A0680](a1);
-  return Hasher._finalize()();
-}
-
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance EagerResolutionError()
-{
-  v1 = *v0;
-  Hasher.init(_seed:)();
-  EagerResolutionError.hash(into:)(v3, v1);
-  return Hasher._finalize()();
-}
-
-uint64_t GlobalResolutionService.resolveFlight(reservation:clientId:)()
-{
-  OUTLINED_FUNCTION_48();
-  v1[13] = v2;
-  v1[14] = v0;
-  v1[11] = v3;
-  v1[12] = v4;
-  v1[10] = v5;
-  v6 = type metadata accessor for IntelligenceFlowSearchToolTelemetry.SearchToolFailureError();
-  v1[15] = v6;
-  OUTLINED_FUNCTION_21(v6);
-  v1[16] = v7;
-  v9 = *(v8 + 64);
-  v1[17] = OUTLINED_FUNCTION_199();
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch13FlightSnippetV3LegVSgMd, &_s10OmniSearch13FlightSnippetV3LegVSgMR);
-  OUTLINED_FUNCTION_114(v10);
-  v12 = *(v11 + 64);
-  v1[18] = OUTLINED_FUNCTION_199();
-  v13 = type metadata accessor for JSONEncodingOptions();
-  v1[19] = v13;
-  OUTLINED_FUNCTION_21(v13);
-  v1[20] = v14;
-  v16 = *(v15 + 64);
-  v1[21] = OUTLINED_FUNCTION_199();
-  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch13FlightSnippetV0C0VSgMd, &_s10OmniSearch13FlightSnippetV0C0VSgMR);
-  OUTLINED_FUNCTION_114(v17);
-  v19 = *(v18 + 64);
-  v1[22] = OUTLINED_FUNCTION_199();
-  v20 = type metadata accessor for JSONDecodingOptions();
-  OUTLINED_FUNCTION_114(v20);
-  v22 = *(v21 + 64);
-  v1[23] = OUTLINED_FUNCTION_199();
-  v23 = type metadata accessor for FlightSnippet(0);
-  v1[24] = v23;
-  OUTLINED_FUNCTION_114(v23);
-  v25 = *(v24 + 64);
-  v1[25] = OUTLINED_FUNCTION_199();
-  v26 = type metadata accessor for FlightSnippet.Flight(0);
-  v1[26] = v26;
-  OUTLINED_FUNCTION_114(v26);
-  v28 = *(v27 + 64);
-  v1[27] = OUTLINED_FUNCTION_199();
-  v29 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10PegasusAPI38Apple_Parsec_Siri_Context_ResultEntityVSgMd, &_s10PegasusAPI38Apple_Parsec_Siri_Context_ResultEntityVSgMR);
-  OUTLINED_FUNCTION_114(v29);
-  v31 = *(v30 + 64);
-  v1[28] = OUTLINED_FUNCTION_199();
-  v32 = type metadata accessor for Apple_Parsec_Siri_Context_ResultEntity();
-  v1[29] = v32;
-  OUTLINED_FUNCTION_21(v32);
-  v1[30] = v33;
-  v35 = *(v34 + 64);
-  v1[31] = OUTLINED_FUNCTION_199();
-  v36 = type metadata accessor for SearchResultItem(0);
-  v1[32] = v36;
-  OUTLINED_FUNCTION_114(v36);
-  v38 = *(v37 + 64);
-  v1[33] = OUTLINED_FUNCTION_199();
-  v39 = type metadata accessor for GlobalItem();
-  OUTLINED_FUNCTION_114(v39);
-  v41 = *(v40 + 64);
-  v1[34] = OUTLINED_FUNCTION_199();
-  v42 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch0B6ResultVSgMd, &_s10OmniSearch0B6ResultVSgMR);
-  OUTLINED_FUNCTION_114(v42);
-  v44 = *(v43 + 64);
-  v1[35] = OUTLINED_FUNCTION_199();
-  v45 = type metadata accessor for SearchResult(0);
-  v1[36] = v45;
-  OUTLINED_FUNCTION_114(v45);
-  v47 = *(v46 + 64);
-  v1[37] = OUTLINED_FUNCTION_199();
-  v48 = type metadata accessor for FlightReservation();
-  v1[38] = v48;
-  OUTLINED_FUNCTION_21(v48);
-  v1[39] = v49;
-  v51 = *(v50 + 64);
-  v1[40] = OUTLINED_FUNCTION_160();
-  v1[41] = swift_task_alloc();
-  v1[42] = swift_task_alloc();
-  v1[43] = swift_task_alloc();
-  v52 = type metadata accessor for OSSignpostID();
-  v1[44] = v52;
-  OUTLINED_FUNCTION_21(v52);
-  v1[45] = v53;
-  v55 = *(v54 + 64);
-  v1[46] = OUTLINED_FUNCTION_160();
-  v1[47] = swift_task_alloc();
-  v56 = OUTLINED_FUNCTION_29();
-
-  return MEMORY[0x2822009F8](v56, v57, v58);
-}
-
-{
-  if (one-time initialization token for searchComponentSignposter != -1)
-  {
-    swift_once();
-  }
-
-  v1 = v0[47];
-  v2 = type metadata accessor for OSSignposter();
-  OUTLINED_FUNCTION_200(v2, static Logging.searchComponentSignposter);
-  OSSignposter.logHandle.getter();
-  OSSignpostID.init(log:)();
-  v3 = OSSignposter.logHandle.getter();
-  v4 = static os_signpost_type_t.begin.getter();
-  if (OS_os_log.signpostsEnabled.getter())
-  {
-    v5 = v0[47];
-    v6 = swift_slowAlloc();
-    *v6 = 0;
-    v7 = OSSignpostID.rawValue.getter();
-    _os_signpost_emit_with_name_impl(&dword_25D85C000, v3, v4, v7, "SearchTool.FlightResolution", "", v6, 2u);
-    OUTLINED_FUNCTION_37_0();
-  }
-
-  v8 = v0[46];
-  v9 = v0[47];
-  v10 = v0[44];
-  v11 = v0[45];
-
-  (*(v11 + 16))(v8, v9, v10);
-  v12 = type metadata accessor for OSSignpostIntervalState();
-  OUTLINED_FUNCTION_53_0(v12);
-  swift_allocObject();
-  v0[48] = OSSignpostIntervalState.init(id:isOpen:)();
-  v13 = *(v11 + 8);
-  v14 = OUTLINED_FUNCTION_54_0();
-  v15(v14);
-  if (one-time initialization token for answerResolution != -1)
-  {
-    OUTLINED_FUNCTION_4();
-  }
-
-  v16 = v0[43];
-  v17 = v0[38];
-  v18 = v0[39];
-  v19 = v0[11];
-  v20 = type metadata accessor for Logger();
-  v0[49] = __swift_project_value_buffer(v20, static Logging.answerResolution);
-  v21 = *(v18 + 16);
-  v0[50] = v21;
-  v0[51] = (v18 + 16) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
-  v21(v16, v19, v17);
-  v22 = Logger.logObject.getter();
-  v23 = static os_log_type_t.debug.getter();
-  v24 = os_log_type_enabled(v22, v23);
-  v25 = v0[43];
-  v27 = v0[38];
-  v26 = v0[39];
-  if (v24)
-  {
-    v100 = v21;
-    v28 = OUTLINED_FUNCTION_51_0();
-    v105 = OUTLINED_FUNCTION_49_0();
-    *v28 = 136642819;
-    v0[5] = FlightReservation.flightDesignator.getter();
-    v0[6] = v29;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSSSgMd, &_sSSSgMR);
-    String.init<A>(describing:)();
-    v30 = OUTLINED_FUNCTION_38_0();
-    v103 = v31;
-    (v31)(v30);
-    v32 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)();
-
-    *(v28 + 4) = v32;
-    _os_log_impl(&dword_25D85C000, v22, v23, "Resolving flight: %{sensitive}s", v28, 0xCu);
-    __swift_destroy_boxed_opaque_existential_1Tm(v105);
-    OUTLINED_FUNCTION_42_0();
-    v21 = v100;
-    OUTLINED_FUNCTION_42_0();
-  }
-
-  else
-  {
-
-    v33 = OUTLINED_FUNCTION_38_0();
-    v103 = v34;
-    (v34)(v33);
-  }
-
-  v35 = v0[11];
-  v36 = FlightReservation.flightDesignator.getter();
-  if (v37)
-  {
-    v38 = v36;
-    v39 = v37;
-    _StringGuts.grow(_:)(16);
-
-    MEMORY[0x25F89F6C0](v38, v39);
-
-    MEMORY[0x25F89F6C0](0x73757461747320, 0xE700000000000000);
-    v0[52] = 0xE700000000000000;
-    if (one-time initialization token for shared != -1)
-    {
-      OUTLINED_FUNCTION_2_0();
-    }
-
-    v40 = v0[13];
-    v41 = v0[14];
-    v43 = v0[11];
-    v42 = v0[12];
-    v0[53] = static MetricsLogger.shared;
-    OUTLINED_FUNCTION_133();
-    (*(v44 + 216))();
-    v45 = *(v41 + 16);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10PegasusAPI38Apple_Parsec_Siri_Context_ClientEntityVGMd, &_ss23_ContiguousArrayStorageCy10PegasusAPI38Apple_Parsec_Siri_Context_ClientEntityVGMR);
-    v46 = type metadata accessor for Apple_Parsec_Siri_Context_ClientEntity();
-    OUTLINED_FUNCTION_21(v46);
-    v48 = *(v47 + 72);
-    v50 = (*(v49 + 80) + 32) & ~*(v49 + 80);
-    v51 = swift_allocObject();
-    v0[54] = v51;
-    *(v51 + 16) = xmmword_25DBC8180;
-    FlightReservation.entity.getter();
-    v0[9] = 11;
-    v52 = *(*v45 + 176);
-    v104 = (v52 + *v52);
-    v53 = v52[1];
-    v54 = swift_task_alloc();
-    v0[55] = v54;
-    *v54 = v0;
-    v54[1] = GlobalResolutionService.resolveFlight(reservation:clientId:);
-    v55 = OUTLINED_FUNCTION_32_0();
-
-    return v104(v55);
-  }
-
-  else
-  {
-    v21(v0[41], v0[11], v0[38]);
-    v57 = Logger.logObject.getter();
-    v58 = static os_log_type_t.error.getter();
-    v59 = OUTLINED_FUNCTION_88_0(v58);
-    v60 = v0[41];
-    if (v59)
-    {
-      v61 = v21;
-      v62 = v0[40];
-      v101 = v0[39];
-      v63 = v0[38];
-      v64 = OUTLINED_FUNCTION_51_0();
-      OUTLINED_FUNCTION_49_0();
-      *v64 = 136642819;
-      v61(v62, v60, v63);
-      OUTLINED_FUNCTION_63_0();
-      String.init<A>(describing:)();
-      v103(v60, v63);
-      v65 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)();
-
-      *(v64 + 4) = v65;
-      _os_log_impl(&dword_25D85C000, v57, v58, "Skipping flight resolution for flight with empty flightDesignator %{sensitive}s", v64, 0xCu);
-      OUTLINED_FUNCTION_40_0();
-      OUTLINED_FUNCTION_42_0();
-    }
-
-    else
-    {
-      v66 = v0[38];
-      v67 = v0[39];
-
-      v103(v60, v66);
-    }
-
-    if (one-time initialization token for shared != -1)
-    {
-      OUTLINED_FUNCTION_2_0();
-    }
-
-    v69 = v0[16];
-    v68 = v0[17];
-    v70 = v0[15];
-    v72 = v0[12];
-    v71 = v0[13];
-    v73 = static MetricsLogger.shared;
-    lazy protocol witness table accessor for type EagerResolutionError and conformance EagerResolutionError();
-    v74 = OUTLINED_FUNCTION_30_0();
-    *v75 = 2;
-    (*(*v73 + 320))();
-
-    OUTLINED_FUNCTION_133();
-    v77 = *(v76 + 232);
-    v78 = OUTLINED_FUNCTION_36_0();
-    v79(v78);
-    v80 = *(v69 + 8);
-    v81 = OUTLINED_FUNCTION_32_0();
-    v82(v81);
-    OUTLINED_FUNCTION_30_0();
-    *v83 = 2;
-    swift_willThrow();
-    v85 = v0[47];
-    v84 = v0[48];
-    v86 = v0[46];
-    v88 = v0[42];
-    v87 = v0[43];
-    v90 = v0[40];
-    v89 = v0[41];
-    OUTLINED_FUNCTION_58_0();
-    v92 = v0[31];
-    v93 = v0[28];
-    v94 = v0[27];
-    v95 = v0[25];
-    v96 = v0[23];
-    v97 = v0[22];
-    v98 = v0[21];
-    v99 = v0[18];
-    v102 = v0[17];
-    $defer #1 () in GlobalResolutionService.resolveFlight(reservation:clientId:)();
-
-    OUTLINED_FUNCTION_127();
-
-    return v91();
-  }
-}
-
-{
-  OUTLINED_FUNCTION_48();
-  OUTLINED_FUNCTION_52();
-  v3 = v2;
-  OUTLINED_FUNCTION_19_0();
-  *v4 = v3;
-  v6 = *(v5 + 440);
-  *v4 = *v1;
-  v3[56] = v7;
-  v3[57] = v0;
-
-  if (v0)
-  {
-    v8 = v3[54];
-    v9 = v3[52];
-  }
-
-  else
-  {
-    v10 = v3[54];
-    v11 = v3[52];
-  }
-
-  OUTLINED_FUNCTION_69();
-
-  return MEMORY[0x2822009F8](v12, v13, v14);
-}
-
-{
-  v3 = *(v0 + 448);
-  v4 = *(v0 + 424);
-  v6 = *(v0 + 280);
-  v5 = *(v0 + 288);
-  v7 = *(v0 + 96);
-  v8 = *(v0 + 104);
-  OUTLINED_FUNCTION_133();
-  (*(v9 + 224))();
-  specialized Collection.first.getter(v3, type metadata accessor for SearchResult, v6);
-  if (OUTLINED_FUNCTION_68_0() == 1)
-  {
-    v10 = *(v0 + 280);
-    v11 = &_s10OmniSearch0B6ResultVSgMd;
-    v12 = &_s10OmniSearch0B6ResultVSgMR;
-LABEL_14:
-    outlined destroy of IntentApplication?(v10, v11, v12);
-    goto LABEL_15;
-  }
-
-  v13 = *(v0 + 296);
-  v14 = *(v0 + 280);
-  v16 = *(v0 + 256);
-  v15 = *(v0 + 264);
-  outlined init with take of SearchResult();
-  outlined init with copy of ExtractionRuleType();
-  OUTLINED_FUNCTION_32_0();
-  if (swift_getEnumCaseMultiPayload() != 25)
-  {
-    v28 = *(v0 + 296);
-    v29 = *(v0 + 264);
-    OUTLINED_FUNCTION_0_0();
-    outlined destroy of ExtractionRuleType(v30, v31);
-    v32 = type metadata accessor for SearchResultItem;
-    v33 = v29;
-LABEL_11:
-    outlined destroy of ExtractionRuleType(v33, v32);
-LABEL_15:
-    v46 = *(v0 + 448);
-    v47 = *(v0 + 392);
-
-    v48 = Logger.logObject.getter();
-    v49 = static os_log_type_t.error.getter();
-
-    v50 = os_log_type_enabled(v48, v49);
-    v51 = *(v0 + 448);
-    if (v50)
-    {
-      v52 = *(v0 + 288);
-      v53 = OUTLINED_FUNCTION_51_0();
-      v226 = OUTLINED_FUNCTION_49_0();
-      *v53 = 136642819;
-      v54 = OUTLINED_FUNCTION_64_0();
-      MEMORY[0x25F89F8A0](v54);
-      v1 = v55;
-
-      v56 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)();
-
-      *(v53 + 4) = v56;
-      _os_log_impl(&dword_25D85C000, v48, v49, "Failed to find flight info with results: %{sensitive}s", v53, 0xCu);
-      __swift_destroy_boxed_opaque_existential_1Tm(v226);
-      OUTLINED_FUNCTION_33_0();
-      OUTLINED_FUNCTION_42_0();
-    }
-
-    else
-    {
-    }
-
-    v57 = *(v0 + 424);
-    v59 = *(v0 + 128);
-    v58 = *(v0 + 136);
-    v60 = *(v0 + 120);
-    v62 = *(v0 + 96);
-    v61 = *(v0 + 104);
-    lazy protocol witness table accessor for type EagerResolutionError and conformance EagerResolutionError();
-    OUTLINED_FUNCTION_30_0();
-    OUTLINED_FUNCTION_57_0();
-    *v63 = v1;
-    (*(*v57 + 320))();
-
-    OUTLINED_FUNCTION_133();
-    v65 = *(v64 + 232);
-    v66 = OUTLINED_FUNCTION_36_0();
-    v67(v66);
-    v68 = *(v59 + 8);
-    v69 = OUTLINED_FUNCTION_32_0();
-    v70(v69);
-    OUTLINED_FUNCTION_30_0();
-    *v71 = v1;
-    swift_willThrow();
-    goto LABEL_19;
-  }
-
-  v18 = *(v0 + 264);
-  v17 = *(v0 + 272);
-  v19 = *(v18 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch10GlobalItemV_SayAA16DialogExperienceCG11experiencestMd, &_s10OmniSearch10GlobalItemV_SayAA16DialogExperienceCG11experiencestMR) + 48));
-  outlined init with take of SearchResult();
-  if (!specialized Array.count.getter(v19))
-  {
-    v34 = *(v0 + 296);
-    v36 = *(v0 + 224);
-    v35 = *(v0 + 232);
-    OUTLINED_FUNCTION_0_0();
-    outlined destroy of ExtractionRuleType(v37, v38);
-
-    OUTLINED_FUNCTION_92();
-    __swift_storeEnumTagSinglePayload(v39, v40, v41, v35);
-    goto LABEL_13;
-  }
-
-  if ((v19 & 0xC000000000000001) != 0)
-  {
-    v20 = MEMORY[0x25F89FFD0](0, v19);
-  }
-
-  else
-  {
-    if (!*((v19 & 0xFFFFFFFFFFFFFF8) + 0x10))
-    {
-      __break(1u);
-LABEL_49:
-      swift_once();
-LABEL_32:
-      v105 = *(v0 + 200);
-      v106 = *(v0 + 208);
-      v107 = *(v0 + 176);
-      v108 = static FlightSnippet.Flight._StorageClass.defaultInstance;
-
-      OUTLINED_FUNCTION_31_0();
-      outlined destroy of ExtractionRuleType(v105, v109);
-      *(v17 + v6) = v108;
-      if (__swift_getEnumTagSinglePayload(v107, 1, v106) != 1)
-      {
-        outlined destroy of IntentApplication?(*(v0 + 176), &_s10OmniSearch13FlightSnippetV0C0VSgMd, &_s10OmniSearch13FlightSnippetV0C0VSgMR);
-      }
-
-      goto LABEL_36;
-    }
-
-    v20 = *(v19 + 32);
-  }
-
-  v22 = *(v0 + 224);
-  v21 = *(v0 + 232);
-  v23 = *(v20 + 16);
-
-  v24 = dispatch thunk of Experience.associatedEntities.getter();
-
-  specialized Collection.first.getter(v24, MEMORY[0x277D39440], v22);
-
-  if (OUTLINED_FUNCTION_68_0() == 1)
-  {
-    v25 = *(v0 + 296);
-    OUTLINED_FUNCTION_0_0();
-    outlined destroy of ExtractionRuleType(v26, v27);
-
-LABEL_13:
-    v42 = *(v0 + 272);
-    v43 = *(v0 + 224);
-    OUTLINED_FUNCTION_1_0();
-    outlined destroy of ExtractionRuleType(v44, v45);
-    v11 = &_s10PegasusAPI38Apple_Parsec_Siri_Context_ResultEntityVSgMd;
-    v12 = &_s10PegasusAPI38Apple_Parsec_Siri_Context_ResultEntityVSgMR;
-    v10 = v43;
-    goto LABEL_14;
-  }
-
-  v81 = *(v0 + 272);
-  (*(*(v0 + 240) + 32))(*(v0 + 248), *(v0 + 224), *(v0 + 232));
-  v82 = *(v81 + 32) == 0x73746867696C66 && *(v81 + 40) == 0xE700000000000000;
-  if (!v82 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
-  {
-    v110 = *(v0 + 296);
-    v111 = *(v0 + 272);
-    v113 = *(v0 + 240);
-    v112 = *(v0 + 248);
-    v114 = *(v0 + 232);
-
-    v115 = *(v113 + 8);
-    v116 = OUTLINED_FUNCTION_64_0();
-    v117(v116);
-    OUTLINED_FUNCTION_0_0();
-    outlined destroy of ExtractionRuleType(v110, v118);
-    OUTLINED_FUNCTION_1_0();
-    v33 = v111;
-    goto LABEL_11;
-  }
-
-  v83 = *(v0 + 448);
-  v18 = *(v0 + 456);
-  v84 = *(v0 + 248);
-  v86 = *(v0 + 192);
-  v85 = *(v0 + 200);
-  v87 = *(v0 + 184);
-
-  Apple_Parsec_Siri_Context_ResultEntity.usoEntity.getter();
-  OUTLINED_FUNCTION_82_0();
-  JSONDecodingOptions.init()();
-  JSONDecodingOptions.ignoreUnknownFields.setter();
-  lazy protocol witness table accessor for type FlightSnippet and conformance FlightSnippet(&lazy protocol witness table cache variable for type FlightSnippet and conformance FlightSnippet, type metadata accessor for FlightSnippet);
-  Message.init(jsonUTF8Data:options:)();
-  if (v18)
-  {
-    v88 = *(v0 + 296);
-    v89 = *(v0 + 272);
-    v90 = *(v0 + 240);
-    v91 = *(v0 + 248);
-    v92 = *(v0 + 232);
-
-    v93 = *(v90 + 8);
-    v94 = OUTLINED_FUNCTION_63_0();
-    v95(v94);
-    OUTLINED_FUNCTION_0_0();
-    outlined destroy of ExtractionRuleType(v88, v96);
-    OUTLINED_FUNCTION_1_0();
-    outlined destroy of ExtractionRuleType(v89, v97);
-    goto LABEL_19;
-  }
-
-  v98 = *(v0 + 200);
-  v99 = *(v0 + 208);
-  v100 = *(v0 + 176);
-  v101 = *(*(v0 + 192) + 40);
-  outlined init with copy of EagerResolutionService?();
-  EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v100, 1, v99);
-  v17 = *(v0 + 216);
-  if (EnumTagSinglePayload == 1)
-  {
-    v103 = *(v0 + 208);
-    v104 = *(v0 + 216);
-    UnknownStorage.init()();
-    v6 = *(v103 + 20);
-    if (one-time initialization token for defaultInstance == -1)
-    {
-      goto LABEL_32;
-    }
-
-    goto LABEL_49;
-  }
-
-  v119 = *(v0 + 200);
-  v120 = *(v0 + 176);
-  OUTLINED_FUNCTION_31_0();
-  outlined destroy of ExtractionRuleType(v121, v122);
-  outlined init with take of SearchResult();
-LABEL_36:
-  v124 = *(v0 + 208);
-  v123 = *(v0 + 216);
-  v125 = *(v0 + 168);
-  JSONEncodingOptions.init()();
-  lazy protocol witness table accessor for type FlightSnippet and conformance FlightSnippet(&lazy protocol witness table cache variable for type FlightSnippet.Flight and conformance FlightSnippet.Flight, type metadata accessor for FlightSnippet.Flight);
-  Message.jsonString(options:)();
-  if (v18)
-  {
-    v126 = *(v0 + 296);
-    v224 = *(v0 + 272);
-    v127 = *(v0 + 240);
-    v128 = *(v0 + 248);
-    v129 = *(v0 + 232);
-    v130 = *(v0 + 216);
-    v131 = *(v0 + 160);
-    v132 = *(v0 + 168);
-    v133 = *(v0 + 152);
-
-    (*(v131 + 8))(v132, v133);
-    OUTLINED_FUNCTION_9_0();
-    outlined destroy of ExtractionRuleType(v130, v134);
-    v135 = *(v127 + 8);
-    v136 = OUTLINED_FUNCTION_63_0();
-    v137(v136);
-    OUTLINED_FUNCTION_0_0();
-    v139 = v126;
-  }
-
-  else
-  {
-    v140 = *(v0 + 392);
-    (*(*(v0 + 160) + 8))(*(v0 + 168), *(v0 + 152));
-
-    v141 = Logger.logObject.getter();
-    v142 = static os_log_type_t.debug.getter();
-
-    if (os_log_type_enabled(v141, v142))
-    {
-      v143 = OUTLINED_FUNCTION_51_0();
-      OUTLINED_FUNCTION_49_0();
-      *v143 = 136642819;
-      OUTLINED_FUNCTION_45_0();
-      *(v143 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)();
-      _os_log_impl(&dword_25D85C000, v141, v142, "Retrieved resolved flight info: %{sensitive}s", v143, 0xCu);
-      OUTLINED_FUNCTION_40_0();
-      OUTLINED_FUNCTION_37_0();
-    }
-
-    v144 = *(v0 + 408);
-    (*(v0 + 400))(*(v0 + 336), *(v0 + 88), *(v0 + 304));
-    v145._countAndFlagsBits = OUTLINED_FUNCTION_45_0();
-    FlightReservation.setResolvedFlight(_:)(v145);
-    v146 = *(v0 + 336);
-    if (!v147)
-    {
-      v156 = *(v0 + 144);
-
-      FlightReservation.leg.getter(v156);
-      v157 = type metadata accessor for FlightSnippet.Leg(0);
-      v158 = OUTLINED_FUNCTION_68_0();
-      v159 = *(v0 + 144);
-      if (v158 == 1)
-      {
-        outlined destroy of IntentApplication?(*(v0 + 144), &_s10OmniSearch13FlightSnippetV3LegVSgMd, &_s10OmniSearch13FlightSnippetV3LegVSgMR);
-        v160 = 0;
-        v161 = 1;
-      }
-
-      else
-      {
-        v162 = *(v159 + *(v157 + 20));
-        OUTLINED_FUNCTION_89_0();
-        v160 = *(v162 + 16);
-        v161 = *(v162 + 24);
-        outlined destroy of ExtractionRuleType(v159, type metadata accessor for FlightSnippet.Leg);
-      }
-
-      v192 = *(v0 + 400);
-      v193 = *(v0 + 408);
-      v202 = *(v0 + 384);
-      v203 = *(v0 + 376);
-      v163 = *(v0 + 336);
-      v204 = *(v0 + 368);
-      v205 = *(v0 + 344);
-      v206 = *(v0 + 328);
-      v208 = *(v0 + 320);
-      v164 = *(v0 + 304);
-      v165 = *(v0 + 312);
-      v200 = *(v0 + 296);
-      v201 = *(v0 + 272);
-      v166 = *(v0 + 256);
-      v210 = *(v0 + 280);
-      v212 = *(v0 + 264);
-      v198 = *(v0 + 232);
-      v199 = *(v0 + 248);
-      v214 = *(v0 + 224);
-      v196 = *(v0 + 216);
-      v197 = *(v0 + 240);
-      v167 = *(v0 + 176);
-      v216 = *(v0 + 200);
-      v218 = *(v0 + 184);
-      v168 = *(v0 + 168);
-      *(v0 + 56) = v160;
-      v222 = *(v0 + 144);
-      v225 = *(v0 + 136);
-      *(v0 + 64) = v161;
-      v169 = *(v0 + 80);
-      v170 = String.init<A>(describing:)();
-      v194 = v171;
-      v195 = v170;
-      v172 = type metadata accessor for ResolvedInfo();
-      v173 = v169 + v172[5];
-      v174 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s15OmniSearchTypes17FlightReservationV8document_Say0aB016DialogExperienceCG11experiencestMd, &_s15OmniSearchTypes17FlightReservationV8document_Say0aB016DialogExperienceCG11experiencestMR) + 48);
-      v192(v173, v163, v164);
-      *&v173[v174] = v19;
-      swift_storeEnumTagMultiPayload();
-      OUTLINED_FUNCTION_44_0();
-      __swift_storeEnumTagSinglePayload(v175, v176, v177, v166);
-      v178 = v172[7];
-      type metadata accessor for URL();
-      OUTLINED_FUNCTION_92();
-      __swift_storeEnumTagSinglePayload(v179, v180, v181, v182);
-      v183 = v172[10];
-      type metadata accessor for PommesContext();
-      OUTLINED_FUNCTION_92();
-      __swift_storeEnumTagSinglePayload(v184, v185, v186, v187);
-      (*(v165 + 8))(v163, v164);
-      OUTLINED_FUNCTION_9_0();
-      outlined destroy of ExtractionRuleType(v196, v188);
-      (*(v197 + 8))(v199, v198);
-      OUTLINED_FUNCTION_0_0();
-      outlined destroy of ExtractionRuleType(v200, v189);
-      *v169 = v195;
-      v169[1] = v194;
-      *(v169 + v172[6]) = MEMORY[0x277D84F98];
-      v190 = MEMORY[0x277D84F90];
-      *(v169 + v172[8]) = MEMORY[0x277D84F90];
-      *(v169 + v172[9]) = v190;
-      OUTLINED_FUNCTION_1_0();
-      outlined destroy of ExtractionRuleType(v201, v191);
-      $defer #1 () in GlobalResolutionService.resolveFlight(reservation:clientId:)();
-
-      OUTLINED_FUNCTION_106();
-      goto LABEL_20;
-    }
-
-    v149 = *(v0 + 304);
-    v148 = *(v0 + 312);
-    v221 = *(v0 + 296);
-    v224 = *(v0 + 272);
-    v151 = *(v0 + 240);
-    v150 = *(v0 + 248);
-    v152 = *(v0 + 232);
-    v153 = *(v0 + 216);
-
-    (*(v148 + 8))(v146, v149);
-    OUTLINED_FUNCTION_9_0();
-    outlined destroy of ExtractionRuleType(v153, v154);
-    (*(v151 + 8))(v150, v152);
-    OUTLINED_FUNCTION_0_0();
-    v139 = v221;
-  }
-
-  outlined destroy of ExtractionRuleType(v139, v138);
-  OUTLINED_FUNCTION_1_0();
-  outlined destroy of ExtractionRuleType(v224, v155);
-LABEL_19:
-  v72 = *(v0 + 376);
-  v73 = *(v0 + 384);
-  v74 = *(v0 + 368);
-  v76 = *(v0 + 336);
-  v75 = *(v0 + 344);
-  v78 = *(v0 + 320);
-  v77 = *(v0 + 328);
+  v2 = *(v1 + 384);
   OUTLINED_FUNCTION_58_0();
-  v207 = *(v0 + 248);
-  v209 = *(v0 + 224);
-  v211 = *(v0 + 216);
-  v213 = *(v0 + 200);
-  v215 = *(v0 + 184);
-  v217 = *(v0 + 176);
-  v219 = *(v0 + 168);
-  v220 = *(v0 + 144);
-  v223 = *(v0 + 136);
-  $defer #1 () in GlobalResolutionService.resolveFlight(reservation:clientId:)();
-
-  OUTLINED_FUNCTION_127();
-LABEL_20:
-
-  return v79();
-}
-
-{
-  v19 = v0[57];
-  v2 = v0[47];
-  v1 = v0[48];
-  v3 = v0[46];
-  v5 = v0[42];
-  v4 = v0[43];
-  v7 = v0[40];
-  v6 = v0[41];
-  OUTLINED_FUNCTION_58_0();
-  v10 = v0[31];
-  v11 = v0[28];
-  v12 = v0[27];
-  v13 = v0[25];
-  v14 = v0[23];
-  v15 = v0[22];
-  v16 = v0[21];
-  v17 = v0[18];
-  v18 = v0[17];
-  $defer #1 () in GlobalResolutionService.resolveFlight(reservation:clientId:)();
+  $defer #1 () in GlobalResolutionService.resolveFlight(reservation:clientId:)(v2);
 
   OUTLINED_FUNCTION_127();
 
-  return v8();
+  return v3();
 }
 
-uint64_t $defer #1 () in GlobalResolutionService.resolveFlight(reservation:clientId:)()
+uint64_t $defer #1 () in GlobalResolutionService.resolveFlight(reservation:clientId:)(uint64_t a1)
 {
-  v0 = type metadata accessor for OSSignpostError();
-  v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
-  MEMORY[0x28223BE20](v0);
-  v4 = &v17 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v1 = type metadata accessor for OSSignpostError();
+  v2 = *(v1 - 8);
+  MEMORY[0x28223BE20](v1);
+  v4 = &v16 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
   v5 = type metadata accessor for OSSignpostID();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x28223BE20](v5);
-  v9 = &v17 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v16 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (one-time initialization token for searchComponentSignposter != -1)
   {
     swift_once();
   }
 
-  v10 = type metadata accessor for OSSignposter();
-  __swift_project_value_buffer(v10, static Logging.searchComponentSignposter);
-  v11 = OSSignposter.logHandle.getter();
+  v9 = type metadata accessor for OSSignposter();
+  __swift_project_value_buffer(v9, static Logging.searchComponentSignposter);
+  v10 = OSSignposter.logHandle.getter();
   OSSignpostIntervalState.signpostID.getter();
-  v12 = static os_signpost_type_t.end.getter();
+  v11 = static os_signpost_type_t.end.getter();
   if (OS_os_log.signpostsEnabled.getter())
   {
 
     checkForErrorAndConsumeState(state:)();
 
-    if ((*(v1 + 88))(v4, v0) == *MEMORY[0x277D85B00])
+    if ((*(v2 + 88))(v4, v1) == *MEMORY[0x277D85B00])
     {
-      v13 = "[Error] Interval already ended";
+      v12 = "[Error] Interval already ended";
     }
 
     else
     {
-      (*(v1 + 8))(v4, v0);
-      v13 = "";
+      (*(v2 + 8))(v4, v1);
+      v12 = "";
     }
 
-    v14 = swift_slowAlloc();
-    *v14 = 0;
-    v15 = OSSignpostID.rawValue.getter();
-    _os_signpost_emit_with_name_impl(&dword_25D85C000, v11, v12, v15, "SearchTool.FlightResolution", v13, v14, 2u);
-    MEMORY[0x25F8A1050](v14, -1, -1);
+    v13 = swift_slowAlloc();
+    *v13 = 0;
+    v14 = OSSignpostID.rawValue.getter();
+    _os_signpost_emit_with_name_impl(&dword_25D85C000, v10, v11, v14, "SearchTool.FlightResolution", v12, v13, 2u);
+    MEMORY[0x25F8A1050](v13, -1, -1);
   }
 
-  return (*(v6 + 8))(v9, v5);
+  return (*(v6 + 8))(v8, v5);
 }
 
 uint64_t FlightReservation.entity.getter()
 {
-  v0 = type metadata accessor for FlightReservation();
-  v1 = OUTLINED_FUNCTION_14(v0);
-  v97 = v2;
-  v98 = v1;
-  v4 = *(v3 + 64);
-  MEMORY[0x28223BE20](v1);
+  type metadata accessor for FlightReservation();
+  OUTLINED_FUNCTION_14();
+  v77 = v1;
+  v78 = v0;
+  MEMORY[0x28223BE20](v0);
   OUTLINED_FUNCTION_36();
-  v99 = v6 - v5;
+  v79 = v3 - v2;
   OUTLINED_FUNCTION_78_0();
-  v7 = type metadata accessor for Google_Protobuf_Timestamp();
-  v8 = OUTLINED_FUNCTION_114(v7);
-  v10 = *(v9 + 64);
-  MEMORY[0x28223BE20](v8);
+  v4 = type metadata accessor for Google_Protobuf_Timestamp();
+  v5 = OUTLINED_FUNCTION_114(v4);
+  MEMORY[0x28223BE20](v5);
   OUTLINED_FUNCTION_36();
-  v96 = (v12 - v11);
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
-  OUTLINED_FUNCTION_114(v13);
-  v15 = *(v14 + 64);
+  v76 = (v7 - v6);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  OUTLINED_FUNCTION_114(v8);
   OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v16);
-  v100 = &v91 - v17;
+  MEMORY[0x28223BE20](v9);
+  v80 = &v71 - v10;
   OUTLINED_FUNCTION_78_0();
-  v106 = type metadata accessor for DateComponents();
-  v18 = OUTLINED_FUNCTION_14(v106);
-  v102 = v19;
-  v21 = *(v20 + 64);
+  v86 = type metadata accessor for DateComponents();
+  OUTLINED_FUNCTION_14();
+  v82 = v11;
+  MEMORY[0x28223BE20](v12);
+  OUTLINED_FUNCTION_39_0();
+  v72 = v13;
+  MEMORY[0x28223BE20](v14);
+  v16 = &v71 - v15;
+  v81 = type metadata accessor for Date();
+  OUTLINED_FUNCTION_14();
+  v75 = v17;
   MEMORY[0x28223BE20](v18);
   OUTLINED_FUNCTION_39_0();
-  v92 = v22;
-  MEMORY[0x28223BE20](v23);
-  v25 = &v91 - v24;
-  v101 = type metadata accessor for Date();
-  v26 = OUTLINED_FUNCTION_14(v101);
-  v95 = v27;
-  v29 = *(v28 + 64);
-  MEMORY[0x28223BE20](v26);
-  OUTLINED_FUNCTION_39_0();
-  v93 = v30;
-  MEMORY[0x28223BE20](v31);
-  v94 = &v91 - v32;
+  v73 = v19;
+  MEMORY[0x28223BE20](v20);
+  v74 = &v71 - v21;
   OUTLINED_FUNCTION_78_0();
-  v33 = type metadata accessor for Apple_Parsec_Siri_Context_FlightEntity();
-  v34 = OUTLINED_FUNCTION_14(v33);
-  v104 = v35;
-  v105 = v34;
-  v37 = *(v36 + 64);
-  MEMORY[0x28223BE20](v34);
+  type metadata accessor for Apple_Parsec_Siri_Context_FlightEntity();
+  OUTLINED_FUNCTION_14();
+  v84 = v23;
+  v85 = v22;
+  MEMORY[0x28223BE20](v22);
   OUTLINED_FUNCTION_39_0();
-  v103 = v38;
-  MEMORY[0x28223BE20](v39);
-  v41 = &v91 - v40;
-  v42 = type metadata accessor for Apple_Parsec_Siri_Context_SageAppEntity();
-  v43 = OUTLINED_FUNCTION_114(v42);
-  v45 = *(v44 + 64);
-  MEMORY[0x28223BE20](v43);
+  v83 = v24;
+  MEMORY[0x28223BE20](v25);
+  v27 = &v71 - v26;
+  v28 = type metadata accessor for Apple_Parsec_Siri_Context_SageAppEntity();
+  v29 = OUTLINED_FUNCTION_114(v28);
+  MEMORY[0x28223BE20](v29);
   OUTLINED_FUNCTION_36();
-  v46 = type metadata accessor for Apple_Parsec_Siri_Context_ClientEntity.ClientEntitySource();
-  v47 = OUTLINED_FUNCTION_14(v46);
-  v49 = v48;
-  v51 = *(v50 + 64);
-  MEMORY[0x28223BE20](v47);
+  v30 = type metadata accessor for Apple_Parsec_Siri_Context_ClientEntity.ClientEntitySource();
+  OUTLINED_FUNCTION_14();
+  v32 = v31;
+  MEMORY[0x28223BE20](v33);
   OUTLINED_FUNCTION_36();
-  v54 = v53 - v52;
-  v55 = type metadata accessor for Apple_Parsec_Siri_Context_ClientEntity.ClientEntityType();
-  v56 = OUTLINED_FUNCTION_14(v55);
-  v58 = v57;
-  v60 = *(v59 + 64);
-  MEMORY[0x28223BE20](v56);
+  v36 = v35 - v34;
+  v37 = type metadata accessor for Apple_Parsec_Siri_Context_ClientEntity.ClientEntityType();
+  OUTLINED_FUNCTION_14();
+  v39 = v38;
+  MEMORY[0x28223BE20](v40);
   OUTLINED_FUNCTION_36();
-  v63 = v62 - v61;
+  v43 = v42 - v41;
   Apple_Parsec_Siri_Context_ClientEntity.init()();
-  (*(v58 + 104))(v63, *MEMORY[0x277D39408], v55);
+  (*(v39 + 104))(v43, *MEMORY[0x277D39408], v37);
   Apple_Parsec_Siri_Context_ClientEntity.type.setter();
-  (*(v49 + 104))(v54, *MEMORY[0x277D39418], v46);
-  v64 = v107;
+  (*(v32 + 104))(v36, *MEMORY[0x277D39418], v30);
+  v44 = v87;
   Apple_Parsec_Siri_Context_ClientEntity.source.setter();
   Apple_Parsec_Siri_Context_SageAppEntity.init()();
   Apple_Parsec_Siri_Context_ClientEntity.sageAppEntity.setter();
   Apple_Parsec_Siri_Context_FlightEntity.init()();
   FlightReservation.flightDesignator.getter();
-  if (v65)
+  if (v45)
   {
-    v66 = String.lowercased()();
-    countAndFlagsBits = v66._countAndFlagsBits;
-    object = v66._object;
+    v46 = String.lowercased()();
+    countAndFlagsBits = v46._countAndFlagsBits;
+    object = v46._object;
   }
 
   else
@@ -2798,50 +143,50 @@ uint64_t FlightReservation.entity.getter()
 
   MEMORY[0x25F899E00](countAndFlagsBits, object);
   FlightReservation.flightDepartureDateComponents.getter();
-  v69 = v100;
+  v49 = v80;
   DateComponents.date.getter();
-  v70 = *(v102 + 1);
-  v70(v25, v106);
-  v71 = v101;
-  if (__swift_getEnumTagSinglePayload(v69, 1, v101) == 1)
+  v50 = *(v82 + 1);
+  v50(v16, v86);
+  v51 = v81;
+  if (__swift_getEnumTagSinglePayload(v49, 1, v81) == 1)
   {
-    v102 = v41;
-    outlined destroy of IntentApplication?(v69, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+    v82 = v27;
+    outlined destroy of IntentApplication?(v49, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
     if (one-time initialization token for answerResolution != -1)
     {
-      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_4(&one-time initialization token for answerResolution);
     }
 
-    v72 = type metadata accessor for Logger();
-    OUTLINED_FUNCTION_200(v72, static Logging.answerResolution);
-    v73 = v97;
-    v74 = v98;
-    v75 = v99;
-    (*(v97 + 16))(v99, v64, v98);
-    v76 = Logger.logObject.getter();
-    v77 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v76, v77))
+    v52 = type metadata accessor for Logger();
+    OUTLINED_FUNCTION_200(v52, static Logging.answerResolution);
+    v53 = v77;
+    v54 = v78;
+    v55 = v79;
+    (*(v77 + 16))(v79, v44, v78);
+    v56 = Logger.logObject.getter();
+    v57 = static os_log_type_t.error.getter();
+    if (os_log_type_enabled(v56, v57))
     {
-      v78 = OUTLINED_FUNCTION_51_0();
-      v96 = v78;
-      v101 = OUTLINED_FUNCTION_49_0();
-      v108 = v101;
-      *v78 = 136642819;
-      v79 = v92;
-      LODWORD(v100) = v77;
+      v58 = OUTLINED_FUNCTION_51_0();
+      v76 = v58;
+      v81 = OUTLINED_FUNCTION_49_0();
+      v88 = v81;
+      *v58 = 136642819;
+      v59 = v72;
+      LODWORD(v80) = v57;
       FlightReservation.flightDepartureDateComponents.getter();
-      lazy protocol witness table accessor for type FlightSnippet and conformance FlightSnippet(&lazy protocol witness table cache variable for type DateComponents and conformance DateComponents, MEMORY[0x277CC8990]);
-      v80 = v106;
+      lazy protocol witness table accessor for type FlightSnippet and conformance FlightSnippet(&lazy protocol witness table cache variable for type DateComponents and conformance DateComponents, MEMORY[0x277CC8990], MEMORY[0x277CC89C0]);
+      v60 = v86;
       dispatch thunk of CustomStringConvertible.description.getter();
-      v70(v79, v80);
-      (*(v73 + 8))(v99, v74);
+      v50(v59, v60);
+      (*(v53 + 8))(v79, v54);
       OUTLINED_FUNCTION_94();
-      v81 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)();
+      v61 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)();
 
-      v82 = v96;
-      *(v96 + 1) = v81;
-      _os_log_impl(&dword_25D85C000, v76, v100, "FlightEntity: Missing departure date information, will provide flight's current status. %{sensitive}s", v82, 0xCu);
-      __swift_destroy_boxed_opaque_existential_1Tm(v101);
+      v62 = v76;
+      *(v76 + 1) = v61;
+      _os_log_impl(&dword_25D85C000, v56, v80, "FlightEntity: Missing departure date information, will provide flight's current status. %{sensitive}s", v62, 0xCu);
+      __swift_destroy_boxed_opaque_existential_1Tm(v81);
       OUTLINED_FUNCTION_42_0();
       OUTLINED_FUNCTION_42_0();
     }
@@ -2849,36 +194,36 @@ uint64_t FlightReservation.entity.getter()
     else
     {
 
-      (*(v73 + 8))(v75, v74);
+      (*(v53 + 8))(v55, v54);
     }
 
-    v41 = v102;
+    v27 = v82;
   }
 
   else
   {
-    v84 = v94;
-    v83 = v95;
-    (*(v95 + 32))(v94, v69, v71);
-    (*(v83 + 16))(v93, v84, v71);
+    v64 = v74;
+    v63 = v75;
+    (*(v75 + 32))(v74, v49, v51);
+    (*(v63 + 16))(v73, v64, v51);
     Google_Protobuf_Timestamp.init(date:)();
     Apple_Parsec_Siri_Context_FlightEntity.departureTimestamp.setter();
-    (*(v83 + 8))(v84, v71);
+    (*(v63 + 8))(v64, v51);
   }
 
-  v85 = FlightReservation.flightDepartureAirportCode.getter();
-  if (v86)
+  v65 = FlightReservation.flightDepartureAirportCode.getter();
+  if (v66)
   {
-    MEMORY[0x25F899E10](v85);
+    MEMORY[0x25F899E10](v65);
   }
 
-  v87 = v104;
-  v88 = v105;
-  (*(v104 + 16))(v103, v41, v105);
-  v89 = Apple_Parsec_Siri_Context_ClientEntity.sageAppEntity.modify();
+  v67 = v84;
+  v68 = v85;
+  (*(v84 + 16))(v83, v27, v85);
+  v69 = Apple_Parsec_Siri_Context_ClientEntity.sageAppEntity.modify();
   Apple_Parsec_Siri_Context_SageAppEntity.flightEntity.setter();
-  v89(&v108, 0);
-  return (*(v87 + 8))(v41, v88);
+  v69(&v88, 0);
+  return (*(v67 + 8))(v27, v68);
 }
 
 uint64_t specialized Collection.first.getter(uint64_t a1, unint64_t a2)
@@ -2961,15 +306,67 @@ uint64_t specialized Collection.first.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@
   return specialized Collection.first.getter(a1, MEMORY[0x277D38E08], a2);
 }
 
-uint64_t specialized Collection.first.getter(void *a1)
+uint64_t specialized Collection.first.getter(uint64_t a1)
 {
-  if (a1[2])
+  if (*(a1 + 16))
   {
-    v1 = a1[4];
-    v2 = a1[5];
   }
 
   return OUTLINED_FUNCTION_94();
+}
+
+{
+  result = specialized Dictionary.Values.startIndex.getter(a1);
+  if (v4)
+  {
+    goto LABEL_7;
+  }
+
+  if (*(a1 + 36) != v3)
+  {
+    __break(1u);
+LABEL_7:
+    __break(1u);
+    return result;
+  }
+
+  OUTLINED_FUNCTION_80_0();
+  if (v7)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return specialized Dictionary.Values.subscript.getter(v5, v6, 0, a1);
+  }
+}
+
+{
+  result = specialized Dictionary.Values.startIndex.getter(a1);
+  if (v4)
+  {
+    goto LABEL_7;
+  }
+
+  if (*(a1 + 36) != v3)
+  {
+    __break(1u);
+LABEL_7:
+    __break(1u);
+    return result;
+  }
+
+  OUTLINED_FUNCTION_80_0();
+  if (v7)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return specialized Dictionary.Values.subscript.getter(v5, v6, 0, a1);
+  }
 }
 
 unint64_t specialized Collection.first.getter(uint64_t a1, unint64_t a2)
@@ -3075,97 +472,22 @@ LABEL_17:
   return v12 | ((v4 == 0) << 32);
 }
 
-uint64_t specialized Collection.first.getter@<X0>(uint64_t a1@<X0>, uint64_t (*a2)(void)@<X1>, uint64_t a3@<X8>)
-{
-  v4 = *(a1 + 16);
-  v5 = a2(0);
-  v6 = v5;
-  if (v4)
-  {
-    v7 = *(*(v5 - 8) + 80);
-    outlined init with copy of ExtractionRuleType();
-    v8 = 0;
-  }
-
-  else
-  {
-    v8 = 1;
-  }
-
-  return __swift_storeEnumTagSinglePayload(a3, v8, 1, v6);
-}
-
+uint64_t specialized Collection.first.getter@<X0>(uint64_t a1@<X0>, uint64_t (*a2)(void)@<X1>, uint64_t a4@<X8>)
 {
   v5 = *(a1 + 16);
   v6 = a2(0);
-  v7 = v6;
   if (v5)
   {
-    (*(*(v6 - 8) + 16))(a3, a1 + ((*(*(v6 - 8) + 80) + 32) & ~*(*(v6 - 8) + 80)), v6);
-    v8 = 0;
+    outlined init with copy of ExtractionRuleType();
+    v7 = 0;
   }
 
   else
   {
-    v8 = 1;
+    v7 = 1;
   }
 
-  return __swift_storeEnumTagSinglePayload(a3, v8, 1, v7);
-}
-
-uint64_t specialized Collection.first.getter(uint64_t a1)
-{
-  result = specialized Dictionary.Values.startIndex.getter(a1);
-  if (v4)
-  {
-    goto LABEL_7;
-  }
-
-  if (*(a1 + 36) != v3)
-  {
-    __break(1u);
-LABEL_7:
-    __break(1u);
-    return result;
-  }
-
-  OUTLINED_FUNCTION_80_0();
-  if (v7)
-  {
-    return 0;
-  }
-
-  else
-  {
-    return specialized Dictionary.Values.subscript.getter(v5, v6, 0, a1);
-  }
-}
-
-{
-  result = specialized Dictionary.Values.startIndex.getter(a1);
-  if (v4)
-  {
-    goto LABEL_7;
-  }
-
-  if (*(a1 + 36) != v3)
-  {
-    __break(1u);
-LABEL_7:
-    __break(1u);
-    return result;
-  }
-
-  OUTLINED_FUNCTION_80_0();
-  if (v7)
-  {
-    return 0;
-  }
-
-  else
-  {
-    return specialized Dictionary.Values.subscript.getter(v5, v6, 0, a1);
-  }
+  return __swift_storeEnumTagSinglePayload(a4, v7, 1, v6);
 }
 
 double specialized Collection.first.getter@<D0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
@@ -3184,6 +506,25 @@ double specialized Collection.first.getter@<D0>(uint64_t a1@<X0>, uint64_t a2@<X
   return result;
 }
 
+uint64_t specialized Collection.first.getter@<X0>(uint64_t a1@<X0>, uint64_t (*a2)(void)@<X1>, uint64_t a3@<X8>)
+{
+  v5 = *(a1 + 16);
+  v6 = a2(0);
+  v7 = v6;
+  if (v5)
+  {
+    (*(*(v6 - 8) + 16))(a3, a1 + ((*(*(v6 - 8) + 80) + 32) & ~*(*(v6 - 8) + 80)), v6);
+    v8 = 0;
+  }
+
+  else
+  {
+    v8 = 1;
+  }
+
+  return __swift_storeEnumTagSinglePayload(a3, v8, 1, v7);
+}
+
 uint64_t GlobalResolutionService.resolveLocation(address:clientId:app:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   v7[73] = v6;
@@ -3194,7 +535,7 @@ uint64_t GlobalResolutionService.resolveLocation(address:clientId:app:)(uint64_t
   v7[68] = a2;
   v7[67] = a1;
   v8 = OUTLINED_FUNCTION_29();
-  return MEMORY[0x2822009F8](v8, v9, v10);
+  return MEMORY[0x2822009F8](v8);
 }
 
 uint64_t GlobalResolutionService.resolveLocation(address:clientId:app:)()
@@ -3202,24 +543,23 @@ uint64_t GlobalResolutionService.resolveLocation(address:clientId:app:)()
   OUTLINED_FUNCTION_48();
   if (one-time initialization token for shared != -1)
   {
-    OUTLINED_FUNCTION_5_0();
+    OUTLINED_FUNCTION_5_0(&one-time initialization token for shared);
   }
 
-  v1 = static ContextManager.shared;
   *(v0 + 592) = static ContextManager.shared;
 
-  return MEMORY[0x2822009F8](GlobalResolutionService.resolveLocation(address:clientId:app:), v1, 0);
+  return MEMORY[0x2822009F8](GlobalResolutionService.resolveLocation(address:clientId:app:));
 }
 
 {
   OUTLINED_FUNCTION_48();
   v1 = *(v0 + 592);
-  OUTLINED_FUNCTION_89_0();
+  OUTLINED_FUNCTION_89_0(v1 + 112, v0 + 496);
   memcpy((v0 + 176), (v1 + 112), 0xA0uLL);
   outlined init with copy of EagerResolutionService?();
   v2 = OUTLINED_FUNCTION_29();
 
-  return MEMORY[0x2822009F8](v2, v3, v4);
+  return MEMORY[0x2822009F8](v2);
 }
 
 {
@@ -3229,7 +569,7 @@ uint64_t GlobalResolutionService.resolveLocation(address:clientId:app:)()
   {
     if (one-time initialization token for answerResolution != -1)
     {
-      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_4(&one-time initialization token for answerResolution);
     }
 
     v1 = type metadata accessor for Logger();
@@ -3249,36 +589,31 @@ uint64_t GlobalResolutionService.resolveLocation(address:clientId:app:)()
 
   else
   {
-    v7 = *(v0 + 24);
-    v6 = *(v0 + 32);
     EntityProperty.wrappedValue.getter();
-    v8 = *(v0 + 520);
+    v6 = *(v0 + 520);
     EntityProperty.wrappedValue.getter();
-    v5 = [objc_allocWithZone(MEMORY[0x277CE41F8]) initWithLatitude:v8 longitude:*(v0 + 528)];
+    v5 = [objc_allocWithZone(MEMORY[0x277CE41F8]) initWithLatitude:v6 longitude:*(v0 + 528)];
     outlined destroy of IntentApplication?(v0 + 176, &_s10OmniSearch0B7ContextVSgMd, &_s10OmniSearch0B7ContextVSgMR);
   }
 
   *(v0 + 600) = v5;
-  v9 = *(v0 + 584);
-  type metadata accessor for NSUserDefaults();
-  v10 = static NSUserDefaults.getDirectionsForLocationResolution.getter();
-  v11 = *(*v9 + 112);
-  v23 = (v11 + *v11);
-  v12 = v11[1];
+  v7 = *(v0 + 584);
+  v8 = type metadata accessor for NSUserDefaults();
+  v9 = static NSUserDefaults.getDirectionsForLocationResolution.getter(v8);
+  v19 = (*(*v7 + 112) + **(*v7 + 112));
   swift_task_alloc();
   OUTLINED_FUNCTION_53();
-  *(v0 + 608) = v13;
-  *v13 = v14;
-  v13[1] = GlobalResolutionService.resolveLocation(address:clientId:app:);
-  v15 = *(v0 + 584);
-  v16 = *(v0 + 576);
-  v17 = *(v0 + 568);
-  v18 = *(v0 + 560);
-  v19 = *(v0 + 552);
-  v20 = *(v0 + 544);
-  v21 = *(v0 + 536);
+  *(v0 + 608) = v10;
+  *v10 = v11;
+  v10[1] = GlobalResolutionService.resolveLocation(address:clientId:app:);
+  v12 = *(v0 + 576);
+  v13 = *(v0 + 568);
+  v14 = *(v0 + 560);
+  v15 = *(v0 + 552);
+  v16 = *(v0 + 544);
+  v17 = *(v0 + 536);
 
-  return (v23)(v21, v20, v19, v10 & 1, v18, v17, v5, v16);
+  return v19(v17, v16, v15, v9 & 1, v14, v13, v5, v12);
 }
 
 {
@@ -3286,15 +621,14 @@ uint64_t GlobalResolutionService.resolveLocation(address:clientId:app:)()
   OUTLINED_FUNCTION_52();
   OUTLINED_FUNCTION_56_0();
   *v3 = v2;
-  v5 = *(v4 + 608);
-  v6 = *v1;
+  v4 = *v1;
   OUTLINED_FUNCTION_11();
-  *v7 = v6;
-  *(v8 + 616) = v0;
+  *v5 = v4;
+  *(v6 + 616) = v0;
 
   OUTLINED_FUNCTION_69();
 
-  return MEMORY[0x2822009F8](v9, v10, v11);
+  return MEMORY[0x2822009F8](v7);
 }
 
 {
@@ -3309,7 +643,6 @@ uint64_t GlobalResolutionService.resolveLocation(address:clientId:app:)()
   OUTLINED_FUNCTION_48();
 
   OUTLINED_FUNCTION_127();
-  v2 = *(v0 + 616);
 
   return v1();
 }
@@ -3330,37 +663,31 @@ uint64_t GlobalResolutionService.resolveLocation(address:isNavigationRequest:cli
   *(v1 + 880) = v10;
   OUTLINED_FUNCTION_21(v10);
   *(v1 + 888) = v11;
-  v13 = *(v12 + 64);
   *(v1 + 896) = OUTLINED_FUNCTION_199();
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  OUTLINED_FUNCTION_114(v14);
-  v16 = *(v15 + 64);
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  OUTLINED_FUNCTION_114(v12);
   *(v1 + 904) = OUTLINED_FUNCTION_199();
-  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch0B10ResultItemOSgMd, &_s10OmniSearch0B10ResultItemOSgMR);
-  OUTLINED_FUNCTION_114(v17);
-  v19 = *(v18 + 64);
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch0B10ResultItemOSgMd, &_s10OmniSearch0B10ResultItemOSgMR);
+  OUTLINED_FUNCTION_114(v13);
   *(v1 + 912) = OUTLINED_FUNCTION_199();
-  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents17IntentApplicationVSgMd, &_s10AppIntents17IntentApplicationVSgMR);
-  OUTLINED_FUNCTION_114(v20);
-  v22 = *(v21 + 64);
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents17IntentApplicationVSgMd, &_s10AppIntents17IntentApplicationVSgMR);
+  OUTLINED_FUNCTION_114(v14);
   *(v1 + 920) = OUTLINED_FUNCTION_199();
-  v23 = type metadata accessor for IntentApplication();
-  *(v1 + 928) = v23;
-  OUTLINED_FUNCTION_21(v23);
-  *(v1 + 936) = v24;
-  v26 = *(v25 + 64);
+  v15 = type metadata accessor for IntentApplication();
+  *(v1 + 928) = v15;
+  OUTLINED_FUNCTION_21(v15);
+  *(v1 + 936) = v16;
   *(v1 + 944) = OUTLINED_FUNCTION_199();
-  v27 = OUTLINED_FUNCTION_29();
+  v17 = OUTLINED_FUNCTION_29();
 
-  return MEMORY[0x2822009F8](v27, v28, v29);
+  return MEMORY[0x2822009F8](v17);
 }
 
 {
   OUTLINED_FUNCTION_61_0();
-  v41 = v1;
+  v29 = v1;
   v2 = *(v1 + 928);
   v3 = *(v1 + 920);
-  v4 = *(v1 + 864);
   outlined init with copy of EagerResolutionService?();
   if (__swift_getEnumTagSinglePayload(v3, 1, v2) == 1)
   {
@@ -3368,10 +695,10 @@ uint64_t GlobalResolutionService.resolveLocation(address:isNavigationRequest:cli
     goto LABEL_6;
   }
 
-  v5 = (*(*(v1 + 936) + 32))(*(v1 + 944), *(v1 + 920), *(v1 + 928));
-  MEMORY[0x25F898B70](v5);
-  v6 = objc_allocWithZone(MEMORY[0x277CC1E70]);
-  v7 = OUTLINED_FUNCTION_59_0();
+  v4 = (*(*(v1 + 936) + 32))(*(v1 + 944), *(v1 + 920), *(v1 + 928));
+  MEMORY[0x25F898B70](v4);
+  v5 = objc_allocWithZone(MEMORY[0x277CC1E70]);
+  v6 = OUTLINED_FUNCTION_59_0();
   if (v0)
   {
 
@@ -3380,99 +707,88 @@ LABEL_5:
     goto LABEL_6;
   }
 
-  v31 = v7;
-  if (!v7)
+  v23 = v6;
+  if (!v6)
   {
     goto LABEL_5;
   }
 
-  v32 = *(v1 + 944);
-  v33 = *(v1 + 936);
-  v34 = *(v1 + 928);
-  v35 = [v7 localizedName];
+  v24 = [v6 localizedName];
   static String._unconditionallyBridgeFromObjectiveC(_:)();
 
-  v36 = *(v33 + 8);
-  v37 = OUTLINED_FUNCTION_64_0();
-  v38(v37);
+  v25 = OUTLINED_FUNCTION_64_0();
+  v26(v25);
 LABEL_6:
-  v8 = *(v1 + 832);
+  v7 = *(v1 + 832);
   if (*(v1 + 173) == 1)
   {
     _StringGuts.grow(_:)(22);
 
-    strcpy(v40, "navigate to ");
-    BYTE5(v40[1]) = 0;
-    HIWORD(v40[1]) = -5120;
-    v9 = OUTLINED_FUNCTION_45_0();
-    MEMORY[0x25F89F6C0](v9);
+    strcpy(v28, "navigate to ");
+    BYTE5(v28[1]) = 0;
+    HIWORD(v28[1]) = -5120;
+    v8 = OUTLINED_FUNCTION_45_0();
+    MEMORY[0x25F89F6C0](v8);
   }
 
   else
   {
-    v40[0] = *(v1 + 824);
-    v40[1] = v8;
+    v28[0] = *(v1 + 824);
+    v28[1] = v7;
   }
 
   MEMORY[0x25F89F6C0](0x206874697720, 0xE600000000000000);
-  v10 = OUTLINED_FUNCTION_32_0();
-  MEMORY[0x25F89F6C0](v10);
+  v9 = OUTLINED_FUNCTION_32_0();
+  MEMORY[0x25F89F6C0](v9);
 
-  v11 = v40[1];
-  *(v1 + 960) = v40[0];
-  *(v1 + 952) = v11;
-  v12 = one-time initialization token for answerResolution;
+  v10 = v28[1];
+  *(v1 + 960) = v28[0];
+  *(v1 + 952) = v10;
+  v11 = one-time initialization token for answerResolution;
 
-  if (v12 != -1)
+  if (v11 != -1)
   {
-    OUTLINED_FUNCTION_4();
+    OUTLINED_FUNCTION_4(&one-time initialization token for answerResolution);
   }
 
-  v13 = type metadata accessor for Logger();
-  *(v1 + 968) = v13;
-  OUTLINED_FUNCTION_200(v13, static Logging.answerResolution);
+  v12 = type metadata accessor for Logger();
+  *(v1 + 968) = v12;
+  OUTLINED_FUNCTION_200(v12, static Logging.answerResolution);
 
-  v14 = Logger.logObject.getter();
-  v15 = static os_log_type_t.debug.getter();
+  v13 = Logger.logObject.getter();
+  v14 = static os_log_type_t.debug.getter();
 
-  if (os_log_type_enabled(v14, v15))
+  if (os_log_type_enabled(v13, v14))
   {
-    v16 = OUTLINED_FUNCTION_51_0();
-    v17 = OUTLINED_FUNCTION_49_0();
-    v40[0] = v17;
-    *v16 = 136315138;
+    v15 = OUTLINED_FUNCTION_51_0();
+    v16 = OUTLINED_FUNCTION_49_0();
+    v28[0] = v16;
+    *v15 = 136315138;
     OUTLINED_FUNCTION_32_0();
-    *(v16 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)();
-    OUTLINED_FUNCTION_70_0(&dword_25D85C000, v18, v15, "Resolving location with GlobalSearch query: %s");
-    __swift_destroy_boxed_opaque_existential_1Tm(v17);
+    *(v15 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)();
+    OUTLINED_FUNCTION_70_0(&dword_25D85C000, v17, v14, "Resolving location with GlobalSearch query: %s");
+    __swift_destroy_boxed_opaque_existential_1Tm(v16);
     OUTLINED_FUNCTION_33_0();
     OUTLINED_FUNCTION_42_0();
   }
 
   if (one-time initialization token for shared != -1)
   {
-    OUTLINED_FUNCTION_2_0();
+    OUTLINED_FUNCTION_2_0(&one-time initialization token for shared);
   }
 
-  v19 = *(v1 + 872);
-  v20 = *(v1 + 848);
-  v21 = *(v1 + 840);
   *(v1 + 976) = static MetricsLogger.shared;
   OUTLINED_FUNCTION_133();
-  (*(v22 + 216))();
-  v23 = *(v19 + 16);
+  (*(v18 + 216))();
   OUTLINED_FUNCTION_133();
-  v25 = *(v24 + 184);
-  v39 = (v25 + *v25);
-  v26 = v25[1];
-  v27 = swift_task_alloc();
-  *(v1 + 984) = v27;
-  *v27 = v1;
-  v27[1] = GlobalResolutionService.resolveLocation(address:isNavigationRequest:clientId:location:app:);
-  v28 = *(v1 + 856);
-  v29 = OUTLINED_FUNCTION_32_0();
+  v27 = (*(v19 + 184) + **(v19 + 184));
+  v20 = swift_task_alloc();
+  *(v1 + 984) = v20;
+  *v20 = v1;
+  v20[1] = GlobalResolutionService.resolveLocation(address:isNavigationRequest:clientId:location:app:);
+  v21 = OUTLINED_FUNCTION_32_0();
 
-  return v39(v29);
+  return v27(v21);
 }
 
 {
@@ -3481,347 +797,292 @@ LABEL_6:
   v3 = v2;
   OUTLINED_FUNCTION_19_0();
   *v4 = v3;
-  v6 = *(v5 + 984);
-  v7 = *(v5 + 952);
-  v8 = *v1;
+  v5 = *v1;
   OUTLINED_FUNCTION_11();
-  *v9 = v8;
-  v3[124] = v10;
-  v3[125] = v11;
+  *v6 = v5;
+  *(v3 + 992) = v7;
+  *(v3 + 1000) = v8;
 
   if (v0)
   {
-    v12 = v3[119];
-
-    v13 = v3[118];
-    v14 = v3[115];
-    v15 = v3[114];
-    v16 = v3[113];
-    v17 = v3[112];
 
     OUTLINED_FUNCTION_127();
 
-    return v18();
+    return v9();
   }
 
   else
   {
     OUTLINED_FUNCTION_69();
 
-    return MEMORY[0x2822009F8](v20, v21, v22);
+    return MEMORY[0x2822009F8](v11);
   }
 }
 
 {
-  v114 = v0;
+  v66 = v0;
   v3 = v0[124];
   if (!v3)
   {
     if (one-time initialization token for search == -1)
     {
 LABEL_14:
-      v16 = v0[119];
       OUTLINED_FUNCTION_200(v0[121], static Logging.search);
 
-      v17 = Logger.logObject.getter();
-      v18 = static os_log_type_t.error.getter();
+      v11 = Logger.logObject.getter();
+      v12 = static os_log_type_t.error.getter();
 
-      if (os_log_type_enabled(v17, v18))
+      if (os_log_type_enabled(v11, v12))
       {
-        v19 = v0[120];
-        v20 = v0[119];
-        v21 = OUTLINED_FUNCTION_51_0();
-        v22 = OUTLINED_FUNCTION_49_0();
-        __dst[0] = v22;
-        *v21 = 136315138;
+        v13 = OUTLINED_FUNCTION_51_0();
+        v14 = OUTLINED_FUNCTION_49_0();
+        __dst[0] = v14;
+        *v13 = 136315138;
         OUTLINED_FUNCTION_54_0();
-        v23 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)();
+        v15 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)();
 
-        *(v21 + 4) = v23;
-        OUTLINED_FUNCTION_70_0(&dword_25D85C000, v24, v18, "No valid response from Pegasus for query: %s.");
-        __swift_destroy_boxed_opaque_existential_1Tm(v22);
+        *(v13 + 4) = v15;
+        OUTLINED_FUNCTION_70_0(&dword_25D85C000, v16, v12, "No valid response from Pegasus for query: %s.");
+        __swift_destroy_boxed_opaque_existential_1Tm(v14);
         OUTLINED_FUNCTION_33_0();
         OUTLINED_FUNCTION_42_0();
       }
 
       else
       {
-        v48 = v0[119];
       }
 
-      v49 = v0[122];
-      v50 = v0[112];
-      v51 = v0[111];
-      v52 = v0[110];
-      v53 = v0[106];
-      v54 = v0[105];
+      v28 = v0[122];
       lazy protocol witness table accessor for type EagerResolutionError and conformance EagerResolutionError();
-      OUTLINED_FUNCTION_30_0();
+      OUTLINED_FUNCTION_30_0(&type metadata for EagerResolutionError);
       OUTLINED_FUNCTION_57_0();
-      *v55 = v1;
-      (*(*v49 + 320))();
+      *v29 = v1;
+      (*(*v28 + 320))();
 
       OUTLINED_FUNCTION_133();
-      v57 = *(v56 + 232);
-      v58 = OUTLINED_FUNCTION_36_0();
-      v59(v58);
-      v60 = *(v51 + 8);
-      v61 = OUTLINED_FUNCTION_32_0();
-      v62(v61);
-      OUTLINED_FUNCTION_30_0();
-      *v63 = v1;
+      v30 = OUTLINED_FUNCTION_36_0();
+      v31(v30);
+      v32 = OUTLINED_FUNCTION_32_0();
+      v33(v32);
+      OUTLINED_FUNCTION_30_0(&type metadata for EagerResolutionError);
+      *v34 = v1;
       swift_willThrow();
 LABEL_26:
-      v64 = v0[118];
-      v65 = v0[115];
-      v66 = v0[114];
-      v67 = v0[113];
-      v68 = v0[112];
 
       OUTLINED_FUNCTION_127();
       goto LABEL_27;
     }
 
 LABEL_49:
-    OUTLINED_FUNCTION_35_0();
+    OUTLINED_FUNCTION_35_0(&one-time initialization token for search);
     goto LABEL_14;
   }
 
-  v4 = v0[125];
-  v5 = v0[122];
-  v6 = v0[106];
-  v7 = v0[105];
   OUTLINED_FUNCTION_133();
-  (*(v8 + 224))();
+  (*(v4 + 224))();
 
-  v9 = dispatch thunk of PommesResponse.experiences.getter();
-  v112 = v3;
-  if (!specialized Array.count.getter(v9))
+  v5 = dispatch thunk of PommesResponse.experiences.getter();
+  v64 = v3;
+  if (!specialized Array.count.getter(v5))
   {
 
 LABEL_18:
     if (one-time initialization token for search != -1)
     {
-      OUTLINED_FUNCTION_35_0();
+      OUTLINED_FUNCTION_35_0(&one-time initialization token for search);
     }
 
-    v25 = v0[119];
     OUTLINED_FUNCTION_200(v0[121], static Logging.search);
 
-    v26 = Logger.logObject.getter();
-    v27 = static os_log_type_t.error.getter();
+    v17 = Logger.logObject.getter();
+    v18 = static os_log_type_t.error.getter();
 
-    if (os_log_type_enabled(v26, v27))
+    if (os_log_type_enabled(v17, v18))
     {
-      v28 = v0[120];
-      v29 = v0[119];
-      v30 = OUTLINED_FUNCTION_51_0();
+      v19 = OUTLINED_FUNCTION_51_0();
       __dst[0] = OUTLINED_FUNCTION_49_0();
-      *v30 = 136315138;
+      *v19 = 136315138;
       OUTLINED_FUNCTION_64_0();
-      v31 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)();
+      v20 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)();
 
-      *(v30 + 4) = v31;
-      _os_log_impl(&dword_25D85C000, v26, v27, "Received unexpected experiences from Pegasus for query: %s.", v30, 0xCu);
+      *(v19 + 4) = v20;
+      _os_log_impl(&dword_25D85C000, v17, v18, "Received unexpected experiences from Pegasus for query: %s.", v19, 0xCu);
       OUTLINED_FUNCTION_40_0();
       OUTLINED_FUNCTION_33_0();
     }
 
     else
     {
-      v32 = v0[119];
     }
 
-    v33 = v0[122];
-    v34 = v0[112];
-    v35 = v0[111];
-    v36 = v0[110];
-    v37 = v0[106];
-    v38 = v0[105];
+    v21 = v0[122];
     lazy protocol witness table accessor for type EagerResolutionError and conformance EagerResolutionError();
-    OUTLINED_FUNCTION_29_0();
+    OUTLINED_FUNCTION_29_0(&type metadata for EagerResolutionError);
     OUTLINED_FUNCTION_79_0();
-    *v39 = 1;
-    (*(*v33 + 320))();
+    *v22 = 1;
+    (*(*v21 + 320))();
 
     OUTLINED_FUNCTION_133();
-    v41 = *(v40 + 232);
-    v42 = OUTLINED_FUNCTION_45_0();
-    v43(v42);
-    v44 = *(v35 + 8);
-    v45 = OUTLINED_FUNCTION_54_0();
-    v46(v45);
-    OUTLINED_FUNCTION_29_0();
-    *v47 = 1;
+    v23 = OUTLINED_FUNCTION_45_0();
+    v24(v23);
+    v25 = OUTLINED_FUNCTION_54_0();
+    v26(v25);
+    OUTLINED_FUNCTION_29_0(&type metadata for EagerResolutionError);
+    *v27 = 1;
     swift_willThrow();
 
     goto LABEL_26;
   }
 
-  if ((v9 & 0xC000000000000001) != 0)
+  if ((v5 & 0xC000000000000001) == 0)
   {
-    v10 = MEMORY[0x25F89FFD0](0, v9);
-    goto LABEL_6;
-  }
+    if (*((v5 & 0xFFFFFFFFFFFFFF8) + 0x10))
+    {
+      v6 = *(v5 + 32);
+      goto LABEL_6;
+    }
 
-  if (!*((v9 & 0xFFFFFFFFFFFFFF8) + 0x10))
-  {
     __break(1u);
     goto LABEL_49;
   }
 
-  v10 = *(v9 + 32);
+  v6 = MEMORY[0x25F89FFD0](0, v5);
 LABEL_6:
-  v11 = v10;
+  v7 = v6;
 
   type metadata accessor for GenericExperience();
   if (!swift_dynamicCastClass())
-  {
-    goto LABEL_17;
-  }
-
-  if (PommesResponse.metadataDomainName.getter() == 1936744813 && v12 == 0xE400000000000000)
-  {
-    v71 = v0[119];
-
-    goto LABEL_31;
-  }
-
-  v14 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-  if ((v14 & 1) == 0)
   {
 LABEL_17:
 
     goto LABEL_18;
   }
 
-  v15 = v0[119];
+  if (PommesResponse.metadataDomainName.getter() != 1936744813 || v8 != 0xE400000000000000)
+  {
+    v10 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+    if (v10)
+    {
+      goto LABEL_31;
+    }
+
+    goto LABEL_17;
+  }
+
 LABEL_31:
 
   static GlobalSearchResponseProcessor.makeGeoLocations(experience:)();
-  if (*(v72 + 16))
+  if (*(v37 + 16))
   {
-    memcpy(v0 + 42, (v72 + 32), 0x9DuLL);
+    memcpy(v0 + 42, (v37 + 32), 0x9DuLL);
     outlined init with copy of GeoLocation((v0 + 42), (v0 + 62));
 
-    v74 = v0[45];
-    v73 = v0[46];
+    v39 = v0[45];
+    v38 = v0[46];
     memcpy(v0 + 22, v0 + 42, 0x9DuLL);
-    _s10OmniSearch11GeoLocationVSgWOi_(v0 + 22);
+    _s10OmniSearch11GeoLocationVSgWOi_();
     memcpy(v0 + 2, v0 + 22, 0x9DuLL);
   }
 
   else
   {
-    v75 = v0[104];
 
     _s10OmniSearch11GeoLocationVSgWOi0_(v0 + 2);
-    v73 = v0[104];
-    v74 = v0[103];
+    v38 = v0[104];
+    v39 = v0[103];
   }
 
-  v76 = v0[114];
   type metadata accessor for SearchResultItem(0);
   OUTLINED_FUNCTION_92();
-  __swift_storeEnumTagSinglePayload(v77, v78, v79, v80);
+  __swift_storeEnumTagSinglePayload(v40, v41, v42, v43);
   memcpy(v0 + 82, v0 + 2, 0x9DuLL);
-  v111 = v74;
+  v63 = v39;
   if (_s10OmniSearch11GeoLocationVSgWOg((v0 + 82)) == 1)
   {
-    v110 = Dictionary.init(dictionaryLiteral:)();
+    v62 = Dictionary.init(dictionaryLiteral:)();
   }
 
   else
   {
     memcpy(__dst, v0 + 82, 0x9DuLL);
-    v110 = GeoLocation.metadata.getter();
+    v62 = GeoLocation.metadata.getter();
     outlined destroy of IntentApplication?((v0 + 2), &_s10OmniSearch11GeoLocationVSgMd, &_s10OmniSearch11GeoLocationVSgMR);
   }
 
-  v81 = v0[113];
   type metadata accessor for URL();
   OUTLINED_FUNCTION_92();
-  __swift_storeEnumTagSinglePayload(v82, v83, v84, v85);
-  v86 = dispatch thunk of PommesResponse.experiences.getter();
-  v87 = specialized Array.count.getter(v86);
-  if (v87)
+  __swift_storeEnumTagSinglePayload(v44, v45, v46, v47);
+  v48 = dispatch thunk of PommesResponse.experiences.getter();
+  v49 = specialized Array.count.getter(v48);
+  if (v49)
   {
-    v88 = v87;
+    v50 = v49;
     __dst[0] = MEMORY[0x277D84F90];
     result = specialized ContiguousArray.reserveCapacity(_:)();
-    if (v88 < 0)
+    if (v50 < 0)
     {
       __break(1u);
       return result;
     }
 
-    v89 = 0;
+    v51 = 0;
     do
     {
-      if ((v86 & 0xC000000000000001) != 0)
+      if ((v48 & 0xC000000000000001) != 0)
       {
-        MEMORY[0x25F89FFD0](v89, v86);
+        MEMORY[0x25F89FFD0](v51, v48);
       }
 
       else
       {
-        v90 = *(v86 + 8 * v89 + 32);
+        v52 = *(v48 + 8 * v51 + 32);
       }
 
-      ++v89;
-      v91 = type metadata accessor for DialogExperience();
-      OUTLINED_FUNCTION_53_0(v91);
+      ++v51;
+      type metadata accessor for DialogExperience(0);
+      OUTLINED_FUNCTION_53_0();
       swift_allocObject();
       OUTLINED_FUNCTION_47_0();
       specialized ContiguousArray._makeUniqueAndReserveCapacityIfNotUnique()();
-      v92 = *(__dst[0] + 16);
       specialized ContiguousArray._reserveCapacityAssumingUniqueBuffer(oldCount:)();
       specialized ContiguousArray._appendElementAssumeUniqueAndCapacity(_:newElement:)();
       specialized ContiguousArray._endMutation()();
     }
 
-    while (v88 != v89);
-    v93 = v73;
+    while (v50 != v51);
+    v53 = v38;
 
-    v94 = __dst[0];
+    v54 = __dst[0];
   }
 
   else
   {
-    v93 = v73;
+    v53 = v38;
 
-    v94 = MEMORY[0x277D84F90];
+    v54 = MEMORY[0x277D84F90];
   }
 
-  v108 = v94;
-  v95 = v0[118];
-  v107 = v0[115];
-  v96 = v0[114];
-  v97 = v0[113];
-  v109 = v0[112];
-  v98 = v0[102];
-  v99 = type metadata accessor for ResolvedInfo();
-  v100 = v99[10];
+  v61 = v54;
+  v55 = v0[102];
+  v56 = type metadata accessor for ResolvedInfo(0);
   PommesResponse.pommesContext.getter();
   type metadata accessor for PommesContext();
   OUTLINED_FUNCTION_44_0();
-  __swift_storeEnumTagSinglePayload(v101, v102, v103, v104);
+  __swift_storeEnumTagSinglePayload(v57, v58, v59, v60);
 
-  *v98 = v111;
-  v98[1] = v93;
-  v105 = v99[5];
+  *v55 = v63;
+  v55[1] = v53;
   outlined init with take of (Int, SearchCATEntity)();
-  *(v98 + v99[6]) = v110;
-  v106 = v99[7];
+  *(v55 + v56[6]) = v62;
   outlined init with take of (Int, SearchCATEntity)();
-  *(v98 + v99[8]) = v108;
-  *(v98 + v99[9]) = MEMORY[0x277D84F90];
+  *(v55 + v56[8]) = v61;
+  *(v55 + v56[9]) = MEMORY[0x277D84F90];
 
   OUTLINED_FUNCTION_106();
 LABEL_27:
 
-  return v69();
+  return v35();
 }
 
 uint64_t GlobalResolutionService.resolveMedia(name:query:clientId:app:)()
@@ -3840,21 +1101,18 @@ uint64_t GlobalResolutionService.resolveMedia(name:query:clientId:app:)()
   v1[19] = v10;
   OUTLINED_FUNCTION_21(v10);
   v1[20] = v11;
-  v13 = *(v12 + 64);
   v1[21] = OUTLINED_FUNCTION_199();
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents17IntentApplicationVSgMd, &_s10AppIntents17IntentApplicationVSgMR);
-  OUTLINED_FUNCTION_114(v14);
-  v16 = *(v15 + 64);
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents17IntentApplicationVSgMd, &_s10AppIntents17IntentApplicationVSgMR);
+  OUTLINED_FUNCTION_114(v12);
   v1[22] = OUTLINED_FUNCTION_199();
-  v17 = type metadata accessor for IntentApplication();
-  v1[23] = v17;
-  OUTLINED_FUNCTION_21(v17);
-  v1[24] = v18;
-  v20 = *(v19 + 64);
+  v13 = type metadata accessor for IntentApplication();
+  v1[23] = v13;
+  OUTLINED_FUNCTION_21(v13);
+  v1[24] = v14;
   v1[25] = OUTLINED_FUNCTION_199();
-  v21 = OUTLINED_FUNCTION_29();
+  v15 = OUTLINED_FUNCTION_29();
 
-  return MEMORY[0x2822009F8](v21, v22, v23);
+  return MEMORY[0x2822009F8](v15);
 }
 
 {
@@ -3874,25 +1132,22 @@ uint64_t GlobalResolutionService.resolveMedia(name:query:clientId:app:)()
 
   v4 = v1[22];
   v5 = v1[23];
-  v6 = v1[17];
   v1[8] = v3;
   v1[9] = v2;
   outlined init with copy of EagerResolutionService?();
   if (__swift_getEnumTagSinglePayload(v4, 1, v5) == 1)
   {
-    v7 = v1[22];
-    v8 = v1[14];
+    v6 = v1[22];
 
-    outlined destroy of IntentApplication?(v7, &_s10AppIntents17IntentApplicationVSgMd, &_s10AppIntents17IntentApplicationVSgMR);
+    outlined destroy of IntentApplication?(v6, &_s10AppIntents17IntentApplicationVSgMd, &_s10AppIntents17IntentApplicationVSgMR);
     goto LABEL_11;
   }
 
-  v9 = v1[14];
   (*(v1[24] + 32))(v1[25], v1[22], v1[23]);
 
-  MEMORY[0x25F898B70](v10);
-  v11 = objc_allocWithZone(MEMORY[0x277CC1E70]);
-  v12 = OUTLINED_FUNCTION_59_0();
+  MEMORY[0x25F898B70](v7);
+  v8 = objc_allocWithZone(MEMORY[0x277CC1E70]);
+  v9 = OUTLINED_FUNCTION_59_0();
   if (v0)
   {
 
@@ -3901,83 +1156,72 @@ LABEL_8:
     goto LABEL_11;
   }
 
-  v13 = v12;
-  if (!v12)
+  v10 = v9;
+  if (!v9)
   {
     goto LABEL_8;
   }
 
-  v15 = v1[24];
-  v14 = v1[25];
-  v16 = v1[23];
-  v17 = [v12 localizedName];
+  v11 = [v9 localizedName];
   static String._unconditionallyBridgeFromObjectiveC(_:)();
 
-  v18 = OUTLINED_FUNCTION_63_0();
-  MEMORY[0x25F89F6C0](v18);
+  v12 = OUTLINED_FUNCTION_63_0();
+  MEMORY[0x25F89F6C0](v12);
 
   MEMORY[0x25F89F6C0](544108320, 0xE400000000000000);
 
-  v19 = *(v15 + 8);
-  v20 = OUTLINED_FUNCTION_54_0();
-  v21(v20);
+  v13 = OUTLINED_FUNCTION_54_0();
+  v14(v13);
 LABEL_11:
   if (one-time initialization token for answerResolution != -1)
   {
-    OUTLINED_FUNCTION_4();
+    OUTLINED_FUNCTION_4(&one-time initialization token for answerResolution);
   }
 
-  v22 = type metadata accessor for Logger();
-  v1[26] = __swift_project_value_buffer(v22, static Logging.answerResolution);
-  v23 = Logger.logObject.getter();
-  v24 = static os_log_type_t.debug.getter();
-  if (OUTLINED_FUNCTION_88_0(v24))
+  v15 = type metadata accessor for Logger();
+  v1[26] = __swift_project_value_buffer(v15, static Logging.answerResolution);
+  v16 = Logger.logObject.getter();
+  v17 = static os_log_type_t.debug.getter();
+  if (OUTLINED_FUNCTION_88_0(v17))
   {
-    v25 = OUTLINED_FUNCTION_51_0();
-    v42 = OUTLINED_FUNCTION_49_0();
-    *v25 = 136315138;
-    OUTLINED_FUNCTION_89_0();
-    v26 = v1[8];
-    v27 = v1[9];
+    v18 = OUTLINED_FUNCTION_51_0();
+    v28 = OUTLINED_FUNCTION_49_0();
+    *v18 = 136315138;
+    OUTLINED_FUNCTION_89_0((v1 + 8), (v1 + 5));
 
     OUTLINED_FUNCTION_63_0();
-    v28 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)();
+    v19 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)();
 
-    *(v25 + 4) = v28;
-    _os_log_impl(&dword_25D85C000, v23, v24, "Resolving media item with GlobalSearch query: %s", v25, 0xCu);
-    __swift_destroy_boxed_opaque_existential_1Tm(v42);
+    *(v18 + 4) = v19;
+    _os_log_impl(&dword_25D85C000, v16, v17, "Resolving media item with GlobalSearch query: %s", v18, 0xCu);
+    __swift_destroy_boxed_opaque_existential_1Tm(v28);
     OUTLINED_FUNCTION_37_0();
     OUTLINED_FUNCTION_42_0();
   }
 
   if (one-time initialization token for shared != -1)
   {
-    OUTLINED_FUNCTION_2_0();
+    OUTLINED_FUNCTION_2_0(&one-time initialization token for shared);
   }
 
-  v29 = v1[18];
-  v30 = v1[15];
-  v31 = v1[16];
   v1[27] = static MetricsLogger.shared;
   OUTLINED_FUNCTION_133();
-  (*(v32 + 216))();
-  v33 = *(v29 + 16);
-  OUTLINED_FUNCTION_89_0();
-  v34 = v1[9];
+  (*(v20 + 216))();
+  OUTLINED_FUNCTION_89_0((v1 + 8), (v1 + 2));
+  v21 = v1[9];
   v1[28] = v1[8];
-  v1[29] = v34;
+  v1[29] = v21;
   OUTLINED_FUNCTION_133();
-  v36 = *(v35 + 184);
+  v23 = *(v22 + 184);
 
-  v41 = (v36 + *v36);
-  v37 = v36[1];
-  v38 = swift_task_alloc();
-  v1[30] = v38;
-  *v38 = v1;
-  v38[1] = GlobalResolutionService.resolveMedia(name:query:clientId:app:);
-  v39 = OUTLINED_FUNCTION_32_0();
+  v27 = (v23 + *v23);
+  v24 = swift_task_alloc();
+  v1[30] = v24;
+  *v24 = v1;
+  v24[1] = GlobalResolutionService.resolveMedia(name:query:clientId:app:);
+  v25 = OUTLINED_FUNCTION_32_0();
 
-  return v41(v39);
+  return v27(v25);
 }
 
 {
@@ -3986,142 +1230,125 @@ LABEL_11:
   v3 = v2;
   OUTLINED_FUNCTION_19_0();
   *v4 = v3;
-  v6 = *(v5 + 240);
   *v4 = *v1;
-  v3[31] = v7;
-  v3[32] = v8;
+  v3[31] = v5;
+  v3[32] = v6;
   v3[33] = v0;
 
   if (!v0)
   {
-    v9 = v3[29];
   }
 
   OUTLINED_FUNCTION_69();
 
-  return MEMORY[0x2822009F8](v10, v11, v12);
+  return MEMORY[0x2822009F8](v7);
 }
 
 {
   OUTLINED_FUNCTION_78();
-  v1 = v0[29];
   swift_bridgeObjectRelease_n();
-  v2 = v0[33];
-  v3 = v0[25];
-  v5 = v0[21];
-  v4 = v0[22];
 
   OUTLINED_FUNCTION_127();
 
-  return v6();
+  return v0();
 }
 
-uint64_t GlobalResolutionService.resolveMedia(name:query:clientId:app:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t *a11, uint64_t *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
+uint64_t GlobalResolutionService.resolveMedia(name:query:clientId:app:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
 {
   OUTLINED_FUNCTION_146();
   OUTLINED_FUNCTION_190();
   v18 = v16[31];
   if (v18)
   {
-    v19 = v16[32];
-    v20 = v16[27];
-    v21 = v16[15];
-    v22 = v16[16];
     OUTLINED_FUNCTION_133();
-    (*(v23 + 224))();
+    (*(v19 + 224))();
 
-    v24 = dispatch thunk of PommesResponse.experiences.getter();
-    result = specialized Array.count.getter(v24);
+    v20 = dispatch thunk of PommesResponse.experiences.getter();
+    result = specialized Array.count.getter(v20);
     if (result)
     {
-      if ((v24 & 0xC000000000000001) != 0)
+      if ((v20 & 0xC000000000000001) != 0)
       {
-        v26 = MEMORY[0x25F89FFD0](0, v24);
+        v22 = MEMORY[0x25F89FFD0](0, v20);
       }
 
       else
       {
-        if (!*((v24 & 0xFFFFFFFFFFFFFF8) + 0x10))
+        if (!*((v20 & 0xFFFFFFFFFFFFFF8) + 0x10))
         {
           __break(1u);
           goto LABEL_31;
         }
 
-        v26 = *(v24 + 32);
+        v22 = *(v20 + 32);
       }
 
-      v27 = v26;
+      v23 = v22;
 
       type metadata accessor for AudioExperience();
       if (swift_dynamicCastClass())
       {
-        v28 = dispatch thunk of PommesResponse.experiences.getter();
-        v29 = specialized Array.count.getter(v28);
-        if (!v29)
+        v24 = dispatch thunk of PommesResponse.experiences.getter();
+        v25 = specialized Array.count.getter(v24);
+        if (!v25)
         {
 
           a11 = MEMORY[0x277D84F90];
 LABEL_25:
-          v88 = v16[29];
-          v89 = v16[25];
           a9 = v16[22];
           a10 = v16[21];
-          v90 = v16[10];
+          v63 = v16[10];
           type metadata accessor for AudioPluginProcessor();
           AudioPluginProcessor.__allocating_init()();
           dispatch thunk of PommesResponse.clientResults.getter();
           OUTLINED_FUNCTION_64_0();
-          v91 = dispatch thunk of AudioPluginProcessor.process(experience:clientResults:)();
+          v64 = dispatch thunk of AudioPluginProcessor.process(experience:clientResults:)();
 
-          v92 = type metadata accessor for ResolvedInfo();
-          v93 = v92[5];
+          v65 = type metadata accessor for ResolvedInfo(0);
           type metadata accessor for SearchResultItem(0);
           OUTLINED_FUNCTION_92();
-          __swift_storeEnumTagSinglePayload(v94, v95, v96, v97);
-          v98 = v92[7];
+          __swift_storeEnumTagSinglePayload(v66, v67, v68, v69);
           type metadata accessor for URL();
           OUTLINED_FUNCTION_92();
-          __swift_storeEnumTagSinglePayload(v99, v100, v101, v102);
-          v103 = v92[10];
+          __swift_storeEnumTagSinglePayload(v70, v71, v72, v73);
           type metadata accessor for PommesContext();
           OUTLINED_FUNCTION_92();
-          __swift_storeEnumTagSinglePayload(v104, v105, v106, v107);
+          __swift_storeEnumTagSinglePayload(v74, v75, v76, v77);
 
-          *v90 = 0xD000000000000012;
-          v90[1] = 0x800000025DBEF0C0;
-          *(v90 + v92[6]) = MEMORY[0x277D84F98];
-          *(v90 + v92[8]) = a11;
-          *(v90 + v92[9]) = v91;
+          *v63 = 0xD000000000000012;
+          v63[1] = 0x800000025DBEF0C0;
+          *(v63 + v65[6]) = MEMORY[0x277D84F98];
+          *(v63 + v65[8]) = a11;
+          *(v63 + v65[9]) = v64;
 
           OUTLINED_FUNCTION_106();
           goto LABEL_26;
         }
 
-        v30 = v29;
+        v26 = v25;
         a12 = MEMORY[0x277D84F90];
         result = specialized ContiguousArray.reserveCapacity(_:)();
-        if ((v30 & 0x8000000000000000) == 0)
+        if ((v26 & 0x8000000000000000) == 0)
         {
-          v31 = 0;
+          v27 = 0;
           do
           {
-            if ((v28 & 0xC000000000000001) != 0)
+            if ((v24 & 0xC000000000000001) != 0)
             {
-              MEMORY[0x25F89FFD0](v31, v28);
+              MEMORY[0x25F89FFD0](v27, v24);
             }
 
             else
             {
-              v32 = *(v28 + 8 * v31 + 32);
+              v28 = *(v24 + 8 * v27 + 32);
             }
 
-            ++v31;
-            v33 = type metadata accessor for DialogExperience();
-            OUTLINED_FUNCTION_53_0(v33);
+            ++v27;
+            type metadata accessor for DialogExperience(0);
+            OUTLINED_FUNCTION_53_0();
             swift_allocObject();
             OUTLINED_FUNCTION_47_0();
             specialized ContiguousArray._makeUniqueAndReserveCapacityIfNotUnique()();
-            v34 = a12[2];
             OUTLINED_FUNCTION_72_0();
             specialized ContiguousArray._reserveCapacityAssumingUniqueBuffer(oldCount:)();
             OUTLINED_FUNCTION_72_0();
@@ -4129,7 +1356,7 @@ LABEL_25:
             specialized ContiguousArray._endMutation()();
           }
 
-          while (v30 != v31);
+          while (v26 != v27);
 
           a11 = a12;
           goto LABEL_25;
@@ -4145,112 +1372,93 @@ LABEL_31:
     {
     }
 
-    v60 = v16[26];
-    v61 = v18;
-    v62 = Logger.logObject.getter();
-    v63 = static os_log_type_t.error.getter();
+    v42 = v18;
+    v43 = Logger.logObject.getter();
+    v44 = static os_log_type_t.error.getter();
 
-    a11 = v61;
-    if (os_log_type_enabled(v62, v63))
+    a11 = v42;
+    if (os_log_type_enabled(v43, v44))
     {
-      v65 = v16[28];
-      v64 = v16[29];
-      v66 = swift_slowAlloc();
+      v45 = swift_slowAlloc();
       a12 = swift_slowAlloc();
-      *v66 = 136315394;
+      *v45 = 136315394;
 
-      v67 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)();
+      v46 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)();
 
-      *(v66 + 4) = v67;
-      *(v66 + 12) = 2080;
-      v68 = dispatch thunk of PommesResponse.experiences.getter();
-      v69 = type metadata accessor for Experience();
-      MEMORY[0x25F89F8A0](v68, v69);
+      *(v45 + 4) = v46;
+      *(v45 + 12) = 2080;
+      v47 = dispatch thunk of PommesResponse.experiences.getter();
+      v48 = type metadata accessor for Experience();
+      MEMORY[0x25F89F8A0](v47, v48);
       OUTLINED_FUNCTION_82_0();
 
-      v70 = OUTLINED_FUNCTION_71_0();
+      v49 = OUTLINED_FUNCTION_71_0();
 
-      *(v66 + 14) = v70;
-      OUTLINED_FUNCTION_86_0(&dword_25D85C000, v71, v72, "Received unexpected type from Pegasus for query: %s. %s");
+      *(v45 + 14) = v49;
+      OUTLINED_FUNCTION_86_0(&dword_25D85C000, v50, v51, "Received unexpected type from Pegasus for query: %s. %s");
       swift_arrayDestroy();
       OUTLINED_FUNCTION_33_0();
       OUTLINED_FUNCTION_37_0();
     }
 
-    v73 = v16[29];
-    v74 = v16[27];
-    v76 = v16[20];
-    v75 = v16[21];
-    v77 = v16[19];
-    v79 = v16[15];
-    v78 = v16[16];
+    v52 = v16[27];
+    v54 = v16[20];
+    v53 = v16[21];
+    v55 = v16[19];
+    v57 = v16[15];
+    v56 = v16[16];
     lazy protocol witness table accessor for type EagerResolutionError and conformance EagerResolutionError();
-    v80 = swift_allocError();
-    *v81 = 1;
-    (*(*v74 + 320))();
+    v58 = swift_allocError();
+    *v59 = 1;
+    (*(*v52 + 320))();
 
     OUTLINED_FUNCTION_133();
-    (*(v82 + 232))(v79, v78, v75);
-    (*(v76 + 8))(v75, v77);
-    v83 = swift_allocError();
-    OUTLINED_FUNCTION_87_0(v83, v84);
+    (*(v60 + 232))(v57, v56, v53);
+    (*(v54 + 8))(v53, v55);
+    v61 = swift_allocError();
+    OUTLINED_FUNCTION_87_0(v61, v62);
   }
 
   else
   {
-    v35 = v16[26];
-    v36 = Logger.logObject.getter();
-    v37 = static os_log_type_t.error.getter();
-    if (OUTLINED_FUNCTION_88_0(v37))
+    v29 = Logger.logObject.getter();
+    v30 = static os_log_type_t.error.getter();
+    if (OUTLINED_FUNCTION_88_0(v30))
     {
-      v39 = v16[28];
-      v38 = v16[29];
-      v40 = OUTLINED_FUNCTION_51_0();
+      v31 = OUTLINED_FUNCTION_51_0();
       a12 = OUTLINED_FUNCTION_49_0();
-      *v40 = 136315138;
+      *v31 = 136315138;
 
-      v41 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)();
+      v32 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)();
 
-      *(v40 + 4) = v41;
-      OUTLINED_FUNCTION_70_0(&dword_25D85C000, v42, v37, "No valid response from Pegasus for query: %s.");
+      *(v31 + 4) = v32;
+      OUTLINED_FUNCTION_70_0(&dword_25D85C000, v33, v30, "No valid response from Pegasus for query: %s.");
       __swift_destroy_boxed_opaque_existential_1Tm(a12);
       OUTLINED_FUNCTION_33_0();
       OUTLINED_FUNCTION_42_0();
     }
 
-    v43 = v16[29];
-    v44 = v16[27];
-    v46 = v16[20];
-    v45 = v16[21];
-    v47 = v16[19];
-    v49 = v16[15];
-    v48 = v16[16];
+    v34 = v16[27];
     lazy protocol witness table accessor for type EagerResolutionError and conformance EagerResolutionError();
-    OUTLINED_FUNCTION_29_0();
+    OUTLINED_FUNCTION_29_0(&type metadata for EagerResolutionError);
     OUTLINED_FUNCTION_79_0();
-    *v50 = 1;
-    (*(*v44 + 320))();
+    *v35 = 1;
+    (*(*v34 + 320))();
 
     OUTLINED_FUNCTION_133();
-    v52 = *(v51 + 232);
-    v53 = OUTLINED_FUNCTION_45_0();
-    v54(v53);
-    v55 = *(v46 + 8);
-    v56 = OUTLINED_FUNCTION_32_0();
-    v57(v56);
-    v58 = OUTLINED_FUNCTION_29_0();
-    OUTLINED_FUNCTION_87_0(v58, v59);
+    v36 = OUTLINED_FUNCTION_45_0();
+    v37(v36);
+    v38 = OUTLINED_FUNCTION_32_0();
+    v39(v38);
+    v40 = OUTLINED_FUNCTION_29_0(&type metadata for EagerResolutionError);
+    OUTLINED_FUNCTION_87_0(v40, v41);
   }
-
-  v85 = v16[25];
-  v87 = v16[21];
-  v86 = v16[22];
 
   OUTLINED_FUNCTION_127();
 LABEL_26:
   OUTLINED_FUNCTION_115();
 
-  return v109(v108, v109, v110, v111, v112, v113, v114, v115, a9, a10, a11, a12, a13, a14, a15, a16);
+  return v79(v78, v79, v80, v81, v82, v83, v84, v85, a9, a10, a11, a12, a13, a14, a15, a16);
 }
 
 uint64_t GlobalResolutionService.resolveMediaURL(_:clientId:)()
@@ -4266,53 +1474,43 @@ uint64_t GlobalResolutionService.resolveMediaURL(_:clientId:)()
   v1[12] = v6;
   OUTLINED_FUNCTION_21(v6);
   v1[13] = v7;
-  v9 = *(v8 + 64);
   v1[14] = OUTLINED_FUNCTION_199();
-  v10 = type metadata accessor for URL();
-  v1[15] = v10;
-  OUTLINED_FUNCTION_21(v10);
-  v1[16] = v11;
-  v13 = *(v12 + 64);
+  v8 = type metadata accessor for URL();
+  v1[15] = v8;
+  OUTLINED_FUNCTION_21(v8);
+  v1[16] = v9;
   v1[17] = OUTLINED_FUNCTION_160();
   v1[18] = swift_task_alloc();
   v1[19] = swift_task_alloc();
-  v14 = OUTLINED_FUNCTION_29();
+  v10 = OUTLINED_FUNCTION_29();
 
-  return MEMORY[0x2822009F8](v14, v15, v16);
+  return MEMORY[0x2822009F8](v10);
 }
 
 {
   OUTLINED_FUNCTION_78();
   v2 = *v1;
-  v3 = *v1;
   OUTLINED_FUNCTION_11();
-  *v4 = v3;
-  v5 = v2[23];
-  v6 = *v1;
+  *v3 = v2;
+  v4 = *v1;
   OUTLINED_FUNCTION_19_0();
-  *v7 = v6;
-  v3[24] = v8;
-  v3[25] = v9;
-
-  v10 = v2[21];
+  *v5 = v4;
+  *(v2 + 192) = v6;
+  *(v2 + 200) = v7;
 
   if (v0)
   {
-    v12 = v3[18];
-    v11 = v3[19];
-    v13 = v3[17];
-    v14 = v3[14];
 
-    v15 = v6[1];
+    v8 = *(v4 + 8);
 
-    return v15();
+    return v8();
   }
 
   else
   {
     OUTLINED_FUNCTION_69();
 
-    return MEMORY[0x2822009F8](v17, v18, v19);
+    return MEMORY[0x2822009F8](v10);
   }
 }
 
@@ -4320,40 +1518,38 @@ uint64_t GlobalResolutionService.resolveMediaURL(_:clientId:)(uint64_t a1, uint6
 {
   OUTLINED_FUNCTION_146();
   OUTLINED_FUNCTION_190();
-  v17 = v16[7];
   v16[2] = URL.absoluteString.getter();
-  v16[3] = v18;
+  v16[3] = v17;
   v16[4] = 0x70612E636973756DLL;
   v16[5] = 0xEB00000000656C70;
   lazy protocol witness table accessor for type String and conformance String();
-  LOBYTE(v17) = StringProtocol.contains<A>(_:)();
+  v18 = StringProtocol.contains<A>(_:)();
 
-  if (v17)
+  if (v18)
   {
-    v19 = v16[7];
-    v20 = URL.pathComponents.getter();
-    specialized BidirectionalCollection.last.getter(v20);
+    v19 = URL.pathComponents.getter();
+    specialized BidirectionalCollection.last.getter(v19);
 
     if (one-time initialization token for answerResolution != -1)
     {
-      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_4(&one-time initialization token for answerResolution);
     }
 
-    v21 = type metadata accessor for Logger();
-    v16[20] = OUTLINED_FUNCTION_200(v21, static Logging.answerResolution);
+    v20 = type metadata accessor for Logger();
+    v16[20] = OUTLINED_FUNCTION_200(v20, static Logging.answerResolution);
 
-    v22 = Logger.logObject.getter();
-    v23 = static os_log_type_t.debug.getter();
+    v21 = Logger.logObject.getter();
+    v22 = static os_log_type_t.debug.getter();
 
-    if (os_log_type_enabled(v22, v23))
+    if (os_log_type_enabled(v21, v22))
     {
-      v24 = OUTLINED_FUNCTION_51_0();
+      v23 = OUTLINED_FUNCTION_51_0();
       a12 = OUTLINED_FUNCTION_49_0();
-      *v24 = 136315138;
-      v25 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)();
+      *v23 = 136315138;
+      v24 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)();
 
-      *(v24 + 4) = v25;
-      _os_log_impl(&dword_25D85C000, v22, v23, "Resolving media URL with clientEntities: %s", v24, 0xCu);
+      *(v23 + 4) = v24;
+      _os_log_impl(&dword_25D85C000, v21, v22, "Resolving media URL with clientEntities: %s", v23, 0xCu);
       OUTLINED_FUNCTION_40_0();
       OUTLINED_FUNCTION_33_0();
     }
@@ -4362,197 +1558,166 @@ uint64_t GlobalResolutionService.resolveMediaURL(_:clientId:)(uint64_t a1, uint6
     {
     }
 
-    v56 = v16[7];
     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10PegasusAPI38Apple_Parsec_Siri_Context_ClientEntityVGMd, &_ss23_ContiguousArrayStorageCy10PegasusAPI38Apple_Parsec_Siri_Context_ClientEntityVGMR);
-    v57 = type metadata accessor for Apple_Parsec_Siri_Context_ClientEntity();
-    OUTLINED_FUNCTION_21(v57);
-    v59 = *(v58 + 72);
-    v61 = *(v60 + 80);
+    v44 = type metadata accessor for Apple_Parsec_Siri_Context_ClientEntity();
+    OUTLINED_FUNCTION_21(v44);
     OUTLINED_FUNCTION_74_0();
-    v62 = swift_allocObject();
-    v16[21] = v62;
-    *(v62 + 16) = xmmword_25DBC8180;
-    static GlobalResolutionService.constructMediaClientEntity(url:)(v62 + v23);
+    v45 = swift_allocObject();
+    v16[21] = v45;
+    *(v45 + 16) = xmmword_25DBC8180;
+    static GlobalResolutionService.constructMediaClientEntity(url:)(v45 + v22);
     if (one-time initialization token for shared != -1)
     {
-      OUTLINED_FUNCTION_2_0();
+      OUTLINED_FUNCTION_2_0(&one-time initialization token for shared);
     }
 
-    v63 = v16[9];
-    v64 = v16[10];
-    v65 = v16[8];
     v16[22] = static MetricsLogger.shared;
     OUTLINED_FUNCTION_133();
-    (*(v66 + 216))();
-    v67 = *(v64 + 16);
+    (*(v46 + 216))();
     OUTLINED_FUNCTION_133();
-    v69 = *(v68 + 184);
-    v89 = v68 + 184;
-    v90 = v69 + *v69;
-    v70 = v69[1];
-    v71 = swift_task_alloc();
-    v16[23] = v71;
-    *v71 = v16;
-    v71[1] = GlobalResolutionService.resolveMediaURL(_:clientId:);
+    v66 = v47 + 184;
+    v67 = *(v47 + 184) + **(v47 + 184);
+    v48 = swift_task_alloc();
+    v16[23] = v48;
+    *v48 = v16;
+    v48[1] = GlobalResolutionService.resolveMediaURL(_:clientId:);
     OUTLINED_FUNCTION_115();
 
-    return v77(v72, v73, v74, v75, v76, v77, v78, v79, a9, v89, v90, a12, a13, a14, a15, a16);
+    return v54(v49, v50, v51, v52, v53, v54, v55, v56, a9, v66, v67, a12, a13, a14, a15, a16);
   }
 
   else
   {
-    v26 = v16[15];
-    v27 = v16[16];
-    v29 = v16[6];
-    v28 = v16[7];
-    v30 = URL.absoluteString.getter();
-    v32 = v31;
-    v33 = type metadata accessor for ResolvedInfo();
-    v34 = v33[5];
+    v25 = v16[15];
+    v26 = URL.absoluteString.getter();
+    v28 = v27;
+    v29 = type metadata accessor for ResolvedInfo(0);
     type metadata accessor for SearchResultItem(0);
     OUTLINED_FUNCTION_92();
-    __swift_storeEnumTagSinglePayload(v35, v36, v37, v38);
-    v39 = v33[7];
-    v40 = *(v27 + 16);
+    __swift_storeEnumTagSinglePayload(v30, v31, v32, v33);
     OUTLINED_FUNCTION_65_0();
-    v41();
+    v34();
     OUTLINED_FUNCTION_44_0();
-    __swift_storeEnumTagSinglePayload(v42, v43, v44, v26);
-    v45 = v16[18];
-    v46 = v16[19];
-    v47 = v16[17];
-    v48 = v16[14];
-    v49 = v16[6];
-    v50 = v33[10];
+    __swift_storeEnumTagSinglePayload(v35, v36, v37, v25);
+    v38 = v16[6];
     type metadata accessor for PommesContext();
     OUTLINED_FUNCTION_92();
-    __swift_storeEnumTagSinglePayload(v51, v52, v53, v54);
-    *v49 = v30;
-    v49[1] = v32;
-    *(v49 + v33[6]) = MEMORY[0x277D84F98];
-    v55 = MEMORY[0x277D84F90];
-    *(v49 + v33[8]) = MEMORY[0x277D84F90];
-    *(v49 + v33[9]) = v55;
+    __swift_storeEnumTagSinglePayload(v39, v40, v41, v42);
+    *v38 = v26;
+    v38[1] = v28;
+    *(v38 + v29[6]) = MEMORY[0x277D84F98];
+    v43 = MEMORY[0x277D84F90];
+    *(v38 + v29[8]) = MEMORY[0x277D84F90];
+    *(v38 + v29[9]) = v43;
 
     OUTLINED_FUNCTION_106();
     OUTLINED_FUNCTION_115();
 
-    return v82(v81, v82, v83, v84, v85, v86, v87, v88, a9, a10, a11, a12, a13, a14, a15, a16);
+    return v59(v58, v59, v60, v61, v62, v63, v64, v65, a9, a10, a11, a12, a13, a14, a15, a16);
   }
 }
 
-uint64_t GlobalResolutionService.resolveMediaURL(_:clientId:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
+uint64_t GlobalResolutionService.resolveMediaURL(_:clientId:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, void *a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
 {
   OUTLINED_FUNCTION_146();
   OUTLINED_FUNCTION_190();
   v20 = v16[24];
   if (v20)
   {
-    v21 = v16[25];
-    v22 = v16[22];
-    v23 = v16[8];
-    v24 = v16[9];
     OUTLINED_FUNCTION_133();
-    (*(v25 + 224))();
+    (*(v21 + 224))();
 
-    v26 = dispatch thunk of PommesResponse.experiences.getter();
-    result = specialized Array.count.getter(v26);
+    v22 = dispatch thunk of PommesResponse.experiences.getter();
+    result = specialized Array.count.getter(v22);
     if (result)
     {
-      if ((v26 & 0xC000000000000001) != 0)
+      if ((v22 & 0xC000000000000001) != 0)
       {
-        v28 = MEMORY[0x25F89FFD0](0, v26);
+        v24 = MEMORY[0x25F89FFD0](0, v22);
       }
 
       else
       {
-        if (!*((v26 & 0xFFFFFFFFFFFFFF8) + 0x10))
+        if (!*((v22 & 0xFFFFFFFFFFFFFF8) + 0x10))
         {
           __break(1u);
           goto LABEL_33;
         }
 
-        v28 = *(v26 + 32);
+        v24 = *(v22 + 32);
       }
 
-      v29 = v28;
+      v25 = v24;
 
       type metadata accessor for AudioExperience();
       if (swift_dynamicCastClass())
       {
-        v30 = dispatch thunk of PommesResponse.experiences.getter();
-        v31 = specialized Array.count.getter(v30);
-        a11 = v29;
-        if (!v31)
+        v26 = dispatch thunk of PommesResponse.experiences.getter();
+        v27 = specialized Array.count.getter(v26);
+        a11 = v25;
+        if (!v27)
         {
 
-          v37 = MEMORY[0x277D84F90];
+          v31 = MEMORY[0x277D84F90];
 LABEL_27:
-          a10 = v37;
-          v103 = v16[15];
-          v104 = v16[16];
-          v105 = v16[6];
-          v106 = v16[7];
+          a10 = v31;
+          v71 = v16[15];
+          v72 = v16[16];
+          v73 = v16[6];
+          v74 = v16[7];
           type metadata accessor for AudioPluginProcessor();
           AudioPluginProcessor.__allocating_init()();
           dispatch thunk of PommesResponse.clientResults.getter();
           a9 = dispatch thunk of AudioPluginProcessor.process(experience:clientResults:)();
 
-          v107 = URL.absoluteString.getter();
-          v109 = v108;
+          v75 = URL.absoluteString.getter();
+          v77 = v76;
 
-          v110 = type metadata accessor for ResolvedInfo();
-          v111 = v110[5];
+          v78 = type metadata accessor for ResolvedInfo(0);
           type metadata accessor for SearchResultItem(0);
           OUTLINED_FUNCTION_92();
-          __swift_storeEnumTagSinglePayload(v112, v113, v114, v115);
-          (*(v104 + 16))(v105 + v110[7], v106, v103);
+          __swift_storeEnumTagSinglePayload(v79, v80, v81, v82);
+          (*(v72 + 16))(v73 + v78[7], v74, v71);
           OUTLINED_FUNCTION_44_0();
-          __swift_storeEnumTagSinglePayload(v116, v117, v118, v103);
-          v120 = v16[18];
-          v119 = v16[19];
-          v121 = v16[17];
-          v122 = v16[14];
-          v123 = v16[6];
-          v124 = v110[10];
+          __swift_storeEnumTagSinglePayload(v83, v84, v85, v71);
+          v86 = v16[6];
           type metadata accessor for PommesContext();
           OUTLINED_FUNCTION_92();
-          __swift_storeEnumTagSinglePayload(v125, v126, v127, v128);
-          *v123 = v107;
-          v123[1] = v109;
-          *(v123 + v110[6]) = MEMORY[0x277D84F98];
-          *(v123 + v110[8]) = a10;
-          *(v123 + v110[9]) = a9;
+          __swift_storeEnumTagSinglePayload(v87, v88, v89, v90);
+          *v86 = v75;
+          v86[1] = v77;
+          *(v86 + v78[6]) = MEMORY[0x277D84F98];
+          *(v86 + v78[8]) = a10;
+          *(v86 + v78[9]) = a9;
 
           OUTLINED_FUNCTION_106();
           goto LABEL_28;
         }
 
-        v32 = v31;
+        v28 = v27;
         a12 = MEMORY[0x277D84F90];
         result = specialized ContiguousArray.reserveCapacity(_:)();
-        if ((v32 & 0x8000000000000000) == 0)
+        if ((v28 & 0x8000000000000000) == 0)
         {
-          v33 = 0;
+          v29 = 0;
           do
           {
-            if ((v30 & 0xC000000000000001) != 0)
+            if ((v26 & 0xC000000000000001) != 0)
             {
-              MEMORY[0x25F89FFD0](v33, v30);
+              MEMORY[0x25F89FFD0](v29, v26);
             }
 
             else
             {
-              v34 = *(v30 + 8 * v33 + 32);
+              v30 = *(v26 + 8 * v29 + 32);
             }
 
-            ++v33;
-            v35 = type metadata accessor for DialogExperience();
-            OUTLINED_FUNCTION_53_0(v35);
+            ++v29;
+            type metadata accessor for DialogExperience(0);
+            OUTLINED_FUNCTION_53_0();
             swift_allocObject();
             OUTLINED_FUNCTION_47_0();
             specialized ContiguousArray._makeUniqueAndReserveCapacityIfNotUnique()();
-            v36 = a12[2];
             OUTLINED_FUNCTION_72_0();
             specialized ContiguousArray._reserveCapacityAssumingUniqueBuffer(oldCount:)();
             OUTLINED_FUNCTION_72_0();
@@ -4560,9 +1725,9 @@ LABEL_27:
             specialized ContiguousArray._endMutation()();
           }
 
-          while (v32 != v33);
+          while (v28 != v29);
 
-          v37 = a12;
+          v31 = a12;
           goto LABEL_27;
         }
 
@@ -4576,42 +1741,37 @@ LABEL_33:
     {
     }
 
-    v64 = v16[20];
     (*(v16[16] + 16))(v16[19], v16[7], v16[15]);
-    v65 = v20;
-    v66 = Logger.logObject.getter();
-    v67 = static os_log_type_t.error.getter();
+    v49 = v20;
+    v50 = Logger.logObject.getter();
+    v51 = static os_log_type_t.error.getter();
 
-    v68 = os_log_type_enabled(v66, v67);
-    v69 = v16[19];
-    v71 = v16[15];
-    v70 = v16[16];
-    a11 = v65;
-    if (v68)
+    a11 = v49;
+    if (os_log_type_enabled(v50, v51))
     {
-      v72 = swift_slowAlloc();
+      v52 = swift_slowAlloc();
       a10 = swift_slowAlloc();
       a12 = a10;
-      *v72 = 136315394;
+      *v52 = 136315394;
       OUTLINED_FUNCTION_8_0();
-      lazy protocol witness table accessor for type FlightSnippet and conformance FlightSnippet(v73, v74);
+      lazy protocol witness table accessor for type FlightSnippet and conformance FlightSnippet(v53, v54, MEMORY[0x277CC9290]);
       dispatch thunk of CustomStringConvertible.description.getter();
-      v19 = v75;
-      v76 = OUTLINED_FUNCTION_38_0();
-      v77(v76);
-      v78 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)();
+      v19 = v55;
+      v56 = OUTLINED_FUNCTION_38_0();
+      v57(v56);
+      v58 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)();
 
-      *(v72 + 4) = v78;
-      *(v72 + 12) = 2080;
-      v79 = dispatch thunk of PommesResponse.experiences.getter();
-      v80 = type metadata accessor for Experience();
-      MEMORY[0x25F89F8A0](v79, v80);
+      *(v52 + 4) = v58;
+      *(v52 + 12) = 2080;
+      v59 = dispatch thunk of PommesResponse.experiences.getter();
+      v60 = type metadata accessor for Experience();
+      MEMORY[0x25F89F8A0](v59, v60);
       OUTLINED_FUNCTION_82_0();
 
-      v81 = OUTLINED_FUNCTION_71_0();
+      v61 = OUTLINED_FUNCTION_71_0();
 
-      *(v72 + 14) = v81;
-      _os_log_impl(&dword_25D85C000, v66, v67, "Received unexpected type from Pegasus for media URL: %s. \n%s", v72, 0x16u);
+      *(v52 + 14) = v61;
+      _os_log_impl(&dword_25D85C000, v50, v51, "Received unexpected type from Pegasus for media URL: %s. \n%s", v52, 0x16u);
       swift_arrayDestroy();
       OUTLINED_FUNCTION_42_0();
       OUTLINED_FUNCTION_42_0();
@@ -4620,58 +1780,50 @@ LABEL_33:
     else
     {
 
-      v82 = OUTLINED_FUNCTION_38_0();
-      v83(v82);
+      v62 = OUTLINED_FUNCTION_38_0();
+      v63(v62);
     }
 
-    v84 = v16[22];
-    v85 = v16[13];
-    v86 = v16[14];
-    v87 = v16[12];
-    v89 = v16[8];
-    v88 = v16[9];
+    v64 = v16[22];
     lazy protocol witness table accessor for type EagerResolutionError and conformance EagerResolutionError();
-    OUTLINED_FUNCTION_29_0();
+    OUTLINED_FUNCTION_29_0(&type metadata for EagerResolutionError);
     OUTLINED_FUNCTION_79_0();
-    *v90 = 1;
-    (*(*v84 + 320))();
+    *v65 = 1;
+    (*(*v64 + 320))();
 
     OUTLINED_FUNCTION_133();
-    v92 = *(v91 + 232);
-    v93 = OUTLINED_FUNCTION_45_0();
-    v94(v93);
-    v95 = *(v85 + 8);
-    v96 = OUTLINED_FUNCTION_54_0();
-    v97(v96);
-    OUTLINED_FUNCTION_29_0();
-    *v98 = 1;
+    v66 = OUTLINED_FUNCTION_45_0();
+    v67(v66);
+    v68 = OUTLINED_FUNCTION_54_0();
+    v69(v68);
+    OUTLINED_FUNCTION_29_0(&type metadata for EagerResolutionError);
+    *v70 = 1;
     swift_willThrow();
   }
 
   else
   {
-    v38 = v16[20];
     (*(v16[16] + 16))(v16[18], v16[7], v16[15]);
-    v39 = Logger.logObject.getter();
-    v40 = static os_log_type_t.error.getter();
-    v41 = os_log_type_enabled(v39, v40);
-    v42 = v16[18];
-    v43 = v16[15];
-    v44 = v16[16];
-    if (v41)
+    v32 = Logger.logObject.getter();
+    v33 = static os_log_type_t.error.getter();
+    v34 = os_log_type_enabled(v32, v33);
+    v35 = v16[18];
+    v36 = v16[15];
+    v37 = v16[16];
+    if (v34)
     {
-      v45 = OUTLINED_FUNCTION_51_0();
+      v38 = OUTLINED_FUNCTION_51_0();
       a12 = OUTLINED_FUNCTION_49_0();
-      *v45 = 136315138;
+      *v38 = 136315138;
       OUTLINED_FUNCTION_8_0();
-      lazy protocol witness table accessor for type FlightSnippet and conformance FlightSnippet(v46, v47);
+      lazy protocol witness table accessor for type FlightSnippet and conformance FlightSnippet(v39, v40, MEMORY[0x277CC9290]);
       dispatch thunk of CustomStringConvertible.description.getter();
       OUTLINED_FUNCTION_82_0();
-      (*(v44 + 8))(v42, v43);
-      v48 = OUTLINED_FUNCTION_71_0();
+      (*(v37 + 8))(v35, v36);
+      v41 = OUTLINED_FUNCTION_71_0();
 
-      *(v45 + 4) = v48;
-      _os_log_impl(&dword_25D85C000, v39, v40, "No valid response from Pegasus for media URL: %s.", v45, 0xCu);
+      *(v38 + 4) = v41;
+      _os_log_impl(&dword_25D85C000, v32, v33, "No valid response from Pegasus for media URL: %s.", v38, 0xCu);
       __swift_destroy_boxed_opaque_existential_1Tm(a12);
       OUTLINED_FUNCTION_42_0();
       OUTLINED_FUNCTION_37_0();
@@ -4680,43 +1832,31 @@ LABEL_33:
     else
     {
 
-      (*(v44 + 8))(v42, v43);
+      (*(v37 + 8))(v35, v36);
     }
 
-    v49 = v16[22];
-    v51 = v16[13];
-    v50 = v16[14];
-    v52 = v16[12];
-    v54 = v16[8];
-    v53 = v16[9];
+    v42 = v16[22];
     lazy protocol witness table accessor for type EagerResolutionError and conformance EagerResolutionError();
-    OUTLINED_FUNCTION_30_0();
+    OUTLINED_FUNCTION_30_0(&type metadata for EagerResolutionError);
     OUTLINED_FUNCTION_57_0();
-    *v55 = v17;
-    (*(*v49 + 320))();
+    *v43 = v17;
+    (*(*v42 + 320))();
 
     OUTLINED_FUNCTION_133();
-    v57 = *(v56 + 232);
-    v58 = OUTLINED_FUNCTION_36_0();
-    v59(v58);
-    v60 = *(v51 + 8);
-    v61 = OUTLINED_FUNCTION_32_0();
-    v62(v61);
-    OUTLINED_FUNCTION_30_0();
-    *v63 = v17;
+    v44 = OUTLINED_FUNCTION_36_0();
+    v45(v44);
+    v46 = OUTLINED_FUNCTION_32_0();
+    v47(v46);
+    OUTLINED_FUNCTION_30_0(&type metadata for EagerResolutionError);
+    *v48 = v17;
     swift_willThrow();
   }
-
-  v100 = v16[18];
-  v99 = v16[19];
-  v101 = v16[17];
-  v102 = v16[14];
 
   OUTLINED_FUNCTION_127();
 LABEL_28:
   OUTLINED_FUNCTION_115();
 
-  return v130(v129, v130, v131, v132, v133, v134, v135, v136, a9, a10, a11, a12, a13, a14, a15, a16);
+  return v92(v91, v92, v93, v94, v95, v96, v97, v98, a9, a10, a11, a12, a13, a14, a15, a16);
 }
 
 uint64_t specialized BidirectionalCollection.last.getter(uint64_t a1, unint64_t a2)
@@ -4749,11 +1889,9 @@ uint64_t specialized BidirectionalCollection.last.getter(uint64_t a1)
     return 0;
   }
 
-  v4 = (v1 + 16 * v2);
-  v5 = *v4;
-  v6 = v4[1];
+  v4 = *(v1 + 16 * v2);
 
-  return v5;
+  return v4;
 }
 
 double specialized BidirectionalCollection.last.getter@<D0>(uint64_t a1@<X0>, _OWORD *a2@<X8>)
@@ -4770,235 +1908,208 @@ double specialized BidirectionalCollection.last.getter@<D0>(uint64_t a1@<X0>, _O
 
 uint64_t static GlobalResolutionService.constructMediaClientEntity(url:)@<X0>(uint64_t a1@<X8>)
 {
-  v61[1] = a1;
-  v1 = type metadata accessor for Siri_Nlu_External_UsoGraph();
-  v2 = OUTLINED_FUNCTION_14(v1);
-  v62 = v3;
-  v63 = v2;
-  v5 = *(v4 + 64);
-  MEMORY[0x28223BE20](v2);
+  v44[1] = a1;
+  type metadata accessor for Siri_Nlu_External_UsoGraph();
+  OUTLINED_FUNCTION_14();
+  v45 = v2;
+  v46 = v1;
+  MEMORY[0x28223BE20](v1);
   OUTLINED_FUNCTION_36();
-  v67 = v7 - v6;
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology17UsoBuilderOptionsVSgMd, &_s12SiriOntology17UsoBuilderOptionsVSgMR);
+  v50 = v4 - v3;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology17UsoBuilderOptionsVSgMd, &_s12SiriOntology17UsoBuilderOptionsVSgMR);
+  OUTLINED_FUNCTION_114(v5);
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v6);
+  v49 = v44 - v7;
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology9MatchInfoVSgMd, &_s12SiriOntology9MatchInfoVSgMR);
   OUTLINED_FUNCTION_114(v8);
-  v10 = *(v9 + 64);
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v9);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology13UsoEntitySpanV0E6SourceOSgMd, &_s12SiriOntology13UsoEntitySpanV0E6SourceOSgMR);
+  OUTLINED_FUNCTION_114(v10);
   OUTLINED_FUNCTION_77_0();
   MEMORY[0x28223BE20](v11);
-  v66 = v61 - v12;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology9MatchInfoVSgMd, &_s12SiriOntology9MatchInfoVSgMR);
-  OUTLINED_FUNCTION_114(v13);
-  v15 = *(v14 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v16);
-  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology13UsoEntitySpanV0E6SourceOSgMd, &_s12SiriOntology13UsoEntitySpanV0E6SourceOSgMR);
-  OUTLINED_FUNCTION_114(v17);
-  v19 = *(v18 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v20);
-  v21 = type metadata accessor for UsoEntitySpan();
-  v22 = OUTLINED_FUNCTION_14(v21);
-  v71 = v23;
-  v72 = v22;
-  v25 = *(v24 + 64);
-  MEMORY[0x28223BE20](v22);
+  type metadata accessor for UsoEntitySpan();
+  OUTLINED_FUNCTION_14();
+  v54 = v13;
+  v55 = v12;
+  MEMORY[0x28223BE20](v12);
   OUTLINED_FUNCTION_36();
-  v64 = v27 - v26;
+  v47 = v15 - v14;
   OUTLINED_FUNCTION_78_0();
-  v28 = type metadata accessor for SpanProperty();
-  v29 = *(v28 - 8);
-  v30 = *(v29 + 64);
-  MEMORY[0x28223BE20](v28);
+  v16 = type metadata accessor for SpanProperty();
+  v17 = *(v16 - 8);
+  MEMORY[0x28223BE20](v16);
   OUTLINED_FUNCTION_36();
-  v33 = v32 - v31;
+  v20 = v19 - v18;
   URL.absoluteString.getter();
-  v76 = 1;
-  v75 = 1;
+  v59 = 1;
+  v58 = 1;
   SpanProperty.init(key:valueString:valueInt:valueFloat:)();
   type metadata accessor for UsoEntitySpan.SpanSource();
   OUTLINED_FUNCTION_92();
-  __swift_storeEnumTagSinglePayload(v34, v35, v36, v37);
+  __swift_storeEnumTagSinglePayload(v21, v22, v23, v24);
   type metadata accessor for MatchInfo();
   OUTLINED_FUNCTION_92();
-  __swift_storeEnumTagSinglePayload(v38, v39, v40, v41);
+  __swift_storeEnumTagSinglePayload(v25, v26, v27, v28);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy12SiriOntology12SpanPropertyVGMd, &_ss23_ContiguousArrayStorageCy12SiriOntology12SpanPropertyVGMR);
-  v42 = *(v29 + 72);
-  v43 = *(v29 + 80);
   OUTLINED_FUNCTION_74_0();
-  v44 = swift_allocObject();
-  *(v44 + 16) = xmmword_25DBC8180;
-  v65 = v29;
-  v45 = *(v29 + 16);
-  v68 = v33;
-  v69 = v28;
-  v45(v44 + v29, v33, v28);
-  v74 = 1;
-  v73 = 1;
-  v46 = v64;
+  v29 = swift_allocObject();
+  *(v29 + 16) = xmmword_25DBC8180;
+  v48 = v17;
+  v30 = *(v17 + 16);
+  v51 = v20;
+  v52 = v16;
+  v30(v29 + v17, v20, v16);
+  v57 = 1;
+  v56 = 1;
+  v31 = v47;
   UsoEntitySpan.init(originAppId:sourceComponent:label:matchInfo:properties:startIndex:endIndex:alternatives:originEntityId:)();
-  v47 = type metadata accessor for UsoTaskBuilder_noVerb_common_MediaItem();
-  OUTLINED_FUNCTION_53_0(v47);
+  type metadata accessor for UsoTaskBuilder_noVerb_common_MediaItem();
+  OUTLINED_FUNCTION_53_0();
   swift_allocObject();
-  v48 = UsoTaskBuilder_noVerb_common_MediaItem.init()();
-  v49 = type metadata accessor for UsoEntityBuilder_common_MediaItem();
-  OUTLINED_FUNCTION_53_0(v49);
+  v32 = UsoTaskBuilder_noVerb_common_MediaItem.init()();
+  type metadata accessor for UsoEntityBuilder_common_MediaItem();
+  OUTLINED_FUNCTION_53_0();
   swift_allocObject();
   UsoEntityBuilder_common_MediaItem.init()();
   dispatch thunk of UsoEntityBuilder_common_MediaItem.setName(value:)();
   dispatch thunk of UsoBuilder.addEntitySpan(entitySpan:)();
   dispatch thunk of Uso_VerbTemplateBuilder_NoVerb.setEntity(value:)();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
-  v50 = swift_allocObject();
-  *(v50 + 16) = xmmword_25DBC8190;
-  *(v50 + 32) = v48;
+  v33 = swift_allocObject();
+  *(v33 + 16) = xmmword_25DBC8190;
+  *(v33 + 32) = v32;
   type metadata accessor for UsoBuilderOptions();
-  v51 = v66;
+  v34 = v49;
   OUTLINED_FUNCTION_92();
-  __swift_storeEnumTagSinglePayload(v52, v53, v54, v55);
+  __swift_storeEnumTagSinglePayload(v35, v36, v37, v38);
 
-  MEMORY[0x25F89A6C0](v50, v51);
+  MEMORY[0x25F89A6C0](v33, v34);
 
-  outlined destroy of IntentApplication?(v51, &_s12SiriOntology17UsoBuilderOptionsVSgMd, &_s12SiriOntology17UsoBuilderOptionsVSgMR);
-  v56 = v67;
-  v57 = v70;
+  outlined destroy of IntentApplication?(v34, &_s12SiriOntology17UsoBuilderOptionsVSgMd, &_s12SiriOntology17UsoBuilderOptionsVSgMR);
+  v39 = v50;
+  v40 = v53;
   static UsoGraphProtoWriter.toSwiftProtobuf(graph:vocabManager:)();
-  if (v57)
+  if (v40)
   {
 
-    (*(v71 + 8))(v46, v72);
-    return (*(v65 + 8))(v68, v69);
+    (*(v54 + 8))(v31, v55);
+    return (*(v48 + 8))(v51, v52);
   }
 
   else
   {
-    v59 = v65;
-    v60 = type metadata accessor for Apple_Parsec_Siri_Context_ClientEntity();
-    v70 = v61;
-    MEMORY[0x28223BE20](v60);
-    lazy protocol witness table accessor for type FlightSnippet and conformance FlightSnippet(&lazy protocol witness table cache variable for type Apple_Parsec_Siri_Context_ClientEntity and conformance Apple_Parsec_Siri_Context_ClientEntity, MEMORY[0x277D39438]);
+    v42 = v48;
+    v43 = type metadata accessor for Apple_Parsec_Siri_Context_ClientEntity();
+    v53 = v44;
+    MEMORY[0x28223BE20](v43);
+    lazy protocol witness table accessor for type FlightSnippet and conformance FlightSnippet(&lazy protocol witness table cache variable for type Apple_Parsec_Siri_Context_ClientEntity and conformance Apple_Parsec_Siri_Context_ClientEntity, MEMORY[0x277D39438], MEMORY[0x277D39430]);
     static Message.with(_:)();
 
-    (*(v71 + 8))(v46, v72);
-    (*(v59 + 8))(v68, v69);
-    return (*(v62 + 8))(v56, v63);
+    (*(v54 + 8))(v31, v55);
+    (*(v42 + 8))(v51, v52);
+    return (*(v45 + 8))(v39, v46);
   }
 }
 
 uint64_t closure #1 in static GlobalResolutionService.constructMediaClientEntity(url:)(uint64_t a1)
 {
-  v13[1] = a1;
+  v11[1] = a1;
   v2 = type metadata accessor for Apple_Parsec_Siri_Context_ClientEntity.ClientEntityType();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   MEMORY[0x28223BE20](v2);
-  v6 = v13 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = type metadata accessor for Apple_Parsec_Siri_Context_ClientEntity.ClientEntitySource();
-  v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  MEMORY[0x28223BE20](v7);
-  v11 = v13 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = v11 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = type metadata accessor for Apple_Parsec_Siri_Context_ClientEntity.ClientEntitySource();
+  v7 = *(v6 - 8);
+  MEMORY[0x28223BE20](v6);
+  v9 = v11 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   type metadata accessor for Siri_Nlu_External_UsoGraph();
-  lazy protocol witness table accessor for type FlightSnippet and conformance FlightSnippet(&lazy protocol witness table cache variable for type Siri_Nlu_External_UsoGraph and conformance Siri_Nlu_External_UsoGraph, MEMORY[0x277D5DAD8]);
+  lazy protocol witness table accessor for type FlightSnippet and conformance FlightSnippet(&lazy protocol witness table cache variable for type Siri_Nlu_External_UsoGraph and conformance Siri_Nlu_External_UsoGraph, MEMORY[0x277D5DAD8], MEMORY[0x277D5DAD0]);
   result = Message.serializedData(partial:)();
   if (!v1)
   {
     Apple_Parsec_Siri_Context_ClientEntity.usoGraph.setter();
-    (*(v8 + 104))(v11, *MEMORY[0x277D39428], v7);
+    (*(v7 + 104))(v9, *MEMORY[0x277D39428], v6);
     Apple_Parsec_Siri_Context_ClientEntity.source.setter();
-    (*(v3 + 104))(v6, *MEMORY[0x277D39408], v2);
+    (*(v3 + 104))(v5, *MEMORY[0x277D39408], v2);
     return Apple_Parsec_Siri_Context_ClientEntity.type.setter();
   }
 
   return result;
 }
 
-uint64_t GlobalResolutionService.deinit()
-{
-  v1 = *(v0 + 16);
-
-  return v0;
-}
-
 uint64_t GlobalResolutionService.__deallocating_deinit()
 {
-  v1 = *(v0 + 16);
 
   return swift_deallocClassInstance();
 }
 
 uint64_t protocol witness for EagerResolutionService.resolveFlight(reservation:clientId:) in conformance GlobalResolutionService(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v10 = *(**v4 + 96);
-  v14 = (v10 + *v10);
-  v11 = v10[1];
-  v12 = swift_task_alloc();
-  *(v5 + 16) = v12;
-  *v12 = v5;
-  v12[1] = partial apply for specialized closure #1 in Array.oms_mapWithTaskGroup<A>(ignoreOrder:itemTransform:);
+  v12 = (*(**v4 + 96) + **(**v4 + 96));
+  v10 = swift_task_alloc();
+  *(v5 + 16) = v10;
+  *v10 = v5;
+  v10[1] = partial apply for specialized closure #1 in Array.oms_mapWithTaskGroup<A>(ignoreOrder:itemTransform:);
 
-  return v14(a1, a2, a3, a4);
+  return v12(a1, a2, a3, a4);
 }
 
 uint64_t protocol witness for EagerResolutionService.resolveLocation(address:clientId:app:) in conformance GlobalResolutionService(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v14 = *(**v6 + 104);
-  v18 = (v14 + *v14);
-  v15 = v14[1];
-  v16 = swift_task_alloc();
-  *(v7 + 16) = v16;
-  *v16 = v7;
-  v16[1] = partial apply for specialized closure #1 in Array.oms_mapWithTaskGroup<A>(ignoreOrder:itemTransform:);
+  v16 = (*(**v6 + 104) + **(**v6 + 104));
+  v14 = swift_task_alloc();
+  *(v7 + 16) = v14;
+  *v14 = v7;
+  v14[1] = partial apply for specialized closure #1 in Array.oms_mapWithTaskGroup<A>(ignoreOrder:itemTransform:);
 
-  return v18(a1, a2, a3, a4, a5, a6);
+  return v16(a1, a2, a3, a4, a5, a6);
 }
 
 uint64_t protocol witness for EagerResolutionService.resolveMedia(name:query:clientId:app:) in conformance GlobalResolutionService(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v18 = *(**v8 + 120);
-  v22 = (v18 + *v18);
-  v19 = v18[1];
-  v20 = swift_task_alloc();
-  *(v9 + 16) = v20;
-  *v20 = v9;
-  v20[1] = partial apply for closure #2 in AnswerResolver.resolve(extractedResults:options:);
+  v20 = (*(**v8 + 120) + **(**v8 + 120));
+  v18 = swift_task_alloc();
+  *(v9 + 16) = v18;
+  *v18 = v9;
+  v18[1] = partial apply for closure #2 in AnswerResolver.resolve(extractedResults:options:);
 
-  return v22(a1, a2, a3, a4, a5, a6, a7, a8);
+  return v20(a1, a2, a3, a4, a5, a6, a7, a8);
 }
 
 uint64_t protocol witness for EagerResolutionService.resolveMediaURL(_:clientId:) in conformance GlobalResolutionService(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v10 = *(**v4 + 128);
-  v14 = (v10 + *v10);
-  v11 = v10[1];
-  v12 = swift_task_alloc();
-  *(v5 + 16) = v12;
-  *v12 = v5;
-  v12[1] = partial apply for specialized closure #1 in Array.oms_mapWithTaskGroup<A>(ignoreOrder:itemTransform:);
+  v12 = (*(**v4 + 128) + **(**v4 + 128));
+  v10 = swift_task_alloc();
+  *(v5 + 16) = v10;
+  *v10 = v5;
+  v10[1] = partial apply for specialized closure #1 in Array.oms_mapWithTaskGroup<A>(ignoreOrder:itemTransform:);
 
-  return v14(a1, a2, a3, a4);
+  return v12(a1, a2, a3, a4);
 }
 
 id @nonobjc LSApplicationRecord.init(bundleIdentifier:allowPlaceholder:)(uint64_t a1, uint64_t a2, char a3)
 {
-  v11[1] = *MEMORY[0x277D85DE8];
-  v5 = MEMORY[0x25F89F4C0]();
+  v10[1] = *MEMORY[0x277D85DE8];
+  v5 = MEMORY[0x25F89F4C0](a1);
 
-  v11[0] = 0;
-  v6 = [v3 initWithBundleIdentifier:v5 allowPlaceholder:a3 & 1 error:v11];
+  v10[0] = 0;
+  v6 = [v3 initWithBundleIdentifier:v5 allowPlaceholder:a3 & 1 error:v10];
 
   if (v6)
   {
-    v7 = v11[0];
+    v7 = v10[0];
   }
 
   else
   {
-    v8 = v11[0];
+    v8 = v10[0];
     _convertNSErrorToError(_:)();
 
     swift_willThrow();
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -5064,22 +2175,21 @@ unint64_t lazy protocol witness table accessor for type EagerResolutionError and
   return result;
 }
 
-uint64_t outlined destroy of ExtractionRuleType(uint64_t a1, uint64_t (*a2)(void))
+uint64_t outlined destroy of ExtractionRuleType(uint64_t a1, void (*a2)(void))
 {
-  v3 = a2(0);
-  OUTLINED_FUNCTION_17(v3);
-  (*(v4 + 8))(a1);
+  a2(0);
+  OUTLINED_FUNCTION_17();
+  (*(v3 + 8))(a1);
   return a1;
 }
 
 uint64_t outlined init with take of SearchResult()
 {
   OUTLINED_FUNCTION_134();
-  v2 = v1(0);
-  OUTLINED_FUNCTION_17(v2);
-  v4 = *(v3 + 32);
-  v5 = OUTLINED_FUNCTION_94();
-  v6(v5);
+  v1(0);
+  OUTLINED_FUNCTION_17();
+  v2 = OUTLINED_FUNCTION_94();
+  v3(v2);
   return v0;
 }
 
@@ -5176,9 +2286,9 @@ unint64_t lazy protocol witness table accessor for type String and conformance S
 
 uint64_t outlined destroy of IntentApplication?(uint64_t a1, uint64_t *a2, uint64_t *a3)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(a2, a3);
-  OUTLINED_FUNCTION_17(v4);
-  (*(v5 + 8))(a1);
+  __swift_instantiateConcreteTypeFromMangledNameV2(a2, a3);
+  OUTLINED_FUNCTION_17();
+  (*(v4 + 8))(a1);
   return a1;
 }
 
@@ -5354,16 +2464,13 @@ LABEL_18:
 uint64_t dispatch thunk of EagerResolutionService.resolveFlight(reservation:clientId:)()
 {
   OUTLINED_FUNCTION_20_0();
-  v1 = *(v0 + 8);
   OUTLINED_FUNCTION_59();
-  v11 = v2 + *v2;
-  v4 = *(v3 + 4);
-  v5 = swift_task_alloc();
-  v6 = OUTLINED_FUNCTION_23(v5);
-  *v6 = v7;
-  v8 = OUTLINED_FUNCTION_11_0(v6);
+  v0 = swift_task_alloc();
+  v1 = OUTLINED_FUNCTION_23(v0);
+  *v1 = v2;
+  v3 = OUTLINED_FUNCTION_11_0(v1);
 
-  return v9(v8);
+  return v4(v3);
 }
 
 uint64_t dispatch thunk of EagerResolutionService.resolveLocation(address:clientId:app:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
@@ -5371,83 +2478,70 @@ uint64_t dispatch thunk of EagerResolutionService.resolveLocation(address:client
   OUTLINED_FUNCTION_84_0();
   OUTLINED_FUNCTION_61_0();
   OUTLINED_FUNCTION_17_0();
-  v15 = *(v14 + 16);
   OUTLINED_FUNCTION_59();
-  v33 = v16 + *v16;
-  v18 = *(v17 + 4);
-  v19 = swift_task_alloc();
-  v20 = OUTLINED_FUNCTION_23(v19);
-  *v20 = v21;
-  v20[1] = partial apply for specialized closure #1 in Array.oms_mapWithTaskGroup<A>(ignoreOrder:itemTransform:);
+  v29 = v14 + *v14;
+  v15 = swift_task_alloc();
+  v16 = OUTLINED_FUNCTION_23(v15);
+  *v16 = v17;
+  v16[1] = partial apply for specialized closure #1 in Array.oms_mapWithTaskGroup<A>(ignoreOrder:itemTransform:);
   OUTLINED_FUNCTION_13_0();
   OUTLINED_FUNCTION_83_0();
 
-  return v30(v22, v23, v24, v25, v26, v27, v28, v29, a9, a10, v33, a12, a13, a14);
+  return v26(v18, v19, v20, v21, v22, v23, v24, v25, a9, a10, v29, a12, a13, a14);
 }
 
-uint64_t dispatch thunk of EagerResolutionService.resolveMedia(name:query:clientId:app:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26)
+uint64_t dispatch thunk of EagerResolutionService.resolveMedia(name:query:clientId:app:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18)
 {
   OUTLINED_FUNCTION_146();
   OUTLINED_FUNCTION_190();
-  v47 = v27;
+  v36 = v19;
   OUTLINED_FUNCTION_17_0();
-  v28 = *(a26 + 24);
   OUTLINED_FUNCTION_59();
-  v46 = v29 + *v29;
-  v31 = *(v30 + 4);
-  v32 = swift_task_alloc();
-  v33 = OUTLINED_FUNCTION_23(v32);
-  *v33 = v34;
-  v33[1] = partial apply for closure #2 in AnswerResolver.resolve(extractedResults:options:);
+  v35 = v20 + *v20;
+  v21 = swift_task_alloc();
+  v22 = OUTLINED_FUNCTION_23(v21);
+  *v22 = v23;
+  v22[1] = partial apply for closure #2 in AnswerResolver.resolve(extractedResults:options:);
   OUTLINED_FUNCTION_13_0();
   OUTLINED_FUNCTION_115();
 
-  return v43(v35, v36, v37, v38, v39, v40, v41, v42, a9, a10, v46, v47, v26, a14, a15, a16, a17, a18);
+  return v32(v24, v25, v26, v27, v28, v29, v30, v31, a9, a10, v35, v36, v18, a14, a15, a16, a17, a18);
 }
 
 uint64_t dispatch thunk of EagerResolutionService.resolveMediaURL(_:clientId:)()
 {
   OUTLINED_FUNCTION_20_0();
-  v1 = *(v0 + 32);
   OUTLINED_FUNCTION_59();
-  v11 = v2 + *v2;
-  v4 = *(v3 + 4);
-  v5 = swift_task_alloc();
-  v6 = OUTLINED_FUNCTION_23(v5);
-  *v6 = v7;
-  v8 = OUTLINED_FUNCTION_11_0(v6);
+  v0 = swift_task_alloc();
+  v1 = OUTLINED_FUNCTION_23(v0);
+  *v1 = v2;
+  v3 = OUTLINED_FUNCTION_11_0(v1);
 
-  return v9(v8);
+  return v4(v3);
 }
 
 uint64_t dispatch thunk of GlobalResolutionService.resolveFlight(reservation:clientId:)()
 {
   OUTLINED_FUNCTION_75();
   OUTLINED_FUNCTION_133();
-  v1 = *(v0 + 96);
-  v9 = v1 + *v1;
-  v2 = v1[1];
-  v3 = swift_task_alloc();
-  v4 = OUTLINED_FUNCTION_23(v3);
-  *v4 = v5;
-  v6 = OUTLINED_FUNCTION_46_0(v4);
+  v0 = swift_task_alloc();
+  v1 = OUTLINED_FUNCTION_23(v0);
+  *v1 = v2;
+  v3 = OUTLINED_FUNCTION_46_0(v1);
 
-  return v7(v6);
+  return v4(v3);
 }
 
 uint64_t dispatch thunk of GlobalResolutionService.resolveLocation(address:clientId:app:)()
 {
   OUTLINED_FUNCTION_20_0();
   OUTLINED_FUNCTION_133();
-  v1 = *(v0 + 104);
-  v9 = v1 + *v1;
-  v2 = v1[1];
-  v3 = swift_task_alloc();
-  v4 = OUTLINED_FUNCTION_23(v3);
-  *v4 = v5;
-  v6 = OUTLINED_FUNCTION_11_0(v4);
+  v0 = swift_task_alloc();
+  v1 = OUTLINED_FUNCTION_23(v0);
+  *v1 = v2;
+  v3 = OUTLINED_FUNCTION_11_0(v1);
 
-  return v7(v6);
+  return v4(v3);
 }
 
 uint64_t dispatch thunk of GlobalResolutionService.resolveLocation(address:isNavigationRequest:clientId:location:app:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
@@ -5455,17 +2549,15 @@ uint64_t dispatch thunk of GlobalResolutionService.resolveLocation(address:isNav
   OUTLINED_FUNCTION_84_0();
   OUTLINED_FUNCTION_61_0();
   OUTLINED_FUNCTION_133();
-  v15 = *(v14 + 112);
-  v31 = v14 + 112;
-  v32 = v15 + *v15;
-  v16 = v15[1];
-  v17 = swift_task_alloc();
-  v18 = OUTLINED_FUNCTION_23(v17);
-  *v18 = v19;
-  v18[1] = partial apply for specialized closure #1 in Array.oms_mapWithTaskGroup<A>(ignoreOrder:itemTransform:);
+  v29 = v14 + 112;
+  v30 = *(v14 + 112) + **(v14 + 112);
+  v15 = swift_task_alloc();
+  v16 = OUTLINED_FUNCTION_23(v15);
+  *v16 = v17;
+  v16[1] = partial apply for specialized closure #1 in Array.oms_mapWithTaskGroup<A>(ignoreOrder:itemTransform:);
   OUTLINED_FUNCTION_83_0();
 
-  return v28(v20, v21, v22, v23, v24, v25, v26, v27, a9, v31, v32, a12, a13, a14);
+  return v26(v18, v19, v20, v21, v22, v23, v24, v25, a9, v29, v30, a12, a13, a14);
 }
 
 uint64_t dispatch thunk of GlobalResolutionService.resolveMedia(name:query:clientId:app:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
@@ -5474,33 +2566,28 @@ uint64_t dispatch thunk of GlobalResolutionService.resolveMedia(name:query:clien
   OUTLINED_FUNCTION_61_0();
   OUTLINED_FUNCTION_17_0();
   OUTLINED_FUNCTION_133();
-  v15 = *(v14 + 120);
-  v31 = v14 + 120;
-  v32 = v15 + *v15;
-  v16 = v15[1];
-  v17 = swift_task_alloc();
-  v18 = OUTLINED_FUNCTION_23(v17);
-  *v18 = v19;
-  v18[1] = partial apply for specialized closure #1 in Array.oms_mapWithTaskGroup<A>(ignoreOrder:itemTransform:);
+  v29 = v14 + 120;
+  v30 = *(v14 + 120) + **(v14 + 120);
+  v15 = swift_task_alloc();
+  v16 = OUTLINED_FUNCTION_23(v15);
+  *v16 = v17;
+  v16[1] = partial apply for specialized closure #1 in Array.oms_mapWithTaskGroup<A>(ignoreOrder:itemTransform:);
   OUTLINED_FUNCTION_13_0();
   OUTLINED_FUNCTION_83_0();
 
-  return v28(v20, v21, v22, v23, v24, v25, v26, v27, a9, v31, v32, a12, a13, a14);
+  return v26(v18, v19, v20, v21, v22, v23, v24, v25, a9, v29, v30, a12, a13, a14);
 }
 
 uint64_t dispatch thunk of GlobalResolutionService.resolveMediaURL(_:clientId:)()
 {
   OUTLINED_FUNCTION_75();
   OUTLINED_FUNCTION_133();
-  v1 = *(v0 + 128);
-  v9 = v1 + *v1;
-  v2 = v1[1];
-  v3 = swift_task_alloc();
-  v4 = OUTLINED_FUNCTION_23(v3);
-  *v4 = v5;
-  v6 = OUTLINED_FUNCTION_46_0(v4);
+  v0 = swift_task_alloc();
+  v1 = OUTLINED_FUNCTION_23(v0);
+  *v1 = v2;
+  v3 = OUTLINED_FUNCTION_46_0(v1);
 
-  return v7(v6);
+  return v4(v3);
 }
 
 uint64_t _StringGuts._slowEnsureMatchingEncoding(_:)(unint64_t a1, uint64_t a2, uint64_t a3)
@@ -5666,14 +2753,6 @@ unint64_t _StringGuts.validateSubscalarIndex(_:)(unint64_t result, unint64_t a2,
   return result;
 }
 
-uint64_t specialized Dictionary.Values.startIndex.getter(uint64_t a1)
-{
-  v2 = -1 << *(a1 + 32);
-  result = _HashTable.startBucket.getter();
-  v4 = *(a1 + 36);
-  return result;
-}
-
 uint64_t specialized Dictionary.Values.subscript.getter(uint64_t result, int a2, uint64_t a3, uint64_t a4)
 {
   if (result < 0 || 1 << *(a4 + 32) <= result)
@@ -5691,7 +2770,6 @@ LABEL_7:
 
   if (*(a4 + 36) == a2)
   {
-    v4 = *(*(a4 + 56) + 8 * result);
   }
 
 LABEL_8:
@@ -5715,11 +2793,9 @@ LABEL_7:
 
   if (*(a4 + 36) == a2)
   {
-    v4 = (*(a4 + 56) + 16 * result);
-    v5 = *v4;
-    v6 = v4[1];
+    v4 = *(*(a4 + 56) + 16 * result);
 
-    return v5;
+    return v4;
   }
 
 LABEL_8:
@@ -5736,7 +2812,7 @@ uint64_t outlined init with copy of ChatMessageRecord(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-uint64_t lazy protocol witness table accessor for type FlightSnippet and conformance FlightSnippet(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type FlightSnippet and conformance FlightSnippet(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -5752,21 +2828,20 @@ uint64_t lazy protocol witness table accessor for type FlightSnippet and conform
 uint64_t outlined init with copy of ExtractionRuleType()
 {
   OUTLINED_FUNCTION_134();
-  v2 = v1(0);
-  OUTLINED_FUNCTION_17(v2);
-  v4 = *(v3 + 16);
-  v5 = OUTLINED_FUNCTION_94();
-  v6(v5);
+  v1(0);
+  OUTLINED_FUNCTION_17();
+  v2 = OUTLINED_FUNCTION_94();
+  v3(v2);
   return v0;
 }
 
-uint64_t OUTLINED_FUNCTION_2_0()
+uint64_t OUTLINED_FUNCTION_2_0(uint64_t a1)
 {
 
   return swift_once();
 }
 
-uint64_t OUTLINED_FUNCTION_5_0()
+uint64_t OUTLINED_FUNCTION_5_0(uint64_t a1)
 {
 
   return swift_once();
@@ -5774,23 +2849,17 @@ uint64_t OUTLINED_FUNCTION_5_0()
 
 uint64_t OUTLINED_FUNCTION_18_0()
 {
-  v2 = v0[21];
-  v3 = v0[19];
-  v5 = v0[15];
-  v4 = v0[16];
-  v6 = v0[14];
-  v7 = v0[5];
 
-  return type metadata accessor for ResolvedInfo();
+  return type metadata accessor for ResolvedInfo(0);
 }
 
-uint64_t OUTLINED_FUNCTION_29_0()
+uint64_t OUTLINED_FUNCTION_29_0(uint64_t a1)
 {
 
   return swift_allocError();
 }
 
-uint64_t OUTLINED_FUNCTION_30_0()
+uint64_t OUTLINED_FUNCTION_30_0(uint64_t a1)
 {
 
   return swift_allocError();
@@ -5802,7 +2871,7 @@ void OUTLINED_FUNCTION_33_0()
   JUMPOUT(0x25F8A1050);
 }
 
-uint64_t OUTLINED_FUNCTION_35_0()
+uint64_t OUTLINED_FUNCTION_35_0(uint64_t a1)
 {
 
   return swift_once();
@@ -5843,31 +2912,6 @@ uint64_t OUTLINED_FUNCTION_51_0()
 {
 
   return swift_slowAlloc();
-}
-
-uint64_t OUTLINED_FUNCTION_52_0()
-{
-  v1 = v0[10];
-  v2 = v0[11];
-  v3 = v0[8];
-  v4 = v0[9];
-  v5 = v0[7];
-  return v0[5];
-}
-
-uint64_t OUTLINED_FUNCTION_53_0(uint64_t result)
-{
-  v1 = *(result + 48);
-  v2 = *(result + 52);
-  return result;
-}
-
-void OUTLINED_FUNCTION_58_0()
-{
-  v1 = v0[37];
-  v2 = v0[34];
-  v3 = v0[35];
-  v4 = v0[33];
 }
 
 id OUTLINED_FUNCTION_59_0()
@@ -5921,7 +2965,7 @@ BOOL OUTLINED_FUNCTION_88_0(os_log_type_t a1)
   return os_log_type_enabled(v1, a1);
 }
 
-uint64_t OUTLINED_FUNCTION_89_0()
+uint64_t OUTLINED_FUNCTION_89_0(uint64_t a1, uint64_t a2)
 {
 
   return swift_beginAccess();
@@ -5935,54 +2979,48 @@ uint64_t InstantAnswerExtraction.extractInfo(query:result:assistantLocale:)()
   v3 = type metadata accessor for SearchResultItem(0);
   v0[4] = v3;
   OUTLINED_FUNCTION_114(v3);
-  v5 = *(v4 + 64);
   v0[5] = OUTLINED_FUNCTION_199();
-  v6 = type metadata accessor for FlightReservation();
-  v0[6] = v6;
-  OUTLINED_FUNCTION_21(v6);
-  v0[7] = v7;
-  v9 = *(v8 + 64);
+  v4 = type metadata accessor for FlightReservation();
+  v0[6] = v4;
+  OUTLINED_FUNCTION_21(v4);
+  v0[7] = v5;
   v0[8] = OUTLINED_FUNCTION_199();
-  v10 = OUTLINED_FUNCTION_29();
+  v6 = OUTLINED_FUNCTION_29();
 
-  return MEMORY[0x2822009F8](v10, v11, v12);
+  return MEMORY[0x2822009F8](v6);
 }
 
 {
-  v1 = v0[4];
   outlined init with copy of SearchResultItem(v0[3], v0[5], type metadata accessor for SearchResultItem);
   if (swift_getEnumCaseMultiPayload() == 16)
   {
-    v3 = v0[7];
-    v2 = v0[8];
-    v5 = v0[5];
-    v4 = v0[6];
-    v6 = v0[2];
-    v7 = *(v5 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s15OmniSearchTypes17FlightReservationV8document_Say0aB016DialogExperienceCG11experiencestMd, &_s15OmniSearchTypes17FlightReservationV8document_Say0aB016DialogExperienceCG11experiencestMR) + 48));
+    v2 = v0[7];
+    v1 = v0[8];
+    v3 = v0[6];
+    v4 = v0[2];
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s15OmniSearchTypes17FlightReservationV8document_Say0aB016DialogExperienceCG11experiencestMd, &_s15OmniSearchTypes17FlightReservationV8document_Say0aB016DialogExperienceCG11experiencestMR);
 
-    v8 = *(v3 + 32);
-    v9 = OUTLINED_FUNCTION_16_0();
-    v8(v9);
-    (v8)(v6, v2, v4);
-    v10 = type metadata accessor for ExtractionRuleType(0);
+    v5 = *(v2 + 32);
+    v6 = OUTLINED_FUNCTION_16_0();
+    v5(v6);
+    (v5)(v4, v1, v3);
+    v7 = type metadata accessor for ExtractionRuleType(0);
     swift_storeEnumTagMultiPayload();
-    v11 = 0;
+    v8 = 0;
   }
 
   else
   {
     outlined destroy of SearchResultItem(v0[5], type metadata accessor for SearchResultItem);
-    v10 = type metadata accessor for ExtractionRuleType(0);
-    v11 = 1;
+    v7 = type metadata accessor for ExtractionRuleType(0);
+    v8 = 1;
   }
 
-  v12 = v0[8];
-  v13 = v0[5];
-  __swift_storeEnumTagSinglePayload(v0[2], v11, 1, v10);
+  __swift_storeEnumTagSinglePayload(v0[2], v8, 1, v7);
 
   OUTLINED_FUNCTION_106();
 
-  return v14();
+  return v9();
 }
 
 uint64_t protocol witness for ExtractionRule.extractInfo(query:result:assistantLocale:) in conformance InstantAnswerExtraction()
@@ -6003,79 +3041,65 @@ uint64_t CalendarLocationAnswer.extractFromSource(query:answer:source:assistantL
   v0[11] = v3;
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15OmniSearchTypes13CalendarEventVSgMd, &_s15OmniSearchTypes13CalendarEventVSgMR);
   OUTLINED_FUNCTION_114(v4);
-  v6 = *(v5 + 64);
   v0[14] = OUTLINED_FUNCTION_199();
-  v7 = type metadata accessor for CalendarEvent();
-  v0[15] = v7;
-  OUTLINED_FUNCTION_21(v7);
-  v0[16] = v8;
-  v10 = *(v9 + 64);
+  v5 = type metadata accessor for CalendarEvent();
+  v0[15] = v5;
+  OUTLINED_FUNCTION_21(v5);
+  v0[16] = v6;
   v0[17] = OUTLINED_FUNCTION_199();
-  v11 = OUTLINED_FUNCTION_29();
+  v7 = OUTLINED_FUNCTION_29();
 
-  return MEMORY[0x2822009F8](v11, v12, v13);
+  return MEMORY[0x2822009F8](v7);
 }
 
+uint64_t CalendarLocationAnswer.extractFromSource(query:answer:source:assistantLocale:)(uint64_t a1)
 {
-  v2 = *(v0 + 112);
-  v1 = *(v0 + 120);
-  v3 = *(v0 + 104);
-  SearchResultItem.associatedValue.getter((v0 + 16));
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch0B4Item_pMd, &_s10OmniSearch0B4Item_pMR);
-  if ((OUTLINED_FUNCTION_18_1() & 1) == 0)
+  SearchResultItem.associatedValue.getter((v1 + 16));
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch0B4Item_pMd, &_s10OmniSearch0B4Item_pMR);
+  if ((OUTLINED_FUNCTION_18_1(v2) & 1) == 0)
   {
-    v31 = *(v0 + 112);
-    v30 = *(v0 + 120);
-    v32 = OUTLINED_FUNCTION_58();
-    __swift_storeEnumTagSinglePayload(v32, v33, v34, v35);
-    outlined destroy of IntentApplication?(v31, &_s15OmniSearchTypes13CalendarEventVSgMd, &_s15OmniSearchTypes13CalendarEventVSgMR);
+    v23 = *(v1 + 112);
+    v24 = OUTLINED_FUNCTION_58();
+    __swift_storeEnumTagSinglePayload(v24, v25, v26, v27);
+    outlined destroy of IntentApplication?(v23, &_s15OmniSearchTypes13CalendarEventVSgMd, &_s15OmniSearchTypes13CalendarEventVSgMR);
 LABEL_8:
-    v36 = *(v0 + 88);
     type metadata accessor for ExtractionRuleType(0);
-    v37 = OUTLINED_FUNCTION_58();
+    v28 = OUTLINED_FUNCTION_58();
     goto LABEL_11;
   }
 
-  v5 = *(v0 + 128);
-  v4 = *(v0 + 136);
-  v7 = *(v0 + 112);
-  v6 = *(v0 + 120);
+  v3 = *(v1 + 120);
   OUTLINED_FUNCTION_44_0();
-  __swift_storeEnumTagSinglePayload(v8, v9, v10, v6);
-  v11 = *(v5 + 32);
-  v12 = OUTLINED_FUNCTION_16_0();
-  v13(v12);
-  v14 = CalendarEvent.locationName.getter();
-  if (!v15)
+  __swift_storeEnumTagSinglePayload(v4, v5, v6, v3);
+  v7 = OUTLINED_FUNCTION_16_0();
+  v8(v7);
+  v9 = CalendarEvent.locationName.getter();
+  if (!v10)
   {
-    (*(*(v0 + 128) + 8))(*(v0 + 136), *(v0 + 120));
+    (*(*(v1 + 128) + 8))(*(v1 + 136), *(v1 + 120));
     goto LABEL_8;
   }
 
-  v16 = v14;
-  v17 = v15;
-  type metadata accessor for NSUserDefaults();
-  v18 = static NSUserDefaults.needAnswerMatchWithLocationResolution.getter();
-  v20 = *(v0 + 128);
-  v19 = *(v0 + 136);
-  v21 = *(v0 + 120);
-  if (v18)
+  v11 = v9;
+  v12 = v10;
+  v13 = type metadata accessor for NSUserDefaults();
+  v14 = static NSUserDefaults.needAnswerMatchWithLocationResolution.getter(v13);
+  v16 = *(v1 + 128);
+  v15 = *(v1 + 136);
+  v17 = *(v1 + 120);
+  if (v14)
   {
-    v22 = *(v0 + 96);
-    *(v0 + 56) = String.lowercased()();
-    v23 = *(v22 + 16);
-    v24 = *(v22 + 24);
-    *(v0 + 72) = String.lowercased()();
+    *(v1 + 56) = String.lowercased()();
+    *(v1 + 72) = String.lowercased()();
     lazy protocol witness table accessor for type String and conformance String();
-    LOBYTE(v22) = StringProtocol.contains<A>(_:)();
+    v18 = StringProtocol.contains<A>(_:)();
 
-    (*(v20 + 8))(v19, v21);
-    if ((v22 & 1) == 0)
+    (*(v16 + 8))(v15, v17);
+    if ((v18 & 1) == 0)
     {
-      v25 = *(v0 + 88);
       type metadata accessor for ExtractionRuleType(0);
-      v26 = OUTLINED_FUNCTION_58();
-      __swift_storeEnumTagSinglePayload(v26, v27, v28, v29);
+      v19 = OUTLINED_FUNCTION_58();
+      __swift_storeEnumTagSinglePayload(v19, v20, v21, v22);
 
       goto LABEL_12;
     }
@@ -6083,25 +3107,23 @@ LABEL_8:
 
   else
   {
-    (*(v20 + 8))(*(v0 + 136), *(v0 + 120));
+    (*(v16 + 8))(*(v1 + 136), *(v1 + 120));
   }
 
-  v41 = *(v0 + 88);
-  *v41 = v16;
-  v41[1] = v17;
-  v42 = type metadata accessor for ExtractionRuleType(0);
+  v32 = *(v1 + 88);
+  *v32 = v11;
+  v32[1] = v12;
+  v33 = type metadata accessor for ExtractionRuleType(0);
   swift_storeEnumTagMultiPayload();
   OUTLINED_FUNCTION_44_0();
-  v40 = v42;
+  v31 = v33;
 LABEL_11:
-  __swift_storeEnumTagSinglePayload(v37, v38, v39, v40);
+  __swift_storeEnumTagSinglePayload(v28, v29, v30, v31);
 LABEL_12:
-  v43 = *(v0 + 136);
-  v44 = *(v0 + 112);
 
   OUTLINED_FUNCTION_106();
 
-  return v45();
+  return v34();
 }
 
 uint64_t protocol witness for AnswerSourceExtractionRule.extractFromSource(query:answer:source:assistantLocale:) in conformance CalendarLocationAnswer()
@@ -6122,70 +3144,62 @@ uint64_t HotelLocationAnswer.extractFromSource(query:answer:source:assistantLoca
   v0[8] = v2;
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15OmniSearchTypes16HotelReservationVSgMd, &_s15OmniSearchTypes16HotelReservationVSgMR);
   OUTLINED_FUNCTION_114(v3);
-  v5 = *(v4 + 64);
   v0[9] = OUTLINED_FUNCTION_199();
-  v6 = type metadata accessor for HotelReservation();
-  v0[10] = v6;
-  OUTLINED_FUNCTION_21(v6);
-  v0[11] = v7;
-  v9 = *(v8 + 64);
+  v4 = type metadata accessor for HotelReservation();
+  v0[10] = v4;
+  OUTLINED_FUNCTION_21(v4);
+  v0[11] = v5;
   v0[12] = OUTLINED_FUNCTION_199();
-  v10 = OUTLINED_FUNCTION_29();
+  v6 = OUTLINED_FUNCTION_29();
 
-  return MEMORY[0x2822009F8](v10, v11, v12);
+  return MEMORY[0x2822009F8](v6);
 }
 
+uint64_t HotelLocationAnswer.extractFromSource(query:answer:source:assistantLocale:)(uint64_t a1)
 {
-  v2 = v0[9];
-  v1 = v0[10];
-  v3 = v0[8];
-  SearchResultItem.associatedValue.getter(v0 + 2);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch0B4Item_pMd, &_s10OmniSearch0B4Item_pMR);
-  if (OUTLINED_FUNCTION_18_1())
+  SearchResultItem.associatedValue.getter(v1 + 2);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch0B4Item_pMd, &_s10OmniSearch0B4Item_pMR);
+  if (OUTLINED_FUNCTION_18_1(v2))
   {
-    v5 = v0[11];
-    v4 = v0[12];
-    v6 = v0[9];
-    v7 = v0[10];
+    v4 = v1[11];
+    v3 = v1[12];
+    v5 = v1[9];
+    v6 = v1[10];
     OUTLINED_FUNCTION_44_0();
-    __swift_storeEnumTagSinglePayload(v8, v9, v10, v7);
-    (*(v5 + 32))(v4, v6, v7);
-    v11 = HotelReservation.hotelReservationForAddress.getter();
-    v13 = v12;
-    (*(v5 + 8))(v4, v7);
-    if (v13)
+    __swift_storeEnumTagSinglePayload(v7, v8, v9, v6);
+    (*(v4 + 32))(v3, v5, v6);
+    v10 = HotelReservation.hotelReservationForAddress.getter();
+    v12 = v11;
+    (*(v4 + 8))(v3, v6);
+    if (v12)
     {
-      v14 = v0[7];
-      *v14 = v11;
-      v14[1] = v13;
-      v15 = type metadata accessor for ExtractionRuleType(0);
+      v13 = v1[7];
+      *v13 = v10;
+      v13[1] = v12;
+      v14 = type metadata accessor for ExtractionRuleType(0);
       swift_storeEnumTagMultiPayload();
       OUTLINED_FUNCTION_44_0();
-      v19 = v15;
+      v18 = v14;
       goto LABEL_6;
     }
   }
 
   else
   {
-    v21 = v0[9];
-    v20 = v0[10];
-    v22 = OUTLINED_FUNCTION_58();
-    __swift_storeEnumTagSinglePayload(v22, v23, v24, v25);
-    outlined destroy of IntentApplication?(v21, &_s15OmniSearchTypes16HotelReservationVSgMd, &_s15OmniSearchTypes16HotelReservationVSgMR);
+    v19 = v1[9];
+    v20 = OUTLINED_FUNCTION_58();
+    __swift_storeEnumTagSinglePayload(v20, v21, v22, v23);
+    outlined destroy of IntentApplication?(v19, &_s15OmniSearchTypes16HotelReservationVSgMd, &_s15OmniSearchTypes16HotelReservationVSgMR);
   }
 
-  v26 = v0[7];
   type metadata accessor for ExtractionRuleType(0);
-  v16 = OUTLINED_FUNCTION_58();
+  v15 = OUTLINED_FUNCTION_58();
 LABEL_6:
-  __swift_storeEnumTagSinglePayload(v16, v17, v18, v19);
-  v27 = v0[12];
-  v28 = v0[9];
+  __swift_storeEnumTagSinglePayload(v15, v16, v17, v18);
 
   OUTLINED_FUNCTION_106();
 
-  return v29();
+  return v24();
 }
 
 uint64_t protocol witness for AnswerSourceExtractionRule.extractFromSource(query:answer:source:assistantLocale:) in conformance HotelLocationAnswer()
@@ -6201,12 +3215,11 @@ uint64_t protocol witness for AnswerSourceExtractionRule.extractFromSource(query
 
 {
   OUTLINED_FUNCTION_48();
-  v1 = *(*v0 + 16);
-  v4 = *v0;
+  v3 = *v0;
 
-  v2 = *(v4 + 8);
+  v1 = *(v3 + 8);
 
-  return v2();
+  return v1();
 }
 
 uint64_t WalletLocationAnswer.extractFromSource(query:answer:source:assistantLocale:)()
@@ -6217,159 +3230,145 @@ uint64_t WalletLocationAnswer.extractFromSource(query:answer:source:assistantLoc
   v0[22] = v3;
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15OmniSearchTypes17WalletTransactionVSgMd, &_s15OmniSearchTypes17WalletTransactionVSgMR);
   OUTLINED_FUNCTION_114(v4);
-  v6 = *(v5 + 64);
   v0[25] = OUTLINED_FUNCTION_199();
-  v7 = type metadata accessor for WalletTransaction();
-  v0[26] = v7;
-  OUTLINED_FUNCTION_21(v7);
-  v0[27] = v8;
-  v10 = *(v9 + 64);
+  v5 = type metadata accessor for WalletTransaction();
+  v0[26] = v5;
+  OUTLINED_FUNCTION_21(v5);
+  v0[27] = v6;
   v0[28] = OUTLINED_FUNCTION_199();
-  v11 = OUTLINED_FUNCTION_29();
+  v7 = OUTLINED_FUNCTION_29();
 
-  return MEMORY[0x2822009F8](v11, v12, v13);
+  return MEMORY[0x2822009F8](v7);
 }
 
-void WalletLocationAnswer.extractFromSource(query:answer:source:assistantLocale:)()
+void WalletLocationAnswer.extractFromSource(query:answer:source:assistantLocale:)(uint64_t a1)
 {
-  v2 = v0[25];
-  v1 = v0[26];
-  v3 = v0[24];
-  SearchResultItem.associatedValue.getter(v0 + 12);
+  SearchResultItem.associatedValue.getter(v1 + 12);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch0B4Item_pMd, &_s10OmniSearch0B4Item_pMR);
   if (!swift_dynamicCast())
   {
-    v41 = v0[25];
-    v40 = v0[26];
-    v42 = v0[22];
-    v43 = OUTLINED_FUNCTION_58();
-    __swift_storeEnumTagSinglePayload(v43, v44, v45, v46);
-    outlined destroy of IntentApplication?(v41, &_s15OmniSearchTypes17WalletTransactionVSgMd, &_s15OmniSearchTypes17WalletTransactionVSgMR);
-    v47 = type metadata accessor for ExtractionRuleType(0);
-    v48 = v42;
+    v33 = v1[25];
+    v34 = v1[22];
+    v35 = OUTLINED_FUNCTION_58();
+    __swift_storeEnumTagSinglePayload(v35, v36, v37, v38);
+    outlined destroy of IntentApplication?(v33, &_s15OmniSearchTypes17WalletTransactionVSgMd, &_s15OmniSearchTypes17WalletTransactionVSgMR);
+    v39 = type metadata accessor for ExtractionRuleType(0);
+    v40 = v34;
     goto LABEL_21;
   }
 
-  v5 = v0[27];
-  v4 = v0[28];
-  v7 = v0[25];
-  v6 = v0[26];
+  v2 = v1[26];
   OUTLINED_FUNCTION_44_0();
-  __swift_storeEnumTagSinglePayload(v8, v9, v10, v6);
-  v11 = *(v5 + 32);
-  v12 = OUTLINED_FUNCTION_16_0();
-  v13(v12);
-  type metadata accessor for NSUserDefaults();
-  if (static NSUserDefaults.needAnswerMatchWithLocationResolution.getter())
+  __swift_storeEnumTagSinglePayload(v3, v4, v5, v2);
+  v6 = OUTLINED_FUNCTION_16_0();
+  v7(v6);
+  v8 = type metadata accessor for NSUserDefaults();
+  if (static NSUserDefaults.needAnswerMatchWithLocationResolution.getter(v8))
   {
-    v14 = v0[28];
-    v15 = v0[23];
-    v16 = *(v15 + 24);
-    v0[17] = *(v15 + 16);
-    v0[18] = v16;
+    v9 = v1[23];
+    v10 = *(v9 + 24);
+    v1[17] = *(v9 + 16);
+    v1[18] = v10;
 
-    v17 = WalletTransaction.city.getter();
-    v19 = v18 ? v17 : 0;
-    v20 = v18 ? v18 : 0xE000000000000000;
-    v0[19] = v19;
-    v0[20] = v20;
+    v11 = WalletTransaction.city.getter();
+    v13 = v12 ? v11 : 0;
+    v14 = v12 ? v12 : 0xE000000000000000;
+    v1[19] = v13;
+    v1[20] = v14;
     lazy protocol witness table accessor for type String and conformance String();
-    v21 = StringProtocol.contains<A>(_:)();
+    v15 = StringProtocol.contains<A>(_:)();
 
-    if ((v21 & 1) == 0)
+    if ((v15 & 1) == 0)
     {
-      v62 = v0[22];
-      (*(v0[27] + 8))(v0[28], v0[26]);
-      v47 = type metadata accessor for ExtractionRuleType(0);
-      v48 = v62;
+      v52 = v1[22];
+      (*(v1[27] + 8))(v1[28], v1[26]);
+      v39 = type metadata accessor for ExtractionRuleType(0);
+      v40 = v52;
 LABEL_21:
-      v49 = 1;
-      v50 = 1;
+      v41 = 1;
+      v42 = 1;
 LABEL_23:
-      __swift_storeEnumTagSinglePayload(v48, v49, v50, v47);
-      v59 = v0[28];
-      v60 = v0[25];
+      __swift_storeEnumTagSinglePayload(v40, v41, v42, v39);
 
       OUTLINED_FUNCTION_106();
 
-      v61();
+      v51();
       return;
     }
   }
 
-  v22 = v0[28];
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSSgGMd, &_ss23_ContiguousArrayStorageCySSSgGMR);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_25DBC8400;
   *(inited + 32) = WalletTransaction.city.getter();
-  *(inited + 40) = v24;
+  *(inited + 40) = v17;
   *(inited + 48) = WalletTransaction.stateOrProvince.getter();
-  *(inited + 56) = v25;
-  v26 = WalletTransaction.country.getter();
-  v27 = 0;
-  *(inited + 64) = v26;
-  *(inited + 72) = v28;
-  v29 = MEMORY[0x277D84F90];
+  *(inited + 56) = v18;
+  v19 = WalletTransaction.country.getter();
+  v20 = 0;
+  *(inited + 64) = v19;
+  *(inited + 72) = v21;
+  v22 = MEMORY[0x277D84F90];
 LABEL_11:
-  v30 = v27 - 1;
-  v31 = 16 * v27 + 40;
+  v23 = v20 - 1;
+  v24 = 16 * v20 + 40;
   while (1)
   {
-    if (v30 == 2)
+    if (v23 == 2)
     {
-      v52 = v0[27];
-      v51 = v0[28];
-      v53 = v0[26];
-      v54 = v0[22];
+      v44 = v1[27];
+      v43 = v1[28];
+      v45 = v1[26];
+      v46 = v1[22];
       swift_setDeallocating();
       specialized _ContiguousArrayStorage.__deallocating_deinit(&_sSSSgMd, &_sSSSgMR);
-      v0[21] = v29;
+      v1[21] = v22;
       __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
       lazy protocol witness table accessor for type [String] and conformance [A]();
-      v55 = BidirectionalCollection<>.joined(separator:)();
-      v57 = v56;
+      v47 = BidirectionalCollection<>.joined(separator:)();
+      v49 = v48;
 
-      (*(v52 + 8))(v51, v53);
-      *v54 = v55;
-      v54[1] = v57;
-      v58 = type metadata accessor for ExtractionRuleType(0);
+      (*(v44 + 8))(v43, v45);
+      *v46 = v47;
+      v46[1] = v49;
+      v50 = type metadata accessor for ExtractionRuleType(0);
       swift_storeEnumTagMultiPayload();
       OUTLINED_FUNCTION_44_0();
-      v47 = v58;
+      v39 = v50;
       goto LABEL_23;
     }
 
-    if (++v30 > 2)
+    if (++v23 > 2)
     {
       break;
     }
 
-    v32 = v31 + 16;
-    v33 = *(inited + v31);
-    v31 += 16;
-    if (v33)
+    v25 = v24 + 16;
+    v26 = *(inited + v24);
+    v24 += 16;
+    if (v26)
     {
-      v34 = *(inited + v32 - 24);
+      v27 = *(inited + v25 - 24);
 
       if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
       {
-        v37 = *(v29 + 16);
-        specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
-        v29 = v38;
+        specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0);
+        v22 = v31;
       }
 
-      v35 = *(v29 + 16);
-      if (v35 >= *(v29 + 24) >> 1)
+      v29 = *(v22 + 16);
+      v28 = *(v22 + 24);
+      if (v29 >= v28 >> 1)
       {
-        specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
-        v29 = v39;
+        specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v28 > 1);
+        v22 = v32;
       }
 
-      v27 = v30 + 1;
-      *(v29 + 16) = v35 + 1;
-      v36 = v29 + 16 * v35;
-      *(v36 + 32) = v34;
-      *(v36 + 40) = v33;
+      v20 = v23 + 1;
+      *(v22 + 16) = v29 + 1;
+      v30 = v22 + 16 * v29;
+      *(v30 + 32) = v27;
+      *(v30 + 40) = v26;
       goto LABEL_11;
     }
   }
@@ -6396,63 +3395,57 @@ uint64_t FlightFromExtractedAnswer.extractFromSource(query:answer:source:assista
   v0[17] = v3;
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation8TimeZoneVSgMd, &_s10Foundation8TimeZoneVSgMR);
   OUTLINED_FUNCTION_114(v4);
-  v6 = *(v5 + 64);
   v0[20] = OUTLINED_FUNCTION_199();
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation8CalendarVSgMd, &_s10Foundation8CalendarVSgMR);
-  OUTLINED_FUNCTION_114(v7);
-  v9 = *(v8 + 64);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation8CalendarVSgMd, &_s10Foundation8CalendarVSgMR);
+  OUTLINED_FUNCTION_114(v5);
   v0[21] = OUTLINED_FUNCTION_199();
-  v10 = type metadata accessor for DateComponents();
-  OUTLINED_FUNCTION_114(v10);
-  v12 = *(v11 + 64);
+  v6 = type metadata accessor for DateComponents();
+  OUTLINED_FUNCTION_114(v6);
   v0[22] = OUTLINED_FUNCTION_199();
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15OmniSearchTypes16FlightDesignatorVSgMd, &_s15OmniSearchTypes16FlightDesignatorVSgMR);
-  OUTLINED_FUNCTION_114(v13);
-  v15 = *(v14 + 64);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15OmniSearchTypes16FlightDesignatorVSgMd, &_s15OmniSearchTypes16FlightDesignatorVSgMR);
+  OUTLINED_FUNCTION_114(v7);
   v0[23] = OUTLINED_FUNCTION_199();
-  v16 = type metadata accessor for FlightDesignator();
-  v0[24] = v16;
-  OUTLINED_FUNCTION_21(v16);
-  v0[25] = v17;
-  v19 = *(v18 + 64);
+  v8 = type metadata accessor for FlightDesignator();
+  v0[24] = v8;
+  OUTLINED_FUNCTION_21(v8);
+  v0[25] = v9;
   v0[26] = OUTLINED_FUNCTION_199();
-  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15OmniSearchTypes19DataDetectorResultsVSgMd, &_s15OmniSearchTypes19DataDetectorResultsVSgMR);
-  OUTLINED_FUNCTION_114(v20);
-  v22 = *(v21 + 64);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15OmniSearchTypes19DataDetectorResultsVSgMd, &_s15OmniSearchTypes19DataDetectorResultsVSgMR);
+  OUTLINED_FUNCTION_114(v10);
   v0[27] = OUTLINED_FUNCTION_199();
-  v23 = OUTLINED_FUNCTION_29();
+  v11 = OUTLINED_FUNCTION_29();
 
-  return MEMORY[0x2822009F8](v23, v24, v25);
+  return MEMORY[0x2822009F8](v11);
 }
 
+uint64_t FlightFromExtractedAnswer.extractFromSource(query:answer:source:assistantLocale:)(uint64_t a1)
 {
-  v1 = *(v0 + 152);
-  SearchResultItem.associatedValue.getter((v0 + 56));
+  SearchResultItem.associatedValue.getter((v1 + 56));
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch0B4Item_pMd, &_s10OmniSearch0B4Item_pMR);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch14DataDetectable_pMd, &_s10OmniSearch14DataDetectable_pMR);
   if (swift_dynamicCast())
   {
-    v2 = *(v0 + 216);
-    outlined init with take of ResponseOverrideMatcherProtocol((v0 + 96), v0 + 16);
-    v3 = *(v0 + 40);
-    v4 = *(v0 + 48);
-    __swift_project_boxed_opaque_existential_1((v0 + 16), v3);
+    v2 = *(v1 + 216);
+    outlined init with take of ResponseOverrideMatcherProtocol((v1 + 96), v1 + 16);
+    v3 = *(v1 + 40);
+    v4 = *(v1 + 48);
+    __swift_project_boxed_opaque_existential_1((v1 + 16), v3);
     (*(v4 + 8))(v3, v4);
     v5 = type metadata accessor for DataDetectorResults();
     EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v2, 1, v5);
-    v7 = *(v0 + 216);
+    v7 = *(v1 + 216);
     if (EnumTagSinglePayload == 1)
     {
       v8 = &_s15OmniSearchTypes19DataDetectorResultsVSgMd;
       v9 = &_s15OmniSearchTypes19DataDetectorResultsVSgMR;
-      v10 = *(v0 + 216);
+      v10 = *(v1 + 216);
     }
 
     else
     {
-      v12 = *(v0 + 184);
-      v11 = *(v0 + 192);
-      v13 = *(v0 + 144);
+      v12 = *(v1 + 184);
+      v11 = *(v1 + 192);
+      v13 = *(v1 + 144);
       v14 = DataDetectorResults.flightDesignators.getter();
       (*(*(v5 - 8) + 8))(v7, v5);
       *(swift_task_alloc() + 16) = v13;
@@ -6460,104 +3453,87 @@ uint64_t FlightFromExtractedAnswer.extractFromSource(query:answer:source:assista
 
       if (__swift_getEnumTagSinglePayload(v12, 1, v11) != 1)
       {
-        v29 = *(v0 + 200);
-        v28 = *(v0 + 208);
-        v62 = *(v0 + 192);
-        v31 = *(v0 + 168);
-        v30 = *(v0 + 176);
-        v32 = *(v0 + 152);
-        v33 = *(v0 + 160);
-        v34 = *(v0 + 136);
-        (*(v29 + 32))(v28, *(v0 + 184));
-        v35 = FlightDesignator.number.getter();
-        v60 = v36;
-        v61 = v35;
-        v37 = FlightDesignator.airline.getter();
-        v58 = v38;
-        v59 = v37;
-        v39 = *(type metadata accessor for SearchResult(0) + 24);
+        v22 = *(v1 + 200);
+        v21 = *(v1 + 208);
+        v58 = *(v1 + 192);
+        v24 = *(v1 + 168);
+        v23 = *(v1 + 176);
+        v25 = *(v1 + 160);
+        (*(v22 + 32))(v21, *(v1 + 184));
+        v26 = FlightDesignator.number.getter();
+        v56 = v27;
+        v57 = v26;
+        v28 = FlightDesignator.airline.getter();
+        v54 = v29;
+        v55 = v28;
+        type metadata accessor for SearchResult(0);
         __swift_instantiateConcreteTypeFromMangledNameV2(&_s15OmniSearchTypes21CodableNSSecureCodingVySo16CSSearchableItemCGMd, &_s15OmniSearchTypes21CodableNSSecureCodingVySo16CSSearchableItemCGMR);
-        v40 = CodableNSSecureCoding.wrappedValue.getter();
-        v41 = outlined bridged method (ob) of @objc CSSearchableItem.bundleID.getter(v40);
-        if (v42)
+        v30 = CodableNSSecureCoding.wrappedValue.getter();
+        v31 = outlined bridged method (ob) of @objc CSSearchableItem.bundleID.getter(v30);
+        if (v32)
         {
-          v43 = v41;
+          v33 = v31;
         }
 
         else
         {
-          v43 = 0;
+          v33 = 0;
         }
 
-        if (v42)
+        if (v32)
         {
-          v44 = v42;
+          v34 = v32;
         }
 
         else
         {
-          v44 = 0xE000000000000000;
+          v34 = 0xE000000000000000;
         }
 
-        v45 = type metadata accessor for Calendar();
-        __swift_storeEnumTagSinglePayload(v31, 1, 1, v45);
-        v46 = type metadata accessor for TimeZone();
-        __swift_storeEnumTagSinglePayload(v33, 1, 1, v46);
-        LOBYTE(v57) = 1;
-        LOBYTE(v56) = 1;
-        LOBYTE(v55) = 1;
-        LOBYTE(v54) = 1;
-        LOBYTE(v53) = 1;
-        LOBYTE(v52) = 1;
-        DateComponents.init(calendar:timeZone:era:year:month:day:hour:minute:second:nanosecond:weekday:weekdayOrdinal:quarter:weekOfMonth:weekOfYear:yearForWeekOfYear:)();
-        FlightReservation.init(flightNumber:flightCarrierCode:bundleId:flightDepartureDateComponents:)(v61, v60, v59, v58, v43, v44, v30, v47, 0, v52, 0, v53, 0, v54, 0, v55, 0, v56, 0, v57);
-        (*(v29 + 8))(v28, v62);
-        v48 = type metadata accessor for ExtractionRuleType(0);
+        v35 = type metadata accessor for Calendar();
+        __swift_storeEnumTagSinglePayload(v24, 1, 1, v35);
+        v36 = type metadata accessor for TimeZone();
+        __swift_storeEnumTagSinglePayload(v25, 1, 1, v36);
+        DateComponents.init(calendar:timeZone:era:year:month:day:hour:minute:second:nanosecond:weekday:weekdayOrdinal:quarter:weekOfMonth:weekOfYear:yearForWeekOfYear:)(v24, v25, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1);
+        FlightReservation.init(flightNumber:flightCarrierCode:bundleId:flightDepartureDateComponents:)(v57, v56, v55, v54, v33, v34, v23, v37, v42, v43, v44, v45, v46, v47, v48, v49, v50, v51, v52, v53);
+        (*(v22 + 8))(v21, v58);
+        v38 = type metadata accessor for ExtractionRuleType(0);
         swift_storeEnumTagMultiPayload();
         OUTLINED_FUNCTION_44_0();
-        __swift_storeEnumTagSinglePayload(v49, v50, v51, v48);
-        __swift_destroy_boxed_opaque_existential_1Tm((v0 + 16));
+        __swift_storeEnumTagSinglePayload(v39, v40, v41, v38);
+        __swift_destroy_boxed_opaque_existential_1Tm((v1 + 16));
         goto LABEL_9;
       }
 
-      v10 = *(v0 + 184);
+      v10 = *(v1 + 184);
       v8 = &_s15OmniSearchTypes16FlightDesignatorVSgMd;
       v9 = &_s15OmniSearchTypes16FlightDesignatorVSgMR;
     }
 
     outlined destroy of IntentApplication?(v10, v8, v9);
-    __swift_destroy_boxed_opaque_existential_1Tm((v0 + 16));
+    __swift_destroy_boxed_opaque_existential_1Tm((v1 + 16));
   }
 
   else
   {
-    *(v0 + 128) = 0;
-    *(v0 + 96) = 0u;
-    *(v0 + 112) = 0u;
-    outlined destroy of IntentApplication?(v0 + 96, &_s10OmniSearch14DataDetectable_pSgMd, &_s10OmniSearch14DataDetectable_pSgMR);
+    *(v1 + 128) = 0;
+    *(v1 + 96) = 0u;
+    *(v1 + 112) = 0u;
+    outlined destroy of IntentApplication?(v1 + 96, &_s10OmniSearch14DataDetectable_pSgMd, &_s10OmniSearch14DataDetectable_pSgMR);
   }
 
-  v15 = *(v0 + 136);
   type metadata accessor for ExtractionRuleType(0);
-  v16 = OUTLINED_FUNCTION_58();
-  __swift_storeEnumTagSinglePayload(v16, v17, v18, v19);
+  v15 = OUTLINED_FUNCTION_58();
+  __swift_storeEnumTagSinglePayload(v15, v16, v17, v18);
 LABEL_9:
-  v21 = *(v0 + 208);
-  v20 = *(v0 + 216);
-  v23 = *(v0 + 176);
-  v22 = *(v0 + 184);
-  v25 = *(v0 + 160);
-  v24 = *(v0 + 168);
 
   OUTLINED_FUNCTION_106();
 
-  return v26();
+  return v19();
 }
 
 uint64_t closure #1 in FlightFromExtractedAnswer.extractFromSource(query:answer:source:assistantLocale:)(uint64_t a1, uint64_t a2)
 {
-  v7 = *(a2 + 16);
-  v8 = *(a2 + 24);
 
   FlightDesignator.airline.getter();
   v2 = FlightDesignator.number.getter();
@@ -6574,85 +3550,83 @@ uint64_t closure #1 in FlightFromExtractedAnswer.extractFromSource(query:answer:
 uint64_t specialized Sequence.first(where:)@<X0>(uint64_t (*a1)(uint64_t)@<X0>, uint64_t a2@<X2>, uint64_t a3@<X8>)
 {
   v5 = type metadata accessor for FlightDesignator();
-  v6 = OUTLINED_FUNCTION_14(v5);
-  v8 = v7;
-  v10 = *(v9 + 64);
-  MEMORY[0x28223BE20](v6);
+  OUTLINED_FUNCTION_14();
+  v7 = v6;
+  MEMORY[0x28223BE20](v8);
   OUTLINED_FUNCTION_36();
-  v13 = v12 - v11;
-  v14 = 0;
-  v15 = *(a2 + 16);
-  v16 = (v8 + 8);
+  v11 = v10 - v9;
+  v12 = 0;
+  v13 = *(a2 + 16);
+  v14 = (v7 + 8);
   while (1)
   {
-    if (v15 == v14)
+    if (v13 == v12)
     {
-      v18 = 1;
-      v19 = a3;
-      return __swift_storeEnumTagSinglePayload(v19, v18, 1, v5);
+      v16 = 1;
+      v17 = a3;
+      return __swift_storeEnumTagSinglePayload(v17, v16, 1, v5);
     }
 
-    (*(v8 + 16))(v13, a2 + ((*(v8 + 80) + 32) & ~*(v8 + 80)) + *(v8 + 72) * v14, v5);
-    v17 = a1(v13);
+    (*(v7 + 16))(v11, a2 + ((*(v7 + 80) + 32) & ~*(v7 + 80)) + *(v7 + 72) * v12, v5);
+    v15 = a1(v11);
     if (v3)
     {
-      return (*v16)(v13, v5);
+      return (*v14)(v11, v5);
     }
 
-    if (v17)
+    if (v15)
     {
       break;
     }
 
-    (*v16)(v13, v5);
-    ++v14;
+    (*v14)(v11, v5);
+    ++v12;
   }
 
-  v19 = a3;
-  (*(v8 + 32))(a3, v13, v5);
-  v18 = 0;
-  return __swift_storeEnumTagSinglePayload(v19, v18, 1, v5);
+  v17 = a3;
+  (*(v7 + 32))(a3, v11, v5);
+  v16 = 0;
+  return __swift_storeEnumTagSinglePayload(v17, v16, 1, v5);
 }
 
 {
   v6 = type metadata accessor for FlightSnippet.Leg(0);
-  v7 = OUTLINED_FUNCTION_14(v6);
-  v9 = v8;
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v7);
+  OUTLINED_FUNCTION_14();
+  v8 = v7;
+  MEMORY[0x28223BE20](v9);
   OUTLINED_FUNCTION_36();
-  v14 = v13 - v12;
-  v15 = 0;
-  v16 = *(a2 + 16);
+  v12 = v11 - v10;
+  v13 = 0;
+  v14 = *(a2 + 16);
   while (1)
   {
-    if (v16 == v15)
+    if (v14 == v13)
     {
-      v18 = 1;
-      v19 = a3;
-      return __swift_storeEnumTagSinglePayload(v19, v18, 1, v6);
+      v16 = 1;
+      v17 = a3;
+      return __swift_storeEnumTagSinglePayload(v17, v16, 1, v6);
     }
 
-    outlined init with copy of SearchResultItem(a2 + ((*(v9 + 80) + 32) & ~*(v9 + 80)) + *(v9 + 72) * v15, v14, type metadata accessor for FlightSnippet.Leg);
-    v17 = a1(v14);
+    outlined init with copy of SearchResultItem(a2 + ((*(v8 + 80) + 32) & ~*(v8 + 80)) + *(v8 + 72) * v13, v12, type metadata accessor for FlightSnippet.Leg);
+    v15 = a1(v12);
     if (v3)
     {
-      return outlined destroy of SearchResultItem(v14, type metadata accessor for FlightSnippet.Leg);
+      return outlined destroy of SearchResultItem(v12, type metadata accessor for FlightSnippet.Leg);
     }
 
-    if (v17)
+    if (v15)
     {
       break;
     }
 
-    outlined destroy of SearchResultItem(v14, type metadata accessor for FlightSnippet.Leg);
-    ++v15;
+    outlined destroy of SearchResultItem(v12, type metadata accessor for FlightSnippet.Leg);
+    ++v13;
   }
 
-  v19 = a3;
-  outlined init with take of FlightSnippet.Leg(v14, a3);
-  v18 = 0;
-  return __swift_storeEnumTagSinglePayload(v19, v18, 1, v6);
+  v17 = a3;
+  outlined init with take of FlightSnippet.Leg(v12, a3);
+  v16 = 0;
+  return __swift_storeEnumTagSinglePayload(v17, v16, 1, v6);
 }
 
 uint64_t protocol witness for AnswerSourceExtractionRule.extractFromSource(query:answer:source:assistantLocale:) in conformance FlightFromExtractedAnswer()
@@ -6666,42 +3640,40 @@ uint64_t protocol witness for AnswerSourceExtractionRule.extractFromSource(query
   return FlightFromExtractedAnswer.extractFromSource(query:answer:source:assistantLocale:)();
 }
 
-uint64_t URL.init(hostedLink:)@<X0>(uint64_t a1@<X8>)
+uint64_t URL.init(hostedLink:)@<X0>(char *a3@<X8>)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  v3 = OUTLINED_FUNCTION_114(v2);
-  v5 = *(v4 + 64);
-  MEMORY[0x28223BE20](v3);
-  v7 = &v21 - v6;
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  v5 = OUTLINED_FUNCTION_114(v4);
+  MEMORY[0x28223BE20](v5);
+  v7 = &v19 - v6;
   v8 = type metadata accessor for URL();
-  v9 = OUTLINED_FUNCTION_14(v8);
-  v11 = v10;
-  v13 = *(v12 + 64);
-  MEMORY[0x28223BE20](v9);
+  OUTLINED_FUNCTION_14();
+  v10 = v9;
+  MEMORY[0x28223BE20](v11);
   OUTLINED_FUNCTION_36();
-  v16 = (v15 - v14);
+  v14 = (v13 - v12);
   URL.init(string:)();
 
   if (__swift_getEnumTagSinglePayload(v7, 1, v8) == 1)
   {
     outlined destroy of IntentApplication?(v7, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
 LABEL_6:
-    v19 = 1;
-    return __swift_storeEnumTagSinglePayload(a1, v19, 1, v8);
+    v17 = 1;
+    return __swift_storeEnumTagSinglePayload(a3, v17, 1, v8);
   }
 
-  v17 = *(v11 + 32);
-  v17(v16, v7, v8);
+  v15 = *(v10 + 32);
+  v15(v14, v7, v8);
   URL.host.getter();
-  if (!v18)
+  if (!v16)
   {
-    (*(v11 + 8))(v16, v8);
+    (*(v10 + 8))(v14, v8);
     goto LABEL_6;
   }
 
-  v17(a1, v16, v8);
-  v19 = 0;
-  return __swift_storeEnumTagSinglePayload(a1, v19, 1, v8);
+  v15(a3, v14, v8);
+  v17 = 0;
+  return __swift_storeEnumTagSinglePayload(a3, v17, 1, v8);
 }
 
 uint64_t specialized _ContiguousArrayStorage.__deallocating_deinit()
@@ -6710,7 +3682,6 @@ uint64_t specialized _ContiguousArrayStorage.__deallocating_deinit()
 }
 
 {
-  v1 = *(v0 + 16);
   swift_arrayDestroy();
   OUTLINED_FUNCTION_1_1();
 
@@ -6722,7 +3693,6 @@ uint64_t specialized _ContiguousArrayStorage.__deallocating_deinit()
 }
 
 {
-  v1 = *(v0 + 16);
   swift_arrayDestroy();
   OUTLINED_FUNCTION_1_1();
 
@@ -6734,7 +3704,6 @@ uint64_t specialized _ContiguousArrayStorage.__deallocating_deinit()
 }
 
 {
-  v1 = *(v0 + 16);
   swift_arrayDestroy();
   OUTLINED_FUNCTION_1_1();
 
@@ -6746,7 +3715,6 @@ uint64_t specialized _ContiguousArrayStorage.__deallocating_deinit()
 }
 
 {
-  v1 = *(v0 + 16);
   swift_arrayDestroy();
   OUTLINED_FUNCTION_1_1();
 
@@ -6763,7 +3731,6 @@ uint64_t specialized _ContiguousArrayStorage.__deallocating_deinit()
 
 uint64_t specialized _ContiguousArrayStorage.__deallocating_deinit(uint64_t *a1, uint64_t *a2)
 {
-  v3 = *(v2 + 16);
   __swift_instantiateConcreteTypeFromMangledNameV2(a1, a2);
   swift_arrayDestroy();
   OUTLINED_FUNCTION_1_1();
@@ -6834,7 +3801,7 @@ unint64_t lazy protocol witness table accessor for type Answer and conformance A
   result = lazy protocol witness table cache variable for type Answer and conformance Answer;
   if (!lazy protocol witness table cache variable for type Answer and conformance Answer)
   {
-    type metadata accessor for Answer();
+    type metadata accessor for Answer(255);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type Answer and conformance Answer);
   }
@@ -7083,19 +4050,19 @@ LABEL_18:
   return result;
 }
 
-uint64_t outlined init with copy of SearchResultItem(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
+uint64_t outlined init with copy of SearchResultItem(uint64_t a1, uint64_t a2, void (*a3)(void))
 {
-  v5 = a3(0);
-  OUTLINED_FUNCTION_17(v5);
-  (*(v6 + 16))(a2, a1);
+  a3(0);
+  OUTLINED_FUNCTION_17();
+  (*(v5 + 16))(a2, a1);
   return a2;
 }
 
-uint64_t outlined destroy of SearchResultItem(uint64_t a1, uint64_t (*a2)(void))
+uint64_t outlined destroy of SearchResultItem(uint64_t a1, void (*a2)(void))
 {
-  v3 = a2(0);
-  OUTLINED_FUNCTION_17(v3);
-  (*(v4 + 8))(a1);
+  a2(0);
+  OUTLINED_FUNCTION_17();
+  (*(v3 + 8))(a1);
   return a1;
 }
 
@@ -7106,7 +4073,7 @@ uint64_t outlined init with take of FlightSnippet.Leg(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-uint64_t OUTLINED_FUNCTION_18_1()
+uint64_t OUTLINED_FUNCTION_18_1(uint64_t a1)
 {
 
   return swift_dynamicCast();
@@ -7128,21 +4095,21 @@ uint64_t ExtractionRule.isEnabled(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
 uint64_t ExtractedInfo.init(result:type:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   _s10OmniSearch0B6ResultVWObTm_0(a1, a3);
-  v5 = *(type metadata accessor for ExtractedInfo(0) + 20);
+  type metadata accessor for ExtractedInfo(0);
   OUTLINED_FUNCTION_3_0();
-  return _s10OmniSearch0B6ResultVWObTm_0(a2, a3 + v6);
+  return _s10OmniSearch0B6ResultVWObTm_0(a2, a3 + v5);
 }
 
 uint64_t _s10OmniSearch0B6ResultVWObTm_0(uint64_t a1, uint64_t a2)
 {
   v4 = OUTLINED_FUNCTION_47_1();
-  v6 = v5(v4);
-  OUTLINED_FUNCTION_17(v6);
-  (*(v7 + 32))(a2, v2);
+  v5(v4);
+  OUTLINED_FUNCTION_17();
+  (*(v6 + 32))(a2, v2);
   return a2;
 }
 
-uint64_t type metadata accessor for ExtractedInfo(uint64_t a1, uint64_t *a2)
+uint64_t type metadata accessor for ExtractedInfo(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   result = *a2;
   if (!*a2)
@@ -7158,167 +4125,149 @@ uint64_t protocol witness for TypedExtractionRule.extractInfo(query:typedResult:
   OUTLINED_FUNCTION_39_1();
   OUTLINED_FUNCTION_75();
   OUTLINED_FUNCTION_4_1();
-  OUTLINED_FUNCTION_60(&async function pointer to specialized AnswerSourceExtractionRule.extractInfo(query:typedResult:assistantLocale:));
-  v10 = OUTLINED_FUNCTION_40_1();
-  v11 = OUTLINED_FUNCTION_23(v10);
-  *v11 = v12;
-  OUTLINED_FUNCTION_2_1(v11);
+  v10 = OUTLINED_FUNCTION_60(&async function pointer to specialized AnswerSourceExtractionRule.extractInfo(query:typedResult:assistantLocale:));
+  v11 = OUTLINED_FUNCTION_40_1(v10);
+  v12 = OUTLINED_FUNCTION_23(v11);
+  *v12 = v13;
+  OUTLINED_FUNCTION_2_1(v12);
   OUTLINED_FUNCTION_44_1();
 
-  return v19(v13, v14, v15, v16, v17, v18, v19, v20, a9, a10);
+  return v20(v14, v15, v16, v17, v18, v19, v20, v21, a9, a10);
 }
 
 uint64_t specialized AnswerSourceExtractionRule.extractInfo(query:typedResult:assistantLocale:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v3[7] = a1;
   v3[8] = a3;
-  v4 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s15OmniSearchTypes16HotelReservationVSgMd, &_s15OmniSearchTypes16HotelReservationVSgMR) - 8) + 64) + 15;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s15OmniSearchTypes16HotelReservationVSgMd, &_s15OmniSearchTypes16HotelReservationVSgMR);
   v3[9] = swift_task_alloc();
-  v5 = type metadata accessor for HotelReservation();
-  v3[10] = v5;
-  v6 = *(v5 - 8);
-  v3[11] = v6;
-  v7 = *(v6 + 64) + 15;
+  v4 = type metadata accessor for HotelReservation();
+  v3[10] = v4;
+  v3[11] = *(v4 - 8);
   v3[12] = swift_task_alloc();
-  v8 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch18ExtractionRuleTypeOSgMd, &_s10OmniSearch18ExtractionRuleTypeOSgMR) - 8) + 64) + 15;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch18ExtractionRuleTypeOSgMd, &_s10OmniSearch18ExtractionRuleTypeOSgMR);
   v3[13] = swift_task_alloc();
-  v9 = *(type metadata accessor for SearchResult(0) - 8);
-  v3[14] = v9;
-  v10 = *(v9 + 64) + 15;
+  v3[14] = *(type metadata accessor for SearchResult(0) - 8);
   v3[15] = swift_task_alloc();
 
-  return MEMORY[0x2822009F8](specialized AnswerSourceExtractionRule.extractInfo(query:typedResult:assistantLocale:), 0, 0);
+  return MEMORY[0x2822009F8](specialized AnswerSourceExtractionRule.extractInfo(query:typedResult:assistantLocale:));
 }
 
 {
   v3[11] = a1;
   v3[12] = a3;
-  v4 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s15OmniSearchTypes13CalendarEventVSgMd, &_s15OmniSearchTypes13CalendarEventVSgMR) - 8) + 64) + 15;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s15OmniSearchTypes13CalendarEventVSgMd, &_s15OmniSearchTypes13CalendarEventVSgMR);
   v3[13] = swift_task_alloc();
-  v5 = type metadata accessor for CalendarEvent();
-  v3[14] = v5;
-  v6 = *(v5 - 8);
-  v3[15] = v6;
-  v7 = *(v6 + 64) + 15;
+  v4 = type metadata accessor for CalendarEvent();
+  v3[14] = v4;
+  v3[15] = *(v4 - 8);
   v3[16] = swift_task_alloc();
-  v8 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch18ExtractionRuleTypeOSgMd, &_s10OmniSearch18ExtractionRuleTypeOSgMR) - 8) + 64) + 15;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch18ExtractionRuleTypeOSgMd, &_s10OmniSearch18ExtractionRuleTypeOSgMR);
   v3[17] = swift_task_alloc();
-  v9 = *(type metadata accessor for SearchResult(0) - 8);
-  v3[18] = v9;
-  v10 = *(v9 + 64) + 15;
+  v3[18] = *(type metadata accessor for SearchResult(0) - 8);
   v3[19] = swift_task_alloc();
 
-  return MEMORY[0x2822009F8](specialized AnswerSourceExtractionRule.extractInfo(query:typedResult:assistantLocale:), 0, 0);
+  return MEMORY[0x2822009F8](specialized AnswerSourceExtractionRule.extractInfo(query:typedResult:assistantLocale:));
 }
 
 {
   v3[17] = a1;
   v3[18] = a3;
-  v4 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation8TimeZoneVSgMd, &_s10Foundation8TimeZoneVSgMR) - 8) + 64) + 15;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation8TimeZoneVSgMd, &_s10Foundation8TimeZoneVSgMR);
   v3[19] = swift_task_alloc();
-  v5 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation8CalendarVSgMd, &_s10Foundation8CalendarVSgMR) - 8) + 64) + 15;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation8CalendarVSgMd, &_s10Foundation8CalendarVSgMR);
   v3[20] = swift_task_alloc();
-  v6 = *(*(type metadata accessor for DateComponents() - 8) + 64) + 15;
+  type metadata accessor for DateComponents();
   v3[21] = swift_task_alloc();
-  v7 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s15OmniSearchTypes16FlightDesignatorVSgMd, &_s15OmniSearchTypes16FlightDesignatorVSgMR) - 8) + 64) + 15;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s15OmniSearchTypes16FlightDesignatorVSgMd, &_s15OmniSearchTypes16FlightDesignatorVSgMR);
   v3[22] = swift_task_alloc();
-  v8 = type metadata accessor for FlightDesignator();
-  v3[23] = v8;
-  v9 = *(v8 - 8);
-  v3[24] = v9;
-  v10 = *(v9 + 64) + 15;
+  v4 = type metadata accessor for FlightDesignator();
+  v3[23] = v4;
+  v3[24] = *(v4 - 8);
   v3[25] = swift_task_alloc();
-  v11 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s15OmniSearchTypes19DataDetectorResultsVSgMd, &_s15OmniSearchTypes19DataDetectorResultsVSgMR) - 8) + 64) + 15;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s15OmniSearchTypes19DataDetectorResultsVSgMd, &_s15OmniSearchTypes19DataDetectorResultsVSgMR);
   v3[26] = swift_task_alloc();
-  v12 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch18ExtractionRuleTypeOSgMd, &_s10OmniSearch18ExtractionRuleTypeOSgMR) - 8) + 64) + 15;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch18ExtractionRuleTypeOSgMd, &_s10OmniSearch18ExtractionRuleTypeOSgMR);
   v3[27] = swift_task_alloc();
-  v13 = type metadata accessor for SearchResult(0);
-  v3[28] = v13;
-  v14 = *(v13 - 8);
-  v3[29] = v14;
-  v15 = *(v14 + 64) + 15;
+  v5 = type metadata accessor for SearchResult(0);
+  v3[28] = v5;
+  v3[29] = *(v5 - 8);
   v3[30] = swift_task_alloc();
 
-  return MEMORY[0x2822009F8](specialized AnswerSourceExtractionRule.extractInfo(query:typedResult:assistantLocale:), 0, 0);
+  return MEMORY[0x2822009F8](specialized AnswerSourceExtractionRule.extractInfo(query:typedResult:assistantLocale:));
 }
 
 void specialized AnswerSourceExtractionRule.extractInfo(query:typedResult:assistantLocale:)()
 {
   v1 = 0;
-  v2 = v0[14];
-  v3 = v0[11];
-  v4 = *(v0[8] + 40);
-  v41 = v0[13];
-  v42 = (v3 + 32);
-  v5 = (v3 + 8);
-  v6 = *(v4 + 16);
+  v2 = v0[11];
+  v3 = *(v0[8] + 40);
+  v30 = v0[13];
+  v31 = (v2 + 32);
+  v4 = (v2 + 8);
+  v5 = *(v3 + 16);
   while (1)
   {
-    if (v6 == v1)
+    if (v5 == v1)
     {
       OUTLINED_FUNCTION_18_2();
-      v32 = 1;
+      v26 = 1;
       goto LABEL_13;
     }
 
-    if (v1 >= *(v4 + 16))
+    if (v1 >= *(v3 + 16))
     {
       __break(1u);
       return;
     }
 
-    v7 = v0[15];
-    v9 = v0[9];
-    v8 = v0[10];
-    v10 = v4 + ((*(v2 + 80) + 32) & ~*(v2 + 80));
-    v11 = *(v2 + 72);
+    v6 = v0[15];
     OUTLINED_FUNCTION_0_1();
-    outlined init with copy of SearchResult(v12, v7);
+    outlined init with copy of SearchResult(v7, v6);
     SearchResultItem.associatedValue.getter(v0 + 2);
     __swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch0B4Item_pMd, &_s10OmniSearch0B4Item_pMR);
     if (swift_dynamicCast())
     {
-      v13 = v0[12];
-      v14 = v0[9];
-      v15 = v0[10];
+      v8 = v0[12];
+      v9 = v0[9];
+      v10 = v0[10];
       OUTLINED_FUNCTION_44_0();
-      __swift_storeEnumTagSinglePayload(v16, v17, v18, v15);
-      (*v42)(v13, v14, v15);
-      v19 = HotelReservation.hotelReservationForAddress.getter();
-      v21 = v20;
-      (*v5)(v13, v15);
-      if (v21)
+      __swift_storeEnumTagSinglePayload(v11, v12, v13, v10);
+      (*v31)(v8, v9, v10);
+      v14 = HotelReservation.hotelReservationForAddress.getter();
+      v16 = v15;
+      (*v4)(v8, v10);
+      if (v16)
       {
-        v22 = v0[13];
-        *v22 = v19;
-        *(v41 + 8) = v21;
+        v17 = v0[13];
+        *v17 = v14;
+        *(v30 + 8) = v16;
         OUTLINED_FUNCTION_18_2();
         swift_storeEnumTagMultiPayload();
-        v23 = v22;
-        v24 = 0;
+        v18 = v17;
+        v19 = 0;
         goto LABEL_9;
       }
     }
 
     else
     {
-      v19 = v0[9];
-      v25 = v0[10];
+      v14 = v0[9];
       OUTLINED_FUNCTION_92();
-      __swift_storeEnumTagSinglePayload(v26, v27, v28, v29);
-      outlined destroy of IntentApplication?(v19, &_s15OmniSearchTypes16HotelReservationVSgMd, &_s15OmniSearchTypes16HotelReservationVSgMR);
+      __swift_storeEnumTagSinglePayload(v20, v21, v22, v23);
+      outlined destroy of IntentApplication?(v14, &_s15OmniSearchTypes16HotelReservationVSgMd, &_s15OmniSearchTypes16HotelReservationVSgMR);
     }
 
-    v30 = v0[13];
+    v24 = v0[13];
     OUTLINED_FUNCTION_18_2();
-    v23 = v30;
-    v24 = 1;
+    v18 = v24;
+    v19 = 1;
 LABEL_9:
-    __swift_storeEnumTagSinglePayload(v23, v24, 1, v19);
-    v31 = v0[13];
+    __swift_storeEnumTagSinglePayload(v18, v19, 1, v14);
+    v25 = v0[13];
     OUTLINED_FUNCTION_15_1(v0[15]);
     type metadata accessor for ExtractionRuleType(0);
-    if (__swift_getEnumTagSinglePayload(v31, 1, v19) != 1)
+    if (__swift_getEnumTagSinglePayload(v25, 1, v14) != 1)
     {
       break;
     }
@@ -7327,43 +4276,35 @@ LABEL_9:
     ++v1;
   }
 
-  v33 = v0[7];
   OUTLINED_FUNCTION_3_0();
-  _s10OmniSearch0B6ResultVWObTm_0(v34, v35);
-  v32 = 0;
+  _s10OmniSearch0B6ResultVWObTm_0(v27, v28);
+  v26 = 0;
 LABEL_13:
-  v36 = v0[15];
-  v38 = v0[12];
-  v37 = v0[13];
-  v39 = v0[9];
-  OUTLINED_FUNCTION_35_1(v0[7], v32);
+  OUTLINED_FUNCTION_35_1(v0[7], v26);
 
   OUTLINED_FUNCTION_106();
 
-  v40();
+  v29();
 }
 
 {
   OUTLINED_FUNCTION_48();
-  v1 = v0[8];
-  v2 = *(v0[4] + 40);
-  v0[10] = v2;
-  v3 = *(v2 + 16);
-  v0[11] = v3;
+  v1 = *(v0[4] + 40);
+  v0[10] = v1;
+  v2 = *(v1 + 16);
+  v0[11] = v2;
   v0[12] = 0;
-  if (v3)
+  if (v2)
   {
-    if (*(v2 + 16))
+    if (*(v1 + 16))
     {
-      v4 = v0[9];
-      v5 = *(v1 + 80);
       OUTLINED_FUNCTION_0_1();
-      outlined init with copy of SearchResult(v6 + v7, v8);
+      outlined init with copy of SearchResult(v3 + v4, v5);
       swift_task_alloc();
       OUTLINED_FUNCTION_53();
-      v0[13] = v9;
-      *v9 = v10;
-      OUTLINED_FUNCTION_25_0(v9);
+      v0[13] = v6;
+      *v6 = v7;
+      OUTLINED_FUNCTION_25_0(v6);
 
       WalletLocationAnswer.extractFromSource(query:answer:source:assistantLocale:)();
     }
@@ -7377,318 +4318,13 @@ LABEL_13:
   else
   {
     OUTLINED_FUNCTION_21_0();
-    v11 = v0[9];
-    v12 = v0[7];
-    v13 = v0[2];
     OUTLINED_FUNCTION_92();
-    __swift_storeEnumTagSinglePayload(v14, v15, v16, v17);
+    __swift_storeEnumTagSinglePayload(v8, v9, v10, v11);
 
     OUTLINED_FUNCTION_106();
 
-    v18();
+    v12();
   }
-}
-
-{
-  v1 = 0;
-  v2 = *(v0 + 144);
-  v3 = *(v0 + 120);
-  v74 = *(v0 + 96);
-  v75 = *(v0 + 136);
-  v4 = v74[5];
-  v77 = (v3 + 32);
-  v78 = (v3 + 8);
-  v5 = *(v4 + 16);
-  v73 = v4;
-  v76 = v5;
-  while (1)
-  {
-    if (v5 == v1)
-    {
-      OUTLINED_FUNCTION_18_2();
-      v63 = 1;
-      goto LABEL_19;
-    }
-
-    if (v1 >= *(v4 + 16))
-    {
-      __break(1u);
-      return;
-    }
-
-    v6 = *(v0 + 152);
-    v8 = *(v0 + 104);
-    v7 = *(v0 + 112);
-    v9 = v4 + ((*(v2 + 80) + 32) & ~*(v2 + 80));
-    v10 = *(v2 + 72);
-    OUTLINED_FUNCTION_0_1();
-    outlined init with copy of SearchResult(v11, v6);
-    SearchResultItem.associatedValue.getter((v0 + 16));
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch0B4Item_pMd, &_s10OmniSearch0B4Item_pMR);
-    if (!swift_dynamicCast())
-    {
-      v12 = *(v0 + 104);
-      v48 = *(v0 + 112);
-      OUTLINED_FUNCTION_92();
-      __swift_storeEnumTagSinglePayload(v49, v50, v51, v52);
-      outlined destroy of IntentApplication?(v12, &_s15OmniSearchTypes13CalendarEventVSgMd, &_s15OmniSearchTypes13CalendarEventVSgMR);
-LABEL_11:
-      v53 = *(v0 + 136);
-      OUTLINED_FUNCTION_18_2();
-      OUTLINED_FUNCTION_92();
-      __swift_storeEnumTagSinglePayload(v54, v55, v56, v12);
-      goto LABEL_15;
-    }
-
-    v12 = *(v0 + 128);
-    v14 = *(v0 + 104);
-    v13 = *(v0 + 112);
-    OUTLINED_FUNCTION_44_0();
-    __swift_storeEnumTagSinglePayload(v15, v16, v17, v13);
-    (*v77)(v12, v14, v13);
-    v18 = CalendarEvent.locationName.getter();
-    if (!v19)
-    {
-      (*v78)(*(v0 + 128), *(v0 + 112));
-      v5 = v76;
-      goto LABEL_11;
-    }
-
-    v20 = v18;
-    v21 = v19;
-    v12 = type metadata accessor for NSUserDefaults();
-    v22 = static NSUserDefaults.needAnswerMatchWithLocationResolution.getter();
-    v30 = *(v0 + 128);
-    v31 = *(v0 + 112);
-    if ((v22 & 1) == 0)
-    {
-      v57 = OUTLINED_FUNCTION_45_1(v22, v23, v24, v25, v26, v27, v28, v29, v72, v73, v74, v75, v76, v77, v78);
-      v58(v57);
-LABEL_13:
-      **(v0 + 136) = v20;
-      *(v75 + 8) = v21;
-      OUTLINED_FUNCTION_18_2();
-      swift_storeEnumTagMultiPayload();
-      OUTLINED_FUNCTION_44_0();
-      __swift_storeEnumTagSinglePayload(v59, v60, v61, v12);
-      goto LABEL_14;
-    }
-
-    *(v0 + 56) = String.lowercased()();
-    v32 = v74[2];
-    v33 = v74[3];
-    *(v0 + 72) = String.lowercased()();
-    lazy protocol witness table accessor for type String and conformance String();
-    v12 = StringProtocol.contains<A>(_:)();
-    v4 = v73;
-
-    v42 = OUTLINED_FUNCTION_45_1(v34, v35, v36, v37, v38, v39, v40, v41, v72, v73, v74, v75, v76, v77, v78);
-    v43(v42);
-    if (v12)
-    {
-      goto LABEL_13;
-    }
-
-    v44 = *(v0 + 136);
-    OUTLINED_FUNCTION_18_2();
-    OUTLINED_FUNCTION_92();
-    __swift_storeEnumTagSinglePayload(v45, v46, v47, v12);
-
-LABEL_14:
-    v5 = v76;
-LABEL_15:
-    v62 = *(v0 + 136);
-    OUTLINED_FUNCTION_15_1(*(v0 + 152));
-    type metadata accessor for ExtractionRuleType(0);
-    if (__swift_getEnumTagSinglePayload(v62, 1, v12) != 1)
-    {
-      break;
-    }
-
-    outlined destroy of IntentApplication?(*(v0 + 136), &_s10OmniSearch18ExtractionRuleTypeOSgMd, &_s10OmniSearch18ExtractionRuleTypeOSgMR);
-    ++v1;
-  }
-
-  v64 = *(v0 + 88);
-  OUTLINED_FUNCTION_3_0();
-  _s10OmniSearch0B6ResultVWObTm_0(v65, v66);
-  v63 = 0;
-LABEL_19:
-  v67 = *(v0 + 152);
-  v69 = *(v0 + 128);
-  v68 = *(v0 + 136);
-  v70 = *(v0 + 104);
-  OUTLINED_FUNCTION_35_1(*(v0 + 88), v63);
-
-  OUTLINED_FUNCTION_106();
-
-  v71();
-}
-
-{
-  v1 = 0;
-  v2 = *(v0 + 232);
-  v3 = *(v0 + 192);
-  v71 = (v3 + 32);
-  v72 = *(v0 + 224);
-  v4 = *(*(v0 + 144) + 40);
-  v80 = *(v4 + 16);
-  v70 = (v3 + 8);
-  while (1)
-  {
-    if (v80 == v1)
-    {
-      OUTLINED_FUNCTION_18_2();
-      v51 = 1;
-      goto LABEL_21;
-    }
-
-    if (v1 >= *(v4 + 16))
-    {
-      __break(1u);
-      return;
-    }
-
-    v5 = *(v0 + 240);
-    v6 = v4 + ((*(v2 + 80) + 32) & ~*(v2 + 80));
-    v7 = *(v2 + 72);
-    OUTLINED_FUNCTION_0_1();
-    outlined init with copy of SearchResult(v8, v5);
-    SearchResultItem.associatedValue.getter((v0 + 56));
-    v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch0B4Item_pMd, &_s10OmniSearch0B4Item_pMR);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch14DataDetectable_pMd, &_s10OmniSearch14DataDetectable_pMR);
-    if (!swift_dynamicCast())
-    {
-      *(v0 + 128) = 0;
-      *(v0 + 96) = 0u;
-      *(v0 + 112) = 0u;
-      outlined destroy of IntentApplication?(v0 + 96, &_s10OmniSearch14DataDetectable_pSgMd, &_s10OmniSearch14DataDetectable_pSgMR);
-      goto LABEL_10;
-    }
-
-    v10 = *(v0 + 208);
-    outlined init with take of ResponseOverrideMatcherProtocol((v0 + 96), v0 + 16);
-    v11 = *(v0 + 40);
-    v12 = *(v0 + 48);
-    __swift_project_boxed_opaque_existential_1((v0 + 16), v11);
-    (*(v12 + 8))(v11, v12);
-    v13 = type metadata accessor for DataDetectorResults();
-    EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v10, 1, v13);
-    v9 = *(v0 + 208);
-    if (EnumTagSinglePayload == 1)
-    {
-      outlined destroy of IntentApplication?(*(v0 + 208), &_s15OmniSearchTypes19DataDetectorResultsVSgMd, &_s15OmniSearchTypes19DataDetectorResultsVSgMR);
-      __swift_destroy_boxed_opaque_existential_1Tm((v0 + 16));
-LABEL_10:
-      v19 = *(v0 + 216);
-      OUTLINED_FUNCTION_18_2();
-      v20 = OUTLINED_FUNCTION_17_1();
-      __swift_storeEnumTagSinglePayload(v20, v21, v22, v9);
-      goto LABEL_11;
-    }
-
-    v16 = *(v0 + 176);
-    v15 = *(v0 + 184);
-    v17 = *(v0 + 144);
-    v18 = DataDetectorResults.flightDesignators.getter();
-    (*(*(v13 - 8) + 8))(v9, v13);
-    v9 = swift_task_alloc();
-    *(v9 + 16) = v17;
-    specialized Sequence.first(where:)(partial apply for closure #1 in FlightFromExtractedAnswer.extractFromSource(query:answer:source:assistantLocale:), v18, v16);
-
-    if (__swift_getEnumTagSinglePayload(v16, 1, v15) == 1)
-    {
-      outlined destroy of IntentApplication?(*(v0 + 176), &_s15OmniSearchTypes16FlightDesignatorVSgMd, &_s15OmniSearchTypes16FlightDesignatorVSgMR);
-      __swift_destroy_boxed_opaque_existential_1Tm((v0 + 16));
-      goto LABEL_10;
-    }
-
-    v24 = *(v0 + 240);
-    v25 = *(v0 + 216);
-    v26 = *(v0 + 200);
-    v27 = *(v0 + 160);
-    v78 = *(v0 + 168);
-    v79 = *(v0 + 184);
-    v28 = *(v0 + 152);
-    (*v71)(v26, *(v0 + 176));
-    v29 = FlightDesignator.number.getter();
-    v76 = v30;
-    v77 = v29;
-    v31 = FlightDesignator.airline.getter();
-    v74 = v32;
-    v75 = v31;
-    v33 = *(v72 + 24);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s15OmniSearchTypes21CodableNSSecureCodingVySo16CSSearchableItemCGMd, &_s15OmniSearchTypes21CodableNSSecureCodingVySo16CSSearchableItemCGMR);
-    v34 = CodableNSSecureCoding.wrappedValue.getter();
-    v35 = outlined bridged method (ob) of @objc CSSearchableItem.bundleID.getter(v34);
-    if (v36)
-    {
-      v37 = v35;
-    }
-
-    else
-    {
-      v37 = 0;
-    }
-
-    v38 = 0xE000000000000000;
-    if (v36)
-    {
-      v38 = v36;
-    }
-
-    v73 = v38;
-    type metadata accessor for Calendar();
-    OUTLINED_FUNCTION_92();
-    __swift_storeEnumTagSinglePayload(v39, v40, v41, v42);
-    type metadata accessor for TimeZone();
-    OUTLINED_FUNCTION_92();
-    __swift_storeEnumTagSinglePayload(v43, v44, v45, v46);
-    LOBYTE(v69) = 1;
-    LOBYTE(v68) = 1;
-    LOBYTE(v67) = 1;
-    LOBYTE(v66) = 1;
-    LOBYTE(v65) = 1;
-    LOBYTE(v64) = 1;
-    DateComponents.init(calendar:timeZone:era:year:month:day:hour:minute:second:nanosecond:weekday:weekdayOrdinal:quarter:weekOfMonth:weekOfYear:yearForWeekOfYear:)();
-    FlightReservation.init(flightNumber:flightCarrierCode:bundleId:flightDepartureDateComponents:)(v77, v76, v75, v74, v37, v73, v78, v47, 0, v64, 0, v65, 0, v66, 0, v67, 0, v68, 0, v69);
-    (*v70)(v26, v79);
-    OUTLINED_FUNCTION_18_2();
-    swift_storeEnumTagMultiPayload();
-    OUTLINED_FUNCTION_44_0();
-    __swift_storeEnumTagSinglePayload(v48, v49, v50, v37);
-    __swift_destroy_boxed_opaque_existential_1Tm((v0 + 16));
-LABEL_11:
-    v23 = *(v0 + 216);
-    OUTLINED_FUNCTION_15_1(*(v0 + 240));
-    type metadata accessor for ExtractionRuleType(0);
-    if (OUTLINED_FUNCTION_42_1() != 1)
-    {
-      break;
-    }
-
-    outlined destroy of IntentApplication?(*(v0 + 216), &_s10OmniSearch18ExtractionRuleTypeOSgMd, &_s10OmniSearch18ExtractionRuleTypeOSgMR);
-    ++v1;
-  }
-
-  v52 = *(v0 + 136);
-  OUTLINED_FUNCTION_3_0();
-  _s10OmniSearch0B6ResultVWObTm_0(v53, v54);
-  v51 = 0;
-LABEL_21:
-  v55 = *(v0 + 240);
-  v57 = *(v0 + 208);
-  v56 = *(v0 + 216);
-  v58 = *(v0 + 200);
-  v60 = *(v0 + 168);
-  v59 = *(v0 + 176);
-  v62 = *(v0 + 152);
-  v61 = *(v0 + 160);
-  OUTLINED_FUNCTION_35_1(*(v0 + 136), v51);
-
-  OUTLINED_FUNCTION_106();
-
-  v63();
 }
 
 uint64_t specialized AnswerSourceExtractionRule.extractInfo(query:typedResult:assistantLocale:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, char a6)
@@ -7699,28 +4335,24 @@ uint64_t specialized AnswerSourceExtractionRule.extractInfo(query:typedResult:as
   *(v6 + 24) = a2;
   *(v6 + 32) = a3;
   *(v6 + 16) = a1;
-  v7 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch18ExtractionRuleTypeOSgMd, &_s10OmniSearch18ExtractionRuleTypeOSgMR) - 8) + 64) + 15;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch18ExtractionRuleTypeOSgMd, &_s10OmniSearch18ExtractionRuleTypeOSgMR);
   *(v6 + 56) = swift_task_alloc();
-  v8 = *(type metadata accessor for SearchResult(0) - 8);
-  *(v6 + 64) = v8;
-  v9 = *(v8 + 64) + 15;
+  *(v6 + 64) = *(type metadata accessor for SearchResult(0) - 8);
   *(v6 + 72) = swift_task_alloc();
 
-  return MEMORY[0x2822009F8](specialized AnswerSourceExtractionRule.extractInfo(query:typedResult:assistantLocale:), 0, 0);
+  return MEMORY[0x2822009F8](specialized AnswerSourceExtractionRule.extractInfo(query:typedResult:assistantLocale:));
 }
 
 uint64_t specialized AnswerSourceExtractionRule.extractInfo(query:typedResult:assistantLocale:)()
 {
   OUTLINED_FUNCTION_78();
   v2 = *v1;
-  v3 = *(*v1 + 104);
-  v4 = *v1;
   *(*v1 + 112) = v0;
 
   outlined destroy of SearchResult(*(v2 + 72), type metadata accessor for SearchResult);
   OUTLINED_FUNCTION_69();
 
-  return MEMORY[0x2822009F8](v5, v6, v7);
+  return MEMORY[0x2822009F8](v3);
 }
 
 {
@@ -7729,9 +4361,8 @@ uint64_t specialized AnswerSourceExtractionRule.extractInfo(query:typedResult:as
   OUTLINED_FUNCTION_18_2();
   if (OUTLINED_FUNCTION_42_1() != 1)
   {
-    v6 = v0[2];
     OUTLINED_FUNCTION_3_0();
-    _s10OmniSearch0B6ResultVWObTm_0(v1, v7);
+    _s10OmniSearch0B6ResultVWObTm_0(v1, v6);
     v5 = 0;
     goto LABEL_5;
   }
@@ -7744,13 +4375,11 @@ uint64_t specialized AnswerSourceExtractionRule.extractInfo(query:typedResult:as
   {
     v5 = 1;
 LABEL_5:
-    v8 = v0[9];
-    v9 = v0[7];
     OUTLINED_FUNCTION_35_1(v0[2], v5);
 
     OUTLINED_FUNCTION_106();
 
-    return v10();
+    return v7();
   }
 
   if (v4 >= *(v0[10] + 16))
@@ -7760,17 +4389,13 @@ LABEL_5:
 
   else
   {
-    v12 = v0[8];
-    v11 = v0[9];
-    v13 = *(v12 + 80);
-    v14 = *(v12 + 72);
     OUTLINED_FUNCTION_0_1();
-    outlined init with copy of SearchResult(v15, v16);
+    outlined init with copy of SearchResult(v8, v9);
     swift_task_alloc();
     OUTLINED_FUNCTION_53();
-    v0[13] = v17;
-    *v17 = v18;
-    OUTLINED_FUNCTION_25_0();
+    v0[13] = v10;
+    *v10 = v11;
+    OUTLINED_FUNCTION_25_0(v10);
 
     return WalletLocationAnswer.extractFromSource(query:answer:source:assistantLocale:)();
   }
@@ -7780,13 +4405,270 @@ LABEL_5:
 
 {
   OUTLINED_FUNCTION_48();
-  v1 = v0[9];
-  v2 = v0[7];
 
   OUTLINED_FUNCTION_127();
-  v4 = v0[14];
 
-  return v3();
+  return v0();
+}
+
+void specialized AnswerSourceExtractionRule.extractInfo(query:typedResult:assistantLocale:)(uint64_t result)
+{
+  v2 = 0;
+  v3 = *(v1 + 120);
+  v41 = *(v1 + 136);
+  v4 = *(*(v1 + 96) + 40);
+  v43 = (v3 + 32);
+  v44 = (v3 + 8);
+  v5 = *(v4 + 16);
+  v40 = v4;
+  v42 = v5;
+  while (1)
+  {
+    if (v5 == v2)
+    {
+      OUTLINED_FUNCTION_18_2();
+      v36 = 1;
+      goto LABEL_19;
+    }
+
+    if (v2 >= *(v4 + 16))
+    {
+      __break(1u);
+      return;
+    }
+
+    v6 = *(v1 + 152);
+    OUTLINED_FUNCTION_0_1();
+    outlined init with copy of SearchResult(v7, v6);
+    SearchResultItem.associatedValue.getter((v1 + 16));
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch0B4Item_pMd, &_s10OmniSearch0B4Item_pMR);
+    if (!swift_dynamicCast())
+    {
+      v8 = *(v1 + 104);
+      OUTLINED_FUNCTION_92();
+      __swift_storeEnumTagSinglePayload(v23, v24, v25, v26);
+      outlined destroy of IntentApplication?(v8, &_s15OmniSearchTypes13CalendarEventVSgMd, &_s15OmniSearchTypes13CalendarEventVSgMR);
+LABEL_11:
+      OUTLINED_FUNCTION_18_2();
+      OUTLINED_FUNCTION_92();
+      __swift_storeEnumTagSinglePayload(v27, v28, v29, v8);
+      goto LABEL_15;
+    }
+
+    v8 = *(v1 + 128);
+    v10 = *(v1 + 104);
+    v9 = *(v1 + 112);
+    OUTLINED_FUNCTION_44_0();
+    __swift_storeEnumTagSinglePayload(v11, v12, v13, v9);
+    (*v43)(v8, v10, v9);
+    v14 = CalendarEvent.locationName.getter();
+    if (!v15)
+    {
+      (*v44)(*(v1 + 128), *(v1 + 112));
+      v5 = v42;
+      goto LABEL_11;
+    }
+
+    v16 = v14;
+    v17 = v15;
+    v8 = type metadata accessor for NSUserDefaults();
+    if ((static NSUserDefaults.needAnswerMatchWithLocationResolution.getter(v8) & 1) == 0)
+    {
+      v30 = OUTLINED_FUNCTION_45_1();
+      v31(v30);
+LABEL_13:
+      **(v1 + 136) = v16;
+      *(v41 + 8) = v17;
+      OUTLINED_FUNCTION_18_2();
+      swift_storeEnumTagMultiPayload();
+      OUTLINED_FUNCTION_44_0();
+      __swift_storeEnumTagSinglePayload(v32, v33, v34, v8);
+      goto LABEL_14;
+    }
+
+    *(v1 + 56) = String.lowercased()();
+    *(v1 + 72) = String.lowercased()();
+    lazy protocol witness table accessor for type String and conformance String();
+    v8 = StringProtocol.contains<A>(_:)();
+    v4 = v40;
+
+    v18 = OUTLINED_FUNCTION_45_1();
+    v19(v18);
+    if (v8)
+    {
+      goto LABEL_13;
+    }
+
+    OUTLINED_FUNCTION_18_2();
+    OUTLINED_FUNCTION_92();
+    __swift_storeEnumTagSinglePayload(v20, v21, v22, v8);
+
+LABEL_14:
+    v5 = v42;
+LABEL_15:
+    v35 = *(v1 + 136);
+    OUTLINED_FUNCTION_15_1(*(v1 + 152));
+    type metadata accessor for ExtractionRuleType(0);
+    if (__swift_getEnumTagSinglePayload(v35, 1, v8) != 1)
+    {
+      break;
+    }
+
+    outlined destroy of IntentApplication?(*(v1 + 136), &_s10OmniSearch18ExtractionRuleTypeOSgMd, &_s10OmniSearch18ExtractionRuleTypeOSgMR);
+    ++v2;
+  }
+
+  OUTLINED_FUNCTION_3_0();
+  _s10OmniSearch0B6ResultVWObTm_0(v37, v38);
+  v36 = 0;
+LABEL_19:
+  OUTLINED_FUNCTION_35_1(*(v1 + 88), v36);
+
+  OUTLINED_FUNCTION_106();
+
+  v39();
+}
+
+{
+  v2 = 0;
+  v3 = *(v1 + 192);
+  v61 = (v3 + 32);
+  v4 = *(*(v1 + 144) + 40);
+  v69 = *(v4 + 16);
+  v60 = (v3 + 8);
+  while (1)
+  {
+    if (v69 == v2)
+    {
+      OUTLINED_FUNCTION_18_2();
+      v44 = 1;
+      goto LABEL_21;
+    }
+
+    if (v2 >= *(v4 + 16))
+    {
+      __break(1u);
+      return;
+    }
+
+    v5 = *(v1 + 240);
+    OUTLINED_FUNCTION_0_1();
+    outlined init with copy of SearchResult(v6, v5);
+    SearchResultItem.associatedValue.getter((v1 + 56));
+    v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch0B4Item_pMd, &_s10OmniSearch0B4Item_pMR);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch14DataDetectable_pMd, &_s10OmniSearch14DataDetectable_pMR);
+    if (!swift_dynamicCast())
+    {
+      *(v1 + 128) = 0;
+      *(v1 + 96) = 0u;
+      *(v1 + 112) = 0u;
+      outlined destroy of IntentApplication?(v1 + 96, &_s10OmniSearch14DataDetectable_pSgMd, &_s10OmniSearch14DataDetectable_pSgMR);
+      goto LABEL_10;
+    }
+
+    v8 = *(v1 + 208);
+    outlined init with take of ResponseOverrideMatcherProtocol((v1 + 96), v1 + 16);
+    v9 = *(v1 + 40);
+    v10 = *(v1 + 48);
+    __swift_project_boxed_opaque_existential_1((v1 + 16), v9);
+    (*(v10 + 8))(v9, v10);
+    v11 = type metadata accessor for DataDetectorResults();
+    EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v8, 1, v11);
+    v7 = *(v1 + 208);
+    if (EnumTagSinglePayload == 1)
+    {
+      outlined destroy of IntentApplication?(*(v1 + 208), &_s15OmniSearchTypes19DataDetectorResultsVSgMd, &_s15OmniSearchTypes19DataDetectorResultsVSgMR);
+      __swift_destroy_boxed_opaque_existential_1Tm((v1 + 16));
+LABEL_10:
+      OUTLINED_FUNCTION_18_2();
+      v17 = OUTLINED_FUNCTION_17_1();
+      __swift_storeEnumTagSinglePayload(v17, v18, v19, v7);
+      goto LABEL_11;
+    }
+
+    v14 = *(v1 + 176);
+    v13 = *(v1 + 184);
+    v15 = *(v1 + 144);
+    v16 = DataDetectorResults.flightDesignators.getter();
+    (*(*(v11 - 8) + 8))(v7, v11);
+    v7 = swift_task_alloc();
+    *(v7 + 16) = v15;
+    specialized Sequence.first(where:)(partial apply for closure #1 in FlightFromExtractedAnswer.extractFromSource(query:answer:source:assistantLocale:), v16, v14);
+
+    if (__swift_getEnumTagSinglePayload(v14, 1, v13) == 1)
+    {
+      outlined destroy of IntentApplication?(*(v1 + 176), &_s15OmniSearchTypes16FlightDesignatorVSgMd, &_s15OmniSearchTypes16FlightDesignatorVSgMR);
+      __swift_destroy_boxed_opaque_existential_1Tm((v1 + 16));
+      goto LABEL_10;
+    }
+
+    v20 = *(v1 + 200);
+    v21 = *(v1 + 160);
+    v67 = *(v1 + 168);
+    v68 = *(v1 + 184);
+    v22 = *(v1 + 152);
+    (*v61)(v20, *(v1 + 176));
+    v23 = FlightDesignator.number.getter();
+    v65 = v24;
+    v66 = v23;
+    v25 = FlightDesignator.airline.getter();
+    v63 = v26;
+    v64 = v25;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s15OmniSearchTypes21CodableNSSecureCodingVySo16CSSearchableItemCGMd, &_s15OmniSearchTypes21CodableNSSecureCodingVySo16CSSearchableItemCGMR);
+    v27 = CodableNSSecureCoding.wrappedValue.getter();
+    v28 = outlined bridged method (ob) of @objc CSSearchableItem.bundleID.getter(v27);
+    if (v29)
+    {
+      v30 = v28;
+    }
+
+    else
+    {
+      v30 = 0;
+    }
+
+    v31 = 0xE000000000000000;
+    if (v29)
+    {
+      v31 = v29;
+    }
+
+    v62 = v31;
+    type metadata accessor for Calendar();
+    OUTLINED_FUNCTION_92();
+    __swift_storeEnumTagSinglePayload(v32, v33, v34, v35);
+    type metadata accessor for TimeZone();
+    OUTLINED_FUNCTION_92();
+    __swift_storeEnumTagSinglePayload(v36, v37, v38, v39);
+    DateComponents.init(calendar:timeZone:era:year:month:day:hour:minute:second:nanosecond:weekday:weekdayOrdinal:quarter:weekOfMonth:weekOfYear:yearForWeekOfYear:)(v21, v22, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1);
+    FlightReservation.init(flightNumber:flightCarrierCode:bundleId:flightDepartureDateComponents:)(v66, v65, v64, v63, v30, v62, v67, v40, v48, v49, v50, v51, v52, v53, v54, v55, v56, v57, v58, v59);
+    (*v60)(v20, v68);
+    OUTLINED_FUNCTION_18_2();
+    swift_storeEnumTagMultiPayload();
+    OUTLINED_FUNCTION_44_0();
+    __swift_storeEnumTagSinglePayload(v41, v42, v43, v30);
+    __swift_destroy_boxed_opaque_existential_1Tm((v1 + 16));
+LABEL_11:
+    OUTLINED_FUNCTION_15_1(*(v1 + 240));
+    type metadata accessor for ExtractionRuleType(0);
+    if (OUTLINED_FUNCTION_42_1() != 1)
+    {
+      break;
+    }
+
+    outlined destroy of IntentApplication?(*(v1 + 216), &_s10OmniSearch18ExtractionRuleTypeOSgMd, &_s10OmniSearch18ExtractionRuleTypeOSgMR);
+    ++v2;
+  }
+
+  OUTLINED_FUNCTION_3_0();
+  _s10OmniSearch0B6ResultVWObTm_0(v45, v46);
+  v44 = 0;
+LABEL_21:
+  OUTLINED_FUNCTION_35_1(*(v1 + 136), v44);
+
+  OUTLINED_FUNCTION_106();
+
+  v47();
 }
 
 uint64_t AnswerSourceExtractionRule.extractInfo(query:typedResult:assistantLocale:)()
@@ -7800,47 +4682,40 @@ uint64_t AnswerSourceExtractionRule.extractInfo(query:typedResult:assistantLocal
   v1[5] = v6;
   v1[2] = v7;
   v1[3] = v8;
-  v9 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch18ExtractionRuleTypeOSgMd, &_s10OmniSearch18ExtractionRuleTypeOSgMR) - 8) + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch18ExtractionRuleTypeOSgMd, &_s10OmniSearch18ExtractionRuleTypeOSgMR);
   v1[10] = OUTLINED_FUNCTION_199();
-  v10 = *(type metadata accessor for SearchResult(0) - 8);
+  type metadata accessor for SearchResult(0);
   OUTLINED_FUNCTION_28_0();
-  v1[11] = v11;
-  v13 = *(v12 + 64);
+  v1[11] = v9;
   v1[12] = OUTLINED_FUNCTION_199();
   OUTLINED_FUNCTION_69();
 
-  return MEMORY[0x2822009F8](v14, v15, v16);
+  return MEMORY[0x2822009F8](v10);
 }
 
 {
   OUTLINED_FUNCTION_78();
-  v1 = v0[11];
   result = v0[8];
-  v3 = *(v0[4] + 40);
-  v0[13] = v3;
-  v4 = *(v3 + 16);
-  v0[14] = v4;
+  v2 = *(v0[4] + 40);
+  v0[13] = v2;
+  v3 = *(v2 + 16);
+  v0[14] = v3;
   v0[15] = 0;
-  if (v4)
+  if (v3)
   {
-    if (*(v3 + 16))
+    if (*(v2 + 16))
     {
-      v5 = v0[12];
-      v6 = *(v1 + 80);
       OUTLINED_FUNCTION_0_1();
-      v27 = v7;
-      outlined init with copy of SearchResult(v8 + v9, v10);
-      v11 = *(v27 + 16);
+      outlined init with copy of SearchResult(v4 + v5, v6);
       OUTLINED_FUNCTION_28_0();
-      v26 = (v12 + *v12);
-      v14 = *(v13 + 4);
+      v16 = (v7 + *v7);
       swift_task_alloc();
       OUTLINED_FUNCTION_53();
-      v0[16] = v15;
-      *v15 = v16;
-      v17 = OUTLINED_FUNCTION_24_0(v15);
+      v0[16] = v8;
+      *v8 = v9;
+      v10 = OUTLINED_FUNCTION_24_0(v8);
 
-      return v26(v17);
+      return v16(v10);
     }
 
     else
@@ -7852,15 +4727,12 @@ uint64_t AnswerSourceExtractionRule.extractInfo(query:typedResult:assistantLocal
   else
   {
     OUTLINED_FUNCTION_21_0();
-    v18 = v0[12];
-    v19 = v0[10];
-    v20 = v0[2];
     OUTLINED_FUNCTION_92();
-    __swift_storeEnumTagSinglePayload(v21, v22, v23, v24);
+    __swift_storeEnumTagSinglePayload(v11, v12, v13, v14);
 
     OUTLINED_FUNCTION_106();
 
-    return v25();
+    return v15();
   }
 
   return result;
@@ -7869,84 +4741,70 @@ uint64_t AnswerSourceExtractionRule.extractInfo(query:typedResult:assistantLocal
 {
   OUTLINED_FUNCTION_78();
   v2 = *v1;
-  v3 = *(*v1 + 128);
-  v4 = *v1;
   *(*v1 + 136) = v0;
 
   outlined destroy of SearchResult(*(v2 + 96), type metadata accessor for SearchResult);
   OUTLINED_FUNCTION_69();
 
-  return MEMORY[0x2822009F8](v5, v6, v7);
+  return MEMORY[0x2822009F8](v3);
 }
 
 {
-  v1 = v0[10];
+  OUTLINED_FUNCTION_48();
+
+  OUTLINED_FUNCTION_127();
+
+  return v0();
+}
+
+uint64_t AnswerSourceExtractionRule.extractInfo(query:typedResult:assistantLocale:)(uint64_t a1)
+{
+  v2 = v1[10];
   OUTLINED_FUNCTION_18_2();
   if (OUTLINED_FUNCTION_42_1() != 1)
   {
-    v6 = v0[2];
     OUTLINED_FUNCTION_3_0();
-    _s10OmniSearch0B6ResultVWObTm_0(v1, v7);
-    v5 = 0;
+    _s10OmniSearch0B6ResultVWObTm_0(v2, v7);
+    v6 = 0;
     goto LABEL_5;
   }
 
-  result = outlined destroy of IntentApplication?(v1, &_s10OmniSearch18ExtractionRuleTypeOSgMd, &_s10OmniSearch18ExtractionRuleTypeOSgMR);
-  v3 = v0[14];
-  v4 = v0[15] + 1;
-  v0[15] = v4;
-  if (v4 == v3)
+  result = outlined destroy of IntentApplication?(v2, &_s10OmniSearch18ExtractionRuleTypeOSgMd, &_s10OmniSearch18ExtractionRuleTypeOSgMR);
+  v4 = v1[14];
+  v5 = v1[15] + 1;
+  v1[15] = v5;
+  if (v5 == v4)
   {
-    v5 = 1;
+    v6 = 1;
 LABEL_5:
-    v8 = v0[12];
-    v9 = v0[10];
-    OUTLINED_FUNCTION_35_1(v0[2], v5);
+    OUTLINED_FUNCTION_35_1(v1[2], v6);
 
     OUTLINED_FUNCTION_106();
 
-    return v10();
+    return v8();
   }
 
-  if (v4 >= *(v0[13] + 16))
+  if (v5 >= *(v1[13] + 16))
   {
     __break(1u);
   }
 
   else
   {
-    v12 = v0[11];
-    v11 = v0[12];
-    v25 = v0[8];
-    v13 = *(v12 + 80);
-    v14 = *(v12 + 72);
     OUTLINED_FUNCTION_0_1();
-    outlined init with copy of SearchResult(v15, v16);
-    v17 = *(v25 + 16);
+    outlined init with copy of SearchResult(v9, v10);
     OUTLINED_FUNCTION_28_0();
-    v24 = (v18 + *v18);
-    v20 = *(v19 + 4);
+    v15 = (v11 + *v11);
     swift_task_alloc();
     OUTLINED_FUNCTION_53();
-    v0[16] = v21;
-    *v21 = v22;
-    v23 = OUTLINED_FUNCTION_24_0();
+    v1[16] = v12;
+    *v12 = v13;
+    v14 = OUTLINED_FUNCTION_24_0(v12);
 
-    return v24(v23);
+    return v15(v14);
   }
 
   return result;
-}
-
-{
-  OUTLINED_FUNCTION_48();
-  v1 = v0[12];
-  v2 = v0[10];
-
-  OUTLINED_FUNCTION_127();
-  v4 = v0[17];
-
-  return v3();
 }
 
 uint64_t protocol witness for ExtractionRule.extractInfo(query:result:assistantLocale:) in conformance CalendarLocationAnswer(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
@@ -7954,14 +4812,14 @@ uint64_t protocol witness for ExtractionRule.extractInfo(query:result:assistantL
   OUTLINED_FUNCTION_39_1();
   OUTLINED_FUNCTION_75();
   OUTLINED_FUNCTION_4_1();
-  OUTLINED_FUNCTION_60(&async function pointer to specialized TypedExtractionRule.extractInfo(query:result:assistantLocale:));
-  v10 = OUTLINED_FUNCTION_40_1();
-  v11 = OUTLINED_FUNCTION_23(v10);
-  *v11 = v12;
-  OUTLINED_FUNCTION_2_1(v11);
+  v10 = OUTLINED_FUNCTION_60(&async function pointer to specialized TypedExtractionRule.extractInfo(query:result:assistantLocale:));
+  v11 = OUTLINED_FUNCTION_40_1(v10);
+  v12 = OUTLINED_FUNCTION_23(v11);
+  *v12 = v13;
+  OUTLINED_FUNCTION_2_1(v12);
   OUTLINED_FUNCTION_44_1();
 
-  return v19(v13, v14, v15, v16, v17, v18, v19, v20, a9, a10);
+  return v20(v14, v15, v16, v17, v18, v19, v20, v21, a9, a10);
 }
 
 uint64_t specialized TypedExtractionRule.extractInfo(query:result:assistantLocale:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, char a6)
@@ -7972,14 +4830,12 @@ uint64_t specialized TypedExtractionRule.extractInfo(query:result:assistantLocal
   *(v6 + 64) = a2;
   *(v6 + 72) = a3;
   *(v6 + 56) = a1;
-  v7 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch6AnswerVSgMd, &_s10OmniSearch6AnswerVSgMR) - 8) + 64) + 15;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch6AnswerVSgMd, &_s10OmniSearch6AnswerVSgMR);
   *(v6 + 96) = swift_task_alloc();
-  v8 = type metadata accessor for Answer();
-  *(v6 + 104) = v8;
-  v9 = *(*(v8 - 8) + 64) + 15;
+  *(v6 + 104) = type metadata accessor for Answer(0);
   *(v6 + 112) = swift_task_alloc();
 
-  return MEMORY[0x2822009F8](specialized TypedExtractionRule.extractInfo(query:result:assistantLocale:), 0, 0);
+  return MEMORY[0x2822009F8](specialized TypedExtractionRule.extractInfo(query:result:assistantLocale:));
 }
 
 {
@@ -7989,14 +4845,12 @@ uint64_t specialized TypedExtractionRule.extractInfo(query:result:assistantLocal
   *(v6 + 64) = a2;
   *(v6 + 72) = a3;
   *(v6 + 56) = a1;
-  v7 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch6AnswerVSgMd, &_s10OmniSearch6AnswerVSgMR) - 8) + 64) + 15;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch6AnswerVSgMd, &_s10OmniSearch6AnswerVSgMR);
   *(v6 + 96) = swift_task_alloc();
-  v8 = type metadata accessor for Answer();
-  *(v6 + 104) = v8;
-  v9 = *(*(v8 - 8) + 64) + 15;
+  *(v6 + 104) = type metadata accessor for Answer(0);
   *(v6 + 112) = swift_task_alloc();
 
-  return MEMORY[0x2822009F8](specialized TypedExtractionRule.extractInfo(query:result:assistantLocale:), 0, 0);
+  return MEMORY[0x2822009F8](specialized TypedExtractionRule.extractInfo(query:result:assistantLocale:));
 }
 
 {
@@ -8006,14 +4860,12 @@ uint64_t specialized TypedExtractionRule.extractInfo(query:result:assistantLocal
   *(v6 + 64) = a2;
   *(v6 + 72) = a3;
   *(v6 + 56) = a1;
-  v7 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch6AnswerVSgMd, &_s10OmniSearch6AnswerVSgMR) - 8) + 64) + 15;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch6AnswerVSgMd, &_s10OmniSearch6AnswerVSgMR);
   *(v6 + 96) = swift_task_alloc();
-  v8 = type metadata accessor for Answer();
-  *(v6 + 104) = v8;
-  v9 = *(*(v8 - 8) + 64) + 15;
+  *(v6 + 104) = type metadata accessor for Answer(0);
   *(v6 + 112) = swift_task_alloc();
 
-  return MEMORY[0x2822009F8](specialized TypedExtractionRule.extractInfo(query:result:assistantLocale:), 0, 0);
+  return MEMORY[0x2822009F8](specialized TypedExtractionRule.extractInfo(query:result:assistantLocale:));
 }
 
 {
@@ -8023,42 +4875,38 @@ uint64_t specialized TypedExtractionRule.extractInfo(query:result:assistantLocal
   *(v6 + 64) = a2;
   *(v6 + 72) = a3;
   *(v6 + 56) = a1;
-  v7 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch6AnswerVSgMd, &_s10OmniSearch6AnswerVSgMR) - 8) + 64) + 15;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch6AnswerVSgMd, &_s10OmniSearch6AnswerVSgMR);
   *(v6 + 96) = swift_task_alloc();
-  v8 = type metadata accessor for Answer();
-  *(v6 + 104) = v8;
-  v9 = *(*(v8 - 8) + 64) + 15;
+  *(v6 + 104) = type metadata accessor for Answer(0);
   *(v6 + 112) = swift_task_alloc();
 
-  return MEMORY[0x2822009F8](specialized TypedExtractionRule.extractInfo(query:result:assistantLocale:), 0, 0);
+  return MEMORY[0x2822009F8](specialized TypedExtractionRule.extractInfo(query:result:assistantLocale:));
 }
 
 uint64_t specialized TypedExtractionRule.extractInfo(query:result:assistantLocale:)()
 {
   OUTLINED_FUNCTION_78();
-  OUTLINED_FUNCTION_38_1();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch0B4Item_pMd, &_s10OmniSearch0B4Item_pMR);
-  if (OUTLINED_FUNCTION_18_1())
+  OUTLINED_FUNCTION_38_1(v1);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch0B4Item_pMd, &_s10OmniSearch0B4Item_pMR);
+  if (OUTLINED_FUNCTION_18_1(v2))
   {
     OUTLINED_FUNCTION_6_0();
-    OUTLINED_FUNCTION_60(async function pointer to specialized AnswerSourceExtractionRule.extractInfo(query:typedResult:assistantLocale:));
+    OUTLINED_FUNCTION_60(&async function pointer to specialized AnswerSourceExtractionRule.extractInfo(query:typedResult:assistantLocale:));
     swift_task_alloc();
     OUTLINED_FUNCTION_53();
-    v0[15] = v1;
-    *v1 = v2;
-    v3 = OUTLINED_FUNCTION_8_1(v1);
+    *(v0 + 120) = v3;
+    *v3 = v4;
+    v5 = OUTLINED_FUNCTION_8_1(v3);
 
-    return v4(v3);
+    return v6(v5);
   }
 
   else
   {
-    v7 = v0[12];
-    v6 = v0[13];
-    v8 = v0[7];
+    v8 = *(v0 + 96);
     OUTLINED_FUNCTION_92();
     __swift_storeEnumTagSinglePayload(v9, v10, v11, v12);
-    outlined destroy of IntentApplication?(v7, &_s10OmniSearch6AnswerVSgMd, &_s10OmniSearch6AnswerVSgMR);
+    outlined destroy of IntentApplication?(v8, &_s10OmniSearch6AnswerVSgMd, &_s10OmniSearch6AnswerVSgMR);
     OUTLINED_FUNCTION_14_0();
 
     OUTLINED_FUNCTION_106();
@@ -8072,68 +4920,60 @@ uint64_t specialized TypedExtractionRule.extractInfo(query:result:assistantLocal
   OUTLINED_FUNCTION_52();
   OUTLINED_FUNCTION_56_0();
   *v3 = v2;
-  v5 = *(v4 + 120);
-  v6 = *v1;
+  v4 = *v1;
   OUTLINED_FUNCTION_11();
-  *v7 = v6;
-  *(v8 + 128) = v0;
+  *v5 = v4;
+  *(v6 + 128) = v0;
 
   OUTLINED_FUNCTION_69();
 
-  return MEMORY[0x2822009F8](v9, v10, v11);
+  return MEMORY[0x2822009F8](v7);
+}
+
+{
+  OUTLINED_FUNCTION_48();
+  OUTLINED_FUNCTION_29_1();
+  outlined destroy of SearchResult(v0, v1);
+
+  OUTLINED_FUNCTION_106();
+
+  return v2();
 }
 
 {
   OUTLINED_FUNCTION_48();
   v1 = *(v0 + 112);
   OUTLINED_FUNCTION_29_1();
-  outlined destroy of SearchResult(v2, v3);
-  v4 = *(v0 + 112);
-  v5 = *(v0 + 96);
-
-  OUTLINED_FUNCTION_106();
-
-  return v6();
-}
-
-{
-  OUTLINED_FUNCTION_48();
-  v1 = v0[14];
-  v2 = v0[12];
-  OUTLINED_FUNCTION_29_1();
-  outlined destroy of SearchResult(v1, v3);
+  outlined destroy of SearchResult(v1, v2);
 
   OUTLINED_FUNCTION_127();
-  v5 = v0[16];
 
-  return v4();
+  return v3();
 }
 
 {
   OUTLINED_FUNCTION_78();
-  OUTLINED_FUNCTION_38_1();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch0B4Item_pMd, &_s10OmniSearch0B4Item_pMR);
-  if (OUTLINED_FUNCTION_18_1())
+  OUTLINED_FUNCTION_38_1(v1);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch0B4Item_pMd, &_s10OmniSearch0B4Item_pMR);
+  if (OUTLINED_FUNCTION_18_1(v2))
   {
     OUTLINED_FUNCTION_6_0();
     OUTLINED_FUNCTION_60(&async function pointer to specialized AnswerSourceExtractionRule.extractInfo(query:typedResult:assistantLocale:));
     swift_task_alloc();
     OUTLINED_FUNCTION_53();
-    v0[15] = v1;
-    *v1 = v2;
-    v3 = OUTLINED_FUNCTION_8_1(v1);
+    *(v0 + 120) = v3;
+    *v3 = v4;
+    v5 = OUTLINED_FUNCTION_8_1(v3);
 
-    return v4(v3);
+    return v6(v5);
   }
 
   else
   {
-    v7 = v0[12];
-    v6 = v0[13];
-    v8 = v0[7];
+    v8 = *(v0 + 96);
     OUTLINED_FUNCTION_92();
     __swift_storeEnumTagSinglePayload(v9, v10, v11, v12);
-    outlined destroy of IntentApplication?(v7, &_s10OmniSearch6AnswerVSgMd, &_s10OmniSearch6AnswerVSgMR);
+    outlined destroy of IntentApplication?(v8, &_s10OmniSearch6AnswerVSgMd, &_s10OmniSearch6AnswerVSgMR);
     OUTLINED_FUNCTION_14_0();
 
     OUTLINED_FUNCTION_106();
@@ -8147,42 +4987,39 @@ uint64_t specialized TypedExtractionRule.extractInfo(query:result:assistantLocal
   OUTLINED_FUNCTION_52();
   OUTLINED_FUNCTION_56_0();
   *v3 = v2;
-  v5 = *(v4 + 120);
-  v6 = *v1;
+  v4 = *v1;
   OUTLINED_FUNCTION_11();
-  *v7 = v6;
-  *(v8 + 128) = v0;
+  *v5 = v4;
+  *(v6 + 128) = v0;
 
   OUTLINED_FUNCTION_69();
 
-  return MEMORY[0x2822009F8](v9, v10, v11);
+  return MEMORY[0x2822009F8](v7);
 }
 
 {
   OUTLINED_FUNCTION_78();
-  OUTLINED_FUNCTION_38_1();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch0B4Item_pMd, &_s10OmniSearch0B4Item_pMR);
-  if (OUTLINED_FUNCTION_18_1())
+  OUTLINED_FUNCTION_38_1(v1);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch0B4Item_pMd, &_s10OmniSearch0B4Item_pMR);
+  if (OUTLINED_FUNCTION_18_1(v2))
   {
     OUTLINED_FUNCTION_6_0();
     OUTLINED_FUNCTION_60(&async function pointer to specialized AnswerSourceExtractionRule.extractInfo(query:typedResult:assistantLocale:));
     swift_task_alloc();
     OUTLINED_FUNCTION_53();
-    v0[15] = v1;
-    *v1 = v2;
-    v3 = OUTLINED_FUNCTION_8_1(v1);
+    *(v0 + 120) = v3;
+    *v3 = v4;
+    v5 = OUTLINED_FUNCTION_8_1(v3);
 
-    return v4(v3);
+    return v6(v5);
   }
 
   else
   {
-    v7 = v0[12];
-    v6 = v0[13];
-    v8 = v0[7];
+    v8 = *(v0 + 96);
     OUTLINED_FUNCTION_92();
     __swift_storeEnumTagSinglePayload(v9, v10, v11, v12);
-    outlined destroy of IntentApplication?(v7, &_s10OmniSearch6AnswerVSgMd, &_s10OmniSearch6AnswerVSgMR);
+    outlined destroy of IntentApplication?(v8, &_s10OmniSearch6AnswerVSgMd, &_s10OmniSearch6AnswerVSgMR);
     OUTLINED_FUNCTION_14_0();
 
     OUTLINED_FUNCTION_106();
@@ -8193,29 +5030,27 @@ uint64_t specialized TypedExtractionRule.extractInfo(query:result:assistantLocal
 
 {
   OUTLINED_FUNCTION_78();
-  OUTLINED_FUNCTION_38_1();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch0B4Item_pMd, &_s10OmniSearch0B4Item_pMR);
-  if (OUTLINED_FUNCTION_18_1())
+  OUTLINED_FUNCTION_38_1(v1);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch0B4Item_pMd, &_s10OmniSearch0B4Item_pMR);
+  if (OUTLINED_FUNCTION_18_1(v2))
   {
     OUTLINED_FUNCTION_6_0();
-    OUTLINED_FUNCTION_60(async function pointer to specialized AnswerSourceExtractionRule.extractInfo(query:typedResult:assistantLocale:));
+    OUTLINED_FUNCTION_60(&async function pointer to specialized AnswerSourceExtractionRule.extractInfo(query:typedResult:assistantLocale:));
     swift_task_alloc();
     OUTLINED_FUNCTION_53();
-    v0[15] = v1;
-    *v1 = v2;
-    v3 = OUTLINED_FUNCTION_8_1(v1);
+    *(v0 + 120) = v3;
+    *v3 = v4;
+    v5 = OUTLINED_FUNCTION_8_1(v3);
 
-    return v4(v3);
+    return v6(v5);
   }
 
   else
   {
-    v7 = v0[12];
-    v6 = v0[13];
-    v8 = v0[7];
+    v8 = *(v0 + 96);
     OUTLINED_FUNCTION_92();
     __swift_storeEnumTagSinglePayload(v9, v10, v11, v12);
-    outlined destroy of IntentApplication?(v7, &_s10OmniSearch6AnswerVSgMd, &_s10OmniSearch6AnswerVSgMR);
+    outlined destroy of IntentApplication?(v8, &_s10OmniSearch6AnswerVSgMd, &_s10OmniSearch6AnswerVSgMR);
     OUTLINED_FUNCTION_14_0();
 
     OUTLINED_FUNCTION_106();
@@ -8237,20 +5072,15 @@ uint64_t TypedExtractionRule.extractInfo(query:result:assistantLocale:)()
   v1[8] = v8;
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
   v1[15] = AssociatedTypeWitness;
-  v10 = type metadata accessor for Optional();
-  v1[16] = v10;
-  v11 = *(v10 - 8);
+  v1[16] = type metadata accessor for Optional();
   OUTLINED_FUNCTION_28_0();
-  v1[17] = v12;
-  v14 = *(v13 + 64);
+  v1[17] = v10;
   v1[18] = OUTLINED_FUNCTION_199();
-  v15 = *(AssociatedTypeWitness - 8);
-  v1[19] = v15;
-  v16 = *(v15 + 64);
+  v1[19] = *(AssociatedTypeWitness - 8);
   v1[20] = OUTLINED_FUNCTION_199();
   OUTLINED_FUNCTION_69();
 
-  return MEMORY[0x2822009F8](v17, v18, v19);
+  return MEMORY[0x2822009F8](v11);
 }
 
 {
@@ -8258,92 +5088,69 @@ uint64_t TypedExtractionRule.extractInfo(query:result:assistantLocale:)()
   OUTLINED_FUNCTION_52();
   OUTLINED_FUNCTION_56_0();
   *v3 = v2;
-  v5 = *(v4 + 168);
-  v6 = *v1;
+  v4 = *v1;
   OUTLINED_FUNCTION_11();
-  *v7 = v6;
-  *(v8 + 176) = v0;
+  *v5 = v4;
+  *(v6 + 176) = v0;
 
   OUTLINED_FUNCTION_69();
 
-  return MEMORY[0x2822009F8](v9, v10, v11);
+  return MEMORY[0x2822009F8](v7);
 }
 
 {
   OUTLINED_FUNCTION_48();
   (*(v0[19] + 8))(v0[20], v0[15]);
-  v1 = v0[20];
-  v2 = v0[18];
 
   OUTLINED_FUNCTION_106();
 
-  return v3();
+  return v1();
 }
 
 {
   OUTLINED_FUNCTION_48();
-  v1 = v0[18];
   (*(v0[19] + 8))(v0[20], v0[15]);
 
   OUTLINED_FUNCTION_127();
-  v3 = v0[22];
 
-  return v2();
+  return v1();
 }
 
 void TypedExtractionRule.extractInfo(query:result:assistantLocale:)()
 {
   OUTLINED_FUNCTION_75();
-  v1 = v0[18];
-  v2 = v0[15];
-  v3 = v0[9];
   SearchResultItem.associatedValue.getter(v0 + 2);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch0B4Item_pMd, &_s10OmniSearch0B4Item_pMR);
-  v4 = swift_dynamicCast();
-  v5 = v0[15];
-  if (v4)
+  v1 = swift_dynamicCast();
+  v2 = v0[15];
+  if (v1)
   {
-    v7 = v0[19];
-    v6 = v0[20];
-    v8 = v0[18];
-    v44 = v0[13];
+    v4 = v0[19];
+    v3 = v0[20];
+    v5 = v0[18];
     OUTLINED_FUNCTION_44_0();
-    __swift_storeEnumTagSinglePayload(v9, v10, v11, v5);
-    (*(v7 + 32))(v6, v8, v5);
-    v12 = *(v44 + 32);
+    __swift_storeEnumTagSinglePayload(v6, v7, v8, v2);
+    (*(v4 + 32))(v3, v5, v2);
     OUTLINED_FUNCTION_28_0();
-    v43 = v13 + *v13;
-    v15 = *(v14 + 4);
     swift_task_alloc();
     OUTLINED_FUNCTION_53();
-    v0[21] = v16;
-    *v16 = v17;
-    v16[1] = TypedExtractionRule.extractInfo(query:result:assistantLocale:);
-    v18 = v0[20];
-    v19 = v0[13];
-    v20 = v0[14];
-    v21 = v0[11];
-    v22 = v0[12];
-    v23 = v0[10];
-    v24 = v0[7];
-    v25 = v0[8];
+    v0[21] = v9;
+    *v9 = v10;
+    v9[1] = TypedExtractionRule.extractInfo(query:result:assistantLocale:);
     OUTLINED_FUNCTION_44_1();
 
     __asm { BRAA            X7, X16 }
   }
 
-  v29 = v0[17];
-  v28 = v0[18];
-  v30 = v0[16];
-  v31 = v0[7];
-  v32 = OUTLINED_FUNCTION_17_1();
-  __swift_storeEnumTagSinglePayload(v32, v33, v34, v5);
-  (*(v29 + 8))(v28, v30);
+  v14 = v0[17];
+  v13 = v0[18];
+  v15 = v0[16];
+  v16 = OUTLINED_FUNCTION_17_1();
+  __swift_storeEnumTagSinglePayload(v16, v17, v18, v2);
+  (*(v14 + 8))(v13, v15);
   OUTLINED_FUNCTION_21_0();
   OUTLINED_FUNCTION_92();
-  __swift_storeEnumTagSinglePayload(v35, v36, v37, v38);
-  v39 = v0[20];
-  v40 = v0[18];
+  __swift_storeEnumTagSinglePayload(v19, v20, v21, v22);
 
   OUTLINED_FUNCTION_106();
   OUTLINED_FUNCTION_44_1();
@@ -8356,14 +5163,14 @@ uint64_t protocol witness for TypedExtractionRule.extractInfo(query:typedResult:
   OUTLINED_FUNCTION_39_1();
   OUTLINED_FUNCTION_75();
   OUTLINED_FUNCTION_4_1();
-  OUTLINED_FUNCTION_60(async function pointer to specialized AnswerSourceExtractionRule.extractInfo(query:typedResult:assistantLocale:));
-  v10 = OUTLINED_FUNCTION_40_1();
-  v11 = OUTLINED_FUNCTION_23(v10);
-  *v11 = v12;
-  OUTLINED_FUNCTION_2_1(v11);
+  v10 = OUTLINED_FUNCTION_60(&async function pointer to specialized AnswerSourceExtractionRule.extractInfo(query:typedResult:assistantLocale:));
+  v11 = OUTLINED_FUNCTION_40_1(v10);
+  v12 = OUTLINED_FUNCTION_23(v11);
+  *v12 = v13;
+  OUTLINED_FUNCTION_2_1(v12);
   OUTLINED_FUNCTION_44_1();
 
-  return v19(v13, v14, v15, v16, v17, v18, v19, v20, a9, a10);
+  return v20(v14, v15, v16, v17, v18, v19, v20, v21, a9, a10);
 }
 
 uint64_t protocol witness for ExtractionRule.extractInfo(query:result:assistantLocale:) in conformance HotelLocationAnswer(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
@@ -8371,14 +5178,14 @@ uint64_t protocol witness for ExtractionRule.extractInfo(query:result:assistantL
   OUTLINED_FUNCTION_39_1();
   OUTLINED_FUNCTION_75();
   OUTLINED_FUNCTION_4_1();
-  OUTLINED_FUNCTION_60(&async function pointer to specialized TypedExtractionRule.extractInfo(query:result:assistantLocale:));
-  v10 = OUTLINED_FUNCTION_40_1();
-  v11 = OUTLINED_FUNCTION_23(v10);
-  *v11 = v12;
-  OUTLINED_FUNCTION_2_1(v11);
+  v10 = OUTLINED_FUNCTION_60(&async function pointer to specialized TypedExtractionRule.extractInfo(query:result:assistantLocale:));
+  v11 = OUTLINED_FUNCTION_40_1(v10);
+  v12 = OUTLINED_FUNCTION_23(v11);
+  *v12 = v13;
+  OUTLINED_FUNCTION_2_1(v12);
   OUTLINED_FUNCTION_44_1();
 
-  return v19(v13, v14, v15, v16, v17, v18, v19, v20, a9, a10);
+  return v20(v14, v15, v16, v17, v18, v19, v20, v21, a9, a10);
 }
 
 uint64_t protocol witness for TypedExtractionRule.extractInfo(query:typedResult:assistantLocale:) in conformance WalletLocationAnswer(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
@@ -8386,14 +5193,14 @@ uint64_t protocol witness for TypedExtractionRule.extractInfo(query:typedResult:
   OUTLINED_FUNCTION_39_1();
   OUTLINED_FUNCTION_75();
   OUTLINED_FUNCTION_4_1();
-  OUTLINED_FUNCTION_60(&async function pointer to specialized AnswerSourceExtractionRule.extractInfo(query:typedResult:assistantLocale:));
-  v10 = OUTLINED_FUNCTION_40_1();
-  v11 = OUTLINED_FUNCTION_23(v10);
-  *v11 = v12;
-  OUTLINED_FUNCTION_2_1(v11);
+  v10 = OUTLINED_FUNCTION_60(&async function pointer to specialized AnswerSourceExtractionRule.extractInfo(query:typedResult:assistantLocale:));
+  v11 = OUTLINED_FUNCTION_40_1(v10);
+  v12 = OUTLINED_FUNCTION_23(v11);
+  *v12 = v13;
+  OUTLINED_FUNCTION_2_1(v12);
   OUTLINED_FUNCTION_44_1();
 
-  return v19(v13, v14, v15, v16, v17, v18, v19, v20, a9, a10);
+  return v20(v14, v15, v16, v17, v18, v19, v20, v21, a9, a10);
 }
 
 uint64_t protocol witness for ExtractionRule.extractInfo(query:result:assistantLocale:) in conformance WalletLocationAnswer(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
@@ -8401,14 +5208,14 @@ uint64_t protocol witness for ExtractionRule.extractInfo(query:result:assistantL
   OUTLINED_FUNCTION_39_1();
   OUTLINED_FUNCTION_75();
   OUTLINED_FUNCTION_4_1();
-  OUTLINED_FUNCTION_60(&async function pointer to specialized TypedExtractionRule.extractInfo(query:result:assistantLocale:));
-  v10 = OUTLINED_FUNCTION_40_1();
-  v11 = OUTLINED_FUNCTION_23(v10);
-  *v11 = v12;
-  OUTLINED_FUNCTION_2_1(v11);
+  v10 = OUTLINED_FUNCTION_60(&async function pointer to specialized TypedExtractionRule.extractInfo(query:result:assistantLocale:));
+  v11 = OUTLINED_FUNCTION_40_1(v10);
+  v12 = OUTLINED_FUNCTION_23(v11);
+  *v12 = v13;
+  OUTLINED_FUNCTION_2_1(v12);
   OUTLINED_FUNCTION_44_1();
 
-  return v19(v13, v14, v15, v16, v17, v18, v19, v20, a9, a10);
+  return v20(v14, v15, v16, v17, v18, v19, v20, v21, a9, a10);
 }
 
 uint64_t protocol witness for TypedExtractionRule.extractInfo(query:typedResult:assistantLocale:) in conformance FlightFromExtractedAnswer(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
@@ -8416,14 +5223,14 @@ uint64_t protocol witness for TypedExtractionRule.extractInfo(query:typedResult:
   OUTLINED_FUNCTION_39_1();
   OUTLINED_FUNCTION_75();
   OUTLINED_FUNCTION_4_1();
-  OUTLINED_FUNCTION_60(async function pointer to specialized AnswerSourceExtractionRule.extractInfo(query:typedResult:assistantLocale:));
-  v10 = OUTLINED_FUNCTION_40_1();
-  v11 = OUTLINED_FUNCTION_23(v10);
-  *v11 = v12;
-  OUTLINED_FUNCTION_2_1(v11);
+  v10 = OUTLINED_FUNCTION_60(&async function pointer to specialized AnswerSourceExtractionRule.extractInfo(query:typedResult:assistantLocale:));
+  v11 = OUTLINED_FUNCTION_40_1(v10);
+  v12 = OUTLINED_FUNCTION_23(v11);
+  *v12 = v13;
+  OUTLINED_FUNCTION_2_1(v12);
   OUTLINED_FUNCTION_44_1();
 
-  return v19(v13, v14, v15, v16, v17, v18, v19, v20, a9, a10);
+  return v20(v14, v15, v16, v17, v18, v19, v20, v21, a9, a10);
 }
 
 uint64_t protocol witness for ExtractionRule.extractInfo(query:result:assistantLocale:) in conformance FlightFromExtractedAnswer(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
@@ -8431,106 +5238,101 @@ uint64_t protocol witness for ExtractionRule.extractInfo(query:result:assistantL
   OUTLINED_FUNCTION_39_1();
   OUTLINED_FUNCTION_75();
   OUTLINED_FUNCTION_4_1();
-  OUTLINED_FUNCTION_60(&async function pointer to specialized TypedExtractionRule.extractInfo(query:result:assistantLocale:));
-  v10 = OUTLINED_FUNCTION_40_1();
-  v11 = OUTLINED_FUNCTION_23(v10);
-  *v11 = v12;
-  OUTLINED_FUNCTION_2_1(v11);
+  v10 = OUTLINED_FUNCTION_60(&async function pointer to specialized TypedExtractionRule.extractInfo(query:result:assistantLocale:));
+  v11 = OUTLINED_FUNCTION_40_1(v10);
+  v12 = OUTLINED_FUNCTION_23(v11);
+  *v12 = v13;
+  OUTLINED_FUNCTION_2_1(v12);
   OUTLINED_FUNCTION_44_1();
 
-  return v19(v13, v14, v15, v16, v17, v18, v19, v20, a9, a10);
+  return v20(v14, v15, v16, v17, v18, v19, v20, v21, a9, a10);
 }
 
 uint64_t static ExtractionRuleType.== infix(_:_:)(uint64_t a1, uint64_t a2)
 {
-  v78 = a1;
-  v79 = a2;
-  v2 = type metadata accessor for Date();
-  v3 = OUTLINED_FUNCTION_14(v2);
-  v76 = v4;
-  v77 = v3;
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](v3);
+  v63 = a1;
+  v64 = a2;
+  type metadata accessor for Date();
+  OUTLINED_FUNCTION_14();
+  v61 = v3;
+  v62 = v2;
+  MEMORY[0x28223BE20](v2);
   OUTLINED_FUNCTION_36();
-  v71 = v8 - v7;
-  v9 = type metadata accessor for FlightReservation();
-  v10 = OUTLINED_FUNCTION_14(v9);
-  v74 = v11;
-  v75 = v10;
-  v13 = *(v12 + 64);
+  v56 = (v5 - v4);
+  type metadata accessor for FlightReservation();
+  OUTLINED_FUNCTION_14();
+  v59 = v7;
+  v60 = v6;
+  MEMORY[0x28223BE20](v6);
+  OUTLINED_FUNCTION_36();
+  v55 = (v9 - v8);
+  type metadata accessor for URL();
+  OUTLINED_FUNCTION_14();
+  v57 = v11;
+  v58 = v10;
   MEMORY[0x28223BE20](v10);
   OUTLINED_FUNCTION_36();
-  v70 = v15 - v14;
-  v16 = type metadata accessor for URL();
-  v17 = OUTLINED_FUNCTION_14(v16);
-  v72 = v18;
-  v73 = v17;
-  v20 = *(v19 + 64);
-  MEMORY[0x28223BE20](v17);
-  OUTLINED_FUNCTION_36();
-  v23 = v22 - v21;
-  v24 = type metadata accessor for ExtractionRuleType(0);
-  v25 = OUTLINED_FUNCTION_17(v24);
-  v27 = *(v26 + 64);
-  v28 = MEMORY[0x28223BE20](v25);
-  v30 = &v70 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v31 = MEMORY[0x28223BE20](v28);
-  v33 = (&v70 - v32);
-  v34 = MEMORY[0x28223BE20](v31);
-  v36 = &v70 - v35;
-  v37 = MEMORY[0x28223BE20](v34);
-  v39 = &v70 - v38;
-  MEMORY[0x28223BE20](v37);
-  v41 = (&v70 - v40);
-  v42 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch18ExtractionRuleTypeO_ACtMd, &_s10OmniSearch18ExtractionRuleTypeO_ACtMR);
-  v43 = *(*(v42 - 8) + 64);
-  v44 = MEMORY[0x28223BE20](v42 - 8);
-  v46 = &v70 - v45;
-  v47 = (&v70 + *(v44 + 56) - v45);
-  outlined init with copy of SearchResult(v78, &v70 - v45);
-  outlined init with copy of SearchResult(v79, v47);
+  v14 = (v13 - v12);
+  type metadata accessor for ExtractionRuleType(0);
+  OUTLINED_FUNCTION_17();
+  MEMORY[0x28223BE20](v15);
+  v17 = &v55 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v18);
+  v20 = (&v55 - v19);
+  MEMORY[0x28223BE20](v21);
+  v23 = &v55 - v22;
+  MEMORY[0x28223BE20](v24);
+  v26 = &v55 - v25;
+  MEMORY[0x28223BE20](v27);
+  v29 = (&v55 - v28);
+  v30 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch18ExtractionRuleTypeO_ACtMd, &_s10OmniSearch18ExtractionRuleTypeO_ACtMR);
+  MEMORY[0x28223BE20](v30 - 8);
+  v32 = &v55 - v31;
+  v34 = (&v55 + *(v33 + 56) - v31);
+  outlined init with copy of SearchResult(v63, &v55 - v31);
+  outlined init with copy of SearchResult(v64, v34);
   switch(swift_getEnumCaseMultiPayload())
   {
     case 1u:
       OUTLINED_FUNCTION_1_2();
-      outlined init with copy of SearchResult(v46, v39);
+      outlined init with copy of SearchResult(v32, v26);
       if (OUTLINED_FUNCTION_43_0() == 1)
       {
-        v64 = v72;
-        v63 = v73;
-        (*(v72 + 32))(v23, v47, v73);
-        v53 = static URL.== infix(_:_:)();
-        v65 = *(v64 + 8);
-        v65(v23, v63);
-        v65(v39, v63);
+        v50 = v57;
+        v49 = v58;
+        (*(v57 + 32))(v14, v34, v58);
+        v40 = static URL.== infix(_:_:)();
+        v51 = *(v50 + 8);
+        v51(v14, v49);
+        v51(v26, v49);
         goto LABEL_17;
       }
 
-      (*(v72 + 8))(v39, v73);
+      (*(v57 + 8))(v26, v58);
       goto LABEL_23;
     case 2u:
       OUTLINED_FUNCTION_1_2();
-      outlined init with copy of SearchResult(v46, v36);
+      outlined init with copy of SearchResult(v32, v23);
       if (OUTLINED_FUNCTION_43_0() == 2)
       {
-        v56 = v74;
-        v55 = v75;
-        v57 = v70;
-        (*(v74 + 32))(v70, v47, v75);
-        v53 = static FlightReservation.== infix(_:_:)();
-        v58 = *(v56 + 8);
-        v58(v57, v55);
-        v58(v36, v55);
+        v43 = v59;
+        v42 = v60;
+        v44 = v55;
+        (*(v59 + 32))(v55, v34, v60);
+        v40 = static FlightReservation.== infix(_:_:)();
+        v45 = *(v43 + 8);
+        v45(v44, v42);
+        v45(v23, v42);
         goto LABEL_17;
       }
 
-      (*(v74 + 8))(v36, v75);
+      (*(v59 + 8))(v23, v60);
       goto LABEL_23;
     case 3u:
       OUTLINED_FUNCTION_1_2();
-      outlined init with copy of SearchResult(v46, v33);
-      v49 = *v33;
-      v48 = v33[1];
+      outlined init with copy of SearchResult(v32, v20);
+      v36 = *v20;
+      v35 = v20[1];
       if (OUTLINED_FUNCTION_43_0() == 3)
       {
         goto LABEL_9;
@@ -8539,25 +5341,25 @@ uint64_t static ExtractionRuleType.== infix(_:_:)(uint64_t a1, uint64_t a2)
       goto LABEL_3;
     case 4u:
       OUTLINED_FUNCTION_1_2();
-      outlined init with copy of SearchResult(v46, v30);
+      outlined init with copy of SearchResult(v32, v17);
       if (OUTLINED_FUNCTION_43_0() != 4)
       {
-        (*(v76 + 8))(v30, v77);
+        (*(v61 + 8))(v17, v62);
         goto LABEL_23;
       }
 
-      v51 = v76;
-      v50 = v77;
-      v52 = v71;
-      (*(v76 + 32))(v71, v47, v77);
-      v53 = static Date.== infix(_:_:)();
-      v54 = *(v51 + 8);
-      v54(v52, v50);
-      v54(v30, v50);
+      v38 = v61;
+      v37 = v62;
+      v39 = v56;
+      (*(v61 + 32))(v56, v34, v62);
+      v40 = static Date.== infix(_:_:)();
+      v41 = *(v38 + 8);
+      v41(v39, v37);
+      v41(v17, v37);
 LABEL_17:
       OUTLINED_FUNCTION_5_2();
-      outlined destroy of SearchResult(v46, v66);
-      return v53 & 1;
+      outlined destroy of SearchResult(v32, v52);
+      return v40 & 1;
     case 5u:
       if (OUTLINED_FUNCTION_43_0() == 5)
       {
@@ -8567,53 +5369,51 @@ LABEL_17:
       goto LABEL_23;
     default:
       OUTLINED_FUNCTION_1_2();
-      outlined init with copy of SearchResult(v46, v41);
-      v49 = *v41;
-      v48 = v41[1];
+      outlined init with copy of SearchResult(v32, v29);
+      v36 = *v29;
+      v35 = v29[1];
       if (OUTLINED_FUNCTION_43_0())
       {
 LABEL_3:
 
 LABEL_23:
-        outlined destroy of IntentApplication?(v46, &_s10OmniSearch18ExtractionRuleTypeO_ACtMd, &_s10OmniSearch18ExtractionRuleTypeO_ACtMR);
+        outlined destroy of IntentApplication?(v32, &_s10OmniSearch18ExtractionRuleTypeO_ACtMd, &_s10OmniSearch18ExtractionRuleTypeO_ACtMR);
         goto LABEL_24;
       }
 
 LABEL_9:
-      if (v49 == *v47 && v48 == v47[1])
+      if (v36 == *v34 && v35 == v34[1])
       {
-        v67 = v47[1];
       }
 
       else
       {
-        v60 = v47[1];
-        v61 = _stringCompareWithSmolCheck(_:_:expecting:)();
+        v47 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-        if ((v61 & 1) == 0)
+        if ((v47 & 1) == 0)
         {
           OUTLINED_FUNCTION_5_2();
-          outlined destroy of SearchResult(v46, v62);
+          outlined destroy of SearchResult(v32, v48);
 LABEL_24:
-          v53 = 0;
-          return v53 & 1;
+          v40 = 0;
+          return v40 & 1;
         }
       }
 
 LABEL_26:
       OUTLINED_FUNCTION_5_2();
-      outlined destroy of SearchResult(v46, v68);
-      v53 = 1;
-      return v53 & 1;
+      outlined destroy of SearchResult(v32, v53);
+      v40 = 1;
+      return v40 & 1;
   }
 }
 
 uint64_t outlined init with copy of SearchResult(uint64_t a1, uint64_t a2)
 {
   v4 = OUTLINED_FUNCTION_47_1();
-  v6 = v5(v4);
-  OUTLINED_FUNCTION_17(v6);
-  (*(v7 + 16))(a2, v2);
+  v5(v4);
+  OUTLINED_FUNCTION_17();
+  (*(v6 + 16))(a2, v2);
   return a2;
 }
 
@@ -8623,86 +5423,79 @@ uint64_t outlined init with copy of SearchResult(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-uint64_t outlined destroy of SearchResult(uint64_t a1, uint64_t (*a2)(void))
+uint64_t outlined destroy of SearchResult(uint64_t a1, void (*a2)(void))
 {
-  v3 = a2(0);
-  OUTLINED_FUNCTION_17(v3);
-  (*(v4 + 8))(a1);
+  a2(0);
+  OUTLINED_FUNCTION_17();
+  (*(v3 + 8))(a1);
   return a1;
 }
 
-uint64_t ExtractionRuleType.hash(into:)()
+uint64_t ExtractionRuleType.hash(into:)(uint64_t a1)
 {
-  v1 = v0;
-  v2 = type metadata accessor for Date();
-  v40 = OUTLINED_FUNCTION_14(v2);
-  v41 = v3;
-  v5 = *(v4 + 64);
-  MEMORY[0x28223BE20](v40);
+  v2 = v1;
+  type metadata accessor for Date();
+  OUTLINED_FUNCTION_14();
+  v28 = v3;
+  v29 = v4;
+  MEMORY[0x28223BE20](v3);
   OUTLINED_FUNCTION_36();
-  v8 = v7 - v6;
-  v9 = type metadata accessor for FlightReservation();
-  v10 = OUTLINED_FUNCTION_14(v9);
-  v12 = v11;
-  v14 = *(v13 + 64);
-  MEMORY[0x28223BE20](v10);
+  v7 = v6 - v5;
+  v8 = type metadata accessor for FlightReservation();
+  OUTLINED_FUNCTION_14();
+  v10 = v9;
+  MEMORY[0x28223BE20](v11);
   OUTLINED_FUNCTION_36();
-  v17 = v16 - v15;
-  v18 = type metadata accessor for URL();
-  v19 = OUTLINED_FUNCTION_14(v18);
-  v21 = v20;
-  v23 = *(v22 + 64);
-  MEMORY[0x28223BE20](v19);
+  v14 = v13 - v12;
+  v15 = type metadata accessor for URL();
+  OUTLINED_FUNCTION_14();
+  v17 = v16;
+  MEMORY[0x28223BE20](v18);
   OUTLINED_FUNCTION_36();
-  v26 = v25 - v24;
-  v27 = type metadata accessor for ExtractionRuleType(0);
-  v28 = OUTLINED_FUNCTION_17(v27);
-  v30 = *(v29 + 64);
-  MEMORY[0x28223BE20](v28);
+  v21 = v20 - v19;
+  type metadata accessor for ExtractionRuleType(0);
+  OUTLINED_FUNCTION_17();
+  MEMORY[0x28223BE20](v22);
   OUTLINED_FUNCTION_36();
-  v33 = (v32 - v31);
+  v25 = v24 - v23;
   OUTLINED_FUNCTION_1_2();
-  outlined init with copy of SearchResult(v1, v33);
+  outlined init with copy of SearchResult(v2, v25);
   switch(swift_getEnumCaseMultiPayload())
   {
     case 1u:
-      (*(v21 + 32))(v26, v33, v18);
+      (*(v17 + 32))(v21, v25, v15);
       MEMORY[0x25F8A0680](1);
-      lazy protocol witness table accessor for type Date and conformance Date(&lazy protocol witness table cache variable for type URL and conformance URL, MEMORY[0x277CC9260]);
+      lazy protocol witness table accessor for type Date and conformance Date(&lazy protocol witness table cache variable for type URL and conformance URL, MEMORY[0x277CC9260], MEMORY[0x277CC9270]);
       OUTLINED_FUNCTION_46_1();
       dispatch thunk of Hashable.hash(into:)();
-      result = (*(v21 + 8))(v26, v18);
+      result = (*(v17 + 8))(v21, v15);
       break;
     case 2u:
-      (*(v12 + 32))(v17, v33, v9);
+      (*(v10 + 32))(v14, v25, v8);
       MEMORY[0x25F8A0680](2);
-      lazy protocol witness table accessor for type Date and conformance Date(&lazy protocol witness table cache variable for type FlightReservation and conformance FlightReservation, MEMORY[0x277D37290]);
+      lazy protocol witness table accessor for type Date and conformance Date(&lazy protocol witness table cache variable for type FlightReservation and conformance FlightReservation, MEMORY[0x277D37290], MEMORY[0x277D372A0]);
       OUTLINED_FUNCTION_46_1();
       dispatch thunk of Hashable.hash(into:)();
-      result = (*(v12 + 8))(v17, v9);
+      result = (*(v10 + 8))(v14, v8);
       break;
     case 3u:
-      v38 = *v33;
-      v39 = v33[1];
-      v36 = 3;
+      v26 = 3;
       goto LABEL_6;
     case 4u:
-      (*(v41 + 32))(v8, v33, v40);
+      (*(v29 + 32))(v7, v25, v28);
       MEMORY[0x25F8A0680](4);
-      lazy protocol witness table accessor for type Date and conformance Date(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578]);
+      lazy protocol witness table accessor for type Date and conformance Date(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578], MEMORY[0x277CC9588]);
       OUTLINED_FUNCTION_46_1();
       dispatch thunk of Hashable.hash(into:)();
-      result = (*(v41 + 8))(v8, v40);
+      result = (*(v29 + 8))(v7, v28);
       break;
     case 5u:
       result = MEMORY[0x25F8A0680](5);
       break;
     default:
-      v34 = *v33;
-      v35 = v33[1];
-      v36 = 0;
+      v26 = 0;
 LABEL_6:
-      MEMORY[0x25F8A0680](v36);
+      MEMORY[0x25F8A0680](v26);
       String.hash(into:)();
 
       break;
@@ -8711,7 +5504,7 @@ LABEL_6:
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type Date and conformance Date(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type Date and conformance Date(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -8751,22 +5544,22 @@ uint64_t lazy protocol witness table accessor for type Date and conformance Date
 Swift::Int ExtractionRuleType.hashValue.getter()
 {
   Hasher.init(_seed:)();
-  ExtractionRuleType.hash(into:)();
+  ExtractionRuleType.hash(into:)(v1);
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance ExtractionRuleType()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance ExtractionRuleType(uint64_t a1)
 {
   Hasher.init(_seed:)();
-  ExtractionRuleType.hash(into:)();
+  ExtractionRuleType.hash(into:)(v2);
   return Hasher._finalize()();
 }
 
 uint64_t ExtractedInfo.type.getter@<X0>(uint64_t a1@<X8>)
 {
-  v3 = *(type metadata accessor for ExtractedInfo(0) + 20);
+  type metadata accessor for ExtractedInfo(0);
   OUTLINED_FUNCTION_1_2();
-  return outlined init with copy of SearchResult(v1 + v4, a1);
+  return outlined init with copy of SearchResult(v1 + v3, a1);
 }
 
 uint64_t RegexExtractionRule.extractFromSource(query:answer:source:assistantLocale:)()
@@ -8780,175 +5573,22 @@ uint64_t RegexExtractionRule.extractFromSource(query:answer:source:assistantLoca
   v1[17] = v6;
   v1[14] = v7;
   v1[15] = v8;
-  v9 = *(v4 - 8);
-  v1[22] = v9;
-  v10 = *(v9 + 64) + 15;
+  v1[22] = *(v4 - 8);
   v1[23] = swift_task_alloc();
   v1[24] = swift_task_alloc();
-  v11 = type metadata accessor for Locale.Language();
-  v1[25] = v11;
-  v12 = *(v11 - 8);
+  v1[25] = type metadata accessor for Locale.Language();
   OUTLINED_FUNCTION_28_0();
-  v1[26] = v13;
-  v15 = *(v14 + 64);
+  v1[26] = v9;
   v1[27] = OUTLINED_FUNCTION_199();
-  v16 = type metadata accessor for Locale();
-  v1[28] = v16;
-  v17 = *(v16 - 8);
+  v1[28] = type metadata accessor for Locale();
   OUTLINED_FUNCTION_28_0();
-  v1[29] = v18;
-  v20 = *(v19 + 64);
+  v1[29] = v10;
   v1[30] = OUTLINED_FUNCTION_199();
-  v21 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleV12LanguageCodeVSgMd, &_s10Foundation6LocaleV12LanguageCodeVSgMR) - 8) + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleV12LanguageCodeVSgMd, &_s10Foundation6LocaleV12LanguageCodeVSgMR);
   v1[31] = OUTLINED_FUNCTION_199();
   OUTLINED_FUNCTION_69();
 
-  return MEMORY[0x2822009F8](v22, v23, v24);
-}
-
-{
-  if (!*(v0 + 144))
-  {
-    goto LABEL_4;
-  }
-
-  v1 = *(v0 + 240);
-  v2 = *(v0 + 248);
-  v3 = *(v0 + 224);
-  v4 = *(v0 + 232);
-  v6 = *(v0 + 208);
-  v5 = *(v0 + 216);
-  v7 = *(v0 + 200);
-  v8 = *(v0 + 136);
-  v9 = *(v0 + 144);
-
-  Locale.init(identifier:)();
-  Locale.language.getter();
-  (*(v4 + 8))(v1, v3);
-  Locale.Language.languageCode.getter();
-  (*(v6 + 8))(v5, v7);
-  v10 = type metadata accessor for Locale.LanguageCode();
-  EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v2, 1, v10);
-  v12 = *(v0 + 248);
-  if (EnumTagSinglePayload == 1)
-  {
-    outlined destroy of IntentApplication?(*(v0 + 248), &_s10Foundation6LocaleV12LanguageCodeVSgMd, &_s10Foundation6LocaleV12LanguageCodeVSgMR);
-LABEL_4:
-    v13 = *(v0 + 112);
-    OUTLINED_FUNCTION_21_0();
-    OUTLINED_FUNCTION_92();
-    __swift_storeEnumTagSinglePayload(v14, v15, v16, v17);
-LABEL_5:
-    v19 = *(v0 + 240);
-    v18 = *(v0 + 248);
-    v20 = *(v0 + 216);
-    v22 = *(v0 + 184);
-    v21 = *(v0 + 192);
-
-    OUTLINED_FUNCTION_106();
-
-    return v23();
-  }
-
-  v26 = *(v0 + 160);
-  v25 = *(v0 + 168);
-  v27 = *(v0 + 152);
-  v28 = MEMORY[0x25F899710]();
-  v30 = v29;
-  (*(*(v10 - 8) + 8))(v12, v10);
-  (*(v26 + 16))(v28, v30, v27, v26);
-
-  if (!*(v0 + 80))
-  {
-    outlined destroy of IntentApplication?(v0 + 56, &_s17_StringProcessing14RegexComponent_pSgMd, &_s17_StringProcessing14RegexComponent_pSgMR);
-    if (one-time initialization token for answerSynthesis != -1)
-    {
-      swift_once();
-    }
-
-    v45 = *(v0 + 192);
-    v46 = *(v0 + 168);
-    v47 = *(v0 + 176);
-    v48 = *(v0 + 152);
-    v49 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v49, static Logging.answerSynthesis);
-    v50 = *(v47 + 16);
-    v50(v45, v46, v48);
-
-    v51 = Logger.logObject.getter();
-    v52 = static os_log_type_t.error.getter();
-
-    v53 = os_log_type_enabled(v51, v52);
-    v54 = *(v0 + 192);
-    if (v53)
-    {
-      v69 = v52;
-      v55 = *(v0 + 176);
-      v56 = *(v0 + 184);
-      v57 = *(v0 + 152);
-      v67 = *(v0 + 136);
-      v58 = swift_slowAlloc();
-      v70 = swift_slowAlloc();
-      *v58 = 136315394;
-      v50(v56, v54, v57);
-      String.init<A>(describing:)();
-      (*(v55 + 8))(v54, v57);
-      v59 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)();
-
-      *(v58 + 4) = v59;
-      *(v58 + 12) = 2080;
-      *(v58 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)();
-      _os_log_impl(&dword_25D85C000, v51, v69, "%s - failed to find a valid match for locale: %s", v58, 0x16u);
-      swift_arrayDestroy();
-      MEMORY[0x25F8A1050](v70, -1, -1);
-      MEMORY[0x25F8A1050](v58, -1, -1);
-    }
-
-    else
-    {
-      v65 = *(v0 + 176);
-      v66 = *(v0 + 152);
-
-      (*(v65 + 8))(v54, v66);
-    }
-
-    goto LABEL_4;
-  }
-
-  v31 = *(v0 + 120);
-  outlined init with take of ResponseOverrideMatcherProtocol((v0 + 56), v0 + 16);
-  v32 = *(v0 + 48);
-  __swift_project_boxed_opaque_existential_1((v0 + 16), *(v0 + 40));
-  v33 = *(v31 + 24);
-  *(v0 + 96) = *(v31 + 16);
-  *(v0 + 104) = v33;
-  lazy protocol witness table accessor for type String and conformance String();
-  if ((BidirectionalCollection<>.contains<A>(_:)() & 1) == 0)
-  {
-    v60 = *(v0 + 112);
-    OUTLINED_FUNCTION_21_0();
-    OUTLINED_FUNCTION_92();
-    __swift_storeEnumTagSinglePayload(v61, v62, v63, v64);
-    __swift_destroy_boxed_opaque_existential_1Tm((v0 + 16));
-    goto LABEL_5;
-  }
-
-  v34 = *(*(v0 + 160) + 24);
-  OUTLINED_FUNCTION_28_0();
-  v68 = (v35 + *v35);
-  v37 = *(v36 + 4);
-  swift_task_alloc();
-  OUTLINED_FUNCTION_53();
-  *(v0 + 256) = v38;
-  *v38 = v39;
-  v38[1] = RegexExtractionRule.extractFromSource(query:answer:source:assistantLocale:);
-  v40 = *(v0 + 160);
-  v41 = *(v0 + 168);
-  v42 = *(v0 + 152);
-  v43 = *(v0 + 128);
-  v44 = *(v0 + 112);
-
-  return v68(v44, v43, v42, v40);
+  return MEMORY[0x2822009F8](v11);
 }
 
 {
@@ -8956,85 +5596,203 @@ LABEL_5:
   OUTLINED_FUNCTION_52();
   OUTLINED_FUNCTION_56_0();
   *v3 = v2;
-  v5 = *(v4 + 256);
-  v6 = *v1;
+  v4 = *v1;
   OUTLINED_FUNCTION_11();
-  *v7 = v6;
-  *(v8 + 264) = v0;
+  *v5 = v4;
+  *(v6 + 264) = v0;
 
   OUTLINED_FUNCTION_69();
 
-  return MEMORY[0x2822009F8](v9, v10, v11);
+  return MEMORY[0x2822009F8](v7);
 }
 
 {
   OUTLINED_FUNCTION_78();
-  __swift_destroy_boxed_opaque_existential_1Tm(v0 + 2);
-  v2 = v0[30];
-  v1 = v0[31];
-  v3 = v0[27];
-  v5 = v0[23];
-  v4 = v0[24];
+  __swift_destroy_boxed_opaque_existential_1Tm((v0 + 16));
 
   OUTLINED_FUNCTION_106();
 
-  return v6();
+  return v1();
 }
 
 {
-  v1 = v0[30];
-  v2 = v0[31];
-  v3 = v0[27];
-  v5 = v0[23];
-  v4 = v0[24];
-  __swift_destroy_boxed_opaque_existential_1Tm(v0 + 2);
+  __swift_destroy_boxed_opaque_existential_1Tm((v0 + 16));
 
   OUTLINED_FUNCTION_127();
-  v7 = v0[33];
 
-  return v6();
+  return v1();
+}
+
+uint64_t RegexExtractionRule.extractFromSource(query:answer:source:assistantLocale:)(uint64_t a1)
+{
+  if (!*(v1 + 144))
+  {
+    goto LABEL_4;
+  }
+
+  v2 = *(v1 + 240);
+  v3 = *(v1 + 248);
+  v4 = *(v1 + 224);
+  v5 = *(v1 + 232);
+  v7 = *(v1 + 208);
+  v6 = *(v1 + 216);
+  v8 = *(v1 + 200);
+
+  Locale.init(identifier:)();
+  Locale.language.getter();
+  (*(v5 + 8))(v2, v4);
+  Locale.Language.languageCode.getter();
+  (*(v7 + 8))(v6, v8);
+  v9 = type metadata accessor for Locale.LanguageCode();
+  EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v3, 1, v9);
+  v11 = *(v1 + 248);
+  if (EnumTagSinglePayload == 1)
+  {
+    outlined destroy of IntentApplication?(*(v1 + 248), &_s10Foundation6LocaleV12LanguageCodeVSgMd, &_s10Foundation6LocaleV12LanguageCodeVSgMR);
+LABEL_4:
+    OUTLINED_FUNCTION_21_0();
+    OUTLINED_FUNCTION_92();
+    __swift_storeEnumTagSinglePayload(v12, v13, v14, v15);
+LABEL_5:
+
+    OUTLINED_FUNCTION_106();
+
+    return v16();
+  }
+
+  v18 = *(v1 + 160);
+  v19 = *(v1 + 152);
+  v20 = MEMORY[0x25F899710]();
+  v22 = v21;
+  (*(*(v9 - 8) + 8))(v11, v9);
+  (*(v18 + 16))(v20, v22, v19, v18);
+
+  if (!*(v1 + 80))
+  {
+    outlined destroy of IntentApplication?(v1 + 56, &_s17_StringProcessing14RegexComponent_pSgMd, &_s17_StringProcessing14RegexComponent_pSgMR);
+    if (one-time initialization token for answerSynthesis != -1)
+    {
+      swift_once();
+    }
+
+    v32 = *(v1 + 192);
+    v33 = *(v1 + 168);
+    v34 = *(v1 + 176);
+    v35 = *(v1 + 152);
+    v36 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v36, static Logging.answerSynthesis);
+    v37 = *(v34 + 16);
+    v37(v32, v33, v35);
+
+    v38 = Logger.logObject.getter();
+    v39 = static os_log_type_t.error.getter();
+
+    v40 = os_log_type_enabled(v38, v39);
+    v41 = *(v1 + 192);
+    if (v40)
+    {
+      v54 = v39;
+      v42 = *(v1 + 176);
+      v43 = *(v1 + 184);
+      v44 = *(v1 + 152);
+      v45 = swift_slowAlloc();
+      v55 = swift_slowAlloc();
+      *v45 = 136315394;
+      v37(v43, v41, v44);
+      String.init<A>(describing:)();
+      (*(v42 + 8))(v41, v44);
+      v46 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)();
+
+      *(v45 + 4) = v46;
+      *(v45 + 12) = 2080;
+      *(v45 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)();
+      _os_log_impl(&dword_25D85C000, v38, v54, "%s - failed to find a valid match for locale: %s", v45, 0x16u);
+      swift_arrayDestroy();
+      MEMORY[0x25F8A1050](v55, -1, -1);
+      MEMORY[0x25F8A1050](v45, -1, -1);
+    }
+
+    else
+    {
+      v51 = *(v1 + 176);
+      v52 = *(v1 + 152);
+
+      (*(v51 + 8))(v41, v52);
+    }
+
+    goto LABEL_4;
+  }
+
+  v23 = *(v1 + 120);
+  outlined init with take of ResponseOverrideMatcherProtocol((v1 + 56), v1 + 16);
+  __swift_project_boxed_opaque_existential_1((v1 + 16), *(v1 + 40));
+  v24 = *(v23 + 24);
+  *(v1 + 96) = *(v23 + 16);
+  *(v1 + 104) = v24;
+  lazy protocol witness table accessor for type String and conformance String();
+  if ((BidirectionalCollection<>.contains<A>(_:)() & 1) == 0)
+  {
+    OUTLINED_FUNCTION_21_0();
+    OUTLINED_FUNCTION_92();
+    __swift_storeEnumTagSinglePayload(v47, v48, v49, v50);
+    __swift_destroy_boxed_opaque_existential_1Tm((v1 + 16));
+    goto LABEL_5;
+  }
+
+  OUTLINED_FUNCTION_28_0();
+  v53 = (v25 + *v25);
+  swift_task_alloc();
+  OUTLINED_FUNCTION_53();
+  *(v1 + 256) = v26;
+  *v26 = v27;
+  v26[1] = RegexExtractionRule.extractFromSource(query:answer:source:assistantLocale:);
+  v28 = *(v1 + 160);
+  v29 = *(v1 + 152);
+  v30 = *(v1 + 128);
+  v31 = *(v1 + 112);
+
+  return v53(v31, v30, v29, v28);
 }
 
 uint64_t ExtractedInfo.newResult.getter@<X0>(uint64_t a1@<X8>)
 {
-  v3 = type metadata accessor for ExtractionRuleType(0);
-  v4 = OUTLINED_FUNCTION_17(v3);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](v4);
+  type metadata accessor for ExtractionRuleType(0);
+  OUTLINED_FUNCTION_17();
+  MEMORY[0x28223BE20](v3);
   OUTLINED_FUNCTION_36();
-  v9 = v8 - v7;
-  v10 = *(type metadata accessor for ExtractedInfo(0) + 20);
+  v6 = v5 - v4;
+  type metadata accessor for ExtractedInfo(0);
   OUTLINED_FUNCTION_1_2();
-  outlined init with copy of SearchResult(v1 + v11, v9);
+  outlined init with copy of SearchResult(v1 + v7, v6);
   if (swift_getEnumCaseMultiPayload() == 5)
   {
     OUTLINED_FUNCTION_0_1();
     outlined init with copy of SearchResult(v1, a1);
     type metadata accessor for SearchResult(0);
     OUTLINED_FUNCTION_44_0();
-    return __swift_storeEnumTagSinglePayload(v12, v13, v14, v15);
+    return __swift_storeEnumTagSinglePayload(v8, v9, v10, v11);
   }
 
   else
   {
     type metadata accessor for SearchResult(0);
-    v17 = OUTLINED_FUNCTION_17_1();
-    __swift_storeEnumTagSinglePayload(v17, v18, v19, v20);
+    v13 = OUTLINED_FUNCTION_17_1();
+    __swift_storeEnumTagSinglePayload(v13, v14, v15, v16);
     OUTLINED_FUNCTION_5_2();
-    return outlined destroy of SearchResult(v9, v21);
+    return outlined destroy of SearchResult(v6, v17);
   }
 }
 
-uint64_t type metadata completion function for ExtractionRuleType()
+uint64_t type metadata completion function for ExtractionRuleType(uint64_t a1)
 {
   result = type metadata accessor for URL();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = type metadata accessor for FlightReservation();
-    if (v2 <= 0x3F)
+    if (v3 <= 0x3F)
     {
       result = type metadata accessor for Date();
-      if (v3 <= 0x3F)
+      if (v4 <= 0x3F)
       {
         swift_cvw_initEnumMetadataMultiPayloadWithLayoutString();
         return 0;
@@ -9045,13 +5803,13 @@ uint64_t type metadata completion function for ExtractionRuleType()
   return result;
 }
 
-uint64_t type metadata completion function for ExtractedInfo()
+uint64_t type metadata completion function for ExtractedInfo(uint64_t a1)
 {
   result = type metadata accessor for SearchResult(319);
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = type metadata accessor for ExtractionRuleType(319);
-    if (v2 <= 0x3F)
+    if (v3 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
       return 0;
@@ -9063,57 +5821,48 @@ uint64_t type metadata completion function for ExtractedInfo()
 
 uint64_t dispatch thunk of ExtractionRule.extractInfo(query:result:assistantLocale:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
-  v7 = *(OUTLINED_FUNCTION_36_1(a1, a2, a3, a4, a5, a6, a7) + 16);
+  OUTLINED_FUNCTION_36_1(a1, a2, a3, a4, a5, a6, a7);
   OUTLINED_FUNCTION_28_0();
-  v17 = v8 + *v8;
-  v10 = *(v9 + 4);
-  v11 = swift_task_alloc();
-  v12 = OUTLINED_FUNCTION_23(v11);
-  *v12 = v13;
-  v14 = OUTLINED_FUNCTION_31_1(v12);
+  v7 = swift_task_alloc();
+  v8 = OUTLINED_FUNCTION_23(v7);
+  *v8 = v9;
+  v10 = OUTLINED_FUNCTION_31_1(v8);
 
-  return v15(v14);
+  return v11(v10);
 }
 
 uint64_t dispatch thunk of TypedExtractionRule.extractInfo(query:typedResult:assistantLocale:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
-  v7 = *(OUTLINED_FUNCTION_36_1(a1, a2, a3, a4, a5, a6, a7) + 32);
+  OUTLINED_FUNCTION_36_1(a1, a2, a3, a4, a5, a6, a7);
   OUTLINED_FUNCTION_28_0();
-  v17 = v8 + *v8;
-  v10 = *(v9 + 4);
-  v11 = swift_task_alloc();
-  v12 = OUTLINED_FUNCTION_23(v11);
-  *v12 = v13;
-  v14 = OUTLINED_FUNCTION_31_1(v12);
+  v7 = swift_task_alloc();
+  v8 = OUTLINED_FUNCTION_23(v7);
+  *v8 = v9;
+  v10 = OUTLINED_FUNCTION_31_1(v8);
 
-  return v15(v14);
+  return v11(v10);
 }
 
 uint64_t dispatch thunk of AnswerSourceExtractionRule.extractFromSource(query:answer:source:assistantLocale:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v16 = *(a8 + 16);
   OUTLINED_FUNCTION_28_0();
-  v24 = (v17 + *v17);
-  v19 = *(v18 + 4);
-  v20 = swift_task_alloc();
-  v21 = OUTLINED_FUNCTION_23(v20);
-  *v21 = v22;
-  v21[1] = partial apply for specialized closure #1 in Array.oms_mapWithTaskGroup<A>(ignoreOrder:itemTransform:);
+  v21 = (v16 + *v16);
+  v17 = swift_task_alloc();
+  v18 = OUTLINED_FUNCTION_23(v17);
+  *v18 = v19;
+  v18[1] = partial apply for specialized closure #1 in Array.oms_mapWithTaskGroup<A>(ignoreOrder:itemTransform:);
 
-  return v24(a1, a2, a3, a4, a5, a6, a7, a8);
+  return v21(a1, a2, a3, a4, a5, a6, a7, a8);
 }
 
 void dispatch thunk of RegexExtractionRule.extractMatched(typedResult:)()
 {
   OUTLINED_FUNCTION_75();
-  v1 = *(v0 + 24);
   OUTLINED_FUNCTION_28_0();
-  v10 = v2 + *v2;
-  v4 = *(v3 + 4);
-  v5 = swift_task_alloc();
-  v6 = OUTLINED_FUNCTION_23(v5);
-  *v6 = v7;
-  v6[1] = partial apply for specialized closure #1 in Array.oms_mapWithTaskGroup<A>(ignoreOrder:itemTransform:);
+  v0 = swift_task_alloc();
+  v1 = OUTLINED_FUNCTION_23(v0);
+  *v1 = v2;
+  v1[1] = partial apply for specialized closure #1 in Array.oms_mapWithTaskGroup<A>(ignoreOrder:itemTransform:);
   OUTLINED_FUNCTION_44_1();
 
   __asm { BRAA            X4, X16 }
@@ -9128,24 +5877,10 @@ uint64_t OUTLINED_FUNCTION_6_0()
   return _s10OmniSearch0B6ResultVWObTm_0(v2, v1);
 }
 
-uint64_t OUTLINED_FUNCTION_8_1(uint64_t a1)
-{
-  *(a1 + 8) = v1;
-  v3 = *(v2 + 112);
-  v4 = *(v2 + 80);
-  v5 = *(v2 + 88);
-  result = *(v2 + 56);
-  v7 = *(v2 + 64);
-  v8 = *(v2 + 136);
-  return result;
-}
-
 uint64_t OUTLINED_FUNCTION_14_0()
 {
-  v2 = type metadata accessor for ExtractionRuleType(0);
-  __swift_storeEnumTagSinglePayload(v0, 1, 1, v2);
-  v3 = *(v1 + 112);
-  v4 = *(v1 + 96);
+  v1 = type metadata accessor for ExtractionRuleType(0);
+  __swift_storeEnumTagSinglePayload(v0, 1, 1, v1);
 }
 
 uint64_t OUTLINED_FUNCTION_15_1(uint64_t a1)
@@ -9154,51 +5889,19 @@ uint64_t OUTLINED_FUNCTION_15_1(uint64_t a1)
   return outlined destroy of SearchResult(a1, type metadata accessor for SearchResult);
 }
 
-uint64_t OUTLINED_FUNCTION_24_0(uint64_t a1)
-{
-  *(a1 + 8) = AnswerSourceExtractionRule.extractInfo(query:typedResult:assistantLocale:);
-  v2 = v1[12];
-  v4 = v1[9];
-  result = v1[10];
-  v5 = v1[7];
-  v6 = v1[8];
-  v7 = v1[5];
-  v8 = v1[6];
-  v9 = v1[3];
-  v10 = v1[4];
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_25_0(uint64_t a1)
-{
-  *(a1 + 8) = specialized AnswerSourceExtractionRule.extractInfo(query:typedResult:assistantLocale:);
-  v2 = *(v1 + 72);
-  v4 = *(v1 + 48);
-  result = *(v1 + 56);
-  v5 = *(v1 + 32);
-  v6 = *(v1 + 40);
-  v7 = *(v1 + 24);
-  v8 = *(v1 + 120);
-  return result;
-}
-
 uint64_t OUTLINED_FUNCTION_35_1(uint64_t a1, uint64_t a2)
 {
   __swift_storeEnumTagSinglePayload(a1, a2, 1, v2);
 }
 
-_OWORD *OUTLINED_FUNCTION_38_1()
+_OWORD *OUTLINED_FUNCTION_38_1(uint64_t a1)
 {
-  v3 = v0[12];
-  v2 = v0[13];
-  v4 = v0[9];
 
-  return SearchResultItem.associatedValue.getter(v0 + 2);
+  return SearchResultItem.associatedValue.getter((v1 + 16));
 }
 
-uint64_t OUTLINED_FUNCTION_40_1()
+uint64_t OUTLINED_FUNCTION_40_1(uint64_t a1)
 {
-  v2 = *v0;
 
   return swift_task_alloc();
 }
@@ -9219,27 +5922,26 @@ uint64_t FlightSnippet.flight.getter@<X0>(uint64_t a1@<X8>)
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch13FlightSnippetV0C0VSgMd, &_s10OmniSearch13FlightSnippetV0C0VSgMR);
   OUTLINED_FUNCTION_114(v3);
-  v5 = *(v4 + 64);
   OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20]();
-  v6 = OUTLINED_FUNCTION_69_1();
-  v7 = *(type metadata accessor for FlightSnippet(v6) + 40);
+  MEMORY[0x28223BE20](v4);
+  v5 = OUTLINED_FUNCTION_69_1();
+  type metadata accessor for FlightSnippet(v5);
   outlined init with copy of EagerResolutionService?();
-  v8 = type metadata accessor for FlightSnippet.Flight(0);
-  v9 = OUTLINED_FUNCTION_93_0();
-  OUTLINED_FUNCTION_166(v9, v10, v8);
-  if (v11)
+  v6 = type metadata accessor for FlightSnippet.Flight(0);
+  v7 = OUTLINED_FUNCTION_93_0();
+  OUTLINED_FUNCTION_166(v7, v8, v6);
+  if (v9)
   {
     UnknownStorage.init()();
-    v12 = *(v8 + 20);
+    v10 = *(v6 + 20);
     if (one-time initialization token for defaultInstance != -1)
     {
-      OUTLINED_FUNCTION_68_1();
+      OUTLINED_FUNCTION_68_1(&one-time initialization token for defaultInstance);
     }
 
-    *(a1 + v12) = static FlightSnippet.Flight._StorageClass.defaultInstance;
-    v13 = OUTLINED_FUNCTION_93_0();
-    EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v13, v14, v8);
+    *(a1 + v10) = static FlightSnippet.Flight._StorageClass.defaultInstance;
+    v11 = OUTLINED_FUNCTION_93_0();
+    EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v11, v12, v6);
 
     if (EnumTagSinglePayload != 1)
     {
@@ -9282,7 +5984,7 @@ void FlightSnippet.flight.modify()
   v3[1] = v6;
   v7 = type metadata accessor for FlightSnippet.Flight(0);
   v3[2] = v7;
-  OUTLINED_FUNCTION_17(v7);
+  OUTLINED_FUNCTION_17();
   v9 = *(v8 + 64);
   v3[3] = __swift_coroFrameAllocStub(v9);
   v10 = __swift_coroFrameAllocStub(v9);
@@ -9296,7 +5998,7 @@ void FlightSnippet.flight.modify()
     v12 = *(v7 + 20);
     if (one-time initialization token for defaultInstance != -1)
     {
-      OUTLINED_FUNCTION_68_1();
+      OUTLINED_FUNCTION_68_1(&one-time initialization token for defaultInstance);
     }
 
     *&v10[v12] = static FlightSnippet.Flight._StorageClass.defaultInstance;
@@ -9327,13 +6029,12 @@ void FlightSnippet.flight.modify()
   v6 = **v0;
   if (v7)
   {
-    v8 = (*v0)[4];
     outlined init with copy of FlightSnippet.Flight();
     outlined destroy of IntentApplication?(v6 + v1, &_s10OmniSearch13FlightSnippetV0C0VSgMd, &_s10OmniSearch13FlightSnippetV0C0VSgMR);
     outlined init with take of FlightSnippet.Flight();
     OUTLINED_FUNCTION_44_0();
-    __swift_storeEnumTagSinglePayload(v9, v10, v11, v5);
-    outlined destroy of FlightSnippet.Flight();
+    __swift_storeEnumTagSinglePayload(v8, v9, v10, v5);
+    outlined destroy of FlightSnippet.Flight(v3);
   }
 
   else
@@ -9342,7 +6043,7 @@ void FlightSnippet.flight.modify()
     OUTLINED_FUNCTION_3_1();
     outlined init with take of FlightSnippet.Flight();
     OUTLINED_FUNCTION_44_0();
-    __swift_storeEnumTagSinglePayload(v12, v13, v14, v5);
+    __swift_storeEnumTagSinglePayload(v11, v12, v13, v5);
   }
 
   free(v3);
@@ -9350,7 +6051,7 @@ void FlightSnippet.flight.modify()
   free(v4);
   OUTLINED_FUNCTION_203();
 
-  free(v15);
+  free(v14);
 }
 
 uint64_t FlightSnippet.hasFlight.getter()
@@ -9358,27 +6059,26 @@ uint64_t FlightSnippet.hasFlight.getter()
   v1 = OUTLINED_FUNCTION_32_0();
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
   OUTLINED_FUNCTION_114(v3);
-  v5 = *(v4 + 64);
   OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v6);
-  v7 = OUTLINED_FUNCTION_69_1();
-  v8 = *(type metadata accessor for FlightSnippet(v7) + 40);
+  MEMORY[0x28223BE20](v4);
+  v5 = OUTLINED_FUNCTION_69_1();
+  type metadata accessor for FlightSnippet(v5);
   outlined init with copy of EagerResolutionService?();
   type metadata accessor for FlightSnippet.Flight(0);
-  v9 = OUTLINED_FUNCTION_93_0();
-  OUTLINED_FUNCTION_166(v9, v10, v11);
-  if (v12)
+  v6 = OUTLINED_FUNCTION_93_0();
+  OUTLINED_FUNCTION_166(v6, v7, v8);
+  if (v9)
   {
-    v13 = 0;
+    v10 = 0;
   }
 
   else
   {
-    v13 = 1;
+    v10 = 1;
   }
 
   outlined destroy of IntentApplication?(v0, &_s10OmniSearch13FlightSnippetV0C0VSgMd, &_s10OmniSearch13FlightSnippetV0C0VSgMR);
-  return v13;
+  return v10;
 }
 
 Swift::Void __swiftcall FlightSnippet.clearFlight()()
@@ -9390,18 +6090,9 @@ Swift::Void __swiftcall FlightSnippet.clearFlight()()
   __swift_storeEnumTagSinglePayload(v0 + v1, 1, 1, v2);
 }
 
-uint64_t FlightSnippet.queryIntendedFlightInfo.getter()
-{
-  v1 = *(v0 + 8);
-  v2 = *(v0 + 16);
-
-  return OUTLINED_FUNCTION_94();
-}
-
 uint64_t FlightSnippet.queryIntendedFlightInfo.setter()
 {
   OUTLINED_FUNCTION_93();
-  v3 = *(v1 + 16);
 
   *(v1 + 8) = v2;
   *(v1 + 16) = v0;
@@ -9411,30 +6102,29 @@ uint64_t FlightSnippet.queryIntendedFlightInfo.setter()
 uint64_t FlightSnippet.unknownFields.getter()
 {
   v0 = OUTLINED_FUNCTION_113();
-  v1 = *(type metadata accessor for FlightSnippet(v0) + 36);
-  v2 = type metadata accessor for UnknownStorage();
-  OUTLINED_FUNCTION_17(v2);
-  v4 = *(v3 + 16);
-  v5 = OUTLINED_FUNCTION_81_1();
+  type metadata accessor for FlightSnippet(v0);
+  type metadata accessor for UnknownStorage();
+  OUTLINED_FUNCTION_17();
+  v1 = OUTLINED_FUNCTION_81_1();
 
-  return v6(v5);
+  return v2(v1);
 }
 
 uint64_t FlightSnippet.unknownFields.setter()
 {
   v2 = OUTLINED_FUNCTION_42_2();
   v3 = *(type metadata accessor for FlightSnippet(v2) + 36);
-  v4 = type metadata accessor for UnknownStorage();
-  OUTLINED_FUNCTION_17(v4);
-  v6 = *(v5 + 40);
+  type metadata accessor for UnknownStorage();
+  OUTLINED_FUNCTION_17();
+  v5 = *(v4 + 40);
 
-  return v6(v1 + v3, v0);
+  return v5(v1 + v3, v0);
 }
 
-uint64_t (*FlightSnippet.unknownFields.modify())(void)
+void (*FlightSnippet.unknownFields.modify())()
 {
   v0 = OUTLINED_FUNCTION_42_2();
-  v1 = *(type metadata accessor for FlightSnippet(v0) + 36);
+  type metadata accessor for FlightSnippet(v0);
   return _s10OmniSearch11GeoLocationVSgWOi_;
 }
 
@@ -9446,27 +6136,12 @@ void protocol witness for Enum.init(rawValue:) in conformance FlightSnippet.Stat
   *(a1 + 9) = v4 & 1;
 }
 
-void protocol witness for RawRepresentable.init(rawValue:) in conformance FlightSnippet.Status(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+void protocol witness for RawRepresentable.init(rawValue:) in conformance FlightSnippet.Status(uint64_t a1@<X8>)
 {
-  v3 = *a1;
   FlightSnippet.Status.init(rawValue:)();
-  *a2 = v4;
-  *(a2 + 8) = v5;
-  *(a2 + 9) = v6 & 1;
-}
-
-uint64_t protocol witness for RawRepresentable.rawValue.getter in conformance FlightSnippet.Status@<X0>(uint64_t *a1@<X8>)
-{
-  result = FlightSnippet.Status.rawValue.getter(*v1, *(v1 + 8));
-  *a1 = result;
-  return result;
-}
-
-Swift::Int protocol witness for Hashable.hashValue.getter in conformance FlightSnippet.Status()
-{
-  v1 = *v0;
-  v2 = *(v0 + 8);
-  return specialized RawRepresentable<>.hashValue.getter();
+  *a1 = v2;
+  *(a1 + 8) = v3;
+  *(a1 + 9) = v4 & 1;
 }
 
 uint64_t protocol witness for Hashable.hash(into:) in conformance FlightSnippet.Status(uint64_t a1, uint64_t a2)
@@ -9476,21 +6151,11 @@ uint64_t protocol witness for Hashable.hash(into:) in conformance FlightSnippet.
   return MEMORY[0x28217E238](a1, a2, v4);
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance FlightSnippet.Status()
-{
-  v1 = *v0;
-  v2 = *(v0 + 8);
-  return specialized RawRepresentable<>._rawHashValue(seed:)();
-}
-
 uint64_t FlightSnippet.Flight.id.getter()
 {
   OUTLINED_FUNCTION_10_1();
-  v2 = *(v0 + v1);
   OUTLINED_FUNCTION_28_1();
   swift_beginAccess();
-  v3 = *(v2 + 16);
-  v4 = *(v2 + 24);
 
   return OUTLINED_FUNCTION_94();
 }
@@ -9500,29 +6165,28 @@ void key path setter for FlightSnippet.Flight.id : FlightSnippet.Flight(uint64_t
   v1 = *a1;
   v2 = a1[1];
 
-  FlightSnippet.Flight.id.setter();
+  FlightSnippet.Flight.id.setter(v1, v2);
 }
 
-void FlightSnippet.Flight.id.setter()
+void FlightSnippet.Flight.id.setter(uint64_t a1, uint64_t a2)
 {
   OUTLINED_FUNCTION_102_0();
-  v4 = OUTLINED_FUNCTION_7_0();
-  v5 = OUTLINED_FUNCTION_61_1(v4);
-  v6 = *(v1 + v3);
-  if ((v5 & 1) == 0)
+  v6 = OUTLINED_FUNCTION_7_0();
+  v7 = OUTLINED_FUNCTION_61_1(v6);
+  v9 = *(v3 + v5);
+  if ((v7 & 1) == 0)
   {
     type metadata accessor for FlightSnippet.Flight._StorageClass();
     OUTLINED_FUNCTION_31_2();
     swift_allocObject();
-    v7 = OUTLINED_FUNCTION_9_2();
-    v8 = FlightSnippet.Flight._StorageClass.init(copying:)(v7);
-    OUTLINED_FUNCTION_54_1(v8);
+    v10 = OUTLINED_FUNCTION_9_2();
+    v11 = FlightSnippet.Flight._StorageClass.init(copying:)(v10);
+    OUTLINED_FUNCTION_54_1(v11);
   }
 
-  OUTLINED_FUNCTION_30_1();
-  v9 = *(v6 + 24);
-  *(v6 + 16) = v2;
-  *(v6 + 24) = v0;
+  OUTLINED_FUNCTION_30_1(v9 + 16, v8);
+  *(v9 + 16) = v4;
+  *(v9 + 24) = v2;
 
   OUTLINED_FUNCTION_101_0();
 }
@@ -9541,21 +6205,20 @@ uint64_t FlightSnippet.Flight.id.modify()
   return OUTLINED_FUNCTION_32_0();
 }
 
-void FlightSnippet.Flight.id.modify(uint64_t a1)
+void FlightSnippet.Flight.id.modify()
 {
-  OUTLINED_FUNCTION_6_1(a1);
-  if (v6)
+  OUTLINED_FUNCTION_6_1();
+  if (v5)
   {
     OUTLINED_FUNCTION_76_0();
-    OUTLINED_FUNCTION_52_1();
-    FlightSnippet.Flight.id.setter();
-    v7 = v1[7];
+    v6 = OUTLINED_FUNCTION_52_1();
+    FlightSnippet.Flight.id.setter(v6, v7);
   }
 
   else
   {
     v8 = OUTLINED_FUNCTION_47_2();
-    v9 = *(v5 + v2);
+    v9 = *(v4 + v1);
     if ((v8 & 1) == 0)
     {
       OUTLINED_FUNCTION_17_2();
@@ -9567,13 +6230,12 @@ void FlightSnippet.Flight.id.modify(uint64_t a1)
       OUTLINED_FUNCTION_37_1(v11);
     }
 
-    OUTLINED_FUNCTION_40_2();
-    v12 = *(v9 + 24);
-    *(v9 + 16) = v4;
-    *(v9 + 24) = v3;
+    OUTLINED_FUNCTION_40_2(v9 + 16);
+    *(v9 + 16) = v3;
+    *(v9 + 24) = v2;
   }
 
-  free(v1);
+  free(v0);
 }
 
 void key path setter for FlightSnippet.Flight.contentHash : FlightSnippet.Flight(uint64_t *a1)
@@ -9581,29 +6243,28 @@ void key path setter for FlightSnippet.Flight.contentHash : FlightSnippet.Flight
   v1 = *a1;
   v2 = a1[1];
 
-  FlightSnippet.Flight.contentHash.setter();
+  FlightSnippet.Flight.contentHash.setter(v1, v2);
 }
 
-void FlightSnippet.Flight.contentHash.setter()
+void FlightSnippet.Flight.contentHash.setter(uint64_t a1, uint64_t a2)
 {
   OUTLINED_FUNCTION_102_0();
-  v4 = OUTLINED_FUNCTION_7_0();
-  v5 = OUTLINED_FUNCTION_61_1(v4);
-  v6 = *(v1 + v3);
-  if ((v5 & 1) == 0)
+  v6 = OUTLINED_FUNCTION_7_0();
+  v7 = OUTLINED_FUNCTION_61_1(v6);
+  v9 = *(v3 + v5);
+  if ((v7 & 1) == 0)
   {
     type metadata accessor for FlightSnippet.Flight._StorageClass();
     OUTLINED_FUNCTION_31_2();
     swift_allocObject();
-    v7 = OUTLINED_FUNCTION_9_2();
-    v8 = FlightSnippet.Flight._StorageClass.init(copying:)(v7);
-    OUTLINED_FUNCTION_54_1(v8);
+    v10 = OUTLINED_FUNCTION_9_2();
+    v11 = FlightSnippet.Flight._StorageClass.init(copying:)(v10);
+    OUTLINED_FUNCTION_54_1(v11);
   }
 
-  OUTLINED_FUNCTION_30_1();
-  v9 = *(v6 + 40);
-  *(v6 + 32) = v2;
-  *(v6 + 40) = v0;
+  OUTLINED_FUNCTION_30_1(v9 + 32, v8);
+  *(v9 + 32) = v4;
+  *(v9 + 40) = v2;
 
   OUTLINED_FUNCTION_101_0();
 }
@@ -9622,21 +6283,20 @@ uint64_t FlightSnippet.Flight.contentHash.modify()
   return OUTLINED_FUNCTION_32_0();
 }
 
-void FlightSnippet.Flight.contentHash.modify(uint64_t a1)
+void FlightSnippet.Flight.contentHash.modify()
 {
-  OUTLINED_FUNCTION_6_1(a1);
-  if (v6)
+  OUTLINED_FUNCTION_6_1();
+  if (v5)
   {
     OUTLINED_FUNCTION_76_0();
-    OUTLINED_FUNCTION_52_1();
-    FlightSnippet.Flight.contentHash.setter();
-    v7 = v1[7];
+    v6 = OUTLINED_FUNCTION_52_1();
+    FlightSnippet.Flight.contentHash.setter(v6, v7);
   }
 
   else
   {
     v8 = OUTLINED_FUNCTION_47_2();
-    v9 = *(v5 + v2);
+    v9 = *(v4 + v1);
     if ((v8 & 1) == 0)
     {
       OUTLINED_FUNCTION_17_2();
@@ -9648,23 +6308,19 @@ void FlightSnippet.Flight.contentHash.modify(uint64_t a1)
       OUTLINED_FUNCTION_37_1(v11);
     }
 
-    OUTLINED_FUNCTION_40_2();
-    v12 = *(v9 + 40);
-    *(v9 + 32) = v4;
-    *(v9 + 40) = v3;
+    OUTLINED_FUNCTION_40_2(v9 + 32);
+    *(v9 + 32) = v3;
+    *(v9 + 40) = v2;
   }
 
-  free(v1);
+  free(v0);
 }
 
 uint64_t FlightSnippet.Flight.carrierIata.getter()
 {
   OUTLINED_FUNCTION_10_1();
-  v2 = *(v0 + v1);
   OUTLINED_FUNCTION_28_1();
   swift_beginAccess();
-  v3 = *(v2 + 48);
-  v4 = *(v2 + 56);
 
   return OUTLINED_FUNCTION_94();
 }
@@ -9674,29 +6330,28 @@ void key path setter for FlightSnippet.Flight.carrierIata : FlightSnippet.Flight
   v1 = *a1;
   v2 = a1[1];
 
-  FlightSnippet.Flight.carrierIata.setter();
+  FlightSnippet.Flight.carrierIata.setter(v1, v2);
 }
 
-void FlightSnippet.Flight.carrierIata.setter()
+void FlightSnippet.Flight.carrierIata.setter(uint64_t a1, uint64_t a2)
 {
   OUTLINED_FUNCTION_102_0();
-  v4 = OUTLINED_FUNCTION_7_0();
-  v5 = OUTLINED_FUNCTION_61_1(v4);
-  v6 = *(v1 + v3);
-  if ((v5 & 1) == 0)
+  v6 = OUTLINED_FUNCTION_7_0();
+  v7 = OUTLINED_FUNCTION_61_1(v6);
+  v9 = *(v3 + v5);
+  if ((v7 & 1) == 0)
   {
     type metadata accessor for FlightSnippet.Flight._StorageClass();
     OUTLINED_FUNCTION_31_2();
     swift_allocObject();
-    v7 = OUTLINED_FUNCTION_9_2();
-    v8 = FlightSnippet.Flight._StorageClass.init(copying:)(v7);
-    OUTLINED_FUNCTION_54_1(v8);
+    v10 = OUTLINED_FUNCTION_9_2();
+    v11 = FlightSnippet.Flight._StorageClass.init(copying:)(v10);
+    OUTLINED_FUNCTION_54_1(v11);
   }
 
-  OUTLINED_FUNCTION_30_1();
-  v9 = *(v6 + 56);
-  *(v6 + 48) = v2;
-  *(v6 + 56) = v0;
+  OUTLINED_FUNCTION_30_1(v9 + 48, v8);
+  *(v9 + 48) = v4;
+  *(v9 + 56) = v2;
 
   OUTLINED_FUNCTION_101_0();
 }
@@ -9715,21 +6370,20 @@ uint64_t FlightSnippet.Flight.carrierIata.modify()
   return OUTLINED_FUNCTION_32_0();
 }
 
-void FlightSnippet.Flight.carrierIata.modify(uint64_t a1)
+void FlightSnippet.Flight.carrierIata.modify()
 {
-  OUTLINED_FUNCTION_6_1(a1);
-  if (v6)
+  OUTLINED_FUNCTION_6_1();
+  if (v5)
   {
     OUTLINED_FUNCTION_76_0();
-    OUTLINED_FUNCTION_52_1();
-    FlightSnippet.Flight.carrierIata.setter();
-    v7 = v1[7];
+    v6 = OUTLINED_FUNCTION_52_1();
+    FlightSnippet.Flight.carrierIata.setter(v6, v7);
   }
 
   else
   {
     v8 = OUTLINED_FUNCTION_47_2();
-    v9 = *(v5 + v2);
+    v9 = *(v4 + v1);
     if ((v8 & 1) == 0)
     {
       OUTLINED_FUNCTION_17_2();
@@ -9741,13 +6395,12 @@ void FlightSnippet.Flight.carrierIata.modify(uint64_t a1)
       OUTLINED_FUNCTION_37_1(v11);
     }
 
-    OUTLINED_FUNCTION_40_2();
-    v12 = *(v9 + 56);
-    *(v9 + 48) = v4;
-    *(v9 + 56) = v3;
+    OUTLINED_FUNCTION_40_2(v9 + 48);
+    *(v9 + 48) = v3;
+    *(v9 + 56) = v2;
   }
 
-  free(v1);
+  free(v0);
 }
 
 void key path setter for FlightSnippet.Flight.carrierIcao : FlightSnippet.Flight(uint64_t *a1)
@@ -9755,29 +6408,28 @@ void key path setter for FlightSnippet.Flight.carrierIcao : FlightSnippet.Flight
   v1 = *a1;
   v2 = a1[1];
 
-  FlightSnippet.Flight.carrierIcao.setter();
+  FlightSnippet.Flight.carrierIcao.setter(v1, v2);
 }
 
-void FlightSnippet.Flight.carrierIcao.setter()
+void FlightSnippet.Flight.carrierIcao.setter(uint64_t a1, uint64_t a2)
 {
   OUTLINED_FUNCTION_102_0();
-  v4 = OUTLINED_FUNCTION_7_0();
-  v5 = OUTLINED_FUNCTION_61_1(v4);
-  v6 = *(v1 + v3);
-  if ((v5 & 1) == 0)
+  v6 = OUTLINED_FUNCTION_7_0();
+  v7 = OUTLINED_FUNCTION_61_1(v6);
+  v9 = *(v3 + v5);
+  if ((v7 & 1) == 0)
   {
     type metadata accessor for FlightSnippet.Flight._StorageClass();
     OUTLINED_FUNCTION_31_2();
     swift_allocObject();
-    v7 = OUTLINED_FUNCTION_9_2();
-    v8 = FlightSnippet.Flight._StorageClass.init(copying:)(v7);
-    OUTLINED_FUNCTION_54_1(v8);
+    v10 = OUTLINED_FUNCTION_9_2();
+    v11 = FlightSnippet.Flight._StorageClass.init(copying:)(v10);
+    OUTLINED_FUNCTION_54_1(v11);
   }
 
-  OUTLINED_FUNCTION_30_1();
-  v9 = *(v6 + 72);
-  *(v6 + 64) = v2;
-  *(v6 + 72) = v0;
+  OUTLINED_FUNCTION_30_1(v9 + 64, v8);
+  *(v9 + 64) = v4;
+  *(v9 + 72) = v2;
 
   OUTLINED_FUNCTION_101_0();
 }
@@ -9796,21 +6448,20 @@ uint64_t FlightSnippet.Flight.carrierIcao.modify()
   return OUTLINED_FUNCTION_32_0();
 }
 
-void FlightSnippet.Flight.carrierIcao.modify(uint64_t a1)
+void FlightSnippet.Flight.carrierIcao.modify()
 {
-  OUTLINED_FUNCTION_6_1(a1);
-  if (v6)
+  OUTLINED_FUNCTION_6_1();
+  if (v5)
   {
     OUTLINED_FUNCTION_76_0();
-    OUTLINED_FUNCTION_52_1();
-    FlightSnippet.Flight.carrierIcao.setter();
-    v7 = v1[7];
+    v6 = OUTLINED_FUNCTION_52_1();
+    FlightSnippet.Flight.carrierIcao.setter(v6, v7);
   }
 
   else
   {
     v8 = OUTLINED_FUNCTION_47_2();
-    v9 = *(v5 + v2);
+    v9 = *(v4 + v1);
     if ((v8 & 1) == 0)
     {
       OUTLINED_FUNCTION_17_2();
@@ -9822,13 +6473,12 @@ void FlightSnippet.Flight.carrierIcao.modify(uint64_t a1)
       OUTLINED_FUNCTION_37_1(v11);
     }
 
-    OUTLINED_FUNCTION_40_2();
-    v12 = *(v9 + 72);
-    *(v9 + 64) = v4;
-    *(v9 + 72) = v3;
+    OUTLINED_FUNCTION_40_2(v9 + 64);
+    *(v9 + 64) = v3;
+    *(v9 + 72) = v2;
   }
 
-  free(v1);
+  free(v0);
 }
 
 void key path setter for FlightSnippet.Flight.carrierFs : FlightSnippet.Flight(uint64_t *a1)
@@ -9836,29 +6486,28 @@ void key path setter for FlightSnippet.Flight.carrierFs : FlightSnippet.Flight(u
   v1 = *a1;
   v2 = a1[1];
 
-  FlightSnippet.Flight.carrierFs.setter();
+  FlightSnippet.Flight.carrierFs.setter(v1, v2);
 }
 
-void FlightSnippet.Flight.carrierFs.setter()
+void FlightSnippet.Flight.carrierFs.setter(uint64_t a1, uint64_t a2)
 {
   OUTLINED_FUNCTION_102_0();
-  v4 = OUTLINED_FUNCTION_7_0();
-  v5 = OUTLINED_FUNCTION_61_1(v4);
-  v6 = *(v1 + v3);
-  if ((v5 & 1) == 0)
+  v6 = OUTLINED_FUNCTION_7_0();
+  v7 = OUTLINED_FUNCTION_61_1(v6);
+  v9 = *(v3 + v5);
+  if ((v7 & 1) == 0)
   {
     type metadata accessor for FlightSnippet.Flight._StorageClass();
     OUTLINED_FUNCTION_31_2();
     swift_allocObject();
-    v7 = OUTLINED_FUNCTION_9_2();
-    v8 = FlightSnippet.Flight._StorageClass.init(copying:)(v7);
-    OUTLINED_FUNCTION_54_1(v8);
+    v10 = OUTLINED_FUNCTION_9_2();
+    v11 = FlightSnippet.Flight._StorageClass.init(copying:)(v10);
+    OUTLINED_FUNCTION_54_1(v11);
   }
 
-  OUTLINED_FUNCTION_30_1();
-  v9 = *(v6 + 88);
-  *(v6 + 80) = v2;
-  *(v6 + 88) = v0;
+  OUTLINED_FUNCTION_30_1(v9 + 80, v8);
+  *(v9 + 80) = v4;
+  *(v9 + 88) = v2;
 
   OUTLINED_FUNCTION_101_0();
 }
@@ -9877,21 +6526,20 @@ uint64_t FlightSnippet.Flight.carrierFs.modify()
   return OUTLINED_FUNCTION_32_0();
 }
 
-void FlightSnippet.Flight.carrierFs.modify(uint64_t a1)
+void FlightSnippet.Flight.carrierFs.modify()
 {
-  OUTLINED_FUNCTION_6_1(a1);
-  if (v6)
+  OUTLINED_FUNCTION_6_1();
+  if (v5)
   {
     OUTLINED_FUNCTION_76_0();
-    OUTLINED_FUNCTION_52_1();
-    FlightSnippet.Flight.carrierFs.setter();
-    v7 = v1[7];
+    v6 = OUTLINED_FUNCTION_52_1();
+    FlightSnippet.Flight.carrierFs.setter(v6, v7);
   }
 
   else
   {
     v8 = OUTLINED_FUNCTION_47_2();
-    v9 = *(v5 + v2);
+    v9 = *(v4 + v1);
     if ((v8 & 1) == 0)
     {
       OUTLINED_FUNCTION_17_2();
@@ -9903,11 +6551,3513 @@ void FlightSnippet.Flight.carrierFs.modify(uint64_t a1)
       OUTLINED_FUNCTION_37_1(v11);
     }
 
-    OUTLINED_FUNCTION_40_2();
-    v12 = *(v9 + 88);
-    *(v9 + 80) = v4;
-    *(v9 + 88) = v3;
+    OUTLINED_FUNCTION_40_2(v9 + 80);
+    *(v9 + 80) = v3;
+    *(v9 + 88) = v2;
   }
 
+  free(v0);
+}
+
+uint64_t FlightSnippet.Flight.carrierName.getter()
+{
+  OUTLINED_FUNCTION_10_1();
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+
+  return OUTLINED_FUNCTION_94();
+}
+
+void key path setter for FlightSnippet.Flight.carrierName : FlightSnippet.Flight(uint64_t *a1)
+{
+  v1 = *a1;
+  v2 = a1[1];
+
+  FlightSnippet.Flight.carrierName.setter(v1, v2);
+}
+
+void FlightSnippet.Flight.carrierName.setter(uint64_t a1, uint64_t a2)
+{
+  OUTLINED_FUNCTION_102_0();
+  v6 = OUTLINED_FUNCTION_7_0();
+  v7 = OUTLINED_FUNCTION_61_1(v6);
+  v9 = *(v3 + v5);
+  if ((v7 & 1) == 0)
+  {
+    type metadata accessor for FlightSnippet.Flight._StorageClass();
+    OUTLINED_FUNCTION_31_2();
+    swift_allocObject();
+    v10 = OUTLINED_FUNCTION_9_2();
+    v11 = FlightSnippet.Flight._StorageClass.init(copying:)(v10);
+    OUTLINED_FUNCTION_54_1(v11);
+  }
+
+  OUTLINED_FUNCTION_30_1(v9 + 96, v8);
+  *(v9 + 96) = v4;
+  *(v9 + 104) = v2;
+
+  OUTLINED_FUNCTION_101_0();
+}
+
+uint64_t FlightSnippet.Flight.carrierName.modify()
+{
+  v2 = OUTLINED_FUNCTION_50_0();
+  v3 = __swift_coroFrameAllocStub(v2);
+  OUTLINED_FUNCTION_0_2(v3);
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+  v4 = *(v0 + 104);
+  *(v1 + 48) = *(v0 + 96);
+  *(v1 + 56) = v4;
+
+  return OUTLINED_FUNCTION_32_0();
+}
+
+void FlightSnippet.Flight.carrierName.modify()
+{
+  OUTLINED_FUNCTION_6_1();
+  if (v5)
+  {
+    OUTLINED_FUNCTION_76_0();
+    v6 = OUTLINED_FUNCTION_52_1();
+    FlightSnippet.Flight.carrierName.setter(v6, v7);
+  }
+
+  else
+  {
+    v8 = OUTLINED_FUNCTION_47_2();
+    v9 = *(v4 + v1);
+    if ((v8 & 1) == 0)
+    {
+      OUTLINED_FUNCTION_17_2();
+      type metadata accessor for FlightSnippet.Flight._StorageClass();
+      OUTLINED_FUNCTION_31_2();
+      swift_allocObject();
+      v10 = OUTLINED_FUNCTION_9_2();
+      v11 = FlightSnippet.Flight._StorageClass.init(copying:)(v10);
+      OUTLINED_FUNCTION_37_1(v11);
+    }
+
+    OUTLINED_FUNCTION_40_2(v9 + 96);
+    *(v9 + 96) = v3;
+    *(v9 + 104) = v2;
+  }
+
+  free(v0);
+}
+
+uint64_t FlightSnippet.Flight.carrierPhoneNumber.getter()
+{
+  OUTLINED_FUNCTION_10_1();
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+
+  return OUTLINED_FUNCTION_94();
+}
+
+void key path setter for FlightSnippet.Flight.carrierPhoneNumber : FlightSnippet.Flight(uint64_t *a1)
+{
+  v1 = *a1;
+  v2 = a1[1];
+
+  FlightSnippet.Flight.carrierPhoneNumber.setter(v1, v2);
+}
+
+void FlightSnippet.Flight.carrierPhoneNumber.setter(uint64_t a1, uint64_t a2)
+{
+  OUTLINED_FUNCTION_102_0();
+  v6 = OUTLINED_FUNCTION_7_0();
+  v7 = OUTLINED_FUNCTION_61_1(v6);
+  v9 = *(v3 + v5);
+  if ((v7 & 1) == 0)
+  {
+    type metadata accessor for FlightSnippet.Flight._StorageClass();
+    OUTLINED_FUNCTION_31_2();
+    swift_allocObject();
+    v10 = OUTLINED_FUNCTION_9_2();
+    v11 = FlightSnippet.Flight._StorageClass.init(copying:)(v10);
+    OUTLINED_FUNCTION_54_1(v11);
+  }
+
+  OUTLINED_FUNCTION_30_1(v9 + 112, v8);
+  *(v9 + 112) = v4;
+  *(v9 + 120) = v2;
+
+  OUTLINED_FUNCTION_101_0();
+}
+
+uint64_t FlightSnippet.Flight.carrierPhoneNumber.modify()
+{
+  v2 = OUTLINED_FUNCTION_50_0();
+  v3 = __swift_coroFrameAllocStub(v2);
+  OUTLINED_FUNCTION_0_2(v3);
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+  v4 = *(v0 + 120);
+  *(v1 + 48) = *(v0 + 112);
+  *(v1 + 56) = v4;
+
+  return OUTLINED_FUNCTION_32_0();
+}
+
+void FlightSnippet.Flight.carrierPhoneNumber.modify()
+{
+  OUTLINED_FUNCTION_6_1();
+  if (v5)
+  {
+    OUTLINED_FUNCTION_76_0();
+    v6 = OUTLINED_FUNCTION_52_1();
+    FlightSnippet.Flight.carrierPhoneNumber.setter(v6, v7);
+  }
+
+  else
+  {
+    v8 = OUTLINED_FUNCTION_47_2();
+    v9 = *(v4 + v1);
+    if ((v8 & 1) == 0)
+    {
+      OUTLINED_FUNCTION_17_2();
+      type metadata accessor for FlightSnippet.Flight._StorageClass();
+      OUTLINED_FUNCTION_31_2();
+      swift_allocObject();
+      v10 = OUTLINED_FUNCTION_9_2();
+      v11 = FlightSnippet.Flight._StorageClass.init(copying:)(v10);
+      OUTLINED_FUNCTION_37_1(v11);
+    }
+
+    OUTLINED_FUNCTION_40_2(v9 + 112);
+    *(v9 + 112) = v3;
+    *(v9 + 120) = v2;
+  }
+
+  free(v0);
+}
+
+uint64_t FlightSnippet.Flight.flightNumber.getter()
+{
+  OUTLINED_FUNCTION_10_1();
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+
+  return OUTLINED_FUNCTION_94();
+}
+
+void key path setter for FlightSnippet.Flight.flightNumber : FlightSnippet.Flight(uint64_t *a1)
+{
+  v1 = *a1;
+  v2 = a1[1];
+
+  FlightSnippet.Flight.flightNumber.setter(v1, v2);
+}
+
+void FlightSnippet.Flight.flightNumber.setter(uint64_t a1, uint64_t a2)
+{
+  OUTLINED_FUNCTION_102_0();
+  v6 = OUTLINED_FUNCTION_7_0();
+  v7 = OUTLINED_FUNCTION_61_1(v6);
+  v9 = *(v3 + v5);
+  if ((v7 & 1) == 0)
+  {
+    type metadata accessor for FlightSnippet.Flight._StorageClass();
+    OUTLINED_FUNCTION_31_2();
+    swift_allocObject();
+    v10 = OUTLINED_FUNCTION_9_2();
+    v11 = FlightSnippet.Flight._StorageClass.init(copying:)(v10);
+    OUTLINED_FUNCTION_54_1(v11);
+  }
+
+  OUTLINED_FUNCTION_30_1(v9 + 128, v8);
+  *(v9 + 128) = v4;
+  *(v9 + 136) = v2;
+
+  OUTLINED_FUNCTION_101_0();
+}
+
+uint64_t FlightSnippet.Flight.flightNumber.modify()
+{
+  v2 = OUTLINED_FUNCTION_50_0();
+  v3 = __swift_coroFrameAllocStub(v2);
+  OUTLINED_FUNCTION_0_2(v3);
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+  v4 = *(v0 + 136);
+  *(v1 + 48) = *(v0 + 128);
+  *(v1 + 56) = v4;
+
+  return OUTLINED_FUNCTION_32_0();
+}
+
+void FlightSnippet.Flight.flightNumber.modify()
+{
+  OUTLINED_FUNCTION_6_1();
+  if (v5)
+  {
+    OUTLINED_FUNCTION_76_0();
+    v6 = OUTLINED_FUNCTION_52_1();
+    FlightSnippet.Flight.flightNumber.setter(v6, v7);
+  }
+
+  else
+  {
+    v8 = OUTLINED_FUNCTION_47_2();
+    v9 = *(v4 + v1);
+    if ((v8 & 1) == 0)
+    {
+      OUTLINED_FUNCTION_17_2();
+      type metadata accessor for FlightSnippet.Flight._StorageClass();
+      OUTLINED_FUNCTION_31_2();
+      swift_allocObject();
+      v10 = OUTLINED_FUNCTION_9_2();
+      v11 = FlightSnippet.Flight._StorageClass.init(copying:)(v10);
+      OUTLINED_FUNCTION_37_1(v11);
+    }
+
+    OUTLINED_FUNCTION_40_2(v9 + 128);
+    *(v9 + 128) = v3;
+    *(v9 + 136) = v2;
+  }
+
+  free(v0);
+}
+
+uint64_t FlightSnippet.Flight.flightDepartureScheduled.getter()
+{
+  OUTLINED_FUNCTION_10_1();
+  v2 = *(v0 + v1);
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+  return *(v2 + 144);
+}
+
+uint64_t FlightSnippet.Flight.flightDepartureScheduled.setter()
+{
+  v3 = OUTLINED_FUNCTION_22_0();
+  v4 = OUTLINED_FUNCTION_60_0(v3);
+  v6 = *(v1 + v2);
+  if ((v4 & 1) == 0)
+  {
+    type metadata accessor for FlightSnippet.Flight._StorageClass();
+    OUTLINED_FUNCTION_31_2();
+    swift_allocObject();
+    v7 = OUTLINED_FUNCTION_9_2();
+    v8 = FlightSnippet.Flight._StorageClass.init(copying:)(v7);
+    OUTLINED_FUNCTION_48_0(v8);
+  }
+
+  result = OUTLINED_FUNCTION_30_1(v6 + 144, v5);
+  *(v6 + 144) = v0;
+  return result;
+}
+
+uint64_t FlightSnippet.Flight.flightDepartureScheduled.modify()
+{
+  v2 = OUTLINED_FUNCTION_55_0();
+  v3 = __swift_coroFrameAllocStub(v2);
+  v4 = OUTLINED_FUNCTION_8_2(v3);
+  v5 = type metadata accessor for FlightSnippet.Flight(v4);
+  OUTLINED_FUNCTION_18_3(v5);
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+  *(v1 + 72) = *(v0 + 144);
+  return OUTLINED_FUNCTION_46_2();
+}
+
+void FlightSnippet.Flight.flightDepartureScheduled.modify(uint64_t a1)
+{
+  v5 = OUTLINED_FUNCTION_12_0(a1);
+  v6 = *(v4 + v2);
+  if ((v5 & 1) == 0)
+  {
+    OUTLINED_FUNCTION_29_2();
+    type metadata accessor for FlightSnippet.Flight._StorageClass();
+    OUTLINED_FUNCTION_31_2();
+    swift_allocObject();
+    v7 = OUTLINED_FUNCTION_9_2();
+    v8 = FlightSnippet.Flight._StorageClass.init(copying:)(v7);
+    OUTLINED_FUNCTION_37_1(v8);
+  }
+
+  OUTLINED_FUNCTION_41_0();
+  *(v6 + 144) = v3;
+
   free(v1);
+}
+
+uint64_t FlightSnippet.Flight.flightArrivalScheduled.getter()
+{
+  OUTLINED_FUNCTION_10_1();
+  v2 = *(v0 + v1);
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+  return *(v2 + 152);
+}
+
+uint64_t FlightSnippet.Flight.flightArrivalScheduled.setter()
+{
+  v3 = OUTLINED_FUNCTION_22_0();
+  v4 = OUTLINED_FUNCTION_60_0(v3);
+  v6 = *(v1 + v2);
+  if ((v4 & 1) == 0)
+  {
+    type metadata accessor for FlightSnippet.Flight._StorageClass();
+    OUTLINED_FUNCTION_31_2();
+    swift_allocObject();
+    v7 = OUTLINED_FUNCTION_9_2();
+    v8 = FlightSnippet.Flight._StorageClass.init(copying:)(v7);
+    OUTLINED_FUNCTION_48_0(v8);
+  }
+
+  result = OUTLINED_FUNCTION_30_1(v6 + 152, v5);
+  *(v6 + 152) = v0;
+  return result;
+}
+
+uint64_t FlightSnippet.Flight.flightArrivalScheduled.modify()
+{
+  v2 = OUTLINED_FUNCTION_55_0();
+  v3 = __swift_coroFrameAllocStub(v2);
+  v4 = OUTLINED_FUNCTION_8_2(v3);
+  v5 = type metadata accessor for FlightSnippet.Flight(v4);
+  OUTLINED_FUNCTION_18_3(v5);
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+  *(v1 + 72) = *(v0 + 152);
+  return OUTLINED_FUNCTION_46_2();
+}
+
+void FlightSnippet.Flight.flightArrivalScheduled.modify(uint64_t a1)
+{
+  v5 = OUTLINED_FUNCTION_12_0(a1);
+  v6 = *(v4 + v2);
+  if ((v5 & 1) == 0)
+  {
+    OUTLINED_FUNCTION_29_2();
+    type metadata accessor for FlightSnippet.Flight._StorageClass();
+    OUTLINED_FUNCTION_31_2();
+    swift_allocObject();
+    v7 = OUTLINED_FUNCTION_9_2();
+    v8 = FlightSnippet.Flight._StorageClass.init(copying:)(v7);
+    OUTLINED_FUNCTION_37_1(v8);
+  }
+
+  OUTLINED_FUNCTION_41_0();
+  *(v6 + 152) = v3;
+
+  free(v1);
+}
+
+uint64_t FlightSnippet.Flight.legs.getter()
+{
+  OUTLINED_FUNCTION_10_1();
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+}
+
+uint64_t FlightSnippet.Flight.legs.setter()
+{
+  v3 = OUTLINED_FUNCTION_22_0();
+  v4 = OUTLINED_FUNCTION_60_0(v3);
+  v6 = *(v1 + v2);
+  if ((v4 & 1) == 0)
+  {
+    type metadata accessor for FlightSnippet.Flight._StorageClass();
+    OUTLINED_FUNCTION_31_2();
+    swift_allocObject();
+    v7 = OUTLINED_FUNCTION_9_2();
+    v8 = FlightSnippet.Flight._StorageClass.init(copying:)(v7);
+    OUTLINED_FUNCTION_48_0(v8);
+  }
+
+  OUTLINED_FUNCTION_30_1(v6 + 160, v5);
+  *(v6 + 160) = v0;
+}
+
+uint64_t FlightSnippet.Flight.legs.modify()
+{
+  v2 = OUTLINED_FUNCTION_120_0();
+  v3 = __swift_coroFrameAllocStub(v2);
+  *(OUTLINED_FUNCTION_32_1(v3) + 56) = v0;
+  OUTLINED_FUNCTION_10_1();
+  OUTLINED_FUNCTION_114_0(v4);
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+  *(v1 + 48) = *(v0 + 160);
+
+  return OUTLINED_FUNCTION_32_0();
+}
+
+void FlightSnippet.Flight.legs.modify()
+{
+  OUTLINED_FUNCTION_35_2();
+  v4 = *(v3 + 48);
+  if (v5)
+  {
+    OUTLINED_FUNCTION_129_0();
+    FlightSnippet.Flight.legs.setter();
+  }
+
+  else
+  {
+    v6 = OUTLINED_FUNCTION_82_1();
+    v7 = *(v2 + v1);
+    if ((v6 & 1) == 0)
+    {
+      OUTLINED_FUNCTION_80_1();
+      OUTLINED_FUNCTION_31_2();
+      swift_allocObject();
+      v8 = OUTLINED_FUNCTION_9_2();
+      v9 = FlightSnippet.Flight._StorageClass.init(copying:)(v8);
+      OUTLINED_FUNCTION_112_0(v9);
+    }
+
+    OUTLINED_FUNCTION_40_2(v7 + 160);
+    *(v7 + 160) = v4;
+  }
+
+  free(v0);
+}
+
+uint64_t FlightSnippet.Flight.codeShares.getter()
+{
+  OUTLINED_FUNCTION_10_1();
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+}
+
+uint64_t FlightSnippet.Flight.codeShares.setter()
+{
+  v3 = OUTLINED_FUNCTION_22_0();
+  v4 = OUTLINED_FUNCTION_60_0(v3);
+  v6 = *(v1 + v2);
+  if ((v4 & 1) == 0)
+  {
+    type metadata accessor for FlightSnippet.Flight._StorageClass();
+    OUTLINED_FUNCTION_31_2();
+    swift_allocObject();
+    v7 = OUTLINED_FUNCTION_9_2();
+    v8 = FlightSnippet.Flight._StorageClass.init(copying:)(v7);
+    OUTLINED_FUNCTION_48_0(v8);
+  }
+
+  OUTLINED_FUNCTION_30_1(v6 + 168, v5);
+  *(v6 + 168) = v0;
+}
+
+uint64_t FlightSnippet.Flight.codeShares.modify()
+{
+  v2 = OUTLINED_FUNCTION_120_0();
+  v3 = __swift_coroFrameAllocStub(v2);
+  *(OUTLINED_FUNCTION_32_1(v3) + 56) = v0;
+  OUTLINED_FUNCTION_10_1();
+  OUTLINED_FUNCTION_114_0(v4);
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+  *(v1 + 48) = *(v0 + 168);
+
+  return OUTLINED_FUNCTION_32_0();
+}
+
+void FlightSnippet.Flight.codeShares.modify()
+{
+  OUTLINED_FUNCTION_35_2();
+  v4 = *(v3 + 48);
+  if (v5)
+  {
+    OUTLINED_FUNCTION_129_0();
+    FlightSnippet.Flight.codeShares.setter();
+  }
+
+  else
+  {
+    v6 = OUTLINED_FUNCTION_82_1();
+    v7 = *(v2 + v1);
+    if ((v6 & 1) == 0)
+    {
+      OUTLINED_FUNCTION_80_1();
+      OUTLINED_FUNCTION_31_2();
+      swift_allocObject();
+      v8 = OUTLINED_FUNCTION_9_2();
+      v9 = FlightSnippet.Flight._StorageClass.init(copying:)(v8);
+      OUTLINED_FUNCTION_112_0(v9);
+    }
+
+    OUTLINED_FUNCTION_40_2(v7 + 168);
+    *(v7 + 168) = v4;
+  }
+
+  free(v0);
+}
+
+uint64_t FlightSnippet.Flight.legIndex.getter()
+{
+  OUTLINED_FUNCTION_10_1();
+  v2 = *(v0 + v1);
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+  return *(v2 + 176);
+}
+
+uint64_t FlightSnippet.Flight.legIndex.setter()
+{
+  v3 = OUTLINED_FUNCTION_22_0();
+  v4 = OUTLINED_FUNCTION_60_0(v3);
+  v6 = *(v1 + v2);
+  if ((v4 & 1) == 0)
+  {
+    type metadata accessor for FlightSnippet.Flight._StorageClass();
+    OUTLINED_FUNCTION_31_2();
+    swift_allocObject();
+    v7 = OUTLINED_FUNCTION_9_2();
+    v8 = FlightSnippet.Flight._StorageClass.init(copying:)(v7);
+    OUTLINED_FUNCTION_48_0(v8);
+  }
+
+  result = OUTLINED_FUNCTION_30_1(v6 + 176, v5);
+  *(v6 + 176) = v0;
+  return result;
+}
+
+uint64_t FlightSnippet.Flight.legIndex.modify()
+{
+  v2 = OUTLINED_FUNCTION_73_0();
+  v3 = __swift_coroFrameAllocStub(v2);
+  *(OUTLINED_FUNCTION_32_1(v3) + 72) = v0;
+  OUTLINED_FUNCTION_10_1();
+  OUTLINED_FUNCTION_92_0(v4);
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+  *(v1 + 80) = *(v0 + 176);
+  return OUTLINED_FUNCTION_46_2();
+}
+
+void FlightSnippet.Flight.legIndex.modify()
+{
+  OUTLINED_FUNCTION_19_1();
+  v4 = OUTLINED_FUNCTION_62_1();
+  v5 = *(v3 + v1);
+  if ((v4 & 1) == 0)
+  {
+    OUTLINED_FUNCTION_70_1();
+    type metadata accessor for FlightSnippet.Flight._StorageClass();
+    OUTLINED_FUNCTION_31_2();
+    swift_allocObject();
+    v6 = OUTLINED_FUNCTION_9_2();
+    v7 = FlightSnippet.Flight._StorageClass.init(copying:)(v6);
+    OUTLINED_FUNCTION_37_1(v7);
+  }
+
+  OUTLINED_FUNCTION_41_0();
+  *(v5 + 176) = v2;
+
+  free(v0);
+}
+
+uint64_t FlightSnippet.Flight.operatorCarrierCode.getter()
+{
+  OUTLINED_FUNCTION_10_1();
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+
+  return OUTLINED_FUNCTION_94();
+}
+
+void key path setter for FlightSnippet.Flight.operatorCarrierCode : FlightSnippet.Flight(uint64_t *a1)
+{
+  v1 = *a1;
+  v2 = a1[1];
+
+  FlightSnippet.Flight.operatorCarrierCode.setter(v1, v2);
+}
+
+void FlightSnippet.Flight.operatorCarrierCode.setter(uint64_t a1, uint64_t a2)
+{
+  OUTLINED_FUNCTION_102_0();
+  v6 = OUTLINED_FUNCTION_7_0();
+  v7 = OUTLINED_FUNCTION_61_1(v6);
+  v9 = *(v3 + v5);
+  if ((v7 & 1) == 0)
+  {
+    type metadata accessor for FlightSnippet.Flight._StorageClass();
+    OUTLINED_FUNCTION_31_2();
+    swift_allocObject();
+    v10 = OUTLINED_FUNCTION_9_2();
+    v11 = FlightSnippet.Flight._StorageClass.init(copying:)(v10);
+    OUTLINED_FUNCTION_54_1(v11);
+  }
+
+  OUTLINED_FUNCTION_30_1(v9 + 184, v8);
+  *(v9 + 184) = v4;
+  *(v9 + 192) = v2;
+
+  OUTLINED_FUNCTION_101_0();
+}
+
+uint64_t FlightSnippet.Flight.operatorCarrierCode.modify()
+{
+  v2 = OUTLINED_FUNCTION_50_0();
+  v3 = __swift_coroFrameAllocStub(v2);
+  OUTLINED_FUNCTION_0_2(v3);
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+  v4 = *(v0 + 192);
+  *(v1 + 48) = *(v0 + 184);
+  *(v1 + 56) = v4;
+
+  return OUTLINED_FUNCTION_32_0();
+}
+
+void FlightSnippet.Flight.operatorCarrierCode.modify()
+{
+  OUTLINED_FUNCTION_6_1();
+  if (v5)
+  {
+    OUTLINED_FUNCTION_76_0();
+    v6 = OUTLINED_FUNCTION_52_1();
+    FlightSnippet.Flight.operatorCarrierCode.setter(v6, v7);
+  }
+
+  else
+  {
+    v8 = OUTLINED_FUNCTION_47_2();
+    v9 = *(v4 + v1);
+    if ((v8 & 1) == 0)
+    {
+      OUTLINED_FUNCTION_17_2();
+      type metadata accessor for FlightSnippet.Flight._StorageClass();
+      OUTLINED_FUNCTION_31_2();
+      swift_allocObject();
+      v10 = OUTLINED_FUNCTION_9_2();
+      v11 = FlightSnippet.Flight._StorageClass.init(copying:)(v10);
+      OUTLINED_FUNCTION_37_1(v11);
+    }
+
+    OUTLINED_FUNCTION_40_2(v9 + 184);
+    *(v9 + 184) = v3;
+    *(v9 + 192) = v2;
+  }
+
+  free(v0);
+}
+
+uint64_t FlightSnippet.Flight.operatorFlightNumber.getter()
+{
+  OUTLINED_FUNCTION_10_1();
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+
+  return OUTLINED_FUNCTION_94();
+}
+
+void key path setter for FlightSnippet.Flight.operatorFlightNumber : FlightSnippet.Flight(uint64_t *a1)
+{
+  v1 = *a1;
+  v2 = a1[1];
+
+  FlightSnippet.Flight.operatorFlightNumber.setter(v1, v2);
+}
+
+void FlightSnippet.Flight.operatorFlightNumber.setter(uint64_t a1, uint64_t a2)
+{
+  OUTLINED_FUNCTION_102_0();
+  v6 = OUTLINED_FUNCTION_7_0();
+  v7 = OUTLINED_FUNCTION_61_1(v6);
+  v9 = *(v3 + v5);
+  if ((v7 & 1) == 0)
+  {
+    type metadata accessor for FlightSnippet.Flight._StorageClass();
+    OUTLINED_FUNCTION_31_2();
+    swift_allocObject();
+    v10 = OUTLINED_FUNCTION_9_2();
+    v11 = FlightSnippet.Flight._StorageClass.init(copying:)(v10);
+    OUTLINED_FUNCTION_54_1(v11);
+  }
+
+  OUTLINED_FUNCTION_30_1(v9 + 200, v8);
+  *(v9 + 200) = v4;
+  *(v9 + 208) = v2;
+
+  OUTLINED_FUNCTION_101_0();
+}
+
+uint64_t FlightSnippet.Flight.operatorFlightNumber.modify()
+{
+  v2 = OUTLINED_FUNCTION_50_0();
+  v3 = __swift_coroFrameAllocStub(v2);
+  OUTLINED_FUNCTION_0_2(v3);
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+  v4 = *(v0 + 208);
+  *(v1 + 48) = *(v0 + 200);
+  *(v1 + 56) = v4;
+
+  return OUTLINED_FUNCTION_32_0();
+}
+
+void FlightSnippet.Flight.operatorFlightNumber.modify()
+{
+  OUTLINED_FUNCTION_6_1();
+  if (v5)
+  {
+    OUTLINED_FUNCTION_76_0();
+    v6 = OUTLINED_FUNCTION_52_1();
+    FlightSnippet.Flight.operatorFlightNumber.setter(v6, v7);
+  }
+
+  else
+  {
+    v8 = OUTLINED_FUNCTION_47_2();
+    v9 = *(v4 + v1);
+    if ((v8 & 1) == 0)
+    {
+      OUTLINED_FUNCTION_17_2();
+      type metadata accessor for FlightSnippet.Flight._StorageClass();
+      OUTLINED_FUNCTION_31_2();
+      swift_allocObject();
+      v10 = OUTLINED_FUNCTION_9_2();
+      v11 = FlightSnippet.Flight._StorageClass.init(copying:)(v10);
+      OUTLINED_FUNCTION_37_1(v11);
+    }
+
+    OUTLINED_FUNCTION_40_2(v9 + 200);
+    *(v9 + 200) = v3;
+    *(v9 + 208) = v2;
+  }
+
+  free(v0);
+}
+
+uint64_t FlightSnippet.Flight.website.getter()
+{
+  OUTLINED_FUNCTION_10_1();
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+
+  return OUTLINED_FUNCTION_94();
+}
+
+void key path setter for FlightSnippet.Flight.website : FlightSnippet.Flight(uint64_t *a1)
+{
+  v1 = *a1;
+  v2 = a1[1];
+
+  FlightSnippet.Flight.website.setter(v1, v2);
+}
+
+void FlightSnippet.Flight.website.setter(uint64_t a1, uint64_t a2)
+{
+  OUTLINED_FUNCTION_102_0();
+  v6 = OUTLINED_FUNCTION_7_0();
+  v7 = OUTLINED_FUNCTION_61_1(v6);
+  v9 = *(v3 + v5);
+  if ((v7 & 1) == 0)
+  {
+    type metadata accessor for FlightSnippet.Flight._StorageClass();
+    OUTLINED_FUNCTION_31_2();
+    swift_allocObject();
+    v10 = OUTLINED_FUNCTION_9_2();
+    v11 = FlightSnippet.Flight._StorageClass.init(copying:)(v10);
+    OUTLINED_FUNCTION_54_1(v11);
+  }
+
+  OUTLINED_FUNCTION_30_1(v9 + 216, v8);
+  *(v9 + 216) = v4;
+  *(v9 + 224) = v2;
+
+  OUTLINED_FUNCTION_101_0();
+}
+
+uint64_t FlightSnippet.Flight.website.modify()
+{
+  v2 = OUTLINED_FUNCTION_50_0();
+  v3 = __swift_coroFrameAllocStub(v2);
+  OUTLINED_FUNCTION_0_2(v3);
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+  v4 = *(v0 + 224);
+  *(v1 + 48) = *(v0 + 216);
+  *(v1 + 56) = v4;
+
+  return OUTLINED_FUNCTION_32_0();
+}
+
+void FlightSnippet.Flight.website.modify()
+{
+  OUTLINED_FUNCTION_6_1();
+  if (v5)
+  {
+    OUTLINED_FUNCTION_76_0();
+    v6 = OUTLINED_FUNCTION_52_1();
+    FlightSnippet.Flight.website.setter(v6, v7);
+  }
+
+  else
+  {
+    v8 = OUTLINED_FUNCTION_47_2();
+    v9 = *(v4 + v1);
+    if ((v8 & 1) == 0)
+    {
+      OUTLINED_FUNCTION_17_2();
+      type metadata accessor for FlightSnippet.Flight._StorageClass();
+      OUTLINED_FUNCTION_31_2();
+      swift_allocObject();
+      v10 = OUTLINED_FUNCTION_9_2();
+      v11 = FlightSnippet.Flight._StorageClass.init(copying:)(v10);
+      OUTLINED_FUNCTION_37_1(v11);
+    }
+
+    OUTLINED_FUNCTION_40_2(v9 + 216);
+    *(v9 + 216) = v3;
+    *(v9 + 224) = v2;
+  }
+
+  free(v0);
+}
+
+uint64_t FlightSnippet.Flight.lastUpdated.getter()
+{
+  OUTLINED_FUNCTION_10_1();
+  v2 = *(v0 + v1);
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+  return *(v2 + 232);
+}
+
+uint64_t FlightSnippet.Flight.lastUpdated.setter()
+{
+  v3 = OUTLINED_FUNCTION_22_0();
+  v4 = OUTLINED_FUNCTION_60_0(v3);
+  v6 = *(v1 + v2);
+  if ((v4 & 1) == 0)
+  {
+    type metadata accessor for FlightSnippet.Flight._StorageClass();
+    OUTLINED_FUNCTION_31_2();
+    swift_allocObject();
+    v7 = OUTLINED_FUNCTION_9_2();
+    v8 = FlightSnippet.Flight._StorageClass.init(copying:)(v7);
+    OUTLINED_FUNCTION_48_0(v8);
+  }
+
+  result = OUTLINED_FUNCTION_30_1(v6 + 232, v5);
+  *(v6 + 232) = v0;
+  return result;
+}
+
+uint64_t FlightSnippet.Flight.lastUpdated.modify()
+{
+  v2 = OUTLINED_FUNCTION_55_0();
+  v3 = __swift_coroFrameAllocStub(v2);
+  v4 = OUTLINED_FUNCTION_8_2(v3);
+  v5 = type metadata accessor for FlightSnippet.Flight(v4);
+  OUTLINED_FUNCTION_18_3(v5);
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+  *(v1 + 72) = *(v0 + 232);
+  return OUTLINED_FUNCTION_46_2();
+}
+
+void FlightSnippet.Flight.lastUpdated.modify(uint64_t a1)
+{
+  v5 = OUTLINED_FUNCTION_12_0(a1);
+  v6 = *(v4 + v2);
+  if ((v5 & 1) == 0)
+  {
+    OUTLINED_FUNCTION_29_2();
+    type metadata accessor for FlightSnippet.Flight._StorageClass();
+    OUTLINED_FUNCTION_31_2();
+    swift_allocObject();
+    v7 = OUTLINED_FUNCTION_9_2();
+    v8 = FlightSnippet.Flight._StorageClass.init(copying:)(v7);
+    OUTLINED_FUNCTION_37_1(v8);
+  }
+
+  OUTLINED_FUNCTION_41_0();
+  *(v6 + 232) = v3;
+
+  free(v1);
+}
+
+uint64_t FlightSnippet.Flight.legsNotUpdated.getter()
+{
+  OUTLINED_FUNCTION_10_1();
+  v2 = *(v0 + v1);
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+  return *(v2 + 240);
+}
+
+uint64_t FlightSnippet.Flight.legsNotUpdated.setter()
+{
+  v3 = OUTLINED_FUNCTION_22_0();
+  v4 = OUTLINED_FUNCTION_60_0(v3);
+  v6 = *(v1 + v2);
+  if ((v4 & 1) == 0)
+  {
+    type metadata accessor for FlightSnippet.Flight._StorageClass();
+    OUTLINED_FUNCTION_31_2();
+    swift_allocObject();
+    v7 = OUTLINED_FUNCTION_9_2();
+    v8 = FlightSnippet.Flight._StorageClass.init(copying:)(v7);
+    OUTLINED_FUNCTION_48_0(v8);
+  }
+
+  result = OUTLINED_FUNCTION_30_1(v6 + 240, v5);
+  *(v6 + 240) = v0;
+  return result;
+}
+
+uint64_t FlightSnippet.Flight.legsNotUpdated.modify()
+{
+  v2 = OUTLINED_FUNCTION_73_0();
+  v3 = __swift_coroFrameAllocStub(v2);
+  *(OUTLINED_FUNCTION_32_1(v3) + 72) = v0;
+  OUTLINED_FUNCTION_10_1();
+  OUTLINED_FUNCTION_92_0(v4);
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+  *(v1 + 80) = *(v0 + 240);
+  return OUTLINED_FUNCTION_46_2();
+}
+
+void FlightSnippet.Flight.legsNotUpdated.modify()
+{
+  OUTLINED_FUNCTION_19_1();
+  v4 = OUTLINED_FUNCTION_62_1();
+  v5 = *(v3 + v1);
+  if ((v4 & 1) == 0)
+  {
+    OUTLINED_FUNCTION_70_1();
+    type metadata accessor for FlightSnippet.Flight._StorageClass();
+    OUTLINED_FUNCTION_31_2();
+    swift_allocObject();
+    v6 = OUTLINED_FUNCTION_9_2();
+    v7 = FlightSnippet.Flight._StorageClass.init(copying:)(v6);
+    OUTLINED_FUNCTION_37_1(v7);
+  }
+
+  OUTLINED_FUNCTION_41_0();
+  *(v5 + 240) = v2;
+
+  free(v0);
+}
+
+uint64_t FlightSnippet.Flight.departureUtcVariance.getter()
+{
+  OUTLINED_FUNCTION_10_1();
+  v2 = *(v0 + v1);
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+  return *(v2 + 244);
+}
+
+uint64_t FlightSnippet.Flight.departureUtcVariance.setter()
+{
+  v3 = OUTLINED_FUNCTION_22_0();
+  v4 = OUTLINED_FUNCTION_60_0(v3);
+  v6 = *(v1 + v2);
+  if ((v4 & 1) == 0)
+  {
+    type metadata accessor for FlightSnippet.Flight._StorageClass();
+    OUTLINED_FUNCTION_31_2();
+    swift_allocObject();
+    v7 = OUTLINED_FUNCTION_9_2();
+    v8 = FlightSnippet.Flight._StorageClass.init(copying:)(v7);
+    OUTLINED_FUNCTION_48_0(v8);
+  }
+
+  result = OUTLINED_FUNCTION_30_1(v6 + 244, v5);
+  *(v6 + 244) = v0;
+  return result;
+}
+
+uint64_t FlightSnippet.Flight.departureUtcVariance.modify()
+{
+  v2 = OUTLINED_FUNCTION_73_0();
+  v3 = __swift_coroFrameAllocStub(v2);
+  *(OUTLINED_FUNCTION_32_1(v3) + 72) = v0;
+  OUTLINED_FUNCTION_10_1();
+  OUTLINED_FUNCTION_92_0(v4);
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+  *(v1 + 80) = *(v0 + 244);
+  return OUTLINED_FUNCTION_46_2();
+}
+
+void FlightSnippet.Flight.departureUtcVariance.modify()
+{
+  OUTLINED_FUNCTION_19_1();
+  v4 = OUTLINED_FUNCTION_62_1();
+  v5 = *(v3 + v1);
+  if ((v4 & 1) == 0)
+  {
+    OUTLINED_FUNCTION_70_1();
+    type metadata accessor for FlightSnippet.Flight._StorageClass();
+    OUTLINED_FUNCTION_31_2();
+    swift_allocObject();
+    v6 = OUTLINED_FUNCTION_9_2();
+    v7 = FlightSnippet.Flight._StorageClass.init(copying:)(v6);
+    OUTLINED_FUNCTION_37_1(v7);
+  }
+
+  OUTLINED_FUNCTION_41_0();
+  *(v5 + 244) = v2;
+
+  free(v0);
+}
+
+uint64_t FlightSnippet.Flight.totalLegs.getter()
+{
+  OUTLINED_FUNCTION_10_1();
+  v2 = *(v0 + v1);
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+  return *(v2 + 248);
+}
+
+uint64_t FlightSnippet.Flight.totalLegs.setter()
+{
+  v3 = OUTLINED_FUNCTION_22_0();
+  v4 = OUTLINED_FUNCTION_60_0(v3);
+  v6 = *(v1 + v2);
+  if ((v4 & 1) == 0)
+  {
+    type metadata accessor for FlightSnippet.Flight._StorageClass();
+    OUTLINED_FUNCTION_31_2();
+    swift_allocObject();
+    v7 = OUTLINED_FUNCTION_9_2();
+    v8 = FlightSnippet.Flight._StorageClass.init(copying:)(v7);
+    OUTLINED_FUNCTION_48_0(v8);
+  }
+
+  result = OUTLINED_FUNCTION_30_1(v6 + 248, v5);
+  *(v6 + 248) = v0;
+  return result;
+}
+
+uint64_t FlightSnippet.Flight.totalLegs.modify()
+{
+  v2 = OUTLINED_FUNCTION_73_0();
+  v3 = __swift_coroFrameAllocStub(v2);
+  *(OUTLINED_FUNCTION_32_1(v3) + 72) = v0;
+  OUTLINED_FUNCTION_10_1();
+  OUTLINED_FUNCTION_92_0(v4);
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+  *(v1 + 80) = *(v0 + 248);
+  return OUTLINED_FUNCTION_46_2();
+}
+
+void FlightSnippet.Flight.totalLegs.modify()
+{
+  OUTLINED_FUNCTION_19_1();
+  v4 = OUTLINED_FUNCTION_62_1();
+  v5 = *(v3 + v1);
+  if ((v4 & 1) == 0)
+  {
+    OUTLINED_FUNCTION_70_1();
+    type metadata accessor for FlightSnippet.Flight._StorageClass();
+    OUTLINED_FUNCTION_31_2();
+    swift_allocObject();
+    v6 = OUTLINED_FUNCTION_9_2();
+    v7 = FlightSnippet.Flight._StorageClass.init(copying:)(v6);
+    OUTLINED_FUNCTION_37_1(v7);
+  }
+
+  OUTLINED_FUNCTION_41_0();
+  *(v5 + 248) = v2;
+
+  free(v0);
+}
+
+uint64_t FlightSnippet.Flight.legFlightScheduleIds.getter()
+{
+  OUTLINED_FUNCTION_10_1();
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+}
+
+uint64_t FlightSnippet.Flight.legFlightScheduleIds.setter()
+{
+  v3 = OUTLINED_FUNCTION_22_0();
+  v4 = OUTLINED_FUNCTION_60_0(v3);
+  v6 = *(v1 + v2);
+  if ((v4 & 1) == 0)
+  {
+    type metadata accessor for FlightSnippet.Flight._StorageClass();
+    OUTLINED_FUNCTION_31_2();
+    swift_allocObject();
+    v7 = OUTLINED_FUNCTION_9_2();
+    v8 = FlightSnippet.Flight._StorageClass.init(copying:)(v7);
+    OUTLINED_FUNCTION_48_0(v8);
+  }
+
+  OUTLINED_FUNCTION_30_1(v6 + 256, v5);
+  *(v6 + 256) = v0;
+}
+
+uint64_t FlightSnippet.Flight.legFlightScheduleIds.modify()
+{
+  v2 = OUTLINED_FUNCTION_120_0();
+  v3 = __swift_coroFrameAllocStub(v2);
+  *(OUTLINED_FUNCTION_32_1(v3) + 56) = v0;
+  OUTLINED_FUNCTION_10_1();
+  OUTLINED_FUNCTION_114_0(v4);
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+  *(v1 + 48) = *(v0 + 256);
+
+  return OUTLINED_FUNCTION_32_0();
+}
+
+void FlightSnippet.Flight.legFlightScheduleIds.modify()
+{
+  OUTLINED_FUNCTION_35_2();
+  v4 = *(v3 + 48);
+  if (v5)
+  {
+    OUTLINED_FUNCTION_129_0();
+    FlightSnippet.Flight.legFlightScheduleIds.setter();
+  }
+
+  else
+  {
+    v6 = OUTLINED_FUNCTION_82_1();
+    v7 = *(v2 + v1);
+    if ((v6 & 1) == 0)
+    {
+      OUTLINED_FUNCTION_80_1();
+      OUTLINED_FUNCTION_31_2();
+      swift_allocObject();
+      v8 = OUTLINED_FUNCTION_9_2();
+      v9 = FlightSnippet.Flight._StorageClass.init(copying:)(v8);
+      OUTLINED_FUNCTION_112_0(v9);
+    }
+
+    OUTLINED_FUNCTION_40_2(v7 + 256);
+    *(v7 + 256) = v4;
+  }
+
+  free(v0);
+}
+
+uint64_t FlightSnippet.Flight.legFlightUpdateIds.getter()
+{
+  OUTLINED_FUNCTION_10_1();
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+}
+
+uint64_t FlightSnippet.Flight.legFlightUpdateIds.setter()
+{
+  v3 = OUTLINED_FUNCTION_22_0();
+  v4 = OUTLINED_FUNCTION_60_0(v3);
+  v6 = *(v1 + v2);
+  if ((v4 & 1) == 0)
+  {
+    type metadata accessor for FlightSnippet.Flight._StorageClass();
+    OUTLINED_FUNCTION_31_2();
+    swift_allocObject();
+    v7 = OUTLINED_FUNCTION_9_2();
+    v8 = FlightSnippet.Flight._StorageClass.init(copying:)(v7);
+    OUTLINED_FUNCTION_48_0(v8);
+  }
+
+  OUTLINED_FUNCTION_30_1(v6 + 264, v5);
+  *(v6 + 264) = v0;
+}
+
+uint64_t FlightSnippet.Flight.legFlightUpdateIds.modify()
+{
+  v2 = OUTLINED_FUNCTION_120_0();
+  v3 = __swift_coroFrameAllocStub(v2);
+  *(OUTLINED_FUNCTION_32_1(v3) + 56) = v0;
+  OUTLINED_FUNCTION_10_1();
+  OUTLINED_FUNCTION_114_0(v4);
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+  *(v1 + 48) = *(v0 + 264);
+
+  return OUTLINED_FUNCTION_32_0();
+}
+
+void FlightSnippet.Flight.legFlightUpdateIds.modify()
+{
+  OUTLINED_FUNCTION_35_2();
+  v4 = *(v3 + 48);
+  if (v5)
+  {
+    OUTLINED_FUNCTION_129_0();
+    FlightSnippet.Flight.legFlightUpdateIds.setter();
+  }
+
+  else
+  {
+    v6 = OUTLINED_FUNCTION_82_1();
+    v7 = *(v2 + v1);
+    if ((v6 & 1) == 0)
+    {
+      OUTLINED_FUNCTION_80_1();
+      OUTLINED_FUNCTION_31_2();
+      swift_allocObject();
+      v8 = OUTLINED_FUNCTION_9_2();
+      v9 = FlightSnippet.Flight._StorageClass.init(copying:)(v8);
+      OUTLINED_FUNCTION_112_0(v9);
+    }
+
+    OUTLINED_FUNCTION_40_2(v7 + 264);
+    *(v7 + 264) = v4;
+  }
+
+  free(v0);
+}
+
+uint64_t FlightSnippet.Airport.mapsID.setter()
+{
+  OUTLINED_FUNCTION_93();
+
+  *(v1 + 64) = v2;
+  *(v1 + 72) = v0;
+  return result;
+}
+
+uint64_t FlightSnippet.Airport.timeZoneName.setter()
+{
+  OUTLINED_FUNCTION_93();
+
+  *(v1 + 96) = v2;
+  *(v1 + 104) = v0;
+  return result;
+}
+
+uint64_t FlightSnippet.Airport.street.setter()
+{
+  OUTLINED_FUNCTION_93();
+
+  *(v1 + 112) = v2;
+  *(v1 + 120) = v0;
+  return result;
+}
+
+uint64_t FlightSnippet.Airport.district.setter()
+{
+  OUTLINED_FUNCTION_93();
+
+  *(v1 + 128) = v2;
+  *(v1 + 136) = v0;
+  return result;
+}
+
+uint64_t FlightSnippet.Airport.state.setter()
+{
+  OUTLINED_FUNCTION_93();
+
+  *(v1 + 144) = v2;
+  *(v1 + 152) = v0;
+  return result;
+}
+
+uint64_t FlightSnippet.Airport.postalCode.setter()
+{
+  OUTLINED_FUNCTION_93();
+
+  *(v1 + 160) = v2;
+  *(v1 + 168) = v0;
+  return result;
+}
+
+uint64_t FlightSnippet.Airport.countryCode.setter()
+{
+  OUTLINED_FUNCTION_93();
+
+  *(v1 + 176) = v2;
+  *(v1 + 184) = v0;
+  return result;
+}
+
+uint64_t FlightSnippet.Airport.country.setter()
+{
+  OUTLINED_FUNCTION_93();
+
+  *(v1 + 192) = v2;
+  *(v1 + 200) = v0;
+  return result;
+}
+
+uint64_t FlightSnippet.Airport.unknownFields.getter()
+{
+  v0 = OUTLINED_FUNCTION_113();
+  type metadata accessor for FlightSnippet.Airport(v0);
+  type metadata accessor for UnknownStorage();
+  OUTLINED_FUNCTION_17();
+  v1 = OUTLINED_FUNCTION_81_1();
+
+  return v2(v1);
+}
+
+uint64_t FlightSnippet.Airport.unknownFields.setter()
+{
+  v2 = OUTLINED_FUNCTION_42_2();
+  v3 = *(type metadata accessor for FlightSnippet.Airport(v2) + 72);
+  type metadata accessor for UnknownStorage();
+  OUTLINED_FUNCTION_17();
+  v5 = *(v4 + 40);
+
+  return v5(v1 + v3, v0);
+}
+
+void (*FlightSnippet.Airport.unknownFields.modify())()
+{
+  v0 = OUTLINED_FUNCTION_42_2();
+  type metadata accessor for FlightSnippet.Airport(v0);
+  return _s10OmniSearch11GeoLocationVSgWOi_;
+}
+
+uint64_t FlightSnippet.Airport.init()@<X0>(void *a1@<X8>)
+{
+  OUTLINED_FUNCTION_86_1(a1);
+  v1[8] = 0;
+  v1[9] = v2;
+  v1[10] = 0;
+  v1[11] = 0;
+  v1[12] = 0;
+  v1[13] = v2;
+  v1[14] = 0;
+  v1[15] = v2;
+  v1[16] = 0;
+  v1[17] = v2;
+  v1[18] = 0;
+  v1[19] = v2;
+  v1[20] = 0;
+  v1[21] = v2;
+  v1[22] = 0;
+  v1[23] = v2;
+  v1[24] = 0;
+  v1[25] = v2;
+  type metadata accessor for FlightSnippet.Airport(0);
+  return UnknownStorage.init()();
+}
+
+uint64_t FlightSnippet.FlightInfo.carrier.setter()
+{
+  OUTLINED_FUNCTION_93();
+
+  *v1 = v2;
+  v1[1] = v0;
+  return result;
+}
+
+uint64_t FlightSnippet.FlightInfo.carrierFs.setter()
+{
+  OUTLINED_FUNCTION_93();
+
+  *(v1 + 16) = v2;
+  *(v1 + 24) = v0;
+  return result;
+}
+
+uint64_t FlightSnippet.FlightInfo.flightNumber.setter()
+{
+  OUTLINED_FUNCTION_93();
+
+  *(v1 + 32) = v2;
+  *(v1 + 40) = v0;
+  return result;
+}
+
+uint64_t FlightSnippet.FlightInfo.relationship.setter()
+{
+  OUTLINED_FUNCTION_93();
+
+  *(v1 + 48) = v2;
+  *(v1 + 56) = v0;
+  return result;
+}
+
+uint64_t FlightSnippet.FlightInfo.unknownFields.getter()
+{
+  v0 = OUTLINED_FUNCTION_113();
+  type metadata accessor for FlightSnippet.FlightInfo(v0);
+  type metadata accessor for UnknownStorage();
+  OUTLINED_FUNCTION_17();
+  v1 = OUTLINED_FUNCTION_81_1();
+
+  return v2(v1);
+}
+
+uint64_t FlightSnippet.FlightInfo.unknownFields.setter()
+{
+  v2 = OUTLINED_FUNCTION_42_2();
+  v3 = *(type metadata accessor for FlightSnippet.FlightInfo(v2) + 32);
+  type metadata accessor for UnknownStorage();
+  OUTLINED_FUNCTION_17();
+  v5 = *(v4 + 40);
+
+  return v5(v1 + v3, v0);
+}
+
+void (*FlightSnippet.FlightInfo.unknownFields.modify())()
+{
+  v0 = OUTLINED_FUNCTION_42_2();
+  type metadata accessor for FlightSnippet.FlightInfo(v0);
+  return _s10OmniSearch11GeoLocationVSgWOi_;
+}
+
+uint64_t FlightSnippet.FlightInfo.init()@<X0>(void *a1@<X8>)
+{
+  OUTLINED_FUNCTION_86_1(a1);
+  type metadata accessor for FlightSnippet.FlightInfo(0);
+  return UnknownStorage.init()();
+}
+
+uint64_t FlightSnippet.Leg.status.getter()
+{
+  OUTLINED_FUNCTION_13_1();
+  v2 = *(v0 + v1);
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+  return *(v2 + 16);
+}
+
+void FlightSnippet.Leg.status.setter(uint64_t a1, uint64_t a2)
+{
+  OUTLINED_FUNCTION_102_0();
+  v5 = v4;
+  v7 = v6;
+  v8 = type metadata accessor for FlightSnippet.Leg(0);
+  v9 = OUTLINED_FUNCTION_74_1(v8);
+  v11 = *(v2 + v3);
+  if ((v9 & 1) == 0)
+  {
+    OUTLINED_FUNCTION_20_1();
+    v12 = OUTLINED_FUNCTION_9_2();
+    v13 = FlightSnippet.Leg._StorageClass.init(copying:)(v12);
+    OUTLINED_FUNCTION_54_1(v13);
+  }
+
+  OUTLINED_FUNCTION_30_1(v11 + 16, v10);
+  *(v11 + 16) = v7;
+  *(v11 + 24) = v5 & 1;
+  OUTLINED_FUNCTION_101_0();
+}
+
+uint64_t FlightSnippet.Leg.status.modify()
+{
+  v2 = OUTLINED_FUNCTION_55_0();
+  v3 = __swift_coroFrameAllocStub(v2);
+  *(OUTLINED_FUNCTION_32_1(v3) + 88) = v0;
+  OUTLINED_FUNCTION_13_1();
+  OUTLINED_FUNCTION_92_0(v4);
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+  v5 = *(v0 + 24);
+  *(v1 + 72) = *(v0 + 16);
+  *(v1 + 80) = v5;
+  return OUTLINED_FUNCTION_46_2();
+}
+
+void FlightSnippet.Leg.status.modify()
+{
+  OUTLINED_FUNCTION_202();
+  OUTLINED_FUNCTION_19_1();
+  v2 = *(v1 + 72);
+  v3 = *(v0 + 84);
+  v4 = *(v0 + 88);
+  v5 = *(v0 + 80);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v7 = *(v4 + v3);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    v8 = *(v0 + 84);
+    v9 = *(v0 + 88);
+    OUTLINED_FUNCTION_20_1();
+    v10 = OUTLINED_FUNCTION_9_2();
+    v7 = FlightSnippet.Leg._StorageClass.init(copying:)(v10);
+    *(v9 + v8) = v7;
+  }
+
+  OUTLINED_FUNCTION_41_0();
+  *(v7 + 16) = v2;
+  *(v7 + 24) = v5;
+  OUTLINED_FUNCTION_203();
+
+  free(v11);
+}
+
+uint64_t FlightSnippet.Leg.enRoute.getter()
+{
+  OUTLINED_FUNCTION_13_1();
+  v2 = *(v0 + v1);
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+  return *(v2 + 25);
+}
+
+uint64_t FlightSnippet.Leg.enRoute.setter()
+{
+  v3 = OUTLINED_FUNCTION_22_0();
+  v4 = OUTLINED_FUNCTION_71_1(v3);
+  v6 = *(v1 + v2);
+  if ((v4 & 1) == 0)
+  {
+    OUTLINED_FUNCTION_20_1();
+    v7 = OUTLINED_FUNCTION_9_2();
+    v8 = FlightSnippet.Leg._StorageClass.init(copying:)(v7);
+    OUTLINED_FUNCTION_48_0(v8);
+  }
+
+  result = OUTLINED_FUNCTION_30_1(v6 + 25, v5);
+  *(v6 + 25) = v0 & 1;
+  return result;
+}
+
+uint64_t FlightSnippet.Leg.enRoute.modify()
+{
+  v2 = OUTLINED_FUNCTION_73_0();
+  v3 = __swift_coroFrameAllocStub(v2);
+  *(OUTLINED_FUNCTION_32_1(v3) + 72) = v0;
+  OUTLINED_FUNCTION_13_1();
+  OUTLINED_FUNCTION_115_0(v4);
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+  *(v1 + 84) = *(v0 + 25);
+  return OUTLINED_FUNCTION_46_2();
+}
+
+void FlightSnippet.Leg.enRoute.modify(uint64_t a1)
+{
+  v5 = OUTLINED_FUNCTION_34_0(a1);
+  v6 = *(v4 + v2);
+  if ((v5 & 1) == 0)
+  {
+    OUTLINED_FUNCTION_20_1();
+    v7 = OUTLINED_FUNCTION_9_2();
+    v8 = FlightSnippet.Leg._StorageClass.init(copying:)(v7);
+    OUTLINED_FUNCTION_37_1(v8);
+  }
+
+  OUTLINED_FUNCTION_41_0();
+  *(v6 + 25) = v3;
+
+  free(v1);
+}
+
+uint64_t FlightSnippet.Leg.departureDelayed.getter()
+{
+  OUTLINED_FUNCTION_13_1();
+  v2 = *(v0 + v1);
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+  return *(v2 + 26);
+}
+
+uint64_t FlightSnippet.Leg.departureDelayed.setter()
+{
+  v3 = OUTLINED_FUNCTION_22_0();
+  v4 = OUTLINED_FUNCTION_71_1(v3);
+  v6 = *(v1 + v2);
+  if ((v4 & 1) == 0)
+  {
+    OUTLINED_FUNCTION_20_1();
+    v7 = OUTLINED_FUNCTION_9_2();
+    v8 = FlightSnippet.Leg._StorageClass.init(copying:)(v7);
+    OUTLINED_FUNCTION_48_0(v8);
+  }
+
+  result = OUTLINED_FUNCTION_30_1(v6 + 26, v5);
+  *(v6 + 26) = v0 & 1;
+  return result;
+}
+
+uint64_t FlightSnippet.Leg.departureDelayed.modify()
+{
+  v2 = OUTLINED_FUNCTION_73_0();
+  v3 = __swift_coroFrameAllocStub(v2);
+  *(OUTLINED_FUNCTION_32_1(v3) + 72) = v0;
+  OUTLINED_FUNCTION_13_1();
+  OUTLINED_FUNCTION_115_0(v4);
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+  *(v1 + 84) = *(v0 + 26);
+  return OUTLINED_FUNCTION_46_2();
+}
+
+void FlightSnippet.Leg.departureDelayed.modify(uint64_t a1)
+{
+  v5 = OUTLINED_FUNCTION_34_0(a1);
+  v6 = *(v4 + v2);
+  if ((v5 & 1) == 0)
+  {
+    OUTLINED_FUNCTION_20_1();
+    v7 = OUTLINED_FUNCTION_9_2();
+    v8 = FlightSnippet.Leg._StorageClass.init(copying:)(v7);
+    OUTLINED_FUNCTION_37_1(v8);
+  }
+
+  OUTLINED_FUNCTION_41_0();
+  *(v6 + 26) = v3;
+
+  free(v1);
+}
+
+uint64_t FlightSnippet.Leg.arrivalDelayed.getter()
+{
+  OUTLINED_FUNCTION_13_1();
+  v2 = *(v0 + v1);
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+  return *(v2 + 27);
+}
+
+uint64_t FlightSnippet.Leg.arrivalDelayed.setter()
+{
+  v3 = OUTLINED_FUNCTION_22_0();
+  v4 = OUTLINED_FUNCTION_71_1(v3);
+  v6 = *(v1 + v2);
+  if ((v4 & 1) == 0)
+  {
+    OUTLINED_FUNCTION_20_1();
+    v7 = OUTLINED_FUNCTION_9_2();
+    v8 = FlightSnippet.Leg._StorageClass.init(copying:)(v7);
+    OUTLINED_FUNCTION_48_0(v8);
+  }
+
+  result = OUTLINED_FUNCTION_30_1(v6 + 27, v5);
+  *(v6 + 27) = v0 & 1;
+  return result;
+}
+
+uint64_t FlightSnippet.Leg.arrivalDelayed.modify()
+{
+  v2 = OUTLINED_FUNCTION_73_0();
+  v3 = __swift_coroFrameAllocStub(v2);
+  *(OUTLINED_FUNCTION_32_1(v3) + 72) = v0;
+  OUTLINED_FUNCTION_13_1();
+  OUTLINED_FUNCTION_115_0(v4);
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+  *(v1 + 84) = *(v0 + 27);
+  return OUTLINED_FUNCTION_46_2();
+}
+
+void FlightSnippet.Leg.arrivalDelayed.modify(uint64_t a1)
+{
+  v5 = OUTLINED_FUNCTION_34_0(a1);
+  v6 = *(v4 + v2);
+  if ((v5 & 1) == 0)
+  {
+    OUTLINED_FUNCTION_20_1();
+    v7 = OUTLINED_FUNCTION_9_2();
+    v8 = FlightSnippet.Leg._StorageClass.init(copying:)(v7);
+    OUTLINED_FUNCTION_37_1(v8);
+  }
+
+  OUTLINED_FUNCTION_41_0();
+  *(v6 + 27) = v3;
+
+  free(v1);
+}
+
+uint64_t FlightSnippet.Flight.contentHash.getter(uint64_t (*a1)(void))
+{
+  a1(0);
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+
+  return OUTLINED_FUNCTION_94();
+}
+
+void key path setter for FlightSnippet.Leg.title : FlightSnippet.Leg(uint64_t *a1)
+{
+  v1 = *a1;
+  v2 = a1[1];
+
+  FlightSnippet.Leg.title.setter(v1, v2);
+}
+
+void FlightSnippet.Leg.title.setter(uint64_t a1, uint64_t a2)
+{
+  OUTLINED_FUNCTION_102_0();
+  v6 = OUTLINED_FUNCTION_7_0();
+  v7 = type metadata accessor for FlightSnippet.Leg(v6);
+  v8 = OUTLINED_FUNCTION_74_1(v7);
+  v10 = *(v3 + v5);
+  if ((v8 & 1) == 0)
+  {
+    OUTLINED_FUNCTION_20_1();
+    v11 = OUTLINED_FUNCTION_9_2();
+    v12 = FlightSnippet.Leg._StorageClass.init(copying:)(v11);
+    OUTLINED_FUNCTION_54_1(v12);
+  }
+
+  OUTLINED_FUNCTION_30_1(v10 + 32, v9);
+  *(v10 + 32) = v4;
+  *(v10 + 40) = v2;
+
+  OUTLINED_FUNCTION_101_0();
+}
+
+uint64_t FlightSnippet.Leg.title.modify()
+{
+  v2 = OUTLINED_FUNCTION_50_0();
+  v3 = __swift_coroFrameAllocStub(v2);
+  v4 = OUTLINED_FUNCTION_4_2(v3);
+  v5 = type metadata accessor for FlightSnippet.Leg(v4);
+  OUTLINED_FUNCTION_16_1(v5);
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+  v6 = *(v0 + 40);
+  *(v1 + 48) = *(v0 + 32);
+  *(v1 + 56) = v6;
+
+  return OUTLINED_FUNCTION_32_0();
+}
+
+void FlightSnippet.Leg.title.modify()
+{
+  OUTLINED_FUNCTION_6_1();
+  if (v5)
+  {
+    OUTLINED_FUNCTION_76_0();
+    v6 = OUTLINED_FUNCTION_52_1();
+    FlightSnippet.Leg.title.setter(v6, v7);
+  }
+
+  else
+  {
+    v8 = OUTLINED_FUNCTION_47_2();
+    v9 = *(v4 + v1);
+    if ((v8 & 1) == 0)
+    {
+      v10 = OUTLINED_FUNCTION_17_2();
+      type metadata accessor for FlightSnippet.Leg._StorageClass(v10);
+      OUTLINED_FUNCTION_53_0();
+      swift_allocObject();
+      v11 = OUTLINED_FUNCTION_9_2();
+      v12 = FlightSnippet.Leg._StorageClass.init(copying:)(v11);
+      OUTLINED_FUNCTION_37_1(v12);
+    }
+
+    OUTLINED_FUNCTION_40_2(v9 + 32);
+    *(v9 + 32) = v3;
+    *(v9 + 40) = v2;
+  }
+
+  free(v0);
+}
+
+uint64_t FlightSnippet.Leg.departurePublishedTime.getter()
+{
+  OUTLINED_FUNCTION_13_1();
+  v2 = *(v0 + v1);
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+  return *(v2 + 48);
+}
+
+uint64_t FlightSnippet.Leg.departurePublishedTime.setter()
+{
+  v3 = OUTLINED_FUNCTION_22_0();
+  v4 = OUTLINED_FUNCTION_71_1(v3);
+  v6 = *(v1 + v2);
+  if ((v4 & 1) == 0)
+  {
+    OUTLINED_FUNCTION_20_1();
+    v7 = OUTLINED_FUNCTION_9_2();
+    v8 = FlightSnippet.Leg._StorageClass.init(copying:)(v7);
+    OUTLINED_FUNCTION_48_0(v8);
+  }
+
+  result = OUTLINED_FUNCTION_30_1(v6 + 48, v5);
+  *(v6 + 48) = v0;
+  return result;
+}
+
+uint64_t FlightSnippet.Leg.departurePublishedTime.modify()
+{
+  v2 = OUTLINED_FUNCTION_55_0();
+  v3 = __swift_coroFrameAllocStub(v2);
+  OUTLINED_FUNCTION_1_3(v3);
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+  *(v1 + 72) = *(v0 + 48);
+  return OUTLINED_FUNCTION_46_2();
+}
+
+void FlightSnippet.Leg.departurePublishedTime.modify(uint64_t a1)
+{
+  v5 = OUTLINED_FUNCTION_12_0(a1);
+  v6 = *(v4 + v2);
+  if ((v5 & 1) == 0)
+  {
+    OUTLINED_FUNCTION_20_1();
+    v7 = OUTLINED_FUNCTION_9_2();
+    v8 = FlightSnippet.Leg._StorageClass.init(copying:)(v7);
+    OUTLINED_FUNCTION_37_1(v8);
+  }
+
+  OUTLINED_FUNCTION_41_0();
+  *(v6 + 48) = v3;
+
+  free(v1);
+}
+
+uint64_t FlightSnippet.Leg.departureActualTime.getter()
+{
+  OUTLINED_FUNCTION_13_1();
+  v2 = *(v0 + v1);
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+  return *(v2 + 56);
+}
+
+uint64_t FlightSnippet.Leg.departureActualTime.setter()
+{
+  v3 = OUTLINED_FUNCTION_22_0();
+  v4 = OUTLINED_FUNCTION_71_1(v3);
+  v6 = *(v1 + v2);
+  if ((v4 & 1) == 0)
+  {
+    OUTLINED_FUNCTION_20_1();
+    v7 = OUTLINED_FUNCTION_9_2();
+    v8 = FlightSnippet.Leg._StorageClass.init(copying:)(v7);
+    OUTLINED_FUNCTION_48_0(v8);
+  }
+
+  result = OUTLINED_FUNCTION_30_1(v6 + 56, v5);
+  *(v6 + 56) = v0;
+  return result;
+}
+
+uint64_t FlightSnippet.Leg.departureActualTime.modify()
+{
+  v2 = OUTLINED_FUNCTION_55_0();
+  v3 = __swift_coroFrameAllocStub(v2);
+  OUTLINED_FUNCTION_1_3(v3);
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+  *(v1 + 72) = *(v0 + 56);
+  return OUTLINED_FUNCTION_46_2();
+}
+
+void FlightSnippet.Leg.departureActualTime.modify(uint64_t a1)
+{
+  v5 = OUTLINED_FUNCTION_12_0(a1);
+  v6 = *(v4 + v2);
+  if ((v5 & 1) == 0)
+  {
+    OUTLINED_FUNCTION_20_1();
+    v7 = OUTLINED_FUNCTION_9_2();
+    v8 = FlightSnippet.Leg._StorageClass.init(copying:)(v7);
+    OUTLINED_FUNCTION_37_1(v8);
+  }
+
+  OUTLINED_FUNCTION_41_0();
+  *(v6 + 56) = v3;
+
+  free(v1);
+}
+
+uint64_t FlightSnippet.Flight.carrierIcao.getter(uint64_t (*a1)(void))
+{
+  a1(0);
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+
+  return OUTLINED_FUNCTION_94();
+}
+
+void key path setter for FlightSnippet.Leg.departureTerminal : FlightSnippet.Leg(uint64_t *a1)
+{
+  v1 = *a1;
+  v2 = a1[1];
+
+  FlightSnippet.Leg.departureTerminal.setter(v1, v2);
+}
+
+void FlightSnippet.Leg.departureTerminal.setter(uint64_t a1, uint64_t a2)
+{
+  OUTLINED_FUNCTION_102_0();
+  v6 = OUTLINED_FUNCTION_7_0();
+  v7 = type metadata accessor for FlightSnippet.Leg(v6);
+  v8 = OUTLINED_FUNCTION_74_1(v7);
+  v10 = *(v3 + v5);
+  if ((v8 & 1) == 0)
+  {
+    OUTLINED_FUNCTION_20_1();
+    v11 = OUTLINED_FUNCTION_9_2();
+    v12 = FlightSnippet.Leg._StorageClass.init(copying:)(v11);
+    OUTLINED_FUNCTION_54_1(v12);
+  }
+
+  OUTLINED_FUNCTION_30_1(v10 + 64, v9);
+  *(v10 + 64) = v4;
+  *(v10 + 72) = v2;
+
+  OUTLINED_FUNCTION_101_0();
+}
+
+uint64_t FlightSnippet.Leg.departureTerminal.modify()
+{
+  v2 = OUTLINED_FUNCTION_50_0();
+  v3 = __swift_coroFrameAllocStub(v2);
+  v4 = OUTLINED_FUNCTION_4_2(v3);
+  v5 = type metadata accessor for FlightSnippet.Leg(v4);
+  OUTLINED_FUNCTION_16_1(v5);
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+  v6 = *(v0 + 72);
+  *(v1 + 48) = *(v0 + 64);
+  *(v1 + 56) = v6;
+
+  return OUTLINED_FUNCTION_32_0();
+}
+
+void FlightSnippet.Leg.departureTerminal.modify()
+{
+  OUTLINED_FUNCTION_6_1();
+  if (v5)
+  {
+    OUTLINED_FUNCTION_76_0();
+    v6 = OUTLINED_FUNCTION_52_1();
+    FlightSnippet.Leg.departureTerminal.setter(v6, v7);
+  }
+
+  else
+  {
+    v8 = OUTLINED_FUNCTION_47_2();
+    v9 = *(v4 + v1);
+    if ((v8 & 1) == 0)
+    {
+      v10 = OUTLINED_FUNCTION_17_2();
+      type metadata accessor for FlightSnippet.Leg._StorageClass(v10);
+      OUTLINED_FUNCTION_53_0();
+      swift_allocObject();
+      v11 = OUTLINED_FUNCTION_9_2();
+      v12 = FlightSnippet.Leg._StorageClass.init(copying:)(v11);
+      OUTLINED_FUNCTION_37_1(v12);
+    }
+
+    OUTLINED_FUNCTION_40_2(v9 + 64);
+    *(v9 + 64) = v3;
+    *(v9 + 72) = v2;
+  }
+
+  free(v0);
+}
+
+uint64_t FlightSnippet.Flight.carrierFs.getter(uint64_t (*a1)(void))
+{
+  a1(0);
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+
+  return OUTLINED_FUNCTION_94();
+}
+
+void key path setter for FlightSnippet.Leg.departureGate : FlightSnippet.Leg(uint64_t *a1)
+{
+  v1 = *a1;
+  v2 = a1[1];
+
+  FlightSnippet.Leg.departureGate.setter(v1, v2);
+}
+
+void FlightSnippet.Leg.departureGate.setter(uint64_t a1, uint64_t a2)
+{
+  OUTLINED_FUNCTION_102_0();
+  v6 = OUTLINED_FUNCTION_7_0();
+  v7 = type metadata accessor for FlightSnippet.Leg(v6);
+  v8 = OUTLINED_FUNCTION_74_1(v7);
+  v10 = *(v3 + v5);
+  if ((v8 & 1) == 0)
+  {
+    OUTLINED_FUNCTION_20_1();
+    v11 = OUTLINED_FUNCTION_9_2();
+    v12 = FlightSnippet.Leg._StorageClass.init(copying:)(v11);
+    OUTLINED_FUNCTION_54_1(v12);
+  }
+
+  OUTLINED_FUNCTION_30_1(v10 + 80, v9);
+  *(v10 + 80) = v4;
+  *(v10 + 88) = v2;
+
+  OUTLINED_FUNCTION_101_0();
+}
+
+uint64_t FlightSnippet.Leg.departureGate.modify()
+{
+  v2 = OUTLINED_FUNCTION_50_0();
+  v3 = __swift_coroFrameAllocStub(v2);
+  v4 = OUTLINED_FUNCTION_4_2(v3);
+  v5 = type metadata accessor for FlightSnippet.Leg(v4);
+  OUTLINED_FUNCTION_16_1(v5);
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+  v6 = *(v0 + 88);
+  *(v1 + 48) = *(v0 + 80);
+  *(v1 + 56) = v6;
+
+  return OUTLINED_FUNCTION_32_0();
+}
+
+void FlightSnippet.Leg.departureGate.modify()
+{
+  OUTLINED_FUNCTION_6_1();
+  if (v5)
+  {
+    OUTLINED_FUNCTION_76_0();
+    v6 = OUTLINED_FUNCTION_52_1();
+    FlightSnippet.Leg.departureGate.setter(v6, v7);
+  }
+
+  else
+  {
+    v8 = OUTLINED_FUNCTION_47_2();
+    v9 = *(v4 + v1);
+    if ((v8 & 1) == 0)
+    {
+      v10 = OUTLINED_FUNCTION_17_2();
+      type metadata accessor for FlightSnippet.Leg._StorageClass(v10);
+      OUTLINED_FUNCTION_53_0();
+      swift_allocObject();
+      v11 = OUTLINED_FUNCTION_9_2();
+      v12 = FlightSnippet.Leg._StorageClass.init(copying:)(v11);
+      OUTLINED_FUNCTION_37_1(v12);
+    }
+
+    OUTLINED_FUNCTION_40_2(v9 + 80);
+    *(v9 + 80) = v3;
+    *(v9 + 88) = v2;
+  }
+
+  free(v0);
+}
+
+uint64_t FlightSnippet.Leg.departureGateClosed.getter()
+{
+  OUTLINED_FUNCTION_13_1();
+  v2 = *(v0 + v1);
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+  return *(v2 + 96);
+}
+
+uint64_t FlightSnippet.Leg.departureGateClosed.setter()
+{
+  v3 = OUTLINED_FUNCTION_22_0();
+  v4 = OUTLINED_FUNCTION_71_1(v3);
+  v6 = *(v1 + v2);
+  if ((v4 & 1) == 0)
+  {
+    OUTLINED_FUNCTION_20_1();
+    v7 = OUTLINED_FUNCTION_9_2();
+    v8 = FlightSnippet.Leg._StorageClass.init(copying:)(v7);
+    OUTLINED_FUNCTION_48_0(v8);
+  }
+
+  result = OUTLINED_FUNCTION_30_1(v6 + 96, v5);
+  *(v6 + 96) = v0;
+  return result;
+}
+
+uint64_t FlightSnippet.Leg.departureGateClosed.modify()
+{
+  v2 = OUTLINED_FUNCTION_55_0();
+  v3 = __swift_coroFrameAllocStub(v2);
+  OUTLINED_FUNCTION_1_3(v3);
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+  *(v1 + 72) = *(v0 + 96);
+  return OUTLINED_FUNCTION_46_2();
+}
+
+void FlightSnippet.Leg.departureGateClosed.modify(uint64_t a1)
+{
+  v5 = OUTLINED_FUNCTION_12_0(a1);
+  v6 = *(v4 + v2);
+  if ((v5 & 1) == 0)
+  {
+    OUTLINED_FUNCTION_20_1();
+    v7 = OUTLINED_FUNCTION_9_2();
+    v8 = FlightSnippet.Leg._StorageClass.init(copying:)(v7);
+    OUTLINED_FUNCTION_37_1(v8);
+  }
+
+  OUTLINED_FUNCTION_41_0();
+  *(v6 + 96) = v3;
+
+  free(v1);
+}
+
+uint64_t FlightSnippet.Leg.departureRunway.getter()
+{
+  OUTLINED_FUNCTION_13_1();
+  v2 = *(v0 + v1);
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+  return *(v2 + 104);
+}
+
+uint64_t FlightSnippet.Leg.departureRunway.setter()
+{
+  v3 = OUTLINED_FUNCTION_22_0();
+  v4 = OUTLINED_FUNCTION_71_1(v3);
+  v6 = *(v1 + v2);
+  if ((v4 & 1) == 0)
+  {
+    OUTLINED_FUNCTION_20_1();
+    v7 = OUTLINED_FUNCTION_9_2();
+    v8 = FlightSnippet.Leg._StorageClass.init(copying:)(v7);
+    OUTLINED_FUNCTION_48_0(v8);
+  }
+
+  result = OUTLINED_FUNCTION_30_1(v6 + 104, v5);
+  *(v6 + 104) = v0;
+  return result;
+}
+
+uint64_t FlightSnippet.Leg.departureRunway.modify()
+{
+  v2 = OUTLINED_FUNCTION_55_0();
+  v3 = __swift_coroFrameAllocStub(v2);
+  OUTLINED_FUNCTION_1_3(v3);
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+  *(v1 + 72) = *(v0 + 104);
+  return OUTLINED_FUNCTION_46_2();
+}
+
+void FlightSnippet.Leg.departureRunway.modify(uint64_t a1)
+{
+  v5 = OUTLINED_FUNCTION_12_0(a1);
+  v6 = *(v4 + v2);
+  if ((v5 & 1) == 0)
+  {
+    OUTLINED_FUNCTION_20_1();
+    v7 = OUTLINED_FUNCTION_9_2();
+    v8 = FlightSnippet.Leg._StorageClass.init(copying:)(v7);
+    OUTLINED_FUNCTION_37_1(v8);
+  }
+
+  OUTLINED_FUNCTION_41_0();
+  *(v6 + 104) = v3;
+
+  free(v1);
+}
+
+uint64_t FlightSnippet.Leg.isTaxiing.getter()
+{
+  OUTLINED_FUNCTION_13_1();
+  v2 = *(v0 + v1);
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+  return *(v2 + 112);
+}
+
+uint64_t FlightSnippet.Leg.isTaxiing.setter()
+{
+  v3 = OUTLINED_FUNCTION_22_0();
+  v4 = OUTLINED_FUNCTION_71_1(v3);
+  v6 = *(v1 + v2);
+  if ((v4 & 1) == 0)
+  {
+    OUTLINED_FUNCTION_20_1();
+    v7 = OUTLINED_FUNCTION_9_2();
+    v8 = FlightSnippet.Leg._StorageClass.init(copying:)(v7);
+    OUTLINED_FUNCTION_48_0(v8);
+  }
+
+  result = OUTLINED_FUNCTION_30_1(v6 + 112, v5);
+  *(v6 + 112) = v0 & 1;
+  return result;
+}
+
+uint64_t FlightSnippet.Leg.isTaxiing.modify()
+{
+  v2 = OUTLINED_FUNCTION_73_0();
+  v3 = __swift_coroFrameAllocStub(v2);
+  *(OUTLINED_FUNCTION_32_1(v3) + 72) = v0;
+  OUTLINED_FUNCTION_13_1();
+  OUTLINED_FUNCTION_115_0(v4);
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+  *(v1 + 84) = *(v0 + 112);
+  return OUTLINED_FUNCTION_46_2();
+}
+
+void FlightSnippet.Leg.isTaxiing.modify(uint64_t a1)
+{
+  v5 = OUTLINED_FUNCTION_34_0(a1);
+  v6 = *(v4 + v2);
+  if ((v5 & 1) == 0)
+  {
+    OUTLINED_FUNCTION_20_1();
+    v7 = OUTLINED_FUNCTION_9_2();
+    v8 = FlightSnippet.Leg._StorageClass.init(copying:)(v7);
+    OUTLINED_FUNCTION_37_1(v8);
+  }
+
+  OUTLINED_FUNCTION_41_0();
+  *(v6 + 112) = v3;
+
+  free(v1);
+}
+
+uint64_t FlightSnippet.Leg.departureAirport.getter@<X0>(void *a1@<X8>)
+{
+  return FlightSnippet.Leg.departureAirport.getter(a1);
+}
+
+{
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch13FlightSnippetV7AirportVSgMd, &_s10OmniSearch13FlightSnippetV7AirportVSgMR);
+  OUTLINED_FUNCTION_114(v2);
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v3);
+  v5 = &v13 - v4;
+  OUTLINED_FUNCTION_13_1();
+  OUTLINED_FUNCTION_126_0();
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+  outlined init with copy of EagerResolutionService?();
+  v6 = type metadata accessor for FlightSnippet.Airport(0);
+  v7 = OUTLINED_FUNCTION_93_0();
+  OUTLINED_FUNCTION_166(v7, v8, v6);
+  if (!v9)
+  {
+    return outlined init with take of FlightSnippet.Flight();
+  }
+
+  FlightSnippet.Airport.init()(a1);
+  v10 = OUTLINED_FUNCTION_93_0();
+  result = OUTLINED_FUNCTION_166(v10, v11, v6);
+  if (!v9)
+  {
+    return outlined destroy of IntentApplication?(v5, &_s10OmniSearch13FlightSnippetV7AirportVSgMd, &_s10OmniSearch13FlightSnippetV7AirportVSgMR);
+  }
+
+  return result;
+}
+
+uint64_t key path setter for FlightSnippet.flight : FlightSnippet(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void), uint64_t a6, uint64_t (*a7)(uint64_t))
+{
+  v9 = (a5)(0, a2, a3, a4);
+  OUTLINED_FUNCTION_114(v9);
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v10);
+  OUTLINED_FUNCTION_90_0();
+  OUTLINED_FUNCTION_121_0();
+  outlined init with copy of FlightSnippet.Flight();
+  return a7(v7);
+}
+
+void FlightSnippet.Leg.departureAirport.modify()
+{
+  OUTLINED_FUNCTION_155();
+  v1 = __swift_coroFrameAllocStub(0x38uLL);
+  OUTLINED_FUNCTION_89_1(v1);
+  v2 = OUTLINED_FUNCTION_63_0();
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(v2, v3);
+  OUTLINED_FUNCTION_114(v4);
+  v6 = __swift_coroFrameAllocStub(*(v5 + 64));
+  v0[4] = v6;
+  type metadata accessor for FlightSnippet.Airport(0);
+  OUTLINED_FUNCTION_17();
+  v8 = *(v7 + 64);
+  v0[5] = __swift_coroFrameAllocStub(v8);
+  v0[6] = __swift_coroFrameAllocStub(v8);
+  OUTLINED_FUNCTION_13_1();
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+  OUTLINED_FUNCTION_75_0();
+  v9 = OUTLINED_FUNCTION_25_1();
+  if (v10)
+  {
+    OUTLINED_FUNCTION_21_1(v9);
+    OUTLINED_FUNCTION_25_1();
+    if (!v10)
+    {
+      outlined destroy of IntentApplication?(v6, &_s10OmniSearch13FlightSnippetV7AirportVSgMd, &_s10OmniSearch13FlightSnippetV7AirportVSgMR);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_130_0();
+  }
+
+  OUTLINED_FUNCTION_148();
+}
+
+{
+  OUTLINED_FUNCTION_202();
+  v2 = v1;
+  v3 = *(*v0 + 40);
+  v4 = *(*v0 + 48);
+  v5 = *(*v0 + 32);
+  if (v6)
+  {
+    outlined init with copy of FlightSnippet.Flight();
+    v2(v3);
+    outlined destroy of FlightSnippet.Flight(v4);
+  }
+
+  else
+  {
+    v1(*(*v0 + 48));
+  }
+
+  free(v4);
+  free(v3);
+  free(v5);
+  OUTLINED_FUNCTION_203();
+
+  free(v7);
+}
+
+uint64_t FlightSnippet.Leg.hasDepartureAirport.getter()
+{
+  return FlightSnippet.Leg.hasDepartureAirport.getter();
+}
+
+{
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch13FlightSnippetV7AirportVSgMd, &_s10OmniSearch13FlightSnippetV7AirportVSgMR);
+  OUTLINED_FUNCTION_114(v1);
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v2);
+  OUTLINED_FUNCTION_90_0();
+  OUTLINED_FUNCTION_13_1();
+  OUTLINED_FUNCTION_126_0();
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+  outlined init with copy of EagerResolutionService?();
+  v3 = type metadata accessor for FlightSnippet.Airport(0);
+  OUTLINED_FUNCTION_166(v0, 1, v3);
+  if (v4)
+  {
+    v5 = 0;
+  }
+
+  else
+  {
+    v5 = 1;
+  }
+
+  outlined destroy of IntentApplication?(v0, &_s10OmniSearch13FlightSnippetV7AirportVSgMd, &_s10OmniSearch13FlightSnippetV7AirportVSgMR);
+  return v5;
+}
+
+uint64_t FlightSnippet.Leg.arrivalPublishedTime.modify()
+{
+  v0 = OUTLINED_FUNCTION_55_0();
+  v1 = __swift_coroFrameAllocStub(v0);
+  OUTLINED_FUNCTION_1_3(v1);
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+  OUTLINED_FUNCTION_87_1();
+  return OUTLINED_FUNCTION_46_2();
+}
+
+uint64_t FlightSnippet.Leg.arrivalPublishedTime.getter(uint64_t *a1)
+{
+  OUTLINED_FUNCTION_13_1();
+  v4 = *(v1 + v3);
+  v5 = *a1;
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+  return *(v4 + v5);
+}
+
+void FlightSnippet.Leg.arrivalPublishedTime.setter(uint64_t a1, uint64_t a2)
+{
+  OUTLINED_FUNCTION_102_0();
+  v6 = v5;
+  v7 = OUTLINED_FUNCTION_42_2();
+  v8 = type metadata accessor for FlightSnippet.Leg(v7);
+  v9 = OUTLINED_FUNCTION_74_1(v8);
+  v10 = *(v3 + v4);
+  if ((v9 & 1) == 0)
+  {
+    OUTLINED_FUNCTION_20_1();
+    v11 = OUTLINED_FUNCTION_9_2();
+    v12 = FlightSnippet.Leg._StorageClass.init(copying:)(v11);
+    OUTLINED_FUNCTION_54_1(v12);
+  }
+
+  v13 = OUTLINED_FUNCTION_126_0();
+  OUTLINED_FUNCTION_30_1(v13, v14);
+  *(v10 + v6) = v2;
+  OUTLINED_FUNCTION_101_0();
+}
+
+uint64_t FlightSnippet.Leg.arrivalActualTime.modify()
+{
+  v0 = OUTLINED_FUNCTION_55_0();
+  v1 = __swift_coroFrameAllocStub(v0);
+  OUTLINED_FUNCTION_1_3(v1);
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+  OUTLINED_FUNCTION_87_1();
+  return OUTLINED_FUNCTION_46_2();
+}
+
+void FlightSnippet.Leg.arrivalPublishedTime.modify()
+{
+  OUTLINED_FUNCTION_202();
+  v2 = v1;
+  OUTLINED_FUNCTION_35_2();
+  v4 = *(v3 + 72);
+  v5 = *(v0 + 88);
+  v6 = *(v0 + 80);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v8 = *(v6 + v5);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    v9 = *(v0 + 88);
+    v10 = *(v0 + 80);
+    OUTLINED_FUNCTION_20_1();
+    v11 = OUTLINED_FUNCTION_9_2();
+    v8 = FlightSnippet.Leg._StorageClass.init(copying:)(v11);
+    *(v10 + v9) = v8;
+  }
+
+  OUTLINED_FUNCTION_126_0();
+  OUTLINED_FUNCTION_41_0();
+  *(v8 + v2) = v4;
+  OUTLINED_FUNCTION_203();
+
+  free(v12);
+}
+
+void FlightSnippet.Leg.arrivalTerminal.setter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20)
+{
+  FlightSnippet.Leg.arrivalTerminal.setter(a1, a2, &OBJC_IVAR____TtCVV10OmniSearch13FlightSnippet3LegP33_1432903E5DFDE0C5F6864C747BE81CE313_StorageClass__arrivalTerminal, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20);
+}
+
+{
+  OUTLINED_FUNCTION_102_0();
+  a19 = v23;
+  a20 = v24;
+  v26 = v25;
+  v27 = v21;
+  OUTLINED_FUNCTION_93();
+  v28 = *(type metadata accessor for FlightSnippet.Leg(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v30 = *(v21 + v28);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    OUTLINED_FUNCTION_20_1();
+    v31 = OUTLINED_FUNCTION_9_2();
+    isUniquelyReferenced_nonNull_native = FlightSnippet.Leg._StorageClass.init(copying:)(v31);
+    v30 = isUniquelyReferenced_nonNull_native;
+    *(v27 + v28) = isUniquelyReferenced_nonNull_native;
+  }
+
+  v32 = (v30 + *v26);
+  OUTLINED_FUNCTION_107_0(isUniquelyReferenced_nonNull_native, &a10);
+  *v32 = v22;
+  v32[1] = v20;
+
+  OUTLINED_FUNCTION_101_0();
+}
+
+uint64_t FlightSnippet.Leg.arrivalTerminal.modify()
+{
+  v0 = OUTLINED_FUNCTION_50_0();
+  v1 = __swift_coroFrameAllocStub(v0);
+  v2 = OUTLINED_FUNCTION_4_2(v1);
+  v3 = type metadata accessor for FlightSnippet.Leg(v2);
+  OUTLINED_FUNCTION_49_1(v3);
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+  OUTLINED_FUNCTION_122_0();
+
+  return OUTLINED_FUNCTION_32_0();
+}
+
+uint64_t FlightSnippet.Leg.arrivalTerminal.getter(void *a1)
+{
+  OUTLINED_FUNCTION_13_1();
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+
+  return OUTLINED_FUNCTION_107();
+}
+
+uint64_t FlightSnippet.Leg.arrivalGate.modify()
+{
+  v0 = OUTLINED_FUNCTION_50_0();
+  v1 = __swift_coroFrameAllocStub(v0);
+  v2 = OUTLINED_FUNCTION_4_2(v1);
+  v3 = type metadata accessor for FlightSnippet.Leg(v2);
+  OUTLINED_FUNCTION_49_1(v3);
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+  OUTLINED_FUNCTION_122_0();
+
+  return OUTLINED_FUNCTION_32_0();
+}
+
+uint64_t FlightSnippet.Leg.gateArrival.modify()
+{
+  v0 = OUTLINED_FUNCTION_55_0();
+  v1 = __swift_coroFrameAllocStub(v0);
+  OUTLINED_FUNCTION_1_3(v1);
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+  OUTLINED_FUNCTION_87_1();
+  return OUTLINED_FUNCTION_46_2();
+}
+
+uint64_t FlightSnippet.Leg.arrivalRunway.modify()
+{
+  v0 = OUTLINED_FUNCTION_55_0();
+  v1 = __swift_coroFrameAllocStub(v0);
+  OUTLINED_FUNCTION_1_3(v1);
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+  OUTLINED_FUNCTION_87_1();
+  return OUTLINED_FUNCTION_46_2();
+}
+
+void FlightSnippet.Leg.arrivalAirport.modify()
+{
+  OUTLINED_FUNCTION_155();
+  v1 = __swift_coroFrameAllocStub(0x38uLL);
+  OUTLINED_FUNCTION_89_1(v1);
+  v2 = OUTLINED_FUNCTION_63_0();
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(v2, v3);
+  OUTLINED_FUNCTION_114(v4);
+  v6 = __swift_coroFrameAllocStub(*(v5 + 64));
+  v0[4] = v6;
+  type metadata accessor for FlightSnippet.Airport(0);
+  OUTLINED_FUNCTION_17();
+  v8 = *(v7 + 64);
+  v0[5] = __swift_coroFrameAllocStub(v8);
+  v0[6] = __swift_coroFrameAllocStub(v8);
+  OUTLINED_FUNCTION_13_1();
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+  OUTLINED_FUNCTION_75_0();
+  v9 = OUTLINED_FUNCTION_25_1();
+  if (v10)
+  {
+    OUTLINED_FUNCTION_21_1(v9);
+    OUTLINED_FUNCTION_25_1();
+    if (!v10)
+    {
+      outlined destroy of IntentApplication?(v6, &_s10OmniSearch13FlightSnippetV7AirportVSgMd, &_s10OmniSearch13FlightSnippetV7AirportVSgMR);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_130_0();
+  }
+
+  OUTLINED_FUNCTION_148();
+}
+
+uint64_t FlightSnippet.Leg.clearDepartureAirport()(uint64_t a1)
+{
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch13FlightSnippetV7AirportVSgMd, &_s10OmniSearch13FlightSnippetV7AirportVSgMR);
+  OUTLINED_FUNCTION_114(v5);
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v6);
+  v7 = OUTLINED_FUNCTION_128_0();
+  v8 = OUTLINED_FUNCTION_74_1(v7);
+  v9 = *(v1 + v3);
+  if ((v8 & 1) == 0)
+  {
+    OUTLINED_FUNCTION_20_1();
+    v10 = OUTLINED_FUNCTION_9_2();
+    v11 = FlightSnippet.Leg._StorageClass.init(copying:)(v10);
+    OUTLINED_FUNCTION_54_1(v11);
+  }
+
+  v12 = type metadata accessor for FlightSnippet.Airport(0);
+  __swift_storeEnumTagSinglePayload(v2, 1, 1, v12);
+  OUTLINED_FUNCTION_109_0();
+  outlined assign with take of FlightSnippet.Airport?(v2, v9 + a1);
+  return swift_endAccess();
+}
+
+uint64_t FlightSnippet.Leg.baggageClaim.modify()
+{
+  v0 = OUTLINED_FUNCTION_50_0();
+  v1 = __swift_coroFrameAllocStub(v0);
+  v2 = OUTLINED_FUNCTION_4_2(v1);
+  v3 = type metadata accessor for FlightSnippet.Leg(v2);
+  OUTLINED_FUNCTION_49_1(v3);
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+  OUTLINED_FUNCTION_122_0();
+
+  return OUTLINED_FUNCTION_32_0();
+}
+
+uint64_t FlightSnippet.Leg.updatedAt.modify()
+{
+  v0 = OUTLINED_FUNCTION_55_0();
+  v1 = __swift_coroFrameAllocStub(v0);
+  OUTLINED_FUNCTION_1_3(v1);
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+  OUTLINED_FUNCTION_87_1();
+  return OUTLINED_FUNCTION_46_2();
+}
+
+uint64_t FlightSnippet.Leg.departureAirport.setter(uint64_t a1, uint64_t a2)
+{
+  v5 = v2;
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch13FlightSnippetV7AirportVSgMd, &_s10OmniSearch13FlightSnippetV7AirportVSgMR);
+  OUTLINED_FUNCTION_114(v6);
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v7);
+  v8 = *(OUTLINED_FUNCTION_128_0() + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v10 = *(v2 + v8);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    OUTLINED_FUNCTION_20_1();
+    v11 = OUTLINED_FUNCTION_9_2();
+    v10 = FlightSnippet.Leg._StorageClass.init(copying:)(v11);
+    *(v5 + v8) = v10;
+  }
+
+  OUTLINED_FUNCTION_52_1();
+  outlined init with take of FlightSnippet.Flight();
+  type metadata accessor for FlightSnippet.Airport(0);
+  OUTLINED_FUNCTION_44_0();
+  __swift_storeEnumTagSinglePayload(v12, v13, v14, v15);
+  OUTLINED_FUNCTION_109_0();
+  outlined assign with take of FlightSnippet.Airport?(v3, v10 + a2);
+  return swift_endAccess();
+}
+
+void FlightSnippet.Leg.divertedAirport.modify()
+{
+  OUTLINED_FUNCTION_155();
+  v1 = __swift_coroFrameAllocStub(0x38uLL);
+  OUTLINED_FUNCTION_89_1(v1);
+  v2 = OUTLINED_FUNCTION_63_0();
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(v2, v3);
+  OUTLINED_FUNCTION_114(v4);
+  v6 = __swift_coroFrameAllocStub(*(v5 + 64));
+  v0[4] = v6;
+  type metadata accessor for FlightSnippet.Airport(0);
+  OUTLINED_FUNCTION_17();
+  v8 = *(v7 + 64);
+  v0[5] = __swift_coroFrameAllocStub(v8);
+  v0[6] = __swift_coroFrameAllocStub(v8);
+  OUTLINED_FUNCTION_13_1();
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+  OUTLINED_FUNCTION_75_0();
+  v9 = OUTLINED_FUNCTION_25_1();
+  if (v10)
+  {
+    OUTLINED_FUNCTION_21_1(v9);
+    OUTLINED_FUNCTION_25_1();
+    if (!v10)
+    {
+      outlined destroy of IntentApplication?(v6, &_s10OmniSearch13FlightSnippetV7AirportVSgMd, &_s10OmniSearch13FlightSnippetV7AirportVSgMR);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_130_0();
+  }
+
+  OUTLINED_FUNCTION_148();
+}
+
+{
+  FlightSnippet.Leg.departureAirport.modify();
+}
+
+uint64_t FlightSnippet.Leg.uid.modify()
+{
+  v0 = OUTLINED_FUNCTION_50_0();
+  v1 = __swift_coroFrameAllocStub(v0);
+  v2 = OUTLINED_FUNCTION_4_2(v1);
+  v3 = type metadata accessor for FlightSnippet.Leg(v2);
+  OUTLINED_FUNCTION_49_1(v3);
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+  OUTLINED_FUNCTION_122_0();
+
+  return OUTLINED_FUNCTION_32_0();
+}
+
+void FlightSnippet.Leg.arrivalTerminal.modify()
+{
+  OUTLINED_FUNCTION_202();
+  OUTLINED_FUNCTION_6_1();
+  if (v5)
+  {
+    v6 = v4;
+    OUTLINED_FUNCTION_76_0();
+    v7 = OUTLINED_FUNCTION_52_1();
+    v6(v7);
+  }
+
+  else
+  {
+    v8 = v3;
+    v9 = *(v0 + 72);
+    v10 = *(v0 + 64);
+    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+    v12 = *(v10 + v9);
+    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+    {
+      v13 = *(v0 + 72);
+      v14 = *(v0 + 64);
+      OUTLINED_FUNCTION_20_1();
+      v15 = OUTLINED_FUNCTION_9_2();
+      isUniquelyReferenced_nonNull_native = FlightSnippet.Leg._StorageClass.init(copying:)(v15);
+      v12 = isUniquelyReferenced_nonNull_native;
+      *(v14 + v13) = isUniquelyReferenced_nonNull_native;
+    }
+
+    v16 = (v12 + *v8);
+    OUTLINED_FUNCTION_107_0(isUniquelyReferenced_nonNull_native, v0 + 24);
+    *v16 = v2;
+    v16[1] = v1;
+  }
+
+  OUTLINED_FUNCTION_203();
+
+  free(v17);
+}
+
+uint64_t FlightSnippet.Leg.feedUpdateTime.modify()
+{
+  v0 = OUTLINED_FUNCTION_55_0();
+  v1 = __swift_coroFrameAllocStub(v0);
+  OUTLINED_FUNCTION_1_3(v1);
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+  OUTLINED_FUNCTION_87_1();
+  return OUTLINED_FUNCTION_46_2();
+}
+
+uint64_t FlightSnippet.Flight.unknownFields.getter()
+{
+  OUTLINED_FUNCTION_113();
+  type metadata accessor for UnknownStorage();
+  OUTLINED_FUNCTION_17();
+  v0 = OUTLINED_FUNCTION_94();
+
+  return v1(v0);
+}
+
+uint64_t FlightSnippet.Flight.unknownFields.setter(uint64_t a1)
+{
+  OUTLINED_FUNCTION_42_2();
+  type metadata accessor for UnknownStorage();
+  OUTLINED_FUNCTION_17();
+  v1 = OUTLINED_FUNCTION_107();
+
+  return v2(v1);
+}
+
+uint64_t FlightSnippet.Flight.init()@<X0>(uint64_t (*a1)(void)@<X0>, void *a2@<X1>, uint64_t *a3@<X2>, uint64_t a4@<X8>)
+{
+  UnknownStorage.init()();
+  v8 = *(a1(0) + 20);
+  if (*a2 != -1)
+  {
+    OUTLINED_FUNCTION_52_1();
+    swift_once();
+  }
+
+  *(a4 + v8) = *a3;
+}
+
+uint64_t FlightSnippet.init()@<X0>(uint64_t a1@<X8>)
+{
+  *a1 = 0;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0xE000000000000000;
+  *(a1 + 24) = 0;
+  *(a1 + 32) = 0;
+  v2 = type metadata accessor for FlightSnippet(0);
+  UnknownStorage.init()();
+  v3 = *(v2 + 40);
+  v4 = type metadata accessor for FlightSnippet.Flight(0);
+
+  return __swift_storeEnumTagSinglePayload(a1 + v3, 1, 1, v4);
+}
+
+uint64_t static FlightSnippet.Status.allCases.getter()
+{
+  OUTLINED_FUNCTION_28_1();
+  swift_beginAccess();
+}
+
+uint64_t static FlightSnippet.Status.allCases.setter(void *a1)
+{
+  OUTLINED_FUNCTION_107_0(a1, v3);
+  static FlightSnippet.Status.allCases = a1;
+}
+
+uint64_t (*static FlightSnippet.Status.allCases.modify())(uint64_t a1)
+{
+  OUTLINED_FUNCTION_107();
+  swift_beginAccess();
+  return static FlightSnippet.Status.allCases.modify;
+}
+
+uint64_t protocol witness for static CaseIterable.allCases.getter in conformance FlightSnippet.Status@<X0>(void *a1@<X8>)
+{
+  swift_beginAccess();
+  *a1 = static FlightSnippet.Status.allCases;
+}
+
+uint64_t one-time initialization function for _protobuf_nameMap()
+{
+  v0 = type metadata accessor for _NameMap();
+  __swift_allocate_value_buffer(v0, static FlightSnippet._protobuf_nameMap);
+  __swift_project_value_buffer(v0, static FlightSnippet._protobuf_nameMap);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySi_21InternalSwiftProtobuf8_NameMapV0G11DescriptionOtGMd, &_ss23_ContiguousArrayStorageCySi_21InternalSwiftProtobuf8_NameMapV0G11DescriptionOtGMR);
+  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMd, &_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMR) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v4 = swift_allocObject();
+  *(v4 + 16) = xmmword_25DBC88F0;
+  v5 = v4 + v3;
+  v6 = v4 + v3 + v1[14];
+  *(v4 + v3) = 1;
+  *v6 = "flight";
+  *(v6 + 8) = 6;
+  *(v6 + 16) = 2;
+  v7 = *MEMORY[0x277D21870];
+  v8 = type metadata accessor for _NameMap.NameDescription();
+  v9 = *(*(v8 - 8) + 104);
+  (v9)(v6, v7, v8);
+  v10 = v5 + v2 + v1[14];
+  *(v5 + v2) = 2;
+  *v10 = "is_card_search";
+  *(v10 + 8) = 14;
+  *(v10 + 16) = 2;
+  v9();
+  v11 = (v5 + 2 * v2);
+  v12 = v11 + v1[14];
+  *v11 = 3;
+  *v12 = "is_icao_search";
+  *(v12 + 1) = 14;
+  v12[16] = 2;
+  v9();
+  v13 = (v5 + 3 * v2);
+  v14 = v13 + v1[14];
+  *v13 = 4;
+  *v14 = "query_intended_flight_info";
+  *(v14 + 1) = 26;
+  v14[16] = 2;
+  v9();
+  v15 = (v5 + 4 * v2);
+  v16 = v15 + v1[14];
+  *v15 = 5;
+  *v16 = "selected_leg_index";
+  *(v16 + 1) = 18;
+  v16[16] = 2;
+  v9();
+  v17 = (v5 + 5 * v2);
+  v18 = v17 + v1[14];
+  *v17 = 6;
+  *v18 = "search_timestamp";
+  *(v18 + 1) = 16;
+  v18[16] = 2;
+  v9();
+  return _NameMap.init(dictionaryLiteral:)();
+}
+
+{
+  v0 = type metadata accessor for _NameMap();
+  __swift_allocate_value_buffer(v0, static FlightSnippet.Status._protobuf_nameMap);
+  __swift_project_value_buffer(v0, static FlightSnippet.Status._protobuf_nameMap);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySi_21InternalSwiftProtobuf8_NameMapV0G11DescriptionOtGMd, &_ss23_ContiguousArrayStorageCySi_21InternalSwiftProtobuf8_NameMapV0G11DescriptionOtGMR);
+  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMd, &_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMR) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v24 = swift_allocObject();
+  *(v24 + 16) = xmmword_25DBC8900;
+  v4 = v24 + v3 + v1[14];
+  *(v24 + v3) = 0;
+  *v4 = "UNKNOWN";
+  *(v4 + 8) = 7;
+  *(v4 + 16) = 2;
+  v5 = *MEMORY[0x277D21870];
+  v6 = type metadata accessor for _NameMap.NameDescription();
+  v7 = *(*(v6 - 8) + 104);
+  (v7)(v4, v5, v6);
+  v8 = v24 + v3 + v2 + v1[14];
+  *(v24 + v3 + v2) = 1;
+  *v8 = "ACTIVE";
+  *(v8 + 8) = 6;
+  *(v8 + 16) = 2;
+  v7();
+  v9 = (v24 + v3 + 2 * v2);
+  v10 = v9 + v1[14];
+  *v9 = 2;
+  *v10 = "CANCELED";
+  *(v10 + 1) = 8;
+  v10[16] = 2;
+  v7();
+  v11 = (v24 + v3 + 3 * v2);
+  v12 = v11 + v1[14];
+  *v11 = 3;
+  *v12 = "DIVERTED";
+  *(v12 + 1) = 8;
+  v12[16] = 2;
+  v7();
+  v13 = (v24 + v3 + 4 * v2);
+  v14 = v13 + v1[14];
+  *v13 = 4;
+  *v14 = "DATA_SOURCE_NEEDED";
+  *(v14 + 1) = 18;
+  v14[16] = 2;
+  v7();
+  v15 = (v24 + v3 + 5 * v2);
+  v16 = v15 + v1[14];
+  *v15 = 5;
+  *v16 = "LANDED";
+  *(v16 + 1) = 6;
+  v16[16] = 2;
+  v7();
+  v17 = (v24 + v3 + 6 * v2);
+  v18 = v17 + v1[14];
+  *v17 = 6;
+  *v18 = "NOT_OPERATIONAL";
+  *(v18 + 1) = 15;
+  v18[16] = 2;
+  v7();
+  v19 = (v24 + v3 + 7 * v2);
+  v20 = v19 + v1[14];
+  *v19 = 7;
+  *v20 = "REDIRECTED";
+  *(v20 + 1) = 10;
+  v20[16] = 2;
+  v7();
+  v21 = (v24 + v3 + 8 * v2);
+  v22 = v21 + v1[14];
+  *v21 = 8;
+  *v22 = "SCHEDULED";
+  *(v22 + 1) = 9;
+  v22[16] = 2;
+  v7();
+  return _NameMap.init(dictionaryLiteral:)();
+}
+
+{
+  v0 = type metadata accessor for _NameMap();
+  __swift_allocate_value_buffer(v0, static FlightSnippet.Flight._protobuf_nameMap);
+  __swift_project_value_buffer(v0, static FlightSnippet.Flight._protobuf_nameMap);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySi_21InternalSwiftProtobuf8_NameMapV0G11DescriptionOtGMd, &_ss23_ContiguousArrayStorageCySi_21InternalSwiftProtobuf8_NameMapV0G11DescriptionOtGMR);
+  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMd, &_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMR) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v50 = swift_allocObject();
+  *(v50 + 16) = xmmword_25DBC8910;
+  v4 = v50 + v3 + v1[14];
+  *(v50 + v3) = 1;
+  *v4 = "id";
+  *(v4 + 8) = 2;
+  *(v4 + 16) = 2;
+  v5 = *MEMORY[0x277D21870];
+  v6 = type metadata accessor for _NameMap.NameDescription();
+  v7 = *(*(v6 - 8) + 104);
+  (v7)(v4, v5, v6);
+  v8 = v50 + v3 + v2 + v1[14];
+  *(v50 + v3 + v2) = 2;
+  *v8 = "content_hash";
+  *(v8 + 8) = 12;
+  *(v8 + 16) = 2;
+  v7();
+  v9 = (v50 + v3 + 2 * v2);
+  v10 = v9 + v1[14];
+  *v9 = 3;
+  *v10 = "carrier_iata";
+  *(v10 + 1) = 12;
+  v10[16] = 2;
+  v7();
+  v11 = (v50 + v3 + 3 * v2);
+  v12 = v11 + v1[14];
+  *v11 = 4;
+  *v12 = "carrier_icao";
+  *(v12 + 1) = 12;
+  v12[16] = 2;
+  v7();
+  v13 = (v50 + v3 + 4 * v2);
+  v14 = v13 + v1[14];
+  *v13 = 5;
+  *v14 = "carrier_fs";
+  *(v14 + 1) = 10;
+  v14[16] = 2;
+  v7();
+  v15 = (v50 + v3 + 5 * v2);
+  v16 = v15 + v1[14];
+  *v15 = 6;
+  *v16 = "carrier_name";
+  *(v16 + 1) = 12;
+  v16[16] = 2;
+  v7();
+  v17 = (v50 + v3 + 6 * v2);
+  v18 = v17 + v1[14];
+  *v17 = 7;
+  *v18 = "carrier_phone_number";
+  *(v18 + 1) = 20;
+  v18[16] = 2;
+  v7();
+  v19 = (v50 + v3 + 7 * v2);
+  v20 = v19 + v1[14];
+  *v19 = 8;
+  *v20 = "flight_number";
+  *(v20 + 1) = 13;
+  v20[16] = 2;
+  v7();
+  v21 = (v50 + v3 + 8 * v2);
+  v22 = v21 + v1[14];
+  *v21 = 9;
+  *v22 = "flight_departure_scheduled";
+  *(v22 + 1) = 26;
+  v22[16] = 2;
+  v7();
+  v23 = (v50 + v3 + 9 * v2);
+  v24 = v23 + v1[14];
+  *v23 = 10;
+  *v24 = "flight_arrival_scheduled";
+  *(v24 + 1) = 24;
+  v24[16] = 2;
+  v7();
+  v25 = (v50 + v3 + 10 * v2);
+  v26 = v25 + v1[14];
+  *v25 = 11;
+  *v26 = "legs";
+  *(v26 + 1) = 4;
+  v26[16] = 2;
+  v7();
+  v27 = (v50 + v3 + 11 * v2);
+  v28 = v27 + v1[14];
+  *v27 = 12;
+  *v28 = "code_shares";
+  *(v28 + 1) = 11;
+  v28[16] = 2;
+  v7();
+  v29 = (v50 + v3 + 12 * v2);
+  v30 = v29 + v1[14];
+  *v29 = 13;
+  *v30 = "leg_index";
+  *(v30 + 1) = 9;
+  v30[16] = 2;
+  v7();
+  v31 = (v50 + v3 + 13 * v2);
+  v32 = v31 + v1[14];
+  *v31 = 14;
+  *v32 = "operator_carrier_code";
+  *(v32 + 1) = 21;
+  v32[16] = 2;
+  v7();
+  v33 = (v50 + v3 + 14 * v2);
+  v34 = v33 + v1[14];
+  *v33 = 15;
+  *v34 = "operator_flight_number";
+  *(v34 + 1) = 22;
+  v34[16] = 2;
+  v7();
+  v35 = (v50 + v3 + 15 * v2);
+  v36 = v35 + v1[14];
+  *v35 = 16;
+  *v36 = "website";
+  *(v36 + 1) = 7;
+  v36[16] = 2;
+  v7();
+  v37 = (v50 + v3 + 16 * v2);
+  v38 = v37 + v1[14];
+  *v37 = 20;
+  *v38 = "last_updated";
+  *(v38 + 1) = 12;
+  v38[16] = 2;
+  v7();
+  v39 = (v50 + v3 + 17 * v2);
+  v40 = v39 + v1[14];
+  *v39 = 21;
+  *v40 = "legs_not_updated";
+  *(v40 + 1) = 16;
+  v40[16] = 2;
+  v7();
+  v41 = (v50 + v3 + 18 * v2);
+  v42 = v41 + v1[14];
+  *v41 = 22;
+  *v42 = "departure_UTC_variance";
+  *(v42 + 1) = 22;
+  v42[16] = 2;
+  v7();
+  v43 = (v50 + v3 + 19 * v2);
+  v44 = v43 + v1[14];
+  *v43 = 23;
+  *v44 = "total_legs";
+  *(v44 + 1) = 10;
+  v44[16] = 2;
+  v7();
+  v45 = (v50 + v3 + 20 * v2);
+  v46 = v45 + v1[14];
+  *v45 = 24;
+  *v46 = "leg_flight_schedule_ids";
+  *(v46 + 1) = 23;
+  v46[16] = 2;
+  v7();
+  v47 = (v50 + v3 + 21 * v2);
+  v48 = v47 + v1[14];
+  *v47 = 25;
+  *v48 = "leg_flight_update_ids";
+  *(v48 + 1) = 21;
+  v48[16] = 2;
+  v7();
+  return _NameMap.init(dictionaryLiteral:)();
+}
+
+{
+  v0 = type metadata accessor for _NameMap();
+  __swift_allocate_value_buffer(v0, static FlightSnippet.Airport._protobuf_nameMap);
+  __swift_project_value_buffer(v0, static FlightSnippet.Airport._protobuf_nameMap);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySi_21InternalSwiftProtobuf8_NameMapV0G11DescriptionOtGMd, &_ss23_ContiguousArrayStorageCySi_21InternalSwiftProtobuf8_NameMapV0G11DescriptionOtGMR);
+  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMd, &_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMR) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v35 = swift_allocObject();
+  *(v35 + 16) = xmmword_25DBC8920;
+  v4 = v35 + v3;
+  v5 = v35 + v3 + v1[14];
+  *(v35 + v3) = 1;
+  *v5 = "code";
+  *(v5 + 8) = 4;
+  *(v5 + 16) = 2;
+  v6 = *MEMORY[0x277D21870];
+  v7 = type metadata accessor for _NameMap.NameDescription();
+  v8 = *(*(v7 - 8) + 104);
+  (v8)(v5, v6, v7);
+  v9 = v4 + v2 + v1[14];
+  *(v4 + v2) = 2;
+  *v9 = "name";
+  *(v9 + 8) = 4;
+  *(v9 + 16) = 2;
+  v8();
+  v10 = (v4 + 2 * v2);
+  v11 = v10 + v1[14];
+  *v10 = 3;
+  *v11 = "city";
+  *(v11 + 1) = 4;
+  v11[16] = 2;
+  v8();
+  v12 = (v4 + 3 * v2);
+  v13 = v12 + v1[14];
+  *v12 = 4;
+  *v13 = "physicalCity";
+  *(v13 + 1) = 12;
+  v13[16] = 2;
+  v8();
+  v14 = (v4 + 4 * v2);
+  v15 = v14 + v1[14];
+  *v14 = 5;
+  *v15 = "maps_id";
+  *(v15 + 1) = 7;
+  v15[16] = 2;
+  v8();
+  v16 = (v4 + 5 * v2);
+  v17 = v16 + v1[14];
+  *v16 = 6;
+  *v17 = "latitude";
+  *(v17 + 1) = 8;
+  v17[16] = 2;
+  v8();
+  v18 = (v4 + 6 * v2);
+  v19 = v18 + v1[14];
+  *v18 = 7;
+  *v19 = "longitude";
+  *(v19 + 1) = 9;
+  v19[16] = 2;
+  v8();
+  v20 = (v4 + 7 * v2);
+  v21 = v20 + v1[14];
+  *v20 = 8;
+  *v21 = "time_zone_name";
+  *(v21 + 1) = 14;
+  v21[16] = 2;
+  v8();
+  v22 = (v4 + 8 * v2);
+  v23 = v22 + v1[14];
+  *v22 = 9;
+  *v23 = "street";
+  *(v23 + 1) = 6;
+  v23[16] = 2;
+  v8();
+  v24 = (v4 + 9 * v2);
+  v25 = v24 + v1[14];
+  *v24 = 10;
+  *v25 = "district";
+  *(v25 + 1) = 8;
+  v25[16] = 2;
+  v8();
+  v26 = (v4 + 10 * v2);
+  v27 = v26 + v1[14];
+  *v26 = 11;
+  *v27 = "state";
+  *(v27 + 1) = 5;
+  v27[16] = 2;
+  v8();
+  v28 = (v4 + 11 * v2);
+  v29 = v28 + v1[14];
+  *v28 = 12;
+  *v29 = "postal_code";
+  *(v29 + 1) = 11;
+  v29[16] = 2;
+  v8();
+  v30 = (v4 + 12 * v2);
+  v31 = v30 + v1[14];
+  *v30 = 13;
+  *v31 = "country_code";
+  *(v31 + 1) = 12;
+  v31[16] = 2;
+  v8();
+  v32 = (v4 + 13 * v2);
+  v33 = v32 + v1[14];
+  *v32 = 14;
+  *v33 = "country";
+  *(v33 + 1) = 7;
+  v33[16] = 2;
+  v8();
+  return _NameMap.init(dictionaryLiteral:)();
+}
+
+{
+  v0 = type metadata accessor for _NameMap();
+  __swift_allocate_value_buffer(v0, static FlightSnippet.FlightInfo._protobuf_nameMap);
+  __swift_project_value_buffer(v0, static FlightSnippet.FlightInfo._protobuf_nameMap);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySi_21InternalSwiftProtobuf8_NameMapV0G11DescriptionOtGMd, &_ss23_ContiguousArrayStorageCySi_21InternalSwiftProtobuf8_NameMapV0G11DescriptionOtGMR);
+  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMd, &_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMR) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v4 = swift_allocObject();
+  *(v4 + 16) = xmmword_25DBC8930;
+  v5 = v4 + v3;
+  v6 = v4 + v3 + v1[14];
+  *(v4 + v3) = 1;
+  *v6 = "carrier";
+  *(v6 + 8) = 7;
+  *(v6 + 16) = 2;
+  v7 = *MEMORY[0x277D21870];
+  v8 = type metadata accessor for _NameMap.NameDescription();
+  v9 = *(*(v8 - 8) + 104);
+  (v9)(v6, v7, v8);
+  v10 = v5 + v2 + v1[14];
+  *(v5 + v2) = 2;
+  *v10 = "carrier_fs";
+  *(v10 + 8) = 10;
+  *(v10 + 16) = 2;
+  v9();
+  v11 = (v5 + 2 * v2);
+  v12 = v11 + v1[14];
+  *v11 = 3;
+  *v12 = "flight_number";
+  *(v12 + 1) = 13;
+  v12[16] = 2;
+  v9();
+  v13 = (v5 + 3 * v2);
+  v14 = v13 + v1[14];
+  *v13 = 4;
+  *v14 = "relationship";
+  *(v14 + 1) = 12;
+  v14[16] = 2;
+  v9();
+  return _NameMap.init(dictionaryLiteral:)();
+}
+
+{
+  v0 = type metadata accessor for _NameMap();
+  __swift_allocate_value_buffer(v0, static FlightSnippet.Leg._protobuf_nameMap);
+  __swift_project_value_buffer(v0, static FlightSnippet.Leg._protobuf_nameMap);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySi_21InternalSwiftProtobuf8_NameMapV0G11DescriptionOtGMd, &_ss23_ContiguousArrayStorageCySi_21InternalSwiftProtobuf8_NameMapV0G11DescriptionOtGMR);
+  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMd, &_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMR) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v56 = swift_allocObject();
+  *(v56 + 16) = xmmword_25DBC8940;
+  v4 = v56 + v3 + v1[14];
+  *(v56 + v3) = 1;
+  *v4 = "status";
+  *(v4 + 8) = 6;
+  *(v4 + 16) = 2;
+  v5 = *MEMORY[0x277D21870];
+  v6 = type metadata accessor for _NameMap.NameDescription();
+  v7 = *(*(v6 - 8) + 104);
+  (v7)(v4, v5, v6);
+  v8 = v56 + v3 + v2 + v1[14];
+  *(v56 + v3 + v2) = 2;
+  *v8 = "en_route";
+  *(v8 + 8) = 8;
+  *(v8 + 16) = 2;
+  v7();
+  v9 = (v56 + v3 + 2 * v2);
+  v10 = v9 + v1[14];
+  *v9 = 3;
+  *v10 = "departure_delayed";
+  *(v10 + 1) = 17;
+  v10[16] = 2;
+  v7();
+  v11 = (v56 + v3 + 3 * v2);
+  v12 = v11 + v1[14];
+  *v11 = 4;
+  *v12 = "arrival_delayed";
+  *(v12 + 1) = 15;
+  v12[16] = 2;
+  v7();
+  v13 = (v56 + v3 + 4 * v2);
+  v14 = v13 + v1[14];
+  *v13 = 5;
+  *v14 = "title";
+  *(v14 + 1) = 5;
+  v14[16] = 2;
+  v7();
+  v15 = (v56 + v3 + 5 * v2);
+  v16 = v15 + v1[14];
+  *v15 = 6;
+  *v16 = "departure_published_time";
+  *(v16 + 1) = 24;
+  v16[16] = 2;
+  v7();
+  v17 = (v56 + v3 + 6 * v2);
+  v18 = v17 + v1[14];
+  *v17 = 7;
+  *v18 = "departure_actual_time";
+  *(v18 + 1) = 21;
+  v18[16] = 2;
+  v7();
+  v19 = (v56 + v3 + 7 * v2);
+  v20 = v19 + v1[14];
+  *v19 = 8;
+  *v20 = "departure_terminal";
+  *(v20 + 1) = 18;
+  v20[16] = 2;
+  v7();
+  v21 = (v56 + v3 + 8 * v2);
+  v22 = v21 + v1[14];
+  *v21 = 9;
+  *v22 = "departure_gate";
+  *(v22 + 1) = 14;
+  v22[16] = 2;
+  v7();
+  v23 = (v56 + v3 + 9 * v2);
+  v24 = v23 + v1[14];
+  *v23 = 10;
+  *v24 = "departure_gate_closed";
+  *(v24 + 1) = 21;
+  v24[16] = 2;
+  v7();
+  v25 = (v56 + v3 + 10 * v2);
+  v26 = v25 + v1[14];
+  *v25 = 11;
+  *v26 = "departure_runway";
+  *(v26 + 1) = 16;
+  v26[16] = 2;
+  v7();
+  v27 = (v56 + v3 + 11 * v2);
+  v28 = v27 + v1[14];
+  *v27 = 12;
+  *v28 = "is_taxiing";
+  *(v28 + 1) = 10;
+  v28[16] = 2;
+  v7();
+  v29 = (v56 + v3 + 12 * v2);
+  v30 = v29 + v1[14];
+  *v29 = 13;
+  *v30 = "departure_airport";
+  *(v30 + 1) = 17;
+  v30[16] = 2;
+  v7();
+  v31 = (v56 + v3 + 13 * v2);
+  v32 = v31 + v1[14];
+  *v31 = 14;
+  *v32 = "arrival_published_time";
+  *(v32 + 1) = 22;
+  v32[16] = 2;
+  v7();
+  v33 = (v56 + v3 + 14 * v2);
+  v34 = v33 + v1[14];
+  *v33 = 15;
+  *v34 = "arrival_actual_time";
+  *(v34 + 1) = 19;
+  v34[16] = 2;
+  v7();
+  v35 = (v56 + v3 + 15 * v2);
+  v36 = v35 + v1[14];
+  *v35 = 16;
+  *v36 = "arrival_terminal";
+  *(v36 + 1) = 16;
+  v36[16] = 2;
+  v7();
+  v37 = (v56 + v3 + 16 * v2);
+  v38 = v37 + v1[14];
+  *v37 = 17;
+  *v38 = "arrival_gate";
+  *(v38 + 1) = 12;
+  v38[16] = 2;
+  v7();
+  v39 = (v56 + v3 + 17 * v2);
+  v40 = v39 + v1[14];
+  *v39 = 18;
+  *v40 = "gate_arrival";
+  *(v40 + 1) = 12;
+  v40[16] = 2;
+  v7();
+  v41 = (v56 + v3 + 18 * v2);
+  v42 = v41 + v1[14];
+  *v41 = 19;
+  *v42 = "arrival_runway";
+  *(v42 + 1) = 14;
+  v42[16] = 2;
+  v7();
+  v43 = (v56 + v3 + 19 * v2);
+  v44 = v43 + v1[14];
+  *v43 = 20;
+  *v44 = "arrival_airport";
+  *(v44 + 1) = 15;
+  v44[16] = 2;
+  v7();
+  v45 = (v56 + v3 + 20 * v2);
+  v46 = v45 + v1[14];
+  *v45 = 21;
+  *v46 = "baggage_claim";
+  *(v46 + 1) = 13;
+  v46[16] = 2;
+  v7();
+  v47 = (v56 + v3 + 21 * v2);
+  v48 = v47 + v1[14];
+  *v47 = 22;
+  *v48 = "updated_at";
+  *(v48 + 1) = 10;
+  v48[16] = 2;
+  v7();
+  v49 = (v56 + v3 + 22 * v2);
+  v50 = v49 + v1[14];
+  *v49 = 23;
+  *v50 = "diverted_airport";
+  *(v50 + 1) = 16;
+  v50[16] = 2;
+  v7();
+  v51 = (v56 + v3 + 23 * v2);
+  v52 = v51 + v1[14];
+  *v51 = 24;
+  *v52 = "uid";
+  *(v52 + 1) = 3;
+  v52[16] = 2;
+  v7();
+  v53 = (v56 + v3 + 24 * v2);
+  v54 = v53 + v1[14];
+  *v53 = 25;
+  *v54 = "feed_update_time";
+  *(v54 + 1) = 16;
+  v54[16] = 2;
+  v7();
+  return _NameMap.init(dictionaryLiteral:)();
 }

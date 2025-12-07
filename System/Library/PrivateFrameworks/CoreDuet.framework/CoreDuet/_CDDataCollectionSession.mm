@@ -47,15 +47,15 @@
 
 + (void)generateNewSession
 {
-  v0 = objc_opt_self();
-  v1 = [_CDDataCollectionUtilities randomDataWithLength:32];
-  v2 = [v0 alloc];
+  v1 = objc_opt_self();
+  v2 = [_CDDataCollectionUtilities randomDataWithLength:32];
+  v3 = [v1 alloc];
   uUID = [MEMORY[0x1E696AFB0] UUID];
   uUIDString = [uUID UUIDString];
   lowercaseString = [uUIDString lowercaseString];
-  v6 = [(_CDDataCollectionSession *)v2 initWithIdentifier:lowercaseString salt:v1 latestStartDate:0 lastCollectionDate:0 batchNumber:1];
+  v7 = [(_CDDataCollectionSession *)v3 initWithIdentifier:lowercaseString salt:v2 latestStartDate:0 lastCollectionDate:0 batchNumber:1];
 
-  return v6;
+  return v7;
 }
 
 - (void)subsequentSessionWithlatestStartDate:(void *)date lastCollectionDate:

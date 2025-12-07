@@ -32,7 +32,7 @@
 + (id)internalMessageWithName:()InternalMessages destination:messagePayload:
 {
   v0 = [MEMORY[0x277D0F848] internalMessageWithName:? destination:? messagePayload:?];
-  v1 = [v0 copy];
+  v1 = objc_msgSend_copy(v0);
 
   return v1;
 }
@@ -40,7 +40,7 @@
 + (id)internalMessageWithName:()InternalMessages messagePayload:responseHandler:
 {
   v0 = [MEMORY[0x277D0F848] internalMessageWithName:? messagePayload:? responseHandler:?];
-  v1 = [v0 copy];
+  v1 = objc_msgSend_copy(v0);
 
   return v1;
 }
@@ -48,7 +48,7 @@
 + (id)internalMessageWithName:()InternalMessages messagePayload:
 {
   v0 = [MEMORY[0x277D0F848] internalMessageWithName:? messagePayload:?];
-  v1 = [v0 copy];
+  v1 = objc_msgSend_copy(v0);
 
   return v1;
 }

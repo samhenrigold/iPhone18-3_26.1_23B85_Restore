@@ -33,22 +33,20 @@
 
 + (id)ComputedMode
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   configurationForComputedMode = [self configurationForComputedMode];
   v3 = +[BMUserFocusModeComputed columns];
   v4 = BMEventTimestampSQLColumn();
-  v13 = v4;
+  v12 = v4;
   v5 = BMEventBodyDataSQLColumn();
-  v14 = v5;
+  v13 = v5;
   v6 = BMEventClassNameSQLColumn();
-  v15 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:3];
-  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v13, v14}];
+  v14 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:3];
+  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v12, v13}];
 
   v9 = [objc_alloc(MEMORY[0x1E698F2F0]) initWithTableName:@"UserFocus.ComputedMode" columns:v8];
   v10 = [objc_alloc(MEMORY[0x1E698F320]) initWithIdentifier:@"UserFocus.ComputedMode" schema:v9 configuration:configurationForComputedMode];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -246,110 +244,100 @@ LABEL_14:
 
 + (id)StatusChange
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   configurationForStatusChange = [self configurationForStatusChange];
   v3 = +[BMUserFocusStatusChange columns];
   v4 = BMEventTimestampSQLColumn();
-  v13 = v4;
+  v12 = v4;
   v5 = BMEventBodyDataSQLColumn();
-  v14 = v5;
+  v13 = v5;
   v6 = BMEventClassNameSQLColumn();
-  v15 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:3];
-  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v13, v14}];
+  v14 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:3];
+  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v12, v13}];
 
   v9 = [objc_alloc(MEMORY[0x1E698F2F0]) initWithTableName:@"UserFocus.StatusChange" columns:v8];
   v10 = [objc_alloc(MEMORY[0x1E698F320]) initWithIdentifier:@"UserFocus.StatusChange" schema:v9 configuration:configurationForStatusChange];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 + (id)SleepMode
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   configurationForSleepMode = [self configurationForSleepMode];
   v3 = +[BMUserFocusSleepMode columns];
   v4 = BMEventTimestampSQLColumn();
-  v13 = v4;
+  v12 = v4;
   v5 = BMEventBodyDataSQLColumn();
-  v14 = v5;
+  v13 = v5;
   v6 = BMEventClassNameSQLColumn();
-  v15 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:3];
-  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v13, v14}];
+  v14 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:3];
+  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v12, v13}];
 
   v9 = [objc_alloc(MEMORY[0x1E698F2F0]) initWithTableName:@"UserFocus.SleepMode" columns:v8];
   v10 = [objc_alloc(MEMORY[0x1E698F320]) initWithIdentifier:@"UserFocus.SleepMode" schema:v9 configuration:configurationForSleepMode];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 + (id)InferredMode
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   configurationForInferredMode = [self configurationForInferredMode];
   v3 = +[BMUserFocusInferredMode columns];
   v4 = BMEventTimestampSQLColumn();
-  v13 = v4;
+  v12 = v4;
   v5 = BMEventBodyDataSQLColumn();
-  v14 = v5;
+  v13 = v5;
   v6 = BMEventClassNameSQLColumn();
-  v15 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:3];
-  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v13, v14}];
+  v14 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:3];
+  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v12, v13}];
 
   v9 = [objc_alloc(MEMORY[0x1E698F2F0]) initWithTableName:@"UserFocus.InferredMode" columns:v8];
   v10 = [objc_alloc(MEMORY[0x1E698F320]) initWithIdentifier:@"UserFocus.InferredMode" schema:v9 configuration:configurationForInferredMode];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 + (id)DoNotDisturbWhileDriving
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   configurationForDoNotDisturbWhileDriving = [self configurationForDoNotDisturbWhileDriving];
   v3 = +[BMUserFocusDoNotDisturbWhileDriving columns];
   v4 = BMEventTimestampSQLColumn();
-  v13 = v4;
+  v12 = v4;
   v5 = BMEventBodyDataSQLColumn();
-  v14 = v5;
+  v13 = v5;
   v6 = BMEventClassNameSQLColumn();
-  v15 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:3];
-  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v13, v14}];
+  v14 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:3];
+  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v12, v13}];
 
   v9 = [objc_alloc(MEMORY[0x1E698F2F0]) initWithTableName:@"UserFocus.DoNotDisturbWhileDriving" columns:v8];
   v10 = [objc_alloc(MEMORY[0x1E698F320]) initWithIdentifier:@"UserFocus.DoNotDisturbWhileDriving" schema:v9 configuration:configurationForDoNotDisturbWhileDriving];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 + (id)Activity
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   configurationForActivity = [self configurationForActivity];
   v3 = +[BMUserFocusActivity columns];
   v4 = BMEventTimestampSQLColumn();
-  v13 = v4;
+  v12 = v4;
   v5 = BMEventBodyDataSQLColumn();
-  v14 = v5;
+  v13 = v5;
   v6 = BMEventClassNameSQLColumn();
-  v15 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:3];
-  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v13, v14}];
+  v14 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:3];
+  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v12, v13}];
 
   v9 = [objc_alloc(MEMORY[0x1E698F2F0]) initWithTableName:@"UserFocus.Activity" columns:v8];
   v10 = [objc_alloc(MEMORY[0x1E698F320]) initWithIdentifier:@"UserFocus.Activity" schema:v9 configuration:configurationForActivity];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

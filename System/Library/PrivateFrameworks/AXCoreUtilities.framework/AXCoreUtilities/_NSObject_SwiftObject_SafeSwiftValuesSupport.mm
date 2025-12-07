@@ -24,7 +24,7 @@
 
 - (CGRect)safeSwiftCGRectForKey:(id)key
 {
-  _AXSafeSwiftCGRectForKey(self);
+  _AXSafeSwiftCGRectForKey(self, key);
   result.size.height = v6;
   result.size.width = v5;
   result.origin.y = v4;

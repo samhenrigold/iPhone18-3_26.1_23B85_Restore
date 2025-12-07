@@ -18,13 +18,13 @@
 - (void)viewWillAppear:(BOOL)appear
 {
   selfCopy = self;
-  sub_100625DC4(appear);
+  sub_100625DC4(appear, selfCopy);
 }
 
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_100625FE0();
+  sub_100625FE0(selfCopy);
 }
 
 - (void)traitCollectionDidChange:(id)change
@@ -94,7 +94,7 @@
   viewCopy = view;
   cellCopy = cell;
   selfCopy = self;
-  sub_100627A20();
+  sub_100627A20(cellCopy);
 
   (*(v9 + 8))(v11, v8);
 }

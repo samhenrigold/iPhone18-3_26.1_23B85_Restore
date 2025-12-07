@@ -33,10 +33,10 @@
 
 - (id)urlRequest
 {
-  v12[2] = *MEMORY[0x1E69E9840];
-  v10.receiver = self;
-  v10.super_class = AAUpdateNameRequest;
-  urlRequest = [(AAAppleIDSettingsRequest *)&v10 urlRequest];
+  v11[2] = *MEMORY[0x1E69E9840];
+  v9.receiver = self;
+  v9.super_class = AAUpdateNameRequest;
+  urlRequest = [(AAAppleIDSettingsRequest *)&v9 urlRequest];
   v4 = [urlRequest mutableCopy];
 
   newFirstName = self->_newFirstName;
@@ -45,18 +45,17 @@
     newLastName = self->_newLastName;
     if (newLastName)
     {
-      v11[0] = @"firstName";
-      v11[1] = @"lastName";
-      v12[0] = newFirstName;
-      v12[1] = newLastName;
-      v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
+      v10[0] = @"firstName";
+      v10[1] = @"lastName";
+      v11[0] = newFirstName;
+      v11[1] = newLastName;
+      v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
       [v4 aa_setBodyWithParameters:v7];
     }
   }
 
   [v4 setHTTPMethod:@"POST"];
   [v4 addValue:@"application/x-plist" forHTTPHeaderField:@"Content-Type"];
-  v8 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

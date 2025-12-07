@@ -268,32 +268,29 @@ void __64__FCAVAssetKeyService_fetchAppCertificateWithCompletionHandler___block_
 
 uint64_t __64__FCAVAssetKeyService_fetchAppCertificateWithCompletionHandler___block_invoke_3(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = FCAVAssetLog;
   if (os_log_type_enabled(FCAVAssetLog, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543362;
-    v8 = v6;
-    _os_log_error_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_ERROR, "AV asset key service failed to fetch certificate with error: %{public}@", &v7, 0xCu);
+    v4 = *(a1 + 32);
+    v5 = 138543362;
+    v6 = v4;
+    _os_log_error_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_ERROR, "AV asset key service failed to fetch certificate with error: %{public}@", &v5, 0xCu);
   }
 
-  v3 = *(a1 + 32);
-  result = (*(*(a1 + 40) + 16))();
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 40) + 16))();
 }
 
 void __64__FCAVAssetKeyService_fetchAppCertificateWithCompletionHandler___block_invoke_28(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) statusCode] == 401 || objc_msgSend(*(a1 + 32), "statusCode") == 403)
   {
     v2 = FCAVAssetLog;
     if (os_log_type_enabled(FCAVAssetLog, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v12) = 0;
-      _os_log_error_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_ERROR, "AV asset key service got unauthorized response for certificate request", &v12, 2u);
+      LOWORD(v11) = 0;
+      _os_log_error_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_ERROR, "AV asset key service got unauthorized response for certificate request", &v11, 2u);
     }
 
     v3 = *(a1 + 40);
@@ -306,11 +303,11 @@ void __64__FCAVAssetKeyService_fetchAppCertificateWithCompletionHandler___block_
     v5 = FCAVAssetLog;
     if (os_log_type_enabled(FCAVAssetLog, OS_LOG_TYPE_ERROR))
     {
-      v10 = *(a1 + 32);
-      v11 = v5;
-      v12 = 134217984;
-      v13 = [v10 statusCode];
-      _os_log_error_impl(&dword_1B63EF000, v11, OS_LOG_TYPE_ERROR, "AV asset key service got error status code %ld for certificate request", &v12, 0xCu);
+      v9 = *(a1 + 32);
+      v10 = v5;
+      v11 = 134217984;
+      v12 = [v9 statusCode];
+      _os_log_error_impl(&dword_1B63EF000, v10, OS_LOG_TYPE_ERROR, "AV asset key service got error status code %ld for certificate request", &v11, 0xCu);
     }
 
     v6 = *(a1 + 40);
@@ -319,74 +316,66 @@ void __64__FCAVAssetKeyService_fetchAppCertificateWithCompletionHandler___block_
     v8 = [FCEndpointConnection errorForStatus:v7 url:v4];
     (*(v6 + 16))(v6, 0, v8);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __64__FCAVAssetKeyService_fetchAppCertificateWithCompletionHandler___block_invoke_32(uint64_t a1)
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v2 = FCAVAssetLog;
   if (os_log_type_enabled(FCAVAssetLog, OS_LOG_TYPE_ERROR))
   {
-    *v9 = 0;
-    _os_log_error_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_ERROR, "AV asset key service failed to parse response for certificate request", v9, 2u);
+    *v8 = 0;
+    _os_log_error_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_ERROR, "AV asset key service failed to parse response for certificate request", v8, 2u);
   }
 
   v3 = MEMORY[0x1E696ABC0];
-  v10 = *MEMORY[0x1E696A998];
+  v9 = *MEMORY[0x1E696A998];
   v4 = *(a1 + 40);
   v5 = [*(a1 + 32) URL];
-  v11[0] = v5;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v10[0] = v5;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   v7 = [v3 errorWithDomain:@"FCEndpointConnectionErrorDomain" code:500 userInfo:v6];
   (*(v4 + 16))(v4, 0, v7);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __64__FCAVAssetKeyService_fetchAppCertificateWithCompletionHandler___block_invoke_34(uint64_t a1)
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v2 = FCAVAssetLog;
   if (os_log_type_enabled(FCAVAssetLog, OS_LOG_TYPE_ERROR))
   {
-    *v9 = 0;
-    _os_log_error_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_ERROR, "AV asset key service failed to find certificate in response for certificate request", v9, 2u);
+    *v8 = 0;
+    _os_log_error_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_ERROR, "AV asset key service failed to find certificate in response for certificate request", v8, 2u);
   }
 
   v3 = MEMORY[0x1E696ABC0];
-  v10 = *MEMORY[0x1E696A998];
+  v9 = *MEMORY[0x1E696A998];
   v4 = *(a1 + 40);
   v5 = [*(a1 + 32) URL];
-  v11[0] = v5;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v10[0] = v5;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   v7 = [v3 errorWithDomain:@"FCEndpointConnectionErrorDomain" code:500 userInfo:v6];
   (*(v4 + 16))(v4, 0, v7);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __64__FCAVAssetKeyService_fetchAppCertificateWithCompletionHandler___block_invoke_36(uint64_t a1)
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v2 = FCAVAssetLog;
   if (os_log_type_enabled(FCAVAssetLog, OS_LOG_TYPE_ERROR))
   {
-    *v9 = 0;
-    _os_log_error_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_ERROR, "AV asset key service failed to decode certificate base64 for certificate request", v9, 2u);
+    *v8 = 0;
+    _os_log_error_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_ERROR, "AV asset key service failed to decode certificate base64 for certificate request", v8, 2u);
   }
 
   v3 = MEMORY[0x1E696ABC0];
-  v10 = *MEMORY[0x1E696A998];
+  v9 = *MEMORY[0x1E696A998];
   v4 = *(a1 + 40);
   v5 = [*(a1 + 32) URL];
-  v11[0] = v5;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v10[0] = v5;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   v7 = [v3 errorWithDomain:@"FCEndpointConnectionErrorDomain" code:500 userInfo:v6];
   (*(v4 + 16))(v4, 0, v7);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_performHTTPRequest:(void *)request keyURI:(void *)i completion:
@@ -543,22 +532,22 @@ uint64_t __72__FCAVAssetKeyService_fetchContentKeyWithURI_spcData_completionHand
 
 void __72__FCAVAssetKeyService_fetchContentKeyWithURI_spcData_completionHandler___block_invoke_2(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v56 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
   if (v9)
   {
-    v50[0] = MEMORY[0x1E69E9820];
-    v50[1] = 3221225472;
-    v50[2] = __72__FCAVAssetKeyService_fetchContentKeyWithURI_spcData_completionHandler___block_invoke_3;
-    v50[3] = &unk_1E7C38FF0;
-    v51 = *(a1 + 32);
-    v52 = v9;
-    v53 = *(a1 + 56);
-    __72__FCAVAssetKeyService_fetchContentKeyWithURI_spcData_completionHandler___block_invoke_3(v50);
+    v49[0] = MEMORY[0x1E69E9820];
+    v49[1] = 3221225472;
+    v49[2] = __72__FCAVAssetKeyService_fetchContentKeyWithURI_spcData_completionHandler___block_invoke_3;
+    v49[3] = &unk_1E7C38FF0;
+    v50 = *(a1 + 32);
+    v51 = v9;
+    v52 = *(a1 + 56);
+    __72__FCAVAssetKeyService_fetchContentKeyWithURI_spcData_completionHandler___block_invoke_3(v49);
 
-    v10 = v51;
+    v10 = v50;
   }
 
   else if ([v8 statusCode] == 200)
@@ -596,7 +585,7 @@ void __72__FCAVAssetKeyService_fetchContentKeyWithURI_spcData_completionHandler_
         v19 = v18;
         if (v18)
         {
-          v27 = v18;
+          v26 = v18;
           v20 = v18;
           v21 = FCAVAssetLog;
           if (os_log_type_enabled(FCAVAssetLog, OS_LOG_TYPE_DEFAULT))
@@ -605,63 +594,63 @@ void __72__FCAVAssetKeyService_fetchContentKeyWithURI_spcData_completionHandler_
             v23 = v21;
             v24 = [v22 absoluteString];
             *buf = 138543362;
-            v55 = v24;
+            v54 = v24;
             _os_log_impl(&dword_1B63EF000, v23, OS_LOG_TYPE_DEFAULT, "AV asset key service successfully fetched key %{public}@", buf, 0xCu);
           }
 
-          v28[0] = MEMORY[0x1E69E9820];
-          v28[1] = 3221225472;
-          v28[2] = __72__FCAVAssetKeyService_fetchContentKeyWithURI_spcData_completionHandler___block_invoke_59;
-          v28[3] = &unk_1E7C39FC0;
-          v29 = v10;
-          v30 = *(a1 + 32);
-          v31 = *(a1 + 48);
-          v25 = __72__FCAVAssetKeyService_fetchContentKeyWithURI_spcData_completionHandler___block_invoke_59(v28);
+          v27[0] = MEMORY[0x1E69E9820];
+          v27[1] = 3221225472;
+          v27[2] = __72__FCAVAssetKeyService_fetchContentKeyWithURI_spcData_completionHandler___block_invoke_59;
+          v27[3] = &unk_1E7C39FC0;
+          v28 = v10;
+          v29 = *(a1 + 32);
+          v30 = *(a1 + 48);
+          v25 = __72__FCAVAssetKeyService_fetchContentKeyWithURI_spcData_completionHandler___block_invoke_59(v27);
           (*(*(a1 + 56) + 16))();
 
-          v19 = v27;
+          v19 = v26;
         }
 
         else
         {
-          v32[0] = MEMORY[0x1E69E9820];
-          v32[1] = 3221225472;
-          v32[2] = __72__FCAVAssetKeyService_fetchContentKeyWithURI_spcData_completionHandler___block_invoke_58;
-          v32[3] = &unk_1E7C39F98;
-          v33 = *(a1 + 32);
-          v35 = *(a1 + 56);
-          v34 = v8;
-          __72__FCAVAssetKeyService_fetchContentKeyWithURI_spcData_completionHandler___block_invoke_58(v32);
+          v31[0] = MEMORY[0x1E69E9820];
+          v31[1] = 3221225472;
+          v31[2] = __72__FCAVAssetKeyService_fetchContentKeyWithURI_spcData_completionHandler___block_invoke_58;
+          v31[3] = &unk_1E7C39F98;
+          v32 = *(a1 + 32);
+          v34 = *(a1 + 56);
+          v33 = v8;
+          __72__FCAVAssetKeyService_fetchContentKeyWithURI_spcData_completionHandler___block_invoke_58(v31);
 
-          v20 = v33;
+          v20 = v32;
         }
       }
 
       else
       {
-        v36[0] = MEMORY[0x1E69E9820];
-        v36[1] = 3221225472;
-        v36[2] = __72__FCAVAssetKeyService_fetchContentKeyWithURI_spcData_completionHandler___block_invoke_57;
-        v36[3] = &unk_1E7C39F98;
-        v37 = *(a1 + 32);
-        v39 = *(a1 + 56);
-        v38 = v8;
-        __72__FCAVAssetKeyService_fetchContentKeyWithURI_spcData_completionHandler___block_invoke_57(v36);
+        v35[0] = MEMORY[0x1E69E9820];
+        v35[1] = 3221225472;
+        v35[2] = __72__FCAVAssetKeyService_fetchContentKeyWithURI_spcData_completionHandler___block_invoke_57;
+        v35[3] = &unk_1E7C39F98;
+        v36 = *(a1 + 32);
+        v38 = *(a1 + 56);
+        v37 = v8;
+        __72__FCAVAssetKeyService_fetchContentKeyWithURI_spcData_completionHandler___block_invoke_57(v35);
 
-        v17 = v37;
+        v17 = v36;
       }
     }
 
     else
     {
-      v40[0] = MEMORY[0x1E69E9820];
-      v40[1] = 3221225472;
-      v40[2] = __72__FCAVAssetKeyService_fetchContentKeyWithURI_spcData_completionHandler___block_invoke_53;
-      v40[3] = &unk_1E7C39F98;
-      v41 = *(a1 + 32);
-      v43 = *(a1 + 56);
-      v42 = v8;
-      __72__FCAVAssetKeyService_fetchContentKeyWithURI_spcData_completionHandler___block_invoke_53(v40);
+      v39[0] = MEMORY[0x1E69E9820];
+      v39[1] = 3221225472;
+      v39[2] = __72__FCAVAssetKeyService_fetchContentKeyWithURI_spcData_completionHandler___block_invoke_53;
+      v39[3] = &unk_1E7C39F98;
+      v40 = *(a1 + 32);
+      v42 = *(a1 + 56);
+      v41 = v8;
+      __72__FCAVAssetKeyService_fetchContentKeyWithURI_spcData_completionHandler___block_invoke_53(v39);
 
       v10 = 0;
     }
@@ -669,63 +658,58 @@ void __72__FCAVAssetKeyService_fetchContentKeyWithURI_spcData_completionHandler_
 
   else
   {
-    v44[0] = MEMORY[0x1E69E9820];
-    v44[1] = 3221225472;
-    v44[2] = __72__FCAVAssetKeyService_fetchContentKeyWithURI_spcData_completionHandler___block_invoke_52;
-    v44[3] = &unk_1E7C39F70;
-    v45 = v8;
-    v46 = *(a1 + 32);
+    v43[0] = MEMORY[0x1E69E9820];
+    v43[1] = 3221225472;
+    v43[2] = __72__FCAVAssetKeyService_fetchContentKeyWithURI_spcData_completionHandler___block_invoke_52;
+    v43[3] = &unk_1E7C39F70;
+    v44 = v8;
+    v45 = *(a1 + 32);
     v14 = *(a1 + 56);
     v15 = *(a1 + 40);
-    v49 = v14;
-    v47 = v15;
-    v48 = v7;
-    __72__FCAVAssetKeyService_fetchContentKeyWithURI_spcData_completionHandler___block_invoke_52(v44);
+    v48 = v14;
+    v46 = v15;
+    v47 = v7;
+    __72__FCAVAssetKeyService_fetchContentKeyWithURI_spcData_completionHandler___block_invoke_52(v43);
 
-    v10 = v45;
+    v10 = v44;
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __72__FCAVAssetKeyService_fetchContentKeyWithURI_spcData_completionHandler___block_invoke_3(void *a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = FCAVAssetLog;
   if (os_log_type_enabled(FCAVAssetLog, OS_LOG_TYPE_ERROR))
   {
-    v6 = a1[4];
-    v7 = v2;
-    v8 = [v6 absoluteString];
-    v9 = a1[5];
-    v10 = 138543618;
-    v11 = v8;
-    v12 = 2114;
-    v13 = v9;
-    _os_log_error_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_ERROR, "AV asset key service failed to fetch key %{public}@ with error: %{public}@", &v10, 0x16u);
+    v4 = a1[4];
+    v5 = v2;
+    v6 = [v4 absoluteString];
+    v7 = a1[5];
+    v8 = 138543618;
+    v9 = v6;
+    v10 = 2114;
+    v11 = v7;
+    _os_log_error_impl(&dword_1B63EF000, v5, OS_LOG_TYPE_ERROR, "AV asset key service failed to fetch key %{public}@ with error: %{public}@", &v8, 0x16u);
   }
 
-  v3 = a1[5];
-  result = (*(a1[6] + 16))();
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(a1[6] + 16))();
 }
 
 void __72__FCAVAssetKeyService_fetchContentKeyWithURI_spcData_completionHandler___block_invoke_52(uint64_t a1)
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) statusCode];
   if (v2 == 400)
   {
     v6 = FCAVAssetLog;
     if (os_log_type_enabled(FCAVAssetLog, OS_LOG_TYPE_ERROR))
     {
-      v28 = *(a1 + 40);
-      v29 = v6;
-      v30 = [v28 absoluteString];
-      *v35 = 138543362;
-      *&v35[4] = v30;
-      _os_log_error_impl(&dword_1B63EF000, v29, OS_LOG_TYPE_ERROR, "AV asset key service got bad request response for key %{public}@", v35, 0xCu);
+      v27 = *(a1 + 40);
+      v28 = v6;
+      v29 = [v27 absoluteString];
+      *v34 = 138543362;
+      *&v34[4] = v29;
+      _os_log_error_impl(&dword_1B63EF000, v28, OS_LOG_TYPE_ERROR, "AV asset key service got bad request response for key %{public}@", v34, 0xCu);
     }
 
     v8 = *(a1 + 56);
@@ -763,35 +747,35 @@ void __72__FCAVAssetKeyService_fetchContentKeyWithURI_spcData_completionHandler_
 
           else
           {
-            *v35 = MEMORY[0x1E69E9820];
-            *&v35[8] = 3221225472;
-            *&v35[16] = __63__FCAVAssetKeyService__errorForBadRequestWithResponseData_URL___block_invoke_3;
-            v36 = &unk_1E7C36F98;
-            v37 = v12;
-            v23 = v37;
+            *v34 = MEMORY[0x1E69E9820];
+            *&v34[8] = 3221225472;
+            *&v34[16] = __63__FCAVAssetKeyService__errorForBadRequestWithResponseData_URL___block_invoke_3;
+            v35 = &unk_1E7C36F98;
+            v36 = v12;
+            v23 = v36;
           }
         }
 
         else
         {
-          *v35 = MEMORY[0x1E69E9820];
-          *&v35[8] = 3221225472;
-          *&v35[16] = __63__FCAVAssetKeyService__errorForBadRequestWithResponseData_URL___block_invoke_2;
-          v36 = &unk_1E7C36F98;
-          v37 = v12;
-          v16 = v37;
+          *v34 = MEMORY[0x1E69E9820];
+          *&v34[8] = 3221225472;
+          *&v34[16] = __63__FCAVAssetKeyService__errorForBadRequestWithResponseData_URL___block_invoke_2;
+          v35 = &unk_1E7C36F98;
+          v36 = v12;
+          v16 = v36;
           v23 = v16;
         }
       }
 
       else
       {
-        *v35 = MEMORY[0x1E69E9820];
-        *&v35[8] = 3221225472;
-        *&v35[16] = __63__FCAVAssetKeyService__errorForBadRequestWithResponseData_URL___block_invoke;
-        v36 = &unk_1E7C36F98;
-        v37 = v11;
-        v14 = v37;
+        *v34 = MEMORY[0x1E69E9820];
+        *&v34[8] = 3221225472;
+        *&v34[16] = __63__FCAVAssetKeyService__errorForBadRequestWithResponseData_URL___block_invoke;
+        v35 = &unk_1E7C36F98;
+        v36 = v11;
+        v14 = v36;
         v23 = v14;
       }
     }
@@ -809,12 +793,12 @@ void __72__FCAVAssetKeyService_fetchContentKeyWithURI_spcData_completionHandler_
     v3 = FCAVAssetLog;
     if (os_log_type_enabled(FCAVAssetLog, OS_LOG_TYPE_ERROR))
     {
-      v25 = *(a1 + 40);
-      v26 = v3;
-      v27 = [v25 absoluteString];
-      *v35 = 138543362;
-      *&v35[4] = v27;
-      _os_log_error_impl(&dword_1B63EF000, v26, OS_LOG_TYPE_ERROR, "AV asset key service got unauthorized response for key %{public}@", v35, 0xCu);
+      v24 = *(a1 + 40);
+      v25 = v3;
+      v26 = [v24 absoluteString];
+      *v34 = 138543362;
+      *&v34[4] = v26;
+      _os_log_error_impl(&dword_1B63EF000, v25, OS_LOG_TYPE_ERROR, "AV asset key service got unauthorized response for key %{public}@", v34, 0xCu);
     }
 
     v4 = *(a1 + 64);
@@ -827,15 +811,15 @@ void __72__FCAVAssetKeyService_fetchContentKeyWithURI_spcData_completionHandler_
     v19 = FCAVAssetLog;
     if (os_log_type_enabled(FCAVAssetLog, OS_LOG_TYPE_ERROR))
     {
-      v31 = *(a1 + 32);
-      v32 = v19;
-      v33 = [v31 statusCode];
-      v34 = [*(a1 + 40) absoluteString];
-      *v35 = 134218242;
-      *&v35[4] = v33;
-      *&v35[12] = 2114;
-      *&v35[14] = v34;
-      _os_log_error_impl(&dword_1B63EF000, v32, OS_LOG_TYPE_ERROR, "AV asset key service got error status code %ld for key %{public}@", v35, 0x16u);
+      v30 = *(a1 + 32);
+      v31 = v19;
+      v32 = [v30 statusCode];
+      v33 = [*(a1 + 40) absoluteString];
+      *v34 = 134218242;
+      *&v34[4] = v32;
+      *&v34[12] = 2114;
+      *&v34[14] = v33;
+      _os_log_error_impl(&dword_1B63EF000, v31, OS_LOG_TYPE_ERROR, "AV asset key service got error status code %ld for key %{public}@", v34, 0x16u);
     }
 
     v20 = *(a1 + 64);
@@ -844,86 +828,78 @@ void __72__FCAVAssetKeyService_fetchContentKeyWithURI_spcData_completionHandler_
     v22 = [FCEndpointConnection errorForStatus:v21 url:v5];
     (*(v20 + 16))(v20, 0, 0, v22);
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 void __72__FCAVAssetKeyService_fetchContentKeyWithURI_spcData_completionHandler___block_invoke_53(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v2 = FCAVAssetLog;
   if (os_log_type_enabled(FCAVAssetLog, OS_LOG_TYPE_ERROR))
   {
-    v9 = *(a1 + 32);
-    v10 = v2;
-    v11 = [v9 absoluteString];
+    v8 = *(a1 + 32);
+    v9 = v2;
+    v10 = [v8 absoluteString];
     *buf = 138543362;
-    v15 = v11;
-    _os_log_error_impl(&dword_1B63EF000, v10, OS_LOG_TYPE_ERROR, "AV asset key service failed to parse response for key %{public}@", buf, 0xCu);
+    v14 = v10;
+    _os_log_error_impl(&dword_1B63EF000, v9, OS_LOG_TYPE_ERROR, "AV asset key service failed to parse response for key %{public}@", buf, 0xCu);
   }
 
   v3 = MEMORY[0x1E696ABC0];
-  v12 = *MEMORY[0x1E696A998];
+  v11 = *MEMORY[0x1E696A998];
   v4 = *(a1 + 48);
   v5 = [*(a1 + 40) URL];
-  v13 = v5;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
+  v12 = v5;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
   v7 = [v3 errorWithDomain:@"FCEndpointConnectionErrorDomain" code:500 userInfo:v6];
   (*(v4 + 16))(v4, 0, 0, v7);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __72__FCAVAssetKeyService_fetchContentKeyWithURI_spcData_completionHandler___block_invoke_57(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v2 = FCAVAssetLog;
   if (os_log_type_enabled(FCAVAssetLog, OS_LOG_TYPE_ERROR))
   {
-    v9 = *(a1 + 32);
-    v10 = v2;
-    v11 = [v9 absoluteString];
+    v8 = *(a1 + 32);
+    v9 = v2;
+    v10 = [v8 absoluteString];
     *buf = 138543362;
-    v15 = v11;
-    _os_log_error_impl(&dword_1B63EF000, v10, OS_LOG_TYPE_ERROR, "AV asset key service failed to find CKC in response for key %{public}@", buf, 0xCu);
+    v14 = v10;
+    _os_log_error_impl(&dword_1B63EF000, v9, OS_LOG_TYPE_ERROR, "AV asset key service failed to find CKC in response for key %{public}@", buf, 0xCu);
   }
 
   v3 = MEMORY[0x1E696ABC0];
-  v12 = *MEMORY[0x1E696A998];
+  v11 = *MEMORY[0x1E696A998];
   v4 = *(a1 + 48);
   v5 = [*(a1 + 40) URL];
-  v13 = v5;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
+  v12 = v5;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
   v7 = [v3 errorWithDomain:@"FCEndpointConnectionErrorDomain" code:500 userInfo:v6];
   (*(v4 + 16))(v4, 0, 0, v7);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __72__FCAVAssetKeyService_fetchContentKeyWithURI_spcData_completionHandler___block_invoke_58(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v2 = FCAVAssetLog;
   if (os_log_type_enabled(FCAVAssetLog, OS_LOG_TYPE_ERROR))
   {
-    v9 = *(a1 + 32);
-    v10 = v2;
-    v11 = [v9 absoluteString];
+    v8 = *(a1 + 32);
+    v9 = v2;
+    v10 = [v8 absoluteString];
     *buf = 138543362;
-    v15 = v11;
-    _os_log_error_impl(&dword_1B63EF000, v10, OS_LOG_TYPE_ERROR, "AV asset key service failed to decode CKC base64 for key %{public}@", buf, 0xCu);
+    v14 = v10;
+    _os_log_error_impl(&dword_1B63EF000, v9, OS_LOG_TYPE_ERROR, "AV asset key service failed to decode CKC base64 for key %{public}@", buf, 0xCu);
   }
 
   v3 = MEMORY[0x1E696ABC0];
-  v12 = *MEMORY[0x1E696A998];
+  v11 = *MEMORY[0x1E696A998];
   v4 = *(a1 + 48);
   v5 = [*(a1 + 40) URL];
-  v13 = v5;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
+  v12 = v5;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
   v7 = [v3 errorWithDomain:@"FCEndpointConnectionErrorDomain" code:500 userInfo:v6];
   (*(v4 + 16))(v4, 0, 0, v7);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 id __72__FCAVAssetKeyService_fetchContentKeyWithURI_spcData_completionHandler___block_invoke_59(uint64_t a1)
@@ -952,19 +928,18 @@ id __72__FCAVAssetKeyService_fetchContentKeyWithURI_spcData_completionHandler___
 
 uint64_t __72__FCAVAssetKeyService_fetchContentKeyWithURI_spcData_completionHandler___block_invoke_2_63(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = FCAVAssetLog;
   if (os_log_type_enabled(FCAVAssetLog, OS_LOG_TYPE_ERROR))
   {
-    v5 = *(a1 + 32);
-    v6 = v2;
-    v7 = [v5 absoluteString];
-    v8 = 138543362;
-    v9 = v7;
-    _os_log_error_impl(&dword_1B63EF000, v6, OS_LOG_TYPE_ERROR, "AV asset key service failed to find TTL in response for key %{public}@", &v8, 0xCu);
+    v4 = *(a1 + 32);
+    v5 = v2;
+    v6 = [v4 absoluteString];
+    v7 = 138543362;
+    v8 = v6;
+    _os_log_error_impl(&dword_1B63EF000, v5, OS_LOG_TYPE_ERROR, "AV asset key service failed to find TTL in response for key %{public}@", &v7, 0xCu);
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -1102,22 +1077,22 @@ void __61__FCAVAssetKeyService__performHTTPRequest_keyURI_completion___block_inv
 
 void __70__FCAVAssetKeyService_executeRequest_keyURI_callbackQueue_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
   if (v6)
   {
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = __70__FCAVAssetKeyService_executeRequest_keyURI_callbackQueue_completion___block_invoke_2;
-    v24[3] = &unk_1E7C39F98;
-    v25 = v6;
-    v27 = *(a1 + 56);
-    v26 = *(a1 + 32);
-    __70__FCAVAssetKeyService_executeRequest_keyURI_callbackQueue_completion___block_invoke_2(v24);
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __70__FCAVAssetKeyService_executeRequest_keyURI_callbackQueue_completion___block_invoke_2;
+    v23[3] = &unk_1E7C39F98;
+    v24 = v6;
+    v26 = *(a1 + 56);
+    v25 = *(a1 + 32);
+    __70__FCAVAssetKeyService_executeRequest_keyURI_callbackQueue_completion___block_invoke_2(v23);
 
-    v8 = v25;
+    v8 = v24;
   }
 
   else
@@ -1139,17 +1114,17 @@ void __70__FCAVAssetKeyService_executeRequest_keyURI_callbackQueue_completion___
 
       if (!v13 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT))
       {
-        v18 = objc_alloc(MEMORY[0x1E696AEC0]);
-        v19 = [*(a1 + 40) absoluteString];
-        v20 = [v18 initWithFormat:@"Missing X-DSID header on AV asset key request with URI: %@", v19];
+        v17 = objc_alloc(MEMORY[0x1E696AEC0]);
+        v18 = [*(a1 + 40) absoluteString];
+        v19 = [v17 initWithFormat:@"Missing X-DSID header on AV asset key request with URI: %@", v18];
         *buf = 136315906;
-        v29 = "[FCAVAssetKeyService executeRequest:keyURI:callbackQueue:completion:]_block_invoke";
-        v30 = 2080;
-        v31 = "FCAVAssetKeyService.m";
-        v32 = 1024;
-        v33 = 294;
-        v34 = 2114;
-        v35 = v20;
+        v28 = "[FCAVAssetKeyService executeRequest:keyURI:callbackQueue:completion:]_block_invoke";
+        v29 = 2080;
+        v30 = "FCAVAssetKeyService.m";
+        v31 = 1024;
+        v32 = 294;
+        v33 = 2114;
+        v34 = v19;
         _os_log_fault_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "*** Assertion failure (Identifier: MissingDSID) : %s %s:%d %{public}@", buf, 0x26u);
       }
     }
@@ -1168,27 +1143,25 @@ void __70__FCAVAssetKeyService_executeRequest_keyURI_callbackQueue_completion___
     v16 = [v15 value];
     v8 = [v16 dataTaskPromiseWithRequest:v5];
 
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __70__FCAVAssetKeyService_executeRequest_keyURI_callbackQueue_completion___block_invoke_81;
-    v21[3] = &unk_1E7C3A0D8;
-    v23 = *(a1 + 56);
-    v22 = *(a1 + 32);
-    [v8 addFinishBlock:v21];
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __70__FCAVAssetKeyService_executeRequest_keyURI_callbackQueue_completion___block_invoke_81;
+    v20[3] = &unk_1E7C3A0D8;
+    v22 = *(a1 + 56);
+    v21 = *(a1 + 32);
+    [v8 addFinishBlock:v20];
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __70__FCAVAssetKeyService_executeRequest_keyURI_callbackQueue_completion___block_invoke_2(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v2 = FCAVAssetLog;
   if (os_log_type_enabled(FCAVAssetLog, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
+    v5 = *(a1 + 32);
     *buf = 138543362;
-    v11 = v6;
+    v10 = v5;
     _os_log_error_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_ERROR, "AV asset key service failed to construct AMS request with error: %{public}@", buf, 0xCu);
   }
 
@@ -1196,16 +1169,14 @@ void __70__FCAVAssetKeyService_executeRequest_keyURI_callbackQueue_completion___
   if (v3)
   {
     v4 = *(a1 + 40);
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __70__FCAVAssetKeyService_executeRequest_keyURI_callbackQueue_completion___block_invoke_71;
-    v7[3] = &unk_1E7C37778;
-    v9 = v3;
-    v8 = *(a1 + 32);
-    dispatch_async(v4, v7);
+    v6[0] = MEMORY[0x1E69E9820];
+    v6[1] = 3221225472;
+    v6[2] = __70__FCAVAssetKeyService_executeRequest_keyURI_callbackQueue_completion___block_invoke_71;
+    v6[3] = &unk_1E7C37778;
+    v8 = v3;
+    v7 = *(a1 + 32);
+    dispatch_async(v4, v6);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __70__FCAVAssetKeyService_executeRequest_keyURI_callbackQueue_completion___block_invoke_81(uint64_t a1, void *a2, void *a3)

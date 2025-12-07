@@ -257,14 +257,14 @@ LABEL_16:
   }
 }
 
-uint64_t __54__MPVolumeControllerRouteDataSource__initializeVolume__block_invoke_56(uint64_t result)
+void *__54__MPVolumeControllerRouteDataSource__initializeVolume__block_invoke_56(void *result)
 {
-  *(*(result + 32) + 17) = 0;
-  v1 = *(result + 32);
+  *(*(result + 4) + 17) = 0;
+  v1 = *(result + 4);
   if (*(v1 + 18) == 1)
   {
     *(v1 + 18) = 0;
-    return [*(result + 32) reload];
+    return [*(result + 4) reload];
   }
 
   return result;

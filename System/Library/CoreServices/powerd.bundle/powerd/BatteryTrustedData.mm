@@ -257,7 +257,7 @@ LABEL_22:
 
 - (BOOL)haveFrameworkToRun
 {
-  if (sub_10002AFDC() && sub_10002B0AC())
+  if (sub_10002AFDC(0) && sub_10002B0AC())
   {
     v2 = qword_1000ACA68;
     if (os_log_type_enabled(qword_1000ACA68, OS_LOG_TYPE_DEFAULT))
@@ -435,7 +435,7 @@ LABEL_20:
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Periodic Timer Fired\n", buf, 2u);
   }
 
-  if (sub_10002AFDC() && sub_10002B0AC())
+  if (sub_10002AFDC(0) && sub_10002B0AC())
   {
     v4 = +[NSDate date];
     [v4 timeIntervalSince1970];
@@ -457,7 +457,7 @@ LABEL_20:
 
     else
     {
-      v9 = sub_100063D44();
+      sub_100063D44();
       [(BatteryTrustedData *)v9 cancelAlarm];
     }
   }

@@ -59,7 +59,7 @@ LABEL_15:
     v28 = *MEMORY[0x277CCC2E8];
     if (os_log_type_enabled(*MEMORY[0x277CCC2E8], OS_LOG_TYPE_FAULT))
     {
-      [HKMCProjection initWithStartMean:v28 startStandardDeviation:? endMean:? endStandardDeviation:? allDays:? partiallyLogged:? daysOffsetFromCalendarMethod:? predictionPrimarySource:?];
+      [HKMCProjection initWithStartMean:v28 startStandardDeviation:v21 endMean:? endStandardDeviation:? allDays:? partiallyLogged:? daysOffsetFromCalendarMethod:? predictionPrimarySource:?];
     }
 
     v29 = 0;
@@ -133,18 +133,16 @@ LABEL_15:
 {
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
-  v15 = *&self->_startMean;
+  v13 = *&self->_startMean;
   endMean = self->_endMean;
   endStandardDeviation = self->_endStandardDeviation;
-  start = self->_allDays.start;
-  duration = self->_allDays.duration;
-  v9 = NSStringFromHKDayIndexRange();
+  v7 = NSStringFromHKDayIndexRange();
   partiallyLogged = self->_partiallyLogged;
-  v11 = [MEMORY[0x277CCABB0] numberWithInteger:self->_daysOffsetFromCalendarMethod];
-  v12 = [MEMORY[0x277CCABB0] numberWithInteger:self->_predictionPrimarySource];
-  v13 = [v3 stringWithFormat:@"<%@:%p start:%.2f±%.2f end:%.2f±%.2f allDays:%@ partiallyLogged:%d daysShifted:%@ predictionPrimarySource:%@>", v4, self, v15, *&endMean, *&endStandardDeviation, v9, partiallyLogged, v11, v12];
+  v9 = [MEMORY[0x277CCABB0] numberWithInteger:self->_daysOffsetFromCalendarMethod];
+  v10 = [MEMORY[0x277CCABB0] numberWithInteger:self->_predictionPrimarySource];
+  v11 = [v3 stringWithFormat:@"<%@:%p start:%.2f±%.2f end:%.2f±%.2f allDays:%@ partiallyLogged:%d daysShifted:%@ predictionPrimarySource:%@>", v4, self, v13, *&endMean, *&endStandardDeviation, v7, partiallyLogged, v9, v10];
 
-  return v13;
+  return v11;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -217,16 +215,14 @@ LABEL_14:
   [v4 handleFailureInMethod:a1 object:a2 file:@"HKMCProjection.m" lineNumber:44 description:{@"Invalid parameter not satisfying: %@", @"HKEqualDayIndexRanges(HKUnionDayIndexRange([self mostLikelyDays], allDays), allDays)"}];
 }
 
-- (void)initWithStartMean:(void *)a1 startStandardDeviation:endMean:endStandardDeviation:allDays:partiallyLogged:daysOffsetFromCalendarMethod:predictionPrimarySource:.cold.2(void *a1)
+- (void)initWithStartMean:(void *)a1 startStandardDeviation:(uint64_t)a2 endMean:endStandardDeviation:allDays:partiallyLogged:daysOffsetFromCalendarMethod:predictionPrimarySource:.cold.2(void *a1, uint64_t a2)
 {
   v6 = *MEMORY[0x277D85DE8];
-  v1 = a1;
+  v2 = a1;
   v4 = 138543362;
   v5 = objc_opt_class();
-  v2 = v5;
-  _os_log_fault_impl(&dword_2518FC000, v1, OS_LOG_TYPE_FAULT, "[%{public}@] Cannot create projection with most likely days outside of all days", &v4, 0xCu);
-
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = v5;
+  _os_log_fault_impl(&dword_2518FC000, v2, OS_LOG_TYPE_FAULT, "[%{public}@] Cannot create projection with most likely days outside of all days", &v4, 0xCu);
 }
 
 @end

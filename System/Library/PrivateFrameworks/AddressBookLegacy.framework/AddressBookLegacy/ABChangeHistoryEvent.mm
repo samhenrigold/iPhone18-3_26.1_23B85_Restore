@@ -266,7 +266,7 @@
   return result;
 }
 
-uint64_t __49__ABChangeHistoryEvent_descriptionForEntityType___block_invoke()
+void *__49__ABChangeHistoryEvent_descriptionForEntityType___block_invoke()
 {
   v2[3] = *MEMORY[0x1E69E9840];
   v1[0] = &unk_1F2FF4870;
@@ -297,7 +297,7 @@ uint64_t __49__ABChangeHistoryEvent_descriptionForEntityType___block_invoke()
   return result;
 }
 
-uint64_t __48__ABChangeHistoryEvent_descriptionForEventType___block_invoke()
+void *__48__ABChangeHistoryEvent_descriptionForEventType___block_invoke()
 {
   v2[11] = *MEMORY[0x1E69E9840];
   v1[0] = &unk_1F2FF4870;

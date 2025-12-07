@@ -37,55 +37,52 @@
 {
   v6 = type metadata accessor for IndexPath();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  v13 = sub_10023CC30(viewCopy);
+  v12 = sub_10023CC30(viewCopy);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 
-  return v13;
+  return v12;
 }
 
 - (id)collectionView:(id)view viewForSupplementaryElementOfKind:(id)kind atIndexPath:(id)path
 {
   v7 = type metadata accessor for IndexPath();
   v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
   __chkstk_darwin(v7);
-  v11 = &v19 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v14 = v13;
+  v10 = &v18 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v13 = v12;
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  v17 = sub_10023D044(viewCopy, v12, v14);
+  v16 = sub_10023D044(viewCopy, v11, v13);
 
-  (*(v8 + 8))(v11, v7);
+  (*(v8 + 8))(v10, v7);
 
-  return v17;
+  return v16;
 }
 
 - (CGSize)collectionView:(id)view layout:(id)layout sizeForItemAtIndexPath:(id)path
 {
   v6 = type metadata accessor for IndexPath();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   [viewCopy bounds];
-  Width = CGRectGetWidth(v17);
+  Width = CGRectGetWidth(v16);
 
-  (*(v7 + 8))(v10, v6);
-  v13 = 60.0;
-  v14 = Width;
-  result.height = v13;
-  result.width = v14;
+  (*(v7 + 8))(v9, v6);
+  v12 = 60.0;
+  v13 = Width;
+  result.height = v12;
+  result.width = v13;
   return result;
 }
 

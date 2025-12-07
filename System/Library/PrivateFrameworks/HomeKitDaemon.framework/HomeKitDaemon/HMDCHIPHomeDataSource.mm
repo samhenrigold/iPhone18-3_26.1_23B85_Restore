@@ -48,7 +48,7 @@
 
 - (id)primaryAccessoryCategoryForNodeID:(id)d
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dCopy = d;
   home = [(HMDCHIPHomeDataSource *)self home];
   if (!home)
@@ -60,7 +60,7 @@
     {
       v9 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v21 = v9;
+      v20 = v9;
       _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Home reference is nil", buf, 0xCu);
     }
 
@@ -68,13 +68,13 @@
   }
 
   matterAccessories = [home matterAccessories];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __59__HMDCHIPHomeDataSource_primaryAccessoryCategoryForNodeID___block_invoke;
-  v18[3] = &unk_278681CA8;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __59__HMDCHIPHomeDataSource_primaryAccessoryCategoryForNodeID___block_invoke;
+  v17[3] = &unk_278681CA8;
   v11 = dCopy;
-  v19 = v11;
-  v12 = [matterAccessories na_filter:v18];
+  v18 = v11;
+  v12 = [matterAccessories na_filter:v17];
   firstObject = [v12 firstObject];
   category = [firstObject category];
 
@@ -87,8 +87,6 @@
   {
     v15 = 0;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -112,7 +110,7 @@ uint64_t __59__HMDCHIPHomeDataSource_primaryAccessoryCategoryForNodeID___block_i
 
 - (id)allStorageDataSourcesForDeviceWithNodeID:(id)d
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   dCopy = d;
   home = [(HMDCHIPHomeDataSource *)self home];
   if (!home)
@@ -124,7 +122,7 @@ uint64_t __59__HMDCHIPHomeDataSource_primaryAccessoryCategoryForNodeID___block_i
     {
       v9 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v27 = v9;
+      v26 = v9;
       _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Home reference is nil", buf, 0xCu);
     }
 
@@ -133,13 +131,13 @@ uint64_t __59__HMDCHIPHomeDataSource_primaryAccessoryCategoryForNodeID___block_i
 
   v10 = MEMORY[0x277CBEB98];
   matterAccessories = [home matterAccessories];
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __66__HMDCHIPHomeDataSource_allStorageDataSourcesForDeviceWithNodeID___block_invoke;
-  v24[3] = &unk_278672310;
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __66__HMDCHIPHomeDataSource_allStorageDataSourcesForDeviceWithNodeID___block_invoke;
+  v23[3] = &unk_278672310;
   v12 = dCopy;
-  v25 = v12;
-  v13 = [matterAccessories na_map:v24];
+  v24 = v12;
+  v13 = [matterAccessories na_map:v23];
   v14 = v13;
   if (v13)
   {
@@ -167,16 +165,14 @@ uint64_t __59__HMDCHIPHomeDataSource_primaryAccessoryCategoryForNodeID___block_i
     {
       v21 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v27 = v21;
-      v28 = 2112;
-      v29 = v12;
+      v26 = v21;
+      v27 = 2112;
+      v28 = v12;
       _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_DEFAULT, "%{public}@Could not find accessories with Matter node ID: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v18);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -212,17 +208,17 @@ HMDCHIPAccessoryDataSource *__66__HMDCHIPHomeDataSource_allStorageDataSourcesFor
 
 - (id)storageDataSourceForDeviceWithNodeID:(id)d
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dCopy = d;
   home = [(HMDCHIPHomeDataSource *)self home];
   matterAccessories = [home matterAccessories];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __62__HMDCHIPHomeDataSource_storageDataSourceForDeviceWithNodeID___block_invoke;
-  v16[3] = &unk_278681CA8;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __62__HMDCHIPHomeDataSource_storageDataSourceForDeviceWithNodeID___block_invoke;
+  v15[3] = &unk_278681CA8;
   v7 = dCopy;
-  v17 = v7;
-  v8 = [matterAccessories na_firstObjectPassingTest:v16];
+  v16 = v7;
+  v8 = [matterAccessories na_firstObjectPassingTest:v15];
 
   if (v8)
   {
@@ -238,17 +234,15 @@ HMDCHIPAccessoryDataSource *__66__HMDCHIPHomeDataSource_allStorageDataSourcesFor
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v19 = v13;
-      v20 = 2112;
-      v21 = v7;
+      v18 = v13;
+      v19 = 2112;
+      v20 = v7;
       _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@Could not find accessory with CHIP node ID: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v10);
     v9 = 0;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -264,7 +258,7 @@ uint64_t __62__HMDCHIPHomeDataSource_storageDataSourceForDeviceWithNodeID___bloc
 
 - (NSSet)allNodeIDs
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   home = [(HMDCHIPHomeDataSource *)self home];
   if (!home)
   {
@@ -274,9 +268,9 @@ uint64_t __62__HMDCHIPHomeDataSource_storageDataSourceForDeviceWithNodeID___bloc
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = HMFGetLogIdentifier();
-      v16 = 138543362;
-      v17 = v7;
-      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Home reference is nil", &v16, 0xCu);
+      v15 = 138543362;
+      v16 = v7;
+      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Home reference is nil", &v15, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -297,8 +291,6 @@ uint64_t __62__HMDCHIPHomeDataSource_storageDataSourceForDeviceWithNodeID___bloc
   }
 
   v13 = [v8 setWithArray:v12];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -322,7 +314,7 @@ id __35__HMDCHIPHomeDataSource_allNodeIDs__block_invoke(uint64_t a1, void *a2)
 
 - (void)updateKeyValueStoreWithBlock:(id)block completion:(id)completion
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   completionCopy = completion;
   home = [(HMDCHIPHomeDataSource *)self home];
@@ -336,7 +328,7 @@ id __35__HMDCHIPHomeDataSource_allNodeIDs__block_invoke(uint64_t a1, void *a2)
     {
       v17 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v34 = v17;
+      v33 = v17;
       _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Home reference is nil", buf, 0xCu);
     }
 
@@ -364,7 +356,7 @@ LABEL_24:
     {
       v23 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v34 = v23;
+      v33 = v23;
       _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_INFO, "%{public}@Remotely updating home model key-value store", buf, 0xCu);
     }
 
@@ -410,21 +402,20 @@ LABEL_24:
   {
     v13 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v34 = v13;
+    v33 = v13;
     _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Locally updating home model key-value store", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v10);
-  v31[0] = MEMORY[0x277D85DD0];
-  v31[1] = 3221225472;
-  v31[2] = __65__HMDCHIPHomeDataSource_updateKeyValueStoreWithBlock_completion___block_invoke;
-  v31[3] = &unk_2786722E8;
-  v31[4] = selfCopy3;
-  v32 = blockCopy;
-  [(HMDCHIPHomeDataSource *)selfCopy3 _updateHomeModelWithLabel:@"Update CHIP key-value store" completion:completionCopy block:v31];
+  v30[0] = MEMORY[0x277D85DD0];
+  v30[1] = 3221225472;
+  v30[2] = __65__HMDCHIPHomeDataSource_updateKeyValueStoreWithBlock_completion___block_invoke;
+  v30[3] = &unk_2786722E8;
+  v30[4] = selfCopy3;
+  v31 = blockCopy;
+  [(HMDCHIPHomeDataSource *)selfCopy3 _updateHomeModelWithLabel:@"Update CHIP key-value store" completion:completionCopy block:v30];
 
 LABEL_25:
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __65__HMDCHIPHomeDataSource_updateKeyValueStoreWithBlock_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -441,7 +432,7 @@ uint64_t __65__HMDCHIPHomeDataSource_updateKeyValueStoreWithBlock_completion___b
   v10 = (*(*(a1 + 40) + 16))();
   if (v10)
   {
-    v11 = [v6 copy];
+    v11 = objc_msgSend_copy(v6);
     [v5 setChipKeyValueStore:v11];
   }
 
@@ -518,7 +509,7 @@ BOOL __56__HMDCHIPHomeDataSource_updateKeyValueStore_completion___block_invoke_2
 
 - (void)_updateHomeModelWithLabel:(id)label completion:(id)completion block:(id)block
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   labelCopy = label;
   completionCopy = completion;
   blockCopy = block;
@@ -562,14 +553,14 @@ BOOL __56__HMDCHIPHomeDataSource_updateKeyValueStore_completion___block_invoke_2
       [v28 add:v13];
       if (v28)
       {
-        v34 = MEMORY[0x277D85DD0];
-        v35 = 3221225472;
-        v36 = __68__HMDCHIPHomeDataSource__updateHomeModelWithLabel_completion_block___block_invoke;
-        v37 = &unk_278689A68;
+        v33 = MEMORY[0x277D85DD0];
+        v34 = 3221225472;
+        v35 = __68__HMDCHIPHomeDataSource__updateHomeModelWithLabel_completion_block___block_invoke;
+        v36 = &unk_278689A68;
         selfCopy = self;
-        v39 = completionCopy;
-        [v28 run:&v34];
-        v29 = [(HMDCHIPHomeDataSource *)self lock:v34];
+        v38 = completionCopy;
+        [v28 run:&v33];
+        v29 = [(HMDCHIPHomeDataSource *)self lock:v33];
         [v29 unlock];
 
         goto LABEL_19;
@@ -608,7 +599,7 @@ LABEL_18:
   {
     v22 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v41 = v22;
+    v40 = v22;
     _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_ERROR, "%{public}@Home reference is nil", buf, 0xCu);
   }
 
@@ -622,8 +613,6 @@ LABEL_18:
   }
 
 LABEL_19:
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 void __68__HMDCHIPHomeDataSource__updateHomeModelWithLabel_completion_block___block_invoke(uint64_t a1, void *a2)
@@ -704,10 +693,9 @@ LABEL_7:
 
 void __36__HMDCHIPHomeDataSource_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v15_33601;
-  logCategory__hmf_once_v15_33601 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v15_33601;
+  logCategory__hmf_once_v15_33601 = v0;
 }
 
 @end

@@ -1,8 +1,47 @@
-void sub_7AE88(_Unwind_Exception *a1, uint64_t a2, ...)
+void HSMapper::_popEncoderBuf(HSUtil::EncoderBuf **__return_ptr a1@<X8>, HSMapper *this@<X0>)
 {
-  va_start(va, a2);
+  std::mutex::lock((this + 216));
+  v4 = *(this + 36);
+  if (*(this + 35) == v4)
+  {
+    std::mutex::unlock((this + 216));
+    operator new();
+  }
+
+  v7 = *(v4 - 8);
+  v5 = (v4 - 8);
+  v6 = v7;
+  *v5 = 0;
+  *a1 = v7;
+  *(this + 36) = std::unique_ptr<HSUtil::EncoderBuf>::~unique_ptr[abi:ne200100](v5);
+  if (!*v7)
+  {
+    *(v6 + 8) = *(v6 + 7);
+    v8 = *(v6 + 17);
+    v9 = *(v6 + 13);
+    if (__CFADD__(v9, v8))
+    {
+      v10 = 14;
+    }
+
+    else
+    {
+      v10 = 0;
+      *(v6 + 13) = v9 + v8;
+      *(v6 + 17) = 0;
+    }
+
+    *v6 = v10;
+  }
+
+  std::mutex::unlock((this + 216));
+}
+
+void sub_7AE88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
   std::__function::__value_func<BOOL ()(HSUtil::Encoder &,objc_object *)>::~__value_func[abi:ne200100](va);
-  std::unique_ptr<HSUtil::EncoderBuf>::~unique_ptr[abi:ne200100](v2);
+  std::unique_ptr<HSUtil::EncoderBuf>::~unique_ptr[abi:ne200100](v3);
   _Unwind_Resume(a1);
 }
 
@@ -55,9 +94,9 @@ uint64_t *HSUtil::DeferredFn<HSMapper::_messageHandler(std::shared_ptr<HSUtil::C
   return a1;
 }
 
-void sub_7B024(void *a1, uint64_t a2, ...)
+void sub_7B024(void *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<HSUtil::EncoderBuf>::~unique_ptr[abi:ne200100](va);
   __clang_call_terminate(a1);
 }
@@ -144,7 +183,7 @@ uint64_t HSUtil::Decoder::_readCodable<Message>(uint64_t a1, unint64_t *a2, Mess
 
 uint64_t Message::decode(Message *this, HSUtil::Decoder *a2)
 {
-  HSUtil::Decoder::decodeArray(a2, v17);
+  HSUtil::Decoder::decodeArray(v17, a2);
   if (*a2)
   {
     basename_r("/Library/Caches/com.apple.xbs/Sources/HIDSensingPipeline/HIDSensingPipeline/HSRemoteObject.mm", v20);
@@ -159,7 +198,7 @@ LABEL_7:
   }
 
   *this = HSUtil::Decoder::decodeUInt(v17);
-  if (v17[0])
+  if (LODWORD(v17[0]))
   {
     basename_r("/Library/Caches/com.apple.xbs/Sources/HIDSensingPipeline/HIDSensingPipeline/HSRemoteObject.mm", v20);
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
@@ -170,8 +209,8 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  HSUtil::Decoder::decodeString(v17, v15);
-  if (v17[0])
+  HSUtil::Decoder::decodeString(v15, v17);
+  if (LODWORD(v17[0]))
   {
     basename_r("/Library/Caches/com.apple.xbs/Sources/HIDSensingPipeline/HIDSensingPipeline/HSRemoteObject.mm", v20);
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
@@ -188,7 +227,7 @@ LABEL_7:
       v9 = *(this + 2);
       *(this + 2) = v8;
 
-      if (v17[0] || (HSUtil::Decoder::decodeObject(v17), v11 = objc_claimAutoreleasedReturnValue(), v12 = *(this + 3), *(this + 3) = v11, v12, v17[0]) || (HSUtil::Decoder::decodeObject(v17), v13 = objc_claimAutoreleasedReturnValue(), v14 = *(this + 4), *(this + 4) = v13, v14, v17[0]))
+      if (LODWORD(v17[0]) || (HSUtil::Decoder::decodeObject(v17), v11 = objc_claimAutoreleasedReturnValue(), v12 = *(this + 3), *(this + 3) = v11, v12, LODWORD(v17[0])) || (HSUtil::Decoder::decodeObject(v17), v13 = objc_claimAutoreleasedReturnValue(), v14 = *(this + 4), *(this + 4) = v13, v14, LODWORD(v17[0])))
       {
         Message::PrintDecodeArgError(v17, str, v10);
       }
@@ -224,22 +263,24 @@ LABEL_8:
   return v4;
 }
 
-void sub_7B4BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18)
+void sub_7B4BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
+  va_start(va, a17);
   HSUtil::Buffer::~Buffer(&a9);
-  HSUtil::Decoder::~Decoder(&a18);
+  HSUtil::Decoder::~Decoder(va, v18, v19, v20);
   _Unwind_Resume(a1);
 }
 
-void sub_7B6A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_7B6A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
-  HSUtil::EncoderBuf::~EncoderBuf(&a27);
-  HSUtil::Decoder::~Decoder(&a13);
-  operator delete(v27);
+  va_start(va, a26);
+  HSUtil::EncoderBuf::~EncoderBuf(va);
+  HSUtil::Decoder::~Decoder(&a13, v28, v29, v30);
+  operator delete(v26);
   _Unwind_Resume(a1);
 }
 
-uint64_t HSUtil::HexStringFromBuffer(HSUtil *this, const HSUtil::Buffer *a2)
+uint64_t *HSUtil::HexStringFromBuffer(HSUtil *this, const HSUtil::Buffer *a2)
 {
   std::ostringstream::basic_ostringstream[abi:ne200100](&v11);
   v3 = *(this + 5);
@@ -426,16 +467,16 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   if (v13 == 1)
   {
     v6 = a1 + *(*a1 - 24);
-    v7 = *(v6 + 40);
-    v8 = *(v6 + 8);
-    v9 = *(v6 + 144);
+    v7 = *(v6 + 5);
+    v8 = *(v6 + 2);
+    v9 = *(v6 + 36);
     if (v9 == -1)
     {
       std::ios_base::getloc((a1 + *(*a1 - 24)));
       v10 = std::locale::use_facet(&v14, &std::ctype<char>::id);
       v9 = (v10->__vftable[2].~facet_0)(v10, 32);
       std::locale::~locale(&v14);
-      *(v6 + 144) = v9;
+      *(v6 + 36) = v9;
     }
 
     if ((v8 & 0xB0) == 0x20)
@@ -581,45 +622,37 @@ void *std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * 
     return 0;
   }
 
-  result = *v6;
-  if (*v6)
+  for (result = *v6; result; result = *result)
   {
-    do
+    v8 = result[1];
+    if (v8 == v3)
     {
-      v8 = result[1];
-      if (v8 == v3)
+      if (result[2] == v3)
       {
-        if (result[2] == v3)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v4.u32[0] > 1uLL)
+      {
+        if (v8 >= *&v2)
         {
-          return result;
+          v8 %= *&v2;
         }
       }
 
       else
       {
-        if (v4.u32[0] > 1uLL)
-        {
-          if (v8 >= *&v2)
-          {
-            v8 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v8 &= *&v2 - 1;
-        }
-
-        if (v8 != v5)
-        {
-          return 0;
-        }
+        v8 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v8 != v5)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
@@ -1177,33 +1210,33 @@ void sub_7CD70(_Unwind_Exception *exception_object, int a2, int a3, int a4, int 
   _Unwind_Resume(exception_object);
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::__emplace_unique_key_args<unsigned long long,unsigned long long &,objc_object * {__strong}&>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::__emplace_unique_key_args<unsigned long long,unsigned long long &,objc_object * {__strong}&>(void *a1, unint64_t *a2, void *a3, id *a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v7 = *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -1211,49 +1244,49 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-void sub_7CFE8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_7CFE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -1274,33 +1307,33 @@ uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned long l
   return a1;
 }
 
-void *std::__hash_table<std::__hash_value_type<objc_object * {__strong},unsigned long long>,std::__unordered_map_hasher<objc_object * {__strong},std::__hash_value_type<objc_object * {__strong},unsigned long long>,HSUtil::ObjectHasher,std::equal_to<objc_object * {__strong}>,true>,std::__unordered_map_equal<objc_object * {__strong},std::__hash_value_type<objc_object * {__strong},unsigned long long>,std::equal_to<objc_object * {__strong}>,HSUtil::ObjectHasher,true>,std::allocator<std::__hash_value_type<objc_object * {__strong},unsigned long long>>>::__emplace_unique_key_args<objc_object * {__strong},objc_object * {__strong}&,unsigned long long &>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<objc_object * {__strong},unsigned long long>,std::__unordered_map_hasher<objc_object * {__strong},std::__hash_value_type<objc_object * {__strong},unsigned long long>,HSUtil::ObjectHasher,std::equal_to<objc_object * {__strong}>,true>,std::__unordered_map_equal<objc_object * {__strong},std::__hash_value_type<objc_object * {__strong},unsigned long long>,std::equal_to<objc_object * {__strong}>,HSUtil::ObjectHasher,true>,std::allocator<std::__hash_value_type<objc_object * {__strong},unsigned long long>>>::__emplace_unique_key_args<objc_object * {__strong},objc_object * {__strong}&,unsigned long long &>(void *a1, unint64_t *a2, id *a3, uint64_t *a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -1308,49 +1341,49 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-void sub_7D2A4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_7D2A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<HSStage * {__strong},void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<HSStage * {__strong},void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -1540,12 +1573,12 @@ uint64_t HSUtil::Decoder::decodeCodable<RemoteObject>(uint64_t result, RemoteObj
   return result;
 }
 
-void *HSMapper::_proxyForID(HSMapper *this, objc_class *a2, unint64_t a3)
+void *HSMapper::_proxyForID(HSMapper *this, objc_class *a2, uint64_t a3)
 {
-  v13[0] = a3;
+  v13 = a3;
   os_unfair_lock_lock(this + 52);
-  v13[2] = v13;
-  v4 = (std::__hash_table<std::__hash_value_type<unsigned long long,HSProxy * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HSProxy * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HSProxy * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HSProxy * {__strong}>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(this + 21, v13) + 3);
+  v14 = &v13;
+  v4 = (std::__hash_table<std::__hash_value_type<unsigned long long,HSProxy * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HSProxy * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HSProxy * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HSProxy * {__strong}>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(this + 21, &v13, &std::piecewise_construct, &v14) + 3);
   if (*v4)
   {
     v5 = *v4;
@@ -1553,7 +1586,7 @@ void *HSMapper::_proxyForID(HSMapper *this, objc_class *a2, unint64_t a3)
   }
 
   v5 = objc_opt_new();
-  v5[1] = v13[0];
+  v5[1] = v13;
   v6 = *(this + 1);
   if (!v6)
   {
@@ -1719,13 +1752,13 @@ uint64_t HSUtil::Decoder::_readCodable<RemoteObject>(uint64_t a1, unint64_t *a2,
 
 uint64_t RemoteObject::decode(RemoteObject *this, HSUtil::Decoder *a2)
 {
-  HSUtil::Decoder::decodeArray(a2, v10);
+  HSUtil::Decoder::decodeArray(v9, a2);
   if (!*a2)
   {
-    HSUtil::Decoder::decodeString(v10, v8);
-    if (v10[0])
+    HSUtil::Decoder::decodeString(v8, v9);
+    if (LODWORD(v9[0]))
     {
-      basename_r("/Library/Caches/com.apple.xbs/Sources/HIDSensingPipeline/HIDSensingPipeline/HSRemoteObject.mm", v13);
+      basename_r("/Library/Caches/com.apple.xbs/Sources/HIDSensingPipeline/HIDSensingPipeline/HSRemoteObject.mm", v12);
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
         RemoteObject::decode();
@@ -1734,18 +1767,18 @@ uint64_t RemoteObject::decode(RemoteObject *this, HSUtil::Decoder *a2)
 
     else
     {
-      Class = objc_getClass(name);
+      Class = objc_getClass(v8[5]);
       *this = Class;
       if (Class)
       {
-        *(this + 1) = HSUtil::Decoder::decodeUInt(v10);
-        if (!v10[0])
+        *(this + 1) = HSUtil::Decoder::decodeUInt(v9);
+        if (!LODWORD(v9[0]))
         {
           v4 = 1;
           goto LABEL_9;
         }
 
-        basename_r("/Library/Caches/com.apple.xbs/Sources/HIDSensingPipeline/HIDSensingPipeline/HSRemoteObject.mm", v13);
+        basename_r("/Library/Caches/com.apple.xbs/Sources/HIDSensingPipeline/HIDSensingPipeline/HSRemoteObject.mm", v12);
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
           RemoteObject::decode();
@@ -1754,7 +1787,7 @@ uint64_t RemoteObject::decode(RemoteObject *this, HSUtil::Decoder *a2)
 
       else
       {
-        basename_r("/Library/Caches/com.apple.xbs/Sources/HIDSensingPipeline/HIDSensingPipeline/HSRemoteObject.mm", v13);
+        basename_r("/Library/Caches/com.apple.xbs/Sources/HIDSensingPipeline/HIDSensingPipeline/HSRemoteObject.mm", v12);
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
           RemoteObject::decode();
@@ -1773,7 +1806,7 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  basename_r("/Library/Caches/com.apple.xbs/Sources/HIDSensingPipeline/HIDSensingPipeline/HSRemoteObject.mm", v13);
+  basename_r("/Library/Caches/com.apple.xbs/Sources/HIDSensingPipeline/HIDSensingPipeline/HSRemoteObject.mm", v12);
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
   {
     RemoteObject::decode();
@@ -1781,13 +1814,13 @@ LABEL_9:
 
   v4 = 0;
 LABEL_10:
-  if (v12)
+  if (v11)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v12);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v11);
   }
 
-  v5 = v11;
-  v11 = 0;
+  v5 = v10;
+  v10 = 0;
   if (v5)
   {
     std::__function::__value_func<objc_object * ()(HSUtil::Decoder &,HSUtil::CoderKey const&)>::~__value_func[abi:ne200100](v5);
@@ -1797,40 +1830,41 @@ LABEL_10:
   return v4;
 }
 
-void sub_7DE7C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18)
+void sub_7DE7C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
+  va_start(va, a17);
   HSUtil::Buffer::~Buffer(&a9);
-  HSUtil::Decoder::~Decoder(&a18);
+  HSUtil::Decoder::~Decoder(va, v18, v19, v20);
   _Unwind_Resume(a1);
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long long,HSProxy * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HSProxy * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HSProxy * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HSProxy * {__strong}>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long long,HSProxy * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HSProxy * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HSProxy * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HSProxy * {__strong}>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(void *a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v7 = *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -1838,56 +1872,56 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-void sub_7E100(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_7E100(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_7E1E0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_7E1E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__thread_struct>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -1904,9 +1938,9 @@ uint64_t std::__thread_proxy[abi:ne200100]<std::tuple<std::unique_ptr<std::__thr
   return 0;
 }
 
-void sub_7E270(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_7E270(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::tuple<std::unique_ptr<std::__thread_struct>,HSUtil::Connection::start(void)::{lambda(void)#1}>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -1941,7 +1975,7 @@ uint64_t *HSUtil::Connection::_readThread(HSUtil::FileDescriptor **this)
 {
   v12 = this;
   v2 = (this + 14);
-  v10 = (this + 14);
+  v10 = this + 14;
   v11 = 1;
   std::mutex::lock((this + 14));
   if (*(this + 56) == 1)
@@ -2147,10 +2181,10 @@ LABEL_18:
   HSUtil::Buffer::~Buffer(v19);
 }
 
-void sub_7E7A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_7E7A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
-  std::mutex::unlock((v8 + 560));
+  va_start(va, a15);
+  std::mutex::unlock((v15 + 560));
   HSUtil::Buffer::~Buffer(va);
   _Unwind_Resume(a1);
 }
@@ -2526,7 +2560,7 @@ LABEL_54:
           *v31 = 7;
         }
 
-        HSUtil::Connection::_sendMessage(v35, a1, v38, a3 | 2u, a4);
+        HSUtil::Connection::_sendMessage(a1, v38, a3 | 2, a4, v35);
         HSUtil::Buffer::~Buffer(v35);
         HSUtil::Buffer::~Buffer(v38);
         HSUtil::Buffer::~Buffer(a5);
@@ -2647,7 +2681,7 @@ void HSUtil::Connection::sendAsync(HSUtil::Connection *this, const HSUtil::Buffe
   HSUtil::Buffer::~Buffer(v9);
 }
 
-void HSUtil::Connection::send(HSUtil::Connection *this@<X0>, const HSUtil::Buffer *a2@<X1>, uint64_t a3@<X8>)
+void HSUtil::Connection::send(uint64_t *__return_ptr a1@<X8>, HSUtil::Connection *this@<X0>, const HSUtil::Buffer *a3@<X1>)
 {
   v6 = pthread_self();
   __lk.__m_ = (this + 112);
@@ -2656,15 +2690,15 @@ void HSUtil::Connection::send(HSUtil::Connection *this@<X0>, const HSUtil::Buffe
   if (*(this + 56) != 1)
   {
 LABEL_6:
-    *a3 = &off_108FA0;
-    *(a3 + 8) = &off_108FF8;
-    *(a3 + 16) = &off_109018;
-    *(a3 + 24) = &off_109030;
-    *(a3 + 32) = off_109048;
-    *(a3 + 40) = 0;
-    *(a3 + 48) = 0;
-    *(a3 + 56) = 0;
-    *(a3 + 64) &= 0xFCu;
+    *a1 = &off_108FA0;
+    a1[1] = &off_108FF8;
+    a1[2] = &off_109018;
+    a1[3] = &off_109030;
+    a1[4] = off_109048;
+    a1[5] = 0;
+    a1[6] = 0;
+    a1[7] = 0;
+    *(a1 + 64) &= 0xFCu;
     goto LABEL_21;
   }
 
@@ -2719,7 +2753,7 @@ LABEL_26:
     v10 = 352;
   }
 
-  HSUtil::Connection::_sendMessage(this, a2, v7 == v6, this + v10, v11);
+  HSUtil::Connection::_sendMessage(this, a3, v7 == v6, this + v10, v11);
   if (v14[3])
   {
     free(v14[0]);
@@ -2739,15 +2773,15 @@ LABEL_26:
   std::unique_lock<std::mutex>::lock[abi:ne200100](&__lk);
   if (*(this + 56) != 1)
   {
-    *a3 = &off_108FA0;
-    *(a3 + 8) = &off_108FF8;
-    *(a3 + 16) = &off_109018;
-    *(a3 + 24) = &off_109030;
-    *(a3 + 32) = off_109048;
-    *(a3 + 40) = 0;
-    *(a3 + 48) = 0;
-    *(a3 + 56) = 0;
-    *(a3 + 64) &= 0xFCu;
+    *a1 = &off_108FA0;
+    a1[1] = &off_108FF8;
+    a1[2] = &off_109018;
+    a1[3] = &off_109030;
+    a1[4] = off_109048;
+    a1[5] = 0;
+    a1[6] = 0;
+    a1[7] = 0;
+    *(a1 + 64) &= 0xFCu;
     goto LABEL_20;
   }
 
@@ -2762,7 +2796,7 @@ LABEL_26:
   std::mutex::unlock(__lk.__m_);
   __lk.__owns_ = 0;
 LABEL_18:
-  HSUtil::Buffer::Buffer(a3, v13);
+  HSUtil::Buffer::Buffer(a1, v13);
 LABEL_20:
   HSUtil::Buffer::~Buffer(v13);
 LABEL_21:
@@ -2784,9 +2818,9 @@ uint64_t *HSUtil::DeferredFn<HSMapper::send(unsigned long long,objc_selector *,o
   return a1;
 }
 
-void sub_7F784(void *a1, uint64_t a2, ...)
+void sub_7F784(void *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<HSUtil::EncoderBuf>::~unique_ptr[abi:ne200100](va);
   __clang_call_terminate(a1);
 }
@@ -2803,7 +2837,7 @@ void ___ZN6HSUtil10Connection9sendAsyncERKNS_6BufferE_block_invoke(void *a1)
       v5 = a1[5];
       if (v5)
       {
-        HSUtil::Connection::send(v5, (*(a1[4] + 8) + 48), v6);
+        HSUtil::Connection::send(v6, v5, (*(a1[4] + 8) + 48));
         HSUtil::Buffer::~Buffer(v6);
       }
 
@@ -2962,48 +2996,48 @@ void sub_7FCAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uin
   _Unwind_Resume(a1);
 }
 
-void *std::__tree<std::shared_ptr<HSMapper>>::__emplace_unique_key_args<std::shared_ptr<HSMapper>,std::shared_ptr<HSMapper> const&>(uint64_t a1, unint64_t *a2)
+void *std::__tree<std::shared_ptr<HSMapper>>::__emplace_unique_key_args<std::shared_ptr<HSMapper>,std::shared_ptr<HSMapper> const&>(uint64_t a1, unint64_t *a2, void *a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = v3[4];
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
   }
 }
 
-uint64_t *std::__tree<std::shared_ptr<HSMapper>>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<std::shared_ptr<HSMapper>>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -3029,12 +3063,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -3048,22 +3082,22 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -3097,13 +3131,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -3337,14 +3371,14 @@ LABEL_8:
 
   while (1)
   {
-    v12 = v7[2];
+    v12 = *(v7 + 16);
     v13 = *v12;
     if (*v12 == v7)
     {
       break;
     }
 
-    if ((v7[3] & 1) == 0)
+    if ((*(v7 + 24) & 1) == 0)
     {
       *(v7 + 24) = 1;
       *(v12 + 24) = 0;
@@ -3372,7 +3406,7 @@ LABEL_8:
     v17 = *v7;
     if (*v7 && *(v17 + 24) != 1)
     {
-      v18 = v7[1];
+      v18 = *(v7 + 8);
       if (!v18)
       {
         goto LABEL_55;
@@ -3384,18 +3418,18 @@ LABEL_54:
 LABEL_55:
         *(v17 + 24) = 1;
         *(v7 + 24) = 0;
-        v26 = v17[1];
+        v26 = *(v17 + 8);
         *v7 = v26;
         if (v26)
         {
           *(v26 + 16) = v7;
         }
 
-        v27 = v7[2];
-        v17[2] = v27;
+        v27 = *(v7 + 16);
+        *(v17 + 16) = v27;
         v27[*v27 != v7] = v17;
-        v17[1] = v7;
-        v7[2] = v17;
+        *(v17 + 8) = v7;
+        *(v7 + 16) = v17;
         v18 = v7;
       }
 
@@ -3404,7 +3438,7 @@ LABEL_55:
         v17 = v7;
       }
 
-      v28 = v17[2];
+      v28 = *(v17 + 16);
       *(v17 + 24) = *(v28 + 24);
       *(v28 + 24) = 1;
       *(v18 + 24) = 1;
@@ -3423,14 +3457,14 @@ LABEL_55:
       goto LABEL_72;
     }
 
-    v18 = v7[1];
+    v18 = *(v7 + 8);
     if (v18 && *(v18 + 24) != 1)
     {
       goto LABEL_54;
     }
 
     *(v7 + 24) = 0;
-    v19 = v7[2];
+    v19 = *(v7 + 16);
     if (v19 == result || (v19[3] & 1) == 0)
     {
       goto LABEL_52;
@@ -3440,11 +3474,11 @@ LABEL_49:
     v7 = *(v19[2] + 8 * (*v19[2] == v19));
   }
 
-  if ((v7[3] & 1) == 0)
+  if ((*(v7 + 24) & 1) == 0)
   {
     *(v7 + 24) = 1;
     *(v12 + 24) = 0;
-    v20 = v13[1];
+    v20 = *(v13 + 8);
     *v12 = v20;
     if (v20)
     {
@@ -3452,11 +3486,11 @@ LABEL_49:
     }
 
     v21 = v12[2];
-    v13[2] = v21;
+    *(v13 + 16) = v21;
     v21[*v21 != v12] = v13;
-    v13[1] = v12;
+    *(v13 + 8) = v12;
     v12[2] = v13;
-    v22 = v7[1];
+    v22 = *(v7 + 8);
     if (result == v22)
     {
       result = v7;
@@ -3471,11 +3505,11 @@ LABEL_49:
     goto LABEL_68;
   }
 
-  v24 = v7[1];
+  v24 = *(v7 + 8);
   if (!v24 || *(v24 + 24) == 1)
   {
     *(v7 + 24) = 0;
-    v19 = v7[2];
+    v19 = *(v7 + 16);
     if (*(v19 + 24) != 1 || v19 == result)
     {
 LABEL_52:
@@ -3491,24 +3525,24 @@ LABEL_52:
     goto LABEL_65;
   }
 
-  if (v23[3])
+  if (*(v23 + 24))
   {
-    v24 = v7[1];
+    v24 = *(v7 + 8);
 LABEL_65:
     *(v24 + 24) = 1;
     *(v7 + 24) = 0;
     v32 = *v24;
-    v7[1] = *v24;
+    *(v7 + 8) = *v24;
     if (v32)
     {
       *(v32 + 16) = v7;
     }
 
-    v33 = v7[2];
-    v24[2] = v33;
+    v33 = *(v7 + 16);
+    *(v24 + 16) = v33;
     v33[*v33 != v7] = v24;
     *v24 = v7;
-    v7[2] = v24;
+    *(v7 + 16) = v24;
     v23 = v7;
   }
 
@@ -3518,7 +3552,7 @@ LABEL_68:
     v24 = v7;
   }
 
-  v28 = v24[2];
+  v28 = *(v24 + 16);
   *(v24 + 24) = *(v28 + 24);
   *(v28 + 24) = 1;
   *(v23 + 24) = 1;
@@ -3554,36 +3588,41 @@ void sub_806BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uin
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_4_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_4_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 2u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 2u);
 }
 
 void HSMapper::New()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 void HSMapper::send()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 void HSUtil::Connection::_init()
@@ -3622,27 +3661,31 @@ void HSMapper::_messageHandler()
 
 void Message::decode()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 void LocalObject::GetType()
@@ -3661,40 +3704,46 @@ void RemoteObject::GetType()
 
 void HSMapper::_decodeObject()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 void RemoteObject::decode()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
@@ -3782,18 +3831,18 @@ void sub_825C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uin
   _Unwind_Resume(a1);
 }
 
-void sub_82638(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_82638(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = HSRecordingStage;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
-void sub_827FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_827FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   HSUtil::ObjectLock::~ObjectLock(va);
   _Unwind_Resume(a1);
 }
@@ -3805,9 +3854,9 @@ void sub_82B28(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, in
   _Unwind_Resume(a1);
 }
 
-void sub_82C0C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_82C0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   HSUtil::ObjectLock::~ObjectLock(va);
   _Unwind_Resume(a1);
 }
@@ -3855,7 +3904,7 @@ void *std::vector<std::unique_ptr<EncoderState>>::clear[abi:ne200100](void *resu
   return result;
 }
 
-uint64_t *std::vector<std::unique_ptr<EncoderState>>::push_back[abi:ne200100](uint64_t *result, uint64_t *a2)
+const void **std::vector<std::unique_ptr<EncoderState>>::push_back[abi:ne200100](const void **result, uint64_t *a2)
 {
   v3 = result;
   v5 = result[1];
@@ -3912,14 +3961,14 @@ uint64_t *std::vector<std::unique_ptr<EncoderState>>::push_back[abi:ne200100](ui
     v6 = *a2;
     *a2 = 0;
     *v5 = v6;
-    v7 = v5 + 1;
+    v7 = v5 + 8;
   }
 
   v3[1] = v7;
   return result;
 }
 
-void newEncoderState(Writable *a1)
+void newEncoderState(Writable *a2)
 {
   {
     operator new();
@@ -4133,9 +4182,9 @@ LABEL_45:
   return v4 | v5;
 }
 
-void sub_83D84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_83D84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4541,15 +4590,15 @@ void HSRecordingTypes::populateStageMap(void *a1, void *a2)
 
   if (!std::__hash_table<std::__hash_value_type<std::string,HSStage * {__strong}>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,HSStage * {__strong}>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,HSStage * {__strong}>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,HSStage * {__strong}>>>::find<std::string>(a1, __p))
   {
-    v18 = __p;
-    v6 = std::__hash_table<std::__hash_value_type<std::string,HSStage * {__strong}>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,HSStage * {__strong}>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,HSStage * {__strong}>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,HSStage * {__strong}>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1, __p);
+    v19 = __p;
+    v6 = std::__hash_table<std::__hash_value_type<std::string,HSStage * {__strong}>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,HSStage * {__strong}>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,HSStage * {__strong}>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,HSStage * {__strong}>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1, __p, &std::piecewise_construct, &v19, &v18);
     objc_storeStrong(v6 + 5, a2);
     v14 = 0u;
     v15 = 0u;
     v12 = 0u;
     v13 = 0u;
     v7 = [v4 consumers];
-    v8 = [v7 countByEnumeratingWithState:&v12 objects:v19 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v12 objects:v20 count:16];
     if (v8)
     {
       v9 = *v13;
@@ -4570,7 +4619,7 @@ void HSRecordingTypes::populateStageMap(void *a1, void *a2)
         }
 
         while (v8 != v10);
-        v8 = [v7 countByEnumeratingWithState:&v12 objects:v19 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v12 objects:v20 count:16];
       }
 
       while (v8);
@@ -4677,9 +4726,9 @@ LABEL_14:
   }
 }
 
-void sub_85330(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_85330(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::pair<std::string const,HSStage * {__strong}>::~pair(va);
   _Unwind_Resume(a1);
 }
@@ -4688,7 +4737,7 @@ uint64_t HSRecordingTypes::StateFrame::decodeFromMap(HSRecordingTypes::StateFram
 {
   if ((HSRecordingTypes::Frame::decodeFromMap(this, a2) & 1) == 0)
   {
-    basename_r("/Library/Caches/com.apple.xbs/Sources/HIDSensingPipeline/HIDSensingPipeline/HSRecordingTypes.h", v32);
+    basename_r("/Library/Caches/com.apple.xbs/Sources/HIDSensingPipeline/HIDSensingPipeline/HSRecordingTypes.h", v31);
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
       HSRecordingTypes::StateFrame::decodeFromMap();
@@ -4697,10 +4746,10 @@ uint64_t HSRecordingTypes::StateFrame::decodeFromMap(HSRecordingTypes::StateFram
     return 0;
   }
 
-  HSUtil::Decoder::decodeMap(a2, HSUtil::CoderKey::Literal<(char)115,(char)116,(char)97,(char)116,(char)101>::Key, v19);
+  HSUtil::Decoder::decodeMap(v19, a2, HSUtil::CoderKey::Literal<(char)115,(char)116,(char)97,(char)116,(char)101>::Key);
   if (*a2)
   {
-    basename_r("/Library/Caches/com.apple.xbs/Sources/HIDSensingPipeline/HIDSensingPipeline/HSRecordingTypes.h", v32);
+    basename_r("/Library/Caches/com.apple.xbs/Sources/HIDSensingPipeline/HIDSensingPipeline/HSRecordingTypes.h", v31);
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
       HSRecordingTypes::StateFrame::decodeFromMap();
@@ -4726,17 +4775,17 @@ uint64_t HSRecordingTypes::StateFrame::decodeFromMap(HSRecordingTypes::StateFram
       HSUtil::Decoder::decodeHSCodable(v19, v9);
       if (LODWORD(v19[0]))
       {
-        v10 = basename_r("/Library/Caches/com.apple.xbs/Sources/HIDSensingPipeline/HIDSensingPipeline/HSRecordingTypes.h", v32);
+        v10 = basename_r("/Library/Caches/com.apple.xbs/Sources/HIDSensingPipeline/HIDSensingPipeline/HSRecordingTypes.h", v31);
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315906;
-          v25 = "virtual BOOL HSRecordingTypes::StateFrame::decodeFromMap(Decoder &)";
-          v26 = 2080;
-          v27 = v10;
-          v28 = 2048;
-          v29 = 178;
-          v30 = 2080;
-          v31 = "submap";
+          v24 = "virtual BOOL HSRecordingTypes::StateFrame::decodeFromMap(Decoder &)";
+          v25 = 2080;
+          v26 = v10;
+          v27 = 2048;
+          v28 = 178;
+          v29 = 2080;
+          v30 = "submap";
           _os_log_error_impl(&dword_0, &_os_log_default, OS_LOG_TYPE_ERROR, "Assertion failed (%s @ %s:%ju): %s", buf, 0x2Au);
         }
 
@@ -4751,7 +4800,7 @@ uint64_t HSRecordingTypes::StateFrame::decodeFromMap(HSRecordingTypes::StateFram
 
     else
     {
-      HSUtil::Decoder::decodeElement(v19, v14);
+      HSUtil::Decoder::decodeElement(&v14, v19);
       if (v16)
       {
         std::__shared_weak_count::__release_shared[abi:ne200100](v16);
@@ -4767,17 +4816,17 @@ uint64_t HSRecordingTypes::StateFrame::decodeFromMap(HSRecordingTypes::StateFram
 
       if (LODWORD(v19[0]))
       {
-        v13 = basename_r("/Library/Caches/com.apple.xbs/Sources/HIDSensingPipeline/HIDSensingPipeline/HSRecordingTypes.h", v32);
+        v13 = basename_r("/Library/Caches/com.apple.xbs/Sources/HIDSensingPipeline/HIDSensingPipeline/HSRecordingTypes.h", v31);
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315906;
-          v25 = "virtual BOOL HSRecordingTypes::StateFrame::decodeFromMap(Decoder &)";
-          v26 = 2080;
-          v27 = v13;
-          v28 = 2048;
-          v29 = 170;
-          v30 = 2080;
-          v31 = "submap";
+          v24 = "virtual BOOL HSRecordingTypes::StateFrame::decodeFromMap(Decoder &)";
+          v25 = 2080;
+          v26 = v13;
+          v27 = 2048;
+          v28 = 170;
+          v29 = 2080;
+          v30 = "submap";
           _os_log_error_impl(&dword_0, &_os_log_default, OS_LOG_TYPE_ERROR, "Assertion failed (%s @ %s:%ju): %s", buf, 0x2Au);
         }
 
@@ -4788,7 +4837,7 @@ uint64_t HSRecordingTypes::StateFrame::decodeFromMap(HSRecordingTypes::StateFram
       {
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
-          HSRecordingTypes::StateFrame::decodeFromMap(v22, &v18, __p, &v23);
+          HSRecordingTypes::StateFrame::decodeFromMap(v22, &v18, __p, &v22[4]);
         }
 
         v11 = 3;
@@ -4816,7 +4865,7 @@ LABEL_35:
 
   if (LODWORD(v19[0]) != 3)
   {
-    basename_r("/Library/Caches/com.apple.xbs/Sources/HIDSensingPipeline/HIDSensingPipeline/HSRecordingTypes.h", v32);
+    basename_r("/Library/Caches/com.apple.xbs/Sources/HIDSensingPipeline/HIDSensingPipeline/HSRecordingTypes.h", v31);
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
       HSRecordingTypes::StateFrame::decodeFromMap();
@@ -4894,7 +4943,7 @@ uint64_t HSRecordingTypes::Frame::decodeFromMap(HSRecordingTypes::Frame *this, H
   return 1;
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,HSStage * {__strong}>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,HSStage * {__strong}>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,HSStage * {__strong}>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,HSStage * {__strong}>>>::find<std::string>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,HSStage * {__strong}>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,HSStage * {__strong}>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,HSStage * {__strong}>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,HSStage * {__strong}>>>::find<std::string>(void *a1, uint64_t *a2)
 {
   v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
   v5 = a1[1];
@@ -4963,9 +5012,9 @@ const void **std::__hash_table<std::__hash_value_type<std::string,HSStage * {__s
   return i;
 }
 
-unint64_t std::__string_hash<char>::operator()[abi:ne200100](uint64_t a1, uint64_t a2)
+unint64_t std::__string_hash<char>::operator()[abi:ne200100](uint64_t a1, uint64_t *a2)
 {
-  v2 = *(a2 + 8);
+  v2 = a2[1];
   if (*(a2 + 23) >= 0)
   {
     v3 = *(a2 + 23);
@@ -5162,35 +5211,35 @@ BOOL std::equal_to<std::string>::operator()[abi:ne200100](uint64_t a1, const voi
   return memcmp(v7, v8, v3) == 0;
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,HSStage * {__strong}>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,HSStage * {__strong}>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,HSStage * {__strong}>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,HSStage * {__strong}>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,HSStage * {__strong}>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,HSStage * {__strong}>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,HSStage * {__strong}>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,HSStage * {__strong}>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v7 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v8 = v7;
+  v9 = a1[1];
+  if (!*&v9)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v10 = vcnt_s8(v9);
+  v10.i16[0] = vaddlv_u8(v10);
+  v11 = v10.u32[0];
+  if (v10.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v12 = v7;
+    if (v7 >= *&v9)
     {
-      v9 = v4 % *&v6;
+      v12 = v7 % *&v9;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v12 = (*&v9 - 1) & v7;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v13 = *(*a1 + 8 * v12);
+  if (!v13 || (v14 = *v13) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,HSStage * {__strong}>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,HSStage * {__strong}>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,HSStage * {__strong}>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,HSStage * {__strong}>>>::__construct_node_hash<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
@@ -5198,54 +5247,54 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v15 = v14[1];
+    if (v15 == v8)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v11 > 1)
     {
-      if (v12 >= *&v6)
+      if (v15 >= *&v9)
       {
-        v12 %= *&v6;
+        v15 %= *&v9;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v15 &= *&v9 - 1;
     }
 
-    if (v12 != v9)
+    if (v15 != v12)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v14 = *v14;
+    if (!v14)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v14 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v14;
 }
 
-void sub_861C4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_861C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,HSStage * {__strong}>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,HSStage * {__strong}>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,HSStage * {__strong}>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,HSStage * {__strong}>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
+char **std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,HSStage * {__strong}>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,HSStage * {__strong}>,void *>>>>::~unique_ptr[abi:ne200100](char **a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -5434,45 +5483,45 @@ std::string *std::pair<std::string const,HSStage * {__strong}>::pair[abi:ne20010
   return this;
 }
 
-unint64_t *HSUtil::Decoder::decodeMap@<X0>(unint64_t *this@<X0>, const HSUtil::CoderKey *a2@<X1>, uint64_t a3@<X8>)
+HSUtil::Decoder *HSUtil::Decoder::decodeMap@<X0>(uint64_t *__return_ptr a1@<X8>, HSUtil::Decoder *this@<X0>, const HSUtil::CoderKey *a3@<X1>)
 {
-  if (*this >= 5 || (v4 = this, v8 = this[9], this = HSUtil::Decoder::_findKey(this, &v8, a2), *v4))
+  if (*this >= 5 || (v4 = this, v10 = *(this + 9), this = HSUtil::Decoder::_findKey(this, &v10, a3), *v4))
   {
-    *a3 = 5;
-    *(a3 + 8) = a3;
-    *(a3 + 16) = 0u;
-    *(a3 + 32) = 0u;
-    *(a3 + 48) = 0u;
-    *(a3 + 64) = 0u;
+    *a1 = 5;
+    a1[1] = a1;
+    *(a1 + 1) = 0u;
+    *(a1 + 2) = 0u;
+    *(a1 + 3) = 0u;
+    *(a1 + 4) = 0u;
   }
 
   else
   {
-    HSUtil::Decoder::_readMap(v4, &v8, v5);
+    HSUtil::Decoder::_readMap(v7, v4, &v10);
     if (*v4 == 3)
     {
       *v4 = 13;
-      *a3 = 5;
-      *(a3 + 8) = a3;
-      *(a3 + 16) = 0u;
-      *(a3 + 32) = 0u;
-      *(a3 + 48) = 0u;
-      *(a3 + 64) = 0u;
+      *a1 = 5;
+      a1[1] = a1;
+      *(a1 + 1) = 0u;
+      *(a1 + 2) = 0u;
+      *(a1 + 3) = 0u;
+      *(a1 + 4) = 0u;
     }
 
     else
     {
-      v4[9] = v8;
-      HSUtil::Decoder::Decoder(a3, v5);
+      *(v4 + 9) = v10;
+      HSUtil::Decoder::Decoder(a1, v7, v5, v6);
     }
 
-    if (v7)
+    if (v9)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v7);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v9);
     }
 
-    this = v6;
-    v6 = 0;
+    this = v8;
+    v8 = 0;
     if (this)
     {
       std::__function::__value_func<objc_object * ()(HSUtil::Decoder &,HSUtil::CoderKey const&)>::~__value_func[abi:ne200100](this);
@@ -5483,10 +5532,10 @@ unint64_t *HSUtil::Decoder::decodeMap@<X0>(unint64_t *this@<X0>, const HSUtil::C
   return this;
 }
 
-void sub_866E4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_866E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a2);
-  HSUtil::Decoder::~Decoder(va);
+  va_start(va, a5);
+  HSUtil::Decoder::~Decoder(va, a2, a3, a4);
   _Unwind_Resume(a1);
 }
 
@@ -5750,41 +5799,47 @@ uint64_t HSRecordingTypes::Frame::encode(HSRecordingTypes::Frame *this, HSUtil::
 
 void HSUtil::IOUtil::Rotate()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 void HSRecordingTypes::StateFrame::encodeToMap()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 void HSRecordingTypes::StateFrame::decodeFromMap()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 void HSRecordingTypes::StateFrame::decodeFromMap(uint8_t *buf, char *a2, void *a3, void *a4)
@@ -5806,66 +5861,76 @@ void HSRecordingTypes::StateFrame::decodeFromMap(uint8_t *buf, char *a2, void *a
 
 void HSRecordingTypes::Frame::decodeFromMap()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 void HSRecordingTypes::ConsumeFrame::decodeFromMap()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 void HSRecordingTypes::HeaderFrame::HeaderFrame()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 void HSRecordingTypes::HeaderFrame::decodeFromMap()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 void __cxx_global_var_init_55()
@@ -5924,11 +5989,11 @@ void __cxx_global_var_init_8_48(uint64_t a1, const char *a2)
   }
 }
 
-void sub_880F8(_Unwind_Exception *a1, void *a2, ...)
+void sub_880F8(_Unwind_Exception *a1, void *a2, void *a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
 
-  HSUtil::Decoder::~Decoder(va);
+  HSUtil::Decoder::~Decoder(va, v4, v5, v6);
   _Unwind_Resume(a1);
 }
 
@@ -5989,19 +6054,19 @@ id std::vector<objc_object * {__strong}>::push_back[abi:ne200100](void *a1, id *
   return result;
 }
 
-void sub_8820C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_8820C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<HIDEvent * {__strong}>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void sub_88610(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, ...)
+void sub_88610(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, std::__shared_weak_count *a5, ...)
 {
-  va_start(va, a3);
-  if (a3)
+  va_start(va, a5);
+  if (a5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a3);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a5);
   }
 
   HSUtil::ObjectLock::~ObjectLock(va);
@@ -6068,7 +6133,7 @@ void sub_88EFC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, in
   _Unwind_Resume(a1);
 }
 
-void HSUtil::IOUtil::ReadAll(Readable *this@<X0>, Readable *a2@<X1>, uint64_t a3@<X8>)
+void HSUtil::IOUtil::ReadAll(uint64_t *__return_ptr a1@<X8>, Readable *this@<X0>, Readable *a3@<X1>)
 {
   if ((*(*this + 8))(this))
   {
@@ -6077,7 +6142,7 @@ void HSUtil::IOUtil::ReadAll(Readable *this@<X0>, Readable *a2@<X1>, uint64_t a3
 
   else
   {
-    v7 = v6 >= a2;
+    v7 = v6 >= a3;
   }
 
   if (v7)
@@ -6091,22 +6156,22 @@ void HSUtil::IOUtil::ReadAll(Readable *this@<X0>, Readable *a2@<X1>, uint64_t a3
     v8[6] = 0;
     v8[7] = 0;
     v9 = 0;
-    if (HSUtil::Buffer::readFrom(v8, 0, this, a2, v6 - a2))
+    if (HSUtil::Buffer::readFrom(v8, 0, this, a3, v6 - a3))
     {
-      *a3 = &off_108FA0;
-      *(a3 + 8) = &off_108FF8;
-      *(a3 + 16) = &off_109018;
-      *(a3 + 24) = &off_109030;
-      *(a3 + 32) = off_109048;
-      *(a3 + 40) = 0;
-      *(a3 + 48) = 0;
-      *(a3 + 56) = 0;
-      *(a3 + 64) &= 0xFCu;
+      *a1 = &off_108FA0;
+      a1[1] = &off_108FF8;
+      a1[2] = &off_109018;
+      a1[3] = &off_109030;
+      a1[4] = off_109048;
+      a1[5] = 0;
+      a1[6] = 0;
+      a1[7] = 0;
+      *(a1 + 64) &= 0xFCu;
     }
 
     else
     {
-      HSUtil::Buffer::Buffer(a3, v8);
+      HSUtil::Buffer::Buffer(a1, v8);
     }
 
     HSUtil::Buffer::~Buffer(v8);
@@ -6114,59 +6179,59 @@ void HSUtil::IOUtil::ReadAll(Readable *this@<X0>, Readable *a2@<X1>, uint64_t a3
 
   else
   {
-    *a3 = &off_108FA0;
-    *(a3 + 8) = &off_108FF8;
-    *(a3 + 16) = &off_109018;
-    *(a3 + 24) = &off_109030;
-    *(a3 + 32) = off_109048;
-    *(a3 + 40) = 0;
-    *(a3 + 48) = 0;
-    *(a3 + 56) = 0;
-    *(a3 + 64) &= 0xFCu;
+    *a1 = &off_108FA0;
+    a1[1] = &off_108FF8;
+    a1[2] = &off_109018;
+    a1[3] = &off_109030;
+    a1[4] = off_109048;
+    a1[5] = 0;
+    a1[6] = 0;
+    a1[7] = 0;
+    *(a1 + 64) &= 0xFCu;
   }
 }
 
-void sub_891E0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_891E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   HSUtil::Buffer::~Buffer(va);
   _Unwind_Resume(a1);
 }
 
-void sub_894C0(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, ...)
+void sub_894C0(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, uint64_t a5, std::__shared_weak_count *a6, ...)
 {
-  va_start(va, a3);
-  HSRecordingTypes::PlaybackDecoder::~PlaybackDecoder(va);
-  if (a3)
+  va_start(va, a6);
+  HSRecordingTypes::PlaybackDecoder::~PlaybackDecoder(va, a2, a3, a4);
+  if (a6)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a3);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a6);
   }
 
   _Unwind_Resume(a1);
 }
 
-void $_0::$_1::~$_1($_0::$_1 *this)
+void $_0::$_1::~$_1($_0::$_1 *this, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = *(this + 13);
-  if (v2)
+  v5 = *(this + 13);
+  if (v5)
   {
-    *(this + 14) = v2;
-    operator delete(v2);
+    *(this + 14) = v5;
+    operator delete(v5);
   }
 
-  v3 = *(this + 12);
-  if (v3)
+  v6 = *(this + 12);
+  if (v6)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
   }
 
-  v4 = *(this + 5);
-  if (v4)
+  v7 = *(this + 5);
+  if (v7)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v4);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v7);
   }
 
-  std::unique_ptr<HSUtil::Decoder::Callbacks>::reset[abi:ne200100](this + 3, 0);
+  std::unique_ptr<HSUtil::Decoder::Callbacks>::reset[abi:ne200100](this + 3, 0, a3, a4);
 }
 
 void HSRecordingTypes::PlaybackDecoder::decodeFrame(HSRecordingTypes::PlaybackDecoder *this, const PlayFrame *a2, HSRecordingTypes::Frame *a3)
@@ -6221,51 +6286,51 @@ void Playback::Playback(Playback *this)
   Playback::resetTime(this, 0);
 }
 
-void HSRecordingTypes::PlaybackDecoder::~PlaybackDecoder(HSRecordingTypes::PlaybackDecoder *this)
+void HSRecordingTypes::PlaybackDecoder::~PlaybackDecoder(HSRecordingTypes::PlaybackDecoder *this, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = *(this + 12);
-  if (v2)
-  {
-    *(this + 13) = v2;
-    operator delete(v2);
-  }
-
-  v3 = *(this + 11);
-  if (v3)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
-  }
-
-  v4 = *(this + 4);
-  if (v4)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v4);
-  }
-
-  std::unique_ptr<HSUtil::Decoder::Callbacks>::reset[abi:ne200100](this + 2, 0);
-}
-
-void Playback::Playback(Playback *this, uint64_t *a2)
-{
-  v3 = a2[1];
-  v4 = *a2;
-  v5 = v3;
-  if (v3)
-  {
-    atomic_fetch_add_explicit(&v3->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  HSRecordingTypes::PlaybackDecoder::PlaybackDecoder(this, &v4);
+  v5 = *(this + 12);
   if (v5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
+    *(this + 13) = v5;
+    operator delete(v5);
+  }
+
+  v6 = *(this + 11);
+  if (v6)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
+  }
+
+  v7 = *(this + 4);
+  if (v7)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v7);
+  }
+
+  std::unique_ptr<HSUtil::Decoder::Callbacks>::reset[abi:ne200100](this + 2, 0, a3, a4);
+}
+
+void Playback::Playback(Playback *this, uint64_t *a2, uint64_t a3, uint64_t a4)
+{
+  v5 = a2[1];
+  v6 = *a2;
+  v7 = v5;
+  if (v5)
+  {
+    atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  HSRecordingTypes::PlaybackDecoder::PlaybackDecoder(this, &v6, a3, a4);
+  if (v7)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v7);
   }
 
   this->_nextFrame.__i_ = 0;
   Playback::resetTime(this, 0);
 }
 
-HSUtil::Decoder *HSRecordingTypes::PlaybackDecoder::PlaybackDecoder(HSUtil::Decoder *this, uint64_t a2)
+HSUtil::Decoder *HSRecordingTypes::PlaybackDecoder::PlaybackDecoder(HSUtil::Decoder *this, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   *this = 0;
   *(this + 1) = this;
@@ -6273,45 +6338,45 @@ HSUtil::Decoder *HSRecordingTypes::PlaybackDecoder::PlaybackDecoder(HSUtil::Deco
   *(this + 2) = 0u;
   *(this + 3) = 0u;
   *(this + 4) = 0u;
-  v4 = *a2;
-  *(this + 10) = v4;
-  v5 = *(a2 + 8);
-  *(this + 11) = v5;
-  if (v5)
+  v6 = *a2;
+  *(this + 10) = v6;
+  v7 = *(a2 + 8);
+  *(this + 11) = v7;
+  if (v7)
   {
-    atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
-    v4 = *(this + 10);
+    atomic_fetch_add_explicit((v7 + 8), 1uLL, memory_order_relaxed);
+    v6 = *(this + 10);
   }
 
   *(this + 12) = 0;
   *(this + 13) = 0;
   *(this + 14) = 0;
-  HSUtil::Decoder::setReadable(this, v4);
-  *v17 = off_10A618;
-  v18 = HSUtil::Decoder::DecodeObject;
-  v19 = v17;
-  HSUtil::Decoder::setCallbacks(this, v17);
-  std::__function::__value_func<objc_object * ()(HSUtil::Decoder &,HSUtil::CoderKey const&)>::~__value_func[abi:ne200100](v17);
-  v6 = 0;
-  v7 = 0;
-  for (i = 0; ; i = v10)
+  HSUtil::Decoder::setReadable(this, v6, a3, a4);
+  *v19 = off_10A618;
+  v20 = HSUtil::Decoder::DecodeObject;
+  v21 = v19;
+  HSUtil::Decoder::setCallbacks(this, v19);
+  std::__function::__value_func<objc_object * ()(HSUtil::Decoder &,HSUtil::CoderKey const&)>::~__value_func[abi:ne200100](v19);
+  v8 = 0;
+  v9 = 0;
+  for (i = 0; ; i = v12)
   {
-    v9 = *(this + 9);
-    v13 = 0;
-    v14 = 0;
+    v11 = *(this + 9);
     v15 = 0;
-    v12 = off_10A6B8;
     v16 = 0;
-    HSUtil::Decoder::decodeCodable<HSRecordingTypes::PlayFrame>(this, &v12);
+    v17 = 0;
+    v14 = off_10A6B8;
+    v18 = 0;
+    HSUtil::Decoder::decodeCodable<HSRecordingTypes::PlayFrame>(this, &v14);
     if (*this)
     {
       break;
     }
 
-    v10 = v14;
-    if (v14 < i)
+    v12 = v16;
+    if (v16 < i)
     {
-      basename_r("/Library/Caches/com.apple.xbs/Sources/HIDSensingPipeline/HIDSensingPipeline/HSRecordingTypes.h", v17);
+      basename_r("/Library/Caches/com.apple.xbs/Sources/HIDSensingPipeline/HIDSensingPipeline/HSRecordingTypes.h", v19);
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
         HSRecordingTypes::PlaybackDecoder::PlaybackDecoder();
@@ -6321,15 +6386,15 @@ HSUtil::Decoder *HSRecordingTypes::PlaybackDecoder::PlaybackDecoder(HSUtil::Deco
       return this;
     }
 
-    if ((v7 & 1) == 0)
+    if ((v9 & 1) == 0)
     {
-      v6 = v14;
+      v8 = v16;
     }
 
-    v14 -= v6;
-    v16 = v9;
-    std::vector<HSRecordingTypes::PlayFrame>::push_back[abi:ne200100](this + 12, &v12);
-    v7 = 1;
+    v16 -= v8;
+    v18 = v11;
+    std::vector<HSRecordingTypes::PlayFrame>::push_back[abi:ne200100](this + 12, &v14);
+    v9 = 1;
   }
 
   if (*this == 3)
@@ -6339,7 +6404,7 @@ HSUtil::Decoder *HSRecordingTypes::PlaybackDecoder::PlaybackDecoder(HSUtil::Deco
 
   else
   {
-    basename_r("/Library/Caches/com.apple.xbs/Sources/HIDSensingPipeline/HIDSensingPipeline/HSRecordingTypes.h", v17);
+    basename_r("/Library/Caches/com.apple.xbs/Sources/HIDSensingPipeline/HIDSensingPipeline/HSRecordingTypes.h", v19);
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
       HSRecordingTypes::PlaybackDecoder::PlaybackDecoder();
@@ -6349,22 +6414,22 @@ HSUtil::Decoder *HSRecordingTypes::PlaybackDecoder::PlaybackDecoder(HSUtil::Deco
   return this;
 }
 
-void sub_8A058(_Unwind_Exception *a1)
+void sub_8A058(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v4 = *v2;
-  if (*v2)
+  v7 = *v5;
+  if (*v5)
   {
-    *(v1 + 13) = v4;
-    operator delete(v4);
+    *(v4 + 13) = v7;
+    operator delete(v7);
   }
 
-  v5 = *(v1 + 11);
-  if (v5)
+  v8 = *(v4 + 11);
+  if (v8)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v8);
   }
 
-  HSUtil::Decoder::~Decoder(v1);
+  HSUtil::Decoder::~Decoder(v4, a2, a3, a4);
   _Unwind_Resume(a1);
 }
 
@@ -6479,7 +6544,7 @@ uint64_t HSUtil::Decoder::_readCodable<HSRecordingTypes::PlayFrame>(uint64_t a1,
 
 uint64_t HSRecordingTypes::Frame::decode(HSRecordingTypes::Frame *this, HSUtil::Decoder *a2)
 {
-  HSUtil::Decoder::decodeMap(a2, v7);
+  HSUtil::Decoder::decodeMap(v7, a2);
   if (*a2)
   {
     basename_r("/Library/Caches/com.apple.xbs/Sources/HIDSensingPipeline/HIDSensingPipeline/HSRecordingTypes.h", v10);
@@ -6522,10 +6587,10 @@ LABEL_9:
   return v4;
 }
 
-void sub_8A4D8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_8A4D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a2);
-  HSUtil::Decoder::~Decoder(va);
+  va_start(va, a5);
+  HSUtil::Decoder::~Decoder(va, a2, a3, a4);
   _Unwind_Resume(a1);
 }
 
@@ -6755,47 +6820,54 @@ HSUtil::Buffer *HSUtil::Buffer::Buffer(HSUtil::Buffer *a1, void *a2)
 
 void HSRecordingTypes::PlaybackDecoder::decodeFrame()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 void HSRecordingTypes::PlaybackDecoder::PlaybackDecoder()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 void HSRecordingTypes::Frame::decode()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 void __cxx_global_var_init_56()
@@ -6861,12 +6933,12 @@ void __cxx_global_var_init_9_21(uint64_t a1, const char *a2)
   }
 }
 
-void sub_8BB90(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, ...)
+void sub_8BB90(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, std::__shared_weak_count *a5, ...)
 {
-  va_start(va, a3);
-  if (a3)
+  va_start(va, a5);
+  if (a5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a3);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a5);
   }
 
   HSUtil::ObjectLock::~ObjectLock(va);
@@ -6883,7 +6955,7 @@ void sub_8C08C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int 
   _Unwind_Resume(exception_object);
 }
 
-void createRecordingBuffer(uint64_t a1)
+void createRecordingBuffer(unint64_t a1)
 {
   if (a1)
   {
@@ -7079,12 +7151,19 @@ void sub_8D36C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uin
   _Unwind_Resume(a1);
 }
 
+void sub_8D4DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, id location, ...)
+{
+  va_start(va, location);
+  std::__hash_table<HSStage * {__strong},HSUtil::ObjectHasher,std::equal_to<HSStage * {__strong}>,std::allocator<HSStage * {__strong}>>::~__hash_table(va);
+  _Unwind_Resume(a1);
+}
+
 void collectStages(void *a1, void *a2)
 {
   v12 = a2;
   if (!std::__hash_table<HSStage * {__strong},HSUtil::ObjectHasher,std::equal_to<HSStage * {__strong}>,std::allocator<HSStage * {__strong}>>::find<HSStage * {__strong}>(a1, &v12))
   {
-    std::__hash_table<HSStage * {__strong},HSUtil::ObjectHasher,std::equal_to<HSStage * {__strong}>,std::allocator<HSStage * {__strong}>>::__emplace_unique_key_args<HSStage * {__strong},HSStage * const {__strong}&>(a1, &v12);
+    std::__hash_table<HSStage * {__strong},HSUtil::ObjectHasher,std::equal_to<HSStage * {__strong}>,std::allocator<HSStage * {__strong}>>::__emplace_unique_key_args<HSStage * {__strong},HSStage * const {__strong}&>(a1, &v12, &v12);
     v10 = 0u;
     v11 = 0u;
     v8 = 0u;
@@ -7119,10 +7198,10 @@ void collectStages(void *a1, void *a2)
   }
 }
 
-void sub_8E5A0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_8E5A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a2);
-  HSUtil::Decoder::~Decoder(va);
+  va_start(va, a5);
+  HSUtil::Decoder::~Decoder(va, a2, a3, a4);
   _Unwind_Resume(a1);
 }
 
@@ -7302,35 +7381,35 @@ void std::__hash_table<HSStage  {objcproto15HSPreferencable}* {__weak},HSUtil::O
   }
 }
 
-id *std::__hash_table<HSStage  {objcproto15HSPreferencable}* {__weak},HSUtil::ObjectHasher,std::equal_to<HSStage  {objcproto15HSPreferencable}* {__weak}>,std::allocator<HSStage  {objcproto15HSPreferencable}* {__weak}>>::__emplace_unique_key_args<HSStage  {objcproto15HSPreferencable}* {__weak},HSStage  {objcproto15HSPreferencable}* {__weak}>(void *a1, id *location)
+id *std::__hash_table<HSStage  {objcproto15HSPreferencable}* {__weak},HSUtil::ObjectHasher,std::equal_to<HSStage  {objcproto15HSPreferencable}* {__weak}>,std::allocator<HSStage  {objcproto15HSPreferencable}* {__weak}>>::__emplace_unique_key_args<HSStage  {objcproto15HSPreferencable}* {__weak},HSStage  {objcproto15HSPreferencable}* {__weak}>(void *a1, id *location, id *a3)
 {
   WeakRetained = objc_loadWeakRetained(location);
 
-  v5 = a1[1];
-  if (!*&v5)
+  v6 = a1[1];
+  if (!*&v6)
   {
     goto LABEL_18;
   }
 
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  v7 = v6.u32[0];
-  if (v6.u32[0] > 1uLL)
+  v7 = vcnt_s8(v6);
+  v7.i16[0] = vaddlv_u8(v7);
+  v8 = v7.u32[0];
+  if (v7.u32[0] > 1uLL)
   {
-    v8 = WeakRetained;
-    if (*&v5 <= WeakRetained)
+    v9 = WeakRetained;
+    if (*&v6 <= WeakRetained)
     {
-      v8 = WeakRetained % *&v5;
+      v9 = WeakRetained % *&v6;
     }
   }
 
   else
   {
-    v8 = (*&v5 - 1) & WeakRetained;
+    v9 = (*&v6 - 1) & WeakRetained;
   }
 
-  v9 = *(*a1 + 8 * v8);
-  if (!v9 || (v10 = *v9) == 0)
+  v10 = *(*a1 + 8 * v9);
+  if (!v10 || (v11 = *v10) == 0)
   {
 LABEL_18:
     operator new();
@@ -7338,49 +7417,49 @@ LABEL_18:
 
   while (1)
   {
-    v11 = v10[1];
-    if (v11 == WeakRetained)
+    v12 = v11[1];
+    if (v12 == WeakRetained)
     {
       break;
     }
 
-    if (v7 > 1)
+    if (v8 > 1)
     {
-      if (v11 >= *&v5)
+      if (v12 >= *&v6)
       {
-        v11 %= *&v5;
+        v12 %= *&v6;
       }
     }
 
     else
     {
-      v11 &= *&v5 - 1;
+      v12 &= *&v6 - 1;
     }
 
-    if (v11 != v8)
+    if (v12 != v9)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v10 = *v10;
-    if (!v10)
+    v11 = *v11;
+    if (!v11)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<objc_object  {objcproto15HSStageObserver}* {__weak}>::operator()[abi:ne200100](a1, v10 + 2, location))
+  if (!std::equal_to<objc_object  {objcproto15HSStageObserver}* {__weak}>::operator()[abi:ne200100](a1, v11 + 2, location))
   {
     goto LABEL_17;
   }
 
-  return v10;
+  return v11;
 }
 
-void sub_8EB14(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_8EB14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<objc_object  {objcproto15HSStageObserver}* {__weak},void *>,std::__hash_node_destructor<std::allocator<void *>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -7448,10 +7527,10 @@ void __cxx_global_var_init_58(uint64_t a1, const char *a2)
   }
 }
 
-void sub_8F340(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_8F340(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a2);
-  HSUtil::Decoder::~Decoder(va);
+  va_start(va, a5);
+  HSUtil::Decoder::~Decoder(va, a2, a3, a4);
   _Unwind_Resume(a1);
 }
 
@@ -7518,27 +7597,28 @@ void __destroy_helper_block_ea8_40c30_ZTSNSt3__18weak_ptrI6ClientEE(uint64_t a1)
   }
 }
 
-void sub_90428(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_90428(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va1, a3);
-  va_start(va, a3);
-  v5 = va_arg(va1, void);
+  va_start(va1, a5);
+  va_start(va, a5);
   v7 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
-  std::mutex::unlock((v3 + 32));
+  v9 = va_arg(va1, void);
+  v10 = va_arg(va1, void);
+  std::mutex::unlock((v5 + 32));
   HSUtil::FileDescriptor::~FileDescriptor(va);
   HSUtil::FileDescriptor::~FileDescriptor(va1);
   _Unwind_Resume(a1);
 }
 
-void sub_907B4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, std::__shared_weak_count *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22)
+void sub_907B4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, std::__shared_weak_count *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
+  va_start(va, a21);
   if (a12)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](a12);
   }
 
-  HSUtil::DecoderBuf::~DecoderBuf(&a22);
+  HSUtil::DecoderBuf::~DecoderBuf(va);
   if (a2 == 1)
   {
     __cxa_begin_catch(a1);
@@ -7547,15 +7627,15 @@ void sub_907B4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t
       [HSServiceDirectory _handleDataFromClient:];
     }
 
-    v26 = v23[1];
-    a9 = *v23;
-    a10 = v26;
-    if (v26)
+    v25 = v22[1];
+    a9 = *v22;
+    a10 = v25;
+    if (v25)
     {
-      atomic_fetch_add_explicit(&v26->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v25->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    [v22 _removeClient:&a9];
+    [v21 _removeClient:&a9];
     if (a10)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](a10);
@@ -7565,7 +7645,7 @@ void sub_907B4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t
     JUMPOUT(0x906B4);
   }
 
-  std::mutex::unlock((v22 + 32));
+  std::mutex::unlock((v21 + 32));
   _Unwind_Resume(a1);
 }
 
@@ -7602,11 +7682,11 @@ uint64_t HSUtil::Buffer::slice<HSUtil::Buffer::RefType>@<X0>(uint64_t result@<X0
   return result;
 }
 
-void sub_90EC4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void *a31)
+void sub_90EC4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void *a31)
 {
   __cxa_free_exception(v32);
 
-  HSUtil::Decoder::~Decoder(&a19);
+  HSUtil::Decoder::~Decoder(&a19, v34, v35, v36);
   _Unwind_Resume(a1);
 }
 
@@ -7733,12 +7813,14 @@ void __destroy_helper_block_ea8_48c33_ZTSNSt3__110shared_ptrI6ClientEE(uint64_t 
   }
 }
 
-void sub_91B48(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39)
+void sub_91B48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, ...)
 {
-  HSUtil::Decoder::~Decoder(&a9);
+  va_start(va, a38);
+  v39 = a2;
+  HSUtil::Decoder::~Decoder(&a9, a2, a3, a4);
   HSUtil::DecoderBuf::~DecoderBuf(&a19);
-  HSUtil::EncoderBuf::~EncoderBuf(&a39);
-  if (a2 == 1)
+  HSUtil::EncoderBuf::~EncoderBuf(va);
+  if (v39 == 1)
   {
     __cxa_begin_catch(a1);
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
@@ -7746,11 +7828,11 @@ void sub_91B48(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t
       [HSServiceDirectoryClient services];
     }
 
-    v42 = *(v39 + 24);
-    if ((v42 & 0x80000000) == 0)
+    v41 = *(v38 + 24);
+    if ((v41 & 0x80000000) == 0)
     {
-      close(v42);
-      *(v39 + 24) = -1;
+      close(v41);
+      *(v38 + 24) = -1;
     }
 
     __cxa_end_catch();
@@ -7795,9 +7877,9 @@ void std::__tree<std::__value_type<NSString * {__strong},objc_object  {objcproto
   }
 }
 
-uint64_t std::__tree<std::__value_type<NSString * {__strong},objc_object  {objcproto22HSServiceDirectoryable}* {__weak}>,std::__map_value_compare<NSString * {__strong},objc_object  {objcproto22HSServiceDirectoryable}* {__weak},HSUtil::ObjectLess<NSString>,true>,std::allocator<objc_object  {objcproto22HSServiceDirectoryable}* {__weak}>>::__emplace_unique_key_args<NSString * {__strong},std::pair<NSString * const {__strong},objc_object  {objcproto22HSServiceDirectoryable}*>>(uint64_t a1, id *a2)
+void *std::__tree<std::__value_type<NSString * {__strong},objc_object  {objcproto22HSServiceDirectoryable}* {__weak}>,std::__map_value_compare<NSString * {__strong},objc_object  {objcproto22HSServiceDirectoryable}* {__weak},HSUtil::ObjectLess<NSString>,true>,std::allocator<objc_object  {objcproto22HSServiceDirectoryable}* {__weak}>>::__emplace_unique_key_args<NSString * {__strong},std::pair<NSString * const {__strong},objc_object  {objcproto22HSServiceDirectoryable}*>>(uint64_t **a1, id *a2, uint64_t a3)
 {
-  result = *std::__tree<std::__value_type<NSString * {__strong},objc_object  {objcproto22HSServiceDirectoryable}* {__weak}>,std::__map_value_compare<NSString * {__strong},objc_object  {objcproto22HSServiceDirectoryable}* {__weak},HSUtil::ObjectLess<NSString>,true>,std::allocator<objc_object  {objcproto22HSServiceDirectoryable}* {__weak}>>::__find_equal<NSString * {__strong}>(a1, &v3, a2);
+  result = *std::__tree<std::__value_type<NSString * {__strong},objc_object  {objcproto22HSServiceDirectoryable}* {__weak}>,std::__map_value_compare<NSString * {__strong},objc_object  {objcproto22HSServiceDirectoryable}* {__weak},HSUtil::ObjectLess<NSString>,true>,std::allocator<objc_object  {objcproto22HSServiceDirectoryable}* {__weak}>>::__find_equal<NSString * {__strong}>(a1, &v4, a2);
   if (!result)
   {
     std::__tree<std::__value_type<NSString * {__strong},objc_object  {objcproto22HSServiceDirectoryable}* {__weak}>,std::__map_value_compare<NSString * {__strong},objc_object  {objcproto22HSServiceDirectoryable}* {__weak},HSUtil::ObjectLess<NSString>,true>,std::allocator<objc_object  {objcproto22HSServiceDirectoryable}* {__weak}>>::__construct_node<std::pair<NSString * const {__strong},objc_object  {objcproto22HSServiceDirectoryable}*>>();
@@ -7921,41 +8003,41 @@ void std::__shared_ptr_emplace<Client>::__on_zero_shared_impl[abi:ne200100]<std:
   HSUtil::FileDescriptor::~FileDescriptor((a1 + 3));
 }
 
-uint64_t *std::__tree<std::__value_type<int,std::shared_ptr<Client>>,std::__map_value_compare<int,std::__value_type<int,std::shared_ptr<Client>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::shared_ptr<Client>>>>::__emplace_unique_key_args<int,std::pair<int const,std::shared_ptr<Client>>>(uint64_t a1, int *a2)
+uint64_t *std::__tree<std::__value_type<int,std::shared_ptr<Client>>,std::__map_value_compare<int,std::__value_type<int,std::shared_ptr<Client>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::shared_ptr<Client>>>>::__emplace_unique_key_args<int,std::pair<int const,std::shared_ptr<Client>>>(uint64_t a1, int *a2, uint64_t a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = *(v3 + 32);
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
@@ -8005,10 +8087,11 @@ uint64_t *std::__tree<std::__value_type<int,std::shared_ptr<Client>>,std::__map_
   return v3;
 }
 
-void OUTLINED_FUNCTION_4_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_4_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void __cxx_global_var_init_60()
@@ -8071,8 +8154,7 @@ __n128 __Block_byref_object_copy__1(__n128 *a1, __n128 *a2)
 {
   result = a2[3];
   a1[3] = result;
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   return result;
 }
 
@@ -8085,21 +8167,21 @@ void __Block_byref_object_dispose__1(uint64_t a1)
   }
 }
 
-void sub_93CE8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_93CE8(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = HSMachPortListener;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
-void sub_94074(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_94074(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va1, a5);
-  va_start(va, a5);
-  v7 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
+  va_start(va1, a9);
+  va_start(va, a9);
+  v11 = va_arg(va1, void);
+  v13 = va_arg(va1, void);
   HSUtil::SendRight::~SendRight(va);
 
   HSUtil::SendRight::~SendRight(va1);
@@ -8169,9 +8251,10 @@ void std::__shared_ptr_emplace<HSUtil::ReceiveRight>::~__shared_ptr_emplace(std:
 
 void HSUtil::ReceiveRight::ReceiveRight()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 void __cxx_global_var_init_61()
@@ -8234,8 +8317,7 @@ __n128 __Block_byref_object_copy__2(__n128 *a1, __n128 *a2)
 {
   result = a2[3];
   a1[3] = result;
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   return result;
 }
 
@@ -8248,18 +8330,18 @@ void __Block_byref_object_dispose__2(uint64_t a1)
   }
 }
 
-void sub_953D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_953D4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = HSSocketListener;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
-void sub_955BC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_955BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   HSUtil::FileDescriptor::~FileDescriptor(va);
   _Unwind_Resume(a1);
 }
@@ -8320,21 +8402,21 @@ void __cxx_global_var_init_8_54(uint64_t a1, const char *a2)
   }
 }
 
-void HSUtil::CreateServerSocket(HSUtil *this@<X0>, const char *a2@<X1>, uint64_t a3@<X8>)
+void HSUtil::CreateServerSocket(uint64_t *__return_ptr a1@<X8>, HSUtil *this@<X0>, const char *a3@<X1>)
 {
   if (!this)
   {
     HSUtil::CreateServerSocket();
   }
 
-  if (!a2)
+  if (!a3)
   {
     HSUtil::CreateServerSocket();
   }
 
   *&v12.sa_len = 512;
   *&v12.sa_data[6] = 0;
-  *v12.sa_data = __rev16(a2);
+  *v12.sa_data = __rev16(a3);
   if (inet_pton(2, this, &v12.sa_data[2]) != 1)
   {
     basename_r("/Library/Caches/com.apple.xbs/Sources/HIDSensingPipeline/HIDSensingUtil/HSSocket.mm", v11);
@@ -8356,9 +8438,9 @@ void HSUtil::CreateServerSocket(HSUtil *this@<X0>, const char *a2@<X1>, uint64_t
     }
 
 LABEL_12:
-    *a3 = &off_1093A0;
-    *(a3 + 8) = &off_1093D0;
-    *(a3 + 16) = -1;
+    *a1 = &off_1093A0;
+    a1[1] = &off_1093D0;
+    *(a1 + 4) = -1;
     return;
   }
 
@@ -8393,9 +8475,9 @@ LABEL_12:
       v7 = HSUtil::FileDescriptor::fd(v9);
       if (!listen(v7, 20))
       {
-        *a3 = &off_1093A0;
-        *(a3 + 8) = &off_1093D0;
-        *(a3 + 16) = v10;
+        *a1 = &off_1093A0;
+        a1[1] = &off_1093D0;
+        *(a1 + 4) = v10;
         v10 = -1;
         goto LABEL_20;
       }
@@ -8408,35 +8490,35 @@ LABEL_12:
     }
   }
 
-  *a3 = &off_1093A0;
-  *(a3 + 8) = &off_1093D0;
-  *(a3 + 16) = -1;
+  *a1 = &off_1093A0;
+  a1[1] = &off_1093D0;
+  *(a1 + 4) = -1;
 LABEL_20:
   HSUtil::FileDescriptor::~FileDescriptor(v9);
 }
 
-void sub_95D88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_95D88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   HSUtil::FileDescriptor::~FileDescriptor(va);
   _Unwind_Resume(a1);
 }
 
-void HSUtil::CreateClientSocket(HSUtil *this@<X0>, const char *a2@<X1>, uint64_t a3@<X8>)
+void HSUtil::CreateClientSocket(uint64_t *__return_ptr a1@<X8>, HSUtil *this@<X0>, const char *a3@<X1>)
 {
   if (!this)
   {
     HSUtil::CreateClientSocket();
   }
 
-  if (!a2)
+  if (!a3)
   {
     HSUtil::CreateClientSocket();
   }
 
   *&v11.sa_len = 512;
   *&v11.sa_data[6] = 0;
-  *v11.sa_data = __rev16(a2);
+  *v11.sa_data = __rev16(a3);
   if (inet_pton(2, this, &v11.sa_data[2]) != 1)
   {
     basename_r("/Library/Caches/com.apple.xbs/Sources/HIDSensingPipeline/HIDSensingUtil/HSSocket.mm", v10);
@@ -8458,9 +8540,9 @@ void HSUtil::CreateClientSocket(HSUtil *this@<X0>, const char *a2@<X1>, uint64_t
     }
 
 LABEL_19:
-    *a3 = &off_1093A0;
-    *(a3 + 8) = &off_1093D0;
-    *(a3 + 16) = -1;
+    *a1 = &off_1093A0;
+    a1[1] = &off_1093D0;
+    *(a1 + 4) = -1;
     return;
   }
 
@@ -8486,9 +8568,9 @@ LABEL_19:
 
   if (!v7)
   {
-    *a3 = &off_1093A0;
-    *(a3 + 8) = &off_1093D0;
-    *(a3 + 16) = v9;
+    *a1 = &off_1093A0;
+    a1[1] = &off_1093D0;
+    *(a1 + 4) = v9;
     v9 = -1;
     goto LABEL_16;
   }
@@ -8500,16 +8582,16 @@ LABEL_13:
     HSUtil::CreateClientSocket();
   }
 
-  *a3 = &off_1093A0;
-  *(a3 + 8) = &off_1093D0;
-  *(a3 + 16) = -1;
+  *a1 = &off_1093A0;
+  a1[1] = &off_1093D0;
+  *(a1 + 4) = -1;
 LABEL_16:
   HSUtil::FileDescriptor::~FileDescriptor(v8);
 }
 
-void sub_96078(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_96078(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   HSUtil::FileDescriptor::~FileDescriptor(va);
   _Unwind_Resume(a1);
 }
@@ -8651,33 +8733,38 @@ BOOL HSUtil::ConfigureSocket(HSUtil::FileDescriptor *a1, unsigned __int8 *a2)
 
 void HSUtil::CreateServerSocket()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
@@ -8690,21 +8777,24 @@ void HSUtil::CreateServerSocket()
 
 void HSUtil::CreateClientSocket()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
@@ -8717,38 +8807,43 @@ void HSUtil::CreateClientSocket()
 
 void HSUtil::ConfigureSocket()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 void *HSUtil::CoderKey::keyState(HSUtil::CoderKey *this)
 {
-  if ((atomic_load_explicit(&_MergedGlobals, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(_MergedGlobals, memory_order_acquire) & 1) == 0)
   {
     HSUtil::CoderKey::keyState();
   }
@@ -8794,7 +8889,7 @@ uint64_t std::__hash_table<std::__hash_value_type<char const*,HSUtil::CoderKey c
 
 void HSUtil::CoderKey::keyState()
 {
-  if (__cxa_guard_acquire(&_MergedGlobals))
+  if (__cxa_guard_acquire(_MergedGlobals))
   {
     qword_1225D0 = 0;
     xmmword_1225B0 = 0u;
@@ -8803,7 +8898,7 @@ void HSUtil::CoderKey::keyState()
     dword_1225D8 = 1065353216;
     __cxa_atexit(HSUtil::CoderKey::KeyState::~KeyState, &unk_122598, &dword_0);
 
-    __cxa_guard_release(&_MergedGlobals);
+    __cxa_guard_release(_MergedGlobals);
   }
 }
 
@@ -8859,23 +8954,23 @@ void sub_97294(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, in
   _Unwind_Resume(a1);
 }
 
-void sub_974B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_974B0(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = HSTServerStage;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
-void sub_978BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, uint64_t a13, uint64_t a14, id a15)
+void sub_978BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id a15)
 {
   HSUtil::FileDescriptor::~FileDescriptor(&a9);
   if (a2 == 1)
   {
     v20 = __cxa_begin_catch(a1);
-    v21 = MTLoggingPlugin();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v22 = MTLoggingPlugin(v20, v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       [HSTServerStage setPreferenceValue:v20 forKey:?];
     }
@@ -8890,9 +8985,9 @@ void sub_978BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, in
   _Unwind_Resume(a1);
 }
 
-void HSAccessProvider::CreateServerSocket(HSAccessProvider *this@<X0>, NSString *a2@<X1>, uint64_t a3@<X8>)
+void HSAccessProvider::CreateServerSocket(uint64_t *__return_ptr a1@<X8>, HSAccessProvider *this@<X0>, NSString *a3@<X1>)
 {
-  v3 = a2;
+  v3 = a3;
   v14 = this;
   if (!v14)
   {
@@ -8924,9 +9019,9 @@ void HSAccessProvider::CreateServerSocket(HSAccessProvider *this@<X0>, NSString 
     std::runtime_error::runtime_error(v13, "xpc_dictionary_dup_fd failed");
   }
 
-  *a3 = &off_1093A0;
-  *(a3 + 8) = &off_1093D0;
-  *(a3 + 16) = v9;
+  *a1 = &off_1093A0;
+  a1[1] = &off_1093D0;
+  *(a1 + 4) = v9;
 }
 
 HSUtil::Encoder *HSUtil::Encoder::encodeString(HSUtil::Encoder *this, const HSUtil::CoderKey *a2, const char *a3)
@@ -8958,10 +9053,11 @@ uint64_t HSUtil::SendRight::SendRight(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-void OUTLINED_FUNCTION_3_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_3_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void __cxx_global_var_init_64()
@@ -9027,20 +9123,20 @@ void __cxx_global_var_init_9_22(uint64_t a1, const char *a2)
   }
 }
 
-void std::vector<HSTPipeline::Contact>::resize(void *a1, unint64_t a2)
+void std::vector<HSTPipeline::Contact>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 6;
+  v2 = (result[1] - *result) >> 6;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + (a2 << 6);
+      result[1] = *result + (a2 << 6);
     }
   }
 
   else
   {
-    std::vector<HSTPipeline::Contact>::__append(a1, a2 - v2);
+    std::vector<HSTPipeline::Contact>::__append(result, a2 - v2);
   }
 }
 
@@ -9074,7 +9170,7 @@ _BYTE *HSTFrameParserTypes::ReportCast<HSTPipeline::FirmwareInterface::InputRepo
   return v2;
 }
 
-HSUtil::Encoder *HSUtil::Encoder::encodeCodable<HSTPipeline::SurfaceCoordinates>(HSUtil::Encoder *result, const HSUtil::CoderKey *a2, HSTPipeline::SurfaceCoordinates *a3)
+uint64_t HSUtil::Encoder::encodeCodable<HSTPipeline::SurfaceCoordinates>(uint64_t result, const HSUtil::CoderKey *a2, HSTPipeline::SurfaceCoordinates *a3)
 {
   if (!*result)
   {
@@ -9093,7 +9189,7 @@ HSUtil::Encoder *HSUtil::Encoder::encodeCodable<HSTPipeline::SurfaceCoordinates>
   return result;
 }
 
-HSUtil::Encoder *HSUtil::Encoder::encodeCodable<HSTPipeline::SensorSize>(HSUtil::Encoder *result, const HSUtil::CoderKey *a2, HSTPipeline::SensorSize *a3)
+uint64_t HSUtil::Encoder::encodeCodable<HSTPipeline::SensorSize>(uint64_t result, const HSUtil::CoderKey *a2, HSTPipeline::SensorSize *a3)
 {
   if (!*result)
   {
@@ -9131,7 +9227,7 @@ HSUtil::Decoder *HSUtil::Decoder::decodeCodable<HSTPipeline::SurfaceCoordinates>
 
       else
       {
-        *(v6 + 72) = v7[0];
+        *(v6 + 9) = v7[0];
       }
     }
   }
@@ -9158,7 +9254,7 @@ HSUtil::Decoder *HSUtil::Decoder::decodeCodable<HSTPipeline::SensorSize>(HSUtil:
 
       else
       {
-        *(v6 + 72) = v7[0];
+        *(v6 + 9) = v7[0];
       }
     }
   }
@@ -9239,7 +9335,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<HSTPipeline::Contact>
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void *std::vector<HSTPipeline::Contact>::__assign_with_size[abi:ne200100]<HSTPipeline::Contact*,HSTPipeline::Contact*>(void *result, char *__src, char *a3, unint64_t a4)
+void **std::vector<HSTPipeline::Contact>::__assign_with_size[abi:ne200100]<HSTPipeline::Contact*,HSTPipeline::Contact*>(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -9314,7 +9410,7 @@ void *std::vector<HSTPipeline::Contact>::__assign_with_size[abi:ne200100]<HSTPip
   return result;
 }
 
-void std::vector<HSTPipeline::Contact>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<HSTPipeline::Contact>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 58))
   {
@@ -9499,25 +9595,23 @@ void __cxx_global_var_init_17_13(uint64_t a1, const char *a2)
   }
 }
 
-void sub_9CF44(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_9CF44(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = HSTPencilVirtualService;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
 __n128 __Block_byref_object_copy__3(__n128 *a1, __n128 *a2)
 {
-  a1[3].n128_u64[0] = 0;
-  a1[3].n128_u64[1] = 0;
+  a1[3] = 0uLL;
   a1[4].n128_u64[0] = 0;
   result = a2[3];
   a1[3] = result;
   a1[4].n128_u64[0] = a2[4].n128_u64[0];
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   a2[4].n128_u64[0] = 0;
   return result;
 }
@@ -9554,89 +9648,5 @@ void __cxx_global_var_init_5_56(uint64_t a1, const char *a2)
 {
   {
     HSUtil::CoderKey::Literal<(char)118,(char)101,(char)114,(char)115,(char)105,(char)111,(char)110>::Key = HSUtil::CoderKey::New("version", a2);
-  }
-}
-
-void __cxx_global_var_init_6_56(uint64_t a1, const char *a2)
-{
-  {
-    HSUtil::CoderKey::Literal<(char)117,(char)116,(char)99,(char)79,(char)102,(char)102,(char)115,(char)101,(char)116>::Key = HSUtil::CoderKey::New("utcOffset", a2);
-  }
-}
-
-void __cxx_global_var_init_7_56(uint64_t a1, const char *a2)
-{
-  {
-    HSUtil::CoderKey::Literal<(char)115,(char)116,(char)97,(char)116,(char)101>::Key = HSUtil::CoderKey::New("state", a2);
-  }
-}
-
-void __cxx_global_var_init_8_57(uint64_t a1, const char *a2)
-{
-  {
-    HSUtil::CoderKey::Literal<(char)100,(char)97,(char)116,(char)97>::Key = HSUtil::CoderKey::New("data", a2);
-  }
-}
-
-void __cxx_global_var_init_15_14(uint64_t a1, const char *a2)
-{
-  {
-    HSUtil::CoderKey::Literal<(char)118,(char)101,(char)110,(char)100,(char)111,(char)114,(char)73,(char)68>::Key = HSUtil::CoderKey::New("vendorID", a2);
-  }
-}
-
-void __cxx_global_var_init_16_14(uint64_t a1, const char *a2)
-{
-  {
-    HSUtil::CoderKey::Literal<(char)112,(char)114,(char)111,(char)100,(char)117,(char)99,(char)116,(char)73,(char)68>::Key = HSUtil::CoderKey::New("productID", a2);
-  }
-}
-
-void __cxx_global_var_init_17_14(uint64_t a1, const char *a2)
-{
-  {
-    HSUtil::CoderKey::Literal<(char)111,(char)119,(char)110,(char)101,(char)114,(char)82,(char)101,(char)103,(char)105,(char)115,(char)116,(char)114,(char)121,(char)73,(char)68>::Key = HSUtil::CoderKey::New("ownerRegistryID", a2);
-  }
-}
-
-void __cxx_global_var_init_18_17(uint64_t a1, const char *a2)
-{
-  {
-    HSUtil::CoderKey::Literal<(char)109,(char)105,(char)110,(char)70,(char)111,(char)114,(char)99,(char)101>::Key = HSUtil::CoderKey::New("minForce", a2);
-  }
-}
-
-void __cxx_global_var_init_19_16(uint64_t a1, const char *a2)
-{
-  {
-    HSUtil::CoderKey::Literal<(char)97,(char)99,(char)99,(char)117,(char)114,(char)97,(char)116,(char)101,(char)77,(char)97,(char)120,(char)70,(char)111,(char)114,(char)99,(char)101>::Key = HSUtil::CoderKey::New("accurateMaxForce", a2);
-  }
-}
-
-void __cxx_global_var_init_20_13(uint64_t a1, const char *a2)
-{
-  {
-    HSUtil::CoderKey::Literal<(char)101,(char)120,(char)116,(char)101,(char)110,(char)100,(char)101,(char)100,(char)77,(char)97,(char)120,(char)70,(char)111,(char)114,(char)99,(char)101>::Key = HSUtil::CoderKey::New("extendedMaxForce", a2);
-  }
-}
-
-void __cxx_global_var_init_21_14(uint64_t a1, const char *a2)
-{
-  {
-    HSUtil::CoderKey::Literal<(char)109,(char)97,(char)120,(char)72,(char)111,(char)118,(char)101,(char)114,(char)72,(char)101,(char)105,(char)103,(char)104,(char)116>::Key = HSUtil::CoderKey::New("maxHoverHeight", a2);
-  }
-}
-
-void __cxx_global_var_init_22_14(uint64_t a1, const char *a2)
-{
-  {
-    HSUtil::CoderKey::Literal<(char)104,(char)111,(char)118,(char)101,(char)114,(char)68,(char)105,(char)115,(char)97,(char)98,(char)108,(char)101,(char)100>::Key = HSUtil::CoderKey::New("hoverDisabled", a2);
-  }
-}
-
-void __cxx_global_var_init_23_15(uint64_t a1, const char *a2)
-{
-  {
-    HSUtil::CoderKey::Literal<(char)119,(char)105,(char)100,(char)116,(char)104,(char)77,(char)109>::Key = HSUtil::CoderKey::New("widthMm", a2);
   }
 }

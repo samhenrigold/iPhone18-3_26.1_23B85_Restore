@@ -14,21 +14,22 @@
 
 - (void)viewDidLoad
 {
-  v3.receiver = self;
-  v3.super_class = type metadata accessor for CatalogModalityDetailViewController();
-  v2 = v3.receiver;
-  [(CatalogModalityDetailViewController *)&v3 viewDidLoad];
+  v5.receiver = self;
+  v5.super_class = type metadata accessor for CatalogModalityDetailViewController();
+  v2 = v5.receiver;
+  [(CatalogModalityDetailViewController *)&v5 viewDidLoad];
   sub_20BE80904();
-  sub_20BF9CA20();
+  sub_20BF9CA20(v3);
   sub_20B795A2C(0);
-  sub_20BAD5F7C();
-  sub_20BEFFAB4();
+  v4.n128_f64[0] = sub_20BAD5F7C();
+  sub_20BEFFAB4(v4);
 }
 
 - (void)viewWillAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_20BF9C00C(appear);
+  sub_20BF9C00C(appearCopy);
 }
 
 - (void)viewIsAppearing:(BOOL)appearing
@@ -61,8 +62,8 @@
   v7.super_class = type metadata accessor for CatalogModalityDetailViewController();
   v4 = v7.receiver;
   [(CatalogModalityDetailViewController *)&v7 viewDidDisappear:disappearCopy];
-  sub_20BF9D804(&qword_27C7711B8, v5, type metadata accessor for CatalogModalityDetailViewController);
-  sub_20BF9D804(&qword_27C7711C0, v6, type metadata accessor for CatalogModalityDetailViewController);
+  sub_20BF9D804(&qword_27C7711B8, v5, type metadata accessor for CatalogModalityDetailViewController, &unk_20C187098);
+  sub_20BF9D804(&qword_27C7711C0, v6, type metadata accessor for CatalogModalityDetailViewController, &unk_20C187010);
   sub_20C139374();
 }
 
@@ -91,7 +92,7 @@
 
   sub_20BF9A1E4(sub_20BF9E48C, v5);
 
-  __swift_destroy_boxed_opaque_existential_1(&v6);
+  __swift_destroy_boxed_opaque_existential_1(v6);
 }
 
 - (_TtC9SeymourUI35CatalogModalityDetailViewController)initWithNibName:(id)name bundle:(id)bundle

@@ -6,6 +6,7 @@
 - (id)getIBLMState:(id)state;
 - (id)specifiers;
 - (void)_lowPowerModeChangedNotification:(id)notification;
+- (void)animateSwitchSpecifier:(id)specifier toState:(BOOL)state;
 - (void)dealloc;
 - (void)setBatterySaverMode:(id)mode withSpecifier:(id)specifier;
 - (void)setIBLMNotificationsState:(id)state withSpecifier:(id)specifier;
@@ -61,7 +62,7 @@
 
 - (id)specifiers
 {
-  v3 = BUILogCommon();
+  v3 = BUILogCommon(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_114784(v3);
@@ -76,64 +77,64 @@
     v8 = +[UIDevice currentDevice];
     sf_inRetailKioskMode = [v8 sf_inRetailKioskMode];
 
-    v10 = BUILogCommon();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v11 = BUILogCommon(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      sub_1147C8(v10);
+      sub_1147C8(v11);
     }
 
     if (+[_OSIBLMState isIBLMSupported])
     {
-      v27 = [PSSpecifier groupSpecifierWithID:0];
-      v29 = v7;
+      v28 = [PSSpecifier groupSpecifierWithID:0];
+      v30 = v7;
       BatteryUILocalization(@"IBLM_TITLE");
-      v11 = v28 = sf_inRetailKioskMode;
-      v12 = [PSSpecifier preferenceSpecifierNamed:v11 target:self set:"setIBLMState:withSpecifier:" get:"getIBLMState:" detail:0 cell:6 edit:0];
+      v12 = v29 = sf_inRetailKioskMode;
+      v13 = [PSSpecifier preferenceSpecifierNamed:v12 target:self set:"setIBLMState:withSpecifier:" get:"getIBLMState:" detail:0 cell:6 edit:0];
 
-      [v12 setIdentifier:@"IBLM_CELL_IDENTIFIER"];
-      v13 = objc_opt_class();
-      v14 = PSCellClassKey;
-      [v12 setObject:v13 forKeyedSubscript:PSCellClassKey];
-      v15 = [NSNumber numberWithDouble:UITableViewAutomaticDimension];
-      v16 = PSTableCellHeightKey;
-      [v12 setObject:v15 forKeyedSubscript:PSTableCellHeightKey];
+      [v13 setIdentifier:@"IBLM_CELL_IDENTIFIER"];
+      v14 = objc_opt_class();
+      v15 = PSCellClassKey;
+      [v13 setObject:v14 forKeyedSubscript:PSCellClassKey];
+      v16 = [NSNumber numberWithDouble:UITableViewAutomaticDimension];
+      v17 = PSTableCellHeightKey;
+      [v13 setObject:v16 forKeyedSubscript:PSTableCellHeightKey];
 
-      v17 = BatteryUILocalization(@"IBLM_FOOTER_TEXT");
-      [v27 setProperty:v17 forKey:PSFooterTextGroupKey];
+      v18 = BatteryUILocalization(@"IBLM_FOOTER_TEXT");
+      [v28 setProperty:v18 forKey:PSFooterTextGroupKey];
 
-      v18 = BatteryUILocalization(@"IBLM_NOTIFICATIONS_TITLE");
-      v19 = [PSSpecifier preferenceSpecifierNamed:v18 target:self set:"setIBLMNotificationsState:withSpecifier:" get:"getIBLMNotificationsState:" detail:0 cell:6 edit:0];
+      v19 = BatteryUILocalization(@"IBLM_NOTIFICATIONS_TITLE");
+      v20 = [PSSpecifier preferenceSpecifierNamed:v19 target:self set:"setIBLMNotificationsState:withSpecifier:" get:"getIBLMNotificationsState:" detail:0 cell:6 edit:0];
 
-      [v19 setIdentifier:@"IBLM_NOTIFICATIONS_IDENTIFIER"];
-      [v19 setObject:objc_opt_class() forKeyedSubscript:v14];
-      v20 = [NSNumber numberWithDouble:UITableViewAutomaticDimension];
-      [v19 setObject:v20 forKeyedSubscript:v16];
+      [v20 setIdentifier:@"IBLM_NOTIFICATIONS_IDENTIFIER"];
+      [v20 setObject:objc_opt_class() forKeyedSubscript:v15];
+      v21 = [NSNumber numberWithDouble:UITableViewAutomaticDimension];
+      [v20 setObject:v21 forKeyedSubscript:v17];
 
-      sf_inRetailKioskMode = v28;
-      [v6 addObject:v27];
-      [v6 addObject:v12];
-      [v6 addObject:v19];
+      sf_inRetailKioskMode = v29;
+      [v6 addObject:v28];
+      [v6 addObject:v13];
+      [v6 addObject:v20];
 
-      v7 = v29;
+      v7 = v30;
     }
 
     if (!(sf_inRetailKioskMode & 1 | ((+[PLModelingUtilities isLowPowerModeSupported]& 1) == 0)))
     {
-      v21 = BatteryUILocalization(@"BATTERY_SAVER_MODE");
-      v22 = [PSSpecifier preferenceSpecifierNamed:v21 target:self set:"setBatterySaverMode:withSpecifier:" get:"getBatterySaverMode:" detail:0 cell:6 edit:0];
+      v22 = BatteryUILocalization(@"BATTERY_SAVER_MODE");
+      v23 = [PSSpecifier preferenceSpecifierNamed:v22 target:self set:"setBatterySaverMode:withSpecifier:" get:"getBatterySaverMode:" detail:0 cell:6 edit:0];
 
-      [v22 setIdentifier:@"LOW_POWER_MODE_IDENTIFIER"];
-      [v22 setObject:objc_opt_class() forKeyedSubscript:PSCellClassKey];
-      v23 = [NSNumber numberWithDouble:UITableViewAutomaticDimension];
-      [v22 setObject:v23 forKeyedSubscript:PSTableCellHeightKey];
+      [v23 setIdentifier:@"LOW_POWER_MODE_IDENTIFIER"];
+      [v23 setObject:objc_opt_class() forKeyedSubscript:PSCellClassKey];
+      v24 = [NSNumber numberWithDouble:UITableViewAutomaticDimension];
+      [v23 setObject:v24 forKeyedSubscript:PSTableCellHeightKey];
 
-      v24 = +[PLBatteryUIUtilities localizedLPMFooterString];
-      [v7 setProperty:v24 forKey:PSFooterTextGroupKey];
+      v25 = +[PLBatteryUIUtilities localizedLPMFooterString];
+      [v7 setProperty:v25 forKey:PSFooterTextGroupKey];
       [v6 addObject:v7];
-      [v6 addObject:v22];
+      [v6 addObject:v23];
     }
 
-    v25 = *&self->PSListItemsController_opaque[v4];
+    v26 = *&self->PSListItemsController_opaque[v4];
     *&self->PSListItemsController_opaque[v4] = v6;
 
     v5 = *&self->PSListItemsController_opaque[v4];
@@ -176,6 +177,21 @@
   selfCopy = self;
   v4 = notificationCopy;
   dispatch_async(&_dispatch_main_q, v5);
+}
+
+- (void)animateSwitchSpecifier:(id)specifier toState:(BOOL)state
+{
+  stateCopy = state;
+  specifierCopy = specifier;
+  v6 = +[BatteryUIResourceClass get_log_handle_bui];
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  {
+    sub_1148E0(specifierCopy, stateCopy, v6);
+  }
+
+  v7 = [specifierCopy objectForKeyedSubscript:PSTableCellKey];
+  control = [v7 control];
+  [control setOn:stateCopy animated:1];
 }
 
 - (id)getIBLMState:(id)state

@@ -13,25 +13,23 @@
 {
   v2 = sub_1B5EA42B0();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   MEMORY[0x1EEE9AC00](v2);
-  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_1B5E3A658(v6);
-  v7 = sub_1B5EA4260();
-  (*(v3 + 8))(v6, v2);
+  v5 = &v8 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_1B5E3A658(v5);
+  v6 = sub_1B5EA4260();
+  (*(v3 + 8))(v5, v2);
 
-  return v7;
+  return v6;
 }
 
 - (void)set_url:(id)set_url
 {
   v4 = sub_1B5EA42B0();
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x1EEE9AC00](v4 - 8);
-  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v8 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1B5EA4290();
   selfCopy = self;
-  sub_1B5E3A774(v7);
+  sub_1B5E3A774(v6);
 }
 
 - (NSFileHandle)_fileHandle

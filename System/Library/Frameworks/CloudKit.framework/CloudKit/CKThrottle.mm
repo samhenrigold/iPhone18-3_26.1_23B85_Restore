@@ -215,7 +215,7 @@
 
 - (BOOL)appliesToCriteria:(id)criteria
 {
-  v75 = *MEMORY[0x1E69E9840];
+  v74 = *MEMORY[0x1E69E9840];
   criteriaCopy = criteria;
   objc_msgSend_timeIntervalSinceNow(self->_throttleStartDate, v5, v6);
   if (v9 > 0.0)
@@ -282,26 +282,26 @@ LABEL_10:
       goto LABEL_53;
     }
 
-    v70 = 0u;
-    v71 = 0u;
-    v68 = 0u;
     v69 = 0u;
+    v70 = 0u;
+    v67 = 0u;
+    v68 = 0u;
     v26 = objc_msgSend_relevantZoneIDs(criteriaCopy, v24, v25, 0);
-    v28 = objc_msgSend_countByEnumeratingWithState_objects_count_(v26, v27, &v68, v74, 16);
+    v28 = objc_msgSend_countByEnumeratingWithState_objects_count_(v26, v27, &v67, v73, 16);
     if (v28)
     {
       v31 = v28;
-      v32 = *v69;
+      v32 = *v68;
 LABEL_21:
       v33 = 0;
       while (1)
       {
-        if (*v69 != v32)
+        if (*v68 != v32)
         {
           objc_enumerationMutation(v26);
         }
 
-        v34 = objc_msgSend_zoneName(*(*(&v68 + 1) + 8 * v33), v29, v30);
+        v34 = objc_msgSend_zoneName(*(*(&v67 + 1) + 8 * v33), v29, v30);
         v36 = objc_msgSend_isEqualToString_(v34, v35, self->_zoneName);
 
         if (v36)
@@ -311,7 +311,7 @@ LABEL_21:
 
         if (v31 == ++v33)
         {
-          v31 = objc_msgSend_countByEnumeratingWithState_objects_count_(v26, v29, &v68, v74, 16);
+          v31 = objc_msgSend_countByEnumeratingWithState_objects_count_(v26, v29, &v67, v73, 16);
           if (v31)
           {
             goto LABEL_21;
@@ -441,7 +441,6 @@ LABEL_33:
   }
 
 LABEL_54:
-  v66 = *MEMORY[0x1E69E9840];
   return hasPrefix;
 }
 

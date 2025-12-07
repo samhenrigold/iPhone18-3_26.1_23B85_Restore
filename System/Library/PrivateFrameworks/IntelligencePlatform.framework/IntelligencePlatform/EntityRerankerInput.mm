@@ -1,19 +1,8 @@
 @interface EntityRerankerInput
-- (NSSet)featureNames;
 - (id)featureValueForName:(id)name;
 @end
 
 @implementation EntityRerankerInput
-
-- (NSSet)featureNames
-{
-
-  sub_1ABBA36D8();
-
-  v2 = sub_1ABF24384();
-
-  return v2;
-}
 
 - (id)featureValueForName:(id)name
 {

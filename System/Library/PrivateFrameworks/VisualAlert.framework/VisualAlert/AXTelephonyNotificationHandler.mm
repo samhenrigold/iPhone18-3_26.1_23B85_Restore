@@ -15,10 +15,9 @@
 
 - (void)_handleNotification:(id)notification
 {
-  v4 = MEMORY[0x277CCAB98];
+  v3 = MEMORY[0x277CCAB98];
   notificationCopy = notification;
-  [v4 defaultCenter];
-  observerIdentifier = self->super._observerIdentifier;
+  [v3 defaultCenter];
   [notificationCopy name];
   [notificationCopy object];
   [notificationCopy userInfo];

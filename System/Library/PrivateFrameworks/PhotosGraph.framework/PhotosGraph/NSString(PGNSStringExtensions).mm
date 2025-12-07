@@ -1,8 +1,8 @@
 @interface NSString(PGNSStringExtensions)
+- (__CFString)pg_stringByTrailingCharactersInSet:()PGNSStringExtensions options:;
 - (id)_pg_stringByRemovingRegExPattern:()PGNSStringExtensions;
 - (id)pg_stringByRemovingDates;
 - (id)pg_stringByRemovingParentheses;
-- (id)pg_stringByTrailingCharactersInSet:()PGNSStringExtensions options:;
 - (unint64_t)pg_levenshteinDistanceToString:()PGNSStringExtensions;
 @end
 
@@ -126,7 +126,7 @@
   return v5;
 }
 
-- (id)pg_stringByTrailingCharactersInSet:()PGNSStringExtensions options:
+- (__CFString)pg_stringByTrailingCharactersInSet:()PGNSStringExtensions options:
 {
   v6 = a3;
   if (!a4 || (a4 & 4) != 0)
@@ -179,37 +179,37 @@
 
 - (id)pg_stringByRemovingDates
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   v2 = [objc_alloc(MEMORY[0x277CCA948]) initWithTypes:8 error:0];
   v3 = [v2 matchesInString:selfCopy options:0 range:{0, objc_msgSend(selfCopy, "length")}];
   if ([v3 count])
   {
     v4 = [selfCopy mutableCopy];
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
     reverseObjectEnumerator = [v3 reverseObjectEnumerator];
-    v6 = [reverseObjectEnumerator countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v6 = [reverseObjectEnumerator countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v17;
+      v8 = *v16;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v17 != v8)
+          if (*v16 != v8)
           {
             objc_enumerationMutation(reverseObjectEnumerator);
           }
 
-          range = [*(*(&v16 + 1) + 8 * i) range];
+          range = [*(*(&v15 + 1) + 8 * i) range];
           [v4 replaceCharactersInRange:range withString:{v11, &stru_2843F5C58}];
         }
 
-        v7 = [reverseObjectEnumerator countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v7 = [reverseObjectEnumerator countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v7);
@@ -221,18 +221,16 @@
     selfCopy = v13;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return selfCopy;
 }
 
 - (id)_pg_stringByRemovingRegExPattern:()PGNSStringExtensions
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   selfCopy = self;
-  v27 = 0;
-  v5 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:a3 options:0 error:&v27];
-  v6 = v27;
+  v26 = 0;
+  v5 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:a3 options:0 error:&v26];
+  v6 = v26;
   if (v6)
   {
     v7 = +[PGLogging sharedLogging];
@@ -241,7 +239,7 @@
     if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v30 = v6;
+      v29 = v6;
       _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "Error when creating regex pattern: %@", buf, 0xCu);
     }
 
@@ -254,30 +252,30 @@
     if ([v10 count])
     {
       v11 = [selfCopy mutableCopy];
+      v22 = 0u;
       v23 = 0u;
       v24 = 0u;
       v25 = 0u;
-      v26 = 0u;
       reverseObjectEnumerator = [v10 reverseObjectEnumerator];
-      v13 = [reverseObjectEnumerator countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v13 = [reverseObjectEnumerator countByEnumeratingWithState:&v22 objects:v27 count:16];
       if (v13)
       {
         v14 = v13;
-        v15 = *v24;
+        v15 = *v23;
         do
         {
           for (i = 0; i != v14; ++i)
           {
-            if (*v24 != v15)
+            if (*v23 != v15)
             {
               objc_enumerationMutation(reverseObjectEnumerator);
             }
 
-            range = [*(*(&v23 + 1) + 8 * i) range];
+            range = [*(*(&v22 + 1) + 8 * i) range];
             [v11 replaceCharactersInRange:range withString:{v18, &stru_2843F5C58}];
           }
 
-          v14 = [reverseObjectEnumerator countByEnumeratingWithState:&v23 objects:v28 count:16];
+          v14 = [reverseObjectEnumerator countByEnumeratingWithState:&v22 objects:v27 count:16];
         }
 
         while (v14);
@@ -291,8 +289,6 @@
 
     v9 = selfCopy;
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

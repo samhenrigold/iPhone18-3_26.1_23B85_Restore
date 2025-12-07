@@ -40,35 +40,35 @@
 
 - (BOOL)canCoerceToObjectOfClass:(Class)class
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v4 = self->_orderedClassNames;
-  v5 = [(NSMutableOrderedSet *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [(NSMutableOrderedSet *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = NSClassFromString(*(*(&v13 + 1) + 8 * i));
-        if (([(objc_class *)v9 isSubclassOfClass:class, v13]& 1) != 0)
+        v9 = NSClassFromString(*(*(&v12 + 1) + 8 * i));
+        if (([(objc_class *)v9 isSubclassOfClass:class, v12]& 1) != 0)
         {
           v10 = 1;
           goto LABEL_11;
         }
       }
 
-      v6 = [(NSMutableOrderedSet *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [(NSMutableOrderedSet *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v6)
       {
         continue;
@@ -81,34 +81,33 @@
   v10 = 0;
 LABEL_11:
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (id)coerceObject:(id)object toObjectOfClass:(Class)class outError:(id *)error
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   objectCopy = object;
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   v9 = self->_orderedClassNames;
-  v10 = [(NSMutableOrderedSet *)v9 countByEnumeratingWithState:&v30 objects:v34 count:16];
+  v10 = [(NSMutableOrderedSet *)v9 countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v31;
+    v12 = *v30;
     while (2)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v31 != v12)
+        if (*v30 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v30 + 1) + 8 * i);
+        v14 = *(*(&v29 + 1) + 8 * i);
         v15 = NSClassFromString(v14);
         if ([(objc_class *)v15 isSubclassOfClass:class])
         {
@@ -116,9 +115,9 @@ LABEL_11:
           if (v16)
           {
             v19 = v16;
-            v29 = 0;
-            v18 = (*(v16 + 16))(v16, v15, objectCopy, &v29);
-            v20 = v29;
+            v28 = 0;
+            v18 = (*(v16 + 16))(v16, v15, objectCopy, &v28);
+            v20 = v28;
             v21 = v20;
             if (error)
             {
@@ -145,7 +144,7 @@ LABEL_11:
         }
       }
 
-      v11 = [(NSMutableOrderedSet *)v9 countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v11 = [(NSMutableOrderedSet *)v9 countByEnumeratingWithState:&v29 objects:v33 count:16];
       if (v11)
       {
         continue;
@@ -168,8 +167,6 @@ LABEL_11:
   }
 
 LABEL_19:
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v18;
 }

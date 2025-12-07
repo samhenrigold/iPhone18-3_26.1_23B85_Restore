@@ -32,10 +32,10 @@
 
 - (ANAnnounceServiceListener)init
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v9.receiver = self;
-  v9.super_class = ANAnnounceServiceListener;
-  v2 = [(ANAnnounceServiceListener *)&v9 init];
+  v11 = *MEMORY[0x277D85DE8];
+  v8.receiver = self;
+  v8.super_class = ANAnnounceServiceListener;
+  v2 = [(ANAnnounceServiceListener *)&v8 init];
   if (v2)
   {
     [MEMORY[0x277CEAB38] isAnnounceEnabled];
@@ -45,17 +45,15 @@
     v2->_listener = v4;
 
     [(NSXPCListener *)v2->_listener setDelegate:v2];
-    [(NSXPCListener *)v2->_listener resume];
-    v6 = ANLogHandleAnnounceServiceListener();
+    v6 = ANLogHandleAnnounceServiceListener([(NSXPCListener *)v2->_listener resume]);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v11 = &stru_2851BDB18;
+      v10 = &stru_2851BDB18;
       _os_log_impl(&dword_23F525000, v6, OS_LOG_TYPE_DEFAULT, "%@Announce Service Listener Up!", buf, 0xCu);
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -67,55 +65,57 @@
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   listenerCopy = listener;
   connectionCopy = connection;
-  v8 = ANLogHandleAnnounceServiceListener();
+  v8 = ANLogHandleAnnounceServiceListener(connectionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(connectionCopy, "processIdentifier")}];
     serviceName = [connectionCopy serviceName];
     *buf = 138412802;
-    v33 = &stru_2851BDB18;
-    v34 = 2112;
-    v35 = v9;
-    v36 = 2112;
-    v37 = serviceName;
+    v34 = &stru_2851BDB18;
+    v35 = 2112;
+    v36 = v9;
+    v37 = 2112;
+    v38 = serviceName;
     _os_log_impl(&dword_23F525000, v8, OS_LOG_TYPE_DEFAULT, "%@New Connection Request From (PID = %@) For Service: (%@)", buf, 0x20u);
   }
 
-  if (([MEMORY[0x277CEAB38] isAnnounceEnabled] & 1) == 0)
+  isAnnounceEnabled = [MEMORY[0x277CEAB38] isAnnounceEnabled];
+  if ((isAnnounceEnabled & 1) == 0)
   {
-    an_announceServiceInterface = ANLogHandleAnnounceServiceListener();
+    an_announceServiceInterface = ANLogHandleAnnounceServiceListener(isAnnounceEnabled);
     if (os_log_type_enabled(an_announceServiceInterface, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v33 = &stru_2851BDB18;
-      v21 = "%@Rejecting connection. Announce not enabled.";
-      v22 = an_announceServiceInterface;
-      v23 = 12;
+      v34 = &stru_2851BDB18;
+      v23 = "%@Rejecting connection. Announce not enabled.";
+      v24 = an_announceServiceInterface;
+      v25 = 12;
 LABEL_12:
-      _os_log_impl(&dword_23F525000, v22, OS_LOG_TYPE_ERROR, v21, buf, v23);
+      _os_log_impl(&dword_23F525000, v24, OS_LOG_TYPE_ERROR, v23, buf, v25);
     }
 
 LABEL_13:
-    v20 = 0;
+    v22 = 0;
     goto LABEL_14;
   }
 
-  if (([connectionCopy hasAnnounceEntitlement] & 1) == 0)
+  hasAnnounceEntitlement = [connectionCopy hasAnnounceEntitlement];
+  if ((hasAnnounceEntitlement & 1) == 0)
   {
-    an_announceServiceInterface = ANLogHandleAnnounceServiceListener();
+    an_announceServiceInterface = ANLogHandleAnnounceServiceListener(hasAnnounceEntitlement);
     if (os_log_type_enabled(an_announceServiceInterface, OS_LOG_TYPE_ERROR))
     {
-      v24 = *MEMORY[0x277CEAC10];
+      v26 = *MEMORY[0x277CEAC10];
       *buf = 138412546;
-      v33 = &stru_2851BDB18;
-      v34 = 2112;
-      v35 = v24;
-      v21 = "%@Missing Announce Entitlement: %@";
-      v22 = an_announceServiceInterface;
-      v23 = 22;
+      v34 = &stru_2851BDB18;
+      v35 = 2112;
+      v36 = v26;
+      v23 = "%@Missing Announce Entitlement: %@";
+      v24 = an_announceServiceInterface;
+      v25 = 22;
       goto LABEL_12;
     }
 
@@ -125,19 +125,19 @@ LABEL_13:
   an_announceServiceInterface = [MEMORY[0x277CCAE90] an_announceServiceInterface];
   [an_announceServiceInterface setClass:objc_opt_class() forSelector:sel_localParticipant_ argumentIndex:0 ofReply:1];
   [an_announceServiceInterface setClass:objc_opt_class() forSelector:sel_homeNamesForContext_reply_ argumentIndex:0 ofReply:0];
-  v12 = MEMORY[0x277CBEB98];
-  v13 = objc_opt_class();
-  v14 = [v12 setWithObjects:{v13, objc_opt_class(), 0}];
-  [an_announceServiceInterface setClasses:v14 forSelector:sel_homeNamesForContext_reply_ argumentIndex:0 ofReply:1];
-  v15 = MEMORY[0x277CBEB98];
-  v16 = objc_opt_class();
-  v17 = [v15 setWithObjects:{v16, objc_opt_class(), 0}];
-  [an_announceServiceInterface setClasses:v17 forSelector:sel_getReceivedAnnouncementsForEndpointID_completionHandler_ argumentIndex:0 ofReply:1];
-  [an_announceServiceInterface setClasses:v17 forSelector:sel_getUnplayedAnnouncementsForEndpointID_completionHandler_ argumentIndex:0 ofReply:1];
-  v18 = [MEMORY[0x277CBEB98] setWithObjects:{objc_opt_class(), 0}];
-  [an_announceServiceInterface setClasses:v18 forSelector:sel_announcementForID_endpointID_reply_ argumentIndex:0 ofReply:1];
-  [an_announceServiceInterface setClasses:v18 forSelector:sel_mockAnnouncement_forHomeWithName_playbackDeadline_completion_ argumentIndex:0 ofReply:1];
-  [an_announceServiceInterface setClasses:v18 forSelector:sel_contextFromAnnouncement_reply_ argumentIndex:0 ofReply:0];
+  v14 = MEMORY[0x277CBEB98];
+  v15 = objc_opt_class();
+  v16 = [v14 setWithObjects:{v15, objc_opt_class(), 0}];
+  [an_announceServiceInterface setClasses:v16 forSelector:sel_homeNamesForContext_reply_ argumentIndex:0 ofReply:1];
+  v17 = MEMORY[0x277CBEB98];
+  v18 = objc_opt_class();
+  v19 = [v17 setWithObjects:{v18, objc_opt_class(), 0}];
+  [an_announceServiceInterface setClasses:v19 forSelector:sel_getReceivedAnnouncementsForEndpointID_completionHandler_ argumentIndex:0 ofReply:1];
+  [an_announceServiceInterface setClasses:v19 forSelector:sel_getUnplayedAnnouncementsForEndpointID_completionHandler_ argumentIndex:0 ofReply:1];
+  v20 = [MEMORY[0x277CBEB98] setWithObjects:{objc_opt_class(), 0}];
+  [an_announceServiceInterface setClasses:v20 forSelector:sel_announcementForID_endpointID_reply_ argumentIndex:0 ofReply:1];
+  [an_announceServiceInterface setClasses:v20 forSelector:sel_mockAnnouncement_forHomeWithName_playbackDeadline_completion_ argumentIndex:0 ofReply:1];
+  [an_announceServiceInterface setClasses:v20 forSelector:sel_contextFromAnnouncement_reply_ argumentIndex:0 ofReply:0];
   [an_announceServiceInterface setClass:objc_opt_class() forSelector:sel_contextFromAnnouncement_reply_ argumentIndex:0 ofReply:1];
   [an_announceServiceInterface setClass:objc_opt_class() forSelector:sel_sendRequest_completion_ argumentIndex:0 ofReply:0];
   [an_announceServiceInterface setClass:objc_opt_class() forSelector:sel_sendRequest_completion_ argumentIndex:0 ofReply:1];
@@ -146,72 +146,66 @@ LABEL_13:
   [connectionCopy setExportedInterface:an_announceServiceInterface];
   [connectionCopy setExportedObject:self];
   objc_initWeak(&location, connectionCopy);
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = __64__ANAnnounceServiceListener_listener_shouldAcceptNewConnection___block_invoke;
-  v29[3] = &unk_278C86580;
-  objc_copyWeak(&v30, &location);
-  [connectionCopy setInterruptionHandler:v29];
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __64__ANAnnounceServiceListener_listener_shouldAcceptNewConnection___block_invoke_35;
-  v27[3] = &unk_278C86580;
-  objc_copyWeak(&v28, &location);
-  [connectionCopy setInvalidationHandler:v27];
-  [connectionCopy resume];
-  v19 = ANLogHandleAnnounceServiceListener();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+  v30[0] = MEMORY[0x277D85DD0];
+  v30[1] = 3221225472;
+  v30[2] = __64__ANAnnounceServiceListener_listener_shouldAcceptNewConnection___block_invoke;
+  v30[3] = &unk_278C86580;
+  objc_copyWeak(&v31, &location);
+  [connectionCopy setInterruptionHandler:v30];
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __64__ANAnnounceServiceListener_listener_shouldAcceptNewConnection___block_invoke_35;
+  v28[3] = &unk_278C86580;
+  objc_copyWeak(&v29, &location);
+  [connectionCopy setInvalidationHandler:v28];
+  v21 = ANLogHandleAnnounceServiceListener([connectionCopy resume]);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v33 = &stru_2851BDB18;
-    v34 = 2112;
-    v35 = connectionCopy;
-    _os_log_impl(&dword_23F525000, v19, OS_LOG_TYPE_DEFAULT, "%@Connection Accepted: (%@)", buf, 0x16u);
+    v34 = &stru_2851BDB18;
+    v35 = 2112;
+    v36 = connectionCopy;
+    _os_log_impl(&dword_23F525000, v21, OS_LOG_TYPE_DEFAULT, "%@Connection Accepted: (%@)", buf, 0x16u);
   }
 
-  objc_destroyWeak(&v28);
-  objc_destroyWeak(&v30);
+  objc_destroyWeak(&v29);
+  objc_destroyWeak(&v31);
   objc_destroyWeak(&location);
 
-  v20 = 1;
+  v22 = 1;
 LABEL_14:
 
-  v25 = *MEMORY[0x277D85DE8];
-  return v20;
+  return v22;
 }
 
 void __64__ANAnnounceServiceListener_listener_shouldAcceptNewConnection___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = ANLogHandleAnnounceServiceListener();
+  v8 = *MEMORY[0x277D85DE8];
+  v2 = ANLogHandleAnnounceServiceListener(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     WeakRetained = objc_loadWeakRetained((a1 + 32));
-    v5 = 138412546;
-    v6 = &stru_2851BDB18;
-    v7 = 2112;
-    v8 = WeakRetained;
-    _os_log_impl(&dword_23F525000, v2, OS_LOG_TYPE_DEFAULT, "%@Connection Interrupted: (%@)", &v5, 0x16u);
+    v4 = 138412546;
+    v5 = &stru_2851BDB18;
+    v6 = 2112;
+    v7 = WeakRetained;
+    _os_log_impl(&dword_23F525000, v2, OS_LOG_TYPE_DEFAULT, "%@Connection Interrupted: (%@)", &v4, 0x16u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __64__ANAnnounceServiceListener_listener_shouldAcceptNewConnection___block_invoke_35(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = ANLogHandleAnnounceServiceListener();
+  v8 = *MEMORY[0x277D85DE8];
+  v2 = ANLogHandleAnnounceServiceListener(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     WeakRetained = objc_loadWeakRetained((a1 + 32));
-    v5 = 138412546;
-    v6 = &stru_2851BDB18;
-    v7 = 2112;
-    v8 = WeakRetained;
-    _os_log_impl(&dword_23F525000, v2, OS_LOG_TYPE_DEFAULT, "%@Connection Invalidated: (%@)", &v5, 0x16u);
+    v4 = 138412546;
+    v5 = &stru_2851BDB18;
+    v6 = 2112;
+    v7 = WeakRetained;
+    _os_log_impl(&dword_23F525000, v2, OS_LOG_TYPE_DEFAULT, "%@Connection Invalidated: (%@)", &v4, 0x16u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)localParticipant:(id)participant
@@ -360,7 +354,7 @@ LABEL_7:
 
 - (void)getUnplayedAnnouncementsForEndpointID:(id)d completionHandler:(id)handler
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   dCopy = d;
   handlerCopy = handler;
   v7 = +[ANAnnouncementCoordinator sharedCoordinator];
@@ -371,28 +365,28 @@ LABEL_7:
   v10 = [v9 allAnnouncementsSortedByReceiptForEndpointID:dCopy];
   unplayedAnnouncements = [v10 unplayedAnnouncements];
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v12 = unplayedAnnouncements;
-  v13 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v22;
+    v15 = *v21;
     do
     {
       v16 = 0;
       do
       {
-        if (*v22 != v15)
+        if (*v21 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
         v17 = MEMORY[0x277CEAB58];
-        remoteSessionDictionary = [*(*(&v21 + 1) + 8 * v16) remoteSessionDictionary];
+        remoteSessionDictionary = [*(*(&v20 + 1) + 8 * v16) remoteSessionDictionary];
         v19 = [v17 contextFromDictionary:remoteSessionDictionary];
         [v8 addObject:v19];
 
@@ -400,14 +394,13 @@ LABEL_7:
       }
 
       while (v14 != v16);
-      v14 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v14);
   }
 
   handlerCopy[2](handlerCopy, v8);
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getScanningDeviceCandidates:(id)candidates
@@ -606,61 +599,59 @@ LABEL_7:
 - (void)send:(ANAnnouncementRequest *)send connection:(NSXPCConnection *)connection completionHandler:(id)handler
 {
   v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E39C9E8, &qword_23F58D708);
-  v10 = *(*(v9 - 8) + 64);
   MEMORY[0x28223BE20](v9 - 8);
-  v12 = &v21 - v11;
-  v13 = _Block_copy(handler);
-  v14 = swift_allocObject();
-  v14[2] = send;
-  v14[3] = connection;
-  v14[4] = v13;
-  v14[5] = self;
-  v15 = sub_23F5883B4();
-  (*(*(v15 - 8) + 56))(v12, 1, 1, v15);
+  v11 = &v20 - v10;
+  v12 = _Block_copy(handler);
+  v13 = swift_allocObject();
+  v13[2] = send;
+  v13[3] = connection;
+  v13[4] = v12;
+  v13[5] = self;
+  v14 = sub_23F5883B4();
+  (*(*(v14 - 8) + 56))(v11, 1, 1, v14);
+  v15 = swift_allocObject();
+  v15[2] = 0;
+  v15[3] = 0;
+  v15[4] = &unk_23F58E100;
+  v15[5] = v13;
   v16 = swift_allocObject();
   v16[2] = 0;
   v16[3] = 0;
-  v16[4] = &unk_23F58E100;
-  v16[5] = v14;
-  v17 = swift_allocObject();
-  v17[2] = 0;
-  v17[3] = 0;
-  v17[4] = &unk_23F58E108;
-  v17[5] = v16;
+  v16[4] = &unk_23F58E108;
+  v16[5] = v15;
   sendCopy = send;
   connectionCopy = connection;
   selfCopy = self;
-  sub_23F57A118(0, 0, v12, &unk_23F58E110, v17);
+  sub_23F57A118(0, 0, v11, &unk_23F58E110, v16);
 }
 
 - (void)sendReply:(ANAnnouncementRequest *)reply connection:(NSXPCConnection *)connection completionHandler:(id)handler
 {
   v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E39C9E8, &qword_23F58D708);
-  v10 = *(*(v9 - 8) + 64);
   MEMORY[0x28223BE20](v9 - 8);
-  v12 = &v21 - v11;
-  v13 = _Block_copy(handler);
-  v14 = swift_allocObject();
-  v14[2] = reply;
-  v14[3] = connection;
-  v14[4] = v13;
-  v14[5] = self;
-  v15 = sub_23F5883B4();
-  (*(*(v15 - 8) + 56))(v12, 1, 1, v15);
+  v11 = &v20 - v10;
+  v12 = _Block_copy(handler);
+  v13 = swift_allocObject();
+  v13[2] = reply;
+  v13[3] = connection;
+  v13[4] = v12;
+  v13[5] = self;
+  v14 = sub_23F5883B4();
+  (*(*(v14 - 8) + 56))(v11, 1, 1, v14);
+  v15 = swift_allocObject();
+  v15[2] = 0;
+  v15[3] = 0;
+  v15[4] = &unk_23F58E0C8;
+  v15[5] = v13;
   v16 = swift_allocObject();
   v16[2] = 0;
   v16[3] = 0;
-  v16[4] = &unk_23F58E0C8;
-  v16[5] = v14;
-  v17 = swift_allocObject();
-  v17[2] = 0;
-  v17[3] = 0;
-  v17[4] = &unk_23F58D720;
-  v17[5] = v16;
+  v16[4] = &unk_23F58D720;
+  v16[5] = v15;
   replyCopy = reply;
   connectionCopy = connection;
   selfCopy = self;
-  sub_23F57A118(0, 0, v12, &unk_23F58D728, v17);
+  sub_23F57A118(0, 0, v11, &unk_23F58D728, v16);
 }
 
 @end

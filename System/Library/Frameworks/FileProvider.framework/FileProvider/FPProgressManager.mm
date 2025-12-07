@@ -29,9 +29,11 @@
 
 uint64_t __35__FPProgressManager_defaultManager__block_invoke()
 {
-  defaultManager_defaultManager = objc_alloc_init(FPProgressManager);
+  v0 = objc_alloc_init(FPProgressManager);
+  v1 = defaultManager_defaultManager;
+  defaultManager_defaultManager = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (FPProgressManager)init
@@ -64,29 +66,29 @@ uint64_t __35__FPProgressManager_defaultManager__block_invoke()
 
 - (void)attachProgressToItemsIfNeeded:(id)needed
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   neededCopy = needed;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v4 = [neededCopy countByEnumeratingWithState:&v15 objects:v25 count:16];
+  v4 = [neededCopy countByEnumeratingWithState:&v14 objects:v24 count:16];
   if (v4)
   {
     v6 = v4;
-    v7 = *v16;
+    v7 = *v15;
     *&v5 = 138412802;
-    v14 = v5;
+    v13 = v5;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(neededCopy);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
+        v9 = *(*(&v14 + 1) + 8 * i);
         if (([v9 isDownloading] & 1) != 0 || objc_msgSend(v9, "isUploading"))
         {
           progress = [v9 progress];
@@ -96,25 +98,23 @@ uint64_t __35__FPProgressManager_defaultManager__block_invoke()
             if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
             {
               v12 = objc_opt_class();
-              *buf = v14;
-              v20 = v12;
-              v21 = 2048;
-              v22 = progress;
-              v23 = 2112;
-              v24 = v9;
+              *buf = v13;
+              v19 = v12;
+              v20 = 2048;
+              v21 = progress;
+              v22 = 2112;
+              v23 = v9;
               _os_log_debug_impl(&dword_1AAAE1000, v11, OS_LOG_TYPE_DEBUG, "[DEBUG] progress <%@:%p> attached to %@", buf, 0x20u);
             }
           }
         }
       }
 
-      v6 = [neededCopy countByEnumeratingWithState:&v15 objects:v25 count:16];
+      v6 = [neededCopy countByEnumeratingWithState:&v14 objects:v24 count:16];
     }
 
     while (v6);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)registerCopyProgress:(id)progress forItemID:(id)d
@@ -201,7 +201,7 @@ uint64_t __40__FPProgressManager_removeCopyProgress___block_invoke(void *a1)
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (id)copyProgressForItem:(id)item
@@ -379,7 +379,7 @@ void __58__FPProgressManager__resolveURLForItem_completionHandler___block_invoke
 
 void __55__FPProgressManager__progressForItem_usingProgressMap___block_invoke(uint64_t a1)
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = *(*(a1 + 40) + 24);
   v4 = v2 == v3;
@@ -387,19 +387,19 @@ void __55__FPProgressManager__progressForItem_usingProgressMap___block_invoke(ui
   v6 = fp_current_or_default_log();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    v29 = @"download";
-    v30 = *(a1 + 48);
+    v28 = @"download";
+    v29 = *(a1 + 48);
     *buf = 134218498;
     if (v2 == v3)
     {
-      v29 = @"upload";
+      v28 = @"upload";
     }
 
-    v40 = section;
-    v41 = 2112;
-    v42 = v29;
-    v43 = 2112;
-    v44 = v30;
+    v39 = section;
+    v40 = 2112;
+    v41 = v28;
+    v42 = 2112;
+    v43 = v29;
     _os_log_debug_impl(&dword_1AAAE1000, v6, OS_LOG_TYPE_DEBUG, "[DEBUG] ┣%llx [Progress] looking up for %@ progress of %@", buf, 0x20u);
   }
 
@@ -444,46 +444,44 @@ void __55__FPProgressManager__progressForItem_usingProgressMap___block_invoke(ui
 
     v23 = *(a1 + 40);
     v22 = *(a1 + 48);
-    v31[0] = MEMORY[0x1E69E9820];
-    v31[1] = 3221225472;
-    v31[2] = __55__FPProgressManager__progressForItem_usingProgressMap___block_invoke_48;
-    v31[3] = &unk_1E793A258;
-    v31[4] = v23;
-    v36 = section;
+    v30[0] = MEMORY[0x1E69E9820];
+    v30[1] = 3221225472;
+    v30[2] = __55__FPProgressManager__progressForItem_usingProgressMap___block_invoke_48;
+    v30[3] = &unk_1E793A258;
+    v30[4] = v23;
+    v35 = section;
     v24 = v22;
     v25 = *(a1 + 56);
-    v37 = *(a1 + 64);
-    v32 = v24;
-    v35 = v25;
+    v36 = *(a1 + 64);
+    v31 = v24;
+    v34 = v25;
     v26 = *(a1 + 32);
-    v38 = v4;
-    v33 = v26;
-    v34 = v15;
+    v37 = v4;
+    v32 = v26;
+    v33 = v15;
     v27 = v15;
-    [v23 _resolveURLForItem:v24 completionHandler:v31];
+    [v23 _resolveURLForItem:v24 completionHandler:v30];
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 void __55__FPProgressManager__progressForItem_usingProgressMap___block_invoke_48(uint64_t a1, void *a2, void *a3)
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   dispatch_assert_queue_V2(*(*(a1 + 32) + 8));
-  v37 = *(a1 + 72);
+  v36 = *(a1 + 72);
   v7 = fp_current_or_default_log();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     v19 = [v5 fp_shortDescription];
     v20 = *(a1 + 40);
     *buf = 134218498;
-    *&buf[4] = v37;
+    *&buf[4] = v36;
     *&buf[12] = 2112;
     *&buf[14] = v19;
     *&buf[22] = 2112;
-    v47 = v20;
+    v46 = v20;
     _os_log_debug_impl(&dword_1AAAE1000, v7, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx [Progress] got url %@, creating child progress for %@", buf, 0x20u);
   }
 
@@ -513,22 +511,22 @@ void __55__FPProgressManager__progressForItem_usingProgressMap___block_invoke_48
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x3032000000;
-      v47 = __Block_byref_object_copy__0;
-      v48 = __Block_byref_object_dispose__0;
-      v49 = 0;
-      v31[0] = MEMORY[0x1E69E9820];
-      v31[1] = 3221225472;
-      v31[2] = __55__FPProgressManager__progressForItem_usingProgressMap___block_invoke_57;
-      v31[3] = &unk_1E793A230;
-      objc_copyWeak(v35, &location);
+      v46 = __Block_byref_object_copy__0;
+      v47 = __Block_byref_object_dispose__0;
+      v48 = 0;
+      v30[0] = MEMORY[0x1E69E9820];
+      v30[1] = 3221225472;
+      v30[2] = __55__FPProgressManager__progressForItem_usingProgressMap___block_invoke_57;
+      v30[3] = &unk_1E793A230;
+      objc_copyWeak(v34, &location);
       v15 = *(a1 + 64);
-      v33 = buf;
-      v34 = v15;
+      v32 = buf;
+      v33 = v15;
       v16 = *(a1 + 40);
       v17 = *(a1 + 72);
-      v32 = v16;
-      v35[1] = v17;
-      [v8 setProgressDidSetupHandler:v31];
+      v31 = v16;
+      v34[1] = v17;
+      [v8 setProgressDidSetupHandler:v30];
       if (*(a1 + 88))
       {
         v18 = 0;
@@ -549,28 +547,28 @@ void __55__FPProgressManager__progressForItem_usingProgressMap___block_invoke_48
         [v22 fp_addChildProgress:v21 withUnitCount:v23];
 
         v24 = *(a1 + 72);
-        v30 = v24;
+        v29 = v24;
         v25 = fp_current_or_default_log();
         if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
         {
-          v27 = *(a1 + 40);
-          v28 = *(*(*(a1 + 64) + 8) + 40);
-          v29 = *(*&buf[8] + 40);
-          *v38 = 134218754;
-          v39 = v24;
-          v40 = 2112;
-          v41 = v27;
-          v42 = 2112;
-          v43 = v28;
-          v44 = 2112;
-          v45 = v29;
-          _os_log_debug_impl(&dword_1AAAE1000, v25, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx [Progress] Added child progress for %@: %@, child %@", v38, 0x2Au);
+          v26 = *(a1 + 40);
+          v27 = *(*(*(a1 + 64) + 8) + 40);
+          v28 = *(*&buf[8] + 40);
+          *v37 = 134218754;
+          v38 = v24;
+          v39 = 2112;
+          v40 = v26;
+          v41 = 2112;
+          v42 = v27;
+          v43 = 2112;
+          v44 = v28;
+          _os_log_debug_impl(&dword_1AAAE1000, v25, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx [Progress] Added child progress for %@: %@, child %@", v37, 0x2Au);
         }
 
-        __fp_leave_section_Debug(&v30);
+        __fp_leave_section_Debug(&v29);
       }
 
-      objc_destroyWeak(v35);
+      objc_destroyWeak(v34);
       _Block_object_dispose(buf, 8);
 
       objc_destroyWeak(&location);
@@ -595,8 +593,7 @@ void __55__FPProgressManager__progressForItem_usingProgressMap___block_invoke_48
     }
   }
 
-  __fp_leave_section_Debug(&v37);
-  v26 = *MEMORY[0x1E69E9840];
+  __fp_leave_section_Debug(&v36);
 }
 
 void __55__FPProgressManager__progressForItem_usingProgressMap___block_invoke_57(uint64_t a1, void *a2, int a3)
@@ -632,63 +629,55 @@ void __55__FPProgressManager__progressForItem_usingProgressMap___block_invoke_57
 
 void __55__FPProgressManager__progressForItem_usingProgressMap___block_invoke_2(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = *(*(*(a1 + 48) + 8) + 40);
   v3 = *(a1 + 32);
   v4 = [*(a1 + 40) documentSize];
   [v2 fp_addChildProgress:v3 withUnitCount:v4];
 
   v5 = *(a1 + 56);
-  v11 = v5;
+  v10 = v5;
   v6 = fp_current_or_default_log();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    v8 = *(a1 + 40);
-    v9 = *(*(*(a1 + 48) + 8) + 40);
-    v10 = *(a1 + 32);
+    v7 = *(a1 + 40);
+    v8 = *(*(*(a1 + 48) + 8) + 40);
+    v9 = *(a1 + 32);
     *buf = 134218754;
-    v13 = v5;
-    v14 = 2112;
-    v15 = v8;
-    v16 = 2112;
-    v17 = v9;
-    v18 = 2112;
-    v19 = v10;
+    v12 = v5;
+    v13 = 2112;
+    v14 = v7;
+    v15 = 2112;
+    v16 = v8;
+    v17 = 2112;
+    v18 = v9;
     _os_log_debug_impl(&dword_1AAAE1000, v6, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx [Progress] Added child progress for %@: %@, child %@", buf, 0x2Au);
   }
 
-  __fp_leave_section_Debug(&v11);
-  v7 = *MEMORY[0x1E69E9840];
+  __fp_leave_section_Debug(&v10);
 }
 
 - (void)downloadProgressForItem:(void *)a1 .cold.1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [a1 fp_fileOperationKind];
   OUTLINED_FUNCTION_16_0();
-  OUTLINED_FUNCTION_1_4(&dword_1AAAE1000, v2, v3, "[SIMCRASH] [Progress] Progress kind %@ should be downloading but instead it's %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_4(&dword_1AAAE1000, v2, v3, "[SIMCRASH] [Progress] Progress kind %@ should be downloading but instead it's %@", v4, v5, v6, v7);
 }
 
 - (void)uploadProgressForItem:(void *)a1 .cold.1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [a1 fp_fileOperationKind];
   OUTLINED_FUNCTION_16_0();
-  OUTLINED_FUNCTION_1_4(&dword_1AAAE1000, v2, v3, "[SIMCRASH] [Progress] Progress kind %@ should be uploading but instead it's %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_4(&dword_1AAAE1000, v2, v3, "[SIMCRASH] [Progress] Progress kind %@ should be uploading but instead it's %@", v4, v5, v6, v7);
 }
 
 void __55__FPProgressManager__progressForItem_usingProgressMap___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *(*(*a1 + 8) + 40);
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_debug_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] [Progress] found existing progress %@", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_debug_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] [Progress] found existing progress %@", &v3, 0xCu);
 }
 
 void __55__FPProgressManager__progressForItem_usingProgressMap___block_invoke_48_cold_1(uint64_t a1, void *a2, uint8_t *buf, os_log_t log)

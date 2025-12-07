@@ -36,38 +36,38 @@
 
 + (id)_installedAppsWithDatesFromNotificationData:(id)data
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   if (dataCopy && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
     v4 = dataCopy;
     v5 = [v4 keysOfEntriesPassingTest:&__block_literal_global_226];
     v6 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(v5, "count")}];
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v18;
+      v10 = *v17;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v18 != v10)
+          if (*v17 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v17 + 1) + 8 * i);
-          v13 = [v4 objectForKeyedSubscript:{v12, v17}];
+          v12 = *(*(&v16 + 1) + 8 * i);
+          v13 = [v4 objectForKeyedSubscript:{v12, v16}];
           [v6 setObject:v13 forKeyedSubscript:v12];
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v9);
@@ -80,8 +80,6 @@
   {
     v14 = 0;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }

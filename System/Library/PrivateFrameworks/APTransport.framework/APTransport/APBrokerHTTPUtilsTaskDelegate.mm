@@ -42,35 +42,35 @@
 {
   v19[1] = *MEMORY[0x277D85DE8];
   error = 0;
-  v9 = [objc_msgSend(challenge "protectionSpace")];
+  v11 = [objc_msgSend(challenge "protectionSpace")];
   if (gLogCategory_APBrokerHTTPUtils <= 30 && (gLogCategory_APBrokerHTTPUtils != -1 || _LogCategory_Initialize()))
   {
-    [APBrokerHTTPUtilsTaskDelegate URLSession:challenge task:? didReceiveChallenge:? completionHandler:?];
+    [APBrokerHTTPUtilsTaskDelegate URLSession:challenge task:session didReceiveChallenge:task completionHandler:?];
   }
 
-  v10 = [objc_msgSend(challenge "protectionSpace")];
-  if ([v10 isEqualToString:*MEMORY[0x277CCA720]])
+  v12 = [objc_msgSend(challenge "protectionSpace")];
+  if ([v12 isEqualToString:*MEMORY[0x277CCA720]])
   {
-    v11 = v9 == 0;
+    v13 = v11 == 0;
   }
 
   else
   {
-    v11 = 1;
+    v13 = 1;
   }
 
-  if (!v11)
+  if (!v13)
   {
     SSL = SecPolicyCreateSSL(1u, self->_sslCertificateHostName);
-    v13 = SSL;
+    v15 = SSL;
     if (SSL)
     {
       v19[0] = SSL;
-      SecTrustSetPolicies(v9, [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1]);
-      if (SecTrustEvaluateWithError(v9, &error))
+      SecTrustSetPolicies(v11, [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1]);
+      if (SecTrustEvaluateWithError(v11, &error))
       {
-        v12 = [MEMORY[0x277CCACF0] credentialForTrust:v9];
-        v14 = 0;
+        v14 = [MEMORY[0x277CCACF0] credentialForTrust:v11];
+        v16 = 0;
         goto LABEL_17;
       }
 
@@ -78,7 +78,7 @@
       {
         (*(handler + 2))(handler, 2, 0);
 LABEL_22:
-        CFRelease(v13);
+        CFRelease(v15);
         goto LABEL_23;
       }
 
@@ -93,23 +93,22 @@ LABEL_22:
       [APBrokerHTTPUtilsTaskDelegate URLSession:task:didReceiveChallenge:completionHandler:];
     }
 
-    v12 = 0;
-    v14 = 2;
+    v14 = 0;
+    v16 = 2;
     goto LABEL_17;
   }
 
-  v12 = 0;
-  v13 = 0;
-  v14 = 1;
+  v14 = 0;
+  v15 = 0;
+  v16 = 1;
 LABEL_17:
   if (gLogCategory_APBrokerHTTPUtils <= 30 && (gLogCategory_APBrokerHTTPUtils != -1 || _LogCategory_Initialize()))
   {
-    logContext = self->_logContext;
-    LogPrintF();
+    LogPrintF(&gLogCategory_APBrokerHTTPUtils, "[APBrokerHTTPUtilsTaskDelegate URLSession:task:didReceiveChallenge:completionHandler:]", 33554462, "[%{ptr}] Calling completion handler with disposition: %d and credential: %@\n", self->_logContext, v16, v14);
   }
 
-  (*(handler + 2))(handler, v14, v12);
-  if (v13)
+  (*(handler + 2))(handler, v16, v14);
+  if (v15)
   {
     goto LABEL_22;
   }
@@ -119,22 +118,6 @@ LABEL_23:
   {
     CFRelease(error);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
-}
-
-- (uint64_t)URLSession:(uint64_t)a1 task:(void *)a2 didReceiveChallenge:completionHandler:.cold.1(uint64_t a1, void *a2)
-{
-  v2 = *(a1 + 8);
-  [objc_msgSend(a2 "protectionSpace")];
-  return LogPrintF();
-}
-
-- (uint64_t)URLSession:(uint64_t)a1 task:(uint64_t *)a2 didReceiveChallenge:completionHandler:.cold.2(uint64_t a1, uint64_t *a2)
-{
-  v3 = *(a1 + 8);
-  v4 = *a2;
-  return LogPrintF();
 }
 
 @end

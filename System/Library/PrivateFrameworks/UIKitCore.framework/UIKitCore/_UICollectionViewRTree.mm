@@ -37,11 +37,11 @@
       return 0;
     }
 
-    v41.origin.x = frame;
-    v41.size.width = a5;
-    v41.origin.y = element;
-    v41.size.height = a6;
-    if (CGRectIsInfinite(v41))
+    v42.origin.x = frame;
+    v42.size.width = a5;
+    v42.origin.y = element;
+    v42.size.height = a6;
+    if (CGRectIsInfinite(v42))
     {
       return 0;
     }
@@ -77,20 +77,20 @@
 
       v28 = vbslq_s8(v21, v18, v16);
       v29 = vbslq_s8(v22, v19, v17);
-      *&v37.f64[1] = v27;
-      v38 = v24;
-      v39 = v35;
-      v40 = v25;
-      v37.f64[0] = v26;
+      v38 = v27;
+      v39 = v24;
+      v40 = v35;
+      v41 = v25;
+      v37 = v26;
       if (v27)
       {
         atomic_fetch_add_explicit(&v27->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      _UIRTreeContainerNode<_UICollectionViewRTreeElement>::addChild(&v36, v23, &v38, &v37, v28, v29);
-      if (*&v37.f64[1])
+      _UIRTreeContainerNode<_UICollectionViewRTreeElement>::addChild(&v36, v23, &v39, &v37, v28, v29);
+      if (v38)
       {
-        std::__shared_weak_count::__release_shared[abi:nn200100](*&v37.f64[1]);
+        std::__shared_weak_count::__release_shared[abi:nn200100](v38);
       }
 
       v30 = *(v7 + 16);

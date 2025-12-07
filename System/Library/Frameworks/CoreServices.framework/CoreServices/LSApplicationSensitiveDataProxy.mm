@@ -31,21 +31,21 @@ uint64_t __52___LSApplicationSensitiveDataProxy_encodeWithCoder___block_invoke(u
   return [v2 encodeBool:v3 forKey:@"redacted"];
 }
 
-uint64_t __51___LSApplicationSensitiveDataProxy_applicationDSID__block_invoke(uint64_t a1)
+void *__51___LSApplicationSensitiveDataProxy_applicationDSID__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _checkNotRedacted];
   *(*(*(a1 + 40) + 8) + 24) = *(*(a1 + 32) + 8);
   return result;
 }
 
-uint64_t __50___LSApplicationSensitiveDataProxy_downloaderDSID__block_invoke(uint64_t a1)
+void *__50___LSApplicationSensitiveDataProxy_downloaderDSID__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _checkNotRedacted];
   *(*(*(a1 + 40) + 8) + 24) = *(*(a1 + 32) + 16);
   return result;
 }
 
-uint64_t __44___LSApplicationSensitiveDataProxy_familyID__block_invoke(uint64_t a1)
+void *__44___LSApplicationSensitiveDataProxy_familyID__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _checkNotRedacted];
   *(*(*(a1 + 40) + 8) + 24) = *(*(a1 + 32) + 24);

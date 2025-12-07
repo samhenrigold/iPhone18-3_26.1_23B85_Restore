@@ -22,7 +22,7 @@
   v6 = v5;
   if (v5)
   {
-    [(TUILayout *)v5 specifiedWidth];
+    objc_msgSend_specifiedWidth(v5);
     if ((v7 & 0x6000000000000) == 0x2000000000000)
     {
       [(TUILayout *)v6 setSpecifiedWidthComputeInherited:1];
@@ -34,8 +34,8 @@
 
 - (CGPoint)scrollAdditionalAXTranslation
 {
-  children = [(TUILayout *)self children];
-  firstObject = [children firstObject];
+  v3 = objc_msgSend_children(self, a2);
+  firstObject = [v3 firstObject];
 
   if (objc_opt_respondsToSelector())
   {
@@ -72,8 +72,8 @@
   v4 = v3;
   [(TUILayout *)self computeHeight];
   v6 = v5;
-  children = [(TUILayout *)self children];
-  firstObject = [children firstObject];
+  v7 = objc_msgSend_children(self);
+  firstObject = [v7 firstObject];
 
   layoutAncestor = [(TUILayout *)self layoutAncestor];
   shouldUpdateContainingMetricsForScrollableContent = [layoutAncestor shouldUpdateContainingMetricsForScrollableContent];
@@ -83,7 +83,7 @@
     [firstObject setContainingWidth:v4];
   }
 
-  [firstObject validateLayout];
+  objc_msgSend_validateLayout(firstObject);
   if (objc_opt_respondsToSelector())
   {
     [firstObject layoutScrollContentScrollSizeWithProposedSize:{v4, v6}];
@@ -93,7 +93,7 @@
 
   [(TUILayout *)self setComputedNaturalSize:v4, v6];
   v12 = [(TUIAnchorSet *)[TUIMutableAnchorSet alloc] initWithAxis:2];
-  v13 = [(TUILayout *)self box];
+  v13 = objc_msgSend_box(self);
   [v13 anchorOffset];
   [(TUIAnchorSet *)v12 setOffset:?];
 
@@ -128,8 +128,8 @@
   [(TUILayout *)self computedBounds];
   v12 = v11;
   v14 = v13;
-  children = [(TUILayout *)self children];
-  firstObject = [children firstObject];
+  v15 = objc_msgSend_children(self);
+  firstObject = [v15 firstObject];
 
   if ((objc_opt_respondsToSelector() & 1) != 0 && ![firstObject layoutScrollContentShouldClipVertically])
   {
@@ -162,7 +162,7 @@
   v26 = 0;
   if (!self->_renderModelidentifierMap)
   {
-    v6 = [(TUILayout *)self box];
+    v6 = objc_msgSend_box(self);
     identifier = [v6 identifier];
     v8 = [contextCopy embeddedIdentifierMapForIdentifier:identifier];
     renderModelidentifierMap = self->_renderModelidentifierMap;
@@ -171,7 +171,7 @@
 
   if (!self->_sectionUUID)
   {
-    v10 = [(TUILayout *)self box];
+    v10 = objc_msgSend_box(self);
     identifier2 = [v10 identifier];
     v12 = [contextCopy embeddedUUIDForIdentifier:identifier2];
     sectionUUID = self->_sectionUUID;
@@ -197,7 +197,7 @@
 
 - (id)modelIdentifierForScrollable
 {
-  v2 = [(TUILayout *)self box];
+  v2 = objc_msgSend_box(self, a2);
   modelIdentifierForScrollable = [v2 modelIdentifierForScrollable];
 
   return modelIdentifierForScrollable;
@@ -217,7 +217,7 @@
     renderModelUpdateController = self->_renderModelUpdateController;
     if (!renderModelUpdateController)
     {
-      v9 = [(TUILayout *)self box];
+      v9 = objc_msgSend_box(self);
       identifier = [v9 identifier];
       v11 = [contextCopy embeddedUpdateControllerForIdentifier:identifier renderModel:0];
       v12 = self->_renderModelUpdateController;
@@ -229,8 +229,8 @@
     transactionGroup = [contextCopy transactionGroup];
     [(TUIRenderUpdateCollectionController *)renderModelUpdateController updateWithRenderModel:v7 viewState:0 flags:0 transactionGroup:transactionGroup];
 
-    children = [(TUILayout *)self children];
-    firstObject = [children firstObject];
+    v14 = objc_msgSend_children(self);
+    firstObject = [v14 firstObject];
 
     v16 = objc_opt_respondsToSelector();
     scrollPolicy = 0;
@@ -274,15 +274,15 @@
     v34 = self->_renderModelUpdateController;
     v35 = [contextCopy uid];
     uUID = [contextCopy UUID];
-    v49 = [(TUILayout *)self box];
+    v49 = objc_msgSend_box(self);
     identifier2 = [v49 identifier];
     modelIdentifierForScrollable = [(TUIVScrollBoxLayout *)self modelIdentifierForScrollable];
     modelIdentifierForEnclosingScrollable = [(TUILayout *)self modelIdentifierForEnclosingScrollable];
-    v48 = [(TUILayout *)self box];
+    v48 = objc_msgSend_box(self);
     acceptsDrop = [v48 acceptsDrop];
-    v38 = [(TUILayout *)self box];
+    v38 = objc_msgSend_box(self);
     dropHandler = [v38 dropHandler];
-    v40 = [(TUILayout *)self box];
+    v40 = objc_msgSend_box(self);
     [v40 decelerationRate];
     LOBYTE(v44) = acceptsDrop;
     v42 = [TUIEmbeddedCollectionView renderModelWithUpdateController:v34 uid:v35 UUID:uUID identifier:identifier2 scrollIdentifier:modelIdentifierForScrollable ancestorScrollIdentifier:modelIdentifierForEnclosingScrollable scrollPolicy:UIEdgeInsetsZero.top scrollAxis:left additionalSafeAreaInsets:bottom contentIntrinsicInsets:right pageGap:UIEdgeInsetsZero.top gradientInsets:left gradientFraction:bottom acceptsDrop:right dropHandler:v55 decelerationRate:2, 0, *&v53, *&v52, *&v51, *&v50, *&v29, *&v28, *&v27, *&v26, v44, dropHandler, v41];
@@ -318,7 +318,7 @@
   mapsCopy = maps;
   controllersCopy = controllers;
   dsCopy = ds;
-  v11 = [(TUILayout *)self box];
+  v11 = objc_msgSend_box(self);
   identifier = [v11 identifier];
 
   if (identifier)

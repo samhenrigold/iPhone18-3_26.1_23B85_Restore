@@ -1,11 +1,11 @@
 @interface UNNotificationContent(UserNotificationServer)
 - (BOOL)uns_willAlertUser;
-- (uint64_t)uns_willNotifyUser;
+- (BOOL)uns_willNotifyUser;
 @end
 
 @implementation UNNotificationContent(UserNotificationServer)
 
-- (uint64_t)uns_willNotifyUser
+- (BOOL)uns_willNotifyUser
 {
   if ([self uns_willAlertUser])
   {

@@ -1,7 +1,7 @@
 @interface ABDelayedBlockExecutor
+- (_BYTE)pause;
 - (void)_cancelScheduledBlock;
 - (void)cancelPendingBlock;
-- (void)pause;
 - (void)reschedulePendingBlock;
 - (void)resume;
 - (void)scheduleBlock:(double)block delay:;
@@ -77,18 +77,18 @@
   }
 }
 
-- (void)pause
+- (_BYTE)pause
 {
-  if (self)
+  if (result)
   {
-    if ((*(self + 32) & 1) == 0)
+    if ((result[32] & 1) == 0)
     {
-      *(self + 32) = 1;
-      return [self _cancelScheduledBlock];
+      result[32] = 1;
+      return [result _cancelScheduledBlock];
     }
   }
 
-  return self;
+  return result;
 }
 
 - (void)resume

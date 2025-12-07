@@ -28,7 +28,7 @@
 
 - (id)dictionaryRepresentation
 {
-  sub_1A870CCE0(&qword_1EB303718);
+  sub_1A870CCE0(&qword_1EB303718, &unk_1A88EA7C0);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_1A88E14F0;
   *(inited + 32) = 7107189;

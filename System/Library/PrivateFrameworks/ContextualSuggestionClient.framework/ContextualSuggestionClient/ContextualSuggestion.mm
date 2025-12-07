@@ -7,13 +7,11 @@
 
 - (void)encodeWithCoder:(id)coder
 {
-  v4 = *(&self->super.isa + OBJC_IVAR____TtC26ContextualSuggestionClient20ContextualSuggestion_identifier);
-  v5 = *&self->identifier[OBJC_IVAR____TtC26ContextualSuggestionClient20ContextualSuggestion_identifier];
   coderCopy = coder;
   selfCopy = self;
-  v7 = sub_2441D8C4C();
-  v8 = sub_2441D8C4C();
-  [coderCopy encodeObject:v7 forKey:v8];
+  v5 = sub_2441D8C4C();
+  v6 = sub_2441D8C4C();
+  [coderCopy encodeObject:v5 forKey:v6];
 }
 
 - (_TtC26ContextualSuggestionClient20ContextualSuggestion)init

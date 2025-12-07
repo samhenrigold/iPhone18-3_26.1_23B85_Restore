@@ -364,7 +364,7 @@ void __58__EKCalendarEventInvitationNotification_isProposedNewTime__block_invoke
 
 - (id)nearestProposedTime
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   if ([(EKCalendarEventInvitationNotification *)self expanded])
   {
     expandedProposedTimeAttendee = [(EKCalendarEventInvitationNotification *)self expandedProposedTimeAttendee];
@@ -374,27 +374,27 @@ void __58__EKCalendarEventInvitationNotification_isProposedNewTime__block_invoke
   else
   {
     expandedProposedTimeAttendee = [MEMORY[0x1E695DF00] CalSimulatedDateForNow];
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
     attendees = [(EKCalendarEventInvitationNotification *)self attendees];
-    v6 = [attendees countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v6 = [attendees countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v6)
     {
       v7 = v6;
       proposedStartDate = 0;
-      v8 = *v21;
+      v8 = *v20;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v21 != v8)
+          if (*v20 != v8)
           {
             objc_enumerationMutation(attendees);
           }
 
-          v10 = *(*(&v20 + 1) + 8 * i);
+          v10 = *(*(&v19 + 1) + 8 * i);
           if ([v10 proposedStartDateChanged])
           {
             proposedStartDate2 = [v10 proposedStartDate];
@@ -420,7 +420,7 @@ void __58__EKCalendarEventInvitationNotification_isProposedNewTime__block_invoke
           }
         }
 
-        v7 = [attendees countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v7 = [attendees countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v7);
@@ -431,8 +431,6 @@ void __58__EKCalendarEventInvitationNotification_isProposedNewTime__block_invoke
       proposedStartDate = 0;
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return proposedStartDate;
 }
@@ -517,126 +515,122 @@ LABEL_13:
 
 - (BOOL)containsBlockedAttendee
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   if (([(CalBlockList *)self->_blockList isEmpty]& 1) != 0)
   {
-    v4 = 0;
+    return 0;
   }
 
-  else
+  v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  event = [(EKCalendarNotification *)self event];
+  attendees = [event attendees];
+
+  obj = attendees;
+  v7 = [attendees countByEnumeratingWithState:&v20 objects:v24 count:16];
+  if (v7)
   {
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
-    v22 = 0u;
-    event = [(EKCalendarNotification *)self event];
-    attendees = [event attendees];
-
-    obj = attendees;
-    v7 = [attendees countByEnumeratingWithState:&v21 objects:v25 count:16];
-    if (v7)
+    v8 = v7;
+    v19 = *v21;
+    while (2)
     {
-      v8 = v7;
-      v20 = *v22;
-      while (2)
+      for (i = 0; i != v8; ++i)
       {
-        for (i = 0; i != v8; ++i)
+        if (*v21 != v19)
         {
-          if (*v22 != v20)
-          {
-            objc_enumerationMutation(obj);
-          }
+          objc_enumerationMutation(obj);
+        }
 
-          v10 = *(*(&v21 + 1) + 8 * i);
-          emailAddress = [v10 emailAddress];
-          if (emailAddress)
+        v10 = *(*(&v20 + 1) + 8 * i);
+        emailAddress = [v10 emailAddress];
+        if (emailAddress)
+        {
+          blockList = self->_blockList;
+          emailAddress2 = [v10 emailAddress];
+          if ([(CalBlockList *)blockList isBlockedWithEmail:emailAddress2])
           {
-            blockList = self->_blockList;
-            emailAddress2 = [v10 emailAddress];
-            if ([(CalBlockList *)blockList isBlockedWithEmail:emailAddress2])
-            {
 
 LABEL_21:
-              v4 = 1;
-              goto LABEL_22;
-            }
+            v4 = 1;
+            goto LABEL_22;
           }
+        }
 
-          phoneNumber = [v10 phoneNumber];
-          if (phoneNumber)
+        phoneNumber = [v10 phoneNumber];
+        if (phoneNumber)
+        {
+          v14 = self->_blockList;
+          phoneNumber2 = [v10 phoneNumber];
+          v16 = [(CalBlockList *)v14 isBlockedWithPhoneNumber:phoneNumber2];
+
+          if (emailAddress)
           {
-            v14 = self->_blockList;
-            phoneNumber2 = [v10 phoneNumber];
-            v16 = [(CalBlockList *)v14 isBlockedWithPhoneNumber:phoneNumber2];
 
-            if (emailAddress)
-            {
-
-              if (v16)
-              {
-                goto LABEL_21;
-              }
-            }
-
-            else if (v16)
+            if (v16)
             {
               goto LABEL_21;
             }
           }
 
-          else
+          else if (v16)
           {
-
-            if (emailAddress)
-            {
-            }
+            goto LABEL_21;
           }
         }
 
-        v8 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
-        if (v8)
+        else
         {
-          continue;
+
+          if (emailAddress)
+          {
+          }
         }
-
-        break;
       }
-    }
 
-    v4 = 0;
-LABEL_22:
+      v8 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+      if (v8)
+      {
+        continue;
+      }
+
+      break;
+    }
   }
 
-  v17 = *MEMORY[0x1E69E9840];
+  v4 = 0;
+LABEL_22:
+
   return v4;
 }
 
 - (BOOL)containsCachedBlockedAttendee
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v4 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   event = [(EKCalendarNotification *)self event];
   attendees = [event attendees];
 
-  v7 = [attendees countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v7 = [attendees countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v7)
   {
-    v8 = *v23;
+    v8 = *v22;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v23 != v8)
+        if (*v22 != v8)
         {
           objc_enumerationMutation(attendees);
         }
 
-        v10 = *(*(&v22 + 1) + 8 * i);
+        v10 = *(*(&v21 + 1) + 8 * i);
         emailAddress = [v10 emailAddress];
         if (emailAddress)
         {
@@ -650,27 +644,26 @@ LABEL_22:
         }
       }
 
-      v7 = [attendees countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v7 = [attendees countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v7);
   }
 
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x2020000000;
-  v21 = 0;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x2020000000;
+  v20 = 0;
   blockList = self->_blockList;
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __70__EKCalendarEventInvitationNotification_containsCachedBlockedAttendee__block_invoke;
-  v17[3] = &unk_1E77FE368;
-  v17[4] = &v18;
-  [(CalBlockList *)blockList batchCachedEmails:v3 phoneNumbers:v4 completionHandler:v17];
-  v14 = *(v19 + 24);
-  _Block_object_dispose(&v18, 8);
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __70__EKCalendarEventInvitationNotification_containsCachedBlockedAttendee__block_invoke;
+  v16[3] = &unk_1E77FE368;
+  v16[4] = &v17;
+  [(CalBlockList *)blockList batchCachedEmails:v3 phoneNumbers:v4 completionHandler:v16];
+  v14 = *(v18 + 24);
+  _Block_object_dispose(&v17, 8);
 
-  v15 = *MEMORY[0x1E69E9840];
   return v14 & 1;
 }
 
@@ -692,28 +685,24 @@ void __70__EKCalendarEventInvitationNotification_containsCachedBlockedAttendee__
 
 - (void)acknowledgeWithEventStore:(uint64_t)a3 error:.cold.1(void *a1, void *a2, uint64_t a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v5 = a1;
   v6 = [a2 objectID];
-  v8 = 138543618;
-  v9 = v6;
-  v10 = 2112;
-  v11 = a3;
-  _os_log_error_impl(&dword_1A805E000, v5, OS_LOG_TYPE_ERROR, "Failed to clear attendee replied notification %{public}@: %@", &v8, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
+  v7 = 138543618;
+  v8 = v6;
+  v9 = 2112;
+  v10 = a3;
+  _os_log_error_impl(&dword_1A805E000, v5, OS_LOG_TYPE_ERROR, "Failed to clear attendee replied notification %{public}@: %@", &v7, 0x16u);
 }
 
 - (void)acknowledgeWithEventStore:(void *)a1 error:(void *)a2 .cold.2(void *a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = [a2 objectID];
-  v6 = 138543362;
-  v7 = v4;
-  _os_log_error_impl(&dword_1A805E000, v3, OS_LOG_TYPE_ERROR, "Failed to fetch event for attendee replied notification %{public}@ when attempting to acknowledge. Silently ignoring.", &v6, 0xCu);
-
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 138543362;
+  v6 = v4;
+  _os_log_error_impl(&dword_1A805E000, v3, OS_LOG_TYPE_ERROR, "Failed to fetch event for attendee replied notification %{public}@ when attempting to acknowledge. Silently ignoring.", &v5, 0xCu);
 }
 
 @end

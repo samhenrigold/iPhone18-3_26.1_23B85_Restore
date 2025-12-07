@@ -6,7 +6,7 @@
 
 - (id)preferencesFromContext:(id)context
 {
-  v95 = *MEMORY[0x277D85DE8];
+  v96 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   if (contextCopy)
   {
@@ -55,8 +55,8 @@
   indicatorAppearanceStateContext = [maintainedPreferences indicatorAppearanceStateContext];
   if (indicatorContainerViewDescription && indicatorElementDescription)
   {
-    v69 = maintainedPreferences;
-    v66 = a2;
+    v70 = maintainedPreferences;
+    v67 = a2;
     preferences4 = [v9 preferences];
     maintainedPreferences2 = [preferences4 maintainedPreferences];
     indicatorAppearanceStateContext2 = [maintainedPreferences2 indicatorAppearanceStateContext];
@@ -77,11 +77,11 @@
     v29 = v28;
     v31 = v30;
     v32 = *(MEMORY[0x277CBF2C0] + 16);
-    v86 = *MEMORY[0x277CBF2C0];
-    v87 = v32;
-    v88 = *(MEMORY[0x277CBF2C0] + 32);
-    v65 = activeIndicatorElementContext;
-    v67 = lastObject;
+    v87 = *MEMORY[0x277CBF2C0];
+    v88 = v32;
+    v89 = *(MEMORY[0x277CBF2C0] + 32);
+    v66 = activeIndicatorElementContext;
+    v68 = lastObject;
     if ([activeIndicatorElementContext supportsMicroIndicatorPosition])
     {
       elementContexts = [v9 elementContexts];
@@ -94,7 +94,7 @@
         systemApertureCustomLayout = [v34 systemApertureCustomLayout];
       }
 
-      v37 = SBSAMicroIndicatorFrameNearContainer(systemApertureCustomLayout, microIndicatorEjectionPhase > 1, &v86, indicatorAppearanceStateContext, v9, v25, v27, v29, v31);
+      v37 = SBSAMicroIndicatorFrameNearContainer(systemApertureCustomLayout, microIndicatorEjectionPhase > 1, &v87, indicatorAppearanceStateContext, v9, v25, v27, v29, v31);
       v39 = v38;
       v41 = v40;
       v43 = v42;
@@ -102,108 +102,108 @@
 
     else
     {
-      [v9 inertContainerFrame];
-      v37 = v44;
-      v39 = v45;
-      v41 = v46;
-      v43 = v47;
+      inertContainerFrame = [v9 inertContainerFrame];
+      v37 = v45;
+      v39 = v46;
+      v41 = v47;
+      v43 = v48;
     }
 
-    v68 = contextCopy;
-    v48 = SBLogSystemAperturePreferencesStackIndicator();
-    if (os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
+    v69 = contextCopy;
+    v49 = SBLogSystemAperturePreferencesStackIndicator(inertContainerFrame);
+    if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
     {
       queryIteration = [v9 queryIteration];
-      v97.origin.x = v37;
-      v97.origin.y = v39;
-      v97.size.width = v41;
-      v97.size.height = v43;
-      v59 = NSStringFromCGRect(v97);
-      v60 = [v69 description];
-      v61 = v60;
-      v62 = @"nil";
+      v98.origin.x = v37;
+      v98.origin.y = v39;
+      v98.size.width = v41;
+      v98.size.height = v43;
+      v60 = NSStringFromCGRect(v98);
+      v61 = [v70 description];
+      v62 = v61;
+      v63 = @"nil";
       *buf = 134349570;
-      v90 = queryIteration;
-      if (v60)
+      v91 = queryIteration;
+      if (v61)
       {
-        v62 = v60;
+        v63 = v61;
       }
 
-      v91 = 2112;
-      v92 = v59;
-      v93 = 2112;
-      v94 = v62;
-      _os_log_debug_impl(&dword_21ED4E000, v48, OS_LOG_TYPE_DEBUG, "[%{public}lu] Setting indicator frame: %@; persistedState: %@", buf, 0x20u);
+      v92 = 2112;
+      v93 = v60;
+      v94 = 2112;
+      v95 = v63;
+      _os_log_debug_impl(&dword_21ED4E000, v49, OS_LOG_TYPE_DEBUG, "[%{public}lu] Setting indicator frame: %@; persistedState: %@", buf, 0x20u);
     }
 
-    v85[0] = MEMORY[0x277D85DD0];
-    v85[1] = 3221225472;
-    v85[2] = __54__SBSAIndicatorLayoutProvider_preferencesFromContext___block_invoke;
-    v85[3] = &unk_2783B5508;
-    v85[4] = self;
-    v85[5] = v66;
-    *&v85[6] = v37;
-    *&v85[7] = v39;
-    *&v85[8] = v41;
-    *&v85[9] = v43;
-    v49 = [indicatorContainerViewDescription copyWithBlock:v85];
+    v86[0] = MEMORY[0x277D85DD0];
+    v86[1] = 3221225472;
+    v86[2] = __54__SBSAIndicatorLayoutProvider_preferencesFromContext___block_invoke;
+    v86[3] = &unk_2783B5508;
+    v86[4] = self;
+    v86[5] = v67;
+    *&v86[6] = v37;
+    *&v86[7] = v39;
+    *&v86[8] = v41;
+    *&v86[9] = v43;
+    v50 = [indicatorContainerViewDescription copyWithBlock:v86];
 
-    v77[0] = MEMORY[0x277D85DD0];
-    v77[1] = 3221225472;
-    v77[2] = __54__SBSAIndicatorLayoutProvider_preferencesFromContext___block_invoke_2;
-    v77[3] = &unk_2783B5530;
-    v79 = v66;
-    v77[4] = self;
-    v50 = v65;
-    v78 = v50;
-    v83 = microIndicatorPhase > 1;
-    v80 = v86;
+    v78[0] = MEMORY[0x277D85DD0];
+    v78[1] = 3221225472;
+    v78[2] = __54__SBSAIndicatorLayoutProvider_preferencesFromContext___block_invoke_2;
+    v78[3] = &unk_2783B5530;
+    v80 = v67;
+    v78[4] = self;
+    v51 = v66;
+    v79 = v51;
+    v84 = microIndicatorPhase > 1;
     v81 = v87;
     v82 = v88;
-    v84 = interSensorIndicatorPhase > 1;
-    v51 = [indicatorElementDescription copyWithBlock:v77];
+    v83 = v89;
+    v85 = interSensorIndicatorPhase > 1;
+    v52 = [indicatorElementDescription copyWithBlock:v78];
 
     preferences6 = [v9 preferences];
-    v73[0] = MEMORY[0x277D85DD0];
-    v73[1] = 3221225472;
-    v73[2] = __54__SBSAIndicatorLayoutProvider_preferencesFromContext___block_invoke_3;
-    v73[3] = &unk_2783AD778;
-    v76 = v66;
-    v73[4] = self;
-    indicatorElementDescription = v51;
-    v74 = indicatorElementDescription;
-    indicatorContainerViewDescription = v49;
-    v75 = indicatorContainerViewDescription;
-    v53 = [preferences6 copyWithBlock:v73];
+    v74[0] = MEMORY[0x277D85DD0];
+    v74[1] = 3221225472;
+    v74[2] = __54__SBSAIndicatorLayoutProvider_preferencesFromContext___block_invoke_3;
+    v74[3] = &unk_2783AD778;
+    v77 = v67;
+    v74[4] = self;
+    indicatorElementDescription = v52;
+    v75 = indicatorElementDescription;
+    indicatorContainerViewDescription = v50;
+    v76 = indicatorContainerViewDescription;
+    v54 = [preferences6 copyWithBlock:v74];
 
     if ((microIndicatorEjectionPhase - 1) <= 1)
     {
-      v72[0] = MEMORY[0x277D85DD0];
-      v72[1] = 3221225472;
-      v72[2] = __54__SBSAIndicatorLayoutProvider_preferencesFromContext___block_invoke_4;
-      v72[3] = &unk_2783A93E8;
-      v72[4] = self;
-      v72[5] = v66;
-      v54 = [v53 copyWithBlock:v72];
+      v73[0] = MEMORY[0x277D85DD0];
+      v73[1] = 3221225472;
+      v73[2] = __54__SBSAIndicatorLayoutProvider_preferencesFromContext___block_invoke_4;
+      v73[3] = &unk_2783A93E8;
+      v73[4] = self;
+      v73[5] = v67;
+      v55 = [v54 copyWithBlock:v73];
 
-      v53 = v54;
+      v54 = v55;
     }
 
-    contextCopy = v68;
-    maintainedPreferences = v69;
-    v55 = [v9 copyByUpdatingPreferences:v53];
+    contextCopy = v69;
+    maintainedPreferences = v70;
+    v56 = [v9 copyByUpdatingPreferences:v54];
 
-    v9 = v55;
+    v9 = v56;
   }
 
-  v71.receiver = self;
-  v71.super_class = SBSAIndicatorLayoutProvider;
-  v56 = [(SBSABasePreferencesProvider *)&v71 preferencesFromContext:v9];
+  v72.receiver = self;
+  v72.super_class = SBSAIndicatorLayoutProvider;
+  v57 = [(SBSABasePreferencesProvider *)&v72 preferencesFromContext:v9];
 
-  return v56;
+  return v57;
 }
 
-void __54__SBSAIndicatorLayoutProvider_preferencesFromContext___block_invoke(uint64_t a1, void *a2)
+void __54__SBSAIndicatorLayoutProvider_preferencesFromContext___block_invoke(double *a1, void *a2)
 {
   v14 = a2;
   if (v14)

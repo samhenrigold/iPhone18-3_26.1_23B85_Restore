@@ -436,7 +436,7 @@ void __52__LPMediaRemotePlaybackObserver_updatePlaybackState__block_invoke(uint6
       v35 = 0u;
       v36 = 0u;
       v34 = 0u;
-      [v11 duration];
+      objc_msgSend_duration(v11);
       [MEMORY[0x1E695DF00] timeIntervalSinceReferenceDate];
       v21 = (v20 - 0.0) * 0.0 + 0.0;
       if (v21 >= 0.0)

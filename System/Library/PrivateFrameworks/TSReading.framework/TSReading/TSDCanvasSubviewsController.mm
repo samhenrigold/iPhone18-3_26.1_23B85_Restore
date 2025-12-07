@@ -846,7 +846,7 @@ LABEL_39:
   }
 }
 
-uint64_t __61__TSDCanvasSubviewsController_updateTopLevelLayersForTiling___block_invoke(uint64_t a1)
+void *__61__TSDCanvasSubviewsController_updateTopLevelLayersForTiling___block_invoke(uint64_t a1)
 {
   v12 = *MEMORY[0x277D85DE8];
   v7 = 0u;
@@ -869,7 +869,8 @@ uint64_t __61__TSDCanvasSubviewsController_updateTopLevelLayersForTiling___block
           objc_enumerationMutation(v2);
         }
 
-        [*(a1 + 40) removeObject:*(*(&v7 + 1) + 8 * v6++)];
+        [*(a1 + 40) removeObject:*(*(&v7 + 1) + 8 * v6)];
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);
@@ -998,7 +999,7 @@ void __43__TSDCanvasSubviewsController_addSubviews___block_invoke(uint64_t a1)
   [(TSDCanvasSubviewsController *)self syncPerformBlock:v8];
 }
 
-uint64_t __46__TSDCanvasSubviewsController_removeSubviews___block_invoke(void *a1)
+void *__46__TSDCanvasSubviewsController_removeSubviews___block_invoke(void *a1)
 {
   v16 = *MEMORY[0x277D85DE8];
   v11 = 0u;
@@ -1036,7 +1037,7 @@ uint64_t __46__TSDCanvasSubviewsController_removeSubviews___block_invoke(void *a
           [*(a1[6] + 48) removeObject:v10];
         }
 
-        ++v6;
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);

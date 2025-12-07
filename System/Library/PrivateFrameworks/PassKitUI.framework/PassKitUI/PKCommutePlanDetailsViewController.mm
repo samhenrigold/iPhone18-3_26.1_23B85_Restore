@@ -705,7 +705,7 @@ uint64_t __68__PKCommutePlanDetailsViewController__fetchRemindersWithCompletion_
       v13 = MEMORY[0x1E696AB90];
       if (v7)
       {
-        [v7 decimalValue];
+        objc_msgSend_decimalValue(v7);
       }
 
       else
@@ -773,11 +773,11 @@ LABEL_7:
 LABEL_8:
 }
 
-uint64_t __59__PKCommutePlanDetailsViewController__handleActionSelected__block_invoke(uint64_t result, uint64_t a2, uint64_t a3)
+id *__59__PKCommutePlanDetailsViewController__handleActionSelected__block_invoke(id *result, uint64_t a2, uint64_t a3)
 {
   if (a3)
   {
-    return [*(result + 32) presentViewController:a3 animated:1 completion:0];
+    return [result[4] presentViewController:a3 animated:1 completion:0];
   }
 
   return result;

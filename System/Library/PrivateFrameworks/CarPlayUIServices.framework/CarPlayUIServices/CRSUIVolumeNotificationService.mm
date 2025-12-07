@@ -16,10 +16,10 @@
 
 - (CRSUIVolumeNotificationService)init
 {
-  v25 = *MEMORY[0x277D85DE8];
-  v22.receiver = self;
-  v22.super_class = CRSUIVolumeNotificationService;
-  v2 = [(CRSUIVolumeNotificationService *)&v22 init];
+  v24 = *MEMORY[0x277D85DE8];
+  v21.receiver = self;
+  v21.super_class = CRSUIVolumeNotificationService;
+  v2 = [(CRSUIVolumeNotificationService *)&v21 init];
   if (v2)
   {
     v3 = [objc_alloc(MEMORY[0x277CF89C0]) initWithProtocol:&unk_285609070];
@@ -41,13 +41,13 @@
     v2->_lock_assertions = v10;
 
     v12 = MEMORY[0x277CF32A0];
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __38__CRSUIVolumeNotificationService_init__block_invoke;
-    v20[3] = &unk_278DA0B08;
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __38__CRSUIVolumeNotificationService_init__block_invoke;
+    v19[3] = &unk_278DA0B08;
     v13 = v2;
-    v21 = v13;
-    v14 = [v12 listenerWithConfigurator:v20];
+    v20 = v13;
+    v14 = [v12 listenerWithConfigurator:v19];
     v15 = v13[3];
     v13[3] = v14;
 
@@ -56,14 +56,13 @@
     {
       v17 = v13[3];
       *buf = 138412290;
-      v24 = v17;
+      v23 = v17;
       _os_log_impl(&dword_243218000, v16, OS_LOG_TYPE_DEFAULT, "Volume notification activating listener! %@", buf, 0xCu);
     }
 
     [v13[3] activate];
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -152,13 +151,13 @@ uint64_t __75__CRSUIVolumeNotificationService_isNotificationBlockedForBundleIden
 
 - (void)listener:(id)listener didReceiveConnection:(id)connection withContext:(id)context
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   v7 = CRSUILogForCategory(0);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v19 = connectionCopy;
+    v18 = connectionCopy;
     _os_log_impl(&dword_243218000, v7, OS_LOG_TYPE_INFO, "Volume notification received connection! %@", buf, 0xCu);
   }
 
@@ -167,17 +166,17 @@ uint64_t __75__CRSUIVolumeNotificationService_isNotificationBlockedForBundleIden
 
   if (v9)
   {
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __76__CRSUIVolumeNotificationService_listener_didReceiveConnection_withContext___block_invoke;
-    v17[3] = &unk_278DA10F0;
-    v17[4] = self;
-    [connectionCopy configureConnection:v17];
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __76__CRSUIVolumeNotificationService_listener_didReceiveConnection_withContext___block_invoke;
+    v16[3] = &unk_278DA10F0;
+    v16[4] = self;
+    [connectionCopy configureConnection:v16];
     v10 = CRSUILogForCategory(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v19 = connectionCopy;
+      v18 = connectionCopy;
       _os_log_impl(&dword_243218000, v10, OS_LOG_TYPE_DEFAULT, "Activating connection... %@", buf, 0xCu);
     }
 
@@ -188,7 +187,7 @@ uint64_t __75__CRSUIVolumeNotificationService_isNotificationBlockedForBundleIden
     block[3] = &unk_278DA0D18;
     block[4] = self;
     v12 = connectionCopy;
-    v16 = v12;
+    v15 = v12;
     dispatch_async(connectionQueue, block);
 
     [v12 activate];
@@ -204,8 +203,6 @@ uint64_t __75__CRSUIVolumeNotificationService_isNotificationBlockedForBundleIden
 
     [connectionCopy invalidate];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __76__CRSUIVolumeNotificationService_listener_didReceiveConnection_withContext___block_invoke(uint64_t a1, void *a2)

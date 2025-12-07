@@ -30,10 +30,10 @@
 {
   type = [objc_opt_class() type];
   type2 = [objc_opt_class() type];
-  v2 = 1;
+  v5 = 1;
   if (type)
   {
-    v2 = -1;
+    v5 = -1;
   }
 
   if (type == type2)
@@ -43,7 +43,7 @@
 
   else
   {
-    return v2;
+    return v5;
   }
 }
 

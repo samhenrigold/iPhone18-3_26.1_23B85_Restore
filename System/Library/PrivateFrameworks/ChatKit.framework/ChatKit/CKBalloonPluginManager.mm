@@ -146,11 +146,11 @@
   return iconCache;
 }
 
-void __40__CKBalloonPluginManager_sharedInstance__block_invoke()
+void __40__CKBalloonPluginManager_sharedInstance__block_invoke(uint64_t a1)
 {
-  v0 = objc_alloc_init(objc_opt_class());
-  v1 = __sharedDataSource;
-  __sharedDataSource = v0;
+  v1 = objc_alloc_init(objc_opt_class());
+  v2 = __sharedDataSource;
+  __sharedDataSource = v1;
 }
 
 + (id)recentPlugin
@@ -168,7 +168,7 @@ void __40__CKBalloonPluginManager_sharedInstance__block_invoke()
 void __38__CKBalloonPluginManager_recentPlugin__block_invoke()
 {
   v0 = objc_alloc(MEMORY[0x1E69A5AB8]);
-  v4 = CKFrameworkBundle();
+  v4 = CKFrameworkBundle(v0);
   v1 = [v4 localizedStringForKey:@"RECENTS" value:&stru_1F04268F8 table:@"ChatKit"];
   v2 = [v0 initWithIdentifier:@"com.apple.messages.browser.RecentPlugin" browserDisplayName:v1 browserImageName:&stru_1F04268F8 browserClass:objc_opt_class() presentationContext:1];
   v3 = recentPlugin_sRecentsPlugin;
@@ -187,16 +187,16 @@ void __38__CKBalloonPluginManager_recentPlugin__block_invoke()
   return v3;
 }
 
-void __36__CKBalloonPluginManager_morePlugin__block_invoke()
+void __36__CKBalloonPluginManager_morePlugin__block_invoke(uint64_t a1, uint64_t a2)
 {
-  if (!CKIsRunningInCameraAppsClient())
+  if (!CKIsRunningInCameraAppsClient(a1, a2))
   {
-    v0 = [CKMoreBrowserPlugin alloc];
-    v4 = CKFrameworkBundle();
-    v1 = [v4 localizedStringForKey:@"MORE" value:&stru_1F04268F8 table:@"ChatKit"];
-    v2 = [(IMBalloonBrowserPlugin *)v0 initWithIdentifier:@"com.apple.messages.browser.MorePlugin" browserDisplayName:v1 browserImageName:@"MoreIcon" browserClass:objc_opt_class() presentationContext:1];
-    v3 = morePlugin_sMorePlugin;
-    morePlugin_sMorePlugin = v2;
+    v2 = [CKMoreBrowserPlugin alloc];
+    v6 = CKFrameworkBundle(v2);
+    v3 = [v6 localizedStringForKey:@"MORE" value:&stru_1F04268F8 table:@"ChatKit"];
+    v4 = [(IMBalloonBrowserPlugin *)v2 initWithIdentifier:@"com.apple.messages.browser.MorePlugin" browserDisplayName:v3 browserImageName:@"MoreIcon" browserClass:objc_opt_class() presentationContext:1];
+    v5 = morePlugin_sMorePlugin;
+    morePlugin_sMorePlugin = v4;
   }
 }
 
@@ -1583,7 +1583,7 @@ LABEL_27:
 - (void)saveWithNotification:(BOOL)notification
 {
   notificationCopy = notification;
-  if (!CKIsRunningInCameraAppsClient())
+  if (!CKIsRunningInCameraAppsClient(self, a2))
   {
     hasLoadedExtensions = [(CKBalloonPluginManager *)self hasLoadedExtensions];
     v6 = IMOSLoggingEnabled();
@@ -1649,7 +1649,7 @@ LABEL_16:
 - (void)saveCombinedAppsWithNotification:(BOOL)notification
 {
   notificationCopy = notification;
-  if (!CKIsRunningInCameraAppsClient())
+  if (!CKIsRunningInCameraAppsClient(self, a2))
   {
     hasLoadedExtensions = [(CKBalloonPluginManager *)self hasLoadedExtensions];
     v6 = IMOSLoggingEnabled();
@@ -2222,7 +2222,7 @@ LABEL_13:
 
 - (NSArray)allPlugins
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v60 = *MEMORY[0x1E69E9840];
   allPlugins = self->_allPlugins;
   if (allPlugins)
   {
@@ -2230,8 +2230,8 @@ LABEL_13:
   }
 
   selfCopy = self;
-  v43 = objc_alloc_init(MEMORY[0x1E69A6170]);
-  [v43 startTimingForKey:@"allPlugins"];
+  v45 = objc_alloc_init(MEMORY[0x1E69A6170]);
+  [v45 startTimingForKey:@"allPlugins"];
   if (IMOSLoggingEnabled())
   {
     v4 = OSLogHandleForIMFoundationCategory();
@@ -2253,35 +2253,35 @@ LABEL_13:
   allPlugins = [mEMORY[0x1E69A5AD0] allPlugins];
   [v5 addObjectsFromArray:allPlugins];
 
-  v48 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v5, "count")}];
-  v46 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v50 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v5, "count")}];
+  v48 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v55 = 0u;
+  v56 = 0u;
   v53 = 0u;
   v54 = 0u;
-  v51 = 0u;
-  v52 = 0u;
   v8 = v5;
-  v9 = [v8 countByEnumeratingWithState:&v51 objects:v57 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v53 objects:v59 count:16];
   if (!v9)
   {
 
     goto LABEL_47;
   }
 
-  v47 = 0;
-  v10 = *v52;
+  v49 = 0;
+  v10 = *v54;
   v11 = *MEMORY[0x1E69A69F0];
-  v49 = *MEMORY[0x1E69A69B8];
-  v45 = *MEMORY[0x1E69A6978];
+  v51 = *MEMORY[0x1E69A69B8];
+  v47 = *MEMORY[0x1E69A6978];
   do
   {
     for (i = 0; i != v9; ++i)
     {
-      if (*v52 != v10)
+      if (*v54 != v10)
       {
         objc_enumerationMutation(v8);
       }
 
-      v13 = *(*(&v51 + 1) + 8 * i);
+      v13 = *(*(&v53 + 1) + 8 * i);
       identifier = [v13 identifier];
       v15 = [identifier isEqualToString:v11];
 
@@ -2301,14 +2301,15 @@ LABEL_13:
         }
 
         presentationContexts = [v13 presentationContexts];
-        if (IMIsRunningIniMessageAppsViewService())
+        v18 = IMIsRunningIniMessageAppsViewService();
+        if (v18)
         {
-          v18 = 1;
+          v20 = 1;
         }
 
         else
         {
-          v18 = CKIsRunningInCameraAppsClient() != 0;
+          v20 = CKIsRunningInCameraAppsClient(v18, v19) != 0;
         }
 
         mEMORY[0x1E69A8070] = [MEMORY[0x1E69A8070] sharedFeatureFlags];
@@ -2316,25 +2317,25 @@ LABEL_13:
 
         if (isStickersAppEnabled)
         {
-          if ((presentationContexts & 2) != 0 || !v18)
+          if ((presentationContexts & 2) != 0 || !v20)
           {
             goto LABEL_34;
           }
 
           identifier2 = [v13 identifier];
-          v23 = IMStickersExtensionIdentifier();
-          v24 = [identifier2 hasSuffix:v23];
+          v25 = IMStickersExtensionIdentifier();
+          v26 = [identifier2 hasSuffix:v25];
 
-          if (v24)
+          if (v26)
           {
             goto LABEL_34;
           }
         }
 
-        else if ((v18 | presentationContexts))
+        else if ((v20 | presentationContexts))
         {
-          v25 = (presentationContexts & 2) == 0 && v18;
-          if (!v25 || ([v13 identifier], v26 = objc_claimAutoreleasedReturnValue(), IMStickersExtensionIdentifier(), v27 = objc_claimAutoreleasedReturnValue(), v28 = objc_msgSend(v26, "hasSuffix:", v27), v27, v26, v28))
+          v27 = (presentationContexts & 2) == 0 && v20;
+          if (!v27 || ([v13 identifier], v28 = objc_claimAutoreleasedReturnValue(), IMStickersExtensionIdentifier(), v29 = objc_claimAutoreleasedReturnValue(), v30 = objc_msgSend(v28, "hasSuffix:", v29), v29, v28, v30))
           {
 LABEL_34:
             if (!IMIsRunningIniMessageAppsViewService())
@@ -2343,30 +2344,30 @@ LABEL_34:
             }
 
             identifier3 = [v13 identifier];
-            if (([identifier3 hasSuffix:v49] & 1) == 0)
+            if (([identifier3 hasSuffix:v51] & 1) == 0)
             {
-              v30 = [identifier3 hasSuffix:v45];
+              v32 = [identifier3 hasSuffix:v47];
 
-              if (v30)
+              if (v32)
               {
                 continue;
               }
 
 LABEL_37:
-              [v48 addObject:v13];
+              [v50 addObject:v13];
               identifier3 = [v13 identifier];
-              [v46 addObject:identifier3];
+              [v48 addObject:identifier3];
               if ([identifier3 isEqualToString:@"com.apple.appstore.MessagesProvider"])
               {
-                v31 = v13;
+                v33 = v13;
 
-                v47 = v31;
+                v49 = v33;
               }
 
               identifier4 = [v13 identifier];
-              v33 = [(CKBalloonPluginManager *)selfCopy isPluginEnabled:identifier4];
+              v35 = [(CKBalloonPluginManager *)selfCopy isPluginEnabled:identifier4];
 
-              if (v33)
+              if (v35)
               {
                 [(CKBalloonPluginManager *)selfCopy _setSeen:1 forPlugin:v13];
               }
@@ -2378,57 +2379,57 @@ LABEL_37:
       }
     }
 
-    v9 = [v8 countByEnumeratingWithState:&v51 objects:v57 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v53 objects:v59 count:16];
   }
 
   while (v9);
 
-  if (v47)
+  if (v49)
   {
-    [v48 removeObject:?];
-    [v48 insertObject:v47 atIndex:0];
+    [v50 removeObject:?];
+    [v50 insertObject:v49 atIndex:0];
     goto LABEL_48;
   }
 
 LABEL_47:
-  v47 = 0;
+  v49 = 0;
 LABEL_48:
   morePlugin = [objc_opt_class() morePlugin];
   if (morePlugin)
   {
-    [v48 addObject:morePlugin];
+    [v50 addObject:morePlugin];
   }
 
   [(CKBalloonPluginManager *)selfCopy saveWithNotification:0];
-  v35 = [MEMORY[0x1E695DEC8] arrayWithArray:v48];
-  v36 = selfCopy->_allPlugins;
-  selfCopy->_allPlugins = v35;
+  v37 = [MEMORY[0x1E695DEC8] arrayWithArray:v50];
+  v38 = selfCopy->_allPlugins;
+  selfCopy->_allPlugins = v37;
 
   pluginIndexPathMap = [(CKBalloonPluginManager *)selfCopy pluginIndexPathMap];
-  v38 = [pluginIndexPathMap count] == 0;
+  v40 = [pluginIndexPathMap count] == 0;
 
-  if (v38)
+  if (v40)
   {
     [(CKBalloonPluginManager *)selfCopy regeneratePluginIndexPaths];
   }
 
   combinedStickersAppsIndexPathMap = [(CKBalloonPluginManager *)selfCopy combinedStickersAppsIndexPathMap];
-  v40 = [combinedStickersAppsIndexPathMap count] == 0;
+  v42 = [combinedStickersAppsIndexPathMap count] == 0;
 
-  if (v40)
+  if (v42)
   {
     [(CKBalloonPluginManager *)selfCopy regenerateCombinedStickersAppsIndexPaths];
   }
 
-  [v43 stopTimingForKey:@"allPlugins"];
+  [v45 stopTimingForKey:@"allPlugins"];
   if (IMOSLoggingEnabled())
   {
-    v41 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
+    v43 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v56 = v43;
-      _os_log_impl(&dword_19020E000, v41, OS_LOG_TYPE_INFO, "Loaded allPlugins, %@", buf, 0xCu);
+      v58 = v45;
+      _os_log_impl(&dword_19020E000, v43, OS_LOG_TYPE_INFO, "Loaded allPlugins, %@", buf, 0xCu);
     }
   }
 
@@ -2986,7 +2987,8 @@ LABEL_14:
   currentExtensionConsumers = [(CKBalloonPluginManager *)self currentExtensionConsumers];
   [currentExtensionConsumers removeAllObjects];
 
-  if (!CKIsRunningInMessagesViewService() && !CKIsRunningInMessagesNotificationExtension())
+  v4 = CKIsRunningInMessagesViewService();
+  if (!v4 && !CKIsRunningInMessagesNotificationExtension(v4))
   {
     [(CKBalloonPluginManager *)self forceTearDownRemoteViewsSkippingCameraApp:1];
 
@@ -3034,50 +3036,50 @@ LABEL_14:
   }
 }
 
-void __98__CKBalloonPluginManager_ViewControllerFactory__forceKillRemoteExtensionsWithDelay_skipCameraApp___block_invoke(uint64_t a1)
+void __98__CKBalloonPluginManager_ViewControllerFactory__forceKillRemoteExtensionsWithDelay_skipCameraApp___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   if (IMOSLoggingEnabled())
   {
-    v2 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v3 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_19020E000, v2, OS_LOG_TYPE_INFO, "forceKill of plugins in cache", buf, 2u);
+      _os_log_impl(&dword_19020E000, v3, OS_LOG_TYPE_INFO, "forceKill of plugins in cache", buf, 2u);
     }
   }
 
-  v39 = 0u;
   v40 = 0u;
-  v37 = 0u;
+  v41 = 0u;
   v38 = 0u;
-  v3 = [*(a1 + 32) activeBrowsers];
-  obj = [v3 allValues];
+  v39 = 0u;
+  v4 = [*(a1 + 32) activeBrowsers];
+  obj = [v4 allValues];
 
-  v4 = [obj countByEnumeratingWithState:&v37 objects:v46 count:16];
-  if (v4)
+  v5 = [obj countByEnumeratingWithState:&v38 objects:v47 count:16];
+  if (v5)
   {
-    v6 = *v38;
-    *&v5 = 138412290;
-    v30 = v5;
+    v7 = *v39;
+    *&v6 = 138412290;
+    v31 = v6;
     do
     {
-      for (i = 0; i != v4; ++i)
+      for (i = 0; i != v5; ++i)
       {
-        if (*v38 != v6)
+        if (*v39 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v37 + 1) + 8 * i);
+        v9 = *(*(&v38 + 1) + 8 * i);
         if (*(a1 + 40) == 1)
         {
-          v9 = [*(*(&v37 + 1) + 8 * i) balloonPlugin];
-          v10 = [v9 identifier];
-          v11 = IMBalloonExtensionIDWithSuffix();
-          v12 = [v10 isEqualToString:v11];
+          v10 = [*(*(&v38 + 1) + 8 * i) balloonPlugin];
+          v11 = [v10 identifier];
+          v12 = IMBalloonExtensionIDWithSuffix();
+          v13 = [v11 isEqualToString:v12];
 
-          if (v12)
+          if (v13)
           {
             continue;
           }
@@ -3087,54 +3089,54 @@ void __98__CKBalloonPluginManager_ViewControllerFactory__forceKillRemoteExtensio
         {
           if (IMOSLoggingEnabled())
           {
-            v13 = OSLogHandleForIMFoundationCategory();
-            if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+            v14 = OSLogHandleForIMFoundationCategory();
+            if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
             {
-              v14 = [v8 balloonPlugin];
-              v15 = [v14 identifier];
-              *buf = v30;
-              v42 = v15;
-              _os_log_impl(&dword_19020E000, v13, OS_LOG_TYPE_INFO, "Killing extension process with bundle ID %@", buf, 0xCu);
+              v15 = [v9 balloonPlugin];
+              v16 = [v15 identifier];
+              *buf = v31;
+              v43 = v16;
+              _os_log_impl(&dword_19020E000, v14, OS_LOG_TYPE_INFO, "Killing extension process with bundle ID %@", buf, 0xCu);
             }
           }
 
-          [v8 killExtensionProcess];
+          [v9 killExtensionProcess];
         }
       }
 
-      v4 = [obj countByEnumeratingWithState:&v37 objects:v46 count:16];
+      v5 = [obj countByEnumeratingWithState:&v38 objects:v47 count:16];
     }
 
-    while (v4);
+    while (v5);
   }
 
   obja = [*(a1 + 32) bundleIdentifiersForCurrentExtensionConsumers];
-  v35 = 0u;
   v36 = 0u;
-  v33 = 0u;
+  v37 = 0u;
   v34 = 0u;
-  v16 = [*(a1 + 32) allPlugins];
-  v17 = [v16 countByEnumeratingWithState:&v33 objects:v45 count:16];
-  if (v17)
+  v35 = 0u;
+  v17 = [*(a1 + 32) allPlugins];
+  v18 = [v17 countByEnumeratingWithState:&v34 objects:v46 count:16];
+  if (v18)
   {
-    v18 = *v34;
+    v19 = *v35;
     do
     {
-      for (j = 0; j != v17; ++j)
+      for (j = 0; j != v18; ++j)
       {
-        if (*v34 != v18)
+        if (*v35 != v19)
         {
-          objc_enumerationMutation(v16);
+          objc_enumerationMutation(v17);
         }
 
-        v20 = *(*(&v33 + 1) + 8 * j);
+        v21 = *(*(&v34 + 1) + 8 * j);
         if (*(a1 + 40) == 1)
         {
-          v21 = [*(*(&v33 + 1) + 8 * j) identifier];
-          v22 = IMBalloonExtensionIDWithSuffix();
-          v23 = [v21 isEqualToString:v22];
+          v22 = [*(*(&v34 + 1) + 8 * j) identifier];
+          v23 = IMBalloonExtensionIDWithSuffix();
+          v24 = [v22 isEqualToString:v23];
 
-          if (v23)
+          if (v24)
           {
             continue;
           }
@@ -3143,39 +3145,39 @@ void __98__CKBalloonPluginManager_ViewControllerFactory__forceKillRemoteExtensio
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v24 = [v20 identifier];
-          v25 = [obja containsObject:v24];
+          v25 = [v21 identifier];
+          v26 = [obja containsObject:v25];
 
-          if ((v25 & 1) == 0)
+          if ((v26 & 1) == 0)
           {
-            v26 = v20;
+            v27 = v21;
             if ((IMGetDomainBoolForKey() & 1) == 0)
             {
               if (IMOSLoggingEnabled())
               {
-                v27 = OSLogHandleForIMFoundationCategory();
-                if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+                v28 = OSLogHandleForIMFoundationCategory();
+                if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
                 {
-                  v28 = [v26 identifier];
+                  v29 = [v27 identifier];
                   *buf = 138412546;
-                  v42 = v28;
-                  v43 = 2112;
-                  v44 = obja;
-                  _os_log_impl(&dword_19020E000, v27, OS_LOG_TYPE_INFO, "Killing plugin extension with bundle ID %@. consumedBundleIdentifiers %@", buf, 0x16u);
+                  v43 = v29;
+                  v44 = 2112;
+                  v45 = obja;
+                  _os_log_impl(&dword_19020E000, v28, OS_LOG_TYPE_INFO, "Killing plugin extension with bundle ID %@. consumedBundleIdentifiers %@", buf, 0x16u);
                 }
               }
 
-              v29 = [v26 extension];
-              [v29 _kill:9];
+              v30 = [v27 extension];
+              [v30 _kill:9];
             }
           }
         }
       }
 
-      v17 = [v16 countByEnumeratingWithState:&v33 objects:v45 count:16];
+      v18 = [v17 countByEnumeratingWithState:&v34 objects:v46 count:16];
     }
 
-    while (v17);
+    while (v18);
   }
 }
 

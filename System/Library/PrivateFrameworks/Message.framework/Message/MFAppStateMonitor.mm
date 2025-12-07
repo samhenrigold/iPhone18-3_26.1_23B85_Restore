@@ -35,16 +35,16 @@ void __35__MFAppStateMonitor_sharedInstance__block_invoke(uint64_t a1)
 
 - (MFAppStateMonitor)initWithBundleId:(id)id
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   idCopy = id;
   if (!idCopy)
   {
     goto LABEL_11;
   }
 
-  v29.receiver = self;
-  v29.super_class = MFAppStateMonitor;
-  self = [(MFAppStateMonitor *)&v29 init];
+  v28.receiver = self;
+  v28.super_class = MFAppStateMonitor;
+  self = [(MFAppStateMonitor *)&v28 init];
   if (self)
   {
     observableObserver = [MEMORY[0x1E699B830] observableObserver];
@@ -53,9 +53,9 @@ void __35__MFAppStateMonitor_sharedInstance__block_invoke(uint64_t a1)
 
     v7 = MEMORY[0x1E69C75D0];
     v8 = [MEMORY[0x1E69C7610] predicateMatchingBundleIdentifier:idCopy];
-    v28 = 0;
-    v9 = [v7 handleForPredicate:v8 error:&v28];
-    v10 = v28;
+    v27 = 0;
+    v9 = [v7 handleForPredicate:v8 error:&v27];
+    v10 = v27;
 
     currentState = [v9 currentState];
     endowmentNamespaces = [currentState endowmentNamespaces];
@@ -75,20 +75,20 @@ void __35__MFAppStateMonitor_sharedInstance__block_invoke(uint64_t a1)
 
     objc_initWeak(&buf, self);
     v17 = MEMORY[0x1E69C75F8];
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = __38__MFAppStateMonitor_initWithBundleId___block_invoke;
-    v25[3] = &unk_1E7AA4BB0;
+    v24[0] = MEMORY[0x1E69E9820];
+    v24[1] = 3221225472;
+    v24[2] = __38__MFAppStateMonitor_initWithBundleId___block_invoke;
+    v24[3] = &unk_1E7AA4BB0;
     v18 = idCopy;
-    v26 = v18;
-    objc_copyWeak(&v27, &buf);
-    v19 = [v17 monitorWithConfiguration:v25];
+    v25 = v18;
+    objc_copyWeak(&v26, &buf);
+    v19 = [v17 monitorWithConfiguration:v24];
     underlyingMonitor = self->_underlyingMonitor;
     self->_underlyingMonitor = v19;
 
     if (self->_underlyingMonitor)
     {
-      objc_destroyWeak(&v27);
+      objc_destroyWeak(&v26);
 
       objc_destroyWeak(&buf);
       goto LABEL_7;
@@ -100,7 +100,7 @@ void __35__MFAppStateMonitor_sharedInstance__block_invoke(uint64_t a1)
       [(MFAppStateMonitor *)v18 initWithBundleId:v10, v22];
     }
 
-    objc_destroyWeak(&v27);
+    objc_destroyWeak(&v26);
     objc_destroyWeak(&buf);
 
 LABEL_11:
@@ -113,35 +113,32 @@ LABEL_7:
   selfCopy = self;
 LABEL_12:
 
-  v23 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 void __38__MFAppStateMonitor_initWithBundleId___block_invoke(uint64_t a1, void *a2)
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [MEMORY[0x1E69C7630] descriptor];
   [v4 setValues:1];
-  v12[0] = @"com.apple.frontboard.visibility";
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
+  v11[0] = @"com.apple.frontboard.visibility";
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
   [v4 setEndowmentNamespaces:v5];
 
   [v3 setStateDescriptor:v4];
   v6 = [MEMORY[0x1E69C7610] predicateMatchingBundleIdentifier:*(a1 + 32)];
-  v11 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v11 count:1];
+  v10 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v10 count:1];
   [v3 setPredicates:v7];
 
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __38__MFAppStateMonitor_initWithBundleId___block_invoke_2;
-  v9[3] = &unk_1E7AA4B88;
-  objc_copyWeak(&v10, (a1 + 40));
-  [v3 setUpdateHandler:v9];
-  objc_destroyWeak(&v10);
-
-  v8 = *MEMORY[0x1E69E9840];
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __38__MFAppStateMonitor_initWithBundleId___block_invoke_2;
+  v8[3] = &unk_1E7AA4B88;
+  objc_copyWeak(&v9, (a1 + 40));
+  [v3 setUpdateHandler:v8];
+  objc_destroyWeak(&v9);
 }
 
 void __38__MFAppStateMonitor_initWithBundleId___block_invoke_2(uint64_t a1, void *a2, void *a3, void *a4)
@@ -155,7 +152,7 @@ void __38__MFAppStateMonitor_initWithBundleId___block_invoke_2(uint64_t a1, void
 
 - (void)_monitorDidUpdate:(void *)update process:(void *)process update:
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v7 = a2;
   updateCopy = update;
   processCopy = process;
@@ -176,13 +173,13 @@ void __38__MFAppStateMonitor_initWithBundleId___block_invoke_2(uint64_t a1, void
       v17 = MFLogGeneral();
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
-        v21 = 67109632;
-        v22 = v15;
-        v23 = 1024;
-        v24 = taskState;
-        v25 = 1024;
-        v26 = [updateCopy pid];
-        _os_log_impl(&dword_1B0389000, v17, OS_LOG_TYPE_DEFAULT, "[RBSProcessMonitor] Is visible: %{BOOL}d, state: %d, pid = %d", &v21, 0x14u);
+        v20 = 67109632;
+        v21 = v15;
+        v22 = 1024;
+        v23 = taskState;
+        v24 = 1024;
+        v25 = [updateCopy pid];
+        _os_log_impl(&dword_1B0389000, v17, OS_LOG_TYPE_DEFAULT, "[RBSProcessMonitor] Is visible: %{BOOL}d, state: %d, pid = %d", &v20, 0x14u);
       }
 
       v18 = *(self + 24);
@@ -195,23 +192,21 @@ void __38__MFAppStateMonitor_initWithBundleId___block_invoke_2(uint64_t a1, void
       v18 = MFLogGeneral();
       if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
       {
-        v21 = 67109632;
-        v22 = v15;
-        v23 = 1024;
-        v24 = taskState;
-        v25 = 1024;
-        v26 = [updateCopy pid];
-        _os_log_impl(&dword_1B0389000, v18, OS_LOG_TYPE_INFO, "[RBSProcessMonitor] Is visible: %{BOOL}d, state: %d, pid = %d -- (no app visibility change)", &v21, 0x14u);
+        v20 = 67109632;
+        v21 = v15;
+        v22 = 1024;
+        v23 = taskState;
+        v24 = 1024;
+        v25 = [updateCopy pid];
+        _os_log_impl(&dword_1B0389000, v18, OS_LOG_TYPE_INFO, "[RBSProcessMonitor] Is visible: %{BOOL}d, state: %d, pid = %d -- (no app visibility change)", &v20, 0x14u);
       }
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (EFObservable)appIsVisibleObservable
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   if (self)
   {
     observable = self->_observable;
@@ -224,11 +219,9 @@ void __38__MFAppStateMonitor_initWithBundleId___block_invoke_2(uint64_t a1, void
 
   v4 = observable;
   v5 = [MEMORY[0x1E696AD98] numberWithBool:{-[MFAppStateMonitor isVisible](self, "isVisible")}];
-  v10[0] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
+  v9[0] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
   v7 = [(EFObserver *)v4 startWith:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -249,13 +242,12 @@ void __38__MFAppStateMonitor_initWithBundleId___block_invoke_2(uint64_t a1, void
 
 - (void)initWithBundleId:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_fault_impl(&dword_1B0389000, log, OS_LOG_TYPE_FAULT, "Unable to create RBSProcessMonitor for %{public}@: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_fault_impl(&dword_1B0389000, log, OS_LOG_TYPE_FAULT, "Unable to create RBSProcessMonitor for %{public}@: %@", &v3, 0x16u);
 }
 
 @end

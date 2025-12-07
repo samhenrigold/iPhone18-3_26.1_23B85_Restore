@@ -141,7 +141,7 @@ LABEL_26:
 
 void __40__NEHelper_sendRequest_responseHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (v3 && MEMORY[0x1BFAFC5E0](v3) == MEMORY[0x1E69E9E80])
@@ -157,24 +157,22 @@ void __40__NEHelper_sendRequest_responseHandler___block_invoke_2(uint64_t a1, vo
     v6 = ne_log_obj();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v9 = *(a1 + 32);
-      if (v9)
+      v8 = *(a1 + 32);
+      if (v8)
       {
-        LODWORD(v9) = *(v9 + 16);
+        LODWORD(v8) = *(v8 + 16);
       }
 
-      v10[0] = 67109378;
-      v10[1] = v9;
-      v11 = 2080;
-      v12 = v5;
-      _os_log_error_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_ERROR, "Failed to send a %d message to nehelper: %s", v10, 0x12u);
+      v9[0] = 67109378;
+      v9[1] = v8;
+      v10 = 2080;
+      v11 = v5;
+      _os_log_error_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_ERROR, "Failed to send a %d message to nehelper: %s", v9, 0x12u);
     }
 
     free(v5);
     (*(*(a1 + 40) + 16))();
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __25__NEHelper_getConnection__block_invoke(uint64_t a1, void *a2)
@@ -202,7 +200,7 @@ void __25__NEHelper_getConnection__block_invoke(uint64_t a1, void *a2)
 
 void __25__NEHelper_getConnection__block_invoke_2(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained && *(a1 + 32))
   {
@@ -212,9 +210,9 @@ void __25__NEHelper_getConnection__block_invoke_2(uint64_t a1)
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         string = xpc_dictionary_get_string(*(a1 + 32), *MEMORY[0x1E69E9E28]);
-        v11 = 136315138;
-        v12 = string;
-        _os_log_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_DEFAULT, "Lost connection to nehelper: %s", &v11, 0xCu);
+        v10 = 136315138;
+        v11 = string;
+        _os_log_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_DEFAULT, "Lost connection to nehelper: %s", &v10, 0xCu);
       }
 
       os_unfair_lock_lock(WeakRetained + 2);
@@ -237,21 +235,19 @@ void __25__NEHelper_getConnection__block_invoke_2(uint64_t a1)
 
       else
       {
-        v9 = MEMORY[0x1BFAFC400](*(a1 + 32));
-        v10 = ne_log_obj();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+        v8 = MEMORY[0x1BFAFC400](*(a1 + 32));
+        v9 = ne_log_obj();
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
-          v11 = 136315138;
-          v12 = v9;
-          _os_log_impl(&dword_1BA83C000, v10, OS_LOG_TYPE_DEFAULT, "Got an unexpected message on the nehelper connection: %s", &v11, 0xCu);
+          v10 = 136315138;
+          v11 = v8;
+          _os_log_impl(&dword_1BA83C000, v9, OS_LOG_TYPE_DEFAULT, "Got an unexpected message on the nehelper connection: %s", &v10, 0xCu);
         }
 
-        free(v9);
+        free(v8);
       }
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc

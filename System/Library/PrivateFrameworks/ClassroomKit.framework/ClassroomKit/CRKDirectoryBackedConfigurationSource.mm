@@ -70,14 +70,14 @@ void __69__CRKDirectoryBackedConfigurationSource_setConfiguration_completion___b
   if ([(CRKDirectoryBackedConfigurationSource *)self isDirectoryEmpty:directoryCopy])
   {
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-    v11 = 0;
-    v8 = [defaultManager crk_safeRemoveItemAtURL:directoryCopy error:&v11];
-    v9 = v11;
+    v12 = 0;
+    v8 = [defaultManager crk_safeRemoveItemAtURL:directoryCopy error:&v12];
+    v9 = v12;
 
     if ((v8 & 1) == 0)
     {
-      v10 = _CRKLogGeneral_18();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = _CRKLogGeneral_18(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         [CRKDirectoryBackedConfigurationSource fileBackedConfigurationSource:v9 didDeleteConfigurationAtURL:? inDirectory:?];
       }
@@ -90,34 +90,38 @@ void __69__CRKDirectoryBackedConfigurationSource_setConfiguration_completion___b
   v3 = MEMORY[0x277CCAA00];
   emptyCopy = empty;
   defaultManager = [v3 defaultManager];
-  v11 = 0;
-  v6 = [defaultManager contentsOfDirectoryAtURL:emptyCopy includingPropertiesForKeys:MEMORY[0x277CBEBF8] options:0 error:&v11];
+  v12 = 0;
+  v6 = [defaultManager contentsOfDirectoryAtURL:emptyCopy includingPropertiesForKeys:MEMORY[0x277CBEBF8] options:0 error:&v12];
 
-  v7 = v11;
+  v7 = v12;
   if (!v6)
   {
-    v8 = _CRKLogGeneral_18();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _CRKLogGeneral_18(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [CRKDirectoryBackedConfigurationSource isDirectoryEmpty:v7];
     }
   }
 
-  v9 = [v6 count] == 0;
+  v10 = [v6 count] == 0;
 
-  return v9;
+  return v10;
 }
 
 - (void)fileBackedConfigurationSource:(void *)a1 didDeleteConfigurationAtURL:inDirectory:.cold.1(void *a1)
 {
   v1 = [a1 verboseDescription];
-  OUTLINED_FUNCTION_0_3(&dword_243550000, v2, v3, "Failed to delete directory after configuration was removed: %{public}@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_3(&dword_243550000, v2, v3, "Failed to delete directory after configuration was removed: %{public}@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 - (void)isDirectoryEmpty:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 verboseDescription];
-  OUTLINED_FUNCTION_0_3(&dword_243550000, v2, v3, "Failed to check if directory is empty: %{public}@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_3(&dword_243550000, v2, v3, "Failed to check if directory is empty: %{public}@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

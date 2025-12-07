@@ -6,6 +6,8 @@
 - (void)_receivedMessage:(id)message fromDevice:(id)device;
 - (void)_sendMessageToRequestInitialState;
 - (void)_sendStartObservingMessageToDevices:(id)devices;
+- (void)_sendStartOrStopMessage:(BOOL)message;
+- (void)_sendStartOrStopRewindMessage:(BOOL)message;
 - (void)_sendStopObservingMessage;
 - (void)_updateState;
 - (void)startObserving;
@@ -82,17 +84,15 @@
 
 void __51__HUNearbyLiveListenControllerWatch_startObserving__block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = HCLogHearingAids();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_1DA5E2000, v3, OS_LOG_TYPE_DEFAULT, "%@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_1DA5E2000, v3, OS_LOG_TYPE_DEFAULT, "%@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __51__HUNearbyLiveListenControllerWatch_startObserving__block_invoke_6(uint64_t a1)
@@ -145,7 +145,7 @@ void __51__HUNearbyLiveListenControllerWatch_startObserving__block_invoke_2(uint
   dispatch_async(updateQueue, block);
 }
 
-uint64_t __64__HUNearbyLiveListenControllerWatch_startObservingRemoteSession__block_invoke(uint64_t a1)
+void *__64__HUNearbyLiveListenControllerWatch_startObservingRemoteSession__block_invoke(uint64_t a1)
 {
   [*(a1 + 32) setShouldBeObservingNearbyStatus:1];
   result = [*(a1 + 32) isObservingNearbyStatus];
@@ -258,14 +258,14 @@ uint64_t __58__HUNearbyLiveListenControllerWatch__nearbyDevicesChanged__block_in
 
 void __65__HUNearbyLiveListenControllerWatch__receivedMessage_fromDevice___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v2 = HCLogHearingAids();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v10 = 138412290;
-    v11 = v3;
-    _os_log_impl(&dword_1DA5E2000, v2, OS_LOG_TYPE_DEFAULT, "Handling incoming message %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = v3;
+    _os_log_impl(&dword_1DA5E2000, v2, OS_LOG_TYPE_DEFAULT, "Handling incoming message %@", &v9, 0xCu);
   }
 
   v4 = [*(a1 + 40) cachedNearbyDevices];
@@ -290,8 +290,6 @@ void __65__HUNearbyLiveListenControllerWatch__receivedMessage_fromDevice___block
       __65__HUNearbyLiveListenControllerWatch__receivedMessage_fromDevice___block_invoke_cold_1(v8);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleStateChangedMessage:(id)message
@@ -337,90 +335,150 @@ void __65__HUNearbyLiveListenControllerWatch__receivedMessage_fromDevice___block
   [controller _updateState:updated audioLevel:cachedIsPlayingBack isPlayingBack:cachedTranscription transcription:0.0];
 }
 
+- (void)_sendStartOrStopMessage:(BOOL)message
+{
+  messageCopy = message;
+  v18[2] = *MEMORY[0x1E69E9840];
+  cachedNearbyDevices = [(HUNearbyLiveListenControllerWatch *)self cachedNearbyDevices];
+  v6 = [cachedNearbyDevices count];
+
+  if (v6)
+  {
+    v17[0] = @"type";
+    v17[1] = @"shouldStart";
+    v18[0] = &unk_1F56241F0;
+    v7 = [MEMORY[0x1E696AD98] numberWithBool:messageCopy];
+    v18[1] = v7;
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:2];
+
+    v9 = HCLogHearingAids();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    {
+      cachedNearbyDevices2 = [(HUNearbyLiveListenControllerWatch *)self cachedNearbyDevices];
+      v13 = 134218242;
+      v14 = [cachedNearbyDevices2 count];
+      v15 = 2112;
+      v16 = v8;
+      _os_log_impl(&dword_1DA5E2000, v9, OS_LOG_TYPE_DEFAULT, "Sending start/stop message to %lu paired devices: %@", &v13, 0x16u);
+    }
+
+    v11 = +[HUNearbyController sharedInstance];
+    cachedNearbyDevices3 = [(HUNearbyLiveListenControllerWatch *)self cachedNearbyDevices];
+    [v11 sendMessage:v8 withDomain:@"com.hearing.LiveListen" toDevices:cachedNearbyDevices3 withPriority:1];
+  }
+}
+
+- (void)_sendStartOrStopRewindMessage:(BOOL)message
+{
+  messageCopy = message;
+  v18[2] = *MEMORY[0x1E69E9840];
+  cachedNearbyDevices = [(HUNearbyLiveListenControllerWatch *)self cachedNearbyDevices];
+  v6 = [cachedNearbyDevices count];
+
+  if (v6)
+  {
+    v17[0] = @"type";
+    v17[1] = @"shouldStart";
+    v18[0] = &unk_1F5624208;
+    v7 = [MEMORY[0x1E696AD98] numberWithBool:messageCopy];
+    v18[1] = v7;
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:2];
+
+    v9 = HCLogHearingAids();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    {
+      cachedNearbyDevices2 = [(HUNearbyLiveListenControllerWatch *)self cachedNearbyDevices];
+      v13 = 134218242;
+      v14 = [cachedNearbyDevices2 count];
+      v15 = 2112;
+      v16 = v8;
+      _os_log_impl(&dword_1DA5E2000, v9, OS_LOG_TYPE_DEFAULT, "Sending start/stop rewind message to %lu paired devices: %@", &v13, 0x16u);
+    }
+
+    v11 = +[HUNearbyController sharedInstance];
+    cachedNearbyDevices3 = [(HUNearbyLiveListenControllerWatch *)self cachedNearbyDevices];
+    [v11 sendMessage:v8 withDomain:@"com.hearing.LiveListen" toDevices:cachedNearbyDevices3 withPriority:1];
+  }
+}
+
 - (void)_sendMessageToRequestInitialState
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   cachedNearbyDevices = [(HUNearbyLiveListenControllerWatch *)self cachedNearbyDevices];
   v4 = [cachedNearbyDevices count];
 
   if (v4)
   {
-    v15 = @"type";
-    v16[0] = &unk_1F5624220;
-    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+    v14 = @"type";
+    v15[0] = &unk_1F5624220;
+    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
     v6 = HCLogHearingAids();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       cachedNearbyDevices2 = [(HUNearbyLiveListenControllerWatch *)self cachedNearbyDevices];
-      v11 = 134218242;
-      v12 = [cachedNearbyDevices2 count];
-      v13 = 2112;
-      v14 = v5;
-      _os_log_impl(&dword_1DA5E2000, v6, OS_LOG_TYPE_DEFAULT, "Sending request current state message to %lu paired devices: %@", &v11, 0x16u);
+      v10 = 134218242;
+      v11 = [cachedNearbyDevices2 count];
+      v12 = 2112;
+      v13 = v5;
+      _os_log_impl(&dword_1DA5E2000, v6, OS_LOG_TYPE_DEFAULT, "Sending request current state message to %lu paired devices: %@", &v10, 0x16u);
     }
 
     v8 = +[HUNearbyController sharedInstance];
     cachedNearbyDevices3 = [(HUNearbyLiveListenControllerWatch *)self cachedNearbyDevices];
     [v8 sendMessage:v5 withDomain:@"com.hearing.LiveListen" toDevices:cachedNearbyDevices3 withPriority:1];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_sendStartObservingMessageToDevices:(id)devices
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   devicesCopy = devices;
   if ([devicesCopy count])
   {
-    v12 = @"type";
-    v13[0] = &unk_1F5624238;
-    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    v11 = @"type";
+    v12[0] = &unk_1F5624238;
+    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
     v5 = HCLogHearingAids();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 134218242;
-      v9 = [devicesCopy count];
-      v10 = 2112;
-      v11 = v4;
-      _os_log_impl(&dword_1DA5E2000, v5, OS_LOG_TYPE_DEFAULT, "Sending start observing message to %lu paired devices: %@", &v8, 0x16u);
+      v7 = 134218242;
+      v8 = [devicesCopy count];
+      v9 = 2112;
+      v10 = v4;
+      _os_log_impl(&dword_1DA5E2000, v5, OS_LOG_TYPE_DEFAULT, "Sending start observing message to %lu paired devices: %@", &v7, 0x16u);
     }
 
     v6 = +[HUNearbyController sharedInstance];
     [v6 sendMessage:v4 withDomain:@"com.hearing.LiveListen" toDevices:devicesCopy withPriority:1];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_sendStopObservingMessage
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   cachedNearbyDevices = [(HUNearbyLiveListenControllerWatch *)self cachedNearbyDevices];
   v4 = [cachedNearbyDevices count];
 
   if (v4)
   {
-    v15 = @"type";
-    v16[0] = &unk_1F5624250;
-    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+    v14 = @"type";
+    v15[0] = &unk_1F5624250;
+    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
     v6 = HCLogHearingAids();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       cachedNearbyDevices2 = [(HUNearbyLiveListenControllerWatch *)self cachedNearbyDevices];
-      v11 = 134218242;
-      v12 = [cachedNearbyDevices2 count];
-      v13 = 2112;
-      v14 = v5;
-      _os_log_impl(&dword_1DA5E2000, v6, OS_LOG_TYPE_DEFAULT, "Sending stop observing message to %lu paired devices: %@", &v11, 0x16u);
+      v10 = 134218242;
+      v11 = [cachedNearbyDevices2 count];
+      v12 = 2112;
+      v13 = v5;
+      _os_log_impl(&dword_1DA5E2000, v6, OS_LOG_TYPE_DEFAULT, "Sending stop observing message to %lu paired devices: %@", &v10, 0x16u);
     }
 
     v8 = +[HUNearbyController sharedInstance];
     cachedNearbyDevices3 = [(HUNearbyLiveListenControllerWatch *)self cachedNearbyDevices];
     [v8 sendMessage:v5 withDomain:@"com.hearing.LiveListen" toDevices:cachedNearbyDevices3 withPriority:1];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (HUNearbyLiveListenController)controller

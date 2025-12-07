@@ -105,24 +105,18 @@ void __59___DPReportGenerator_scheduleMaintenanceWithName_database___block_invok
 
 void __67___DPReportGenerator_queryRecordCountForKey_withPredicate_storage___block_invoke_cold_1(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(*(a1 + 48));
   OUTLINED_FUNCTION_0_6();
   OUTLINED_FUNCTION_2_2();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __49___DPReportGenerator_queryRecordsForKey_storage___block_invoke_cold_1(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(*(a1 + 48));
   OUTLINED_FUNCTION_0_6();
   OUTLINED_FUNCTION_2_2();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

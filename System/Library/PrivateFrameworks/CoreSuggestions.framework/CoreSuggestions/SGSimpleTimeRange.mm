@@ -30,6 +30,7 @@
 - (id)initUTCFloatingWithStart:(SGUnixTimestamp_)start end:(SGUnixTimestamp_)end;
 - (id)stableStringRepresentation;
 - (id)startDateComponents;
+- (void)applyToEKEvent:(id)event isAllDay:(BOOL)day isFloating:(BOOL)floating;
 - (void)encodeWithCoder:(id)coder;
 @end
 
@@ -158,6 +159,103 @@ LABEL_9:
   }
 
   return v6;
+}
+
+- (void)applyToEKEvent:(id)event isAllDay:(BOOL)day isFloating:(BOOL)floating
+{
+  dayCopy = day;
+  eventCopy = event;
+  startDate = [(SGSimpleTimeRange *)self startDate];
+  endDate = [(SGSimpleTimeRange *)self endDate];
+  startTimeZone = [(SGSimpleTimeRange *)self startTimeZone];
+  endTimeZone = [(SGSimpleTimeRange *)self endTimeZone];
+  endDateComponents2 = endTimeZone;
+  v13 = 0x1E695D000uLL;
+  if (dayCopy)
+  {
+    startDateComponents = [(SGSimpleTimeRange *)self startDateComponents];
+    endDateComponents = [(SGSimpleTimeRange *)self endDateComponents];
+    defaultTimeZone = [MEMORY[0x1E695DFE8] defaultTimeZone];
+    [startDateComponents setTimeZone:defaultTimeZone];
+    [endDateComponents setTimeZone:defaultTimeZone];
+    calendar = [startDateComponents calendar];
+    v18 = [calendar dateFromComponents:startDateComponents];
+
+    calendar2 = [endDateComponents calendar];
+    v20 = [calendar2 dateFromComponents:endDateComponents];
+
+    endDate = [v20 dateByAddingTimeInterval:-1.0];
+
+    v13 = 0x1E695D000;
+    startTimeZone = 0;
+    endDateComponents2 = startDateComponents;
+LABEL_11:
+
+    endDateComponents2 = startTimeZone;
+    goto LABEL_12;
+  }
+
+  if (!startTimeZone)
+  {
+    [SGSimpleTimeRange fromFloatingTime:self->_start.secondsFromUnixEpoch];
+    v18 = [objc_alloc(MEMORY[0x1E695DF00]) initWithTimeIntervalSince1970:v21];
+
+    if (floating)
+    {
+      [SGSimpleTimeRange fromFloatingTime:self->_end.secondsFromUnixEpoch];
+      v23 = [objc_alloc(MEMORY[0x1E695DF00]) initWithTimeIntervalSince1970:v22];
+
+      startTimeZone = 0;
+      endDate = v23;
+      goto LABEL_11;
+    }
+
+    startTimeZone = [MEMORY[0x1E695DFE8] defaultTimeZone];
+    if (endDateComponents2)
+    {
+      goto LABEL_12;
+    }
+
+LABEL_9:
+    if (!startTimeZone)
+    {
+      goto LABEL_12;
+    }
+
+    endDateComponents2 = [(SGSimpleTimeRange *)self endDateComponents];
+    [endDateComponents2 setTimeZone:startTimeZone];
+    calendar3 = [endDateComponents2 calendar];
+    v25 = [calendar3 dateFromComponents:endDateComponents2];
+
+    startTimeZone = startTimeZone;
+    endDate = v25;
+    goto LABEL_11;
+  }
+
+  v18 = startDate;
+  if (!endTimeZone)
+  {
+    goto LABEL_9;
+  }
+
+LABEL_12:
+  v26 = *(v13 + 3840);
+  [v18 timeIntervalSinceReferenceDate];
+  v28 = [v26 dateWithTimeIntervalSinceReferenceDate:floor(v27)];
+
+  v29 = *(v13 + 3840);
+  [endDate timeIntervalSinceReferenceDate];
+  v31 = [v29 dateWithTimeIntervalSinceReferenceDate:floor(v30)];
+
+  if (!dayCopy)
+  {
+    [eventCopy setStartTimeZone:startTimeZone];
+    [eventCopy setEndTimeZone:endDateComponents2];
+  }
+
+  [eventCopy setAllDay:dayCopy];
+  [eventCopy setStartDate:v28];
+  [eventCopy setEndDateUnadjustedForLegacyClients:v31];
 }
 
 - (BOOL)startedMoreThan24HoursAgo

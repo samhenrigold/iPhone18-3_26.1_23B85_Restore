@@ -37,15 +37,33 @@ uint64_t __54___UIFocusRotaryIndicatorView_toggleVisible_animated___block_invoke
   return [v1 setTransform:v4];
 }
 
-uint64_t __54___UIFocusRotaryIndicatorView_toggleVisible_animated___block_invoke_5(uint64_t a1)
+uint64_t __54___UIFocusRotaryIndicatorView_toggleVisible_animated___block_invoke_5(uint64_t a1, const char *a2)
 {
-  memset(&v11, 0, sizeof(v11));
-  v2 = *(a1 + 32);
-  v3 = *(v2 + 448);
-  if (v3)
+  memset(&v12, 0, sizeof(v12));
+  v3 = *(a1 + 32);
+  v4 = *(v3 + 448);
+  if (v4)
   {
-    [v3 transform];
-    v2 = *(a1 + 32);
+    objc_msgSend_transform(v4, a2);
+    v3 = *(a1 + 32);
+  }
+
+  else
+  {
+    memset(&v11, 0, sizeof(v11));
+  }
+
+  CGAffineTransformRotate(&v12, &v11, 1.96349541);
+  v5 = *(v3 + 448);
+  v11 = v12;
+  [v5 setTransform:&v11];
+  memset(&v11, 0, sizeof(v11));
+  v6 = *(a1 + 32);
+  v7 = *(v6 + 448);
+  if (v7)
+  {
+    objc_msgSend_transform(v7);
+    v6 = *(a1 + 32);
   }
 
   else
@@ -54,27 +72,9 @@ uint64_t __54___UIFocusRotaryIndicatorView_toggleVisible_animated___block_invoke
   }
 
   CGAffineTransformRotate(&v11, &v10, 1.96349541);
-  v4 = *(v2 + 448);
+  v8 = *(v6 + 448);
   v10 = v11;
-  [v4 setTransform:&v10];
-  memset(&v10, 0, sizeof(v10));
-  v5 = *(a1 + 32);
-  v6 = *(v5 + 448);
-  if (v6)
-  {
-    [v6 transform];
-    v5 = *(a1 + 32);
-  }
-
-  else
-  {
-    memset(&v9, 0, sizeof(v9));
-  }
-
-  CGAffineTransformRotate(&v10, &v9, 1.96349541);
-  v7 = *(v5 + 448);
-  v9 = v10;
-  return [v7 setTransform:&v9];
+  return [v8 setTransform:&v10];
 }
 
 void __54___UIFocusRotaryIndicatorView_toggleVisible_animated___block_invoke_6(uint64_t a1)

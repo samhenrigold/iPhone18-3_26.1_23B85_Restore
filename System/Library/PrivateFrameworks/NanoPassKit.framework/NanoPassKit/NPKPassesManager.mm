@@ -100,20 +100,19 @@ void __36__NPKPassesManager_initWithOptions___block_invoke_2(uint64_t a1)
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
-    v3 = *(a1 + 32);
     PKObservePassSettingsChanged();
-    v4 = objc_alloc_init(MEMORY[0x277D37FC0]);
-    v5 = [objc_alloc(MEMORY[0x277D37EF0]) initWithPassLibrary:v4];
-    [v5 setDelegate:WeakRetained];
-    v6 = WeakRetained[4];
-    WeakRetained[4] = v5;
+    v2 = objc_alloc_init(MEMORY[0x277D37FC0]);
+    v3 = [objc_alloc(MEMORY[0x277D37EF0]) initWithPassLibrary:v2];
+    [v3 setDelegate:WeakRetained];
+    v4 = WeakRetained[4];
+    WeakRetained[4] = v3;
 
-    v7 = pk_Payment_log();
-    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+    v6 = pk_Payment_log(v5);
+    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
 
-    if (v8)
+    if (v7)
     {
-      v9 = pk_Payment_log();
+      v9 = pk_Payment_log(v8);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *v10 = 0;
@@ -128,22 +127,23 @@ void __36__NPKPassesManager_initWithOptions___block_invoke_2(uint64_t a1)
 void __36__NPKPassesManager_initWithOptions___block_invoke_62(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = pk_Payment_log();
-    v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
+    v3 = pk_Payment_log(WeakRetained);
+    v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
-    if (v3)
+    if (v4)
     {
-      v4 = pk_Payment_log();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      v6 = pk_Payment_log(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        *v5 = 0;
-        _os_log_impl(&dword_25B300000, v4, OS_LOG_TYPE_DEFAULT, "Notice: Passes manager: Reloading passes because default payment pass is changed", v5, 2u);
+        *v7 = 0;
+        _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: Passes manager: Reloading passes because default payment pass is changed", v7, 2u);
       }
     }
 
-    [WeakRetained _reloadPasses];
+    [v2 _reloadPasses];
   }
 }
 
@@ -197,19 +197,19 @@ void __36__NPKPassesManager_initWithOptions___block_invoke_62(uint64_t a1)
   v25 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   groupCopy = group;
-  v10 = pk_General_log();
+  v10 = pk_General_log(groupCopy);
   v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
 
   if (v11)
   {
-    v12 = pk_General_log();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = pk_General_log(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
       v22 = groupCopy;
       v23 = 2048;
       indexCopy = index;
-      _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Notice: Groups controller inserted group %@ at index %lu", buf, 0x16u);
+      _os_log_impl(&dword_25B300000, v13, OS_LOG_TYPE_DEFAULT, "Notice: Groups controller inserted group %@ at index %lu", buf, 0x16u);
     }
   }
 
@@ -220,16 +220,14 @@ void __36__NPKPassesManager_initWithOptions___block_invoke_62(uint64_t a1)
   v17[2] = __60__NPKPassesManager_groupsController_didInsertGroup_atIndex___block_invoke;
   v17[3] = &unk_279945290;
   objc_copyWeak(&v20, buf);
-  v14 = groupCopy;
-  v18 = v14;
-  v15 = passes;
-  v19 = v15;
-  [(NPKPassesManager *)self _loadContentAndImageSetsIfNecessaryForPasses:v15 completion:v17];
+  v15 = groupCopy;
+  v18 = v15;
+  v16 = passes;
+  v19 = v16;
+  [(NPKPassesManager *)self _loadContentAndImageSetsIfNecessaryForPasses:v16 completion:v17];
 
   objc_destroyWeak(&v20);
   objc_destroyWeak(buf);
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __60__NPKPassesManager_groupsController_didInsertGroup_atIndex___block_invoke(id *a1)
@@ -253,13 +251,13 @@ void __60__NPKPassesManager_groupsController_didInsertGroup_atIndex___block_invo
 {
   v21 = *MEMORY[0x277D85DE8];
   groupCopy = group;
-  v10 = pk_General_log();
+  v10 = pk_General_log(groupCopy);
   v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
 
   if (v11)
   {
-    v12 = pk_General_log();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = pk_General_log(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412802;
       v16 = groupCopy;
@@ -267,7 +265,7 @@ void __60__NPKPassesManager_groupsController_didInsertGroup_atIndex___block_invo
       indexCopy = index;
       v19 = 2048;
       toIndexCopy = toIndex;
-      _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Notice: Groups controller moved group %@ from index %lu to index %lu", buf, 0x20u);
+      _os_log_impl(&dword_25B300000, v13, OS_LOG_TYPE_DEFAULT, "Notice: Groups controller moved group %@ from index %lu to index %lu", buf, 0x20u);
     }
   }
 
@@ -278,27 +276,25 @@ void __60__NPKPassesManager_groupsController_didInsertGroup_atIndex___block_invo
   v14[3] = &unk_2799452B8;
   v14[4] = self;
   [(NPKPassesManager *)self _notifyObservers:v14];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)groupsController:(id)controller didRemoveGroup:(id)group atIndex:(unint64_t)index
 {
   v19 = *MEMORY[0x277D85DE8];
   groupCopy = group;
-  v8 = pk_General_log();
+  v8 = pk_General_log(groupCopy);
   v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
 
   if (v9)
   {
-    v10 = pk_General_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = pk_General_log(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
       v16 = groupCopy;
       v17 = 2048;
       indexCopy = index;
-      _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: Groups controller removed group %@ at index %lu", buf, 0x16u);
+      _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Notice: Groups controller removed group %@ at index %lu", buf, 0x16u);
     }
   }
 
@@ -309,10 +305,8 @@ void __60__NPKPassesManager_groupsController_didInsertGroup_atIndex___block_invo
   v13[3] = &unk_279945268;
   v13[4] = self;
   v14 = groupCopy;
-  v11 = groupCopy;
+  v12 = groupCopy;
   [(NPKPassesManager *)self _notifyObservers:v13];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __60__NPKPassesManager_groupsController_didRemoveGroup_atIndex___block_invoke(uint64_t a1, void *a2)
@@ -330,13 +324,13 @@ void __60__NPKPassesManager_groupsController_didRemoveGroup_atIndex___block_invo
   groupCopy = group;
   passCopy = pass;
   stateCopy = state;
-  v13 = pk_General_log();
+  v13 = pk_General_log(stateCopy);
   v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
 
   if (v14)
   {
-    v15 = pk_General_log();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = pk_General_log(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       uniqueID = [passCopy uniqueID];
       localizedDescription = [passCopy localizedDescription];
@@ -350,7 +344,7 @@ void __60__NPKPassesManager_groupsController_didRemoveGroup_atIndex___block_invo
       v34 = stateCopy;
       v35 = 2048;
       indexCopy = index;
-      _os_log_impl(&dword_25B300000, v15, OS_LOG_TYPE_DEFAULT, "Notice: Group %@ inserted pass %@ (%@) with state (%@) at index %lu", buf, 0x34u);
+      _os_log_impl(&dword_25B300000, v16, OS_LOG_TYPE_DEFAULT, "Notice: Group %@ inserted pass %@ (%@) with state (%@) at index %lu", buf, 0x34u);
     }
   }
 
@@ -358,12 +352,12 @@ void __60__NPKPassesManager_groupsController_didRemoveGroup_atIndex___block_invo
   if (passCopy)
   {
     v26 = passCopy;
-    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v26 count:1];
+    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v26 count:1];
   }
 
   else
   {
-    v18 = MEMORY[0x277CBEBF8];
+    v19 = MEMORY[0x277CBEBF8];
   }
 
   v22[0] = MEMORY[0x277D85DD0];
@@ -371,16 +365,14 @@ void __60__NPKPassesManager_groupsController_didRemoveGroup_atIndex___block_invo
   v22[2] = __58__NPKPassesManager_group_didInsertPass_withState_atIndex___block_invoke;
   v22[3] = &unk_279945290;
   objc_copyWeak(&v25, buf);
-  v19 = v18;
-  v23 = v19;
-  v20 = passCopy;
-  v24 = v20;
-  [(NPKPassesManager *)self _loadContentAndImageSetsIfNecessaryForPasses:v19 completion:v22];
+  v20 = v19;
+  v23 = v20;
+  v21 = passCopy;
+  v24 = v21;
+  [(NPKPassesManager *)self _loadContentAndImageSetsIfNecessaryForPasses:v20 completion:v22];
 
   objc_destroyWeak(&v25);
   objc_destroyWeak(buf);
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __58__NPKPassesManager_group_didInsertPass_withState_atIndex___block_invoke(id *a1)
@@ -406,13 +398,13 @@ void __58__NPKPassesManager_group_didInsertPass_withState_atIndex___block_invoke
 {
   v20 = *MEMORY[0x277D85DE8];
   groupCopy = group;
-  v9 = pk_General_log();
+  v9 = pk_General_log(groupCopy);
   v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
 
   if (v10)
   {
-    v11 = pk_General_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = pk_General_log(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412802;
       v15 = groupCopy;
@@ -420,7 +412,7 @@ void __58__NPKPassesManager_group_didInsertPass_withState_atIndex___block_invoke
       indexCopy = index;
       v18 = 2048;
       toIndexCopy = toIndex;
-      _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Notice: Group %@ moved pass from index %lu to index %lu", buf, 0x20u);
+      _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Notice: Group %@ moved pass from index %lu to index %lu", buf, 0x20u);
     }
   }
 
@@ -431,8 +423,6 @@ void __58__NPKPassesManager_group_didInsertPass_withState_atIndex___block_invoke
   v13[3] = &unk_2799452B8;
   v13[4] = self;
   [(NPKPassesManager *)self _notifyObservers:v13];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)group:(id)group didRemovePass:(id)pass atIndex:(unint64_t)index
@@ -440,13 +430,13 @@ void __58__NPKPassesManager_group_didInsertPass_withState_atIndex___block_invoke
   v27 = *MEMORY[0x277D85DE8];
   groupCopy = group;
   passCopy = pass;
-  v10 = pk_General_log();
+  v10 = pk_General_log(passCopy);
   v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
 
   if (v11)
   {
-    v12 = pk_General_log();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = pk_General_log(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       uniqueID = [passCopy uniqueID];
       localizedDescription = [passCopy localizedDescription];
@@ -458,7 +448,7 @@ void __58__NPKPassesManager_group_didInsertPass_withState_atIndex___block_invoke
       v24 = localizedDescription;
       v25 = 2048;
       indexCopy = index;
-      _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Notice: Group %@ removed pass %@ (%@) at index %lu", buf, 0x2Au);
+      _os_log_impl(&dword_25B300000, v13, OS_LOG_TYPE_DEFAULT, "Notice: Group %@ removed pass %@ (%@) at index %lu", buf, 0x2Au);
     }
   }
 
@@ -469,23 +459,19 @@ void __58__NPKPassesManager_group_didInsertPass_withState_atIndex___block_invoke
   v17[3] = &unk_279945268;
   v17[4] = self;
   v18 = passCopy;
-  v15 = passCopy;
+  v16 = passCopy;
   [(NPKPassesManager *)self _notifyObservers:v17];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __48__NPKPassesManager_group_didRemovePass_atIndex___block_invoke(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v7 = *(a1 + 40);
+  v6 = *(a1 + 40);
   v3 = MEMORY[0x277CBEA60];
   v4 = a2;
-  v5 = [v3 arrayWithObjects:&v7 count:1];
-  [v4 passesDataSource:v2 didRemovePasses:{v5, v7, v8}];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = [v3 arrayWithObjects:&v6 count:1];
+  [v4 passesDataSource:v2 didRemovePasses:{v5, v6, v7}];
 }
 
 - (void)group:(id)group didUpdatePass:(id)pass withState:(id)state atIndex:(unint64_t)index
@@ -494,13 +480,13 @@ void __48__NPKPassesManager_group_didRemovePass_atIndex___block_invoke(uint64_t 
   groupCopy = group;
   passCopy = pass;
   stateCopy = state;
-  v13 = pk_General_log();
+  v13 = pk_General_log(stateCopy);
   v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
 
   if (v14)
   {
-    v15 = pk_General_log();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = pk_General_log(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       uniqueID = [passCopy uniqueID];
       localizedDescription = [passCopy localizedDescription];
@@ -514,7 +500,7 @@ void __48__NPKPassesManager_group_didRemovePass_atIndex___block_invoke(uint64_t 
       v32 = stateCopy;
       v33 = 2048;
       indexCopy = index;
-      _os_log_impl(&dword_25B300000, v15, OS_LOG_TYPE_DEFAULT, "Notice: Group %@ updated pass %@ (%@) with state (%@) at index %lu", buf, 0x34u);
+      _os_log_impl(&dword_25B300000, v16, OS_LOG_TYPE_DEFAULT, "Notice: Group %@ updated pass %@ (%@) with state (%@) at index %lu", buf, 0x34u);
     }
   }
 
@@ -522,12 +508,12 @@ void __48__NPKPassesManager_group_didRemovePass_atIndex___block_invoke(uint64_t 
   if (passCopy)
   {
     v24 = passCopy;
-    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v24 count:1];
+    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v24 count:1];
   }
 
   else
   {
-    v18 = MEMORY[0x277CBEBF8];
+    v19 = MEMORY[0x277CBEBF8];
   }
 
   v21[0] = MEMORY[0x277D85DD0];
@@ -535,14 +521,12 @@ void __48__NPKPassesManager_group_didRemovePass_atIndex___block_invoke(uint64_t 
   v21[2] = __58__NPKPassesManager_group_didUpdatePass_withState_atIndex___block_invoke;
   v21[3] = &unk_279945240;
   objc_copyWeak(&v23, buf);
-  v19 = v18;
-  v22 = v19;
-  [(NPKPassesManager *)self _loadContentAndImageSetsIfNecessaryForPasses:v19 completion:v21];
+  v20 = v19;
+  v22 = v20;
+  [(NPKPassesManager *)self _loadContentAndImageSetsIfNecessaryForPasses:v20 completion:v21];
 
   objc_destroyWeak(&v23);
   objc_destroyWeak(buf);
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __58__NPKPassesManager_group_didUpdatePass_withState_atIndex___block_invoke(uint64_t a1)
@@ -568,13 +552,13 @@ void __58__NPKPassesManager_group_didUpdatePass_withState_atIndex___block_invoke
   groupCopy = group;
   stateCopy = state;
   passCopy = pass;
-  v13 = pk_General_log();
+  v13 = pk_General_log(passCopy);
   v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
 
   if (v14)
   {
-    v15 = pk_General_log();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = pk_General_log(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       uniqueID = [passCopy uniqueID];
       localizedDescription = [passCopy localizedDescription];
@@ -588,7 +572,7 @@ void __58__NPKPassesManager_group_didUpdatePass_withState_atIndex___block_invoke
       v36 = localizedDescription;
       v37 = 2048;
       indexCopy = index;
-      _os_log_impl(&dword_25B300000, v15, OS_LOG_TYPE_DEFAULT, "Notice: Group %@ updated state (%@) for pass %@ (%@) at index %lu", buf, 0x34u);
+      _os_log_impl(&dword_25B300000, v16, OS_LOG_TYPE_DEFAULT, "Notice: Group %@ updated state (%@) for pass %@ (%@) at index %lu", buf, 0x34u);
     }
   }
 
@@ -596,12 +580,12 @@ void __58__NPKPassesManager_group_didUpdatePass_withState_atIndex___block_invoke
   if (passCopy)
   {
     v28 = passCopy;
-    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v28 count:1];
+    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v28 count:1];
   }
 
   else
   {
-    v18 = MEMORY[0x277CBEBF8];
+    v19 = MEMORY[0x277CBEBF8];
   }
 
   v23[0] = MEMORY[0x277D85DD0];
@@ -609,18 +593,16 @@ void __58__NPKPassesManager_group_didUpdatePass_withState_atIndex___block_invoke
   v23[2] = __61__NPKPassesManager_group_didUpdatePassState_forPass_atIndex___block_invoke;
   v23[3] = &unk_279945308;
   objc_copyWeak(&v27, buf);
-  v19 = passCopy;
-  v24 = v19;
-  v20 = stateCopy;
-  v25 = v20;
-  v21 = v18;
-  v26 = v21;
-  [(NPKPassesManager *)self _loadContentAndImageSetsIfNecessaryForPasses:v21 completion:v23];
+  v20 = passCopy;
+  v24 = v20;
+  v21 = stateCopy;
+  v25 = v21;
+  v22 = v19;
+  v26 = v22;
+  [(NPKPassesManager *)self _loadContentAndImageSetsIfNecessaryForPasses:v22 completion:v23];
 
   objc_destroyWeak(&v27);
   objc_destroyWeak(buf);
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __61__NPKPassesManager_group_didUpdatePassState_forPass_atIndex___block_invoke(id *a1)
@@ -644,7 +626,7 @@ void __61__NPKPassesManager_group_didUpdatePassState_forPass_atIndex___block_inv
 
 void __61__NPKPassesManager_group_didUpdatePassState_forPass_atIndex___block_invoke_2(uint64_t a1, void *a2)
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (objc_opt_respondsToSelector())
   {
@@ -653,9 +635,9 @@ void __61__NPKPassesManager_group_didUpdatePassState_forPass_atIndex___block_inv
     {
       v5 = [*(a1 + 32) uniqueID];
       v6 = *(a1 + 40);
-      v9 = v5;
-      v10[0] = v6;
-      v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+      v8 = v5;
+      v9[0] = v6;
+      v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
     }
 
     else
@@ -665,8 +647,6 @@ void __61__NPKPassesManager_group_didUpdatePassState_forPass_atIndex___block_inv
 
     [v3 passesDataSource:*(a1 + 48) didUpdateStates:v7 forPasses:*(a1 + 56)];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)passForUniqueID:(id)d
@@ -726,38 +706,8 @@ void __36__NPKPassesManager_passForUniqueID___block_invoke(uint64_t a1, void *a2
     uniqueID2 = [v9 uniqueID];
     v15 = [(PKGroupsController *)v13 groupIndexForPassUniqueID:uniqueID2];
 
-    if (v12 == v15)
+    if (v12 == v15 || (v17 = self->_groupsController, [v9 uniqueID], v18 = objc_claimAutoreleasedReturnValue(), v19 = -[PKGroupsController groupIndexForPassUniqueID:](v17, "groupIndexForPassUniqueID:", v18), v18, v19 != 0x7FFFFFFFFFFFFFFFLL) && ((-[PKGroupsController groupAtIndex:](self->_groupsController, "groupAtIndex:", v19), v20 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v20, "passAtIndex:", 0), v33 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v20, "passAtIndex:", objc_msgSend(v20, "passCount") - 1), v21 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v33, "uniqueID"), v22 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "uniqueID"), v23 = objc_claimAutoreleasedReturnValue(), v32 = objc_msgSend(v22, "isEqualToString:", v23), v23, v22, objc_msgSend(v21, "uniqueID"), v24 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "uniqueID"), v25 = objc_claimAutoreleasedReturnValue(), v26 = objc_msgSend(v24, "isEqualToString:", v25), v25, v24, v21, v33, v20, toIndex <= index) ? (v27 = v32) : (v27 = v26), v27 != 1) || objc_msgSend(v8, "passType") == 1 && objc_msgSend(v9, "passType") == 1 && objc_msgSend(v8, "style") != 7 && objc_msgSend(v9, "style") == 7)
     {
-      goto LABEL_4;
-    }
-
-    v17 = self->_groupsController;
-    uniqueID3 = [v9 uniqueID];
-    v19 = [(PKGroupsController *)v17 groupIndexForPassUniqueID:uniqueID3];
-
-    if (v19 != 0x7FFFFFFFFFFFFFFFLL)
-    {
-      v20 = [(PKGroupsController *)self->_groupsController groupAtIndex:v19];
-      v33 = [v20 passAtIndex:0];
-      v21 = [v20 passAtIndex:{objc_msgSend(v20, "passCount") - 1}];
-      uniqueID4 = [v33 uniqueID];
-      uniqueID5 = [v9 uniqueID];
-      v32 = [uniqueID4 isEqualToString:uniqueID5];
-
-      uniqueID6 = [v21 uniqueID];
-      uniqueID7 = [v9 uniqueID];
-      v26 = [uniqueID6 isEqualToString:uniqueID7];
-
-      v27 = toIndex <= index ? v32 : v26;
-      if (v27 != 1)
-      {
-        goto LABEL_4;
-      }
-    }
-
-    if ([v8 passType] == 1 && objc_msgSend(v9, "passType") == 1 && objc_msgSend(v8, "style") != 7 && objc_msgSend(v9, "style") == 7)
-    {
-LABEL_4:
       v16 = 0;
     }
 
@@ -782,7 +732,7 @@ LABEL_4:
 
 - (void)movePassAtIndex:(unint64_t)index toIndex:(unint64_t)toIndex
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   passes = [(NPKPassesManager *)self passes];
   v8 = [passes objectAtIndexedSubscript:index];
 
@@ -797,51 +747,51 @@ LABEL_4:
   uniqueID2 = [v10 uniqueID];
   v16 = [groupsController2 groupIndexForPassUniqueID:uniqueID2];
 
-  v17 = pk_Payment_log();
-  v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
+  v18 = pk_Payment_log(v17);
+  v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
 
   if (v13 == 0x7FFFFFFFFFFFFFFFLL || v16 == 0x7FFFFFFFFFFFFFFFLL || v13 == v16)
   {
-    if (v18)
+    if (v19)
     {
-      v22 = pk_Payment_log();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      v24 = pk_Payment_log(v20);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
         uniqueID3 = [v8 uniqueID];
         *buf = 138413314;
-        v27 = uniqueID3;
-        v28 = 2048;
+        v28 = uniqueID3;
+        v29 = 2048;
         indexCopy2 = index;
-        v30 = 2048;
+        v31 = 2048;
         toIndexCopy2 = toIndex;
-        v32 = 2048;
-        v33 = v13;
-        v34 = 2048;
-        v35 = v16;
-        _os_log_impl(&dword_25B300000, v22, OS_LOG_TYPE_DEFAULT, "Warning: Not supported pass move. Pass %@ at index %lu to %lu (from group index %lu, to group index %lu)", buf, 0x34u);
+        v33 = 2048;
+        v34 = v13;
+        v35 = 2048;
+        v36 = v16;
+        _os_log_impl(&dword_25B300000, v24, OS_LOG_TYPE_DEFAULT, "Warning: Not supported pass move. Pass %@ at index %lu to %lu (from group index %lu, to group index %lu)", buf, 0x34u);
       }
     }
   }
 
   else
   {
-    if (v18)
+    if (v19)
     {
-      v19 = pk_Payment_log();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v21 = pk_Payment_log(v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
         uniqueID4 = [v8 uniqueID];
         *buf = 138413314;
-        v27 = uniqueID4;
-        v28 = 2048;
+        v28 = uniqueID4;
+        v29 = 2048;
         indexCopy2 = index;
-        v30 = 2048;
+        v31 = 2048;
         toIndexCopy2 = toIndex;
-        v32 = 2048;
-        v33 = v13;
-        v34 = 2048;
-        v35 = v16;
-        _os_log_impl(&dword_25B300000, v19, OS_LOG_TYPE_DEFAULT, "Warning: Moving pass %@ at index %lu to %lu (from group index %lu, to group index %lu)", buf, 0x34u);
+        v33 = 2048;
+        v34 = v13;
+        v35 = 2048;
+        v36 = v16;
+        _os_log_impl(&dword_25B300000, v21, OS_LOG_TYPE_DEFAULT, "Warning: Moving pass %@ at index %lu to %lu (from group index %lu, to group index %lu)", buf, 0x34u);
       }
     }
 
@@ -849,15 +799,13 @@ LABEL_4:
     [groupsController3 moveGroupAtIndex:v13 toIndex:v16];
 
     [(NPKPassesManager *)self _updateCurrentPasses];
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __44__NPKPassesManager_movePassAtIndex_toIndex___block_invoke;
-    v25[3] = &unk_2799452B8;
-    v25[4] = self;
-    [(NPKPassesManager *)self _notifyObservers:v25];
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __44__NPKPassesManager_movePassAtIndex_toIndex___block_invoke;
+    v26[3] = &unk_2799452B8;
+    v26[4] = self;
+    [(NPKPassesManager *)self _notifyObservers:v26];
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unarchivePass:(id)pass
@@ -882,46 +830,43 @@ LABEL_4:
 void __34__NPKPassesManager_unarchivePass___block_invoke(uint64_t a1, int a2)
 {
   v13 = *MEMORY[0x277D85DE8];
-  v4 = pk_General_log();
+  v4 = pk_General_log(a1);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 
   if (a2)
   {
     if (v5)
     {
-      v6 = pk_General_log();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = pk_General_log(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v7 = [*(a1 + 32) uniqueID];
+        v8 = [*(a1 + 32) uniqueID];
         v11 = 138412290;
-        v12 = v7;
-        _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: Pass with unique id:%@ was manually recovered successfully", &v11, 0xCu);
+        v12 = v8;
+        _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: Pass with unique id:%@ was manually recovered successfully", &v11, 0xCu);
       }
     }
 
     WeakRetained = objc_loadWeakRetained((a1 + 40));
     [WeakRetained _reloadPasses];
+LABEL_7:
+
+    return;
   }
 
-  else
+  if (v5)
   {
-    if (!v5)
-    {
-      goto LABEL_11;
-    }
-
-    WeakRetained = pk_General_log();
+    WeakRetained = pk_General_log(v6);
     if (os_log_type_enabled(WeakRetained, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = [*(a1 + 32) uniqueID];
+      v10 = [*(a1 + 32) uniqueID];
       v11 = 138412290;
-      v12 = v9;
+      v12 = v10;
       _os_log_impl(&dword_25B300000, WeakRetained, OS_LOG_TYPE_DEFAULT, "Warning: Pass with unique id:%@ failed to be manually recovered", &v11, 0xCu);
     }
-  }
 
-LABEL_11:
-  v10 = *MEMORY[0x277D85DE8];
+    goto LABEL_7;
+  }
 }
 
 - (void)removePass:(id)pass
@@ -987,7 +932,7 @@ uint64_t __47__NPKPassesManager_reloadPassesWithCompletion___block_invoke(uint64
 
 - (void)_updateCurrentPasses
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   [(NPKPassesManager *)self setCurrentPasses:0];
   [(NPKPassesManager *)self setCurrentPaymentPasses:0];
   [(NPKPassesManager *)self setCurrentSecureElementPasses:0];
@@ -996,77 +941,75 @@ uint64_t __47__NPKPassesManager_reloadPassesWithCompletion___block_invoke(uint64
   array2 = [MEMORY[0x277CBEB18] array];
   array3 = [MEMORY[0x277CBEB18] array];
   array4 = [MEMORY[0x277CBEB18] array];
-  if (NPKIsRunningInStoreDemoMode())
+  if (NPKIsRunningInStoreDemoMode(array4, v7))
   {
-    v7 = NPKIsPaymentSetupSupportedInRegion() != 2;
+    v8 = NPKIsPaymentSetupSupportedInRegion() != 2;
   }
 
   else
   {
-    v7 = 1;
+    v8 = 1;
   }
 
   groupsController = [(NPKPassesManager *)self groupsController];
   groups = [groupsController groups];
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = __40__NPKPassesManager__updateCurrentPasses__block_invoke;
-  v32[3] = &unk_2799453F8;
-  v37 = v7;
-  v10 = array3;
-  v33 = v10;
-  v11 = array2;
-  v34 = v11;
-  v12 = array;
-  v35 = v12;
-  v13 = array4;
-  v36 = v13;
-  [groups enumerateObjectsUsingBlock:v32];
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = __40__NPKPassesManager__updateCurrentPasses__block_invoke;
+  v34[3] = &unk_2799453F8;
+  v39 = v8;
+  v11 = array3;
+  v35 = v11;
+  v12 = array2;
+  v36 = v12;
+  v13 = array;
+  v37 = v13;
+  v14 = array4;
+  v38 = v14;
+  [groups enumerateObjectsUsingBlock:v34];
 
-  v14 = [v11 arrayByAddingObjectsFromArray:v12];
-  v15 = [v14 arrayByAddingObjectsFromArray:v13];
-  [(NPKPassesManager *)self setCurrentPasses:v15];
+  v15 = [v12 arrayByAddingObjectsFromArray:v13];
+  v16 = [v15 arrayByAddingObjectsFromArray:v14];
+  [(NPKPassesManager *)self setCurrentPasses:v16];
 
-  v16 = [v11 copy];
-  [(NPKPassesManager *)self setCurrentPaymentPasses:v16];
+  v17 = [v12 copy];
+  [(NPKPassesManager *)self setCurrentPaymentPasses:v17];
 
-  v17 = [v10 copy];
-  [(NPKPassesManager *)self setCurrentSecureElementPasses:v17];
+  v18 = [v11 copy];
+  [(NPKPassesManager *)self setCurrentSecureElementPasses:v18];
 
   groupsController2 = [(NPKPassesManager *)self groupsController];
   expiredSectionPasses = [groupsController2 expiredSectionPasses];
-  v20 = [expiredSectionPasses sortedArrayUsingComparator:&__block_literal_global_0];
-  [(NPKPassesManager *)self setCurrentExpiredPasses:v20];
+  v21 = [expiredSectionPasses sortedArrayUsingComparator:&__block_literal_global_0];
+  [(NPKPassesManager *)self setCurrentExpiredPasses:v21];
 
-  v21 = pk_General_log();
-  LODWORD(expiredSectionPasses) = os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
+  v23 = pk_General_log(v22);
+  LODWORD(expiredSectionPasses) = os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT);
 
   if (expiredSectionPasses)
   {
-    v22 = pk_General_log();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    v25 = pk_General_log(v24);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
       currentPasses = [(NPKPassesManager *)self currentPasses];
-      v30 = [currentPasses count];
+      v32 = [currentPasses count];
       currentPaymentPasses = [(NPKPassesManager *)self currentPaymentPasses];
-      v24 = [currentPaymentPasses count];
+      v27 = [currentPaymentPasses count];
       currentSecureElementPasses = [(NPKPassesManager *)self currentSecureElementPasses];
-      v26 = [currentSecureElementPasses count];
+      v29 = [currentSecureElementPasses count];
       currentExpiredPasses = [(NPKPassesManager *)self currentExpiredPasses];
-      v28 = [currentExpiredPasses count];
+      v31 = [currentExpiredPasses count];
       *buf = 134218752;
-      v39 = v30;
-      v40 = 2048;
-      v41 = v24;
+      v41 = v32;
       v42 = 2048;
-      v43 = v26;
+      v43 = v27;
       v44 = 2048;
-      v45 = v28;
-      _os_log_impl(&dword_25B300000, v22, OS_LOG_TYPE_DEFAULT, "Notice: Updated passes with %lu passes, %lu payment styled passes, %lu se passes and %lu expired passes.", buf, 0x2Au);
+      v45 = v29;
+      v46 = 2048;
+      v47 = v31;
+      _os_log_impl(&dword_25B300000, v25, OS_LOG_TYPE_DEFAULT, "Notice: Updated passes with %lu passes, %lu payment styled passes, %lu se passes and %lu expired passes.", buf, 0x2Au);
     }
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void __40__NPKPassesManager__updateCurrentPasses__block_invoke(uint64_t a1, void *a2)
@@ -1160,41 +1103,39 @@ void __40__NPKPassesManager__updateCurrentPasses__block_invoke_3(uint64_t a1, ui
 
 - (void)_registerGroupControllerGroupObserver
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   groupsController = [(NPKPassesManager *)self groupsController];
   groups = [groupsController groups];
 
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v5 = groups;
-  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [*(*(&v11 + 1) + 8 * v9++) addGroupObserver:{self, v11}];
+        [*(*(&v10 + 1) + 8 * v9++) addGroupObserver:{self, v10}];
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_loadPasses
@@ -1243,44 +1184,43 @@ void __31__NPKPassesManager__loadPasses__block_invoke(uint64_t a1)
 
 - (void)_loadContentAndImageSetsForAllPassesIfNecessaryWithCompletion:(id)completion
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   groups = [(PKGroupsController *)self->_groupsController groups];
-  v7 = [groups countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [groups countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v14;
+    v9 = *v13;
     do
     {
       v10 = 0;
       do
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(groups);
         }
 
-        passes = [*(*(&v13 + 1) + 8 * v10) passes];
+        passes = [*(*(&v12 + 1) + 8 * v10) passes];
         [v5 addObjectsFromArray:passes];
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [groups countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [groups countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v8);
   }
 
   [(NPKPassesManager *)self _loadContentAndImageSetsIfNecessaryForPasses:v5 completion:completionCopy];
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_loadContentAndImageSetsIfNecessaryForPasses:(id)passes completion:(id)completion
@@ -1364,26 +1304,26 @@ uint64_t __76__NPKPassesManager__loadContentAndImageSetsIfNecessaryForPasses_com
 - (void)_didFinishLoadPasses
 {
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
-  v3 = pk_Payment_log();
-  v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
+  v4 = pk_Payment_log(v3);
+  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 
-  if (v4)
+  if (v5)
   {
-    v5 = pk_Payment_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v7 = pk_Payment_log(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: Passes manager: All passes loaded.", buf, 2u);
+      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: Passes manager: All passes loaded.", buf, 2u);
     }
   }
 
   [(NPKPassesManager *)self _updateCurrentPasses];
-  v6[0] = MEMORY[0x277D85DD0];
-  v6[1] = 3221225472;
-  v6[2] = __40__NPKPassesManager__didFinishLoadPasses__block_invoke;
-  v6[3] = &unk_2799452B8;
-  v6[4] = self;
-  [(NPKPassesManager *)self _notifyObservers:v6];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __40__NPKPassesManager__didFinishLoadPasses__block_invoke;
+  v8[3] = &unk_2799452B8;
+  v8[4] = self;
+  [(NPKPassesManager *)self _notifyObservers:v8];
 }
 
 - (void)_reloadPassesWithCompletion:(id)completion
@@ -1425,7 +1365,7 @@ void __48__NPKPassesManager__reloadPassesWithCompletion___block_invoke(uint64_t 
 
 - (void)_loadContentAndImageSetsForPass:(id)pass completion:(id)completion
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   passCopy = pass;
   completionCopy = completion;
   uniqueID = [passCopy uniqueID];
@@ -1448,99 +1388,98 @@ void __48__NPKPassesManager__reloadPassesWithCompletion___block_invoke(uint64_t 
 
   v10 = dispatch_group_create();
   objc_initWeak(&location, self);
+  v45 = 0u;
+  v46 = 0u;
   v43 = 0u;
   v44 = 0u;
-  v41 = 0u;
-  v42 = 0u;
   obj = array;
-  v11 = [obj countByEnumeratingWithState:&v41 objects:v50 count:16];
+  v11 = [obj countByEnumeratingWithState:&v43 objects:v52 count:16];
   if (v11)
   {
-    v12 = *v42;
+    v12 = *v44;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v42 != v12)
+        if (*v44 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v41 + 1) + 8 * i);
+        v14 = *(*(&v43 + 1) + 8 * i);
         integerValue = [v14 integerValue];
-        v16 = pk_Payment_log();
+        v16 = pk_Payment_log(integerValue);
         v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
 
         if (v17)
         {
-          v18 = pk_Payment_log();
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+          v19 = pk_Payment_log(v18);
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 134218242;
-            v47 = integerValue;
-            v48 = 2112;
-            v49 = uniqueID;
-            _os_log_impl(&dword_25B300000, v18, OS_LOG_TYPE_DEFAULT, "Notice: Loading image set type %ld for pass with unique ID %@", buf, 0x16u);
+            v49 = integerValue;
+            v50 = 2112;
+            v51 = uniqueID;
+            _os_log_impl(&dword_25B300000, v19, OS_LOG_TYPE_DEFAULT, "Notice: Loading image set type %ld for pass with unique ID %@", buf, 0x16u);
           }
         }
 
         dispatch_group_enter(v10);
         integerValue2 = [v14 integerValue];
-        v36[0] = MEMORY[0x277D85DD0];
-        v36[1] = 3221225472;
-        v36[2] = __63__NPKPassesManager__loadContentAndImageSetsForPass_completion___block_invoke;
-        v36[3] = &unk_2799454B8;
-        objc_copyWeak(v40, &location);
-        v20 = passCopy;
-        v37 = v20;
-        v40[1] = integerValue;
-        v38 = uniqueID;
-        v39 = v10;
-        [v20 loadImageSetAsync:integerValue2 preheat:1 withCompletion:v36];
+        v38[0] = MEMORY[0x277D85DD0];
+        v38[1] = 3221225472;
+        v38[2] = __63__NPKPassesManager__loadContentAndImageSetsForPass_completion___block_invoke;
+        v38[3] = &unk_2799454B8;
+        objc_copyWeak(v42, &location);
+        v21 = passCopy;
+        v39 = v21;
+        v42[1] = integerValue;
+        v40 = uniqueID;
+        v41 = v10;
+        [v21 loadImageSetAsync:integerValue2 preheat:1 withCompletion:v38];
 
-        objc_destroyWeak(v40);
+        objc_destroyWeak(v42);
       }
 
-      v11 = [obj countByEnumeratingWithState:&v41 objects:v50 count:16];
+      v11 = [obj countByEnumeratingWithState:&v43 objects:v52 count:16];
     }
 
     while (v11);
   }
 
-  v21 = pk_Payment_log();
-  v22 = os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
+  v23 = pk_Payment_log(v22);
+  v24 = os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT);
 
-  if (v22)
+  if (v24)
   {
-    v23 = pk_Payment_log();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    v26 = pk_Payment_log(v25);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v47 = uniqueID;
-      _os_log_impl(&dword_25B300000, v23, OS_LOG_TYPE_DEFAULT, "Notice: Loading content for pass with unique ID %@", buf, 0xCu);
+      v49 = uniqueID;
+      _os_log_impl(&dword_25B300000, v26, OS_LOG_TYPE_DEFAULT, "Notice: Loading content for pass with unique ID %@", buf, 0xCu);
     }
   }
 
   dispatch_group_enter(v10);
-  v33[0] = MEMORY[0x277D85DD0];
-  v33[1] = 3221225472;
-  v33[2] = __63__NPKPassesManager__loadContentAndImageSetsForPass_completion___block_invoke_87;
-  v33[3] = &unk_2799454E0;
-  v24 = uniqueID;
-  v34 = v24;
-  v25 = v10;
-  v35 = v25;
-  [passCopy loadContentAsyncWithCompletion:v33];
+  v35[0] = MEMORY[0x277D85DD0];
+  v35[1] = 3221225472;
+  v35[2] = __63__NPKPassesManager__loadContentAndImageSetsForPass_completion___block_invoke_87;
+  v35[3] = &unk_2799454E0;
+  v27 = uniqueID;
+  v36 = v27;
+  v28 = v10;
+  v37 = v28;
+  [passCopy loadContentAsyncWithCompletion:v35];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __63__NPKPassesManager__loadContentAndImageSetsForPass_completion___block_invoke_88;
   block[3] = &unk_279945198;
-  v32 = completionCopy;
-  v26 = completionCopy;
-  dispatch_group_notify(v25, MEMORY[0x277D85CD0], block);
+  v34 = completionCopy;
+  v29 = completionCopy;
+  dispatch_group_notify(v28, MEMORY[0x277D85CD0], block);
 
   objc_destroyWeak(&location);
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __63__NPKPassesManager__loadContentAndImageSetsForPass_completion___block_invoke(uint64_t a1)
@@ -1572,72 +1511,74 @@ void __63__NPKPassesManager__loadContentAndImageSetsForPass_completion___block_i
 
 void __63__NPKPassesManager__loadContentAndImageSetsForPass_completion___block_invoke_2(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) isImageSetLoaded:*(a1 + 64)];
-  v3 = pk_Payment_log();
-  v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
+  v3 = v2;
+  v4 = pk_Payment_log(v2);
+  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 
-  if (v2)
+  if (v3)
   {
-    if (v4)
+    if (v5)
     {
-      v5 = pk_Payment_log();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v7 = pk_Payment_log(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v6 = *(a1 + 64);
-        v7 = *(a1 + 40);
-        v23 = 134218242;
-        v24 = v6;
-        v25 = 2112;
-        v26 = v7;
-        _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: Finished loading image set %ld for pass with unique ID %@", &v23, 0x16u);
+        v8 = *(a1 + 64);
+        v9 = *(a1 + 40);
+        v27 = 134218242;
+        v28 = v8;
+        v29 = 2112;
+        v30 = v9;
+        _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: Finished loading image set %ld for pass with unique ID %@", &v27, 0x16u);
       }
     }
 
     if ((*(*(a1 + 48) + 80) & 2) != 0)
     {
-      v8 = [*(a1 + 32) imageSetLoadedIfNeeded:*(a1 + 64)];
-      v9 = [v8 conformsToProtocol:&unk_286D2CFA8];
-      v10 = pk_Payment_log();
-      v11 = v10;
-      if (v9)
+      v10 = [*(a1 + 32) imageSetLoadedIfNeeded:*(a1 + 64)];
+      v11 = [v10 conformsToProtocol:&unk_286D2CFA8];
+      v12 = v11;
+      v13 = pk_Payment_log(v11);
+      v14 = v13;
+      if (v12)
       {
-        v12 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+        v15 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
 
-        if (v12)
+        if (v15)
         {
-          v13 = pk_Payment_log();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+          v17 = pk_Payment_log(v16);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
           {
-            v14 = *(a1 + 64);
-            v15 = *(a1 + 40);
-            v23 = 134218242;
-            v24 = v14;
-            v25 = 2112;
-            v26 = v15;
-            _os_log_impl(&dword_25B300000, v13, OS_LOG_TYPE_DEFAULT, "Notice: Memory-mapping %ld image set for pass with unique ID %@", &v23, 0x16u);
+            v18 = *(a1 + 64);
+            v19 = *(a1 + 40);
+            v27 = 134218242;
+            v28 = v18;
+            v29 = 2112;
+            v30 = v19;
+            _os_log_impl(&dword_25B300000, v17, OS_LOG_TYPE_DEFAULT, "Notice: Memory-mapping %ld image set for pass with unique ID %@", &v27, 0x16u);
           }
         }
 
-        [v8 memoryMapImageData];
+        [v10 memoryMapImageData];
       }
 
       else
       {
-        v18 = os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG);
+        v22 = os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG);
 
-        if (v18)
+        if (v22)
         {
-          v19 = pk_Payment_log();
-          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+          v24 = pk_Payment_log(v23);
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
           {
-            v20 = *(a1 + 64);
-            v21 = *(a1 + 40);
-            v23 = 134218242;
-            v24 = v20;
-            v25 = 2112;
-            v26 = v21;
-            _os_log_impl(&dword_25B300000, v19, OS_LOG_TYPE_DEBUG, "Debug: Not memory-mapping %ld image set for pass with unique ID %@; does not conform to NPKMemoryMappableImageSet", &v23, 0x16u);
+            v25 = *(a1 + 64);
+            v26 = *(a1 + 40);
+            v27 = 134218242;
+            v28 = v25;
+            v29 = 2112;
+            v30 = v26;
+            _os_log_impl(&dword_25B300000, v24, OS_LOG_TYPE_DEBUG, "Debug: Not memory-mapping %ld image set for pass with unique ID %@; does not conform to NPKMemoryMappableImageSet", &v27, 0x16u);
           }
         }
       }
@@ -1646,47 +1587,45 @@ LABEL_20:
     }
   }
 
-  else if (v4)
+  else if (v5)
   {
-    v8 = pk_Payment_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v10 = pk_Payment_log(v6);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = *(a1 + 64);
-      v17 = *(a1 + 40);
-      v23 = 134218242;
-      v24 = v16;
-      v25 = 2112;
-      v26 = v17;
-      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Warning: Attempt to load image set %ld for pass with unique ID %@ was unsuccessful!", &v23, 0x16u);
+      v20 = *(a1 + 64);
+      v21 = *(a1 + 40);
+      v27 = 134218242;
+      v28 = v20;
+      v29 = 2112;
+      v30 = v21;
+      _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Warning: Attempt to load image set %ld for pass with unique ID %@ was unsuccessful!", &v27, 0x16u);
     }
 
     goto LABEL_20;
   }
 
   dispatch_group_leave(*(a1 + 56));
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __63__NPKPassesManager__loadContentAndImageSetsForPass_completion___block_invoke_87(uint64_t a1)
 {
   v9 = *MEMORY[0x277D85DE8];
-  v2 = pk_Payment_log();
+  v2 = pk_Payment_log(a1);
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
 
   if (v3)
   {
-    v4 = pk_Payment_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = pk_Payment_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = *(a1 + 32);
+      v6 = *(a1 + 32);
       v7 = 138412290;
-      v8 = v5;
-      _os_log_impl(&dword_25B300000, v4, OS_LOG_TYPE_DEFAULT, "Notice: Finished loading content for pass with unique ID %@", &v7, 0xCu);
+      v8 = v6;
+      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: Finished loading content for pass with unique ID %@", &v7, 0xCu);
     }
   }
 
   dispatch_group_leave(*(a1 + 40));
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __63__NPKPassesManager__loadContentAndImageSetsForPass_completion___block_invoke_88(uint64_t a1)
@@ -1702,39 +1641,37 @@ uint64_t __63__NPKPassesManager__loadContentAndImageSetsForPass_completion___blo
 
 - (void)_notifyObservers:(id)observers
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   observersCopy = observers;
   allObjects = [(NSHashTable *)self->_observers allObjects];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v6 = [allObjects countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [allObjects countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(allObjects);
         }
 
-        observersCopy[2](observersCopy, *(*(&v11 + 1) + 8 * v9++));
+        observersCopy[2](observersCopy, *(*(&v10 + 1) + 8 * v9++));
       }
 
       while (v7 != v9);
-      v7 = [allObjects countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [allObjects countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleObjectSettingsChanged:(id)changed
@@ -1759,13 +1696,13 @@ void __49__NPKPassesManager__handleObjectSettingsChanged___block_invoke(uint64_t
   v5 = [v4 unsignedIntegerValue];
 
   v6 = [*(a1 + 40) passForUniqueID:v3];
-  v7 = pk_Payment_log();
+  v7 = pk_Payment_log(v6);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
 
   if (v8)
   {
-    v9 = pk_Payment_log();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = pk_Payment_log(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109634;
       v15 = v5;
@@ -1773,24 +1710,22 @@ void __49__NPKPassesManager__handleObjectSettingsChanged___block_invoke(uint64_t
       v17 = v6;
       v18 = 2112;
       v19 = v3;
-      _os_log_impl(&dword_25B300000, v9, OS_LOG_TYPE_DEFAULT, "Notice: Got object settings changed to %u for pass (%@) with unique ID %@", buf, 0x1Cu);
+      _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: Got object settings changed to %u for pass (%@) with unique ID %@", buf, 0x1Cu);
     }
   }
 
   if (v6)
   {
     [v6 setSettingsWithoutUpdatingDataAccessor:v5];
-    v10 = *(a1 + 40);
+    v11 = *(a1 + 40);
     v12[0] = MEMORY[0x277D85DD0];
     v12[1] = 3221225472;
     v12[2] = __49__NPKPassesManager__handleObjectSettingsChanged___block_invoke_89;
     v12[3] = &unk_279945268;
-    v12[4] = v10;
+    v12[4] = v11;
     v13 = v6;
-    [v10 _notifyObservers:v12];
+    [v11 _notifyObservers:v12];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __49__NPKPassesManager__handleObjectSettingsChanged___block_invoke_89(uint64_t a1, void *a2)

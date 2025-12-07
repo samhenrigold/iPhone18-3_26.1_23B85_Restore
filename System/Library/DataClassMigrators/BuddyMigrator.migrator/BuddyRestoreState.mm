@@ -3,6 +3,7 @@
 + (id)_loadClassicState:(id)state;
 + (id)_loadModernState:(id)state;
 + (id)loadFromPreferences:(id)preferences;
+- (BuddyRestoreState)initWithProductBuild:(id)build backup:(id)backup snapshot:(id)snapshot useLatestSnapshot:(BOOL)latestSnapshot allowCellularNetwork:(BOOL)network;
 - (BuddyRestoreState)initWithProductBuild:(id)build backupUDID:(id)d backupUUID:(id)iD snapshotID:(unint64_t)snapshotID snapshotDate:(id)date useLatestSnapshot:(BOOL)snapshot allowCellularNetwork:(BOOL)network persistDate:(id)self0;
 - (id)description;
 - (void)persistUsingPreferences:(id)preferences;
@@ -41,6 +42,24 @@
   }
 
   return selfCopy;
+}
+
+- (BuddyRestoreState)initWithProductBuild:(id)build backup:(id)backup snapshot:(id)snapshot useLatestSnapshot:(BOOL)latestSnapshot allowCellularNetwork:(BOOL)network
+{
+  latestSnapshotCopy = latestSnapshot;
+  snapshotCopy = snapshot;
+  backupCopy = backup;
+  buildCopy = build;
+  backupUDID = [backupCopy backupUDID];
+  backupUUID = [backupCopy backupUUID];
+
+  snapshotID = [snapshotCopy snapshotID];
+  date = [snapshotCopy date];
+
+  LOBYTE(v21) = network;
+  v19 = [(BuddyRestoreState *)self initWithProductBuild:buildCopy backupUDID:backupUDID backupUUID:backupUUID snapshotID:snapshotID snapshotDate:date useLatestSnapshot:latestSnapshotCopy allowCellularNetwork:v21 persistDate:0];
+
+  return v19;
 }
 
 + (id)loadFromPreferences:(id)preferences

@@ -3,11 +3,14 @@
 - (BOOL)isFlushableOriginLedgerAfterFlushingSubsidiaries:(id)subsidiaries atMachAbsTime:(unint64_t)time;
 - (FlowScrutinizer)init;
 - (id)_findFlowOriginLedgerWithSnapshot:(id)snapshot;
+- (id)getLedgerState:(BOOL)state;
+- (id)getState:(BOOL)state;
 - (int)setConfiguration:(id)configuration;
 - (unsigned)_dispositionForPossibleLargeTransferOn:(id)on provisionally:(unsigned int)provisionally;
 - (void)_coreMediaAssetDownloadCompletion:(id)completion for:(id)for at:(double)at;
 - (void)_coreMediaAssetDownloadFlushAll;
 - (void)_handleFlowDeltas:(id)deltas snapshot:(id)snapshot;
+- (void)_reportClassificationChange:(id)change new:(unsigned int)new ledger:(id)ledger snapshot:(id)snapshot;
 - (void)addActivityBitmapFromSnapshot:(id)snapshot;
 - (void)addDelegate:(id)delegate;
 - (void)addFlowStateForOrigin:(id)origin array:(id)array;
@@ -18,10 +21,12 @@
 - (void)expectedTransferScrutinyOnBehalfOf:(id)of required:(BOOL)required;
 - (void)flushInactiveLedgersAtMachAbsTime:(unint64_t)time;
 - (void)noteCoreMediaAssetDownloadEvent:(unint64_t)event downloadUUID:(id)d byProcess:(id)process onBehalfOf:(id)of duration:(double)duration at:(double)at;
+- (void)noteExpectedTransfer:(unint64_t)transfer inbound:(BOOL)inbound upperThreshold:(BOOL)threshold flowUUID:(id)d at:(double)at;
 - (void)removeDelegate:(id)delegate;
 - (void)restoreDefaults;
 - (void)scrutinizeFlow:(id)flow withClassification:(id)classification;
 - (void)updateAudioVideoSamplesWithTime:(double)time bumpSamples:(BOOL)samples;
+- (void)updateInterfaceSamplesWithTime:(double)time bumpSamples:(BOOL)samples;
 - (void)updateTransferSizeFlowsWithTime:(double)time;
 - (void)wifiFlowScrutinyOnBehalfOf:(id)of required:(BOOL)required;
 @end
@@ -107,9 +112,65 @@ uint64_t __33__FlowScrutinizer_sharedInstance__block_invoke(uint64_t a1)
   return v2;
 }
 
+- (void)_reportClassificationChange:(id)change new:(unsigned int)new ledger:(id)ledger snapshot:(id)snapshot
+{
+  v8 = *&new;
+  v33 = *MEMORY[0x277D85DE8];
+  changeCopy = change;
+  ledgerCopy = ledger;
+  snapshotCopy = snapshot;
+  v13 = flowScrutinyLogHandle;
+  if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 138413058;
+    v26 = changeCopy;
+    v27 = 1024;
+    v28 = v8;
+    v29 = 2112;
+    v30 = ledgerCopy;
+    v31 = 2112;
+    v32 = snapshotCopy;
+    _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_DEBUG, "_reportClassificationChange on %@, new %d ledger %@ snapshot %@", buf, 0x26u);
+  }
+
+  delegates = self->_delegates;
+  if (delegates)
+  {
+    v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
+    v15 = delegates;
+    v16 = [(NSMutableSet *)v15 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    if (v16)
+    {
+      v17 = v16;
+      v18 = *v21;
+      do
+      {
+        v19 = 0;
+        do
+        {
+          if (*v21 != v18)
+          {
+            objc_enumerationMutation(v15);
+          }
+
+          [*(*(&v20 + 1) + 8 * v19++) flowDispositionChangeTo:v8 flowIdentifier:changeCopy ledger:ledgerCopy snapshot:{snapshotCopy, v20}];
+        }
+
+        while (v17 != v19);
+        v17 = [(NSMutableSet *)v15 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      }
+
+      while (v17);
+    }
+  }
+}
+
 - (unsigned)_dispositionForPossibleLargeTransferOn:(id)on provisionally:(unsigned int)provisionally
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   onCopy = on;
   if ([onCopy rxTransferSizeUpperThreshold])
   {
@@ -161,24 +222,23 @@ LABEL_15:
   if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEBUG))
   {
     v10 = v9;
-    v13 = 134218754;
+    v12 = 134218754;
     flowIdentifier = [onCopy flowIdentifier];
-    v15 = 1024;
+    v14 = 1024;
     provisionallyCopy2 = provisionally;
-    v17 = 1024;
-    v18 = provisionallyCopy;
-    v19 = 2112;
-    v20 = onCopy;
-    _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEBUG, "_dispositionForPossibleLargeTransferOn: %lld  %d -> %d on %@", &v13, 0x22u);
+    v16 = 1024;
+    v17 = provisionallyCopy;
+    v18 = 2112;
+    v19 = onCopy;
+    _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEBUG, "_dispositionForPossibleLargeTransferOn: %lld  %d -> %d on %@", &v12, 0x22u);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return provisionallyCopy;
 }
 
 - (void)_handleFlowDeltas:(id)deltas snapshot:(id)snapshot
 {
-  v113 = *MEMORY[0x277D85DE8];
+  v112 = *MEMORY[0x277D85DE8];
   deltasCopy = deltas;
   snapshotCopy = snapshot;
   [snapshotCopy flowSnapshotTimeIntervalSinceReferenceDate];
@@ -334,7 +394,7 @@ LABEL_26:
       if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543362;
-        v103 = deltasCopy;
+        v102 = deltasCopy;
         _os_log_impl(&dword_23255B000, v59, OS_LOG_TYPE_DEBUG, "_handleFlowDeltas finds no prev sample when pendingFlowNonIdleDuration, ledger %{public}@", buf, 0xCu);
       }
 
@@ -364,9 +424,9 @@ LABEL_26:
     [(FlowSample *)v62 setTotalObservedCellRxBytes:deltaAccountingRxCellularBytes];
     log = v61;
     [(FlowSample *)v62 setTotalObservedCellTxBytes:v61];
-    v98 = deltaAccountingRxWiFiBytes;
+    v97 = deltaAccountingRxWiFiBytes;
     [(FlowSample *)v62 setTotalObservedWiFiRxBytes:deltaAccountingRxWiFiBytes];
-    v99 = v16;
+    v98 = v16;
     [(FlowSample *)v62 setTotalObservedWiFiTxBytes:v16];
     if ([snapshotCopy interfaceCellular])
     {
@@ -402,8 +462,8 @@ LABEL_26:
       while (v74 > v75);
     }
 
-    deltaAccountingRxWiFiBytes = v98;
-    v16 = v99;
+    deltaAccountingRxWiFiBytes = v97;
+    v16 = v98;
     deltaAccountingTxCellularBytes = log;
   }
 
@@ -440,15 +500,15 @@ LABEL_26:
         isADaemon = [snapshotCopy isADaemon];
         uiBackgroundAudioCapable = [snapshotCopy uiBackgroundAudioCapable];
         *buf = 138413058;
-        v103 = processName;
-        v104 = 1024;
-        *v105 = processID;
-        *&v105[4] = 1024;
-        *&v105[6] = isADaemon;
+        v102 = processName;
+        v103 = 1024;
+        *v104 = processID;
+        *&v104[4] = 1024;
+        *&v104[6] = isADaemon;
         deltaAccountingRxWiFiBytes = v87;
         deltaAccountingTxCellularBytes = v86;
-        LOWORD(v106) = 1024;
-        *(&v106 + 2) = uiBackgroundAudioCapable;
+        LOWORD(v105) = 1024;
+        *(&v105 + 2) = uiBackgroundAudioCapable;
         _os_log_impl(&dword_23255B000, loga, OS_LOG_TYPE_DEBUG, "Ignoring A/V bytes from %@[%d], daemon = %d, backgroundAudio = %d", buf, 0x1Eu);
       }
     }
@@ -462,17 +522,17 @@ LABEL_26:
         processName2 = [snapshotCopy processName];
         processID2 = [snapshotCopy processID];
         *buf = 134219266;
-        v103 = deltaAccountingRxCellularBytes;
-        v104 = 2048;
-        *v105 = deltaAccountingRxWiFiBytes;
-        *&v105[8] = 2048;
-        v106 = deltaAccountingTxCellularBytes;
-        v107 = 2048;
-        v108 = v16;
-        v109 = 2112;
-        v110 = processName2;
-        v111 = 1024;
-        v112 = processID2;
+        v102 = deltaAccountingRxCellularBytes;
+        v103 = 2048;
+        *v104 = deltaAccountingRxWiFiBytes;
+        *&v104[8] = 2048;
+        v105 = deltaAccountingTxCellularBytes;
+        v106 = 2048;
+        v107 = v16;
+        v108 = 2112;
+        v109 = processName2;
+        v110 = 1024;
+        v111 = processID2;
         _os_log_impl(&dword_23255B000, v78, OS_LOG_TYPE_INFO, "Accumulating A/V cell/Wifi  rx: %llu/%llu, tx: %llu/%llu bytes from %@[%d]", buf, 0x3Au);
       }
 
@@ -553,55 +613,53 @@ LABEL_67:
   }
 
 LABEL_74:
-
-  v97 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_coreMediaAssetDownloadFlushAll
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   obj = self->_originLedgers;
-  v20 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v26 objects:v33 count:16];
+  v19 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v25 objects:v32 count:16];
   v2 = 0;
-  if (v20)
+  if (v19)
   {
-    v18 = *v27;
+    v17 = *v26;
     do
     {
       v3 = 0;
       do
       {
-        if (*v27 != v18)
+        if (*v26 != v17)
         {
           objc_enumerationMutation(obj);
         }
 
-        v21 = v3;
-        v4 = [(NSMutableDictionary *)self->_originLedgers objectForKeyedSubscript:*(*(&v26 + 1) + 8 * v3)];
+        v20 = v3;
+        v4 = [(NSMutableDictionary *)self->_originLedgers objectForKeyedSubscript:*(*(&v25 + 1) + 8 * v3)];
+        v21 = 0u;
         v22 = 0u;
         v23 = 0u;
         v24 = 0u;
-        v25 = 0u;
-        v5 = [&unk_2847EEC28 countByEnumeratingWithState:&v22 objects:v32 count:16];
+        v5 = [&unk_2847EEC28 countByEnumeratingWithState:&v21 objects:v31 count:16];
         if (v5)
         {
           v6 = v5;
-          v7 = *v23;
+          v7 = *v22;
           do
           {
             for (i = 0; i != v6; ++i)
             {
               v9 = v2;
-              if (*v23 != v7)
+              if (*v22 != v7)
               {
                 objc_enumerationMutation(&unk_2847EEC28);
               }
 
-              v10 = *(*(&v22 + 1) + 8 * i);
+              v10 = *(*(&v21 + 1) + 8 * i);
               delegates = [v4 delegates];
               v2 = [delegates objectForKeyedSubscript:v10];
 
@@ -617,7 +675,7 @@ LABEL_74:
                     v14 = v13;
                     currentAssetDownloads2 = [v2 currentAssetDownloads];
                     *buf = 138412290;
-                    v31 = currentAssetDownloads2;
+                    v30 = currentAssetDownloads2;
                     _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_DEFAULT, "FlowScrutinizer _coreMediaAssetDownloadFlushAll, flush %@", buf, 0xCu);
                   }
 
@@ -626,28 +684,26 @@ LABEL_74:
               }
             }
 
-            v6 = [&unk_2847EEC28 countByEnumeratingWithState:&v22 objects:v32 count:16];
+            v6 = [&unk_2847EEC28 countByEnumeratingWithState:&v21 objects:v31 count:16];
           }
 
           while (v6);
         }
 
-        v3 = v21 + 1;
+        v3 = v20 + 1;
       }
 
-      while (v21 + 1 != v20);
-      v20 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v26 objects:v33 count:16];
+      while (v20 + 1 != v19);
+      v19 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v25 objects:v32 count:16];
     }
 
-    while (v20);
+    while (v19);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_coreMediaAssetDownloadCompletion:(id)completion for:(id)for at:(double)at
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   forCopy = for;
   downloadState = [completionCopy downloadState];
@@ -672,37 +728,36 @@ LABEL_74:
   v14 = flowScrutinyLogHandle;
   if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 138412290;
-    v17 = completionCopy;
-    _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_DEFAULT, "FlowScrutinizer finishing asset download %@", &v16, 0xCu);
+    v15 = 138412290;
+    v16 = completionCopy;
+    _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_DEFAULT, "FlowScrutinizer finishing asset download %@", &v15, 0xCu);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)noteCoreMediaAssetDownloadEvent:(unint64_t)event downloadUUID:(id)d byProcess:(id)process onBehalfOf:(id)of duration:(double)duration at:(double)at
 {
-  v121 = *MEMORY[0x277D85DE8];
+  v116 = *MEMORY[0x277D85DE8];
   dCopy = d;
   processCopy = process;
   ofCopy = of;
+  v17 = ofCopy;
   if (activeTraceTargets)
   {
-    traceEntry(1, "[FlowScrutinizer noteCoreMediaAssetDownloadEvent:downloadUUID:byProcess:onBehalfOf:duration:at:]", "%d %@ %@ %@ %f %t", v16, v17, v18, v19, v20, event);
+    traceEntry(1, "[FlowScrutinizer noteCoreMediaAssetDownloadEvent:downloadUUID:byProcess:onBehalfOf:duration:at:]", "%d %@ %@ %@ %f %t", event, processCopy, dCopy, ofCopy, *&duration, *&at);
   }
 
   if (!self->_assetDownloadsScrutinized)
   {
-    v43 = flowScrutinyLogHandle;
+    v39 = flowScrutinyLogHandle;
     if (!os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_86;
     }
 
     *buf = 0;
-    v44 = "noteCoreMediaAssetDownloadEvent called when no scrutiny required";
+    v40 = "noteCoreMediaAssetDownloadEvent called when no scrutiny required";
 LABEL_26:
-    _os_log_impl(&dword_23255B000, v43, OS_LOG_TYPE_ERROR, v44, buf, 2u);
+    _os_log_impl(&dword_23255B000, v39, OS_LOG_TYPE_ERROR, v40, buf, 2u);
     goto LABEL_86;
   }
 
@@ -710,393 +765,393 @@ LABEL_26:
   {
     if (dCopy)
     {
-      v93 = ofCopy;
-      v95 = dCopy;
-      v45 = processCopy;
-      v112 = 0u;
-      v113 = 0u;
-      v110 = 0u;
-      v111 = 0u;
-      v46 = self->_originLedgers;
-      v47 = [(NSMutableDictionary *)v46 countByEnumeratingWithState:&v110 objects:v116 count:16];
-      if (!v47)
+      v88 = v17;
+      v90 = dCopy;
+      v41 = processCopy;
+      v107 = 0u;
+      v108 = 0u;
+      v105 = 0u;
+      v106 = 0u;
+      v42 = self->_originLedgers;
+      v43 = [(NSMutableDictionary *)v42 countByEnumeratingWithState:&v105 objects:v111 count:16];
+      if (!v43)
       {
-        v40 = 0;
+        v36 = 0;
         goto LABEL_72;
       }
 
-      v48 = v47;
+      v44 = v43;
       eventCopy = event;
-      v40 = 0;
-      v49 = *v111;
+      v36 = 0;
+      v45 = *v106;
 LABEL_30:
-      v50 = 0;
+      v46 = 0;
       while (1)
       {
-        v51 = v40;
-        if (*v111 != v49)
+        v47 = v36;
+        if (*v106 != v45)
         {
-          objc_enumerationMutation(v46);
+          objc_enumerationMutation(v42);
         }
 
-        v52 = [(NSMutableDictionary *)self->_originLedgers objectForKeyedSubscript:*(*(&v110 + 1) + 8 * v50)];
-        delegates = [v52 delegates];
-        v40 = [delegates objectForKeyedSubscript:v45];
+        v48 = [(NSMutableDictionary *)self->_originLedgers objectForKeyedSubscript:*(*(&v105 + 1) + 8 * v46)];
+        delegates = [v48 delegates];
+        v36 = [delegates objectForKeyedSubscript:v41];
 
-        if (v40)
+        if (v36)
         {
-          currentAssetDownloads = [(CoreMediaDownload *)v40 currentAssetDownloads];
+          currentAssetDownloads = [(CoreMediaDownload *)v36 currentAssetDownloads];
 
           if (currentAssetDownloads)
           {
-            currentAssetDownloads2 = [(CoreMediaDownload *)v40 currentAssetDownloads];
-            v56 = [currentAssetDownloads2 objectForKeyedSubscript:v95];
+            currentAssetDownloads2 = [(CoreMediaDownload *)v36 currentAssetDownloads];
+            v52 = [currentAssetDownloads2 objectForKeyedSubscript:v90];
 
-            if (v56)
+            if (v52)
             {
               break;
             }
           }
         }
 
-        if (v48 == ++v50)
+        if (v44 == ++v46)
         {
-          v48 = [(NSMutableDictionary *)v46 countByEnumeratingWithState:&v110 objects:v116 count:16];
-          if (v48)
+          v44 = [(NSMutableDictionary *)v42 countByEnumeratingWithState:&v105 objects:v111 count:16];
+          if (v44)
           {
             goto LABEL_30;
           }
 
 LABEL_72:
 
-          v84 = flowScrutinyLogHandle;
+          v80 = flowScrutinyLogHandle;
           if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_ERROR))
           {
             *buf = 0;
-            _os_log_impl(&dword_23255B000, v84, OS_LOG_TYPE_ERROR, "FlowScrutinizer can't find a core media asset download", buf, 2u);
+            _os_log_impl(&dword_23255B000, v80, OS_LOG_TYPE_ERROR, "FlowScrutinizer can't find a core media asset download", buf, 2u);
           }
 
-          v33 = 0;
-          dCopy = v95;
+          v29 = 0;
+          dCopy = v90;
 LABEL_79:
-          processCopy = v45;
+          processCopy = v41;
 LABEL_80:
-          ofCopy = v93;
+          v17 = v88;
           goto LABEL_81;
         }
       }
 
       if (eventCopy == 2)
       {
-        v33 = v56;
-        [(FlowScrutinizer *)self _coreMediaAssetDownloadCompletion:v56 for:v40 at:at];
-        currentAssetDownloads3 = [(CoreMediaDownload *)v40 currentAssetDownloads];
-        dCopy = v95;
-        [currentAssetDownloads3 removeObjectForKey:v95];
+        v29 = v52;
+        [(FlowScrutinizer *)self _coreMediaAssetDownloadCompletion:v52 for:v36 at:at];
+        currentAssetDownloads3 = [(CoreMediaDownload *)v36 currentAssetDownloads];
+        dCopy = v90;
+        [currentAssetDownloads3 removeObjectForKey:v90];
 
         goto LABEL_79;
       }
 
-      dCopy = v95;
-      v33 = v56;
+      dCopy = v90;
+      v29 = v52;
       if (eventCopy == 3)
       {
-        processCopy = v45;
-        if ([(NSMutableDictionary *)v56 downloadState]!= 3)
+        processCopy = v41;
+        if ([(NSMutableDictionary *)v52 downloadState]!= 3)
         {
-          [(NSMutableDictionary *)v56 thisRunStartTime];
-          v91 = at - v90;
-          [(NSMutableDictionary *)v56 prevRunBusyTime];
-          [(NSMutableDictionary *)v56 setPrevRunBusyTime:v92 + v91];
-          [(NSMutableDictionary *)v56 setThisRunStartTime:at];
-          [(NSMutableDictionary *)v56 setPrevRunsCellRxBytes:[(CoreMediaDownload *)v40 totalObservedCellRxBytes]- [(NSMutableDictionary *)v56 thisRunStartCellRxBytes]+ [(NSMutableDictionary *)v56 prevRunsCellRxBytes]];
-          [(NSMutableDictionary *)v56 setPrevRunsCellTxBytes:[(CoreMediaDownload *)v40 totalObservedCellTxBytes]- [(NSMutableDictionary *)v56 thisRunStartCellTxBytes]+ [(NSMutableDictionary *)v56 prevRunsCellTxBytes]];
-          [(NSMutableDictionary *)v56 setPrevRunsWiFiRxBytes:[(CoreMediaDownload *)v40 totalObservedWiFiRxBytes]- [(NSMutableDictionary *)v56 thisRunStartWiFiRxBytes]+ [(NSMutableDictionary *)v56 prevRunsWiFiRxBytes]];
-          [(NSMutableDictionary *)v56 setPrevRunsWiFiTxBytes:[(CoreMediaDownload *)v40 totalObservedWiFiTxBytes]- [(NSMutableDictionary *)v56 thisRunStartWiFiTxBytes]+ [(NSMutableDictionary *)v56 prevRunsWiFiTxBytes]];
-          [(NSMutableDictionary *)v56 setDownloadState:3];
+          [(NSMutableDictionary *)v52 thisRunStartTime];
+          v86 = at - v85;
+          [(NSMutableDictionary *)v52 prevRunBusyTime];
+          [(NSMutableDictionary *)v52 setPrevRunBusyTime:v87 + v86];
+          [(NSMutableDictionary *)v52 setThisRunStartTime:at];
+          [(NSMutableDictionary *)v52 setPrevRunsCellRxBytes:[(CoreMediaDownload *)v36 totalObservedCellRxBytes]- [(NSMutableDictionary *)v52 thisRunStartCellRxBytes]+ [(NSMutableDictionary *)v52 prevRunsCellRxBytes]];
+          [(NSMutableDictionary *)v52 setPrevRunsCellTxBytes:[(CoreMediaDownload *)v36 totalObservedCellTxBytes]- [(NSMutableDictionary *)v52 thisRunStartCellTxBytes]+ [(NSMutableDictionary *)v52 prevRunsCellTxBytes]];
+          [(NSMutableDictionary *)v52 setPrevRunsWiFiRxBytes:[(CoreMediaDownload *)v36 totalObservedWiFiRxBytes]- [(NSMutableDictionary *)v52 thisRunStartWiFiRxBytes]+ [(NSMutableDictionary *)v52 prevRunsWiFiRxBytes]];
+          [(NSMutableDictionary *)v52 setPrevRunsWiFiTxBytes:[(CoreMediaDownload *)v36 totalObservedWiFiTxBytes]- [(NSMutableDictionary *)v52 thisRunStartWiFiTxBytes]+ [(NSMutableDictionary *)v52 prevRunsWiFiTxBytes]];
+          [(NSMutableDictionary *)v52 setDownloadState:3];
           goto LABEL_80;
         }
 
-        v85 = flowScrutinyLogHandle;
-        ofCopy = v93;
+        v81 = flowScrutinyLogHandle;
+        v17 = v88;
         if (!os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_81;
         }
 
         *buf = 0;
-        v86 = "FlowScrutinizer told to pause an asset download that is already paused";
+        v82 = "FlowScrutinizer told to pause an asset download that is already paused";
       }
 
       else
       {
-        processCopy = v45;
-        ofCopy = v93;
+        processCopy = v41;
+        v17 = v88;
         if (eventCopy != 4)
         {
           goto LABEL_81;
         }
 
-        if ([(NSMutableDictionary *)v56 downloadState]== 3)
+        if ([(NSMutableDictionary *)v52 downloadState]== 3)
         {
-          [(NSMutableDictionary *)v56 thisRunStartTime];
-          v78 = at - v77;
-          [(NSMutableDictionary *)v56 prevRunIdleTime];
-          [(NSMutableDictionary *)v56 setPrevRunIdleTime:v79 + v78];
-          [(NSMutableDictionary *)v56 setThisRunStartTime:at];
-          [(NSMutableDictionary *)v56 setThisRunStartCellRxBytes:[(CoreMediaDownload *)v40 totalObservedCellRxBytes]];
-          [(NSMutableDictionary *)v56 setThisRunStartCellTxBytes:[(CoreMediaDownload *)v40 totalObservedCellTxBytes]];
-          [(NSMutableDictionary *)v56 setThisRunStartWiFiRxBytes:[(CoreMediaDownload *)v40 totalObservedWiFiRxBytes]];
-          [(NSMutableDictionary *)v56 setThisRunStartWiFiTxBytes:[(CoreMediaDownload *)v40 totalObservedWiFiTxBytes]];
-          [(NSMutableDictionary *)v56 estimatedDuration];
-          v42 = v56;
-          if (v80 >= self->_minCoreMediaAssetDownloadEstimatedDuration)
+          [(NSMutableDictionary *)v52 thisRunStartTime];
+          v74 = at - v73;
+          [(NSMutableDictionary *)v52 prevRunIdleTime];
+          [(NSMutableDictionary *)v52 setPrevRunIdleTime:v75 + v74];
+          [(NSMutableDictionary *)v52 setThisRunStartTime:at];
+          [(NSMutableDictionary *)v52 setThisRunStartCellRxBytes:[(CoreMediaDownload *)v36 totalObservedCellRxBytes]];
+          [(NSMutableDictionary *)v52 setThisRunStartCellTxBytes:[(CoreMediaDownload *)v36 totalObservedCellTxBytes]];
+          [(NSMutableDictionary *)v52 setThisRunStartWiFiRxBytes:[(CoreMediaDownload *)v36 totalObservedWiFiRxBytes]];
+          [(NSMutableDictionary *)v52 setThisRunStartWiFiTxBytes:[(CoreMediaDownload *)v36 totalObservedWiFiTxBytes]];
+          [(NSMutableDictionary *)v52 estimatedDuration];
+          v38 = v52;
+          if (v76 >= self->_minCoreMediaAssetDownloadEstimatedDuration)
           {
             goto LABEL_87;
           }
 
-          v81 = 5;
+          v77 = 5;
           goto LABEL_88;
         }
 
-        v85 = flowScrutinyLogHandle;
+        v81 = flowScrutinyLogHandle;
         if (!os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_81;
         }
 
         *buf = 0;
-        v86 = "FlowScrutinizer told to resume an asset download that wasn't paused";
+        v82 = "FlowScrutinizer told to resume an asset download that wasn't paused";
       }
 
-      _os_log_impl(&dword_23255B000, v85, OS_LOG_TYPE_ERROR, v86, buf, 2u);
+      _os_log_impl(&dword_23255B000, v81, OS_LOG_TYPE_ERROR, v82, buf, 2u);
       goto LABEL_81;
     }
 
-    v57 = flowScrutinyLogHandle;
+    v53 = flowScrutinyLogHandle;
     if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_23255B000, v57, OS_LOG_TYPE_ERROR, "Apparent mediaserverd restart, clearing any current asset downloads", buf, 2u);
+      _os_log_impl(&dword_23255B000, v53, OS_LOG_TYPE_ERROR, "Apparent mediaserverd restart, clearing any current asset downloads", buf, 2u);
     }
 
-    v108 = 0u;
-    v109 = 0u;
-    v106 = 0u;
-    v107 = 0u;
-    v33 = self->_originLedgers;
-    v58 = [(NSMutableDictionary *)v33 countByEnumeratingWithState:&v106 objects:v115 count:16];
-    if (v58)
+    v103 = 0u;
+    v104 = 0u;
+    v101 = 0u;
+    v102 = 0u;
+    v29 = self->_originLedgers;
+    v54 = [(NSMutableDictionary *)v29 countByEnumeratingWithState:&v101 objects:v110 count:16];
+    if (v54)
     {
-      v59 = v58;
-      v94 = ofCopy;
-      v60 = *v107;
-      v97 = v33;
-      v98 = processCopy;
-      v96 = *v107;
+      v55 = v54;
+      v89 = v17;
+      v56 = *v102;
+      v92 = v29;
+      v93 = processCopy;
+      v91 = *v102;
       do
       {
-        v61 = 0;
-        v99 = v59;
+        v57 = 0;
+        v94 = v55;
         do
         {
-          if (*v107 != v60)
+          if (*v102 != v56)
           {
-            objc_enumerationMutation(v33);
+            objc_enumerationMutation(v29);
           }
 
-          v62 = [(NSMutableDictionary *)self->_originLedgers objectForKeyedSubscript:*(*(&v106 + 1) + 8 * v61)];
-          delegates2 = [v62 delegates];
-          v64 = [delegates2 objectForKeyedSubscript:processCopy];
+          v58 = [(NSMutableDictionary *)self->_originLedgers objectForKeyedSubscript:*(*(&v101 + 1) + 8 * v57)];
+          delegates2 = [v58 delegates];
+          v60 = [delegates2 objectForKeyedSubscript:processCopy];
 
-          if (v64)
+          if (v60)
           {
-            currentAssetDownloads4 = [v64 currentAssetDownloads];
+            currentAssetDownloads4 = [v60 currentAssetDownloads];
 
             if (currentAssetDownloads4)
             {
-              v101 = v62;
-              currentAssetDownloads5 = [v64 currentAssetDownloads];
+              v96 = v58;
+              currentAssetDownloads5 = [v60 currentAssetDownloads];
               allKeys = [currentAssetDownloads5 allKeys];
 
-              v104 = 0u;
-              v105 = 0u;
-              v102 = 0u;
-              v103 = 0u;
-              v68 = allKeys;
-              v69 = [v68 countByEnumeratingWithState:&v102 objects:v114 count:16];
-              if (v69)
+              v99 = 0u;
+              v100 = 0u;
+              v97 = 0u;
+              v98 = 0u;
+              v64 = allKeys;
+              v65 = [v64 countByEnumeratingWithState:&v97 objects:v109 count:16];
+              if (v65)
               {
-                v70 = v69;
-                v71 = *v103;
+                v66 = v65;
+                v67 = *v98;
                 do
                 {
-                  for (i = 0; i != v70; ++i)
+                  for (i = 0; i != v66; ++i)
                   {
-                    if (*v103 != v71)
+                    if (*v98 != v67)
                     {
-                      objc_enumerationMutation(v68);
+                      objc_enumerationMutation(v64);
                     }
 
-                    v73 = *(*(&v102 + 1) + 8 * i);
-                    currentAssetDownloads6 = [v64 currentAssetDownloads];
-                    v75 = [currentAssetDownloads6 objectForKeyedSubscript:v73];
-                    [(FlowScrutinizer *)self _coreMediaAssetDownloadCompletion:v75 for:v64 at:at];
+                    v69 = *(*(&v97 + 1) + 8 * i);
+                    currentAssetDownloads6 = [v60 currentAssetDownloads];
+                    v71 = [currentAssetDownloads6 objectForKeyedSubscript:v69];
+                    [(FlowScrutinizer *)self _coreMediaAssetDownloadCompletion:v71 for:v60 at:at];
 
-                    currentAssetDownloads7 = [v64 currentAssetDownloads];
-                    [currentAssetDownloads7 removeObjectForKey:v73];
+                    currentAssetDownloads7 = [v60 currentAssetDownloads];
+                    [currentAssetDownloads7 removeObjectForKey:v69];
                   }
 
-                  v70 = [v68 countByEnumeratingWithState:&v102 objects:v114 count:16];
+                  v66 = [v64 countByEnumeratingWithState:&v97 objects:v109 count:16];
                 }
 
-                while (v70);
+                while (v66);
               }
 
-              v33 = v97;
-              processCopy = v98;
-              v60 = v96;
-              v59 = v99;
-              v62 = v101;
+              v29 = v92;
+              processCopy = v93;
+              v56 = v91;
+              v55 = v94;
+              v58 = v96;
             }
           }
 
-          ++v61;
+          ++v57;
         }
 
-        while (v61 != v59);
-        v59 = [(NSMutableDictionary *)v33 countByEnumeratingWithState:&v106 objects:v115 count:16];
+        while (v57 != v55);
+        v55 = [(NSMutableDictionary *)v29 countByEnumeratingWithState:&v101 objects:v110 count:16];
       }
 
-      while (v59);
-      ofCopy = v94;
+      while (v55);
+      v17 = v89;
       dCopy = 0;
     }
 
     goto LABEL_82;
   }
 
-  if (!ofCopy)
+  if (!v17)
   {
-    v43 = flowScrutinyLogHandle;
+    v39 = flowScrutinyLogHandle;
     if (!os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_86;
     }
 
     *buf = 0;
-    v44 = "FlowScrutinizer handed null originator for asset download start";
+    v40 = "FlowScrutinizer handed null originator for asset download start";
     goto LABEL_26;
   }
 
-  v22 = [(NSMutableDictionary *)self->_originLedgers objectForKeyedSubscript:ofCopy];
-  if (!v22)
+  v18 = [(NSMutableDictionary *)self->_originLedgers objectForKeyedSubscript:v17];
+  if (!v18)
   {
-    v22 = objc_alloc_init(FlowOriginLedger);
-    [(FlowOriginLedger *)v22 setName:ofCopy];
-    [(NSMutableDictionary *)self->_originLedgers setObject:v22 forKeyedSubscript:ofCopy];
-    v23 = flowScrutinyLogHandle;
+    v18 = objc_alloc_init(FlowOriginLedger);
+    [(FlowOriginLedger *)v18 setName:v17];
+    [(NSMutableDictionary *)self->_originLedgers setObject:v18 forKeyedSubscript:v17];
+    v19 = flowScrutinyLogHandle;
     if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138543618;
-      v118 = ofCopy;
-      v119 = 2114;
-      v120 = v22;
-      _os_log_impl(&dword_23255B000, v23, OS_LOG_TYPE_DEBUG, "Origin ledger created for media download event  %{public}@ -> %{public}@", buf, 0x16u);
+      v113 = v17;
+      v114 = 2114;
+      v115 = v18;
+      _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_DEBUG, "Origin ledger created for media download event  %{public}@ -> %{public}@", buf, 0x16u);
     }
   }
 
-  delegates3 = [(FlowOriginLedger *)v22 delegates];
+  delegates3 = [(FlowOriginLedger *)v18 delegates];
 
   if (!delegates3)
   {
-    v25 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    [(FlowOriginLedger *)v22 setDelegates:v25];
+    v21 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    [(FlowOriginLedger *)v18 setDelegates:v21];
   }
 
-  delegates4 = [(FlowOriginLedger *)v22 delegates];
-  v27 = [delegates4 objectForKeyedSubscript:processCopy];
+  delegates4 = [(FlowOriginLedger *)v18 delegates];
+  v23 = [delegates4 objectForKeyedSubscript:processCopy];
 
-  if (!v27)
+  if (!v23)
   {
-    v28 = objc_alloc_init(FlowOriginLedger);
-    processCopy = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@:%@", ofCopy, processCopy];
-    [(FlowOriginLedger *)v28 setName:processCopy];
+    v24 = objc_alloc_init(FlowOriginLedger);
+    processCopy = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@:%@", v17, processCopy];
+    [(FlowOriginLedger *)v24 setName:processCopy];
 
-    delegates5 = [(FlowOriginLedger *)v22 delegates];
-    [delegates5 setObject:v28 forKeyedSubscript:processCopy];
+    delegates5 = [(FlowOriginLedger *)v18 delegates];
+    [delegates5 setObject:v24 forKeyedSubscript:processCopy];
 
-    v31 = flowScrutinyLogHandle;
+    v27 = flowScrutinyLogHandle;
     if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138543618;
-      v118 = processCopy;
-      v119 = 2114;
-      v120 = v28;
-      _os_log_impl(&dword_23255B000, v31, OS_LOG_TYPE_DEBUG, "Origin ledger (delegate) created for media download event  %{public}@ -> %{public}@", buf, 0x16u);
+      v113 = processCopy;
+      v114 = 2114;
+      v115 = v24;
+      _os_log_impl(&dword_23255B000, v27, OS_LOG_TYPE_DEBUG, "Origin ledger (delegate) created for media download event  %{public}@ -> %{public}@", buf, 0x16u);
     }
   }
 
-  delegates6 = [(FlowOriginLedger *)v22 delegates];
-  v33 = [delegates6 objectForKeyedSubscript:processCopy];
+  delegates6 = [(FlowOriginLedger *)v18 delegates];
+  v29 = [delegates6 objectForKeyedSubscript:processCopy];
 
-  currentAssetDownloads8 = [(NSMutableDictionary *)v33 currentAssetDownloads];
+  currentAssetDownloads8 = [(NSMutableDictionary *)v29 currentAssetDownloads];
 
   if (!currentAssetDownloads8)
   {
-    v35 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    [(NSMutableDictionary *)v33 setCurrentAssetDownloads:v35];
+    v31 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    [(NSMutableDictionary *)v29 setCurrentAssetDownloads:v31];
   }
 
-  currentAssetDownloads9 = [(NSMutableDictionary *)v33 currentAssetDownloads];
-  v37 = [currentAssetDownloads9 objectForKeyedSubscript:dCopy];
+  currentAssetDownloads9 = [(NSMutableDictionary *)v29 currentAssetDownloads];
+  v33 = [currentAssetDownloads9 objectForKeyedSubscript:dCopy];
 
-  if (!v37)
+  if (!v33)
   {
-    v40 = objc_alloc_init(CoreMediaDownload);
-    [(CoreMediaDownload *)v40 setStartTime:at];
-    [(CoreMediaDownload *)v40 setEstimatedDuration:duration];
-    [(CoreMediaDownload *)v40 setThisRunStartTime:at];
-    [(CoreMediaDownload *)v40 setThisRunStartCellRxBytes:[(NSMutableDictionary *)v33 totalObservedCellRxBytes]];
-    [(CoreMediaDownload *)v40 setThisRunStartCellTxBytes:[(NSMutableDictionary *)v33 totalObservedCellTxBytes]];
+    v36 = objc_alloc_init(CoreMediaDownload);
+    [(CoreMediaDownload *)v36 setStartTime:at];
+    [(CoreMediaDownload *)v36 setEstimatedDuration:duration];
+    [(CoreMediaDownload *)v36 setThisRunStartTime:at];
+    [(CoreMediaDownload *)v36 setThisRunStartCellRxBytes:[(NSMutableDictionary *)v29 totalObservedCellRxBytes]];
+    [(CoreMediaDownload *)v36 setThisRunStartCellTxBytes:[(NSMutableDictionary *)v29 totalObservedCellTxBytes]];
     if (self->_minCoreMediaAssetDownloadEstimatedDuration <= duration)
     {
-      v82 = 1;
+      v78 = 1;
     }
 
     else
     {
-      v82 = 5;
+      v78 = 5;
     }
 
-    [(CoreMediaDownload *)v40 setDownloadState:v82];
-    currentAssetDownloads10 = [(NSMutableDictionary *)v33 currentAssetDownloads];
-    [currentAssetDownloads10 setObject:v40 forKeyedSubscript:dCopy];
+    [(CoreMediaDownload *)v36 setDownloadState:v78];
+    currentAssetDownloads10 = [(NSMutableDictionary *)v29 currentAssetDownloads];
+    [currentAssetDownloads10 setObject:v36 forKeyedSubscript:dCopy];
 
     goto LABEL_81;
   }
 
-  v38 = flowScrutinyLogHandle;
+  v34 = flowScrutinyLogHandle;
   if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
-    _os_log_impl(&dword_23255B000, v38, OS_LOG_TYPE_ERROR, "FlowScrutinizer told to start a previously known asset download", buf, 2u);
+    _os_log_impl(&dword_23255B000, v34, OS_LOG_TYPE_ERROR, "FlowScrutinizer told to start a previously known asset download", buf, 2u);
   }
 
-  currentAssetDownloads11 = [(NSMutableDictionary *)v33 currentAssetDownloads];
-  v40 = [currentAssetDownloads11 objectForKeyedSubscript:dCopy];
+  currentAssetDownloads11 = [(NSMutableDictionary *)v29 currentAssetDownloads];
+  v36 = [currentAssetDownloads11 objectForKeyedSubscript:dCopy];
 
-  [(CoreMediaDownload *)v40 estimatedDuration];
-  if (v41 < duration)
+  [(CoreMediaDownload *)v36 estimatedDuration];
+  if (v37 < duration)
   {
-    [(CoreMediaDownload *)v40 setEstimatedDuration:duration];
-    if (self->_minCoreMediaAssetDownloadEstimatedDuration <= duration && [(CoreMediaDownload *)v40 downloadState]== 5)
+    [(CoreMediaDownload *)v36 setEstimatedDuration:duration];
+    if (self->_minCoreMediaAssetDownloadEstimatedDuration <= duration && [(CoreMediaDownload *)v36 downloadState]== 5)
     {
-      v42 = v40;
+      v38 = v36;
 LABEL_87:
-      v81 = 1;
+      v77 = 1;
 LABEL_88:
-      [(CoreMediaDownload *)v42 setDownloadState:v81];
+      [(CoreMediaDownload *)v38 setDownloadState:v77];
     }
   }
 
@@ -1105,24 +1160,550 @@ LABEL_81:
 LABEL_82:
   if (![(FlowScrutinizer *)self cellThroughputAdviserShouldRun])
   {
-    v88 = flowScrutinyLogHandle;
+    v84 = flowScrutinyLogHandle;
     if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_23255B000, v88, OS_LOG_TYPE_DEFAULT, "FlowScrutinizer setting cellThroughputAdviserShouldRun after receipt of coremedia asset download event", buf, 2u);
+      _os_log_impl(&dword_23255B000, v84, OS_LOG_TYPE_DEFAULT, "FlowScrutinizer setting cellThroughputAdviserShouldRun after receipt of coremedia asset download event", buf, 2u);
     }
 
     [(FlowScrutinizer *)self setCellThroughputAdviserShouldRun:1];
   }
 
 LABEL_86:
+}
 
-  v89 = *MEMORY[0x277D85DE8];
+- (void)noteExpectedTransfer:(unint64_t)transfer inbound:(BOOL)inbound upperThreshold:(BOOL)threshold flowUUID:(id)d at:(double)at
+{
+  thresholdCopy = threshold;
+  inboundCopy = inbound;
+  v135 = *MEMORY[0x277D85DE8];
+  dCopy = d;
+  v13 = dCopy;
+  ++self->_numExpectedTransferSymptoms;
+  if (activeTraceTargets)
+  {
+    traceEntry(1, "[FlowScrutinizer noteExpectedTransfer:inbound:upperThreshold:flowUUID:at:]", "%lld %d %d %@ %t", transfer, inboundCopy, thresholdCopy, dCopy, *&at);
+  }
+
+  v14 = flowScrutinyLogHandle;
+  if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 134218754;
+    transferCopy = transfer;
+    v123 = 1024;
+    *v124 = inboundCopy;
+    *&v124[4] = 1024;
+    *&v124[6] = thresholdCopy;
+    *v125 = 2112;
+    *&v125[2] = v13;
+    _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_DEFAULT, "FlowScrutinizer noteExpectedTransfer:%lld %d %d %@", buf, 0x22u);
+  }
+
+  v104 = v13;
+  if (v13)
+  {
+    v119 = 0u;
+    v120 = 0u;
+    v117 = 0u;
+    v118 = 0u;
+    v15 = self->_originLedgers;
+    v91 = [(NSMutableDictionary *)v15 countByEnumeratingWithState:&v117 objects:v134 count:16];
+    v84 = thresholdCopy;
+    v85 = inboundCopy;
+    transferCopy2 = transfer;
+    if (v91)
+    {
+      unsignedLongLongValue = 0;
+      v87 = 0;
+      v88 = v15;
+      v92 = 0;
+      v16 = 0;
+      selfCopy = self;
+      v90 = *v118;
+      do
+      {
+        for (i = 0; i != v91; ++i)
+        {
+          if (*v118 != v90)
+          {
+            objc_enumerationMutation(v15);
+          }
+
+          v18 = *(*(&v117 + 1) + 8 * i);
+          v19 = [(NSMutableDictionary *)self->_originLedgers objectForKeyedSubscript:v18];
+          v113 = 0u;
+          v114 = 0u;
+          v115 = 0u;
+          v116 = 0u;
+          v103 = v19;
+          currentFlows = [v19 currentFlows];
+          v21 = [currentFlows countByEnumeratingWithState:&v113 objects:v133 count:16];
+          if (v21)
+          {
+            v22 = v21;
+            v93 = v18;
+            v95 = i;
+            v23 = *v114;
+            while (2)
+            {
+              for (j = 0; j != v22; ++j)
+              {
+                if (*v114 != v23)
+                {
+                  objc_enumerationMutation(currentFlows);
+                }
+
+                v25 = *(*(&v113 + 1) + 8 * j);
+                currentFlows2 = [v103 currentFlows];
+                v27 = [currentFlows2 objectForKeyedSubscript:v25];
+
+                flowUUID = [v27 flowUUID];
+                if (flowUUID)
+                {
+                  v29 = flowUUID;
+                  flowUUID2 = [v27 flowUUID];
+                  v31 = [v104 isEqual:flowUUID2];
+
+                  if (v31)
+                  {
+                    v32 = v27;
+
+                    v18 = v93;
+                    v33 = v93;
+
+                    unsignedLongLongValue = [v25 unsignedLongLongValue];
+                    v92 = v33;
+                    v16 = v32;
+                    v15 = v88;
+                    self = selfCopy;
+                    i = v95;
+                    goto LABEL_22;
+                  }
+                }
+              }
+
+              v22 = [currentFlows countByEnumeratingWithState:&v113 objects:v133 count:16];
+              if (v22)
+              {
+                continue;
+              }
+
+              break;
+            }
+
+            v15 = v88;
+            self = selfCopy;
+            v18 = v93;
+            i = v95;
+          }
+
+LABEL_22:
+
+          if (!v16)
+          {
+            v111 = 0u;
+            v112 = 0u;
+            v109 = 0u;
+            v110 = 0u;
+            obj = [v103 delegates];
+            v101 = [obj countByEnumeratingWithState:&v109 objects:v132 count:16];
+            if (v101)
+            {
+              v94 = v18;
+              v96 = i;
+              v100 = *v110;
+              while (2)
+              {
+                v34 = 0;
+                do
+                {
+                  if (*v110 != v100)
+                  {
+                    objc_enumerationMutation(obj);
+                  }
+
+                  v102 = v34;
+                  v35 = *(*(&v109 + 1) + 8 * v34);
+                  delegates = [v103 delegates];
+                  v99 = v35;
+                  v37 = [delegates objectForKeyedSubscript:v35];
+
+                  v107 = 0u;
+                  v108 = 0u;
+                  v105 = 0u;
+                  v106 = 0u;
+                  currentFlows3 = [v37 currentFlows];
+                  v39 = [currentFlows3 countByEnumeratingWithState:&v105 objects:v131 count:16];
+                  if (v39)
+                  {
+                    v40 = v39;
+                    v41 = *v106;
+LABEL_30:
+                    v42 = 0;
+                    while (1)
+                    {
+                      if (*v106 != v41)
+                      {
+                        objc_enumerationMutation(currentFlows3);
+                      }
+
+                      v43 = *(*(&v105 + 1) + 8 * v42);
+                      currentFlows4 = [v37 currentFlows];
+                      v16 = [currentFlows4 objectForKeyedSubscript:v43];
+
+                      flowUUID3 = [(FlowLedger *)v16 flowUUID];
+                      if (flowUUID3)
+                      {
+                        v46 = flowUUID3;
+                        flowUUID4 = [(FlowLedger *)v16 flowUUID];
+                        v48 = [v104 isEqual:flowUUID4];
+
+                        if (v48)
+                        {
+                          break;
+                        }
+                      }
+
+                      if (v40 == ++v42)
+                      {
+                        v40 = [currentFlows3 countByEnumeratingWithState:&v105 objects:v131 count:16];
+                        if (v40)
+                        {
+                          goto LABEL_30;
+                        }
+
+                        goto LABEL_37;
+                      }
+                    }
+
+                    unsignedLongLongValue = [v43 unsignedLongLongValue];
+
+                    if (!v16)
+                    {
+                      goto LABEL_39;
+                    }
+
+                    v49 = v94;
+
+                    v50 = v99;
+                    v87 = v50;
+                    v92 = v49;
+                    goto LABEL_43;
+                  }
+
+LABEL_37:
+
+LABEL_39:
+                  v34 = v102 + 1;
+                }
+
+                while (v102 + 1 != v101);
+                v101 = [obj countByEnumeratingWithState:&v109 objects:v132 count:16];
+                if (v101)
+                {
+                  continue;
+                }
+
+                break;
+              }
+
+              v16 = 0;
+LABEL_43:
+              v15 = v88;
+              self = selfCopy;
+              i = v96;
+            }
+
+            else
+            {
+              v16 = 0;
+            }
+          }
+        }
+
+        v91 = [(NSMutableDictionary *)v15 countByEnumeratingWithState:&v117 objects:v134 count:16];
+      }
+
+      while (v91);
+
+      if (v16)
+      {
+        ++self->_numMatchedExpectedTransferSymptoms;
+        if (self->_accumulateCellAppHistoryEpisodes && [(FlowLedger *)v16 interfaceCellular])
+        {
+          v51 = [AppHistoryScreener fetchEpisodeFor:v92 inbound:v85];
+          [(FlowLedger *)v16 setAppEpisode:v51];
+
+          v52 = flowScrutinyLogHandle;
+          if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEFAULT))
+          {
+            v53 = v52;
+            appEpisode = [(FlowLedger *)v16 appEpisode];
+            if ([appEpisode screenIn])
+            {
+              v55 = "IN";
+            }
+
+            else
+            {
+              v55 = "OUT";
+            }
+
+            appEpisode2 = [(FlowLedger *)v16 appEpisode];
+            *buf = 136315906;
+            transferCopy = v55;
+            v123 = 2112;
+            *v124 = v104;
+            *&v124[8] = 2112;
+            *v125 = v92;
+            *&v125[8] = 2048;
+            *v126 = appEpisode2;
+            _os_log_impl(&dword_23255B000, v53, OS_LOG_TYPE_DEFAULT, "App episode screened %s existing item %@ for app %@ (episode: %p)", buf, 0x2Au);
+          }
+
+          appEpisode3 = [(FlowLedger *)v16 appEpisode];
+          if ([appEpisode3 screenIn])
+          {
+            v58 = 3;
+          }
+
+          else
+          {
+            v58 = 6;
+          }
+
+          [(FlowLedger *)v16 setExpectedTransferState:v58];
+        }
+
+        else
+        {
+          [(FlowLedger *)v16 setExpectedTransferState:3];
+        }
+
+        [(NSMutableDictionary *)self->_transferSizeFlows setObject:v16 forKeyedSubscript:v104];
+        v60 = flowScrutinyLogHandle;
+        if (!os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEFAULT))
+        {
+LABEL_74:
+          if (!transferCopy2)
+          {
+            if (v85)
+            {
+              [(FlowLedger *)v16 setRxTransferSizeUpperThreshold:0];
+              [(FlowLedger *)v16 setRxTransferSizeLowerThreshold:0];
+              [(FlowLedger *)v16 setRxTransferSizeCount:0];
+            }
+
+            else
+            {
+              [(FlowLedger *)v16 setTxTransferSizeUpperThreshold:0];
+              [(FlowLedger *)v16 setTxTransferSizeLowerThreshold:0];
+              [(FlowLedger *)v16 setTxTransferSizeCount:0];
+            }
+
+            if (![(FlowLedger *)v16 rxTransferSizeUpperThreshold]&& ![(FlowLedger *)v16 rxTransferSizeLowerThreshold]&& ![(FlowLedger *)v16 txTransferSizeUpperThreshold]&& ![(FlowLedger *)v16 txTransferSizeLowerThreshold])
+            {
+              [(FlowLedger *)v16 setExpectedTransferState:1];
+              appEpisode4 = [(FlowLedger *)v16 appEpisode];
+
+              if (appEpisode4)
+              {
+                v75 = flowScrutinyLogHandle;
+                if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_INFO))
+                {
+                  v76 = v75;
+                  appEpisode5 = [(FlowLedger *)v16 appEpisode];
+                  *buf = 134218242;
+                  transferCopy = appEpisode5;
+                  v123 = 2112;
+                  *v124 = v104;
+                  _os_log_impl(&dword_23255B000, v76, OS_LOG_TYPE_INFO, "App episode %p unloaded from flow %@ with 0 count", buf, 0x16u);
+                }
+
+                appEpisode6 = [(FlowLedger *)v16 appEpisode];
+                [appEpisode6 accrueRewardFromFlow:v16];
+
+                [(FlowLedger *)v16 setAppEpisode:0];
+              }
+
+              transferSizeFlows = self->_transferSizeFlows;
+              flowUUID5 = [(FlowLedger *)v16 flowUUID];
+              [(NSMutableDictionary *)transferSizeFlows removeObjectForKey:flowUUID5];
+            }
+
+            goto LABEL_103;
+          }
+
+          if (v85)
+          {
+            [(FlowLedger *)v16 setRxTransferSizeCount:transferCopy2];
+            if (v84)
+            {
+              v69 = 1;
+              [(FlowLedger *)v16 setRxTransferSizeUpperThreshold:1];
+              v70 = v16;
+              v71 = 0;
+LABEL_94:
+              [(FlowLedger *)v70 setRxTransferSizeLowerThreshold:v71];
+LABEL_99:
+              [(FlowLedger *)v16 setHasPossibleTransferSizeDisposition:1];
+              v81 = flowScrutinyLogHandle;
+              if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEBUG))
+              {
+                v82 = v81;
+                flowIdentifier = [(FlowLedger *)v16 flowIdentifier];
+                *buf = 134217984;
+                transferCopy = flowIdentifier;
+                _os_log_impl(&dword_23255B000, v82, OS_LOG_TYPE_DEBUG, "FlowScrutinizer %lld set hasPossibleTransferSizeDisposition", buf, 0xCu);
+              }
+
+              if (v69)
+              {
+                [(FlowScrutinizer *)self setNumExpectedTransferSignificantChanges:[(FlowScrutinizer *)self numExpectedTransferSignificantChanges]+ 1];
+              }
+
+LABEL_103:
+              v59 = v87;
+              v13 = v92;
+              goto LABEL_104;
+            }
+
+            if (![(FlowLedger *)v16 rxTransferSizeUpperThreshold])
+            {
+              v69 = 1;
+              v70 = v16;
+              v71 = 1;
+              goto LABEL_94;
+            }
+
+LABEL_96:
+            v69 = 0;
+            goto LABEL_99;
+          }
+
+          [(FlowLedger *)v16 setTxTransferSizeCount:transferCopy2];
+          if (v84)
+          {
+            v69 = 1;
+            [(FlowLedger *)v16 setTxTransferSizeUpperThreshold:1];
+            v72 = v16;
+            v73 = 0;
+          }
+
+          else
+          {
+            if ([(FlowLedger *)v16 txTransferSizeUpperThreshold])
+            {
+              goto LABEL_96;
+            }
+
+            v69 = 1;
+            v72 = v16;
+            v73 = 1;
+          }
+
+          [(FlowLedger *)v72 setTxTransferSizeLowerThreshold:v73];
+          goto LABEL_99;
+        }
+
+        *buf = 134219522;
+        transferCopy = transferCopy2;
+        v123 = 1024;
+        *v124 = v85;
+        *&v124[4] = 1024;
+        *&v124[6] = v84;
+        *v125 = 2048;
+        *&v125[2] = unsignedLongLongValue;
+        *v126 = 2112;
+        *&v126[2] = v104;
+        v127 = 2112;
+        v128 = v92;
+        v129 = 2112;
+        v130 = v87;
+        v61 = "FlowScrutinizer noteExpectedTransfer: matches transfer size %lld inbound %d upper threshold %d for flow %lld with UUID %@ for app %@ delegate %@";
+        v62 = v60;
+        v63 = OS_LOG_TYPE_DEFAULT;
+        v64 = 64;
+LABEL_73:
+        _os_log_impl(&dword_23255B000, v62, v63, v61, buf, v64);
+        goto LABEL_74;
+      }
+
+      v13 = v104;
+    }
+
+    else
+    {
+
+      v92 = 0;
+      v87 = 0;
+    }
+
+    v65 = flowScrutinyLogHandle;
+    if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412290;
+      transferCopy = v13;
+      _os_log_impl(&dword_23255B000, v65, OS_LOG_TYPE_DEFAULT, "FlowScrutinizer noteExpectedTransfer: can't find flow for UUID %@", buf, 0xCu);
+    }
+
+    v66 = [(NSMutableDictionary *)self->_transferSizeFlows objectForKeyedSubscript:v13];
+    if (v66)
+    {
+      v16 = v66;
+      ++self->_numDupDelayedMatchExpectedTransferSymptoms;
+      v67 = flowScrutinyLogHandle;
+      if (!os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEFAULT))
+      {
+        goto LABEL_74;
+      }
+
+      *buf = 138412290;
+      transferCopy = v104;
+      v61 = "FlowScrutinizer noteExpectedTransfer: update to existing pending item for UUID %@";
+      v62 = v67;
+      v63 = OS_LOG_TYPE_DEFAULT;
+      v64 = 12;
+    }
+
+    else
+    {
+      ++self->_numDelayedMatchExpectedTransferSymptoms;
+      v16 = objc_alloc_init(FlowLedger);
+      [(FlowLedger *)v16 setPrevSampleTime:at];
+      [(FlowLedger *)v16 setFlowUUID:v13];
+      [(FlowLedger *)v16 setExpectedTransferState:2];
+      [(FlowLedger *)v16 setTransferStateEntryTimestamp:at];
+      [(FlowLedger *)v16 setReportedDisposition:43];
+      [(NSMutableDictionary *)self->_transferSizeFlows setObject:v16 forKeyedSubscript:v13];
+      v68 = flowScrutinyLogHandle;
+      if (!os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEBUG))
+      {
+        goto LABEL_74;
+      }
+
+      *buf = 138543618;
+      transferCopy = v13;
+      v123 = 2114;
+      *v124 = v16;
+      v61 = "Origin ledger created for noteExpectedTransfer %{public}@ -> %{public}@";
+      v62 = v68;
+      v63 = OS_LOG_TYPE_DEBUG;
+      v64 = 22;
+    }
+
+    goto LABEL_73;
+  }
+
+  v16 = 0;
+  v59 = 0;
+LABEL_104:
 }
 
 - (void)scrutinizeFlow:(id)flow withClassification:(id)classification
 {
-  v112 = *MEMORY[0x277D85DE8];
+  v111 = *MEMORY[0x277D85DE8];
   flowCopy = flow;
   classificationCopy = classification;
   v8 = flowScrutinyLogHandle;
@@ -1131,9 +1712,9 @@ LABEL_86:
     v9 = v8;
     verboseDescription = [flowCopy verboseDescription];
     *buf = 138412546;
-    v106 = verboseDescription;
-    v107 = 2112;
-    *v108 = classificationCopy;
+    v105 = verboseDescription;
+    v106 = 2112;
+    *v107 = classificationCopy;
     _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEBUG, "FlowScrutinizer scrutinize snapshot %@ classification %@", buf, 0x16u);
   }
 
@@ -1156,12 +1737,12 @@ LABEL_86:
     if (disposition == 3)
     {
 LABEL_5:
-      v103 = 1;
+      v102 = 1;
     }
 
     else
     {
-      v103 = 0;
+      v102 = 0;
     }
 
     originLedgers = self->_originLedgers;
@@ -1186,16 +1767,16 @@ LABEL_5:
         v24 = v23;
         attributedEntity4 = [flowCopy attributedEntity];
         *buf = 138543618;
-        v106 = attributedEntity4;
-        v107 = 2114;
-        *v108 = v17;
+        v105 = attributedEntity4;
+        v106 = 2114;
+        *v107 = v17;
         _os_log_impl(&dword_23255B000, v24, OS_LOG_TYPE_DEBUG, "Origin ledger created for new flow %{public}@ -> %{public}@", buf, 0x16u);
       }
     }
 
     delegateName = [flowCopy delegateName];
 
-    v104 = v12;
+    v103 = v12;
     if (delegateName)
     {
       delegateName2 = [flowCopy delegateName];
@@ -1235,9 +1816,9 @@ LABEL_5:
             v43 = v42;
             delegateName6 = [flowCopy delegateName];
             *buf = 138543618;
-            v106 = delegateName6;
-            v107 = 2114;
-            *v108 = v35;
+            v105 = delegateName6;
+            v106 = 2114;
+            *v107 = v35;
             _os_log_impl(&dword_23255B000, v43, OS_LOG_TYPE_DEBUG, "Origin ledger (delegate) created for new flow %{public}@ -> %{public}@", buf, 0x16u);
           }
         }
@@ -1256,23 +1837,7 @@ LABEL_5:
 
     if (!v50)
     {
-      if (![(NSMutableDictionary *)self->_transferSizeFlows count])
-      {
-        goto LABEL_50;
-      }
-
-      flowuuid = [flowCopy flowuuid];
-
-      if (!flowuuid)
-      {
-        goto LABEL_50;
-      }
-
-      transferSizeFlows = self->_transferSizeFlows;
-      flowuuid2 = [flowCopy flowuuid];
-      v53 = [(NSMutableDictionary *)transferSizeFlows objectForKeyedSubscript:flowuuid2];
-
-      if (v53)
+      if (-[NSMutableDictionary count](self->_transferSizeFlows, "count") && ([flowCopy flowuuid], v54 = objc_claimAutoreleasedReturnValue(), v54, v54) && (transferSizeFlows = self->_transferSizeFlows, objc_msgSend(flowCopy, "flowuuid"), v56 = objc_claimAutoreleasedReturnValue(), -[NSMutableDictionary objectForKeyedSubscript:](transferSizeFlows, "objectForKeyedSubscript:", v56), v53 = objc_claimAutoreleasedReturnValue(), v56, v53))
       {
         rxTransferSizeUpperThreshold = [(FlowLedger *)v53 rxTransferSizeLowerThreshold]|| [(FlowLedger *)v53 rxTransferSizeUpperThreshold];
         if (self->_accumulateCellAppHistoryEpisodes && [flowCopy interfaceCellular])
@@ -1296,18 +1861,18 @@ LABEL_5:
               v66 = "OUT";
             }
 
-            flowuuid3 = [flowCopy flowuuid];
+            flowuuid = [flowCopy flowuuid];
             attributedEntity8 = [flowCopy attributedEntity];
             appEpisode2 = [(FlowLedger *)v53 appEpisode];
             *buf = 136315906;
-            v106 = v66;
-            v12 = v104;
-            v107 = 2112;
-            *v108 = flowuuid3;
-            *&v108[8] = 2112;
-            v109 = attributedEntity8;
-            v110 = 2048;
-            v111 = appEpisode2;
+            v105 = v66;
+            v12 = v103;
+            v106 = 2112;
+            *v107 = flowuuid;
+            *&v107[8] = 2112;
+            v108 = attributedEntity8;
+            v109 = 2048;
+            v110 = appEpisode2;
             _os_log_impl(&dword_23255B000, log, OS_LOG_TYPE_DEFAULT, "App episode screened %s provisional item %@ for app %@ (episode: %p)", buf, 0x2Au);
           }
 
@@ -1335,7 +1900,6 @@ LABEL_5:
 
       else
       {
-LABEL_50:
         v53 = objc_alloc_init(FlowLedger);
         [(FlowLedger *)v53 setExpectedTransferState:1];
         [(FlowLedger *)v53 setReportedDisposition:43];
@@ -1387,17 +1951,17 @@ LABEL_50:
 
       if (v12 != 2)
       {
-        flowuuid4 = [flowCopy flowuuid];
+        flowuuid2 = [flowCopy flowuuid];
 
-        if (flowuuid4)
+        if (flowuuid2)
         {
-          flowuuid5 = [flowCopy flowuuid];
-          v75 = [flowuuid5 copy];
+          flowuuid3 = [flowCopy flowuuid];
+          v75 = [flowuuid3 copy];
           [(FlowLedger *)v53 setFlowUUID:v75];
         }
 
         -[FlowLedger setTrafficClass:](v53, "setTrafficClass:", [flowCopy trafficClass]);
-        if (v103 && [flowCopy snapshotAppStateIsForeground])
+        if (v102 && [flowCopy snapshotAppStateIsForeground])
         {
           [(FlowLedger *)v53 setNotedAsFGAudioVideoTC:1];
           numNotedAsFGAudioVideoTC = self->_numNotedAsFGAudioVideoTC;
@@ -1485,7 +2049,7 @@ LABEL_50:
 
     if ([(FlowLedger *)v50 notedAsFGAudioVideoTC])
     {
-      if (v103 && ([flowCopy snapshotAppStateIsForeground] & 1) != 0)
+      if (v102 && ([flowCopy snapshotAppStateIsForeground] & 1) != 0)
       {
         goto LABEL_29;
       }
@@ -1520,7 +2084,7 @@ LABEL_50:
 
     else
     {
-      if (!v103 || ![flowCopy snapshotAppStateIsForeground])
+      if (!v102 || ![flowCopy snapshotAppStateIsForeground])
       {
         goto LABEL_29;
       }
@@ -1546,7 +2110,7 @@ LABEL_50:
         goto LABEL_29;
       }
 
-      if (![flowCopy interfaceWiFi] || (-[FlowLedger setNotedAsWiFiFGAudioVideoTC:](v50, "setNotedAsWiFiFGAudioVideoTC:", 1), v96 = self->_numNotedAsWiFiFGAudioVideoTC, self->_numNotedAsWiFiFGAudioVideoTC = v96 + 1, v96))
+      if (![flowCopy interfaceWiFi] || (-[FlowLedger setNotedAsWiFiFGAudioVideoTC:](v50, "setNotedAsWiFiFGAudioVideoTC:", 1), v95 = self->_numNotedAsWiFiFGAudioVideoTC, self->_numNotedAsWiFiFGAudioVideoTC = v95 + 1, v95))
       {
 LABEL_29:
         v53 = v50;
@@ -1563,7 +2127,7 @@ LABEL_97:
           -[FlowOriginLedger setTotalObservedWiFiTxBytes:](v17, "setTotalObservedWiFiTxBytes:", -[FlowOriginLedger totalObservedWiFiTxBytes](v17, "totalObservedWiFiTxBytes") + [flowCopy deltaAccountingTxWiFiBytes]);
         }
 
-        if (v104 == 2)
+        if (v103 == 2)
         {
           [(FlowOriginLedger *)v17 setLastUsed:apparentTime()];
           [(FlowLedger *)v53 setCreatorLedger:0];
@@ -1584,9 +2148,9 @@ LABEL_97:
                 appEpisode5 = [(FlowLedger *)v53 appEpisode];
                 flowUUID = [(FlowLedger *)v53 flowUUID];
                 *buf = 134218242;
-                v106 = appEpisode5;
-                v107 = 2112;
-                *v108 = flowUUID;
+                v105 = appEpisode5;
+                v106 = 2112;
+                *v107 = flowUUID;
                 _os_log_impl(&dword_23255B000, v85, OS_LOG_TYPE_INFO, "App episode %p unloaded from flow %@ in state kNWStatsSnapshotOnClose", buf, 0x16u);
               }
 
@@ -1611,11 +2175,11 @@ LABEL_97:
           v92 = v91;
           reportedDisposition = [(FlowLedger *)v53 reportedDisposition];
           *buf = 138412802;
-          v106 = v48;
-          v107 = 1024;
-          *v108 = reportedDisposition;
-          *&v108[4] = 1024;
-          *&v108[6] = v14;
+          v105 = v48;
+          v106 = 1024;
+          *v107 = reportedDisposition;
+          *&v107[4] = 1024;
+          *&v107[6] = v14;
           _os_log_impl(&dword_23255B000, v92, OS_LOG_TYPE_DEBUG, "FlowScrutinizer disposition for %@ %d -> %d", buf, 0x18u);
         }
 
@@ -1649,13 +2213,11 @@ LABEL_97:
   }
 
 LABEL_118:
-
-  v95 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_findFlowOriginLedgerWithSnapshot:(id)snapshot
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   snapshotCopy = snapshot;
   attributedEntity = [snapshotCopy attributedEntity];
   attributedExtension = [snapshotCopy attributedExtension];
@@ -1673,10 +2235,10 @@ LABEL_118:
         v9 = v8;
         *buf = 134218498;
         sourceIdentifier = [snapshotCopy sourceIdentifier];
-        v23 = 2114;
-        v24 = attributedEntity;
-        v25 = 2114;
-        v26 = v7;
+        v22 = 2114;
+        v23 = attributedEntity;
+        v24 = 2114;
+        v25 = v7;
         _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEBUG, "Origin ledger created for snapshot %lld %{public}@ -> %{public}@", buf, 0x20u);
       }
     }
@@ -1710,10 +2272,10 @@ LABEL_118:
           sourceIdentifier2 = [snapshotCopy sourceIdentifier];
           *buf = 134218498;
           sourceIdentifier = sourceIdentifier2;
-          v23 = 2114;
-          v24 = attributedExtension;
-          v25 = 2114;
-          v26 = v13;
+          v22 = 2114;
+          v23 = attributedExtension;
+          v24 = 2114;
+          v25 = v13;
           _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_DEBUG, "Origin ledger (extension) created for snapshot %lld %{public}@ -> %{public}@", buf, 0x20u);
         }
       }
@@ -1730,8 +2292,6 @@ LABEL_118:
     v13 = 0;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
@@ -1740,6 +2300,15 @@ LABEL_118:
   snapshotCopy = snapshot;
   v5 = [(FlowScrutinizer *)self _findFlowOriginLedgerWithSnapshot:snapshotCopy];
   [v5 addActivityBitmapForSnapshot:snapshotCopy];
+}
+
+- (void)updateInterfaceSamplesWithTime:(double)time bumpSamples:(BOOL)samples
+{
+  samplesCopy = samples;
+  [PhysicalInterfaceSampler updateInterfaceSamplesWithTime:"updateInterfaceSamplesWithTime:bumpSamples:" bumpSamples:?];
+  wifiInterfaceSampler = self->_wifiInterfaceSampler;
+
+  [(PhysicalInterfaceSampler *)wifiInterfaceSampler updateInterfaceSamplesWithTime:samplesCopy bumpSamples:time];
 }
 
 - (void)clearAVSamplesIfAllIdle:(id)idle time:(double)time
@@ -1945,35 +2514,35 @@ void __63__FlowScrutinizer_updateAudioVideoSamplesWithTime_bumpSamples___block_i
 
 - (void)updateTransferSizeFlowsWithTime:(double)time
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   if ([(NSMutableDictionary *)self->_transferSizeFlows count])
   {
     [(NSMutableDictionary *)self->_transferSizeFlows allKeys];
+    v44 = 0u;
     v45 = 0u;
     v46 = 0u;
-    v47 = 0u;
-    v5 = v48 = 0u;
-    v6 = [v5 countByEnumeratingWithState:&v45 objects:v57 count:16];
+    v5 = v47 = 0u;
+    v6 = [v5 countByEnumeratingWithState:&v44 objects:v56 count:16];
     if (v6)
     {
       v8 = v6;
-      v9 = *v46;
+      v9 = *v45;
       v10 = &flowScrutinyLogHandle;
       *&v7 = 134218754;
-      v43 = v7;
+      v42 = v7;
       while (2)
       {
         v11 = 0;
-        v44 = v8;
+        v43 = v8;
         do
         {
-          if (*v46 != v9)
+          if (*v45 != v9)
           {
             objc_enumerationMutation(v5);
           }
 
-          v12 = *(*(&v45 + 1) + 8 * v11);
-          v13 = [(NSMutableDictionary *)self->_transferSizeFlows objectForKeyedSubscript:v12, v43];
+          v12 = *(*(&v44 + 1) + 8 * v11);
+          v13 = [(NSMutableDictionary *)self->_transferSizeFlows objectForKeyedSubscript:v12, v42];
           expectedTransferState = [v13 expectedTransferState];
           if (expectedTransferState == 5)
           {
@@ -1992,7 +2561,7 @@ void __63__FlowScrutinizer_updateAudioVideoSamplesWithTime_bumpSamples___block_i
                 if (os_log_type_enabled(*v10, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138412290;
-                  v50 = v12;
+                  v49 = v12;
                   _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_DEFAULT, "FlowScrutinizer end of quarantine for flow %@", buf, 0xCu);
                 }
 
@@ -2017,9 +2586,9 @@ void __63__FlowScrutinizer_updateAudioVideoSamplesWithTime_bumpSamples___block_i
                   appEpisode2 = [v13 appEpisode];
                   flowUUID = [v13 flowUUID];
                   *buf = 134218242;
-                  v50 = appEpisode2;
-                  v51 = 2112;
-                  v52 = flowUUID;
+                  v49 = appEpisode2;
+                  v50 = 2112;
+                  v51 = flowUUID;
                   _os_log_impl(&dword_23255B000, v37, OS_LOG_TYPE_INFO, "App episode %p unloaded from flow %@ in state kExpectedTransferStateProvisional", buf, 0x16u);
                 }
 
@@ -2033,7 +2602,7 @@ void __63__FlowScrutinizer_updateAudioVideoSamplesWithTime_bumpSamples___block_i
               if (os_log_type_enabled(*v10, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
-                v50 = v12;
+                v49 = v12;
                 _os_log_impl(&dword_23255B000, v41, OS_LOG_TYPE_ERROR, "FlowScrutinizer unable to match Flow UUID %@ to actual flow", buf, 0xCu);
               }
 
@@ -2066,7 +2635,7 @@ void __63__FlowScrutinizer_updateAudioVideoSamplesWithTime_bumpSamples___block_i
             if (os_log_type_enabled(*v10, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v50 = v13;
+              v49 = v13;
               _os_log_impl(&dword_23255B000, v23, OS_LOG_TYPE_ERROR, "FlowScrutinizer updateTransferSizeFlowsWithTime, excessive idle while marked with transfer size, clearing %@", buf, 0xCu);
             }
 
@@ -2089,20 +2658,20 @@ void __63__FlowScrutinizer_updateAudioVideoSamplesWithTime_bumpSamples___block_i
                 v29 = v5;
                 v31 = v30 = v10;
                 maxFlowIdleTimeWhileMarkedWithTransferSize = self->_maxFlowIdleTimeWhileMarkedWithTransferSize;
-                *buf = v43;
-                v50 = appEpisode5;
-                v51 = 2112;
-                v52 = v31;
-                v53 = 2048;
-                v54 = v18;
-                v55 = 2048;
-                v56 = maxFlowIdleTimeWhileMarkedWithTransferSize;
+                *buf = v42;
+                v49 = appEpisode5;
+                v50 = 2112;
+                v51 = v31;
+                v52 = 2048;
+                v53 = v18;
+                v54 = 2048;
+                v55 = maxFlowIdleTimeWhileMarkedWithTransferSize;
                 _os_log_impl(&dword_23255B000, v26, OS_LOG_TYPE_INFO, "App episode %p unloaded from flow %@ with idle time %f greater than: %f", buf, 0x2Au);
 
                 v10 = v30;
                 v5 = v29;
                 v9 = v28;
-                v8 = v44;
+                v8 = v43;
               }
 
               appEpisode6 = [v13 appEpisode];
@@ -2118,7 +2687,7 @@ void __63__FlowScrutinizer_updateAudioVideoSamplesWithTime_bumpSamples___block_i
         }
 
         while (v8 != v11);
-        v8 = [v5 countByEnumeratingWithState:&v45 objects:v57 count:16];
+        v8 = [v5 countByEnumeratingWithState:&v44 objects:v56 count:16];
         if (v8)
         {
           continue;
@@ -2130,13 +2699,11 @@ void __63__FlowScrutinizer_updateAudioVideoSamplesWithTime_bumpSamples___block_i
 
 LABEL_39:
   }
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addDelegate:(id)delegate
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
   if (objc_opt_respondsToSelector())
   {
@@ -2154,13 +2721,13 @@ LABEL_39:
     v8 = flowScrutinyLogHandle;
     if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_INFO))
     {
-      v14 = 138412290;
-      v15 = delegateCopy;
+      v13 = 138412290;
+      v14 = delegateCopy;
       v9 = "FlowScrutinizer add delegate %@";
       v10 = v8;
       v11 = OS_LOG_TYPE_INFO;
 LABEL_8:
-      _os_log_impl(&dword_23255B000, v10, v11, v9, &v14, 0xCu);
+      _os_log_impl(&dword_23255B000, v10, v11, v9, &v13, 0xCu);
     }
   }
 
@@ -2169,16 +2736,14 @@ LABEL_8:
     v12 = flowScrutinyLogHandle;
     if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_ERROR))
     {
-      v14 = 138412290;
-      v15 = delegateCopy;
+      v13 = 138412290;
+      v14 = delegateCopy;
       v9 = "FlowScrutinizer failed attempt to add delegate, selector not supported by %@";
       v10 = v12;
       v11 = OS_LOG_TYPE_ERROR;
       goto LABEL_8;
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeDelegate:(id)delegate
@@ -2297,49 +2862,49 @@ LABEL_6:
 
 - (void)flushInactiveLedgersAtMachAbsTime:(unint64_t)time
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   allKeys = [(NSMutableDictionary *)self->_originLedgers allKeys];
   v6 = flowScrutinyLogHandle;
   if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138543362;
-    v25 = allKeys;
+    v24 = allKeys;
     _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEBUG, "flushInactiveLedgers check list is %{public}@", buf, 0xCu);
   }
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v7 = allKeys;
-  v8 = [v7 countByEnumeratingWithState:&v20 objects:v28 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v19 objects:v27 count:16];
   if (v8)
   {
     v10 = v8;
-    v11 = *v21;
+    v11 = *v20;
     *&v9 = 138543618;
-    v19 = v9;
+    v18 = v9;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v21 != v11)
+        if (*v20 != v11)
         {
           objc_enumerationMutation(v7);
         }
 
-        v13 = *(*(&v20 + 1) + 8 * i);
-        v14 = [(NSMutableDictionary *)self->_originLedgers objectForKeyedSubscript:v13, v19, v20];
+        v13 = *(*(&v19 + 1) + 8 * i);
+        v14 = [(NSMutableDictionary *)self->_originLedgers objectForKeyedSubscript:v13, v18, v19];
         v15 = [(FlowScrutinizer *)self isFlushableOriginLedgerAfterFlushingSubsidiaries:v14 atMachAbsTime:time];
         v16 = flowScrutinyLogHandle;
         if (v15)
         {
           if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEFAULT))
           {
-            *buf = v19;
-            v25 = v13;
-            v26 = 2114;
-            v27 = v14;
+            *buf = v18;
+            v24 = v13;
+            v25 = 2114;
+            v26 = v14;
             _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_DEFAULT, "Flush top level origin ledger %{public}@ -> %{public}@", buf, 0x16u);
           }
 
@@ -2348,15 +2913,15 @@ LABEL_6:
 
         else if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEBUG))
         {
-          *buf = v19;
-          v25 = v13;
-          v26 = 2114;
-          v27 = v14;
+          *buf = v18;
+          v24 = v13;
+          v25 = 2114;
+          v26 = v14;
           _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_DEBUG, "Skip flush top level origin ledger %{public}@ -> %{public}@", buf, 0x16u);
         }
       }
 
-      v10 = [v7 countByEnumeratingWithState:&v20 objects:v28 count:16];
+      v10 = [v7 countByEnumeratingWithState:&v19 objects:v27 count:16];
     }
 
     while (v10);
@@ -2368,13 +2933,11 @@ LABEL_6:
     *buf = 0;
     _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_DEFAULT, "flushInactiveLedgers complete", buf, 2u);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isFlushableOriginLedgerAfterFlushingSubsidiaries:(id)subsidiaries atMachAbsTime:(unint64_t)time
 {
-  v97 = *MEMORY[0x277D85DE8];
+  v96 = *MEMORY[0x277D85DE8];
   subsidiariesCopy = subsidiaries;
   appExtensions = [subsidiariesCopy appExtensions];
 
@@ -2383,28 +2946,28 @@ LABEL_6:
     appExtensions2 = [subsidiariesCopy appExtensions];
     allKeys = [appExtensions2 allKeys];
 
-    v82 = 0u;
-    v83 = 0u;
-    v80 = 0u;
     v81 = 0u;
+    v82 = 0u;
+    v79 = 0u;
+    v80 = 0u;
     v10 = allKeys;
-    v11 = [v10 countByEnumeratingWithState:&v80 objects:v96 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v79 objects:v95 count:16];
     if (v11)
     {
       v13 = v11;
-      v14 = *v81;
+      v14 = *v80;
       *&v12 = 138543618;
-      v70 = v12;
+      v69 = v12;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v81 != v14)
+          if (*v80 != v14)
           {
             objc_enumerationMutation(v10);
           }
 
-          v16 = *(*(&v80 + 1) + 8 * i);
+          v16 = *(*(&v79 + 1) + 8 * i);
           appExtensions3 = [subsidiariesCopy appExtensions];
           v18 = [appExtensions3 objectForKeyedSubscript:v16];
 
@@ -2413,10 +2976,10 @@ LABEL_6:
             v19 = flowScrutinyLogHandle;
             if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEFAULT))
             {
-              *buf = v70;
-              v85 = v16;
-              v86 = 2114;
-              v87 = v18;
+              *buf = v69;
+              v84 = v16;
+              v85 = 2114;
+              v86 = v18;
               _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_DEFAULT, "Flush extension origin ledger %{public}@ -> %{public}@", buf, 0x16u);
             }
 
@@ -2425,7 +2988,7 @@ LABEL_6:
           }
         }
 
-        v13 = [v10 countByEnumeratingWithState:&v80 objects:v96 count:16];
+        v13 = [v10 countByEnumeratingWithState:&v79 objects:v95 count:16];
       }
 
       while (v13);
@@ -2447,28 +3010,28 @@ LABEL_6:
     delegates2 = [subsidiariesCopy delegates];
     allKeys2 = [delegates2 allKeys];
 
-    v78 = 0u;
-    v79 = 0u;
-    v76 = 0u;
     v77 = 0u;
+    v78 = 0u;
+    v75 = 0u;
+    v76 = 0u;
     v26 = allKeys2;
-    v27 = [v26 countByEnumeratingWithState:&v76 objects:v95 count:16];
+    v27 = [v26 countByEnumeratingWithState:&v75 objects:v94 count:16];
     if (v27)
     {
       v29 = v27;
-      v30 = *v77;
+      v30 = *v76;
       *&v28 = 138543618;
-      v71 = v28;
+      v70 = v28;
       do
       {
         for (j = 0; j != v29; ++j)
         {
-          if (*v77 != v30)
+          if (*v76 != v30)
           {
             objc_enumerationMutation(v26);
           }
 
-          v32 = *(*(&v76 + 1) + 8 * j);
+          v32 = *(*(&v75 + 1) + 8 * j);
           delegates3 = [subsidiariesCopy delegates];
           v34 = [delegates3 objectForKeyedSubscript:v32];
 
@@ -2477,10 +3040,10 @@ LABEL_6:
             v35 = flowScrutinyLogHandle;
             if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEFAULT))
             {
-              *buf = v71;
-              v85 = v32;
-              v86 = 2114;
-              v87 = v34;
+              *buf = v70;
+              v84 = v32;
+              v85 = 2114;
+              v86 = v34;
               _os_log_impl(&dword_23255B000, v35, OS_LOG_TYPE_DEFAULT, "Flush delegate origin ledger %{public}@ -> %{public}@", buf, 0x16u);
             }
 
@@ -2489,7 +3052,7 @@ LABEL_6:
           }
         }
 
-        v29 = [v26 countByEnumeratingWithState:&v76 objects:v95 count:16];
+        v29 = [v26 countByEnumeratingWithState:&v75 objects:v94 count:16];
       }
 
       while (v29);
@@ -2511,26 +3074,26 @@ LABEL_6:
     activityBitmaps2 = [subsidiariesCopy activityBitmaps];
     allKeys3 = [activityBitmaps2 allKeys];
 
-    v74 = 0u;
-    v75 = 0u;
-    v72 = 0u;
     v73 = 0u;
+    v74 = 0u;
+    v71 = 0u;
+    v72 = 0u;
     activityBitmaps = allKeys3;
-    v42 = [activityBitmaps countByEnumeratingWithState:&v72 objects:v94 count:16];
+    v42 = [activityBitmaps countByEnumeratingWithState:&v71 objects:v93 count:16];
     if (v42)
     {
       v43 = v42;
-      v44 = *v73;
+      v44 = *v72;
       do
       {
         for (k = 0; k != v43; ++k)
         {
-          if (*v73 != v44)
+          if (*v72 != v44)
           {
             objc_enumerationMutation(activityBitmaps);
           }
 
-          v46 = *(*(&v72 + 1) + 8 * k);
+          v46 = *(*(&v71 + 1) + 8 * k);
           activityBitmaps3 = [subsidiariesCopy activityBitmaps];
           v48 = [activityBitmaps3 objectForKeyedSubscript:v46];
 
@@ -2546,7 +3109,7 @@ LABEL_6:
           }
         }
 
-        v43 = [activityBitmaps countByEnumeratingWithState:&v72 objects:v94 count:16];
+        v43 = [activityBitmaps countByEnumeratingWithState:&v71 objects:v93 count:16];
       }
 
       while (v43);
@@ -2587,27 +3150,27 @@ LABEL_48:
     activityBitmaps7 = [subsidiariesCopy activityBitmaps];
     if ([activityBitmaps7 count])
     {
-      v67 = 0;
+      v66 = 0;
     }
 
     else
     {
       [subsidiariesCopy durationSinceLastUse];
-      v67 = v69 > 900.0;
+      v66 = v68 > 900.0;
     }
   }
 
   else
   {
     [subsidiariesCopy durationSinceLastUse];
-    v67 = v68 > 900.0;
+    v66 = v67 > 900.0;
   }
 
   if (currentFlows)
   {
   }
 
-  if (v67)
+  if (v66)
   {
     v62 = 1;
     goto LABEL_52;
@@ -2625,49 +3188,48 @@ LABEL_49:
     delegates6 = [subsidiariesCopy delegates];
     activityBitmaps8 = [subsidiariesCopy activityBitmaps];
     *buf = 138544386;
-    v85 = name;
-    v86 = 2048;
-    v87 = v58;
-    v88 = 2114;
-    v89 = appExtensions7;
-    v90 = 2114;
-    v91 = delegates6;
-    v92 = 2114;
-    v93 = activityBitmaps8;
+    v84 = name;
+    v85 = 2048;
+    v86 = v58;
+    v87 = 2114;
+    v88 = appExtensions7;
+    v89 = 2114;
+    v90 = delegates6;
+    v91 = 2114;
+    v92 = activityBitmaps8;
     _os_log_impl(&dword_23255B000, v55, OS_LOG_TYPE_DEBUG, "Skip flush origin ledger, name %{public}@ duration %.3f extensions %{public}@ delegates %{public}@ bitmaps %{public}@", buf, 0x34u);
   }
 
   v62 = 0;
 LABEL_52:
 
-  v63 = *MEMORY[0x277D85DE8];
   return v62;
 }
 
 - (void)addFlowStateForOrigin:(id)origin array:(id)array
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   originCopy = origin;
   arrayCopy = array;
+  v53 = 0u;
   v54 = 0u;
   v55 = 0u;
   v56 = 0u;
-  v57 = 0u;
   obj = [originCopy currentFlows];
-  v43 = [obj countByEnumeratingWithState:&v54 objects:v60 count:16];
-  if (v43)
+  v42 = [obj countByEnumeratingWithState:&v53 objects:v59 count:16];
+  if (v42)
   {
-    v42 = *v55;
+    v41 = *v54;
     do
     {
-      for (i = 0; i != v43; ++i)
+      for (i = 0; i != v42; ++i)
       {
-        if (*v55 != v42)
+        if (*v54 != v41)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v54 + 1) + 8 * i);
+        v8 = *(*(&v53 + 1) + 8 * i);
         currentFlows = [originCopy currentFlows];
         v10 = [currentFlows objectForKeyedSubscript:v8];
 
@@ -2685,41 +3247,41 @@ LABEL_52:
 
           if (v17)
           {
-            v44 = v13;
-            v52 = 0u;
-            v53 = 0u;
-            v50 = 0u;
+            v43 = v13;
             v51 = 0u;
+            v52 = 0u;
+            v49 = 0u;
+            v50 = 0u;
             alternatingIdleNonIdlePeriods3 = [v10 alternatingIdleNonIdlePeriods];
-            v19 = [alternatingIdleNonIdlePeriods3 countByEnumeratingWithState:&v50 objects:v59 count:16];
+            v19 = [alternatingIdleNonIdlePeriods3 countByEnumeratingWithState:&v49 objects:v58 count:16];
             if (v19)
             {
               v20 = v19;
-              v21 = *v51;
+              v21 = *v50;
               v22 = @"           idle/non-idle   %@";
               do
               {
                 for (j = 0; j != v20; ++j)
                 {
-                  if (*v51 != v21)
+                  if (*v50 != v21)
                   {
                     objc_enumerationMutation(alternatingIdleNonIdlePeriods3);
                   }
 
-                  v24 = [MEMORY[0x277CCACA8] stringWithFormat:v22, *(*(&v50 + 1) + 8 * j)];
+                  v24 = [MEMORY[0x277CCACA8] stringWithFormat:v22, *(*(&v49 + 1) + 8 * j)];
                   [arrayCopy addObject:v24];
 
                   v22 = @"                           %@";
                 }
 
-                v20 = [alternatingIdleNonIdlePeriods3 countByEnumeratingWithState:&v50 objects:v59 count:16];
+                v20 = [alternatingIdleNonIdlePeriods3 countByEnumeratingWithState:&v49 objects:v58 count:16];
                 v22 = @"                           %@";
               }
 
               while (v20);
             }
 
-            v13 = v44;
+            v13 = v43;
           }
         }
 
@@ -2732,34 +3294,34 @@ LABEL_52:
 
           if (v28)
           {
-            v45 = v13;
-            v48 = 0u;
-            v49 = 0u;
-            v46 = 0u;
+            v44 = v13;
             v47 = 0u;
+            v48 = 0u;
+            v45 = 0u;
+            v46 = 0u;
             nonIdleSamples3 = [v10 nonIdleSamples];
-            v30 = [nonIdleSamples3 countByEnumeratingWithState:&v46 objects:v58 count:16];
+            v30 = [nonIdleSamples3 countByEnumeratingWithState:&v45 objects:v57 count:16];
             if (v30)
             {
               v31 = v30;
-              v32 = *v47;
+              v32 = *v46;
               v33 = @"           continuous      %@";
               do
               {
                 for (k = 0; k != v31; ++k)
                 {
-                  if (*v47 != v32)
+                  if (*v46 != v32)
                   {
                     objc_enumerationMutation(nonIdleSamples3);
                   }
 
-                  v35 = [MEMORY[0x277CCACA8] stringWithFormat:v33, *(*(&v46 + 1) + 8 * k)];
+                  v35 = [MEMORY[0x277CCACA8] stringWithFormat:v33, *(*(&v45 + 1) + 8 * k)];
                   [arrayCopy addObject:v35];
 
                   v33 = @"                           %@";
                 }
 
-                v31 = [nonIdleSamples3 countByEnumeratingWithState:&v46 objects:v58 count:16];
+                v31 = [nonIdleSamples3 countByEnumeratingWithState:&v45 objects:v57 count:16];
                 v33 = @"                           %@";
               }
 
@@ -2775,18 +3337,16 @@ LABEL_52:
               [arrayCopy addObject:v39];
             }
 
-            v13 = v45;
+            v13 = v44;
           }
         }
       }
 
-      v43 = [obj countByEnumeratingWithState:&v54 objects:v60 count:16];
+      v42 = [obj countByEnumeratingWithState:&v53 objects:v59 count:16];
     }
 
-    while (v43);
+    while (v42);
   }
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addStateForOrigin:(id)origin named:(id)named array:(id)array isExtension:(BOOL)extension isDelegate:(BOOL)delegate verbose:(BOOL)verbose
@@ -2794,7 +3354,7 @@ LABEL_52:
   verboseCopy = verbose;
   delegateCopy = delegate;
   extensionCopy = extension;
-  v107 = *MEMORY[0x277D85DE8];
+  v106 = *MEMORY[0x277D85DE8];
   originCopy = origin;
   namedCopy = named;
   arrayCopy = array;
@@ -2827,7 +3387,7 @@ LABEL_52:
   }
 
   v20 = MEMORY[0x277CCACA8];
-  v84 = extensionCopy;
+  v83 = extensionCopy;
   if (extensionCopy)
   {
     v21 = v18;
@@ -2845,12 +3405,12 @@ LABEL_52:
   closedFlows = [originCopy closedFlows];
   [originCopy lastUsed];
   v28 = dateStringMillisecondsFromReferenceInterval(v27);
-  v80 = namedCopy;
+  v79 = namedCopy;
   v29 = [v20 stringWithFormat:@"%@ FlowOriginLedger %@ %@, rx %lld tx %lld %@num closed %lld last access %@", obj, v21, namedCopy, v23, v25, v16, closedFlows, v28];
 
-  v79 = v29;
+  v78 = v29;
   [arrayCopy addObject:v29];
-  v81 = v16;
+  v80 = v16;
   if (verboseCopy)
   {
     activityBitmaps = [originCopy activityBitmaps];
@@ -2863,26 +3423,26 @@ LABEL_52:
       if (v33)
       {
         v34 = [objc_alloc(MEMORY[0x277CCAB68]) initWithString:@"    Associated bitmaps: "];
+        v98 = 0u;
         v99 = 0u;
         v100 = 0u;
         v101 = 0u;
-        v102 = 0u;
         obja = [originCopy activityBitmaps];
-        v35 = [obja countByEnumeratingWithState:&v99 objects:v106 count:16];
+        v35 = [obja countByEnumeratingWithState:&v98 objects:v105 count:16];
         if (v35)
         {
           v36 = v35;
-          v37 = *v100;
+          v37 = *v99;
           do
           {
             for (i = 0; i != v36; ++i)
             {
-              if (*v100 != v37)
+              if (*v99 != v37)
               {
                 objc_enumerationMutation(obja);
               }
 
-              v39 = *(*(&v99 + 1) + 8 * i);
+              v39 = *(*(&v98 + 1) + 8 * i);
               intValue = [(__CFString *)v39 intValue];
               v41 = @"CompanionLink";
               if (intValue != 7)
@@ -2910,7 +3470,7 @@ LABEL_52:
               [v34 appendFormat:@"%@ -> %@ ", v42, v44];
             }
 
-            v36 = [obja countByEnumeratingWithState:&v99 objects:v106 count:16];
+            v36 = [obja countByEnumeratingWithState:&v98 objects:v105 count:16];
           }
 
           while (v36);
@@ -2920,26 +3480,26 @@ LABEL_52:
       }
     }
 
-    v97 = 0u;
-    v98 = 0u;
-    v95 = 0u;
     v96 = 0u;
+    v97 = 0u;
+    v94 = 0u;
+    v95 = 0u;
     currentAssetDownloads = [originCopy currentAssetDownloads];
-    v46 = [currentAssetDownloads countByEnumeratingWithState:&v95 objects:v105 count:16];
+    v46 = [currentAssetDownloads countByEnumeratingWithState:&v94 objects:v104 count:16];
     if (v46)
     {
       v47 = v46;
-      v48 = *v96;
+      v48 = *v95;
       do
       {
         for (j = 0; j != v47; ++j)
         {
-          if (*v96 != v48)
+          if (*v95 != v48)
           {
             objc_enumerationMutation(currentAssetDownloads);
           }
 
-          v50 = *(*(&v95 + 1) + 8 * j);
+          v50 = *(*(&v94 + 1) + 8 * j);
           currentAssetDownloads2 = [originCopy currentAssetDownloads];
           v52 = [currentAssetDownloads2 objectForKeyedSubscript:v50];
 
@@ -2947,14 +3507,14 @@ LABEL_52:
           [arrayCopy addObject:v53];
         }
 
-        v47 = [currentAssetDownloads countByEnumeratingWithState:&v95 objects:v105 count:16];
+        v47 = [currentAssetDownloads countByEnumeratingWithState:&v94 objects:v104 count:16];
       }
 
       while (v47);
     }
 
     [(FlowScrutinizer *)self addFlowStateForOrigin:originCopy array:arrayCopy];
-    v16 = v81;
+    v16 = v80;
   }
 
   delegates = [originCopy delegates];
@@ -2965,39 +3525,39 @@ LABEL_52:
     allKeys = [delegates2 allKeys];
     v57 = [allKeys sortedArrayUsingSelector:sel_caseInsensitiveCompare_];
 
-    v93 = 0u;
-    v94 = 0u;
-    v91 = 0u;
     v92 = 0u;
+    v93 = 0u;
+    v90 = 0u;
+    v91 = 0u;
     v58 = v57;
-    v59 = [v58 countByEnumeratingWithState:&v91 objects:v104 count:16];
+    v59 = [v58 countByEnumeratingWithState:&v90 objects:v103 count:16];
     if (v59)
     {
       v60 = v59;
-      v61 = *v92;
+      v61 = *v91;
       do
       {
         for (k = 0; k != v60; ++k)
         {
-          if (*v92 != v61)
+          if (*v91 != v61)
           {
             objc_enumerationMutation(v58);
           }
 
-          v63 = *(*(&v91 + 1) + 8 * k);
+          v63 = *(*(&v90 + 1) + 8 * k);
           delegates3 = [originCopy delegates];
           v65 = [delegates3 objectForKeyedSubscript:v63];
 
-          [(FlowScrutinizer *)self addStateForOrigin:v65 named:v63 array:arrayCopy isExtension:v84 isDelegate:1 verbose:verboseCopy];
+          [(FlowScrutinizer *)self addStateForOrigin:v65 named:v63 array:arrayCopy isExtension:v83 isDelegate:1 verbose:verboseCopy];
         }
 
-        v60 = [v58 countByEnumeratingWithState:&v91 objects:v104 count:16];
+        v60 = [v58 countByEnumeratingWithState:&v90 objects:v103 count:16];
       }
 
       while (v60);
     }
 
-    v16 = v81;
+    v16 = v80;
   }
 
   appExtensions = [originCopy appExtensions];
@@ -3008,42 +3568,375 @@ LABEL_52:
     allKeys2 = [appExtensions2 allKeys];
     v69 = [allKeys2 sortedArrayUsingSelector:sel_caseInsensitiveCompare_];
 
-    v89 = 0u;
-    v90 = 0u;
-    v87 = 0u;
     v88 = 0u;
+    v89 = 0u;
+    v86 = 0u;
+    v87 = 0u;
     v70 = v69;
-    v71 = [v70 countByEnumeratingWithState:&v87 objects:v103 count:16];
+    v71 = [v70 countByEnumeratingWithState:&v86 objects:v102 count:16];
     if (v71)
     {
       v72 = v71;
-      v73 = *v88;
+      v73 = *v87;
       do
       {
         for (m = 0; m != v72; ++m)
         {
-          if (*v88 != v73)
+          if (*v87 != v73)
           {
             objc_enumerationMutation(v70);
           }
 
-          v75 = *(*(&v87 + 1) + 8 * m);
+          v75 = *(*(&v86 + 1) + 8 * m);
           appExtensions3 = [originCopy appExtensions];
           v77 = [appExtensions3 objectForKeyedSubscript:v75];
 
           [(FlowScrutinizer *)self addStateForOrigin:v77 named:v75 array:arrayCopy isExtension:1 isDelegate:0 verbose:verboseCopy];
         }
 
-        v72 = [v70 countByEnumeratingWithState:&v87 objects:v103 count:16];
+        v72 = [v70 countByEnumeratingWithState:&v86 objects:v102 count:16];
       }
 
       while (v72);
     }
 
-    v16 = v81;
+    v16 = v80;
+  }
+}
+
+- (id)getState:(BOOL)state
+{
+  stateCopy = state;
+  v105 = *MEMORY[0x277D85DE8];
+  v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"FlowScrutinizer state: num as FG AV %lld, handled  %lld flows %lld transfer-size (%lld matched)", self->_numNotedAsFGAudioVideoTC, self->_numFlowsScrutinized, self->_numExpectedTransferSymptoms, self->_numMatchedExpectedTransferSymptoms];
+  [v5 addObject:v6];
+  v7 = [(PhysicalInterfaceSampler *)self->_cellInterfaceSampler getState:stateCopy];
+  if (v7)
+  {
+    [v5 addObjectsFromArray:v7];
   }
 
-  v78 = *MEMORY[0x277D85DE8];
+  v8 = [(PhysicalInterfaceSampler *)self->_wifiInterfaceSampler getState:stateCopy];
+  if (v8)
+  {
+    [v5 addObjectsFromArray:v8];
+  }
+
+  v68 = v7;
+  selfCopy = self;
+  v67 = v8;
+  v65 = stateCopy;
+  if (stateCopy)
+  {
+    v96 = 0u;
+    v97 = 0u;
+    v94 = 0u;
+    v95 = 0u;
+    v9 = self->_cellAudioVideoSamples;
+    v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v94 objects:v104 count:16];
+    if (v10)
+    {
+      v11 = v10;
+      v12 = *v95;
+      do
+      {
+        v13 = 0;
+        v14 = v6;
+        do
+        {
+          if (*v95 != v12)
+          {
+            objc_enumerationMutation(v9);
+          }
+
+          v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"   [cell] %@", *(*(&v94 + 1) + 8 * v13)];
+
+          [v5 addObject:v6];
+          ++v13;
+          v14 = v6;
+        }
+
+        while (v11 != v13);
+        v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v94 objects:v104 count:16];
+      }
+
+      while (v11);
+    }
+
+    v92 = 0u;
+    v93 = 0u;
+    v90 = 0u;
+    v91 = 0u;
+    v15 = selfCopy->_wifiAudioVideoSamples;
+    v16 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v90 objects:v103 count:16];
+    if (v16)
+    {
+      v17 = v16;
+      v18 = *v91;
+      do
+      {
+        v19 = 0;
+        v20 = v6;
+        do
+        {
+          if (*v91 != v18)
+          {
+            objc_enumerationMutation(v15);
+          }
+
+          v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"   [wifi] %@", *(*(&v90 + 1) + 8 * v19)];
+
+          [v5 addObject:v6];
+          ++v19;
+          v20 = v6;
+        }
+
+        while (v17 != v19);
+        v17 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v90 objects:v103 count:16];
+      }
+
+      while (v17);
+    }
+
+    self = selfCopy;
+  }
+
+  else
+  {
+    if ([(NSMutableArray *)self->_cellAudioVideoSamples count])
+    {
+      lastObject = [(NSMutableArray *)self->_cellAudioVideoSamples lastObject];
+      v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"   [cell] %@", lastObject];
+
+      [v5 addObject:v22];
+      v6 = v22;
+    }
+
+    if ([(NSMutableArray *)self->_wifiAudioVideoSamples count])
+    {
+      lastObject2 = [(NSMutableArray *)self->_wifiAudioVideoSamples lastObject];
+      v24 = [MEMORY[0x277CCACA8] stringWithFormat:@"   [wifi] %@", lastObject2];
+
+      [v5 addObject:v24];
+      v6 = v24;
+    }
+  }
+
+  v88 = 0u;
+  v89 = 0u;
+  v86 = 0u;
+  v87 = 0u;
+  v25 = self->_transferSizeFlows;
+  v26 = [(NSMutableDictionary *)v25 countByEnumeratingWithState:&v86 objects:v102 count:16];
+  if (v26)
+  {
+    v27 = v26;
+    v28 = *v87;
+    do
+    {
+      v29 = 0;
+      v30 = v6;
+      do
+      {
+        if (*v87 != v28)
+        {
+          objc_enumerationMutation(v25);
+        }
+
+        v31 = [(NSMutableDictionary *)selfCopy->_transferSizeFlows objectForKeyedSubscript:*(*(&v86 + 1) + 8 * v29)];
+        v32 = MEMORY[0x277CCACA8];
+        briefDescription = [v31 briefDescription];
+        v6 = [v32 stringWithFormat:@"       Expected transfer contributor: %@", briefDescription];
+
+        [v5 addObject:v6];
+        ++v29;
+        v30 = v6;
+      }
+
+      while (v27 != v29);
+      v27 = [(NSMutableDictionary *)v25 countByEnumeratingWithState:&v86 objects:v102 count:16];
+    }
+
+    while (v27);
+  }
+
+  if (v65)
+  {
+    v34 = objc_alloc(MEMORY[0x277CCACA8]);
+    v35 = +[FlowOriginLedger getStatsString];
+    v36 = [v34 initWithFormat:@"FlowScrutinizer %@", v35];
+
+    v66 = v36;
+    [v5 addObject:v36];
+    allKeys = [(NSMutableDictionary *)selfCopy->_originLedgers allKeys];
+    v38 = [allKeys sortedArrayUsingSelector:sel_compare_];
+
+    v84 = 0u;
+    v85 = 0u;
+    v82 = 0u;
+    v83 = 0u;
+    v39 = v38;
+    v40 = [v39 countByEnumeratingWithState:&v82 objects:v101 count:16];
+    if (v40)
+    {
+      v41 = v40;
+      v42 = *v83;
+      do
+      {
+        for (i = 0; i != v41; ++i)
+        {
+          if (*v83 != v42)
+          {
+            objc_enumerationMutation(v39);
+          }
+
+          v44 = *(*(&v82 + 1) + 8 * i);
+          v45 = [(NSMutableDictionary *)selfCopy->_originLedgers objectForKeyedSubscript:v44];
+          [(FlowScrutinizer *)selfCopy addStateForOrigin:v45 named:v44 array:v5 isExtension:0 isDelegate:0 verbose:1];
+        }
+
+        v41 = [v39 countByEnumeratingWithState:&v82 objects:v101 count:16];
+      }
+
+      while (v41);
+    }
+  }
+
+  v80 = 0u;
+  v81 = 0u;
+  v78 = 0u;
+  v79 = 0u;
+  v46 = selfCopy->_cellFlowScrutinyRequesters;
+  v47 = [(NSMutableSet *)v46 countByEnumeratingWithState:&v78 objects:v100 count:16];
+  if (v47)
+  {
+    v48 = v47;
+    v49 = *v79;
+    do
+    {
+      for (j = 0; j != v48; ++j)
+      {
+        if (*v79 != v49)
+        {
+          objc_enumerationMutation(v46);
+        }
+
+        v51 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@" Cell flow scrutiny requested by: %@", *(*(&v78 + 1) + 8 * j)];
+        [v5 addObject:v51];
+      }
+
+      v48 = [(NSMutableSet *)v46 countByEnumeratingWithState:&v78 objects:v100 count:16];
+    }
+
+    while (v48);
+  }
+
+  v76 = 0u;
+  v77 = 0u;
+  v74 = 0u;
+  v75 = 0u;
+  v52 = selfCopy->_wifiFlowScrutinyRequesters;
+  v53 = [(NSMutableSet *)v52 countByEnumeratingWithState:&v74 objects:v99 count:16];
+  if (v53)
+  {
+    v54 = v53;
+    v55 = *v75;
+    do
+    {
+      for (k = 0; k != v54; ++k)
+      {
+        if (*v75 != v55)
+        {
+          objc_enumerationMutation(v52);
+        }
+
+        v57 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@" Wi-Fi flow scrutiny requested by: %@", *(*(&v74 + 1) + 8 * k)];
+        [v5 addObject:v57];
+      }
+
+      v54 = [(NSMutableSet *)v52 countByEnumeratingWithState:&v74 objects:v99 count:16];
+    }
+
+    while (v54);
+  }
+
+  v72 = 0u;
+  v73 = 0u;
+  v70 = 0u;
+  v71 = 0u;
+  v58 = selfCopy->_delegates;
+  v59 = [(NSMutableSet *)v58 countByEnumeratingWithState:&v70 objects:v98 count:16];
+  if (v59)
+  {
+    v60 = v59;
+    v61 = *v71;
+    do
+    {
+      for (m = 0; m != v60; ++m)
+      {
+        if (*v71 != v61)
+        {
+          objc_enumerationMutation(v58);
+        }
+
+        v63 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@" Delegate: %@", *(*(&v70 + 1) + 8 * m)];
+        [v5 addObject:v63];
+      }
+
+      v60 = [(NSMutableSet *)v58 countByEnumeratingWithState:&v70 objects:v98 count:16];
+    }
+
+    while (v60);
+  }
+
+  return v5;
+}
+
+- (id)getLedgerState:(BOOL)state
+{
+  stateCopy = state;
+  v24 = *MEMORY[0x277D85DE8];
+  v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v6 = objc_alloc(MEMORY[0x277CCACA8]);
+  v7 = +[FlowOriginLedger getStatsString];
+  v8 = [v6 initWithFormat:@"FlowScrutinizer %@", v7];
+
+  [v5 addObject:v8];
+  allKeys = [(NSMutableDictionary *)self->_originLedgers allKeys];
+  v10 = [allKeys sortedArrayUsingSelector:sel_compare_];
+
+  v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v11 = v10;
+  v12 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  if (v12)
+  {
+    v13 = v12;
+    v14 = *v20;
+    do
+    {
+      for (i = 0; i != v13; ++i)
+      {
+        if (*v20 != v14)
+        {
+          objc_enumerationMutation(v11);
+        }
+
+        v16 = *(*(&v19 + 1) + 8 * i);
+        v17 = [(NSMutableDictionary *)self->_originLedgers objectForKeyedSubscript:v16];
+        [(FlowScrutinizer *)self addStateForOrigin:v17 named:v16 array:v5 isExtension:0 isDelegate:0 verbose:stateCopy];
+      }
+
+      v13 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    }
+
+    while (v13);
+  }
+
+  return v5;
 }
 
 - (void)restoreDefaults
@@ -3063,14 +3956,14 @@ LABEL_52:
 
 - (int)setConfiguration:(id)configuration
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   v5 = flowScrutinyLogHandle;
   if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138543362;
-    v10 = configurationCopy;
-    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "FlowScrutinizer handle new configuration parameters %{public}@", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = configurationCopy;
+    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "FlowScrutinizer handle new configuration parameters %{public}@", &v8, 0xCu);
   }
 
   [configurationCopy extractKey:@"maxActiveSamples" toUint64:&self->_maxContinuouslyActiveSamples defaultTo:30];
@@ -3085,7 +3978,6 @@ LABEL_52:
     [(FlowScrutinizer *)self restoreDefaults];
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return 0;
 }
 

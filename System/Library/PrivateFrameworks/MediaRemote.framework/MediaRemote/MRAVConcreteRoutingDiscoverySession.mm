@@ -12,10 +12,12 @@
 - (unsigned)discoveryMode;
 - (unsigned)targetAudioSessionID;
 - (void)_loadDefaults;
+- (void)_onQueue_setTargetAudioSessionID:(unsigned int)d;
 - (void)_onReloadQueue_reload;
 - (void)_scheduleReload;
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context;
 - (void)setAvailableOutputDevices:(id)devices;
+- (void)setDiscoveryMode:(unsigned int)mode;
 - (void)setDiscoveryMode:(unsigned int)mode forClientIdentifiers:(id)identifiers;
 - (void)setRoutingContextUID:(id)d;
 - (void)setTargetAudioSessionID:(unsigned int)d;
@@ -25,7 +27,7 @@
 
 - (void)_loadDefaults
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v3 = [(NSUserDefaults *)self->_userDefaults valueForKey:@"audio-outputdevice-denylist"];
   denyList = self->_denyList;
   v5 = _MRLogForCategory(0);
@@ -39,13 +41,13 @@
 
     v7 = self->_denyList;
     *buf = 138544130;
-    v31 = @"AVDiscoverySession";
-    v32 = 2114;
-    v33 = @"denyList";
-    v34 = 2112;
-    v35 = v7;
-    v36 = 2112;
-    v37 = v3;
+    v30 = @"AVDiscoverySession";
+    v31 = 2114;
+    v32 = @"denyList";
+    v33 = 2112;
+    v34 = v7;
+    v35 = 2112;
+    v36 = v3;
     v8 = "Set: %{public}@ setting %{public}@ from <%@> to <%@>";
     v9 = v5;
     v10 = 42;
@@ -59,11 +61,11 @@
     }
 
     *buf = 138543874;
-    v31 = @"AVDiscoverySession";
-    v32 = 2114;
-    v33 = @"denyList";
-    v34 = 2112;
-    v35 = v3;
+    v30 = @"AVDiscoverySession";
+    v31 = 2114;
+    v32 = @"denyList";
+    v33 = 2112;
+    v34 = v3;
     v8 = "Set: %{public}@ setting %{public}@ to <%@>";
     v9 = v5;
     v10 = 32;
@@ -79,8 +81,8 @@ LABEL_7:
   {
     if (v3)
     {
-      v29 = v3;
-      v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v29 count:1];
+      v28 = v3;
+      v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v28 count:1];
       goto LABEL_12;
     }
 
@@ -106,13 +108,13 @@ LABEL_12:
 
     v19 = self->_allowList;
     *buf = 138544130;
-    v31 = @"AVDiscoverySession";
-    v32 = 2114;
-    v33 = @"allowList";
-    v34 = 2112;
-    v35 = v19;
-    v36 = 2112;
-    v37 = v15;
+    v30 = @"AVDiscoverySession";
+    v31 = 2114;
+    v32 = @"allowList";
+    v33 = 2112;
+    v34 = v19;
+    v35 = 2112;
+    v36 = v15;
     v20 = "Set: %{public}@ setting %{public}@ from <%@> to <%@>";
     v21 = v17;
     v22 = 42;
@@ -126,11 +128,11 @@ LABEL_12:
     }
 
     *buf = 138543874;
-    v31 = @"AVDiscoverySession";
-    v32 = 2114;
-    v33 = @"allowList";
-    v34 = 2112;
-    v35 = v15;
+    v30 = @"AVDiscoverySession";
+    v31 = 2114;
+    v32 = @"allowList";
+    v33 = 2112;
+    v34 = v15;
     v20 = "Set: %{public}@ setting %{public}@ to <%@>";
     v21 = v17;
     v22 = 32;
@@ -155,43 +157,39 @@ LABEL_22:
     goto LABEL_22;
   }
 
-  v28 = v15;
-  v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v28 count:1];
+  v27 = v15;
+  v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v27 count:1];
 LABEL_23:
   v26 = self->_allowList;
   self->_allowList = v25;
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (NSString)description
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x3032000000;
-  v8 = __Block_byref_object_copy__52;
-  v9 = __Block_byref_object_dispose__52;
-  v10 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x3032000000;
+  v7 = __Block_byref_object_copy__52;
+  v8 = __Block_byref_object_dispose__52;
+  v9 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = v6[5];
-  _Block_object_dispose(&v5, 8);
+  v2 = v5[5];
+  _Block_object_dispose(&v4, 8);
 
-  return v3;
+  return v2;
 }
 
 void __50__MRAVConcreteRoutingDiscoverySession_description__block_invoke(uint64_t a1)
 {
   v2 = MEMORY[0x1E696AEC0];
-  v3 = *(a1 + 32);
-  v4 = objc_opt_class();
-  v5 = *(a1 + 32);
-  v10 = MRMediaRemoteEndpointFeaturesDescription(*(v5 + 160));
-  v6 = MRMediaRemoteCopyRouteDiscoveryModeDescription(*(*(a1 + 32) + 164));
-  v7 = [v2 stringWithFormat:@"<%@: %p> (%@ - %@)", v4, v5, v10, v6];
-  v8 = *(*(a1 + 40) + 8);
-  v9 = *(v8 + 40);
-  *(v8 + 40) = v7;
+  v3 = objc_opt_class();
+  v4 = *(a1 + 32);
+  v9 = MRMediaRemoteEndpointFeaturesDescription(*(v4 + 160));
+  v5 = MRMediaRemoteCopyRouteDiscoveryModeDescription(*(*(a1 + 32) + 164));
+  v6 = [v2 stringWithFormat:@"<%@: %p> (%@ - %@)", v3, v4, v9, v5];
+  v7 = *(*(a1 + 40) + 8);
+  v8 = *(v7 + 40);
+  *(v7 + 40) = v6;
 }
 
 - (NSArray)availableOutputDevices
@@ -239,11 +237,9 @@ void __50__MRAVConcreteRoutingDiscoverySession_description__block_invoke(uint64_
 
 - (void)_onReloadQueue_reload
 {
-  v10 = *MEMORY[0x1E69E9840];
   [self timeIntervalSinceNow];
-  OUTLINED_FUNCTION_1_16(v1);
-  OUTLINED_FUNCTION_0_18(&dword_1A2860000, v2, v3, "[AVDiscoverySession] NotifyOutputDevicesChanged took %lf seconds", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x1E69E9840];
+  v2 = OUTLINED_FUNCTION_1_16(v1);
+  OUTLINED_FUNCTION_0_18(&dword_1A2860000, v3, v4, "[AVDiscoverySession] NotifyOutputDevicesChanged took %lf seconds", v5, v6, v7, v8, v2);
 }
 
 - (id)_onReloadQueue_reloadAvailableOutputDevices
@@ -513,7 +509,7 @@ void __68__MRAVConcreteRoutingDiscoverySession_lastReportedClientIdentifiers__bl
 
 void __77__MRAVConcreteRoutingDiscoverySession_setDiscoveryMode_forClientIdentifiers___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = *(v2 + 164);
   v4 = *(a1 + 48);
@@ -527,11 +523,11 @@ void __77__MRAVConcreteRoutingDiscoverySession_setDiscoveryMode_forClientIdentif
       {
         v7 = *(a1 + 32);
         v8 = MRMediaRemoteCopyRouteDiscoveryModeDescription(*(a1 + 48));
-        v16 = 138412546;
-        v17 = v7;
-        v18 = 2112;
-        v19 = v8;
-        _os_log_impl(&dword_1A2860000, v6, OS_LOG_TYPE_DEFAULT, "[AVDiscoverySession] %@ - Discovery mode changed to: %@", &v16, 0x16u);
+        v15 = 138412546;
+        v16 = v7;
+        v17 = 2112;
+        v18 = v8;
+        _os_log_impl(&dword_1A2860000, v6, OS_LOG_TYPE_DEFAULT, "[AVDiscoverySession] %@ - Discovery mode changed to: %@", &v15, 0x16u);
       }
 
       v9 = *(*(a1 + 32) + 200);
@@ -565,8 +561,13 @@ void __77__MRAVConcreteRoutingDiscoverySession_setDiscoveryMode_forClientIdentif
 
     objc_storeStrong((*(a1 + 32) + 216), *(a1 + 40));
   }
+}
 
-  v15 = *MEMORY[0x1E69E9840];
+- (void)setDiscoveryMode:(unsigned int)mode
+{
+  v3 = *&mode;
+  v5 = [MEMORY[0x1E695DFD8] set];
+  [(MRAVConcreteRoutingDiscoverySession *)self setDiscoveryMode:v3 forClientIdentifiers:v5];
 }
 
 - (unsigned)targetAudioSessionID
@@ -615,14 +616,14 @@ void __59__MRAVConcreteRoutingDiscoverySession_targetAudioSessionID__block_invok
   dispatch_async(serialQueue, v4);
 }
 
-uint64_t __63__MRAVConcreteRoutingDiscoverySession_setTargetAudioSessionID___block_invoke(uint64_t result)
+unsigned int *__63__MRAVConcreteRoutingDiscoverySession_setTargetAudioSessionID___block_invoke(unsigned int *result)
 {
-  v1 = *(result + 32);
-  v2 = *(result + 40);
+  v1 = *(result + 4);
+  v2 = result[10];
   if (*(v1 + 168) != v2)
   {
     *(v1 + 172) = v2;
-    return [*(result + 32) _onQueue_setTargetAudioSessionID:*(result + 40)];
+    return [*(result + 4) _onQueue_setTargetAudioSessionID:result[10]];
   }
 
   return result;
@@ -801,18 +802,17 @@ MRAVConcreteOutputDevice *__93__MRAVConcreteRoutingDiscoverySession__onReloadQue
 
 - (NSString)debugDescription
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x3032000000;
-  v8 = __Block_byref_object_copy__52;
-  v9 = __Block_byref_object_dispose__52;
-  v10 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x3032000000;
+  v7 = __Block_byref_object_copy__52;
+  v8 = __Block_byref_object_dispose__52;
+  v9 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = v6[5];
-  _Block_object_dispose(&v5, 8);
+  v2 = v5[5];
+  _Block_object_dispose(&v4, 8);
 
-  return v3;
+  return v2;
 }
 
 void __55__MRAVConcreteRoutingDiscoverySession_debugDescription__block_invoke(uint64_t a1)
@@ -838,31 +838,52 @@ void __55__MRAVConcreteRoutingDiscoverySession_debugDescription__block_invoke(ui
   }
 }
 
+- (void)_onQueue_setTargetAudioSessionID:(unsigned int)d
+{
+  v3 = *&d;
+  dispatch_assert_queue_V2(self->_serialQueue);
+  v5 = [MEMORY[0x1E6958460] retrieveSessionWithID:v3];
+  if (v5)
+  {
+    [(AVOutputDeviceDiscoverySession *)self->_avDiscoverySession setTargetAudioSession:v5];
+  }
+
+  else
+  {
+    v6 = _MRLogForCategory(0);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      [(MRAVConcreteRoutingDiscoverySession *)v3 _onQueue_setTargetAudioSessionID:v6];
+    }
+
+    [(AVOutputDeviceDiscoverySession *)self->_avDiscoverySession setTargetAudioSession:0];
+    LODWORD(v3) = 0;
+  }
+
+  self->_targetAudioSessionID = v3;
+  [(MRAVConcreteRoutingDiscoverySession *)self _scheduleReload];
+}
+
 - (void)_onReloadQueue_fetchOutputDevicesFromDiscoverySession:(void *)a1 .cold.1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   [a1 timeIntervalSinceNow];
-  OUTLINED_FUNCTION_1_16(v1);
-  OUTLINED_FUNCTION_0_18(&dword_1A2860000, v2, v3, "[AVDiscoverySession] Querying AVDiscoverySession.availableOutputDevices took %lf seconds", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x1E69E9840];
+  v2 = OUTLINED_FUNCTION_1_16(v1);
+  OUTLINED_FUNCTION_0_18(&dword_1A2860000, v3, v4, "[AVDiscoverySession] Querying AVDiscoverySession.availableOutputDevices took %lf seconds", v5, v6, v7, v8, v2);
 }
 
 - (void)_onReloadQueue_createOutputDevicesFromAVOutputDevices:(void *)a1 .cold.1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   [a1 timeIntervalSinceNow];
-  OUTLINED_FUNCTION_1_16(v1);
-  OUTLINED_FUNCTION_0_18(&dword_1A2860000, v2, v3, "[AVDiscoverySession] CreateOutputDevicesFromAVOutputDevices took %lf seconds", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x1E69E9840];
+  v2 = OUTLINED_FUNCTION_1_16(v1);
+  OUTLINED_FUNCTION_0_18(&dword_1A2860000, v3, v4, "[AVDiscoverySession] CreateOutputDevicesFromAVOutputDevices took %lf seconds", v5, v6, v7, v8, v2);
 }
 
 - (void)_onQueue_setTargetAudioSessionID:(int)a1 .cold.1(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_error_impl(&dword_1A2860000, a2, OS_LOG_TYPE_ERROR, "[AVDiscoverySession] No audio session found for ID %u. Will target active session.", v3, 8u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_error_impl(&dword_1A2860000, a2, OS_LOG_TYPE_ERROR, "[AVDiscoverySession] No audio session found for ID %u. Will target active session.", v2, 8u);
 }
 
 @end

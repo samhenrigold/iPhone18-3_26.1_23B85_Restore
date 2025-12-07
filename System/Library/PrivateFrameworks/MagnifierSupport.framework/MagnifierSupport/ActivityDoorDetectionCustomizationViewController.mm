@@ -60,7 +60,8 @@
     {
       changedCopy = changed;
       selfCopy = self;
-      sub_257CE2304([changedCopy isOn]);
+      isOn = [changedCopy isOn];
+      sub_257CE2304(isOn, v7);
       swift_unknownObjectRelease();
     }
 
@@ -75,16 +76,16 @@
 {
   v6 = sub_257ECCEB0();
   v7 = *(v6 - 8);
-  MEMORY[0x28223BE20](v6);
-  v9 = (&v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0));
+  MEMORY[0x28223BE20](v6, v8, v9, v10, v11);
+  v13 = (&v18 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0));
   sub_257ECCE40();
   viewCopy = view;
   selfCopy = self;
-  v12 = sub_257DC7B54(viewCopy, v9);
+  v16 = sub_257DC7B54(viewCopy, v13);
 
-  (*(v7 + 8))(v9, v6);
+  (*(v7 + 8))(v13, v6);
 
-  return v12;
+  return v16;
 }
 
 - (void)didToggleFeedbackSwitch:(id)switch
@@ -98,26 +99,26 @@
 {
   v4 = sub_257ECCEB0();
   v5 = *(v4 - 8);
-  MEMORY[0x28223BE20](v4);
-  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v4, v6, v7, v8, v9);
+  v11 = &v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_257ECCE40();
-  v8 = sub_257ECCEA0();
-  (*(v5 + 8))(v7, v4);
-  return sub_257CA9794(v8) != 3;
+  v12 = sub_257ECCEA0();
+  (*(v5 + 8))(v11, v4);
+  return sub_257CA9794(v12) != 3;
 }
 
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path
 {
   v6 = sub_257ECCEB0();
   v7 = *(v6 - 8);
-  MEMORY[0x28223BE20](v6);
-  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v6, v8, v9, v10, v11);
+  v13 = &v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_257ECCE40();
   viewCopy = view;
   selfCopy = self;
   sub_257DCA158(viewCopy);
 
-  (*(v7 + 8))(v9, v6);
+  (*(v7 + 8))(v13, v6);
 }
 
 - (void)colorPickerViewControllerDidSelectColor:(id)color

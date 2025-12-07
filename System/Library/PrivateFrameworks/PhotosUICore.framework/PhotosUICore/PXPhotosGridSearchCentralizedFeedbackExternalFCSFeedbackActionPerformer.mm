@@ -8,7 +8,7 @@
 
 - (id)localizedTitleForUseCase:(unint64_t)case
 {
-  sub_1A3C38BD4();
+  sub_1A3C38BD4(0xD000000000000029);
   v3 = sub_1A524C634();
 
   return v3;

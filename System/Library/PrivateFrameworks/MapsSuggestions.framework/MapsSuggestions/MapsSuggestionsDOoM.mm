@@ -88,7 +88,7 @@
 {
   v3 = OBJC_IVAR____TtC15MapsSuggestions19MapsSuggestionsDOoM__windowOverrideListernerBlock;
   swift_beginAccess();
-  sub_1C525F29C(self + v3, v12, &qword_1EC156128);
+  sub_1C525F29C(self + v3, v12, &qword_1EC156128, &unk_1C52A9060);
   v4 = v13;
   if (v13)
   {
@@ -128,18 +128,18 @@
 
   v6 = OBJC_IVAR____TtC15MapsSuggestions19MapsSuggestionsDOoM__windowOverrideListernerBlock;
   swift_beginAccess();
-  sub_1C526F7D8(v7, self + v6, &qword_1EC156128);
+  sub_1C526F7D8(v7, self + v6, &qword_1EC156128, &unk_1C52A9060);
   swift_endAccess();
 }
 
 - (NSDateInterval)_commuteWindow
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1566A0);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1566A0, &unk_1C52A9618);
   MEMORY[0x1EEE9AC00](v3 - 8);
   v5 = &v13 - v4;
   v6 = OBJC_IVAR____TtC15MapsSuggestions19MapsSuggestionsDOoM__commuteWindow;
   swift_beginAccess();
-  sub_1C525F29C(self + v6, v5, &qword_1EC1566A0);
+  sub_1C525F29C(self + v6, v5, &qword_1EC1566A0, &unk_1C52A9618);
   v7 = sub_1C529D24C();
   v8 = *(v7 - 8);
   v9 = (*(v8 + 48))(v5, 1, v7);
@@ -156,7 +156,7 @@
 
 - (void)set_commuteWindow:(id)window
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1566A0);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1566A0, &unk_1C52A9618);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v12 - v6;
   if (window)
@@ -175,7 +175,7 @@
   v10 = OBJC_IVAR____TtC15MapsSuggestions19MapsSuggestionsDOoM__commuteWindow;
   swift_beginAccess();
   selfCopy = self;
-  sub_1C526F7D8(v7, self + v10, &qword_1EC1566A0);
+  sub_1C526F7D8(v7, self + v10, &qword_1EC1566A0, &unk_1C52A9618);
   swift_endAccess();
 }
 
@@ -189,9 +189,9 @@
 
 - (_TtC15MapsSuggestions19MapsSuggestionsDOoM)initWithResourceDepot:(id)depot triggers:(id)triggers conditions:(id)conditions engine:(id)engine
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC156368);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC156368, &unk_1C52A9758);
   v8 = sub_1C529D7DC();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC1563D0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC1563D0, &unk_1C52A9AA0);
   v9 = sub_1C529D7DC();
   swift_unknownObjectRetain();
   return MapsSuggestionsDOoM.init(resourceDepot:triggers:conditions:engine:)(depot, v8, v9, engine);
@@ -235,7 +235,7 @@
 
 - (void)_scheduleBackupTimerBasedOnEntryTime:(id)time :(double)a4
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC156760);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC156760, &unk_1C52A91E0);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v13 - v8;
   if (time)
@@ -254,7 +254,7 @@
   selfCopy = self;
   sub_1C526C390(v9, a4);
 
-  sub_1C5259230(v9, &unk_1EC156760);
+  sub_1C5259230(v9, &unk_1EC156760, &unk_1C52A91E0);
 }
 
 - (void)_clearEntryExitTimeKeys
@@ -267,10 +267,10 @@
 - (void)commuteWindowChangedWithWindow:(id)window nextDestination:(id)destination travelTime:(double)time haveBudgetForCommuteRequest:(BOOL)request exitTime:(id)exitTime routeSet:(id)set
 {
   requestCopy = request;
-  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC156760);
+  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC156760, &unk_1C52A91E0);
   MEMORY[0x1EEE9AC00](v15 - 8);
   v17 = &v28 - v16;
-  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1566A0);
+  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1566A0, &unk_1C52A9618);
   MEMORY[0x1EEE9AC00](v18 - 8);
   v20 = &v28 - v19;
   if (window)
@@ -304,8 +304,8 @@
   selfCopy = self;
   sub_1C526CB90(v20, destination, requestCopy, v17, set, time);
 
-  sub_1C5259230(v17, &unk_1EC156760);
-  sub_1C5259230(v20, &qword_1EC1566A0);
+  sub_1C5259230(v17, &unk_1EC156760, &unk_1C52A91E0);
+  sub_1C5259230(v20, &qword_1EC1566A0, &unk_1C52A9618);
 }
 
 - (id)_notificationDetailsWithTitle:(id)title message:(id)message destination:(id)destination

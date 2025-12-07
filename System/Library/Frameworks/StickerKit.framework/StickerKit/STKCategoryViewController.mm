@@ -42,7 +42,7 @@
     name = v8;
   }
 
-  sub_19A5F5028(0, &unk_1EAFCB0D0);
+  sub_19A5F5028(0, &unk_1EAFCB0D0, 0x1E69DD688);
   bundleCopy = bundle;
   sub_19A7AB664();
   *(&self->super.super.super.isa + OBJC_IVAR___STKCategoryViewController_keyboardSuppression) = 0;
@@ -66,7 +66,7 @@
 - (STKCategoryViewController)initWithCoder:(id)coder
 {
   ObjectType = swift_getObjectType();
-  sub_19A5F5028(0, &unk_1EAFCB0D0);
+  sub_19A5F5028(0, &unk_1EAFCB0D0, 0x1E69DD688);
   coderCopy = coder;
   sub_19A7AB664();
   *(&self->super.super.super.isa + OBJC_IVAR___STKCategoryViewController_keyboardSuppression) = 0;

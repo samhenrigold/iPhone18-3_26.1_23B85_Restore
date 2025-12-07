@@ -13,14 +13,14 @@ void sub_10000144C(void *a1)
   [v1 clearNotification];
 }
 
-void sub_100002CF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_100002CF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
-  objc_destroyWeak((v16 + 56));
+  va_start(va, a23);
+  objc_destroyWeak((v23 + 56));
   objc_destroyWeak(va);
-  objc_destroyWeak((v18 + 32));
-  objc_destroyWeak((v17 + 40));
-  objc_destroyWeak((v19 - 152));
+  objc_destroyWeak((v25 + 32));
+  objc_destroyWeak((v24 + 40));
+  objc_destroyWeak((v26 - 152));
   _Unwind_Resume(a1);
 }
 
@@ -679,19 +679,18 @@ void sub_10000647C(uint64_t a1)
       [v3 setUserInactivityStatus:0];
     }
 
-    v8 = (a1 + 48);
     v7 = *(a1 + 48);
     if (v7 == 2)
     {
-      v9 = [v3 serialQueue];
+      v8 = [v3 serialQueue];
       block[0] = _NSConcreteStackBlock;
       block[1] = 3221225472;
       block[2] = sub_100006610;
       block[3] = &unk_1000245D0;
-      objc_copyWeak(&v12, (a1 + 40));
-      dispatch_async(v9, block);
+      objc_copyWeak(&v11, (a1 + 40));
+      dispatch_async(v8, block);
 
-      objc_destroyWeak(&v12);
+      objc_destroyWeak(&v11);
     }
 
     else if (v7 == 1)
@@ -701,10 +700,10 @@ void sub_10000647C(uint64_t a1)
 
     else if (v7)
     {
-      v10 = [v3 logHandle];
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v9 = [v3 logHandle];
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        sub_100014CEC(v8);
+        sub_100014CEC();
       }
     }
 
@@ -726,8 +725,9 @@ void sub_100006610(uint64_t a1)
   }
 }
 
-void sub_100006654(uint64_t a1, uint64_t a2, char a3)
+void sub_100006654(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v6 = WeakRetained;
   if (WeakRetained)
@@ -750,7 +750,7 @@ void sub_100006654(uint64_t a1, uint64_t a2, char a3)
       sub_100014D64();
     }
 
-    if ((a3 & 1) == 0)
+    if ((v3 & 1) == 0)
     {
       v10 = [v6 logHandle];
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
@@ -929,8 +929,9 @@ LABEL_13:
   return v15;
 }
 
-uint64_t sub_10000C8B8(unsigned int a1, void *a2, _DWORD *a3, __IOHIDDevice *a4, void *a5)
+uint64_t sub_10000C8B8(uint64_t a1, void *a2, _DWORD *a3, __IOHIDDevice *a4, void *a5)
 {
+  v8 = a1;
   v9 = 3758097090;
   v10 = a5;
   pReportLength = 513;
@@ -938,7 +939,7 @@ uint64_t sub_10000C8B8(unsigned int a1, void *a2, _DWORD *a3, __IOHIDDevice *a4,
   {
     if (*a3 <= 0x200u)
     {
-      v9 = IOHIDDeviceGetReport(a4, kIOHIDReportTypeFeature, a1, &report, &pReportLength);
+      v9 = IOHIDDeviceGetReport(a4, kIOHIDReportTypeFeature, v8, &report, &pReportLength);
       if (!v9)
       {
         v13 = pReportLength;
@@ -963,7 +964,7 @@ uint64_t sub_10000C8B8(unsigned int a1, void *a2, _DWORD *a3, __IOHIDDevice *a4,
   v11 = v10;
   if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
-    sub_100015308(a1, v9, v11);
+    sub_100015308(v8, v9, v11);
   }
 
 LABEL_9:
@@ -1178,12 +1179,13 @@ void sub_10000E5F8(uint64_t a1, void *a2, void *a3)
   [*(a1 + 40) addObject:v7];
 }
 
-void sub_10000EF3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, id a36, char a37)
+void sub_10000EF3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, id a36, ...)
 {
+  va_start(va, a36);
   _Block_object_dispose(&a25, 8);
   _Block_object_dispose(&a31, 8);
   objc_destroyWeak(&a36);
-  _Block_object_dispose(&a37, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -1296,60 +1298,60 @@ intptr_t sub_10000FD34(NSObject *a1, io_iterator_t iterator)
   return dispatch_semaphore_signal(a1);
 }
 
-void sub_100012390(uint64_t a1)
+void sub_100012390(uint64_t a1, uint64_t a2)
 {
   if (*(*(a1 + 32) + 56))
   {
     return;
   }
 
-  v2 = IOPSCopyPowerSourcesByType();
-  if (!v2)
+  v3 = IOPSCopyPowerSourcesByType();
+  if (!v3)
   {
     goto LABEL_19;
   }
 
-  v3 = v2;
-  v4 = IOPSCopyPowerSourcesList(v2);
-  if (!v4)
+  v4 = v3;
+  v5 = IOPSCopyPowerSourcesList(v3);
+  if (!v5)
   {
     goto LABEL_18;
   }
 
-  v5 = v4;
-  Count = CFArrayGetCount(v4);
+  v6 = v5;
+  Count = CFArrayGetCount(v5);
   if (Count < 1)
   {
     goto LABEL_17;
   }
 
-  v7 = Count;
-  v8 = 0;
+  v8 = Count;
+  v9 = 0;
   while (1)
   {
-    ValueAtIndex = CFArrayGetValueAtIndex(v5, v8);
+    ValueAtIndex = CFArrayGetValueAtIndex(v6, v9);
     if (!ValueAtIndex)
     {
       goto LABEL_14;
     }
 
-    v10 = IOPSGetPowerSourceDescription(v3, ValueAtIndex);
-    if (!v10)
+    v11 = IOPSGetPowerSourceDescription(v4, ValueAtIndex);
+    if (!v11)
     {
       goto LABEL_14;
     }
 
-    v11 = [NSDictionary dictionaryWithDictionary:v10];
+    v12 = [NSDictionary dictionaryWithDictionary:v11];
     if (*(a1 + 40) != 1)
     {
       goto LABEL_25;
     }
 
-    v12 = [*(a1 + 32) serialNumber];
-    v13 = [v11 objectForKeyedSubscript:@"Accessory Identifier"];
-    v14 = [v12 isEqualToString:v13];
+    v13 = [*(a1 + 32) serialNumber];
+    v14 = [v12 objectForKeyedSubscript:@"Accessory Identifier"];
+    v15 = [v13 isEqualToString:v14];
 
-    if (v14)
+    if (v15)
     {
       break;
     }
@@ -1357,35 +1359,35 @@ void sub_100012390(uint64_t a1)
     if ((*(a1 + 40) & 1) == 0)
     {
 LABEL_25:
-      v15 = [*(a1 + 32) productName];
-      v16 = [v11 objectForKeyedSubscript:@"Name"];
-      v17 = [v15 isEqualToString:v16];
+      v16 = [*(a1 + 32) productName];
+      v17 = [v12 objectForKeyedSubscript:@"Name"];
+      v18 = [v16 isEqualToString:v17];
 
-      if (v17)
+      if (v18)
       {
         break;
       }
     }
 
 LABEL_14:
-    if (v7 == ++v8)
+    if (v8 == ++v9)
     {
       goto LABEL_17;
     }
   }
 
-  objc_storeStrong((*(a1 + 32) + 56), v11);
+  objc_storeStrong((*(a1 + 32) + 56), v12);
 
 LABEL_17:
-  CFRelease(v5);
+  CFRelease(v6);
 LABEL_18:
-  CFRelease(v3);
+  CFRelease(v4);
 LABEL_19:
-  v18 = *(a1 + 32);
-  if (v18[7])
+  v19 = *(a1 + 32);
+  if (v19[7])
   {
-    v19 = [v18 powerSemaphore];
-    dispatch_semaphore_signal(v19);
+    v20 = [v19 powerSemaphore];
+    dispatch_semaphore_signal(v20);
   }
 }
 
@@ -1400,13 +1402,14 @@ uint64_t sub_100012570(uint64_t a1)
   return (*(*(a1 + 40) + 16))();
 }
 
-void sub_100013070(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, id a29, uint64_t a30, char a31)
+void sub_100013070(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, id a29, uint64_t a30, ...)
 {
+  va_start(va, a30);
   _Block_object_dispose(&a19, 8);
   objc_destroyWeak(&a29);
-  _Block_object_dispose(&a31, 8);
-  objc_destroyWeak((v31 - 160));
-  _Block_object_dispose((v31 - 152), 8);
+  _Block_object_dispose(va, 8);
+  objc_destroyWeak((v30 - 160));
+  _Block_object_dispose((v30 - 152), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1508,16 +1511,16 @@ LABEL_11:
   return dispatch_semaphore_signal(*(a1 + 48));
 }
 
-void sub_100014270(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100014270(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -1723,13 +1726,6 @@ void sub_100014C30()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_100014CEC(int *a1)
-{
-  v6 = *a1;
-  sub_100009A00();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-}
-
 void sub_100014D64()
 {
   sub_100009A0C();
@@ -1891,13 +1887,6 @@ void sub_100015864(uint8_t *buf, void *a2, os_log_t log)
   *buf = 134217984;
   *a2 = 120;
   _os_log_debug_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEBUG, "Personalization request sent. Wait up to %lld seconds for response.", buf, 0xCu);
-}
-
-void sub_1000158B0(uint64_t a1)
-{
-  v6 = *(*a1 + 40);
-  sub_100009A00();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
 }
 
 void sub_1000159A8()

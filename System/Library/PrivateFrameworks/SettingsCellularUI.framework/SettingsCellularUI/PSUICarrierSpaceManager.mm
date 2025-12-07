@@ -24,6 +24,7 @@
 - (void)refresh;
 - (void)refreshAndReload;
 - (void)reset;
+- (void)setUserConsent:(BOOL)consent;
 - (void)simStatusDidChange:(id)change status:(id)status;
 - (void)usageDidChange;
 - (void)userConsentAcknowledged:(BOOL)acknowledged;
@@ -86,7 +87,7 @@ uint64_t __40__PSUICarrierSpaceManager_sharedManager__block_invoke()
 
 + (int64_t)bytesFromString:(id)string carrierSpaceUnits:(int64_t)units
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   v6 = objc_opt_new();
   [v6 setNumberStyle:1];
@@ -129,25 +130,24 @@ LABEL_11:
     }
   }
 
-  v14 = [MEMORY[0x277D4D830] loggerWithCategory:@"CarrierSpaceManager"];
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+  v13 = [MEMORY[0x277D4D830] loggerWithCategory:@"CarrierSpaceManager"];
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
-    v15 = [MEMORY[0x277CCABB0] numberWithInteger:units];
-    v16 = 138412290;
-    v17 = v15;
-    _os_log_error_impl(&dword_2658DE000, v14, OS_LOG_TYPE_ERROR, "invalid carrier space unit type: %@", &v16, 0xCu);
+    v14 = [MEMORY[0x277CCABB0] numberWithInteger:units];
+    v15 = 138412290;
+    v16 = v14;
+    _os_log_error_impl(&dword_2658DE000, v13, OS_LOG_TYPE_ERROR, "invalid carrier space unit type: %@", &v15, 0xCu);
   }
 
 LABEL_12:
-  v12 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (PSUICarrierSpaceManager)init
 {
-  v14.receiver = self;
-  v14.super_class = PSUICarrierSpaceManager;
-  v2 = [(PSUICarrierSpaceManager *)&v14 init];
+  v13.receiver = self;
+  v13.super_class = PSUICarrierSpaceManager;
+  v2 = [(PSUICarrierSpaceManager *)&v13 init];
   if (v2)
   {
     v3 = [MEMORY[0x277D4D878] createCTClientSerialQueue:@"carrier_space"];
@@ -157,30 +157,29 @@ LABEL_12:
 
     [(CoreTelephonyClient *)v2->_coreTelephonyClient setDelegate:v2];
     v6 = [MEMORY[0x277D4D878] createCTClientSerialQueue:@"carrier_space_client"];
-    v16 = 0;
-    v17 = &v16;
-    v18 = 0x2050000000;
+    v15 = 0;
+    v16 = &v15;
+    v17 = 0x2050000000;
     v7 = getCTCarrierSpaceClientClass_softClass;
-    v19 = getCTCarrierSpaceClientClass_softClass;
+    v18 = getCTCarrierSpaceClientClass_softClass;
     if (!getCTCarrierSpaceClientClass_softClass)
     {
-      v15[0] = MEMORY[0x277D85DD0];
-      v15[1] = 3221225472;
-      v15[2] = __getCTCarrierSpaceClientClass_block_invoke;
-      v15[3] = &unk_279BA9F68;
-      v15[4] = &v16;
-      __getCTCarrierSpaceClientClass_block_invoke(v15);
-      v7 = v17[3];
+      v14[0] = MEMORY[0x277D85DD0];
+      v14[1] = 3221225472;
+      v14[2] = __getCTCarrierSpaceClientClass_block_invoke;
+      v14[3] = &unk_279BA9F68;
+      v14[4] = &v15;
+      __getCTCarrierSpaceClientClass_block_invoke(v14);
+      v7 = v16[3];
     }
 
     v8 = v7;
-    _Block_object_dispose(&v16, 8);
+    _Block_object_dispose(&v15, 8);
     v9 = [[v7 alloc] initWithQueue:v6];
     carrierSpaceClient = v2->_carrierSpaceClient;
     v2->_carrierSpaceClient = v9;
 
     [(CTCarrierSpaceClient *)v2->_carrierSpaceClient setDelegate:v2];
-    v11 = *MEMORY[0x277CBECE8];
     v2->_serverConnection = _CTServerConnectionCreateOnTargetQueue();
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
     [defaultCenter addObserver:v2 selector:sel_refreshAndReload name:@"com.apple.PreferencesApp.willBecomeActive" object:0];
@@ -204,12 +203,12 @@ LABEL_12:
 
 - (BOOL)hasUserConsent
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   getLogger = [(PSUICarrierSpaceManager *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v8) = 0;
-    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "Fetching user consent", &v8, 2u);
+    LOWORD(v7) = 0;
+    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "Fetching user consent", &v7, 2u);
   }
 
   if (!self->_hasUserConsent)
@@ -221,14 +220,12 @@ LABEL_12:
   if (os_log_type_enabled(getLogger2, OS_LOG_TYPE_DEFAULT))
   {
     hasUserConsent = self->_hasUserConsent;
-    v8 = 138412290;
-    v9 = hasUserConsent;
-    _os_log_impl(&dword_2658DE000, getLogger2, OS_LOG_TYPE_DEFAULT, "Has carrier space user consent: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = hasUserConsent;
+    _os_log_impl(&dword_2658DE000, getLogger2, OS_LOG_TYPE_DEFAULT, "Has carrier space user consent: %@", &v7, 0xCu);
   }
 
-  result = [(NSNumber *)self->_hasUserConsent BOOLValue];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return [(NSNumber *)self->_hasUserConsent BOOLValue];
 }
 
 - (id)userConsentFlowInfo
@@ -256,7 +253,7 @@ LABEL_12:
 
 void __46__PSUICarrierSpaceManager_userConsentFlowInfo__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -264,9 +261,9 @@ void __46__PSUICarrierSpaceManager_userConsentFlowInfo__block_invoke(uint64_t a1
     v7 = [*(a1 + 32) getLogger];
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v12 = 138412290;
-      v13 = v6;
-      _os_log_error_impl(&dword_2658DE000, v7, OS_LOG_TYPE_ERROR, "Error getting user consent flow info: %@", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = v6;
+      _os_log_error_impl(&dword_2658DE000, v7, OS_LOG_TYPE_ERROR, "Error getting user consent flow info: %@", &v11, 0xCu);
     }
   }
 
@@ -276,12 +273,34 @@ void __46__PSUICarrierSpaceManager_userConsentFlowInfo__block_invoke(uint64_t a1
   v10 = v5;
 
   dispatch_semaphore_signal(*(a1 + 40));
+}
+
+- (void)setUserConsent:(BOOL)consent
+{
+  consentCopy = consent;
   v11 = *MEMORY[0x277D85DE8];
+  getLogger = [(PSUICarrierSpaceManager *)self getLogger];
+  if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = @"did not consent the";
+    if (consentCopy)
+    {
+      v6 = @"consented the";
+    }
+
+    v9 = 138412290;
+    v10 = v6;
+    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "User %@ terms", &v9, 0xCu);
+  }
+
+  v7 = [MEMORY[0x277CCABB0] numberWithBool:consentCopy];
+  userConsentResponse = self->_userConsentResponse;
+  self->_userConsentResponse = v7;
 }
 
 - (void)userConsentAcknowledged:(BOOL)acknowledged
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   userConsentResponse = self->_userConsentResponse;
   if (userConsentResponse)
   {
@@ -300,7 +319,7 @@ void __46__PSUICarrierSpaceManager_userConsentFlowInfo__block_invoke(uint64_t a1
       }
 
       *buf = 138412290;
-      v17 = v9;
+      v16 = v9;
       _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "Server %@ in acknowledging user's consent response", buf, 0xCu);
     }
 
@@ -308,39 +327,35 @@ void __46__PSUICarrierSpaceManager_userConsentFlowInfo__block_invoke(uint64_t a1
     {
       v10 = dispatch_semaphore_create(0);
       carrierSpaceClient = self->_carrierSpaceClient;
-      v14[0] = MEMORY[0x277D85DD0];
-      v14[1] = 3221225472;
-      v14[2] = __51__PSUICarrierSpaceManager_userConsentAcknowledged___block_invoke;
-      v14[3] = &unk_279BA9EF0;
-      v14[4] = self;
-      v15 = v10;
+      v13[0] = MEMORY[0x277D85DD0];
+      v13[1] = 3221225472;
+      v13[2] = __51__PSUICarrierSpaceManager_userConsentAcknowledged___block_invoke;
+      v13[3] = &unk_279BA9EF0;
+      v13[4] = self;
+      v14 = v10;
       v12 = v10;
-      [(CTCarrierSpaceClient *)carrierSpaceClient setUserConsent:bOOLValue completion:v14];
+      [(CTCarrierSpaceClient *)carrierSpaceClient setUserConsent:bOOLValue completion:v13];
       dispatch_semaphore_wait(v12, 0xFFFFFFFFFFFFFFFFLL);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __51__PSUICarrierSpaceManager_userConsentAcknowledged___block_invoke(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
     v4 = [*(a1 + 32) getLogger];
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v6 = 138412290;
-      v7 = v3;
-      _os_log_error_impl(&dword_2658DE000, v4, OS_LOG_TYPE_ERROR, "Error setting user consent: %@", &v6, 0xCu);
+      v5 = 138412290;
+      v6 = v3;
+      _os_log_error_impl(&dword_2658DE000, v4, OS_LOG_TYPE_ERROR, "Error setting user consent: %@", &v5, 0xCu);
     }
   }
 
   dispatch_semaphore_signal(*(a1 + 40));
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reset
@@ -369,35 +384,33 @@ void __51__PSUICarrierSpaceManager_userConsentAcknowledged___block_invoke(uint64
 
 - (void)refreshAndReload
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   getLogger = [(PSUICarrierSpaceManager *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315650;
-    v7 = "[PSUICarrierSpaceManager refreshAndReload]";
-    v8 = 2112;
-    v9 = @"com.apple.PreferencesApp.willBecomeActive";
-    v10 = 2112;
-    v11 = @"PSUICarrierSpaceChanged";
-    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s received notification: %@ and will post notification %@", &v6, 0x20u);
+    v5 = 136315650;
+    v6 = "[PSUICarrierSpaceManager refreshAndReload]";
+    v7 = 2112;
+    v8 = @"com.apple.PreferencesApp.willBecomeActive";
+    v9 = 2112;
+    v10 = @"PSUICarrierSpaceChanged";
+    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s received notification: %@ and will post notification %@", &v5, 0x20u);
   }
 
   [(PSUICarrierSpaceManager *)self refresh];
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter postNotificationName:@"PSUICarrierSpaceChanged" object:0];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)refresh
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   getLogger = [(PSUICarrierSpaceManager *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEBUG))
   {
     capabilities = [(PSUICarrierSpaceManager *)self capabilities];
     *buf = 138412290;
-    v13 = capabilities;
+    v12 = capabilities;
     _os_log_debug_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEBUG, "Refreshing carrier space info, current capabilities: %@", buf, 0xCu);
   }
 
@@ -409,28 +422,26 @@ void __51__PSUICarrierSpaceManager_userConsentAcknowledged___block_invoke(uint64
     if (os_log_type_enabled(getLogger2, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v13 = "[PSUICarrierSpaceManager refresh]";
+      v12 = "[PSUICarrierSpaceManager refresh]";
       _os_log_impl(&dword_2658DE000, getLogger2, OS_LOG_TYPE_DEFAULT, "%s issuing carrier space refresh request", buf, 0xCu);
     }
 
     carrierSpaceClient = self->_carrierSpaceClient;
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __34__PSUICarrierSpaceManager_refresh__block_invoke;
-    v10[3] = &unk_279BA9EF0;
-    v10[4] = self;
-    v11 = v4;
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __34__PSUICarrierSpaceManager_refresh__block_invoke;
+    v9[3] = &unk_279BA9EF0;
+    v9[4] = self;
+    v10 = v4;
     v7 = v4;
-    [(CTCarrierSpaceClient *)carrierSpaceClient refreshAllInfo:v10];
+    [(CTCarrierSpaceClient *)carrierSpaceClient refreshAllInfo:v9];
     dispatch_semaphore_wait(v7, 0xFFFFFFFFFFFFFFFFLL);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __34__PSUICarrierSpaceManager_refresh__block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   if (!v3)
@@ -438,13 +449,13 @@ void __34__PSUICarrierSpaceManager_refresh__block_invoke(uint64_t a1, void *a2)
     v6 = [*(a1 + 32) getLogger];
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 136315138;
-      v16 = "[PSUICarrierSpaceManager refresh]_block_invoke";
+      v14 = 136315138;
+      v15 = "[PSUICarrierSpaceManager refresh]_block_invoke";
       v9 = "%s refresh request succeeded";
       v10 = v6;
       v11 = 12;
 LABEL_10:
-      _os_log_impl(&dword_2658DE000, v10, OS_LOG_TYPE_DEFAULT, v9, &v15, v11);
+      _os_log_impl(&dword_2658DE000, v10, OS_LOG_TYPE_DEFAULT, v9, &v14, v11);
     }
 
 LABEL_11:
@@ -459,10 +470,10 @@ LABEL_11:
   {
     if (v7)
     {
-      v15 = 136315394;
-      v16 = "[PSUICarrierSpaceManager refresh]_block_invoke";
-      v17 = 2112;
-      v18 = v4;
+      v14 = 136315394;
+      v15 = "[PSUICarrierSpaceManager refresh]_block_invoke";
+      v16 = 2112;
+      v17 = v4;
       v9 = "%s refresh request failed: %@";
       v10 = v6;
       v11 = 22;
@@ -474,9 +485,9 @@ LABEL_11:
 
   if (v7)
   {
-    v15 = 136315138;
-    v16 = "[PSUICarrierSpaceManager refresh]_block_invoke";
-    _os_log_impl(&dword_2658DE000, v6, OS_LOG_TYPE_DEFAULT, "%s refresh request failed: user consent required", &v15, 0xCu);
+    v14 = 136315138;
+    v15 = "[PSUICarrierSpaceManager refresh]_block_invoke";
+    _os_log_impl(&dword_2658DE000, v6, OS_LOG_TYPE_DEFAULT, "%s refresh request failed: user consent required", &v14, 0xCu);
   }
 
   v8 = MEMORY[0x277CBEC28];
@@ -487,7 +498,6 @@ LABEL_12:
   *(v12 + 48) = v8;
 
   dispatch_semaphore_signal(*(a1 + 40));
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)supportsSweetgum
@@ -527,7 +537,7 @@ LABEL_12:
 
 - (id)capabilities
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   capabilities = selfCopy->_capabilities;
@@ -538,19 +548,19 @@ LABEL_12:
     if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v14 = "[PSUICarrierSpaceManager capabilities]";
+      v13 = "[PSUICarrierSpaceManager capabilities]";
       _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s issuing carrier space get capabilities request", buf, 0xCu);
     }
 
     carrierSpaceClient = selfCopy->_carrierSpaceClient;
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __39__PSUICarrierSpaceManager_capabilities__block_invoke;
-    v11[3] = &unk_279BAA6B0;
-    v11[4] = selfCopy;
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __39__PSUICarrierSpaceManager_capabilities__block_invoke;
+    v10[3] = &unk_279BAA6B0;
+    v10[4] = selfCopy;
     v7 = v4;
-    v12 = v7;
-    [(CTCarrierSpaceClient *)carrierSpaceClient getCapabilities:v11];
+    v11 = v7;
+    [(CTCarrierSpaceClient *)carrierSpaceClient getCapabilities:v10];
     dispatch_semaphore_wait(v7, 0xFFFFFFFFFFFFFFFFLL);
 
     capabilities = selfCopy->_capabilities;
@@ -559,14 +569,12 @@ LABEL_12:
   v8 = capabilities;
   objc_sync_exit(selfCopy);
 
-  v9 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 void __39__PSUICarrierSpaceManager_capabilities__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a3;
   v8 = [*(a1 + 32) getLogger];
@@ -575,38 +583,37 @@ void __39__PSUICarrierSpaceManager_capabilities__block_invoke(uint64_t a1, void 
   {
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v13 = 136315394;
-      v14 = "[PSUICarrierSpaceManager capabilities]_block_invoke";
-      v15 = 2112;
-      v16 = v7;
-      _os_log_error_impl(&dword_2658DE000, v9, OS_LOG_TYPE_ERROR, "%s get capabilities request failed: %@", &v13, 0x16u);
+      v12 = 136315394;
+      v13 = "[PSUICarrierSpaceManager capabilities]_block_invoke";
+      v14 = 2112;
+      v15 = v7;
+      _os_log_error_impl(&dword_2658DE000, v9, OS_LOG_TYPE_ERROR, "%s get capabilities request failed: %@", &v12, 0x16u);
     }
   }
 
   else if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 136315138;
-    v14 = "[PSUICarrierSpaceManager capabilities]_block_invoke";
-    _os_log_impl(&dword_2658DE000, v9, OS_LOG_TYPE_DEFAULT, "%s get capabilities request succeeded", &v13, 0xCu);
+    v12 = 136315138;
+    v13 = "[PSUICarrierSpaceManager capabilities]_block_invoke";
+    _os_log_impl(&dword_2658DE000, v9, OS_LOG_TYPE_DEFAULT, "%s get capabilities request succeeded", &v12, 0xCu);
   }
 
   objc_storeStrong((*(a1 + 32) + 8), a2);
   v10 = [*(a1 + 32) getLogger];
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    v12 = *(*(a1 + 32) + 8);
-    v13 = 138412290;
-    v14 = v12;
-    _os_log_debug_impl(&dword_2658DE000, v10, OS_LOG_TYPE_DEBUG, "Received carrier space capabilities: %@", &v13, 0xCu);
+    v11 = *(*(a1 + 32) + 8);
+    v12 = 138412290;
+    v13 = v11;
+    _os_log_debug_impl(&dword_2658DE000, v10, OS_LOG_TYPE_DEBUG, "Received carrier space capabilities: %@", &v12, 0xCu);
   }
 
   dispatch_semaphore_signal(*(a1 + 40));
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)usageInfo
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   capabilities = [(PSUICarrierSpaceManager *)self capabilities];
   if ([capabilities supportsUsage])
   {
@@ -622,32 +629,31 @@ void __39__PSUICarrierSpaceManager_capabilities__block_invoke(uint64_t a1, void 
     if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v14 = "[PSUICarrierSpaceManager usageInfo]";
+      v13 = "[PSUICarrierSpaceManager usageInfo]";
       _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s issuing carrier space fetch usage info request", buf, 0xCu);
     }
 
     carrierSpaceClient = self->_carrierSpaceClient;
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __36__PSUICarrierSpaceManager_usageInfo__block_invoke;
-    v11[3] = &unk_279BAA6D8;
-    v11[4] = self;
-    v12 = v5;
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __36__PSUICarrierSpaceManager_usageInfo__block_invoke;
+    v10[3] = &unk_279BAA6D8;
+    v10[4] = self;
+    v11 = v5;
     capabilities = v5;
-    [(CTCarrierSpaceClient *)carrierSpaceClient fetchUsageInfo:1 completion:v11];
+    [(CTCarrierSpaceClient *)carrierSpaceClient fetchUsageInfo:1 completion:v10];
     dispatch_semaphore_wait(capabilities, 0xFFFFFFFFFFFFFFFFLL);
   }
 
 LABEL_7:
   v8 = self->_usageInfo;
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 void __36__PSUICarrierSpaceManager_usageInfo__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [*(a1 + 32) getLogger];
@@ -656,19 +662,19 @@ void __36__PSUICarrierSpaceManager_usageInfo__block_invoke(uint64_t a1, void *a2
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v13 = 136315394;
-      v14 = "[PSUICarrierSpaceManager usageInfo]_block_invoke";
-      v15 = 2112;
-      v16 = v6;
-      _os_log_error_impl(&dword_2658DE000, v8, OS_LOG_TYPE_ERROR, "%s fetch usage info request failed: %@", &v13, 0x16u);
+      v12 = 136315394;
+      v13 = "[PSUICarrierSpaceManager usageInfo]_block_invoke";
+      v14 = 2112;
+      v15 = v6;
+      _os_log_error_impl(&dword_2658DE000, v8, OS_LOG_TYPE_ERROR, "%s fetch usage info request failed: %@", &v12, 0x16u);
     }
   }
 
   else if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 136315138;
-    v14 = "[PSUICarrierSpaceManager usageInfo]_block_invoke";
-    _os_log_impl(&dword_2658DE000, v8, OS_LOG_TYPE_DEFAULT, "%s fetch usage info request succeeded", &v13, 0xCu);
+    v12 = 136315138;
+    v13 = "[PSUICarrierSpaceManager usageInfo]_block_invoke";
+    _os_log_impl(&dword_2658DE000, v8, OS_LOG_TYPE_DEFAULT, "%s fetch usage info request succeeded", &v12, 0xCu);
   }
 
   v9 = *(a1 + 32);
@@ -677,12 +683,11 @@ void __36__PSUICarrierSpaceManager_usageInfo__block_invoke(uint64_t a1, void *a2
   v11 = v5;
 
   dispatch_semaphore_signal(*(a1 + 40));
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)plansInfo
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   capabilities = [(PSUICarrierSpaceManager *)self capabilities];
   if ([capabilities supportsPlans])
   {
@@ -698,32 +703,31 @@ void __36__PSUICarrierSpaceManager_usageInfo__block_invoke(uint64_t a1, void *a2
     if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v14 = "[PSUICarrierSpaceManager plansInfo]";
+      v13 = "[PSUICarrierSpaceManager plansInfo]";
       _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s issuing carrier space fetch plans info request", buf, 0xCu);
     }
 
     carrierSpaceClient = self->_carrierSpaceClient;
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __36__PSUICarrierSpaceManager_plansInfo__block_invoke;
-    v11[3] = &unk_279BAA700;
-    v11[4] = self;
-    v12 = v5;
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __36__PSUICarrierSpaceManager_plansInfo__block_invoke;
+    v10[3] = &unk_279BAA700;
+    v10[4] = self;
+    v11 = v5;
     capabilities = v5;
-    [(CTCarrierSpaceClient *)carrierSpaceClient fetchPlansInfo:1 completion:v11];
+    [(CTCarrierSpaceClient *)carrierSpaceClient fetchPlansInfo:1 completion:v10];
     dispatch_semaphore_wait(capabilities, 0xFFFFFFFFFFFFFFFFLL);
   }
 
 LABEL_7:
   v8 = self->_plansInfo;
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 void __36__PSUICarrierSpaceManager_plansInfo__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [*(a1 + 32) getLogger];
@@ -732,19 +736,19 @@ void __36__PSUICarrierSpaceManager_plansInfo__block_invoke(uint64_t a1, void *a2
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v13 = 136315394;
-      v14 = "[PSUICarrierSpaceManager plansInfo]_block_invoke";
-      v15 = 2112;
-      v16 = v6;
-      _os_log_error_impl(&dword_2658DE000, v8, OS_LOG_TYPE_ERROR, "%s fetch plans info request failed: %@", &v13, 0x16u);
+      v12 = 136315394;
+      v13 = "[PSUICarrierSpaceManager plansInfo]_block_invoke";
+      v14 = 2112;
+      v15 = v6;
+      _os_log_error_impl(&dword_2658DE000, v8, OS_LOG_TYPE_ERROR, "%s fetch plans info request failed: %@", &v12, 0x16u);
     }
   }
 
   else if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 136315138;
-    v14 = "[PSUICarrierSpaceManager plansInfo]_block_invoke";
-    _os_log_impl(&dword_2658DE000, v8, OS_LOG_TYPE_DEFAULT, "%s fetch plans info request succeeded", &v13, 0xCu);
+    v12 = 136315138;
+    v13 = "[PSUICarrierSpaceManager plansInfo]_block_invoke";
+    _os_log_impl(&dword_2658DE000, v8, OS_LOG_TYPE_DEFAULT, "%s fetch plans info request succeeded", &v12, 0xCu);
   }
 
   v9 = *(a1 + 32);
@@ -753,155 +757,9 @@ void __36__PSUICarrierSpaceManager_plansInfo__block_invoke(uint64_t a1, void *a2
   v11 = v5;
 
   dispatch_semaphore_signal(*(a1 + 40));
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)subscribedPlanOptions
-{
-  v30 = *MEMORY[0x277D85DE8];
-  v3 = objc_opt_new();
-  v24 = 0u;
-  v25 = 0u;
-  v26 = 0u;
-  v27 = 0u;
-  plansInfo = [(PSUICarrierSpaceManager *)self plansInfo];
-  planGroupsList = [plansInfo planGroupsList];
-
-  v6 = [planGroupsList countByEnumeratingWithState:&v24 objects:v29 count:16];
-  if (v6)
-  {
-    v7 = v6;
-    v8 = *v25;
-    do
-    {
-      for (i = 0; i != v7; ++i)
-      {
-        if (*v25 != v8)
-        {
-          objc_enumerationMutation(planGroupsList);
-        }
-
-        v10 = *(*(&v24 + 1) + 8 * i);
-        v20 = 0u;
-        v21 = 0u;
-        v22 = 0u;
-        v23 = 0u;
-        groupOptionsList = [v10 groupOptionsList];
-        v12 = [groupOptionsList countByEnumeratingWithState:&v20 objects:v28 count:16];
-        if (v12)
-        {
-          v13 = v12;
-          v14 = *v21;
-          do
-          {
-            for (j = 0; j != v13; ++j)
-            {
-              if (*v21 != v14)
-              {
-                objc_enumerationMutation(groupOptionsList);
-              }
-
-              v16 = *(*(&v20 + 1) + 8 * j);
-              if ([v16 planStatus] == 1)
-              {
-                [v3 addObject:v16];
-              }
-            }
-
-            v13 = [groupOptionsList countByEnumeratingWithState:&v20 objects:v28 count:16];
-          }
-
-          while (v13);
-        }
-      }
-
-      v7 = [planGroupsList countByEnumeratingWithState:&v24 objects:v29 count:16];
-    }
-
-    while (v7);
-  }
-
-  v17 = [v3 copy];
-  v18 = *MEMORY[0x277D85DE8];
-
-  return v17;
-}
-
-- (id)subscribedDomesticPlanOptions
-{
-  v30 = *MEMORY[0x277D85DE8];
-  v3 = objc_opt_new();
-  v24 = 0u;
-  v25 = 0u;
-  v26 = 0u;
-  v27 = 0u;
-  plansInfo = [(PSUICarrierSpaceManager *)self plansInfo];
-  planGroupsList = [plansInfo planGroupsList];
-
-  v6 = [planGroupsList countByEnumeratingWithState:&v24 objects:v29 count:16];
-  if (v6)
-  {
-    v7 = v6;
-    v8 = *v25;
-    do
-    {
-      for (i = 0; i != v7; ++i)
-      {
-        if (*v25 != v8)
-        {
-          objc_enumerationMutation(planGroupsList);
-        }
-
-        v10 = *(*(&v24 + 1) + 8 * i);
-        if ([v10 planCategory] == 1)
-        {
-          v22 = 0u;
-          v23 = 0u;
-          v20 = 0u;
-          v21 = 0u;
-          groupOptionsList = [v10 groupOptionsList];
-          v12 = [groupOptionsList countByEnumeratingWithState:&v20 objects:v28 count:16];
-          if (v12)
-          {
-            v13 = v12;
-            v14 = *v21;
-            do
-            {
-              for (j = 0; j != v13; ++j)
-              {
-                if (*v21 != v14)
-                {
-                  objc_enumerationMutation(groupOptionsList);
-                }
-
-                v16 = *(*(&v20 + 1) + 8 * j);
-                if ([v16 planStatus] == 1)
-                {
-                  [v3 addObject:v16];
-                }
-              }
-
-              v13 = [groupOptionsList countByEnumeratingWithState:&v20 objects:v28 count:16];
-            }
-
-            while (v13);
-          }
-        }
-      }
-
-      v7 = [planGroupsList countByEnumeratingWithState:&v24 objects:v29 count:16];
-    }
-
-    while (v7);
-  }
-
-  v17 = [v3 copy];
-  v18 = *MEMORY[0x277D85DE8];
-
-  return v17;
-}
-
-- (id)planMetrics
 {
   v29 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
@@ -909,10 +767,10 @@ void __36__PSUICarrierSpaceManager_plansInfo__block_invoke(uint64_t a1, void *a2
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  usageInfo = [(PSUICarrierSpaceManager *)self usageInfo];
-  accountMetrics = [usageInfo accountMetrics];
+  plansInfo = [(PSUICarrierSpaceManager *)self plansInfo];
+  planGroupsList = [plansInfo planGroupsList];
 
-  v6 = [accountMetrics countByEnumeratingWithState:&v23 objects:v28 count:16];
+  v6 = [planGroupsList countByEnumeratingWithState:&v23 objects:v28 count:16];
   if (v6)
   {
     v7 = v6;
@@ -923,7 +781,7 @@ void __36__PSUICarrierSpaceManager_plansInfo__block_invoke(uint64_t a1, void *a2
       {
         if (*v24 != v8)
         {
-          objc_enumerationMutation(accountMetrics);
+          objc_enumerationMutation(planGroupsList);
         }
 
         v10 = *(*(&v23 + 1) + 8 * i);
@@ -931,8 +789,8 @@ void __36__PSUICarrierSpaceManager_plansInfo__block_invoke(uint64_t a1, void *a2
         v20 = 0u;
         v21 = 0u;
         v22 = 0u;
-        applicablePlans = [v10 applicablePlans];
-        v12 = [applicablePlans countByEnumeratingWithState:&v19 objects:v27 count:16];
+        groupOptionsList = [v10 groupOptionsList];
+        v12 = [groupOptionsList countByEnumeratingWithState:&v19 objects:v27 count:16];
         if (v12)
         {
           v13 = v12;
@@ -943,34 +801,176 @@ void __36__PSUICarrierSpaceManager_plansInfo__block_invoke(uint64_t a1, void *a2
             {
               if (*v20 != v14)
               {
-                objc_enumerationMutation(applicablePlans);
+                objc_enumerationMutation(groupOptionsList);
               }
 
-              [v3 addObject:*(*(&v19 + 1) + 8 * j)];
+              v16 = *(*(&v19 + 1) + 8 * j);
+              if ([v16 planStatus] == 1)
+              {
+                [v3 addObject:v16];
+              }
             }
 
-            v13 = [applicablePlans countByEnumeratingWithState:&v19 objects:v27 count:16];
+            v13 = [groupOptionsList countByEnumeratingWithState:&v19 objects:v27 count:16];
           }
 
           while (v13);
         }
       }
 
-      v7 = [accountMetrics countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v7 = [planGroupsList countByEnumeratingWithState:&v23 objects:v28 count:16];
+    }
+
+    while (v7);
+  }
+
+  v17 = [v3 copy];
+
+  return v17;
+}
+
+- (id)subscribedDomesticPlanOptions
+{
+  v29 = *MEMORY[0x277D85DE8];
+  v3 = objc_opt_new();
+  v23 = 0u;
+  v24 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  plansInfo = [(PSUICarrierSpaceManager *)self plansInfo];
+  planGroupsList = [plansInfo planGroupsList];
+
+  v6 = [planGroupsList countByEnumeratingWithState:&v23 objects:v28 count:16];
+  if (v6)
+  {
+    v7 = v6;
+    v8 = *v24;
+    do
+    {
+      for (i = 0; i != v7; ++i)
+      {
+        if (*v24 != v8)
+        {
+          objc_enumerationMutation(planGroupsList);
+        }
+
+        v10 = *(*(&v23 + 1) + 8 * i);
+        if ([v10 planCategory] == 1)
+        {
+          v21 = 0u;
+          v22 = 0u;
+          v19 = 0u;
+          v20 = 0u;
+          groupOptionsList = [v10 groupOptionsList];
+          v12 = [groupOptionsList countByEnumeratingWithState:&v19 objects:v27 count:16];
+          if (v12)
+          {
+            v13 = v12;
+            v14 = *v20;
+            do
+            {
+              for (j = 0; j != v13; ++j)
+              {
+                if (*v20 != v14)
+                {
+                  objc_enumerationMutation(groupOptionsList);
+                }
+
+                v16 = *(*(&v19 + 1) + 8 * j);
+                if ([v16 planStatus] == 1)
+                {
+                  [v3 addObject:v16];
+                }
+              }
+
+              v13 = [groupOptionsList countByEnumeratingWithState:&v19 objects:v27 count:16];
+            }
+
+            while (v13);
+          }
+        }
+      }
+
+      v7 = [planGroupsList countByEnumeratingWithState:&v23 objects:v28 count:16];
+    }
+
+    while (v7);
+  }
+
+  v17 = [v3 copy];
+
+  return v17;
+}
+
+- (id)planMetrics
+{
+  v28 = *MEMORY[0x277D85DE8];
+  v3 = objc_opt_new();
+  v22 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  v25 = 0u;
+  usageInfo = [(PSUICarrierSpaceManager *)self usageInfo];
+  accountMetrics = [usageInfo accountMetrics];
+
+  v6 = [accountMetrics countByEnumeratingWithState:&v22 objects:v27 count:16];
+  if (v6)
+  {
+    v7 = v6;
+    v8 = *v23;
+    do
+    {
+      for (i = 0; i != v7; ++i)
+      {
+        if (*v23 != v8)
+        {
+          objc_enumerationMutation(accountMetrics);
+        }
+
+        v10 = *(*(&v22 + 1) + 8 * i);
+        v18 = 0u;
+        v19 = 0u;
+        v20 = 0u;
+        v21 = 0u;
+        applicablePlans = [v10 applicablePlans];
+        v12 = [applicablePlans countByEnumeratingWithState:&v18 objects:v26 count:16];
+        if (v12)
+        {
+          v13 = v12;
+          v14 = *v19;
+          do
+          {
+            for (j = 0; j != v13; ++j)
+            {
+              if (*v19 != v14)
+              {
+                objc_enumerationMutation(applicablePlans);
+              }
+
+              [v3 addObject:*(*(&v18 + 1) + 8 * j)];
+            }
+
+            v13 = [applicablePlans countByEnumeratingWithState:&v18 objects:v26 count:16];
+          }
+
+          while (v13);
+        }
+      }
+
+      v7 = [accountMetrics countByEnumeratingWithState:&v22 objects:v27 count:16];
     }
 
     while (v7);
   }
 
   v16 = [v3 copy];
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
 
 - (id)appsInfo
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   capabilities = [(PSUICarrierSpaceManager *)self capabilities];
   if ([capabilities supportsApplications])
   {
@@ -986,32 +986,31 @@ void __36__PSUICarrierSpaceManager_plansInfo__block_invoke(uint64_t a1, void *a2
     if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v14 = "[PSUICarrierSpaceManager appsInfo]";
+      v13 = "[PSUICarrierSpaceManager appsInfo]";
       _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s issuing carrier space fetch apps info request", buf, 0xCu);
     }
 
     carrierSpaceClient = self->_carrierSpaceClient;
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __35__PSUICarrierSpaceManager_appsInfo__block_invoke;
-    v11[3] = &unk_279BAA728;
-    v11[4] = self;
-    v12 = v5;
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __35__PSUICarrierSpaceManager_appsInfo__block_invoke;
+    v10[3] = &unk_279BAA728;
+    v10[4] = self;
+    v11 = v5;
     capabilities = v5;
-    [(CTCarrierSpaceClient *)carrierSpaceClient fetchAppsInfo:1 completion:v11];
+    [(CTCarrierSpaceClient *)carrierSpaceClient fetchAppsInfo:1 completion:v10];
     dispatch_semaphore_wait(capabilities, 0xFFFFFFFFFFFFFFFFLL);
   }
 
 LABEL_7:
   v8 = self->_appsInfo;
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 void __35__PSUICarrierSpaceManager_appsInfo__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a3;
   v8 = [*(a1 + 32) getLogger];
@@ -1020,38 +1019,37 @@ void __35__PSUICarrierSpaceManager_appsInfo__block_invoke(uint64_t a1, void *a2,
   {
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v13 = 136315394;
-      v14 = "[PSUICarrierSpaceManager appsInfo]_block_invoke";
-      v15 = 2112;
-      v16 = v7;
-      _os_log_error_impl(&dword_2658DE000, v9, OS_LOG_TYPE_ERROR, "%s fetch apps info request failed: %@", &v13, 0x16u);
+      v12 = 136315394;
+      v13 = "[PSUICarrierSpaceManager appsInfo]_block_invoke";
+      v14 = 2112;
+      v15 = v7;
+      _os_log_error_impl(&dword_2658DE000, v9, OS_LOG_TYPE_ERROR, "%s fetch apps info request failed: %@", &v12, 0x16u);
     }
   }
 
   else if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 136315138;
-    v14 = "[PSUICarrierSpaceManager appsInfo]_block_invoke";
-    _os_log_impl(&dword_2658DE000, v9, OS_LOG_TYPE_DEFAULT, "%s fetch apps info request succeeded", &v13, 0xCu);
+    v12 = 136315138;
+    v13 = "[PSUICarrierSpaceManager appsInfo]_block_invoke";
+    _os_log_impl(&dword_2658DE000, v9, OS_LOG_TYPE_DEFAULT, "%s fetch apps info request succeeded", &v12, 0xCu);
   }
 
   objc_storeStrong((*(a1 + 32) + 32), a2);
   v10 = [*(a1 + 32) getLogger];
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    v12 = *(*(a1 + 32) + 32);
-    v13 = 138412290;
-    v14 = v12;
-    _os_log_debug_impl(&dword_2658DE000, v10, OS_LOG_TYPE_DEBUG, "Received carrier space apps info: %@", &v13, 0xCu);
+    v11 = *(*(a1 + 32) + 32);
+    v12 = 138412290;
+    v13 = v11;
+    _os_log_debug_impl(&dword_2658DE000, v10, OS_LOG_TYPE_DEBUG, "Received carrier space apps info: %@", &v12, 0xCu);
   }
 
   dispatch_semaphore_signal(*(a1 + 40));
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)carrierAppInstallController
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   appsInfo = [(PSUICarrierSpaceManager *)self appsInfo];
   appsList = [appsInfo appsList];
   v5 = [appsList count];
@@ -1070,9 +1068,9 @@ void __35__PSUICarrierSpaceManager_appsInfo__block_invoke(uint64_t a1, void *a2,
       getLogger = [(PSUICarrierSpaceManager *)self getLogger];
       if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEBUG))
       {
-        v20 = 138412290;
-        v21 = getLogger2;
-        _os_log_debug_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEBUG, "Instantiating app install controller with app ID: %@", &v20, 0xCu);
+        v19 = 138412290;
+        v20 = getLogger2;
+        _os_log_debug_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEBUG, "Instantiating app install controller with app ID: %@", &v19, 0xCu);
       }
 
       v11 = [PSUIAppInstallController alloc];
@@ -1092,17 +1090,15 @@ void __35__PSUICarrierSpaceManager_appsInfo__block_invoke(uint64_t a1, void *a2,
     if (os_log_type_enabled(getLogger2, OS_LOG_TYPE_DEBUG))
     {
       appsInfo = self->_appsInfo;
-      v20 = 136315394;
-      v21 = "[PSUICarrierSpaceManager carrierAppInstallController]";
-      v22 = 2112;
-      v23 = appsInfo;
-      _os_log_debug_impl(&dword_2658DE000, getLogger2, OS_LOG_TYPE_DEBUG, "%s: appsInfo does not contain any apps: %@", &v20, 0x16u);
+      v19 = 136315394;
+      v20 = "[PSUICarrierSpaceManager carrierAppInstallController]";
+      v21 = 2112;
+      v22 = appsInfo;
+      _os_log_debug_impl(&dword_2658DE000, getLogger2, OS_LOG_TYPE_DEBUG, "%s: appsInfo does not contain any apps: %@", &v19, 0x16u);
     }
 
     v16 = 0;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -1117,7 +1113,7 @@ void __35__PSUICarrierSpaceManager_appsInfo__block_invoke(uint64_t a1, void *a2,
 
 - (id)descriptionForPlanMetrics:(id)metrics
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   metricsCopy = metrics;
   dataUsage = [metricsCopy dataUsage];
   sharedDataUsed = [dataUsage sharedDataUsed];
@@ -1172,7 +1168,7 @@ void __35__PSUICarrierSpaceManager_appsInfo__block_invoke(uint64_t a1, void *a2,
       }
 
       v26 = [v28 localizedStringForKey:v29 value:&stru_287733598 table:@"CarrierSpaceUsage"];
-      [v27 stringWithFormat:v26, v14, v37];
+      [v27 stringWithFormat:v26, v14, v36];
       goto LABEL_20;
     }
 
@@ -1195,12 +1191,12 @@ LABEL_17:
       }
 
       *buf = 136315138;
-      v39 = "[PSUICarrierSpaceManager descriptionForPlanMetrics:]";
-      v34 = "%s failed to generate description for plan with hidden used data metric type";
-      v35 = getLogger;
-      v36 = 12;
+      v38 = "[PSUICarrierSpaceManager descriptionForPlanMetrics:]";
+      v33 = "%s failed to generate description for plan with hidden used data metric type";
+      v34 = getLogger;
+      v35 = 12;
 LABEL_30:
-      _os_log_error_impl(&dword_2658DE000, v35, OS_LOG_TYPE_ERROR, v34, buf, v36);
+      _os_log_error_impl(&dword_2658DE000, v34, OS_LOG_TYPE_ERROR, v33, buf, v35);
       goto LABEL_17;
     }
 
@@ -1212,12 +1208,12 @@ LABEL_16:
     }
 
     *buf = 136315394;
-    v39 = "[PSUICarrierSpaceManager descriptionForPlanMetrics:]";
-    v40 = 1024;
-    v41 = v11;
-    v34 = "%s failed to generate description for plan with used data metric type of %i";
-    v35 = getLogger;
-    v36 = 18;
+    v38 = "[PSUICarrierSpaceManager descriptionForPlanMetrics:]";
+    v39 = 1024;
+    v40 = v11;
+    v33 = "%s failed to generate description for plan with used data metric type of %i";
+    v34 = getLogger;
+    v35 = 18;
     goto LABEL_30;
   }
 
@@ -1249,28 +1245,24 @@ LABEL_16:
 LABEL_21:
 LABEL_22:
 
-  v32 = *MEMORY[0x277D85DE8];
-
   return v30;
 }
 
 - (void)simStatusDidChange:(id)change status:(id)status
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = [(PSUICarrierSpaceManager *)self getLogger:change];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315394;
-    v8 = "[PSUICarrierSpaceManager simStatusDidChange:status:]";
-    v9 = 2112;
-    v10 = @"PSCarrierSpaceSIMStatusChanged";
-    _os_log_impl(&dword_2658DE000, v4, OS_LOG_TYPE_DEFAULT, "%s posting notification %@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[PSUICarrierSpaceManager simStatusDidChange:status:]";
+    v8 = 2112;
+    v9 = @"PSCarrierSpaceSIMStatusChanged";
+    _os_log_impl(&dword_2658DE000, v4, OS_LOG_TYPE_DEFAULT, "%s posting notification %@", &v6, 0x16u);
   }
 
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter postNotificationName:@"PSCarrierSpaceSIMStatusChanged" object:0];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)capabilitiesDidChange:(id)change
@@ -1285,22 +1277,20 @@ LABEL_22:
 
 void __49__PSUICarrierSpaceManager_capabilitiesDidChange___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) reset];
   v2 = [*(a1 + 32) getLogger];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315394;
-    v6 = "[PSUICarrierSpaceManager capabilitiesDidChange:]_block_invoke";
-    v7 = 2112;
-    v8 = @"PSUICarrierSpaceChanged";
-    _os_log_impl(&dword_2658DE000, v2, OS_LOG_TYPE_DEFAULT, "%s posting notification %@ from main thread", &v5, 0x16u);
+    v4 = 136315394;
+    v5 = "[PSUICarrierSpaceManager capabilitiesDidChange:]_block_invoke";
+    v6 = 2112;
+    v7 = @"PSUICarrierSpaceChanged";
+    _os_log_impl(&dword_2658DE000, v2, OS_LOG_TYPE_DEFAULT, "%s posting notification %@ from main thread", &v4, 0x16u);
   }
 
   v3 = [MEMORY[0x277CCAB98] defaultCenter];
   [v3 postNotificationName:@"PSUICarrierSpaceChanged" object:0];
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)usageDidChange
@@ -1315,7 +1305,7 @@ void __49__PSUICarrierSpaceManager_capabilitiesDidChange___block_invoke(uint64_t
 
 void __41__PSUICarrierSpaceManager_usageDidChange__block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = *(v2 + 16);
   *(v2 + 16) = 0;
@@ -1323,17 +1313,15 @@ void __41__PSUICarrierSpaceManager_usageDidChange__block_invoke(uint64_t a1)
   v4 = [*(a1 + 32) getLogger];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315394;
-    v8 = "[PSUICarrierSpaceManager usageDidChange]_block_invoke";
-    v9 = 2112;
-    v10 = @"PSUICarrierSpaceChanged";
-    _os_log_impl(&dword_2658DE000, v4, OS_LOG_TYPE_DEFAULT, "%s posting notification %@ from main thread", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[PSUICarrierSpaceManager usageDidChange]_block_invoke";
+    v8 = 2112;
+    v9 = @"PSUICarrierSpaceChanged";
+    _os_log_impl(&dword_2658DE000, v4, OS_LOG_TYPE_DEFAULT, "%s posting notification %@ from main thread", &v6, 0x16u);
   }
 
   v5 = [MEMORY[0x277CCAB98] defaultCenter];
   [v5 postNotificationName:@"PSUICarrierSpaceChanged" object:0];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)plansDidChange
@@ -1348,7 +1336,7 @@ void __41__PSUICarrierSpaceManager_usageDidChange__block_invoke(uint64_t a1)
 
 void __41__PSUICarrierSpaceManager_plansDidChange__block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = *(v2 + 24);
   *(v2 + 24) = 0;
@@ -1356,17 +1344,15 @@ void __41__PSUICarrierSpaceManager_plansDidChange__block_invoke(uint64_t a1)
   v4 = [*(a1 + 32) getLogger];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315394;
-    v8 = "[PSUICarrierSpaceManager plansDidChange]_block_invoke";
-    v9 = 2112;
-    v10 = @"PSUICarrierSpaceChanged";
-    _os_log_impl(&dword_2658DE000, v4, OS_LOG_TYPE_DEFAULT, "%s posting notification %@ from main thread", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[PSUICarrierSpaceManager plansDidChange]_block_invoke";
+    v8 = 2112;
+    v9 = @"PSUICarrierSpaceChanged";
+    _os_log_impl(&dword_2658DE000, v4, OS_LOG_TYPE_DEFAULT, "%s posting notification %@ from main thread", &v6, 0x16u);
   }
 
   v5 = [MEMORY[0x277CCAB98] defaultCenter];
   [v5 postNotificationName:@"PSUICarrierSpaceChanged" object:0];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)appsDidChange
@@ -1381,7 +1367,7 @@ void __41__PSUICarrierSpaceManager_plansDidChange__block_invoke(uint64_t a1)
 
 void __40__PSUICarrierSpaceManager_appsDidChange__block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = *(v2 + 32);
   *(v2 + 32) = 0;
@@ -1389,17 +1375,15 @@ void __40__PSUICarrierSpaceManager_appsDidChange__block_invoke(uint64_t a1)
   v4 = [*(a1 + 32) getLogger];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315394;
-    v8 = "[PSUICarrierSpaceManager appsDidChange]_block_invoke";
-    v9 = 2112;
-    v10 = @"PSUICarrierSpaceChanged";
-    _os_log_impl(&dword_2658DE000, v4, OS_LOG_TYPE_DEFAULT, "%s posting notification %@ from main thread", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[PSUICarrierSpaceManager appsDidChange]_block_invoke";
+    v8 = 2112;
+    v9 = @"PSUICarrierSpaceChanged";
+    _os_log_impl(&dword_2658DE000, v4, OS_LOG_TYPE_DEFAULT, "%s posting notification %@ from main thread", &v6, 0x16u);
   }
 
   v5 = [MEMORY[0x277CCAB98] defaultCenter];
   [v5 postNotificationName:@"PSUICarrierSpaceChanged" object:0];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)userConsentFlowInfoDidChange
@@ -1414,7 +1398,7 @@ void __40__PSUICarrierSpaceManager_appsDidChange__block_invoke(uint64_t a1)
 
 void __55__PSUICarrierSpaceManager_userConsentFlowInfoDidChange__block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = *(v2 + 48);
   *(v2 + 48) = 0;
@@ -1430,42 +1414,40 @@ void __55__PSUICarrierSpaceManager_userConsentFlowInfoDidChange__block_invoke(ui
   v8 = [*(a1 + 32) getLogger];
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 136315394;
-    v12 = "[PSUICarrierSpaceManager userConsentFlowInfoDidChange]_block_invoke";
-    v13 = 2112;
-    v14 = @"PSUICarrierSpaceChanged";
-    _os_log_impl(&dword_2658DE000, v8, OS_LOG_TYPE_DEFAULT, "%s posting notification %@ from main thread", &v11, 0x16u);
+    v10 = 136315394;
+    v11 = "[PSUICarrierSpaceManager userConsentFlowInfoDidChange]_block_invoke";
+    v12 = 2112;
+    v13 = @"PSUICarrierSpaceChanged";
+    _os_log_impl(&dword_2658DE000, v8, OS_LOG_TYPE_DEFAULT, "%s posting notification %@ from main thread", &v10, 0x16u);
   }
 
   v9 = [MEMORY[0x277CCAB98] defaultCenter];
   [v9 postNotificationName:@"PSUICarrierSpaceChanged" object:0];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 + (id)getNSURLSessionConfiguration
 {
   ephemeralSessionConfiguration = [MEMORY[0x277CCAD38] ephemeralSessionConfiguration];
-  v7 = 0;
-  v8 = &v7;
-  v9 = 0x2020000000;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
   v3 = getkCTCarrierSpaceConnectionAccountIdentifierSymbolLoc_ptr;
-  v10 = getkCTCarrierSpaceConnectionAccountIdentifierSymbolLoc_ptr;
+  v11 = getkCTCarrierSpaceConnectionAccountIdentifierSymbolLoc_ptr;
   if (!getkCTCarrierSpaceConnectionAccountIdentifierSymbolLoc_ptr)
   {
     v4 = CTCarrierSpaceLibrary();
-    v8[3] = dlsym(v4, "kCTCarrierSpaceConnectionAccountIdentifier");
-    getkCTCarrierSpaceConnectionAccountIdentifierSymbolLoc_ptr = v8[3];
-    v3 = v8[3];
+    v9[3] = dlsym(v4, "kCTCarrierSpaceConnectionAccountIdentifier");
+    getkCTCarrierSpaceConnectionAccountIdentifierSymbolLoc_ptr = v9[3];
+    v3 = v9[3];
   }
 
-  _Block_object_dispose(&v7, 8);
+  _Block_object_dispose(&v8, 8);
   if (!v3)
   {
-    dlerror();
-    v6 = abort_report_np();
-    _Block_object_dispose(&v7, 8);
-    _Unwind_Resume(v6);
+    v6 = dlerror();
+    v7 = abort_report_np("%s", v6);
+    _Block_object_dispose(&v8, 8);
+    _Unwind_Resume(v7);
   }
 
   [ephemeralSessionConfiguration set_sourceApplicationSecondaryIdentifier:*v3];

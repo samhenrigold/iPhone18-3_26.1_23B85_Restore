@@ -1,6 +1,9 @@
 @interface NSManagedObjectContext
 + (id)mergePredicate:(id)predicate andPredicate:(id)andPredicate;
+- (id)copyEntityPropertiesArray:(id)array fromEntityName:(id)name withPredicate:(id)predicate sortBy:(id)by ascending:(BOOL)ascending distinct:(BOOL)distinct;
 - (id)copyEntityProperty:(id)property fromEntityName:(id)name withPredicate:(id)predicate;
+- (id)copyEntityPropertyArray:(id)array fromEntityName:(id)name withPredicate:(id)predicate sortBy:(id)by ascending:(BOOL)ascending;
+- (id)entity:(id)entity withPredicate:(id)predicate sortBy:(id)by ascending:(BOOL)ascending fetchLimit:(unint64_t)limit prefetchRelationships:(id)relationships;
 - (id)entity:(id)entity withPredicate:(id)predicate sortDescriptors:(id)descriptors fetchLimit:(unint64_t)limit prefetchRelationships:(id)relationships;
 - (id)newByClass:(Class)class;
 - (id)objectIDsWithPredicate:(id)predicate forEntity:(id)entity;
@@ -66,6 +69,68 @@
   }
 
   return v10;
+}
+
+- (id)copyEntityPropertiesArray:(id)array fromEntityName:(id)name withPredicate:(id)predicate sortBy:(id)by ascending:(BOOL)ascending distinct:(BOOL)distinct
+{
+  distinctCopy = distinct;
+  ascendingCopy = ascending;
+  arrayCopy = array;
+  nameCopy = name;
+  predicateCopy = predicate;
+  byCopy = by;
+  context = objc_autoreleasePoolPush();
+  v18 = objc_alloc_init(NSFetchRequest);
+  v19 = [NSEntityDescription entityForName:nameCopy inManagedObjectContext:self];
+  [v18 setEntity:v19];
+  if ([arrayCopy count] == 1 && (objc_msgSend(arrayCopy, "objectAtIndex:", 0), v36 = arrayCopy, v20 = v19, v21 = byCopy, v22 = self, v23 = distinctCopy, v24 = predicateCopy, v25 = nameCopy, v26 = ascendingCopy, v27 = objc_claimAutoreleasedReturnValue(), v28 = objc_msgSend(v27, "isEqualToString:", @"objectID"), v27, ascendingCopy = v26, nameCopy = v25, predicateCopy = v24, distinctCopy = v23, self = v22, byCopy = v21, v19 = v20, arrayCopy = v36, v28))
+  {
+    [v18 setResultType:1];
+  }
+
+  else
+  {
+    [v18 setPropertiesToFetch:arrayCopy];
+    [v18 setResultType:2];
+    if (distinctCopy)
+    {
+      [v18 setReturnsDistinctResults:1];
+    }
+  }
+
+  [v18 setPredicate:predicateCopy];
+  if (byCopy)
+  {
+    v29 = [[NSSortDescriptor alloc] initWithKey:byCopy ascending:ascendingCopy];
+    v30 = [[NSArray alloc] initWithObjects:{v29, 0}];
+    [v18 setSortDescriptors:v30];
+  }
+
+  v38 = 0;
+  v31 = [(NSManagedObjectContext *)self executeFetchRequest:v18 error:&v38];
+  v32 = v38;
+  v33 = v32;
+  if (v32)
+  {
+    [v32 logRecursively];
+  }
+
+  objc_autoreleasePoolPop(context);
+  v34 = [v31 copy];
+
+  return v34;
+}
+
+- (id)copyEntityPropertyArray:(id)array fromEntityName:(id)name withPredicate:(id)predicate sortBy:(id)by ascending:(BOOL)ascending
+{
+  ascendingCopy = ascending;
+  byCopy = by;
+  predicateCopy = predicate;
+  nameCopy = name;
+  v15 = [NSArray arrayWithObject:array];
+  v16 = [(NSManagedObjectContext *)self copyEntityPropertiesArray:v15 fromEntityName:nameCopy withPredicate:predicateCopy sortBy:byCopy ascending:ascendingCopy];
+
+  return v16;
 }
 
 - (id)copyEntityProperty:(id)property fromEntityName:(id)name withPredicate:(id)predicate
@@ -190,6 +255,30 @@
   objc_autoreleasePoolPop(v16);
 
   return v19;
+}
+
+- (id)entity:(id)entity withPredicate:(id)predicate sortBy:(id)by ascending:(BOOL)ascending fetchLimit:(unint64_t)limit prefetchRelationships:(id)relationships
+{
+  ascendingCopy = ascending;
+  entityCopy = entity;
+  predicateCopy = predicate;
+  relationshipsCopy = relationships;
+  if (by)
+  {
+    byCopy = by;
+    v18 = [[NSSortDescriptor alloc] initWithKey:byCopy ascending:ascendingCopy];
+
+    v19 = [[NSArray alloc] initWithObjects:{v18, 0}];
+  }
+
+  else
+  {
+    v19 = 0;
+  }
+
+  v20 = [(NSManagedObjectContext *)self entity:entityCopy withPredicate:predicateCopy sortDescriptors:v19 fetchLimit:limit prefetchRelationships:relationshipsCopy];
+
+  return v20;
 }
 
 - (void)im_performSafeAccess:(id)access

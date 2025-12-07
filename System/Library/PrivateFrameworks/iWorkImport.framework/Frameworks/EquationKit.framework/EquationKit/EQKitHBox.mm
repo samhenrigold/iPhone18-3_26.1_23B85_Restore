@@ -12,41 +12,41 @@
 {
   y = offset.y;
   x = offset.x;
-  v30 = *MEMORY[0x277D85DE8];
-  v28.receiver = self;
-  v28.super_class = EQKitHBox;
+  v21 = *MEMORY[0x277D85DE8];
+  v19.receiver = self;
+  v19.super_class = EQKitHBox;
   [EQKitBox renderIntoContext:sel_renderIntoContext_offset_ offset:?];
   if (context)
   {
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
-    v25 = 0u;
-    v11 = objc_msgSend_childBoxes(self, v8, v9, v10, 0);
-    v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v24, v29, 16);
-    if (v13)
+    v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
+    childBoxes = [(EQKitCompoundBox *)self childBoxes];
+    v9 = [(NSArray *)childBoxes countByEnumeratingWithState:&v15 objects:v20 count:16];
+    if (v9)
     {
-      v16 = v13;
-      v17 = *v25;
+      v10 = v9;
+      v11 = *v16;
       do
       {
-        for (i = 0; i != v16; ++i)
+        for (i = 0; i != v10; ++i)
         {
-          if (*v25 != v17)
+          if (*v16 != v11)
           {
-            objc_enumerationMutation(v11);
+            objc_enumerationMutation(childBoxes);
           }
 
-          v19 = *(*(&v24 + 1) + 8 * i);
-          objc_msgSend_renderIntoContext_offset_(v19, v14, context, v15, x, y);
-          objc_msgSend_width(v19, v20, v21, v22);
-          x = x + v23;
+          v13 = *(*(&v15 + 1) + 8 * i);
+          [v13 renderIntoContext:context offset:{x, y}];
+          [v13 width];
+          x = x + v14;
         }
 
-        v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v14, &v24, v29, 16);
+        v10 = [(NSArray *)childBoxes countByEnumeratingWithState:&v15 objects:v20 count:16];
       }
 
-      while (v16);
+      while (v10);
     }
   }
 }
@@ -55,51 +55,50 @@
 {
   y = offset.y;
   x = offset.x;
-  v56 = *MEMORY[0x277D85DE8];
-  v9 = *(spec + 6);
-  if (v9 == 2)
+  v36 = *MEMORY[0x277D85DE8];
+  v8 = *(spec + 6);
+  if (v8 == 2)
   {
-    objc_msgSend_width(self, a2, spec, v4);
-    v24 = v23;
-    v46 = 0u;
-    v47 = 0u;
-    v48 = 0u;
-    v49 = 0u;
-    v28 = objc_msgSend_childBoxes(self, v25, v26, v27, 0);
-    v32 = objc_msgSend_reverseObjectEnumerator(v28, v29, v30, v31);
-    v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v32, v33, &v46, v54, 16);
-    if (v12)
+    [(EQKitCompoundBox *)self width];
+    v17 = v16;
+    v26 = 0u;
+    v27 = 0u;
+    v28 = 0u;
+    v29 = 0u;
+    reverseObjectEnumerator = [(NSArray *)[(EQKitCompoundBox *)self childBoxes] reverseObjectEnumerator];
+    v10 = [(NSEnumerator *)reverseObjectEnumerator countByEnumeratingWithState:&v26 objects:v34 count:16];
+    if (v10)
     {
-      v37 = v12;
-      v38 = x + v24;
-      v39 = *v47;
+      v19 = v10;
+      v20 = x + v17;
+      v21 = *v27;
 LABEL_14:
-      v40 = 0;
+      v22 = 0;
       while (1)
       {
-        if (*v47 != v39)
+        if (*v27 != v21)
         {
-          objc_enumerationMutation(v32);
+          objc_enumerationMutation(reverseObjectEnumerator);
         }
 
-        v41 = *(*(&v46 + 1) + 8 * v40);
-        objc_msgSend_width(v41, v34, v35, v36);
-        v38 = v38 - v42;
-        if (objc_msgSend_appendOpticalAlignToSpec_offset_(v41, v43, spec, v44, v38, y))
+        v23 = *(*(&v26 + 1) + 8 * v22);
+        [v23 width];
+        v20 = v20 - v24;
+        if ([v23 appendOpticalAlignToSpec:spec offset:{v20, y}])
         {
           goto LABEL_21;
         }
 
-        if (v37 == ++v40)
+        if (v19 == ++v22)
         {
-          v37 = objc_msgSend_countByEnumeratingWithState_objects_count_(v32, v34, &v46, v54, 16);
-          LOBYTE(v12) = 0;
-          if (v37)
+          v19 = [(NSEnumerator *)reverseObjectEnumerator countByEnumeratingWithState:&v26 objects:v34 count:16];
+          LOBYTE(v10) = 0;
+          if (v19)
           {
             goto LABEL_14;
           }
 
-          return v12;
+          return v10;
         }
       }
     }
@@ -107,113 +106,113 @@ LABEL_14:
 
   else
   {
-    if (v9)
+    if (v8)
     {
-      LOBYTE(v12) = 0;
-      return v12;
+      LOBYTE(v10) = 0;
+      return v10;
     }
 
-    v52 = 0u;
-    v53 = 0u;
-    v50 = 0u;
-    v51 = 0u;
-    v10 = objc_msgSend_childBoxes(self, a2, spec, v4);
-    v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v11, &v50, v55, 16);
-    if (v12)
+    v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
+    childBoxes = [(EQKitCompoundBox *)self childBoxes];
+    v10 = [(NSArray *)childBoxes countByEnumeratingWithState:&v30 objects:v35 count:16];
+    if (v10)
     {
-      v15 = v12;
-      v16 = *v51;
+      v11 = v10;
+      v12 = *v31;
 LABEL_5:
-      v17 = 0;
+      v13 = 0;
       while (1)
       {
-        if (*v51 != v16)
+        if (*v31 != v12)
         {
-          objc_enumerationMutation(v10);
+          objc_enumerationMutation(childBoxes);
         }
 
-        v18 = *(*(&v50 + 1) + 8 * v17);
-        if (objc_msgSend_appendOpticalAlignToSpec_offset_(v18, v13, spec, v14, x, y))
+        v14 = *(*(&v30 + 1) + 8 * v13);
+        if ([v14 appendOpticalAlignToSpec:spec offset:{x, y}])
         {
           break;
         }
 
-        objc_msgSend_width(v18, v19, v20, v21);
-        x = x + v22;
-        if (v15 == ++v17)
+        [v14 width];
+        x = x + v15;
+        if (v11 == ++v13)
         {
-          v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v13, &v50, v55, 16);
-          LOBYTE(v12) = 0;
-          if (v15)
+          v11 = [(NSArray *)childBoxes countByEnumeratingWithState:&v30 objects:v35 count:16];
+          LOBYTE(v10) = 0;
+          if (v11)
           {
             goto LABEL_5;
           }
 
-          return v12;
+          return v10;
         }
       }
 
 LABEL_21:
-      LOBYTE(v12) = 1;
+      LOBYTE(v10) = 1;
     }
   }
 
-  return v12;
+  return v10;
 }
 
 - (BOOL)p_getTransform:(CGAffineTransform *)transform fromDescendant:(id)descendant
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (descendant == self)
   {
 LABEL_12:
-    LOBYTE(v8) = 1;
+    LOBYTE(v7) = 1;
   }
 
   else
   {
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
-    v25 = 0u;
-    v6 = objc_msgSend_childBoxes(self, a2, transform, descendant);
-    v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v7, &v24, v28, 16);
-    if (v8)
+    v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
+    childBoxes = [(EQKitCompoundBox *)self childBoxes];
+    v7 = [(NSArray *)childBoxes countByEnumeratingWithState:&v19 objects:v23 count:16];
+    if (v7)
     {
-      v10 = v8;
-      v11 = *v25;
-      v12 = 0.0;
+      v8 = v7;
+      v9 = *v20;
+      v10 = 0.0;
       while (2)
       {
-        for (i = 0; i != v10; ++i)
+        for (i = 0; i != v8; ++i)
         {
-          if (*v25 != v11)
+          if (*v20 != v9)
           {
-            objc_enumerationMutation(v6);
+            objc_enumerationMutation(childBoxes);
           }
 
-          v14 = *(*(&v24 + 1) + 8 * i);
-          if (objc_msgSend_p_getTransform_fromDescendant_(v14, v9, transform, descendant))
+          v12 = *(*(&v19 + 1) + 8 * i);
+          if ([v12 p_getTransform:transform fromDescendant:descendant])
           {
-            v19 = *&transform->c;
-            *&v22.a = *&transform->a;
-            *&v22.c = v19;
-            *&v22.tx = *&transform->tx;
-            CGAffineTransformTranslate(&v23, &v22, v12, 0.0);
-            v20 = *&v23.c;
-            *&transform->a = *&v23.a;
-            *&transform->c = v20;
-            *&transform->tx = *&v23.tx;
+            v14 = *&transform->c;
+            *&v17.a = *&transform->a;
+            *&v17.c = v14;
+            *&v17.tx = *&transform->tx;
+            CGAffineTransformTranslate(&v18, &v17, v10, 0.0);
+            v15 = *&v18.c;
+            *&transform->a = *&v18.a;
+            *&transform->c = v15;
+            *&transform->tx = *&v18.tx;
             goto LABEL_12;
           }
 
-          objc_msgSend_width(v14, v15, v16, v17);
-          v12 = v12 + v18;
+          [v12 width];
+          v10 = v10 + v13;
         }
 
-        v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v9, &v24, v28, 16);
-        LOBYTE(v8) = 0;
-        if (v10)
+        v8 = [(NSArray *)childBoxes countByEnumeratingWithState:&v19 objects:v23 count:16];
+        LOBYTE(v7) = 0;
+        if (v8)
         {
           continue;
         }
@@ -223,12 +222,12 @@ LABEL_12:
     }
   }
 
-  return v8;
+  return v7;
 }
 
 - (void)p_cacheDimensionsForHeight:(double *)height depth:(double *)depth width:(double *)width
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   if (!height && !depth && !width)
   {
     return;
@@ -239,15 +238,15 @@ LABEL_12:
     *width = 0.0;
   }
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
-  v29 = 0u;
-  v8 = objc_msgSend_childBoxes(self, a2, height, depth, 0);
-  v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v9, &v28, v32, 16);
-  if (!v10)
+  v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
+  childBoxes = [(EQKitCompoundBox *)self childBoxes];
+  v9 = [(NSArray *)childBoxes countByEnumeratingWithState:&v24 objects:v28 count:16];
+  if (!v9)
   {
-    v16 = 1;
+    v12 = 1;
     if (height)
     {
       goto LABEL_34;
@@ -256,55 +255,55 @@ LABEL_12:
     goto LABEL_36;
   }
 
-  v14 = v10;
-  v15 = *v29;
-  v16 = 1;
+  v10 = v9;
+  v11 = *v25;
+  v12 = 1;
   do
   {
-    v17 = 0;
+    v13 = 0;
     do
     {
-      if (*v29 != v15)
+      if (*v25 != v11)
       {
-        objc_enumerationMutation(v8);
+        objc_enumerationMutation(childBoxes);
       }
 
-      v18 = *(*(&v28 + 1) + 8 * v17);
-      objc_msgSend_vsize(v18, v11, v12, v13);
-      if (v19 == 0.0)
+      v14 = *(*(&v24 + 1) + 8 * v13);
+      [v14 vsize];
+      if (v15 == 0.0)
       {
         goto LABEL_24;
       }
 
       if (height)
       {
-        if ((v16 & 1) != 0 || (v20 = *height, objc_msgSend_height(v18, v11, v12, v13), v20 <= v21))
+        if ((v12 & 1) != 0 || (v16 = *height, [v14 height], v16 <= v17))
         {
-          objc_msgSend_height(v18, v11, v12, v13);
+          [v14 height];
         }
 
         else
         {
-          v22 = *height;
+          v18 = *height;
         }
 
-        *height = v22;
+        *height = v18;
       }
 
       if (depth)
       {
-        if ((v16 & 1) != 0 || (v23 = *depth, objc_msgSend_depth(v18, v11, v12, v13), v23 <= v24))
+        if ((v12 & 1) != 0 || (v19 = *depth, [v14 depth], v19 <= v20))
         {
-          objc_msgSend_depth(v18, v11, v12, v13);
+          [v14 depth];
         }
 
         else
         {
-          v25 = *depth;
+          v21 = *depth;
         }
 
-        v16 = 0;
-        *depth = v25;
+        v12 = 0;
+        *depth = v21;
 LABEL_24:
         if (!width)
         {
@@ -312,40 +311,40 @@ LABEL_24:
         }
 
 LABEL_25:
-        objc_msgSend_width(v18, v11, v12, v13);
-        *width = v26 + *width;
+        [v14 width];
+        *width = v22 + *width;
         goto LABEL_26;
       }
 
-      v16 = 0;
+      v12 = 0;
       if (width)
       {
         goto LABEL_25;
       }
 
 LABEL_26:
-      ++v17;
+      ++v13;
     }
 
-    while (v14 != v17);
-    v27 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v11, &v28, v32, 16);
-    v14 = v27;
+    while (v10 != v13);
+    v23 = [(NSArray *)childBoxes countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v10 = v23;
   }
 
-  while (v27);
+  while (v23);
   if (!height)
   {
     goto LABEL_36;
   }
 
 LABEL_34:
-  if (v16)
+  if (v12)
   {
     *height = 0.0;
   }
 
 LABEL_36:
-  if (((depth != 0) & v16) == 1)
+  if (((depth != 0) & v12) == 1)
   {
     *depth = 0.0;
   }
@@ -353,85 +352,85 @@ LABEL_36:
 
 - (CGRect)p_cacheErasableBounds
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   x = *MEMORY[0x277CBF3A0];
   y = *(MEMORY[0x277CBF3A0] + 8);
   width = *(MEMORY[0x277CBF3A0] + 16);
   height = *(MEMORY[0x277CBF3A0] + 24);
-  v36 = 0u;
-  v37 = 0u;
-  v38 = 0u;
-  v39 = 0u;
-  v8 = objc_msgSend_childBoxes(self, a2, v2, v3);
-  v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v9, &v36, v40, 16);
-  if (v10)
+  v27 = 0u;
+  v28 = 0u;
+  v29 = 0u;
+  v30 = 0u;
+  childBoxes = [(EQKitCompoundBox *)self childBoxes];
+  v7 = [(NSArray *)childBoxes countByEnumeratingWithState:&v27 objects:v31 count:16];
+  if (v7)
   {
-    v14 = v10;
-    v15 = *v37;
-    v16 = 0.0;
+    v8 = v7;
+    v9 = *v28;
+    v10 = 0.0;
     do
     {
-      for (i = 0; i != v14; ++i)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v37 != v15)
+        if (*v28 != v9)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(childBoxes);
         }
 
-        v18 = *(*(&v36 + 1) + 8 * i);
-        objc_msgSend_erasableBounds(v18, v11, v12, v13);
-        v20 = v19;
-        v22 = v21;
-        r2 = v23;
-        v25 = v16 + v24;
-        objc_msgSend_width(v18, v26, v27, v28);
-        v35 = v29;
-        v42.origin.x = x;
-        v42.origin.y = y;
-        v42.size.width = width;
-        v42.size.height = height;
-        if (CGRectIsEmpty(v42))
+        v12 = *(*(&v27 + 1) + 8 * i);
+        [v12 erasableBounds];
+        v14 = v13;
+        v16 = v15;
+        r2 = v17;
+        v19 = v10 + v18;
+        [v12 width];
+        v26 = v20;
+        v33.origin.x = x;
+        v33.origin.y = y;
+        v33.size.width = width;
+        v33.size.height = height;
+        if (CGRectIsEmpty(v33))
         {
-          x = v25;
-          y = v20;
-          width = v22;
+          x = v19;
+          y = v14;
+          width = v16;
           height = r2;
         }
 
         else
         {
-          v43.origin.x = x;
-          v43.origin.y = y;
-          v43.size.width = width;
-          v43.size.height = height;
-          v46.origin.x = v25;
-          v46.origin.y = v20;
-          v46.size.width = v22;
-          v46.size.height = r2;
-          v44 = CGRectUnion(v43, v46);
-          x = v44.origin.x;
-          y = v44.origin.y;
-          width = v44.size.width;
-          height = v44.size.height;
+          v34.origin.x = x;
+          v34.origin.y = y;
+          v34.size.width = width;
+          v34.size.height = height;
+          v37.origin.x = v19;
+          v37.origin.y = v14;
+          v37.size.width = v16;
+          v37.size.height = r2;
+          v35 = CGRectUnion(v34, v37);
+          x = v35.origin.x;
+          y = v35.origin.y;
+          width = v35.size.width;
+          height = v35.size.height;
         }
 
-        v16 = v16 + v35;
+        v10 = v10 + v26;
       }
 
-      v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v11, &v36, v40, 16);
+      v8 = [(NSArray *)childBoxes countByEnumeratingWithState:&v27 objects:v31 count:16];
     }
 
-    while (v14);
+    while (v8);
   }
 
-  v30 = x;
-  v31 = y;
-  v32 = width;
-  v33 = height;
-  result.size.height = v33;
-  result.size.width = v32;
-  result.origin.y = v31;
-  result.origin.x = v30;
+  v21 = x;
+  v22 = y;
+  v23 = width;
+  v24 = height;
+  result.size.height = v24;
+  result.size.width = v23;
+  result.origin.y = v22;
+  result.origin.x = v21;
   return result;
 }
 

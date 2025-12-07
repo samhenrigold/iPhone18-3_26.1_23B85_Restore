@@ -2,6 +2,7 @@
 + (id)sharedService;
 - (NSString)pairedDeviceNotificationName;
 - (id)initAsInitiator:(BOOL)initiator;
+- (void)_sendMessage:(id)message to:(id)to identifier:(id)identifier expectReply:(BOOL)reply;
 - (void)deviceUnlockTimedOut;
 - (void)exchangePacketAndReply;
 - (void)initiatePairingWithCompletion:(id)completion;
@@ -10,6 +11,7 @@
 - (void)sendReplyToPacket;
 - (void)service:(id)service account:(id)account identifier:(id)identifier didSendWithSuccess:(BOOL)success error:(id)error context:(id)context;
 - (void)service:(id)service account:(id)account incomingMessage:(id)message fromID:(id)d context:(id)context;
+- (void)session:(id)session didCompleteWithSuccess:(BOOL)success error:(id)error;
 - (void)stopWaitingForDeviceUnlock;
 - (void)waitForDeviceUnlock;
 @end
@@ -321,6 +323,61 @@ LABEL_14:
 LABEL_22:
 }
 
+- (void)_sendMessage:(id)message to:(id)to identifier:(id)identifier expectReply:(BOOL)reply
+{
+  replyCopy = reply;
+  identifierCopy = identifier;
+  toCopy = to;
+  messageCopy = message;
+  queue = [(OTPairingService *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  v14 = [NSSet setWithObject:toCopy];
+
+  v15 = objc_opt_new();
+  [v15 setObject:&__kCFBooleanTrue forKeyedSubscript:IDSSendMessageOptionForceLocalDeliveryKey];
+  v16 = [NSNumber numberWithBool:replyCopy];
+  [v15 setObject:v16 forKeyedSubscript:IDSSendMessageOptionExpectsPeerResponseKey];
+
+  if (identifierCopy)
+  {
+    [v15 setObject:identifierCopy forKeyedSubscript:IDSSendMessageOptionPeerResponseIdentifierKey];
+  }
+
+  service = [(OTPairingService *)self service];
+  v23 = 0;
+  v24 = 0;
+  v18 = [service sendMessage:messageCopy toDestinations:v14 priority:200 options:v15 identifier:&v24 error:&v23];
+
+  v19 = v24;
+  v20 = v23;
+
+  if (!v18)
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412546;
+      v26 = v19;
+      v27 = 2112;
+      v28 = v20;
+      _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "send message failed (%@): %@", buf, 0x16u);
+    }
+
+    session = [(OTPairingService *)self session];
+    v22 = [NSError errorWithDomain:@"com.apple.security.otpaird" code:3 description:@"IDS message send failure" underlying:v20];
+    [(OTPairingService *)self session:session didCompleteWithSuccess:0 error:v22];
+
+    goto LABEL_9;
+  }
+
+  if (replyCopy)
+  {
+    session = [(OTPairingService *)self session];
+    [session setSentMessageIdentifier:v19];
+LABEL_9:
+  }
+}
+
 - (void)exchangePacketAndReply
 {
   queue = [(OTPairingService *)self queue];
@@ -409,6 +466,34 @@ LABEL_22:
   {
 
     [(OTPairingService *)self waitForDeviceUnlock];
+  }
+}
+
+- (void)session:(id)session didCompleteWithSuccess:(BOOL)success error:(id)error
+{
+  successCopy = success;
+  sessionCopy = session;
+  errorCopy = error;
+  queue = [(OTPairingService *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  session = [(OTPairingService *)self session];
+
+  if (session == sessionCopy)
+  {
+    session2 = [(OTPairingService *)self session];
+    [session2 didCompleteWithSuccess:successCopy error:errorCopy];
+
+    [(OTPairingService *)self setSession:0];
+    [(OTPairingService *)self setSessionTimer:0];
+    [(OTPairingService *)self setUnlockTimer:0];
+  }
+
+  else
+  {
+    _os_assert_log();
+    _os_crash();
+    __break(1u);
   }
 }
 

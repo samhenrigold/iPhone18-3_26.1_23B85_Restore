@@ -123,32 +123,32 @@ uint64_t __62__HFMediaDispatcher__reloadAppleMusicMagicAuthCapableAccounts__bloc
 
 - (void)_accountsStoreWasUpdated:(id)updated
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if ([(HFMediaDispatcher *)self _reloadAppleMusicMagicAuthCapableAccounts])
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     appleMusicAccountObservers = [(HFMediaDispatcher *)self appleMusicAccountObservers];
     v5 = [appleMusicAccountObservers copy];
 
-    v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v14;
+      v8 = *v13;
       do
       {
         v9 = 0;
         do
         {
-          if (*v14 != v8)
+          if (*v13 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v13 + 1) + 8 * v9);
+          v10 = *(*(&v12 + 1) + 8 * v9);
           if (objc_opt_respondsToSelector())
           {
             appleMusicMagicAuthCapableAccounts = [(HFMediaDispatcher *)self appleMusicMagicAuthCapableAccounts];
@@ -159,14 +159,12 @@ uint64_t __62__HFMediaDispatcher__reloadAppleMusicMagicAuthCapableAccounts__bloc
         }
 
         while (v7 != v9);
-        v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v7);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setupAppleMusicAccountStoreIfNecessary

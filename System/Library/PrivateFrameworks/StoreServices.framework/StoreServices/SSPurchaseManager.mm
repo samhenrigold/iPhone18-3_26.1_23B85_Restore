@@ -30,8 +30,8 @@
 
 - (void)_connectToDaemon
 {
-  v23 = *MEMORY[0x1E69E9840];
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  v22 = *MEMORY[0x1E69E9840];
+  if (SSIsInternalBuild(self, a2) && _os_feature_enabled_impl())
   {
     v3 = +[SSLogConfig sharedStoreServicesConfig];
     if (!v3)
@@ -50,47 +50,45 @@
       v5 = shouldLog;
     }
 
-    if (os_log_type_enabled([v3 OSLogObject], OS_LOG_TYPE_DEBUG))
+    oSLogObject = [v3 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
     {
-      v6 = v5;
+      v7 = v5;
     }
 
     else
     {
-      v6 = v5 & 2;
+      v7 = v5 & 2;
     }
 
-    if (v6)
+    if (v7)
     {
-      v21 = 136446210;
-      v22 = "[SSPurchaseManager _connectToDaemon]";
-      LODWORD(v20) = 12;
-      v19 = &v21;
-      v7 = _os_log_send_and_compose_impl();
-      if (v7)
+      v20 = 136446210;
+      v21 = "[SSPurchaseManager _connectToDaemon]";
+      if (v8)
       {
-        v8 = v7;
-        v9 = [MEMORY[0x1E696AEC0] stringWithCString:v7 encoding:{4, &v21, v20}];
-        free(v8);
-        SSFileLog(v3, @"%@", v10, v11, v12, v13, v14, v15, v9);
+        v9 = v8;
+        v10 = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:4];
+        free(v9);
+        SSFileLog(v3, @"%@", v11, v12, v13, v14, v15, v16, v10);
       }
     }
   }
 
-  v16 = SSXPCCreateMessageDictionary(104);
-  SSXPCDictionarySetCFObject(v16, "1", self->_managerIdentifier);
-  v17 = [-[SSPurchaseManager _responseConnection](self "_responseConnection")];
-  if (v17)
+  v17 = SSXPCCreateMessageDictionary(104);
+  SSXPCDictionarySetCFObject(v17, "1", self->_managerIdentifier);
+  v18 = [-[SSPurchaseManager _responseConnection](self "_responseConnection")];
+  if (v18)
   {
-    v18 = v17;
-    xpc_dictionary_set_value(v16, "2", v17);
-    xpc_release(v18);
+    v19 = v18;
+    xpc_dictionary_set_value(v17, "2", v18);
+    xpc_release(v19);
   }
 
   +[SSAuthenticateRequest localAuthenticationAvailable];
-  xpc_dictionary_set_BOOL(v16, "3", 0);
+  xpc_dictionary_set_BOOL(v17, "3", 0);
   [-[SSPurchaseManager _requestConnection](self "_requestConnection")];
-  xpc_release(v16);
+  xpc_release(v17);
 }
 
 - (id)_responseConnection
@@ -178,7 +176,7 @@ uint64_t __40__SSPurchaseManager__responseConnection__block_invoke(uint64_t a1, 
 - (void)addPurchases:(id)purchases withCompletionBlock:(id)block
 {
   v25 = *MEMORY[0x1E69E9840];
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  if (SSIsInternalBuild(self, a2) && _os_feature_enabled_impl())
   {
     v7 = +[SSLogConfig sharedStoreServicesConfig];
     if (!v7)
@@ -197,28 +195,27 @@ uint64_t __40__SSPurchaseManager__responseConnection__block_invoke(uint64_t a1, 
       v9 = shouldLog;
     }
 
-    if (os_log_type_enabled([v7 OSLogObject], OS_LOG_TYPE_DEBUG))
+    oSLogObject = [v7 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
     {
-      v10 = v9;
+      v11 = v9;
     }
 
     else
     {
-      v10 = v9 & 2;
+      v11 = v9 & 2;
     }
 
-    if (v10)
+    if (v11)
     {
       v23 = 136446210;
       v24 = "[SSPurchaseManager addPurchases:withCompletionBlock:]";
-      LODWORD(v21) = 12;
-      v11 = _os_log_send_and_compose_impl();
-      if (v11)
+      if (v12)
       {
-        v12 = v11;
-        v13 = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:{4, &v23, v21}];
-        free(v12);
-        SSFileLog(v7, @"%@", v14, v15, v16, v17, v18, v19, v13);
+        v13 = v12;
+        v14 = [MEMORY[0x1E696AEC0] stringWithCString:v12 encoding:4];
+        free(v13);
+        SSFileLog(v7, @"%@", v15, v16, v17, v18, v19, v20, v14);
       }
     }
   }
@@ -237,7 +234,7 @@ uint64_t __40__SSPurchaseManager__responseConnection__block_invoke(uint64_t a1, 
 - (void)cancelPurchases:(id)purchases withCompletionBlock:(id)block
 {
   v25 = *MEMORY[0x1E69E9840];
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  if (SSIsInternalBuild(self, a2) && _os_feature_enabled_impl())
   {
     v7 = +[SSLogConfig sharedStoreServicesConfig];
     if (!v7)
@@ -256,28 +253,27 @@ uint64_t __40__SSPurchaseManager__responseConnection__block_invoke(uint64_t a1, 
       v9 = shouldLog;
     }
 
-    if (os_log_type_enabled([v7 OSLogObject], OS_LOG_TYPE_DEBUG))
+    oSLogObject = [v7 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
     {
-      v10 = v9;
+      v11 = v9;
     }
 
     else
     {
-      v10 = v9 & 2;
+      v11 = v9 & 2;
     }
 
-    if (v10)
+    if (v11)
     {
       v23 = 136446210;
       v24 = "[SSPurchaseManager cancelPurchases:withCompletionBlock:]";
-      LODWORD(v21) = 12;
-      v11 = _os_log_send_and_compose_impl();
-      if (v11)
+      if (v12)
       {
-        v12 = v11;
-        v13 = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:{4, &v23, v21}];
-        free(v12);
-        SSFileLog(v7, @"%@", v14, v15, v16, v17, v18, v19, v13);
+        v13 = v12;
+        v14 = [MEMORY[0x1E696AEC0] stringWithCString:v12 encoding:4];
+        free(v13);
+        SSFileLog(v7, @"%@", v15, v16, v17, v18, v19, v20, v14);
       }
     }
   }
@@ -324,7 +320,7 @@ id __29__SSPurchaseManager_delegate__block_invoke(uint64_t a1)
 - (void)getPurchasesUsingBlock:(id)block
 {
   v23 = *MEMORY[0x1E69E9840];
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  if (SSIsInternalBuild(self, a2) && _os_feature_enabled_impl())
   {
     v5 = +[SSLogConfig sharedStoreServicesConfig];
     if (!v5)
@@ -343,28 +339,27 @@ id __29__SSPurchaseManager_delegate__block_invoke(uint64_t a1)
       v7 = shouldLog;
     }
 
-    if (os_log_type_enabled([v5 OSLogObject], OS_LOG_TYPE_DEBUG))
+    oSLogObject = [v5 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
     {
-      v8 = v7;
+      v9 = v7;
     }
 
     else
     {
-      v8 = v7 & 2;
+      v9 = v7 & 2;
     }
 
-    if (v8)
+    if (v9)
     {
       v21 = 136446210;
       v22 = "[SSPurchaseManager getPurchasesUsingBlock:]";
-      LODWORD(v19) = 12;
-      v9 = _os_log_send_and_compose_impl();
-      if (v9)
+      if (v10)
       {
-        v10 = v9;
-        v11 = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:{4, &v21, v19}];
-        free(v10);
-        SSFileLog(v5, @"%@", v12, v13, v14, v15, v16, v17, v11);
+        v11 = v10;
+        v12 = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:4];
+        free(v11);
+        SSFileLog(v5, @"%@", v13, v14, v15, v16, v17, v18, v12);
       }
     }
   }
@@ -406,7 +401,7 @@ uint64_t __44__SSPurchaseManager_getPurchasesUsingBlock___block_invoke_2(uint64_
 - (void)insertPurchases:(id)purchases afterPurchase:(id)purchase withCompletionBlock:(id)block
 {
   v27 = *MEMORY[0x1E69E9840];
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  if (SSIsInternalBuild(self, a2) && _os_feature_enabled_impl())
   {
     v9 = +[SSLogConfig sharedStoreServicesConfig];
     if (!v9)
@@ -425,28 +420,27 @@ uint64_t __44__SSPurchaseManager_getPurchasesUsingBlock___block_invoke_2(uint64_
       v11 = shouldLog;
     }
 
-    if (os_log_type_enabled([v9 OSLogObject], OS_LOG_TYPE_FAULT))
+    oSLogObject = [v9 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_FAULT))
     {
-      v12 = v11;
+      v13 = v11;
     }
 
     else
     {
-      v12 = v11 & 2;
+      v13 = v11 & 2;
     }
 
-    if (v12)
+    if (v13)
     {
       v25 = 136446210;
       v26 = "[SSPurchaseManager insertPurchases:afterPurchase:withCompletionBlock:]";
-      LODWORD(v23) = 12;
-      v13 = _os_log_send_and_compose_impl();
-      if (v13)
+      if (v14)
       {
-        v14 = v13;
-        v15 = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:{4, &v25, v23}];
-        free(v14);
-        SSFileLog(v9, @"%@", v16, v17, v18, v19, v20, v21, v15);
+        v15 = v14;
+        v16 = [MEMORY[0x1E696AEC0] stringWithCString:v14 encoding:4];
+        free(v15);
+        SSFileLog(v9, @"%@", v17, v18, v19, v20, v21, v22, v16);
       }
     }
   }
@@ -473,7 +467,7 @@ uint64_t __44__SSPurchaseManager_getPurchasesUsingBlock___block_invoke_2(uint64_
 - (void)movePurchases:(id)purchases afterPurchase:(id)purchase withCompletionBlock:(id)block
 {
   v27 = *MEMORY[0x1E69E9840];
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  if (SSIsInternalBuild(self, a2) && _os_feature_enabled_impl())
   {
     v9 = +[SSLogConfig sharedStoreServicesConfig];
     if (!v9)
@@ -492,28 +486,27 @@ uint64_t __44__SSPurchaseManager_getPurchasesUsingBlock___block_invoke_2(uint64_
       v11 = shouldLog;
     }
 
-    if (os_log_type_enabled([v9 OSLogObject], OS_LOG_TYPE_FAULT))
+    oSLogObject = [v9 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_FAULT))
     {
-      v12 = v11;
+      v13 = v11;
     }
 
     else
     {
-      v12 = v11 & 2;
+      v13 = v11 & 2;
     }
 
-    if (v12)
+    if (v13)
     {
       v25 = 136446210;
       v26 = "[SSPurchaseManager movePurchases:afterPurchase:withCompletionBlock:]";
-      LODWORD(v23) = 12;
-      v13 = _os_log_send_and_compose_impl();
-      if (v13)
+      if (v14)
       {
-        v14 = v13;
-        v15 = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:{4, &v25, v23}];
-        free(v14);
-        SSFileLog(v9, @"%@", v16, v17, v18, v19, v20, v21, v15);
+        v15 = v14;
+        v16 = [MEMORY[0x1E696AEC0] stringWithCString:v14 encoding:4];
+        free(v15);
+        SSFileLog(v9, @"%@", v17, v18, v19, v20, v21, v22, v16);
       }
     }
   }
@@ -542,14 +535,14 @@ uint64_t __44__SSPurchaseManager_getPurchasesUsingBlock___block_invoke_2(uint64_
   dispatch_async(dispatchQueue, v4);
 }
 
-uint64_t __33__SSPurchaseManager_setDelegate___block_invoke(uint64_t result)
+void *__33__SSPurchaseManager_setDelegate___block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = *(result + 4);
   v2 = *(v1 + 16);
-  *(v1 + 16) = *(result + 40);
+  *(v1 + 16) = *(result + 5);
   if (!v2)
   {
-    return [*(result + 32) _connectToDaemon];
+    return [*(result + 4) _connectToDaemon];
   }
 
   return result;
@@ -573,7 +566,7 @@ uint64_t __33__SSPurchaseManager_setDelegate___block_invoke(uint64_t result)
 
 - (void)_handleAuthenticateRequest:(id)request fromConnection:(id)connection
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   value = xpc_dictionary_get_value(request, "1");
   if (value)
   {
@@ -590,46 +583,51 @@ uint64_t __33__SSPurchaseManager_setDelegate___block_invoke(uint64_t result)
       shouldLog = [v10 shouldLog];
       if ([v10 shouldLogToDisk])
       {
-        v12 = shouldLog | 2;
+        LODWORD(v12) = shouldLog | 2;
       }
 
       else
       {
-        v12 = shouldLog;
+        LODWORD(v12) = shouldLog;
       }
 
-      if (!os_log_type_enabled([v10 OSLogObject], OS_LOG_TYPE_DEFAULT))
+      oSLogObject = [v10 OSLogObject];
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+      {
+        v12 = v12;
+      }
+
+      else
       {
         v12 &= 2u;
       }
 
       if (v12)
       {
-        v36 = 138543618;
-        v37 = objc_opt_class();
-        v38 = 2114;
+        v37 = 138543618;
+        v38 = objc_opt_class();
+        v39 = 2114;
         logUUID = [(SSAuthenticationContext *)v8 logUUID];
-        LODWORD(v34) = 22;
-        v13 = _os_log_send_and_compose_impl();
-        if (v13)
+        v14 = _os_log_send_and_compose_impl(v12, 0, 0, 0, &dword_1D48BA000, oSLogObject, 0, "[%{public}@]: [%{public}@] Initiating authentication request", &v37, 22);
+        if (v14)
         {
-          v14 = v13;
-          v15 = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:{4, &v36, v34}];
-          free(v14);
-          SSFileLog(v10, @"%@", v16, v17, v18, v19, v20, v21, v15);
+          v15 = v14;
+          v16 = [MEMORY[0x1E696AEC0] stringWithCString:v14 encoding:4];
+          free(v15);
+          SSFileLog(v10, @"%@", v17, v18, v19, v20, v21, v22, v16);
         }
       }
 
-      v22 = [[SSAuthenticateRequest alloc] initWithAuthenticationContext:v8];
-      v35[0] = MEMORY[0x1E69E9820];
-      v35[1] = 3221225472;
-      v35[2] = __63__SSPurchaseManager__handleAuthenticateRequest_fromConnection___block_invoke;
-      v35[3] = &unk_1E84B2828;
-      v35[4] = self;
-      v35[5] = v8;
-      v35[6] = request;
-      v35[7] = connection;
-      [(SSAuthenticateRequest *)v22 startWithAuthenticateResponseBlock:v35];
+      v23 = [[SSAuthenticateRequest alloc] initWithAuthenticationContext:v8];
+      v36[0] = MEMORY[0x1E69E9820];
+      v36[1] = 3221225472;
+      v36[2] = __63__SSPurchaseManager__handleAuthenticateRequest_fromConnection___block_invoke;
+      v36[3] = &unk_1E84B2828;
+      v36[4] = self;
+      v36[5] = v8;
+      v36[6] = request;
+      v36[7] = connection;
+      [(SSAuthenticateRequest *)v23 startWithAuthenticateResponseBlock:v36];
     }
 
     else
@@ -642,31 +640,36 @@ uint64_t __33__SSPurchaseManager_setDelegate___block_invoke(uint64_t result)
       shouldLog2 = [v10 shouldLog];
       if ([v10 shouldLogToDisk])
       {
-        v24 = shouldLog2 | 2;
+        LODWORD(v25) = shouldLog2 | 2;
       }
 
       else
       {
-        v24 = shouldLog2;
+        LODWORD(v25) = shouldLog2;
       }
 
-      if (!os_log_type_enabled([v10 OSLogObject], OS_LOG_TYPE_ERROR))
+      oSLogObject2 = [v10 OSLogObject];
+      if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
       {
-        v24 &= 2u;
+        v25 = v25;
       }
 
-      if (v24)
+      else
       {
-        v36 = 138543362;
-        v37 = objc_opt_class();
-        LODWORD(v34) = 12;
-        v25 = _os_log_send_and_compose_impl();
-        if (v25)
+        v25 &= 2u;
+      }
+
+      if (v25)
+      {
+        v37 = 138543362;
+        v38 = objc_opt_class();
+        v27 = _os_log_send_and_compose_impl(v25, 0, 0, 0, &dword_1D48BA000, oSLogObject2, 16, "[%{public}@]: Received authentication request but context was missing or invalid", &v37, 12);
+        if (v27)
         {
-          v26 = v25;
-          v27 = [MEMORY[0x1E696AEC0] stringWithCString:v25 encoding:{4, &v36, v34}];
-          free(v26);
-          SSFileLog(v10, @"%@", v28, v29, v30, v31, v32, v33, v27);
+          v28 = v27;
+          v29 = [MEMORY[0x1E696AEC0] stringWithCString:v27 encoding:4];
+          free(v28);
+          SSFileLog(v10, @"%@", v30, v31, v32, v33, v34, v35, v29);
         }
       }
     }
@@ -685,37 +688,42 @@ void __63__SSPurchaseManager__handleAuthenticateRequest_fromConnection___block_i
   v7 = [v6 shouldLog];
   if ([v6 shouldLogToDisk])
   {
-    v8 = v7 | 2;
+    LODWORD(v8) = v7 | 2;
   }
 
   else
   {
-    v8 = v7;
+    LODWORD(v8) = v7;
   }
 
-  if (!os_log_type_enabled([v6 OSLogObject], OS_LOG_TYPE_DEFAULT))
+  v9 = [v6 OSLogObject];
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = v8;
+  }
+
+  else
   {
     v8 &= 2u;
   }
 
   if (v8)
   {
-    v9 = objc_opt_class();
-    v10 = [*(a1 + 40) logUUID];
+    v10 = objc_opt_class();
+    v11 = [*(a1 + 40) logUUID];
     v24 = 138543874;
-    v25 = v9;
+    v25 = v10;
     v26 = 2114;
-    v27 = v10;
+    v27 = v11;
     v28 = 2114;
     v29 = a3;
-    LODWORD(v23) = 32;
-    v11 = _os_log_send_and_compose_impl();
-    if (v11)
+    v12 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &dword_1D48BA000, v9, 0, "[%{public}@]: [%{public}@] Authentication request completed with error: %{public}@", &v24, 32);
+    if (v12)
     {
-      v12 = v11;
-      v13 = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:{4, &v24, v23}];
-      free(v12);
-      SSFileLog(v6, @"%@", v14, v15, v16, v17, v18, v19, v13);
+      v13 = v12;
+      v14 = [MEMORY[0x1E696AEC0] stringWithCString:v12 encoding:4];
+      free(v13);
+      SSFileLog(v6, @"%@", v15, v16, v17, v18, v19, v20, v14);
     }
   }
 
@@ -732,12 +740,12 @@ void __63__SSPurchaseManager__handleAuthenticateRequest_fromConnection___block_i
   }
 
   reply = xpc_dictionary_create_reply(*(a1 + 48));
-  v21 = [(SSAuthenticateResponse *)a2 copyXPCEncoding];
-  if (v21)
+  v22 = [(SSAuthenticateResponse *)a2 copyXPCEncoding];
+  if (v22)
   {
-    v22 = v21;
-    xpc_dictionary_set_value(reply, "0", v21);
-    xpc_release(v22);
+    v23 = v22;
+    xpc_dictionary_set_value(reply, "0", v22);
+    xpc_release(v23);
   }
 
   xpc_connection_send_message(*(a1 + 56), reply);
@@ -746,16 +754,16 @@ void __63__SSPurchaseManager__handleAuthenticateRequest_fromConnection___block_i
 
 - (void)_handlePurchasesFinished:(id)finished fromConnection:(id)connection
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   v6 = [(SSPurchaseManager *)self delegate:finished];
   if (objc_opt_respondsToSelector())
   {
     v7 = xpc_array_create(0, 0);
     v8 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v30 = 0;
-    v31 = &v30;
-    v32 = 0x2020000000;
-    v33 = 0;
+    v32 = 0;
+    v33 = &v32;
+    v34 = 0x2020000000;
+    v35 = 0;
     value = xpc_dictionary_get_value(finished, "1");
     v10 = value;
     if (value && MEMORY[0x1DA6E0380](value) == MEMORY[0x1E69E9E50])
@@ -767,11 +775,11 @@ void __63__SSPurchaseManager__handleAuthenticateRequest_fromConnection___block_i
       applier[4] = self;
       applier[5] = v7;
       applier[6] = v8;
-      applier[7] = &v30;
+      applier[7] = &v32;
       xpc_array_apply(v10, applier);
     }
 
-    if (*(v31 + 24) == 1)
+    if (*(v33 + 24) == 1)
     {
       [+[SSVSubscriptionStatusCoordinator _existingSharedCoordinator](SSVSubscriptionStatusCoordinator "_existingSharedCoordinator")];
     }
@@ -789,19 +797,21 @@ void __63__SSPurchaseManager__handleAuthenticateRequest_fromConnection___block_i
       dispatch_async(completionBlockQueue, block);
     }
 
-    if (xpc_array_get_count(v7))
+    count = xpc_array_get_count(v7);
+    if (count)
     {
-      if (SSIsInternalBuild() && _os_feature_enabled_impl())
+      if (SSIsInternalBuild(count, v13) && _os_feature_enabled_impl())
       {
-        v12 = +[SSLogConfig sharedStoreServicesConfig];
-        if (!v12)
+        v14 = +[SSLogConfig sharedStoreServicesConfig];
+        if (!v14)
         {
-          v12 = +[SSLogConfig sharedConfig];
+          v14 = +[SSLogConfig sharedConfig];
         }
 
-        shouldLog = [v12 shouldLog];
-        shouldLogToDisk = [v12 shouldLogToDisk];
-        oSLogObject = [v12 OSLogObject];
+        shouldLog = [v14 shouldLog];
+        shouldLogToDisk = [v14 shouldLogToDisk];
+        oSLogObject = [v14 OSLogObject];
+        v18 = oSLogObject;
         if (shouldLogToDisk)
         {
           shouldLog |= 2u;
@@ -809,45 +819,43 @@ void __63__SSPurchaseManager__handleAuthenticateRequest_fromConnection___block_i
 
         if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
         {
-          v16 = shouldLog;
+          v19 = shouldLog;
         }
 
         else
         {
-          v16 = shouldLog & 2;
+          v19 = shouldLog & 2;
         }
 
-        if (v16)
+        if (v19)
         {
-          v34 = 136446210;
-          v35 = "[SSPurchaseManager _handlePurchasesFinished:fromConnection:]";
-          LODWORD(v27) = 12;
-          v17 = _os_log_send_and_compose_impl();
-          if (v17)
+          v36 = 136446210;
+          v37 = "[SSPurchaseManager _handlePurchasesFinished:fromConnection:]";
+          if (v20)
           {
-            v18 = v17;
-            v19 = [MEMORY[0x1E696AEC0] stringWithCString:v17 encoding:{4, &v34, v27}];
-            free(v18);
-            SSFileLog(v12, @"%@", v20, v21, v22, v23, v24, v25, v19);
+            v21 = v20;
+            v22 = [MEMORY[0x1E696AEC0] stringWithCString:v20 encoding:4];
+            free(v21);
+            SSFileLog(v14, @"%@", v23, v24, v25, v26, v27, v28, v22);
           }
         }
       }
 
-      v26 = SSXPCCreateMessageDictionary(101);
-      SSXPCDictionarySetCFObject(v26, "1", self->_managerIdentifier);
-      xpc_dictionary_set_value(v26, "2", v7);
+      v29 = SSXPCCreateMessageDictionary(101);
+      SSXPCDictionarySetCFObject(v29, "1", self->_managerIdentifier);
+      xpc_dictionary_set_value(v29, "2", v7);
       [-[SSPurchaseManager _requestConnection](self "_requestConnection")];
-      xpc_release(v26);
+      xpc_release(v29);
     }
 
     xpc_release(v7);
-    _Block_object_dispose(&v30, 8);
+    _Block_object_dispose(&v32, 8);
   }
 }
 
 uint64_t __61__SSPurchaseManager__handlePurchasesFinished_fromConnection___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (MEMORY[0x1DA6E0380](a3) == MEMORY[0x1E69E9E80])
+  if (MEMORY[0x1DA6E0380](a3, a2) == MEMORY[0x1E69E9E80])
   {
     v5 = [[SSPurchaseResponse alloc] initWithXPCEncoding:a3];
     if (v5)

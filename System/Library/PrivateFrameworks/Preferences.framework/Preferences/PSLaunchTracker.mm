@@ -22,11 +22,11 @@
   return v2;
 }
 
-void __33__PSLaunchTracker_sharedInstance__block_invoke()
+void __33__PSLaunchTracker_sharedInstance__block_invoke(uint64_t a1)
 {
-  v0 = objc_alloc_init(objc_opt_class());
-  v1 = sharedInstance_sharedInstance_2;
-  sharedInstance_sharedInstance_2 = v0;
+  v1 = objc_alloc_init(objc_opt_class());
+  v2 = sharedInstance_sharedInstance_2;
+  sharedInstance_sharedInstance_2 = v1;
 }
 
 - (void)setLaunchHasCompleted
@@ -34,7 +34,7 @@ void __33__PSLaunchTracker_sharedInstance__block_invoke()
   v7 = *MEMORY[0x1E69E9840];
   if (!self->_launchHasCompleted)
   {
-    v3 = _PSLoggingFacility();
+    v3 = _PSLoggingFacility(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v5 = 136315138;

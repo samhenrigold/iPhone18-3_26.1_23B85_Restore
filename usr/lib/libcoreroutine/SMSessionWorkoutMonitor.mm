@@ -1753,11 +1753,11 @@ LABEL_14:
   [(SMSessionWorkoutMonitor *)self _tearDownTimerWithIdentifier:identifierCopy];
 }
 
-uint64_t __60__SMSessionWorkoutMonitor__onTimerExpiryForTimerIdentifier___block_invoke(uint64_t result, int a2)
+void *__60__SMSessionWorkoutMonitor__onTimerExpiryForTimerIdentifier___block_invoke(void *result, int a2)
 {
   if (a2)
   {
-    v2 = *(result + 32);
+    v2 = result[4];
     v3[0] = MEMORY[0x277D85DD0];
     v3[1] = 3221225472;
     v3[2] = __60__SMSessionWorkoutMonitor__onTimerExpiryForTimerIdentifier___block_invoke_2;

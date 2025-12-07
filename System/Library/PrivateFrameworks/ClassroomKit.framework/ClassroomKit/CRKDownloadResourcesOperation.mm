@@ -121,8 +121,7 @@ CRKConcreteCertificate *__92__CRKDownloadResourcesOperation_initWithResources_cl
 
           [v14 resume];
           [(NSMutableArray *)self->mCompletedUnitCounts addObject:&unk_2856727F0];
-          [(NSArray *)v5 addObject:v14];
-          v17 = _CRKLogOperation_0();
+          v17 = _CRKLogOperation_0([(NSArray *)v5 addObject:v14]);
           if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
           {
             *buf = v21;
@@ -179,22 +178,23 @@ CRKConcreteCertificate *__92__CRKDownloadResourcesOperation_initWithResources_cl
 
 - (void)URLSession:(id)session task:(id)task didReceiveChallenge:(id)challenge completionHandler:(id)handler
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
-  if (([MEMORY[0x277CCACC8] isMainThread] & 1) == 0)
+  isMainThread = [MEMORY[0x277CCACC8] isMainThread];
+  if ((isMainThread & 1) == 0)
   {
     [CRKDownloadResourcesOperation URLSession:a2 task:self didReceiveChallenge:? completionHandler:?];
   }
 
-  v9 = _CRKLogOperation_0();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = _CRKLogOperation_0(isMainThread);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138543362;
+    v13 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_243550000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@: Did receive authentication challenge", &v12, 0xCu);
+    _os_log_impl(&dword_243550000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@: Did receive authentication challenge", &v13, 0xCu);
   }
 
-  if ([(CRKDownloadResourcesOperation *)self isExecuting]&& ([(CRKDownloadResourcesOperation *)self credential], v10 = objc_claimAutoreleasedReturnValue(), v10, v10))
+  if ([(CRKDownloadResourcesOperation *)self isExecuting]&& ([(CRKDownloadResourcesOperation *)self credential], v11 = objc_claimAutoreleasedReturnValue(), v11, v11))
   {
     credential = [(CRKDownloadResourcesOperation *)self credential];
     handlerCopy[2](handlerCopy, 0, credential);
@@ -210,7 +210,7 @@ CRKConcreteCertificate *__92__CRKDownloadResourcesOperation_initWithResources_cl
 {
   v34 = *MEMORY[0x277D85DE8];
   taskCopy = task;
-  v11 = _CRKLogOperation_0();
+  v11 = _CRKLogOperation_0(taskCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     taskDescription = [taskCopy taskDescription];
@@ -271,7 +271,7 @@ CRKConcreteCertificate *__92__CRKDownloadResourcesOperation_initWithResources_cl
 
 - (void)URLSession:(id)session downloadTask:(id)task didFinishDownloadingToURL:(id)l
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   lCopy = l;
   v8 = MEMORY[0x277CBEBC0];
   taskCopy = task;
@@ -283,47 +283,48 @@ CRKConcreteCertificate *__92__CRKDownloadResourcesOperation_initWithResources_cl
   v14 = [defaultManager attributesOfItemAtPath:path error:0];
   fileSize = [v14 fileSize];
 
-  v16 = _CRKLogOperation_0();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v17 = _CRKLogOperation_0(v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543874;
     selfCopy = self;
-    v28 = 2114;
-    v29 = v11;
-    v30 = 2048;
-    v31 = fileSize;
-    _os_log_impl(&dword_243550000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@: Download task did finish downloading url %{public}@. File size: %lu bytes", buf, 0x20u);
+    v30 = 2114;
+    v31 = v11;
+    v32 = 2048;
+    v33 = fileSize;
+    _os_log_impl(&dword_243550000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@: Download task did finish downloading url %{public}@. File size: %lu bytes", buf, 0x20u);
   }
 
   resources = [(CRKDownloadResourcesOperation *)self resources];
-  v18 = [(NSArray *)self->mDownloadTasks indexOfObject:taskCopy];
+  v19 = [(NSArray *)self->mDownloadTasks indexOfObject:taskCopy];
 
-  v19 = [resources objectAtIndexedSubscript:v18];
+  v20 = [resources objectAtIndexedSubscript:v19];
 
-  if ([v19 isZippedBundle])
+  if ([v20 isZippedBundle])
   {
-    v25 = 0;
-    v20 = [(CRKDownloadResourcesOperation *)self moveURLToNonEphemeralLocation:lCopy withFileName:0 error:&v25];
-    v21 = v25;
-    if (v20)
+    v27 = 0;
+    v21 = [(CRKDownloadResourcesOperation *)self moveURLToNonEphemeralLocation:lCopy withFileName:0 error:&v27];
+    v22 = v27;
+    v23 = v22;
+    if (v21)
     {
-      v22 = _CRKLogGeneral_8();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      v24 = _CRKLogGeneral_8(v22);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
         selfCopy = v11;
-        _os_log_impl(&dword_243550000, v22, OS_LOG_TYPE_DEFAULT, "Unzipping %{public}@", buf, 0xCu);
+        _os_log_impl(&dword_243550000, v24, OS_LOG_TYPE_DEFAULT, "Unzipping %{public}@", buf, 0xCu);
       }
 
-      v23 = [[CRKUnzipOperation alloc] initWithZipFileURL:v20];
-      [(CRKUnzipOperation *)v23 addTarget:self selector:sel_unzipOperationDidFinish_forRequestURL_ forOperationEvents:6 userInfo:v11];
+      v25 = [[CRKUnzipOperation alloc] initWithZipFileURL:v21];
+      [(CRKUnzipOperation *)v25 addTarget:self selector:sel_unzipOperationDidFinish_forRequestURL_ forOperationEvents:6 userInfo:v11];
       crk_backgroundQueue = [MEMORY[0x277CF9540] crk_backgroundQueue];
-      [crk_backgroundQueue addOperation:v23];
+      [crk_backgroundQueue addOperation:v25];
     }
 
     else
     {
-      [(CRKDownloadResourcesOperation *)self endOperationWithError:v21];
+      [(CRKDownloadResourcesOperation *)self endOperationWithError:v22];
     }
   }
 
@@ -418,24 +419,23 @@ CRKConcreteCertificate *__92__CRKDownloadResourcesOperation_initWithResources_cl
 
 - (void)finalizeDownloadedItem:(id)item forRequestURL:(id)l
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   lCopy = l;
   if ([(CRKDownloadResourcesOperation *)self isExecuting])
   {
     lastPathComponent = [lCopy lastPathComponent];
-    v20 = 0;
-    v9 = [(CRKDownloadResourcesOperation *)self moveURLToNonEphemeralLocation:itemCopy withFileName:lastPathComponent error:&v20];
-    v10 = v20;
+    v21 = 0;
+    v9 = [(CRKDownloadResourcesOperation *)self moveURLToNonEphemeralLocation:itemCopy withFileName:lastPathComponent error:&v21];
+    v10 = v21;
 
     if (v9)
     {
-      [(NSMutableArray *)self->mFileURLs addObject:v9];
-      v11 = _CRKLogGeneral_8();
+      v11 = _CRKLogGeneral_8([(NSMutableArray *)self->mFileURLs addObject:v9]);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v22 = lCopy;
+        v23 = lCopy;
         _os_log_impl(&dword_243550000, v11, OS_LOG_TYPE_DEFAULT, "Finalized downloaded item for request URL %{public}@", buf, 0xCu);
       }
 
@@ -454,13 +454,13 @@ CRKConcreteCertificate *__92__CRKDownloadResourcesOperation_initWithResources_cl
         v16 = [resources2 count];
         v17 = [(NSMutableArray *)self->mFileURLs count];
 
-        v18 = _CRKLogGeneral_8();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+        v19 = _CRKLogGeneral_8(v18);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
-          v19 = [MEMORY[0x277CCABB0] numberWithInteger:v16 - v17];
+          v20 = [MEMORY[0x277CCABB0] numberWithInteger:v16 - v17];
           *buf = 138543362;
-          v22 = v19;
-          _os_log_impl(&dword_243550000, v18, OS_LOG_TYPE_DEFAULT, "Not ending the operation because there are %{public}@ items yet to be finalized", buf, 0xCu);
+          v23 = v20;
+          _os_log_impl(&dword_243550000, v19, OS_LOG_TYPE_DEFAULT, "Not ending the operation because there are %{public}@ items yet to be finalized", buf, 0xCu);
         }
       }
     }

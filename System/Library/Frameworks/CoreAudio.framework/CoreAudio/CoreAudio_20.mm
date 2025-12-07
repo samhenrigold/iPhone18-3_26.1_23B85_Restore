@@ -1,3 +1,2400 @@
+uint64_t HALS_Box::GetPropertyDataSize(HALS_Box *this, uint64_t a2, AudioObjectPropertyAddress *a3, unsigned int a4, const void *a5, HALS_Client *a6)
+{
+  mSelector = a3->mSelector;
+  if (a3->mSelector <= 1651861859)
+  {
+    if (mSelector > 1651010920)
+    {
+      if (mSelector == 1651010921 || mSelector == 1651013225)
+      {
+        return 4;
+      }
+
+      v7 = 1651536495;
+    }
+
+    else
+    {
+      if (mSelector == 1650682915 || mSelector == 1650751011)
+      {
+        return 0;
+      }
+
+      v7 = 1651007861;
+    }
+
+    goto LABEL_16;
+  }
+
+  if (mSelector <= 1668575851)
+  {
+    if (mSelector == 1651861860)
+    {
+      return 8;
+    }
+
+    if (mSelector == 1652060006)
+    {
+      return 4;
+    }
+
+    v7 = 1652060014;
+    goto LABEL_16;
+  }
+
+  if (mSelector == 1668575852)
+  {
+    v20 = 0;
+    v21 = &v20;
+    v22 = 0x2000000000;
+    v23 = 0;
+    v12 = MEMORY[0x1E69E9820];
+    v13 = 0x40000000;
+    v14 = ___ZNK8HALS_Box17GetNumberControlsEv_block_invoke;
+    v15 = &unk_1E8673B28;
+    v16 = &v20;
+    v17 = this;
+    v9 = (*(*this + 64))(this, a2);
+    HALB_CommandGate::ExecuteCommand(v9, &v12);
+LABEL_22:
+    v11 = *(v21 + 6);
+    _Block_object_dispose(&v20, 8);
+    return (4 * v11);
+  }
+
+  if (mSelector == 1870098020)
+  {
+    v20 = 0;
+    v21 = &v20;
+    v22 = 0x2000000000;
+    v23 = 0;
+    v12 = MEMORY[0x1E69E9820];
+    v13 = 0x40000000;
+    v14 = ___ZNK8HALS_Box35GetNumberOfControlsUsingClassFilterEjPKj_block_invoke;
+    v15 = &unk_1E8673B50;
+    v19 = a4 >> 2;
+    v17 = this;
+    v18 = a5;
+    v16 = &v20;
+    v10 = (*(*this + 64))(this, a2);
+    HALB_CommandGate::ExecuteCommand(v10, &v12);
+    goto LABEL_22;
+  }
+
+  v7 = 1953653102;
+LABEL_16:
+  if (mSelector == v7)
+  {
+    return 4;
+  }
+
+  return HALS_Object::GetPropertyDataSize(this, a2, a3);
+}
+
+uint64_t ___ZNK8HALS_Box17GetNumberControlsEv_block_invoke(uint64_t a1)
+{
+  result = (*(**(a1 + 40) + 216))(*(a1 + 40));
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  return result;
+}
+
+void sub_1DE36BFD0(void *a1)
+{
+  __cxa_begin_catch(a1);
+
+  __cxa_end_catch();
+}
+
+void ___ZNK8HALS_Box35GetNumberOfControlsUsingClassFilterEjPKj_block_invoke(uint64_t a1)
+{
+  v2 = *(a1 + 40);
+  v3 = (*(*v2 + 216))(v2);
+  if (v3)
+  {
+    v4 = v3;
+    v5 = 0;
+    do
+    {
+      v6 = (*(*v2 + 224))(v2, v5);
+      v8 = v6;
+      v9 = *(a1 + 56);
+      v10 = *(a1 + 48);
+      if (v9)
+      {
+        v11 = v10 == 0;
+      }
+
+      else
+      {
+        v11 = 1;
+      }
+
+      if (v11)
+      {
+        goto LABEL_12;
+      }
+
+      v12 = *(v6 + 20);
+      v13 = 1;
+      do
+      {
+        v14 = *v10++;
+        IsSubClass = HALB_Info::IsSubClass(v12, v14);
+        if (IsSubClass)
+        {
+          break;
+        }
+      }
+
+      while (v13++ < v9);
+      if (IsSubClass)
+      {
+LABEL_12:
+        ++*(*(*(a1 + 32) + 8) + 24);
+      }
+
+      HALS_ObjectMap::ReleaseObject(v8, v7);
+      v5 = (v5 + 1);
+    }
+
+    while (v5 != v4);
+  }
+}
+
+uint64_t HALS_Box::IsPropertySettable(uint64_t a1, uint64_t a2, int *a3)
+{
+  result = 0;
+  v4 = *a3;
+  if (*a3 <= 1651536494)
+  {
+    if (v4 <= 1651007860)
+    {
+      v5 = v4 == 1650682915;
+      v6 = 1650751011;
+    }
+
+    else
+    {
+      v5 = v4 == 1651007861 || v4 == 1651010921;
+      v6 = 1651013225;
+    }
+
+LABEL_19:
+    if (!v5 && v4 != v6)
+    {
+      return HALS_Object::IsPropertySettable(0, a2, a3);
+    }
+
+    return result;
+  }
+
+  if (v4 <= 1652060013)
+  {
+    v5 = v4 == 1651536495 || v4 == 1651861860;
+    v6 = 1652060006;
+    goto LABEL_19;
+  }
+
+  if (v4 != 1953653102 && v4 != 1668575852)
+  {
+    if (v4 == 1652060014)
+    {
+      return 1;
+    }
+
+    return HALS_Object::IsPropertySettable(0, a2, a3);
+  }
+
+  return result;
+}
+
+uint64_t HALS_Box::HasProperty(uint64_t a1, uint64_t a2, int *a3)
+{
+  v3 = *a3;
+  result = 1;
+  if (*a3 > 1652060005)
+  {
+    if (v3 > 1869638758)
+    {
+      if (v3 > 1937007733)
+      {
+        if (v3 == 1937007734)
+        {
+          return result;
+        }
+
+        v5 = 1953653102;
+      }
+
+      else
+      {
+        if (v3 == 1869638759)
+        {
+          return result;
+        }
+
+        v5 = 1870098020;
+      }
+    }
+
+    else if (v3 > 1668047218)
+    {
+      if (v3 == 1668047219)
+      {
+        return result;
+      }
+
+      v5 = 1668575852;
+    }
+
+    else
+    {
+      if (v3 == 1652060006)
+      {
+        return result;
+      }
+
+      v5 = 1652060014;
+    }
+  }
+
+  else
+  {
+    if (v3 > 1651010920)
+    {
+      if (v3 > 1651536494)
+      {
+        if (v3 == 1651536495)
+        {
+          return result;
+        }
+
+        v5 = 1651861860;
+        goto LABEL_25;
+      }
+
+      if (v3 == 1651010921)
+      {
+        return result;
+      }
+
+      v6 = 30313;
+    }
+
+    else
+    {
+      if (v3 <= 1650751010)
+      {
+        if (v3 == 1650682915)
+        {
+          return result;
+        }
+
+        v5 = 1650682995;
+        goto LABEL_25;
+      }
+
+      if (v3 == 1650751011)
+      {
+        return result;
+      }
+
+      v6 = 24949;
+    }
+
+    v5 = v6 | 0x62680000;
+  }
+
+LABEL_25:
+  if (v3 != v5)
+  {
+    return 0;
+  }
+
+  return result;
+}
+
+uint64_t HALS_Box::GetMIGDispatchQueue(HALS_Box *this)
+{
+  return *(this + 8);
+}
+
+{
+  return *(this + 8);
+}
+
+uint64_t HALS_Box::GetCommandGate(HALS_Box *this)
+{
+  return *(this + 6);
+}
+
+{
+  return *(this + 6);
+}
+
+void HALS_Box::~HALS_Box(HALS_Box *this)
+{
+  HALS_Box::~HALS_Box(this);
+
+  JUMPOUT(0x1E12C1730);
+}
+
+{
+  *this = &unk_1F5968D08;
+  v2 = *(this + 7);
+  *(this + 6) = 0;
+  *(this + 7) = 0;
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  v3 = *(this + 8);
+  if (v3)
+  {
+    AMCP::Utility::Dispatch_Queue::~Dispatch_Queue(v3);
+    MEMORY[0x1E12C1730]();
+  }
+
+  CACFString::~CACFString((this + 72));
+  v4 = *(this + 7);
+  if (v4)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v4);
+  }
+
+  HALS_Object::~HALS_Object(this);
+}
+
+void HALS_Box::HALS_Box(HALS_Box *this, HALS_DeviceManager *a2, const __CFString *a3, uint64_t a4, HALS_Object *a5)
+{
+  v21 = *MEMORY[0x1E69E9840];
+  HALS_Object::HALS_Object(this, 1633841016, 0, a2, a5);
+  *v6 = &unk_1F5968D08;
+  *(v6 + 72) = a3;
+  v8 = (v6 + 72);
+  *(v6 + 56) = 0;
+  *(v6 + 64) = 0;
+  *(v6 + 48) = 0;
+  *(v6 + 80) = 1;
+  *(v6 + 88) = 0u;
+  *(v6 + 104) = 0u;
+  *(v6 + 120) = 0u;
+  *(v6 + 136) = 0u;
+  *(v6 + 152) = 0u;
+  *(v6 + 168) = 0u;
+  *(v6 + 184) = 0u;
+  *(v6 + 200) = 0u;
+  *(v6 + 216) = 0u;
+  *(v6 + 232) = 0u;
+  *(v6 + 248) = 0u;
+  *(v6 + 264) = 0u;
+  *(v6 + 280) = 0u;
+  *(v6 + 296) = 0u;
+  *(v6 + 312) = 0u;
+  *(v6 + 328) = 0u;
+  if (a3)
+  {
+    *v16 = 256;
+    CACFString::GetCString(a3, (v6 + 88), v16, v7);
+    Length = *v8;
+    if (*v8)
+    {
+      Length = CFStringGetLength(Length);
+      v10 = Length + 1;
+    }
+
+    else
+    {
+      v10 = 1;
+    }
+
+    *v15 = v10;
+    MEMORY[0x1EEE9AC00](Length);
+    CACFString::GetCString(*v8, (v15 - ((v11 + 15) & 0x1FFFFFFF0) + 8), v15, v12);
+    operator new[]();
+  }
+
+  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  {
+    buf = 136315394;
+    buf_4 = "HALS_Box.cpp";
+    v19 = 1024;
+    v20 = 37;
+    _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  HALS_Box::HALS_Box: all boxes have to have a UID", &buf, 0x12u);
+  }
+
+  exception = __cxa_allocate_exception(0x10uLL);
+  *exception = off_1F5991DD8;
+  exception[2] = 1852797029;
+}
+
+void sub_1DE36C778(_Unwind_Exception *a1)
+{
+  MEMORY[0x1E12C1700](v3, v4);
+  CACFString::~CACFString(v2);
+  v6 = *(v1 + 7);
+  if (v6)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
+  }
+
+  HALS_Object::~HALS_Object(v1);
+  _Unwind_Resume(a1);
+}
+
+CFIndex OS::CF::String::AsCString(CFIndex this, UInt8 *a2, uint64_t a3)
+{
+  *a2 = 0;
+  usedBufLen = 1;
+  v3 = *(this + 8);
+  if (v3)
+  {
+    v7.length = CFStringGetLength(*(this + 8));
+    v7.location = 0;
+    this = CFStringGetBytes(v3, v7, 0x8000100u, 0, 0, a2, a3 - 1, &usedBufLen);
+    a2[usedBufLen] = 0;
+  }
+
+  return this;
+}
+
+void sub_1DE36CC98(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
+{
+  a9.super_class = DSP_ADM;
+  [(_Unwind_Exception *)&a9 dealloc:a3];
+  _Unwind_Resume(a1);
+}
+
+CFComparisonResult HALS_IOContext_MCP_Impl::GetOwningDeviceID(const __CFDictionary **this)
+{
+  if (this[14])
+  {
+    cf[0] = CFStringCreateWithBytes(0, "uid", 3, 0x8000100u, 0);
+    if (!cf[0])
+    {
+      exception = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(exception, "Could not construct");
+      __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+    }
+
+    v15 = CFStringCreateWithBytes(0, "", 0, 0x8000100u, 0);
+    if (!v15)
+    {
+      v9 = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(v9, "Could not construct");
+      __cxa_throw(v9, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+    }
+
+    applesauce::CF::at_or<applesauce::CF::StringRef,applesauce::CF::StringRef>(&v17, this[14], cf[0], &v15);
+    if (v15)
+    {
+      CFRelease(v15);
+    }
+
+    CFRelease(cf[0]);
+  }
+
+  else
+  {
+    v17 = CFStringCreateWithBytes(0, "", 0, 0x8000100u, 0);
+    if (!v17)
+    {
+      v10 = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(v10, "Could not construct");
+      __cxa_throw(v10, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+    }
+  }
+
+  v2 = CFStringCreateWithBytes(0, "", 0, 0x8000100u, 0);
+  cf[0] = v2;
+  if (!v2)
+  {
+    v7 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v7, "Could not construct");
+    __cxa_throw(v7, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+  }
+
+  v3 = applesauce::CF::compare<applesauce::CF::StringRef,0,applesauce::CF::StringRef,0>(v17, cf);
+  CFRelease(v2);
+  if (v3 == kCFCompareEqualTo)
+  {
+    goto LABEL_15;
+  }
+
+  v14[0] = 0;
+  v14[1] = 0;
+  HALS_System::GetInstance(&v15, 0, v14);
+  *cf = 0u;
+  v12 = 0u;
+  v13 = 1065353216;
+  v4 = HALS_System::CopyDeviceByUID(v15, v17, 0, cf);
+  std::__hash_table<std::__hash_value_type<unsigned int,HALS_RemotePlugInEngine *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,HALS_RemotePlugInEngine *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,HALS_RemotePlugInEngine *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,HALS_RemotePlugInEngine *>>>::~__hash_table(cf);
+  if (v16)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v16);
+  }
+
+  if (v4)
+  {
+    v3 = v4[4];
+  }
+
+  HALS_ObjectMap::ReleaseObject(v4, v5);
+  if (!v4)
+  {
+LABEL_15:
+    v3 = kCFCompareEqualTo;
+  }
+
+  if (v17)
+  {
+    CFRelease(v17);
+  }
+
+  return v3;
+}
+
+uint64_t HALS_IOContext_MCP_Impl::GetSafetyOffset(HALS_IOContext_MCP_Impl *this, uint64_t a2)
+{
+  result = *(this + 32);
+  if (result)
+  {
+    result = (*(*result + 120))(result);
+    if (result)
+    {
+      return (*(**(this + 32) + 144))(*(this + 32), a2);
+    }
+  }
+
+  return result;
+}
+
+double HALS_IOContext_MCP_Impl::GetActualSampleRate(HALS_IOContext_MCP_Impl *this)
+{
+  v2 = *(this + 32);
+  if (!v2 || !(*(*v2 + 120))(v2))
+  {
+    return 0.0;
+  }
+
+  v3 = *(**(this + 32) + 152);
+
+  v3();
+  return result;
+}
+
+uint64_t HALS_IOContext_MCP_Impl::GetStreamInfo(uint64_t a1, uint64_t a2, unsigned int a3, unsigned int *a4, uint64_t a5)
+{
+  v5 = a3 / 0x38;
+  if (a3 / 0x38 >= -991146299 * ((*(a1 + 24 * a5 + 200) - *(a1 + 24 * a5 + 192)) >> 3))
+  {
+    v5 = -991146299 * ((*(a1 + 24 * a5 + 200) - *(a1 + 24 * a5 + 192)) >> 3);
+  }
+
+  *a4 = v5;
+  if (v5)
+  {
+    HALS_IOContext_MCP_Impl::get_owning_device_for_stream(a1, a5, 0);
+  }
+
+  return a1;
+}
+
+void HALS_IOContext_MCP_Impl::get_owning_device_for_stream(uint64_t a1, int a2, uint64_t a3)
+{
+  v13 = 0x676C6F626E756964;
+  LODWORD(v14) = 0;
+  v4 = *(a1 + 56);
+  if (v4 && (v5 = std::__shared_weak_count::lock(v4)) != 0)
+  {
+    v6 = v5;
+    v7 = *(a1 + 48);
+    if (v7)
+    {
+      AMCP::Core::Core::call_operation_function<applesauce::CF::StringRef>(&v15, v7, &v13);
+    }
+
+    else
+    {
+      v15 = 0;
+    }
+
+    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
+  }
+
+  else
+  {
+    v15 = 0;
+  }
+
+  v12[0] = 0;
+  v12[1] = 0;
+  HALS_System::GetInstance(&v10, 0, v12);
+  if (v15)
+  {
+    v8 = *(v10.__r_.__value_.__r.__words[0] + 1744);
+    applesauce::CF::convert_to<std::string,0>(__p, v15);
+    os_unfair_lock_lock(v8 + 4);
+    HALS_IOContext_Manager_Impl::find_wires_for_context(&v13, &v8[6], __p);
+  }
+
+  exception = __cxa_allocate_exception(0x10uLL);
+  std::runtime_error::runtime_error(exception, "Could not construct");
+  __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+}
+
+void sub_1DE36D7C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, uint64_t a21, uint64_t a22, char a23)
+{
+  if (a20 < 0)
+  {
+    operator delete(__p);
+  }
+
+  __p = &a23;
+  std::vector<AMCP::Wire_Identifier>::__destroy_vector::operator()[abi:ne200100](&__p);
+  applesauce::CF::StringRef::~StringRef((v23 - 96));
+  _Unwind_Resume(a1);
+}
+
+void AMCP::Core::Core::call_operation_function<applesauce::CF::StringRef>(AMCP::Log::AMCP_Scope_Registry *a1, int8x8_t *a2, unsigned int *a3)
+{
+  v38 = *MEMORY[0x1E69E9840];
+  if (*a3 == 707406378 || a3[1] == 707406378 || a3[2] == -1)
+  {
+    v8 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
+    if ((v8 & 1) == 0)
+    {
+      AMCP::Log::AMCP_Scope_Registry::initialize(a1);
+    }
+
+    v10 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
+    v9 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
+    if (v9)
+    {
+      atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
+      v11 = *v10;
+      std::__shared_weak_count::__release_shared[abi:ne200100](v9);
+    }
+
+    else
+    {
+      v11 = *v10;
+    }
+
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136315650;
+      v30 = "Core.h";
+      v31 = 1024;
+      v32 = 198;
+      v33 = 2080;
+      v34 = "!in_address.has_wildcards()";
+      _os_log_error_impl(&dword_1DE1F9000, v11, OS_LOG_TYPE_ERROR, "%32s:%-5d Assertion Failed: %s ", buf, 0x1Cu);
+    }
+
+    abort();
+  }
+
+  operation = AMCP::Core::Core::find_operation(&v27, a2, a3);
+  if (!v27)
+  {
+    v12 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
+    if ((v12 & 1) == 0)
+    {
+      AMCP::Log::AMCP_Scope_Registry::initialize(operation);
+    }
+
+    v14 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
+    v13 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
+    if (v13)
+    {
+      atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
+      v15 = *v14;
+      std::__shared_weak_count::__release_shared[abi:ne200100](v13);
+    }
+
+    else
+    {
+      v15 = *v14;
+    }
+
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136315394;
+      v30 = "Core.h";
+      v31 = 1024;
+      v32 = 202;
+      _os_log_error_impl(&dword_1DE1F9000, v15, OS_LOG_TYPE_ERROR, "%32s:%-5d Throwing Exception: Operation does not have requested function", buf, 0x12u);
+    }
+
+    AMCP::Utility::With_Realtime_Disabled::With_Realtime_Disabled(&v26);
+    __cxa_allocate_exception(0x40uLL);
+    caulk::make_string(&v18, "Operation does not have requested function", v16);
+    std::runtime_error::runtime_error(&v19, &v18);
+    std::runtime_error::runtime_error(&v20, &v19);
+    v22 = 0;
+    v23 = 0;
+    v24 = 0;
+    v25 = -1;
+    v20.__vftable = &unk_1F5992170;
+    v21 = &unk_1F5992198;
+    boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<std::runtime_error>>::clone_impl(buf, &v20);
+    v35 = "Return_Type AMCP::Core::Core::call_operation_function(const Address &, Argument_Types...) const [Return_Type = applesauce::CF::StringRef, Argument_Types = <>]";
+    v36 = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/MCP/AMCP/Core/Core.h";
+    v37 = 202;
+    applesauce::backtrace::snapshot_N<64>::snapshot_N(&v17);
+  }
+
+  AMCP::Core::Operation::call_function<applesauce::CF::StringRef>(a1, v27);
+  v7 = v28;
+  if (v28)
+  {
+
+    std::__shared_weak_count::__release_shared[abi:ne200100](v7);
+  }
+}
+
+void sub_1DE36DBDC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, std::runtime_error a22, char a23)
+{
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  if (a9)
+  {
+    operator delete(a9);
+  }
+
+  boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<std::runtime_error>>::~clone_impl(v25 - 128);
+  boost::exception_detail::error_info_injector<std::runtime_error>::~error_info_injector(&a23);
+  std::runtime_error::~runtime_error(&a22);
+  if (a21 < 0)
+  {
+    operator delete(a16);
+  }
+
+  if (v24)
+  {
+    __cxa_free_exception(v23);
+  }
+
+  AMCP::Utility::With_Realtime_Disabled::~With_Realtime_Disabled((v25 - 145));
+  v27 = *(v25 - 136);
+  if (v27)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v27);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t HALS_IOContext_MCP_Impl::CopyIOThreadOSWorkgroup(HALS_IOContext_MCP_Impl *this)
+{
+  v10 = *MEMORY[0x1E69E9840];
+  v2 = *(this + 7);
+  if (!v2)
+  {
+    return 0;
+  }
+
+  v3 = std::__shared_weak_count::lock(v2);
+  if (!v3)
+  {
+    return 0;
+  }
+
+  v4 = v3;
+  if (*(this + 6))
+  {
+    HALS_IOContext_MCP_Impl::get_simple_mcp_property<2003267184u>(v8, this);
+    v6 = caulk::mach::details::retain_os_object(v9, v5);
+    caulk::mach::os_workgroup_interval_managed::~os_workgroup_interval_managed(v8);
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  std::__shared_weak_count::__release_shared[abi:ne200100](v4);
+  return v6;
+}
+
+void HALS_IOContext_MCP_Impl::get_simple_mcp_property<2003267184u>(uint64_t a1, void *a2)
+{
+  v26 = *MEMORY[0x1E69E9840];
+  v4 = a2[7];
+  if (v4)
+  {
+    v4 = std::__shared_weak_count::lock(v4);
+    v5 = v4;
+    if (v4)
+    {
+      v6 = a2[6];
+      if (v6)
+      {
+        AMCP::Core::Core::get_simple_required_property<2003267184u>(a1, v6);
+LABEL_13:
+        std::__shared_weak_count::__release_shared[abi:ne200100](v5);
+        return;
+      }
+    }
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  v7 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
+  if ((v7 & 1) == 0)
+  {
+    AMCP::Log::AMCP_Scope_Registry::initialize(v4);
+  }
+
+  v9 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
+  v8 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
+  if (v8)
+  {
+    atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
+    v10 = *v9;
+    std::__shared_weak_count::__release_shared[abi:ne200100](v8);
+  }
+
+  else
+  {
+    v10 = *v9;
+  }
+
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  {
+    v12 = *(a2[5] + 16);
+    HALS_IOContext_MCP_Impl::get_debug_device_name(&cf, a2);
+    if (!cf)
+    {
+      exception = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(exception, "Could not construct");
+      __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+    }
+
+    applesauce::CF::convert_to<std::string,0>(__p, cf);
+    if (v17 >= 0)
+    {
+      v13 = __p;
+    }
+
+    else
+    {
+      v13 = __p[0];
+    }
+
+    *buf = 136315906;
+    v19 = "HALS_IOContext_MCP_Impl.cpp";
+    v20 = 1024;
+    v21 = 107;
+    v22 = 1024;
+    v23 = v12;
+    v24 = 2080;
+    v25 = v13;
+    _os_log_debug_impl(&dword_1DE1F9000, v10, OS_LOG_TYPE_DEBUG, "%32s:%-5d HALS_IOContext_MCP_Impl core ptr is null: %u\t%s", buf, 0x22u);
+    if (v17 < 0)
+    {
+      operator delete(__p[0]);
+    }
+
+    if (cf)
+    {
+      CFRelease(cf);
+    }
+  }
+
+  v11 = MEMORY[0x1E69E3C20] + 16;
+  *(a1 + 56) = 0;
+  *(a1 + 40) = 0u;
+  *(a1 + 24) = 0u;
+  *(a1 + 8) = 0u;
+  *a1 = v11;
+  if (v5)
+  {
+    goto LABEL_13;
+  }
+}
+
+void sub_1DE36DF60(_Unwind_Exception *exception_object, int a2)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(exception_object);
+  }
+
+  __clang_call_terminate(exception_object);
+}
+
+void HALS_IOContext_MCP_Impl::get_debug_device_name(HALS_IOContext_MCP_Impl *this, uint64_t a2)
+{
+  if (*(a2 + 112))
+  {
+    v9 = CFStringCreateWithBytes(0, "uid", 3, 0x8000100u, 0);
+    if (!v9)
+    {
+      exception = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(exception, "Could not construct");
+      __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+    }
+
+    cf = CFStringCreateWithBytes(0, "", 0, 0x8000100u, 0);
+    if (!cf)
+    {
+      v6 = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(v6, "Could not construct");
+      __cxa_throw(v6, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+    }
+
+    applesauce::CF::at_or<applesauce::CF::StringRef,applesauce::CF::StringRef>(this, *(a2 + 112), v9, &cf);
+    if (cf)
+    {
+      CFRelease(cf);
+    }
+
+    if (v9)
+    {
+      CFRelease(v9);
+    }
+  }
+
+  else
+  {
+    v4 = CFStringCreateWithBytes(0, "", 0, 0x8000100u, 0);
+    *this = v4;
+    if (!v4)
+    {
+      v7 = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(v7, "Could not construct");
+      __cxa_throw(v7, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+    }
+  }
+}
+
+void AMCP::Core::Core::get_simple_required_property<2003267184u>(uint64_t a1, AMCP::Core::Core *this)
+{
+  v41 = *MEMORY[0x1E69E9840];
+  v24 = 0x676C6F6277676E70;
+  v25 = 0;
+  has_property = AMCP::Core::Core::has_property(this, &v24);
+  if (!has_property)
+  {
+LABEL_17:
+    LOBYTE(v31) = 0;
+    v36 = 0;
+LABEL_18:
+    v20 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
+    if ((v20 & 1) == 0)
+    {
+      AMCP::Log::AMCP_Scope_Registry::initialize(has_property);
+    }
+
+    v22 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
+    v21 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
+    if (v21)
+    {
+      atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
+      v23 = *v22;
+      std::__shared_weak_count::__release_shared[abi:ne200100](v21);
+    }
+
+    else
+    {
+      v23 = *v22;
+    }
+
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    {
+      v27 = 4;
+      strcpy(__p, "wgnp");
+      *buf = 136316418;
+      *v38 = "Core.h";
+      *&v38[8] = 1024;
+      *&v38[10] = 391;
+      *&v38[14] = 2080;
+      *&v38[16] = "optional_value.operator BOOL() == true";
+      *&v38[24] = 2080;
+      *&v38[26] = __p;
+      *&v38[34] = 1024;
+      strcpy(&v38[36], "bolg");
+      v38[41] = 4;
+      *&v38[42] = 0;
+      _os_log_error_impl(&dword_1DE1F9000, v23, OS_LOG_TYPE_ERROR, "%32s:%-5d Assertion Failed: %s a required property is missing '%s':%u:%u", buf, 0x32u);
+      if (v27 < 0)
+      {
+        operator delete(__p[0]);
+      }
+    }
+
+    abort();
+  }
+
+  AMCP::Core::Core::find_operation(&v29, this, &v24);
+  v6 = v29;
+  if (v29)
+  {
+    v7 = AMCP::Implementation::get_type_marker<std::function<caulk::mach::os_workgroup_interval_managed ()(void)>>();
+    if (std::__hash_table<std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>,std::__unordered_map_hasher<AMCP::Type_ID,std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>,AMCP::Type_ID::Hash,std::equal_to<AMCP::Type_ID>,true>,std::__unordered_map_equal<AMCP::Type_ID,std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>,std::equal_to<AMCP::Type_ID>,AMCP::Type_ID::Hash,true>,std::allocator<std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>>>::find<AMCP::Type_ID>(v6, v7))
+    {
+      AMCP::Core::Operation::call_function<caulk::mach::os_workgroup_interval_managed>(buf, v6);
+      memset(v34, 0, sizeof(v34));
+      v33 = 0u;
+      v35 = 0;
+      v31 = MEMORY[0x1E69E3C20] + 16;
+      v32 = *&v38[4];
+      *&v38[4] = 0;
+      caulk::mach::details::release_os_object(0, v8);
+      v9 = *v34;
+      v10 = v33;
+      v11 = *&v34[16];
+      v33 = *&v38[12];
+      *v34 = *&v38[28];
+      *&v34[16] = *&v38[44];
+      *&v38[44] = v11;
+      *&v38[12] = v10;
+      *&v38[28] = v9;
+      LOBYTE(v11) = v34[24];
+      v34[24] = v39;
+      v39 = v11;
+      LOBYTE(v11) = v35;
+      v35 = v40;
+      v40 = v11;
+      v36 = 1;
+      caulk::mach::os_workgroup_interval_managed::~os_workgroup_interval_managed(buf);
+LABEL_5:
+      v12 = 0;
+      goto LABEL_10;
+    }
+
+    v13 = AMCP::Implementation::get_type_marker<std::function<AMCP::Thing ()(void)>>();
+    if (std::__hash_table<std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>,std::__unordered_map_hasher<AMCP::Type_ID,std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>,AMCP::Type_ID::Hash,std::equal_to<AMCP::Type_ID>,true>,std::__unordered_map_equal<AMCP::Type_ID,std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>,std::equal_to<AMCP::Type_ID>,AMCP::Type_ID::Hash,true>,std::allocator<std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>>>::find<AMCP::Type_ID>(v6, v13))
+    {
+      AMCP::Core::Operation::call_function<AMCP::Thing>(__p, v6);
+      AMCP::Thing::convert_to<caulk::mach::os_workgroup_interval_managed>(buf, __p);
+      memset(v34, 0, sizeof(v34));
+      v33 = 0u;
+      v35 = 0;
+      v31 = MEMORY[0x1E69E3C20] + 16;
+      v32 = *&v38[4];
+      *&v38[4] = 0;
+      caulk::mach::details::release_os_object(0, v14);
+      v15 = *v34;
+      v16 = v33;
+      v17 = *&v34[16];
+      v33 = *&v38[12];
+      *v34 = *&v38[28];
+      *&v34[16] = *&v38[44];
+      *&v38[44] = v17;
+      *&v38[12] = v16;
+      *&v38[28] = v15;
+      LOBYTE(v17) = v34[24];
+      v34[24] = v39;
+      v39 = v17;
+      LOBYTE(v17) = v35;
+      v35 = v40;
+      v40 = v17;
+      v36 = 1;
+      caulk::mach::os_workgroup_interval_managed::~os_workgroup_interval_managed(buf);
+      if (v28)
+      {
+        v28(0, __p, 0, 0);
+      }
+
+      goto LABEL_5;
+    }
+  }
+
+  v12 = 1;
+LABEL_10:
+  has_property = v30;
+  if (v30)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v30);
+  }
+
+  if (v12)
+  {
+    goto LABEL_17;
+  }
+
+  if ((v36 & 1) == 0)
+  {
+    goto LABEL_18;
+  }
+
+  *a1 = MEMORY[0x1E69E3C18] + 16;
+  v18 = caulk::mach::details::retain_os_object(v32, v5);
+  v19 = *v34;
+  *(a1 + 16) = v33;
+  *(a1 + 32) = v19;
+  *(a1 + 41) = *&v34[9];
+  *a1 = MEMORY[0x1E69E3C20] + 16;
+  *(a1 + 8) = v18;
+  *(a1 + 57) = v35;
+  if (v36 == 1)
+  {
+    caulk::mach::os_workgroup_interval_managed::~os_workgroup_interval_managed(&v31);
+  }
+}
+
+void sub_1DE36E580(_Unwind_Exception *a1, int a2)
+{
+  if (a2)
+  {
+    __clang_call_terminate(a1);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t HALS_IOContext_MCP_Impl::GetIOThreadOSWorkgroup(HALS_IOContext_MCP_Impl *this)
+{
+  v9 = *MEMORY[0x1E69E9840];
+  v2 = *(this + 7);
+  if (!v2)
+  {
+    return 0;
+  }
+
+  v3 = std::__shared_weak_count::lock(v2);
+  if (!v3)
+  {
+    return 0;
+  }
+
+  v4 = v3;
+  if (*(this + 6))
+  {
+    HALS_IOContext_MCP_Impl::get_simple_mcp_property<2003267184u>(v7, this);
+    v5 = v8;
+    caulk::mach::os_workgroup_interval_managed::~os_workgroup_interval_managed(v7);
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  std::__shared_weak_count::__release_shared[abi:ne200100](v4);
+  return v5;
+}
+
+void HALS_IOContext_MCP_Impl::SetIOThreadOSWorkgroup(HALS_IOContext_MCP_Impl *this, os_workgroup_s *a2)
+{
+  v31 = *MEMORY[0x1E69E9840];
+  v3 = *(this + 7);
+  if (v3)
+  {
+    v5 = std::__shared_weak_count::lock(v3);
+    if (v5)
+    {
+      v6 = v5;
+      if (!*(this + 6))
+      {
+LABEL_23:
+        std::__shared_weak_count::__release_shared[abi:ne200100](v6);
+        return;
+      }
+
+      caulk::mach::os_workgroup_interval_managed::from_get(&v27, a2);
+      v7 = *(this + 7);
+      if (v7)
+      {
+        v7 = std::__shared_weak_count::lock(v7);
+        v8 = v7;
+        if (v7)
+        {
+          v9 = *(this + 6);
+          if (v9)
+          {
+            cf = 0x676C6F6277676E70;
+            v26 = 0;
+            if (AMCP::Core::Core::is_property_settable(v9, &cf))
+            {
+              AMCP::Core::Core::find_operation(&__p, v9, &cf);
+              v10 = __p;
+              if (__p)
+              {
+                v11 = AMCP::Implementation::get_type_marker<std::function<void ()(caulk::mach::os_workgroup_interval_managed const&)>>();
+                if (std::__hash_table<std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>,std::__unordered_map_hasher<AMCP::Type_ID,std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>,AMCP::Type_ID::Hash,std::equal_to<AMCP::Type_ID>,true>,std::__unordered_map_equal<AMCP::Type_ID,std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>,std::equal_to<AMCP::Type_ID>,AMCP::Type_ID::Hash,true>,std::allocator<std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>>>::find<AMCP::Type_ID>(v10, v11))
+                {
+                  AMCP::Core::Operation::call_function<void,caulk::mach::os_workgroup_interval_managed const&>(v10, &v27);
+                }
+
+                else
+                {
+                  v20 = AMCP::Implementation::get_type_marker<std::function<void ()(AMCP::Thing const&)>>();
+                  if (std::__hash_table<std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>,std::__unordered_map_hasher<AMCP::Type_ID,std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>,AMCP::Type_ID::Hash,std::equal_to<AMCP::Type_ID>,true>,std::__unordered_map_equal<AMCP::Type_ID,std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>,std::equal_to<AMCP::Type_ID>,AMCP::Type_ID::Hash,true>,std::allocator<std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>>>::find<AMCP::Type_ID>(v10, v20))
+                  {
+                    *&buf_4[4] = 0uLL;
+                    *&v30 = 0;
+                    *(&v30 + 1) = AMCP::Implementation::Outboard_Storage<caulk::mach::os_workgroup_interval_managed>::dispatch;
+                    operator new();
+                  }
+                }
+              }
+
+              if (v23)
+              {
+                std::__shared_weak_count::__release_shared[abi:ne200100](v23);
+              }
+            }
+
+LABEL_21:
+            std::__shared_weak_count::__release_shared[abi:ne200100](v8);
+LABEL_22:
+            caulk::mach::os_workgroup_interval_managed::~os_workgroup_interval_managed(&v27);
+            v16 = *(this + 5);
+            v17 = v16[4];
+            *&v27.mSelector = 0x676C6F626F737767;
+            v27.mElement = 0;
+            HALS_Object::PropertiesChanged(v16, v17, 0, 1, &v27);
+            goto LABEL_23;
+          }
+        }
+      }
+
+      else
+      {
+        v8 = 0;
+      }
+
+      v12 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
+      if ((v12 & 1) == 0)
+      {
+        AMCP::Log::AMCP_Scope_Registry::initialize(v7);
+      }
+
+      v14 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
+      v13 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
+      if (v13)
+      {
+        atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
+        v15 = *v14;
+        std::__shared_weak_count::__release_shared[abi:ne200100](v13);
+      }
+
+      else
+      {
+        v15 = *v14;
+      }
+
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+      {
+        v18 = *(*(this + 5) + 16);
+        HALS_IOContext_MCP_Impl::get_debug_device_name(&cf, this);
+        if (!cf)
+        {
+          exception = __cxa_allocate_exception(0x10uLL);
+          std::runtime_error::runtime_error(exception, "Could not construct");
+          __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+        }
+
+        applesauce::CF::convert_to<std::string,0>(&__p, cf);
+        if (v24 >= 0)
+        {
+          p_p = &__p;
+        }
+
+        else
+        {
+          p_p = __p;
+        }
+
+        buf = 136315906;
+        *buf_4 = "HALS_IOContext_MCP_Impl.cpp";
+        *&buf_4[8] = 1024;
+        *&buf_4[10] = 121;
+        *&buf_4[14] = 1024;
+        *&buf_4[16] = v18;
+        LOWORD(v30) = 2080;
+        *(&v30 + 2) = p_p;
+        _os_log_debug_impl(&dword_1DE1F9000, v15, OS_LOG_TYPE_DEBUG, "%32s:%-5d HALS_IOContext_MCP_Impl core ptr is null: %u\t%s", &buf, 0x22u);
+        if (v24 < 0)
+        {
+          operator delete(__p);
+        }
+
+        if (cf)
+        {
+          CFRelease(cf);
+        }
+      }
+
+      if (!v8)
+      {
+        goto LABEL_22;
+      }
+
+      goto LABEL_21;
+    }
+  }
+}
+
+void sub_1DE36E9AC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(exception_object);
+  }
+
+  __clang_call_terminate(exception_object);
+}
+
+uint64_t caulk::mach::os_workgroup_interval_managed::from_get(caulk::mach::os_workgroup_interval_managed *this, os_workgroup_s *a2)
+{
+  v3 = caulk::mach::details::retain_os_object(a2, a2);
+  caulk::mach::details::release_os_object(0, v4);
+  *this = MEMORY[0x1E69E3C18] + 16;
+  *(this + 1) = v3;
+  *(this + 1) = 0u;
+  *(this + 2) = 0u;
+  *(this + 41) = 0u;
+  caulk::mach::details::release_os_object(0, v5);
+  *this = MEMORY[0x1E69E3C20] + 16;
+  *(this + 57) = 0;
+
+  return caulk::mach::details::release_os_object(0, v6);
+}
+
+void HALS_IOContext_MCP_Impl::GetIOProcStreamUsage(HALS_IOContext_MCP_Impl *this, AudioHardwareIOProcStreamUsage *a2, unsigned int *a3, char a4)
+{
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x2000000000;
+  v18 = 0;
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x2000000000;
+  v14 = 0;
+  v5 = *(this + 5);
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 0x40000000;
+  v9[2] = ___ZNK23HALS_IOContext_MCP_Impl20GetIOProcStreamUsageER30AudioHardwareIOProcStreamUsageRjb_block_invoke;
+  v9[3] = &unk_1E8673C08;
+  v10 = a4;
+  v9[6] = this;
+  v9[7] = a3;
+  v9[8] = a2;
+  v9[4] = &v15;
+  v9[5] = &v11;
+  v6 = (*(*v5 + 64))(v5);
+  HALB_CommandGate::ExecuteCommand(v6, v9);
+  if (*(v12 + 6))
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    v8 = *(v12 + 6);
+    *exception = off_1F5991DD8;
+    exception[2] = v8;
+  }
+
+  *a3 = *(v16 + 6);
+  _Block_object_dispose(&v11, 8);
+  _Block_object_dispose(&v15, 8);
+}
+
+void sub_1DE36EC2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
+{
+  va_start(va, a18);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v18 - 48), 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t ___ZNK23HALS_IOContext_MCP_Impl20GetIOProcStreamUsageER30AudioHardwareIOProcStreamUsageRjb_block_invoke(uint64_t result)
+{
+  v18 = *MEMORY[0x1E69E9840];
+  v1 = *(result + 72);
+  v2 = *(result + 48);
+  v3 = *(result + 56);
+  v4 = 0x4EC4EC4EC4EC4EC5 * ((*(v2 + 24 * *(result + 72) + 200) - *(v2 + 24 * *(result + 72) + 192)) >> 3);
+  *(*(*(result + 32) + 8) + 24) = 330382100 * ((*(v2 + 24 * *(result + 72) + 200) - *(v2 + 24 * *(result + 72) + 192)) >> 3) + 12;
+  if (*v3 < *(*(*(result + 32) + 8) + 24))
+  {
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136315394;
+      v15 = "HALS_IOContext_MCP_Impl.cpp";
+      v16 = 1024;
+      v17 = 1085;
+      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  HALS_IOContext::GetPropertyData: bad property data size for kAudioDevicePropertyIOProcStreamUsage", buf, 0x12u);
+    }
+
+    exception = __cxa_allocate_exception(0x10uLL);
+    *exception = off_1F5991DD8;
+    exception[2] = 561211770;
+  }
+
+  v5 = *(result + 64);
+  *(v5 + 8) = v4;
+  if (v4)
+  {
+    v6 = 0;
+    v7 = v1 == 0;
+    v8 = 88;
+    if (!v7)
+    {
+      v8 = 64;
+    }
+
+    v9 = (v2 + v8);
+    v10 = v9[1];
+    v11 = v5 + 12;
+    do
+    {
+      if (v10 <= v6)
+      {
+        LODWORD(v12) = 1;
+      }
+
+      else
+      {
+        v12 = (*(*v9 + ((v6 >> 3) & 0x1FFFFFFFFFFFFFF8)) >> v6) & 1;
+      }
+
+      *(v11 + 4 * v6++) = v12;
+    }
+
+    while (v4 != v6);
+  }
+
+  return result;
+}
+
+void sub_1DE36EE1C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+{
+  if (a2)
+  {
+    v11 = __cxa_begin_catch(a1);
+    if (a2 == 2)
+    {
+      v12 = v11[2];
+    }
+
+    else
+    {
+      v12 = 2003329396;
+    }
+
+    *(*(*(a10 + 40) + 8) + 24) = v12;
+    __cxa_end_catch();
+    JUMPOUT(0x1DE36ED38);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t HALS_IOContext_MCP_Impl::SetIOProcStreamUsage(HALS_IOContext_MCP_Impl *this, const AudioHardwareIOProcStreamUsage *a2, unsigned int a3, unsigned int a4)
+{
+  v18 = *MEMORY[0x1E69E9840];
+  if (a3 <= 0xB)
+  {
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v14 = 136315394;
+      v15 = "HALS_IOContext_MCP_Impl.cpp";
+      v16 = 1024;
+      v17 = 577;
+      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  HALS_IOContext::SetPropertyData: bad property data size for kAudioDevicePropertyIOProcStreamUsage", &v14, 0x12u);
+    }
+
+    exception = __cxa_allocate_exception(0x10uLL);
+    *exception = off_1F5991DD8;
+    exception[2] = 561211770;
+  }
+
+  v4 = (a3 + 0x3FFFFFFF4) >> 2;
+  mNumberStreams = a2->mNumberStreams;
+  if (mNumberStreams >= v4)
+  {
+    v4 = v4;
+  }
+
+  else
+  {
+    v4 = mNumberStreams;
+  }
+
+  if (-991146299 * ((*(this + 3 * a4 + 25) - *(this + 3 * a4 + 24)) >> 3) < v4)
+  {
+    v4 = -991146299 * ((*(this + 3 * a4 + 25) - *(this + 3 * a4 + 24)) >> 3);
+  }
+
+  if (v4)
+  {
+    v6 = 0;
+    v7 = 64;
+    if (!a4)
+    {
+      v7 = 88;
+    }
+
+    v8 = *(this + v7);
+    do
+    {
+      v9 = v6 >> 6;
+      v10 = 1 << v6;
+      if (a2->mStreamIsOn[v6])
+      {
+        v11 = *(v8 + 8 * v9) | v10;
+      }
+
+      else
+      {
+        v11 = *(v8 + 8 * v9) & ~v10;
+      }
+
+      *(v8 + 8 * v9) = v11;
+      ++v6;
+    }
+
+    while (v4 != v6);
+  }
+
+  HALS_IOContext_MCP_Impl::UpdateContext(this);
+  return 0;
+}
+
+void sub_1DE36F00C(_Unwind_Exception *a1, int a2)
+{
+  if (a2)
+  {
+    __cxa_begin_catch(a1);
+    __cxa_end_catch();
+    JUMPOUT(0x1DE36EF2CLL);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void HALS_IOContext_MCP_Impl::UpdateContext(HALS_IOContext_MCP_Impl *this)
+{
+  v11 = *MEMORY[0x1E69E9840];
+  v1 = *(this + 14);
+  if (v1)
+  {
+    v2 = HALS_IOContext_MCP_Impl::SetComposition(this, v1);
+    if (v2)
+    {
+      v3 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
+      if ((v3 & 1) == 0)
+      {
+        AMCP::Log::AMCP_Scope_Registry::initialize(v2);
+      }
+
+      v5 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
+      v4 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
+      if (v4)
+      {
+        atomic_fetch_add_explicit(&v4->__shared_owners_, 1uLL, memory_order_relaxed);
+        v6 = *v5;
+        std::__shared_weak_count::__release_shared[abi:ne200100](v4);
+      }
+
+      else
+      {
+        v6 = *v5;
+      }
+
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+      {
+        v7 = 136315394;
+        v8 = "HALS_IOContext_MCP_Impl.cpp";
+        v9 = 1024;
+        v10 = 358;
+        _os_log_debug_impl(&dword_1DE1F9000, v6, OS_LOG_TYPE_DEBUG, "%32s:%-5d Error setting IOC composition.", &v7, 0x12u);
+      }
+    }
+  }
+}
+
+uint64_t HALS_IOContext_MCP_Impl::SetComposition(HALS_IOContext_MCP_Impl *this, const __CFDictionary *a2)
+{
+  v45 = *MEMORY[0x1E69E9840];
+  v3 = applesauce::CF::DictionaryRef::from_get(&v40, a2);
+  v4 = v40;
+  if (!v40)
+  {
+    v17 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
+    if ((v17 & 1) == 0)
+    {
+      AMCP::Log::AMCP_Scope_Registry::initialize(v3);
+    }
+
+    v19 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
+    v18 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
+    if (v18)
+    {
+      atomic_fetch_add_explicit(&v18->__shared_owners_, 1uLL, memory_order_relaxed);
+      v20 = *v19;
+      std::__shared_weak_count::__release_shared[abi:ne200100](v18);
+    }
+
+    else
+    {
+      v20 = *v19;
+    }
+
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136315650;
+      *&buf[4] = "HALS_IOContext_MCP_Impl.cpp";
+      *&buf[12] = 1024;
+      *&buf[14] = 484;
+      *&buf[18] = 2080;
+      *&buf[20] = "not (description)";
+      _os_log_error_impl(&dword_1DE1F9000, v20, OS_LOG_TYPE_ERROR, "%32s:%-5d Throwing Exception: %s SetComposition called with null description", buf, 0x1Cu);
+    }
+
+    AMCP::Utility::With_Realtime_Disabled::With_Realtime_Disabled(&v39);
+    __cxa_allocate_exception(0x40uLL);
+    caulk::make_string(&valuePtr, "SetComposition called with null description", v21);
+    std::logic_error::logic_error(&v32, &valuePtr);
+    v32.__vftable = (MEMORY[0x1E69E55A8] + 16);
+    std::logic_error::logic_error(&v33, &v32);
+    v35 = 0;
+    v36 = 0;
+    v37 = 0;
+    v38 = -1;
+    v33.__vftable = &unk_1F5991430;
+    v34 = &unk_1F5991458;
+    boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<std::domain_error>>::clone_impl(buf, &v33);
+    v42 = "virtual OSStatus HALS_IOContext_MCP_Impl::SetComposition(CFDictionaryRef)";
+    v43 = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/Source/HAL/Core/IO/HALS_IOContext_MCP_Impl.cpp";
+    v44 = 484;
+    applesauce::backtrace::snapshot_N<64>::snapshot_N(&v29);
+  }
+
+  CFRetain(v40);
+  v28 = v4;
+  v33.__vftable = CFStringCreateWithBytes(0, "device id", 9, 0x8000100u, 0);
+  if (!v33.__vftable)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "Could not construct");
+    __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+  }
+
+  LODWORD(valuePtr.__r_.__value_.__l.__data_) = 0;
+  cf = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
+  if (!cf)
+  {
+    v23 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v23, "Could not construct");
+    __cxa_throw(v23, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+  }
+
+  applesauce::CF::at_or<applesauce::CF::NumberRef,applesauce::CF::StringRef>(buf, v4, v33.__vftable, &cf);
+  v5 = *buf;
+  if (!*buf)
+  {
+    v24 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v24, "Could not construct");
+    __cxa_throw(v24, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+  }
+
+  v6 = applesauce::CF::convert_to<unsigned int,0>(*buf);
+  CFRelease(v5);
+  if (cf)
+  {
+    CFRelease(cf);
+  }
+
+  if (v33.__vftable)
+  {
+    CFRelease(v33.__vftable);
+  }
+
+  v7 = HALS_ObjectMap::CopyObjectByObjectID(v6);
+  if (v7)
+  {
+    v9 = v7[38];
+    v10 = v7[39] << 32;
+  }
+
+  else
+  {
+    v10 = 0x200000000;
+    v9 = 1;
+  }
+
+  HALS_ObjectMap::ReleaseObject(v7, v8);
+  CFRelease(v4);
+  *buf = 0;
+  *&buf[8] = buf;
+  *&buf[16] = 0x2000000000;
+  *&buf[24] = 0;
+  v33.__vftable = 0;
+  v11 = *(this + 7);
+  if (v11 && *(v11 + 8) != -1)
+  {
+    operator new();
+  }
+
+  v12 = *(this + 5);
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 1174405120;
+  v25[2] = ___ZN23HALS_IOContext_MCP_Impl14SetCompositionEPK14__CFDictionary_block_invoke;
+  v25[3] = &unk_1F5969170;
+  v25[5] = this;
+  v13 = v40;
+  if (v40)
+  {
+    CFRetain(v40);
+  }
+
+  v26 = v13;
+  v27 = v10 | v9;
+  v25[4] = buf;
+  v14 = (*(*v12 + 64))(v12);
+  HALB_CommandGate::ExecuteCommand(v14, v25);
+  v15 = *(*&buf[8] + 24);
+  if (v26)
+  {
+    CFRelease(v26);
+  }
+
+  _Block_object_dispose(buf, 8);
+  if (v40)
+  {
+    CFRelease(v40);
+  }
+
+  return v15;
+}
+
+void sub_1DE36F6C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18, void *a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *__p, uint64_t a25, uint64_t a26, void *a27, uint64_t a28, int a29, __int16 a30, char a31, char a32, char a33, uint64_t a34, Buffer_Size_Notifier *a35)
+{
+  std::unique_ptr<Buffer_Size_Notifier>::reset[abi:ne200100](&a35);
+  _Block_object_dispose((v35 - 144), 8);
+  applesauce::CF::DictionaryRef::~DictionaryRef((v35 - 152));
+  _Unwind_Resume(a1);
+}
+
+void ___ZN23HALS_IOContext_MCP_Impl14SetCompositionEPK14__CFDictionary_block_invoke(uint64_t a1)
+{
+  v97[4] = *MEMORY[0x1E69E9840];
+  v1 = *(a1 + 40);
+  v2 = *(v1 + 56);
+  if (v2)
+  {
+    v3 = *(v2 + 8) == -1;
+  }
+
+  else
+  {
+    v3 = 1;
+  }
+
+  v4 = *(v1 + 112);
+  v5 = *(a1 + 48);
+  *(v1 + 112) = v5;
+  if (v5)
+  {
+    CFRetain(v5);
+  }
+
+  if (v4)
+  {
+    CFRelease(v4);
+  }
+
+  v65 = v3;
+  v71 = 0;
+  v72 = 0;
+  HALS_System::GetInstance(&v73, 0, &v71);
+  v6 = *(v73 + 1744);
+  v7 = *(v1 + 112);
+  if (v7)
+  {
+    CFRetain(v7);
+    v70 = v7;
+    os_unfair_lock_lock(v6 + 4);
+    CFRetain(v7);
+    cf = v7;
+    v89 = 0u;
+    v90 = 0u;
+    v88 = 0u;
+    CFRetain(v7);
+    v78[1] = v7;
+    v8 = applesauce::CF::details::at_key<char const(&)[10]>(v7, "device id");
+    if (v8)
+    {
+      v9 = applesauce::CF::convert_as<unsigned int,0>(v8);
+      if ((v9 & 0x100000000) != 0)
+      {
+        HALS_IOContext_Manager_Impl::Object_Map::find_mcp_object(&v6[10], v9);
+      }
+    }
+
+    CFRelease(v7);
+    HALS_IOContext_Manager_Impl::get_graph_builder(v78, &v6[6], 0);
+  }
+
+  v70 = 0;
+  os_unfair_lock_lock(v6 + 4);
+  cf = 0;
+  v89 = 0u;
+  v90 = 0u;
+  v88 = 0u;
+  v75 = 0;
+  v76 = 0;
+  *buf = &v89 + 8;
+  std::vector<AMCP::Wire_Description>::__destroy_vector::operator()[abi:ne200100](buf);
+  *buf = &v88;
+  std::vector<AMCP::Node_Description>::__destroy_vector::operator()[abi:ne200100](buf);
+  if (cf)
+  {
+    CFRelease(cf);
+  }
+
+  os_unfair_lock_unlock(v6 + 4);
+  v11 = v75;
+  v10 = v76;
+  if (v76)
+  {
+    atomic_fetch_add_explicit(&v76->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v10);
+  }
+
+  if (v74)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v74);
+  }
+
+  if (v72)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v72);
+  }
+
+  if (v10)
+  {
+    if (v10->__shared_owners_ != -1 && v65)
+    {
+      atomic_fetch_add_explicit(&v10->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+      v12 = *(v1 + 56);
+      *(v1 + 48) = v11;
+      *(v1 + 56) = v10;
+      if (v12)
+      {
+        std::__shared_weak_count::__release_weak(v12);
+      }
+
+      v68 = 0;
+      v69 = 0;
+      HALS_System::GetInstance(&v79, 0, &v68);
+      v13 = *(v79 + 1740);
+      v84 = 0x676C6F626E64696FLL;
+      LODWORD(v85) = 0;
+      v15 = *(v1 + 8);
+      v14 = *(v1 + 16);
+      if (v14)
+      {
+        atomic_fetch_add_explicit(v14 + 2, 1uLL, memory_order_relaxed);
+      }
+
+      __p[0] = &unk_1F5969288;
+      __p[1] = v15;
+      __p[2] = v14;
+      __p[3] = __p;
+      v16 = *(v1 + 56);
+      if (v16)
+      {
+        v16 = std::__shared_weak_count::lock(v16);
+        v17 = v16;
+        if (v16)
+        {
+          v18 = *(v1 + 48);
+          if (v18)
+          {
+            std::__function::__value_func<void ()(unsigned int,AMCP::Proc_Cycle_Info const&,unsigned long,AMCP::Proc_Stream *,unsigned long,AMCP::Proc_Stream *)>::__value_func[abi:ne200100](buf, __p);
+            AMCP::Core::Core::call_operation_function<void,std::function<void ()(unsigned int,AMCP::Proc_Cycle_Info const&,unsigned long,AMCP::Proc_Stream *,unsigned long,AMCP::Proc_Stream *)>>(v18, &v84, buf);
+            std::__function::__value_func<void ()(unsigned int,AMCP::Proc_Cycle_Info const&,unsigned long,AMCP::Proc_Stream *,unsigned long,AMCP::Proc_Stream *)>::~__value_func[abi:ne200100](buf);
+            goto LABEL_47;
+          }
+        }
+      }
+
+      else
+      {
+        v17 = 0;
+      }
+
+      v21 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
+      if ((v21 & 1) == 0)
+      {
+        AMCP::Log::AMCP_Scope_Registry::initialize(v16);
+      }
+
+      v23 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
+      v22 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
+      if (v22)
+      {
+        atomic_fetch_add_explicit(&v22->__shared_owners_, 1uLL, memory_order_relaxed);
+        v24 = *v23;
+        std::__shared_weak_count::__release_shared[abi:ne200100](v22);
+      }
+
+      else
+      {
+        v24 = *v23;
+      }
+
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+      {
+        v53 = *(*(v1 + 40) + 16);
+        HALS_IOContext_MCP_Impl::get_debug_device_name(v97, v1);
+        if (!v97[0])
+        {
+          exception = __cxa_allocate_exception(0x10uLL);
+          std::runtime_error::runtime_error(exception, "Could not construct");
+          __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+        }
+
+        applesauce::CF::convert_to<std::string,0>(&v88, v97[0]);
+        if ((SBYTE7(v89) & 0x80u) == 0)
+        {
+          v54 = &v88;
+        }
+
+        else
+        {
+          v54 = v88;
+        }
+
+        *buf = 136315906;
+        *&buf[4] = "HALS_IOContext_MCP_Impl.cpp";
+        *&buf[12] = 1024;
+        *&buf[14] = 95;
+        v93 = 1024;
+        v94 = v53;
+        v95 = 2080;
+        *v96 = v54;
+        _os_log_debug_impl(&dword_1DE1F9000, v24, OS_LOG_TYPE_DEBUG, "%32s:%-5d HALS_IOContext_MCP_Impl core ptr is null: %u\t%s", buf, 0x22u);
+        if (SBYTE7(v89) < 0)
+        {
+          operator delete(v88);
+        }
+
+        if (v97[0])
+        {
+          CFRelease(v97[0]);
+        }
+      }
+
+      if (!v17)
+      {
+LABEL_48:
+        std::__function::__value_func<void ()(unsigned int,AMCP::Proc_Cycle_Info const&,unsigned long,AMCP::Proc_Stream *,unsigned long,AMCP::Proc_Stream *)>::~__value_func[abi:ne200100](__p);
+        strcpy(buf, "revobolg");
+        buf[9] = 0;
+        *&buf[10] = 0;
+        v25 = *(*(v1 + 40) + 16);
+        *&v88 = &unk_1F5969308;
+        DWORD2(v88) = v25;
+        *(&v89 + 1) = &v88;
+        HALS_IOContext_MCP_Impl::call_mcp_operation_void_function<std::function<void ()>>(v1, buf, &v88);
+        std::__function::__value_func<void ()>::~__value_func[abi:ne200100](&v88);
+        strcpy(buf, "pbdnbolg");
+        buf[9] = 0;
+        *&buf[10] = 0;
+        v27 = *(v1 + 8);
+        v26 = *(v1 + 16);
+        if (v26)
+        {
+          atomic_fetch_add_explicit((v26 + 16), 1uLL, memory_order_relaxed);
+        }
+
+        v84 = &unk_1F5969388;
+        v85 = v27;
+        v86 = v26;
+        v87 = &v84;
+        HALS_IOContext_MCP_Impl::call_mcp_operation_void_function<std::function<void ()>>(v1, buf, &v84);
+        std::__function::__value_func<void ()>::~__value_func[abi:ne200100](&v84);
+        strcpy(buf, "pednbolg");
+        buf[9] = 0;
+        *&buf[10] = 0;
+        v29 = *(v1 + 8);
+        v28 = *(v1 + 16);
+        if (v28)
+        {
+          atomic_fetch_add_explicit((v28 + 16), 1uLL, memory_order_relaxed);
+        }
+
+        v97[0] = &unk_1F5969408;
+        v97[1] = v29;
+        v97[2] = v28;
+        v97[3] = v97;
+        HALS_IOContext_MCP_Impl::call_mcp_operation_void_function<std::function<void ()>>(v1, buf, v97);
+        std::__function::__value_func<void ()>::~__value_func[abi:ne200100](v97);
+        HALS_IOContext_MCP_Impl::set_simple_mcp_value<1718839674u>(v1, (v1 + 248));
+        strcpy(buf, "sppibolg");
+        buf[9] = 0;
+        *&buf[10] = 0;
+        HALS_IOContext_MCP_Impl::call_mcp_operation_void_function<AMCP::Power_State>(v1, buf, v13);
+        v30 = *(v1 + 56);
+        if (v30)
+        {
+          v31 = *(*(v1 + 40) + 72);
+          v30 = std::__shared_weak_count::lock(v30);
+          v32 = v30;
+          if (v30)
+          {
+            v30 = *(v1 + 48);
+            if (v30)
+            {
+              AMCP::Core::Core::set_simple_property_value<1885630071u>(v30, (v31 + 42));
+              goto LABEL_64;
+            }
+          }
+        }
+
+        else
+        {
+          v32 = 0;
+        }
+
+        v33 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
+        if ((v33 & 1) == 0)
+        {
+          AMCP::Log::AMCP_Scope_Registry::initialize(v30);
+        }
+
+        v35 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
+        v34 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
+        if (v34)
+        {
+          atomic_fetch_add_explicit(&v34->__shared_owners_, 1uLL, memory_order_relaxed);
+          v36 = *v35;
+          std::__shared_weak_count::__release_shared[abi:ne200100](v34);
+        }
+
+        else
+        {
+          v36 = *v35;
+        }
+
+        if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
+        {
+          v55 = *(*(v1 + 40) + 16);
+          HALS_IOContext_MCP_Impl::get_debug_device_name(v81, v1);
+          if (!v81[0])
+          {
+            v62 = __cxa_allocate_exception(0x10uLL);
+            std::runtime_error::runtime_error(v62, "Could not construct");
+            __cxa_throw(v62, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+          }
+
+          applesauce::CF::convert_to<std::string,0>(&v82, v81[0]);
+          if (v83 >= 0)
+          {
+            v56 = &v82;
+          }
+
+          else
+          {
+            v56 = v82;
+          }
+
+          *buf = 136315906;
+          *&buf[4] = "HALS_IOContext_MCP_Impl.cpp";
+          *&buf[12] = 1024;
+          *&buf[14] = 121;
+          v93 = 1024;
+          v94 = v55;
+          v95 = 2080;
+          *v96 = v56;
+          _os_log_debug_impl(&dword_1DE1F9000, v36, OS_LOG_TYPE_DEBUG, "%32s:%-5d HALS_IOContext_MCP_Impl core ptr is null: %u\t%s", buf, 0x22u);
+          if (SHIBYTE(v83) < 0)
+          {
+            operator delete(v82);
+          }
+
+          if (v81[0])
+          {
+            CFRelease(v81[0]);
+          }
+        }
+
+        if (!v32)
+        {
+LABEL_65:
+          v37 = *(v1 + 56);
+          if (v37)
+          {
+            v38 = *(*(v1 + 40) + 72);
+            v37 = std::__shared_weak_count::lock(v37);
+            v39 = v37;
+            if (v37)
+            {
+              v37 = *(v1 + 48);
+              if (v37)
+              {
+                AMCP::Core::Core::set_simple_property_value<1885627511u>(v37, (v38 + 43));
+                goto LABEL_77;
+              }
+            }
+          }
+
+          else
+          {
+            v39 = 0;
+          }
+
+          v40 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
+          if ((v40 & 1) == 0)
+          {
+            AMCP::Log::AMCP_Scope_Registry::initialize(v37);
+          }
+
+          v42 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
+          v41 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
+          if (v41)
+          {
+            atomic_fetch_add_explicit(&v41->__shared_owners_, 1uLL, memory_order_relaxed);
+            v43 = *v42;
+            std::__shared_weak_count::__release_shared[abi:ne200100](v41);
+          }
+
+          else
+          {
+            v43 = *v42;
+          }
+
+          if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
+          {
+            v57 = *(*(v1 + 40) + 16);
+            HALS_IOContext_MCP_Impl::get_debug_device_name(v81, v1);
+            if (!v81[0])
+            {
+              v63 = __cxa_allocate_exception(0x10uLL);
+              std::runtime_error::runtime_error(v63, "Could not construct");
+              __cxa_throw(v63, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+            }
+
+            applesauce::CF::convert_to<std::string,0>(&v82, v81[0]);
+            if (v83 >= 0)
+            {
+              v58 = &v82;
+            }
+
+            else
+            {
+              v58 = v82;
+            }
+
+            *buf = 136315906;
+            *&buf[4] = "HALS_IOContext_MCP_Impl.cpp";
+            *&buf[12] = 1024;
+            *&buf[14] = 121;
+            v93 = 1024;
+            v94 = v57;
+            v95 = 2080;
+            *v96 = v58;
+            _os_log_debug_impl(&dword_1DE1F9000, v43, OS_LOG_TYPE_DEBUG, "%32s:%-5d HALS_IOContext_MCP_Impl core ptr is null: %u\t%s", buf, 0x22u);
+            if (SHIBYTE(v83) < 0)
+            {
+              operator delete(v82);
+            }
+
+            if (v81[0])
+            {
+              CFRelease(v81[0]);
+            }
+          }
+
+          if (!v39)
+          {
+LABEL_78:
+            std::vector<BOOL>::resize((v1 + 64), -991146299 * ((*(v1 + 224) - *(v1 + 216)) >> 3), 1);
+            std::vector<BOOL>::resize((v1 + 88), -991146299 * ((*(v1 + 200) - *(v1 + 192)) >> 3), 1);
+            v44 = *(v1 + 56);
+            if (v44)
+            {
+              v44 = std::__shared_weak_count::lock(v44);
+              v45 = v44;
+              if (v44)
+              {
+                v46 = *(v1 + 48);
+                if (v46)
+                {
+                  *&v82 = 0x676C6F626D746D62;
+                  DWORD2(v82) = 0;
+                  AMCP::Core::Core::get_property_value(buf, v46, &v82);
+                  AMCP::Thing::convert_to<std::shared_ptr<AMCP::Graph::Timebase>>(&v82, buf);
+                  if (*&v96[6])
+                  {
+                    (*&v96[6])(0, buf, 0, 0);
+                  }
+
+LABEL_91:
+                  std::__shared_weak_count::__release_shared[abi:ne200100](v45);
+                  v51 = v82;
+LABEL_92:
+                  v52 = *(v1 + 264);
+                  *(v1 + 256) = v51;
+                  if (v52)
+                  {
+                    std::__shared_weak_count::__release_shared[abi:ne200100](v52);
+                  }
+
+                  v82 = 0uLL;
+                  HALS_System::GetInstance(buf, 0, &v82);
+                  HALS_System::ProcessPropertyChanged(*buf, **(*(v1 + 40) + 72), 1885632035, 1869968496, 1);
+                  if (*&buf[8])
+                  {
+                    std::__shared_weak_count::__release_shared[abi:ne200100](*&buf[8]);
+                  }
+
+                  v81[0] = 0;
+                  v81[1] = 0;
+                  HALS_System::GetInstance(buf, 0, v81);
+                  HALS_System::ProcessPropertyChanged(*buf, **(*(v1 + 40) + 72), 1885632035, 1768845428, 1);
+                  if (*&buf[8])
+                  {
+                    std::__shared_weak_count::__release_shared[abi:ne200100](*&buf[8]);
+                  }
+
+                  if (v80)
+                  {
+                    std::__shared_weak_count::__release_shared[abi:ne200100](v80);
+                  }
+
+                  if (v69)
+                  {
+                    std::__shared_weak_count::__release_shared[abi:ne200100](v69);
+                  }
+
+                  goto LABEL_102;
+                }
+              }
+            }
+
+            else
+            {
+              v45 = 0;
+            }
+
+            v47 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
+            if ((v47 & 1) == 0)
+            {
+              AMCP::Log::AMCP_Scope_Registry::initialize(v44);
+            }
+
+            v49 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
+            v48 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
+            if (v48)
+            {
+              atomic_fetch_add_explicit(&v48->__shared_owners_, 1uLL, memory_order_relaxed);
+              v50 = *v49;
+              std::__shared_weak_count::__release_shared[abi:ne200100](v48);
+            }
+
+            else
+            {
+              v50 = *v49;
+            }
+
+            if (os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG))
+            {
+              v59 = *(*(v1 + 40) + 16);
+              HALS_IOContext_MCP_Impl::get_debug_device_name(v81, v1);
+              if (!v81[0])
+              {
+                v64 = __cxa_allocate_exception(0x10uLL);
+                std::runtime_error::runtime_error(v64, "Could not construct");
+                __cxa_throw(v64, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+              }
+
+              applesauce::CF::convert_to<std::string,0>(&v82, v81[0]);
+              if (v83 >= 0)
+              {
+                v60 = &v82;
+              }
+
+              else
+              {
+                v60 = v82;
+              }
+
+              *buf = 136315906;
+              *&buf[4] = "HALS_IOContext_MCP_Impl.cpp";
+              *&buf[12] = 1024;
+              *&buf[14] = 1534;
+              v93 = 1024;
+              v94 = v59;
+              v95 = 2080;
+              *v96 = v60;
+              _os_log_debug_impl(&dword_1DE1F9000, v50, OS_LOG_TYPE_DEBUG, "%32s:%-5d HALS_IOContext_MCP_Impl core ptr is null: %u\t%s", buf, 0x22u);
+              if (SHIBYTE(v83) < 0)
+              {
+                operator delete(v82);
+              }
+
+              if (v81[0])
+              {
+                CFRelease(v81[0]);
+              }
+            }
+
+            v51 = 0uLL;
+            v82 = 0u;
+            if (!v45)
+            {
+              goto LABEL_92;
+            }
+
+            goto LABEL_91;
+          }
+
+LABEL_77:
+          std::__shared_weak_count::__release_shared[abi:ne200100](v39);
+          goto LABEL_78;
+        }
+
+LABEL_64:
+        std::__shared_weak_count::__release_shared[abi:ne200100](v32);
+        goto LABEL_65;
+      }
+
+LABEL_47:
+      std::__shared_weak_count::__release_shared[abi:ne200100](v17);
+      goto LABEL_48;
+    }
+
+    if (v65 || v10->__shared_owners_ != -1)
+    {
+LABEL_102:
+      std::__shared_weak_count::__release_weak(v10);
+      return;
+    }
+  }
+
+  else if (v65)
+  {
+    return;
+  }
+
+  v19 = *(*(v1 + 40) + 16);
+  v20 = *(v1 + 464);
+  block[0] = MEMORY[0x1E69E9820];
+  block[1] = 0x40000000;
+  block[2] = ___ZN23HALS_IOContext_MCP_Impl14SetCompositionEPK14__CFDictionary_block_invoke_2;
+  block[3] = &__block_descriptor_tmp_15;
+  v67 = v19;
+  AMCP::Utility::Dispatch_Queue::async(v20, block);
+  if (v10)
+  {
+    goto LABEL_102;
+  }
+}
+
 void sub_1DE3709FC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, os_unfair_lock_t lock, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30, uint64_t a31, char a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, char a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, char a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, void *__p, uint64_t a61, uint64_t a62, char a63)
 {
   if (!a2)
@@ -23,7 +2420,7 @@ void sub_1DE370C00(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, u
   if (a2)
   {
     *(v47 - 208) = &a47;
-    std::vector<AMCP::Wire_Identifier>::__destroy_vector::operator()[abi:ne200100](v47 - 208);
+    std::vector<AMCP::Wire_Identifier>::__destroy_vector::operator()[abi:ne200100]((v47 - 208));
     JUMPOUT(0x1DE370CF0);
   }
 
@@ -42,7 +2439,7 @@ void sub_1DE370C10(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, u
   JUMPOUT(0x1DE370BDCLL);
 }
 
-void sub_1DE370C44(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, os_unfair_lock_s *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, const void *a23, uint64_t a24, std::__shared_weak_count *a25, uint64_t a26, std::__shared_weak_count *a27, uint64_t a28, uint64_t a29, const void *a30, uint64_t a31, uint64_t a32, void *__p, uint64_t a34, uint64_t a35, uint64_t a36, void *a37, uint64_t a38, int a39, __int16 a40, char a41, char a42, std::runtime_error a43, int a44, __int16 a45, char a46, char a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, void *a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_1DE370C44(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, os_unfair_lock_s *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, const void *a23, uint64_t a24, std::__shared_weak_count *a25, uint64_t a26, std::__shared_weak_count *a27, uint64_t a28, uint64_t a29, const void *a30, uint64_t *a31, uint64_t a32, void *__p, uint64_t a34, uint64_t a35, uint64_t a36, void *a37, uint64_t a38, int a39, __int16 a40, char a41, char a42, std::runtime_error a43, int a44, __int16 a45, char a46, char a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   if (a2)
   {
@@ -204,7 +2601,7 @@ Buffer_Size_Notifier *std::unique_ptr<Buffer_Size_Notifier>::reset[abi:ne200100]
 
 unint64_t HALS_IOContext_MCP_Impl::get_simple_mcp_property<1718839674u>(void *a1)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v2 = a1[7];
   if (v2)
   {
@@ -218,8 +2615,7 @@ unint64_t HALS_IOContext_MCP_Impl::get_simple_mcp_property<1718839674u>(void *a1
         simple_required = AMCP::Core::Core::get_simple_required_property<1718839674u>(v2);
 LABEL_13:
         std::__shared_weak_count::__release_shared[abi:ne200100](v3);
-        result = simple_required;
-        goto LABEL_14;
+        return simple_required;
       }
     }
   }
@@ -251,7 +2647,7 @@ LABEL_13:
 
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v11 = *(a1[5] + 16);
+    v10 = *(a1[5] + 16);
     HALS_IOContext_MCP_Impl::get_debug_device_name(&cf, a1);
     if (!cf)
     {
@@ -261,26 +2657,26 @@ LABEL_13:
     }
 
     applesauce::CF::convert_to<std::string,0>(__p, cf);
-    if (v16 >= 0)
+    if (v15 >= 0)
     {
-      v12 = __p;
+      v11 = __p;
     }
 
     else
     {
-      v12 = __p[0];
+      v11 = __p[0];
     }
 
     *buf = 136315906;
-    v18 = "HALS_IOContext_MCP_Impl.cpp";
-    v19 = 1024;
-    v20 = 107;
-    v21 = 1024;
-    v22 = v11;
-    v23 = 2080;
-    v24 = v12;
+    v17 = "HALS_IOContext_MCP_Impl.cpp";
+    v18 = 1024;
+    v19 = 107;
+    v20 = 1024;
+    v21 = v10;
+    v22 = 2080;
+    v23 = v11;
     _os_log_debug_impl(&dword_1DE1F9000, v8, OS_LOG_TYPE_DEBUG, "%32s:%-5d HALS_IOContext_MCP_Impl core ptr is null: %u\t%s", buf, 0x22u);
-    if (v16 < 0)
+    if (v15 < 0)
     {
       operator delete(__p[0]);
     }
@@ -298,8 +2694,6 @@ LABEL_13:
     goto LABEL_13;
   }
 
-LABEL_14:
-  v10 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -315,7 +2709,7 @@ void sub_1DE3710F8(_Unwind_Exception *exception_object, int a2)
 
 unint64_t HALS_IOContext_MCP_Impl::get_simple_mcp_property<1718843939u>(void *a1)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v2 = a1[7];
   if (v2)
   {
@@ -331,8 +2725,7 @@ unint64_t HALS_IOContext_MCP_Impl::get_simple_mcp_property<1718843939u>(void *a1
         v6 = simple_required;
 LABEL_13:
         std::__shared_weak_count::__release_shared[abi:ne200100](v3);
-        result = v6 | v5;
-        goto LABEL_14;
+        return v6 | v5;
       }
     }
   }
@@ -364,7 +2757,7 @@ LABEL_13:
 
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    v13 = *(a1[5] + 16);
+    v12 = *(a1[5] + 16);
     HALS_IOContext_MCP_Impl::get_debug_device_name(&cf, a1);
     if (!cf)
     {
@@ -374,26 +2767,26 @@ LABEL_13:
     }
 
     applesauce::CF::convert_to<std::string,0>(__p, cf);
-    if (v18 >= 0)
+    if (v17 >= 0)
     {
-      v14 = __p;
+      v13 = __p;
     }
 
     else
     {
-      v14 = __p[0];
+      v13 = __p[0];
     }
 
     *buf = 136315906;
-    v20 = "HALS_IOContext_MCP_Impl.cpp";
-    v21 = 1024;
-    v22 = 107;
-    v23 = 1024;
-    v24 = v13;
-    v25 = 2080;
-    v26 = v14;
+    v19 = "HALS_IOContext_MCP_Impl.cpp";
+    v20 = 1024;
+    v21 = 107;
+    v22 = 1024;
+    v23 = v12;
+    v24 = 2080;
+    v25 = v13;
     _os_log_debug_impl(&dword_1DE1F9000, v10, OS_LOG_TYPE_DEBUG, "%32s:%-5d HALS_IOContext_MCP_Impl core ptr is null: %u\t%s", buf, 0x22u);
-    if (v18 < 0)
+    if (v17 < 0)
     {
       operator delete(__p[0]);
     }
@@ -412,8 +2805,6 @@ LABEL_13:
     goto LABEL_13;
   }
 
-LABEL_14:
-  v12 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -429,81 +2820,12 @@ void sub_1DE371318(_Unwind_Exception *exception_object, int a2)
 
 AMCP::Log::AMCP_Scope_Registry *AMCP::Core::Core::get_simple_required_property<1718843939u>(AMCP::Core::Core *a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   strcpy(buf, "#zsfbolg");
   buf[9] = 0;
   *&buf[10] = 0;
   result = AMCP::Core::Core::get_typed_property_value<std::tuple<unsigned int,unsigned int>,std::enable_if<true,void>>(a1, buf);
   if ((v2 & 1) == 0)
-  {
-    v4 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
-    if ((v4 & 1) == 0)
-    {
-      AMCP::Log::AMCP_Scope_Registry::initialize(result);
-    }
-
-    v6 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
-    v5 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
-    if (v5)
-    {
-      atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
-      v7 = *v6;
-      std::__shared_weak_count::__release_shared[abi:ne200100](v5);
-    }
-
-    else
-    {
-      v7 = *v6;
-    }
-
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
-    {
-      v9 = 4;
-      strcpy(__p, "fsz#");
-      *buf = 136316418;
-      *&buf[4] = "Core.h";
-      v11 = 1024;
-      v12 = 391;
-      v13 = 2080;
-      v14 = "optional_value.operator BOOL() == true";
-      v15 = 2080;
-      v16 = __p;
-      v17 = 1024;
-      v18 = 1735159650;
-      v19 = 1024;
-      v20 = 0;
-      _os_log_error_impl(&dword_1DE1F9000, v7, OS_LOG_TYPE_ERROR, "%32s:%-5d Assertion Failed: %s a required property is missing '%s':%u:%u", buf, 0x32u);
-      if (v9 < 0)
-      {
-        operator delete(__p[0]);
-      }
-    }
-
-    abort();
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void sub_1DE3714B8(_Unwind_Exception *a1, int a2)
-{
-  if (!a2)
-  {
-    _Unwind_Resume(a1);
-  }
-
-  __clang_call_terminate(a1);
-}
-
-unint64_t AMCP::Core::Core::get_simple_required_property<1718839674u>(AMCP::Core::Core *a1)
-{
-  v20 = *MEMORY[0x1E69E9840];
-  strcpy(buf, "zisfbolg");
-  buf[9] = 0;
-  *&buf[10] = 0;
-  result = AMCP::Core::Core::get_typed_property_value<unsigned int,std::enable_if<true,void>>(a1, buf);
-  if (!HIDWORD(result))
   {
     v3 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
     if ((v3 & 1) == 0)
@@ -528,7 +2850,7 @@ unint64_t AMCP::Core::Core::get_simple_required_property<1718839674u>(AMCP::Core
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v8 = 4;
-      strcpy(__p, "fsiz");
+      strcpy(__p, "fsz#");
       *buf = 136316418;
       *&buf[4] = "Core.h";
       v10 = 1024;
@@ -551,7 +2873,74 @@ unint64_t AMCP::Core::Core::get_simple_required_property<1718839674u>(AMCP::Core
     abort();
   }
 
-  v2 = *MEMORY[0x1E69E9840];
+  return result;
+}
+
+void sub_1DE3714B8(_Unwind_Exception *a1, int a2)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  __clang_call_terminate(a1);
+}
+
+unint64_t AMCP::Core::Core::get_simple_required_property<1718839674u>(AMCP::Core::Core *a1)
+{
+  v19 = *MEMORY[0x1E69E9840];
+  strcpy(buf, "zisfbolg");
+  buf[9] = 0;
+  *&buf[10] = 0;
+  result = AMCP::Core::Core::get_typed_property_value<unsigned int,std::enable_if<true,void>>(a1, buf);
+  if (!HIDWORD(result))
+  {
+    v2 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
+    if ((v2 & 1) == 0)
+    {
+      AMCP::Log::AMCP_Scope_Registry::initialize(result);
+    }
+
+    v4 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
+    v3 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
+    if (v3)
+    {
+      atomic_fetch_add_explicit(&v3->__shared_owners_, 1uLL, memory_order_relaxed);
+      v5 = *v4;
+      std::__shared_weak_count::__release_shared[abi:ne200100](v3);
+    }
+
+    else
+    {
+      v5 = *v4;
+    }
+
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      v7 = 4;
+      strcpy(__p, "fsiz");
+      *buf = 136316418;
+      *&buf[4] = "Core.h";
+      v9 = 1024;
+      v10 = 391;
+      v11 = 2080;
+      v12 = "optional_value.operator BOOL() == true";
+      v13 = 2080;
+      v14 = __p;
+      v15 = 1024;
+      v16 = 1735159650;
+      v17 = 1024;
+      v18 = 0;
+      _os_log_error_impl(&dword_1DE1F9000, v5, OS_LOG_TYPE_ERROR, "%32s:%-5d Assertion Failed: %s a required property is missing '%s':%u:%u", buf, 0x32u);
+      if (v7 < 0)
+      {
+        operator delete(__p[0]);
+      }
+    }
+
+    abort();
+  }
+
   return result;
 }
 
@@ -615,7 +3004,7 @@ void sub_1DE371714(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
 
 void HALS_IOContext_MCP_Impl::call_mcp_operation_void_function<std::function<void ()(unsigned int)>>(void *a1, unsigned int *a2, uint64_t a3)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v4 = a1[7];
   if (v4)
   {
@@ -626,12 +3015,12 @@ void HALS_IOContext_MCP_Impl::call_mcp_operation_void_function<std::function<voi
       v8 = a1[6];
       if (v8)
       {
-        std::__function::__value_func<void ()>::__value_func[abi:ne200100](v28, a3);
-        AMCP::Core::Core::call_operation_function<void,std::function<void ()>>(v8, a2, v28);
-        std::__function::__value_func<void ()>::~__value_func[abi:ne200100](v28);
+        std::__function::__value_func<void ()>::__value_func[abi:ne200100](v27, a3);
+        AMCP::Core::Core::call_operation_function<void,std::function<void ()>>(v8, a2, v27);
+        std::__function::__value_func<void ()>::~__value_func[abi:ne200100](v27);
 LABEL_13:
         std::__shared_weak_count::__release_shared[abi:ne200100](v7);
-        goto LABEL_14;
+        return;
       }
     }
   }
@@ -663,7 +3052,7 @@ LABEL_13:
 
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
-    v14 = *(a1[5] + 16);
+    v13 = *(a1[5] + 16);
     HALS_IOContext_MCP_Impl::get_debug_device_name(&cf, a1);
     if (!cf)
     {
@@ -673,26 +3062,26 @@ LABEL_13:
     }
 
     applesauce::CF::convert_to<std::string,0>(__p, cf);
-    if (v19 >= 0)
+    if (v18 >= 0)
     {
-      v15 = __p;
+      v14 = __p;
     }
 
     else
     {
-      v15 = __p[0];
+      v14 = __p[0];
     }
 
     *buf = 136315906;
-    v21 = "HALS_IOContext_MCP_Impl.cpp";
-    v22 = 1024;
-    v23 = 95;
-    v24 = 1024;
-    v25 = v14;
-    v26 = 2080;
-    v27 = v15;
+    v20 = "HALS_IOContext_MCP_Impl.cpp";
+    v21 = 1024;
+    v22 = 95;
+    v23 = 1024;
+    v24 = v13;
+    v25 = 2080;
+    v26 = v14;
     _os_log_debug_impl(&dword_1DE1F9000, v12, OS_LOG_TYPE_DEBUG, "%32s:%-5d HALS_IOContext_MCP_Impl core ptr is null: %u\t%s", buf, 0x22u);
-    if (v19 < 0)
+    if (v18 < 0)
     {
       operator delete(__p[0]);
     }
@@ -707,9 +3096,6 @@ LABEL_13:
   {
     goto LABEL_13;
   }
-
-LABEL_14:
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1DE37195C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18)
@@ -724,7 +3110,7 @@ void sub_1DE37195C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void HALS_IOContext_MCP_Impl::set_simple_mcp_value<1718839674u>(void *a1, _DWORD *a2)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v3 = a1[7];
   if (v3)
   {
@@ -738,7 +3124,7 @@ void HALS_IOContext_MCP_Impl::set_simple_mcp_value<1718839674u>(void *a1, _DWORD
         AMCP::Core::Core::set_simple_property_value<1718839674u>(v3, a2);
 LABEL_13:
         std::__shared_weak_count::__release_shared[abi:ne200100](v5);
-        goto LABEL_14;
+        return;
       }
     }
   }
@@ -770,7 +3156,7 @@ LABEL_13:
 
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    v11 = *(a1[5] + 16);
+    v10 = *(a1[5] + 16);
     HALS_IOContext_MCP_Impl::get_debug_device_name(&cf, a1);
     if (!cf)
     {
@@ -780,26 +3166,26 @@ LABEL_13:
     }
 
     applesauce::CF::convert_to<std::string,0>(__p, cf);
-    if (v16 >= 0)
+    if (v15 >= 0)
     {
-      v12 = __p;
+      v11 = __p;
     }
 
     else
     {
-      v12 = __p[0];
+      v11 = __p[0];
     }
 
     *buf = 136315906;
-    v18 = "HALS_IOContext_MCP_Impl.cpp";
-    v19 = 1024;
-    v20 = 121;
-    v21 = 1024;
-    v22 = v11;
-    v23 = 2080;
-    v24 = v12;
+    v17 = "HALS_IOContext_MCP_Impl.cpp";
+    v18 = 1024;
+    v19 = 121;
+    v20 = 1024;
+    v21 = v10;
+    v22 = 2080;
+    v23 = v11;
     _os_log_debug_impl(&dword_1DE1F9000, v9, OS_LOG_TYPE_DEBUG, "%32s:%-5d HALS_IOContext_MCP_Impl core ptr is null: %u\t%s", buf, 0x22u);
-    if (v16 < 0)
+    if (v15 < 0)
     {
       operator delete(__p[0]);
     }
@@ -814,9 +3200,6 @@ LABEL_13:
   {
     goto LABEL_13;
   }
-
-LABEL_14:
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1DE371B8C(_Unwind_Exception *exception_object, int a2)
@@ -831,7 +3214,7 @@ void sub_1DE371B8C(_Unwind_Exception *exception_object, int a2)
 
 void HALS_IOContext_MCP_Impl::call_mcp_operation_void_function<AMCP::Power_State>(void *a1, unsigned int *a2, int a3)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v4 = a1[7];
   if (v4)
   {
@@ -845,7 +3228,7 @@ void HALS_IOContext_MCP_Impl::call_mcp_operation_void_function<AMCP::Power_State
         AMCP::Core::Core::call_operation_function<void,AMCP::Power_State>(v4, a2, a3);
 LABEL_13:
         std::__shared_weak_count::__release_shared[abi:ne200100](v7);
-        goto LABEL_14;
+        return;
       }
     }
   }
@@ -877,7 +3260,7 @@ LABEL_13:
 
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
-    v13 = *(a1[5] + 16);
+    v12 = *(a1[5] + 16);
     HALS_IOContext_MCP_Impl::get_debug_device_name(&cf, a1);
     if (!cf)
     {
@@ -887,26 +3270,26 @@ LABEL_13:
     }
 
     applesauce::CF::convert_to<std::string,0>(__p, cf);
-    if (v18 >= 0)
+    if (v17 >= 0)
     {
-      v14 = __p;
+      v13 = __p;
     }
 
     else
     {
-      v14 = __p[0];
+      v13 = __p[0];
     }
 
     *buf = 136315906;
-    v20 = "HALS_IOContext_MCP_Impl.cpp";
-    v21 = 1024;
-    v22 = 95;
-    v23 = 1024;
-    v24 = v13;
-    v25 = 2080;
-    v26 = v14;
+    v19 = "HALS_IOContext_MCP_Impl.cpp";
+    v20 = 1024;
+    v21 = 95;
+    v22 = 1024;
+    v23 = v12;
+    v24 = 2080;
+    v25 = v13;
     _os_log_debug_impl(&dword_1DE1F9000, v11, OS_LOG_TYPE_DEBUG, "%32s:%-5d HALS_IOContext_MCP_Impl core ptr is null: %u\t%s", buf, 0x22u);
-    if (v18 < 0)
+    if (v17 < 0)
     {
       operator delete(__p[0]);
     }
@@ -921,9 +3304,6 @@ LABEL_13:
   {
     goto LABEL_13;
   }
-
-LABEL_14:
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1DE371DA4(_Unwind_Exception *exception_object, int a2)
@@ -936,18 +3316,18 @@ void sub_1DE371DA4(_Unwind_Exception *exception_object, int a2)
   __clang_call_terminate(exception_object);
 }
 
-void std::vector<BOOL>::resize(uint64_t a1, unint64_t a2, int a3)
+void std::vector<BOOL>::resize(void *result, unint64_t a2, int a3)
 {
-  v4 = *(a1 + 8);
+  v4 = result[1];
   v5 = a2 - v4;
   if (a2 <= v4)
   {
-    *(a1 + 8) = a2;
+    result[1] = a2;
   }
 
   else
   {
-    v7 = *(a1 + 16);
+    v7 = result[2];
     v8 = v7 << 6;
     if (v7 << 6 < v5 || v4 > (v7 << 6) - v5)
     {
@@ -975,8 +3355,8 @@ void std::vector<BOOL>::resize(uint64_t a1, unint64_t a2, int a3)
       }
 
       std::vector<BOOL>::reserve(&__dst, v11);
-      v12 = *a1;
-      v13 = *(a1 + 8);
+      v12 = *result;
+      v13 = result[1];
       *&v19 = v13 + v5;
       v14 = __dst;
       if (v13 < 1)
@@ -1000,11 +3380,11 @@ void std::vector<BOOL>::resize(uint64_t a1, unint64_t a2, int a3)
           *v16 = *v16 & ~(0xFFFFFFFFFFFFFFFFLL >> -v17) | *(v12 + v15) & (0xFFFFFFFFFFFFFFFFLL >> -v17);
         }
 
-        v12 = *a1;
+        v12 = *result;
       }
 
-      *a1 = v14;
-      *(a1 + 8) = v19;
+      *result = v14;
+      *(result + 1) = v19;
       if (v12)
       {
         operator delete(v12);
@@ -1013,9 +3393,9 @@ void std::vector<BOOL>::resize(uint64_t a1, unint64_t a2, int a3)
 
     else
     {
-      v16 = (*a1 + 8 * (v4 >> 6));
-      v17 = *(a1 + 8) & 0x3FLL;
-      *(a1 + 8) = a2;
+      v16 = (*result + 8 * (v4 >> 6));
+      v17 = result[1] & 0x3FLL;
+      result[1] = a2;
     }
 
     if (a3)
@@ -1253,193 +3633,193 @@ void sub_1DE372334(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
 
 void AMCP::Core::Core::call_operation_function<void,AMCP::Power_State>(AMCP::Address *a1, unsigned int *a2, int a3)
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   if (*a2 == 707406378 || a2[1] == 707406378 || a2[2] == -1)
   {
-    v13 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
-    if ((v13 & 1) == 0)
+    v12 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
+    if ((v12 & 1) == 0)
     {
       AMCP::Log::AMCP_Scope_Registry::initialize(a1);
     }
 
-    v15 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
-    v14 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
-    if (v14)
+    v14 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
+    v13 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
+    if (v13)
     {
-      atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
-      v16 = *v15;
-      std::__shared_weak_count::__release_shared[abi:ne200100](v14);
+      atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
+      v15 = *v14;
+      std::__shared_weak_count::__release_shared[abi:ne200100](v13);
     }
 
     else
     {
-      v16 = *v15;
+      v15 = *v14;
     }
 
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
       *&buf[4] = "Core.h";
-      v42 = 1024;
-      v43 = 198;
-      v44 = 2080;
-      v45 = "!in_address.has_wildcards()";
-      _os_log_error_impl(&dword_1DE1F9000, v16, OS_LOG_TYPE_ERROR, "%32s:%-5d Assertion Failed: %s ", buf, 0x1Cu);
+      v44 = 1024;
+      v45 = 198;
+      v46 = 2080;
+      v47 = "!in_address.has_wildcards()";
+      _os_log_error_impl(&dword_1DE1F9000, v15, OS_LOG_TYPE_ERROR, "%32s:%-5d Assertion Failed: %s ", buf, 0x1Cu);
     }
 
     abort();
   }
 
-  operation = AMCP::Core::Core::find_operation(&v29, a1, a2);
-  v7 = v29;
-  if (!v29)
+  operation = AMCP::Core::Core::find_operation(&v31, a1, a2);
+  v7 = v31;
+  if (!v31)
   {
-    v21 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
-    if ((v21 & 1) == 0)
+    v20 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
+    if ((v20 & 1) == 0)
     {
       AMCP::Log::AMCP_Scope_Registry::initialize(operation);
     }
 
-    v23 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
-    v22 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
-    if (v22)
+    v22 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
+    v21 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
+    if (v21)
     {
-      atomic_fetch_add_explicit(&v22->__shared_owners_, 1uLL, memory_order_relaxed);
-      v24 = *v23;
-      std::__shared_weak_count::__release_shared[abi:ne200100](v22);
+      atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
+      v23 = *v22;
+      std::__shared_weak_count::__release_shared[abi:ne200100](v21);
     }
 
     else
     {
-      v24 = *v23;
+      v23 = *v22;
     }
 
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
       *&buf[4] = "Core.h";
-      v42 = 1024;
-      v43 = 202;
-      _os_log_error_impl(&dword_1DE1F9000, v24, OS_LOG_TYPE_ERROR, "%32s:%-5d Throwing Exception: Operation does not have requested function", buf, 0x12u);
+      v44 = 1024;
+      v45 = 202;
+      _os_log_error_impl(&dword_1DE1F9000, v23, OS_LOG_TYPE_ERROR, "%32s:%-5d Throwing Exception: Operation does not have requested function", buf, 0x12u);
     }
 
-    AMCP::Utility::With_Realtime_Disabled::With_Realtime_Disabled(&v40);
+    AMCP::Utility::With_Realtime_Disabled::With_Realtime_Disabled(&v42);
     __cxa_allocate_exception(0x40uLL);
-    caulk::make_string("Operation does not have requested function", &v32);
-    std::runtime_error::runtime_error(&v33, &v32);
-    std::runtime_error::runtime_error(&v34, &v33);
-    v36 = 0;
-    v37 = 0;
+    caulk::make_string(&v34, "Operation does not have requested function", v29);
+    std::runtime_error::runtime_error(&v35, &v34);
+    std::runtime_error::runtime_error(&v36, &v35);
     v38 = 0;
-    v39 = -1;
-    v34.__vftable = &unk_1F5992170;
-    v35 = &unk_1F5992198;
-    boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<std::runtime_error>>::clone_impl(buf, &v34);
-    v46 = "Return_Type AMCP::Core::Core::call_operation_function(const Address &, Argument_Types...) const [Return_Type = void, Argument_Types = <AMCP::Power_State>]";
-    v47 = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/MCP/AMCP/Core/Core.h";
-    v48 = 202;
-    applesauce::backtrace::snapshot_N<64>::snapshot_N(&v31);
+    v39 = 0;
+    v40 = 0;
+    v41 = -1;
+    v36.__vftable = &unk_1F5992170;
+    v37 = &unk_1F5992198;
+    boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<std::runtime_error>>::clone_impl(buf, &v36);
+    v48 = "Return_Type AMCP::Core::Core::call_operation_function(const Address &, Argument_Types...) const [Return_Type = void, Argument_Types = <AMCP::Power_State>]";
+    v49 = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/MCP/AMCP/Core/Core.h";
+    v50 = 202;
+    applesauce::backtrace::snapshot_N<64>::snapshot_N(&v33);
   }
 
   v8 = AMCP::Implementation::get_type_marker<std::function<void ()(AMCP::Power_State)>>();
   v9 = std::__hash_table<std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>,std::__unordered_map_hasher<AMCP::Type_ID,std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>,AMCP::Type_ID::Hash,std::equal_to<AMCP::Type_ID>,true>,std::__unordered_map_equal<AMCP::Type_ID,std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>,std::equal_to<AMCP::Type_ID>,AMCP::Type_ID::Hash,true>,std::allocator<std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>>>::find<AMCP::Type_ID>(v7, v8);
   if (!v9)
   {
-    v25 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
-    if ((v25 & 1) == 0)
+    v24 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
+    if ((v24 & 1) == 0)
     {
       AMCP::Log::AMCP_Scope_Registry::initialize(0);
     }
 
-    v27 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
-    v26 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
-    if (v26)
+    v26 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
+    v25 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
+    if (v25)
     {
-      atomic_fetch_add_explicit(&v26->__shared_owners_, 1uLL, memory_order_relaxed);
-      v28 = *v27;
-      std::__shared_weak_count::__release_shared[abi:ne200100](v26);
+      atomic_fetch_add_explicit(&v25->__shared_owners_, 1uLL, memory_order_relaxed);
+      v27 = *v26;
+      std::__shared_weak_count::__release_shared[abi:ne200100](v25);
     }
 
     else
     {
-      v28 = *v27;
+      v27 = *v26;
     }
 
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
       *&buf[4] = "Operation.h";
-      v42 = 1024;
-      v43 = 154;
-      _os_log_error_impl(&dword_1DE1F9000, v28, OS_LOG_TYPE_ERROR, "%32s:%-5d Throwing Exception: Operation does not have requested function", buf, 0x12u);
+      v44 = 1024;
+      v45 = 154;
+      _os_log_error_impl(&dword_1DE1F9000, v27, OS_LOG_TYPE_ERROR, "%32s:%-5d Throwing Exception: Operation does not have requested function", buf, 0x12u);
     }
 
-    AMCP::Utility::With_Realtime_Disabled::With_Realtime_Disabled(&v40);
+    AMCP::Utility::With_Realtime_Disabled::With_Realtime_Disabled(&v42);
     __cxa_allocate_exception(0x40uLL);
-    caulk::make_string("Operation does not have requested function", &v32);
-    std::runtime_error::runtime_error(&v33, &v32);
-    std::runtime_error::runtime_error(&v34, &v33);
-    v36 = 0;
-    v37 = 0;
+    caulk::make_string(&v34, "Operation does not have requested function", v30);
+    std::runtime_error::runtime_error(&v35, &v34);
+    std::runtime_error::runtime_error(&v36, &v35);
     v38 = 0;
-    v39 = -1;
-    v34.__vftable = &unk_1F5992170;
-    v35 = &unk_1F5992198;
-    boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<std::runtime_error>>::clone_impl(buf, &v34);
-    v46 = "Return_Type AMCP::Core::Operation::call_function(Argument_Types...) const [Return_Type = void, Argument_Types = <AMCP::Power_State>]";
-    v47 = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/MCP/AMCP/Core/Operation.h";
-    v48 = 154;
-    applesauce::backtrace::snapshot_N<64>::snapshot_N(&v31);
+    v39 = 0;
+    v40 = 0;
+    v41 = -1;
+    v36.__vftable = &unk_1F5992170;
+    v37 = &unk_1F5992198;
+    boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<std::runtime_error>>::clone_impl(buf, &v36);
+    v48 = "Return_Type AMCP::Core::Operation::call_function(Argument_Types...) const [Return_Type = void, Argument_Types = <AMCP::Power_State>]";
+    v49 = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/MCP/AMCP/Core/Operation.h";
+    v50 = 154;
+    applesauce::backtrace::snapshot_N<64>::snapshot_N(&v33);
   }
 
   v10 = v9;
   if (!*(v9 + 7) || (*buf = AMCP::Implementation::get_type_marker<std::function<void ()(AMCP::Power_State)>>(), (v9 = (*(v10 + 7))(4, v10 + 24, 0, buf)) == 0))
   {
-    v17 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
-    if ((v17 & 1) == 0)
+    v16 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
+    if ((v16 & 1) == 0)
     {
       AMCP::Log::AMCP_Scope_Registry::initialize(v9);
     }
 
-    v19 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
-    v18 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
-    if (v18)
+    v18 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
+    v17 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
+    if (v17)
     {
-      atomic_fetch_add_explicit(&v18->__shared_owners_, 1uLL, memory_order_relaxed);
-      v20 = *v19;
-      std::__shared_weak_count::__release_shared[abi:ne200100](v18);
+      atomic_fetch_add_explicit(&v17->__shared_owners_, 1uLL, memory_order_relaxed);
+      v19 = *v18;
+      std::__shared_weak_count::__release_shared[abi:ne200100](v17);
     }
 
     else
     {
-      v20 = *v19;
+      v19 = *v18;
     }
 
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
       *&buf[4] = "Operation.h";
-      v42 = 1024;
-      v43 = 161;
-      _os_log_error_impl(&dword_1DE1F9000, v20, OS_LOG_TYPE_ERROR, "%32s:%-5d Throwing Exception: Invalid cast", buf, 0x12u);
+      v44 = 1024;
+      v45 = 161;
+      _os_log_error_impl(&dword_1DE1F9000, v19, OS_LOG_TYPE_ERROR, "%32s:%-5d Throwing Exception: Invalid cast", buf, 0x12u);
     }
 
-    AMCP::Utility::With_Realtime_Disabled::With_Realtime_Disabled(&v40);
+    AMCP::Utility::With_Realtime_Disabled::With_Realtime_Disabled(&v42);
     __cxa_allocate_exception(0x40uLL);
-    caulk::make_string("Invalid cast", &v32);
-    std::runtime_error::runtime_error(&v33, &v32);
-    std::runtime_error::runtime_error(&v34, &v33);
-    v36 = 0;
-    v37 = 0;
+    caulk::make_string(&v34, "Invalid cast", v28);
+    std::runtime_error::runtime_error(&v35, &v34);
+    std::runtime_error::runtime_error(&v36, &v35);
     v38 = 0;
-    v39 = -1;
-    v34.__vftable = &unk_1F5992170;
-    v35 = &unk_1F5992198;
-    boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<std::runtime_error>>::clone_impl(buf, &v34);
-    v46 = "Return_Type AMCP::Core::Operation::call_function(Argument_Types...) const [Return_Type = void, Argument_Types = <AMCP::Power_State>]";
-    v47 = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/MCP/AMCP/Core/Operation.h";
-    v48 = 161;
-    applesauce::backtrace::snapshot_N<64>::snapshot_N(&v31);
+    v39 = 0;
+    v40 = 0;
+    v41 = -1;
+    v36.__vftable = &unk_1F5992170;
+    v37 = &unk_1F5992198;
+    boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<std::runtime_error>>::clone_impl(buf, &v36);
+    v48 = "Return_Type AMCP::Core::Operation::call_function(Argument_Types...) const [Return_Type = void, Argument_Types = <AMCP::Power_State>]";
+    v49 = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/MCP/AMCP/Core/Operation.h";
+    v50 = 161;
+    applesauce::backtrace::snapshot_N<64>::snapshot_N(&v33);
   }
 
   *buf = a3;
@@ -1450,12 +3830,10 @@ void AMCP::Core::Core::call_operation_function<void,AMCP::Power_State>(AMCP::Add
   }
 
   (*(*v11 + 48))(v11, buf);
-  if (v30)
+  if (v32)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v30);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v32);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1DE372ADC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, void *a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, std::runtime_error a24, char a25)
@@ -1704,12 +4082,12 @@ uint64_t __copy_helper_block_e8_32c51_ZTSNSt3__110shared_ptrI23HALS_IOContext_MC
 
 uint64_t HALS_IOContext_MCP_Impl::send_is_running_somewhere_else(HALS_IOContext_MCP_Impl *this)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   strcpy(buf, "frbtbolg");
   buf[9] = 0;
   *&buf[10] = 0;
-  HALS_IOContext_MCP_Impl::call_mcp_operation_function<AMCP::Graph::Timebase_Set>(v15, this, buf);
-  if (!v16)
+  HALS_IOContext_MCP_Impl::call_mcp_operation_function<AMCP::Graph::Timebase_Set>(v14, this, buf);
+  if (!v15)
   {
     v3 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
     if ((v3 & 1) == 0)
@@ -1735,51 +4113,49 @@ uint64_t HALS_IOContext_MCP_Impl::send_is_running_somewhere_else(HALS_IOContext_
     {
       *buf = 136315394;
       *&buf[4] = "HALS_IOContext_MCP_Impl.cpp";
-      v20 = 1024;
-      v21 = 1401;
+      v19 = 1024;
+      v20 = 1401;
       _os_log_debug_impl(&dword_1DE1F9000, v6, OS_LOG_TYPE_DEBUG, "%32s:%-5d HALS_IOContext_MCP_Impl::send_is_running_somewhere_else - no timebases found", buf, 0x12u);
     }
   }
 
   v7 = *(this + 59);
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 1174405120;
-  v10[2] = ___ZN23HALS_IOContext_MCP_Impl30send_is_running_somewhere_elseEv_block_invoke;
-  v10[3] = &__block_descriptor_tmp_19_3473;
-  std::unordered_set<std::shared_ptr<AMCP::Graph::Timebase>>::unordered_set(v11, v15);
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 1174405120;
+  v9[2] = ___ZN23HALS_IOContext_MCP_Impl30send_is_running_somewhere_elseEv_block_invoke;
+  v9[3] = &__block_descriptor_tmp_19_3473;
+  std::unordered_set<std::shared_ptr<AMCP::Graph::Timebase>>::unordered_set(v10, v14);
   __p = 0;
+  v12 = 0;
   v13 = 0;
-  v14 = 0;
-  std::vector<AMCP::IO_Core::Play_State_Manager::Play_Request>::__init_with_size[abi:ne200100]<AMCP::IO_Core::Play_State_Manager::Play_Request*,AMCP::IO_Core::Play_State_Manager::Play_Request*>(&__p, v17, v18, (v18 - v17) >> 2);
-  AMCP::Utility::Dispatch_Queue::async(v7, v10);
+  std::vector<AMCP::IO_Core::Play_State_Manager::Play_Request>::__init_with_size[abi:ne200100]<AMCP::IO_Core::Play_State_Manager::Play_Request*,AMCP::IO_Core::Play_State_Manager::Play_Request*>(&__p, v16, v17, (v17 - v16) >> 2);
+  AMCP::Utility::Dispatch_Queue::async(v7, v9);
   if (__p)
   {
-    v13 = __p;
+    v12 = __p;
     operator delete(__p);
   }
 
-  std::__hash_table<std::shared_ptr<AMCP::Graph::Timebase>,std::hash<std::shared_ptr<AMCP::Graph::Timebase>>,std::equal_to<std::shared_ptr<AMCP::Graph::Timebase>>,std::allocator<std::shared_ptr<AMCP::Graph::Timebase>>>::~__hash_table(v11);
-  if (v17)
+  std::__hash_table<std::shared_ptr<AMCP::Graph::Timebase>,std::hash<std::shared_ptr<AMCP::Graph::Timebase>>,std::equal_to<std::shared_ptr<AMCP::Graph::Timebase>>,std::allocator<std::shared_ptr<AMCP::Graph::Timebase>>>::~__hash_table(v10);
+  if (v16)
   {
-    v18 = v17;
-    operator delete(v17);
+    v17 = v16;
+    operator delete(v16);
   }
 
-  result = std::__hash_table<std::shared_ptr<AMCP::Graph::Timebase>,std::hash<std::shared_ptr<AMCP::Graph::Timebase>>,std::equal_to<std::shared_ptr<AMCP::Graph::Timebase>>,std::allocator<std::shared_ptr<AMCP::Graph::Timebase>>>::~__hash_table(v15);
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return std::__hash_table<std::shared_ptr<AMCP::Graph::Timebase>,std::hash<std::shared_ptr<AMCP::Graph::Timebase>>,std::equal_to<std::shared_ptr<AMCP::Graph::Timebase>>,std::allocator<std::shared_ptr<AMCP::Graph::Timebase>>>::~__hash_table(v14);
 }
 
-void sub_1DE373224(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1DE373224(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   AMCP::Graph::Timebase_Set::~Timebase_Set(va);
   _Unwind_Resume(a1);
 }
 
 void HALS_IOContext_MCP_Impl::call_mcp_operation_function<AMCP::Graph::Timebase_Set>(uint64_t a1, uint64_t a2, unsigned int *a3)
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   v4 = *(a2 + 56);
   if (v4 && (v7 = std::__shared_weak_count::lock(v4)) != 0)
   {
@@ -1789,94 +4165,94 @@ void HALS_IOContext_MCP_Impl::call_mcp_operation_function<AMCP::Graph::Timebase_
     {
       if (*a3 == 707406378 || a3[1] == 707406378 || a3[2] == -1)
       {
-        v12 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
-        if ((v12 & 1) == 0)
+        v11 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
+        if ((v11 & 1) == 0)
         {
           AMCP::Log::AMCP_Scope_Registry::initialize(v7);
         }
 
-        v14 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
-        v13 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
-        if (v13)
+        v13 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
+        v12 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
+        if (v12)
         {
-          atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
-          v15 = *v14;
-          std::__shared_weak_count::__release_shared[abi:ne200100](v13);
+          atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
+          v14 = *v13;
+          std::__shared_weak_count::__release_shared[abi:ne200100](v12);
         }
 
         else
         {
-          v15 = *v14;
+          v14 = *v13;
         }
 
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315650;
-          v34 = "Core.h";
-          v35 = 1024;
-          v36 = 198;
-          v37 = 2080;
-          v38 = "!in_address.has_wildcards()";
-          _os_log_error_impl(&dword_1DE1F9000, v15, OS_LOG_TYPE_ERROR, "%32s:%-5d Assertion Failed: %s ", buf, 0x1Cu);
+          v33 = "Core.h";
+          v34 = 1024;
+          v35 = 198;
+          v36 = 2080;
+          v37 = "!in_address.has_wildcards()";
+          _os_log_error_impl(&dword_1DE1F9000, v14, OS_LOG_TYPE_ERROR, "%32s:%-5d Assertion Failed: %s ", buf, 0x1Cu);
         }
 
         abort();
       }
 
-      operation = AMCP::Core::Core::find_operation(&v31, v9, a3);
-      if (!v31)
+      operation = AMCP::Core::Core::find_operation(&v30, v9, a3);
+      if (!v30)
       {
-        v16 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
-        if ((v16 & 1) == 0)
+        v15 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
+        if ((v15 & 1) == 0)
         {
           AMCP::Log::AMCP_Scope_Registry::initialize(operation);
         }
 
-        v18 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
-        v17 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
-        if (v17)
+        v17 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
+        v16 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
+        if (v16)
         {
-          atomic_fetch_add_explicit(&v17->__shared_owners_, 1uLL, memory_order_relaxed);
-          v19 = *v18;
-          std::__shared_weak_count::__release_shared[abi:ne200100](v17);
+          atomic_fetch_add_explicit(&v16->__shared_owners_, 1uLL, memory_order_relaxed);
+          v18 = *v17;
+          std::__shared_weak_count::__release_shared[abi:ne200100](v16);
         }
 
         else
         {
-          v19 = *v18;
+          v18 = *v17;
         }
 
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315394;
-          v34 = "Core.h";
-          v35 = 1024;
-          v36 = 202;
-          _os_log_error_impl(&dword_1DE1F9000, v19, OS_LOG_TYPE_ERROR, "%32s:%-5d Throwing Exception: Operation does not have requested function", buf, 0x12u);
+          v33 = "Core.h";
+          v34 = 1024;
+          v35 = 202;
+          _os_log_error_impl(&dword_1DE1F9000, v18, OS_LOG_TYPE_ERROR, "%32s:%-5d Throwing Exception: Operation does not have requested function", buf, 0x12u);
         }
 
-        AMCP::Utility::With_Realtime_Disabled::With_Realtime_Disabled(&v30);
+        AMCP::Utility::With_Realtime_Disabled::With_Realtime_Disabled(&v29);
         __cxa_allocate_exception(0x40uLL);
-        caulk::make_string("Operation does not have requested function", &v22);
+        caulk::make_string(&v21, "Operation does not have requested function", v19);
+        std::runtime_error::runtime_error(&v22, &v21);
         std::runtime_error::runtime_error(&v23, &v22);
-        std::runtime_error::runtime_error(&v24, &v23);
+        v25 = 0;
         v26 = 0;
         v27 = 0;
-        v28 = 0;
-        v29 = -1;
-        v24.__vftable = &unk_1F5992170;
-        v25 = &unk_1F5992198;
-        boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<std::runtime_error>>::clone_impl(buf, &v24);
-        v39 = "Return_Type AMCP::Core::Core::call_operation_function(const Address &, Argument_Types...) const [Return_Type = AMCP::Graph::Timebase_Set, Argument_Types = <>]";
-        v40 = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/MCP/AMCP/Core/Core.h";
-        v41 = 202;
-        applesauce::backtrace::snapshot_N<64>::snapshot_N(v21);
+        v28 = -1;
+        v23.__vftable = &unk_1F5992170;
+        v24 = &unk_1F5992198;
+        boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<std::runtime_error>>::clone_impl(buf, &v23);
+        v38 = "Return_Type AMCP::Core::Core::call_operation_function(const Address &, Argument_Types...) const [Return_Type = AMCP::Graph::Timebase_Set, Argument_Types = <>]";
+        v39 = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/MCP/AMCP/Core/Core.h";
+        v40 = 202;
+        applesauce::backtrace::snapshot_N<64>::snapshot_N(v20);
       }
 
-      AMCP::Core::Operation::call_function<AMCP::Graph::Timebase_Set>(a1, v31);
-      if (v32)
+      AMCP::Core::Operation::call_function<AMCP::Graph::Timebase_Set>(a1, v30);
+      if (v31)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v32);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v31);
       }
     }
 
@@ -1891,8 +4267,6 @@ void HALS_IOContext_MCP_Impl::call_mcp_operation_function<AMCP::Graph::Timebase_
       *(a1 + 56) = 0;
     }
 
-    v20 = *MEMORY[0x1E69E9840];
-
     std::__shared_weak_count::__release_shared[abi:ne200100](v8);
   }
 
@@ -1905,7 +4279,6 @@ void HALS_IOContext_MCP_Impl::call_mcp_operation_function<AMCP::Graph::Timebase_
     *(a1 + 32) = 1065353216;
     *(a1 + 48) = 0;
     *(a1 + 56) = 0;
-    v11 = *MEMORY[0x1E69E9840];
   }
 }
 
@@ -1927,10 +4300,10 @@ void ___ZN23HALS_IOContext_MCP_Impl30send_is_running_somewhere_elseEv_block_invo
   v5[0] = 0;
   v5[1] = 0;
   HALS_System::GetInstance(&__p, 0, v5);
-  HALS_IOContext_Manager::find_contexts_and_devices_with_timebases(&v6, *(__p + 218));
+  HALS_IOContext_Manager::find_contexts_and_devices_with_timebases(&v6, *(__p + 218), v2);
 }
 
-void sub_1DE373874(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *__p, std::__shared_weak_count *a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23)
+void sub_1DE373874(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *__p, std::__shared_weak_count *a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23)
 {
   if (a19)
   {
@@ -1953,13 +4326,13 @@ uint64_t __destroy_helper_block_e8_32c31_ZTSN4AMCP5Graph12Timebase_SetE(uint64_t
   return std::__hash_table<std::shared_ptr<AMCP::Graph::Timebase>,std::hash<std::shared_ptr<AMCP::Graph::Timebase>>,std::equal_to<std::shared_ptr<AMCP::Graph::Timebase>>,std::allocator<std::shared_ptr<AMCP::Graph::Timebase>>>::~__hash_table(a1 + 32);
 }
 
-uint64_t __copy_helper_block_e8_32c31_ZTSN4AMCP5Graph12Timebase_SetE(void *a1, uint64_t a2)
+uint64_t *__copy_helper_block_e8_32c31_ZTSN4AMCP5Graph12Timebase_SetE(uint64_t *a1, uint64_t a2)
 {
-  std::unordered_set<std::shared_ptr<AMCP::Graph::Timebase>>::unordered_set((a1 + 4), a2 + 32);
+  std::unordered_set<std::shared_ptr<AMCP::Graph::Timebase>>::unordered_set(a1 + 4, a2 + 32);
   a1[9] = 0;
   a1[10] = 0;
   a1[11] = 0;
-  return std::vector<AMCP::IO_Core::Play_State_Manager::Play_Request>::__init_with_size[abi:ne200100]<AMCP::IO_Core::Play_State_Manager::Play_Request*,AMCP::IO_Core::Play_State_Manager::Play_Request*>((a1 + 9), *(a2 + 72), *(a2 + 80), (*(a2 + 80) - *(a2 + 72)) >> 2);
+  return std::vector<AMCP::IO_Core::Play_State_Manager::Play_Request>::__init_with_size[abi:ne200100]<AMCP::IO_Core::Play_State_Manager::Play_Request*,AMCP::IO_Core::Play_State_Manager::Play_Request*>(a1 + 9, *(a2 + 72), *(a2 + 80), (*(a2 + 80) - *(a2 + 72)) >> 2);
 }
 
 uint64_t std::pair<std::vector<unsigned int>,std::vector<unsigned int>>::~pair(uint64_t a1)
@@ -2055,11 +4428,16 @@ uint64_t std::__function::__func<HALS_IOContext_MCP_Impl::attach_ioproc_to_conte
 
 void std::__function::__func<HALS_IOContext_MCP_Impl::attach_ioproc_to_context(AMCP::Power_State)::$_2,std::allocator<HALS_IOContext_MCP_Impl::attach_ioproc_to_context(AMCP::Power_State)::$_2>,void ()(unsigned int)>::operator()(uint64_t a1)
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 16);
-  if (!v2 || (v3 = std::__shared_weak_count::lock(v2)) == 0)
+  if (!v2)
   {
-    v17 = *MEMORY[0x1E69E9840];
+    return;
+  }
+
+  v3 = std::__shared_weak_count::lock(v2);
+  if (!v3)
+  {
     return;
   }
 
@@ -2118,7 +4496,7 @@ void std::__function::__func<HALS_IOContext_MCP_Impl::attach_ioproc_to_context(A
       }
 
       block = v5;
-      LODWORD(v27) = v10;
+      LODWORD(v25) = v10;
       *buf = caulk::rt_function_ref<void ()(void)>::functor_invoker<HALS_IOContext_MCP_Impl::begin_processing(void)::$_0>;
       *&buf[8] = &block;
       caulk::rt_function_ref<void ()(void)>::functor_invoker<HALS_IOContext_MCP_Impl::begin_processing(void)::$_0>(&buf[8]);
@@ -2144,21 +4522,21 @@ void std::__function::__func<HALS_IOContext_MCP_Impl::attach_ioproc_to_context(A
         v16 = *v15;
       }
 
-      v18 = os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG);
-      if (v18)
+      v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG);
+      if (v17)
       {
-        v21 = "NO";
+        v20 = "NO";
         *&buf[4] = "HALS_IOContext_MCP_Impl.cpp";
         *buf = 136315650;
         if (v12)
         {
-          v21 = "YES";
+          v20 = "YES";
         }
 
         *&buf[12] = 1024;
         *&buf[14] = 1466;
         *&buf[18] = 2080;
-        *&buf[20] = v21;
+        *&buf[20] = v20;
         _os_log_debug_impl(&dword_1DE1F9000, v16, OS_LOG_TYPE_DEBUG, "%32s:%-5d finished WaitForClientToBeginTransport: did start: %s", buf, 0x1Cu);
         if (v12)
         {
@@ -2169,36 +4547,36 @@ void std::__function::__func<HALS_IOContext_MCP_Impl::attach_ioproc_to_context(A
       else if (v12)
       {
 LABEL_16:
-        HALS_IOContext::UpdateInputStreamUsageStatus(v18);
-        v19 = *(v5 + 472);
+        HALS_IOContext::UpdateInputStreamUsageStatus(v17);
+        v18 = *(v5 + 472);
         block = MEMORY[0x1E69E9820];
-        v27 = 0x40000000;
-        v28 = ___ZN23HALS_IOContext_MCP_Impl16begin_processingEv_block_invoke;
-        v29 = &__block_descriptor_tmp_22_3479;
-        v30 = v7;
-        AMCP::Utility::Dispatch_Queue::async(v19, &block);
-        std::shared_ptr<AMCP::IO_Core::IOContext_Core>::shared_ptr[abi:ne200100]<AMCP::IO_Core::IOContext_Core,0>(&v24, *(v5 + 8), *(v5 + 16));
-        v20 = *(v5 + 472);
+        v25 = 0x40000000;
+        v26 = ___ZN23HALS_IOContext_MCP_Impl16begin_processingEv_block_invoke;
+        v27 = &__block_descriptor_tmp_22_3479;
+        v28 = v7;
+        AMCP::Utility::Dispatch_Queue::async(v18, &block);
+        std::shared_ptr<AMCP::IO_Core::IOContext_Core>::shared_ptr[abi:ne200100]<AMCP::IO_Core::IOContext_Core,0>(&v22, *(v5 + 8), *(v5 + 16));
+        v19 = *(v5 + 472);
         *buf = MEMORY[0x1E69E9820];
         *&buf[8] = 1174405120;
         *&buf[16] = ___ZN23HALS_IOContext_MCP_Impl16begin_processingEv_block_invoke_2;
         *&buf[24] = &__block_descriptor_tmp_23_3480;
-        v32 = v24;
-        v33 = v25;
-        if (v25)
+        v30 = v22;
+        v31 = v23;
+        if (v23)
         {
-          atomic_fetch_add_explicit(&v25->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v23->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
-        AMCP::Utility::Dispatch_Queue::async(v20, buf);
-        if (v33)
+        AMCP::Utility::Dispatch_Queue::async(v19, buf);
+        if (v31)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v33);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v31);
         }
 
-        if (v25)
+        if (v23)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v25);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v23);
         }
 
         goto LABEL_26;
@@ -2209,23 +4587,22 @@ LABEL_16:
   }
 
 LABEL_26:
-  v22 = *MEMORY[0x1E69E9840];
 
   std::__shared_weak_count::__release_shared[abi:ne200100](v4);
 }
 
 void HALS_IOContext_MCP_Impl::update_status_time_info(HALS_IOContext_MCP_Impl *this)
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   IOStatus = HALB_IOBufferManager_Server::GetIOStatus(*(this + 30));
   if (!IOStatus)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v33 = "HALS_IOContext_MCP_Impl.cpp";
-      v34 = 1024;
-      v35 = 1543;
+      v32 = "HALS_IOContext_MCP_Impl.cpp";
+      v33 = 1024;
+      v34 = 1543;
       _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  ", buf, 0x12u);
     }
 
@@ -2248,15 +4625,15 @@ void HALS_IOContext_MCP_Impl::update_status_time_info(HALS_IOContext_MCP_Impl *t
         if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
           *buf = 136315394;
-          v33 = "HALS_IOContext_MCP_Impl.cpp";
-          v34 = 1024;
-          v35 = 1564;
+          v32 = "HALS_IOContext_MCP_Impl.cpp";
+          v33 = 1024;
+          v34 = 1564;
           _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  master timebase not found!", buf, 0x12u);
         }
 
-        v26 = __cxa_allocate_exception(0x10uLL);
-        *v26 = off_1F5991DD8;
-        v26[2] = 1970171760;
+        v25 = __cxa_allocate_exception(0x10uLL);
+        *v25 = off_1F5991DD8;
+        v25[2] = 1970171760;
       }
 
       v7 = COERCE_DOUBLE((*(*v6 + 136))(v6));
@@ -2266,15 +4643,15 @@ void HALS_IOContext_MCP_Impl::update_status_time_info(HALS_IOContext_MCP_Impl *t
         (*(**(this + 32) + 160))(*(this + 32));
       }
 
-      v27 = (*(**(this + 32) + 72))(*(this + 32));
+      v26 = (*(**(this + 32) + 72))(*(this + 32));
       v9 = (*(**(this + 32) + 160))(*(this + 32));
-      v10.f64[0] = v27;
-      v10.f64[1] = 1.0 / v27;
+      v10.f64[0] = v26;
+      v10.f64[1] = 1.0 / v26;
       v11 = vmulq_f64(v10, vdupq_n_s64(0x4176E36000000000uLL));
 LABEL_17:
-      v28 = v11;
+      v27 = v11;
       std::__shared_weak_count::__release_shared[abi:ne200100](v5);
-      v11 = v28;
+      v11 = v27;
       goto LABEL_18;
     }
   }
@@ -2306,36 +4683,36 @@ LABEL_17:
 
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
-    v22 = *(*(this + 5) + 16);
+    v21 = *(*(this + 5) + 16);
     HALS_IOContext_MCP_Impl::get_debug_device_name(&cf, this);
     if (!cf)
     {
-      v25 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v25, "Could not construct");
-      __cxa_throw(v25, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+      v24 = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(v24, "Could not construct");
+      __cxa_throw(v24, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
     }
 
     applesauce::CF::convert_to<std::string,0>(__p, cf);
-    if (v31 >= 0)
+    if (v30 >= 0)
     {
-      v23 = __p;
+      v22 = __p;
     }
 
     else
     {
-      v23 = __p[0];
+      v22 = __p[0];
     }
 
     *buf = 136315906;
-    v33 = "HALS_IOContext_MCP_Impl.cpp";
-    v34 = 1024;
-    v35 = 1577;
-    v36 = 1024;
-    v37 = v22;
-    v38 = 2080;
-    v39 = v23;
+    v32 = "HALS_IOContext_MCP_Impl.cpp";
+    v33 = 1024;
+    v34 = 1577;
+    v35 = 1024;
+    v36 = v21;
+    v37 = 2080;
+    v38 = v22;
     _os_log_debug_impl(&dword_1DE1F9000, v15, OS_LOG_TYPE_DEBUG, "%32s:%-5d HALS_IOContext_MCP_Impl core ptr is null: %u\t%s", buf, 0x22u);
-    if (v31 < 0)
+    if (v30 < 0)
     {
       operator delete(__p[0]);
     }
@@ -2373,7 +4750,6 @@ LABEL_18:
 
   v3[1].i64[0] = v9;
   v3[1].i32[2] = v20;
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1DE374488(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11)
@@ -2477,27 +4853,27 @@ uint64_t AMCP::Core::Core::call_operation_function<BOOL>(AMCP::Address *a1, unsi
   v36 = *MEMORY[0x1E69E9840];
   if (*a2 == 707406378 || a2[1] == 707406378 || a2[2] == -1)
   {
-    v7 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
-    if ((v7 & 1) == 0)
+    v6 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
+    if ((v6 & 1) == 0)
     {
       AMCP::Log::AMCP_Scope_Registry::initialize(a1);
     }
 
-    v9 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
-    v8 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
-    if (v8)
+    v8 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
+    v7 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
+    if (v7)
     {
-      atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
-      v10 = *v9;
-      std::__shared_weak_count::__release_shared[abi:ne200100](v8);
+      atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
+      v9 = *v8;
+      std::__shared_weak_count::__release_shared[abi:ne200100](v7);
     }
 
     else
     {
-      v10 = *v9;
+      v9 = *v8;
     }
 
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
       v28 = "Core.h";
@@ -2505,7 +4881,7 @@ uint64_t AMCP::Core::Core::call_operation_function<BOOL>(AMCP::Address *a1, unsi
       v30 = 198;
       v31 = 2080;
       v32 = "!in_address.has_wildcards()";
-      _os_log_error_impl(&dword_1DE1F9000, v10, OS_LOG_TYPE_ERROR, "%32s:%-5d Assertion Failed: %s ", buf, 0x1Cu);
+      _os_log_error_impl(&dword_1DE1F9000, v9, OS_LOG_TYPE_ERROR, "%32s:%-5d Assertion Failed: %s ", buf, 0x1Cu);
     }
 
     abort();
@@ -2514,38 +4890,38 @@ uint64_t AMCP::Core::Core::call_operation_function<BOOL>(AMCP::Address *a1, unsi
   AMCP::Core::Core::find_operation(&v25, a1, a2);
   if (!v25)
   {
-    v11 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
-    if ((v11 & 1) == 0)
+    v10 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
+    if ((v10 & 1) == 0)
     {
       AMCP::Log::AMCP_Scope_Registry::initialize(0);
     }
 
-    v13 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
-    v12 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
-    if (v12)
+    v12 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
+    v11 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
+    if (v11)
     {
-      atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
-      v14 = *v13;
-      std::__shared_weak_count::__release_shared[abi:ne200100](v12);
+      atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
+      v13 = *v12;
+      std::__shared_weak_count::__release_shared[abi:ne200100](v11);
     }
 
     else
     {
-      v14 = *v13;
+      v13 = *v12;
     }
 
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
       v28 = "Core.h";
       v29 = 1024;
       v30 = 202;
-      _os_log_error_impl(&dword_1DE1F9000, v14, OS_LOG_TYPE_ERROR, "%32s:%-5d Throwing Exception: Operation does not have requested function", buf, 0x12u);
+      _os_log_error_impl(&dword_1DE1F9000, v13, OS_LOG_TYPE_ERROR, "%32s:%-5d Throwing Exception: Operation does not have requested function", buf, 0x12u);
     }
 
     AMCP::Utility::With_Realtime_Disabled::With_Realtime_Disabled(&v24);
     __cxa_allocate_exception(0x40uLL);
-    caulk::make_string("Operation does not have requested function", &v16);
+    caulk::make_string(&v16, "Operation does not have requested function", v14);
     std::runtime_error::runtime_error(&v17, &v16);
     std::runtime_error::runtime_error(&v18, &v17);
     v20 = 0;
@@ -2567,7 +4943,6 @@ uint64_t AMCP::Core::Core::call_operation_function<BOOL>(AMCP::Address *a1, unsi
     std::__shared_weak_count::__release_shared[abi:ne200100](v26);
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -2667,197 +5042,197 @@ void *std::__function::__func<HALS_IOContext_MCP_Impl::attach_ioproc_to_context(
 
 void AMCP::Core::Core::call_operation_function<void,std::function<void ()(unsigned int)>>(AMCP::Address *a1, unsigned int *a2, uint64_t a3)
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   if (*a2 == 707406378 || a2[1] == 707406378 || a2[2] == -1)
   {
-    v14 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
-    if ((v14 & 1) == 0)
+    v13 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
+    if ((v13 & 1) == 0)
     {
       AMCP::Log::AMCP_Scope_Registry::initialize(a1);
     }
 
-    v16 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
-    v15 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
-    if (v15)
+    v15 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
+    v14 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
+    if (v14)
     {
-      atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
-      v17 = *v16;
-      std::__shared_weak_count::__release_shared[abi:ne200100](v15);
+      atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
+      v16 = *v15;
+      std::__shared_weak_count::__release_shared[abi:ne200100](v14);
     }
 
     else
     {
-      v17 = *v16;
+      v16 = *v15;
     }
 
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
       *&buf[4] = "Core.h";
-      v44 = 1024;
-      v45 = 198;
-      v46 = 2080;
-      v47 = "!in_address.has_wildcards()";
-      _os_log_error_impl(&dword_1DE1F9000, v17, OS_LOG_TYPE_ERROR, "%32s:%-5d Assertion Failed: %s ", buf, 0x1Cu);
+      v46 = 1024;
+      v47 = 198;
+      v48 = 2080;
+      v49 = "!in_address.has_wildcards()";
+      _os_log_error_impl(&dword_1DE1F9000, v16, OS_LOG_TYPE_ERROR, "%32s:%-5d Assertion Failed: %s ", buf, 0x1Cu);
     }
 
     abort();
   }
 
-  operation = AMCP::Core::Core::find_operation(&v30, a1, a2);
-  v7 = v30;
-  if (!v30)
+  operation = AMCP::Core::Core::find_operation(&v32, a1, a2);
+  v7 = v32;
+  if (!v32)
   {
-    v22 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
-    if ((v22 & 1) == 0)
+    v21 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
+    if ((v21 & 1) == 0)
     {
       AMCP::Log::AMCP_Scope_Registry::initialize(operation);
     }
 
-    v24 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
-    v23 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
-    if (v23)
+    v23 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
+    v22 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
+    if (v22)
     {
-      atomic_fetch_add_explicit(&v23->__shared_owners_, 1uLL, memory_order_relaxed);
-      v25 = *v24;
-      std::__shared_weak_count::__release_shared[abi:ne200100](v23);
+      atomic_fetch_add_explicit(&v22->__shared_owners_, 1uLL, memory_order_relaxed);
+      v24 = *v23;
+      std::__shared_weak_count::__release_shared[abi:ne200100](v22);
     }
 
     else
     {
-      v25 = *v24;
+      v24 = *v23;
     }
 
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
       *&buf[4] = "Core.h";
-      v44 = 1024;
-      v45 = 202;
-      _os_log_error_impl(&dword_1DE1F9000, v25, OS_LOG_TYPE_ERROR, "%32s:%-5d Throwing Exception: Operation does not have requested function", buf, 0x12u);
+      v46 = 1024;
+      v47 = 202;
+      _os_log_error_impl(&dword_1DE1F9000, v24, OS_LOG_TYPE_ERROR, "%32s:%-5d Throwing Exception: Operation does not have requested function", buf, 0x12u);
     }
 
-    AMCP::Utility::With_Realtime_Disabled::With_Realtime_Disabled(&v41);
+    AMCP::Utility::With_Realtime_Disabled::With_Realtime_Disabled(&v43);
     __cxa_allocate_exception(0x40uLL);
-    caulk::make_string("Operation does not have requested function", &v33);
-    std::runtime_error::runtime_error(&v34, &v33);
-    std::runtime_error::runtime_error(&v35, &v34);
-    v37 = 0;
-    v38 = 0;
+    caulk::make_string(&v35, "Operation does not have requested function", v30);
+    std::runtime_error::runtime_error(&v36, &v35);
+    std::runtime_error::runtime_error(&v37, &v36);
     v39 = 0;
-    v40 = -1;
-    v35.__vftable = &unk_1F5992170;
-    v36 = &unk_1F5992198;
-    boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<std::runtime_error>>::clone_impl(buf, &v35);
-    v48 = "Return_Type AMCP::Core::Core::call_operation_function(const Address &, Argument_Types...) const [Return_Type = void, Argument_Types = <std::function<void >>]";
-    v49 = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/MCP/AMCP/Core/Core.h";
-    v50 = 202;
-    applesauce::backtrace::snapshot_N<64>::snapshot_N(&v32);
+    v40 = 0;
+    v41 = 0;
+    v42 = -1;
+    v37.__vftable = &unk_1F5992170;
+    v38 = &unk_1F5992198;
+    boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<std::runtime_error>>::clone_impl(buf, &v37);
+    v50 = "Return_Type AMCP::Core::Core::call_operation_function(const Address &, Argument_Types...) const [Return_Type = void, Argument_Types = <std::function<void >>]";
+    v51 = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/MCP/AMCP/Core/Core.h";
+    v52 = 202;
+    applesauce::backtrace::snapshot_N<64>::snapshot_N(&v34);
   }
 
-  std::__function::__value_func<void ()>::__value_func[abi:ne200100](v42, a3);
+  std::__function::__value_func<void ()>::__value_func[abi:ne200100](v44, a3);
   v8 = AMCP::Implementation::get_type_marker<std::function<void ()(std::function<void ()>)>>();
   v9 = std::__hash_table<std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>,std::__unordered_map_hasher<AMCP::Type_ID,std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>,AMCP::Type_ID::Hash,std::equal_to<AMCP::Type_ID>,true>,std::__unordered_map_equal<AMCP::Type_ID,std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>,std::equal_to<AMCP::Type_ID>,AMCP::Type_ID::Hash,true>,std::allocator<std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>>>::find<AMCP::Type_ID>(v7, v8);
   if (!v9)
   {
-    v26 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
-    if ((v26 & 1) == 0)
+    v25 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
+    if ((v25 & 1) == 0)
     {
       AMCP::Log::AMCP_Scope_Registry::initialize(0);
     }
 
-    v28 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
-    v27 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
-    if (v27)
+    v27 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
+    v26 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
+    if (v26)
     {
-      atomic_fetch_add_explicit(&v27->__shared_owners_, 1uLL, memory_order_relaxed);
-      v29 = *v28;
-      std::__shared_weak_count::__release_shared[abi:ne200100](v27);
+      atomic_fetch_add_explicit(&v26->__shared_owners_, 1uLL, memory_order_relaxed);
+      v28 = *v27;
+      std::__shared_weak_count::__release_shared[abi:ne200100](v26);
     }
 
     else
     {
-      v29 = *v28;
+      v28 = *v27;
     }
 
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
       *&buf[4] = "Operation.h";
-      v44 = 1024;
-      v45 = 154;
-      _os_log_error_impl(&dword_1DE1F9000, v29, OS_LOG_TYPE_ERROR, "%32s:%-5d Throwing Exception: Operation does not have requested function", buf, 0x12u);
+      v46 = 1024;
+      v47 = 154;
+      _os_log_error_impl(&dword_1DE1F9000, v28, OS_LOG_TYPE_ERROR, "%32s:%-5d Throwing Exception: Operation does not have requested function", buf, 0x12u);
     }
 
-    AMCP::Utility::With_Realtime_Disabled::With_Realtime_Disabled(&v41);
+    AMCP::Utility::With_Realtime_Disabled::With_Realtime_Disabled(&v43);
     __cxa_allocate_exception(0x40uLL);
-    caulk::make_string("Operation does not have requested function", &v33);
-    std::runtime_error::runtime_error(&v34, &v33);
-    std::runtime_error::runtime_error(&v35, &v34);
-    v37 = 0;
-    v38 = 0;
+    caulk::make_string(&v35, "Operation does not have requested function", v31);
+    std::runtime_error::runtime_error(&v36, &v35);
+    std::runtime_error::runtime_error(&v37, &v36);
     v39 = 0;
-    v40 = -1;
-    v35.__vftable = &unk_1F5992170;
-    v36 = &unk_1F5992198;
-    boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<std::runtime_error>>::clone_impl(buf, &v35);
-    v48 = "Return_Type AMCP::Core::Operation::call_function(Argument_Types...) const [Return_Type = void, Argument_Types = <std::function<void >>]";
-    v49 = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/MCP/AMCP/Core/Operation.h";
-    v50 = 154;
-    applesauce::backtrace::snapshot_N<64>::snapshot_N(&v32);
+    v40 = 0;
+    v41 = 0;
+    v42 = -1;
+    v37.__vftable = &unk_1F5992170;
+    v38 = &unk_1F5992198;
+    boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<std::runtime_error>>::clone_impl(buf, &v37);
+    v50 = "Return_Type AMCP::Core::Operation::call_function(Argument_Types...) const [Return_Type = void, Argument_Types = <std::function<void >>]";
+    v51 = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/MCP/AMCP/Core/Operation.h";
+    v52 = 154;
+    applesauce::backtrace::snapshot_N<64>::snapshot_N(&v34);
   }
 
   v10 = v9;
   if (!*(v9 + 7) || (*buf = AMCP::Implementation::get_type_marker<std::function<void ()(std::function<void ()>)>>(), v9 = (*(v10 + 7))(4, v10 + 24, 0, buf), (v11 = v9) == 0))
   {
-    v18 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
-    if ((v18 & 1) == 0)
+    v17 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
+    if ((v17 & 1) == 0)
     {
       AMCP::Log::AMCP_Scope_Registry::initialize(v9);
     }
 
-    v20 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
-    v19 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
-    if (v19)
+    v19 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
+    v18 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
+    if (v18)
     {
-      atomic_fetch_add_explicit(&v19->__shared_owners_, 1uLL, memory_order_relaxed);
-      v21 = *v20;
-      std::__shared_weak_count::__release_shared[abi:ne200100](v19);
+      atomic_fetch_add_explicit(&v18->__shared_owners_, 1uLL, memory_order_relaxed);
+      v20 = *v19;
+      std::__shared_weak_count::__release_shared[abi:ne200100](v18);
     }
 
     else
     {
-      v21 = *v20;
+      v20 = *v19;
     }
 
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
       *&buf[4] = "Operation.h";
-      v44 = 1024;
-      v45 = 161;
-      _os_log_error_impl(&dword_1DE1F9000, v21, OS_LOG_TYPE_ERROR, "%32s:%-5d Throwing Exception: Invalid cast", buf, 0x12u);
+      v46 = 1024;
+      v47 = 161;
+      _os_log_error_impl(&dword_1DE1F9000, v20, OS_LOG_TYPE_ERROR, "%32s:%-5d Throwing Exception: Invalid cast", buf, 0x12u);
     }
 
-    AMCP::Utility::With_Realtime_Disabled::With_Realtime_Disabled(&v41);
+    AMCP::Utility::With_Realtime_Disabled::With_Realtime_Disabled(&v43);
     __cxa_allocate_exception(0x40uLL);
-    caulk::make_string("Invalid cast", &v33);
-    std::runtime_error::runtime_error(&v34, &v33);
-    std::runtime_error::runtime_error(&v35, &v34);
-    v37 = 0;
-    v38 = 0;
+    caulk::make_string(&v35, "Invalid cast", v29);
+    std::runtime_error::runtime_error(&v36, &v35);
+    std::runtime_error::runtime_error(&v37, &v36);
     v39 = 0;
-    v40 = -1;
-    v35.__vftable = &unk_1F5992170;
-    v36 = &unk_1F5992198;
-    boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<std::runtime_error>>::clone_impl(buf, &v35);
-    v48 = "Return_Type AMCP::Core::Operation::call_function(Argument_Types...) const [Return_Type = void, Argument_Types = <std::function<void >>]";
-    v49 = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/MCP/AMCP/Core/Operation.h";
-    v50 = 161;
-    applesauce::backtrace::snapshot_N<64>::snapshot_N(&v32);
+    v40 = 0;
+    v41 = 0;
+    v42 = -1;
+    v37.__vftable = &unk_1F5992170;
+    v38 = &unk_1F5992198;
+    boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<std::runtime_error>>::clone_impl(buf, &v37);
+    v50 = "Return_Type AMCP::Core::Operation::call_function(Argument_Types...) const [Return_Type = void, Argument_Types = <std::function<void >>]";
+    v51 = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/MCP/AMCP/Core/Operation.h";
+    v52 = 161;
+    applesauce::backtrace::snapshot_N<64>::snapshot_N(&v34);
   }
 
-  std::__function::__value_func<void ()>::__value_func[abi:ne200100](buf, v42);
+  std::__function::__value_func<void ()>::__value_func[abi:ne200100](buf, v44);
   v12 = *(v11 + 3);
   if (!v12)
   {
@@ -2866,13 +5241,11 @@ void AMCP::Core::Core::call_operation_function<void,std::function<void ()(unsign
 
   (*(*v12 + 48))(v12, buf);
   std::__function::__value_func<void ()>::~__value_func[abi:ne200100](buf);
-  std::__function::__value_func<void ()>::~__value_func[abi:ne200100](v42);
-  if (v31)
+  std::__function::__value_func<void ()>::~__value_func[abi:ne200100](v44);
+  if (v33)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v31);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v33);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1DE3754AC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, void *a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, std::runtime_error a24, char a25)
@@ -2937,16 +5310,16 @@ uint64_t std::__function::__func<HALS_IOContext_MCP_Impl::attach_ioproc_to_conte
   }
 }
 
-void std::__function::__func<HALS_IOContext_MCP_Impl::attach_ioproc_to_context(AMCP::Power_State)::$_1,std::allocator<HALS_IOContext_MCP_Impl::attach_ioproc_to_context(AMCP::Power_State)::$_1>,void ()(unsigned int)>::operator()(uint64_t a1)
+void std::__function::__func<HALS_IOContext_MCP_Impl::attach_ioproc_to_context(AMCP::Power_State)::$_1,std::allocator<HALS_IOContext_MCP_Impl::attach_ioproc_to_context(AMCP::Power_State)::$_1>,void ()(unsigned int)>::operator()(uint64_t a1, unsigned int a2)
 {
-  v1 = HALS_ObjectMap::CopyObjectByObjectID(*(a1 + 8));
-  v3 = v1;
-  if (v1)
+  v2 = HALS_ObjectMap::CopyObjectByObjectID(*(a1 + 8));
+  v4 = v2;
+  if (v2)
   {
-    HALS_IOContext::SignalOverloadToClient(v1);
+    HALS_IOContext::SignalOverloadToClient(v2);
   }
 
-  HALS_ObjectMap::ReleaseObject(v3, v2);
+  HALS_ObjectMap::ReleaseObject(v4, v3);
 }
 
 uint64_t std::__function::__func<HALS_IOContext_MCP_Impl::attach_ioproc_to_context(AMCP::Power_State)::$_1,std::allocator<HALS_IOContext_MCP_Impl::attach_ioproc_to_context(AMCP::Power_State)::$_1>,void ()(unsigned int)>::__clone(uint64_t result, uint64_t a2)
@@ -2958,197 +5331,197 @@ uint64_t std::__function::__func<HALS_IOContext_MCP_Impl::attach_ioproc_to_conte
 
 void AMCP::Core::Core::call_operation_function<void,std::function<void ()(unsigned int,AMCP::Proc_Cycle_Info const&,unsigned long,AMCP::Proc_Stream *,unsigned long,AMCP::Proc_Stream *)>>(AMCP::Address *a1, unsigned int *a2, uint64_t a3)
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   if (*a2 == 707406378 || a2[1] == 707406378 || a2[2] == -1)
   {
-    v14 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
-    if ((v14 & 1) == 0)
+    v13 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
+    if ((v13 & 1) == 0)
     {
       AMCP::Log::AMCP_Scope_Registry::initialize(a1);
     }
 
-    v16 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
-    v15 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
-    if (v15)
+    v15 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
+    v14 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
+    if (v14)
     {
-      atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
-      v17 = *v16;
-      std::__shared_weak_count::__release_shared[abi:ne200100](v15);
+      atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
+      v16 = *v15;
+      std::__shared_weak_count::__release_shared[abi:ne200100](v14);
     }
 
     else
     {
-      v17 = *v16;
+      v16 = *v15;
     }
 
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
       *&buf[4] = "Core.h";
-      v44 = 1024;
-      v45 = 198;
-      v46 = 2080;
-      v47 = "!in_address.has_wildcards()";
-      _os_log_error_impl(&dword_1DE1F9000, v17, OS_LOG_TYPE_ERROR, "%32s:%-5d Assertion Failed: %s ", buf, 0x1Cu);
+      v46 = 1024;
+      v47 = 198;
+      v48 = 2080;
+      v49 = "!in_address.has_wildcards()";
+      _os_log_error_impl(&dword_1DE1F9000, v16, OS_LOG_TYPE_ERROR, "%32s:%-5d Assertion Failed: %s ", buf, 0x1Cu);
     }
 
     abort();
   }
 
-  operation = AMCP::Core::Core::find_operation(&v30, a1, a2);
-  v7 = v30;
-  if (!v30)
+  operation = AMCP::Core::Core::find_operation(&v32, a1, a2);
+  v7 = v32;
+  if (!v32)
   {
-    v22 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
-    if ((v22 & 1) == 0)
+    v21 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
+    if ((v21 & 1) == 0)
     {
       AMCP::Log::AMCP_Scope_Registry::initialize(operation);
     }
 
-    v24 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
-    v23 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
-    if (v23)
+    v23 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
+    v22 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
+    if (v22)
     {
-      atomic_fetch_add_explicit(&v23->__shared_owners_, 1uLL, memory_order_relaxed);
-      v25 = *v24;
-      std::__shared_weak_count::__release_shared[abi:ne200100](v23);
+      atomic_fetch_add_explicit(&v22->__shared_owners_, 1uLL, memory_order_relaxed);
+      v24 = *v23;
+      std::__shared_weak_count::__release_shared[abi:ne200100](v22);
     }
 
     else
     {
-      v25 = *v24;
+      v24 = *v23;
     }
 
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
       *&buf[4] = "Core.h";
-      v44 = 1024;
-      v45 = 202;
-      _os_log_error_impl(&dword_1DE1F9000, v25, OS_LOG_TYPE_ERROR, "%32s:%-5d Throwing Exception: Operation does not have requested function", buf, 0x12u);
+      v46 = 1024;
+      v47 = 202;
+      _os_log_error_impl(&dword_1DE1F9000, v24, OS_LOG_TYPE_ERROR, "%32s:%-5d Throwing Exception: Operation does not have requested function", buf, 0x12u);
     }
 
-    AMCP::Utility::With_Realtime_Disabled::With_Realtime_Disabled(&v41);
+    AMCP::Utility::With_Realtime_Disabled::With_Realtime_Disabled(&v43);
     __cxa_allocate_exception(0x40uLL);
-    caulk::make_string("Operation does not have requested function", &v33);
-    std::runtime_error::runtime_error(&v34, &v33);
-    std::runtime_error::runtime_error(&v35, &v34);
-    v37 = 0;
-    v38 = 0;
+    caulk::make_string(&v35, "Operation does not have requested function", v30);
+    std::runtime_error::runtime_error(&v36, &v35);
+    std::runtime_error::runtime_error(&v37, &v36);
     v39 = 0;
-    v40 = -1;
-    v35.__vftable = &unk_1F5992170;
-    v36 = &unk_1F5992198;
-    boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<std::runtime_error>>::clone_impl(buf, &v35);
-    v48 = "Return_Type AMCP::Core::Core::call_operation_function(const Address &, Argument_Types...) const [Return_Type = void, Argument_Types = <std::function<void (unsigned int, const AMCP::Proc_Cycle_Info &, unsigned long, AMCP::Proc_Stream *, unsigned long, AMCP::Proc_Stream *)>>]";
-    v49 = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/MCP/AMCP/Core/Core.h";
-    v50 = 202;
-    applesauce::backtrace::snapshot_N<64>::snapshot_N(&v32);
+    v40 = 0;
+    v41 = 0;
+    v42 = -1;
+    v37.__vftable = &unk_1F5992170;
+    v38 = &unk_1F5992198;
+    boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<std::runtime_error>>::clone_impl(buf, &v37);
+    v50 = "Return_Type AMCP::Core::Core::call_operation_function(const Address &, Argument_Types...) const [Return_Type = void, Argument_Types = <std::function<void (unsigned int, const AMCP::Proc_Cycle_Info &, unsigned long, AMCP::Proc_Stream *, unsigned long, AMCP::Proc_Stream *)>>]";
+    v51 = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/MCP/AMCP/Core/Core.h";
+    v52 = 202;
+    applesauce::backtrace::snapshot_N<64>::snapshot_N(&v34);
   }
 
-  std::__function::__value_func<void ()(unsigned int,AMCP::Proc_Cycle_Info const&,unsigned long,AMCP::Proc_Stream *,unsigned long,AMCP::Proc_Stream *)>::__value_func[abi:ne200100](v42, a3);
+  std::__function::__value_func<void ()(unsigned int,AMCP::Proc_Cycle_Info const&,unsigned long,AMCP::Proc_Stream *,unsigned long,AMCP::Proc_Stream *)>::__value_func[abi:ne200100](v44, a3);
   v8 = AMCP::Implementation::get_type_marker<std::function<void ()(std::function<void ()(unsigned int,AMCP::Proc_Cycle_Info const&,unsigned long,AMCP::Proc_Stream *,unsigned long,AMCP::Proc_Stream *)>)>>();
   v9 = std::__hash_table<std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>,std::__unordered_map_hasher<AMCP::Type_ID,std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>,AMCP::Type_ID::Hash,std::equal_to<AMCP::Type_ID>,true>,std::__unordered_map_equal<AMCP::Type_ID,std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>,std::equal_to<AMCP::Type_ID>,AMCP::Type_ID::Hash,true>,std::allocator<std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>>>::find<AMCP::Type_ID>(v7, v8);
   if (!v9)
   {
-    v26 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
-    if ((v26 & 1) == 0)
+    v25 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
+    if ((v25 & 1) == 0)
     {
       AMCP::Log::AMCP_Scope_Registry::initialize(0);
     }
 
-    v28 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
-    v27 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
-    if (v27)
+    v27 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
+    v26 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
+    if (v26)
     {
-      atomic_fetch_add_explicit(&v27->__shared_owners_, 1uLL, memory_order_relaxed);
-      v29 = *v28;
-      std::__shared_weak_count::__release_shared[abi:ne200100](v27);
+      atomic_fetch_add_explicit(&v26->__shared_owners_, 1uLL, memory_order_relaxed);
+      v28 = *v27;
+      std::__shared_weak_count::__release_shared[abi:ne200100](v26);
     }
 
     else
     {
-      v29 = *v28;
+      v28 = *v27;
     }
 
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
       *&buf[4] = "Operation.h";
-      v44 = 1024;
-      v45 = 154;
-      _os_log_error_impl(&dword_1DE1F9000, v29, OS_LOG_TYPE_ERROR, "%32s:%-5d Throwing Exception: Operation does not have requested function", buf, 0x12u);
+      v46 = 1024;
+      v47 = 154;
+      _os_log_error_impl(&dword_1DE1F9000, v28, OS_LOG_TYPE_ERROR, "%32s:%-5d Throwing Exception: Operation does not have requested function", buf, 0x12u);
     }
 
-    AMCP::Utility::With_Realtime_Disabled::With_Realtime_Disabled(&v41);
+    AMCP::Utility::With_Realtime_Disabled::With_Realtime_Disabled(&v43);
     __cxa_allocate_exception(0x40uLL);
-    caulk::make_string("Operation does not have requested function", &v33);
-    std::runtime_error::runtime_error(&v34, &v33);
-    std::runtime_error::runtime_error(&v35, &v34);
-    v37 = 0;
-    v38 = 0;
+    caulk::make_string(&v35, "Operation does not have requested function", v31);
+    std::runtime_error::runtime_error(&v36, &v35);
+    std::runtime_error::runtime_error(&v37, &v36);
     v39 = 0;
-    v40 = -1;
-    v35.__vftable = &unk_1F5992170;
-    v36 = &unk_1F5992198;
-    boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<std::runtime_error>>::clone_impl(buf, &v35);
-    v48 = "Return_Type AMCP::Core::Operation::call_function(Argument_Types...) const [Return_Type = void, Argument_Types = <std::function<void (unsigned int, const AMCP::Proc_Cycle_Info &, unsigned long, AMCP::Proc_Stream *, unsigned long, AMCP::Proc_Stream *)>>]";
-    v49 = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/MCP/AMCP/Core/Operation.h";
-    v50 = 154;
-    applesauce::backtrace::snapshot_N<64>::snapshot_N(&v32);
+    v40 = 0;
+    v41 = 0;
+    v42 = -1;
+    v37.__vftable = &unk_1F5992170;
+    v38 = &unk_1F5992198;
+    boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<std::runtime_error>>::clone_impl(buf, &v37);
+    v50 = "Return_Type AMCP::Core::Operation::call_function(Argument_Types...) const [Return_Type = void, Argument_Types = <std::function<void (unsigned int, const AMCP::Proc_Cycle_Info &, unsigned long, AMCP::Proc_Stream *, unsigned long, AMCP::Proc_Stream *)>>]";
+    v51 = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/MCP/AMCP/Core/Operation.h";
+    v52 = 154;
+    applesauce::backtrace::snapshot_N<64>::snapshot_N(&v34);
   }
 
   v10 = v9;
   if (!*(v9 + 7) || (*buf = AMCP::Implementation::get_type_marker<std::function<void ()(std::function<void ()(unsigned int,AMCP::Proc_Cycle_Info const&,unsigned long,AMCP::Proc_Stream *,unsigned long,AMCP::Proc_Stream *)>)>>(), v9 = (*(v10 + 7))(4, v10 + 24, 0, buf), (v11 = v9) == 0))
   {
-    v18 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
-    if ((v18 & 1) == 0)
+    v17 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
+    if ((v17 & 1) == 0)
     {
       AMCP::Log::AMCP_Scope_Registry::initialize(v9);
     }
 
-    v20 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
-    v19 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
-    if (v19)
+    v19 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
+    v18 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
+    if (v18)
     {
-      atomic_fetch_add_explicit(&v19->__shared_owners_, 1uLL, memory_order_relaxed);
-      v21 = *v20;
-      std::__shared_weak_count::__release_shared[abi:ne200100](v19);
+      atomic_fetch_add_explicit(&v18->__shared_owners_, 1uLL, memory_order_relaxed);
+      v20 = *v19;
+      std::__shared_weak_count::__release_shared[abi:ne200100](v18);
     }
 
     else
     {
-      v21 = *v20;
+      v20 = *v19;
     }
 
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
       *&buf[4] = "Operation.h";
-      v44 = 1024;
-      v45 = 161;
-      _os_log_error_impl(&dword_1DE1F9000, v21, OS_LOG_TYPE_ERROR, "%32s:%-5d Throwing Exception: Invalid cast", buf, 0x12u);
+      v46 = 1024;
+      v47 = 161;
+      _os_log_error_impl(&dword_1DE1F9000, v20, OS_LOG_TYPE_ERROR, "%32s:%-5d Throwing Exception: Invalid cast", buf, 0x12u);
     }
 
-    AMCP::Utility::With_Realtime_Disabled::With_Realtime_Disabled(&v41);
+    AMCP::Utility::With_Realtime_Disabled::With_Realtime_Disabled(&v43);
     __cxa_allocate_exception(0x40uLL);
-    caulk::make_string("Invalid cast", &v33);
-    std::runtime_error::runtime_error(&v34, &v33);
-    std::runtime_error::runtime_error(&v35, &v34);
-    v37 = 0;
-    v38 = 0;
+    caulk::make_string(&v35, "Invalid cast", v29);
+    std::runtime_error::runtime_error(&v36, &v35);
+    std::runtime_error::runtime_error(&v37, &v36);
     v39 = 0;
-    v40 = -1;
-    v35.__vftable = &unk_1F5992170;
-    v36 = &unk_1F5992198;
-    boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<std::runtime_error>>::clone_impl(buf, &v35);
-    v48 = "Return_Type AMCP::Core::Operation::call_function(Argument_Types...) const [Return_Type = void, Argument_Types = <std::function<void (unsigned int, const AMCP::Proc_Cycle_Info &, unsigned long, AMCP::Proc_Stream *, unsigned long, AMCP::Proc_Stream *)>>]";
-    v49 = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/MCP/AMCP/Core/Operation.h";
-    v50 = 161;
-    applesauce::backtrace::snapshot_N<64>::snapshot_N(&v32);
+    v40 = 0;
+    v41 = 0;
+    v42 = -1;
+    v37.__vftable = &unk_1F5992170;
+    v38 = &unk_1F5992198;
+    boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<std::runtime_error>>::clone_impl(buf, &v37);
+    v50 = "Return_Type AMCP::Core::Operation::call_function(Argument_Types...) const [Return_Type = void, Argument_Types = <std::function<void (unsigned int, const AMCP::Proc_Cycle_Info &, unsigned long, AMCP::Proc_Stream *, unsigned long, AMCP::Proc_Stream *)>>]";
+    v51 = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/MCP/AMCP/Core/Operation.h";
+    v52 = 161;
+    applesauce::backtrace::snapshot_N<64>::snapshot_N(&v34);
   }
 
-  std::__function::__value_func<void ()(unsigned int,AMCP::Proc_Cycle_Info const&,unsigned long,AMCP::Proc_Stream *,unsigned long,AMCP::Proc_Stream *)>::__value_func[abi:ne200100](buf, v42);
+  std::__function::__value_func<void ()(unsigned int,AMCP::Proc_Cycle_Info const&,unsigned long,AMCP::Proc_Stream *,unsigned long,AMCP::Proc_Stream *)>::__value_func[abi:ne200100](buf, v44);
   v12 = *(v11 + 3);
   if (!v12)
   {
@@ -3157,13 +5530,11 @@ void AMCP::Core::Core::call_operation_function<void,std::function<void ()(unsign
 
   (*(*v12 + 48))(v12, buf);
   std::__function::__value_func<void ()(unsigned int,AMCP::Proc_Cycle_Info const&,unsigned long,AMCP::Proc_Stream *,unsigned long,AMCP::Proc_Stream *)>::~__value_func[abi:ne200100](buf);
-  std::__function::__value_func<void ()(unsigned int,AMCP::Proc_Cycle_Info const&,unsigned long,AMCP::Proc_Stream *,unsigned long,AMCP::Proc_Stream *)>::~__value_func[abi:ne200100](v42);
-  if (v31)
+  std::__function::__value_func<void ()(unsigned int,AMCP::Proc_Cycle_Info const&,unsigned long,AMCP::Proc_Stream *,unsigned long,AMCP::Proc_Stream *)>::~__value_func[abi:ne200100](v44);
+  if (v33)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v31);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v33);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1DE375FD0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, void *a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, std::runtime_error a24, char a25)
@@ -3230,159 +5601,152 @@ uint64_t std::__function::__func<HALS_IOContext_MCP_Impl::attach_ioproc_to_conte
 
 void std::__function::__func<HALS_IOContext_MCP_Impl::attach_ioproc_to_context(AMCP::Power_State)::$_0,std::allocator<HALS_IOContext_MCP_Impl::attach_ioproc_to_context(AMCP::Power_State)::$_0>,void ()(unsigned int,AMCP::Proc_Cycle_Info const&,unsigned long,AMCP::Proc_Stream *,unsigned long,AMCP::Proc_Stream *)>::operator()(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t *a4, uint64_t *a5, unint64_t *a6, uint64_t *a7)
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   v8 = *(a1 + 16);
-  if (v8 && (v10 = *a4, v11 = *a5, v43 = *a7, v44 = *a6, (v12 = std::__shared_weak_count::lock(v8)) != 0))
+  if (v8)
   {
-    v13 = v12;
-    v14 = *(a1 + 8);
-    if (v14)
+    v10 = *a4;
+    v11 = *a5;
+    v35 = *a7;
+    v36 = *a6;
+    v12 = std::__shared_weak_count::lock(v8);
+    if (v12)
     {
-      ++*(v14 + 24);
-      IOStatus = HALB_IOBufferManager_Server::GetIOStatus(*(v14 + 240));
-      if (!IOStatus)
+      v13 = v12;
+      v14 = *(a1 + 8);
+      if (v14)
       {
-        if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+        ++*(v14 + 24);
+        IOStatus = HALB_IOBufferManager_Server::GetIOStatus(*(v14 + 240));
+        if (!IOStatus)
         {
-          *buf = 136315394;
-          v46 = "HALS_IOContext_MCP_Impl.cpp";
-          v47 = 1024;
-          v48 = 1588;
-          _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  ", buf, 0x12u);
+          if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+          {
+            *buf = 136315394;
+            v38 = "HALS_IOContext_MCP_Impl.cpp";
+            v39 = 1024;
+            v40 = 1588;
+            _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  ", buf, 0x12u);
+          }
+
+          exception = __cxa_allocate_exception(0x10uLL);
+          *exception = off_1F5991DD8;
+          exception[2] = 1970171760;
         }
 
-        exception = __cxa_allocate_exception(0x10uLL);
-        *exception = off_1F5991DD8;
-        exception[2] = 1970171760;
+        if (*(*(*(v14 + 40) + 72) + 40))
+        {
+          v16 = bswap64(*(a3 + 8));
+          *(v14 + 272) = bswap64(*a3);
+          *(v14 + 280) = v16;
+          *(v14 + 288) = bswap64(*(a3 + 16));
+          *(v14 + 328) = bswap32(*(a3 + 56));
+          v17 = (v14 + 336);
+          v18 = bswap64(*(a3 + 72));
+          *(v14 + 336) = bswap64(*(a3 + 64));
+          *(v14 + 344) = v18;
+          *(v14 + 352) = bswap64(*(a3 + 16));
+          *(v14 + 392) = bswap32(*(a3 + 56));
+          v19 = (v14 + 400);
+          v20 = bswap64(*(a3 + 136));
+          *(v14 + 400) = bswap64(*(a3 + 128));
+          *(v14 + 408) = v20;
+          v21 = bswap64(*(a3 + 16));
+          v22 = bswap32(*(a3 + 56));
+        }
+
+        else
+        {
+          *(v14 + 272) = *a3;
+          *(v14 + 280) = *(a3 + 8);
+          *(v14 + 288) = *(a3 + 16);
+          *(v14 + 328) = *(a3 + 56);
+          v17 = (v14 + 336);
+          *(v14 + 336) = *(a3 + 64);
+          *(v14 + 344) = *(a3 + 72);
+          *(v14 + 352) = *(a3 + 16);
+          *(v14 + 392) = *(a3 + 56);
+          v19 = (v14 + 400);
+          *(v14 + 400) = *(a3 + 128);
+          *(v14 + 408) = *(a3 + 136);
+          v21 = *(a3 + 16);
+          v22 = *(a3 + 56);
+        }
+
+        *(v14 + 416) = v21;
+        *(v14 + 456) = v22;
+        v23 = *(v14 + 272);
+        v24 = *(v14 + 288);
+        v25 = *(v14 + 320);
+        IOStatus[8] = *(v14 + 304);
+        IOStatus[9] = v25;
+        IOStatus[6] = v23;
+        IOStatus[7] = v24;
+        v26 = *v17;
+        v27 = v17[1];
+        v28 = v17[3];
+        IOStatus[12] = v17[2];
+        IOStatus[13] = v28;
+        IOStatus[10] = v26;
+        IOStatus[11] = v27;
+        v29 = *v19;
+        v30 = v19[1];
+        v31 = v19[3];
+        IOStatus[16] = v19[2];
+        IOStatus[17] = v31;
+        IOStatus[14] = v29;
+        IOStatus[15] = v30;
+        HALS_IOContext_MCP_Impl::update_status_time_info(v14);
+        OSMemoryBarrier();
+        v33 = *(v14 + 192);
+        v32 = *(v14 + 200);
+        if (-991146299 * ((*(v14 + 224) - *(v14 + 216)) >> 3))
+        {
+          HALS_IOContext_MCP_Impl::copy_buffers(v14, 1u, v10, v11);
+        }
+
+        kdebug_trace();
+        HALS_IOContext::CallClientIOProc(*(v14 + 40), *(v14 + 24), *(v14 + 248), 0, 0);
+        kdebug_trace();
+        if (-991146299 * ((v32 - v33) >> 3))
+        {
+          HALS_IOContext_MCP_Impl::copy_buffers(v14, 0, v36, v35);
+        }
       }
 
-      if (*(*(*(v14 + 40) + 72) + 40))
-      {
-        v16 = bswap64(*(a3 + 8));
-        *(v14 + 272) = bswap64(*a3);
-        *(v14 + 280) = v16;
-        *(v14 + 288) = bswap64(*(a3 + 16));
-        *(v14 + 328) = bswap32(*(a3 + 56));
-        v17 = (v14 + 336);
-        v18 = bswap64(*(a3 + 72));
-        v42 = (v14 + 344);
-        *(v14 + 336) = bswap64(*(a3 + 64));
-        *(v14 + 344) = v18;
-        *(v14 + 352) = bswap64(*(a3 + 16));
-        *(v14 + 392) = bswap32(*(a3 + 56));
-        v19 = (v14 + 400);
-        v20 = bswap64(*(a3 + 136));
-        v21 = (v14 + 408);
-        *(v14 + 400) = bswap64(*(a3 + 128));
-        *(v14 + 408) = v20;
-        v22 = bswap64(*(a3 + 16));
-        v23 = bswap32(*(a3 + 56));
-      }
-
-      else
-      {
-        *(v14 + 272) = *a3;
-        *(v14 + 280) = *(a3 + 8);
-        *(v14 + 288) = *(a3 + 16);
-        *(v14 + 328) = *(a3 + 56);
-        v17 = (v14 + 336);
-        *(v14 + 336) = *(a3 + 64);
-        v42 = (v14 + 344);
-        *(v14 + 344) = *(a3 + 72);
-        *(v14 + 352) = *(a3 + 16);
-        *(v14 + 392) = *(a3 + 56);
-        v19 = (v14 + 400);
-        *(v14 + 400) = *(a3 + 128);
-        v21 = (v14 + 408);
-        *(v14 + 408) = *(a3 + 136);
-        v22 = *(a3 + 16);
-        v23 = *(a3 + 56);
-      }
-
-      *(v14 + 416) = v22;
-      *(v14 + 456) = v23;
-      v25 = *(v14 + 272);
-      v26 = *(v14 + 288);
-      v27 = *(v14 + 320);
-      IOStatus[8] = *(v14 + 304);
-      IOStatus[9] = v27;
-      IOStatus[6] = v25;
-      IOStatus[7] = v26;
-      v28 = *v17;
-      v29 = v17[1];
-      v30 = v17[3];
-      IOStatus[12] = v17[2];
-      IOStatus[13] = v30;
-      IOStatus[10] = v28;
-      IOStatus[11] = v29;
-      v31 = *v19;
-      v32 = v19[1];
-      v33 = v19[3];
-      IOStatus[16] = v19[2];
-      IOStatus[17] = v33;
-      IOStatus[14] = v31;
-      IOStatus[15] = v32;
-      HALS_IOContext_MCP_Impl::update_status_time_info(v14);
-      OSMemoryBarrier();
-      v35 = *(v14 + 192);
-      v34 = *(v14 + 200);
-      if (-991146299 * ((*(v14 + 224) - *(v14 + 216)) >> 3))
-      {
-        HALS_IOContext_MCP_Impl::copy_buffers(v14, 1u, v10, v11);
-      }
-
-      v36 = *v17;
-      v37 = *v42;
-      v38 = *v19;
-      v39 = *v21;
-      kdebug_trace();
-      HALS_IOContext::CallClientIOProc(*(v14 + 40), *(v14 + 24), *(v14 + 248), 0, 0);
-      kdebug_trace();
-      if (-991146299 * ((v34 - v35) >> 3))
-      {
-        HALS_IOContext_MCP_Impl::copy_buffers(v14, 0, v44, v43);
-      }
+      std::__shared_weak_count::__release_shared[abi:ne200100](v13);
     }
-
-    v40 = *MEMORY[0x1E69E9840];
-
-    std::__shared_weak_count::__release_shared[abi:ne200100](v13);
-  }
-
-  else
-  {
-    v24 = *MEMORY[0x1E69E9840];
   }
 }
 
 AMCP::Log::AMCP_Scope_Registry *HALS_IOContext_MCP_Impl::copy_buffers(AMCP::Log::AMCP_Scope_Registry *result, unsigned int a2, unint64_t a3, uint64_t a4)
 {
   v7 = result;
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v8 = *(a4 + 72);
   if (v8 && *v8 != 1)
   {
-    v28 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
-    if ((v28 & 1) == 0)
+    v27 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
+    if ((v27 & 1) == 0)
     {
       AMCP::Log::AMCP_Scope_Registry::initialize(result);
     }
 
-    v30 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
-    v29 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
-    if (v29)
+    v29 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
+    v28 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
+    if (v28)
     {
-      atomic_fetch_add_explicit(&v29->__shared_owners_, 1uLL, memory_order_relaxed);
-      v26 = *v30;
-      std::__shared_weak_count::__release_shared[abi:ne200100](v29);
+      atomic_fetch_add_explicit(&v28->__shared_owners_, 1uLL, memory_order_relaxed);
+      v25 = *v29;
+      std::__shared_weak_count::__release_shared[abi:ne200100](v28);
     }
 
     else
     {
-      v26 = *v30;
+      v25 = *v29;
     }
 
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
       *&buf[4] = "HALS_IOContext_MCP_Impl.cpp";
@@ -3390,9 +5754,9 @@ AMCP::Log::AMCP_Scope_Registry *HALS_IOContext_MCP_Impl::copy_buffers(AMCP::Log:
       *&buf[14] = 1677;
       *&buf[18] = 2080;
       *&buf[20] = "in_streams[0].m_buffer_list == nullptr or in_streams[0].m_buffer_list->mNumberBuffers == 1";
-      v27 = "%32s:%-5d Assertion Failed: %s The ABL from the MCP is supposed to have 1 buffer";
+      v26 = "%32s:%-5d Assertion Failed: %s The ABL from the MCP is supposed to have 1 buffer";
 LABEL_25:
-      _os_log_error_impl(&dword_1DE1F9000, v26, OS_LOG_TYPE_ERROR, v27, buf, 0x1Cu);
+      _os_log_error_impl(&dword_1DE1F9000, v25, OS_LOG_TYPE_ERROR, v26, buf, 0x1Cu);
     }
 
 LABEL_26:
@@ -3402,7 +5766,7 @@ LABEL_26:
   if (a3)
   {
     v9 = 0;
-    v31 = result + 24 * a2;
+    v30 = result + 24 * a2;
     v10 = 1;
     do
     {
@@ -3414,27 +5778,27 @@ LABEL_26:
       {
         if (*v12 != 1)
         {
-          v23 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
-          if ((v23 & 1) == 0)
+          v22 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
+          if ((v22 & 1) == 0)
           {
             AMCP::Log::AMCP_Scope_Registry::initialize(result);
           }
 
-          v25 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
-          v24 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
-          if (v24)
+          v24 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
+          v23 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
+          if (v23)
           {
-            atomic_fetch_add_explicit(&v24->__shared_owners_, 1uLL, memory_order_relaxed);
-            v26 = *v25;
-            std::__shared_weak_count::__release_shared[abi:ne200100](v24);
+            atomic_fetch_add_explicit(&v23->__shared_owners_, 1uLL, memory_order_relaxed);
+            v25 = *v24;
+            std::__shared_weak_count::__release_shared[abi:ne200100](v23);
           }
 
           else
           {
-            v26 = *v25;
+            v25 = *v24;
           }
 
-          if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
           {
             *buf = 136315650;
             *&buf[4] = "HALS_IOContext_MCP_Impl.cpp";
@@ -3442,21 +5806,21 @@ LABEL_26:
             *&buf[14] = 1683;
             *&buf[18] = 2080;
             *&buf[20] = "in_streams[i].m_buffer_list->mNumberBuffers == 1";
-            v27 = "%32s:%-5d Assertion Failed: %s The input ABL from the MCP is supposed to have 1 buffer";
+            v26 = "%32s:%-5d Assertion Failed: %s The input ABL from the MCP is supposed to have 1 buffer";
             goto LABEL_25;
           }
 
           goto LABEL_26;
         }
 
-        v32 = 0;
-        IOBuffer = HALB_IOBufferManager_Server::GetIOBuffer(*(v7 + 30), a2 == 1, v10 - 1, &v32);
+        v31 = 0;
+        IOBuffer = HALB_IOBufferManager_Server::GetIOBuffer(*(v7 + 30), a2 == 1, v10 - 1, &v31);
         v16 = IOBuffer;
         v17 = *v13;
         v18 = *(*v13 + 12);
-        if (v18 >= v32)
+        if (v18 >= v31)
         {
-          v19 = v32;
+          v19 = v31;
         }
 
         else
@@ -3472,7 +5836,7 @@ LABEL_26:
             v20 = *(v7 + 27) + 104 * v9;
             *buf = *v20;
             *&buf[16] = *(v20 + 16);
-            v34 = *(v20 + 32);
+            v33 = *(v20 + 32);
             result = endian_swap_samples(buf, v16, v19);
           }
         }
@@ -3481,10 +5845,10 @@ LABEL_26:
         {
           if (*(*(*(v7 + 5) + 72) + 40) == 1)
           {
-            v21 = *(v31 + 24) + 104 * v9;
+            v21 = *(v30 + 24) + 104 * v9;
             *buf = *v21;
             *&buf[16] = *(v21 + 16);
-            v34 = *(v21 + 32);
+            v33 = *(v21 + 32);
             endian_swap_samples(buf, IOBuffer, v19);
             v17 = *v13;
           }
@@ -3499,7 +5863,6 @@ LABEL_26:
     while (v9 < a3);
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -3602,18 +5965,18 @@ void *std::__function::__func<HALS_IOContext_MCP_Impl::attach_ioproc_to_context(
 
 uint64_t HALS_IOContext_MCP_Impl::GetStreamUsage(uint64_t a1, _DWORD *a2, unsigned int a3, unsigned int a4)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = 0x4EC4EC4EC4EC4EC5 * ((*(a1 + 24 * a4 + 200) - *(a1 + 24 * a4 + 192)) >> 3);
   result = 330382100 * ((*(a1 + 24 * a4 + 200) - *(a1 + 24 * a4 + 192)) >> 3) + 4;
   if (result > a3)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v14 = 136315394;
-      v15 = "HALS_IOContext_MCP_Impl.cpp";
-      v16 = 1024;
-      v17 = 968;
-      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  HALS_IOContext_MCP_Impl::GetStreamUsage: bad property data size for kAudioIOContextProperty_StreamUsage", &v14, 0x12u);
+      v13 = 136315394;
+      v14 = "HALS_IOContext_MCP_Impl.cpp";
+      v15 = 1024;
+      v16 = 968;
+      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  HALS_IOContext_MCP_Impl::GetStreamUsage: bad property data size for kAudioIOContextProperty_StreamUsage", &v13, 0x12u);
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
@@ -3651,22 +6014,21 @@ uint64_t HALS_IOContext_MCP_Impl::GetStreamUsage(uint64_t a1, _DWORD *a2, unsign
     while (v5 != v7);
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t HALS_IOContext_MCP_Impl::SetStreamUsage(HALS_IOContext_MCP_Impl *a1, _DWORD *a2, unsigned int a3, unsigned int a4)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (a3 <= 3)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v14 = 136315394;
-      v15 = "HALS_IOContext_MCP_Impl.cpp";
-      v16 = 1024;
-      v17 = 560;
-      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  HALS_IOContext::SetPropertyData: bad property data size for kAudioIOContextProperty_StreamUsage", &v14, 0x12u);
+      v13 = 136315394;
+      v14 = "HALS_IOContext_MCP_Impl.cpp";
+      v15 = 1024;
+      v16 = 560;
+      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  HALS_IOContext::SetPropertyData: bad property data size for kAudioIOContextProperty_StreamUsage", &v13, 0x12u);
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
@@ -3722,21 +6084,14 @@ uint64_t HALS_IOContext_MCP_Impl::SetStreamUsage(HALS_IOContext_MCP_Impl *a1, _D
   }
 
   HALS_IOContext_MCP_Impl::UpdateContext(a1);
-  result = 0;
-  v12 = *MEMORY[0x1E69E9840];
-  return result;
+  return 0;
 }
 
 void sub_1DE376E40(_Unwind_Exception *a1, int a2)
 {
   if (a2)
   {
-    v3 = __cxa_begin_catch(a1);
-    if (a2 == 2)
-    {
-      v4 = v3[2];
-    }
-
+    __cxa_begin_catch(a1);
     __cxa_end_catch();
     JUMPOUT(0x1DE376D60);
   }
@@ -3781,7 +6136,7 @@ void sub_1DE376F18(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 float HALS_IOContext_MCP_Impl::get_simple_mcp_property<1852012899u>(void *a1)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v2 = a1[7];
   if (v2)
   {
@@ -3795,7 +6150,7 @@ float HALS_IOContext_MCP_Impl::get_simple_mcp_property<1852012899u>(void *a1)
         simple_required = AMCP::Core::Core::get_simple_required_property<1852012899u>(v2);
 LABEL_13:
         std::__shared_weak_count::__release_shared[abi:ne200100](v3);
-        goto LABEL_14;
+        return simple_required;
       }
     }
   }
@@ -3827,7 +6182,7 @@ LABEL_13:
 
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v11 = *(a1[5] + 16);
+    v10 = *(a1[5] + 16);
     HALS_IOContext_MCP_Impl::get_debug_device_name(&cf, a1);
     if (!cf)
     {
@@ -3837,26 +6192,26 @@ LABEL_13:
     }
 
     applesauce::CF::convert_to<std::string,0>(__p, cf);
-    if (v16 >= 0)
+    if (v15 >= 0)
     {
-      v12 = __p;
+      v11 = __p;
     }
 
     else
     {
-      v12 = __p[0];
+      v11 = __p[0];
     }
 
     *buf = 136315906;
-    v18 = "HALS_IOContext_MCP_Impl.cpp";
-    v19 = 1024;
-    v20 = 107;
-    v21 = 1024;
-    v22 = v11;
-    v23 = 2080;
-    v24 = v12;
+    v17 = "HALS_IOContext_MCP_Impl.cpp";
+    v18 = 1024;
+    v19 = 107;
+    v20 = 1024;
+    v21 = v10;
+    v22 = 2080;
+    v23 = v11;
     _os_log_debug_impl(&dword_1DE1F9000, v8, OS_LOG_TYPE_DEBUG, "%32s:%-5d HALS_IOContext_MCP_Impl core ptr is null: %u\t%s", buf, 0x22u);
-    if (v16 < 0)
+    if (v15 < 0)
     {
       operator delete(__p[0]);
     }
@@ -3873,8 +6228,6 @@ LABEL_13:
     goto LABEL_13;
   }
 
-LABEL_14:
-  v9 = *MEMORY[0x1E69E9840];
   return simple_required;
 }
 
@@ -3890,51 +6243,51 @@ void sub_1DE377138(_Unwind_Exception *exception_object, int a2)
 
 float AMCP::Core::Core::get_simple_required_property<1852012899u>(AMCP::Core::Core *a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   strcpy(buf, "cycnbolg");
   buf[9] = 0;
   *&buf[10] = 0;
   v1 = AMCP::Core::Core::get_typed_property_value<float,std::enable_if<true,void>>(a1, buf);
   if (!HIDWORD(v1))
   {
-    v4 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
-    if ((v4 & 1) == 0)
+    v3 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
+    if ((v3 & 1) == 0)
     {
       AMCP::Log::AMCP_Scope_Registry::initialize(v1);
     }
 
-    v6 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
-    v5 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
-    if (v5)
+    v5 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
+    v4 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
+    if (v4)
     {
-      atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
-      v7 = *v6;
-      std::__shared_weak_count::__release_shared[abi:ne200100](v5);
+      atomic_fetch_add_explicit(&v4->__shared_owners_, 1uLL, memory_order_relaxed);
+      v6 = *v5;
+      std::__shared_weak_count::__release_shared[abi:ne200100](v4);
     }
 
     else
     {
-      v7 = *v6;
+      v6 = *v5;
     }
 
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v9 = 4;
+      v8 = 4;
       strcpy(__p, "ncyc");
       *buf = 136316418;
       *&buf[4] = "Core.h";
-      v11 = 1024;
-      v12 = 391;
-      v13 = 2080;
-      v14 = "optional_value.operator BOOL() == true";
-      v15 = 2080;
-      v16 = __p;
-      v17 = 1024;
-      v18 = 1735159650;
-      v19 = 1024;
-      v20 = 0;
-      _os_log_error_impl(&dword_1DE1F9000, v7, OS_LOG_TYPE_ERROR, "%32s:%-5d Assertion Failed: %s a required property is missing '%s':%u:%u", buf, 0x32u);
-      if (v9 < 0)
+      v10 = 1024;
+      v11 = 391;
+      v12 = 2080;
+      v13 = "optional_value.operator BOOL() == true";
+      v14 = 2080;
+      v15 = __p;
+      v16 = 1024;
+      v17 = 1735159650;
+      v18 = 1024;
+      v19 = 0;
+      _os_log_error_impl(&dword_1DE1F9000, v6, OS_LOG_TYPE_ERROR, "%32s:%-5d Assertion Failed: %s a required property is missing '%s':%u:%u", buf, 0x32u);
+      if (v8 < 0)
       {
         operator delete(__p[0]);
       }
@@ -3943,7 +6296,6 @@ float AMCP::Core::Core::get_simple_required_property<1852012899u>(AMCP::Core::Co
     abort();
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return *&v1;
 }
 
@@ -3959,8 +6311,8 @@ void sub_1DE3772E0(_Unwind_Exception *a1, int a2)
 
 void HALS_IOContext_MCP_Impl::SetIOCycleUsage(HALS_IOContext_MCP_Impl *this, float a2)
 {
-  v28 = *MEMORY[0x1E69E9840];
-  v21 = a2;
+  v27 = *MEMORY[0x1E69E9840];
+  v20 = a2;
   simple_mcp = HALS_IOContext_MCP_Impl::get_simple_mcp_property<1852012899u>(this);
   v5 = *(this + 7);
   if (v5)
@@ -3973,7 +6325,7 @@ void HALS_IOContext_MCP_Impl::SetIOCycleUsage(HALS_IOContext_MCP_Impl *this, flo
       if (v7)
       {
         cf = 0x676C6F626E637963;
-        v26 = 0;
+        v25 = 0;
         if (AMCP::Core::Core::is_property_settable(v7, &cf))
         {
           AMCP::Core::Core::find_operation(&__p, v7, &cf);
@@ -3983,13 +6335,13 @@ void HALS_IOContext_MCP_Impl::SetIOCycleUsage(HALS_IOContext_MCP_Impl *this, flo
             v9 = AMCP::Implementation::get_type_marker<std::function<void ()(float const&)>>();
             if (std::__hash_table<std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>,std::__unordered_map_hasher<AMCP::Type_ID,std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>,AMCP::Type_ID::Hash,std::equal_to<AMCP::Type_ID>,true>,std::__unordered_map_equal<AMCP::Type_ID,std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>,std::equal_to<AMCP::Type_ID>,AMCP::Type_ID::Hash,true>,std::allocator<std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>>>::find<AMCP::Type_ID>(v8, v9))
             {
-              AMCP::Core::Operation::call_function<void,float const&>(v8, &v21);
+              AMCP::Core::Operation::call_function<void,float const&>(v8, &v20);
             }
 
             else
             {
-              v19 = AMCP::Implementation::get_type_marker<std::function<void ()(AMCP::Thing const&)>>();
-              if (std::__hash_table<std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>,std::__unordered_map_hasher<AMCP::Type_ID,std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>,AMCP::Type_ID::Hash,std::equal_to<AMCP::Type_ID>,true>,std::__unordered_map_equal<AMCP::Type_ID,std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>,std::equal_to<AMCP::Type_ID>,AMCP::Type_ID::Hash,true>,std::allocator<std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>>>::find<AMCP::Type_ID>(v8, v19))
+              v18 = AMCP::Implementation::get_type_marker<std::function<void ()(AMCP::Thing const&)>>();
+              if (std::__hash_table<std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>,std::__unordered_map_hasher<AMCP::Type_ID,std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>,AMCP::Type_ID::Hash,std::equal_to<AMCP::Type_ID>,true>,std::__unordered_map_equal<AMCP::Type_ID,std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>,std::equal_to<AMCP::Type_ID>,AMCP::Type_ID::Hash,true>,std::allocator<std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>>>::find<AMCP::Type_ID>(v8, v18))
               {
                 memset(buf, 0, 32);
                 *buf = a2;
@@ -4003,9 +6355,9 @@ void HALS_IOContext_MCP_Impl::SetIOCycleUsage(HALS_IOContext_MCP_Impl *this, flo
             }
           }
 
-          if (v23)
+          if (v22)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v23);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v22);
           }
         }
 
@@ -4043,7 +6395,7 @@ LABEL_18:
 
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
-    v17 = *(*(this + 5) + 16);
+    v16 = *(*(this + 5) + 16);
     HALS_IOContext_MCP_Impl::get_debug_device_name(&cf, this);
     if (!cf)
     {
@@ -4053,7 +6405,7 @@ LABEL_18:
     }
 
     applesauce::CF::convert_to<std::string,0>(&__p, cf);
-    if (v24 >= 0)
+    if (v23 >= 0)
     {
       p_p = &__p;
     }
@@ -4068,11 +6420,11 @@ LABEL_18:
     *&buf[12] = 1024;
     *&buf[14] = 121;
     *&buf[18] = 1024;
-    *&buf[20] = v17;
+    *&buf[20] = v16;
     *&buf[24] = 2080;
     *&buf[26] = p_p;
     _os_log_debug_impl(&dword_1DE1F9000, v13, OS_LOG_TYPE_DEBUG, "%32s:%-5d HALS_IOContext_MCP_Impl core ptr is null: %u\t%s", buf, 0x22u);
-    if (v24 < 0)
+    if (v23 < 0)
     {
       operator delete(__p);
     }
@@ -4103,8 +6455,6 @@ LABEL_19:
     *&buf[10] = 0;
     HALS_Object::PropertiesChanged(v14, v15, 0, 1, buf);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1DE3775E0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
@@ -4170,8 +6520,8 @@ double HALS_IOContext_MCP_Impl::GetBufferFrameSizeRange(HALS_IOContext_MCP_Impl 
 
 void HALS_IOContext_MCP_Impl::SleepingIsAllowedChanged(HALS_IOContext_MCP_Impl *this, int a2)
 {
-  v26 = *MEMORY[0x1E69E9840];
-  v14 = a2;
+  v25 = *MEMORY[0x1E69E9840];
+  v13 = a2;
   v2 = *(*(this + 5) + 72);
   if (*(v2 + 44) != a2)
   {
@@ -4186,10 +6536,10 @@ void HALS_IOContext_MCP_Impl::SleepingIsAllowedChanged(HALS_IOContext_MCP_Impl *
         v4 = *(this + 6);
         if (v4)
         {
-          AMCP::Core::Core::set_simple_property_value<1936484705u>(v4, &v14);
+          AMCP::Core::Core::set_simple_property_value<1936484705u>(v4, &v13);
 LABEL_14:
           std::__shared_weak_count::__release_shared[abi:ne200100](v5);
-          goto LABEL_15;
+          return;
         }
       }
     }
@@ -4221,7 +6571,7 @@ LABEL_14:
 
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      v11 = *(*(this + 5) + 16);
+      v10 = *(*(this + 5) + 16);
       HALS_IOContext_MCP_Impl::get_debug_device_name(&cf, this);
       if (!cf)
       {
@@ -4231,26 +6581,26 @@ LABEL_14:
       }
 
       applesauce::CF::convert_to<std::string,0>(__p, cf);
-      if (v17 >= 0)
+      if (v16 >= 0)
       {
-        v12 = __p;
+        v11 = __p;
       }
 
       else
       {
-        v12 = __p[0];
+        v11 = __p[0];
       }
 
       *buf = 136315906;
-      v19 = "HALS_IOContext_MCP_Impl.cpp";
-      v20 = 1024;
-      v21 = 121;
-      v22 = 1024;
-      v23 = v11;
-      v24 = 2080;
-      v25 = v12;
+      v18 = "HALS_IOContext_MCP_Impl.cpp";
+      v19 = 1024;
+      v20 = 121;
+      v21 = 1024;
+      v22 = v10;
+      v23 = 2080;
+      v24 = v11;
       _os_log_debug_impl(&dword_1DE1F9000, v9, OS_LOG_TYPE_DEBUG, "%32s:%-5d HALS_IOContext_MCP_Impl core ptr is null: %u\t%s", buf, 0x22u);
-      if (v17 < 0)
+      if (v16 < 0)
       {
         operator delete(__p[0]);
       }
@@ -4266,9 +6616,6 @@ LABEL_14:
       goto LABEL_14;
     }
   }
-
-LABEL_15:
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1DE3779D8(_Unwind_Exception *exception_object, int a2)
@@ -4356,7 +6703,7 @@ void HALS_IOContext_MCP_Impl::PowerChanged(void *a1, int a2)
 
 uint64_t HALS_IOContext_MCP_Impl::Server_Internal_StopIOProcID(HALS_IOContext_MCP_Impl *this, int (*a2)(unsigned int, const AudioTimeStamp *, const AudioBufferList *, const AudioTimeStamp *, AudioBufferList *, const AudioTimeStamp *, void *))
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (a2)
   {
     v3 = *(this + 5);
@@ -4364,11 +6711,11 @@ uint64_t HALS_IOContext_MCP_Impl::Server_Internal_StopIOProcID(HALS_IOContext_MC
     {
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v8[0] = 136315394;
-        *&v8[1] = "HALS_IOContext_MCP_Impl.cpp";
-        v9 = 1024;
-        v10 = 745;
-        _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  HALS_IOContext::StopIOProcID: failed to stop because the IOProcID wasn't nullptr or wasn't registered", v8, 0x12u);
+        v7[0] = 136315394;
+        *&v7[1] = "HALS_IOContext_MCP_Impl.cpp";
+        v8 = 1024;
+        v9 = 745;
+        _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  HALS_IOContext::StopIOProcID: failed to stop because the IOProcID wasn't nullptr or wasn't registered", v7, 0x12u);
       }
 
       exception = __cxa_allocate_exception(0x10uLL);
@@ -4381,16 +6728,16 @@ uint64_t HALS_IOContext_MCP_Impl::Server_Internal_StopIOProcID(HALS_IOContext_MC
 
   else
   {
-    strcpy(v8, "wppsbolg");
-    BYTE1(v8[2]) = 0;
-    HIWORD(v8[2]) = 0;
-    HALS_IOContext_MCP_Impl::call_mcp_operation_function<BOOL>(this, v8);
+    strcpy(v7, "wppsbolg");
+    BYTE1(v7[2]) = 0;
+    HIWORD(v7[2]) = 0;
+    HALS_IOContext_MCP_Impl::call_mcp_operation_function<BOOL>(this, v7);
   }
 
-  strcpy(v8, "tsrtbolg");
-  BYTE1(v8[2]) = 0;
-  HIWORD(v8[2]) = 0;
-  result = HALS_IOContext_MCP_Impl::call_mcp_operation_function<AMCP::Transport_State>(this, v8);
+  strcpy(v7, "tsrtbolg");
+  BYTE1(v7[2]) = 0;
+  HIWORD(v7[2]) = 0;
+  result = HALS_IOContext_MCP_Impl::call_mcp_operation_function<AMCP::Transport_State>(this, v7);
   if (result != 2)
   {
     v5 = *(*(this + 5) + 120);
@@ -4403,7 +6750,6 @@ uint64_t HALS_IOContext_MCP_Impl::Server_Internal_StopIOProcID(HALS_IOContext_MC
     }
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -4411,111 +6757,112 @@ uint64_t HALS_IOContext_MCP_Impl::call_mcp_operation_function<AMCP::Transport_St
 {
   v40 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 56);
-  if (v3 && (v5 = std::__shared_weak_count::lock(v3)) != 0)
+  if (!v3)
   {
-    v6 = v5;
-    v7 = *(a1 + 48);
-    if (v7)
+    return 0;
+  }
+
+  v5 = std::__shared_weak_count::lock(v3);
+  if (!v5)
+  {
+    return 0;
+  }
+
+  v6 = v5;
+  v7 = *(a1 + 48);
+  if (v7)
+  {
+    if (*a2 == 707406378 || a2[1] == 707406378 || a2[2] == -1)
     {
-      if (*a2 == 707406378 || a2[1] == 707406378 || a2[2] == -1)
+      v9 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
+      if ((v9 & 1) == 0)
       {
-        v9 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
-        if ((v9 & 1) == 0)
-        {
-          AMCP::Log::AMCP_Scope_Registry::initialize(v5);
-        }
-
-        v11 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
-        v10 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
-        if (v10)
-        {
-          atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
-          v12 = *v11;
-          std::__shared_weak_count::__release_shared[abi:ne200100](v10);
-        }
-
-        else
-        {
-          v12 = *v11;
-        }
-
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-        {
-          *buf = 136315650;
-          v32 = "Core.h";
-          v33 = 1024;
-          v34 = 198;
-          v35 = 2080;
-          v36 = "!in_address.has_wildcards()";
-          _os_log_error_impl(&dword_1DE1F9000, v12, OS_LOG_TYPE_ERROR, "%32s:%-5d Assertion Failed: %s ", buf, 0x1Cu);
-        }
-
-        abort();
+        AMCP::Log::AMCP_Scope_Registry::initialize(v5);
       }
 
-      AMCP::Core::Core::find_operation(&v29, v7, a2);
-      if (!v29)
+      v11 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
+      v10 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
+      if (v10)
       {
-        v13 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
-        if ((v13 & 1) == 0)
-        {
-          AMCP::Log::AMCP_Scope_Registry::initialize(0);
-        }
-
-        v15 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
-        v14 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
-        if (v14)
-        {
-          atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
-          v16 = *v15;
-          std::__shared_weak_count::__release_shared[abi:ne200100](v14);
-        }
-
-        else
-        {
-          v16 = *v15;
-        }
-
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
-        {
-          *buf = 136315394;
-          v32 = "Core.h";
-          v33 = 1024;
-          v34 = 202;
-          _os_log_error_impl(&dword_1DE1F9000, v16, OS_LOG_TYPE_ERROR, "%32s:%-5d Throwing Exception: Operation does not have requested function", buf, 0x12u);
-        }
-
-        AMCP::Utility::With_Realtime_Disabled::With_Realtime_Disabled(&v28);
-        __cxa_allocate_exception(0x40uLL);
-        caulk::make_string("Operation does not have requested function", &v20);
-        std::runtime_error::runtime_error(&v21, &v20);
-        std::runtime_error::runtime_error(&v22, &v21);
-        v24 = 0;
-        v25 = 0;
-        v26 = 0;
-        v27 = -1;
-        v22.__vftable = &unk_1F5992170;
-        v23 = &unk_1F5992198;
-        boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<std::runtime_error>>::clone_impl(buf, &v22);
-        v37 = "Return_Type AMCP::Core::Core::call_operation_function(const Address &, Argument_Types...) const [Return_Type = AMCP::Transport_State, Argument_Types = <>]";
-        v38 = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/MCP/AMCP/Core/Core.h";
-        v39 = 202;
-        applesauce::backtrace::snapshot_N<64>::snapshot_N(v19);
+        atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
+        v12 = *v11;
+        std::__shared_weak_count::__release_shared[abi:ne200100](v10);
       }
 
-      v8 = AMCP::Core::Operation::call_function<AMCP::Transport_State>(v29);
-      if (v30)
+      else
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v30);
+        v12 = *v11;
       }
+
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 136315650;
+        v32 = "Core.h";
+        v33 = 1024;
+        v34 = 198;
+        v35 = 2080;
+        v36 = "!in_address.has_wildcards()";
+        _os_log_error_impl(&dword_1DE1F9000, v12, OS_LOG_TYPE_ERROR, "%32s:%-5d Assertion Failed: %s ", buf, 0x1Cu);
+      }
+
+      abort();
     }
 
-    else
+    AMCP::Core::Core::find_operation(&v29, v7, a2);
+    if (!v29)
     {
-      v8 = 0;
+      v13 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
+      if ((v13 & 1) == 0)
+      {
+        AMCP::Log::AMCP_Scope_Registry::initialize(0);
+      }
+
+      v15 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
+      v14 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
+      if (v14)
+      {
+        atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
+        v16 = *v15;
+        std::__shared_weak_count::__release_shared[abi:ne200100](v14);
+      }
+
+      else
+      {
+        v16 = *v15;
+      }
+
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 136315394;
+        v32 = "Core.h";
+        v33 = 1024;
+        v34 = 202;
+        _os_log_error_impl(&dword_1DE1F9000, v16, OS_LOG_TYPE_ERROR, "%32s:%-5d Throwing Exception: Operation does not have requested function", buf, 0x12u);
+      }
+
+      AMCP::Utility::With_Realtime_Disabled::With_Realtime_Disabled(&v28);
+      __cxa_allocate_exception(0x40uLL);
+      caulk::make_string(&v20, "Operation does not have requested function", v17);
+      std::runtime_error::runtime_error(&v21, &v20);
+      std::runtime_error::runtime_error(&v22, &v21);
+      v24 = 0;
+      v25 = 0;
+      v26 = 0;
+      v27 = -1;
+      v22.__vftable = &unk_1F5992170;
+      v23 = &unk_1F5992198;
+      boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<std::runtime_error>>::clone_impl(buf, &v22);
+      v37 = "Return_Type AMCP::Core::Core::call_operation_function(const Address &, Argument_Types...) const [Return_Type = AMCP::Transport_State, Argument_Types = <>]";
+      v38 = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/MCP/AMCP/Core/Core.h";
+      v39 = 202;
+      applesauce::backtrace::snapshot_N<64>::snapshot_N(v19);
     }
 
-    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
+    v8 = AMCP::Core::Operation::call_function<AMCP::Transport_State>(v29);
+    if (v30)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v30);
+    }
   }
 
   else
@@ -4523,7 +6870,7 @@ uint64_t HALS_IOContext_MCP_Impl::call_mcp_operation_function<AMCP::Transport_St
     v8 = 0;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
+  std::__shared_weak_count::__release_shared[abi:ne200100](v6);
   return v8;
 }
 
@@ -4556,34 +6903,43 @@ void HALS_IOContext_MCP_Impl::Server_Internal_StartIOProcID(HALS_IOContext_MCP_I
     if (v4)
     {
       mHostTime = a3->mHostTime;
+      v7 = this;
+      v8 = 1;
     }
 
-    HALS_IOContext_MCP_Impl::start(&v7, this);
+    else
+    {
+      v7 = this;
+      mHostTime = 0;
+      v8 = 0;
+    }
+
+    HALS_IOContext_MCP_Impl::start(&v9, v7, mHostTime, v8);
     HALB_MachPort::DestroyPort(name, 1, 0);
   }
 
   else
   {
     *(this + 6) = 0;
-    v7 = 0x676C6F6273747077;
+    v9 = 0x676C6F6273747077;
     name = 0;
-    HALS_IOContext_MCP_Impl::call_mcp_operation_function<BOOL>(this, &v7);
+    HALS_IOContext_MCP_Impl::call_mcp_operation_function<BOOL>(this, &v9);
   }
 }
 
-uint64_t HALS_IOContext_MCP_Impl::start(uint64_t a1, HALS_IOContext_MCP_Impl *a2)
+void HALS_IOContext_MCP_Impl::start(uint64_t a1, HALS_IOContext_MCP_Impl *a2, uint64_t a3, char a4)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   strcpy(buf, "frbtbolg");
   buf[9] = 0;
-  v13 = 0;
-  HALS_IOContext_MCP_Impl::call_mcp_operation_function<AMCP::Graph::Timebase_Set>(v8, a2, buf);
-  if (v8[3])
+  v14 = 0;
+  HALS_IOContext_MCP_Impl::call_mcp_operation_function<AMCP::Graph::Timebase_Set>(v9, a2, buf);
+  if (v9[3])
   {
-    v10[0] = 0;
-    v10[1] = 0;
-    HALS_System::GetInstance(&v11, 0, v10);
-    HALS_IOContext_Manager::find_contexts_and_devices_with_timebases(buf, v11.__vftable[72].what);
+    v11[0] = 0;
+    v11[1] = 0;
+    HALS_System::GetInstance(&v12, 0, v11);
+    HALS_IOContext_Manager::find_contexts_and_devices_with_timebases(buf, v12.__vftable[72].what, v9);
   }
 
   if (__p[0])
@@ -4592,25 +6948,23 @@ uint64_t HALS_IOContext_MCP_Impl::start(uint64_t a1, HALS_IOContext_MCP_Impl *a2
     operator delete(__p[0]);
   }
 
-  std::__hash_table<std::shared_ptr<AMCP::Graph::Timebase>,std::hash<std::shared_ptr<AMCP::Graph::Timebase>>,std::equal_to<std::shared_ptr<AMCP::Graph::Timebase>>,std::allocator<std::shared_ptr<AMCP::Graph::Timebase>>>::~__hash_table(v8);
-  v4 = *(*(a2 + 5) + 88);
-  if (v4)
+  std::__hash_table<std::shared_ptr<AMCP::Graph::Timebase>,std::hash<std::shared_ptr<AMCP::Graph::Timebase>>,std::equal_to<std::shared_ptr<AMCP::Graph::Timebase>>,std::allocator<std::shared_ptr<AMCP::Graph::Timebase>>>::~__hash_table(v9);
+  v6 = *(*(a2 + 5) + 88);
+  if (v6)
   {
-    v5 = (*(*v4 + 96))(v4);
+    v7 = (*(*v6 + 96))(v6);
   }
 
   else
   {
-    v5 = 0;
+    v7 = 0;
   }
 
-  result = HALS_IOContext_MCP_Impl::CopyWorkIntervalPort(a2);
+  v8 = HALS_IOContext_MCP_Impl::CopyWorkIntervalPort(a2);
   *a1 = 0;
-  *(a1 + 4) = v5;
-  *(a1 + 8) = result;
+  *(a1 + 4) = v7;
+  *(a1 + 8) = v8;
   *(a1 + 16) = 0;
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 void sub_1DE3790A4(uint64_t a1, int a2)
@@ -4633,7 +6987,7 @@ void sub_1DE3790C0(uint64_t a1, int a2)
   JUMPOUT(0x1DE3791F4);
 }
 
-void sub_1DE3790F0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, std::__shared_weak_count *a42)
+void sub_1DE3790F0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, std::__shared_weak_count *a42)
 {
   if (a42)
   {
@@ -4644,9 +6998,9 @@ void sub_1DE3790F0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   JUMPOUT(0x1DE3791F4);
 }
 
-void sub_1DE379104(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1DE379104(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
 {
-  va_start(va, a5);
+  va_start(va, a10);
   AMCP::Graph::Timebase_Set::~Timebase_Set(va);
   JUMPOUT(0x1DE3791F4);
 }
@@ -4668,7 +7022,7 @@ void sub_1DE379124(void *a1, int a2)
   JUMPOUT(0x1DE3791F4);
 }
 
-void sub_1DE379154(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, void *a29, uint64_t a30, uint64_t a31, uint64_t a32, void *__p, uint64_t a34, uint64_t a35, void *a36, uint64_t a37, int a38, __int16 a39, char a40, char a41, char a42, uint64_t a43, char a44)
+void sub_1DE379154(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, void *a29, uint64_t a30, uint64_t a31, uint64_t a32, void *__p, uint64_t a34, uint64_t a35, void *a36, uint64_t a37, int a38, __int16 a39, char a40, char a41, uint64_t a42, uint64_t a43, char a44)
 {
   if (__p)
   {
@@ -4702,7 +7056,7 @@ void sub_1DE379154(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t HALS_IOContext_MCP_Impl::CopyWorkIntervalPort(HALS_IOContext_MCP_Impl *this)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v2 = *(this + 7);
   if (v2)
   {
@@ -4710,13 +7064,12 @@ uint64_t HALS_IOContext_MCP_Impl::CopyWorkIntervalPort(HALS_IOContext_MCP_Impl *
     v3 = v2;
     if (v2 && *(this + 6))
     {
-      HALS_IOContext_MCP_Impl::get_simple_mcp_property<2003267184u>(&v11, this);
-      v4 = caulk::mach::os_workgroup_managed::copy_mach_port(&v11);
-      caulk::mach::os_workgroup_interval_managed::~os_workgroup_interval_managed(&v11);
+      HALS_IOContext_MCP_Impl::get_simple_mcp_property<2003267184u>(&v10, this);
+      v4 = caulk::mach::os_workgroup_managed::copy_mach_port(&v10);
+      caulk::mach::os_workgroup_interval_managed::~os_workgroup_interval_managed(&v10);
 LABEL_14:
       std::__shared_weak_count::__release_shared[abi:ne200100](v3);
-      result = v4;
-      goto LABEL_15;
+      return v4;
     }
   }
 
@@ -4747,11 +7100,11 @@ LABEL_14:
 
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v11 = 136315394;
-    v12 = "HALS_IOContext_MCP_Impl.cpp";
-    v13 = 1024;
-    v14 = 1070;
-    _os_log_impl(&dword_1DE1F9000, v8, OS_LOG_TYPE_INFO, "%32s:%-5d HALS_IOContext_MCP_Impl::CopyWorkIntervalPort - Workgroup Context pointer is invalid.", &v11, 0x12u);
+    v10 = 136315394;
+    v11 = "HALS_IOContext_MCP_Impl.cpp";
+    v12 = 1024;
+    v13 = 1070;
+    _os_log_impl(&dword_1DE1F9000, v8, OS_LOG_TYPE_INFO, "%32s:%-5d HALS_IOContext_MCP_Impl::CopyWorkIntervalPort - Workgroup Context pointer is invalid.", &v10, 0x12u);
   }
 
   v4 = 0;
@@ -4761,8 +7114,6 @@ LABEL_14:
     goto LABEL_14;
   }
 
-LABEL_15:
-  v10 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -4797,193 +7148,193 @@ void AMCP::Node_Description::~Node_Description(void **this)
 
 uint64_t AMCP::Core::Core::call_operation_function<BOOL,unsigned long long>(AMCP::Address *a1, unsigned int *a2, uint64_t a3)
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   if (*a2 == 707406378 || a2[1] == 707406378 || a2[2] == -1)
   {
-    v15 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
-    if ((v15 & 1) == 0)
+    v14 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
+    if ((v14 & 1) == 0)
     {
       AMCP::Log::AMCP_Scope_Registry::initialize(a1);
     }
 
-    v17 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
-    v16 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
-    if (v16)
+    v16 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
+    v15 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
+    if (v15)
     {
-      atomic_fetch_add_explicit(&v16->__shared_owners_, 1uLL, memory_order_relaxed);
-      v18 = *v17;
-      std::__shared_weak_count::__release_shared[abi:ne200100](v16);
+      atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
+      v17 = *v16;
+      std::__shared_weak_count::__release_shared[abi:ne200100](v15);
     }
 
     else
     {
-      v18 = *v17;
+      v17 = *v16;
     }
 
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
       *&buf[4] = "Core.h";
-      v44 = 1024;
-      v45 = 198;
-      v46 = 2080;
-      v47 = "!in_address.has_wildcards()";
-      _os_log_error_impl(&dword_1DE1F9000, v18, OS_LOG_TYPE_ERROR, "%32s:%-5d Assertion Failed: %s ", buf, 0x1Cu);
+      v46 = 1024;
+      v47 = 198;
+      v48 = 2080;
+      v49 = "!in_address.has_wildcards()";
+      _os_log_error_impl(&dword_1DE1F9000, v17, OS_LOG_TYPE_ERROR, "%32s:%-5d Assertion Failed: %s ", buf, 0x1Cu);
     }
 
     abort();
   }
 
-  operation = AMCP::Core::Core::find_operation(&v31, a1, a2);
-  v7 = v31;
-  if (!v31)
+  operation = AMCP::Core::Core::find_operation(&v33, a1, a2);
+  v7 = v33;
+  if (!v33)
   {
-    v23 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
-    if ((v23 & 1) == 0)
+    v22 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
+    if ((v22 & 1) == 0)
     {
       AMCP::Log::AMCP_Scope_Registry::initialize(operation);
     }
 
-    v25 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
-    v24 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
-    if (v24)
+    v24 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
+    v23 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
+    if (v23)
     {
-      atomic_fetch_add_explicit(&v24->__shared_owners_, 1uLL, memory_order_relaxed);
-      v26 = *v25;
-      std::__shared_weak_count::__release_shared[abi:ne200100](v24);
+      atomic_fetch_add_explicit(&v23->__shared_owners_, 1uLL, memory_order_relaxed);
+      v25 = *v24;
+      std::__shared_weak_count::__release_shared[abi:ne200100](v23);
     }
 
     else
     {
-      v26 = *v25;
+      v25 = *v24;
     }
 
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
       *&buf[4] = "Core.h";
-      v44 = 1024;
-      v45 = 202;
-      _os_log_error_impl(&dword_1DE1F9000, v26, OS_LOG_TYPE_ERROR, "%32s:%-5d Throwing Exception: Operation does not have requested function", buf, 0x12u);
+      v46 = 1024;
+      v47 = 202;
+      _os_log_error_impl(&dword_1DE1F9000, v25, OS_LOG_TYPE_ERROR, "%32s:%-5d Throwing Exception: Operation does not have requested function", buf, 0x12u);
     }
 
-    AMCP::Utility::With_Realtime_Disabled::With_Realtime_Disabled(&v42);
+    AMCP::Utility::With_Realtime_Disabled::With_Realtime_Disabled(&v44);
     __cxa_allocate_exception(0x40uLL);
-    caulk::make_string("Operation does not have requested function", &v34);
-    std::runtime_error::runtime_error(&v35, &v34);
-    std::runtime_error::runtime_error(&v36, &v35);
-    v38 = 0;
-    v39 = 0;
+    caulk::make_string(&v36, "Operation does not have requested function", v31);
+    std::runtime_error::runtime_error(&v37, &v36);
+    std::runtime_error::runtime_error(&v38, &v37);
     v40 = 0;
-    v41 = -1;
-    v36.__vftable = &unk_1F5992170;
-    v37 = &unk_1F5992198;
-    boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<std::runtime_error>>::clone_impl(buf, &v36);
-    v48 = "Return_Type AMCP::Core::Core::call_operation_function(const Address &, Argument_Types...) const [Return_Type = BOOL, Argument_Types = <unsigned long long>]";
-    v49 = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/MCP/AMCP/Core/Core.h";
-    v50 = 202;
-    applesauce::backtrace::snapshot_N<64>::snapshot_N(&v33);
+    v41 = 0;
+    v42 = 0;
+    v43 = -1;
+    v38.__vftable = &unk_1F5992170;
+    v39 = &unk_1F5992198;
+    boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<std::runtime_error>>::clone_impl(buf, &v38);
+    v50 = "Return_Type AMCP::Core::Core::call_operation_function(const Address &, Argument_Types...) const [Return_Type = BOOL, Argument_Types = <unsigned long long>]";
+    v51 = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/MCP/AMCP/Core/Core.h";
+    v52 = 202;
+    applesauce::backtrace::snapshot_N<64>::snapshot_N(&v35);
   }
 
   v8 = AMCP::Implementation::get_type_marker<std::function<BOOL ()(unsigned long long)>>();
   v9 = std::__hash_table<std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>,std::__unordered_map_hasher<AMCP::Type_ID,std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>,AMCP::Type_ID::Hash,std::equal_to<AMCP::Type_ID>,true>,std::__unordered_map_equal<AMCP::Type_ID,std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>,std::equal_to<AMCP::Type_ID>,AMCP::Type_ID::Hash,true>,std::allocator<std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>>>::find<AMCP::Type_ID>(v7, v8);
   if (!v9)
   {
-    v27 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
-    if ((v27 & 1) == 0)
+    v26 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
+    if ((v26 & 1) == 0)
     {
       AMCP::Log::AMCP_Scope_Registry::initialize(0);
     }
 
-    v29 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
-    v28 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
-    if (v28)
+    v28 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
+    v27 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
+    if (v27)
     {
-      atomic_fetch_add_explicit(&v28->__shared_owners_, 1uLL, memory_order_relaxed);
-      v30 = *v29;
-      std::__shared_weak_count::__release_shared[abi:ne200100](v28);
+      atomic_fetch_add_explicit(&v27->__shared_owners_, 1uLL, memory_order_relaxed);
+      v29 = *v28;
+      std::__shared_weak_count::__release_shared[abi:ne200100](v27);
     }
 
     else
     {
-      v30 = *v29;
+      v29 = *v28;
     }
 
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
       *&buf[4] = "Operation.h";
-      v44 = 1024;
-      v45 = 154;
-      _os_log_error_impl(&dword_1DE1F9000, v30, OS_LOG_TYPE_ERROR, "%32s:%-5d Throwing Exception: Operation does not have requested function", buf, 0x12u);
+      v46 = 1024;
+      v47 = 154;
+      _os_log_error_impl(&dword_1DE1F9000, v29, OS_LOG_TYPE_ERROR, "%32s:%-5d Throwing Exception: Operation does not have requested function", buf, 0x12u);
     }
 
-    AMCP::Utility::With_Realtime_Disabled::With_Realtime_Disabled(&v42);
+    AMCP::Utility::With_Realtime_Disabled::With_Realtime_Disabled(&v44);
     __cxa_allocate_exception(0x40uLL);
-    caulk::make_string("Operation does not have requested function", &v34);
-    std::runtime_error::runtime_error(&v35, &v34);
-    std::runtime_error::runtime_error(&v36, &v35);
-    v38 = 0;
-    v39 = 0;
+    caulk::make_string(&v36, "Operation does not have requested function", v32);
+    std::runtime_error::runtime_error(&v37, &v36);
+    std::runtime_error::runtime_error(&v38, &v37);
     v40 = 0;
-    v41 = -1;
-    v36.__vftable = &unk_1F5992170;
-    v37 = &unk_1F5992198;
-    boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<std::runtime_error>>::clone_impl(buf, &v36);
-    v48 = "Return_Type AMCP::Core::Operation::call_function(Argument_Types...) const [Return_Type = BOOL, Argument_Types = <unsigned long long>]";
-    v49 = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/MCP/AMCP/Core/Operation.h";
-    v50 = 154;
-    applesauce::backtrace::snapshot_N<64>::snapshot_N(&v33);
+    v41 = 0;
+    v42 = 0;
+    v43 = -1;
+    v38.__vftable = &unk_1F5992170;
+    v39 = &unk_1F5992198;
+    boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<std::runtime_error>>::clone_impl(buf, &v38);
+    v50 = "Return_Type AMCP::Core::Operation::call_function(Argument_Types...) const [Return_Type = BOOL, Argument_Types = <unsigned long long>]";
+    v51 = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/MCP/AMCP/Core/Operation.h";
+    v52 = 154;
+    applesauce::backtrace::snapshot_N<64>::snapshot_N(&v35);
   }
 
   v10 = v9;
   if (!*(v9 + 7) || (*buf = AMCP::Implementation::get_type_marker<std::function<BOOL ()(unsigned long long)>>(), (v9 = (*(v10 + 7))(4, v10 + 24, 0, buf)) == 0))
   {
-    v19 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
-    if ((v19 & 1) == 0)
+    v18 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
+    if ((v18 & 1) == 0)
     {
       AMCP::Log::AMCP_Scope_Registry::initialize(v9);
     }
 
-    v21 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
-    v20 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
-    if (v20)
+    v20 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
+    v19 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
+    if (v19)
     {
-      atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
-      v22 = *v21;
-      std::__shared_weak_count::__release_shared[abi:ne200100](v20);
+      atomic_fetch_add_explicit(&v19->__shared_owners_, 1uLL, memory_order_relaxed);
+      v21 = *v20;
+      std::__shared_weak_count::__release_shared[abi:ne200100](v19);
     }
 
     else
     {
-      v22 = *v21;
+      v21 = *v20;
     }
 
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
       *&buf[4] = "Operation.h";
-      v44 = 1024;
-      v45 = 161;
-      _os_log_error_impl(&dword_1DE1F9000, v22, OS_LOG_TYPE_ERROR, "%32s:%-5d Throwing Exception: Invalid cast", buf, 0x12u);
+      v46 = 1024;
+      v47 = 161;
+      _os_log_error_impl(&dword_1DE1F9000, v21, OS_LOG_TYPE_ERROR, "%32s:%-5d Throwing Exception: Invalid cast", buf, 0x12u);
     }
 
-    AMCP::Utility::With_Realtime_Disabled::With_Realtime_Disabled(&v42);
+    AMCP::Utility::With_Realtime_Disabled::With_Realtime_Disabled(&v44);
     __cxa_allocate_exception(0x40uLL);
-    caulk::make_string("Invalid cast", &v34);
-    std::runtime_error::runtime_error(&v35, &v34);
-    std::runtime_error::runtime_error(&v36, &v35);
-    v38 = 0;
-    v39 = 0;
+    caulk::make_string(&v36, "Invalid cast", v30);
+    std::runtime_error::runtime_error(&v37, &v36);
+    std::runtime_error::runtime_error(&v38, &v37);
     v40 = 0;
-    v41 = -1;
-    v36.__vftable = &unk_1F5992170;
-    v37 = &unk_1F5992198;
-    boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<std::runtime_error>>::clone_impl(buf, &v36);
-    v48 = "Return_Type AMCP::Core::Operation::call_function(Argument_Types...) const [Return_Type = BOOL, Argument_Types = <unsigned long long>]";
-    v49 = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/MCP/AMCP/Core/Operation.h";
-    v50 = 161;
-    applesauce::backtrace::snapshot_N<64>::snapshot_N(&v33);
+    v41 = 0;
+    v42 = 0;
+    v43 = -1;
+    v38.__vftable = &unk_1F5992170;
+    v39 = &unk_1F5992198;
+    boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<std::runtime_error>>::clone_impl(buf, &v38);
+    v50 = "Return_Type AMCP::Core::Operation::call_function(Argument_Types...) const [Return_Type = BOOL, Argument_Types = <unsigned long long>]";
+    v51 = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/MCP/AMCP/Core/Operation.h";
+    v52 = 161;
+    applesauce::backtrace::snapshot_N<64>::snapshot_N(&v35);
   }
 
   *buf = a3;
@@ -4994,12 +7345,11 @@ uint64_t AMCP::Core::Core::call_operation_function<BOOL,unsigned long long>(AMCP
   }
 
   v12 = (*(*v11 + 48))(v11, buf);
-  if (v32)
+  if (v34)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v32);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v34);
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -5037,7 +7387,7 @@ void sub_1DE379B44(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void HALS_IOContext_MCP_Impl::TranslateTime(HALS_IOContext_MCP_Impl *this, const AudioTimeStamp *a2, AudioTimeStamp *a3)
+double HALS_IOContext_MCP_Impl::TranslateTime(HALS_IOContext_MCP_Impl *this, const AudioTimeStamp *a2, AudioTimeStamp *a3)
 {
   v24 = *MEMORY[0x1E69E9840];
   v13 = 0x676C6F6274726E74;
@@ -5072,14 +7422,16 @@ void HALS_IOContext_MCP_Impl::TranslateTime(HALS_IOContext_MCP_Impl *this, const
     v21 = v16;
     v22 = v17;
     v23[0] = *v18;
+    result = *&v18[15];
     *(v23 + 15) = *&v18[15];
     if (v19)
     {
       LOBYTE(a3->mSampleTime) = v15;
-      v11 = v22;
+      v12 = v22;
       *(&a3->mSampleTime + 1) = v21;
-      *(&a3->mRateScalar + 1) = v11;
+      *(&a3->mRateScalar + 1) = v12;
       *(&a3->mSMPTETime.mSubframes + 1) = v23[0];
+      result = *(v23 + 15);
       *&a3->mSMPTETime.mHours = *(v23 + 15);
     }
   }
@@ -5089,10 +7441,11 @@ void HALS_IOContext_MCP_Impl::TranslateTime(HALS_IOContext_MCP_Impl *this, const
     v21 = v16;
     v22 = v17;
     v23[0] = *v18;
+    result = *&v18[15];
     *(v23 + 15) = *&v18[15];
   }
 
-  v12 = *MEMORY[0x1E69E9840];
+  return result;
 }
 
 void sub_1DE379D6C(void *a1, int a2)
@@ -5107,30 +7460,30 @@ void sub_1DE379D6C(void *a1, int a2)
 
 void AMCP::Core::Core::call_operation_function<std::optional<CA::TimeStamp>,CA::TimeStamp>(AMCP::Log::AMCP_Scope_Registry *a1, int8x8_t *a2, unsigned int *a3, uint64_t a4)
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   if (*a3 == 707406378 || a3[1] == 707406378 || a3[2] == -1)
   {
-    v16 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
-    if ((v16 & 1) == 0)
+    v15 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
+    if ((v15 & 1) == 0)
     {
       AMCP::Log::AMCP_Scope_Registry::initialize(a1);
     }
 
-    v18 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
-    v17 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
-    if (v17)
+    v17 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
+    v16 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
+    if (v16)
     {
-      atomic_fetch_add_explicit(&v17->__shared_owners_, 1uLL, memory_order_relaxed);
-      v19 = *v18;
-      std::__shared_weak_count::__release_shared[abi:ne200100](v17);
+      atomic_fetch_add_explicit(&v16->__shared_owners_, 1uLL, memory_order_relaxed);
+      v18 = *v17;
+      std::__shared_weak_count::__release_shared[abi:ne200100](v16);
     }
 
     else
     {
-      v19 = *v18;
+      v18 = *v17;
     }
 
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
       *&buf[4] = "Core.h";
@@ -5138,173 +7491,173 @@ void AMCP::Core::Core::call_operation_function<std::optional<CA::TimeStamp>,CA::
       *&buf[14] = 198;
       *&buf[18] = 2080;
       *&buf[20] = "!in_address.has_wildcards()";
-      _os_log_error_impl(&dword_1DE1F9000, v19, OS_LOG_TYPE_ERROR, "%32s:%-5d Assertion Failed: %s ", buf, 0x1Cu);
+      _os_log_error_impl(&dword_1DE1F9000, v18, OS_LOG_TYPE_ERROR, "%32s:%-5d Assertion Failed: %s ", buf, 0x1Cu);
     }
 
     abort();
   }
 
-  operation = AMCP::Core::Core::find_operation(&v36, a2, a3);
-  v8 = v36;
-  if (!v36)
+  operation = AMCP::Core::Core::find_operation(&v38, a2, a3);
+  v8 = v38;
+  if (!v38)
   {
-    v24 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
-    if ((v24 & 1) == 0)
+    v23 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
+    if ((v23 & 1) == 0)
     {
       AMCP::Log::AMCP_Scope_Registry::initialize(operation);
     }
 
-    v26 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
-    v25 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
-    if (v25)
+    v25 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
+    v24 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
+    if (v24)
     {
-      atomic_fetch_add_explicit(&v25->__shared_owners_, 1uLL, memory_order_relaxed);
-      v27 = *v26;
-      std::__shared_weak_count::__release_shared[abi:ne200100](v25);
+      atomic_fetch_add_explicit(&v24->__shared_owners_, 1uLL, memory_order_relaxed);
+      v26 = *v25;
+      std::__shared_weak_count::__release_shared[abi:ne200100](v24);
     }
 
     else
     {
-      v27 = *v26;
+      v26 = *v25;
     }
 
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
       *&buf[4] = "Core.h";
       *&buf[12] = 1024;
       *&buf[14] = 202;
-      _os_log_error_impl(&dword_1DE1F9000, v27, OS_LOG_TYPE_ERROR, "%32s:%-5d Throwing Exception: Operation does not have requested function", buf, 0x12u);
+      _os_log_error_impl(&dword_1DE1F9000, v26, OS_LOG_TYPE_ERROR, "%32s:%-5d Throwing Exception: Operation does not have requested function", buf, 0x12u);
     }
 
-    AMCP::Utility::With_Realtime_Disabled::With_Realtime_Disabled(&v41);
+    AMCP::Utility::With_Realtime_Disabled::With_Realtime_Disabled(&v43);
     __cxa_allocate_exception(0x40uLL);
-    caulk::make_string("Operation does not have requested function", &v39);
-    std::runtime_error::runtime_error(&v38, &v39);
-    std::runtime_error::runtime_error(&v32, &v38);
-    *(&v33 + 1) = 0;
-    v34 = 0uLL;
-    LODWORD(v35) = -1;
-    v32.__vftable = &unk_1F5992170;
-    *&v33 = &unk_1F5992198;
-    boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<std::runtime_error>>::clone_impl(buf, &v32);
-    *&v50 = "Return_Type AMCP::Core::Core::call_operation_function(const Address &, Argument_Types...) const [Return_Type = std::optional<CA::TimeStamp>, Argument_Types = <CA::TimeStamp>]";
-    *(&v50 + 1) = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/MCP/AMCP/Core/Core.h";
-    LODWORD(v51) = 202;
-    applesauce::backtrace::snapshot_N<64>::snapshot_N(&v40);
+    caulk::make_string(&v41, "Operation does not have requested function", v32);
+    std::runtime_error::runtime_error(&v40, &v41);
+    std::runtime_error::runtime_error(&v34, &v40);
+    *(&v35 + 1) = 0;
+    v36 = 0uLL;
+    LODWORD(v37) = -1;
+    v34.__vftable = &unk_1F5992170;
+    *&v35 = &unk_1F5992198;
+    boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<std::runtime_error>>::clone_impl(buf, &v34);
+    *&v52 = "Return_Type AMCP::Core::Core::call_operation_function(const Address &, Argument_Types...) const [Return_Type = std::optional<CA::TimeStamp>, Argument_Types = <CA::TimeStamp>]";
+    *(&v52 + 1) = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/MCP/AMCP/Core/Core.h";
+    LODWORD(v53) = 202;
+    applesauce::backtrace::snapshot_N<64>::snapshot_N(&v42);
   }
 
   v9 = *(a4 + 16);
-  v32 = *a4;
-  v33 = v9;
+  v34 = *a4;
+  v35 = v9;
   v10 = *(a4 + 48);
-  v34 = *(a4 + 32);
-  v35 = v10;
+  v36 = *(a4 + 32);
+  v37 = v10;
   v11 = AMCP::Implementation::get_type_marker<std::function<std::optional<CA::TimeStamp> ()(CA::TimeStamp)>>();
   v12 = std::__hash_table<std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>,std::__unordered_map_hasher<AMCP::Type_ID,std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>,AMCP::Type_ID::Hash,std::equal_to<AMCP::Type_ID>,true>,std::__unordered_map_equal<AMCP::Type_ID,std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>,std::equal_to<AMCP::Type_ID>,AMCP::Type_ID::Hash,true>,std::allocator<std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>>>::find<AMCP::Type_ID>(v8, v11);
   if (!v12)
   {
-    v28 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
-    if ((v28 & 1) == 0)
+    v27 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
+    if ((v27 & 1) == 0)
     {
       AMCP::Log::AMCP_Scope_Registry::initialize(0);
     }
 
-    v30 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
-    v29 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
-    if (v29)
+    v29 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
+    v28 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
+    if (v28)
     {
-      atomic_fetch_add_explicit(&v29->__shared_owners_, 1uLL, memory_order_relaxed);
-      v31 = *v30;
-      std::__shared_weak_count::__release_shared[abi:ne200100](v29);
+      atomic_fetch_add_explicit(&v28->__shared_owners_, 1uLL, memory_order_relaxed);
+      v30 = *v29;
+      std::__shared_weak_count::__release_shared[abi:ne200100](v28);
     }
 
     else
     {
-      v31 = *v30;
+      v30 = *v29;
     }
 
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
       *&buf[4] = "Operation.h";
       *&buf[12] = 1024;
       *&buf[14] = 154;
-      _os_log_error_impl(&dword_1DE1F9000, v31, OS_LOG_TYPE_ERROR, "%32s:%-5d Throwing Exception: Operation does not have requested function", buf, 0x12u);
+      _os_log_error_impl(&dword_1DE1F9000, v30, OS_LOG_TYPE_ERROR, "%32s:%-5d Throwing Exception: Operation does not have requested function", buf, 0x12u);
     }
 
-    AMCP::Utility::With_Realtime_Disabled::With_Realtime_Disabled(&v48);
+    AMCP::Utility::With_Realtime_Disabled::With_Realtime_Disabled(&v50);
     __cxa_allocate_exception(0x40uLL);
-    caulk::make_string("Operation does not have requested function", &v40);
-    std::runtime_error::runtime_error(&v41, &v40);
-    std::runtime_error::runtime_error(&v42, &v41);
-    v44 = 0;
-    v45 = 0;
+    caulk::make_string(&v42, "Operation does not have requested function", v33);
+    std::runtime_error::runtime_error(&v43, &v42);
+    std::runtime_error::runtime_error(&v44, &v43);
     v46 = 0;
-    v47 = -1;
-    v42.__vftable = &unk_1F5992170;
-    v43 = &unk_1F5992198;
-    boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<std::runtime_error>>::clone_impl(buf, &v42);
-    *&v50 = "Return_Type AMCP::Core::Operation::call_function(Argument_Types...) const [Return_Type = std::optional<CA::TimeStamp>, Argument_Types = <CA::TimeStamp>]";
-    *(&v50 + 1) = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/MCP/AMCP/Core/Operation.h";
-    LODWORD(v51) = 154;
-    applesauce::backtrace::snapshot_N<64>::snapshot_N(&v38);
+    v47 = 0;
+    v48 = 0;
+    v49 = -1;
+    v44.__vftable = &unk_1F5992170;
+    v45 = &unk_1F5992198;
+    boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<std::runtime_error>>::clone_impl(buf, &v44);
+    *&v52 = "Return_Type AMCP::Core::Operation::call_function(Argument_Types...) const [Return_Type = std::optional<CA::TimeStamp>, Argument_Types = <CA::TimeStamp>]";
+    *(&v52 + 1) = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/MCP/AMCP/Core/Operation.h";
+    LODWORD(v53) = 154;
+    applesauce::backtrace::snapshot_N<64>::snapshot_N(&v40);
   }
 
   v13 = v12;
   if (!*(v12 + 7) || (*buf = AMCP::Implementation::get_type_marker<std::function<std::optional<CA::TimeStamp> ()(CA::TimeStamp)>>(), (v12 = (*(v13 + 7))(4, v13 + 24, 0, buf)) == 0))
   {
-    v20 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
-    if ((v20 & 1) == 0)
+    v19 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
+    if ((v19 & 1) == 0)
     {
       AMCP::Log::AMCP_Scope_Registry::initialize(v12);
     }
 
-    v22 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
-    v21 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
-    if (v21)
+    v21 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
+    v20 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
+    if (v20)
     {
-      atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
-      v23 = *v22;
-      std::__shared_weak_count::__release_shared[abi:ne200100](v21);
+      atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
+      v22 = *v21;
+      std::__shared_weak_count::__release_shared[abi:ne200100](v20);
     }
 
     else
     {
-      v23 = *v22;
+      v22 = *v21;
     }
 
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
       *&buf[4] = "Operation.h";
       *&buf[12] = 1024;
       *&buf[14] = 161;
-      _os_log_error_impl(&dword_1DE1F9000, v23, OS_LOG_TYPE_ERROR, "%32s:%-5d Throwing Exception: Invalid cast", buf, 0x12u);
+      _os_log_error_impl(&dword_1DE1F9000, v22, OS_LOG_TYPE_ERROR, "%32s:%-5d Throwing Exception: Invalid cast", buf, 0x12u);
     }
 
-    AMCP::Utility::With_Realtime_Disabled::With_Realtime_Disabled(&v48);
+    AMCP::Utility::With_Realtime_Disabled::With_Realtime_Disabled(&v50);
     __cxa_allocate_exception(0x40uLL);
-    caulk::make_string("Invalid cast", &v40);
-    std::runtime_error::runtime_error(&v41, &v40);
-    std::runtime_error::runtime_error(&v42, &v41);
-    v44 = 0;
-    v45 = 0;
+    caulk::make_string(&v42, "Invalid cast", v31);
+    std::runtime_error::runtime_error(&v43, &v42);
+    std::runtime_error::runtime_error(&v44, &v43);
     v46 = 0;
-    v47 = -1;
-    v42.__vftable = &unk_1F5992170;
-    v43 = &unk_1F5992198;
-    boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<std::runtime_error>>::clone_impl(buf, &v42);
-    *&v50 = "Return_Type AMCP::Core::Operation::call_function(Argument_Types...) const [Return_Type = std::optional<CA::TimeStamp>, Argument_Types = <CA::TimeStamp>]";
-    *(&v50 + 1) = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/MCP/AMCP/Core/Operation.h";
-    LODWORD(v51) = 161;
-    applesauce::backtrace::snapshot_N<64>::snapshot_N(&v38);
+    v47 = 0;
+    v48 = 0;
+    v49 = -1;
+    v44.__vftable = &unk_1F5992170;
+    v45 = &unk_1F5992198;
+    boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<std::runtime_error>>::clone_impl(buf, &v44);
+    *&v52 = "Return_Type AMCP::Core::Operation::call_function(Argument_Types...) const [Return_Type = std::optional<CA::TimeStamp>, Argument_Types = <CA::TimeStamp>]";
+    *(&v52 + 1) = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/MCP/AMCP/Core/Operation.h";
+    LODWORD(v53) = 161;
+    applesauce::backtrace::snapshot_N<64>::snapshot_N(&v40);
   }
 
-  v50 = v34;
-  v51 = v35;
-  *buf = v32;
-  *&buf[16] = v33;
+  v52 = v36;
+  v53 = v37;
+  *buf = v34;
+  *&buf[16] = v35;
   v14 = *(v12 + 3);
   if (!v14)
   {
@@ -5312,12 +7665,10 @@ void AMCP::Core::Core::call_operation_function<std::optional<CA::TimeStamp>,CA::
   }
 
   (*(*v14 + 48))(v14, buf);
-  if (v37)
+  if (v39)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v37);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v39);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1DE37A50C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, std::__shared_weak_count *a18, std::runtime_error a19, uint64_t a20, uint64_t a21, void *a22, void *__p, uint64_t a24, uint64_t a25, void *a26, uint64_t a27, int a28, __int16 a29, char a30, char a31, uint64_t a32, std::runtime_error a33, uint64_t a34, void *a35, uint64_t a36)
@@ -5447,13 +7798,13 @@ double HALS_IOContext_MCP_Impl::GetDeviceSet@<D0>(uint64_t a1@<X8>)
 
 void HALS_IOContext_MCP_Impl::reassert_description_for_device_change(CFTypeRef *this, const __CFString *a2)
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
+  v39 = 0;
   v40 = 0;
-  v41 = 0;
-  HALS_System::GetInstance(&v42, 0, &v40);
-  v4 = *(v42 + 1744);
+  HALS_System::GetInstance(&v41, 0, &v39);
+  v4 = *(v41 + 1744);
   applesauce::CF::DictionaryRef::from_get(&cf, this[14]);
-  applesauce::CF::StringRef::from_get(&v38, a2);
+  applesauce::CF::StringRef::from_get(&v37, a2);
   if (!cf)
   {
     v16 = 0;
@@ -5467,14 +7818,14 @@ void HALS_IOContext_MCP_Impl::reassert_description_for_device_change(CFTypeRef *
     CFRetain(cf);
   }
 
-  v45 = v5;
-  v6 = v38;
-  if (v38)
+  v44 = v5;
+  v6 = v37;
+  if (v37)
   {
-    CFRetain(v38);
+    CFRetain(v37);
   }
 
-  v44 = v6;
+  v43 = v6;
   if (!v5)
   {
     exception = __cxa_allocate_exception(0x10uLL);
@@ -5486,44 +7837,44 @@ void HALS_IOContext_MCP_Impl::reassert_description_for_device_change(CFTypeRef *
   *theArray = v7;
   if (!v7)
   {
-    v32 = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(v32, "Could not construct");
-    __cxa_throw(v32, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+    v31 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v31, "Could not construct");
+    __cxa_throw(v31, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
   }
 
   v8 = applesauce::CF::details::has_key<applesauce::CF::StringRef>(v5, v7);
   CFRelease(v7);
   if (!v8)
   {
-    v25 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
-    if ((v25 & 1) == 0)
+    v24 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
+    if ((v24 & 1) == 0)
     {
       AMCP::Log::AMCP_Scope_Registry::initialize(v9);
     }
 
-    v27 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
-    v26 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
-    if (v26)
+    v26 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
+    v25 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
+    if (v25)
     {
-      atomic_fetch_add_explicit(&v26->__shared_owners_, 1uLL, memory_order_relaxed);
-      v28 = *v27;
-      std::__shared_weak_count::__release_shared[abi:ne200100](v26);
+      atomic_fetch_add_explicit(&v25->__shared_owners_, 1uLL, memory_order_relaxed);
+      v27 = *v26;
+      std::__shared_weak_count::__release_shared[abi:ne200100](v25);
     }
 
     else
     {
-      v28 = *v27;
+      v27 = *v26;
     }
 
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
       *theArray = 136315650;
       *&theArray[4] = "HALS_IOContext_Manager_Impl.cpp";
-      v56 = 1024;
-      v57 = 109;
-      v58 = 2080;
-      v59 = "in_aggregate_description->has_key(AMCP::CF::String{kAudioAggregateDeviceUIDKey})";
-      _os_log_error_impl(&dword_1DE1F9000, v28, OS_LOG_TYPE_ERROR, "%32s:%-5d Assertion Failed: %s We should have already exited if the aggregate UID were missing.", theArray, 0x1Cu);
+      v55 = 1024;
+      v56 = 109;
+      v57 = 2080;
+      v58 = "in_aggregate_description->has_key(AMCP::CF::String{kAudioAggregateDeviceUIDKey})";
+      _os_log_error_impl(&dword_1DE1F9000, v27, OS_LOG_TYPE_ERROR, "%32s:%-5d Assertion Failed: %s We should have already exited if the aggregate UID were missing.", theArray, 0x1Cu);
     }
 
     abort();
@@ -5533,33 +7884,33 @@ void HALS_IOContext_MCP_Impl::reassert_description_for_device_change(CFTypeRef *
   *theArray = v10;
   if (!v10)
   {
-    v33 = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(v33, "Could not construct");
-    __cxa_throw(v33, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+    v32 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v32, "Could not construct");
+    __cxa_throw(v32, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
   }
 
-  v52 = 0;
-  applesauce::CF::at_or<applesauce::CF::StringRef,applesauce::CF::StringRef>(&v54, v5, v10, &v52);
-  if (v52)
+  v51 = 0;
+  applesauce::CF::at_or<applesauce::CF::StringRef,applesauce::CF::StringRef>(&v53, v5, v10, &v51);
+  if (v51)
   {
-    CFRelease(v52);
+    CFRelease(v51);
   }
 
   CFRelease(v10);
-  v11 = v54;
-  if (v54 && applesauce::CF::compare<applesauce::CF::StringRef,0,applesauce::CF::StringRef,0>(v54, &v44) == kCFCompareEqualTo)
+  v11 = v53;
+  if (v53 && applesauce::CF::compare<applesauce::CF::StringRef,0,applesauce::CF::StringRef,0>(v53, &v43) == kCFCompareEqualTo)
   {
     v16 = 1;
     goto LABEL_63;
   }
 
   v12 = CFStringCreateWithBytes(0, "subdevices", 10, 0x8000100u, 0);
-  v52 = v12;
+  v51 = v12;
   if (!v12)
   {
-    v34 = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(v34, "Could not construct");
-    __cxa_throw(v34, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+    v33 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v33, "Could not construct");
+    __cxa_throw(v33, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
   }
 
   applesauce::CF::details::find_at_key_or_optional<applesauce::CF::ArrayRef,applesauce::CF::StringRef>(theArray, v5, v12);
@@ -5573,9 +7924,9 @@ void HALS_IOContext_MCP_Impl::reassert_description_for_device_change(CFTypeRef *
   v13 = *theArray;
   if (!*theArray)
   {
-    v37 = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(v37, "Could not construct");
-    __cxa_throw(v37, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+    v36 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v36, "Could not construct");
+    __cxa_throw(v36, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
   }
 
   if (!CFArrayGetCount(*theArray))
@@ -5584,9 +7935,9 @@ void HALS_IOContext_MCP_Impl::reassert_description_for_device_change(CFTypeRef *
     goto LABEL_60;
   }
 
-  applesauce::CF::details::at_as<applesauce::CF::DictionaryRef>(&v52, v13, 0);
-  applesauce::CF::details::at_as<applesauce::CF::ArrayRef>(&v50, v13);
-  v14 = v51;
+  applesauce::CF::details::at_as<applesauce::CF::DictionaryRef>(&v51, v13, 0);
+  applesauce::CF::details::at_as<applesauce::CF::ArrayRef>(&v49, v13);
+  v14 = v50;
   Count = CFArrayGetCount(v13);
   v17 = Count;
   if (!Count)
@@ -5604,91 +7955,91 @@ void HALS_IOContext_MCP_Impl::reassert_description_for_device_change(CFTypeRef *
   v16 = 1;
   do
   {
-    applesauce::CF::details::at_as<applesauce::CF::DictionaryRef>(&v48, v13, v18);
-    std::__optional_storage_base<applesauce::CF::DictionaryRef,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<applesauce::CF::DictionaryRef,false>>(&v52, &v48);
-    if (v49 == 1 && v48)
+    applesauce::CF::details::at_as<applesauce::CF::DictionaryRef>(&v47, v13, v18);
+    std::__optional_storage_base<applesauce::CF::DictionaryRef,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<applesauce::CF::DictionaryRef,false>>(&v51, &v47);
+    if (v48 == 1 && v47)
     {
-      CFRelease(v48);
+      CFRelease(v47);
     }
 
     if (v14)
     {
-      applesauce::CF::details::at_as<applesauce::CF::DictionaryRef>(&v48, v13, v18);
-      std::__optional_storage_base<applesauce::CF::DictionaryRef,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<applesauce::CF::DictionaryRef,false>>(&v52, &v48);
-      if (v49 == 1 && v48)
+      applesauce::CF::details::at_as<applesauce::CF::DictionaryRef>(&v47, v13, v18);
+      std::__optional_storage_base<applesauce::CF::DictionaryRef,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<applesauce::CF::DictionaryRef,false>>(&v51, &v47);
+      if (v48 == 1 && v47)
       {
-        CFRelease(v48);
+        CFRelease(v47);
       }
 
-      v19 = v52;
-      if (!v52)
+      v19 = v51;
+      if (!v51)
+      {
+        v28 = __cxa_allocate_exception(0x10uLL);
+        std::runtime_error::runtime_error(v28, "Could not construct");
+        __cxa_throw(v28, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+      }
+
+      v20 = CFStringCreateWithBytes(0, "uid", 3, 0x8000100u, 0);
+      v46 = v20;
+      if (!v20)
       {
         v29 = __cxa_allocate_exception(0x10uLL);
         std::runtime_error::runtime_error(v29, "Could not construct");
         __cxa_throw(v29, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
       }
 
-      v20 = CFStringCreateWithBytes(0, "uid", 3, 0x8000100u, 0);
-      v47 = v20;
-      if (!v20)
-      {
-        v30 = __cxa_allocate_exception(0x10uLL);
-        std::runtime_error::runtime_error(v30, "Could not construct");
-        __cxa_throw(v30, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-      }
-
-      v46 = 0;
-      applesauce::CF::at_or<applesauce::CF::StringRef,applesauce::CF::StringRef>(&v48, v19, v20, &v46);
-      v21 = v54;
-      v11 = v48;
-      v54 = v48;
-      v48 = v21;
+      v45 = 0;
+      applesauce::CF::at_or<applesauce::CF::StringRef,applesauce::CF::StringRef>(&v47, v19, v20, &v45);
+      v21 = v53;
+      v11 = v47;
+      v53 = v47;
+      v47 = v21;
       if (v21)
       {
         CFRelease(v21);
       }
 
-      if (v46)
+      if (v45)
       {
-        CFRelease(v46);
+        CFRelease(v45);
       }
 
       goto LABEL_46;
     }
 
-    if (v53)
+    if (v52)
     {
-      v22 = v52;
-      if (!v52)
-      {
-        v36 = __cxa_allocate_exception(0x10uLL);
-        std::runtime_error::runtime_error(v36, "Could not construct");
-        __cxa_throw(v36, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-      }
-
-      v20 = CFStringCreateWithBytes(0, "uid", 3, 0x8000100u, 0);
-      v47 = v20;
-      if (!v20)
+      v22 = v51;
+      if (!v51)
       {
         v35 = __cxa_allocate_exception(0x10uLL);
         std::runtime_error::runtime_error(v35, "Could not construct");
         __cxa_throw(v35, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
       }
 
-      v46 = 0;
-      applesauce::CF::at_or<applesauce::CF::StringRef,applesauce::CF::StringRef>(&v48, v22, v20, &v46);
-      v23 = v54;
-      v11 = v48;
-      v54 = v48;
-      v48 = v23;
+      v20 = CFStringCreateWithBytes(0, "uid", 3, 0x8000100u, 0);
+      v46 = v20;
+      if (!v20)
+      {
+        v34 = __cxa_allocate_exception(0x10uLL);
+        std::runtime_error::runtime_error(v34, "Could not construct");
+        __cxa_throw(v34, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+      }
+
+      v45 = 0;
+      applesauce::CF::at_or<applesauce::CF::StringRef,applesauce::CF::StringRef>(&v47, v22, v20, &v45);
+      v23 = v53;
+      v11 = v47;
+      v53 = v47;
+      v47 = v23;
       if (v23)
       {
         CFRelease(v23);
       }
 
-      if (v46)
+      if (v45)
       {
-        CFRelease(v46);
+        CFRelease(v45);
       }
 
 LABEL_46:
@@ -5701,14 +8052,14 @@ LABEL_46:
       goto LABEL_49;
     }
 
-    v11 = v54;
-    if (!v54)
+    v11 = v53;
+    if (!v53)
     {
       goto LABEL_50;
     }
 
 LABEL_49:
-    if (applesauce::CF::compare<applesauce::CF::StringRef,0,applesauce::CF::StringRef,0>(v11, &v44) == kCFCompareEqualTo)
+    if (applesauce::CF::compare<applesauce::CF::StringRef,0,applesauce::CF::StringRef,0>(v11, &v43) == kCFCompareEqualTo)
     {
       break;
     }
@@ -5718,21 +8069,21 @@ LABEL_50:
   }
 
   while (v17 != v18);
-  if ((v51 & 1) == 0)
+  if ((v50 & 1) == 0)
   {
     goto LABEL_56;
   }
 
 LABEL_54:
-  if (v50)
+  if (v49)
   {
-    CFRelease(v50);
+    CFRelease(v49);
   }
 
 LABEL_56:
-  if (v53 == 1 && v52)
+  if (v52 == 1 && v51)
   {
-    CFRelease(v52);
+    CFRelease(v51);
   }
 
   if (theArray[8])
@@ -5751,21 +8102,21 @@ LABEL_63:
     CFRelease(v11);
   }
 
+  if (v43)
+  {
+    CFRelease(v43);
+  }
+
   if (v44)
   {
     CFRelease(v44);
   }
 
-  if (v45)
-  {
-    CFRelease(v45);
-  }
-
   os_unfair_lock_unlock(v4 + 4);
 LABEL_69:
-  if (v38)
+  if (v37)
   {
-    CFRelease(v38);
+    CFRelease(v37);
   }
 
   if (cf)
@@ -5773,22 +8124,20 @@ LABEL_69:
     CFRelease(cf);
   }
 
-  if (v43)
+  if (v42)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v43);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v42);
   }
 
-  if (v41)
+  if (v40)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v41);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v40);
   }
 
   if (v16)
   {
     HALS_IOContext_MCP_Impl::UpdateContext(this);
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1DE37B190(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, char a28, uint64_t a29, char a30, uint64_t a31, char a32, int a33, __int16 a34, char a35, char a36)
@@ -6149,7 +8498,7 @@ void HALS_IOClock::~HALS_IOClock(HALS_IOClock *this)
 
 uint64_t caulk::concurrent::details::rt_message_call<HALS_IORawClock::CheckHostTimeOutOfBounds(unsigned long long)::$_0,std::tuple<char const*,int,unsigned long long,unsigned long long>>::perform(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
   v2 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
   if (v2)
@@ -6171,15 +8520,15 @@ uint64_t caulk::concurrent::details::rt_message_call<HALS_IORawClock::CheckHostT
     v7 = *(a1 + 32);
     v8 = *(a1 + 40);
     v9 = *(a1 + 48);
-    v12 = 136315906;
-    v13 = v6;
-    v14 = 1024;
-    v15 = v7;
-    v16 = 2048;
-    v17 = v8;
-    v18 = 2048;
-    v19 = v9;
-    _os_log_impl(&dword_1DE1F9000, v4, v5, "%32s:%-5d Out of bounds host time detected, host time %llu, out of bound time %llu", &v12, 0x26u);
+    v11 = 136315906;
+    v12 = v6;
+    v13 = 1024;
+    v14 = v7;
+    v15 = 2048;
+    v16 = v8;
+    v17 = 2048;
+    v18 = v9;
+    _os_log_impl(&dword_1DE1F9000, v4, v5, "%32s:%-5d Out of bounds host time detected, host time %llu, out of bound time %llu", &v11, 0x26u);
   }
 
   caulk::concurrent::message::~message(a1);
@@ -6188,9 +8537,7 @@ uint64_t caulk::concurrent::details::rt_message_call<HALS_IORawClock::CheckHostT
     __break(1u);
   }
 
-  result = caulk::rt_safe_memory_resource::rt_deallocate(*MEMORY[0x1E69E3C08], a1);
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
+  return caulk::rt_safe_memory_resource::rt_deallocate(*MEMORY[0x1E69E3C08], a1);
 }
 
 void caulk::concurrent::details::rt_message_call<HALS_IORawClock::CheckHostTimeOutOfBounds(unsigned long long)::$_0,std::tuple<char const*,int,unsigned long long,unsigned long long>>::~rt_message_call(caulk::concurrent::message *a1)
@@ -6202,7 +8549,7 @@ void caulk::concurrent::details::rt_message_call<HALS_IORawClock::CheckHostTimeO
 
 uint64_t caulk::concurrent::details::rt_message_call<HALS_IORawClock::Update(HALS_ZeroTimeStamp,double,BOOL &,unsigned int &)::$_3,std::tuple<char const*,int,char const*,char const*,double,double,double>>::perform(uint64_t a1)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v3 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
   v2 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
   if (v2)
@@ -6227,21 +8574,21 @@ uint64_t caulk::concurrent::details::rt_message_call<HALS_IORawClock::Update(HAL
     v10 = *(a1 + 56);
     v11 = *(a1 + 64);
     v12 = *(a1 + 72);
-    v15 = 136316674;
-    v16 = v6;
-    v17 = 1024;
-    v18 = v7;
-    v19 = 2080;
-    v20 = v8;
-    v21 = 2080;
-    v22 = v9;
-    v23 = 2048;
-    v24 = v10;
-    v25 = 2048;
-    v26 = v11;
-    v27 = 2048;
-    v28 = v12;
-    _os_log_impl(&dword_1DE1F9000, v4, v5, "%32s:%-5d HALS_IORawClock::Update: Re-anchoring IO timeline. Sample time %s consecutive, HostTime %s increasing, Ring buffer size: %f, sample diff: %f, host diff %f", &v15, 0x44u);
+    v14 = 136316674;
+    v15 = v6;
+    v16 = 1024;
+    v17 = v7;
+    v18 = 2080;
+    v19 = v8;
+    v20 = 2080;
+    v21 = v9;
+    v22 = 2048;
+    v23 = v10;
+    v24 = 2048;
+    v25 = v11;
+    v26 = 2048;
+    v27 = v12;
+    _os_log_impl(&dword_1DE1F9000, v4, v5, "%32s:%-5d HALS_IORawClock::Update: Re-anchoring IO timeline. Sample time %s consecutive, HostTime %s increasing, Ring buffer size: %f, sample diff: %f, host diff %f", &v14, 0x44u);
   }
 
   caulk::concurrent::message::~message(a1);
@@ -6250,9 +8597,7 @@ uint64_t caulk::concurrent::details::rt_message_call<HALS_IORawClock::Update(HAL
     __break(1u);
   }
 
-  result = caulk::rt_safe_memory_resource::rt_deallocate(*MEMORY[0x1E69E3C08], a1);
-  v14 = *MEMORY[0x1E69E9840];
-  return result;
+  return caulk::rt_safe_memory_resource::rt_deallocate(*MEMORY[0x1E69E3C08], a1);
 }
 
 void caulk::concurrent::details::rt_message_call<HALS_IORawClock::Update(HALS_ZeroTimeStamp,double,BOOL &,unsigned int &)::$_3,std::tuple<char const*,int,char const*,char const*,double,double,double>>::~rt_message_call(caulk::concurrent::message *a1)
@@ -6264,7 +8609,7 @@ void caulk::concurrent::details::rt_message_call<HALS_IORawClock::Update(HALS_Ze
 
 uint64_t caulk::concurrent::details::rt_message_call<HALS_IORawClock::Update(HALS_ZeroTimeStamp,double,BOOL &,unsigned int &)::$_2,std::tuple<char const*,int,char const*,char const*>>::perform(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
   v2 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
   if (v2)
@@ -6286,15 +8631,15 @@ uint64_t caulk::concurrent::details::rt_message_call<HALS_IORawClock::Update(HAL
     v7 = *(a1 + 32);
     v8 = *(a1 + 40);
     v9 = *(a1 + 48);
-    v12 = 136315906;
-    v13 = v6;
-    v14 = 1024;
-    v15 = v7;
-    v16 = 2080;
-    v17 = v8;
-    v18 = 2080;
-    v19 = v9;
-    _os_log_impl(&dword_1DE1F9000, v4, v5, "%32s:%-5d HALS_IORawClock::Update: Re-anchoring IO timeline. Sample time is%s consecutive, host time is%s consecutive.", &v12, 0x26u);
+    v11 = 136315906;
+    v12 = v6;
+    v13 = 1024;
+    v14 = v7;
+    v15 = 2080;
+    v16 = v8;
+    v17 = 2080;
+    v18 = v9;
+    _os_log_impl(&dword_1DE1F9000, v4, v5, "%32s:%-5d HALS_IORawClock::Update: Re-anchoring IO timeline. Sample time is%s consecutive, host time is%s consecutive.", &v11, 0x26u);
   }
 
   caulk::concurrent::message::~message(a1);
@@ -6303,9 +8648,7 @@ uint64_t caulk::concurrent::details::rt_message_call<HALS_IORawClock::Update(HAL
     __break(1u);
   }
 
-  result = caulk::rt_safe_memory_resource::rt_deallocate(*MEMORY[0x1E69E3C08], a1);
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
+  return caulk::rt_safe_memory_resource::rt_deallocate(*MEMORY[0x1E69E3C08], a1);
 }
 
 void caulk::concurrent::details::rt_message_call<HALS_IORawClock::Update(HALS_ZeroTimeStamp,double,BOOL &,unsigned int &)::$_2,std::tuple<char const*,int,char const*,char const*>>::~rt_message_call(caulk::concurrent::message *a1)
@@ -6317,7 +8660,7 @@ void caulk::concurrent::details::rt_message_call<HALS_IORawClock::Update(HALS_Ze
 
 uint64_t caulk::concurrent::details::rt_message_call<HALS_IORawClock::Update(HALS_ZeroTimeStamp,double,BOOL &,unsigned int &)::$_1,std::tuple<char const*,int>>::perform(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
   v2 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
   if (v2)
@@ -6337,11 +8680,11 @@ uint64_t caulk::concurrent::details::rt_message_call<HALS_IORawClock::Update(HAL
   {
     v6 = *(a1 + 24);
     v7 = *(a1 + 32);
-    v10 = 136315394;
-    v11 = v6;
-    v12 = 1024;
-    v13 = v7;
-    _os_log_impl(&dword_1DE1F9000, v4, v5, "%32s:%-5d HALS_IORawClock::Update: Re-anchoring IO timeline. Zero timestamp seed changed", &v10, 0x12u);
+    v9 = 136315394;
+    v10 = v6;
+    v11 = 1024;
+    v12 = v7;
+    _os_log_impl(&dword_1DE1F9000, v4, v5, "%32s:%-5d HALS_IORawClock::Update: Re-anchoring IO timeline. Zero timestamp seed changed", &v9, 0x12u);
   }
 
   caulk::concurrent::message::~message(a1);
@@ -6350,9 +8693,7 @@ uint64_t caulk::concurrent::details::rt_message_call<HALS_IORawClock::Update(HAL
     __break(1u);
   }
 
-  result = caulk::rt_safe_memory_resource::rt_deallocate(*MEMORY[0x1E69E3C08], a1);
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return caulk::rt_safe_memory_resource::rt_deallocate(*MEMORY[0x1E69E3C08], a1);
 }
 
 void caulk::concurrent::details::rt_message_call<HALS_IORawClock::Update(HALS_ZeroTimeStamp,double,BOOL &,unsigned int &)::$_1,std::tuple<char const*,int>>::~rt_message_call(caulk::concurrent::message *a1)
@@ -6364,7 +8705,7 @@ void caulk::concurrent::details::rt_message_call<HALS_IORawClock::Update(HALS_Ze
 
 uint64_t caulk::concurrent::details::rt_message_call<HALS_IORawClock::Update(HALS_ZeroTimeStamp,double,BOOL &,unsigned int &)::$_0,std::tuple<char const*,int,unsigned long long,unsigned long long>>::perform(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
   v2 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
   if (v2)
@@ -6386,15 +8727,15 @@ uint64_t caulk::concurrent::details::rt_message_call<HALS_IORawClock::Update(HAL
     v7 = *(a1 + 32);
     v8 = *(a1 + 40);
     v9 = *(a1 + 48);
-    v12 = 136315906;
-    v13 = v6;
-    v14 = 1024;
-    v15 = v7;
-    v16 = 2048;
-    v17 = v8;
-    v18 = 2048;
-    v19 = v9;
-    _os_log_impl(&dword_1DE1F9000, v4, v5, "%32s:%-5d HALS_IORawClock::Update: Re-anchoring IO timeline. Initial host time is out of bounds. ZTS Host Time: %llu, OoB Time: %llu", &v12, 0x26u);
+    v11 = 136315906;
+    v12 = v6;
+    v13 = 1024;
+    v14 = v7;
+    v15 = 2048;
+    v16 = v8;
+    v17 = 2048;
+    v18 = v9;
+    _os_log_impl(&dword_1DE1F9000, v4, v5, "%32s:%-5d HALS_IORawClock::Update: Re-anchoring IO timeline. Initial host time is out of bounds. ZTS Host Time: %llu, OoB Time: %llu", &v11, 0x26u);
   }
 
   caulk::concurrent::message::~message(a1);
@@ -6403,9 +8744,7 @@ uint64_t caulk::concurrent::details::rt_message_call<HALS_IORawClock::Update(HAL
     __break(1u);
   }
 
-  result = caulk::rt_safe_memory_resource::rt_deallocate(*MEMORY[0x1E69E3C08], a1);
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
+  return caulk::rt_safe_memory_resource::rt_deallocate(*MEMORY[0x1E69E3C08], a1);
 }
 
 void caulk::concurrent::details::rt_message_call<HALS_IORawClock::Update(HALS_ZeroTimeStamp,double,BOOL &,unsigned int &)::$_0,std::tuple<char const*,int,unsigned long long,unsigned long long>>::~rt_message_call(caulk::concurrent::message *a1)
@@ -6442,7 +8781,7 @@ uint64_t std::__function::__value_func<unsigned long long ()(void)>::__value_fun
 
 void *std::__function::__value_func<unsigned long long ()(void)>::swap[abi:ne200100](void *result, void *a2)
 {
-  v6[3] = *MEMORY[0x1E69E9840];
+  v5[3] = *MEMORY[0x1E69E9840];
   if (a2 != result)
   {
     v3 = result;
@@ -6452,15 +8791,15 @@ void *std::__function::__value_func<unsigned long long ()(void)>::swap[abi:ne200
     {
       if (v4 == a2)
       {
-        (*(*result + 24))(result, v6);
+        (*(*result + 24))(result, v5);
         (*(*v3[3] + 32))(v3[3]);
         v3[3] = 0;
         (*(*a2[3] + 24))(a2[3], v3);
         (*(*a2[3] + 32))(a2[3]);
         a2[3] = 0;
         v3[3] = v3;
-        (*(v6[0] + 24))(v6, a2);
-        result = (*(v6[0] + 32))(v6);
+        (*(v5[0] + 24))(v5, a2);
+        result = (*(v5[0] + 32))(v5);
       }
 
       else
@@ -6488,7 +8827,6 @@ void *std::__function::__value_func<unsigned long long ()(void)>::swap[abi:ne200
     }
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -6517,7 +8855,7 @@ uint64_t std::__function::__func<HALS_IOClock::HALS_IOClock(unsigned int,unsigne
 
 uint64_t HALS_IOClock::HALS_IOClock(uint64_t a1, int a2, int a3, __int128 *a4)
 {
-  v10[4] = *MEMORY[0x1E69E9840];
+  v9[4] = *MEMORY[0x1E69E9840];
   *a1 = &unk_1F5969500;
   *(a1 + 8) = a2;
   *(a1 + 12) = a3;
@@ -6592,11 +8930,10 @@ uint64_t HALS_IOClock::HALS_IOClock(uint64_t a1, int a2, int a3, __int128 *a4)
   *(a1 + 488) = 0u;
   *(a1 + 504) = 0u;
   *(a1 + 592) = 0u;
-  v10[0] = &unk_1F59696F8;
-  v10[3] = v10;
-  std::__function::__value_func<unsigned long long ()(void)>::swap[abi:ne200100](v10, (a1 + 608));
-  std::__function::__value_func<unsigned long long ()(void)>::~__value_func[abi:ne200100](v10);
-  v8 = *MEMORY[0x1E69E9840];
+  v9[0] = &unk_1F59696F8;
+  v9[3] = v9;
+  std::__function::__value_func<unsigned long long ()(void)>::swap[abi:ne200100](v9, (a1 + 608));
+  std::__function::__value_func<unsigned long long ()(void)>::~__value_func[abi:ne200100](v9);
   return a1;
 }
 
@@ -6633,22 +8970,21 @@ uint64_t HALS_IOClock::Reset(HALS_IOClock *this, double a2, int a3, int a4, char
   *(this + 48) = 0;
   *(this + 65) = 0;
   bzero(this + 200, 40 * *(this + 47));
-  HALS_IOClock::ResetFilter(this, *(this + 14), v11);
+  v11.n128_u64[0] = *(this + 14);
+  HALS_IOClock::ResetFilter(this, v11, v12);
   *(this + 146) = 0;
   *(this + 37) = 0u;
-  result = std::__function::__value_func<unsigned long long ()(void)>::~__value_func[abi:ne200100](v15);
-  v13 = *MEMORY[0x1E69E9840];
-  return result;
+  return std::__function::__value_func<unsigned long long ()(void)>::~__value_func[abi:ne200100](v15);
 }
 
-void sub_1DE37C998(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1DE37C998(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
   v6 = va_arg(va1, void);
   v7 = va_arg(va1, void);
+  v8 = va_arg(va1, void);
   std::__function::__value_func<unsigned long long ()(void)>::~__value_func[abi:ne200100](va);
   std::__function::__value_func<unsigned long long ()(void)>::~__value_func[abi:ne200100](va1);
   _Unwind_Resume(a1);
@@ -6688,7 +9024,7 @@ uint64_t std::__function::__func<HALS_IOClock::Reset(double,unsigned int,unsigne
 
 void AMCP::IOAudio2::Device::Device(uint64_t a1, uint64_t a2, unsigned int *a3, CFDictionaryRef *a4)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   *a1 = a2;
   if (*a4)
   {
@@ -6700,35 +9036,35 @@ void AMCP::IOAudio2::Device::Device(uint64_t a1, uint64_t a2, unsigned int *a3, 
       applesauce::CF::convert_to<std::string,0>(queue, v7);
       if (v30 >= 0)
       {
-        v8 = queue;
+        v9 = queue;
       }
 
       else
       {
-        v8 = queue[0];
+        v9 = queue[0];
       }
 
-      caulk::make_string("%s Work Queue", __p, v8);
-      if (v32 >= 0)
+      caulk::make_string(__p, "%s Work Queue", v8, v9);
+      if ((__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v9 = __p;
+        v10 = __p;
       }
 
       else
       {
-        v9 = __p[0];
+        v10 = __p[0].__r_.__value_.__r.__words[0];
       }
 
-      v10 = dispatch_queue_create(v9, 0);
-      AMCP::Utility::Dispatch_Queue::Dispatch_Queue(a1 + 24, v10);
-      if (v10)
+      v11 = dispatch_queue_create(v10, 0);
+      AMCP::Utility::Dispatch_Queue::Dispatch_Queue(a1 + 24, v11);
+      if (v11)
       {
-        dispatch_release(v10);
+        dispatch_release(v11);
       }
 
-      if (SHIBYTE(v32) < 0)
+      if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(__p[0]);
+        operator delete(__p[0].__r_.__value_.__l.__data_);
       }
 
       if (v30 < 0)
@@ -6736,13 +9072,13 @@ void AMCP::IOAudio2::Device::Device(uint64_t a1, uint64_t a2, unsigned int *a3, 
         operator delete(queue[0]);
       }
 
-      v11 = *a3;
-      *(a1 + 360) = v11;
-      if (!v11 || (v11 = IOObjectRetain(v11), v12 = v11, !v11))
+      v12 = *a3;
+      *(a1 + 360) = v12;
+      if (!v12 || (v12 = IOObjectRetain(v12), v13 = v12, !v12))
       {
         *(a1 + 368) = 0;
         *(a1 + 376) = 0;
-        *(a1 + 384) = AMCP::Utility::Mach_Port::create_port(v11);
+        *(a1 + 384) = AMCP::Utility::Mach_Port::create_port(v12);
         *(a1 + 388) = 257;
         *(a1 + 392) = 850045863;
         *(a1 + 400) = 0u;
@@ -6752,82 +9088,73 @@ void AMCP::IOAudio2::Device::Device(uint64_t a1, uint64_t a2, unsigned int *a3, 
         *(a1 + 464) = *a4;
         *a4 = 0;
         *(a1 + 520) = 0u;
-        v13 = (a1 + 520);
+        v14 = (a1 + 520);
         *(a1 + 536) = 0;
         *(a1 + 488) = 0u;
         *(a1 + 504) = 0u;
         *(a1 + 472) = 0u;
-        v14 = *(a1 + 464);
-        if (v14)
+        v15 = *(a1 + 464);
+        if (v15)
         {
-          __p[0] = 0;
-          applesauce::CF::at_or<applesauce::CF::ArrayRef,__CFString const*>(&v27, v14, @"input streams", __p);
-          if (__p[0])
+          __p[0].__r_.__value_.__r.__words[0] = 0;
+          applesauce::CF::at_or<applesauce::CF::ArrayRef,__CFString const*>(&v27, v15, @"input streams", __p);
+          if (__p[0].__r_.__value_.__r.__words[0])
           {
-            CFRelease(__p[0]);
+            CFRelease(__p[0].__r_.__value_.__l.__data_);
           }
 
-          AMCP::IOAudio2::Stream::create_from_dictionary_list(__p, a1, 1, &v27);
+          AMCP::IOAudio2::Stream::create_from_dictionary_list(&__p[0].__r_.__value_.__l.__data_, a1, 1, &v27);
           std::vector<std::shared_ptr<AMCP::IOAudio2::Stream>>::__vdeallocate((a1 + 496));
-          *(a1 + 496) = *__p;
-          *(a1 + 512) = v32;
-          v32 = 0;
-          __p[1] = 0;
-          __p[0] = 0;
+          *(a1 + 496) = __p[0];
+          memset(__p, 0, 24);
           queue[0] = __p;
           std::vector<std::shared_ptr<DSP_Host_Types::DeviceConfiguration>>::__destroy_vector::operator()[abi:ne200100](queue);
-          v15 = *(a1 + 464);
-          if (v15)
+          v16 = *(a1 + 464);
+          if (v16)
           {
-            __p[0] = 0;
-            applesauce::CF::at_or<applesauce::CF::ArrayRef,__CFString const*>(&v26, v15, @"output streams", __p);
-            if (__p[0])
+            __p[0].__r_.__value_.__r.__words[0] = 0;
+            applesauce::CF::at_or<applesauce::CF::ArrayRef,__CFString const*>(&v26, v16, @"output streams", __p);
+            if (__p[0].__r_.__value_.__r.__words[0])
             {
-              CFRelease(__p[0]);
+              CFRelease(__p[0].__r_.__value_.__l.__data_);
             }
 
-            AMCP::IOAudio2::Stream::create_from_dictionary_list(__p, a1, 0, &v26);
+            AMCP::IOAudio2::Stream::create_from_dictionary_list(&__p[0].__r_.__value_.__l.__data_, a1, 0, &v26);
             std::vector<std::shared_ptr<AMCP::IOAudio2::Stream>>::__vdeallocate((a1 + 472));
-            *(a1 + 472) = *__p;
-            *(a1 + 488) = v32;
-            v32 = 0;
-            __p[1] = 0;
-            __p[0] = 0;
+            *(a1 + 472) = __p[0];
+            memset(__p, 0, 24);
             queue[0] = __p;
             std::vector<std::shared_ptr<DSP_Host_Types::DeviceConfiguration>>::__destroy_vector::operator()[abi:ne200100](queue);
-            v16 = *(a1 + 464);
-            if (v16)
+            v17 = *(a1 + 464);
+            if (v17)
             {
-              __p[0] = 0;
-              applesauce::CF::at_or<applesauce::CF::ArrayRef,__CFString const*>(&v25, v16, @"controls", __p);
-              if (__p[0])
+              __p[0].__r_.__value_.__r.__words[0] = 0;
+              applesauce::CF::at_or<applesauce::CF::ArrayRef,__CFString const*>(&v25, v17, @"controls", __p);
+              if (__p[0].__r_.__value_.__r.__words[0])
               {
-                CFRelease(__p[0]);
+                CFRelease(__p[0].__r_.__value_.__l.__data_);
               }
 
               AMCP::IOAudio2::Control::create_from_dictionary_list(__p, a1, &v25);
-              if (*v13)
+              if (*v14)
               {
                 std::vector<std::shared_ptr<DSP_Host_Types::DeviceConfiguration>>::clear[abi:ne200100]((a1 + 520));
-                operator delete(*v13);
-                *v13 = 0;
+                operator delete(*v14);
+                *v14 = 0;
                 *(a1 + 528) = 0;
                 *(a1 + 536) = 0;
               }
 
-              *v13 = *__p;
-              *(a1 + 536) = v32;
-              v32 = 0;
-              __p[1] = 0;
-              __p[0] = 0;
+              *v14 = *&__p[0].__r_.__value_.__l.__data_;
+              *(a1 + 536) = *(&__p[0].__r_.__value_.__l + 2);
+              memset(__p, 0, 24);
               queue[0] = __p;
               std::vector<std::shared_ptr<DSP_Host_Types::DeviceConfiguration>>::__destroy_vector::operator()[abi:ne200100](queue);
               AMCP::Utility::Dispatch_Queue::Dispatch_Queue(__p, (*(*(*a1 + 32) + 32) + 368));
               AMCP::Utility::Dispatch_Queue::Dispatch_Queue(queue, (*(*(*a1 + 32) + 32) + 704));
-              AMCP::Utility::Dispatch_Queue::Dispatch_Queue(object, __p);
+              AMCP::Utility::Dispatch_Queue::Dispatch_Queue(object, &__p[0].__r_.__value_.__l.__data_);
               dispatch_set_target_queue(object[0], queue[0]);
               AMCP::Utility::Dispatch_Queue::~Dispatch_Queue(object);
-              v17 = *a3;
               operator new();
             }
 
@@ -6848,7 +9175,7 @@ void AMCP::IOAudio2::Device::Device(uint64_t a1, uint64_t a2, unsigned int *a3, 
 
       v23 = __cxa_allocate_exception(0x20uLL);
       v24 = std::system_category();
-      MEMORY[0x1E12C10C0](v23, v12, v24, "Error on Retain");
+      MEMORY[0x1E12C10C0](v23, v13, v24, "Error on Retain");
       __cxa_throw(v23, MEMORY[0x1E69E53B8], MEMORY[0x1E69E52D0]);
     }
 
@@ -6891,14 +9218,14 @@ void sub_1DE37E04C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   JUMPOUT(0x1DE37E620);
 }
 
-void sub_1DE37E0E0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_1DE37E0E0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a10);
+  va_start(va, a18);
   applesauce::CF::ObjectRef<__CFString const*>::~ObjectRef(va);
   JUMPOUT(0x1DE37E4F8);
 }
 
-void sub_1DE37E190(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35)
+void sub_1DE37E190(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, const void *a35)
 {
   if (!*(v35 - 128))
   {
@@ -6911,7 +9238,7 @@ void sub_1DE37E190(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   JUMPOUT(0x1DE37E208);
 }
 
-void sub_1DE37E1DC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, io_object_t *a12, uint64_t a13, uint64_t a14, uint64_t a15, _Unwind_Exception *exception_object, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, const void *a32, const void *a33, const void *a34, const void *a35)
+void sub_1DE37E1DC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, io_object_t *a12, uint64_t a13, uint64_t a14, uint64_t a15, _Unwind_Exception *exception_object, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, const void *a32, const void *a33, const void *a34, const void *a35)
 {
   if (exception_object)
   {
@@ -6952,11 +9279,11 @@ void sub_1DE37E210(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   JUMPOUT(0x1DE37E4F8);
 }
 
-void sub_1DE37E288(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, int buf, int a40, int a41, __int16 a42, __int16 a43, __int16 a44, __int16 a45)
+void sub_1DE37E288(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, int buf, int a40, int a41, __int16 a42, __int16 a43, __int16 a44, __int16 a45)
 {
   if (a2)
   {
-    MEMORY[0x1E12C1730](v45, 0x1000C4052888210);
+    MEMORY[0x1E12C1730](v45, 0x1000C4052888210, a3, a4, a5, a6, a7, a8);
     v49 = __cxa_begin_catch(a1);
     v50 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
     if (a2 == 2)
@@ -7118,7 +9445,7 @@ void sub_1DE37E488(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   JUMPOUT(0x1DE37E620);
 }
 
-void sub_1DE37E520(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, io_object_t *a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *__p, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, char a36, uint64_t a37, uint64_t a38, char a39)
+void sub_1DE37E520(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, io_object_t *a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *__p, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39)
 {
   if (__p)
   {
@@ -7407,49 +9734,49 @@ void AMCP::Utility::Mach_Port::~Mach_Port(AMCP::Utility::Mach_Port *this)
   std::mutex::~mutex((this + 8));
 }
 
-void AMCP::IOAudio2::Device::update_core_common(uint64_t a1)
+void AMCP::IOAudio2::Device::update_core_common(const __CFDictionary **a1, float *a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 464);
-  if (v1)
+  v19 = *MEMORY[0x1E69E9840];
+  v2 = a1[58];
+  if (v2)
   {
-    applesauce::CF::details::find_at_key_or_optional<applesauce::CF::StringRef,__CFString const*>(&v8, v1, @"device name");
-    if (v9)
+    applesauce::CF::details::find_at_key_or_optional<applesauce::CF::StringRef,__CFString const*>(&v9, v2, @"device name");
+    if (v10)
     {
-      v16 = 0x676C6F626C6E616DLL;
-      LODWORD(v17) = 0;
-      AMCP::Core::Operation_Utilities::make_constant_property<applesauce::CF::StringRef>(&v10, &v16, v8);
+      v17 = 0x676C6F626C6E616DLL;
+      LODWORD(v18) = 0;
+      AMCP::Core::Operation_Utilities::make_constant_property<applesauce::CF::StringRef>(&v11, &v17, v9);
     }
 
-    v3 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
-    if ((v3 & 1) == 0)
+    v4 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
+    if ((v4 & 1) == 0)
     {
-      AMCP::Log::AMCP_Scope_Registry::initialize(v2);
+      AMCP::Log::AMCP_Scope_Registry::initialize(v3);
     }
 
-    v5 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
-    v4 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
-    if (v4)
+    v6 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
+    v5 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
+    if (v5)
     {
-      atomic_fetch_add_explicit(&v4->__shared_owners_, 1uLL, memory_order_relaxed);
-      v6 = *v5;
-      std::__shared_weak_count::__release_shared[abi:ne200100](v4);
+      atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
+      v7 = *v6;
+      std::__shared_weak_count::__release_shared[abi:ne200100](v5);
     }
 
     else
     {
-      v6 = *v5;
+      v7 = *v6;
     }
 
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v10 = 136315650;
-      v11 = "IOAudio2_Device.cpp";
-      v12 = 1024;
-      v13 = 124;
+      v11 = 136315650;
+      v12 = "IOAudio2_Device.cpp";
+      v13 = 1024;
+      v14 = 124;
       connect_2 = 2080;
-      v15 = "device_name_opt.operator BOOL() == true";
-      _os_log_error_impl(&dword_1DE1F9000, v6, OS_LOG_TYPE_ERROR, "%32s:%-5d Assertion Failed: %s Devices have to have a name", &v10, 0x1Cu);
+      v16 = "device_name_opt.operator BOOL() == true";
+      _os_log_error_impl(&dword_1DE1F9000, v7, OS_LOG_TYPE_ERROR, "%32s:%-5d Assertion Failed: %s Devices have to have a name", &v11, 0x1Cu);
     }
 
     abort();
@@ -7611,2418 +9938,4 @@ LABEL_26:
   }
 
   return IOConnectRelease(v9);
-}
-
-void sub_1DE381A08(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, int a15, __int16 a16, char a17, char a18, void *a19, uint64_t a20, int a21, __int16 a22, char a23, char a24, void *__p, uint64_t a26, int a27, __int16 a28, char a29, char a30, uint64_t a31, uint64_t a32, void *a33)
-{
-  if (a30 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (a18 < 0)
-  {
-    operator delete(a13);
-  }
-
-  if (a24 < 0)
-  {
-    operator delete(a19);
-    if ((v35 & 1) == 0)
-    {
-LABEL_10:
-      v38 = *(v36 - 120);
-      if (v38)
-      {
-        operator delete(v38);
-      }
-
-      IOConnectRelease(v33);
-      _Unwind_Resume(a1);
-    }
-  }
-
-  else if (!v35)
-  {
-    goto LABEL_10;
-  }
-
-  __cxa_free_exception(v34);
-  goto LABEL_10;
-}
-
-uint64_t AMCP::IOAudio2::Device::get_device_connection(AMCP::IOAudio2::Device *this, io_connect_t a2)
-{
-  *this = a2;
-  result = IOConnectAddRef(a2);
-  if (result)
-  {
-    v3 = result;
-    exception = __cxa_allocate_exception(0x20uLL);
-    v5 = std::system_category();
-    MEMORY[0x1E12C10C0](exception, v3, v5, "Error on IOConnectAddRef");
-    __cxa_throw(exception, MEMORY[0x1E69E53B8], MEMORY[0x1E69E52D0]);
-  }
-
-  return result;
-}
-
-void std::vector<unsigned long long>::resize(uint64_t *a1, unint64_t a2)
-{
-  v3 = *a1;
-  v4 = a1[1];
-  v5 = (v4 - *a1) >> 3;
-  if (a2 <= v5)
-  {
-    if (a2 >= v5)
-    {
-      return;
-    }
-
-    v11 = v3 + 8 * a2;
-  }
-
-  else
-  {
-    v6 = a2 - v5;
-    v7 = a1[2];
-    if (v6 > (v7 - v4) >> 3)
-    {
-      if (!(a2 >> 61))
-      {
-        v8 = v7 - v3;
-        v9 = v8 >> 2;
-        if (v8 >> 2 <= a2)
-        {
-          v9 = a2;
-        }
-
-        if (v8 >= 0x7FFFFFFFFFFFFFF8)
-        {
-          v10 = 0x1FFFFFFFFFFFFFFFLL;
-        }
-
-        else
-        {
-          v10 = v9;
-        }
-
-        std::allocator<unsigned long>::allocate_at_least[abi:ne200100](v10);
-      }
-
-      std::vector<void *>::__throw_length_error[abi:ne200100]();
-    }
-
-    bzero(a1[1], 8 * v6);
-    v11 = v4 + 8 * v6;
-  }
-
-  a1[1] = v11;
-}
-
-uint64_t std::__function::__func<AMCP::IOAudio2::Device::build_core(void)::$_2,std::allocator<AMCP::IOAudio2::Device::build_core(void)::$_2>,void ()(applesauce::CF::DictionaryRef const&)>::__clone(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_1F5969C08;
-  a2[1] = v2;
-  return result;
-}
-
-uint64_t std::__function::__func<AMCP::IOAudio2::Device::build_core(void)::$_1,std::allocator<AMCP::IOAudio2::Device::build_core(void)::$_1>,applesauce::CF::DictionaryRef ()(void)>::target(uint64_t a1, uint64_t a2)
-{
-  if (std::type_info::operator==[abi:ne200100](*(a2 + 8), "ZN4AMCP8IOAudio26Device10build_coreEvE3$_1"))
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-void std::__function::__func<AMCP::IOAudio2::Device::build_core(void)::$_1,std::allocator<AMCP::IOAudio2::Device::build_core(void)::$_1>,applesauce::CF::DictionaryRef ()(void)>::operator()(CFDictionaryRef *a1@<X8>)
-{
-  v11 = *MEMORY[0x1E69E9840];
-  cf = CFStringCreateWithBytes(0, "kind", 4, 0x8000100u, 0);
-  if (!cf)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "Could not construct");
-    __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-  }
-
-  valuePtr = 0;
-  v2 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
-  if (!v2)
-  {
-    v5 = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(v5, "Could not construct");
-    __cxa_throw(v5, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-  }
-
-  CFRetain(cf);
-  v9 = cf;
-  CFRetain(v2);
-  v10 = v2;
-  v7[0] = &v9;
-  v7[1] = 1;
-  *a1 = applesauce::CF::details::make_CFDictionaryRef(v7);
-  if (v10)
-  {
-    CFRelease(v10);
-  }
-
-  if (v9)
-  {
-    CFRelease(v9);
-  }
-
-  CFRelease(v2);
-  CFRelease(cf);
-  v3 = *MEMORY[0x1E69E9840];
-}
-
-void sub_1DE381F64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, const void *a9, const void *a10)
-{
-  applesauce::CF::ObjectRef<__CFNumber const*>::~ObjectRef(&a9);
-  applesauce::CF::StringRef::~StringRef(&a10);
-  _Unwind_Resume(a1);
-}
-
-uint64_t std::__function::__func<std::shared_ptr<AMCP::Core::Operation> AMCP::Core::Operation_Utilities::make_owned_object_with_properties_list_property<unsigned int,AMCP::Address,unsigned int>(AMCP::Core::Broker &,unsigned int,AMCP::Address const&,AMCP::Address const&,unsigned int const&,AMCP::Address,unsigned int const&)::{lambda(void)#1},std::allocator<std::shared_ptr<AMCP::Core::Operation> AMCP::Core::Operation_Utilities::make_owned_object_with_properties_list_property<unsigned int,AMCP::Address,unsigned int>(AMCP::Core::Broker &,unsigned int,AMCP::Address const&,AMCP::Address const&,unsigned int const&,AMCP::Address,unsigned int const&)::{lambda(void)#1}>,std::vector<unsigned int> ()(void)>::target(uint64_t a1, uint64_t a2)
-{
-  if (std::type_info::operator==[abi:ne200100](*(a2 + 8), "ZN4AMCP4Core19Operation_Utilities47make_owned_object_with_properties_list_propertyIjJNS_7AddressEjEEENSt3__110shared_ptrINS0_9OperationEEERNS0_6BrokerEjRKS3_SB_RKT_DpRKT0_EUlvE_"))
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-void std::__function::__func<std::shared_ptr<AMCP::Core::Operation> AMCP::Core::Operation_Utilities::make_owned_object_with_properties_list_property<unsigned int,AMCP::Address,unsigned int>(AMCP::Core::Broker &,unsigned int,AMCP::Address const&,AMCP::Address const&,unsigned int const&,AMCP::Address,unsigned int const&)::{lambda(void)#1},std::allocator<std::shared_ptr<AMCP::Core::Operation> AMCP::Core::Operation_Utilities::make_owned_object_with_properties_list_property<unsigned int,AMCP::Address,unsigned int>(AMCP::Core::Broker &,unsigned int,AMCP::Address const&,AMCP::Address const&,unsigned int const&,AMCP::Address,unsigned int const&)::{lambda(void)#1}>,std::vector<unsigned int> ()(void)>::operator()(uint64_t a1)
-{
-  v3 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 8);
-  v2 = *(a1 + 16);
-  operator new();
-}
-
-void sub_1DE3821DC(_Unwind_Exception *a1, int a2)
-{
-  if (!a2)
-  {
-    _Unwind_Resume(a1);
-  }
-
-  __clang_call_terminate(a1);
-}
-
-uint64_t _ZNKSt3__110__function6__funcIZN4AMCP4Core16Broker_Utilities49fetch_owned_object_ids_with_properties_and_valuesIjJRKNS2_7AddressERKjENS_9enable_ifILb1EvEEEENS_6vectorIjNS_9allocatorIjEEEERNS3_6BrokerEjS8_RKT_DpOT0_EUlSL_E_NSE_ISP_EEFbRKNS_10shared_ptrINS3_4CoreEEEEE6targetERKSt9type_info(uint64_t a1, uint64_t a2)
-{
-  if (std::type_info::operator==[abi:ne200100](*(a2 + 8), "ZN4AMCP4Core16Broker_Utilities49fetch_owned_object_ids_with_properties_and_valuesIjJRKNS_7AddressERKjENSt3__19enable_ifILb1EvEEEENS8_6vectorIjNS8_9allocatorIjEEEERNS0_6BrokerEjS5_RKT_DpOT0_EUlSJ_E_"))
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-BOOL _ZNSt3__110__function6__funcIZN4AMCP4Core16Broker_Utilities49fetch_owned_object_ids_with_properties_and_valuesIjJRKNS2_7AddressERKjENS_9enable_ifILb1EvEEEENS_6vectorIjNS_9allocatorIjEEEERNS3_6BrokerEjS8_RKT_DpOT0_EUlSL_E_NSE_ISP_EEFbRKNS_10shared_ptrINS3_4CoreEEEEEclESV_(void *a1, AMCP::Core::Core **a2)
-{
-  v2 = *a2;
-  v3 = a1[1];
-  v4 = a1[2];
-  v5 = a1[3];
-  v6 = a1[4];
-  v7 = AMCP::Core::Core::get_typed_property_value<unsigned int,std::enable_if<true,void>>(*a2, v3);
-  if (!HIDWORD(v7))
-  {
-    return 0;
-  }
-
-  if (*v3 == 1668047219 || *v3 == 1650682995)
-  {
-    if ((AMCP::is_base_of(*v4, v7) & 1) == 0)
-    {
-      return 0;
-    }
-  }
-
-  else if (*v4 != v7)
-  {
-    return 0;
-  }
-
-  return _ZN4AMCP4Core4Core26has_properties_with_valuesIjJENSt3__19enable_ifILb1EvEEEEbRKNS_7AddressERKT_DpOT0_(v2, v5, v6);
-}
-
-__n128 _ZNKSt3__110__function6__funcIZN4AMCP4Core16Broker_Utilities49fetch_owned_object_ids_with_properties_and_valuesIjJRKNS2_7AddressERKjENS_9enable_ifILb1EvEEEENS_6vectorIjNS_9allocatorIjEEEERNS3_6BrokerEjS8_RKT_DpOT0_EUlSL_E_NSE_ISP_EEFbRKNS_10shared_ptrINS3_4CoreEEEEE7__cloneEPNS0_6__baseISW_EE(uint64_t a1, uint64_t a2)
-{
-  *a2 = &unk_1F5980A38;
-  result = *(a1 + 8);
-  *(a2 + 24) = *(a1 + 24);
-  *(a2 + 8) = result;
-  return result;
-}
-
-__n128 std::__function::__func<std::shared_ptr<AMCP::Core::Operation> AMCP::Core::Operation_Utilities::make_owned_object_with_properties_list_property<unsigned int,AMCP::Address,unsigned int>(AMCP::Core::Broker &,unsigned int,AMCP::Address const&,AMCP::Address const&,unsigned int const&,AMCP::Address,unsigned int const&)::{lambda(void)#1},std::allocator<std::shared_ptr<AMCP::Core::Operation> AMCP::Core::Operation_Utilities::make_owned_object_with_properties_list_property<unsigned int,AMCP::Address,unsigned int>(AMCP::Core::Broker &,unsigned int,AMCP::Address const&,AMCP::Address const&,unsigned int const&,AMCP::Address,unsigned int const&)::{lambda(void)#1}>,std::vector<unsigned int> ()(void)>::__clone(uint64_t a1, uint64_t a2)
-{
-  *a2 = &unk_1F59809C8;
-  v2 = *(a1 + 8);
-  *(a2 + 16) = *(a1 + 16);
-  *(a2 + 8) = v2;
-  *(a2 + 20) = *(a1 + 20);
-  result = *(a1 + 36);
-  *(a2 + 36) = result;
-  *(a2 + 52) = 0;
-  return result;
-}
-
-void applesauce::CF::details::find_at_key_or_optional<applesauce::CF::StringRef,__CFString const*>(_BYTE *a1, CFDictionaryRef theDict, const void *a3)
-{
-  v4 = applesauce::CF::details::at_key<__CFString const*>(theDict, a3);
-  if (!v4)
-  {
-    goto LABEL_5;
-  }
-
-  v5 = v4;
-  CFRetain(v4);
-  v6 = CFGetTypeID(v5);
-  if (v6 != CFStringGetTypeID())
-  {
-    CFRelease(v5);
-LABEL_5:
-    v7 = 0;
-    *a1 = 0;
-    goto LABEL_6;
-  }
-
-  *a1 = v5;
-  v7 = 1;
-LABEL_6:
-  a1[8] = v7;
-}
-
-void AMCP::Core::Operation_Utilities::make_constant_property<CA::ChannelLayout>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v4[17] = *MEMORY[0x1E69E9840];
-  memset(v4, 0, 24);
-  std::vector<char>::__init_with_size[abi:ne200100]<char *,char *>(v4, a3, a4, a4 - a3);
-  std::allocate_shared[abi:ne200100]<AMCP::Core::Operation,std::allocator<AMCP::Core::Operation>,AMCP::Address const&,0>();
-}
-
-void sub_1DE382690(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9)
-{
-  if (!a2)
-  {
-    _Unwind_Resume(exception_object);
-  }
-
-  __clang_call_terminate(exception_object);
-}
-
-uint64_t AMCP::CF::fetch_BOOL_from_dictionary<__CFString const*>(CFDictionaryRef *a1, const void **a2)
-{
-  if (!*a1)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "Could not construct");
-    goto LABEL_16;
-  }
-
-  applesauce::CF::details::find_at_key_or_optional<applesauce::CF::BooleanRef,__CFString const*>(&cf, *a1, *a2);
-  if (v11 != 1)
-  {
-    if (*a1)
-    {
-      applesauce::CF::details::find_at_key_or_optional<applesauce::CF::NumberRef,__CFString const*>(&v8, *a1, *a2);
-      if (v9 != 1)
-      {
-        return 0;
-      }
-
-      v5 = v8;
-      if (v8)
-      {
-        v4 = applesauce::CF::convert_to<BOOL,0>(v8);
-        CFRelease(v5);
-        return v4;
-      }
-
-      exception = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(exception, "Could not construct");
-LABEL_16:
-      __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-    }
-
-LABEL_13:
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "Could not construct");
-    goto LABEL_16;
-  }
-
-  if (!cf)
-  {
-    goto LABEL_13;
-  }
-
-  v4 = applesauce::CF::convert_to<BOOL,0>(cf);
-  if (cf)
-  {
-    CFRelease(cf);
-  }
-
-  return v4;
-}
-
-{
-  if (!*a1)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    applesauce::CF::construct_error(exception);
-    __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-  }
-
-  applesauce::CF::details::find_at_key_or_optional<applesauce::CF::BooleanRef,__CFString const*>(&cf, *a1, *a2);
-  if (v15 == 1)
-  {
-    if (!cf)
-    {
-      v9 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v9, "Could not construct");
-      __cxa_throw(v9, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-    }
-
-    v4 = applesauce::CF::convert_to<BOOL,0>(cf);
-    if (cf)
-    {
-      CFRelease(cf);
-    }
-  }
-
-  else
-  {
-    if (!*a1)
-    {
-      v10 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v10, "Could not construct");
-      __cxa_throw(v10, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-    }
-
-    applesauce::CF::details::find_at_key_or_optional<applesauce::CF::NumberRef,__CFString const*>(&v12, *a1, *a2);
-    if (v13 != 1)
-    {
-      v6 = 0;
-      v4 = 0;
-      return v4 | (v6 << 8);
-    }
-
-    v5 = v12;
-    if (!v12)
-    {
-      v11 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v11, "Could not construct");
-      __cxa_throw(v11, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-    }
-
-    v4 = applesauce::CF::convert_to<BOOL,0>(v12);
-    CFRelease(v5);
-  }
-
-  v6 = 1;
-  return v4 | (v6 << 8);
-}
-
-{
-  if (!*a1)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "Could not construct");
-    goto LABEL_16;
-  }
-
-  applesauce::CF::details::find_at_key_or_optional<applesauce::CF::BooleanRef,__CFString const*>(&cf, *a1, *a2);
-  if (v11 != 1)
-  {
-    if (*a1)
-    {
-      applesauce::CF::details::find_at_key_or_optional<applesauce::CF::NumberRef,__CFString const*>(&v8, *a1, *a2);
-      if (v9 != 1)
-      {
-        return 0;
-      }
-
-      v5 = v8;
-      if (v8)
-      {
-        v4 = applesauce::CF::convert_to<BOOL,0>(v8);
-        CFRelease(v5);
-        return v4;
-      }
-
-      exception = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(exception, "Could not construct");
-LABEL_16:
-      __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-    }
-
-LABEL_13:
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "Could not construct");
-    goto LABEL_16;
-  }
-
-  if (!cf)
-  {
-    goto LABEL_13;
-  }
-
-  v4 = applesauce::CF::convert_to<BOOL,0>(cf);
-  if (cf)
-  {
-    CFRelease(cf);
-  }
-
-  return v4;
-}
-
-{
-  if (!*a1)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "Could not construct");
-    goto LABEL_16;
-  }
-
-  applesauce::CF::details::find_at_key_or_optional<applesauce::CF::BooleanRef,__CFString const*>(&cf, *a1, *a2);
-  if (v11 != 1)
-  {
-    if (*a1)
-    {
-      applesauce::CF::details::find_at_key_or_optional<applesauce::CF::NumberRef,__CFString const*>(&v8, *a1, *a2);
-      if (v9 != 1)
-      {
-        return 0;
-      }
-
-      v5 = v8;
-      if (v8)
-      {
-        v4 = applesauce::CF::convert_to<BOOL,0>(v8);
-        CFRelease(v5);
-        return v4;
-      }
-
-      exception = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(exception, "Could not construct");
-LABEL_16:
-      __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-    }
-
-LABEL_13:
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "Could not construct");
-    goto LABEL_16;
-  }
-
-  if (!cf)
-  {
-    goto LABEL_13;
-  }
-
-  v4 = applesauce::CF::convert_to<BOOL,0>(cf);
-  if (cf)
-  {
-    CFRelease(cf);
-  }
-
-  return v4;
-}
-
-void *applesauce::CF::details::find_at_key<applesauce::CF::NumberRef,__CFString const*>(void *a1, CFDictionaryRef theDict, const void *a3)
-{
-  v4 = applesauce::CF::details::at_key<__CFString const*>(theDict, a3);
-  if (!v4)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    applesauce::CF::not_found(exception);
-    __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-  }
-
-  return applesauce::CF::NumberRef::from_get(a1, v4);
-}
-
-void std::vector<AMCP::Core::Implementation::Simple_Engine_Data::Stream_Info>::__init_with_size[abi:ne200100]<AMCP::Core::Implementation::Simple_Engine_Data::Stream_Info*,AMCP::Core::Implementation::Simple_Engine_Data::Stream_Info*>(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
-{
-  if (a4)
-  {
-    if (a4 < 0x492492492492493)
-    {
-      std::allocator<AMCP::Core::Implementation::Simple_Engine_Data::Stream_Info>::allocate_at_least[abi:ne200100](a4);
-    }
-
-    std::vector<void *>::__throw_length_error[abi:ne200100]();
-  }
-}
-
-void sub_1DE382984(_Unwind_Exception *exception_object)
-{
-  v3 = *v1;
-  if (*v1)
-  {
-    *(v1 + 8) = v3;
-    operator delete(v3);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t AMCP::Implementation::get_type_marker<std::function<std::shared_ptr<AMCP::Core::Engine> ()(void)>>()
-{
-  v0 = &unk_1ECDAE000;
-  {
-    v0 = &unk_1ECDAE000;
-    if (v2)
-    {
-      v0 = &unk_1ECDAE000;
-    }
-  }
-
-  return v0[351];
-}
-
-uint64_t std::__function::__value_func<std::shared_ptr<AMCP::Core::Engine> ()(void)>::__value_func[abi:ne200100](uint64_t a1, uint64_t a2)
-{
-  v3 = (a2 + 24);
-  v4 = *(a2 + 24);
-  if (v4)
-  {
-    if (v4 == a2)
-    {
-      *(a1 + 24) = a1;
-      (*(**v3 + 24))(*v3, a1);
-      return a1;
-    }
-
-    *(a1 + 24) = v4;
-  }
-
-  else
-  {
-    v3 = (a1 + 24);
-  }
-
-  *v3 = 0;
-  return a1;
-}
-
-uint64_t std::__function::__value_func<std::shared_ptr<AMCP::Core::Engine> ()(void)>::~__value_func[abi:ne200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-uint64_t AMCP::Implementation::In_Place_Storage<std::function<std::shared_ptr<AMCP::Core::Engine> ()(void)>>::dispatch(int a1, uint64_t a2, AMCP::Thing *a3, uint64_t *a4)
-{
-  result = 0;
-  if (a1 > 2)
-  {
-    switch(a1)
-    {
-      case 3:
-        v9 = AMCP::Implementation::get_type_marker<std::function<std::shared_ptr<AMCP::Core::Engine> ()(void)>>();
-        result = 0;
-        *a4 = v9;
-        break;
-      case 4:
-        if (*a4 == AMCP::Implementation::get_type_marker<std::function<std::shared_ptr<AMCP::Core::Engine> ()(void)>>())
-        {
-          return a2;
-        }
-
-        else
-        {
-          return 0;
-        }
-
-      case 6:
-        v12 = 0;
-        memset(v11, 0, sizeof(v11));
-        AMCP::swap(v11, a3, a3);
-        if (v12)
-        {
-          v12(0, v11, 0, 0);
-        }
-
-        return 0;
-    }
-  }
-
-  else
-  {
-    if (!a1)
-    {
-LABEL_6:
-      std::__function::__value_func<std::shared_ptr<AMCP::Core::Engine> ()(void)>::~__value_func[abi:ne200100](a2);
-      result = 0;
-      *(a2 + 32) = 0;
-      *a2 = 0u;
-      *(a2 + 16) = 0u;
-      return result;
-    }
-
-    if (a1 != 1)
-    {
-      if (a1 != 2)
-      {
-        return result;
-      }
-
-      *a3 = 0u;
-      *(a3 + 1) = 0u;
-      std::__function::__value_func<std::shared_ptr<AMCP::Core::Engine> ()(void)>::__value_func[abi:ne200100](a3, a2);
-      *(a3 + 4) = AMCP::Implementation::In_Place_Storage<std::function<std::shared_ptr<AMCP::Core::Engine> ()(void)>>::dispatch;
-      goto LABEL_6;
-    }
-
-    *a3 = 0u;
-    *(a3 + 1) = 0u;
-    v10 = *(a2 + 24);
-    if (v10)
-    {
-      if (v10 == a2)
-      {
-        *(a3 + 3) = a3;
-        (*(**(a2 + 24) + 24))(*(a2 + 24), a3);
-      }
-
-      else
-      {
-        *(a3 + 3) = (*(*v10 + 16))(v10);
-      }
-    }
-
-    result = 0;
-    *(a3 + 4) = AMCP::Implementation::In_Place_Storage<std::function<std::shared_ptr<AMCP::Core::Engine> ()(void)>>::dispatch;
-  }
-
-  return result;
-}
-
-uint64_t std::__function::__func<AMCP::IOAudio2::Device::update_core_common(AMCP::Core::Operation_Set &)::$_2,std::allocator<AMCP::IOAudio2::Device::update_core_common(AMCP::Core::Operation_Set &)::$_2>,std::shared_ptr<AMCP::Core::Engine> ()(void)>::target(uint64_t a1, uint64_t a2)
-{
-  if (std::type_info::operator==[abi:ne200100](*(a2 + 8), "ZN4AMCP8IOAudio26Device18update_core_commonERNS_4Core13Operation_SetEE3$_2"))
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-void std::__function::__func<AMCP::IOAudio2::Device::update_core_common(AMCP::Core::Operation_Set &)::$_2,std::allocator<AMCP::IOAudio2::Device::update_core_common(AMCP::Core::Operation_Set &)::$_2>,std::shared_ptr<AMCP::Core::Engine> ()(void)>::operator()(uint64_t a1)
-{
-  v2 = *MEMORY[0x1E69E9840];
-  AMCP::Utility::Dispatch_Queue::Dispatch_Queue(v1, (*(*(a1 + 8) + 32) + 704));
-  operator new();
-}
-
-void sub_1DE382EA4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, int a17, io_connect_t connect, char a19)
-{
-  __cxa_free_exception(v20);
-  std::__shared_weak_count::~__shared_weak_count(v19);
-  operator delete(v22);
-  AMCP::Utility::Dispatch_Queue::~Dispatch_Queue(&a19);
-  _Unwind_Resume(a1);
-}
-
-void std::__shared_ptr_emplace<AMCP::IOAudio2::Engine>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
-{
-  a1->__vftable = &unk_1F596E5D8;
-  std::__shared_weak_count::~__shared_weak_count(a1);
-
-  JUMPOUT(0x1E12C1730);
-}
-
-void std::__function::__func<AMCP::IOAudio2::Device::update_core_common(AMCP::Core::Operation_Set &)::$_2,std::allocator<AMCP::IOAudio2::Device::update_core_common(AMCP::Core::Operation_Set &)::$_2>,std::shared_ptr<AMCP::Core::Engine> ()(void)>::destroy_deallocate(uint64_t a1)
-{
-  v2 = *(a1 + 104);
-  if (v2)
-  {
-    *(a1 + 112) = v2;
-    operator delete(v2);
-  }
-
-  v3 = *(a1 + 80);
-  if (v3)
-  {
-    *(a1 + 88) = v3;
-    operator delete(v3);
-  }
-
-  v4 = *(a1 + 32);
-  if (v4)
-  {
-    CFRelease(v4);
-  }
-
-  IOConnectRelease(*(a1 + 24));
-  v5 = *(a1 + 16);
-  if (v5)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
-  }
-
-  operator delete(a1);
-}
-
-void std::__function::__func<AMCP::IOAudio2::Device::update_core_common(AMCP::Core::Operation_Set &)::$_2,std::allocator<AMCP::IOAudio2::Device::update_core_common(AMCP::Core::Operation_Set &)::$_2>,std::shared_ptr<AMCP::Core::Engine> ()(void)>::destroy(uint64_t a1)
-{
-  v2 = *(a1 + 104);
-  if (v2)
-  {
-    *(a1 + 112) = v2;
-    operator delete(v2);
-  }
-
-  v3 = *(a1 + 80);
-  if (v3)
-  {
-    *(a1 + 88) = v3;
-    operator delete(v3);
-  }
-
-  v4 = *(a1 + 32);
-  if (v4)
-  {
-    CFRelease(v4);
-  }
-
-  IOConnectRelease(*(a1 + 24));
-  v5 = *(a1 + 16);
-  if (v5)
-  {
-
-    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
-  }
-}
-
-uint64_t std::__function::__func<AMCP::IOAudio2::Device::update_core_common(AMCP::Core::Operation_Set &)::$_2,std::allocator<AMCP::IOAudio2::Device::update_core_common(AMCP::Core::Operation_Set &)::$_2>,std::shared_ptr<AMCP::Core::Engine> ()(void)>::__clone(uint64_t a1, uint64_t a2)
-{
-  *a2 = &unk_1F5969A08;
-  result = AMCP::IOAudio2::Device::update_core_common(AMCP::Core::Operation_Set &)::$_2::$_2(a2 + 8, a1 + 8);
-  *(a2 + 134) = 0;
-  *(a2 + 130) = 0;
-  return result;
-}
-
-uint64_t AMCP::IOAudio2::Device::update_core_common(AMCP::Core::Operation_Set &)::$_2::$_2(uint64_t a1, uint64_t a2)
-{
-  v4 = *(a2 + 8);
-  *a1 = *a2;
-  *(a1 + 8) = v4;
-  if (v4)
-  {
-    atomic_fetch_add_explicit((v4 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  v5 = *(a2 + 16);
-  *(a1 + 16) = v5;
-  v6 = IOConnectAddRef(v5);
-  if (v6)
-  {
-    exception = __cxa_allocate_exception(0x20uLL);
-    v13 = std::system_category();
-    MEMORY[0x1E12C10C0](exception, v6, v13, "Error on IOConnectAddRef");
-    __cxa_throw(exception, MEMORY[0x1E69E53B8], MEMORY[0x1E69E52D0]);
-  }
-
-  v7 = *(a2 + 24);
-  if (v7)
-  {
-    CFRetain(*(a2 + 24));
-  }
-
-  *(a1 + 24) = v7;
-  v8 = *(a2 + 32);
-  v9 = *(a2 + 48);
-  v10 = *(a2 + 64);
-  *(a1 + 72) = 0;
-  *(a1 + 64) = v10;
-  *(a1 + 48) = v9;
-  *(a1 + 32) = v8;
-  *(a1 + 80) = 0;
-  *(a1 + 88) = 0;
-  std::vector<AMCP::Core::Implementation::Simple_Engine_Data::Stream_Info>::__init_with_size[abi:ne200100]<AMCP::Core::Implementation::Simple_Engine_Data::Stream_Info*,AMCP::Core::Implementation::Simple_Engine_Data::Stream_Info*>(a1 + 72, *(a2 + 72), *(a2 + 80), 0x6DB6DB6DB6DB6DB7 * ((*(a2 + 80) - *(a2 + 72)) >> 3));
-  *(a1 + 96) = 0;
-  *(a1 + 104) = 0;
-  *(a1 + 112) = 0;
-  std::vector<AMCP::Core::Implementation::Simple_Engine_Data::Stream_Info>::__init_with_size[abi:ne200100]<AMCP::Core::Implementation::Simple_Engine_Data::Stream_Info*,AMCP::Core::Implementation::Simple_Engine_Data::Stream_Info*>(a1 + 96, *(a2 + 96), *(a2 + 104), 0x6DB6DB6DB6DB6DB7 * ((*(a2 + 104) - *(a2 + 96)) >> 3));
-  *(a1 + 120) = *(a2 + 120);
-  return a1;
-}
-
-void sub_1DE383234(_Unwind_Exception *a1)
-{
-  __cxa_free_exception(v2);
-  v4 = *(v1 + 8);
-  if (v4)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v4);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void std::__function::__func<AMCP::IOAudio2::Device::update_core_common(AMCP::Core::Operation_Set &)::$_2,std::allocator<AMCP::IOAudio2::Device::update_core_common(AMCP::Core::Operation_Set &)::$_2>,std::shared_ptr<AMCP::Core::Engine> ()(void)>::~__func(uint64_t a1)
-{
-  *a1 = &unk_1F5969A08;
-  v2 = *(a1 + 104);
-  if (v2)
-  {
-    *(a1 + 112) = v2;
-    operator delete(v2);
-  }
-
-  v3 = *(a1 + 80);
-  if (v3)
-  {
-    *(a1 + 88) = v3;
-    operator delete(v3);
-  }
-
-  v4 = *(a1 + 32);
-  if (v4)
-  {
-    CFRelease(v4);
-  }
-
-  IOConnectRelease(*(a1 + 24));
-  v5 = *(a1 + 16);
-  if (v5)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
-  }
-
-  JUMPOUT(0x1E12C1730);
-}
-
-uint64_t std::__function::__func<AMCP::IOAudio2::Device::update_core_common(AMCP::Core::Operation_Set &)::$_2,std::allocator<AMCP::IOAudio2::Device::update_core_common(AMCP::Core::Operation_Set &)::$_2>,std::shared_ptr<AMCP::Core::Engine> ()(void)>::~__func(uint64_t a1)
-{
-  *a1 = &unk_1F5969A08;
-  v2 = *(a1 + 104);
-  if (v2)
-  {
-    *(a1 + 112) = v2;
-    operator delete(v2);
-  }
-
-  v3 = *(a1 + 80);
-  if (v3)
-  {
-    *(a1 + 88) = v3;
-    operator delete(v3);
-  }
-
-  v4 = *(a1 + 32);
-  if (v4)
-  {
-    CFRelease(v4);
-  }
-
-  IOConnectRelease(*(a1 + 24));
-  v5 = *(a1 + 16);
-  if (v5)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
-  }
-
-  return a1;
-}
-
-void applesauce::CF::details::find_at_key_or_optional<applesauce::CF::BooleanRef,__CFString const*>(_BYTE *a1, CFDictionaryRef theDict, const void *a3)
-{
-  v4 = applesauce::CF::details::at_key<__CFString const*>(theDict, a3);
-  if (!v4)
-  {
-    goto LABEL_5;
-  }
-
-  v5 = v4;
-  CFRetain(v4);
-  v6 = CFGetTypeID(v5);
-  if (v6 != CFBooleanGetTypeID())
-  {
-    CFRelease(v5);
-LABEL_5:
-    v7 = 0;
-    *a1 = 0;
-    goto LABEL_6;
-  }
-
-  *a1 = v5;
-  v7 = 1;
-LABEL_6:
-  a1[8] = v7;
-}
-
-uint64_t std::__function::__func<std::shared_ptr<AMCP::Core::Operation> AMCP::Core::Operation_Utilities::make_constant_property<CA::ChannelLayout>(AMCP::Address const&,CA::ChannelLayout const&)::{lambda(void)#1},std::allocator<std::shared_ptr<AMCP::Core::Operation> AMCP::Core::Operation_Utilities::make_constant_property<CA::ChannelLayout>(AMCP::Address const&,CA::ChannelLayout const&)::{lambda(void)#1}>,CA::ChannelLayout ()(void)>::target(uint64_t a1, uint64_t a2)
-{
-  if (std::type_info::operator==[abi:ne200100](*(a2 + 8), "ZN4AMCP4Core19Operation_Utilities22make_constant_propertyIN2CA13ChannelLayoutEEENSt3__110shared_ptrINS0_9OperationEEERKNS_7AddressERKT_EUlvE_"))
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t std::__function::__func<std::shared_ptr<AMCP::Core::Operation> AMCP::Core::Operation_Utilities::make_constant_property<CA::ChannelLayout>(AMCP::Address const&,CA::ChannelLayout const&)::{lambda(void)#1},std::allocator<std::shared_ptr<AMCP::Core::Operation> AMCP::Core::Operation_Utilities::make_constant_property<CA::ChannelLayout>(AMCP::Address const&,CA::ChannelLayout const&)::{lambda(void)#1}>,CA::ChannelLayout ()(void)>::operator()@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
-{
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
-  return std::vector<char>::__init_with_size[abi:ne200100]<char *,char *>(a2, *(a1 + 8), *(a1 + 16), *(a1 + 16) - *(a1 + 8));
-}
-
-void std::__function::__func<std::shared_ptr<AMCP::Core::Operation> AMCP::Core::Operation_Utilities::make_constant_property<CA::ChannelLayout>(AMCP::Address const&,CA::ChannelLayout const&)::{lambda(void)#1},std::allocator<std::shared_ptr<AMCP::Core::Operation> AMCP::Core::Operation_Utilities::make_constant_property<CA::ChannelLayout>(AMCP::Address const&,CA::ChannelLayout const&)::{lambda(void)#1}>,CA::ChannelLayout ()(void)>::destroy_deallocate(void *__p)
-{
-  v2 = __p[1];
-  if (v2)
-  {
-    __p[2] = v2;
-    operator delete(v2);
-  }
-
-  operator delete(__p);
-}
-
-void std::__function::__func<std::shared_ptr<AMCP::Core::Operation> AMCP::Core::Operation_Utilities::make_constant_property<CA::ChannelLayout>(AMCP::Address const&,CA::ChannelLayout const&)::{lambda(void)#1},std::allocator<std::shared_ptr<AMCP::Core::Operation> AMCP::Core::Operation_Utilities::make_constant_property<CA::ChannelLayout>(AMCP::Address const&,CA::ChannelLayout const&)::{lambda(void)#1}>,CA::ChannelLayout ()(void)>::destroy(uint64_t a1)
-{
-  v2 = *(a1 + 8);
-  if (v2)
-  {
-    *(a1 + 16) = v2;
-    operator delete(v2);
-  }
-}
-
-uint64_t std::__function::__func<std::shared_ptr<AMCP::Core::Operation> AMCP::Core::Operation_Utilities::make_constant_property<CA::ChannelLayout>(AMCP::Address const&,CA::ChannelLayout const&)::{lambda(void)#1},std::allocator<std::shared_ptr<AMCP::Core::Operation> AMCP::Core::Operation_Utilities::make_constant_property<CA::ChannelLayout>(AMCP::Address const&,CA::ChannelLayout const&)::{lambda(void)#1}>,CA::ChannelLayout ()(void)>::__clone(uint64_t a1, void *a2)
-{
-  *a2 = &unk_1F59805A8;
-  a2[2] = 0;
-  a2[3] = 0;
-  a2[1] = 0;
-  return std::vector<char>::__init_with_size[abi:ne200100]<char *,char *>((a2 + 1), *(a1 + 8), *(a1 + 16), *(a1 + 16) - *(a1 + 8));
-}
-
-void std::__function::__func<std::shared_ptr<AMCP::Core::Operation> AMCP::Core::Operation_Utilities::make_constant_property<CA::ChannelLayout>(AMCP::Address const&,CA::ChannelLayout const&)::{lambda(void)#1},std::allocator<std::shared_ptr<AMCP::Core::Operation> AMCP::Core::Operation_Utilities::make_constant_property<CA::ChannelLayout>(AMCP::Address const&,CA::ChannelLayout const&)::{lambda(void)#1}>,CA::ChannelLayout ()(void)>::~__func(void *a1)
-{
-  *a1 = &unk_1F59805A8;
-  v2 = a1[1];
-  if (v2)
-  {
-    a1[2] = v2;
-    operator delete(v2);
-  }
-
-  JUMPOUT(0x1E12C1730);
-}
-
-void *std::__function::__func<std::shared_ptr<AMCP::Core::Operation> AMCP::Core::Operation_Utilities::make_constant_property<CA::ChannelLayout>(AMCP::Address const&,CA::ChannelLayout const&)::{lambda(void)#1},std::allocator<std::shared_ptr<AMCP::Core::Operation> AMCP::Core::Operation_Utilities::make_constant_property<CA::ChannelLayout>(AMCP::Address const&,CA::ChannelLayout const&)::{lambda(void)#1}>,CA::ChannelLayout ()(void)>::~__func(void *a1)
-{
-  *a1 = &unk_1F59805A8;
-  v2 = a1[1];
-  if (v2)
-  {
-    a1[2] = v2;
-    operator delete(v2);
-  }
-
-  return a1;
-}
-
-uint64_t std::__function::__func<AMCP::IOAudio2::Device::update_core_common(AMCP::Core::Operation_Set &)::$_1,std::allocator<AMCP::IOAudio2::Device::update_core_common(AMCP::Core::Operation_Set &)::$_1>,void ()(double const&)>::target(uint64_t a1, uint64_t a2)
-{
-  if (std::type_info::operator==[abi:ne200100](*(a2 + 8), "ZN4AMCP8IOAudio26Device18update_core_commonERNS_4Core13Operation_SetEE3$_1"))
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t std::__function::__func<AMCP::IOAudio2::Device::update_core_common(AMCP::Core::Operation_Set &)::$_1,std::allocator<AMCP::IOAudio2::Device::update_core_common(AMCP::Core::Operation_Set &)::$_1>,void ()(double const&)>::operator()(uint64_t a1, double *a2)
-{
-  v2 = *(a1 + 8);
-  inputStruct = vcvtd_n_s64_f64(*a2 - floor(*a2), 0x20uLL) + (vcvtmd_s64_f64(*a2) << 32);
-  AMCP::IOAudio2::Device::get_device_connection(&v6, **(v2 + 376));
-  v3 = v6;
-  if (!v6)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "cannot create io_connect_proxy from null io_object");
-    __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-  }
-
-  applesauce::iokit::call_method_struct<applesauce::iokit::ReplyNone>(v6, 4u, &inputStruct, 8uLL);
-  return IOConnectRelease(v3);
-}
-
-void sub_1DE38383C(_Unwind_Exception *a1)
-{
-  __cxa_free_exception(v2);
-  IOConnectRelease(v1);
-  _Unwind_Resume(a1);
-}
-
-void applesauce::iokit::call_method_struct<applesauce::iokit::ReplyNone>(mach_port_t a1, uint32_t a2, void *inputStruct, size_t inputStructCnt)
-{
-  memset(v7, 0, sizeof(v7));
-  outputCnt = 0;
-  memset(__p, 0, sizeof(__p));
-  v4 = 0;
-  if (IOConnectCallMethod(a1, a2, 0, 0, inputStruct, inputStructCnt, 0, &outputCnt, 0, &v4))
-  {
-    __cxa_allocate_exception(0x20uLL);
-    std::system_category();
-    operator new();
-  }
-
-  std::vector<unsigned long long>::resize(v7, outputCnt);
-  if (v4)
-  {
-    std::vector<unsigned char>::__append(__p, v4);
-    if (__p[0])
-    {
-      operator delete(__p[0]);
-    }
-  }
-
-  if (v7[0])
-  {
-    operator delete(v7[0]);
-  }
-}
-
-void sub_1DE3839FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *__p, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, uint64_t a30, void *a31)
-{
-  if (a28 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (a16 < 0)
-  {
-    operator delete(a11);
-  }
-
-  if (a22 < 0)
-  {
-    operator delete(a17);
-    if ((v31 & 1) == 0)
-    {
-LABEL_10:
-      v35 = *(v33 - 72);
-      if (v35)
-      {
-        operator delete(v35);
-      }
-
-      _Unwind_Resume(a1);
-    }
-  }
-
-  else if (!v31)
-  {
-    goto LABEL_10;
-  }
-
-  __cxa_free_exception(v32);
-  goto LABEL_10;
-}
-
-uint64_t std::__function::__func<AMCP::IOAudio2::Device::update_core_common(AMCP::Core::Operation_Set &)::$_1,std::allocator<AMCP::IOAudio2::Device::update_core_common(AMCP::Core::Operation_Set &)::$_1>,void ()(double const&)>::__clone(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_1F5969988;
-  a2[1] = v2;
-  return result;
-}
-
-uint64_t std::__function::__func<AMCP::IOAudio2::Device::update_core_common(AMCP::Core::Operation_Set &)::$_0,std::allocator<AMCP::IOAudio2::Device::update_core_common(AMCP::Core::Operation_Set &)::$_0>,double ()(void)>::target(uint64_t a1, uint64_t a2)
-{
-  if (std::type_info::operator==[abi:ne200100](*(a2 + 8), "ZN4AMCP8IOAudio26Device18update_core_commonERNS_4Core13Operation_SetEE3$_0"))
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t std::__function::__func<AMCP::IOAudio2::Device::update_core_common(AMCP::Core::Operation_Set &)::$_0,std::allocator<AMCP::IOAudio2::Device::update_core_common(AMCP::Core::Operation_Set &)::$_0>,double ()(void)>::__clone(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_1F5969908;
-  a2[1] = v2;
-  return result;
-}
-
-uint64_t std::__function::__func<AMCP::IOAudio2::Device::build_core(void)::$_0,std::allocator<AMCP::IOAudio2::Device::build_core(void)::$_0>,CA::ValueRangeList ()(void)>::target(uint64_t a1, uint64_t a2)
-{
-  if (std::type_info::operator==[abi:ne200100](*(a2 + 8), "ZN4AMCP8IOAudio26Device10build_coreEvE3$_0"))
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-void std::__function::__func<AMCP::IOAudio2::Device::build_core(void)::$_0,std::allocator<AMCP::IOAudio2::Device::build_core(void)::$_0>,CA::ValueRangeList ()(void)>::operator()(uint64_t a1@<X0>, void *a2@<X8>)
-{
-  v16 = *MEMORY[0x1E69E9840];
-  v3 = *(*(**(a1 + 8) + 32) + 16);
-  v4 = *(a1 + 16);
-  v13 = &unk_1F5969AF8;
-  LODWORD(v14) = v4;
-  v15 = &v13;
-  AMCP::Core::Broker::fetch_first_core_if (&v10, v3, &v13);
-  std::__function::__value_func<BOOL ()(std::shared_ptr<AMCP::Core::Core> const&)>::~__value_func[abi:ne200100](&v13);
-  AMCP::Core::Core::get_simple_required_property<1718449187u>(&v13, v10);
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
-  v5 = v13;
-  v6 = v14;
-  while (v5 != v6)
-  {
-    v7 = *v5;
-    v8 = v5[1];
-    while (v7 != v8)
-    {
-      CA::ValueRangeList::AddRange(a2, v7);
-      v7 += 2;
-    }
-
-    v5 += 8;
-  }
-
-  v12 = &v13;
-  std::vector<std::tuple<CA::ValueRangeList,CA::StreamDescription>>::__destroy_vector::operator()[abi:ne200100](&v12);
-  if (v11)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v11);
-  }
-
-  v9 = *MEMORY[0x1E69E9840];
-}
-
-void sub_1DE383D78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10, void **a11, char a12)
-{
-  v14 = *v12;
-  if (*v12)
-  {
-    *(v12 + 8) = v14;
-    operator delete(v14);
-  }
-
-  a11 = &a12;
-  std::vector<std::tuple<CA::ValueRangeList,CA::StreamDescription>>::__destroy_vector::operator()[abi:ne200100](&a11);
-  if (a10)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void AMCP::Core::Core::get_simple_required_property<1718449187u>(void *a1, AMCP::Core::Core *this)
-{
-  v31 = *MEMORY[0x1E69E9840];
-  v15 = 0x676C6F62666D7423;
-  v16 = 0;
-  has_property = AMCP::Core::Core::has_property(this, &v15);
-  if (!has_property)
-  {
-    goto LABEL_14;
-  }
-
-  AMCP::Core::Core::find_operation(&v22, this, &v15);
-  v5 = v22;
-  if (v22)
-  {
-    v6 = AMCP::Implementation::get_type_marker<std::function<std::vector<std::tuple<CA::ValueRangeList,CA::StreamDescription>> ()(void)>>();
-    if (std::__hash_table<std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>,std::__unordered_map_hasher<AMCP::Type_ID,std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>,AMCP::Type_ID::Hash,std::equal_to<AMCP::Type_ID>,true>,std::__unordered_map_equal<AMCP::Type_ID,std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>,std::equal_to<AMCP::Type_ID>,AMCP::Type_ID::Hash,true>,std::allocator<std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>>>::find<AMCP::Type_ID>(v5, v6))
-    {
-      AMCP::Core::Operation::call_function<std::vector<std::tuple<CA::ValueRangeList,CA::StreamDescription>>>(buf, v5);
-      v14 = *&buf[8];
-      v17 = *buf;
-      v18 = *&buf[16];
-      memset(buf, 0, 24);
-      v19 = 1;
-      __p[0] = buf;
-      std::vector<std::tuple<CA::ValueRangeList,CA::StreamDescription>>::__destroy_vector::operator()[abi:ne200100](__p);
-LABEL_5:
-      v7 = 0;
-      v5 = v14;
-      goto LABEL_10;
-    }
-
-    v8 = AMCP::Implementation::get_type_marker<std::function<AMCP::Thing ()(void)>>();
-    if (std::__hash_table<std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>,std::__unordered_map_hasher<AMCP::Type_ID,std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>,AMCP::Type_ID::Hash,std::equal_to<AMCP::Type_ID>,true>,std::__unordered_map_equal<AMCP::Type_ID,std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>,std::equal_to<AMCP::Type_ID>,AMCP::Type_ID::Hash,true>,std::allocator<std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>>>::find<AMCP::Type_ID>(v5, v8))
-    {
-      AMCP::Core::Operation::call_function<AMCP::Thing>(buf, v5);
-      AMCP::Thing::convert_to<std::vector<std::tuple<CA::ValueRangeList,CA::StreamDescription>>>(__p, buf);
-      v14 = __p[1];
-      v17 = *__p;
-      v18 = v21;
-      __p[1] = 0;
-      v21 = 0;
-      __p[0] = 0;
-      v19 = 1;
-      v24 = __p;
-      std::vector<std::tuple<CA::ValueRangeList,CA::StreamDescription>>::__destroy_vector::operator()[abi:ne200100](&v24);
-      if (*&v27[2])
-      {
-        (*&v27[2])(0, buf, 0, 0);
-      }
-
-      goto LABEL_5;
-    }
-  }
-
-  v7 = 1;
-LABEL_10:
-  has_property = v23;
-  if (v23)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v23);
-  }
-
-  if (v7)
-  {
-LABEL_14:
-    LOBYTE(v17) = 0;
-    v19 = 0;
-    v10 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
-    if ((v10 & 1) == 0)
-    {
-      AMCP::Log::AMCP_Scope_Registry::initialize(has_property);
-    }
-
-    v12 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
-    v11 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
-    if (v11)
-    {
-      atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
-      v13 = *v12;
-      std::__shared_weak_count::__release_shared[abi:ne200100](v11);
-    }
-
-    else
-    {
-      v13 = *v12;
-    }
-
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
-    {
-      HIBYTE(v21) = 4;
-      strcpy(__p, "fmt#");
-      *buf = 136316418;
-      *&buf[4] = "Core.h";
-      *&buf[12] = 1024;
-      *&buf[14] = 391;
-      *&buf[18] = 2080;
-      *&buf[20] = "optional_value.operator BOOL() == true";
-      v26 = 2080;
-      *v27 = __p;
-      *&v27[8] = 1024;
-      v28 = 1735159650;
-      v29 = 1024;
-      v30 = 0;
-      _os_log_error_impl(&dword_1DE1F9000, v13, OS_LOG_TYPE_ERROR, "%32s:%-5d Assertion Failed: %s a required property is missing '%s':%u:%u", buf, 0x32u);
-      if (SHIBYTE(v21) < 0)
-      {
-        operator delete(__p[0]);
-      }
-    }
-
-    abort();
-  }
-
-  *a1 = 0;
-  a1[1] = 0;
-  a1[2] = 0;
-  std::vector<std::tuple<CA::ValueRangeList,CA::StreamDescription>>::__init_with_size[abi:ne200100]<std::tuple<CA::ValueRangeList,CA::StreamDescription>*,std::tuple<CA::ValueRangeList,CA::StreamDescription>*>(a1, v17, v5, (v5 - v17) >> 6);
-  *buf = &v17;
-  std::vector<std::tuple<CA::ValueRangeList,CA::StreamDescription>>::__destroy_vector::operator()[abi:ne200100](buf);
-  v9 = *MEMORY[0x1E69E9840];
-}
-
-void sub_1DE38407C(_Unwind_Exception *a1, int a2)
-{
-  if (a2)
-  {
-    __clang_call_terminate(a1);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-uint64_t AMCP::Core::Operation::call_function<std::vector<std::tuple<CA::ValueRangeList,CA::StreamDescription>>>(uint64_t a1, void *a2)
-{
-  v33 = *MEMORY[0x1E69E9840];
-  v3 = AMCP::Implementation::get_type_marker<std::function<std::vector<std::tuple<CA::ValueRangeList,CA::StreamDescription>> ()(void)>>();
-  v4 = std::__hash_table<std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>,std::__unordered_map_hasher<AMCP::Type_ID,std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>,AMCP::Type_ID::Hash,std::equal_to<AMCP::Type_ID>,true>,std::__unordered_map_equal<AMCP::Type_ID,std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>,std::equal_to<AMCP::Type_ID>,AMCP::Type_ID::Hash,true>,std::allocator<std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>>>::find<AMCP::Type_ID>(a2, v3);
-  if (!v4)
-  {
-    v13 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
-    if ((v13 & 1) == 0)
-    {
-      AMCP::Log::AMCP_Scope_Registry::initialize(0);
-    }
-
-    v15 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
-    v14 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
-    if (v14)
-    {
-      atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
-      v16 = *v15;
-      std::__shared_weak_count::__release_shared[abi:ne200100](v14);
-    }
-
-    else
-    {
-      v16 = *v15;
-    }
-
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136315394;
-      *&buf[4] = "Operation.h";
-      v28 = 1024;
-      v29 = 154;
-      _os_log_error_impl(&dword_1DE1F9000, v16, OS_LOG_TYPE_ERROR, "%32s:%-5d Throwing Exception: Operation does not have requested function", buf, 0x12u);
-    }
-
-    AMCP::Utility::With_Realtime_Disabled::With_Realtime_Disabled(&v26);
-    __cxa_allocate_exception(0x40uLL);
-    caulk::make_string("Operation does not have requested function", &v18);
-    std::runtime_error::runtime_error(&v19, &v18);
-    std::runtime_error::runtime_error(&v20, &v19);
-    v22 = 0;
-    v23 = 0;
-    v24 = 0;
-    v25 = -1;
-    v20.__vftable = &unk_1F5992170;
-    v21 = &unk_1F5992198;
-    boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<std::runtime_error>>::clone_impl(buf, &v20);
-    v30 = "Return_Type AMCP::Core::Operation::call_function(Argument_Types...) const [Return_Type = std::vector<std::tuple<CA::ValueRangeList, CA::StreamDescription>>, Argument_Types = <>]";
-    v31 = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/MCP/AMCP/Core/Operation.h";
-    v32 = 154;
-    applesauce::backtrace::snapshot_N<64>::snapshot_N(&v17);
-  }
-
-  v5 = v4;
-  if (!*(v4 + 7) || (*buf = AMCP::Implementation::get_type_marker<std::function<std::vector<std::tuple<CA::ValueRangeList,CA::StreamDescription>> ()(void)>>(), (v4 = (*(v5 + 7))(4, v5 + 24, 0, buf)) == 0))
-  {
-    v9 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
-    if ((v9 & 1) == 0)
-    {
-      AMCP::Log::AMCP_Scope_Registry::initialize(v4);
-    }
-
-    v11 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
-    v10 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
-    if (v10)
-    {
-      atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
-      v12 = *v11;
-      std::__shared_weak_count::__release_shared[abi:ne200100](v10);
-    }
-
-    else
-    {
-      v12 = *v11;
-    }
-
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136315394;
-      *&buf[4] = "Operation.h";
-      v28 = 1024;
-      v29 = 161;
-      _os_log_error_impl(&dword_1DE1F9000, v12, OS_LOG_TYPE_ERROR, "%32s:%-5d Throwing Exception: Invalid cast", buf, 0x12u);
-    }
-
-    AMCP::Utility::With_Realtime_Disabled::With_Realtime_Disabled(&v26);
-    __cxa_allocate_exception(0x40uLL);
-    caulk::make_string("Invalid cast", &v18);
-    std::runtime_error::runtime_error(&v19, &v18);
-    std::runtime_error::runtime_error(&v20, &v19);
-    v22 = 0;
-    v23 = 0;
-    v24 = 0;
-    v25 = -1;
-    v20.__vftable = &unk_1F5992170;
-    v21 = &unk_1F5992198;
-    boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<std::runtime_error>>::clone_impl(buf, &v20);
-    v30 = "Return_Type AMCP::Core::Operation::call_function(Argument_Types...) const [Return_Type = std::vector<std::tuple<CA::ValueRangeList, CA::StreamDescription>>, Argument_Types = <>]";
-    v31 = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/MCP/AMCP/Core/Operation.h";
-    v32 = 161;
-    applesauce::backtrace::snapshot_N<64>::snapshot_N(&v17);
-  }
-
-  v6 = *(v4 + 3);
-  if (!v6)
-  {
-    std::__throw_bad_function_call[abi:ne200100]();
-  }
-
-  result = (*(*v6 + 48))(v6);
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void sub_1DE38452C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, std::runtime_error a22, char a23)
-{
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  if (a9)
-  {
-    operator delete(a9);
-  }
-
-  boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<std::runtime_error>>::~clone_impl(v25 - 128);
-  boost::exception_detail::error_info_injector<std::runtime_error>::~error_info_injector(&a23);
-  std::runtime_error::~runtime_error(&a22);
-  if (a21 < 0)
-  {
-    operator delete(a16);
-  }
-
-  if (v24)
-  {
-    __cxa_free_exception(v23);
-  }
-
-  AMCP::Utility::With_Realtime_Disabled::~With_Realtime_Disabled((v25 - 129));
-  _Unwind_Resume(a1);
-}
-
-uint64_t AMCP::Implementation::get_type_marker<std::function<std::vector<std::tuple<CA::ValueRangeList,CA::StreamDescription>> ()(void)>>()
-{
-  v0 = HALB_MlockFailHandling::hasReportingCooledDown(void)::sLazyMarshall;
-  {
-    v0 = HALB_MlockFailHandling::hasReportingCooledDown(void)::sLazyMarshall;
-    if (v2)
-    {
-      v0 = HALB_MlockFailHandling::hasReportingCooledDown(void)::sLazyMarshall;
-    }
-  }
-
-  return *(v0 + 57);
-}
-
-uint64_t _ZNKSt3__110__function6__funcIZZN4AMCP8IOAudio26Device10build_coreEvENK3__0clEvEUlRKT_E_NS_9allocatorIS9_EEFbRKNS_10shared_ptrINS2_4Core4CoreEEEEE6targetERKSt9type_info(uint64_t a1, uint64_t a2)
-{
-  if (std::type_info::operator==[abi:ne200100](*(a2 + 8), "ZZN4AMCP8IOAudio26Device10build_coreEvENK3$_0clEvEUlRKT_E_"))
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-BOOL _ZNSt3__110__function6__funcIZZN4AMCP8IOAudio26Device10build_coreEvENK3__0clEvEUlRKT_E_NS_9allocatorIS9_EEFbRKNS_10shared_ptrINS2_4Core4CoreEEEEEclESH_(uint64_t a1, AMCP::Core::Core **a2)
-{
-  simple_required = AMCP::Core::Core::get_simple_required_property<1870098034u>(*a2);
-  v5 = AMCP::Core::Core::get_simple_required_property<1650682995u>(*a2);
-  return *(a1 + 8) == simple_required && v5 == 1634956402;
-}
-
-uint64_t _ZNKSt3__110__function6__funcIZZN4AMCP8IOAudio26Device10build_coreEvENK3__0clEvEUlRKT_E_NS_9allocatorIS9_EEFbRKNS_10shared_ptrINS2_4Core4CoreEEEEE7__cloneEPNS0_6__baseISI_EE(uint64_t result, uint64_t a2)
-{
-  *a2 = &unk_1F5969AF8;
-  *(a2 + 8) = *(result + 8);
-  return result;
-}
-
-__n128 std::__function::__func<AMCP::IOAudio2::Device::build_core(void)::$_0,std::allocator<AMCP::IOAudio2::Device::build_core(void)::$_0>,CA::ValueRangeList ()(void)>::__clone(uint64_t a1, uint64_t a2)
-{
-  *a2 = &unk_1F5969A88;
-  result = *(a1 + 8);
-  *(a2 + 8) = result;
-  *(a2 + 20) = 0;
-  return result;
-}
-
-uint64_t std::__function::__func<AMCP::IOAudio2::Device::Device(AMCP::IOAudio2::Driver &,applesauce::iokit::io_object_holder const&,applesauce::CF::DictionaryRef)::$_1,std::allocator<AMCP::IOAudio2::Device::Device(AMCP::IOAudio2::Driver &,applesauce::iokit::io_object_holder const&,applesauce::CF::DictionaryRef)::$_1>,void ()(void)>::target(uint64_t a1, uint64_t a2)
-{
-  if (std::type_info::operator==[abi:ne200100](*(a2 + 8), "ZN4AMCP8IOAudio26DeviceC1ERNS0_6DriverERKN10applesauce5iokit16io_object_holderENS4_2CF13DictionaryRefEE3$_1"))
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-void std::__function::__func<AMCP::IOAudio2::Device::Device(AMCP::IOAudio2::Driver &,applesauce::iokit::io_object_holder const&,applesauce::CF::DictionaryRef)::$_1,std::allocator<AMCP::IOAudio2::Device::Device(AMCP::IOAudio2::Driver &,applesauce::iokit::io_object_holder const&,applesauce::CF::DictionaryRef)::$_1>,void ()(void)>::operator()(uint64_t a1)
-{
-  v44 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 8);
-  v2 = AMCP::Utility::Mach_Port::receive_message(*(v1 + 384), 0x88u, &msg, 0);
-  v3 = v2;
-  AMCP::Utility::Kernel_Error_Category::get(v2);
-  if (!v3 && v35)
-  {
-    v5 = 0;
-    v6 = &v36;
-    while (*(v6 + 1) != 1668247142)
-    {
-      ++v5;
-      v6 += 4;
-      if (v5 >= v35)
-      {
-        goto LABEL_49;
-      }
-    }
-
-    v7 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
-    if ((v7 & 1) == 0)
-    {
-      v4 = AMCP::Log::AMCP_Scope_Registry::initialize(v4);
-    }
-
-    v8 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
-    v9 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
-    if (v9)
-    {
-      atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    v10 = *(v8 + 16);
-    switch(v10)
-    {
-      case 3:
-        v19 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
-        if ((v19 & 1) == 0)
-        {
-          AMCP::Log::AMCP_Scope_Registry::initialize(v4);
-        }
-
-        v21 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
-        v20 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
-        if (v20)
-        {
-          atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
-          v22 = *v21;
-          std::__shared_weak_count::__release_shared[abi:ne200100](v20);
-        }
-
-        else
-        {
-          v22 = *v21;
-        }
-
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
-        {
-          v25 = *(v1 + 8);
-          if (v25)
-          {
-            applesauce::CF::convert_to<std::string,0>(v37, v25);
-            v26 = v37;
-            if (v38 < 0)
-            {
-              v26 = *v37;
-            }
-
-            buf[0] = 136315650;
-            *&buf[1] = "IOAudio2_Device.cpp";
-            v40 = 1024;
-            v41 = 557;
-            v42 = 2080;
-            v43 = v26;
-            v27 = v22;
-            v28 = OS_LOG_TYPE_INFO;
-            goto LABEL_42;
-          }
-
-LABEL_50:
-          exception = __cxa_allocate_exception(0x10uLL);
-          v33 = MEMORY[0x1E69E5288];
-          std::runtime_error::runtime_error(exception, "Could not construct");
-          __cxa_throw(exception, MEMORY[0x1E69E5408], v33);
-        }
-
-        break;
-      case 2:
-        v15 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
-        if ((v15 & 1) == 0)
-        {
-          AMCP::Log::AMCP_Scope_Registry::initialize(v4);
-        }
-
-        v17 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
-        v16 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
-        if (v16)
-        {
-          atomic_fetch_add_explicit(&v16->__shared_owners_, 1uLL, memory_order_relaxed);
-          v18 = *v17;
-          std::__shared_weak_count::__release_shared[abi:ne200100](v16);
-        }
-
-        else
-        {
-          v18 = *v17;
-        }
-
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
-        {
-          v23 = *(v1 + 8);
-          if (v23)
-          {
-            applesauce::CF::convert_to<std::string,0>(v37, v23);
-            v24 = v37;
-            if (v38 < 0)
-            {
-              v24 = *v37;
-            }
-
-            buf[0] = 136315650;
-            *&buf[1] = "IOAudio2_Device.cpp";
-            v40 = 1024;
-            v41 = 557;
-            v42 = 2080;
-            v43 = v24;
-            _os_log_debug_impl(&dword_1DE1F9000, v18, OS_LOG_TYPE_DEBUG, "%32s:%-5d Begin configuration change for device '%s'", buf, 0x1Cu);
-            goto LABEL_43;
-          }
-
-          goto LABEL_50;
-        }
-
-        break;
-      case 1:
-        v11 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
-        if ((v11 & 1) == 0)
-        {
-          AMCP::Log::AMCP_Scope_Registry::initialize(v4);
-        }
-
-        v13 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
-        v12 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
-        if (v12)
-        {
-          atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
-          v14 = *v13;
-          std::__shared_weak_count::__release_shared[abi:ne200100](v12);
-        }
-
-        else
-        {
-          v14 = *v13;
-        }
-
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
-        {
-          v29 = *(v1 + 8);
-          if (v29)
-          {
-            applesauce::CF::convert_to<std::string,0>(v37, v29);
-            v30 = v37;
-            if (v38 < 0)
-            {
-              v30 = *v37;
-            }
-
-            buf[0] = 136315650;
-            *&buf[1] = "IOAudio2_Device.cpp";
-            v40 = 1024;
-            v41 = 557;
-            v42 = 2080;
-            v43 = v30;
-            v27 = v14;
-            v28 = OS_LOG_TYPE_DEFAULT;
-LABEL_42:
-            _os_log_impl(&dword_1DE1F9000, v27, v28, "%32s:%-5d Begin configuration change for device '%s'", buf, 0x1Cu);
-LABEL_43:
-            if (v38 < 0)
-            {
-              operator delete(*v37);
-            }
-
-            break;
-          }
-
-          goto LABEL_50;
-        }
-
-        break;
-    }
-
-    if (v9)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v9);
-    }
-
-    kdebug_trace();
-    operator new();
-  }
-
-LABEL_49:
-  v31 = *MEMORY[0x1E69E9840];
-}
-
-void sub_1DE3850E4(_Unwind_Exception *exception_object, int a2)
-{
-  if (a2)
-  {
-    __cxa_free_exception(v2);
-    __clang_call_terminate(exception_object);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t std::__function::__func<AMCP::IOAudio2::Device::handle_driver_configuration_change(IOAudio2Notification const&)::$_0,std::allocator<AMCP::IOAudio2::Device::handle_driver_configuration_change(IOAudio2Notification const&)::$_0>,void ()(void)>::target(uint64_t a1, uint64_t a2)
-{
-  if (std::type_info::operator==[abi:ne200100](*(a2 + 8), "ZN4AMCP8IOAudio26Device34handle_driver_configuration_changeERK20IOAudio2NotificationE3$_0"))
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-void std::__function::__func<AMCP::IOAudio2::Device::handle_driver_configuration_change(IOAudio2Notification const&)::$_0,std::allocator<AMCP::IOAudio2::Device::handle_driver_configuration_change(IOAudio2Notification const&)::$_0>,void ()(void)>::operator()(uint64_t a1)
-{
-  v97 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 40);
-  is_valid = AMCP::Utility::Expiration_Check::is_valid((a1 + 8));
-  if (!is_valid)
-  {
-    v67 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
-    if ((v67 & 1) == 0)
-    {
-      AMCP::Log::AMCP_Scope_Registry::initialize(is_valid);
-    }
-
-    v69 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
-    v68 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
-    if (v68)
-    {
-      atomic_fetch_add_explicit(&v68->__shared_owners_, 1uLL, memory_order_relaxed);
-      v70 = *v69;
-      std::__shared_weak_count::__release_shared[abi:ne200100](v68);
-    }
-
-    else
-    {
-      v70 = *v69;
-    }
-
-    if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136315650;
-      *&buf[4] = "IOAudio2_Device.cpp";
-      *&buf[12] = 1024;
-      *&buf[14] = 564;
-      *&buf[18] = 2080;
-      *&buf[20] = "expiration_check.is_valid()";
-      _os_log_error_impl(&dword_1DE1F9000, v70, OS_LOG_TYPE_ERROR, "%32s:%-5d Assertion Failed: %s caller has gone out of scope", buf, 0x1Cu);
-    }
-
-    abort();
-  }
-
-  AMCP::IOAudio2::Device::get_device_connection(buf, **(v2 + 376));
-  v4 = *buf;
-  if (!*buf)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "cannot create io_connect_proxy from null io_object");
-    __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-  }
-
-  applesauce::iokit::call_method_struct<applesauce::iokit::ReplyNone>(*buf, 3u, *(a1 + 48), 0x20uLL);
-  IOConnectRelease(v4);
-  v5 = *(v2 + 360);
-  if (!v5)
-  {
-    v75 = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(v75, "cannot create io_object_proxy from null io_object");
-    __cxa_throw(v75, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-  }
-
-  applesauce::iokit::get_properties(buf, v5);
-  v6 = *(v2 + 464);
-  v7 = *buf;
-  *(v2 + 464) = *buf;
-  *buf = v6;
-  if (v6)
-  {
-    CFRelease(v6);
-    v7 = *(v2 + 464);
-  }
-
-  if (!v7)
-  {
-    v76 = __cxa_allocate_exception(0x10uLL);
-    applesauce::CF::construct_error(v76);
-    __cxa_throw(v76, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-  }
-
-  *buf = 0;
-  applesauce::CF::at_or<applesauce::CF::ArrayRef,__CFString const*>(&v87, v7, @"input streams", buf);
-  if (*buf)
-  {
-    CFRelease(*buf);
-  }
-
-  AMCP::IOAudio2::Stream::create_from_dictionary_list(v86, v2, 1, &v87);
-  v8 = *(v2 + 464);
-  if (!v8)
-  {
-    v77 = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(v77, "Could not construct");
-    __cxa_throw(v77, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-  }
-
-  *buf = 0;
-  applesauce::CF::at_or<applesauce::CF::ArrayRef,__CFString const*>(&v85, v8, @"output streams", buf);
-  if (*buf)
-  {
-    CFRelease(*buf);
-  }
-
-  AMCP::IOAudio2::Stream::create_from_dictionary_list(v84, v2, 0, &v85);
-  _ZNSt3__16invokeB8ne200100IRZZN4AMCP8IOAudio26Device34handle_driver_configuration_changeERK20IOAudio2NotificationENK3__0clEvEUlRT_E_JRNS_5tupleIJRNS_6vectorINS_10shared_ptrINS2_6StreamEEENS_9allocatorISG_EEEESK_EEEEEENS_13invoke_resultIS8_JDpT0_EE4typeEOS8_DpOSO_(v2, v2 + 472, v84);
-  _ZNSt3__16invokeB8ne200100IRZZN4AMCP8IOAudio26Device34handle_driver_configuration_changeERK20IOAudio2NotificationENK3__0clEvEUlRT_E_JRNS_5tupleIJRNS_6vectorINS_10shared_ptrINS2_6StreamEEENS_9allocatorISG_EEEESK_EEEEEENS_13invoke_resultIS8_JDpT0_EE4typeEOS8_DpOSO_(v2, v2 + 496, v86);
-  v9 = *(v2 + 464);
-  if (!v9)
-  {
-    v78 = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(v78, "Could not construct");
-    __cxa_throw(v78, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-  }
-
-  *buf = 0;
-  applesauce::CF::at_or<applesauce::CF::ArrayRef,__CFString const*>(&v83, v9, @"controls", buf);
-  if (*buf)
-  {
-    CFRelease(*buf);
-  }
-
-  AMCP::IOAudio2::Control::create_from_dictionary_list(&v81, v2, &v83);
-  cf = 0uLL;
-  *&__p = 0;
-  v11 = v81;
-  v10 = v82;
-  while (1)
-  {
-    v88[0] = v11;
-    if (v11 == v10)
-    {
-      break;
-    }
-
-    v12 = *(v2 + 520);
-    v13 = *(v2 + 528);
-    if (v12 != v13)
-    {
-      while (*(*v12 + 36) != *(*v11 + 36))
-      {
-        v12 += 16;
-        if (v12 == v13)
-        {
-          goto LABEL_22;
-        }
-      }
-    }
-
-    if (v12 == v13)
-    {
-LABEL_22:
-      std::vector<HALS_IOA2Stream *>::push_back[abi:ne200100](&cf, v88);
-      v10 = v82;
-    }
-
-    v11 += 16;
-  }
-
-  v89 = 0;
-  v14 = 0uLL;
-  *v88 = 0u;
-  v15 = *(v2 + 520);
-  theArray = v15;
-  v79 = v2;
-  v16 = *(v2 + 528);
-  if (v15 == v16)
-  {
-    v18 = 0;
-  }
-
-  else
-  {
-    do
-    {
-      v17 = v81;
-      if (v81 != v82)
-      {
-        while (*(*v17 + 36) != *(*v15 + 36))
-        {
-          v17 = (v17 + 16);
-          if (v17 == v82)
-          {
-            v17 = v82;
-            break;
-          }
-        }
-      }
-
-      if (v17 == v16)
-      {
-        std::vector<HALS_IOA2Stream *>::push_back[abi:ne200100](v88, &theArray);
-        v16 = *(v79 + 528);
-      }
-
-      v15 = (v15 + 16);
-      theArray = v15;
-    }
-
-    while (v15 != v16);
-    v14 = *v88;
-    v18 = v89;
-  }
-
-  v19 = (v79 + 520);
-  *buf = cf;
-  *&buf[24] = v14;
-  *&buf[16] = __p;
-  v96 = v18;
-  v20 = v14;
-  if (v14 != *(&v14 + 1))
-  {
-    v21 = v14;
-    do
-    {
-      v22 = *v21++;
-      v23 = *v22;
-      AMCP::Core::Broker::destroy_core(*(*(**(*v22 + 24) + 32) + 16), *(*v22 + 32));
-      *(v23 + 32) = 0;
-    }
-
-    while (v21 != *(&v20 + 1));
-    v24 = *(v79 + 528);
-    if (*(v79 + 520) != v24)
-    {
-      v25 = *(v79 + 520);
-      while (2)
-      {
-        v26 = v20;
-        while (*v25 != **v26)
-        {
-          if (++v26 == *(&v20 + 1))
-          {
-            goto LABEL_44;
-          }
-        }
-
-        if (v26 != *(&v20 + 1))
-        {
-          if (v25 == v24 || (v27 = (v25 + 16), (v25 + 16) == v24))
-          {
-            v16 = v25;
-          }
-
-          else
-          {
-            v16 = v25;
-            do
-            {
-              v28 = v27;
-              v29 = *&buf[24];
-              v30 = *(v25 + 2);
-              while (v29 != *&buf[32])
-              {
-                if (v30 == **v29)
-                {
-                  if (*&buf[32] != v29)
-                  {
-                    goto LABEL_58;
-                  }
-
-                  break;
-                }
-
-                ++v29;
-              }
-
-              v31 = *(v25 + 3);
-              *v27 = 0;
-              v27[1] = 0;
-              v32 = *(v16 + 1);
-              *v16 = v30;
-              *(v16 + 1) = v31;
-              if (v32)
-              {
-                std::__shared_weak_count::__release_shared[abi:ne200100](v32);
-              }
-
-              v16 = (v16 + 16);
-LABEL_58:
-              v27 = v28 + 2;
-              v25 = v28;
-            }
-
-            while (v28 + 2 != v24);
-            v24 = *(v79 + 528);
-            v33 = *(v79 + 520);
-          }
-
-          goto LABEL_61;
-        }
-
-LABEL_44:
-        v25 = (v25 + 16);
-        if (v25 != v24)
-        {
-          continue;
-        }
-
-        goto LABEL_68;
-      }
-    }
-
-    v16 = *(v79 + 520);
-LABEL_61:
-    if (v16 == v24)
-    {
-LABEL_68:
-      v16 = v24;
-      goto LABEL_69;
-    }
-
-    while (v24 != v16)
-    {
-      v34 = *(v24 - 1);
-      if (v34)
-      {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v34);
-      }
-
-      v24 = (v24 - 16);
-    }
-
-    *(v79 + 528) = v16;
-  }
-
-LABEL_69:
-  v35 = *&buf[8];
-  v36 = *buf;
-  if (*buf != *&buf[8])
-  {
-    v37 = v79;
-    do
-    {
-      v38 = *v36;
-      v39 = *(v37 + 536);
-      if (v16 >= v39)
-      {
-        v40 = (v16 - *v19) >> 4;
-        if ((v40 + 1) >> 60)
-        {
-          std::vector<void *>::__throw_length_error[abi:ne200100]();
-        }
-
-        v41 = v39 - *v19;
-        v42 = v41 >> 3;
-        if (v41 >> 3 <= (v40 + 1))
-        {
-          v42 = v40 + 1;
-        }
-
-        if (v41 >= 0x7FFFFFFFFFFFFFF0)
-        {
-          v43 = 0xFFFFFFFFFFFFFFFLL;
-        }
-
-        else
-        {
-          v43 = v42;
-        }
-
-        v92 = v79 + 520;
-        if (v43)
-        {
-          std::allocator<std::shared_ptr<DSP_Host_Types::FormatDescription>>::allocate_at_least[abi:ne200100](v43);
-        }
-
-        v44 = (16 * v40);
-        *v44 = *v38;
-        v16 = (16 * v40 + 16);
-        *v38 = 0;
-        *(v38 + 8) = 0;
-        v37 = v79;
-        v45 = *(v79 + 520);
-        v46 = *(v79 + 528) - v45;
-        v47 = v44 - v46;
-        memcpy(v44 - v46, v45, v46);
-        v48 = *(v79 + 520);
-        *(v79 + 520) = v47;
-        *(v79 + 528) = v16;
-        v49 = *(v79 + 536);
-        *(v79 + 536) = 0;
-        *&__p = v48;
-        *(&__p + 1) = v49;
-        *&cf = v48;
-        *(&cf + 1) = v48;
-        std::__split_buffer<std::shared_ptr<DSP_Host_Types::FormatDescription>>::~__split_buffer(&cf);
-      }
-
-      else
-      {
-        *v16 = *v38;
-        v16 = (v16 + 16);
-        *v38 = 0;
-        *(v38 + 8) = 0;
-        v37 = v79;
-      }
-
-      *(v37 + 528) = v16;
-      ++v36;
-    }
-
-    while (v36 != v35);
-  }
-
-  for (i = *v19; i != v16; i += 2)
-  {
-    v51 = *(v79 + 464);
-    if (!v51)
-    {
-      goto LABEL_139;
-    }
-
-    v52 = *i;
-    v53 = *(*i + 36);
-    *&cf = 0;
-    applesauce::CF::at_or<applesauce::CF::ArrayRef,__CFString const*>(&theArray, v51, @"controls", &cf);
-    if (cf)
-    {
-      CFRelease(cf);
-    }
-
-    v54 = theArray;
-    if (!theArray)
-    {
-LABEL_139:
-      v73 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v73, "Could not construct");
-      __cxa_throw(v73, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-    }
-
-    if (CFArrayGetCount(theArray))
-    {
-      Count = CFArrayGetCount(v54);
-      v56 = CFArrayGetCount(v54);
-      if (Count)
-      {
-        v57 = v56;
-        v58 = 0;
-        while (v57 != v58)
-        {
-          applesauce::CF::details::at_to<applesauce::CF::DictionaryRef>(&v80, v54, v58);
-          if (!v80)
-          {
-            goto LABEL_138;
-          }
-
-          LODWORD(cf) = 0;
-          v88[0] = CFNumberCreate(0, kCFNumberIntType, &cf);
-          if (!v88[0])
-          {
-            v71 = __cxa_allocate_exception(0x10uLL);
-            std::runtime_error::runtime_error(v71, "Could not construct");
-            __cxa_throw(v71, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-          }
-
-          applesauce::CF::at_or<applesauce::CF::NumberRef,__CFString const*>(&cf, v80, @"control ID", v88);
-          v59 = cf;
-          if (!cf)
-          {
-LABEL_138:
-            v72 = __cxa_allocate_exception(0x10uLL);
-            std::runtime_error::runtime_error(v72, "Could not construct");
-            __cxa_throw(v72, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-          }
-
-          v60 = applesauce::CF::convert_to<unsigned int,0>(cf);
-          CFRelease(v59);
-          if (v88[0])
-          {
-            CFRelease(v88[0]);
-          }
-
-          if (v60 == v53)
-          {
-            goto LABEL_102;
-          }
-
-          if (v80)
-          {
-            CFRelease(v80);
-          }
-
-          if (Count == ++v58)
-          {
-            break;
-          }
-        }
-      }
-    }
-
-    v80 = 0;
-LABEL_102:
-    CFRelease(v54);
-    v61 = *(v52 + 40);
-    *(v52 + 40) = v80;
-    v80 = v61;
-    v62 = *(v52 + 32);
-    if (!v62)
-    {
-      AMCP::IOAudio2::Control::build_core(v52);
-    }
-
-    AMCP::Core::Broker::fetch_core(&theArray, *(*(**(v52 + 24) + 32) + 16), v62);
-    v63 = theArray;
-    if (theArray)
-    {
-      cf = 0u;
-      __p = 0u;
-      LODWORD(v92) = 1065353216;
-      AMCP::IOAudio2::Control::update_value(v52);
-      AMCP::IOAudio2::Control::update_range(v52);
-      v88[0] = v63 + 48;
-      LOBYTE(v88[1]) = 1;
-      caulk::concurrent::shared_spin_lock::lock(v63 + 12);
-      for (j = __p; j; j = *j)
-      {
-        std::unordered_map<AMCP::Address,std::shared_ptr<AMCP::Core::Operation>,AMCP::Address::Hash,AMCP::Address::Is_Exact_Match,std::allocator<std::pair<AMCP::Address const,std::shared_ptr<AMCP::Core::Operation>>>>::insert_or_assign[abi:ne200100]<std::shared_ptr<AMCP::Core::Operation> const&>(v63 + 1, (j[4] + 40), j + 4);
-      }
-
-      caulk::concurrent::shared_spin_lock::unlock(v63 + 12);
-      v88[0] = 0x676C6F626F776E72;
-      LODWORD(v88[1]) = 0;
-      *(v63 + 1) = AMCP::Core::Core::get_typed_property_value<unsigned int,std::enable_if<true,void>>(v63, v88, &AMCP::k_object_id_unknown);
-      std::__hash_table<std::__hash_value_type<AMCP::Address,std::shared_ptr<AMCP::Core::Operation>>,std::__unordered_map_hasher<AMCP::Address,std::__hash_value_type<AMCP::Address,std::shared_ptr<AMCP::Core::Operation>>,AMCP::Address::Hash,AMCP::Address::Is_Exact_Match,true>,std::__unordered_map_equal<AMCP::Address,std::__hash_value_type<AMCP::Address,std::shared_ptr<AMCP::Core::Operation>>,AMCP::Address::Is_Exact_Match,AMCP::Address::Hash,true>,std::allocator<std::__hash_value_type<AMCP::Address,std::shared_ptr<AMCP::Core::Operation>>>>::__deallocate_node(__p);
-      v65 = cf;
-      *&cf = 0;
-      if (v65)
-      {
-        operator delete(v65);
-      }
-    }
-
-    if (v94)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v94);
-    }
-
-    if (v80)
-    {
-      CFRelease(v80);
-    }
-  }
-
-  AMCP::Core::Broker::fetch_core(&theArray, *(*(*v79 + 32) + 16), *(v79 + 16));
-  if (theArray)
-  {
-    cf = 0u;
-    __p = 0u;
-    LODWORD(v92) = 1065353216;
-    AMCP::IOAudio2::Device::update_core_common(v79);
-  }
-
-  if (v94)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v94);
-  }
-
-  if (*&buf[24])
-  {
-    operator delete(*&buf[24]);
-  }
-
-  if (*buf)
-  {
-    operator delete(*buf);
-  }
-
-  *buf = &v81;
-  std::vector<std::shared_ptr<DSP_Host_Types::DeviceConfiguration>>::__destroy_vector::operator()[abi:ne200100](buf);
-  if (v83)
-  {
-    CFRelease(v83);
-  }
-
-  *buf = v84;
-  std::vector<std::shared_ptr<DSP_Host_Types::DeviceConfiguration>>::__destroy_vector::operator()[abi:ne200100](buf);
-  if (v85)
-  {
-    CFRelease(v85);
-  }
-
-  *buf = v86;
-  std::vector<std::shared_ptr<DSP_Host_Types::DeviceConfiguration>>::__destroy_vector::operator()[abi:ne200100](buf);
-  if (v87)
-  {
-    CFRelease(v87);
-  }
-
-  v66 = *MEMORY[0x1E69E9840];
 }

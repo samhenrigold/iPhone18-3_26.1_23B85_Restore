@@ -17,7 +17,7 @@
 
 - (void)migrateAllTriggersCreatedBeforeBackgroundRunningWithDatabase:(id)database
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   databaseCopy = database;
   queue = [(WFTriggerNotificationScheduler *)self queue];
   dispatch_assert_queue_V2(queue);
@@ -34,7 +34,7 @@
       if (v10)
       {
         *buf = 136315138;
-        v21 = "[WFTriggerNotificationScheduler migrateAllTriggersCreatedBeforeBackgroundRunningWithDatabase:]";
+        v20 = "[WFTriggerNotificationScheduler migrateAllTriggersCreatedBeforeBackgroundRunningWithDatabase:]";
         v11 = "%s Migration has already occured not doing anything.";
         v12 = descriptors;
         v13 = OS_LOG_TYPE_DEFAULT;
@@ -48,7 +48,7 @@ LABEL_7:
       if (v10)
       {
         *buf = 136315138;
-        v21 = "[WFTriggerNotificationScheduler migrateAllTriggersCreatedBeforeBackgroundRunningWithDatabase:]";
+        v20 = "[WFTriggerNotificationScheduler migrateAllTriggersCreatedBeforeBackgroundRunningWithDatabase:]";
         _os_log_impl(&dword_23103C000, descriptors, OS_LOG_TYPE_DEFAULT, "%s Migrating old triggers.", buf, 0xCu);
       }
 
@@ -56,13 +56,13 @@ LABEL_7:
       descriptors = [allConfiguredTriggers descriptors];
 
       v15 = [objc_alloc(MEMORY[0x277D7C988]) initWithDatabase:databaseCopy];
-      v18[0] = MEMORY[0x277D85DD0];
-      v18[1] = 3221225472;
-      v18[2] = __95__WFTriggerNotificationScheduler_migrateAllTriggersCreatedBeforeBackgroundRunningWithDatabase___block_invoke;
-      v18[3] = &unk_2788FE198;
-      v19 = v15;
+      v17[0] = MEMORY[0x277D85DD0];
+      v17[1] = 3221225472;
+      v17[2] = __95__WFTriggerNotificationScheduler_migrateAllTriggersCreatedBeforeBackgroundRunningWithDatabase___block_invoke;
+      v17[3] = &unk_2788FE198;
+      v18 = v15;
       v16 = v15;
-      [descriptors enumerateObjectsUsingBlock:v18];
+      [descriptors enumerateObjectsUsingBlock:v17];
       [v7 setBool:1 forKey:@"WFTriggerNotificationLevelMigrationPerformed"];
     }
   }
@@ -73,51 +73,47 @@ LABEL_7:
     if (os_log_type_enabled(descriptors, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v21 = "[WFTriggerNotificationScheduler migrateAllTriggersCreatedBeforeBackgroundRunningWithDatabase:]";
+      v20 = "[WFTriggerNotificationScheduler migrateAllTriggersCreatedBeforeBackgroundRunningWithDatabase:]";
       v11 = "%s Could not get system shortcut user defaults not migrating.";
       v12 = descriptors;
       v13 = OS_LOG_TYPE_ERROR;
       goto LABEL_7;
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __95__WFTriggerNotificationScheduler_migrateAllTriggersCreatedBeforeBackgroundRunningWithDatabase___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v7 = 0;
-  v3 = [v2 updateNotificationLevel:2 forConfiguredTrigger:a2 error:&v7];
-  v4 = v7;
+  v6 = 0;
+  v3 = [v2 updateNotificationLevel:2 forConfiguredTrigger:a2 error:&v6];
+  v4 = v6;
   if ((v3 & 1) == 0)
   {
     v5 = getWFTriggerNotificationsLogObject();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v9 = "[WFTriggerNotificationScheduler migrateAllTriggersCreatedBeforeBackgroundRunningWithDatabase:]_block_invoke";
-      v10 = 2114;
-      v11 = v4;
+      v8 = "[WFTriggerNotificationScheduler migrateAllTriggersCreatedBeforeBackgroundRunningWithDatabase:]_block_invoke";
+      v9 = 2114;
+      v10 = v4;
       _os_log_impl(&dword_23103C000, v5, OS_LOG_TYPE_ERROR, "%s Could not migrate trigger to WFTriggerNotificationLevelMonth with error: %{public}@", buf, 0x16u);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)initialRunDateForConfiguredTrigger:(id)trigger
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   triggerCopy = trigger;
   queue = [(WFTriggerNotificationScheduler *)self queue];
   dispatch_assert_queue_V2(queue);
 
   databaseProvider = [(WFTriggerNotificationScheduler *)self databaseProvider];
-  v21 = 0;
-  v7 = [databaseProvider databaseWithError:&v21];
-  v8 = v21;
+  v20 = 0;
+  v7 = [databaseProvider databaseWithError:&v20];
+  v8 = v20;
 
   if (!v7)
   {
@@ -125,9 +121,9 @@ void __95__WFTriggerNotificationScheduler_migrateAllTriggersCreatedBeforeBackgro
     if (os_log_type_enabled(lastObject, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v23 = "[WFTriggerNotificationScheduler initialRunDateForConfiguredTrigger:]";
-      v24 = 2114;
-      v25 = v8;
+      v22 = "[WFTriggerNotificationScheduler initialRunDateForConfiguredTrigger:]";
+      v23 = 2114;
+      v24 = v8;
       _os_log_impl(&dword_23103C000, lastObject, OS_LOG_TYPE_ERROR, "%s Failed to get initial run date for configured trigger because database is not available: %{public}@", buf, 0x16u);
     }
 
@@ -147,9 +143,9 @@ void __95__WFTriggerNotificationScheduler_migrateAllTriggersCreatedBeforeBackgro
     {
       identifier2 = [triggerCopy identifier];
       *buf = 136315394;
-      v23 = "[WFTriggerNotificationScheduler initialRunDateForConfiguredTrigger:]";
-      v24 = 2112;
-      v25 = identifier2;
+      v22 = "[WFTriggerNotificationScheduler initialRunDateForConfiguredTrigger:]";
+      v23 = 2112;
+      v24 = identifier2;
       _os_log_impl(&dword_23103C000, v14, OS_LOG_TYPE_ERROR, "%s No run events found for trigger with id: %@", buf, 0x16u);
     }
 
@@ -164,18 +160,16 @@ LABEL_11:
     identifier3 = [triggerCopy identifier];
     date = [lastObject date];
     *buf = 136315650;
-    v23 = "[WFTriggerNotificationScheduler initialRunDateForConfiguredTrigger:]";
-    v24 = 2112;
-    v25 = identifier3;
-    v26 = 2112;
-    v27 = date;
+    v22 = "[WFTriggerNotificationScheduler initialRunDateForConfiguredTrigger:]";
+    v23 = 2112;
+    v24 = identifier3;
+    v25 = 2112;
+    v26 = date;
     _os_log_impl(&dword_23103C000, v14, OS_LOG_TYPE_DEFAULT, "%s initial run event date for trigger: %@ - %@", buf, 0x20u);
   }
 
   date2 = [lastObject date];
 LABEL_12:
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return date2;
 }
@@ -195,20 +189,19 @@ LABEL_12:
 
 void __72__WFTriggerNotificationScheduler_cancelActivitiesFromTriggerIdentifier___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v1 = [MEMORY[0x277CCACA8] stringWithFormat:@"com.apple.siriactionsd.TriggerNotification.%@", *(a1 + 32)];
   v2 = getWFTriggerNotificationsLogObject();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v5 = "[WFTriggerNotificationScheduler cancelActivitiesFromTriggerIdentifier:]_block_invoke";
-    v6 = 2114;
-    v7 = v1;
+    v4 = "[WFTriggerNotificationScheduler cancelActivitiesFromTriggerIdentifier:]_block_invoke";
+    v5 = 2114;
+    v6 = v1;
     _os_log_impl(&dword_23103C000, v2, OS_LOG_TYPE_DEFAULT, "%s Unregistering trigger notification activities for identifier: %{public}@", buf, 0x16u);
   }
 
   xpc_activity_unregister([v1 UTF8String]);
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelActivitiesFromTrigger:(id)trigger
@@ -241,48 +234,46 @@ void __72__WFTriggerNotificationScheduler_cancelActivitiesFromTriggerIdentifier_
 
 - (int)updateTriggerNotificationLevels:(id)levels database:(id)database
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   levelsCopy = levels;
   databaseCopy = database;
   queue = [(WFTriggerNotificationScheduler *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x2020000000;
-  v24 = 0;
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __75__WFTriggerNotificationScheduler_updateTriggerNotificationLevels_database___block_invoke;
-  v20[3] = &unk_2788FE820;
-  v20[4] = &v21;
-  [levelsCopy enumerateObjectsUsingBlock:v20];
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x2020000000;
+  v22 = 0;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __75__WFTriggerNotificationScheduler_updateTriggerNotificationLevels_database___block_invoke;
+  v18[3] = &unk_2788FE820;
+  v18[4] = &v19;
+  [levelsCopy enumerateObjectsUsingBlock:v18];
   v9 = getWFTriggerNotificationsLogObject();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = *(v22 + 6);
-    v11 = WFReadableTriggerNotificationLevel();
+    v10 = WFReadableTriggerNotificationLevel();
     *buf = 136315394;
-    v26 = "[WFTriggerNotificationScheduler updateTriggerNotificationLevels:database:]";
-    v27 = 2112;
-    v28 = v11;
+    v24 = "[WFTriggerNotificationScheduler updateTriggerNotificationLevels:database:]";
+    v25 = 2112;
+    v26 = v10;
     _os_log_impl(&dword_23103C000, v9, OS_LOG_TYPE_DEFAULT, "%s Updating scheduled trigger notifications for runs in the last 7 days to level: %@", buf, 0x16u);
   }
 
-  v12 = [objc_alloc(MEMORY[0x277D7C988]) initWithDatabase:databaseCopy];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __75__WFTriggerNotificationScheduler_updateTriggerNotificationLevels_database___block_invoke_190;
-  v17[3] = &unk_2788FE2A0;
-  v13 = v12;
-  v18 = v13;
-  v19 = &v21;
-  [levelsCopy enumerateObjectsUsingBlock:v17];
-  v14 = *(v22 + 6);
+  v11 = [objc_alloc(MEMORY[0x277D7C988]) initWithDatabase:databaseCopy];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __75__WFTriggerNotificationScheduler_updateTriggerNotificationLevels_database___block_invoke_190;
+  v15[3] = &unk_2788FE2A0;
+  v12 = v11;
+  v16 = v12;
+  v17 = &v19;
+  [levelsCopy enumerateObjectsUsingBlock:v15];
+  v13 = *(v20 + 6);
 
-  _Block_object_dispose(&v21, 8);
-  v15 = *MEMORY[0x277D85DE8];
-  return v14;
+  _Block_object_dispose(&v19, 8);
+  return v13;
 }
 
 void __75__WFTriggerNotificationScheduler_updateTriggerNotificationLevels_database___block_invoke(uint64_t a1, void *a2)
@@ -313,35 +304,32 @@ void __75__WFTriggerNotificationScheduler_updateTriggerNotificationLevels_databa
 
 void __75__WFTriggerNotificationScheduler_updateTriggerNotificationLevels_database___block_invoke_190(uint64_t a1, uint64_t a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
   v4 = *(*(*(a1 + 40) + 8) + 24);
-  v11 = 0;
-  v5 = [v3 updateNotificationLevel:v4 forConfiguredTrigger:a2 error:&v11];
-  v6 = v11;
+  v9 = 0;
+  v5 = [v3 updateNotificationLevel:v4 forConfiguredTrigger:a2 error:&v9];
+  v6 = v9;
   if ((v5 & 1) == 0)
   {
     v7 = getWFTriggerNotificationsLogObject();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v8 = *(*(*(a1 + 40) + 8) + 24);
-      v9 = WFReadableTriggerNotificationLevel();
+      v8 = WFReadableTriggerNotificationLevel();
       *buf = 136315650;
-      v13 = "[WFTriggerNotificationScheduler updateTriggerNotificationLevels:database:]_block_invoke";
+      v11 = "[WFTriggerNotificationScheduler updateTriggerNotificationLevels:database:]_block_invoke";
+      v12 = 2112;
+      v13 = v8;
       v14 = 2112;
-      v15 = v9;
-      v16 = 2112;
-      v17 = v6;
+      v15 = v6;
       _os_log_impl(&dword_23103C000, v7, OS_LOG_TYPE_ERROR, "%s Could not increment trigger to level: %@ due to error: %@", buf, 0x20u);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)postBackgroundRunningNotificationForTrigger:(id)trigger
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   triggerCopy = trigger;
   queue = [(WFTriggerNotificationScheduler *)self queue];
   dispatch_assert_queue_V2(queue);
@@ -350,14 +338,14 @@ void __75__WFTriggerNotificationScheduler_updateTriggerNotificationLevels_databa
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v41 = "[WFTriggerNotificationScheduler postBackgroundRunningNotificationForTrigger:]";
+    v40 = "[WFTriggerNotificationScheduler postBackgroundRunningNotificationForTrigger:]";
     _os_log_impl(&dword_23103C000, v6, OS_LOG_TYPE_DEFAULT, "%s Posting background notification", buf, 0xCu);
   }
 
   databaseProvider = [(WFTriggerNotificationScheduler *)self databaseProvider];
-  v39 = 0;
-  v8 = [databaseProvider databaseWithError:&v39];
-  v9 = v39;
+  v38 = 0;
+  v8 = [databaseProvider databaseWithError:&v38];
+  v9 = v38;
 
   if (v8)
   {
@@ -371,13 +359,13 @@ void __75__WFTriggerNotificationScheduler_updateTriggerNotificationLevels_databa
       identifier = [triggerCopy identifier];
       v18 = [v16 setByAddingObject:identifier];
 
-      v37[0] = MEMORY[0x277D85DD0];
-      v37[1] = 3221225472;
-      v37[2] = __78__WFTriggerNotificationScheduler_postBackgroundRunningNotificationForTrigger___block_invoke_2;
-      v37[3] = &unk_2788FE228;
+      v36[0] = MEMORY[0x277D85DD0];
+      v36[1] = 3221225472;
+      v36[2] = __78__WFTriggerNotificationScheduler_postBackgroundRunningNotificationForTrigger___block_invoke_2;
+      v36[3] = &unk_2788FE228;
       v19 = v8;
-      v38 = v19;
-      v20 = [v18 if_compactMap:v37];
+      v37 = v19;
+      v20 = [v18 if_compactMap:v36];
       allObjects = [v20 allObjects];
 
       if ([allObjects count])
@@ -386,17 +374,17 @@ void __75__WFTriggerNotificationScheduler_updateTriggerNotificationLevels_databa
         v22 = os_transaction_create();
         v23 = WFTriggerIDsToDisableNotificationUserInfoFromTriggers();
         userNotificationManager = [(WFTriggerNotificationScheduler *)self userNotificationManager];
-        v36 = v9;
-        [userNotificationManager postBackgroundRunningNotificationWithConfiguredTriggers:allObjects userInfo:v23 error:&v36];
-        v31 = v36;
+        v35 = v9;
+        [userNotificationManager postBackgroundRunningNotificationWithConfiguredTriggers:allObjects userInfo:v23 error:&v35];
+        v30 = v35;
 
         v25 = [(WFTriggerNotificationScheduler *)self updateTriggerNotificationLevels:allObjects database:v19];
-        v34[0] = MEMORY[0x277D85DD0];
-        v34[1] = 3221225472;
-        v34[2] = __78__WFTriggerNotificationScheduler_postBackgroundRunningNotificationForTrigger___block_invoke_186;
-        v34[3] = &unk_2788FE250;
-        v35 = v19;
-        v26 = [allObjects if_compactMap:v34];
+        v33[0] = MEMORY[0x277D85DD0];
+        v33[1] = 3221225472;
+        v33[2] = __78__WFTriggerNotificationScheduler_postBackgroundRunningNotificationForTrigger___block_invoke_186;
+        v33[3] = &unk_2788FE250;
+        v34 = v19;
+        v26 = [allObjects if_compactMap:v33];
 
         v27 = getWFTriggerNotificationsLogObject();
         v28 = os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT);
@@ -405,7 +393,7 @@ void __75__WFTriggerNotificationScheduler_updateTriggerNotificationLevels_databa
           if (v28)
           {
             *buf = 136315138;
-            v41 = "[WFTriggerNotificationScheduler postBackgroundRunningNotificationForTrigger:]";
+            v40 = "[WFTriggerNotificationScheduler postBackgroundRunningNotificationForTrigger:]";
             _os_log_impl(&dword_23103C000, v27, OS_LOG_TYPE_DEFAULT, "%s Level is at WFTriggerNotificationLevelNever not rescheduling triggers", buf, 0xCu);
           }
         }
@@ -416,22 +404,22 @@ void __75__WFTriggerNotificationScheduler_updateTriggerNotificationLevels_databa
           {
             v29 = WFReadableTriggerNotificationLevel();
             *buf = 136315394;
-            v41 = "[WFTriggerNotificationScheduler postBackgroundRunningNotificationForTrigger:]";
-            v42 = 2112;
-            v43 = v29;
+            v40 = "[WFTriggerNotificationScheduler postBackgroundRunningNotificationForTrigger:]";
+            v41 = 2112;
+            v42 = v29;
             _os_log_impl(&dword_23103C000, v27, OS_LOG_TYPE_DEFAULT, "%s Re-registering triggers to level: %@", buf, 0x16u);
           }
 
-          v32[0] = MEMORY[0x277D85DD0];
-          v32[1] = 3221225472;
-          v32[2] = __78__WFTriggerNotificationScheduler_postBackgroundRunningNotificationForTrigger___block_invoke_188;
-          v32[3] = &unk_2788FE278;
-          v32[4] = self;
-          v33 = v25;
-          [v26 enumerateObjectsUsingBlock:v32];
+          v31[0] = MEMORY[0x277D85DD0];
+          v31[1] = 3221225472;
+          v31[2] = __78__WFTriggerNotificationScheduler_postBackgroundRunningNotificationForTrigger___block_invoke_188;
+          v31[3] = &unk_2788FE278;
+          v31[4] = self;
+          v32 = v25;
+          [v26 enumerateObjectsUsingBlock:v31];
         }
 
-        v9 = v31;
+        v9 = v30;
       }
 
       else
@@ -440,7 +428,7 @@ void __75__WFTriggerNotificationScheduler_updateTriggerNotificationLevels_databa
         if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315138;
-          v41 = "[WFTriggerNotificationScheduler postBackgroundRunningNotificationForTrigger:]";
+          v40 = "[WFTriggerNotificationScheduler postBackgroundRunningNotificationForTrigger:]";
           _os_log_impl(&dword_23103C000, v22, OS_LOG_TYPE_ERROR, "%s Failed to post background running notification due to no configured triggers being recently ran", buf, 0xCu);
         }
 
@@ -454,7 +442,7 @@ void __75__WFTriggerNotificationScheduler_updateTriggerNotificationLevels_databa
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v41 = "[WFTriggerNotificationScheduler postBackgroundRunningNotificationForTrigger:]";
+        v40 = "[WFTriggerNotificationScheduler postBackgroundRunningNotificationForTrigger:]";
         _os_log_impl(&dword_23103C000, v10, OS_LOG_TYPE_ERROR, "%s Attempted to post background running notification but trigger was in WFTriggerNotificationLevelNever, cancelling all activities", buf, 0xCu);
       }
 
@@ -468,14 +456,12 @@ void __75__WFTriggerNotificationScheduler_updateTriggerNotificationLevels_databa
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v41 = "[WFTriggerNotificationScheduler postBackgroundRunningNotificationForTrigger:]";
-      v42 = 2114;
-      v43 = v9;
+      v40 = "[WFTriggerNotificationScheduler postBackgroundRunningNotificationForTrigger:]";
+      v41 = 2114;
+      v42 = v9;
       _os_log_impl(&dword_23103C000, v11, OS_LOG_TYPE_ERROR, "%s Failed to post background notification because database is not available: %{public}@", buf, 0x16u);
     }
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 id __78__WFTriggerNotificationScheduler_postBackgroundRunningNotificationForTrigger___block_invoke_186(uint64_t a1, void *a2)
@@ -489,7 +475,7 @@ id __78__WFTriggerNotificationScheduler_postBackgroundRunningNotificationForTrig
 
 void __78__WFTriggerNotificationScheduler_postBackgroundRunningNotificationForTrigger___block_invoke_188(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) initialRunDateForConfiguredTrigger:v3];
   if (v4)
@@ -503,18 +489,16 @@ void __78__WFTriggerNotificationScheduler_postBackgroundRunningNotificationForTr
     v6 = getWFTriggerNotificationsLogObject();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v8 = 136315138;
-      v9 = "[WFTriggerNotificationScheduler postBackgroundRunningNotificationForTrigger:]_block_invoke";
-      _os_log_impl(&dword_23103C000, v6, OS_LOG_TYPE_ERROR, "%s Skipping rescheduling of trigger due to initial run date not being found", &v8, 0xCu);
+      v7 = 136315138;
+      v8 = "[WFTriggerNotificationScheduler postBackgroundRunningNotificationForTrigger:]_block_invoke";
+      _os_log_impl(&dword_23103C000, v6, OS_LOG_TYPE_ERROR, "%s Skipping rescheduling of trigger due to initial run date not being found", &v7, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerConfiguredTrigger:(id)trigger delay:(id)delay
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   triggerCopy = trigger;
   delayCopy = delay;
   queue = [(WFTriggerNotificationScheduler *)self queue];
@@ -527,36 +511,34 @@ void __78__WFTriggerNotificationScheduler_postBackgroundRunningNotificationForTr
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v21 = "[WFTriggerNotificationScheduler registerConfiguredTrigger:delay:]";
-    v22 = 1024;
+    v20 = "[WFTriggerNotificationScheduler registerConfiguredTrigger:delay:]";
+    v21 = 1024;
     intValue = [delayCopy intValue];
-    v24 = 2114;
-    v25 = v10;
+    v23 = 2114;
+    v24 = v10;
     _os_log_impl(&dword_23103C000, v11, OS_LOG_TYPE_DEFAULT, "%s Registering trigger - creating activity with delay: %i for identifier: %{public}@", buf, 0x1Cu);
   }
 
   v12 = [[WFXPCActivityScheduler alloc] initWithActivityIdentifier:v10];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __66__WFTriggerNotificationScheduler_registerConfiguredTrigger_delay___block_invoke;
-  v18[3] = &unk_2788FE1E0;
-  v19 = delayCopy;
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __66__WFTriggerNotificationScheduler_registerConfiguredTrigger_delay___block_invoke_180;
-  v16[3] = &unk_2788FEE68;
-  v16[4] = self;
-  v17 = triggerCopy;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __66__WFTriggerNotificationScheduler_registerConfiguredTrigger_delay___block_invoke;
+  v17[3] = &unk_2788FE1E0;
+  v18 = delayCopy;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __66__WFTriggerNotificationScheduler_registerConfiguredTrigger_delay___block_invoke_180;
+  v15[3] = &unk_2788FEE68;
+  v15[4] = self;
+  v16 = triggerCopy;
   v13 = triggerCopy;
   v14 = delayCopy;
-  [(WFXPCActivityScheduler *)v12 scheduleWithCheckInHandler:v18 runHandler:v16];
-
-  v15 = *MEMORY[0x277D85DE8];
+  [(WFXPCActivityScheduler *)v12 scheduleWithCheckInHandler:v17 runHandler:v15];
 }
 
 void __66__WFTriggerNotificationScheduler_registerConfiguredTrigger_delay___block_invoke(uint64_t a1, void *a2)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = xpc_dictionary_create(0, 0, 0);
   xpc_dictionary_set_BOOL(v4, *MEMORY[0x277D86360], 0);
@@ -575,21 +557,21 @@ void __66__WFTriggerNotificationScheduler_registerConfiguredTrigger_delay___bloc
       if (v11)
       {
         *buf = 136315650;
-        v31 = "[WFTriggerNotificationScheduler registerConfiguredTrigger:delay:]_block_invoke";
-        v32 = 2082;
-        v33 = v8;
-        v34 = 2082;
-        v35 = v9;
+        v30 = "[WFTriggerNotificationScheduler registerConfiguredTrigger:delay:]_block_invoke";
+        v31 = 2082;
+        v32 = v8;
+        v33 = 2082;
+        v34 = v9;
         _os_log_impl(&dword_23103C000, v10, OS_LOG_TYPE_DEFAULT, "%s Criteria exists %{public}s and it is equal to new criteria: %{public}s doing nothing", buf, 0x20u);
       }
 
-      v29[0] = MEMORY[0x277D85DD0];
-      v29[1] = 3221225472;
-      v29[2] = __66__WFTriggerNotificationScheduler_registerConfiguredTrigger_delay___block_invoke_176;
-      v29[3] = &__block_descriptor_48_e5_v8__0l;
-      v29[4] = v8;
-      v29[5] = v9;
-      v12 = v29;
+      v28[0] = MEMORY[0x277D85DD0];
+      v28[1] = 3221225472;
+      v28[2] = __66__WFTriggerNotificationScheduler_registerConfiguredTrigger_delay___block_invoke_176;
+      v28[3] = &__block_descriptor_48_e5_v8__0l;
+      v28[4] = v8;
+      v28[5] = v9;
+      v12 = v28;
     }
 
     else
@@ -597,26 +579,26 @@ void __66__WFTriggerNotificationScheduler_registerConfiguredTrigger_delay___bloc
       if (v11)
       {
         *buf = 136315650;
-        v31 = "[WFTriggerNotificationScheduler registerConfiguredTrigger:delay:]_block_invoke_2";
-        v32 = 2082;
-        v33 = v8;
-        v34 = 2082;
-        v35 = v9;
+        v30 = "[WFTriggerNotificationScheduler registerConfiguredTrigger:delay:]_block_invoke_2";
+        v31 = 2082;
+        v32 = v8;
+        v33 = 2082;
+        v34 = v9;
         _os_log_impl(&dword_23103C000, v10, OS_LOG_TYPE_DEFAULT, "%s Criteria exists %{public}s but it is NOT equal: %{public}s setting", buf, 0x20u);
       }
 
       xpc_activity_set_criteria(v3, v4);
-      v23 = MEMORY[0x277D85DD0];
-      v24 = 3221225472;
-      v25 = __66__WFTriggerNotificationScheduler_registerConfiguredTrigger_delay___block_invoke_178;
-      v26 = &__block_descriptor_48_e5_v8__0l;
-      v27 = v8;
-      v28 = v9;
-      v12 = &v23;
+      v22 = MEMORY[0x277D85DD0];
+      v23 = 3221225472;
+      v24 = __66__WFTriggerNotificationScheduler_registerConfiguredTrigger_delay___block_invoke_178;
+      v25 = &__block_descriptor_48_e5_v8__0l;
+      v26 = v8;
+      v27 = v9;
+      v12 = &v22;
     }
 
     v14 = _Block_copy(v12);
-    v14[2](v14, v15, v16, v17, v18, v19, v20, v21, v23, v24, v25, v26);
+    v14[2](v14, v15, v16, v17, v18, v19, v20, v21, v22, v23, v24, v25);
   }
 
   else
@@ -625,14 +607,12 @@ void __66__WFTriggerNotificationScheduler_registerConfiguredTrigger_delay___bloc
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v31 = "[WFTriggerNotificationScheduler registerConfiguredTrigger:delay:]_block_invoke_2";
+      v30 = "[WFTriggerNotificationScheduler registerConfiguredTrigger:delay:]_block_invoke_2";
       _os_log_impl(&dword_23103C000, v13, OS_LOG_TYPE_DEFAULT, "%s Criteria does not exist, setting a new one", buf, 0xCu);
     }
 
     xpc_activity_set_criteria(v3, v4);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __66__WFTriggerNotificationScheduler_registerConfiguredTrigger_delay___block_invoke_180(uint64_t a1, uint64_t a2, void *a3)
@@ -656,22 +636,20 @@ uint64_t __66__WFTriggerNotificationScheduler_registerConfiguredTrigger_delay___
 
 uint64_t __66__WFTriggerNotificationScheduler_registerConfiguredTrigger_delay___block_invoke_2(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = getWFTriggerNotificationsLogObject();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) identifier];
-    v6 = 136315394;
-    v7 = "[WFTriggerNotificationScheduler registerConfiguredTrigger:delay:]_block_invoke_2";
-    v8 = 2112;
-    v9 = v3;
-    _os_log_impl(&dword_23103C000, v2, OS_LOG_TYPE_DEFAULT, "%s Registering triggers - Run handler called: %@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[WFTriggerNotificationScheduler registerConfiguredTrigger:delay:]_block_invoke_2";
+    v7 = 2112;
+    v8 = v3;
+    _os_log_impl(&dword_23103C000, v2, OS_LOG_TYPE_DEFAULT, "%s Registering triggers - Run handler called: %@", &v5, 0x16u);
   }
 
   [*(a1 + 40) postBackgroundRunningNotificationForTrigger:*(a1 + 32)];
-  result = (*(*(a1 + 48) + 16))();
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 48) + 16))();
 }
 
 void __66__WFTriggerNotificationScheduler_registerConfiguredTrigger_delay___block_invoke_176(uint64_t a1)
@@ -722,11 +700,11 @@ void __66__WFTriggerNotificationScheduler_registerConfiguredTrigger_delay___bloc
 
 void __63__WFTriggerNotificationScheduler_registerWithDatabaseProvider___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v10 = 0;
-  v3 = [v2 databaseWithError:&v10];
-  v4 = v10;
+  v9 = 0;
+  v3 = [v2 databaseWithError:&v9];
+  v4 = v9;
   if (v3)
   {
     [*(a1 + 40) migrateAllTriggersCreatedBeforeBackgroundRunningWithDatabase:v3];
@@ -737,18 +715,18 @@ void __63__WFTriggerNotificationScheduler_registerWithDatabaseProvider___block_i
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v12 = "[WFTriggerNotificationScheduler registerWithDatabaseProvider:]_block_invoke";
-      v13 = 2112;
-      v14 = v6;
+      v11 = "[WFTriggerNotificationScheduler registerWithDatabaseProvider:]_block_invoke";
+      v12 = 2112;
+      v13 = v6;
       _os_log_impl(&dword_23103C000, v7, OS_LOG_TYPE_DEFAULT, "%s Possibly registering triggers: %@", buf, 0x16u);
     }
 
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __63__WFTriggerNotificationScheduler_registerWithDatabaseProvider___block_invoke_174;
-    v9[3] = &unk_2788FE198;
-    v9[4] = *(a1 + 40);
-    [v6 enumerateObjectsUsingBlock:v9];
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __63__WFTriggerNotificationScheduler_registerWithDatabaseProvider___block_invoke_174;
+    v8[3] = &unk_2788FE198;
+    v8[4] = *(a1 + 40);
+    [v6 enumerateObjectsUsingBlock:v8];
   }
 
   else
@@ -757,19 +735,17 @@ void __63__WFTriggerNotificationScheduler_registerWithDatabaseProvider___block_i
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v12 = "[WFTriggerNotificationScheduler registerWithDatabaseProvider:]_block_invoke";
-      v13 = 2114;
-      v14 = v4;
+      v11 = "[WFTriggerNotificationScheduler registerWithDatabaseProvider:]_block_invoke";
+      v12 = 2114;
+      v13 = v4;
       _os_log_impl(&dword_23103C000, v6, OS_LOG_TYPE_ERROR, "%s Failed to schedule trigger notifications because database is not available: %{public}@", buf, 0x16u);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __63__WFTriggerNotificationScheduler_registerWithDatabaseProvider___block_invoke_174(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) initialRunDateForConfiguredTrigger:v3];
   v5 = getWFTriggerNotificationsLogObject();
@@ -778,11 +754,11 @@ void __63__WFTriggerNotificationScheduler_registerWithDatabaseProvider___block_i
   {
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[WFTriggerNotificationScheduler registerWithDatabaseProvider:]_block_invoke";
-      v10 = 2112;
-      v11 = v4;
-      _os_log_impl(&dword_23103C000, v6, OS_LOG_TYPE_DEFAULT, "%s Registering triggers with initial run date - %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[WFTriggerNotificationScheduler registerWithDatabaseProvider:]_block_invoke";
+      v9 = 2112;
+      v10 = v4;
+      _os_log_impl(&dword_23103C000, v6, OS_LOG_TYPE_DEFAULT, "%s Registering triggers with initial run date - %@", &v7, 0x16u);
     }
 
     v6 = WFTimeIntervalForNotificationLevelFromDate([v3 notificationLevel], v4);
@@ -791,12 +767,10 @@ void __63__WFTriggerNotificationScheduler_registerWithDatabaseProvider___block_i
 
   else if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    v8 = 136315138;
-    v9 = "[WFTriggerNotificationScheduler registerWithDatabaseProvider:]_block_invoke";
-    _os_log_impl(&dword_23103C000, v6, OS_LOG_TYPE_ERROR, "%s Skipping scheduling of trigger due to initial run date not being found", &v8, 0xCu);
+    v7 = 136315138;
+    v8 = "[WFTriggerNotificationScheduler registerWithDatabaseProvider:]_block_invoke";
+    _os_log_impl(&dword_23103C000, v6, OS_LOG_TYPE_ERROR, "%s Skipping scheduling of trigger due to initial run date not being found", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)scheduleTriggerForNotifications:(id)notifications
@@ -815,13 +789,13 @@ void __63__WFTriggerNotificationScheduler_registerWithDatabaseProvider___block_i
 
 void __66__WFTriggerNotificationScheduler_scheduleTriggerForNotifications___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) notificationLevel] < 3)
   {
     v3 = [*(a1 + 40) databaseProvider];
-    v7 = 0;
-    v4 = [v3 databaseWithError:&v7];
-    v2 = v7;
+    v6 = 0;
+    v4 = [v3 databaseWithError:&v6];
+    v2 = v6;
 
     if (v4)
     {
@@ -836,9 +810,9 @@ void __66__WFTriggerNotificationScheduler_scheduleTriggerForNotifications___bloc
       if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v9 = "[WFTriggerNotificationScheduler scheduleTriggerForNotifications:]_block_invoke";
-        v10 = 2114;
-        v11 = v2;
+        v8 = "[WFTriggerNotificationScheduler scheduleTriggerForNotifications:]_block_invoke";
+        v9 = 2114;
+        v10 = v2;
         _os_log_impl(&dword_23103C000, v5, OS_LOG_TYPE_ERROR, "%s Failed to schedule trigger notifications because database is not available: %{public}@", buf, 0x16u);
       }
     }
@@ -850,12 +824,10 @@ void __66__WFTriggerNotificationScheduler_scheduleTriggerForNotifications___bloc
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v9 = "[WFTriggerNotificationScheduler scheduleTriggerForNotifications:]_block_invoke";
+      v8 = "[WFTriggerNotificationScheduler scheduleTriggerForNotifications:]_block_invoke";
       _os_log_impl(&dword_23103C000, v2, OS_LOG_TYPE_ERROR, "%s Attempted to schedule trigger that was already in WFTriggerNotificationLevelNever state", buf, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (WFTriggerNotificationScheduler)initWithUserNotificationManager:(id)manager databaseProvider:(id)provider

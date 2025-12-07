@@ -16,8 +16,8 @@
   v5 = [(BKSHIDEventHitTestClientContext *)&v7 init];
   if (v5)
   {
-    v5->_pid = [coderCopy decodeInt64ForKey:@"pid"];
-    v5->_contextID = [coderCopy decodeInt64ForKey:@"contextID"];
+    v5->_pid = [coderCopy decodeInt64ForKey:?];
+    v5->_contextID = [coderCopy decodeInt64ForKey:?];
   }
 
   return v5;
@@ -25,10 +25,9 @@
 
 - (void)encodeWithBSXPCCoder:(id)coder
 {
-  pid = self->_pid;
   coderCopy = coder;
-  [coderCopy encodeInt64:pid forKey:@"pid"];
-  [coderCopy encodeInt64:self->_contextID forKey:@"contextID"];
+  [coderCopy encodeInt64:? forKey:?];
+  [coderCopy encodeInt64:? forKey:?];
 }
 
 - (BOOL)isEqual:(id)equal
@@ -42,7 +41,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  result = [[BKSHIDEventHitTestClientContext allocWithZone:?]];
+  result = [+[BKSHIDEventHitTestClientContext allocWithZone:](BKSHIDEventHitTestClientContext init];
   *(result + 2) = self->_pid;
   *(result + 3) = self->_contextID;
   return result;
@@ -67,16 +66,18 @@
 
 uint64_t __49__BKSHIDEventHitTestClientContext_protobufSchema__block_invoke(uint64_t a1)
 {
-  protobufSchema_schema_2809 = [MEMORY[0x1E698E750] buildSchemaForClass:*(a1 + 32) builder:&__block_literal_global_2811];
+  v1 = [MEMORY[0x1E698E750] buildSchemaForClass:? builder:?];
+  v2 = protobufSchema_schema_2809;
+  protobufSchema_schema_2809 = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 void __49__BKSHIDEventHitTestClientContext_protobufSchema__block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
-  [v2 addField:"_pid"];
-  [v2 addField:"_contextID"];
+  [v2 addField:?];
+  [v2 addField:?];
 }
 
 @end

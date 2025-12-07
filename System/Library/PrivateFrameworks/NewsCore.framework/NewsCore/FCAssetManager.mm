@@ -46,22 +46,22 @@
 
 void __40__FCAssetManager__prepareForUseIfNeeded__block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   if (!*(v1 + 32))
   {
     if (!NSClassFromString(&cfstr_Xctest.isa) && [MEMORY[0x1E696AF00] isMainThread] && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v20 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"This operation must not be performed on the main thread."];
-      *v21 = 136315906;
-      *&v21[4] = "[FCAssetManager _initStores]";
-      *&v21[12] = 2080;
-      *&v21[14] = "FCAssetManager.m";
-      *&v21[22] = 1024;
-      LODWORD(v22) = 731;
-      WORD2(v22) = 2114;
-      *(&v22 + 6) = v20;
-      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v21, 0x26u);
+      v19 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"This operation must not be performed on the main thread."];
+      *v20 = 136315906;
+      *&v20[4] = "[FCAssetManager _initStores]";
+      *&v20[12] = 2080;
+      *&v20[14] = "FCAssetManager.m";
+      *&v20[22] = 1024;
+      LODWORD(v21) = 731;
+      WORD2(v21) = 2114;
+      *(&v21 + 6) = v19;
+      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v20, 0x26u);
     }
 
     v2 = objc_alloc_init(FCKeyValueStoreClassRegistry);
@@ -86,20 +86,18 @@ void __40__FCAssetManager__prepareForUseIfNeeded__block_invoke(uint64_t a1)
     objc_autoreleasePoolPop(v8);
     v14 = objc_autoreleasePoolPush();
     v15 = *(v1 + 32);
-    *v21 = MEMORY[0x1E69E9820];
-    *&v21[8] = 3221225472;
-    *&v21[16] = __29__FCAssetManager__initStores__block_invoke;
-    *&v22 = &unk_1E7C46318;
-    *(&v22 + 1) = v1;
-    [v15 enumerateKeysAndObjectsUsingBlock:v21];
+    *v20 = MEMORY[0x1E69E9820];
+    *&v20[8] = 3221225472;
+    *&v20[16] = __29__FCAssetManager__initStores__block_invoke;
+    *&v21 = &unk_1E7C46318;
+    *(&v21 + 1) = v1;
+    [v15 enumerateKeysAndObjectsUsingBlock:v20];
     objc_autoreleasePoolPop(v14);
     v16 = [*(v1 + 40) allKeys];
     v17 = *(v1 + 48);
     v18 = [*(v1 + 32) objectForKeyedSubscript:@"cacheHints"];
     [v17 setupWithInitialKeys:v16 persistedHints:v18];
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __29__FCAssetManager__initStores__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -139,7 +137,7 @@ void __29__FCAssetManager__initStores__block_invoke(uint64_t a1, void *a2, void 
 
 - (void)assetStore
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (self)
   {
     selfCopy = self;
@@ -148,15 +146,15 @@ void __29__FCAssetManager__initStores__block_invoke(uint64_t a1, void *a2, void 
     {
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_assetStore"];
+        v4 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_assetStore"];
         *buf = 136315906;
-        v7 = "[FCAssetManager assetStore]";
-        v8 = 2080;
-        v9 = "FCAssetManager.m";
-        v10 = 1024;
-        v11 = 882;
-        v12 = 2114;
-        v13 = v5;
+        v6 = "[FCAssetManager assetStore]";
+        v7 = 2080;
+        v8 = "FCAssetManager.m";
+        v9 = 1024;
+        v10 = 882;
+        v11 = 2114;
+        v12 = v4;
         _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
         v2 = selfCopy[5];
@@ -171,14 +169,12 @@ void __29__FCAssetManager__initStores__block_invoke(uint64_t a1, void *a2, void 
     self = v2;
   }
 
-  v3 = *MEMORY[0x1E69E9840];
-
   return self;
 }
 
 - (void)keyValueStore
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (self)
   {
     selfCopy = self;
@@ -187,15 +183,15 @@ void __29__FCAssetManager__initStores__block_invoke(uint64_t a1, void *a2, void 
     {
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_keyValueStore"];
+        v4 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_keyValueStore"];
         *buf = 136315906;
-        v7 = "[FCAssetManager keyValueStore]";
-        v8 = 2080;
-        v9 = "FCAssetManager.m";
-        v10 = 1024;
-        v11 = 876;
-        v12 = 2114;
-        v13 = v5;
+        v6 = "[FCAssetManager keyValueStore]";
+        v7 = 2080;
+        v8 = "FCAssetManager.m";
+        v9 = 1024;
+        v10 = 876;
+        v11 = 2114;
+        v12 = v4;
         _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
         v2 = selfCopy[4];
@@ -209,8 +205,6 @@ void __29__FCAssetManager__initStores__block_invoke(uint64_t a1, void *a2, void 
 
     self = v2;
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 
   return self;
 }
@@ -259,7 +253,7 @@ void __29__FCAssetManager__initStores__block_invoke(uint64_t a1, void *a2, void 
 
 - (FCAssetManager)initWithName:(id)name directory:(id)directory keyManager:(id)manager avAssetFactory:(id)factory resourceURLGenerator:(id)generator networkBehaviorMonitor:(id)monitor networkReachability:(id)reachability
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   directoryCopy = directory;
   managerCopy = manager;
@@ -270,15 +264,15 @@ void __29__FCAssetManager__initStores__block_invoke(uint64_t a1, void *a2, void 
   if (!nameCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     monitorCopy2 = monitor;
-    v42 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "name != nil"];
+    v41 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "name != nil"];
     *buf = 136315906;
-    v55 = "[FCAssetManager initWithName:directory:keyManager:avAssetFactory:resourceURLGenerator:networkBehaviorMonitor:networkReachability:]";
-    v56 = 2080;
-    v57 = "FCAssetManager.m";
-    v58 = 1024;
-    v59 = 110;
-    v60 = 2114;
-    v61 = v42;
+    v54 = "[FCAssetManager initWithName:directory:keyManager:avAssetFactory:resourceURLGenerator:networkBehaviorMonitor:networkReachability:]";
+    v55 = 2080;
+    v56 = "FCAssetManager.m";
+    v57 = 1024;
+    v58 = 110;
+    v59 = 2114;
+    v60 = v41;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     monitor = monitorCopy2;
@@ -296,42 +290,42 @@ void __29__FCAssetManager__initStores__block_invoke(uint64_t a1, void *a2, void 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     monitorCopy3 = monitor;
-    v43 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "directory != nil"];
+    v42 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "directory != nil"];
     *buf = 136315906;
-    v55 = "[FCAssetManager initWithName:directory:keyManager:avAssetFactory:resourceURLGenerator:networkBehaviorMonitor:networkReachability:]";
-    v56 = 2080;
-    v57 = "FCAssetManager.m";
-    v58 = 1024;
-    v59 = 111;
-    v60 = 2114;
-    v61 = v43;
+    v54 = "[FCAssetManager initWithName:directory:keyManager:avAssetFactory:resourceURLGenerator:networkBehaviorMonitor:networkReachability:]";
+    v55 = 2080;
+    v56 = "FCAssetManager.m";
+    v57 = 1024;
+    v58 = 111;
+    v59 = 2114;
+    v60 = v42;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     monitor = monitorCopy3;
   }
 
 LABEL_6:
-  v51 = reachabilityCopy;
+  v50 = reachabilityCopy;
   if (!reachabilityCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     monitorCopy4 = monitor;
-    v44 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "networkReachability != nil"];
+    v43 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "networkReachability != nil"];
     *buf = 136315906;
-    v55 = "[FCAssetManager initWithName:directory:keyManager:avAssetFactory:resourceURLGenerator:networkBehaviorMonitor:networkReachability:]";
-    v56 = 2080;
-    v57 = "FCAssetManager.m";
-    v58 = 1024;
-    v59 = 112;
-    v60 = 2114;
-    v61 = v44;
+    v54 = "[FCAssetManager initWithName:directory:keyManager:avAssetFactory:resourceURLGenerator:networkBehaviorMonitor:networkReachability:]";
+    v55 = 2080;
+    v56 = "FCAssetManager.m";
+    v57 = 1024;
+    v58 = 112;
+    v59 = 2114;
+    v60 = v43;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     monitor = monitorCopy4;
   }
 
-  v53.receiver = self;
-  v53.super_class = FCAssetManager;
-  v20 = [(FCAssetManager *)&v53 init];
+  v52.receiver = self;
+  v52.super_class = FCAssetManager;
+  v20 = [(FCAssetManager *)&v52 init];
   if (v20)
   {
     v21 = [nameCopy copy];
@@ -343,7 +337,7 @@ LABEL_6:
     v20->_parentDirectory = v23;
 
     [nameCopy stringByAppendingString:@"-assetstore"];
-    v50 = factoryCopy;
+    v49 = factoryCopy;
     generatorCopy2 = generator;
     v26 = v25 = managerCopy;
     [directoryCopy stringByAppendingPathComponent:v26];
@@ -376,11 +370,10 @@ LABEL_6:
     objc_storeStrong(&v20->_networkReachability, reachability);
     objc_storeStrong(&v20->_keyManager, manager);
     objc_storeStrong(&v20->_avAssetFactory, factory);
-    factoryCopy = v50;
+    factoryCopy = v49;
     objc_storeStrong(&v20->_resourceURLGenerator, generatorCopy2);
   }
 
-  v40 = *MEMORY[0x1E69E9840];
   return v20;
 }
 
@@ -873,34 +866,34 @@ void __91__FCAssetManager_assetHandleForCKAssetURLString_prefetchedData_unzipIfN
 
 - (id)assetHandleForURL:(id)l prefetchedFileURL:(id)rL importMethod:(int64_t)method lifetimeHint:(int64_t)hint
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   lCopy = l;
   rLCopy = rL;
   if (!lCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v22 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "remoteURL"];
+    v21 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "remoteURL"];
     *buf = 136315906;
     *&buf[4] = "[FCAssetManager assetHandleForURL:prefetchedFileURL:importMethod:lifetimeHint:]";
     *&buf[12] = 2080;
     *&buf[14] = "FCAssetManager.m";
     *&buf[22] = 1024;
-    LODWORD(v38) = 308;
-    WORD2(v38) = 2114;
-    *(&v38 + 6) = v22;
+    LODWORD(v37) = 308;
+    WORD2(v37) = 2114;
+    *(&v37 + 6) = v21;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
   if (!rLCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v23 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "prefetchedFileURL"];
+    v22 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "prefetchedFileURL"];
     *buf = 136315906;
     *&buf[4] = "[FCAssetManager assetHandleForURL:prefetchedFileURL:importMethod:lifetimeHint:]";
     *&buf[12] = 2080;
     *&buf[14] = "FCAssetManager.m";
     *&buf[22] = 1024;
-    LODWORD(v38) = 309;
-    WORD2(v38) = 2114;
-    *(&v38 + 6) = v23;
+    LODWORD(v37) = 309;
+    WORD2(v37) = 2114;
+    *(&v37 + 6) = v22;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
@@ -909,15 +902,15 @@ void __91__FCAssetManager_assetHandleForCKAssetURLString_prefetchedData_unzipIfN
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  *&v38 = __Block_byref_object_copy__81;
-  *(&v38 + 1) = __Block_byref_object_dispose__81;
-  v39 = 0;
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x3032000000;
-  v34 = __Block_byref_object_copy__81;
-  v35 = __Block_byref_object_dispose__81;
-  v36 = 0;
+  *&v37 = __Block_byref_object_copy__81;
+  *(&v37 + 1) = __Block_byref_object_dispose__81;
+  v38 = 0;
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x3032000000;
+  v33 = __Block_byref_object_copy__81;
+  v34 = __Block_byref_object_dispose__81;
+  v35 = 0;
   if (self)
   {
     cacheCoordinator = self->_cacheCoordinator;
@@ -929,32 +922,30 @@ void __91__FCAssetManager_assetHandleForCKAssetURLString_prefetchedData_unzipIfN
   }
 
   v14 = cacheCoordinator;
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __80__FCAssetManager_assetHandleForURL_prefetchedFileURL_importMethod_lifetimeHint___block_invoke;
-  v24[3] = &unk_1E7C46160;
-  v24[4] = self;
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __80__FCAssetManager_assetHandleForURL_prefetchedFileURL_importMethod_lifetimeHint___block_invoke;
+  v23[3] = &unk_1E7C46160;
+  v23[4] = self;
   v15 = rLCopy;
-  v25 = v15;
+  v24 = v15;
   methodCopy = method;
   v16 = v12;
-  v26 = v16;
-  v27 = buf;
+  v25 = v16;
+  v26 = buf;
   hintCopy = hint;
-  v28 = &v31;
-  [(FCCacheCoordinator *)v14 performCacheWrite:v24];
+  v27 = &v30;
+  [(FCCacheCoordinator *)v14 performCacheWrite:v23];
 
   v17 = [(FCAssetManager *)self assetHandleForURL:lCopy lifetimeHint:hint];
   v19 = v17;
   if (v17)
   {
-    objc_setProperty_atomic_copy(v17, v18, v32[5], 112);
+    objc_setProperty_atomic_copy(v17, v18, v31[5], 112);
   }
 
-  _Block_object_dispose(&v31, 8);
+  _Block_object_dispose(&v30, 8);
   _Block_object_dispose(buf, 8);
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v19;
 }
@@ -985,7 +976,7 @@ void __80__FCAssetManager_assetHandleForURL_prefetchedFileURL_importMethod_lifet
 
 - (id)_importFileAtPath:(uint64_t)path method:(void *)method key:(void *)key mimeType:(void *)type importedMetadata:(uint64_t)metadata lifetimeHint:
 {
-  v64 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   v13 = a2;
   methodCopy = method;
   keyCopy = key;
@@ -997,51 +988,51 @@ void __80__FCAssetManager_assetHandleForURL_prefetchedFileURL_importMethod_lifet
 
     if (v18)
     {
-      v57 = MEMORY[0x1E69E9820];
-      v58 = 3221225472;
-      v59 = __86__FCAssetManager__importFileAtPath_method_key_mimeType_importedMetadata_lifetimeHint___block_invoke;
-      v60 = &unk_1E7C36F98;
-      v61 = v18;
-      self = v61;
+      v56 = MEMORY[0x1E69E9820];
+      v57 = 3221225472;
+      v58 = __86__FCAssetManager__importFileAtPath_method_key_mimeType_importedMetadata_lifetimeHint___block_invoke;
+      v59 = &unk_1E7C36F98;
+      v60 = v18;
+      self = v60;
     }
 
     else
     {
-      v55[0] = 0;
-      v55[1] = v55;
-      v55[2] = 0x3032000000;
-      v55[3] = __Block_byref_object_copy__81;
-      v55[4] = __Block_byref_object_dispose__81;
-      v56 = 0;
-      v50[0] = MEMORY[0x1E69E9820];
-      v50[1] = 3221225472;
-      v50[2] = __86__FCAssetManager__importFileAtPath_method_key_mimeType_importedMetadata_lifetimeHint___block_invoke_2;
-      v50[3] = &unk_1E7C46340;
+      v54[0] = 0;
+      v54[1] = v54;
+      v54[2] = 0x3032000000;
+      v54[3] = __Block_byref_object_copy__81;
+      v54[4] = __Block_byref_object_dispose__81;
+      v55 = 0;
+      v49[0] = MEMORY[0x1E69E9820];
+      v49[1] = 3221225472;
+      v49[2] = __86__FCAssetManager__importFileAtPath_method_key_mimeType_importedMetadata_lifetimeHint___block_invoke_2;
+      v49[3] = &unk_1E7C46340;
       pathCopy = path;
-      v50[4] = self;
+      v49[4] = self;
       v19 = v13;
       v20 = v13;
-      v51 = v20;
+      v50 = v20;
       v21 = methodCopy;
-      v52 = v21;
-      v53 = v55;
-      v22 = __86__FCAssetManager__importFileAtPath_method_key_mimeType_importedMetadata_lifetimeHint___block_invoke_2(v50);
-      v36 = v22;
+      v51 = v21;
+      v52 = v54;
+      v22 = __86__FCAssetManager__importFileAtPath_method_key_mimeType_importedMetadata_lifetimeHint___block_invoke_2(v49);
+      v35 = v22;
       if (v22)
       {
         v23 = v22;
-        v37 = MEMORY[0x1E69E9820];
-        v38 = 3221225472;
-        v39 = __86__FCAssetManager__importFileAtPath_method_key_mimeType_importedMetadata_lifetimeHint___block_invoke_102;
-        v40 = &unk_1E7C46390;
-        v41 = typeCopy;
+        v36 = MEMORY[0x1E69E9820];
+        v37 = 3221225472;
+        v38 = __86__FCAssetManager__importFileAtPath_method_key_mimeType_importedMetadata_lifetimeHint___block_invoke_102;
+        v39 = &unk_1E7C46390;
+        v40 = typeCopy;
         selfCopy = self;
         v24 = v21;
-        v43 = v24;
-        v44 = keyCopy;
-        v35 = v23;
-        v45 = v35;
-        __86__FCAssetManager__importFileAtPath_method_key_mimeType_importedMetadata_lifetimeHint___block_invoke_102(&v37);
+        v42 = v24;
+        v43 = keyCopy;
+        v34 = v23;
+        v44 = v34;
+        __86__FCAssetManager__importFileAtPath_method_key_mimeType_importedMetadata_lifetimeHint___block_invoke_102(&v36);
         v25 = v13 = v19;
         keyValueStore = [(FCAssetManager *)self keyValueStore];
         [keyValueStore setObject:v25 forKey:v24];
@@ -1055,90 +1046,88 @@ void __80__FCAssetManager_assetHandleForURL_prefetchedFileURL_importMethod_lifet
         if (persistableHints)
         {
           keyValueStore2 = [(FCAssetManager *)self keyValueStore];
-          [keyValueStore2 setObject:persistableHints forKey:{@"cacheHints", v35, v36, v37, v38, v39, v40, v41, selfCopy, v43, v44}];
+          [keyValueStore2 setObject:persistableHints forKey:{@"cacheHints", v34, v35, v36, v37, v38, v39, v40, selfCopy, v42, v43}];
         }
 
         v31 = FCDefaultLog;
         if (os_log_type_enabled(FCDefaultLog, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
-          v63 = v24;
+          v62 = v24;
           _os_log_impl(&dword_1B63EF000, v31, OS_LOG_TYPE_DEFAULT, "asset manager successfully imported %{public}@", buf, 0xCu);
         }
 
-        self = v35;
+        self = v34;
 
-        v32 = &v41;
+        v32 = &v40;
       }
 
       else
       {
-        v46[0] = MEMORY[0x1E69E9820];
-        v46[1] = 3221225472;
-        v46[2] = __86__FCAssetManager__importFileAtPath_method_key_mimeType_importedMetadata_lifetimeHint___block_invoke_3;
-        v46[3] = &unk_1E7C46368;
-        v47 = v21;
-        v48 = v20;
-        v49 = v55;
-        self = __86__FCAssetManager__importFileAtPath_method_key_mimeType_importedMetadata_lifetimeHint___block_invoke_3(v46);
+        v45[0] = MEMORY[0x1E69E9820];
+        v45[1] = 3221225472;
+        v45[2] = __86__FCAssetManager__importFileAtPath_method_key_mimeType_importedMetadata_lifetimeHint___block_invoke_3;
+        v45[3] = &unk_1E7C46368;
+        v46 = v21;
+        v47 = v20;
+        v48 = v54;
+        self = __86__FCAssetManager__importFileAtPath_method_key_mimeType_importedMetadata_lifetimeHint___block_invoke_3(v45);
 
-        v32 = &v47;
+        v32 = &v46;
       }
 
-      _Block_object_dispose(v55, 8);
+      _Block_object_dispose(v54, 8);
     }
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 
   return self;
 }
 
 - (id)importAsset:(id)asset remoteURL:(id)l fileURL:(id)rL
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   assetCopy = asset;
   lCopy = l;
   rLCopy = rL;
   if (!assetCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v24 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "assetMetadata"];
+    v23 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "assetMetadata"];
     *buf = 136315906;
     *&buf[4] = "[FCAssetManager importAsset:remoteURL:fileURL:]";
     *&buf[12] = 2080;
     *&buf[14] = "FCAssetManager.m";
     *&buf[22] = 1024;
-    LODWORD(v36) = 345;
-    WORD2(v36) = 2114;
-    *(&v36 + 6) = v24;
+    LODWORD(v35) = 345;
+    WORD2(v35) = 2114;
+    *(&v35 + 6) = v23;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
   if (!lCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v25 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "remoteURL"];
+    v24 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "remoteURL"];
     *buf = 136315906;
     *&buf[4] = "[FCAssetManager importAsset:remoteURL:fileURL:]";
     *&buf[12] = 2080;
     *&buf[14] = "FCAssetManager.m";
     *&buf[22] = 1024;
-    LODWORD(v36) = 346;
-    WORD2(v36) = 2114;
-    *(&v36 + 6) = v25;
+    LODWORD(v35) = 346;
+    WORD2(v35) = 2114;
+    *(&v35 + 6) = v24;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
   if (!rLCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v26 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "fileURL"];
+    v25 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "fileURL"];
     *buf = 136315906;
     *&buf[4] = "[FCAssetManager importAsset:remoteURL:fileURL:]";
     *&buf[12] = 2080;
     *&buf[14] = "FCAssetManager.m";
     *&buf[22] = 1024;
-    LODWORD(v36) = 347;
-    WORD2(v36) = 2114;
-    *(&v36 + 6) = v26;
+    LODWORD(v35) = 347;
+    WORD2(v35) = 2114;
+    *(&v35 + 6) = v25;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
@@ -1158,9 +1147,9 @@ void __80__FCAssetManager_assetHandleForURL_prefetchedFileURL_importMethod_lifet
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  *&v36 = __Block_byref_object_copy__81;
-  *(&v36 + 1) = __Block_byref_object_dispose__81;
-  v37 = 0;
+  *&v35 = __Block_byref_object_copy__81;
+  *(&v35 + 1) = __Block_byref_object_dispose__81;
+  v36 = 0;
   if (self)
   {
     assetHandlesLock = self->_assetHandlesLock;
@@ -1172,15 +1161,15 @@ void __80__FCAssetManager_assetHandleForURL_prefetchedFileURL_importMethod_lifet
   }
 
   v15 = assetHandlesLock;
-  v32[0] = MEMORY[0x1E69E9820];
-  v32[1] = 3221225472;
-  v32[2] = __48__FCAssetManager_importAsset_remoteURL_fileURL___block_invoke;
-  v32[3] = &unk_1E7C37138;
-  v34 = buf;
-  v32[4] = self;
+  v31[0] = MEMORY[0x1E69E9820];
+  v31[1] = 3221225472;
+  v31[2] = __48__FCAssetManager_importAsset_remoteURL_fileURL___block_invoke;
+  v31[3] = &unk_1E7C37138;
+  v33 = buf;
+  v31[4] = self;
   v16 = v11;
-  v33 = v16;
-  [(NFUnfairLock *)v15 performWithLockSync:v32];
+  v32 = v16;
+  [(NFUnfairLock *)v15 performWithLockSync:v31];
 
   if (self)
   {
@@ -1193,22 +1182,21 @@ void __80__FCAssetManager_assetHandleForURL_prefetchedFileURL_importMethod_lifet
   }
 
   v18 = v17;
-  v27[0] = MEMORY[0x1E69E9820];
-  v27[1] = 3221225472;
-  v27[2] = __48__FCAssetManager_importAsset_remoteURL_fileURL___block_invoke_2;
-  v27[3] = &unk_1E7C46188;
-  v27[4] = self;
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __48__FCAssetManager_importAsset_remoteURL_fileURL___block_invoke_2;
+  v26[3] = &unk_1E7C46188;
+  v26[4] = self;
   v19 = rLCopy;
-  v28 = v19;
+  v27 = v19;
   v20 = v16;
-  v29 = v20;
+  v28 = v20;
   v21 = assetCopy;
-  v30 = v21;
-  v31 = buf;
-  [(FCCacheCoordinator *)v18 performCacheWrite:v27];
+  v29 = v21;
+  v30 = buf;
+  [(FCCacheCoordinator *)v18 performCacheWrite:v26];
 
   _Block_object_dispose(buf, 8);
-  v22 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -1642,10 +1630,10 @@ uint64_t __64__FCAssetManager__populateRawFilePathForAssetHandle_completion___bl
 
 void __64__FCAssetManager__populateRawFilePathForAssetHandle_completion___block_invoke_3(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v56 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
-  v38 = a4;
+  v37 = a4;
   v9 = [v8 responseMIMEType];
   v10 = [v7 path];
   v11 = *(a1 + 32);
@@ -1674,9 +1662,9 @@ void __64__FCAssetManager__populateRawFilePathForAssetHandle_completion___block_
     v19 = [v18 UUIDString];
     v20 = [v17 stringByAppendingString:v19];
 
-    v47 = 0;
-    LODWORD(v19) = [v15 transformAssetDataFromFilePath:v13 toFilePath:v20 error:&v47];
-    v21 = v47;
+    v46 = 0;
+    LODWORD(v19) = [v15 transformAssetDataFromFilePath:v13 toFilePath:v20 error:&v46];
+    v21 = v46;
     if (v19)
     {
       v22 = v20;
@@ -1692,11 +1680,11 @@ void __64__FCAssetManager__populateRawFilePathForAssetHandle_completion___block_
       v24 = FCDefaultLog;
       if (os_log_type_enabled(FCDefaultLog, OS_LOG_TYPE_ERROR))
       {
-        v37 = *(a1 + 40);
+        v36 = *(a1 + 40);
         *buf = 138543618;
-        v49 = v37;
-        v50 = 2114;
-        v51 = v21;
+        v48 = v36;
+        v49 = 2114;
+        v50 = v21;
         _os_log_error_impl(&dword_1B63EF000, v24, OS_LOG_TYPE_ERROR, "failed to transform asset %{public}@ with error: %{public}@", buf, 0x16u);
       }
 
@@ -1713,15 +1701,15 @@ void __64__FCAssetManager__populateRawFilePathForAssetHandle_completion___block_
 
     if (!v28 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v36 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"successful asset downloads must be handled on URL session queue"];
+      v35 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"successful asset downloads must be handled on URL session queue"];
       *buf = 136315906;
-      v49 = "[FCAssetManager _populateRawFilePathForAssetHandle:completion:]_block_invoke";
-      v50 = 2080;
-      v51 = "FCAssetManager.m";
-      v52 = 1024;
-      v53 = 488;
-      v54 = 2114;
-      v55 = v36;
+      v48 = "[FCAssetManager _populateRawFilePathForAssetHandle:completion:]_block_invoke";
+      v49 = 2080;
+      v50 = "FCAssetManager.m";
+      v51 = 1024;
+      v52 = 488;
+      v53 = 2114;
+      v54 = v35;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
     }
 
@@ -1732,17 +1720,17 @@ void __64__FCAssetManager__populateRawFilePathForAssetHandle_completion___block_
     }
 
     v30 = v29;
-    v41[0] = MEMORY[0x1E69E9820];
-    v41[1] = 3221225472;
-    v41[2] = __64__FCAssetManager__populateRawFilePathForAssetHandle_completion___block_invoke_56;
-    v41[3] = &unk_1E7C46228;
-    v41[4] = *(a1 + 32);
-    v42 = v13;
-    v43 = *(a1 + 40);
-    v44 = v14;
-    objc_copyWeak(&v46, (a1 + 64));
-    v45 = *(a1 + 48);
-    [v30 performCacheWrite:v41];
+    v40[0] = MEMORY[0x1E69E9820];
+    v40[1] = 3221225472;
+    v40[2] = __64__FCAssetManager__populateRawFilePathForAssetHandle_completion___block_invoke_56;
+    v40[3] = &unk_1E7C46228;
+    v40[4] = *(a1 + 32);
+    v41 = v13;
+    v42 = *(a1 + 40);
+    v43 = v14;
+    objc_copyWeak(&v45, (a1 + 64));
+    v44 = *(a1 + 48);
+    [v30 performCacheWrite:v40];
 
     v31 = *(a1 + 56);
     if (v31)
@@ -1750,12 +1738,12 @@ void __64__FCAssetManager__populateRawFilePathForAssetHandle_completion___block_
       (*(v31 + 16))(v31, 0);
     }
 
-    objc_destroyWeak(&v46);
+    objc_destroyWeak(&v45);
   }
 
   else
   {
-    if (v38 && [v38 fc_isHTTPNotFoundError])
+    if (v37 && [v37 fc_isHTTPNotFoundError])
     {
       v32 = *(a1 + 32);
       if (v32)
@@ -1768,23 +1756,21 @@ void __64__FCAssetManager__populateRawFilePathForAssetHandle_completion___block_
         v33 = 0;
       }
 
-      v39[0] = MEMORY[0x1E69E9820];
-      v39[1] = 3221225472;
-      v39[2] = __64__FCAssetManager__populateRawFilePathForAssetHandle_completion___block_invoke_2_57;
-      v39[3] = &unk_1E7C36C58;
-      v39[4] = v32;
-      v40 = *(a1 + 40);
-      [v33 performCacheWrite:v39];
+      v38[0] = MEMORY[0x1E69E9820];
+      v38[1] = 3221225472;
+      v38[2] = __64__FCAssetManager__populateRawFilePathForAssetHandle_completion___block_invoke_2_57;
+      v38[3] = &unk_1E7C36C58;
+      v38[4] = v32;
+      v39 = *(a1 + 40);
+      [v33 performCacheWrite:v38];
     }
 
     v34 = *(a1 + 56);
     if (v34)
     {
-      (*(v34 + 16))(v34, v38);
+      (*(v34 + 16))(v34, v37);
     }
   }
-
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 void __64__FCAssetManager__populateRawFilePathForAssetHandle_completion___block_invoke_56(uint64_t a1)
@@ -1832,28 +1818,27 @@ void __64__FCAssetManager__populateRawFilePathForAssetHandle_completion___block_
 
 uint64_t __62__FCAssetManager__fetchDataProviderForAssetHandle_completion___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v4 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"must fetch asset's raw file before fetching the data provider"];
-    v5 = 136315906;
-    v6 = "[FCAssetManager _fetchDataProviderForAssetHandle:completion:]_block_invoke";
-    v7 = 2080;
-    v8 = "FCAssetManager.m";
-    v9 = 1024;
-    v10 = 529;
-    v11 = 2114;
-    v12 = v4;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v5, 0x26u);
+    v3 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"must fetch asset's raw file before fetching the data provider"];
+    v4 = 136315906;
+    v5 = "[FCAssetManager _fetchDataProviderForAssetHandle:completion:]_block_invoke";
+    v6 = 2080;
+    v7 = "FCAssetManager.m";
+    v8 = 1024;
+    v9 = 529;
+    v10 = 2114;
+    v11 = v3;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v4, 0x26u);
   }
 
   result = *(a1 + 32);
   if (result)
   {
-    result = (*(result + 16))(result, 0, 0);
+    return (*(result + 16))(result, 0, 0);
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -1977,7 +1962,7 @@ void __62__FCAssetManager__fetchDataProviderForAssetHandle_completion___block_in
 
 - (unint64_t)cacheCoordinatorCurrentSizeWithReadLock:(id)lock
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __58__FCAssetManager_cacheCoordinatorCurrentSizeWithReadLock___block_invoke;
@@ -1999,17 +1984,16 @@ void __62__FCAssetManager__fetchDataProviderForAssetHandle_completion___block_in
     v13 = [keysWithZeroInterest count];
     v14 = [MEMORY[0x1E696AAF0] stringFromByteCount:v6 countStyle:0];
     *buf = 134218754;
-    v19 = v11;
-    v20 = 2114;
-    v21 = v12;
-    v22 = 2048;
-    v23 = v13;
-    v24 = 2114;
-    v25 = v14;
+    v18 = v11;
+    v19 = 2114;
+    v20 = v12;
+    v21 = 2048;
+    v22 = v13;
+    v23 = 2114;
+    v24 = v14;
     _os_log_impl(&dword_1B63EF000, v10, OS_LOG_TYPE_DEFAULT, "asset manager contains %lu held assets (size=%{public}@) and %lu non-held assets (size=%{public}@)", buf, 0x2Au);
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -2034,7 +2018,7 @@ uint64_t __58__FCAssetManager_cacheCoordinatorCurrentSizeWithReadLock___block_in
   return v5;
 }
 
-uint64_t __58__FCAssetManager_cacheCoordinatorCurrentSizeWithReadLock___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
+void *__58__FCAssetManager_cacheCoordinatorCurrentSizeWithReadLock___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
   result = [a3 size];
   *(*(*(a1 + 32) + 8) + 24) += result;
@@ -2043,7 +2027,7 @@ uint64_t __58__FCAssetManager_cacheCoordinatorCurrentSizeWithReadLock___block_in
 
 - (void)cacheCoordinator:(id)coordinator flushKeysWithWriteLock:(id)lock
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   coordinatorCopy = coordinator;
   lockCopy = lock;
   v8 = FCDefaultLog;
@@ -2051,9 +2035,9 @@ uint64_t __58__FCAssetManager_cacheCoordinatorCurrentSizeWithReadLock___block_in
   {
     v9 = v8;
     *buf = 134218242;
-    v27 = [lockCopy count];
-    v28 = 2112;
-    v29 = lockCopy;
+    v26 = [lockCopy count];
+    v27 = 2112;
+    v28 = lockCopy;
     _os_log_impl(&dword_1B63EF000, v9, OS_LOG_TYPE_DEFAULT, "asset manager is flushing %lu files with keys: %@", buf, 0x16u);
   }
 
@@ -2064,41 +2048,39 @@ uint64_t __58__FCAssetManager_cacheCoordinatorCurrentSizeWithReadLock___block_in
   persistableHints = [coordinatorCopy persistableHints];
   [keyValueStore setObject:persistableHints forKey:@"cacheHints"];
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v13 = lockCopy;
-  v14 = [v13 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v22;
+    v16 = *v21;
     do
     {
       v17 = 0;
       do
       {
-        if (*v22 != v16)
+        if (*v21 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = *(*(&v21 + 1) + 8 * v17);
+        v18 = *(*(&v20 + 1) + 8 * v17);
         assetStore = [(FCAssetManager *)self assetStore];
-        [assetStore removeFileWithKey:{v18, v21}];
+        [assetStore removeFileWithKey:{v18, v20}];
 
         ++v17;
       }
 
       while (v15 != v17);
-      v15 = [v13 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v15);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)saveWithCompletionHandler:(id)handler
@@ -2207,7 +2189,7 @@ void __29__FCAssetManager_storageSize__block_invoke(uint64_t a1)
   [v2 enumerateKeysAndObjectsForKeys:v5 usingBlock:v7];
 }
 
-uint64_t __29__FCAssetManager_storageSize__block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
+void *__29__FCAssetManager_storageSize__block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
   result = [a3 size];
   *(*(*(a1 + 32) + 8) + 24) += result;
@@ -2244,7 +2226,7 @@ uint64_t __29__FCAssetManager_storageSize__block_invoke_2(uint64_t a1, uint64_t 
 
 void __37__FCAssetManager_d_resetAssetHandle___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v2 = [(FCAssetManager *)*(a1 + 32) assetStore];
   [v2 removeFileWithKey:*(a1 + 40)];
 
@@ -2254,11 +2236,11 @@ void __37__FCAssetManager_d_resetAssetHandle___block_invoke(uint64_t a1)
     v3 = v3[6];
   }
 
-  v11 = *(a1 + 40);
+  v10 = *(a1 + 40);
   v4 = MEMORY[0x1E695DEC8];
   v5 = v3;
-  v6 = [v4 arrayWithObjects:&v11 count:1];
-  [v5 didRemoveKeysFromCache:{v6, v11, v12}];
+  v6 = [v4 arrayWithObjects:&v10 count:1];
+  [v5 didRemoveKeysFromCache:{v6, v10, v11}];
 
   v7 = [(FCAssetManager *)*(a1 + 32) keyValueStore];
   [v7 removeObjectForKey:*(a1 + 40)];
@@ -2268,8 +2250,6 @@ void __37__FCAssetManager_d_resetAssetHandle___block_invoke(uint64_t a1)
   {
     objc_setProperty_atomic_copy(v9, v8, 0, 112);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)enableFlushingWithFlushingThreshold:(unint64_t)threshold
@@ -2373,23 +2353,22 @@ LABEL_6:
 
 uint64_t __86__FCAssetManager__importFileAtPath_method_key_mimeType_importedMetadata_lifetimeHint___block_invoke_3(void *a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v2 = FCDefaultLog;
   if (os_log_type_enabled(FCDefaultLog, OS_LOG_TYPE_ERROR))
   {
-    v5 = a1[4];
-    v6 = a1[5];
-    v7 = *(*(a1[6] + 8) + 40);
-    v8 = 138543874;
-    v9 = v5;
-    v10 = 2114;
-    v11 = v6;
-    v12 = 2114;
-    v13 = v7;
-    _os_log_error_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_ERROR, "asset manager failed to import %{public}@ from %{public}@, error=%{public}@", &v8, 0x20u);
+    v4 = a1[4];
+    v5 = a1[5];
+    v6 = *(*(a1[6] + 8) + 40);
+    v7 = 138543874;
+    v8 = v4;
+    v9 = 2114;
+    v10 = v5;
+    v11 = 2114;
+    v12 = v6;
+    _os_log_error_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_ERROR, "asset manager failed to import %{public}@ from %{public}@, error=%{public}@", &v7, 0x20u);
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return 0;
 }
 

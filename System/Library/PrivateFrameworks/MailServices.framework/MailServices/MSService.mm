@@ -49,7 +49,7 @@
 
 - (void)start
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_connectionQueue);
   if (self->_connection)
   {
@@ -66,7 +66,7 @@
   handler[2] = __18__MSService_start__block_invoke;
   handler[3] = &unk_1E855F018;
   v5 = v3;
-  v11 = v5;
+  v10 = v5;
   xpc_connection_set_event_handler(v5, handler);
   v6 = MFLogGeneral();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
@@ -80,13 +80,12 @@
 
     *buf = 138412546;
     selfCopy = self;
-    v14 = 2112;
-    v15 = v8;
+    v13 = 2112;
+    v14 = v8;
     _os_log_impl(&dword_1D876A000, v6, OS_LOG_TYPE_INFO, "#MailServices %@ resuming %@", buf, 0x16u);
   }
 
   xpc_connection_resume(v5);
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
@@ -131,7 +130,7 @@
 
 void __18__MSService_start__block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (MEMORY[0x1DA71BFF0]() != MEMORY[0x1E69E9E98])
   {
@@ -144,8 +143,8 @@ void __18__MSService_start__block_invoke(uint64_t a1, void *a2)
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       name = xpc_connection_get_name(*(a1 + 32));
-      v10 = 136315138;
-      v11 = name;
+      v9 = 136315138;
+      v10 = name;
       v5 = "#MailServices Mach service '%s' not found.";
       v6 = v4;
       v7 = 12;
@@ -162,12 +161,12 @@ LABEL_9:
     v4 = MFLogGeneral();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v10) = 0;
+      LOWORD(v9) = 0;
       v5 = "#MailServices Connection interrupted";
       v6 = v4;
       v7 = 2;
 LABEL_8:
-      _os_log_impl(&dword_1D876A000, v6, OS_LOG_TYPE_INFO, v5, &v10, v7);
+      _os_log_impl(&dword_1D876A000, v6, OS_LOG_TYPE_INFO, v5, &v9, v7);
       goto LABEL_9;
     }
 
@@ -175,13 +174,11 @@ LABEL_8:
   }
 
 LABEL_10:
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stop
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_connectionQueue);
   if (self->_connection)
   {
@@ -189,11 +186,11 @@ LABEL_10:
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       connection = self->_connection;
-      v8 = 138412546;
+      v7 = 138412546;
       selfCopy = self;
-      v10 = 2048;
-      v11 = connection;
-      _os_log_impl(&dword_1D876A000, v3, OS_LOG_TYPE_INFO, "#MailServices %@ stopping <connection: %p>", &v8, 0x16u);
+      v9 = 2048;
+      v10 = connection;
+      _os_log_impl(&dword_1D876A000, v3, OS_LOG_TYPE_INFO, "#MailServices %@ stopping <connection: %p>", &v7, 0x16u);
     }
 
     v5 = self->_connection;
@@ -203,14 +200,12 @@ LABEL_10:
     v6 = self->_connection;
     self->_connection = 0;
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cancel
 {
   v2 = 0;
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   atomic_compare_exchange_strong(&self->_canceled, &v2, 1u);
   if (!v2)
   {
@@ -222,8 +217,8 @@ LABEL_10:
         connection = self->_connection;
         *buf = 138412546;
         selfCopy3 = self;
-        v18 = 2048;
-        v19 = connection;
+        v17 = 2048;
+        v18 = connection;
         _os_log_impl(&dword_1D876A000, v4, OS_LOG_TYPE_INFO, "#MailServices %@ cancelling <connection: %p>", buf, 0x16u);
       }
 
@@ -240,8 +235,8 @@ LABEL_10:
         responseListener = self->_responseListener;
         *buf = 138412546;
         selfCopy3 = self;
-        v18 = 2048;
-        v19 = responseListener;
+        v17 = 2048;
+        v18 = responseListener;
         _os_log_impl(&dword_1D876A000, v7, OS_LOG_TYPE_INFO, "#MailServices %@ stopping response listener <connection: %p>", buf, 0x16u);
       }
 
@@ -258,8 +253,8 @@ LABEL_10:
         responseHandler = self->_responseHandler;
         *buf = 138412546;
         selfCopy3 = self;
-        v18 = 2048;
-        v19 = responseHandler;
+        v17 = 2048;
+        v18 = responseHandler;
         _os_log_impl(&dword_1D876A000, v10, OS_LOG_TYPE_INFO, "#MailServices %@ stopping response handler <connection: %p>", buf, 0x16u);
       }
 
@@ -276,8 +271,6 @@ LABEL_10:
     block[4] = self;
     dispatch_async(connectionQueue, block);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __19__MSService_cancel__block_invoke(uint64_t a1)
@@ -497,17 +490,17 @@ void __52__MSService__callServicesMethod_arguments_callback___block_invoke(uint6
 
 void __56__MSService__callServicesMethod_arguments_replyHandler___block_invoke(uint64_t a1)
 {
-  v63 = *MEMORY[0x1E69E9840];
-  v52 = 0xAAAAAAAAAAAAAAAALL;
+  v62 = *MEMORY[0x1E69E9840];
+  v51 = 0xAAAAAAAAAAAAAAAALL;
   v2 = (a1 + 32);
-  v3 = [*(a1 + 32) _createMessageForService:*(a1 + 40) arguments:*(a1 + 48) index:&v52];
+  v3 = [*(a1 + 32) _createMessageForService:*(a1 + 40) arguments:*(a1 + 48) index:&v51];
   if ([*v2 isCanceled])
   {
     v4 = MFLogGeneral();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       v5 = *(a1 + 32);
-      v6 = v52;
+      v6 = v51;
       v7 = *(v5 + 32);
       v8 = v3;
       v9 = MEMORY[0x1DA71BF60]();
@@ -517,13 +510,13 @@ void __56__MSService__callServicesMethod_arguments_replyHandler___block_invoke(u
       }
 
       *buf = 138413058;
-      v54 = v5;
-      v55 = 2048;
-      v56 = v6;
-      v57 = 2048;
-      v58 = v7;
-      v59 = 2112;
-      v60 = v9;
+      v53 = v5;
+      v54 = 2048;
+      v55 = v6;
+      v56 = 2048;
+      v57 = v7;
+      v58 = 2112;
+      v59 = v9;
       _os_log_impl(&dword_1D876A000, v4, OS_LOG_TYPE_INFO, "#MailServices %@ (%lld) : <connection: %p> canceling enqueued message %@", buf, 0x2Au);
     }
 
@@ -536,7 +529,7 @@ void __56__MSService__callServicesMethod_arguments_replyHandler___block_invoke(u
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       v12 = *(a1 + 32);
-      v13 = v52;
+      v13 = v51;
       v14 = *(v12 + 32);
       v15 = v3;
       v16 = MEMORY[0x1DA71BF60]();
@@ -546,13 +539,13 @@ void __56__MSService__callServicesMethod_arguments_replyHandler___block_invoke(u
       }
 
       *buf = 138413058;
-      v54 = v12;
-      v55 = 2048;
-      v56 = v13;
-      v57 = 2048;
-      v58 = v14;
-      v59 = 2112;
-      v60 = v16;
+      v53 = v12;
+      v54 = 2048;
+      v55 = v13;
+      v56 = 2048;
+      v57 = v14;
+      v58 = 2112;
+      v59 = v16;
       _os_log_impl(&dword_1D876A000, v11, OS_LOG_TYPE_INFO, "#MailServices %@ (%lld) : <connection: %p> sending message %@", buf, 0x2Au);
     }
 
@@ -576,9 +569,9 @@ void __56__MSService__callServicesMethod_arguments_replyHandler___block_invoke(u
         {
           v25 = *(a1 + 32);
           *buf = 138412546;
-          v54 = v25;
-          v55 = 2048;
-          v56 = v52;
+          v53 = v25;
+          v54 = 2048;
+          v55 = v51;
           _os_log_impl(&dword_1D876A000, v24, OS_LOG_TYPE_INFO, "#MailServices %@ (%lld) : message was canceled", buf, 0x16u);
         }
 
@@ -590,9 +583,9 @@ void __56__MSService__callServicesMethod_arguments_replyHandler___block_invoke(u
       else
       {
         v28 = *(a1 + 32);
-        v51 = v17;
-        v10 = [v28 _handleMessageSendFailure:v20 message:v3 messageIndex:v52 context:&v51];
-        v29 = v51;
+        v50 = v17;
+        v10 = [v28 _handleMessageSendFailure:v20 message:v3 messageIndex:v51 context:&v50];
+        v29 = v50;
 
         if (v10)
         {
@@ -600,19 +593,19 @@ void __56__MSService__callServicesMethod_arguments_replyHandler___block_invoke(u
           if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
           {
             v37 = *(a1 + 32);
-            v38 = v52;
-            v46 = *(v37 + 32);
+            v38 = v51;
+            v45 = *(v37 + 32);
             v39 = [v10 ef_publicDescription];
             *buf = 138413314;
-            v54 = v37;
-            v55 = 2048;
-            v56 = v38;
-            v57 = 2048;
-            v58 = v46;
-            v59 = 2048;
-            v60 = v3;
-            v61 = 2114;
-            v62 = v39;
+            v53 = v37;
+            v54 = 2048;
+            v55 = v38;
+            v56 = 2048;
+            v57 = v45;
+            v58 = 2048;
+            v59 = v3;
+            v60 = 2114;
+            v61 = v39;
             _os_log_error_impl(&dword_1D876A000, v30, OS_LOG_TYPE_ERROR, "#MailServices %@ (%lld) : <connection: %p> failed to send message <dictionary: %p> %{public}@", buf, 0x34u);
           }
         }
@@ -643,21 +636,21 @@ LABEL_17:
         v27 = MFLogGeneral();
         if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
         {
-          v45 = v17;
+          v44 = v17;
           v34 = *(a1 + 32);
-          v35 = v52;
+          v35 = v51;
           v36 = [v10 ef_publicDescription];
           *buf = 138413058;
-          v54 = v34;
-          v55 = 2048;
-          v56 = v35;
-          v57 = 2048;
-          v58 = v3;
-          v59 = 2114;
-          v60 = v36;
+          v53 = v34;
+          v54 = 2048;
+          v55 = v35;
+          v56 = 2048;
+          v57 = v3;
+          v58 = 2114;
+          v59 = v36;
           _os_log_error_impl(&dword_1D876A000, v27, OS_LOG_TYPE_ERROR, "#MailServices %@ (%lld) : received error response for message <dictionary: %p>: %{public}@", buf, 0x2Au);
 
-          v17 = v45;
+          v17 = v44;
         }
 
         v18 = 0;
@@ -672,7 +665,7 @@ LABEL_17:
         }
 
         v31 = *(a1 + 32);
-        v32 = v52;
+        v32 = v51;
         v18 = v20;
         v33 = MEMORY[0x1DA71BF60]();
         if (v33)
@@ -681,13 +674,13 @@ LABEL_17:
         }
 
         *buf = 138413058;
-        v54 = v31;
-        v55 = 2048;
-        v56 = v32;
-        v57 = 2048;
-        v58 = v3;
-        v59 = 2112;
-        v60 = v33;
+        v53 = v31;
+        v54 = 2048;
+        v55 = v32;
+        v56 = 2048;
+        v57 = v3;
+        v58 = 2112;
+        v59 = v33;
         _os_log_impl(&dword_1D876A000, v23, OS_LOG_TYPE_INFO, "#MailServices %@ (%lld) : received reply for message <dictionary: %p>: %@", buf, 0x2Au);
 
         v10 = 0;
@@ -705,19 +698,17 @@ LABEL_31:
   block[2] = __56__MSService__callServicesMethod_arguments_replyHandler___block_invoke_50;
   block[3] = &unk_1E855F0B8;
   v41 = *(a1 + 56);
-  v49 = v10;
-  v50 = v41;
-  v48 = v18;
+  v48 = v10;
+  v49 = v41;
+  v47 = v18;
   v42 = v10;
   v43 = v18;
   dispatch_async(v40, block);
-
-  v44 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_simulateServicesMethod:(id)method arguments:(id)arguments callback:(id)callback
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   methodCopy = method;
   callbackCopy = callback;
   v8 = [MEMORY[0x1E696ABC0] errorWithDomain:@"MailServices" code:3 userInfo:0];
@@ -725,12 +716,10 @@ LABEL_31:
   v9 = MFLogGeneral();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    v11 = 138412290;
-    v12 = methodCopy;
-    _os_log_impl(&dword_1D876A000, v9, OS_LOG_TYPE_INFO, "#MailServices MailServices method %@ could not be simulated", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = methodCopy;
+    _os_log_impl(&dword_1D876A000, v9, OS_LOG_TYPE_INFO, "#MailServices MailServices method %@ could not be simulated", &v10, 0xCu);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -102,7 +102,7 @@ LABEL_4:
   v9 = 0u;
   v10 = 0u;
   memset(v8, 0, sizeof(v8));
-  [(CuratedCollectionViewAnalyticsController *)self _createBaseEvent];
+  objc_msgSend__createBaseEvent(self);
   LODWORD(v8[0]) = 6105;
   DWORD2(v9) = 670;
   absoluteString = [lCopy absoluteString];
@@ -127,7 +127,7 @@ LABEL_4:
 {
   lCopy = l;
   memset(v8, 0, sizeof(v8));
-  [(CuratedCollectionViewAnalyticsController *)self _createBaseEvent];
+  objc_msgSend__createBaseEvent(self);
   LODWORD(v8[0]) = 6090;
   absoluteString = [lCopy absoluteString];
   v6 = *(&v8[0] + 1);
@@ -151,7 +151,7 @@ LABEL_4:
 - (void)logOpenWebsite
 {
   memset(v4, 0, sizeof(v4));
-  [(CuratedCollectionViewAnalyticsController *)self _createBaseEvent];
+  objc_msgSend__createBaseEvent(self, a2);
   LODWORD(v4[0]) = 2170;
   sub_100FE9DEC(v3, v4);
   if (self)
@@ -170,7 +170,7 @@ LABEL_4:
 - (void)logDiscoverMoreFromPublisher
 {
   memset(v4, 0, sizeof(v4));
-  [(CuratedCollectionViewAnalyticsController *)self _createBaseEvent];
+  objc_msgSend__createBaseEvent(self, a2);
   LODWORD(v4[0]) = 2102;
   sub_100FE9DEC(v3, v4);
   if (self)
@@ -189,7 +189,7 @@ LABEL_4:
 - (void)logSavePlaceItemToCuratedCollectionWithMUID:(unint64_t)d
 {
   memset(v9, 0, sizeof(v9));
-  [(CuratedCollectionViewAnalyticsController *)self _createBaseEvent];
+  objc_msgSend__createBaseEvent(self, a2);
   LODWORD(v9[0]) = 2073;
   v5 = [NSNumber numberWithUnsignedLongLong:d];
   stringValue = [v5 stringValue];
@@ -214,7 +214,7 @@ LABEL_4:
 {
   identifierCopy = identifier;
   memset(v7, 0, sizeof(v7));
-  [(CuratedCollectionViewAnalyticsController *)self _createBaseEvent];
+  objc_msgSend__createBaseEvent(self);
   LODWORD(v7[0]) = 260;
   objc_storeStrong(v7 + 1, identifier);
   sub_100FE9DEC(v6, v7);
@@ -235,7 +235,7 @@ LABEL_4:
 {
   lCopy = l;
   memset(v8, 0, sizeof(v8));
-  [(CuratedCollectionViewAnalyticsController *)self _createBaseEvent];
+  objc_msgSend__createBaseEvent(self);
   LODWORD(v8[0]) = 6050;
   absoluteString = [lCopy absoluteString];
   v6 = *(&v8[0] + 1);
@@ -261,7 +261,7 @@ LABEL_4:
   v8 = 0u;
   v9 = 0u;
   memset(v7, 0, sizeof(v7));
-  [(CuratedCollectionViewAnalyticsController *)self _createBaseEvent];
+  objc_msgSend__createBaseEvent(self);
   LODWORD(v7[0]) = 257;
   DWORD2(v8) = 48;
   objc_storeStrong(v7 + 1, identifier);
@@ -282,7 +282,7 @@ LABEL_4:
 - (void)logShowMediaAppMenu
 {
   memset(v4, 0, sizeof(v4));
-  [(CuratedCollectionViewAnalyticsController *)self _createBaseEvent];
+  objc_msgSend__createBaseEvent(self, a2);
   LODWORD(v4[0]) = 261;
   sub_100FE9DEC(v3, v4);
   if (self)
@@ -304,7 +304,7 @@ LABEL_4:
   v15 = 0u;
   v13 = 0u;
   memset(v12, 0, sizeof(v12));
-  [(CuratedCollectionViewAnalyticsController *)self _createBaseEvent];
+  objc_msgSend__createBaseEvent(self, a2);
   LODWORD(v12[0]) = 259;
   v7 = [objc_opt_class() _eventValueForMediaType:type];
   v8 = *(&v12[0] + 1);
@@ -331,7 +331,7 @@ LABEL_4:
 - (void)logReportAProblem
 {
   memset(v4, 0, sizeof(v4));
-  [(CuratedCollectionViewAnalyticsController *)self _createBaseEvent];
+  objc_msgSend__createBaseEvent(self, a2);
   LODWORD(v4[0]) = 5013;
   sub_100FE9DEC(v3, v4);
   if (self)
@@ -353,7 +353,7 @@ LABEL_4:
   v11 = 0u;
   v9 = 0u;
   memset(v8, 0, sizeof(v8));
-  [(CuratedCollectionViewAnalyticsController *)self _createBaseEvent];
+  objc_msgSend__createBaseEvent(self, a2);
   LODWORD(v8[0]) = 9035;
   v5 = [NSNumber numberWithUnsignedInteger:index];
   v6 = v9;
@@ -377,7 +377,7 @@ LABEL_4:
 {
   self->_saved = 0;
   memset(v4, 0, sizeof(v4));
-  [(CuratedCollectionViewAnalyticsController *)self _createBaseEvent];
+  objc_msgSend__createBaseEvent(self, a2);
   LODWORD(v4[0]) = 2088;
   sub_100FE9DEC(v3, v4);
   [(CuratedCollectionViewAnalyticsController *)self _captureCollectionViewEvent:v3];
@@ -388,7 +388,7 @@ LABEL_4:
 {
   self->_saved = 1;
   memset(v4, 0, sizeof(v4));
-  [(CuratedCollectionViewAnalyticsController *)self _createBaseEvent];
+  objc_msgSend__createBaseEvent(self, a2);
   LODWORD(v4[0]) = 2091;
   sub_100FE9DEC(v3, v4);
   [(CuratedCollectionViewAnalyticsController *)self _captureCollectionViewEvent:v3];
@@ -398,7 +398,7 @@ LABEL_4:
 - (void)logPullUpCuratedCollectionView
 {
   memset(v4, 0, sizeof(v4));
-  [(CuratedCollectionViewAnalyticsController *)self _createBaseEvent];
+  objc_msgSend__createBaseEvent(self, a2);
   LODWORD(v4[0]) = 1;
   sub_100FE9DEC(v3, v4);
   if (self)
@@ -421,7 +421,7 @@ LABEL_4:
   v18 = 0u;
   v16 = 0u;
   memset(v15, 0, sizeof(v15));
-  [(CuratedCollectionViewAnalyticsController *)self _createBaseEvent];
+  objc_msgSend__createBaseEvent(self);
   LODWORD(v15[0]) = 2068;
   mapItem = [itemCopy mapItem];
   _identifier = [mapItem _identifier];
@@ -451,7 +451,7 @@ LABEL_4:
 - (void)logTapShowLessDescription
 {
   memset(v4, 0, sizeof(v4));
-  [(CuratedCollectionViewAnalyticsController *)self _createBaseEvent];
+  objc_msgSend__createBaseEvent(self, a2);
   LODWORD(v4[0]) = 9039;
   sub_100FE9DEC(v3, v4);
   if (self)
@@ -470,7 +470,7 @@ LABEL_4:
 - (void)logTapShowMoreDescription
 {
   memset(v4, 0, sizeof(v4));
-  [(CuratedCollectionViewAnalyticsController *)self _createBaseEvent];
+  objc_msgSend__createBaseEvent(self, a2);
   LODWORD(v4[0]) = 9040;
   sub_100FE9DEC(v3, v4);
   if (self)
@@ -489,7 +489,7 @@ LABEL_4:
 - (void)logTryAgain
 {
   memset(v4, 0, sizeof(v4));
-  [(CuratedCollectionViewAnalyticsController *)self _createBaseEvent];
+  objc_msgSend__createBaseEvent(self, a2);
   LODWORD(v4[0]) = 2171;
   sub_100FE9DEC(v3, v4);
   if (self)
@@ -508,7 +508,7 @@ LABEL_4:
 - (void)logClose
 {
   memset(v4, 0, sizeof(v4));
-  [(CuratedCollectionViewAnalyticsController *)self _createBaseEvent];
+  objc_msgSend__createBaseEvent(self, a2);
   LODWORD(v4[0]) = 4;
   sub_100FE9DEC(v3, v4);
   if (self)
@@ -527,7 +527,7 @@ LABEL_4:
 - (void)logScrollDown
 {
   memset(v4, 0, sizeof(v4));
-  [(CuratedCollectionViewAnalyticsController *)self _createBaseEvent];
+  objc_msgSend__createBaseEvent(self, a2);
   LODWORD(v4[0]) = 8;
   sub_100FE9DEC(v3, v4);
   if (self)
@@ -546,7 +546,7 @@ LABEL_4:
 - (void)logScrollUp
 {
   memset(v4, 0, sizeof(v4));
-  [(CuratedCollectionViewAnalyticsController *)self _createBaseEvent];
+  objc_msgSend__createBaseEvent(self, a2);
   LODWORD(v4[0]) = 7;
   sub_100FE9DEC(v3, v4);
   if (self)
@@ -565,7 +565,7 @@ LABEL_4:
 - (void)logRevealCuratedCollectionView
 {
   memset(v4, 0, sizeof(v4));
-  [(CuratedCollectionViewAnalyticsController *)self _createBaseEvent];
+  objc_msgSend__createBaseEvent(self, a2);
   LODWORD(v4[0]) = 21;
   sub_100FE9DEC(v3, v4);
   if (self)
@@ -584,7 +584,7 @@ LABEL_4:
 - (void)logShareCuratedCollection
 {
   memset(v4, 0, sizeof(v4));
-  [(CuratedCollectionViewAnalyticsController *)self _createBaseEvent];
+  objc_msgSend__createBaseEvent(self, a2);
   LODWORD(v4[0]) = 2096;
   sub_100FE9DEC(v3, v4);
   if (self)

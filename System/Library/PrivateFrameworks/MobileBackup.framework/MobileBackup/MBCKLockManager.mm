@@ -83,10 +83,9 @@
   {
     backupUDID = self->super._backupUDID;
     *buf = 138412290;
-    v9 = backupUDID;
+    v8 = backupUDID;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Starting to renew lock for device %@", buf, 0xCu);
-    v6 = self->super._backupUDID;
-    _MBLog();
+    _MBLog(@"Df", "Starting to renew lock for device %@", self->super._backupUDID);
   }
 
   queue = self->super._queue;
@@ -105,7 +104,7 @@
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Resetting lock timer", buf, 2u);
-    _MBLog();
+    _MBLog(@"Df", "Resetting lock timer");
   }
 
   queue = self->super._queue;
@@ -124,7 +123,7 @@
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Stopping renewing lock", buf, 2u);
-    _MBLog();
+    _MBLog(@"Df", "Stopping renewing lock");
   }
 
   queue = self->super._queue;
@@ -147,34 +146,33 @@
       LODWORD(buf) = 138412290;
       *(&buf + 4) = backupUDID;
       _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Acquiring lock for device %@", &buf, 0xCu);
-      v16 = self->super._backupUDID;
-      _MBLog();
+      _MBLog(@"Df", "Acquiring lock for device %@", self->super._backupUDID);
     }
 
     self->_releaseLock = 0;
     [(MBCKLockManager *)self timeout];
     v8 = v7;
+    v17 = 0;
+    v18 = &v17;
+    v19 = 0x2020000000;
     v20 = 0;
-    v21 = &v20;
-    v22 = 0x2020000000;
-    v23 = 0;
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v29 = 0x3032000000;
-    v30 = sub_100128F78;
-    v31 = sub_100128F88;
-    v32 = 0;
+    v26 = 0x3032000000;
+    v27 = sub_100128F78;
+    v28 = sub_100128F88;
+    v29 = 0;
     queue = self->super._queue;
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_100128F90;
     block[3] = &unk_1003BC818;
     block[4] = self;
-    block[5] = &v20;
+    block[5] = &v17;
     *&block[7] = v7;
     block[6] = &buf;
     dispatch_sync(queue, block);
-    if (v21[3])
+    if (v18[3])
     {
       if (self->super._delegate && (objc_opt_respondsToSelector() & 1) != 0)
       {
@@ -194,14 +192,12 @@
       {
         v13 = self->super._backupUDID;
         v14 = *(*(&buf + 1) + 40);
-        *v24 = 138412546;
-        v25 = v13;
-        v26 = 2112;
-        v27 = v14;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "Failed to renew lock for device %@: %@", v24, 0x16u);
-        v17 = self->super._backupUDID;
-        v18 = *(*(&buf + 1) + 40);
-        _MBLog();
+        *v21 = 138412546;
+        v22 = v13;
+        v23 = 2112;
+        v24 = v14;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "Failed to renew lock for device %@: %@", v21, 0x16u);
+        _MBLog(@"E ", "Failed to renew lock for device %@: %@", self->super._backupUDID, *(*(&buf + 1) + 40));
       }
 
       if (error)
@@ -215,10 +211,10 @@
       }
     }
 
-    v11 = *(v21 + 24);
+    v11 = *(v18 + 24);
     _Block_object_dispose(&buf, 8);
 
-    _Block_object_dispose(&v20, 8);
+    _Block_object_dispose(&v17, 8);
   }
 
   else
@@ -258,19 +254,18 @@
   {
     backupUDID = self->super._backupUDID;
     *buf = 138412290;
-    v17 = backupUDID;
+    v16 = backupUDID;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Releasing lock for device %@", buf, 0xCu);
-    v14 = self->super._backupUDID;
-    _MBLog();
+    _MBLog(@"Df", "Releasing lock for device %@", self->super._backupUDID);
   }
 
   self->_releaseLock = 1;
   _fetchPluginFieldsFromDelegate = [(MBCKLockManager *)self _fetchPluginFieldsFromDelegate];
   lock = [(MBCKLockManager *)self lock];
   account = [(MBServiceLockManager *)self account];
-  v15 = 0;
-  v8 = [lock clearLockWithAccount:account pluginFields:_fetchPluginFieldsFromDelegate error:&v15];
-  v9 = v15;
+  v14 = 0;
+  v8 = [lock clearLockWithAccount:account pluginFields:_fetchPluginFieldsFromDelegate error:&v14];
+  v9 = v14;
 
   if (v8)
   {
@@ -279,10 +274,9 @@
     {
       v11 = self->super._backupUDID;
       *buf = 138412290;
-      v17 = v11;
+      v16 = v11;
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Released lock for device %@", buf, 0xCu);
-      v14 = self->super._backupUDID;
-      _MBLog();
+      _MBLog(@"Df", "Released lock for device %@", self->super._backupUDID);
     }
 
     [self->super._delegate lockManagerDidReleaseLock:self];
@@ -312,10 +306,9 @@ LABEL_10:
   {
     backupUDID = self->super._backupUDID;
     *buf = 138412290;
-    v19 = backupUDID;
+    v18 = backupUDID;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Renewing lock for device %@", buf, 0xCu);
-    v16 = self->super._backupUDID;
-    _MBLog();
+    _MBLog(@"Df", "Renewing lock for device %@", self->super._backupUDID);
   }
 
   [(MBCKLockManager *)self timeout];
@@ -323,9 +316,9 @@ LABEL_10:
   _fetchPluginFieldsFromDelegate = [(MBCKLockManager *)self _fetchPluginFieldsFromDelegate];
   lock = [(MBCKLockManager *)self lock];
   account = [(MBServiceLockManager *)self account];
-  v17 = 0;
-  v10 = [lock saveLockWithAccount:account timeout:_fetchPluginFieldsFromDelegate pluginFields:&v17 error:v6];
-  v11 = v17;
+  v16 = 0;
+  v10 = [lock saveLockWithAccount:account timeout:_fetchPluginFieldsFromDelegate pluginFields:&v16 error:v6];
+  v11 = v16;
 
   if (v10)
   {
@@ -377,7 +370,7 @@ LABEL_10:
     *buf = 134217984;
     intervalCopy = interval;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "Scheduled lock timer in %.3fs", buf, 0xCu);
-    _MBLog();
+    _MBLog(@"I ", "Scheduled lock timer in %.3fs", interval);
   }
 }
 
@@ -389,7 +382,7 @@ LABEL_10:
   {
     *v4 = 0;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEBUG, "Lock timer fired", v4, 2u);
-    _MBLog();
+    _MBLog(@"Db", "Lock timer fired");
   }
 
   if (self->_releaseLock)

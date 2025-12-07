@@ -21,7 +21,7 @@
   memset(&v6, 170, sizeof(v6));
   if (v3)
   {
-    [v3 duration];
+    objc_msgSend_duration(v3);
   }
 
   else
@@ -46,7 +46,7 @@
   v5 = [v4 objectAtIndexedSubscript:0];
   if (v5)
   {
-    [v5 timeRange];
+    objc_msgSend_timeRange(v5);
     v6 = *(&v12 + 1);
     v7 = *(&v13 + 1);
     v8 = v13;
@@ -76,7 +76,7 @@
   memset(&v19, 170, sizeof(v19));
   if (v6)
   {
-    [v6 duration];
+    objc_msgSend_duration(v6);
   }
 
   else
@@ -89,7 +89,7 @@
   v9 = [objc_msgSend(v7 tracksWithMediaType:{*MEMORY[0x1E69875A0]), "firstObject"}];
   if (v9)
   {
-    [v9 timeRange];
+    objc_msgSend_timeRange(v9);
     v10 = v15;
     v11 = v17;
     v12 = v16;

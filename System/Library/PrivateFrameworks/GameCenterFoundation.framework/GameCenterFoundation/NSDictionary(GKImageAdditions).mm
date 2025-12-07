@@ -109,9 +109,9 @@ LABEL_19:
     +[NSDictionary(GKImageAdditions) _gkImageCacheKeyPathsByKey];
   }
 
-  v1 = _gkImageCacheKeyPathsByKey_sKeyPaths;
+  v2 = _gkImageCacheKeyPathsByKey_sKeyPaths;
 
-  return v1;
+  return v2;
 }
 
 + (id)_gkClientImageDictionaryForServerImageURLs:()GKImageAdditions

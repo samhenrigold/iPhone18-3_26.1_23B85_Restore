@@ -1,5 +1,6 @@
 @interface AppDelegateService
 - (AppDelegateService)init;
+- (void)refreshContentsForDataType:(unsigned int)type userInfo:(id)info;
 - (void)setLocalPlayer:(id)player;
 @end
 
@@ -18,6 +19,15 @@
   }
 
   return v2;
+}
+
+- (void)refreshContentsForDataType:(unsigned int)type userInfo:(id)info
+{
+  if (type == 12)
+  {
+    v5 = [GKPreferences shared:*&type];
+    [v5 synchronize];
+  }
 }
 
 - (void)setLocalPlayer:(id)player

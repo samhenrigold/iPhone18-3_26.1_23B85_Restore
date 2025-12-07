@@ -3,7 +3,7 @@
 
 @implementation AXSIncreaseBrightnessFloorEnabled
 
-uint64_t ___AXSIncreaseBrightnessFloorEnabled_block_invoke()
+void *___AXSIncreaseBrightnessFloorEnabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

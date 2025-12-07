@@ -47,9 +47,9 @@
 
 - (void)layoutSubviews
 {
-  v45.receiver = self;
-  v45.super_class = WGWidgetListEditViewTableViewCell;
-  [(WGWidgetListEditViewTableViewCell *)&v45 layoutSubviews];
+  v49.receiver = self;
+  v49.super_class = WGWidgetListEditViewTableViewCell;
+  [(WGWidgetListEditViewTableViewCell *)&v49 layoutSubviews];
   traitCollection = [(WGWidgetListEditViewTableViewCell *)self traitCollection];
   preferredContentSizeCategory = [traitCollection preferredContentSizeCategory];
   IsAccessibilityContentSizeCategory = _UIContentSizeCategoryIsAccessibilityContentSizeCategory();
@@ -57,8 +57,8 @@
   contentView = [(WGWidgetListEditViewTableViewCell *)self contentView];
   [contentView bounds];
   v8 = v7;
-  v43 = v10;
-  v44 = v9;
+  v47 = v10;
+  v48 = v9;
   rect = v11;
 
   imageView = [(WGWidgetListEditViewTableViewCell *)self imageView];
@@ -69,103 +69,102 @@
   v20 = v19;
   image = [imageView image];
 
-  v41 = v8;
+  v45 = v8;
   if (image)
   {
     BSRectWithSize();
     if ([(WGWidgetListEditViewTableViewCell *)self _shouldReverseLayoutDirection])
     {
-      v46.origin.x = v8;
-      v46.size.width = v43;
-      v46.origin.y = v44;
-      v46.size.height = rect;
-      CGRectGetMaxX(v46);
+      v50.origin.x = v8;
+      v50.size.width = v47;
+      v50.origin.y = v48;
+      v50.size.height = rect;
+      CGRectGetMaxX(v50);
     }
 
     if ((IsAccessibilityContentSizeCategory & 1) == 0)
     {
-      v47.origin.x = v8;
-      v47.size.width = v43;
-      v47.origin.y = v44;
-      v47.size.height = rect;
-      CGRectGetHeight(v47);
+      v51.origin.x = v8;
+      v51.size.width = v47;
+      v51.origin.y = v48;
+      v51.size.height = rect;
+      CGRectGetHeight(v51);
     }
 
     image2 = [imageView image];
     [image2 size];
-    BSRectWithSize();
-    v40 = _WGMainScreenScale();
+    v23 = BSRectWithSize();
+    v44 = _WGMainScreenScale(v23, v24);
     UIRectCenteredIntegralRectScale();
-    v14 = v23;
-    v16 = v24;
-    v18 = v25;
-    v20 = v26;
+    v14 = v25;
+    v16 = v26;
+    v18 = v27;
+    v20 = v28;
 
-    [imageView setContentMode:{9, *&v40}];
+    [imageView setContentMode:{9, *&v44}];
     [imageView setFrame:{v14, v16, v18, v20}];
   }
 
   textLabel = [(WGWidgetListEditViewTableViewCell *)self textLabel];
   [textLabel frame];
-  v29 = v28;
   v31 = v30;
   v33 = v32;
+  v35 = v34;
   if ([(WGWidgetListEditViewTableViewCell *)self _shouldReverseLayoutDirection])
   {
-    v48.origin.x = v8;
-    v48.size.width = v43;
-    v48.origin.y = v44;
-    v48.size.height = rect;
-    v34 = CGRectGetMaxX(v48) - v31 + -12.0;
+    v52.origin.x = v8;
+    v52.size.width = v47;
+    v52.origin.y = v48;
+    v52.size.height = rect;
+    v36 = CGRectGetMaxX(v52) - v33 + -12.0;
     image3 = [imageView image];
 
     if (image3)
     {
-      v34 = v34 + -32.0;
+      v36 = v36 + -32.0;
     }
   }
 
   else
   {
-    v34 = 12.0;
+    v36 = 12.0;
     if ((IsAccessibilityContentSizeCategory & 1) == 0)
     {
       image4 = [imageView image];
       if (image4)
       {
-        v49.origin.x = v14;
-        v49.origin.y = v16;
-        v49.size.width = v18;
-        v49.size.height = v20;
-        v34 = CGRectGetMaxX(v49) + 12.0;
+        v53.origin.x = v14;
+        v53.origin.y = v16;
+        v53.size.width = v18;
+        v53.size.height = v20;
+        v36 = CGRectGetMaxX(v53) + 12.0;
       }
     }
   }
 
-  [textLabel setFrame:{v34, v29, v31, v33}];
-  v37 = 5.0;
+  [textLabel setFrame:{v36, v31, v33, v35}];
+  v39 = 5.0;
   if ([(WGWidgetListEditViewTableViewCell *)self _shouldReverseLayoutDirection])
   {
-    v50.origin.x = v41;
-    v50.size.width = v43;
-    v50.origin.y = v44;
-    v50.size.height = rect;
-    v37 = CGRectGetMaxX(v50) + -5.0;
+    v54.origin.x = v45;
+    v54.size.width = v47;
+    v54.origin.y = v48;
+    v54.size.height = rect;
+    v39 = CGRectGetMaxX(v54) + -5.0;
   }
 
   dotImageView = self->_dotImageView;
-  v51.origin.x = v14;
-  v51.origin.y = v16;
-  v51.size.width = v18;
-  v51.size.height = v20;
-  CGRectGetMidY(v51);
-  WGRoundToMainScreenScale();
-  [(UIImageView *)dotImageView setCenter:v37, v39];
-  v52.origin.x = v41;
-  v52.size.width = v43;
-  v52.origin.y = v44;
-  v52.size.height = rect;
-  [(WGWidgetListEditViewTableViewCell *)self setSeparatorInset:*MEMORY[0x277D76F30], CGRectGetMinX(v52) + 12.0, *MEMORY[0x277D76F30], *MEMORY[0x277D76F30]];
+  v55.origin.x = v14;
+  v55.origin.y = v16;
+  v55.size.width = v18;
+  v55.size.height = v20;
+  MidY = CGRectGetMidY(v55);
+  [(UIImageView *)dotImageView setCenter:v39, WGRoundToMainScreenScale(v42, v43, MidY)];
+  v56.origin.x = v45;
+  v56.size.width = v47;
+  v56.origin.y = v48;
+  v56.size.height = rect;
+  [(WGWidgetListEditViewTableViewCell *)self setSeparatorInset:*MEMORY[0x277D76F30], CGRectGetMinX(v56) + 12.0, *MEMORY[0x277D76F30], *MEMORY[0x277D76F30]];
 }
 
 - (UIButton)insertWidgetAccessoryButton

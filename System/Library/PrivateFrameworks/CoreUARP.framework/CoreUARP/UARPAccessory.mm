@@ -90,16 +90,16 @@
 
 - (UARPAccessory)initWithHardwareID:(id)d uuid:(id)uuid
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   dCopy = d;
   uuidCopy = uuid;
   v8 = +[UARPAccessory logger];
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = +[UARPSupportedAccessory supportedAccessories];
-    v26 = 138412290;
-    v27 = v9;
-    _os_log_impl(&dword_247AA7000, v8, OS_LOG_TYPE_INFO, "Supported accessories %@", &v26, 0xCu);
+    v25 = 138412290;
+    v26 = v9;
+    _os_log_impl(&dword_247AA7000, v8, OS_LOG_TYPE_INFO, "Supported accessories %@", &v25, 0xCu);
   }
 
   v10 = [UARPSupportedAccessory findByHardwareID:dCopy];
@@ -130,9 +130,9 @@
         v21 = +[UARPAccessory logger];
         if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
         {
-          v26 = 138412290;
-          v27 = v11;
-          _os_log_impl(&dword_247AA7000, v21, OS_LOG_TYPE_INFO, "PG/PN based accessory %@", &v26, 0xCu);
+          v25 = 138412290;
+          v26 = v11;
+          _os_log_impl(&dword_247AA7000, v21, OS_LOG_TYPE_INFO, "PG/PN based accessory %@", &v25, 0xCu);
         }
 
         v22 = [UARPAccessoryID alloc];
@@ -158,9 +158,9 @@ LABEL_18:
   v13 = +[UARPAccessory logger];
   if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
-    v26 = 138412290;
-    v27 = v11;
-    _os_log_impl(&dword_247AA7000, v13, OS_LOG_TYPE_INFO, "Apple Model Number based accessory %@", &v26, 0xCu);
+    v25 = 138412290;
+    v26 = v11;
+    _os_log_impl(&dword_247AA7000, v13, OS_LOG_TYPE_INFO, "Apple Model Number based accessory %@", &v25, 0xCu);
   }
 
   v14 = [UARPAccessoryID alloc];
@@ -174,7 +174,6 @@ LABEL_8:
   selfCopy = self;
 LABEL_19:
 
-  v24 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -280,20 +279,18 @@ uint64_t __23__UARPAccessory_logger__block_invoke()
 
 - (void)initWithHardwareID:(uint64_t)a1 uuid:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_247AA7000, a2, OS_LOG_TYPE_ERROR, "Unsupported accessory %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_247AA7000, a2, OS_LOG_TYPE_ERROR, "Unsupported accessory %@", &v2, 0xCu);
 }
 
 - (void)initWithHardwareID:(uint64_t)a1 uuid:(NSObject *)a2 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_247AA7000, a2, OS_LOG_TYPE_ERROR, "Unsupported hardwareID %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_247AA7000, a2, OS_LOG_TYPE_ERROR, "Unsupported hardwareID %@", &v2, 0xCu);
 }
 
 @end

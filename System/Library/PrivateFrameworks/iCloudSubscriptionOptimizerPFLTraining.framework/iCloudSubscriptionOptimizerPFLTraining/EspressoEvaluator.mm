@@ -19,7 +19,7 @@
 
 - (id)evaluationMetrics:(id)metrics dataWrapper:(id)wrapper outputName:(id)name
 {
-  v25[2] = *MEMORY[0x277D85DE8];
+  v24[2] = *MEMORY[0x277D85DE8];
   metricsCopy = metrics;
   wrapperCopy = wrapper;
   nameCopy = name;
@@ -31,40 +31,39 @@
     _os_log_impl(&dword_275B9B000, v11, OS_LOG_TYPE_INFO, "Started model evaluation", buf, 2u);
   }
 
-  v25[0] = @"cross_entropy";
-  v25[1] = nameCopy;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __62__EspressoEvaluator_evaluationMetrics_dataWrapper_outputName___block_invoke;
-  v20[3] = &unk_27A66D648;
+  v24[0] = @"cross_entropy";
+  v24[1] = nameCopy;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __62__EspressoEvaluator_evaluationMetrics_dataWrapper_outputName___block_invoke;
+  v19[3] = &unk_27A66D648;
   v13 = nameCopy;
-  v21 = v13;
+  v20 = v13;
   v14 = wrapperCopy;
-  v22 = v14;
+  v21 = v14;
   v15 = array;
-  v23 = v15;
-  [metricsCopy runInference:v14 outputNames:v12 batchCallback:v20];
+  v22 = v15;
+  [metricsCopy runInference:v14 outputNames:v12 batchCallback:v19];
 
-  v16 = v23;
+  v16 = v22;
   v17 = v15;
 
-  v18 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
 uint64_t __62__EspressoEvaluator_evaluationMetrics_dataWrapper_outputName___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = sLog;
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v20[0] = 67109376;
-    v20[1] = a2;
-    v21 = 1024;
-    v22 = [v5 numberOfDataPoints];
-    _os_log_impl(&dword_275B9B000, v6, OS_LOG_TYPE_INFO, "fit: iter=%d outputs.numberOfDataPoints=%d", v20, 0xEu);
+    v19[0] = 67109376;
+    v19[1] = a2;
+    v20 = 1024;
+    v21 = [v5 numberOfDataPoints];
+    _os_log_impl(&dword_275B9B000, v6, OS_LOG_TYPE_INFO, "fit: iter=%d outputs.numberOfDataPoints=%d", v19, 0xEu);
   }
 
   for (i = 0; i < [v5 numberOfDataPoints]; i = (i + 1))
@@ -88,7 +87,6 @@ uint64_t __62__EspressoEvaluator_evaluationMetrics_dataWrapper_outputName___bloc
     [*(a1 + 48) addObject:v8];
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -125,7 +123,7 @@ uint64_t __65__EspressoEvaluator_averageLossEvaluation_dataWrapper_batchSize___b
 
 - (id)evaluateWithModelURL:(id)l dataSource:(id)source error:(id *)error
 {
-  v122 = *MEMORY[0x277D85DE8];
+  v118 = *MEMORY[0x277D85DE8];
   lCopy = l;
   sourceCopy = source;
   v7 = sLog;
@@ -145,25 +143,25 @@ uint64_t __65__EspressoEvaluator_averageLossEvaluation_dataWrapper_batchSize___b
     *&buf[12] = 2112;
     *&buf[14] = freezeComponents;
     *&buf[22] = 2112;
-    v116 = gradNormType;
-    LOWORD(v117) = 2048;
-    *(&v117 + 2) = v13;
-    WORD5(v117) = 1024;
-    HIDWORD(v117) = batchSize;
-    v118 = 2112;
-    v119 = objectiveFunction;
-    v120 = 2112;
-    v121 = modelOutputName;
+    v112 = gradNormType;
+    LOWORD(v113) = 2048;
+    *(&v113 + 2) = v13;
+    WORD5(v113) = 1024;
+    HIDWORD(v113) = batchSize;
+    v114 = 2112;
+    v115 = objectiveFunction;
+    v116 = 2112;
+    v117 = modelOutputName;
     _os_log_impl(&dword_275B9B000, v7, OS_LOG_TYPE_INFO, "Evaluation using Espresso with learning rate %f, freezing components %@ , gradient normtype %@ , gradient norm factor %f , batch size %d , objective function %@, model output name %@", buf, 0x44u);
   }
 
-  v105 = 0;
-  v17 = [MEMORY[0x277CBFF20] compileModelAtURL:lCopy error:&v105];
-  v77 = v17;
-  v78 = v105;
+  v101 = 0;
+  v17 = [MEMORY[0x277CBFF20] compileModelAtURL:lCopy error:&v101];
+  v76 = v17;
+  v77 = v101;
   if (v17)
   {
-    v76 = [v17 URLByAppendingPathComponent:@"model.espresso.net"];
+    v75 = [v17 URLByAppendingPathComponent:@"model.espresso.net"];
     v18 = sLog;
     if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
@@ -172,8 +170,8 @@ uint64_t __65__EspressoEvaluator_averageLossEvaluation_dataWrapper_batchSize___b
     }
 
     v19 = objc_alloc(MEMORY[0x277D07768]);
-    path = [v76 path];
-    v89 = [v19 initWithNetwork:path];
+    path = [v75 path];
+    v88 = [v19 initWithNetwork:path];
 
     layersToTrain = [sourceCopy layersToTrain];
     LOBYTE(v19) = [layersToTrain count] == 0;
@@ -181,7 +179,7 @@ uint64_t __65__EspressoEvaluator_averageLossEvaluation_dataWrapper_batchSize___b
     if ((v19 & 1) == 0)
     {
       layersToTrain2 = [sourceCopy layersToTrain];
-      [v89 configureLayersToTrain:layersToTrain2 reinitializeVariables:0];
+      [v88 configureLayersToTrain:layersToTrain2 reinitializeVariables:0];
     }
 
     v23 = sLog;
@@ -191,12 +189,12 @@ uint64_t __65__EspressoEvaluator_averageLossEvaluation_dataWrapper_batchSize___b
       _os_log_impl(&dword_275B9B000, v23, OS_LOG_TYPE_INFO, "Create optimizer", buf, 2u);
     }
 
-    v83 = objc_alloc_init(MEMORY[0x277D07778]);
-    [v83 setBatch_size:{objc_msgSend(sourceCopy, "batchSize")}];
+    v82 = objc_alloc_init(MEMORY[0x277D07778]);
+    [v82 setBatch_size:{objc_msgSend(sourceCopy, "batchSize")}];
     [sourceCopy learningRate];
-    [v83 setLr:?];
+    [v82 setLr:?];
     [sourceCopy learningRateDecay];
-    [v83 setLr_decay_epoch:?];
+    [v82 setLr_decay_epoch:?];
     v24 = sLog;
     if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
     {
@@ -204,13 +202,13 @@ uint64_t __65__EspressoEvaluator_averageLossEvaluation_dataWrapper_batchSize___b
       _os_log_impl(&dword_275B9B000, v24, OS_LOG_TYPE_INFO, "Create classifier task", buf, 2u);
     }
 
-    v82 = [objc_alloc(MEMORY[0x277D07788]) initWithModelDef:v89 optimizerDef:v83 extractor:0 needWeightsInitialization:0];
-    v104[0] = 0;
-    v104[1] = 0;
-    v102[1] = 0;
-    v103 = v104;
-    v101 = v102;
-    v102[0] = 0;
+    v81 = [objc_alloc(MEMORY[0x277D07788]) initWithModelDef:v88 optimizerDef:v82 extractor:0 needWeightsInitialization:0];
+    v100[0] = 0;
+    v100[1] = 0;
+    v98[1] = 0;
+    v99 = v100;
+    v97 = v98;
+    v98[0] = 0;
     v25 = sLog;
     if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
     {
@@ -220,26 +218,21 @@ uint64_t __65__EspressoEvaluator_averageLossEvaluation_dataWrapper_batchSize___b
       _os_log_impl(&dword_275B9B000, v25, OS_LOG_TYPE_INFO, "Layers to train: %@", buf, 0xCu);
     }
 
-    v99 = 0u;
-    v100 = 0u;
-    v97 = 0u;
-    v98 = 0u;
+    memset(v96, 0, sizeof(v96));
     layersToTrain4 = [sourceCopy layersToTrain];
-    if ([layersToTrain4 countByEnumeratingWithState:&v97 objects:v114 count:16])
+    if ([layersToTrain4 countByEnumeratingWithState:v96 objects:v110 count:16])
     {
-      *v98;
-      *v98;
-      [v89 weightsForLayer:{**(&v97 + 1), v76, v77}];
+      objc_msgSend_weightsForLayer_(v88, v75, v76);
       v28 = *(*__p + 12);
       *buf = *(*__p + 8);
-      LODWORD(v108) = v28;
-      v107 = 1;
-      v106 = 1;
+      LODWORD(v104) = v28;
+      v103 = 1;
+      v102 = 1;
       std::allocate_shared[abi:ne200100]<Espresso::blob<float,2>,std::allocator<Espresso::blob<float,2>>,int &,int &,int &,int &,0>();
     }
 
-    v81 = [[EvaluationDataSourceEspressoWrapper alloc] initWithEvaluatorDataSource:sourceCopy];
-    -[EspressoEvaluator averageLossEvaluation:dataWrapper:batchSize:](self, "averageLossEvaluation:dataWrapper:batchSize:", v82, v81, [sourceCopy batchSize]);
+    v80 = [[EvaluationDataSourceEspressoWrapper alloc] initWithEvaluatorDataSource:sourceCopy];
+    -[EspressoEvaluator averageLossEvaluation:dataWrapper:batchSize:](self, "averageLossEvaluation:dataWrapper:batchSize:", v81, v80, [sourceCopy batchSize]);
     v30 = v29;
     v31 = sLog;
     if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
@@ -259,55 +252,55 @@ uint64_t __65__EspressoEvaluator_averageLossEvaluation_dataWrapper_batchSize___b
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v116 = __Block_byref_object_copy_;
-    *&v117 = __Block_byref_object_dispose_;
-    *(&v117 + 1) = MEMORY[0x277CBEC10];
+    v112 = __Block_byref_object_copy_;
+    *&v113 = __Block_byref_object_dispose_;
+    *(&v113 + 1) = MEMORY[0x277CBEC10];
     numLocalIterations = [sourceCopy numLocalIterations];
-    v94[0] = MEMORY[0x277D85DD0];
-    v94[1] = 3221225472;
-    v94[2] = __59__EspressoEvaluator_evaluateWithModelURL_dataSource_error___block_invoke;
-    v94[3] = &unk_27A66D698;
-    v94[4] = buf;
-    [v82 fit:v81 numberOfEpochs:numLocalIterations withProgress:v94];
+    v93[0] = MEMORY[0x277D85DD0];
+    v93[1] = 3221225472;
+    v93[2] = __59__EspressoEvaluator_evaluateWithModelURL_dataSource_error___block_invoke;
+    v93[3] = &unk_27A66D698;
+    v93[4] = buf;
+    [v81 fit:v80 numberOfEpochs:numLocalIterations withProgress:v93];
     v35 = v34;
     array = [MEMORY[0x277CBEB18] array];
     array2 = [MEMORY[0x277CBEB18] array];
-    v92 = 0u;
-    v93 = 0u;
-    v90 = 0u;
     v91 = 0u;
+    v92 = 0u;
+    v89 = 0u;
+    v90 = 0u;
     layersToTrain5 = [sourceCopy layersToTrain];
     obj = layersToTrain5;
-    v37 = [layersToTrain5 countByEnumeratingWithState:&v90 objects:v113 count:16];
+    v37 = [layersToTrain5 countByEnumeratingWithState:&v89 objects:v109 count:16];
     if (v37)
     {
-      v86 = *v91;
+      v85 = *v90;
       do
       {
         for (i = 0; i != v37; ++i)
         {
-          if (*v91 != v86)
+          if (*v90 != v85)
           {
             objc_enumerationMutation(obj);
           }
 
-          v39 = *(*(&v90 + 1) + 8 * i);
+          v39 = *(*(&v89 + 1) + 8 * i);
           array3 = [MEMORY[0x277CBEB18] array];
-          if (v89)
+          if (v88)
           {
-            [v89 weightsForLayer:v39];
+            objc_msgSend_weightsForLayer_(v88);
           }
 
           else
           {
+            v94 = 0;
             v95 = 0;
-            v96 = 0;
           }
 
           v41 = v39;
           std::string::basic_string[abi:ne200100]<0>(__p, [v39 UTF8String]);
-          v108 = __p;
-          v42 = std::__tree<std::__value_type<std::string,std::shared_ptr<Espresso::blob<float,2>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<Espresso::blob<float,2>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<Espresso::blob<float,2>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v103, __p);
+          v104 = __p;
+          v42 = std::__tree<std::__value_type<std::string,std::shared_ptr<Espresso::blob<float,2>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<Espresso::blob<float,2>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<Espresso::blob<float,2>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v99, __p, &std::piecewise_construct, &v104);
           v44 = *(v42 + 56);
           v45 = *(v42 + 64);
           if (v45)
@@ -315,13 +308,13 @@ uint64_t __65__EspressoEvaluator_averageLossEvaluation_dataWrapper_batchSize___b
             atomic_fetch_add_explicit(&v45->__shared_owners_, 1uLL, memory_order_relaxed);
           }
 
-          if (v112 < 0)
+          if (v108 < 0)
           {
             operator delete(*__p);
           }
 
-          v46 = v95;
-          if (*(v95 + 12) * *(v95 + 8))
+          v46 = v94;
+          if (*(v94 + 12) * *(v94 + 8))
           {
             v47 = 0;
             do
@@ -331,10 +324,10 @@ uint64_t __65__EspressoEvaluator_averageLossEvaluation_dataWrapper_batchSize___b
               [array3 addObject:v48];
 
               ++v47;
-              v46 = v95;
+              v46 = v94;
             }
 
-            while (v47 < *(v95 + 12) * *(v95 + 8));
+            while (v47 < *(v94 + 12) * *(v94 + 8));
           }
 
           if (v45)
@@ -342,26 +335,26 @@ uint64_t __65__EspressoEvaluator_averageLossEvaluation_dataWrapper_batchSize___b
             std::__shared_weak_count::__release_shared[abi:ne200100](v45);
           }
 
-          if (v96)
+          if (v95)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v96);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v95);
           }
 
-          if (v89)
+          if (v88)
           {
-            [v89 biasesForLayer:v39];
+            objc_msgSend_biasesForLayer_(v88);
           }
 
           else
           {
+            v94 = 0;
             v95 = 0;
-            v96 = 0;
           }
 
           v49 = v39;
           std::string::basic_string[abi:ne200100]<0>(__p, [v39 UTF8String]);
-          v108 = __p;
-          v50 = std::__tree<std::__value_type<std::string,std::shared_ptr<Espresso::blob<float,2>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<Espresso::blob<float,2>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<Espresso::blob<float,2>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v101, __p);
+          v104 = __p;
+          v50 = std::__tree<std::__value_type<std::string,std::shared_ptr<Espresso::blob<float,2>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<Espresso::blob<float,2>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<Espresso::blob<float,2>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v97, __p, &std::piecewise_construct, &v104);
           v52 = *(v50 + 56);
           v53 = *(v50 + 64);
           if (v53)
@@ -369,13 +362,13 @@ uint64_t __65__EspressoEvaluator_averageLossEvaluation_dataWrapper_batchSize___b
             atomic_fetch_add_explicit(&v53->__shared_owners_, 1uLL, memory_order_relaxed);
           }
 
-          if (v112 < 0)
+          if (v108 < 0)
           {
             operator delete(*__p);
           }
 
-          v54 = v95;
-          if (*(v95 + 8))
+          v54 = v94;
+          if (*(v94 + 8))
           {
             v55 = 0;
             do
@@ -385,10 +378,10 @@ uint64_t __65__EspressoEvaluator_averageLossEvaluation_dataWrapper_batchSize___b
               [array3 addObject:v56];
 
               ++v55;
-              v54 = v95;
+              v54 = v94;
             }
 
-            while (v55 < *(v95 + 8));
+            while (v55 < *(v94 + 8));
           }
 
           if (v53)
@@ -396,9 +389,9 @@ uint64_t __65__EspressoEvaluator_averageLossEvaluation_dataWrapper_batchSize___b
             std::__shared_weak_count::__release_shared[abi:ne200100](v53);
           }
 
-          if (v96)
+          if (v95)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v96);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v95);
           }
 
           [array addObject:array3];
@@ -406,7 +399,7 @@ uint64_t __65__EspressoEvaluator_averageLossEvaluation_dataWrapper_batchSize___b
         }
 
         layersToTrain5 = obj;
-        v37 = [obj countByEnumeratingWithState:&v90 objects:v113 count:16];
+        v37 = [obj countByEnumeratingWithState:&v89 objects:v109 count:16];
       }
 
       while (v37);
@@ -420,7 +413,7 @@ uint64_t __65__EspressoEvaluator_averageLossEvaluation_dataWrapper_batchSize___b
     }
 
     modelOutputName2 = [sourceCopy modelOutputName];
-    v59 = [(EspressoEvaluator *)self evaluationMetrics:v82 dataWrapper:v81 outputName:modelOutputName2];
+    v59 = [(EspressoEvaluator *)self evaluationMetrics:v81 dataWrapper:v80 outputName:modelOutputName2];
     v60 = sLog;
     if (os_log_type_enabled(v60, OS_LOG_TYPE_INFO))
     {
@@ -429,7 +422,7 @@ uint64_t __65__EspressoEvaluator_averageLossEvaluation_dataWrapper_batchSize___b
       _os_log_impl(&dword_275B9B000, v60, OS_LOG_TYPE_INFO, "Print out probs: %@", __p, 0xCu);
     }
 
-    -[EspressoEvaluator averageLossEvaluation:dataWrapper:batchSize:](self, "averageLossEvaluation:dataWrapper:batchSize:", v82, v81, [sourceCopy batchSize]);
+    -[EspressoEvaluator averageLossEvaluation:dataWrapper:batchSize:](self, "averageLossEvaluation:dataWrapper:batchSize:", v81, v80, [sourceCopy batchSize]);
     v62 = v61;
     v63 = sLog;
     if (os_log_type_enabled(v63, OS_LOG_TYPE_INFO))
@@ -439,32 +432,32 @@ uint64_t __65__EspressoEvaluator_averageLossEvaluation_dataWrapper_batchSize___b
       _os_log_impl(&dword_275B9B000, v63, OS_LOG_TYPE_INFO, "loss after training: %f", __p, 0xCu);
     }
 
-    v109[0] = @"LossBeforeTraining";
+    v105[0] = @"LossBeforeTraining";
     *&v64 = v30;
     v65 = [MEMORY[0x277CCABB0] numberWithFloat:v64];
-    v110[0] = v65;
-    v109[1] = @"LossAfterTraining";
+    v106[0] = v65;
+    v105[1] = @"LossAfterTraining";
     *&v66 = v62;
     v67 = [MEMORY[0x277CCABB0] numberWithFloat:v66];
-    v110[1] = v67;
-    v109[2] = @"TrainingLoss";
+    v106[1] = v67;
+    v105[2] = @"TrainingLoss";
     LODWORD(v68) = v35;
     v69 = [MEMORY[0x277CCABB0] numberWithFloat:v68];
-    v109[3] = @"UpdatedModelIndices";
-    v109[4] = @"ModelDeltas";
-    v110[2] = v69;
-    v110[3] = array2;
-    v109[5] = @"TrainingLosses";
+    v105[3] = @"UpdatedModelIndices";
+    v105[4] = @"ModelDeltas";
+    v106[2] = v69;
+    v106[3] = array2;
+    v105[5] = @"TrainingLosses";
     v70 = *(*&buf[8] + 40);
-    v110[4] = array;
-    v110[5] = v70;
-    v109[6] = @"OtherEvaluationMetric";
-    v110[6] = v59;
-    v71 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v110 forKeys:v109 count:7];
+    v106[4] = array;
+    v106[5] = v70;
+    v105[6] = @"OtherEvaluationMetric";
+    v106[6] = v59;
+    v71 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v106 forKeys:v105 count:7];
 
     _Block_object_dispose(buf, 8);
-    std::__tree<std::__value_type<std::string,std::shared_ptr<Espresso::blob<float,2>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<Espresso::blob<float,2>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<Espresso::blob<float,2>>>>>::destroy(&v101, v102[0]);
-    std::__tree<std::__value_type<std::string,std::shared_ptr<Espresso::blob<float,2>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<Espresso::blob<float,2>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<Espresso::blob<float,2>>>>>::destroy(&v103, v104[0]);
+    std::__tree<std::__value_type<std::string,std::shared_ptr<Espresso::blob<float,2>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<Espresso::blob<float,2>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<Espresso::blob<float,2>>>>>::destroy(&v97, v98[0]);
+    std::__tree<std::__value_type<std::string,std::shared_ptr<Espresso::blob<float,2>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<Espresso::blob<float,2>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<Espresso::blob<float,2>>>>>::destroy(&v99, v100[0]);
   }
 
   else
@@ -477,9 +470,9 @@ uint64_t __65__EspressoEvaluator_averageLossEvaluation_dataWrapper_batchSize___b
 
     if (error)
     {
-      v73 = v78;
+      v73 = v77;
       v71 = 0;
-      *error = v78;
+      *error = v77;
     }
 
     else
@@ -488,31 +481,27 @@ uint64_t __65__EspressoEvaluator_averageLossEvaluation_dataWrapper_batchSize___b
     }
   }
 
-  v74 = *MEMORY[0x277D85DE8];
-
   return v71;
 }
 
 void __59__EspressoEvaluator_evaluateWithModelURL_dataSource_error___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = sLog;
   if (os_log_type_enabled(sLog, OS_LOG_TYPE_INFO))
   {
-    v9[0] = 67109378;
-    v9[1] = a2;
-    v10 = 2112;
-    v11 = v6;
-    _os_log_impl(&dword_275B9B000, v7, OS_LOG_TYPE_INFO, "fit: iter=%d metrics=%@", v9, 0x12u);
+    v8[0] = 67109378;
+    v8[1] = a2;
+    v9 = 2112;
+    v10 = v6;
+    _os_log_impl(&dword_275B9B000, v7, OS_LOG_TYPE_INFO, "fit: iter=%d metrics=%@", v8, 0x12u);
   }
 
   if (v6)
   {
     objc_storeStrong((*(*(a1 + 32) + 8) + 40), a3);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

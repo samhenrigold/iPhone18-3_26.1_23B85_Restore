@@ -106,7 +106,7 @@ void __51__SBHighlightView__highlightImageWithHeight_alpha___block_invoke_2(uint
     v8->_highlight = v11;
 
     v13 = v8->_highlight;
-    [(SBHighlightView *)v8 bounds];
+    objc_msgSend_bounds(v8);
     [(UIImageView *)v13 setFrame:?];
     [(SBHighlightView *)v8 addSubview:v8->_highlight];
   }
@@ -117,7 +117,7 @@ void __51__SBHighlightView__highlightImageWithHeight_alpha___block_invoke_2(uint
 - (void)layoutSubviews
 {
   highlight = self->_highlight;
-  [(SBHighlightView *)self bounds];
+  objc_msgSend_bounds(self, a2);
 
   [(UIImageView *)highlight setFrame:?];
 }

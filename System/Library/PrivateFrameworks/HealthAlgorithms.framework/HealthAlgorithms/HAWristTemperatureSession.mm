@@ -85,33 +85,33 @@ LABEL_7:
       if (dataVersion == 2)
       {
         v19 = 2;
-        v11 = [(HAWristTemperatureSession *)v9 parsePacket:v18];
+        v12 = [(HAWristTemperatureSession *)v9 parsePacket:v18];
       }
 
       else if (dataVersion == 1)
       {
         v19 = 1;
-        v11 = [(HAWristTemperatureSession *)v9 parsePacket:v18];
+        v12 = [(HAWristTemperatureSession *)v9 parsePacket:v18];
       }
 
       else
       {
         if (v9->_dataVersion)
         {
-          v14 = ha_get_log();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+          v15 = ha_get_log(v10);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
           {
-            [HAWristTemperatureSession initWithBinarySampleRepresentation:v14 metadata:? timestamp:?];
+            [HAWristTemperatureSession initWithBinarySampleRepresentation:v15 metadata:? timestamp:?];
           }
 
           goto LABEL_19;
         }
 
         v19 = 0;
-        v11 = [(HAWristTemperatureSession *)v9 parsePacket:v18];
+        v12 = [(HAWristTemperatureSession *)v9 parsePacket:v18];
       }
 
-      if (v11)
+      if (v12)
       {
         self = v9;
         selfCopy = self;
@@ -129,8 +129,8 @@ LABEL_19:
 
   else
   {
-    v12 = ha_get_log();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+    v13 = ha_get_log(0);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
     {
       -[HAWristTemperatureSession initWithBinarySampleRepresentation:metadata:timestamp:].cold.2(v18, [representationCopy length]);
     }
@@ -139,7 +139,6 @@ LABEL_19:
   selfCopy = 0;
 LABEL_20:
 
-  v15 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -156,12 +155,11 @@ LABEL_20:
 
 - (void)initWithBinarySampleRepresentation:(unsigned __int8 *)a1 metadata:(NSObject *)a2 timestamp:.cold.1(unsigned __int8 *a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v4[0] = 67109120;
-  v4[1] = v2;
-  _os_log_fault_impl(&dword_251282000, a2, OS_LOG_TYPE_FAULT, "unrecognized wrist temperature reading data version (%uhh)", v4, 8u);
-  v3 = *MEMORY[0x277D85DE8];
+  v3[0] = 67109120;
+  v3[1] = v2;
+  _os_log_fault_impl(&dword_251282000, a2, OS_LOG_TYPE_FAULT, "unrecognized wrist temperature reading data version (%uhh)", v3, 8u);
 }
 
 - (void)initWithBinarySampleRepresentation:(_DWORD *)a1 metadata:(uint64_t)a2 timestamp:.cold.2(_DWORD *a1, uint64_t a2)

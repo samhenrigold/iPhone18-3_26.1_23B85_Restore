@@ -10,10 +10,9 @@
 
 + (id)uniquedColumns
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = @"medication_identifier";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = @"medication_identifier";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }
@@ -25,7 +24,7 @@
   v12 = [transaction databaseForEntityClass:self];
   v13 = [self queryWithDatabase:v12 predicate:predicateCopy];
 
-  v14 = +[HDDismissedRemoteScheduleUnavailableRecordEntity _propertiesForEntity];
+  v14 = +[(HDDismissedRemoteScheduleUnavailableRecordEntity *)self];
   v17[0] = MEMORY[0x277D85DD0];
   v17[1] = 3221225472;
   v17[2] = __160__HDDismissedRemoteScheduleUnavailableRecordEntity_enumerateDismissedRemoteScheduleUnavailableRecordEntitiesWithPredicate_transaction_error_enumerationHandler___block_invoke;
@@ -46,25 +45,24 @@
   v3[2] = @"schedule_compatibility_version";
   v3[3] = @"device_identifiers";
   v3[4] = @"creation_date";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:5];
-  v1 = *MEMORY[0x277D85DE8];
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:5];
 
-  return v0;
+  return v1;
 }
 
-uint64_t __160__HDDismissedRemoteScheduleUnavailableRecordEntity_enumerateDismissedRemoteScheduleUnavailableRecordEntitiesWithPredicate_transaction_error_enumerationHandler___block_invoke(uint64_t a1)
+uint64_t __160__HDDismissedRemoteScheduleUnavailableRecordEntity_enumerateDismissedRemoteScheduleUnavailableRecordEntitiesWithPredicate_transaction_error_enumerationHandler___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = HDSQLiteColumnWithNameAsString();
-  v3 = HDSQLiteColumnWithNameAsInt64();
-  v4 = HDSQLiteColumnWithNameAsInt64();
-  v5 = HDSQLiteColumnWithNameAsString();
-  v6 = HDSQLiteColumnWithNameAsDate();
-  v7 = [v5 componentsSeparatedByString:*MEMORY[0x277D115F8]];
-  v8 = [v7 hk_map:&__block_literal_global_10];
-  v9 = [objc_alloc(MEMORY[0x277D11500]) _initWithMedicationIdentifier:v2 scheduleType:v3 scheduleCompatibilityVersion:v4 deviceIdentifiers:v8 creationDate:v6];
-  v10 = (*(*(a1 + 32) + 16))();
+  v4 = HDSQLiteColumnWithNameAsString();
+  v5 = HDSQLiteColumnWithNameAsInt64();
+  v6 = HDSQLiteColumnWithNameAsInt64();
+  v7 = HDSQLiteColumnWithNameAsString();
+  v8 = HDSQLiteColumnWithNameAsDate();
+  v9 = [v7 componentsSeparatedByString:*MEMORY[0x277D115F8]];
+  v10 = [v9 hk_map:&__block_literal_global_10];
+  v11 = [objc_alloc(MEMORY[0x277D11500]) _initWithMedicationIdentifier:v4 scheduleType:v5 scheduleCompatibilityVersion:v6 deviceIdentifiers:v10 creationDate:v8];
+  v12 = (*(*(a1 + 32) + 16))();
 
-  return v10;
+  return v12;
 }
 
 id __160__HDDismissedRemoteScheduleUnavailableRecordEntity_enumerateDismissedRemoteScheduleUnavailableRecordEntitiesWithPredicate_transaction_error_enumerationHandler___block_invoke_2(uint64_t a1, void *a2)
@@ -93,7 +91,7 @@ id __160__HDDismissedRemoteScheduleUnavailableRecordEntity_enumerateDismissedRem
   v8 = objc_opt_self();
   v9 = [recordCopy databaseForEntityClass:v8];
 
-  v10 = +[HDDismissedRemoteScheduleUnavailableRecordEntity _propertiesForEntity];
+  v10 = +[(HDDismissedRemoteScheduleUnavailableRecordEntity *)v8];
   v15[0] = MEMORY[0x277D85DD0];
   v15[1] = 3221225472;
   v15[2] = __109__HDDismissedRemoteScheduleUnavailableRecordEntity__insertRemoteScheduleUnavailableRecord_transaction_error___block_invoke;

@@ -12,7 +12,7 @@
   {
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSDy10Foundation4DataV8CipherML9SecretKeyVGMd, &_sSDy10Foundation4DataV8CipherML9SecretKeyVGMR);
     lazy protocol witness table accessor for type Data and conformance Data();
-    lazy protocol witness table accessor for type Date and conformance Date(&lazy protocol witness table cache variable for type SecretKey and conformance SecretKey, type metadata accessor for SecretKey);
+    lazy protocol witness table accessor for type Date and conformance Date(&lazy protocol witness table cache variable for type SecretKey and conformance SecretKey, type metadata accessor for SecretKey, &protocol conformance descriptor for SecretKey);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type [Data : SecretKey] and conformance <> [A : B]);
   }
@@ -24,12 +24,12 @@
 {
   if (!lazy cache variable for type metadata for [Data : SecretKey])
   {
-    type metadata accessor for SecretKey();
+    type metadata accessor for SecretKey(255);
     lazy protocol witness table accessor for type Data and conformance Data();
-    v0 = type metadata accessor for Dictionary();
-    if (!v1)
+    v1 = type metadata accessor for Dictionary();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for [Data : SecretKey]);
+      atomic_store(v1, &lazy cache variable for type metadata for [Data : SecretKey]);
     }
   }
 }

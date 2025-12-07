@@ -71,53 +71,51 @@ LABEL_3:
 {
   v23 = *MEMORY[0x1E69E9840];
   blockCopy = block;
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  if (SSIsInternalBuild(blockCopy, v5) && _os_feature_enabled_impl())
   {
-    v5 = +[SSLogConfig sharedStoreServicesConfig];
-    if (!v5)
+    v6 = +[SSLogConfig sharedStoreServicesConfig];
+    if (!v6)
     {
-      v5 = +[SSLogConfig sharedConfig];
+      v6 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v5 shouldLog];
-    if ([v5 shouldLogToDisk])
+    shouldLog = [v6 shouldLog];
+    if ([v6 shouldLogToDisk])
     {
-      v7 = shouldLog | 2;
+      v8 = shouldLog | 2;
     }
 
     else
     {
-      v7 = shouldLog;
+      v8 = shouldLog;
     }
 
-    oSLogObject = [v5 OSLogObject];
+    oSLogObject = [v6 OSLogObject];
     if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
     {
-      v9 = v7;
+      v10 = v8;
     }
 
     else
     {
-      v9 = v7 & 2;
+      v10 = v8 & 2;
     }
 
-    if (v9)
+    if (v10)
     {
       v21 = 136446210;
       v22 = "[SSAuthorizationRequest startWithAuthorizationResponseBlock:]";
-      LODWORD(v18) = 12;
-      v10 = _os_log_send_and_compose_impl();
 
-      if (!v10)
+      if (!v11)
       {
 LABEL_15:
 
         goto LABEL_16;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:{4, &v21, v18}];
-      free(v10);
-      SSFileLog(v5, @"%@", v11, v12, v13, v14, v15, v16, oSLogObject);
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:4];
+      free(v11);
+      SSFileLog(v6, @"%@", v12, v13, v14, v15, v16, v17, oSLogObject);
     }
 
     goto LABEL_15;
@@ -130,7 +128,7 @@ LABEL_16:
   v19[3] = &unk_1E84ABEF0;
   v19[4] = self;
   v20 = blockCopy;
-  v17 = blockCopy;
+  v18 = blockCopy;
   [(SSRequest *)self _startWithMessageID:57 messageBlock:v19];
 }
 
@@ -268,7 +266,7 @@ uint64_t __51__SSAuthorizationRequest_startWithCompletionBlock___block_invoke(ui
   return v6;
 }
 
-uint64_t __41__SSAuthorizationRequest_copyXPCEncoding__block_invoke(uint64_t a1)
+void __41__SSAuthorizationRequest_copyXPCEncoding__block_invoke(uint64_t a1)
 {
   SSXPCDictionarySetObject(*(a1 + 32), "50", *(*(a1 + 40) + 96));
   xpc_dictionary_set_BOOL(*(a1 + 32), "59", *(*(a1 + 40) + 104));
@@ -281,7 +279,7 @@ uint64_t __41__SSAuthorizationRequest_copyXPCEncoding__block_invoke(uint64_t a1)
   v2 = *(a1 + 32);
   v3 = *(*(a1 + 40) + 160);
 
-  return SSXPCDictionarySetObject(v2, "58", v3);
+  SSXPCDictionarySetObject(v2, "58", v3);
 }
 
 - (SSAuthorizationRequest)initWithXPCEncoding:(id)encoding
@@ -290,47 +288,47 @@ uint64_t __41__SSAuthorizationRequest_copyXPCEncoding__block_invoke(uint64_t a1)
   v5 = encodingCopy;
   if (encodingCopy && MEMORY[0x1DA6E0380](encodingCopy) == MEMORY[0x1E69E9E80])
   {
-    v27.receiver = self;
-    v27.super_class = SSAuthorizationRequest;
-    v6 = [(SSRequest *)&v27 init];
+    v28.receiver = self;
+    v28.super_class = SSAuthorizationRequest;
+    v6 = [(SSRequest *)&v28 init];
     if (v6)
     {
-      objc_opt_class();
-      v8 = SSXPCDictionaryCopyCFObjectWithClass(v5, "50");
+      v8 = objc_opt_class();
+      v9 = SSXPCDictionaryCopyCFObjectWithClass(v5, "50", v8);
       accountIdentifier = v6->_accountIdentifier;
-      v6->_accountIdentifier = v8;
+      v6->_accountIdentifier = v9;
 
       v6->_allowSilentAuthentication = xpc_dictionary_get_BOOL(v5, "59");
-      v10 = objc_opt_class();
-      v11 = SSXPCDictionaryCopyObjectWithClass(v5, "53", v10);
+      v11 = objc_opt_class();
+      v12 = SSXPCDictionaryCopyObjectWithClass(v5, "53", v11);
       clientIdentifierHeader = v6->_clientIdentifierHeader;
-      v6->_clientIdentifierHeader = v11;
+      v6->_clientIdentifierHeader = v12;
 
-      v13 = objc_opt_class();
-      v14 = SSXPCDictionaryCopyObjectWithClass(v5, "52", v13);
+      v14 = objc_opt_class();
+      v15 = SSXPCDictionaryCopyObjectWithClass(v5, "52", v14);
       familyAccountIdentifier = v6->_familyAccountIdentifier;
-      v6->_familyAccountIdentifier = v14;
+      v6->_familyAccountIdentifier = v15;
 
-      v16 = objc_opt_class();
-      v17 = SSXPCDictionaryCopyObjectWithClass(v5, "53", v16);
+      v17 = objc_opt_class();
+      v18 = SSXPCDictionaryCopyObjectWithClass(v5, "53", v17);
       keybagPath = v6->_keybagPath;
-      v6->_keybagPath = v17;
+      v6->_keybagPath = v18;
 
-      v19 = SSXPCDictionaryCopyCFObject(v5, "54");
+      v20 = SSXPCDictionaryCopyCFObject(v5, "54");
       token = v6->_token;
-      v6->_token = v19;
+      v6->_token = v20;
 
-      v21 = objc_opt_class();
-      v22 = SSXPCDictionaryCopyObjectWithClass(v5, "55", v21);
+      v22 = objc_opt_class();
+      v23 = SSXPCDictionaryCopyObjectWithClass(v5, "55", v22);
       reason = v6->_reason;
-      v6->_reason = v22;
+      v6->_reason = v23;
 
       v6->_shouldAddKeysToKeyBag = xpc_dictionary_get_BOOL(v5, "56");
       v6->_shouldPromptForCredentials = xpc_dictionary_get_BOOL(v5, "57");
-      v24 = objc_opt_class();
-      v25 = SSXPCDictionaryCopyObjectWithClass(v5, "58", v24);
+      v25 = objc_opt_class();
+      v26 = SSXPCDictionaryCopyObjectWithClass(v5, "58", v25);
       userAgent = v6->_userAgent;
-      v6->_userAgent = v25;
+      v6->_userAgent = v26;
     }
   }
 

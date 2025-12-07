@@ -1,67 +1,67 @@
-void llvm::detail::IEEEFloat::convertPPCDoubleDoubleAPFloatToAPInt(llvm::detail::IEEEFloat *this@<X0>, uint64_t a2@<X8>)
+void llvm::detail::IEEEFloat::convertPPCDoubleDoubleAPFloatToAPInt(llvm::detail::IEEEFloat *this@<X0>, uint64_t a3@<X8>)
 {
-  v2 = this;
-  v61 = *MEMORY[0x1E69E9840];
-  v4 = *this;
-  v5 = *(*this + 16);
-  v56 = **this;
+  v3 = this;
+  v66 = *MEMORY[0x1E69E9840];
+  v5 = *this;
+  v6 = *(*this + 16);
+  v61 = **this;
+  v62 = v6;
+  DWORD1(v61) = -1022;
   v57 = v5;
-  DWORD1(v56) = -1022;
-  v52 = v4;
-  v6 = *(v4 + 2);
-  v7 = v6 + 64;
-  if ((v6 + 64) >= 0x80)
+  v7 = *(v5 + 8);
+  v8 = v7 + 64;
+  if ((v7 + 64) >= 0x80)
   {
-    this = operator new[]((v7 >> 3) & 0x1FFFFFF8);
-    v53 = this;
+    this = operator new[]((v8 >> 3) & 0x1FFFFFF8);
+    v58 = this;
   }
 
-  v8 = *(v2 + 20);
-  v9 = v8 & 7;
-  v55 = v8 & 0xF;
-  v54 = *(v2 + 4);
-  v11 = (v8 & 6) != 0 && v9 != 3;
-  if (v9 == 1 || v11)
+  v9 = *(v3 + 20);
+  v10 = v9 & 7;
+  v60 = v9 & 0xF;
+  v59 = *(v3 + 4);
+  v12 = (v9 & 6) != 0 && v10 != 3;
+  if (v10 == 1 || v12)
   {
-    if ((v6 - 64) >= 0xFFFFFF80)
+    if ((v7 - 64) >= 0xFFFFFF80)
     {
-      this = &v53;
+      this = &v58;
     }
 
-    v14 = *(v2 + 1);
-    v13 = (v2 + 8);
-    v12 = v14;
-    if ((v6 - 64) >= 0xFFFFFF80)
+    v15 = *(v3 + 1);
+    v14 = (v3 + 8);
+    v13 = v15;
+    if ((v7 - 64) >= 0xFFFFFF80)
     {
-      v15 = v13;
+      v16 = v14;
     }
 
     else
     {
-      v15 = v12;
+      v16 = v13;
     }
 
-    llvm::APInt::tcAssign(this, v15, (v7 >> 6));
+    llvm::APInt::tcAssign(this, v16, (v8 >> 6));
   }
 
-  v58 = 0;
-  llvm::detail::IEEEFloat::convert(&v52, &v56, 1, &v58);
-  v16 = v52;
-  v48 = v52;
-  v17 = *(v52 + 2) + 64;
-  if (v17 >= 0x80)
+  v63 = 0;
+  llvm::detail::IEEEFloat::convert(&v57, &v61, 1, &v63);
+  v17 = v57;
+  v53 = v57;
+  v18 = *(v57 + 8) + 64;
+  if (v18 >= 0x80)
   {
-    __p = operator new[]((v17 >> 3) & 0x1FFFFFF8);
+    __p = operator new[]((v18 >> 3) & 0x1FFFFFF8);
   }
 
-  v18 = v55 & 7;
-  v51 = v51 & 0xF0 | v55 & 0xF;
-  v50 = v54;
-  v20 = (v55 & 6) != 0 && v18 != 3;
-  if (v18 == 1 || v20)
+  v19 = v60 & 7;
+  v56 = v56 & 0xF0 | v60 & 0xF;
+  v55 = v59;
+  v21 = (v60 & 6) != 0 && v19 != 3;
+  if (v19 == 1 || v21)
   {
-    v21 = *(v16 + 2);
-    if ((v21 - 64) >= 0xFFFFFF80)
+    v22 = *(v17 + 8);
+    if ((v22 - 64) >= 0xFFFFFF80)
     {
       p_p = &__p;
     }
@@ -71,49 +71,49 @@ void llvm::detail::IEEEFloat::convertPPCDoubleDoubleAPFloatToAPInt(llvm::detail:
       p_p = __p;
     }
 
-    if ((v21 - 64) >= 0xFFFFFF80)
+    if ((v22 - 64) >= 0xFFFFFF80)
     {
-      v23 = &v53;
+      v24 = &v58;
     }
 
     else
     {
-      v23 = v53;
+      v24 = v58;
     }
 
-    llvm::APInt::tcAssign(p_p, v23, ((v21 + 64) >> 6));
+    llvm::APInt::tcAssign(p_p, v24, ((v22 + 64) >> 6));
   }
 
-  llvm::detail::IEEEFloat::convert(&v48, &llvm::semIEEEdouble, 1, &v58);
-  v24 = v51 & 7;
-  v25 = (v51 & 6) == 0 || v24 == 3;
-  v26 = !v25;
-  if (v25)
+  llvm::detail::IEEEFloat::convert(&v53, &llvm::semIEEEdouble, 1, &v63);
+  v25 = v56 & 7;
+  v26 = (v56 & 6) == 0 || v25 == 3;
+  v27 = !v26;
+  if (v26)
   {
-    if (v24 != 3)
+    if (v25 != 3)
     {
-      if ((v51 & 7) != 0)
+      if ((v56 & 7) != 0)
       {
-        if ((*(v48 + 2) - 64) >= 0xFFFFFF80)
+        if ((*(v53 + 8) - 64) >= 0xFFFFFF80)
         {
-          v30 = &__p;
+          v31 = &__p;
         }
 
         else
         {
-          v30 = __p;
+          v31 = __p;
         }
 
-        v29 = *v30;
+        v30 = *v31;
       }
 
       else
       {
-        v29 = 0;
+        v30 = 0;
       }
 
-      v59 = (v51 << 60) & 0x8000000000000000 | v29 & 0xFFFFFFFFFFFFFLL | 0x7FF0000000000000;
-      if (!v26)
+      v64 = (v56 << 60) & 0x8000000000000000 | v30 & 0xFFFFFFFFFFFFFLL | 0x7FF0000000000000;
+      if (!v27)
       {
         goto LABEL_72;
       }
@@ -121,16 +121,16 @@ void llvm::detail::IEEEFloat::convertPPCDoubleDoubleAPFloatToAPInt(llvm::detail:
       goto LABEL_58;
     }
 
+    v29 = 0;
     v28 = 0;
-    v27 = 0;
     goto LABEL_51;
   }
 
-  v27 = v50 + 1023;
-  if ((*(v48 + 2) - 64) > 0xFFFFFF7F)
+  v28 = v55 + 1023;
+  if ((*(v53 + 8) - 64) > 0xFFFFFF7F)
   {
-    v28 = __p;
-    if (v50 != -1022)
+    v29 = __p;
+    if (v55 != -1022)
     {
       goto LABEL_51;
     }
@@ -138,12 +138,12 @@ void llvm::detail::IEEEFloat::convertPPCDoubleDoubleAPFloatToAPInt(llvm::detail:
 
   else
   {
-    v28 = *__p;
-    if (v50 != -1022)
+    v29 = *__p;
+    if (v55 != -1022)
     {
 LABEL_51:
-      v59 = (v51 << 60) & 0x8000000000000000 | v28 & 0xFFFFFFFFFFFFFLL | ((v27 & 0x7FF) << 52);
-      if (!v26)
+      v64 = (v56 << 60) & 0x8000000000000000 | v29 & 0xFFFFFFFFFFFFFLL | ((v28 & 0x7FF) << 52);
+      if (!v27)
       {
         goto LABEL_72;
       }
@@ -152,46 +152,46 @@ LABEL_51:
     }
   }
 
-  v59 = (v51 << 60) & 0x8000000000000000 | v28 & 0xFFFFFFFFFFFFFLL | (((v28 >> 52) & 1) << 52);
-  if (!v26)
+  v64 = (v56 << 60) & 0x8000000000000000 | v29 & 0xFFFFFFFFFFFFFLL | (((v29 >> 52) & 1) << 52);
+  if (!v27)
   {
     goto LABEL_72;
   }
 
 LABEL_58:
-  if (v58 != 1)
+  if (!v63)
   {
 LABEL_72:
-    v60 = 0;
+    v65 = 0;
     goto LABEL_73;
   }
 
-  v31 = llvm::detail::IEEEFloat::convert(&v48, &v56, 1, &v58);
-  v44 = v52;
-  v32 = *(v52 + 2);
-  v33 = v32 + 64;
-  if ((v32 + 64) >= 0x80)
+  v32 = llvm::detail::IEEEFloat::convert(&v53, &v61, 1, &v63);
+  v49 = v57;
+  v34 = *(v57 + 8);
+  v35 = v34 + 64;
+  if ((v34 + 64) >= 0x80)
   {
-    v31 = operator new[]((v33 >> 3) & 0x1FFFFFF8);
-    v45 = v31;
+    v32 = operator new[]((v35 >> 3) & 0x1FFFFFF8);
+    v50 = v32;
   }
 
-  v34 = v55 & 7;
-  v47 = v55 & 0xF;
-  v46 = v54;
-  v36 = (v55 & 6) != 0 && v34 != 3;
-  if (v34 != 1 && !v36)
+  v36 = v60 & 7;
+  v52 = v60 & 0xF;
+  v51 = v59;
+  v38 = (v60 & 6) != 0 && v36 != 3;
+  if (v36 != 1 && !v38)
   {
-    if (llvm::detail::IEEEFloat::addOrSubtractSpecials(&v44, &v48, 1) != 2)
+    if (llvm::detail::IEEEFloat::addOrSubtractSpecials(&v49, &v53, 1u, v33) != 2)
     {
       goto LABEL_70;
     }
 
 LABEL_84:
-    v39 = llvm::detail::IEEEFloat::addOrSubtractSignificand(&v44, &v48, 1);
-    llvm::detail::IEEEFloat::normalize(&v44, 1, v39);
-    v37 = v47;
-    if ((v47 & 7) != 3)
+    v44 = llvm::detail::IEEEFloat::addOrSubtractSignificand(&v49, &v53, 1u, v39, v40);
+    llvm::detail::IEEEFloat::normalize(&v49, 1, v44);
+    v41 = v52;
+    if ((v52 & 7) != 3)
     {
       goto LABEL_90;
     }
@@ -199,86 +199,86 @@ LABEL_84:
     goto LABEL_85;
   }
 
-  if ((v32 - 64) < 0xFFFFFF80)
+  if ((v34 - 64) < 0xFFFFFF80)
   {
-    v38 = v53;
+    v42 = v58;
   }
 
   else
   {
-    v31 = &v45;
-    v38 = &v53;
+    v32 = &v50;
+    v42 = &v58;
   }
 
-  llvm::APInt::tcAssign(v31, v38, (v33 >> 6));
-  if (llvm::detail::IEEEFloat::addOrSubtractSpecials(&v44, &v48, 1) == 2)
+  llvm::APInt::tcAssign(v32, v42, (v35 >> 6));
+  if (llvm::detail::IEEEFloat::addOrSubtractSpecials(&v49, &v53, 1u, v43) == 2)
   {
     goto LABEL_84;
   }
 
 LABEL_70:
-  v37 = v47;
-  if ((v47 & 7) != 3)
+  v41 = v52;
+  if ((v52 & 7) != 3)
   {
     goto LABEL_90;
   }
 
 LABEL_85:
-  if ((v51 & 7) != 3 || ((v51 ^ v37) & 8) == 0)
+  if ((v56 & 7) != 3 || ((v56 ^ v41) & 8) == 0)
   {
-    LOBYTE(v37) = v37 & 0xF3;
-    v47 = v37;
+    LOBYTE(v41) = v41 & 0xF3;
+    v52 = v41;
   }
 
-  if (*(v44 + 5) == 2)
+  if (*(v49 + 20) == 2)
   {
-    v47 = v37 & 0xF3;
+    v52 = v41 & 0xF3;
   }
 
 LABEL_90:
-  llvm::detail::IEEEFloat::convert(&v44, &llvm::semIEEEdouble, 1, &v58);
-  v40 = v47 & 7;
-  if ((v47 & 6) == 0 || v40 == 3)
+  llvm::detail::IEEEFloat::convert(&v49, &llvm::semIEEEdouble, 1, &v63);
+  v45 = v52 & 7;
+  if ((v52 & 6) == 0 || v45 == 3)
   {
-    if (v40 == 3)
+    if (v45 == 3)
     {
-      v42 = 0;
-      LOWORD(v41) = 0;
+      v47 = 0;
+      LOWORD(v46) = 0;
     }
 
     else
     {
-      if ((v47 & 7) != 0)
+      if ((v52 & 7) != 0)
       {
-        if ((*(v44 + 2) - 64) >= 0xFFFFFF80)
+        if ((*(v49 + 8) - 64) >= 0xFFFFFF80)
         {
-          v43 = &v45;
+          v48 = &v50;
         }
 
         else
         {
-          v43 = v45;
+          v48 = v50;
         }
 
-        v42 = *v43;
+        v47 = *v48;
       }
 
       else
       {
-        v42 = 0;
+        v47 = 0;
       }
 
-      LOWORD(v41) = 2047;
+      LOWORD(v46) = 2047;
     }
   }
 
   else
   {
-    LOWORD(v41) = v46 + 1023;
-    if ((*(v44 + 2) - 64) <= 0xFFFFFF7F)
+    LOWORD(v46) = v51 + 1023;
+    if ((*(v49 + 8) - 64) <= 0xFFFFFF7F)
     {
-      v42 = *v45;
-      if (v46 != -1022)
+      v47 = *v50;
+      if (v51 != -1022)
       {
         goto LABEL_106;
       }
@@ -286,33 +286,33 @@ LABEL_90:
       goto LABEL_99;
     }
 
-    v42 = v45;
-    if (v46 == -1022)
+    v47 = v50;
+    if (v51 == -1022)
     {
 LABEL_99:
-      v41 = (v42 >> 52) & 1;
+      v46 = (v47 >> 52) & 1;
     }
   }
 
 LABEL_106:
-  v60 = (v47 << 60) & 0x8000000000000000 | v42 & 0xFFFFFFFFFFFFFLL | ((v41 & 0x7FF) << 52);
-  if ((*(v44 + 2) - 64) <= 0xFFFFFF7F && v45)
+  v65 = (v52 << 60) & 0x8000000000000000 | v47 & 0xFFFFFFFFFFFFFLL | ((v46 & 0x7FF) << 52);
+  if ((*(v49 + 8) - 64) <= 0xFFFFFF7F && v50)
   {
-    operator delete[](v45);
+    operator delete[](v50);
   }
 
 LABEL_73:
-  llvm::APInt::APInt(a2, 0x80u, &v59, 2u);
-  if ((*(v48 + 2) - 64) <= 0xFFFFFF7F && __p)
+  llvm::APInt::APInt(a3, 0x80u, &v64, 2u);
+  if ((*(v53 + 8) - 64) <= 0xFFFFFF7F && __p)
   {
     operator delete[](__p);
   }
 
-  if ((*(v52 + 2) - 64) <= 0xFFFFFF7F)
+  if ((*(v57 + 8) - 64) <= 0xFFFFFF7F)
   {
-    if (v53)
+    if (v58)
     {
-      operator delete[](v53);
+      operator delete[](v58);
     }
   }
 }
@@ -906,275 +906,275 @@ LABEL_11:
   return this;
 }
 
-void llvm::detail::IEEEFloat::bitcastToAPInt(llvm::detail::IEEEFloat *this@<X0>, uint64_t a2@<X8>)
+void llvm::detail::IEEEFloat::bitcastToAPInt(uint64_t a2@<X8>, llvm::detail::IEEEFloat *this@<X0>)
 {
-  v2 = *this;
+  v3 = *this;
   if (*this == &llvm::semIEEEhalf)
   {
-    v3 = *(this + 20);
-    v4 = v3 & 7;
-    if ((v3 & 6) == 0 || v4 == 3)
+    v4 = *(this + 20);
+    v5 = v4 & 7;
+    if ((v4 & 6) == 0 || v5 == 3)
     {
-      if (v4 == 3)
+      if (v5 == 3)
       {
-        LOWORD(v6) = 0;
-        LOBYTE(v11) = 0;
+        LOWORD(v7) = 0;
+        LOBYTE(v12) = 0;
       }
 
       else
       {
-        if ((v3 & 7) != 0)
+        if ((v4 & 7) != 0)
         {
-          v6 = *(this + 1);
+          v7 = *(this + 1);
         }
 
         else
         {
-          LOWORD(v6) = 0;
+          LOWORD(v7) = 0;
         }
 
-        LOBYTE(v11) = 31;
+        LOBYTE(v12) = 31;
       }
     }
 
     else
     {
-      LODWORD(v11) = *(this + 4) + 15;
-      v6 = *(this + 1);
+      LODWORD(v12) = *(this + 4) + 15;
+      v7 = *(this + 1);
       if (*(this + 4) == -14)
       {
-        v11 = (v6 >> 10) & 1;
+        v12 = (v7 >> 10) & 1;
       }
     }
 
     *(a2 + 8) = 16;
-    *a2 = (v3 << 12) & 0x8000 | v6 & 0x3FF | ((v11 & 0x1F) << 10);
+    *a2 = (v4 << 12) & 0x8000 | v7 & 0x3FF | ((v12 & 0x1F) << 10);
   }
 
-  else if (v2 == &llvm::semBFloat)
+  else if (v3 == &llvm::semBFloat)
   {
-    v7 = *(this + 20);
-    v8 = v7 & 7;
-    if ((v7 & 6) == 0 || v8 == 3)
+    v8 = *(this + 20);
+    v9 = v8 & 7;
+    if ((v8 & 6) == 0 || v9 == 3)
     {
-      if (v8 == 3)
+      if (v9 == 3)
       {
-        LOBYTE(v10) = 0;
-        LOBYTE(v16) = 0;
+        LOBYTE(v11) = 0;
+        LOBYTE(v17) = 0;
       }
 
       else
       {
-        if ((v7 & 7) != 0)
+        if ((v8 & 7) != 0)
         {
-          v10 = *(this + 1);
+          v11 = *(this + 1);
         }
 
         else
         {
-          LOBYTE(v10) = 0;
+          LOBYTE(v11) = 0;
         }
 
-        LOBYTE(v16) = -1;
+        LOBYTE(v17) = -1;
       }
     }
 
     else
     {
-      LODWORD(v16) = *(this + 4) + 127;
-      v10 = *(this + 1);
+      LODWORD(v17) = *(this + 4) + 127;
+      v11 = *(this + 1);
       if (*(this + 4) == -126)
       {
-        v16 = (v10 >> 7) & 1;
+        v17 = (v11 >> 7) & 1;
       }
     }
 
     *(a2 + 8) = 16;
-    *a2 = (v7 << 12) & 0x8000 | v10 & 0x7F | (v16 << 7);
+    *a2 = (v8 << 12) & 0x8000 | v11 & 0x7F | (v17 << 7);
   }
 
-  else if (v2 == &llvm::semIEEEsingle)
+  else if (v3 == &llvm::semIEEEsingle)
   {
-    v12 = *(this + 20);
-    v13 = v12 & 7;
-    if ((v12 & 6) == 0 || v13 == 3)
+    v13 = *(this + 20);
+    v14 = v13 & 7;
+    if ((v13 & 6) == 0 || v14 == 3)
     {
-      if (v13 == 3)
+      if (v14 == 3)
       {
-        LODWORD(v15) = 0;
-        LOBYTE(v14) = 0;
+        LODWORD(v16) = 0;
+        LOBYTE(v15) = 0;
       }
 
       else
       {
-        if ((v12 & 7) != 0)
+        if ((v13 & 7) != 0)
         {
-          v15 = *(this + 1);
+          v16 = *(this + 1);
         }
 
         else
         {
-          LODWORD(v15) = 0;
+          LODWORD(v16) = 0;
         }
 
-        LOBYTE(v14) = -1;
+        LOBYTE(v15) = -1;
       }
     }
 
     else
     {
-      LODWORD(v14) = *(this + 4) + 127;
-      v15 = *(this + 1);
+      LODWORD(v15) = *(this + 4) + 127;
+      v16 = *(this + 1);
       if (*(this + 4) == -126)
       {
-        v14 = (v15 >> 23) & 1;
+        v15 = (v16 >> 23) & 1;
       }
     }
 
     *(a2 + 8) = 32;
-    *a2 = (v12 << 28) & 0x80000000 | v15 & 0x7FFFFF | (v14 << 23);
+    *a2 = (v13 << 28) & 0x80000000 | v16 & 0x7FFFFF | (v15 << 23);
   }
 
-  else if (v2 == &llvm::semIEEEdouble)
+  else if (v3 == &llvm::semIEEEdouble)
   {
-    v17 = *(this + 20);
-    v18 = v17 & 7;
-    if ((v17 & 6) == 0 || v18 == 3)
+    v18 = *(this + 20);
+    v19 = v18 & 7;
+    if ((v18 & 6) == 0 || v19 == 3)
     {
-      if (v18 == 3)
+      if (v19 == 3)
       {
-        v20 = 0;
-        LOWORD(v19) = 0;
+        v21 = 0;
+        LOWORD(v20) = 0;
       }
 
       else
       {
-        if ((v17 & 7) != 0)
+        if ((v18 & 7) != 0)
         {
-          v20 = *(this + 1);
+          v21 = *(this + 1);
         }
 
         else
         {
-          v20 = 0;
+          v21 = 0;
         }
 
-        LOWORD(v19) = 2047;
+        LOWORD(v20) = 2047;
       }
     }
 
     else
     {
-      LODWORD(v19) = *(this + 4) + 1023;
-      v20 = *(this + 1);
+      LODWORD(v20) = *(this + 4) + 1023;
+      v21 = *(this + 1);
       if (*(this + 4) == -1022)
       {
-        v19 = (v20 >> 52) & 1;
+        v20 = (v21 >> 52) & 1;
       }
     }
 
     *(a2 + 8) = 64;
-    *a2 = (v17 << 60) & 0x8000000000000000 | v20 & 0xFFFFFFFFFFFFFLL | ((v19 & 0x7FF) << 52);
+    *a2 = (v18 << 60) & 0x8000000000000000 | v21 & 0xFFFFFFFFFFFFFLL | ((v20 & 0x7FF) << 52);
   }
 
-  else if (v2 == &llvm::semIEEEquad)
+  else if (v3 == &llvm::semIEEEquad)
   {
     llvm::detail::IEEEFloat::convertQuadrupleAPFloatToAPInt(this, a2);
   }
 
-  else if (v2 == &llvm::semPPCDoubleDoubleLegacy)
+  else if (v3 == &llvm::semPPCDoubleDoubleLegacy)
   {
     llvm::detail::IEEEFloat::convertPPCDoubleDoubleAPFloatToAPInt(this, a2);
   }
 
-  else if (v2 == &llvm::semFloat8E5M2)
+  else if (v3 == &llvm::semFloat8E5M2)
   {
-    v21 = *(this + 20);
-    v22 = v21 & 7;
-    if ((v21 & 6) == 0 || v22 == 3)
+    v22 = *(this + 20);
+    v23 = v22 & 7;
+    if ((v22 & 6) == 0 || v23 == 3)
     {
-      if (v22 == 3)
+      if (v23 == 3)
       {
+        LOBYTE(v25) = 0;
         LOBYTE(v24) = 0;
-        LOBYTE(v23) = 0;
       }
 
       else
       {
-        if ((v21 & 7) != 0)
+        if ((v22 & 7) != 0)
         {
-          v24 = *(this + 1);
+          v25 = *(this + 1);
         }
 
         else
         {
-          LOBYTE(v24) = 0;
+          LOBYTE(v25) = 0;
         }
 
-        LOBYTE(v23) = 31;
+        LOBYTE(v24) = 31;
       }
     }
 
     else
     {
-      LODWORD(v23) = *(this + 4) + 15;
-      v24 = *(this + 1);
+      LODWORD(v24) = *(this + 4) + 15;
+      v25 = *(this + 1);
       if (*(this + 4) == -14)
       {
-        v23 = (v24 >> 2) & 1;
+        v24 = (v25 >> 2) & 1;
       }
     }
 
     *(a2 + 8) = 8;
-    *a2 = (16 * v21) & 0x80 | v24 & 3 | (4 * (v23 & 0x1F));
+    *a2 = (16 * v22) & 0x80 | v25 & 3 | (4 * (v24 & 0x1F));
   }
 
-  else if (v2 == &llvm::semFloat8E5M2FNUZ)
+  else if (v3 == &llvm::semFloat8E5M2FNUZ)
   {
     llvm::detail::IEEEFloat::convertFloat8E5M2FNUZAPFloatToAPInt(this, a2);
   }
 
-  else if (v2 == &llvm::semFloat8E4M3)
+  else if (v3 == &llvm::semFloat8E4M3)
   {
     llvm::detail::IEEEFloat::convertFloat8E4M3APFloatToAPInt(this, a2);
   }
 
-  else if (v2 == &llvm::semFloat8E4M3FN)
+  else if (v3 == &llvm::semFloat8E4M3FN)
   {
     llvm::detail::IEEEFloat::convertFloat8E4M3FNAPFloatToAPInt(this, a2);
   }
 
-  else if (v2 == &llvm::semFloat8E4M3FNUZ)
+  else if (v3 == &llvm::semFloat8E4M3FNUZ)
   {
     llvm::detail::IEEEFloat::convertFloat8E4M3FNUZAPFloatToAPInt(this, a2);
   }
 
-  else if (v2 == &llvm::semFloat8E4M3B11FNUZ)
+  else if (v3 == &llvm::semFloat8E4M3B11FNUZ)
   {
     llvm::detail::IEEEFloat::convertFloat8E4M3B11FNUZAPFloatToAPInt(this, a2);
   }
 
-  else if (v2 == &llvm::semFloat8E3M4)
+  else if (v3 == &llvm::semFloat8E3M4)
   {
     llvm::detail::IEEEFloat::convertFloat8E3M4APFloatToAPInt(this, a2);
   }
 
-  else if (v2 == &llvm::semFloatTF32)
+  else if (v3 == &llvm::semFloatTF32)
   {
     llvm::detail::IEEEFloat::convertFloatTF32APFloatToAPInt(this, a2);
   }
 
-  else if (v2 == &llvm::semFloat6E3M2FN)
+  else if (v3 == &llvm::semFloat6E3M2FN)
   {
     llvm::detail::IEEEFloat::convertFloat6E3M2FNAPFloatToAPInt(this, a2);
   }
 
-  else if (v2 == &llvm::semFloat6E2M3FN)
+  else if (v3 == &llvm::semFloat6E2M3FN)
   {
     llvm::detail::IEEEFloat::convertFloat6E2M3FNAPFloatToAPInt(this, a2);
   }
 
-  else if (v2 == &llvm::semFloat4E2M1FN)
+  else if (v3 == &llvm::semFloat4E2M1FN)
   {
     llvm::detail::IEEEFloat::convertFloat4E2M1FNAPFloatToAPInt(this, a2);
   }
@@ -1185,7 +1185,7 @@ void llvm::detail::IEEEFloat::bitcastToAPInt(llvm::detail::IEEEFloat *this@<X0>,
   }
 }
 
-void llvm::detail::IEEEFloat::initFromF80LongDoubleAPInt(llvm::detail::IEEEFloat *this, const llvm::APInt **a2)
+void llvm::detail::IEEEFloat::initFromF80LongDoubleAPInt(llvm::detail::IEEEFloat *this, const llvm::APInt ***a2)
 {
   if (*(a2 + 2) >= 0x41u)
   {
@@ -1198,7 +1198,7 @@ void llvm::detail::IEEEFloat::initFromF80LongDoubleAPInt(llvm::detail::IEEEFloat
   }
 
   v4 = *v3;
-  v5 = *(v3 + 1);
+  v5 = v3[1];
   v6 = v5 & 0x7FFF;
   *this = &llvm::semX87DoubleExtended;
   v7 = operator new[](0x10uLL);
@@ -1211,7 +1211,7 @@ void llvm::detail::IEEEFloat::initFromF80LongDoubleAPInt(llvm::detail::IEEEFloat
     {
       v11 = v8 & 0xF7 | v9;
       v12 = v6 != 0x7FFF || v4 == 0x8000000000000000;
-      if (v12 && (v4 < 0 || ((v5 & 0x7FFF) != 0 ? (v13 = v6 == 0x7FFF) : (v13 = 1), v13)))
+      if (v12 && ((v4 & 0x8000000000000000) != 0 || ((v5 & 0x7FFF) != 0 ? (v13 = v6 == 0x7FFF) : (v13 = 1), v13)))
       {
         *(this + 20) = v11 & 0xF8 | 2;
         *(this + 4) = v6 - 0x3FFF;
@@ -1249,52 +1249,52 @@ void llvm::detail::IEEEFloat::initFromF80LongDoubleAPInt(llvm::detail::IEEEFloat
   llvm::APInt::tcSet(v7, 0, 2u);
 }
 
-void llvm::detail::IEEEFloat::initFromPPCDoubleDoubleAPInt(llvm::detail::IEEEFloat *this, const llvm::APInt **a2)
+void llvm::detail::IEEEFloat::initFromPPCDoubleDoubleAPInt(llvm::detail::IEEEFloat *this, const llvm::APInt ***a2, uint64_t a3, unsigned int a4)
 {
   if (*(a2 + 2) >= 0x41u)
   {
-    v3 = *a2;
+    v5 = *a2;
   }
 
   else
   {
-    v3 = a2;
+    v5 = a2;
   }
 
-  v4 = *v3;
-  v5 = *(v3 + 1);
+  v6 = *v5;
+  v7 = v5[1];
   LODWORD(__p) = 64;
-  v11 = v4;
-  llvm::detail::IEEEFloat::initFromDoubleAPInt(this, &v11);
-  llvm::detail::IEEEFloat::convert(this, &llvm::semPPCDoubleDoubleLegacy, 1, &v14);
+  v18 = v6;
+  llvm::detail::IEEEFloat::initFromDoubleAPInt(this, &v18, a3, a4);
+  llvm::detail::IEEEFloat::convert(this, &llvm::semPPCDoubleDoubleLegacy, 1, &v21);
   if ((*(this + 20) & 6) != 0 && (*(this + 20) & 7) != 3)
   {
-    v10 = 64;
-    v9 = v5;
-    llvm::detail::IEEEFloat::initFromDoubleAPInt(&v11, &v9);
-    llvm::detail::IEEEFloat::convert(&v11, &llvm::semPPCDoubleDoubleLegacy, 1, &v14);
-    if (llvm::detail::IEEEFloat::addOrSubtractSpecials(this, &v11, 0) == 2)
+    v17 = 64;
+    v16 = v7;
+    llvm::detail::IEEEFloat::initFromDoubleAPInt(&v18, &v16, v8, v9);
+    llvm::detail::IEEEFloat::convert(&v18, &llvm::semPPCDoubleDoubleLegacy, 1, &v21);
+    if (llvm::detail::IEEEFloat::addOrSubtractSpecials(this, &v18, 0, v11) == 2)
     {
-      v7 = llvm::detail::IEEEFloat::addOrSubtractSignificand(this, &v11, 0);
-      llvm::detail::IEEEFloat::normalize(this, 1, v7);
+      v14 = llvm::detail::IEEEFloat::addOrSubtractSignificand(this, &v18, 0, v12, v13);
+      llvm::detail::IEEEFloat::normalize(this, 1, v14);
     }
 
-    v8 = *(this + 20);
-    if ((v8 & 7) == 3)
+    v15 = *(this + 20);
+    if ((v15 & 7) == 3)
     {
-      if ((v13 & 7) != 3 || ((v13 ^ v8) & 8) != 0)
+      if ((v20 & 7) != 3 || ((v20 ^ v15) & 8) != 0)
       {
-        LOBYTE(v8) = v8 & 0xF3;
-        *(this + 20) = v8;
+        LOBYTE(v15) = v15 & 0xF3;
+        *(this + 20) = v15;
       }
 
       if (*(*this + 20) == 2)
       {
-        *(this + 20) = v8 & 0xF3;
+        *(this + 20) = v15 & 0xF3;
       }
     }
 
-    if ((*(v11 + 2) - 64) <= 0xFFFFFF7F)
+    if ((*(v18 + 2) - 64) <= 0xFFFFFF7F)
     {
       if (__p)
       {
@@ -1304,67 +1304,67 @@ void llvm::detail::IEEEFloat::initFromPPCDoubleDoubleAPInt(llvm::detail::IEEEFlo
   }
 }
 
-void llvm::detail::IEEEFloat::initFromDoubleAPInt(llvm::detail::IEEEFloat *this, const llvm::APInt **a2)
+void llvm::detail::IEEEFloat::initFromDoubleAPInt(uint64_t this, const llvm::APInt ***a2, uint64_t a3, unsigned int a4)
 {
-  v2 = *(a2 + 2);
-  if (v2 >= 0x41)
+  v4 = *(a2 + 2);
+  if (v4 >= 0x41)
   {
-    v3 = *a2;
+    v5 = *a2;
   }
 
   else
   {
-    v3 = a2;
+    v5 = a2;
   }
 
-  v4 = *v3 & 0xFFFFFFFFFFFFFLL;
-  v5 = *(v3 + ((v2 + 63) >> 6) - 1);
-  v6 = (v5 >> 52) & 0x7FF;
+  v6 = *v5 & 0xFFFFFFFFFFFFFLL;
+  v7 = v5[((v4 + 63) >> 6) - 1];
+  v8 = (v7 >> 52) & 0x7FF;
   *this = &llvm::semIEEEdouble;
-  v7 = *(this + 20);
-  v8 = (v5 >> 60) & 8;
-  if (v6 == 2047 && v4 == 0)
+  v9 = *(this + 20);
+  v10 = (v7 >> 60) & 8;
+  if (v8 == 2047 && v6 == 0)
   {
-    *(this + 20) = v7 & 0xF0 | v8;
-    *(this + 4) = 1024;
+    *(this + 20) = v9 & 0xF0 | v10;
+    *(this + 16) = 1024;
     llvm::APInt::tcSet((this + 8), 0, 1u);
   }
 
-  else if (v6 != 2047 || v4 == 0)
+  else if (v8 != 2047 || v6 == 0)
   {
-    if (v6 | v4)
+    if (v8 | v6)
     {
-      *(this + 20) = v7 & 0xF0 | v8 & 0xF8 | 2;
-      *(this + 4) = v6 - 1023;
-      *(this + 1) = v4;
-      if (v6)
+      *(this + 20) = v9 & 0xF0 | v10 & 0xF8 | 2;
+      *(this + 16) = v8 - 1023;
+      *(this + 8) = v6;
+      if (v8)
       {
-        *(this + 1) = v4 | 0x10000000000000;
+        *(this + 8) = v6 | 0x10000000000000;
       }
 
       else
       {
-        *(this + 4) = -1022;
+        *(this + 16) = -1022;
       }
     }
 
     else
     {
-      *(this + 20) = v7 & 0xF0 | v8 | 3;
-      *(this + 4) = -1023;
+      *(this + 20) = v9 & 0xF0 | v10 | 3;
+      *(this + 16) = -1023;
       llvm::APInt::tcSet((this + 8), 0, 1u);
     }
   }
 
   else
   {
-    *(this + 20) = v7 & 0xF0 | v8 & 0xF8 | 1;
-    *(this + 4) = 1024;
-    *(this + 1) = v4;
+    *(this + 20) = v9 & 0xF0 | v10 & 0xF8 | 1;
+    *(this + 16) = 1024;
+    *(this + 8) = v6;
   }
 }
 
-void llvm::detail::IEEEFloat::initFromQuadrupleAPInt(llvm::detail::IEEEFloat *this, const llvm::APInt **a2)
+void llvm::detail::IEEEFloat::initFromQuadrupleAPInt(llvm::detail::IEEEFloat *this, const llvm::APInt ***a2)
 {
   v3 = *(a2 + 2);
   v4 = *a2;
@@ -1374,8 +1374,8 @@ void llvm::detail::IEEEFloat::initFromQuadrupleAPInt(llvm::detail::IEEEFloat *th
   }
 
   v5 = *v4;
-  v6 = *(v4 + 1) & 0xFFFFFFFFFFFFLL;
-  v7 = *(v4 + ((v3 + 63) >> 6) - 1);
+  v6 = v4[1] & 0xFFFFFFFFFFFFLL;
+  v7 = v4[((v3 + 63) >> 6) - 1];
   *this = &llvm::semIEEEquad;
   v8 = operator new[](0x10uLL);
   *(this + 1) = v8;
@@ -1443,770 +1443,770 @@ void llvm::detail::IEEEFloat::initFromQuadrupleAPInt(llvm::detail::IEEEFloat *th
   llvm::APInt::tcSet(v8, 0, 2u);
 }
 
-void llvm::detail::IEEEFloat::initFromFloatAPInt(llvm::detail::IEEEFloat *this, const llvm::APInt **a2)
+void llvm::detail::IEEEFloat::initFromFloatAPInt(uint64_t this, const llvm::APInt ***a2, uint64_t a3, unsigned int a4)
 {
-  v2 = *(a2 + 2);
-  if (v2 >= 0x41)
+  v4 = *(a2 + 2);
+  if (v4 >= 0x41)
   {
-    v3 = *a2;
+    v5 = *a2;
   }
 
   else
   {
-    v3 = a2;
+    v5 = a2;
   }
 
-  v4 = *v3 & 0x7FFFFFLL;
-  v5 = *(v3 + ((v2 + 63) >> 6) - 1);
-  v6 = (v5 >> 23);
+  v6 = *v5 & 0x7FFFFF;
+  v7 = v5[((v4 + 63) >> 6) - 1];
+  v8 = (v7 >> 23);
   *this = &llvm::semIEEEsingle;
-  v7 = *(this + 20);
-  v8 = (v5 >> 28) & 8;
-  if (v6 == 255 && v4 == 0)
+  v9 = *(this + 20);
+  v10 = (v7 >> 28) & 8;
+  if (v8 == 255 && v6 == 0)
   {
-    *(this + 20) = v7 & 0xF0 | v8;
-    *(this + 4) = 128;
+    *(this + 20) = v9 & 0xF0 | v10;
+    *(this + 16) = 128;
     llvm::APInt::tcSet((this + 8), 0, 1u);
   }
 
-  else if (v6 != 255 || v4 == 0)
+  else if (v8 != 255 || v6 == 0)
   {
-    if (v6 | v4)
+    if (v8 | v6)
     {
-      *(this + 20) = v7 & 0xF0 | v8 & 0xF8 | 2;
-      *(this + 4) = v6 - 127;
-      *(this + 1) = v4;
-      if (v6)
+      *(this + 20) = v9 & 0xF0 | v10 & 0xF8 | 2;
+      *(this + 16) = v8 - 127;
+      *(this + 8) = v6;
+      if (v8)
       {
-        *(this + 1) = v4 | 0x800000;
+        *(this + 8) = v6 | 0x800000;
       }
 
       else
       {
-        *(this + 4) = -126;
+        *(this + 16) = -126;
       }
     }
 
     else
     {
-      *(this + 20) = v7 & 0xF0 | v8 | 3;
-      *(this + 4) = -127;
+      *(this + 20) = v9 & 0xF0 | v10 | 3;
+      *(this + 16) = -127;
       llvm::APInt::tcSet((this + 8), 0, 1u);
     }
   }
 
   else
   {
-    *(this + 20) = v7 & 0xF0 | v8 & 0xF8 | 1;
-    *(this + 4) = 128;
-    *(this + 1) = v4;
+    *(this + 20) = v9 & 0xF0 | v10 & 0xF8 | 1;
+    *(this + 16) = 128;
+    *(this + 8) = v6;
   }
 }
 
-void llvm::detail::IEEEFloat::initFromBFloatAPInt(llvm::detail::IEEEFloat *this, const llvm::APInt **a2)
+void llvm::detail::IEEEFloat::initFromBFloatAPInt(uint64_t this, const llvm::APInt ***a2, uint64_t a3, unsigned int a4)
 {
-  v2 = *(a2 + 2);
-  if (v2 >= 0x41)
+  v4 = *(a2 + 2);
+  if (v4 >= 0x41)
   {
-    v3 = *a2;
+    v5 = *a2;
   }
 
   else
   {
-    v3 = a2;
+    v5 = a2;
   }
 
-  v4 = *v3 & 0x7FLL;
-  v5 = *(v3 + ((v2 + 63) >> 6) - 1);
-  v6 = (v5 >> 7);
+  v6 = *v5 & 0x7F;
+  v7 = v5[((v4 + 63) >> 6) - 1];
+  v8 = (v7 >> 7);
   *this = &llvm::semBFloat;
-  v7 = *(this + 20);
-  v8 = (v5 >> 12) & 8;
-  if (v6 == 255 && v4 == 0)
+  v9 = *(this + 20);
+  v10 = (v7 >> 12) & 8;
+  if (v8 == 255 && v6 == 0)
   {
-    *(this + 20) = v7 & 0xF0 | v8;
-    *(this + 4) = 128;
+    *(this + 20) = v9 & 0xF0 | v10;
+    *(this + 16) = 128;
     llvm::APInt::tcSet((this + 8), 0, 1u);
   }
 
-  else if (v6 != 255 || v4 == 0)
+  else if (v8 != 255 || v6 == 0)
   {
-    if (v6 | v4)
+    if (v8 | v6)
     {
-      *(this + 20) = v7 & 0xF0 | v8 & 0xF8 | 2;
-      *(this + 4) = v6 - 127;
-      *(this + 1) = v4;
-      if (v6)
+      *(this + 20) = v9 & 0xF0 | v10 & 0xF8 | 2;
+      *(this + 16) = v8 - 127;
+      *(this + 8) = v6;
+      if (v8)
       {
-        *(this + 1) = v4 | 0x80;
+        *(this + 8) = v6 | 0x80;
       }
 
       else
       {
-        *(this + 4) = -126;
+        *(this + 16) = -126;
       }
     }
 
     else
     {
-      *(this + 20) = v7 & 0xF0 | v8 | 3;
-      *(this + 4) = -127;
+      *(this + 20) = v9 & 0xF0 | v10 | 3;
+      *(this + 16) = -127;
       llvm::APInt::tcSet((this + 8), 0, 1u);
     }
   }
 
   else
   {
-    *(this + 20) = v7 & 0xF0 | v8 & 0xF8 | 1;
-    *(this + 4) = 128;
-    *(this + 1) = v4;
+    *(this + 20) = v9 & 0xF0 | v10 & 0xF8 | 1;
+    *(this + 16) = 128;
+    *(this + 8) = v6;
   }
 }
 
-void llvm::detail::IEEEFloat::initFromHalfAPInt(llvm::detail::IEEEFloat *this, const llvm::APInt **a2)
+void llvm::detail::IEEEFloat::initFromHalfAPInt(uint64_t this, const llvm::APInt ***a2, uint64_t a3, unsigned int a4)
 {
-  v2 = *(a2 + 2);
-  if (v2 >= 0x41)
+  v4 = *(a2 + 2);
+  if (v4 >= 0x41)
   {
-    v3 = *a2;
+    v5 = *a2;
   }
 
   else
   {
-    v3 = a2;
+    v5 = a2;
   }
 
-  v4 = *v3 & 0x3FFLL;
-  v5 = *(v3 + ((v2 + 63) >> 6) - 1);
-  v6 = (v5 >> 10) & 0x1F;
+  v6 = *v5 & 0x3FF;
+  v7 = v5[((v4 + 63) >> 6) - 1];
+  v8 = (v7 >> 10) & 0x1F;
   *this = &llvm::semIEEEhalf;
-  v7 = *(this + 20);
-  v8 = (v5 >> 12) & 8;
-  if (v6 == 31 && v4 == 0)
+  v9 = *(this + 20);
+  v10 = (v7 >> 12) & 8;
+  if (v8 == 31 && v6 == 0)
   {
-    *(this + 20) = v7 & 0xF0 | v8;
-    *(this + 4) = 16;
+    *(this + 20) = v9 & 0xF0 | v10;
+    *(this + 16) = 16;
     llvm::APInt::tcSet((this + 8), 0, 1u);
   }
 
-  else if (v6 != 31 || v4 == 0)
+  else if (v8 != 31 || v6 == 0)
   {
-    if (v6 | v4)
+    if (v8 | v6)
     {
-      *(this + 20) = v7 & 0xF0 | v8 & 0xF8 | 2;
-      *(this + 4) = v6 - 15;
-      *(this + 1) = v4;
-      if (v6)
+      *(this + 20) = v9 & 0xF0 | v10 & 0xF8 | 2;
+      *(this + 16) = v8 - 15;
+      *(this + 8) = v6;
+      if (v8)
       {
-        *(this + 1) = v4 | 0x400;
+        *(this + 8) = v6 | 0x400;
       }
 
       else
       {
-        *(this + 4) = -14;
+        *(this + 16) = -14;
       }
     }
 
     else
     {
-      *(this + 20) = v7 & 0xF0 | v8 | 3;
-      *(this + 4) = -15;
+      *(this + 20) = v9 & 0xF0 | v10 | 3;
+      *(this + 16) = -15;
       llvm::APInt::tcSet((this + 8), 0, 1u);
     }
   }
 
   else
   {
-    *(this + 20) = v7 & 0xF0 | v8 & 0xF8 | 1;
-    *(this + 4) = 16;
-    *(this + 1) = v4;
+    *(this + 20) = v9 & 0xF0 | v10 & 0xF8 | 1;
+    *(this + 16) = 16;
+    *(this + 8) = v6;
   }
 }
 
-void llvm::detail::IEEEFloat::initFromFloat8E5M2APInt(llvm::detail::IEEEFloat *this, const llvm::APInt **a2)
+void llvm::detail::IEEEFloat::initFromFloat8E5M2APInt(uint64_t this, const llvm::APInt ***a2, uint64_t a3, unsigned int a4)
 {
-  v2 = *(a2 + 2);
-  if (v2 >= 0x41)
+  v4 = *(a2 + 2);
+  if (v4 >= 0x41)
   {
-    v3 = *a2;
+    v5 = *a2;
   }
 
   else
   {
-    v3 = a2;
+    v5 = a2;
   }
 
-  v4 = *v3 & 3;
-  v5 = *(v3 + ((v2 + 63) >> 6) - 1);
-  v6 = (v5 >> 2) & 0x1F;
+  v6 = *v5 & 3;
+  v7 = v5[((v4 + 63) >> 6) - 1];
+  v8 = (v7 >> 2) & 0x1F;
   *this = &llvm::semFloat8E5M2;
-  v7 = *(this + 20);
-  v8 = (v5 >> 4) & 8;
-  if (v6 == 31 && v4 == 0)
+  v9 = *(this + 20);
+  v10 = (v7 >> 4) & 8;
+  if (v8 == 31 && v6 == 0)
   {
-    *(this + 20) = v7 & 0xF0 | v8;
-    *(this + 4) = 16;
+    *(this + 20) = v9 & 0xF0 | v10;
+    *(this + 16) = 16;
     llvm::APInt::tcSet((this + 8), 0, 1u);
   }
 
-  else if (v6 != 31 || v4 == 0)
+  else if (v8 != 31 || v6 == 0)
   {
-    if (v6 | v4)
+    if (v8 | v6)
     {
-      *(this + 20) = v7 & 0xF0 | v8 & 0xF8 | 2;
-      *(this + 4) = v6 - 15;
-      *(this + 1) = v4;
-      if (v6)
+      *(this + 20) = v9 & 0xF0 | v10 & 0xF8 | 2;
+      *(this + 16) = v8 - 15;
+      *(this + 8) = v6;
+      if (v8)
       {
-        *(this + 1) = v4 | 4;
+        *(this + 8) = v6 | 4;
       }
 
       else
       {
-        *(this + 4) = -14;
+        *(this + 16) = -14;
       }
     }
 
     else
     {
-      *(this + 20) = v7 & 0xF0 | v8 | 3;
-      *(this + 4) = -15;
+      *(this + 20) = v9 & 0xF0 | v10 | 3;
+      *(this + 16) = -15;
       llvm::APInt::tcSet((this + 8), 0, 1u);
     }
   }
 
   else
   {
-    *(this + 20) = v7 & 0xF0 | v8 & 0xF8 | 1;
-    *(this + 4) = 16;
-    *(this + 1) = v4;
+    *(this + 20) = v9 & 0xF0 | v10 & 0xF8 | 1;
+    *(this + 16) = 16;
+    *(this + 8) = v6;
   }
 }
 
-void llvm::detail::IEEEFloat::initFromFloat8E5M2FNUZAPInt(llvm::detail::IEEEFloat *this, const llvm::APInt **a2)
+void llvm::detail::IEEEFloat::initFromFloat8E5M2FNUZAPInt(uint64_t this, const llvm::APInt ***a2, uint64_t a3, unsigned int a4)
 {
-  v2 = *(a2 + 2);
-  if (v2 >= 0x41)
+  v4 = *(a2 + 2);
+  if (v4 >= 0x41)
   {
-    v3 = *a2;
+    v5 = *a2;
   }
 
   else
   {
-    v3 = a2;
+    v5 = a2;
   }
 
-  v4 = *v3 & 3;
-  v5 = *(v3 + ((v2 + 63) >> 6) - 1);
-  v6 = (v5 >> 2) & 0x1F;
+  v6 = *v5 & 3;
+  v7 = v5[((v4 + 63) >> 6) - 1];
+  v8 = (v7 >> 2) & 0x1F;
   *this = &llvm::semFloat8E5M2FNUZ;
-  v7 = *(this + 20);
-  if (v6 | v4)
+  v9 = *(this + 20);
+  if (v8 | v6)
   {
-    *(this + 20) = v7 & 0xF0 | (v5 >> 4) & 8 | 2;
-    *(this + 4) = v6 - 16;
-    *(this + 1) = v4;
-    if (v6)
+    *(this + 20) = v9 & 0xF0 | (v7 >> 4) & 8 | 2;
+    *(this + 16) = v8 - 16;
+    *(this + 8) = v6;
+    if (v8)
     {
-      *(this + 1) = v4 | 4;
+      *(this + 8) = v6 | 4;
     }
 
     else
     {
-      *(this + 4) = -15;
+      *(this + 16) = -15;
     }
   }
 
-  else if (((v5 >> 4) & 8) != 0)
+  else if (((v7 >> 4) & 8) != 0)
   {
-    *(this + 20) = v7 & 0xF0 | (v5 >> 4) & 8 | 1;
-    *(this + 4) = -16;
-    *(this + 1) = 0;
+    *(this + 20) = v9 & 0xF0 | (v7 >> 4) & 8 | 1;
+    *(this + 16) = -16;
+    *(this + 8) = 0;
   }
 
   else
   {
-    *(this + 20) = v7 & 0xF0 | 3;
-    *(this + 4) = -16;
+    *(this + 20) = v9 & 0xF0 | 3;
+    *(this + 16) = -16;
     llvm::APInt::tcSet((this + 8), 0, 1u);
   }
 }
 
-void llvm::detail::IEEEFloat::initFromFloat8E4M3APInt(llvm::detail::IEEEFloat *this, const llvm::APInt **a2)
+void llvm::detail::IEEEFloat::initFromFloat8E4M3APInt(uint64_t this, const llvm::APInt ***a2, uint64_t a3, unsigned int a4)
 {
-  v2 = *(a2 + 2);
-  if (v2 >= 0x41)
+  v4 = *(a2 + 2);
+  if (v4 >= 0x41)
   {
-    v3 = *a2;
+    v5 = *a2;
   }
 
   else
   {
-    v3 = a2;
+    v5 = a2;
   }
 
-  v4 = *v3 & 7;
-  v5 = *(v3 + ((v2 + 63) >> 6) - 1);
-  v6 = (v5 >> 3) & 0xF;
+  v6 = *v5 & 7;
+  v7 = v5[((v4 + 63) >> 6) - 1];
+  v8 = (v7 >> 3) & 0xF;
   *this = &llvm::semFloat8E4M3;
-  v7 = *(this + 20);
-  v8 = (v5 >> 4) & 8;
-  if (v6 == 15 && v4 == 0)
+  v9 = *(this + 20);
+  v10 = (v7 >> 4) & 8;
+  if (v8 == 15 && v6 == 0)
   {
-    *(this + 20) = v7 & 0xF0 | v8;
-    *(this + 4) = 8;
+    *(this + 20) = v9 & 0xF0 | v10;
+    *(this + 16) = 8;
     llvm::APInt::tcSet((this + 8), 0, 1u);
   }
 
-  else if (v6 != 15 || v4 == 0)
+  else if (v8 != 15 || v6 == 0)
   {
-    if (v6 | v4)
+    if (v8 | v6)
     {
-      *(this + 20) = v7 & 0xF0 | v8 & 0xF8 | 2;
-      *(this + 4) = v6 - 7;
-      *(this + 1) = v4;
-      if (v6)
+      *(this + 20) = v9 & 0xF0 | v10 & 0xF8 | 2;
+      *(this + 16) = v8 - 7;
+      *(this + 8) = v6;
+      if (v8)
       {
-        *(this + 1) = v4 | 8;
+        *(this + 8) = v6 | 8;
       }
 
       else
       {
-        *(this + 4) = -6;
+        *(this + 16) = -6;
       }
     }
 
     else
     {
-      *(this + 20) = v7 & 0xF0 | v8 | 3;
-      *(this + 4) = -7;
+      *(this + 20) = v9 & 0xF0 | v10 | 3;
+      *(this + 16) = -7;
       llvm::APInt::tcSet((this + 8), 0, 1u);
     }
   }
 
   else
   {
-    *(this + 20) = v7 & 0xF0 | v8 & 0xF8 | 1;
-    *(this + 4) = 8;
-    *(this + 1) = v4;
+    *(this + 20) = v9 & 0xF0 | v10 & 0xF8 | 1;
+    *(this + 16) = 8;
+    *(this + 8) = v6;
   }
 }
 
-void llvm::detail::IEEEFloat::initFromFloat8E4M3FNAPInt(llvm::detail::IEEEFloat *this, const llvm::APInt **a2)
+void llvm::detail::IEEEFloat::initFromFloat8E4M3FNAPInt(uint64_t this, const llvm::APInt ***a2, uint64_t a3, unsigned int a4)
 {
-  v2 = *(a2 + 2);
-  if (v2 >= 0x41)
+  v4 = *(a2 + 2);
+  if (v4 >= 0x41)
   {
-    v3 = *a2;
+    v5 = *a2;
   }
 
   else
   {
-    v3 = a2;
+    v5 = a2;
   }
 
-  v4 = *v3 & 7;
-  v5 = *(v3 + ((v2 + 63) >> 6) - 1);
-  v6 = (v5 >> 3) & 0xF;
+  v6 = *v5 & 7;
+  v7 = v5[((v4 + 63) >> 6) - 1];
+  v8 = (v7 >> 3) & 0xF;
   *this = &llvm::semFloat8E4M3FN;
-  v7 = *(this + 20);
-  if (v6 == 15 && v4 == 7)
+  v9 = *(this + 20);
+  if (v8 == 15 && v6 == 7)
   {
-    *(this + 20) = v7 & 0xF0 | (v5 >> 4) & 8 | 1;
-    *(this + 4) = 8;
-    *(this + 1) = 7;
+    *(this + 20) = v9 & 0xF0 | (v7 >> 4) & 8 | 1;
+    *(this + 16) = 8;
+    *(this + 8) = 7;
   }
 
-  else if (v6 | v4)
+  else if (v8 | v6)
   {
-    *(this + 20) = v7 & 0xF0 | (v5 >> 4) & 8 | 2;
-    *(this + 4) = v6 - 7;
-    *(this + 1) = v4;
-    if (v6)
+    *(this + 20) = v9 & 0xF0 | (v7 >> 4) & 8 | 2;
+    *(this + 16) = v8 - 7;
+    *(this + 8) = v6;
+    if (v8)
     {
-      *(this + 1) = v4 | 8;
+      *(this + 8) = v6 | 8;
     }
 
     else
     {
-      *(this + 4) = -6;
+      *(this + 16) = -6;
     }
   }
 
   else
   {
-    *(this + 20) = v7 & 0xF0 | (v5 >> 4) & 8 | 3;
-    *(this + 4) = -7;
+    *(this + 20) = v9 & 0xF0 | (v7 >> 4) & 8 | 3;
+    *(this + 16) = -7;
     llvm::APInt::tcSet((this + 8), 0, 1u);
   }
 }
 
-void llvm::detail::IEEEFloat::initFromFloat8E4M3FNUZAPInt(llvm::detail::IEEEFloat *this, const llvm::APInt **a2)
+void llvm::detail::IEEEFloat::initFromFloat8E4M3FNUZAPInt(uint64_t this, const llvm::APInt ***a2, uint64_t a3, unsigned int a4)
 {
-  v2 = *(a2 + 2);
-  if (v2 >= 0x41)
+  v4 = *(a2 + 2);
+  if (v4 >= 0x41)
   {
-    v3 = *a2;
+    v5 = *a2;
   }
 
   else
   {
-    v3 = a2;
+    v5 = a2;
   }
 
-  v4 = *v3 & 7;
-  v5 = *(v3 + ((v2 + 63) >> 6) - 1);
-  v6 = (v5 >> 3) & 0xF;
+  v6 = *v5 & 7;
+  v7 = v5[((v4 + 63) >> 6) - 1];
+  v8 = (v7 >> 3) & 0xF;
   *this = &llvm::semFloat8E4M3FNUZ;
-  v7 = *(this + 20);
-  if (v6 | v4)
+  v9 = *(this + 20);
+  if (v8 | v6)
   {
-    *(this + 20) = v7 & 0xF0 | (v5 >> 4) & 8 | 2;
-    *(this + 4) = v6 - 8;
-    *(this + 1) = v4;
-    if (v6)
+    *(this + 20) = v9 & 0xF0 | (v7 >> 4) & 8 | 2;
+    *(this + 16) = v8 - 8;
+    *(this + 8) = v6;
+    if (v8)
     {
-      *(this + 1) = v4 | 8;
+      *(this + 8) = v6 | 8;
     }
 
     else
     {
-      *(this + 4) = -7;
+      *(this + 16) = -7;
     }
   }
 
-  else if (((v5 >> 4) & 8) != 0)
+  else if (((v7 >> 4) & 8) != 0)
   {
-    *(this + 20) = v7 & 0xF0 | (v5 >> 4) & 8 | 1;
-    *(this + 4) = -8;
-    *(this + 1) = 0;
+    *(this + 20) = v9 & 0xF0 | (v7 >> 4) & 8 | 1;
+    *(this + 16) = -8;
+    *(this + 8) = 0;
   }
 
   else
   {
-    *(this + 20) = v7 & 0xF0 | 3;
-    *(this + 4) = -8;
+    *(this + 20) = v9 & 0xF0 | 3;
+    *(this + 16) = -8;
     llvm::APInt::tcSet((this + 8), 0, 1u);
   }
 }
 
-void llvm::detail::IEEEFloat::initFromFloat8E4M3B11FNUZAPInt(llvm::detail::IEEEFloat *this, const llvm::APInt **a2)
+void llvm::detail::IEEEFloat::initFromFloat8E4M3B11FNUZAPInt(uint64_t this, const llvm::APInt ***a2, uint64_t a3, unsigned int a4)
 {
-  v2 = *(a2 + 2);
-  if (v2 >= 0x41)
+  v4 = *(a2 + 2);
+  if (v4 >= 0x41)
   {
-    v3 = *a2;
+    v5 = *a2;
   }
 
   else
   {
-    v3 = a2;
+    v5 = a2;
   }
 
-  v4 = *v3 & 7;
-  v5 = *(v3 + ((v2 + 63) >> 6) - 1);
-  v6 = (v5 >> 3) & 0xF;
+  v6 = *v5 & 7;
+  v7 = v5[((v4 + 63) >> 6) - 1];
+  v8 = (v7 >> 3) & 0xF;
   *this = &llvm::semFloat8E4M3B11FNUZ;
-  v7 = *(this + 20);
-  if (v6 | v4)
+  v9 = *(this + 20);
+  if (v8 | v6)
   {
-    *(this + 20) = v7 & 0xF0 | (v5 >> 4) & 8 | 2;
-    *(this + 4) = v6 - 11;
-    *(this + 1) = v4;
-    if (v6)
+    *(this + 20) = v9 & 0xF0 | (v7 >> 4) & 8 | 2;
+    *(this + 16) = v8 - 11;
+    *(this + 8) = v6;
+    if (v8)
     {
-      *(this + 1) = v4 | 8;
+      *(this + 8) = v6 | 8;
     }
 
     else
     {
-      *(this + 4) = -10;
+      *(this + 16) = -10;
     }
   }
 
-  else if (((v5 >> 4) & 8) != 0)
+  else if (((v7 >> 4) & 8) != 0)
   {
-    *(this + 20) = v7 & 0xF0 | (v5 >> 4) & 8 | 1;
-    *(this + 4) = -11;
-    *(this + 1) = 0;
+    *(this + 20) = v9 & 0xF0 | (v7 >> 4) & 8 | 1;
+    *(this + 16) = -11;
+    *(this + 8) = 0;
   }
 
   else
   {
-    *(this + 20) = v7 & 0xF0 | 3;
-    *(this + 4) = -11;
+    *(this + 20) = v9 & 0xF0 | 3;
+    *(this + 16) = -11;
     llvm::APInt::tcSet((this + 8), 0, 1u);
   }
 }
 
-void llvm::detail::IEEEFloat::initFromFloat8E3M4APInt(llvm::detail::IEEEFloat *this, const llvm::APInt **a2)
+void llvm::detail::IEEEFloat::initFromFloat8E3M4APInt(uint64_t this, const llvm::APInt ***a2, uint64_t a3, unsigned int a4)
 {
-  v2 = *(a2 + 2);
-  if (v2 >= 0x41)
+  v4 = *(a2 + 2);
+  if (v4 >= 0x41)
   {
-    v3 = *a2;
+    v5 = *a2;
   }
 
   else
   {
-    v3 = a2;
+    v5 = a2;
   }
 
-  v4 = *v3 & 0xFLL;
-  v5 = *(v3 + ((v2 + 63) >> 6) - 1);
-  v6 = (v5 >> 4) & 7;
+  v6 = *v5 & 0xF;
+  v7 = v5[((v4 + 63) >> 6) - 1];
+  v8 = (v7 >> 4) & 7;
   *this = &llvm::semFloat8E3M4;
-  v7 = *(this + 20);
-  v8 = (v5 >> 4) & 8;
-  if (v6 == 7 && v4 == 0)
+  v9 = *(this + 20);
+  v10 = (v7 >> 4) & 8;
+  if (v8 == 7 && v6 == 0)
   {
-    *(this + 20) = v7 & 0xF0 | v8;
-    *(this + 4) = 4;
+    *(this + 20) = v9 & 0xF0 | v10;
+    *(this + 16) = 4;
     llvm::APInt::tcSet((this + 8), 0, 1u);
   }
 
-  else if (v6 != 7 || v4 == 0)
+  else if (v8 != 7 || v6 == 0)
   {
-    if (v6 | v4)
+    if (v8 | v6)
     {
-      *(this + 20) = v7 & 0xF0 | v8 & 0xF8 | 2;
-      *(this + 4) = v6 - 3;
-      *(this + 1) = v4;
-      if (v6)
+      *(this + 20) = v9 & 0xF0 | v10 & 0xF8 | 2;
+      *(this + 16) = v8 - 3;
+      *(this + 8) = v6;
+      if (v8)
       {
-        *(this + 1) = v4 | 0x10;
+        *(this + 8) = v6 | 0x10;
       }
 
       else
       {
-        *(this + 4) = -2;
+        *(this + 16) = -2;
       }
     }
 
     else
     {
-      *(this + 20) = v7 & 0xF0 | v8 | 3;
-      *(this + 4) = -3;
+      *(this + 20) = v9 & 0xF0 | v10 | 3;
+      *(this + 16) = -3;
       llvm::APInt::tcSet((this + 8), 0, 1u);
     }
   }
 
   else
   {
-    *(this + 20) = v7 & 0xF0 | v8 & 0xF8 | 1;
-    *(this + 4) = 4;
-    *(this + 1) = v4;
+    *(this + 20) = v9 & 0xF0 | v10 & 0xF8 | 1;
+    *(this + 16) = 4;
+    *(this + 8) = v6;
   }
 }
 
-void llvm::detail::IEEEFloat::initFromFloatTF32APInt(llvm::detail::IEEEFloat *this, const llvm::APInt **a2)
+void llvm::detail::IEEEFloat::initFromFloatTF32APInt(uint64_t this, const llvm::APInt ***a2, uint64_t a3, unsigned int a4)
 {
-  v2 = *(a2 + 2);
-  if (v2 >= 0x41)
+  v4 = *(a2 + 2);
+  if (v4 >= 0x41)
   {
-    v3 = *a2;
+    v5 = *a2;
   }
 
   else
   {
-    v3 = a2;
+    v5 = a2;
   }
 
-  v4 = *v3 & 0x3FFLL;
-  v5 = *(v3 + ((v2 + 63) >> 6) - 1);
-  v6 = (v5 >> 10);
+  v6 = *v5 & 0x3FF;
+  v7 = v5[((v4 + 63) >> 6) - 1];
+  v8 = (v7 >> 10);
   *this = &llvm::semFloatTF32;
-  v7 = *(this + 20);
-  v8 = (v5 >> 15) & 8;
-  if (v6 == 255 && v4 == 0)
+  v9 = *(this + 20);
+  v10 = (v7 >> 15) & 8;
+  if (v8 == 255 && v6 == 0)
   {
-    *(this + 20) = v7 & 0xF0 | v8;
-    *(this + 4) = 128;
+    *(this + 20) = v9 & 0xF0 | v10;
+    *(this + 16) = 128;
     llvm::APInt::tcSet((this + 8), 0, 1u);
   }
 
-  else if (v6 != 255 || v4 == 0)
+  else if (v8 != 255 || v6 == 0)
   {
-    if (v6 | v4)
+    if (v8 | v6)
     {
-      *(this + 20) = v7 & 0xF0 | v8 & 0xF8 | 2;
-      *(this + 4) = v6 - 127;
-      *(this + 1) = v4;
-      if (v6)
+      *(this + 20) = v9 & 0xF0 | v10 & 0xF8 | 2;
+      *(this + 16) = v8 - 127;
+      *(this + 8) = v6;
+      if (v8)
       {
-        *(this + 1) = v4 | 0x400;
+        *(this + 8) = v6 | 0x400;
       }
 
       else
       {
-        *(this + 4) = -126;
+        *(this + 16) = -126;
       }
     }
 
     else
     {
-      *(this + 20) = v7 & 0xF0 | v8 | 3;
-      *(this + 4) = -127;
+      *(this + 20) = v9 & 0xF0 | v10 | 3;
+      *(this + 16) = -127;
       llvm::APInt::tcSet((this + 8), 0, 1u);
     }
   }
 
   else
   {
-    *(this + 20) = v7 & 0xF0 | v8 & 0xF8 | 1;
-    *(this + 4) = 128;
-    *(this + 1) = v4;
+    *(this + 20) = v9 & 0xF0 | v10 & 0xF8 | 1;
+    *(this + 16) = 128;
+    *(this + 8) = v6;
   }
 }
 
-void llvm::detail::IEEEFloat::initFromFloat6E3M2FNAPInt(llvm::detail::IEEEFloat *this, const llvm::APInt **a2)
+void llvm::detail::IEEEFloat::initFromFloat6E3M2FNAPInt(uint64_t this, const llvm::APInt ***a2, uint64_t a3, unsigned int a4)
 {
-  v2 = *(a2 + 2);
-  if (v2 >= 0x41)
+  v4 = *(a2 + 2);
+  if (v4 >= 0x41)
   {
-    v3 = *a2;
+    v5 = *a2;
   }
 
   else
   {
-    v3 = a2;
+    v5 = a2;
   }
 
-  v4 = *v3 & 3;
-  v5 = *(v3 + ((v2 + 63) >> 6) - 1);
-  v6 = (v5 >> 2) & 7;
+  v6 = *v5 & 3;
+  v7 = v5[((v4 + 63) >> 6) - 1];
+  v8 = (v7 >> 2) & 7;
   *this = &llvm::semFloat6E3M2FN;
-  v7 = (v5 >> 2) & 8;
-  v8 = *(this + 20) & 0xF0;
-  if (v6 | v4)
+  v9 = (v7 >> 2) & 8;
+  v10 = *(this + 20) & 0xF0;
+  if (v8 | v6)
   {
-    *(this + 20) = v7 | v8 | 2;
-    *(this + 4) = v6 - 3;
-    *(this + 1) = v4;
-    if (v6)
+    *(this + 20) = v9 | v10 | 2;
+    *(this + 16) = v8 - 3;
+    *(this + 8) = v6;
+    if (v8)
     {
-      *(this + 1) = v4 | 4;
+      *(this + 8) = v6 | 4;
     }
 
     else
     {
-      *(this + 4) = -2;
+      *(this + 16) = -2;
     }
   }
 
   else
   {
-    *(this + 20) = v8 | v7 | 3;
-    *(this + 4) = -3;
+    *(this + 20) = v10 | v9 | 3;
+    *(this + 16) = -3;
     llvm::APInt::tcSet((this + 8), 0, 1u);
   }
 }
 
-void llvm::detail::IEEEFloat::initFromFloat6E2M3FNAPInt(llvm::detail::IEEEFloat *this, const llvm::APInt **a2)
+void llvm::detail::IEEEFloat::initFromFloat6E2M3FNAPInt(uint64_t this, const llvm::APInt ***a2, uint64_t a3, unsigned int a4)
 {
-  v2 = *(a2 + 2);
-  if (v2 >= 0x41)
+  v4 = *(a2 + 2);
+  if (v4 >= 0x41)
   {
-    v3 = *a2;
+    v5 = *a2;
   }
 
   else
   {
-    v3 = a2;
+    v5 = a2;
   }
 
-  v4 = *v3 & 7;
-  v5 = *(v3 + ((v2 + 63) >> 6) - 1);
-  v6 = (v5 >> 3) & 3;
+  v6 = *v5 & 7;
+  v7 = v5[((v4 + 63) >> 6) - 1];
+  v8 = (v7 >> 3) & 3;
   *this = &llvm::semFloat6E2M3FN;
-  v7 = (v5 >> 2) & 8;
-  v8 = *(this + 20) & 0xF0;
-  if (v6 | v4)
+  v9 = (v7 >> 2) & 8;
+  v10 = *(this + 20) & 0xF0;
+  if (v8 | v6)
   {
-    *(this + 20) = v7 | v8 | 2;
-    *(this + 4) = v6 - 1;
-    *(this + 1) = v4;
-    if (v6)
+    *(this + 20) = v9 | v10 | 2;
+    *(this + 16) = v8 - 1;
+    *(this + 8) = v6;
+    if (v8)
     {
-      *(this + 1) = v4 | 8;
+      *(this + 8) = v6 | 8;
     }
 
     else
     {
-      *(this + 4) = 0;
+      *(this + 16) = 0;
     }
   }
 
   else
   {
-    *(this + 20) = v8 | v7 | 3;
-    *(this + 4) = -1;
+    *(this + 20) = v10 | v9 | 3;
+    *(this + 16) = -1;
     llvm::APInt::tcSet((this + 8), 0, 1u);
   }
 }
 
-void llvm::detail::IEEEFloat::initFromFloat4E2M1FNAPInt(llvm::detail::IEEEFloat *this, const llvm::APInt **a2)
+void llvm::detail::IEEEFloat::initFromFloat4E2M1FNAPInt(uint64_t this, const llvm::APInt ***a2, uint64_t a3, unsigned int a4)
 {
-  v2 = *(a2 + 2);
-  if (v2 >= 0x41)
+  v4 = *(a2 + 2);
+  if (v4 >= 0x41)
   {
-    v3 = *a2;
+    v5 = *a2;
   }
 
   else
   {
-    v3 = a2;
+    v5 = a2;
   }
 
-  v4 = *v3 & 1;
-  v5 = *(v3 + ((v2 + 63) >> 6) - 1);
-  v6 = (v5 >> 1) & 3;
+  v6 = *v5 & 1;
+  v7 = v5[((v4 + 63) >> 6) - 1];
+  v8 = (v7 >> 1) & 3;
   *this = &llvm::semFloat4E2M1FN;
-  v7 = v5 & 8 | *(this + 20) & 0xF0;
-  if (v6 | v4)
+  v9 = v7 & 8 | *(this + 20) & 0xF0;
+  if (v8 | v6)
   {
-    *(this + 20) = v7 | 2;
-    *(this + 4) = v6 - 1;
-    *(this + 1) = v4;
-    if (v6)
+    *(this + 20) = v9 | 2;
+    *(this + 16) = v8 - 1;
+    *(this + 8) = v6;
+    if (v8)
     {
-      *(this + 1) = v4 | 2;
+      *(this + 8) = v6 | 2;
     }
 
     else
     {
-      *(this + 4) = 0;
+      *(this + 16) = 0;
     }
   }
 
   else
   {
-    *(this + 20) = v7 | 3;
-    *(this + 4) = -1;
+    *(this + 20) = v9 | 3;
+    *(this + 16) = -1;
     llvm::APInt::tcSet((this + 8), 0, 1u);
   }
 }
 
-void llvm::detail::IEEEFloat::initFromAPInt(llvm::detail::IEEEFloat *a1, void *a2, const llvm::APInt **a3)
+void llvm::detail::IEEEFloat::initFromAPInt(llvm::detail::IEEEFloat *a1, void *a2, const llvm::APInt ***a3, unsigned int a4)
 {
   if (a2 == &llvm::semIEEEhalf)
   {
-    llvm::detail::IEEEFloat::initFromHalfAPInt(a1, a3);
+    llvm::detail::IEEEFloat::initFromHalfAPInt(a1, a3, a3, a4);
   }
 
   else if (a2 == &llvm::semBFloat)
   {
-    llvm::detail::IEEEFloat::initFromBFloatAPInt(a1, a3);
+    llvm::detail::IEEEFloat::initFromBFloatAPInt(a1, a3, a3, a4);
   }
 
   else if (a2 == &llvm::semIEEEsingle)
   {
-    llvm::detail::IEEEFloat::initFromFloatAPInt(a1, a3);
+    llvm::detail::IEEEFloat::initFromFloatAPInt(a1, a3, a3, a4);
   }
 
   else if (a2 == &llvm::semIEEEdouble)
   {
-    llvm::detail::IEEEFloat::initFromDoubleAPInt(a1, a3);
+    llvm::detail::IEEEFloat::initFromDoubleAPInt(a1, a3, a3, a4);
   }
 
   else if (a2 == &llvm::semX87DoubleExtended)
@@ -2221,62 +2221,62 @@ void llvm::detail::IEEEFloat::initFromAPInt(llvm::detail::IEEEFloat *a1, void *a
 
   else if (a2 == &llvm::semPPCDoubleDoubleLegacy)
   {
-    llvm::detail::IEEEFloat::initFromPPCDoubleDoubleAPInt(a1, a3);
+    llvm::detail::IEEEFloat::initFromPPCDoubleDoubleAPInt(a1, a3, a3, a4);
   }
 
   else if (a2 == &llvm::semFloat8E5M2)
   {
-    llvm::detail::IEEEFloat::initFromFloat8E5M2APInt(a1, a3);
+    llvm::detail::IEEEFloat::initFromFloat8E5M2APInt(a1, a3, a3, a4);
   }
 
   else if (a2 == &llvm::semFloat8E5M2FNUZ)
   {
-    llvm::detail::IEEEFloat::initFromFloat8E5M2FNUZAPInt(a1, a3);
+    llvm::detail::IEEEFloat::initFromFloat8E5M2FNUZAPInt(a1, a3, a3, a4);
   }
 
   else if (a2 == &llvm::semFloat8E4M3)
   {
-    llvm::detail::IEEEFloat::initFromFloat8E4M3APInt(a1, a3);
+    llvm::detail::IEEEFloat::initFromFloat8E4M3APInt(a1, a3, a3, a4);
   }
 
   else if (a2 == &llvm::semFloat8E4M3FN)
   {
-    llvm::detail::IEEEFloat::initFromFloat8E4M3FNAPInt(a1, a3);
+    llvm::detail::IEEEFloat::initFromFloat8E4M3FNAPInt(a1, a3, a3, a4);
   }
 
   else if (a2 == &llvm::semFloat8E4M3FNUZ)
   {
-    llvm::detail::IEEEFloat::initFromFloat8E4M3FNUZAPInt(a1, a3);
+    llvm::detail::IEEEFloat::initFromFloat8E4M3FNUZAPInt(a1, a3, a3, a4);
   }
 
   else if (a2 == &llvm::semFloat8E4M3B11FNUZ)
   {
-    llvm::detail::IEEEFloat::initFromFloat8E4M3B11FNUZAPInt(a1, a3);
+    llvm::detail::IEEEFloat::initFromFloat8E4M3B11FNUZAPInt(a1, a3, a3, a4);
   }
 
   else if (a2 == &llvm::semFloat8E3M4)
   {
-    llvm::detail::IEEEFloat::initFromFloat8E3M4APInt(a1, a3);
+    llvm::detail::IEEEFloat::initFromFloat8E3M4APInt(a1, a3, a3, a4);
   }
 
   else if (a2 == &llvm::semFloatTF32)
   {
-    llvm::detail::IEEEFloat::initFromFloatTF32APInt(a1, a3);
+    llvm::detail::IEEEFloat::initFromFloatTF32APInt(a1, a3, a3, a4);
   }
 
   else if (a2 == &llvm::semFloat6E3M2FN)
   {
-    llvm::detail::IEEEFloat::initFromFloat6E3M2FNAPInt(a1, a3);
+    llvm::detail::IEEEFloat::initFromFloat6E3M2FNAPInt(a1, a3, a3, a4);
   }
 
   else if (a2 == &llvm::semFloat6E2M3FN)
   {
-    llvm::detail::IEEEFloat::initFromFloat6E2M3FNAPInt(a1, a3);
+    llvm::detail::IEEEFloat::initFromFloat6E2M3FNAPInt(a1, a3, a3, a4);
   }
 
   else
   {
-    llvm::detail::IEEEFloat::initFromFloat4E2M1FNAPInt(a1, a3);
+    llvm::detail::IEEEFloat::initFromFloat4E2M1FNAPInt(a1, a3, a3, a4);
   }
 }
 
@@ -2324,19 +2324,19 @@ void *llvm::detail::IEEEFloat::makeLargest(llvm::detail::IEEEFloat *this, int a2
   return result;
 }
 
-llvm::detail::IEEEFloat *llvm::detail::IEEEFloat::IEEEFloat(llvm::detail::IEEEFloat *this, float a2)
+llvm::detail::IEEEFloat *llvm::detail::IEEEFloat::IEEEFloat(llvm::detail::IEEEFloat *this, float a2, uint64_t a3, uint64_t a4, unsigned int a5)
 {
-  v5 = 32;
-  v4 = LODWORD(a2);
-  llvm::detail::IEEEFloat::initFromFloatAPInt(this, &v4);
+  v8 = 32;
+  v7 = LODWORD(a2);
+  llvm::detail::IEEEFloat::initFromFloatAPInt(this, &v7, a4, a5);
   return this;
 }
 
-llvm::detail::IEEEFloat *llvm::detail::IEEEFloat::IEEEFloat(llvm::detail::IEEEFloat *this, double a2)
+llvm::detail::IEEEFloat *llvm::detail::IEEEFloat::IEEEFloat(llvm::detail::IEEEFloat *this, double a2, uint64_t a3, uint64_t a4, unsigned int a5)
 {
-  v5 = 64;
-  v4 = *&a2;
-  llvm::detail::IEEEFloat::initFromDoubleAPInt(this, &v4);
+  v8 = 64;
+  v7 = *&a2;
+  llvm::detail::IEEEFloat::initFromDoubleAPInt(this, &v7, a4, a5);
   return this;
 }
 
@@ -2579,7 +2579,7 @@ LABEL_31:
       if (v34 < 1)
       {
         v42 = (-137 * v34 + 136) / 0x3Bu + v25;
-        llvm::APInt::zext(&__p, v42, &__dst);
+        llvm::APInt::zext(&__dst, &__p, v42);
         if (v126 >= 0x41 && __p)
         {
           operator delete[](__p);
@@ -2629,7 +2629,7 @@ LABEL_31:
 
       else
       {
-        llvm::APInt::zext(&__p, v34 + v25, &__dst);
+        llvm::APInt::zext(&__dst, &__p, v34 + v25);
         if (v126 >= 0x41 && __p)
         {
           operator delete[](__p);
@@ -2718,7 +2718,7 @@ LABEL_99:
             llvm::APInt::operator*=(&v129, &v129);
           }
 
-          llvm::APInt::udiv(&__p, &__dst, &v134);
+          llvm::APInt::udiv(&v134, &__p, &__dst);
           if (v126 >= 0x41 && __p)
           {
             operator delete[](__p);
@@ -2737,7 +2737,7 @@ LABEL_99:
             v55 = v135 + __clz(v134) - 64;
           }
 
-          llvm::APInt::trunc(&__p, v54 - v55, &v134);
+          llvm::APInt::trunc(&v134, &__p, v54 - v55);
           if (v126 >= 0x41 && __p)
           {
             operator delete[](__p);
@@ -3361,7 +3361,7 @@ LABEL_203:
           else
           {
             v48 = 4;
-            llvm::APInt::zext(&__p, 4u, &v129);
+            llvm::APInt::zext(&v129, &__p, 4u);
             if (v126 >= 0x41 && __p)
             {
               operator delete[](__p);
@@ -3461,22 +3461,8 @@ void *llvm::detail::DoubleAPFloat::DoubleAPFloat(void *a1, uint64_t a2, uint64_t
   *a1 = a2;
   v5 = operator new[](0x50uLL);
   *v5 = xmmword_1E099CF00;
-  v6 = (v5 + 56);
-  v7 = v5 + 1;
-  if (*(a3 + 8) >= 0x41u)
-  {
-    v8 = *a3;
-  }
-
-  else
-  {
-    v8 = a3;
-  }
-
-  v9 = *v8;
-  v16 = 64;
-  v15 = v9;
-  llvm::detail::IEEEFloat::initFromDoubleAPInt((v5 + 24), &v15);
+  v8 = v5 + 56;
+  v9 = v5 + 1;
   if (*(a3 + 8) >= 0x41u)
   {
     v10 = *a3;
@@ -3487,11 +3473,25 @@ void *llvm::detail::DoubleAPFloat::DoubleAPFloat(void *a1, uint64_t a2, uint64_t
     v10 = a3;
   }
 
-  v11 = v10[1];
-  v14 = 64;
-  v13 = v11;
-  llvm::detail::IEEEFloat::initFromDoubleAPInt(v6, &v13);
-  a1[1] = v7;
+  v11 = *v10;
+  v20 = 64;
+  v19 = v11;
+  llvm::detail::IEEEFloat::initFromDoubleAPInt(v5 + 24, &v19, v6, v7);
+  if (*(a3 + 8) >= 0x41u)
+  {
+    v14 = *a3;
+  }
+
+  else
+  {
+    v14 = a3;
+  }
+
+  v15 = *(v14 + 8);
+  v18 = 64;
+  v17 = v15;
+  llvm::detail::IEEEFloat::initFromDoubleAPInt(v8, &v17, v12, v13);
+  a1[1] = v9;
   return a1;
 }
 
@@ -3506,8 +3506,8 @@ void *llvm::detail::DoubleAPFloat::DoubleAPFloat(void *this, const llvm::detail:
     *v5 = xmmword_1E099CF00;
     v6 = (v5 + 56);
     v7 = v5 + 1;
-    llvm::APFloat::Storage::Storage((v5 + 24), (v2 + 8));
-    llvm::APFloat::Storage::Storage(v6, (*(a2 + 1) + 40));
+    llvm::APFloat::Storage::Storage((v5 + 24), (v2 + 8), v8, v9);
+    llvm::APFloat::Storage::Storage(v6, (*(a2 + 1) + 40), v10, v11);
     this = v4;
     v4[1] = v7;
   }
@@ -3529,152 +3529,152 @@ __n128 llvm::detail::DoubleAPFloat::DoubleAPFloat(__n128 *a1, __n128 *a2)
   return result;
 }
 
-llvm::detail::DoubleAPFloat *llvm::detail::DoubleAPFloat::operator=(llvm::detail::DoubleAPFloat *a1, llvm::APFloat::Storage *a2)
+llvm::detail::DoubleAPFloat *llvm::detail::DoubleAPFloat::operator=(llvm::detail::DoubleAPFloat *a1, llvm::APFloat::Storage *a2, uint64_t a3, unsigned int a4)
 {
-  v2 = a2;
-  if (*a1 != *a2 || (v10 = *(a2 + 1)) == 0)
+  v4 = a2;
+  if (*a1 != *a2 || (v16 = *(a2 + 1)) == 0)
   {
-    v4 = 0;
-    v5 = a1;
+    v6 = 0;
+    v7 = a1;
     if (a1 != a2)
     {
 LABEL_3:
-      llvm::detail::DoubleAPFloat::~DoubleAPFloat(v5);
-      v6 = *(v2 + 1);
-      *v5 = *v2;
-      if (v6)
+      llvm::detail::DoubleAPFloat::~DoubleAPFloat(v7);
+      v8 = *(v4 + 1);
+      *v7 = *v4;
+      if (v8)
       {
-        v7 = operator new[](0x50uLL);
-        *v7 = xmmword_1E099CF00;
-        v8 = (v7 + 56);
-        v9 = v7 + 1;
-        llvm::APFloat::Storage::Storage((v7 + 24), (v6 + 8));
-        llvm::APFloat::Storage::Storage(v8, (*(v2 + 1) + 40));
+        v9 = operator new[](0x50uLL);
+        *v9 = xmmword_1E099CF00;
+        v10 = (v9 + 56);
+        v11 = v9 + 1;
+        llvm::APFloat::Storage::Storage((v9 + 24), (v8 + 8), v12, v13);
+        llvm::APFloat::Storage::Storage(v10, (*(v4 + 1) + 40), v14, v15);
       }
 
       else
       {
-        v9 = 0;
+        v11 = 0;
       }
 
-      *(v5 + 1) = v9;
+      *(v7 + 1) = v11;
     }
 
     goto LABEL_11;
   }
 
-  v11 = *(a1 + 1);
-  v12 = (v11 + 8);
-  v13 = *(v11 + 8);
-  v14 = (v10 + 8);
-  v15 = *(v10 + 8);
-  if (v13 != &llvm::semPPCDoubleDouble)
+  v17 = *(a1 + 1);
+  v18 = (v17 + 8);
+  v19 = *(v17 + 8);
+  v20 = (v16 + 8);
+  v21 = *(v16 + 8);
+  if (v19 != &llvm::semPPCDoubleDouble)
   {
-    if (v15 != &llvm::semPPCDoubleDouble)
+    if (v21 != &llvm::semPPCDoubleDouble)
     {
-      llvm::detail::IEEEFloat::operator=(v12, v14);
+      llvm::detail::IEEEFloat::operator=(v18, v20, a3, a4);
       goto LABEL_23;
     }
 
-    if (v11 == v10)
+    if (v17 == v16)
     {
       goto LABEL_23;
     }
 
-    if ((*(v13 + 8) - 64) <= 0xFFFFFF7F)
+    if ((*(v19 + 8) - 64) <= 0xFFFFFF7F)
     {
-      v18 = *(v11 + 16);
-      if (v18)
+      v24 = *(v17 + 16);
+      if (v24)
       {
-        v19 = v12;
-        v20 = (v10 + 8);
-        operator delete[](v18);
-        v14 = v20;
-        v12 = v19;
+        v25 = v18;
+        v26 = (v16 + 8);
+        operator delete[](v24);
+        v20 = v26;
+        v18 = v25;
       }
     }
 
 LABEL_21:
-    llvm::APFloat::Storage::Storage(v12, v14);
+    llvm::APFloat::Storage::Storage(v18, v20, a3, a4);
     goto LABEL_23;
   }
 
-  if (v15 == &llvm::semPPCDoubleDouble)
+  if (v21 == &llvm::semPPCDoubleDouble)
   {
-    llvm::detail::DoubleAPFloat::operator=(v12, v14);
+    llvm::detail::DoubleAPFloat::operator=(v18, v20, a3, a4);
     goto LABEL_23;
   }
 
-  if (v11 != v10)
+  if (v17 != v16)
   {
-    v17 = (v10 + 8);
-    llvm::detail::DoubleAPFloat::~DoubleAPFloat(v12);
-    v14 = v17;
+    v23 = (v16 + 8);
+    llvm::detail::DoubleAPFloat::~DoubleAPFloat(v18);
+    v20 = v23;
     goto LABEL_21;
   }
 
 LABEL_23:
-  v21 = *(v2 + 1);
-  v22 = *(a1 + 1);
-  v23 = (v22 + 40);
-  v24 = *(v22 + 40);
-  v2 = (v21 + 40);
-  v25 = *(v21 + 40);
-  v26 = v25 == &llvm::semPPCDoubleDouble;
-  v4 = v24 == &llvm::semPPCDoubleDouble;
-  if (v24 != &llvm::semPPCDoubleDouble)
+  v27 = *(v4 + 1);
+  v28 = *(a1 + 1);
+  v29 = (v28 + 40);
+  v30 = *(v28 + 40);
+  v4 = (v27 + 40);
+  v31 = *(v27 + 40);
+  v32 = v31 == &llvm::semPPCDoubleDouble;
+  v6 = v30 == &llvm::semPPCDoubleDouble;
+  if (v30 != &llvm::semPPCDoubleDouble)
   {
-    v5 = a1;
-    if (v25 != &llvm::semPPCDoubleDouble)
+    v7 = a1;
+    if (v31 != &llvm::semPPCDoubleDouble)
     {
       goto LABEL_53;
     }
 
 LABEL_25:
-    if (v22 == v21)
+    if (v28 == v27)
     {
       goto LABEL_11;
     }
 
-    if ((v24[2] - 64) <= 0xFFFFFF7F)
+    if ((v30[2] - 64) <= 0xFFFFFF7F)
     {
-      v27 = *(v22 + 48);
-      if (v27)
+      v33 = *(v28 + 48);
+      if (v33)
       {
-        v28 = v23;
-        operator delete[](v27);
-        v23 = v28;
+        v34 = v29;
+        operator delete[](v33);
+        v29 = v34;
       }
     }
 
 LABEL_33:
-    llvm::APFloat::Storage::Storage(v23, v2);
+    llvm::APFloat::Storage::Storage(v29, v4, a3, a4);
     goto LABEL_11;
   }
 
-  if (v25 != &llvm::semPPCDoubleDouble)
+  if (v31 != &llvm::semPPCDoubleDouble)
   {
-    v5 = a1;
+    v7 = a1;
 LABEL_31:
-    if (v22 == v21)
+    if (v28 == v27)
     {
-      v4 = v26;
+      v6 = v32;
       goto LABEL_11;
     }
 
-    llvm::detail::DoubleAPFloat::~DoubleAPFloat(v23);
-    v4 = v26;
+    llvm::detail::DoubleAPFloat::~DoubleAPFloat(v29);
+    v6 = v32;
     goto LABEL_33;
   }
 
   while (1)
   {
-    v5 = v23;
-    v39 = *(v2 + 1);
-    if (!v39)
+    v7 = v29;
+    v45 = *(v4 + 1);
+    if (!v45)
     {
-      v4 = 1;
-      if (v23 != v2)
+      v6 = 1;
+      if (v29 != v4)
       {
         goto LABEL_3;
       }
@@ -3682,107 +3682,107 @@ LABEL_31:
       goto LABEL_11;
     }
 
-    v29 = *(v23 + 1);
-    v30 = (v29 + 8);
-    v31 = *(v29 + 8);
-    v32 = (v39 + 8);
-    v33 = *(v39 + 8);
-    if (v31 == &llvm::semPPCDoubleDouble)
+    v35 = *(v29 + 1);
+    v36 = (v35 + 8);
+    v37 = *(v35 + 8);
+    v38 = (v45 + 8);
+    v39 = *(v45 + 8);
+    if (v37 == &llvm::semPPCDoubleDouble)
     {
-      if (v33 != &llvm::semPPCDoubleDouble)
+      if (v39 != &llvm::semPPCDoubleDouble)
       {
-        if (v29 == v39)
+        if (v35 == v45)
         {
           goto LABEL_46;
         }
 
-        v34 = (v39 + 8);
-        llvm::detail::DoubleAPFloat::~DoubleAPFloat(v30);
-        v32 = v34;
+        v40 = (v45 + 8);
+        llvm::detail::DoubleAPFloat::~DoubleAPFloat(v36);
+        v38 = v40;
         goto LABEL_44;
       }
 
-      llvm::detail::DoubleAPFloat::operator=(v30, v32);
+      llvm::detail::DoubleAPFloat::operator=(v36, v38, a3, a4);
     }
 
     else
     {
-      if (v33 != &llvm::semPPCDoubleDouble)
+      if (v39 != &llvm::semPPCDoubleDouble)
       {
-        llvm::detail::IEEEFloat::operator=(v30, v32);
+        llvm::detail::IEEEFloat::operator=(v36, v38, a3, a4);
         goto LABEL_46;
       }
 
-      if (v29 != v39)
+      if (v35 != v45)
       {
-        if ((*(v31 + 8) - 64) <= 0xFFFFFF7F)
+        if ((*(v37 + 8) - 64) <= 0xFFFFFF7F)
         {
-          v35 = *(v29 + 16);
-          if (v35)
+          v41 = *(v35 + 16);
+          if (v41)
           {
-            v36 = v30;
-            v37 = (v39 + 8);
-            operator delete[](v35);
-            v32 = v37;
-            v30 = v36;
+            v42 = v36;
+            v43 = (v45 + 8);
+            operator delete[](v41);
+            v38 = v43;
+            v36 = v42;
           }
         }
 
 LABEL_44:
-        llvm::APFloat::Storage::Storage(v30, v32);
+        llvm::APFloat::Storage::Storage(v36, v38, a3, a4);
       }
     }
 
 LABEL_46:
-    v21 = *(v2 + 1);
-    v22 = *(v5 + 1);
-    v23 = (v22 + 40);
-    v24 = *(v22 + 40);
-    v2 = (v21 + 40);
-    v38 = *(v21 + 40);
-    if (v24 != &llvm::semPPCDoubleDouble)
+    v27 = *(v4 + 1);
+    v28 = *(v7 + 1);
+    v29 = (v28 + 40);
+    v30 = *(v28 + 40);
+    v4 = (v27 + 40);
+    v44 = *(v27 + 40);
+    if (v30 != &llvm::semPPCDoubleDouble)
     {
       break;
     }
 
-    if (v38 != &llvm::semPPCDoubleDouble)
+    if (v44 != &llvm::semPPCDoubleDouble)
     {
       goto LABEL_31;
     }
   }
 
-  if (v38 == &llvm::semPPCDoubleDouble)
+  if (v44 == &llvm::semPPCDoubleDouble)
   {
     goto LABEL_25;
   }
 
 LABEL_53:
-  llvm::detail::IEEEFloat::operator=(v23, v2);
+  llvm::detail::IEEEFloat::operator=(v29, v4, a3, a4);
 LABEL_11:
-  if (v4)
+  if (v6)
   {
     return a1;
   }
 
   else
   {
-    return v5;
+    return v7;
   }
 }
 
-uint64_t llvm::APFloat::operator=(uint64_t a1, uint64_t a2)
+uint64_t llvm::APFloat::operator=(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4)
 {
-  v6 = *(a1 + 8);
-  v4 = (a1 + 8);
-  v5 = v6;
-  v9 = *(a2 + 8);
-  v7 = (a2 + 8);
-  v8 = v9;
-  if (v5 != &llvm::semPPCDoubleDouble)
+  v8 = *(a1 + 8);
+  v6 = (a1 + 8);
+  v7 = v8;
+  v11 = *(a2 + 8);
+  v9 = (a2 + 8);
+  v10 = v11;
+  if (v7 != &llvm::semPPCDoubleDouble)
   {
-    if (v8 != &llvm::semPPCDoubleDouble)
+    if (v10 != &llvm::semPPCDoubleDouble)
     {
-      llvm::detail::IEEEFloat::operator=(v4, v7);
+      llvm::detail::IEEEFloat::operator=(v6, v9, a3, a4);
       return a1;
     }
 
@@ -3791,59 +3791,59 @@ uint64_t llvm::APFloat::operator=(uint64_t a1, uint64_t a2)
       return a1;
     }
 
-    if ((*(v5 + 8) - 64) <= 0xFFFFFF7F && *(a1 + 16))
+    if ((*(v7 + 8) - 64) <= 0xFFFFFF7F && *(a1 + 16))
     {
-      v12 = v4;
-      v13 = v7;
+      v14 = v6;
+      v15 = v9;
       operator delete[](*(a1 + 16));
-      llvm::APFloat::Storage::Storage(v12, v13);
+      llvm::APFloat::Storage::Storage(v14, v15, v16, v17);
       return a1;
     }
 
 LABEL_8:
-    llvm::APFloat::Storage::Storage(v4, v7);
+    llvm::APFloat::Storage::Storage(v6, v9, a3, a4);
     return a1;
   }
 
-  if (v8 != &llvm::semPPCDoubleDouble)
+  if (v10 != &llvm::semPPCDoubleDouble)
   {
     if (a1 == a2)
     {
       return a1;
     }
 
-    v11 = v7;
-    llvm::detail::DoubleAPFloat::~DoubleAPFloat(v4);
-    v7 = v11;
+    v13 = v9;
+    llvm::detail::DoubleAPFloat::~DoubleAPFloat(v6);
+    v9 = v13;
     goto LABEL_8;
   }
 
-  llvm::detail::DoubleAPFloat::operator=(v4, v7);
+  llvm::detail::DoubleAPFloat::operator=(v6, v9, a3, a4);
   return a1;
 }
 
-uint64_t llvm::detail::DoubleAPFloat::addImpl(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char *a5, int a6)
+uint64_t llvm::detail::DoubleAPFloat::addImpl(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char *a5, uint64_t a6)
 {
-  v183 = *MEMORY[0x1E69E9840];
-  v10 = llvm::APFloat::Storage::Storage(&v181, (a2 + 8));
-  if (v181.n128_u64[0] == &llvm::semPPCDoubleDouble)
+  v240 = *MEMORY[0x1E69E9840];
+  v10 = llvm::APFloat::Storage::Storage(&v238, (a2 + 8), a3, a4);
+  if (v238.n128_u64[0] == &llvm::semPPCDoubleDouble)
   {
-    v11 = llvm::detail::DoubleAPFloat::addWithSpecial(v10, &v181, a4 + 8, &v181);
+    v15 = llvm::detail::DoubleAPFloat::addWithSpecial(v10, &v238, a4 + 8, &v238, a6);
     goto LABEL_20;
   }
 
-  v11 = llvm::detail::IEEEFloat::addOrSubtractSpecials(&v181, (a4 + 8), 0);
-  if (v11 == 2)
+  v15 = llvm::detail::IEEEFloat::addOrSubtractSpecials(&v238, (a4 + 8), 0, v11);
+  if (v15 == 2)
   {
-    v12 = llvm::detail::IEEEFloat::addOrSubtractSignificand(&v181, (a4 + 8), 0);
-    v11 = llvm::detail::IEEEFloat::normalize(&v181, a6, v12);
+    v16 = llvm::detail::IEEEFloat::addOrSubtractSignificand(&v238, (a4 + 8), 0, v13, v14);
+    v15 = llvm::detail::IEEEFloat::normalize(&v238, a6, v16);
   }
 
-  v13 = v182;
-  if ((v182 & 7) != 3)
+  v17 = v239;
+  if ((v239 & 7) != 3)
   {
 LABEL_20:
-    if (v181.n128_u64[0] == &llvm::semPPCDoubleDouble)
+    if (v238.n128_u64[0] == &llvm::semPPCDoubleDouble)
     {
       goto LABEL_21;
     }
@@ -3851,11 +3851,11 @@ LABEL_20:
     goto LABEL_9;
   }
 
-  v14 = *(a4 + 28);
-  if ((v14 & 7) == 3 && ((v14 ^ v182) & 8) == 0)
+  v18 = *(a4 + 28);
+  if ((v18 & 7) == 3 && ((v18 ^ v239) & 8) == 0)
   {
-    v15 = v181.n128_u64[0];
-    if (*(v181.n128_u64[0] + 20) != 2)
+    v19 = v238.n128_u64[0];
+    if (*(v238.n128_u64[0] + 20) != 2)
     {
       goto LABEL_8;
     }
@@ -3863,21 +3863,21 @@ LABEL_20:
     goto LABEL_37;
   }
 
-  v13 = v182 & 0xF3 | (8 * (a6 == 3));
-  v182 = v13;
-  v15 = v181.n128_u64[0];
-  if (*(v181.n128_u64[0] + 20) == 2)
+  v17 = v239 & 0xF3 | (8 * (a6 == 3));
+  v239 = v17;
+  v19 = v238.n128_u64[0];
+  if (*(v238.n128_u64[0] + 20) == 2)
   {
 LABEL_37:
-    v182 = v13 & 0xF7;
-    if (v181.n128_u64[0] == &llvm::semPPCDoubleDouble)
+    v239 = v17 & 0xF7;
+    if (v238.n128_u64[0] == &llvm::semPPCDoubleDouble)
     {
       goto LABEL_21;
     }
 
 LABEL_9:
-    v16 = v182;
-    if ((v182 & 6) != 0)
+    v20 = v239;
+    if ((v239 & 6) != 0)
     {
       goto LABEL_10;
     }
@@ -3886,56 +3886,56 @@ LABEL_9:
   }
 
 LABEL_8:
-  if (v15 != &llvm::semPPCDoubleDouble)
+  if (v19 != &llvm::semPPCDoubleDouble)
   {
     goto LABEL_9;
   }
 
 LABEL_21:
-  v16 = *(v181.n128_u64[1] + 28);
-  if ((v16 & 6) != 0)
+  v20 = *(v238.n128_u64[1] + 28);
+  if ((v20 & 6) != 0)
   {
 LABEL_10:
-    llvm::APFloat::Storage::Storage(&v177, (a2 + 8));
-    if (v177 == &llvm::semPPCDoubleDouble)
+    llvm::APFloat::Storage::Storage(&v234, (a2 + 8), v12, v13);
+    if (v234 == &llvm::semPPCDoubleDouble)
     {
-      v31 = llvm::detail::DoubleAPFloat::changeSign(&v177);
-      v171 = llvm::detail::DoubleAPFloat::addWithSpecial(v31, &v177, &v181, &v177);
-      llvm::detail::DoubleAPFloat::changeSign(&v177);
+      v39 = llvm::detail::DoubleAPFloat::changeSign(&v234);
+      v228 = llvm::detail::DoubleAPFloat::addWithSpecial(v39, &v234, &v238, &v234, a6);
+      llvm::detail::DoubleAPFloat::changeSign(&v234);
     }
 
     else
     {
-      v17 = llvm::detail::IEEEFloat::addOrSubtractSpecials(&v177, &v181, 1);
-      if (v17 == 2)
+      v22 = llvm::detail::IEEEFloat::addOrSubtractSpecials(&v234, &v238, 1u, v21);
+      if (v22 == 2)
       {
-        v18 = llvm::detail::IEEEFloat::addOrSubtractSignificand(&v177, &v181, 1);
-        v17 = llvm::detail::IEEEFloat::normalize(&v177, a6, v18);
+        v26 = llvm::detail::IEEEFloat::addOrSubtractSignificand(&v234, &v238, 1u, v24, v25);
+        v22 = llvm::detail::IEEEFloat::normalize(&v234, a6, v26);
       }
 
-      v19 = v179;
-      v171 = v17;
-      if ((v179 & 7) == 3)
+      v27 = v236;
+      v228 = v22;
+      if ((v236 & 7) == 3)
       {
-        if ((v182 & 7) != 3 || ((v182 ^ v179) & 8) == 0)
+        if ((v239 & 7) != 3 || ((v239 ^ v236) & 8) == 0)
         {
-          v19 = v179 & 0xF3 | (8 * (a6 == 3));
-          v179 = v19;
+          v27 = v236 & 0xF3 | (8 * (a6 == 3));
+          v236 = v27;
         }
 
-        if (*(v177 + 20) == 2)
+        if (*(v234 + 20) == 2)
         {
-          v179 = v19 & 0xF7;
+          v236 = v27 & 0xF7;
         }
       }
     }
 
-    v32 = llvm::APFloat::Storage::Storage(&v174, &v177);
-    if (v174 == &llvm::semPPCDoubleDouble)
+    v40 = llvm::APFloat::Storage::Storage(&v231, &v234, v23, v24);
+    if (v231 == &llvm::semPPCDoubleDouble)
     {
-      v33 = llvm::detail::DoubleAPFloat::addWithSpecial(v32, &v174, a4 + 8, &v174);
-      v34 = v33;
-      if (v177 != &llvm::semPPCDoubleDouble)
+      v42 = llvm::detail::DoubleAPFloat::addWithSpecial(v40, &v231, a4 + 8, &v231, a6);
+      v45 = v42;
+      if (v234 != &llvm::semPPCDoubleDouble)
       {
         goto LABEL_50;
       }
@@ -3943,98 +3943,98 @@ LABEL_10:
 
     else
     {
-      v33 = llvm::detail::IEEEFloat::addOrSubtractSpecials(&v174, (a4 + 8), 0);
-      v34 = v33;
-      if (v33 == 2)
+      v42 = llvm::detail::IEEEFloat::addOrSubtractSpecials(&v231, (a4 + 8), 0, v41);
+      v45 = v42;
+      if (v42 == 2)
       {
-        v35 = llvm::detail::IEEEFloat::addOrSubtractSignificand(&v174, (a4 + 8), 0);
-        v33 = llvm::detail::IEEEFloat::normalize(&v174, a6, v35);
-        v34 = v33;
+        v46 = llvm::detail::IEEEFloat::addOrSubtractSignificand(&v231, (a4 + 8), 0, v43, v44);
+        v42 = llvm::detail::IEEEFloat::normalize(&v231, a6, v46);
+        v45 = v42;
       }
 
-      v36 = v176;
-      if ((v176 & 7) == 3)
+      v47 = v233;
+      if ((v233 & 7) == 3)
       {
-        v37 = *(a4 + 28);
-        if ((v37 & 7) != 3 || ((v37 ^ v176) & 8) != 0)
+        v48 = *(a4 + 28);
+        if ((v48 & 7) != 3 || ((v48 ^ v233) & 8) != 0)
         {
-          v36 = v176 & 0xF3 | (8 * (a6 == 3));
-          v176 = v36;
+          v47 = v233 & 0xF3 | (8 * (a6 == 3));
+          v233 = v47;
         }
 
-        if (v174[5] == 2)
+        if (v231[5] == 2)
         {
-          v176 = v36 & 0xF7;
+          v233 = v47 & 0xF7;
         }
       }
 
-      if (v177 != &llvm::semPPCDoubleDouble)
+      if (v234 != &llvm::semPPCDoubleDouble)
       {
 LABEL_50:
-        v38 = llvm::detail::IEEEFloat::addOrSubtractSpecials(&v177, &v181, 0);
-        if (v38 == 2)
+        v51 = llvm::detail::IEEEFloat::addOrSubtractSpecials(&v234, &v238, 0, v43);
+        if (v51 == 2)
         {
-          v39 = llvm::detail::IEEEFloat::addOrSubtractSignificand(&v177, &v181, 0);
-          v38 = llvm::detail::IEEEFloat::normalize(&v177, a6, v39);
+          v52 = llvm::detail::IEEEFloat::addOrSubtractSignificand(&v234, &v238, 0, v49, v50);
+          v51 = llvm::detail::IEEEFloat::normalize(&v234, a6, v52);
         }
 
-        v40 = v179;
-        if ((v179 & 7) == 3)
+        v53 = v236;
+        if ((v236 & 7) == 3)
         {
-          if ((v182 & 7) != 3 || ((v182 ^ v179) & 8) != 0)
+          if ((v239 & 7) != 3 || ((v239 ^ v236) & 8) != 0)
           {
-            v40 = v179 & 0xF3 | (8 * (a6 == 3));
-            v179 = v40;
-            v41 = v177;
-            if (*(v177 + 20) != 2)
+            v53 = v236 & 0xF3 | (8 * (a6 == 3));
+            v236 = v53;
+            v54 = v234;
+            if (*(v234 + 20) != 2)
             {
 LABEL_56:
-              if (v41 != &llvm::semPPCDoubleDouble)
+              if (v54 != &llvm::semPPCDoubleDouble)
               {
                 goto LABEL_57;
               }
 
 LABEL_93:
-              v64 = llvm::detail::DoubleAPFloat::changeSign(&v177);
-              v43 = llvm::detail::DoubleAPFloat::addWithSpecial(v64, &v177, a2 + 8, &v177);
-              v42 = llvm::detail::DoubleAPFloat::changeSign(&v177);
+              v86 = llvm::detail::DoubleAPFloat::changeSign(&v234);
+              v58 = llvm::detail::DoubleAPFloat::addWithSpecial(v86, &v234, a2 + 8, &v234, a6);
+              v55 = llvm::detail::DoubleAPFloat::changeSign(&v234);
               goto LABEL_94;
             }
           }
 
           else
           {
-            v41 = v177;
-            if (*(v177 + 20) != 2)
+            v54 = v234;
+            if (*(v234 + 20) != 2)
             {
               goto LABEL_56;
             }
           }
 
-          v179 = v40 & 0xF7;
-          if (v177 == &llvm::semPPCDoubleDouble)
+          v236 = v53 & 0xF7;
+          if (v234 == &llvm::semPPCDoubleDouble)
           {
             goto LABEL_93;
           }
 
 LABEL_57:
-          v42 = llvm::detail::IEEEFloat::addOrSubtractSpecials(&v177, (a2 + 8), 1);
-          v43 = v42;
-          if (v42 == 2)
+          v55 = llvm::detail::IEEEFloat::addOrSubtractSpecials(&v234, (a2 + 8), 1u, v49);
+          v58 = v55;
+          if (v55 == 2)
           {
-            v44 = llvm::detail::IEEEFloat::addOrSubtractSignificand(&v177, (a2 + 8), 1);
-            v42 = llvm::detail::IEEEFloat::normalize(&v177, a6, v44);
-            v43 = v42;
+            v59 = llvm::detail::IEEEFloat::addOrSubtractSignificand(&v234, (a2 + 8), 1u, v56, v57);
+            v55 = llvm::detail::IEEEFloat::normalize(&v234, a6, v59);
+            v58 = v55;
           }
 
-          v45 = v179;
-          if ((v179 & 7) == 3)
+          v60 = v236;
+          if ((v236 & 7) == 3)
           {
-            v46 = *(a2 + 28);
-            if ((v46 & 7) == 3 && ((v46 ^ v179) & 8) != 0)
+            v61 = *(a2 + 28);
+            if ((v61 & 7) == 3 && ((v61 ^ v236) & 8) != 0)
             {
-              v47 = v177;
-              if (*(v177 + 20) != 2)
+              v62 = v234;
+              if (*(v234 + 20) != 2)
               {
                 goto LABEL_63;
               }
@@ -4042,146 +4042,146 @@ LABEL_57:
 
             else
             {
-              v45 = v179 & 0xF3 | (8 * (a6 == 3));
-              v179 = v45;
-              v47 = v177;
-              if (*(v177 + 20) != 2)
+              v60 = v236 & 0xF3 | (8 * (a6 == 3));
+              v236 = v60;
+              v62 = v234;
+              if (*(v234 + 20) != 2)
               {
 LABEL_63:
-                if (v47 != &llvm::semPPCDoubleDouble)
+                if (v62 != &llvm::semPPCDoubleDouble)
                 {
 LABEL_64:
-                  if (*(v47 + 20) != 2 || (v179 & 5 | 2) != 3)
+                  if (*(v62 + 20) != 2 || (v236 & 5 | 2) != 3)
                   {
-                    v179 ^= 8u;
+                    v236 ^= 8u;
                   }
 
-                  if (v174 != &llvm::semPPCDoubleDouble)
+                  if (v231 != &llvm::semPPCDoubleDouble)
                   {
 LABEL_68:
-                    v48 = llvm::detail::IEEEFloat::addOrSubtractSpecials(&v174, &v177, 0);
-                    v49 = v48;
-                    if (v48 == 2)
+                    v63 = llvm::detail::IEEEFloat::addOrSubtractSpecials(&v231, &v234, 0, v56);
+                    v66 = v63;
+                    if (v63 == 2)
                     {
-                      v50 = llvm::detail::IEEEFloat::addOrSubtractSignificand(&v174, &v177, 0);
-                      v48 = llvm::detail::IEEEFloat::normalize(&v174, a6, v50);
-                      v49 = v48;
+                      v67 = llvm::detail::IEEEFloat::addOrSubtractSignificand(&v231, &v234, 0, v64, v65);
+                      v63 = llvm::detail::IEEEFloat::normalize(&v231, a6, v67);
+                      v66 = v63;
                     }
 
-                    v51 = v176;
-                    if ((v176 & 7) == 3)
+                    v68 = v233;
+                    if ((v233 & 7) == 3)
                     {
-                      if ((v179 & 7) != 3 || ((v179 ^ v176) & 8) != 0)
+                      if ((v236 & 7) != 3 || ((v236 ^ v233) & 8) != 0)
                       {
-                        v51 = v176 & 0xF3 | (8 * (a6 == 3));
-                        v176 = v51;
-                        v52 = v174;
-                        if (v174[5] != 2)
+                        v68 = v233 & 0xF3 | (8 * (a6 == 3));
+                        v233 = v68;
+                        v69 = v231;
+                        if (v231[5] != 2)
                         {
 LABEL_74:
-                          if (v52 != &llvm::semPPCDoubleDouble)
+                          if (v69 != &llvm::semPPCDoubleDouble)
                           {
                             goto LABEL_75;
                           }
 
 LABEL_98:
-                          v53 = llvm::detail::DoubleAPFloat::addWithSpecial(v48, &v174, a3 + 8, &v174);
-                          v54 = v53;
+                          v70 = llvm::detail::DoubleAPFloat::addWithSpecial(v63, &v231, a3 + 8, &v231, a6);
+                          v73 = v70;
                           goto LABEL_99;
                         }
                       }
 
                       else
                       {
-                        v52 = v174;
-                        if (v174[5] != 2)
+                        v69 = v231;
+                        if (v231[5] != 2)
                         {
                           goto LABEL_74;
                         }
                       }
 
-                      v176 = v51 & 0xF7;
-                      if (v174 == &llvm::semPPCDoubleDouble)
+                      v233 = v68 & 0xF7;
+                      if (v231 == &llvm::semPPCDoubleDouble)
                       {
                         goto LABEL_98;
                       }
 
 LABEL_75:
-                      v53 = llvm::detail::IEEEFloat::addOrSubtractSpecials(&v174, (a3 + 8), 0);
-                      v54 = v53;
-                      if (v53 == 2)
+                      v70 = llvm::detail::IEEEFloat::addOrSubtractSpecials(&v231, (a3 + 8), 0, v64);
+                      v73 = v70;
+                      if (v70 == 2)
                       {
-                        v55 = llvm::detail::IEEEFloat::addOrSubtractSignificand(&v174, (a3 + 8), 0);
-                        v53 = llvm::detail::IEEEFloat::normalize(&v174, a6, v55);
-                        v54 = v53;
+                        v74 = llvm::detail::IEEEFloat::addOrSubtractSignificand(&v231, (a3 + 8), 0, v71, v72);
+                        v70 = llvm::detail::IEEEFloat::normalize(&v231, a6, v74);
+                        v73 = v70;
                       }
 
-                      v56 = v176;
-                      if ((v176 & 7) == 3)
+                      v75 = v233;
+                      if ((v233 & 7) == 3)
                       {
-                        v57 = *(a3 + 28);
-                        if ((v57 & 7) != 3 || ((v57 ^ v176) & 8) != 0)
+                        v76 = *(a3 + 28);
+                        if ((v76 & 7) != 3 || ((v76 ^ v233) & 8) != 0)
                         {
-                          v56 = v176 & 0xF3 | (8 * (a6 == 3));
-                          v176 = v56;
-                          v58 = v174;
-                          if (v174[5] != 2)
+                          v75 = v233 & 0xF3 | (8 * (a6 == 3));
+                          v233 = v75;
+                          v77 = v231;
+                          if (v231[5] != 2)
                           {
 LABEL_81:
-                            if (v58 != &llvm::semPPCDoubleDouble)
+                            if (v77 != &llvm::semPPCDoubleDouble)
                             {
                               goto LABEL_82;
                             }
 
 LABEL_100:
-                            v59 = llvm::detail::DoubleAPFloat::addWithSpecial(v53, &v174, a5 + 8, &v174);
+                            v78 = llvm::detail::DoubleAPFloat::addWithSpecial(v70, &v231, (a5 + 8), &v231, a6);
                             goto LABEL_101;
                           }
                         }
 
                         else
                         {
-                          v58 = v174;
-                          if (v174[5] != 2)
+                          v77 = v231;
+                          if (v231[5] != 2)
                           {
                             goto LABEL_81;
                           }
                         }
 
-                        v176 = v56 & 0xF7;
-                        if (v174 == &llvm::semPPCDoubleDouble)
+                        v233 = v75 & 0xF7;
+                        if (v231 == &llvm::semPPCDoubleDouble)
                         {
                           goto LABEL_100;
                         }
 
 LABEL_82:
-                        v59 = llvm::detail::IEEEFloat::addOrSubtractSpecials(&v174, (a5 + 8), 0);
-                        if (v59 == 2)
+                        v78 = llvm::detail::IEEEFloat::addOrSubtractSpecials(&v231, (a5 + 8), 0, v71);
+                        if (v78 == 2)
                         {
-                          v60 = llvm::detail::IEEEFloat::addOrSubtractSignificand(&v174, (a5 + 8), 0);
-                          v59 = llvm::detail::IEEEFloat::normalize(&v174, a6, v60);
+                          v82 = llvm::detail::IEEEFloat::addOrSubtractSignificand(&v231, (a5 + 8), 0, v80, v81);
+                          v78 = llvm::detail::IEEEFloat::normalize(&v231, a6, v82);
                         }
 
-                        v61 = v176;
-                        if ((v176 & 7) == 3)
+                        v83 = v233;
+                        if ((v233 & 7) == 3)
                         {
-                          v62 = a5[28];
-                          if ((v62 & 7) != 3 || ((v62 ^ v176) & 8) != 0)
+                          v84 = a5[28];
+                          if ((v84 & 7) != 3 || ((v84 ^ v233) & 8) != 0)
                           {
-                            v61 = v176 & 0xF3 | (8 * (a6 == 3));
-                            v176 = v61;
+                            v83 = v233 & 0xF3 | (8 * (a6 == 3));
+                            v233 = v83;
                           }
 
-                          v63 = v174;
-                          if (v174[5] != 2)
+                          v85 = v231;
+                          if (v231[5] != 2)
                           {
 LABEL_102:
-                            v65 = v171 | v34 | v38 | v43 | v49 | v54 | v59 | v11;
-                            if (v63 == &llvm::semPPCDoubleDouble)
+                            v87 = v228 | v45 | v51 | v58 | v66 | v73 | v78 | v15;
+                            if (v85 == &llvm::semPPCDoubleDouble)
                             {
-                              v66 = *(__p + 28);
-                              v67 = a1;
-                              if ((v66 & 7) != 3)
+                              v88 = *(__p + 28);
+                              v89 = a1;
+                              if ((v88 & 7) != 3)
                               {
                                 goto LABEL_109;
                               }
@@ -4189,22 +4189,22 @@ LABEL_102:
 
                             else
                             {
-                              v66 = v176;
-                              v67 = a1;
-                              if ((v176 & 7) != 3)
+                              v88 = v233;
+                              v89 = a1;
+                              if ((v233 & 7) != 3)
                               {
                                 goto LABEL_109;
                               }
                             }
 
-                            if ((v66 & 8) == 0)
+                            if ((v88 & 8) == 0)
                             {
-                              llvm::APFloat::Storage::operator=((*(v67 + 8) + 8), &v181);
-                              llvm::APFloat::makeZero((*(v67 + 8) + 32), 0);
-                              v68 = 0;
-                              v11 = 0;
-                              v69 = v174;
-                              if (v174 == &llvm::semPPCDoubleDouble)
+                              llvm::APFloat::Storage::operator=((*(v89 + 8) + 8), &v238);
+                              llvm::APFloat::makeZero((*(v89 + 8) + 32), 0, v90, v91);
+                              v92 = 0;
+                              v15 = 0;
+                              v93 = v231;
+                              if (v231 == &llvm::semPPCDoubleDouble)
                               {
                                 goto LABEL_178;
                               }
@@ -4213,17 +4213,17 @@ LABEL_102:
                             }
 
 LABEL_109:
-                            v70 = *(v67 + 8);
-                            v71 = (v70 + 8);
-                            v72 = *(v70 + 8);
-                            if (v72 == &llvm::semPPCDoubleDouble)
+                            v94 = *(v89 + 8);
+                            v95 = (v94 + 8);
+                            v96 = *(v94 + 8);
+                            if (v96 == &llvm::semPPCDoubleDouble)
                             {
-                              if (v181.n128_u64[0] == &llvm::semPPCDoubleDouble)
+                              if (v238.n128_u64[0] == &llvm::semPPCDoubleDouble)
                               {
-                                LODWORD(v71) = llvm::detail::DoubleAPFloat::operator=(v71, &v181);
-                                v73 = *(v67 + 8);
-                                v74 = (v73 + 8);
-                                if (*(v73 + 8) == &llvm::semPPCDoubleDouble)
+                                LODWORD(v95) = llvm::detail::DoubleAPFloat::operator=(v95, &v238, v79, v80);
+                                v97 = *(v89 + 8);
+                                v98 = (v97 + 8);
+                                if (*(v97 + 8) == &llvm::semPPCDoubleDouble)
                                 {
                                   goto LABEL_146;
                                 }
@@ -4231,27 +4231,27 @@ LABEL_109:
                                 goto LABEL_134;
                               }
 
-                              if (v70 != &v180)
+                              if (v94 != &v237)
                               {
-                                llvm::detail::DoubleAPFloat::~DoubleAPFloat(v71);
+                                llvm::detail::DoubleAPFloat::~DoubleAPFloat(v95);
 LABEL_132:
-                                LODWORD(v71) = llvm::APFloat::Storage::Storage(v71, &v181);
+                                LODWORD(v95) = llvm::APFloat::Storage::Storage(v95, &v238, v79, v80);
                               }
                             }
 
                             else
                             {
-                              if (v181.n128_u64[0] != &llvm::semPPCDoubleDouble)
+                              if (v238.n128_u64[0] != &llvm::semPPCDoubleDouble)
                               {
-                                LODWORD(v71) = llvm::detail::IEEEFloat::operator=(v71, &v181);
-                                v73 = *(v67 + 8);
-                                v74 = (v73 + 8);
-                                if (*(v73 + 8) == &llvm::semPPCDoubleDouble)
+                                LODWORD(v95) = llvm::detail::IEEEFloat::operator=(v95, &v238, v79, v80);
+                                v97 = *(v89 + 8);
+                                v98 = (v97 + 8);
+                                if (*(v97 + 8) == &llvm::semPPCDoubleDouble)
                                 {
 LABEL_146:
-                                  v65 = llvm::detail::DoubleAPFloat::addWithSpecial(v71, v74, &v174, v74) | v65;
-                                  v80 = *(v67 + 8);
-                                  if (*(v80 + 8) == &llvm::semPPCDoubleDouble)
+                                  v87 = llvm::detail::DoubleAPFloat::addWithSpecial(v95, v98, &v231, v98, a6) | v87;
+                                  v107 = *(v89 + 8);
+                                  if (*(v107 + 8) == &llvm::semPPCDoubleDouble)
                                   {
                                     goto LABEL_147;
                                   }
@@ -4260,135 +4260,135 @@ LABEL_146:
                                 }
 
 LABEL_134:
-                                v77 = llvm::detail::IEEEFloat::addOrSubtractSpecials(v74, &v174, 0);
-                                if (v77 == 2)
+                                v101 = llvm::detail::IEEEFloat::addOrSubtractSpecials(v98, &v231, 0, v80);
+                                if (v101 == 2)
                                 {
-                                  v78 = llvm::detail::IEEEFloat::addOrSubtractSignificand(v74, &v174, 0);
-                                  v77 = llvm::detail::IEEEFloat::normalize(v74, a6, v78);
+                                  v105 = llvm::detail::IEEEFloat::addOrSubtractSignificand(v98, &v231, 0, v103, v104);
+                                  v101 = llvm::detail::IEEEFloat::normalize(v98, a6, v105);
                                 }
 
-                                v79 = *(v73 + 28);
-                                if ((v79 & 7) == 3)
+                                v106 = *(v97 + 28);
+                                if ((v106 & 7) == 3)
                                 {
-                                  if ((v176 & 7) != 3 || ((v176 ^ v79) & 8) != 0)
+                                  if ((v233 & 7) != 3 || ((v233 ^ v106) & 8) != 0)
                                   {
-                                    LOBYTE(v79) = v79 & 0xF3 | (8 * (a6 == 3));
-                                    *(v73 + 28) = v79;
+                                    LOBYTE(v106) = v106 & 0xF3 | (8 * (a6 == 3));
+                                    *(v97 + 28) = v106;
                                   }
 
-                                  if (*(*v74 + 20) == 2)
+                                  if (*(*v98 + 20) == 2)
                                   {
-                                    *(v73 + 28) = v79 & 0xF7;
+                                    *(v97 + 28) = v106 & 0xF7;
                                   }
                                 }
 
-                                v65 = v77 | v65;
-                                v80 = *(v67 + 8);
-                                if (*(v80 + 8) == &llvm::semPPCDoubleDouble)
+                                v87 = v101 | v87;
+                                v107 = *(v89 + 8);
+                                if (*(v107 + 8) == &llvm::semPPCDoubleDouble)
                                 {
 LABEL_147:
-                                  v81 = *(*(v80 + 16) + 28) & 7;
-                                  if (v81 == 1)
+                                  v108 = *(*(v107 + 16) + 28) & 7;
+                                  if (v108 == 1)
                                   {
                                     goto LABEL_158;
                                   }
 
 LABEL_148:
-                                  if (v81)
+                                  if (v108)
                                   {
-                                    llvm::APFloat::Storage::operator=((v80 + 40), &v181);
-                                    v82 = *(v67 + 8);
-                                    v83 = (v82 + 40);
-                                    if (*(v82 + 5) == &llvm::semPPCDoubleDouble)
+                                    llvm::APFloat::Storage::operator=((v107 + 40), &v238);
+                                    v110 = *(v89 + 8);
+                                    v111 = (v110 + 40);
+                                    if (*(v110 + 5) == &llvm::semPPCDoubleDouble)
                                     {
-                                      v89 = llvm::detail::DoubleAPFloat::changeSign(v83);
-                                      v11 = llvm::detail::DoubleAPFloat::addWithSpecial(v89, v83, v82 + 8, v83);
-                                      LODWORD(v84) = llvm::detail::DoubleAPFloat::changeSign(v83);
+                                      v119 = llvm::detail::DoubleAPFloat::changeSign(v111);
+                                      v15 = llvm::detail::DoubleAPFloat::addWithSpecial(v119, v111, (v110 + 8), v111, a6);
+                                      LODWORD(v112) = llvm::detail::DoubleAPFloat::changeSign(v111);
                                     }
 
                                     else
                                     {
-                                      v84 = llvm::detail::IEEEFloat::addOrSubtractSpecials(v83, (v82 + 8), 1);
-                                      v11 = v84;
-                                      if (v84 == 2)
+                                      v112 = llvm::detail::IEEEFloat::addOrSubtractSpecials(v111, (v110 + 8), 1u, v109);
+                                      v15 = v112;
+                                      if (v112 == 2)
                                       {
-                                        v85 = llvm::detail::IEEEFloat::addOrSubtractSignificand(v83, (v82 + 8), 1);
-                                        v84 = llvm::detail::IEEEFloat::normalize(v83, a6, v85);
-                                        v11 = v84;
+                                        v115 = llvm::detail::IEEEFloat::addOrSubtractSignificand(v111, (v110 + 8), 1u, v113, v114);
+                                        v112 = llvm::detail::IEEEFloat::normalize(v111, a6, v115);
+                                        v15 = v112;
                                       }
 
-                                      v86 = v82[60];
-                                      if ((v86 & 7) == 3)
+                                      v116 = v110[60];
+                                      if ((v116 & 7) == 3)
                                       {
-                                        v87 = v82[28];
-                                        if ((v87 & 7) != 3 || ((v87 ^ v86) & 8) == 0)
+                                        v117 = v110[28];
+                                        if ((v117 & 7) != 3 || ((v117 ^ v116) & 8) == 0)
                                         {
-                                          LOBYTE(v86) = v86 & 0xF3 | (8 * (a6 == 3));
-                                          v82[60] = v86;
+                                          LOBYTE(v116) = v116 & 0xF3 | (8 * (a6 == 3));
+                                          v110[60] = v116;
                                         }
 
-                                        if (*(*v83 + 20) == 2)
+                                        if (*(*v111 + 20) == 2)
                                         {
-                                          v82[60] = v86 & 0xF7;
+                                          v110[60] = v116 & 0xF7;
                                         }
                                       }
                                     }
 
-                                    v90 = *(v67 + 8);
-                                    v91 = (v90 + 40);
-                                    if (*(v90 + 40) == &llvm::semPPCDoubleDouble)
+                                    v120 = *(v89 + 8);
+                                    v121 = (v120 + 40);
+                                    if (*(v120 + 40) == &llvm::semPPCDoubleDouble)
                                     {
-                                      v92 = llvm::detail::DoubleAPFloat::addWithSpecial(v84, v91, &v174, v91);
+                                      v122 = llvm::detail::DoubleAPFloat::addWithSpecial(v112, v121, &v231, v121, a6);
                                     }
 
                                     else
                                     {
-                                      v92 = llvm::detail::IEEEFloat::addOrSubtractSpecials(v91, &v174, 0);
-                                      if (v92 == 2)
+                                      v122 = llvm::detail::IEEEFloat::addOrSubtractSpecials(v121, &v231, 0, v113);
+                                      if (v122 == 2)
                                       {
-                                        v93 = llvm::detail::IEEEFloat::addOrSubtractSignificand(v91, &v174, 0);
-                                        v92 = llvm::detail::IEEEFloat::normalize(v91, a6, v93);
+                                        v125 = llvm::detail::IEEEFloat::addOrSubtractSignificand(v121, &v231, 0, v123, v124);
+                                        v122 = llvm::detail::IEEEFloat::normalize(v121, a6, v125);
                                       }
 
-                                      v94 = *(v90 + 60);
-                                      if ((v94 & 7) == 3)
+                                      v126 = *(v120 + 60);
+                                      if ((v126 & 7) == 3)
                                       {
-                                        if ((v176 & 7) != 3 || ((v176 ^ v94) & 8) != 0)
+                                        if ((v233 & 7) != 3 || ((v233 ^ v126) & 8) != 0)
                                         {
-                                          LOBYTE(v94) = v94 & 0xF3 | (8 * (a6 == 3));
-                                          *(v90 + 60) = v94;
+                                          LOBYTE(v126) = v126 & 0xF3 | (8 * (a6 == 3));
+                                          *(v120 + 60) = v126;
                                         }
 
-                                        if (*(*v91 + 20) == 2)
+                                        if (*(*v121 + 20) == 2)
                                         {
-                                          *(v90 + 60) = v94 & 0xF7;
+                                          *(v120 + 60) = v126 & 0xF7;
                                         }
                                       }
                                     }
 
-                                    v65 = v11 | v92 | v65;
-                                    v68 = 1;
-                                    v69 = v174;
-                                    if (v174 == &llvm::semPPCDoubleDouble)
+                                    v87 = v15 | v122 | v87;
+                                    v92 = 1;
+                                    v93 = v231;
+                                    if (v231 == &llvm::semPPCDoubleDouble)
                                     {
 LABEL_178:
-                                      llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v174);
-                                      v88 = v177;
-                                      if (v177 == &llvm::semPPCDoubleDouble)
+                                      llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v231);
+                                      v118 = v234;
+                                      if (v234 == &llvm::semPPCDoubleDouble)
                                       {
 LABEL_179:
-                                        llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v177);
+                                        llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v234);
                                         goto LABEL_180;
                                       }
 
 LABEL_163:
-                                      if ((*(v88 + 8) - 64) <= 0xFFFFFF7F && v178)
+                                      if ((*(v118 + 8) - 64) <= 0xFFFFFF7F && v235)
                                       {
-                                        operator delete[](v178);
+                                        operator delete[](v235);
                                       }
 
 LABEL_180:
-                                      if (!v68)
+                                      if (!v92)
                                       {
                                         goto LABEL_182;
                                       }
@@ -4397,13 +4397,13 @@ LABEL_180:
                                     }
 
 LABEL_159:
-                                    if ((v69[2] - 64) <= 0xFFFFFF7F && __p)
+                                    if ((v93[2] - 64) <= 0xFFFFFF7F && __p)
                                     {
                                       operator delete[](__p);
                                     }
 
-                                    v88 = v177;
-                                    if (v177 == &llvm::semPPCDoubleDouble)
+                                    v118 = v234;
+                                    if (v234 == &llvm::semPPCDoubleDouble)
                                     {
                                       goto LABEL_179;
                                     }
@@ -4412,11 +4412,11 @@ LABEL_159:
                                   }
 
 LABEL_158:
-                                  llvm::APFloat::makeZero((v80 + 32), 0);
-                                  v68 = 0;
-                                  v11 = v65;
-                                  v69 = v174;
-                                  if (v174 == &llvm::semPPCDoubleDouble)
+                                  llvm::APFloat::makeZero((v107 + 32), 0, v102, v103);
+                                  v92 = 0;
+                                  v15 = v87;
+                                  v93 = v231;
+                                  if (v231 == &llvm::semPPCDoubleDouble)
                                   {
                                     goto LABEL_178;
                                   }
@@ -4425,8 +4425,8 @@ LABEL_158:
                                 }
 
 LABEL_143:
-                                v81 = *(v80 + 28) & 7;
-                                if (v81 == 1)
+                                v108 = *(v107 + 28) & 7;
+                                if (v108 == 1)
                                 {
                                   goto LABEL_158;
                                 }
@@ -4434,16 +4434,16 @@ LABEL_143:
                                 goto LABEL_148;
                               }
 
-                              if (v70 != &v180)
+                              if (v94 != &v237)
                               {
-                                if ((*(v72 + 8) - 64) <= 0xFFFFFF7F)
+                                if ((*(v96 + 8) - 64) <= 0xFFFFFF7F)
                                 {
-                                  v75 = *(v70 + 16);
-                                  if (v75)
+                                  v99 = *(v94 + 16);
+                                  if (v99)
                                   {
-                                    v76 = v71;
-                                    operator delete[](v75);
-                                    v71 = v76;
+                                    v100 = v95;
+                                    operator delete[](v99);
+                                    v95 = v100;
                                   }
                                 }
 
@@ -4451,9 +4451,9 @@ LABEL_143:
                               }
                             }
 
-                            v73 = *(v67 + 8);
-                            v74 = (v73 + 8);
-                            if (*(v73 + 8) == &llvm::semPPCDoubleDouble)
+                            v97 = *(v89 + 8);
+                            v98 = (v97 + 8);
+                            if (*(v97 + 8) == &llvm::semPPCDoubleDouble)
                             {
                               goto LABEL_146;
                             }
@@ -4461,16 +4461,16 @@ LABEL_143:
                             goto LABEL_134;
                           }
 
-                          v176 = v61 & 0xF7;
+                          v233 = v83 & 0xF7;
                         }
 
 LABEL_101:
-                        v63 = v174;
+                        v85 = v231;
                         goto LABEL_102;
                       }
 
 LABEL_99:
-                      if (v174 == &llvm::semPPCDoubleDouble)
+                      if (v231 == &llvm::semPPCDoubleDouble)
                       {
                         goto LABEL_100;
                       }
@@ -4479,7 +4479,7 @@ LABEL_99:
                     }
 
 LABEL_97:
-                    if (v174 == &llvm::semPPCDoubleDouble)
+                    if (v231 == &llvm::semPPCDoubleDouble)
                     {
                       goto LABEL_98;
                     }
@@ -4488,14 +4488,14 @@ LABEL_97:
                   }
 
 LABEL_96:
-                  v48 = llvm::detail::DoubleAPFloat::addWithSpecial(v42, &v174, &v177, &v174);
-                  v49 = v48;
+                  v63 = llvm::detail::DoubleAPFloat::addWithSpecial(v55, &v231, &v234, &v231, a6);
+                  v66 = v63;
                   goto LABEL_97;
                 }
 
 LABEL_95:
-                v42 = llvm::detail::DoubleAPFloat::changeSign(&v177);
-                if (v174 != &llvm::semPPCDoubleDouble)
+                v55 = llvm::detail::DoubleAPFloat::changeSign(&v234);
+                if (v231 != &llvm::semPPCDoubleDouble)
                 {
                   goto LABEL_68;
                 }
@@ -4504,9 +4504,9 @@ LABEL_95:
               }
             }
 
-            v179 = v45 & 0xF7;
-            v47 = v177;
-            if (v177 != &llvm::semPPCDoubleDouble)
+            v236 = v60 & 0xF7;
+            v62 = v234;
+            if (v234 != &llvm::semPPCDoubleDouble)
             {
               goto LABEL_64;
             }
@@ -4515,8 +4515,8 @@ LABEL_95:
           }
 
 LABEL_94:
-          v47 = v177;
-          if (v177 != &llvm::semPPCDoubleDouble)
+          v62 = v234;
+          if (v234 != &llvm::semPPCDoubleDouble)
           {
             goto LABEL_64;
           }
@@ -4525,7 +4525,7 @@ LABEL_94:
         }
 
 LABEL_92:
-        if (v177 == &llvm::semPPCDoubleDouble)
+        if (v234 == &llvm::semPPCDoubleDouble)
         {
           goto LABEL_93;
         }
@@ -4534,34 +4534,34 @@ LABEL_92:
       }
     }
 
-    v38 = llvm::detail::DoubleAPFloat::addWithSpecial(v33, &v177, &v181, &v177);
+    v51 = llvm::detail::DoubleAPFloat::addWithSpecial(v42, &v234, &v238, &v234, a6);
     goto LABEL_92;
   }
 
 LABEL_22:
-  if ((v16 & 7) != 0)
+  if ((v20 & 7) != 0)
   {
     goto LABEL_251;
   }
 
-  v20 = *(a2 + 8);
-  if (v20 == &llvm::semPPCDoubleDouble)
+  v28 = *(a2 + 8);
+  if (v28 == &llvm::semPPCDoubleDouble)
   {
-    v23 = llvm::detail::DoubleAPFloat::compareAbsoluteValue((a2 + 8), (a4 + 8));
-    v27 = v23 == 2;
-    v29 = (a5 + 8);
-    v28 = *(a5 + 1);
-    v30 = v181.n128_u64[0];
-    if (v181.n128_u64[0] != &llvm::semPPCDoubleDouble)
+    v31 = llvm::detail::DoubleAPFloat::compareAbsoluteValue((a2 + 8), (a4 + 8), v12, v13);
+    v35 = v31 == 2;
+    v37 = (a5 + 8);
+    v36 = *(a5 + 1);
+    v38 = v238.n128_u64[0];
+    if (v238.n128_u64[0] != &llvm::semPPCDoubleDouble)
     {
       goto LABEL_33;
     }
 
 LABEL_187:
-    if (v28 == &llvm::semPPCDoubleDouble)
+    if (v36 == &llvm::semPPCDoubleDouble)
     {
-      v23 = llvm::detail::DoubleAPFloat::operator=(&v181, v29);
-      if (v181.n128_u64[0] == &llvm::semPPCDoubleDouble)
+      v31 = llvm::detail::DoubleAPFloat::operator=(&v238, v37, v12, v13);
+      if (v238.n128_u64[0] == &llvm::semPPCDoubleDouble)
       {
         goto LABEL_222;
       }
@@ -4569,10 +4569,10 @@ LABEL_187:
       goto LABEL_196;
     }
 
-    if (&v180 == a5)
+    if (&v237 == a5)
     {
 LABEL_195:
-      if (v181.n128_u64[0] == &llvm::semPPCDoubleDouble)
+      if (v238.n128_u64[0] == &llvm::semPPCDoubleDouble)
       {
         goto LABEL_222;
       }
@@ -4580,75 +4580,75 @@ LABEL_195:
       goto LABEL_196;
     }
 
-    llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v181);
+    llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v238);
 LABEL_194:
-    v23 = llvm::APFloat::Storage::Storage(&v181, v29);
+    v31 = llvm::APFloat::Storage::Storage(&v238, v37, v12, v13);
     goto LABEL_195;
   }
 
-  v21 = *(a2 + 24);
-  v22 = *(a4 + 24);
-  v23 = v21 - v22;
-  if (v21 == v22)
+  v29 = *(a2 + 24);
+  v30 = *(a4 + 24);
+  v31 = v29 - v30;
+  if (v29 == v30)
   {
-    v24 = *(v20 + 8);
-    if ((v24 - 64) >= 0xFFFFFF80)
+    v32 = *(v28 + 8);
+    if ((v32 - 64) >= 0xFFFFFF80)
     {
-      v25 = (a2 + 16);
+      v33 = (a2 + 16);
     }
 
     else
     {
-      v25 = *(a2 + 16);
+      v33 = *(a2 + 16);
     }
 
     if ((*(*(a4 + 8) + 8) - 64) >= 0xFFFFFF80)
     {
-      v26 = (a4 + 16);
+      v34 = (a4 + 16);
     }
 
     else
     {
-      v26 = *(a4 + 16);
+      v34 = *(a4 + 16);
     }
 
-    v23 = llvm::APInt::tcCompare(v25, v26, ((v24 + 64) >> 6));
+    v31 = llvm::APInt::tcCompare(v33, v34, ((v32 + 64) >> 6));
   }
 
-  v27 = v23 > 0;
-  v29 = (a5 + 8);
-  v28 = *(a5 + 1);
-  v30 = v181.n128_u64[0];
-  if (v181.n128_u64[0] == &llvm::semPPCDoubleDouble)
+  v35 = v31 > 0;
+  v37 = (a5 + 8);
+  v36 = *(a5 + 1);
+  v38 = v238.n128_u64[0];
+  if (v238.n128_u64[0] == &llvm::semPPCDoubleDouble)
   {
     goto LABEL_187;
   }
 
 LABEL_33:
-  if (v28 == &llvm::semPPCDoubleDouble)
+  if (v36 == &llvm::semPPCDoubleDouble)
   {
-    if (&v180 == a5)
+    if (&v237 == a5)
     {
       goto LABEL_195;
     }
 
-    if ((*(v30 + 8) - 64) <= 0xFFFFFF7F && v181.n128_u64[1])
+    if ((*(v38 + 8) - 64) <= 0xFFFFFF7F && v238.n128_u64[1])
     {
-      operator delete[](v181.n128_u64[1]);
+      operator delete[](v238.n128_u64[1]);
     }
 
     goto LABEL_194;
   }
 
-  v23 = llvm::detail::IEEEFloat::operator=(&v181, v29);
-  if (v181.n128_u64[0] == &llvm::semPPCDoubleDouble)
+  v31 = llvm::detail::IEEEFloat::operator=(&v238, v37, v12, v13);
+  if (v238.n128_u64[0] == &llvm::semPPCDoubleDouble)
   {
 LABEL_222:
-    v96 = llvm::detail::DoubleAPFloat::addWithSpecial(v23, &v181, a3 + 8, &v181);
-    v97 = v96;
-    v101 = a3;
-    v102 = v181.n128_u64[0] == &llvm::semPPCDoubleDouble;
-    if (!v27)
+    v128 = llvm::detail::DoubleAPFloat::addWithSpecial(v31, &v238, a3 + 8, &v238, a6);
+    v131 = v128;
+    v135 = a3;
+    v136 = v238.n128_u64[0] == &llvm::semPPCDoubleDouble;
+    if (!v35)
     {
       goto LABEL_223;
     }
@@ -4657,66 +4657,66 @@ LABEL_222:
   }
 
 LABEL_196:
-  v96 = llvm::detail::IEEEFloat::addOrSubtractSpecials(&v181, (a3 + 8), 0);
-  v97 = v96;
-  if (v96 == 2)
+  v128 = llvm::detail::IEEEFloat::addOrSubtractSpecials(&v238, (a3 + 8), 0, v13);
+  v131 = v128;
+  if (v128 == 2)
   {
-    v98 = llvm::detail::IEEEFloat::addOrSubtractSignificand(&v181, (a3 + 8), 0);
-    v96 = llvm::detail::IEEEFloat::normalize(&v181, a6, v98);
-    v97 = v96;
+    v132 = llvm::detail::IEEEFloat::addOrSubtractSignificand(&v238, (a3 + 8), 0, v129, v130);
+    v128 = llvm::detail::IEEEFloat::normalize(&v238, a6, v132);
+    v131 = v128;
   }
 
-  v99 = v182;
-  if ((v182 & 7) == 3)
+  v133 = v239;
+  if ((v239 & 7) == 3)
   {
-    v100 = *(a3 + 28);
-    if ((v100 & 7) != 3 || ((v100 ^ v182) & 8) != 0)
+    v134 = *(a3 + 28);
+    if ((v134 & 7) != 3 || ((v134 ^ v239) & 8) != 0)
     {
-      v99 = v182 & 0xF3 | (8 * (a6 == 3));
-      v182 = v99;
+      v133 = v239 & 0xF3 | (8 * (a6 == 3));
+      v239 = v133;
     }
 
-    if (*(v181.n128_u64[0] + 20) == 2)
+    if (*(v238.n128_u64[0] + 20) == 2)
     {
-      v182 = v99 & 0xF7;
+      v239 = v133 & 0xF7;
     }
   }
 
-  v101 = a3;
-  v102 = v181.n128_u64[0] == &llvm::semPPCDoubleDouble;
-  if (!v27)
+  v135 = a3;
+  v136 = v238.n128_u64[0] == &llvm::semPPCDoubleDouble;
+  if (!v35)
   {
 LABEL_223:
-    if (v102)
+    if (v136)
     {
-      v103 = llvm::detail::DoubleAPFloat::addWithSpecial(v96, &v181, a2 + 8, &v181);
-      v104 = v103;
+      v137 = llvm::detail::DoubleAPFloat::addWithSpecial(v128, &v238, a2 + 8, &v238, a6);
+      v140 = v137;
     }
 
     else
     {
-      v103 = llvm::detail::IEEEFloat::addOrSubtractSpecials(&v181, (a2 + 8), 0);
-      v104 = v103;
-      if (v103 == 2)
+      v137 = llvm::detail::IEEEFloat::addOrSubtractSpecials(&v238, (a2 + 8), 0, v129);
+      v140 = v137;
+      if (v137 == 2)
       {
-        v114 = llvm::detail::IEEEFloat::addOrSubtractSignificand(&v181, (a2 + 8), 0);
-        v103 = llvm::detail::IEEEFloat::normalize(&v181, a6, v114);
-        v104 = v103;
+        v155 = llvm::detail::IEEEFloat::addOrSubtractSignificand(&v238, (a2 + 8), 0, v153, v154);
+        v137 = llvm::detail::IEEEFloat::normalize(&v238, a6, v155);
+        v140 = v137;
       }
 
-      v115 = v182;
-      if ((v182 & 7) == 3)
+      v156 = v239;
+      if ((v239 & 7) == 3)
       {
-        v116 = *(a2 + 28);
-        if ((v116 & 7) != 3 || ((v116 ^ v182) & 8) != 0)
+        v157 = *(a2 + 28);
+        if ((v157 & 7) != 3 || ((v157 ^ v239) & 8) != 0)
         {
-          v115 = v182 & 0xF3 | (8 * (a6 == 3));
-          v182 = v115;
-          v117 = v181.n128_u64[0];
-          if (*(v181.n128_u64[0] + 20) != 2)
+          v156 = v239 & 0xF3 | (8 * (a6 == 3));
+          v239 = v156;
+          v158 = v238.n128_u64[0];
+          if (*(v238.n128_u64[0] + 20) != 2)
           {
 LABEL_230:
-            if (v117 != &llvm::semPPCDoubleDouble)
+            if (v158 != &llvm::semPPCDoubleDouble)
             {
               goto LABEL_231;
             }
@@ -4727,49 +4727,49 @@ LABEL_230:
 
         else
         {
-          v117 = v181.n128_u64[0];
-          if (*(v181.n128_u64[0] + 20) != 2)
+          v158 = v238.n128_u64[0];
+          if (*(v238.n128_u64[0] + 20) != 2)
           {
             goto LABEL_230;
           }
         }
 
-        v182 = v115 & 0xF7;
-        if (v181.n128_u64[0] == &llvm::semPPCDoubleDouble)
+        v239 = v156 & 0xF7;
+        if (v238.n128_u64[0] == &llvm::semPPCDoubleDouble)
         {
 LABEL_241:
-          v113 = a4 + 8;
+          v152 = a4 + 8;
           goto LABEL_242;
         }
 
 LABEL_231:
-        v109 = llvm::detail::IEEEFloat::addOrSubtractSpecials(&v181, (a4 + 8), 0);
-        if (v109 == 2)
+        v145 = llvm::detail::IEEEFloat::addOrSubtractSpecials(&v238, (a4 + 8), 0, v153);
+        if (v145 == 2)
         {
-          v118 = llvm::detail::IEEEFloat::addOrSubtractSignificand(&v181, (a4 + 8), 0);
-          v109 = llvm::detail::IEEEFloat::normalize(&v181, a6, v118);
+          v160 = llvm::detail::IEEEFloat::addOrSubtractSignificand(&v238, (a4 + 8), 0, v147, v159);
+          v145 = llvm::detail::IEEEFloat::normalize(&v238, a6, v160);
         }
 
-        v111 = v182;
-        if ((v182 & 7) == 3)
+        v150 = v239;
+        if ((v239 & 7) == 3)
         {
-          v112 = *(a4 + 28);
-          if ((v112 & 7) == 3)
+          v151 = *(a4 + 28);
+          if ((v151 & 7) == 3)
           {
 LABEL_235:
-            if (((v112 ^ v111) & 8) == 0)
+            if (((v151 ^ v150) & 8) == 0)
             {
               goto LABEL_237;
             }
           }
 
 LABEL_236:
-          LOBYTE(v111) = v111 & 0xF3 | (8 * (a6 == 3));
-          v182 = v111;
+          LOBYTE(v150) = v150 & 0xF3 | (8 * (a6 == 3));
+          v239 = v150;
 LABEL_237:
-          if (*(v181.n128_u64[0] + 20) == 2)
+          if (*(v238.n128_u64[0] + 20) == 2)
           {
-            v182 = v111 & 0xF7;
+            v239 = v150 & 0xF7;
           }
 
           goto LABEL_243;
@@ -4779,7 +4779,7 @@ LABEL_237:
       }
     }
 
-    if (v181.n128_u64[0] == &llvm::semPPCDoubleDouble)
+    if (v238.n128_u64[0] == &llvm::semPPCDoubleDouble)
     {
       goto LABEL_241;
     }
@@ -4788,27 +4788,27 @@ LABEL_237:
   }
 
 LABEL_205:
-  if (v102)
+  if (v136)
   {
-    v103 = llvm::detail::DoubleAPFloat::addWithSpecial(v96, &v181, a4 + 8, &v181);
-    v104 = v103;
+    v137 = llvm::detail::DoubleAPFloat::addWithSpecial(v128, &v238, a4 + 8, &v238, a6);
+    v140 = v137;
     goto LABEL_219;
   }
 
-  v103 = llvm::detail::IEEEFloat::addOrSubtractSpecials(&v181, (a4 + 8), 0);
-  v104 = v103;
-  if (v103 == 2)
+  v137 = llvm::detail::IEEEFloat::addOrSubtractSpecials(&v238, (a4 + 8), 0, v129);
+  v140 = v137;
+  if (v137 == 2)
   {
-    v105 = llvm::detail::IEEEFloat::addOrSubtractSignificand(&v181, (a4 + 8), 0);
-    v103 = llvm::detail::IEEEFloat::normalize(&v181, a6, v105);
-    v104 = v103;
+    v141 = llvm::detail::IEEEFloat::addOrSubtractSignificand(&v238, (a4 + 8), 0, v138, v139);
+    v137 = llvm::detail::IEEEFloat::normalize(&v238, a6, v141);
+    v140 = v137;
   }
 
-  v106 = v182;
-  if ((v182 & 7) != 3)
+  v142 = v239;
+  if ((v239 & 7) != 3)
   {
 LABEL_219:
-    if (v181.n128_u64[0] == &llvm::semPPCDoubleDouble)
+    if (v238.n128_u64[0] == &llvm::semPPCDoubleDouble)
     {
       goto LABEL_220;
     }
@@ -4816,56 +4816,56 @@ LABEL_219:
     goto LABEL_213;
   }
 
-  v107 = *(a4 + 28);
-  if ((v107 & 7) != 3 || ((v107 ^ v182) & 8) != 0)
+  v143 = *(a4 + 28);
+  if ((v143 & 7) != 3 || ((v143 ^ v239) & 8) != 0)
   {
-    v106 = v182 & 0xF3 | (8 * (a6 == 3));
-    v182 = v106;
-    v108 = v181.n128_u64[0];
-    if (*(v181.n128_u64[0] + 20) != 2)
+    v142 = v239 & 0xF3 | (8 * (a6 == 3));
+    v239 = v142;
+    v144 = v238.n128_u64[0];
+    if (*(v238.n128_u64[0] + 20) != 2)
     {
 LABEL_212:
-      if (v108 != &llvm::semPPCDoubleDouble)
+      if (v144 != &llvm::semPPCDoubleDouble)
       {
         goto LABEL_213;
       }
 
 LABEL_220:
-      v113 = a2 + 8;
+      v152 = a2 + 8;
 LABEL_242:
-      v109 = llvm::detail::DoubleAPFloat::addWithSpecial(v103, &v181, v113, &v181);
+      v145 = llvm::detail::DoubleAPFloat::addWithSpecial(v137, &v238, v152, &v238, a6);
       goto LABEL_243;
     }
   }
 
   else
   {
-    v108 = v181.n128_u64[0];
-    if (*(v181.n128_u64[0] + 20) != 2)
+    v144 = v238.n128_u64[0];
+    if (*(v238.n128_u64[0] + 20) != 2)
     {
       goto LABEL_212;
     }
   }
 
-  v182 = v106 & 0xF7;
-  if (v181.n128_u64[0] == &llvm::semPPCDoubleDouble)
+  v239 = v142 & 0xF7;
+  if (v238.n128_u64[0] == &llvm::semPPCDoubleDouble)
   {
     goto LABEL_220;
   }
 
 LABEL_213:
-  v109 = llvm::detail::IEEEFloat::addOrSubtractSpecials(&v181, (a2 + 8), 0);
-  if (v109 == 2)
+  v145 = llvm::detail::IEEEFloat::addOrSubtractSpecials(&v238, (a2 + 8), 0, v138);
+  if (v145 == 2)
   {
-    v110 = llvm::detail::IEEEFloat::addOrSubtractSignificand(&v181, (a2 + 8), 0);
-    v109 = llvm::detail::IEEEFloat::normalize(&v181, a6, v110);
+    v149 = llvm::detail::IEEEFloat::addOrSubtractSignificand(&v238, (a2 + 8), 0, v147, v148);
+    v145 = llvm::detail::IEEEFloat::normalize(&v238, a6, v149);
   }
 
-  v111 = v182;
-  if ((v182 & 7) == 3)
+  v150 = v239;
+  if ((v239 & 7) == 3)
   {
-    v112 = *(a2 + 28);
-    if ((v112 & 7) == 3)
+    v151 = *(a2 + 28);
+    if ((v151 & 7) == 3)
     {
       goto LABEL_235;
     }
@@ -4874,11 +4874,11 @@ LABEL_213:
   }
 
 LABEL_243:
-  v11 = v109 | v104 | v97;
-  if (v181.n128_u64[0] == &llvm::semPPCDoubleDouble)
+  v15 = v145 | v140 | v131;
+  if (v238.n128_u64[0] == &llvm::semPPCDoubleDouble)
   {
-    v119 = *(v181.n128_u64[1] + 28) & 7;
-    if (v119 == 1)
+    v161 = *(v238.n128_u64[1] + 28) & 7;
+    if (v161 == 1)
     {
       goto LABEL_251;
     }
@@ -4886,410 +4886,410 @@ LABEL_243:
 
   else
   {
-    v119 = v182 & 7;
-    if (v119 == 1)
+    v161 = v239 & 7;
+    if (v161 == 1)
     {
 LABEL_251:
-      llvm::APFloat::Storage::operator=((*(a1 + 8) + 8), &v181);
-      llvm::APFloat::makeZero((*(a1 + 8) + 32), 0);
-      v95 = v181.n128_u64[0];
-      if (v181.n128_u64[0] != &llvm::semPPCDoubleDouble)
+      llvm::APFloat::Storage::operator=((*(a1 + 8) + 8), &v238);
+      llvm::APFloat::makeZero((*(a1 + 8) + 32), 0, v165, v166);
+      v127 = v238.n128_u64[0];
+      if (v238.n128_u64[0] != &llvm::semPPCDoubleDouble)
       {
         goto LABEL_183;
       }
 
 LABEL_252:
-      llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v181);
-      return v11;
+      llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v238);
+      return v15;
     }
   }
 
-  if (!v119)
+  if (!v161)
   {
     goto LABEL_251;
   }
 
-  v120 = *(a1 + 8);
-  v121 = (v120 + 8);
-  v122 = *(v120 + 8);
-  if (v122 == &llvm::semPPCDoubleDouble)
+  v162 = *(a1 + 8);
+  v163 = (v162 + 8);
+  v164 = *(v162 + 8);
+  if (v164 == &llvm::semPPCDoubleDouble)
   {
-    if (v181.n128_u64[0] != &llvm::semPPCDoubleDouble)
+    if (v238.n128_u64[0] != &llvm::semPPCDoubleDouble)
     {
-      if (v120 == &v180)
+      if (v162 == &v237)
       {
         goto LABEL_269;
       }
 
-      llvm::detail::DoubleAPFloat::~DoubleAPFloat(v121);
+      llvm::detail::DoubleAPFloat::~DoubleAPFloat(v163);
       goto LABEL_267;
     }
 
-    llvm::detail::DoubleAPFloat::operator=(v121, &v181);
+    llvm::detail::DoubleAPFloat::operator=(v163, &v238, v146, v147);
   }
 
   else
   {
-    if (v181.n128_u64[0] != &llvm::semPPCDoubleDouble)
+    if (v238.n128_u64[0] != &llvm::semPPCDoubleDouble)
     {
-      llvm::detail::IEEEFloat::operator=(v121, &v181);
+      llvm::detail::IEEEFloat::operator=(v163, &v238, v146, v147);
       goto LABEL_269;
     }
 
-    if (v120 != &v180)
+    if (v162 != &v237)
     {
-      if ((*(v122 + 8) - 64) <= 0xFFFFFF7F && *(v120 + 16))
+      if ((*(v164 + 8) - 64) <= 0xFFFFFF7F && *(v162 + 16))
       {
-        v124 = (v120 + 8);
-        operator delete[](*(v120 + 16));
-        v121 = v124;
+        v168 = (v162 + 8);
+        operator delete[](*(v162 + 16));
+        v163 = v168;
       }
 
 LABEL_267:
-      llvm::APFloat::Storage::Storage(v121, &v181);
+      llvm::APFloat::Storage::Storage(v163, &v238, v146, v147);
     }
   }
 
 LABEL_269:
-  v125 = llvm::APFloat::Storage::Storage(&v177, (v101 + 8));
-  if (v177 == &llvm::semPPCDoubleDouble)
+  v169 = llvm::APFloat::Storage::Storage(&v234, (v135 + 8), v146, v147);
+  if (v234 == &llvm::semPPCDoubleDouble)
   {
-    v126 = llvm::detail::DoubleAPFloat::addWithSpecial(v125, &v177, v29, &v177);
+    v174 = llvm::detail::DoubleAPFloat::addWithSpecial(v169, &v234, v37, &v234, a6);
   }
 
   else
   {
-    v126 = llvm::detail::IEEEFloat::addOrSubtractSpecials(&v177, v29, 0);
-    if (v126 == 2)
+    v174 = llvm::detail::IEEEFloat::addOrSubtractSpecials(&v234, v37, 0, v170);
+    if (v174 == 2)
     {
-      v127 = llvm::detail::IEEEFloat::addOrSubtractSignificand(&v177, v29, 0);
-      v126 = llvm::detail::IEEEFloat::normalize(&v177, a6, v127);
+      v175 = llvm::detail::IEEEFloat::addOrSubtractSignificand(&v234, v37, 0, v172, v173);
+      v174 = llvm::detail::IEEEFloat::normalize(&v234, a6, v175);
     }
 
-    v128 = v179;
-    if ((v179 & 7) == 3)
+    v176 = v236;
+    if ((v236 & 7) == 3)
     {
-      v129 = a5[28];
-      if ((v129 & 7) != 3 || ((v129 ^ v179) & 8) != 0)
+      v177 = a5[28];
+      if ((v177 & 7) != 3 || ((v177 ^ v236) & 8) != 0)
       {
-        v128 = v179 & 0xF3 | (8 * (a6 == 3));
-        v179 = v128;
+        v176 = v236 & 0xF3 | (8 * (a6 == 3));
+        v236 = v176;
       }
 
-      if (*(v177 + 20) == 2)
+      if (*(v234 + 20) == 2)
       {
-        v179 = v128 & 0xF7;
+        v236 = v176 & 0xF7;
       }
     }
   }
 
-  v130 = *(a1 + 8);
-  v131 = v130 + 32;
-  v132 = (v130 + 40);
-  v133 = *(v130 + 40);
-  if (!v27)
+  v178 = *(a1 + 8);
+  v179 = v178 + 32;
+  v180 = (v178 + 40);
+  v181 = *(v178 + 40);
+  if (!v35)
   {
-    v135 = *(a4 + 8);
-    if (v133 == &llvm::semPPCDoubleDouble)
+    v183 = *(a4 + 8);
+    if (v181 == &llvm::semPPCDoubleDouble)
     {
-      if (v135 == &llvm::semPPCDoubleDouble)
+      if (v183 == &llvm::semPPCDoubleDouble)
       {
-        llvm::detail::DoubleAPFloat::operator=(v132, (a4 + 8));
+        llvm::detail::DoubleAPFloat::operator=(v180, (a4 + 8), v171, v172);
         goto LABEL_326;
       }
 
-      if (v131 == a4)
+      if (v179 == a4)
       {
 LABEL_326:
-        v156 = *(a1 + 8);
-        v157 = (v156 + 40);
-        if (*(v156 + 40) == &llvm::semPPCDoubleDouble)
+        v208 = *(a1 + 8);
+        v209 = (v208 + 40);
+        if (*(v208 + 40) == &llvm::semPPCDoubleDouble)
         {
-          v162 = llvm::detail::DoubleAPFloat::changeSign(v157);
-          v159 = llvm::detail::DoubleAPFloat::addWithSpecial(v162, v157, &v181, v157);
-          v158 = llvm::detail::DoubleAPFloat::changeSign(v157);
+          v216 = llvm::detail::DoubleAPFloat::changeSign(v209);
+          v213 = llvm::detail::DoubleAPFloat::addWithSpecial(v216, v209, &v238, v209, a6);
+          v210 = llvm::detail::DoubleAPFloat::changeSign(v209);
         }
 
         else
         {
-          v158 = llvm::detail::IEEEFloat::addOrSubtractSpecials(v157, &v181, 1);
-          v159 = v158;
-          if (v158 == 2)
+          v210 = llvm::detail::IEEEFloat::addOrSubtractSpecials(v209, &v238, 1u, v172);
+          v213 = v210;
+          if (v210 == 2)
           {
-            v160 = llvm::detail::IEEEFloat::addOrSubtractSignificand(v157, &v181, 1);
-            v158 = llvm::detail::IEEEFloat::normalize(v157, a6, v160);
-            v159 = v158;
+            v214 = llvm::detail::IEEEFloat::addOrSubtractSignificand(v209, &v238, 1u, v211, v212);
+            v210 = llvm::detail::IEEEFloat::normalize(v209, a6, v214);
+            v213 = v210;
           }
 
-          v161 = *(v156 + 60);
-          if ((v161 & 7) == 3)
+          v215 = *(v208 + 60);
+          if ((v215 & 7) == 3)
           {
-            if ((v182 & 7) != 3 || ((v182 ^ v161) & 8) == 0)
+            if ((v239 & 7) != 3 || ((v239 ^ v215) & 8) == 0)
             {
-              LOBYTE(v161) = v161 & 0xF3 | (8 * (a6 == 3));
-              *(v156 + 60) = v161;
+              LOBYTE(v215) = v215 & 0xF3 | (8 * (a6 == 3));
+              *(v208 + 60) = v215;
             }
 
-            if (*(*v157 + 20) == 2)
+            if (*(*v209 + 20) == 2)
             {
-              *(v156 + 60) = v161 & 0xF7;
+              *(v208 + 60) = v215 & 0xF7;
             }
           }
         }
 
-        v163 = *(a1 + 8);
-        v164 = (v163 + 40);
-        if (*(v163 + 40) == &llvm::semPPCDoubleDouble)
+        v217 = *(a1 + 8);
+        v218 = (v217 + 40);
+        if (*(v217 + 40) == &llvm::semPPCDoubleDouble)
         {
-          v149 = llvm::detail::DoubleAPFloat::addWithSpecial(v158, v164, a2 + 8, v164);
+          v199 = llvm::detail::DoubleAPFloat::addWithSpecial(v210, v218, a2 + 8, v218, a6);
         }
 
         else
         {
-          v149 = llvm::detail::IEEEFloat::addOrSubtractSpecials(v164, (a2 + 8), 0);
-          if (v149 == 2)
+          v199 = llvm::detail::IEEEFloat::addOrSubtractSpecials(v218, (a2 + 8), 0, v211);
+          if (v199 == 2)
           {
-            v165 = llvm::detail::IEEEFloat::addOrSubtractSignificand(v164, (a2 + 8), 0);
-            v149 = llvm::detail::IEEEFloat::normalize(v164, a6, v165);
+            v220 = llvm::detail::IEEEFloat::addOrSubtractSignificand(v218, (a2 + 8), 0, v200, v219);
+            v199 = llvm::detail::IEEEFloat::normalize(v218, a6, v220);
           }
 
-          v166 = *(v163 + 60);
-          if ((v166 & 7) == 3)
+          v221 = *(v217 + 60);
+          if ((v221 & 7) == 3)
           {
-            v167 = *(a2 + 28);
-            if ((v167 & 7) != 3 || ((v167 ^ v166) & 8) != 0)
+            v222 = *(a2 + 28);
+            if ((v222 & 7) != 3 || ((v222 ^ v221) & 8) != 0)
             {
-              LOBYTE(v166) = v166 & 0xF3 | (8 * (a6 == 3));
-              *(v163 + 60) = v166;
+              LOBYTE(v221) = v221 & 0xF3 | (8 * (a6 == 3));
+              *(v217 + 60) = v221;
             }
 
-            if (*(*v164 + 20) == 2)
+            if (*(*v218 + 20) == 2)
             {
-              *(v163 + 60) = v166 & 0xF7;
+              *(v217 + 60) = v221 & 0xF7;
             }
           }
         }
 
-        v154 = v149 | v159;
-        v155 = *(a1 + 8);
+        v206 = v199 | v213;
+        v207 = *(a1 + 8);
         goto LABEL_347;
       }
 
-      llvm::detail::DoubleAPFloat::~DoubleAPFloat(v132);
+      llvm::detail::DoubleAPFloat::~DoubleAPFloat(v180);
     }
 
     else
     {
-      if (v135 != &llvm::semPPCDoubleDouble)
+      if (v183 != &llvm::semPPCDoubleDouble)
       {
-        llvm::detail::IEEEFloat::operator=(v132, (a4 + 8));
+        llvm::detail::IEEEFloat::operator=(v180, (a4 + 8), v171, v172);
         goto LABEL_326;
       }
 
-      if (v131 == a4)
+      if (v179 == a4)
       {
         goto LABEL_326;
       }
 
-      if ((*(v133 + 8) - 64) <= 0xFFFFFF7F)
+      if ((*(v181 + 8) - 64) <= 0xFFFFFF7F)
       {
-        v138 = *(v130 + 48);
-        if (v138)
+        v186 = *(v178 + 48);
+        if (v186)
         {
-          v139 = v132;
-          operator delete[](v138);
-          v132 = v139;
+          v187 = v180;
+          operator delete[](v186);
+          v180 = v187;
         }
       }
     }
 
-    llvm::APFloat::Storage::Storage(v132, (a4 + 8));
+    llvm::APFloat::Storage::Storage(v180, (a4 + 8), v171, v172);
     goto LABEL_326;
   }
 
-  v134 = *(a2 + 8);
-  if (v133 == &llvm::semPPCDoubleDouble)
+  v182 = *(a2 + 8);
+  if (v181 == &llvm::semPPCDoubleDouble)
   {
-    if (v134 != &llvm::semPPCDoubleDouble)
+    if (v182 != &llvm::semPPCDoubleDouble)
     {
-      if (v131 == a2)
+      if (v179 == a2)
       {
         goto LABEL_303;
       }
 
-      llvm::detail::DoubleAPFloat::~DoubleAPFloat(v132);
+      llvm::detail::DoubleAPFloat::~DoubleAPFloat(v180);
       goto LABEL_296;
     }
 
-    llvm::detail::DoubleAPFloat::operator=(v132, (a2 + 8));
+    llvm::detail::DoubleAPFloat::operator=(v180, (a2 + 8), v171, v172);
   }
 
   else
   {
-    if (v134 != &llvm::semPPCDoubleDouble)
+    if (v182 != &llvm::semPPCDoubleDouble)
     {
-      llvm::detail::IEEEFloat::operator=(v132, (a2 + 8));
+      llvm::detail::IEEEFloat::operator=(v180, (a2 + 8), v171, v172);
       goto LABEL_303;
     }
 
-    if (v131 != a2)
+    if (v179 != a2)
     {
-      if ((*(v133 + 8) - 64) <= 0xFFFFFF7F)
+      if ((*(v181 + 8) - 64) <= 0xFFFFFF7F)
       {
-        v136 = *(v130 + 48);
-        if (v136)
+        v184 = *(v178 + 48);
+        if (v184)
         {
-          v137 = v132;
-          operator delete[](v136);
-          v132 = v137;
+          v185 = v180;
+          operator delete[](v184);
+          v180 = v185;
         }
       }
 
 LABEL_296:
-      llvm::APFloat::Storage::Storage(v132, (a2 + 8));
+      llvm::APFloat::Storage::Storage(v180, (a2 + 8), v171, v172);
     }
   }
 
 LABEL_303:
-  v140 = *(a1 + 8);
-  v141 = (v140 + 40);
-  if (*(v140 + 40) == &llvm::semPPCDoubleDouble)
+  v188 = *(a1 + 8);
+  v189 = (v188 + 40);
+  if (*(v188 + 40) == &llvm::semPPCDoubleDouble)
   {
-    v146 = llvm::detail::DoubleAPFloat::changeSign(v141);
-    v143 = llvm::detail::DoubleAPFloat::addWithSpecial(v146, v141, &v181, v141);
-    v142 = llvm::detail::DoubleAPFloat::changeSign(v141);
+    v196 = llvm::detail::DoubleAPFloat::changeSign(v189);
+    v193 = llvm::detail::DoubleAPFloat::addWithSpecial(v196, v189, &v238, v189, a6);
+    v190 = llvm::detail::DoubleAPFloat::changeSign(v189);
   }
 
   else
   {
-    v142 = llvm::detail::IEEEFloat::addOrSubtractSpecials(v141, &v181, 1);
-    v143 = v142;
-    if (v142 == 2)
+    v190 = llvm::detail::IEEEFloat::addOrSubtractSpecials(v189, &v238, 1u, v172);
+    v193 = v190;
+    if (v190 == 2)
     {
-      v144 = llvm::detail::IEEEFloat::addOrSubtractSignificand(v141, &v181, 1);
-      v142 = llvm::detail::IEEEFloat::normalize(v141, a6, v144);
-      v143 = v142;
+      v194 = llvm::detail::IEEEFloat::addOrSubtractSignificand(v189, &v238, 1u, v191, v192);
+      v190 = llvm::detail::IEEEFloat::normalize(v189, a6, v194);
+      v193 = v190;
     }
 
-    v145 = *(v140 + 60);
-    if ((v145 & 7) == 3)
+    v195 = *(v188 + 60);
+    if ((v195 & 7) == 3)
     {
-      if ((v182 & 7) != 3 || ((v182 ^ v145) & 8) == 0)
+      if ((v239 & 7) != 3 || ((v239 ^ v195) & 8) == 0)
       {
-        LOBYTE(v145) = v145 & 0xF3 | (8 * (a6 == 3));
-        *(v140 + 60) = v145;
+        LOBYTE(v195) = v195 & 0xF3 | (8 * (a6 == 3));
+        *(v188 + 60) = v195;
       }
 
-      if (*(*v141 + 20) == 2)
+      if (*(*v189 + 20) == 2)
       {
-        *(v140 + 60) = v145 & 0xF7;
+        *(v188 + 60) = v195 & 0xF7;
       }
     }
   }
 
-  v147 = *(a1 + 8);
-  v148 = (v147 + 40);
-  if (*(v147 + 40) == &llvm::semPPCDoubleDouble)
+  v197 = *(a1 + 8);
+  v198 = (v197 + 40);
+  if (*(v197 + 40) == &llvm::semPPCDoubleDouble)
   {
-    v149 = llvm::detail::DoubleAPFloat::addWithSpecial(v142, v148, a4 + 8, v148);
+    v199 = llvm::detail::DoubleAPFloat::addWithSpecial(v190, v198, a4 + 8, v198, a6);
   }
 
   else
   {
-    v149 = llvm::detail::IEEEFloat::addOrSubtractSpecials(v148, (a4 + 8), 0);
-    if (v149 == 2)
+    v199 = llvm::detail::IEEEFloat::addOrSubtractSpecials(v198, (a4 + 8), 0, v191);
+    if (v199 == 2)
     {
-      v150 = llvm::detail::IEEEFloat::addOrSubtractSignificand(v148, (a4 + 8), 0);
-      v149 = llvm::detail::IEEEFloat::normalize(v148, a6, v150);
+      v202 = llvm::detail::IEEEFloat::addOrSubtractSignificand(v198, (a4 + 8), 0, v200, v201);
+      v199 = llvm::detail::IEEEFloat::normalize(v198, a6, v202);
     }
 
-    v151 = *(v147 + 60);
-    if ((v151 & 7) == 3)
+    v203 = *(v197 + 60);
+    if ((v203 & 7) == 3)
     {
-      v152 = *(a4 + 28);
-      if ((v152 & 7) != 3 || ((v152 ^ v151) & 8) != 0)
+      v204 = *(a4 + 28);
+      if ((v204 & 7) != 3 || ((v204 ^ v203) & 8) != 0)
       {
-        LOBYTE(v151) = v151 & 0xF3 | (8 * (a6 == 3));
-        *(v147 + 60) = v151;
+        LOBYTE(v203) = v203 & 0xF3 | (8 * (a6 == 3));
+        *(v197 + 60) = v203;
       }
 
-      v153 = a1;
-      if (*(*v148 + 20) == 2)
+      v205 = a1;
+      if (*(*v198 + 20) == 2)
       {
-        *(v147 + 60) = v151 & 0xF7;
+        *(v197 + 60) = v203 & 0xF7;
       }
 
       goto LABEL_324;
     }
   }
 
-  v153 = a1;
+  v205 = a1;
 LABEL_324:
-  v154 = v149 | v143;
-  v155 = *(v153 + 8);
+  v206 = v199 | v193;
+  v207 = *(v205 + 8);
 LABEL_347:
-  if (*(v155 + 40) == &llvm::semPPCDoubleDouble)
+  if (*(v207 + 40) == &llvm::semPPCDoubleDouble)
   {
-    v168 = llvm::detail::DoubleAPFloat::addWithSpecial(v149, v155 + 40, &v177, (v155 + 40));
+    v223 = llvm::detail::DoubleAPFloat::addWithSpecial(v199, (v207 + 40), &v234, (v207 + 40), a6);
   }
 
   else
   {
-    v168 = llvm::detail::IEEEFloat::addOrSubtractSpecials((v155 + 40), &v177, 0);
-    if (v168 == 2)
+    v223 = llvm::detail::IEEEFloat::addOrSubtractSpecials((v207 + 40), &v234, 0, v200);
+    if (v223 == 2)
     {
-      v169 = llvm::detail::IEEEFloat::addOrSubtractSignificand((v155 + 40), &v177, 0);
-      v168 = llvm::detail::IEEEFloat::normalize(v155 + 40, a6, v169);
+      v226 = llvm::detail::IEEEFloat::addOrSubtractSignificand((v207 + 40), &v234, 0, v224, v225);
+      v223 = llvm::detail::IEEEFloat::normalize(v207 + 40, a6, v226);
     }
 
-    v170 = *(v155 + 60);
-    if ((v170 & 7) == 3)
+    v227 = *(v207 + 60);
+    if ((v227 & 7) == 3)
     {
-      if ((v179 & 7) != 3 || ((v179 ^ v170) & 8) != 0)
+      if ((v236 & 7) != 3 || ((v236 ^ v227) & 8) != 0)
       {
-        LOBYTE(v170) = v170 & 0xF3 | (8 * (a6 == 3));
-        *(v155 + 60) = v170;
+        LOBYTE(v227) = v227 & 0xF3 | (8 * (a6 == 3));
+        *(v207 + 60) = v227;
       }
 
-      if (*(*(v155 + 40) + 20) == 2)
+      if (*(*(v207 + 40) + 20) == 2)
       {
-        *(v155 + 60) = v170 & 0xF7;
+        *(v207 + 60) = v227 & 0xF7;
       }
     }
   }
 
-  v65 = v126 | v11 | v154 | v168;
-  if (v177 == &llvm::semPPCDoubleDouble)
+  v87 = v174 | v15 | v206 | v223;
+  if (v234 == &llvm::semPPCDoubleDouble)
   {
-    llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v177);
+    llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v234);
   }
 
-  else if ((*(v177 + 8) - 64) <= 0xFFFFFF7F && v178)
+  else if ((*(v234 + 8) - 64) <= 0xFFFFFF7F && v235)
   {
-    operator delete[](v178);
+    operator delete[](v235);
   }
 
 LABEL_181:
-  v11 = v65;
+  v15 = v87;
 LABEL_182:
-  v95 = v181.n128_u64[0];
-  if (v181.n128_u64[0] == &llvm::semPPCDoubleDouble)
+  v127 = v238.n128_u64[0];
+  if (v238.n128_u64[0] == &llvm::semPPCDoubleDouble)
   {
     goto LABEL_252;
   }
 
 LABEL_183:
-  if ((*(v95 + 8) - 64) <= 0xFFFFFF7F && v181.n128_u64[1])
+  if ((*(v127 + 8) - 64) <= 0xFFFFFF7F && v238.n128_u64[1])
   {
-    operator delete[](v181.n128_u64[1]);
+    operator delete[](v238.n128_u64[1]);
   }
 
-  return v11;
+  return v15;
 }
 
-uint64_t llvm::APFloat::add(llvm::detail::IEEEFloat *this, uint64_t a2, int a3)
+uint64_t llvm::APFloat::add(llvm::detail::IEEEFloat *this, uint64_t a2, uint64_t a3, unsigned int a4)
 {
-  v5 = (this + 8);
+  v6 = (this + 8);
   if (*(this + 1) == &llvm::semPPCDoubleDouble)
   {
 
@@ -5298,26 +5298,26 @@ uint64_t llvm::APFloat::add(llvm::detail::IEEEFloat *this, uint64_t a2, int a3)
 
   else
   {
-    result = llvm::detail::IEEEFloat::addOrSubtractSpecials((this + 8), (a2 + 8), 0);
+    result = llvm::detail::IEEEFloat::addOrSubtractSpecials((this + 8), (a2 + 8), 0, a4);
     if (result == 2)
     {
-      v8 = llvm::detail::IEEEFloat::addOrSubtractSignificand(v5, (a2 + 8), 0);
-      result = llvm::detail::IEEEFloat::normalize(v5, a3, v8);
+      v11 = llvm::detail::IEEEFloat::addOrSubtractSignificand(v6, (a2 + 8), 0, v9, v10);
+      result = llvm::detail::IEEEFloat::normalize(v6, a3, v11);
     }
 
-    v9 = *(this + 28);
-    if ((v9 & 7) == 3)
+    v12 = *(this + 28);
+    if ((v12 & 7) == 3)
     {
-      v10 = *(a2 + 28);
-      if ((v10 & 7) != 3 || ((v10 ^ v9) & 8) != 0)
+      v13 = *(a2 + 28);
+      if ((v13 & 7) != 3 || ((v13 ^ v12) & 8) != 0)
       {
-        LOBYTE(v9) = v9 & 0xF3 | (8 * (a3 == 3));
-        *(this + 28) = v9;
+        LOBYTE(v12) = v12 & 0xF3 | (8 * (a3 == 3));
+        *(this + 28) = v12;
       }
 
-      if (*(*v5 + 20) == 2)
+      if (*(*v6 + 20) == 2)
       {
-        *(this + 28) = v9 & 0xF7;
+        *(this + 28) = v12 & 0xF7;
       }
     }
   }
@@ -5325,91 +5325,91 @@ uint64_t llvm::APFloat::add(llvm::detail::IEEEFloat *this, uint64_t a2, int a3)
   return result;
 }
 
-void llvm::APFloat::makeZero(llvm::APFloat *this, _BOOL4 a2)
+void llvm::APFloat::makeZero(llvm::APFloat *this, _BOOL4 a2, uint64_t a3, unsigned int a4)
 {
   i = *(this + 1);
   if (i == &llvm::semPPCDoubleDouble)
   {
-    v5 = this;
-    llvm::APFloat::makeZero(*(this + 2), a2);
-    v6 = *(v5 + 2);
-    for (i = *(v6 + 40); i == &llvm::semPPCDoubleDouble; i = *(v6 + 40))
+    v7 = this;
+    llvm::APFloat::makeZero(*(this + 2), a2, a3, a4);
+    v10 = *(v7 + 2);
+    for (i = *(v10 + 40); i == &llvm::semPPCDoubleDouble; i = *(v10 + 40))
     {
-      llvm::APFloat::makeZero(*(v6 + 48), 0);
-      v6 = *(v6 + 48);
+      llvm::APFloat::makeZero(*(v10 + 48), 0, v8, v9);
+      v10 = *(v10 + 48);
     }
 
-    v4 = 0;
-    this = (v6 + 32);
-    v3 = (v6 + 60);
+    v6 = 0;
+    this = (v10 + 32);
+    v5 = (v10 + 60);
   }
 
   else
   {
-    v3 = this + 28;
+    v5 = this + 28;
     if (a2)
     {
-      v4 = 8;
+      v6 = 8;
     }
 
     else
     {
-      v4 = 0;
+      v6 = 0;
     }
   }
 
-  v7 = *v3 & 0xF0;
-  *v3 = v7 | v4 | 3;
+  v11 = *v5 & 0xF0;
+  *v5 = v11 | v6 | 3;
   if (*(i + 20) == 2)
   {
-    *v3 = v7 | 3;
+    *v5 = v11 | 3;
   }
 
-  v9 = *(i + 4);
-  v8 = *(i + 8);
-  *(this + 6) = v9 - 1;
-  v10 = (this + 16);
-  if ((v8 - 64) <= 0xFFFFFF7F)
+  v13 = *(i + 4);
+  v12 = *(i + 8);
+  *(this + 6) = v13 - 1;
+  v14 = (this + 16);
+  if ((v12 - 64) <= 0xFFFFFF7F)
   {
-    v10 = *v10;
+    v14 = *v14;
   }
 
-  llvm::APInt::tcSet(v10, 0, (v8 + 64) >> 6);
+  llvm::APInt::tcSet(v14, 0, (v12 + 64) >> 6);
 }
 
-uint64_t llvm::APFloat::subtract(llvm::detail::IEEEFloat *this, uint64_t a2, int a3)
+uint64_t llvm::APFloat::subtract(llvm::detail::IEEEFloat *this, uint64_t a2, uint64_t a3, unsigned int a4)
 {
-  v5 = (this + 8);
+  v6 = (this + 8);
   if (*(this + 1) == &llvm::semPPCDoubleDouble)
   {
-    v11 = llvm::detail::DoubleAPFloat::changeSign((this + 8));
-    v12 = llvm::detail::DoubleAPFloat::addWithSpecial(v11, v5, (a2 + 8), v5, a3);
-    llvm::detail::DoubleAPFloat::changeSign(v5);
-    return v12;
+    v14 = llvm::detail::DoubleAPFloat::changeSign((this + 8));
+    v15 = llvm::detail::DoubleAPFloat::addWithSpecial(v14, v6, (a2 + 8), v6, a3);
+    llvm::detail::DoubleAPFloat::changeSign(v6);
+    return v15;
   }
 
   else
   {
-    result = llvm::detail::IEEEFloat::addOrSubtractSpecials((this + 8), (a2 + 8), 1);
+    result = llvm::detail::IEEEFloat::addOrSubtractSpecials((this + 8), (a2 + 8), 1u, a4);
     if (result == 2)
     {
-      v8 = llvm::detail::IEEEFloat::addOrSubtractSignificand(v5, (a2 + 8), 1);
-      result = llvm::detail::IEEEFloat::normalize(v5, a3, v8);
+      v11 = llvm::detail::IEEEFloat::addOrSubtractSignificand(v6, (a2 + 8), 1u, v9, v10);
+      result = llvm::detail::IEEEFloat::normalize(v6, a3, v11);
     }
 
-    v9 = *(this + 28);
-    if ((v9 & 7) == 3)
+    v12 = *(this + 28);
+    if ((v12 & 7) == 3)
     {
-      v10 = *(a2 + 28);
-      if ((v10 & 7) != 3 || ((v10 ^ v9) & 8) == 0)
+      v13 = *(a2 + 28);
+      if ((v13 & 7) != 3 || ((v13 ^ v12) & 8) == 0)
       {
-        LOBYTE(v9) = v9 & 0xF3 | (8 * (a3 == 3));
-        *(this + 28) = v9;
+        LOBYTE(v12) = v12 & 0xF3 | (8 * (a3 == 3));
+        *(this + 28) = v12;
       }
 
-      if (*(*v5 + 20) == 2)
+      if (*(*v6 + 20) == 2)
       {
-        *(this + 28) = v9 & 0xF7;
+        *(this + 28) = v12 & 0xF7;
       }
     }
   }
@@ -5434,9 +5434,9 @@ llvm::detail::DoubleAPFloat *llvm::APFloat::changeSign(llvm::detail::DoubleAPFlo
   return this;
 }
 
-uint64_t llvm::detail::DoubleAPFloat::addWithSpecial(int a1, llvm::APFloat::Storage *a2, llvm::APFloat::Storage *a3, llvm::detail::DoubleAPFloat *this, int a5)
+uint64_t llvm::detail::DoubleAPFloat::addWithSpecial(int a1, llvm::APFloat::Storage *a2, llvm::APFloat::Storage *a3, llvm::detail::DoubleAPFloat *this, uint64_t a5)
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   v5 = *(a2 + 1);
   v6 = (v5 + 8);
   v7 = *(v5 + 8);
@@ -5489,9 +5489,9 @@ uint64_t llvm::detail::DoubleAPFloat::addWithSpecial(int a1, llvm::APFloat::Stor
     }
 
 LABEL_41:
-    v21 = this;
+    v27 = this;
 LABEL_43:
-    llvm::detail::DoubleAPFloat::operator=(v21, a2);
+    llvm::detail::DoubleAPFloat::operator=(v27, a2, a3, this);
     return 0;
   }
 
@@ -5581,45 +5581,25 @@ LABEL_31:
   if ((*(v8 + 28) & 7) == 0)
   {
 LABEL_42:
-    v21 = this;
+    v27 = this;
     a2 = a3;
     goto LABEL_43;
   }
 
   v17 = a2;
-  llvm::APFloat::Storage::Storage(&v32, v6);
-  llvm::APFloat::Storage::Storage(&v29, (*(v17 + 1) + 40));
-  llvm::APFloat::Storage::Storage(&v26, (*(a3 + 1) + 8));
-  llvm::APFloat::Storage::Storage(&v23, (*(a3 + 1) + 40));
-  v20 = llvm::detail::DoubleAPFloat::addImpl(this, v31, v28, v25, v22, a5);
-  if (v23 == &llvm::semPPCDoubleDouble)
-  {
-    llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v23);
-  }
-
-  else if ((*(v23 + 8) - 64) <= 0xFFFFFF7F && __p)
-  {
-    operator delete[](__p);
-  }
-
-  if (v26 == &llvm::semPPCDoubleDouble)
-  {
-    llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v26);
-  }
-
-  else if ((*(v26 + 8) - 64) <= 0xFFFFFF7F && v27)
-  {
-    operator delete[](v27);
-  }
-
+  llvm::APFloat::Storage::Storage(&v38, v6, a3, this);
+  llvm::APFloat::Storage::Storage(&v35, (*(v17 + 1) + 40), v20, v21);
+  llvm::APFloat::Storage::Storage(&v32, (*(a3 + 1) + 8), v22, v23);
+  llvm::APFloat::Storage::Storage(&v29, (*(a3 + 1) + 40), v24, v25);
+  v26 = llvm::detail::DoubleAPFloat::addImpl(this, v37, v34, v31, v28, a5);
   if (v29 == &llvm::semPPCDoubleDouble)
   {
     llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v29);
   }
 
-  else if ((*(v29 + 8) - 64) <= 0xFFFFFF7F && v30)
+  else if ((*(v29 + 8) - 64) <= 0xFFFFFF7F && __p)
   {
-    operator delete[](v30);
+    operator delete[](__p);
   }
 
   if (v32 == &llvm::semPPCDoubleDouble)
@@ -5632,7 +5612,27 @@ LABEL_42:
     operator delete[](v33);
   }
 
-  return v20;
+  if (v35 == &llvm::semPPCDoubleDouble)
+  {
+    llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v35);
+  }
+
+  else if ((*(v35 + 8) - 64) <= 0xFFFFFF7F && v36)
+  {
+    operator delete[](v36);
+  }
+
+  if (v38 == &llvm::semPPCDoubleDouble)
+  {
+    llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v38);
+  }
+
+  else if ((*(v38 + 8) - 64) <= 0xFFFFFF7F && v39)
+  {
+    operator delete[](v39);
+  }
+
+  return v26;
 }
 
 void llvm::detail::DoubleAPFloat::makeNaN(llvm::detail::DoubleAPFloat *this, char a2, char a3, const llvm::APInt *a4)
@@ -5650,12 +5650,12 @@ void llvm::detail::DoubleAPFloat::makeNaN(llvm::detail::DoubleAPFloat *this, cha
     llvm::detail::IEEEFloat::makeNaN(v6, a2, a3, a4);
   }
 
-  v8 = (*(this + 1) + 32);
+  v10 = (*(this + 1) + 32);
 
-  llvm::APFloat::makeZero(v8, 0);
+  llvm::APFloat::makeZero(v10, 0, v8, v9);
 }
 
-uint64_t llvm::detail::DoubleAPFloat::subtract(llvm::detail::DoubleAPFloat *a1, llvm::APFloat::Storage *a2, int a3)
+uint64_t llvm::detail::DoubleAPFloat::subtract(llvm::detail::DoubleAPFloat *a1, llvm::APFloat::Storage *a2, uint64_t a3)
 {
   v6 = llvm::detail::DoubleAPFloat::changeSign(a1);
   v7 = llvm::detail::DoubleAPFloat::addWithSpecial(v6, a1, a2, a1, a3);
@@ -5701,87 +5701,87 @@ llvm::detail::DoubleAPFloat *llvm::detail::DoubleAPFloat::changeSign(llvm::detai
   return result;
 }
 
-uint64_t llvm::detail::DoubleAPFloat::multiply(uint64_t *a1, uint64_t *a2, unsigned int a3)
+uint64_t llvm::detail::DoubleAPFloat::multiply(llvm::detail::DoubleAPFloat *a1, llvm::APFloat::Storage *a2, uint64_t a3, unsigned int a4)
 {
-  v44[3] = *MEMORY[0x1E69E9840];
-  v3 = a1[1];
-  v4 = (v3 + 8);
-  v5 = *(v3 + 8);
-  if (v5 == &llvm::semPPCDoubleDouble)
+  v78[3] = *MEMORY[0x1E69E9840];
+  v4 = *(a1 + 1);
+  v5 = (v4 + 8);
+  v6 = *(v4 + 8);
+  if (v6 == &llvm::semPPCDoubleDouble)
   {
-    if ((*(*(v3 + 16) + 28) & 7) == 1)
+    if ((*(*(v4 + 16) + 28) & 7) == 1)
     {
       goto LABEL_35;
     }
   }
 
-  else if ((*(a1[1] + 28) & 7) == 1)
+  else if ((*(*(a1 + 1) + 28) & 7) == 1)
   {
     goto LABEL_35;
   }
 
-  v6 = a2[1];
-  v7 = *(v6 + 8);
-  if (v7 == &llvm::semPPCDoubleDouble)
+  v7 = *(a2 + 1);
+  v8 = *(v7 + 8);
+  if (v8 == &llvm::semPPCDoubleDouble)
   {
-    if ((*(*(v6 + 16) + 28) & 7) == 1)
+    if ((*(*(v7 + 16) + 28) & 7) == 1)
     {
 LABEL_36:
-      llvm::detail::DoubleAPFloat::operator=(a1, a2);
+      llvm::detail::DoubleAPFloat::operator=(a1, a2, a3, a4);
       return 0;
     }
   }
 
-  else if ((*(a2[1] + 28) & 7) == 1)
+  else if ((*(*(a2 + 1) + 28) & 7) == 1)
   {
     goto LABEL_36;
   }
 
-  if (v5 == &llvm::semPPCDoubleDouble)
+  if (v6 == &llvm::semPPCDoubleDouble)
   {
-    if ((*(*(v3 + 16) + 28) & 7) != 3)
+    if ((*(*(v4 + 16) + 28) & 7) != 3)
     {
       goto LABEL_16;
     }
   }
 
-  else if ((*(v3 + 28) & 7) != 3)
+  else if ((*(v4 + 28) & 7) != 3)
   {
     goto LABEL_16;
   }
 
-  v8 = a2[1];
-  if (v7 == &llvm::semPPCDoubleDouble)
+  v9 = *(a2 + 1);
+  if (v8 == &llvm::semPPCDoubleDouble)
   {
-    v8 = *(v6 + 16);
+    v9 = *(v7 + 16);
   }
 
-  if ((*(v8 + 28) & 7) == 0)
+  if ((*(v9 + 28) & 7) == 0)
   {
     goto LABEL_23;
   }
 
 LABEL_16:
-  if (v5 == &llvm::semPPCDoubleDouble)
+  if (v6 == &llvm::semPPCDoubleDouble)
   {
-    if ((*(*(v3 + 16) + 28) & 7) != 0)
+    if ((*(*(v4 + 16) + 28) & 7) != 0)
     {
       goto LABEL_24;
     }
   }
 
-  else if ((*(v3 + 28) & 7) != 0)
+  else if ((*(v4 + 28) & 7) != 0)
   {
     goto LABEL_24;
   }
 
-  v9 = a2[1];
-  if (v7 == &llvm::semPPCDoubleDouble)
+  v10 = *(a2 + 1);
+  if (v8 == &llvm::semPPCDoubleDouble)
   {
-    v9 = *(v6 + 16);
+    v10 = *(v7 + 16);
   }
 
-  if ((*(v9 + 28) & 7) == 3)
+  if ((*(v10 + 28) & 7) == 3)
   {
 LABEL_23:
     llvm::detail::DoubleAPFloat::makeNaN(a1, 0, 0, 0);
@@ -5789,10 +5789,10 @@ LABEL_23:
   }
 
 LABEL_24:
-  if (v5 == &llvm::semPPCDoubleDouble)
+  if (v6 == &llvm::semPPCDoubleDouble)
   {
-    v10 = *(*(v3 + 16) + 28) & 7;
-    if (v10 != 3)
+    v11 = *(*(v4 + 16) + 28) & 7;
+    if (v11 != 3)
     {
       goto LABEL_28;
     }
@@ -5802,134 +5802,134 @@ LABEL_35:
     goto LABEL_36;
   }
 
-  v10 = *(v3 + 28) & 7;
-  if (v10 == 3)
+  v11 = *(v4 + 28) & 7;
+  if (v11 == 3)
   {
     goto LABEL_35;
   }
 
 LABEL_28:
-  if (!v10)
+  if (!v11)
   {
     goto LABEL_35;
   }
 
-  if (v7 == &llvm::semPPCDoubleDouble)
+  if (v8 == &llvm::semPPCDoubleDouble)
   {
-    v6 = *(v6 + 16);
+    v7 = *(v7 + 16);
   }
 
-  v11 = *(v6 + 28) & 7;
-  if (v11 == 3 || !v11)
+  v12 = *(v7 + 28) & 7;
+  if (v12 == 3 || !v12)
   {
     goto LABEL_36;
   }
 
-  v13 = a2;
-  llvm::APFloat::Storage::Storage(v44, v4);
-  v15 = a1;
-  llvm::APFloat::Storage::Storage(v42, (a1[1] + 40));
-  llvm::APFloat::Storage::Storage(&v40, (v13[1] + 8));
-  llvm::APFloat::Storage::Storage(&v38, (v13[1] + 40));
-  llvm::APFloat::Storage::Storage(v35, v44);
-  v26 = a3;
-  v16 = llvm::APFloat::multiply(v34, v39, a3);
-  if (v35[0] == &llvm::semPPCDoubleDouble)
+  v14 = a2;
+  llvm::APFloat::Storage::Storage(v78, v5, a3, a4);
+  v16 = a1;
+  llvm::APFloat::Storage::Storage(v76, (*(a1 + 1) + 40), v17, v18);
+  llvm::APFloat::Storage::Storage(&v74, (*(v14 + 1) + 8), v19, v20);
+  llvm::APFloat::Storage::Storage(&v72, (*(v14 + 1) + 40), v21, v22);
+  llvm::APFloat::Storage::Storage(v69, v78, v23, v24);
+  v60 = a3;
+  v28 = llvm::APFloat::multiply(v68, v73, a3, v25);
+  if (v69[0] == &llvm::semPPCDoubleDouble)
   {
-    v17 = *(v35[1] + 28);
+    v29 = *(v69[1] + 28);
   }
 
   else
   {
-    v17 = v36;
+    v29 = v70;
   }
 
-  if ((v17 & 6) != 0 && (v17 & 7) != 3)
+  if ((v29 & 6) != 0 && (v29 & 7) != 3)
   {
-    llvm::APFloat::Storage::Storage(&v33, v44);
-    llvm::APFloat::changeSign(v34);
-    v19 = llvm::APFloat::fusedMultiplyAdd(v32, v39, v34, a3);
-    llvm::APFloat::changeSign(v34);
-    llvm::APFloat::Storage::Storage(v30, v44);
-    v20 = llvm::APFloat::multiply(v29, v37, v26);
-    llvm::APFloat::Storage::Storage(&v28, v42);
-    v21 = llvm::APFloat::multiply(v27, v39, v26);
-    v22 = llvm::APFloat::add(v29, v27, v26);
-    v23 = llvm::APFloat::add(v32, v29, v26);
-    llvm::APFloat::~APFloat(v27);
-    llvm::APFloat::~APFloat(v29);
-    llvm::APFloat::Storage::Storage(v30, v35);
-    v16 = v19 | v20 | v21 | v22 | v23 | llvm::APFloat::add(v29, v32, v26) | v16;
-    llvm::APFloat::operator=(a1[1], v29);
-    if (v30[0] == &llvm::semPPCDoubleDouble)
+    llvm::APFloat::Storage::Storage(&v67, v78, v26, v27);
+    llvm::APFloat::changeSign(v68);
+    v35 = llvm::APFloat::fusedMultiplyAdd(v66, v73, v68, a3, v33, v34);
+    llvm::APFloat::changeSign(v68);
+    llvm::APFloat::Storage::Storage(v64, v78, v36, v37);
+    v39 = llvm::APFloat::multiply(v63, v71, v60, v38);
+    llvm::APFloat::Storage::Storage(&v62, v76, v40, v41);
+    v43 = llvm::APFloat::multiply(v61, v73, v60, v42);
+    v45 = llvm::APFloat::add(v63, v61, v60, v44);
+    v47 = llvm::APFloat::add(v66, v63, v60, v46);
+    llvm::APFloat::~APFloat(v61);
+    llvm::APFloat::~APFloat(v63);
+    llvm::APFloat::Storage::Storage(v64, v69, v48, v49);
+    v28 = v35 | v39 | v43 | v45 | v47 | llvm::APFloat::add(v63, v66, v60, v50) | v28;
+    llvm::APFloat::operator=(*(a1 + 1), v63, v51, v52);
+    if (v64[0] == &llvm::semPPCDoubleDouble)
     {
-      v24 = *(v30[1] + 28);
+      v55 = *(v64[1] + 28);
     }
 
     else
     {
-      v24 = v31;
+      v55 = v65;
     }
 
-    if ((v24 & 7u) < 2)
+    if ((v55 & 7u) < 2)
     {
-      llvm::APFloat::makeZero((a1[1] + 32), 0);
+      llvm::APFloat::makeZero((*(a1 + 1) + 32), 0, v53, v54);
     }
 
     else
     {
-      v25 = llvm::APFloat::subtract(v34, v29, v26);
-      v16 = v25 | llvm::APFloat::add(v34, v32, v26) | v16;
-      llvm::APFloat::operator=(v15[1] + 32, v34);
+      v56 = llvm::APFloat::subtract(v68, v63, v60, v54);
+      v28 = v56 | llvm::APFloat::add(v68, v66, v60, v57) | v28;
+      llvm::APFloat::operator=(*(v16 + 1) + 32, v68, v58, v59);
     }
 
-    llvm::APFloat::~APFloat(v29);
-    llvm::APFloat::~APFloat(v32);
+    llvm::APFloat::~APFloat(v63);
+    llvm::APFloat::~APFloat(v66);
   }
 
   else
   {
-    llvm::APFloat::operator=(a1[1], v34);
-    llvm::APFloat::makeZero((a1[1] + 32), 0);
+    llvm::APFloat::operator=(*(a1 + 1), v68, v26, v27);
+    llvm::APFloat::makeZero((*(a1 + 1) + 32), 0, v31, v32);
   }
 
-  llvm::APFloat::~APFloat(v34);
-  llvm::APFloat::~APFloat(v37);
-  llvm::APFloat::~APFloat(v39);
-  llvm::APFloat::~APFloat(v41);
-  llvm::APFloat::~APFloat(v43);
-  return v16;
+  llvm::APFloat::~APFloat(v68);
+  llvm::APFloat::~APFloat(v71);
+  llvm::APFloat::~APFloat(v73);
+  llvm::APFloat::~APFloat(v75);
+  llvm::APFloat::~APFloat(v77);
+  return v28;
 }
 
-uint64_t llvm::APFloat::multiply(llvm::detail::IEEEFloat *this, uint64_t a2, int a3)
+uint64_t llvm::APFloat::multiply(llvm::detail::IEEEFloat *this, uint64_t a2, uint64_t a3, unsigned int a4)
 {
-  v4 = (this + 8);
+  v5 = (this + 8);
   if (*(this + 1) == &llvm::semPPCDoubleDouble)
   {
-    v9 = a2 + 8;
-    v10 = this + 8;
+    v12 = (a2 + 8);
+    v13 = (this + 8);
 
-    return llvm::detail::DoubleAPFloat::multiply(v10, v9);
+    return llvm::detail::DoubleAPFloat::multiply(v13, v12, a3, a4);
   }
 
   else
   {
     *(this + 28) ^= *(a2 + 28) & 8;
-    result = llvm::detail::IEEEFloat::multiplySpecials((this + 8), (a2 + 8));
-    v8 = *(this + 28);
-    if ((v8 & 7) == 3)
+    result = llvm::detail::IEEEFloat::multiplySpecials((this + 8), (a2 + 8), a3, a4);
+    v11 = *(this + 28);
+    if ((v11 & 7) == 3)
     {
-      if (*(*v4 + 5) == 2)
+      if (*(*v5 + 5) == 2)
       {
-        *(this + 28) = v8 & 0xF3;
+        *(this + 28) = v11 & 0xF3;
       }
     }
 
     else if ((*(this + 28) & 6) != 0)
     {
-      v11 = llvm::detail::IEEEFloat::multiplySignificand(v4, (a2 + 8));
-      LODWORD(result) = llvm::detail::IEEEFloat::normalize(v4, a3, v11);
-      if (v11)
+      v14 = llvm::detail::IEEEFloat::multiplySignificand(v5, (a2 + 8), v9, v10);
+      LODWORD(result) = llvm::detail::IEEEFloat::normalize(v5, a3, v14);
+      if (v14)
       {
         return result | 0x10;
       }
@@ -5944,478 +5944,478 @@ uint64_t llvm::APFloat::multiply(llvm::detail::IEEEFloat *this, uint64_t a2, int
   return result;
 }
 
-uint64_t llvm::APFloat::fusedMultiplyAdd(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t llvm::APFloat::fusedMultiplyAdd(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unsigned int a6)
 {
-  v5 = *(a1 + 8);
-  v4 = (a1 + 8);
-  v6 = (a2 + 8);
-  v7 = (a3 + 8);
-  if (v5 == &llvm::semPPCDoubleDouble)
+  v7 = *(a1 + 8);
+  v6 = (a1 + 8);
+  v8 = (a2 + 8);
+  v9 = (a3 + 8);
+  if (v7 == &llvm::semPPCDoubleDouble)
   {
-    return llvm::detail::DoubleAPFloat::fusedMultiplyAdd(v4, v6, v7, a4);
+    return llvm::detail::DoubleAPFloat::fusedMultiplyAdd(v6, v8, v9, a4);
   }
 
   else
   {
-    return llvm::detail::IEEEFloat::fusedMultiplyAdd(v4, v6, v7, a4);
+    return llvm::detail::IEEEFloat::fusedMultiplyAdd(v6, v8, v9, a4, a5, a6);
   }
 }
 
-uint64_t llvm::detail::DoubleAPFloat::divide(llvm::detail::DoubleAPFloat *a1, llvm::detail::DoubleAPFloat *a2, uint64_t a3)
+uint64_t llvm::detail::DoubleAPFloat::divide(llvm::detail::DoubleAPFloat *a1, llvm::detail::DoubleAPFloat *a2, uint64_t a3, unsigned int a4)
 {
-  v29 = *MEMORY[0x1E69E9840];
-  llvm::detail::DoubleAPFloat::bitcastToAPInt(a1, &__p);
-  llvm::detail::IEEEFloat::initFromPPCDoubleDoubleAPInt(&v26, &__p);
-  if (v23 >= 0x41 && __p)
+  v43 = *MEMORY[0x1E69E9840];
+  llvm::detail::DoubleAPFloat::bitcastToAPInt(&__p, a1, a4);
+  llvm::detail::IEEEFloat::initFromPPCDoubleDoubleAPInt(&v40, &__p, v7, v8);
+  if (v37 >= 0x41 && __p)
   {
     operator delete[](__p);
   }
 
-  llvm::detail::DoubleAPFloat::bitcastToAPInt(a2, &v20);
-  llvm::detail::IEEEFloat::initFromPPCDoubleDoubleAPInt(&v23, &v20);
-  if (v26 == &llvm::semPPCDoubleDouble)
+  llvm::detail::DoubleAPFloat::bitcastToAPInt(&v34, a2, v9);
+  llvm::detail::IEEEFloat::initFromPPCDoubleDoubleAPInt(&v37, &v34, v10, v11);
+  if (v40 == &llvm::semPPCDoubleDouble)
   {
-    v6 = llvm::detail::DoubleAPFloat::divide(&v26, &v23, a3);
+    v16 = llvm::detail::DoubleAPFloat::divide(&v40, &v37, a3);
   }
 
   else
   {
-    v28 ^= v25 & 8;
-    v6 = llvm::detail::IEEEFloat::divideSpecials(&v26, &v23);
-    if ((v28 & 7) == 3)
+    v42 ^= v39 & 8;
+    v16 = llvm::detail::IEEEFloat::divideSpecials(&v40, &v37, v12, v13);
+    if ((v42 & 7) == 3)
     {
-      if (*(v26 + 20) == 2)
+      if (*(v40 + 20) == 2)
       {
-        v28 &= 0xF3u;
+        v42 &= 0xF3u;
       }
     }
 
-    else if ((v28 & 6) != 0)
+    else if ((v42 & 6) != 0)
     {
-      v7 = llvm::detail::IEEEFloat::divideSignificand(&v26, &v23);
-      v8 = llvm::detail::IEEEFloat::normalize(&v26, a3, v7);
-      if (v7)
+      v17 = llvm::detail::IEEEFloat::divideSignificand(&v40, &v37, v14);
+      v18 = llvm::detail::IEEEFloat::normalize(&v40, a3, v17);
+      if (v17)
       {
-        v6 = v8 | 0x10;
+        v16 = v18 | 0x10;
       }
 
       else
       {
-        v6 = v8;
+        v16 = v18;
       }
     }
   }
 
-  if (v23 == &llvm::semPPCDoubleDouble)
+  if (v37 == &llvm::semPPCDoubleDouble)
   {
-    llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v23);
+    llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v37);
   }
 
-  else if ((*(v23 + 8) - 64) <= 0xFFFFFF7F && v24)
+  else if ((*(v37 + 8) - 64) <= 0xFFFFFF7F && v38)
   {
-    operator delete[](v24);
+    operator delete[](v38);
   }
 
-  if (v21 >= 0x41 && v20)
+  if (v35 >= 0x41 && v34)
   {
-    operator delete[](v20);
+    operator delete[](v34);
   }
 
-  if (v26 == &llvm::semPPCDoubleDouble)
+  if (v40 == &llvm::semPPCDoubleDouble)
   {
-    llvm::detail::DoubleAPFloat::bitcastToAPInt(&v26, &v17);
-  }
-
-  else
-  {
-    llvm::detail::IEEEFloat::bitcastToAPInt(&v26, &v17);
-  }
-
-  *&v19 = &llvm::semPPCDoubleDouble;
-  v9 = operator new[](0x50uLL);
-  *v9 = xmmword_1E099CF00;
-  v10 = (v9 + 56);
-  v11 = v9 + 1;
-  if (v18 >= 0x41)
-  {
-    v12 = v17;
+    llvm::detail::DoubleAPFloat::bitcastToAPInt(&v31, &v40, v15);
   }
 
   else
   {
-    v12 = &v17;
+    llvm::detail::IEEEFloat::bitcastToAPInt(&v31, &v40);
   }
 
-  v13 = *v12;
-  LODWORD(v23) = 64;
-  __p = v13;
-  llvm::detail::IEEEFloat::initFromDoubleAPInt((v9 + 24), &__p);
-  if (v18 >= 0x41)
+  *&v33 = &llvm::semPPCDoubleDouble;
+  v19 = operator new[](0x50uLL);
+  *v19 = xmmword_1E099CF00;
+  v22 = v19 + 56;
+  v23 = v19 + 1;
+  if (v32 >= 0x41)
   {
-    v14 = v17;
+    v24 = v31;
   }
 
   else
   {
-    v14 = &v17;
+    v24 = &v31;
   }
 
-  v15 = v14[1];
-  v21 = 64;
-  v20 = v15;
-  llvm::detail::IEEEFloat::initFromDoubleAPInt(v10, &v20);
-  *(&v19 + 1) = v11;
-  if (&v19 != a1)
+  v25 = *v24;
+  LODWORD(v37) = 64;
+  __p = v25;
+  llvm::detail::IEEEFloat::initFromDoubleAPInt(v19 + 24, &__p, v20, v21);
+  if (v32 >= 0x41)
+  {
+    v28 = v31;
+  }
+
+  else
+  {
+    v28 = &v31;
+  }
+
+  v29 = v28[1];
+  v35 = 64;
+  v34 = v29;
+  llvm::detail::IEEEFloat::initFromDoubleAPInt(v22, &v34, v26, v27);
+  *(&v33 + 1) = v23;
+  if (&v33 != a1)
   {
     llvm::detail::DoubleAPFloat::~DoubleAPFloat(a1);
-    *a1 = v19;
-    *&v19 = &llvm::semBogus;
-    *(&v19 + 1) = 0;
+    *a1 = v33;
+    *&v33 = &llvm::semBogus;
+    *(&v33 + 1) = 0;
   }
 
-  llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v19);
-  if (v18 >= 0x41 && v17)
+  llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v33);
+  if (v32 >= 0x41 && v31)
   {
-    operator delete[](v17);
+    operator delete[](v31);
   }
 
-  if (v26 == &llvm::semPPCDoubleDouble)
+  if (v40 == &llvm::semPPCDoubleDouble)
   {
-    llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v26);
+    llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v40);
   }
 
-  else if ((*(v26 + 8) - 64) <= 0xFFFFFF7F && v27)
+  else if ((*(v40 + 8) - 64) <= 0xFFFFFF7F && v41)
   {
-    operator delete[](v27);
+    operator delete[](v41);
   }
 
-  return v6;
+  return v16;
 }
 
-llvm::APInt *llvm::detail::DoubleAPFloat::bitcastToAPInt@<X0>(llvm::detail::DoubleAPFloat *this@<X0>, llvm::APInt *a2@<X8>)
+llvm::APInt *llvm::detail::DoubleAPFloat::bitcastToAPInt@<X0>(llvm::APInt *__return_ptr a1@<X8>, llvm::detail::DoubleAPFloat *this@<X0>, unsigned int a3@<W3>)
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v4 = *(this + 1);
-  v6 = *(v4 + 8);
-  v5 = (v4 + 8);
-  if (v6 == &llvm::semPPCDoubleDouble)
+  v20 = *MEMORY[0x1E69E9840];
+  v5 = *(this + 1);
+  v7 = *(v5 + 8);
+  v6 = (v5 + 8);
+  if (v7 == &llvm::semPPCDoubleDouble)
   {
-    llvm::detail::DoubleAPFloat::bitcastToAPInt(&v14, v5);
+    llvm::detail::DoubleAPFloat::bitcastToAPInt(&v16, v6, a3);
   }
 
   else
   {
-    llvm::detail::IEEEFloat::bitcastToAPInt(v5, &v14);
+    llvm::detail::IEEEFloat::bitcastToAPInt(&v16, v6);
   }
 
-  v7 = &v14;
-  if (v15 >= 0x41)
+  v9 = &v16;
+  if (v17 >= 0x41)
   {
-    v7 = v14;
+    v9 = v16;
   }
 
-  v16 = *v7;
-  v8 = *(this + 1);
-  v10 = *(v8 + 40);
-  v9 = (v8 + 40);
-  if (v10 != &llvm::semPPCDoubleDouble)
+  v18 = *v9;
+  v10 = *(this + 1);
+  v12 = *(v10 + 40);
+  v11 = (v10 + 40);
+  if (v12 != &llvm::semPPCDoubleDouble)
   {
-    llvm::detail::IEEEFloat::bitcastToAPInt(v9, &__p);
-    if (v13 <= 0x40)
+    llvm::detail::IEEEFloat::bitcastToAPInt(&__p, v11);
+    if (v15 <= 0x40)
     {
       goto LABEL_8;
     }
 
 LABEL_11:
-    v17 = *__p;
+    v19 = *__p;
     operator delete[](__p);
-    if (v15 < 0x41)
+    if (v17 < 0x41)
     {
-      return llvm::APInt::APInt(a2, 0x80u, 2u, &v16);
+      return llvm::APInt::APInt(a1, 0x80u, 2u, &v18);
     }
 
     goto LABEL_12;
   }
 
-  llvm::detail::DoubleAPFloat::bitcastToAPInt(&__p, v9);
-  if (v13 > 0x40)
+  llvm::detail::DoubleAPFloat::bitcastToAPInt(&__p, v11, v8);
+  if (v15 > 0x40)
   {
     goto LABEL_11;
   }
 
 LABEL_8:
-  v17 = __p;
-  if (v15 < 0x41)
+  v19 = __p;
+  if (v17 < 0x41)
   {
-    return llvm::APInt::APInt(a2, 0x80u, 2u, &v16);
+    return llvm::APInt::APInt(a1, 0x80u, 2u, &v18);
   }
 
 LABEL_12:
-  if (v14)
+  if (v16)
   {
-    operator delete[](v14);
+    operator delete[](v16);
   }
 
-  return llvm::APInt::APInt(a2, 0x80u, 2u, &v16);
+  return llvm::APInt::APInt(a1, 0x80u, 2u, &v18);
 }
 
-uint64_t llvm::detail::DoubleAPFloat::mod(llvm::detail::DoubleAPFloat *this, const llvm::detail::DoubleAPFloat *a2)
+uint64_t llvm::detail::DoubleAPFloat::mod(llvm::detail::DoubleAPFloat *this, const llvm::detail::DoubleAPFloat *a2, uint64_t a3, unsigned int a4)
 {
-  v24 = *MEMORY[0x1E69E9840];
-  llvm::detail::DoubleAPFloat::bitcastToAPInt(this, &__p);
-  llvm::detail::IEEEFloat::initFromPPCDoubleDoubleAPInt(&v22, &__p);
-  if (v20 >= 0x41 && __p)
+  v38 = *MEMORY[0x1E69E9840];
+  llvm::detail::DoubleAPFloat::bitcastToAPInt(&__p, this, a4);
+  llvm::detail::IEEEFloat::initFromPPCDoubleDoubleAPInt(&v36, &__p, v6, v7);
+  if (v34 >= 0x41 && __p)
   {
     operator delete[](__p);
   }
 
-  llvm::detail::DoubleAPFloat::bitcastToAPInt(a2, &v17);
-  llvm::detail::IEEEFloat::initFromPPCDoubleDoubleAPInt(&v20, &v17);
-  if (v22 == &llvm::semPPCDoubleDouble)
+  llvm::detail::DoubleAPFloat::bitcastToAPInt(&v31, a2, v8);
+  llvm::detail::IEEEFloat::initFromPPCDoubleDoubleAPInt(&v34, &v31, v9, v10);
+  if (v36 == &llvm::semPPCDoubleDouble)
   {
-    v4 = llvm::detail::DoubleAPFloat::mod(&v22, &v20);
-    v5 = v20;
-    if (v20 != &llvm::semPPCDoubleDouble)
+    v14 = llvm::detail::DoubleAPFloat::mod(&v36, &v34, v11, v12);
+    v15 = v34;
+    if (v34 != &llvm::semPPCDoubleDouble)
     {
       goto LABEL_6;
     }
 
 LABEL_10:
-    llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v20);
+    llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v34);
     goto LABEL_11;
   }
 
-  v4 = llvm::detail::IEEEFloat::mod(&v22, &v20);
-  v5 = v20;
-  if (v20 == &llvm::semPPCDoubleDouble)
+  v14 = llvm::detail::IEEEFloat::mod(&v36, &v34, v11, v12);
+  v15 = v34;
+  if (v34 == &llvm::semPPCDoubleDouble)
   {
     goto LABEL_10;
   }
 
 LABEL_6:
-  if ((v5[2] - 64) <= 0xFFFFFF7F && v21)
+  if ((v15[2] - 64) <= 0xFFFFFF7F && v35)
   {
-    operator delete[](v21);
+    operator delete[](v35);
   }
 
 LABEL_11:
-  if (v18 >= 0x41 && v17)
+  if (v32 >= 0x41 && v31)
   {
-    operator delete[](v17);
+    operator delete[](v31);
   }
 
-  if (v22 == &llvm::semPPCDoubleDouble)
+  if (v36 == &llvm::semPPCDoubleDouble)
   {
-    llvm::detail::DoubleAPFloat::bitcastToAPInt(&v22, &v14);
-  }
-
-  else
-  {
-    llvm::detail::IEEEFloat::bitcastToAPInt(&v22, &v14);
-  }
-
-  *&v16 = &llvm::semPPCDoubleDouble;
-  v6 = operator new[](0x50uLL);
-  *v6 = xmmword_1E099CF00;
-  v7 = (v6 + 56);
-  v8 = v6 + 1;
-  if (v15 >= 0x41)
-  {
-    v9 = v14;
+    llvm::detail::DoubleAPFloat::bitcastToAPInt(&v28, &v36, v13);
   }
 
   else
   {
-    v9 = &v14;
+    llvm::detail::IEEEFloat::bitcastToAPInt(&v28, &v36);
   }
 
-  v10 = *v9;
-  LODWORD(v20) = 64;
-  __p = v10;
-  llvm::detail::IEEEFloat::initFromDoubleAPInt((v6 + 24), &__p);
-  if (v15 >= 0x41)
+  *&v30 = &llvm::semPPCDoubleDouble;
+  v16 = operator new[](0x50uLL);
+  *v16 = xmmword_1E099CF00;
+  v19 = v16 + 56;
+  v20 = v16 + 1;
+  if (v29 >= 0x41)
   {
-    v11 = v14;
+    v21 = v28;
   }
 
   else
   {
-    v11 = &v14;
+    v21 = &v28;
   }
 
-  v12 = v11[1];
-  v18 = 64;
-  v17 = v12;
-  llvm::detail::IEEEFloat::initFromDoubleAPInt(v7, &v17);
-  *(&v16 + 1) = v8;
-  if (&v16 != this)
+  v22 = *v21;
+  LODWORD(v34) = 64;
+  __p = v22;
+  llvm::detail::IEEEFloat::initFromDoubleAPInt(v16 + 24, &__p, v17, v18);
+  if (v29 >= 0x41)
+  {
+    v25 = v28;
+  }
+
+  else
+  {
+    v25 = &v28;
+  }
+
+  v26 = v25[1];
+  v32 = 64;
+  v31 = v26;
+  llvm::detail::IEEEFloat::initFromDoubleAPInt(v19, &v31, v23, v24);
+  *(&v30 + 1) = v20;
+  if (&v30 != this)
   {
     llvm::detail::DoubleAPFloat::~DoubleAPFloat(this);
-    *this = v16;
-    *&v16 = &llvm::semBogus;
-    *(&v16 + 1) = 0;
+    *this = v30;
+    *&v30 = &llvm::semBogus;
+    *(&v30 + 1) = 0;
   }
 
-  llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v16);
-  if (v15 >= 0x41 && v14)
-  {
-    operator delete[](v14);
-  }
-
-  if (v22 == &llvm::semPPCDoubleDouble)
-  {
-    llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v22);
-  }
-
-  else if ((*(v22 + 8) - 64) <= 0xFFFFFF7F && v23)
-  {
-    operator delete[](v23);
-  }
-
-  return v4;
-}
-
-uint64_t llvm::detail::DoubleAPFloat::fusedMultiplyAdd(llvm::detail::DoubleAPFloat *a1, llvm::detail::DoubleAPFloat *a2, llvm::detail::DoubleAPFloat *a3, uint64_t a4)
-{
-  v29 = *MEMORY[0x1E69E9840];
-  llvm::detail::DoubleAPFloat::bitcastToAPInt(a1, &__p);
-  llvm::detail::IEEEFloat::initFromPPCDoubleDoubleAPInt(&v27, &__p);
-  if (v25 >= 0x41 && __p)
-  {
-    operator delete[](__p);
-  }
-
-  llvm::detail::DoubleAPFloat::bitcastToAPInt(a2, v20);
-  llvm::detail::IEEEFloat::initFromPPCDoubleDoubleAPInt(&v25, v20);
-  llvm::detail::DoubleAPFloat::bitcastToAPInt(a3, &v18);
-  llvm::detail::IEEEFloat::initFromPPCDoubleDoubleAPInt(&v22, &v18);
-  if (v27 == &llvm::semPPCDoubleDouble)
-  {
-    v8 = llvm::detail::DoubleAPFloat::fusedMultiplyAdd(&v27, &v25, &v22, a4);
-    v9 = v22;
-    if (v22 != &llvm::semPPCDoubleDouble)
-    {
-      goto LABEL_6;
-    }
-
-LABEL_10:
-    llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v22);
-    goto LABEL_11;
-  }
-
-  v8 = llvm::detail::IEEEFloat::fusedMultiplyAdd(&v27, &v25, &v22, a4);
-  v9 = v22;
-  if (v22 == &llvm::semPPCDoubleDouble)
-  {
-    goto LABEL_10;
-  }
-
-LABEL_6:
-  if ((v9[2] - 64) <= 0xFFFFFF7F && v23)
-  {
-    operator delete[](v23);
-  }
-
-LABEL_11:
-  if (v19 >= 0x41 && v18)
-  {
-    operator delete[](v18);
-  }
-
-  if (v25 == &llvm::semPPCDoubleDouble)
-  {
-    llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v25);
-  }
-
-  else if ((*(v25 + 8) - 64) <= 0xFFFFFF7F && v26)
-  {
-    operator delete[](v26);
-  }
-
-  if (LODWORD(v20[1]) >= 0x41 && v20[0])
-  {
-    operator delete[](v20[0]);
-  }
-
-  if (v27 == &llvm::semPPCDoubleDouble)
-  {
-    llvm::detail::DoubleAPFloat::bitcastToAPInt(&v27, &v18);
-  }
-
-  else
-  {
-    llvm::detail::IEEEFloat::bitcastToAPInt(&v27, &v18);
-  }
-
-  v20[0] = &llvm::semPPCDoubleDouble;
-  v10 = operator new[](0x50uLL);
-  *v10 = xmmword_1E099CF00;
-  v11 = (v10 + 56);
-  v12 = v10 + 1;
-  if (v19 >= 0x41)
-  {
-    v13 = v18;
-  }
-
-  else
-  {
-    v13 = &v18;
-  }
-
-  v14 = *v13;
-  LODWORD(v25) = 64;
-  __p = v14;
-  llvm::detail::IEEEFloat::initFromDoubleAPInt((v10 + 24), &__p);
-  if (v19 >= 0x41)
-  {
-    v15 = v18;
-  }
-
-  else
-  {
-    v15 = &v18;
-  }
-
-  v16 = *(v15 + 1);
-  LODWORD(v22) = 64;
-  v21 = v16;
-  llvm::detail::IEEEFloat::initFromDoubleAPInt(v11, &v21);
-  v20[1] = v12;
-  if (v20 != a1)
-  {
-    llvm::detail::DoubleAPFloat::~DoubleAPFloat(a1);
-    *a1 = *v20;
-    v20[0] = &llvm::semBogus;
-    v20[1] = 0;
-  }
-
-  llvm::detail::DoubleAPFloat::~DoubleAPFloat(v20);
-  if (v19 >= 0x41 && v18)
-  {
-    operator delete[](v18);
-  }
-
-  if (v27 == &llvm::semPPCDoubleDouble)
-  {
-    llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v27);
-  }
-
-  else if ((*(v27 + 8) - 64) <= 0xFFFFFF7F && v28)
+  llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v30);
+  if (v29 >= 0x41 && v28)
   {
     operator delete[](v28);
   }
 
-  return v8;
+  if (v36 == &llvm::semPPCDoubleDouble)
+  {
+    llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v36);
+  }
+
+  else if ((*(v36 + 8) - 64) <= 0xFFFFFF7F && v37)
+  {
+    operator delete[](v37);
+  }
+
+  return v14;
 }
 
-uint64_t llvm::detail::DoubleAPFloat::compareAbsoluteValue(llvm::detail::DoubleAPFloat *this, const llvm::detail::DoubleAPFloat *a2)
+uint64_t llvm::detail::DoubleAPFloat::fusedMultiplyAdd(void **a1, llvm::detail::DoubleAPFloat *a2, llvm::detail::DoubleAPFloat *a3, uint64_t a4)
 {
-  v4 = *(this + 1);
-  v5 = *(a2 + 1);
-  v6 = *(v4 + 1);
-  if (v6 == &llvm::semPPCDoubleDouble)
+  v44 = *MEMORY[0x1E69E9840];
+  llvm::detail::DoubleAPFloat::bitcastToAPInt(&__p, a1, a4);
+  llvm::detail::IEEEFloat::initFromPPCDoubleDoubleAPInt(&v42, &__p, v8, v9);
+  if (v40 >= 0x41 && __p)
   {
-    result = llvm::detail::DoubleAPFloat::compareAbsoluteValue((v4 + 2), (v5 + 8));
+    operator delete[](__p);
+  }
+
+  llvm::detail::DoubleAPFloat::bitcastToAPInt(v35, a2, v10);
+  llvm::detail::IEEEFloat::initFromPPCDoubleDoubleAPInt(&v40, v35, v11, v12);
+  llvm::detail::DoubleAPFloat::bitcastToAPInt(&v33, a3, v13);
+  llvm::detail::IEEEFloat::initFromPPCDoubleDoubleAPInt(&v37, &v33, v14, v15);
+  if (v42 == &llvm::semPPCDoubleDouble)
+  {
+    v19 = llvm::detail::DoubleAPFloat::fusedMultiplyAdd(&v42, &v40, &v37, a4);
+    v20 = v37;
+    if (v37 != &llvm::semPPCDoubleDouble)
+    {
+      goto LABEL_6;
+    }
+
+LABEL_10:
+    llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v37);
+    goto LABEL_11;
+  }
+
+  v19 = llvm::detail::IEEEFloat::fusedMultiplyAdd(&v42, &v40, &v37, a4, v16, v17);
+  v20 = v37;
+  if (v37 == &llvm::semPPCDoubleDouble)
+  {
+    goto LABEL_10;
+  }
+
+LABEL_6:
+  if ((v20[2] - 64) <= 0xFFFFFF7F && v38)
+  {
+    operator delete[](v38);
+  }
+
+LABEL_11:
+  if (v34 >= 0x41 && v33)
+  {
+    operator delete[](v33);
+  }
+
+  if (v40 == &llvm::semPPCDoubleDouble)
+  {
+    llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v40);
+  }
+
+  else if ((*(v40 + 8) - 64) <= 0xFFFFFF7F && v41)
+  {
+    operator delete[](v41);
+  }
+
+  if (LODWORD(v35[1]) >= 0x41 && v35[0])
+  {
+    operator delete[](v35[0]);
+  }
+
+  if (v42 == &llvm::semPPCDoubleDouble)
+  {
+    llvm::detail::DoubleAPFloat::bitcastToAPInt(&v33, &v42, v18);
+  }
+
+  else
+  {
+    llvm::detail::IEEEFloat::bitcastToAPInt(&v33, &v42);
+  }
+
+  v35[0] = &llvm::semPPCDoubleDouble;
+  v21 = operator new[](0x50uLL);
+  *v21 = xmmword_1E099CF00;
+  v24 = v21 + 56;
+  v25 = v21 + 1;
+  if (v34 >= 0x41)
+  {
+    v26 = v33;
+  }
+
+  else
+  {
+    v26 = &v33;
+  }
+
+  v27 = *v26;
+  LODWORD(v40) = 64;
+  __p = v27;
+  llvm::detail::IEEEFloat::initFromDoubleAPInt(v21 + 24, &__p, v22, v23);
+  if (v34 >= 0x41)
+  {
+    v30 = v33;
+  }
+
+  else
+  {
+    v30 = &v33;
+  }
+
+  v31 = *(v30 + 1);
+  LODWORD(v37) = 64;
+  v36 = v31;
+  llvm::detail::IEEEFloat::initFromDoubleAPInt(v24, &v36, v28, v29);
+  v35[1] = v25;
+  if (v35 != a1)
+  {
+    llvm::detail::DoubleAPFloat::~DoubleAPFloat(a1);
+    *a1 = *v35;
+    v35[0] = &llvm::semBogus;
+    v35[1] = 0;
+  }
+
+  llvm::detail::DoubleAPFloat::~DoubleAPFloat(v35);
+  if (v34 >= 0x41 && v33)
+  {
+    operator delete[](v33);
+  }
+
+  if (v42 == &llvm::semPPCDoubleDouble)
+  {
+    llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v42);
+  }
+
+  else if ((*(v42 + 8) - 64) <= 0xFFFFFF7F && v43)
+  {
+    operator delete[](v43);
+  }
+
+  return v19;
+}
+
+uint64_t llvm::detail::DoubleAPFloat::compareAbsoluteValue(llvm::detail::DoubleAPFloat *this, const llvm::detail::DoubleAPFloat *a2, uint64_t a3, unsigned int a4)
+{
+  v6 = *(this + 1);
+  v7 = *(a2 + 1);
+  v8 = *(v6 + 1);
+  if (v8 == &llvm::semPPCDoubleDouble)
+  {
+    result = llvm::detail::DoubleAPFloat::compareAbsoluteValue((v6 + 2), (v7 + 8), a3, a4);
     if (result != 1)
     {
       return result;
@@ -6424,95 +6424,95 @@ uint64_t llvm::detail::DoubleAPFloat::compareAbsoluteValue(llvm::detail::DoubleA
 
   else
   {
-    v7 = v4[6];
-    v8 = *(v5 + 24);
-    v9 = v7 - v8;
-    if (v7 == v8)
+    v9 = v6[6];
+    v10 = *(v7 + 24);
+    v11 = v9 - v10;
+    if (v9 == v10)
     {
-      v11 = *(v6 + 8);
-      v12 = (v4 + 4);
-      if ((v11 - 64) <= 0xFFFFFF7F)
+      v13 = *(v8 + 8);
+      v14 = (v6 + 4);
+      if ((v13 - 64) <= 0xFFFFFF7F)
       {
-        v12 = *v12;
+        v14 = *v14;
       }
 
-      v15 = *(v5 + 16);
-      v13 = (v5 + 16);
-      v14 = v15;
-      if ((*(*(v13 - 1) + 8) - 64) >= 0xFFFFFF80)
+      v17 = *(v7 + 16);
+      v15 = (v7 + 16);
+      v16 = v17;
+      if ((*(*(v15 - 1) + 8) - 64) >= 0xFFFFFF80)
       {
-        v16 = v13;
+        v18 = v15;
       }
 
       else
       {
-        v16 = v14;
+        v18 = v16;
       }
 
-      v9 = llvm::APInt::tcCompare(v12, v16, ((v11 + 64) >> 6));
-      if (v9 > 0)
+      v11 = llvm::APInt::tcCompare(v14, v18, ((v13 + 64) >> 6));
+      if (v11 > 0)
       {
         return 2;
       }
     }
 
-    else if (v9 > 0)
+    else if (v11 > 0)
     {
       return 2;
     }
 
-    result = v9 >= 0;
+    result = v11 >= 0;
     if (result != 1)
     {
       return result;
     }
   }
 
-  v17 = *(this + 1);
-  v18 = *(a2 + 1);
-  v19 = *(v17 + 5);
-  if (v19 == &llvm::semPPCDoubleDouble)
+  v19 = *(this + 1);
+  v20 = *(a2 + 1);
+  v21 = *(v19 + 5);
+  if (v21 == &llvm::semPPCDoubleDouble)
   {
-    result = llvm::detail::DoubleAPFloat::compareAbsoluteValue((v17 + 10), (v18 + 40));
+    result = llvm::detail::DoubleAPFloat::compareAbsoluteValue((v19 + 10), (v20 + 40), a3, a4);
     if ((result & 0xFFFFFFFD) != 0)
     {
       return result;
     }
 
 LABEL_29:
-    v29 = *(this + 1);
-    v30 = v29;
-    if (*(v29 + 8) == &llvm::semPPCDoubleDouble)
+    v31 = *(this + 1);
+    v32 = v31;
+    if (*(v31 + 8) == &llvm::semPPCDoubleDouble)
     {
-      v30 = *(v29 + 16);
+      v32 = *(v31 + 16);
     }
 
-    v31 = *(v30 + 28);
-    if (*(v29 + 40) == &llvm::semPPCDoubleDouble)
+    v33 = *(v32 + 28);
+    if (*(v31 + 40) == &llvm::semPPCDoubleDouble)
     {
-      v32 = *(v29 + 48);
+      v34 = *(v31 + 48);
     }
 
     else
     {
-      v32 = v29 + 32;
+      v34 = v31 + 32;
     }
 
-    v33 = v31 ^ *(v32 + 28);
-    v34 = *(a2 + 1);
-    v35 = v34;
-    if (*(v34 + 8) == &llvm::semPPCDoubleDouble)
+    v35 = v33 ^ *(v34 + 28);
+    v36 = *(a2 + 1);
+    v37 = v36;
+    if (*(v36 + 8) == &llvm::semPPCDoubleDouble)
     {
-      v35 = *(v34 + 16);
+      v37 = *(v36 + 16);
     }
 
-    v36 = (v33 >> 3) & 1;
-    v37 = *(v35 + 28);
-    if (*(v34 + 40) == &llvm::semPPCDoubleDouble)
+    v38 = (v35 >> 3) & 1;
+    v39 = *(v37 + 28);
+    if (*(v36 + 40) == &llvm::semPPCDoubleDouble)
     {
-      v38 = ((v37 ^ *(*(v34 + 48) + 28)) >> 3) & 1;
-      v39 = v36 ^ 1;
-      if ((v36 ^ 1))
+      v40 = ((v39 ^ *(*(v36 + 48) + 28)) >> 3) & 1;
+      v41 = v38 ^ 1;
+      if ((v38 ^ 1))
       {
         goto LABEL_42;
       }
@@ -6520,17 +6520,17 @@ LABEL_29:
 
     else
     {
-      v38 = ((v37 ^ *(v34 + 60)) >> 3) & 1;
-      v39 = v36 ^ 1;
-      if ((v36 ^ 1))
+      v40 = ((v39 ^ *(v36 + 60)) >> 3) & 1;
+      v41 = v38 ^ 1;
+      if ((v38 ^ 1))
       {
 LABEL_42:
-        if (v39 & v38)
+        if (v41 & v40)
         {
           return 2;
         }
 
-        if ((v36 | v38) & 1) != 0 && (v36 & v38)
+        if ((v38 | v40) & 1) != 0 && (v38 & v40)
         {
           return (2 - result);
         }
@@ -6539,7 +6539,7 @@ LABEL_42:
       }
     }
 
-    if (!v38)
+    if (!v40)
     {
       return 0;
     }
@@ -6547,37 +6547,37 @@ LABEL_42:
     goto LABEL_42;
   }
 
-  v20 = v17[14];
-  v21 = *(v18 + 56);
-  v22 = v20 - v21;
-  if (v20 == v21)
+  v22 = v19[14];
+  v23 = *(v20 + 56);
+  v24 = v22 - v23;
+  if (v22 == v23)
   {
-    v23 = *(v19 + 8);
-    v24 = (v17 + 12);
-    if ((v23 - 64) <= 0xFFFFFF7F)
+    v25 = *(v21 + 8);
+    v26 = (v19 + 12);
+    if ((v25 - 64) <= 0xFFFFFF7F)
     {
-      v24 = *v24;
+      v26 = *v26;
     }
 
-    v27 = *(v18 + 48);
-    v25 = (v18 + 48);
-    v26 = v27;
-    if ((*(*(v25 - 1) + 8) - 64) >= 0xFFFFFF80)
+    v29 = *(v20 + 48);
+    v27 = (v20 + 48);
+    v28 = v29;
+    if ((*(*(v27 - 1) + 8) - 64) >= 0xFFFFFF80)
     {
-      v28 = v25;
+      v30 = v27;
     }
 
     else
     {
-      v28 = v26;
+      v30 = v28;
     }
 
-    v22 = llvm::APInt::tcCompare(v24, v28, ((v23 + 64) >> 6));
+    v24 = llvm::APInt::tcCompare(v26, v30, ((v25 + 64) >> 6));
   }
 
-  if (v22 <= 0)
+  if (v24 <= 0)
   {
-    result = v22 >= 0;
+    result = v24 >= 0;
   }
 
   else
@@ -6593,35 +6593,35 @@ LABEL_42:
   return result;
 }
 
-void llvm::detail::DoubleAPFloat::makeLargest(llvm::detail::DoubleAPFloat *this, int a2)
+void llvm::detail::DoubleAPFloat::makeLargest(llvm::detail::DoubleAPFloat *this, int a2, uint64_t a3, unsigned int a4)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v5 = 64;
-  v4 = 0x7FEFFFFFFFFFFFFFLL;
-  llvm::detail::IEEEFloat::initFromDoubleAPInt(&v6, &v4);
-  llvm::APFloat::Storage::operator=((*(this + 1) + 8), &v6);
-  if (v6.n128_u64[0] == &llvm::semPPCDoubleDouble)
+  v11 = *MEMORY[0x1E69E9840];
+  v9 = 64;
+  v8 = 0x7FEFFFFFFFFFFFFFLL;
+  llvm::detail::IEEEFloat::initFromDoubleAPInt(&v10, &v8, a3, a4);
+  llvm::APFloat::Storage::operator=((*(this + 1) + 8), &v10);
+  if (v10.n128_u64[0] == &llvm::semPPCDoubleDouble)
   {
-    llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v6);
+    llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v10);
   }
 
-  else if ((*(v6.n128_u64[0] + 8) - 64) <= 0xFFFFFF7F && v6.n128_u64[1])
+  else if ((*(v10.n128_u64[0] + 8) - 64) <= 0xFFFFFF7F && v10.n128_u64[1])
   {
-    operator delete[](v6.n128_u64[1]);
+    operator delete[](v10.n128_u64[1]);
   }
 
-  v5 = 64;
-  v4 = 0x7C8FFFFFFFFFFFFELL;
-  llvm::detail::IEEEFloat::initFromDoubleAPInt(&v6, &v4);
-  llvm::APFloat::Storage::operator=((*(this + 1) + 40), &v6);
-  if (v6.n128_u64[0] == &llvm::semPPCDoubleDouble)
+  v9 = 64;
+  v8 = 0x7C8FFFFFFFFFFFFELL;
+  llvm::detail::IEEEFloat::initFromDoubleAPInt(&v10, &v8, v6, v7);
+  llvm::APFloat::Storage::operator=((*(this + 1) + 40), &v10);
+  if (v10.n128_u64[0] == &llvm::semPPCDoubleDouble)
   {
-    llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v6);
+    llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v10);
   }
 
-  else if ((*(v6.n128_u64[0] + 8) - 64) <= 0xFFFFFF7F && v6.n128_u64[1])
+  else if ((*(v10.n128_u64[0] + 8) - 64) <= 0xFFFFFF7F && v10.n128_u64[1])
   {
-    operator delete[](v6.n128_u64[1]);
+    operator delete[](v10.n128_u64[1]);
   }
 
   if (a2)
@@ -6630,17 +6630,17 @@ void llvm::detail::DoubleAPFloat::makeLargest(llvm::detail::DoubleAPFloat *this,
   }
 }
 
-uint64_t llvm::detail::DoubleAPFloat::compare(llvm::detail::DoubleAPFloat *this, const llvm::detail::DoubleAPFloat *a2)
+uint64_t llvm::detail::DoubleAPFloat::compare(llvm::detail::DoubleAPFloat *this, const llvm::detail::DoubleAPFloat *a2, uint64_t a3, unsigned int a4)
 {
   do
   {
-    v4 = *(this + 1);
-    v6 = *(v4 + 8);
-    v5 = (v4 + 8);
-    v7 = (*(a2 + 1) + 8);
-    if (v6 == &llvm::semPPCDoubleDouble)
+    v6 = *(this + 1);
+    v8 = *(v6 + 8);
+    v7 = (v6 + 8);
+    v9 = (*(a2 + 1) + 8);
+    if (v8 == &llvm::semPPCDoubleDouble)
     {
-      result = llvm::detail::DoubleAPFloat::compare(v5, v7);
+      result = llvm::detail::DoubleAPFloat::compare(v7, v9, a3, a4);
       if (result != 1)
       {
         return result;
@@ -6649,23 +6649,23 @@ uint64_t llvm::detail::DoubleAPFloat::compare(llvm::detail::DoubleAPFloat *this,
 
     else
     {
-      result = llvm::detail::IEEEFloat::compare(v5, v7);
+      result = llvm::detail::IEEEFloat::compare(v7, v9, a3, a4);
       if (result != 1)
       {
         return result;
       }
     }
 
-    v9 = *(this + 1);
-    v10 = *(a2 + 1);
-    v11 = *(v9 + 40);
-    this = (v9 + 40);
-    a2 = (v10 + 40);
+    v11 = *(this + 1);
+    v12 = *(a2 + 1);
+    v13 = *(v11 + 40);
+    this = (v11 + 40);
+    a2 = (v12 + 40);
   }
 
-  while (v11 == &llvm::semPPCDoubleDouble);
+  while (v13 == &llvm::semPPCDoubleDouble);
 
-  return llvm::detail::IEEEFloat::compare(this, (v10 + 40));
+  return llvm::detail::IEEEFloat::compare(this, (v12 + 40), a3, a4);
 }
 
 uint64_t llvm::detail::DoubleAPFloat::bitwiseIsEqual(llvm::detail::DoubleAPFloat *this, const llvm::detail::DoubleAPFloat *a2)
@@ -6833,31 +6833,31 @@ unint64_t llvm::hash_value(llvm *this, const llvm::APFloat *a2)
   }
 }
 
-void llvm::detail::DoubleAPFloat::convertFromString(llvm::detail::DoubleAPFloat *a1@<X0>, unsigned __int8 *a2@<X1>, size_t a3@<X2>, int a4@<W3>, uint64_t a5@<X8>)
+void llvm::detail::DoubleAPFloat::convertFromString(llvm::detail::DoubleAPFloat *a1@<X0>, unsigned __int8 *a2@<X1>, size_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
 {
-  v28 = *MEMORY[0x1E69E9840];
-  v24 = &llvm::semPPCDoubleDoubleLegacy;
-  v25 = operator new[](0x10uLL);
-  v27 = 3;
-  v26 = -970;
-  llvm::APInt::tcSet(v25, 0, 2u);
-  llvm::detail::IEEEFloat::convertFromString(&v24, a2, a3, a4, a5);
-  if (v24 == &llvm::semPPCDoubleDouble)
+  v33 = *MEMORY[0x1E69E9840];
+  v29 = &llvm::semPPCDoubleDoubleLegacy;
+  v30 = operator new[](0x10uLL);
+  v32 = 3;
+  v31 = -970;
+  llvm::APInt::tcSet(v30, 0, 2u);
+  llvm::detail::IEEEFloat::convertFromString(&v29, a2, a3, a4, a5);
+  if (v29 == &llvm::semPPCDoubleDouble)
   {
-    llvm::detail::DoubleAPFloat::bitcastToAPInt(&v24, &__p);
+    llvm::detail::DoubleAPFloat::bitcastToAPInt(&__p, &v29, v10);
   }
 
   else
   {
-    llvm::detail::IEEEFloat::bitcastToAPInt(&v24, &__p);
+    llvm::detail::IEEEFloat::bitcastToAPInt(&__p, &v29);
   }
 
-  *&v19 = &llvm::semPPCDoubleDouble;
-  v10 = operator new[](0x50uLL);
-  *v10 = xmmword_1E099CF00;
-  v11 = (v10 + 56);
-  v12 = v10 + 1;
-  if (v18 >= 0x41)
+  *&v24 = &llvm::semPPCDoubleDouble;
+  v11 = operator new[](0x50uLL);
+  *v11 = xmmword_1E099CF00;
+  v14 = v11 + 56;
+  v15 = v11 + 1;
+  if (v23 >= 0x41)
   {
     p_p = __p;
   }
@@ -6867,54 +6867,54 @@ void llvm::detail::DoubleAPFloat::convertFromString(llvm::detail::DoubleAPFloat 
     p_p = &__p;
   }
 
-  v14 = *p_p;
-  v23 = 64;
-  v22 = v14;
-  llvm::detail::IEEEFloat::initFromDoubleAPInt((v10 + 24), &v22);
-  if (v18 >= 0x41)
+  v17 = *p_p;
+  v28 = 64;
+  v27 = v17;
+  llvm::detail::IEEEFloat::initFromDoubleAPInt(v11 + 24, &v27, v12, v13);
+  if (v23 >= 0x41)
   {
-    v15 = __p;
+    v20 = __p;
   }
 
   else
   {
-    v15 = &__p;
+    v20 = &__p;
   }
 
-  v16 = *(v15 + 1);
-  v21 = 64;
-  v20 = v16;
-  llvm::detail::IEEEFloat::initFromDoubleAPInt(v11, &v20);
-  *(&v19 + 1) = v12;
-  if (&v19 != a1)
+  v21 = *(v20 + 1);
+  v26 = 64;
+  v25 = v21;
+  llvm::detail::IEEEFloat::initFromDoubleAPInt(v14, &v25, v18, v19);
+  *(&v24 + 1) = v15;
+  if (&v24 != a1)
   {
     llvm::detail::DoubleAPFloat::~DoubleAPFloat(a1);
-    *a1 = v19;
-    *&v19 = &llvm::semBogus;
-    *(&v19 + 1) = 0;
+    *a1 = v24;
+    *&v24 = &llvm::semBogus;
+    *(&v24 + 1) = 0;
   }
 
-  llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v19);
-  if (v18 >= 0x41 && __p)
+  llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v24);
+  if (v23 >= 0x41 && __p)
   {
     operator delete[](__p);
   }
 
-  if (v24 == &llvm::semPPCDoubleDouble)
+  if (v29 == &llvm::semPPCDoubleDouble)
   {
-    llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v24);
+    llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v29);
   }
 
-  else if ((v24[2] - 64) <= 0xFFFFFF7F)
+  else if ((v29[2] - 64) <= 0xFFFFFF7F)
   {
-    if (v25)
+    if (v30)
     {
-      operator delete[](v25);
+      operator delete[](v30);
     }
   }
 }
 
-void llvm::APFloat::convertFromString(uint64_t a1@<X0>, unsigned __int8 *a2@<X1>, size_t a3@<X2>, int a4@<W3>, uint64_t a5@<X8>)
+void llvm::APFloat::convertFromString(uint64_t a1@<X0>, unsigned __int8 *a2@<X1>, size_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
 {
   v6 = *(a1 + 8);
   v5 = (a1 + 8);
@@ -6931,70 +6931,70 @@ void llvm::APFloat::convertFromString(uint64_t a1@<X0>, unsigned __int8 *a2@<X1>
 
 uint64_t llvm::detail::DoubleAPFloat::convertToInteger(llvm::detail::DoubleAPFloat *a1, llvm::APInt *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _BYTE *a7)
 {
-  v20 = *MEMORY[0x1E69E9840];
-  llvm::detail::DoubleAPFloat::bitcastToAPInt(a1, &v16);
-  llvm::detail::IEEEFloat::initFromPPCDoubleDoubleAPInt(&v18, &v16);
-  if (v18 == &llvm::semPPCDoubleDouble)
+  v22 = *MEMORY[0x1E69E9840];
+  llvm::detail::DoubleAPFloat::bitcastToAPInt(&v18, a1, a4);
+  llvm::detail::IEEEFloat::initFromPPCDoubleDoubleAPInt(&v20, &v18, v13, v14);
+  if (v20 == &llvm::semPPCDoubleDouble)
   {
-    v13 = llvm::detail::DoubleAPFloat::convertToInteger(&v18, a2, a3, a4, a5, a6, a7);
-    v14 = v18;
-    if (v18 != &llvm::semPPCDoubleDouble)
+    v15 = llvm::detail::DoubleAPFloat::convertToInteger(&v20, a2, a3, a4, a5, a6, a7);
+    v16 = v20;
+    if (v20 != &llvm::semPPCDoubleDouble)
     {
       goto LABEL_3;
     }
 
 LABEL_7:
-    llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v18);
+    llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v20);
     goto LABEL_8;
   }
 
-  v13 = llvm::detail::IEEEFloat::convertToInteger(&v18, a2, a3, a4, a5, a6, a7);
-  v14 = v18;
-  if (v18 == &llvm::semPPCDoubleDouble)
+  v15 = llvm::detail::IEEEFloat::convertToInteger(&v20, a2, a3, a4, a5, a6, a7);
+  v16 = v20;
+  if (v20 == &llvm::semPPCDoubleDouble)
   {
     goto LABEL_7;
   }
 
 LABEL_3:
-  if ((v14[2] - 64) <= 0xFFFFFF7F && __p)
+  if ((v16[2] - 64) <= 0xFFFFFF7F && __p)
   {
     operator delete[](__p);
   }
 
 LABEL_8:
-  if (v17 >= 0x41 && v16)
+  if (v19 >= 0x41 && v18)
   {
-    operator delete[](v16);
+    operator delete[](v18);
   }
 
-  return v13;
+  return v15;
 }
 
-uint64_t llvm::detail::DoubleAPFloat::convertFromAPInt(llvm::detail::DoubleAPFloat *a1, uint64_t a2, int a3, int a4)
+uint64_t llvm::detail::DoubleAPFloat::convertFromAPInt(llvm::detail::DoubleAPFloat *a1, const void **a2, int a3, uint64_t a4)
 {
-  v28 = *MEMORY[0x1E69E9840];
-  v24 = &llvm::semPPCDoubleDoubleLegacy;
-  v25 = operator new[](0x10uLL);
-  v27 = 3;
-  v26 = -970;
-  llvm::APInt::tcSet(v25, 0, 2u);
-  v8 = llvm::detail::IEEEFloat::convertFromAPInt(&v24, a2, a3, a4);
-  if (v24 == &llvm::semPPCDoubleDouble)
+  v33 = *MEMORY[0x1E69E9840];
+  v29 = &llvm::semPPCDoubleDoubleLegacy;
+  v30 = operator new[](0x10uLL);
+  v32 = 3;
+  v31 = -970;
+  llvm::APInt::tcSet(v30, 0, 2u);
+  v9 = llvm::detail::IEEEFloat::convertFromAPInt(&v29, a2, a3, a4);
+  if (v29 == &llvm::semPPCDoubleDouble)
   {
-    llvm::detail::DoubleAPFloat::bitcastToAPInt(&v24, &__p);
+    llvm::detail::DoubleAPFloat::bitcastToAPInt(&__p, &v29, v8);
   }
 
   else
   {
-    llvm::detail::IEEEFloat::bitcastToAPInt(&v24, &__p);
+    llvm::detail::IEEEFloat::bitcastToAPInt(&__p, &v29);
   }
 
-  *&v19 = &llvm::semPPCDoubleDouble;
-  v9 = operator new[](0x50uLL);
-  *v9 = xmmword_1E099CF00;
-  v10 = (v9 + 56);
-  v11 = v9 + 1;
-  if (v18 >= 0x41)
+  *&v24 = &llvm::semPPCDoubleDouble;
+  v10 = operator new[](0x50uLL);
+  *v10 = xmmword_1E099CF00;
+  v13 = v10 + 56;
+  v14 = v10 + 1;
+  if (v23 >= 0x41)
   {
     p_p = __p;
   }
@@ -7004,90 +7004,90 @@ uint64_t llvm::detail::DoubleAPFloat::convertFromAPInt(llvm::detail::DoubleAPFlo
     p_p = &__p;
   }
 
-  v13 = *p_p;
-  v23 = 64;
-  v22 = v13;
-  llvm::detail::IEEEFloat::initFromDoubleAPInt((v9 + 24), &v22);
-  if (v18 >= 0x41)
+  v16 = *p_p;
+  v28 = 64;
+  v27 = v16;
+  llvm::detail::IEEEFloat::initFromDoubleAPInt(v10 + 24, &v27, v11, v12);
+  if (v23 >= 0x41)
   {
-    v14 = __p;
+    v19 = __p;
   }
 
   else
   {
-    v14 = &__p;
+    v19 = &__p;
   }
 
-  v15 = *(v14 + 1);
-  v21 = 64;
-  v20 = v15;
-  llvm::detail::IEEEFloat::initFromDoubleAPInt(v10, &v20);
-  *(&v19 + 1) = v11;
-  if (&v19 != a1)
+  v20 = *(v19 + 1);
+  v26 = 64;
+  v25 = v20;
+  llvm::detail::IEEEFloat::initFromDoubleAPInt(v13, &v25, v17, v18);
+  *(&v24 + 1) = v14;
+  if (&v24 != a1)
   {
     llvm::detail::DoubleAPFloat::~DoubleAPFloat(a1);
-    *a1 = v19;
-    *&v19 = &llvm::semBogus;
-    *(&v19 + 1) = 0;
+    *a1 = v24;
+    *&v24 = &llvm::semBogus;
+    *(&v24 + 1) = 0;
   }
 
-  llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v19);
-  if (v18 >= 0x41 && __p)
+  llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v24);
+  if (v23 >= 0x41 && __p)
   {
     operator delete[](__p);
   }
 
-  if (v24 == &llvm::semPPCDoubleDouble)
+  if (v29 == &llvm::semPPCDoubleDouble)
   {
-    llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v24);
+    llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v29);
   }
 
-  else if ((v24[2] - 64) <= 0xFFFFFF7F && v25)
+  else if ((v29[2] - 64) <= 0xFFFFFF7F && v30)
   {
-    operator delete[](v25);
+    operator delete[](v30);
   }
 
-  return v8;
+  return v9;
 }
 
 void llvm::detail::DoubleAPFloat::toString(llvm::detail::DoubleAPFloat *a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  llvm::detail::DoubleAPFloat::bitcastToAPInt(a1, &v10);
-  llvm::detail::IEEEFloat::initFromPPCDoubleDoubleAPInt(&v12, &v10);
-  if (v12 == &llvm::semPPCDoubleDouble)
+  v16 = *MEMORY[0x1E69E9840];
+  llvm::detail::DoubleAPFloat::bitcastToAPInt(&v12, a1, a4);
+  llvm::detail::IEEEFloat::initFromPPCDoubleDoubleAPInt(&v14, &v12, v9, v10);
+  if (v14 == &llvm::semPPCDoubleDouble)
   {
-    llvm::detail::DoubleAPFloat::toString(&v12, a2, a3, a4, a5);
-    v9 = v12;
-    if (v12 != &llvm::semPPCDoubleDouble)
+    llvm::detail::DoubleAPFloat::toString(&v14, a2, a3, a4, a5);
+    v11 = v14;
+    if (v14 != &llvm::semPPCDoubleDouble)
     {
       goto LABEL_3;
     }
 
 LABEL_7:
-    llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v12);
+    llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v14);
     goto LABEL_8;
   }
 
-  llvm::detail::IEEEFloat::toString(&v12, a2, a3, a4, a5);
-  v9 = v12;
-  if (v12 == &llvm::semPPCDoubleDouble)
+  llvm::detail::IEEEFloat::toString(&v14, a2, a3, a4, a5);
+  v11 = v14;
+  if (v14 == &llvm::semPPCDoubleDouble)
   {
     goto LABEL_7;
   }
 
 LABEL_3:
-  if ((v9[2] - 64) <= 0xFFFFFF7F && __p)
+  if ((v11[2] - 64) <= 0xFFFFFF7F && __p)
   {
     operator delete[](__p);
   }
 
 LABEL_8:
-  if (v11 >= 0x41)
+  if (v13 >= 0x41)
   {
-    if (v10)
+    if (v12)
     {
-      operator delete[](v10);
+      operator delete[](v12);
     }
   }
 }
@@ -7106,8 +7106,8 @@ uint64_t llvm::APFloat::Storage::Storage(uint64_t a1, uint64_t *a2, void *a3)
     __p = v7;
     LODWORD(v18) = v8;
     BYTE4(v18) = v9 & 0xF;
-    llvm::APFloat::Storage::Storage(&v21, &v16);
-    if ((*(v16 + 8) - 64) <= 0xFFFFFF7F && __p)
+    llvm::APFloat::Storage::Storage(&v21, &v16, v6);
+    if ((v16[2] - 64) <= 0xFFFFFF7F && __p)
     {
       operator delete[](__p);
     }
@@ -7215,9 +7215,9 @@ LABEL_6:
   return a1;
 }
 
-uint64_t llvm::APFloat::convert(uint64_t a1, void *a2, int a3, _BYTE *a4)
+uint64_t llvm::APFloat::convert(uint64_t a1, void *a2, uint64_t a3, BOOL *a4)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   v5 = (a1 + 8);
   v4 = *(a1 + 8);
   if (v4 == a2)
@@ -7229,7 +7229,7 @@ uint64_t llvm::APFloat::convert(uint64_t a1, void *a2, int a3, _BYTE *a4)
 
   if (v4 == &llvm::semPPCDoubleDouble)
   {
-    v10 = llvm::detail::IEEEFloat::convert(*(a1 + 16) + 8, a2, a3, a4);
+    v10 = llvm::detail::IEEEFloat::convert((*(a1 + 16) + 8), a2, a3, a4);
     v11 = *(a1 + 8);
     v12 = v5;
     if (v11 == &llvm::semPPCDoubleDouble)
@@ -7244,30 +7244,30 @@ uint64_t llvm::APFloat::convert(uint64_t a1, void *a2, int a3, _BYTE *a4)
     v16 = *(v12 + 4);
     v17 = *(v12 + 20) & 0xF;
     *v12 = &llvm::semBogus;
-    v30 = v11;
+    v34 = v11;
     __p = v15;
-    v32 = v16;
-    v33 = v17;
-    llvm::APFloat::Storage::Storage(&v34, &v30, a2);
-    if ((*(v30 + 2) - 64) <= 0xFFFFFF7F && __p)
+    v36 = v16;
+    v37 = v17;
+    llvm::APFloat::Storage::Storage(&v38, &v34, a2);
+    if ((*(v34 + 2) - 64) <= 0xFFFFFF7F && __p)
     {
       operator delete[](__p);
     }
 
-    llvm::APFloat::Storage::operator=(v5, &v34);
-    if (v34.n128_u64[0] == &llvm::semPPCDoubleDouble)
+    llvm::APFloat::Storage::operator=(v5, &v38);
+    if (v38.n128_u64[0] == &llvm::semPPCDoubleDouble)
     {
-      llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v34);
+      llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v38);
       return v10;
     }
 
-    if ((*(v34.n128_u64[0] + 8) - 64) > 0xFFFFFF7F)
+    if ((*(v38.n128_u64[0] + 8) - 64) > 0xFFFFFF7F)
     {
       return v10;
     }
 
-    v18 = v34.n128_u64[1];
-    if (!v34.n128_u64[1])
+    v18 = v38.n128_u64[1];
+    if (!v38.n128_u64[1])
     {
       return v10;
     }
@@ -7279,60 +7279,60 @@ LABEL_31:
 
   if (a2 == &llvm::semPPCDoubleDouble)
   {
-    v10 = llvm::detail::IEEEFloat::convert(a1 + 8, &llvm::semPPCDoubleDoubleLegacy, a3, a4);
-    llvm::detail::IEEEFloat::bitcastToAPInt(v5, &v26);
-    v34.n128_u64[0] = &llvm::semPPCDoubleDouble;
+    v10 = llvm::detail::IEEEFloat::convert((a1 + 8), &llvm::semPPCDoubleDoubleLegacy, a3, a4);
+    llvm::detail::IEEEFloat::bitcastToAPInt(&v30, v5);
+    v38.n128_u64[0] = &llvm::semPPCDoubleDouble;
     v19 = operator new[](0x50uLL);
     *v19 = xmmword_1E099CF00;
-    v20 = (v19 + 56);
-    v21 = (v19 + 1);
-    if (v27 >= 0x41)
+    v22 = v19 + 56;
+    v23 = (v19 + 1);
+    if (v31 >= 0x41)
     {
-      v22 = v26;
+      v24 = v30;
     }
 
     else
     {
-      v22 = &v26;
+      v24 = &v30;
     }
 
-    v23 = *v22;
+    v25 = *v24;
     LODWORD(__p) = 64;
-    v30 = v23;
-    llvm::detail::IEEEFloat::initFromDoubleAPInt((v19 + 24), &v30);
-    if (v27 >= 0x41)
+    v34 = v25;
+    llvm::detail::IEEEFloat::initFromDoubleAPInt(v19 + 24, &v34, v20, v21);
+    if (v31 >= 0x41)
     {
-      v24 = v26;
+      v28 = v30;
     }
 
     else
     {
-      v24 = &v26;
+      v28 = &v30;
     }
 
-    v25 = *(v24 + 1);
-    v29 = 64;
-    v28 = v25;
-    llvm::detail::IEEEFloat::initFromDoubleAPInt(v20, &v28);
-    v34.n128_u64[1] = v21;
-    llvm::APFloat::Storage::operator=(v5, &v34);
-    if (v34.n128_u64[0] == &llvm::semPPCDoubleDouble)
+    v29 = *(v28 + 1);
+    v33 = 64;
+    v32 = v29;
+    llvm::detail::IEEEFloat::initFromDoubleAPInt(v22, &v32, v26, v27);
+    v38.n128_u64[1] = v23;
+    llvm::APFloat::Storage::operator=(v5, &v38);
+    if (v38.n128_u64[0] == &llvm::semPPCDoubleDouble)
     {
-      llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v34);
+      llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v38);
     }
 
-    else if ((*(v34.n128_u64[0] + 8) - 64) <= 0xFFFFFF7F && v34.n128_u64[1])
+    else if ((*(v38.n128_u64[0] + 8) - 64) <= 0xFFFFFF7F && v38.n128_u64[1])
     {
-      operator delete[](v34.n128_u64[1]);
+      operator delete[](v38.n128_u64[1]);
     }
 
-    if (v27 < 0x41)
+    if (v31 < 0x41)
     {
       return v10;
     }
 
-    v18 = v26;
-    if (!v26)
+    v18 = v30;
+    if (!v30)
     {
       return v10;
     }
@@ -7340,7 +7340,7 @@ LABEL_31:
     goto LABEL_31;
   }
 
-  v6 = a1 + 8;
+  v6 = (a1 + 8);
 
   return llvm::detail::IEEEFloat::convert(v6, a2, a3, a4);
 }
@@ -7422,168 +7422,168 @@ LABEL_9:
   return v19;
 }
 
-double llvm::APFloat::convertToDouble(void **this)
+double llvm::APFloat::convertToDouble(void **this, uint64_t a2, uint64_t a3, unsigned int a4)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (this[1] == &llvm::semIEEEdouble)
   {
-    llvm::detail::IEEEFloat::bitcastToAPInt((this + 1), &v9);
-    if (v10 <= 0x40)
+    llvm::detail::IEEEFloat::bitcastToAPInt(&v12, (this + 1));
+    if (v13 <= 0x40)
     {
-      v2 = v9;
-      return *&v2;
+      v5 = v12;
+      return *&v5;
     }
 
-    v4 = v9;
-    v2 = *v9;
+    v7 = v12;
+    v5 = *v12;
 LABEL_16:
-    operator delete[](v4);
-    return *&v2;
+    operator delete[](v7);
+    return *&v5;
   }
 
-  llvm::APFloat::Storage::Storage(&v10, (this + 1));
-  llvm::APFloat::convert(&v9, &llvm::semIEEEdouble, 1, &v6);
-  if (v10 == &llvm::semPPCDoubleDouble)
+  llvm::APFloat::Storage::Storage(&v13, (this + 1), a3, a4);
+  llvm::APFloat::convert(&v12, &llvm::semIEEEdouble, 1, &v9);
+  if (v13 == &llvm::semPPCDoubleDouble)
   {
-    v1 = (v11 + 8);
+    v4 = (v14 + 8);
   }
 
   else
   {
-    v1 = &v10;
+    v4 = &v13;
   }
 
-  llvm::detail::IEEEFloat::bitcastToAPInt(v1, &__p);
-  if (v8 > 0x40)
+  llvm::detail::IEEEFloat::bitcastToAPInt(&__p, v4);
+  if (v11 > 0x40)
   {
-    v2 = *__p;
+    v5 = *__p;
     operator delete[](__p);
-    v3 = v10;
-    if (v10 != &llvm::semPPCDoubleDouble)
+    v6 = v13;
+    if (v13 != &llvm::semPPCDoubleDouble)
     {
       goto LABEL_7;
     }
 
 LABEL_13:
-    llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v10);
-    return *&v2;
+    llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v13);
+    return *&v5;
   }
 
-  v2 = __p;
-  v3 = v10;
-  if (v10 == &llvm::semPPCDoubleDouble)
+  v5 = __p;
+  v6 = v13;
+  if (v13 == &llvm::semPPCDoubleDouble)
   {
     goto LABEL_13;
   }
 
 LABEL_7:
-  if ((v3[2] - 64) <= 0xFFFFFF7F)
+  if ((v6[2] - 64) <= 0xFFFFFF7F)
   {
-    v4 = v11;
-    if (v11)
+    v7 = v14;
+    if (v14)
     {
       goto LABEL_16;
     }
   }
 
-  return *&v2;
+  return *&v5;
 }
 
-float llvm::APFloat::convertToFloat(void **this)
+float llvm::APFloat::convertToFloat(void **this, uint64_t a2, uint64_t a3, unsigned int a4)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (this[1] == &llvm::semIEEEsingle)
   {
-    llvm::detail::IEEEFloat::bitcastToAPInt((this + 1), &v9);
-    if (v10 <= 0x40)
+    llvm::detail::IEEEFloat::bitcastToAPInt(&v12, (this + 1));
+    if (v13 <= 0x40)
     {
-      LODWORD(v2) = v9;
-      return *&v2;
+      LODWORD(v5) = v12;
+      return *&v5;
     }
 
-    v4 = v9;
-    v2 = *v9;
+    v7 = v12;
+    v5 = *v12;
 LABEL_16:
-    operator delete[](v4);
-    return *&v2;
+    operator delete[](v7);
+    return *&v5;
   }
 
-  llvm::APFloat::Storage::Storage(&v10, (this + 1));
-  llvm::APFloat::convert(&v9, &llvm::semIEEEsingle, 1, &v6);
-  if (v10 == &llvm::semPPCDoubleDouble)
+  llvm::APFloat::Storage::Storage(&v13, (this + 1), a3, a4);
+  llvm::APFloat::convert(&v12, &llvm::semIEEEsingle, 1, &v9);
+  if (v13 == &llvm::semPPCDoubleDouble)
   {
-    v1 = (v11 + 8);
+    v4 = (v14 + 8);
   }
 
   else
   {
-    v1 = &v10;
+    v4 = &v13;
   }
 
-  llvm::detail::IEEEFloat::bitcastToAPInt(v1, &__p);
-  if (v8 > 0x40)
+  llvm::detail::IEEEFloat::bitcastToAPInt(&__p, v4);
+  if (v11 > 0x40)
   {
-    v2 = *__p;
+    v5 = *__p;
     operator delete[](__p);
-    v3 = v10;
-    if (v10 != &llvm::semPPCDoubleDouble)
+    v6 = v13;
+    if (v13 != &llvm::semPPCDoubleDouble)
     {
       goto LABEL_7;
     }
 
 LABEL_13:
-    llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v10);
-    return *&v2;
+    llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v13);
+    return *&v5;
   }
 
-  LODWORD(v2) = __p;
-  v3 = v10;
-  if (v10 == &llvm::semPPCDoubleDouble)
+  LODWORD(v5) = __p;
+  v6 = v13;
+  if (v13 == &llvm::semPPCDoubleDouble)
   {
     goto LABEL_13;
   }
 
 LABEL_7:
-  if ((v3[2] - 64) <= 0xFFFFFF7F)
+  if ((v6[2] - 64) <= 0xFFFFFF7F)
   {
-    v4 = v11;
-    if (v11)
+    v7 = v14;
+    if (v14)
     {
       goto LABEL_16;
     }
   }
 
-  return *&v2;
+  return *&v5;
 }
 
-llvm::APFloat::Storage *llvm::APFloat::Storage::Storage(llvm::APFloat::Storage *this, const llvm::APFloat::Storage *a2)
+llvm::APFloat::Storage *llvm::APFloat::Storage::Storage(llvm::APFloat::Storage *this, const llvm::APFloat::Storage *a2, uint64_t a3, unsigned int a4)
 {
   if (*a2 == &llvm::semPPCDoubleDouble)
   {
     *this = &llvm::semPPCDoubleDouble;
-    v4 = *(a2 + 1);
-    if (v4)
+    v6 = *(a2 + 1);
+    if (v6)
     {
-      v6 = operator new[](0x50uLL);
-      *v6 = xmmword_1E099CF00;
-      v7 = (v6 + 56);
-      v8 = v6 + 1;
-      llvm::APFloat::Storage::Storage((v6 + 24), (v4 + 8));
-      llvm::APFloat::Storage::Storage(v7, (*(a2 + 1) + 40));
+      v8 = operator new[](0x50uLL);
+      *v8 = xmmword_1E099CF00;
+      v9 = (v8 + 56);
+      v10 = v8 + 1;
+      llvm::APFloat::Storage::Storage((v8 + 24), (v6 + 8), v11, v12);
+      llvm::APFloat::Storage::Storage(v9, (*(a2 + 1) + 40), v13, v14);
     }
 
     else
     {
-      v8 = 0;
+      v10 = 0;
     }
 
-    *(this + 1) = v8;
+    *(this + 1) = v10;
     return this;
   }
 
   else
   {
-    llvm::detail::IEEEFloat::IEEEFloat(this, a2);
+    llvm::detail::IEEEFloat::IEEEFloat(this, a2, a3, a4);
     return this;
   }
 }
@@ -7828,7 +7828,7 @@ LABEL_35:
   *a1 = 0;
 }
 
-char *std::vector<std::unique_ptr<llvm::ErrorInfoBase>>::insert(char **a1, uint64_t *a2, uint64_t *a3)
+char *std::vector<std::unique_ptr<llvm::ErrorInfoBase>>::insert(void *a1, char *a2, uint64_t *a3)
 {
   v4 = a2;
   v6 = a1[1];
@@ -7840,12 +7840,12 @@ char *std::vector<std::unique_ptr<llvm::ErrorInfoBase>>::insert(char **a1, uint6
       v16 = *a3;
       *a3 = 0;
       *v6 = v16;
-      a1[1] = (v6 + 1);
+      a1[1] = v6 + 8;
       return v4;
     }
 
-    v8 = a2 + 1;
-    v9 = v6 - 1;
+    v8 = a2 + 8;
+    v9 = v6 - 8;
     if (v6 < 8)
     {
       a1[1] = v6;
@@ -7860,7 +7860,7 @@ char *std::vector<std::unique_ptr<llvm::ErrorInfoBase>>::insert(char **a1, uint6
       v10 = *v9;
       *v9 = 0;
       *v6 = v10;
-      a1[1] = (v6 + 1);
+      a1[1] = v6 + 8;
       if (v6 == v8)
       {
 LABEL_25:
@@ -7877,8 +7877,8 @@ LABEL_25:
       }
     }
 
-    v24 = a2 - v6 + 8;
-    v25 = v6 - 2;
+    v24 = (a2 - v6 + 8);
+    v25 = v6 - 16;
     do
     {
       v26 = *v25;
@@ -7890,8 +7890,8 @@ LABEL_25:
         (*(*v27 + 8))(v27);
       }
 
-      --v9;
-      --v25;
+      v9 -= 8;
+      v25 -= 8;
       v24 += 8;
     }
 
@@ -7900,7 +7900,7 @@ LABEL_25:
   }
 
   v11 = *a1;
-  v12 = ((v6 - *a1) >> 3) + 1;
+  v12 = (&v6[-*a1] >> 3) + 1;
   if (v12 >> 61)
   {
     std::vector<mlir::CallGraphNode *>::__throw_length_error[abi:nn200100]();
@@ -7939,7 +7939,7 @@ LABEL_25:
   }
 
   v31 = v15;
-  v32 = &v15[8 * ((v4 - v11) >> 3)];
+  v32 = &v15[8 * (&v4[-v11] >> 3)];
   *&v33 = v32;
   *(&v33 + 1) = &v15[8 * v14];
   std::__split_buffer<std::unique_ptr<llvm::ErrorInfoBase>>::emplace_back<std::unique_ptr<llvm::ErrorInfoBase>>(&v31, a3);
@@ -8027,21 +8027,21 @@ void std::__split_buffer<std::unique_ptr<llvm::ErrorInfoBase>>::emplace_back<std
   v17 = v4 - v6;
   if (v4 != v6)
   {
-    v18 = (v15 + v17);
+    v18 = &v15[v17];
     v19 = v17 - 8;
     if ((v17 - 8) > 0x77)
     {
-      v24 = v6 >= v15 + (v19 & 0xFFFFFFFFFFFFFFF8) + 8 || v15 >= &v6[(v19 & 0xFFFFFFFFFFFFFFF8) + 8];
+      v24 = v6 >= &v15[(v19 & 0xFFFFFFFFFFFFFFF8) + 8] || v15 >= &v6[(v19 & 0xFFFFFFFFFFFFFFF8) + 8];
       v20 = &v14[8 * v12];
       v21 = v6;
       if (v24)
       {
         v25 = (v19 >> 3) + 1;
         v26 = 8 * (v25 & 0x3FFFFFFFFFFFFFFCLL);
-        v20 = (v15 + v26);
+        v20 = &v15[v26];
         v21 = &v6[v26];
         v27 = (v6 + 16);
-        v28 = (v15 + 16);
+        v28 = v15 + 16;
         v29 = v25 & 0x3FFFFFFFFFFFFFFCLL;
         do
         {
@@ -8262,7 +8262,7 @@ uint64_t llvm::APInt::APInt(uint64_t a1, unsigned int a2, void *a3, unsigned int
       v13 = v10;
     }
 
-    memcpy(v12, a3, (8 * v13));
+    memcpy(v12, a3, 8 * v13);
     v7 = 0xFFFFFFFFFFFFFFFFLL >> -v11;
     v8 = &v12[8 * (v10 - 1)];
     v6 = *v8;
@@ -8305,7 +8305,7 @@ llvm::APInt *llvm::APInt::APInt(llvm::APInt *this, unsigned int a2, unsigned int
       v13 = v10;
     }
 
-    memcpy(v12, a4, (8 * v13));
+    memcpy(v12, a4, 8 * v13);
     v7 = 0xFFFFFFFFFFFFFFFFLL >> -v11;
     v8 = &v12[8 * (v10 - 1)];
     v6 = *v8;
@@ -8419,7 +8419,7 @@ uint64_t **llvm::APInt::operator++(uint64_t **result)
 
   else
   {
-    v2 = *result + 1;
+    v2 = (*result + 1);
     *result = v2;
     if (v1)
     {
@@ -8493,7 +8493,7 @@ uint64_t llvm::APInt::operator+=(uint64_t result, uint64_t **a2)
   return result;
 }
 
-unint64_t llvm::APInt::tcAdd(llvm::APInt *this, unint64_t *a2, unint64_t a3, unsigned int a4)
+BOOL llvm::APInt::tcAdd(llvm::APInt *this, unint64_t *a2, _BOOL8 a3, unsigned int a4)
 {
   if (a4)
   {
@@ -8538,7 +8538,7 @@ unint64_t llvm::APInt::tcAdd(llvm::APInt *this, unint64_t *a2, unint64_t a3, uns
   return a3;
 }
 
-BOOL llvm::APInt::tcAddPart(llvm::APInt *this, unint64_t *a2, unsigned int a3)
+uint64_t llvm::APInt::tcAddPart(llvm::APInt *this, unint64_t *a2, unsigned int a3)
 {
   if (a3)
   {
@@ -8939,7 +8939,7 @@ uint64_t llvm::APInt::operator*=(uint64_t a1, uint64_t *a2)
     }
 
     while (v12);
-    *(v6 + (v7 - 1)) &= 0xFFFFFFFFFFFFFFFFLL >> -v4;
+    *(v6 + 8 * (v7 - 1)) &= 0xFFFFFFFFFFFFFFFFLL >> -v4;
     if (v9)
     {
       operator delete[](v9);
@@ -8954,7 +8954,7 @@ uint64_t llvm::APInt::operator*=(uint64_t a1, uint64_t *a2)
       v5 = 0;
     }
 
-    v6 = ((*a2 * *a1) & v5);
+    v6 = (*a2 * *a1) & v5;
   }
 
   *a1 = v6;
@@ -9400,18 +9400,18 @@ LABEL_11:
   return this;
 }
 
-void llvm::APInt::zext(const void **this@<X0>, unsigned int a2@<W1>, uint64_t a3@<X8>)
+void llvm::APInt::zext(unint64_t *__return_ptr a1@<X8>, const void **this@<X0>, unsigned int a3@<W1>)
 {
   v3 = this;
-  if (a2 > 0x40)
+  if (a3 > 0x40)
   {
     v7 = *(this + 2);
-    if (v7 == a2)
+    if (v7 == a3)
     {
-      *(a3 + 8) = a2;
-      v8 = (a2 + 63) >> 3;
+      *(a1 + 2) = a3;
+      v8 = (a3 + 63) >> 3;
       v9 = operator new[](v8 & 0x3FFFFFF8);
-      *a3 = v9;
+      *a1 = v9;
       v10 = *v3;
 
       memcpy(v9, v10, v8 & 0x3FFFFFF8);
@@ -9419,11 +9419,11 @@ void llvm::APInt::zext(const void **this@<X0>, unsigned int a2@<W1>, uint64_t a3
 
     else
     {
-      v11 = (a2 + 63) >> 6;
+      v11 = (a3 + 63) >> 6;
       v13 = operator new[](8 * v11);
       v14 = v13;
-      *(a3 + 8) = a2;
-      *a3 = v13;
+      *(a1 + 2) = a3;
+      *a1 = v13;
       if (v7 >= 0x41)
       {
         v3 = *v3;
@@ -9439,55 +9439,55 @@ void llvm::APInt::zext(const void **this@<X0>, unsigned int a2@<W1>, uint64_t a3
   else
   {
     v5 = *this;
-    *(a3 + 8) = a2;
-    v6 = 0xFFFFFFFFFFFFFFFFLL >> -a2;
-    if (!a2)
+    *(a1 + 2) = a3;
+    v6 = 0xFFFFFFFFFFFFFFFFLL >> -a3;
+    if (!a3)
     {
       v6 = 0;
     }
 
-    *a3 = v5 & v6;
+    *a1 = v5 & v6;
   }
 }
 
-void llvm::APInt::extractBits(llvm::APInt *this@<X0>, unsigned int a2@<W1>, unsigned int a3@<W2>, uint64_t a4@<X8>)
+void llvm::APInt::extractBits(unint64_t *__return_ptr a1@<X8>, llvm::APInt *this@<X0>, unsigned int a3@<W1>, unsigned int a4@<W2>)
 {
   v5 = *(this + 2);
   if (v5 <= 0x40)
   {
-    v6 = *this >> a3;
-    *(a4 + 8) = a2;
-    if (a2 <= 0x40)
+    v6 = *this >> a4;
+    *(a1 + 2) = a3;
+    if (a3 <= 0x40)
     {
 LABEL_3:
-      v7 = 0xFFFFFFFFFFFFFFFFLL >> -a2;
-      if (!a2)
+      v7 = 0xFFFFFFFFFFFFFFFFLL >> -a3;
+      if (!a3)
       {
         v7 = 0;
       }
 
-      *a4 = v6 & v7;
+      *a1 = v6 & v7;
       return;
     }
 
 LABEL_8:
-    v12 = (a2 + 63) >> 3;
+    v12 = (a3 + 63) >> 3;
     v13 = operator new[](v12 & 0x3FFFFFF8);
     bzero(v13, v12 & 0x3FFFFFF8);
-    *a4 = v13;
+    *a1 = v13;
     *v13 = v6;
     return;
   }
 
-  v8 = a3 & 0x3F;
-  v9 = a3 >> 6;
-  v10 = (a2 + a3 - 1) >> 6;
+  v8 = a4 & 0x3F;
+  v9 = a4 >> 6;
+  v10 = (a3 + a4 - 1) >> 6;
   v11 = v10 - v9;
   if (v10 == v9)
   {
     v6 = *(*this + 8 * v9) >> v8;
-    *(a4 + 8) = a2;
-    if (a2 <= 0x40)
+    *(a1 + 2) = a3;
+    if (a3 <= 0x40)
     {
       goto LABEL_3;
     }
@@ -9495,17 +9495,17 @@ LABEL_8:
     goto LABEL_8;
   }
 
-  if ((a3 & 0x3F) != 0)
+  if ((a4 & 0x3F) != 0)
   {
-    if (a2 >= 0x41)
+    if (a3 >= 0x41)
     {
-      v14 = a2 + 63;
+      v14 = a3 + 63;
       v21 = this;
-      v22 = a2;
+      v22 = a3;
       v15 = operator new[]((v14 >> 3) & 0x3FFFFFF8);
       bzero(v15, (v14 >> 3) & 0x3FFFFFF8);
       this = v21;
-      a2 = v22;
+      a3 = v22;
       *v15 = 0;
       v34 = v15;
     }
@@ -9513,17 +9513,17 @@ LABEL_8:
     else
     {
       v34 = 0;
-      if (!a2)
+      if (!a3)
       {
         v27 = 0;
 LABEL_32:
         v33 = v34 & v27;
-        *(a4 + 8) = a2;
-        *a4 = v33;
+        *(a1 + 2) = a3;
+        *a1 = v33;
         return;
       }
 
-      v14 = a2 + 63;
+      v14 = a3 + 63;
       v15 = &v34;
     }
 
@@ -9548,14 +9548,14 @@ LABEL_32:
     }
 
     while (v25);
-    v27 = 0xFFFFFFFFFFFFFFFFLL >> -a2;
-    if (a2 > 0x40)
+    v27 = 0xFFFFFFFFFFFFFFFFLL >> -a3;
+    if (a3 > 0x40)
     {
       v28 = v34;
       *(v34 + 8 * ((v14 >> 6) - 1)) &= v27;
-      *(a4 + 8) = a2;
+      *(a1 + 2) = a3;
       v29 = operator new[]((v14 >> 3) & 0x3FFFFFF8);
-      *a4 = v29;
+      *a1 = v29;
       memcpy(v29, v28, (v14 >> 3) & 0x3FFFFFF8);
       operator delete[](v28);
       return;
@@ -9565,11 +9565,11 @@ LABEL_32:
   }
 
   v16 = (*this + 8 * v9);
-  *(a4 + 8) = a2;
-  if (a2 > 0x40)
+  *(a1 + 2) = a3;
+  if (a3 > 0x40)
   {
-    v30 = (a2 + 63) >> 6;
-    v31 = a2;
+    v30 = (a3 + 63) >> 6;
+    v31 = a3;
     v17 = operator new[](8 * v30);
     bzero(v17, 8 * v30);
     if (v30 >= v11 + 1)
@@ -9591,21 +9591,21 @@ LABEL_32:
   else
   {
     v17 = *v16;
-    v18 = 0xFFFFFFFFFFFFFFFFLL >> -a2;
-    if (!a2)
+    v18 = 0xFFFFFFFFFFFFFFFFLL >> -a3;
+    if (!a3)
     {
       v18 = 0;
     }
 
     v19 = *v16;
-    v20 = a4;
+    v20 = a1;
   }
 
-  *a4 = v17;
+  *a1 = v17;
   *v20 = v18 & v19;
 }
 
-unint64_t llvm::hash_value(llvm *this, const llvm::APInt *a2)
+unint64_t llvm::hash_value(llvm::hashing::detail **this, const llvm::APInt *a2)
 {
   v15 = *MEMORY[0x1E69E9840];
   v2 = *(this + 2);

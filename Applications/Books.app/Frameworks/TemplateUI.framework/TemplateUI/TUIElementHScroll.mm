@@ -29,10 +29,10 @@
   [boxCopy setAcceptsDrop:{objc_msgSend(attributesCopy, "BOOLForAttribute:withDefault:node:", 2, 0, var0)}];
   v12 = [attributesCopy stringForAttribute:65 node:var0];
 
-  [boxCopy setDecelerationRate:TUIBoxDecelerationRateFromString(v12)];
-  v13 = [contextCopy modelIdentifierWithNode:var0];
+  [boxCopy setDecelerationRate:{TUIBoxDecelerationRateFromString(v12, v13)}];
+  v14 = [contextCopy modelIdentifierWithNode:var0];
 
-  [boxCopy setModelIdentifierForScrollable:v13];
+  [boxCopy setModelIdentifierForScrollable:v14];
 }
 
 + (void)configureObject:(id)object withBuilder:(id)builder context:(id)context

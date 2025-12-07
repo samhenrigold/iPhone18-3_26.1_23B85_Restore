@@ -9,25 +9,25 @@
 
 - (FCChannelMembershipController)initWithChannelMembershipRecordSource:(id)source
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   sourceCopy = source;
   if (!sourceCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "recordSource"];
+    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "recordSource"];
     *buf = 136315906;
-    v13 = "[FCChannelMembershipController initWithChannelMembershipRecordSource:]";
-    v14 = 2080;
-    v15 = "FCChannelMembershipController.m";
-    v16 = 1024;
-    v17 = 29;
-    v18 = 2114;
-    v19 = v10;
+    v12 = "[FCChannelMembershipController initWithChannelMembershipRecordSource:]";
+    v13 = 2080;
+    v14 = "FCChannelMembershipController.m";
+    v15 = 1024;
+    v16 = 29;
+    v17 = 2114;
+    v18 = v9;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v11.receiver = self;
-  v11.super_class = FCChannelMembershipController;
-  v6 = [(FCChannelMembershipController *)&v11 init];
+  v10.receiver = self;
+  v10.super_class = FCChannelMembershipController;
+  v6 = [(FCChannelMembershipController *)&v10 init];
   v7 = v6;
   if (v6)
   {
@@ -43,27 +43,26 @@
     }
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (void)fetchChannelMembershipsForIDs:(id)ds maximumCachedAge:(double)age callbackQueue:(id)queue completionHandler:(id)handler
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   queueCopy = queue;
   handlerCopy = handler;
   if (!dsCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v21 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "channelMembershipIDs != nil"];
+    v20 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "channelMembershipIDs != nil"];
     *buf = 136315906;
-    v29 = "[FCChannelMembershipController fetchChannelMembershipsForIDs:maximumCachedAge:callbackQueue:completionHandler:]";
-    v30 = 2080;
-    v31 = "FCChannelMembershipController.m";
-    v32 = 1024;
-    v33 = 50;
-    v34 = 2114;
-    v35 = v21;
+    v28 = "[FCChannelMembershipController fetchChannelMembershipsForIDs:maximumCachedAge:callbackQueue:completionHandler:]";
+    v29 = 2080;
+    v30 = "FCChannelMembershipController.m";
+    v31 = 1024;
+    v32 = 50;
+    v33 = 2114;
+    v34 = v20;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (queueCopy)
@@ -79,15 +78,15 @@
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v22 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "callbackQueue != nil"];
+    v21 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "callbackQueue != nil"];
     *buf = 136315906;
-    v29 = "[FCChannelMembershipController fetchChannelMembershipsForIDs:maximumCachedAge:callbackQueue:completionHandler:]";
-    v30 = 2080;
-    v31 = "FCChannelMembershipController.m";
-    v32 = 1024;
-    v33 = 51;
-    v34 = 2114;
-    v35 = v22;
+    v28 = "[FCChannelMembershipController fetchChannelMembershipsForIDs:maximumCachedAge:callbackQueue:completionHandler:]";
+    v29 = 2080;
+    v30 = "FCChannelMembershipController.m";
+    v31 = 1024;
+    v32 = 51;
+    v33 = 2114;
+    v34 = v21;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
@@ -104,21 +103,21 @@ LABEL_6:
         [v13 setQualityOfService:9];
         [v13 setCachePolicy:1];
         [v13 setFetchCompletionQueue:queueCopy];
-        v25[0] = MEMORY[0x1E69E9820];
-        v25[1] = 3221225472;
-        v25[2] = __112__FCChannelMembershipController_fetchChannelMembershipsForIDs_maximumCachedAge_callbackQueue_completionHandler___block_invoke;
-        v25[3] = &unk_1E7C37CB0;
-        v25[4] = self;
-        v26 = dsCopy;
-        v27 = handlerCopy;
-        [v13 setFetchCompletionBlock:v25];
+        v24[0] = MEMORY[0x1E69E9820];
+        v24[1] = 3221225472;
+        v24[2] = __112__FCChannelMembershipController_fetchChannelMembershipsForIDs_maximumCachedAge_callbackQueue_completionHandler___block_invoke;
+        v24[3] = &unk_1E7C37CB0;
+        v24[4] = self;
+        v25 = dsCopy;
+        v26 = handlerCopy;
+        [v13 setFetchCompletionBlock:v24];
         v14 = FCChannelMembershipLog;
         if (os_log_type_enabled(FCChannelMembershipLog, OS_LOG_TYPE_DEFAULT))
         {
           v15 = v14;
           shortOperationDescription = [v13 shortOperationDescription];
           *buf = 138543362;
-          v29 = shortOperationDescription;
+          v28 = shortOperationDescription;
           _os_log_impl(&dword_1B63EF000, v15, OS_LOG_TYPE_DEFAULT, "refreshing channel memberships, operation=%{public}@", buf, 0xCu);
         }
 
@@ -139,7 +138,7 @@ LABEL_6:
         block[1] = 3221225472;
         block[2] = __112__FCChannelMembershipController_fetchChannelMembershipsForIDs_maximumCachedAge_callbackQueue_completionHandler___block_invoke_9;
         block[3] = &unk_1E7C379C8;
-        v24 = handlerCopy;
+        v23 = handlerCopy;
         dispatch_async(queueCopy, block);
       }
     }
@@ -149,17 +148,15 @@ LABEL_6:
   {
     v18 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "completionHandler != nil"];
     *buf = 136315906;
-    v29 = "[FCChannelMembershipController fetchChannelMembershipsForIDs:maximumCachedAge:callbackQueue:completionHandler:]";
-    v30 = 2080;
-    v31 = "FCChannelMembershipController.m";
-    v32 = 1024;
-    v33 = 52;
-    v34 = 2114;
-    v35 = v18;
+    v28 = "[FCChannelMembershipController fetchChannelMembershipsForIDs:maximumCachedAge:callbackQueue:completionHandler:]";
+    v29 = 2080;
+    v30 = "FCChannelMembershipController.m";
+    v31 = 1024;
+    v32 = 52;
+    v33 = 2114;
+    v34 = v18;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __112__FCChannelMembershipController_fetchChannelMembershipsForIDs_maximumCachedAge_callbackQueue_completionHandler___block_invoke(uint64_t a1, void *a2)

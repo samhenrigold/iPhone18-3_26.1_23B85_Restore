@@ -56,45 +56,43 @@
   v24 = 0;
   v11 = [KramerVCReader readCardFromVC:historyCopy forCity:&unk_2843C64E8 withError:&v24];
 
-  v12 = v24;
-  if (v12 && +[AppletTranslator isInternalBuild])
+  v13 = v24;
+  if (v13 && +[AppletTranslator isInternalBuild])
   {
     if (error)
     {
-      v13 = v12;
-      v14 = 0;
-      *error = v12;
+      v14 = v13;
+      v15 = 0;
+      *error = v13;
     }
 
     else
     {
-      v14 = 0;
+      v15 = 0;
     }
   }
 
   else
   {
-    v15 = [v11 objectForKeyedSubscript:@"CommutePlans"];
-    v16 = [v11 objectForKeyedSubscript:@"ATLInternal"];
-    v17 = [v11 objectForKeyedSubscript:@"CyclicLog"];
-    [v10 setObject:v15 forKeyedSubscript:@"CommutePlans"];
-    v18 = [KramerMappings convertPlansToBalances:v15 withDetails:v16];
-    [v10 setObject:v18 forKeyedSubscript:@"Balances"];
+    v16 = [v11 objectForKeyedSubscript:@"CommutePlans"];
+    v17 = [v11 objectForKeyedSubscript:@"ATLInternal"];
+    v18 = [v11 objectForKeyedSubscript:@"CyclicLog"];
+    [v10 setObject:v16 forKeyedSubscript:@"CommutePlans"];
+    v19 = [KramerMappings convertPlansToBalances:v16 withDetails:v17];
+    [v10 setObject:v19 forKeyedSubscript:@"Balances"];
 
-    v19 = [v17 objectForKeyedSubscript:@"CyclicLog"];
-    v20 = [v17 objectForKeyedSubscript:@"LogDirectory"];
-    v21 = [KramerMappings getMergedHistory:v19 withDirectory:v20 withIpeList:v16];
+    v20 = [v18 objectForKeyedSubscript:@"CyclicLog"];
+    v21 = [v18 objectForKeyedSubscript:@"LogDirectory"];
+    v22 = [KramerMappings getMergedHistory:v20 withDirectory:v21 withIpeList:v17];
 
     v25[0] = @"State";
     v25[1] = @"TransactionHistory";
     v26[0] = v10;
-    v26[1] = v21;
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:2];
+    v26[1] = v22;
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:2];
   }
 
-  v22 = *MEMORY[0x277D85DE8];
-
-  return v14;
+  return v15;
 }
 
 @end

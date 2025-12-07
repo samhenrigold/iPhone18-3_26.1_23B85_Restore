@@ -19,11 +19,19 @@
 - (void)_applyGainForHapticType:(int64_t)type toConfigDictionary:(id)dictionary clickSpeed:(unint64_t)speed;
 - (void)setAssetType:(int64_t)type;
 - (void)setClickState:(unint64_t)state;
+- (void)setEnabled:(BOOL)enabled;
 - (void)setMaximumTimeInterval:(double)interval;
 - (void)setMinimumTimeInterval:(double)interval;
 @end
 
 @implementation BKButtonHapticsClickState
+
+- (void)setEnabled:(BOOL)enabled
+{
+  settings = self->_settings;
+  v4 = [NSNumber numberWithBool:enabled];
+  [(BSMutableSettings *)settings setObject:v4 forSetting:2];
+}
 
 - (BOOL)isEnabled
 {

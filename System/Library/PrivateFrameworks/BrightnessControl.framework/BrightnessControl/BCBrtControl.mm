@@ -307,80 +307,77 @@ void __56__BCBrtControl_setPropertyAync_value_completionHandler___block_invoke(u
 
 + (id)newMonitorForAllControlsWithHandler:(id)handler error:(id *)error
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v6 = objc_alloc_init(MEMORY[0x277CBEB18]);
   [v6 addObject:{+[BCAppleBacklightBrtControl newMonitorWithHandler:error:](BCAppleBacklightBrtControl, "newMonitorWithHandler:error:", handler, error)}];
   [v6 addObject:{+[BCHIDBrtControl newMonitorWithHandler:error:](BCHIDBrtControl, "newMonitorWithHandler:error:", handler, error)}];
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       v10 = 0;
       do
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v6);
         }
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
 
   v11 = objc_alloc_init(BCBrtMonitor);
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __73__BCBrtControl_BCDisplayList__newMonitorForAllControlsWithHandler_error___block_invoke;
-  v14[3] = &unk_2784F8E40;
-  v14[4] = v6;
-  [(BCBrtMonitor *)v11 setCancelHandler:v14];
-  v12 = *MEMORY[0x277D85DE8];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __73__BCBrtControl_BCDisplayList__newMonitorForAllControlsWithHandler_error___block_invoke;
+  v13[3] = &unk_2784F8E40;
+  v13[4] = v6;
+  [(BCBrtMonitor *)v11 setCancelHandler:v13];
   return v11;
 }
 
 void __73__BCBrtControl_BCDisplayList__newMonitorForAllControlsWithHandler_error___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v8 + 1) + 8 * i) cancel];
+        [*(*(&v7 + 1) + 8 * i) cancel];
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (id)copyAllAvailableControls

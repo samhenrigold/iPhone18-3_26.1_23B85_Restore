@@ -1,6 +1,9 @@
 @interface PSCVDataStream
 + (id)cvDataStreamWithKey:(char *)key options:(ps_resource_options *)options allocator:(void *)allocator deallocator:(void *)deallocator;
++ (id)cvDataStreamWithKey:(char *)key options:(ps_resource_options *)options width:(unint64_t)width height:(unint64_t)height pixelFormat:(unsigned int)format;
 + (id)cvDataStreamWithResourceKey:(id)key options:(ps_resource_options *)options allocator:(void *)allocator deallocator:(void *)deallocator;
++ (id)cvDataStreamWithResourceKey:(id)key options:(ps_resource_options *)options provider:(int)provider imageWidth:(unint64_t)width imageHeight:(unint64_t)height imagePixelFormat:(unsigned int)format metadataIOSurfaceProperties:(id)properties;
++ (id)cvDataStreamWithResourceKey:(id)key options:(ps_resource_options *)options provider:(int)provider width:(unint64_t)width height:(unint64_t)height pixelFormat:(unsigned int)format;
 + (id)cvDataStreamWithResourceKey:(id)key options:(ps_resource_options *)options width:(unint64_t)width height:(unint64_t)height pixelFormat:(unsigned int)format;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)validate:(id *)validate;
@@ -89,6 +92,15 @@
   return v11;
 }
 
++ (id)cvDataStreamWithKey:(char *)key options:(ps_resource_options *)options width:(unint64_t)width height:(unint64_t)height pixelFormat:(unsigned int)format
+{
+  v7 = *&format;
+  v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", key];
+  v12 = [PSCVDataStream cvDataStreamWithResourceKey:v11 options:options width:width height:height pixelFormat:v7];
+
+  return v12;
+}
+
 + (id)cvDataStreamWithResourceKey:(id)key options:(ps_resource_options *)options width:(unint64_t)width height:(unint64_t)height pixelFormat:(unsigned int)format
 {
   keyCopy = key;
@@ -101,6 +113,38 @@
   [(PSResourceStream *)v12 setOptions:options->storage_mode, options->creation_mode];
 
   return v12;
+}
+
++ (id)cvDataStreamWithResourceKey:(id)key options:(ps_resource_options *)options provider:(int)provider width:(unint64_t)width height:(unint64_t)height pixelFormat:(unsigned int)format
+{
+  v11 = *&provider;
+  keyCopy = key;
+  v14 = objc_alloc_init(PSCVDataStream);
+  [(PSResourceStream *)v14 setKey:keyCopy];
+  [(PSResourceStream *)v14 setProvider:v11];
+  v14->_width = width;
+  v14->_height = height;
+  v14->_pixelFormat = format;
+  [(PSResourceStream *)v14 setOptions:options->storage_mode, options->creation_mode];
+
+  return v14;
+}
+
++ (id)cvDataStreamWithResourceKey:(id)key options:(ps_resource_options *)options provider:(int)provider imageWidth:(unint64_t)width imageHeight:(unint64_t)height imagePixelFormat:(unsigned int)format metadataIOSurfaceProperties:(id)properties
+{
+  v12 = *&provider;
+  keyCopy = key;
+  propertiesCopy = properties;
+  v16 = objc_alloc_init(PSCVDataStream);
+  [(PSResourceStream *)v16 setKey:keyCopy];
+  [(PSResourceStream *)v16 setProvider:v12];
+  v16->_width = width;
+  v16->_height = height;
+  v16->_pixelFormat = format;
+  [(PSResourceStream *)v16 setOptions:options->storage_mode, options->creation_mode];
+  [(PSResourceStream *)v16 setMetadataIOSurfaceProperties:propertiesCopy];
+
+  return v16;
 }
 
 + (id)cvDataStreamWithKey:(char *)key options:(ps_resource_options *)options allocator:(void *)allocator deallocator:(void *)deallocator

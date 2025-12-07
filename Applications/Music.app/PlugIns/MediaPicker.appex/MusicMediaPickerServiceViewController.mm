@@ -29,7 +29,7 @@
 {
   configurationCopy = configuration;
   selfCopy = self;
-  sub_10000221C();
+  sub_10000221C(configurationCopy);
 }
 
 - (MusicMediaPickerServiceViewController)initWithNibName:(id)name bundle:(id)bundle

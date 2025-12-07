@@ -83,7 +83,7 @@ uint64_t __38__TPSCloudDeviceValidation_idsService__block_invoke()
 
 + (id)deviceInfoForIdentifier:(id)identifier preferredIdentifiers:(id)identifiers productIdentifier:(id)productIdentifier name:(id)name symbol:(id)symbol dataSource:(id)source
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   identifiersCopy = identifiers;
   productIdentifierCopy = productIdentifier;
@@ -96,15 +96,15 @@ uint64_t __38__TPSCloudDeviceValidation_idsService__block_invoke()
   }
 
   registeredDevices = [sourceCopy registeredDevices];
-  v56 = identifiersCopy;
-  v57 = [identifiersCopy count];
+  v55 = identifiersCopy;
+  v56 = [identifiersCopy count];
+  v58 = 0u;
   v59 = 0u;
   v60 = 0u;
   v61 = 0u;
-  v62 = 0u;
   v20 = registeredDevices;
-  v21 = [v20 countByEnumeratingWithState:&v59 objects:v63 count:16];
-  v58 = v20;
+  v21 = [v20 countByEnumeratingWithState:&v58 objects:v62 count:16];
+  v57 = v20;
   if (!v21)
   {
 
@@ -112,24 +112,24 @@ uint64_t __38__TPSCloudDeviceValidation_idsService__block_invoke()
   }
 
   v22 = v21;
-  v50 = sourceCopy;
-  v51 = symbolCopy;
-  v52 = nameCopy;
-  v53 = productIdentifierCopy;
+  v49 = sourceCopy;
+  v50 = symbolCopy;
+  v51 = nameCopy;
+  v52 = productIdentifierCopy;
   v23 = 0;
-  v24 = *v60;
+  v24 = *v59;
   v25 = v20;
-  v54 = identifierCopy;
+  v53 = identifierCopy;
   do
   {
     for (i = 0; i != v22; ++i)
     {
-      if (*v60 != v24)
+      if (*v59 != v24)
       {
         objc_enumerationMutation(v25);
       }
 
-      v27 = *(*(&v59 + 1) + 8 * i);
+      v27 = *(*(&v58 + 1) + 8 * i);
       modelIdentifier = [v27 modelIdentifier];
       lowercaseString = [modelIdentifier lowercaseString];
 
@@ -141,14 +141,14 @@ uint64_t __38__TPSCloudDeviceValidation_idsService__block_invoke()
           goto LABEL_22;
         }
 
-        if (v57)
+        if (v56)
         {
           v30 = v23;
           modelIdentifier2 = [v23 modelIdentifier];
           lowercaseString2 = [modelIdentifier2 lowercaseString];
 
-          v33 = [v56 containsObject:lowercaseString2];
-          v34 = [v56 containsObject:lowercaseString];
+          v33 = [v55 containsObject:lowercaseString2];
+          v34 = [v55 containsObject:lowercaseString];
           if ((v34 & 1) != 0 || !v33)
           {
             if (v33 & 1 | ((v34 & 1) == 0))
@@ -182,29 +182,29 @@ LABEL_15:
             v23 = v39;
           }
 
-          identifierCopy = v54;
+          identifierCopy = v53;
         }
 
-        v25 = v58;
+        v25 = v57;
       }
 
 LABEL_22:
     }
 
-    v22 = [v25 countByEnumeratingWithState:&v59 objects:v63 count:16];
+    v22 = [v25 countByEnumeratingWithState:&v58 objects:v62 count:16];
   }
 
   while (v22);
 
-  nameCopy = v52;
-  productIdentifierCopy = v53;
-  sourceCopy = v50;
-  symbolCopy = v51;
+  nameCopy = v51;
+  productIdentifierCopy = v52;
+  sourceCopy = v49;
+  symbolCopy = v50;
   if (v23)
   {
     v41 = v23;
     productVersion3 = [v23 productVersion];
-    v43 = [v56 containsObject:v53];
+    v43 = [v55 containsObject:v52];
     goto LABEL_30;
   }
 
@@ -242,8 +242,6 @@ LABEL_30:
   [(TPSCloudDeviceInfo *)v47 setDisplayName:nameCopy];
   [(TPSCloudDeviceInfo *)v47 setSymbolIdentifier:symbolCopy];
 
-  v48 = *MEMORY[0x277D85DE8];
-
   return v47;
 }
 
@@ -264,12 +262,12 @@ LABEL_30:
 
 - (void)validateWithCompletion:(id)completion
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x2020000000;
-  v30 = 0;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x2020000000;
+  v29 = 0;
   dataSource = [(TPSCloudDeviceValidation *)self dataSource];
   registeredDevices = [dataSource registeredDevices];
 
@@ -284,15 +282,15 @@ LABEL_30:
 
   if ([model length])
   {
-    v19 = MEMORY[0x277D85DD0];
-    v20 = 3221225472;
-    v21 = __51__TPSCloudDeviceValidation_validateWithCompletion___block_invoke;
-    v22 = &unk_2789B0810;
-    v23 = model;
-    v26 = &v27;
-    v24 = minOSVersion;
-    v25 = maxOSVersion;
-    [registeredDevices enumerateObjectsUsingBlock:&v19];
+    v18 = MEMORY[0x277D85DD0];
+    v19 = 3221225472;
+    v20 = __51__TPSCloudDeviceValidation_validateWithCompletion___block_invoke;
+    v21 = &unk_2789B0810;
+    v22 = model;
+    v25 = &v26;
+    v23 = minOSVersion;
+    v24 = maxOSVersion;
+    [registeredDevices enumerateObjectsUsingBlock:&v18];
   }
 
   targeting = [MEMORY[0x277D71778] targeting];
@@ -300,21 +298,19 @@ LABEL_30:
   {
     name = [(TPSTargetingValidation *)self name];
     deviceInfo4 = [(TPSCloudDeviceValidation *)self deviceInfo];
-    v17 = [deviceInfo4 debugDescription];
-    v18 = *(v28 + 24);
+    v16 = [deviceInfo4 debugDescription];
+    v17 = *(v27 + 24);
     *buf = 138412802;
-    v32 = name;
-    v33 = 2112;
-    v34 = v17;
-    v35 = 1024;
-    v36 = v18;
+    v31 = name;
+    v32 = 2112;
+    v33 = v16;
+    v34 = 1024;
+    v35 = v17;
     _os_log_debug_impl(&dword_232D6F000, targeting, OS_LOG_TYPE_DEBUG, "%@ - device info: %@. Valid: %d", buf, 0x1Cu);
   }
 
-  (*(completionCopy + 2))(completionCopy, *(v28 + 24), 0);
-  _Block_object_dispose(&v27, 8);
-
-  v14 = *MEMORY[0x277D85DE8];
+  (*(completionCopy + 2))(completionCopy, *(v27 + 24), 0);
+  _Block_object_dispose(&v26, 8);
 }
 
 void __51__TPSCloudDeviceValidation_validateWithCompletion___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)

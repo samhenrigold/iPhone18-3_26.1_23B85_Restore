@@ -1,682 +1,3 @@
-void sub_1D0C6B0A0(_Unwind_Exception *exception_object)
-{
-  if (*(v1 + 151) < 0)
-  {
-    operator delete(*(v1 + 128));
-  }
-
-  if (*(v1 + 111) < 0)
-  {
-    operator delete(*(v1 + 88));
-  }
-
-  if (*(v1 + 87) < 0)
-  {
-    operator delete(*(v1 + 64));
-  }
-
-  if (*(v1 + 63) < 0)
-  {
-    operator delete(*(v1 + 40));
-  }
-
-  if (*(v1 + 39) < 0)
-  {
-    operator delete(*(v1 + 16));
-  }
-
-  *v1 = &unk_1F4CD5F70;
-  _Unwind_Resume(exception_object);
-}
-
-BOOL cnnavigation::NORADTLEEphemerides::LoadNORADTLEFromStrings(uint64_t a1, const std::string *a2, std::string *__str, std::string *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v12 = SHIBYTE(__str->__r_.__value_.__r.__words[2]);
-  if (v12 < 0)
-  {
-    size = __str->__r_.__value_.__l.__size_;
-    if (size != 69)
-    {
-      LOWORD(__stra.__r_.__value_.__l.__data_) = 5;
-      v78.__r_.__value_.__s.__data_[0] = 3;
-      LOBYTE(v12) = size;
-      goto LABEL_9;
-    }
-  }
-
-  else if (v12 != 69)
-  {
-    LOWORD(__stra.__r_.__value_.__l.__data_) = 5;
-    v78.__r_.__value_.__s.__data_[0] = 3;
-LABEL_9:
-    cnprint::CNPrinter::Print(&__stra, &v78, "LoadNORADTLEFromStrings unexpected TLE line 1 length %zu", a4, a5, a6, a7, a8, v12);
-    return 0;
-  }
-
-  v14 = SHIBYTE(a4->__r_.__value_.__r.__words[2]);
-  if (v14 < 0)
-  {
-    v15 = a4->__r_.__value_.__l.__size_;
-    if (v15 != 69)
-    {
-      LOWORD(__stra.__r_.__value_.__l.__data_) = 5;
-      v78.__r_.__value_.__s.__data_[0] = 3;
-      LOBYTE(v14) = v15;
-      goto LABEL_15;
-    }
-  }
-
-  else if (v14 != 69)
-  {
-    LOWORD(__stra.__r_.__value_.__l.__data_) = 5;
-    v78.__r_.__value_.__s.__data_[0] = 3;
-LABEL_15:
-    cnprint::CNPrinter::Print(&__stra, &v78, "LoadNORADTLEFromStrings unexpected TLE line 2 length %zu", a4, a5, a6, a7, a8, v14);
-    return 0;
-  }
-
-  if ((v12 & 0x80000000) == 0)
-  {
-    v16 = __str->__r_.__value_.__s.__data_[0];
-    if (v16 == 49)
-    {
-      v17 = __str->__r_.__value_.__r.__words[0];
-      goto LABEL_17;
-    }
-
-LABEL_19:
-    LOWORD(__stra.__r_.__value_.__l.__data_) = 5;
-    v78.__r_.__value_.__s.__data_[0] = 3;
-    v76 = v16;
-    v18 = "LoadNORADTLEFromStrings unexpected TLE line 1 character 1: %c";
-LABEL_20:
-    cnprint::CNPrinter::Print(&__stra, &v78, v18, a4, a5, a6, a7, a8, v76);
-    return 0;
-  }
-
-  v17 = __str->__r_.__value_.__r.__words[0];
-  v16 = *__str->__r_.__value_.__l.__data_;
-  if (v16 != 49)
-  {
-    goto LABEL_19;
-  }
-
-LABEL_17:
-  if ((*(v17 + 68) - 58) <= 0xF5u)
-  {
-    LOWORD(__stra.__r_.__value_.__l.__data_) = 5;
-    v78.__r_.__value_.__s.__data_[0] = 3;
-    cnprint::CNPrinter::Print(&__stra, &v78, "LoadNORADTLEFromStrings unexpected TLE line 1 character %u: %c", a4, a5, a6, a7, a8, 69);
-    return 0;
-  }
-
-  if ((v14 & 0x80000000) == 0)
-  {
-    v21 = a4->__r_.__value_.__s.__data_[0];
-    if (v21 == 50)
-    {
-      v22 = a4->__r_.__value_.__r.__words[0];
-      goto LABEL_27;
-    }
-
-LABEL_29:
-    LOWORD(__stra.__r_.__value_.__l.__data_) = 5;
-    v78.__r_.__value_.__s.__data_[0] = 3;
-    cnprint::CNPrinter::Print(&__stra, &v78, "LoadNORADTLEFromStrings unexpected TLE line 2 character 1: %c", a4, a5, a6, a7, a8, v21);
-    return 0;
-  }
-
-  v22 = a4->__r_.__value_.__r.__words[0];
-  v21 = *a4->__r_.__value_.__l.__data_;
-  if (v21 != 50)
-  {
-    goto LABEL_29;
-  }
-
-LABEL_27:
-  if ((*(v22 + 68) - 58) <= 0xF5u)
-  {
-    LOWORD(__stra.__r_.__value_.__l.__data_) = 5;
-    v78.__r_.__value_.__s.__data_[0] = 3;
-    cnprint::CNPrinter::Print(&__stra, &v78, "LoadNORADTLEFromStrings unexpected TLE line 2 character %u: %c", a4, a5, a6, a7, a8, 69);
-    return 0;
-  }
-
-  std::string::basic_string(&__stra, __str, 2uLL, 5uLL, &v78);
-  std::string::basic_string(&v78, a4, 2uLL, 5uLL, &v77);
-  v23 = sub_1D0C6BF78(&__stra, &v78);
-  if (SHIBYTE(v78.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v78.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(__stra.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__stra.__r_.__value_.__l.__data_);
-  }
-
-  if (!v23)
-  {
-    LOWORD(__stra.__r_.__value_.__l.__data_) = 5;
-    v78.__r_.__value_.__s.__data_[0] = 3;
-    v18 = "LoadNORADTLEFromStrings lines 1 & 2 satellite number mismatch";
-    goto LABEL_20;
-  }
-
-  v24 = cnnavigation::NORADTLEEphemerides::TLECheckSum(__str);
-  if (v24 >= 0xB)
-  {
-    LOWORD(__stra.__r_.__value_.__l.__data_) = 5;
-    v78.__r_.__value_.__s.__data_[0] = 3;
-    v18 = "LoadNORADTLEFromStrings TLE line 1 checksum computation failed.";
-    goto LABEL_20;
-  }
-
-  v25 = *(__str->__r_.__value_.__r.__words[0] + 68);
-  if ((v24 | 0x30) != v25)
-  {
-    LOWORD(__stra.__r_.__value_.__l.__data_) = 5;
-    v78.__r_.__value_.__s.__data_[0] = 3;
-    cnprint::CNPrinter::Print(&__stra, &v78, "LoadNORADTLEFromStrings TLE line 1 checksum mismatch: %c vs. %c.", a4, a5, a6, a7, a8, v25);
-    return 0;
-  }
-
-  v26 = cnnavigation::NORADTLEEphemerides::TLECheckSum(a4);
-  if (v26 >= 0xB)
-  {
-    LOWORD(__stra.__r_.__value_.__l.__data_) = 5;
-    v78.__r_.__value_.__s.__data_[0] = 3;
-    v18 = "LoadNORADTLEFromStrings TLE line 2 checksum computation failed.";
-    goto LABEL_20;
-  }
-
-  v27 = *(a4->__r_.__value_.__r.__words[0] + 68);
-  if ((v26 | 0x30) != v27)
-  {
-    LOWORD(__stra.__r_.__value_.__l.__data_) = 5;
-    v78.__r_.__value_.__s.__data_[0] = 3;
-    cnprint::CNPrinter::Print(&__stra, &v78, "LoadNORADTLEFromStrings TLE line 2 checksum mismatch: %c vs. %c.", a4, a5, a6, a7, a8, v27);
-    return 0;
-  }
-
-  *(a1 + 8) = 0;
-  std::string::operator=((a1 + 88), a2);
-  sub_1D0B751F4(&__stra, &unk_1D0ED80C5);
-  sub_1D0B751F4(&v78, &unk_1D0ED80C5);
-  std::string::basic_string(&v77, __str, 2uLL, 5uLL, &v80);
-  if (SHIBYTE(__stra.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__stra.__r_.__value_.__l.__data_);
-  }
-
-  __stra = v77;
-  *(a1 + 112) = std::stoul(&__stra, 0, 10);
-  if (SHIBYTE(__str->__r_.__value_.__r.__words[2]) < 0)
-  {
-    v28 = *(__str->__r_.__value_.__r.__words[0] + 7);
-  }
-
-  else
-  {
-    v28 = __str->__r_.__value_.__s.__data_[7];
-  }
-
-  v29 = v28 != 85 && v28 != 117;
-  *(a1 + 116) = v29;
-  std::string::basic_string(&v77, __str, 9uLL, 2uLL, &v80);
-  if (SHIBYTE(__stra.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__stra.__r_.__value_.__l.__data_);
-  }
-
-  __stra = v77;
-  v30 = HIBYTE(v77.__r_.__value_.__r.__words[2]);
-  v31 = v77.__r_.__value_.__r.__words[0];
-  p_stra = &__stra;
-  if ((v77.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-  {
-    v30 = v77.__r_.__value_.__l.__size_;
-    p_stra = v77.__r_.__value_.__r.__words[0];
-  }
-
-  if (!v30)
-  {
-    goto LABEL_62;
-  }
-
-  v33 = 0;
-  while (p_stra->__r_.__value_.__s.__data_[v33] == 32)
-  {
-    if (v30 == ++v33)
-    {
-      goto LABEL_62;
-    }
-  }
-
-  if (v33 == -1)
-  {
-LABEL_62:
-    if (SHIBYTE(v77.__r_.__value_.__r.__words[2]) < 0)
-    {
-      __stra.__r_.__value_.__l.__size_ = 1;
-    }
-
-    else
-    {
-      *(&__stra.__r_.__value_.__s + 23) = 1;
-      v31 = &__stra;
-    }
-
-    LOWORD(v31->__r_.__value_.__l.__data_) = 48;
-  }
-
-  v34 = std::stoul(&__stra, 0, 10);
-  if (v34 >= 0x39)
-  {
-    v35 = 1900;
-  }
-
-  else
-  {
-    v35 = 2000;
-  }
-
-  *(a1 + 120) = v35 + v34;
-  std::string::basic_string(&v77, __str, 0xBuLL, 3uLL, &v80);
-  if (SHIBYTE(__stra.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__stra.__r_.__value_.__l.__data_);
-  }
-
-  __stra = v77;
-  v36 = HIBYTE(v77.__r_.__value_.__r.__words[2]);
-  v37 = v77.__r_.__value_.__r.__words[0];
-  v38 = &__stra;
-  if ((v77.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-  {
-    v36 = v77.__r_.__value_.__l.__size_;
-    v38 = v77.__r_.__value_.__r.__words[0];
-  }
-
-  if (!v36)
-  {
-    goto LABEL_79;
-  }
-
-  v39 = 0;
-  while (v38->__r_.__value_.__s.__data_[v39] == 32)
-  {
-    if (v36 == ++v39)
-    {
-      goto LABEL_79;
-    }
-  }
-
-  if (v39 == -1)
-  {
-LABEL_79:
-    if (SHIBYTE(v77.__r_.__value_.__r.__words[2]) < 0)
-    {
-      __stra.__r_.__value_.__l.__size_ = 1;
-    }
-
-    else
-    {
-      *(&__stra.__r_.__value_.__s + 23) = 1;
-      v37 = &__stra;
-    }
-
-    LOWORD(v37->__r_.__value_.__l.__data_) = 48;
-  }
-
-  *(a1 + 124) = std::stoul(&__stra, 0, 10);
-  std::string::basic_string(&v77, __str, 0xEuLL, 3uLL, &v80);
-  if (*(a1 + 151) < 0)
-  {
-    operator delete(*(a1 + 128));
-  }
-
-  *(a1 + 128) = v77;
-  std::string::basic_string(&v77, __str, 0x12uLL, 2uLL, &v80);
-  if (SHIBYTE(__stra.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__stra.__r_.__value_.__l.__data_);
-  }
-
-  __stra = v77;
-  v40 = std::stoul(&__stra, 0, 10);
-  if (v40 >= 0x39)
-  {
-    v41 = 1900;
-  }
-
-  else
-  {
-    v41 = 2000;
-  }
-
-  *(a1 + 152) = v41 + v40;
-  std::string::basic_string(&v77, __str, 0x14uLL, 0xCuLL, &v80);
-  if (SHIBYTE(__stra.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__stra.__r_.__value_.__l.__data_);
-  }
-
-  __stra = v77;
-  *(a1 + 160) = std::stod(&__stra, 0);
-  std::string::basic_string(&v77, __str, 0x21uLL, 0xAuLL, &v80);
-  if (SHIBYTE(__stra.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__stra.__r_.__value_.__l.__data_);
-  }
-
-  __stra = v77;
-  v42 = std::stod(&__stra, 0);
-  *(a1 + 232) = v42 + v42;
-  std::string::basic_string(&v77, __str, 0x2CuLL, 6uLL, &v80);
-  if (SHIBYTE(__stra.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__stra.__r_.__value_.__l.__data_);
-  }
-
-  __stra = v77;
-  v43 = HIBYTE(v77.__r_.__value_.__r.__words[2]);
-  v44 = v77.__r_.__value_.__r.__words[0];
-  v45 = &__stra;
-  if ((v77.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-  {
-    v43 = v77.__r_.__value_.__l.__size_;
-    v45 = v77.__r_.__value_.__r.__words[0];
-  }
-
-  if (!v43)
-  {
-    goto LABEL_104;
-  }
-
-  v46 = 0;
-  while (v45->__r_.__value_.__s.__data_[v46] == 32)
-  {
-    if (v43 == ++v46)
-    {
-      goto LABEL_104;
-    }
-  }
-
-  if (v46 == -1)
-  {
-LABEL_104:
-    if (SHIBYTE(v77.__r_.__value_.__r.__words[2]) < 0)
-    {
-      __stra.__r_.__value_.__l.__size_ = 1;
-    }
-
-    else
-    {
-      *(&__stra.__r_.__value_.__s + 23) = 1;
-      v44 = &__stra;
-    }
-
-    LOWORD(v44->__r_.__value_.__l.__data_) = 48;
-  }
-
-  std::string::basic_string(&v77, __str, 0x32uLL, 2uLL, &v80);
-  if (SHIBYTE(v78.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v78.__r_.__value_.__l.__data_);
-  }
-
-  v78 = v77;
-  v47 = HIBYTE(v77.__r_.__value_.__r.__words[2]);
-  v48 = v77.__r_.__value_.__r.__words[0];
-  v49 = &v78;
-  if ((v77.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-  {
-    v47 = v77.__r_.__value_.__l.__size_;
-    v49 = v77.__r_.__value_.__r.__words[0];
-  }
-
-  if (!v47)
-  {
-    goto LABEL_118;
-  }
-
-  v50 = 0;
-  while (v49->__r_.__value_.__s.__data_[v50] == 32)
-  {
-    if (v47 == ++v50)
-    {
-      goto LABEL_118;
-    }
-  }
-
-  if (v50 == -1)
-  {
-LABEL_118:
-    if (SHIBYTE(v77.__r_.__value_.__r.__words[2]) < 0)
-    {
-      v78.__r_.__value_.__l.__size_ = 1;
-    }
-
-    else
-    {
-      *(&v78.__r_.__value_.__s + 23) = 1;
-      v48 = &v78;
-    }
-
-    LOWORD(v48->__r_.__value_.__l.__data_) = 48;
-  }
-
-  v51 = std::stod(&__stra, 0);
-  v52 = std::stoi(&v78, 0, 10);
-  *(a1 + 240) = v51 * 6.0 * __exp10((v52 - 5));
-  std::string::basic_string(&v77, __str, 0x35uLL, 6uLL, &v80);
-  if (SHIBYTE(__stra.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__stra.__r_.__value_.__l.__data_);
-  }
-
-  __stra = v77;
-  v53 = HIBYTE(v77.__r_.__value_.__r.__words[2]);
-  v54 = v77.__r_.__value_.__r.__words[0];
-  v55 = &__stra;
-  if ((v77.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-  {
-    v53 = v77.__r_.__value_.__l.__size_;
-    v55 = v77.__r_.__value_.__r.__words[0];
-  }
-
-  if (!v53)
-  {
-    goto LABEL_132;
-  }
-
-  v56 = 0;
-  while (v55->__r_.__value_.__s.__data_[v56] == 32)
-  {
-    if (v53 == ++v56)
-    {
-      goto LABEL_132;
-    }
-  }
-
-  if (v56 == -1)
-  {
-LABEL_132:
-    if (SHIBYTE(v77.__r_.__value_.__r.__words[2]) < 0)
-    {
-      __stra.__r_.__value_.__l.__size_ = 1;
-    }
-
-    else
-    {
-      *(&__stra.__r_.__value_.__s + 23) = 1;
-      v54 = &__stra;
-    }
-
-    LOWORD(v54->__r_.__value_.__l.__data_) = 48;
-  }
-
-  std::string::basic_string(&v77, __str, 0x3BuLL, 2uLL, &v80);
-  if (SHIBYTE(v78.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v78.__r_.__value_.__l.__data_);
-  }
-
-  v78 = v77;
-  v57 = HIBYTE(v77.__r_.__value_.__r.__words[2]);
-  v58 = v77.__r_.__value_.__r.__words[0];
-  v59 = &v78;
-  if ((v77.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-  {
-    v57 = v77.__r_.__value_.__l.__size_;
-    v59 = v77.__r_.__value_.__r.__words[0];
-  }
-
-  if (!v57)
-  {
-    goto LABEL_146;
-  }
-
-  v60 = 0;
-  while (v59->__r_.__value_.__s.__data_[v60] == 32)
-  {
-    if (v57 == ++v60)
-    {
-      goto LABEL_146;
-    }
-  }
-
-  if (v60 == -1)
-  {
-LABEL_146:
-    if (SHIBYTE(v77.__r_.__value_.__r.__words[2]) < 0)
-    {
-      v78.__r_.__value_.__l.__size_ = 1;
-    }
-
-    else
-    {
-      *(&v78.__r_.__value_.__s + 23) = 1;
-      v58 = &v78;
-    }
-
-    LOWORD(v58->__r_.__value_.__l.__data_) = 48;
-  }
-
-  v61 = std::stod(&__stra, 0);
-  v62 = std::stoi(&v78, 0, 10);
-  *(a1 + 192) = v61 * __exp10((v62 - 5));
-  v63 = *(__str->__r_.__value_.__r.__words[0] + 62);
-  v64 = v63 - 49;
-  v65 = v63 - 48;
-  if (v64 >= 5)
-  {
-    v65 = 0;
-  }
-
-  *(a1 + 117) = v65;
-  std::string::basic_string(&v77, __str, 0x40uLL, 4uLL, &v80);
-  if (SHIBYTE(__stra.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__stra.__r_.__value_.__l.__data_);
-  }
-
-  __stra = v77;
-  *(a1 + 188) = std::stoul(&__stra, 0, 10);
-  std::string::basic_string(&v77, a4, 8uLL, 8uLL, &v80);
-  if (SHIBYTE(__stra.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__stra.__r_.__value_.__l.__data_);
-  }
-
-  __stra = v77;
-  *(a1 + 208) = std::stod(&__stra, 0);
-  std::string::basic_string(&v77, a4, 0x11uLL, 8uLL, &v80);
-  if (SHIBYTE(__stra.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__stra.__r_.__value_.__l.__data_);
-  }
-
-  __stra = v77;
-  *(a1 + 256) = std::stod(&__stra, 0);
-  std::string::basic_string(&v77, a4, 0x1AuLL, 7uLL, &v80);
-  if (SHIBYTE(__stra.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__stra.__r_.__value_.__l.__data_);
-  }
-
-  __stra = v77;
-  *(a1 + 200) = std::stod(&__stra, 0) * 0.0000001;
-  std::string::basic_string(&v77, a4, 0x22uLL, 8uLL, &v80);
-  if (SHIBYTE(__stra.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__stra.__r_.__value_.__l.__data_);
-  }
-
-  __stra = v77;
-  *(a1 + 248) = std::stod(&__stra, 0);
-  std::string::basic_string(&v77, a4, 0x2BuLL, 8uLL, &v80);
-  if (SHIBYTE(__stra.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__stra.__r_.__value_.__l.__data_);
-  }
-
-  __stra = v77;
-  *(a1 + 216) = std::stod(&__stra, 0);
-  std::string::basic_string(&v77, a4, 0x34uLL, 0xBuLL, &v80);
-  if (SHIBYTE(__stra.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__stra.__r_.__value_.__l.__data_);
-  }
-
-  __stra = v77;
-  *(a1 + 224) = std::stod(&__stra, 0);
-  std::string::basic_string(&v77, a4, 0x3FuLL, 5uLL, &v80);
-  if (SHIBYTE(__stra.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__stra.__r_.__value_.__l.__data_);
-  }
-
-  __stra = v77;
-  *(a1 + 184) = std::stoul(&__stra, 0, 10);
-  if (SHIBYTE(v78.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v78.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(__stra.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__stra.__r_.__value_.__l.__data_);
-  }
-
-  v66 = *(a1 + 152);
-  v67 = *(a1 + 160);
-  __stra.__r_.__value_.__r.__words[0] = __PAIR64__(vcvtmd_s64_f64(v67), v66);
-  *&__stra.__r_.__value_.__l.__size_ = v67 - floor(v67);
-  cnnavigation::DayOfYearTimeToJulianTime(&__stra, a1 + 168);
-  v19 = v73 == 0;
-  if (v73)
-  {
-    LOWORD(v78.__r_.__value_.__l.__data_) = 5;
-    v77.__r_.__value_.__s.__data_[0] = 3;
-    cnprint::CNPrinter::Print(&v78, &v77, "LoadNORADTLEFromStrings failed time conversion: doy,%d,%d,%.3lf", v68, v69, v70, v71, v72, v66);
-  }
-
-  else
-  {
-    v74 = *(a1 + 224);
-    v75 = vmulq_f64(*(a1 + 208), vdupq_n_s64(0x3F91DF46A2529D39uLL));
-    *(a1 + 256) = *(a1 + 256) * 0.0174532925;
-    *(a1 + 208) = v75;
-    *(a1 + 224) = vmulq_f64(v74, xmmword_1D0E779A0);
-    *(a1 + 240) = vmulq_f64(*(a1 + 240), xmmword_1D0E779B0);
-    *(a1 + 8) = 1;
-  }
-
-  return v19;
-}
-
 BOOL sub_1D0C6BF78(void *a1, void *a2)
 {
   v2 = *(a1 + 23);
@@ -707,7 +28,6 @@ BOOL sub_1D0C6BF78(void *a1, void *a2)
     a1 = *a1;
   }
 
-  v6 = *a2;
   if (v5 < 0)
   {
     a2 = *a2;
@@ -801,7 +121,7 @@ char *cnnavigation::NORADTLEEphemerides::SatelliteName@<X0>(char *this@<X0>, uin
   return this;
 }
 
-uint64_t cnnavigation::NORADTLEEphemerides::GNSSFindSat(cnnavigation::NORADTLEEphemerides *a1, double *a2, cnnavigation::GNSSUTCParameters *this, __int128 *a4, __int128 *a5, void *a6)
+uint64_t cnnavigation::NORADTLEEphemerides::GNSSFindSat(cnnavigation::NORADTLEEphemerides *a1, cnnavigation::TAITime *a2, cnnavigation::GNSSUTCParameters *this, __int128 *a4, __int128 *a5, void *a6)
 {
   if (*(a1 + 8) != 1)
   {
@@ -810,129 +130,124 @@ uint64_t cnnavigation::NORADTLEEphemerides::GNSSFindSat(cnnavigation::NORADTLEEp
 
   if (cnnavigation::GNSSUTCParameters::IsValid(this))
   {
-    if (cnnavigation::TAITime::ToJulianTime(a2, this, v73))
+    if (cnnavigation::TAITime::ToJulianTime(a2, this, v40))
     {
-      v74 = 5;
-      LOBYTE(v72.f64[0]) = 3;
-      v68 = *(this + 10);
-      v69 = *(this + 16);
-      v64 = *(this + 7) + *(this + 6);
-      v63 = *(this + 1);
-      v61 = a2[1] + *a2;
-      cnprint::CNPrinter::Print(&v74, &v72, "NORADTLEEphemerides::GNSSFindSat failed JulianTime (UTC) conversion tai,%.3lf,sv,%hhu,t_ls,%.3lf,curr_ls,%d,fut_ls,%d", v17, v18, v19, v20, v21, SLOBYTE(v61));
+      LOWORD(v41) = 5;
+      LOBYTE(v39.f64[0]) = 3;
+      cnprint::CNPrinter::Print(&v41, &v39, "NORADTLEEphemerides::GNSSFindSat failed JulianTime (UTC) conversion tai,%.3lf,sv,%hhu,t_ls,%.3lf,curr_ls,%d,fut_ls,%d");
       return 0xFFFFFFFFLL;
     }
   }
 
   else
   {
-    v74 = 5;
-    LOBYTE(v72.f64[0]) = 2;
-    cnprint::CNPrinter::Print(&v74, &v72, "NORADTLEEphemerides::GNSSFindSat called with invalid UTC model", v12, v13, v14, v15, v16, v60);
-    v74 = 0;
-    v75 = 0u;
-    v76 = 0u;
-    v77 = 0;
-    v78 = 0;
-    v79 = 0;
-    v80 = 0;
-    *&v72.f64[0] = cnnavigation::TAITime::ToGPSTime(a2, &v74);
-    v72.f64[1] = v22;
-    if (cnnavigation::GPSTimeToJulianTime(v72.f64, 0, v73))
+    LOWORD(v41) = 5;
+    LOBYTE(v39.f64[0]) = 2;
+    cnprint::CNPrinter::Print(&v41, &v39, "NORADTLEEphemerides::GNSSFindSat called with invalid UTC model");
+    LOWORD(v41) = 0;
+    v42 = 0u;
+    v43 = 0u;
+    v44 = 0;
+    v45 = 0;
+    v46 = 0;
+    v47 = 0;
+    *&v39.f64[0] = cnnavigation::TAITime::ToGPSTime(a2, &v41);
+    v39.f64[1] = v12;
+    if (cnnavigation::GPSTimeToJulianTime(v39.f64, 0, v40))
     {
-      v74 = 5;
-      LOBYTE(v71) = 3;
-      *&v62 = a2[1] + *a2;
-      v28 = "NORADTLEEphemerides::GNSSFindSat failed JulianTime conversion tai,%.3lf";
-      v29 = &v74;
-      v30 = &v71;
+      LOWORD(v41) = 5;
+      LOBYTE(v38) = 3;
+      *&v35 = *(a2 + 1) + *a2;
+      v13 = "NORADTLEEphemerides::GNSSFindSat failed JulianTime conversion tai,%.3lf";
+      v14 = &v41;
+      v15 = &v38;
 LABEL_7:
-      cnprint::CNPrinter::Print(v29, v30, v28, v23, v24, v25, v26, v27, v62);
+      cnprint::CNPrinter::Print(v14, v15, v13, v35, v36);
       return 0xFFFFFFFFLL;
     }
   }
 
-  v33 = cnnavigation::NORADTLEEphemerides::InitializeSGP4(a1);
-  if (v33)
+  v18 = cnnavigation::NORADTLEEphemerides::InitializeSGP4(a1);
+  if (v18)
   {
-    v31 = v33;
-    v74 = 5;
-    LOBYTE(v72.f64[0]) = 3;
-    cnprint::CNPrinter::Print(&v74, &v72, "NORADTLEEphemerides::GNSSFindSat InitializeSGP4 failed,code,%d", v34, v35, v36, v37, v38, v33);
+    v16 = v18;
+    LOWORD(v41) = 5;
+    LOBYTE(v39.f64[0]) = 3;
+    cnprint::CNPrinter::Print(&v41, &v39, "NORADTLEEphemerides::GNSSFindSat InitializeSGP4 failed,code,%d", v18);
   }
 
   else
   {
-    v39 = cnnavigation::NORADTLEEphemerides::SGP4(a1, v73, &v74, &v72, v35, v36, v37, v38);
-    if (v39)
+    v19 = cnnavigation::NORADTLEEphemerides::SGP4(a1, v40, &v41, &v39);
+    if (v19)
     {
-      v31 = v39;
-      v71 = 5;
-      v70 = 3;
-      cnprint::CNPrinter::Print(&v71, &v70, "NORADTLEEphemerides::GNSSFindSat SGP4 failed,code,%d", v40, v41, v42, v43, v44, v39);
+      v16 = v19;
+      v38 = 5;
+      v37 = 3;
+      cnprint::CNPrinter::Print(&v38, &v37, "NORADTLEEphemerides::GNSSFindSat SGP4 failed,code,%d", v19);
     }
 
     else
     {
-      v46 = cnnavigation::NORADTLEEphemerides::ECIToECEF(v39, v73, &v74);
-      v47 = 0;
-      *a4 = v46;
-      *(a4 + 1) = v48;
-      *(a4 + 2) = v49;
+      v21 = cnnavigation::NORADTLEEphemerides::ECIToECEF(v19, v40, &v41);
+      v22 = 0;
+      *a4 = v21;
+      *(a4 + 1) = v23;
+      *(a4 + 2) = v24;
       do
       {
-        *(a4 + v47) = *(a4 + v47) * 1000.0;
-        v47 += 8;
+        *(a4 + v22) = *(a4 + v22) * 1000.0;
+        v22 += 8;
       }
 
-      while (v47 != 24);
-      v50 = cnnavigation::NORADTLEEphemerides::ECIToECEF(v45, v73, &v72);
-      v51 = 0;
-      *a5 = v50;
-      *(a5 + 1) = v52;
-      *(a5 + 2) = v53;
+      while (v22 != 24);
+      v25 = cnnavigation::NORADTLEEphemerides::ECIToECEF(v20, v40, v39.f64);
+      v26 = 0;
+      *a5 = v25;
+      *(a5 + 1) = v27;
+      *(a5 + 2) = v28;
       do
       {
-        *(a5 + v51) = *(a5 + v51) * 1000.0;
-        v51 += 8;
+        *(a5 + v26) = *(a5 + v26) * 1000.0;
+        v26 += 8;
       }
 
-      while (v51 != 24);
-      v54 = 0;
-      v55 = *(a5 + 1);
+      while (v26 != 24);
+      v29 = 0;
+      v30 = *(a5 + 1);
       *a5 = *a5 + *(a4 + 1) * 0.0000729211515;
-      *(a5 + 1) = v55 + *a4 * -0.0000729211515;
+      *(a5 + 1) = v30 + *a4 * -0.0000729211515;
       *a6 = 0;
       a6[1] = 0;
       a6[2] = 0;
-      v56 = 0.0;
+      v31 = 0.0;
       do
       {
-        if ((*(a4 + v54) & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL)
+        if ((*(a4 + v29) & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL)
         {
-          v71 = 5;
-          v70 = 3;
-          v66 = *(a4 + 2);
-          v62 = *a4;
-          v28 = "NORADTLEEphemerides::GNSSFindSat invalid SV position %.3lf,%.3lf,%.3lf";
+          v38 = 5;
+          v37 = 3;
+          v36 = *(a4 + 2);
+          v35 = *a4;
+          v13 = "NORADTLEEphemerides::GNSSFindSat invalid SV position %.3lf,%.3lf,%.3lf";
           goto LABEL_24;
         }
 
-        v56 = v56 + *(a4 + v54) * *(a4 + v54);
-        v54 += 8;
+        v31 = v31 + *(a4 + v29) * *(a4 + v29);
+        v29 += 8;
       }
 
-      while (v54 != 24);
-      if (sqrt(v56) < 6341752.3)
+      while (v29 != 24);
+      if (sqrt(v31) < 6341752.3)
       {
-        v71 = 5;
-        v70 = 3;
-        v65 = *(a4 + 2);
-        v62 = *a4;
-        v28 = "NORADTLEEphemerides::GNSSFindSat decayed SV position %.3lf,%.3lf,%.3lf";
+        v38 = 5;
+        v37 = 3;
+        v36 = *(a4 + 2);
+        v35 = *a4;
+        v13 = "NORADTLEEphemerides::GNSSFindSat decayed SV position %.3lf,%.3lf,%.3lf";
 LABEL_24:
-        v29 = &v71;
-        v30 = &v70;
+        v14 = &v38;
+        v15 = &v37;
         goto LABEL_7;
       }
 
@@ -940,35 +255,35 @@ LABEL_24:
       {
         if ((*(a5 + i) & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL || *(a5 + i) > 299792458.0)
         {
-          v71 = 5;
-          v70 = 3;
-          v67 = *(a5 + 2);
-          v62 = *a5;
-          v28 = "NORADTLEEphemerides::GNSSFindSat invalid SV velocity %.3lf,%.3lf,%.3lf";
+          v38 = 5;
+          v37 = 3;
+          v36 = *(a5 + 2);
+          v35 = *a5;
+          v13 = "NORADTLEEphemerides::GNSSFindSat invalid SV velocity %.3lf,%.3lf,%.3lf";
           goto LABEL_24;
         }
       }
 
-      v58 = 0;
+      v33 = 0;
       while (1)
       {
-        v59 = a6[v58];
-        if ((v59 & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
+        v34 = a6[v33];
+        if ((v34 & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
         {
           break;
         }
 
-        if (++v58 == 3)
+        if (++v33 == 3)
         {
           goto LABEL_35;
         }
       }
 
-      v71 = 5;
-      v70 = 3;
-      cnprint::CNPrinter::Print(&v71, &v70, "NORADTLEEphemerides::GNSSFindSat invalid SV acceleration %.3lf,%.3lf,%.3lf", v23, v24, v25, v26, v27, 0);
+      v38 = 5;
+      v37 = 3;
+      cnprint::CNPrinter::Print(&v38, &v37, "NORADTLEEphemerides::GNSSFindSat invalid SV acceleration %.3lf,%.3lf,%.3lf", 0.0, 0.0, 0.0);
 LABEL_35:
-      if ((v59 & 0x7FFFFFFFFFFFFFFFuLL) <= 0x7FEFFFFFFFFFFFFFLL)
+      if ((v34 & 0x7FFFFFFFFFFFFFFFuLL) <= 0x7FEFFFFFFFFFFFFFLL)
       {
         return 0;
       }
@@ -980,36 +295,36 @@ LABEL_35:
     }
   }
 
-  return v31;
+  return v16;
 }
 
 uint64_t cnnavigation::NORADTLEEphemerides::InitializeSGP4(cnnavigation::NORADTLEEphemerides *this)
 {
-  v252 = *MEMORY[0x1E69E9840];
-  memset(v251, 0, 207);
+  v247 = *MEMORY[0x1E69E9840];
+  memset(v246, 0, 207);
   memset(__src, 0, sizeof(__src));
-  v250 = 0;
-  v248 = 0u;
-  v249 = 0u;
+  v245 = 0;
+  v243 = 0u;
+  v244 = 0u;
   *(this + 132) = 0;
-  v2 = v251[11];
-  *(this + 426) = v251[10];
+  v2 = v246[11];
+  *(this + 426) = v246[10];
   *(this + 442) = v2;
-  *(this + 457) = *(&v251[11] + 15);
-  v3 = v251[7];
-  *(this + 362) = v251[6];
+  *(this + 457) = *(&v246[11] + 15);
+  v3 = v246[7];
+  *(this + 362) = v246[6];
   *(this + 378) = v3;
-  v4 = v251[9];
-  *(this + 394) = v251[8];
+  v4 = v246[9];
+  *(this + 394) = v246[8];
   *(this + 410) = v4;
-  v5 = v251[3];
-  *(this + 298) = v251[2];
+  v5 = v246[3];
+  *(this + 298) = v246[2];
   *(this + 314) = v5;
-  v6 = v251[5];
-  *(this + 330) = v251[4];
+  v6 = v246[5];
+  *(this + 330) = v246[4];
   *(this + 346) = v6;
-  v7 = v251[1];
-  *(this + 266) = v251[0];
+  v7 = v246[1];
+  *(this + 266) = v246[0];
   *(this + 282) = v7;
   memcpy(this + 473, __src, 0x1BFuLL);
   v8 = *(this + 42);
@@ -1021,491 +336,491 @@ uint64_t cnnavigation::NORADTLEEphemerides::InitializeSGP4(cnnavigation::NORADTL
   *(this + 116) = v11;
   *(this + 117) = v10;
   v12 = *(this + 28);
-  v238 = *(this + 27);
-  *(this + 118) = v238;
-  v235 = v9;
+  v233 = *(this + 27);
+  *(this + 118) = v233;
+  v230 = v9;
   *(this + 120) = v9;
-  v186 = v11;
-  v225 = v11 * v11;
+  v181 = v11;
+  v220 = v11 * v11;
   v13 = sqrt(1.0 - v11 * v11);
-  v184 = v10;
+  v179 = v10;
   v14 = __sincos_stret(v10);
-  v211 = v14.__cosval * v14.__cosval;
+  v206 = v14.__cosval * v14.__cosval;
   v15 = pow(0.0743669161 / v12, 0.666666667);
-  v226 = v13;
-  v16 = (v14.__cosval * v14.__cosval * 3.0 + -1.0) * 0.000811962 / ((1.0 - v225) * v13);
+  v221 = v13;
+  v16 = (v14.__cosval * v14.__cosval * 3.0 + -1.0) * 0.000811962 / ((1.0 - v220) * v13);
   v17 = 1.0 - v16 / (v15 * v15) * (v16 / (v15 * v15)) - v16 / (v15 * v15) * (v16 / (v15 * v15) * (v16 / (v15 * v15) * 134.0) / 81.0 + 0.333333333);
   v18 = v12 / (v16 / (v15 * v17 * (v15 * v17)) + 1.0);
   *(this + 119) = v18;
   v19 = pow(0.0743669161 / v18, 0.666666667);
-  v244 = -(v211 * -5.0 + 1.0) - v211 - v211;
-  *(this + 35) = v244;
+  v239 = -(v206 * -5.0 + 1.0) - v206 - v206;
+  *(this + 35) = v239;
   v20 = (v8 - 2451545) / 36525.0;
   v21 = *(this + 22);
   v22 = fmod(v20 * v20 * 0.093104 + v20 * (v20 * v20) * -0.0000062 + v20 * 3164400180.0 + 67310.5484, 86400.0);
-  v232 = v21;
+  v227 = v21;
   *(this + 97) = fmod(v22 * 0.0000727220522 + ((v21 / 36525.0 + v20) * 5.9006e-11 + 1.00273791 + (v21 / 36525.0 + v20) * (v21 / 36525.0 + v20) * -5.9e-15) * 6.28318531 * v21, 6.28318531);
-  v228 = 1.0 - v225;
-  if (1.0 - v225 < 0.0 && v18 < 0.0)
+  v223 = 1.0 - v220;
+  if (1.0 - v220 < 0.0 && v18 < 0.0)
   {
-    goto LABEL_61;
+    return cnnavigation::NORADTLEEphemerides::SGP4(this, this + 168, __src, v246);
   }
 
-  v27 = (1.0 - v186) * v19;
-  *(this + 265) = v27 < 1.03449284;
-  v28 = (v27 + -1.0) * 6378.135;
-  v185 = v18;
-  if (v28 >= 156.0)
+  v23 = (1.0 - v181) * v19;
+  *(this + 265) = v23 < 1.03449284;
+  v24 = (v23 + -1.0) * 6378.135;
+  v180 = v18;
+  if (v24 >= 156.0)
   {
-    v32 = 1.01222928;
-    v31 = 0.00000000188027916;
+    v28 = 1.01222928;
+    v27 = 0.00000000188027916;
   }
 
   else
   {
-    v29 = v28 + -78.0;
-    if (v28 < 98.0)
+    v25 = v24 + -78.0;
+    if (v24 < 98.0)
     {
-      v29 = 20.0;
+      v25 = 20.0;
     }
 
-    v30 = (120.0 - v29) / 6378.135 * ((120.0 - v29) / 6378.135);
-    v31 = v30 * v30;
-    v32 = v29 / 6378.135 + 1.0;
+    v26 = (120.0 - v25) / 6378.135 * ((120.0 - v25) / 6378.135);
+    v27 = v26 * v26;
+    v28 = v25 / 6378.135 + 1.0;
   }
 
-  v212 = 1.0 / ((1.0 - v225) * v19 * ((1.0 - v225) * v19));
-  v182 = v32;
-  v33 = 1.0 / (v19 - v32);
-  v34 = v186 * v19 * v33;
-  *(this + 43) = v34;
-  v35 = v34 * v34;
-  v37 = vabdd_f64(1.0, v34 * v34);
-  v38 = v31 * (v33 * v33 * (v33 * v33));
-  v39 = v38 / pow(v37, 3.5);
-  v217 = *(this + 24);
-  v36 = v186 * v34;
-  v220 = v217 * (v185 * v39 * ((v35 * 3.0 * (v35 + 8.0) + 8.0) * (v244 * (v33 * 0.000405981 / v37)) + v19 * (v35 * 1.5 + 1.0 + v186 * v34 * (v35 + 4.0))));
-  *(this + 36) = v220;
-  v40 = 0.0;
-  if (v186 > 0.0001)
+  v207 = 1.0 / ((1.0 - v220) * v19 * ((1.0 - v220) * v19));
+  v177 = v28;
+  v29 = 1.0 / (v19 - v28);
+  v30 = v181 * v19 * v29;
+  *(this + 43) = v30;
+  v31 = v30 * v30;
+  v33 = vabdd_f64(1.0, v30 * v30);
+  v34 = v27 * (v29 * v29 * (v29 * v29));
+  v35 = v34 / pow(v33, 3.5);
+  v212 = *(this + 24);
+  v32 = v181 * v30;
+  v215 = v212 * (v180 * v35 * ((v31 * 3.0 * (v31 + 8.0) + 8.0) * (v239 * (v29 * 0.000405981 / v33)) + v19 * (v31 * 1.5 + 1.0 + v181 * v30 * (v31 + 4.0))));
+  *(this + 36) = v215;
+  v36 = 0.0;
+  if (v181 > 0.0001)
   {
-    v40 = v14.__sinval * (v185 * (v33 * (v38 * -2.0) * -0.00234506972)) / v186;
+    v36 = v14.__sinval * (v180 * (v29 * (v34 * -2.0) * -0.00234506972)) / v181;
   }
 
-  v209 = v40;
-  *(this + 52) = 1.0 - v211;
-  v230 = v186 * v19 * v33;
-  v206 = v186 * (v35 * 2.0 + 0.5) + v34 * (v35 * 0.5 + 2.0);
-  v41 = v39;
-  v181 = v33;
-  v183 = v19;
-  *(this + 37) = v228 * (v19 * ((v185 + v185) * v39)) * (v206 + v33 * -0.001082616 / (v19 * v37) * (cos(__x + __x) * ((1.0 - v211) * 0.75 * (v35 * 2.0 - v36 * (v35 + 1.0))) + v244 * -3.0 * (v36 * -2.0 + 1.0 + v35 * (v36 * -0.5 + 1.5))));
-  *(this + 38) = ((v35 + v36) * 2.75 + 1.0 + v36 * v35) * (v228 * (v19 * (v41 + v41)));
-  v42 = v14.__cosval * v14.__cosval;
-  v43 = v185 * (v212 * 0.001623924);
-  v44 = v212 * (v43 * 0.5 * 0.001082616);
-  v45 = v185 * (v212 * (v212 * 0.000000776235937));
-  v46 = (v211 * -114.0 + 7.0 + v42 * v42 * 395.0) * (v44 * 0.0625) + v43 * -0.5 * (v211 * -5.0 + 1.0) + v45 * (v211 * -36.0 + 3.0 + v42 * v42 * 49.0);
-  *(this + 44) = v46;
-  v47 = -(v43 * v14.__cosval);
-  v48 = ((v211 * -7.0 + 3.0) * (v45 + v45) + v44 * 0.5 * (v211 * -19.0 + 4.0)) * v14.__cosval - v43 * v14.__cosval;
-  v180 = v185 + v226 * (v43 * 0.5) * v244 + v226 * (v44 * 0.0625) * (v211 * -78.0 + 13.0 + v42 * v42 * 137.0);
-  *(this + 54) = v180;
-  *(this + 55) = v48;
-  v223 = cos(__x);
-  *(this + 45) = v223 * (v217 * v209);
-  v49 = 0.0;
-  if (v186 > 0.0001)
+  v204 = v36;
+  *(this + 52) = 1.0 - v206;
+  v225 = v181 * v19 * v29;
+  v201 = v181 * (v31 * 2.0 + 0.5) + v30 * (v31 * 0.5 + 2.0);
+  v37 = v35;
+  v176 = v29;
+  v178 = v19;
+  *(this + 37) = v223 * (v19 * ((v180 + v180) * v35)) * (v201 + v29 * -0.001082616 / (v19 * v33) * (cos(__x + __x) * ((1.0 - v206) * 0.75 * (v31 * 2.0 - v32 * (v31 + 1.0))) + v239 * -3.0 * (v32 * -2.0 + 1.0 + v31 * (v32 * -0.5 + 1.5))));
+  *(this + 38) = ((v31 + v32) * 2.75 + 1.0 + v32 * v31) * (v223 * (v19 * (v37 + v37)));
+  v38 = v14.__cosval * v14.__cosval;
+  v39 = v180 * (v207 * 0.001623924);
+  v40 = v207 * (v39 * 0.5 * 0.001082616);
+  v41 = v180 * (v207 * (v207 * 0.000000776235937));
+  v42 = (v206 * -114.0 + 7.0 + v38 * v38 * 395.0) * (v40 * 0.0625) + v39 * -0.5 * (v206 * -5.0 + 1.0) + v41 * (v206 * -36.0 + 3.0 + v38 * v38 * 49.0);
+  *(this + 44) = v42;
+  v43 = -(v39 * v14.__cosval);
+  v44 = ((v206 * -7.0 + 3.0) * (v41 + v41) + v40 * 0.5 * (v206 * -19.0 + 4.0)) * v14.__cosval - v39 * v14.__cosval;
+  v175 = v180 + v221 * (v39 * 0.5) * v239 + v221 * (v40 * 0.0625) * (v206 * -78.0 + 13.0 + v38 * v38 * 137.0);
+  *(this + 54) = v175;
+  *(this + 55) = v44;
+  v218 = cos(__x);
+  *(this + 45) = v218 * (v212 * v204);
+  v45 = 0.0;
+  if (v181 > 0.0001)
   {
-    v49 = v217 * (v38 * -0.666666667) / v36;
+    v45 = v212 * (v34 * -0.666666667) / v32;
   }
 
-  *(this + 58) = v228 * 3.5 * v47 * v220;
-  *(this + 48) = v220 * 1.5;
-  v179 = v14.__cosval + 1.0;
+  *(this + 58) = v223 * 3.5 * v43 * v215;
+  *(this + 48) = v215 * 1.5;
+  v174 = v14.__cosval + 1.0;
   if (fabs(v14.__cosval + 1.0) <= 1.5e-12)
   {
-    v50 = 1.5e-12;
+    v46 = 1.5e-12;
   }
 
   else
   {
-    v50 = v14.__cosval + 1.0;
+    v46 = v14.__cosval + 1.0;
   }
 
-  *(this + 56) = v14.__sinval * 0.00058626743 * (v14.__cosval * 5.0 + 3.0) / v50;
-  *(this + 57) = v49;
+  *(this + 56) = v14.__sinval * 0.00058626743 * (v14.__cosval * 5.0 + 3.0) / v46;
+  *(this + 57) = v45;
   *(this + 34) = v14.__sinval * 0.00117253486;
-  v51 = __sincos_stret(v238);
-  *(this + 42) = (v230 * v51.__cosval + 1.0) * ((v230 * v51.__cosval + 1.0) * (v230 * v51.__cosval + 1.0));
-  *(this + 46) = *&v51.__sinval;
-  *(this + 53) = v211 * 7.0 + -1.0;
-  if (6.28318531 / v185 >= 225.0)
+  v47 = __sincos_stret(v233);
+  *(this + 42) = (v225 * v47.__cosval + 1.0) * ((v225 * v47.__cosval + 1.0) * (v225 * v47.__cosval + 1.0));
+  *(this + 46) = *&v47.__sinval;
+  *(this + 53) = v206 * 7.0 + -1.0;
+  if (6.28318531 / v180 >= 225.0)
   {
-    v176 = v48 + v46;
+    v171 = v44 + v42;
     *(this + 132) = 257;
-    v52 = __sincos_stret(v235);
-    v215 = sin(__x);
-    v53 = v232 + v8 + -2433281.5 + 18261.5;
-    v54 = fmod(v53 * -0.00092422029 + 4.523602, 6.28318531);
-    v55 = __sincos_stret(v54);
-    v56 = sqrt(1.0 - (v55.__cosval * -0.03568096 + 0.91375164) * (v55.__cosval * -0.03568096 + 0.91375164));
-    v57 = v55.__sinval * 0.089683511 / v56;
-    v58 = sqrt(1.0 - v57 * v57);
-    v178 = v53;
-    v245 = 0.39785416;
-    v189 = v56;
+    v48 = __sincos_stret(v230);
+    v210 = sin(__x);
+    v49 = v227 + v8 + -2433281.5 + 18261.5;
+    v50 = fmod(v49 * -0.00092422029 + 4.523602, 6.28318531);
+    v51 = __sincos_stret(v50);
+    v52 = sqrt(1.0 - (v51.__cosval * -0.03568096 + 0.91375164) * (v51.__cosval * -0.03568096 + 0.91375164));
+    v53 = v51.__sinval * 0.089683511 / v52;
+    v54 = sqrt(1.0 - v53 * v53);
+    v173 = v49;
+    v240 = 0.39785416;
+    v184 = v52;
     __xa = 0.91744867;
-    v59 = atan2(v55.__sinval * 0.39785416 / v56, v55.__sinval * (v57 * 0.91744867) + v58 * v55.__cosval);
-    v177 = v53 * 0.001944368 + 5.8351514;
-    v60 = __sincos_stret(v177 + v59 - v54);
-    v61 = 0;
+    v55 = atan2(v51.__sinval * 0.39785416 / v52, v51.__sinval * (v53 * 0.91744867) + v54 * v51.__cosval);
+    v172 = v49 * 0.001944368 + 5.8351514;
+    v56 = __sincos_stret(v172 + v55 - v50);
+    v57 = 0;
     sinval = v14.__sinval;
-    v218 = v186 * -15.0;
-    v221 = -v14.__sinval;
-    cosval = v52.__cosval;
-    v236 = v52.__sinval;
-    v187 = v52.__sinval * v58 - v52.__cosval * v57;
-    v188 = v52.__sinval * v57 + v58 * v52.__cosval;
+    v213 = v181 * -15.0;
+    v216 = -v14.__sinval;
+    cosval = v48.__cosval;
+    v231 = v48.__sinval;
+    v182 = v48.__sinval * v54 - v48.__cosval * v53;
+    v183 = v48.__sinval * v53 + v54 * v48.__cosval;
     *(this + 40) = 0u;
     *(this + 41) = 0u;
     *(this + 84) = 0;
-    v210 = 0.0;
-    v63 = 1;
-    v239 = 0.0000029864797;
-    v64 = -0.98088458;
-    v194 = 0.0;
-    v195 = 0.0;
-    v204 = 0.0;
-    v207 = 0.0;
-    v208 = 0.0;
-    v199 = 0.0;
-    v192 = 0.0;
-    v213 = 1.0 / v185;
-    v65 = 0.1945905;
-    v198 = 0.0;
-    v201 = 0.0;
-    v202 = 0.0;
-    v193 = 0.0;
-    v190 = 0.0;
-    v191 = 0.0;
-    v196 = 0.0;
-    v203 = 0.0;
-    v200 = 0.0;
     v205 = 0.0;
+    v59 = 1;
+    v234 = 0.0000029864797;
+    v60 = -0.98088458;
+    v189 = 0.0;
+    v190 = 0.0;
+    v199 = 0.0;
+    v202 = 0.0;
+    v203 = 0.0;
+    v194 = 0.0;
+    v187 = 0.0;
+    v208 = 1.0 / v180;
+    v61 = 0.1945905;
+    v193 = 0.0;
+    v196 = 0.0;
     v197 = 0.0;
+    v188 = 0.0;
+    v185 = 0.0;
+    v186 = 0.0;
+    v191 = 0.0;
+    v198 = 0.0;
+    v195 = 0.0;
+    v200 = 0.0;
+    v192 = 0.0;
     do
     {
-      v66 = v64 * __xa * v236 + v65 * cosval;
-      v67 = v65 * __xa * v236 - v64 * cosval;
-      v68 = v64 * __xa * cosval - v65 * v236;
-      v69 = v65 * __xa * cosval + v64 * v236;
-      v70 = sinval * (v64 * v245) + v14.__cosval * v68;
-      v71 = sinval * (v65 * v245) + v14.__cosval * v69;
-      v72 = v14.__cosval * (v64 * v245) + v221 * v68;
-      v73 = v14.__cosval * (v65 * v245) + v221 * v69;
-      v74 = v215 * v70 + v66 * v223;
-      v75 = v215 * v71 + v67 * v223;
-      v76 = v223 * v70 - v66 * v215;
-      v77 = v223 * v71 - v67 * v215;
-      v78 = v76 * (v76 * -3.0) + v74 * 12.0 * v74;
-      v79 = v77 * (v76 * -6.0) + v74 * 24.0 * v75;
-      v80 = v77 * (v77 * -3.0) + v75 * 12.0 * v75;
-      v81 = v225 * v78 + (v70 * v70 + v66 * v66) * 3.0;
-      v82 = v225 * v79 + (v70 * v71 + v66 * v67) * 6.0;
-      v83 = v225 * v80 + (v71 * v71 + v67 * v67) * 3.0;
-      v84 = v225 * (v215 * v72 * (v76 * -6.0) + v74 * -24.0 * (v223 * v72)) + v66 * -6.0 * v72;
-      v231 = v225 * ((v215 * v72 * v77 + v76 * (v215 * v73)) * -6.0 + (v223 * v73 * v74 + v75 * (v223 * v72)) * -24.0) + (v67 * v72 + v66 * v73) * -6.0;
-      v85 = v225 * (v215 * v73 * (v77 * -6.0) + v75 * -24.0 * (v223 * v73)) + v67 * -6.0 * v73;
-      v86 = v225 * (v223 * v72 * (v76 * -6.0) + v74 * 24.0 * (v215 * v72)) + v70 * 6.0 * v72;
-      v87 = v61;
-      v88 = v225 * ((v223 * v73 * v76 + v77 * (v223 * v72)) * -6.0 + (v215 * v73 * v74 + v75 * (v215 * v72)) * 24.0) + (v70 * v73 + v71 * v72) * 6.0;
-      v89 = v225 * (v223 * v73 * (v77 * -6.0) + v75 * 24.0 * (v215 * v73)) + v71 * 6.0 * v73;
-      v90 = v81 + v81 + v228 * v78;
-      v91 = v82 + v82 + v228 * v79;
-      v92 = v83 + v83 + v228 * v80;
-      v93 = v213 * v239;
-      v94 = v75 * v77 + v74 * v76;
-      v95 = v74 * v77 + v75 * v76;
-      v96 = v213 * v239 * -0.5 / v226;
-      v97 = v75 * v77 - v74 * v76;
-      v98 = v226 * (v213 * v239);
-      v99 = v218 * v98;
-      if (v63)
+      v62 = v60 * __xa * v231 + v61 * cosval;
+      v63 = v61 * __xa * v231 - v60 * cosval;
+      v64 = v60 * __xa * cosval - v61 * v231;
+      v65 = v61 * __xa * cosval + v60 * v231;
+      v66 = sinval * (v60 * v240) + v14.__cosval * v64;
+      v67 = sinval * (v61 * v240) + v14.__cosval * v65;
+      v68 = v14.__cosval * (v60 * v240) + v216 * v64;
+      v69 = v14.__cosval * (v61 * v240) + v216 * v65;
+      v70 = v210 * v66 + v62 * v218;
+      v71 = v210 * v67 + v63 * v218;
+      v72 = v218 * v66 - v62 * v210;
+      v73 = v218 * v67 - v63 * v210;
+      v74 = v72 * (v72 * -3.0) + v70 * 12.0 * v70;
+      v75 = v73 * (v72 * -6.0) + v70 * 24.0 * v71;
+      v76 = v73 * (v73 * -3.0) + v71 * 12.0 * v71;
+      v77 = v220 * v74 + (v66 * v66 + v62 * v62) * 3.0;
+      v78 = v220 * v75 + (v66 * v67 + v62 * v63) * 6.0;
+      v79 = v220 * v76 + (v67 * v67 + v63 * v63) * 3.0;
+      v80 = v220 * (v210 * v68 * (v72 * -6.0) + v70 * -24.0 * (v218 * v68)) + v62 * -6.0 * v68;
+      v226 = v220 * ((v210 * v68 * v73 + v72 * (v210 * v69)) * -6.0 + (v218 * v69 * v70 + v71 * (v218 * v68)) * -24.0) + (v63 * v68 + v62 * v69) * -6.0;
+      v81 = v220 * (v210 * v69 * (v73 * -6.0) + v71 * -24.0 * (v218 * v69)) + v63 * -6.0 * v69;
+      v82 = v220 * (v218 * v68 * (v72 * -6.0) + v70 * 24.0 * (v210 * v68)) + v66 * 6.0 * v68;
+      v83 = v57;
+      v84 = v220 * ((v218 * v69 * v72 + v73 * (v218 * v68)) * -6.0 + (v210 * v69 * v70 + v71 * (v210 * v68)) * 24.0) + (v66 * v69 + v67 * v68) * 6.0;
+      v85 = v220 * (v218 * v69 * (v73 * -6.0) + v71 * 24.0 * (v210 * v69)) + v67 * 6.0 * v69;
+      v86 = v77 + v77 + v223 * v74;
+      v87 = v78 + v78 + v223 * v75;
+      v88 = v79 + v79 + v223 * v76;
+      v89 = v208 * v234;
+      v90 = v71 * v73 + v70 * v72;
+      v91 = v70 * v73 + v71 * v72;
+      v92 = v208 * v234 * -0.5 / v221;
+      v93 = v71 * v73 - v70 * v72;
+      v94 = v221 * (v208 * v234);
+      v95 = v213 * v94;
+      if (v59)
       {
-        v197 = v218 * v98;
-        v205 = v213 * v239 * -0.5 / v226;
-        v239 = 0.00000047968065;
-        v200 = v93;
-        v201 = v92;
-        v203 = v98;
-        v195 = v88;
-        v196 = v94;
-        v190 = v95;
-        v191 = v97;
-        v202 = v90;
-        v198 = v84;
-        v199 = v85;
-        v192 = v231;
-        v193 = v91;
-        v207 = v89;
-        v208 = v86;
-        v204 = v76 * (v76 * -3.0) + v74 * 12.0 * v74;
-        v194 = v79;
-        v210 = v80;
-        cosval = v188;
-        v236 = v187;
-        v245 = v189;
-        __xa = v55.__cosval * -0.03568096 + 0.91375164;
-        v65 = v60.__cosval;
-        v64 = v60.__sinval;
+        v192 = v213 * v94;
+        v200 = v208 * v234 * -0.5 / v221;
+        v234 = 0.00000047968065;
+        v195 = v89;
+        v196 = v88;
+        v198 = v94;
+        v190 = v84;
+        v191 = v90;
+        v185 = v91;
+        v186 = v93;
+        v197 = v86;
+        v193 = v80;
+        v194 = v81;
+        v187 = v226;
+        v188 = v87;
+        v202 = v85;
+        v203 = v82;
+        v199 = v72 * (v72 * -3.0) + v70 * 12.0 * v70;
+        v189 = v75;
+        v205 = v76;
+        cosval = v183;
+        v231 = v182;
+        v240 = v184;
+        __xa = v51.__cosval * -0.03568096 + 0.91375164;
+        v61 = v56.__cosval;
+        v60 = v56.__sinval;
       }
 
-      v63 = 0;
-      v61 = 1;
+      v59 = 0;
+      v57 = 1;
       sinval = v14.__sinval;
     }
 
-    while ((v87 & 1) == 0);
-    v237 = v98;
-    v234 = v76 * (v76 * -3.0) + v74 * 12.0 * v74;
-    v219 = v85;
-    v222 = v84;
-    v246 = v86;
-    v229 = v90;
-    v227 = v92;
-    __xb = v94;
-    v240 = v88;
-    v224 = v91;
-    v214 = v95;
-    v216 = v97;
-    *(this + 110) = fmod(v178 * 0.2299715 + 4.7199672 - v177, 6.28318531);
-    v100 = fmod(v178 * 0.017201977 + 6.2565837, 6.28318531);
-    v101 = v96;
-    *(this + 111) = v100;
-    *(this + 85) = (v197 + v197) * v190;
-    *(this + 86) = (v197 + v197) * v191;
-    *(this + 92) = (v205 + v205) * v192;
-    *(this + 93) = (v205 + v205) * (v199 - v198);
-    *(this + 94) = v200 * -2.0 * v193;
-    *(this + 95) = v200 * -2.0 * (v201 - v202);
-    v102 = v225 * -9.0 + -21.0;
-    *(this + 96) = v102 * (v200 * -2.0) * 0.01675;
-    v103 = vmulq_n_f64(xmmword_1D0E779C0, v203);
-    *(this + 87) = v194 * v103.f64[0];
-    v104 = vdupq_lane_s64(0x3F9126E978D4FDF4, 0);
-    v104.f64[0] = v210 - v204;
-    *(this + 44) = vmulq_f64(v103, v104);
-    *(this + 90) = v205 * -2.0 * v195;
-    *(this + 91) = v205 * -2.0 * (v207 - v208);
-    *(this + 79) = (v99 + v99) * v214;
-    *(this + 78) = (v99 + v99) * v216;
-    *(this + 104) = (v96 + v96) * v231;
-    *(this + 105) = (v96 + v96) * (v219 - v222);
-    *(this + 106) = v93 * -2.0 * v224;
-    *(this + 107) = v93 * -2.0 * (v227 - v229);
-    *(this + 108) = v102 * (v93 * -2.0) * 0.0549;
-    v105 = vmulq_n_f64(xmmword_1D0E779C0, v237);
-    *(this + 99) = v79 * v105.f64[0];
-    v106 = vdupq_lane_s64(0x3FAC1BDA5119CE07, 0);
-    v106.f64[0] = v80 - v234;
-    *(this + 50) = vmulq_f64(v105, v106);
-    *(this + 102) = v96 * -2.0 * v240;
-    *(this + 103) = v96 * -2.0 * (v89 - v246);
-    v107 = v185 > 0.0034906585 && v185 < 0.0052359877;
-    v108 = v185 < 0.00826;
-    if (v186 < 0.5)
+    while ((v83 & 1) == 0);
+    v232 = v94;
+    v229 = v72 * (v72 * -3.0) + v70 * 12.0 * v70;
+    v214 = v81;
+    v217 = v80;
+    v241 = v82;
+    v224 = v86;
+    v222 = v88;
+    __xb = v90;
+    v235 = v84;
+    v219 = v87;
+    v209 = v91;
+    v211 = v93;
+    *(this + 110) = fmod(v173 * 0.2299715 + 4.7199672 - v172, 6.28318531);
+    v96 = fmod(v173 * 0.017201977 + 6.2565837, 6.28318531);
+    v97 = v92;
+    *(this + 111) = v96;
+    *(this + 85) = (v192 + v192) * v185;
+    *(this + 86) = (v192 + v192) * v186;
+    *(this + 92) = (v200 + v200) * v187;
+    *(this + 93) = (v200 + v200) * (v194 - v193);
+    *(this + 94) = v195 * -2.0 * v188;
+    *(this + 95) = v195 * -2.0 * (v196 - v197);
+    v98 = v220 * -9.0 + -21.0;
+    *(this + 96) = v98 * (v195 * -2.0) * 0.01675;
+    v99 = vmulq_n_f64(xmmword_1D0E779C0, v198);
+    *(this + 87) = v189 * v99.f64[0];
+    v100 = vdupq_lane_s64(0x3F9126E978D4FDF4, 0);
+    v100.f64[0] = v205 - v199;
+    *(this + 44) = vmulq_f64(v99, v100);
+    *(this + 90) = v200 * -2.0 * v190;
+    *(this + 91) = v200 * -2.0 * (v202 - v203);
+    *(this + 79) = (v95 + v95) * v209;
+    *(this + 78) = (v95 + v95) * v211;
+    *(this + 104) = (v92 + v92) * v226;
+    *(this + 105) = (v92 + v92) * (v214 - v217);
+    *(this + 106) = v89 * -2.0 * v219;
+    *(this + 107) = v89 * -2.0 * (v222 - v224);
+    *(this + 108) = v98 * (v89 * -2.0) * 0.0549;
+    v101 = vmulq_n_f64(xmmword_1D0E779C0, v232);
+    *(this + 99) = v75 * v101.f64[0];
+    v102 = vdupq_lane_s64(0x3FAC1BDA5119CE07, 0);
+    v102.f64[0] = v76 - v229;
+    *(this + 50) = vmulq_f64(v101, v102);
+    *(this + 102) = v92 * -2.0 * v235;
+    *(this + 103) = v92 * -2.0 * (v85 - v241);
+    v103 = v180 > 0.0034906585 && v180 < 0.0052359877;
+    v104 = v180 < 0.00826;
+    if (v181 < 0.5)
+    {
+      v104 = 1;
+    }
+
+    v105 = v180 > 0.00924 || v104;
+    if (v105)
+    {
+      v106 = v103;
+    }
+
+    else
+    {
+      v106 = 2;
+    }
+
+    *(this + 472) = v106;
+    v107 = v200 * -0.0000119459 * (v203 + v202);
+    v108 = v179 < 0.052359877;
+    if (v179 > 3.08923278)
     {
       v108 = 1;
     }
 
-    v109 = v185 > 0.00924 || v108;
-    if (v109)
+    if (v108)
     {
-      v110 = v107;
-    }
-
-    else
-    {
-      v110 = 2;
-    }
-
-    *(this + 472) = v110;
-    v111 = v205 * -0.0000119459 * (v208 + v207);
-    v112 = v184 < 0.052359877;
-    if (v184 > 3.08923278)
-    {
-      v112 = 1;
-    }
-
-    if (v112)
-    {
-      v111 = 0.0;
+      v107 = 0.0;
     }
 
     if (fabs(v14.__sinval) >= 2.22044605e-16)
     {
-      v113 = v111 / v14.__sinval;
+      v109 = v107 / v14.__sinval;
     }
 
     else
     {
-      v113 = v111;
+      v109 = v107;
     }
 
-    *(this + 70) = v197 * 0.0000119459 * v196 + v99 * 0.00015835218 * __xb;
-    *(this + 74) = v205 * 0.0000119459 * (v198 + v199) + v96 * 0.00015835218 * (v219 + v222);
-    v114 = v200 * -0.0000119459 * (v202 + v201 + -14.0 + v225 * -6.0) + v93 * -0.00015835218 * (v227 + v229 + -14.0 + v225 * -6.0);
-    *(this + 75) = v114;
-    v115 = v237 * 0.00015835218 * (v80 + v234 + -6.0) + v203 * 0.0000119459 * (v204 + v210 + -6.0) - v14.__cosval * v113;
-    *(this + 77) = v115;
-    *(this + 76) = v113;
+    *(this + 70) = v192 * 0.0000119459 * v191 + v95 * 0.00015835218 * __xb;
+    *(this + 74) = v200 * 0.0000119459 * (v193 + v194) + v92 * 0.00015835218 * (v214 + v217);
+    v110 = v195 * -0.0000119459 * (v197 + v196 + -14.0 + v220 * -6.0) + v89 * -0.00015835218 * (v222 + v224 + -14.0 + v220 * -6.0);
+    *(this + 75) = v110;
+    v111 = v232 * 0.00015835218 * (v76 + v229 + -6.0) + v198 * 0.0000119459 * (v199 + v205 + -6.0) - v14.__cosval * v109;
+    *(this + 77) = v111;
+    *(this + 76) = v109;
     if (v14.__sinval != 0.0)
     {
-      v116 = v101 * -0.00015835218 * (v89 + v246);
-      if (v112)
+      v112 = v97 * -0.00015835218 * (v85 + v241);
+      if (v108)
       {
-        v116 = 0.0;
+        v112 = 0.0;
       }
 
-      v115 = v115 + -v14.__cosval / v14.__sinval * v116;
-      *(this + 77) = v115;
-      v113 = v116 / v14.__sinval + v113;
-      *(this + 76) = v113;
+      v111 = v111 + -v14.__cosval / v14.__sinval * v112;
+      *(this + 77) = v111;
+      v109 = v112 / v14.__sinval + v109;
+      *(this + 76) = v109;
     }
 
-    v117 = fmod(*(this + 97) + 0.0, 6.28318531);
-    if (v110)
+    v113 = fmod(*(this + 97) + 0.0, 6.28318531);
+    if (v106)
     {
-      v118 = v117;
-      v119 = pow(v185 / 0.0743669161, 0.666666667);
-      if (v109)
+      v114 = v113;
+      v115 = pow(v180 / 0.0743669161, 0.666666667);
+      if (v105)
       {
-        if (!v107)
+        if (!v103)
         {
-          v131 = *(this + 109);
-          v140 = *(this + 119);
+          v127 = *(this + 109);
+          v136 = *(this + 119);
 LABEL_58:
-          *(this + 113) = v131;
-          *(this + 114) = v140;
+          *(this + 113) = v127;
+          *(this + 114) = v136;
           *(this + 112) = 0;
           goto LABEL_59;
         }
 
-        v120.f64[0] = v225 * 2.0 + 1.0;
-        v121.f64[0] = v119;
-        v121.f64[1] = v14.__cosval + 1.0;
-        v122.f64[1] = v14.__cosval + 1.0;
-        v122.f64[0] = v185 * (v185 * 3.0) * v119;
-        v123 = vmulq_f64(v121, v122);
+        v116.f64[0] = v220 * 2.0 + 1.0;
+        v117.f64[0] = v115;
+        v117.f64[1] = v14.__cosval + 1.0;
+        v118.f64[1] = v14.__cosval + 1.0;
+        v118.f64[0] = v180 * (v180 * 3.0) * v115;
+        v119 = vmulq_f64(v117, v118);
         __asm { FMOV            V4.2D, #0.75 }
 
-        _Q4.f64[0] = v179 * -0.75 + v14.__sinval * (v14.__sinval * 0.9375) * (v14.__cosval * 3.0 + 1.0);
-        *(this + 73) = v119 * ((v225 * (v225 * 6.60937 + -6.0) + 1.0) * (v179 * (v179 * (v179 * 1.875)) * (3.0 * v123.f64[0])) * 0.00000022123015);
-        v120.f64[1] = v123.f64[0] + v123.f64[0];
-        v129 = &unk_1D0E778E8;
-        *&v130.f64[0] = *&vld1q_dup_f64(v129);
-        v130.f64[1] = v225 * (v225 * 0.8125 + -2.5) + 1.0;
-        v121.f64[1] = 0.0000017891679;
-        *(this + 568) = vmulq_f64(v121, vmulq_f64(v130, vmulq_f64(v120, vmulq_f64(_Q4, v123))));
-        v131 = fmod(*(this + 118) + *(this + 120) + *(this + 115) - v118, 6.28318531);
-        *(this + 109) = v131;
-        v132 = v113 + v180 + v176 + -0.00437526909 + v114 + v115;
+        _Q4.f64[0] = v174 * -0.75 + v14.__sinval * (v14.__sinval * 0.9375) * (v14.__cosval * 3.0 + 1.0);
+        *(this + 73) = v115 * ((v220 * (v220 * 6.60937 + -6.0) + 1.0) * (v174 * (v174 * (v174 * 1.875)) * (3.0 * v119.f64[0])) * 0.00000022123015);
+        v116.f64[1] = v119.f64[0] + v119.f64[0];
+        v125 = &unk_1D0E778E8;
+        *&v126.f64[0] = *&vld1q_dup_f64(v125);
+        v126.f64[1] = v220 * (v220 * 0.8125 + -2.5) + 1.0;
+        v117.f64[1] = 0.0000017891679;
+        *(this + 568) = vmulq_f64(v117, vmulq_f64(v126, vmulq_f64(v116, vmulq_f64(_Q4, v119))));
+        v127 = fmod(*(this + 118) + *(this + 120) + *(this + 115) - v114, 6.28318531);
+        *(this + 109) = v127;
+        v128 = v109 + v175 + v171 + -0.00437526909 + v110 + v111;
 LABEL_57:
-        v140 = *(this + 119);
-        *(this + 98) = v132 - v140;
+        v136 = *(this + 119);
+        *(this + 98) = v128 - v136;
         goto LABEL_58;
       }
 
-      v133 = *(this + 116);
-      v134 = v225 * *&v133;
-      if (*&v133 <= 0.65)
+      v129 = *(this + 116);
+      v130 = v220 * *&v129;
+      if (*&v129 <= 0.65)
       {
-        v135 = *&v133 * -13.247 + 3.616 + v225 * 16.29;
-        v136 = vmlaq_n_f64(vmlaq_n_f64(vmlaq_n_f64(xmmword_1D0E779E0, xmmword_1D0E779D0, *&v133), xmmword_1D0E779F0, v225), xmmword_1D0E77A00, v134);
-        v137 = vmlaq_n_f64(vmlaq_n_f64(vmlaq_n_f64(xmmword_1D0E77A20, xmmword_1D0E77A10, *&v133), xmmword_1D0E77A30, v225), xmmword_1D0E77A40, v134);
-        v138 = *&v133 * 3017.977 + -532.114 + v225 * -5740.032;
-        v139 = 3708.276;
+        v131 = *&v129 * -13.247 + 3.616 + v220 * 16.29;
+        v132 = vmlaq_n_f64(vmlaq_n_f64(vmlaq_n_f64(xmmword_1D0E779E0, xmmword_1D0E779D0, *&v129), xmmword_1D0E779F0, v220), xmmword_1D0E77A00, v130);
+        v133 = vmlaq_n_f64(vmlaq_n_f64(vmlaq_n_f64(xmmword_1D0E77A20, xmmword_1D0E77A10, *&v129), xmmword_1D0E77A30, v220), xmmword_1D0E77A40, v130);
+        v134 = *&v129 * 3017.977 + -532.114 + v220 * -5740.032;
+        v135 = 3708.276;
       }
 
       else
       {
-        v135 = *&v133 * 331.819 + -72.099 + v225 * -508.738 + v134 * 266.724;
-        v136 = vmlaq_n_f64(vmlaq_n_f64(vmlaq_n_f64(xmmword_1D0E77A60, xmmword_1D0E77A50, *&v133), xmmword_1D0E77A70, v225), xmmword_1D0E77A80, v134);
-        v137 = vmlaq_n_f64(vmlaq_n_f64(vmlaq_n_f64(xmmword_1D0E77AA0, xmmword_1D0E77A90, *&v133), xmmword_1D0E77AB0, v225), xmmword_1D0E77AC0, v134);
-        if (*&v133 <= 0.715)
+        v131 = *&v129 * 331.819 + -72.099 + v220 * -508.738 + v130 * 266.724;
+        v132 = vmlaq_n_f64(vmlaq_n_f64(vmlaq_n_f64(xmmword_1D0E77A60, xmmword_1D0E77A50, *&v129), xmmword_1D0E77A70, v220), xmmword_1D0E77A80, v130);
+        v133 = vmlaq_n_f64(vmlaq_n_f64(vmlaq_n_f64(xmmword_1D0E77AA0, xmmword_1D0E77A90, *&v129), xmmword_1D0E77AB0, v220), xmmword_1D0E77AC0, v130);
+        if (*&v129 <= 0.715)
         {
-          v141.f64[0] = *&v133 * -4664.75 + 1464.74 + v225 * 3763.64;
+          v137.f64[0] = *&v129 * -4664.75 + 1464.74 + v220 * 3763.64;
           goto LABEL_53;
         }
 
-        v138 = *&v133 * 29936.92 + -5149.66 + v225 * -54087.36;
-        v139 = 31324.56;
+        v134 = *&v129 * 29936.92 + -5149.66 + v220 * -54087.36;
+        v135 = 31324.56;
       }
 
-      v141.f64[0] = v138 + v134 * v139;
+      v137.f64[0] = v134 + v130 * v135;
 LABEL_53:
-      v142 = vdupq_lane_s64(v133, 0);
-      v143 = vdupq_lane_s64(*&v225, 0);
-      v144.f64[0] = (*&v133 + -0.64) * -0.44 + -0.306;
-      v145 = vdupq_lane_s64(*&v134, 0);
-      if (*&v133 >= 0.7)
+      v138 = vdupq_lane_s64(v129, 0);
+      v139 = vdupq_lane_s64(*&v220, 0);
+      v140.f64[0] = (*&v129 + -0.64) * -0.44 + -0.306;
+      v141 = vdupq_lane_s64(*&v130, 0);
+      if (*&v129 >= 0.7)
       {
-        v146 = vmlaq_f64(vmlaq_f64(vmlaq_f64(xmmword_1D0E77AE0, xmmword_1D0E77AD0, v142), xmmword_1D0E77AF0, v143), xmmword_1D0E77B00, v145);
-        v147 = *&v133 * 170470.89 + -40023.88 + v225 * -242699.48;
-        v148 = 115605.82;
+        v142 = vmlaq_f64(vmlaq_f64(vmlaq_f64(xmmword_1D0E77AE0, xmmword_1D0E77AD0, v138), xmmword_1D0E77AF0, v139), xmmword_1D0E77B00, v141);
+        v143 = *&v129 * 170470.89 + -40023.88 + v220 * -242699.48;
+        v144 = 115605.82;
       }
 
       else
       {
-        v146 = vmlaq_f64(vmlaq_f64(vmlaq_f64(xmmword_1D0E77B20, xmmword_1D0E77B10, v142), xmmword_1D0E77B30, v143), xmmword_1D0E77B40, v145);
-        v147 = *&v133 * 4690.25 + -853.666 + v225 * -8624.77;
-        v148 = 5341.4;
+        v142 = vmlaq_f64(vmlaq_f64(vmlaq_f64(xmmword_1D0E77B20, xmmword_1D0E77B10, v138), xmmword_1D0E77B30, v139), xmmword_1D0E77B40, v141);
+        v143 = *&v129 * 4690.25 + -853.666 + v220 * -8624.77;
+        v144 = 5341.4;
       }
 
       __asm { FMOV            V18.2D, #1.0 }
 
-      v150 = vmlaq_n_f64(_Q18, xmmword_1D0E77B50, v14.__cosval);
+      v146 = vmlaq_n_f64(_Q18, xmmword_1D0E77B50, v14.__cosval);
       __asm { FMOV            V20.2D, #-8.0 }
 
-      v152 = vmlaq_n_f64(xmmword_1D0E77B70, _Q20, v14.__cosval);
+      v148 = vmlaq_n_f64(xmmword_1D0E77B70, _Q20, v14.__cosval);
       __asm { FMOV            V24.2D, #8.0 }
 
-      v154 = vmlaq_n_f64(xmmword_1D0E77B80, _Q24, v14.__cosval);
-      v155 = vdupq_lane_s64(*&v14.__sinval, 0);
-      v156.f64[1] = v155.f64[1];
-      v156.f64[0] = v185 * v185 * 3.0;
-      v157.f64[1] = v155.f64[1];
-      v157.f64[0] = v119 * v119;
-      v158 = vmulq_f64(v156, v157);
-      v159 = vmuld_lane_f64(4.92187512, v158, 1);
-      v160 = vmulq_f64(v158, xmmword_1D0E77B90);
-      v161 = vdupq_lane_s64(*&v160.f64[0], 0);
-      v161.f64[0] = (v150.f64[1] + v211) * 0.75;
-      v144.f64[1] = v135;
-      v162 = vmulq_f64(vmulq_f64(v160, v161), v144);
+      v150 = vmlaq_n_f64(xmmword_1D0E77B80, _Q24, v14.__cosval);
+      v151 = vdupq_lane_s64(*&v14.__sinval, 0);
+      v152.f64[1] = v151.f64[1];
+      v152.f64[0] = v180 * v180 * 3.0;
+      v153.f64[1] = v151.f64[1];
+      v153.f64[0] = v115 * v115;
+      v154 = vmulq_f64(v152, v153);
+      v155 = vmuld_lane_f64(4.92187512, v154, 1);
+      v156 = vmulq_f64(v154, xmmword_1D0E77B90);
+      v157 = vdupq_lane_s64(*&v156.f64[0], 0);
+      v157.f64[0] = (v146.f64[1] + v206) * 0.75;
+      v140.f64[1] = v131;
+      v158 = vmulq_f64(vmulq_f64(v156, v157), v140);
       __asm { FMOV            V29.2D, #-3.0 }
 
-      v164 = vmlaq_n_f64(v150, _Q29, v211);
-      *(this + 30) = v162;
-      *(this + 31) = vmulq_f64(vmulq_n_f64(vmulq_f64(vmulq_n_f64(xmmword_1D0E77B60, v14.__sinval), v164), v119 * v158.f64[0] * 0.00000037393792), v136);
-      v165 = v119 * (v119 * v158.f64[0]);
-      *&v166.f64[0] = vdupq_laneq_s64(v158, 1).u64[0];
-      v167 = vmulq_laneq_f64(xmmword_1D0E77BA0, v158, 1);
-      v158.f64[0] = (v150.f64[1] + v211) * 0.75;
-      v168 = v119 * v165;
-      v150.f64[1] = v14.__cosval * -4.0 + -2.0;
-      v164.f64[0] = v14.__cosval * 4.0 + -2.0 + v211 * 6.0;
-      v166.f64[1] = v159;
-      v155.f64[0] = v14.__sinval * 9.84375;
-      v141.f64[1] = v147 + v134 * v148;
-      *(this + 32) = vmulq_f64(vmulq_n_f64(vmulq_f64(v158, v167), (v165 + v165) * 0.0000000073636953), v137);
-      *(this + 33) = vmulq_f64(vmulq_n_f64(vmulq_f64(v155, vmlaq_f64(vmulq_f64(v164, xmmword_1D0E77BC0), vmlaq_n_f64(v150, xmmword_1D0E77BB0, v211), v166)), v168 * 0.00000011428639), v141);
-      *(this + 34) = vmulq_f64(vmulq_n_f64(vmulq_n_f64(vmlaq_n_f64(v152, vmlaq_n_f64(v154, xmmword_1D0E77BD0, v211), v211), v14.__sinval * 29.53125), (v168 + v168) * 0.0000000021765803), v146);
-      v131 = fmod(*(this + 118) + *(this + 120) * 2.0 + v118 * -2.0, 6.28318531);
-      *(this + 109) = v131;
-      v132 = v114 + *(this + 54) + (*(this + 55) + *(this + 76) + -0.00437526909) * 2.0;
+      v160 = vmlaq_n_f64(v146, _Q29, v206);
+      *(this + 30) = v158;
+      *(this + 31) = vmulq_f64(vmulq_n_f64(vmulq_f64(vmulq_n_f64(xmmword_1D0E77B60, v14.__sinval), v160), v115 * v154.f64[0] * 0.00000037393792), v132);
+      v161 = v115 * (v115 * v154.f64[0]);
+      *&v162.f64[0] = vdupq_laneq_s64(v154, 1).u64[0];
+      v163 = vmulq_laneq_f64(xmmword_1D0E77BA0, v154, 1);
+      v154.f64[0] = (v146.f64[1] + v206) * 0.75;
+      v164 = v115 * v161;
+      v146.f64[1] = v14.__cosval * -4.0 + -2.0;
+      v160.f64[0] = v14.__cosval * 4.0 + -2.0 + v206 * 6.0;
+      v162.f64[1] = v155;
+      v151.f64[0] = v14.__sinval * 9.84375;
+      v137.f64[1] = v143 + v130 * v144;
+      *(this + 32) = vmulq_f64(vmulq_n_f64(vmulq_f64(v154, v163), (v161 + v161) * 0.0000000073636953), v133);
+      *(this + 33) = vmulq_f64(vmulq_n_f64(vmulq_f64(v151, vmlaq_f64(vmulq_f64(v160, xmmword_1D0E77BC0), vmlaq_n_f64(v146, xmmword_1D0E77BB0, v206), v162)), v164 * 0.00000011428639), v137);
+      *(this + 34) = vmulq_f64(vmulq_n_f64(vmulq_n_f64(vmlaq_n_f64(v148, vmlaq_n_f64(v150, xmmword_1D0E77BD0, v206), v206), v14.__sinval * 29.53125), (v164 + v164) * 0.0000000021765803), v142);
+      v127 = fmod(*(this + 118) + *(this + 120) * 2.0 + v114 * -2.0, 6.28318531);
+      *(this + 109) = v127;
+      v128 = v110 + *(this + 54) + (*(this + 55) + *(this + 76) + -0.00437526909) * 2.0;
       goto LABEL_57;
     }
   }
@@ -1513,509 +828,501 @@ LABEL_53:
 LABEL_59:
   if ((*(this + 265) & 1) == 0)
   {
-    v169 = *(this + 36);
-    v170 = v183 * 4.0 * v181 * (v169 * v169);
-    v171 = v169 * (v181 * v170) / 3.0;
-    v172 = (v182 + v183 * 17.0) * v171;
-    *(this + 39) = v170;
-    *(this + 40) = v172;
-    v173 = v169 * ((v182 * 31.0 + v183 * 221.0) * (v181 * (v183 * (v171 * 0.5))));
-    *(this + 41) = v173;
-    *(this + 49) = v170 + v169 * v169 * 2.0;
-    *(this + 50) = (v169 * (v169 * v169 * 10.0 + v170 * 12.0) + v172 * 3.0) * 0.25;
-    *(this + 51) = (v169 * 12.0 * v172 + v173 * 3.0 + v170 * v170 * 6.0 + v169 * v169 * 15.0 * (v169 * v169 + v170 * 2.0)) * 0.2;
+    v165 = *(this + 36);
+    v166 = v178 * 4.0 * v176 * (v165 * v165);
+    v167 = v165 * (v176 * v166) / 3.0;
+    v168 = (v177 + v178 * 17.0) * v167;
+    *(this + 39) = v166;
+    *(this + 40) = v168;
+    v169 = v165 * ((v177 * 31.0 + v178 * 221.0) * (v176 * (v178 * (v167 * 0.5))));
+    *(this + 41) = v169;
+    *(this + 49) = v166 + v165 * v165 * 2.0;
+    *(this + 50) = (v165 * (v165 * v165 * 10.0 + v166 * 12.0) + v168 * 3.0) * 0.25;
+    *(this + 51) = (v165 * 12.0 * v168 + v169 * 3.0 + v166 * v166 * 6.0 + v165 * v165 * 15.0 * (v165 * v165 + v166 * 2.0)) * 0.2;
   }
 
-LABEL_61:
-  result = cnnavigation::NORADTLEEphemerides::SGP4(this, this + 168, __src, v251, v23, v24, v25, v26);
-  v175 = *MEMORY[0x1E69E9840];
-  return result;
+  return cnnavigation::NORADTLEEphemerides::SGP4(this, this + 168, __src, v246);
 }
 
-uint64_t cnnavigation::NORADTLEEphemerides::SGP4(uint64_t a1, uint64_t a2, uint64_t a3, float64x2_t *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t cnnavigation::NORADTLEEphemerides::SGP4(uint64_t a1, uint64_t a2, uint64_t a3, float64x2_t *a4)
 {
-  v11 = (*(a2 + 8) - *(a1 + 176) + (*a2 - *(a1 + 168))) * 1440.0;
-  *(a1 + 376) = v11;
-  v12 = *(a1 + 944) + *(a1 + 432) * v11;
-  v217 = *(a1 + 352);
-  v218 = *(a1 + 920);
-  v13 = v218 + v217 * v11;
-  v14 = *(a1 + 960) + *(a1 + 440) * v11;
-  v15 = v11 * v11;
-  v16 = *(a1 + 464);
-  v17 = 1.0 - *(a1 + 288) * v11;
-  v18 = *(a1 + 192);
-  v19 = v11 * (v18 * *(a1 + 296));
-  v20 = v11 * v11 * *(a1 + 384);
-  v240 = v11;
+  v7 = (*(a2 + 8) - *(a1 + 176) + (*a2 - *(a1 + 168))) * 1440.0;
+  *(a1 + 376) = v7;
+  v8 = *(a1 + 944) + *(a1 + 432) * v7;
+  v194 = *(a1 + 352);
+  v195 = *(a1 + 920);
+  v9 = v195 + v194 * v7;
+  v10 = *(a1 + 960) + *(a1 + 440) * v7;
+  v11 = v7 * v7;
+  v12 = *(a1 + 464);
+  v13 = 1.0 - *(a1 + 288) * v7;
+  v14 = *(a1 + 192);
+  v15 = v7 * (v14 * *(a1 + 296));
+  v16 = v7 * v7 * *(a1 + 384);
+  v217 = v7;
   if (*(a1 + 265))
   {
-    v246 = *(a1 + 944) + *(a1 + 432) * v11;
+    v223 = *(a1 + 944) + *(a1 + 432) * v7;
   }
 
   else
   {
-    v215 = v11 * v11 * *(a1 + 384);
-    v243 = *(a1 + 960) + *(a1 + 440) * v11;
-    v21 = v11 * *(a1 + 360);
-    v22 = v13;
-    v23 = *(a1 + 344);
-    v211 = v17;
-    v213 = v19;
-    v24 = cos(v12);
-    v25 = v21 + *(a1 + 456) * -(*(a1 + 336) - (v23 * v24 + 1.0) * (v23 * v24 + 1.0) * (v23 * v24 + 1.0));
-    v13 = v22 - v25;
-    v26 = v240 * (v240 * v15);
-    v27 = v211 - *(a1 + 312) * v15 - *(a1 + 320) * (v240 * v15) - *(a1 + 328) * v26;
-    v28 = v18 * *(a1 + 304);
-    v246 = v12 + v25;
-    v19 = v213 + v28 * (sin(v12 + v25) - *(a1 + 368));
-    v14 = v243;
-    v17 = v27;
-    v20 = v215 + *(a1 + 392) * (v240 * v15) + v26 * (*(a1 + 400) + v240 * *(a1 + 408));
-    v11 = v240;
+    v192 = v7 * v7 * *(a1 + 384);
+    v220 = *(a1 + 960) + *(a1 + 440) * v7;
+    v17 = v7 * *(a1 + 360);
+    v18 = v9;
+    v19 = *(a1 + 344);
+    v188 = v13;
+    v190 = v15;
+    v20 = cos(v8);
+    v21 = v17 + *(a1 + 456) * -(*(a1 + 336) - (v19 * v20 + 1.0) * (v19 * v20 + 1.0) * (v19 * v20 + 1.0));
+    v9 = v18 - v21;
+    v22 = v217 * (v217 * v11);
+    v23 = v188 - *(a1 + 312) * v11 - *(a1 + 320) * (v217 * v11) - *(a1 + 328) * v22;
+    v24 = v14 * *(a1 + 304);
+    v223 = v8 + v21;
+    v15 = v190 + v24 * (sin(v8 + v21) - *(a1 + 368));
+    v10 = v220;
+    v13 = v23;
+    v16 = v192 + *(a1 + 392) * (v217 * v11) + v22 * (*(a1 + 400) + v217 * *(a1 + 408));
+    v7 = v217;
   }
 
-  v216 = v20;
-  v29 = v14 + v16 * v15;
-  v30 = *(a1 + 952);
-  v31 = *(a1 + 928);
-  v32 = *(a1 + 936);
-  v33 = *(a1 + 264);
-  if (v33 == 1)
+  v193 = v16;
+  v25 = v10 + v12 * v11;
+  v26 = *(a1 + 952);
+  v27 = *(a1 + 928);
+  v28 = *(a1 + 936);
+  v29 = *(a1 + 264);
+  if (v29 == 1)
   {
-    v210 = *(a1 + 952);
-    v212 = v17;
-    v214 = v19;
-    v34 = v29;
-    v35 = fmod(*(a1 + 776) + v11 * 0.00437526909, 6.28318531);
-    v31 = v31 + *(a1 + 560) * v11;
-    v32 = v32 + *(a1 + 592) * v11;
-    v13 = v13 + *(a1 + 616) * v11;
-    v36 = *(a1 + 608);
-    v29 = v34 + v36 * v11;
-    v37 = *(a1 + 472);
+    v187 = *(a1 + 952);
+    v189 = v13;
+    v191 = v15;
+    v30 = v25;
+    v31 = fmod(*(a1 + 776) + v7 * 0.00437526909, 6.28318531);
+    v27 = v27 + *(a1 + 560) * v7;
+    v28 = v28 + *(a1 + 592) * v7;
+    v9 = v9 + *(a1 + 616) * v7;
+    v32 = *(a1 + 608);
+    v25 = v30 + v32 * v7;
+    v33 = *(a1 + 472);
     if (*(a1 + 472))
     {
-      v204 = v35;
-      v205 = v31;
-      v206 = v13;
-      v207 = v34 + v36 * v11;
-      v208 = v32;
-      v38 = *(a1 + 896);
-      v39 = fabs(v38);
-      if (v39 < 2.22044605e-16 || ((v40 = fabs(v11), v11 * v38 > 0.0) ? (v41 = v40 < v39) : (v41 = 1), v41))
+      v181 = v31;
+      v182 = v27;
+      v183 = v9;
+      v184 = v30 + v32 * v7;
+      v185 = v28;
+      v34 = *(a1 + 896);
+      v35 = fabs(v34);
+      if (v35 < 2.22044605e-16 || ((v36 = fabs(v7), v7 * v34 > 0.0) ? (v37 = v36 < v35) : (v37 = 1), v37))
       {
         *(a1 + 896) = 0;
-        *(a1 + 912) = v210;
+        *(a1 + 912) = v187;
         *(a1 + 904) = *(a1 + 872);
-        v38 = 0.0;
+        v34 = 0.0;
       }
 
-      v244 = dbl_1D0E77BE0[v11 > 0.0];
-      v42 = 0.0;
-      v43 = 0.0;
-      v44 = 0.0;
+      v221 = dbl_1D0E77BE0[v7 > 0.0];
+      v38 = 0.0;
+      v39 = 0.0;
+      v40 = 0.0;
       while (1)
       {
-        if (v37 == 2)
+        if (v33 == 2)
         {
-          v52 = v218 + v217 * v38;
-          v53 = *(a1 + 904);
-          v220 = v53 + v53;
-          v54 = *(a1 + 480);
-          v233 = v54;
-          v55 = __sincos_stret(v52 + v52 + v53 + -5.7686396);
-          v56 = *(a1 + 488);
-          __y = v56;
-          v57 = __sincos_stret(v53 + -5.7686396);
-          v58 = v56 * v57.__sinval + v54 * v55.__sinval;
-          v59 = *(a1 + 496);
-          v227 = v59;
-          v219 = v52 + v53;
-          v60 = __sincos_stret(v52 + v53 + -0.95240898);
-          v61 = *(a1 + 504);
-          v224 = v61;
-          v62 = v53 - v52;
-          v63 = __sincos_stret(v62 + -0.95240898);
-          v64 = v58 + v59 * v60.__sinval + v61 * v63.__sinval;
-          v65 = *(a1 + 512);
-          v222 = v65;
-          v66 = __sincos_stret(v52 + v52 + v220 + -1.8014998);
-          v67 = v64 + v65 * v66.__sinval;
-          v68 = *(a1 + 520);
-          v221 = v68;
-          v69 = __sincos_stret(v220 + -1.8014998);
-          v70 = *(a1 + 528);
-          v71 = __sincos_stret(v219 + -1.050833);
-          v72 = v67 + v68 * v69.__sinval + v70 * v71.__sinval;
-          v73 = *(a1 + 536);
-          v74 = __sincos_stret(v62 + -1.050833);
-          v75 = *(a1 + 544);
-          v76 = __sincos_stret(v52 + v220 + -4.4108898);
-          v77 = v72 + v73 * v74.__sinval + v75 * v76.__sinval;
-          v78 = *(a1 + 552);
-          v79 = __sincos_stret(v220 - v52 + -4.4108898);
-          v43 = v77 + v78 * v79.__sinval;
-          v42 = *(a1 + 912) + *(a1 + 784);
-          v11 = v240;
-          v44 = (__y * v57.__cosval + v233 * v55.__cosval + v227 * v60.__cosval + v224 * v63.__cosval + v70 * v71.__cosval + v73 * v74.__cosval + (v69.__cosval * v221 + v222 * v66.__cosval + v75 * v76.__cosval + v78 * v79.__cosval) * 2.0) * v42;
+          v48 = v195 + v194 * v34;
+          v49 = *(a1 + 904);
+          v197 = v49 + v49;
+          v50 = *(a1 + 480);
+          v210 = v50;
+          v51 = __sincos_stret(v48 + v48 + v49 + -5.7686396);
+          v52 = *(a1 + 488);
+          __y = v52;
+          v53 = __sincos_stret(v49 + -5.7686396);
+          v54 = v52 * v53.__sinval + v50 * v51.__sinval;
+          v55 = *(a1 + 496);
+          v204 = v55;
+          v196 = v48 + v49;
+          v56 = __sincos_stret(v48 + v49 + -0.95240898);
+          v57 = *(a1 + 504);
+          v201 = v57;
+          v58 = v49 - v48;
+          v59 = __sincos_stret(v58 + -0.95240898);
+          v60 = v54 + v55 * v56.__sinval + v57 * v59.__sinval;
+          v61 = *(a1 + 512);
+          v199 = v61;
+          v62 = __sincos_stret(v48 + v48 + v197 + -1.8014998);
+          v63 = v60 + v61 * v62.__sinval;
+          v64 = *(a1 + 520);
+          v198 = v64;
+          v65 = __sincos_stret(v197 + -1.8014998);
+          v66 = *(a1 + 528);
+          v67 = __sincos_stret(v196 + -1.050833);
+          v68 = v63 + v64 * v65.__sinval + v66 * v67.__sinval;
+          v69 = *(a1 + 536);
+          v70 = __sincos_stret(v58 + -1.050833);
+          v71 = *(a1 + 544);
+          v72 = __sincos_stret(v48 + v197 + -4.4108898);
+          v73 = v68 + v69 * v70.__sinval + v71 * v72.__sinval;
+          v74 = *(a1 + 552);
+          v75 = __sincos_stret(v197 - v48 + -4.4108898);
+          v39 = v73 + v74 * v75.__sinval;
+          v38 = *(a1 + 912) + *(a1 + 784);
+          v7 = v217;
+          v40 = (__y * v53.__cosval + v210 * v51.__cosval + v204 * v56.__cosval + v201 * v59.__cosval + v66 * v67.__cosval + v69 * v70.__cosval + (v65.__cosval * v198 + v199 * v62.__cosval + v71 * v72.__cosval + v74 * v75.__cosval) * 2.0) * v38;
         }
 
-        else if (v37 == 1)
+        else if (v33 == 1)
         {
-          v45 = *(a1 + 568);
-          v46 = *(a1 + 904);
-          v47 = __sincos_stret(v46 + -0.13130908);
-          v48 = *(a1 + 576);
-          v49 = __sincos_stret(v46 + -2.8843198 + v46 + -2.8843198);
-          v50 = *(a1 + 584);
-          v51 = __sincos_stret((v46 + -0.37448087) * 3.0);
-          v43 = v48 * v49.__sinval + v45 * v47.__sinval + v50 * v51.__sinval;
-          v42 = *(a1 + 912) + *(a1 + 784);
-          v11 = v240;
-          v44 = v42 * ((v48 + v48) * v49.__cosval + v45 * v47.__cosval + v50 * 3.0 * v51.__cosval);
+          v41 = *(a1 + 568);
+          v42 = *(a1 + 904);
+          v43 = __sincos_stret(v42 + -0.13130908);
+          v44 = *(a1 + 576);
+          v45 = __sincos_stret(v42 + -2.8843198 + v42 + -2.8843198);
+          v46 = *(a1 + 584);
+          v47 = __sincos_stret((v42 + -0.37448087) * 3.0);
+          v39 = v44 * v45.__sinval + v41 * v43.__sinval + v46 * v47.__sinval;
+          v38 = *(a1 + 912) + *(a1 + 784);
+          v7 = v217;
+          v40 = v38 * ((v44 + v44) * v45.__cosval + v41 * v43.__cosval + v46 * 3.0 * v47.__cosval);
         }
 
-        if (vabdd_f64(v11, v38) < 720.0)
+        if (vabdd_f64(v7, v34) < 720.0)
         {
           break;
         }
 
-        *(a1 + 904) = *(a1 + 904) + v42 * v244 + v43 * 259200.0;
-        *(a1 + 912) = *(a1 + 912) + v43 * v244 + v44 * 259200.0;
-        v38 = v244 + v38;
-        *(a1 + 896) = v38;
+        *(a1 + 904) = *(a1 + 904) + v38 * v221 + v39 * 259200.0;
+        *(a1 + 912) = *(a1 + 912) + v39 * v221 + v40 * 259200.0;
+        v34 = v221 + v34;
+        *(a1 + 896) = v34;
       }
 
-      v81 = v11 - v38;
-      v82 = *(a1 + 904) + v42 * (v11 - v38) + (v11 - v38) * (v43 * 0.5) * (v11 - v38);
-      if (v37 == 2)
+      v77 = v7 - v34;
+      v78 = *(a1 + 904) + v38 * (v7 - v34) + (v7 - v34) * (v39 * 0.5) * (v7 - v34);
+      if (v33 == 2)
       {
-        v246 = v82 + v207 * -2.0 + v204 * 2.0;
-        v32 = v208;
-        v13 = v206;
+        v223 = v78 + v184 * -2.0 + v181 * 2.0;
+        v28 = v185;
+        v9 = v183;
       }
 
       else
       {
-        v32 = v208;
-        v13 = v206;
-        if (v37 != 1)
+        v28 = v185;
+        v9 = v183;
+        if (v33 != 1)
         {
-          v258 = 5;
-          v257 = 3;
-          cnprint::CNPrinter::Print(&v258, &v257, "SGP4 encountered unexpected resonance type %hhu", a4, a5, a6, a7, a8, v37);
+          v235 = 5;
+          v234 = 3;
+          cnprint::CNPrinter::Print(&v235, &v234, "SGP4 encountered unexpected resonance type %hhu", v33);
           return 4294967291;
         }
 
-        v246 = v204 + v82 - v207 - v206;
+        v223 = v181 + v78 - v184 - v183;
       }
 
-      v30 = v210;
-      v17 = v212;
-      v80 = v210 + *(a1 + 912) + v43 * v81 + v81 * (v44 * 0.5) * v81 - v210;
-      v19 = v214;
-      v29 = v207;
-      v31 = v205;
+      v26 = v187;
+      v13 = v189;
+      v76 = v187 + *(a1 + 912) + v39 * v77 + v77 * (v40 * 0.5) * v77 - v187;
+      v15 = v191;
+      v25 = v184;
+      v27 = v182;
     }
 
     else
     {
-      v246 = v246 + *(a1 + 600) * v11;
-      v30 = v210;
-      v17 = v212;
-      v80 = v210;
-      v19 = v214;
+      v223 = v223 + *(a1 + 600) * v7;
+      v26 = v187;
+      v13 = v189;
+      v76 = v187;
+      v15 = v191;
     }
   }
 
   else
   {
-    v80 = *(a1 + 952);
+    v76 = *(a1 + 952);
   }
 
-  if (v80 <= 0.0)
+  if (v76 <= 0.0)
   {
-    v256 = 5;
-    v255 = 3;
-    cnprint::CNPrinter::Print(&v256, &v255, "SGP4 encountered invalid mean motion %lg", a4, a5, a6, a7, a8, SLOBYTE(v80));
+    v233 = 5;
+    v232 = 3;
+    cnprint::CNPrinter::Print(&v233, &v232, "SGP4 encountered invalid mean motion %lg", v76);
     return 4294967294;
   }
 
-  v83 = v29;
-  v84 = v19;
-  v85 = v17 * (v17 * pow(0.0743669161 / v80, 0.666666667));
-  v91 = pow(v85, 1.5);
-  v92 = v31 - v84;
-  if (v31 - v84 >= 1.0 || v92 < -0.001)
+  v79 = v25;
+  v80 = v15;
+  v81 = v13 * (v13 * pow(0.0743669161 / v76, 0.666666667));
+  v82 = pow(v81, 1.5);
+  v83 = v27 - v80;
+  if (v27 - v80 >= 1.0 || v83 < -0.001)
   {
-    v254 = 5;
-    v253 = 3;
-    v202 = v31 - v84;
-    cnprint::CNPrinter::Print(&v254, &v253, "SGP4 encountered invalid eccentricity %lg", v86, v87, v88, v89, v90, SLOBYTE(v202));
+    v231 = 5;
+    v230 = 3;
+    cnprint::CNPrinter::Print(&v231, &v230, "SGP4 encountered invalid eccentricity %lg", v27 - v80);
     return 0xFFFFFFFFLL;
   }
 
-  v236 = v91;
-  v238 = v85;
-  v93 = fmax(v92, 0.000001);
-  v94 = v83 + v13 + v246 + v30 * v216;
-  v95 = fmod(v83, 6.28318531);
-  v96 = fmod(v13, 6.28318531);
-  v97 = fmod(v94, 6.28318531);
-  v247 = v95;
-  v241 = fmod(v97 - v96 - v95, 6.28318531);
-  if (v33)
+  v213 = v82;
+  v215 = v81;
+  v84 = fmax(v83, 0.000001);
+  v85 = v79 + v9 + v223 + v26 * v193;
+  v86 = fmod(v79, 6.28318531);
+  v87 = fmod(v9, 6.28318531);
+  v88 = fmod(v85, 6.28318531);
+  v224 = v86;
+  v218 = fmod(v88 - v87 - v86, 6.28318531);
+  if (v29)
   {
-    v229 = v96;
-    v98 = *(a1 + 888) + v11 * 0.0000119459;
-    v99 = sin(v98);
-    v100 = __sincos_stret(v98 + v99 * 0.0335);
-    v101 = v100.__sinval * 0.5 * v100.__sinval + -0.25;
-    v102 = v100.__cosval * (v100.__sinval * -0.5);
-    v103 = *(a1 + 688) * v102 + *(a1 + 680) * v101;
-    v234 = v93;
-    v104 = v32;
-    v105 = *(a1 + 744) * v102 + *(a1 + 736) * v101;
-    v106 = *(a1 + 760) * v102 + *(a1 + 752) * v101 + *(a1 + 768) * v100.__sinval;
-    v107 = v102 * *(a1 + 704) + *(a1 + 696) * v101 + *(a1 + 712) * v100.__sinval;
-    v108 = v11;
-    v109 = v102 * *(a1 + 728) + *(a1 + 720) * v101;
-    v110 = *(a1 + 880) + v108 * 0.00015835218;
-    v111 = sin(v110);
-    v112 = __sincos_stret(v110 + v111 * 0.1098);
-    v113 = v112.__sinval * 0.5 * v112.__sinval + -0.25;
-    v114 = v112.__cosval * (v112.__sinval * -0.5);
-    v115 = *(a1 + 624) * v114 + *(a1 + 632) * v113;
-    v116 = *(a1 + 840) * v114 + *(a1 + 832) * v113;
-    v117 = *(a1 + 856) * v114 + *(a1 + 848) * v113 + *(a1 + 864) * v112.__sinval;
-    v118 = v114 * *(a1 + 800) + *(a1 + 792) * v113 + *(a1 + 808) * v112.__sinval;
-    v119 = v114 * *(a1 + 824) + *(a1 + 816) * v113;
-    v120 = v103 + v115;
-    v121 = v109 + v119;
-    v122 = v105 + v116 - *(a1 + 664);
-    v123 = v106 + v117 - *(a1 + 672);
-    v228 = v107 + v118 - *(a1 + 648);
-    v124 = v121 - *(a1 + 656);
-    v125 = v104 + v122;
-    v93 = v234 + v120 - *(a1 + 640);
-    v131 = __sincos_stret(v125);
-    if (v125 >= 0.2)
+    v206 = v87;
+    v89 = *(a1 + 888) + v7 * 0.0000119459;
+    v90 = sin(v89);
+    v91 = __sincos_stret(v89 + v90 * 0.0335);
+    v92 = v91.__sinval * 0.5 * v91.__sinval + -0.25;
+    v93 = v91.__cosval * (v91.__sinval * -0.5);
+    v94 = *(a1 + 688) * v93 + *(a1 + 680) * v92;
+    v211 = v84;
+    v95 = v28;
+    v96 = *(a1 + 744) * v93 + *(a1 + 736) * v92;
+    v97 = *(a1 + 760) * v93 + *(a1 + 752) * v92 + *(a1 + 768) * v91.__sinval;
+    v98 = v93 * *(a1 + 704) + *(a1 + 696) * v92 + *(a1 + 712) * v91.__sinval;
+    v99 = v7;
+    v100 = v93 * *(a1 + 728) + *(a1 + 720) * v92;
+    v101 = *(a1 + 880) + v99 * 0.00015835218;
+    v102 = sin(v101);
+    v103 = __sincos_stret(v101 + v102 * 0.1098);
+    v104 = v103.__sinval * 0.5 * v103.__sinval + -0.25;
+    v105 = v103.__cosval * (v103.__sinval * -0.5);
+    v106 = *(a1 + 624) * v105 + *(a1 + 632) * v104;
+    v107 = *(a1 + 840) * v105 + *(a1 + 832) * v104;
+    v108 = *(a1 + 856) * v105 + *(a1 + 848) * v104 + *(a1 + 864) * v103.__sinval;
+    v109 = v105 * *(a1 + 800) + *(a1 + 792) * v104 + *(a1 + 808) * v103.__sinval;
+    v110 = v105 * *(a1 + 824) + *(a1 + 816) * v104;
+    v111 = v94 + v106;
+    v112 = v100 + v110;
+    v113 = v96 + v107 - *(a1 + 664);
+    v114 = v97 + v108 - *(a1 + 672);
+    v205 = v98 + v109 - *(a1 + 648);
+    v115 = v112 - *(a1 + 656);
+    v116 = v95 + v113;
+    v84 = v211 + v111 - *(a1 + 640);
+    v117 = __sincos_stret(v116);
+    if (v116 >= 0.2)
     {
-      v140 = v229 + v228 - v131.__cosval * (v124 / v131.__sinval);
-      v138 = v247 + v124 / v131.__sinval;
-      v241 = v241 + v123;
+      v125 = v206 + v205 - v117.__cosval * (v115 / v117.__sinval);
+      v124 = v224 + v115 / v117.__sinval;
+      v218 = v218 + v114;
     }
 
     else
     {
-      v132 = __sincos_stret(v247);
-      v223 = v132.__cosval * v131.__sinval + v132.__cosval * (v122 * v131.__cosval) - v124 * v132.__sinval;
-      v225 = v132.__sinval * v131.__sinval + v132.__sinval * (v122 * v131.__cosval) + v124 * v132.__cosval;
-      v133 = fmod(v247, 6.28318531);
-      if (v133 >= 0.0)
+      v118 = __sincos_stret(v224);
+      v200 = v118.__cosval * v117.__sinval + v118.__cosval * (v113 * v117.__cosval) - v115 * v118.__sinval;
+      v202 = v118.__sinval * v117.__sinval + v118.__sinval * (v113 * v117.__cosval) + v115 * v118.__cosval;
+      v119 = fmod(v224, 6.28318531);
+      if (v119 >= 0.0)
       {
-        v134 = v133;
+        v120 = v119;
       }
 
       else
       {
-        v134 = v133 + 6.28318531;
+        v120 = v119 + 6.28318531;
       }
 
-      v135 = v123;
-      v226 = v123;
-      v136 = v241;
-      v137 = v229 + v241 + v131.__cosval * v134 + v135 + v228 + -(v122 * v134) * v131.__sinval;
-      v138 = atan2(v225, v223);
-      v139 = v138 + dbl_1D0E77BF0[v138 < v134];
-      if (vabdd_f64(v134, v138) > 3.14159265)
+      v121 = v114;
+      v203 = v114;
+      v122 = v218;
+      v123 = v206 + v218 + v117.__cosval * v120 + v121 + v205 + -(v113 * v120) * v117.__sinval;
+      v124 = atan2(v202, v200);
+      if (vabdd_f64(v120, v124) > 3.14159265)
       {
-        v138 = v138 + dbl_1D0E77BF0[v138 < v134];
+        v124 = v124 + dbl_1D0E77BF0[v124 < v120];
       }
 
-      v241 = v241 + v226;
-      v140 = v137 - (v136 + v226) - v131.__cosval * v138;
+      v218 = v218 + v203;
+      v125 = v123 - (v122 + v203) - v117.__cosval * v124;
     }
 
-    if (v93 < 0.0 || v93 > 1.0)
+    if (v84 < 0.0 || v84 > 1.0)
     {
-      v252 = 5;
-      v251 = 3;
-      cnprint::CNPrinter::Print(&v252, &v251, "SGP4 encountered invalid eccentricity %lg", v126, v127, v128, v129, v130, SLOBYTE(v93));
+      v229 = 5;
+      v228 = 3;
+      cnprint::CNPrinter::Print(&v229, &v228, "SGP4 encountered invalid eccentricity %lg", v84);
       return 4294967293;
     }
 
-    v147 = v125 < 0.0;
-    if (v125 >= 0.0)
+    v132 = v116 < 0.0;
+    if (v116 >= 0.0)
     {
-      v96 = v140;
+      v87 = v125;
     }
 
     else
     {
-      v125 = -v125;
-      v96 = v140 + -3.14159265;
+      v116 = -v116;
+      v87 = v125 + -3.14159265;
     }
 
-    if (v147)
+    if (v132)
     {
-      v138 = v138 + 3.14159265;
+      v124 = v124 + 3.14159265;
     }
 
-    v247 = v138;
-    v148 = __sincos_stret(v125);
-    v143 = v148.__sinval * 0.00117253486;
-    *(a1 + 272) = v148.__sinval * 0.00117253486;
-    v149 = v148.__sinval * 0.00058626743 * (v148.__cosval * 5.0 + 3.0);
-    v209 = v125;
-    cosval = v148.__cosval;
-    sinval = v148.__sinval;
-    if (fabs(v148.__cosval + 1.0) <= 1.5e-12)
+    v224 = v124;
+    v133 = __sincos_stret(v116);
+    v128 = v133.__sinval * 0.00117253486;
+    *(a1 + 272) = v133.__sinval * 0.00117253486;
+    v134 = v133.__sinval * 0.00058626743 * (v133.__cosval * 5.0 + 3.0);
+    v186 = v116;
+    cosval = v133.__cosval;
+    sinval = v133.__sinval;
+    if (fabs(v133.__cosval + 1.0) <= 1.5e-12)
     {
-      v144 = v149 / 1.5e-12;
+      v129 = v134 / 1.5e-12;
     }
 
     else
     {
-      v144 = v149 / (v148.__cosval + 1.0);
+      v129 = v134 / (v133.__cosval + 1.0);
     }
 
-    *(a1 + 448) = v144;
-    v145 = v236;
+    *(a1 + 448) = v129;
+    v130 = v213;
   }
 
   else
   {
-    v209 = v32;
-    v142 = __sincos_stret(v32);
-    sinval = v142.__sinval;
-    cosval = v142.__cosval;
-    v143 = *(a1 + 272);
-    v144 = *(a1 + 448);
-    v145 = v236;
+    v186 = v28;
+    v127 = __sincos_stret(v28);
+    sinval = v127.__sinval;
+    cosval = v127.__cosval;
+    v128 = *(a1 + 272);
+    v129 = *(a1 + 448);
+    v130 = v213;
   }
 
-  v237 = 0.0743669161 / v145;
-  v150 = __sincos_stret(v96);
-  v151 = v96;
-  v152 = v93 * v150.__cosval;
-  v153 = 1.0 / (v238 * (1.0 - v93 * v93));
-  v154 = v93;
-  v155 = v153 * v143;
-  v156 = v153 * v143 + v154 * v150.__sinval;
-  v157 = fmod(v247 + v151 + v241 + v153 * v144 * v152 - v247, 6.28318531);
-  v158 = 0;
-  v159 = -(v155 + v154 * v150.__sinval);
-  v160 = v157;
+  v214 = 0.0743669161 / v130;
+  v135 = __sincos_stret(v87);
+  v136 = v87;
+  v137 = v84 * v135.__cosval;
+  v138 = 1.0 / (v215 * (1.0 - v84 * v84));
+  v139 = v84;
+  v140 = v138 * v128;
+  v141 = v138 * v128 + v139 * v135.__sinval;
+  v142 = fmod(v224 + v136 + v218 + v138 * v129 * v137 - v224, 6.28318531);
+  v143 = 0;
+  v144 = -(v140 + v139 * v135.__sinval);
+  v145 = v142;
   do
   {
-    v166 = __sincos_stret(v160);
-    v167 = (v157 + v159 * v166.__cosval + v152 * v166.__sinval - v160) / (1.0 - v166.__cosval * v152 - v166.__sinval * v156);
-    v168 = dbl_1D0E77C00[v167 > 0.0];
-    if (fabs(v167) >= 0.95)
+    v146 = __sincos_stret(v145);
+    v147 = (v142 + v144 * v146.__cosval + v137 * v146.__sinval - v145) / (1.0 - v146.__cosval * v137 - v146.__sinval * v141);
+    if (fabs(v147) >= 0.95)
     {
-      v167 = dbl_1D0E77C00[v167 > 0.0];
+      v147 = dbl_1D0E77C00[v147 > 0.0];
     }
 
-    if (v158 > 8)
+    if (v143 > 8)
     {
       break;
     }
 
-    v160 = v160 + v167;
-    ++v158;
+    v145 = v145 + v147;
+    ++v143;
   }
 
-  while (fabs(v167) >= 1.0e-12);
-  v169 = 1.0 - (v156 * v156 + v152 * v152);
-  v170 = v238 * v169;
-  if (v238 * v169 >= 0.0)
+  while (fabs(v147) >= 1.0e-12);
+  v148 = 1.0 - (v141 * v141 + v137 * v137);
+  v149 = v215 * v148;
+  if (v215 * v148 >= 0.0)
   {
-    v171 = v166.__cosval * v159 + v152 * v166.__sinval;
-    v172 = v238 * (1.0 - (v156 * v166.__sinval + v152 * v166.__cosval));
-    v242 = sqrt(v238) * v171 / v172;
-    v173 = sqrt(v169);
-    v174 = v171 / (v173 + 1.0);
-    v175 = (v166.__sinval - v156 - v152 * v174) * (v238 / v172);
-    v176 = (v166.__cosval - v152 + v156 * v174) * (v238 / v172);
-    v177 = sqrt(v170) / v172;
-    v178 = atan2(v175, v176);
-    v179 = v175 * (v176 + v176);
-    v180 = v175 * -2.0 * v175 + 1.0;
-    v181 = 1.0 / v170 * 0.000541308;
-    v182 = 1.0 / v170 * v181;
-    if (v33)
+    v150 = v146.__cosval * v144 + v137 * v146.__sinval;
+    v151 = v215 * (1.0 - (v141 * v146.__sinval + v137 * v146.__cosval));
+    v219 = sqrt(v215) * v150 / v151;
+    v152 = sqrt(v148);
+    v153 = v150 / (v152 + 1.0);
+    v154 = (v146.__sinval - v141 - v137 * v153) * (v215 / v151);
+    v155 = (v146.__cosval - v137 + v141 * v153) * (v215 / v151);
+    v156 = sqrt(v149) / v151;
+    v157 = atan2(v154, v155);
+    v158 = v154 * (v155 + v155);
+    v159 = v154 * -2.0 * v154 + 1.0;
+    v160 = 1.0 / v149 * 0.000541308;
+    v161 = 1.0 / v149 * v160;
+    if (v29)
     {
-      v183 = cosval;
-      v184 = v183 * v183 * 3.0 + -1.0;
-      *(a1 + 280) = v184;
-      v185 = 1.0 - v183 * v183;
-      v186 = v183 * v183 * 7.0 + -1.0;
-      *(a1 + 416) = v185;
-      *(a1 + 424) = v186;
-      v187 = v209;
+      v162 = cosval;
+      v163 = v162 * v162 * 3.0 + -1.0;
+      *(a1 + 280) = v163;
+      v164 = 1.0 - v162 * v162;
+      v165 = v162 * v162 * 7.0 + -1.0;
+      *(a1 + 416) = v164;
+      *(a1 + 424) = v165;
+      v166 = v186;
     }
 
     else
     {
-      v184 = *(a1 + 280);
-      v185 = *(a1 + 416);
-      v186 = *(a1 + 424);
-      v187 = v209;
-      v183 = cosval;
+      v163 = *(a1 + 280);
+      v164 = *(a1 + 416);
+      v165 = *(a1 + 424);
+      v166 = v186;
+      v162 = cosval;
     }
 
-    v239 = v180 * (v181 * 0.5 * v185) + v172 * (-(v182 * 1.5 * v173) * v184 + 1.0);
-    v188 = v178 + v182 * -0.25 * v186 * v179;
-    v189 = v183 * (v182 * 1.5);
-    v190 = v247 + v189 * v179;
-    v191 = v187 + sinval * v189 * v180;
-    v192 = v237 * v181;
-    v248 = v242 - v179 * (v192 * v185) / 0.0743669161;
-    v245 = v177 + v192 * (v184 * 1.5 + v185 * v180) / 0.0743669161;
-    v193 = __sincos_stret(v188);
-    v195 = __sincos_stret(v190);
-    *v194.i64 = v195.__cosval;
-    __ya = v194;
-    v196 = __sincos_stret(v191);
+    v216 = v159 * (v160 * 0.5 * v164) + v151 * (-(v161 * 1.5 * v152) * v163 + 1.0);
+    v167 = v157 + v161 * -0.25 * v165 * v158;
+    v168 = v162 * (v161 * 1.5);
+    v169 = v224 + v168 * v158;
+    v170 = v166 + sinval * v168 * v159;
+    v171 = v214 * v160;
+    v225 = v219 - v158 * (v171 * v164) / 0.0743669161;
+    v222 = v156 + v171 * (v163 * 1.5 + v164 * v159) / 0.0743669161;
+    v172 = __sincos_stret(v167);
+    v174 = __sincos_stret(v169);
+    *v173.i64 = v174.__cosval;
+    __ya = v173;
+    v175 = __sincos_stret(v170);
     result = 0;
-    *&v197.f64[0] = __ya.i64[0];
-    v197.f64[1] = v195.__sinval;
-    v198 = vnegq_f64(v197);
-    v199 = vmulq_n_f64(vextq_s8(v198, __ya, 8uLL), v196.__cosval);
-    v200 = vmlaq_n_f64(vmulq_n_f64(v197, v193.__cosval), v199, v193.__sinval);
-    v201 = vmlaq_n_f64(vmulq_n_f64(v198, v193.__sinval), v199, v193.__cosval);
-    *a3 = v239 * v200.f64[0] * 6378.135;
-    *&v199.f64[0] = vdupq_laneq_s64(v200, 1).u64[0];
-    v199.f64[1] = v196.__sinval * v193.__sinval;
-    *(a3 + 8) = vmulq_f64(vmulq_n_f64(v199, v239), vdupq_n_s64(0x40B8EA228F5C28F6uLL));
-    *a4 = vmulq_f64(vmlaq_n_f64(vmulq_n_f64(v201, v245), v200, v248), vdupq_n_s64(0x401F9F197275BE84uLL));
-    a4[1].f64[0] = (v196.__sinval * v193.__cosval * v245 + v248 * (v196.__sinval * v193.__sinval)) * 7.90537051;
+    *&v176.f64[0] = __ya.i64[0];
+    v176.f64[1] = v174.__sinval;
+    v177 = vnegq_f64(v176);
+    v178 = vmulq_n_f64(vextq_s8(v177, __ya, 8uLL), v175.__cosval);
+    v179 = vmlaq_n_f64(vmulq_n_f64(v176, v172.__cosval), v178, v172.__sinval);
+    v180 = vmlaq_n_f64(vmulq_n_f64(v177, v172.__sinval), v178, v172.__cosval);
+    *a3 = v216 * v179.f64[0] * 6378.135;
+    *&v178.f64[0] = vdupq_laneq_s64(v179, 1).u64[0];
+    v178.f64[1] = v175.__sinval * v172.__sinval;
+    *(a3 + 8) = vmulq_f64(vmulq_n_f64(v178, v216), vdupq_n_s64(0x40B8EA228F5C28F6uLL));
+    *a4 = vmulq_f64(vmlaq_n_f64(vmulq_n_f64(v180, v222), v179, v225), vdupq_n_s64(0x401F9F197275BE84uLL));
+    a4[1].f64[0] = (v175.__sinval * v172.__cosval * v222 + v225 * (v175.__sinval * v172.__sinval)) * 7.90537051;
   }
 
   else
   {
-    v250 = 5;
-    v249 = 3;
-    v203 = v238 * v169;
-    cnprint::CNPrinter::Print(&v250, &v249, "SGP4 encountered invalid pL %lg", v161, v162, v163, v164, v165, SLOBYTE(v203));
+    v227 = 5;
+    v226 = 3;
+    cnprint::CNPrinter::Print(&v227, &v226, "SGP4 encountered invalid pL %lg", v215 * v148);
     return 4294967292;
   }
 
   return result;
 }
 
-double cnnavigation::NORADTLEEphemerides::ECIToECEF(uint64_t a1, uint64_t a2, uint64_t a3)
+double cnnavigation::NORADTLEEphemerides::ECIToECEF(uint64_t a1, uint64_t a2, double *a3)
 {
   v4 = (*a2 - 2451545) / 36525.0;
   v5 = *(a2 + 8);
   v6 = fmod(v4 * v4 * 0.093104 + v4 * (v4 * v4) * -0.0000062 + v4 * 3164400180.0 + 67310.5484, 86400.0);
   v7 = fmod(v6 * 0.0000727220522 + ((v5 / 36525.0 + v4) * 5.9006e-11 + 1.00273791 + (v5 / 36525.0 + v4) * (v5 / 36525.0 + v4) * -5.9e-15) * 6.28318531 * v5, 6.28318531);
   v8 = __sincos_stret(v7);
-  v9 = *(a3 + 16);
-  return *(a3 + 8) * v8.__sinval + v8.__cosval * *a3;
+  return a3[1] * v8.__sinval + v8.__cosval * *a3;
 }
 
 uint64_t cnnavigation::NORADTLEEphemerides::GNSSSatelliteClockOffset(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5, void *a6)
@@ -2046,7 +1353,7 @@ uint64_t cnnavigation::NORADTLEEphemerides::GNSSSatelliteClockOffsetRate(uint64_
   return result;
 }
 
-double cnnavigation::NORADTLEEphemerides::GreenwichHourAngle(uint64_t a1, uint64_t a2)
+long double cnnavigation::NORADTLEEphemerides::GreenwichHourAngle(uint64_t a1, uint64_t a2)
 {
   v2 = (*a2 - 2451545) / 36525.0;
   v3 = *(a2 + 8);
@@ -2179,7 +1486,7 @@ double cnnavigation::BeiDouTime::BeiDouTime(uint64_t a1, double *a2)
   v2 = *a2;
   v3 = *a2 / 604800;
   *a1 = v3;
-  result = a2[1] + (*&v2 - 604800 * v3);
+  result = a2[1] + (v2 - 604800 * v3);
   *(a1 + 8) = result;
   if (result < 0.0)
   {
@@ -2195,7 +1502,7 @@ double cnnavigation::BeiDouTime::BeiDouTime(uint64_t a1, double *a2)
   v2 = *a2;
   v3 = *a2 / 604800;
   *a1 = v3;
-  result = a2[1] + (*&v2 - 604800 * v3);
+  result = a2[1] + (v2 - 604800 * v3);
   *(a1 + 8) = result;
   if (result < 0.0)
   {
@@ -2325,7 +1632,7 @@ uint64_t cnnavigation::BeiDouEphemerisDatabase::GetEphemerides(uint64_t a1, uint
   return 0;
 }
 
-uint64_t cnnavigation::BeiDouEphemerisDatabase::SetEphemerides(cnnavigation::BeiDouEphemerisDatabase *this, const cnnavigation::BeiDouEphemerides *a2)
+uint64_t cnnavigation::BeiDouEphemerisDatabase::SetEphemerides(uint64_t **this, const cnnavigation::BeiDouEphemerides *a2)
 {
   v2 = a2 + 40;
   if (*(a2 + 32) != 4 || *(a2 + 40) == 0)
@@ -2334,15 +1641,15 @@ uint64_t cnnavigation::BeiDouEphemerisDatabase::SetEphemerides(cnnavigation::Bei
   }
 
   v6 = *(a2 + 9) + 4000;
-  v7 = *(this + 1);
+  v7 = this[1];
   if (!v7)
   {
 LABEL_19:
     operator new();
   }
 
-  v8 = this + 8;
-  v9 = *(this + 1);
+  v8 = this + 1;
+  v9 = this[1];
   do
   {
     v10 = *(v9 + 8);
@@ -2354,18 +1661,18 @@ LABEL_19:
       v8 = v9;
     }
 
-    v9 = *&v9[8 * v13];
+    v9 = v9[v13];
   }
 
   while (v9);
-  if (v8 == this + 8 || v6 < *(v8 + 8))
+  if (v8 == this + 1 || v6 < *(v8 + 8))
   {
     while (1)
     {
       while (1)
       {
         v14 = v7;
-        v15 = *(v7 + 32);
+        v15 = *(v7 + 8);
         if (v15 <= v6)
         {
           break;
@@ -2397,15 +1704,15 @@ LABEL_19:
   }
 
   std::string::operator=(v8 + 2, (a2 + 8));
-  *(v8 + 9) = *(a2 + 4);
-  memcpy(v8 + 80, v2, 0x10CuLL);
+  v8[9] = *(a2 + 4);
+  memcpy(v8 + 10, v2, 0x10CuLL);
   return 0;
 }
 
-void sub_1D0C6F764(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D0C6F764(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  *v2 = &unk_1F4CD5F70;
+  va_start(va, a3);
+  *v3 = &unk_1F4CD5F70;
   sub_1D0C6F7CC(va);
   _Unwind_Resume(a1);
 }
@@ -2458,16 +1765,16 @@ void sub_1D0C6F840(char *a1)
 
 uint64_t cnnavigation::GPSTimeOfFlight(uint64_t a1, double *a2, uint64_t a3, uint64_t a4, uint64_t a5, double *a6, int a7, double *a8, double a9, double a10)
 {
-  v67 = *MEMORY[0x1E69E9840];
-  v48 = a2[1];
-  v49 = *a2;
-  v47 = a2[2];
+  v66 = *MEMORY[0x1E69E9840];
+  v47 = a2[1];
+  v48 = *a2;
+  v46 = a2[2];
   *a6 = 0.0;
   v20 = 0.0;
   v21 = 10;
   while (1)
   {
-    result = cnnavigation::GPSFindSat(a1, a3, &v56, 0, 0, a9 - v20);
+    result = cnnavigation::GPSFindSat(a1, a3, &v55, 0, 0, a9 - v20);
     if (result)
     {
       break;
@@ -2475,245 +1782,241 @@ uint64_t cnnavigation::GPSTimeOfFlight(uint64_t a1, double *a2, uint64_t a3, uin
 
     v23 = *a6;
     v24 = __sincos_stret(*a6 * 0.0000729211515);
-    v25 = v24.__sinval * *(&v56 + 1) + v24.__cosval * *&v56;
-    v26 = v24.__cosval * *(&v56 + 1) - v24.__sinval * *&v56;
-    v27 = *&v57;
-    *&v52 = v25;
-    *(&v52 + 1) = v26;
-    *&v53 = v57;
-    v64 = 0.0;
-    result = (*(*a4 + 16))(a4, a1, a2, &v52, &v64, a9 - v23, a10);
+    v25 = v24.__sinval * *(&v55 + 1) + v24.__cosval * *&v55;
+    v26 = v24.__cosval * *(&v55 + 1) - v24.__sinval * *&v55;
+    v27 = *&v56;
+    *&v51 = v25;
+    *(&v51 + 1) = v26;
+    *&v52 = v56;
+    v63 = 0.0;
+    result = (*(*a4 + 16))(a4, a1, a2, &v51, &v63, a9 - v23, a10);
     if (result)
     {
       break;
     }
 
-    v61 = 0.0;
-    result = (*(*a5 + 16))(a5, a1, a2, &v52, &v61, a9 - *a6);
+    v60 = 0.0;
+    result = (*(*a5 + 16))(a5, a1, a2, &v51, &v60, a9 - *a6);
     if (result)
     {
       break;
     }
 
-    v20 = sqrt((v26 - v48) * (v26 - v48) + (v25 - v49) * (v25 - v49) + (v27 - v47) * (v27 - v47)) / 299792458.0 + v64 + v61;
+    v20 = sqrt((v26 - v47) * (v26 - v47) + (v25 - v48) * (v25 - v48) + (v27 - v46) * (v27 - v46)) / 299792458.0 + v63 + v60;
     *a6 = v20;
     if (!--v21)
     {
-      if (a7)
+      if (!a7)
       {
-        result = cnnavigation::GPSFindSat(a1, a3, &v64, &v61, 0, a9 - v20);
+        return 0;
+      }
+
+      result = cnnavigation::GPSFindSat(a1, a3, &v63, &v60, 0, a9 - v20);
+      if (!result)
+      {
+        v28 = *a6;
+        v29 = __sincos_stret(*a6 * 0.0000729211515);
+        v30 = v65;
+        v44 = v29.__cosval * v64 - v29.__sinval * v63;
+        v45 = v29.__sinval * v64 + v29.__cosval * v63;
+        v59[0] = v45;
+        v59[1] = v44;
+        v59[2] = v65;
+        v50 = 0.0;
+        v57 = 0u;
+        v58 = 0u;
+        v55 = 0u;
+        v56 = 0u;
+        result = (*(*a4 + 24))(a4, a1, a2, v59, &v50, &v55, a9 - v28, a10);
         if (!result)
         {
-          v28 = *a6;
-          v29 = __sincos_stret(*a6 * 0.0000729211515);
-          v30 = v66;
-          v45 = v29.__cosval * v65 - v29.__sinval * v64;
-          v46 = v29.__sinval * v65 + v29.__cosval * v64;
-          v60[0] = v46;
-          v60[1] = v45;
-          v60[2] = v66;
-          v51 = 0.0;
-          v58 = 0u;
-          v59 = 0u;
-          v56 = 0u;
-          v57 = 0u;
-          result = (*(*a4 + 24))(a4, a1, a2, v60, &v51, &v56, a9 - v28, a10);
+          v49 = 0.0;
+          v54 = 0.0;
+          v52 = 0u;
+          v53 = 0u;
+          v51 = 0u;
+          result = (*(*a5 + 24))(a5, a1, a2, v59, &v49, &v51, a9 - *a6);
           if (!result)
           {
-            v50 = 0.0;
-            v55 = 0.0;
-            v53 = 0u;
-            v54 = 0u;
-            v52 = 0u;
-            result = (*(*a5 + 24))(a5, a1, a2, v60, &v50, &v52, a9 - *a6);
-            if (!result)
-            {
-              v31 = sqrt((v45 - v48) * (v45 - v48) + (v46 - v49) * (v46 - v49) + (v30 - v47) * (v30 - v47));
-              *a6 = v31 / 299792458.0 + v51 + v50;
-              v32 = (v46 - v49) / v31;
-              v33 = (v45 - v48) / v31;
-              v34 = (v30 - v47) / v31;
-              v35 = (v29.__cosval * v65 + -v29.__sinval * v64) * 0.0000729211515 - v29.__cosval * v61 - v29.__sinval * v62;
-              v36 = (v65 * -v29.__sinval - v29.__cosval * v64) * 0.0000729211515 + v29.__sinval * v61 - v29.__cosval * v62;
-              v37 = v29.__sinval * v62 + v29.__cosval * v61;
-              v38 = *&v58;
-              v39 = *(&v52 + 1);
-              v40 = 1.0 - (*(&v58 + 1) * v35 - *&v56 + *&v59 * v36 - *(&v59 + 1) * v63 + (v33 * v36 + v32 * v35 - v34 * v63) * 0.00000000333564095 + v35 * *&v54 - *&v52 + *(&v54 + 1) * v36 - v55 * v63);
-              v41 = *(&v56 + 1) / v40;
-              *a8 = (*&v56 + *(&v58 + 1) * v37 + *&v59 * (v29.__cosval * v62 + -v29.__sinval * v61) + *(&v59 + 1) * v63 + (v33 * (v29.__cosval * v62 + -v29.__sinval * v61) + v32 * v37 + v34 * v63) * 0.00000000333564095 + *&v52 + *&v54 * v37 + *(&v54 + 1) * (v29.__cosval * v62 + -v29.__sinval * v61) + v55 * v63) / v40;
-              a8[1] = v41;
-              v42 = *(&v53 + 1);
-              v43 = (*&v53 + *(&v57 + 1) - v33 * 0.00000000333564095) / v40;
-              a8[2] = (v39 + *&v57 - v32 * 0.00000000333564095) / v40;
-              a8[3] = v43;
-              a8[4] = (v42 + v38 - v34 * 0.00000000333564095) / v40;
-            }
+            v31 = sqrt((v44 - v47) * (v44 - v47) + (v45 - v48) * (v45 - v48) + (v30 - v46) * (v30 - v46));
+            *a6 = v31 / 299792458.0 + v50 + v49;
+            v32 = (v45 - v48) / v31;
+            v33 = (v44 - v47) / v31;
+            v34 = (v30 - v46) / v31;
+            v35 = (v29.__cosval * v64 + -v29.__sinval * v63) * 0.0000729211515 - v29.__cosval * v60 - v29.__sinval * v61;
+            v36 = (v64 * -v29.__sinval - v29.__cosval * v63) * 0.0000729211515 + v29.__sinval * v60 - v29.__cosval * v61;
+            v37 = v29.__sinval * v61 + v29.__cosval * v60;
+            v38 = *&v57;
+            v39 = *(&v51 + 1);
+            v40 = 1.0 - (*(&v57 + 1) * v35 - *&v55 + *&v58 * v36 - *(&v58 + 1) * v62 + (v33 * v36 + v32 * v35 - v34 * v62) * 0.00000000333564095 + v35 * *&v53 - *&v51 + *(&v53 + 1) * v36 - v54 * v62);
+            v41 = *(&v55 + 1) / v40;
+            *a8 = (*&v55 + *(&v57 + 1) * v37 + *&v58 * (v29.__cosval * v61 + -v29.__sinval * v60) + *(&v58 + 1) * v62 + (v33 * (v29.__cosval * v61 + -v29.__sinval * v60) + v32 * v37 + v34 * v62) * 0.00000000333564095 + *&v51 + *&v53 * v37 + *(&v53 + 1) * (v29.__cosval * v61 + -v29.__sinval * v60) + v54 * v62) / v40;
+            a8[1] = v41;
+            v42 = *(&v52 + 1);
+            v43 = (*&v52 + *(&v56 + 1) - v33 * 0.00000000333564095) / v40;
+            a8[2] = (v39 + *&v56 - v32 * 0.00000000333564095) / v40;
+            a8[3] = v43;
+            a8[4] = (v42 + v38 - v34 * 0.00000000333564095) / v40;
           }
         }
       }
 
-      else
-      {
-        result = 0;
-      }
-
-      break;
+      return result;
     }
   }
 
-  v44 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t cnnavigation::GPSTimeOfFlightRate(uint64_t a1, double *a2, double *a3, uint64_t a4, uint64_t a5, uint64_t a6, double *a7, int a8, double a9, double a10, double *a11)
 {
-  v155 = *MEMORY[0x1E69E9840];
-  v148 = 0.0;
-  result = cnnavigation::GPSTimeOfFlight(a1, a2, a4, a5, a6, &v148, 1, v144, a9, a10);
+  v154 = *MEMORY[0x1E69E9840];
+  v147 = 0.0;
+  result = cnnavigation::GPSTimeOfFlight(a1, a2, a4, a5, a6, &v147, 1, v143, a9, a10);
   if (!result)
   {
-    v22 = v144[0];
-    v23 = v145;
-    v24 = v146;
-    v25 = v147;
-    *a7 = v144[0] + v145 * *a3 + v146 * a3[1] + v147 * a3[2];
+    v22 = v143[0];
+    v23 = v144;
+    v24 = v145;
+    v25 = v146;
+    *a7 = v143[0] + v144 * *a3 + v145 * a3[1] + v146 * a3[2];
     if (a8)
     {
-      v131 = v24;
-      v132 = v23;
-      v133 = v144[1];
+      v130 = v24;
+      v131 = v23;
+      v132 = v143[1];
       v26 = *a2;
       v27 = a2[1];
       v28 = a2[2];
-      v29 = v148;
-      v30 = a9 - v148;
-      result = cnnavigation::GPSFindSat(a1, a4, &v152, v151, v150, v30);
+      v29 = v147;
+      v30 = a9 - v147;
+      result = cnnavigation::GPSFindSat(a1, a4, &v151, v150, v149, v30);
       if (!result)
       {
-        v111 = v26;
-        v112 = v22;
-        v113 = v25;
-        v118 = v27;
+        v110 = v26;
+        v111 = v22;
+        v112 = v25;
+        v117 = v27;
         v31 = __sincos_stret(v29 * 0.0000729211515);
-        v33 = v152;
-        v32 = v153;
-        v34 = v154;
-        v35 = v31.__cosval * v153 - v31.__sinval * v152;
-        v149[0] = v31.__sinval * v153 + v31.__cosval * v152;
-        v149[1] = v35;
-        v149[2] = v154;
-        v128 = *a7;
-        v129 = v149[0];
-        v122 = *a3;
-        v123 = a3[1];
-        v124 = v151[2];
-        v125 = a3[2];
-        v126 = v150[0];
-        v114 = v150[1];
-        v116 = v151[0];
-        v120 = v151[1];
-        v121 = v150[2];
-        v143 = 0;
-        v141 = 0u;
-        v142 = 0u;
-        v139 = 0u;
+        v33 = v151;
+        v32 = v152;
+        v34 = v153;
+        v35 = v31.__cosval * v152 - v31.__sinval * v151;
+        v148[0] = v31.__sinval * v152 + v31.__cosval * v151;
+        v148[1] = v35;
+        v148[2] = v153;
+        v127 = *a7;
+        v128 = v148[0];
+        v121 = *a3;
+        v122 = a3[1];
+        v123 = v150[2];
+        v124 = a3[2];
+        v125 = v149[0];
+        v113 = v149[1];
+        v115 = v150[0];
+        v119 = v150[1];
+        v120 = v149[2];
+        v142 = 0;
         v140 = 0u;
-        result = (*(*a5 + 24))(a5, a1, a2, v149, &v143, &v139, v30, a10);
+        v141 = 0u;
+        v138 = 0u;
+        v139 = 0u;
+        result = (*(*a5 + 24))(a5, a1, a2, v148, &v142, &v138, v30, a10);
         if (!result)
         {
           v36 = v34;
-          v37 = v129;
+          v37 = v128;
+          v136 = 0;
           v137 = 0;
-          v138 = 0;
-          v135 = 0u;
-          v136 = 0u;
           v134 = 0u;
-          result = (*(*a6 + 24))(a6, a1, a2, v149, &v138, &v134, v30);
+          v135 = 0u;
+          v133 = 0u;
+          result = (*(*a6 + 24))(a6, a1, a2, v148, &v137, &v133, v30);
           if (!result)
           {
-            v38 = v129 - v111;
-            v39 = 1.0 - v128;
-            v40 = v31.__sinval * -0.0000729211515 * v128;
-            v41 = v31.__cosval * 0.0000729211515 * -0.0000729211515 * v128;
-            v42 = v31.__sinval * 0.0000729211515 * v128;
-            v43 = v35 - v118;
-            v44 = v31.__cosval * 0.0000729211515 * v128;
-            v45 = v116 * v40 + v31.__cosval * v126 * v39 + v31.__sinval * v114 * v39 + v44 * v120;
-            v46 = v39 * (v31.__sinval * v126) + v31.__cosval * -0.0000729211515 * v116 * v39 + v31.__sinval * 0.0000729211515 * 0.0000729211515 * v128 * v33 + v44 * v116;
-            v47 = v35 * 0.0000729211515 - v31.__cosval * v116 - v31.__sinval * v120;
-            v48 = (-(v31.__sinval * v32) - v31.__cosval * v33) * 0.0000729211515 + v31.__sinval * v116;
-            v49 = v31.__cosval * v120 - v31.__sinval * v116;
-            v50 = v31.__sinval * -0.0000729211515 * v33 - v31.__cosval * v116 - v31.__sinval * v120;
-            v51 = v31.__cosval * -0.0000729211515 * v33 + v31.__sinval * v116;
-            v52 = v31.__sinval * v120 + v31.__cosval * v116;
-            v53 = v31.__cosval * -0.0000729211515 * v128;
-            v54 = v39 * -(v31.__cosval * v126) + v31.__sinval * -0.0000729211515 * v116 * v39 + v41 * v33 + v42 * v116 + v31.__cosval * 0.0000729211515 * v120 * v39 + -(v31.__sinval * v114) * v39 + v31.__sinval * 0.0000729211515 * -0.0000729211515 * v128 * v32 + v53 * v120;
-            v119 = v116 * v53 + -(v31.__sinval * v126) * (1.0 - v128) + v31.__cosval * v114 * (1.0 - v128) + v40 * v120;
-            v55 = v46 + v31.__sinval * -0.0000729211515 * v120 * (1.0 - v128) + -(v31.__cosval * v114) * (1.0 - v128) + v41 * v32;
-            v115 = v43 * v43 + v38 * v38;
-            v117 = v55 + v42 * v120;
+            v38 = v128 - v110;
+            v39 = 1.0 - v127;
+            v40 = v31.__sinval * -0.0000729211515 * v127;
+            v41 = v31.__cosval * 0.0000729211515 * -0.0000729211515 * v127;
+            v42 = v31.__sinval * 0.0000729211515 * v127;
+            v43 = v35 - v117;
+            v44 = v31.__cosval * 0.0000729211515 * v127;
+            v45 = v115 * v40 + v31.__cosval * v125 * v39 + v31.__sinval * v113 * v39 + v44 * v119;
+            v46 = v39 * (v31.__sinval * v125) + v31.__cosval * -0.0000729211515 * v115 * v39 + v31.__sinval * 0.0000729211515 * 0.0000729211515 * v127 * v33 + v44 * v115;
+            v47 = v35 * 0.0000729211515 - v31.__cosval * v115 - v31.__sinval * v119;
+            v48 = (-(v31.__sinval * v32) - v31.__cosval * v33) * 0.0000729211515 + v31.__sinval * v115;
+            v49 = v31.__cosval * v119 - v31.__sinval * v115;
+            v50 = v31.__sinval * -0.0000729211515 * v33 - v31.__cosval * v115 - v31.__sinval * v119;
+            v51 = v31.__cosval * -0.0000729211515 * v33 + v31.__sinval * v115;
+            v52 = v31.__sinval * v119 + v31.__cosval * v115;
+            v53 = v31.__cosval * -0.0000729211515 * v127;
+            v54 = v39 * -(v31.__cosval * v125) + v31.__sinval * -0.0000729211515 * v115 * v39 + v41 * v33 + v42 * v115 + v31.__cosval * 0.0000729211515 * v119 * v39 + -(v31.__sinval * v113) * v39 + v31.__sinval * 0.0000729211515 * -0.0000729211515 * v127 * v32 + v53 * v119;
+            v118 = v115 * v53 + -(v31.__sinval * v125) * (1.0 - v127) + v31.__cosval * v113 * (1.0 - v127) + v40 * v119;
+            v55 = v46 + v31.__sinval * -0.0000729211515 * v119 * (1.0 - v127) + -(v31.__cosval * v113) * (1.0 - v127) + v41 * v32;
+            v114 = v43 * v43 + v38 * v38;
+            v116 = v55 + v42 * v119;
             v56 = v36 - v28;
-            v57 = sqrt(v115 + v56 * v56);
-            v58 = v48 - v31.__cosval * v120;
-            v59 = v51 - v31.__cosval * v120;
-            v130 = v50 + v31.__cosval * 0.0000729211515 * v32;
+            v57 = sqrt(v114 + v56 * v56);
+            v58 = v48 - v31.__cosval * v119;
+            v59 = v51 - v31.__cosval * v119;
+            v129 = v50 + v31.__cosval * 0.0000729211515 * v32;
             v60 = v57 * (v57 * v57);
             v61 = (v56 * v56 + v43 * v43) / v60;
-            v127 = v59 + v31.__sinval * -0.0000729211515 * v32;
-            v62 = -((v37 - v111) * v43) / v60;
-            v63 = -((v37 - v111) * (v36 - v28)) / v60;
-            v64 = v52 + v47 * v112;
-            v65 = v52 + v47 * v128;
-            v66 = v49 + v58 * v112;
-            v67 = (v37 - v111) / v57;
-            v68 = v67 * (v45 + v54 * v112) + (v62 * v66 + v61 * v64 + v63 * (v124 - v112 * v124)) * v65;
-            v69 = v58 * v62 + v61 * v47 - v63 * v124;
+            v126 = v59 + v31.__sinval * -0.0000729211515 * v32;
+            v62 = -((v37 - v110) * v43) / v60;
+            v63 = -((v37 - v110) * (v36 - v28)) / v60;
+            v64 = v52 + v47 * v111;
+            v65 = v52 + v47 * v127;
+            v66 = v49 + v58 * v111;
+            v67 = (v37 - v110) / v57;
+            v68 = v67 * (v45 + v54 * v111) + (v62 * v66 + v61 * v64 + v63 * (v123 - v111 * v123)) * v65;
+            v69 = v58 * v62 + v61 * v47 - v63 * v123;
             v70 = v67 * v54;
-            v71 = v133 * (v67 * v54) + v133 * v69 * v65;
-            v72 = v132 * v70 + -(v61 - v69 * v132) * v65;
-            v73 = v131 * v70 + -(v62 - v69 * v131) * v65;
-            v74 = v113 * v70 + -(v63 - v69 * v113) * v65;
+            v71 = v132 * (v67 * v54) + v132 * v69 * v65;
+            v72 = v131 * v70 + -(v61 - v69 * v131) * v65;
+            v73 = v130 * v70 + -(v62 - v69 * v130) * v65;
+            v74 = v112 * v70 + -(v63 - v69 * v112) * v65;
             v75 = (v56 * v56 + v38 * v38) / v60;
-            v76 = v49 + v58 * v128;
+            v76 = v49 + v58 * v127;
             v77 = -(v43 * v56) / v60;
-            v78 = v124 - v112 * v124;
+            v78 = v123 - v111 * v123;
             v79 = v68 + (v75 * v66 + v62 * v64 + v77 * v78) * v76;
             v80 = v47;
-            v81 = v58 * v75 + v62 * v47 - v77 * v124;
-            v82 = v71 + v133 * v81 * v76;
-            v83 = v72 + -(v62 - v81 * v132) * v76;
-            v84 = v73 + -(v75 - v81 * v131) * v76;
-            v85 = v74 + -(v77 - v81 * v113) * v76;
+            v81 = v58 * v75 + v62 * v47 - v77 * v123;
+            v82 = v71 + v132 * v81 * v76;
+            v83 = v72 + -(v62 - v81 * v131) * v76;
+            v84 = v73 + -(v75 - v81 * v130) * v76;
+            v85 = v74 + -(v77 - v81 * v112) * v76;
             v86 = v43 / v57;
             v87 = v56 / v57;
-            v88 = v115 / v60;
-            v89 = -(v121 * (1.0 - v128));
-            v90 = v124 - v124 * v128;
-            v91 = v79 + v43 / v57 * (v119 + v117 * v112) + (v77 * v66 + v63 * v64 + v115 / v60 * v78) * v90 + v56 / v57 * ((1.0 - v128) * v121 + v89 * v112) + (-(v62 * v66) - v61 * v64 - v63 * v78) * v122 + (-(v75 * v66) - v62 * v64 - v77 * v78) * v123;
+            v88 = v114 / v60;
+            v89 = -(v120 * (1.0 - v127));
+            v90 = v123 - v123 * v127;
+            v91 = v79 + v43 / v57 * (v118 + v116 * v111) + (v77 * v66 + v63 * v64 + v114 / v60 * v78) * v90 + v56 / v57 * ((1.0 - v127) * v120 + v89 * v111) + (-(v62 * v66) - v61 * v64 - v63 * v78) * v121 + (-(v75 * v66) - v62 * v64 - v77 * v78) * v122;
             v92 = v80;
-            v93 = v58 * v77 + v63 * v80 - v115 / v60 * v124;
-            v94 = v83 + v86 * v117 * v132 + -(v63 - v93 * v132) * v90;
-            v95 = v84 + v86 * v117 * v131 + -(v77 - v93 * v131) * v90;
+            v93 = v58 * v77 + v63 * v80 - v114 / v60 * v123;
+            v94 = v83 + v86 * v116 * v131 + -(v63 - v93 * v131) * v90;
+            v95 = v84 + v86 * v116 * v130 + -(v77 - v93 * v130) * v90;
             v96 = v87 * v89;
-            v97 = v82 + v86 * v117 * v133 + v133 * v93 * v90 + v96 * v133;
-            v98 = v85 + v86 * v117 * v113 + -(v88 - v93 * v113) * v90;
-            v99 = -(v62 * v58) - v61 * v92 + v63 * v124;
-            v100 = v94 + v96 * v132 + (v61 + v99 * v132) * v122;
-            v101 = v95 + v96 * v131 + (v62 + v99 * v131) * v122;
-            v102 = -(v75 * v58) - v62 * v92 + v77 * v124;
-            v103 = -(v77 * v58) - v63 * v92 + v88 * v124;
-            v104 = v98 + v96 * v113 + (v63 + v99 * v113) * v122 + (v77 + v102 * v113) * v123 + (v88 + v103 * v113) * v125;
-            v105 = 1.0 - (v86 * v127 + v67 * v130 - v87 * v124) / 299792458.0;
-            *a11 = (v91 + (-(v77 * v66) - v63 * v64 - v88 * v78) * v125) / 299792458.0 / v105;
-            a11[1] = (v97 + v133 * v99 * v122 + v133 * v102 * v123 + v133 * v103 * v125) / 299792458.0 / v105;
-            a11[2] = (v100 + (v62 + v102 * v132) * v123 + (v63 + v103 * v132) * v125) / 299792458.0 / v105;
-            a11[3] = (v101 + (v75 + v102 * v131) * v123 + (v77 + v103 * v131) * v125) / 299792458.0 / v105;
-            v106 = *(&v140 + 1);
-            v107 = *&v135;
-            v108 = (*&v140 - v67 / 299792458.0 + *(&v134 + 1)) / v105;
+            v97 = v82 + v86 * v116 * v132 + v132 * v93 * v90 + v96 * v132;
+            v98 = v85 + v86 * v116 * v112 + -(v88 - v93 * v112) * v90;
+            v99 = -(v62 * v58) - v61 * v92 + v63 * v123;
+            v100 = v94 + v96 * v131 + (v61 + v99 * v131) * v121;
+            v101 = v95 + v96 * v130 + (v62 + v99 * v130) * v121;
+            v102 = -(v75 * v58) - v62 * v92 + v77 * v123;
+            v103 = -(v77 * v58) - v63 * v92 + v88 * v123;
+            v104 = v98 + v96 * v112 + (v63 + v99 * v112) * v121 + (v77 + v102 * v112) * v122 + (v88 + v103 * v112) * v124;
+            v105 = 1.0 - (v86 * v126 + v67 * v129 - v87 * v123) / 299792458.0;
+            *a11 = (v91 + (-(v77 * v66) - v63 * v64 - v88 * v78) * v124) / 299792458.0 / v105;
+            a11[1] = (v97 + v132 * v99 * v121 + v132 * v102 * v122 + v132 * v103 * v124) / 299792458.0 / v105;
+            a11[2] = (v100 + (v62 + v102 * v131) * v122 + (v63 + v103 * v131) * v124) / 299792458.0 / v105;
+            a11[3] = (v101 + (v75 + v102 * v130) * v122 + (v77 + v103 * v130) * v124) / 299792458.0 / v105;
+            v106 = *(&v139 + 1);
+            v107 = *&v134;
+            v108 = (*&v139 - v67 / 299792458.0 + *(&v133 + 1)) / v105;
             a11[4] = v104 / 299792458.0 / v105;
             a11[5] = v108;
-            v109 = (*&v141 - v87 / 299792458.0 + *(&v135 + 1)) / v105;
+            v109 = (*&v140 - v87 / 299792458.0 + *(&v134 + 1)) / v105;
             a11[6] = (v106 - v86 / 299792458.0 + v107) / v105;
             a11[7] = v109;
           }
@@ -2723,11 +2026,10 @@ uint64_t cnnavigation::GPSTimeOfFlightRate(uint64_t a1, double *a2, double *a3, 
 
     else
     {
-      result = 0;
+      return 0;
     }
   }
 
-  v110 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -2735,13 +2037,13 @@ cnprint::CNPrinter *cnprint::CNPrinter::CNPrinter(cnprint::CNPrinter *this)
 {
   v2 = sub_1D0B751F4(this, "com.apple.corenavigation");
   *(v2 + 6) = 250;
-  std::timed_mutex::timed_mutex((v2 + 32));
+  std::timed_mutex::timed_mutex((v2 + 4));
   *(this + 22) = 0;
   *(this + 21) = this + 176;
   *(this + 152) = 1;
   *(this + 20) = 0;
   *(this + 23) = 0;
-  sub_1D0B751F4(this + 192, &unk_1D0ED80C5);
+  sub_1D0B751F4(this + 24, &unk_1D0ED80C5);
   *(this + 85) = 0;
   v3 = MEMORY[0x1E69E5530] + 64;
   *(this + 79) = MEMORY[0x1E69E5530] + 64;
@@ -2780,7 +2082,7 @@ cnprint::CNPrinter *cnprint::CNPrinter::CNPrinter(cnprint::CNPrinter *this)
   v10 = os_log_create(v8, v9);
   v44 = 0;
   v45 = v10;
-  sub_1D0C71AB0(this + 168, 0);
+  sub_1D0C71AB0(this + 21, 0, &v44);
   if (v43 < 0)
   {
     operator delete(__p[0]);
@@ -2807,7 +2109,7 @@ cnprint::CNPrinter *cnprint::CNPrinter::CNPrinter(cnprint::CNPrinter *this)
   v13 = os_log_create(v11, v12);
   v44 = 1;
   v45 = v13;
-  sub_1D0C71AB0(this + 168, 1u);
+  sub_1D0C71AB0(this + 21, 1u, &v44);
   if (v43 < 0)
   {
     operator delete(__p[0]);
@@ -2834,7 +2136,7 @@ cnprint::CNPrinter *cnprint::CNPrinter::CNPrinter(cnprint::CNPrinter *this)
   v16 = os_log_create(v14, v15);
   v44 = 2;
   v45 = v16;
-  sub_1D0C71AB0(this + 168, 2u);
+  sub_1D0C71AB0(this + 21, 2u, &v44);
   if (v43 < 0)
   {
     operator delete(__p[0]);
@@ -2861,7 +2163,7 @@ cnprint::CNPrinter *cnprint::CNPrinter::CNPrinter(cnprint::CNPrinter *this)
   v19 = os_log_create(v17, v18);
   v44 = 3;
   v45 = v19;
-  sub_1D0C71AB0(this + 168, 3u);
+  sub_1D0C71AB0(this + 21, 3u, &v44);
   if (v43 < 0)
   {
     operator delete(__p[0]);
@@ -2888,7 +2190,7 @@ cnprint::CNPrinter *cnprint::CNPrinter::CNPrinter(cnprint::CNPrinter *this)
   v22 = os_log_create(v20, v21);
   v44 = 4;
   v45 = v22;
-  sub_1D0C71AB0(this + 168, 4u);
+  sub_1D0C71AB0(this + 21, 4u, &v44);
   if (v43 < 0)
   {
     operator delete(__p[0]);
@@ -2915,7 +2217,7 @@ cnprint::CNPrinter *cnprint::CNPrinter::CNPrinter(cnprint::CNPrinter *this)
   v25 = os_log_create(v23, v24);
   v44 = 5;
   v45 = v25;
-  sub_1D0C71AB0(this + 168, 5u);
+  sub_1D0C71AB0(this + 21, 5u, &v44);
   if (v43 < 0)
   {
     operator delete(__p[0]);
@@ -2942,7 +2244,7 @@ cnprint::CNPrinter *cnprint::CNPrinter::CNPrinter(cnprint::CNPrinter *this)
   v28 = os_log_create(v26, v27);
   v44 = 8;
   v45 = v28;
-  sub_1D0C71AB0(this + 168, 8u);
+  sub_1D0C71AB0(this + 21, 8u, &v44);
   if (v43 < 0)
   {
     operator delete(__p[0]);
@@ -2969,7 +2271,7 @@ cnprint::CNPrinter *cnprint::CNPrinter::CNPrinter(cnprint::CNPrinter *this)
   v31 = os_log_create(v29, v30);
   v44 = 10;
   v45 = v31;
-  sub_1D0C71AB0(this + 168, 0xAu);
+  sub_1D0C71AB0(this + 21, 0xAu, &v44);
   if (v43 < 0)
   {
     operator delete(__p[0]);
@@ -2996,7 +2298,7 @@ cnprint::CNPrinter *cnprint::CNPrinter::CNPrinter(cnprint::CNPrinter *this)
   v34 = os_log_create(v32, v33);
   v44 = 11;
   v45 = v34;
-  sub_1D0C71AB0(this + 168, 0xBu);
+  sub_1D0C71AB0(this + 21, 0xBu, &v44);
   if (v43 < 0)
   {
     operator delete(__p[0]);
@@ -3023,7 +2325,7 @@ cnprint::CNPrinter *cnprint::CNPrinter::CNPrinter(cnprint::CNPrinter *this)
   v37 = os_log_create(v35, v36);
   v44 = 12;
   v45 = v37;
-  sub_1D0C71AB0(this + 168, 0xCu);
+  sub_1D0C71AB0(this + 21, 0xCu, &v44);
   if (v43 < 0)
   {
     operator delete(__p[0]);
@@ -3050,7 +2352,7 @@ cnprint::CNPrinter *cnprint::CNPrinter::CNPrinter(cnprint::CNPrinter *this)
   v40 = os_log_create(v38, v39);
   v44 = 13;
   v45 = v40;
-  sub_1D0C71AB0(this + 168, 0xDu);
+  sub_1D0C71AB0(this + 21, 0xDu, &v44);
   if (v43 < 0)
   {
     operator delete(__p[0]);
@@ -3083,232 +2385,231 @@ void sub_1D0C70B00(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-_BYTE *cnprint::CNPrinter::GetLogCategoryString@<X0>(_WORD *a1@<X0>, _BYTE *a2@<X8>)
+uint64_t *cnprint::CNPrinter::GetLogCategoryString@<X0>(_WORD *a1@<X0>, void *a2@<X8>)
 {
   result = sub_1D0B751F4(a2, "error");
   switch(*a1)
   {
     case 0:
-      if (result[23] < 0)
+      if (*(result + 23) < 0)
       {
-        *(result + 1) = 7;
+        result[1] = 7;
         result = *result;
       }
 
       else
       {
-        result[23] = 7;
+        *(result + 23) = 7;
       }
 
       *(result + 3) = 1818325605;
       v7 = 1701733735;
       goto LABEL_61;
     case 1:
-      if (result[23] < 0)
+      if (*(result + 23) < 0)
       {
-        *(result + 1) = 18;
+        result[1] = 18;
         result = *result;
       }
 
       else
       {
-        result[23] = 18;
+        *(result + 23) = 18;
       }
 
       *(result + 8) = 31090;
       *result = *"cnbuildinggeometry";
-      result += 18;
+      result = (result + 18);
       goto LABEL_62;
     case 2:
-      if (result[23] < 0)
+      if (*(result + 23) < 0)
       {
-        *(result + 1) = 12;
+        result[1] = 12;
         result = *result;
       }
 
       else
       {
-        result[23] = 12;
+        *(result + 23) = 12;
       }
 
       *(result + 2) = 1852795252;
       v6 = "cnestimation";
       goto LABEL_58;
     case 3:
-      if (result[23] < 0)
+      if (*(result + 23) < 0)
       {
-        *(result + 1) = 11;
+        result[1] = 11;
         result = *result;
       }
 
       else
       {
-        result[23] = 11;
+        *(result + 23) = 11;
       }
 
       *(result + 7) = 1802661751;
       *result = *"cnframework";
-      result += 11;
+      result = (result + 11);
       goto LABEL_62;
     case 4:
-      if (result[23] < 0)
+      if (*(result + 23) < 0)
       {
-        *(result + 1) = 8;
+        result[1] = 8;
         result = *result;
       }
 
       else
       {
-        result[23] = 8;
+        *(result + 23) = 8;
       }
 
       v4 = 0x78697274616D6E63;
       goto LABEL_53;
     case 5:
-      if (result[23] < 0)
+      if (*(result + 23) < 0)
       {
-        *(result + 1) = 12;
+        result[1] = 12;
         result = *result;
       }
 
       else
       {
-        result[23] = 12;
+        *(result + 23) = 12;
       }
 
       *(result + 2) = 1852795252;
       v6 = "cnnavigation";
       goto LABEL_58;
     case 6:
-      if (result[23] < 0)
+      if (*(result + 23) < 0)
       {
-        *(result + 1) = 14;
+        result[1] = 14;
         result = *result;
       }
 
       else
       {
-        result[23] = 14;
+        *(result + 23) = 14;
       }
 
       qmemcpy(result, "cnplatforminfo", 14);
-      result += 14;
+      result = (result + 14);
       goto LABEL_62;
     case 7:
-      if (result[23] < 0)
+      if (*(result + 23) < 0)
       {
-        *(result + 1) = 10;
+        result[1] = 10;
         result = *result;
       }
 
       else
       {
-        result[23] = 10;
+        *(result + 23) = 10;
       }
 
       *(result + 4) = 27491;
       v5 = "cnplayback";
       goto LABEL_44;
     case 8:
-      if (result[23] < 0)
+      if (*(result + 23) < 0)
       {
-        *(result + 1) = 7;
+        result[1] = 7;
         result = *result;
       }
 
       else
       {
-        result[23] = 7;
+        *(result + 23) = 7;
       }
 
       *(result + 3) = 1953393010;
       v7 = 1919970915;
 LABEL_61:
       *result = v7;
-      result += 7;
+      result = (result + 7);
       goto LABEL_62;
     case 9:
-      if (result[23] < 0)
+      if (*(result + 23) < 0)
       {
-        *(result + 1) = 10;
+        result[1] = 10;
         result = *result;
       }
 
       else
       {
-        result[23] = 10;
+        *(result + 23) = 10;
       }
 
       *(result + 4) = 26229;
       v5 = "cnprototuf";
 LABEL_44:
       *result = *v5;
-      result += 10;
+      result = (result + 10);
       goto LABEL_62;
     case 0xA:
-      if (result[23] < 0)
+      if (*(result + 23) < 0)
       {
-        *(result + 1) = 12;
+        result[1] = 12;
         result = *result;
       }
 
       else
       {
-        result[23] = 12;
+        *(result + 23) = 12;
       }
 
       *(result + 2) = 1935894900;
       v6 = "cnstatistics";
 LABEL_58:
       *result = *v6;
-      result += 12;
+      result = (result + 12);
       goto LABEL_62;
     case 0xB:
-      if (result[23] < 0)
+      if (*(result + 23) < 0)
       {
-        *(result + 1) = 8;
+        result[1] = 8;
         result = *result;
       }
 
       else
       {
-        result[23] = 8;
+        *(result + 23) = 8;
       }
 
       v4 = 0x726F746365766E63;
       goto LABEL_53;
     case 0xC:
-      if (result[23] < 0)
+      if (*(result + 23) < 0)
       {
-        *(result + 1) = 5;
+        result[1] = 5;
         result = *result;
       }
 
       else
       {
-        result[23] = 5;
+        *(result + 23) = 5;
       }
 
-      result[4] = 110;
+      *(result + 4) = 110;
       *result = 1702257010;
-      result += 5;
+      result = (result + 5);
       goto LABEL_62;
     case 0xD:
-      if (result[23] < 0)
+      if (*(result + 23) < 0)
       {
-        *(result + 1) = 8;
+        result[1] = 8;
         result = *result;
       }
 
       else
       {
-        result[23] = 8;
+        *(result + 23) = 8;
       }
 
       v4 = 0x6E75726B63617274;
 LABEL_53:
-      *result = v4;
-      result += 8;
+      *result++ = v4;
 LABEL_62:
       *result = 0;
       break;
@@ -3343,7 +2644,7 @@ uint64_t sub_1D0C70F70(uint64_t a1)
   return a1;
 }
 
-_BYTE *cnprint::CNPrinter::GetLogLevelString@<X0>(_BYTE *a1@<X0>, _BYTE *a2@<X8>)
+void *cnprint::CNPrinter::GetLogLevelString@<X0>(_BYTE *a1@<X0>, void *a2@<X8>)
 {
   result = sub_1D0B751F4(a2, "None");
   v4 = *a1;
@@ -3358,31 +2659,31 @@ _BYTE *cnprint::CNPrinter::GetLogLevelString@<X0>(_BYTE *a1@<X0>, _BYTE *a2@<X8>
           return result;
         }
 
-        if (result[23] < 0)
+        if (*(result + 23) < 0)
         {
-          *(result + 1) = 5;
+          result[1] = 5;
           result = *result;
         }
 
         else
         {
-          result[23] = 5;
+          *(result + 23) = 5;
         }
 
-        result[4] = 114;
+        *(result + 4) = 114;
         v6 = 1869771333;
         goto LABEL_40;
       }
 
-      if (result[23] < 0)
+      if (*(result + 23) < 0)
       {
-        *(result + 1) = 7;
+        result[1] = 7;
         result = *result;
       }
 
       else
       {
-        result[23] = 7;
+        *(result + 23) = 7;
       }
 
       *(result + 3) = 1953264993;
@@ -3397,33 +2698,33 @@ _BYTE *cnprint::CNPrinter::GetLogLevelString@<X0>(_BYTE *a1@<X0>, _BYTE *a2@<X8>
         return result;
       }
 
-      if (result[23] < 0)
+      if (*(result + 23) < 0)
       {
-        *(result + 1) = 4;
+        result[1] = 4;
         result = *result;
       }
 
       else
       {
-        result[23] = 4;
+        *(result + 23) = 4;
       }
 
       v7 = 1701736270;
       goto LABEL_37;
     }
 
-    if (result[23] < 0)
+    if (*(result + 23) < 0)
     {
-      *(result + 1) = 5;
+      result[1] = 5;
       result = *result;
     }
 
     else
     {
-      result[23] = 5;
+      *(result + 23) = 5;
     }
 
-    result[4] = 116;
+    *(result + 4) = 116;
     v6 = 1819631942;
     goto LABEL_40;
   }
@@ -3437,59 +2738,59 @@ _BYTE *cnprint::CNPrinter::GetLogLevelString@<X0>(_BYTE *a1@<X0>, _BYTE *a2@<X8>
         return result;
       }
 
-      if (result[23] < 0)
+      if (*(result + 23) < 0)
       {
-        *(result + 1) = 4;
+        result[1] = 4;
         result = *result;
       }
 
       else
       {
-        result[23] = 4;
+        *(result + 23) = 4;
       }
 
       v7 = 1868983881;
 LABEL_37:
       *result = v7;
-      result += 4;
+      result = (result + 4);
       goto LABEL_41;
     }
 
-    if (result[23] < 0)
+    if (*(result + 23) < 0)
     {
-      *(result + 1) = 5;
+      result[1] = 5;
       result = *result;
     }
 
     else
     {
-      result[23] = 5;
+      *(result + 23) = 5;
     }
 
-    result[4] = 103;
+    *(result + 4) = 103;
     v6 = 1969382724;
 LABEL_40:
     *result = v6;
-    result += 5;
+    result = (result + 5);
     goto LABEL_41;
   }
 
-  if (result[23] < 0)
+  if (*(result + 23) < 0)
   {
-    *(result + 1) = 7;
+    result[1] = 7;
     result = *result;
   }
 
   else
   {
-    result[23] = 7;
+    *(result + 23) = 7;
   }
 
   *(result + 3) = 1702063970;
   v5 = 1651664214;
 LABEL_28:
   *result = v5;
-  result += 7;
+  result = (result + 7);
 LABEL_41:
   *result = 0;
   return result;
@@ -3613,19 +2914,19 @@ void cnprint::CNPrinter::GetFileLogStreamName(cnprint::CNPrinter *this@<X0>, uin
   }
 }
 
-void cnprint::CNPrinter::Print(cnprint::CNPrinter *a1, _BYTE *a2, uint64_t *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void cnprint::CNPrinter::Print(cnprint::CNPrinter *a1, unsigned __int8 *a2, uint64_t a3)
 {
   if (*(a3 + 23) >= 0)
   {
-    LOBYTE(v8) = a3;
+    v3 = a3;
   }
 
   else
   {
-    v8 = *a3;
+    v3 = *a3;
   }
 
-  cnprint::CNPrinter::Print(a1, a2, "%s", a4, a5, a6, a7, a8, v8);
+  cnprint::CNPrinter::Print(a1, a2, "%s", v3);
 }
 
 void cnprint::CNPrinter::SetFileLogStreamName(cnprint::CNPrinter *a1)
@@ -3638,16 +2939,7 @@ void cnprint::CNPrinter::SetFileLogStreamName(cnprint::CNPrinter *a1)
     {
       v15 = 8;
       v14 = 2;
-      if (byte_1EC5FB98F >= 0)
-      {
-        v6 = &xmmword_1EC5FB978;
-      }
-
-      else
-      {
-        LOBYTE(v6) = xmmword_1EC5FB978;
-      }
-
+      v6 = byte_1EC5FB98F >= 0 ? &xmmword_1EC5FB978 : xmmword_1EC5FB978;
       cnprint::CNPrinter::PrintInternal(&unk_1EC5FB8B8, &v15, &v14, "Closing file log stream %s", v2, v3, v4, v5, v6);
       if (!std::filebuf::close())
       {
@@ -3665,7 +2957,7 @@ void cnprint::CNPrinter::SetFileLogStreamName(cnprint::CNPrinter *a1)
 
     else
     {
-      LOBYTE(v11) = xmmword_1EC5FB978;
+      v11 = xmmword_1EC5FB978;
     }
 
     cnprint::CNPrinter::PrintInternal(&unk_1EC5FB8B8, &v13, &v12, "Setting file log stream %s", v7, v8, v9, v10, v11);
@@ -3690,7 +2982,7 @@ void cnprint::CNPrinter::SetLogLevel(cnprint::CNPrinter *a1)
 
     else
     {
-      LOBYTE(v6) = __p[0];
+      v6 = __p[0];
     }
 
     cnprint::CNPrinter::PrintInternal(&unk_1EC5FB8B8, &v10, &v9, "Setting log level %s", v2, v3, v4, v5, v6);
@@ -3770,19 +3062,19 @@ cnprint::CNLogFormatter *cnprint::CNLogFormatter::FormatWarning(cnprint::CNLogFo
   return cnprint::CNLogFormatter::FormatWarning(a1, "%s", v2);
 }
 
-uint64_t cnprint::CNLogFormatter::FormatWarning(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t cnprint::CNLogFormatter::FormatWarning(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (*(a3 + 23) >= 0)
   {
-    v8 = a3;
+    v3 = a3;
   }
 
   else
   {
-    v8 = *a3;
+    v3 = *a3;
   }
 
-  return cnprint::CNLogFormatter::FormatWarning(a1, a2, "%s", a4, a5, a6, a7, a8, v8);
+  return cnprint::CNLogFormatter::FormatWarning(a1, a2, "%s", v3);
 }
 
 uint64_t sub_1D0C71960(uint64_t a1, uint64_t *a2)
@@ -3803,10 +3095,10 @@ uint64_t sub_1D0C71960(uint64_t a1, uint64_t *a2)
   return std::iostream::~basic_iostream();
 }
 
-uint64_t sub_1D0C71AB0(uint64_t result, unsigned __int16 a2)
+uint64_t *sub_1D0C71AB0(uint64_t *result, unsigned __int16 a2, uint64_t a3)
 {
-  v2 = *(result + 8);
-  if (!v2)
+  v3 = result[1];
+  if (!v3)
   {
 LABEL_7:
     operator new();
@@ -3816,27 +3108,27 @@ LABEL_7:
   {
     while (1)
     {
-      v3 = v2;
-      v4 = *(v2 + 32);
-      if (v4 <= a2)
+      v4 = v3;
+      v5 = *(v3 + 32);
+      if (v5 <= a2)
       {
         break;
       }
 
-      v2 = *v3;
-      if (!*v3)
+      v3 = *v4;
+      if (!*v4)
       {
         goto LABEL_7;
       }
     }
 
-    if (v4 >= a2)
+    if (v5 >= a2)
     {
       return result;
     }
 
-    v2 = v3[1];
-    if (!v2)
+    v3 = v4[1];
+    if (!v3)
     {
       goto LABEL_7;
     }
@@ -3864,25 +3156,24 @@ void CNPlatformInfo::CNPlatformInfo(CNPlatformInfo *this, const CoreNavigation::
 {
   *this = 0;
   *(this + 2) = 0;
-  sub_1D0B751F4(this + 8, &unk_1D0ED80C5);
-  sub_1D0B751F4(this + 32, &unk_1D0ED80C5);
+  sub_1D0B751F4(this + 1, &unk_1D0ED80C5);
+  sub_1D0B751F4(this + 4, &unk_1D0ED80C5);
   *(this + 7) = 0;
-  v9 = *(a2 + 4);
-  if (v9 <= 2007000)
+  v4 = *(a2 + 4);
+  if (v4 <= 2007000)
   {
-    v10 = 0;
-    v11 = *(a2 + 4);
-    switch(v9)
+    v5 = 0;
+    switch(v4)
     {
       case 0:
-        v17 = 6;
-        v16 = 4;
-        cnprint::CNPrinter::Print(&v17, &v16, "ConvertProtobufToPlatformInfoObject encountered the HW_PROTOBUF_DEFAULT type that it cannot convert: %d", v4, v5, v6, v7, v8, 0);
+        v11 = 6;
+        v10 = 4;
+        cnprint::CNPrinter::Print(&v11, &v10, "ConvertProtobufToPlatformInfoObject encountered the HW_PROTOBUF_DEFAULT type that it cannot convert: %d", 0);
         goto LABEL_4;
       case 1:
         goto LABEL_5;
       case 2:
-        v10 = 1;
+        v5 = 1;
         goto LABEL_5;
       case 3:
       case 4:
@@ -3893,273 +3184,273 @@ void CNPlatformInfo::CNPlatformInfo(CNPlatformInfo *this, const CoreNavigation::
       case 55:
       case 57:
       case 58:
-        v15 = 0;
-        v14 = 4;
-        cnprint::CNPrinter::Print(&v15, &v14, "ConvertProtobufToPlatformInfoObject encountered an unhandled hardware type: %d", v4, v5, v6, v7, v8, v9);
+        v9 = 0;
+        v8 = 4;
+        cnprint::CNPrinter::Print(&v9, &v8, "ConvertProtobufToPlatformInfoObject encountered an unhandled hardware type: %d", v4);
 LABEL_4:
-        v10 = 0;
+        v5 = 0;
         goto LABEL_5;
       case 8:
-        v10 = 2;
+        v5 = 2;
         goto LABEL_5;
       case 9:
-        v10 = 3;
+        v5 = 3;
         goto LABEL_5;
       case 10:
-        v10 = 4;
+        v5 = 4;
         goto LABEL_5;
       case 11:
-        v10 = 5;
+        v5 = 5;
         goto LABEL_5;
       case 12:
-        v10 = 6;
+        v5 = 6;
         goto LABEL_5;
       case 13:
-        v10 = 7;
+        v5 = 7;
         goto LABEL_5;
       case 14:
-        v10 = 8;
+        v5 = 8;
         goto LABEL_5;
       case 15:
-        v10 = 9;
+        v5 = 9;
         goto LABEL_5;
       case 16:
-        v10 = 10;
+        v5 = 10;
         goto LABEL_5;
       case 17:
-        v10 = 11;
+        v5 = 11;
         goto LABEL_5;
       case 18:
-        v10 = 12;
+        v5 = 12;
         goto LABEL_5;
       case 19:
-        v10 = 13;
+        v5 = 13;
         goto LABEL_5;
       case 20:
-        v10 = 14;
+        v5 = 14;
         goto LABEL_5;
       case 21:
-        v10 = 15;
+        v5 = 15;
         goto LABEL_5;
       case 22:
-        v10 = 16;
+        v5 = 16;
         goto LABEL_5;
       case 23:
-        v10 = 17;
+        v5 = 17;
         goto LABEL_5;
       case 24:
-        v10 = 18;
+        v5 = 18;
         goto LABEL_5;
       case 25:
-        v10 = 19;
+        v5 = 19;
         goto LABEL_5;
       case 26:
-        v10 = 20;
+        v5 = 20;
         goto LABEL_5;
       case 27:
-        v10 = 21;
+        v5 = 21;
         goto LABEL_5;
       case 28:
-        v10 = 22;
+        v5 = 22;
         goto LABEL_5;
       case 29:
-        v10 = 23;
+        v5 = 23;
         goto LABEL_5;
       case 30:
-        v10 = 24;
+        v5 = 24;
         goto LABEL_5;
       case 31:
-        v10 = 25;
+        v5 = 25;
         goto LABEL_5;
       case 32:
-        v10 = 26;
+        v5 = 26;
         goto LABEL_5;
       case 33:
-        v10 = 27;
+        v5 = 27;
         goto LABEL_5;
       case 34:
-        v10 = 28;
+        v5 = 28;
         goto LABEL_5;
       case 35:
-        v10 = 29;
+        v5 = 29;
         goto LABEL_5;
       case 36:
-        v10 = 30;
+        v5 = 30;
         goto LABEL_5;
       case 37:
-        v10 = 31;
+        v5 = 31;
         goto LABEL_5;
       case 38:
-        v10 = 32;
+        v5 = 32;
         goto LABEL_5;
       case 39:
-        v10 = 33;
+        v5 = 33;
         goto LABEL_5;
       case 40:
-        v10 = 34;
+        v5 = 34;
         goto LABEL_5;
       case 41:
-        v10 = 35;
+        v5 = 35;
         goto LABEL_5;
       case 42:
-        v10 = 36;
+        v5 = 36;
         goto LABEL_5;
       case 43:
-        v10 = 37;
+        v5 = 37;
         goto LABEL_5;
       case 44:
-        v10 = 38;
+        v5 = 38;
         goto LABEL_5;
       case 45:
-        v10 = 39;
+        v5 = 39;
         goto LABEL_5;
       case 46:
-        v10 = 42;
+        v5 = 42;
         goto LABEL_5;
       case 47:
-        v10 = 40;
+        v5 = 40;
         goto LABEL_5;
       case 51:
-        v10 = 41;
+        v5 = 41;
         goto LABEL_5;
       case 52:
-        v10 = 43;
+        v5 = 43;
         goto LABEL_5;
       case 53:
-        v10 = 44;
+        v5 = 44;
         goto LABEL_5;
       case 54:
-        v10 = 45;
+        v5 = 45;
         goto LABEL_5;
       case 56:
-        v10 = 46;
+        v5 = 46;
         goto LABEL_5;
       case 59:
-        v10 = 47;
+        v5 = 47;
         goto LABEL_5;
       case 60:
-        v10 = 48;
+        v5 = 48;
         goto LABEL_5;
       case 61:
-        v10 = 49;
+        v5 = 49;
         goto LABEL_5;
       case 62:
-        v10 = 50;
+        v5 = 50;
         goto LABEL_5;
       case 63:
-        v10 = 51;
+        v5 = 51;
         goto LABEL_5;
       case 64:
-        v10 = 52;
+        v5 = 52;
         goto LABEL_5;
       case 65:
-        v10 = 53;
+        v5 = 53;
         goto LABEL_5;
       case 66:
-        v10 = 57;
+        v5 = 57;
         goto LABEL_5;
       case 67:
-        v10 = 58;
+        v5 = 58;
         goto LABEL_5;
       case 68:
-        v10 = 54;
+        v5 = 54;
         goto LABEL_5;
       case 69:
-        v10 = 55;
+        v5 = 55;
         goto LABEL_5;
       case 70:
-        v10 = 60;
+        v5 = 60;
         goto LABEL_5;
       case 71:
-        v10 = 61;
+        v5 = 61;
         goto LABEL_5;
       case 72:
-        v10 = 62;
+        v5 = 62;
         goto LABEL_5;
       case 73:
-        v10 = 63;
+        v5 = 63;
         goto LABEL_5;
       case 74:
-        v10 = 64;
+        v5 = 64;
         goto LABEL_5;
       case 75:
-        v10 = 65;
+        v5 = 65;
         goto LABEL_5;
       case 76:
-        v10 = 66;
+        v5 = 66;
         goto LABEL_5;
       case 77:
-        v10 = 67;
+        v5 = 67;
         goto LABEL_5;
       case 78:
-        v10 = 68;
+        v5 = 68;
         goto LABEL_5;
       case 79:
-        v10 = 69;
+        v5 = 69;
         goto LABEL_5;
       case 80:
-        v10 = 70;
+        v5 = 70;
         goto LABEL_5;
       case 81:
-        v10 = 71;
+        v5 = 71;
         goto LABEL_5;
       case 82:
-        v10 = 72;
+        v5 = 72;
         goto LABEL_5;
       case 83:
-        v10 = 73;
+        v5 = 73;
         goto LABEL_5;
       case 84:
-        v10 = 74;
+        v5 = 74;
         goto LABEL_5;
       case 85:
-        v10 = 75;
+        v5 = 75;
         goto LABEL_5;
       case 86:
-        v10 = 76;
+        v5 = 76;
         goto LABEL_5;
       case 100:
-        v10 = 83;
+        v5 = 83;
         goto LABEL_5;
       case 200:
-        v10 = 56;
+        v5 = 56;
         goto LABEL_5;
       default:
         goto LABEL_6;
     }
   }
 
-  if (v9 > 3003021)
+  if (v4 > 3003021)
   {
-    if (v9 <= 4001001)
+    if (v4 <= 4001001)
     {
-      if (v9 == 3003022)
+      if (v4 == 3003022)
       {
-        v10 = 81;
+        v5 = 81;
         goto LABEL_5;
       }
 
-      if (v9 == 3003023)
+      if (v4 == 3003023)
       {
-        v10 = 82;
+        v5 = 82;
         goto LABEL_5;
       }
     }
 
     else
     {
-      switch(v9)
+      switch(v4)
       {
         case 4001002:
-          v10 = 84;
+          v5 = 84;
           goto LABEL_5;
         case 4001003:
-          v10 = 85;
+          v5 = 85;
           goto LABEL_5;
         case 4001004:
-          v10 = 86;
+          v5 = 86;
 LABEL_5:
-          *this = v10;
+          *this = v5;
           break;
       }
     }
@@ -4167,35 +3458,35 @@ LABEL_5:
 
   else
   {
-    if (v9 > 3003018)
+    if (v4 > 3003018)
     {
-      if (v9 == 3003019)
+      if (v4 == 3003019)
       {
-        v10 = 78;
+        v5 = 78;
       }
 
-      else if (v9 == 3003020)
+      else if (v4 == 3003020)
       {
-        v10 = 79;
+        v5 = 79;
       }
 
       else
       {
-        v10 = 80;
+        v5 = 80;
       }
 
       goto LABEL_5;
     }
 
-    if (v9 == 2007001)
+    if (v4 == 2007001)
     {
-      v10 = 59;
+      v5 = 59;
       goto LABEL_5;
     }
 
-    if (v9 == 3003018)
+    if (v4 == 3003018)
     {
-      v10 = 77;
+      v5 = 77;
       goto LABEL_5;
     }
   }
@@ -4204,16 +3495,16 @@ LABEL_6:
   *(this + 2) = *(a2 + 20);
   std::string::operator=((this + 8), *(a2 + 3));
   std::string::operator=((this + 32), *(a2 + 4));
-  v12 = *(a2 + 10);
-  if (v12 <= 3)
+  v6 = *(a2 + 10);
+  if (v6 <= 3)
   {
-    *(this + 14) = v12;
+    *(this + 14) = v6;
   }
 
-  v13 = *(a2 + 11);
-  if (v13 <= 2)
+  v7 = *(a2 + 11);
+  if (v7 <= 2)
   {
-    *(this + 15) = v13;
+    *(this + 15) = v7;
   }
 }
 
@@ -4506,9 +3797,9 @@ void CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::protobuf_AddDes
   }
 }
 
-void sub_1D0C72948(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D0C72948(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   wireless_diagnostics::google::protobuf::internal::FunctionClosure0::~FunctionClosure0(va);
   _Unwind_Resume(a1);
 }
@@ -4559,9 +3850,9 @@ void CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::LogEntry::Merge
   }
 }
 
-void sub_1D0C72AE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1D0C72AE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -4646,14 +3937,14 @@ uint64_t CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RayTracingT
   return result;
 }
 
-uint64_t CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::LogEntry::MergePartialFromCodedStream(CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::LogEntry *this, wireless_diagnostics::google::protobuf::io::CodedInputStream *a2)
+uint64_t CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::LogEntry::MergePartialFromCodedStream(CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::LogEntry *this, wireless_diagnostics::google::protobuf::io::CodedInputStream *a2, unsigned int a3)
 {
   while (1)
   {
     while (1)
     {
-      v4 = *(a2 + 1);
-      if (v4 >= *(a2 + 2) || (TagFallback = *v4, (TagFallback & 0x80000000) != 0))
+      v5 = *(a2 + 1);
+      if (v5 >= *(a2 + 2) || (TagFallback = *v5, (TagFallback & 0x80000000) != 0))
       {
         TagFallback = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadTagFallback(a2);
         *(a2 + 8) = TagFallback;
@@ -4662,7 +3953,7 @@ uint64_t CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::LogEntry::M
       else
       {
         *(a2 + 8) = TagFallback;
-        *(a2 + 1) = v4 + 1;
+        *(a2 + 1) = v5 + 1;
       }
 
       if (TagFallback != 10)
@@ -4671,17 +3962,17 @@ uint64_t CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::LogEntry::M
       }
 
       *(this + 5) |= 1u;
-      v6 = *(this + 1);
-      if (!v6)
+      v7 = *(this + 1);
+      if (!v7)
       {
         operator new();
       }
 
-      v14 = 0;
-      v7 = *(a2 + 1);
-      if (v7 >= *(a2 + 2) || *v7 < 0)
+      v16 = 0;
+      v8 = *(a2 + 1);
+      if (v8 >= *(a2 + 2) || *v8 < 0)
       {
-        if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, &v14))
+        if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, &v16))
         {
           return 0;
         }
@@ -4689,31 +3980,31 @@ uint64_t CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::LogEntry::M
 
       else
       {
-        v14 = *v7;
-        *(a2 + 1) = v7 + 1;
+        v16 = *v8;
+        *(a2 + 1) = v8 + 1;
       }
 
-      v8 = *(a2 + 14);
-      v9 = *(a2 + 15);
-      *(a2 + 14) = v8 + 1;
-      if (v8 >= v9)
+      v9 = *(a2 + 14);
+      v10 = *(a2 + 15);
+      *(a2 + 14) = v9 + 1;
+      if (v9 >= v10)
       {
         return 0;
       }
 
       wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(a2);
-      if (!CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RayTracingTilesAvailabilityData::MergePartialFromCodedStream(v6, a2) || *(a2 + 36) != 1)
+      if (!CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RayTracingTilesAvailabilityData::MergePartialFromCodedStream(v7, a2, v11) || *(a2 + 36) != 1)
       {
         return 0;
       }
 
       wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(a2);
-      v10 = *(a2 + 14);
-      v11 = __OFSUB__(v10, 1);
-      v12 = v10 - 1;
-      if (v12 < 0 == v11)
+      v12 = *(a2 + 14);
+      v13 = __OFSUB__(v12, 1);
+      v14 = v12 - 1;
+      if (v14 < 0 == v13)
       {
-        *(a2 + 14) = v12;
+        *(a2 + 14) = v14;
       }
 
       if (*(a2 + 1) == *(a2 + 2) && (*(a2 + 11) || *(a2 + 6) == *(a2 + 10)))
@@ -4756,30 +4047,30 @@ uint64_t CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::LogEntry::S
   return this;
 }
 
-uint64_t CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::LogEntry::ByteSize(CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::LogEntry *this)
+uint64_t CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::LogEntry::ByteSize(CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::LogEntry *this, unint64_t a2)
 {
   if (*(this + 20))
   {
-    v3 = *(this + 1);
-    if (!v3)
+    v4 = *(this + 1);
+    if (!v4)
     {
       CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::protobuf_AddDesc_CoreNavigationCLPRayTracingTilesAvailability_2eproto(0);
-      v3 = *(CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::LogEntry::default_instance_ + 8);
+      v4 = *(CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::LogEntry::default_instance_ + 8);
     }
 
-    v4 = CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RayTracingTilesAvailabilityData::ByteSize(v3);
-    v5 = v4;
-    if (v4 >= 0x80)
+    v5 = CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RayTracingTilesAvailabilityData::ByteSize(v4, a2);
+    v6 = v5;
+    if (v5 >= 0x80)
     {
-      v6 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v4);
+      v7 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v5);
     }
 
     else
     {
-      v6 = 1;
+      v7 = 1;
     }
 
-    result = (v5 + v6 + 1);
+    result = (v6 + v7 + 1);
   }
 
   else
@@ -4793,7 +4084,6 @@ uint64_t CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::LogEntry::B
 
 void CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::LogEntry::CheckTypeAndMergeFrom(CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::LogEntry *this, const wireless_diagnostics::google::protobuf::MessageLite *lpsrc)
 {
-  v4 = **lpsrc;
   {
     __assert_rtn("down_cast", "common.h", 348, "f == NULL || dynamic_cast<To>(f) != NULL");
   }
@@ -4808,98 +4098,96 @@ void CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RayTracingTiles
     wireless_diagnostics::google::protobuf::internal::LogMessage::LogMessage();
     wireless_diagnostics::google::protobuf::internal::LogMessage::operator<<();
     wireless_diagnostics::google::protobuf::internal::LogFinisher::operator=();
-    wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(v18);
+    wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(v16);
   }
 
-  v4 = *(this + 8);
-  v5 = *(a2 + 8);
-  v6 = wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve((this + 24));
-  LODWORD(v7) = *(a2 + 8);
-  if (v7 >= 1)
+  v4 = wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve((this + 24));
+  LODWORD(v5) = *(a2 + 8);
+  if (v5 >= 1)
   {
-    v8 = 0;
+    v6 = 0;
     do
     {
-      if (v8 >= v7)
+      if (v6 >= v5)
       {
         wireless_diagnostics::google::protobuf::internal::LogMessage::LogMessage();
         wireless_diagnostics::google::protobuf::internal::LogMessage::operator<<();
         wireless_diagnostics::google::protobuf::internal::LogFinisher::operator=();
-        wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(v18);
+        wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(v16);
       }
 
-      v9 = *(*(a2 + 3) + 8 * v8);
-      v10 = *(this + 9);
-      v11 = *(this + 8);
-      if (v11 >= v10)
+      v7 = *(*(a2 + 3) + 8 * v6);
+      v8 = *(this + 9);
+      v9 = *(this + 8);
+      if (v9 >= v8)
       {
-        if (v10 == *(this + 10))
+        if (v8 == *(this + 10))
         {
           wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve((this + 24));
-          v10 = *(this + 9);
+          v8 = *(this + 9);
         }
 
-        *(this + 9) = v10 + 1;
+        *(this + 9) = v8 + 1;
         operator new();
       }
 
-      v12 = *(this + 3);
-      *(this + 8) = v11 + 1;
-      CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RegionSpecificAvailableTiles::MergeFrom(*(v12 + 8 * v11), v9);
-      ++v8;
-      v7 = *(a2 + 8);
+      v10 = *(this + 3);
+      *(this + 8) = v9 + 1;
+      CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RegionSpecificAvailableTiles::MergeFrom(*(v10 + 8 * v9), v7);
+      ++v6;
+      v5 = *(a2 + 8);
     }
 
-    while (v8 < v7);
+    while (v6 < v5);
   }
 
-  LOBYTE(v13) = *(a2 + 52);
-  if (v13)
+  LOBYTE(v11) = *(a2 + 52);
+  if (v11)
   {
     if (*(a2 + 52))
     {
       *(this + 13) |= 1u;
-      v14 = *(this + 1);
+      v12 = *(this + 1);
+      if (!v12)
+      {
+        operator new();
+      }
+
+      v13 = *(a2 + 1);
+      if (!v13)
+      {
+        CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::protobuf_AddDesc_CoreNavigationCLPRayTracingTilesAvailability_2eproto(v4);
+        v13 = *(CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RayTracingTilesAvailabilityData::default_instance_ + 8);
+      }
+
+      CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::AvailabilityFileCommonHeader::MergeFrom(v12, v13);
+      v11 = *(a2 + 13);
+    }
+
+    if ((v11 & 2) != 0)
+    {
+      *(this + 13) |= 2u;
+      v14 = *(this + 2);
       if (!v14)
       {
         operator new();
       }
 
-      v15 = *(a2 + 1);
+      v15 = *(a2 + 2);
       if (!v15)
       {
-        CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::protobuf_AddDesc_CoreNavigationCLPRayTracingTilesAvailability_2eproto(v6);
-        v15 = *(CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RayTracingTilesAvailabilityData::default_instance_ + 8);
+        CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::protobuf_AddDesc_CoreNavigationCLPRayTracingTilesAvailability_2eproto(v4);
+        v15 = *(CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RayTracingTilesAvailabilityData::default_instance_ + 16);
       }
 
-      CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::AvailabilityFileCommonHeader::MergeFrom(v14, v15);
-      v13 = *(a2 + 13);
-    }
-
-    if ((v13 & 2) != 0)
-    {
-      *(this + 13) |= 2u;
-      v16 = *(this + 2);
-      if (!v16)
-      {
-        operator new();
-      }
-
-      v17 = *(a2 + 2);
-      if (!v17)
-      {
-        CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::protobuf_AddDesc_CoreNavigationCLPRayTracingTilesAvailability_2eproto(v6);
-        v17 = *(CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RayTracingTilesAvailabilityData::default_instance_ + 16);
-      }
-
-      CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RayTracingTilesAvailabilityHeader::MergeFrom(v16, v17);
+      CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RayTracingTilesAvailabilityHeader::MergeFrom(v14, v15);
     }
   }
 }
 
-void sub_1D0C73324(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1D0C73324(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -4968,9 +4256,9 @@ double CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::AvailabilityF
   return result;
 }
 
-void sub_1D0C73518(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1D0C73518(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -5000,14 +4288,14 @@ uint64_t CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::Availabilit
   return this;
 }
 
-uint64_t CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::AvailabilityFileTimestamp::MergePartialFromCodedStream(CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::AvailabilityFileTimestamp *this, wireless_diagnostics::google::protobuf::io::CodedInputStream *a2)
+uint64_t CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::AvailabilityFileTimestamp::MergePartialFromCodedStream(CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::AvailabilityFileTimestamp *this, wireless_diagnostics::google::protobuf::io::CodedInputStream *a2, unsigned int a3)
 {
   do
   {
     while (1)
     {
-      v4 = *(a2 + 1);
-      if (v4 >= *(a2 + 2) || (TagFallback = *v4, (TagFallback & 0x80000000) != 0))
+      v5 = *(a2 + 1);
+      if (v5 >= *(a2 + 2) || (TagFallback = *v5, (TagFallback & 0x80000000) != 0))
       {
         TagFallback = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadTagFallback(a2);
         *(a2 + 8) = TagFallback;
@@ -5016,7 +4304,7 @@ uint64_t CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::Availabilit
       else
       {
         *(a2 + 8) = TagFallback;
-        *(a2 + 1) = v4 + 1;
+        *(a2 + 1) = v5 + 1;
       }
 
       if (TagFallback != 9)
@@ -5024,13 +4312,13 @@ uint64_t CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::Availabilit
         break;
       }
 
-      v7 = 0;
-      if ((wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadLittleEndian64Fallback(a2, &v7) & 1) == 0)
+      v8 = 0;
+      if ((wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadLittleEndian64Fallback(a2, &v8) & 1) == 0)
       {
         return 0;
       }
 
-      *(this + 1) = v7;
+      *(this + 1) = v8;
       *(this + 5) |= 1u;
       if (*(a2 + 1) == *(a2 + 2) && (*(a2 + 11) || *(a2 + 6) == *(a2 + 10)))
       {
@@ -5070,7 +4358,6 @@ uint64_t CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::Availabilit
 
 double CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::AvailabilityFileTimestamp::CheckTypeAndMergeFrom(CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::AvailabilityFileTimestamp *this, const wireless_diagnostics::google::protobuf::MessageLite *lpsrc)
 {
-  v4 = **lpsrc;
   {
     __assert_rtn("down_cast", "common.h", 348, "f == NULL || dynamic_cast<To>(f) != NULL");
   }
@@ -5154,9 +4441,9 @@ void CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::AvailabilityFil
   }
 }
 
-void sub_1D0C73A10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1D0C73A10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -5186,14 +4473,14 @@ uint64_t CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::Availabilit
   return this;
 }
 
-uint64_t CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::AvailabilityFileCommonHeader::MergePartialFromCodedStream(CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::AvailabilityFileCommonHeader *this, wireless_diagnostics::google::protobuf::io::CodedInputStream *a2)
+uint64_t CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::AvailabilityFileCommonHeader::MergePartialFromCodedStream(CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::AvailabilityFileCommonHeader *this, wireless_diagnostics::google::protobuf::io::CodedInputStream *a2, unsigned int a3)
 {
   while (1)
   {
     while (1)
     {
-      v4 = *(a2 + 1);
-      if (v4 >= *(a2 + 2) || (TagFallback = *v4, (TagFallback & 0x80000000) != 0))
+      v5 = *(a2 + 1);
+      if (v5 >= *(a2 + 2) || (TagFallback = *v5, (TagFallback & 0x80000000) != 0))
       {
         TagFallback = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadTagFallback(a2);
         *(a2 + 8) = TagFallback;
@@ -5206,7 +4493,7 @@ uint64_t CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::Availabilit
       else
       {
         *(a2 + 8) = TagFallback;
-        *(a2 + 1) = v4 + 1;
+        *(a2 + 1) = v5 + 1;
         if (!TagFallback)
         {
           return 1;
@@ -5223,9 +4510,9 @@ uint64_t CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::Availabilit
         goto LABEL_13;
       }
 
-      v7 = *(a2 + 1);
-      v6 = *(a2 + 2);
-      if (v7 >= v6 || (v8 = *v7, v8 < 0))
+      v8 = *(a2 + 1);
+      v7 = *(a2 + 2);
+      if (v8 >= v7 || (v9 = *v8, v9 < 0))
       {
         result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, this + 2);
         if (!result)
@@ -5233,24 +4520,24 @@ uint64_t CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::Availabilit
           return result;
         }
 
-        v9 = *(a2 + 1);
-        v6 = *(a2 + 2);
+        v10 = *(a2 + 1);
+        v7 = *(a2 + 2);
       }
 
       else
       {
-        *(this + 2) = v8;
-        v9 = v7 + 1;
-        *(a2 + 1) = v9;
+        *(this + 2) = v9;
+        v10 = v8 + 1;
+        *(a2 + 1) = v10;
       }
 
       *(this + 5) |= 1u;
-      if (v9 < v6 && *v9 == 16)
+      if (v10 < v7 && *v10 == 16)
       {
-        v10 = v9 + 1;
-        *(a2 + 1) = v10;
+        v11 = v10 + 1;
+        *(a2 + 1) = v11;
 LABEL_22:
-        if (v10 >= v6 || (v11 = *v10, v11 < 0))
+        if (v11 >= v7 || (v12 = *v11, v12 < 0))
         {
           result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, this + 3);
           if (!result)
@@ -5258,19 +4545,19 @@ LABEL_22:
             return result;
           }
 
-          v12 = *(a2 + 1);
-          v6 = *(a2 + 2);
+          v13 = *(a2 + 1);
+          v7 = *(a2 + 2);
         }
 
         else
         {
-          *(this + 3) = v11;
-          v12 = v10 + 1;
-          *(a2 + 1) = v12;
+          *(this + 3) = v12;
+          v13 = v11 + 1;
+          *(a2 + 1) = v13;
         }
 
         *(this + 5) |= 2u;
-        if (v12 == v6 && (*(a2 + 11) || *(a2 + 6) == *(a2 + 10)))
+        if (v13 == v7 && (*(a2 + 11) || *(a2 + 6) == *(a2 + 10)))
         {
           *(a2 + 8) = 0;
           result = 1;
@@ -5282,8 +4569,8 @@ LABEL_22:
 
     if ((TagFallback & 7) == 0)
     {
-      v10 = *(a2 + 1);
-      v6 = *(a2 + 2);
+      v11 = *(a2 + 1);
+      v7 = *(a2 + 2);
       goto LABEL_22;
     }
 
@@ -5320,17 +4607,17 @@ uint64_t CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::Availabilit
   return this;
 }
 
-uint64_t CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::AvailabilityFileCommonHeader::ByteSize(CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::AvailabilityFileCommonHeader *this)
+uint64_t CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::AvailabilityFileCommonHeader::ByteSize(CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::AvailabilityFileCommonHeader *this, unsigned int a2)
 {
-  v2 = *(this + 20);
-  if (v2)
+  v3 = *(this + 20);
+  if (v3)
   {
     if (*(this + 20))
     {
-      v4 = *(this + 2);
-      if (v4 >= 0x80)
+      v5 = *(this + 2);
+      if (v5 >= 0x80)
       {
-        v3 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v4) + 1;
+        v4 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v5) + 1;
         if ((*(this + 5) & 2) == 0)
         {
           goto LABEL_14;
@@ -5339,8 +4626,8 @@ uint64_t CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::Availabilit
 
       else
       {
-        v3 = 2;
-        if ((v2 & 2) == 0)
+        v4 = 2;
+        if ((v3 & 2) == 0)
         {
           goto LABEL_14;
         }
@@ -5349,40 +4636,39 @@ uint64_t CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::Availabilit
 
     else
     {
-      v3 = 0;
+      v4 = 0;
       if ((*(this + 20) & 2) == 0)
       {
         goto LABEL_14;
       }
     }
 
-    v5 = *(this + 3);
-    if (v5 >= 0x80)
+    v6 = *(this + 3);
+    if (v6 >= 0x80)
     {
-      v6 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v5) + 1;
+      v7 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v6) + 1;
     }
 
     else
     {
-      v6 = 2;
+      v7 = 2;
     }
 
-    v3 = (v6 + v3);
+    v4 = (v7 + v4);
   }
 
   else
   {
-    v3 = 0;
+    v4 = 0;
   }
 
 LABEL_14:
-  *(this + 4) = v3;
-  return v3;
+  *(this + 4) = v4;
+  return v4;
 }
 
 void CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::AvailabilityFileCommonHeader::CheckTypeAndMergeFrom(CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::AvailabilityFileCommonHeader *this, const wireless_diagnostics::google::protobuf::MessageLite *lpsrc)
 {
-  v4 = **lpsrc;
   {
     __assert_rtn("down_cast", "common.h", 348, "f == NULL || dynamic_cast<To>(f) != NULL");
   }
@@ -5583,9 +4869,9 @@ LABEL_12:
   }
 }
 
-void sub_1D0C741C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1D0C741C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -5647,14 +4933,14 @@ uint64_t CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RayTracingT
   return this;
 }
 
-uint64_t CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RayTracingTilesAvailabilityHeader::MergePartialFromCodedStream(CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RayTracingTilesAvailabilityHeader *this, wireless_diagnostics::google::protobuf::io::CodedInputStream *a2)
+uint64_t CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RayTracingTilesAvailabilityHeader::MergePartialFromCodedStream(CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RayTracingTilesAvailabilityHeader *this, wireless_diagnostics::google::protobuf::io::CodedInputStream *a2, unsigned int a3)
 {
   while (1)
   {
     while (1)
     {
-      v4 = *(a2 + 1);
-      if (v4 >= *(a2 + 2) || (TagFallback = *v4, (TagFallback & 0x80000000) != 0))
+      v5 = *(a2 + 1);
+      if (v5 >= *(a2 + 2) || (TagFallback = *v5, (TagFallback & 0x80000000) != 0))
       {
         TagFallback = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadTagFallback(a2);
         *(a2 + 8) = TagFallback;
@@ -5667,51 +4953,51 @@ uint64_t CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RayTracingT
       else
       {
         *(a2 + 8) = TagFallback;
-        *(a2 + 1) = v4 + 1;
+        *(a2 + 1) = v5 + 1;
         if (!TagFallback)
         {
           return 1;
         }
       }
 
-      v6 = TagFallback >> 3;
-      v7 = TagFallback & 7;
+      v7 = TagFallback >> 3;
+      v8 = TagFallback & 7;
       if (TagFallback >> 3 > 4)
       {
         if (TagFallback >> 3 > 6)
         {
-          if (v6 == 7)
+          if (v7 == 7)
           {
             if ((TagFallback & 7) == 0)
             {
-              v17 = *(a2 + 1);
-              v8 = *(a2 + 2);
+              v18 = *(a2 + 1);
+              v9 = *(a2 + 2);
               goto LABEL_89;
             }
           }
 
-          else if (v6 == 8 && (TagFallback & 7) == 0)
+          else if (v7 == 8 && (TagFallback & 7) == 0)
           {
-            v12 = *(a2 + 1);
-            v8 = *(a2 + 2);
+            v13 = *(a2 + 1);
+            v9 = *(a2 + 2);
             goto LABEL_97;
           }
         }
 
-        else if (v6 == 5)
+        else if (v7 == 5)
         {
           if ((TagFallback & 7) == 0)
           {
-            v15 = *(a2 + 1);
-            v8 = *(a2 + 2);
+            v16 = *(a2 + 1);
+            v9 = *(a2 + 2);
             goto LABEL_73;
           }
         }
 
-        else if (v6 == 6 && (TagFallback & 7) == 0)
+        else if (v7 == 6 && (TagFallback & 7) == 0)
         {
-          v10 = *(a2 + 1);
-          v8 = *(a2 + 2);
+          v11 = *(a2 + 1);
+          v9 = *(a2 + 2);
           goto LABEL_81;
         }
 
@@ -5720,40 +5006,40 @@ uint64_t CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RayTracingT
 
       if (TagFallback >> 3 > 2)
       {
-        if (v6 == 3)
+        if (v7 == 3)
         {
           if ((TagFallback & 7) == 0)
           {
-            v16 = *(a2 + 1);
-            v8 = *(a2 + 2);
+            v17 = *(a2 + 1);
+            v9 = *(a2 + 2);
             goto LABEL_57;
           }
         }
 
-        else if (v6 == 4 && (TagFallback & 7) == 0)
+        else if (v7 == 4 && (TagFallback & 7) == 0)
         {
-          v11 = *(a2 + 1);
-          v8 = *(a2 + 2);
+          v12 = *(a2 + 1);
+          v9 = *(a2 + 2);
           goto LABEL_65;
         }
 
         goto LABEL_36;
       }
 
-      if (v6 == 1)
+      if (v7 == 1)
       {
         break;
       }
 
-      if (v6 == 2 && (TagFallback & 7) == 0)
+      if (v7 == 2 && (TagFallback & 7) == 0)
       {
-        v9 = *(a2 + 1);
-        v8 = *(a2 + 2);
+        v10 = *(a2 + 1);
+        v9 = *(a2 + 2);
         goto LABEL_49;
       }
 
 LABEL_36:
-      if (v7 == 4)
+      if (v8 == 4)
       {
         return 1;
       }
@@ -5764,23 +5050,23 @@ LABEL_36:
       }
     }
 
-    if (v7 != 2)
+    if (v8 != 2)
     {
       goto LABEL_36;
     }
 
     *(this + 12) |= 1u;
-    v13 = *(this + 1);
-    if (!v13)
+    v14 = *(this + 1);
+    if (!v14)
     {
       operator new();
     }
 
-    v39 = 0;
-    v14 = *(a2 + 1);
-    if (v14 >= *(a2 + 2) || *v14 < 0)
+    v41 = 0;
+    v15 = *(a2 + 1);
+    if (v15 >= *(a2 + 2) || *v15 < 0)
     {
-      if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, &v39))
+      if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, &v41))
       {
         return 0;
       }
@@ -5788,41 +5074,41 @@ LABEL_36:
 
     else
     {
-      v39 = *v14;
-      *(a2 + 1) = v14 + 1;
+      v41 = *v15;
+      *(a2 + 1) = v15 + 1;
     }
 
-    v18 = *(a2 + 14);
-    v19 = *(a2 + 15);
-    *(a2 + 14) = v18 + 1;
-    if (v18 >= v19)
+    v19 = *(a2 + 14);
+    v20 = *(a2 + 15);
+    *(a2 + 14) = v19 + 1;
+    if (v19 >= v20)
     {
       return 0;
     }
 
     wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(a2);
-    if (!CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::AvailabilityFileTimestamp::MergePartialFromCodedStream(v13, a2) || *(a2 + 36) != 1)
+    if (!CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::AvailabilityFileTimestamp::MergePartialFromCodedStream(v14, a2, v21) || *(a2 + 36) != 1)
     {
       return 0;
     }
 
     wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(a2);
-    v20 = *(a2 + 14);
-    v21 = __OFSUB__(v20, 1);
-    v22 = v20 - 1;
-    if (v22 < 0 == v21)
+    v22 = *(a2 + 14);
+    v23 = __OFSUB__(v22, 1);
+    v24 = v22 - 1;
+    if (v24 < 0 == v23)
     {
-      *(a2 + 14) = v22;
+      *(a2 + 14) = v24;
     }
 
-    v23 = *(a2 + 1);
-    v8 = *(a2 + 2);
-    if (v23 < v8 && *v23 == 16)
+    v25 = *(a2 + 1);
+    v9 = *(a2 + 2);
+    if (v25 < v9 && *v25 == 16)
     {
-      v9 = v23 + 1;
-      *(a2 + 1) = v9;
+      v10 = v25 + 1;
+      *(a2 + 1) = v10;
 LABEL_49:
-      if (v9 >= v8 || (v24 = *v9, v24 < 0))
+      if (v10 >= v9 || (v26 = *v10, v26 < 0))
       {
         result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, this + 4);
         if (!result)
@@ -5830,24 +5116,24 @@ LABEL_49:
           return result;
         }
 
-        v25 = *(a2 + 1);
-        v8 = *(a2 + 2);
+        v27 = *(a2 + 1);
+        v9 = *(a2 + 2);
       }
 
       else
       {
-        *(this + 4) = v24;
-        v25 = v9 + 1;
-        *(a2 + 1) = v25;
+        *(this + 4) = v26;
+        v27 = v10 + 1;
+        *(a2 + 1) = v27;
       }
 
       *(this + 12) |= 2u;
-      if (v25 < v8 && *v25 == 24)
+      if (v27 < v9 && *v27 == 24)
       {
-        v16 = v25 + 1;
-        *(a2 + 1) = v16;
+        v17 = v27 + 1;
+        *(a2 + 1) = v17;
 LABEL_57:
-        if (v16 >= v8 || (v27 = *v16, v27 < 0))
+        if (v17 >= v9 || (v29 = *v17, v29 < 0))
         {
           result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, this + 5);
           if (!result)
@@ -5855,24 +5141,24 @@ LABEL_57:
             return result;
           }
 
-          v28 = *(a2 + 1);
-          v8 = *(a2 + 2);
+          v30 = *(a2 + 1);
+          v9 = *(a2 + 2);
         }
 
         else
         {
-          *(this + 5) = v27;
-          v28 = v16 + 1;
-          *(a2 + 1) = v28;
+          *(this + 5) = v29;
+          v30 = v17 + 1;
+          *(a2 + 1) = v30;
         }
 
         *(this + 12) |= 4u;
-        if (v28 < v8 && *v28 == 32)
+        if (v30 < v9 && *v30 == 32)
         {
-          v11 = v28 + 1;
-          *(a2 + 1) = v11;
+          v12 = v30 + 1;
+          *(a2 + 1) = v12;
 LABEL_65:
-          if (v11 >= v8 || (v29 = *v11, v29 < 0))
+          if (v12 >= v9 || (v31 = *v12, v31 < 0))
           {
             result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, this + 6);
             if (!result)
@@ -5880,24 +5166,24 @@ LABEL_65:
               return result;
             }
 
-            v30 = *(a2 + 1);
-            v8 = *(a2 + 2);
+            v32 = *(a2 + 1);
+            v9 = *(a2 + 2);
           }
 
           else
           {
-            *(this + 6) = v29;
-            v30 = v11 + 1;
-            *(a2 + 1) = v30;
+            *(this + 6) = v31;
+            v32 = v12 + 1;
+            *(a2 + 1) = v32;
           }
 
           *(this + 12) |= 8u;
-          if (v30 < v8 && *v30 == 40)
+          if (v32 < v9 && *v32 == 40)
           {
-            v15 = v30 + 1;
-            *(a2 + 1) = v15;
+            v16 = v32 + 1;
+            *(a2 + 1) = v16;
 LABEL_73:
-            if (v15 >= v8 || (v31 = *v15, v31 < 0))
+            if (v16 >= v9 || (v33 = *v16, v33 < 0))
             {
               result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, this + 7);
               if (!result)
@@ -5905,24 +5191,24 @@ LABEL_73:
                 return result;
               }
 
-              v32 = *(a2 + 1);
-              v8 = *(a2 + 2);
+              v34 = *(a2 + 1);
+              v9 = *(a2 + 2);
             }
 
             else
             {
-              *(this + 7) = v31;
-              v32 = v15 + 1;
-              *(a2 + 1) = v32;
+              *(this + 7) = v33;
+              v34 = v16 + 1;
+              *(a2 + 1) = v34;
             }
 
             *(this + 12) |= 0x10u;
-            if (v32 < v8 && *v32 == 48)
+            if (v34 < v9 && *v34 == 48)
             {
-              v10 = v32 + 1;
-              *(a2 + 1) = v10;
+              v11 = v34 + 1;
+              *(a2 + 1) = v11;
 LABEL_81:
-              if (v10 >= v8 || (v33 = *v10, v33 < 0))
+              if (v11 >= v9 || (v35 = *v11, v35 < 0))
               {
                 result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, this + 8);
                 if (!result)
@@ -5930,24 +5216,24 @@ LABEL_81:
                   return result;
                 }
 
-                v34 = *(a2 + 1);
-                v8 = *(a2 + 2);
+                v36 = *(a2 + 1);
+                v9 = *(a2 + 2);
               }
 
               else
               {
-                *(this + 8) = v33;
-                v34 = v10 + 1;
-                *(a2 + 1) = v34;
+                *(this + 8) = v35;
+                v36 = v11 + 1;
+                *(a2 + 1) = v36;
               }
 
               *(this + 12) |= 0x20u;
-              if (v34 < v8 && *v34 == 56)
+              if (v36 < v9 && *v36 == 56)
               {
-                v17 = v34 + 1;
-                *(a2 + 1) = v17;
+                v18 = v36 + 1;
+                *(a2 + 1) = v18;
 LABEL_89:
-                if (v17 >= v8 || (v35 = *v17, v35 < 0))
+                if (v18 >= v9 || (v37 = *v18, v37 < 0))
                 {
                   result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, this + 9);
                   if (!result)
@@ -5955,24 +5241,24 @@ LABEL_89:
                     return result;
                   }
 
-                  v36 = *(a2 + 1);
-                  v8 = *(a2 + 2);
+                  v38 = *(a2 + 1);
+                  v9 = *(a2 + 2);
                 }
 
                 else
                 {
-                  *(this + 9) = v35;
-                  v36 = v17 + 1;
-                  *(a2 + 1) = v36;
+                  *(this + 9) = v37;
+                  v38 = v18 + 1;
+                  *(a2 + 1) = v38;
                 }
 
                 *(this + 12) |= 0x40u;
-                if (v36 < v8 && *v36 == 64)
+                if (v38 < v9 && *v38 == 64)
                 {
-                  v12 = v36 + 1;
-                  *(a2 + 1) = v12;
+                  v13 = v38 + 1;
+                  *(a2 + 1) = v13;
 LABEL_97:
-                  if (v12 >= v8 || (v37 = *v12, v37 < 0))
+                  if (v13 >= v9 || (v39 = *v13, v39 < 0))
                   {
                     result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, this + 10);
                     if (!result)
@@ -5980,19 +5266,19 @@ LABEL_97:
                       return result;
                     }
 
-                    v38 = *(a2 + 1);
-                    v8 = *(a2 + 2);
+                    v40 = *(a2 + 1);
+                    v9 = *(a2 + 2);
                   }
 
                   else
                   {
-                    *(this + 10) = v37;
-                    v38 = v12 + 1;
-                    *(a2 + 1) = v38;
+                    *(this + 10) = v39;
+                    v40 = v13 + 1;
+                    *(a2 + 1) = v40;
                   }
 
                   *(this + 12) |= 0x80u;
-                  if (v38 == v8 && (*(a2 + 11) || *(a2 + 6) == *(a2 + 10)))
+                  if (v40 == v9 && (*(a2 + 11) || *(a2 + 6) == *(a2 + 10)))
                   {
                     *(a2 + 8) = 0;
                     result = 1;
@@ -6123,18 +5409,18 @@ LABEL_19:
   return wireless_diagnostics::google::protobuf::internal::WireFormatLite::WriteUInt32(8, v8, a2, a4);
 }
 
-uint64_t CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RayTracingTilesAvailabilityHeader::ByteSize(CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RayTracingTilesAvailabilityHeader *this)
+uint64_t CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RayTracingTilesAvailabilityHeader::ByteSize(CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RayTracingTilesAvailabilityHeader *this, unsigned int a2)
 {
-  LOBYTE(v2) = *(this + 48);
-  if (!v2)
+  LOBYTE(v3) = *(this + 48);
+  if (!v3)
   {
-    v3 = 0;
+    v4 = 0;
     goto LABEL_44;
   }
 
   if ((*(this + 48) & 1) == 0)
   {
-    v3 = 0;
+    v4 = 0;
     if ((*(this + 48) & 2) == 0)
     {
       goto LABEL_13;
@@ -6143,55 +5429,55 @@ uint64_t CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RayTracingT
     goto LABEL_9;
   }
 
-  v4 = *(this + 1);
-  if (!v4)
+  v5 = *(this + 1);
+  if (!v5)
   {
     CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::protobuf_AddDesc_CoreNavigationCLPRayTracingTilesAvailability_2eproto(this);
-    v4 = *(CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RayTracingTilesAvailabilityHeader::default_instance_ + 8);
+    v5 = *(CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RayTracingTilesAvailabilityHeader::default_instance_ + 8);
   }
 
-  v5 = ((*(v4 + 20) << 31) >> 31) & 9;
-  *(v4 + 16) = v5;
-  v3 = v5 | 2u;
-  v2 = *(this + 12);
-  if ((v2 & 2) != 0)
+  v6 = ((*(v5 + 20) << 31) >> 31) & 9;
+  *(v5 + 16) = v6;
+  v4 = v6 | 2u;
+  v3 = *(this + 12);
+  if ((v3 & 2) != 0)
   {
 LABEL_9:
-    v6 = *(this + 4);
-    if (v6 >= 0x80)
+    v7 = *(this + 4);
+    if (v7 >= 0x80)
     {
-      v7 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v6) + 1;
-      v2 = *(this + 12);
+      v8 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v7) + 1;
+      v3 = *(this + 12);
     }
 
     else
     {
-      v7 = 2;
+      v8 = 2;
     }
 
-    v3 = (v7 + v3);
+    v4 = (v8 + v4);
   }
 
 LABEL_13:
-  if ((v2 & 4) != 0)
+  if ((v3 & 4) != 0)
   {
-    v8 = *(this + 5);
-    if (v8 >= 0x80)
+    v9 = *(this + 5);
+    if (v9 >= 0x80)
     {
-      v9 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v8) + 1;
-      v2 = *(this + 12);
+      v10 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v9) + 1;
+      v3 = *(this + 12);
     }
 
     else
     {
-      v9 = 2;
+      v10 = 2;
     }
 
-    v3 = (v9 + v3);
-    if ((v2 & 8) == 0)
+    v4 = (v10 + v4);
+    if ((v3 & 8) == 0)
     {
 LABEL_15:
-      if ((v2 & 0x10) == 0)
+      if ((v3 & 0x10) == 0)
       {
         goto LABEL_16;
       }
@@ -6200,28 +5486,28 @@ LABEL_15:
     }
   }
 
-  else if ((v2 & 8) == 0)
+  else if ((v3 & 8) == 0)
   {
     goto LABEL_15;
   }
 
-  v10 = *(this + 6);
-  if (v10 >= 0x80)
+  v11 = *(this + 6);
+  if (v11 >= 0x80)
   {
-    v11 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v10) + 1;
-    v2 = *(this + 12);
+    v12 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v11) + 1;
+    v3 = *(this + 12);
   }
 
   else
   {
-    v11 = 2;
+    v12 = 2;
   }
 
-  v3 = (v11 + v3);
-  if ((v2 & 0x10) == 0)
+  v4 = (v12 + v4);
+  if ((v3 & 0x10) == 0)
   {
 LABEL_16:
-    if ((v2 & 0x20) == 0)
+    if ((v3 & 0x20) == 0)
     {
       goto LABEL_17;
     }
@@ -6230,23 +5516,23 @@ LABEL_16:
   }
 
 LABEL_28:
-  v12 = *(this + 7);
-  if (v12 >= 0x80)
+  v13 = *(this + 7);
+  if (v13 >= 0x80)
   {
-    v13 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v12) + 1;
-    v2 = *(this + 12);
+    v14 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v13) + 1;
+    v3 = *(this + 12);
   }
 
   else
   {
-    v13 = 2;
+    v14 = 2;
   }
 
-  v3 = (v13 + v3);
-  if ((v2 & 0x20) == 0)
+  v4 = (v14 + v4);
+  if ((v3 & 0x20) == 0)
   {
 LABEL_17:
-    if ((v2 & 0x40) == 0)
+    if ((v3 & 0x40) == 0)
     {
       goto LABEL_18;
     }
@@ -6255,23 +5541,23 @@ LABEL_17:
   }
 
 LABEL_32:
-  v14 = *(this + 8);
-  if (v14 >= 0x80)
+  v15 = *(this + 8);
+  if (v15 >= 0x80)
   {
-    v15 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v14) + 1;
-    v2 = *(this + 12);
+    v16 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v15) + 1;
+    v3 = *(this + 12);
   }
 
   else
   {
-    v15 = 2;
+    v16 = 2;
   }
 
-  v3 = (v15 + v3);
-  if ((v2 & 0x40) == 0)
+  v4 = (v16 + v4);
+  if ((v3 & 0x40) == 0)
   {
 LABEL_18:
-    if ((v2 & 0x80) == 0)
+    if ((v3 & 0x80) == 0)
     {
       goto LABEL_44;
     }
@@ -6280,44 +5566,43 @@ LABEL_18:
   }
 
 LABEL_36:
-  v16 = *(this + 9);
-  if (v16 >= 0x80)
+  v17 = *(this + 9);
+  if (v17 >= 0x80)
   {
-    v17 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v16) + 1;
-    v2 = *(this + 12);
+    v18 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v17) + 1;
+    v3 = *(this + 12);
   }
 
   else
   {
-    v17 = 2;
+    v18 = 2;
   }
 
-  v3 = (v17 + v3);
-  if ((v2 & 0x80) != 0)
+  v4 = (v18 + v4);
+  if ((v3 & 0x80) != 0)
   {
 LABEL_40:
-    v18 = *(this + 10);
-    if (v18 >= 0x80)
+    v19 = *(this + 10);
+    if (v19 >= 0x80)
     {
-      v19 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v18) + 1;
+      v20 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v19) + 1;
     }
 
     else
     {
-      v19 = 2;
+      v20 = 2;
     }
 
-    v3 = (v19 + v3);
+    v4 = (v20 + v4);
   }
 
 LABEL_44:
-  *(this + 11) = v3;
-  return v3;
+  *(this + 11) = v4;
+  return v4;
 }
 
 void CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RayTracingTilesAvailabilityHeader::CheckTypeAndMergeFrom(CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RayTracingTilesAvailabilityHeader *this, const wireless_diagnostics::google::protobuf::MessageLite *lpsrc)
 {
-  v4 = **lpsrc;
   {
     __assert_rtn("down_cast", "common.h", 348, "f == NULL || dynamic_cast<To>(f) != NULL");
   }
@@ -6424,9 +5709,9 @@ double CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::LatLonGeodeti
   return result;
 }
 
-void sub_1D0C74E7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1D0C74E7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -6457,7 +5742,7 @@ uint64_t CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::LatLonGeode
   return this;
 }
 
-uint64_t CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::LatLonGeodetic::MergePartialFromCodedStream(CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::LatLonGeodetic *this, wireless_diagnostics::google::protobuf::io::CodedInputStream *a2)
+uint64_t CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::LatLonGeodetic::MergePartialFromCodedStream(CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::LatLonGeodetic *this, wireless_diagnostics::google::protobuf::io::CodedInputStream *a2, unsigned int a3)
 {
   do
   {
@@ -6465,8 +5750,8 @@ uint64_t CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::LatLonGeode
     {
       while (1)
       {
-        v4 = *(a2 + 1);
-        if (v4 >= *(a2 + 2) || (TagFallback = *v4, (TagFallback & 0x80000000) != 0))
+        v5 = *(a2 + 1);
+        if (v5 >= *(a2 + 2) || (TagFallback = *v5, (TagFallback & 0x80000000) != 0))
         {
           TagFallback = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadTagFallback(a2);
           *(a2 + 8) = TagFallback;
@@ -6479,32 +5764,32 @@ uint64_t CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::LatLonGeode
         else
         {
           *(a2 + 8) = TagFallback;
-          *(a2 + 1) = v4 + 1;
+          *(a2 + 1) = v5 + 1;
           if (!TagFallback)
           {
             return 1;
           }
         }
 
-        v6 = TagFallback & 7;
+        v7 = TagFallback & 7;
         if (TagFallback >> 3 != 2)
         {
           break;
         }
 
-        if (v6 != 1)
+        if (v7 != 1)
         {
           goto LABEL_14;
         }
 
 LABEL_17:
-        v9 = 0;
-        if ((wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadLittleEndian64Fallback(a2, &v9) & 1) == 0)
+        v10 = 0;
+        if ((wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadLittleEndian64Fallback(a2, &v10) & 1) == 0)
         {
           return 0;
         }
 
-        *(this + 2) = v9;
+        *(this + 2) = v10;
         *(this + 7) |= 2u;
         if (*(a2 + 1) == *(a2 + 2) && (*(a2 + 11) || *(a2 + 6) == *(a2 + 10)))
         {
@@ -6515,29 +5800,29 @@ LABEL_17:
         }
       }
 
-      if (TagFallback >> 3 != 1 || v6 != 1)
+      if (TagFallback >> 3 != 1 || v7 != 1)
       {
         break;
       }
 
-      v9 = 0;
-      if ((wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadLittleEndian64Fallback(a2, &v9) & 1) == 0)
+      v10 = 0;
+      if ((wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadLittleEndian64Fallback(a2, &v10) & 1) == 0)
       {
         return 0;
       }
 
-      *(this + 1) = v9;
+      *(this + 1) = v10;
       *(this + 7) |= 1u;
-      v7 = *(a2 + 1);
-      if (v7 < *(a2 + 2) && *v7 == 17)
+      v8 = *(a2 + 1);
+      if (v8 < *(a2 + 2) && *v8 == 17)
       {
-        *(a2 + 1) = v7 + 1;
+        *(a2 + 1) = v8 + 1;
         goto LABEL_17;
       }
     }
 
 LABEL_14:
-    if (v6 == 4)
+    if (v7 == 4)
     {
       return 1;
     }
@@ -6590,7 +5875,6 @@ uint64_t CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::LatLonGeode
 
 double CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::LatLonGeodetic::CheckTypeAndMergeFrom(CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::LatLonGeodetic *this, const wireless_diagnostics::google::protobuf::MessageLite *lpsrc)
 {
-  v4 = **lpsrc;
   {
     __assert_rtn("down_cast", "common.h", 348, "f == NULL || dynamic_cast<To>(f) != NULL");
   }
@@ -6705,9 +5989,9 @@ double CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::BoundingBox::
   return result;
 }
 
-void sub_1D0C75520(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1D0C75520(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -6788,14 +6072,14 @@ uint64_t CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::BoundingBox
   return this;
 }
 
-uint64_t CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::BoundingBox::MergePartialFromCodedStream(CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::BoundingBox *this, wireless_diagnostics::google::protobuf::io::CodedInputStream *a2)
+uint64_t CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::BoundingBox::MergePartialFromCodedStream(CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::BoundingBox *this, wireless_diagnostics::google::protobuf::io::CodedInputStream *a2, unsigned int a3)
 {
   while (1)
   {
     while (1)
     {
-      v4 = *(a2 + 1);
-      if (v4 >= *(a2 + 2) || (TagFallback = *v4, (TagFallback & 0x80000000) != 0))
+      v5 = *(a2 + 1);
+      if (v5 >= *(a2 + 2) || (TagFallback = *v5, (TagFallback & 0x80000000) != 0))
       {
         TagFallback = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadTagFallback(a2);
         *(a2 + 8) = TagFallback;
@@ -6808,36 +6092,36 @@ uint64_t CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::BoundingBox
       else
       {
         *(a2 + 8) = TagFallback;
-        *(a2 + 1) = v4 + 1;
+        *(a2 + 1) = v5 + 1;
         if (!TagFallback)
         {
           return 1;
         }
       }
 
-      v6 = TagFallback & 7;
+      v7 = TagFallback & 7;
       if (TagFallback >> 3 == 2)
       {
         break;
       }
 
-      if (TagFallback >> 3 != 1 || v6 != 2)
+      if (TagFallback >> 3 != 1 || v7 != 2)
       {
         goto LABEL_15;
       }
 
       *(this + 7) |= 1u;
-      v7 = *(this + 1);
-      if (!v7)
+      v8 = *(this + 1);
+      if (!v8)
       {
         operator new();
       }
 
-      v22 = 0;
-      v8 = *(a2 + 1);
-      if (v8 >= *(a2 + 2) || *v8 < 0)
+      v25 = 0;
+      v9 = *(a2 + 1);
+      if (v9 >= *(a2 + 2) || *v9 < 0)
       {
-        if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, &v22))
+        if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, &v25))
         {
           return 0;
         }
@@ -6845,50 +6129,50 @@ uint64_t CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::BoundingBox
 
       else
       {
-        v22 = *v8;
-        *(a2 + 1) = v8 + 1;
+        v25 = *v9;
+        *(a2 + 1) = v9 + 1;
       }
 
-      v9 = *(a2 + 14);
-      v10 = *(a2 + 15);
-      *(a2 + 14) = v9 + 1;
-      if (v9 >= v10)
+      v10 = *(a2 + 14);
+      v11 = *(a2 + 15);
+      *(a2 + 14) = v10 + 1;
+      if (v10 >= v11)
       {
         return 0;
       }
 
       wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(a2);
-      if (!CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::LatLonGeodetic::MergePartialFromCodedStream(v7, a2) || *(a2 + 36) != 1)
+      if (!CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::LatLonGeodetic::MergePartialFromCodedStream(v8, a2, v12) || *(a2 + 36) != 1)
       {
         return 0;
       }
 
       wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(a2);
-      v11 = *(a2 + 14);
-      v12 = __OFSUB__(v11, 1);
-      v13 = v11 - 1;
-      if (v13 < 0 == v12)
+      v13 = *(a2 + 14);
+      v14 = __OFSUB__(v13, 1);
+      v15 = v13 - 1;
+      if (v15 < 0 == v14)
       {
-        *(a2 + 14) = v13;
+        *(a2 + 14) = v15;
       }
 
-      v14 = *(a2 + 1);
-      if (v14 < *(a2 + 2) && *v14 == 18)
+      v16 = *(a2 + 1);
+      if (v16 < *(a2 + 2) && *v16 == 18)
       {
-        *(a2 + 1) = v14 + 1;
+        *(a2 + 1) = v16 + 1;
 LABEL_27:
         *(this + 7) |= 2u;
-        v15 = *(this + 2);
-        if (!v15)
+        v17 = *(this + 2);
+        if (!v17)
         {
           operator new();
         }
 
-        v23 = 0;
-        v16 = *(a2 + 1);
-        if (v16 >= *(a2 + 2) || *v16 < 0)
+        v26 = 0;
+        v18 = *(a2 + 1);
+        if (v18 >= *(a2 + 2) || *v18 < 0)
         {
-          if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, &v23))
+          if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, &v26))
           {
             return 0;
           }
@@ -6896,31 +6180,31 @@ LABEL_27:
 
         else
         {
-          v23 = *v16;
-          *(a2 + 1) = v16 + 1;
+          v26 = *v18;
+          *(a2 + 1) = v18 + 1;
         }
 
-        v17 = *(a2 + 14);
-        v18 = *(a2 + 15);
-        *(a2 + 14) = v17 + 1;
-        if (v17 >= v18)
+        v19 = *(a2 + 14);
+        v20 = *(a2 + 15);
+        *(a2 + 14) = v19 + 1;
+        if (v19 >= v20)
         {
           return 0;
         }
 
         wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(a2);
-        if (!CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::LatLonGeodetic::MergePartialFromCodedStream(v15, a2) || *(a2 + 36) != 1)
+        if (!CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::LatLonGeodetic::MergePartialFromCodedStream(v17, a2, v21) || *(a2 + 36) != 1)
         {
           return 0;
         }
 
         wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(a2);
-        v19 = *(a2 + 14);
-        v12 = __OFSUB__(v19, 1);
-        v20 = v19 - 1;
-        if (v20 < 0 == v12)
+        v22 = *(a2 + 14);
+        v14 = __OFSUB__(v22, 1);
+        v23 = v22 - 1;
+        if (v23 < 0 == v14)
         {
-          *(a2 + 14) = v20;
+          *(a2 + 14) = v23;
         }
 
         if (*(a2 + 1) == *(a2 + 2) && (*(a2 + 11) || *(a2 + 6) == *(a2 + 10)))
@@ -6933,13 +6217,13 @@ LABEL_27:
       }
     }
 
-    if (v6 == 2)
+    if (v7 == 2)
     {
       goto LABEL_27;
     }
 
 LABEL_15:
-    if (v6 == 4)
+    if (v7 == 4)
     {
       return 1;
     }
@@ -7060,7 +6344,6 @@ LABEL_20:
 
 double CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::BoundingBox::CheckTypeAndMergeFrom(CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::BoundingBox *this, const wireless_diagnostics::google::protobuf::MessageLite *lpsrc)
 {
-  v4 = **lpsrc;
   {
     __assert_rtn("down_cast", "common.h", 348, "f == NULL || dynamic_cast<To>(f) != NULL");
   }
@@ -7147,7 +6430,7 @@ double CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RegionSpecifi
   v5 = *(a2 + 6);
   if (v5)
   {
-    sub_1D0C773F4(v3 + 2, *(v3 + 6) + v5);
+    sub_1D0C773F4(v3 + 4, *(v3 + 6) + v5);
     this = memcpy((*(v3 + 2) + 8 * *(v3 + 6)), *(a2 + 2), 8 * *(a2 + 6));
     *(v3 + 6) += *(a2 + 6);
   }
@@ -7174,9 +6457,9 @@ double CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RegionSpecifi
   return result;
 }
 
-void sub_1D0C75ED8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1D0C75ED8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -7232,14 +6515,14 @@ uint64_t CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RegionSpeci
   return this;
 }
 
-uint64_t CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RegionSpecificAvailableTiles::MergePartialFromCodedStream(CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RegionSpecificAvailableTiles *this, wireless_diagnostics::google::protobuf::io::CodedInputStream *a2)
+uint64_t CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RegionSpecificAvailableTiles::MergePartialFromCodedStream(CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RegionSpecificAvailableTiles *this, wireless_diagnostics::google::protobuf::io::CodedInputStream *a2, unsigned int a3)
 {
   while (1)
   {
     while (1)
     {
-      v4 = *(a2 + 1);
-      if (v4 >= *(a2 + 2) || (TagFallback = *v4, (TagFallback & 0x80000000) != 0))
+      v5 = *(a2 + 1);
+      if (v5 >= *(a2 + 2) || (TagFallback = *v5, (TagFallback & 0x80000000) != 0))
       {
         TagFallback = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadTagFallback(a2);
         *(a2 + 8) = TagFallback;
@@ -7252,36 +6535,36 @@ uint64_t CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RegionSpeci
       else
       {
         *(a2 + 8) = TagFallback;
-        *(a2 + 1) = v4 + 1;
+        *(a2 + 1) = v5 + 1;
         if (!TagFallback)
         {
           return 1;
         }
       }
 
-      v6 = TagFallback & 7;
+      v7 = TagFallback & 7;
       if (TagFallback >> 3 == 2)
       {
         break;
       }
 
-      if (TagFallback >> 3 != 1 || v6 != 2)
+      if (TagFallback >> 3 != 1 || v7 != 2)
       {
         goto LABEL_16;
       }
 
       *(this + 10) |= 1u;
-      v7 = *(this + 1);
-      if (!v7)
+      v8 = *(this + 1);
+      if (!v8)
       {
         operator new();
       }
 
-      v22[0] = 0;
-      v8 = *(a2 + 1);
-      if (v8 >= *(a2 + 2) || *v8 < 0)
+      v24[0] = 0;
+      v9 = *(a2 + 1);
+      if (v9 >= *(a2 + 2) || *v9 < 0)
       {
-        if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, v22))
+        if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, v24))
         {
           return 0;
         }
@@ -7289,44 +6572,44 @@ uint64_t CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RegionSpeci
 
       else
       {
-        v22[0] = *v8;
-        *(a2 + 1) = v8 + 1;
+        v24[0] = *v9;
+        *(a2 + 1) = v9 + 1;
       }
 
-      v12 = *(a2 + 14);
-      v13 = *(a2 + 15);
-      *(a2 + 14) = v12 + 1;
-      if (v12 >= v13)
+      v13 = *(a2 + 14);
+      v14 = *(a2 + 15);
+      *(a2 + 14) = v13 + 1;
+      if (v13 >= v14)
       {
         return 0;
       }
 
       wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(a2);
-      if (!CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::BoundingBox::MergePartialFromCodedStream(v7, a2) || *(a2 + 36) != 1)
+      if (!CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::BoundingBox::MergePartialFromCodedStream(v8, a2, v15) || *(a2 + 36) != 1)
       {
         return 0;
       }
 
       wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(a2);
-      v14 = *(a2 + 14);
-      v15 = __OFSUB__(v14, 1);
-      v16 = v14 - 1;
-      if (v16 < 0 == v15)
+      v16 = *(a2 + 14);
+      v17 = __OFSUB__(v16, 1);
+      v18 = v16 - 1;
+      if (v18 < 0 == v17)
       {
-        *(a2 + 14) = v16;
+        *(a2 + 14) = v18;
       }
 
-      v17 = *(a2 + 1);
-      v9 = *(a2 + 2);
-      if (v17 < v9 && *v17 == 18)
+      v19 = *(a2 + 1);
+      v10 = *(a2 + 2);
+      if (v19 < v10 && *v19 == 18)
       {
-        v10 = v17 + 1;
-        *(a2 + 1) = v10;
+        v11 = v19 + 1;
+        *(a2 + 1) = v11;
 LABEL_31:
-        v23 = 0;
-        if (v10 >= v9 || *v10 < 0)
+        v25 = 0;
+        if (v11 >= v10 || *v11 < 0)
         {
-          if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, &v23))
+          if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, &v25))
           {
             return 0;
           }
@@ -7334,18 +6617,18 @@ LABEL_31:
 
         else
         {
-          v23 = *v10;
-          *(a2 + 1) = v10 + 1;
+          v25 = *v11;
+          *(a2 + 1) = v11 + 1;
         }
 
         wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(a2);
         while (wireless_diagnostics::google::protobuf::io::CodedInputStream::BytesUntilLimit(a2) >= 1)
         {
-          *v22 = 0;
-          v18 = *(a2 + 1);
-          if (v18 >= *(a2 + 2) || (*v18 & 0x8000000000000000) != 0)
+          *v24 = 0;
+          v20 = *(a2 + 1);
+          if (v20 >= *(a2 + 2) || (*v20 & 0x8000000000000000) != 0)
           {
-            if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint64Fallback(a2, v22))
+            if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint64Fallback(a2, v24))
             {
               return 0;
             }
@@ -7353,21 +6636,21 @@ LABEL_31:
 
           else
           {
-            *v22 = *v18;
-            *(a2 + 1) = v18 + 1;
+            *v24 = *v20;
+            *(a2 + 1) = v20 + 1;
           }
 
-          v19 = *(this + 6);
-          if (v19 == *(this + 7))
+          v21 = *(this + 6);
+          if (v21 == *(this + 7))
           {
-            sub_1D0C773F4(this + 2, v19 + 1);
-            v19 = *(this + 6);
+            sub_1D0C773F4(this + 4, v21 + 1);
+            v21 = *(this + 6);
           }
 
-          v20 = *v22;
-          v21 = *(this + 2);
-          *(this + 6) = v19 + 1;
-          *(v21 + 8 * v19) = v20;
+          v22 = *v24;
+          v23 = *(this + 2);
+          *(this + 6) = v21 + 1;
+          *(v23 + 8 * v21) = v22;
         }
 
         wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(a2);
@@ -7384,7 +6667,7 @@ LABEL_45:
 
     if ((TagFallback & 7) == 0)
     {
-      result = sub_1D0C763C8(1, 0x12u, a2, this + 16);
+      result = sub_1D0C763C8(1, 0x12u, a2, this + 2);
       if (!result)
       {
         return result;
@@ -7393,15 +6676,15 @@ LABEL_45:
       goto LABEL_45;
     }
 
-    if (v6 == 2)
+    if (v7 == 2)
     {
-      v10 = *(a2 + 1);
-      v9 = *(a2 + 2);
+      v11 = *(a2 + 1);
+      v10 = *(a2 + 2);
       goto LABEL_31;
     }
 
 LABEL_16:
-    if (v6 == 4)
+    if (v7 == 4)
     {
       return 1;
     }
@@ -7413,7 +6696,7 @@ LABEL_16:
   }
 }
 
-uint64_t sub_1D0C763C8(int a1, unsigned int a2, wireless_diagnostics::google::protobuf::io::CodedInputStream *this, uint64_t a4)
+uint64_t sub_1D0C763C8(int a1, unsigned int a2, wireless_diagnostics::google::protobuf::io::CodedInputStream *this, uint64_t *a4)
 {
   v19 = 0;
   v7 = *(this + 1);
@@ -7432,19 +6715,19 @@ uint64_t sub_1D0C763C8(int a1, unsigned int a2, wireless_diagnostics::google::pr
     *(this + 1) = v7 + 1;
   }
 
-  v9 = *(a4 + 8);
-  v10 = *(a4 + 12);
+  v9 = *(a4 + 2);
+  v10 = *(a4 + 3);
   if (v9 == v10)
   {
     sub_1D0C773F4(a4, v9 + 1);
-    v9 = *(a4 + 8);
-    v10 = *(a4 + 12);
+    v9 = *(a4 + 2);
+    v10 = *(a4 + 3);
   }
 
   v11 = v19;
   v12 = *a4;
   v13 = v9 + 1;
-  *(a4 + 8) = v9 + 1;
+  *(a4 + 2) = v9 + 1;
   *(v12 + 8 * v9) = v11;
   if (v10 - (v9 + 1) >= 1)
   {
@@ -7489,7 +6772,7 @@ uint64_t sub_1D0C763C8(int a1, unsigned int a2, wireless_diagnostics::google::pr
           return result;
         }
 
-        v13 = *(a4 + 8);
+        v13 = *(a4 + 2);
       }
 
       else
@@ -7498,17 +6781,17 @@ uint64_t sub_1D0C763C8(int a1, unsigned int a2, wireless_diagnostics::google::pr
         *(this + 1) = v17 + 1;
       }
 
-      if (v13 >= *(a4 + 12))
+      if (v13 >= *(a4 + 3))
       {
         wireless_diagnostics::google::protobuf::internal::LogMessage::LogMessage();
         wireless_diagnostics::google::protobuf::internal::LogMessage::operator<<();
         wireless_diagnostics::google::protobuf::internal::LogFinisher::operator=();
         wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(v20);
-        v13 = *(a4 + 8);
+        v13 = *(a4 + 2);
       }
 
       *(*a4 + 8 * v13++) = v19;
-      *(a4 + 8) = v13;
+      *(a4 + 2) = v13;
       --v14;
     }
 
@@ -7518,9 +6801,9 @@ uint64_t sub_1D0C763C8(int a1, unsigned int a2, wireless_diagnostics::google::pr
   return 1;
 }
 
-void sub_1D0C765A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1D0C765A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -7543,84 +6826,81 @@ uint64_t CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RegionSpeci
   if (*(v5 + 24) >= 1)
   {
     wireless_diagnostics::google::protobuf::io::CodedOutputStream::WriteVarint32(a2);
-    v7 = *(v5 + 32);
     this = wireless_diagnostics::google::protobuf::io::CodedOutputStream::WriteVarint32(a2);
     if (*(v5 + 24) >= 1)
     {
-      v8 = 0;
+      v7 = 0;
       do
       {
-        v9 = *(*(v5 + 16) + 8 * v8);
         this = wireless_diagnostics::google::protobuf::io::CodedOutputStream::WriteVarint64(a2);
-        ++v8;
+        ++v7;
       }
 
-      while (v8 < *(v5 + 24));
+      while (v7 < *(v5 + 24));
     }
   }
 
   return this;
 }
 
-uint64_t CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RegionSpecificAvailableTiles::ByteSize(CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RegionSpecificAvailableTiles *this)
+uint64_t CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RegionSpecificAvailableTiles::ByteSize(CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RegionSpecificAvailableTiles *this, unint64_t a2)
 {
   if (*(this + 40))
   {
-    v3 = *(this + 1);
-    if (!v3)
+    v4 = *(this + 1);
+    if (!v4)
     {
       CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::protobuf_AddDesc_CoreNavigationCLPRayTracingTilesAvailability_2eproto(0);
-      v3 = *(CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RegionSpecificAvailableTiles::default_instance_ + 8);
+      v4 = *(CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RegionSpecificAvailableTiles::default_instance_ + 8);
     }
 
-    v2 = CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::BoundingBox::ByteSize(v3) + 2;
+    v3 = CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::BoundingBox::ByteSize(v4) + 2;
   }
 
   else
   {
-    v2 = 0;
+    v3 = 0;
   }
 
   if (*(this + 6) < 1)
   {
-    LODWORD(v5) = 0;
+    LODWORD(v6) = 0;
   }
 
   else
   {
-    v4 = 0;
-    LODWORD(v5) = 0;
+    v5 = 0;
+    LODWORD(v6) = 0;
     do
     {
-      v5 = (wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize64(*(*(this + 2) + 8 * v4++)) + v5);
+      v6 = (wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize64(*(*(this + 2) + 8 * v5++)) + v6);
     }
 
-    while (v4 < *(this + 6));
-    if (v5 > 0)
+    while (v5 < *(this + 6));
+    if (v6 > 0)
     {
-      if (v5 >= 0x80)
+      if (v6 >= 0x80)
       {
-        v6 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v5) + 1;
+        v7 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v6) + 1;
       }
 
       else
       {
-        v6 = 2;
+        v7 = 2;
       }
 
-      v2 += v6;
+      v3 += v7;
     }
   }
 
-  result = (v2 + v5);
-  *(this + 8) = v5;
+  result = (v3 + v6);
+  *(this + 8) = v6;
   *(this + 9) = result;
   return result;
 }
 
 double CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RegionSpecificAvailableTiles::CheckTypeAndMergeFrom(CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RegionSpecificAvailableTiles *this, const wireless_diagnostics::google::protobuf::MessageLite *lpsrc)
 {
-  v4 = **lpsrc;
   {
     __assert_rtn("down_cast", "common.h", 348, "f == NULL || dynamic_cast<To>(f) != NULL");
   }
@@ -7727,14 +7007,14 @@ void CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RayTracingTiles
   }
 }
 
-uint64_t CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RayTracingTilesAvailabilityData::MergePartialFromCodedStream(CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RayTracingTilesAvailabilityData *this, wireless_diagnostics::google::protobuf::io::CodedInputStream *a2)
+uint64_t CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RayTracingTilesAvailabilityData::MergePartialFromCodedStream(CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RayTracingTilesAvailabilityData *this, wireless_diagnostics::google::protobuf::io::CodedInputStream *a2, unsigned int a3)
 {
   while (1)
   {
     while (1)
     {
-      v4 = *(a2 + 1);
-      if (v4 >= *(a2 + 2) || (TagFallback = *v4, (TagFallback & 0x80000000) != 0))
+      v5 = *(a2 + 1);
+      if (v5 >= *(a2 + 2) || (TagFallback = *v5, (TagFallback & 0x80000000) != 0))
       {
         TagFallback = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadTagFallback(a2);
         *(a2 + 8) = TagFallback;
@@ -7747,18 +7027,18 @@ uint64_t CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RayTracingT
       else
       {
         *(a2 + 8) = TagFallback;
-        *(a2 + 1) = v4 + 1;
+        *(a2 + 1) = v5 + 1;
         if (!TagFallback)
         {
           return 1;
         }
       }
 
-      v6 = TagFallback >> 3;
-      v7 = TagFallback & 7;
+      v7 = TagFallback >> 3;
+      v8 = TagFallback & 7;
       if (TagFallback >> 3 == 3)
       {
-        if (v7 == 2)
+        if (v8 == 2)
         {
           goto LABEL_44;
         }
@@ -7766,28 +7046,28 @@ uint64_t CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RayTracingT
         goto LABEL_18;
       }
 
-      if (v6 == 2)
+      if (v7 == 2)
       {
         break;
       }
 
-      if (v6 != 1 || v7 != 2)
+      if (v7 != 1 || v8 != 2)
       {
         goto LABEL_18;
       }
 
       *(this + 13) |= 1u;
-      v8 = *(this + 1);
-      if (!v8)
+      v9 = *(this + 1);
+      if (!v9)
       {
         operator new();
       }
 
-      v34 = 0;
-      v9 = *(a2 + 1);
-      if (v9 >= *(a2 + 2) || *v9 < 0)
+      v38 = 0;
+      v10 = *(a2 + 1);
+      if (v10 >= *(a2 + 2) || *v10 < 0)
       {
-        if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, &v34))
+        if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, &v38))
         {
           return 0;
         }
@@ -7795,50 +7075,50 @@ uint64_t CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RayTracingT
 
       else
       {
-        v34 = *v9;
-        *(a2 + 1) = v9 + 1;
+        v38 = *v10;
+        *(a2 + 1) = v10 + 1;
       }
 
-      v10 = *(a2 + 14);
-      v11 = *(a2 + 15);
-      *(a2 + 14) = v10 + 1;
-      if (v10 >= v11)
+      v11 = *(a2 + 14);
+      v12 = *(a2 + 15);
+      *(a2 + 14) = v11 + 1;
+      if (v11 >= v12)
       {
         return 0;
       }
 
       wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(a2);
-      if (!CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::AvailabilityFileCommonHeader::MergePartialFromCodedStream(v8, a2) || *(a2 + 36) != 1)
+      if (!CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::AvailabilityFileCommonHeader::MergePartialFromCodedStream(v9, a2, v13) || *(a2 + 36) != 1)
       {
         return 0;
       }
 
       wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(a2);
-      v12 = *(a2 + 14);
-      v13 = __OFSUB__(v12, 1);
-      v14 = v12 - 1;
-      if (v14 < 0 == v13)
+      v14 = *(a2 + 14);
+      v15 = __OFSUB__(v14, 1);
+      v16 = v14 - 1;
+      if (v16 < 0 == v15)
       {
-        *(a2 + 14) = v14;
+        *(a2 + 14) = v16;
       }
 
-      v15 = *(a2 + 1);
-      if (v15 < *(a2 + 2) && *v15 == 18)
+      v17 = *(a2 + 1);
+      if (v17 < *(a2 + 2) && *v17 == 18)
       {
-        *(a2 + 1) = v15 + 1;
+        *(a2 + 1) = v17 + 1;
 LABEL_30:
         *(this + 13) |= 2u;
-        v16 = *(this + 2);
-        if (!v16)
+        v18 = *(this + 2);
+        if (!v18)
         {
           operator new();
         }
 
-        v35 = 0;
-        v17 = *(a2 + 1);
-        if (v17 >= *(a2 + 2) || *v17 < 0)
+        v39 = 0;
+        v19 = *(a2 + 1);
+        if (v19 >= *(a2 + 2) || *v19 < 0)
         {
-          if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, &v35))
+          if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, &v39))
           {
             return 0;
           }
@@ -7846,62 +7126,62 @@ LABEL_30:
 
         else
         {
-          v35 = *v17;
-          *(a2 + 1) = v17 + 1;
+          v39 = *v19;
+          *(a2 + 1) = v19 + 1;
         }
 
-        v18 = *(a2 + 14);
-        v19 = *(a2 + 15);
-        *(a2 + 14) = v18 + 1;
-        if (v18 >= v19)
+        v20 = *(a2 + 14);
+        v21 = *(a2 + 15);
+        *(a2 + 14) = v20 + 1;
+        if (v20 >= v21)
         {
           return 0;
         }
 
         wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(a2);
-        if (!CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RayTracingTilesAvailabilityHeader::MergePartialFromCodedStream(v16, a2) || *(a2 + 36) != 1)
+        if (!CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RayTracingTilesAvailabilityHeader::MergePartialFromCodedStream(v18, a2, v22) || *(a2 + 36) != 1)
         {
           return 0;
         }
 
         wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(a2);
-        v20 = *(a2 + 14);
-        v13 = __OFSUB__(v20, 1);
-        v21 = v20 - 1;
-        if (v21 < 0 == v13)
+        v23 = *(a2 + 14);
+        v15 = __OFSUB__(v23, 1);
+        v24 = v23 - 1;
+        if (v24 < 0 == v15)
         {
-          *(a2 + 14) = v21;
+          *(a2 + 14) = v24;
         }
 
-        v22 = *(a2 + 1);
-        if (v22 < *(a2 + 2) && *v22 == 26)
+        v25 = *(a2 + 1);
+        if (v25 < *(a2 + 2) && *v25 == 26)
         {
           do
           {
-            *(a2 + 1) = v22 + 1;
+            *(a2 + 1) = v25 + 1;
 LABEL_44:
-            v23 = *(this + 9);
-            v24 = *(this + 8);
-            if (v24 >= v23)
+            v26 = *(this + 9);
+            v27 = *(this + 8);
+            if (v27 >= v26)
             {
-              if (v23 == *(this + 10))
+              if (v26 == *(this + 10))
               {
                 wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve((this + 24));
-                v23 = *(this + 9);
+                v26 = *(this + 9);
               }
 
-              *(this + 9) = v23 + 1;
+              *(this + 9) = v26 + 1;
               operator new();
             }
 
-            v25 = *(this + 3);
-            *(this + 8) = v24 + 1;
-            v26 = *(v25 + 8 * v24);
-            v36 = 0;
-            v27 = *(a2 + 1);
-            if (v27 >= *(a2 + 2) || *v27 < 0)
+            v28 = *(this + 3);
+            *(this + 8) = v27 + 1;
+            v29 = *(v28 + 8 * v27);
+            v40 = 0;
+            v30 = *(a2 + 1);
+            if (v30 >= *(a2 + 2) || *v30 < 0)
             {
-              if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, &v36))
+              if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, &v40))
               {
                 return 0;
               }
@@ -7909,39 +7189,39 @@ LABEL_44:
 
             else
             {
-              v36 = *v27;
-              *(a2 + 1) = v27 + 1;
+              v40 = *v30;
+              *(a2 + 1) = v30 + 1;
             }
 
-            v28 = *(a2 + 14);
-            v29 = *(a2 + 15);
-            *(a2 + 14) = v28 + 1;
-            if (v28 >= v29)
+            v31 = *(a2 + 14);
+            v32 = *(a2 + 15);
+            *(a2 + 14) = v31 + 1;
+            if (v31 >= v32)
             {
               return 0;
             }
 
             wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(a2);
-            if (!CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RegionSpecificAvailableTiles::MergePartialFromCodedStream(v26, a2) || *(a2 + 36) != 1)
+            if (!CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RegionSpecificAvailableTiles::MergePartialFromCodedStream(v29, a2, v33) || *(a2 + 36) != 1)
             {
               return 0;
             }
 
             wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(a2);
-            v30 = *(a2 + 14);
-            v13 = __OFSUB__(v30, 1);
-            v31 = v30 - 1;
-            if (v31 < 0 == v13)
+            v34 = *(a2 + 14);
+            v15 = __OFSUB__(v34, 1);
+            v35 = v34 - 1;
+            if (v35 < 0 == v15)
             {
-              *(a2 + 14) = v31;
+              *(a2 + 14) = v35;
             }
 
-            v22 = *(a2 + 1);
-            v32 = *(a2 + 2);
+            v25 = *(a2 + 1);
+            v36 = *(a2 + 2);
           }
 
-          while (v22 < v32 && *v22 == 26);
-          if (v22 == v32 && (*(a2 + 11) || *(a2 + 6) == *(a2 + 10)))
+          while (v25 < v36 && *v25 == 26);
+          if (v25 == v36 && (*(a2 + 11) || *(a2 + 6) == *(a2 + 10)))
           {
             *(a2 + 8) = 0;
             result = 1;
@@ -7952,13 +7232,13 @@ LABEL_44:
       }
     }
 
-    if (v7 == 2)
+    if (v8 == 2)
     {
       goto LABEL_30;
     }
 
 LABEL_18:
-    if (v7 == 4)
+    if (v8 == 4)
     {
       return 1;
     }
@@ -8013,17 +7293,17 @@ uint64_t CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RayTracingT
   return this;
 }
 
-uint64_t CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RayTracingTilesAvailabilityData::ByteSize(CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RayTracingTilesAvailabilityData *this)
+uint64_t CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RayTracingTilesAvailabilityData::ByteSize(CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RayTracingTilesAvailabilityData *this, unint64_t a2)
 {
   if (!*(this + 52))
   {
-    v2 = 0;
+    v3 = 0;
     goto LABEL_18;
   }
 
   if ((*(this + 52) & 1) == 0)
   {
-    v2 = 0;
+    v3 = 0;
     if ((*(this + 52) & 2) == 0)
     {
       goto LABEL_18;
@@ -8032,85 +7312,84 @@ uint64_t CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RayTracingT
     goto LABEL_12;
   }
 
-  v3 = *(this + 1);
-  if (!v3)
+  v4 = *(this + 1);
+  if (!v4)
   {
     CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::protobuf_AddDesc_CoreNavigationCLPRayTracingTilesAvailability_2eproto(0);
-    v3 = *(CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RayTracingTilesAvailabilityData::default_instance_ + 8);
+    v4 = *(CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RayTracingTilesAvailabilityData::default_instance_ + 8);
   }
 
-  v4 = CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::AvailabilityFileCommonHeader::ByteSize(v3);
-  v5 = v4;
-  if (v4 >= 0x80)
+  v5 = CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::AvailabilityFileCommonHeader::ByteSize(v4, a2);
+  v6 = v5;
+  if (v5 >= 0x80)
   {
-    v6 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v4);
+    v7 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v5);
   }
 
   else
   {
-    v6 = 1;
+    v7 = 1;
   }
 
-  v2 = v5 + v6 + 1;
+  v3 = v6 + v7 + 1;
   if ((*(this + 13) & 2) != 0)
   {
 LABEL_12:
-    v7 = *(this + 2);
-    if (!v7)
+    v8 = *(this + 2);
+    if (!v8)
     {
       CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::protobuf_AddDesc_CoreNavigationCLPRayTracingTilesAvailability_2eproto(0);
-      v7 = *(CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RayTracingTilesAvailabilityData::default_instance_ + 16);
+      v8 = *(CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RayTracingTilesAvailabilityData::default_instance_ + 16);
     }
 
-    v8 = CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RayTracingTilesAvailabilityHeader::ByteSize(v7);
-    v9 = v8;
-    if (v8 >= 0x80)
+    v9 = CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RayTracingTilesAvailabilityHeader::ByteSize(v8, a2);
+    v10 = v9;
+    if (v9 >= 0x80)
     {
-      v10 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v8);
+      v11 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v9);
     }
 
     else
     {
-      v10 = 1;
+      v11 = 1;
     }
 
-    v2 += v9 + v10 + 1;
+    v3 += v10 + v11 + 1;
   }
 
 LABEL_18:
-  v11 = *(this + 8);
-  v12 = (v11 + v2);
-  if (v11 >= 1)
+  v12 = *(this + 8);
+  v13 = (v12 + v3);
+  if (v12 >= 1)
   {
-    v13 = 0;
+    v14 = 0;
     do
     {
-      v14 = CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RegionSpecificAvailableTiles::ByteSize(*(*(this + 3) + 8 * v13));
-      v15 = v14;
-      if (v14 >= 0x80)
+      v15 = CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RegionSpecificAvailableTiles::ByteSize(*(*(this + 3) + 8 * v14), a2);
+      v16 = v15;
+      if (v15 >= 0x80)
       {
-        v16 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v14);
+        v17 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v15);
       }
 
       else
       {
-        v16 = 1;
+        v17 = 1;
       }
 
-      v12 = (v15 + v12 + v16);
-      ++v13;
+      v13 = (v16 + v13 + v17);
+      ++v14;
     }
 
-    while (v13 < *(this + 8));
+    while (v14 < *(this + 8));
   }
 
-  *(this + 12) = v12;
-  return v12;
+  *(this + 12) = v13;
+  return v13;
 }
 
 void CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RayTracingTilesAvailabilityData::CheckTypeAndMergeFrom(CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RayTracingTilesAvailabilityData *this, const wireless_diagnostics::google::protobuf::MessageLite *lpsrc)
 {
-  v4 = **lpsrc;
   {
     __assert_rtn("down_cast", "common.h", 348, "f == NULL || dynamic_cast<To>(f) != NULL");
   }
@@ -8118,7 +7397,7 @@ void CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RayTracingTiles
   CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RayTracingTilesAvailabilityData::MergeFrom(this, lpsrc);
 }
 
-void CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RayTracingTilesAvailabilityData::CopyFrom(CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RayTracingTilesAvailabilityData *this, const CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RayTracingTilesAvailabilityData *a2)
+void CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RayTracingTilesAvailabilityData::CopyFrom(const CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RayTracingTilesAvailabilityData *this, const CoreNavigation::CLP::LogEntry::RayTracingTilesAvailability::RayTracingTilesAvailabilityData *a2)
 {
   if (a2 != this)
   {
@@ -8170,24 +7449,23 @@ uint64_t sub_1D0C77384(uint64_t result)
   return result;
 }
 
-uint64_t *sub_1D0C773F4(uint64_t *result, int a2)
+_DWORD *sub_1D0C773F4(_DWORD *result, int a2)
 {
-  v2 = *(result + 3);
+  v2 = result[3];
   if (v2 < a2)
   {
-    v3 = *result;
-    v4 = 2 * v2;
-    if (v4 <= a2)
+    v3 = 2 * v2;
+    if (v3 <= a2)
     {
-      v4 = a2;
+      v3 = a2;
     }
 
-    if (v4 <= 4)
+    if (v3 <= 4)
     {
-      v4 = 4;
+      v3 = 4;
     }
 
-    *(result + 3) = v4;
+    result[3] = v3;
     operator new[]();
   }
 
@@ -9053,9 +8331,9 @@ LABEL_36:
   }
 }
 
-void sub_1D0C78BBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1D0C78BBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -9448,7 +8726,6 @@ uint64_t CoreNavigation::CLP::LogEntry::Raven::NrEstimatorHealth::Clear(CoreNavi
 
 void CoreNavigation::CLP::LogEntry::Raven::RavenOutput::CheckTypeAndMergeFrom(CoreNavigation::CLP::LogEntry::Raven::RavenOutput *this, const wireless_diagnostics::google::protobuf::MessageLite *lpsrc)
 {
-  v4 = **lpsrc;
   {
     __assert_rtn("down_cast", "common.h", 348, "f == NULL || dynamic_cast<To>(f) != NULL");
   }
@@ -9741,9 +9018,9 @@ LABEL_35:
   return result;
 }
 
-void sub_1D0C79520(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1D0C79520(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -10218,4 +9495,616 @@ LABEL_79:
 
   *(this + 57) |= 0x20000000u;
   *(this + 35) = v35;
+}
+
+void sub_1D0C79AD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+{
+  va_start(va, a5);
+  wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
+  _Unwind_Resume(a1);
+}
+
+void CoreNavigation::CLP::LogEntry::Raven::EstimatorState::MergeFrom(CoreNavigation::CLP::LogEntry::Raven::EstimatorState *this, const CoreNavigation::CLP::LogEntry::Raven::EstimatorState *a2)
+{
+  if (a2 == this)
+  {
+    wireless_diagnostics::google::protobuf::internal::LogMessage::LogMessage();
+    wireless_diagnostics::google::protobuf::internal::LogMessage::operator<<();
+    wireless_diagnostics::google::protobuf::internal::LogFinisher::operator=();
+    wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(v25);
+  }
+
+  v4 = *(a2 + 23);
+  if (!v4)
+  {
+    goto LABEL_53;
+  }
+
+  if (v4)
+  {
+    *(this + 23) |= 1u;
+    v5 = *(this + 1);
+    if (!v5)
+    {
+      operator new();
+    }
+
+    v6 = *(a2 + 1);
+    if (!v6)
+    {
+      CoreNavigation::CLP::LogEntry::Raven::protobuf_AddDesc_CoreNavigationCLPRavenOutput_2eproto(this);
+      v6 = *(CoreNavigation::CLP::LogEntry::Raven::EstimatorState::default_instance_ + 8);
+    }
+
+    CoreNavigation::CLP::LogEntry::Raven::TimeStamp::MergeFrom(v5, v6);
+    v4 = *(a2 + 23);
+    if ((v4 & 2) == 0)
+    {
+LABEL_6:
+      if ((v4 & 4) == 0)
+      {
+        goto LABEL_7;
+      }
+
+      goto LABEL_23;
+    }
+  }
+
+  else if ((v4 & 2) == 0)
+  {
+    goto LABEL_6;
+  }
+
+  *(this + 23) |= 2u;
+  v7 = *(this + 2);
+  if (!v7)
+  {
+    operator new();
+  }
+
+  v8 = *(a2 + 2);
+  if (!v8)
+  {
+    CoreNavigation::CLP::LogEntry::Raven::protobuf_AddDesc_CoreNavigationCLPRavenOutput_2eproto(this);
+    v8 = *(CoreNavigation::CLP::LogEntry::Raven::EstimatorState::default_instance_ + 16);
+  }
+
+  CoreNavigation::CLP::LogEntry::Raven::UserPosition::MergeFrom(v7, v8);
+  v4 = *(a2 + 23);
+  if ((v4 & 4) == 0)
+  {
+LABEL_7:
+    if ((v4 & 8) == 0)
+    {
+      goto LABEL_8;
+    }
+
+    goto LABEL_28;
+  }
+
+LABEL_23:
+  *(this + 23) |= 4u;
+  v9 = *(this + 3);
+  if (!v9)
+  {
+    operator new();
+  }
+
+  v10 = *(a2 + 3);
+  if (!v10)
+  {
+    CoreNavigation::CLP::LogEntry::Raven::protobuf_AddDesc_CoreNavigationCLPRavenOutput_2eproto(this);
+    v10 = *(CoreNavigation::CLP::LogEntry::Raven::EstimatorState::default_instance_ + 24);
+  }
+
+  CoreNavigation::CLP::LogEntry::Raven::UserVelocity::MergeFrom(v9, v10);
+  v4 = *(a2 + 23);
+  if ((v4 & 8) == 0)
+  {
+LABEL_8:
+    if ((v4 & 0x10) == 0)
+    {
+      goto LABEL_9;
+    }
+
+    goto LABEL_33;
+  }
+
+LABEL_28:
+  *(this + 23) |= 8u;
+  v11 = *(this + 4);
+  if (!v11)
+  {
+    operator new();
+  }
+
+  v12 = *(a2 + 4);
+  if (!v12)
+  {
+    CoreNavigation::CLP::LogEntry::Raven::protobuf_AddDesc_CoreNavigationCLPRavenOutput_2eproto(this);
+    v12 = *(CoreNavigation::CLP::LogEntry::Raven::EstimatorState::default_instance_ + 32);
+  }
+
+  CoreNavigation::CLP::LogEntry::Raven::DevicePosition::MergeFrom(v11, v12);
+  v4 = *(a2 + 23);
+  if ((v4 & 0x10) == 0)
+  {
+LABEL_9:
+    if ((v4 & 0x20) == 0)
+    {
+      goto LABEL_10;
+    }
+
+LABEL_38:
+    *(this + 23) |= 0x20u;
+    v15 = *(this + 6);
+    if (!v15)
+    {
+      operator new();
+    }
+
+    v16 = *(a2 + 6);
+    if (!v16)
+    {
+      CoreNavigation::CLP::LogEntry::Raven::protobuf_AddDesc_CoreNavigationCLPRavenOutput_2eproto(this);
+      v16 = *(CoreNavigation::CLP::LogEntry::Raven::EstimatorState::default_instance_ + 48);
+    }
+
+    CoreNavigation::CLP::LogEntry::Raven::DeviceAttitude::MergeFrom(v15, v16);
+    v4 = *(a2 + 23);
+    if ((v4 & 0x40) == 0)
+    {
+LABEL_11:
+      if ((v4 & 0x80) == 0)
+      {
+        goto LABEL_53;
+      }
+
+      goto LABEL_48;
+    }
+
+    goto LABEL_43;
+  }
+
+LABEL_33:
+  *(this + 23) |= 0x10u;
+  v13 = *(this + 5);
+  if (!v13)
+  {
+    operator new();
+  }
+
+  v14 = *(a2 + 5);
+  if (!v14)
+  {
+    CoreNavigation::CLP::LogEntry::Raven::protobuf_AddDesc_CoreNavigationCLPRavenOutput_2eproto(this);
+    v14 = *(CoreNavigation::CLP::LogEntry::Raven::EstimatorState::default_instance_ + 40);
+  }
+
+  CoreNavigation::CLP::LogEntry::Raven::DeviceVelocity::MergeFrom(v13, v14);
+  v4 = *(a2 + 23);
+  if ((v4 & 0x20) != 0)
+  {
+    goto LABEL_38;
+  }
+
+LABEL_10:
+  if ((v4 & 0x40) == 0)
+  {
+    goto LABEL_11;
+  }
+
+LABEL_43:
+  *(this + 23) |= 0x40u;
+  v17 = *(this + 7);
+  if (!v17)
+  {
+    operator new();
+  }
+
+  v18 = *(a2 + 7);
+  if (!v18)
+  {
+    CoreNavigation::CLP::LogEntry::Raven::protobuf_AddDesc_CoreNavigationCLPRavenOutput_2eproto(this);
+    v18 = *(CoreNavigation::CLP::LogEntry::Raven::EstimatorState::default_instance_ + 56);
+  }
+
+  CoreNavigation::CLP::LogEntry::Raven::DeviceRateGyroBias::MergeFrom(v17, v18);
+  v4 = *(a2 + 23);
+  if ((v4 & 0x80) != 0)
+  {
+LABEL_48:
+    *(this + 23) |= 0x80u;
+    v19 = *(this + 8);
+    if (!v19)
+    {
+      operator new();
+    }
+
+    v20 = *(a2 + 8);
+    if (!v20)
+    {
+      CoreNavigation::CLP::LogEntry::Raven::protobuf_AddDesc_CoreNavigationCLPRavenOutput_2eproto(this);
+      v20 = *(CoreNavigation::CLP::LogEntry::Raven::EstimatorState::default_instance_ + 64);
+    }
+
+    CoreNavigation::CLP::LogEntry::Raven::DeviceAccelerometerBias::MergeFrom(v19, v20);
+    v4 = *(a2 + 23);
+  }
+
+LABEL_53:
+  if ((v4 & 0xFF00) != 0)
+  {
+    if ((v4 & 0x100) != 0)
+    {
+      *(this + 23) |= 0x100u;
+      v21 = *(this + 9);
+      if (!v21)
+      {
+        operator new();
+      }
+
+      v22 = *(a2 + 9);
+      if (!v22)
+      {
+        CoreNavigation::CLP::LogEntry::Raven::protobuf_AddDesc_CoreNavigationCLPRavenOutput_2eproto(this);
+        v22 = *(CoreNavigation::CLP::LogEntry::Raven::EstimatorState::default_instance_ + 72);
+      }
+
+      CoreNavigation::CLP::LogEntry::Raven::DeviceAccelerometerScaleFactor::MergeFrom(v21, v22);
+      v4 = *(a2 + 23);
+    }
+
+    if ((v4 & 0x200) != 0)
+    {
+      *(this + 23) |= 0x200u;
+      v23 = *(this + 10);
+      if (!v23)
+      {
+        operator new();
+      }
+
+      v24 = *(a2 + 10);
+      if (!v24)
+      {
+        CoreNavigation::CLP::LogEntry::Raven::protobuf_AddDesc_CoreNavigationCLPRavenOutput_2eproto(this);
+        v24 = *(CoreNavigation::CLP::LogEntry::Raven::EstimatorState::default_instance_ + 80);
+      }
+
+      CoreNavigation::CLP::LogEntry::Raven::DeviceReceiverClockDiscrepancy::MergeFrom(v23, v24);
+    }
+  }
+}
+
+void sub_1D0C7A15C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+{
+  va_start(va, a5);
+  wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
+  _Unwind_Resume(a1);
+}
+
+double CoreNavigation::CLP::LogEntry::Raven::NrParameters::MergeFrom(CoreNavigation::CLP::LogEntry::Raven::NrParameters *this, const CoreNavigation::CLP::LogEntry::Raven::NrParameters *a2)
+{
+  if (a2 == this)
+  {
+    wireless_diagnostics::google::protobuf::internal::LogMessage::LogMessage();
+    wireless_diagnostics::google::protobuf::internal::LogMessage::operator<<();
+    wireless_diagnostics::google::protobuf::internal::LogFinisher::operator=();
+    wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(v10);
+  }
+
+  v5 = *(a2 + 40);
+  if (!v5)
+  {
+    goto LABEL_13;
+  }
+
+  if (v5)
+  {
+    *(this + 40) |= 1u;
+    v6 = *(this + 1);
+    if (!v6)
+    {
+      operator new();
+    }
+
+    v7 = *(a2 + 1);
+    if (!v7)
+    {
+      CoreNavigation::CLP::LogEntry::Raven::protobuf_AddDesc_CoreNavigationCLPRavenOutput_2eproto(this);
+      v7 = *(CoreNavigation::CLP::LogEntry::Raven::NrParameters::default_instance_ + 8);
+    }
+
+    result = CoreNavigation::CLP::LogEntry::Raven::TimeStamp::MergeFrom(v6, v7);
+    v5 = *(a2 + 40);
+    if ((v5 & 2) == 0)
+    {
+LABEL_6:
+      if ((v5 & 4) == 0)
+      {
+        goto LABEL_7;
+      }
+
+      goto LABEL_36;
+    }
+  }
+
+  else if ((v5 & 2) == 0)
+  {
+    goto LABEL_6;
+  }
+
+  result = *(a2 + 2);
+  *(this + 40) |= 2u;
+  *(this + 2) = result;
+  v5 = *(a2 + 40);
+  if ((v5 & 4) == 0)
+  {
+LABEL_7:
+    if ((v5 & 8) == 0)
+    {
+      goto LABEL_8;
+    }
+
+    goto LABEL_37;
+  }
+
+LABEL_36:
+  result = *(a2 + 3);
+  *(this + 40) |= 4u;
+  *(this + 3) = result;
+  v5 = *(a2 + 40);
+  if ((v5 & 8) == 0)
+  {
+LABEL_8:
+    if ((v5 & 0x10) == 0)
+    {
+      goto LABEL_9;
+    }
+
+    goto LABEL_38;
+  }
+
+LABEL_37:
+  result = *(a2 + 4);
+  *(this + 40) |= 8u;
+  *(this + 4) = result;
+  v5 = *(a2 + 40);
+  if ((v5 & 0x10) == 0)
+  {
+LABEL_9:
+    if ((v5 & 0x20) == 0)
+    {
+      goto LABEL_10;
+    }
+
+LABEL_39:
+    v9 = *(a2 + 153);
+    *(this + 40) |= 0x20u;
+    *(this + 153) = v9;
+    v5 = *(a2 + 40);
+    if ((v5 & 0x40) == 0)
+    {
+LABEL_11:
+      if ((v5 & 0x80) == 0)
+      {
+        goto LABEL_13;
+      }
+
+      goto LABEL_12;
+    }
+
+    goto LABEL_40;
+  }
+
+LABEL_38:
+  v8 = *(a2 + 152);
+  *(this + 40) |= 0x10u;
+  *(this + 152) = v8;
+  v5 = *(a2 + 40);
+  if ((v5 & 0x20) != 0)
+  {
+    goto LABEL_39;
+  }
+
+LABEL_10:
+  if ((v5 & 0x40) == 0)
+  {
+    goto LABEL_11;
+  }
+
+LABEL_40:
+  result = *(a2 + 5);
+  *(this + 40) |= 0x40u;
+  *(this + 5) = result;
+  v5 = *(a2 + 40);
+  if ((v5 & 0x80) != 0)
+  {
+LABEL_12:
+    result = *(a2 + 6);
+    *(this + 40) |= 0x80u;
+    *(this + 6) = result;
+    v5 = *(a2 + 40);
+  }
+
+LABEL_13:
+  if ((v5 & 0xFF00) == 0)
+  {
+    goto LABEL_23;
+  }
+
+  if ((v5 & 0x100) != 0)
+  {
+    result = *(a2 + 7);
+    *(this + 40) |= 0x100u;
+    *(this + 7) = result;
+    v5 = *(a2 + 40);
+    if ((v5 & 0x200) == 0)
+    {
+LABEL_16:
+      if ((v5 & 0x400) == 0)
+      {
+        goto LABEL_17;
+      }
+
+      goto LABEL_44;
+    }
+  }
+
+  else if ((v5 & 0x200) == 0)
+  {
+    goto LABEL_16;
+  }
+
+  result = *(a2 + 8);
+  *(this + 40) |= 0x200u;
+  *(this + 8) = result;
+  v5 = *(a2 + 40);
+  if ((v5 & 0x400) == 0)
+  {
+LABEL_17:
+    if ((v5 & 0x800) == 0)
+    {
+      goto LABEL_18;
+    }
+
+    goto LABEL_45;
+  }
+
+LABEL_44:
+  result = *(a2 + 9);
+  *(this + 40) |= 0x400u;
+  *(this + 9) = result;
+  v5 = *(a2 + 40);
+  if ((v5 & 0x800) == 0)
+  {
+LABEL_18:
+    if ((v5 & 0x1000) == 0)
+    {
+      goto LABEL_19;
+    }
+
+    goto LABEL_46;
+  }
+
+LABEL_45:
+  result = *(a2 + 10);
+  *(this + 40) |= 0x800u;
+  *(this + 10) = result;
+  v5 = *(a2 + 40);
+  if ((v5 & 0x1000) == 0)
+  {
+LABEL_19:
+    if ((v5 & 0x2000) == 0)
+    {
+      goto LABEL_20;
+    }
+
+    goto LABEL_47;
+  }
+
+LABEL_46:
+  result = *(a2 + 11);
+  *(this + 40) |= 0x1000u;
+  *(this + 11) = result;
+  v5 = *(a2 + 40);
+  if ((v5 & 0x2000) == 0)
+  {
+LABEL_20:
+    if ((v5 & 0x4000) == 0)
+    {
+      goto LABEL_21;
+    }
+
+    goto LABEL_48;
+  }
+
+LABEL_47:
+  result = *(a2 + 12);
+  *(this + 40) |= 0x2000u;
+  *(this + 12) = result;
+  v5 = *(a2 + 40);
+  if ((v5 & 0x4000) == 0)
+  {
+LABEL_21:
+    if ((v5 & 0x8000) == 0)
+    {
+      goto LABEL_23;
+    }
+
+    goto LABEL_22;
+  }
+
+LABEL_48:
+  result = *(a2 + 13);
+  *(this + 40) |= 0x4000u;
+  *(this + 13) = result;
+  v5 = *(a2 + 40);
+  if ((v5 & 0x8000) != 0)
+  {
+LABEL_22:
+    result = *(a2 + 14);
+    *(this + 40) |= 0x8000u;
+    *(this + 14) = result;
+    v5 = *(a2 + 40);
+  }
+
+LABEL_23:
+  if ((v5 & 0xFF0000) == 0)
+  {
+    return result;
+  }
+
+  if ((v5 & 0x10000) != 0)
+  {
+    result = *(a2 + 15);
+    *(this + 40) |= 0x10000u;
+    *(this + 15) = result;
+    v5 = *(a2 + 40);
+    if ((v5 & 0x20000) == 0)
+    {
+LABEL_26:
+      if ((v5 & 0x40000) == 0)
+      {
+        goto LABEL_27;
+      }
+
+      goto LABEL_52;
+    }
+  }
+
+  else if ((v5 & 0x20000) == 0)
+  {
+    goto LABEL_26;
+  }
+
+  result = *(a2 + 16);
+  *(this + 40) |= 0x20000u;
+  *(this + 16) = result;
+  v5 = *(a2 + 40);
+  if ((v5 & 0x40000) == 0)
+  {
+LABEL_27:
+    if ((v5 & 0x80000) == 0)
+    {
+      return result;
+    }
+
+    goto LABEL_28;
+  }
+
+LABEL_52:
+  result = *(a2 + 17);
+  *(this + 40) |= 0x40000u;
+  *(this + 17) = result;
+  if ((*(a2 + 40) & 0x80000) == 0)
+  {
+    return result;
+  }
+
+LABEL_28:
+  result = *(a2 + 18);
+  *(this + 40) |= 0x80000u;
+  *(this + 18) = result;
+  return result;
 }

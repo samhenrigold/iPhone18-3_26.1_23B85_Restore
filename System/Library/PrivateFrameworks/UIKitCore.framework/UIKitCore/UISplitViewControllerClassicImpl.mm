@@ -1839,7 +1839,7 @@ void __94__UISplitViewControllerClassicImpl__separateSecondaryViewControllerFrom
   if (os_variant_has_internal_diagnostics())
   {
     v0 = _UIMainBundleIdentifier();
-    _MergedGlobals_33 = [@"com.apple.MobileSMS" isEqualToString:v0];
+    _MergedGlobals_33 = objc_msgSend_isEqualToString_(@"com.apple.MobileSMS");
   }
 
   else
@@ -2287,9 +2287,9 @@ void __94__UISplitViewControllerClassicImpl__separateSecondaryViewControllerFrom
       if (barButtonItem)
       {
         title = [(UIBarButtonItem *)barButtonItem title];
-        v45 = [title isEqualToString:self->_buttonTitle];
+        isEqualToString = objc_msgSend_isEqualToString_(title);
 
-        if (v45)
+        if (isEqualToString)
         {
           v46 = objc_loadWeakRetained(&self->_svc);
           masterViewController = [v46 masterViewController];
@@ -2926,9 +2926,9 @@ void __86__UISplitViewControllerClassicImpl__separateMasterAndDetailWithTransiti
   {
     navigationController = [_secondaryViewControllerForCollapsing navigationController];
     _outermostNavigationController = [navigationController _outermostNavigationController];
-    v11 = [_outermostNavigationController isEqual:_primaryViewControllerForCollapsing];
+    isEqual = objc_msgSend_isEqual_(_outermostNavigationController);
 
-    if (v11)
+    if (isEqual)
     {
       if (os_variant_has_internal_diagnostics())
       {
@@ -3119,7 +3119,7 @@ void __88__UISplitViewControllerClassicImpl__collapseMaster_andDetail_withTransi
   v32 = *(a1 + 40);
   if (v32)
   {
-    [v32 targetTransform];
+    objc_msgSend_targetTransform(v32);
     v33 = (*&v49 < 0.0) << 31;
   }
 
@@ -4831,9 +4831,9 @@ LABEL_12:
   if (displayModeButtonItemTitle != titleCopy)
   {
     v9 = titleCopy;
-    v6 = [(NSString *)displayModeButtonItemTitle isEqualToString:titleCopy];
+    isEqualToString = objc_msgSend_isEqualToString_(displayModeButtonItemTitle, titleCopy, titleCopy);
     titleCopy = v9;
-    if (!v6)
+    if ((isEqualToString & 1) == 0)
     {
       v7 = [(NSString *)v9 copy];
       v8 = self->_displayModeButtonItemTitle;
@@ -6843,7 +6843,7 @@ LABEL_10:
   CGAffineTransformMakeRotation(&t1, v10);
   if (coordinatorCopy)
   {
-    [coordinatorCopy targetTransform];
+    objc_msgSend_targetTransform(coordinatorCopy);
   }
 
   else
@@ -6928,7 +6928,7 @@ void __87__UISplitViewControllerClassicImpl_viewWillTransitionToSize_withTransit
   [v5 _animateTransitionToOrientation:v6 duration:a1[5] masterChange:?];
 }
 
-uint64_t __87__UISplitViewControllerClassicImpl_viewWillTransitionToSize_withTransitionCoordinator___block_invoke_2(uint64_t a1)
+void *__87__UISplitViewControllerClassicImpl_viewWillTransitionToSize_withTransitionCoordinator___block_invoke_2(uint64_t a1)
 {
   [*(a1 + 32) _completeTransitionFromOrientation:*(a1 + 40) masterChange:*(a1 + 48)];
   result = [*(a1 + 32) _displayModeDidChange];

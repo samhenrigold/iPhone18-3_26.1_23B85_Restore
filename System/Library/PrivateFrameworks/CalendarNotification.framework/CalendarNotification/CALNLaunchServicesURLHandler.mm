@@ -25,7 +25,6 @@
 
 uint64_t __46__CALNLaunchServicesURLHandler_sharedInstance__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   sharedInstance_instance = objc_opt_new();
 
   return MEMORY[0x2821F96F8]();
@@ -33,7 +32,7 @@ uint64_t __46__CALNLaunchServicesURLHandler_sharedInstance__block_invoke(uint64_
 
 - (void)openURL:(id)l response:(id)response
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   lCopy = l;
   responseCopy = response;
   v7 = os_transaction_create();
@@ -47,13 +46,13 @@ uint64_t __46__CALNLaunchServicesURLHandler_sharedInstance__block_invoke(uint64_
       sourceClientIdentifier = [notificationRecord sourceClientIdentifier];
       actionIdentifier = [responseCopy actionIdentifier];
       *buf = 138544130;
-      v24 = sourceIdentifier;
-      v25 = 2114;
-      v26 = sourceClientIdentifier;
-      v27 = 2114;
-      v28 = actionIdentifier;
-      v29 = 2112;
-      v30 = lCopy;
+      v23 = sourceIdentifier;
+      v24 = 2114;
+      v25 = sourceClientIdentifier;
+      v26 = 2114;
+      v27 = actionIdentifier;
+      v28 = 2112;
+      v29 = lCopy;
       _os_log_impl(&dword_242909000, v9, OS_LOG_TYPE_DEFAULT, "Opening url for response, source identifier = %{public}@, source client identifier = %{public}@, action identifier = %{public}@, url = %@", buf, 0x2Au);
     }
   }
@@ -64,7 +63,7 @@ uint64_t __46__CALNLaunchServicesURLHandler_sharedInstance__block_invoke(uint64_
     if (os_log_type_enabled(notificationRecord, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v24 = lCopy;
+      v23 = lCopy;
       _os_log_impl(&dword_242909000, notificationRecord, OS_LOG_TYPE_DEFAULT, "Opening url: %@", buf, 0xCu);
     }
   }
@@ -83,17 +82,15 @@ uint64_t __46__CALNLaunchServicesURLHandler_sharedInstance__block_invoke(uint64_
   }
 
   defaultWorkspace = [MEMORY[0x277CC1E80] defaultWorkspace];
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __49__CALNLaunchServicesURLHandler_openURL_response___block_invoke;
-  v20[3] = &unk_278D6F790;
-  v21 = lCopy;
-  v22 = v7;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __49__CALNLaunchServicesURLHandler_openURL_response___block_invoke;
+  v19[3] = &unk_278D6F790;
+  v20 = lCopy;
+  v21 = v7;
   v17 = v7;
   v18 = lCopy;
-  [defaultWorkspace openURL:v18 configuration:v13 completionHandler:v20];
-
-  v19 = *MEMORY[0x277D85DE8];
+  [defaultWorkspace openURL:v18 configuration:v13 completionHandler:v19];
 }
 
 void __49__CALNLaunchServicesURLHandler_openURL_response___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -117,16 +114,16 @@ void __49__CALNLaunchServicesURLHandler_openURL_response___block_invoke(uint64_t
 
 + (id)_openApplicationOptionsForResponse:(id)response
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBEB38];
   responseCopy = response;
   v5 = [v3 alloc];
   v6 = *MEMORY[0x277D0AC70];
-  v12[0] = *MEMORY[0x277D0AC58];
-  v12[1] = v6;
-  v13[0] = MEMORY[0x277CBEC38];
-  v13[1] = MEMORY[0x277CBEC38];
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
+  v11[0] = *MEMORY[0x277D0AC58];
+  v11[1] = v6;
+  v12[0] = MEMORY[0x277CBEC38];
+  v12[1] = MEMORY[0x277CBEC38];
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
   v8 = [v5 initWithDictionary:v7];
 
   originIdentifier = [responseCopy originIdentifier];
@@ -136,21 +133,18 @@ void __49__CALNLaunchServicesURLHandler_openURL_response___block_invoke(uint64_t
     [v8 setObject:originIdentifier forKeyedSubscript:*MEMORY[0x277D0AC28]];
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 void __49__CALNLaunchServicesURLHandler_openURL_response___block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *(a2 + 32);
-  v5 = 138412546;
-  v6 = a1;
-  v7 = 2112;
-  v8 = v3;
-  _os_log_error_impl(&dword_242909000, log, OS_LOG_TYPE_ERROR, "Could not open url, error = %@, url = %@", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412546;
+  v5 = a1;
+  v6 = 2112;
+  v7 = v3;
+  _os_log_error_impl(&dword_242909000, log, OS_LOG_TYPE_ERROR, "Could not open url, error = %@, url = %@", &v4, 0x16u);
 }
 
 @end

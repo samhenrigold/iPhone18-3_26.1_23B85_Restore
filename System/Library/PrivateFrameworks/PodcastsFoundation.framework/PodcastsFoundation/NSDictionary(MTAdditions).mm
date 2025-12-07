@@ -8,28 +8,28 @@
 
 - (id)mt_invertedDictionary
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   allKeys = [self allKeys];
-  v4 = [allKeys countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [allKeys countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
+        v8 = *(*(&v11 + 1) + 8 * i);
         v9 = [self objectForKey:v8];
         if (v9)
         {
@@ -37,13 +37,11 @@
         }
       }
 
-      v5 = [allKeys countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [allKeys countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -76,43 +74,41 @@
 
 - (id)mt_subdictionaryWithKeys:()MTAdditions
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v4 = a3;
   dictionary = [MEMORY[0x1E695DF90] dictionary];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v6 = v4;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * i);
-        v12 = [self objectForKey:{v11, v15}];
+        v11 = *(*(&v14 + 1) + 8 * i);
+        v12 = [self objectForKey:{v11, v14}];
         if (v12)
         {
           [dictionary setObject:v12 forKey:v11];
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }

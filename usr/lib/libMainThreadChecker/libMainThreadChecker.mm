@@ -166,9 +166,8 @@ uint64_t __ASSERT_API_MUST_BE_CALLED_FROM_MAIN_THREAD_FAILED__(objc_class *a1, c
 {
   v4 = malloc_type_calloc(1uLL, 0x1000uLL, 0x2140D0CFuLL);
   v5 = getpid();
-  v39 = 0;
-  pthread_threadid_np(0, &v39);
-  v49 = 0u;
+  v38 = 0;
+  pthread_threadid_np(0, &v38);
   v48 = 0u;
   v47 = 0u;
   v46 = 0u;
@@ -176,18 +175,19 @@ uint64_t __ASSERT_API_MUST_BE_CALLED_FROM_MAIN_THREAD_FAILED__(objc_class *a1, c
   v44 = 0u;
   v43 = 0u;
   v42 = 0u;
+  v41 = 0u;
   v6 = pthread_self();
-  pthread_getname_np(v6, &v42, 0x80uLL);
-  if (!v42)
+  pthread_getname_np(v6, &v41, 0x80uLL);
+  if (!v41)
   {
-    v46 = xmmword_42DE8;
-    v47 = unk_42DF8;
-    v48 = xmmword_42E08;
-    v49 = unk_42E18;
-    v42 = *"(none)";
-    v43 = unk_42DB8;
-    v44 = xmmword_42DC8;
-    v45 = unk_42DD8;
+    v45 = xmmword_42DE8;
+    v46 = unk_42DF8;
+    v47 = xmmword_42E08;
+    v48 = unk_42E18;
+    v41 = *"(none)";
+    v42 = unk_42DB8;
+    v43 = xmmword_42DC8;
+    v44 = unk_42DD8;
   }
 
   current_queue = dispatch_get_current_queue();
@@ -195,7 +195,7 @@ uint64_t __ASSERT_API_MUST_BE_CALLED_FROM_MAIN_THREAD_FAILED__(objc_class *a1, c
   qos_class = dispatch_queue_get_qos_class(current_queue, 0);
   Name = class_getName(a1);
   v11 = sel_getName(a2);
-  v38 = Name;
+  v37 = Name;
   v12 = snprintf(v4, 0xFFFuLL, "Main Thread Checker: UI API called on a background thread: [%s %s]\n", Name, v11);
   v14 = v12 == -1 || v12 > 4095;
   if (v14)
@@ -226,7 +226,7 @@ uint64_t __ASSERT_API_MUST_BE_CALLED_FROM_MAIN_THREAD_FAILED__(objc_class *a1, c
 
   else
   {
-    v18 = snprintf(v17, v15, "PID: %d, TID: %llu, Thread name: %s, Queue name: %s, QoS: %d\n", v5, v39, &v42, label, qos_class);
+    v18 = snprintf(v17, v15, "PID: %d, TID: %llu, Thread name: %s, Queue name: %s, QoS: %d\n", v5, v38, &v41, label, qos_class);
     LODWORD(v19) = 0;
     if (v18 != -1 && v15 >= v18)
     {
@@ -261,47 +261,46 @@ uint64_t __ASSERT_API_MUST_BE_CALLED_FROM_MAIN_THREAD_FAILED__(objc_class *a1, c
     }
   }
 
-  memset(v41, 0, 512);
-  v24 = backtrace(v41, 128);
-  v25 = backtrace_symbols(v41, v24);
+  memset(v40, 0, 512);
+  v24 = backtrace(v40, 128);
+  v25 = backtrace_symbols(v40, v24);
   v26 = v25;
   if (v24 >= 1)
   {
     v27 = v24;
-    v28 = v41;
+    v28 = v40;
     v29 = v25;
     do
     {
-      v30 = *v28;
       if (dyld_image_header_containing_address() != MyOwnMachHeader && v19 >= 1)
       {
-        v32 = snprintf(v17, v19, "%s\n", *v29);
-        v34 = v32 == -1 || v19 < v32;
-        if (v34)
+        v31 = snprintf(v17, v19, "%s\n", *v29);
+        v33 = v31 == -1 || v19 < v31;
+        if (v33)
         {
           LODWORD(v19) = 0;
         }
 
         else
         {
-          LODWORD(v19) = v19 - v32;
+          LODWORD(v19) = v19 - v31;
         }
 
-        if (v34)
+        if (v33)
         {
-          v35 = 0;
+          v34 = 0;
         }
 
         else
         {
-          v35 = v32;
+          v34 = v31;
         }
 
-        v17 += v35;
+        v17 += v34;
       }
 
       ++v29;
-      ++v28;
+      v28 = (v28 + 8);
       --v27;
     }
 
@@ -322,15 +321,15 @@ uint64_t __ASSERT_API_MUST_BE_CALLED_FROM_MAIN_THREAD_FAILED__(objc_class *a1, c
       __ASSERT_API_MUST_BE_CALLED_FROM_MAIN_THREAD_FAILED___cold_1();
     }
 
-    v36 = __ASSERT_API_MUST_BE_CALLED_FROM_MAIN_THREAD_FAILED___log;
+    v35 = __ASSERT_API_MUST_BE_CALLED_FROM_MAIN_THREAD_FAILED___log;
     if (os_log_type_enabled(__ASSERT_API_MUST_BE_CALLED_FROM_MAIN_THREAD_FAILED___log, OS_LOG_TYPE_ERROR))
     {
-      __ASSERT_API_MUST_BE_CALLED_FROM_MAIN_THREAD_FAILED___cold_2(v4, v36);
+      __ASSERT_API_MUST_BE_CALLED_FROM_MAIN_THREAD_FAILED___cold_2(v4, v35);
     }
   }
 
   free(v4);
-  result = snprintf(__str, 0x200uLL, "[%s %s]", v38, v11);
+  result = snprintf(__str, 0x200uLL, "[%s %s]", v37, v11);
   if (envCallLLDBBreakpointSymbol == 1)
   {
     result = indirect__main_thread_checker_on_report(__str);
@@ -488,26 +487,12 @@ void __library_initializer()
         v23 = v22;
       }
 
-      else
+      else if (v21 == 47 || ((MainBundle = CFBundleGetMainBundle()) == 0 || (v30 = CFBundleCopyExecutableURL(MainBundle)) == 0 || (v31 = v30, PathComponent = CFURLCreateCopyDeletingLastPathComponent(0, v30), CFRelease(v31), !PathComponent) || (v23 = OpenSuppressionFileAtDirectory(PathComponent, v20), CFRelease(PathComponent), !v23)) && ((v33 = CFBundleGetMainBundle()) == 0 || (v34 = CFBundleCopyBundleURL(v33)) == 0 || (v35 = v34, v23 = OpenSuppressionFileAtDirectory(v34, v20), CFRelease(v35), !v23)))
       {
-        if (v21 == 47)
-        {
-          goto LABEL_78;
-        }
-
-        MainBundle = CFBundleGetMainBundle();
-        if (!MainBundle || (v30 = CFBundleCopyExecutableURL(MainBundle)) == 0 || (v31 = v30, PathComponent = CFURLCreateCopyDeletingLastPathComponent(0, v30), CFRelease(v31), !PathComponent) || (v23 = OpenSuppressionFileAtDirectory(PathComponent), CFRelease(PathComponent), !v23))
-        {
-          v33 = CFBundleGetMainBundle();
-          if (!v33 || (v34 = CFBundleCopyBundleURL(v33)) == 0 || (v35 = v34, v23 = OpenSuppressionFileAtDirectory(v34), CFRelease(v35), !v23))
-          {
-LABEL_78:
-            v36 = __stderrp;
-            v37 = __error();
-            fprintf(v36, "Cannot open suppression file '%s', error %d.\n", v20, *v37);
-            goto LABEL_79;
-          }
-        }
+        v36 = __stderrp;
+        v37 = __error();
+        fprintf(v36, "Cannot open suppression file '%s', error %d.\n", v20, *v37);
+        goto LABEL_79;
       }
 
       while (fgets(__s, 512, v23))
@@ -601,7 +586,7 @@ LABEL_87:
       qword_1480D0 = sel_registerName("currentContext");
       MyOwnMachHeader = dyld_image_header_containing_address();
       initialize_trampolines(checker_c);
-      ma_GrowCapacity(0x400u);
+      ma_GrowCapacity(1024);
       SwizzleClasses(XXKitImage, &v45, v43);
       if (WebKitImage)
       {
@@ -703,7 +688,7 @@ uint64_t checker_c(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void *ma_GrowCapacity(unsigned int a1)
+void *ma_GrowCapacity(int a1)
 {
   methodsToSwizzle = a1;
   v1 = 8 * a1;
@@ -948,75 +933,52 @@ uint64_t prepareSwizzler(uint64_t a1, Method m, uint64_t a3)
   return add_trampoline(Implementation, a1, a3);
 }
 
-FILE *OpenSuppressionFileAtDirectory(const __CFURL *a1)
+FILE *OpenSuppressionFileAtDirectory(const __CFURL *a1, uint64_t a2)
 {
-  v1 = CFURLCopyPath(a1);
-  if (!v1)
+  v2 = CFURLCopyPath(a1);
+  if (!v2)
   {
     return 0;
   }
 
-  v2 = v1;
+  v3 = v2;
   bzero(buffer, 0x400uLL);
-  if (CFStringGetCString(v2, buffer, 1023, 0x8000100u))
+  if (CFStringGetCString(v3, buffer, 1023, 0x8000100u))
   {
     strlen(buffer);
     __strncat_chk();
-    v3 = fopen(buffer, "re");
+    v4 = fopen(buffer, "re");
   }
 
   else
   {
-    v3 = 0;
+    v4 = 0;
   }
 
-  CFRelease(v2);
-  return v3;
+  CFRelease(v3);
+  return v4;
 }
 
 BOOL DetectAppKitNSDocumentAsynchronousSaving()
 {
-  if (_MergedGlobals_127 != 1)
-  {
-    return 0;
-  }
-
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
-  v13 = 0u;
-  *v10 = 0u;
-  v11 = 0u;
-  v0 = backtrace(v10, 32);
-  if (v0)
+  if (_MergedGlobals_127[0] == 1 && (v23 = 0u, v24 = 0u, v21 = 0u, v22 = 0u, v19 = 0u, v20 = 0u, v17 = 0u, v18 = 0u, v15 = 0u, v16 = 0u, v13 = 0u, v14 = 0u, v11 = 0u, v12 = 0u, *v9 = 0u, v10 = 0u, (v0 = backtrace(v9, 32)) != 0))
   {
     v1 = v0;
     v2 = 1;
-    v3 = v10;
+    v3 = v9;
     v4 = v0;
     v5 = 1;
     while (1)
     {
-      v6 = *v3;
       if (dyld_image_header_containing_address() == XXKitImage)
       {
-        memset(&v9, 0, sizeof(v9));
-        if (dladdr(*v3, &v9))
+        memset(&v8, 0, sizeof(v8));
+        if (dladdr(*v3, &v8))
         {
-          dli_sname = v9.dli_sname;
-          if (v9.dli_sname)
+          dli_sname = v8.dli_sname;
+          if (v8.dli_sname)
           {
-            if (strstr(v9.dli_sname, "NSDocument writeToURL") || strstr(dli_sname, "NSDocument writeSafelyToURL"))
+            if (strstr(v8.dli_sname, "NSDocument writeToURL") || strstr(dli_sname, "NSDocument writeSafelyToURL"))
             {
               break;
             }

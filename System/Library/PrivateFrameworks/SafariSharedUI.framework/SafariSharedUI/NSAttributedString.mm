@@ -3,7 +3,7 @@
 
 @implementation NSAttributedString
 
-uint64_t __107__NSAttributedString_SafariSharedUIExtras__safari_attributedStringByReplacingAttributeName_withAttributes___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void *__107__NSAttributedString_SafariSharedUIExtras__safari_attributedStringByReplacingAttributeName_withAttributes___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = [*(a1 + 32) removeAttribute:*(a1 + 40) range:{a3, a4}];
   if (a2)

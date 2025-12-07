@@ -22,37 +22,31 @@
 
 + (int64_t)assetAppearanceForAppearance:(int64_t)appearance appearanceVariant:(int64_t)variant
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if ((variant & 0xFFFFFFFFFFFFFFFELL) == 2)
   {
-    result = 2;
+    return 2;
   }
 
-  else if (appearance != 1 || variant)
+  if (appearance == 1 && !variant)
   {
-    if (variant | appearance)
+    return 1;
+  }
+
+  if (variant | appearance)
+  {
+    v7 = _ISDefaultLog(self);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = _ISDefaultLog();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
-      {
-        v9 = 134218240;
-        appearanceCopy = appearance;
-        v11 = 2048;
-        variantCopy = variant;
-        _os_log_impl(&dword_1A77B8000, v7, OS_LOG_TYPE_DEFAULT, "Unknown appearance configuration. A:%lu, AV:%lu", &v9, 0x16u);
-      }
+      v8 = 134218240;
+      appearanceCopy = appearance;
+      v10 = 2048;
+      variantCopy = variant;
+      _os_log_impl(&dword_1A77B8000, v7, OS_LOG_TYPE_DEFAULT, "Unknown appearance configuration. A:%lu, AV:%lu", &v8, 0x16u);
     }
-
-    result = 0;
   }
 
-  else
-  {
-    result = 1;
-  }
-
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return 0;
 }
 
 - (ISCompositingDescriptor)init
@@ -172,7 +166,7 @@
     }
 
 LABEL_14:
-    v5 = _ISDefaultLog();
+    v5 = _ISDefaultLog(platform);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [(ISCompositingDescriptor *)self CUINamedImageDeviceClass];
@@ -186,28 +180,27 @@ LABEL_14:
 
 - (unint64_t)ICRAppearance
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   result = [(ISCompositingDescriptor *)self appearance];
   if (result >= 2)
   {
-    v4 = _ISDefaultLog();
+    v4 = _ISDefaultLog(result);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      v6 = 134217984;
+      v5 = 134217984;
       appearance = [(ISCompositingDescriptor *)self appearance];
-      _os_log_impl(&dword_1A77B8000, v4, OS_LOG_TYPE_INFO, "Unexpected appearance requested for icon stack: %lu", &v6, 0xCu);
+      _os_log_impl(&dword_1A77B8000, v4, OS_LOG_TYPE_INFO, "Unexpected appearance requested for icon stack: %lu", &v5, 0xCu);
     }
 
-    result = 0;
+    return 0;
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (id)ICRRenderingMode
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   appearanceVariant = [(ISCompositingDescriptor *)self appearanceVariant];
   if (appearanceVariant == 3)
   {
@@ -220,12 +213,12 @@ LABEL_14:
     {
       if (appearanceVariant)
       {
-        v4 = _ISDefaultLog();
+        v4 = _ISDefaultLog(appearanceVariant);
         if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
         {
-          v27 = 134217984;
+          v26 = 134217984;
           appearanceVariant2 = [(ISCompositingDescriptor *)self appearanceVariant];
-          _os_log_impl(&dword_1A77B8000, v4, OS_LOG_TYPE_DEFAULT, "Unexpected appearance variant requested for icon: %lu", &v27, 0xCu);
+          _os_log_impl(&dword_1A77B8000, v4, OS_LOG_TYPE_DEFAULT, "Unexpected appearance variant requested for icon: %lu", &v26, 0xCu);
         }
       }
 
@@ -265,7 +258,6 @@ LABEL_14:
 LABEL_13:
   v23 = color;
 LABEL_14:
-  v25 = *MEMORY[0x1E69E9840];
 
   return v23;
 }
@@ -286,8 +278,8 @@ LABEL_14:
     if (nativePlatform > 0x10)
     {
 LABEL_7:
-      v7 = _ISDefaultLog();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = _ISDefaultLog(v6);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         [(ISCompositingDescriptor *)self encapsulationShape];
       }
@@ -394,10 +386,10 @@ LABEL_11:
   v5 = !v4;
   if (!v4)
   {
-    memset(&v22, 0, sizeof(v22));
-    CC_SHA256_Init(&v22);
+    memset(&v21, 0, sizeof(v21));
+    CC_SHA256_Init(&v21);
     data[0] = [(ISCompositingDescriptor *)self platformStyle];
-    CC_SHA256_Update(&v22, data, 8u);
+    CC_SHA256_Update(&v21, data, 8u);
     tintColor = [(ISCompositingDescriptor *)self tintColor];
 
     if (tintColor)
@@ -408,26 +400,26 @@ LABEL_11:
       digest = [tintColor2 digest];
       [digest getUUIDBytes:data];
 
-      CC_SHA256_Update(&v22, data, 0x10u);
+      CC_SHA256_Update(&v21, data, 0x10u);
     }
 
     data[0] = [(ISCompositingDescriptor *)self appearance];
-    CC_SHA256_Update(&v22, data, 8u);
+    CC_SHA256_Update(&v21, data, 8u);
     data[0] = [(ISCompositingDescriptor *)self appearanceVariant];
-    CC_SHA256_Update(&v22, data, 8u);
+    CC_SHA256_Update(&v21, data, 8u);
     data[0] = [(ISCompositingDescriptor *)self background];
-    CC_SHA256_Update(&v22, data, 8u);
+    CC_SHA256_Update(&v21, data, 8u);
     data[0] = [(ISCompositingDescriptor *)self platform];
-    CC_SHA256_Update(&v22, data, 8u);
+    CC_SHA256_Update(&v21, data, 8u);
     LOBYTE(data[0]) = [(ISCompositingDescriptor *)self useLegacyCompatibilityMode];
-    CC_SHA256_Update(&v22, data, 1u);
+    CC_SHA256_Update(&v21, data, 1u);
     LOBYTE(data[0]) = [(ISCompositingDescriptor *)self shouldApplyMask];
-    CC_SHA256_Update(&v22, data, 1u);
+    CC_SHA256_Update(&v21, data, 1u);
     data[0] = [(ISCompositingDescriptor *)self languageDirection];
-    CC_SHA256_Update(&v22, data, 8u);
+    CC_SHA256_Update(&v21, data, 8u);
     data[0] = [(ISCompositingDescriptor *)self shape];
-    CC_SHA256_Update(&v22, data, 8u);
-    CC_SHA256_Final(data, &v22);
+    CC_SHA256_Update(&v21, data, 8u);
+    CC_SHA256_Final(data, &v21);
     v12 = 0;
     v13 = 31 - size;
     if (size > 0x1F)
@@ -469,23 +461,20 @@ LABEL_11:
     }
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (NSUUID)digest
 {
-  v6[2] = *MEMORY[0x1E69E9840];
-  v6[0] = 0;
-  v6[1] = 0;
-  v2 = [(ISCompositingDescriptor *)self digest:v6 size:16];
+  v5[2] = *MEMORY[0x1E69E9840];
+  v5[0] = 0;
+  v5[1] = 0;
+  v2 = [(ISCompositingDescriptor *)self digest:v5 size:16];
   v3 = 0;
   if (v2)
   {
-    v3 = [MEMORY[0x1E696AFB0] _IF_UUIDWithDigestBytes:v6 size:16];
+    v3 = [MEMORY[0x1E696AFB0] _IF_UUIDWithDigestBytes:v5 size:16];
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -502,18 +491,16 @@ LABEL_11:
 
 - (void)CUINamedImageDeviceClass
 {
-  v8 = *MEMORY[0x1E69E9840];
-  [self platform];
-  OUTLINED_FUNCTION_0_6(&dword_1A77B8000, v1, v2, "Unable to map platform to device class for icon stack: %lu", v3, v4, v5, v6, 0);
-  v7 = *MEMORY[0x1E69E9840];
+  LODWORD(v7) = 134217984;
+  *(&v7 + 4) = [self platform];
+  OUTLINED_FUNCTION_0_6(&dword_1A77B8000, v1, v2, "Unable to map platform to device class for icon stack: %lu", v3, v4, v5, v6, v7, DWORD2(v7));
 }
 
 - (void)encapsulationShape
 {
-  v8 = *MEMORY[0x1E69E9840];
-  [self platform];
-  OUTLINED_FUNCTION_0_6(&dword_1A77B8000, v1, v2, "Unable to map platform to encapsulation shape for icon stack: %lu", v3, v4, v5, v6, 0);
-  v7 = *MEMORY[0x1E69E9840];
+  LODWORD(v7) = 134217984;
+  *(&v7 + 4) = [self platform];
+  OUTLINED_FUNCTION_0_6(&dword_1A77B8000, v1, v2, "Unable to map platform to encapsulation shape for icon stack: %lu", v3, v4, v5, v6, v7, DWORD2(v7));
 }
 
 @end

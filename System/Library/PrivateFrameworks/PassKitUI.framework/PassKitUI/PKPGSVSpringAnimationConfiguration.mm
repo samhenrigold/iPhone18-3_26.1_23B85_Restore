@@ -1,7 +1,7 @@
 @interface PKPGSVSpringAnimationConfiguration
-+ (uint64_t)createWithFactory:(double)factory modalFactory:(double)modalFactory modalYImpulse:(uint64_t)impulse modalYVelocity:(void *)velocity modalScaleImpulse:(void *)scaleImpulse modalScaleVelocity:;
-+ (uint64_t)createWithFactory:(uint64_t)factory;
-+ (uint64_t)createWithFactory:(void *)factory modalFactory:;
++ (id)createWithFactory:(uint64_t)factory;
++ (id)createWithFactory:(void *)factory modalFactory:;
++ (id)createWithFactory:(void *)factory modalFactory:(double)modalFactory modalYImpulse:(double)impulse modalYVelocity:(double)velocity modalScaleImpulse:(double)scaleImpulse modalScaleVelocity:;
 - (id)_initWithFactory:(void *)factory modalFactory:;
 - (id)createPositionAnimationFromPosition:(int)position toPosition:(double)toPosition forView:(double)view modal:(double)modal;
 - (id)createScaleAnimationFromScale:(int)scale toScale:(CGFloat)toScale forView:(CGFloat)view modal:;
@@ -9,7 +9,7 @@
 
 @implementation PKPGSVSpringAnimationConfiguration
 
-+ (uint64_t)createWithFactory:(uint64_t)factory
++ (id)createWithFactory:(uint64_t)factory
 {
   v2 = a2;
   result = objc_opt_self();
@@ -48,7 +48,7 @@
   return self;
 }
 
-+ (uint64_t)createWithFactory:(void *)factory modalFactory:
++ (id)createWithFactory:(void *)factory modalFactory:
 {
   v4 = a2;
   factoryCopy = factory;
@@ -68,50 +68,50 @@
   return result;
 }
 
-+ (uint64_t)createWithFactory:(double)factory modalFactory:(double)modalFactory modalYImpulse:(uint64_t)impulse modalYVelocity:(void *)velocity modalScaleImpulse:(void *)scaleImpulse modalScaleVelocity:
++ (id)createWithFactory:(void *)factory modalFactory:(double)modalFactory modalYImpulse:(double)impulse modalYVelocity:(double)velocity modalScaleImpulse:(double)scaleImpulse modalScaleVelocity:
 {
-  scaleImpulseCopy = scaleImpulse;
-  velocityCopy = velocity;
+  factoryCopy = factory;
+  v13 = a2;
   objc_opt_self();
-  v14 = [PKPGSVSpringAnimationConfiguration createWithFactory:velocityCopy modalFactory:scaleImpulseCopy];
+  v14 = [PKPGSVSpringAnimationConfiguration createWithFactory:v13 modalFactory:factoryCopy];
 
-  if (self != 0.0 && a2 != 0.0)
+  if (modalFactory != 0.0 && impulse != 0.0)
   {
-    *(v14 + 8) = self;
-    v15 = [scaleImpulseCopy copy];
-    v16 = *(v14 + 16);
-    *(v14 + 16) = v15;
+    *(v14 + 1) = modalFactory;
+    v15 = [factoryCopy copy];
+    v16 = v14[2];
+    v14[2] = v15;
 
-    [*(v14 + 16) setVelocity:a2 / fabs(self)];
-    factoryWithInvertedVelocity = [*(v14 + 16) factoryWithInvertedVelocity];
-    v18 = *(v14 + 24);
-    *(v14 + 24) = factoryWithInvertedVelocity;
+    [v14[2] setVelocity:impulse / fabs(modalFactory)];
+    factoryWithInvertedVelocity = [v14[2] factoryWithInvertedVelocity];
+    v18 = v14[3];
+    v14[3] = factoryWithInvertedVelocity;
   }
 
-  if (factory != 1.0 && modalFactory != 0.0)
+  if (velocity != 1.0 && scaleImpulse != 0.0)
   {
-    *(v14 + 32) = factory;
-    v19 = [scaleImpulseCopy copy];
-    v20 = *(v14 + 40);
-    *(v14 + 40) = v19;
+    *(v14 + 4) = velocity;
+    v19 = [factoryCopy copy];
+    v20 = v14[5];
+    v14[5] = v19;
 
-    if (factory >= 1.0)
+    if (velocity >= 1.0)
     {
-      v21 = factory + -1.0;
+      v21 = velocity + -1.0;
     }
 
     else
     {
-      v21 = 1.0 - factory;
+      v21 = 1.0 - velocity;
     }
 
-    modalFactoryCopy = -modalFactory;
-    if (factory >= 1.0)
+    scaleImpulseCopy = -scaleImpulse;
+    if (velocity >= 1.0)
     {
-      modalFactoryCopy = modalFactory;
+      scaleImpulseCopy = scaleImpulse;
     }
 
-    [*(v14 + 40) setVelocity:modalFactoryCopy / v21];
+    [v14[5] setVelocity:scaleImpulseCopy / v21];
   }
 
   return v14;

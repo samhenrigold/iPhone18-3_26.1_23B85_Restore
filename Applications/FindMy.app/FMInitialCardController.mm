@@ -11,7 +11,7 @@
 - (void)viewWillAppear:(BOOL)appear
 {
   selfCopy = self;
-  sub_1000273D8(appear);
+  sub_1000273D8(appear, selfCopy, v4);
 }
 
 - (_TtC6FindMy23FMInitialCardController)initWithCoder:(id)coder

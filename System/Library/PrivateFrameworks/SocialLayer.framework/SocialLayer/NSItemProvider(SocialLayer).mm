@@ -46,32 +46,32 @@
 
 - (id)sl_representations
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   registeredTypeIdentifiers = [self registeredTypeIdentifiers];
   v3 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(registeredTypeIdentifiers, "count")}];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v4 = registeredTypeIdentifiers;
-  v5 = [v4 countByEnumeratingWithState:&v16 objects:v24 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v15 objects:v23 count:16];
   if (v5)
   {
     v7 = v5;
-    v8 = *v17;
+    v8 = *v16;
     *&v6 = 138412546;
-    v15 = v6;
+    v14 = v6;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
-        v11 = [self _representationConformingToType:{v10, v15, v16}];
+        v10 = *(*(&v15 + 1) + 8 * i);
+        v11 = [self _representationConformingToType:{v10, v14, v15}];
         if (v11)
         {
           v12 = -[SLShareableContentRepresentation initWithTypeIdentifier:preferredRepresentation:]([SLShareableContentRepresentation alloc], "initWithTypeIdentifier:preferredRepresentation:", v10, [v11 preferredRepresentation]);
@@ -80,81 +80,75 @@
 
         else
         {
-          v12 = SLShareableContentLogHandle();
+          v12 = SLShareableContentLogHandle(0);
           if (os_log_type_enabled(&v12->super, OS_LOG_TYPE_ERROR))
           {
-            *buf = v15;
-            v21 = v10;
-            v22 = 2112;
+            *buf = v14;
+            v20 = v10;
+            v21 = 2112;
             selfCopy = self;
             _os_log_error_impl(&dword_231772000, &v12->super, OS_LOG_TYPE_ERROR, "Unexpectedly got empty representation for registered type identifier: %@ on item provider: %@", buf, 0x16u);
           }
         }
       }
 
-      v7 = [v4 countByEnumeratingWithState:&v16 objects:v24 count:16];
+      v7 = [v4 countByEnumeratingWithState:&v15 objects:v23 count:16];
     }
 
     while (v7);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (void)sl_loadRepresentationForTypeIdentifier:()SocialLayer completionHandler:
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = a4;
   v8 = [self _representationConformingToType:v6];
   v9 = v8;
   if (v8)
   {
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __88__NSItemProvider_SocialLayer__sl_loadRepresentationForTypeIdentifier_completionHandler___block_invoke;
-    v17[3] = &unk_2789278F8;
-    v18 = v8;
-    v19 = v7;
-    v10 = [v18 loadWithOptions_v2:0 completionHandler:v17];
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __88__NSItemProvider_SocialLayer__sl_loadRepresentationForTypeIdentifier_completionHandler___block_invoke;
+    v16[3] = &unk_2789278F8;
+    v17 = v8;
+    v18 = v7;
+    v10 = [v17 loadWithOptions_v2:0 completionHandler:v16];
 
-    v11 = v18;
+    v11 = v17;
   }
 
   else
   {
-    v12 = SLShareableContentLogHandle();
+    v12 = SLShareableContentLogHandle(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [(NSItemProvider(SocialLayer) *)v6 sl_loadRepresentationForTypeIdentifier:self completionHandler:v12];
     }
 
     v13 = MEMORY[0x277CCA9B8];
-    v20 = @"typeIdentifier";
-    v21[0] = v6;
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+    v19 = @"typeIdentifier";
+    v20[0] = v6;
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
     v11 = [v13 errorWithDomain:@"com.apple.SocialLayer.SLItemProviderErrorDomain" code:1 userInfo:v14];
 
     v15 = [SLShareableContentLoadResult resultWithError:v11];
     (*(v7 + 2))(v7, v15);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sl_loadRepresentationForTypeIdentifier:()SocialLayer completionHandler:.cold.1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = [a2 sl_representations];
-  v7 = 138412546;
-  v8 = a1;
-  v9 = 2112;
-  v10 = v5;
-  _os_log_error_impl(&dword_231772000, a3, OS_LOG_TYPE_ERROR, "Failed to find registered representation for requested type identifier: %@ registered representations: %@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138412546;
+  v7 = a1;
+  v8 = 2112;
+  v9 = v5;
+  _os_log_error_impl(&dword_231772000, a3, OS_LOG_TYPE_ERROR, "Failed to find registered representation for requested type identifier: %@ registered representations: %@", &v6, 0x16u);
 }
 
 @end

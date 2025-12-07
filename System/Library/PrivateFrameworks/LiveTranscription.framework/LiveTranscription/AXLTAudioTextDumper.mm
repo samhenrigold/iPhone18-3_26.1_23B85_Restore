@@ -30,38 +30,38 @@ uint64_t __37__AXLTAudioTextDumper_sharedInstance__block_invoke()
 
 - (AXLTAudioTextDumper)init
 {
-  v12.receiver = self;
-  v12.super_class = AXLTAudioTextDumper;
-  v2 = [(AXLTAudioTextDumper *)&v12 init];
+  v13.receiver = self;
+  v13.super_class = AXLTAudioTextDumper;
+  v2 = [(AXLTAudioTextDumper *)&v13 init];
   if (v2)
   {
     standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
     v4 = [standardUserDefaults BOOLForKey:@"saveTranscribedTextAndAudio"];
     if (v4)
     {
-      LOBYTE(v4) = isInternalInstall();
+      LOBYTE(v4) = isInternalInstall(v4, v5);
     }
 
     *(v2 + 8) = v4;
 
-    v5 = AXLogLiveTranscription();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = AXLogLiveTranscription();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       [(AXLTAudioTextDumper *)v2 + 8 init];
     }
 
     if (*(v2 + 8) == 1)
     {
-      v6 = dispatch_queue_create("com.apple.accessibility.LiveTranscription.audioOutTranscriberSaveQueue", 0);
-      v7 = *(v2 + 5);
-      *(v2 + 5) = v6;
+      v7 = dispatch_queue_create("com.apple.accessibility.LiveTranscription.audioOutTranscriberSaveQueue", 0);
+      v8 = *(v2 + 5);
+      *(v2 + 5) = v7;
 
-      v8 = NSTemporaryDirectory();
-      v9 = *(v2 + 4);
-      *(v2 + 4) = v8;
+      v9 = NSTemporaryDirectory();
+      v10 = *(v2 + 4);
+      *(v2 + 4) = v9;
 
-      v10 = AXLogLiveTranscription();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v11 = AXLogLiveTranscription();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         [(AXLTAudioTextDumper *)v2 + 4 init];
       }
@@ -242,38 +242,32 @@ uint64_t __30__AXLTAudioTextDumper_cleanUp__block_invoke(uint64_t a1)
 
 - (void)init
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *self;
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_debug_impl(&dword_256022000, a2, OS_LOG_TYPE_DEBUG, "Dump files path: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_debug_impl(&dword_256022000, a2, OS_LOG_TYPE_DEBUG, "Dump files path: %@", &v3, 0xCu);
 }
 
 void __64__AXLTAudioTextDumper_saveAudioBuffer_appName_sessionStartTime___block_invoke_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
-  _os_log_debug_impl(&dword_256022000, v0, OS_LOG_TYPE_DEBUG, "Audio file path is %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_256022000, v0, OS_LOG_TYPE_DEBUG, "Audio file path is %@", v1, 0xCu);
 }
 
 void __64__AXLTAudioTextDumper_saveAudioBuffer_appName_sessionStartTime___block_invoke_cold_2()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(&dword_256022000, v0, OS_LOG_TYPE_ERROR, "error %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_256022000, v0, OS_LOG_TYPE_ERROR, "error %@", v1, 0xCu);
 }
 
 void __68__AXLTAudioTextDumper_saveTranscribedText_appName_sessionStartTime___block_invoke_cold_1(id *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [*a1 textFileName];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1_1(&dword_256022000, v2, v3, "Text log file path is %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_256022000, v2, v3, "Text log file path is %@", v4, v5, v6, v7);
 }
 
 @end

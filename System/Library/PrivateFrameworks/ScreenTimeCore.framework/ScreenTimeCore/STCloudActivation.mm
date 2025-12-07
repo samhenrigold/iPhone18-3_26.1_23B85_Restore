@@ -2,8 +2,6 @@
 - (BOOL)updateWithDictionaryRepresentation:(id)representation;
 - (id)computeUniqueIdentifier;
 - (id)dictionaryRepresentation;
-- (void)computeUniqueIdentifier;
-- (void)dictionaryRepresentation;
 - (void)didChangeValueForKey:(id)key;
 @end
 
@@ -132,31 +130,14 @@
   return v8;
 }
 
-- (void)computeUniqueIdentifier
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_6();
-  _os_log_fault_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
 - (void)updateWithDictionaryRepresentation:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_fault_impl(&dword_1B831F000, log, OS_LOG_TYPE_FAULT, "Unable to update cloud activation with dictionary: %{public}@\n%{public}@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
-}
-
-- (void)dictionaryRepresentation
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_6();
-  _os_log_fault_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 2114;
+  v6 = a2;
+  _os_log_fault_impl(&dword_1B831F000, log, OS_LOG_TYPE_FAULT, "Unable to update cloud activation with dictionary: %{public}@\n%{public}@", &v3, 0x16u);
 }
 
 @end

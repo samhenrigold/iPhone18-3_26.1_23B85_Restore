@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)proxStateAsString:(int)string;
 - (int)StringAsProxState:(id)state;
 - (int)proxState;
 - (unint64_t)hash;
@@ -53,6 +54,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)proxStateAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100317E68 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsProxState:(id)state
@@ -200,7 +216,6 @@ LABEL_5:
   has = self->_has;
   if (has)
   {
-    band = self->_band;
     PBDataWriterWriteInt32Field();
     has = self->_has;
     if ((has & 4) == 0)
@@ -220,12 +235,10 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  proxState = self->_proxState;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 2) != 0)
   {
 LABEL_4:
-    powerCap10thDbm = self->_powerCap10thDbm;
     PBDataWriterWriteSint32Field();
   }
 
@@ -235,15 +248,14 @@ LABEL_5:
     PBDataWriterPlaceMark();
     if (self->_pucchCounters.count)
     {
-      v7 = 0;
+      v6 = 0;
       do
       {
-        v8 = self->_pucchCounters.list[v7];
         PBDataWriterWriteUint32Field();
-        ++v7;
+        ++v6;
       }
 
-      while (v7 < self->_pucchCounters.count);
+      while (v6 < self->_pucchCounters.count);
     }
 
     PBDataWriterRecallMark();
@@ -255,15 +267,14 @@ LABEL_5:
     PBDataWriterPlaceMark();
     if (p_puschCounters->count)
     {
-      v10 = 0;
+      v8 = 0;
       do
       {
-        v11 = p_puschCounters->list[v10];
         PBDataWriterWriteUint32Field();
-        ++v10;
+        ++v8;
       }
 
-      while (v10 < p_puschCounters->count);
+      while (v8 < p_puschCounters->count);
     }
 
     PBDataWriterRecallMark();
@@ -392,7 +403,6 @@ LABEL_5:
     goto LABEL_19;
   }
 
-  v5 = *(equalCopy + 68);
   if (*&self->_has)
   {
     if ((*(equalCopy + 68) & 1) == 0 || self->_band != *(equalCopy + 14))

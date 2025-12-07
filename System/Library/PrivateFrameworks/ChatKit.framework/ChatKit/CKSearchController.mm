@@ -163,35 +163,36 @@
 {
   textCopy = text;
   sectionTitle = [objc_opt_class() sectionTitle];
-  if ([textCopy length])
+  v5 = [textCopy length];
+  if (v5)
   {
-    v5 = MEMORY[0x1E696AEC0];
-    v6 = CKFrameworkBundle();
-    v7 = [v6 localizedStringForKey:@"SEARCH_RESULTS_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
-    v8 = [v5 stringWithFormat:v7, textCopy, sectionTitle];
+    v6 = MEMORY[0x1E696AEC0];
+    v7 = CKFrameworkBundle(v5);
+    v8 = [v7 localizedStringForKey:@"SEARCH_RESULTS_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+    v9 = [v6 stringWithFormat:v8, textCopy, sectionTitle];
 
     mEMORY[0x1E69DC668] = [MEMORY[0x1E69DC668] sharedApplication];
     userInterfaceLayoutDirection = [mEMORY[0x1E69DC668] userInterfaceLayoutDirection];
 
     if (userInterfaceLayoutDirection == 1)
     {
-      v11 = @"\u200F";
+      v12 = @"\u200F";
     }
 
     else
     {
-      v11 = @"\u200E";
+      v12 = @"\u200E";
     }
 
-    v12 = [(__CFString *)v11 stringByAppendingString:v8];
+    v13 = [(__CFString *)v12 stringByAppendingString:v9];
   }
 
   else
   {
-    v12 = sectionTitle;
+    v13 = sectionTitle;
   }
 
-  return v12;
+  return v13;
 }
 
 + (id)supportedCellClasses
@@ -333,7 +334,7 @@
   width = rect.size.width;
   y = rect.origin.y;
   x = rect.origin.x;
-  v44 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   resultCopy = result;
   pathCopy = path;
   v13 = [(CKSearchController *)self _overridingMenuElementsForResult:resultCopy];
@@ -344,69 +345,69 @@
 
   else
   {
-    v35 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"doc.on.doc"];
-    v32 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"square.and.arrow.up"];
-    objc_initWeak(&location, self);
-    v15 = MEMORY[0x1E69DC628];
-    v16 = CKFrameworkBundle();
-    v17 = [v16 localizedStringForKey:@"SEARCH_COPY" value:&stru_1F04268F8 table:@"ChatKit"];
-    v39[0] = MEMORY[0x1E69E9820];
-    v39[1] = 3221225472;
-    v39[2] = __67__CKSearchController_menuElementsForResult_atIndexPath_sourceRect___block_invoke;
-    v39[3] = &unk_1E72EFBD8;
-    v39[4] = self;
-    v18 = resultCopy;
-    v40 = v18;
-    v34 = [v15 actionWithTitle:v17 image:v35 identifier:0 handler:v39];
+    v37 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"doc.on.doc"];
+    v34 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"square.and.arrow.up"];
+    inited = objc_initWeak(&location, self);
+    v16 = MEMORY[0x1E69DC628];
+    v17 = CKFrameworkBundle(inited);
+    v18 = [v17 localizedStringForKey:@"SEARCH_COPY" value:&stru_1F04268F8 table:@"ChatKit"];
+    v41[0] = MEMORY[0x1E69E9820];
+    v41[1] = 3221225472;
+    v41[2] = __67__CKSearchController_menuElementsForResult_atIndexPath_sourceRect___block_invoke;
+    v41[3] = &unk_1E72EFBD8;
+    v41[4] = self;
+    v19 = resultCopy;
+    v42 = v19;
+    v36 = [v16 actionWithTitle:v18 image:v37 identifier:0 handler:v41];
 
-    v19 = objc_loadWeakRetained(&location);
-    v20 = [v19 _activityItemProviderForResult:v18];
+    v20 = objc_loadWeakRetained(&location);
+    v21 = [v20 _activityItemProviderForResult:v19];
 
-    if (v20)
+    if (v21)
     {
-      v21 = MEMORY[0x1E69DC628];
-      v22 = CKFrameworkBundle();
-      v23 = [v22 localizedStringForKey:@"SEARCH_SHARE" value:&stru_1F04268F8 table:@"ChatKit"];
-      v36[0] = MEMORY[0x1E69E9820];
-      v36[1] = 3221225472;
-      v36[2] = __67__CKSearchController_menuElementsForResult_atIndexPath_sourceRect___block_invoke_2;
-      v36[3] = &unk_1E72F2338;
-      v37 = v20;
-      objc_copyWeak(v38, &location);
-      v38[1] = *&x;
-      v38[2] = *&y;
-      v38[3] = *&width;
-      v38[4] = *&height;
-      v24 = [v21 actionWithTitle:v23 image:v32 identifier:0 handler:v36];
+      v23 = MEMORY[0x1E69DC628];
+      v24 = CKFrameworkBundle(v22);
+      v25 = [v24 localizedStringForKey:@"SEARCH_SHARE" value:&stru_1F04268F8 table:@"ChatKit"];
+      v38[0] = MEMORY[0x1E69E9820];
+      v38[1] = 3221225472;
+      v38[2] = __67__CKSearchController_menuElementsForResult_atIndexPath_sourceRect___block_invoke_2;
+      v38[3] = &unk_1E72F2338;
+      v39 = v21;
+      objc_copyWeak(v40, &location);
+      v40[1] = *&x;
+      v40[2] = *&y;
+      v40[3] = *&width;
+      v40[4] = *&height;
+      v26 = [v23 actionWithTitle:v25 image:v34 identifier:0 handler:v38];
 
-      objc_destroyWeak(v38);
+      objc_destroyWeak(v40);
     }
 
     else
     {
       if (IMOSLoggingEnabled())
       {
-        v25 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+        v27 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
         {
-          identifier = [v18 identifier];
+          identifier = [v19 identifier];
           *buf = 138412290;
-          v43 = identifier;
-          _os_log_impl(&dword_19020E000, v25, OS_LOG_TYPE_INFO, "Unable to generate share content for result: %@", buf, 0xCu);
+          v45 = identifier;
+          _os_log_impl(&dword_19020E000, v27, OS_LOG_TYPE_INFO, "Unable to generate share content for result: %@", buf, 0xCu);
         }
       }
 
-      v24 = 0;
+      v26 = 0;
     }
 
-    v27 = [MEMORY[0x1E695DF70] arrayWithObject:{v34, v32}];
-    v28 = v27;
-    if (v24)
+    v29 = [MEMORY[0x1E695DF70] arrayWithObject:{v36, v34}];
+    v30 = v29;
+    if (v26)
     {
-      [v27 addObject:v24];
+      [v29 addObject:v26];
     }
 
-    array = [(CKSearchController *)self _additionalMenuElementsForResult:v18];
+    array = [(CKSearchController *)self _additionalMenuElementsForResult:v19];
     if (!array)
     {
       array = [MEMORY[0x1E695DEC8] array];
@@ -414,13 +415,13 @@
 
     if (CKIsRunningInMacCatalyst())
     {
-      v30 = [MEMORY[0x1E69DCC60] menuWithTitle:&stru_1F04268F8 image:0 identifier:0 options:1 children:v28];
-      v14 = [array arrayByAddingObject:v30];
+      v32 = [MEMORY[0x1E69DCC60] menuWithTitle:&stru_1F04268F8 image:0 identifier:0 options:1 children:v30];
+      v14 = [array arrayByAddingObject:v32];
     }
 
     else
     {
-      v14 = [array arrayByAddingObjectsFromArray:v28];
+      v14 = [array arrayByAddingObjectsFromArray:v30];
     }
 
     objc_destroyWeak(&location);

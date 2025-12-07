@@ -58,49 +58,48 @@
   v16[3] = &unk_1E72627A0;
   v16[4] = &v20;
   v16[5] = &v17;
-  [activityCopy _createUserActivityDataWithOptions:0 completionHandler:v16];
+  v5 = [activityCopy _createUserActivityDataWithOptions:0 completionHandler:v16];
   if (*(v18[0] + 40))
   {
-    v5 = _logger();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = _logger(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      [(ACUISOpenApplicationAction *)v18 initWithNSUserActivity:v5];
+      [(ACUISOpenApplicationAction *)v18 initWithNSUserActivity:v6];
     }
 
     v15.receiver = self;
     v15.super_class = ACUISOpenApplicationAction;
-    v6 = [(ACUISOpenApplicationAction *)&v15 initWithInfo:0 responder:0];
+    v7 = [(ACUISOpenApplicationAction *)&v15 initWithInfo:0 responder:0];
   }
 
   else
   {
-    v7 = v21[5];
+    v8 = v21[5];
     v26 = &unk_1F01A3D48;
-    v27[0] = v7;
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v26 count:1];
-    v9 = [objc_alloc(MEMORY[0x1E69DC630]) initWithSettings:v8];
-    if (v9)
+    v27[0] = v8;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v26 count:1];
+    v10 = [objc_alloc(MEMORY[0x1E69DC630]) initWithSettings:v9];
+    if (v10)
     {
-      v10 = objc_opt_new();
-      [v10 setObject:v9 forSetting:1];
+      v11 = objc_opt_new();
+      [v11 setObject:v10 forSetting:1];
       v14.receiver = self;
       v14.super_class = ACUISOpenApplicationAction;
-      v6 = [(ACUISOpenApplicationAction *)&v14 initWithInfo:v10 responder:0];
+      v7 = [(ACUISOpenApplicationAction *)&v14 initWithInfo:v11 responder:0];
     }
 
     else
     {
       v13.receiver = self;
       v13.super_class = ACUISOpenApplicationAction;
-      v6 = [(ACUISOpenApplicationAction *)&v13 initWithInfo:0 responder:0];
+      v7 = [(ACUISOpenApplicationAction *)&v13 initWithInfo:0 responder:0];
     }
   }
 
   _Block_object_dispose(&v17, 8);
 
   _Block_object_dispose(&v20, 8);
-  v11 = *MEMORY[0x1E69E9840];
-  return v6;
+  return v7;
 }
 
 void __53__ACUISOpenApplicationAction_initWithNSUserActivity___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -154,12 +153,11 @@ void __53__ACUISOpenApplicationAction_initWithNSUserActivity___block_invoke(uint
 
 - (void)initWithNSUserActivity:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *(*a1 + 40);
-  v4 = 138543362;
-  v5 = v2;
-  _os_log_error_impl(&dword_18E60F000, a2, OS_LOG_TYPE_ERROR, "Unable to serialize NSUserActivity: %{public}@", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138543362;
+  v4 = v2;
+  _os_log_error_impl(&dword_18E60F000, a2, OS_LOG_TYPE_ERROR, "Unable to serialize NSUserActivity: %{public}@", &v3, 0xCu);
 }
 
 @end

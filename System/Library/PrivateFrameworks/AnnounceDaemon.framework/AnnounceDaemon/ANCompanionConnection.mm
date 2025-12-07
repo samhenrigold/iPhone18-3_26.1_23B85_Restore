@@ -3,7 +3,6 @@
 - (ANCompanionConnectionDelegate)delegate;
 - (void)_registerForEvents;
 - (void)_setupLink;
-- (void)_tearDownLink;
 - (void)broadcastAnnouncementPlayed:(id)played;
 @end
 
@@ -29,40 +28,38 @@
 
 - (void)broadcastAnnouncementPlayed:(id)played
 {
-  v11[2] = *MEMORY[0x277D85DE8];
+  v10[2] = *MEMORY[0x277D85DE8];
   playedCopy = played;
   if (([MEMORY[0x277CEAB88] isPad] & 1) == 0)
   {
     v5 = *MEMORY[0x277D44230];
-    v10[0] = @"announcementID";
-    v10[1] = @"senderType";
-    v11[0] = playedCopy;
+    v9[0] = @"announcementID";
+    v9[1] = @"senderType";
+    v10[0] = playedCopy;
     v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:1];
-    v11[1] = v6;
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+    v10[1] = v6;
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
 
     companionLinkClient = [(ANCompanionConnection *)self companionLinkClient];
     [companionLinkClient sendEventID:@"com.apple.announce.AnnouncementPlayed" event:v7 destinationID:v5 options:0 completion:&__block_literal_global_32];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __53__ANCompanionConnection_broadcastAnnouncementPlayed___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = a2;
-  v3 = ANLogHandleCompanionConnection();
+  v3 = ANLogHandleCompanionConnection(v2);
   v4 = v3;
   if (v2)
   {
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v6 = 138412546;
-      v7 = &stru_2851BDB18;
-      v8 = 2112;
-      v9 = v2;
-      _os_log_impl(&dword_23F525000, v4, OS_LOG_TYPE_ERROR, "%@Broadcast Announcement Played Event Failed: %@", &v6, 0x16u);
+      v5 = 138412546;
+      v6 = &stru_2851BDB18;
+      v7 = 2112;
+      v8 = v2;
+      _os_log_impl(&dword_23F525000, v4, OS_LOG_TYPE_ERROR, "%@Broadcast Announcement Played Event Failed: %@", &v5, 0x16u);
     }
 
     v4 = +[ANAnalytics shared];
@@ -71,12 +68,10 @@ void __53__ANCompanionConnection_broadcastAnnouncementPlayed___block_invoke(uint
 
   else if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
-    v7 = &stru_2851BDB18;
-    _os_log_impl(&dword_23F525000, v4, OS_LOG_TYPE_DEFAULT, "%@Announcement Played Event Broadcasted Successfully", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = &stru_2851BDB18;
+    _os_log_impl(&dword_23F525000, v4, OS_LOG_TYPE_DEFAULT, "%@Announcement Played Event Broadcasted Successfully", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setupLink
@@ -119,19 +114,19 @@ void __35__ANCompanionConnection__setupLink__block_invoke(uint64_t a1)
 
 void __35__ANCompanionConnection__setupLink__block_invoke_2(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = ANLogHandleCompanionConnection();
+  v4 = ANLogHandleCompanionConnection(v3);
   v5 = v4;
   if (v3)
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v8 = 138412546;
-      v9 = &stru_2851BDB18;
-      v10 = 2112;
-      v11 = v3;
-      _os_log_impl(&dword_23F525000, v5, OS_LOG_TYPE_ERROR, "%@Error activating link '%@'", &v8, 0x16u);
+      v7 = 138412546;
+      v8 = &stru_2851BDB18;
+      v9 = 2112;
+      v10 = v3;
+      _os_log_impl(&dword_23F525000, v5, OS_LOG_TYPE_ERROR, "%@Error activating link '%@'", &v7, 0x16u);
     }
 
     WeakRetained = +[ANAnalytics shared];
@@ -142,33 +137,24 @@ void __35__ANCompanionConnection__setupLink__block_invoke_2(uint64_t a1, void *a
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 138412290;
-      v9 = &stru_2851BDB18;
-      _os_log_impl(&dword_23F525000, v5, OS_LOG_TYPE_DEFAULT, "%@Link activated succcessfully", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = &stru_2851BDB18;
+      _os_log_impl(&dword_23F525000, v5, OS_LOG_TYPE_DEFAULT, "%@Link activated succcessfully", &v7, 0xCu);
     }
 
     WeakRetained = objc_loadWeakRetained((a1 + 32));
     [WeakRetained _registerForEvents];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_tearDownLink
-{
-  companionLinkClient = self->_companionLinkClient;
-  self->_companionLinkClient = 0;
-  MEMORY[0x2821F96F8]();
 }
 
 - (void)_registerForEvents
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v3 = ANLogHandleCompanionConnection();
+  v10 = *MEMORY[0x277D85DE8];
+  v3 = ANLogHandleCompanionConnection(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v10 = &stru_2851BDB18;
+    v9 = &stru_2851BDB18;
     _os_log_impl(&dword_23F525000, v3, OS_LOG_TYPE_DEFAULT, "%@Registering for Event IDs", buf, 0xCu);
   }
 
@@ -177,16 +163,15 @@ void __35__ANCompanionConnection__setupLink__block_invoke_2(uint64_t a1, void *a
 
   objc_initWeak(buf, self);
   companionLinkClient2 = [(ANCompanionConnection *)self companionLinkClient];
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __43__ANCompanionConnection__registerForEvents__block_invoke;
-  v7[3] = &unk_278C877F0;
-  objc_copyWeak(&v8, buf);
-  [companionLinkClient2 registerEventID:@"com.apple.announce.AnnouncementPlayed" options:0 handler:v7];
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __43__ANCompanionConnection__registerForEvents__block_invoke;
+  v6[3] = &unk_278C877F0;
+  objc_copyWeak(&v7, buf);
+  [companionLinkClient2 registerEventID:@"com.apple.announce.AnnouncementPlayed" options:0 handler:v6];
 
-  objc_destroyWeak(&v8);
+  objc_destroyWeak(&v7);
   objc_destroyWeak(buf);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __43__ANCompanionConnection__registerForEvents__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -197,7 +182,7 @@ void __43__ANCompanionConnection__registerForEvents__block_invoke(uint64_t a1, v
   v7 = [v5 valueForKey:@"senderType"];
   v8 = [v7 unsignedIntegerValue];
   v9 = [v5 valueForKey:@"announcementID"];
-  v10 = ANLogHandleCompanionConnection();
+  v10 = ANLogHandleCompanionConnection(v9);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v16 = 138412802;
@@ -211,15 +196,15 @@ void __43__ANCompanionConnection__registerForEvents__block_invoke(uint64_t a1, v
 
   if (v8 != 1)
   {
-    v13 = ANLogHandleCompanionConnection();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = ANLogHandleCompanionConnection(v11);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v8];
+      v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v8];
       v16 = 138412546;
       v17 = &stru_2851BDB18;
       v18 = 2112;
-      v19 = v14;
-      _os_log_impl(&dword_23F525000, v13, OS_LOG_TYPE_ERROR, "%@Unsupported Sender Type (%@). Ignoring Event.", &v16, 0x16u);
+      v19 = v15;
+      _os_log_impl(&dword_23F525000, v14, OS_LOG_TYPE_ERROR, "%@Unsupported Sender Type (%@). Ignoring Event.", &v16, 0x16u);
     }
 
     WeakRetained = +[ANAnalytics shared];
@@ -230,13 +215,11 @@ void __43__ANCompanionConnection__registerForEvents__block_invoke(uint64_t a1, v
   if (v9)
   {
     WeakRetained = objc_loadWeakRetained((a1 + 32));
-    v12 = [WeakRetained delegate];
-    [v12 companionDidPlayAnnouncement:v9];
+    v13 = [WeakRetained delegate];
+    [v13 companionDidPlayAnnouncement:v9];
 
 LABEL_9:
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (ANCompanionConnectionDelegate)delegate

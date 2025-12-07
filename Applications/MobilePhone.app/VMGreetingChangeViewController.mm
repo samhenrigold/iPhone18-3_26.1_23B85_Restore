@@ -76,8 +76,8 @@
   if (v5 >= 2)
   {
     accountsViewController = [(VMGreetingChangeViewController *)self accountsViewController];
-    v18 = accountsViewController;
-    v7 = [NSArray arrayWithObjects:&v18 count:1];
+    v19 = accountsViewController;
+    v7 = [NSArray arrayWithObjects:&v19 count:1];
     [(VMGreetingChangeViewController *)self setViewControllers:v7];
     goto LABEL_8;
   }
@@ -91,11 +91,11 @@
     selectedAccount = [(VMGreetingChangeViewController *)self selectedAccount];
     v7 = [(VMGreetingChangeViewController *)self greetingViewControllerForAccount:selectedAccount];
 
-    v17 = v7;
-    v10 = &v17;
+    v18 = v7;
+    v10 = &v18;
 LABEL_7:
-    v14 = [NSArray arrayWithObjects:v10 count:1];
-    [(VMGreetingChangeViewController *)self setViewControllers:v14];
+    v15 = [NSArray arrayWithObjects:v10 count:1];
+    [(VMGreetingChangeViewController *)self setViewControllers:v15];
 
     goto LABEL_8;
   }
@@ -110,16 +110,16 @@ LABEL_7:
     selectedAccount2 = [(VMGreetingChangeViewController *)self selectedAccount];
     v7 = [(VMGreetingChangeViewController *)self greetingViewControllerForAccount:selectedAccount2];
 
-    v16 = v7;
-    v10 = &v16;
+    v17 = v7;
+    v10 = &v17;
     goto LABEL_7;
   }
 
-  v7 = PHDefaultLog();
+  v7 = PHDefaultLog(v12);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v15[0] = 0;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "No accounts were found.", v15, 2u);
+    v16[0] = 0;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "No accounts were found.", v16, 2u);
   }
 
 LABEL_8:
@@ -230,7 +230,7 @@ LABEL_8:
 
   else
   {
-    v9 = PHDefaultLog();
+    v9 = PHDefaultLog(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = 134217984;
@@ -252,7 +252,7 @@ LABEL_8:
   selfCopy = self;
   if ([(VMGreetingChangeViewController *)selfCopy liveVoicemailEnabled])
   {
-    v3 = objc_allocWithZone(type metadata accessor for GreetingAccount());
+    v3 = objc_allocWithZone(type metadata accessor for GreetingAccount(0));
     v4 = GreetingAccount.init(accountType:)(0, 2);
 
     v5 = v4;
@@ -285,7 +285,7 @@ LABEL_8:
 
 - (BOOL)arrayContainsUUID:(id)d uuid:(id)uuid
 {
-  type metadata accessor for GreetingAccount();
+  type metadata accessor for GreetingAccount(0);
   v5 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   v6 = static String._unconditionallyBridgeFromObjectiveC(_:)();
   v8 = v7;

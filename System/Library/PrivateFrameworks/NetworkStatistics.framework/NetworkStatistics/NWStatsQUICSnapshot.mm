@@ -1,5 +1,6 @@
 @interface NWStatsQUICSnapshot
 - (NSString)QUICState;
+- (NWStatsQUICSnapshot)initWithDetails:(const nstat_msg_src_details_convenient *)details startTime:(double)time flowFlags:(unsigned int)flags previously:(details_subset_for_deltas *)previously peerEgressCellularCounts:(const nstat_interface_counts *)counts;
 - (double)flowSnapshotTimeIntervalSinceReferenceDate;
 - (double)flowStartTimeIntervalSinceReferenceDate;
 - (double)rttAverage;
@@ -324,14 +325,14 @@
 
 - (NSString)QUICState
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   state = self->_descriptor->state;
-  v7[2] = xmmword_27996E230;
-  v7[3] = *&off_27996E240;
-  v7[4] = xmmword_27996E250;
-  v7[5] = *&off_27996E260;
-  v7[0] = xmmword_27996E210;
-  v7[1] = *&off_27996E220;
+  v6[2] = xmmword_27996E230;
+  v6[3] = *&off_27996E240;
+  v6[4] = xmmword_27996E250;
+  v6[5] = *&off_27996E260;
+  v6[0] = xmmword_27996E210;
+  v6[1] = *&off_27996E220;
   if (state > 0xB)
   {
     v3 = 0;
@@ -339,14 +340,12 @@
 
   else
   {
-    v3 = *(v7 + state);
+    v3 = *(v6 + state);
   }
 
   for (i = 88; i != -8; i -= 8)
   {
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -362,6 +361,21 @@
   {
     return self->_descriptor->state;
   }
+}
+
+- (NWStatsQUICSnapshot)initWithDetails:(const nstat_msg_src_details_convenient *)details startTime:(double)time flowFlags:(unsigned int)flags previously:(details_subset_for_deltas *)previously peerEgressCellularCounts:(const nstat_interface_counts *)counts
+{
+  v11.receiver = self;
+  v11.super_class = NWStatsQUICSnapshot;
+  v8 = [(NWStatsUDPSnapshot *)&v11 initWithDetails:details startTime:*&flags flowFlags:previously previously:counts peerEgressCellularCounts:?];
+  v9 = v8;
+  if (v8)
+  {
+    v8->_descriptor = ([(NWStatsProtocolSnapshot *)v8 _details_ptr]+ 488);
+    v9->_startTimeInterval = time;
+  }
+
+  return v9;
 }
 
 @end

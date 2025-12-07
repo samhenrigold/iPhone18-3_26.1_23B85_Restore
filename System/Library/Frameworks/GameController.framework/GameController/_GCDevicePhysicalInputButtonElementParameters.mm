@@ -3,7 +3,6 @@
 - (_GCDevicePhysicalInputButtonElementParameters)init;
 - (double)pressedThreshold;
 - (id)copyWithZone:(_NSZone *)zone;
-- (id)sources;
 - (uint64_t)eventAnalogPressValueField;
 - (uint64_t)eventForceValueField;
 - (uint64_t)eventPressedValueField;
@@ -20,6 +19,7 @@
 - (void)setForce:(uint64_t)force;
 - (void)setSources:(uint64_t)sources;
 - (void)setTouch:(void *)touch;
+- (void)sources;
 @end
 
 @implementation _GCDevicePhysicalInputButtonElementParameters
@@ -88,7 +88,7 @@
   return v8;
 }
 
-- (id)sources
+- (void)sources
 {
   selfCopy = self;
   if (self)

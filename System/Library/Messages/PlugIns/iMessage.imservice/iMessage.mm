@@ -30,23 +30,16 @@ uint64_t sub_24A0()
   v2 = *(v1 + 80);
   v3 = (v2 + 40) & ~v2;
   v4 = *(v1 + 64);
-  v5 = *(v0 + 16);
   swift_unknownObjectRelease();
 
-  v6 = sub_BD544();
-  v7 = *(v6 - 8);
-  if (!(*(v7 + 48))(v0 + v3, 1, v6))
+  v5 = sub_BD544();
+  v6 = *(v5 - 8);
+  if (!(*(v6 + 48))(v0 + v3, 1, v5))
   {
-    (*(v7 + 8))(v0 + v3, v6);
+    (*(v6 + 8))(v0 + v3, v5);
   }
 
-  v8 = (v4 + v3 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v9 = (v8 + 25) & 0xFFFFFFFFFFFFFFF8;
-  v10 = *(v0 + v8 + 8);
-
-  v11 = *(v0 + v9 + 8);
-
-  return _swift_deallocObject(v0, v9 + 16, v2 | 7);
+  return _swift_deallocObject(v0, ((((v4 + v3 + 7) & 0xFFFFFFFFFFFFFFF8) + 25) & 0xFFFFFFFFFFFFFFF8) + 16, v2 | 7);
 }
 
 uint64_t sub_25F4()
@@ -55,22 +48,16 @@ uint64_t sub_25F4()
   v2 = *(v1 + 80);
   v3 = (v2 + 40) & ~v2;
   v4 = *(v1 + 64);
-  v5 = *(v0 + 16);
   swift_unknownObjectRelease();
 
-  v6 = sub_BD544();
-  v7 = *(v6 - 8);
-  if (!(*(v7 + 48))(v0 + v3, 1, v6))
+  v5 = sub_BD544();
+  v6 = *(v5 - 8);
+  if (!(*(v6 + 48))(v0 + v3, 1, v5))
   {
-    (*(v7 + 8))(v0 + v3, v6);
+    (*(v6 + 8))(v0 + v3, v5);
   }
 
-  v8 = (v3 + v4 + 31) & 0xFFFFFFFFFFFFFFF8;
-  v9 = *(v0 + ((v3 + v4 + 7) & 0xFFFFFFFFFFFFFFF8) + 8);
-
-  v10 = *(v0 + v8 + 8);
-
-  return _swift_deallocObject(v0, v8 + 16, v2 | 7);
+  return _swift_deallocObject(v0, ((v3 + v4 + 31) & 0xFFFFFFFFFFFFFFF8) + 16, v2 | 7);
 }
 
 uint64_t sub_2758()
@@ -82,14 +69,12 @@ uint64_t sub_2758()
 
 uint64_t sub_2790()
 {
-  v1 = *(v0 + 16);
 
   return _swift_deallocObject(v0, 32, 7);
 }
 
 uint64_t sub_27D0()
 {
-  v1 = *(v0 + 16);
 
   return _swift_deallocObject(v0, 24, 7);
 }
@@ -109,69 +94,26 @@ uint64_t sub_2840()
 
 uint64_t sub_28C4()
 {
-  v1 = *(v0 + 32);
 
   return _swift_deallocObject(v0, 40, 7);
 }
 
 uint64_t sub_2904()
 {
-  v1 = *(v0 + 16);
-
-  v2 = *(v0 + 32);
-
-  v3 = *(v0 + 64);
-
-  v4 = *(v0 + 80);
-
-  v5 = *(v0 + 96);
-
-  v6 = *(v0 + 112);
-
-  v7 = *(v0 + 128);
-
-  v8 = *(v0 + 176);
 
   sub_AB9CC(*(v0 + 192), *(v0 + 200), *(v0 + 208), *(v0 + 216), *(v0 + 224), *(v0 + 232), *(v0 + 240), *(v0 + 248), *(v0 + 256), *(v0 + 264), *(v0 + 272), *(v0 + 280), *(v0 + 288), *(v0 + 296), *(v0 + 304), *(v0 + 312), *(v0 + 320), *(v0 + 328));
-  v9 = *(v0 + 344);
 
   return _swift_deallocObject(v0, 360, 7);
 }
 
 uint64_t sub_29C8()
 {
-  v1 = *(v0 + 16);
-
-  v2 = *(v0 + 32);
 
   return _swift_deallocObject(v0, 40, 7);
 }
 
 uint64_t sub_2A08()
 {
-  v1 = *(v0 + 32);
-
-  v2 = *(v0 + 48);
-
-  v3 = *(v0 + 64);
-
-  v4 = *(v0 + 80);
-
-  v5 = *(v0 + 96);
-
-  v6 = *(v0 + 144);
-
-  v7 = *(v0 + 160);
-
-  v8 = *(v0 + 168);
-
-  v9 = *(v0 + 192);
-
-  v10 = *(v0 + 208);
-
-  v11 = *(v0 + 224);
-
-  v12 = *(v0 + 240);
 
   sub_AB9CC(*(v0 + 256), *(v0 + 264), *(v0 + 272), *(v0 + 280), *(v0 + 288), *(v0 + 296), *(v0 + 304), *(v0 + 312), *(v0 + 320), *(v0 + 328), *(v0 + 336), *(v0 + 344), *(v0 + 352), *(v0 + 360), *(v0 + 368), *(v0 + 376), *(v0 + 384), *(v0 + 392));
 
@@ -180,29 +122,18 @@ uint64_t sub_2A08()
 
 uint64_t sub_2ADC()
 {
-  v1 = *(v0 + 24);
 
   return _swift_deallocObject(v0, 32, 7);
 }
 
 uint64_t sub_2B14()
 {
-  v1 = *(v0 + 40);
-
-  v2 = *(v0 + 56);
-
-  v3 = *(v0 + 72);
-
-  v4 = *(v0 + 88);
 
   return _swift_deallocObject(v0, 113, 7);
 }
 
 uint64_t sub_2B7C()
 {
-  v1 = *(v0 + 24);
-
-  v2 = *(v0 + 64);
 
   return _swift_deallocObject(v0, 80, 7);
 }
@@ -213,27 +144,19 @@ uint64_t sub_2BCC()
   v2 = *(v1 - 8);
   v3 = *(v2 + 80);
   v4 = (v3 + 16) & ~v3;
-  v5 = (*(v2 + 64) + v4 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v6 = (v5 + 23) & 0xFFFFFFFFFFFFFFF8;
-  v7 = (type metadata accessor for BackgroundUploadContext() - 8);
-  v8 = *(*v7 + 80);
-  v9 = (v6 + v8 + 8) & ~v8;
-  v17 = v3 | v8;
-  v16 = (*(*v7 + 64) + v9 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v10 = *(v2 + 8);
-  v10(v0 + v4, v1);
-  v11 = *(v0 + v5 + 8);
+  v5 = (((*(v2 + 64) + v4 + 7) & 0xFFFFFFFFFFFFFFF8) + 23) & 0xFFFFFFFFFFFFFFF8;
+  v6 = (type metadata accessor for BackgroundUploadContext(0) - 8);
+  v7 = *(*v6 + 80);
+  v8 = (v5 + v7 + 8) & ~v7;
+  v12 = v3 | v7;
+  v11 = (*(*v6 + 64) + v8 + 7) & 0xFFFFFFFFFFFFFFF8;
+  v9 = *(v2 + 8);
+  v9(v0 + v4, v1);
 
-  v10(v0 + v9, v1);
-  v10(v0 + v9 + v7[7], v1);
+  v9(v0 + v8, v1);
+  v9(v0 + v8 + v6[7], v1);
 
-  v12 = *(v0 + v9 + v7[9] + 8);
-
-  v13 = *(v0 + v9 + v7[12] + 8);
-
-  v14 = *(v0 + v16 + 8);
-
-  return _swift_deallocObject(v0, v16 + 16, v17 | 7);
+  return _swift_deallocObject(v0, v11 + 16, v12 | 7);
 }
 
 uint64_t sub_2DB8(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -287,7 +210,6 @@ uint64_t sub_2F34()
 
 uint64_t sub_2F78()
 {
-  v1 = *(v0 + 24);
 
   return _swift_deallocObject(v0, 32, 7);
 }
@@ -306,14 +228,13 @@ uint64_t sub_2FB8()
 
 uint64_t sub_305C()
 {
-  v1 = *(v0 + 24);
 
   return _swift_deallocObject(v0, 32, 7);
 }
 
 uint64_t sub_4430()
 {
-  v51 = v0;
+  v46 = v0;
   if (*(*(v0 + 32) + 16))
   {
     goto LABEL_6;
@@ -326,36 +247,36 @@ uint64_t sub_4430()
 
   while (1)
   {
-    v1 = *(v0 + 48);
-    v2 = sub_BD7B4();
-    sub_96A28(v2, qword_1241A0);
+    v1 = sub_BD7B4();
+    sub_96A28(v1, qword_1241A0);
 
-    v3 = sub_BD794();
-    v4 = sub_BDA64();
+    v2 = sub_BD794();
+    v3 = sub_BDA64();
 
-    if (os_log_type_enabled(v3, v4))
+    if (os_log_type_enabled(v2, v3))
     {
-      v6 = *(v0 + 40);
-      v5 = *(v0 + 48);
+      v5 = *(v0 + 40);
+      v4 = *(v0 + 48);
+      v6 = swift_slowAlloc();
       v7 = swift_slowAlloc();
-      v8 = swift_slowAlloc();
-      v50 = v8;
-      *v7 = 136446210;
-      *(v7 + 4) = sub_96A60(v6, v5, &v50);
-      _os_log_impl(&dword_0, v3, v4, "%{public}s IDS cache did not return any results", v7, 0xCu);
-      sub_97C9C(v8);
+      v45 = v7;
+      *v6 = 136446210;
+      *(v6 + 4) = sub_96A60(v5, v4, &v45);
+      _os_log_impl(&dword_0, v2, v3, "%{public}s IDS cache did not return any results", v6, 0xCu);
+      sub_97C9C(v7);
     }
 
 LABEL_6:
-    v9 = *(v0 + 72);
-    v10 = *(v9 + 16);
-    if (v10)
+    v8 = *(v0 + 72);
+    v9 = *(v8 + 16);
+    if (v9)
     {
-      v11 = sub_B9C20(*(v9 + 16), 0);
-      v12 = sub_BB2DC(&v50, v11 + 4, v10, v9);
+      v10 = sub_B9C20(*(v8 + 16), 0);
+      v11 = sub_BB2DC(&v45, v10 + 4, v9, v8);
+      v12 = v45;
 
-      sub_75A8();
-      if (v12 != v10)
+      sub_75A8(v12);
+      if (v11 != v9)
       {
         goto LABEL_47;
       }
@@ -369,7 +290,7 @@ LABEL_6:
 
     else
     {
-      v11 = &_swiftEmptyArrayStorage;
+      v10 = _swiftEmptyArrayStorage;
       v13 = *(v0 + 64);
       if (!v13)
       {
@@ -383,11 +304,11 @@ LABEL_13:
     }
 
     v14 = *(v0 + 56);
-    v50 = *(v0 + 32);
+    v45 = *(v0 + 32);
     swift_bridgeObjectRetain_n();
     v15 = sub_BA694(v14, v13);
-    v16 = v50;
-    v17 = v50[2];
+    v16 = v45;
+    v17 = v45[2];
     v18 = v17 != 0;
     if (!v17)
     {
@@ -397,82 +318,75 @@ LABEL_13:
     }
 
     v19 = *(v0 + 56);
-    v20 = *(v0 + 32);
 
-    v21 = sub_BBA6C(v11, v19, v13);
-    if (v22)
+    v20 = sub_BBA6C(v10, v19, v13);
+    if (v21)
     {
-      v24 = *(v11 + 2);
-      v25 = v24;
+      v23 = *(v10 + 2);
+      v24 = v23;
     }
 
     else
     {
-      v25 = v21;
-      v47 = v18;
-      v48 = v15;
-      v26 = v21 + 1;
-      if (__OFADD__(v21, 1))
+      v24 = v20;
+      v42 = v18;
+      v43 = v15;
+      v25 = v20 + 1;
+      if (__OFADD__(v20, 1))
       {
         __break(1u);
-        return _swift_task_switch(v21, v22, v23);
+        return _swift_task_switch(v20, v21, v22);
       }
 
-      v27 = *(v11 + 2);
+      v26 = *(v10 + 2);
 
-      if (v26 != v27)
+      if (v25 != v26)
       {
-        v34 = 16 * v25;
-        while (v26 < v27)
+        v33 = 16 * v24;
+        while (v25 < v26)
         {
-          v37 = *&v11[v34 + 48];
-          v38 = *&v11[v34 + 56];
-          if (v37 != *(v0 + 56) || *(v0 + 64) != v38)
+          v35 = *&v10[v33 + 48];
+          v36 = *&v10[v33 + 56];
+          v37 = v35 == *(v0 + 56) && *(v0 + 64) == v36;
+          if (!v37 && (sub_BDD24() & 1) == 0)
           {
-            v40 = *&v11[v34 + 48];
-            v41 = *&v11[v34 + 56];
-            if ((sub_BDD24() & 1) == 0)
+            if (v25 != v24)
             {
-              if (v26 != v25)
+              if (v24 >= v26)
               {
-                if (v25 >= v27)
-                {
-                  goto LABEL_51;
-                }
-
-                v42 = &v11[16 * v25 + 32];
-                v43 = *(v42 + 1);
-                v49 = *v42;
-
-                if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-                {
-                  v11 = sub_BB434(v11);
-                }
-
-                v44 = &v11[16 * v25];
-                v45 = *(v44 + 5);
-                *(v44 + 4) = v37;
-                *(v44 + 5) = v38;
-
-                if (v26 >= *(v11 + 2))
-                {
-                  goto LABEL_52;
-                }
-
-                v35 = &v11[v34];
-                v36 = *&v11[v34 + 56];
-                *(v35 + 6) = v49;
-                *(v35 + 7) = v43;
+                goto LABEL_51;
               }
 
-              ++v25;
+              v38 = &v10[16 * v24 + 32];
+              v39 = *(v38 + 1);
+              v44 = *v38;
+
+              if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+              {
+                v10 = sub_BB434(v10);
+              }
+
+              v40 = &v10[16 * v24];
+              *(v40 + 4) = v35;
+              *(v40 + 5) = v36;
+
+              if (v25 >= *(v10 + 2))
+              {
+                goto LABEL_52;
+              }
+
+              v34 = &v10[v33];
+              *(v34 + 6) = v44;
+              *(v34 + 7) = v39;
             }
+
+            ++v24;
           }
 
-          ++v26;
-          v27 = *(v11 + 2);
-          v34 += 16;
-          if (v26 == v27)
+          ++v25;
+          v26 = *(v10 + 2);
+          v33 += 16;
+          if (v25 == v26)
           {
             goto LABEL_17;
           }
@@ -490,21 +404,21 @@ LABEL_49:
 
 LABEL_17:
 
-      v24 = *(v11 + 2);
-      if (v24 < v25)
+      v23 = *(v10 + 2);
+      if (v23 < v24)
       {
         goto LABEL_48;
       }
 
-      v15 = v48;
-      v18 = v47;
-      if (v25 < 0)
+      v15 = v43;
+      v18 = v42;
+      if (v24 < 0)
       {
         goto LABEL_49;
       }
     }
 
-    if (!__OFADD__(v24, v25 - v24))
+    if (!__OFADD__(v23, v24 - v23))
     {
       break;
     }
@@ -520,58 +434,57 @@ LABEL_53:
   }
 
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  *(v0 + 16) = v11;
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0 || v25 > *(v11 + 3) >> 1)
+  *(v0 + 16) = v10;
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0 || v24 > *(v10 + 3) >> 1)
   {
-    if (v24 <= v25)
+    if (v23 <= v24)
     {
-      v29 = v25;
+      v28 = v24;
     }
 
     else
     {
-      v29 = v24;
+      v28 = v23;
     }
 
-    v11 = sub_93BAC(isUniquelyReferenced_nonNull_native, v29, 1, v11);
-    *(v0 + 16) = v11;
+    v10 = sub_93BAC(isUniquelyReferenced_nonNull_native, v28, 1, v10);
+    *(v0 + 16) = v10;
   }
 
-  sub_BBB0C(v25, v24, 0);
+  sub_BBB0C(v24, v23, 0);
 
 LABEL_27:
-  *(v0 + 112) = v11;
+  *(v0 + 112) = v10;
   *(v0 + 120) = v16;
   *(v0 + 104) = v15;
   *(v0 + 217) = v18;
-  v30 = *(v0 + 96);
-  *(v0 + 128) = *(v30 + 16);
-  *(v0 + 136) = *(v30 + 24);
+  v29 = *(v0 + 96);
+  *(v0 + 128) = *(v29 + 16);
+  *(v0 + 136) = *(v29 + 24);
   *(v0 + 144) = swift_getObjectType();
   *(v0 + 152) = sub_BD9B4();
   *(v0 + 160) = sub_BD9A4();
-  v31 = sub_BD994();
-  v33 = v32;
-  v21 = sub_48F0;
-  v22 = v31;
-  v23 = v33;
+  v30 = sub_BD994();
+  v32 = v31;
+  v20 = sub_48F0;
+  v21 = v30;
+  v22 = v32;
 
-  return _swift_task_switch(v21, v22, v23);
+  return _swift_task_switch(v20, v21, v22);
 }
 
 uint64_t sub_48F0()
 {
-  v1 = v0[20];
-  v2 = v0[16];
+  v1 = *(v0 + 128);
 
-  v0[21] = [v2 internalServiceName];
+  *(v0 + 168) = [v1 internalServiceName];
 
   return _swift_task_switch(sub_4978, 0, 0);
 }
 
 uint64_t sub_4978()
 {
-  v165 = v0;
+  v147 = v0;
   v2 = *(v0 + 168);
   v3 = *(v0 + 112);
   v4 = *(v0 + 120);
@@ -581,11 +494,11 @@ uint64_t sub_4978()
   v8 = sub_BD8B4();
   v10 = v9;
 
-  v11 = sub_BB5E4(v8, v10, v5, v4);
+  v11 = sub_BB5E4(v8, v10, v5, v4, v3);
   *(v0 + 176) = v11;
-  v155 = v4;
+  v138 = v4;
 
-  v158 = v11;
+  v141 = v11;
   [v11 setDidCheckServer:v6];
   v12 = v7 + 64;
   v13 = -1;
@@ -597,49 +510,48 @@ uint64_t sub_4978()
 
   v15 = v13 & *(v7 + 64);
   v16 = (63 - v14) >> 6;
-  v154 = v7;
+  v137 = v7;
 
   v17 = 0;
-  v163 = v0;
-  v152 = v16;
-  v153 = v12;
+  v145 = v0;
+  v135 = v16;
+  v136 = v12;
   if (v15)
   {
     while (1)
     {
 LABEL_8:
       v19 = (v17 << 10) | (16 * __clz(__rbit64(v15)));
-      v20 = (*(v154 + 48) + v19);
+      v20 = (*(v137 + 48) + v19);
       v21 = *v20;
       v22 = v20[1];
-      v23 = *(v154 + 56) + v19;
+      v23 = *(v137 + 56) + v19;
       p_align = *v23;
       v24 = *(v23 + 8);
-      v25 = *(v155 + 16);
+      v25 = *(v138 + 16);
 
-      v160 = p_align;
+      v142 = p_align;
       if (v25)
       {
-        v26 = *(v163 + 120);
-        v27 = sub_94048(v21, v22);
-        if (v28)
+        v26 = sub_94048(v21, v22);
+        if (v27)
         {
-          v29 = *(*(v155 + 56) + 8 * v27);
+          v28 = *(*(v138 + 56) + 8 * v26);
 
           goto LABEL_25;
         }
       }
 
-      v30 = *(v163 + 64);
-      if (!v30)
+      v29 = *(v145 + 64);
+      if (!v29)
       {
         goto LABEL_19;
       }
 
-      v11 = *(v163 + 217);
-      if (v21 == *(v163 + 56) && v30 == v22)
+      v11 = *(v145 + 217);
+      if (v21 == *(v145 + 56) && v29 == v22)
       {
-        if (!*(v163 + 217))
+        if (!*(v145 + 217))
         {
 LABEL_19:
           if (qword_124180 != -1)
@@ -647,29 +559,28 @@ LABEL_19:
             swift_once();
           }
 
-          v32 = *(v163 + 48);
-          v33 = sub_BD7B4();
-          sub_96A28(v33, qword_1241A0);
+          v31 = sub_BD7B4();
+          sub_96A28(v31, qword_1241A0);
 
-          v34 = sub_BD794();
-          v35 = sub_BDA64();
+          v32 = sub_BD794();
+          v33 = sub_BDA64();
 
-          if (os_log_type_enabled(v34, v35))
+          if (os_log_type_enabled(v32, v33))
           {
-            v156 = *(v163 + 48);
-            v36 = v24;
-            v37 = *(v163 + 40);
-            v38 = swift_slowAlloc();
-            v164 = swift_slowAlloc();
-            *v38 = 136446466;
-            v39 = v37;
-            v24 = v36;
-            *(v38 + 4) = sub_96A60(v39, v156, &v164);
-            *(v38 + 12) = 2080;
-            v40 = sub_96A60(v21, v22, &v164);
+            v139 = *(v145 + 48);
+            v34 = v24;
+            v35 = *(v145 + 40);
+            v36 = swift_slowAlloc();
+            v146 = swift_slowAlloc();
+            *v36 = 136446466;
+            v37 = v35;
+            v24 = v34;
+            *(v36 + 4) = sub_96A60(v37, v139, &v146);
+            *(v36 + 12) = 2080;
+            v38 = sub_96A60(v21, v22, &v146);
 
-            *(v38 + 14) = v40;
-            _os_log_impl(&dword_0, v34, v35, "%{public}s Missing IDS info result for destination %s", v38, 0x16u);
+            *(v36 + 14) = v38;
+            _os_log_impl(&dword_0, v32, v33, "%{public}s Missing IDS info result for destination %s", v36, 0x16u);
             swift_arrayDestroy();
           }
 
@@ -677,82 +588,81 @@ LABEL_19:
           {
           }
 
-          v29 = 0;
+          v28 = 0;
 LABEL_25:
-          v41 = [*(v163 + 128) internalServiceName];
-          if (!v41)
+          v39 = [*(v145 + 128) internalServiceName];
+          if (!v39)
           {
             sub_BD8B4();
-            v41 = sub_BD884();
+            v39 = sub_BD884();
           }
 
-          v42 = objc_allocWithZone(IMServiceReachabilityHandleResult);
-          v43 = sub_BD884();
-          v44 = [v42 initWithHandleID:v43 service:v41 isReachable:0 supportsEncryption:0];
+          v40 = objc_allocWithZone(IMServiceReachabilityHandleResult);
+          v41 = sub_BD884();
+          v42 = [v40 initWithHandleID:v41 service:v39 isReachable:0 supportsEncryption:0];
 
-          v157 = v29;
-          if (v29)
+          v140 = v28;
+          if (v28)
           {
-            v45 = [v29 status];
-            if (v45 == &dword_0 + 2)
+            v43 = [v28 status];
+            if (v43 == &dword_0 + 2)
             {
               if (qword_124180 != -1)
               {
                 swift_once();
               }
 
-              v65 = *(v163 + 48);
-              v66 = sub_BD7B4();
-              sub_96A28(v66, qword_1241A0);
+              v62 = sub_BD7B4();
+              sub_96A28(v62, qword_1241A0);
 
-              v67 = sub_BD794();
-              v68 = sub_BDA54();
+              v63 = sub_BD794();
+              v64 = sub_BDA54();
 
-              if (os_log_type_enabled(v67, v68))
+              if (os_log_type_enabled(v63, v64))
               {
-                v151 = *(v163 + 48);
-                v69 = v24;
-                v70 = *(v163 + 40);
-                v71 = swift_slowAlloc();
-                v164 = swift_slowAlloc();
-                *v71 = 136446466;
-                v72 = v70;
-                v24 = v69;
-                *(v71 + 4) = sub_96A60(v72, v151, &v164);
-                *(v71 + 12) = 2080;
-                *(v71 + 14) = sub_96A60(p_align, v69, &v164);
-                _os_log_impl(&dword_0, v67, v68, "%{public}s Destination is invalid: %s", v71, 0x16u);
+                v134 = *(v145 + 48);
+                v65 = v24;
+                v66 = *(v145 + 40);
+                v67 = swift_slowAlloc();
+                v146 = swift_slowAlloc();
+                *v67 = 136446466;
+                v68 = v66;
+                v24 = v65;
+                *(v67 + 4) = sub_96A60(v68, v134, &v146);
+                *(v67 + 12) = 2080;
+                *(v67 + 14) = sub_96A60(p_align, v65, &v146);
+                _os_log_impl(&dword_0, v63, v64, "%{public}s Destination is invalid: %s", v67, 0x16u);
                 swift_arrayDestroy();
               }
 
-              [v158 setAllAreReachable:0];
-              [v158 setAllSupportEncryption:0];
+              [v141 setAllAreReachable:0];
+              [v141 setAllSupportEncryption:0];
               goto LABEL_47;
             }
 
-            if (v45 == &dword_0 + 1)
+            if (v43 == &dword_0 + 1)
             {
-              [v44 setReachable:1];
-              [v44 setSupportsEncryption:1];
+              [v42 setReachable:1];
+              [v42 setSupportsEncryption:1];
 LABEL_47:
 
-              v74 = v44;
-              v75 = [v158 handleResults];
+              v70 = v42;
+              v71 = [v141 handleResults];
               sub_7610(0, &qword_1242E8, IMServiceReachabilityHandleResult_ptr);
               p_align = &protocol witness table for String;
-              v76 = sub_BD844();
+              v72 = sub_BD844();
 
               isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-              v164 = v76;
-              sub_BAFD8(v74, v160, v24, isUniquelyReferenced_nonNull_native);
+              v146 = v72;
+              sub_BAFD8(v70, v142, v24, isUniquelyReferenced_nonNull_native);
 
-              v11 = v164;
+              v11 = v146;
               isa = sub_BD834().super.isa;
 
-              [v158 setHandleResults:isa];
+              [v141 setHandleResults:isa];
 
-              v16 = v152;
-              v12 = v153;
+              v16 = v135;
+              v12 = v136;
               goto LABEL_48;
             }
           }
@@ -762,60 +672,59 @@ LABEL_47:
             swift_once();
           }
 
-          v46 = *(v163 + 48);
-          v47 = sub_BD7B4();
-          sub_96A28(v47, qword_1241A0);
+          v44 = sub_BD7B4();
+          sub_96A28(v44, qword_1241A0);
 
-          v48 = sub_BD794();
-          v49 = sub_BDA54();
+          v45 = sub_BD794();
+          v46 = sub_BDA54();
 
-          if (os_log_type_enabled(v48, v49))
+          if (os_log_type_enabled(v45, v46))
           {
-            v50 = v24;
-            v52 = *(v163 + 40);
-            v51 = *(v163 + 48);
-            v53 = swift_slowAlloc();
-            v164 = swift_slowAlloc();
-            *v53 = 136446466;
-            v54 = v52;
-            v24 = v50;
-            *(v53 + 4) = sub_96A60(v54, v51, &v164);
-            *(v53 + 12) = 2080;
-            *(v53 + 14) = sub_96A60(p_align, v50, &v164);
-            _os_log_impl(&dword_0, v48, v49, "%{public}s Destination is unknown: %s", v53, 0x16u);
+            v47 = v24;
+            v49 = *(v145 + 40);
+            v48 = *(v145 + 48);
+            v50 = swift_slowAlloc();
+            v146 = swift_slowAlloc();
+            *v50 = 136446466;
+            v51 = v49;
+            v24 = v47;
+            *(v50 + 4) = sub_96A60(v51, v48, &v146);
+            *(v50 + 12) = 2080;
+            *(v50 + 14) = sub_96A60(p_align, v47, &v146);
+            _os_log_impl(&dword_0, v45, v46, "%{public}s Destination is unknown: %s", v50, 0x16u);
             swift_arrayDestroy();
           }
 
-          v55 = [*(v163 + 80) lastUsedServiceName];
-          if (v55)
+          v52 = [*(v145 + 80) lastUsedServiceName];
+          if (v52)
           {
-            v56 = *(v163 + 128);
-            v57 = v55;
-            v58 = sub_BD8B4();
-            v60 = v59;
+            v53 = *(v145 + 128);
+            v54 = v52;
+            v55 = sub_BD8B4();
+            v57 = v56;
 
-            v61 = [v56 internalServiceName];
-            v62 = sub_BD8B4();
-            v64 = v63;
+            v58 = [v53 internalServiceName];
+            v59 = sub_BD8B4();
+            v61 = v60;
 
-            if (v58 == v62 && v60 == v64)
+            if (v55 == v59 && v57 == v61)
             {
 
 LABEL_46:
-              **(v163 + 88) = 1;
+              **(v145 + 88) = 1;
               goto LABEL_47;
             }
 
-            v73 = sub_BDD24();
+            v69 = sub_BDD24();
 
-            if (v73)
+            if (v69)
             {
               goto LABEL_46;
             }
           }
 
-          [v158 setAllAreReachable:0];
-          [v158 setAllSupportEncryption:0];
+          [v141 setAllAreReachable:0];
+          [v141 setAllSupportEncryption:0];
           goto LABEL_46;
         }
       }
@@ -859,220 +768,204 @@ LABEL_4:
     }
   }
 
-  v79 = *(v163 + 72);
-
   p_align = &stru_11EFE8.align;
-  if ([v158 allAreReachable])
+  if ([v141 allAreReachable])
   {
-    v159 = (*(v163 + 136) + 32);
-    v161 = (*v159 + **v159);
-    v80 = (*v159)[1];
-    v81 = swift_task_alloc();
-    *(v163 + 184) = v81;
-    *v81 = v163;
-    v81[1] = sub_5AD4;
-    v83 = *(v163 + 136);
-    v82 = *(v163 + 144);
-    v84 = *(v163 + 128);
-    v85 = *(v163 + 112);
+    v143 = (*(*(v145 + 136) + 32) + **(*(v145 + 136) + 32));
+    v75 = swift_task_alloc();
+    *(v145 + 184) = v75;
+    *v75 = v145;
+    v75[1] = sub_5AD4;
+    v77 = *(v145 + 136);
+    v76 = *(v145 + 144);
+    v78 = *(v145 + 112);
 
-    return v161(v85, v82, v83);
+    return v143(v78, v76, v77);
   }
 
-  if (![*(v163 + 176) error])
+  if (![*(v145 + 176) error])
   {
-    v87 = *(*(v163 + 112) + 16);
-    *(v163 + 192) = v87;
-    if (v87 >= 2)
+    v80 = *(*(v145 + 112) + 16);
+    *(v145 + 192) = v80;
+    if (v80 >= 2)
     {
-      v88 = *(v163 + 152);
-      *(v163 + 200) = sub_BD9A4();
-      v90 = sub_BD994();
+      *(v145 + 200) = sub_BD9A4();
+      v82 = sub_BD994();
 
-      return _swift_task_switch(sub_62C8, v90, v89);
+      return _swift_task_switch(sub_62C8, v82, v81);
     }
   }
 
-  if (([*(v163 + 176) allAreReachable] & 1) == 0)
+  if ([*(v145 + 176) allAreReachable])
   {
-    v91 = [*(v163 + 80) lastUsedServiceName];
-    if (v91)
-    {
-      v92 = v91;
-      v93 = sub_BD8B4();
-      v95 = v94;
+    goto LABEL_78;
+  }
 
-      if (v93 == 0x6567617373654D69 && v95 == 0xE800000000000000)
-      {
+  v83 = [*(v145 + 80) lastUsedServiceName];
+  if (!v83)
+  {
+    goto LABEL_78;
+  }
+
+  v84 = v83;
+  v85 = sub_BD8B4();
+  v87 = v86;
+
+  if (v85 != 0x6567617373654D69 || v87 != 0xE800000000000000)
+  {
+    v88 = sub_BDD24();
+
+    if (v88)
+    {
+      goto LABEL_65;
+    }
+
+    goto LABEL_78;
+  }
 
 LABEL_65:
-        if ([*(v163 + 80) chatStyle] == 43)
-        {
-          v97 = [*(v163 + 80) chatIdentifier];
-          if (v97)
-          {
-            v98 = *(v163 + 80);
+  if ([*(v145 + 80) chatStyle] == 43)
+  {
+    v89 = [*(v145 + 80) chatIdentifier];
+    if (v89)
+    {
+      v90 = *(v145 + 80);
 
-            v99 = [v98 isForPendingConversation];
-            v11 = *(v163 + 112);
-            if (v99)
+      v91 = [v90 isForPendingConversation];
+      v11 = *(v145 + 112);
+      if ((v91 & 1) == 0)
+      {
+LABEL_70:
+        v92 = v11 + 40;
+        v93 = -*(v11 + 16);
+        v94 = -1;
+        while (1)
+        {
+          if (v93 + v94 == -1)
+          {
+            goto LABEL_78;
+          }
+
+          if (++v94 >= *(v11 + 16))
+          {
+            break;
+          }
+
+          v95 = v92 + 16;
+
+          v96 = sub_BD884();
+          IsEmail = IMStringIsEmail();
+
+          v92 = v95;
+          if (IsEmail)
+          {
+
+            if (qword_124180 == -1)
             {
-              v100 = *(v163 + 112);
+LABEL_75:
+              v98 = *(v145 + 80);
+              v99 = sub_BD7B4();
+              sub_96A28(v99, qword_1241A0);
+
+              v100 = v98;
+              v101 = sub_BD794();
+              v102 = sub_BDA54();
+
+              if (os_log_type_enabled(v101, v102))
+              {
+                v103 = *(v145 + 80);
+                v105 = *(v145 + 40);
+                v104 = *(v145 + 48);
+                v106 = swift_slowAlloc();
+                v107 = swift_slowAlloc();
+                v108 = swift_slowAlloc();
+                v146 = v108;
+                *v106 = 136446466;
+                *(v106 + 4) = sub_96A60(v105, v104, &v146);
+                *(v106 + 12) = 2112;
+                *(v106 + 14) = v103;
+                *v107 = v103;
+                v109 = v103;
+                _os_log_impl(&dword_0, v101, v102, "%{public}s This group contains emails, don't downgrade: %@", v106, 0x16u);
+                sub_75B0(v107, &qword_123E98, &unk_CEE80);
+
+                sub_97C9C(v108);
+              }
+
+              v110 = *(v145 + 176);
+              [v110 setAllAreReachable:1];
+              [v110 setError:0];
+              [v110 setReachabilityOverriddenToSuccessByPolicy:1];
               goto LABEL_79;
             }
 
-LABEL_70:
-            v101 = (v11 + 40);
-            v102 = -*(v11 + 16);
-            v103 = -1;
-            while (1)
-            {
-              if (v102 + v103 == -1)
-              {
-                goto LABEL_78;
-              }
-
-              if (++v103 >= *(v11 + 16))
-              {
-                break;
-              }
-
-              v104 = v101 + 2;
-              v106 = *(v101 - 1);
-              v105 = *v101;
-
-              v107 = sub_BD884();
-              IsEmail = IMStringIsEmail();
-
-              v101 = v104;
-              if (IsEmail)
-              {
-                v109 = *(v163 + 112);
-
-                if (qword_124180 == -1)
-                {
-LABEL_75:
-                  v110 = *(v163 + 80);
-                  v111 = *(v163 + 48);
-                  v112 = sub_BD7B4();
-                  sub_96A28(v112, qword_1241A0);
-
-                  v113 = v110;
-                  v114 = sub_BD794();
-                  v115 = sub_BDA54();
-
-                  if (os_log_type_enabled(v114, v115))
-                  {
-                    v116 = *(v163 + 80);
-                    v118 = *(v163 + 40);
-                    v117 = *(v163 + 48);
-                    v119 = swift_slowAlloc();
-                    v120 = swift_slowAlloc();
-                    v121 = swift_slowAlloc();
-                    v164 = v121;
-                    *v119 = 136446466;
-                    *(v119 + 4) = sub_96A60(v118, v117, &v164);
-                    *(v119 + 12) = 2112;
-                    *(v119 + 14) = v116;
-                    *v120 = v116;
-                    v122 = v116;
-                    _os_log_impl(&dword_0, v114, v115, "%{public}s This group contains emails, don't downgrade: %@", v119, 0x16u);
-                    sub_75B0(v120, &qword_123E98, &unk_CEE80);
-
-                    sub_97C9C(v121);
-                  }
-
-                  v123 = *(v163 + 176);
-                  [v123 setAllAreReachable:1];
-                  [v123 setError:0];
-                  [v123 setReachabilityOverriddenToSuccessByPolicy:1];
-                  goto LABEL_80;
-                }
-
-LABEL_89:
-                swift_once();
-                goto LABEL_75;
-              }
-            }
-
-            __break(1u);
-            goto LABEL_89;
+LABEL_88:
+            swift_once();
+            goto LABEL_75;
           }
         }
-      }
 
-      else
-      {
-        v96 = sub_BDD24();
-
-        if (v96)
-        {
-          goto LABEL_65;
-        }
+        __break(1u);
+        goto LABEL_88;
       }
     }
   }
 
 LABEL_78:
-  v124 = *(v163 + 112);
-LABEL_79:
 
-LABEL_80:
+LABEL_79:
   if (qword_124180 != -1)
   {
     swift_once();
   }
 
-  v125 = *(v163 + 176);
-  v126 = *(v163 + 72);
-  v127 = *(v163 + 48);
-  v128 = sub_BD7B4();
-  sub_96A28(v128, qword_1241A0);
+  v111 = *(v145 + 176);
+  v112 = sub_BD7B4();
+  sub_96A28(v112, qword_1241A0);
 
-  v129 = v125;
-  v130 = sub_BD794();
-  v131 = sub_BDA54();
+  v113 = v111;
+  v114 = sub_BD794();
+  v115 = sub_BDA54();
 
-  v132 = os_log_type_enabled(v130, v131);
-  v133 = *(v163 + 176);
-  v134 = *(v163 + 120);
-  v135 = *(v163 + 104);
-  if (v132)
+  v116 = os_log_type_enabled(v114, v115);
+  v117 = *(v145 + 176);
+  v118 = *(v145 + 104);
+  if (v116)
   {
-    v136 = *(v163 + 72);
-    v137 = *(v163 + 48);
-    v162 = *(v163 + 104);
-    v138 = p_align;
-    v139 = *(v163 + 40);
-    v140 = swift_slowAlloc();
-    v164 = swift_slowAlloc();
-    *v140 = 136446978;
-    *(v140 + 4) = sub_96A60(v139, v137, &v164);
-    *(v140 + 12) = 1024;
-    *(v140 + 14) = [v133 *(v138 + 150)];
+    v119 = *(v145 + 72);
+    v120 = *(v145 + 48);
+    v144 = *(v145 + 104);
+    v121 = p_align;
+    v122 = *(v145 + 40);
+    v123 = swift_slowAlloc();
+    v146 = swift_slowAlloc();
+    *v123 = 136446978;
+    *(v123 + 4) = sub_96A60(v122, v120, &v146);
+    *(v123 + 12) = 1024;
+    *(v123 + 14) = [v117 *(v121 + 150)];
 
-    *(v140 + 18) = 2080;
-    *(v163 + 24) = v136;
+    *(v123 + 18) = 2080;
+    *(v145 + 24) = v119;
 
     sub_94950(&qword_1242F0, &qword_CEE78);
     sub_BBA08();
     sub_ABD60();
-    v141 = sub_BD924();
-    v143 = v142;
+    v124 = sub_BD924();
+    v126 = v125;
 
-    v144 = sub_96A60(v141, v143, &v164);
+    v127 = sub_96A60(v124, v126, &v146);
 
-    *(v140 + 20) = v144;
-    *(v140 + 28) = 2080;
+    *(v123 + 20) = v127;
+    *(v123 + 28) = 2080;
     sub_7610(0, &qword_123E60, IDSIDInfoResult_ptr);
 
-    v145 = sub_BD854();
-    v147 = v146;
+    v128 = sub_BD854();
+    v130 = v129;
 
-    v148 = sub_96A60(v145, v147, &v164);
+    v131 = sub_96A60(v128, v130, &v146);
 
-    *(v140 + 30) = v148;
-    _os_log_impl(&dword_0, v130, v131, "%{public}s Choosing all iMessageable(%{BOOL}d) requestedRecipients:(%s) perRecipientAvailability:(%s)", v140, 0x26u);
+    *(v123 + 30) = v131;
+    _os_log_impl(&dword_0, v114, v115, "%{public}s Choosing all iMessageable(%{BOOL}d) requestedRecipients:(%s) perRecipientAvailability:(%s)", v123, 0x26u);
     swift_arrayDestroy();
   }
 
@@ -1080,16 +973,14 @@ LABEL_80:
   {
   }
 
-  v149 = *(v163 + 8);
-  v150 = *(v163 + 176);
+  v132 = *(v145 + 8);
+  v133 = *(v145 + 176);
 
-  return v149(v150);
+  return v132(v133);
 }
 
 uint64_t sub_5AD4(char a1)
 {
-  v2 = *(*v1 + 184);
-  v4 = *v1;
   *(*v1 + 218) = a1;
 
   return _swift_task_switch(sub_5BD4, 0, 0);
@@ -1097,7 +988,7 @@ uint64_t sub_5AD4(char a1)
 
 uint64_t sub_5BD4()
 {
-  v71 = v0;
+  v61 = v0;
   if (*(v0 + 218) == 1)
   {
     [*(v0 + 176) setError:4];
@@ -1109,198 +1000,181 @@ uint64_t sub_5BD4()
     *(v0 + 192) = v1;
     if (v1 >= 2)
     {
-      v2 = *(v0 + 152);
       *(v0 + 200) = sub_BD9A4();
-      v4 = sub_BD994();
+      v3 = sub_BD994();
 
-      return _swift_task_switch(sub_62C8, v4, v3);
+      return _swift_task_switch(sub_62C8, v3, v2);
     }
   }
 
   p_align = &stru_11EFE8.align;
-  if ([*(v0 + 176) allAreReachable])
+  if (([*(v0 + 176) allAreReachable] & 1) == 0)
   {
-    goto LABEL_29;
-  }
-
-  v6 = [*(v0 + 80) lastUsedServiceName];
-  if (!v6)
-  {
-    goto LABEL_29;
-  }
-
-  v7 = v6;
-  v8 = sub_BD8B4();
-  v10 = v9;
-
-  if (v8 == 0x6567617373654D69 && v10 == 0xE800000000000000)
-  {
-  }
-
-  else
-  {
-    v12 = sub_BDD24();
-
-    if ((v12 & 1) == 0)
+    v5 = [*(v0 + 80) lastUsedServiceName];
+    if (v5)
     {
-      goto LABEL_29;
-    }
-  }
+      v6 = v5;
+      v7 = sub_BD8B4();
+      v9 = v8;
 
-  if ([*(v0 + 80) chatStyle] == 43)
-  {
-    v13 = [*(v0 + 80) chatIdentifier];
-    if (v13)
-    {
-      v14 = *(v0 + 80);
-
-      v15 = [v14 isForPendingConversation];
-      v16 = *(v0 + 112);
-      if ((v15 & 1) == 0)
+      if (v7 == 0x6567617373654D69 && v9 == 0xE800000000000000)
       {
-        v18 = (v16 + 40);
-        v19 = -*(v16 + 16);
-        v20 = -1;
-        while (1)
-        {
-          if (v19 + v20 == -1)
-          {
-            goto LABEL_29;
-          }
-
-          if (++v20 >= *(v16 + 16))
-          {
-            break;
-          }
-
-          v21 = v18 + 2;
-          v23 = *(v18 - 1);
-          v22 = *v18;
-
-          v24 = sub_BD884();
-          IsEmail = IMStringIsEmail();
-
-          v18 = v21;
-          if (IsEmail)
-          {
-            v26 = *(v0 + 112);
-
-            if (qword_124180 == -1)
-            {
-LABEL_26:
-              v27 = *(v0 + 80);
-              v28 = *(v0 + 48);
-              v29 = sub_BD7B4();
-              sub_96A28(v29, qword_1241A0);
-
-              v30 = v27;
-              v31 = sub_BD794();
-              v32 = sub_BDA54();
-
-              if (os_log_type_enabled(v31, v32))
-              {
-                v33 = *(v0 + 80);
-                v35 = *(v0 + 40);
-                v34 = *(v0 + 48);
-                v36 = swift_slowAlloc();
-                v37 = swift_slowAlloc();
-                v38 = swift_slowAlloc();
-                v70 = v38;
-                *v36 = 136446466;
-                *(v36 + 4) = sub_96A60(v35, v34, &v70);
-                *(v36 + 12) = 2112;
-                *(v36 + 14) = v33;
-                *v37 = v33;
-                v39 = v33;
-                p_align = (&stru_11EFE8 + 24);
-                _os_log_impl(&dword_0, v31, v32, "%{public}s This group contains emails, don't downgrade: %@", v36, 0x16u);
-                sub_75B0(v37, &qword_123E98, &unk_CEE80);
-
-                sub_97C9C(v38);
-              }
-
-              v40 = *(v0 + 176);
-              [v40 setAllAreReachable:1];
-              [v40 setError:0];
-              [v40 setReachabilityOverriddenToSuccessByPolicy:1];
-              goto LABEL_31;
-            }
-
-LABEL_40:
-            swift_once();
-            goto LABEL_26;
-          }
-        }
-
-        __break(1u);
-        goto LABEL_40;
       }
 
-      v17 = *(v0 + 112);
-      goto LABEL_30;
+      else
+      {
+        v11 = sub_BDD24();
+
+        if ((v11 & 1) == 0)
+        {
+          goto LABEL_28;
+        }
+      }
+
+      if ([*(v0 + 80) chatStyle] == 43)
+      {
+        v12 = [*(v0 + 80) chatIdentifier];
+        if (v12)
+        {
+          v13 = *(v0 + 80);
+
+          v14 = [v13 isForPendingConversation];
+          v15 = *(v0 + 112);
+          if ((v14 & 1) == 0)
+          {
+            v16 = v15 + 40;
+            v17 = -*(v15 + 16);
+            v18 = -1;
+            while (1)
+            {
+              if (v17 + v18 == -1)
+              {
+                goto LABEL_28;
+              }
+
+              if (++v18 >= *(v15 + 16))
+              {
+                break;
+              }
+
+              v19 = v16 + 16;
+
+              v20 = sub_BD884();
+              IsEmail = IMStringIsEmail();
+
+              v16 = v19;
+              if (IsEmail)
+              {
+
+                if (qword_124180 == -1)
+                {
+LABEL_25:
+                  v22 = *(v0 + 80);
+                  v23 = sub_BD7B4();
+                  sub_96A28(v23, qword_1241A0);
+
+                  v24 = v22;
+                  v25 = sub_BD794();
+                  v26 = sub_BDA54();
+
+                  if (os_log_type_enabled(v25, v26))
+                  {
+                    v27 = *(v0 + 80);
+                    v29 = *(v0 + 40);
+                    v28 = *(v0 + 48);
+                    v30 = swift_slowAlloc();
+                    v31 = swift_slowAlloc();
+                    v32 = swift_slowAlloc();
+                    v60 = v32;
+                    *v30 = 136446466;
+                    *(v30 + 4) = sub_96A60(v29, v28, &v60);
+                    *(v30 + 12) = 2112;
+                    *(v30 + 14) = v27;
+                    *v31 = v27;
+                    v33 = v27;
+                    p_align = (&stru_11EFE8 + 24);
+                    _os_log_impl(&dword_0, v25, v26, "%{public}s This group contains emails, don't downgrade: %@", v30, 0x16u);
+                    sub_75B0(v31, &qword_123E98, &unk_CEE80);
+
+                    sub_97C9C(v32);
+                  }
+
+                  v34 = *(v0 + 176);
+                  [v34 setAllAreReachable:1];
+                  [v34 setError:0];
+                  [v34 setReachabilityOverriddenToSuccessByPolicy:1];
+                  goto LABEL_29;
+                }
+
+LABEL_38:
+                swift_once();
+                goto LABEL_25;
+              }
+            }
+
+            __break(1u);
+            goto LABEL_38;
+          }
+        }
+      }
     }
   }
 
-LABEL_29:
-  v41 = *(v0 + 112);
-LABEL_30:
+LABEL_28:
 
-LABEL_31:
+LABEL_29:
   if (qword_124180 != -1)
   {
     swift_once();
   }
 
-  v42 = *(v0 + 176);
-  v43 = *(v0 + 72);
-  v44 = *(v0 + 48);
-  v45 = sub_BD7B4();
-  sub_96A28(v45, qword_1241A0);
+  v35 = *(v0 + 176);
+  v36 = sub_BD7B4();
+  sub_96A28(v36, qword_1241A0);
 
-  v46 = v42;
-  v47 = sub_BD794();
-  v48 = sub_BDA54();
+  v37 = v35;
+  v38 = sub_BD794();
+  v39 = sub_BDA54();
 
-  v49 = os_log_type_enabled(v47, v48);
-  v50 = *(v0 + 176);
-  v51 = *(v0 + 120);
-  v52 = *(v0 + 104);
-  if (v49)
+  v40 = os_log_type_enabled(v38, v39);
+  v41 = *(v0 + 176);
+  v42 = *(v0 + 104);
+  if (v40)
   {
-    v53 = *(v0 + 72);
-    v54 = p_align;
-    v56 = *(v0 + 40);
-    v55 = *(v0 + 48);
-    v69 = *(v0 + 104);
-    v57 = swift_slowAlloc();
-    v70 = swift_slowAlloc();
-    *v57 = 136446978;
-    *(v57 + 4) = sub_96A60(v56, v55, &v70);
-    *(v57 + 12) = 1024;
-    *(v57 + 14) = [v50 *(v54 + 150)];
+    v43 = *(v0 + 72);
+    v44 = p_align;
+    v46 = *(v0 + 40);
+    v45 = *(v0 + 48);
+    v59 = *(v0 + 104);
+    v47 = swift_slowAlloc();
+    v60 = swift_slowAlloc();
+    *v47 = 136446978;
+    *(v47 + 4) = sub_96A60(v46, v45, &v60);
+    *(v47 + 12) = 1024;
+    *(v47 + 14) = [v41 *(v44 + 150)];
 
-    *(v57 + 18) = 2080;
-    *(v0 + 24) = v53;
+    *(v47 + 18) = 2080;
+    *(v0 + 24) = v43;
 
     sub_94950(&qword_1242F0, &qword_CEE78);
     sub_BBA08();
     sub_ABD60();
-    v58 = sub_BD924();
-    v60 = v59;
+    v48 = sub_BD924();
+    v50 = v49;
 
-    v61 = sub_96A60(v58, v60, &v70);
+    v51 = sub_96A60(v48, v50, &v60);
 
-    *(v57 + 20) = v61;
-    *(v57 + 28) = 2080;
+    *(v47 + 20) = v51;
+    *(v47 + 28) = 2080;
     sub_7610(0, &qword_123E60, IDSIDInfoResult_ptr);
 
-    v62 = sub_BD854();
-    v64 = v63;
+    v52 = sub_BD854();
+    v54 = v53;
 
-    v65 = sub_96A60(v62, v64, &v70);
+    v55 = sub_96A60(v52, v54, &v60);
 
-    *(v57 + 30) = v65;
-    _os_log_impl(&dword_0, v47, v48, "%{public}s Choosing all iMessageable(%{BOOL}d) requestedRecipients:(%s) perRecipientAvailability:(%s)", v57, 0x26u);
+    *(v47 + 30) = v55;
+    _os_log_impl(&dword_0, v38, v39, "%{public}s Choosing all iMessageable(%{BOOL}d) requestedRecipients:(%s) perRecipientAvailability:(%s)", v47, 0x26u);
     swift_arrayDestroy();
   }
 
@@ -1308,26 +1182,25 @@ LABEL_31:
   {
   }
 
-  v66 = *(v0 + 8);
-  v67 = *(v0 + 176);
+  v56 = *(v0 + 8);
+  v57 = *(v0 + 176);
 
-  return v66(v67);
+  return v56(v57);
 }
 
 uint64_t sub_62C8()
 {
-  v1 = v0[25];
-  v2 = v0[16];
-  v3 = v0[10];
+  v1 = v0[16];
+  v2 = v0[10];
 
-  v0[26] = [v2 maxChatParticipantsForContext:v3];
+  v0[26] = [v1 maxChatParticipantsForContext:v2];
 
   return _swift_task_switch(sub_6350, 0, 0);
 }
 
 uint64_t sub_6350()
 {
-  v67 = v0;
+  v58 = v0;
   if (*(v0 + 208) < *(v0 + 192))
   {
     [*(v0 + 176) setError:1];
@@ -1336,13 +1209,13 @@ uint64_t sub_6350()
   p_align = &stru_11EFE8.align;
   if ([*(v0 + 176) allAreReachable])
   {
-    goto LABEL_24;
+    goto LABEL_23;
   }
 
   v2 = [*(v0 + 80) lastUsedServiceName];
   if (!v2)
   {
-    goto LABEL_24;
+    goto LABEL_23;
   }
 
   v3 = v2;
@@ -1359,166 +1232,152 @@ uint64_t sub_6350()
 
     if ((v8 & 1) == 0)
     {
-LABEL_24:
-      v37 = *(v0 + 112);
-      goto LABEL_25;
+      goto LABEL_23;
     }
   }
 
-  if ([*(v0 + 80) chatStyle] != 43)
+  if ([*(v0 + 80) chatStyle] == 43)
   {
-    goto LABEL_24;
-  }
-
-  v9 = [*(v0 + 80) chatIdentifier];
-  if (!v9)
-  {
-    goto LABEL_24;
-  }
-
-  v10 = *(v0 + 80);
-
-  v11 = [v10 isForPendingConversation];
-  v12 = *(v0 + 112);
-  if ((v11 & 1) == 0)
-  {
-    v14 = (v12 + 40);
-    v15 = -*(v12 + 16);
-    v16 = -1;
-    while (1)
+    v9 = [*(v0 + 80) chatIdentifier];
+    if (v9)
     {
-      if (v15 + v16 == -1)
+      v10 = *(v0 + 80);
+
+      v11 = [v10 isForPendingConversation];
+      v12 = *(v0 + 112);
+      if ((v11 & 1) == 0)
       {
-        goto LABEL_24;
-      }
-
-      if (++v16 >= *(v12 + 16))
-      {
-        break;
-      }
-
-      v17 = v14 + 2;
-      v19 = *(v14 - 1);
-      v18 = *v14;
-
-      v20 = sub_BD884();
-      IsEmail = IMStringIsEmail();
-
-      v14 = v17;
-      if (IsEmail)
-      {
-        v22 = *(v0 + 112);
-
-        if (qword_124180 == -1)
+        v13 = v12 + 40;
+        v14 = -*(v12 + 16);
+        v15 = -1;
+        while (1)
         {
-LABEL_21:
-          v23 = *(v0 + 80);
-          v24 = *(v0 + 48);
-          v25 = sub_BD7B4();
-          sub_96A28(v25, qword_1241A0);
-
-          v26 = v23;
-          v27 = sub_BD794();
-          v28 = sub_BDA54();
-
-          if (os_log_type_enabled(v27, v28))
+          if (v14 + v15 == -1)
           {
-            v29 = *(v0 + 80);
-            v31 = *(v0 + 40);
-            v30 = *(v0 + 48);
-            v32 = swift_slowAlloc();
-            v33 = swift_slowAlloc();
-            v34 = swift_slowAlloc();
-            v66 = v34;
-            *v32 = 136446466;
-            *(v32 + 4) = sub_96A60(v31, v30, &v66);
-            *(v32 + 12) = 2112;
-            *(v32 + 14) = v29;
-            *v33 = v29;
-            v35 = v29;
-            p_align = (&stru_11EFE8 + 24);
-            _os_log_impl(&dword_0, v27, v28, "%{public}s This group contains emails, don't downgrade: %@", v32, 0x16u);
-            sub_75B0(v33, &qword_123E98, &unk_CEE80);
-
-            sub_97C9C(v34);
+            goto LABEL_23;
           }
 
-          v36 = *(v0 + 176);
-          [v36 setAllAreReachable:1];
-          [v36 setError:0];
-          [v36 setReachabilityOverriddenToSuccessByPolicy:1];
-          goto LABEL_26;
+          if (++v15 >= *(v12 + 16))
+          {
+            break;
+          }
+
+          v16 = v13 + 16;
+
+          v17 = sub_BD884();
+          IsEmail = IMStringIsEmail();
+
+          v13 = v16;
+          if (IsEmail)
+          {
+
+            if (qword_124180 == -1)
+            {
+LABEL_20:
+              v19 = *(v0 + 80);
+              v20 = sub_BD7B4();
+              sub_96A28(v20, qword_1241A0);
+
+              v21 = v19;
+              v22 = sub_BD794();
+              v23 = sub_BDA54();
+
+              if (os_log_type_enabled(v22, v23))
+              {
+                v24 = *(v0 + 80);
+                v26 = *(v0 + 40);
+                v25 = *(v0 + 48);
+                v27 = swift_slowAlloc();
+                v28 = swift_slowAlloc();
+                v29 = swift_slowAlloc();
+                v57 = v29;
+                *v27 = 136446466;
+                *(v27 + 4) = sub_96A60(v26, v25, &v57);
+                *(v27 + 12) = 2112;
+                *(v27 + 14) = v24;
+                *v28 = v24;
+                v30 = v24;
+                p_align = (&stru_11EFE8 + 24);
+                _os_log_impl(&dword_0, v22, v23, "%{public}s This group contains emails, don't downgrade: %@", v27, 0x16u);
+                sub_75B0(v28, &qword_123E98, &unk_CEE80);
+
+                sub_97C9C(v29);
+              }
+
+              v31 = *(v0 + 176);
+              [v31 setAllAreReachable:1];
+              [v31 setError:0];
+              [v31 setReachabilityOverriddenToSuccessByPolicy:1];
+              goto LABEL_24;
+            }
+
+LABEL_33:
+            swift_once();
+            goto LABEL_20;
+          }
         }
 
-LABEL_35:
-        swift_once();
-        goto LABEL_21;
+        __break(1u);
+        goto LABEL_33;
       }
     }
-
-    __break(1u);
-    goto LABEL_35;
   }
 
-  v13 = *(v0 + 112);
-LABEL_25:
+LABEL_23:
 
-LABEL_26:
+LABEL_24:
   if (qword_124180 != -1)
   {
     swift_once();
   }
 
+  v32 = *(v0 + 176);
+  v33 = sub_BD7B4();
+  sub_96A28(v33, qword_1241A0);
+
+  v34 = v32;
+  v35 = sub_BD794();
+  v36 = sub_BDA54();
+
+  v37 = os_log_type_enabled(v35, v36);
   v38 = *(v0 + 176);
-  v39 = *(v0 + 72);
-  v40 = *(v0 + 48);
-  v41 = sub_BD7B4();
-  sub_96A28(v41, qword_1241A0);
-
-  v42 = v38;
-  v43 = sub_BD794();
-  v44 = sub_BDA54();
-
-  v45 = os_log_type_enabled(v43, v44);
-  v46 = *(v0 + 176);
-  v47 = *(v0 + 120);
-  v48 = *(v0 + 104);
-  if (v45)
+  v39 = *(v0 + 104);
+  if (v37)
   {
-    v49 = *(v0 + 72);
-    v50 = p_align;
-    v52 = *(v0 + 40);
-    v51 = *(v0 + 48);
-    v65 = *(v0 + 104);
-    v53 = swift_slowAlloc();
-    v66 = swift_slowAlloc();
-    *v53 = 136446978;
-    *(v53 + 4) = sub_96A60(v52, v51, &v66);
-    *(v53 + 12) = 1024;
-    *(v53 + 14) = [v46 *(v50 + 150)];
+    v40 = *(v0 + 72);
+    v41 = p_align;
+    v43 = *(v0 + 40);
+    v42 = *(v0 + 48);
+    v56 = *(v0 + 104);
+    v44 = swift_slowAlloc();
+    v57 = swift_slowAlloc();
+    *v44 = 136446978;
+    *(v44 + 4) = sub_96A60(v43, v42, &v57);
+    *(v44 + 12) = 1024;
+    *(v44 + 14) = [v38 *(v41 + 150)];
 
-    *(v53 + 18) = 2080;
-    *(v0 + 24) = v49;
+    *(v44 + 18) = 2080;
+    *(v0 + 24) = v40;
 
     sub_94950(&qword_1242F0, &qword_CEE78);
     sub_BBA08();
     sub_ABD60();
-    v54 = sub_BD924();
-    v56 = v55;
+    v45 = sub_BD924();
+    v47 = v46;
 
-    v57 = sub_96A60(v54, v56, &v66);
+    v48 = sub_96A60(v45, v47, &v57);
 
-    *(v53 + 20) = v57;
-    *(v53 + 28) = 2080;
+    *(v44 + 20) = v48;
+    *(v44 + 28) = 2080;
     sub_7610(0, &qword_123E60, IDSIDInfoResult_ptr);
 
-    v58 = sub_BD854();
-    v60 = v59;
+    v49 = sub_BD854();
+    v51 = v50;
 
-    v61 = sub_96A60(v58, v60, &v66);
+    v52 = sub_96A60(v49, v51, &v57);
 
-    *(v53 + 30) = v61;
-    _os_log_impl(&dword_0, v43, v44, "%{public}s Choosing all iMessageable(%{BOOL}d) requestedRecipients:(%s) perRecipientAvailability:(%s)", v53, 0x26u);
+    *(v44 + 30) = v52;
+    _os_log_impl(&dword_0, v35, v36, "%{public}s Choosing all iMessageable(%{BOOL}d) requestedRecipients:(%s) perRecipientAvailability:(%s)", v44, 0x26u);
     swift_arrayDestroy();
   }
 
@@ -1526,10 +1385,10 @@ LABEL_26:
   {
   }
 
-  v62 = *(v0 + 8);
-  v63 = *(v0 + 176);
+  v53 = *(v0 + 8);
+  v54 = *(v0 + 176);
 
-  return v62(v63);
+  return v53(v54);
 }
 
 uint64_t sub_69AC()
@@ -1551,16 +1410,12 @@ uint64_t sub_69AC()
   v8 = *(v0 + 56);
   v9 = *(v0 + 64);
   v10 = *(v0 + 40);
-  v11 = *(v0 + 48);
 
   return sub_B942C(v10, v8, v9, v6, v7, v2, v5, v4);
 }
 
 uint64_t sub_6A98(uint64_t a1)
 {
-  v2 = *(*v1 + 152);
-  v3 = *(*v1 + 144);
-  v5 = *v1;
   *(*v1 + 160) = a1;
 
   return _swift_task_switch(sub_6BB8, 0, 0);
@@ -1570,86 +1425,76 @@ uint64_t sub_6BB8()
 {
   if ([*(v0 + 160) allAreReachable] && *(v0 + 168) != 1)
   {
-    v15 = *(v0 + 160);
-    v17 = *(v0 + 104);
-    v16 = *(v0 + 112);
-    [v15 setFinal:1];
-    v17(v15);
+    v13 = *(v0 + 160);
+    v14 = *(v0 + 104);
+    [v13 setFinal:1];
+    v14(v13);
   }
 
   else
   {
     v1 = *(v0 + 160);
-    v3 = *(v0 + 104);
-    v2 = *(v0 + 112);
-    v4 = *(v0 + 169);
-    [v1 setFinal:v4];
-    v3(v1);
-    if ((v4 & 1) == 0)
+    v2 = *(v0 + 104);
+    v3 = *(v0 + 169);
+    [v1 setFinal:v3];
+    v2(v1);
+    if ((v3 & 1) == 0)
     {
-      v5 = *(v0 + 128);
-      v20 = *(v0 + 136);
-      v7 = *(v0 + 112);
-      v6 = *(v0 + 120);
-      v8 = *(v0 + 96);
-      v9 = *(v0 + 104);
-      v11 = *(v0 + 56);
-      v10 = *(v0 + 64);
-      v12 = *(v0 + 48);
-      v13 = [*(v0 + 160) allAreReachable];
+      v4 = *(v0 + 128);
+      v17 = *(v0 + 136);
+      v6 = *(v0 + 112);
+      v5 = *(v0 + 120);
+      v7 = *(v0 + 96);
+      v8 = *(v0 + 104);
+      v10 = *(v0 + 56);
+      v9 = *(v0 + 64);
+      v11 = [*(v0 + 160) allAreReachable];
       if (*(v0 + 168))
       {
-        v14 = 256;
+        v12 = 256;
       }
 
       else
       {
-        v14 = 0;
+        v12 = 0;
       }
 
-      sub_B8850(v6, v11, v10, v5, v20, v8, 1, v14 | v13, v9, v7);
+      sub_B8850(v5, v10, v9, v4, v17, v7, 1, v12 | v11, v8, v6);
     }
   }
 
-  v18 = *(v0 + 8);
+  v15 = *(v0 + 8);
 
-  return v18();
+  return v15();
 }
 
 uint64_t sub_6D10()
 {
-  v1 = *(*v0 + 32);
-  v2 = *(*v0 + 24);
-  v3 = *(*v0 + 16);
-  v7 = *v0;
 
-  v5 = sub_BD994();
+  v1 = sub_BD994();
 
-  return _swift_task_switch(sub_6E4C, v5, v4);
+  return _swift_task_switch(sub_6E4C, v1, v0);
 }
 
 uint64_t sub_6E4C()
 {
-  v1 = *(v0 + 24);
 
-  v2 = *(v0 + 8);
+  v1 = *(v0 + 8);
 
-  return v2();
+  return v1();
 }
 
 uint64_t sub_6EAC()
 {
-  v1 = *(*v0 + 16);
-  v4 = *v0;
+  v3 = *v0;
 
-  v2 = *(v4 + 8);
+  v1 = *(v3 + 8);
 
-  return v2();
+  return v1();
 }
 
 uint64_t sub_6FA4()
 {
-  v1 = *(v0 + 16);
   swift_unknownObjectRelease();
 
   return _swift_deallocObject(v0, 32, 7);
@@ -1744,83 +1589,51 @@ LABEL_19:
 
 uint64_t sub_7154()
 {
-  v1 = *(v0 + 16);
 
   return _swift_deallocObject(v0, 24, 7);
 }
 
 uint64_t sub_718C()
 {
-  v1 = *(v0 + 16);
-
-  v2 = *(v0 + 32);
-
-  v3 = *(v0 + 48);
-
-  v4 = *(v0 + 56);
-
-  v5 = *(v0 + 88);
-
-  v6 = *(v0 + 96);
-
-  v7 = *(v0 + 112);
 
   return _swift_deallocObject(v0, 120, 7);
 }
 
 uint64_t sub_71FC(uint64_t a1)
 {
-  v3 = *(v1 + 16);
-  v4 = *(v1 + 24);
-  v5 = *(v1 + 32);
-  v6 = *(v1 + 40);
-  v7 = *(v1 + 48);
-  v8 = *(v1 + 56);
-  v9 = *(v1 + 64);
-  v10 = *(v1 + 72);
-  v14 = *(v1 + 96);
-  v15 = *(v1 + 80);
-  v11 = *(v1 + 112);
-  v12 = swift_task_alloc();
-  *(v2 + 16) = v12;
-  *v12 = v2;
-  v12[1] = sub_7308;
+  v3 = v1[2];
+  v4 = v1[3];
+  v5 = v1[4];
+  v6 = v1[5];
+  v7 = v1[6];
+  v8 = v1[7];
+  v9 = v1[8];
+  v10 = swift_task_alloc();
+  *(v2 + 16) = v10;
+  *v10 = v2;
+  v10[1] = sub_7308;
 
   return sub_B9468(a1, v3, v4, v5, v6, v7, v8, v9);
 }
 
 uint64_t sub_7308()
 {
-  v1 = *(*v0 + 16);
-  v4 = *v0;
+  v3 = *v0;
 
-  v2 = *(v4 + 8);
+  v1 = *(v3 + 8);
 
-  return v2();
+  return v1();
 }
 
 uint64_t sub_73FC()
 {
-  v1 = v0[3];
-
-  v2 = v0[5];
-
-  v3 = v0[6];
-
-  v4 = v0[7];
-
-  v5 = v0[10];
 
   return _swift_deallocObject(v0, 88, 7);
 }
 
 uint64_t sub_7490()
 {
-  v1 = v0[2];
   swift_unknownObjectRelease();
-  v2 = v0[5];
-
-  v3 = v0[6];
 
   return _swift_deallocObject(v0, 56, 7);
 }
@@ -1847,12 +1660,11 @@ uint64_t sub_75B0(uint64_t a1, uint64_t *a2, uint64_t *a3)
   return a1;
 }
 
-uint64_t sub_7610(uint64_t a1, unint64_t *a2, uint64_t *a3)
+uint64_t sub_7610(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
   {
-    v5 = *a3;
     objc_opt_self();
     result = swift_getObjCClassMetadata();
     atomic_store(result, a2);
@@ -2263,9 +2075,9 @@ void sub_D0A4(uint64_t a1, void *a2)
         v6 = *(a1 + 40);
         v5 = *(a1 + 48);
         *buf = 138412546;
-        v45 = v5;
-        v46 = 2112;
-        v47 = v6;
+        v43 = v5;
+        v44 = 2112;
+        v45 = v6;
         _os_log_impl(&dword_0, v4, OS_LOG_TYPE_INFO, "Failed delivery receipt for message: %@   status is: %@", buf, 0x16u);
       }
     }
@@ -2284,7 +2096,7 @@ LABEL_6:
       {
         v8 = *(a1 + 48);
         *buf = 138412290;
-        v45 = v8;
+        v43 = v8;
         _os_log_impl(&dword_0, v7, OS_LOG_TYPE_INFO, "Ignoring delivery receipt for message: %@", buf, 0xCu);
       }
     }
@@ -2294,7 +2106,7 @@ LABEL_6:
 
   v9 = *(a1 + 32);
   v10 = [*(a1 + 56) account];
-  v43 = [v9 imdAccountForIDSAccount:v10];
+  v41 = [v9 imdAccountForIDSAccount:v10];
 
   v11 = [*(a1 + 64) unsignedIntValue];
   v12 = [*(a1 + 64) unsignedIntValue];
@@ -2318,7 +2130,7 @@ LABEL_6:
       if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v45 = v14;
+        v43 = v14;
         _os_log_impl(&dword_0, v15, OS_LOG_TYPE_INFO, "Received delivery status for command: %@", buf, 0xCu);
       }
     }
@@ -2328,84 +2140,82 @@ LABEL_6:
       v16 = *(a1 + 32);
       v17 = *(a1 + 48);
       v18 = [NSDate __im_iMessageDateFromTimeStamp:*(a1 + 80)];
-      [v16 didReceiveMessageDeliveryReceiptForMessageID:v17 date:v18 account:v43];
+      [v16 didReceiveMessageDeliveryReceiptForMessageID:v17 date:v18 account:v41];
 
       v19 = [*(a1 + 72) _stringForKey:@"tP"];
       v20 = [*(a1 + 72) _stringForKey:@"sP"];
       v21 = [*(a1 + 72) _dataForKey:@"t"];
       v22 = [*(a1 + 72) _dictionaryForKey:@"p"];
       v23 = [*(a1 + 72) _numberForKey:@"aT"];
-      v24 = *(a1 + 80);
-      v25 = *(a1 + 64);
-      [*(a1 + 32) handler:*(a1 + 56) messageIDSaved:*(a1 + 48) ofType:v23 toIdentifier:v19 fromIdentifier:v20 groupContext:v22 fromToken:v21 timeStamp:v24 fromIDSID:*(a1 + 96) needsDeliveryReceipt:*(a1 + 104) deliveryContext:*(a1 + 112) storageContext:v25 batchContext:*(a1 + 120)];
+      [*(a1 + 32) handler:*(a1 + 56) messageIDSaved:*(a1 + 48) ofType:v23 toIdentifier:v19 fromIdentifier:v20 groupContext:v22 fromToken:v21 timeStamp:*(a1 + 80) fromIDSID:*(a1 + 96) needsDeliveryReceipt:*(a1 + 104) deliveryContext:*(a1 + 112) storageContext:*(a1 + 64) batchContext:*(a1 + 120)];
     }
   }
 
   else
   {
-    v30 = +[IMDMessageStore sharedInstance];
-    v14 = [v30 messageWithGUID:*(a1 + 48)];
+    v28 = +[IMDMessageStore sharedInstance];
+    v14 = [v28 messageWithGUID:*(a1 + 48)];
 
     if ([v14 errorCode] != 43)
     {
-      v31 = *(a1 + 32);
-      v32 = *(a1 + 48);
-      v33 = [NSDate __im_iMessageDateFromTimeStamp:*(a1 + 80)];
-      v34 = [v31 didReceiveMessageDeliveryReceiptForMessageID:v32 date:v33 account:v43];
+      v29 = *(a1 + 32);
+      v30 = *(a1 + 48);
+      v31 = [NSDate __im_iMessageDateFromTimeStamp:*(a1 + 80)];
+      v32 = [v29 didReceiveMessageDeliveryReceiptForMessageID:v30 date:v31 account:v41];
 
       if (IMOSLoggingEnabled())
       {
-        v35 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
+        v33 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
         {
-          v36 = *(a1 + 48);
-          v37 = *(a1 + 72);
-          v38 = @"NO";
-          if (v34)
+          v34 = *(a1 + 48);
+          v35 = *(a1 + 72);
+          v36 = @"NO";
+          if (v32)
           {
-            v38 = @"YES";
+            v36 = @"YES";
           }
 
           *buf = 138412802;
-          v45 = v36;
+          v43 = v34;
+          v44 = 2112;
+          v45 = v35;
           v46 = 2112;
-          v47 = v37;
-          v48 = 2112;
-          v49 = v38;
-          _os_log_impl(&dword_0, v35, OS_LOG_TYPE_INFO, "Received Fresh Delivery Receipt For Message ID: %@ with Context : %@  Peer Reflecting It? %@", buf, 0x20u);
+          v47 = v36;
+          _os_log_impl(&dword_0, v33, OS_LOG_TYPE_INFO, "Received Fresh Delivery Receipt For Message ID: %@ with Context : %@  Peer Reflecting It? %@", buf, 0x20u);
         }
       }
 
-      if (v34)
+      if (v32)
       {
-        v39 = *(a1 + 88);
-        v40 = [*(a1 + 32) idsAccountForFromURI:v39 toURI:*(a1 + 88)];
-        if ([v40 _validateIDSAccount])
+        v37 = *(a1 + 88);
+        v38 = [*(a1 + 32) idsAccountForFromURI:v37 toURI:*(a1 + 88)];
+        if ([v38 _validateIDSAccount])
         {
-          v41 = v40;
+          v39 = v38;
         }
 
         else
         {
-          v41 = [*(a1 + 56) account];
+          v39 = [*(a1 + 56) account];
 
-          v42 = [*(a1 + 32) callerURIForIDSAccount:v41];
+          v40 = [*(a1 + 32) callerURIForIDSAccount:v39];
 
-          v39 = v42;
+          v37 = v40;
         }
 
-        [*(a1 + 32) forwardDeliveryReceiptForMessageID:*(a1 + 48) withAccount:v41 callerURI:v39];
+        [*(a1 + 32) forwardDeliveryReceiptForMessageID:*(a1 + 48) withAccount:v39 callerURI:v37];
       }
     }
   }
 
   if (v11)
   {
-    v26 = *(a1 + 32);
-    v27 = *(a1 + 120);
-    v28 = [*(a1 + 56) account];
-    v29 = [v26 idsServiceForIDSAccount:v28];
-    [v26 noteItemProcessed:(v12 >> 1) & 1 batchContext:v27 usingService:v29];
+    v24 = *(a1 + 32);
+    v25 = *(a1 + 120);
+    v26 = [*(a1 + 56) account];
+    v27 = [v24 idsServiceForIDSAccount:v26];
+    [v24 noteItemProcessed:(v12 >> 1) & 1 batchContext:v25 usingService:v27];
   }
 
   if (v3)
@@ -2511,15 +2321,15 @@ void sub_E5F4(uint64_t a1, void *a2)
         v9 = @"YES";
       }
 
-      v38 = 138413058;
-      v39 = v7;
-      v40 = 2112;
-      v41 = v6;
-      v42 = 2112;
-      v43 = v8;
-      v44 = 2112;
-      v45 = v9;
-      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_INFO, "Received read receipt for: %@   from: %@   token: %@  from me: %@", &v38, 0x2Au);
+      v37 = 138413058;
+      v38 = v7;
+      v39 = 2112;
+      v40 = v6;
+      v41 = 2112;
+      v42 = v8;
+      v43 = 2112;
+      v44 = v9;
+      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_INFO, "Received read receipt for: %@   from: %@   token: %@  from me: %@", &v37, 0x2Au);
     }
   }
 
@@ -2549,11 +2359,11 @@ void sub_E5F4(uint64_t a1, void *a2)
         if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
         {
           v17 = *(a1 + 80);
-          v38 = 138412546;
-          v39 = v17;
-          v40 = 2112;
-          v41 = v12;
-          _os_log_impl(&dword_0, v16, OS_LOG_TYPE_INFO, "About to update last active device on getting a read receipt to %@ for chat %@", &v38, 0x16u);
+          v37 = 138412546;
+          v38 = v17;
+          v39 = 2112;
+          v40 = v12;
+          _os_log_impl(&dword_0, v16, OS_LOG_TYPE_INFO, "About to update last active device on getting a read receipt to %@ for chat %@", &v37, 0x16u);
         }
       }
 
@@ -2563,34 +2373,33 @@ void sub_E5F4(uint64_t a1, void *a2)
       [v18 updateLatestActiveDestination:v19 ForHandle:v20 incomingType:1];
 
       v21 = [*(a1 + 32) deliveryController];
-      v22 = *(a1 + 40);
-      v23 = IMSingleObjectArray();
-      [v21 noteRecentMessageForPeople:v23];
+      v22 = IMSingleObjectArray();
+      [v21 noteRecentMessageForPeople:v22];
     }
   }
 
-  v24 = *(a1 + 32);
-  v25 = *(a1 + 80);
-  v26 = *(a1 + 88);
-  v27 = *(a1 + 48);
-  v28 = *(a1 + 56);
-  v29 = *(a1 + 96);
-  v30 = [*(a1 + 104) account];
-  [v24 sendDeliveryReceiptForMessageID:v28 toID:v25 deliveryContext:v26 needsDeliveryReceipt:v29 callerID:v27 account:v30];
+  v23 = *(a1 + 32);
+  v24 = *(a1 + 80);
+  v25 = *(a1 + 88);
+  v26 = *(a1 + 48);
+  v27 = *(a1 + 56);
+  v28 = *(a1 + 96);
+  v29 = [*(a1 + 104) account];
+  [v23 sendDeliveryReceiptForMessageID:v27 toID:v24 deliveryContext:v25 needsDeliveryReceipt:v28 callerID:v26 account:v29];
 
   if (*(a1 + 128) == 1)
   {
-    v31 = *(a1 + 32);
-    v32 = *(a1 + 129);
-    v33 = *(a1 + 112);
-    v34 = [*(a1 + 104) account];
-    v35 = [v31 idsServiceForIDSAccount:v34];
-    [v31 noteItemProcessed:v32 & 1 batchContext:v33 usingService:v35];
+    v30 = *(a1 + 32);
+    v31 = *(a1 + 129);
+    v32 = *(a1 + 112);
+    v33 = [*(a1 + 104) account];
+    v34 = [v30 idsServiceForIDSAccount:v33];
+    [v30 noteItemProcessed:v31 & 1 batchContext:v32 usingService:v34];
   }
 
-  v36 = *(*(a1 + 120) + 8);
-  v37 = *(v36 + 40);
-  *(v36 + 40) = 0;
+  v35 = *(*(a1 + 120) + 8);
+  v36 = *(v35 + 40);
+  *(v35 + 40) = 0;
 
   if (v3)
   {
@@ -2982,8 +2791,8 @@ void sub_FCAC(uint64_t a1, void *a2)
 
 void sub_10490(uint64_t a1, void *a2)
 {
-  v34 = a2;
-  v33 = [*(a1 + 32) isEqualToString:*(a1 + 40)];
+  v33 = a2;
+  v32 = [*(a1 + 32) isEqualToString:*(a1 + 40)];
   if (IMOSLoggingEnabled())
   {
     v3 = OSLogHandleForIMEventCategory();
@@ -2993,19 +2802,19 @@ void sub_10490(uint64_t a1, void *a2)
       v5 = *(a1 + 48);
       v6 = *(a1 + 56);
       v7 = @"NO";
-      if (v33)
+      if (v32)
       {
         v7 = @"YES";
       }
 
       *buf = 138413058;
-      v37 = v5;
-      v38 = 2112;
-      v39 = v4;
-      v40 = 2112;
-      v41 = v6;
-      v42 = 2112;
-      v43 = v7;
+      v36 = v5;
+      v37 = 2112;
+      v38 = v4;
+      v39 = 2112;
+      v40 = v6;
+      v41 = 2112;
+      v42 = v7;
       _os_log_impl(&dword_0, v3, OS_LOG_TYPE_INFO, "Received saved receipt for: %@   from: %@   token: %@  from me: %@", buf, 0x2Au);
     }
   }
@@ -3014,589 +2823,586 @@ void sub_10490(uint64_t a1, void *a2)
   if ([*(a1 + 72) count])
   {
     v8 = [*(a1 + 64) groupController];
-    v35 = [v8 chatForGroupMessagePayload:*(a1 + 72) fromIdentifier:*(a1 + 32) toIdentifier:*(a1 + 40)];
+    v34 = [v8 chatForGroupMessagePayload:*(a1 + 72) fromIdentifier:*(a1 + 32) toIdentifier:*(a1 + 40)];
   }
 
   else
   {
-    v35 = 0;
+    v34 = 0;
   }
 
-  v9 = *(a1 + 48);
-  v31 = v9;
-  v32 = *(a1 + 64);
-  v10 = [*(a1 + 80) integerValue];
-  v11 = [v35 chatIdentifier];
-  v12 = *(a1 + 32);
-  v13 = [NSDate __im_iMessageDateFromTimeStamp:*(a1 + 88)];
-  v14 = *(a1 + 64);
-  v15 = [*(a1 + 96) account];
-  v16 = [v14 imdAccountForIDSAccount:v15];
-  [v32 didReceiveMessageSavedForMessageID:v31 ofType:v10 forChat:v11 fromHandle:v12 fromMe:v33 date:v13 account:v16 completionBlock:v34];
+  v30 = *(a1 + 48);
+  v31 = *(a1 + 64);
+  v9 = [*(a1 + 80) integerValue];
+  v10 = [v34 chatIdentifier];
+  v11 = *(a1 + 32);
+  v12 = [NSDate __im_iMessageDateFromTimeStamp:*(a1 + 88)];
+  v13 = *(a1 + 64);
+  v14 = [*(a1 + 96) account];
+  v15 = [v13 imdAccountForIDSAccount:v14];
+  [v31 didReceiveMessageSavedForMessageID:v30 ofType:v9 forChat:v10 fromHandle:v11 fromMe:v32 date:v12 account:v15 completionBlock:v33];
 
-  v17 = *(a1 + 64);
-  v18 = *(a1 + 48);
-  v19 = *(a1 + 104);
-  v20 = *(a1 + 112);
-  v21 = *(a1 + 120);
-  v22 = *(a1 + 40);
-  v23 = [*(a1 + 96) account];
-  [v17 sendDeliveryReceiptForMessageID:v18 toID:v19 deliveryContext:v20 needsDeliveryReceipt:v21 callerID:v22 account:v23];
+  v16 = *(a1 + 64);
+  v17 = *(a1 + 48);
+  v18 = *(a1 + 104);
+  v19 = *(a1 + 112);
+  v20 = *(a1 + 120);
+  v21 = *(a1 + 40);
+  v22 = [*(a1 + 96) account];
+  [v16 sendDeliveryReceiptForMessageID:v17 toID:v18 deliveryContext:v19 needsDeliveryReceipt:v20 callerID:v21 account:v22];
 
   if (*(a1 + 144) == 1)
   {
-    v24 = *(a1 + 64);
-    v25 = *(a1 + 145);
-    v26 = *(a1 + 128);
-    v27 = [*(a1 + 96) account];
-    v28 = [v24 idsServiceForIDSAccount:v27];
-    [v24 noteItemProcessed:v25 & 1 batchContext:v26 usingService:v28];
+    v23 = *(a1 + 64);
+    v24 = *(a1 + 145);
+    v25 = *(a1 + 128);
+    v26 = [*(a1 + 96) account];
+    v27 = [v23 idsServiceForIDSAccount:v26];
+    [v23 noteItemProcessed:v24 & 1 batchContext:v25 usingService:v27];
   }
 
-  v29 = *(*(a1 + 136) + 8);
-  v30 = *(v29 + 40);
-  *(v29 + 40) = 0;
+  v28 = *(*(a1 + 136) + 8);
+  v29 = *(v28 + 40);
+  *(v28 + 40) = 0;
 }
 
-void sub_1206C(uint64_t a1)
+void sub_1206C(uint64_t a1, uint64_t a2)
 {
   if (IMOSLoggingEnabled())
   {
-    v2 = OSLogHandleForIMEventCategory();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v3 = OSLogHandleForIMEventCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v2, OS_LOG_TYPE_INFO, " ** Sending decryption failure", buf, 2u);
+      _os_log_impl(&dword_0, v3, OS_LOG_TYPE_INFO, " ** Sending decryption failure", buf, 2u);
     }
   }
 
-  v3 = [*(a1 + 32) deliveryController];
-  v4 = *(a1 + 48);
-  v5 = *(a1 + 56);
-  v6 = *(a1 + 40);
-  v7 = [*(a1 + 32) idsAccountForURI:v5 IDSServiceName:@"com.apple.madrid"];
-  [v3 sendMessageError:200 toToken:v6 toID:v4 toGroup:0 fromID:v5 fromAccount:v7 forMessageID:*(a1 + 64) completionBlock:&stru_112170];
+  v4 = [*(a1 + 32) deliveryController];
+  v5 = *(a1 + 48);
+  v6 = *(a1 + 56);
+  v7 = *(a1 + 40);
+  v8 = [*(a1 + 32) idsAccountForURI:v6 IDSServiceName:@"com.apple.madrid"];
+  [v4 sendMessageError:200 toToken:v7 toID:v5 toGroup:0 fromID:v6 fromAccount:v8 forMessageID:*(a1 + 64) completionBlock:&stru_112170];
 }
 
 void sub_121AC(uint64_t a1, void *a2, void *a3, void *a4, void *a5, void *a6, void *a7)
 {
-  v232 = a2;
-  v241 = a3;
-  v235 = a4;
-  v236 = a5;
-  v242 = a6;
+  v228 = a2;
+  v237 = a3;
+  v231 = a4;
+  v232 = a5;
+  v238 = a6;
   v13 = a7;
-  v296 = 0;
-  v297 = &v296;
-  v298 = 0x3032000000;
-  v299 = sub_E5DC;
-  v300 = sub_E5EC;
-  v301 = [*(a1 + 32) _stripFZIDPrefix];
-  v240 = *(a1 + 40);
-  if (v241 || (*(a1 + 160) & 1) != 0 || [v242 count] < 3 || !objc_msgSend(*(a1 + 48), "_isFromLinkedID:fromID:", *(a1 + 56), *(a1 + 32)))
+  v292 = 0;
+  v293 = &v292;
+  v294 = 0x3032000000;
+  v295 = sub_E5DC;
+  v296 = sub_E5EC;
+  v297 = [*(a1 + 32) _stripFZIDPrefix];
+  v236 = *(a1 + 40);
+  if (v237 || (*(a1 + 160) & 1) != 0 || [v238 count] < 3 || !objc_msgSend(*(a1 + 48), "_isFromLinkedID:fromID:", *(a1 + 56), *(a1 + 32)))
   {
     if (![v13 count])
     {
-      v238 = [[NSAttributedString alloc] initWithString:@" "];
-      v205 = 0;
-      v206 = 0;
-      v204 = 0;
-      v218 = 0;
-      v219 = 0;
-      v227 = 0;
-      v228 = 0;
-      v224 = 0;
-      v225 = 0;
-      v237 = 0;
-      v36 = 0;
-      v226 = 0;
-      v222 = 0;
-      v223 = 0;
+      v234 = [[NSAttributedString alloc] initWithString:@" "];
       v201 = 0;
       v202 = 0;
+      v200 = 0;
+      v214 = 0;
+      v215 = 0;
+      v223 = 0;
+      v224 = 0;
+      v220 = 0;
+      v221 = 0;
+      v233 = 0;
+      v34 = 0;
+      v222 = 0;
+      v218 = 0;
+      v219 = 0;
+      v197 = 0;
+      v198 = 0;
+      v199 = 0;
+      v226 = 0;
+      v227 = 0;
       v203 = 0;
-      v230 = 0;
-      v231 = 0;
-      v207 = 0;
-      v239 = 0;
+      v235 = 0;
+      v204 = 0;
+      v206 = 0;
       v208 = 0;
       v210 = 0;
-      v212 = 0;
-      v214 = 0;
-      v229 = 0;
+      v225 = 0;
       v21 = 0;
-      v233 = 0;
-      v234 = 0;
-      v37 = 1;
-      v216 = 1;
+      v229 = 0;
+      v230 = 0;
+      v35 = 1;
+      v212 = 1;
       goto LABEL_102;
     }
 
-    v229 = [v13 _stringForKey:@"x"];
-    v231 = [v13 _stringForKey:@"s"];
-    v223 = [v13 _stringForKey:@"t"];
+    v225 = [v13 _stringForKey:@"x"];
+    v227 = [v13 _stringForKey:@"s"];
+    v219 = [v13 _stringForKey:@"t"];
     v22 = [v13 _numberForKey:@"u"];
-    v216 = [v22 BOOLValue];
+    v212 = [v22 BOOLValue];
 
     v23 = [v13 _numberForKey:@"a"];
-    v214 = [v23 BOOLValue];
+    v210 = [v23 BOOLValue];
 
     v24 = [v13 _numberForKey:@"ar"];
-    v212 = [v24 BOOLValue];
+    v208 = [v24 BOOLValue];
 
     v25 = [v13 _numberForKey:@"e"];
-    v210 = [v25 BOOLValue];
+    v206 = [v25 BOOLValue];
 
     v26 = [v13 _numberForKey:@"sos"];
-    v208 = [v26 BOOLValue];
+    v204 = [v26 BOOLValue];
 
     v27 = [v13 _numberForKey:@"c"];
-    BYTE4(v207) = [v27 BOOLValue];
+    BYTE4(v203) = [v27 BOOLValue];
 
     v28 = +[IMFeatureFlags sharedFeatureFlags];
     v29 = [v28 isBIAEnabled];
 
     if (v29 && ([v13 _numberForKey:@"bia"], v30 = objc_claimAutoreleasedReturnValue(), v31 = objc_msgSend(v30, "BOOLValue"), v30, v31))
     {
-      v227 = [v13 _stringForKey:@"brid"];
-      BYTE4(v205) = 1;
+      v223 = [v13 _stringForKey:@"brid"];
+      BYTE4(v201) = 1;
     }
 
     else
     {
-      v227 = 0;
-      BYTE4(v205) = 0;
+      v223 = 0;
+      BYTE4(v201) = 0;
     }
 
-    v32 = *(a1 + 56);
-    if (IMStringIsBusinessID() && (v33 = *(a1 + 56), (IMStringIsStewie() & 1) != 0) || ([v13 _stringForKey:@"m"], v34 = objc_claimAutoreleasedReturnValue(), (v239 = v34) == 0))
+    if (IMStringIsBusinessID() && (IMStringIsStewie() & 1) != 0 || ([v13 _stringForKey:@"m"], v32 = objc_claimAutoreleasedReturnValue(), (v235 = v32) == 0))
     {
-      LOBYTE(v207) = 0;
-      v239 = 0;
+      LOBYTE(v203) = 0;
+      v235 = 0;
     }
 
     else
     {
-      v35 = [v34 componentsSeparatedByString:@""];;
-      LOBYTE(v207) = [*(a1 + 48) _amIMentioned:*(a1 + 56) inMentions:v35];
+      v33 = [v32 componentsSeparatedByString:@""];;
+      LOBYTE(v203) = [*(a1 + 48) _amIMentioned:*(a1 + 56) inMentions:v33];
     }
 
-    v226 = [v13 _stringForKey:@"tg"];
-    v38 = [v13 _numberForKey:@"ms"];
-    v206 = [v38 unsignedIntegerValue];
+    v222 = [v13 _stringForKey:@"tg"];
+    v36 = [v13 _numberForKey:@"ms"];
+    v202 = [v36 unsignedIntegerValue];
 
-    v230 = [v13 _stringForKey:@"amk"];
-    v39 = [v13 _numberForKey:@"amt"];
-    v203 = [v39 longLongValue];
+    v226 = [v13 _stringForKey:@"amk"];
+    v37 = [v13 _numberForKey:@"amt"];
+    v199 = [v37 longLongValue];
 
-    v40 = [v13 _numberForKey:@"amrlc"];
-    v202 = [v40 integerValue];
+    v38 = [v13 _numberForKey:@"amrlc"];
+    v198 = [v38 integerValue];
 
-    v41 = [v13 _numberForKey:@"amrln"];
-    v201 = [v41 integerValue];
+    v39 = [v13 _numberForKey:@"amrln"];
+    v197 = [v39 integerValue];
 
-    v222 = [v13 _stringForKey:@"ame"];
-    v225 = [v13 _dataForKey:@"sld"];
-    v42 = +[IMFeatureFlags sharedFeatureFlags];
-    LODWORD(v41) = [v42 isTranscriptSharingEnabled];
+    v218 = [v13 _stringForKey:@"ame"];
+    v221 = [v13 _dataForKey:@"sld"];
+    v40 = +[IMFeatureFlags sharedFeatureFlags];
+    LODWORD(v39) = [v40 isTranscriptSharingEnabled];
 
-    if (v41 && (v43 = *(a1 + 32), IMStringIsBusinessID()))
+    if (v39 && IMStringIsBusinessID())
     {
-      v295 = 0;
-      v44 = [IMSharedEmergencyInfo infoFromDictionary:v13 isStewieTranscriptSharingMessage:&v295];
-      v45 = v44;
-      if (v295 == 1)
+      v291 = 0;
+      v41 = [IMSharedEmergencyInfo infoFromDictionary:v13 isStewieTranscriptSharingMessage:&v291];
+      v42 = v41;
+      if (v291 == 1)
       {
-        if (!v44)
+        if (!v41)
         {
           if (IMOSLoggingEnabled())
           {
-            v135 = OSLogHandleForIMFoundationCategory();
-            if (os_log_type_enabled(v135, OS_LOG_TYPE_INFO))
+            v131 = OSLogHandleForIMFoundationCategory();
+            if (os_log_type_enabled(v131, OS_LOG_TYPE_INFO))
             {
-              v136 = *(a1 + 32);
+              v132 = *(a1 + 32);
               *buf = 138412290;
-              v304 = v136;
-              _os_log_impl(&dword_0, v135, OS_LOG_TYPE_INFO, "Received a business chat from %@ with INVALID stewie transcript sharing data. Dropping this message", buf, 0xCu);
+              v300 = v132;
+              _os_log_impl(&dword_0, v131, OS_LOG_TYPE_INFO, "Received a business chat from %@ with INVALID stewie transcript sharing data. Dropping this message", buf, 0xCu);
             }
           }
 
-          v224 = 0;
-          v237 = 0;
-          v238 = 0;
-          v36 = 0;
-          v21 = 0;
+          v220 = 0;
           v233 = 0;
           v234 = 0;
+          v34 = 0;
+          v21 = 0;
+          v229 = 0;
+          v230 = 0;
           goto LABEL_146;
         }
 
-        v234 = [v44 emergencyUserPersona];
-        v233 = [v45 senderPersona];
+        v230 = [v41 emergencyUserPersona];
+        v229 = [v42 senderPersona];
 LABEL_30:
-        v46 = [v13 _numberForKey:@"gt"];
-        LOBYTE(v205) = [v46 BOOLValue];
-        v228 = v45;
+        v43 = [v13 _numberForKey:@"gt"];
+        LOBYTE(v201) = [v43 BOOLValue];
+        v224 = v42;
 
-        v36 = [v13 _stringForKey:@"bid"];
-        v47 = [v13 _dataForKey:@"bp"];
-        v237 = [v47 _FTOptionallyDecompressData];
+        v34 = [v13 _stringForKey:@"bid"];
+        v44 = [v13 _dataForKey:@"bp"];
+        v233 = [v44 _FTOptionallyDecompressData];
 
-        v48 = [v13 _numberForKey:@"hn"];
-        if ([v48 BOOLValue])
+        v45 = [v13 _numberForKey:@"hn"];
+        if ([v45 BOOLValue])
         {
-          v49 = *(a1 + 32);
           IsBusinessID = IMStringIsBusinessID();
 
           if (IsBusinessID)
           {
             if (IMOSLoggingEnabled())
             {
-              v51 = OSLogHandleForIMEventCategory();
-              if (os_log_type_enabled(v51, OS_LOG_TYPE_INFO))
+              v47 = OSLogHandleForIMEventCategory();
+              if (os_log_type_enabled(v47, OS_LOG_TYPE_INFO))
               {
-                v52 = *(a1 + 80);
+                v48 = *(a1 + 80);
                 *buf = 138412290;
-                v304 = v52;
-                _os_log_impl(&dword_0, v51, OS_LOG_TYPE_INFO, "Not displaying notification for message with ID %@", buf, 0xCu);
+                v300 = v48;
+                _os_log_impl(&dword_0, v47, OS_LOG_TYPE_INFO, "Not displaying notification for message with ID %@", buf, 0xCu);
               }
             }
 
-            v204 = 1;
+            v200 = 1;
 LABEL_39:
-            if (([v36 length] || objc_msgSend(v237, "length")) && IMOSLoggingEnabled())
+            if (([v34 length] || objc_msgSend(v233, "length")) && IMOSLoggingEnabled())
             {
-              v53 = OSLogHandleForIMEventCategory();
-              if (os_log_type_enabled(v53, OS_LOG_TYPE_INFO))
+              v49 = OSLogHandleForIMEventCategory();
+              if (os_log_type_enabled(v49, OS_LOG_TYPE_INFO))
               {
-                v54 = *(a1 + 80);
-                v55 = [v237 length];
+                v50 = *(a1 + 80);
+                v51 = [v233 length];
                 *buf = 138412802;
-                v304 = v54;
-                v305 = 2112;
-                v306 = v36;
-                v307 = 2048;
-                v308 = v55;
-                _os_log_impl(&dword_0, v53, OS_LOG_TYPE_INFO, "Received a message: %@ with balloonBundleID: %@ and payload: %lu", buf, 0x20u);
+                v300 = v50;
+                v301 = 2112;
+                v302 = v34;
+                v303 = 2048;
+                v304 = v51;
+                _os_log_impl(&dword_0, v49, OS_LOG_TYPE_INFO, "Received a message: %@ with balloonBundleID: %@ and payload: %lu", buf, 0x20u);
               }
             }
 
-            v56 = [v13 _numberForKey:@"oe"];
-            v57 = v56;
-            if (v56)
+            v52 = [v13 _numberForKey:@"oe"];
+            v53 = v52;
+            if (v52)
             {
-              v58 = v56;
+              v54 = v52;
             }
 
             else
             {
-              v58 = [*(a1 + 88) originalTimestamp];
+              v54 = [*(a1 + 88) originalTimestamp];
             }
 
-            v59 = [*(a1 + 48) _shouldAdjustTimestampOfResentMessages];
-            if (v58)
+            v55 = [*(a1 + 48) _shouldAdjustTimestampOfResentMessages];
+            if (v54)
             {
-              v60 = v59;
+              v56 = v55;
             }
 
             else
             {
-              v60 = 0;
+              v56 = 0;
             }
 
-            if (v60 == 1)
+            if (v56 == 1)
             {
-              if (![*(a1 + 48) _originalTimestampWithinAcceptableWindow:v58 timestamp:v240])
+              if (![*(a1 + 48) _originalTimestampWithinAcceptableWindow:v54 timestamp:v236])
               {
                 if (IMOSLoggingEnabled())
                 {
-                  v81 = OSLogHandleForIMFoundationCategory();
-                  if (os_log_type_enabled(v81, OS_LOG_TYPE_INFO))
+                  v77 = OSLogHandleForIMFoundationCategory();
+                  if (os_log_type_enabled(v77, OS_LOG_TYPE_INFO))
                   {
-                    v82 = *(a1 + 80);
+                    v78 = *(a1 + 80);
                     [*(a1 + 48) _messageRetryTimeout];
-                    v83 = [NSNumber numberWithDouble:?];
+                    v79 = [NSNumber numberWithDouble:?];
                     *buf = 138413058;
-                    v304 = v82;
+                    v300 = v78;
+                    v301 = 2112;
+                    v302 = v54;
+                    v303 = 2112;
+                    v304 = v236;
                     v305 = 2112;
-                    v306 = v58;
-                    v307 = 2112;
-                    v308 = v240;
-                    v309 = 2112;
-                    v310 = v83;
-                    _os_log_impl(&dword_0, v81, OS_LOG_TYPE_INFO, "Incoming message with guid %@ has original timestamp outside the acceptable window. Dropping this message. originalTimestamp: %@ timestamp: %@ timeoutWindow: %@", buf, 0x2Au);
+                    v306 = v79;
+                    _os_log_impl(&dword_0, v77, OS_LOG_TYPE_INFO, "Incoming message with guid %@ has original timestamp outside the acceptable window. Dropping this message. originalTimestamp: %@ timestamp: %@ timeoutWindow: %@", buf, 0x2Au);
                   }
                 }
 
                 [*(a1 + 72) sendManualAckForMessageWithContext:*(a1 + 88)];
-                v84 = *(a1 + 48);
-                v85 = [*(a1 + 72) service];
-                [v84 _sendCertifiedDeliveryReceiptIfPossible:v85 messageContext:*(a1 + 88) guid:*(a1 + 80) messageWasStored:1 needsDeliveryReceipt:0 failureReason:0];
+                v80 = *(a1 + 48);
+                v81 = [*(a1 + 72) service];
+                [v80 _sendCertifiedDeliveryReceiptIfPossible:v81 messageContext:*(a1 + 88) guid:*(a1 + 80) messageWasStored:1 needsDeliveryReceipt:0 failureReason:0];
 
-                v86 = *(*(a1 + 152) + 8);
-                v65 = *(v86 + 40);
-                *(v86 + 40) = 0;
+                v82 = *(*(a1 + 152) + 8);
+                v61 = *(v82 + 40);
+                *(v82 + 40) = 0;
                 goto LABEL_77;
               }
 
               if (IMOSLoggingEnabled())
               {
-                v61 = OSLogHandleForIMFoundationCategory();
-                if (os_log_type_enabled(v61, OS_LOG_TYPE_INFO))
+                v57 = OSLogHandleForIMFoundationCategory();
+                if (os_log_type_enabled(v57, OS_LOG_TYPE_INFO))
                 {
-                  v62 = *(a1 + 80);
+                  v58 = *(a1 + 80);
                   *buf = 138412802;
-                  v304 = v240;
-                  v305 = 2112;
-                  v306 = v58;
-                  v307 = 2112;
-                  v308 = v62;
-                  _os_log_impl(&dword_0, v61, OS_LOG_TYPE_INFO, "Adjusting timestamp of incoming message to original timestamp. Timestamp: %@ Original timestamp: %@ guid: %@", buf, 0x20u);
+                  v300 = v236;
+                  v301 = 2112;
+                  v302 = v54;
+                  v303 = 2112;
+                  v304 = v58;
+                  _os_log_impl(&dword_0, v57, OS_LOG_TYPE_INFO, "Adjusting timestamp of incoming message to original timestamp. Timestamp: %@ Original timestamp: %@ guid: %@", buf, 0x20u);
                 }
               }
 
-              v63 = v58;
+              v59 = v54;
 
-              v240 = v63;
+              v236 = v59;
             }
 
-            v64 = [v36 componentsSeparatedByString:@":"];
-            v65 = [v64 lastObject];
+            v60 = [v34 componentsSeparatedByString:@":"];
+            v61 = [v60 lastObject];
 
-            v66 = [IDSServerBag sharedInstanceForBagType:1];
-            v67 = IMSharedHelperAppBlocklisted();
+            v62 = [IDSServerBag sharedInstanceForBagType:1];
+            v63 = IMSharedHelperAppBlocklisted();
 
-            if (v67)
+            if (v63)
             {
               if (IMOSLoggingEnabled())
               {
-                v68 = OSLogHandleForIMEventCategory();
-                if (os_log_type_enabled(v68, OS_LOG_TYPE_INFO))
+                v64 = OSLogHandleForIMEventCategory();
+                if (os_log_type_enabled(v64, OS_LOG_TYPE_INFO))
                 {
                   *buf = 138412290;
-                  v304 = v36;
-                  _os_log_impl(&dword_0, v68, OS_LOG_TYPE_INFO, "Banned app message due to server bag key. Dropping message with ID %@", buf, 0xCu);
+                  v300 = v34;
+                  _os_log_impl(&dword_0, v64, OS_LOG_TYPE_INFO, "Banned app message due to server bag key. Dropping message with ID %@", buf, 0xCu);
                 }
               }
 
               if (*(a1 + 161) == 1)
               {
-                v69 = *(a1 + 48);
-                v70 = *(a1 + 162);
-                v71 = *(a1 + 64);
-                v72 = [*(a1 + 72) account];
-                v73 = [v69 idsServiceForIDSAccount:v72];
-                [v69 noteItemProcessed:v70 batchContext:v71 usingService:v73];
+                v65 = *(a1 + 48);
+                v66 = *(a1 + 162);
+                v67 = *(a1 + 64);
+                v68 = [*(a1 + 72) account];
+                v69 = [v65 idsServiceForIDSAccount:v68];
+                [v65 noteItemProcessed:v66 batchContext:v67 usingService:v69];
               }
 
-              v74 = *(*(a1 + 152) + 8);
-              v75 = *(v74 + 40);
-              *(v74 + 40) = 0;
+              v70 = *(*(a1 + 152) + 8);
+              v71 = *(v70 + 40);
+              *(v70 + 40) = 0;
 
 LABEL_77:
-              v224 = 0;
-              v238 = 0;
+              v220 = 0;
+              v234 = 0;
               v21 = 0;
 LABEL_146:
 
               goto LABEL_147;
             }
 
-            v224 = [v13 _stringForKey:@"iid"];
-            v76 = [v13 _stringForKey:@"ix"];
-            v77 = [v13 _dataForKey:@"tic"];
-            v219 = [v77 _FTOptionallyDecompressData];
+            v220 = [v13 _stringForKey:@"iid"];
+            v72 = [v13 _stringForKey:@"ix"];
+            v73 = [v13 _dataForKey:@"tic"];
+            v215 = [v73 _FTOptionallyDecompressData];
 
-            v78 = [v13 _dataForKey:@"ati"];
-            v220 = [v78 _FTOptionallyDecompressData];
+            v74 = [v13 _dataForKey:@"ati"];
+            v216 = [v74 _FTOptionallyDecompressData];
 
-            v199 = IMGetAttributedInfoArrayAllowlistedClasses();
+            v195 = IMGetAttributedInfoArrayAllowlistedClasses();
             if (IMOSLoggingEnabled())
             {
-              v79 = OSLogHandleForIMFoundationCategory();
-              if (os_log_type_enabled(v79, OS_LOG_TYPE_INFO))
+              v75 = OSLogHandleForIMFoundationCategory();
+              if (os_log_type_enabled(v75, OS_LOG_TYPE_INFO))
               {
                 *buf = 0;
-                _os_log_impl(&dword_0, v79, OS_LOG_TYPE_INFO, "Calling IMUnarchiverDecoder decoder to decode attributionInfoData", buf, 2u);
+                _os_log_impl(&dword_0, v75, OS_LOG_TYPE_INFO, "Calling IMUnarchiverDecoder decoder to decode attributionInfoData", buf, 2u);
               }
             }
 
-            v80 = [IMUnarchiverDecoder decodeEncodedDataSecurely:v220 ofClass:objc_opt_class() includesAllowlistedClasses:v199];
+            v76 = [IMUnarchiverDecoder decodeEncodedDataSecurely:v216 ofClass:objc_opt_class() includesAllowlistedClasses:v195];
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v218 = v80;
+              v214 = v76;
             }
 
             else
             {
-              v218 = 0;
+              v214 = 0;
             }
 
             if (IMOSLoggingEnabled())
             {
-              v87 = OSLogHandleForIMFoundationCategory();
-              if (os_log_type_enabled(v87, OS_LOG_TYPE_DEBUG))
+              v83 = OSLogHandleForIMFoundationCategory();
+              if (os_log_type_enabled(v83, OS_LOG_TYPE_DEBUG))
               {
-                v88 = MarcoLoggingStringForMessageData();
+                v84 = MarcoLoggingStringForMessageData();
                 *buf = 138413058;
-                v304 = v88;
+                v300 = v84;
+                v301 = 2112;
+                v302 = v231;
+                v303 = 2112;
+                v304 = v232;
                 v305 = 2112;
-                v306 = v235;
-                v307 = 2112;
-                v308 = v236;
-                v309 = 2112;
-                v310 = v242;
-                _os_log_impl(&dword_0, v87, OS_LOG_TYPE_DEBUG, "Received message dictionary: %@  groupID: %@   name: %@    participants: %@", buf, 0x2Au);
+                v306 = v238;
+                _os_log_impl(&dword_0, v83, OS_LOG_TYPE_DEBUG, "Received message dictionary: %@  groupID: %@   name: %@    participants: %@", buf, 0x2Au);
               }
             }
 
             if (IMOSLoggingEnabled())
             {
-              v89 = OSLogHandleForIMFoundationCategory();
-              if (os_log_type_enabled(v89, OS_LOG_TYPE_DEBUG))
+              v85 = OSLogHandleForIMFoundationCategory();
+              if (os_log_type_enabled(v85, OS_LOG_TYPE_DEBUG))
               {
-                v90 = MarcoLoggingStringForMessageData();
-                v91 = MarcoLoggingStringForMessageData();
-                v92 = MarcoLoggingStringForMessageData();
-                v93 = v92;
-                v94 = v297[5];
-                v95 = @"NO";
+                v86 = MarcoLoggingStringForMessageData();
+                v87 = MarcoLoggingStringForMessageData();
+                v88 = MarcoLoggingStringForMessageData();
+                v89 = v88;
+                v90 = v293[5];
+                v91 = @"NO";
                 if (*(a1 + 160))
                 {
-                  v95 = @"YES";
+                  v91 = @"YES";
                 }
 
                 *buf = 138414082;
-                v304 = v90;
+                v300 = v86;
+                v301 = 2112;
+                v302 = v87;
+                v303 = 2112;
+                v304 = v88;
                 v305 = 2112;
-                v306 = v91;
+                v306 = v90;
                 v307 = 2112;
-                v308 = v92;
+                v308 = v238;
                 v309 = 2112;
-                v310 = v94;
+                v310 = v91;
                 v311 = 2112;
-                v312 = v242;
+                v312 = v227;
                 v313 = 2112;
-                v314 = v95;
-                v315 = 2112;
-                v316 = v231;
-                v317 = 2112;
-                v318 = v242;
-                _os_log_impl(&dword_0, v89, OS_LOG_TYPE_DEBUG, "Received xhtml: %@ plain: %@ AuxXHTML: %@ from: %@   to: %@  (from me: %@)  subject: %@  participants: %@", buf, 0x52u);
+                v314 = v238;
+                _os_log_impl(&dword_0, v85, OS_LOG_TYPE_DEBUG, "Received xhtml: %@ plain: %@ AuxXHTML: %@ from: %@   to: %@  (from me: %@)  subject: %@  participants: %@", buf, 0x52u);
               }
             }
 
-            if ([v76 length])
+            if ([v72 length])
             {
-              v21 = [[MessageToSuperParserContext alloc] initWithContent:v76];
-              v96 = +[IMXMLParser sharedInstance];
-              [v96 parseContext:v21];
+              v21 = [[MessageToSuperParserContext alloc] initWithContent:v72];
+              v92 = +[IMXMLParser sharedInstance];
+              [v92 parseContext:v21];
 
-              v238 = [(MessageToSuperParserContext *)v21 body];
+              v234 = [(MessageToSuperParserContext *)v21 body];
               if (IMOSLoggingEnabled())
               {
-                v97 = OSLogHandleForIMFoundationCategory();
-                if (os_log_type_enabled(v97, OS_LOG_TYPE_DEBUG))
+                v93 = OSLogHandleForIMFoundationCategory();
+                if (os_log_type_enabled(v93, OS_LOG_TYPE_DEBUG))
                 {
-                  v98 = [v238 string];
-                  v99 = MarcoLoggingStringForMessageData();
+                  v94 = [v234 string];
+                  v95 = MarcoLoggingStringForMessageData();
                   *buf = 138412290;
-                  v304 = v99;
-                  _os_log_impl(&dword_0, v97, OS_LOG_TYPE_DEBUG, "      Aux xhtml parsed body: %@", buf, 0xCu);
+                  v300 = v95;
+                  _os_log_impl(&dword_0, v93, OS_LOG_TYPE_DEBUG, "      Aux xhtml parsed body: %@", buf, 0xCu);
                 }
               }
             }
 
             else
             {
-              if (!v229)
+              if (!v225)
               {
-                if (v223)
+                if (v219)
                 {
-                  v131 = [[NSAttributedString alloc] initWithString:v223];
-                  v238 = [v131 __im_attributedStringByAssigningMessagePartNumbers];
+                  v127 = [[NSAttributedString alloc] initWithString:v219];
+                  v234 = [v127 __im_attributedStringByAssigningMessagePartNumbers];
                   if (IMOSLoggingEnabled())
                   {
-                    v132 = OSLogHandleForIMFoundationCategory();
-                    if (os_log_type_enabled(v132, OS_LOG_TYPE_DEBUG))
+                    v128 = OSLogHandleForIMFoundationCategory();
+                    if (os_log_type_enabled(v128, OS_LOG_TYPE_DEBUG))
                     {
-                      v133 = [v238 string];
-                      v134 = MarcoLoggingStringForMessageData();
+                      v129 = [v234 string];
+                      v130 = MarcoLoggingStringForMessageData();
                       *buf = 138412290;
-                      v304 = v134;
-                      _os_log_impl(&dword_0, v132, OS_LOG_TYPE_DEBUG, "      plain parsed body: %@", buf, 0xCu);
+                      v300 = v130;
+                      _os_log_impl(&dword_0, v128, OS_LOG_TYPE_DEBUG, "      plain parsed body: %@", buf, 0xCu);
                     }
                   }
 
-                  v104 = [v238 length] != 0;
+                  v100 = [v234 length] != 0;
                 }
 
                 else
                 {
-                  v104 = 0;
-                  v238 = 0;
+                  v100 = 0;
+                  v234 = 0;
                 }
 
                 v21 = 0;
                 goto LABEL_101;
               }
 
-              v21 = [[MessageToSuperParserContext alloc] initWithContent:v229];
-              v100 = +[IMXMLParser sharedInstance];
-              [v100 parseContext:v21];
+              v21 = [[MessageToSuperParserContext alloc] initWithContent:v225];
+              v96 = +[IMXMLParser sharedInstance];
+              [v96 parseContext:v21];
 
-              v238 = [(MessageToSuperParserContext *)v21 body];
+              v234 = [(MessageToSuperParserContext *)v21 body];
               if (IMOSLoggingEnabled())
               {
-                v101 = OSLogHandleForIMFoundationCategory();
-                if (os_log_type_enabled(v101, OS_LOG_TYPE_DEBUG))
+                v97 = OSLogHandleForIMFoundationCategory();
+                if (os_log_type_enabled(v97, OS_LOG_TYPE_DEBUG))
                 {
-                  v102 = [v238 string];
-                  v103 = MarcoLoggingStringForMessageData();
+                  v98 = [v234 string];
+                  v99 = MarcoLoggingStringForMessageData();
                   *buf = 138412290;
-                  v304 = v103;
-                  _os_log_impl(&dword_0, v101, OS_LOG_TYPE_DEBUG, "      xhtml parsed body: %@", buf, 0xCu);
+                  v300 = v99;
+                  _os_log_impl(&dword_0, v97, OS_LOG_TYPE_DEBUG, "      xhtml parsed body: %@", buf, 0xCu);
                 }
               }
             }
 
-            v104 = [v238 length] != 0;
+            v100 = [v234 length] != 0;
 LABEL_101:
 
-            v37 = !v104;
+            v35 = !v100;
 LABEL_102:
             if (IMOSLoggingEnabled())
             {
-              v105 = OSLogHandleForIMFoundationCategory();
-              if (os_log_type_enabled(v105, OS_LOG_TYPE_INFO))
+              v101 = OSLogHandleForIMFoundationCategory();
+              if (os_log_type_enabled(v101, OS_LOG_TYPE_INFO))
               {
                 *buf = 138412290;
-                v304 = v242;
-                _os_log_impl(&dword_0, v105, OS_LOG_TYPE_INFO, "Participants: %@", buf, 0xCu);
+                v300 = v238;
+                _os_log_impl(&dword_0, v101, OS_LOG_TYPE_INFO, "Participants: %@", buf, 0xCu);
               }
             }
 
-            v221 = [MessageGroupController memberDisplayIDsFromParticipants:v242 toIdentifier:*(a1 + 56)];
-            if ([*(a1 + 48) _shouldIgnoreMessageFromSender:*(a1 + 32) balloonBID:v36 fromMe:*(a1 + 160)])
+            v217 = [MessageGroupController memberDisplayIDsFromParticipants:v238 toIdentifier:*(a1 + 56)];
+            if ([*(a1 + 48) _shouldIgnoreMessageFromSender:*(a1 + 32) balloonBID:v34 fromMe:*(a1 + 160)])
             {
               if (IMOSLoggingEnabled())
               {
-                v106 = OSLogHandleForIMFoundationCategory();
-                if (os_log_type_enabled(v106, OS_LOG_TYPE_INFO))
+                v102 = OSLogHandleForIMFoundationCategory();
+                if (os_log_type_enabled(v102, OS_LOG_TYPE_INFO))
                 {
-                  v107 = *(a1 + 32);
-                  v108 = *(a1 + 56);
-                  v109 = *(a1 + 160);
+                  v103 = *(a1 + 32);
+                  v104 = *(a1 + 56);
+                  v105 = *(a1 + 160);
                   *buf = 138413058;
-                  v304 = v36;
-                  v305 = 2112;
-                  v306 = v107;
-                  v307 = 2112;
-                  v308 = v108;
-                  v309 = 1024;
-                  LODWORD(v310) = v109;
-                  _os_log_impl(&dword_0, v106, OS_LOG_TYPE_INFO, "   Ignoring message for App: %@ from non-business endpoint :%@  to: %@ fromMe: %d", buf, 0x26u);
+                  v300 = v34;
+                  v301 = 2112;
+                  v302 = v103;
+                  v303 = 2112;
+                  v304 = v104;
+                  v305 = 1024;
+                  LODWORD(v306) = v105;
+                  _os_log_impl(&dword_0, v102, OS_LOG_TYPE_INFO, "   Ignoring message for App: %@ from non-business endpoint :%@  to: %@ fromMe: %d", buf, 0x26u);
                 }
               }
 
@@ -3608,405 +3414,405 @@ LABEL_102:
               goto LABEL_144;
             }
 
-            if ((*(a1 + 163) | v37 | [*(a1 + 48) _isAllowlistedUnencryptedSender:*(a1 + 32)]))
+            if ((*(a1 + 163) | v35 | [*(a1 + 48) _isAllowlistedUnencryptedSender:*(a1 + 32)]))
             {
-              if (v242)
+              if (v238)
               {
-                v110 = v216;
+                v106 = v212;
               }
 
               else
               {
-                v110 = 1;
+                v106 = 1;
               }
 
-              if (v110 & 1) != 0 || ([v242 containsObject:*(a1 + 32)])
+              if (v106 & 1) != 0 || ([v238 containsObject:*(a1 + 32)])
               {
-                v111 = [v221 count];
-                v200 = v111 > 1;
-                if (![v221 count] && objc_msgSend(v242, "count") == &dword_0 + 1)
+                v107 = [v217 count];
+                v196 = v107 > 1;
+                if (![v217 count] && objc_msgSend(v238, "count") == &dword_0 + 1)
                 {
-                  v112 = v242;
+                  v108 = v238;
 
-                  v221 = v112;
+                  v217 = v108;
                 }
 
-                BYTE2(v198) = BYTE4(v207);
-                BYTE1(v198) = v208;
-                LOBYTE(v198) = v207;
-                LOBYTE(v197) = v205;
-                v113 = [*(a1 + 48) _computeFlagsForIncomingMessage:0 isFromMe:*(a1 + 160) unfinished:v216 isAudioMessage:v214 isAutoReply:v212 isExpirable:v210 isGroupTypingMessage:v197 messageSource:v206 participants:v242 hasUnseenMention:v198 isSOS:? isCritical:?];
-                if (![v238 length])
+                BYTE2(v194) = BYTE4(v203);
+                BYTE1(v194) = v204;
+                LOBYTE(v194) = v203;
+                LOBYTE(v193) = v201;
+                v109 = [*(a1 + 48) _computeFlagsForIncomingMessage:0 isFromMe:*(a1 + 160) unfinished:v212 isAudioMessage:v210 isAutoReply:v208 isExpirable:v206 isGroupTypingMessage:v193 messageSource:v202 participants:v238 hasUnseenMention:v194 isSOS:? isCritical:?];
+                if (![v234 length])
                 {
-                  v114 = [[NSAttributedString alloc] initWithString:&stru_115E20];
+                  v110 = [[NSAttributedString alloc] initWithString:&stru_115E20];
 
-                  v238 = v114;
+                  v234 = v110;
                 }
 
-                v115 = *(a1 + 160);
-                if (v115 == 1 && v111 <= 1)
+                v111 = *(a1 + 160);
+                if (v111 == 1 && v107 <= 1)
                 {
-                  if (![v221 count])
+                  if (![v217 count])
                   {
-                    v137 = [*(a1 + 32) _stripFZIDPrefix];
-                    v116 = v297[5];
-                    v297[5] = v137;
+                    v133 = [*(a1 + 32) _stripFZIDPrefix];
+                    v112 = v293[5];
+                    v293[5] = v133;
                     goto LABEL_160;
                   }
 
-                  LOBYTE(v115) = *(a1 + 160);
+                  LOBYTE(v111) = *(a1 + 160);
                 }
 
-                if ((v115 & 1) == 0 || v111 > 1 || ![v221 count])
+                if ((v111 & 1) == 0 || v107 > 1 || ![v217 count])
                 {
                   goto LABEL_161;
                 }
 
-                v116 = [v221 lastObject];
-                v117 = [v116 _stripFZIDPrefix];
-                v118 = v297[5];
-                v297[5] = v117;
+                v112 = [v217 lastObject];
+                v113 = [v112 _stripFZIDPrefix];
+                v114 = v293[5];
+                v293[5] = v113;
 
 LABEL_160:
 LABEL_161:
                 if (*(a1 + 32))
                 {
-                  v138 = [*(a1 + 48) deliveryController];
-                  v302 = *(a1 + 32);
-                  v139 = [NSArray arrayWithObjects:&v302 count:1];
-                  [v138 noteRecentMessageForPeople:v139];
+                  v134 = [*(a1 + 48) deliveryController];
+                  v298 = *(a1 + 32);
+                  v135 = [NSArray arrayWithObjects:&v298 count:1];
+                  [v134 noteRecentMessageForPeople:v135];
                 }
 
-                v140 = [v13 _dataForKey:@"msi"];
-                v209 = v140;
-                if (v140)
+                v136 = [v13 _dataForKey:@"msi"];
+                v205 = v136;
+                if (v136)
                 {
-                  v211 = [NSDictionary dictionaryWithMessageSummaryInfoData:v140];
+                  v207 = [NSDictionary dictionaryWithMessageSummaryInfoData:v136];
                 }
 
                 else
                 {
-                  v211 = 0;
+                  v207 = 0;
                 }
 
-                if (v230 && [v230 length])
+                if (v226 && [v226 length])
                 {
-                  v141 = [IMAssociatedMessageItem alloc];
-                  v142 = v297[5];
-                  v143 = [NSDate __im_iMessageDateFromTimeStamp:v240];
-                  v144 = [(MessageToSuperParserContext *)v21 fileTransferGUIDs];
-                  v145 = [v141 initWithSender:v142 time:v143 body:v238 attributes:0 fileTransferGUIDs:v144 flags:v113 error:0 guid:*(a1 + 80) associatedMessageGUID:v230 associatedMessageType:v203 associatedMessageRange:v202 associatedMessageEmoji:v201 messageSummaryInfo:v222 threadIdentifier:{v211, v226}];
+                  v137 = [IMAssociatedMessageItem alloc];
+                  v138 = v293[5];
+                  v139 = [NSDate __im_iMessageDateFromTimeStamp:v236];
+                  v140 = [(MessageToSuperParserContext *)v21 fileTransferGUIDs];
+                  v141 = [v137 initWithSender:v138 time:v139 body:v234 attributes:0 fileTransferGUIDs:v140 flags:v109 error:0 guid:*(a1 + 80) associatedMessageGUID:v226 associatedMessageType:v199 associatedMessageRange:v198 associatedMessageEmoji:v197 messageSummaryInfo:v218 threadIdentifier:{v207, v222}];
 
                   if (IMOSLoggingEnabled())
                   {
-                    v146 = OSLogHandleForIMFoundationCategory();
-                    if (os_log_type_enabled(v146, OS_LOG_TYPE_INFO))
+                    v142 = OSLogHandleForIMFoundationCategory();
+                    if (os_log_type_enabled(v142, OS_LOG_TYPE_INFO))
                     {
                       *buf = 138412290;
-                      v304 = v230;
-                      _os_log_impl(&dword_0, v146, OS_LOG_TYPE_INFO, "Received message associated with GUID: %@", buf, 0xCu);
+                      v300 = v226;
+                      _os_log_impl(&dword_0, v142, OS_LOG_TYPE_INFO, "Received message associated with GUID: %@", buf, 0xCu);
                     }
                   }
                 }
 
                 else
                 {
-                  if ([v36 containsString:IMBalloonPluginIdentifierSurf])
+                  if ([v34 containsString:IMBalloonPluginIdentifierSurf])
                   {
-                    v147 = 1;
+                    v143 = 1;
                   }
 
                   else
                   {
-                    v147 = [v36 containsString:IMBalloonPluginIdentifierSurfDeprecated];
+                    v143 = [v34 containsString:IMBalloonPluginIdentifierSurfDeprecated];
                   }
 
-                  v148 = v297[5];
-                  v149 = +[IMFeatureFlags sharedFeatureFlags];
-                  v150 = [v149 isTranscriptSharingEnabled];
+                  v144 = v293[5];
+                  v145 = +[IMFeatureFlags sharedFeatureFlags];
+                  v146 = [v145 isTranscriptSharingEnabled];
 
-                  if (v150)
+                  if (v146)
                   {
-                    v151 = [v233 senderID];
-                    v152 = v151;
-                    if (v151)
+                    v147 = [v229 senderID];
+                    v148 = v147;
+                    if (v147)
                     {
-                      v153 = v151;
+                      v149 = v147;
                     }
 
                     else
                     {
-                      v153 = v148;
+                      v149 = v144;
                     }
 
-                    v154 = v153;
+                    v150 = v149;
 
-                    v148 = v154;
+                    v144 = v150;
                   }
 
-                  v155 = [IMMessageItem alloc];
-                  v156 = [NSDate __im_iMessageDateFromTimeStamp:v240];
-                  if (v147)
+                  v151 = [IMMessageItem alloc];
+                  v152 = [NSDate __im_iMessageDateFromTimeStamp:v236];
+                  if (v143)
                   {
-                    v157 = 0;
-                  }
-
-                  else
-                  {
-                    v157 = [(MessageToSuperParserContext *)v21 fileTransferGUIDs];
-                  }
-
-                  v145 = [v155 initWithSender:v148 time:v156 body:v238 attributes:0 fileTransferGUIDs:v157 flags:v113 error:0 guid:*(a1 + 80) threadIdentifier:v226];
-                  if ((v147 & 1) == 0)
-                  {
-                  }
-
-                  [v145 setMessageSummaryInfo:v211];
-                  v158 = +[IMFeatureFlags sharedFeatureFlags];
-                  v159 = [v158 isTranscriptSharingEnabled];
-
-                  if (v228)
-                  {
-                    v160 = v159;
+                    v153 = 0;
                   }
 
                   else
                   {
-                    v160 = 0;
+                    v153 = [(MessageToSuperParserContext *)v21 fileTransferGUIDs];
                   }
 
-                  if (v160 == 1)
+                  v141 = [v151 initWithSender:v144 time:v152 body:v234 attributes:0 fileTransferGUIDs:v153 flags:v109 error:0 guid:*(a1 + 80) threadIdentifier:v222];
+                  if ((v143 & 1) == 0)
                   {
-                    [v145 setTranscriptSharingMessageType:{objc_msgSend(v228, "messageType")}];
                   }
 
-                  v161 = +[IMFeatureFlags sharedFeatureFlags];
-                  v162 = [v161 isBIAEnabled];
+                  [v141 setMessageSummaryInfo:v207];
+                  v154 = +[IMFeatureFlags sharedFeatureFlags];
+                  v155 = [v154 isTranscriptSharingEnabled];
 
-                  if (v162)
+                  if (v224)
                   {
-                    [v145 setBiaReferenceID:v227];
+                    v156 = v155;
+                  }
+
+                  else
+                  {
+                    v156 = 0;
+                  }
+
+                  if (v156 == 1)
+                  {
+                    [v141 setTranscriptSharingMessageType:{objc_msgSend(v224, "messageType")}];
+                  }
+
+                  v157 = +[IMFeatureFlags sharedFeatureFlags];
+                  v158 = [v157 isBIAEnabled];
+
+                  if (v158)
+                  {
+                    [v141 setBiaReferenceID:v223];
                   }
                 }
 
-                v163 = *(a1 + 48);
-                v164 = [*(a1 + 72) account];
-                v213 = [v163 imdAccountForIDSAccount:v164];
+                v159 = *(a1 + 48);
+                v160 = [*(a1 + 72) account];
+                v209 = [v159 imdAccountForIDSAccount:v160];
 
-                v165 = [v213 accountID];
-                [v145 setAccountID:v165];
+                v161 = [v209 accountID];
+                [v141 setAccountID:v161];
 
-                [v145 setBalloonBundleID:v36];
-                v215 = [*(a1 + 56) _stripFZIDPrefix];
-                [v145 setDestinationCallerID:v215];
+                [v141 setBalloonBundleID:v34];
+                v211 = [*(a1 + 56) _stripFZIDPrefix];
+                [v141 setDestinationCallerID:v211];
                 if (IMOSLoggingEnabled())
                 {
-                  v166 = OSLogHandleForIMFoundationCategory();
-                  if (os_log_type_enabled(v166, OS_LOG_TYPE_INFO))
+                  v162 = OSLogHandleForIMFoundationCategory();
+                  if (os_log_type_enabled(v162, OS_LOG_TYPE_INFO))
                   {
-                    v167 = [v145 guid];
+                    v163 = [v141 guid];
                     *buf = 138412546;
-                    v304 = v215;
-                    v305 = 2112;
-                    v306 = v167;
-                    _os_log_impl(&dword_0, v166, OS_LOG_TYPE_INFO, "Setting destination callerID: %@ for guid: %@", buf, 0x16u);
+                    v300 = v211;
+                    v301 = 2112;
+                    v302 = v163;
+                    _os_log_impl(&dword_0, v162, OS_LOG_TYPE_INFO, "Setting destination callerID: %@ for guid: %@", buf, 0x16u);
                   }
                 }
 
-                v217 = [v13 _stringForKey:@"r"];
-                if ([v217 length])
+                v213 = [v13 _stringForKey:@"r"];
+                if ([v213 length])
                 {
                   if (IMOSLoggingEnabled())
                   {
-                    v168 = OSLogHandleForIMFoundationCategory();
-                    if (os_log_type_enabled(v168, OS_LOG_TYPE_INFO))
+                    v164 = OSLogHandleForIMFoundationCategory();
+                    if (os_log_type_enabled(v164, OS_LOG_TYPE_INFO))
                     {
-                      v169 = [v145 guid];
+                      v165 = [v141 guid];
                       *buf = 138412546;
-                      v304 = v217;
-                      v305 = 2112;
-                      v306 = v169;
-                      _os_log_impl(&dword_0, v168, OS_LOG_TYPE_INFO, "Setting replyToGUID %@ for message %@", buf, 0x16u);
+                      v300 = v213;
+                      v301 = 2112;
+                      v302 = v165;
+                      _os_log_impl(&dword_0, v164, OS_LOG_TYPE_INFO, "Setting replyToGUID %@ for message %@", buf, 0x16u);
                     }
                   }
 
-                  [v145 setReplyToGUID:v217];
+                  [v141 setReplyToGUID:v213];
                 }
 
-                if (v237)
+                if (v233)
                 {
-                  v170 = [v237 _FTOptionallyDecompressData];
-                  v294 = 0;
-                  v171 = IMSharedHelperPayloadFromCombinedPluginPayloadData();
-                  v172 = 0;
+                  v166 = [v233 _FTOptionallyDecompressData];
+                  v290 = 0;
+                  v167 = IMSharedHelperPayloadFromCombinedPluginPayloadData();
+                  v168 = 0;
 
-                  [v145 setPayloadData:v171];
-                  if ([v172 count])
+                  [v141 setPayloadData:v167];
+                  if ([v168 count])
                   {
-                    v173 = +[IMDFileTransferCenter sharedInstance];
-                    v174 = [v145 guid];
-                    v175 = [v173 guidsForStoredAttachmentPayloadData:v172 messageGUID:v174];
+                    v169 = +[IMDFileTransferCenter sharedInstance];
+                    v170 = [v141 guid];
+                    v171 = [v169 guidsForStoredAttachmentPayloadData:v168 messageGUID:v170];
 
-                    [v145 setFileTransferGUIDs:v175];
+                    [v141 setFileTransferGUIDs:v171];
                   }
 
                   if (IMOSLoggingEnabled())
                   {
-                    v176 = OSLogHandleForIMFoundationCategory();
-                    if (os_log_type_enabled(v176, OS_LOG_TYPE_INFO))
+                    v172 = OSLogHandleForIMFoundationCategory();
+                    if (os_log_type_enabled(v172, OS_LOG_TYPE_INFO))
                     {
-                      v177 = [v145 guid];
-                      v178 = [v145 fileTransferGUIDs];
+                      v173 = [v141 guid];
+                      v174 = [v141 fileTransferGUIDs];
                       *buf = 138412546;
-                      v304 = v177;
-                      v305 = 2112;
-                      v306 = v178;
-                      _os_log_impl(&dword_0, v176, OS_LOG_TYPE_INFO, "%@ Setting payload contained inline. Attachments %@", buf, 0x16u);
+                      v300 = v173;
+                      v301 = 2112;
+                      v302 = v174;
+                      _os_log_impl(&dword_0, v172, OS_LOG_TYPE_INFO, "%@ Setting payload contained inline. Attachments %@", buf, 0x16u);
                     }
                   }
                 }
 
-                [v145 setTypingIndicatorIcon:v219];
-                [v145 setExpressiveSendStyleID:v224];
-                [v145 setContactsAvatarRecipeData:v225];
-                if (v231)
+                [v141 setTypingIndicatorIcon:v215];
+                [v141 setExpressiveSendStyleID:v220];
+                [v141 setContactsAvatarRecipeData:v221];
+                if (v227)
                 {
-                  [v145 setSubject:v231];
+                  [v141 setSubject:v227];
                 }
 
                 if (IMOSLoggingEnabled())
                 {
-                  v179 = OSLogHandleForIMFoundationCategory();
-                  if (os_log_type_enabled(v179, OS_LOG_TYPE_DEBUG))
+                  v175 = OSLogHandleForIMFoundationCategory();
+                  if (os_log_type_enabled(v175, OS_LOG_TYPE_DEBUG))
                   {
-                    v180 = [v145 body];
-                    v181 = MarcoLoggingStringForMessageData();
+                    v176 = [v141 body];
+                    v177 = MarcoLoggingStringForMessageData();
                     *buf = 138412290;
-                    v304 = v181;
-                    _os_log_impl(&dword_0, v179, OS_LOG_TYPE_DEBUG, "   Message body: %@", buf, 0xCu);
+                    v300 = v177;
+                    _os_log_impl(&dword_0, v175, OS_LOG_TYPE_DEBUG, "   Message body: %@", buf, 0xCu);
                   }
                 }
 
                 if (IMOSLoggingEnabled())
                 {
-                  v182 = OSLogHandleForIMFoundationCategory();
-                  if (os_log_type_enabled(v182, OS_LOG_TYPE_DEBUG))
+                  v178 = OSLogHandleForIMFoundationCategory();
+                  if (os_log_type_enabled(v178, OS_LOG_TYPE_DEBUG))
                   {
-                    v183 = [v145 subject];
+                    v179 = [v141 subject];
                     *buf = 138412290;
-                    v304 = v183;
-                    _os_log_impl(&dword_0, v182, OS_LOG_TYPE_DEBUG, "   Message subject: %@", buf, 0xCu);
+                    v300 = v179;
+                    _os_log_impl(&dword_0, v178, OS_LOG_TYPE_DEBUG, "   Message subject: %@", buf, 0xCu);
                   }
                 }
 
                 if (IMOSLoggingEnabled())
                 {
-                  v184 = OSLogHandleForIMFoundationCategory();
-                  if (os_log_type_enabled(v184, OS_LOG_TYPE_DEBUG))
+                  v180 = OSLogHandleForIMFoundationCategory();
+                  if (os_log_type_enabled(v180, OS_LOG_TYPE_DEBUG))
                   {
-                    v185 = [v145 fileTransferGUIDs];
+                    v181 = [v141 fileTransferGUIDs];
                     *buf = 138412290;
-                    v304 = v185;
-                    _os_log_impl(&dword_0, v184, OS_LOG_TYPE_DEBUG, "   Message transfers: %@", buf, 0xCu);
+                    v300 = v181;
+                    _os_log_impl(&dword_0, v180, OS_LOG_TYPE_DEBUG, "   Message transfers: %@", buf, 0xCu);
                   }
                 }
 
-                v256[0] = _NSConcreteStackBlock;
-                v256[1] = 3221225472;
-                v256[2] = sub_14A90;
-                v256[3] = &unk_1122F0;
-                v285 = *(a1 + 161);
-                v256[4] = *(a1 + 48);
-                v257 = *(a1 + 64);
-                v258 = *(a1 + 72);
-                v186 = v13;
-                v259 = v186;
-                v260 = v218;
-                v261 = *(a1 + 32);
-                v262 = *(a1 + 96);
-                v187 = v145;
-                v263 = v187;
-                v264 = *(a1 + 80);
-                v286 = *(a1 + 163);
-                v287 = v200;
-                v188 = v213;
-                v265 = v188;
-                v283 = &v296;
-                v266 = v234;
-                v267 = v228;
-                v221 = v221;
-                v268 = v221;
-                v269 = *(a1 + 56);
-                v270 = v241;
-                v271 = *(a1 + 104);
-                v272 = v240;
-                v273 = v236;
-                v274 = v235;
-                v288 = *(a1 + 160);
-                v275 = v242;
-                v289 = *(a1 + 165);
-                v189 = *(a1 + 112);
-                v290 = *(a1 + 166);
-                v190 = *(a1 + 152);
-                v276 = v189;
-                v284 = v190;
-                v277 = *(a1 + 120);
-                v291 = BYTE4(v205);
-                v278 = v227;
-                v279 = *(a1 + 128);
-                v292 = *(a1 + 167);
-                v280 = *(a1 + 136);
-                v281 = *(a1 + 88);
-                v282 = *(a1 + 144);
-                v293 = v204;
-                v191 = objc_retainBlock(v256);
-                v192 = [v187 fileTransferGUIDs];
-                if ([v192 count])
+                v252[0] = _NSConcreteStackBlock;
+                v252[1] = 3221225472;
+                v252[2] = sub_14A90;
+                v252[3] = &unk_1122F0;
+                v281 = *(a1 + 161);
+                v252[4] = *(a1 + 48);
+                v253 = *(a1 + 64);
+                v254 = *(a1 + 72);
+                v182 = v13;
+                v255 = v182;
+                v256 = v214;
+                v257 = *(a1 + 32);
+                v258 = *(a1 + 96);
+                v183 = v141;
+                v259 = v183;
+                v260 = *(a1 + 80);
+                v282 = *(a1 + 163);
+                v283 = v196;
+                v184 = v209;
+                v261 = v184;
+                v279 = &v292;
+                v262 = v230;
+                v263 = v224;
+                v217 = v217;
+                v264 = v217;
+                v265 = *(a1 + 56);
+                v266 = v237;
+                v267 = *(a1 + 104);
+                v268 = v236;
+                v269 = v232;
+                v270 = v231;
+                v284 = *(a1 + 160);
+                v271 = v238;
+                v285 = *(a1 + 165);
+                v185 = *(a1 + 112);
+                v286 = *(a1 + 166);
+                v186 = *(a1 + 152);
+                v272 = v185;
+                v280 = v186;
+                v273 = *(a1 + 120);
+                v287 = BYTE4(v201);
+                v274 = v223;
+                v275 = *(a1 + 128);
+                v288 = *(a1 + 167);
+                v276 = *(a1 + 136);
+                v277 = *(a1 + 88);
+                v278 = *(a1 + 144);
+                v289 = v200;
+                v187 = objc_retainBlock(v252);
+                v188 = [v183 fileTransferGUIDs];
+                if ([v188 count])
                 {
-                  v193 = 240.0;
+                  v189 = 240.0;
                 }
 
                 else
                 {
-                  v193 = 45.0;
+                  v189 = 45.0;
                 }
 
-                v194 = *(a1 + 48);
-                v243[0] = _NSConcreteStackBlock;
-                v243[1] = 3221225472;
-                v243[2] = sub_18C2C;
-                v243[3] = &unk_112390;
-                v244 = *(a1 + 80);
-                v253 = *(a1 + 166);
-                v195 = v191;
-                v254 = *(a1 + 161);
-                v196 = *(a1 + 48);
-                v251 = v195;
-                v245 = v196;
-                v246 = *(a1 + 64);
-                v247 = *(a1 + 72);
-                v248 = *(a1 + 32);
-                v130 = v187;
-                v249 = v130;
-                v250 = v186;
-                v252 = &v296;
-                v255 = *(a1 + 167);
-                [v194 _enqueueBlock:v243 withTimeout:@"reflected message attachment processing" description:v193];
+                v190 = *(a1 + 48);
+                v239[0] = _NSConcreteStackBlock;
+                v239[1] = 3221225472;
+                v239[2] = sub_18C2C;
+                v239[3] = &unk_112390;
+                v240 = *(a1 + 80);
+                v249 = *(a1 + 166);
+                v191 = v187;
+                v250 = *(a1 + 161);
+                v192 = *(a1 + 48);
+                v247 = v191;
+                v241 = v192;
+                v242 = *(a1 + 64);
+                v243 = *(a1 + 72);
+                v244 = *(a1 + 32);
+                v126 = v183;
+                v245 = v126;
+                v246 = v182;
+                v248 = &v292;
+                v251 = *(a1 + 167);
+                [v190 _enqueueBlock:v239 withTimeout:@"reflected message attachment processing" description:v189];
 
                 goto LABEL_145;
               }
 
               if (IMOSLoggingEnabled())
               {
-                v122 = OSLogHandleForIMFoundationCategory();
-                if (os_log_type_enabled(v122, OS_LOG_TYPE_DEBUG))
+                v118 = OSLogHandleForIMFoundationCategory();
+                if (os_log_type_enabled(v118, OS_LOG_TYPE_DEBUG))
                 {
-                  v123 = *(a1 + 32);
+                  v119 = *(a1 + 32);
                   *buf = 138412546;
-                  v304 = v123;
-                  v305 = 2112;
-                  v306 = v242;
-                  _os_log_impl(&dword_0, v122, OS_LOG_TYPE_DEBUG, "   fromIdentifier: %@  not in participants: %@, bailing", buf, 0x16u);
+                  v300 = v119;
+                  v301 = 2112;
+                  v302 = v238;
+                  _os_log_impl(&dword_0, v118, OS_LOG_TYPE_DEBUG, "   fromIdentifier: %@  not in participants: %@, bailing", buf, 0x16u);
                 }
               }
 
@@ -4020,16 +3826,16 @@ LABEL_161:
             {
               if (IMOSLoggingEnabled())
               {
-                v119 = OSLogHandleForIMFoundationCategory();
-                if (os_log_type_enabled(v119, OS_LOG_TYPE_INFO))
+                v115 = OSLogHandleForIMFoundationCategory();
+                if (os_log_type_enabled(v115, OS_LOG_TYPE_INFO))
                 {
-                  v120 = *(a1 + 32);
-                  v121 = *(a1 + 56);
+                  v116 = *(a1 + 32);
+                  v117 = *(a1 + 56);
                   *buf = 138412546;
-                  v304 = v120;
-                  v305 = 2112;
-                  v306 = v121;
-                  _os_log_impl(&dword_0, v119, OS_LOG_TYPE_INFO, "   Received a message with content that wasn't encrypted from: %@  to: %@, ignoring", buf, 0x16u);
+                  v300 = v116;
+                  v301 = 2112;
+                  v302 = v117;
+                  _os_log_impl(&dword_0, v115, OS_LOG_TYPE_INFO, "   Received a message with content that wasn't encrypted from: %@  to: %@, ignoring", buf, 0x16u);
                 }
               }
 
@@ -4039,17 +3845,17 @@ LABEL_161:
               }
             }
 
-            v124 = *(a1 + 48);
-            v125 = *(a1 + 162);
-            v126 = *(a1 + 64);
-            v127 = [*(a1 + 72) account];
-            v128 = [v124 idsServiceForIDSAccount:v127];
-            [v124 noteItemProcessed:v125 batchContext:v126 usingService:v128];
+            v120 = *(a1 + 48);
+            v121 = *(a1 + 162);
+            v122 = *(a1 + 64);
+            v123 = [*(a1 + 72) account];
+            v124 = [v120 idsServiceForIDSAccount:v123];
+            [v120 noteItemProcessed:v121 batchContext:v122 usingService:v124];
 
 LABEL_144:
-            v129 = *(*(a1 + 152) + 8);
-            v130 = *(v129 + 40);
-            *(v129 + 40) = 0;
+            v125 = *(*(a1 + 152) + 8);
+            v126 = *(v125 + 40);
+            *(v125 + 40) = 0;
 LABEL_145:
 
             goto LABEL_146;
@@ -4060,18 +3866,18 @@ LABEL_145:
         {
         }
 
-        v204 = 0;
+        v200 = 0;
         goto LABEL_39;
       }
     }
 
     else
     {
-      v45 = 0;
+      v42 = 0;
     }
 
-    v233 = 0;
-    v234 = 0;
+    v229 = 0;
+    v230 = 0;
     goto LABEL_30;
   }
 
@@ -4095,14 +3901,14 @@ LABEL_145:
     [v15 noteItemProcessed:v16 batchContext:v17 usingService:v19];
   }
 
-  v233 = 0;
-  v234 = 0;
+  v229 = 0;
+  v230 = 0;
   v20 = *(*(a1 + 152) + 8);
   v21 = *(v20 + 40);
   *(v20 + 40) = 0;
 LABEL_147:
 
-  _Block_object_dispose(&v296, 8);
+  _Block_object_dispose(&v292, 8);
 }
 
 void sub_14564(_Unwind_Exception *a1, int a2)
@@ -5509,25 +5315,24 @@ LABEL_9:
   }
 }
 
-void sub_17998(uint64_t a1, int a2)
+void sub_17998(uint64_t a1, uint64_t a2)
 {
+  v121 = a2;
   if (a2)
   {
     v3 = im_checkpointIDSService();
-    v4 = *(a1 + 32);
-    v5 = *(a1 + 240);
     im_sendMessageCheckpointIfNecessary();
   }
 
   else if (IMOSLoggingEnabled())
   {
-    v6 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v4 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      v7 = *(a1 + 32);
+      v5 = *(a1 + 32);
       *buf = 138412290;
-      v132 = v7;
-      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_INFO, "*** Not all messages successfully stored in database. Not sending IMMessageCheckpointLocationMessageStored checkpoint. guid %@", buf, 0xCu);
+      v130 = v5;
+      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_INFO, "*** Not all messages successfully stored in database. Not sending IMMessageCheckpointLocationMessageStored checkpoint. guid %@", buf, 0xCu);
     }
   }
 
@@ -5538,59 +5343,59 @@ void sub_17998(uint64_t a1, int a2)
 
   if (([*(a1 + 48) isTypingMessage] & 1) == 0)
   {
-    v8 = +[IMMetricsCollector sharedInstance];
-    [v8 trackEvent:IMMetricsCollectorEventiMessageReceived];
+    v6 = +[IMMetricsCollector sharedInstance];
+    [v6 trackEvent:IMMetricsCollectorEventiMessageReceived];
   }
 
-  v139 = IMMetricsCollectorError;
-  v9 = +[NSNumber numberWithLong:](NSNumber, "numberWithLong:", sub_904FC([*(a1 + 48) errorCode]));
-  v140 = v9;
-  v124 = [NSDictionary dictionaryWithObjects:&v140 forKeys:&v139 count:1];
+  v137 = IMMetricsCollectorError;
+  v7 = +[NSNumber numberWithLong:](NSNumber, "numberWithLong:", sub_904FC([*(a1 + 48) errorCode]));
+  v138 = v7;
+  v122 = [NSDictionary dictionaryWithObjects:&v138 forKeys:&v137 count:1];
 
-  v10 = +[IMMetricsCollector sharedInstance];
-  [v10 trackEvent:IMMetricsCollectorEventIncomingMessage withDictionary:v124];
+  v8 = +[IMMetricsCollector sharedInstance];
+  [v8 trackEvent:IMMetricsCollectorEventIncomingMessage withDictionary:v122];
 
-  v11 = *(a1 + 64);
-  if (v11)
+  v9 = *(a1 + 64);
+  if (v9)
   {
-    [*(a1 + 40) didReceiveDisplayNameChange:v11 fromID:*(*(*(a1 + 208) + 8) + 40) toIdentifier:*(a1 + 72) forChat:*(*(*(a1 + 200) + 8) + 40) style:*(a1 + 244) account:*(a1 + 56)];
+    [*(a1 + 40) didReceiveDisplayNameChange:v9 fromID:*(*(*(a1 + 208) + 8) + 40) toIdentifier:*(a1 + 72) forChat:*(*(*(a1 + 200) + 8) + 40) style:*(a1 + 244) account:*(a1 + 56)];
   }
 
-  v12 = [*(a1 + 48) fileTransferGUIDs];
-  v13 = [v12 count] != 0;
+  v10 = [*(a1 + 48) fileTransferGUIDs];
+  v11 = [v10 count] != 0;
 
-  v14 = [*(a1 + 48) sender];
+  v12 = [*(a1 + 48) sender];
   IsEmail = IMStringIsEmail();
 
-  v137[0] = IMMetricsCollectorFzErrorKey;
-  v16 = +[NSNumber numberWithLong:](NSNumber, "numberWithLong:", [*(a1 + 48) errorCode]);
-  v138[0] = v16;
-  v137[1] = IMMetricsCollectorMessageErrorKey;
-  v17 = [NSNumber numberWithLong:0];
-  v138[1] = v17;
-  v137[2] = IMMetricsCollectorIsTypingIndicatorKey;
-  v18 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [*(a1 + 80) isTypingMessage]);
-  v138[2] = v18;
-  v137[3] = IMMetricsCollectorIsGroupMessageKey;
-  v19 = [NSNumber numberWithBool:*(a1 + 242)];
-  v138[3] = v19;
-  v137[4] = IMMetricsCollectorIsFromPhoneNumberKey;
-  v20 = [NSNumber numberWithBool:IsEmail ^ 1];
-  v138[4] = v20;
-  v137[5] = IMMetricsCollectorIsFromEmailKey;
-  v21 = [NSNumber numberWithInt:IsEmail];
-  v138[5] = v21;
-  v137[6] = IMMetricsCollectorHasAttachmentsKey;
-  v22 = [NSNumber numberWithBool:v13];
-  v138[6] = v22;
-  v23 = [NSDictionary dictionaryWithObjects:v138 forKeys:v137 count:7];
+  v135[0] = IMMetricsCollectorFzErrorKey;
+  v14 = +[NSNumber numberWithLong:](NSNumber, "numberWithLong:", [*(a1 + 48) errorCode]);
+  v136[0] = v14;
+  v135[1] = IMMetricsCollectorMessageErrorKey;
+  v15 = [NSNumber numberWithLong:0];
+  v136[1] = v15;
+  v135[2] = IMMetricsCollectorIsTypingIndicatorKey;
+  v16 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [*(a1 + 80) isTypingMessage]);
+  v136[2] = v16;
+  v135[3] = IMMetricsCollectorIsGroupMessageKey;
+  v17 = [NSNumber numberWithBool:*(a1 + 242)];
+  v136[3] = v17;
+  v135[4] = IMMetricsCollectorIsFromPhoneNumberKey;
+  v18 = [NSNumber numberWithBool:IsEmail ^ 1];
+  v136[4] = v18;
+  v135[5] = IMMetricsCollectorIsFromEmailKey;
+  v19 = [NSNumber numberWithInt:IsEmail];
+  v136[5] = v19;
+  v135[6] = IMMetricsCollectorHasAttachmentsKey;
+  v20 = [NSNumber numberWithBool:v11];
+  v136[6] = v20;
+  v21 = [NSDictionary dictionaryWithObjects:v136 forKeys:v135 count:7];
 
-  v24 = +[IMMetricsCollector sharedInstance];
-  [v24 trackEvent:IMMetricsCollectorEventIMessageReceivedMessageSingleComponent withDictionary:v23];
+  v22 = +[IMMetricsCollector sharedInstance];
+  [v22 trackEvent:IMMetricsCollectorEventIMessageReceivedMessageSingleComponent withDictionary:v21];
 
-  v25 = *(*(a1 + 216) + 8);
-  v26 = *(v25 + 40);
-  *(v25 + 40) = 0;
+  v23 = *(*(a1 + 216) + 8);
+  v24 = *(v23 + 40);
+  *(v23 + 40) = 0;
 
   if ((*(a1 + 245) & 1) == 0)
   {
@@ -5601,150 +5406,150 @@ void sub_17998(uint64_t a1, int a2)
 
     if (IMOSLoggingEnabled())
     {
-      v27 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+      v25 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
       {
-        v28 = *(a1 + 88);
-        v29 = *(*(*(a1 + 224) + 8) + 40);
+        v26 = *(a1 + 88);
+        v27 = *(*(*(a1 + 224) + 8) + 40);
         *buf = 138412546;
-        v132 = v28;
-        v133 = 2112;
-        v134 = v29;
-        _os_log_impl(&dword_0, v27, OS_LOG_TYPE_INFO, "Updating last active device to be %@ for chat %@ on incoming message", buf, 0x16u);
+        v130 = v26;
+        v131 = 2112;
+        v132 = v27;
+        _os_log_impl(&dword_0, v25, OS_LOG_TYPE_INFO, "Updating last active device to be %@ for chat %@ on incoming message", buf, 0x16u);
       }
     }
 
-    v30 = [*(a1 + 40) deliveryController];
-    v31 = *(a1 + 88);
-    v32 = [*(a1 + 96) _stripFZIDPrefix];
-    [v30 updateLatestActiveDestination:v31 ForHandle:v32 incomingType:0];
+    v28 = [*(a1 + 40) deliveryController];
+    v29 = *(a1 + 88);
+    v30 = [*(a1 + 96) _stripFZIDPrefix];
+    [v28 updateLatestActiveDestination:v29 ForHandle:v30 incomingType:0];
 
     if (!*(*(*(a1 + 224) + 8) + 40))
     {
 LABEL_22:
-      v33 = *(a1 + 40);
-      v34 = [*(a1 + 96) _stripFZIDPrefix];
-      v35 = [v33 chatForChatIdentifier:v34 style:45];
+      v31 = *(a1 + 40);
+      v32 = [*(a1 + 96) _stripFZIDPrefix];
+      v33 = [v31 chatForChatIdentifier:v32 style:45];
 
       if (IMOSLoggingEnabled())
       {
-        v36 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
+        v34 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
         {
-          v37 = *(a1 + 88);
+          v35 = *(a1 + 88);
           *buf = 138412546;
-          v132 = v37;
-          v133 = 2112;
-          v134 = v35;
-          _os_log_impl(&dword_0, v36, OS_LOG_TYPE_INFO, "Updating last active device to be %@ for chat %@ on new incoming message", buf, 0x16u);
+          v130 = v35;
+          v131 = 2112;
+          v132 = v33;
+          _os_log_impl(&dword_0, v34, OS_LOG_TYPE_INFO, "Updating last active device to be %@ for chat %@ on new incoming message", buf, 0x16u);
         }
       }
 
-      v38 = [*(a1 + 40) deliveryController];
-      v39 = *(a1 + 88);
-      v40 = [*(a1 + 96) _stripFZIDPrefix];
-      [v38 updateLatestActiveDestination:v39 ForHandle:v40 incomingType:0];
+      v36 = [*(a1 + 40) deliveryController];
+      v37 = *(a1 + 88);
+      v38 = [*(a1 + 96) _stripFZIDPrefix];
+      [v36 updateLatestActiveDestination:v37 ForHandle:v38 incomingType:0];
 
       if ([*(a1 + 104) count] > 2)
       {
         if (IMOSLoggingEnabled())
         {
-          v41 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
+          v39 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
           {
-            v42 = [*(a1 + 48) guid];
+            v40 = [*(a1 + 48) guid];
             *buf = 138412290;
-            v132 = v42;
-            _os_log_impl(&dword_0, v41, OS_LOG_TYPE_INFO, "Not updating last addressed handle for msg guid %@ as we couldnt find a group for it", buf, 0xCu);
+            v130 = v40;
+            _os_log_impl(&dword_0, v39, OS_LOG_TYPE_INFO, "Not updating last addressed handle for msg guid %@ as we couldnt find a group for it", buf, 0xCu);
           }
         }
       }
 
       else
       {
-        _UpdateLastAddressedHandle(*(a1 + 80), *(a1 + 72), v35);
+        _UpdateLastAddressedHandle(*(a1 + 80), *(a1 + 72), v33);
       }
     }
   }
 
-  v43 = *(a1 + 224);
-  v44 = *(*(v43 + 8) + 40);
-  if (v44)
+  v41 = *(a1 + 224);
+  v42 = *(*(v41 + 8) + 40);
+  if (v42)
   {
-    v45 = [v44 state];
-    v43 = *(a1 + 224);
-    if (v45 != &dword_0 + 3)
+    v43 = [v42 state];
+    v41 = *(a1 + 224);
+    if (v43 != &dword_0 + 3)
     {
-      v46 = *(a1 + 40);
-      v47 = [*(*(v43 + 8) + 40) chatIdentifier];
-      v48 = [*(*(*(a1 + 224) + 8) + 40) style];
-      LOBYTE(v122) = *(a1 + 246);
-      [v46 didUpdateChatStatus:2 chat:v47 style:v48 displayName:0 groupID:0 handleInfo:*(*(*(a1 + 232) + 8) + 40) account:*(a1 + 56) isBlackholed:v122];
+      v44 = *(a1 + 40);
+      v45 = [*(*(v41 + 8) + 40) chatIdentifier];
+      v46 = [*(*(*(a1 + 224) + 8) + 40) style];
+      LOBYTE(v120) = *(a1 + 246);
+      [v44 didUpdateChatStatus:2 chat:v45 style:v46 displayName:0 groupID:0 handleInfo:*(*(*(a1 + 232) + 8) + 40) account:*(a1 + 56) isBlackholed:v120];
 
-      v43 = *(a1 + 224);
+      v41 = *(a1 + 224);
     }
   }
 
-  if (!*(*(v43 + 8) + 40))
+  if (!*(*(v41 + 8) + 40))
   {
-    v49 = +[IMDChatRegistry sharedInstance];
-    v50 = [v49 existingChatWithIdentifier:*(*(*(a1 + 200) + 8) + 40) account:*(a1 + 56)];
-    v51 = *(*(a1 + 224) + 8);
-    v52 = *(v51 + 40);
-    *(v51 + 40) = v50;
+    v47 = +[IMDChatRegistry sharedInstance];
+    v48 = [v47 existingChatWithIdentifier:*(*(*(a1 + 200) + 8) + 40) account:*(a1 + 56)];
+    v49 = *(*(a1 + 224) + 8);
+    v50 = *(v49 + 40);
+    *(v49 + 40) = v48;
   }
 
-  v53 = +[IMFeatureFlags sharedFeatureFlags];
-  v54 = [v53 isBIAEnabled];
+  v51 = +[IMFeatureFlags sharedFeatureFlags];
+  v52 = [v51 isBIAEnabled];
 
-  if (v54)
+  if (v52)
   {
     if (*(a1 + 247) == 1)
     {
-      v55 = *(*(*(a1 + 224) + 8) + 40);
-      if (v55)
+      v53 = *(*(*(a1 + 224) + 8) + 40);
+      if (v53)
       {
-        [v55 addBIAContextWithUserID:*(a1 + 72) referenceID:*(a1 + 112)];
+        [v53 addBIAContextWithUserID:*(a1 + 72) referenceID:*(a1 + 112)];
       }
     }
   }
 
-  v56 = *(*(a1 + 232) + 8);
-  v57 = *(v56 + 40);
-  *(v56 + 40) = 0;
+  v54 = *(*(a1 + 232) + 8);
+  v55 = *(v54 + 40);
+  *(v54 + 40) = 0;
 
   if (+[IMSpamFilterHelper isInternationalSpamFilteringEnabled](IMSpamFilterHelper, "isInternationalSpamFilteringEnabled") && ([*(a1 + 48) isTypingMessage] & 1) == 0)
   {
     if ([*(*(*(a1 + 224) + 8) + 40) smsHandshakeState] == 1)
     {
-      v58 = +[IMMetricsCollector sharedInstance];
-      [v58 trackSpamEvent:4];
+      v56 = +[IMMetricsCollector sharedInstance];
+      [v56 trackSpamEvent:4];
 
       [*(*(*(a1 + 224) + 8) + 40) updateSMSHandshakeState:2];
-      v59 = +[IMDChatRegistry sharedInstance];
-      v60 = [*(*(*(a1 + 224) + 8) + 40) chatIdentifier];
-      v61 = [v59 existingSMSChatForID:v60 withChatStyle:{objc_msgSend(*(*(*(a1 + 224) + 8) + 40), "style")}];
+      v57 = +[IMDChatRegistry sharedInstance];
+      v58 = [*(*(*(a1 + 224) + 8) + 40) chatIdentifier];
+      v59 = [v57 existingSMSChatForID:v58 withChatStyle:{objc_msgSend(*(*(*(a1 + 224) + 8) + 40), "style")}];
 
-      if (v61)
+      if (v59)
       {
         if (IMOSLoggingEnabled())
         {
-          v62 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v62, OS_LOG_TYPE_INFO))
+          v60 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v60, OS_LOG_TYPE_INFO))
           {
             *buf = 0;
-            _os_log_impl(&dword_0, v62, OS_LOG_TYPE_INFO, "Updating sibling chat handshake state to IMChatSMSHandshakeStateSuccess", buf, 2u);
+            _os_log_impl(&dword_0, v60, OS_LOG_TYPE_INFO, "Updating sibling chat handshake state to IMChatSMSHandshakeStateSuccess", buf, 2u);
           }
         }
 
-        [v61 updateSMSHandshakeState:2];
+        [v59 updateSMSHandshakeState:2];
       }
     }
 
     if ([*(*(*(a1 + 224) + 8) + 40) messageHandshakeState] == 1)
     {
-      v63 = +[IMMetricsCollector sharedInstance];
-      [v63 trackSpamEvent:3];
+      v61 = +[IMMetricsCollector sharedInstance];
+      [v61 trackSpamEvent:3];
 
       [*(*(*(a1 + 224) + 8) + 40) updateMessageHandshakeState:2];
     }
@@ -5752,168 +5557,168 @@ LABEL_22:
 
   if (*(*(*(a1 + 224) + 8) + 40))
   {
-    v64 = [*(a1 + 56) service];
-    v65 = [v64 internalName];
-    [*(a1 + 80) setService:v65];
+    v62 = [*(a1 + 56) service];
+    v63 = [v62 internalName];
+    [*(a1 + 80) setService:v63];
 
-    v66 = +[IMDChatStore sharedInstance];
-    [v66 updatePersonCentricIDForHandlesInChatWithMessage:*(a1 + 80) fromIdentifier:*(a1 + 96) personCentricID:*(a1 + 120) chat:*(*(*(a1 + 224) + 8) + 40)];
+    v64 = +[IMDChatStore sharedInstance];
+    [v64 updatePersonCentricIDForHandlesInChatWithMessage:*(a1 + 80) fromIdentifier:*(a1 + 96) personCentricID:*(a1 + 120) chat:*(*(*(a1 + 224) + 8) + 40)];
 
-    v67 = [*(a1 + 128) _stringForKey:MessageDictionaryNicknameParticipantTruncatedRIDKey];
-    if (v67)
+    v65 = [*(a1 + 128) _stringForKey:MessageDictionaryNicknameParticipantTruncatedRIDKey];
+    if (v65)
     {
-      v68 = v67;
+      v66 = v65;
     }
 
     else
     {
-      v68 = &stru_115E20;
+      v66 = &stru_115E20;
     }
 
     if (IMOSLoggingEnabled())
     {
-      v69 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v69, OS_LOG_TYPE_INFO))
+      v67 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v67, OS_LOG_TYPE_INFO))
       {
-        v70 = *(a1 + 96);
+        v68 = *(a1 + 96);
         *buf = 138412546;
+        v130 = v66;
+        v131 = 2112;
         v132 = v68;
-        v133 = 2112;
-        v134 = v70;
-        _os_log_impl(&dword_0, v69, OS_LOG_TYPE_INFO, "Received truncated record id %@ from %@", buf, 0x16u);
+        _os_log_impl(&dword_0, v67, OS_LOG_TYPE_INFO, "Received truncated record id %@ from %@", buf, 0x16u);
       }
     }
 
-    v71 = +[IMDNicknameController sharedInstance];
-    [v71 verifyTruncatedRecordIDMatchesPersonalNickname:v68 forChat:*(*(*(a1 + 224) + 8) + 40)];
+    v69 = +[IMDNicknameController sharedInstance];
+    [v69 verifyTruncatedRecordIDMatchesPersonalNickname:v66 forChat:*(*(*(a1 + 224) + 8) + 40)];
 
-    v72 = *(*(*(a1 + 224) + 8) + 40);
-    if (v72 && (*(a1 + 245) & 1) == 0)
+    v70 = *(*(*(a1 + 224) + 8) + 40);
+    if (v70 && (*(a1 + 245) & 1) == 0)
     {
-      v73 = [*(a1 + 128) _stringForKey:@"aogrs"];
-      v125 = [*(a1 + 128) _stringForKey:@"aogre"];
-      if (v73)
+      v71 = [*(a1 + 128) _stringForKey:@"aogrs"];
+      v123 = [*(a1 + 128) _stringForKey:@"aogre"];
+      if (v71)
       {
-        v74 = [*(a1 + 96) _stripFZIDPrefix];
-        v75 = [*(a1 + 136) _stripFZIDPrefix];
-        v76 = [NSDate __im_iMessageDateFromTimeStamp:*(a1 + 144)];
+        v72 = [*(a1 + 96) _stripFZIDPrefix];
+        v73 = [*(a1 + 136) _stripFZIDPrefix];
+        v74 = [NSDate __im_iMessageDateFromTimeStamp:*(a1 + 144)];
         if (IMOSLoggingEnabled())
         {
-          v77 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v77, OS_LOG_TYPE_INFO))
+          v75 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v75, OS_LOG_TYPE_INFO))
           {
             *buf = 138412802;
-            v132 = v73;
+            v130 = v71;
+            v131 = 2112;
+            v132 = v72;
             v133 = 2112;
-            v134 = v74;
-            v135 = 2112;
-            v136 = v75;
-            _os_log_impl(&dword_0, v77, OS_LOG_TYPE_INFO, "Received offGridSubscriptionValidationToken = %@ from %@ to %@", buf, 0x20u);
+            v134 = v73;
+            _os_log_impl(&dword_0, v75, OS_LOG_TYPE_INFO, "Received offGridSubscriptionValidationToken = %@ from %@ to %@", buf, 0x20u);
           }
         }
 
-        v78 = +[IMDOffGridAvailabilityVerificationManager sharedInstance];
-        [v78 verifyOffGridSubscriptionMatchesSubscriptionValidationToken:v73 encryptionValidationToken:v125 receivedByHandleID:v75 fromHandleID:v74 messageDate:v76];
+        v76 = +[IMDOffGridAvailabilityVerificationManager sharedInstance];
+        [v76 verifyOffGridSubscriptionMatchesSubscriptionValidationToken:v71 encryptionValidationToken:v123 receivedByHandleID:v73 fromHandleID:v72 messageDate:v74];
       }
 
       else if (IMOSLoggingEnabled())
       {
-        v79 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v79, OS_LOG_TYPE_INFO))
+        v77 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v77, OS_LOG_TYPE_INFO))
         {
-          v80 = *(a1 + 96);
+          v78 = *(a1 + 96);
           *buf = 138412290;
-          v132 = v80;
-          _os_log_impl(&dword_0, v79, OS_LOG_TYPE_INFO, "Message from %@ did not contain offGridSubscriptionValidationToken.", buf, 0xCu);
+          v130 = v78;
+          _os_log_impl(&dword_0, v77, OS_LOG_TYPE_INFO, "Message from %@ did not contain offGridSubscriptionValidationToken.", buf, 0xCu);
         }
       }
 
-      v81 = [*(a1 + 128) _stringForKey:@"arc"];
-      v82 = [*(a1 + 128) _stringForKey:@"are"];
-      if (v81)
+      v79 = [*(a1 + 128) _stringForKey:@"arc"];
+      v80 = [*(a1 + 128) _stringForKey:@"are"];
+      if (v79)
       {
-        v83 = [*(a1 + 96) _stripFZIDPrefix];
-        v84 = [*(a1 + 136) _stripFZIDPrefix];
-        v85 = [NSDate __im_iMessageDateFromTimeStamp:*(a1 + 144)];
+        v81 = [*(a1 + 96) _stripFZIDPrefix];
+        v82 = [*(a1 + 136) _stripFZIDPrefix];
+        v83 = [NSDate __im_iMessageDateFromTimeStamp:*(a1 + 144)];
         if (IMOSLoggingEnabled())
         {
-          v86 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v86, OS_LOG_TYPE_INFO))
+          v84 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v84, OS_LOG_TYPE_INFO))
           {
             *buf = 138412802;
+            v130 = v79;
+            v131 = 2112;
             v132 = v81;
             v133 = 2112;
-            v134 = v83;
-            v135 = 2112;
-            v136 = v84;
-            _os_log_impl(&dword_0, v86, OS_LOG_TYPE_INFO, "Received availabilityVerificationRecipientChannelID = %@ from %@ to %@", buf, 0x20u);
+            v134 = v82;
+            _os_log_impl(&dword_0, v84, OS_LOG_TYPE_INFO, "Received availabilityVerificationRecipientChannelID = %@ from %@ to %@", buf, 0x20u);
           }
         }
 
-        v87 = +[IMDAvailabilityVerificationManager sharedInstance];
-        [v87 verifyPersonalSubscriptionMatchesSubscriptionValidationToken:v81 encryptionValidationToken:v82 receivedByHandleID:v84 fromHandleID:v83 messageDate:v85];
+        v85 = +[IMDAvailabilityVerificationManager sharedInstance];
+        [v85 verifyPersonalSubscriptionMatchesSubscriptionValidationToken:v79 encryptionValidationToken:v80 receivedByHandleID:v82 fromHandleID:v81 messageDate:v83];
       }
 
       else if (IMOSLoggingEnabled())
       {
-        v88 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v88, OS_LOG_TYPE_INFO))
+        v86 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v86, OS_LOG_TYPE_INFO))
         {
-          v89 = *(a1 + 96);
+          v87 = *(a1 + 96);
           *buf = 138412290;
-          v132 = v89;
-          _os_log_impl(&dword_0, v88, OS_LOG_TYPE_INFO, "Message from %@ did not contain an availabilityVerificationRecipientChannelID. Not performing validation.", buf, 0xCu);
+          v130 = v87;
+          _os_log_impl(&dword_0, v86, OS_LOG_TYPE_INFO, "Message from %@ did not contain an availabilityVerificationRecipientChannelID. Not performing validation.", buf, 0xCu);
         }
       }
 
-      v72 = *(*(*(a1 + 224) + 8) + 40);
+      v70 = *(*(*(a1 + 224) + 8) + 40);
     }
   }
 
   else
   {
-    v72 = 0;
+    v70 = 0;
   }
 
-  [*(a1 + 40) _autoReportChatAsUnknown:v72 chatIsNew:*(a1 + 248)];
+  [*(a1 + 40) _autoReportChatAsUnknown:v70 chatIsNew:*(a1 + 248)];
   if ((*(a1 + 249) & 1) == 0)
   {
-    if (*(a1 + 250) == 1 && (v90 = *(a1 + 40), v91 = *(*(*(a1 + 224) + 8) + 40), +[NSDate __im_iMessageDateFromTimeStamp:](NSDate, "__im_iMessageDateFromTimeStamp:", *(a1 + 144)), v92 = objc_claimAutoreleasedReturnValue(), LODWORD(v90) = [v90 _shouldOptimizedDeliveryReceiptForConversation:v91 withMessageTimeStamp:v92], v92, v90))
+    if (*(a1 + 250) == 1 && (v88 = *(a1 + 40), v89 = *(*(*(a1 + 224) + 8) + 40), +[NSDate __im_iMessageDateFromTimeStamp:](NSDate, "__im_iMessageDateFromTimeStamp:", *(a1 + 144)), v90 = objc_claimAutoreleasedReturnValue(), LODWORD(v88) = [v88 _shouldOptimizedDeliveryReceiptForConversation:v89 withMessageTimeStamp:v90], v90, v88))
     {
       if (IMOSLoggingEnabled())
       {
-        v93 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v93, OS_LOG_TYPE_INFO))
+        v91 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v91, OS_LOG_TYPE_INFO))
         {
-          v94 = [*(a1 + 48) guid];
+          v92 = [*(a1 + 48) guid];
           *buf = 138412290;
-          v132 = v94;
-          _os_log_impl(&dword_0, v93, OS_LOG_TYPE_INFO, "Not sending delivery receipt for msg with guid: %@ we belive it's been handled elsewhere", buf, 0xCu);
+          v130 = v92;
+          _os_log_impl(&dword_0, v91, OS_LOG_TYPE_INFO, "Not sending delivery receipt for msg with guid: %@ we belive it's been handled elsewhere", buf, 0xCu);
         }
       }
     }
 
     else
     {
-      if (a2)
+      if (v121)
       {
-        v95 = *(a1 + 246) == 1 && (*(a1 + 251) & 1) != 0 ? 0 : [*(a1 + 152) BOOLValue];
-        v96 = *(a1 + 40);
-        v97 = [*(a1 + 160) service];
-        v98 = *(a1 + 168);
-        v99 = [*(a1 + 48) guid];
-        LOBYTE(v96) = [v96 _sendCertifiedDeliveryReceiptIfPossible:v97 messageContext:v98 guid:v99 messageWasStored:1 needsDeliveryReceipt:v95 failureReason:0];
+        v93 = *(a1 + 246) == 1 && (*(a1 + 251) & 1) != 0 ? 0 : [*(a1 + 152) BOOLValue];
+        v94 = *(a1 + 40);
+        v95 = [*(a1 + 160) service];
+        v96 = *(a1 + 168);
+        v97 = [*(a1 + 48) guid];
+        LOBYTE(v94) = [v94 _sendCertifiedDeliveryReceiptIfPossible:v95 messageContext:v96 guid:v97 messageWasStored:1 needsDeliveryReceipt:v93 failureReason:0];
 
-        if ((v96 & 1) == 0)
+        if ((v94 & 1) == 0)
         {
-          v101 = *(a1 + 32);
-          v100 = *(a1 + 40);
-          v102 = *(a1 + 88);
-          v103 = *(a1 + 176);
-          v104 = [NSNumber numberWithBool:v95];
-          v105 = *(a1 + 72);
-          v106 = [*(a1 + 160) account];
-          [v100 sendDeliveryReceiptForMessageID:v101 toID:v102 deliveryContext:v103 needsDeliveryReceipt:v104 callerID:v105 account:v106];
+          v99 = *(a1 + 32);
+          v98 = *(a1 + 40);
+          v100 = *(a1 + 88);
+          v101 = *(a1 + 176);
+          v102 = [NSNumber numberWithBool:v93];
+          v103 = *(a1 + 72);
+          v104 = [*(a1 + 160) account];
+          [v98 sendDeliveryReceiptForMessageID:v99 toID:v100 deliveryContext:v101 needsDeliveryReceipt:v102 callerID:v103 account:v104];
         }
       }
 
@@ -5922,63 +5727,63 @@ LABEL_22:
         [*(a1 + 160) sendManualAckForMessageWithContext:*(a1 + 168)];
         if (([*(a1 + 48) isFromMe] & 1) == 0)
         {
-          v107 = +[IMMessageNotificationTimeManager sharedInstance];
-          [v107 sendNotificationMessageIfNeededForIncomingMessageFromChatIdentifier:*(*(*(a1 + 200) + 8) + 40)];
+          v105 = +[IMMessageNotificationTimeManager sharedInstance];
+          [v105 sendNotificationMessageIfNeededForIncomingMessageFromChatIdentifier:*(*(*(a1 + 200) + 8) + 40)];
         }
 
-        v108 = +[IMMessageNotificationTimeManager sharedInstance];
-        [v108 tearDownSessionForChatIdentifier:*(*(*(a1 + 200) + 8) + 40)];
+        v106 = +[IMMessageNotificationTimeManager sharedInstance];
+        [v106 tearDownSessionForChatIdentifier:*(*(*(a1 + 200) + 8) + 40)];
 
-        v128 = 0u;
-        v129 = 0u;
         v126 = 0u;
         v127 = 0u;
-        v109 = +[IMDChatRegistry sharedInstance];
-        v110 = [v109 allExistingSupportedServiceChatsWithIdentifier:*(*(*(a1 + 200) + 8) + 40) style:*(a1 + 244)];
+        v124 = 0u;
+        v125 = 0u;
+        v107 = +[IMDChatRegistry sharedInstance];
+        v108 = [v107 allExistingSupportedServiceChatsWithIdentifier:*(*(*(a1 + 200) + 8) + 40) style:*(a1 + 244)];
 
-        v111 = [v110 countByEnumeratingWithState:&v126 objects:v130 count:16];
-        if (v111)
+        v109 = [v108 countByEnumeratingWithState:&v124 objects:v128 count:16];
+        if (v109)
         {
-          v112 = *v127;
+          v110 = *v125;
           do
           {
-            for (i = 0; i != v111; i = i + 1)
+            for (i = 0; i != v109; i = i + 1)
             {
-              if (*v127 != v112)
+              if (*v125 != v110)
               {
-                objc_enumerationMutation(v110);
+                objc_enumerationMutation(v108);
               }
 
-              v114 = *(*(&v126 + 1) + 8 * i);
-              v115 = [*(a1 + 48) guid];
-              [v114 updateLastSeenMessageGuidIfNeeded:v115];
+              v112 = *(*(&v124 + 1) + 8 * i);
+              v113 = [*(a1 + 48) guid];
+              [v112 updateLastSeenMessageGuidIfNeeded:v113];
             }
 
-            v111 = [v110 countByEnumeratingWithState:&v126 objects:v130 count:16];
+            v109 = [v108 countByEnumeratingWithState:&v124 objects:v128 count:16];
           }
 
-          while (v111);
+          while (v109);
         }
       }
     }
   }
 
-  v116 = *(a1 + 192);
-  if (v116)
+  v114 = *(a1 + 192);
+  if (v114)
   {
     if (*(a1 + 250) == 1)
     {
-      v117 = *(a1 + 40);
-      v118 = *(a1 + 252);
-      v119 = *(a1 + 184);
-      v120 = [*(a1 + 160) account];
-      v121 = [v117 idsServiceForIDSAccount:v120];
-      [v117 noteItemProcessed:v118 & 1 batchContext:v119 usingService:v121];
+      v115 = *(a1 + 40);
+      v116 = *(a1 + 252);
+      v117 = *(a1 + 184);
+      v118 = [*(a1 + 160) account];
+      v119 = [v115 idsServiceForIDSAccount:v118];
+      [v115 noteItemProcessed:v116 & 1 batchContext:v117 usingService:v119];
 
-      v116 = *(a1 + 192);
+      v114 = *(a1 + 192);
     }
 
-    (*(v116 + 16))();
+    (*(v114 + 16))();
   }
 }
 
@@ -5986,48 +5791,46 @@ void sub_18C2C(uint64_t a1, void *a2)
 {
   v3 = a2;
   v4 = im_checkpointIDSService();
-  v5 = *(a1 + 32);
-  v6 = *(a1 + 104);
   im_sendMessageCheckpointIfNecessary();
 
-  v22 = _NSConcreteStackBlock;
-  v23 = 3221225472;
-  v24 = sub_18E68;
-  v25 = &unk_112368;
-  v29 = *(a1 + 88);
-  v7 = v3;
-  v31 = *(a1 + 105);
-  v8 = *(a1 + 40);
-  v9 = *(a1 + 48);
-  v30 = v7;
-  v26 = v8;
-  v27 = v9;
-  v28 = *(a1 + 56);
-  v10 = objc_retainBlock(&v22);
+  v20 = _NSConcreteStackBlock;
+  v21 = 3221225472;
+  v22 = sub_18E68;
+  v23 = &unk_112368;
+  v27 = *(a1 + 88);
+  v5 = v3;
+  v29 = *(a1 + 105);
+  v6 = *(a1 + 40);
+  v7 = *(a1 + 48);
+  v28 = v5;
+  v24 = v6;
+  v25 = v7;
+  v26 = *(a1 + 56);
+  v8 = objc_retainBlock(&v20);
   if (*(a1 + 105) == 1)
   {
-    v11 = *(a1 + 106);
-    v12 = *(a1 + 40);
-    v13 = *(a1 + 48);
-    v14 = [*(a1 + 56) account];
-    v15 = [v12 idsServiceForIDSAccount:v14];
-    [v12 noteItemProcessed:v11 batchContext:v13 usingService:v15];
+    v9 = *(a1 + 106);
+    v10 = *(a1 + 40);
+    v11 = *(a1 + 48);
+    v12 = [*(a1 + 56) account];
+    v13 = [v10 idsServiceForIDSAccount:v12];
+    [v10 noteItemProcessed:v9 batchContext:v11 usingService:v13];
   }
 
-  v32 = *(a1 + 64);
-  v16 = 1;
-  v17 = [NSArray arrayWithObjects:&v32 count:1];
-  v18 = IMServiceNameForCanonicalIDSAddresses();
+  v30 = *(a1 + 64);
+  v14 = 1;
+  v15 = [NSArray arrayWithObjects:&v30 count:1];
+  v16 = IMServiceNameForCanonicalIDSAddresses();
 
-  v19 = [IMSenderContext businessChatContextWithServiceName:v18];
-  v20 = [*(a1 + 40) attachmentController];
-  v21 = v20;
+  v17 = [IMSenderContext businessChatContextWithServiceName:v16];
+  v18 = [*(a1 + 40) attachmentController];
+  v19 = v18;
   if ((*(a1 + 105) & 1) == 0)
   {
-    v16 = *(a1 + 107);
+    v14 = *(a1 + 107);
   }
 
-  [v20 retrieveAttachmentsForMessage:*(a1 + 72) inlineAttachments:*(a1 + 80) displayID:*(*(*(a1 + 96) + 8) + 40) topic:v18 comingFromStorage:v16 & 1 shouldForceAutoDownload:0 senderContext:v19 completionBlock:{v10, v22, v23, v24, v25, v26}];
+  [v18 retrieveAttachmentsForMessage:*(a1 + 72) inlineAttachments:*(a1 + 80) displayID:*(*(*(a1 + 96) + 8) + 40) topic:v16 comingFromStorage:v14 & 1 shouldForceAutoDownload:0 senderContext:v17 completionBlock:{v8, v20, v21, v22, v23, v24}];
 }
 
 void sub_18E68(uint64_t a1, void *a2, void *a3, char a4, int a5, void *a6, uint64_t a7, void *a8)
@@ -6128,7 +5931,7 @@ void sub_194FC(uint64_t a1, void *a2)
   v3 = v4;
   if (v4)
   {
-    (*(v4 + 2))(v4);
+    v4[2](v4);
     v3 = v4;
   }
 }
@@ -6140,7 +5943,7 @@ void sub_1B190(uint64_t a1, void *a2)
   v3 = v4;
   if (v4)
   {
-    (*(v4 + 2))(v4);
+    v4[2](v4);
     v3 = v4;
   }
 }
@@ -6152,14 +5955,14 @@ void sub_1B5B0(uint64_t a1, void *a2)
   v3 = v4;
   if (v4)
   {
-    (*(v4 + 2))(v4);
+    v4[2](v4);
     v3 = v4;
   }
 }
 
 void sub_1B938(uint64_t a1, void *a2)
 {
-  v36 = a2;
+  v33 = a2;
   if (IMOSLoggingEnabled())
   {
     v3 = OSLogHandleForIMEventCategory();
@@ -6169,11 +5972,11 @@ void sub_1B938(uint64_t a1, void *a2)
       v5 = *(a1 + 40);
       v6 = *(a1 + 48);
       *buf = 138412802;
-      v38 = v4;
-      v39 = 2112;
-      v40 = v5;
-      v41 = 2112;
-      v42 = v6;
+      v35 = v4;
+      v36 = 2112;
+      v37 = v5;
+      v38 = 2112;
+      v39 = v6;
       _os_log_impl(&dword_0, v3, OS_LOG_TYPE_INFO, "Received group message command: %@ from: %@   token: %@", buf, 0x20u);
     }
   }
@@ -6196,11 +5999,11 @@ void sub_1B938(uint64_t a1, void *a2)
 
       v10 = *(a1 + 72);
       *buf = 138412802;
-      v38 = v8;
-      v39 = 2112;
-      v40 = v9;
-      v41 = 2112;
-      v42 = v10;
+      v35 = v8;
+      v36 = 2112;
+      v37 = v9;
+      v38 = 2112;
+      v39 = v10;
       _os_log_impl(&dword_0, v7, OS_LOG_TYPE_INFO, "fromIDSID:%@, needsDeliveryReceipt %@, deliveryContext %@", buf, 0x20u);
     }
   }
@@ -6233,19 +6036,18 @@ void sub_1B938(uint64_t a1, void *a2)
   v19 = [v11 objectForKeyedSubscript:@"rp"];
   if (v19 && (v20 = [*(a1 + 88) isReplicating], v19, (v20 & 1) == 0))
   {
-    v29 = +[IMDServiceController sharedController];
-    v30 = [v11 objectForKeyedSubscript:@"rp"];
-    v31 = [v29 serviceWithReplicationSourceID:{objc_msgSend(v30, "integerValue")}];
+    v27 = +[IMDServiceController sharedController];
+    v28 = [v11 objectForKeyedSubscript:@"rp"];
+    v29 = [v27 serviceWithReplicationSourceID:{objc_msgSend(v28, "integerValue")}];
 
-    v32 = +[IMDAccountController sharedAccountController];
-    v33 = [v31 internalName];
-    v34 = [v32 sessionForReplicationSourceServiceName:v33 replicatingAccount:v18];
+    v30 = +[IMDAccountController sharedAccountController];
+    v31 = [v29 internalName];
+    v32 = [v30 sessionForReplicationSourceServiceName:v31 replicatingAccount:v18];
 
-    v35 = *(a1 + 120);
-    [v34 handler:*(a1 + 96) groupMessageCommand:*(a1 + 32) encryptedGroupCommand:*(a1 + 80) messageID:*(a1 + 104) toIdentifier:*(a1 + 112) fromIdentifier:*(a1 + 40) fromToken:*(a1 + 48) timeStamp:v35 fromIDSID:*(a1 + 56) needsDeliveryReceipt:*(a1 + 64) deliveryContext:*(a1 + 72) storageContext:*(a1 + 128) batchContext:*(a1 + 136)];
-    if (v36)
+    [v32 handler:*(a1 + 96) groupMessageCommand:*(a1 + 32) encryptedGroupCommand:*(a1 + 80) messageID:*(a1 + 104) toIdentifier:*(a1 + 112) fromIdentifier:*(a1 + 40) fromToken:*(a1 + 48) timeStamp:*(a1 + 120) fromIDSID:*(a1 + 56) needsDeliveryReceipt:*(a1 + 64) deliveryContext:*(a1 + 72) storageContext:*(a1 + 128) batchContext:*(a1 + 136)];
+    if (v33)
     {
-      v36[2]();
+      v33[2]();
     }
   }
 
@@ -6257,13 +6059,11 @@ void sub_1B938(uint64_t a1, void *a2)
     v24 = *(a1 + 112);
     v25 = *(a1 + 40);
     v26 = [*(a1 + 96) service];
-    v27 = *(a1 + 48);
-    v28 = *(a1 + 128);
-    [v21 handler:v22 account:v18 groupMessagePayload:v11 messageID:v23 toIdentifier:v24 fromIdentifier:v25 idsService:v26 fromToken:v27 timeStamp:*(a1 + 120) storageContext:v28 batchContext:*(a1 + 136)];
+    [v21 handler:v22 account:v18 groupMessagePayload:v11 messageID:v23 toIdentifier:v24 fromIdentifier:v25 idsService:v26 fromToken:*(a1 + 48) timeStamp:*(a1 + 120) storageContext:*(a1 + 128) batchContext:*(a1 + 136)];
 
-    if (v36)
+    if (v33)
     {
-      v36[2]();
+      v33[2]();
     }
   }
 }
@@ -6867,15 +6667,14 @@ void sub_23D80(uint64_t a1, void *a2)
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v9 = v3;
+      v8 = v3;
       _os_log_impl(&dword_0, v4, OS_LOG_TYPE_INFO, "_sendHighResolutionImagesForMessage sending to engroup: %@", buf, 0xCu);
     }
   }
 
   v5 = [*(a1 + 32) deliveryController];
   v6 = +[NSDictionary dictionary];
-  v7 = *(a1 + 64);
-  [v5 sendMessageDictionary:v6 fromID:*(a1 + 40) fromAccount:*(a1 + 48) toURIs:*(a1 + 56) toGroup:v3 priority:300 options:v7 completionBlock:*(a1 + 72)];
+  [v5 sendMessageDictionary:v6 fromID:*(a1 + 40) fromAccount:*(a1 + 48) toURIs:*(a1 + 56) toGroup:v3 priority:300 options:*(a1 + 64) completionBlock:*(a1 + 72)];
 }
 
 void sub_24A14(uint64_t a1, void *a2, void *a3, int a4, int a5)
@@ -7388,25 +7187,25 @@ void sub_273C0(uint64_t a1, void *a2, void *a3, char a4, uint64_t a5)
   }
 }
 
-void sub_274F4(uint64_t a1)
+void sub_274F4(uint64_t a1, uint64_t a2)
 {
   if (IMOSLoggingEnabled())
   {
-    v2 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v3 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      v3 = [*(a1 + 32) guid];
-      v4 = *(a1 + 112);
+      v4 = [*(a1 + 32) guid];
+      v5 = *(a1 + 112);
       *buf = 138412546;
-      v7 = v3;
-      v8 = 1024;
-      v9 = v4;
-      _os_log_impl(&dword_0, v2, OS_LOG_TYPE_INFO, "Delivering message edit of %@ for replication after %u second delay", buf, 0x12u);
+      v8 = v4;
+      v9 = 1024;
+      v10 = v5;
+      _os_log_impl(&dword_0, v3, OS_LOG_TYPE_INFO, "Delivering message edit of %@ for replication after %u second delay", buf, 0x12u);
     }
   }
 
-  v5 = [*(a1 + 40) deliveryController];
-  [v5 sendEditedMessage:*(a1 + 48) partIndex:*(a1 + 120) editType:*(a1 + 128) destinations:*(a1 + 56) chatIdentifier:*(a1 + 64) account:*(a1 + 72) fromID:*(a1 + 80) backwardCompatabilityText:*(a1 + 88) unsupportedDestinationsHandler:*(a1 + 96) completionBlock:*(a1 + 104)];
+  v6 = [*(a1 + 40) deliveryController];
+  [v6 sendEditedMessage:*(a1 + 48) partIndex:*(a1 + 120) editType:*(a1 + 128) destinations:*(a1 + 56) chatIdentifier:*(a1 + 64) account:*(a1 + 72) fromID:*(a1 + 80) backwardCompatabilityText:*(a1 + 88) unsupportedDestinationsHandler:*(a1 + 96) completionBlock:*(a1 + 104)];
 }
 
 void sub_27A14(uint64_t a1, void *a2, void *a3, int a4, int a5)
@@ -7556,10 +7355,10 @@ void sub_29070(uint64_t a1, void *a2, void *a3, int a4, int a5)
   }
 }
 
-void sub_299D4(uint64_t a1, void *a2)
+void sub_299D4(id *a1, void *a2)
 {
   v3 = a2;
-  v4 = [*(a1 + 32) _richLinkPendSendingWithGUID:*(a1 + 40)];
+  v4 = [a1[4] _richLinkPendSendingWithGUID:a1[5]];
   v5 = IMOSLoggingEnabled();
   if (v4)
   {
@@ -7588,7 +7387,7 @@ void sub_299D4(uint64_t a1, void *a2)
 
     else
     {
-      [*(a1 + 32) _flushQueuedMessageWrapperBlocks];
+      [a1[4] _flushQueuedMessageWrapperBlocks];
     }
   }
 
@@ -7605,7 +7404,7 @@ void sub_299D4(uint64_t a1, void *a2)
     }
 
     v9 = objc_alloc_init(NSMutableDictionary);
-    v10 = *(a1 + 48);
+    v10 = a1[6];
     if (v10)
     {
       CFDictionarySetValue(v9, @"bid", v10);
@@ -7616,31 +7415,29 @@ void sub_299D4(uint64_t a1, void *a2)
       sub_BC288();
     }
 
-    v11 = *(a1 + 56);
-    v12 = *(a1 + 64);
-    v13 = IMSharedHelperCombinedPluginPayloadDictionaryData();
-    v14 = [v13 _FTCopyGzippedData];
+    v11 = IMSharedHelperCombinedPluginPayloadDictionaryData();
+    v12 = [v11 _FTCopyGzippedData];
 
-    v21[0] = _NSConcreteStackBlock;
-    v21[1] = 3221225472;
-    v21[2] = sub_29E4C;
-    v21[3] = &unk_112740;
-    v22 = v14;
-    v23 = v9;
-    v15 = *(a1 + 40);
-    v16 = *(a1 + 32);
-    v24 = v15;
-    v25 = v16;
-    v26 = *(a1 + 72);
-    v27 = *(a1 + 80);
-    v28 = *(a1 + 88);
-    v29 = *(a1 + 96);
-    v30 = &stru_112718;
-    v17 = v9;
-    v18 = v14;
-    v19 = objc_retainBlock(v21);
-    v20 = [*(a1 + 32) attachmentController];
-    [v20 sendPayloadData:v18 messageGUID:*(a1 + 40) fromID:*(a1 + 88) recipients:*(a1 + 96) completionBlock:v19];
+    v19[0] = _NSConcreteStackBlock;
+    v19[1] = 3221225472;
+    v19[2] = sub_29E4C;
+    v19[3] = &unk_112740;
+    v20 = v12;
+    v21 = v9;
+    v13 = a1[5];
+    v14 = a1[4];
+    v22 = v13;
+    v23 = v14;
+    v24 = a1[9];
+    v25 = a1[10];
+    v26 = a1[11];
+    v27 = a1[12];
+    v28 = &stru_112718;
+    v15 = v9;
+    v16 = v12;
+    v17 = objc_retainBlock(v19);
+    v18 = [a1[4] attachmentController];
+    [v18 sendPayloadData:v16 messageGUID:a1[5] fromID:a1[11] recipients:a1[12] completionBlock:v17];
   }
 }
 
@@ -7683,7 +7480,7 @@ void sub_29E4C(uint64_t a1, void *a2, int a3)
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v29 = v5;
+        v27 = v5;
         _os_log_impl(&dword_0, v7, OS_LOG_TYPE_INFO, "Finished uploading new payload data for message. Resulting payloadDictionary %@", buf, 0xCu);
       }
     }
@@ -7703,27 +7500,25 @@ void sub_29E4C(uint64_t a1, void *a2, int a3)
     }
 
     v12 = [NSNumber numberWithInteger:196];
-    v13 = *(a1 + 40);
-    v14 = JWEncodeDictionary();
-    v15 = *(a1 + 48);
-    v16 = IDSGetUUIDData();
-    v17 = [NSDictionary dictionaryWithObjectsAndKeys:IDSSendMessageOptionTopLevelDictionaryKey, &__kCFBooleanTrue, IDSSendMessageOptionSkipPayloadCheckKey, v12, IDSSendMessageOptionCommandKey, &__kCFBooleanTrue, IDSSendMessageOptionWantsDeliveryStatusKey, v14, IDSSendMessageOptionDataToEncryptKey, v16, IDSSendMessageOptionUUIDKey, 0];
+    v13 = JWEncodeDictionary();
+    v14 = IDSGetUUIDData();
+    v15 = [NSDictionary dictionaryWithObjectsAndKeys:IDSSendMessageOptionTopLevelDictionaryKey, &__kCFBooleanTrue, IDSSendMessageOptionSkipPayloadCheckKey, v12, IDSSendMessageOptionCommandKey, &__kCFBooleanTrue, IDSSendMessageOptionWantsDeliveryStatusKey, v13, IDSSendMessageOptionDataToEncryptKey, v14, IDSSendMessageOptionUUIDKey, 0];
 
-    v18 = *(a1 + 56);
-    v19 = *(a1 + 64);
-    v22[0] = _NSConcreteStackBlock;
-    v22[1] = 3221225472;
-    v22[2] = sub_2A18C;
-    v22[3] = &unk_112630;
-    v22[4] = v18;
-    v20 = *(a1 + 72);
-    v23 = *(a1 + 80);
-    v24 = *(a1 + 72);
-    v25 = *(a1 + 88);
-    v26 = v17;
-    v27 = *(a1 + 96);
-    v21 = v17;
-    [v18 _engroupForChat:v19 idsAccount:v20 completion:v22];
+    v16 = *(a1 + 56);
+    v17 = *(a1 + 64);
+    v20[0] = _NSConcreteStackBlock;
+    v20[1] = 3221225472;
+    v20[2] = sub_2A18C;
+    v20[3] = &unk_112630;
+    v20[4] = v16;
+    v18 = *(a1 + 72);
+    v21 = *(a1 + 80);
+    v22 = *(a1 + 72);
+    v23 = *(a1 + 88);
+    v24 = v15;
+    v25 = *(a1 + 96);
+    v19 = v15;
+    [v16 _engroupForChat:v17 idsAccount:v18 completion:v20];
   }
 
   else if (v6)
@@ -7734,9 +7529,9 @@ void sub_29E4C(uint64_t a1, void *a2, int a3)
       v9 = *(a1 + 48);
       v10 = *(a1 + 88);
       *buf = 138412546;
-      v29 = v9;
-      v30 = 2112;
-      v31 = v10;
+      v27 = v9;
+      v28 = 2112;
+      v29 = v10;
       _os_log_impl(&dword_0, v8, OS_LOG_TYPE_INFO, "MessageService Failed processing new payload data for message: %@  for display IDs: %@", buf, 0x16u);
     }
   }
@@ -8301,55 +8096,55 @@ void sub_322E0(_Unwind_Exception *a1, int a2)
   _Unwind_Resume(a1);
 }
 
-void sub_32B6C(uint64_t a1)
+void sub_32B6C(uint64_t a1, uint64_t a2)
 {
-  v2 = *(*(a1 + 32) + 104);
-  v3 = IMOSLoggingEnabled();
-  if (v2)
+  v3 = *(*(a1 + 32) + 104);
+  v4 = IMOSLoggingEnabled();
+  if (v3)
   {
-    if (!v3)
+    if (!v4)
     {
       return;
     }
 
-    v4 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v5 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v14) = 0;
-      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_INFO, "Already have a timer, waiting for it to fire", &v14, 2u);
+      LOWORD(v15) = 0;
+      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_INFO, "Already have a timer, waiting for it to fire", &v15, 2u);
     }
 
     goto LABEL_13;
   }
 
-  if (v3)
+  if (v4)
   {
-    v5 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v6 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v14) = 0;
-      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_INFO, "Sceduling Failure Retry reset timer", &v14, 2u);
+      LOWORD(v15) = 0;
+      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_INFO, "Sceduling Failure Retry reset timer", &v15, 2u);
     }
   }
 
   +[NSDate timeIntervalSinceReferenceDate];
-  v7 = v6;
-  v8 = [IMTimer alloc];
-  v10 = *(a1 + 32);
-  v9 = a1 + 32;
-  v11 = [v8 initWithTimeInterval:@"com.apple.identityservicesd.resetFailureRetries" name:0 shouldWake:v10 target:"_resetFailureRetries" selector:0 userInfo:v7 + 604800.0 - v7];
-  v12 = *(*v9 + 104);
-  *(*v9 + 104) = v11;
+  v8 = v7;
+  v9 = [IMTimer alloc];
+  v11 = *(a1 + 32);
+  v10 = a1 + 32;
+  v12 = [v9 initWithTimeInterval:@"com.apple.identityservicesd.resetFailureRetries" name:0 shouldWake:v11 target:"_resetFailureRetries" selector:0 userInfo:v8 + 604800.0 - v8];
+  v13 = *(*v10 + 104);
+  *(*v10 + 104) = v12;
 
   if (IMOSLoggingEnabled())
   {
-    v4 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v5 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v13 = [NSDate dateWithTimeIntervalSinceReferenceDate:v7 + 604800.0];
-      v14 = 138412290;
-      v15 = v13;
-      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_INFO, "Message Failure Retry Count Will Reset on date %@", &v14, 0xCu);
+      v14 = [NSDate dateWithTimeIntervalSinceReferenceDate:v8 + 604800.0];
+      v15 = 138412290;
+      v16 = v14;
+      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_INFO, "Message Failure Retry Count Will Reset on date %@", &v15, 0xCu);
     }
 
 LABEL_13:
@@ -9022,18 +8817,8 @@ LABEL_146:
               v123 = [*(v225 + 32) richLinkURLs];
               v124 = [v123 lastObject];
 
-              if (v124)
+              if (v124 || ([*(v225 + 32) body], v125 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v125, "string"), v126 = objc_claimAutoreleasedReturnValue(), +[NSURL URLWithString:](NSURL, "URLWithString:", v126), v124 = objc_claimAutoreleasedReturnValue(), v126, v125, v124))
               {
-                goto LABEL_164;
-              }
-
-              v125 = [*(v225 + 32) body];
-              v126 = [v125 string];
-              v124 = [NSURL URLWithString:v126];
-
-              if (v124)
-              {
-LABEL_164:
                 v127 = +[IMSharedWithYouManager sharedManager];
                 v265 = 0;
                 v264 = 0;

@@ -28,7 +28,7 @@
   v10[1] = 0u;
   *(&self->super.super.super.super.super.super.isa + OBJC_IVAR____TtC27ActionButtonConfigurationUI28HighlightAnimatingMenuButton_commitTracker) = 0;
   v12.receiver = self;
-  v12.super_class = type metadata accessor for HighlightAnimatingMenuButton();
+  v12.super_class = type metadata accessor for HighlightAnimatingMenuButton(0);
   return [(MenuButton *)&v12 initWithFrame:x, y, width, height];
 }
 

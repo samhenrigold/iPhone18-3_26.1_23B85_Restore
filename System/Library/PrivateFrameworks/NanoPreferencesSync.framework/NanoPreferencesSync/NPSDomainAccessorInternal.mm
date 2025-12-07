@@ -46,6 +46,7 @@
 - (void)filePresenterDidBecomeNonCurrent:(id)current;
 - (void)invalidatePresenter;
 - (void)objectForKey:(id)key completionHandler:(id)handler;
+- (void)setBool:(BOOL)bool forKey:(id)key;
 - (void)setDouble:(double)double forKey:(id)key;
 - (void)setFloat:(float)float forKey:(id)key;
 - (void)setInteger:(int64_t)integer forKey:(id)key;
@@ -132,14 +133,14 @@
 
 void __39__NPSDomainAccessorInternal_initialize__block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v1 = [*(a1 + 32) applicationState];
   v2 = nps_domain_accessor_log;
   if (os_log_type_enabled(nps_domain_accessor_log, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 134217984;
-    v6 = v1;
-    _os_log_impl(&dword_1C0D93000, v2, OS_LOG_TYPE_DEFAULT, "Application state: %ld", &v5, 0xCu);
+    v4 = 134217984;
+    v5 = v1;
+    _os_log_impl(&dword_1C0D93000, v2, OS_LOG_TYPE_DEFAULT, "Application state: %ld", &v4, 0xCu);
   }
 
   if (!v1)
@@ -147,8 +148,6 @@ void __39__NPSDomainAccessorInternal_initialize__block_invoke(uint64_t a1)
     v3 = 1;
     atomic_compare_exchange_strong(&applicationEnteredBackground, &v3, 0);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 + (void)applicationDidResume
@@ -195,10 +194,7 @@ void __39__NPSDomainAccessorInternal_initialize__block_invoke(uint64_t a1)
 
 uint64_t __40__NPSDomainAccessorInternal_synchronize__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _synchronizeReadOnly:0];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) _synchronizeReadOnly:0];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -283,17 +279,16 @@ void __58__NPSDomainAccessorInternal_applicationDidEnterBackground__block_invoke
 
 void __54__NPSDomainAccessorInternal_extensionWillResignActive__block_invoke(uint64_t a1, int a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v3 = nps_domain_accessor_log;
   if (os_log_type_enabled(nps_domain_accessor_log, OS_LOG_TYPE_DEFAULT))
   {
-    v5[0] = 67109120;
-    v5[1] = a2;
-    _os_log_impl(&dword_1C0D93000, v3, OS_LOG_TYPE_DEFAULT, "expired: (%d)", v5, 8u);
+    v4[0] = 67109120;
+    v4[1] = a2;
+    _os_log_impl(&dword_1C0D93000, v3, OS_LOG_TYPE_DEFAULT, "expired: (%d)", v4, 8u);
   }
 
   dispatch_sync(internalAccessorsQueue, &__block_literal_global_40);
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 + (id)internalAccessorForPairingID:(id)d pairingDataStore:(id)store domain:(id)domain
@@ -412,7 +407,7 @@ void __82__NPSDomainAccessorInternal_internalAccessorForPairingID_pairingDataSto
   dispatch_sync(v4, block);
 }
 
-uint64_t __69__NPSDomainAccessorInternal_decrementInternalAccessorReferenceCount___block_invoke(uint64_t a1)
+void *__69__NPSDomainAccessorInternal_decrementInternalAccessorReferenceCount___block_invoke(uint64_t a1)
 {
   v1 = *(a1 + 32);
   v2 = [v1 referenceCounter];
@@ -427,7 +422,7 @@ uint64_t __69__NPSDomainAccessorInternal_decrementInternalAccessorReferenceCount
 
 - (void)invalidatePresenter
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = nps_domain_accessor_log;
   if (os_log_type_enabled(nps_domain_accessor_log, OS_LOG_TYPE_DEFAULT))
   {
@@ -443,12 +438,11 @@ uint64_t __69__NPSDomainAccessorInternal_decrementInternalAccessorReferenceCount
   block[3] = &unk_1E8129518;
   block[4] = self;
   dispatch_sync(internalQueue, block);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_invalidatePresenter
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (self->_filePresenter)
   {
     [MEMORY[0x1E696ABF8] removeFilePresenter:?];
@@ -456,18 +450,16 @@ uint64_t __69__NPSDomainAccessorInternal_decrementInternalAccessorReferenceCount
     if (os_log_type_enabled(nps_domain_accessor_log, OS_LOG_TYPE_DEFAULT))
     {
       filePresenter = self->_filePresenter;
-      v7 = 134218240;
+      v6 = 134218240;
       selfCopy = self;
-      v9 = 2048;
-      v10 = filePresenter;
-      _os_log_impl(&dword_1C0D93000, v3, OS_LOG_TYPE_DEFAULT, "self:(%p); Unregisted file presenter: (%p)", &v7, 0x16u);
+      v8 = 2048;
+      v9 = filePresenter;
+      _os_log_impl(&dword_1C0D93000, v3, OS_LOG_TYPE_DEFAULT, "self:(%p); Unregisted file presenter: (%p)", &v6, 0x16u);
     }
 
     v5 = self->_filePresenter;
     self->_filePresenter = 0;
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 + (void)invalidateAndReleaseUnreferencedAccessors
@@ -539,7 +531,7 @@ void __70__NPSDomainAccessorInternal_invalidateAndReleaseUnreferencedAccessors__
 
 - (NPSDomainAccessorInternal)initWithPairingID:(id)d pairingDataStore:(id)store domain:(id)domain
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   dCopy = d;
   storeCopy = store;
   domainCopy = domain;
@@ -558,22 +550,22 @@ void __70__NPSDomainAccessorInternal_invalidateAndReleaseUnreferencedAccessors__
     [NPSDomainAccessorInternal initWithPairingID:pairingDataStore:domain:];
   }
 
-  v31.receiver = self;
-  v31.super_class = NPSDomainAccessorInternal;
-  v12 = [(NPSDomainAccessorInternal *)&v31 init];
+  v30.receiver = self;
+  v30.super_class = NPSDomainAccessorInternal;
+  v12 = [(NPSDomainAccessorInternal *)&v30 init];
   if (v12)
   {
     v13 = nps_domain_accessor_log;
     if (os_log_type_enabled(nps_domain_accessor_log, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218754;
-      v33 = v12;
-      v34 = 2112;
-      v35 = dCopy;
-      v36 = 2112;
-      v37 = domainCopy;
-      v38 = 2112;
-      v39 = storeCopy;
+      v32 = v12;
+      v33 = 2112;
+      v34 = dCopy;
+      v35 = 2112;
+      v36 = domainCopy;
+      v37 = 2112;
+      v38 = storeCopy;
       _os_log_impl(&dword_1C0D93000, v13, OS_LOG_TYPE_DEFAULT, "self: (%p); pairingID: (%@); domain: (%@); pairingDataStore: (%@)", buf, 0x2Au);
     }
 
@@ -607,13 +599,12 @@ void __70__NPSDomainAccessorInternal_invalidateAndReleaseUnreferencedAccessors__
     v12->_externalQueue = v27;
   }
 
-  v29 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = nps_domain_accessor_log;
   if (os_log_type_enabled(nps_domain_accessor_log, OS_LOG_TYPE_DEFAULT))
   {
@@ -623,10 +614,9 @@ void __70__NPSDomainAccessorInternal_invalidateAndReleaseUnreferencedAccessors__
   }
 
   [(NPSDomainAccessorInternal *)self _invalidatePresenter];
-  v5.receiver = self;
-  v5.super_class = NPSDomainAccessorInternal;
-  [(NPSDomainAccessorInternal *)&v5 dealloc];
-  v4 = *MEMORY[0x1E69E9840];
+  v4.receiver = self;
+  v4.super_class = NPSDomainAccessorInternal;
+  [(NPSDomainAccessorInternal *)&v4 dealloc];
 }
 
 + (BOOL)domainIsValid:(id)valid
@@ -640,7 +630,7 @@ void __70__NPSDomainAccessorInternal_invalidateAndReleaseUnreferencedAccessors__
 
 + (BOOL)valueIsValid:(id)valid
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   validCopy = valid;
   if (!validCopy || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
@@ -649,18 +639,17 @@ void __70__NPSDomainAccessorInternal_invalidateAndReleaseUnreferencedAccessors__
 
   else
   {
-    v7 = nps_domain_accessor_log;
+    v6 = nps_domain_accessor_log;
     v4 = 0;
     if (os_log_type_enabled(nps_domain_accessor_log, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 138412290;
-      v9 = validCopy;
-      _os_log_impl(&dword_1C0D93000, v7, OS_LOG_TYPE_DEFAULT, "Invalid type: (%@)", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = validCopy;
+      _os_log_impl(&dword_1C0D93000, v6, OS_LOG_TYPE_DEFAULT, "Invalid type: (%@)", &v7, 0xCu);
       v4 = 0;
     }
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -774,10 +763,7 @@ void __72__NPSDomainAccessorInternal_mergeDirtyKeys_fromDictionary_toDictionary_
 
 uint64_t __40__NPSDomainAccessorInternal_copyKeyList__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _copyKeyList];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) _copyKeyList];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -845,7 +831,7 @@ void __63__NPSDomainAccessorInternal_copyDomainListForPairingDataStore___block_i
 
 - (void)synchronizeWithCompletionHandler:(id)handler
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v5 = nps_domain_accessor_log;
   if (os_log_type_enabled(nps_domain_accessor_log, OS_LOG_TYPE_DEFAULT))
@@ -854,22 +840,20 @@ void __63__NPSDomainAccessorInternal_copyDomainListForPairingDataStore___block_i
     v7 = MEMORY[0x1C68E5370](handlerCopy);
     *buf = 134218240;
     selfCopy = self;
-    v15 = 2048;
-    v16 = v7;
+    v14 = 2048;
+    v15 = v7;
     _os_log_impl(&dword_1C0D93000, v6, OS_LOG_TYPE_DEFAULT, "self: (%p); completionHandler: (%p)", buf, 0x16u);
   }
 
   internalQueue = self->_internalQueue;
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __62__NPSDomainAccessorInternal_synchronizeWithCompletionHandler___block_invoke;
-  v11[3] = &unk_1E81298B8;
-  v11[4] = self;
-  v12 = handlerCopy;
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __62__NPSDomainAccessorInternal_synchronizeWithCompletionHandler___block_invoke;
+  v10[3] = &unk_1E81298B8;
+  v10[4] = self;
+  v11 = handlerCopy;
   v9 = handlerCopy;
-  dispatch_async(internalQueue, v11);
-
-  v10 = *MEMORY[0x1E69E9840];
+  dispatch_async(internalQueue, v10);
 }
 
 void __62__NPSDomainAccessorInternal_synchronizeWithCompletionHandler___block_invoke(uint64_t a1)
@@ -957,7 +941,7 @@ LABEL_18:
 
 BOOL __50__NPSDomainAccessorInternal__synchronizeReadOnly___block_invoke(uint64_t a1, void *a2, char a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = a2;
   if (!applicationEnteredBackground && !*(*(a1 + 32) + 88))
   {
@@ -967,11 +951,11 @@ BOOL __50__NPSDomainAccessorInternal__synchronizeReadOnly___block_invoke(uint64_
     {
       v7 = *(a1 + 32);
       v8 = *(a1 + 40);
-      v15 = 134218240;
-      v16 = v7;
-      v17 = 2048;
-      v18 = v8;
-      _os_log_impl(&dword_1C0D93000, v6, OS_LOG_TYPE_DEFAULT, "self: (%p); Registered file presenter: (%p)", &v15, 0x16u);
+      v14 = 134218240;
+      v15 = v7;
+      v16 = 2048;
+      v17 = v8;
+      _os_log_impl(&dword_1C0D93000, v6, OS_LOG_TYPE_DEFAULT, "self: (%p); Registered file presenter: (%p)", &v14, 0x16u);
     }
 
     objc_storeStrong((*(a1 + 32) + 88), *(a1 + 40));
@@ -992,13 +976,12 @@ BOOL __50__NPSDomainAccessorInternal__synchronizeReadOnly___block_invoke(uint64_
   *(v10 + 40) = v9;
 
   v12 = *(*(*(a1 + 48) + 8) + 40) == 0;
-  v13 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 - (id)objectForKey:(id)key
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   v5 = nps_domain_accessor_log;
   if (os_log_type_enabled(nps_domain_accessor_log, OS_LOG_TYPE_DEFAULT))
@@ -1010,27 +993,27 @@ BOOL __50__NPSDomainAccessorInternal__synchronizeReadOnly___block_invoke(uint64_
 
   if (!keyCopy)
   {
-    v11 = MEMORY[0x1E695DF30];
-    v12 = *MEMORY[0x1E695D940];
-    v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"key: (%@)", 0];
-    v14 = [v11 exceptionWithName:v12 reason:v13 userInfo:0];
-    v15 = v14;
+    v10 = MEMORY[0x1E695DF30];
+    v11 = *MEMORY[0x1E695D940];
+    v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"key: (%@)", 0];
+    v13 = [v10 exceptionWithName:v11 reason:v12 userInfo:0];
+    v14 = v13;
 
-    objc_exception_throw(v14);
+    objc_exception_throw(v13);
   }
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v20 = 0x3032000000;
-  v21 = __Block_byref_object_copy__0;
-  v22 = __Block_byref_object_dispose__0;
-  v23 = 0;
+  v19 = 0x3032000000;
+  v20 = __Block_byref_object_copy__0;
+  v21 = __Block_byref_object_dispose__0;
+  v22 = 0;
   internalQueue = self->_internalQueue;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __42__NPSDomainAccessorInternal_objectForKey___block_invoke;
   block[3] = &unk_1E8129908;
-  v17 = keyCopy;
+  v16 = keyCopy;
   p_buf = &buf;
   block[4] = self;
   v7 = keyCopy;
@@ -1038,24 +1021,20 @@ BOOL __50__NPSDomainAccessorInternal__synchronizeReadOnly___block_invoke(uint64_
   v8 = *(*(&buf + 1) + 40);
 
   _Block_object_dispose(&buf, 8);
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
 
 uint64_t __42__NPSDomainAccessorInternal_objectForKey___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _objectForKey:*(a1 + 40) error:0];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) _objectForKey:*(a1 + 40) error:0];
 
   return MEMORY[0x1EEE66BB8]();
 }
 
 - (void)objectForKey:(id)key completionHandler:(id)handler
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   handlerCopy = handler;
   v8 = nps_domain_accessor_log;
@@ -1064,23 +1043,23 @@ uint64_t __42__NPSDomainAccessorInternal_objectForKey___block_invoke(uint64_t a1
     v9 = v8;
     v10 = MEMORY[0x1C68E5370](handlerCopy);
     *buf = 138412546;
-    v27 = keyCopy;
-    v28 = 2048;
-    v29 = v10;
+    v26 = keyCopy;
+    v27 = 2048;
+    v28 = v10;
     _os_log_impl(&dword_1C0D93000, v9, OS_LOG_TYPE_DEFAULT, "key: (%@); completionHandler: (%p)", buf, 0x16u);
   }
 
   if (!keyCopy || !handlerCopy)
   {
-    v16 = MEMORY[0x1E695DF30];
-    v17 = *MEMORY[0x1E695D940];
-    v18 = MEMORY[0x1E696AEC0];
-    v19 = MEMORY[0x1C68E5370](handlerCopy);
-    v20 = [v18 stringWithFormat:@"nil key (%@) or completion handler (%p)", keyCopy, v19];
-    v21 = [v16 exceptionWithName:v17 reason:v20 userInfo:0];
-    v22 = v21;
+    v15 = MEMORY[0x1E695DF30];
+    v16 = *MEMORY[0x1E695D940];
+    v17 = MEMORY[0x1E696AEC0];
+    v18 = MEMORY[0x1C68E5370](handlerCopy);
+    v19 = [v17 stringWithFormat:@"nil key (%@) or completion handler (%p)", keyCopy, v18];
+    v20 = [v15 exceptionWithName:v16 reason:v19 userInfo:0];
+    v21 = v20;
 
-    objc_exception_throw(v21);
+    objc_exception_throw(v20);
   }
 
   v11 = [keyCopy copy];
@@ -1090,13 +1069,11 @@ uint64_t __42__NPSDomainAccessorInternal_objectForKey___block_invoke(uint64_t a1
   block[2] = __60__NPSDomainAccessorInternal_objectForKey_completionHandler___block_invoke;
   block[3] = &unk_1E8129930;
   block[4] = self;
-  v24 = v11;
-  v25 = handlerCopy;
+  v23 = v11;
+  v24 = handlerCopy;
   v13 = handlerCopy;
   v14 = v11;
   dispatch_async(internalQueue, block);
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __60__NPSDomainAccessorInternal_objectForKey_completionHandler___block_invoke(uint64_t a1)
@@ -1122,7 +1099,7 @@ void __60__NPSDomainAccessorInternal_objectForKey_completionHandler___block_invo
 
 - (id)_objectForKey:(id)key error:(id *)error
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   if (self->_hasReadFromDisk || ([(NPSDomainAccessorInternal *)self _synchronizeReadOnly:1], (v7 = objc_claimAutoreleasedReturnValue()) == 0))
   {
@@ -1132,13 +1109,13 @@ void __60__NPSDomainAccessorInternal_objectForKey_completionHandler___block_invo
     {
       v10 = v9;
       v11 = [objc_opt_class() cfTypeNameForCFPropertyListRef:v8];
-      v14 = 138412802;
-      v15 = keyCopy;
-      v16 = 2112;
-      v17 = v11;
-      v18 = 2112;
-      v19 = v8;
-      _os_log_impl(&dword_1C0D93000, v10, OS_LOG_TYPE_DEFAULT, "key: (%@); value type: (%@); value: (%@)", &v14, 0x20u);
+      v13 = 138412802;
+      v14 = keyCopy;
+      v15 = 2112;
+      v16 = v11;
+      v17 = 2112;
+      v18 = v8;
+      _os_log_impl(&dword_1C0D93000, v10, OS_LOG_TYPE_DEFAULT, "key: (%@); value type: (%@); value: (%@)", &v13, 0x20u);
     }
   }
 
@@ -1153,36 +1130,32 @@ void __60__NPSDomainAccessorInternal_objectForKey_completionHandler___block_invo
     v8 = 0;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
-
   return v8;
 }
 
 - (void)setObject:(id)object forKey:(id)key
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   keyCopy = key;
   v8 = nps_domain_accessor_log;
   if (os_log_type_enabled(nps_domain_accessor_log, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 136315650;
-    v11 = "[NPSDomainAccessorInternal setObject:forKey:]";
-    v12 = 2112;
-    v13 = objectCopy;
-    v14 = 2112;
-    v15 = keyCopy;
-    _os_log_impl(&dword_1C0D93000, v8, OS_LOG_TYPE_DEFAULT, "%s: value : %@; key: %@", &v10, 0x20u);
+    v9 = 136315650;
+    v10 = "[NPSDomainAccessorInternal setObject:forKey:]";
+    v11 = 2112;
+    v12 = objectCopy;
+    v13 = 2112;
+    v14 = keyCopy;
+    _os_log_impl(&dword_1C0D93000, v8, OS_LOG_TYPE_DEFAULT, "%s: value : %@; key: %@", &v9, 0x20u);
   }
 
   [(NPSDomainAccessorInternal *)self setObject:objectCopy forKey:keyCopy completionHandler:0];
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setObject:(id)object forKey:(id)key completionHandler:(id)handler
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   keyCopy = key;
   handlerCopy = handler;
@@ -1193,25 +1166,25 @@ void __60__NPSDomainAccessorInternal_objectForKey_completionHandler___block_invo
     v13 = [objc_opt_class() cfTypeNameForCFPropertyListRef:objectCopy];
     v14 = MEMORY[0x1C68E5370](handlerCopy);
     *buf = 138413058;
-    v39 = keyCopy;
-    v40 = 2112;
-    v41 = v13;
-    v42 = 2112;
-    v43 = objectCopy;
-    v44 = 2048;
-    v45 = v14;
+    v38 = keyCopy;
+    v39 = 2112;
+    v40 = v13;
+    v41 = 2112;
+    v42 = objectCopy;
+    v43 = 2048;
+    v44 = v14;
     _os_log_impl(&dword_1C0D93000, v12, OS_LOG_TYPE_DEFAULT, "key: (%@); value type: (%@): value: (%@); completionHandler: (%p)", buf, 0x2Au);
   }
 
   if (!keyCopy || ([objc_opt_class() valueIsValid:objectCopy] & 1) == 0)
   {
-    v26 = MEMORY[0x1E695DF30];
-    v27 = *MEMORY[0x1E695D940];
+    v25 = MEMORY[0x1E695DF30];
+    v26 = *MEMORY[0x1E695D940];
     objectCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"nil or invalid key (%@) or value (%@)", keyCopy, objectCopy];
-    v29 = [v26 exceptionWithName:v27 reason:objectCopy userInfo:0];
-    v30 = v29;
+    v28 = [v25 exceptionWithName:v26 reason:objectCopy userInfo:0];
+    v29 = v28;
 
-    objc_exception_throw(v29);
+    objc_exception_throw(v28);
   }
 
   v15 = [keyCopy copy];
@@ -1225,12 +1198,12 @@ void __60__NPSDomainAccessorInternal_objectForKey_completionHandler___block_invo
     block[1] = 3221225472;
     block[2] = __64__NPSDomainAccessorInternal_setObject_forKey_completionHandler___block_invoke;
     block[3] = &unk_1E8129958;
-    v19 = &v35;
+    v19 = &v34;
     block[4] = self;
-    v35 = DeepCopy;
-    v20 = &v36;
-    v36 = v15;
-    v37 = handlerCopy;
+    v34 = DeepCopy;
+    v20 = &v35;
+    v35 = v15;
+    v36 = handlerCopy;
     v21 = v15;
     v22 = DeepCopy;
     dispatch_async(internalQueue, block);
@@ -1238,21 +1211,19 @@ void __60__NPSDomainAccessorInternal_objectForKey_completionHandler___block_invo
 
   else
   {
-    v31[0] = MEMORY[0x1E69E9820];
-    v31[1] = 3221225472;
-    v31[2] = __64__NPSDomainAccessorInternal_setObject_forKey_completionHandler___block_invoke_3;
-    v31[3] = &unk_1E8129980;
-    v19 = &v32;
-    v31[4] = self;
-    v32 = DeepCopy;
-    v20 = &v33;
-    v33 = v15;
+    v30[0] = MEMORY[0x1E69E9820];
+    v30[1] = 3221225472;
+    v30[2] = __64__NPSDomainAccessorInternal_setObject_forKey_completionHandler___block_invoke_3;
+    v30[3] = &unk_1E8129980;
+    v19 = &v31;
+    v30[4] = self;
+    v31 = DeepCopy;
+    v20 = &v32;
+    v32 = v15;
     v23 = v15;
     v24 = DeepCopy;
-    dispatch_sync(internalQueue, v31);
+    dispatch_sync(internalQueue, v30);
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 void __64__NPSDomainAccessorInternal_setObject_forKey_completionHandler___block_invoke(uint64_t a1)
@@ -1442,6 +1413,15 @@ LABEL_15:
   [(NPSDomainAccessorInternal *)self setObject:v8 forKey:keyCopy];
 }
 
+- (void)setBool:(BOOL)bool forKey:(id)key
+{
+  boolCopy = bool;
+  v6 = MEMORY[0x1E696AD98];
+  keyCopy = key;
+  v8 = [v6 numberWithBool:boolCopy];
+  [(NPSDomainAccessorInternal *)self setObject:v8 forKey:keyCopy];
+}
+
 - (void)setURL:(id)l forKey:(id)key
 {
   keyCopy = key;
@@ -1451,7 +1431,7 @@ LABEL_15:
 
 - (id)dictionaryRepresentation
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = nps_domain_accessor_log;
   if (os_log_type_enabled(nps_domain_accessor_log, OS_LOG_TYPE_DEFAULT))
   {
@@ -1462,32 +1442,27 @@ LABEL_15:
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v10 = 0x3032000000;
-  v11 = __Block_byref_object_copy__0;
-  v12 = __Block_byref_object_dispose__0;
-  v13 = 0;
+  v9 = 0x3032000000;
+  v10 = __Block_byref_object_copy__0;
+  v11 = __Block_byref_object_dispose__0;
+  v12 = 0;
   internalQueue = self->_internalQueue;
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __53__NPSDomainAccessorInternal_dictionaryRepresentation__block_invoke;
-  v8[3] = &unk_1E8129540;
-  v8[4] = self;
-  v8[5] = &buf;
-  dispatch_sync(internalQueue, v8);
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __53__NPSDomainAccessorInternal_dictionaryRepresentation__block_invoke;
+  v7[3] = &unk_1E8129540;
+  v7[4] = self;
+  v7[5] = &buf;
+  dispatch_sync(internalQueue, v7);
   v5 = *(*(&buf + 1) + 40);
   _Block_object_dispose(&buf, 8);
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 uint64_t __53__NPSDomainAccessorInternal_dictionaryRepresentation__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _dictionaryRepresentation];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) _dictionaryRepresentation];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -1506,7 +1481,7 @@ uint64_t __53__NPSDomainAccessorInternal_dictionaryRepresentation__block_invoke(
 
 - (id)canSynchronizeForReadingURL:(id)l
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   lCopy = l;
   v5 = nps_domain_accessor_log;
   if (os_log_type_enabled(nps_domain_accessor_log, OS_LOG_TYPE_DEFAULT))
@@ -1516,9 +1491,9 @@ uint64_t __53__NPSDomainAccessorInternal_dictionaryRepresentation__block_invoke(
     _os_log_impl(&dword_1C0D93000, v5, OS_LOG_TYPE_DEFAULT, "self: (%p)", buf, 0xCu);
   }
 
-  v12 = 0;
-  v6 = [objc_opt_class() readDomainURL:lCopy withError:&v12];
-  v7 = v12;
+  v11 = 0;
+  v6 = [objc_opt_class() readDomainURL:lCopy withError:&v11];
+  v7 = v11;
   v8 = v7;
   if (v7)
   {
@@ -1536,29 +1511,27 @@ uint64_t __53__NPSDomainAccessorInternal_dictionaryRepresentation__block_invoke(
     self->_hasReadFromDisk = 1;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
-
   return v8;
 }
 
 - (id)canSynchronizeForWritingURL:(id)l readFirst:(BOOL)first
 {
   firstCopy = first;
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   lCopy = l;
   v7 = nps_domain_accessor_log;
   if (os_log_type_enabled(nps_domain_accessor_log, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v21 = "[NPSDomainAccessorInternal canSynchronizeForWritingURL:readFirst:]";
+    v20 = "[NPSDomainAccessorInternal canSynchronizeForWritingURL:readFirst:]";
     _os_log_impl(&dword_1C0D93000, v7, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 
   if (firstCopy)
   {
-    v19 = 0;
-    v8 = [objc_opt_class() readDomainURL:lCopy withError:&v19];
-    v9 = v19;
+    v18 = 0;
+    v8 = [objc_opt_class() readDomainURL:lCopy withError:&v18];
+    v9 = v18;
     if (v9)
     {
       v10 = v9;
@@ -1566,9 +1539,9 @@ uint64_t __53__NPSDomainAccessorInternal_dictionaryRepresentation__block_invoke(
       if (os_log_type_enabled(nps_domain_accessor_log, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v21 = "[NPSDomainAccessorInternal canSynchronizeForWritingURL:readFirst:]";
-        v22 = 2112;
-        v23 = v10;
+        v20 = "[NPSDomainAccessorInternal canSynchronizeForWritingURL:readFirst:]";
+        v21 = 2112;
+        v22 = v10;
         _os_log_impl(&dword_1C0D93000, v11, OS_LOG_TYPE_DEFAULT, "%s: Read First error %@", buf, 0x16u);
       }
 
@@ -1592,11 +1565,11 @@ uint64_t __53__NPSDomainAccessorInternal_dictionaryRepresentation__block_invoke(
     {
       domain = self->_domain;
       *buf = 136315650;
-      v21 = "[NPSDomainAccessorInternal canSynchronizeForWritingURL:readFirst:]";
-      v22 = 2112;
-      v23 = domain;
-      v24 = 2112;
-      v25 = v12;
+      v20 = "[NPSDomainAccessorInternal canSynchronizeForWritingURL:readFirst:]";
+      v21 = 2112;
+      v22 = domain;
+      v23 = 2112;
+      v24 = v12;
       _os_log_impl(&dword_1C0D93000, v14, OS_LOG_TYPE_DEFAULT, "%s: Error saving domain %@. Error: %@", buf, 0x20u);
     }
   }
@@ -1609,14 +1582,12 @@ uint64_t __53__NPSDomainAccessorInternal_dictionaryRepresentation__block_invoke(
 
 LABEL_13:
 
-  v17 = *MEMORY[0x1E69E9840];
-
   return v12;
 }
 
 - (id)createNanoSettingsDirectory
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   if (self->_nanoSettingsDirectoryExists)
   {
     v2 = 0;
@@ -1631,16 +1602,16 @@ LABEL_13:
     if (os_log_type_enabled(nps_domain_accessor_log, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v15 = v4;
+      v14 = v4;
       _os_log_impl(&dword_1C0D93000, v6, OS_LOG_TYPE_DEFAULT, "Creating NanoDomains directory (%@) as it doesn't exist", buf, 0xCu);
     }
 
-    v18 = *MEMORY[0x1E696A3A0];
-    v19[0] = *MEMORY[0x1E696A3A8];
-    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
-    v13 = 0;
-    [defaultManager createDirectoryAtPath:v4 withIntermediateDirectories:1 attributes:v7 error:&v13];
-    v2 = v13;
+    v17 = *MEMORY[0x1E696A3A0];
+    v18[0] = *MEMORY[0x1E696A3A8];
+    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+    v12 = 0;
+    [defaultManager createDirectoryAtPath:v4 withIntermediateDirectories:1 attributes:v7 error:&v12];
+    v2 = v12;
 
     if (!v2)
     {
@@ -1668,9 +1639,9 @@ LABEL_10:
     if (os_log_type_enabled(nps_domain_accessor_log, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v15 = v4;
-      v16 = 2112;
-      v17 = v2;
+      v14 = v4;
+      v15 = 2112;
+      v16 = v2;
       _os_log_impl(&dword_1C0D93000, v10, OS_LOG_TYPE_DEFAULT, "Failed to create the NanoDomains directory (%@) with error: (%@)", buf, 0x16u);
     }
 
@@ -1681,22 +1652,21 @@ LABEL_10:
 LABEL_14:
 
 LABEL_15:
-  v11 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
 
 + (id)readDomainURL:(id)l withError:(id *)error
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   lCopy = l;
   v7 = nps_domain_accessor_log;
   if (os_log_type_enabled(nps_domain_accessor_log, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218242;
     selfCopy = self;
-    v28 = 2112;
-    v29 = lCopy;
+    v27 = 2112;
+    v28 = lCopy;
     _os_log_impl(&dword_1C0D93000, v7, OS_LOG_TYPE_DEFAULT, "self: (%p); domainURL: (%@)", buf, 0x16u);
   }
 
@@ -1716,9 +1686,9 @@ LABEL_15:
       }
     }
 
-    v25 = 0;
-    v13 = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:lCopy options:2 error:&v25];
-    v14 = v25;
+    v24 = 0;
+    v13 = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:lCopy options:2 error:&v24];
+    v14 = v24;
     if (v14)
     {
       v15 = v14;
@@ -1727,8 +1697,8 @@ LABEL_15:
       {
         *buf = 138412546;
         selfCopy = lCopy;
-        v28 = 2112;
-        v29 = v15;
+        v27 = 2112;
+        v28 = v15;
         _os_log_impl(&dword_1C0D93000, v16, OS_LOG_TYPE_DEFAULT, "Failed to read domain from disk (%@) with error: (%@). Resetting it.", buf, 0x16u);
       }
 
@@ -1747,9 +1717,9 @@ LABEL_15:
 
     else
     {
-      v24 = 0;
-      v19 = [MEMORY[0x1E696AE40] propertyListWithData:v13 options:0 format:0 error:&v24];
-      v15 = v24;
+      v23 = 0;
+      v19 = [MEMORY[0x1E696AE40] propertyListWithData:v13 options:0 format:0 error:&v23];
+      v15 = v23;
       v18 = [v19 mutableCopy];
 
       if (v15)
@@ -1759,10 +1729,10 @@ LABEL_15:
         {
           *buf = 138412802;
           selfCopy = v13;
-          v28 = 2112;
-          v29 = lCopy;
-          v30 = 2112;
-          v31 = v15;
+          v27 = 2112;
+          v28 = lCopy;
+          v29 = 2112;
+          v30 = v15;
           _os_log_impl(&dword_1C0D93000, v20, OS_LOG_TYPE_DEFAULT, "Failed to un-serialize domain (%@) at path (%@) with error: (%@). Resetting it.", buf, 0x20u);
         }
 
@@ -1778,27 +1748,25 @@ LABEL_15:
     v18 = objc_opt_new();
   }
 
-  v22 = *MEMORY[0x1E69E9840];
-
   return v18;
 }
 
 + (id)writeDomain:(id)domain toURL:(id)l
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   domainCopy = domain;
   lCopy = l;
   v8 = nps_domain_accessor_log;
   if (os_log_type_enabled(nps_domain_accessor_log, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315906;
-    v33 = "+[NPSDomainAccessorInternal writeDomain:toURL:]";
-    v34 = 2048;
+    v32 = "+[NPSDomainAccessorInternal writeDomain:toURL:]";
+    v33 = 2048;
     selfCopy = self;
-    v36 = 2112;
-    v37 = domainCopy;
-    v38 = 2112;
-    v39 = lCopy;
+    v35 = 2112;
+    v36 = domainCopy;
+    v37 = 2112;
+    v38 = lCopy;
     _os_log_impl(&dword_1C0D93000, v8, OS_LOG_TYPE_DEFAULT, "%s: self: (%p); domainDict: (%@); url: (%@)", buf, 0x2Au);
   }
 
@@ -1810,14 +1778,14 @@ LABEL_15:
     if (v11)
     {
       *buf = 136315138;
-      v33 = "+[NPSDomainAccessorInternal writeDomain:toURL:]";
+      v32 = "+[NPSDomainAccessorInternal writeDomain:toURL:]";
       _os_log_impl(&dword_1C0D93000, v10, OS_LOG_TYPE_DEFAULT, "%s: Deleting domain.", buf, 0xCu);
     }
 
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-    v29 = 0;
-    [defaultManager removeItemAtURL:lCopy error:&v29];
-    v17 = v29;
+    v28 = 0;
+    [defaultManager removeItemAtURL:lCopy error:&v28];
+    v17 = v28;
     v18 = v17;
     if (!v17)
     {
@@ -1845,11 +1813,11 @@ LABEL_15:
     if (os_log_type_enabled(nps_domain_accessor_log, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v33 = "+[NPSDomainAccessorInternal writeDomain:toURL:]";
-      v34 = 2112;
+      v32 = "+[NPSDomainAccessorInternal writeDomain:toURL:]";
+      v33 = 2112;
       selfCopy = lCopy;
-      v36 = 2112;
-      v37 = v18;
+      v35 = 2112;
+      v36 = v18;
       v23 = "%s: Failed to delete domain from disk (%@) with error: (%@).";
       v24 = v26;
       v25 = 32;
@@ -1866,13 +1834,13 @@ LABEL_26:
   if (v11)
   {
     *buf = 136315138;
-    v33 = "+[NPSDomainAccessorInternal writeDomain:toURL:]";
+    v32 = "+[NPSDomainAccessorInternal writeDomain:toURL:]";
     _os_log_impl(&dword_1C0D93000, v10, OS_LOG_TYPE_DEFAULT, "%s: Updating domain.", buf, 0xCu);
   }
 
-  v31 = 0;
-  defaultManager = [MEMORY[0x1E696AE40] dataWithPropertyList:domainCopy format:200 options:0 error:&v31];
-  v13 = v31;
+  v30 = 0;
+  defaultManager = [MEMORY[0x1E696AE40] dataWithPropertyList:domainCopy format:200 options:0 error:&v30];
+  v13 = v30;
   if (!v13)
   {
     if ([defaultManager length] > 0x80000)
@@ -1884,9 +1852,9 @@ LABEL_26:
       }
     }
 
-    v30 = 0;
-    [defaultManager writeToURL:lCopy options:268435457 error:&v30];
-    v18 = v30;
+    v29 = 0;
+    [defaultManager writeToURL:lCopy options:268435457 error:&v29];
+    v18 = v29;
     if (!v18)
     {
       goto LABEL_26;
@@ -1899,13 +1867,13 @@ LABEL_26:
     }
 
     *buf = 136315906;
-    v33 = "+[NPSDomainAccessorInternal writeDomain:toURL:]";
-    v34 = 2112;
+    v32 = "+[NPSDomainAccessorInternal writeDomain:toURL:]";
+    v33 = 2112;
     selfCopy = lCopy;
-    v36 = 2112;
-    v37 = domainCopy;
-    v38 = 2112;
-    v39 = v18;
+    v35 = 2112;
+    v36 = domainCopy;
+    v37 = 2112;
+    v38 = v18;
     v23 = "%s: Failed to write to disk (%@) the domain (%@) with error: (%@).";
     v24 = v22;
     v25 = 42;
@@ -1917,35 +1885,34 @@ LABEL_26:
   if (os_log_type_enabled(nps_domain_accessor_log, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315906;
-    v33 = "+[NPSDomainAccessorInternal writeDomain:toURL:]";
-    v34 = 2112;
+    v32 = "+[NPSDomainAccessorInternal writeDomain:toURL:]";
+    v33 = 2112;
     selfCopy = domainCopy;
-    v36 = 2112;
-    v37 = v14;
-    v38 = 2112;
-    v39 = lCopy;
+    v35 = 2112;
+    v36 = v14;
+    v37 = 2112;
+    v38 = lCopy;
     _os_log_impl(&dword_1C0D93000, v15, OS_LOG_TYPE_DEFAULT, "%s: Failed to serialize domain (%@) with error: (%@). Not persisting it to disk (%@).", buf, 0x2Au);
   }
 
   v16 = v14;
 
 LABEL_27:
-  v27 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
 
 - (void)filePresenterDidBecomeNonCurrent:(id)current
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   currentCopy = current;
   v5 = nps_domain_accessor_log;
   if (os_log_type_enabled(nps_domain_accessor_log, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218240;
     selfCopy = self;
-    v11 = 2048;
-    v12 = currentCopy;
+    v10 = 2048;
+    v11 = currentCopy;
     _os_log_impl(&dword_1C0D93000, v5, OS_LOG_TYPE_DEFAULT, "self: (%p); filePresenter: (%p)", buf, 0x16u);
   }
 
@@ -1956,11 +1923,9 @@ LABEL_27:
   block[3] = &unk_1E8129518;
   block[4] = self;
   dispatch_async(internalQueue, block);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __62__NPSDomainAccessorInternal_filePresenterDidBecomeNonCurrent___block_invoke(uint64_t a1)
+void *__62__NPSDomainAccessorInternal_filePresenterDidBecomeNonCurrent___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 88) isCurrent];
   if ((result & 1) == 0)
@@ -1991,45 +1956,40 @@ uint64_t __62__NPSDomainAccessorInternal_filePresenterDidBecomeNonCurrent___bloc
 
 - (void)_synchronizeReadOnly:(void *)a1 .cold.2(void *a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v1 = MEMORY[0x1E696AF00];
   v2 = a1;
   v3 = [v1 callStackSymbols];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_1C0D93000, v2, OS_LOG_TYPE_ERROR, "%@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_1C0D93000, v2, OS_LOG_TYPE_ERROR, "%@", &v4, 0xCu);
 }
 
 + (void)readDomainURL:(os_log_t)log withError:.cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v4 = 138543874;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  v8 = 2112;
-  v9 = &unk_1F403A6B0;
-  _os_log_fault_impl(&dword_1C0D93000, log, OS_LOG_TYPE_FAULT, "Plist for %{public}@ is too large (%@) > (%@)", &v4, 0x20u);
-  v3 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
+  v3 = 138543874;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  v7 = 2112;
+  v8 = &unk_1F403A6B0;
+  _os_log_fault_impl(&dword_1C0D93000, log, OS_LOG_TYPE_FAULT, "Plist for %{public}@ is too large (%@) > (%@)", &v3, 0x20u);
 }
 
 + (void)writeDomain:(void *)a3 toURL:.cold.1(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = MEMORY[0x1E696AD98];
   v6 = a2;
   v7 = [v5 numberWithUnsignedInteger:{objc_msgSend(a3, "length")}];
-  v9 = 138543874;
-  v10 = a1;
-  v11 = 2112;
-  v12 = v7;
-  v13 = 2112;
-  v14 = &unk_1F403A6B0;
-  _os_log_fault_impl(&dword_1C0D93000, v6, OS_LOG_TYPE_FAULT, "Plist for %{public}@ is too large (%@) > (%@)", &v9, 0x20u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  v8 = 138543874;
+  v9 = a1;
+  v10 = 2112;
+  v11 = v7;
+  v12 = 2112;
+  v13 = &unk_1F403A6B0;
+  _os_log_fault_impl(&dword_1C0D93000, v6, OS_LOG_TYPE_FAULT, "Plist for %{public}@ is too large (%@) > (%@)", &v8, 0x20u);
 }
 
 @end

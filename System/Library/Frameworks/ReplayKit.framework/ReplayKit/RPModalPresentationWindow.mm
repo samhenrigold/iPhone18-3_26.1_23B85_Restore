@@ -3,6 +3,8 @@
 - (id)_presentationViewController;
 - (id)mainWindow;
 - (void)dealloc;
+- (void)presentAlertController:(id)controller animated:(BOOL)animated completion:(id)completion;
+- (void)presentViewController:(id)controller animated:(BOOL)animated completion:(id)completion;
 @end
 
 @implementation RPModalPresentationWindow
@@ -50,6 +52,21 @@
   return firstObject;
 }
 
+- (void)presentViewController:(id)controller animated:(BOOL)animated completion:(id)completion
+{
+  animatedCopy = animated;
+  completionCopy = completion;
+  controllerCopy = controller;
+  _presentationViewController = [(RPModalPresentationWindow *)self _presentationViewController];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __71__RPModalPresentationWindow_presentViewController_animated_completion___block_invoke;
+  v12[3] = &unk_278B624E8;
+  v13 = completionCopy;
+  v11 = completionCopy;
+  [_presentationViewController presentViewController:controllerCopy animated:animatedCopy completion:v12];
+}
+
 uint64_t __71__RPModalPresentationWindow_presentViewController_animated_completion___block_invoke(uint64_t a1)
 {
   result = *(a1 + 32);
@@ -59,6 +76,27 @@ uint64_t __71__RPModalPresentationWindow_presentViewController_animated_completi
   }
 
   return result;
+}
+
+- (void)presentAlertController:(id)controller animated:(BOOL)animated completion:(id)completion
+{
+  animatedCopy = animated;
+  controllerCopy = controller;
+  completionCopy = completion;
+  _presentationViewController = [(RPModalPresentationWindow *)self _presentationViewController];
+  presentedViewController = [_presentationViewController presentedViewController];
+  if (presentedViewController)
+  {
+    if (completionCopy)
+    {
+      completionCopy[2](completionCopy, presentedViewController == controllerCopy);
+    }
+  }
+
+  else
+  {
+    [(RPModalPresentationWindow *)self presentViewController:controllerCopy animated:animatedCopy completion:completionCopy];
+  }
 }
 
 - (id)_presentationViewController

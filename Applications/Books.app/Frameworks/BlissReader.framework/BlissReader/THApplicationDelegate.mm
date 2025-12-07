@@ -259,10 +259,11 @@
   result = self->_externalURLOpenPrompter;
   if (!result)
   {
-    self->_externalURLOpenPrompter = objc_alloc_init(BCExternalURLOpenPrompter);
-    -[BCExternalURLOpenPrompter setPromptTitle:](self->_externalURLOpenPrompter, "setPromptTitle:", [THBundle() localizedStringForKey:@"Leave Books and open this link?" value:&stru_471858 table:0]);
-    -[BCExternalURLOpenPrompter setCancelButtonTitle:](self->_externalURLOpenPrompter, "setCancelButtonTitle:", [THBundle() localizedStringForKey:@"Cancel" value:&stru_471858 table:0]);
-    -[BCExternalURLOpenPrompter setOkButtonTitle:](self->_externalURLOpenPrompter, "setOkButtonTitle:", [THBundle() localizedStringForKey:@"Open" value:&stru_471858 table:0]);
+    v4 = objc_alloc_init(BCExternalURLOpenPrompter);
+    self->_externalURLOpenPrompter = v4;
+    v6 = -[BCExternalURLOpenPrompter setPromptTitle:](self->_externalURLOpenPrompter, "setPromptTitle:", [THBundle(v4 v5)]);
+    v8 = -[BCExternalURLOpenPrompter setCancelButtonTitle:](self->_externalURLOpenPrompter, "setCancelButtonTitle:", [THBundle(v6 v7)]);
+    -[BCExternalURLOpenPrompter setOkButtonTitle:](self->_externalURLOpenPrompter, "setOkButtonTitle:", [THBundle(v8 v9)]);
     [(BCExternalURLOpenPrompter *)self->_externalURLOpenPrompter setDelegate:self];
     return self->_externalURLOpenPrompter;
   }
@@ -275,11 +276,12 @@
   result = self->_externalURLLoadPrompter;
   if (!result)
   {
-    self->_externalURLLoadPrompter = objc_alloc_init(BCExternalURLOpenPrompter);
-    -[BCExternalURLOpenPrompter setPromptTitle:](self->_externalURLLoadPrompter, "setPromptTitle:", [THBundle() localizedStringForKey:@"Allow Online Content?" value:&stru_471858 table:0]);
-    -[BCExternalURLOpenPrompter setPromptMessage:](self->_externalURLLoadPrompter, "setPromptMessage:", [THBundle() localizedStringForKey:@"This book needs to access online content value:or it may not display as the publisher intended." table:{&stru_471858, 0}]);
-    -[BCExternalURLOpenPrompter setCancelButtonTitle:](self->_externalURLLoadPrompter, "setCancelButtonTitle:", [THBundle() localizedStringForKey:@"Don\\U2019t Allow" value:&stru_471858 table:0]);
-    -[BCExternalURLOpenPrompter setOkButtonTitle:](self->_externalURLLoadPrompter, "setOkButtonTitle:", [THBundle() localizedStringForKey:@"Allow" value:&stru_471858 table:0]);
+    v4 = objc_alloc_init(BCExternalURLOpenPrompter);
+    self->_externalURLLoadPrompter = v4;
+    v6 = -[BCExternalURLOpenPrompter setPromptTitle:](self->_externalURLLoadPrompter, "setPromptTitle:", [THBundle(v4 v5)]);
+    v8 = -[BCExternalURLOpenPrompter setPromptMessage:](self->_externalURLLoadPrompter, "setPromptMessage:", [THBundle(v6 v7)]);
+    v10 = -[BCExternalURLOpenPrompter setCancelButtonTitle:](self->_externalURLLoadPrompter, "setCancelButtonTitle:", [THBundle(v8 v9)]);
+    -[BCExternalURLOpenPrompter setOkButtonTitle:](self->_externalURLLoadPrompter, "setOkButtonTitle:", [THBundle(v10 v11)]);
     [(BCExternalURLOpenPrompter *)self->_externalURLLoadPrompter setCacheResponses:0];
     [(BCExternalURLOpenPrompter *)self->_externalURLLoadPrompter setDelegate:self];
     return self->_externalURLLoadPrompter;

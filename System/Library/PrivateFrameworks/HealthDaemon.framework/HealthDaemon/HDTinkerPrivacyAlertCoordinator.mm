@@ -64,7 +64,7 @@ void __51__HDTinkerPrivacyAlertCoordinator_initWithProfile___block_invoke(uint64
 
 - (BOOL)_queue_alarm:(uint64_t)_queue_alarm didReceiveDueEvents:(void *)events
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   if (_queue_alarm)
   {
@@ -79,39 +79,39 @@ void __51__HDTinkerPrivacyAlertCoordinator_initWithProfile___block_invoke(uint64
       v8 = [v6 numberWithUnsignedInteger:{objc_msgSend(eventsCopy, "count")}];
       *buf = 138543874;
       _queue_alarmCopy2 = _queue_alarm;
-      v55 = 2114;
-      v56 = v8;
-      v57 = 2112;
-      v58 = eventsCopy;
+      v54 = 2114;
+      v55 = v8;
+      v56 = 2112;
+      v57 = eventsCopy;
       _os_log_impl(&dword_228986000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ Received %{public}@ due events: %@ (#t0)", buf, 0x20u);
     }
 
-    v47 = 0;
+    v46 = 0;
     v9 = eventsCopy;
     dispatch_assert_queue_V2(*(_queue_alarm + 24));
-    v50 = 0u;
-    v51 = 0u;
-    v48 = 0u;
     v49 = 0u;
+    v50 = 0u;
+    v47 = 0u;
+    v48 = 0u;
     v10 = v9;
-    v11 = [v10 countByEnumeratingWithState:&v48 objects:buf count:16];
+    v11 = [v10 countByEnumeratingWithState:&v47 objects:buf count:16];
     if (!v11)
     {
       goto LABEL_12;
     }
 
     v12 = v11;
-    v13 = *v49;
+    v13 = *v48;
     while (2)
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v49 != v13)
+        if (*v48 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        eventIdentifier = [*(*(&v48 + 1) + 8 * i) eventIdentifier];
+        eventIdentifier = [*(*(&v47 + 1) + 8 * i) eventIdentifier];
         valid = HDIsValidTinkerEventIdentifier(eventIdentifier);
 
         if (valid)
@@ -122,32 +122,32 @@ void __51__HDTinkerPrivacyAlertCoordinator_initWithProfile___block_invoke(uint64
           v24 = [(HDKeyValueDomain *)v23 initWithCategory:100 domainName:*MEMORY[0x277CCE3B8] profile:v22];
 
           v25 = *MEMORY[0x277CCE3B0];
-          v52 = 0;
-          v26 = [(HDKeyValueDomain *)v24 dateForKey:v25 error:&v52];
-          v27 = v52;
+          v51 = 0;
+          v26 = [(HDKeyValueDomain *)v24 dateForKey:v25 error:&v51];
+          v27 = v51;
           if (v27)
           {
             _HKInitializeLogging();
             v28 = *v4;
             if (os_log_type_enabled(*v4, OS_LOG_TYPE_ERROR))
             {
-              *v59 = 138543362;
-              *&v59[4] = v27;
-              _os_log_error_impl(&dword_228986000, v28, OS_LOG_TYPE_ERROR, "Error reading sharing disabled date: %{public}@ (#t0)", v59, 0xCu);
+              *v58 = 138543362;
+              *&v58[4] = v27;
+              _os_log_error_impl(&dword_228986000, v28, OS_LOG_TYPE_ERROR, "Error reading sharing disabled date: %{public}@ (#t0)", v58, 0xCu);
             }
           }
 
           if (v26)
           {
-            [MEMORY[0x277CCA9B8] hk_assignError:&v47 code:100 format:@"Sharing is disabled (#t0)"];
+            [MEMORY[0x277CCA9B8] hk_assignError:&v46 code:100 format:@"Sharing is disabled (#t0)"];
           }
 
           else if ([(HDTinkerPrivacyAlertCoordinator *)_queue_alarm _shouldScheduleTransparencyAlertsWithError:?])
           {
             WeakRetained = objc_loadWeakRetained((_queue_alarm + 8));
-            *v59 = 0;
-            v18 = [WeakRetained pairedGuardianUserInfoWithError:v59];
-            v21 = *v59;
+            *v58 = 0;
+            v18 = [WeakRetained pairedGuardianUserInfoWithError:v58];
+            v21 = *v58;
 
             v20 = v18 != 0;
             if (v18)
@@ -159,8 +159,8 @@ void __51__HDTinkerPrivacyAlertCoordinator_initWithProfile___block_invoke(uint64
               if ((isKindOfClass & 1) == 0)
               {
                 currentHandler = [MEMORY[0x277CCA890] currentHandler];
-                v46 = objc_loadWeakRetained((_queue_alarm + 8));
-                [currentHandler handleFailureInMethod:sel__queue_showAlertIfRequiredForDueEvents_error_ object:_queue_alarm file:@"HDTinkerPrivacyAlertCoordinator.m" lineNumber:152 description:{@"Profile %@ is not an instance of type HDPrimaryProfile (#t0)", v46, v47, v48}];
+                v45 = objc_loadWeakRetained((_queue_alarm + 8));
+                [currentHandler handleFailureInMethod:sel__queue_showAlertIfRequiredForDueEvents_error_ object:_queue_alarm file:@"HDTinkerPrivacyAlertCoordinator.m" lineNumber:152 description:{@"Profile %@ is not an instance of type HDPrimaryProfile (#t0)", v45, v46, v47}];
               }
 
               v32 = [HDNotificationManager alloc];
@@ -183,7 +183,7 @@ void __51__HDTinkerPrivacyAlertCoordinator_initWithProfile___block_invoke(uint64
               if (v39)
               {
                 v40 = v39;
-                v47 = v38;
+                v46 = v38;
                 v34 = v38;
               }
 
@@ -201,7 +201,7 @@ void __51__HDTinkerPrivacyAlertCoordinator_initWithProfile___block_invoke(uint64
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v48 objects:buf count:16];
+      v12 = [v10 countByEnumeratingWithState:&v47 objects:buf count:16];
       if (v12)
       {
         continue;
@@ -218,7 +218,7 @@ LABEL_12:
     {
       v19 = v17;
       v20 = 0;
-      v47 = v18;
+      v46 = v18;
       v21 = v18;
     }
 
@@ -231,7 +231,7 @@ LABEL_12:
 LABEL_30:
 
 LABEL_31:
-    v41 = v47;
+    v41 = v46;
     if (v41)
     {
       _HKInitializeLogging();
@@ -240,8 +240,8 @@ LABEL_31:
       {
         *buf = 138543618;
         _queue_alarmCopy2 = _queue_alarm;
-        v55 = 2114;
-        v56 = v41;
+        v54 = 2114;
+        v55 = v41;
         _os_log_error_impl(&dword_228986000, v42, OS_LOG_TYPE_ERROR, "%{public}@ Did not fire alert, error: %{public}@ (#t0)", buf, 0x16u);
       }
     }
@@ -254,21 +254,20 @@ LABEL_31:
     v20 = 0;
   }
 
-  v43 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
 - (void)_queue_clearDueEvents:(id)events
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   queue = self->_queue;
   eventsCopy = events;
   dispatch_assert_queue_V2(queue);
   scheduler = self->_scheduler;
-  v11 = 0;
-  v7 = [(HDRestorableAlarm *)scheduler removeEvents:eventsCopy error:&v11];
+  v10 = 0;
+  v7 = [(HDRestorableAlarm *)scheduler removeEvents:eventsCopy error:&v10];
 
-  v8 = v11;
+  v8 = v10;
   if (!v7)
   {
     _HKInitializeLogging();
@@ -277,13 +276,11 @@ LABEL_31:
     {
       *buf = 138543618;
       selfCopy = self;
-      v14 = 2114;
-      v15 = v8;
+      v13 = 2114;
+      v14 = v8;
       _os_log_impl(&dword_228986000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ Error removing events %{public}@ (#t0)", buf, 0x16u);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_unitTest_didReceiveDueEvents:(id)events
@@ -447,7 +444,7 @@ void __98__HDTinkerPrivacyAlertCoordinator_scheduleEventIfRequiredForDateCompone
 
 - (uint64_t)_queue_scheduleEventIfRequiredForDateComponents:(void *)components eventIdentifier:(uint64_t *)identifier error:
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v7 = a2;
   componentsCopy = components;
   if (!self)
@@ -470,11 +467,11 @@ LABEL_8:
     v13 = *MEMORY[0x277CCC328];
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
     {
-      v16 = *identifier;
+      v15 = *identifier;
       *buf = 138543618;
       selfCopy = self;
-      v20 = 2114;
-      v21 = v16;
+      v19 = 2114;
+      v20 = v15;
       _os_log_error_impl(&dword_228986000, v13, OS_LOG_TYPE_ERROR, "%{public}@ Not scheduling event %{public}@ (#t0)", buf, 0x16u);
     }
 
@@ -483,12 +480,11 @@ LABEL_8:
 
   v9 = [*(self + 16) eventWithIdentifier:componentsCopy dueDateComponents:v7 eventOptions:3];
   v10 = *(self + 16);
-  v17 = v9;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
+  v16 = v9;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v16 count:1];
   v12 = [v10 scheduleEvents:v11 error:identifier];
 
 LABEL_9:
-  v14 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -597,20 +593,20 @@ LABEL_9:
 
 void __77__HDTinkerPrivacyAlertCoordinator__userCharacteristicsDidChangeNotification___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCD720] characteristicTypeForIdentifier:*MEMORY[0x277CCBB18]];
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 8));
   v4 = [WeakRetained userCharacteristicsManager];
-  v14 = 0;
-  v5 = [v4 userCharacteristicForType:v2 error:&v14];
-  v6 = v14;
+  v13 = 0;
+  v5 = [v4 userCharacteristicForType:v2 error:&v13];
+  v6 = v13;
 
   if (v5)
   {
     v7 = *(a1 + 32);
-    v13 = 0;
-    v8 = [(HDTinkerPrivacyAlertCoordinator *)v7 _queue_scheduleTransparencyAlertIfRequiredForBirthdate:v5 error:&v13];
-    v9 = v13;
+    v12 = 0;
+    v8 = [(HDTinkerPrivacyAlertCoordinator *)v7 _queue_scheduleTransparencyAlertIfRequiredForBirthdate:v5 error:&v12];
+    v9 = v12;
     if ((v8 & 1) == 0 && (HKIsUnitTesting() & 1) == 0)
     {
       _HKInitializeLogging();
@@ -618,7 +614,7 @@ void __77__HDTinkerPrivacyAlertCoordinator__userCharacteristicsDidChangeNotifica
       if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v16 = v9;
+        v15 = v9;
         _os_log_error_impl(&dword_228986000, v10, OS_LOG_TYPE_ERROR, "Error scheduling birthdate transparency alert: %{public}@ (#t0)", buf, 0xCu);
       }
     }
@@ -631,12 +627,10 @@ void __77__HDTinkerPrivacyAlertCoordinator__userCharacteristicsDidChangeNotifica
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v16 = v6;
+      v15 = v6;
       _os_log_error_impl(&dword_228986000, v11, OS_LOG_TYPE_ERROR, "Could not fetch date of birth components from DB: %{public}@ (#t0)", buf, 0xCu);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)removeAllEventsWithError:(id *)error

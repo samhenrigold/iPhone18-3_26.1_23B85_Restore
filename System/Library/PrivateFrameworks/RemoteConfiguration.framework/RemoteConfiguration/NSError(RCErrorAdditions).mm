@@ -34,14 +34,12 @@
 
 + (id)rc_offlineErrorWithReason:()RCErrorAdditions
 {
-  v8[1] = *MEMORY[0x277D85DE8];
-  v7 = @"RCErrorOfflineReasonKey";
+  v7[1] = *MEMORY[0x277D85DE8];
+  v6 = @"RCErrorOfflineReasonKey";
   v2 = [MEMORY[0x277CCABB0] numberWithInteger:?];
-  v8[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v7[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   v4 = [self rc_errorWithCode:7 description:0 additionalUserInfo:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -67,35 +65,35 @@
 
 + (id)rc_endpointErrorWithUnderlyingEndpointErrors:()RCErrorAdditions
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a3;
   if ([v3 count])
   {
     v4 = objc_opt_new();
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
     v5 = v3;
-    v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v16;
+      v8 = *v15;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v16 != v8)
+          if (*v15 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = [*(*(&v15 + 1) + 8 * i) description];
+          v10 = [*(*(&v14 + 1) + 8 * i) description];
           [v4 appendString:v10];
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v7);
@@ -111,8 +109,6 @@
   {
     v12 = 0;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

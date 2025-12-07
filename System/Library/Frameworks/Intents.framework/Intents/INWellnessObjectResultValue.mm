@@ -12,8 +12,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v13[3] = *MEMORY[0x1E69E9840];
-  v12[0] = @"recordDate";
+  v12[3] = *MEMORY[0x1E69E9840];
+  v11[0] = @"recordDate";
   recordDate = self->_recordDate;
   null = recordDate;
   if (!recordDate)
@@ -21,8 +21,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v13[0] = null;
-  v12[1] = @"unit";
+  v12[0] = null;
+  v11[1] = @"unit";
   unit = self->_unit;
   null2 = unit;
   if (!unit)
@@ -30,8 +30,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v13[1] = null2;
-  v12[2] = @"values";
+  v12[1] = null2;
+  v11[2] = @"values";
   values = self->_values;
   null3 = values;
   if (!values)
@@ -39,8 +39,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v13[2] = null3;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:3];
+  v12[2] = null3;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:3];
   if (values)
   {
     if (unit)
@@ -72,7 +72,6 @@ LABEL_9:
 LABEL_15:
 
 LABEL_10:
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -102,21 +101,20 @@ LABEL_10:
 
 - (INWellnessObjectResultValue)initWithCoder:(id)coder
 {
-  v15[2] = *MEMORY[0x1E69E9840];
+  v14[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"recordDate"];
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"unit"];
   v7 = MEMORY[0x1E695DFD8];
-  v15[0] = objc_opt_class();
-  v15[1] = objc_opt_class();
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
+  v14[0] = objc_opt_class();
+  v14[1] = objc_opt_class();
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:2];
   v9 = [v7 setWithArray:v8];
   v10 = [coderCopy decodeObjectOfClasses:v9 forKey:@"values"];
 
   v11 = [coderCopy decodeIntegerForKey:@"resultType"];
   v12 = [objc_alloc(objc_opt_class()) initWithRecordDate:v5 unit:v6 values:v10 resultType:v11];
 
-  v13 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -127,34 +125,7 @@ LABEL_10:
   if (objc_opt_isKindOfClass())
   {
     v5 = equalCopy;
-    recordDate = self->_recordDate;
-    if (recordDate)
-    {
-      if (v5[1])
-      {
-        startDateComponents = [(INDateComponentsRange *)recordDate startDateComponents];
-        date = [startDateComponents date];
-        startDateComponents2 = [v5[1] startDateComponents];
-        date2 = [startDateComponents2 date];
-        v11 = [date isEqual:date2];
-
-        if (!v11)
-        {
-          goto LABEL_11;
-        }
-      }
-    }
-
-    if ((unit = self->_unit) != 0 && ![(NSString *)unit isEqualToString:v5[2]]|| (values = self->_values) != 0 && ![(NSArray *)values isEqual:v5[3]])
-    {
-LABEL_11:
-      v14 = 0;
-    }
-
-    else
-    {
-      v14 = self->_resultType == v5[4];
-    }
+    v14 = (!recordDate || !*(v5 + 1) || (-[INDateComponentsRange startDateComponents](recordDate, "startDateComponents"), v7 = recordDate = self->_recordDate;
   }
 
   else

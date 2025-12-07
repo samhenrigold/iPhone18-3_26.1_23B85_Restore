@@ -31,7 +31,7 @@ LABEL_5:
   if (context)
   {
     v4->_dark = context;
-    if (libInFieldCollectionLibraryCore())
+    if (libInFieldCollectionLibraryCore(0))
     {
       v5->_collectionLibraryLoaded = 1;
     }

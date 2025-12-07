@@ -1,3 +1,6418 @@
+void md::PolylineOverlayBatch<md::Ribbons::GradientPolylineOverlayRibbonDescriptor>::~PolylineOverlayBatch(void *a1)
+{
+  *a1 = &unk_1F2A11158;
+  v2 = a1[189];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v2);
+  }
+
+  v3 = a1[187];
+  if (v3)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v3);
+  }
+
+  v4 = a1[185];
+  if (v4)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v4);
+  }
+
+  *a1 = &unk_1F2A11178;
+  v5 = a1[181];
+  if (v5)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v5);
+  }
+
+  md::Ribbons::RibbonBatch<md::Ribbons::GradientPolylineOverlayRibbonDescriptor>::~RibbonBatch(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+uint64_t md::PolylineOverlayBatch<md::Ribbons::GradientPolylineOverlayRibbonDescriptor>::~PolylineOverlayBatch(void *a1)
+{
+  *a1 = &unk_1F2A11158;
+  v2 = a1[189];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v2);
+  }
+
+  v3 = a1[187];
+  if (v3)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v3);
+  }
+
+  v4 = a1[185];
+  if (v4)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v4);
+  }
+
+  *a1 = &unk_1F2A11178;
+  v5 = a1[181];
+  if (v5)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v5);
+  }
+
+  return md::Ribbons::RibbonBatch<md::Ribbons::GradientPolylineOverlayRibbonDescriptor>::~RibbonBatch(a1);
+}
+
+void ggl::ConstantDataTyped<ggl::GradientPolylineOverlayRibbon::GradientInfo>::~ConstantDataTyped(std::mutex *a1)
+{
+  ggl::BufferData::~BufferData(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void std::__shared_ptr_emplace<ggl::ConstantDataTyped<ggl::GradientPolylineOverlayRibbon::GradientInfo>>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
+{
+  a1->__vftable = &unk_1F2A11298;
+  std::__shared_weak_count::~__shared_weak_count(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void md::PolylinePipelineStateManager<md::Ribbons::GradientPolylineOverlayRibbonDescriptor,ggl::GradientPolylineOverlayRibbon::AlphaFillPipelineState,std::shared_ptr<ggl::GradientPolylineOverlayAlphaFillShader>>::pipelineStateForFunctionConstants(uint64_t *a1, const BOOL *a2, char *a3)
+{
+  v17 = *MEMORY[0x1E69E9840];
+  v14 = 0u;
+  memset(v16, 0, sizeof(v16));
+  v15 = 0u;
+  v13[0] = *a3;
+  v13[1] = a3[1];
+  v13[2] = a3[2];
+  BYTE6(v14) = a3[3];
+  v5 = ggl::packFunctionConstantKey(v13, a2);
+  v6 = *(a2 + 13);
+  if (!v6)
+  {
+    goto LABEL_9;
+  }
+
+  v7 = (a2 + 104);
+  do
+  {
+    v8 = *(v6 + 32);
+    v9 = v8 >= v5;
+    v10 = v8 < v5;
+    if (v9)
+    {
+      v7 = v6;
+    }
+
+    v6 = *(v6 + 8 * v10);
+  }
+
+  while (v6);
+  if (v7 == (a2 + 104) || v5 < v7[4])
+  {
+LABEL_9:
+    operator new();
+  }
+
+  v12 = v7[5];
+  v11 = v7[6];
+  *a1 = v12;
+  a1[1] = v11;
+  if (v11)
+  {
+    atomic_fetch_add_explicit((v11 + 8), 1uLL, memory_order_relaxed);
+  }
+}
+
+void sub_1B2EF4CF0(_Unwind_Exception *a1)
+{
+  std::__shared_weak_count::__release_shared[abi:nn200100](v1);
+  std::__shared_weak_count::__release_shared[abi:nn200100](v1);
+  _Unwind_Resume(a1);
+}
+
+void md::PolylinePipelineStateManager<md::Ribbons::GradientPolylineOverlayRibbonDescriptor,ggl::GradientPolylineOverlayRibbon::AlphaPipelineState,std::shared_ptr<ggl::GradientPolylineOverlayAlphaShader>>::pipelineStateForFunctionConstants(uint64_t *a1, const BOOL *a2, char *a3)
+{
+  v17 = *MEMORY[0x1E69E9840];
+  v14 = 0u;
+  memset(v16, 0, sizeof(v16));
+  v15 = 0u;
+  v13[0] = *a3;
+  v13[1] = a3[1];
+  v13[2] = a3[2];
+  BYTE6(v14) = a3[3];
+  v5 = ggl::packFunctionConstantKey(v13, a2);
+  v6 = *(a2 + 13);
+  if (!v6)
+  {
+    goto LABEL_9;
+  }
+
+  v7 = (a2 + 104);
+  do
+  {
+    v8 = *(v6 + 32);
+    v9 = v8 >= v5;
+    v10 = v8 < v5;
+    if (v9)
+    {
+      v7 = v6;
+    }
+
+    v6 = *(v6 + 8 * v10);
+  }
+
+  while (v6);
+  if (v7 == (a2 + 104) || v5 < v7[4])
+  {
+LABEL_9:
+    operator new();
+  }
+
+  v12 = v7[5];
+  v11 = v7[6];
+  *a1 = v12;
+  a1[1] = v11;
+  if (v11)
+  {
+    atomic_fetch_add_explicit((v11 + 8), 1uLL, memory_order_relaxed);
+  }
+}
+
+void sub_1B2EF5290(_Unwind_Exception *a1)
+{
+  std::__shared_weak_count::__release_shared[abi:nn200100](v1);
+  std::__shared_weak_count::__release_shared[abi:nn200100](v1);
+  _Unwind_Resume(a1);
+}
+
+void md::PolylinePipelineStateManager<md::Ribbons::GradientPolylineOverlayRibbonDescriptor,ggl::GradientPolylineOverlayRibbon::FillPipelineState,std::shared_ptr<ggl::GradientPolylineOverlayFillShader>>::pipelineStateForFunctionConstants(uint64_t *a1, const BOOL *a2, char *a3)
+{
+  v17 = *MEMORY[0x1E69E9840];
+  v14 = 0u;
+  memset(v16, 0, sizeof(v16));
+  v15 = 0u;
+  v13[0] = *a3;
+  v13[1] = a3[1];
+  v13[2] = a3[2];
+  BYTE6(v14) = a3[3];
+  v5 = ggl::packFunctionConstantKey(v13, a2);
+  v6 = *(a2 + 13);
+  if (!v6)
+  {
+    goto LABEL_9;
+  }
+
+  v7 = (a2 + 104);
+  do
+  {
+    v8 = *(v6 + 32);
+    v9 = v8 >= v5;
+    v10 = v8 < v5;
+    if (v9)
+    {
+      v7 = v6;
+    }
+
+    v6 = *(v6 + 8 * v10);
+  }
+
+  while (v6);
+  if (v7 == (a2 + 104) || v5 < v7[4])
+  {
+LABEL_9:
+    operator new();
+  }
+
+  v12 = v7[5];
+  v11 = v7[6];
+  *a1 = v12;
+  a1[1] = v11;
+  if (v11)
+  {
+    atomic_fetch_add_explicit((v11 + 8), 1uLL, memory_order_relaxed);
+  }
+}
+
+void sub_1B2EF5830(_Unwind_Exception *a1)
+{
+  std::__shared_weak_count::__release_shared[abi:nn200100](v1);
+  std::__shared_weak_count::__release_shared[abi:nn200100](v1);
+  _Unwind_Resume(a1);
+}
+
+void std::__shared_ptr_emplace<ggl::GradientPolylineOverlayRibbon::FillPipelineState>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
+{
+  a1->__vftable = &unk_1F2A11260;
+  std::__shared_weak_count::~__shared_weak_count(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void std::__shared_ptr_emplace<ggl::GradientPolylineOverlayRibbon::AlphaPipelineState>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
+{
+  a1->__vftable = &unk_1F2A11228;
+  std::__shared_weak_count::~__shared_weak_count(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void std::__shared_ptr_emplace<ggl::GradientPolylineOverlayRibbon::AlphaFillPipelineState>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
+{
+  a1->__vftable = &unk_1F2A111F0;
+  std::__shared_weak_count::~__shared_weak_count(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+ggl::zone_mallocator *std::vector<ggl::GradientPolylineOverlayRibbon::FillPipelineSetup *,geo::allocator_adapter<ggl::GradientPolylineOverlayRibbon::FillPipelineSetup *,ggl::zone_mallocator>>::push_back[abi:nn200100](ggl::zone_mallocator *result, void *a2)
+{
+  v3 = result;
+  v5 = *(result + 1);
+  v4 = *(result + 2);
+  if (v5 >= v4)
+  {
+    v7 = (v5 - *result) >> 3;
+    if ((v7 + 1) >> 61)
+    {
+      std::__throw_bad_array_new_length[abi:nn200100]();
+    }
+
+    v8 = v4 - *result;
+    v9 = v8 >> 2;
+    if (v8 >> 2 <= (v7 + 1))
+    {
+      v9 = v7 + 1;
+    }
+
+    if (v8 >= 0x7FFFFFFFFFFFFFF8)
+    {
+      v10 = 0x1FFFFFFFFFFFFFFFLL;
+    }
+
+    else
+    {
+      v10 = v9;
+    }
+
+    v19[4] = result + 24;
+    if (v10)
+    {
+      v11 = ggl::zone_mallocator::instance(result);
+      v12 = geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::allocate<ggl::GradientPolylineOverlayRibbon::FillPipelineSetup *>(v11, v10);
+    }
+
+    else
+    {
+      v12 = 0;
+    }
+
+    v13 = &v12[8 * v7];
+    v14 = &v12[8 * v10];
+    *v13 = *a2;
+    v6 = v13 + 8;
+    v15 = *(v3 + 1) - *v3;
+    v16 = &v13[-v15];
+    memcpy(&v13[-v15], *v3, v15);
+    v17 = *v3;
+    *v3 = v16;
+    *(v3 + 1) = v6;
+    v18 = *(v3 + 2);
+    *(v3 + 2) = v14;
+    v19[2] = v17;
+    v19[3] = v18;
+    v19[0] = v17;
+    v19[1] = v17;
+    result = std::__split_buffer<ggl::GradientPolylineOverlayRibbon::FillPipelineSetup *,geo::allocator_adapter<ggl::GradientPolylineOverlayRibbon::FillPipelineSetup *,ggl::zone_mallocator> &>::~__split_buffer(v19);
+  }
+
+  else
+  {
+    *v5 = *a2;
+    v6 = v5 + 1;
+  }
+
+  *(v3 + 1) = v6;
+  return result;
+}
+
+void *geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::allocate<ggl::GradientPolylineOverlayRibbon::FillPipelineSetup *>(uint64_t a1, uint64_t a2)
+{
+  v4 = pthread_rwlock_rdlock((a1 + 32));
+  if (v4)
+  {
+    geo::read_write_lock::logFailure(v4, "read lock", v5);
+  }
+
+  v6 = malloc_type_zone_malloc(*a1, 8 * a2, 0x2004093837F09uLL);
+  atomic_fetch_add((a1 + 24), 1u);
+  geo::read_write_lock::unlock((a1 + 32));
+  return v6;
+}
+
+void geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<ggl::GradientPolylineOverlayRibbon::FillPipelineSetup *>(uint64_t a1, void *a2)
+{
+  v4 = pthread_rwlock_rdlock((a1 + 32));
+  if (v4)
+  {
+    geo::read_write_lock::logFailure(v4, "read lock", v5);
+  }
+
+  atomic_fetch_add((a1 + 24), 0xFFFFFFFF);
+  malloc_zone_free(*a1, a2);
+
+  geo::read_write_lock::unlock((a1 + 32));
+}
+
+ggl::zone_mallocator *std::vector<ggl::GradientPolylineOverlayRibbon::AlphaPipelineSetup *,geo::allocator_adapter<ggl::GradientPolylineOverlayRibbon::AlphaPipelineSetup *,ggl::zone_mallocator>>::push_back[abi:nn200100](ggl::zone_mallocator *result, void *a2)
+{
+  v3 = result;
+  v5 = *(result + 1);
+  v4 = *(result + 2);
+  if (v5 >= v4)
+  {
+    v7 = (v5 - *result) >> 3;
+    if ((v7 + 1) >> 61)
+    {
+      std::__throw_bad_array_new_length[abi:nn200100]();
+    }
+
+    v8 = v4 - *result;
+    v9 = v8 >> 2;
+    if (v8 >> 2 <= (v7 + 1))
+    {
+      v9 = v7 + 1;
+    }
+
+    if (v8 >= 0x7FFFFFFFFFFFFFF8)
+    {
+      v10 = 0x1FFFFFFFFFFFFFFFLL;
+    }
+
+    else
+    {
+      v10 = v9;
+    }
+
+    v19[4] = result + 24;
+    if (v10)
+    {
+      v11 = ggl::zone_mallocator::instance(result);
+      v12 = geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::allocate<ggl::GradientPolylineOverlayRibbon::AlphaPipelineSetup *>(v11, v10);
+    }
+
+    else
+    {
+      v12 = 0;
+    }
+
+    v13 = &v12[8 * v7];
+    v14 = &v12[8 * v10];
+    *v13 = *a2;
+    v6 = v13 + 8;
+    v15 = *(v3 + 1) - *v3;
+    v16 = &v13[-v15];
+    memcpy(&v13[-v15], *v3, v15);
+    v17 = *v3;
+    *v3 = v16;
+    *(v3 + 1) = v6;
+    v18 = *(v3 + 2);
+    *(v3 + 2) = v14;
+    v19[2] = v17;
+    v19[3] = v18;
+    v19[0] = v17;
+    v19[1] = v17;
+    result = std::__split_buffer<ggl::GradientPolylineOverlayRibbon::AlphaPipelineSetup *,geo::allocator_adapter<ggl::GradientPolylineOverlayRibbon::AlphaPipelineSetup *,ggl::zone_mallocator> &>::~__split_buffer(v19);
+  }
+
+  else
+  {
+    *v5 = *a2;
+    v6 = v5 + 1;
+  }
+
+  *(v3 + 1) = v6;
+  return result;
+}
+
+void *geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::allocate<ggl::GradientPolylineOverlayRibbon::AlphaPipelineSetup *>(uint64_t a1, uint64_t a2)
+{
+  v4 = pthread_rwlock_rdlock((a1 + 32));
+  if (v4)
+  {
+    geo::read_write_lock::logFailure(v4, "read lock", v5);
+  }
+
+  v6 = malloc_type_zone_malloc(*a1, 8 * a2, 0x2004093837F09uLL);
+  atomic_fetch_add((a1 + 24), 1u);
+  geo::read_write_lock::unlock((a1 + 32));
+  return v6;
+}
+
+void geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<ggl::GradientPolylineOverlayRibbon::AlphaPipelineSetup *>(uint64_t a1, void *a2)
+{
+  v4 = pthread_rwlock_rdlock((a1 + 32));
+  if (v4)
+  {
+    geo::read_write_lock::logFailure(v4, "read lock", v5);
+  }
+
+  atomic_fetch_add((a1 + 24), 0xFFFFFFFF);
+  malloc_zone_free(*a1, a2);
+
+  geo::read_write_lock::unlock((a1 + 32));
+}
+
+ggl::zone_mallocator *std::vector<ggl::GradientPolylineOverlayRibbon::AlphaFillPipelineSetup *,geo::allocator_adapter<ggl::GradientPolylineOverlayRibbon::AlphaFillPipelineSetup *,ggl::zone_mallocator>>::push_back[abi:nn200100](ggl::zone_mallocator *result, void *a2)
+{
+  v3 = result;
+  v5 = *(result + 1);
+  v4 = *(result + 2);
+  if (v5 >= v4)
+  {
+    v7 = (v5 - *result) >> 3;
+    if ((v7 + 1) >> 61)
+    {
+      std::__throw_bad_array_new_length[abi:nn200100]();
+    }
+
+    v8 = v4 - *result;
+    v9 = v8 >> 2;
+    if (v8 >> 2 <= (v7 + 1))
+    {
+      v9 = v7 + 1;
+    }
+
+    if (v8 >= 0x7FFFFFFFFFFFFFF8)
+    {
+      v10 = 0x1FFFFFFFFFFFFFFFLL;
+    }
+
+    else
+    {
+      v10 = v9;
+    }
+
+    v19[4] = result + 24;
+    if (v10)
+    {
+      v11 = ggl::zone_mallocator::instance(result);
+      v12 = geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::allocate<ggl::GradientPolylineOverlayRibbon::AlphaFillPipelineSetup *>(v11, v10);
+    }
+
+    else
+    {
+      v12 = 0;
+    }
+
+    v13 = &v12[8 * v7];
+    v14 = &v12[8 * v10];
+    *v13 = *a2;
+    v6 = v13 + 8;
+    v15 = *(v3 + 1) - *v3;
+    v16 = &v13[-v15];
+    memcpy(&v13[-v15], *v3, v15);
+    v17 = *v3;
+    *v3 = v16;
+    *(v3 + 1) = v6;
+    v18 = *(v3 + 2);
+    *(v3 + 2) = v14;
+    v19[2] = v17;
+    v19[3] = v18;
+    v19[0] = v17;
+    v19[1] = v17;
+    result = std::__split_buffer<ggl::GradientPolylineOverlayRibbon::AlphaFillPipelineSetup *,geo::allocator_adapter<ggl::GradientPolylineOverlayRibbon::AlphaFillPipelineSetup *,ggl::zone_mallocator> &>::~__split_buffer(v19);
+  }
+
+  else
+  {
+    *v5 = *a2;
+    v6 = v5 + 1;
+  }
+
+  *(v3 + 1) = v6;
+  return result;
+}
+
+void *geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::allocate<ggl::GradientPolylineOverlayRibbon::AlphaFillPipelineSetup *>(uint64_t a1, uint64_t a2)
+{
+  v4 = pthread_rwlock_rdlock((a1 + 32));
+  if (v4)
+  {
+    geo::read_write_lock::logFailure(v4, "read lock", v5);
+  }
+
+  v6 = malloc_type_zone_malloc(*a1, 8 * a2, 0x2004093837F09uLL);
+  atomic_fetch_add((a1 + 24), 1u);
+  geo::read_write_lock::unlock((a1 + 32));
+  return v6;
+}
+
+void geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<ggl::GradientPolylineOverlayRibbon::AlphaFillPipelineSetup *>(uint64_t a1, void *a2)
+{
+  v4 = pthread_rwlock_rdlock((a1 + 32));
+  if (v4)
+  {
+    geo::read_write_lock::logFailure(v4, "read lock", v5);
+  }
+
+  atomic_fetch_add((a1 + 24), 0xFFFFFFFF);
+  malloc_zone_free(*a1, a2);
+
+  geo::read_write_lock::unlock((a1 + 32));
+}
+
+void ggl::ConstantDataTyped<ggl::PolylineOverlayRibbon::Style>::~ConstantDataTyped(std::mutex *a1)
+{
+  ggl::BufferData::~BufferData(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void std::__shared_ptr_emplace<ggl::ConstantDataTyped<ggl::PolylineOverlayRibbon::Style>>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
+{
+  a1->__vftable = &unk_1F2A10C20;
+  std::__shared_weak_count::~__shared_weak_count(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void std::__allocate_at_least[abi:nn200100]<std::allocator<md::PolylineOverlayStyle::GradientColorStop>>(unint64_t a1)
+{
+  if (a1 < 0xCCCCCCCCCCCCCCDLL)
+  {
+    operator new();
+  }
+
+  std::__throw_bad_array_new_length[abi:nn200100]();
+}
+
+void md::PolylineOverlayStyle::setFillColor(os_unfair_lock_s *a1, uint64_t a2)
+{
+  os_unfair_lock_lock(a1 + 49);
+  for (i = 0; i != 4; ++i)
+  {
+    a1[i + 34] = *(a2 + i * 4);
+  }
+
+  os_unfair_lock_unlock(a1 + 49);
+}
+
+ggl::zone_mallocator *md::PolylineOverlaySharedResources::resetPools(ggl::zone_mallocator *this)
+{
+  v1 = this;
+  v2 = *(this + 16);
+  v3 = *(v2 + 4);
+  v4 = *(v2 + 5);
+  if (v3 != v4)
+  {
+    do
+    {
+      v5 = *v3++;
+      v26 = v5;
+      this = std::vector<ggl::PolylineOverlayRibbon::AlphaPipelineSetup *,geo::allocator_adapter<ggl::PolylineOverlayRibbon::AlphaPipelineSetup *,ggl::zone_mallocator>>::push_back[abi:nn200100](v2, &v26);
+    }
+
+    while (v3 != v4);
+    v3 = *(v2 + 4);
+    v4 = *(v2 + 5);
+  }
+
+  if (v3 != v4)
+  {
+    *(v2 + 5) = v3;
+  }
+
+  v6 = *(v1 + 17);
+  v7 = *(v6 + 4);
+  v8 = *(v6 + 5);
+  if (v7 != v8)
+  {
+    do
+    {
+      v9 = *v7++;
+      v26 = v9;
+      this = std::vector<ggl::PolylineOverlayRibbon::AlphaFillPipelineSetup *,geo::allocator_adapter<ggl::PolylineOverlayRibbon::AlphaFillPipelineSetup *,ggl::zone_mallocator>>::push_back[abi:nn200100](v6, &v26);
+    }
+
+    while (v7 != v8);
+    v7 = *(v6 + 4);
+    v8 = *(v6 + 5);
+  }
+
+  if (v7 != v8)
+  {
+    *(v6 + 5) = v7;
+  }
+
+  v10 = *(v1 + 18);
+  v11 = *(v10 + 4);
+  v12 = *(v10 + 5);
+  if (v11 != v12)
+  {
+    do
+    {
+      v13 = *v11++;
+      v26 = v13;
+      this = std::vector<ggl::PolylineOverlayRibbon::FillPipelineSetup *,geo::allocator_adapter<ggl::PolylineOverlayRibbon::FillPipelineSetup *,ggl::zone_mallocator>>::push_back[abi:nn200100](v10, &v26);
+    }
+
+    while (v11 != v12);
+    v11 = *(v10 + 4);
+    v12 = *(v10 + 5);
+  }
+
+  if (v11 != v12)
+  {
+    *(v10 + 5) = v11;
+  }
+
+  v14 = *(v1 + 19);
+  v15 = *(v14 + 4);
+  v16 = *(v14 + 5);
+  if (v15 != v16)
+  {
+    do
+    {
+      v17 = *v15++;
+      v26 = v17;
+      this = std::vector<ggl::GradientPolylineOverlayRibbon::AlphaPipelineSetup *,geo::allocator_adapter<ggl::GradientPolylineOverlayRibbon::AlphaPipelineSetup *,ggl::zone_mallocator>>::push_back[abi:nn200100](v14, &v26);
+    }
+
+    while (v15 != v16);
+    v15 = *(v14 + 4);
+    v16 = *(v14 + 5);
+  }
+
+  if (v15 != v16)
+  {
+    *(v14 + 5) = v15;
+  }
+
+  v18 = *(v1 + 20);
+  v19 = *(v18 + 4);
+  v20 = *(v18 + 5);
+  if (v19 != v20)
+  {
+    do
+    {
+      v21 = *v19++;
+      v26 = v21;
+      this = std::vector<ggl::GradientPolylineOverlayRibbon::AlphaFillPipelineSetup *,geo::allocator_adapter<ggl::GradientPolylineOverlayRibbon::AlphaFillPipelineSetup *,ggl::zone_mallocator>>::push_back[abi:nn200100](v18, &v26);
+    }
+
+    while (v19 != v20);
+    v19 = *(v18 + 4);
+    v20 = *(v18 + 5);
+  }
+
+  if (v19 != v20)
+  {
+    *(v18 + 5) = v19;
+  }
+
+  v22 = *(v1 + 21);
+  v23 = *(v22 + 4);
+  v24 = *(v22 + 5);
+  if (v23 != v24)
+  {
+    do
+    {
+      v25 = *v23++;
+      v26 = v25;
+      this = std::vector<ggl::GradientPolylineOverlayRibbon::FillPipelineSetup *,geo::allocator_adapter<ggl::GradientPolylineOverlayRibbon::FillPipelineSetup *,ggl::zone_mallocator>>::push_back[abi:nn200100](v22, &v26);
+    }
+
+    while (v23 != v24);
+    v23 = *(v22 + 4);
+    v24 = *(v22 + 5);
+  }
+
+  if (v23 != v24)
+  {
+    *(v22 + 5) = v23;
+  }
+
+  return this;
+}
+
+void md::RasterResourceDataRequester::resolveTile(md::RasterResourceDataRequester *this@<X0>, const geo::QuadTile *a2@<X1>, uint64_t a3@<X8>)
+{
+  v5 = *(this + 10);
+  os_unfair_lock_lock((v5 + 784));
+  v6 = *(a2 + 1);
+  *(a3 + 1) = v6;
+  *(a3 + 4) = *(a2 + 4);
+  *a3 = *a2;
+  *(a3 + 16) = *(a2 + 2);
+  *(a3 + 24) = *(a2 + 24);
+  if (v6)
+  {
+    do
+    {
+      if (v5 + 840 == geo::LRUPolicy<geo::QuadTile,geo::small_vector<md::FlyoverRegionManager::RegionArea,2ul>,geo::QuadTileHash>::get(v5 + 840, (v5 + 800), a3))
+      {
+        break;
+      }
+
+      if (!*(a3 + 1))
+      {
+        break;
+      }
+
+      v7 = *(a3 + 1) - 1;
+      *(a3 + 1) = v7;
+      *(a3 + 4) = vshr_n_s32(*(a3 + 4), 1uLL);
+      *(a3 + 16) = 0;
+      *(a3 + 24) = 1;
+    }
+
+    while (v7);
+  }
+
+  os_unfair_lock_unlock((v5 + 784));
+}
+
+void md::RasterResourceDataRequester::~RasterResourceDataRequester(md::RasterResourceDataRequester *this)
+{
+  *this = &unk_1F2A2DC50;
+  std::__function::__value_func<BOOL ()(geo::QuadTile const&)>::~__value_func[abi:nn200100](this + 48);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+{
+  *this = &unk_1F2A2DC50;
+  std::__function::__value_func<BOOL ()(geo::QuadTile const&)>::~__value_func[abi:nn200100](this + 48);
+}
+
+void geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<std::shared_ptr<md::LabelManagerCommand>>(uint64_t a1, void *a2)
+{
+  v4 = pthread_rwlock_rdlock((a1 + 32));
+  if (v4)
+  {
+    geo::read_write_lock::logFailure(v4, "read lock", v5);
+  }
+
+  if (a2)
+  {
+    atomic_fetch_add((a1 + 24), 0xFFFFFFFF);
+  }
+
+  malloc_zone_free(*a1, a2);
+
+  geo::read_write_lock::unlock((a1 + 32));
+}
+
+void std::__shared_ptr_emplace<md::LabelManagerCommand>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
+{
+  a1->__vftable = &unk_1F2A11358;
+  std::__shared_weak_count::~__shared_weak_count(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+uint64_t std::__function::__func<md::LabelManager::activeTileGroupDidChange(void)::$_0,std::allocator<md::LabelManager::activeTileGroupDidChange(void)::$_0>,void ()(void)>::__clone(uint64_t result, void *a2)
+{
+  v2 = *(result + 8);
+  *a2 = &unk_1F2A11390;
+  a2[1] = v2;
+  return result;
+}
+
+uint64_t md::LabelManager::localeChanged(std::mutex *this)
+{
+  v2[4] = *MEMORY[0x1E69E9840];
+  v2[0] = &unk_1F2A11420;
+  v2[1] = this;
+  v2[3] = v2;
+  md::LabelManager::queueCommand(this, 2, 1, v2);
+  return std::__function::__value_func<void ()(void)>::~__value_func[abi:nn200100](v2);
+}
+
+void sub_1B2EF7BB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::__function::__value_func<void ()(void)>::~__value_func[abi:nn200100](va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t std::__function::__func<md::LabelManager::localeChanged(void)::$_0,std::allocator<md::LabelManager::localeChanged(void)::$_0>,void ()(void)>::__clone(uint64_t result, void *a2)
+{
+  v2 = *(result + 8);
+  *a2 = &unk_1F2A11420;
+  a2[1] = v2;
+  return result;
+}
+
+uint64_t std::__function::__func<md::LabelManager::focusedVenueDidChange(BOOL)::$_0,std::allocator<md::LabelManager::focusedVenueDidChange(BOOL)::$_0>,void ()(void)>::operator()(uint64_t result)
+{
+  v1 = *(result + 8);
+  *(v1 + 3376) = *(result + 16);
+  *(v1 + 3047) = 1;
+  v2 = *(v1 + 168);
+  v3 = *v2;
+  v4 = v2[1];
+  while (v3 != v4)
+  {
+    v5 = *v3++;
+    result = (*(*v5 + 24))(v5);
+  }
+
+  return result;
+}
+
+__n128 std::__function::__func<md::LabelManager::focusedVenueDidChange(BOOL)::$_0,std::allocator<md::LabelManager::focusedVenueDidChange(BOOL)::$_0>,void ()(void)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F2A11468;
+  result = *(a1 + 8);
+  *(a2 + 8) = result;
+  *(a2 + 20) = 0;
+  *(a2 + 17) = 0;
+  return result;
+}
+
+uint64_t std::__function::__func<md::LabelManager::venueBuildingFloorDidChange(void)::$_0,std::allocator<md::LabelManager::venueBuildingFloorDidChange(void)::$_0>,void ()(void)>::operator()(uint64_t result)
+{
+  v1 = *(result + 8);
+  *(v1 + 3034) = 1;
+  *(v1 + 3047) = 1;
+  v2 = *(v1 + 168);
+  v3 = *v2;
+  v4 = v2[1];
+  while (v3 != v4)
+  {
+    v5 = *v3++;
+    result = (*(*v5 + 24))(v5);
+  }
+
+  return result;
+}
+
+uint64_t std::__function::__func<md::LabelManager::venueBuildingFloorDidChange(void)::$_0,std::allocator<md::LabelManager::venueBuildingFloorDidChange(void)::$_0>,void ()(void)>::__clone(uint64_t result, void *a2)
+{
+  v2 = *(result + 8);
+  *a2 = &unk_1F2A114B0;
+  a2[1] = v2;
+  return result;
+}
+
+uint64_t std::__function::__func<md::LabelManager::venueFloorSwitcherActiveDidChange(BOOL)::$_0,std::allocator<md::LabelManager::venueFloorSwitcherActiveDidChange(BOOL)::$_0>,void ()(void)>::operator()(uint64_t a1)
+{
+  result = *(a1 + 8);
+  v3 = *(a1 + 16);
+  if (v3 != *(result + 3377))
+  {
+    *(result + 3377) = v3;
+    return md::LabelManager::queueRestyle(result, 1);
+  }
+
+  return result;
+}
+
+__n128 std::__function::__func<md::LabelManager::venueFloorSwitcherActiveDidChange(BOOL)::$_0,std::allocator<md::LabelManager::venueFloorSwitcherActiveDidChange(BOOL)::$_0>,void ()(void)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F2A114F8;
+  result = *(a1 + 8);
+  *(a2 + 8) = result;
+  *(a2 + 20) = 0;
+  *(a2 + 17) = 0;
+  return result;
+}
+
+std::mutex *md::LabelManager::setContentScale(std::mutex *this, float a2)
+{
+  v2[4] = *MEMORY[0x1E69E9840];
+  if (*&this[56].__m_.__sig != a2)
+  {
+    *&this[56].__m_.__sig = a2;
+    v2[0] = &unk_1F2A11540;
+    v2[1] = this;
+    v2[2] = LODWORD(a2);
+    v2[3] = v2;
+    md::LabelManager::queueCommand(this, 3, 1, v2);
+    return std::__function::__value_func<void ()(void)>::~__value_func[abi:nn200100](v2);
+  }
+
+  return this;
+}
+
+void sub_1B2EF8010(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::__function::__value_func<void ()(void)>::~__value_func[abi:nn200100](va);
+  _Unwind_Resume(a1);
+}
+
+void std::__function::__func<md::LabelManager::setContentScale(float)::$_0,std::allocator<md::LabelManager::setContentScale(float)::$_0>,void ()(void)>::operator()(uint64_t a1)
+{
+  v5[4] = *MEMORY[0x1E69E9840];
+  v1 = *(a1 + 8);
+  v2 = *(a1 + 16);
+  if (*(v1 + 176) != v2)
+  {
+    *(v1 + 176) = v2;
+    *(v1 + 3042) = 1;
+    *(v1 + 3332) = v2 * 4.0;
+    v3 = *(v1 + 312);
+    if (*(v3 + 120) != v2)
+    {
+      *(v3 + 120) = v2;
+      std::__hash_table<std::__hash_value_type<std::string,std::unique_ptr<md::FontTrackingScaleInfo>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unique_ptr<md::FontTrackingScaleInfo>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unique_ptr<md::FontTrackingScaleInfo>>,std::equal_to<std::string>,std::hash<std::string>,true>,geo::allocator_adapter<std::__hash_value_type<std::string,std::unique_ptr<md::FontTrackingScaleInfo>>,mdm::zone_mallocator>>::clear(v3 + 64);
+      std::__hash_table<std::__hash_value_type<std::string,std::unique_ptr<md::FontTrackingScaleInfo>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unique_ptr<md::FontTrackingScaleInfo>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unique_ptr<md::FontTrackingScaleInfo>>,std::equal_to<std::string>,std::hash<std::string>,true>,geo::allocator_adapter<std::__hash_value_type<std::string,std::unique_ptr<md::FontTrackingScaleInfo>>,mdm::zone_mallocator>>::clear(v3 + 8);
+    }
+
+    v4 = *(v1 + 280);
+    v5[0] = &unk_1F2A0CAB0;
+    v5[1] = v4;
+    v5[3] = v5;
+    md::LabelGlyphImageLoader::queueCommand(v4, v5);
+  }
+
+  if (md::LabelStyleCache::setContentScale(*(v1 + 336), v2))
+  {
+
+    md::LabelManager::clearScene(v1, 3);
+  }
+}
+
+void sub_1B2EF815C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::__function::__value_func<void ()(void)>::~__value_func[abi:nn200100](va);
+  _Unwind_Resume(a1);
+}
+
+__n128 std::__function::__func<md::LabelManager::setContentScale(float)::$_0,std::allocator<md::LabelManager::setContentScale(float)::$_0>,void ()(void)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F2A11540;
+  result = *(a1 + 8);
+  *(a2 + 8) = result;
+  *(a2 + 20) = 0;
+  return result;
+}
+
+md::LabelManager *md::LabelManager::setMapType(md::LabelManager *result, unsigned int a2)
+{
+  v2[4] = *MEMORY[0x1E69E9840];
+  if (*(result + 897) != a2)
+  {
+    *(result + 897) = a2;
+    v2[0] = &unk_1F2A11618;
+    v2[1] = result;
+    v2[2] = a2;
+    v2[3] = v2;
+    md::LabelManager::queueCommand(result, 6, 0, v2);
+    return std::__function::__value_func<void ()(void)>::~__value_func[abi:nn200100](v2);
+  }
+
+  return result;
+}
+
+void sub_1B2EF83C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::__function::__value_func<void ()(void)>::~__value_func[abi:nn200100](va);
+  _Unwind_Resume(a1);
+}
+
+void std::__function::__func<md::LabelManager::setMapType(VKMapType)::$_0,std::allocator<md::LabelManager::setMapType(VKMapType)::$_0>,void ()(void)>::operator()(uint64_t a1)
+{
+  v1 = *(a1 + 8);
+  v2 = *(a1 + 16);
+  if (*(v1 + 196) != v2)
+  {
+    *(v1 + 196) = v2;
+    *(*(*(v1 + 336) + 136) + 128) = (v2 - 1) < 4;
+    v4 = *(v1 + 232);
+    if ((*(v4 + 16) & 0xFE) == 4)
+    {
+      v5 = *(v4 + 31);
+      v6 = v2 - 3;
+      v7 = (v2 - 3) < 2;
+      if (v5 != v7)
+      {
+        v8 = v6 > 1;
+        *(v4 + 31) = v7;
+        if (v6 < 2)
+        {
+          v9 = -4;
+        }
+
+        else
+        {
+          v9 = 4;
+        }
+
+        *(v4 + 35) = v9;
+        *(v4 + 29) = v7;
+        *(v4 + 30) = v7;
+        *(v4 + 28) = v8;
+        *(v4 + 19) = v8;
+        v10 = *(*(v4 + 8) + 168);
+        v11 = *v10;
+        v12 = v10[1];
+        if (*v10 != v12)
+        {
+          do
+          {
+            v13 = *v11++;
+            (*(*v13 + 40))(v13);
+          }
+
+          while (v11 != v12);
+          v7 = *(*(v1 + 232) + 31);
+        }
+
+        if (v5 != v7 && *(v1 + 3440))
+        {
+          v14 = *(v1 + 3448);
+          v23 = *(v1 + 3440);
+          v24 = v14;
+          if (v14)
+          {
+            atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
+          }
+
+          md::LabelManager::releaseAdoptedSelectedLabelMarker(v1, 0);
+          md::LabelManager::adoptSelectedLabelMarker(v1, &v23);
+          if (v24)
+          {
+            std::__shared_weak_count::__release_shared[abi:nn200100](v24);
+          }
+        }
+      }
+    }
+
+    if (*(a1 + 16) == 8)
+    {
+      v15 = *(*(v1 + 232) + 19);
+    }
+
+    else
+    {
+      v15 = 0;
+    }
+
+    atomic_store(v15 & 1, (v1 + 3425));
+    v16 = atomic_load((v1 + 3425));
+    if (v16)
+    {
+      v17 = 1;
+    }
+
+    else if (*(v1 + 196) == 5)
+    {
+      v17 = 3;
+    }
+
+    else
+    {
+      v17 = 2 * (*(v1 + 3016) == 1);
+    }
+
+    v18 = atomic_load((v1 + 3428));
+    if (v18 != v17)
+    {
+      atomic_store(v17, (v1 + 3428));
+    }
+
+    *(v1 + 3033) = (*(a1 + 16) & 0xFFFFFFFD) == 1;
+    v19 = *(v1 + 168);
+    v20 = *v19;
+    v21 = v19[1];
+    while (v20 != v21)
+    {
+      v22 = *v20++;
+      (*(*v22 + 32))(v22);
+    }
+  }
+}
+
+void sub_1B2EF85EC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
+{
+  if (a10)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](a10);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+__n128 std::__function::__func<md::LabelManager::setMapType(VKMapType)::$_0,std::allocator<md::LabelManager::setMapType(VKMapType)::$_0>,void ()(void)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F2A11618;
+  result = *(a1 + 8);
+  *(a2 + 8) = result;
+  *(a2 + 20) = 0;
+  return result;
+}
+
+uint64_t std::__function::__func<md::LabelManager::setMapsUsage(VKMapsUsage)::$_0,std::allocator<md::LabelManager::setMapsUsage(VKMapsUsage)::$_0>,void ()(void)>::operator()(uint64_t result)
+{
+  v1 = *(result + 8);
+  v2 = *(result + 16);
+  if (*(v1 + 200) != v2)
+  {
+    *(v1 + 200) = v2;
+  }
+
+  return result;
+}
+
+uint64_t std::__function::__func<md::LabelManager::setLabelMode(md::LabelMode)::$_0,std::allocator<md::LabelManager::setLabelMode(md::LabelMode)::$_0>,void ()(void)>::operator()(uint64_t a1)
+{
+  v7[2] = *MEMORY[0x1E69E9840];
+  v1 = *(a1 + 8);
+  v2 = *(a1 + 16);
+  if (*(v1 + 192) != v2)
+  {
+    *(v1 + 192) = v2;
+    v3 = v2 == 2;
+    v4 = 3;
+    v6[0] = &unk_1F2A11780;
+    v6[1] = v1;
+    if (!v3)
+    {
+      v4 = 0;
+    }
+
+    LOBYTE(v7[0]) = v4;
+    v7[1] = v6;
+    memset(v7 + 1, 0, 7);
+    md::LabelManager::queueCommand(v1, 9, 0, v6);
+    std::__function::__value_func<void ()(void)>::~__value_func[abi:nn200100](v6);
+    (*(**(*(v1 + 168) + 32) + 176))(*(*(v1 + 168) + 32), *(v1 + 192));
+  }
+
+  return md::LabelManager::updateLabelCameraMode(v1);
+}
+
+void sub_1B2EF884C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::__function::__value_func<void ()(void)>::~__value_func[abi:nn200100](va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t md::LabelManager::updateLabelCameraMode(uint64_t this)
+{
+  v1 = this;
+  if (*(this + 192) == 2)
+  {
+    this = (***(*(this + 168) + 32))(*(*(this + 168) + 32));
+    v2 = 2 * (this == 0);
+    if (this == 1)
+    {
+      v2 = 1;
+    }
+  }
+
+  else
+  {
+    v2 = 0;
+  }
+
+  *(v1 + 3019) = v2;
+  return this;
+}
+
+void std::__function::__func<md::LabelManager::setMapMode(gss::MapMode)::$_0,std::allocator<md::LabelManager::setMapMode(gss::MapMode)::$_0>,void ()(void)>::operator()(uint64_t a1)
+{
+  v2 = *(a1 + 8);
+  v3 = *(v2 + 336);
+  v4 = *(a1 + 16);
+  std::mutex::lock(v3);
+  if (*(v3 + 160) == v4)
+  {
+
+    std::mutex::unlock(v3);
+  }
+
+  else
+  {
+    *(v3 + 160) = v4;
+    std::__hash_table<std::__hash_value_type<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,md::LabelCachingStore<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::shared_ptr<md::LabelStyle>,std::weak_ptr<md::LabelStyle>,md::LabelPtrHash<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>,md::LabelPtrEqual<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>>::MapEntry>,std::__unordered_map_hasher<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::__hash_value_type<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,md::LabelCachingStore<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::shared_ptr<md::LabelStyle>,std::weak_ptr<md::LabelStyle>,md::LabelPtrHash<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>,md::LabelPtrEqual<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>>::MapEntry>,md::LabelPtrHash<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>,md::LabelPtrEqual<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>,true>,std::__unordered_map_equal<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::__hash_value_type<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,md::LabelCachingStore<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::shared_ptr<md::LabelStyle>,std::weak_ptr<md::LabelStyle>,md::LabelPtrHash<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>,md::LabelPtrEqual<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>>::MapEntry>,md::LabelPtrEqual<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>,md::LabelPtrHash<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>,true>,geo::allocator_adapter<std::__hash_value_type<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,md::LabelCachingStore<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::shared_ptr<md::LabelStyle>,std::weak_ptr<md::LabelStyle>,md::LabelPtrHash<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>,md::LabelPtrEqual<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>>::MapEntry>,mdm::zone_mallocator>>::clear(v3 + 240);
+    std::__list_imp<md::LabelCachingStore<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::shared_ptr<md::LabelStyle>,std::weak_ptr<md::LabelStyle>,md::LabelPtrHash<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>,md::LabelPtrEqual<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>>::ListEntry,geo::allocator_adapter<md::LabelCachingStore<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::shared_ptr<md::LabelStyle>,std::weak_ptr<md::LabelStyle>,md::LabelPtrHash<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>,md::LabelPtrEqual<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>>::ListEntry,mdm::zone_mallocator>>::clear((v3 + 208));
+    *(v3 + 308) = 0;
+    *(v3 + 300) = 0;
+    std::__hash_table<std::__hash_value_type<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,md::LabelCachingStore<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::shared_ptr<md::LabelStyle>,std::weak_ptr<md::LabelStyle>,md::LabelPtrHash<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>,md::LabelPtrEqual<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>>::MapEntry>,std::__unordered_map_hasher<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::__hash_value_type<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,md::LabelCachingStore<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::shared_ptr<md::LabelStyle>,std::weak_ptr<md::LabelStyle>,md::LabelPtrHash<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>,md::LabelPtrEqual<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>>::MapEntry>,md::LabelPtrHash<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>,md::LabelPtrEqual<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>,true>,std::__unordered_map_equal<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::__hash_value_type<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,md::LabelCachingStore<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::shared_ptr<md::LabelStyle>,std::weak_ptr<md::LabelStyle>,md::LabelPtrHash<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>,md::LabelPtrEqual<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>>::MapEntry>,md::LabelPtrEqual<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>,md::LabelPtrHash<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>,true>,geo::allocator_adapter<std::__hash_value_type<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,md::LabelCachingStore<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::shared_ptr<md::LabelStyle>,std::weak_ptr<md::LabelStyle>,md::LabelPtrHash<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>,md::LabelPtrEqual<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>>::MapEntry>,mdm::zone_mallocator>>::clear(v3 + 352);
+    std::__list_imp<md::LabelCachingStore<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::shared_ptr<md::LabelStyle>,std::weak_ptr<md::LabelStyle>,md::LabelPtrHash<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>,md::LabelPtrEqual<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>>::ListEntry,geo::allocator_adapter<md::LabelCachingStore<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::shared_ptr<md::LabelStyle>,std::weak_ptr<md::LabelStyle>,md::LabelPtrHash<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>,md::LabelPtrEqual<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>>::ListEntry,mdm::zone_mallocator>>::clear((v3 + 320));
+    *(v3 + 420) = 0;
+    *(v3 + 412) = 0;
+    std::mutex::unlock(v3);
+    v5 = *(a1 + 16) == 3 && *(v2 + 3018) != 1;
+    *(v2 + 3402) = v5;
+    md::LabelManager::resolveLabelScaleFactor(v2);
+
+    md::LabelManager::queueRestyle(v2, 0);
+  }
+}
+
+__n128 std::__function::__func<md::LabelManager::setMapMode(gss::MapMode)::$_0,std::allocator<md::LabelManager::setMapMode(gss::MapMode)::$_0>,void ()(void)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F2A11780;
+  result = *(a1 + 8);
+  *(a2 + 8) = result;
+  *(a2 + 20) = 0;
+  *(a2 + 17) = 0;
+  return result;
+}
+
+__n128 std::__function::__func<md::LabelManager::setLabelMode(md::LabelMode)::$_0,std::allocator<md::LabelManager::setLabelMode(md::LabelMode)::$_0>,void ()(void)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F2A116A8;
+  result = *(a1 + 8);
+  *(a2 + 8) = result;
+  *(a2 + 20) = 0;
+  *(a2 + 17) = 0;
+  return result;
+}
+
+uint64_t std::__function::__func<md::LabelManager::setNavMode(md::LabelNavMode)::$_0,std::allocator<md::LabelManager::setNavMode(md::LabelNavMode)::$_0>,void ()(void)>::operator()(uint64_t a1)
+{
+  v1 = *(a1 + 8);
+  if ((***(*(v1 + 168) + 32))(*(*(v1 + 168) + 32)) != *(a1 + 16))
+  {
+    (*(**(*(v1 + 168) + 32) + 184))(*(*(v1 + 168) + 32));
+    if ((*(**(*(v1 + 168) + 32) + 8))(*(*(v1 + 168) + 32)))
+    {
+      md::LabelManager::queueRestyle(v1, 1);
+    }
+  }
+
+  return md::LabelManager::updateLabelCameraMode(v1);
+}
+
+__n128 std::__function::__func<md::LabelManager::setNavMode(md::LabelNavMode)::$_0,std::allocator<md::LabelManager::setNavMode(md::LabelNavMode)::$_0>,void ()(void)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F2A116F0;
+  result = *(a1 + 8);
+  *(a2 + 8) = result;
+  *(a2 + 20) = 0;
+  *(a2 + 17) = 0;
+  return result;
+}
+
+md::LabelManager *md::LabelManager::setInOverviewMode(md::LabelManager *this, int a2)
+{
+  v3[2] = *MEMORY[0x1E69E9840];
+  if (*(this + 3614) != a2)
+  {
+    *(this + 3614) = a2;
+    v2[0] = &unk_1F2A11738;
+    v2[1] = this;
+    LOBYTE(v3[0]) = a2;
+    v3[1] = v2;
+    memset(v3 + 1, 0, 7);
+    md::LabelManager::queueCommand(this, 72, 1, v2);
+    return std::__function::__value_func<void ()(void)>::~__value_func[abi:nn200100](v2);
+  }
+
+  return this;
+}
+
+void sub_1B2EF8D70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::__function::__value_func<void ()(void)>::~__value_func[abi:nn200100](va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t std::__function::__func<md::LabelManager::setInOverviewMode(BOOL)::$_0,std::allocator<md::LabelManager::setInOverviewMode(BOOL)::$_0>,void ()(void)>::operator()(uint64_t a1)
+{
+  v2 = *(a1 + 8);
+  result = (*(**(*(v2 + 168) + 32) + 88))(*(*(v2 + 168) + 32));
+  if (*(a1 + 16) != result)
+  {
+    v4 = *(**(*(v2 + 168) + 32) + 192);
+
+    return v4();
+  }
+
+  return result;
+}
+
+__n128 std::__function::__func<md::LabelManager::setInOverviewMode(BOOL)::$_0,std::allocator<md::LabelManager::setInOverviewMode(BOOL)::$_0>,void ()(void)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F2A11738;
+  result = *(a1 + 8);
+  *(a2 + 8) = result;
+  *(a2 + 20) = 0;
+  *(a2 + 17) = 0;
+  return result;
+}
+
+void std::__function::__func<md::LabelManager::selectLabelMarker(std::shared_ptr<md::LabelMarker> const&)::$_0,std::allocator<md::LabelManager::selectLabelMarker(std::shared_ptr<md::LabelMarker> const&)::$_0>,void ()(void)>::operator()(void *a1)
+{
+  v2 = a1 + 2;
+  v1 = a1[2];
+  v3 = a1[1];
+  v4 = a1[3];
+  if (v4)
+  {
+    atomic_fetch_add_explicit((v4 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  *(v3 + 443) = v1;
+  v5 = *(v3 + 444);
+  *(v3 + 444) = v4;
+  if (v5)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v5);
+  }
+
+  if (!*v2 || md::LabelMarker::isAssociatedWithLabelManager(*v2, v3))
+  {
+
+    md::LabelManager::setSelectedLabelMarker(v3, v2);
+  }
+}
+
+void std::__function::__func<md::LabelManager::selectLabelMarker(std::shared_ptr<md::LabelMarker> const&)::$_0,std::allocator<md::LabelManager::selectLabelMarker(std::shared_ptr<md::LabelMarker> const&)::$_0>,void ()(void)>::destroy_deallocate(void *__p)
+{
+  v2 = __p[3];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v2);
+  }
+
+  operator delete(__p);
+}
+
+void std::__function::__func<md::LabelManager::selectLabelMarker(std::shared_ptr<md::LabelMarker> const&)::$_0,std::allocator<md::LabelManager::selectLabelMarker(std::shared_ptr<md::LabelMarker> const&)::$_0>,void ()(void)>::destroy(uint64_t a1)
+{
+  v1 = *(a1 + 24);
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v1);
+  }
+}
+
+uint64_t std::__function::__func<md::LabelManager::selectLabelMarker(std::shared_ptr<md::LabelMarker> const&)::$_0,std::allocator<md::LabelManager::selectLabelMarker(std::shared_ptr<md::LabelMarker> const&)::$_0>,void ()(void)>::__clone(uint64_t result, uint64_t a2)
+{
+  *a2 = &unk_1F2A11A50;
+  *(a2 + 8) = *(result + 8);
+  v2 = *(result + 24);
+  *(a2 + 24) = v2;
+  if (v2)
+  {
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  return result;
+}
+
+void std::__function::__func<md::LabelManager::selectLabelMarker(std::shared_ptr<md::LabelMarker> const&)::$_0,std::allocator<md::LabelManager::selectLabelMarker(std::shared_ptr<md::LabelMarker> const&)::$_0>,void ()(void)>::~__func(void *a1)
+{
+  *a1 = &unk_1F2A11A50;
+  v1 = a1[3];
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v1);
+  }
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *std::__function::__func<md::LabelManager::selectLabelMarker(std::shared_ptr<md::LabelMarker> const&)::$_0,std::allocator<md::LabelManager::selectLabelMarker(std::shared_ptr<md::LabelMarker> const&)::$_0>,void ()(void)>::~__func(void *a1)
+{
+  *a1 = &unk_1F2A11A50;
+  v2 = a1[3];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v2);
+  }
+
+  return a1;
+}
+
+uint64_t std::__function::__func<md::LabelManager::setPreviouslySelectedLabelMarker(std::shared_ptr<md::LabelMarker> const&)::$_0,std::allocator<md::LabelManager::setPreviouslySelectedLabelMarker(std::shared_ptr<md::LabelMarker> const&)::$_0>,void ()(void)>::operator()(uint64_t a1)
+{
+  v2 = a1 + 16;
+  v1 = *(a1 + 16);
+  v3 = *(v2 - 8);
+  if (!v1 || (result = md::LabelMarker::isAssociatedWithLabelManager(v1, *(v2 - 8)), result))
+  {
+    v5 = *(**(v3 + 240) + 216);
+
+    return v5();
+  }
+
+  return result;
+}
+
+void std::__function::__func<md::LabelManager::setPreviouslySelectedLabelMarker(std::shared_ptr<md::LabelMarker> const&)::$_0,std::allocator<md::LabelManager::setPreviouslySelectedLabelMarker(std::shared_ptr<md::LabelMarker> const&)::$_0>,void ()(void)>::destroy_deallocate(void *__p)
+{
+  v2 = __p[3];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v2);
+  }
+
+  operator delete(__p);
+}
+
+void std::__function::__func<md::LabelManager::setPreviouslySelectedLabelMarker(std::shared_ptr<md::LabelMarker> const&)::$_0,std::allocator<md::LabelManager::setPreviouslySelectedLabelMarker(std::shared_ptr<md::LabelMarker> const&)::$_0>,void ()(void)>::destroy(uint64_t a1)
+{
+  v1 = *(a1 + 24);
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v1);
+  }
+}
+
+uint64_t std::__function::__func<md::LabelManager::setPreviouslySelectedLabelMarker(std::shared_ptr<md::LabelMarker> const&)::$_0,std::allocator<md::LabelManager::setPreviouslySelectedLabelMarker(std::shared_ptr<md::LabelMarker> const&)::$_0>,void ()(void)>::__clone(uint64_t result, uint64_t a2)
+{
+  *a2 = &unk_1F2A11AE0;
+  *(a2 + 8) = *(result + 8);
+  v2 = *(result + 24);
+  *(a2 + 24) = v2;
+  if (v2)
+  {
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  return result;
+}
+
+void std::__function::__func<md::LabelManager::setPreviouslySelectedLabelMarker(std::shared_ptr<md::LabelMarker> const&)::$_0,std::allocator<md::LabelManager::setPreviouslySelectedLabelMarker(std::shared_ptr<md::LabelMarker> const&)::$_0>,void ()(void)>::~__func(void *a1)
+{
+  *a1 = &unk_1F2A11AE0;
+  v1 = a1[3];
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v1);
+  }
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *std::__function::__func<md::LabelManager::setPreviouslySelectedLabelMarker(std::shared_ptr<md::LabelMarker> const&)::$_0,std::allocator<md::LabelManager::setPreviouslySelectedLabelMarker(std::shared_ptr<md::LabelMarker> const&)::$_0>,void ()(void)>::~__func(void *a1)
+{
+  *a1 = &unk_1F2A11AE0;
+  v2 = a1[3];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v2);
+  }
+
+  return a1;
+}
+
+void std::__function::__func<md::LabelManager::setCategoryFilter(std::shared_ptr<md::LabelCategoryFilter> const&)::$_0,std::allocator<md::LabelManager::setCategoryFilter(std::shared_ptr<md::LabelCategoryFilter> const&)::$_0>,void ()(void)>::destroy(uint64_t a1)
+{
+  v1 = *(a1 + 24);
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v1);
+  }
+}
+
+uint64_t std::__function::__func<md::LabelManager::setCategoryFilter(std::shared_ptr<md::LabelCategoryFilter> const&)::$_0,std::allocator<md::LabelManager::setCategoryFilter(std::shared_ptr<md::LabelCategoryFilter> const&)::$_0>,void ()(void)>::__clone(uint64_t result, uint64_t a2)
+{
+  *a2 = &unk_1F2A11C48;
+  *(a2 + 8) = *(result + 8);
+  v2 = *(result + 24);
+  *(a2 + 24) = v2;
+  if (v2)
+  {
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  return result;
+}
+
+void std::__function::__func<md::LabelManager::setCategoryFilter(std::shared_ptr<md::LabelCategoryFilter> const&)::$_0,std::allocator<md::LabelManager::setCategoryFilter(std::shared_ptr<md::LabelCategoryFilter> const&)::$_0>,void ()(void)>::~__func(void *a1)
+{
+  *a1 = &unk_1F2A11C48;
+  v1 = a1[3];
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v1);
+  }
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *std::__function::__func<md::LabelManager::setCategoryFilter(std::shared_ptr<md::LabelCategoryFilter> const&)::$_0,std::allocator<md::LabelManager::setCategoryFilter(std::shared_ptr<md::LabelCategoryFilter> const&)::$_0>,void ()(void)>::~__func(void *a1)
+{
+  *a1 = &unk_1F2A11C48;
+  v2 = a1[3];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v2);
+  }
+
+  return a1;
+}
+
+__n128 std::__function::__func<md::LabelManager::setSupportedEVConnectorTypes(unsigned long long)::$_0,std::allocator<md::LabelManager::setSupportedEVConnectorTypes(unsigned long long)::$_0>,void ()(void)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F2A11E88;
+  result = *(a1 + 8);
+  *(a2 + 8) = result;
+  return result;
+}
+
+_BYTE *std::__function::__func<md::LabelManager::setLabelIsDragged(std::shared_ptr<md::Label> const&,BOOL)::$_0,std::allocator<md::LabelManager::setLabelIsDragged(std::shared_ptr<md::Label> const&,BOOL)::$_0>,void ()(void)>::operator()(uint64_t a1)
+{
+  v2 = *(a1 + 8);
+  v1 = *(a1 + 16);
+  result = *(v1 + 8);
+  v4 = *(v1 + 488);
+  if (result[143] != v4)
+  {
+    result[143] = v4;
+    result = (*(*result + 552))(result, v2);
+  }
+
+  *(v2 + 3038) = 1;
+  *(v2 + 3040) = 1;
+  v5 = atomic_load((v2 + 3053));
+  if (v5)
+  {
+    v6 = *(v2 + 136);
+    if (v6)
+    {
+      result = *(v6 + 56);
+      if (result)
+      {
+
+        return std::function<void ()(md::LabelManager const*,md::NeedsLayoutReason)>::operator()(result, v2, 9);
+      }
+    }
+  }
+
+  return result;
+}
+
+void std::__function::__func<md::LabelManager::setLabelIsDragged(std::shared_ptr<md::Label> const&,BOOL)::$_0,std::allocator<md::LabelManager::setLabelIsDragged(std::shared_ptr<md::Label> const&,BOOL)::$_0>,void ()(void)>::destroy_deallocate(void *__p)
+{
+  v2 = __p[3];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v2);
+  }
+
+  operator delete(__p);
+}
+
+void std::__function::__func<md::LabelManager::setLabelIsDragged(std::shared_ptr<md::Label> const&,BOOL)::$_0,std::allocator<md::LabelManager::setLabelIsDragged(std::shared_ptr<md::Label> const&,BOOL)::$_0>,void ()(void)>::destroy(uint64_t a1)
+{
+  v1 = *(a1 + 24);
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v1);
+  }
+}
+
+uint64_t std::__function::__func<md::LabelManager::setLabelIsDragged(std::shared_ptr<md::Label> const&,BOOL)::$_0,std::allocator<md::LabelManager::setLabelIsDragged(std::shared_ptr<md::Label> const&,BOOL)::$_0>,void ()(void)>::__clone(uint64_t result, uint64_t a2)
+{
+  *a2 = &unk_1F2A11F18;
+  *(a2 + 8) = *(result + 8);
+  v2 = *(result + 24);
+  *(a2 + 24) = v2;
+  if (v2)
+  {
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  return result;
+}
+
+void std::__function::__func<md::LabelManager::setLabelIsDragged(std::shared_ptr<md::Label> const&,BOOL)::$_0,std::allocator<md::LabelManager::setLabelIsDragged(std::shared_ptr<md::Label> const&,BOOL)::$_0>,void ()(void)>::~__func(void *a1)
+{
+  *a1 = &unk_1F2A11F18;
+  v1 = a1[3];
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v1);
+  }
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *std::__function::__func<md::LabelManager::setLabelIsDragged(std::shared_ptr<md::Label> const&,BOOL)::$_0,std::allocator<md::LabelManager::setLabelIsDragged(std::shared_ptr<md::Label> const&,BOOL)::$_0>,void ()(void)>::~__func(void *a1)
+{
+  *a1 = &unk_1F2A11F18;
+  v2 = a1[3];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v2);
+  }
+
+  return a1;
+}
+
+void geo::_retain_ptr<NSArray<VKLabelExclusionRegion *> * {__strong},geo::_retain_objc_arc,geo::_release_objc_arc,geo::_hash_objc,geo::_equal_objc>::~_retain_ptr(uint64_t a1)
+{
+  *a1 = &unk_1F2A3D0C8;
+
+  JUMPOUT(0x1B8C62190);
+}
+
+uint64_t geo::_retain_ptr<NSArray<VKLabelExclusionRegion *> * {__strong},geo::_retain_objc_arc,geo::_release_objc_arc,geo::_hash_objc,geo::_equal_objc>::~_retain_ptr(uint64_t a1)
+{
+  *a1 = &unk_1F2A3D0C8;
+
+  return a1;
+}
+
+void *std::__function::__func<md::LabelManager::setLabelExclusionRegions(NSArray<VKLabelExclusionRegion *> *)::$_0,std::allocator<md::LabelManager::setLabelExclusionRegions(NSArray<VKLabelExclusionRegion *> *)::$_0>,void ()(void)>::__clone(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F2A11F60;
+  a2[1] = v2;
+  return geo::_retain_ptr<NSArray<VKLabelExclusionRegion *> * {__strong},geo::_retain_objc_arc,geo::_release_objc_arc,geo::_hash_objc,geo::_equal_objc>::_retain_ptr(a2 + 2, a1 + 16);
+}
+
+void std::__function::__func<md::LabelManager::setLabelExclusionRegions(NSArray<VKLabelExclusionRegion *> *)::$_0,std::allocator<md::LabelManager::setLabelExclusionRegions(NSArray<VKLabelExclusionRegion *> *)::$_0>,void ()(void)>::~__func(uint64_t a1)
+{
+  *a1 = &unk_1F2A11F60;
+  *(a1 + 16) = &unk_1F2A3D0C8;
+
+  JUMPOUT(0x1B8C62190);
+}
+
+uint64_t std::__function::__func<md::LabelManager::setLabelExclusionRegions(NSArray<VKLabelExclusionRegion *> *)::$_0,std::allocator<md::LabelManager::setLabelExclusionRegions(NSArray<VKLabelExclusionRegion *> *)::$_0>,void ()(void)>::~__func(uint64_t a1)
+{
+  *a1 = &unk_1F2A11F60;
+  *(a1 + 16) = &unk_1F2A3D0C8;
+
+  return a1;
+}
+
+void std::__function::__func<md::LabelManager::setScreenLabelFeatures(NSArray<VKScreenLabelFeature *> *)::$_0,std::allocator<md::LabelManager::setScreenLabelFeatures(NSArray<VKScreenLabelFeature *> *)::$_0>,void ()(void)>::destroy_deallocate(id *a1)
+{
+
+  operator delete(a1);
+}
+
+void std::__function::__func<md::LabelManager::setScreenLabelFeatures(NSArray<VKScreenLabelFeature *> *)::$_0,std::allocator<md::LabelManager::setScreenLabelFeatures(NSArray<VKScreenLabelFeature *> *)::$_0>,void ()(void)>::~__func(uint64_t a1)
+{
+
+  JUMPOUT(0x1B8C62190);
+}
+
+id std::__function::__func<md::LabelManager::setRouteContext(VKRouteContext *)::$_1,std::allocator<md::LabelManager::setRouteContext(VKRouteContext *)::$_1>,void ()(void)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F2A12038;
+  v3 = *(a1 + 8);
+  *(a2 + 16) = *(a1 + 16);
+  *(a2 + 8) = v3;
+  result = *(a1 + 24);
+  *(a2 + 24) = result;
+  return result;
+}
+
+void std::__function::__func<md::LabelManager::setRouteContext(VKRouteContext *)::$_1,std::allocator<md::LabelManager::setRouteContext(VKRouteContext *)::$_1>,void ()(void)>::~__func(uint64_t a1)
+{
+
+  JUMPOUT(0x1B8C62190);
+}
+
+id std::__function::__func<md::LabelManager::setRouteContext(VKRouteContext *)::$_0,std::allocator<md::LabelManager::setRouteContext(VKRouteContext *)::$_0>,void ()(void)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F2A11FF0;
+  v3 = *(a1 + 8);
+  *(a2 + 16) = *(a1 + 16);
+  *(a2 + 8) = v3;
+  result = *(a1 + 24);
+  *(a2 + 24) = result;
+  return result;
+}
+
+void std::__function::__func<md::LabelManager::setRouteContext(VKRouteContext *)::$_0,std::allocator<md::LabelManager::setRouteContext(VKRouteContext *)::$_0>,void ()(void)>::~__func(uint64_t a1)
+{
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *geo::_retain_ptr<VKRouteLine * {__strong},geo::_retain_objc_arc,geo::_release_objc_arc,geo::_hash_objc,geo::_equal_objc>::_retain_ptr(void *a1, uint64_t a2)
+{
+  *a1 = &unk_1F2A45FC0;
+  a1[1] = 0;
+  v3 = *(a2 + 8);
+  v4 = a1[1];
+  a1[1] = v3;
+
+  return a1;
+}
+
+uint64_t geo::_retain_ptr<VKRouteLine * {__strong},geo::_retain_objc_arc,geo::_release_objc_arc,geo::_hash_objc,geo::_equal_objc>::_retain_ptr(uint64_t a1, uint64_t a2)
+{
+  *a1 = &unk_1F2A45FC0;
+  *(a1 + 8) = 0;
+  objc_storeStrong((a1 + 8), *(a2 + 8));
+  v4 = *(a2 + 8);
+  *(a2 + 8) = 0;
+
+  return a1;
+}
+
+uint64_t std::__function::__func<md::LabelManager::setRouteLine(VKRouteLine *)::$_0,std::allocator<md::LabelManager::setRouteLine(VKRouteLine *)::$_0>,void ()(void)>::operator()(uint64_t result)
+{
+  v1 = *(result + 8);
+  v2 = atomic_load((v1 + 3425));
+  if (v2)
+  {
+    return (***(*(v1 + 168) + 56))(*(*(v1 + 168) + 56), *(result + 24));
+  }
+
+  return result;
+}
+
+void std::__function::__func<md::LabelManager::setRouteLine(VKRouteLine *)::$_0,std::allocator<md::LabelManager::setRouteLine(VKRouteLine *)::$_0>,void ()(void)>::destroy_deallocate(uint64_t a1)
+{
+  *(a1 + 16) = &unk_1F2A45FC0;
+
+  operator delete(a1);
+}
+
+void *std::__function::__func<md::LabelManager::setRouteLine(VKRouteLine *)::$_0,std::allocator<md::LabelManager::setRouteLine(VKRouteLine *)::$_0>,void ()(void)>::__clone(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F2A12080;
+  a2[1] = v2;
+  return geo::_retain_ptr<VKRouteLine * {__strong},geo::_retain_objc_arc,geo::_release_objc_arc,geo::_hash_objc,geo::_equal_objc>::_retain_ptr(a2 + 2, a1 + 16);
+}
+
+void std::__function::__func<md::LabelManager::setRouteLine(VKRouteLine *)::$_0,std::allocator<md::LabelManager::setRouteLine(VKRouteLine *)::$_0>,void ()(void)>::~__func(uint64_t a1)
+{
+  *a1 = &unk_1F2A12080;
+  *(a1 + 16) = &unk_1F2A45FC0;
+
+  JUMPOUT(0x1B8C62190);
+}
+
+uint64_t std::__function::__func<md::LabelManager::setRouteLine(VKRouteLine *)::$_0,std::allocator<md::LabelManager::setRouteLine(VKRouteLine *)::$_0>,void ()(void)>::~__func(uint64_t a1)
+{
+  *a1 = &unk_1F2A12080;
+  *(a1 + 16) = &unk_1F2A45FC0;
+
+  return a1;
+}
+
+__n128 std::__function::__func<md::LabelManager::setIsNavCameraDetached(BOOL)::$_0,std::allocator<md::LabelManager::setIsNavCameraDetached(BOOL)::$_0>,void ()(void)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F2A12110;
+  result = *(a1 + 8);
+  *(a2 + 8) = result;
+  *(a2 + 20) = 0;
+  *(a2 + 17) = 0;
+  return result;
+}
+
+void std::__function::__func<md::LabelManager::setSceneManager(std::shared_ptr<gss::StylesheetManager<gss::ScenePropertyID>> const&)::$_0,std::allocator<md::LabelManager::setSceneManager(std::shared_ptr<gss::StylesheetManager<gss::ScenePropertyID>> const&)::$_0>,void ()(void)>::destroy(uint64_t a1)
+{
+  v1 = *(a1 + 24);
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v1);
+  }
+}
+
+uint64_t std::__function::__func<md::LabelManager::setSceneManager(std::shared_ptr<gss::StylesheetManager<gss::ScenePropertyID>> const&)::$_0,std::allocator<md::LabelManager::setSceneManager(std::shared_ptr<gss::StylesheetManager<gss::ScenePropertyID>> const&)::$_0>,void ()(void)>::__clone(uint64_t result, uint64_t a2)
+{
+  *a2 = &unk_1F2A12158;
+  *(a2 + 8) = *(result + 8);
+  v2 = *(result + 24);
+  *(a2 + 24) = v2;
+  if (v2)
+  {
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  return result;
+}
+
+void std::__function::__func<md::LabelManager::setSceneManager(std::shared_ptr<gss::StylesheetManager<gss::ScenePropertyID>> const&)::$_0,std::allocator<md::LabelManager::setSceneManager(std::shared_ptr<gss::StylesheetManager<gss::ScenePropertyID>> const&)::$_0>,void ()(void)>::~__func(void *a1)
+{
+  *a1 = &unk_1F2A12158;
+  v1 = a1[3];
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v1);
+  }
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *std::__function::__func<md::LabelManager::setSceneManager(std::shared_ptr<gss::StylesheetManager<gss::ScenePropertyID>> const&)::$_0,std::allocator<md::LabelManager::setSceneManager(std::shared_ptr<gss::StylesheetManager<gss::ScenePropertyID>> const&)::$_0>,void ()(void)>::~__func(void *a1)
+{
+  *a1 = &unk_1F2A12158;
+  v2 = a1[3];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v2);
+  }
+
+  return a1;
+}
+
+void *std::__function::__func<md::LabelManager::setARWalkingFeatures(VKARWalkingFeatureSet *)::$_0,std::allocator<md::LabelManager::setARWalkingFeatures(VKARWalkingFeatureSet *)::$_0>,void ()(void)>::__clone(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F2A121A0;
+  a2[1] = v2;
+  return geo::_retain_ptr<VKARWalkingFeatureSet * {__strong},geo::_retain_objc_arc,geo::_release_objc_arc,geo::_hash_objc,geo::_equal_objc>::_retain_ptr(a2 + 2, a1 + 16);
+}
+
+void std::__function::__func<md::LabelManager::setARWalkingFeatures(VKARWalkingFeatureSet *)::$_0,std::allocator<md::LabelManager::setARWalkingFeatures(VKARWalkingFeatureSet *)::$_0>,void ()(void)>::~__func(uint64_t a1)
+{
+  *a1 = &unk_1F2A121A0;
+  *(a1 + 16) = &unk_1F2A3ED40;
+
+  JUMPOUT(0x1B8C62190);
+}
+
+uint64_t std::__function::__func<md::LabelManager::setARWalkingFeatures(VKARWalkingFeatureSet *)::$_0,std::allocator<md::LabelManager::setARWalkingFeatures(VKARWalkingFeatureSet *)::$_0>,void ()(void)>::~__func(uint64_t a1)
+{
+  *a1 = &unk_1F2A121A0;
+  *(a1 + 16) = &unk_1F2A3ED40;
+
+  return a1;
+}
+
+void std::__function::__func<md::LabelManager::setHiddenTrafficIncidentFeatures(NSArray<VKTrafficIncidentFeature *> *)::$_0,std::allocator<md::LabelManager::setHiddenTrafficIncidentFeatures(NSArray<VKTrafficIncidentFeature *> *)::$_0>,void ()(void)>::destroy_deallocate(uint64_t a1)
+{
+  *(a1 + 16) = &unk_1F2A436C8;
+
+  operator delete(a1);
+}
+
+void *std::__function::__func<md::LabelManager::setHiddenTrafficIncidentFeatures(NSArray<VKTrafficIncidentFeature *> *)::$_0,std::allocator<md::LabelManager::setHiddenTrafficIncidentFeatures(NSArray<VKTrafficIncidentFeature *> *)::$_0>,void ()(void)>::__clone(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F2A121E8;
+  a2[1] = v2;
+  return geo::_retain_ptr<NSArray * {__strong},geo::_retain_objc_arc,geo::_release_objc_arc,geo::_hash_objc,geo::_equal_objc>::_retain_ptr(a2 + 2, a1 + 16);
+}
+
+void std::__function::__func<md::LabelManager::setHiddenTrafficIncidentFeatures(NSArray<VKTrafficIncidentFeature *> *)::$_0,std::allocator<md::LabelManager::setHiddenTrafficIncidentFeatures(NSArray<VKTrafficIncidentFeature *> *)::$_0>,void ()(void)>::~__func(uint64_t a1)
+{
+  *a1 = &unk_1F2A121E8;
+  *(a1 + 16) = &unk_1F2A436C8;
+
+  JUMPOUT(0x1B8C62190);
+}
+
+uint64_t std::__function::__func<md::LabelManager::setHiddenTrafficIncidentFeatures(NSArray<VKTrafficIncidentFeature *> *)::$_0,std::allocator<md::LabelManager::setHiddenTrafficIncidentFeatures(NSArray<VKTrafficIncidentFeature *> *)::$_0>,void ()(void)>::~__func(uint64_t a1)
+{
+  *a1 = &unk_1F2A121E8;
+  *(a1 + 16) = &unk_1F2A436C8;
+
+  return a1;
+}
+
+void *std::__function::__func<md::LabelManager::setExternalTrafficFeatures(NSArray *,BOOL)::$_0,std::allocator<md::LabelManager::setExternalTrafficFeatures(NSArray *,BOOL)::$_0>,void ()(void)>::__clone(uint64_t a1, uint64_t a2)
+{
+  v4 = *(a1 + 8);
+  *a2 = &unk_1F2A12230;
+  *(a2 + 8) = v4;
+  result = geo::_retain_ptr<NSArray * {__strong},geo::_retain_objc_arc,geo::_release_objc_arc,geo::_hash_objc,geo::_equal_objc>::_retain_ptr((a2 + 16), a1 + 16);
+  *(a2 + 40) = *(a1 + 40);
+  *(a2 + 41) = 0;
+  *(a2 + 44) = 0;
+  return result;
+}
+
+void std::__function::__func<md::LabelManager::setExternalTrafficFeatures(NSArray *,BOOL)::$_0,std::allocator<md::LabelManager::setExternalTrafficFeatures(NSArray *,BOOL)::$_0>,void ()(void)>::~__func(uint64_t a1)
+{
+  *a1 = &unk_1F2A12230;
+  *(a1 + 16) = &unk_1F2A436C8;
+
+  JUMPOUT(0x1B8C62190);
+}
+
+uint64_t std::__function::__func<md::LabelManager::setExternalTrafficFeatures(NSArray *,BOOL)::$_0,std::allocator<md::LabelManager::setExternalTrafficFeatures(NSArray *,BOOL)::$_0>,void ()(void)>::~__func(uint64_t a1)
+{
+  *a1 = &unk_1F2A12230;
+  *(a1 + 16) = &unk_1F2A436C8;
+
+  return a1;
+}
+
+void *std::__function::__func<md::LabelManager::setCurrentLocationText(NSString *)::$_0,std::allocator<md::LabelManager::setCurrentLocationText(NSString *)::$_0>,void ()(void)>::__clone(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F2A122C0;
+  a2[1] = v2;
+  return geo::_retain_ptr<NSString * {__strong},geo::_retain_objc_arc,geo::_release_objc_arc,geo::_hash_objc,geo::_equal_objc>::_retain_ptr(a2 + 2, a1 + 16);
+}
+
+void std::__function::__func<md::LabelManager::setCurrentLocationText(NSString *)::$_0,std::allocator<md::LabelManager::setCurrentLocationText(NSString *)::$_0>,void ()(void)>::~__func(uint64_t a1)
+{
+  *a1 = &unk_1F2A122C0;
+  *(a1 + 16) = &unk_1F2A3D108;
+
+  JUMPOUT(0x1B8C62190);
+}
+
+uint64_t std::__function::__func<md::LabelManager::setCurrentLocationText(NSString *)::$_0,std::allocator<md::LabelManager::setCurrentLocationText(NSString *)::$_0>,void ()(void)>::~__func(uint64_t a1)
+{
+  *a1 = &unk_1F2A122C0;
+  *(a1 + 16) = &unk_1F2A3D108;
+
+  return a1;
+}
+
+void *std::__function::__func<md::LabelManager::setFocusedPolyline(VKPolylineOverlay *)::$_0,std::allocator<md::LabelManager::setFocusedPolyline(VKPolylineOverlay *)::$_0>,void ()(void)>::__clone(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F2A12308;
+  a2[1] = v2;
+  return geo::_retain_ptr<VKPolylineOverlay * {__strong},geo::_retain_objc_arc,geo::_release_objc_arc,geo::_hash_objc,geo::_equal_objc>::_retain_ptr(a2 + 2, a1 + 16);
+}
+
+void std::__function::__func<md::LabelManager::setFocusedPolyline(VKPolylineOverlay *)::$_0,std::allocator<md::LabelManager::setFocusedPolyline(VKPolylineOverlay *)::$_0>,void ()(void)>::~__func(uint64_t a1)
+{
+  *a1 = &unk_1F2A12308;
+  *(a1 + 16) = &unk_1F2A4BA98;
+
+  JUMPOUT(0x1B8C62190);
+}
+
+uint64_t std::__function::__func<md::LabelManager::setFocusedPolyline(VKPolylineOverlay *)::$_0,std::allocator<md::LabelManager::setFocusedPolyline(VKPolylineOverlay *)::$_0>,void ()(void)>::~__func(uint64_t a1)
+{
+  *a1 = &unk_1F2A12308;
+  *(a1 + 16) = &unk_1F2A4BA98;
+
+  return a1;
+}
+
+void geo::_retain_ptr<VKClientLocalizedStrings * {__strong},geo::_retain_objc_arc,geo::_release_objc_arc,geo::_hash_objc,geo::_equal_objc>::~_retain_ptr(uint64_t a1)
+{
+  *a1 = &unk_1F2A3D128;
+
+  JUMPOUT(0x1B8C62190);
+}
+
+uint64_t geo::_retain_ptr<VKClientLocalizedStrings * {__strong},geo::_retain_objc_arc,geo::_release_objc_arc,geo::_hash_objc,geo::_equal_objc>::~_retain_ptr(uint64_t a1)
+{
+  *a1 = &unk_1F2A3D128;
+
+  return a1;
+}
+
+void *std::__function::__func<md::LabelManager::setClientLocalizedStrings(VKClientLocalizedStrings *)::$_0,std::allocator<md::LabelManager::setClientLocalizedStrings(VKClientLocalizedStrings *)::$_0>,void ()(void)>::__clone(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F2A12398;
+  a2[1] = v2;
+  return geo::_retain_ptr<VKClientLocalizedStrings * {__strong},geo::_retain_objc_arc,geo::_release_objc_arc,geo::_hash_objc,geo::_equal_objc>::_retain_ptr(a2 + 2, a1 + 16);
+}
+
+void std::__function::__func<md::LabelManager::setClientLocalizedStrings(VKClientLocalizedStrings *)::$_0,std::allocator<md::LabelManager::setClientLocalizedStrings(VKClientLocalizedStrings *)::$_0>,void ()(void)>::~__func(uint64_t a1)
+{
+  *a1 = &unk_1F2A12398;
+  *(a1 + 16) = &unk_1F2A3D128;
+
+  JUMPOUT(0x1B8C62190);
+}
+
+uint64_t std::__function::__func<md::LabelManager::setClientLocalizedStrings(VKClientLocalizedStrings *)::$_0,std::allocator<md::LabelManager::setClientLocalizedStrings(VKClientLocalizedStrings *)::$_0>,void ()(void)>::~__func(uint64_t a1)
+{
+  *a1 = &unk_1F2A12398;
+  *(a1 + 16) = &unk_1F2A3D128;
+
+  return a1;
+}
+
+void md::typeToIntMap(md *this)
+{
+  v1[130] = *MEMORY[0x1E69E9840];
+  {
+    {
+      v1[0] = gdc::typeIndex<ggl::ConstantDataTyped<ggl::Tile::PositionScaleInfo>>();
+      v1[1] = -4294967285;
+      v1[2] = gdc::typeIndex<ggl::DeviceDataTyped<ggl::DaVinci::InstanceTransform>>();
+      v1[3] = 0xFFFFFFFF00000004;
+      v1[4] = gdc::typeIndex<ggl::ConstantDataTyped<ggl::Tile::View>>();
+      v1[5] = 0xFFFFFFFF00000001;
+      v1[6] = gdc::typeIndex<ggl::ConstantDataTyped<ggl::DaVinci::RasterOverlay>>();
+      v1[7] = 0x12FFFFFFFFLL;
+      v1[8] = gdc::typeIndex<ggl::ConstantDataTyped<ggl::Blending::SRGBBlendStyle>>();
+      v1[9] = 0x13FFFFFFFFLL;
+      v1[10] = gdc::typeIndex<ggl::ConstantDataTyped<ggl::Tile::Transform>>();
+      v1[11] = 0xFFFFFFFF00000002;
+      v1[12] = gdc::typeIndex<ggl::ConstantDataTyped<ggl::DaVinci::Shadow>>();
+      v1[13] = 0xFFFFFFFF00000003;
+      v1[14] = gdc::typeIndex<ggl::ConstantDataTyped<ggl::Lighting::LightConfigurationVertex>>();
+      v1[15] = 0x500000005;
+      v1[16] = gdc::typeIndex<ggl::ConstantDataTyped<ggl::DaVinci::PlanarParameters>>();
+      v1[17] = -4294967290;
+      v1[18] = gdc::typeIndex<ggl::ConstantDataTyped<ggl::DaVinci::Style>>();
+      v1[19] = 0x700000007;
+      v1[20] = gdc::typeIndex<ggl::ConstantDataTyped<ggl::DaVinci::StyleSunMatrix>>();
+      v1[21] = 0xFFFFFFFF00000008;
+      v1[22] = gdc::typeIndex<ggl::ConstantDataTyped<ggl::DaVinci::StyleTransitionToFlat>>();
+      v1[23] = -4294967287;
+      v1[24] = gdc::typeIndex<ggl::ConstantDataTyped<ggl::DaVinci::GroundAtmosphere>>();
+      v1[25] = -4294967286;
+      v1[26] = gdc::typeIndex<ggl::ConstantDataTyped<ggl::DaVinci::StyleCameraLighting>>();
+      v1[27] = 0xC0000000CLL;
+      v1[28] = gdc::typeIndex<ggl::ConstantDataTyped<ggl::Tile::LinearDepth>>();
+      v1[29] = 0xD0000000DLL;
+      v1[30] = gdc::typeIndex<ggl::DeviceDataTyped<ggl::DaVinci::Normals>>();
+      v1[31] = -4294967282;
+      v1[32] = gdc::typeIndex<ggl::DeviceDataTyped<ggl::DaVinci::UVs>>();
+      v1[33] = 0xFFFFFFFF0000000FLL;
+      v1[34] = gdc::typeIndex<ggl::DeviceDataTyped<ggl::DaVinci::Elevations>>();
+      v1[35] = 0xFFFFFFFF00000010;
+      v1[36] = gdc::typeIndex<ggl::ConstantDataTyped<ggl::Tile::Clipping>>();
+      v1[37] = -4294967279;
+      v1[38] = gdc::typeIndex<ggl::ConstantDataTyped<ggl::DaVinci::RibbonStyle>>();
+      v1[39] = -4294967278;
+      v1[40] = gdc::typeIndex<ggl::ConstantDataTyped<ggl::DaVinciTraffic::Style>>();
+      v1[41] = -4294967277;
+      v1[42] = gdc::typeIndex<ggl::ConstantDataTyped<ggl::DaVinci::ClippedStroke>>();
+      v1[43] = -4294967276;
+      v1[44] = gdc::typeIndex<ggl::ConstantDataTyped<ggl::Lighting::LightSpecularConfiguration>>();
+      v1[45] = 0xFFFFFFFFLL;
+      v1[46] = gdc::typeIndex<ggl::ConstantDataTyped<ggl::Lighting::StylizedShadingSettings>>();
+      v1[47] = 0x1AFFFFFFFFLL;
+      v1[48] = gdc::typeIndex<ggl::ConstantDataTyped<ggl::DaVinci::RenderTargetSize>>();
+      v1[49] = 0x1FFFFFFFFLL;
+      v1[50] = gdc::typeIndex<ggl::ConstantDataTyped<ggl::DaVinci::LightingDebugOptions>>();
+      v1[51] = 0x2FFFFFFFFLL;
+      v1[52] = gdc::typeIndex<ggl::ConstantDataTyped<ggl::DaVinci::ColorCorrectionFactor>>();
+      v1[53] = 0x3FFFFFFFFLL;
+      v1[54] = gdc::typeIndex<ggl::ConstantDataTyped<ggl::DaVinci::ElevatedStroke>>();
+      v1[55] = 0x4FFFFFFFFLL;
+      v1[56] = gdc::typeIndex<ggl::ConstantDataTyped<ggl::DaVinci::LandCoverSettings>>();
+      v1[57] = 0x6FFFFFFFFLL;
+      v1[58] = gdc::typeIndex<ggl::ConstantDataTyped<ggl::DaVinci::StyleShadow>>();
+      v1[59] = 0x8FFFFFFFFLL;
+      v1[60] = gdc::typeIndex<ggl::ConstantDataTyped<ggl::DaVinci::StyleEmissiveColor>>();
+      v1[61] = 0x9FFFFFFFFLL;
+      v1[62] = gdc::typeIndex<ggl::ConstantDataTyped<ggl::DaVinci::StyleGroundOcclusion>>();
+      v1[63] = 0xBFFFFFFFFLL;
+      v1[64] = gdc::typeIndex<ggl::ConstantDataTyped<ggl::DaVinci::MaterialStyle>>();
+      v1[65] = 0xDFFFFFFFFLL;
+      v1[66] = gdc::typeIndex<ggl::ConstantDataTyped<ggl::DaVinci::StyleBlend>>();
+      v1[67] = 0x10FFFFFFFFLL;
+      v1[68] = gdc::typeIndex<ggl::ConstantDataTyped<ggl::DaVinci::RasterOverlay>>();
+      v1[69] = 0x12FFFFFFFFLL;
+      v1[70] = gdc::typeIndex<ggl::ConstantDataTyped<ggl::Blending::SRGBBlendStyle>>();
+      v1[71] = 0x13FFFFFFFFLL;
+      v1[72] = gdc::typeIndex<ggl::ConstantDataTyped<ggl::DaVinci::StyleSSAO>>();
+      v1[73] = 0x14FFFFFFFFLL;
+      v1[74] = gdc::typeIndex<ggl::ConstantDataTyped<ggl::DaVinci::StyleColor>>();
+      v1[75] = 0x15FFFFFFFFLL;
+      v1[76] = gdc::typeIndex<ggl::ConstantDataTyped<ggl::DaVinci::StyleRouteLineMask>>();
+      v1[77] = 0x16FFFFFFFFLL;
+      v1[78] = gdc::typeIndex<ggl::ConstantDataTyped<ggl::DaVinci::ElevatedFillStyle>>();
+      v1[79] = 0x19FFFFFFFFLL;
+      v1[80] = gdc::typeIndex<ggl::ConstantDataTyped<ggl::DaVinci::GradientParameters>>();
+      v1[81] = 0xEFFFFFFFFLL;
+      v1[82] = gdc::typeIndex<DaVinci::AmbientTexture>();
+      v1[83] = 0;
+      v1[84] = gdc::typeIndex<DaVinci::ShadowTexture>();
+      v1[85] = 0x1FFFFFFFFLL;
+      v1[86] = gdc::typeIndex<DaVinci::TexTexture>();
+      v1[87] = 0x2FFFFFFFFLL;
+      v1[88] = gdc::typeIndex<DaVinci::OcclusionTexture>();
+      v1[89] = 0x3FFFFFFFFLL;
+      v1[90] = gdc::typeIndex<DaVinci::RouteMaskTexture>();
+      v1[91] = 0x4FFFFFFFFLL;
+      v1[92] = gdc::typeIndex<DaVinci::EmissiveTexture>();
+      v1[93] = 0x5FFFFFFFFLL;
+      v1[94] = gdc::typeIndex<DaVinci::OverlayTexture>();
+      v1[95] = 0x6FFFFFFFFLL;
+      v1[96] = gdc::typeIndex<DaVinci::StyleIndexTexture>();
+      v1[97] = 0x7FFFFFFFFLL;
+      v1[98] = gdc::typeIndex<DaVinci::StyleTexture>();
+      v1[99] = 0x8FFFFFFFFLL;
+      v1[100] = gdc::typeIndex<DaVinci::AridityTexture>();
+      v1[101] = 0x9FFFFFFFFLL;
+      v1[102] = gdc::typeIndex<DaVinci::TemperatureTexture>();
+      v1[103] = 0xAFFFFFFFFLL;
+      v1[104] = gdc::typeIndex<DaVinci::Gradient1Texture>();
+      v1[105] = 0xBFFFFFFFFLL;
+      v1[106] = gdc::typeIndex<DaVinci::Gradient2Texture>();
+      v1[107] = 0xCFFFFFFFFLL;
+      v1[108] = gdc::typeIndex<DaVinci::DiffuseTexture>();
+      v1[109] = 0xDFFFFFFFFLL;
+      v1[110] = gdc::typeIndex<DaVinci::AlphaTexture>();
+      v1[111] = 0xEFFFFFFFFLL;
+      v1[112] = gdc::typeIndex<ggl::ConstantDataTyped<ggl::FlyoverCommon::Transform>>();
+      v1[113] = 0xFFFFFFFF00000002;
+      v1[114] = gdc::typeIndex<ggl::ConstantDataTyped<ggl::FlyoverCommon::S2Transform>>();
+      v1[115] = -4294967290;
+      v1[116] = gdc::typeIndex<ggl::ConstantDataTyped<ggl::FlyoverCommon::Clip>>();
+      v1[117] = 0xFFFFFFFF00000003;
+      v1[118] = gdc::typeIndex<ggl::ConstantDataTyped<ggl::FlyoverCommon::Texcoords>>();
+      v1[119] = -4294967291;
+      v1[120] = gdc::typeIndex<ggl::ConstantDataTyped<ggl::FlyoverCommon::Shared>>();
+      v1[121] = 1;
+      v1[122] = gdc::typeIndex<ggl::ConstantDataTyped<ggl::FlyoverCommon::Material>>();
+      v1[123] = 0x100000004;
+      v1[124] = gdc::typeIndex<Flyover::AtmosphereTexture>();
+      v1[125] = 0xFFFFFFFF00000000;
+      v1[126] = gdc::typeIndex<Flyover::DiffuseTexture>();
+      v1[127] = 0x1FFFFFFFFLL;
+      v1[128] = gdc::typeIndex<Flyover::NightTexture>();
+      v1[129] = 0x2FFFFFFFFLL;
+      std::unordered_map<unsigned long,std::pair<int,int>>::unordered_map(md::typeToIntMap(void)::typeToIntMap, v1, 65);
+    }
+  }
+}
+
+uint64_t *std::unordered_map<unsigned long,std::pair<int,int>>::unordered_map(uint64_t *a1, unint64_t *a2, uint64_t a3)
+{
+  *a1 = 0u;
+  *(a1 + 1) = 0u;
+  *(a1 + 8) = 1065353216;
+  if (a3)
+  {
+    for (i = a2; i != &a2[2 * a3]; i += 2)
+    {
+      v4 = *i;
+      v5 = a1[1];
+      if (!*&v5)
+      {
+        goto LABEL_19;
+      }
+
+      v6 = vcnt_s8(v5);
+      v6.i16[0] = vaddlv_u8(v6);
+      if (v6.u32[0] > 1uLL)
+      {
+        v7 = *i;
+        if (v4 >= *&v5)
+        {
+          v7 = v4 % *&v5;
+        }
+      }
+
+      else
+      {
+        v7 = (*&v5 - 1) & v4;
+      }
+
+      v8 = *(*a1 + 8 * v7);
+      if (!v8 || (v9 = *v8) == 0)
+      {
+LABEL_19:
+        operator new();
+      }
+
+      while (1)
+      {
+        v10 = v9[1];
+        if (v10 == v4)
+        {
+          break;
+        }
+
+        if (v6.u32[0] > 1uLL)
+        {
+          if (v10 >= *&v5)
+          {
+            v10 %= *&v5;
+          }
+        }
+
+        else
+        {
+          v10 &= *&v5 - 1;
+        }
+
+        if (v10 != v7)
+        {
+          goto LABEL_19;
+        }
+
+LABEL_18:
+        v9 = *v9;
+        if (!v9)
+        {
+          goto LABEL_19;
+        }
+      }
+
+      if (v9[2] != v4)
+      {
+        goto LABEL_18;
+      }
+    }
+  }
+
+  return a1;
+}
+
+void *ggl::PipelineSetup::setResetFlag(void *result, unint64_t a2, char a3, int a4)
+{
+  if (a3)
+  {
+    if (a3 == 1)
+    {
+      v4 = result[4];
+    }
+
+    else
+    {
+      if (a3 != 2)
+      {
+        return result;
+      }
+
+      v4 = result[10];
+    }
+  }
+
+  else
+  {
+    v4 = result[7];
+  }
+
+  v5 = a2 >> 6;
+  v6 = 1 << a2;
+  if (a4)
+  {
+    v7 = *(v4 + 8 * v5) | v6;
+  }
+
+  else
+  {
+    v7 = *(v4 + 8 * v5) & ~v6;
+  }
+
+  *(v4 + 8 * v5) = v7;
+  return result;
+}
+
+void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls13PipelineSetupEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESC_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISK_EEFvSJ_EEclEOSJ_(uint64_t a1, unsigned int *a2)
+{
+  v2 = *a2;
+  v3 = *(a1 + 8);
+  {
+    ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PipelineSetup>(void)::metadata = gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls::PipelineSetup>();
+    *algn_1EB83D948 = 0x9C4E7BCF9B8D6334;
+    qword_1EB83D950 = "md::ls::PipelineSetup]";
+    qword_1EB83D958 = 21;
+  }
+
+  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PipelineSetup>(void)::metadata;
+  v5 = ecs2::BasicRegistry<void>::storage<md::ls::PipelineSetup>(v3);
+  v6 = v2 >> 22;
+  v7 = v5[1];
+  if (v2 >> 22 < (v5[2] - v7) >> 3)
+  {
+    v8 = *(v7 + 8 * v6);
+    if (v8)
+    {
+      v9 = (v2 >> 16) & 0x3F;
+      if (*(v8 + 4 * v9) == v2)
+      {
+        v10 = v5;
+        v12 = v5[31];
+        v11 = v5[32];
+        if (v12 != v11)
+        {
+          do
+          {
+            std::function<void ()(ecs2::Entity)>::operator()(*(v12 + 24), v2);
+            v12 += 32;
+          }
+
+          while (v12 != v11);
+          v8 = *(v10[1] + 8 * v6);
+        }
+
+        v13 = *(v8 + 4 * v9 + 2);
+        v14 = ((v10[5] - v10[4]) >> 2) - 1;
+        v15 = v14 & 0x3F;
+        v16 = v10[7];
+        v17 = *(v16 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8));
+        v18 = v13 & 0x3F;
+        v19 = *(v16 + ((v13 >> 3) & 0x1FF8));
+        v20 = *(v19 + 8 * v18);
+        *(v19 + 8 * v18) = *(v17 + 8 * v15);
+        *(v17 + 8 * v15) = v20;
+        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
+      }
+    }
+  }
+
+  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
+  {
+    ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PipelineSetup>(void)::metadata = gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls::PipelineSetup>();
+    *algn_1EB83D948 = 0x9C4E7BCF9B8D6334;
+    qword_1EB83D950 = "md::ls::PipelineSetup]";
+    qword_1EB83D958 = 21;
+  }
+
+  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PipelineSetup>(void)::metadata) = *(v3 + 4096);
+}
+
+void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::PipelineSetup,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A1AA30;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+  ecs2::storage<ecs2::Entity,md::ls::PipelineSetup,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::storage<ecs2::Entity,md::ls::PipelineSetup,64ul>::~storage(void *a1)
+{
+  *a1 = &unk_1F2A1AA50;
+    ;
+  }
+
+  v3 = a1[7];
+  v4 = a1[8];
+  while (v3 != v4)
+  {
+    if (*v3)
+    {
+      operator delete(*v3);
+    }
+
+    ++v3;
+  }
+
+  v5 = a1[10];
+  if (v5)
+  {
+    a1[11] = v5;
+    operator delete(v5);
+  }
+
+  v6 = a1[7];
+  if (v6)
+  {
+    a1[8] = v6;
+    operator delete(v6);
+  }
+
+  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+}
+
+void ecs2::storage<ecs2::Entity,md::ls::PipelineSetup,64ul>::~storage(void *a1)
+{
+  ecs2::storage<ecs2::Entity,md::ls::PipelineSetup,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::PipelineSetup,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A1AA30;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+
+  return ecs2::storage<ecs2::Entity,md::ls::PipelineSetup,64ul>::~storage(a1);
+}
+
+void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls14DataIDSetToUseEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESC_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISK_EEFvSJ_EEclEOSJ_(uint64_t a1, unsigned int *a2)
+{
+  v2 = *a2;
+  v3 = *(a1 + 8);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::DataIDSetToUse>();
+  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::DataIDSetToUse>(void)::metadata;
+  v5 = ecs2::BasicRegistry<void>::storage<md::ls::DataIDSetToUse>(v3);
+  v6 = v2 >> 22;
+  v7 = v5[1];
+  if (v2 >> 22 < (v5[2] - v7) >> 3)
+  {
+    v8 = *(v7 + 8 * v6);
+    if (v8)
+    {
+      v9 = (v2 >> 16) & 0x3F;
+      if (*(v8 + 4 * v9) == v2)
+      {
+        v10 = v5;
+        v11 = v5[31];
+        v12 = v5[32];
+        if (v11 != v12)
+        {
+          do
+          {
+            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
+            v11 += 32;
+          }
+
+          while (v11 != v12);
+          v8 = *(v10[1] + 8 * v6);
+        }
+
+        v13 = *(v8 + 4 * v9 + 2);
+        v14 = ((v10[5] - v10[4]) >> 2) - 1;
+        v15 = v14 & 0x3F;
+        v16 = v10[7];
+        v17 = *(v16 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8));
+        v18 = v13 & 0x3F;
+        v19 = *(v16 + ((v13 >> 3) & 0x1FF8));
+        v20 = *(v19 + 8 * v18);
+        *(v19 + 8 * v18) = *(v17 + 8 * v15);
+        *(v17 + 8 * v15) = v20;
+        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
+      }
+    }
+  }
+
+  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::DataIDSetToUse>();
+  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::DataIDSetToUse>(void)::metadata) = *(v3 + 4096);
+}
+
+void ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::DataIDSetToUse>()
+{
+  {
+    ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::DataIDSetToUse>(void)::metadata = gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls::DataIDSetToUse>();
+    *algn_1EB83D888 = 0xB3837544666C5A60;
+    qword_1EB83D890 = "md::ls::DataIDSetToUse]";
+    qword_1EB83D898 = 22;
+  }
+}
+
+void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::DataIDSetToUse,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A17700;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+  ecs2::storage<ecs2::Entity,md::ls::DataIDSetToUse,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::storage<ecs2::Entity,md::ls::DataIDSetToUse,64ul>::~storage(void *a1)
+{
+  *a1 = &unk_1F2A17720;
+    ;
+  }
+
+  v3 = a1[7];
+  v4 = a1[8];
+  while (v3 != v4)
+  {
+    if (*v3)
+    {
+      operator delete(*v3);
+    }
+
+    ++v3;
+  }
+
+  v5 = a1[10];
+  if (v5)
+  {
+    a1[11] = v5;
+    operator delete(v5);
+  }
+
+  v6 = a1[7];
+  if (v6)
+  {
+    a1[8] = v6;
+    operator delete(v6);
+  }
+
+  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+}
+
+void ecs2::storage<ecs2::Entity,md::ls::DataIDSetToUse,64ul>::~storage(void *a1)
+{
+  ecs2::storage<ecs2::Entity,md::ls::DataIDSetToUse,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::DataIDSetToUse,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A17700;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+
+  return ecs2::storage<ecs2::Entity,md::ls::DataIDSetToUse,64ul>::~storage(a1);
+}
+
+void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls28NeedsFunctionConstantsUpdateEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESC_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISK_EEFvSJ_EEclEOSJ_(uint64_t a1, unsigned int *a2)
+{
+  v2 = *a2;
+  v3 = *(a1 + 8);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::NeedsFunctionConstantsUpdate>();
+  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::NeedsFunctionConstantsUpdate>(void)::metadata;
+  v5 = ecs2::BasicRegistry<void>::storage<md::ls::NeedsFunctionConstantsUpdate>(v3);
+  v6 = v5[1];
+  if (v2 >> 22 < (v5[2] - v6) >> 3)
+  {
+    v7 = *(v6 + 8 * (v2 >> 22));
+    if (v7)
+    {
+      if (*(v7 + 4 * ((v2 >> 16) & 0x3F)) == v2)
+      {
+        v8 = v5;
+        v9 = v5[25];
+        v10 = v5[26];
+        while (v9 != v10)
+        {
+          std::function<void ()(ecs2::Entity)>::operator()(*(v9 + 24), v2);
+          v9 += 32;
+        }
+
+        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v8, v2, WORD1(v2));
+      }
+    }
+  }
+
+  v11 = *(v3 + 41016) + (v2 >> 16 << 6);
+  *(v11 + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::NeedsFunctionConstantsUpdate>();
+  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::NeedsFunctionConstantsUpdate>(void)::metadata) = *(v3 + 4096);
+}
+
+void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::NeedsFunctionConstantsUpdate,0ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A199A0;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 7));
+  ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::NeedsFunctionConstantsUpdate,0ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A199A0;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 7));
+
+  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+}
+
+void std::__function::__func<ecs2::AddComponent::AddComponent<md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Material>>>(ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Material>> &&)::{lambda(ecs2::BasicRegistry<void> &)#1},std::allocator<ecs2::BasicRegistry<void> &>,void ()(ecs2::BasicRegistry<void>)>::operator()(uint64_t a1, uint64_t a2)
+{
+  v4 = *(a1 + 20);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Material>>>();
+  v5 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Material>>>(void)::metadata;
+  v6 = ecs2::BasicRegistry<void>::storage<md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Material>>>(a2);
+  v7 = v6;
+  v8 = v4 >> 22;
+  v10 = (v6 + 8);
+  v9 = *(v6 + 8);
+  if (v4 >> 22 >= (*(v6 + 16) - v9) >> 3)
+  {
+    std::vector<ecs2::sparse_set<ecs2::Entity,64ul>::page *,std::allocator<ecs2::sparse_set<ecs2::Entity,64ul>::page *>>::resize((v6 + 8), v8 + 1);
+    v9 = *v10;
+  }
+
+  v11 = *(v9 + 8 * v8);
+  if (!v11)
+  {
+    operator new();
+  }
+
+  v12 = (v11 + 4 * ((v4 >> 16) & 0x3F));
+  v13 = v12[1];
+  if (*v12 != -1 || v13 != 0)
+  {
+    v56 = *(*(v7 + 56) + ((v13 >> 3) & 0x1FF8)) + 12 * (v13 & 0x3F);
+    v57 = *(a1 + 8);
+    *(v56 + 8) = *(a1 + 16);
+    *v56 = v57;
+    goto LABEL_54;
+  }
+
+  v16 = *(v7 + 40);
+  v15 = *(v7 + 48);
+  v59 = v5;
+  if (v16 >= v15)
+  {
+    v18 = *(v7 + 32);
+    v19 = (v16 - v18) >> 2;
+    if ((v19 + 1) >> 62)
+    {
+      std::__throw_bad_array_new_length[abi:nn200100]();
+    }
+
+    v20 = v15 - v18;
+    v21 = v20 >> 1;
+    if (v20 >> 1 <= (v19 + 1))
+    {
+      v21 = v19 + 1;
+    }
+
+    if (v20 >= 0x7FFFFFFFFFFFFFFCLL)
+    {
+      v22 = 0x3FFFFFFFFFFFFFFFLL;
+    }
+
+    else
+    {
+      v22 = v21;
+    }
+
+    if (v22)
+    {
+      std::__allocate_at_least[abi:nn200100]<std::allocator<unsigned int>>(v22);
+    }
+
+    *(4 * v19) = v4;
+    v17 = 4 * v19 + 4;
+    v23 = *(v7 + 32);
+    v24 = *(v7 + 40) - v23;
+    v25 = (4 * v19 - v24);
+    memcpy(v25, v23, v24);
+    v26 = *(v7 + 32);
+    *(v7 + 32) = v25;
+    *(v7 + 40) = v17;
+    *(v7 + 48) = 0;
+    if (v26)
+    {
+      operator delete(v26);
+    }
+  }
+
+  else
+  {
+    *v16 = v4;
+    v17 = (v16 + 1);
+  }
+
+  *(v7 + 40) = v17;
+  v27 = ((v17 - *(v7 + 32)) >> 2) - 1;
+  *v12 = v4;
+  v12[1] = v27;
+  v28 = v27 >> 6;
+  v30 = *(v7 + 56);
+  v29 = *(v7 + 64);
+  v31 = v29 - v30;
+  if (v27 >> 6 >= (v29 - v30) >> 3)
+  {
+    v58 = a2;
+    v32 = v28 + 1;
+    v33 = v28 + 1 - (v31 >> 3);
+    v34 = *(v7 + 72);
+    if (v33 > (v34 - v29) >> 3)
+    {
+      v35 = v34 - v30;
+      v36 = (v34 - v30) >> 2;
+      if (v36 <= v32)
+      {
+        v36 = v28 + 1;
+      }
+
+      if (v35 >= 0x7FFFFFFFFFFFFFF8)
+      {
+        v37 = 0x1FFFFFFFFFFFFFFFLL;
+      }
+
+      else
+      {
+        v37 = v36;
+      }
+
+      if (!(v37 >> 61))
+      {
+        operator new();
+      }
+
+      goto LABEL_56;
+    }
+
+    v38 = 0;
+    v39 = (v33 + 0x1FFFFFFFFFFFFFFFLL) & 0x1FFFFFFFFFFFFFFFLL;
+    v40 = vdupq_n_s64(v39);
+    do
+    {
+      v41 = vmovn_s64(vcgeq_u64(v40, vorrq_s8(vdupq_n_s64(v38), xmmword_1B33B0560)));
+      if (v41.i8[0])
+      {
+        *(v29 + 8 * v38) = 0;
+      }
+
+      if (v41.i8[4])
+      {
+        *(v29 + 8 * v38 + 8) = 0;
+      }
+
+      v38 += 2;
+    }
+
+    while (v39 - ((v33 + 0x1FFFFFFFFFFFFFFFLL) & 1) + 2 != v38);
+    *(v7 + 64) = v29 + 8 * v33;
+    v42 = *(v7 + 80);
+    v43 = *(v7 + 88);
+    v44 = (v43 - v42) >> 4;
+    if (v44 <= v28)
+    {
+      v46 = v32 - v44;
+      v47 = *(v7 + 96);
+      if (v46 > (v47 - v43) >> 4)
+      {
+        v48 = v47 - v42;
+        v49 = v48 >> 3;
+        if (v48 >> 3 <= v32)
+        {
+          v49 = v28 + 1;
+        }
+
+        if (v48 >= 0x7FFFFFFFFFFFFFF0)
+        {
+          v50 = 0xFFFFFFFFFFFFFFFLL;
+        }
+
+        else
+        {
+          v50 = v49;
+        }
+
+        if (!(v50 >> 60))
+        {
+          operator new();
+        }
+
+LABEL_56:
+        std::__throw_bad_array_new_length[abi:nn200100]();
+      }
+
+      bzero(*(v7 + 88), 16 * v46);
+      v45 = v43 + 16 * v46;
+    }
+
+    else
+    {
+      if (v32 >= v44)
+      {
+        goto LABEL_50;
+      }
+
+      v45 = v42 + 16 * v32;
+    }
+
+    *(v7 + 88) = v45;
+LABEL_50:
+    v30 = *(v7 + 56);
+    a2 = v58;
+    if (v31 < (*(v7 + 64) - v30))
+    {
+      operator new();
+    }
+  }
+
+  v51 = *(v30 + 8 * v28) + 12 * (v27 & 0x3F);
+  v5 = v59;
+  v52 = *(a1 + 8);
+  *(v51 + 8) = *(a1 + 16);
+  *v51 = v52;
+  v53 = *(v7 + 152);
+  for (i = *(v7 + 160); v53 != i; v53 += 32)
+  {
+    std::function<void ()(ecs2::Entity)>::operator()(*(v53 + 24), v4);
+  }
+
+LABEL_54:
+  v55 = *(a2 + 41016) + (v4 >> 16 << 6);
+  *(v55 + ((v5 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) |= 1 << v5;
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Material>>>();
+  *(a2 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Material>>>(void)::metadata) = *(a2 + 4096);
+}
+
+void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls28RequiresShaderConstantDataIDIN3ggl17ConstantDataTypedINS9_13FlyoverCommon8MaterialEEEEEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESI_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISQ_EEFvSP_EEclEOSP_(uint64_t a1, unsigned int *a2)
+{
+  v2 = *a2;
+  v3 = *(a1 + 8);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Material>>>();
+  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Material>>>(void)::metadata;
+  v5 = ecs2::BasicRegistry<void>::storage<md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Material>>>(v3);
+  v6 = v2 >> 22;
+  v7 = v5[1];
+  if (v2 >> 22 < (v5[2] - v7) >> 3)
+  {
+    v8 = *(v7 + 8 * v6);
+    if (v8)
+    {
+      v9 = (v2 >> 16) & 0x3F;
+      if (*(v8 + 4 * v9) == v2)
+      {
+        v10 = v5;
+        v11 = v5[31];
+        v12 = v5[32];
+        if (v11 != v12)
+        {
+          do
+          {
+            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
+            v11 += 32;
+          }
+
+          while (v11 != v12);
+          v8 = *(v10[1] + 8 * v6);
+        }
+
+        v13 = *(v8 + 4 * v9 + 2);
+        v14 = ((v10[5] - v10[4]) >> 2) - 1;
+        v15 = v10[7];
+        v16 = *(v15 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8)) + 12 * (v14 & 0x3F);
+        v17 = *(v15 + ((v13 >> 3) & 0x1FF8)) + 12 * (v13 & 0x3F);
+        v18 = *(v17 + 8);
+        v19 = *v17;
+        v20 = *(v16 + 8);
+        *v17 = *v16;
+        *(v17 + 8) = v20;
+        *v16 = v19;
+        *(v16 + 8) = v18;
+        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
+      }
+    }
+  }
+
+  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Material>>>();
+  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Material>>>(void)::metadata) = *(v3 + 4096);
+}
+
+void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Material>>,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A152E8;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+  ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Material>>,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Material>>,64ul>::~storage(void *a1)
+{
+  *a1 = &unk_1F2A15308;
+    ;
+  }
+
+  v3 = a1[7];
+  v4 = a1[8];
+  while (v3 != v4)
+  {
+    if (*v3)
+    {
+      operator delete(*v3);
+    }
+
+    ++v3;
+  }
+
+  v5 = a1[10];
+  if (v5)
+  {
+    a1[11] = v5;
+    operator delete(v5);
+  }
+
+  v6 = a1[7];
+  if (v6)
+  {
+    a1[8] = v6;
+    operator delete(v6);
+  }
+
+  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+}
+
+void ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Material>>,64ul>::~storage(void *a1)
+{
+  ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Material>>,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Material>>,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A152E8;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+
+  return ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Material>>,64ul>::~storage(a1);
+}
+
+__n128 std::__function::__func<ecs2::AddComponent::AddComponent<md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Material>>>(ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Material>> &&)::{lambda(ecs2::BasicRegistry<void> &)#1},std::allocator<ecs2::BasicRegistry<void> &>,void ()(ecs2::BasicRegistry<void>)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F2A152A0;
+  result = *(a1 + 8);
+  *(a2 + 8) = result;
+  return result;
+}
+
+void std::__function::__func<ecs2::AddComponent::AddComponent<md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Shared>>>(ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Shared>> &&)::{lambda(ecs2::BasicRegistry<void> &)#1},std::allocator<ecs2::BasicRegistry<void> &>,void ()(ecs2::BasicRegistry<void>)>::operator()(uint64_t a1, uint64_t a2)
+{
+  v4 = *(a1 + 20);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Shared>>>();
+  v5 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Shared>>>(void)::metadata;
+  v6 = ecs2::BasicRegistry<void>::storage<md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Shared>>>(a2);
+  v7 = v6;
+  v8 = v4 >> 22;
+  v10 = (v6 + 8);
+  v9 = *(v6 + 8);
+  if (v4 >> 22 >= (*(v6 + 16) - v9) >> 3)
+  {
+    std::vector<ecs2::sparse_set<ecs2::Entity,64ul>::page *,std::allocator<ecs2::sparse_set<ecs2::Entity,64ul>::page *>>::resize((v6 + 8), v8 + 1);
+    v9 = *v10;
+  }
+
+  v11 = *(v9 + 8 * v8);
+  if (!v11)
+  {
+    operator new();
+  }
+
+  v12 = (v11 + 4 * ((v4 >> 16) & 0x3F));
+  v13 = v12[1];
+  if (*v12 != -1 || v13 != 0)
+  {
+    v56 = *(*(v7 + 56) + ((v13 >> 3) & 0x1FF8)) + 12 * (v13 & 0x3F);
+    v57 = *(a1 + 8);
+    *(v56 + 8) = *(a1 + 16);
+    *v56 = v57;
+    goto LABEL_54;
+  }
+
+  v16 = *(v7 + 40);
+  v15 = *(v7 + 48);
+  v59 = v5;
+  if (v16 >= v15)
+  {
+    v18 = *(v7 + 32);
+    v19 = (v16 - v18) >> 2;
+    if ((v19 + 1) >> 62)
+    {
+      std::__throw_bad_array_new_length[abi:nn200100]();
+    }
+
+    v20 = v15 - v18;
+    v21 = v20 >> 1;
+    if (v20 >> 1 <= (v19 + 1))
+    {
+      v21 = v19 + 1;
+    }
+
+    if (v20 >= 0x7FFFFFFFFFFFFFFCLL)
+    {
+      v22 = 0x3FFFFFFFFFFFFFFFLL;
+    }
+
+    else
+    {
+      v22 = v21;
+    }
+
+    if (v22)
+    {
+      std::__allocate_at_least[abi:nn200100]<std::allocator<unsigned int>>(v22);
+    }
+
+    *(4 * v19) = v4;
+    v17 = 4 * v19 + 4;
+    v23 = *(v7 + 32);
+    v24 = *(v7 + 40) - v23;
+    v25 = (4 * v19 - v24);
+    memcpy(v25, v23, v24);
+    v26 = *(v7 + 32);
+    *(v7 + 32) = v25;
+    *(v7 + 40) = v17;
+    *(v7 + 48) = 0;
+    if (v26)
+    {
+      operator delete(v26);
+    }
+  }
+
+  else
+  {
+    *v16 = v4;
+    v17 = (v16 + 1);
+  }
+
+  *(v7 + 40) = v17;
+  v27 = ((v17 - *(v7 + 32)) >> 2) - 1;
+  *v12 = v4;
+  v12[1] = v27;
+  v28 = v27 >> 6;
+  v30 = *(v7 + 56);
+  v29 = *(v7 + 64);
+  v31 = v29 - v30;
+  if (v27 >> 6 >= (v29 - v30) >> 3)
+  {
+    v58 = a2;
+    v32 = v28 + 1;
+    v33 = v28 + 1 - (v31 >> 3);
+    v34 = *(v7 + 72);
+    if (v33 > (v34 - v29) >> 3)
+    {
+      v35 = v34 - v30;
+      v36 = (v34 - v30) >> 2;
+      if (v36 <= v32)
+      {
+        v36 = v28 + 1;
+      }
+
+      if (v35 >= 0x7FFFFFFFFFFFFFF8)
+      {
+        v37 = 0x1FFFFFFFFFFFFFFFLL;
+      }
+
+      else
+      {
+        v37 = v36;
+      }
+
+      if (!(v37 >> 61))
+      {
+        operator new();
+      }
+
+      goto LABEL_56;
+    }
+
+    v38 = 0;
+    v39 = (v33 + 0x1FFFFFFFFFFFFFFFLL) & 0x1FFFFFFFFFFFFFFFLL;
+    v40 = vdupq_n_s64(v39);
+    do
+    {
+      v41 = vmovn_s64(vcgeq_u64(v40, vorrq_s8(vdupq_n_s64(v38), xmmword_1B33B0560)));
+      if (v41.i8[0])
+      {
+        *(v29 + 8 * v38) = 0;
+      }
+
+      if (v41.i8[4])
+      {
+        *(v29 + 8 * v38 + 8) = 0;
+      }
+
+      v38 += 2;
+    }
+
+    while (v39 - ((v33 + 0x1FFFFFFFFFFFFFFFLL) & 1) + 2 != v38);
+    *(v7 + 64) = v29 + 8 * v33;
+    v42 = *(v7 + 80);
+    v43 = *(v7 + 88);
+    v44 = (v43 - v42) >> 4;
+    if (v44 <= v28)
+    {
+      v46 = v32 - v44;
+      v47 = *(v7 + 96);
+      if (v46 > (v47 - v43) >> 4)
+      {
+        v48 = v47 - v42;
+        v49 = v48 >> 3;
+        if (v48 >> 3 <= v32)
+        {
+          v49 = v28 + 1;
+        }
+
+        if (v48 >= 0x7FFFFFFFFFFFFFF0)
+        {
+          v50 = 0xFFFFFFFFFFFFFFFLL;
+        }
+
+        else
+        {
+          v50 = v49;
+        }
+
+        if (!(v50 >> 60))
+        {
+          operator new();
+        }
+
+LABEL_56:
+        std::__throw_bad_array_new_length[abi:nn200100]();
+      }
+
+      bzero(*(v7 + 88), 16 * v46);
+      v45 = v43 + 16 * v46;
+    }
+
+    else
+    {
+      if (v32 >= v44)
+      {
+        goto LABEL_50;
+      }
+
+      v45 = v42 + 16 * v32;
+    }
+
+    *(v7 + 88) = v45;
+LABEL_50:
+    v30 = *(v7 + 56);
+    a2 = v58;
+    if (v31 < (*(v7 + 64) - v30))
+    {
+      operator new();
+    }
+  }
+
+  v51 = *(v30 + 8 * v28) + 12 * (v27 & 0x3F);
+  v5 = v59;
+  v52 = *(a1 + 8);
+  *(v51 + 8) = *(a1 + 16);
+  *v51 = v52;
+  v53 = *(v7 + 152);
+  for (i = *(v7 + 160); v53 != i; v53 += 32)
+  {
+    std::function<void ()(ecs2::Entity)>::operator()(*(v53 + 24), v4);
+  }
+
+LABEL_54:
+  v55 = *(a2 + 41016) + (v4 >> 16 << 6);
+  *(v55 + ((v5 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) |= 1 << v5;
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Shared>>>();
+  *(a2 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Shared>>>(void)::metadata) = *(a2 + 4096);
+}
+
+void ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Shared>>>()
+{
+  {
+    {
+      gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Shared>>>(void)::localId = atomic_fetch_add(&gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::Counter::nextId(void)::counter, 1uLL);
+    }
+
+    ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Shared>>>(void)::metadata = gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Shared>>>(void)::localId;
+    *algn_1EB829278 = 0x5E5AF20C38ADA136;
+    qword_1EB829280 = "md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Shared>>]";
+    qword_1EB829288 = 88;
+  }
+}
+
+uint64_t ecs2::BasicRegistry<void>::storage<md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Shared>>>(uint64_t a1)
+{
+  v10 = *MEMORY[0x1E69E9840];
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Shared>>>();
+  v2 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Shared>>>(void)::metadata;
+  if (ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Shared>>>(void)::metadata >= 0x200)
+  {
+    v3 = GEOGetGeoDisplayCoreDefaultLog();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    {
+      buf[0] = 136315650;
+      *&buf[1] = "componentMetadata.id < _pools.size()";
+      v6 = 2080;
+      v7 = "/Library/Caches/com.apple.xbs/Sources/VectorKit/geo/GeoDisplayCore/GeoDisplayCore/ECSRegistry.hpp";
+      v8 = 1024;
+      LODWORD(v9) = 177;
+      _os_log_impl(&dword_1B2754000, v3, OS_LOG_TYPE_FAULT, "More components types that declared amount: Assertion with expression - %s : Failed in file - %s line - %i", buf, 0x1Cu);
+    }
+  }
+
+  result = *(a1 + 4152 + 8 * v2);
+  if (!result)
+  {
+    operator new();
+  }
+
+  return result;
+}
+
+void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls28RequiresShaderConstantDataIDIN3ggl17ConstantDataTypedINS9_13FlyoverCommon6SharedEEEEEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESI_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISQ_EEFvSP_EEclEOSP_(uint64_t a1, unsigned int *a2)
+{
+  v2 = *a2;
+  v3 = *(a1 + 8);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Shared>>>();
+  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Shared>>>(void)::metadata;
+  v5 = ecs2::BasicRegistry<void>::storage<md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Shared>>>(v3);
+  v6 = v2 >> 22;
+  v7 = v5[1];
+  if (v2 >> 22 < (v5[2] - v7) >> 3)
+  {
+    v8 = *(v7 + 8 * v6);
+    if (v8)
+    {
+      v9 = (v2 >> 16) & 0x3F;
+      if (*(v8 + 4 * v9) == v2)
+      {
+        v10 = v5;
+        v11 = v5[31];
+        v12 = v5[32];
+        if (v11 != v12)
+        {
+          do
+          {
+            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
+            v11 += 32;
+          }
+
+          while (v11 != v12);
+          v8 = *(v10[1] + 8 * v6);
+        }
+
+        v13 = *(v8 + 4 * v9 + 2);
+        v14 = ((v10[5] - v10[4]) >> 2) - 1;
+        v15 = v10[7];
+        v16 = *(v15 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8)) + 12 * (v14 & 0x3F);
+        v17 = *(v15 + ((v13 >> 3) & 0x1FF8)) + 12 * (v13 & 0x3F);
+        v18 = *(v17 + 8);
+        v19 = *v17;
+        v20 = *(v16 + 8);
+        *v17 = *v16;
+        *(v17 + 8) = v20;
+        *v16 = v19;
+        *(v16 + 8) = v18;
+        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
+      }
+    }
+  }
+
+  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Shared>>>();
+  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Shared>>>(void)::metadata) = *(v3 + 4096);
+}
+
+uint64_t _ZNKSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls28RequiresShaderConstantDataIDIN3ggl17ConstantDataTypedINS9_13FlyoverCommon6SharedEEEEEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESI_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISQ_EEFvSP_EE7__cloneEPNS0_6__baseIST_EE(uint64_t result, void *a2)
+{
+  v2 = *(result + 8);
+  *a2 = &unk_1F2A15258;
+  a2[1] = v2;
+  return result;
+}
+
+void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Shared>>,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A15218;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+  ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Shared>>,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Shared>>,64ul>::~storage(void *a1)
+{
+  *a1 = &unk_1F2A15238;
+    ;
+  }
+
+  v3 = a1[7];
+  v4 = a1[8];
+  while (v3 != v4)
+  {
+    if (*v3)
+    {
+      operator delete(*v3);
+    }
+
+    ++v3;
+  }
+
+  v5 = a1[10];
+  if (v5)
+  {
+    a1[11] = v5;
+    operator delete(v5);
+  }
+
+  v6 = a1[7];
+  if (v6)
+  {
+    a1[8] = v6;
+    operator delete(v6);
+  }
+
+  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+}
+
+void ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Shared>>,64ul>::~storage(void *a1)
+{
+  ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Shared>>,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Shared>>,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A15218;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+
+  return ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Shared>>,64ul>::~storage(a1);
+}
+
+__n128 std::__function::__func<ecs2::AddComponent::AddComponent<md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Shared>>>(ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Shared>> &&)::{lambda(ecs2::BasicRegistry<void> &)#1},std::allocator<ecs2::BasicRegistry<void> &>,void ()(ecs2::BasicRegistry<void>)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F2A151D0;
+  result = *(a1 + 8);
+  *(a2 + 8) = result;
+  return result;
+}
+
+void std::__function::__func<ecs2::AddComponent::AddComponent<md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Texcoords>>>(ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Texcoords>> &&)::{lambda(ecs2::BasicRegistry<void> &)#1},std::allocator<ecs2::BasicRegistry<void> &>,void ()(ecs2::BasicRegistry<void>)>::operator()(uint64_t a1, uint64_t a2)
+{
+  v4 = *(a1 + 20);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Texcoords>>>();
+  v5 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Texcoords>>>(void)::metadata;
+  v6 = ecs2::BasicRegistry<void>::storage<md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Texcoords>>>(a2);
+  v7 = v6;
+  v8 = v4 >> 22;
+  v10 = (v6 + 8);
+  v9 = *(v6 + 8);
+  if (v4 >> 22 >= (*(v6 + 16) - v9) >> 3)
+  {
+    std::vector<ecs2::sparse_set<ecs2::Entity,64ul>::page *,std::allocator<ecs2::sparse_set<ecs2::Entity,64ul>::page *>>::resize((v6 + 8), v8 + 1);
+    v9 = *v10;
+  }
+
+  v11 = *(v9 + 8 * v8);
+  if (!v11)
+  {
+    operator new();
+  }
+
+  v12 = (v11 + 4 * ((v4 >> 16) & 0x3F));
+  v13 = v12[1];
+  if (*v12 != -1 || v13 != 0)
+  {
+    v56 = *(*(v7 + 56) + ((v13 >> 3) & 0x1FF8)) + 12 * (v13 & 0x3F);
+    v57 = *(a1 + 8);
+    *(v56 + 8) = *(a1 + 16);
+    *v56 = v57;
+    goto LABEL_54;
+  }
+
+  v16 = *(v7 + 40);
+  v15 = *(v7 + 48);
+  v59 = v5;
+  if (v16 >= v15)
+  {
+    v18 = *(v7 + 32);
+    v19 = (v16 - v18) >> 2;
+    if ((v19 + 1) >> 62)
+    {
+      std::__throw_bad_array_new_length[abi:nn200100]();
+    }
+
+    v20 = v15 - v18;
+    v21 = v20 >> 1;
+    if (v20 >> 1 <= (v19 + 1))
+    {
+      v21 = v19 + 1;
+    }
+
+    if (v20 >= 0x7FFFFFFFFFFFFFFCLL)
+    {
+      v22 = 0x3FFFFFFFFFFFFFFFLL;
+    }
+
+    else
+    {
+      v22 = v21;
+    }
+
+    if (v22)
+    {
+      std::__allocate_at_least[abi:nn200100]<std::allocator<unsigned int>>(v22);
+    }
+
+    *(4 * v19) = v4;
+    v17 = 4 * v19 + 4;
+    v23 = *(v7 + 32);
+    v24 = *(v7 + 40) - v23;
+    v25 = (4 * v19 - v24);
+    memcpy(v25, v23, v24);
+    v26 = *(v7 + 32);
+    *(v7 + 32) = v25;
+    *(v7 + 40) = v17;
+    *(v7 + 48) = 0;
+    if (v26)
+    {
+      operator delete(v26);
+    }
+  }
+
+  else
+  {
+    *v16 = v4;
+    v17 = (v16 + 1);
+  }
+
+  *(v7 + 40) = v17;
+  v27 = ((v17 - *(v7 + 32)) >> 2) - 1;
+  *v12 = v4;
+  v12[1] = v27;
+  v28 = v27 >> 6;
+  v30 = *(v7 + 56);
+  v29 = *(v7 + 64);
+  v31 = v29 - v30;
+  if (v27 >> 6 >= (v29 - v30) >> 3)
+  {
+    v58 = a2;
+    v32 = v28 + 1;
+    v33 = v28 + 1 - (v31 >> 3);
+    v34 = *(v7 + 72);
+    if (v33 > (v34 - v29) >> 3)
+    {
+      v35 = v34 - v30;
+      v36 = (v34 - v30) >> 2;
+      if (v36 <= v32)
+      {
+        v36 = v28 + 1;
+      }
+
+      if (v35 >= 0x7FFFFFFFFFFFFFF8)
+      {
+        v37 = 0x1FFFFFFFFFFFFFFFLL;
+      }
+
+      else
+      {
+        v37 = v36;
+      }
+
+      if (!(v37 >> 61))
+      {
+        operator new();
+      }
+
+      goto LABEL_56;
+    }
+
+    v38 = 0;
+    v39 = (v33 + 0x1FFFFFFFFFFFFFFFLL) & 0x1FFFFFFFFFFFFFFFLL;
+    v40 = vdupq_n_s64(v39);
+    do
+    {
+      v41 = vmovn_s64(vcgeq_u64(v40, vorrq_s8(vdupq_n_s64(v38), xmmword_1B33B0560)));
+      if (v41.i8[0])
+      {
+        *(v29 + 8 * v38) = 0;
+      }
+
+      if (v41.i8[4])
+      {
+        *(v29 + 8 * v38 + 8) = 0;
+      }
+
+      v38 += 2;
+    }
+
+    while (v39 - ((v33 + 0x1FFFFFFFFFFFFFFFLL) & 1) + 2 != v38);
+    *(v7 + 64) = v29 + 8 * v33;
+    v42 = *(v7 + 80);
+    v43 = *(v7 + 88);
+    v44 = (v43 - v42) >> 4;
+    if (v44 <= v28)
+    {
+      v46 = v32 - v44;
+      v47 = *(v7 + 96);
+      if (v46 > (v47 - v43) >> 4)
+      {
+        v48 = v47 - v42;
+        v49 = v48 >> 3;
+        if (v48 >> 3 <= v32)
+        {
+          v49 = v28 + 1;
+        }
+
+        if (v48 >= 0x7FFFFFFFFFFFFFF0)
+        {
+          v50 = 0xFFFFFFFFFFFFFFFLL;
+        }
+
+        else
+        {
+          v50 = v49;
+        }
+
+        if (!(v50 >> 60))
+        {
+          operator new();
+        }
+
+LABEL_56:
+        std::__throw_bad_array_new_length[abi:nn200100]();
+      }
+
+      bzero(*(v7 + 88), 16 * v46);
+      v45 = v43 + 16 * v46;
+    }
+
+    else
+    {
+      if (v32 >= v44)
+      {
+        goto LABEL_50;
+      }
+
+      v45 = v42 + 16 * v32;
+    }
+
+    *(v7 + 88) = v45;
+LABEL_50:
+    v30 = *(v7 + 56);
+    a2 = v58;
+    if (v31 < (*(v7 + 64) - v30))
+    {
+      operator new();
+    }
+  }
+
+  v51 = *(v30 + 8 * v28) + 12 * (v27 & 0x3F);
+  v5 = v59;
+  v52 = *(a1 + 8);
+  *(v51 + 8) = *(a1 + 16);
+  *v51 = v52;
+  v53 = *(v7 + 152);
+  for (i = *(v7 + 160); v53 != i; v53 += 32)
+  {
+    std::function<void ()(ecs2::Entity)>::operator()(*(v53 + 24), v4);
+  }
+
+LABEL_54:
+  v55 = *(a2 + 41016) + (v4 >> 16 << 6);
+  *(v55 + ((v5 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) |= 1 << v5;
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Texcoords>>>();
+  *(a2 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Texcoords>>>(void)::metadata) = *(a2 + 4096);
+}
+
+void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls28RequiresShaderConstantDataIDIN3ggl17ConstantDataTypedINS9_13FlyoverCommon9TexcoordsEEEEEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESI_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISQ_EEFvSP_EEclEOSP_(uint64_t a1, unsigned int *a2)
+{
+  v2 = *a2;
+  v3 = *(a1 + 8);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Texcoords>>>();
+  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Texcoords>>>(void)::metadata;
+  v5 = ecs2::BasicRegistry<void>::storage<md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Texcoords>>>(v3);
+  v6 = v2 >> 22;
+  v7 = v5[1];
+  if (v2 >> 22 < (v5[2] - v7) >> 3)
+  {
+    v8 = *(v7 + 8 * v6);
+    if (v8)
+    {
+      v9 = (v2 >> 16) & 0x3F;
+      if (*(v8 + 4 * v9) == v2)
+      {
+        v10 = v5;
+        v11 = v5[31];
+        v12 = v5[32];
+        if (v11 != v12)
+        {
+          do
+          {
+            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
+            v11 += 32;
+          }
+
+          while (v11 != v12);
+          v8 = *(v10[1] + 8 * v6);
+        }
+
+        v13 = *(v8 + 4 * v9 + 2);
+        v14 = ((v10[5] - v10[4]) >> 2) - 1;
+        v15 = v10[7];
+        v16 = *(v15 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8)) + 12 * (v14 & 0x3F);
+        v17 = *(v15 + ((v13 >> 3) & 0x1FF8)) + 12 * (v13 & 0x3F);
+        v18 = *(v17 + 8);
+        v19 = *v17;
+        v20 = *(v16 + 8);
+        *v17 = *v16;
+        *(v17 + 8) = v20;
+        *v16 = v19;
+        *(v16 + 8) = v18;
+        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
+      }
+    }
+  }
+
+  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Texcoords>>>();
+  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Texcoords>>>(void)::metadata) = *(v3 + 4096);
+}
+
+void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Texcoords>>,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A15148;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+  ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Texcoords>>,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Texcoords>>,64ul>::~storage(void *a1)
+{
+  *a1 = &unk_1F2A15168;
+    ;
+  }
+
+  v3 = a1[7];
+  v4 = a1[8];
+  while (v3 != v4)
+  {
+    if (*v3)
+    {
+      operator delete(*v3);
+    }
+
+    ++v3;
+  }
+
+  v5 = a1[10];
+  if (v5)
+  {
+    a1[11] = v5;
+    operator delete(v5);
+  }
+
+  v6 = a1[7];
+  if (v6)
+  {
+    a1[8] = v6;
+    operator delete(v6);
+  }
+
+  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+}
+
+void ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Texcoords>>,64ul>::~storage(void *a1)
+{
+  ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Texcoords>>,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Texcoords>>,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A15148;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+
+  return ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Texcoords>>,64ul>::~storage(a1);
+}
+
+__n128 std::__function::__func<ecs2::AddComponent::AddComponent<md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Texcoords>>>(ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Texcoords>> &&)::{lambda(ecs2::BasicRegistry<void> &)#1},std::allocator<ecs2::BasicRegistry<void> &>,void ()(ecs2::BasicRegistry<void>)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F2A15100;
+  result = *(a1 + 8);
+  *(a2 + 8) = result;
+  return result;
+}
+
+void std::__function::__func<ecs2::AddComponent::AddComponent<md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Clip>>>(ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Clip>> &&)::{lambda(ecs2::BasicRegistry<void> &)#1},std::allocator<ecs2::BasicRegistry<void> &>,void ()(ecs2::BasicRegistry<void>)>::operator()(uint64_t a1, uint64_t a2)
+{
+  v4 = *(a1 + 20);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Clip>>>();
+  v5 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Clip>>>(void)::metadata;
+  v6 = ecs2::BasicRegistry<void>::storage<md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Clip>>>(a2);
+  v7 = v6;
+  v8 = v4 >> 22;
+  v10 = (v6 + 8);
+  v9 = *(v6 + 8);
+  if (v4 >> 22 >= (*(v6 + 16) - v9) >> 3)
+  {
+    std::vector<ecs2::sparse_set<ecs2::Entity,64ul>::page *,std::allocator<ecs2::sparse_set<ecs2::Entity,64ul>::page *>>::resize((v6 + 8), v8 + 1);
+    v9 = *v10;
+  }
+
+  v11 = *(v9 + 8 * v8);
+  if (!v11)
+  {
+    operator new();
+  }
+
+  v12 = (v11 + 4 * ((v4 >> 16) & 0x3F));
+  v13 = v12[1];
+  if (*v12 != -1 || v13 != 0)
+  {
+    v56 = *(*(v7 + 56) + ((v13 >> 3) & 0x1FF8)) + 12 * (v13 & 0x3F);
+    v57 = *(a1 + 8);
+    *(v56 + 8) = *(a1 + 16);
+    *v56 = v57;
+    goto LABEL_54;
+  }
+
+  v16 = *(v7 + 40);
+  v15 = *(v7 + 48);
+  v59 = v5;
+  if (v16 >= v15)
+  {
+    v18 = *(v7 + 32);
+    v19 = (v16 - v18) >> 2;
+    if ((v19 + 1) >> 62)
+    {
+      std::__throw_bad_array_new_length[abi:nn200100]();
+    }
+
+    v20 = v15 - v18;
+    v21 = v20 >> 1;
+    if (v20 >> 1 <= (v19 + 1))
+    {
+      v21 = v19 + 1;
+    }
+
+    if (v20 >= 0x7FFFFFFFFFFFFFFCLL)
+    {
+      v22 = 0x3FFFFFFFFFFFFFFFLL;
+    }
+
+    else
+    {
+      v22 = v21;
+    }
+
+    if (v22)
+    {
+      std::__allocate_at_least[abi:nn200100]<std::allocator<unsigned int>>(v22);
+    }
+
+    *(4 * v19) = v4;
+    v17 = 4 * v19 + 4;
+    v23 = *(v7 + 32);
+    v24 = *(v7 + 40) - v23;
+    v25 = (4 * v19 - v24);
+    memcpy(v25, v23, v24);
+    v26 = *(v7 + 32);
+    *(v7 + 32) = v25;
+    *(v7 + 40) = v17;
+    *(v7 + 48) = 0;
+    if (v26)
+    {
+      operator delete(v26);
+    }
+  }
+
+  else
+  {
+    *v16 = v4;
+    v17 = (v16 + 1);
+  }
+
+  *(v7 + 40) = v17;
+  v27 = ((v17 - *(v7 + 32)) >> 2) - 1;
+  *v12 = v4;
+  v12[1] = v27;
+  v28 = v27 >> 6;
+  v30 = *(v7 + 56);
+  v29 = *(v7 + 64);
+  v31 = v29 - v30;
+  if (v27 >> 6 >= (v29 - v30) >> 3)
+  {
+    v58 = a2;
+    v32 = v28 + 1;
+    v33 = v28 + 1 - (v31 >> 3);
+    v34 = *(v7 + 72);
+    if (v33 > (v34 - v29) >> 3)
+    {
+      v35 = v34 - v30;
+      v36 = (v34 - v30) >> 2;
+      if (v36 <= v32)
+      {
+        v36 = v28 + 1;
+      }
+
+      if (v35 >= 0x7FFFFFFFFFFFFFF8)
+      {
+        v37 = 0x1FFFFFFFFFFFFFFFLL;
+      }
+
+      else
+      {
+        v37 = v36;
+      }
+
+      if (!(v37 >> 61))
+      {
+        operator new();
+      }
+
+      goto LABEL_56;
+    }
+
+    v38 = 0;
+    v39 = (v33 + 0x1FFFFFFFFFFFFFFFLL) & 0x1FFFFFFFFFFFFFFFLL;
+    v40 = vdupq_n_s64(v39);
+    do
+    {
+      v41 = vmovn_s64(vcgeq_u64(v40, vorrq_s8(vdupq_n_s64(v38), xmmword_1B33B0560)));
+      if (v41.i8[0])
+      {
+        *(v29 + 8 * v38) = 0;
+      }
+
+      if (v41.i8[4])
+      {
+        *(v29 + 8 * v38 + 8) = 0;
+      }
+
+      v38 += 2;
+    }
+
+    while (v39 - ((v33 + 0x1FFFFFFFFFFFFFFFLL) & 1) + 2 != v38);
+    *(v7 + 64) = v29 + 8 * v33;
+    v42 = *(v7 + 80);
+    v43 = *(v7 + 88);
+    v44 = (v43 - v42) >> 4;
+    if (v44 <= v28)
+    {
+      v46 = v32 - v44;
+      v47 = *(v7 + 96);
+      if (v46 > (v47 - v43) >> 4)
+      {
+        v48 = v47 - v42;
+        v49 = v48 >> 3;
+        if (v48 >> 3 <= v32)
+        {
+          v49 = v28 + 1;
+        }
+
+        if (v48 >= 0x7FFFFFFFFFFFFFF0)
+        {
+          v50 = 0xFFFFFFFFFFFFFFFLL;
+        }
+
+        else
+        {
+          v50 = v49;
+        }
+
+        if (!(v50 >> 60))
+        {
+          operator new();
+        }
+
+LABEL_56:
+        std::__throw_bad_array_new_length[abi:nn200100]();
+      }
+
+      bzero(*(v7 + 88), 16 * v46);
+      v45 = v43 + 16 * v46;
+    }
+
+    else
+    {
+      if (v32 >= v44)
+      {
+        goto LABEL_50;
+      }
+
+      v45 = v42 + 16 * v32;
+    }
+
+    *(v7 + 88) = v45;
+LABEL_50:
+    v30 = *(v7 + 56);
+    a2 = v58;
+    if (v31 < (*(v7 + 64) - v30))
+    {
+      operator new();
+    }
+  }
+
+  v51 = *(v30 + 8 * v28) + 12 * (v27 & 0x3F);
+  v5 = v59;
+  v52 = *(a1 + 8);
+  *(v51 + 8) = *(a1 + 16);
+  *v51 = v52;
+  v53 = *(v7 + 152);
+  for (i = *(v7 + 160); v53 != i; v53 += 32)
+  {
+    std::function<void ()(ecs2::Entity)>::operator()(*(v53 + 24), v4);
+  }
+
+LABEL_54:
+  v55 = *(a2 + 41016) + (v4 >> 16 << 6);
+  *(v55 + ((v5 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) |= 1 << v5;
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Clip>>>();
+  *(a2 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Clip>>>(void)::metadata) = *(a2 + 4096);
+}
+
+void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls28RequiresShaderConstantDataIDIN3ggl17ConstantDataTypedINS9_13FlyoverCommon4ClipEEEEEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESI_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISQ_EEFvSP_EEclEOSP_(uint64_t a1, unsigned int *a2)
+{
+  v2 = *a2;
+  v3 = *(a1 + 8);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Clip>>>();
+  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Clip>>>(void)::metadata;
+  v5 = ecs2::BasicRegistry<void>::storage<md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Clip>>>(v3);
+  v6 = v2 >> 22;
+  v7 = v5[1];
+  if (v2 >> 22 < (v5[2] - v7) >> 3)
+  {
+    v8 = *(v7 + 8 * v6);
+    if (v8)
+    {
+      v9 = (v2 >> 16) & 0x3F;
+      if (*(v8 + 4 * v9) == v2)
+      {
+        v10 = v5;
+        v11 = v5[31];
+        v12 = v5[32];
+        if (v11 != v12)
+        {
+          do
+          {
+            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
+            v11 += 32;
+          }
+
+          while (v11 != v12);
+          v8 = *(v10[1] + 8 * v6);
+        }
+
+        v13 = *(v8 + 4 * v9 + 2);
+        v14 = ((v10[5] - v10[4]) >> 2) - 1;
+        v15 = v10[7];
+        v16 = *(v15 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8)) + 12 * (v14 & 0x3F);
+        v17 = *(v15 + ((v13 >> 3) & 0x1FF8)) + 12 * (v13 & 0x3F);
+        v18 = *(v17 + 8);
+        v19 = *v17;
+        v20 = *(v16 + 8);
+        *v17 = *v16;
+        *(v17 + 8) = v20;
+        *v16 = v19;
+        *(v16 + 8) = v18;
+        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
+      }
+    }
+  }
+
+  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Clip>>>();
+  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Clip>>>(void)::metadata) = *(v3 + 4096);
+}
+
+void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Clip>>,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A15078;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+  ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Clip>>,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Clip>>,64ul>::~storage(void *a1)
+{
+  *a1 = &unk_1F2A15098;
+    ;
+  }
+
+  v3 = a1[7];
+  v4 = a1[8];
+  while (v3 != v4)
+  {
+    if (*v3)
+    {
+      operator delete(*v3);
+    }
+
+    ++v3;
+  }
+
+  v5 = a1[10];
+  if (v5)
+  {
+    a1[11] = v5;
+    operator delete(v5);
+  }
+
+  v6 = a1[7];
+  if (v6)
+  {
+    a1[8] = v6;
+    operator delete(v6);
+  }
+
+  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+}
+
+void ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Clip>>,64ul>::~storage(void *a1)
+{
+  ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Clip>>,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Clip>>,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A15078;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+
+  return ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Clip>>,64ul>::~storage(a1);
+}
+
+__n128 std::__function::__func<ecs2::AddComponent::AddComponent<md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Clip>>>(ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Clip>> &&)::{lambda(ecs2::BasicRegistry<void> &)#1},std::allocator<ecs2::BasicRegistry<void> &>,void ()(ecs2::BasicRegistry<void>)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F2A15030;
+  result = *(a1 + 8);
+  *(a2 + 8) = result;
+  return result;
+}
+
+void std::__function::__func<ecs2::AddComponent::AddComponent<md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::S2Transform>>>(ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::S2Transform>> &&)::{lambda(ecs2::BasicRegistry<void> &)#1},std::allocator<ecs2::BasicRegistry<void> &>,void ()(ecs2::BasicRegistry<void>)>::operator()(uint64_t a1, uint64_t a2)
+{
+  v4 = *(a1 + 20);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::S2Transform>>>();
+  v5 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::S2Transform>>>(void)::metadata;
+  v6 = ecs2::BasicRegistry<void>::storage<md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::S2Transform>>>(a2);
+  v7 = v6;
+  v8 = v4 >> 22;
+  v10 = (v6 + 8);
+  v9 = *(v6 + 8);
+  if (v4 >> 22 >= (*(v6 + 16) - v9) >> 3)
+  {
+    std::vector<ecs2::sparse_set<ecs2::Entity,64ul>::page *,std::allocator<ecs2::sparse_set<ecs2::Entity,64ul>::page *>>::resize((v6 + 8), v8 + 1);
+    v9 = *v10;
+  }
+
+  v11 = *(v9 + 8 * v8);
+  if (!v11)
+  {
+    operator new();
+  }
+
+  v12 = (v11 + 4 * ((v4 >> 16) & 0x3F));
+  v13 = v12[1];
+  if (*v12 != -1 || v13 != 0)
+  {
+    v56 = *(*(v7 + 56) + ((v13 >> 3) & 0x1FF8)) + 12 * (v13 & 0x3F);
+    v57 = *(a1 + 8);
+    *(v56 + 8) = *(a1 + 16);
+    *v56 = v57;
+    goto LABEL_54;
+  }
+
+  v16 = *(v7 + 40);
+  v15 = *(v7 + 48);
+  v59 = v5;
+  if (v16 >= v15)
+  {
+    v18 = *(v7 + 32);
+    v19 = (v16 - v18) >> 2;
+    if ((v19 + 1) >> 62)
+    {
+      std::__throw_bad_array_new_length[abi:nn200100]();
+    }
+
+    v20 = v15 - v18;
+    v21 = v20 >> 1;
+    if (v20 >> 1 <= (v19 + 1))
+    {
+      v21 = v19 + 1;
+    }
+
+    if (v20 >= 0x7FFFFFFFFFFFFFFCLL)
+    {
+      v22 = 0x3FFFFFFFFFFFFFFFLL;
+    }
+
+    else
+    {
+      v22 = v21;
+    }
+
+    if (v22)
+    {
+      std::__allocate_at_least[abi:nn200100]<std::allocator<unsigned int>>(v22);
+    }
+
+    *(4 * v19) = v4;
+    v17 = 4 * v19 + 4;
+    v23 = *(v7 + 32);
+    v24 = *(v7 + 40) - v23;
+    v25 = (4 * v19 - v24);
+    memcpy(v25, v23, v24);
+    v26 = *(v7 + 32);
+    *(v7 + 32) = v25;
+    *(v7 + 40) = v17;
+    *(v7 + 48) = 0;
+    if (v26)
+    {
+      operator delete(v26);
+    }
+  }
+
+  else
+  {
+    *v16 = v4;
+    v17 = (v16 + 1);
+  }
+
+  *(v7 + 40) = v17;
+  v27 = ((v17 - *(v7 + 32)) >> 2) - 1;
+  *v12 = v4;
+  v12[1] = v27;
+  v28 = v27 >> 6;
+  v30 = *(v7 + 56);
+  v29 = *(v7 + 64);
+  v31 = v29 - v30;
+  if (v27 >> 6 >= (v29 - v30) >> 3)
+  {
+    v58 = a2;
+    v32 = v28 + 1;
+    v33 = v28 + 1 - (v31 >> 3);
+    v34 = *(v7 + 72);
+    if (v33 > (v34 - v29) >> 3)
+    {
+      v35 = v34 - v30;
+      v36 = (v34 - v30) >> 2;
+      if (v36 <= v32)
+      {
+        v36 = v28 + 1;
+      }
+
+      if (v35 >= 0x7FFFFFFFFFFFFFF8)
+      {
+        v37 = 0x1FFFFFFFFFFFFFFFLL;
+      }
+
+      else
+      {
+        v37 = v36;
+      }
+
+      if (!(v37 >> 61))
+      {
+        operator new();
+      }
+
+      goto LABEL_56;
+    }
+
+    v38 = 0;
+    v39 = (v33 + 0x1FFFFFFFFFFFFFFFLL) & 0x1FFFFFFFFFFFFFFFLL;
+    v40 = vdupq_n_s64(v39);
+    do
+    {
+      v41 = vmovn_s64(vcgeq_u64(v40, vorrq_s8(vdupq_n_s64(v38), xmmword_1B33B0560)));
+      if (v41.i8[0])
+      {
+        *(v29 + 8 * v38) = 0;
+      }
+
+      if (v41.i8[4])
+      {
+        *(v29 + 8 * v38 + 8) = 0;
+      }
+
+      v38 += 2;
+    }
+
+    while (v39 - ((v33 + 0x1FFFFFFFFFFFFFFFLL) & 1) + 2 != v38);
+    *(v7 + 64) = v29 + 8 * v33;
+    v42 = *(v7 + 80);
+    v43 = *(v7 + 88);
+    v44 = (v43 - v42) >> 4;
+    if (v44 <= v28)
+    {
+      v46 = v32 - v44;
+      v47 = *(v7 + 96);
+      if (v46 > (v47 - v43) >> 4)
+      {
+        v48 = v47 - v42;
+        v49 = v48 >> 3;
+        if (v48 >> 3 <= v32)
+        {
+          v49 = v28 + 1;
+        }
+
+        if (v48 >= 0x7FFFFFFFFFFFFFF0)
+        {
+          v50 = 0xFFFFFFFFFFFFFFFLL;
+        }
+
+        else
+        {
+          v50 = v49;
+        }
+
+        if (!(v50 >> 60))
+        {
+          operator new();
+        }
+
+LABEL_56:
+        std::__throw_bad_array_new_length[abi:nn200100]();
+      }
+
+      bzero(*(v7 + 88), 16 * v46);
+      v45 = v43 + 16 * v46;
+    }
+
+    else
+    {
+      if (v32 >= v44)
+      {
+        goto LABEL_50;
+      }
+
+      v45 = v42 + 16 * v32;
+    }
+
+    *(v7 + 88) = v45;
+LABEL_50:
+    v30 = *(v7 + 56);
+    a2 = v58;
+    if (v31 < (*(v7 + 64) - v30))
+    {
+      operator new();
+    }
+  }
+
+  v51 = *(v30 + 8 * v28) + 12 * (v27 & 0x3F);
+  v5 = v59;
+  v52 = *(a1 + 8);
+  *(v51 + 8) = *(a1 + 16);
+  *v51 = v52;
+  v53 = *(v7 + 152);
+  for (i = *(v7 + 160); v53 != i; v53 += 32)
+  {
+    std::function<void ()(ecs2::Entity)>::operator()(*(v53 + 24), v4);
+  }
+
+LABEL_54:
+  v55 = *(a2 + 41016) + (v4 >> 16 << 6);
+  *(v55 + ((v5 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) |= 1 << v5;
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::S2Transform>>>();
+  *(a2 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::S2Transform>>>(void)::metadata) = *(a2 + 4096);
+}
+
+void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls28RequiresShaderConstantDataIDIN3ggl17ConstantDataTypedINS9_13FlyoverCommon11S2TransformEEEEEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESI_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISQ_EEFvSP_EEclEOSP_(uint64_t a1, unsigned int *a2)
+{
+  v2 = *a2;
+  v3 = *(a1 + 8);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::S2Transform>>>();
+  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::S2Transform>>>(void)::metadata;
+  v5 = ecs2::BasicRegistry<void>::storage<md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::S2Transform>>>(v3);
+  v6 = v2 >> 22;
+  v7 = v5[1];
+  if (v2 >> 22 < (v5[2] - v7) >> 3)
+  {
+    v8 = *(v7 + 8 * v6);
+    if (v8)
+    {
+      v9 = (v2 >> 16) & 0x3F;
+      if (*(v8 + 4 * v9) == v2)
+      {
+        v10 = v5;
+        v11 = v5[31];
+        v12 = v5[32];
+        if (v11 != v12)
+        {
+          do
+          {
+            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
+            v11 += 32;
+          }
+
+          while (v11 != v12);
+          v8 = *(v10[1] + 8 * v6);
+        }
+
+        v13 = *(v8 + 4 * v9 + 2);
+        v14 = ((v10[5] - v10[4]) >> 2) - 1;
+        v15 = v10[7];
+        v16 = *(v15 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8)) + 12 * (v14 & 0x3F);
+        v17 = *(v15 + ((v13 >> 3) & 0x1FF8)) + 12 * (v13 & 0x3F);
+        v18 = *(v17 + 8);
+        v19 = *v17;
+        v20 = *(v16 + 8);
+        *v17 = *v16;
+        *(v17 + 8) = v20;
+        *v16 = v19;
+        *(v16 + 8) = v18;
+        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
+      }
+    }
+  }
+
+  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::S2Transform>>>();
+  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::S2Transform>>>(void)::metadata) = *(v3 + 4096);
+}
+
+void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::S2Transform>>,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A14FA8;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+  ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::S2Transform>>,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::S2Transform>>,64ul>::~storage(void *a1)
+{
+  *a1 = &unk_1F2A14FC8;
+    ;
+  }
+
+  v3 = a1[7];
+  v4 = a1[8];
+  while (v3 != v4)
+  {
+    if (*v3)
+    {
+      operator delete(*v3);
+    }
+
+    ++v3;
+  }
+
+  v5 = a1[10];
+  if (v5)
+  {
+    a1[11] = v5;
+    operator delete(v5);
+  }
+
+  v6 = a1[7];
+  if (v6)
+  {
+    a1[8] = v6;
+    operator delete(v6);
+  }
+
+  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+}
+
+void ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::S2Transform>>,64ul>::~storage(void *a1)
+{
+  ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::S2Transform>>,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::S2Transform>>,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A14FA8;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+
+  return ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::S2Transform>>,64ul>::~storage(a1);
+}
+
+__n128 std::__function::__func<ecs2::AddComponent::AddComponent<md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::S2Transform>>>(ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::S2Transform>> &&)::{lambda(ecs2::BasicRegistry<void> &)#1},std::allocator<ecs2::BasicRegistry<void> &>,void ()(ecs2::BasicRegistry<void>)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F2A14F60;
+  result = *(a1 + 8);
+  *(a2 + 8) = result;
+  return result;
+}
+
+void std::__function::__func<ecs2::AddComponent::AddComponent<md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Transform>>>(ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Transform>> &&)::{lambda(ecs2::BasicRegistry<void> &)#1},std::allocator<ecs2::BasicRegistry<void> &>,void ()(ecs2::BasicRegistry<void>)>::operator()(uint64_t a1, uint64_t a2)
+{
+  v4 = *(a1 + 20);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Transform>>>();
+  v5 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Transform>>>(void)::metadata;
+  v6 = ecs2::BasicRegistry<void>::storage<md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Transform>>>(a2);
+  v7 = v6;
+  v8 = v4 >> 22;
+  v10 = (v6 + 8);
+  v9 = *(v6 + 8);
+  if (v4 >> 22 >= (*(v6 + 16) - v9) >> 3)
+  {
+    std::vector<ecs2::sparse_set<ecs2::Entity,64ul>::page *,std::allocator<ecs2::sparse_set<ecs2::Entity,64ul>::page *>>::resize((v6 + 8), v8 + 1);
+    v9 = *v10;
+  }
+
+  v11 = *(v9 + 8 * v8);
+  if (!v11)
+  {
+    operator new();
+  }
+
+  v12 = (v11 + 4 * ((v4 >> 16) & 0x3F));
+  v13 = v12[1];
+  if (*v12 != -1 || v13 != 0)
+  {
+    v56 = *(*(v7 + 56) + ((v13 >> 3) & 0x1FF8)) + 12 * (v13 & 0x3F);
+    v57 = *(a1 + 8);
+    *(v56 + 8) = *(a1 + 16);
+    *v56 = v57;
+    goto LABEL_54;
+  }
+
+  v16 = *(v7 + 40);
+  v15 = *(v7 + 48);
+  v59 = v5;
+  if (v16 >= v15)
+  {
+    v18 = *(v7 + 32);
+    v19 = (v16 - v18) >> 2;
+    if ((v19 + 1) >> 62)
+    {
+      std::__throw_bad_array_new_length[abi:nn200100]();
+    }
+
+    v20 = v15 - v18;
+    v21 = v20 >> 1;
+    if (v20 >> 1 <= (v19 + 1))
+    {
+      v21 = v19 + 1;
+    }
+
+    if (v20 >= 0x7FFFFFFFFFFFFFFCLL)
+    {
+      v22 = 0x3FFFFFFFFFFFFFFFLL;
+    }
+
+    else
+    {
+      v22 = v21;
+    }
+
+    if (v22)
+    {
+      std::__allocate_at_least[abi:nn200100]<std::allocator<unsigned int>>(v22);
+    }
+
+    *(4 * v19) = v4;
+    v17 = 4 * v19 + 4;
+    v23 = *(v7 + 32);
+    v24 = *(v7 + 40) - v23;
+    v25 = (4 * v19 - v24);
+    memcpy(v25, v23, v24);
+    v26 = *(v7 + 32);
+    *(v7 + 32) = v25;
+    *(v7 + 40) = v17;
+    *(v7 + 48) = 0;
+    if (v26)
+    {
+      operator delete(v26);
+    }
+  }
+
+  else
+  {
+    *v16 = v4;
+    v17 = (v16 + 1);
+  }
+
+  *(v7 + 40) = v17;
+  v27 = ((v17 - *(v7 + 32)) >> 2) - 1;
+  *v12 = v4;
+  v12[1] = v27;
+  v28 = v27 >> 6;
+  v30 = *(v7 + 56);
+  v29 = *(v7 + 64);
+  v31 = v29 - v30;
+  if (v27 >> 6 >= (v29 - v30) >> 3)
+  {
+    v58 = a2;
+    v32 = v28 + 1;
+    v33 = v28 + 1 - (v31 >> 3);
+    v34 = *(v7 + 72);
+    if (v33 > (v34 - v29) >> 3)
+    {
+      v35 = v34 - v30;
+      v36 = (v34 - v30) >> 2;
+      if (v36 <= v32)
+      {
+        v36 = v28 + 1;
+      }
+
+      if (v35 >= 0x7FFFFFFFFFFFFFF8)
+      {
+        v37 = 0x1FFFFFFFFFFFFFFFLL;
+      }
+
+      else
+      {
+        v37 = v36;
+      }
+
+      if (!(v37 >> 61))
+      {
+        operator new();
+      }
+
+      goto LABEL_56;
+    }
+
+    v38 = 0;
+    v39 = (v33 + 0x1FFFFFFFFFFFFFFFLL) & 0x1FFFFFFFFFFFFFFFLL;
+    v40 = vdupq_n_s64(v39);
+    do
+    {
+      v41 = vmovn_s64(vcgeq_u64(v40, vorrq_s8(vdupq_n_s64(v38), xmmword_1B33B0560)));
+      if (v41.i8[0])
+      {
+        *(v29 + 8 * v38) = 0;
+      }
+
+      if (v41.i8[4])
+      {
+        *(v29 + 8 * v38 + 8) = 0;
+      }
+
+      v38 += 2;
+    }
+
+    while (v39 - ((v33 + 0x1FFFFFFFFFFFFFFFLL) & 1) + 2 != v38);
+    *(v7 + 64) = v29 + 8 * v33;
+    v42 = *(v7 + 80);
+    v43 = *(v7 + 88);
+    v44 = (v43 - v42) >> 4;
+    if (v44 <= v28)
+    {
+      v46 = v32 - v44;
+      v47 = *(v7 + 96);
+      if (v46 > (v47 - v43) >> 4)
+      {
+        v48 = v47 - v42;
+        v49 = v48 >> 3;
+        if (v48 >> 3 <= v32)
+        {
+          v49 = v28 + 1;
+        }
+
+        if (v48 >= 0x7FFFFFFFFFFFFFF0)
+        {
+          v50 = 0xFFFFFFFFFFFFFFFLL;
+        }
+
+        else
+        {
+          v50 = v49;
+        }
+
+        if (!(v50 >> 60))
+        {
+          operator new();
+        }
+
+LABEL_56:
+        std::__throw_bad_array_new_length[abi:nn200100]();
+      }
+
+      bzero(*(v7 + 88), 16 * v46);
+      v45 = v43 + 16 * v46;
+    }
+
+    else
+    {
+      if (v32 >= v44)
+      {
+        goto LABEL_50;
+      }
+
+      v45 = v42 + 16 * v32;
+    }
+
+    *(v7 + 88) = v45;
+LABEL_50:
+    v30 = *(v7 + 56);
+    a2 = v58;
+    if (v31 < (*(v7 + 64) - v30))
+    {
+      operator new();
+    }
+  }
+
+  v51 = *(v30 + 8 * v28) + 12 * (v27 & 0x3F);
+  v5 = v59;
+  v52 = *(a1 + 8);
+  *(v51 + 8) = *(a1 + 16);
+  *v51 = v52;
+  v53 = *(v7 + 152);
+  for (i = *(v7 + 160); v53 != i; v53 += 32)
+  {
+    std::function<void ()(ecs2::Entity)>::operator()(*(v53 + 24), v4);
+  }
+
+LABEL_54:
+  v55 = *(a2 + 41016) + (v4 >> 16 << 6);
+  *(v55 + ((v5 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) |= 1 << v5;
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Transform>>>();
+  *(a2 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Transform>>>(void)::metadata) = *(a2 + 4096);
+}
+
+void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls28RequiresShaderConstantDataIDIN3ggl17ConstantDataTypedINS9_13FlyoverCommon9TransformEEEEEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESI_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISQ_EEFvSP_EEclEOSP_(uint64_t a1, unsigned int *a2)
+{
+  v2 = *a2;
+  v3 = *(a1 + 8);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Transform>>>();
+  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Transform>>>(void)::metadata;
+  v5 = ecs2::BasicRegistry<void>::storage<md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Transform>>>(v3);
+  v6 = v2 >> 22;
+  v7 = v5[1];
+  if (v2 >> 22 < (v5[2] - v7) >> 3)
+  {
+    v8 = *(v7 + 8 * v6);
+    if (v8)
+    {
+      v9 = (v2 >> 16) & 0x3F;
+      if (*(v8 + 4 * v9) == v2)
+      {
+        v10 = v5;
+        v11 = v5[31];
+        v12 = v5[32];
+        if (v11 != v12)
+        {
+          do
+          {
+            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
+            v11 += 32;
+          }
+
+          while (v11 != v12);
+          v8 = *(v10[1] + 8 * v6);
+        }
+
+        v13 = *(v8 + 4 * v9 + 2);
+        v14 = ((v10[5] - v10[4]) >> 2) - 1;
+        v15 = v10[7];
+        v16 = *(v15 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8)) + 12 * (v14 & 0x3F);
+        v17 = *(v15 + ((v13 >> 3) & 0x1FF8)) + 12 * (v13 & 0x3F);
+        v18 = *(v17 + 8);
+        v19 = *v17;
+        v20 = *(v16 + 8);
+        *v17 = *v16;
+        *(v17 + 8) = v20;
+        *v16 = v19;
+        *(v16 + 8) = v18;
+        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
+      }
+    }
+  }
+
+  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Transform>>>();
+  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Transform>>>(void)::metadata) = *(v3 + 4096);
+}
+
+void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Transform>>,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A14ED8;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+  ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Transform>>,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Transform>>,64ul>::~storage(void *a1)
+{
+  *a1 = &unk_1F2A14EF8;
+    ;
+  }
+
+  v3 = a1[7];
+  v4 = a1[8];
+  while (v3 != v4)
+  {
+    if (*v3)
+    {
+      operator delete(*v3);
+    }
+
+    ++v3;
+  }
+
+  v5 = a1[10];
+  if (v5)
+  {
+    a1[11] = v5;
+    operator delete(v5);
+  }
+
+  v6 = a1[7];
+  if (v6)
+  {
+    a1[8] = v6;
+    operator delete(v6);
+  }
+
+  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+}
+
+void ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Transform>>,64ul>::~storage(void *a1)
+{
+  ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Transform>>,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Transform>>,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A14ED8;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+
+  return ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Transform>>,64ul>::~storage(a1);
+}
+
+__n128 std::__function::__func<ecs2::AddComponent::AddComponent<md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Transform>>>(ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Transform>> &&)::{lambda(ecs2::BasicRegistry<void> &)#1},std::allocator<ecs2::BasicRegistry<void> &>,void ()(ecs2::BasicRegistry<void>)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F2A14E90;
+  result = *(a1 + 8);
+  *(a2 + 8) = result;
+  return result;
+}
+
+void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls28RequiresShaderConstantDataIDIN3ggl17ConstantDataTypedINS9_7DaVinci17LandCoverSettingsEEEEEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESI_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISQ_EEFvSP_EEclEOSP_(uint64_t a1, unsigned int *a2)
+{
+  v2 = *a2;
+  v3 = *(a1 + 8);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::LandCoverSettings>>>();
+  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::LandCoverSettings>>>(void)::metadata;
+  v5 = ecs2::BasicRegistry<void>::storage<md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::LandCoverSettings>>>(v3);
+  v6 = v2 >> 22;
+  v7 = v5[1];
+  if (v2 >> 22 < (v5[2] - v7) >> 3)
+  {
+    v8 = *(v7 + 8 * v6);
+    if (v8)
+    {
+      v9 = (v2 >> 16) & 0x3F;
+      if (*(v8 + 4 * v9) == v2)
+      {
+        v10 = v5;
+        v11 = v5[31];
+        v12 = v5[32];
+        if (v11 != v12)
+        {
+          do
+          {
+            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
+            v11 += 32;
+          }
+
+          while (v11 != v12);
+          v8 = *(v10[1] + 8 * v6);
+        }
+
+        v13 = *(v8 + 4 * v9 + 2);
+        v14 = ((v10[5] - v10[4]) >> 2) - 1;
+        v15 = v10[7];
+        v16 = *(v15 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8)) + 12 * (v14 & 0x3F);
+        v17 = *(v15 + ((v13 >> 3) & 0x1FF8)) + 12 * (v13 & 0x3F);
+        v18 = *(v17 + 8);
+        v19 = *v17;
+        v20 = *(v16 + 8);
+        *v17 = *v16;
+        *(v17 + 8) = v20;
+        *v16 = v19;
+        *(v16 + 8) = v18;
+        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
+      }
+    }
+  }
+
+  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::LandCoverSettings>>>();
+  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::LandCoverSettings>>>(void)::metadata) = *(v3 + 4096);
+}
+
+void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::LandCoverSettings>>,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A14E08;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+  ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::LandCoverSettings>>,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::LandCoverSettings>>,64ul>::~storage(void *a1)
+{
+  *a1 = &unk_1F2A14E28;
+    ;
+  }
+
+  v3 = a1[7];
+  v4 = a1[8];
+  while (v3 != v4)
+  {
+    if (*v3)
+    {
+      operator delete(*v3);
+    }
+
+    ++v3;
+  }
+
+  v5 = a1[10];
+  if (v5)
+  {
+    a1[11] = v5;
+    operator delete(v5);
+  }
+
+  v6 = a1[7];
+  if (v6)
+  {
+    a1[8] = v6;
+    operator delete(v6);
+  }
+
+  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+}
+
+void ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::LandCoverSettings>>,64ul>::~storage(void *a1)
+{
+  ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::LandCoverSettings>>,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::LandCoverSettings>>,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A14E08;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+
+  return ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::LandCoverSettings>>,64ul>::~storage(a1);
+}
+
+void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls28RequiresShaderConstantDataIDIN3ggl17ConstantDataTypedINS9_4Tile4ViewEEEEEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESI_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISQ_EEFvSP_EEclEOSP_(uint64_t a1, unsigned int *a2)
+{
+  v2 = *a2;
+  v3 = *(a1 + 8);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::View>>>();
+  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::View>>>(void)::metadata;
+  v5 = ecs2::BasicRegistry<void>::storage<md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::View>>>(v3);
+  v6 = v2 >> 22;
+  v7 = v5[1];
+  if (v2 >> 22 < (v5[2] - v7) >> 3)
+  {
+    v8 = *(v7 + 8 * v6);
+    if (v8)
+    {
+      v9 = (v2 >> 16) & 0x3F;
+      if (*(v8 + 4 * v9) == v2)
+      {
+        v10 = v5;
+        v11 = v5[31];
+        v12 = v5[32];
+        if (v11 != v12)
+        {
+          do
+          {
+            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
+            v11 += 32;
+          }
+
+          while (v11 != v12);
+          v8 = *(v10[1] + 8 * v6);
+        }
+
+        v13 = *(v8 + 4 * v9 + 2);
+        v14 = ((v10[5] - v10[4]) >> 2) - 1;
+        v15 = v10[7];
+        v16 = *(v15 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8)) + 12 * (v14 & 0x3F);
+        v17 = *(v15 + ((v13 >> 3) & 0x1FF8)) + 12 * (v13 & 0x3F);
+        v18 = *(v17 + 8);
+        v19 = *v17;
+        v20 = *(v16 + 8);
+        *v17 = *v16;
+        *(v17 + 8) = v20;
+        *v16 = v19;
+        *(v16 + 8) = v18;
+        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
+      }
+    }
+  }
+
+  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::View>>>();
+  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::View>>>(void)::metadata) = *(v3 + 4096);
+}
+
+void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::View>>,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A14D38;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+  ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::View>>,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::View>>,64ul>::~storage(void *a1)
+{
+  *a1 = &unk_1F2A14D58;
+    ;
+  }
+
+  v3 = a1[7];
+  v4 = a1[8];
+  while (v3 != v4)
+  {
+    if (*v3)
+    {
+      operator delete(*v3);
+    }
+
+    ++v3;
+  }
+
+  v5 = a1[10];
+  if (v5)
+  {
+    a1[11] = v5;
+    operator delete(v5);
+  }
+
+  v6 = a1[7];
+  if (v6)
+  {
+    a1[8] = v6;
+    operator delete(v6);
+  }
+
+  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+}
+
+void ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::View>>,64ul>::~storage(void *a1)
+{
+  ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::View>>,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::View>>,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A14D38;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+
+  return ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::View>>,64ul>::~storage(a1);
+}
+
+void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls28RequiresShaderConstantDataIDIN3ggl17ConstantDataTypedINS9_4Tile9TransformEEEEEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESI_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISQ_EEFvSP_EEclEOSP_(uint64_t a1, unsigned int *a2)
+{
+  v2 = *a2;
+  v3 = *(a1 + 8);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::Transform>>>();
+  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::Transform>>>(void)::metadata;
+  v5 = ecs2::BasicRegistry<void>::storage<md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::Transform>>>(v3);
+  v6 = v2 >> 22;
+  v7 = v5[1];
+  if (v2 >> 22 < (v5[2] - v7) >> 3)
+  {
+    v8 = *(v7 + 8 * v6);
+    if (v8)
+    {
+      v9 = (v2 >> 16) & 0x3F;
+      if (*(v8 + 4 * v9) == v2)
+      {
+        v10 = v5;
+        v11 = v5[31];
+        v12 = v5[32];
+        if (v11 != v12)
+        {
+          do
+          {
+            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
+            v11 += 32;
+          }
+
+          while (v11 != v12);
+          v8 = *(v10[1] + 8 * v6);
+        }
+
+        v13 = *(v8 + 4 * v9 + 2);
+        v14 = ((v10[5] - v10[4]) >> 2) - 1;
+        v15 = v10[7];
+        v16 = *(v15 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8)) + 12 * (v14 & 0x3F);
+        v17 = *(v15 + ((v13 >> 3) & 0x1FF8)) + 12 * (v13 & 0x3F);
+        v18 = *(v17 + 8);
+        v19 = *v17;
+        v20 = *(v16 + 8);
+        *v17 = *v16;
+        *(v17 + 8) = v20;
+        *v16 = v19;
+        *(v16 + 8) = v18;
+        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
+      }
+    }
+  }
+
+  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::Transform>>>();
+  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::Transform>>>(void)::metadata) = *(v3 + 4096);
+}
+
+void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::Transform>>,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A14C68;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+  ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::Transform>>,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::Transform>>,64ul>::~storage(void *a1)
+{
+  *a1 = &unk_1F2A14C88;
+    ;
+  }
+
+  v3 = a1[7];
+  v4 = a1[8];
+  while (v3 != v4)
+  {
+    if (*v3)
+    {
+      operator delete(*v3);
+    }
+
+    ++v3;
+  }
+
+  v5 = a1[10];
+  if (v5)
+  {
+    a1[11] = v5;
+    operator delete(v5);
+  }
+
+  v6 = a1[7];
+  if (v6)
+  {
+    a1[8] = v6;
+    operator delete(v6);
+  }
+
+  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+}
+
+void ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::Transform>>,64ul>::~storage(void *a1)
+{
+  ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::Transform>>,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::Transform>>,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A14C68;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+
+  return ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::Transform>>,64ul>::~storage(a1);
+}
+
+void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls28RequiresShaderConstantDataIDIN3ggl17ConstantDataTypedINS9_4Tile17PositionScaleInfoEEEEEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESI_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISQ_EEFvSP_EEclEOSP_(uint64_t a1, unsigned int *a2)
+{
+  v2 = *a2;
+  v3 = *(a1 + 8);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::PositionScaleInfo>>>();
+  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::PositionScaleInfo>>>(void)::metadata;
+  v5 = ecs2::BasicRegistry<void>::storage<md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::PositionScaleInfo>>>(v3);
+  v6 = v2 >> 22;
+  v7 = v5[1];
+  if (v2 >> 22 < (v5[2] - v7) >> 3)
+  {
+    v8 = *(v7 + 8 * v6);
+    if (v8)
+    {
+      v9 = (v2 >> 16) & 0x3F;
+      if (*(v8 + 4 * v9) == v2)
+      {
+        v10 = v5;
+        v11 = v5[31];
+        v12 = v5[32];
+        if (v11 != v12)
+        {
+          do
+          {
+            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
+            v11 += 32;
+          }
+
+          while (v11 != v12);
+          v8 = *(v10[1] + 8 * v6);
+        }
+
+        v13 = *(v8 + 4 * v9 + 2);
+        v14 = ((v10[5] - v10[4]) >> 2) - 1;
+        v15 = v10[7];
+        v16 = *(v15 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8)) + 12 * (v14 & 0x3F);
+        v17 = *(v15 + ((v13 >> 3) & 0x1FF8)) + 12 * (v13 & 0x3F);
+        v18 = *(v17 + 8);
+        v19 = *v17;
+        v20 = *(v16 + 8);
+        *v17 = *v16;
+        *(v17 + 8) = v20;
+        *v16 = v19;
+        *(v16 + 8) = v18;
+        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
+      }
+    }
+  }
+
+  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::PositionScaleInfo>>>();
+  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::PositionScaleInfo>>>(void)::metadata) = *(v3 + 4096);
+}
+
+void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::PositionScaleInfo>>,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A14B98;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+  ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::PositionScaleInfo>>,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::PositionScaleInfo>>,64ul>::~storage(void *a1)
+{
+  *a1 = &unk_1F2A14BB8;
+    ;
+  }
+
+  v3 = a1[7];
+  v4 = a1[8];
+  while (v3 != v4)
+  {
+    if (*v3)
+    {
+      operator delete(*v3);
+    }
+
+    ++v3;
+  }
+
+  v5 = a1[10];
+  if (v5)
+  {
+    a1[11] = v5;
+    operator delete(v5);
+  }
+
+  v6 = a1[7];
+  if (v6)
+  {
+    a1[8] = v6;
+    operator delete(v6);
+  }
+
+  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+}
+
+void ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::PositionScaleInfo>>,64ul>::~storage(void *a1)
+{
+  ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::PositionScaleInfo>>,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::PositionScaleInfo>>,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A14B98;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+
+  return ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::PositionScaleInfo>>,64ul>::~storage(a1);
+}
+
+void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls28RequiresShaderConstantDataIDIN3ggl17ConstantDataTypedINS9_4Tile11LinearDepthEEEEEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESI_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISQ_EEFvSP_EEclEOSP_(uint64_t a1, unsigned int *a2)
+{
+  v2 = *a2;
+  v3 = *(a1 + 8);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::LinearDepth>>>();
+  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::LinearDepth>>>(void)::metadata;
+  v5 = ecs2::BasicRegistry<void>::storage<md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::LinearDepth>>>(v3);
+  v6 = v2 >> 22;
+  v7 = v5[1];
+  if (v2 >> 22 < (v5[2] - v7) >> 3)
+  {
+    v8 = *(v7 + 8 * v6);
+    if (v8)
+    {
+      v9 = (v2 >> 16) & 0x3F;
+      if (*(v8 + 4 * v9) == v2)
+      {
+        v10 = v5;
+        v11 = v5[31];
+        v12 = v5[32];
+        if (v11 != v12)
+        {
+          do
+          {
+            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
+            v11 += 32;
+          }
+
+          while (v11 != v12);
+          v8 = *(v10[1] + 8 * v6);
+        }
+
+        v13 = *(v8 + 4 * v9 + 2);
+        v14 = ((v10[5] - v10[4]) >> 2) - 1;
+        v15 = v10[7];
+        v16 = *(v15 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8)) + 12 * (v14 & 0x3F);
+        v17 = *(v15 + ((v13 >> 3) & 0x1FF8)) + 12 * (v13 & 0x3F);
+        v18 = *(v17 + 8);
+        v19 = *v17;
+        v20 = *(v16 + 8);
+        *v17 = *v16;
+        *(v17 + 8) = v20;
+        *v16 = v19;
+        *(v16 + 8) = v18;
+        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
+      }
+    }
+  }
+
+  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::LinearDepth>>>();
+  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::LinearDepth>>>(void)::metadata) = *(v3 + 4096);
+}
+
+void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::LinearDepth>>,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A14AC8;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+  ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::LinearDepth>>,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::LinearDepth>>,64ul>::~storage(void *a1)
+{
+  *a1 = &unk_1F2A14AE8;
+    ;
+  }
+
+  v3 = a1[7];
+  v4 = a1[8];
+  while (v3 != v4)
+  {
+    if (*v3)
+    {
+      operator delete(*v3);
+    }
+
+    ++v3;
+  }
+
+  v5 = a1[10];
+  if (v5)
+  {
+    a1[11] = v5;
+    operator delete(v5);
+  }
+
+  v6 = a1[7];
+  if (v6)
+  {
+    a1[8] = v6;
+    operator delete(v6);
+  }
+
+  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+}
+
+void ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::LinearDepth>>,64ul>::~storage(void *a1)
+{
+  ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::LinearDepth>>,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::LinearDepth>>,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A14AC8;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+
+  return ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::LinearDepth>>,64ul>::~storage(a1);
+}
+
+void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls28RequiresShaderConstantDataIDIN3ggl17ConstantDataTypedINS9_4Tile8ClippingEEEEEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESI_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISQ_EEFvSP_EEclEOSP_(uint64_t a1, unsigned int *a2)
+{
+  v2 = *a2;
+  v3 = *(a1 + 8);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::Clipping>>>();
+  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::Clipping>>>(void)::metadata;
+  v5 = ecs2::BasicRegistry<void>::storage<md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::Clipping>>>(v3);
+  v6 = v2 >> 22;
+  v7 = v5[1];
+  if (v2 >> 22 < (v5[2] - v7) >> 3)
+  {
+    v8 = *(v7 + 8 * v6);
+    if (v8)
+    {
+      v9 = (v2 >> 16) & 0x3F;
+      if (*(v8 + 4 * v9) == v2)
+      {
+        v10 = v5;
+        v11 = v5[31];
+        v12 = v5[32];
+        if (v11 != v12)
+        {
+          do
+          {
+            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
+            v11 += 32;
+          }
+
+          while (v11 != v12);
+          v8 = *(v10[1] + 8 * v6);
+        }
+
+        v13 = *(v8 + 4 * v9 + 2);
+        v14 = ((v10[5] - v10[4]) >> 2) - 1;
+        v15 = v10[7];
+        v16 = *(v15 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8)) + 12 * (v14 & 0x3F);
+        v17 = *(v15 + ((v13 >> 3) & 0x1FF8)) + 12 * (v13 & 0x3F);
+        v18 = *(v17 + 8);
+        v19 = *v17;
+        v20 = *(v16 + 8);
+        *v17 = *v16;
+        *(v17 + 8) = v20;
+        *v16 = v19;
+        *(v16 + 8) = v18;
+        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
+      }
+    }
+  }
+
+  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::Clipping>>>();
+  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::Clipping>>>(void)::metadata) = *(v3 + 4096);
+}
+
+void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::Clipping>>,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A149F8;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+  ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::Clipping>>,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::Clipping>>,64ul>::~storage(void *a1)
+{
+  *a1 = &unk_1F2A14A18;
+    ;
+  }
+
+  v3 = a1[7];
+  v4 = a1[8];
+  while (v3 != v4)
+  {
+    if (*v3)
+    {
+      operator delete(*v3);
+    }
+
+    ++v3;
+  }
+
+  v5 = a1[10];
+  if (v5)
+  {
+    a1[11] = v5;
+    operator delete(v5);
+  }
+
+  v6 = a1[7];
+  if (v6)
+  {
+    a1[8] = v6;
+    operator delete(v6);
+  }
+
+  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+}
+
+void ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::Clipping>>,64ul>::~storage(void *a1)
+{
+  ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::Clipping>>,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::Clipping>>,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A149F8;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+
+  return ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::Clipping>>,64ul>::~storage(a1);
+}
+
+void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls28RequiresShaderConstantDataIDIN3ggl17ConstantDataTypedINS9_8Lighting23StylizedShadingSettingsEEEEEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESI_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISQ_EEFvSP_EEclEOSP_(uint64_t a1, unsigned int *a2)
+{
+  v2 = *a2;
+  v3 = *(a1 + 8);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Lighting::StylizedShadingSettings>>>();
+  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Lighting::StylizedShadingSettings>>>(void)::metadata;
+  v5 = ecs2::BasicRegistry<void>::storage<md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Lighting::StylizedShadingSettings>>>(v3);
+  v6 = v2 >> 22;
+  v7 = v5[1];
+  if (v2 >> 22 < (v5[2] - v7) >> 3)
+  {
+    v8 = *(v7 + 8 * v6);
+    if (v8)
+    {
+      v9 = (v2 >> 16) & 0x3F;
+      if (*(v8 + 4 * v9) == v2)
+      {
+        v10 = v5;
+        v11 = v5[31];
+        v12 = v5[32];
+        if (v11 != v12)
+        {
+          do
+          {
+            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
+            v11 += 32;
+          }
+
+          while (v11 != v12);
+          v8 = *(v10[1] + 8 * v6);
+        }
+
+        v13 = *(v8 + 4 * v9 + 2);
+        v14 = ((v10[5] - v10[4]) >> 2) - 1;
+        v15 = v10[7];
+        v16 = *(v15 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8)) + 12 * (v14 & 0x3F);
+        v17 = *(v15 + ((v13 >> 3) & 0x1FF8)) + 12 * (v13 & 0x3F);
+        v18 = *(v17 + 8);
+        v19 = *v17;
+        v20 = *(v16 + 8);
+        *v17 = *v16;
+        *(v17 + 8) = v20;
+        *v16 = v19;
+        *(v16 + 8) = v18;
+        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
+      }
+    }
+  }
+
+  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Lighting::StylizedShadingSettings>>>();
+  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Lighting::StylizedShadingSettings>>>(void)::metadata) = *(v3 + 4096);
+}
+
+void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Lighting::StylizedShadingSettings>>,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A14928;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+  ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Lighting::StylizedShadingSettings>>,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Lighting::StylizedShadingSettings>>,64ul>::~storage(void *a1)
+{
+  *a1 = &unk_1F2A14948;
+    ;
+  }
+
+  v3 = a1[7];
+  v4 = a1[8];
+  while (v3 != v4)
+  {
+    if (*v3)
+    {
+      operator delete(*v3);
+    }
+
+    ++v3;
+  }
+
+  v5 = a1[10];
+  if (v5)
+  {
+    a1[11] = v5;
+    operator delete(v5);
+  }
+
+  v6 = a1[7];
+  if (v6)
+  {
+    a1[8] = v6;
+    operator delete(v6);
+  }
+
+  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+}
+
+void ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Lighting::StylizedShadingSettings>>,64ul>::~storage(void *a1)
+{
+  ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Lighting::StylizedShadingSettings>>,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Lighting::StylizedShadingSettings>>,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A14928;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+
+  return ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Lighting::StylizedShadingSettings>>,64ul>::~storage(a1);
+}
+
+void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls28RequiresShaderConstantDataIDIN3ggl17ConstantDataTypedINS9_8Lighting26LightSpecularConfigurationEEEEEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESI_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISQ_EEFvSP_EEclEOSP_(uint64_t a1, unsigned int *a2)
+{
+  v2 = *a2;
+  v3 = *(a1 + 8);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Lighting::LightSpecularConfiguration>>>();
+  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Lighting::LightSpecularConfiguration>>>(void)::metadata;
+  v5 = ecs2::BasicRegistry<void>::storage<md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Lighting::LightSpecularConfiguration>>>(v3);
+  v6 = v2 >> 22;
+  v7 = v5[1];
+  if (v2 >> 22 < (v5[2] - v7) >> 3)
+  {
+    v8 = *(v7 + 8 * v6);
+    if (v8)
+    {
+      v9 = (v2 >> 16) & 0x3F;
+      if (*(v8 + 4 * v9) == v2)
+      {
+        v10 = v5;
+        v11 = v5[31];
+        v12 = v5[32];
+        if (v11 != v12)
+        {
+          do
+          {
+            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
+            v11 += 32;
+          }
+
+          while (v11 != v12);
+          v8 = *(v10[1] + 8 * v6);
+        }
+
+        v13 = *(v8 + 4 * v9 + 2);
+        v14 = ((v10[5] - v10[4]) >> 2) - 1;
+        v15 = v10[7];
+        v16 = *(v15 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8)) + 12 * (v14 & 0x3F);
+        v17 = *(v15 + ((v13 >> 3) & 0x1FF8)) + 12 * (v13 & 0x3F);
+        v18 = *(v17 + 8);
+        v19 = *v17;
+        v20 = *(v16 + 8);
+        *v17 = *v16;
+        *(v17 + 8) = v20;
+        *v16 = v19;
+        *(v16 + 8) = v18;
+        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
+      }
+    }
+  }
+
+  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Lighting::LightSpecularConfiguration>>>();
+  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Lighting::LightSpecularConfiguration>>>(void)::metadata) = *(v3 + 4096);
+}
+
+void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Lighting::LightSpecularConfiguration>>,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A14858;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+  ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Lighting::LightSpecularConfiguration>>,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Lighting::LightSpecularConfiguration>>,64ul>::~storage(void *a1)
+{
+  *a1 = &unk_1F2A14878;
+    ;
+  }
+
+  v3 = a1[7];
+  v4 = a1[8];
+  while (v3 != v4)
+  {
+    if (*v3)
+    {
+      operator delete(*v3);
+    }
+
+    ++v3;
+  }
+
+  v5 = a1[10];
+  if (v5)
+  {
+    a1[11] = v5;
+    operator delete(v5);
+  }
+
+  v6 = a1[7];
+  if (v6)
+  {
+    a1[8] = v6;
+    operator delete(v6);
+  }
+
+  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+}
+
+void ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Lighting::LightSpecularConfiguration>>,64ul>::~storage(void *a1)
+{
+  ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Lighting::LightSpecularConfiguration>>,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Lighting::LightSpecularConfiguration>>,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A14858;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+
+  return ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Lighting::LightSpecularConfiguration>>,64ul>::~storage(a1);
+}
+
+void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls28RequiresShaderConstantDataIDIN3ggl17ConstantDataTypedINS9_8Lighting24LightConfigurationVertexEEEEEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESI_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISQ_EEFvSP_EEclEOSP_(uint64_t a1, unsigned int *a2)
+{
+  v2 = *a2;
+  v3 = *(a1 + 8);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Lighting::LightConfigurationVertex>>>();
+  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Lighting::LightConfigurationVertex>>>(void)::metadata;
+  v5 = ecs2::BasicRegistry<void>::storage<md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Lighting::LightConfigurationVertex>>>(v3);
+  v6 = v2 >> 22;
+  v7 = v5[1];
+  if (v2 >> 22 < (v5[2] - v7) >> 3)
+  {
+    v8 = *(v7 + 8 * v6);
+    if (v8)
+    {
+      v9 = (v2 >> 16) & 0x3F;
+      if (*(v8 + 4 * v9) == v2)
+      {
+        v10 = v5;
+        v11 = v5[31];
+        v12 = v5[32];
+        if (v11 != v12)
+        {
+          do
+          {
+            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
+            v11 += 32;
+          }
+
+          while (v11 != v12);
+          v8 = *(v10[1] + 8 * v6);
+        }
+
+        v13 = *(v8 + 4 * v9 + 2);
+        v14 = ((v10[5] - v10[4]) >> 2) - 1;
+        v15 = v10[7];
+        v16 = *(v15 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8)) + 12 * (v14 & 0x3F);
+        v17 = *(v15 + ((v13 >> 3) & 0x1FF8)) + 12 * (v13 & 0x3F);
+        v18 = *(v17 + 8);
+        v19 = *v17;
+        v20 = *(v16 + 8);
+        *v17 = *v16;
+        *(v17 + 8) = v20;
+        *v16 = v19;
+        *(v16 + 8) = v18;
+        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
+      }
+    }
+  }
+
+  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Lighting::LightConfigurationVertex>>>();
+  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Lighting::LightConfigurationVertex>>>(void)::metadata) = *(v3 + 4096);
+}
+
+void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Lighting::LightConfigurationVertex>>,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A14788;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+  ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Lighting::LightConfigurationVertex>>,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Lighting::LightConfigurationVertex>>,64ul>::~storage(void *a1)
+{
+  *a1 = &unk_1F2A147A8;
+    ;
+  }
+
+  v3 = a1[7];
+  v4 = a1[8];
+  while (v3 != v4)
+  {
+    if (*v3)
+    {
+      operator delete(*v3);
+    }
+
+    ++v3;
+  }
+
+  v5 = a1[10];
+  if (v5)
+  {
+    a1[11] = v5;
+    operator delete(v5);
+  }
+
+  v6 = a1[7];
+  if (v6)
+  {
+    a1[8] = v6;
+    operator delete(v6);
+  }
+
+  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+}
+
+void ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Lighting::LightConfigurationVertex>>,64ul>::~storage(void *a1)
+{
+  ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Lighting::LightConfigurationVertex>>,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Lighting::LightConfigurationVertex>>,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A14788;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+
+  return ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Lighting::LightConfigurationVertex>>,64ul>::~storage(a1);
+}
+
+void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls28RequiresShaderConstantDataIDIN3ggl17ConstantDataTypedINS9_7DaVinci20LightingDebugOptionsEEEEEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESI_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISQ_EEFvSP_EEclEOSP_(uint64_t a1, unsigned int *a2)
+{
+  v2 = *a2;
+  v3 = *(a1 + 8);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::LightingDebugOptions>>>();
+  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::LightingDebugOptions>>>(void)::metadata;
+  v5 = ecs2::BasicRegistry<void>::storage<md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::LightingDebugOptions>>>(v3);
+  v6 = v2 >> 22;
+  v7 = v5[1];
+  if (v2 >> 22 < (v5[2] - v7) >> 3)
+  {
+    v8 = *(v7 + 8 * v6);
+    if (v8)
+    {
+      v9 = (v2 >> 16) & 0x3F;
+      if (*(v8 + 4 * v9) == v2)
+      {
+        v10 = v5;
+        v11 = v5[31];
+        v12 = v5[32];
+        if (v11 != v12)
+        {
+          do
+          {
+            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
+            v11 += 32;
+          }
+
+          while (v11 != v12);
+          v8 = *(v10[1] + 8 * v6);
+        }
+
+        v13 = *(v8 + 4 * v9 + 2);
+        v14 = ((v10[5] - v10[4]) >> 2) - 1;
+        v15 = v10[7];
+        v16 = *(v15 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8)) + 12 * (v14 & 0x3F);
+        v17 = *(v15 + ((v13 >> 3) & 0x1FF8)) + 12 * (v13 & 0x3F);
+        v18 = *(v17 + 8);
+        v19 = *v17;
+        v20 = *(v16 + 8);
+        *v17 = *v16;
+        *(v17 + 8) = v20;
+        *v16 = v19;
+        *(v16 + 8) = v18;
+        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
+      }
+    }
+  }
+
+  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::LightingDebugOptions>>>();
+  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::LightingDebugOptions>>>(void)::metadata) = *(v3 + 4096);
+}
+
+void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::LightingDebugOptions>>,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A146B8;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+  ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::LightingDebugOptions>>,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::LightingDebugOptions>>,64ul>::~storage(void *a1)
+{
+  *a1 = &unk_1F2A146D8;
+    ;
+  }
+
+  v3 = a1[7];
+  v4 = a1[8];
+  while (v3 != v4)
+  {
+    if (*v3)
+    {
+      operator delete(*v3);
+    }
+
+    ++v3;
+  }
+
+  v5 = a1[10];
+  if (v5)
+  {
+    a1[11] = v5;
+    operator delete(v5);
+  }
+
+  v6 = a1[7];
+  if (v6)
+  {
+    a1[8] = v6;
+    operator delete(v6);
+  }
+
+  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+}
+
+void ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::LightingDebugOptions>>,64ul>::~storage(void *a1)
+{
+  ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::LightingDebugOptions>>,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::LightingDebugOptions>>,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A146B8;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+
+  return ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::LightingDebugOptions>>,64ul>::~storage(a1);
+}
+
+void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls28RequiresShaderConstantDataIDIN3ggl17ConstantDataTypedINS9_7DaVinci21StyleTransitionToFlatEEEEEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESI_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISQ_EEFvSP_EEclEOSP_(uint64_t a1, unsigned int *a2)
+{
+  v2 = *a2;
+  v3 = *(a1 + 8);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleTransitionToFlat>>>();
+  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleTransitionToFlat>>>(void)::metadata;
+  v5 = ecs2::BasicRegistry<void>::storage<md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleTransitionToFlat>>>(v3);
+  v6 = v2 >> 22;
+  v7 = v5[1];
+  if (v2 >> 22 < (v5[2] - v7) >> 3)
+  {
+    v8 = *(v7 + 8 * v6);
+    if (v8)
+    {
+      v9 = (v2 >> 16) & 0x3F;
+      if (*(v8 + 4 * v9) == v2)
+      {
+        v10 = v5;
+        v11 = v5[31];
+        v12 = v5[32];
+        if (v11 != v12)
+        {
+          do
+          {
+            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
+            v11 += 32;
+          }
+
+          while (v11 != v12);
+          v8 = *(v10[1] + 8 * v6);
+        }
+
+        v13 = *(v8 + 4 * v9 + 2);
+        v14 = ((v10[5] - v10[4]) >> 2) - 1;
+        v15 = v10[7];
+        v16 = *(v15 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8)) + 12 * (v14 & 0x3F);
+        v17 = *(v15 + ((v13 >> 3) & 0x1FF8)) + 12 * (v13 & 0x3F);
+        v18 = *(v17 + 8);
+        v19 = *v17;
+        v20 = *(v16 + 8);
+        *v17 = *v16;
+        *(v17 + 8) = v20;
+        *v16 = v19;
+        *(v16 + 8) = v18;
+        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
+      }
+    }
+  }
+
+  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleTransitionToFlat>>>();
+  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleTransitionToFlat>>>(void)::metadata) = *(v3 + 4096);
+}
+
+void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleTransitionToFlat>>,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A145E8;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+  ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleTransitionToFlat>>,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleTransitionToFlat>>,64ul>::~storage(void *a1)
+{
+  *a1 = &unk_1F2A14608;
+    ;
+  }
+
+  v3 = a1[7];
+  v4 = a1[8];
+  while (v3 != v4)
+  {
+    if (*v3)
+    {
+      operator delete(*v3);
+    }
+
+    ++v3;
+  }
+
+  v5 = a1[10];
+  if (v5)
+  {
+    a1[11] = v5;
+    operator delete(v5);
+  }
+
+  v6 = a1[7];
+  if (v6)
+  {
+    a1[8] = v6;
+    operator delete(v6);
+  }
+
+  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+}
+
+void ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleTransitionToFlat>>,64ul>::~storage(void *a1)
+{
+  ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleTransitionToFlat>>,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleTransitionToFlat>>,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A145E8;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+
+  return ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleTransitionToFlat>>,64ul>::~storage(a1);
+}
+
+void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls28RequiresShaderConstantDataIDIN3ggl17ConstantDataTypedINS9_7DaVinci14StyleSunMatrixEEEEEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESI_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISQ_EEFvSP_EEclEOSP_(uint64_t a1, unsigned int *a2)
+{
+  v2 = *a2;
+  v3 = *(a1 + 8);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleSunMatrix>>>();
+  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleSunMatrix>>>(void)::metadata;
+  v5 = ecs2::BasicRegistry<void>::storage<md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleSunMatrix>>>(v3);
+  v6 = v2 >> 22;
+  v7 = v5[1];
+  if (v2 >> 22 < (v5[2] - v7) >> 3)
+  {
+    v8 = *(v7 + 8 * v6);
+    if (v8)
+    {
+      v9 = (v2 >> 16) & 0x3F;
+      if (*(v8 + 4 * v9) == v2)
+      {
+        v10 = v5;
+        v11 = v5[31];
+        v12 = v5[32];
+        if (v11 != v12)
+        {
+          do
+          {
+            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
+            v11 += 32;
+          }
+
+          while (v11 != v12);
+          v8 = *(v10[1] + 8 * v6);
+        }
+
+        v13 = *(v8 + 4 * v9 + 2);
+        v14 = ((v10[5] - v10[4]) >> 2) - 1;
+        v15 = v10[7];
+        v16 = *(v15 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8)) + 12 * (v14 & 0x3F);
+        v17 = *(v15 + ((v13 >> 3) & 0x1FF8)) + 12 * (v13 & 0x3F);
+        v18 = *(v17 + 8);
+        v19 = *v17;
+        v20 = *(v16 + 8);
+        *v17 = *v16;
+        *(v17 + 8) = v20;
+        *v16 = v19;
+        *(v16 + 8) = v18;
+        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
+      }
+    }
+  }
+
+  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleSunMatrix>>>();
+  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleSunMatrix>>>(void)::metadata) = *(v3 + 4096);
+}
+
+void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleSunMatrix>>,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A14518;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+  ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleSunMatrix>>,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleSunMatrix>>,64ul>::~storage(void *a1)
+{
+  *a1 = &unk_1F2A14538;
+    ;
+  }
+
+  v3 = a1[7];
+  v4 = a1[8];
+  while (v3 != v4)
+  {
+    if (*v3)
+    {
+      operator delete(*v3);
+    }
+
+    ++v3;
+  }
+
+  v5 = a1[10];
+  if (v5)
+  {
+    a1[11] = v5;
+    operator delete(v5);
+  }
+
+  v6 = a1[7];
+  if (v6)
+  {
+    a1[8] = v6;
+    operator delete(v6);
+  }
+
+  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+}
+
+void ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleSunMatrix>>,64ul>::~storage(void *a1)
+{
+  ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleSunMatrix>>,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleSunMatrix>>,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A14518;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+
+  return ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleSunMatrix>>,64ul>::~storage(a1);
+}
+
+void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls28RequiresShaderConstantDataIDIN3ggl17ConstantDataTypedINS9_7DaVinci9StyleSSAOEEEEEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESI_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISQ_EEFvSP_EEclEOSP_(uint64_t a1, unsigned int *a2)
+{
+  v2 = *a2;
+  v3 = *(a1 + 8);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleSSAO>>>();
+  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleSSAO>>>(void)::metadata;
+  v5 = ecs2::BasicRegistry<void>::storage<md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleSSAO>>>(v3);
+  v6 = v2 >> 22;
+  v7 = v5[1];
+  if (v2 >> 22 < (v5[2] - v7) >> 3)
+  {
+    v8 = *(v7 + 8 * v6);
+    if (v8)
+    {
+      v9 = (v2 >> 16) & 0x3F;
+      if (*(v8 + 4 * v9) == v2)
+      {
+        v10 = v5;
+        v11 = v5[31];
+        v12 = v5[32];
+        if (v11 != v12)
+        {
+          do
+          {
+            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
+            v11 += 32;
+          }
+
+          while (v11 != v12);
+          v8 = *(v10[1] + 8 * v6);
+        }
+
+        v13 = *(v8 + 4 * v9 + 2);
+        v14 = ((v10[5] - v10[4]) >> 2) - 1;
+        v15 = v10[7];
+        v16 = *(v15 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8)) + 12 * (v14 & 0x3F);
+        v17 = *(v15 + ((v13 >> 3) & 0x1FF8)) + 12 * (v13 & 0x3F);
+        v18 = *(v17 + 8);
+        v19 = *v17;
+        v20 = *(v16 + 8);
+        *v17 = *v16;
+        *(v17 + 8) = v20;
+        *v16 = v19;
+        *(v16 + 8) = v18;
+        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
+      }
+    }
+  }
+
+  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleSSAO>>>();
+  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleSSAO>>>(void)::metadata) = *(v3 + 4096);
+}
+
+void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleSSAO>>,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A14448;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+  ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleSSAO>>,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleSSAO>>,64ul>::~storage(void *a1)
+{
+  *a1 = &unk_1F2A14468;
+    ;
+  }
+
+  v3 = a1[7];
+  v4 = a1[8];
+  while (v3 != v4)
+  {
+    if (*v3)
+    {
+      operator delete(*v3);
+    }
+
+    ++v3;
+  }
+
+  v5 = a1[10];
+  if (v5)
+  {
+    a1[11] = v5;
+    operator delete(v5);
+  }
+
+  v6 = a1[7];
+  if (v6)
+  {
+    a1[8] = v6;
+    operator delete(v6);
+  }
+
+  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+}
+
+void ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleSSAO>>,64ul>::~storage(void *a1)
+{
+  ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleSSAO>>,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleSSAO>>,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A14448;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+
+  return ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleSSAO>>,64ul>::~storage(a1);
+}
+
+void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls28RequiresShaderConstantDataIDIN3ggl17ConstantDataTypedINS9_7DaVinci11StyleShadowEEEEEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESI_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISQ_EEFvSP_EEclEOSP_(uint64_t a1, unsigned int *a2)
+{
+  v2 = *a2;
+  v3 = *(a1 + 8);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleShadow>>>();
+  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleShadow>>>(void)::metadata;
+  v5 = ecs2::BasicRegistry<void>::storage<md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleShadow>>>(v3);
+  v6 = v2 >> 22;
+  v7 = v5[1];
+  if (v2 >> 22 < (v5[2] - v7) >> 3)
+  {
+    v8 = *(v7 + 8 * v6);
+    if (v8)
+    {
+      v9 = (v2 >> 16) & 0x3F;
+      if (*(v8 + 4 * v9) == v2)
+      {
+        v10 = v5;
+        v11 = v5[31];
+        v12 = v5[32];
+        if (v11 != v12)
+        {
+          do
+          {
+            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
+            v11 += 32;
+          }
+
+          while (v11 != v12);
+          v8 = *(v10[1] + 8 * v6);
+        }
+
+        v13 = *(v8 + 4 * v9 + 2);
+        v14 = ((v10[5] - v10[4]) >> 2) - 1;
+        v15 = v10[7];
+        v16 = *(v15 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8)) + 12 * (v14 & 0x3F);
+        v17 = *(v15 + ((v13 >> 3) & 0x1FF8)) + 12 * (v13 & 0x3F);
+        v18 = *(v17 + 8);
+        v19 = *v17;
+        v20 = *(v16 + 8);
+        *v17 = *v16;
+        *(v17 + 8) = v20;
+        *v16 = v19;
+        *(v16 + 8) = v18;
+        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
+      }
+    }
+  }
+
+  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleShadow>>>();
+  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleShadow>>>(void)::metadata) = *(v3 + 4096);
+}
+
+void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleShadow>>,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A14378;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+  ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleShadow>>,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleShadow>>,64ul>::~storage(void *a1)
+{
+  *a1 = &unk_1F2A14398;
+    ;
+  }
+
+  v3 = a1[7];
+  v4 = a1[8];
+  while (v3 != v4)
+  {
+    if (*v3)
+    {
+      operator delete(*v3);
+    }
+
+    ++v3;
+  }
+
+  v5 = a1[10];
+  if (v5)
+  {
+    a1[11] = v5;
+    operator delete(v5);
+  }
+
+  v6 = a1[7];
+  if (v6)
+  {
+    a1[8] = v6;
+    operator delete(v6);
+  }
+
+  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+}
+
+void ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleShadow>>,64ul>::~storage(void *a1)
+{
+  ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleShadow>>,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleShadow>>,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A14378;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+
+  return ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleShadow>>,64ul>::~storage(a1);
+}
+
+void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls28RequiresShaderConstantDataIDIN3ggl17ConstantDataTypedINS9_7DaVinci18StyleRouteLineMaskEEEEEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESI_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISQ_EEFvSP_EEclEOSP_(uint64_t a1, unsigned int *a2)
+{
+  v2 = *a2;
+  v3 = *(a1 + 8);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleRouteLineMask>>>();
+  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleRouteLineMask>>>(void)::metadata;
+  v5 = ecs2::BasicRegistry<void>::storage<md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleRouteLineMask>>>(v3);
+  v6 = v2 >> 22;
+  v7 = v5[1];
+  if (v2 >> 22 < (v5[2] - v7) >> 3)
+  {
+    v8 = *(v7 + 8 * v6);
+    if (v8)
+    {
+      v9 = (v2 >> 16) & 0x3F;
+      if (*(v8 + 4 * v9) == v2)
+      {
+        v10 = v5;
+        v11 = v5[31];
+        v12 = v5[32];
+        if (v11 != v12)
+        {
+          do
+          {
+            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
+            v11 += 32;
+          }
+
+          while (v11 != v12);
+          v8 = *(v10[1] + 8 * v6);
+        }
+
+        v13 = *(v8 + 4 * v9 + 2);
+        v14 = ((v10[5] - v10[4]) >> 2) - 1;
+        v15 = v10[7];
+        v16 = *(v15 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8)) + 12 * (v14 & 0x3F);
+        v17 = *(v15 + ((v13 >> 3) & 0x1FF8)) + 12 * (v13 & 0x3F);
+        v18 = *(v17 + 8);
+        v19 = *v17;
+        v20 = *(v16 + 8);
+        *v17 = *v16;
+        *(v17 + 8) = v20;
+        *v16 = v19;
+        *(v16 + 8) = v18;
+        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
+      }
+    }
+  }
+
+  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleRouteLineMask>>>();
+  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleRouteLineMask>>>(void)::metadata) = *(v3 + 4096);
+}
+
+void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleRouteLineMask>>,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A142A8;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+  ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleRouteLineMask>>,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleRouteLineMask>>,64ul>::~storage(void *a1)
+{
+  *a1 = &unk_1F2A142C8;
+    ;
+  }
+
+  v3 = a1[7];
+  v4 = a1[8];
+  while (v3 != v4)
+  {
+    if (*v3)
+    {
+      operator delete(*v3);
+    }
+
+    ++v3;
+  }
+
+  v5 = a1[10];
+  if (v5)
+  {
+    a1[11] = v5;
+    operator delete(v5);
+  }
+
+  v6 = a1[7];
+  if (v6)
+  {
+    a1[8] = v6;
+    operator delete(v6);
+  }
+
+  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+}
+
+void ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleRouteLineMask>>,64ul>::~storage(void *a1)
+{
+  ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleRouteLineMask>>,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
 void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleRouteLineMask>>,64ul>>::~signal_mixin(void *a1)
 {
   *a1 = &unk_1F2A142A8;
@@ -3478,6450 +9893,4 @@ void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls23Req
   *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
   ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderTextureID<DaVinci::TemperatureTexture>>();
   *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderTextureID<DaVinci::TemperatureTexture>>(void)::metadata) = *(v3 + 4096);
-}
-
-void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::TemperatureTexture>,64ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A12E58;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
-  ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::TemperatureTexture>,64ul>::~storage(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void *ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::TemperatureTexture>,64ul>::~storage(void *a1)
-{
-  *a1 = &unk_1F2A12E78;
-    ;
-  }
-
-  v3 = a1[7];
-  v4 = a1[8];
-  while (v3 != v4)
-  {
-    if (*v3)
-    {
-      operator delete(*v3);
-    }
-
-    ++v3;
-  }
-
-  v5 = a1[10];
-  if (v5)
-  {
-    a1[11] = v5;
-    operator delete(v5);
-  }
-
-  v6 = a1[7];
-  if (v6)
-  {
-    a1[8] = v6;
-    operator delete(v6);
-  }
-
-  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
-}
-
-void ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::TemperatureTexture>,64ul>::~storage(void *a1)
-{
-  ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::TemperatureTexture>,64ul>::~storage(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::TemperatureTexture>,64ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A12E58;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
-
-  return ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::TemperatureTexture>,64ul>::~storage(a1);
-}
-
-void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls23RequiresShaderTextureIDIN7DaVinci12StyleTextureEEEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESF_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISN_EEFvSM_EEclEOSM_(uint64_t a1, unsigned int *a2)
-{
-  v2 = *a2;
-  v3 = *(a1 + 8);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderTextureID<DaVinci::StyleTexture>>();
-  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderTextureID<DaVinci::StyleTexture>>(void)::metadata;
-  v5 = ecs2::BasicRegistry<void>::storage<md::ls::RequiresShaderTextureID<DaVinci::StyleTexture>>(v3);
-  v6 = v2 >> 22;
-  v7 = v5[1];
-  if (v2 >> 22 < (v5[2] - v7) >> 3)
-  {
-    v8 = *(v7 + 8 * v6);
-    if (v8)
-    {
-      v9 = (v2 >> 16) & 0x3F;
-      if (*(v8 + 4 * v9) == v2)
-      {
-        v10 = v5;
-        v11 = v5[31];
-        v12 = v5[32];
-        if (v11 != v12)
-        {
-          do
-          {
-            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
-            v11 += 32;
-          }
-
-          while (v11 != v12);
-          v8 = *(v10[1] + 8 * v6);
-        }
-
-        v13 = *(v8 + 4 * v9 + 2);
-        v14 = ((v10[5] - v10[4]) >> 2) - 1;
-        v15 = v10[7];
-        v16 = *(v15 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8)) + 12 * (v14 & 0x3F);
-        v17 = *(v15 + ((v13 >> 3) & 0x1FF8)) + 12 * (v13 & 0x3F);
-        v18 = *(v17 + 8);
-        v19 = *v17;
-        v20 = *(v16 + 8);
-        *v17 = *v16;
-        *(v17 + 8) = v20;
-        *v16 = v19;
-        *(v16 + 8) = v18;
-        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
-      }
-    }
-  }
-
-  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderTextureID<DaVinci::StyleTexture>>();
-  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderTextureID<DaVinci::StyleTexture>>(void)::metadata) = *(v3 + 4096);
-}
-
-void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::StyleTexture>,64ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A12D88;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
-  ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::StyleTexture>,64ul>::~storage(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void *ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::StyleTexture>,64ul>::~storage(void *a1)
-{
-  *a1 = &unk_1F2A12DA8;
-    ;
-  }
-
-  v3 = a1[7];
-  v4 = a1[8];
-  while (v3 != v4)
-  {
-    if (*v3)
-    {
-      operator delete(*v3);
-    }
-
-    ++v3;
-  }
-
-  v5 = a1[10];
-  if (v5)
-  {
-    a1[11] = v5;
-    operator delete(v5);
-  }
-
-  v6 = a1[7];
-  if (v6)
-  {
-    a1[8] = v6;
-    operator delete(v6);
-  }
-
-  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
-}
-
-void ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::StyleTexture>,64ul>::~storage(void *a1)
-{
-  ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::StyleTexture>,64ul>::~storage(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::StyleTexture>,64ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A12D88;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
-
-  return ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::StyleTexture>,64ul>::~storage(a1);
-}
-
-void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls23RequiresShaderTextureIDIN7DaVinci17StyleIndexTextureEEEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESF_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISN_EEFvSM_EEclEOSM_(uint64_t a1, unsigned int *a2)
-{
-  v2 = *a2;
-  v3 = *(a1 + 8);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderTextureID<DaVinci::StyleIndexTexture>>();
-  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderTextureID<DaVinci::StyleIndexTexture>>(void)::metadata;
-  v5 = ecs2::BasicRegistry<void>::storage<md::ls::RequiresShaderTextureID<DaVinci::StyleIndexTexture>>(v3);
-  v6 = v2 >> 22;
-  v7 = v5[1];
-  if (v2 >> 22 < (v5[2] - v7) >> 3)
-  {
-    v8 = *(v7 + 8 * v6);
-    if (v8)
-    {
-      v9 = (v2 >> 16) & 0x3F;
-      if (*(v8 + 4 * v9) == v2)
-      {
-        v10 = v5;
-        v11 = v5[31];
-        v12 = v5[32];
-        if (v11 != v12)
-        {
-          do
-          {
-            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
-            v11 += 32;
-          }
-
-          while (v11 != v12);
-          v8 = *(v10[1] + 8 * v6);
-        }
-
-        v13 = *(v8 + 4 * v9 + 2);
-        v14 = ((v10[5] - v10[4]) >> 2) - 1;
-        v15 = v10[7];
-        v16 = *(v15 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8)) + 12 * (v14 & 0x3F);
-        v17 = *(v15 + ((v13 >> 3) & 0x1FF8)) + 12 * (v13 & 0x3F);
-        v18 = *(v17 + 8);
-        v19 = *v17;
-        v20 = *(v16 + 8);
-        *v17 = *v16;
-        *(v17 + 8) = v20;
-        *v16 = v19;
-        *(v16 + 8) = v18;
-        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
-      }
-    }
-  }
-
-  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderTextureID<DaVinci::StyleIndexTexture>>();
-  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderTextureID<DaVinci::StyleIndexTexture>>(void)::metadata) = *(v3 + 4096);
-}
-
-void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::StyleIndexTexture>,64ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A12CB8;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
-  ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::StyleIndexTexture>,64ul>::~storage(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void *ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::StyleIndexTexture>,64ul>::~storage(void *a1)
-{
-  *a1 = &unk_1F2A12CD8;
-    ;
-  }
-
-  v3 = a1[7];
-  v4 = a1[8];
-  while (v3 != v4)
-  {
-    if (*v3)
-    {
-      operator delete(*v3);
-    }
-
-    ++v3;
-  }
-
-  v5 = a1[10];
-  if (v5)
-  {
-    a1[11] = v5;
-    operator delete(v5);
-  }
-
-  v6 = a1[7];
-  if (v6)
-  {
-    a1[8] = v6;
-    operator delete(v6);
-  }
-
-  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
-}
-
-void ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::StyleIndexTexture>,64ul>::~storage(void *a1)
-{
-  ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::StyleIndexTexture>,64ul>::~storage(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::StyleIndexTexture>,64ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A12CB8;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
-
-  return ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::StyleIndexTexture>,64ul>::~storage(a1);
-}
-
-void *_ZNSt3__18functionIFvN4ecs26EntityEEEaSIZNS1_13BasicRegistryIvE7storageIN2md2ls23RequiresShaderTextureIDIN7DaVinci13ShadowTextureEEEEERN3gdc12constness_asINS1_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESI_E4typeEvEUlS2_E_vEERS4_OSI_(void *a1, uint64_t a2)
-{
-  v4[4] = *MEMORY[0x1E69E9840];
-  v4[0] = &unk_1F2A12C28;
-  v4[1] = a2;
-  v4[3] = v4;
-  std::__function::__value_func<void ()(ecs2::Entity)>::swap[abi:nn200100](v4, a1);
-  std::__function::__value_func<void ()(ecs2::Entity)>::~__value_func[abi:nn200100](v4);
-  return a1;
-}
-
-void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls23RequiresShaderTextureIDIN7DaVinci13ShadowTextureEEEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESF_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISN_EEFvSM_EEclEOSM_(uint64_t a1, unsigned int *a2)
-{
-  v2 = *a2;
-  v3 = *(a1 + 8);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderTextureID<DaVinci::ShadowTexture>>();
-  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderTextureID<DaVinci::ShadowTexture>>(void)::metadata;
-  v5 = ecs2::BasicRegistry<void>::storage<md::ls::RequiresShaderTextureID<DaVinci::ShadowTexture>>(v3);
-  v6 = v2 >> 22;
-  v7 = v5[1];
-  if (v2 >> 22 < (v5[2] - v7) >> 3)
-  {
-    v8 = *(v7 + 8 * v6);
-    if (v8)
-    {
-      v9 = (v2 >> 16) & 0x3F;
-      if (*(v8 + 4 * v9) == v2)
-      {
-        v10 = v5;
-        v11 = v5[31];
-        v12 = v5[32];
-        if (v11 != v12)
-        {
-          do
-          {
-            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
-            v11 += 32;
-          }
-
-          while (v11 != v12);
-          v8 = *(v10[1] + 8 * v6);
-        }
-
-        v13 = *(v8 + 4 * v9 + 2);
-        v14 = ((v10[5] - v10[4]) >> 2) - 1;
-        v15 = v10[7];
-        v16 = *(v15 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8)) + 12 * (v14 & 0x3F);
-        v17 = *(v15 + ((v13 >> 3) & 0x1FF8)) + 12 * (v13 & 0x3F);
-        v18 = *(v17 + 8);
-        v19 = *v17;
-        v20 = *(v16 + 8);
-        *v17 = *v16;
-        *(v17 + 8) = v20;
-        *v16 = v19;
-        *(v16 + 8) = v18;
-        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
-      }
-    }
-  }
-
-  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderTextureID<DaVinci::ShadowTexture>>();
-  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderTextureID<DaVinci::ShadowTexture>>(void)::metadata) = *(v3 + 4096);
-}
-
-uint64_t _ZNKSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls23RequiresShaderTextureIDIN7DaVinci13ShadowTextureEEEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESF_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISN_EEFvSM_EE7__cloneEPNS0_6__baseISQ_EE(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_1F2A12C28;
-  a2[1] = v2;
-  return result;
-}
-
-void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::ShadowTexture>,64ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A12BE8;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
-  ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::ShadowTexture>,64ul>::~storage(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void *ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::ShadowTexture>,64ul>::~storage(void *a1)
-{
-  *a1 = &unk_1F2A12C08;
-    ;
-  }
-
-  v3 = a1[7];
-  v4 = a1[8];
-  while (v3 != v4)
-  {
-    if (*v3)
-    {
-      operator delete(*v3);
-    }
-
-    ++v3;
-  }
-
-  v5 = a1[10];
-  if (v5)
-  {
-    a1[11] = v5;
-    operator delete(v5);
-  }
-
-  v6 = a1[7];
-  if (v6)
-  {
-    a1[8] = v6;
-    operator delete(v6);
-  }
-
-  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
-}
-
-void ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::ShadowTexture>,64ul>::~storage(void *a1)
-{
-  ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::ShadowTexture>,64ul>::~storage(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::ShadowTexture>,64ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A12BE8;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
-
-  return ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::ShadowTexture>,64ul>::~storage(a1);
-}
-
-uint64_t gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls::RequiresShaderTextureID<DaVinci::ShadowTexture>>()
-{
-  v0 = &unk_1EB82E000;
-  {
-    v0 = &unk_1EB82E000;
-    if (v2)
-    {
-      gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls::RequiresShaderTextureID<DaVinci::ShadowTexture>>(void)::localId = atomic_fetch_add(&gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::Counter::nextId(void)::counter, 1uLL);
-      v0 = &unk_1EB82E000;
-    }
-  }
-
-  return v0[502];
-}
-
-void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls23RequiresShaderTextureIDIN7DaVinci16RouteMaskTextureEEEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESF_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISN_EEFvSM_EEclEOSM_(uint64_t a1, unsigned int *a2)
-{
-  v2 = *a2;
-  v3 = *(a1 + 8);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderTextureID<DaVinci::RouteMaskTexture>>();
-  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderTextureID<DaVinci::RouteMaskTexture>>(void)::metadata;
-  v5 = ecs2::BasicRegistry<void>::storage<md::ls::RequiresShaderTextureID<DaVinci::RouteMaskTexture>>(v3);
-  v6 = v2 >> 22;
-  v7 = v5[1];
-  if (v2 >> 22 < (v5[2] - v7) >> 3)
-  {
-    v8 = *(v7 + 8 * v6);
-    if (v8)
-    {
-      v9 = (v2 >> 16) & 0x3F;
-      if (*(v8 + 4 * v9) == v2)
-      {
-        v10 = v5;
-        v11 = v5[31];
-        v12 = v5[32];
-        if (v11 != v12)
-        {
-          do
-          {
-            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
-            v11 += 32;
-          }
-
-          while (v11 != v12);
-          v8 = *(v10[1] + 8 * v6);
-        }
-
-        v13 = *(v8 + 4 * v9 + 2);
-        v14 = ((v10[5] - v10[4]) >> 2) - 1;
-        v15 = v10[7];
-        v16 = *(v15 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8)) + 12 * (v14 & 0x3F);
-        v17 = *(v15 + ((v13 >> 3) & 0x1FF8)) + 12 * (v13 & 0x3F);
-        v18 = *(v17 + 8);
-        v19 = *v17;
-        v20 = *(v16 + 8);
-        *v17 = *v16;
-        *(v17 + 8) = v20;
-        *v16 = v19;
-        *(v16 + 8) = v18;
-        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
-      }
-    }
-  }
-
-  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderTextureID<DaVinci::RouteMaskTexture>>();
-  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderTextureID<DaVinci::RouteMaskTexture>>(void)::metadata) = *(v3 + 4096);
-}
-
-uint64_t _ZNKSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls23RequiresShaderTextureIDIN7DaVinci16RouteMaskTextureEEEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESF_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISN_EEFvSM_EE7__cloneEPNS0_6__baseISQ_EE(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_1F2A12B58;
-  a2[1] = v2;
-  return result;
-}
-
-void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::RouteMaskTexture>,64ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A12B18;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
-  ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::RouteMaskTexture>,64ul>::~storage(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void *ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::RouteMaskTexture>,64ul>::~storage(void *a1)
-{
-  *a1 = &unk_1F2A12B38;
-    ;
-  }
-
-  v3 = a1[7];
-  v4 = a1[8];
-  while (v3 != v4)
-  {
-    if (*v3)
-    {
-      operator delete(*v3);
-    }
-
-    ++v3;
-  }
-
-  v5 = a1[10];
-  if (v5)
-  {
-    a1[11] = v5;
-    operator delete(v5);
-  }
-
-  v6 = a1[7];
-  if (v6)
-  {
-    a1[8] = v6;
-    operator delete(v6);
-  }
-
-  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
-}
-
-void ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::RouteMaskTexture>,64ul>::~storage(void *a1)
-{
-  ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::RouteMaskTexture>,64ul>::~storage(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::RouteMaskTexture>,64ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A12B18;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
-
-  return ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::RouteMaskTexture>,64ul>::~storage(a1);
-}
-
-void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls23RequiresShaderTextureIDIN7DaVinci14OverlayTextureEEEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESF_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISN_EEFvSM_EEclEOSM_(uint64_t a1, unsigned int *a2)
-{
-  v2 = *a2;
-  v3 = *(a1 + 8);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderTextureID<DaVinci::OverlayTexture>>();
-  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderTextureID<DaVinci::OverlayTexture>>(void)::metadata;
-  v5 = ecs2::BasicRegistry<void>::storage<md::ls::RequiresShaderTextureID<DaVinci::OverlayTexture>>(v3);
-  v6 = v2 >> 22;
-  v7 = v5[1];
-  if (v2 >> 22 < (v5[2] - v7) >> 3)
-  {
-    v8 = *(v7 + 8 * v6);
-    if (v8)
-    {
-      v9 = (v2 >> 16) & 0x3F;
-      if (*(v8 + 4 * v9) == v2)
-      {
-        v10 = v5;
-        v11 = v5[31];
-        v12 = v5[32];
-        if (v11 != v12)
-        {
-          do
-          {
-            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
-            v11 += 32;
-          }
-
-          while (v11 != v12);
-          v8 = *(v10[1] + 8 * v6);
-        }
-
-        v13 = *(v8 + 4 * v9 + 2);
-        v14 = ((v10[5] - v10[4]) >> 2) - 1;
-        v15 = v10[7];
-        v16 = *(v15 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8)) + 12 * (v14 & 0x3F);
-        v17 = *(v15 + ((v13 >> 3) & 0x1FF8)) + 12 * (v13 & 0x3F);
-        v18 = *(v17 + 8);
-        v19 = *v17;
-        v20 = *(v16 + 8);
-        *v17 = *v16;
-        *(v17 + 8) = v20;
-        *v16 = v19;
-        *(v16 + 8) = v18;
-        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
-      }
-    }
-  }
-
-  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderTextureID<DaVinci::OverlayTexture>>();
-  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderTextureID<DaVinci::OverlayTexture>>(void)::metadata) = *(v3 + 4096);
-}
-
-void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::OverlayTexture>,64ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A12A48;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
-  ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::OverlayTexture>,64ul>::~storage(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void *ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::OverlayTexture>,64ul>::~storage(void *a1)
-{
-  *a1 = &unk_1F2A12A68;
-    ;
-  }
-
-  v3 = a1[7];
-  v4 = a1[8];
-  while (v3 != v4)
-  {
-    if (*v3)
-    {
-      operator delete(*v3);
-    }
-
-    ++v3;
-  }
-
-  v5 = a1[10];
-  if (v5)
-  {
-    a1[11] = v5;
-    operator delete(v5);
-  }
-
-  v6 = a1[7];
-  if (v6)
-  {
-    a1[8] = v6;
-    operator delete(v6);
-  }
-
-  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
-}
-
-void ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::OverlayTexture>,64ul>::~storage(void *a1)
-{
-  ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::OverlayTexture>,64ul>::~storage(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::OverlayTexture>,64ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A12A48;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
-
-  return ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::OverlayTexture>,64ul>::~storage(a1);
-}
-
-void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls23RequiresShaderTextureIDIN7DaVinci16OcclusionTextureEEEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESF_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISN_EEFvSM_EEclEOSM_(uint64_t a1, unsigned int *a2)
-{
-  v2 = *a2;
-  v3 = *(a1 + 8);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderTextureID<DaVinci::OcclusionTexture>>();
-  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderTextureID<DaVinci::OcclusionTexture>>(void)::metadata;
-  v5 = ecs2::BasicRegistry<void>::storage<md::ls::RequiresShaderTextureID<DaVinci::OcclusionTexture>>(v3);
-  v6 = v2 >> 22;
-  v7 = v5[1];
-  if (v2 >> 22 < (v5[2] - v7) >> 3)
-  {
-    v8 = *(v7 + 8 * v6);
-    if (v8)
-    {
-      v9 = (v2 >> 16) & 0x3F;
-      if (*(v8 + 4 * v9) == v2)
-      {
-        v10 = v5;
-        v11 = v5[31];
-        v12 = v5[32];
-        if (v11 != v12)
-        {
-          do
-          {
-            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
-            v11 += 32;
-          }
-
-          while (v11 != v12);
-          v8 = *(v10[1] + 8 * v6);
-        }
-
-        v13 = *(v8 + 4 * v9 + 2);
-        v14 = ((v10[5] - v10[4]) >> 2) - 1;
-        v15 = v10[7];
-        v16 = *(v15 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8)) + 12 * (v14 & 0x3F);
-        v17 = *(v15 + ((v13 >> 3) & 0x1FF8)) + 12 * (v13 & 0x3F);
-        v18 = *(v17 + 8);
-        v19 = *v17;
-        v20 = *(v16 + 8);
-        *v17 = *v16;
-        *(v17 + 8) = v20;
-        *v16 = v19;
-        *(v16 + 8) = v18;
-        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
-      }
-    }
-  }
-
-  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderTextureID<DaVinci::OcclusionTexture>>();
-  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderTextureID<DaVinci::OcclusionTexture>>(void)::metadata) = *(v3 + 4096);
-}
-
-void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::OcclusionTexture>,64ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A12978;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
-  ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::OcclusionTexture>,64ul>::~storage(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void *ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::OcclusionTexture>,64ul>::~storage(void *a1)
-{
-  *a1 = &unk_1F2A12998;
-    ;
-  }
-
-  v3 = a1[7];
-  v4 = a1[8];
-  while (v3 != v4)
-  {
-    if (*v3)
-    {
-      operator delete(*v3);
-    }
-
-    ++v3;
-  }
-
-  v5 = a1[10];
-  if (v5)
-  {
-    a1[11] = v5;
-    operator delete(v5);
-  }
-
-  v6 = a1[7];
-  if (v6)
-  {
-    a1[8] = v6;
-    operator delete(v6);
-  }
-
-  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
-}
-
-void ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::OcclusionTexture>,64ul>::~storage(void *a1)
-{
-  ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::OcclusionTexture>,64ul>::~storage(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::OcclusionTexture>,64ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A12978;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
-
-  return ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::OcclusionTexture>,64ul>::~storage(a1);
-}
-
-void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls23RequiresShaderTextureIDIN7DaVinci16Gradient2TextureEEEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESF_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISN_EEFvSM_EEclEOSM_(uint64_t a1, unsigned int *a2)
-{
-  v2 = *a2;
-  v3 = *(a1 + 8);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderTextureID<DaVinci::Gradient2Texture>>();
-  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderTextureID<DaVinci::Gradient2Texture>>(void)::metadata;
-  v5 = ecs2::BasicRegistry<void>::storage<md::ls::RequiresShaderTextureID<DaVinci::Gradient2Texture>>(v3);
-  v6 = v2 >> 22;
-  v7 = v5[1];
-  if (v2 >> 22 < (v5[2] - v7) >> 3)
-  {
-    v8 = *(v7 + 8 * v6);
-    if (v8)
-    {
-      v9 = (v2 >> 16) & 0x3F;
-      if (*(v8 + 4 * v9) == v2)
-      {
-        v10 = v5;
-        v11 = v5[31];
-        v12 = v5[32];
-        if (v11 != v12)
-        {
-          do
-          {
-            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
-            v11 += 32;
-          }
-
-          while (v11 != v12);
-          v8 = *(v10[1] + 8 * v6);
-        }
-
-        v13 = *(v8 + 4 * v9 + 2);
-        v14 = ((v10[5] - v10[4]) >> 2) - 1;
-        v15 = v10[7];
-        v16 = *(v15 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8)) + 12 * (v14 & 0x3F);
-        v17 = *(v15 + ((v13 >> 3) & 0x1FF8)) + 12 * (v13 & 0x3F);
-        v18 = *(v17 + 8);
-        v19 = *v17;
-        v20 = *(v16 + 8);
-        *v17 = *v16;
-        *(v17 + 8) = v20;
-        *v16 = v19;
-        *(v16 + 8) = v18;
-        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
-      }
-    }
-  }
-
-  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderTextureID<DaVinci::Gradient2Texture>>();
-  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderTextureID<DaVinci::Gradient2Texture>>(void)::metadata) = *(v3 + 4096);
-}
-
-void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::Gradient2Texture>,64ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A128A8;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
-  ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::Gradient2Texture>,64ul>::~storage(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void *ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::Gradient2Texture>,64ul>::~storage(void *a1)
-{
-  *a1 = &unk_1F2A128C8;
-    ;
-  }
-
-  v3 = a1[7];
-  v4 = a1[8];
-  while (v3 != v4)
-  {
-    if (*v3)
-    {
-      operator delete(*v3);
-    }
-
-    ++v3;
-  }
-
-  v5 = a1[10];
-  if (v5)
-  {
-    a1[11] = v5;
-    operator delete(v5);
-  }
-
-  v6 = a1[7];
-  if (v6)
-  {
-    a1[8] = v6;
-    operator delete(v6);
-  }
-
-  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
-}
-
-void ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::Gradient2Texture>,64ul>::~storage(void *a1)
-{
-  ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::Gradient2Texture>,64ul>::~storage(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::Gradient2Texture>,64ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A128A8;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
-
-  return ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::Gradient2Texture>,64ul>::~storage(a1);
-}
-
-void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls23RequiresShaderTextureIDIN7DaVinci16Gradient1TextureEEEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESF_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISN_EEFvSM_EEclEOSM_(uint64_t a1, unsigned int *a2)
-{
-  v2 = *a2;
-  v3 = *(a1 + 8);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderTextureID<DaVinci::Gradient1Texture>>();
-  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderTextureID<DaVinci::Gradient1Texture>>(void)::metadata;
-  v5 = ecs2::BasicRegistry<void>::storage<md::ls::RequiresShaderTextureID<DaVinci::Gradient1Texture>>(v3);
-  v6 = v2 >> 22;
-  v7 = v5[1];
-  if (v2 >> 22 < (v5[2] - v7) >> 3)
-  {
-    v8 = *(v7 + 8 * v6);
-    if (v8)
-    {
-      v9 = (v2 >> 16) & 0x3F;
-      if (*(v8 + 4 * v9) == v2)
-      {
-        v10 = v5;
-        v11 = v5[31];
-        v12 = v5[32];
-        if (v11 != v12)
-        {
-          do
-          {
-            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
-            v11 += 32;
-          }
-
-          while (v11 != v12);
-          v8 = *(v10[1] + 8 * v6);
-        }
-
-        v13 = *(v8 + 4 * v9 + 2);
-        v14 = ((v10[5] - v10[4]) >> 2) - 1;
-        v15 = v10[7];
-        v16 = *(v15 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8)) + 12 * (v14 & 0x3F);
-        v17 = *(v15 + ((v13 >> 3) & 0x1FF8)) + 12 * (v13 & 0x3F);
-        v18 = *(v17 + 8);
-        v19 = *v17;
-        v20 = *(v16 + 8);
-        *v17 = *v16;
-        *(v17 + 8) = v20;
-        *v16 = v19;
-        *(v16 + 8) = v18;
-        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
-      }
-    }
-  }
-
-  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderTextureID<DaVinci::Gradient1Texture>>();
-  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderTextureID<DaVinci::Gradient1Texture>>(void)::metadata) = *(v3 + 4096);
-}
-
-void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::Gradient1Texture>,64ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A127D8;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
-  ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::Gradient1Texture>,64ul>::~storage(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void *ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::Gradient1Texture>,64ul>::~storage(void *a1)
-{
-  *a1 = &unk_1F2A127F8;
-    ;
-  }
-
-  v3 = a1[7];
-  v4 = a1[8];
-  while (v3 != v4)
-  {
-    if (*v3)
-    {
-      operator delete(*v3);
-    }
-
-    ++v3;
-  }
-
-  v5 = a1[10];
-  if (v5)
-  {
-    a1[11] = v5;
-    operator delete(v5);
-  }
-
-  v6 = a1[7];
-  if (v6)
-  {
-    a1[8] = v6;
-    operator delete(v6);
-  }
-
-  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
-}
-
-void ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::Gradient1Texture>,64ul>::~storage(void *a1)
-{
-  ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::Gradient1Texture>,64ul>::~storage(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::Gradient1Texture>,64ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A127D8;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
-
-  return ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::Gradient1Texture>,64ul>::~storage(a1);
-}
-
-void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls23RequiresShaderTextureIDIN7DaVinci15EmissiveTextureEEEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESF_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISN_EEFvSM_EEclEOSM_(uint64_t a1, unsigned int *a2)
-{
-  v2 = *a2;
-  v3 = *(a1 + 8);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderTextureID<DaVinci::EmissiveTexture>>();
-  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderTextureID<DaVinci::EmissiveTexture>>(void)::metadata;
-  v5 = ecs2::BasicRegistry<void>::storage<md::ls::RequiresShaderTextureID<DaVinci::EmissiveTexture>>(v3);
-  v6 = v2 >> 22;
-  v7 = v5[1];
-  if (v2 >> 22 < (v5[2] - v7) >> 3)
-  {
-    v8 = *(v7 + 8 * v6);
-    if (v8)
-    {
-      v9 = (v2 >> 16) & 0x3F;
-      if (*(v8 + 4 * v9) == v2)
-      {
-        v10 = v5;
-        v11 = v5[31];
-        v12 = v5[32];
-        if (v11 != v12)
-        {
-          do
-          {
-            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
-            v11 += 32;
-          }
-
-          while (v11 != v12);
-          v8 = *(v10[1] + 8 * v6);
-        }
-
-        v13 = *(v8 + 4 * v9 + 2);
-        v14 = ((v10[5] - v10[4]) >> 2) - 1;
-        v15 = v10[7];
-        v16 = *(v15 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8)) + 12 * (v14 & 0x3F);
-        v17 = *(v15 + ((v13 >> 3) & 0x1FF8)) + 12 * (v13 & 0x3F);
-        v18 = *(v17 + 8);
-        v19 = *v17;
-        v20 = *(v16 + 8);
-        *v17 = *v16;
-        *(v17 + 8) = v20;
-        *v16 = v19;
-        *(v16 + 8) = v18;
-        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
-      }
-    }
-  }
-
-  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderTextureID<DaVinci::EmissiveTexture>>();
-  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderTextureID<DaVinci::EmissiveTexture>>(void)::metadata) = *(v3 + 4096);
-}
-
-void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::EmissiveTexture>,64ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A12708;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
-  ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::EmissiveTexture>,64ul>::~storage(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void *ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::EmissiveTexture>,64ul>::~storage(void *a1)
-{
-  *a1 = &unk_1F2A12728;
-    ;
-  }
-
-  v3 = a1[7];
-  v4 = a1[8];
-  while (v3 != v4)
-  {
-    if (*v3)
-    {
-      operator delete(*v3);
-    }
-
-    ++v3;
-  }
-
-  v5 = a1[10];
-  if (v5)
-  {
-    a1[11] = v5;
-    operator delete(v5);
-  }
-
-  v6 = a1[7];
-  if (v6)
-  {
-    a1[8] = v6;
-    operator delete(v6);
-  }
-
-  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
-}
-
-void ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::EmissiveTexture>,64ul>::~storage(void *a1)
-{
-  ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::EmissiveTexture>,64ul>::~storage(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::EmissiveTexture>,64ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A12708;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
-
-  return ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::EmissiveTexture>,64ul>::~storage(a1);
-}
-
-void std::__function::__func<ecs2::AddComponent::AddComponent<md::ls::RequiresShaderTextureID<DaVinci::DiffuseTexture>>(ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::DiffuseTexture> &&)::{lambda(ecs2::BasicRegistry<void> &)#1},std::allocator<ecs2::BasicRegistry<void> &>,void ()(ecs2::BasicRegistry<void>)>::operator()(uint64_t a1, uint64_t a2)
-{
-  v4 = *(a1 + 20);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderTextureID<DaVinci::DiffuseTexture>>();
-  v5 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderTextureID<DaVinci::DiffuseTexture>>(void)::metadata;
-  v6 = ecs2::BasicRegistry<void>::storage<md::ls::RequiresShaderTextureID<DaVinci::DiffuseTexture>>(a2);
-  v7 = v6;
-  v8 = v4 >> 22;
-  v10 = (v6 + 8);
-  v9 = *(v6 + 8);
-  if (v4 >> 22 >= (*(v6 + 16) - v9) >> 3)
-  {
-    std::vector<ecs2::sparse_set<ecs2::Entity,64ul>::page *,std::allocator<ecs2::sparse_set<ecs2::Entity,64ul>::page *>>::resize((v6 + 8), v8 + 1);
-    v9 = *v10;
-  }
-
-  v11 = *(v9 + 8 * v8);
-  if (!v11)
-  {
-    operator new();
-  }
-
-  v12 = (v11 + 4 * ((v4 >> 16) & 0x3F));
-  v13 = v12[1];
-  if (*v12 != -1 || v13 != 0)
-  {
-    v56 = *(*(v7 + 56) + ((v13 >> 3) & 0x1FF8)) + 12 * (v13 & 0x3F);
-    v57 = *(a1 + 8);
-    *(v56 + 8) = *(a1 + 16);
-    *v56 = v57;
-    goto LABEL_54;
-  }
-
-  v16 = *(v7 + 40);
-  v15 = *(v7 + 48);
-  v59 = v5;
-  if (v16 >= v15)
-  {
-    v18 = *(v7 + 32);
-    v19 = (v16 - v18) >> 2;
-    if ((v19 + 1) >> 62)
-    {
-      std::__throw_bad_array_new_length[abi:nn200100]();
-    }
-
-    v20 = v15 - v18;
-    v21 = v20 >> 1;
-    if (v20 >> 1 <= (v19 + 1))
-    {
-      v21 = v19 + 1;
-    }
-
-    if (v20 >= 0x7FFFFFFFFFFFFFFCLL)
-    {
-      v22 = 0x3FFFFFFFFFFFFFFFLL;
-    }
-
-    else
-    {
-      v22 = v21;
-    }
-
-    if (v22)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<unsigned int>>(v22);
-    }
-
-    *(4 * v19) = v4;
-    v17 = 4 * v19 + 4;
-    v23 = *(v7 + 32);
-    v24 = *(v7 + 40) - v23;
-    v25 = (4 * v19 - v24);
-    memcpy(v25, v23, v24);
-    v26 = *(v7 + 32);
-    *(v7 + 32) = v25;
-    *(v7 + 40) = v17;
-    *(v7 + 48) = 0;
-    if (v26)
-    {
-      operator delete(v26);
-    }
-  }
-
-  else
-  {
-    *v16 = v4;
-    v17 = (v16 + 1);
-  }
-
-  *(v7 + 40) = v17;
-  v27 = ((v17 - *(v7 + 32)) >> 2) - 1;
-  *v12 = v4;
-  v12[1] = v27;
-  v28 = v27 >> 6;
-  v30 = *(v7 + 56);
-  v29 = *(v7 + 64);
-  v31 = v29 - v30;
-  if (v27 >> 6 >= (v29 - v30) >> 3)
-  {
-    v58 = a2;
-    v32 = v28 + 1;
-    v33 = v28 + 1 - (v31 >> 3);
-    v34 = *(v7 + 72);
-    if (v33 > (v34 - v29) >> 3)
-    {
-      v35 = v34 - v30;
-      v36 = (v34 - v30) >> 2;
-      if (v36 <= v32)
-      {
-        v36 = v28 + 1;
-      }
-
-      if (v35 >= 0x7FFFFFFFFFFFFFF8)
-      {
-        v37 = 0x1FFFFFFFFFFFFFFFLL;
-      }
-
-      else
-      {
-        v37 = v36;
-      }
-
-      if (!(v37 >> 61))
-      {
-        operator new();
-      }
-
-      goto LABEL_56;
-    }
-
-    v38 = 0;
-    v39 = (v33 + 0x1FFFFFFFFFFFFFFFLL) & 0x1FFFFFFFFFFFFFFFLL;
-    v40 = vdupq_n_s64(v39);
-    do
-    {
-      v41 = vmovn_s64(vcgeq_u64(v40, vorrq_s8(vdupq_n_s64(v38), xmmword_1B33B0560)));
-      if (v41.i8[0])
-      {
-        *(v29 + 8 * v38) = 0;
-      }
-
-      if (v41.i8[4])
-      {
-        *(v29 + 8 * v38 + 8) = 0;
-      }
-
-      v38 += 2;
-    }
-
-    while (v39 - ((v33 + 0x1FFFFFFFFFFFFFFFLL) & 1) + 2 != v38);
-    *(v7 + 64) = v29 + 8 * v33;
-    v42 = *(v7 + 80);
-    v43 = *(v7 + 88);
-    v44 = (v43 - v42) >> 4;
-    if (v44 <= v28)
-    {
-      v46 = v32 - v44;
-      v47 = *(v7 + 96);
-      if (v46 > (v47 - v43) >> 4)
-      {
-        v48 = v47 - v42;
-        v49 = v48 >> 3;
-        if (v48 >> 3 <= v32)
-        {
-          v49 = v28 + 1;
-        }
-
-        if (v48 >= 0x7FFFFFFFFFFFFFF0)
-        {
-          v50 = 0xFFFFFFFFFFFFFFFLL;
-        }
-
-        else
-        {
-          v50 = v49;
-        }
-
-        if (!(v50 >> 60))
-        {
-          operator new();
-        }
-
-LABEL_56:
-        std::__throw_bad_array_new_length[abi:nn200100]();
-      }
-
-      bzero(*(v7 + 88), 16 * v46);
-      v45 = v43 + 16 * v46;
-    }
-
-    else
-    {
-      if (v32 >= v44)
-      {
-        goto LABEL_50;
-      }
-
-      v45 = v42 + 16 * v32;
-    }
-
-    *(v7 + 88) = v45;
-LABEL_50:
-    v30 = *(v7 + 56);
-    a2 = v58;
-    if (v31 < (*(v7 + 64) - v30))
-    {
-      operator new();
-    }
-  }
-
-  v51 = *(v30 + 8 * v28) + 12 * (v27 & 0x3F);
-  v5 = v59;
-  v52 = *(a1 + 8);
-  *(v51 + 8) = *(a1 + 16);
-  *v51 = v52;
-  v53 = *(v7 + 152);
-  for (i = *(v7 + 160); v53 != i; v53 += 32)
-  {
-    std::function<void ()(ecs2::Entity)>::operator()(*(v53 + 24), v4);
-  }
-
-LABEL_54:
-  v55 = *(a2 + 41016) + (v4 >> 16 << 6);
-  *(v55 + ((v5 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) |= 1 << v5;
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderTextureID<DaVinci::DiffuseTexture>>();
-  *(a2 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderTextureID<DaVinci::DiffuseTexture>>(void)::metadata) = *(a2 + 4096);
-}
-
-void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls23RequiresShaderTextureIDIN7DaVinci14DiffuseTextureEEEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESF_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISN_EEFvSM_EEclEOSM_(uint64_t a1, unsigned int *a2)
-{
-  v2 = *a2;
-  v3 = *(a1 + 8);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderTextureID<DaVinci::DiffuseTexture>>();
-  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderTextureID<DaVinci::DiffuseTexture>>(void)::metadata;
-  v5 = ecs2::BasicRegistry<void>::storage<md::ls::RequiresShaderTextureID<DaVinci::DiffuseTexture>>(v3);
-  v6 = v2 >> 22;
-  v7 = v5[1];
-  if (v2 >> 22 < (v5[2] - v7) >> 3)
-  {
-    v8 = *(v7 + 8 * v6);
-    if (v8)
-    {
-      v9 = (v2 >> 16) & 0x3F;
-      if (*(v8 + 4 * v9) == v2)
-      {
-        v10 = v5;
-        v11 = v5[31];
-        v12 = v5[32];
-        if (v11 != v12)
-        {
-          do
-          {
-            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
-            v11 += 32;
-          }
-
-          while (v11 != v12);
-          v8 = *(v10[1] + 8 * v6);
-        }
-
-        v13 = *(v8 + 4 * v9 + 2);
-        v14 = ((v10[5] - v10[4]) >> 2) - 1;
-        v15 = v10[7];
-        v16 = *(v15 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8)) + 12 * (v14 & 0x3F);
-        v17 = *(v15 + ((v13 >> 3) & 0x1FF8)) + 12 * (v13 & 0x3F);
-        v18 = *(v17 + 8);
-        v19 = *v17;
-        v20 = *(v16 + 8);
-        *v17 = *v16;
-        *(v17 + 8) = v20;
-        *v16 = v19;
-        *(v16 + 8) = v18;
-        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
-      }
-    }
-  }
-
-  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderTextureID<DaVinci::DiffuseTexture>>();
-  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderTextureID<DaVinci::DiffuseTexture>>(void)::metadata) = *(v3 + 4096);
-}
-
-void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::DiffuseTexture>,64ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A12638;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
-  ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::DiffuseTexture>,64ul>::~storage(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void *ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::DiffuseTexture>,64ul>::~storage(void *a1)
-{
-  *a1 = &unk_1F2A12658;
-    ;
-  }
-
-  v3 = a1[7];
-  v4 = a1[8];
-  while (v3 != v4)
-  {
-    if (*v3)
-    {
-      operator delete(*v3);
-    }
-
-    ++v3;
-  }
-
-  v5 = a1[10];
-  if (v5)
-  {
-    a1[11] = v5;
-    operator delete(v5);
-  }
-
-  v6 = a1[7];
-  if (v6)
-  {
-    a1[8] = v6;
-    operator delete(v6);
-  }
-
-  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
-}
-
-void ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::DiffuseTexture>,64ul>::~storage(void *a1)
-{
-  ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::DiffuseTexture>,64ul>::~storage(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::DiffuseTexture>,64ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A12638;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
-
-  return ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::DiffuseTexture>,64ul>::~storage(a1);
-}
-
-__n128 std::__function::__func<ecs2::AddComponent::AddComponent<md::ls::RequiresShaderTextureID<DaVinci::DiffuseTexture>>(ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::DiffuseTexture> &&)::{lambda(ecs2::BasicRegistry<void> &)#1},std::allocator<ecs2::BasicRegistry<void> &>,void ()(ecs2::BasicRegistry<void>)>::__clone(uint64_t a1, uint64_t a2)
-{
-  *a2 = &unk_1F2A125F0;
-  result = *(a1 + 8);
-  *(a2 + 8) = result;
-  return result;
-}
-
-void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls23RequiresShaderTextureIDIN7DaVinci14AridityTextureEEEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESF_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISN_EEFvSM_EEclEOSM_(uint64_t a1, unsigned int *a2)
-{
-  v2 = *a2;
-  v3 = *(a1 + 8);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderTextureID<DaVinci::AridityTexture>>();
-  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderTextureID<DaVinci::AridityTexture>>(void)::metadata;
-  v5 = ecs2::BasicRegistry<void>::storage<md::ls::RequiresShaderTextureID<DaVinci::AridityTexture>>(v3);
-  v6 = v2 >> 22;
-  v7 = v5[1];
-  if (v2 >> 22 < (v5[2] - v7) >> 3)
-  {
-    v8 = *(v7 + 8 * v6);
-    if (v8)
-    {
-      v9 = (v2 >> 16) & 0x3F;
-      if (*(v8 + 4 * v9) == v2)
-      {
-        v10 = v5;
-        v11 = v5[31];
-        v12 = v5[32];
-        if (v11 != v12)
-        {
-          do
-          {
-            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
-            v11 += 32;
-          }
-
-          while (v11 != v12);
-          v8 = *(v10[1] + 8 * v6);
-        }
-
-        v13 = *(v8 + 4 * v9 + 2);
-        v14 = ((v10[5] - v10[4]) >> 2) - 1;
-        v15 = v10[7];
-        v16 = *(v15 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8)) + 12 * (v14 & 0x3F);
-        v17 = *(v15 + ((v13 >> 3) & 0x1FF8)) + 12 * (v13 & 0x3F);
-        v18 = *(v17 + 8);
-        v19 = *v17;
-        v20 = *(v16 + 8);
-        *v17 = *v16;
-        *(v17 + 8) = v20;
-        *v16 = v19;
-        *(v16 + 8) = v18;
-        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
-      }
-    }
-  }
-
-  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderTextureID<DaVinci::AridityTexture>>();
-  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderTextureID<DaVinci::AridityTexture>>(void)::metadata) = *(v3 + 4096);
-}
-
-void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::AridityTexture>,64ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A12568;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
-  ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::AridityTexture>,64ul>::~storage(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void *ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::AridityTexture>,64ul>::~storage(void *a1)
-{
-  *a1 = &unk_1F2A12588;
-    ;
-  }
-
-  v3 = a1[7];
-  v4 = a1[8];
-  while (v3 != v4)
-  {
-    if (*v3)
-    {
-      operator delete(*v3);
-    }
-
-    ++v3;
-  }
-
-  v5 = a1[10];
-  if (v5)
-  {
-    a1[11] = v5;
-    operator delete(v5);
-  }
-
-  v6 = a1[7];
-  if (v6)
-  {
-    a1[8] = v6;
-    operator delete(v6);
-  }
-
-  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
-}
-
-void ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::AridityTexture>,64ul>::~storage(void *a1)
-{
-  ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::AridityTexture>,64ul>::~storage(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::AridityTexture>,64ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A12568;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
-
-  return ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::AridityTexture>,64ul>::~storage(a1);
-}
-
-void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls23RequiresShaderTextureIDIN7DaVinci14AmbientTextureEEEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESF_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISN_EEFvSM_EEclEOSM_(uint64_t a1, unsigned int *a2)
-{
-  v2 = *a2;
-  v3 = *(a1 + 8);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderTextureID<DaVinci::AmbientTexture>>();
-  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderTextureID<DaVinci::AmbientTexture>>(void)::metadata;
-  v5 = ecs2::BasicRegistry<void>::storage<md::ls::RequiresShaderTextureID<DaVinci::AmbientTexture>>(v3);
-  v6 = v2 >> 22;
-  v7 = v5[1];
-  if (v2 >> 22 < (v5[2] - v7) >> 3)
-  {
-    v8 = *(v7 + 8 * v6);
-    if (v8)
-    {
-      v9 = (v2 >> 16) & 0x3F;
-      if (*(v8 + 4 * v9) == v2)
-      {
-        v10 = v5;
-        v11 = v5[31];
-        v12 = v5[32];
-        if (v11 != v12)
-        {
-          do
-          {
-            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
-            v11 += 32;
-          }
-
-          while (v11 != v12);
-          v8 = *(v10[1] + 8 * v6);
-        }
-
-        v13 = *(v8 + 4 * v9 + 2);
-        v14 = ((v10[5] - v10[4]) >> 2) - 1;
-        v15 = v10[7];
-        v16 = *(v15 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8)) + 12 * (v14 & 0x3F);
-        v17 = *(v15 + ((v13 >> 3) & 0x1FF8)) + 12 * (v13 & 0x3F);
-        v18 = *(v17 + 8);
-        v19 = *v17;
-        v20 = *(v16 + 8);
-        *v17 = *v16;
-        *(v17 + 8) = v20;
-        *v16 = v19;
-        *(v16 + 8) = v18;
-        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
-      }
-    }
-  }
-
-  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderTextureID<DaVinci::AmbientTexture>>();
-  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShaderTextureID<DaVinci::AmbientTexture>>(void)::metadata) = *(v3 + 4096);
-}
-
-void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::AmbientTexture>,64ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A12470;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
-  ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::AmbientTexture>,64ul>::~storage(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void *ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::AmbientTexture>,64ul>::~storage(void *a1)
-{
-  *a1 = &unk_1F2A12490;
-    ;
-  }
-
-  v3 = a1[7];
-  v4 = a1[8];
-  while (v3 != v4)
-  {
-    if (*v3)
-    {
-      operator delete(*v3);
-    }
-
-    ++v3;
-  }
-
-  v5 = a1[10];
-  if (v5)
-  {
-    a1[11] = v5;
-    operator delete(v5);
-  }
-
-  v6 = a1[7];
-  if (v6)
-  {
-    a1[8] = v6;
-    operator delete(v6);
-  }
-
-  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
-}
-
-void ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::AmbientTexture>,64ul>::~storage(void *a1)
-{
-  ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::AmbientTexture>,64ul>::~storage(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::AmbientTexture>,64ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A12470;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
-
-  return ecs2::storage<ecs2::Entity,md::ls::RequiresShaderTextureID<DaVinci::AmbientTexture>,64ul>::~storage(a1);
-}
-
-__n128 std::__function::__func<md::ita::MarkPipelineDataRequirements::operator()(ecs2::Query<md::ls::RenderItemID const&,md::ls::NeedsFunctionConstantsUpdate const&,md::ls::DataIDSetToUse const&,md::ls::RequiredPipelinePoolID const&,md::ls::PipelineSetup &>)::$_0,std::allocator<md::ita::MarkPipelineDataRequirements::operator()(ecs2::Query<md::ls::RenderItemID const&,md::ls::NeedsFunctionConstantsUpdate const&,md::ls::DataIDSetToUse const&,md::ls::RequiredPipelinePoolID const&,md::ls::PipelineSetup &>)::$_0>,void ()(md::ls::RenderItemID const&,md::ls::NeedsFunctionConstantsUpdate const&,md::ls::DataIDSetToUse const&,md::ls::RequiredPipelinePoolID const&,md::ls::PipelineSetup &)>::__clone(uint64_t a1, uint64_t a2)
-{
-  *a2 = &unk_1F2A123E0;
-  result = *(a1 + 8);
-  *(a2 + 8) = result;
-  return result;
-}
-
-uint64_t md::ita::AssignStyleConstantData::operator()(uint64_t a1, uint64_t a2)
-{
-  v52[4] = *MEMORY[0x1E69E9840];
-  v50[0] = &unk_1F2A15370;
-  v50[1] = a1;
-  v51 = v50;
-  v3 = *(a2 + 8);
-  v4 = ecs2::BasicRegistry<void>::storage<md::ls::ItemsPrepared>(v3);
-  v5 = ecs2::BasicRegistry<void>::storage<md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::Style>>>(v3);
-  v6 = ecs2::BasicRegistry<void>::storage<md::ls::StyleDataKeyHandle>(v3);
-  v7 = ecs2::BasicRegistry<void>::storage<md::ls::PipelineSetup>(v3);
-  v52[0] = v4;
-  v52[1] = v5;
-  v8 = 1;
-  v9 = v4;
-  v10 = v52;
-  v52[2] = v6;
-  v52[3] = v7;
-  do
-  {
-    if (*(v52[v8] + 40) - *(v52[v8] + 32) < *(v9 + 40) - *(v9 + 32))
-    {
-      v9 = v52[v8];
-      v10 = &v52[v8];
-    }
-
-    ++v8;
-  }
-
-  while (v8 != 4);
-  v11 = *(*v10 + 32);
-  v12 = *(*v10 + 40);
-  v44 = v11;
-  v45 = v12;
-  v46 = v4;
-  v47 = v5;
-  v48 = v6;
-  v49 = v7;
-  while (v11 != v12 && !ecs2::ViewIterator<void,std::tuple<md::ls::InView const&,md::ls::MeshRenderableID const&,md::ls::RenderableMaterialData const&,md::ls::ColorRampDataHandle &,md::ls::HasMaterialRaster const*,md::ls::MaterialRasterMaxIndex const*>,std::tuple<>>::containsAll<md::ls::InView const,md::ls::MeshRenderableID const,md::ls::RenderableMaterialData const,md::ls::ColorRampDataHandle>(&v44, *v11, v11[1]))
-  {
-    v11 += 2;
-    v44 = v11;
-  }
-
-  v13 = v44;
-  if (v44 == v12)
-  {
-    v18 = _ZTWN4ecs27Runtime11_localStateE();
-    v19 = _ZTWN4ecs27Runtime11_stackIndexE();
-    v20 = 0;
-  }
-
-  else
-  {
-    v43 = a2;
-    v14 = v46;
-    v15 = v47;
-    v16 = v48;
-    v17 = v49;
-    v18 = _ZTWN4ecs27Runtime11_localStateE();
-    v19 = _ZTWN4ecs27Runtime11_stackIndexE();
-    v20 = 0;
-    v21 = v45;
-    do
-    {
-      v22 = v13[1];
-      v23 = v22 & 0x3F;
-      v24 = (v22 >> 3) & 0x1FF8;
-      v25 = *(*(*(v14 + 8) + v24) + 4 * v23 + 2);
-      v26 = *(*(v14 + 56) + ((v25 >> 3) & 0x1FF8));
-      v27 = *(*(*(v15 + 8) + v24) + 4 * v23 + 2);
-      v28 = *(*(v15 + 56) + ((v27 >> 3) & 0x1FF8));
-      v29 = *(*(*(v16 + 8) + v24) + 4 * v23 + 2);
-      v30 = *(*(v16 + 56) + ((v29 >> 3) & 0x1FF8));
-      v31 = *(*(*(v17 + 8) + v24) + 4 * v23 + 2);
-      v32 = *(*(v17 + 56) + ((v31 >> 3) & 0x1FF8));
-      *(v18 + 104 * *v19 + 24) = *v13;
-      if (!v51)
-      {
-        std::__throw_bad_function_call[abi:nn200100]();
-      }
-
-      (*(*v51 + 48))(v51, v26 + 8 * (v25 & 0x3F), v28 + 12 * (v27 & 0x3F), v30 + 8 * (v29 & 0x3F), v32 + 8 * (v31 & 0x3F));
-      ++v20;
-      v33 = v13 + 2;
-      while (1)
-      {
-        v13 = v33;
-        v44 = v33;
-        if (v33 == v21)
-        {
-          break;
-        }
-
-        v34 = ecs2::ViewIterator<void,std::tuple<md::ls::InView const&,md::ls::MeshRenderableID const&,md::ls::RenderableMaterialData const&,md::ls::ColorRampDataHandle &,md::ls::HasMaterialRaster const*,md::ls::MaterialRasterMaxIndex const*>,std::tuple<>>::containsAll<md::ls::InView const,md::ls::MeshRenderableID const,md::ls::RenderableMaterialData const,md::ls::ColorRampDataHandle>(&v44, *v33, v33[1]);
-        v33 = v13 + 2;
-        if (v34)
-        {
-          v35 = v13;
-          goto LABEL_17;
-        }
-      }
-
-      v35 = v21;
-LABEL_17:
-      ;
-    }
-
-    while (v35 != v12);
-    v36 = *(v43 + 8);
-    {
-      ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PipelineSetup>(void)::metadata = gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls::PipelineSetup>();
-      *algn_1EB83D948 = 0x9C4E7BCF9B8D6334;
-      qword_1EB83D950 = "md::ls::PipelineSetup]";
-      qword_1EB83D958 = 21;
-    }
-
-    *(v36 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PipelineSetup>(void)::metadata) = *(v36 + 4096);
-  }
-
-  *(v18 + 104 * *v19 + 24) = -65536;
-  v37 = v18 + 104 * *v19;
-  v38 = *(v37 + 92);
-  *(v37 + 92) = v38 + 1;
-  *(v37 + 4 * v38 + 28) = v20;
-  v39 = v18 + 104 * *v19;
-  v41 = *(v39 + 92);
-  v40 = (v39 + 92);
-  if (v41 >= 0x10)
-  {
-    *v40 = 0;
-  }
-
-  return std::__function::__value_func<void ()(md::ls::ItemsPrepared const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::Style>> const&,md::ls::StyleDataKeyHandle const&,md::ls::PipelineSetup &)>::~__value_func[abi:nn200100](v50);
-}
-
-void sub_1B2F0F810(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
-{
-  va_start(va, a10);
-  std::__function::__value_func<void ()(md::ls::ItemsPrepared const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::Style>> const&,md::ls::StyleDataKeyHandle const&,md::ls::PipelineSetup &)>::~__value_func[abi:nn200100](va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t std::__function::__value_func<void ()(md::ls::ItemsPrepared const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::Style>> const&,md::ls::StyleDataKeyHandle const&,md::ls::PipelineSetup &)>::~__value_func[abi:nn200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-void std::__function::__func<md::ita::AssignStyleConstantData::operator()(ecs2::Query<md::ls::ItemsPrepared const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::Style>> const&,md::ls::StyleDataKeyHandle const&,md::ls::PipelineSetup &>)::$_0,std::allocator<md::ita::AssignStyleConstantData::operator()(ecs2::Query<md::ls::ItemsPrepared const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::Style>> const&,md::ls::StyleDataKeyHandle const&,md::ls::PipelineSetup &>)::$_0>,void ()(md::ls::ItemsPrepared const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::Style>> const&,md::ls::StyleDataKeyHandle const&,md::ls::PipelineSetup &)>::operator()(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t *a4, unint64_t *a5)
-{
-  v8 = ecs2::ExecutionTask<md::VKMRenderResourcesStore *>::service<md::VKMRenderResourcesStore>(*(a1 + 8));
-  md::VKMRenderResourcesStore::getPipelineDataSet(v8, *a5);
-  Pipeline = md::VKMRenderResourcesStore::getPipeline(v8, *a5);
-  v10 = (ecs2::sparse_set<geo::handle<md::MaterialIDStorage>,64ul>::find(v8 + 177, *a4) - v8[181]) >> 3;
-  v11 = v10 & 0x3F;
-  v12 = (v10 >> 3) & 0x1FFFFFFFFFFFFFF8;
-  v13 = (*(v8[190] + v12) + 16 * v11);
-  ++*(*(v8[184] + v12) + 24 * v11);
-  v14 = md::getCachedHandle<md::ConstantDataStorage<ggl::DaVinci::Style>,geo::handle<md::ConstantDataResource<ggl::DaVinci::Style>>,md::StyleCacheKey,ggl::ConstantDataTyped<ggl::DaVinci::Style>,md::StyleCacheKeyHasher>(v8[167], v8[168], v13);
-  v15 = md::getStorage<geo::handle<md::ConstantDataResource<ggl::DaVinci::Style>>,md::ConstantDataStorage<ggl::DaVinci::Style>,ggl::ConstantDataTyped<ggl::DaVinci::Style> *>(v8 + 123, v14);
-  if (v15)
-  {
-    v16 = *v15;
-  }
-
-  else
-  {
-    v16 = 0;
-  }
-
-  if (*a3 == 1)
-  {
-    ggl::PipelineSetup::setConstantDataWithoutCheck(Pipeline, *(a3 + 4), v16);
-  }
-
-  if (*(a3 + 1) == 1)
-  {
-    v17 = *(a3 + 8);
-
-    ggl::PipelineSetup::setConstantDataWithoutCheck(Pipeline, v17, v16);
-  }
-}
-
-uint64_t std::__function::__func<md::ita::AssignStyleConstantData::operator()(ecs2::Query<md::ls::ItemsPrepared const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::Style>> const&,md::ls::StyleDataKeyHandle const&,md::ls::PipelineSetup &>)::$_0,std::allocator<md::ita::AssignStyleConstantData::operator()(ecs2::Query<md::ls::ItemsPrepared const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::Style>> const&,md::ls::StyleDataKeyHandle const&,md::ls::PipelineSetup &>)::$_0>,void ()(md::ls::ItemsPrepared const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::Style>> const&,md::ls::StyleDataKeyHandle const&,md::ls::PipelineSetup &)>::__clone(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_1F2A15370;
-  a2[1] = v2;
-  return result;
-}
-
-uint64_t md::ita::AssignColorCorrectionFactor::operator()(uint64_t a1, uint64_t a2)
-{
-  v52[4] = *MEMORY[0x1E69E9840];
-  v50[0] = &unk_1F2A153B8;
-  v50[1] = a1;
-  v51 = v50;
-  v3 = *(a2 + 8);
-  v4 = ecs2::BasicRegistry<void>::storage<md::ls::ItemsPrepared>(v3);
-  v5 = ecs2::BasicRegistry<void>::storage<md::ls::ColorCorrectionDataKeyHandle>(v3);
-  v6 = ecs2::BasicRegistry<void>::storage<md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::ColorCorrectionFactor>>>(v3);
-  v7 = ecs2::BasicRegistry<void>::storage<md::ls::PipelineSetup>(v3);
-  v52[0] = v4;
-  v52[1] = v5;
-  v8 = 1;
-  v9 = v4;
-  v10 = v52;
-  v52[2] = v6;
-  v52[3] = v7;
-  do
-  {
-    if (*(v52[v8] + 40) - *(v52[v8] + 32) < *(v9 + 40) - *(v9 + 32))
-    {
-      v9 = v52[v8];
-      v10 = &v52[v8];
-    }
-
-    ++v8;
-  }
-
-  while (v8 != 4);
-  v11 = *(*v10 + 32);
-  v12 = *(*v10 + 40);
-  v44 = v11;
-  v45 = v12;
-  v46 = v4;
-  v47 = v5;
-  v48 = v6;
-  v49 = v7;
-  while (v11 != v12 && !ecs2::ViewIterator<void,std::tuple<md::ls::InView const&,md::ls::MeshRenderableID const&,md::ls::RenderableMaterialData const&,md::ls::ColorRampDataHandle &,md::ls::HasMaterialRaster const*,md::ls::MaterialRasterMaxIndex const*>,std::tuple<>>::containsAll<md::ls::InView const,md::ls::MeshRenderableID const,md::ls::RenderableMaterialData const,md::ls::ColorRampDataHandle>(&v44, *v11, v11[1]))
-  {
-    v11 += 2;
-    v44 = v11;
-  }
-
-  v13 = v44;
-  if (v44 == v12)
-  {
-    v18 = _ZTWN4ecs27Runtime11_localStateE();
-    v19 = _ZTWN4ecs27Runtime11_stackIndexE();
-    v20 = 0;
-  }
-
-  else
-  {
-    v43 = a2;
-    v14 = v46;
-    v15 = v47;
-    v16 = v48;
-    v17 = v49;
-    v18 = _ZTWN4ecs27Runtime11_localStateE();
-    v19 = _ZTWN4ecs27Runtime11_stackIndexE();
-    v20 = 0;
-    v21 = v45;
-    do
-    {
-      v22 = v13[1];
-      v23 = v22 & 0x3F;
-      v24 = (v22 >> 3) & 0x1FF8;
-      v25 = *(*(*(v14 + 8) + v24) + 4 * v23 + 2);
-      v26 = *(*(v14 + 56) + ((v25 >> 3) & 0x1FF8));
-      v27 = *(*(*(v15 + 8) + v24) + 4 * v23 + 2);
-      v28 = *(*(v15 + 56) + ((v27 >> 3) & 0x1FF8));
-      v29 = *(*(*(v16 + 8) + v24) + 4 * v23 + 2);
-      v30 = *(*(v16 + 56) + ((v29 >> 3) & 0x1FF8));
-      v31 = *(*(*(v17 + 8) + v24) + 4 * v23 + 2);
-      v32 = *(*(v17 + 56) + ((v31 >> 3) & 0x1FF8));
-      *(v18 + 104 * *v19 + 24) = *v13;
-      if (!v51)
-      {
-        std::__throw_bad_function_call[abi:nn200100]();
-      }
-
-      (*(*v51 + 48))(v51, v26 + 8 * (v25 & 0x3F), v28 + 8 * (v27 & 0x3F), v30 + 12 * (v29 & 0x3F), v32 + 8 * (v31 & 0x3F));
-      ++v20;
-      v33 = v13 + 2;
-      while (1)
-      {
-        v13 = v33;
-        v44 = v33;
-        if (v33 == v21)
-        {
-          break;
-        }
-
-        v34 = ecs2::ViewIterator<void,std::tuple<md::ls::InView const&,md::ls::MeshRenderableID const&,md::ls::RenderableMaterialData const&,md::ls::ColorRampDataHandle &,md::ls::HasMaterialRaster const*,md::ls::MaterialRasterMaxIndex const*>,std::tuple<>>::containsAll<md::ls::InView const,md::ls::MeshRenderableID const,md::ls::RenderableMaterialData const,md::ls::ColorRampDataHandle>(&v44, *v33, v33[1]);
-        v33 = v13 + 2;
-        if (v34)
-        {
-          v35 = v13;
-          goto LABEL_17;
-        }
-      }
-
-      v35 = v21;
-LABEL_17:
-      ;
-    }
-
-    while (v35 != v12);
-    v36 = *(v43 + 8);
-    {
-      ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PipelineSetup>(void)::metadata = gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls::PipelineSetup>();
-      *algn_1EB83D948 = 0x9C4E7BCF9B8D6334;
-      qword_1EB83D950 = "md::ls::PipelineSetup]";
-      qword_1EB83D958 = 21;
-    }
-
-    *(v36 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PipelineSetup>(void)::metadata) = *(v36 + 4096);
-  }
-
-  *(v18 + 104 * *v19 + 24) = -65536;
-  v37 = v18 + 104 * *v19;
-  v38 = *(v37 + 92);
-  *(v37 + 92) = v38 + 1;
-  *(v37 + 4 * v38 + 28) = v20;
-  v39 = v18 + 104 * *v19;
-  v41 = *(v39 + 92);
-  v40 = (v39 + 92);
-  if (v41 >= 0x10)
-  {
-    *v40 = 0;
-  }
-
-  return std::__function::__value_func<void ()(md::ls::ItemsPrepared const&,md::ls::ColorCorrectionDataKeyHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::ColorCorrectionFactor>> const&,md::ls::PipelineSetup &)>::~__value_func[abi:nn200100](v50);
-}
-
-void sub_1B2F0FDF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
-{
-  va_start(va, a10);
-  std::__function::__value_func<void ()(md::ls::ItemsPrepared const&,md::ls::ColorCorrectionDataKeyHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::ColorCorrectionFactor>> const&,md::ls::PipelineSetup &)>::~__value_func[abi:nn200100](va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t std::__function::__value_func<void ()(md::ls::ItemsPrepared const&,md::ls::ColorCorrectionDataKeyHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::ColorCorrectionFactor>> const&,md::ls::PipelineSetup &)>::~__value_func[abi:nn200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-void std::__function::__func<md::ita::AssignColorCorrectionFactor::operator()(ecs2::Query<md::ls::ItemsPrepared const&,md::ls::ColorCorrectionDataKeyHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::ColorCorrectionFactor>> const&,md::ls::PipelineSetup &>)::$_0,std::allocator<md::ita::AssignColorCorrectionFactor::operator()(ecs2::Query<md::ls::ItemsPrepared const&,md::ls::ColorCorrectionDataKeyHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::ColorCorrectionFactor>> const&,md::ls::PipelineSetup &>)::$_0>,void ()(md::ls::ItemsPrepared const&,md::ls::ColorCorrectionDataKeyHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::ColorCorrectionFactor>> const&,md::ls::PipelineSetup &)>::operator()(uint64_t a1, uint64_t a2, unint64_t *a3, uint64_t a4, unint64_t *a5)
-{
-  v8 = ecs2::ExecutionTask<md::VKMRenderResourcesStore *>::service<md::VKMRenderResourcesStore>(*(a1 + 8));
-  md::VKMRenderResourcesStore::getPipelineDataSet(v8, *a5);
-  Pipeline = md::VKMRenderResourcesStore::getPipeline(v8, *a5);
-  v10 = md::getStorage<geo::handle<md::CachedKey<md::ColorCorrectionKey>>,md::CachedKey<md::ColorCorrectionKey>,md::CachedKey<md::ColorCorrectionKey>*>(v8 + 717, *a3);
-  v11 = std::__hash_table<std::__hash_value_type<md::ColorCorrectionKey,geo::handle<md::ConstantDataResource<ggl::DaVinci::ColorCorrectionFactor>>>,std::__unordered_map_hasher<md::ColorCorrectionKey,std::__hash_value_type<md::ColorCorrectionKey,geo::handle<md::ConstantDataResource<ggl::DaVinci::ColorCorrectionFactor>>>,md::ColorCorrectionKeyHasher,std::equal_to<md::ColorCorrectionKey>,true>,std::__unordered_map_equal<md::ColorCorrectionKey,std::__hash_value_type<md::ColorCorrectionKey,geo::handle<md::ConstantDataResource<ggl::DaVinci::ColorCorrectionFactor>>>,std::equal_to<md::ColorCorrectionKey>,md::ColorCorrectionKeyHasher,true>,std::allocator<std::__hash_value_type<md::ColorCorrectionKey,geo::handle<md::ConstantDataResource<ggl::DaVinci::ColorCorrectionFactor>>>>>::find<md::ColorCorrectionKey>(v8 + 707, v10);
-  if (v11)
-  {
-    v12 = v11[5];
-  }
-
-  else
-  {
-    v12 = 0;
-  }
-
-  v13 = md::getStorage<geo::handle<md::ConstantDataResource<ggl::DaVinci::Style>>,md::ConstantDataStorage<ggl::DaVinci::Style>,ggl::ConstantDataTyped<ggl::DaVinci::Style> *>(v8 + 663, v12);
-  if (v13)
-  {
-    v14 = *v13;
-  }
-
-  else
-  {
-    v14 = 0;
-  }
-
-  if (*a4 == 1)
-  {
-    ggl::PipelineSetup::setConstantDataWithoutCheck(Pipeline, *(a4 + 4), v14);
-  }
-
-  if (*(a4 + 1) == 1)
-  {
-    v15 = *(a4 + 8);
-
-    ggl::PipelineSetup::setConstantDataWithoutCheck(Pipeline, v15, v14);
-  }
-}
-
-uint64_t std::__function::__func<md::ita::AssignColorCorrectionFactor::operator()(ecs2::Query<md::ls::ItemsPrepared const&,md::ls::ColorCorrectionDataKeyHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::ColorCorrectionFactor>> const&,md::ls::PipelineSetup &>)::$_0,std::allocator<md::ita::AssignColorCorrectionFactor::operator()(ecs2::Query<md::ls::ItemsPrepared const&,md::ls::ColorCorrectionDataKeyHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::ColorCorrectionFactor>> const&,md::ls::PipelineSetup &>)::$_0>,void ()(md::ls::ItemsPrepared const&,md::ls::ColorCorrectionDataKeyHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::ColorCorrectionFactor>> const&,md::ls::PipelineSetup &)>::__clone(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_1F2A153B8;
-  a2[1] = v2;
-  return result;
-}
-
-uint64_t md::ita::AssignFlyoverMaterialConstantData::operator()(uint64_t a1, uint64_t a2)
-{
-  v59[5] = *MEMORY[0x1E69E9840];
-  v57[0] = &unk_1F2A15400;
-  v57[1] = a1;
-  v58 = v57;
-  v3 = *(a2 + 8);
-  v4 = ecs2::BasicRegistry<void>::storage<md::ls::ItemsPrepared>(v3);
-  v5 = ecs2::BasicRegistry<void>::storage<md::ls::FlyoverCommonMaterialHandle>(v3);
-  v6 = ecs2::BasicRegistry<void>::storage<md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Material>>>(v3);
-  v7 = ecs2::BasicRegistry<void>::storage<md::ls::FlyoverInstance>(v3);
-  v8 = ecs2::BasicRegistry<void>::storage<md::ls::PipelineSetup>(v3);
-  v59[0] = v4;
-  v59[1] = v5;
-  v59[2] = v6;
-  v59[3] = v7;
-  v9 = 1;
-  v10 = v4;
-  v11 = v59;
-  v59[4] = v8;
-  do
-  {
-    if (*(v59[v9] + 40) - *(v59[v9] + 32) < *(v10 + 40) - *(v10 + 32))
-    {
-      v10 = v59[v9];
-      v11 = &v59[v9];
-    }
-
-    ++v9;
-  }
-
-  while (v9 != 5);
-  v12 = *(*v11 + 32);
-  v13 = *(*v11 + 40);
-  v50 = v12;
-  v51 = v13;
-  v52 = v4;
-  v53 = v5;
-  v54 = v6;
-  v55 = v7;
-  v56 = v8;
-  while (v12 != v13 && !ecs2::ViewIterator<void,std::tuple<md::ls::TileMatrix const&,md::ls::LayerDataReference const&,md::ls::SupportsFragmentClip const&,md::ls::RequireTypedRenderableForLegacyReasons<md::DaVinciGroundRenderable> &,md::ls::TileClippingConstantDataHandle &>,std::tuple<>>::containsAll<md::ls::TileMatrix const,md::ls::LayerDataReference const,md::ls::SupportsFragmentClip const,md::ls::RequireTypedRenderableForLegacyReasons<md::DaVinciGroundRenderable>,md::ls::TileClippingConstantDataHandle>(&v50, *v12, v12[1]))
-  {
-    v12 += 2;
-    v50 = v12;
-  }
-
-  v14 = v50;
-  if (v50 == v13)
-  {
-    _ZTWN4ecs27Runtime11_localStateE();
-    v20 = _ZTWN4ecs27Runtime11_stackIndexE();
-    v21 = 0;
-  }
-
-  else
-  {
-    v48 = a2;
-    v15 = v52;
-    v16 = v53;
-    v17 = v54;
-    v18 = v55;
-    v19 = v56;
-    v49 = _ZTWN4ecs27Runtime11_localStateE();
-    v20 = _ZTWN4ecs27Runtime11_stackIndexE();
-    v21 = 0;
-    v22 = v51;
-    do
-    {
-      v23 = v14[1];
-      v24 = v23 & 0x3F;
-      v25 = (v23 >> 3) & 0x1FF8;
-      v26 = *(*(*(v15 + 8) + v25) + 4 * v24 + 2);
-      v27 = *(*(v15 + 56) + ((v26 >> 3) & 0x1FF8));
-      v28 = *(*(*(v16 + 8) + v25) + 4 * v24 + 2);
-      v29 = *(*(v16 + 56) + ((v28 >> 3) & 0x1FF8));
-      v30 = *(*(*(v17 + 8) + v25) + 4 * v24 + 2);
-      v31 = *(*(v17 + 56) + ((v30 >> 3) & 0x1FF8));
-      v32 = *(v18 + 32);
-      v33 = *(*(v18 + 8) + v25) + 4 * v24;
-      v34 = *(*(*(v19 + 8) + v25) + 4 * v24 + 2);
-      v35 = *(*(v19 + 56) + ((v34 >> 3) & 0x1FF8));
-      v36 = *(v33 + 2);
-      *(v49 + 104 * *v20 + 24) = *v14;
-      if (!v58)
-      {
-        std::__throw_bad_function_call[abi:nn200100]();
-      }
-
-      (*(*v58 + 48))(v58, v27 + 8 * (v26 & 0x3F), v29 + 8 * (v28 & 0x3F), v31 + 12 * (v30 & 0x3F), v32 + 4 * v36, v35 + 8 * (v34 & 0x3F));
-      ++v21;
-      v37 = v14 + 2;
-      while (1)
-      {
-        v14 = v37;
-        v50 = v37;
-        if (v37 == v22)
-        {
-          break;
-        }
-
-        v38 = ecs2::ViewIterator<void,std::tuple<md::ls::TileMatrix const&,md::ls::LayerDataReference const&,md::ls::SupportsFragmentClip const&,md::ls::RequireTypedRenderableForLegacyReasons<md::DaVinciGroundRenderable> &,md::ls::TileClippingConstantDataHandle &>,std::tuple<>>::containsAll<md::ls::TileMatrix const,md::ls::LayerDataReference const,md::ls::SupportsFragmentClip const,md::ls::RequireTypedRenderableForLegacyReasons<md::DaVinciGroundRenderable>,md::ls::TileClippingConstantDataHandle>(&v50, *v37, v37[1]);
-        v37 = v14 + 2;
-        if (v38)
-        {
-          v39 = v14;
-          goto LABEL_17;
-        }
-      }
-
-      v39 = v22;
-LABEL_17:
-      ;
-    }
-
-    while (v39 != v13);
-    v40 = *(v48 + 8);
-    {
-      ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PipelineSetup>(void)::metadata = gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls::PipelineSetup>();
-      *algn_1EB83D948 = 0x9C4E7BCF9B8D6334;
-      qword_1EB83D950 = "md::ls::PipelineSetup]";
-      qword_1EB83D958 = 21;
-    }
-
-    *(v40 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PipelineSetup>(void)::metadata) = *(v40 + 4096);
-    v41 = v49;
-  }
-
-  *(v41 + 104 * *v20 + 24) = -65536;
-  v42 = v41 + 104 * *v20;
-  v43 = *(v42 + 92);
-  *(v42 + 92) = v43 + 1;
-  *(v42 + 4 * v43 + 28) = v21;
-  v44 = v41 + 104 * *v20;
-  v46 = *(v44 + 92);
-  v45 = (v44 + 92);
-  if (v46 >= 0x10)
-  {
-    *v45 = 0;
-  }
-
-  return std::__function::__value_func<void ()(md::ls::ItemsPrepared const&,md::ls::FlyoverCommonMaterialHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Material>> const&,md::ls::FlyoverInstance const&,md::ls::PipelineSetup &)>::~__value_func[abi:nn200100](v57);
-}
-
-void sub_1B2F103F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
-{
-  va_start(va, a12);
-  std::__function::__value_func<void ()(md::ls::ItemsPrepared const&,md::ls::FlyoverCommonMaterialHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Material>> const&,md::ls::FlyoverInstance const&,md::ls::PipelineSetup &)>::~__value_func[abi:nn200100](va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t std::__function::__value_func<void ()(md::ls::ItemsPrepared const&,md::ls::FlyoverCommonMaterialHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Material>> const&,md::ls::FlyoverInstance const&,md::ls::PipelineSetup &)>::~__value_func[abi:nn200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-void std::__function::__func<md::ita::AssignFlyoverMaterialConstantData::operator()(ecs2::Query<md::ls::ItemsPrepared const&,md::ls::FlyoverCommonMaterialHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Material>> const&,md::ls::FlyoverInstance const&,md::ls::PipelineSetup &>)::$_0,std::allocator<md::ita::AssignFlyoverMaterialConstantData::operator()(ecs2::Query<md::ls::ItemsPrepared const&,md::ls::FlyoverCommonMaterialHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Material>> const&,md::ls::FlyoverInstance const&,md::ls::PipelineSetup &>)::$_0>,void ()(md::ls::ItemsPrepared const&,md::ls::FlyoverCommonMaterialHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Material>> const&,md::ls::FlyoverInstance const&,md::ls::PipelineSetup &)>::operator()(uint64_t a1, uint64_t a2, unint64_t *a3, uint64_t a4, uint64_t a5, unint64_t *a6)
-{
-  v9 = ecs2::ExecutionTask<md::VKMRenderResourcesStore *>::service<md::VKMRenderResourcesStore>(*(a1 + 8));
-  md::VKMRenderResourcesStore::getPipelineDataSet(v9, *a6);
-  Pipeline = md::VKMRenderResourcesStore::getPipeline(v9, *a6);
-  v11 = ecs2::sparse_set<geo::handle<md::MaterialIDStorage>,64ul>::find(v9 + 1135, *a3);
-  if (v11 == v9[1140] || (v12 = (v11 - v9[1139]) >> 3, v13 = (v12 >> 3) & 0x1FFFFFFFFFFFFFF8, v14 = *(v9[1148] + v13), ++*(*(v9[1142] + v13) + 24 * (v12 & 0x3F)), !v14))
-  {
-    v15 = 0;
-  }
-
-  else
-  {
-    v15 = *(v14 + 24 * (v12 & 0x3F));
-  }
-
-  if (*a4 == 1)
-  {
-    ggl::PipelineSetup::setConstantDataWithoutCheck(Pipeline, *(a4 + 4), v15);
-  }
-
-  if (*(a4 + 1) == 1)
-  {
-    v16 = *(a4 + 8);
-
-    ggl::PipelineSetup::setConstantDataWithoutCheck(Pipeline, v16, v15);
-  }
-}
-
-uint64_t std::__function::__func<md::ita::AssignFlyoverMaterialConstantData::operator()(ecs2::Query<md::ls::ItemsPrepared const&,md::ls::FlyoverCommonMaterialHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Material>> const&,md::ls::FlyoverInstance const&,md::ls::PipelineSetup &>)::$_0,std::allocator<md::ita::AssignFlyoverMaterialConstantData::operator()(ecs2::Query<md::ls::ItemsPrepared const&,md::ls::FlyoverCommonMaterialHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Material>> const&,md::ls::FlyoverInstance const&,md::ls::PipelineSetup &>)::$_0>,void ()(md::ls::ItemsPrepared const&,md::ls::FlyoverCommonMaterialHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Material>> const&,md::ls::FlyoverInstance const&,md::ls::PipelineSetup &)>::__clone(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_1F2A15400;
-  a2[1] = v2;
-  return result;
-}
-
-uint64_t md::ita::AssignFlyoverTexcoordsConstantData::operator()(uint64_t a1, uint64_t a2)
-{
-  v59[5] = *MEMORY[0x1E69E9840];
-  v57[0] = &unk_1F2A15448;
-  v57[1] = a1;
-  v58 = v57;
-  v3 = *(a2 + 8);
-  v4 = ecs2::BasicRegistry<void>::storage<md::ls::ItemsPrepared>(v3);
-  v5 = ecs2::BasicRegistry<void>::storage<md::ls::FlyoverCommonTexcoordsHandle>(v3);
-  v6 = ecs2::BasicRegistry<void>::storage<md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Texcoords>>>(v3);
-  v7 = ecs2::BasicRegistry<void>::storage<md::ls::FlyoverInstance>(v3);
-  v8 = ecs2::BasicRegistry<void>::storage<md::ls::PipelineSetup>(v3);
-  v59[0] = v4;
-  v59[1] = v5;
-  v59[2] = v6;
-  v59[3] = v7;
-  v9 = 1;
-  v10 = v4;
-  v11 = v59;
-  v59[4] = v8;
-  do
-  {
-    if (*(v59[v9] + 40) - *(v59[v9] + 32) < *(v10 + 40) - *(v10 + 32))
-    {
-      v10 = v59[v9];
-      v11 = &v59[v9];
-    }
-
-    ++v9;
-  }
-
-  while (v9 != 5);
-  v12 = *(*v11 + 32);
-  v13 = *(*v11 + 40);
-  v50 = v12;
-  v51 = v13;
-  v52 = v4;
-  v53 = v5;
-  v54 = v6;
-  v55 = v7;
-  v56 = v8;
-  while (v12 != v13 && !ecs2::ViewIterator<void,std::tuple<md::ls::TileMatrix const&,md::ls::LayerDataReference const&,md::ls::SupportsFragmentClip const&,md::ls::RequireTypedRenderableForLegacyReasons<md::DaVinciGroundRenderable> &,md::ls::TileClippingConstantDataHandle &>,std::tuple<>>::containsAll<md::ls::TileMatrix const,md::ls::LayerDataReference const,md::ls::SupportsFragmentClip const,md::ls::RequireTypedRenderableForLegacyReasons<md::DaVinciGroundRenderable>,md::ls::TileClippingConstantDataHandle>(&v50, *v12, v12[1]))
-  {
-    v12 += 2;
-    v50 = v12;
-  }
-
-  v14 = v50;
-  if (v50 == v13)
-  {
-    _ZTWN4ecs27Runtime11_localStateE();
-    v20 = _ZTWN4ecs27Runtime11_stackIndexE();
-    v21 = 0;
-  }
-
-  else
-  {
-    v48 = a2;
-    v15 = v52;
-    v16 = v53;
-    v17 = v54;
-    v18 = v55;
-    v19 = v56;
-    v49 = _ZTWN4ecs27Runtime11_localStateE();
-    v20 = _ZTWN4ecs27Runtime11_stackIndexE();
-    v21 = 0;
-    v22 = v51;
-    do
-    {
-      v23 = v14[1];
-      v24 = v23 & 0x3F;
-      v25 = (v23 >> 3) & 0x1FF8;
-      v26 = *(*(*(v15 + 8) + v25) + 4 * v24 + 2);
-      v27 = *(*(v15 + 56) + ((v26 >> 3) & 0x1FF8));
-      v28 = *(*(*(v16 + 8) + v25) + 4 * v24 + 2);
-      v29 = *(*(v16 + 56) + ((v28 >> 3) & 0x1FF8));
-      v30 = *(*(*(v17 + 8) + v25) + 4 * v24 + 2);
-      v31 = *(*(v17 + 56) + ((v30 >> 3) & 0x1FF8));
-      v32 = *(v18 + 32);
-      v33 = *(*(v18 + 8) + v25) + 4 * v24;
-      v34 = *(*(*(v19 + 8) + v25) + 4 * v24 + 2);
-      v35 = *(*(v19 + 56) + ((v34 >> 3) & 0x1FF8));
-      v36 = *(v33 + 2);
-      *(v49 + 104 * *v20 + 24) = *v14;
-      if (!v58)
-      {
-        std::__throw_bad_function_call[abi:nn200100]();
-      }
-
-      (*(*v58 + 48))(v58, v27 + 8 * (v26 & 0x3F), v29 + 8 * (v28 & 0x3F), v31 + 12 * (v30 & 0x3F), v32 + 4 * v36, v35 + 8 * (v34 & 0x3F));
-      ++v21;
-      v37 = v14 + 2;
-      while (1)
-      {
-        v14 = v37;
-        v50 = v37;
-        if (v37 == v22)
-        {
-          break;
-        }
-
-        v38 = ecs2::ViewIterator<void,std::tuple<md::ls::TileMatrix const&,md::ls::LayerDataReference const&,md::ls::SupportsFragmentClip const&,md::ls::RequireTypedRenderableForLegacyReasons<md::DaVinciGroundRenderable> &,md::ls::TileClippingConstantDataHandle &>,std::tuple<>>::containsAll<md::ls::TileMatrix const,md::ls::LayerDataReference const,md::ls::SupportsFragmentClip const,md::ls::RequireTypedRenderableForLegacyReasons<md::DaVinciGroundRenderable>,md::ls::TileClippingConstantDataHandle>(&v50, *v37, v37[1]);
-        v37 = v14 + 2;
-        if (v38)
-        {
-          v39 = v14;
-          goto LABEL_17;
-        }
-      }
-
-      v39 = v22;
-LABEL_17:
-      ;
-    }
-
-    while (v39 != v13);
-    v40 = *(v48 + 8);
-    {
-      ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PipelineSetup>(void)::metadata = gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls::PipelineSetup>();
-      *algn_1EB83D948 = 0x9C4E7BCF9B8D6334;
-      qword_1EB83D950 = "md::ls::PipelineSetup]";
-      qword_1EB83D958 = 21;
-    }
-
-    *(v40 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PipelineSetup>(void)::metadata) = *(v40 + 4096);
-    v41 = v49;
-  }
-
-  *(v41 + 104 * *v20 + 24) = -65536;
-  v42 = v41 + 104 * *v20;
-  v43 = *(v42 + 92);
-  *(v42 + 92) = v43 + 1;
-  *(v42 + 4 * v43 + 28) = v21;
-  v44 = v41 + 104 * *v20;
-  v46 = *(v44 + 92);
-  v45 = (v44 + 92);
-  if (v46 >= 0x10)
-  {
-    *v45 = 0;
-  }
-
-  return std::__function::__value_func<void ()(md::ls::ItemsPrepared const&,md::ls::FlyoverCommonTexcoordsHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Texcoords>> const&,md::ls::FlyoverInstance const&,md::ls::PipelineSetup &)>::~__value_func[abi:nn200100](v57);
-}
-
-void sub_1B2F10A0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
-{
-  va_start(va, a12);
-  std::__function::__value_func<void ()(md::ls::ItemsPrepared const&,md::ls::FlyoverCommonTexcoordsHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Texcoords>> const&,md::ls::FlyoverInstance const&,md::ls::PipelineSetup &)>::~__value_func[abi:nn200100](va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t std::__function::__value_func<void ()(md::ls::ItemsPrepared const&,md::ls::FlyoverCommonTexcoordsHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Texcoords>> const&,md::ls::FlyoverInstance const&,md::ls::PipelineSetup &)>::~__value_func[abi:nn200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-void std::__function::__func<md::ita::AssignFlyoverTexcoordsConstantData::operator()(ecs2::Query<md::ls::ItemsPrepared const&,md::ls::FlyoverCommonTexcoordsHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Texcoords>> const&,md::ls::FlyoverInstance const&,md::ls::PipelineSetup &>)::$_0,std::allocator<md::ita::AssignFlyoverTexcoordsConstantData::operator()(ecs2::Query<md::ls::ItemsPrepared const&,md::ls::FlyoverCommonTexcoordsHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Texcoords>> const&,md::ls::FlyoverInstance const&,md::ls::PipelineSetup &>)::$_0>,void ()(md::ls::ItemsPrepared const&,md::ls::FlyoverCommonTexcoordsHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Texcoords>> const&,md::ls::FlyoverInstance const&,md::ls::PipelineSetup &)>::operator()(uint64_t a1, uint64_t a2, unint64_t *a3, uint64_t a4, uint64_t a5, unint64_t *a6)
-{
-  v9 = ecs2::ExecutionTask<md::VKMRenderResourcesStore *>::service<md::VKMRenderResourcesStore>(*(a1 + 8));
-  md::VKMRenderResourcesStore::getPipelineDataSet(v9, *a6);
-  Pipeline = md::VKMRenderResourcesStore::getPipeline(v9, *a6);
-  v11 = ecs2::sparse_set<geo::handle<md::MaterialIDStorage>,64ul>::find(v9 + 1099, *a3);
-  if (v11 == v9[1104] || (v12 = (v11 - v9[1103]) >> 3, v13 = (v12 >> 3) & 0x1FFFFFFFFFFFFFF8, v14 = *(v9[1112] + v13), ++*(*(v9[1106] + v13) + 24 * (v12 & 0x3F)), !v14))
-  {
-    v15 = 0;
-  }
-
-  else
-  {
-    v15 = *(v14 + 24 * (v12 & 0x3F));
-  }
-
-  if (*a4 == 1)
-  {
-    ggl::PipelineSetup::setConstantDataWithoutCheck(Pipeline, *(a4 + 4), v15);
-  }
-
-  if (*(a4 + 1) == 1)
-  {
-    v16 = *(a4 + 8);
-
-    ggl::PipelineSetup::setConstantDataWithoutCheck(Pipeline, v16, v15);
-  }
-}
-
-uint64_t std::__function::__func<md::ita::AssignFlyoverTexcoordsConstantData::operator()(ecs2::Query<md::ls::ItemsPrepared const&,md::ls::FlyoverCommonTexcoordsHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Texcoords>> const&,md::ls::FlyoverInstance const&,md::ls::PipelineSetup &>)::$_0,std::allocator<md::ita::AssignFlyoverTexcoordsConstantData::operator()(ecs2::Query<md::ls::ItemsPrepared const&,md::ls::FlyoverCommonTexcoordsHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Texcoords>> const&,md::ls::FlyoverInstance const&,md::ls::PipelineSetup &>)::$_0>,void ()(md::ls::ItemsPrepared const&,md::ls::FlyoverCommonTexcoordsHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Texcoords>> const&,md::ls::FlyoverInstance const&,md::ls::PipelineSetup &)>::__clone(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_1F2A15448;
-  a2[1] = v2;
-  return result;
-}
-
-uint64_t std::__function::__value_func<void ()(md::ls::PipelineSetup &,md::ls::FlyoverInstance const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Shared>> const&)>::~__value_func[abi:nn200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-void std::__function::__func<md::ita::AssignFlyoverSharedConstantData::operator()(ecs2::Query<md::ls::FlyoverSharedConstants const&>,ecs2::Query<md::ls::PipelineSetup &,md::ls::FlyoverInstance const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Shared>> const&>)::$_1,std::allocator<md::ita::AssignFlyoverSharedConstantData::operator()(ecs2::Query<md::ls::FlyoverSharedConstants const&>,ecs2::Query<md::ls::PipelineSetup &,md::ls::FlyoverInstance const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Shared>> const&>)::$_1>,void ()(md::ls::PipelineSetup &,md::ls::FlyoverInstance const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Shared>> const&)>::operator()(uint64_t a1, unint64_t *a2, uint64_t a3, uint64_t a4)
-{
-  md::VKMRenderResourcesStore::getPipelineDataSet(**(a1 + 8), *a2);
-  Pipeline = md::VKMRenderResourcesStore::getPipeline(**(a1 + 8), *a2);
-  v8 = Pipeline;
-  v9 = **(a1 + 16);
-  if (*a4 == 1)
-  {
-    ggl::PipelineSetup::setConstantDataWithoutCheck(Pipeline, *(a4 + 4), v9);
-  }
-
-  if (*(a4 + 1) == 1)
-  {
-    v10 = *(a4 + 8);
-
-    ggl::PipelineSetup::setConstantDataWithoutCheck(v8, v10, v9);
-  }
-}
-
-__n128 std::__function::__func<md::ita::AssignFlyoverSharedConstantData::operator()(ecs2::Query<md::ls::FlyoverSharedConstants const&>,ecs2::Query<md::ls::PipelineSetup &,md::ls::FlyoverInstance const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Shared>> const&>)::$_1,std::allocator<md::ita::AssignFlyoverSharedConstantData::operator()(ecs2::Query<md::ls::FlyoverSharedConstants const&>,ecs2::Query<md::ls::PipelineSetup &,md::ls::FlyoverInstance const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Shared>> const&>)::$_1>,void ()(md::ls::PipelineSetup &,md::ls::FlyoverInstance const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Shared>> const&)>::__clone(uint64_t a1, uint64_t a2)
-{
-  *a2 = &unk_1F2A154D8;
-  result = *(a1 + 8);
-  *(a2 + 8) = result;
-  return result;
-}
-
-void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls22FlyoverSharedConstantsEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESC_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISK_EEFvSJ_EEclEOSJ_(uint64_t a1, unsigned int *a2)
-{
-  v2 = *a2;
-  v3 = *(a1 + 8);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::FlyoverSharedConstants>();
-  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::FlyoverSharedConstants>(void)::metadata;
-  v5 = ecs2::BasicRegistry<void>::storage<md::ls::FlyoverSharedConstants>(v3);
-  v6 = v2 >> 22;
-  v7 = v5[1];
-  if (v2 >> 22 < (v5[2] - v7) >> 3)
-  {
-    v8 = *(v7 + 8 * v6);
-    if (v8)
-    {
-      v9 = (v2 >> 16) & 0x3F;
-      if (*(v8 + 4 * v9) == v2)
-      {
-        v10 = v5;
-        v11 = v5[31];
-        v12 = v5[32];
-        if (v11 != v12)
-        {
-          do
-          {
-            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
-            v11 += 32;
-          }
-
-          while (v11 != v12);
-          v8 = *(v10[1] + 8 * v6);
-        }
-
-        v13 = *(v8 + 4 * v9 + 2);
-        v14 = ((v10[5] - v10[4]) >> 2) - 1;
-        v15 = v14 & 0x3F;
-        v16 = v10[7];
-        v17 = *(v16 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8));
-        v18 = v13 & 0x3F;
-        v19 = *(v16 + ((v13 >> 3) & 0x1FF8));
-        v20 = *(v19 + 8 * v18);
-        *(v19 + 8 * v18) = *(v17 + 8 * v15);
-        *(v17 + 8 * v15) = v20;
-        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
-      }
-    }
-  }
-
-  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::FlyoverSharedConstants>();
-  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::FlyoverSharedConstants>(void)::metadata) = *(v3 + 4096);
-}
-
-void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::FlyoverSharedConstants,64ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A1D318;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
-  ecs2::storage<ecs2::Entity,md::ls::FlyoverSharedConstants,64ul>::~storage(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void *ecs2::storage<ecs2::Entity,md::ls::FlyoverSharedConstants,64ul>::~storage(void *a1)
-{
-  *a1 = &unk_1F2A1D338;
-    ;
-  }
-
-  v3 = a1[7];
-  v4 = a1[8];
-  while (v3 != v4)
-  {
-    if (*v3)
-    {
-      operator delete(*v3);
-    }
-
-    ++v3;
-  }
-
-  v5 = a1[10];
-  if (v5)
-  {
-    a1[11] = v5;
-    operator delete(v5);
-  }
-
-  v6 = a1[7];
-  if (v6)
-  {
-    a1[8] = v6;
-    operator delete(v6);
-  }
-
-  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
-}
-
-void ecs2::storage<ecs2::Entity,md::ls::FlyoverSharedConstants,64ul>::~storage(void *a1)
-{
-  ecs2::storage<ecs2::Entity,md::ls::FlyoverSharedConstants,64ul>::~storage(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::FlyoverSharedConstants,64ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A1D318;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
-
-  return ecs2::storage<ecs2::Entity,md::ls::FlyoverSharedConstants,64ul>::~storage(a1);
-}
-
-uint64_t std::__function::__func<md::ita::AssignFlyoverSharedConstantData::operator()(ecs2::Query<md::ls::FlyoverSharedConstants const&>,ecs2::Query<md::ls::PipelineSetup &,md::ls::FlyoverInstance const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Shared>> const&>)::$_0,std::allocator<md::ita::AssignFlyoverSharedConstantData::operator()(ecs2::Query<md::ls::FlyoverSharedConstants const&>,ecs2::Query<md::ls::PipelineSetup &,md::ls::FlyoverInstance const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Shared>> const&>)::$_0>,void ()(md::ls::FlyoverSharedConstants const&)>::operator()(uint64_t a1, unint64_t *a2)
-{
-  result = md::VKMRenderResourcesStore::getConstantData<ggl::FlyoverCommon::Shared>(**(a1 + 16), *a2);
-  **(a1 + 8) = result;
-  return result;
-}
-
-__n128 std::__function::__func<md::ita::AssignFlyoverSharedConstantData::operator()(ecs2::Query<md::ls::FlyoverSharedConstants const&>,ecs2::Query<md::ls::PipelineSetup &,md::ls::FlyoverInstance const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Shared>> const&>)::$_0,std::allocator<md::ita::AssignFlyoverSharedConstantData::operator()(ecs2::Query<md::ls::FlyoverSharedConstants const&>,ecs2::Query<md::ls::PipelineSetup &,md::ls::FlyoverInstance const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Shared>> const&>)::$_0>,void ()(md::ls::FlyoverSharedConstants const&)>::__clone(uint64_t a1, uint64_t a2)
-{
-  *a2 = &unk_1F2A15490;
-  result = *(a1 + 8);
-  *(a2 + 8) = result;
-  return result;
-}
-
-uint64_t md::ita::AssignFlyoverAtmosphereTextureIndex::operator()(uint64_t a1, uint64_t a2)
-{
-  v47[3] = *MEMORY[0x1E69E9840];
-  v45[0] = &unk_1F2A15520;
-  v45[1] = a1;
-  v46 = v45;
-  v3 = *(a2 + 8);
-  v4 = ecs2::BasicRegistry<void>::storage<md::ls::ItemsPrepared>(v3);
-  v5 = ecs2::BasicRegistry<void>::storage<md::ls::RequiresShaderTextureID<Flyover::AtmosphereTexture>>(v3);
-  v6 = ecs2::BasicRegistry<void>::storage<md::ls::PipelineSetup>(v3);
-  v47[0] = v4;
-  v47[1] = v5;
-  v7 = 1;
-  v8 = v4;
-  v9 = v47;
-  v47[2] = v6;
-  do
-  {
-    if (*(v47[v7] + 40) - *(v47[v7] + 32) < *(v8 + 40) - *(v8 + 32))
-    {
-      v8 = v47[v7];
-      v9 = &v47[v7];
-    }
-
-    ++v7;
-  }
-
-  while (v7 != 3);
-  v10 = *(*v9 + 32);
-  v11 = *(*v9 + 40);
-  v40 = v10;
-  v41 = v11;
-  v42 = v4;
-  v43 = v5;
-  v44 = v6;
-  while (v10 != v11 && !ecs2::ViewIterator<void,std::tuple<md::ls::BaseMapTileHandle const&,md::ls::TileProjectionTypeT<(md::ls::TileProjectionType)0> const&,md::ls::TileStyleDataKeyHandle &>,std::tuple<>>::containsAll<md::ls::BaseMapTileHandle const,md::ls::TileProjectionTypeT<(md::ls::TileProjectionType)0> const,md::ls::TileStyleDataKeyHandle>(&v40, *v10, v10[1]))
-  {
-    v10 += 2;
-    v40 = v10;
-  }
-
-  v12 = v40;
-  if (v40 == v11)
-  {
-    v16 = _ZTWN4ecs27Runtime11_localStateE();
-    v17 = _ZTWN4ecs27Runtime11_stackIndexE();
-    v18 = 0;
-  }
-
-  else
-  {
-    v39 = a2;
-    v13 = v42;
-    v14 = v43;
-    v15 = v44;
-    v16 = _ZTWN4ecs27Runtime11_localStateE();
-    v17 = _ZTWN4ecs27Runtime11_stackIndexE();
-    v18 = 0;
-    v19 = v41;
-    do
-    {
-      v20 = v12[1];
-      v21 = v20 & 0x3F;
-      v22 = (v20 >> 3) & 0x1FF8;
-      v23 = *(*(*(v13 + 8) + v22) + 4 * v21 + 2);
-      v24 = *(*(v13 + 56) + ((v23 >> 3) & 0x1FF8));
-      v25 = *(*(*(v14 + 8) + v22) + 4 * v21 + 2);
-      v26 = *(*(v14 + 56) + ((v25 >> 3) & 0x1FF8));
-      v27 = *(*(*(v15 + 8) + v22) + 4 * v21 + 2);
-      v28 = *(*(v15 + 56) + ((v27 >> 3) & 0x1FF8));
-      *(v16 + 104 * *v17 + 24) = *v12;
-      if (!v46)
-      {
-        std::__throw_bad_function_call[abi:nn200100]();
-      }
-
-      (*(*v46 + 48))(v46, v24 + 8 * (v23 & 0x3F), v26 + 12 * (v25 & 0x3F), v28 + 8 * (v27 & 0x3F));
-      ++v18;
-      v29 = v12 + 2;
-      while (1)
-      {
-        v12 = v29;
-        v40 = v29;
-        if (v29 == v19)
-        {
-          break;
-        }
-
-        v30 = ecs2::ViewIterator<void,std::tuple<md::ls::BaseMapTileHandle const&,md::ls::TileProjectionTypeT<(md::ls::TileProjectionType)0> const&,md::ls::TileStyleDataKeyHandle &>,std::tuple<>>::containsAll<md::ls::BaseMapTileHandle const,md::ls::TileProjectionTypeT<(md::ls::TileProjectionType)0> const,md::ls::TileStyleDataKeyHandle>(&v40, *v29, v29[1]);
-        v29 = v12 + 2;
-        if (v30)
-        {
-          v31 = v12;
-          goto LABEL_17;
-        }
-      }
-
-      v31 = v19;
-LABEL_17:
-      ;
-    }
-
-    while (v31 != v11);
-    v32 = *(v39 + 8);
-    {
-      ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PipelineSetup>(void)::metadata = gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls::PipelineSetup>();
-      *algn_1EB83D948 = 0x9C4E7BCF9B8D6334;
-      qword_1EB83D950 = "md::ls::PipelineSetup]";
-      qword_1EB83D958 = 21;
-    }
-
-    *(v32 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PipelineSetup>(void)::metadata) = *(v32 + 4096);
-  }
-
-  *(v16 + 104 * *v17 + 24) = -65536;
-  v33 = v16 + 104 * *v17;
-  v34 = *(v33 + 92);
-  *(v33 + 92) = v34 + 1;
-  *(v33 + 4 * v34 + 28) = v18;
-  v35 = v16 + 104 * *v17;
-  v37 = *(v35 + 92);
-  v36 = (v35 + 92);
-  if (v37 >= 0x10)
-  {
-    *v36 = 0;
-  }
-
-  return std::__function::__value_func<void ()(md::ls::ItemsPrepared const&,md::ls::RequiresShaderTextureID<Flyover::AtmosphereTexture> const&,md::ls::PipelineSetup &)>::~__value_func[abi:nn200100](v45);
-}
-
-void sub_1B2F115E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  std::__function::__value_func<void ()(md::ls::ItemsPrepared const&,md::ls::RequiresShaderTextureID<Flyover::AtmosphereTexture> const&,md::ls::PipelineSetup &)>::~__value_func[abi:nn200100](va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t std::__function::__value_func<void ()(md::ls::ItemsPrepared const&,md::ls::RequiresShaderTextureID<Flyover::AtmosphereTexture> const&,md::ls::PipelineSetup &)>::~__value_func[abi:nn200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-uint64_t std::__function::__func<md::ita::AssignFlyoverAtmosphereTextureIndex::operator()(ecs2::Query<md::ls::ItemsPrepared const&,md::ls::RequiresShaderTextureID<Flyover::AtmosphereTexture> const&,md::ls::PipelineSetup &>)::$_0,std::allocator<md::ita::AssignFlyoverAtmosphereTextureIndex::operator()(ecs2::Query<md::ls::ItemsPrepared const&,md::ls::RequiresShaderTextureID<Flyover::AtmosphereTexture> const&,md::ls::PipelineSetup &>)::$_0>,void ()(md::ls::ItemsPrepared const&,md::ls::RequiresShaderTextureID<Flyover::AtmosphereTexture> const&,md::ls::PipelineSetup &)>::operator()(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t *a4)
-{
-  v5 = *(a1 + 8);
-  v6 = ecs2::ExecutionTask<md::VKMRenderResourcesStore *>::service<md::VKMRenderResourcesStore>(v5);
-  v7 = ecs2::ExecutionTask<md::LayoutContextProvider *,md::RenderLayerProvider *>::service<md::RenderLayerProvider>(v5);
-  v8 = *((*(*v7 + 56))(v7) + 1256);
-  PipelineDataSet = md::VKMRenderResourcesStore::getPipelineDataSet(v6, *a4);
-  Pipeline = md::VKMRenderResourcesStore::getPipeline(v6, *a4);
-  v11 = gdc::typeIndex<Flyover::AtmosphereTexture>();
-  result = std::__hash_table<std::__hash_value_type<unsigned long,std::unique_ptr<gdc::ComponentStorageWrapperBase>>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::unique_ptr<gdc::ComponentStorageWrapperBase>>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::unique_ptr<gdc::ComponentStorageWrapperBase>>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::unique_ptr<gdc::ComponentStorageWrapperBase>>>>::find<unsigned long>(PipelineDataSet, v11);
-  if (result)
-  {
-    {
-      if (v15)
-      {
-        md::typeToIntMap(v15);
-        md::setTextureForPipeline<Flyover::AtmosphereTexture>(std::unordered_set<unsigned long> const&,ggl::PipelineSetup *,ggl::Texture *)::typeBindingInfoMap = &md::typeToIntMap(void)::typeToIntMap;
-      }
-    }
-
-    result = std::__hash_table<std::__hash_value_type<unsigned long,std::unique_ptr<gdc::ComponentStorageWrapperBase>>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::unique_ptr<gdc::ComponentStorageWrapperBase>>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::unique_ptr<gdc::ComponentStorageWrapperBase>>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::unique_ptr<gdc::ComponentStorageWrapperBase>>>>::find<unsigned long>(md::setTextureForPipeline<Flyover::AtmosphereTexture>(std::unordered_set<unsigned long> const&,ggl::PipelineSetup *,ggl::Texture *)::typeBindingInfoMap, v11);
-    if (!result)
-    {
-      abort();
-    }
-
-    v13 = *(result + 24);
-    v14 = *(result + 28);
-    if (v13 != -1)
-    {
-      result = ggl::PipelineSetup::setTextureData(Pipeline, v13, v8);
-    }
-
-    if (v14 != -1)
-    {
-
-      return ggl::PipelineSetup::setTextureData(Pipeline, v14, v8);
-    }
-  }
-
-  return result;
-}
-
-uint64_t std::__function::__func<md::ita::AssignFlyoverAtmosphereTextureIndex::operator()(ecs2::Query<md::ls::ItemsPrepared const&,md::ls::RequiresShaderTextureID<Flyover::AtmosphereTexture> const&,md::ls::PipelineSetup &>)::$_0,std::allocator<md::ita::AssignFlyoverAtmosphereTextureIndex::operator()(ecs2::Query<md::ls::ItemsPrepared const&,md::ls::RequiresShaderTextureID<Flyover::AtmosphereTexture> const&,md::ls::PipelineSetup &>)::$_0>,void ()(md::ls::ItemsPrepared const&,md::ls::RequiresShaderTextureID<Flyover::AtmosphereTexture> const&,md::ls::PipelineSetup &)>::__clone(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_1F2A15520;
-  a2[1] = v2;
-  return result;
-}
-
-uint64_t md::ita::AssignFlyoverDiffuseTextureIndex::operator()(uint64_t a1, uint64_t a2)
-{
-  v59[5] = *MEMORY[0x1E69E9840];
-  v57[0] = &unk_1F2A15568;
-  v57[1] = a1;
-  v58 = v57;
-  v3 = *(a2 + 8);
-  v4 = ecs2::BasicRegistry<void>::storage<md::ls::ItemsPrepared>(v3);
-  v5 = ecs2::BasicRegistry<void>::storage<md::ls::RequiresShaderTextureID<Flyover::DiffuseTexture>>(v3);
-  v6 = ecs2::BasicRegistry<void>::storage<md::ls::TextureHandleForType<Flyover::DiffuseTexture>>(v3);
-  v7 = ecs2::BasicRegistry<void>::storage<md::ls::FlyoverInstance>(v3);
-  v8 = ecs2::BasicRegistry<void>::storage<md::ls::PipelineSetup>(v3);
-  v59[0] = v4;
-  v59[1] = v5;
-  v59[2] = v6;
-  v59[3] = v7;
-  v9 = 1;
-  v10 = v4;
-  v11 = v59;
-  v59[4] = v8;
-  do
-  {
-    if (*(v59[v9] + 40) - *(v59[v9] + 32) < *(v10 + 40) - *(v10 + 32))
-    {
-      v10 = v59[v9];
-      v11 = &v59[v9];
-    }
-
-    ++v9;
-  }
-
-  while (v9 != 5);
-  v12 = *(*v11 + 32);
-  v13 = *(*v11 + 40);
-  v50 = v12;
-  v51 = v13;
-  v52 = v4;
-  v53 = v5;
-  v54 = v6;
-  v55 = v7;
-  v56 = v8;
-  while (v12 != v13 && !ecs2::ViewIterator<void,std::tuple<md::ls::TileMatrix const&,md::ls::LayerDataReference const&,md::ls::SupportsFragmentClip const&,md::ls::RequireTypedRenderableForLegacyReasons<md::DaVinciGroundRenderable> &,md::ls::TileClippingConstantDataHandle &>,std::tuple<>>::containsAll<md::ls::TileMatrix const,md::ls::LayerDataReference const,md::ls::SupportsFragmentClip const,md::ls::RequireTypedRenderableForLegacyReasons<md::DaVinciGroundRenderable>,md::ls::TileClippingConstantDataHandle>(&v50, *v12, v12[1]))
-  {
-    v12 += 2;
-    v50 = v12;
-  }
-
-  v14 = v50;
-  if (v50 == v13)
-  {
-    _ZTWN4ecs27Runtime11_localStateE();
-    v20 = _ZTWN4ecs27Runtime11_stackIndexE();
-    v21 = 0;
-  }
-
-  else
-  {
-    v48 = a2;
-    v15 = v52;
-    v16 = v53;
-    v17 = v54;
-    v18 = v55;
-    v19 = v56;
-    v49 = _ZTWN4ecs27Runtime11_localStateE();
-    v20 = _ZTWN4ecs27Runtime11_stackIndexE();
-    v21 = 0;
-    v22 = v51;
-    do
-    {
-      v23 = v14[1];
-      v24 = v23 & 0x3F;
-      v25 = (v23 >> 3) & 0x1FF8;
-      v26 = *(*(*(v15 + 8) + v25) + 4 * v24 + 2);
-      v27 = *(*(v15 + 56) + ((v26 >> 3) & 0x1FF8));
-      v28 = *(*(*(v16 + 8) + v25) + 4 * v24 + 2);
-      v29 = *(*(v16 + 56) + ((v28 >> 3) & 0x1FF8));
-      v30 = *(*(*(v17 + 8) + v25) + 4 * v24 + 2);
-      v31 = *(*(v17 + 56) + ((v30 >> 3) & 0x1FF8));
-      v32 = *(v18 + 32);
-      v33 = *(*(v18 + 8) + v25) + 4 * v24;
-      v34 = *(*(*(v19 + 8) + v25) + 4 * v24 + 2);
-      v35 = *(*(v19 + 56) + ((v34 >> 3) & 0x1FF8));
-      v36 = *(v33 + 2);
-      *(v49 + 104 * *v20 + 24) = *v14;
-      if (!v58)
-      {
-        std::__throw_bad_function_call[abi:nn200100]();
-      }
-
-      (*(*v58 + 48))(v58, v27 + 8 * (v26 & 0x3F), v29 + 12 * (v28 & 0x3F), v31 + 16 * (v30 & 0x3F), v32 + 4 * v36, v35 + 8 * (v34 & 0x3F));
-      ++v21;
-      v37 = v14 + 2;
-      while (1)
-      {
-        v14 = v37;
-        v50 = v37;
-        if (v37 == v22)
-        {
-          break;
-        }
-
-        v38 = ecs2::ViewIterator<void,std::tuple<md::ls::TileMatrix const&,md::ls::LayerDataReference const&,md::ls::SupportsFragmentClip const&,md::ls::RequireTypedRenderableForLegacyReasons<md::DaVinciGroundRenderable> &,md::ls::TileClippingConstantDataHandle &>,std::tuple<>>::containsAll<md::ls::TileMatrix const,md::ls::LayerDataReference const,md::ls::SupportsFragmentClip const,md::ls::RequireTypedRenderableForLegacyReasons<md::DaVinciGroundRenderable>,md::ls::TileClippingConstantDataHandle>(&v50, *v37, v37[1]);
-        v37 = v14 + 2;
-        if (v38)
-        {
-          v39 = v14;
-          goto LABEL_17;
-        }
-      }
-
-      v39 = v22;
-LABEL_17:
-      ;
-    }
-
-    while (v39 != v13);
-    v40 = *(v48 + 8);
-    {
-      ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PipelineSetup>(void)::metadata = gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls::PipelineSetup>();
-      *algn_1EB83D948 = 0x9C4E7BCF9B8D6334;
-      qword_1EB83D950 = "md::ls::PipelineSetup]";
-      qword_1EB83D958 = 21;
-    }
-
-    *(v40 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PipelineSetup>(void)::metadata) = *(v40 + 4096);
-    v41 = v49;
-  }
-
-  *(v41 + 104 * *v20 + 24) = -65536;
-  v42 = v41 + 104 * *v20;
-  v43 = *(v42 + 92);
-  *(v42 + 92) = v43 + 1;
-  *(v42 + 4 * v43 + 28) = v21;
-  v44 = v41 + 104 * *v20;
-  v46 = *(v44 + 92);
-  v45 = (v44 + 92);
-  if (v46 >= 0x10)
-  {
-    *v45 = 0;
-  }
-
-  return std::__function::__value_func<void ()(md::ls::ItemsPrepared const&,md::ls::RequiresShaderTextureID<Flyover::DiffuseTexture> const&,md::ls::TextureHandleForType<Flyover::DiffuseTexture> const&,md::ls::FlyoverInstance const&,md::ls::PipelineSetup &)>::~__value_func[abi:nn200100](v57);
-}
-
-void sub_1B2F11C40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
-{
-  va_start(va, a12);
-  std::__function::__value_func<void ()(md::ls::ItemsPrepared const&,md::ls::RequiresShaderTextureID<Flyover::DiffuseTexture> const&,md::ls::TextureHandleForType<Flyover::DiffuseTexture> const&,md::ls::FlyoverInstance const&,md::ls::PipelineSetup &)>::~__value_func[abi:nn200100](va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t std::__function::__value_func<void ()(md::ls::ItemsPrepared const&,md::ls::RequiresShaderTextureID<Flyover::DiffuseTexture> const&,md::ls::TextureHandleForType<Flyover::DiffuseTexture> const&,md::ls::FlyoverInstance const&,md::ls::PipelineSetup &)>::~__value_func[abi:nn200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-uint64_t std::__function::__func<md::ita::AssignFlyoverDiffuseTextureIndex::operator()(ecs2::Query<md::ls::ItemsPrepared const&,md::ls::RequiresShaderTextureID<Flyover::DiffuseTexture> const&,md::ls::TextureHandleForType<Flyover::DiffuseTexture> const&,md::ls::FlyoverInstance const&,md::ls::PipelineSetup &>)::$_0,std::allocator<md::ita::AssignFlyoverDiffuseTextureIndex::operator()(ecs2::Query<md::ls::ItemsPrepared const&,md::ls::RequiresShaderTextureID<Flyover::DiffuseTexture> const&,md::ls::TextureHandleForType<Flyover::DiffuseTexture> const&,md::ls::FlyoverInstance const&,md::ls::PipelineSetup &>)::$_0>,void ()(md::ls::ItemsPrepared const&,md::ls::RequiresShaderTextureID<Flyover::DiffuseTexture> const&,md::ls::TextureHandleForType<Flyover::DiffuseTexture> const&,md::ls::FlyoverInstance const&,md::ls::PipelineSetup &)>::operator()(uint64_t a1, uint64_t a2, uint64_t a3, TextureHandle *a4, uint64_t a5, unint64_t *a6)
-{
-  v8 = *(a1 + 8);
-  v9 = ecs2::ExecutionTask<md::VKMRenderResourcesStore *>::service<md::VKMRenderResourcesStore>(v8);
-  v10 = v8[2];
-  if (!v10)
-  {
-    v11 = **v8;
-    v12 = *v11;
-    v13 = *(v11 + 8);
-    if (v12 == v13)
-    {
-      goto LABEL_3;
-    }
-
-    while (*v12 != 0x348A0B0E758C07C2)
-    {
-      v10 = 0;
-      v12 += 5;
-      if (v12 == v13)
-      {
-        goto LABEL_4;
-      }
-    }
-
-    if (v12 == v13)
-    {
-LABEL_3:
-      v10 = 0;
-    }
-
-    else
-    {
-      v10 = v12[3];
-      v22 = v12[4];
-      if (v22)
-      {
-        atomic_fetch_add_explicit(&v22->__shared_owners_, 1uLL, memory_order_relaxed);
-        std::__shared_weak_count::__release_shared[abi:nn200100](v22);
-      }
-    }
-
-LABEL_4:
-    v8[2] = v10;
-  }
-
-  PipelineDataSet = md::VKMRenderResourcesStore::getPipelineDataSet(v9, *a6);
-  Pipeline = md::VKMRenderResourcesStore::getPipeline(v9, *a6);
-  TextureStorageTracked = mre::GGLResourceStore::getTextureStorageTracked(v10, *a4);
-  if (TextureStorageTracked)
-  {
-    v17 = *TextureStorageTracked;
-  }
-
-  else
-  {
-    v17 = 0;
-  }
-
-  v18 = gdc::typeIndex<Flyover::DiffuseTexture>();
-  result = std::__hash_table<std::__hash_value_type<unsigned long,std::unique_ptr<gdc::ComponentStorageWrapperBase>>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::unique_ptr<gdc::ComponentStorageWrapperBase>>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::unique_ptr<gdc::ComponentStorageWrapperBase>>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::unique_ptr<gdc::ComponentStorageWrapperBase>>>>::find<unsigned long>(PipelineDataSet, v18);
-  if (result)
-  {
-    {
-      if (v23)
-      {
-        md::typeToIntMap(v23);
-        md::setTextureForPipeline<Flyover::DiffuseTexture>(std::unordered_set<unsigned long> const&,ggl::PipelineSetup *,ggl::Texture *)::typeBindingInfoMap = &md::typeToIntMap(void)::typeToIntMap;
-      }
-    }
-
-    result = std::__hash_table<std::__hash_value_type<unsigned long,std::unique_ptr<gdc::ComponentStorageWrapperBase>>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::unique_ptr<gdc::ComponentStorageWrapperBase>>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::unique_ptr<gdc::ComponentStorageWrapperBase>>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::unique_ptr<gdc::ComponentStorageWrapperBase>>>>::find<unsigned long>(md::setTextureForPipeline<Flyover::DiffuseTexture>(std::unordered_set<unsigned long> const&,ggl::PipelineSetup *,ggl::Texture *)::typeBindingInfoMap, v18);
-    if (!result)
-    {
-      abort();
-    }
-
-    v20 = *(result + 24);
-    v21 = *(result + 28);
-    if (v20 != -1)
-    {
-      result = ggl::PipelineSetup::setTextureData(Pipeline, v20, v17);
-    }
-
-    if (v21 != -1)
-    {
-
-      return ggl::PipelineSetup::setTextureData(Pipeline, v21, v17);
-    }
-  }
-
-  return result;
-}
-
-uint64_t std::__function::__func<md::ita::AssignFlyoverDiffuseTextureIndex::operator()(ecs2::Query<md::ls::ItemsPrepared const&,md::ls::RequiresShaderTextureID<Flyover::DiffuseTexture> const&,md::ls::TextureHandleForType<Flyover::DiffuseTexture> const&,md::ls::FlyoverInstance const&,md::ls::PipelineSetup &>)::$_0,std::allocator<md::ita::AssignFlyoverDiffuseTextureIndex::operator()(ecs2::Query<md::ls::ItemsPrepared const&,md::ls::RequiresShaderTextureID<Flyover::DiffuseTexture> const&,md::ls::TextureHandleForType<Flyover::DiffuseTexture> const&,md::ls::FlyoverInstance const&,md::ls::PipelineSetup &>)::$_0>,void ()(md::ls::ItemsPrepared const&,md::ls::RequiresShaderTextureID<Flyover::DiffuseTexture> const&,md::ls::TextureHandleForType<Flyover::DiffuseTexture> const&,md::ls::FlyoverInstance const&,md::ls::PipelineSetup &)>::__clone(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_1F2A15568;
-  a2[1] = v2;
-  return result;
-}
-
-uint64_t md::ita::AssignFlyoverNightTextureIndex::operator()(uint64_t a1, uint64_t a2)
-{
-  v59[5] = *MEMORY[0x1E69E9840];
-  v57[0] = &unk_1F2A155B0;
-  v57[1] = a1;
-  v58 = v57;
-  v3 = *(a2 + 8);
-  v4 = ecs2::BasicRegistry<void>::storage<md::ls::ItemsPrepared>(v3);
-  v5 = ecs2::BasicRegistry<void>::storage<md::ls::RequiresShaderTextureID<Flyover::NightTexture>>(v3);
-  v6 = ecs2::BasicRegistry<void>::storage<md::ls::TextureHandleForType<Flyover::NightTexture>>(v3);
-  v7 = ecs2::BasicRegistry<void>::storage<md::ls::FlyoverInstance>(v3);
-  v8 = ecs2::BasicRegistry<void>::storage<md::ls::PipelineSetup>(v3);
-  v59[0] = v4;
-  v59[1] = v5;
-  v59[2] = v6;
-  v59[3] = v7;
-  v9 = 1;
-  v10 = v4;
-  v11 = v59;
-  v59[4] = v8;
-  do
-  {
-    if (*(v59[v9] + 40) - *(v59[v9] + 32) < *(v10 + 40) - *(v10 + 32))
-    {
-      v10 = v59[v9];
-      v11 = &v59[v9];
-    }
-
-    ++v9;
-  }
-
-  while (v9 != 5);
-  v12 = *(*v11 + 32);
-  v13 = *(*v11 + 40);
-  v50 = v12;
-  v51 = v13;
-  v52 = v4;
-  v53 = v5;
-  v54 = v6;
-  v55 = v7;
-  v56 = v8;
-  while (v12 != v13 && !ecs2::ViewIterator<void,std::tuple<md::ls::TileMatrix const&,md::ls::LayerDataReference const&,md::ls::SupportsFragmentClip const&,md::ls::RequireTypedRenderableForLegacyReasons<md::DaVinciGroundRenderable> &,md::ls::TileClippingConstantDataHandle &>,std::tuple<>>::containsAll<md::ls::TileMatrix const,md::ls::LayerDataReference const,md::ls::SupportsFragmentClip const,md::ls::RequireTypedRenderableForLegacyReasons<md::DaVinciGroundRenderable>,md::ls::TileClippingConstantDataHandle>(&v50, *v12, v12[1]))
-  {
-    v12 += 2;
-    v50 = v12;
-  }
-
-  v14 = v50;
-  if (v50 == v13)
-  {
-    _ZTWN4ecs27Runtime11_localStateE();
-    v20 = _ZTWN4ecs27Runtime11_stackIndexE();
-    v21 = 0;
-  }
-
-  else
-  {
-    v48 = a2;
-    v15 = v52;
-    v16 = v53;
-    v17 = v54;
-    v18 = v55;
-    v19 = v56;
-    v49 = _ZTWN4ecs27Runtime11_localStateE();
-    v20 = _ZTWN4ecs27Runtime11_stackIndexE();
-    v21 = 0;
-    v22 = v51;
-    do
-    {
-      v23 = v14[1];
-      v24 = v23 & 0x3F;
-      v25 = (v23 >> 3) & 0x1FF8;
-      v26 = *(*(*(v15 + 8) + v25) + 4 * v24 + 2);
-      v27 = *(*(v15 + 56) + ((v26 >> 3) & 0x1FF8));
-      v28 = *(*(*(v16 + 8) + v25) + 4 * v24 + 2);
-      v29 = *(*(v16 + 56) + ((v28 >> 3) & 0x1FF8));
-      v30 = *(*(*(v17 + 8) + v25) + 4 * v24 + 2);
-      v31 = *(*(v17 + 56) + ((v30 >> 3) & 0x1FF8));
-      v32 = *(v18 + 32);
-      v33 = *(*(v18 + 8) + v25) + 4 * v24;
-      v34 = *(*(*(v19 + 8) + v25) + 4 * v24 + 2);
-      v35 = *(*(v19 + 56) + ((v34 >> 3) & 0x1FF8));
-      v36 = *(v33 + 2);
-      *(v49 + 104 * *v20 + 24) = *v14;
-      if (!v58)
-      {
-        std::__throw_bad_function_call[abi:nn200100]();
-      }
-
-      (*(*v58 + 48))(v58, v27 + 8 * (v26 & 0x3F), v29 + 12 * (v28 & 0x3F), v31 + 16 * (v30 & 0x3F), v32 + 4 * v36, v35 + 8 * (v34 & 0x3F));
-      ++v21;
-      v37 = v14 + 2;
-      while (1)
-      {
-        v14 = v37;
-        v50 = v37;
-        if (v37 == v22)
-        {
-          break;
-        }
-
-        v38 = ecs2::ViewIterator<void,std::tuple<md::ls::TileMatrix const&,md::ls::LayerDataReference const&,md::ls::SupportsFragmentClip const&,md::ls::RequireTypedRenderableForLegacyReasons<md::DaVinciGroundRenderable> &,md::ls::TileClippingConstantDataHandle &>,std::tuple<>>::containsAll<md::ls::TileMatrix const,md::ls::LayerDataReference const,md::ls::SupportsFragmentClip const,md::ls::RequireTypedRenderableForLegacyReasons<md::DaVinciGroundRenderable>,md::ls::TileClippingConstantDataHandle>(&v50, *v37, v37[1]);
-        v37 = v14 + 2;
-        if (v38)
-        {
-          v39 = v14;
-          goto LABEL_17;
-        }
-      }
-
-      v39 = v22;
-LABEL_17:
-      ;
-    }
-
-    while (v39 != v13);
-    v40 = *(v48 + 8);
-    {
-      ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PipelineSetup>(void)::metadata = gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls::PipelineSetup>();
-      *algn_1EB83D948 = 0x9C4E7BCF9B8D6334;
-      qword_1EB83D950 = "md::ls::PipelineSetup]";
-      qword_1EB83D958 = 21;
-    }
-
-    *(v40 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PipelineSetup>(void)::metadata) = *(v40 + 4096);
-    v41 = v49;
-  }
-
-  *(v41 + 104 * *v20 + 24) = -65536;
-  v42 = v41 + 104 * *v20;
-  v43 = *(v42 + 92);
-  *(v42 + 92) = v43 + 1;
-  *(v42 + 4 * v43 + 28) = v21;
-  v44 = v41 + 104 * *v20;
-  v46 = *(v44 + 92);
-  v45 = (v44 + 92);
-  if (v46 >= 0x10)
-  {
-    *v45 = 0;
-  }
-
-  return std::__function::__value_func<void ()(md::ls::ItemsPrepared const&,md::ls::RequiresShaderTextureID<Flyover::NightTexture> const&,md::ls::TextureHandleForType<Flyover::NightTexture> const&,md::ls::FlyoverInstance const&,md::ls::PipelineSetup &)>::~__value_func[abi:nn200100](v57);
-}
-
-void sub_1B2F12314(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
-{
-  va_start(va, a12);
-  std::__function::__value_func<void ()(md::ls::ItemsPrepared const&,md::ls::RequiresShaderTextureID<Flyover::NightTexture> const&,md::ls::TextureHandleForType<Flyover::NightTexture> const&,md::ls::FlyoverInstance const&,md::ls::PipelineSetup &)>::~__value_func[abi:nn200100](va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t std::__function::__value_func<void ()(md::ls::ItemsPrepared const&,md::ls::RequiresShaderTextureID<Flyover::NightTexture> const&,md::ls::TextureHandleForType<Flyover::NightTexture> const&,md::ls::FlyoverInstance const&,md::ls::PipelineSetup &)>::~__value_func[abi:nn200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-uint64_t std::__function::__func<md::ita::AssignFlyoverNightTextureIndex::operator()(ecs2::Query<md::ls::ItemsPrepared const&,md::ls::RequiresShaderTextureID<Flyover::NightTexture> const&,md::ls::TextureHandleForType<Flyover::NightTexture> const&,md::ls::FlyoverInstance const&,md::ls::PipelineSetup &>)::$_0,std::allocator<md::ita::AssignFlyoverNightTextureIndex::operator()(ecs2::Query<md::ls::ItemsPrepared const&,md::ls::RequiresShaderTextureID<Flyover::NightTexture> const&,md::ls::TextureHandleForType<Flyover::NightTexture> const&,md::ls::FlyoverInstance const&,md::ls::PipelineSetup &>)::$_0>,void ()(md::ls::ItemsPrepared const&,md::ls::RequiresShaderTextureID<Flyover::NightTexture> const&,md::ls::TextureHandleForType<Flyover::NightTexture> const&,md::ls::FlyoverInstance const&,md::ls::PipelineSetup &)>::operator()(uint64_t a1, uint64_t a2, uint64_t a3, TextureHandle *a4, uint64_t a5, unint64_t *a6)
-{
-  v8 = *(a1 + 8);
-  v9 = ecs2::ExecutionTask<md::VKMRenderResourcesStore *>::service<md::VKMRenderResourcesStore>(v8);
-  v10 = v8[2];
-  if (!v10)
-  {
-    v11 = **v8;
-    v12 = *v11;
-    v13 = *(v11 + 8);
-    if (v12 == v13)
-    {
-      goto LABEL_3;
-    }
-
-    while (*v12 != 0x348A0B0E758C07C2)
-    {
-      v10 = 0;
-      v12 += 5;
-      if (v12 == v13)
-      {
-        goto LABEL_4;
-      }
-    }
-
-    if (v12 == v13)
-    {
-LABEL_3:
-      v10 = 0;
-    }
-
-    else
-    {
-      v10 = v12[3];
-      v22 = v12[4];
-      if (v22)
-      {
-        atomic_fetch_add_explicit(&v22->__shared_owners_, 1uLL, memory_order_relaxed);
-        std::__shared_weak_count::__release_shared[abi:nn200100](v22);
-      }
-    }
-
-LABEL_4:
-    v8[2] = v10;
-  }
-
-  PipelineDataSet = md::VKMRenderResourcesStore::getPipelineDataSet(v9, *a6);
-  Pipeline = md::VKMRenderResourcesStore::getPipeline(v9, *a6);
-  TextureStorageTracked = mre::GGLResourceStore::getTextureStorageTracked(v10, *a4);
-  if (TextureStorageTracked)
-  {
-    v17 = *TextureStorageTracked;
-  }
-
-  else
-  {
-    v17 = 0;
-  }
-
-  v18 = gdc::typeIndex<Flyover::NightTexture>();
-  result = std::__hash_table<std::__hash_value_type<unsigned long,std::unique_ptr<gdc::ComponentStorageWrapperBase>>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::unique_ptr<gdc::ComponentStorageWrapperBase>>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::unique_ptr<gdc::ComponentStorageWrapperBase>>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::unique_ptr<gdc::ComponentStorageWrapperBase>>>>::find<unsigned long>(PipelineDataSet, v18);
-  if (result)
-  {
-    {
-      if (v23)
-      {
-        md::typeToIntMap(v23);
-        md::setTextureForPipeline<Flyover::NightTexture>(std::unordered_set<unsigned long> const&,ggl::PipelineSetup *,ggl::Texture *)::typeBindingInfoMap = &md::typeToIntMap(void)::typeToIntMap;
-      }
-    }
-
-    result = std::__hash_table<std::__hash_value_type<unsigned long,std::unique_ptr<gdc::ComponentStorageWrapperBase>>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::unique_ptr<gdc::ComponentStorageWrapperBase>>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::unique_ptr<gdc::ComponentStorageWrapperBase>>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::unique_ptr<gdc::ComponentStorageWrapperBase>>>>::find<unsigned long>(md::setTextureForPipeline<Flyover::NightTexture>(std::unordered_set<unsigned long> const&,ggl::PipelineSetup *,ggl::Texture *)::typeBindingInfoMap, v18);
-    if (!result)
-    {
-      abort();
-    }
-
-    v20 = *(result + 24);
-    v21 = *(result + 28);
-    if (v20 != -1)
-    {
-      result = ggl::PipelineSetup::setTextureData(Pipeline, v20, v17);
-    }
-
-    if (v21 != -1)
-    {
-
-      return ggl::PipelineSetup::setTextureData(Pipeline, v21, v17);
-    }
-  }
-
-  return result;
-}
-
-uint64_t std::__function::__func<md::ita::AssignFlyoverNightTextureIndex::operator()(ecs2::Query<md::ls::ItemsPrepared const&,md::ls::RequiresShaderTextureID<Flyover::NightTexture> const&,md::ls::TextureHandleForType<Flyover::NightTexture> const&,md::ls::FlyoverInstance const&,md::ls::PipelineSetup &>)::$_0,std::allocator<md::ita::AssignFlyoverNightTextureIndex::operator()(ecs2::Query<md::ls::ItemsPrepared const&,md::ls::RequiresShaderTextureID<Flyover::NightTexture> const&,md::ls::TextureHandleForType<Flyover::NightTexture> const&,md::ls::FlyoverInstance const&,md::ls::PipelineSetup &>)::$_0>,void ()(md::ls::ItemsPrepared const&,md::ls::RequiresShaderTextureID<Flyover::NightTexture> const&,md::ls::TextureHandleForType<Flyover::NightTexture> const&,md::ls::FlyoverInstance const&,md::ls::PipelineSetup &)>::__clone(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_1F2A155B0;
-  a2[1] = v2;
-  return result;
-}
-
-uint64_t md::ita::AssignFlyoverTransformConstantData::operator()(uint64_t a1, uint64_t a2)
-{
-  v59[5] = *MEMORY[0x1E69E9840];
-  v57[0] = &unk_1F2A155F8;
-  v57[1] = a1;
-  v58 = v57;
-  v3 = *(a2 + 8);
-  v4 = ecs2::BasicRegistry<void>::storage<md::ls::ItemsPrepared>(v3);
-  v5 = ecs2::BasicRegistry<void>::storage<md::ls::FlyoverCommonTransformConstantDataHandle>(v3);
-  v6 = ecs2::BasicRegistry<void>::storage<md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Transform>>>(v3);
-  v7 = ecs2::BasicRegistry<void>::storage<md::ls::FlyoverInstance>(v3);
-  v8 = ecs2::BasicRegistry<void>::storage<md::ls::PipelineSetup>(v3);
-  v59[0] = v4;
-  v59[1] = v5;
-  v59[2] = v6;
-  v59[3] = v7;
-  v9 = 1;
-  v10 = v4;
-  v11 = v59;
-  v59[4] = v8;
-  do
-  {
-    if (*(v59[v9] + 40) - *(v59[v9] + 32) < *(v10 + 40) - *(v10 + 32))
-    {
-      v10 = v59[v9];
-      v11 = &v59[v9];
-    }
-
-    ++v9;
-  }
-
-  while (v9 != 5);
-  v12 = *(*v11 + 32);
-  v13 = *(*v11 + 40);
-  v50 = v12;
-  v51 = v13;
-  v52 = v4;
-  v53 = v5;
-  v54 = v6;
-  v55 = v7;
-  v56 = v8;
-  while (v12 != v13 && !ecs2::ViewIterator<void,std::tuple<md::ls::TileMatrix const&,md::ls::LayerDataReference const&,md::ls::SupportsFragmentClip const&,md::ls::RequireTypedRenderableForLegacyReasons<md::DaVinciGroundRenderable> &,md::ls::TileClippingConstantDataHandle &>,std::tuple<>>::containsAll<md::ls::TileMatrix const,md::ls::LayerDataReference const,md::ls::SupportsFragmentClip const,md::ls::RequireTypedRenderableForLegacyReasons<md::DaVinciGroundRenderable>,md::ls::TileClippingConstantDataHandle>(&v50, *v12, v12[1]))
-  {
-    v12 += 2;
-    v50 = v12;
-  }
-
-  v14 = v50;
-  if (v50 == v13)
-  {
-    _ZTWN4ecs27Runtime11_localStateE();
-    v20 = _ZTWN4ecs27Runtime11_stackIndexE();
-    v21 = 0;
-  }
-
-  else
-  {
-    v48 = a2;
-    v15 = v52;
-    v16 = v53;
-    v17 = v54;
-    v18 = v55;
-    v19 = v56;
-    v49 = _ZTWN4ecs27Runtime11_localStateE();
-    v20 = _ZTWN4ecs27Runtime11_stackIndexE();
-    v21 = 0;
-    v22 = v51;
-    do
-    {
-      v23 = v14[1];
-      v24 = v23 & 0x3F;
-      v25 = (v23 >> 3) & 0x1FF8;
-      v26 = *(*(*(v15 + 8) + v25) + 4 * v24 + 2);
-      v27 = *(*(v15 + 56) + ((v26 >> 3) & 0x1FF8));
-      v28 = *(*(*(v16 + 8) + v25) + 4 * v24 + 2);
-      v29 = *(*(v16 + 56) + ((v28 >> 3) & 0x1FF8));
-      v30 = *(*(*(v17 + 8) + v25) + 4 * v24 + 2);
-      v31 = *(*(v17 + 56) + ((v30 >> 3) & 0x1FF8));
-      v32 = *(v18 + 32);
-      v33 = *(*(v18 + 8) + v25) + 4 * v24;
-      v34 = *(*(*(v19 + 8) + v25) + 4 * v24 + 2);
-      v35 = *(*(v19 + 56) + ((v34 >> 3) & 0x1FF8));
-      v36 = *(v33 + 2);
-      *(v49 + 104 * *v20 + 24) = *v14;
-      if (!v58)
-      {
-        std::__throw_bad_function_call[abi:nn200100]();
-      }
-
-      (*(*v58 + 48))(v58, v27 + 8 * (v26 & 0x3F), v29 + 8 * (v28 & 0x3F), v31 + 12 * (v30 & 0x3F), v32 + 4 * v36, v35 + 8 * (v34 & 0x3F));
-      ++v21;
-      v37 = v14 + 2;
-      while (1)
-      {
-        v14 = v37;
-        v50 = v37;
-        if (v37 == v22)
-        {
-          break;
-        }
-
-        v38 = ecs2::ViewIterator<void,std::tuple<md::ls::TileMatrix const&,md::ls::LayerDataReference const&,md::ls::SupportsFragmentClip const&,md::ls::RequireTypedRenderableForLegacyReasons<md::DaVinciGroundRenderable> &,md::ls::TileClippingConstantDataHandle &>,std::tuple<>>::containsAll<md::ls::TileMatrix const,md::ls::LayerDataReference const,md::ls::SupportsFragmentClip const,md::ls::RequireTypedRenderableForLegacyReasons<md::DaVinciGroundRenderable>,md::ls::TileClippingConstantDataHandle>(&v50, *v37, v37[1]);
-        v37 = v14 + 2;
-        if (v38)
-        {
-          v39 = v14;
-          goto LABEL_17;
-        }
-      }
-
-      v39 = v22;
-LABEL_17:
-      ;
-    }
-
-    while (v39 != v13);
-    v40 = *(v48 + 8);
-    {
-      ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PipelineSetup>(void)::metadata = gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls::PipelineSetup>();
-      *algn_1EB83D948 = 0x9C4E7BCF9B8D6334;
-      qword_1EB83D950 = "md::ls::PipelineSetup]";
-      qword_1EB83D958 = 21;
-    }
-
-    *(v40 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PipelineSetup>(void)::metadata) = *(v40 + 4096);
-    v41 = v49;
-  }
-
-  *(v41 + 104 * *v20 + 24) = -65536;
-  v42 = v41 + 104 * *v20;
-  v43 = *(v42 + 92);
-  *(v42 + 92) = v43 + 1;
-  *(v42 + 4 * v43 + 28) = v21;
-  v44 = v41 + 104 * *v20;
-  v46 = *(v44 + 92);
-  v45 = (v44 + 92);
-  if (v46 >= 0x10)
-  {
-    *v45 = 0;
-  }
-
-  return std::__function::__value_func<void ()(md::ls::ItemsPrepared const&,md::ls::FlyoverCommonTransformConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Transform>> const&,md::ls::FlyoverInstance const&,md::ls::PipelineSetup &)>::~__value_func[abi:nn200100](v57);
-}
-
-void sub_1B2F129E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
-{
-  va_start(va, a12);
-  std::__function::__value_func<void ()(md::ls::ItemsPrepared const&,md::ls::FlyoverCommonTransformConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Transform>> const&,md::ls::FlyoverInstance const&,md::ls::PipelineSetup &)>::~__value_func[abi:nn200100](va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t std::__function::__value_func<void ()(md::ls::ItemsPrepared const&,md::ls::FlyoverCommonTransformConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Transform>> const&,md::ls::FlyoverInstance const&,md::ls::PipelineSetup &)>::~__value_func[abi:nn200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-void std::__function::__func<md::ita::AssignFlyoverTransformConstantData::operator()(ecs2::Query<md::ls::ItemsPrepared const&,md::ls::FlyoverCommonTransformConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Transform>> const&,md::ls::FlyoverInstance const&,md::ls::PipelineSetup &>)::$_0,std::allocator<md::ita::AssignFlyoverTransformConstantData::operator()(ecs2::Query<md::ls::ItemsPrepared const&,md::ls::FlyoverCommonTransformConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Transform>> const&,md::ls::FlyoverInstance const&,md::ls::PipelineSetup &>)::$_0>,void ()(md::ls::ItemsPrepared const&,md::ls::FlyoverCommonTransformConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Transform>> const&,md::ls::FlyoverInstance const&,md::ls::PipelineSetup &)>::operator()(uint64_t a1, uint64_t a2, unint64_t *a3, uint64_t a4, uint64_t a5, unint64_t *a6)
-{
-  v9 = ecs2::ExecutionTask<md::VKMRenderResourcesStore *>::service<md::VKMRenderResourcesStore>(*(a1 + 8));
-  v10 = ecs2::sparse_set<geo::handle<md::MaterialIDStorage>,64ul>::find(v9 + 1027, *a3);
-  if (v10 == v9[1032] || (v11 = (v10 - v9[1031]) >> 3, v12 = (v11 >> 3) & 0x1FFFFFFFFFFFFFF8, v13 = *(v9[1040] + v12), ++*(*(v9[1034] + v12) + 24 * (v11 & 0x3F)), !v13))
-  {
-    v14 = 0;
-  }
-
-  else
-  {
-    v14 = *(v13 + 24 * (v11 & 0x3F));
-  }
-
-  md::VKMRenderResourcesStore::getPipelineDataSet(v9, *a6);
-  Pipeline = md::VKMRenderResourcesStore::getPipeline(v9, *a6);
-  v16 = Pipeline;
-  if (*a4 == 1)
-  {
-    ggl::PipelineSetup::setConstantDataWithoutCheck(Pipeline, *(a4 + 4), v14);
-  }
-
-  if (*(a4 + 1) == 1)
-  {
-    v17 = *(a4 + 8);
-
-    ggl::PipelineSetup::setConstantDataWithoutCheck(v16, v17, v14);
-  }
-}
-
-uint64_t std::__function::__func<md::ita::AssignFlyoverTransformConstantData::operator()(ecs2::Query<md::ls::ItemsPrepared const&,md::ls::FlyoverCommonTransformConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Transform>> const&,md::ls::FlyoverInstance const&,md::ls::PipelineSetup &>)::$_0,std::allocator<md::ita::AssignFlyoverTransformConstantData::operator()(ecs2::Query<md::ls::ItemsPrepared const&,md::ls::FlyoverCommonTransformConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Transform>> const&,md::ls::FlyoverInstance const&,md::ls::PipelineSetup &>)::$_0>,void ()(md::ls::ItemsPrepared const&,md::ls::FlyoverCommonTransformConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Transform>> const&,md::ls::FlyoverInstance const&,md::ls::PipelineSetup &)>::__clone(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_1F2A155F8;
-  a2[1] = v2;
-  return result;
-}
-
-uint64_t md::ita::AssignFlyoverS2TransformConstantData::operator()(uint64_t a1, uint64_t a2)
-{
-  v59[5] = *MEMORY[0x1E69E9840];
-  v57[0] = &unk_1F2A15640;
-  v57[1] = a1;
-  v58 = v57;
-  v3 = *(a2 + 8);
-  v4 = ecs2::BasicRegistry<void>::storage<md::ls::ItemsPrepared>(v3);
-  v5 = ecs2::BasicRegistry<void>::storage<md::ls::FlyoverCommonS2TransformHandle>(v3);
-  v6 = ecs2::BasicRegistry<void>::storage<md::ls::FlyoverInstance>(v3);
-  v7 = ecs2::BasicRegistry<void>::storage<md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::S2Transform>>>(v3);
-  v8 = ecs2::BasicRegistry<void>::storage<md::ls::PipelineSetup>(v3);
-  v59[0] = v4;
-  v59[1] = v5;
-  v59[2] = v6;
-  v59[3] = v7;
-  v9 = 1;
-  v10 = v4;
-  v11 = v59;
-  v59[4] = v8;
-  do
-  {
-    if (*(v59[v9] + 40) - *(v59[v9] + 32) < *(v10 + 40) - *(v10 + 32))
-    {
-      v10 = v59[v9];
-      v11 = &v59[v9];
-    }
-
-    ++v9;
-  }
-
-  while (v9 != 5);
-  v12 = *(*v11 + 32);
-  v13 = *(*v11 + 40);
-  v50 = v12;
-  v51 = v13;
-  v52 = v4;
-  v53 = v5;
-  v54 = v6;
-  v55 = v7;
-  v56 = v8;
-  while (v12 != v13 && !ecs2::ViewIterator<void,std::tuple<md::ls::TileMatrix const&,md::ls::LayerDataReference const&,md::ls::SupportsFragmentClip const&,md::ls::RequireTypedRenderableForLegacyReasons<md::DaVinciGroundRenderable> &,md::ls::TileClippingConstantDataHandle &>,std::tuple<>>::containsAll<md::ls::TileMatrix const,md::ls::LayerDataReference const,md::ls::SupportsFragmentClip const,md::ls::RequireTypedRenderableForLegacyReasons<md::DaVinciGroundRenderable>,md::ls::TileClippingConstantDataHandle>(&v50, *v12, v12[1]))
-  {
-    v12 += 2;
-    v50 = v12;
-  }
-
-  v14 = v50;
-  if (v50 == v13)
-  {
-    _ZTWN4ecs27Runtime11_localStateE();
-    v20 = _ZTWN4ecs27Runtime11_stackIndexE();
-    v21 = 0;
-  }
-
-  else
-  {
-    v48 = a2;
-    v15 = v52;
-    v16 = v53;
-    v17 = v54;
-    v18 = v55;
-    v19 = v56;
-    v49 = _ZTWN4ecs27Runtime11_localStateE();
-    v20 = _ZTWN4ecs27Runtime11_stackIndexE();
-    v21 = 0;
-    v22 = v51;
-    do
-    {
-      v23 = v14[1];
-      v24 = v23 & 0x3F;
-      v25 = (v23 >> 3) & 0x1FF8;
-      v26 = *(*(*(v15 + 8) + v25) + 4 * v24 + 2);
-      v27 = *(*(v15 + 56) + ((v26 >> 3) & 0x1FF8));
-      v28 = *(*(*(v16 + 8) + v25) + 4 * v24 + 2);
-      v29 = *(*(v16 + 56) + ((v28 >> 3) & 0x1FF8));
-      v30 = *(v17 + 32);
-      v31 = *(*(v17 + 8) + v25) + 4 * v24;
-      v32 = *(*(*(v18 + 8) + v25) + 4 * v24 + 2);
-      v33 = *(*(v18 + 56) + ((v32 >> 3) & 0x1FF8));
-      v34 = *(*(*(v19 + 8) + v25) + 4 * v24 + 2);
-      v35 = *(*(v19 + 56) + ((v34 >> 3) & 0x1FF8));
-      v36 = *(v31 + 2);
-      *(v49 + 104 * *v20 + 24) = *v14;
-      if (!v58)
-      {
-        std::__throw_bad_function_call[abi:nn200100]();
-      }
-
-      (*(*v58 + 48))(v58, v27 + 8 * (v26 & 0x3F), v29 + 8 * (v28 & 0x3F), v30 + 4 * v36, v33 + 12 * (v32 & 0x3F), v35 + 8 * (v34 & 0x3F));
-      ++v21;
-      v37 = v14 + 2;
-      while (1)
-      {
-        v14 = v37;
-        v50 = v37;
-        if (v37 == v22)
-        {
-          break;
-        }
-
-        v38 = ecs2::ViewIterator<void,std::tuple<md::ls::TileMatrix const&,md::ls::LayerDataReference const&,md::ls::SupportsFragmentClip const&,md::ls::RequireTypedRenderableForLegacyReasons<md::DaVinciGroundRenderable> &,md::ls::TileClippingConstantDataHandle &>,std::tuple<>>::containsAll<md::ls::TileMatrix const,md::ls::LayerDataReference const,md::ls::SupportsFragmentClip const,md::ls::RequireTypedRenderableForLegacyReasons<md::DaVinciGroundRenderable>,md::ls::TileClippingConstantDataHandle>(&v50, *v37, v37[1]);
-        v37 = v14 + 2;
-        if (v38)
-        {
-          v39 = v14;
-          goto LABEL_17;
-        }
-      }
-
-      v39 = v22;
-LABEL_17:
-      ;
-    }
-
-    while (v39 != v13);
-    v40 = *(v48 + 8);
-    {
-      ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PipelineSetup>(void)::metadata = gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls::PipelineSetup>();
-      *algn_1EB83D948 = 0x9C4E7BCF9B8D6334;
-      qword_1EB83D950 = "md::ls::PipelineSetup]";
-      qword_1EB83D958 = 21;
-    }
-
-    *(v40 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PipelineSetup>(void)::metadata) = *(v40 + 4096);
-    v41 = v49;
-  }
-
-  *(v41 + 104 * *v20 + 24) = -65536;
-  v42 = v41 + 104 * *v20;
-  v43 = *(v42 + 92);
-  *(v42 + 92) = v43 + 1;
-  *(v42 + 4 * v43 + 28) = v21;
-  v44 = v41 + 104 * *v20;
-  v46 = *(v44 + 92);
-  v45 = (v44 + 92);
-  if (v46 >= 0x10)
-  {
-    *v45 = 0;
-  }
-
-  return std::__function::__value_func<void ()(md::ls::ItemsPrepared const&,md::ls::FlyoverCommonS2TransformHandle const&,md::ls::FlyoverInstance const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::S2Transform>> const&,md::ls::PipelineSetup &)>::~__value_func[abi:nn200100](v57);
-}
-
-void sub_1B2F13008(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
-{
-  va_start(va, a12);
-  std::__function::__value_func<void ()(md::ls::ItemsPrepared const&,md::ls::FlyoverCommonS2TransformHandle const&,md::ls::FlyoverInstance const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::S2Transform>> const&,md::ls::PipelineSetup &)>::~__value_func[abi:nn200100](va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t std::__function::__value_func<void ()(md::ls::ItemsPrepared const&,md::ls::FlyoverCommonS2TransformHandle const&,md::ls::FlyoverInstance const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::S2Transform>> const&,md::ls::PipelineSetup &)>::~__value_func[abi:nn200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-void std::__function::__func<md::ita::AssignFlyoverS2TransformConstantData::operator()(ecs2::Query<md::ls::ItemsPrepared const&,md::ls::FlyoverCommonS2TransformHandle const&,md::ls::FlyoverInstance const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::S2Transform>> const&,md::ls::PipelineSetup &>)::$_0,std::allocator<md::ita::AssignFlyoverS2TransformConstantData::operator()(ecs2::Query<md::ls::ItemsPrepared const&,md::ls::FlyoverCommonS2TransformHandle const&,md::ls::FlyoverInstance const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::S2Transform>> const&,md::ls::PipelineSetup &>)::$_0>,void ()(md::ls::ItemsPrepared const&,md::ls::FlyoverCommonS2TransformHandle const&,md::ls::FlyoverInstance const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::S2Transform>> const&,md::ls::PipelineSetup &)>::operator()(uint64_t a1, uint64_t a2, unint64_t *a3, uint64_t a4, uint64_t a5, unint64_t *a6)
-{
-  v9 = ecs2::ExecutionTask<md::VKMRenderResourcesStore *>::service<md::VKMRenderResourcesStore>(*(a1 + 8));
-  v10 = ecs2::sparse_set<geo::handle<md::MaterialIDStorage>,64ul>::find(v9 + 1063, *a3);
-  if (v10 == v9[1068] || (v11 = (v10 - v9[1067]) >> 3, v12 = (v11 >> 3) & 0x1FFFFFFFFFFFFFF8, v13 = *(v9[1076] + v12), ++*(*(v9[1070] + v12) + 24 * (v11 & 0x3F)), !v13))
-  {
-    v14 = 0;
-  }
-
-  else
-  {
-    v14 = *(v13 + 24 * (v11 & 0x3F));
-  }
-
-  md::VKMRenderResourcesStore::getPipelineDataSet(v9, *a6);
-  Pipeline = md::VKMRenderResourcesStore::getPipeline(v9, *a6);
-  v16 = Pipeline;
-  if (*a5 == 1)
-  {
-    ggl::PipelineSetup::setConstantDataWithoutCheck(Pipeline, *(a5 + 4), v14);
-  }
-
-  if (*(a5 + 1) == 1)
-  {
-    v17 = *(a5 + 8);
-
-    ggl::PipelineSetup::setConstantDataWithoutCheck(v16, v17, v14);
-  }
-}
-
-uint64_t std::__function::__func<md::ita::AssignFlyoverS2TransformConstantData::operator()(ecs2::Query<md::ls::ItemsPrepared const&,md::ls::FlyoverCommonS2TransformHandle const&,md::ls::FlyoverInstance const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::S2Transform>> const&,md::ls::PipelineSetup &>)::$_0,std::allocator<md::ita::AssignFlyoverS2TransformConstantData::operator()(ecs2::Query<md::ls::ItemsPrepared const&,md::ls::FlyoverCommonS2TransformHandle const&,md::ls::FlyoverInstance const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::S2Transform>> const&,md::ls::PipelineSetup &>)::$_0>,void ()(md::ls::ItemsPrepared const&,md::ls::FlyoverCommonS2TransformHandle const&,md::ls::FlyoverInstance const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::S2Transform>> const&,md::ls::PipelineSetup &)>::__clone(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_1F2A15640;
-  a2[1] = v2;
-  return result;
-}
-
-uint64_t md::ita::AssignFlyoverClipConstantData::operator()(uint64_t a1, uint64_t a2)
-{
-  v59[5] = *MEMORY[0x1E69E9840];
-  v57[0] = &unk_1F2A15688;
-  v57[1] = a1;
-  v58 = v57;
-  v3 = *(a2 + 8);
-  v4 = ecs2::BasicRegistry<void>::storage<md::ls::ItemsPrepared>(v3);
-  v5 = ecs2::BasicRegistry<void>::storage<md::ls::FlyoverClipConstantDataHandle>(v3);
-  v6 = ecs2::BasicRegistry<void>::storage<md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Clip>>>(v3);
-  v7 = ecs2::BasicRegistry<void>::storage<md::ls::FlyoverInstance>(v3);
-  v8 = ecs2::BasicRegistry<void>::storage<md::ls::PipelineSetup>(v3);
-  v59[0] = v4;
-  v59[1] = v5;
-  v59[2] = v6;
-  v59[3] = v7;
-  v9 = 1;
-  v10 = v4;
-  v11 = v59;
-  v59[4] = v8;
-  do
-  {
-    if (*(v59[v9] + 40) - *(v59[v9] + 32) < *(v10 + 40) - *(v10 + 32))
-    {
-      v10 = v59[v9];
-      v11 = &v59[v9];
-    }
-
-    ++v9;
-  }
-
-  while (v9 != 5);
-  v12 = *(*v11 + 32);
-  v13 = *(*v11 + 40);
-  v50 = v12;
-  v51 = v13;
-  v52 = v4;
-  v53 = v5;
-  v54 = v6;
-  v55 = v7;
-  v56 = v8;
-  while (v12 != v13 && !ecs2::ViewIterator<void,std::tuple<md::ls::TileMatrix const&,md::ls::LayerDataReference const&,md::ls::SupportsFragmentClip const&,md::ls::RequireTypedRenderableForLegacyReasons<md::DaVinciGroundRenderable> &,md::ls::TileClippingConstantDataHandle &>,std::tuple<>>::containsAll<md::ls::TileMatrix const,md::ls::LayerDataReference const,md::ls::SupportsFragmentClip const,md::ls::RequireTypedRenderableForLegacyReasons<md::DaVinciGroundRenderable>,md::ls::TileClippingConstantDataHandle>(&v50, *v12, v12[1]))
-  {
-    v12 += 2;
-    v50 = v12;
-  }
-
-  v14 = v50;
-  if (v50 == v13)
-  {
-    _ZTWN4ecs27Runtime11_localStateE();
-    v20 = _ZTWN4ecs27Runtime11_stackIndexE();
-    v21 = 0;
-  }
-
-  else
-  {
-    v48 = a2;
-    v15 = v52;
-    v16 = v53;
-    v17 = v54;
-    v18 = v55;
-    v19 = v56;
-    v49 = _ZTWN4ecs27Runtime11_localStateE();
-    v20 = _ZTWN4ecs27Runtime11_stackIndexE();
-    v21 = 0;
-    v22 = v51;
-    do
-    {
-      v23 = v14[1];
-      v24 = v23 & 0x3F;
-      v25 = (v23 >> 3) & 0x1FF8;
-      v26 = *(*(*(v15 + 8) + v25) + 4 * v24 + 2);
-      v27 = *(*(v15 + 56) + ((v26 >> 3) & 0x1FF8));
-      v28 = *(*(*(v16 + 8) + v25) + 4 * v24 + 2);
-      v29 = *(*(v16 + 56) + ((v28 >> 3) & 0x1FF8));
-      v30 = *(*(*(v17 + 8) + v25) + 4 * v24 + 2);
-      v31 = *(*(v17 + 56) + ((v30 >> 3) & 0x1FF8));
-      v32 = *(v18 + 32);
-      v33 = *(*(v18 + 8) + v25) + 4 * v24;
-      v34 = *(*(*(v19 + 8) + v25) + 4 * v24 + 2);
-      v35 = *(*(v19 + 56) + ((v34 >> 3) & 0x1FF8));
-      v36 = *(v33 + 2);
-      *(v49 + 104 * *v20 + 24) = *v14;
-      if (!v58)
-      {
-        std::__throw_bad_function_call[abi:nn200100]();
-      }
-
-      (*(*v58 + 48))(v58, v27 + 8 * (v26 & 0x3F), v29 + 8 * (v28 & 0x3F), v31 + 12 * (v30 & 0x3F), v32 + 4 * v36, v35 + 8 * (v34 & 0x3F));
-      ++v21;
-      v37 = v14 + 2;
-      while (1)
-      {
-        v14 = v37;
-        v50 = v37;
-        if (v37 == v22)
-        {
-          break;
-        }
-
-        v38 = ecs2::ViewIterator<void,std::tuple<md::ls::TileMatrix const&,md::ls::LayerDataReference const&,md::ls::SupportsFragmentClip const&,md::ls::RequireTypedRenderableForLegacyReasons<md::DaVinciGroundRenderable> &,md::ls::TileClippingConstantDataHandle &>,std::tuple<>>::containsAll<md::ls::TileMatrix const,md::ls::LayerDataReference const,md::ls::SupportsFragmentClip const,md::ls::RequireTypedRenderableForLegacyReasons<md::DaVinciGroundRenderable>,md::ls::TileClippingConstantDataHandle>(&v50, *v37, v37[1]);
-        v37 = v14 + 2;
-        if (v38)
-        {
-          v39 = v14;
-          goto LABEL_17;
-        }
-      }
-
-      v39 = v22;
-LABEL_17:
-      ;
-    }
-
-    while (v39 != v13);
-    v40 = *(v48 + 8);
-    {
-      ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PipelineSetup>(void)::metadata = gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls::PipelineSetup>();
-      *algn_1EB83D948 = 0x9C4E7BCF9B8D6334;
-      qword_1EB83D950 = "md::ls::PipelineSetup]";
-      qword_1EB83D958 = 21;
-    }
-
-    *(v40 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PipelineSetup>(void)::metadata) = *(v40 + 4096);
-    v41 = v49;
-  }
-
-  *(v41 + 104 * *v20 + 24) = -65536;
-  v42 = v41 + 104 * *v20;
-  v43 = *(v42 + 92);
-  *(v42 + 92) = v43 + 1;
-  *(v42 + 4 * v43 + 28) = v21;
-  v44 = v41 + 104 * *v20;
-  v46 = *(v44 + 92);
-  v45 = (v44 + 92);
-  if (v46 >= 0x10)
-  {
-    *v45 = 0;
-  }
-
-  return std::__function::__value_func<void ()(md::ls::ItemsPrepared const&,md::ls::FlyoverClipConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Clip>> const&,md::ls::FlyoverInstance const&,md::ls::PipelineSetup &)>::~__value_func[abi:nn200100](v57);
-}
-
-void sub_1B2F13628(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
-{
-  va_start(va, a12);
-  std::__function::__value_func<void ()(md::ls::ItemsPrepared const&,md::ls::FlyoverClipConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Clip>> const&,md::ls::FlyoverInstance const&,md::ls::PipelineSetup &)>::~__value_func[abi:nn200100](va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t std::__function::__value_func<void ()(md::ls::ItemsPrepared const&,md::ls::FlyoverClipConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Clip>> const&,md::ls::FlyoverInstance const&,md::ls::PipelineSetup &)>::~__value_func[abi:nn200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-void std::__function::__func<md::ita::AssignFlyoverClipConstantData::operator()(ecs2::Query<md::ls::ItemsPrepared const&,md::ls::FlyoverClipConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Clip>> const&,md::ls::FlyoverInstance const&,md::ls::PipelineSetup &>)::$_0,std::allocator<md::ita::AssignFlyoverClipConstantData::operator()(ecs2::Query<md::ls::ItemsPrepared const&,md::ls::FlyoverClipConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Clip>> const&,md::ls::FlyoverInstance const&,md::ls::PipelineSetup &>)::$_0>,void ()(md::ls::ItemsPrepared const&,md::ls::FlyoverClipConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Clip>> const&,md::ls::FlyoverInstance const&,md::ls::PipelineSetup &)>::operator()(uint64_t a1, uint64_t a2, unint64_t *a3, uint64_t a4, uint64_t a5, unint64_t *a6)
-{
-  v9 = ecs2::ExecutionTask<md::VKMRenderResourcesStore *>::service<md::VKMRenderResourcesStore>(*(a1 + 8));
-  md::VKMRenderResourcesStore::getPipelineDataSet(v9, *a6);
-  Pipeline = md::VKMRenderResourcesStore::getPipeline(v9, *a6);
-  v11 = ecs2::sparse_set<geo::handle<md::MaterialIDStorage>,64ul>::find(v9 + 991, *a3);
-  if (v11 == v9[996] || (v12 = (v11 - v9[995]) >> 3, v13 = (v12 >> 3) & 0x1FFFFFFFFFFFFFF8, v14 = *(v9[1004] + v13), ++*(*(v9[998] + v13) + 24 * (v12 & 0x3F)), !v14))
-  {
-    v15 = 0;
-  }
-
-  else
-  {
-    v15 = *(v14 + 24 * (v12 & 0x3F));
-  }
-
-  if (*a4 == 1)
-  {
-    ggl::PipelineSetup::setConstantDataWithoutCheck(Pipeline, *(a4 + 4), v15);
-  }
-
-  if (*(a4 + 1) == 1)
-  {
-    v16 = *(a4 + 8);
-
-    ggl::PipelineSetup::setConstantDataWithoutCheck(Pipeline, v16, v15);
-  }
-}
-
-uint64_t std::__function::__func<md::ita::AssignFlyoverClipConstantData::operator()(ecs2::Query<md::ls::ItemsPrepared const&,md::ls::FlyoverClipConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Clip>> const&,md::ls::FlyoverInstance const&,md::ls::PipelineSetup &>)::$_0,std::allocator<md::ita::AssignFlyoverClipConstantData::operator()(ecs2::Query<md::ls::ItemsPrepared const&,md::ls::FlyoverClipConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Clip>> const&,md::ls::FlyoverInstance const&,md::ls::PipelineSetup &>)::$_0>,void ()(md::ls::ItemsPrepared const&,md::ls::FlyoverClipConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::FlyoverCommon::Clip>> const&,md::ls::FlyoverInstance const&,md::ls::PipelineSetup &)>::__clone(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_1F2A15688;
-  a2[1] = v2;
-  return result;
-}
-
-uint64_t md::ita::AssignDepthPrePassConstantData::operator()(uint64_t a1, uint64_t a2)
-{
-  v53[4] = *MEMORY[0x1E69E9840];
-  v51[0] = &unk_1F2A156D0;
-  v51[1] = a1;
-  v52 = v51;
-  v3 = *(a2 + 8);
-  v4 = ecs2::BasicRegistry<void>::storage<md::ls::NeedsFunctionConstantsUpdate>(v3);
-  v5 = ecs2::BasicRegistry<void>::storage<md::ls::PrepassShadowConstantDataHandle>(v3);
-  v6 = ecs2::BasicRegistry<void>::storage<md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::Shadow>>>(v3);
-  v7 = ecs2::BasicRegistry<void>::storage<md::ls::PipelineSetup>(v3);
-  v53[0] = v4;
-  v53[1] = v5;
-  v8 = 1;
-  v9 = v4;
-  v10 = v53;
-  v53[2] = v6;
-  v53[3] = v7;
-  do
-  {
-    if (*(v53[v8] + 40) - *(v53[v8] + 32) < *(v9 + 40) - *(v9 + 32))
-    {
-      v9 = v53[v8];
-      v10 = &v53[v8];
-    }
-
-    ++v8;
-  }
-
-  while (v8 != 4);
-  v11 = *(*v10 + 32);
-  v12 = *(*v10 + 40);
-  v45 = v11;
-  v46 = v12;
-  v47 = v4;
-  v48 = v5;
-  v49 = v6;
-  v50 = v7;
-  while (v11 != v12 && !ecs2::ViewIterator<void,std::tuple<md::ls::InView const&,md::ls::MeshRenderableID const&,md::ls::RenderableMaterialData const&,md::ls::ColorRampDataHandle &,md::ls::HasMaterialRaster const*,md::ls::MaterialRasterMaxIndex const*>,std::tuple<>>::containsAll<md::ls::InView const,md::ls::MeshRenderableID const,md::ls::RenderableMaterialData const,md::ls::ColorRampDataHandle>(&v45, *v11, v11[1]))
-  {
-    v11 += 2;
-    v45 = v11;
-  }
-
-  v13 = v45;
-  if (v45 == v12)
-  {
-    v18 = _ZTWN4ecs27Runtime11_localStateE();
-    v19 = _ZTWN4ecs27Runtime11_stackIndexE();
-    v20 = 0;
-  }
-
-  else
-  {
-    v44 = a2;
-    v14 = v47;
-    v15 = v48;
-    v16 = v49;
-    v17 = v50;
-    v18 = _ZTWN4ecs27Runtime11_localStateE();
-    v19 = _ZTWN4ecs27Runtime11_stackIndexE();
-    v20 = 0;
-    v21 = v46;
-    do
-    {
-      v22 = *(v14 + 32);
-      v23 = v13[1];
-      v24 = v23 & 0x3F;
-      v25 = (v23 >> 3) & 0x1FF8;
-      v26 = *(*(*(v15 + 8) + v25) + 4 * v24 + 2);
-      v27 = *(*(v15 + 56) + ((v26 >> 3) & 0x1FF8));
-      v28 = *(*(v14 + 8) + v25) + 4 * v24;
-      v29 = *(*(*(v16 + 8) + v25) + 4 * v24 + 2);
-      v30 = *(*(v16 + 56) + ((v29 >> 3) & 0x1FF8));
-      v31 = *(*(*(v17 + 8) + v25) + 4 * v24 + 2);
-      v32 = *(*(v17 + 56) + ((v31 >> 3) & 0x1FF8));
-      v33 = *(v28 + 2);
-      *(v18 + 104 * *v19 + 24) = *v13;
-      if (!v52)
-      {
-        std::__throw_bad_function_call[abi:nn200100]();
-      }
-
-      (*(*v52 + 48))(v52, v22 + 4 * v33, v27 + 8 * (v26 & 0x3F), v30 + 12 * (v29 & 0x3F), v32 + 8 * (v31 & 0x3F));
-      ++v20;
-      v34 = v13 + 2;
-      while (1)
-      {
-        v13 = v34;
-        v45 = v34;
-        if (v34 == v21)
-        {
-          break;
-        }
-
-        v35 = ecs2::ViewIterator<void,std::tuple<md::ls::InView const&,md::ls::MeshRenderableID const&,md::ls::RenderableMaterialData const&,md::ls::ColorRampDataHandle &,md::ls::HasMaterialRaster const*,md::ls::MaterialRasterMaxIndex const*>,std::tuple<>>::containsAll<md::ls::InView const,md::ls::MeshRenderableID const,md::ls::RenderableMaterialData const,md::ls::ColorRampDataHandle>(&v45, *v34, v34[1]);
-        v34 = v13 + 2;
-        if (v35)
-        {
-          v36 = v13;
-          goto LABEL_17;
-        }
-      }
-
-      v36 = v21;
-LABEL_17:
-      ;
-    }
-
-    while (v36 != v12);
-    v37 = *(v44 + 8);
-    {
-      ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PipelineSetup>(void)::metadata = gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls::PipelineSetup>();
-      *algn_1EB83D948 = 0x9C4E7BCF9B8D6334;
-      qword_1EB83D950 = "md::ls::PipelineSetup]";
-      qword_1EB83D958 = 21;
-    }
-
-    *(v37 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PipelineSetup>(void)::metadata) = *(v37 + 4096);
-  }
-
-  *(v18 + 104 * *v19 + 24) = -65536;
-  v38 = v18 + 104 * *v19;
-  v39 = *(v38 + 92);
-  *(v38 + 92) = v39 + 1;
-  *(v38 + 4 * v39 + 28) = v20;
-  v40 = v18 + 104 * *v19;
-  v42 = *(v40 + 92);
-  v41 = (v40 + 92);
-  if (v42 >= 0x10)
-  {
-    *v41 = 0;
-  }
-
-  return std::__function::__value_func<void ()(md::ls::NeedsFunctionConstantsUpdate const&,md::ls::PrepassShadowConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::Shadow>> const&,md::ls::PipelineSetup &)>::~__value_func[abi:nn200100](v51);
-}
-
-void sub_1B2F13BFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
-{
-  va_start(va, a10);
-  std::__function::__value_func<void ()(md::ls::NeedsFunctionConstantsUpdate const&,md::ls::PrepassShadowConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::Shadow>> const&,md::ls::PipelineSetup &)>::~__value_func[abi:nn200100](va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t std::__function::__value_func<void ()(md::ls::NeedsFunctionConstantsUpdate const&,md::ls::PrepassShadowConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::Shadow>> const&,md::ls::PipelineSetup &)>::~__value_func[abi:nn200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-void std::__function::__func<md::ita::AssignDepthPrePassConstantData::operator()(ecs2::Query<md::ls::NeedsFunctionConstantsUpdate const&,md::ls::PrepassShadowConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::Shadow>> const&,md::ls::PipelineSetup &>)::$_0,std::allocator<md::ita::AssignDepthPrePassConstantData::operator()(ecs2::Query<md::ls::NeedsFunctionConstantsUpdate const&,md::ls::PrepassShadowConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::Shadow>> const&,md::ls::PipelineSetup &>)::$_0>,void ()(md::ls::NeedsFunctionConstantsUpdate const&,md::ls::PrepassShadowConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::Shadow>> const&,md::ls::PipelineSetup &)>::operator()(uint64_t a1, uint64_t a2, unint64_t *a3, uint64_t a4, unint64_t *a5)
-{
-  v8 = ecs2::ExecutionTask<md::VKMRenderResourcesStore *>::service<md::VKMRenderResourcesStore>(*(a1 + 8));
-  md::VKMRenderResourcesStore::getPipelineDataSet(v8, *a5);
-  Pipeline = md::VKMRenderResourcesStore::getPipeline(v8, *a5);
-  v10 = md::VKMRenderResourcesStore::getConstantData<ggl::DaVinci::Shadow>(v8, *a3);
-
-  md::setConstantDataForPipeline<ggl::ConstantDataTyped<ggl::DaVinci::Shadow>>(a4, Pipeline, v10);
-}
-
-void md::setConstantDataForPipeline<ggl::ConstantDataTyped<ggl::DaVinci::Shadow>>(uint64_t a1, void *a2, uint64_t a3)
-{
-  if (*a1 == 1)
-  {
-    ggl::PipelineSetup::setConstantDataWithoutCheck(a2, *(a1 + 4), a3);
-  }
-
-  if (*(a1 + 1) == 1)
-  {
-    v6 = *(a1 + 8);
-
-    ggl::PipelineSetup::setConstantDataWithoutCheck(a2, v6, a3);
-  }
-}
-
-uint64_t std::__function::__func<md::ita::AssignDepthPrePassConstantData::operator()(ecs2::Query<md::ls::NeedsFunctionConstantsUpdate const&,md::ls::PrepassShadowConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::Shadow>> const&,md::ls::PipelineSetup &>)::$_0,std::allocator<md::ita::AssignDepthPrePassConstantData::operator()(ecs2::Query<md::ls::NeedsFunctionConstantsUpdate const&,md::ls::PrepassShadowConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::Shadow>> const&,md::ls::PipelineSetup &>)::$_0>,void ()(md::ls::NeedsFunctionConstantsUpdate const&,md::ls::PrepassShadowConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::Shadow>> const&,md::ls::PipelineSetup &)>::__clone(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_1F2A156D0;
-  a2[1] = v2;
-  return result;
-}
-
-uint64_t md::ita::AssignShadowConstantData::operator()(uint64_t a1, uint64_t a2)
-{
-  v53[4] = *MEMORY[0x1E69E9840];
-  v51[0] = &unk_1F2A15718;
-  v51[1] = a1;
-  v52 = v51;
-  v3 = *(a2 + 8);
-  v4 = ecs2::BasicRegistry<void>::storage<md::ls::NeedsFunctionConstantsUpdate>(v3);
-  v5 = ecs2::BasicRegistry<void>::storage<md::ls::ShadowConstantDataHandle>(v3);
-  v6 = ecs2::BasicRegistry<void>::storage<md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::Shadow>>>(v3);
-  v7 = ecs2::BasicRegistry<void>::storage<md::ls::PipelineSetup>(v3);
-  v53[0] = v4;
-  v53[1] = v5;
-  v8 = 1;
-  v9 = v4;
-  v10 = v53;
-  v53[2] = v6;
-  v53[3] = v7;
-  do
-  {
-    if (*(v53[v8] + 40) - *(v53[v8] + 32) < *(v9 + 40) - *(v9 + 32))
-    {
-      v9 = v53[v8];
-      v10 = &v53[v8];
-    }
-
-    ++v8;
-  }
-
-  while (v8 != 4);
-  v11 = *(*v10 + 32);
-  v12 = *(*v10 + 40);
-  v45 = v11;
-  v46 = v12;
-  v47 = v4;
-  v48 = v5;
-  v49 = v6;
-  v50 = v7;
-  while (v11 != v12 && !ecs2::ViewIterator<void,std::tuple<md::ls::InView const&,md::ls::MeshRenderableID const&,md::ls::RenderableMaterialData const&,md::ls::ColorRampDataHandle &,md::ls::HasMaterialRaster const*,md::ls::MaterialRasterMaxIndex const*>,std::tuple<>>::containsAll<md::ls::InView const,md::ls::MeshRenderableID const,md::ls::RenderableMaterialData const,md::ls::ColorRampDataHandle>(&v45, *v11, v11[1]))
-  {
-    v11 += 2;
-    v45 = v11;
-  }
-
-  v13 = v45;
-  if (v45 == v12)
-  {
-    v18 = _ZTWN4ecs27Runtime11_localStateE();
-    v19 = _ZTWN4ecs27Runtime11_stackIndexE();
-    v20 = 0;
-  }
-
-  else
-  {
-    v44 = a2;
-    v14 = v47;
-    v15 = v48;
-    v16 = v49;
-    v17 = v50;
-    v18 = _ZTWN4ecs27Runtime11_localStateE();
-    v19 = _ZTWN4ecs27Runtime11_stackIndexE();
-    v20 = 0;
-    v21 = v46;
-    do
-    {
-      v22 = *(v14 + 32);
-      v23 = v13[1];
-      v24 = v23 & 0x3F;
-      v25 = (v23 >> 3) & 0x1FF8;
-      v26 = *(*(*(v15 + 8) + v25) + 4 * v24 + 2);
-      v27 = *(*(v15 + 56) + ((v26 >> 3) & 0x1FF8));
-      v28 = *(*(v14 + 8) + v25) + 4 * v24;
-      v29 = *(*(*(v16 + 8) + v25) + 4 * v24 + 2);
-      v30 = *(*(v16 + 56) + ((v29 >> 3) & 0x1FF8));
-      v31 = *(*(*(v17 + 8) + v25) + 4 * v24 + 2);
-      v32 = *(*(v17 + 56) + ((v31 >> 3) & 0x1FF8));
-      v33 = *(v28 + 2);
-      *(v18 + 104 * *v19 + 24) = *v13;
-      if (!v52)
-      {
-        std::__throw_bad_function_call[abi:nn200100]();
-      }
-
-      (*(*v52 + 48))(v52, v22 + 4 * v33, v27 + 8 * (v26 & 0x3F), v30 + 12 * (v29 & 0x3F), v32 + 8 * (v31 & 0x3F));
-      ++v20;
-      v34 = v13 + 2;
-      while (1)
-      {
-        v13 = v34;
-        v45 = v34;
-        if (v34 == v21)
-        {
-          break;
-        }
-
-        v35 = ecs2::ViewIterator<void,std::tuple<md::ls::InView const&,md::ls::MeshRenderableID const&,md::ls::RenderableMaterialData const&,md::ls::ColorRampDataHandle &,md::ls::HasMaterialRaster const*,md::ls::MaterialRasterMaxIndex const*>,std::tuple<>>::containsAll<md::ls::InView const,md::ls::MeshRenderableID const,md::ls::RenderableMaterialData const,md::ls::ColorRampDataHandle>(&v45, *v34, v34[1]);
-        v34 = v13 + 2;
-        if (v35)
-        {
-          v36 = v13;
-          goto LABEL_17;
-        }
-      }
-
-      v36 = v21;
-LABEL_17:
-      ;
-    }
-
-    while (v36 != v12);
-    v37 = *(v44 + 8);
-    {
-      ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PipelineSetup>(void)::metadata = gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls::PipelineSetup>();
-      *algn_1EB83D948 = 0x9C4E7BCF9B8D6334;
-      qword_1EB83D950 = "md::ls::PipelineSetup]";
-      qword_1EB83D958 = 21;
-    }
-
-    *(v37 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PipelineSetup>(void)::metadata) = *(v37 + 4096);
-  }
-
-  *(v18 + 104 * *v19 + 24) = -65536;
-  v38 = v18 + 104 * *v19;
-  v39 = *(v38 + 92);
-  *(v38 + 92) = v39 + 1;
-  *(v38 + 4 * v39 + 28) = v20;
-  v40 = v18 + 104 * *v19;
-  v42 = *(v40 + 92);
-  v41 = (v40 + 92);
-  if (v42 >= 0x10)
-  {
-    *v41 = 0;
-  }
-
-  return std::__function::__value_func<void ()(md::ls::NeedsFunctionConstantsUpdate const&,md::ls::ShadowConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::Shadow>> const&,md::ls::PipelineSetup &)>::~__value_func[abi:nn200100](v51);
-}
-
-void sub_1B2F141B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
-{
-  va_start(va, a10);
-  std::__function::__value_func<void ()(md::ls::NeedsFunctionConstantsUpdate const&,md::ls::ShadowConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::Shadow>> const&,md::ls::PipelineSetup &)>::~__value_func[abi:nn200100](va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t std::__function::__value_func<void ()(md::ls::NeedsFunctionConstantsUpdate const&,md::ls::ShadowConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::Shadow>> const&,md::ls::PipelineSetup &)>::~__value_func[abi:nn200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-void std::__function::__func<md::ita::AssignShadowConstantData::operator()(ecs2::Query<md::ls::NeedsFunctionConstantsUpdate const&,md::ls::ShadowConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::Shadow>> const&,md::ls::PipelineSetup &>)::$_0,std::allocator<md::ita::AssignShadowConstantData::operator()(ecs2::Query<md::ls::NeedsFunctionConstantsUpdate const&,md::ls::ShadowConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::Shadow>> const&,md::ls::PipelineSetup &>)::$_0>,void ()(md::ls::NeedsFunctionConstantsUpdate const&,md::ls::ShadowConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::Shadow>> const&,md::ls::PipelineSetup &)>::operator()(uint64_t a1, uint64_t a2, unint64_t *a3, uint64_t a4, unint64_t *a5)
-{
-  v8 = ecs2::ExecutionTask<md::VKMRenderResourcesStore *>::service<md::VKMRenderResourcesStore>(*(a1 + 8));
-  md::VKMRenderResourcesStore::getPipelineDataSet(v8, *a5);
-  Pipeline = md::VKMRenderResourcesStore::getPipeline(v8, *a5);
-  v10 = md::VKMRenderResourcesStore::getConstantData<ggl::DaVinci::Shadow>(v8, *a3);
-
-  md::setConstantDataForPipeline<ggl::ConstantDataTyped<ggl::DaVinci::Shadow>>(a4, Pipeline, v10);
-}
-
-uint64_t std::__function::__func<md::ita::AssignShadowConstantData::operator()(ecs2::Query<md::ls::NeedsFunctionConstantsUpdate const&,md::ls::ShadowConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::Shadow>> const&,md::ls::PipelineSetup &>)::$_0,std::allocator<md::ita::AssignShadowConstantData::operator()(ecs2::Query<md::ls::NeedsFunctionConstantsUpdate const&,md::ls::ShadowConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::Shadow>> const&,md::ls::PipelineSetup &>)::$_0>,void ()(md::ls::NeedsFunctionConstantsUpdate const&,md::ls::ShadowConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::Shadow>> const&,md::ls::PipelineSetup &)>::__clone(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_1F2A15718;
-  a2[1] = v2;
-  return result;
-}
-
-uint64_t md::ita::AssignStyleShadowConstantData::operator()(uint64_t a1, uint64_t a2)
-{
-  v48[3] = *MEMORY[0x1E69E9840];
-  v46[0] = &unk_1F2A15760;
-  v46[1] = a1;
-  v47 = v46;
-  v3 = *(a2 + 8);
-  v4 = ecs2::BasicRegistry<void>::storage<md::ls::NeedsFunctionConstantsUpdate>(v3);
-  v5 = ecs2::BasicRegistry<void>::storage<md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleShadow>>>(v3);
-  v6 = ecs2::BasicRegistry<void>::storage<md::ls::PipelineSetup>(v3);
-  v48[0] = v4;
-  v48[1] = v5;
-  v7 = 1;
-  v8 = v4;
-  v9 = v48;
-  v48[2] = v6;
-  do
-  {
-    if (*(v48[v7] + 40) - *(v48[v7] + 32) < *(v8 + 40) - *(v8 + 32))
-    {
-      v8 = v48[v7];
-      v9 = &v48[v7];
-    }
-
-    ++v7;
-  }
-
-  while (v7 != 3);
-  v10 = *(*v9 + 32);
-  v11 = *(*v9 + 40);
-  v41 = v10;
-  v42 = v11;
-  v43 = v4;
-  v44 = v5;
-  v45 = v6;
-  while (v10 != v11 && !ecs2::ViewIterator<void,std::tuple<md::ls::BaseMapTileHandle const&,md::ls::TileProjectionTypeT<(md::ls::TileProjectionType)0> const&,md::ls::TileStyleDataKeyHandle &>,std::tuple<>>::containsAll<md::ls::BaseMapTileHandle const,md::ls::TileProjectionTypeT<(md::ls::TileProjectionType)0> const,md::ls::TileStyleDataKeyHandle>(&v41, *v10, v10[1]))
-  {
-    v10 += 2;
-    v41 = v10;
-  }
-
-  v12 = v41;
-  if (v41 == v11)
-  {
-    v16 = _ZTWN4ecs27Runtime11_localStateE();
-    v17 = _ZTWN4ecs27Runtime11_stackIndexE();
-    v18 = 0;
-  }
-
-  else
-  {
-    v40 = a2;
-    v13 = v43;
-    v14 = v44;
-    v15 = v45;
-    v16 = _ZTWN4ecs27Runtime11_localStateE();
-    v17 = _ZTWN4ecs27Runtime11_stackIndexE();
-    v18 = 0;
-    v19 = v42;
-    do
-    {
-      v20 = *(v13 + 32);
-      v21 = v12[1];
-      v22 = v21 & 0x3F;
-      v23 = (v21 >> 3) & 0x1FF8;
-      v24 = *(*(v13 + 8) + v23) + 4 * v22;
-      v25 = *(*(*(v14 + 8) + v23) + 4 * v22 + 2);
-      v26 = *(*(v14 + 56) + ((v25 >> 3) & 0x1FF8));
-      v27 = *(*(*(v15 + 8) + v23) + 4 * v22 + 2);
-      v28 = *(*(v15 + 56) + ((v27 >> 3) & 0x1FF8));
-      v29 = *(v24 + 2);
-      *(v16 + 104 * *v17 + 24) = *v12;
-      if (!v47)
-      {
-        std::__throw_bad_function_call[abi:nn200100]();
-      }
-
-      (*(*v47 + 48))(v47, v20 + 4 * v29, v26 + 12 * (v25 & 0x3F), v28 + 8 * (v27 & 0x3F));
-      ++v18;
-      v30 = v12 + 2;
-      while (1)
-      {
-        v12 = v30;
-        v41 = v30;
-        if (v30 == v19)
-        {
-          break;
-        }
-
-        v31 = ecs2::ViewIterator<void,std::tuple<md::ls::BaseMapTileHandle const&,md::ls::TileProjectionTypeT<(md::ls::TileProjectionType)0> const&,md::ls::TileStyleDataKeyHandle &>,std::tuple<>>::containsAll<md::ls::BaseMapTileHandle const,md::ls::TileProjectionTypeT<(md::ls::TileProjectionType)0> const,md::ls::TileStyleDataKeyHandle>(&v41, *v30, v30[1]);
-        v30 = v12 + 2;
-        if (v31)
-        {
-          v32 = v12;
-          goto LABEL_17;
-        }
-      }
-
-      v32 = v19;
-LABEL_17:
-      ;
-    }
-
-    while (v32 != v11);
-    v33 = *(v40 + 8);
-    {
-      ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PipelineSetup>(void)::metadata = gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls::PipelineSetup>();
-      *algn_1EB83D948 = 0x9C4E7BCF9B8D6334;
-      qword_1EB83D950 = "md::ls::PipelineSetup]";
-      qword_1EB83D958 = 21;
-    }
-
-    *(v33 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PipelineSetup>(void)::metadata) = *(v33 + 4096);
-  }
-
-  *(v16 + 104 * *v17 + 24) = -65536;
-  v34 = v16 + 104 * *v17;
-  v35 = *(v34 + 92);
-  *(v34 + 92) = v35 + 1;
-  *(v34 + 4 * v35 + 28) = v18;
-  v36 = v16 + 104 * *v17;
-  v38 = *(v36 + 92);
-  v37 = (v36 + 92);
-  if (v38 >= 0x10)
-  {
-    *v37 = 0;
-  }
-
-  return std::__function::__value_func<void ()(md::ls::NeedsFunctionConstantsUpdate const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleShadow>> const&,md::ls::PipelineSetup &)>::~__value_func[abi:nn200100](v46);
-}
-
-void sub_1B2F146BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  std::__function::__value_func<void ()(md::ls::NeedsFunctionConstantsUpdate const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleShadow>> const&,md::ls::PipelineSetup &)>::~__value_func[abi:nn200100](va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t std::__function::__value_func<void ()(md::ls::NeedsFunctionConstantsUpdate const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleShadow>> const&,md::ls::PipelineSetup &)>::~__value_func[abi:nn200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-void std::__function::__func<md::ita::AssignStyleShadowConstantData::operator()(ecs2::Query<md::ls::NeedsFunctionConstantsUpdate const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleShadow>> const&,md::ls::PipelineSetup &>)::$_0,std::allocator<md::ita::AssignStyleShadowConstantData::operator()(ecs2::Query<md::ls::NeedsFunctionConstantsUpdate const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleShadow>> const&,md::ls::PipelineSetup &>)::$_0>,void ()(md::ls::NeedsFunctionConstantsUpdate const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleShadow>> const&,md::ls::PipelineSetup &)>::operator()(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t *a4)
-{
-  v6 = *(a1 + 8);
-  v7 = ecs2::ExecutionTask<md::RenderLayerProvider *>::service<md::RenderLayerProvider>(v6);
-  v8 = ecs2::ExecutionTask<md::PassListProvider *,md::VKMRenderResourcesStore *>::service<md::VKMRenderResourcesStore>(v6);
-  v9 = (*(*v7 + 48))(v7);
-  v10 = *(v9 + 1472);
-  v11 = *(v9 + 1480);
-  if (v11)
-  {
-    atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  md::VKMRenderResourcesStore::getPipelineDataSet(v8, *a4);
-  Pipeline = md::VKMRenderResourcesStore::getPipeline(v8, *a4);
-  v13 = Pipeline;
-  if (v11)
-  {
-    atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  if (*a3 == 1)
-  {
-    ggl::PipelineSetup::setConstantDataWithoutCheck(Pipeline, *(a3 + 4), v10);
-  }
-
-  if (*(a3 + 1) == 1)
-  {
-    ggl::PipelineSetup::setConstantDataWithoutCheck(v13, *(a3 + 8), v10);
-  }
-
-  if (v11)
-  {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v11);
-
-    std::__shared_weak_count::__release_shared[abi:nn200100](v11);
-  }
-}
-
-uint64_t std::__function::__func<md::ita::AssignStyleShadowConstantData::operator()(ecs2::Query<md::ls::NeedsFunctionConstantsUpdate const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleShadow>> const&,md::ls::PipelineSetup &>)::$_0,std::allocator<md::ita::AssignStyleShadowConstantData::operator()(ecs2::Query<md::ls::NeedsFunctionConstantsUpdate const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleShadow>> const&,md::ls::PipelineSetup &>)::$_0>,void ()(md::ls::NeedsFunctionConstantsUpdate const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleShadow>> const&,md::ls::PipelineSetup &)>::__clone(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_1F2A15760;
-  a2[1] = v2;
-  return result;
-}
-
-uint64_t md::ita::AssignLinearDepthConstantData::operator()(uint64_t a1, uint64_t a2)
-{
-  v53[4] = *MEMORY[0x1E69E9840];
-  v51[0] = &unk_1F2A157A8;
-  v51[1] = a1;
-  v52 = v51;
-  v3 = *(a2 + 8);
-  v4 = ecs2::BasicRegistry<void>::storage<md::ls::NeedsFunctionConstantsUpdate>(v3);
-  v5 = ecs2::BasicRegistry<void>::storage<md::ls::PrepassConstantDataHandle>(v3);
-  v6 = ecs2::BasicRegistry<void>::storage<md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::LinearDepth>>>(v3);
-  v7 = ecs2::BasicRegistry<void>::storage<md::ls::PipelineSetup>(v3);
-  v53[0] = v4;
-  v53[1] = v5;
-  v8 = 1;
-  v9 = v4;
-  v10 = v53;
-  v53[2] = v6;
-  v53[3] = v7;
-  do
-  {
-    if (*(v53[v8] + 40) - *(v53[v8] + 32) < *(v9 + 40) - *(v9 + 32))
-    {
-      v9 = v53[v8];
-      v10 = &v53[v8];
-    }
-
-    ++v8;
-  }
-
-  while (v8 != 4);
-  v11 = *(*v10 + 32);
-  v12 = *(*v10 + 40);
-  v45 = v11;
-  v46 = v12;
-  v47 = v4;
-  v48 = v5;
-  v49 = v6;
-  v50 = v7;
-  while (v11 != v12 && !ecs2::ViewIterator<void,std::tuple<md::ls::InView const&,md::ls::MeshRenderableID const&,md::ls::RenderableMaterialData const&,md::ls::ColorRampDataHandle &,md::ls::HasMaterialRaster const*,md::ls::MaterialRasterMaxIndex const*>,std::tuple<>>::containsAll<md::ls::InView const,md::ls::MeshRenderableID const,md::ls::RenderableMaterialData const,md::ls::ColorRampDataHandle>(&v45, *v11, v11[1]))
-  {
-    v11 += 2;
-    v45 = v11;
-  }
-
-  v13 = v45;
-  if (v45 == v12)
-  {
-    v18 = _ZTWN4ecs27Runtime11_localStateE();
-    v19 = _ZTWN4ecs27Runtime11_stackIndexE();
-    v20 = 0;
-  }
-
-  else
-  {
-    v44 = a2;
-    v14 = v47;
-    v15 = v48;
-    v16 = v49;
-    v17 = v50;
-    v18 = _ZTWN4ecs27Runtime11_localStateE();
-    v19 = _ZTWN4ecs27Runtime11_stackIndexE();
-    v20 = 0;
-    v21 = v46;
-    do
-    {
-      v22 = *(v14 + 32);
-      v23 = v13[1];
-      v24 = v23 & 0x3F;
-      v25 = (v23 >> 3) & 0x1FF8;
-      v26 = *(*(*(v15 + 8) + v25) + 4 * v24 + 2);
-      v27 = *(*(v15 + 56) + ((v26 >> 3) & 0x1FF8));
-      v28 = *(*(v14 + 8) + v25) + 4 * v24;
-      v29 = *(*(*(v16 + 8) + v25) + 4 * v24 + 2);
-      v30 = *(*(v16 + 56) + ((v29 >> 3) & 0x1FF8));
-      v31 = *(*(*(v17 + 8) + v25) + 4 * v24 + 2);
-      v32 = *(*(v17 + 56) + ((v31 >> 3) & 0x1FF8));
-      v33 = *(v28 + 2);
-      *(v18 + 104 * *v19 + 24) = *v13;
-      if (!v52)
-      {
-        std::__throw_bad_function_call[abi:nn200100]();
-      }
-
-      (*(*v52 + 48))(v52, v22 + 4 * v33, v27 + 8 * (v26 & 0x3F), v30 + 12 * (v29 & 0x3F), v32 + 8 * (v31 & 0x3F));
-      ++v20;
-      v34 = v13 + 2;
-      while (1)
-      {
-        v13 = v34;
-        v45 = v34;
-        if (v34 == v21)
-        {
-          break;
-        }
-
-        v35 = ecs2::ViewIterator<void,std::tuple<md::ls::InView const&,md::ls::MeshRenderableID const&,md::ls::RenderableMaterialData const&,md::ls::ColorRampDataHandle &,md::ls::HasMaterialRaster const*,md::ls::MaterialRasterMaxIndex const*>,std::tuple<>>::containsAll<md::ls::InView const,md::ls::MeshRenderableID const,md::ls::RenderableMaterialData const,md::ls::ColorRampDataHandle>(&v45, *v34, v34[1]);
-        v34 = v13 + 2;
-        if (v35)
-        {
-          v36 = v13;
-          goto LABEL_17;
-        }
-      }
-
-      v36 = v21;
-LABEL_17:
-      ;
-    }
-
-    while (v36 != v12);
-    v37 = *(v44 + 8);
-    {
-      ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PipelineSetup>(void)::metadata = gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls::PipelineSetup>();
-      *algn_1EB83D948 = 0x9C4E7BCF9B8D6334;
-      qword_1EB83D950 = "md::ls::PipelineSetup]";
-      qword_1EB83D958 = 21;
-    }
-
-    *(v37 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PipelineSetup>(void)::metadata) = *(v37 + 4096);
-  }
-
-  *(v18 + 104 * *v19 + 24) = -65536;
-  v38 = v18 + 104 * *v19;
-  v39 = *(v38 + 92);
-  *(v38 + 92) = v39 + 1;
-  *(v38 + 4 * v39 + 28) = v20;
-  v40 = v18 + 104 * *v19;
-  v42 = *(v40 + 92);
-  v41 = (v40 + 92);
-  if (v42 >= 0x10)
-  {
-    *v41 = 0;
-  }
-
-  return std::__function::__value_func<void ()(md::ls::NeedsFunctionConstantsUpdate const&,md::ls::PrepassConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::LinearDepth>> const&,md::ls::PipelineSetup &)>::~__value_func[abi:nn200100](v51);
-}
-
-void sub_1B2F14CA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
-{
-  va_start(va, a10);
-  std::__function::__value_func<void ()(md::ls::NeedsFunctionConstantsUpdate const&,md::ls::PrepassConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::LinearDepth>> const&,md::ls::PipelineSetup &)>::~__value_func[abi:nn200100](va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t std::__function::__value_func<void ()(md::ls::NeedsFunctionConstantsUpdate const&,md::ls::PrepassConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::LinearDepth>> const&,md::ls::PipelineSetup &)>::~__value_func[abi:nn200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-void std::__function::__func<md::ita::AssignLinearDepthConstantData::operator()(ecs2::Query<md::ls::NeedsFunctionConstantsUpdate const&,md::ls::PrepassConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::LinearDepth>> const&,md::ls::PipelineSetup &>)::$_0,std::allocator<md::ita::AssignLinearDepthConstantData::operator()(ecs2::Query<md::ls::NeedsFunctionConstantsUpdate const&,md::ls::PrepassConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::LinearDepth>> const&,md::ls::PipelineSetup &>)::$_0>,void ()(md::ls::NeedsFunctionConstantsUpdate const&,md::ls::PrepassConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::LinearDepth>> const&,md::ls::PipelineSetup &)>::operator()(uint64_t a1, uint64_t a2, unint64_t *a3, uint64_t a4, unint64_t *a5)
-{
-  v8 = ecs2::ExecutionTask<md::VKMRenderResourcesStore *>::service<md::VKMRenderResourcesStore>(*(a1 + 8));
-  md::VKMRenderResourcesStore::getPipelineDataSet(v8, *a5);
-  Pipeline = md::VKMRenderResourcesStore::getPipeline(v8, *a5);
-  v10 = md::VKMRenderResourcesStore::getConstantData<ggl::Tile::LinearDepth>(v8, *a3);
-  if (*a4 == 1)
-  {
-    ggl::PipelineSetup::setConstantDataWithoutCheck(Pipeline, *(a4 + 4), v10);
-  }
-
-  if (*(a4 + 1) == 1)
-  {
-    v11 = *(a4 + 8);
-
-    ggl::PipelineSetup::setConstantDataWithoutCheck(Pipeline, v11, v10);
-  }
-}
-
-uint64_t std::__function::__func<md::ita::AssignLinearDepthConstantData::operator()(ecs2::Query<md::ls::NeedsFunctionConstantsUpdate const&,md::ls::PrepassConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::LinearDepth>> const&,md::ls::PipelineSetup &>)::$_0,std::allocator<md::ita::AssignLinearDepthConstantData::operator()(ecs2::Query<md::ls::NeedsFunctionConstantsUpdate const&,md::ls::PrepassConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::LinearDepth>> const&,md::ls::PipelineSetup &>)::$_0>,void ()(md::ls::NeedsFunctionConstantsUpdate const&,md::ls::PrepassConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::LinearDepth>> const&,md::ls::PipelineSetup &)>::__clone(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_1F2A157A8;
-  a2[1] = v2;
-  return result;
-}
-
-uint64_t md::ita::AssignLightSpecularConfiguration::operator()(uint64_t a1, uint64_t a2)
-{
-  v48[3] = *MEMORY[0x1E69E9840];
-  v46[0] = &unk_1F2A157F0;
-  v46[1] = a1;
-  v47 = v46;
-  v3 = *(a2 + 8);
-  v4 = ecs2::BasicRegistry<void>::storage<md::ls::PendingRenderItemSetup>(v3);
-  v5 = ecs2::BasicRegistry<void>::storage<md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Lighting::LightSpecularConfiguration>>>(v3);
-  v6 = ecs2::BasicRegistry<void>::storage<md::ls::PipelineSetup>(v3);
-  v48[0] = v4;
-  v48[1] = v5;
-  v7 = 1;
-  v8 = v4;
-  v9 = v48;
-  v48[2] = v6;
-  do
-  {
-    if (*(v48[v7] + 40) - *(v48[v7] + 32) < *(v8 + 40) - *(v8 + 32))
-    {
-      v8 = v48[v7];
-      v9 = &v48[v7];
-    }
-
-    ++v7;
-  }
-
-  while (v7 != 3);
-  v10 = *(*v9 + 32);
-  v11 = *(*v9 + 40);
-  v41 = v10;
-  v42 = v11;
-  v43 = v4;
-  v44 = v5;
-  v45 = v6;
-  while (v10 != v11 && !ecs2::ViewIterator<void,std::tuple<md::ls::BaseMapTileHandle const&,md::ls::TileProjectionTypeT<(md::ls::TileProjectionType)0> const&,md::ls::TileStyleDataKeyHandle &>,std::tuple<>>::containsAll<md::ls::BaseMapTileHandle const,md::ls::TileProjectionTypeT<(md::ls::TileProjectionType)0> const,md::ls::TileStyleDataKeyHandle>(&v41, *v10, v10[1]))
-  {
-    v10 += 2;
-    v41 = v10;
-  }
-
-  v12 = v41;
-  if (v41 == v11)
-  {
-    v16 = _ZTWN4ecs27Runtime11_localStateE();
-    v17 = _ZTWN4ecs27Runtime11_stackIndexE();
-    v18 = 0;
-  }
-
-  else
-  {
-    v40 = a2;
-    v13 = v43;
-    v14 = v44;
-    v15 = v45;
-    v16 = _ZTWN4ecs27Runtime11_localStateE();
-    v17 = _ZTWN4ecs27Runtime11_stackIndexE();
-    v18 = 0;
-    v19 = v42;
-    do
-    {
-      v20 = *(v13 + 32);
-      v21 = v12[1];
-      v22 = v21 & 0x3F;
-      v23 = (v21 >> 3) & 0x1FF8;
-      v24 = *(*(v13 + 8) + v23) + 4 * v22;
-      v25 = *(*(*(v14 + 8) + v23) + 4 * v22 + 2);
-      v26 = *(*(v14 + 56) + ((v25 >> 3) & 0x1FF8));
-      v27 = *(*(*(v15 + 8) + v23) + 4 * v22 + 2);
-      v28 = *(*(v15 + 56) + ((v27 >> 3) & 0x1FF8));
-      v29 = *(v24 + 2);
-      *(v16 + 104 * *v17 + 24) = *v12;
-      if (!v47)
-      {
-        std::__throw_bad_function_call[abi:nn200100]();
-      }
-
-      (*(*v47 + 48))(v47, v20 + 4 * v29, v26 + 12 * (v25 & 0x3F), v28 + 8 * (v27 & 0x3F));
-      ++v18;
-      v30 = v12 + 2;
-      while (1)
-      {
-        v12 = v30;
-        v41 = v30;
-        if (v30 == v19)
-        {
-          break;
-        }
-
-        v31 = ecs2::ViewIterator<void,std::tuple<md::ls::BaseMapTileHandle const&,md::ls::TileProjectionTypeT<(md::ls::TileProjectionType)0> const&,md::ls::TileStyleDataKeyHandle &>,std::tuple<>>::containsAll<md::ls::BaseMapTileHandle const,md::ls::TileProjectionTypeT<(md::ls::TileProjectionType)0> const,md::ls::TileStyleDataKeyHandle>(&v41, *v30, v30[1]);
-        v30 = v12 + 2;
-        if (v31)
-        {
-          v32 = v12;
-          goto LABEL_17;
-        }
-      }
-
-      v32 = v19;
-LABEL_17:
-      ;
-    }
-
-    while (v32 != v11);
-    v33 = *(v40 + 8);
-    {
-      ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PipelineSetup>(void)::metadata = gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls::PipelineSetup>();
-      *algn_1EB83D948 = 0x9C4E7BCF9B8D6334;
-      qword_1EB83D950 = "md::ls::PipelineSetup]";
-      qword_1EB83D958 = 21;
-    }
-
-    *(v33 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PipelineSetup>(void)::metadata) = *(v33 + 4096);
-  }
-
-  *(v16 + 104 * *v17 + 24) = -65536;
-  v34 = v16 + 104 * *v17;
-  v35 = *(v34 + 92);
-  *(v34 + 92) = v35 + 1;
-  *(v34 + 4 * v35 + 28) = v18;
-  v36 = v16 + 104 * *v17;
-  v38 = *(v36 + 92);
-  v37 = (v36 + 92);
-  if (v38 >= 0x10)
-  {
-    *v37 = 0;
-  }
-
-  return std::__function::__value_func<void ()(md::ls::PendingRenderItemSetup const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Lighting::LightSpecularConfiguration>> const&,md::ls::PipelineSetup &)>::~__value_func[abi:nn200100](v46);
-}
-
-void sub_1B2F151E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  std::__function::__value_func<void ()(md::ls::PendingRenderItemSetup const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Lighting::LightSpecularConfiguration>> const&,md::ls::PipelineSetup &)>::~__value_func[abi:nn200100](va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t std::__function::__value_func<void ()(md::ls::PendingRenderItemSetup const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Lighting::LightSpecularConfiguration>> const&,md::ls::PipelineSetup &)>::~__value_func[abi:nn200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-void std::__function::__func<md::ita::AssignLightSpecularConfiguration::operator()(ecs2::Query<md::ls::PendingRenderItemSetup const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Lighting::LightSpecularConfiguration>> const&,md::ls::PipelineSetup &>)::$_0,std::allocator<md::ita::AssignLightSpecularConfiguration::operator()(ecs2::Query<md::ls::PendingRenderItemSetup const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Lighting::LightSpecularConfiguration>> const&,md::ls::PipelineSetup &>)::$_0>,void ()(md::ls::PendingRenderItemSetup const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Lighting::LightSpecularConfiguration>> const&,md::ls::PipelineSetup &)>::operator()(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t *a4)
-{
-  v6 = *(a1 + 8);
-  v7 = ecs2::ExecutionTask<md::VKMRenderResourcesStore *>::service<md::VKMRenderResourcesStore>(v6);
-  v8 = v6[2];
-  if (!v8)
-  {
-    v9 = **v6;
-    v10 = *v9;
-    v11 = *(v9 + 8);
-    if (v10 == v11)
-    {
-      goto LABEL_3;
-    }
-
-    while (*v10 != 0x22D45F5AAD4BF408)
-    {
-      v8 = 0;
-      v10 += 5;
-      if (v10 == v11)
-      {
-        goto LABEL_6;
-      }
-    }
-
-    if (v10 == v11)
-    {
-LABEL_3:
-      v8 = 0;
-    }
-
-    else
-    {
-      v8 = v10[3];
-      v20 = v10[4];
-      if (v20)
-      {
-        atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
-        std::__shared_weak_count::__release_shared[abi:nn200100](v20);
-      }
-    }
-
-LABEL_6:
-    v6[2] = v8;
-  }
-
-  v12 = (**v8)(v8);
-  v13 = md::LayoutContext::get<md::LightingLogicContext>(*(v12 + 8));
-  if (v13)
-  {
-    v14 = v13[4];
-    md::VKMRenderResourcesStore::getPipelineDataSet(v7, *a4);
-    Pipeline = md::VKMRenderResourcesStore::getPipeline(v7, *a4);
-    v16 = Pipeline;
-    if (*a3)
-    {
-      v17 = 4;
-    }
-
-    else
-    {
-      if (*(a3 + 1) != 1)
-      {
-        goto LABEL_15;
-      }
-
-      v17 = 8;
-    }
-
-    v18 = *(a3 + v17);
-    if (v18 == -1)
-    {
-      if (!*a3)
-      {
-LABEL_15:
-        if (*(a3 + 1) == 1)
-        {
-          v19 = *(a3 + 8);
-
-          ggl::PipelineSetup::setConstantDataWithoutCheck(v16, v19, v14);
-        }
-
-        return;
-      }
-    }
-
-    else
-    {
-      ggl::PipelineSetup::setResetFlag(Pipeline, v18, 0, 0);
-      if ((*a3 & 1) == 0)
-      {
-        goto LABEL_15;
-      }
-    }
-
-    ggl::PipelineSetup::setConstantDataWithoutCheck(v16, *(a3 + 4), v14);
-    goto LABEL_15;
-  }
-}
-
-uint64_t std::__function::__func<md::ita::AssignLightSpecularConfiguration::operator()(ecs2::Query<md::ls::PendingRenderItemSetup const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Lighting::LightSpecularConfiguration>> const&,md::ls::PipelineSetup &>)::$_0,std::allocator<md::ita::AssignLightSpecularConfiguration::operator()(ecs2::Query<md::ls::PendingRenderItemSetup const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Lighting::LightSpecularConfiguration>> const&,md::ls::PipelineSetup &>)::$_0>,void ()(md::ls::PendingRenderItemSetup const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Lighting::LightSpecularConfiguration>> const&,md::ls::PipelineSetup &)>::__clone(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_1F2A157F0;
-  a2[1] = v2;
-  return result;
-}
-
-uint64_t std::__function::__value_func<void ()(md::ls::NeedsFunctionConstantsUpdate const&,md::ls::SupportsStylizedShading const&,md::ls::SupportsSteepnessDarkening const*,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Lighting::StylizedShadingSettings>> const&,md::ls::PipelineSetup &)>::~__value_func[abi:nn200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-void std::__function::__func<md::ita::AssignLightStylizedShadingSettings::operator()(ecs2::Query<md::ls::NeedsFunctionConstantsUpdate const&,md::ls::SupportsStylizedShading const&,md::ls::SupportsSteepnessDarkening const*,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Lighting::StylizedShadingSettings>> const&,md::ls::PipelineSetup &>)::$_0,std::allocator<md::ita::AssignLightStylizedShadingSettings::operator()(ecs2::Query<md::ls::NeedsFunctionConstantsUpdate const&,md::ls::SupportsStylizedShading const&,md::ls::SupportsSteepnessDarkening const*,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Lighting::StylizedShadingSettings>> const&,md::ls::PipelineSetup &>)::$_0>,void ()(md::ls::NeedsFunctionConstantsUpdate const&,md::ls::SupportsStylizedShading const&,md::ls::SupportsSteepnessDarkening const*,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Lighting::StylizedShadingSettings>> const&,md::ls::PipelineSetup &)>::operator()(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t a5, unint64_t *a6)
-{
-  v8 = *a4;
-  v9 = *(a1 + 8);
-  v10 = ecs2::ExecutionTask<md::VKMRenderResourcesStore *>::service<md::VKMRenderResourcesStore>(v9);
-  v11 = v9[2];
-  if (!v11)
-  {
-    v12 = **v9;
-    v13 = *v12;
-    v14 = *(v12 + 8);
-    if (v13 == v14)
-    {
-      goto LABEL_3;
-    }
-
-    while (*v13 != 0x22D45F5AAD4BF408)
-    {
-      v11 = 0;
-      v13 += 5;
-      if (v13 == v14)
-      {
-        goto LABEL_6;
-      }
-    }
-
-    if (v13 == v14)
-    {
-LABEL_3:
-      v11 = 0;
-    }
-
-    else
-    {
-      v11 = v13[3];
-      v23 = v13[4];
-      if (v23)
-      {
-        atomic_fetch_add_explicit(&v23->__shared_owners_, 1uLL, memory_order_relaxed);
-        std::__shared_weak_count::__release_shared[abi:nn200100](v23);
-      }
-    }
-
-LABEL_6:
-    v9[2] = v11;
-  }
-
-  v15 = (**v11)(v11);
-  v16 = md::LayoutContext::get<md::LightingLogicContext>(*(v15 + 8));
-  if (v16)
-  {
-    v17 = v16;
-    md::VKMRenderResourcesStore::getPipelineDataSet(v10, *a6);
-    Pipeline = md::VKMRenderResourcesStore::getPipeline(v10, *a6);
-    v19 = Pipeline;
-    v20 = 6;
-    if (!v8)
-    {
-      v20 = 8;
-    }
-
-    v21 = v17[v20];
-    if (*a5 == 1)
-    {
-      ggl::PipelineSetup::setConstantDataWithoutCheck(Pipeline, *(a5 + 4), v21);
-    }
-
-    if (*(a5 + 1) == 1)
-    {
-      v22 = *(a5 + 8);
-
-      ggl::PipelineSetup::setConstantDataWithoutCheck(v19, v22, v21);
-    }
-  }
-}
-
-uint64_t std::__function::__func<md::ita::AssignLightStylizedShadingSettings::operator()(ecs2::Query<md::ls::NeedsFunctionConstantsUpdate const&,md::ls::SupportsStylizedShading const&,md::ls::SupportsSteepnessDarkening const*,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Lighting::StylizedShadingSettings>> const&,md::ls::PipelineSetup &>)::$_0,std::allocator<md::ita::AssignLightStylizedShadingSettings::operator()(ecs2::Query<md::ls::NeedsFunctionConstantsUpdate const&,md::ls::SupportsStylizedShading const&,md::ls::SupportsSteepnessDarkening const*,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Lighting::StylizedShadingSettings>> const&,md::ls::PipelineSetup &>)::$_0>,void ()(md::ls::NeedsFunctionConstantsUpdate const&,md::ls::SupportsStylizedShading const&,md::ls::SupportsSteepnessDarkening const*,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Lighting::StylizedShadingSettings>> const&,md::ls::PipelineSetup &)>::__clone(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_1F2A15838;
-  a2[1] = v2;
-  return result;
-}
-
-uint64_t md::ita::AssignPositionScaleInfo::operator()(uint64_t a1, uint64_t a2)
-{
-  v53[4] = *MEMORY[0x1E69E9840];
-  v51[0] = &unk_1F2A15880;
-  v51[1] = a1;
-  v52 = v51;
-  v3 = *(a2 + 8);
-  v4 = ecs2::BasicRegistry<void>::storage<md::ls::PendingRenderItemSetup>(v3);
-  v5 = ecs2::BasicRegistry<void>::storage<md::ls::PositionScaleInfoConstantDataHandle>(v3);
-  v6 = ecs2::BasicRegistry<void>::storage<md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::PositionScaleInfo>>>(v3);
-  v7 = ecs2::BasicRegistry<void>::storage<md::ls::PipelineSetup>(v3);
-  v53[0] = v4;
-  v53[1] = v5;
-  v8 = 1;
-  v9 = v4;
-  v10 = v53;
-  v53[2] = v6;
-  v53[3] = v7;
-  do
-  {
-    if (*(v53[v8] + 40) - *(v53[v8] + 32) < *(v9 + 40) - *(v9 + 32))
-    {
-      v9 = v53[v8];
-      v10 = &v53[v8];
-    }
-
-    ++v8;
-  }
-
-  while (v8 != 4);
-  v11 = *(*v10 + 32);
-  v12 = *(*v10 + 40);
-  v45 = v11;
-  v46 = v12;
-  v47 = v4;
-  v48 = v5;
-  v49 = v6;
-  v50 = v7;
-  while (v11 != v12 && !ecs2::ViewIterator<void,std::tuple<md::ls::InView const&,md::ls::MeshRenderableID const&,md::ls::RenderableMaterialData const&,md::ls::ColorRampDataHandle &,md::ls::HasMaterialRaster const*,md::ls::MaterialRasterMaxIndex const*>,std::tuple<>>::containsAll<md::ls::InView const,md::ls::MeshRenderableID const,md::ls::RenderableMaterialData const,md::ls::ColorRampDataHandle>(&v45, *v11, v11[1]))
-  {
-    v11 += 2;
-    v45 = v11;
-  }
-
-  v13 = v45;
-  if (v45 == v12)
-  {
-    v18 = _ZTWN4ecs27Runtime11_localStateE();
-    v19 = _ZTWN4ecs27Runtime11_stackIndexE();
-    v20 = 0;
-  }
-
-  else
-  {
-    v44 = a2;
-    v14 = v47;
-    v15 = v48;
-    v16 = v49;
-    v17 = v50;
-    v18 = _ZTWN4ecs27Runtime11_localStateE();
-    v19 = _ZTWN4ecs27Runtime11_stackIndexE();
-    v20 = 0;
-    v21 = v46;
-    do
-    {
-      v22 = *(v14 + 32);
-      v23 = v13[1];
-      v24 = v23 & 0x3F;
-      v25 = (v23 >> 3) & 0x1FF8;
-      v26 = *(*(*(v15 + 8) + v25) + 4 * v24 + 2);
-      v27 = *(*(v15 + 56) + ((v26 >> 3) & 0x1FF8));
-      v28 = *(*(v14 + 8) + v25) + 4 * v24;
-      v29 = *(*(*(v16 + 8) + v25) + 4 * v24 + 2);
-      v30 = *(*(v16 + 56) + ((v29 >> 3) & 0x1FF8));
-      v31 = *(*(*(v17 + 8) + v25) + 4 * v24 + 2);
-      v32 = *(*(v17 + 56) + ((v31 >> 3) & 0x1FF8));
-      v33 = *(v28 + 2);
-      *(v18 + 104 * *v19 + 24) = *v13;
-      if (!v52)
-      {
-        std::__throw_bad_function_call[abi:nn200100]();
-      }
-
-      (*(*v52 + 48))(v52, v22 + 4 * v33, v27 + 16 * (v26 & 0x3F), v30 + 12 * (v29 & 0x3F), v32 + 8 * (v31 & 0x3F));
-      ++v20;
-      v34 = v13 + 2;
-      while (1)
-      {
-        v13 = v34;
-        v45 = v34;
-        if (v34 == v21)
-        {
-          break;
-        }
-
-        v35 = ecs2::ViewIterator<void,std::tuple<md::ls::InView const&,md::ls::MeshRenderableID const&,md::ls::RenderableMaterialData const&,md::ls::ColorRampDataHandle &,md::ls::HasMaterialRaster const*,md::ls::MaterialRasterMaxIndex const*>,std::tuple<>>::containsAll<md::ls::InView const,md::ls::MeshRenderableID const,md::ls::RenderableMaterialData const,md::ls::ColorRampDataHandle>(&v45, *v34, v34[1]);
-        v34 = v13 + 2;
-        if (v35)
-        {
-          v36 = v13;
-          goto LABEL_17;
-        }
-      }
-
-      v36 = v21;
-LABEL_17:
-      ;
-    }
-
-    while (v36 != v12);
-    v37 = *(v44 + 8);
-    {
-      ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PipelineSetup>(void)::metadata = gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls::PipelineSetup>();
-      *algn_1EB83D948 = 0x9C4E7BCF9B8D6334;
-      qword_1EB83D950 = "md::ls::PipelineSetup]";
-      qword_1EB83D958 = 21;
-    }
-
-    *(v37 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PipelineSetup>(void)::metadata) = *(v37 + 4096);
-  }
-
-  *(v18 + 104 * *v19 + 24) = -65536;
-  v38 = v18 + 104 * *v19;
-  v39 = *(v38 + 92);
-  *(v38 + 92) = v39 + 1;
-  *(v38 + 4 * v39 + 28) = v20;
-  v40 = v18 + 104 * *v19;
-  v42 = *(v40 + 92);
-  v41 = (v40 + 92);
-  if (v42 >= 0x10)
-  {
-    *v41 = 0;
-  }
-
-  return std::__function::__value_func<void ()(md::ls::PendingRenderItemSetup const&,md::ls::PositionScaleInfoConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::PositionScaleInfo>> const&,md::ls::PipelineSetup &)>::~__value_func[abi:nn200100](v51);
-}
-
-void sub_1B2F15AE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
-{
-  va_start(va, a10);
-  std::__function::__value_func<void ()(md::ls::PendingRenderItemSetup const&,md::ls::PositionScaleInfoConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::PositionScaleInfo>> const&,md::ls::PipelineSetup &)>::~__value_func[abi:nn200100](va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t std::__function::__value_func<void ()(md::ls::PendingRenderItemSetup const&,md::ls::PositionScaleInfoConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::PositionScaleInfo>> const&,md::ls::PipelineSetup &)>::~__value_func[abi:nn200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-void std::__function::__func<md::ita::AssignPositionScaleInfo::operator()(ecs2::Query<md::ls::PendingRenderItemSetup const&,md::ls::PositionScaleInfoConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::PositionScaleInfo>> const&,md::ls::PipelineSetup &>)::$_0,std::allocator<md::ita::AssignPositionScaleInfo::operator()(ecs2::Query<md::ls::PendingRenderItemSetup const&,md::ls::PositionScaleInfoConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::PositionScaleInfo>> const&,md::ls::PipelineSetup &>)::$_0>,void ()(md::ls::PendingRenderItemSetup const&,md::ls::PositionScaleInfoConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::PositionScaleInfo>> const&,md::ls::PipelineSetup &)>::operator()(uint64_t a1, uint64_t a2, unint64_t *a3, uint64_t a4, unint64_t *a5)
-{
-  v8 = ecs2::ExecutionTask<md::VKMRenderResourcesStore *>::service<md::VKMRenderResourcesStore>(*(a1 + 8));
-  md::VKMRenderResourcesStore::getPipelineDataSet(v8, *a5);
-  Pipeline = md::VKMRenderResourcesStore::getPipeline(v8, *a5);
-  v10 = ecs2::sparse_set<geo::handle<md::MaterialIDStorage>,64ul>::find(v8 + 1197, *a3);
-  if (v10 == v8[1202] || (v11 = (v10 - v8[1201]) >> 3, v12 = (v11 >> 3) & 0x1FFFFFFFFFFFFFF8, v13 = *(v8[1210] + v12), ++*(*(v8[1204] + v12) + 24 * (v11 & 0x3F)), !v13))
-  {
-    v14 = 0;
-  }
-
-  else
-  {
-    v14 = *(v13 + 24 * (v11 & 0x3F));
-  }
-
-  if (*a4)
-  {
-    v15 = 4;
-  }
-
-  else
-  {
-    if (*(a4 + 1) != 1)
-    {
-      goto LABEL_12;
-    }
-
-    v15 = 8;
-  }
-
-  v16 = *(a4 + v15);
-  if (v16 != -1)
-  {
-    ggl::PipelineSetup::setResetFlag(Pipeline, v16, 0, 0);
-    if ((*a4 & 1) == 0)
-    {
-      goto LABEL_12;
-    }
-
-    goto LABEL_11;
-  }
-
-  if (*a4)
-  {
-LABEL_11:
-    ggl::PipelineSetup::setConstantDataWithoutCheck(Pipeline, *(a4 + 4), v14);
-  }
-
-LABEL_12:
-  if (*(a4 + 1) == 1)
-  {
-    v17 = *(a4 + 8);
-
-    ggl::PipelineSetup::setConstantDataWithoutCheck(Pipeline, v17, v14);
-  }
-}
-
-uint64_t std::__function::__func<md::ita::AssignPositionScaleInfo::operator()(ecs2::Query<md::ls::PendingRenderItemSetup const&,md::ls::PositionScaleInfoConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::PositionScaleInfo>> const&,md::ls::PipelineSetup &>)::$_0,std::allocator<md::ita::AssignPositionScaleInfo::operator()(ecs2::Query<md::ls::PendingRenderItemSetup const&,md::ls::PositionScaleInfoConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::PositionScaleInfo>> const&,md::ls::PipelineSetup &>)::$_0>,void ()(md::ls::PendingRenderItemSetup const&,md::ls::PositionScaleInfoConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::PositionScaleInfo>> const&,md::ls::PipelineSetup &)>::__clone(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_1F2A15880;
-  a2[1] = v2;
-  return result;
-}
-
-uint64_t md::ita::AssignTileViewData::operator()(uint64_t a1, uint64_t a2)
-{
-  v53[4] = *MEMORY[0x1E69E9840];
-  v51[0] = &unk_1F2A158C8;
-  v51[1] = a1;
-  v52 = v51;
-  v3 = *(a2 + 8);
-  v4 = ecs2::BasicRegistry<void>::storage<md::ls::NeedsFunctionConstantsUpdate>(v3);
-  v5 = ecs2::BasicRegistry<void>::storage<md::ls::ViewConstantDataHandle>(v3);
-  v6 = ecs2::BasicRegistry<void>::storage<md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::View>>>(v3);
-  v7 = ecs2::BasicRegistry<void>::storage<md::ls::PipelineSetup>(v3);
-  v53[0] = v4;
-  v53[1] = v5;
-  v8 = 1;
-  v9 = v4;
-  v10 = v53;
-  v53[2] = v6;
-  v53[3] = v7;
-  do
-  {
-    if (*(v53[v8] + 40) - *(v53[v8] + 32) < *(v9 + 40) - *(v9 + 32))
-    {
-      v9 = v53[v8];
-      v10 = &v53[v8];
-    }
-
-    ++v8;
-  }
-
-  while (v8 != 4);
-  v11 = *(*v10 + 32);
-  v12 = *(*v10 + 40);
-  v45 = v11;
-  v46 = v12;
-  v47 = v4;
-  v48 = v5;
-  v49 = v6;
-  v50 = v7;
-  while (v11 != v12 && !ecs2::ViewIterator<void,std::tuple<md::ls::InView const&,md::ls::MeshRenderableID const&,md::ls::RenderableMaterialData const&,md::ls::ColorRampDataHandle &,md::ls::HasMaterialRaster const*,md::ls::MaterialRasterMaxIndex const*>,std::tuple<>>::containsAll<md::ls::InView const,md::ls::MeshRenderableID const,md::ls::RenderableMaterialData const,md::ls::ColorRampDataHandle>(&v45, *v11, v11[1]))
-  {
-    v11 += 2;
-    v45 = v11;
-  }
-
-  v13 = v45;
-  if (v45 == v12)
-  {
-    v18 = _ZTWN4ecs27Runtime11_localStateE();
-    v19 = _ZTWN4ecs27Runtime11_stackIndexE();
-    v20 = 0;
-  }
-
-  else
-  {
-    v44 = a2;
-    v14 = v47;
-    v15 = v48;
-    v16 = v49;
-    v17 = v50;
-    v18 = _ZTWN4ecs27Runtime11_localStateE();
-    v19 = _ZTWN4ecs27Runtime11_stackIndexE();
-    v20 = 0;
-    v21 = v46;
-    do
-    {
-      v22 = *(v14 + 32);
-      v23 = v13[1];
-      v24 = v23 & 0x3F;
-      v25 = (v23 >> 3) & 0x1FF8;
-      v26 = *(*(*(v15 + 8) + v25) + 4 * v24 + 2);
-      v27 = *(*(v15 + 56) + ((v26 >> 3) & 0x1FF8));
-      v28 = *(*(v14 + 8) + v25) + 4 * v24;
-      v29 = *(*(*(v16 + 8) + v25) + 4 * v24 + 2);
-      v30 = *(*(v16 + 56) + ((v29 >> 3) & 0x1FF8));
-      v31 = *(*(*(v17 + 8) + v25) + 4 * v24 + 2);
-      v32 = *(*(v17 + 56) + ((v31 >> 3) & 0x1FF8));
-      v33 = *(v28 + 2);
-      *(v18 + 104 * *v19 + 24) = *v13;
-      if (!v52)
-      {
-        std::__throw_bad_function_call[abi:nn200100]();
-      }
-
-      (*(*v52 + 48))(v52, v22 + 4 * v33, v27 + 8 * (v26 & 0x3F), v30 + 12 * (v29 & 0x3F), v32 + 8 * (v31 & 0x3F));
-      ++v20;
-      v34 = v13 + 2;
-      while (1)
-      {
-        v13 = v34;
-        v45 = v34;
-        if (v34 == v21)
-        {
-          break;
-        }
-
-        v35 = ecs2::ViewIterator<void,std::tuple<md::ls::InView const&,md::ls::MeshRenderableID const&,md::ls::RenderableMaterialData const&,md::ls::ColorRampDataHandle &,md::ls::HasMaterialRaster const*,md::ls::MaterialRasterMaxIndex const*>,std::tuple<>>::containsAll<md::ls::InView const,md::ls::MeshRenderableID const,md::ls::RenderableMaterialData const,md::ls::ColorRampDataHandle>(&v45, *v34, v34[1]);
-        v34 = v13 + 2;
-        if (v35)
-        {
-          v36 = v13;
-          goto LABEL_17;
-        }
-      }
-
-      v36 = v21;
-LABEL_17:
-      ;
-    }
-
-    while (v36 != v12);
-    v37 = *(v44 + 8);
-    {
-      ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PipelineSetup>(void)::metadata = gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls::PipelineSetup>();
-      *algn_1EB83D948 = 0x9C4E7BCF9B8D6334;
-      qword_1EB83D950 = "md::ls::PipelineSetup]";
-      qword_1EB83D958 = 21;
-    }
-
-    *(v37 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PipelineSetup>(void)::metadata) = *(v37 + 4096);
-  }
-
-  *(v18 + 104 * *v19 + 24) = -65536;
-  v38 = v18 + 104 * *v19;
-  v39 = *(v38 + 92);
-  *(v38 + 92) = v39 + 1;
-  *(v38 + 4 * v39 + 28) = v20;
-  v40 = v18 + 104 * *v19;
-  v42 = *(v40 + 92);
-  v41 = (v40 + 92);
-  if (v42 >= 0x10)
-  {
-    *v41 = 0;
-  }
-
-  return std::__function::__value_func<void ()(md::ls::NeedsFunctionConstantsUpdate const&,md::ls::ViewConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::View>> const&,md::ls::PipelineSetup &)>::~__value_func[abi:nn200100](v51);
-}
-
-void sub_1B2F160F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
-{
-  va_start(va, a10);
-  std::__function::__value_func<void ()(md::ls::NeedsFunctionConstantsUpdate const&,md::ls::ViewConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::View>> const&,md::ls::PipelineSetup &)>::~__value_func[abi:nn200100](va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t std::__function::__value_func<void ()(md::ls::NeedsFunctionConstantsUpdate const&,md::ls::ViewConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::View>> const&,md::ls::PipelineSetup &)>::~__value_func[abi:nn200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-void std::__function::__func<md::ita::AssignTileViewData::operator()(ecs2::Query<md::ls::NeedsFunctionConstantsUpdate const&,md::ls::ViewConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::View>> const&,md::ls::PipelineSetup &>)::$_0,std::allocator<md::ita::AssignTileViewData::operator()(ecs2::Query<md::ls::NeedsFunctionConstantsUpdate const&,md::ls::ViewConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::View>> const&,md::ls::PipelineSetup &>)::$_0>,void ()(md::ls::NeedsFunctionConstantsUpdate const&,md::ls::ViewConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::View>> const&,md::ls::PipelineSetup &)>::operator()(uint64_t a1, uint64_t a2, unint64_t *a3, uint64_t a4, unint64_t *a5)
-{
-  v8 = ecs2::ExecutionTask<md::VKMRenderResourcesStore *>::service<md::VKMRenderResourcesStore>(*(a1 + 8));
-  md::VKMRenderResourcesStore::getPipelineDataSet(v8, *a5);
-  Pipeline = md::VKMRenderResourcesStore::getPipeline(v8, *a5);
-  v10 = md::VKMRenderResourcesStore::getConstantData<ggl::Tile::View>(v8, *a3);
-  if (*a4 == 1)
-  {
-    ggl::PipelineSetup::setConstantDataWithoutCheck(Pipeline, *(a4 + 4), v10);
-  }
-
-  if (*(a4 + 1) == 1)
-  {
-    v11 = *(a4 + 8);
-
-    ggl::PipelineSetup::setConstantDataWithoutCheck(Pipeline, v11, v10);
-  }
-}
-
-uint64_t std::__function::__func<md::ita::AssignTileViewData::operator()(ecs2::Query<md::ls::NeedsFunctionConstantsUpdate const&,md::ls::ViewConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::View>> const&,md::ls::PipelineSetup &>)::$_0,std::allocator<md::ita::AssignTileViewData::operator()(ecs2::Query<md::ls::NeedsFunctionConstantsUpdate const&,md::ls::ViewConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::View>> const&,md::ls::PipelineSetup &>)::$_0>,void ()(md::ls::NeedsFunctionConstantsUpdate const&,md::ls::ViewConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Tile::View>> const&,md::ls::PipelineSetup &)>::__clone(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_1F2A158C8;
-  a2[1] = v2;
-  return result;
-}
-
-uint64_t md::ita::AssignStyleColorData::operator()(uint64_t a1, uint64_t a2)
-{
-  v52[4] = *MEMORY[0x1E69E9840];
-  v50[0] = &unk_1F2A15910;
-  v50[1] = a1;
-  v51 = v50;
-  v3 = *(a2 + 8);
-  v4 = ecs2::BasicRegistry<void>::storage<md::ls::ItemsPrepared>(v3);
-  v5 = ecs2::BasicRegistry<void>::storage<md::ls::StyleColorConstantDataHandle>(v3);
-  v6 = ecs2::BasicRegistry<void>::storage<md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleColor>>>(v3);
-  v7 = ecs2::BasicRegistry<void>::storage<md::ls::PipelineSetup>(v3);
-  v52[0] = v4;
-  v52[1] = v5;
-  v8 = 1;
-  v9 = v4;
-  v10 = v52;
-  v52[2] = v6;
-  v52[3] = v7;
-  do
-  {
-    if (*(v52[v8] + 40) - *(v52[v8] + 32) < *(v9 + 40) - *(v9 + 32))
-    {
-      v9 = v52[v8];
-      v10 = &v52[v8];
-    }
-
-    ++v8;
-  }
-
-  while (v8 != 4);
-  v11 = *(*v10 + 32);
-  v12 = *(*v10 + 40);
-  v44 = v11;
-  v45 = v12;
-  v46 = v4;
-  v47 = v5;
-  v48 = v6;
-  v49 = v7;
-  while (v11 != v12 && !ecs2::ViewIterator<void,std::tuple<md::ls::InView const&,md::ls::MeshRenderableID const&,md::ls::RenderableMaterialData const&,md::ls::ColorRampDataHandle &,md::ls::HasMaterialRaster const*,md::ls::MaterialRasterMaxIndex const*>,std::tuple<>>::containsAll<md::ls::InView const,md::ls::MeshRenderableID const,md::ls::RenderableMaterialData const,md::ls::ColorRampDataHandle>(&v44, *v11, v11[1]))
-  {
-    v11 += 2;
-    v44 = v11;
-  }
-
-  v13 = v44;
-  if (v44 == v12)
-  {
-    v18 = _ZTWN4ecs27Runtime11_localStateE();
-    v19 = _ZTWN4ecs27Runtime11_stackIndexE();
-    v20 = 0;
-  }
-
-  else
-  {
-    v43 = a2;
-    v14 = v46;
-    v15 = v47;
-    v16 = v48;
-    v17 = v49;
-    v18 = _ZTWN4ecs27Runtime11_localStateE();
-    v19 = _ZTWN4ecs27Runtime11_stackIndexE();
-    v20 = 0;
-    v21 = v45;
-    do
-    {
-      v22 = v13[1];
-      v23 = v22 & 0x3F;
-      v24 = (v22 >> 3) & 0x1FF8;
-      v25 = *(*(*(v14 + 8) + v24) + 4 * v23 + 2);
-      v26 = *(*(v14 + 56) + ((v25 >> 3) & 0x1FF8));
-      v27 = *(*(*(v15 + 8) + v24) + 4 * v23 + 2);
-      v28 = *(*(v15 + 56) + ((v27 >> 3) & 0x1FF8));
-      v29 = *(*(*(v16 + 8) + v24) + 4 * v23 + 2);
-      v30 = *(*(v16 + 56) + ((v29 >> 3) & 0x1FF8));
-      v31 = *(*(*(v17 + 8) + v24) + 4 * v23 + 2);
-      v32 = *(*(v17 + 56) + ((v31 >> 3) & 0x1FF8));
-      *(v18 + 104 * *v19 + 24) = *v13;
-      if (!v51)
-      {
-        std::__throw_bad_function_call[abi:nn200100]();
-      }
-
-      (*(*v51 + 48))(v51, v26 + 8 * (v25 & 0x3F), v28 + 8 * (v27 & 0x3F), v30 + 12 * (v29 & 0x3F), v32 + 8 * (v31 & 0x3F));
-      ++v20;
-      v33 = v13 + 2;
-      while (1)
-      {
-        v13 = v33;
-        v44 = v33;
-        if (v33 == v21)
-        {
-          break;
-        }
-
-        v34 = ecs2::ViewIterator<void,std::tuple<md::ls::InView const&,md::ls::MeshRenderableID const&,md::ls::RenderableMaterialData const&,md::ls::ColorRampDataHandle &,md::ls::HasMaterialRaster const*,md::ls::MaterialRasterMaxIndex const*>,std::tuple<>>::containsAll<md::ls::InView const,md::ls::MeshRenderableID const,md::ls::RenderableMaterialData const,md::ls::ColorRampDataHandle>(&v44, *v33, v33[1]);
-        v33 = v13 + 2;
-        if (v34)
-        {
-          v35 = v13;
-          goto LABEL_17;
-        }
-      }
-
-      v35 = v21;
-LABEL_17:
-      ;
-    }
-
-    while (v35 != v12);
-    v36 = *(v43 + 8);
-    {
-      ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PipelineSetup>(void)::metadata = gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls::PipelineSetup>();
-      *algn_1EB83D948 = 0x9C4E7BCF9B8D6334;
-      qword_1EB83D950 = "md::ls::PipelineSetup]";
-      qword_1EB83D958 = 21;
-    }
-
-    *(v36 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PipelineSetup>(void)::metadata) = *(v36 + 4096);
-  }
-
-  *(v18 + 104 * *v19 + 24) = -65536;
-  v37 = v18 + 104 * *v19;
-  v38 = *(v37 + 92);
-  *(v37 + 92) = v38 + 1;
-  *(v37 + 4 * v38 + 28) = v20;
-  v39 = v18 + 104 * *v19;
-  v41 = *(v39 + 92);
-  v40 = (v39 + 92);
-  if (v41 >= 0x10)
-  {
-    *v40 = 0;
-  }
-
-  return std::__function::__value_func<void ()(md::ls::ItemsPrepared const&,md::ls::StyleColorConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleColor>> const&,md::ls::PipelineSetup &)>::~__value_func[abi:nn200100](v50);
-}
-
-void sub_1B2F16678(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
-{
-  va_start(va, a10);
-  std::__function::__value_func<void ()(md::ls::ItemsPrepared const&,md::ls::StyleColorConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleColor>> const&,md::ls::PipelineSetup &)>::~__value_func[abi:nn200100](va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t std::__function::__value_func<void ()(md::ls::ItemsPrepared const&,md::ls::StyleColorConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleColor>> const&,md::ls::PipelineSetup &)>::~__value_func[abi:nn200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls28StyleColorConstantDataHandleEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESC_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISK_EEFvSJ_EEclEOSJ_(uint64_t a1, unsigned int *a2)
-{
-  v2 = *a2;
-  v3 = *(a1 + 8);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::StyleColorConstantDataHandle>();
-  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::StyleColorConstantDataHandle>(void)::metadata;
-  v5 = ecs2::BasicRegistry<void>::storage<md::ls::StyleColorConstantDataHandle>(v3);
-  v6 = v2 >> 22;
-  v7 = v5[1];
-  if (v2 >> 22 < (v5[2] - v7) >> 3)
-  {
-    v8 = *(v7 + 8 * v6);
-    if (v8)
-    {
-      v9 = (v2 >> 16) & 0x3F;
-      if (*(v8 + 4 * v9) == v2)
-      {
-        v10 = v5;
-        v11 = v5[31];
-        v12 = v5[32];
-        if (v11 != v12)
-        {
-          do
-          {
-            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
-            v11 += 32;
-          }
-
-          while (v11 != v12);
-          v8 = *(v10[1] + 8 * v6);
-        }
-
-        v13 = *(v8 + 4 * v9 + 2);
-        v14 = ((v10[5] - v10[4]) >> 2) - 1;
-        v15 = v14 & 0x3F;
-        v16 = v10[7];
-        v17 = *(v16 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8));
-        v18 = v13 & 0x3F;
-        v19 = *(v16 + ((v13 >> 3) & 0x1FF8));
-        v20 = *(v19 + 8 * v18);
-        *(v19 + 8 * v18) = *(v17 + 8 * v15);
-        *(v17 + 8 * v15) = v20;
-        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
-      }
-    }
-  }
-
-  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::StyleColorConstantDataHandle>();
-  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::StyleColorConstantDataHandle>(void)::metadata) = *(v3 + 4096);
-}
-
-void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::StyleColorConstantDataHandle,64ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A35778;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
-  ecs2::storage<ecs2::Entity,md::ls::StyleColorConstantDataHandle,64ul>::~storage(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void *ecs2::storage<ecs2::Entity,md::ls::StyleColorConstantDataHandle,64ul>::~storage(void *a1)
-{
-  *a1 = &unk_1F2A35798;
-    ;
-  }
-
-  v3 = a1[7];
-  v4 = a1[8];
-  while (v3 != v4)
-  {
-    if (*v3)
-    {
-      operator delete(*v3);
-    }
-
-    ++v3;
-  }
-
-  v5 = a1[10];
-  if (v5)
-  {
-    a1[11] = v5;
-    operator delete(v5);
-  }
-
-  v6 = a1[7];
-  if (v6)
-  {
-    a1[8] = v6;
-    operator delete(v6);
-  }
-
-  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
-}
-
-void ecs2::storage<ecs2::Entity,md::ls::StyleColorConstantDataHandle,64ul>::~storage(void *a1)
-{
-  ecs2::storage<ecs2::Entity,md::ls::StyleColorConstantDataHandle,64ul>::~storage(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::StyleColorConstantDataHandle,64ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A35778;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
-
-  return ecs2::storage<ecs2::Entity,md::ls::StyleColorConstantDataHandle,64ul>::~storage(a1);
-}
-
-void std::__function::__func<md::ita::AssignStyleColorData::operator()(ecs2::Query<md::ls::ItemsPrepared const&,md::ls::StyleColorConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleColor>> const&,md::ls::PipelineSetup &>)::$_0,std::allocator<md::ita::AssignStyleColorData::operator()(ecs2::Query<md::ls::ItemsPrepared const&,md::ls::StyleColorConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleColor>> const&,md::ls::PipelineSetup &>)::$_0>,void ()(md::ls::ItemsPrepared const&,md::ls::StyleColorConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleColor>> const&,md::ls::PipelineSetup &)>::operator()(uint64_t a1, uint64_t a2, unint64_t *a3, uint64_t a4, unint64_t *a5)
-{
-  v8 = ecs2::ExecutionTask<md::VKMRenderResourcesStore *>::service<md::VKMRenderResourcesStore>(*(a1 + 8));
-  md::VKMRenderResourcesStore::getPipelineDataSet(v8, *a5);
-  Pipeline = md::VKMRenderResourcesStore::getPipeline(v8, *a5);
-  v10 = ecs2::sparse_set<geo::handle<md::MaterialIDStorage>,64ul>::find(v8 + 1259, *a3);
-  if (v10 == v8[1264] || (v11 = (v10 - v8[1263]) >> 3, v12 = (v11 >> 3) & 0x1FFFFFFFFFFFFFF8, v13 = *(v8[1272] + v12), ++*(*(v8[1266] + v12) + 24 * (v11 & 0x3F)), !v13))
-  {
-    v14 = 0;
-  }
-
-  else
-  {
-    v14 = *(v13 + 24 * (v11 & 0x3F));
-  }
-
-  if (*a4 == 1)
-  {
-    ggl::PipelineSetup::setConstantDataWithoutCheck(Pipeline, *(a4 + 4), v14);
-  }
-
-  if (*(a4 + 1) == 1)
-  {
-    v15 = *(a4 + 8);
-
-    ggl::PipelineSetup::setConstantDataWithoutCheck(Pipeline, v15, v14);
-  }
-}
-
-uint64_t std::__function::__func<md::ita::AssignStyleColorData::operator()(ecs2::Query<md::ls::ItemsPrepared const&,md::ls::StyleColorConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleColor>> const&,md::ls::PipelineSetup &>)::$_0,std::allocator<md::ita::AssignStyleColorData::operator()(ecs2::Query<md::ls::ItemsPrepared const&,md::ls::StyleColorConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleColor>> const&,md::ls::PipelineSetup &>)::$_0>,void ()(md::ls::ItemsPrepared const&,md::ls::StyleColorConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleColor>> const&,md::ls::PipelineSetup &)>::__clone(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_1F2A15910;
-  a2[1] = v2;
-  return result;
-}
-
-uint64_t md::ita::AssignRasterOverlayData::operator()(uint64_t a1, uint64_t a2)
-{
-  v52[4] = *MEMORY[0x1E69E9840];
-  v50[0] = &unk_1F2A15958;
-  v50[1] = a1;
-  v51 = v50;
-  v3 = *(a2 + 8);
-  v4 = ecs2::BasicRegistry<void>::storage<md::ls::ItemsPrepared>(v3);
-  v5 = ecs2::BasicRegistry<void>::storage<md::ls::RasterOverlayConstantDataHandle>(v3);
-  v6 = ecs2::BasicRegistry<void>::storage<md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::RasterOverlay>>>(v3);
-  v7 = ecs2::BasicRegistry<void>::storage<md::ls::PipelineSetup>(v3);
-  v52[0] = v4;
-  v52[1] = v5;
-  v8 = 1;
-  v9 = v4;
-  v10 = v52;
-  v52[2] = v6;
-  v52[3] = v7;
-  do
-  {
-    if (*(v52[v8] + 40) - *(v52[v8] + 32) < *(v9 + 40) - *(v9 + 32))
-    {
-      v9 = v52[v8];
-      v10 = &v52[v8];
-    }
-
-    ++v8;
-  }
-
-  while (v8 != 4);
-  v11 = *(*v10 + 32);
-  v12 = *(*v10 + 40);
-  v44 = v11;
-  v45 = v12;
-  v46 = v4;
-  v47 = v5;
-  v48 = v6;
-  v49 = v7;
-  while (v11 != v12 && !ecs2::ViewIterator<void,std::tuple<md::ls::InView const&,md::ls::MeshRenderableID const&,md::ls::RenderableMaterialData const&,md::ls::ColorRampDataHandle &,md::ls::HasMaterialRaster const*,md::ls::MaterialRasterMaxIndex const*>,std::tuple<>>::containsAll<md::ls::InView const,md::ls::MeshRenderableID const,md::ls::RenderableMaterialData const,md::ls::ColorRampDataHandle>(&v44, *v11, v11[1]))
-  {
-    v11 += 2;
-    v44 = v11;
-  }
-
-  v13 = v44;
-  if (v44 == v12)
-  {
-    v18 = _ZTWN4ecs27Runtime11_localStateE();
-    v19 = _ZTWN4ecs27Runtime11_stackIndexE();
-    v20 = 0;
-  }
-
-  else
-  {
-    v43 = a2;
-    v14 = v46;
-    v15 = v47;
-    v16 = v48;
-    v17 = v49;
-    v18 = _ZTWN4ecs27Runtime11_localStateE();
-    v19 = _ZTWN4ecs27Runtime11_stackIndexE();
-    v20 = 0;
-    v21 = v45;
-    do
-    {
-      v22 = v13[1];
-      v23 = v22 & 0x3F;
-      v24 = (v22 >> 3) & 0x1FF8;
-      v25 = *(*(*(v14 + 8) + v24) + 4 * v23 + 2);
-      v26 = *(*(v14 + 56) + ((v25 >> 3) & 0x1FF8));
-      v27 = *(*(*(v15 + 8) + v24) + 4 * v23 + 2);
-      v28 = *(*(v15 + 56) + ((v27 >> 3) & 0x1FF8));
-      v29 = *(*(*(v16 + 8) + v24) + 4 * v23 + 2);
-      v30 = *(*(v16 + 56) + ((v29 >> 3) & 0x1FF8));
-      v31 = *(*(*(v17 + 8) + v24) + 4 * v23 + 2);
-      v32 = *(*(v17 + 56) + ((v31 >> 3) & 0x1FF8));
-      *(v18 + 104 * *v19 + 24) = *v13;
-      if (!v51)
-      {
-        std::__throw_bad_function_call[abi:nn200100]();
-      }
-
-      (*(*v51 + 48))(v51, v26 + 8 * (v25 & 0x3F), v28 + 40 * (v27 & 0x3F), v30 + 12 * (v29 & 0x3F), v32 + 8 * (v31 & 0x3F));
-      ++v20;
-      v33 = v13 + 2;
-      while (1)
-      {
-        v13 = v33;
-        v44 = v33;
-        if (v33 == v21)
-        {
-          break;
-        }
-
-        v34 = ecs2::ViewIterator<void,std::tuple<md::ls::InView const&,md::ls::MeshRenderableID const&,md::ls::RenderableMaterialData const&,md::ls::ColorRampDataHandle &,md::ls::HasMaterialRaster const*,md::ls::MaterialRasterMaxIndex const*>,std::tuple<>>::containsAll<md::ls::InView const,md::ls::MeshRenderableID const,md::ls::RenderableMaterialData const,md::ls::ColorRampDataHandle>(&v44, *v33, v33[1]);
-        v33 = v13 + 2;
-        if (v34)
-        {
-          v35 = v13;
-          goto LABEL_17;
-        }
-      }
-
-      v35 = v21;
-LABEL_17:
-      ;
-    }
-
-    while (v35 != v12);
-    v36 = *(v43 + 8);
-    {
-      ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PipelineSetup>(void)::metadata = gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls::PipelineSetup>();
-      *algn_1EB83D948 = 0x9C4E7BCF9B8D6334;
-      qword_1EB83D950 = "md::ls::PipelineSetup]";
-      qword_1EB83D958 = 21;
-    }
-
-    *(v36 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PipelineSetup>(void)::metadata) = *(v36 + 4096);
-  }
-
-  *(v18 + 104 * *v19 + 24) = -65536;
-  v37 = v18 + 104 * *v19;
-  v38 = *(v37 + 92);
-  *(v37 + 92) = v38 + 1;
-  *(v37 + 4 * v38 + 28) = v20;
-  v39 = v18 + 104 * *v19;
-  v41 = *(v39 + 92);
-  v40 = (v39 + 92);
-  if (v41 >= 0x10)
-  {
-    *v40 = 0;
-  }
-
-  return std::__function::__value_func<void ()(md::ls::ItemsPrepared const&,md::ls::RasterOverlayConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::RasterOverlay>> const&,md::ls::PipelineSetup &)>::~__value_func[abi:nn200100](v50);
-}
-
-void sub_1B2F16FD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
-{
-  va_start(va, a10);
-  std::__function::__value_func<void ()(md::ls::ItemsPrepared const&,md::ls::RasterOverlayConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::RasterOverlay>> const&,md::ls::PipelineSetup &)>::~__value_func[abi:nn200100](va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t std::__function::__value_func<void ()(md::ls::ItemsPrepared const&,md::ls::RasterOverlayConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::RasterOverlay>> const&,md::ls::PipelineSetup &)>::~__value_func[abi:nn200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-void std::__function::__func<md::ita::AssignRasterOverlayData::operator()(ecs2::Query<md::ls::ItemsPrepared const&,md::ls::RasterOverlayConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::RasterOverlay>> const&,md::ls::PipelineSetup &>)::$_0,std::allocator<md::ita::AssignRasterOverlayData::operator()(ecs2::Query<md::ls::ItemsPrepared const&,md::ls::RasterOverlayConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::RasterOverlay>> const&,md::ls::PipelineSetup &>)::$_0>,void ()(md::ls::ItemsPrepared const&,md::ls::RasterOverlayConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::RasterOverlay>> const&,md::ls::PipelineSetup &)>::operator()(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, unint64_t *a5)
-{
-  v8 = ecs2::ExecutionTask<md::VKMRenderResourcesStore *>::service<md::VKMRenderResourcesStore>(*(a1 + 8));
-  md::VKMRenderResourcesStore::getPipelineDataSet(v8, *a5);
-  Pipeline = md::VKMRenderResourcesStore::getPipeline(v8, *a5);
-  v10 = Pipeline;
-  v11 = *a3 >> 6;
-  v12 = v8[1368];
-  if (v11 < (v8[1369] - v12) >> 3 && (v13 = *(v12 + 8 * v11)) != 0 && (v14 = (v13 + 16 * (*a3 & 0x3FLL)), *v14 == HIDWORD(*a3)))
-  {
-    v15 = v8[1371];
-    v16 = v15 + 8 * v14[1];
-    v17 = v8[1372];
-  }
-
-  else
-  {
-    v17 = v8[1372];
-    v15 = v8[1371];
-    v16 = v17;
-  }
-
-  if (v16 == v17 || (v18 = (v16 - v15) >> 3, v19 = (v18 >> 3) & 0x1FFFFFFFFFFFFFF8, v20 = *(v8[1380] + v19), ++*(*(v8[1374] + v19) + 24 * (v18 & 0x3F)), !v20))
-  {
-    v21 = 0;
-  }
-
-  else
-  {
-    v21 = *(v20 + 24 * (v18 & 0x3F));
-  }
-
-  if (*a4 == 1)
-  {
-    ggl::PipelineSetup::setConstantDataWithoutCheck(Pipeline, *(a4 + 4), v21);
-  }
-
-  if (*(a4 + 1) == 1)
-  {
-    v22 = *(a4 + 8);
-
-    ggl::PipelineSetup::setConstantDataWithoutCheck(v10, v22, v21);
-  }
-}
-
-uint64_t std::__function::__func<md::ita::AssignRasterOverlayData::operator()(ecs2::Query<md::ls::ItemsPrepared const&,md::ls::RasterOverlayConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::RasterOverlay>> const&,md::ls::PipelineSetup &>)::$_0,std::allocator<md::ita::AssignRasterOverlayData::operator()(ecs2::Query<md::ls::ItemsPrepared const&,md::ls::RasterOverlayConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::RasterOverlay>> const&,md::ls::PipelineSetup &>)::$_0>,void ()(md::ls::ItemsPrepared const&,md::ls::RasterOverlayConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::RasterOverlay>> const&,md::ls::PipelineSetup &)>::__clone(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_1F2A15958;
-  a2[1] = v2;
-  return result;
-}
-
-uint64_t md::ita::AssignSRGBBlendStyleData::operator()(uint64_t a1, uint64_t a2)
-{
-  v53[4] = *MEMORY[0x1E69E9840];
-  v51[0] = &unk_1F2A159A0;
-  v51[1] = a1;
-  v52 = v51;
-  v3 = *(a2 + 8);
-  v4 = ecs2::BasicRegistry<void>::storage<md::ls::NeedsFunctionConstantsUpdate>(v3);
-  v5 = ecs2::BasicRegistry<void>::storage<md::ls::BlendRasterConstantDataHandle>(v3);
-  v6 = ecs2::BasicRegistry<void>::storage<md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Blending::SRGBBlendStyle>>>(v3);
-  v7 = ecs2::BasicRegistry<void>::storage<md::ls::PipelineSetup>(v3);
-  v53[0] = v4;
-  v53[1] = v5;
-  v8 = 1;
-  v9 = v4;
-  v10 = v53;
-  v53[2] = v6;
-  v53[3] = v7;
-  do
-  {
-    if (*(v53[v8] + 40) - *(v53[v8] + 32) < *(v9 + 40) - *(v9 + 32))
-    {
-      v9 = v53[v8];
-      v10 = &v53[v8];
-    }
-
-    ++v8;
-  }
-
-  while (v8 != 4);
-  v11 = *(*v10 + 32);
-  v12 = *(*v10 + 40);
-  v45 = v11;
-  v46 = v12;
-  v47 = v4;
-  v48 = v5;
-  v49 = v6;
-  v50 = v7;
-  while (v11 != v12 && !ecs2::ViewIterator<void,std::tuple<md::ls::InView const&,md::ls::MeshRenderableID const&,md::ls::RenderableMaterialData const&,md::ls::ColorRampDataHandle &,md::ls::HasMaterialRaster const*,md::ls::MaterialRasterMaxIndex const*>,std::tuple<>>::containsAll<md::ls::InView const,md::ls::MeshRenderableID const,md::ls::RenderableMaterialData const,md::ls::ColorRampDataHandle>(&v45, *v11, v11[1]))
-  {
-    v11 += 2;
-    v45 = v11;
-  }
-
-  v13 = v45;
-  if (v45 == v12)
-  {
-    v18 = _ZTWN4ecs27Runtime11_localStateE();
-    v19 = _ZTWN4ecs27Runtime11_stackIndexE();
-    v20 = 0;
-  }
-
-  else
-  {
-    v44 = a2;
-    v14 = v47;
-    v15 = v48;
-    v16 = v49;
-    v17 = v50;
-    v18 = _ZTWN4ecs27Runtime11_localStateE();
-    v19 = _ZTWN4ecs27Runtime11_stackIndexE();
-    v20 = 0;
-    v21 = v46;
-    do
-    {
-      v22 = *(v14 + 32);
-      v23 = v13[1];
-      v24 = v23 & 0x3F;
-      v25 = (v23 >> 3) & 0x1FF8;
-      v26 = *(*(*(v15 + 8) + v25) + 4 * v24 + 2);
-      v27 = *(*(v15 + 56) + ((v26 >> 3) & 0x1FF8));
-      v28 = *(*(v14 + 8) + v25) + 4 * v24;
-      v29 = *(*(*(v16 + 8) + v25) + 4 * v24 + 2);
-      v30 = *(*(v16 + 56) + ((v29 >> 3) & 0x1FF8));
-      v31 = *(*(*(v17 + 8) + v25) + 4 * v24 + 2);
-      v32 = *(*(v17 + 56) + ((v31 >> 3) & 0x1FF8));
-      v33 = *(v28 + 2);
-      *(v18 + 104 * *v19 + 24) = *v13;
-      if (!v52)
-      {
-        std::__throw_bad_function_call[abi:nn200100]();
-      }
-
-      (*(*v52 + 48))(v52, v22 + 4 * v33, v27 + 8 * (v26 & 0x3F), v30 + 12 * (v29 & 0x3F), v32 + 8 * (v31 & 0x3F));
-      ++v20;
-      v34 = v13 + 2;
-      while (1)
-      {
-        v13 = v34;
-        v45 = v34;
-        if (v34 == v21)
-        {
-          break;
-        }
-
-        v35 = ecs2::ViewIterator<void,std::tuple<md::ls::InView const&,md::ls::MeshRenderableID const&,md::ls::RenderableMaterialData const&,md::ls::ColorRampDataHandle &,md::ls::HasMaterialRaster const*,md::ls::MaterialRasterMaxIndex const*>,std::tuple<>>::containsAll<md::ls::InView const,md::ls::MeshRenderableID const,md::ls::RenderableMaterialData const,md::ls::ColorRampDataHandle>(&v45, *v34, v34[1]);
-        v34 = v13 + 2;
-        if (v35)
-        {
-          v36 = v13;
-          goto LABEL_17;
-        }
-      }
-
-      v36 = v21;
-LABEL_17:
-      ;
-    }
-
-    while (v36 != v12);
-    v37 = *(v44 + 8);
-    {
-      ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PipelineSetup>(void)::metadata = gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls::PipelineSetup>();
-      *algn_1EB83D948 = 0x9C4E7BCF9B8D6334;
-      qword_1EB83D950 = "md::ls::PipelineSetup]";
-      qword_1EB83D958 = 21;
-    }
-
-    *(v37 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PipelineSetup>(void)::metadata) = *(v37 + 4096);
-  }
-
-  *(v18 + 104 * *v19 + 24) = -65536;
-  v38 = v18 + 104 * *v19;
-  v39 = *(v38 + 92);
-  *(v38 + 92) = v39 + 1;
-  *(v38 + 4 * v39 + 28) = v20;
-  v40 = v18 + 104 * *v19;
-  v42 = *(v40 + 92);
-  v41 = (v40 + 92);
-  if (v42 >= 0x10)
-  {
-    *v41 = 0;
-  }
-
-  return std::__function::__value_func<void ()(md::ls::NeedsFunctionConstantsUpdate const&,md::ls::BlendRasterConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Blending::SRGBBlendStyle>> const&,md::ls::PipelineSetup &)>::~__value_func[abi:nn200100](v51);
-}
-
-void sub_1B2F175F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
-{
-  va_start(va, a10);
-  std::__function::__value_func<void ()(md::ls::NeedsFunctionConstantsUpdate const&,md::ls::BlendRasterConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Blending::SRGBBlendStyle>> const&,md::ls::PipelineSetup &)>::~__value_func[abi:nn200100](va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t std::__function::__value_func<void ()(md::ls::NeedsFunctionConstantsUpdate const&,md::ls::BlendRasterConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Blending::SRGBBlendStyle>> const&,md::ls::PipelineSetup &)>::~__value_func[abi:nn200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-void std::__function::__func<md::ita::AssignSRGBBlendStyleData::operator()(ecs2::Query<md::ls::NeedsFunctionConstantsUpdate const&,md::ls::BlendRasterConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Blending::SRGBBlendStyle>> const&,md::ls::PipelineSetup &>)::$_0,std::allocator<md::ita::AssignSRGBBlendStyleData::operator()(ecs2::Query<md::ls::NeedsFunctionConstantsUpdate const&,md::ls::BlendRasterConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Blending::SRGBBlendStyle>> const&,md::ls::PipelineSetup &>)::$_0>,void ()(md::ls::NeedsFunctionConstantsUpdate const&,md::ls::BlendRasterConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Blending::SRGBBlendStyle>> const&,md::ls::PipelineSetup &)>::operator()(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, unint64_t *a5)
-{
-  v8 = ecs2::ExecutionTask<md::VKMRenderResourcesStore *>::service<md::VKMRenderResourcesStore>(*(a1 + 8));
-  md::VKMRenderResourcesStore::getPipelineDataSet(v8, *a5);
-  Pipeline = md::VKMRenderResourcesStore::getPipeline(v8, *a5);
-  v10 = Pipeline;
-  v11 = *a3 >> 6;
-  v12 = v8[1234];
-  if (v11 < (v8[1235] - v12) >> 3 && (v13 = *(v12 + 8 * v11)) != 0 && (v14 = (v13 + 16 * (*a3 & 0x3FLL)), *v14 == HIDWORD(*a3)))
-  {
-    v15 = v8[1237];
-    v16 = v15 + 8 * v14[1];
-    v17 = v8[1238];
-  }
-
-  else
-  {
-    v17 = v8[1238];
-    v15 = v8[1237];
-    v16 = v17;
-  }
-
-  if (v16 == v17 || (v18 = (v16 - v15) >> 3, v19 = (v18 >> 3) & 0x1FFFFFFFFFFFFFF8, v20 = *(v8[1246] + v19), ++*(*(v8[1240] + v19) + 24 * (v18 & 0x3F)), !v20))
-  {
-    v21 = 0;
-  }
-
-  else
-  {
-    v21 = *(v20 + 24 * (v18 & 0x3F));
-  }
-
-  if (*a4 == 1)
-  {
-    ggl::PipelineSetup::setConstantDataWithoutCheck(Pipeline, *(a4 + 4), v21);
-  }
-
-  if (*(a4 + 1) == 1)
-  {
-    v22 = *(a4 + 8);
-
-    ggl::PipelineSetup::setConstantDataWithoutCheck(v10, v22, v21);
-  }
-}
-
-uint64_t std::__function::__func<md::ita::AssignSRGBBlendStyleData::operator()(ecs2::Query<md::ls::NeedsFunctionConstantsUpdate const&,md::ls::BlendRasterConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Blending::SRGBBlendStyle>> const&,md::ls::PipelineSetup &>)::$_0,std::allocator<md::ita::AssignSRGBBlendStyleData::operator()(ecs2::Query<md::ls::NeedsFunctionConstantsUpdate const&,md::ls::BlendRasterConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Blending::SRGBBlendStyle>> const&,md::ls::PipelineSetup &>)::$_0>,void ()(md::ls::NeedsFunctionConstantsUpdate const&,md::ls::BlendRasterConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::Blending::SRGBBlendStyle>> const&,md::ls::PipelineSetup &)>::__clone(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_1F2A159A0;
-  a2[1] = v2;
-  return result;
-}
-
-uint64_t md::ita::AssignTileElevatedStrokeData::operator()(uint64_t a1, uint64_t a2)
-{
-  v52[4] = *MEMORY[0x1E69E9840];
-  v50[0] = &unk_1F2A15A70;
-  v50[1] = a1;
-  v51 = v50;
-  v3 = *(a2 + 8);
-  v4 = ecs2::BasicRegistry<void>::storage<md::ls::ItemsPrepared>(v3);
-  v5 = ecs2::BasicRegistry<void>::storage<md::ls::ElevatedStrokeConstantDataHandle>(v3);
-  v6 = ecs2::BasicRegistry<void>::storage<md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::ElevatedStroke>>>(v3);
-  v7 = ecs2::BasicRegistry<void>::storage<md::ls::PipelineSetup>(v3);
-  v52[0] = v4;
-  v52[1] = v5;
-  v8 = 1;
-  v9 = v4;
-  v10 = v52;
-  v52[2] = v6;
-  v52[3] = v7;
-  do
-  {
-    if (*(v52[v8] + 40) - *(v52[v8] + 32) < *(v9 + 40) - *(v9 + 32))
-    {
-      v9 = v52[v8];
-      v10 = &v52[v8];
-    }
-
-    ++v8;
-  }
-
-  while (v8 != 4);
-  v11 = *(*v10 + 32);
-  v12 = *(*v10 + 40);
-  v44 = v11;
-  v45 = v12;
-  v46 = v4;
-  v47 = v5;
-  v48 = v6;
-  v49 = v7;
-  while (v11 != v12 && !ecs2::ViewIterator<void,std::tuple<md::ls::InView const&,md::ls::MeshRenderableID const&,md::ls::RenderableMaterialData const&,md::ls::ColorRampDataHandle &,md::ls::HasMaterialRaster const*,md::ls::MaterialRasterMaxIndex const*>,std::tuple<>>::containsAll<md::ls::InView const,md::ls::MeshRenderableID const,md::ls::RenderableMaterialData const,md::ls::ColorRampDataHandle>(&v44, *v11, v11[1]))
-  {
-    v11 += 2;
-    v44 = v11;
-  }
-
-  v13 = v44;
-  if (v44 == v12)
-  {
-    v18 = _ZTWN4ecs27Runtime11_localStateE();
-    v19 = _ZTWN4ecs27Runtime11_stackIndexE();
-    v20 = 0;
-  }
-
-  else
-  {
-    v43 = a2;
-    v14 = v46;
-    v15 = v47;
-    v16 = v48;
-    v17 = v49;
-    v18 = _ZTWN4ecs27Runtime11_localStateE();
-    v19 = _ZTWN4ecs27Runtime11_stackIndexE();
-    v20 = 0;
-    v21 = v45;
-    do
-    {
-      v22 = v13[1];
-      v23 = v22 & 0x3F;
-      v24 = (v22 >> 3) & 0x1FF8;
-      v25 = *(*(*(v14 + 8) + v24) + 4 * v23 + 2);
-      v26 = *(*(v14 + 56) + ((v25 >> 3) & 0x1FF8));
-      v27 = *(*(*(v15 + 8) + v24) + 4 * v23 + 2);
-      v28 = *(*(v15 + 56) + ((v27 >> 3) & 0x1FF8));
-      v29 = *(*(*(v16 + 8) + v24) + 4 * v23 + 2);
-      v30 = *(*(v16 + 56) + ((v29 >> 3) & 0x1FF8));
-      v31 = *(*(*(v17 + 8) + v24) + 4 * v23 + 2);
-      v32 = *(*(v17 + 56) + ((v31 >> 3) & 0x1FF8));
-      *(v18 + 104 * *v19 + 24) = *v13;
-      if (!v51)
-      {
-        std::__throw_bad_function_call[abi:nn200100]();
-      }
-
-      (*(*v51 + 48))(v51, v26 + 8 * (v25 & 0x3F), v28 + 8 * (v27 & 0x3F), v30 + 12 * (v29 & 0x3F), v32 + 8 * (v31 & 0x3F));
-      ++v20;
-      v33 = v13 + 2;
-      while (1)
-      {
-        v13 = v33;
-        v44 = v33;
-        if (v33 == v21)
-        {
-          break;
-        }
-
-        v34 = ecs2::ViewIterator<void,std::tuple<md::ls::InView const&,md::ls::MeshRenderableID const&,md::ls::RenderableMaterialData const&,md::ls::ColorRampDataHandle &,md::ls::HasMaterialRaster const*,md::ls::MaterialRasterMaxIndex const*>,std::tuple<>>::containsAll<md::ls::InView const,md::ls::MeshRenderableID const,md::ls::RenderableMaterialData const,md::ls::ColorRampDataHandle>(&v44, *v33, v33[1]);
-        v33 = v13 + 2;
-        if (v34)
-        {
-          v35 = v13;
-          goto LABEL_17;
-        }
-      }
-
-      v35 = v21;
-LABEL_17:
-      ;
-    }
-
-    while (v35 != v12);
-    v36 = *(v43 + 8);
-    {
-      ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PipelineSetup>(void)::metadata = gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls::PipelineSetup>();
-      *algn_1EB83D948 = 0x9C4E7BCF9B8D6334;
-      qword_1EB83D950 = "md::ls::PipelineSetup]";
-      qword_1EB83D958 = 21;
-    }
-
-    *(v36 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PipelineSetup>(void)::metadata) = *(v36 + 4096);
-  }
-
-  *(v18 + 104 * *v19 + 24) = -65536;
-  v37 = v18 + 104 * *v19;
-  v38 = *(v37 + 92);
-  *(v37 + 92) = v38 + 1;
-  *(v37 + 4 * v38 + 28) = v20;
-  v39 = v18 + 104 * *v19;
-  v41 = *(v39 + 92);
-  v40 = (v39 + 92);
-  if (v41 >= 0x10)
-  {
-    *v40 = 0;
-  }
-
-  return std::__function::__value_func<void ()(md::ls::ItemsPrepared const&,md::ls::ElevatedStrokeConstantDataHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::ElevatedStroke>> const&,md::ls::PipelineSetup &)>::~__value_func[abi:nn200100](v50);
 }

@@ -12,9 +12,9 @@
 {
   sceneCopy = scene;
   providerCopy = provider;
-  v40.receiver = self;
-  v40.super_class = PRWidgetGridSnapshotViewController;
-  v11 = [(PRWidgetGridSnapshotViewController *)&v40 init];
+  v41.receiver = self;
+  v41.super_class = PRWidgetGridSnapshotViewController;
+  v11 = [(PRWidgetGridSnapshotViewController *)&v41 init];
   v12 = v11;
   if (v11)
   {
@@ -27,19 +27,20 @@
     pui_posterContents = [settings pui_posterContents];
 
     identity = [pui_posterContents identity];
-    v37 = pui_posterContents;
+    v38 = pui_posterContents;
     if ([identity type] == 3)
     {
       pui_previewIdentifier = [[PRPosterConfiguration alloc] _initWithPath:pui_posterContents];
-      v39 = 0;
-      v18 = [pui_previewIdentifier loadComplicationLayoutWithError:&v39];
-      v19 = v39;
+      v40 = 0;
+      v18 = [pui_previewIdentifier loadComplicationLayoutWithError:&v40];
+      v19 = v40;
+      v20 = v19;
       if (v19)
       {
-        v20 = PRLogCommon();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+        v21 = PRLogCommon(v19);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
         {
-          [PRWidgetGridSnapshotViewController initWithScene:pui_previewIdentifier complicationLayoutProvider:v19 gridType:v20];
+          [PRWidgetGridSnapshotViewController initWithScene:pui_previewIdentifier complicationLayoutProvider:v20 gridType:v21];
         }
       }
     }
@@ -63,44 +64,44 @@
       sidebarComplications = [v18 complications];
       [v18 sidebarComplicationIconLayout];
     }
-    v23 = ;
-    v38 = providerCopy;
-    v24 = MEMORY[0x1E695E0F0];
+    v24 = ;
+    v39 = providerCopy;
+    v25 = MEMORY[0x1E695E0F0];
     if (v18)
     {
-      v25 = [sidebarComplications bs_map:&__block_literal_global_20];
-      v26 = [v25 bs_filter:&__block_literal_global_5_0];
+      v26 = [sidebarComplications bs_map:&__block_literal_global_20];
+      v27 = [v26 bs_filter:&__block_literal_global_5_0];
     }
 
     else
     {
-      v26 = MEMORY[0x1E695E0F0];
+      v27 = MEMORY[0x1E695E0F0];
     }
 
-    v27 = [PRWidgetGridModel alloc];
-    if (v26)
+    v28 = [PRWidgetGridModel alloc];
+    if (v27)
     {
-      v28 = v26;
+      v29 = v27;
     }
 
     else
     {
-      v28 = v24;
+      v29 = v25;
     }
 
-    v29 = [(PRWidgetGridModel *)v27 initWithComplicationDescriptors:v28 iconLayout:v23 type:type];
-    [(NSMutableArray *)v12->_models bs_safeAddObject:v29];
-    v30 = [[PRWidgetGridViewController alloc] initWithModel:v29 iconViewProvider:0];
+    v30 = [(PRWidgetGridModel *)v28 initWithComplicationDescriptors:v29 iconLayout:v24 type:type];
+    [(NSMutableArray *)v12->_models bs_safeAddObject:v30];
+    v31 = [[PRWidgetGridViewController alloc] initWithModel:v30 iconViewProvider:0];
     widgetGridViewController = v12->_widgetGridViewController;
-    v12->_widgetGridViewController = v30;
+    v12->_widgetGridViewController = v31;
 
     [(PRWidgetGridViewController *)v12->_widgetGridViewController setConfigureForSnapshotting:1];
-    v32 = v12->_widgetGridViewController;
+    v33 = v12->_widgetGridViewController;
     clientSettings = [sceneCopy clientSettings];
     pr_vibrancyConfiguration = [clientSettings pr_vibrancyConfiguration];
-    [(PRWidgetGridViewController *)v32 setVibrancyConfiguration:pr_vibrancyConfiguration];
+    [(PRWidgetGridViewController *)v33 setVibrancyConfiguration:pr_vibrancyConfiguration];
 
-    providerCopy = v38;
+    providerCopy = v39;
   }
 
   return v12;

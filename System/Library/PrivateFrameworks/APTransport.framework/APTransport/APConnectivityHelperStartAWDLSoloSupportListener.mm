@@ -19,42 +19,28 @@ void ___APConnectivityHelperStartAWDLSoloSupportListener_block_invoke(uint64_t a
 void *___APConnectivityHelperStartAWDLSoloSupportListener_block_invoke_2(void *result)
 {
   v1 = result[5];
-  if (v1[232])
+  if (!v1[232])
   {
-    return result;
-  }
-
-  result = result[4];
-  if (!result)
-  {
-    return result;
-  }
-
-  v1[152] = [result supportsSoloMode];
-  v1[153] = 1;
-  if (gLogCategory_APConnectivityHelper <= 40)
-  {
-    if (gLogCategory_APConnectivityHelper != -1)
+    result = result[4];
+    if (result)
     {
-LABEL_7:
-      OUTLINED_FUNCTION_11();
-      goto LABEL_8;
-    }
+      v1[152] = [result supportsSoloMode];
+      v1[153] = 1;
+      if (gLogCategory_APConnectivityHelper <= 40 && (gLogCategory_APConnectivityHelper != -1 || OUTLINED_FUNCTION_7(&gLogCategory_APConnectivityHelper)))
+      {
+        OUTLINED_FUNCTION_11(&gLogCategory_APConnectivityHelper, "OSStatus _APConnectivityHelperHandleAWDLStateUpdated(APConnectivityHelperRef, WiFiP2PAWDLState *)", v3, "[%{ptr}] Solo Support query was successful. The device %s AWDL Solo.\n");
+      }
 
-    if (OUTLINED_FUNCTION_7())
-    {
-      v2 = v1[152];
-      goto LABEL_7;
+      if (_APConnectivityHelperSendAWDLSoloSupportEvent(v1, v2, v3))
+      {
+        APSLogErrorAt();
+      }
+
+      return _APConnectivityHelperEnsureAWDLSoloSupportListenerStopped(v1, v4, v5);
     }
   }
 
-LABEL_8:
-  if (_APConnectivityHelperSendAWDLSoloSupportEvent(v1))
-  {
-    APSLogErrorAt();
-  }
-
-  return _APConnectivityHelperEnsureAWDLSoloSupportListenerStopped(v1);
+  return result;
 }
 
 @end

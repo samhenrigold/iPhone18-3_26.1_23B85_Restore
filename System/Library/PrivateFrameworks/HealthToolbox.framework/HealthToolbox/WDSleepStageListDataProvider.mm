@@ -18,13 +18,11 @@
 
 - (id)sampleTypes
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   displayType = [(WDSampleListDataProvider *)self displayType];
   sampleType = [displayType sampleType];
-  v7[0] = sampleType;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v6[0] = sampleType;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
 
   return v4;
 }
@@ -63,32 +61,32 @@ uint64_t __50__WDSleepStageListDataProvider__callUpdateHandler__block_invoke(uin
 
 - (id)_sleepDataDictionaryFromSamples:(id)samples
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   samplesCopy = samples;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   obj = samplesCopy;
-  v5 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v5 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v29;
+    v7 = *v28;
     v8 = &OBJC_METACLASS___WDAppSourcesListTableViewSection;
-    v23 = v27;
+    v22 = v26;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v29 != v7)
+        if (*v28 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v28 + 1) + 8 * i);
-        v11 = [&v8[75] sleep_timePeriodForSample:{v10, v23}];
+        v10 = *(*(&v27 + 1) + 8 * i);
+        v11 = [&v8[75] sleep_timePeriodForSample:{v10, v22}];
         array = [dictionary objectForKeyedSubscript:v11];
         if (!array)
         {
@@ -96,15 +94,15 @@ uint64_t __50__WDSleepStageListDataProvider__callUpdateHandler__block_invoke(uin
           [dictionary setObject:array forKeyedSubscript:v11];
         }
 
-        v26[0] = MEMORY[0x277D85DD0];
-        v26[1] = 3221225472;
-        v27[0] = __64__WDSleepStageListDataProvider__sleepDataDictionaryFromSamples___block_invoke;
-        v27[1] = &unk_2796E7A80;
-        v27[2] = v10;
-        v13 = [array hk_firstObjectPassingTest:v26];
+        v25[0] = MEMORY[0x277D85DD0];
+        v25[1] = 3221225472;
+        v26[0] = __64__WDSleepStageListDataProvider__sleepDataDictionaryFromSamples___block_invoke;
+        v26[1] = &unk_2796E7A80;
+        v26[2] = v10;
+        v13 = [array hk_firstObjectPassingTest:v25];
         if (!v13)
         {
-          v25 = [WDSleepStageSampleBucket alloc];
+          v24 = [WDSleepStageSampleBucket alloc];
           v14 = dictionary;
           v15 = v7;
           value = [v10 value];
@@ -114,7 +112,7 @@ uint64_t __50__WDSleepStageListDataProvider__callUpdateHandler__block_invoke(uin
           v20 = value;
           v7 = v15;
           dictionary = v14;
-          v13 = [(WDSleepStageSampleBucket *)v25 initWithSleepStage:v20 timePeriod:v11 sourceRevision:sourceRevision device:v19];
+          v13 = [(WDSleepStageSampleBucket *)v24 initWithSleepStage:v20 timePeriod:v11 sourceRevision:sourceRevision device:v19];
 
           v6 = v18;
           v8 = &OBJC_METACLASS___WDAppSourcesListTableViewSection;
@@ -125,14 +123,13 @@ uint64_t __50__WDSleepStageListDataProvider__callUpdateHandler__block_invoke(uin
         [(WDSleepStageSampleBucket *)v13 addSample:v10];
       }
 
-      v6 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v6 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
     }
 
     while (v6);
   }
 
   [dictionary enumerateKeysAndObjectsUsingBlock:&__block_literal_global_300];
-  v21 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }
@@ -285,35 +282,35 @@ LABEL_15:
 
 - (void)removeObjectAtIndex:(unint64_t)index forSection:(unint64_t)section sectionRemoved:(BOOL *)removed
 {
-  v26 = *MEMORY[0x277D85DE8];
-  v19 = [(NSMutableArray *)self->_orderedKeys objectAtIndexedSubscript:section];
+  v25 = *MEMORY[0x277D85DE8];
+  v18 = [(NSMutableArray *)self->_orderedKeys objectAtIndexedSubscript:section];
   v7 = [(NSMutableDictionary *)self->_sleepData objectForKeyedSubscript:?];
   v8 = [v7 objectAtIndexedSubscript:index];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   samples = [v8 samples];
-  v10 = [samples countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v10 = [samples countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v22;
+    v12 = *v21;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v22 != v12)
+        if (*v21 != v12)
         {
           objc_enumerationMutation(samples);
         }
 
-        v14 = *(*(&v21 + 1) + 8 * i);
+        v14 = *(*(&v20 + 1) + 8 * i);
         samples2 = [(WDSampleListDataProvider *)self samples];
         [samples2 removeSample:v14];
       }
 
-      v11 = [samples countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v11 = [samples countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v11);
@@ -332,8 +329,6 @@ LABEL_15:
   }
 
   *removed = v16;
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteAllData

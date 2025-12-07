@@ -18,10 +18,11 @@
 
 + (void)initialize
 {
-  if (objc_opt_class() == self)
+  v3 = objc_opt_class();
+  if (v3 == self)
   {
 
-    DTKPSetupLogging();
+    DTKPSetupLogging(v3, v4);
   }
 }
 
@@ -101,49 +102,48 @@
 
 - (BOOL)start:(id *)start
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   std::mutex::lock((self + 16));
-  v5 = *MEMORY[0x277D85F48];
   if (CSTaskIsTranslated())
   {
-    v6 = sub_247FAC0A8(@"ktrace cannot trace the system under Rosetta translation", -500);
+    v5 = sub_247FAC0A8(@"ktrace cannot trace the system under Rosetta translation", -500);
     if (start)
     {
-      *start = v6;
+      *start = v5;
     }
 
-    v7 = 0;
+    v6 = 0;
     *(self + 20) = 4;
   }
 
   else
   {
-    v8 = *(self + 20);
-    if (v8)
+    v7 = *(self + 20);
+    if (v7)
     {
-      v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"Cannot start session unless it's idle. Current state: %s", sub_247FAC4F4(v8)];
-      v10 = sub_247FAC0A8(v9, -500);
+      v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"Cannot start session unless it's idle. Current state: %s", sub_247FAC4F4(v7)];
+      v9 = sub_247FAC0A8(v8, -500);
       if (start)
       {
-        *start = v10;
+        *start = v9;
       }
     }
 
     else
     {
-      v11 = sDTKPLogClient;
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+      v10 = sDTKPLogClient;
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
         *buf = 67109120;
         sessionID = [(DTKPSession *)self sessionID];
-        _os_log_impl(&dword_247F67000, v11, OS_LOG_TYPE_INFO, "DTKPSession: Starting recording. ID %d.", buf, 8u);
+        _os_log_impl(&dword_247F67000, v10, OS_LOG_TYPE_INFO, "DTKPSession: Starting recording. ID %d.", buf, 8u);
       }
 
       _lockKPerf = [(DTKPSession *)self _lockKPerf];
-      v13 = _lockKPerf;
+      v12 = _lockKPerf;
       if (start)
       {
-        v13 = 0;
+        v12 = 0;
         *start = _lockKPerf;
       }
 
@@ -152,47 +152,47 @@
         [(DTKPSession *)self recordingPriority];
         if (kperf_bless_allow_preemption())
         {
-          v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"Could not set the recording priority."];
-          v15 = sub_247FAC0A8(v14, -6);
+          v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"Could not set the recording priority."];
+          v14 = sub_247FAC0A8(v13, -6);
           if (start)
           {
-            *start = v15;
+            *start = v14;
           }
 
           else
           {
-            v13 = v15;
+            v12 = v14;
           }
         }
 
         else
         {
           apply = [*(self + 11) apply];
-          v17 = apply;
+          v16 = apply;
           if (start)
           {
             *start = apply;
-            v17 = v13;
+            v16 = v12;
           }
 
           if (apply)
           {
-            v13 = v17;
+            v12 = v16;
           }
 
           else
           {
             start = [*(self + 12) start];
-            v13 = start;
+            v12 = start;
             if (start)
             {
               *start = start;
-              v13 = v17;
+              v12 = v16;
             }
 
             if (!start)
             {
-              v7 = 1;
+              v6 = 1;
               *(self + 20) = 1;
               goto LABEL_29;
             }
@@ -207,28 +207,27 @@
       *(self + 20) = 4;
       if (!start)
       {
-        v18 = v13;
+        v17 = v12;
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
-          [v18 localizedDescription];
+          [v17 localizedDescription];
           objc_claimAutoreleasedReturnValue();
           sub_24802E6BC();
         }
       }
     }
 
-    v7 = 0;
+    v6 = 0;
   }
 
 LABEL_29:
   std::mutex::unlock((self + 16));
-  v19 = *MEMORY[0x277D85DE8];
-  return v7;
+  return v6;
 }
 
 - (BOOL)pause:(id *)pause
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   std::mutex::lock((self + 16));
   v5 = *(self + 20);
   if (v5 != 1)
@@ -298,13 +297,12 @@ LABEL_18:
   v16 = 1;
 LABEL_19:
   std::mutex::unlock((self + 16));
-  v19 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 - (BOOL)resume:(id *)resume
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   std::mutex::lock((self + 16));
   v5 = *(self + 20);
   if (v5 != 2)
@@ -374,13 +372,12 @@ LABEL_18:
   *(self + 20) = 1;
 LABEL_19:
   std::mutex::unlock((self + 16));
-  v19 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 - (BOOL)stop:(id *)stop
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   std::mutex::lock((self + 16));
   v5 = *(self + 20);
   if ((v5 - 1) < 2)
@@ -493,7 +490,6 @@ LABEL_26:
 
 LABEL_31:
   std::mutex::unlock((self + 16));
-  v26 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

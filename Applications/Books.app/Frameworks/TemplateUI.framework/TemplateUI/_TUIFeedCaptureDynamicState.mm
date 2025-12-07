@@ -33,7 +33,7 @@
   v5 = objc_opt_class();
   v6 = TUIDynamicCast(v5, equalCopy);
 
-  if (v6 && ((kind = self->_kind, kind == v6[2]) || [(NSString *)kind isEqualToString:?]) && ((instance = self->_instance, instance == v6[3]) || [instance isEqual:?]))
+  if (v6 && ((kind = self->_kind, kind == v6[2]) || objc_msgSend_isEqualToString_(kind)) && ((instance = self->_instance, instance == v6[3]) || [instance isEqual:?]))
   {
     parameters = self->_parameters;
     if (parameters == v6[4])

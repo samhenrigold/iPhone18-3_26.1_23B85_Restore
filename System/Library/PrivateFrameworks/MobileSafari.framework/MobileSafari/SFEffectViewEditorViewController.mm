@@ -71,7 +71,7 @@
   sub_18BC1ED88();
   viewCopy = view;
   selfCopy = self;
-  sub_18B986078();
+  sub_18B986078(v9);
 
   (*(v7 + 8))(v9, v6);
 }
@@ -138,7 +138,7 @@
   }
 
   bundleCopy = bundle;
-  return SFEffectViewEditorViewController.init(nibName:bundle:)(v5, v7, bundle);
+  return SFEffectViewEditorViewController.init(nibName:bundle:)(v5, v7, bundle, v9);
 }
 
 - (void)documentPicker:(id)picker didPickDocumentsAtURLs:(id)ls
@@ -147,7 +147,7 @@
   v6 = sub_18BC20D98();
   pickerCopy = picker;
   selfCopy = self;
-  sub_18B986330(v6);
+  sub_18B986330(v6, v9);
 }
 
 @end

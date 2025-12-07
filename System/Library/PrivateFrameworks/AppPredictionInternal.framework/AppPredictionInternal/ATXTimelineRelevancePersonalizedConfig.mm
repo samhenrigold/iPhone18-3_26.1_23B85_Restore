@@ -63,33 +63,34 @@
 
 - (id)_readPersonalizedConfiguration
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CEBCB0] appPredictionDirectoryFile:@"ATXTimelineRelevancePersonalizedConfig"];
   v3 = objc_autoreleasePoolPush();
-  v18 = 0;
-  v4 = [objc_alloc(MEMORY[0x277CBEA90]) initWithContentsOfFile:v2 options:0 error:&v18];
-  v5 = v18;
+  v19 = 0;
+  v4 = [objc_alloc(MEMORY[0x277CBEA90]) initWithContentsOfFile:v2 options:0 error:&v19];
+  v5 = v19;
+  v6 = v5;
   if (v4)
   {
-    v6 = objc_alloc(MEMORY[0x277CBEB98]);
-    v7 = objc_opt_class();
+    v7 = objc_alloc(MEMORY[0x277CBEB98]);
     v8 = objc_opt_class();
-    v9 = [v6 initWithObjects:{v7, v8, objc_opt_class(), 0}];
-    v10 = objc_autoreleasePoolPush();
-    v17 = v5;
-    v11 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:v9 fromData:v4 error:&v17];
-    v12 = v17;
+    v9 = objc_opt_class();
+    v10 = [v7 initWithObjects:{v8, v9, objc_opt_class(), 0}];
+    v11 = objc_autoreleasePoolPush();
+    v18 = v6;
+    v12 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:v10 fromData:v4 error:&v18];
+    v13 = v18;
 
-    objc_autoreleasePoolPop(v10);
-    if (v11)
+    objc_autoreleasePoolPop(v11);
+    if (v12)
     {
-      v13 = v11;
+      v15 = v12;
     }
 
     else
     {
-      v14 = __atxlog_handle_timeline();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+      v16 = __atxlog_handle_timeline(v14);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
       {
         [(ATXTimelineRelevancePersonalizedConfig *)v2 _readPersonalizedConfiguration];
       }
@@ -98,35 +99,33 @@
 
   else
   {
-    v9 = __atxlog_handle_timeline();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v10 = __atxlog_handle_timeline(v5);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       *buf = 138543618;
-      v20 = v2;
-      v21 = 2114;
-      v22 = v5;
-      _os_log_impl(&dword_2263AA000, v9, OS_LOG_TYPE_INFO, "ATXTimelineRelevancePersonalizedConfig does not exist at path: %{public}@: %{public}@", buf, 0x16u);
+      v21 = v2;
+      v22 = 2114;
+      v23 = v6;
+      _os_log_impl(&dword_2263AA000, v10, OS_LOG_TYPE_INFO, "ATXTimelineRelevancePersonalizedConfig does not exist at path: %{public}@: %{public}@", buf, 0x16u);
     }
 
-    v11 = 0;
-    v12 = v5;
+    v12 = 0;
+    v13 = v6;
   }
 
   objc_autoreleasePoolPop(v3);
-  v15 = *MEMORY[0x277D85DE8];
 
-  return v11;
+  return v12;
 }
 
 - (void)_readPersonalizedConfiguration
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138543618;
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138543618;
   selfCopy = self;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_fault_impl(&dword_2263AA000, log, OS_LOG_TYPE_FAULT, "Failed to read personalized configuration at path: %{public}@. Error: %{public}@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v5 = 2114;
+  v6 = a2;
+  _os_log_fault_impl(&dword_2263AA000, log, OS_LOG_TYPE_FAULT, "Failed to read personalized configuration at path: %{public}@. Error: %{public}@", &v3, 0x16u);
 }
 
 @end

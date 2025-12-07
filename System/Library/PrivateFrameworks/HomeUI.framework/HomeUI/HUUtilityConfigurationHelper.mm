@@ -35,7 +35,7 @@
 
 - (NSURL)OAuthURL
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C81CDF0);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C81CDF0, &qword_20D5BE120);
   MEMORY[0x28223BE20](v3 - 8);
   v5 = &v13 - v4;
   selfCopy = self;
@@ -72,7 +72,7 @@
   selfCopy = self;
   UtilityConfigurationHelper.sections.getter();
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C820E30);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C820E30, &qword_20D5BC900);
   v3 = sub_20D567A58();
 
   return v3;
@@ -80,7 +80,7 @@
 
 - (void)isTAFEnabledWithCompletionHandler:(id)handler
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81C610);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81C610, &qword_20D5BCCE0);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);

@@ -155,12 +155,12 @@
 
 - (NSDictionary)jsonDictionary
 {
-  v18[1] = *MEMORY[0x1E69E9840];
-  v17 = @"rule";
+  v17[1] = *MEMORY[0x1E69E9840];
+  v16 = @"rule";
   v3 = +[AXSSPunctuationManager sharedDatabase];
   v4 = [v3 ruleToString:{-[AXSSPunctuationEntry rule](self, "rule")}];
-  v18[0] = v4;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+  v17[0] = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
   v6 = [v5 mutableCopy];
 
   punctuation = [(AXSSPunctuationEntry *)self punctuation];
@@ -190,8 +190,6 @@
 
   v14 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:{-[AXSSPunctuationEntry version](self, "version")}];
   [v6 setObject:v14 forKeyedSubscript:@"version"];
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

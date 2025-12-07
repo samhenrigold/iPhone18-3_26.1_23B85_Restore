@@ -16,7 +16,7 @@
       *&v47[8] = v47;
       *&v47[16] = 0x2020000000;
       LOBYTE(v48) = 1;
-      v4 = sub_1002BB3F0();
+      v4 = sub_1002BB3F0(AppUpdatesDatabaseStore);
       v44[0] = _NSConcreteStackBlock;
       v44[1] = 3221225472;
       v44[2] = sub_10036485C;
@@ -36,7 +36,7 @@
           _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "[%@] Resetting update after purchase failed", buf, 0xCu);
         }
 
-        v7 = sub_1002BB3F0();
+        v7 = sub_1002BB3F0(AppUpdatesDatabaseStore);
         bundleID2 = [(PurchaseInfo *)self->_purchaseInfo bundleID];
         logKey2 = [(PurchaseInfo *)self->_purchaseInfo logKey];
         sub_1002BBC18(v7, bundleID2, logKey2);
@@ -125,7 +125,7 @@
 
   if (bundleID5)
   {
-    v33 = sub_1003649C8();
+    v33 = sub_1003649C8(ProgressCache);
     bundleID6 = [(PurchaseInfo *)self->_purchaseInfo bundleID];
     sub_100365318(v33, bundleID6);
   }

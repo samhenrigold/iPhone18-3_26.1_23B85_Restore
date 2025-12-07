@@ -1,14 +1,14 @@
 @interface PKMetalShader
+- (id)initWithVertexFunction:(void *)function fragmentFunction:(void *)fragmentFunction blendMode:(void *)mode colorAttachmentIndex:(void *)index sharedPipelineDescriptor:(void *)descriptor numColorAttachments:;
 - (id)msaaPipelineStateWithSampleCount:(id *)count;
+- (id)newShaderWithBlendMode:(void *)mode;
 - (id)pipelineStateDescriptorSampleCount:(uint64_t)count;
-- (uint64_t)initWithVertexFunction:(void *)function fragmentFunction:(uint64_t)fragmentFunction blendMode:(uint64_t)mode colorAttachmentIndex:(void *)index sharedPipelineDescriptor:(uint64_t)descriptor numColorAttachments:;
-- (uint64_t)newShaderWithBlendMode:(void *)mode;
 - (void)shaderWithBlendMode:(void *)mode;
 @end
 
 @implementation PKMetalShader
 
-- (uint64_t)initWithVertexFunction:(void *)function fragmentFunction:(uint64_t)fragmentFunction blendMode:(uint64_t)mode colorAttachmentIndex:(void *)index sharedPipelineDescriptor:(uint64_t)descriptor numColorAttachments:
+- (id)initWithVertexFunction:(void *)function fragmentFunction:(void *)fragmentFunction blendMode:(void *)mode colorAttachmentIndex:(void *)index sharedPipelineDescriptor:(void *)descriptor numColorAttachments:
 {
   v29 = *MEMORY[0x1E69E9840];
   v14 = a2;
@@ -23,20 +23,20 @@
     if (v17)
     {
       objc_storeStrong(v17 + 1, a2);
-      objc_storeStrong((self + 16), function);
-      *(self + 64) = fragmentFunction;
-      *(self + 72) = mode;
-      objc_storeStrong((self + 80), index);
-      *(self + 88) = descriptor;
-      device = [*(self + 8) device];
+      objc_storeStrong(self + 2, function);
+      self[8] = fragmentFunction;
+      self[9] = mode;
+      objc_storeStrong(self + 10, index);
+      self[11] = descriptor;
+      device = [self[1] device];
       v19 = [(PKMetalShader *)self pipelineStateDescriptorSampleCount:?];
       v26 = 0;
       v20 = [device newRenderPipelineStateWithDescriptor:v19 error:&v26];
       v21 = v26;
-      v22 = *(self + 24);
-      *(self + 24) = v20;
+      v22 = self[3];
+      self[3] = v20;
 
-      if (!*(self + 24))
+      if (!self[3])
       {
         v23 = os_log_create("com.apple.pencilkit", "");
         if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
@@ -248,7 +248,7 @@ LABEL_27:
   return v3;
 }
 
-- (uint64_t)newShaderWithBlendMode:(void *)mode
+- (id)newShaderWithBlendMode:(void *)mode
 {
   v4 = [PKMetalShader alloc];
   v5 = mode[1];
@@ -257,7 +257,7 @@ LABEL_27:
   v8 = mode[10];
   v9 = mode[11];
 
-  return [(PKMetalShader *)v4 initWithVertexFunction:v5 fragmentFunction:v6 blendMode:a2 colorAttachmentIndex:v7 sharedPipelineDescriptor:v8 numColorAttachments:v9];
+  return [(PKMetalShader *)&v4->super.isa initWithVertexFunction:v5 fragmentFunction:v6 blendMode:a2 colorAttachmentIndex:v7 sharedPipelineDescriptor:v8 numColorAttachments:v9];
 }
 
 - (void)shaderWithBlendMode:(void *)mode

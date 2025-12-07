@@ -10,6 +10,7 @@
 - (NSUUID)aotUuid;
 - (NSUUID)uuid;
 - (_DYSharedCache)init;
+- (_DYSharedCache)initWithInternal:(BOOL)internal;
 - (unint64_t)address;
 - (unint64_t)aotAddress;
 - (unint64_t)preferredLoadAddress;
@@ -18,6 +19,18 @@
 @end
 
 @implementation _DYSharedCache
+
+- (_DYSharedCache)initWithInternal:(BOOL)internal
+{
+  *(&self->super.isa + OBJC_IVAR____DYSharedCache____lazy_storage___images) = 0;
+  *(&self->super.isa + OBJC_IVAR____DYSharedCache____lazy_storage___subCaches) = 0;
+  v3 = (&self->super.isa + OBJC_IVAR____DYSharedCache_impl);
+  *v3 = 0;
+  v3[1] = 0;
+  v5.receiver = self;
+  v5.super_class = _DYSharedCache;
+  return [(_DYSharedCache *)&v5 init];
+}
 
 - (unint64_t)vmsize
 {
@@ -39,16 +52,15 @@
 {
   v3 = sub_1AE4EAB10();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x1EEE9AC00](v3);
-  v7 = &v14 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v13 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   selfCopy = self;
-  sub_1AE4BD300(selfCopy, v9, v10, v11);
+  sub_1AE4BD300(selfCopy, v8, v9, v10);
 
-  v12 = sub_1AE4EAAD0();
-  (*(v4 + 8))(v7, v3);
+  v11 = sub_1AE4EAAD0();
+  (*(v4 + 8))(v6, v3);
 
-  return v12;
+  return v11;
 }
 
 - (BOOL)mappedPrivate
@@ -88,7 +100,7 @@ LABEL_5:
   {
     v3 = *(&self[1].super.isa + OBJC_IVAR____DYSharedCache_impl);
     selfCopy = self;
-    sub_1AE4BD9A8(v2);
+    sub_1AE4BD9A8(v2, v3);
     sub_1AE4CE2F8();
 
     v5 = sub_1AE4EAE70();
@@ -107,24 +119,23 @@ LABEL_5:
 - (NSUUID)aotUuid
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB5DD4B8, "R3");
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x1EEE9AC00](v3 - 8);
-  v6 = &v16 - v5;
+  v5 = &v15 - v4;
   selfCopy = self;
-  sub_1AE4E329C(v8, v9, v6);
+  sub_1AE4E329C(v7, v8, v5);
 
-  v10 = sub_1AE4EAB10();
-  v11 = *(v10 - 8);
-  v12 = (*(v11 + 48))(v6, 1, v10);
-  v13 = 0;
-  if (v12 != 1)
+  v9 = sub_1AE4EAB10();
+  v10 = *(v9 - 8);
+  v11 = (*(v10 + 48))(v5, 1, v9);
+  v12 = 0;
+  if (v11 != 1)
   {
-    v14 = sub_1AE4EAAD0();
-    (*(v11 + 8))(v6, v10);
-    v13 = v14;
+    v13 = sub_1AE4EAAD0();
+    (*(v10 + 8))(v5, v9);
+    v12 = v13;
   }
 
-  return v13;
+  return v12;
 }
 
 - (unint64_t)aotAddress
@@ -134,8 +145,8 @@ LABEL_5:
   {
     v3 = *(self + OBJC_IVAR____DYSharedCache_impl + 8);
     selfCopy = self;
-    sub_1AE4BD9A8(v2);
-    v5 = sub_1AE4DDCF4();
+    sub_1AE4BD9A8(v2, v3);
+    v5 = sub_1AE4DDCF4(v2);
     v7 = v6;
 
     if (v7)
@@ -164,7 +175,7 @@ LABEL_5:
   {
     v3 = *(&self[1].super.isa + OBJC_IVAR____DYSharedCache_impl);
     selfCopy = self;
-    sub_1AE4BD9A8(v2);
+    sub_1AE4BD9A8(v2, v3);
     v5 = sub_1AE4CEF4C();
     v7 = v6;
 
@@ -213,7 +224,7 @@ LABEL_5:
 
   v3 = *&self->$__lazy_storage_$_images[OBJC_IVAR____DYSharedCache_impl];
   selfCopy = self;
-  sub_1AE4BD9A8(v2);
+  sub_1AE4BD9A8(v2, v3);
   sub_1AE4DC0D0();
   self = swift_weakLoadStrong();
   if (!self)
@@ -238,7 +249,7 @@ LABEL_5:
   {
     v3 = *&self->$__lazy_storage_$_images[OBJC_IVAR____DYSharedCache_impl];
     selfCopy = self;
-    sub_1AE4BD9A8(v2);
+    sub_1AE4BD9A8(v2, v3);
     v5 = sub_1AE4DC0D0();
 
     v6 = *(v5 + OBJC_IVAR____TtC4Dyld17SharedCacheMapper_pinnedMapping);

@@ -43,7 +43,7 @@
   mailboxCopy = mailbox;
   name = [mailboxCopy name];
   v8 = [name caseInsensitiveCompare:@"INBOX"];
-  v9 = sub_1000027C8();
+  v9 = sub_1000027C8(v8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     mambaID = [mailboxCopy mambaID];

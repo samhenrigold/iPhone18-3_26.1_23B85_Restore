@@ -362,7 +362,7 @@ void __32__PKTiledView_showDebugOutlines__block_invoke()
 
   if (contentCoordinateSpace)
   {
-    [(PKTiledView *)self contentCoordinateSpaceTransform];
+    objc_msgSend_contentCoordinateSpaceTransform(self);
     return sqrt(v10 * v10 + v9 * v9);
   }
 
@@ -2207,7 +2207,7 @@ LABEL_14:
         v7 = *(*(&v12 + 1) + 8 * v6);
         if (v7)
         {
-          [*(*(&v12 + 1) + 8 * v6) drawingTransform];
+          objc_msgSend_drawingTransform(*(*(&v12 + 1) + 8 * v6));
         }
 
         else
@@ -3621,22 +3621,22 @@ void __43__PKTiledView__observeScrollViewDidScroll___block_invoke(uint64_t a1)
 - (id)smoothedHullForStroke:(id)stroke
 {
   strokeCopy = stroke;
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x4812000000;
-  v15 = __Block_byref_object_copy__1;
-  v16 = __Block_byref_object_dispose__1;
-  v17 = "";
-  v19 = 0;
-  v20 = 0;
-  v18 = 0;
+  v12[0] = 0;
+  v12[1] = v12;
+  v12[2] = 0x4812000000;
+  v12[3] = __Block_byref_object_copy__1;
+  v12[4] = __Block_byref_object_dispose__1;
+  v12[5] = "";
+  v14 = 0;
+  v15 = 0;
+  v13 = 0;
   v11[0] = MEMORY[0x1E69E9820];
   v11[1] = 3221225472;
   v11[2] = __37__PKTiledView_smoothedHullForStroke___block_invoke;
   v11[3] = &unk_1E82D6A10;
-  v11[4] = &v12;
+  v11[4] = v12;
   [strokeCopy interpolatePointDataWithStep:v11 usingBlock:1.0];
-  [PKPathUtility smoothedHullForPoints:v13 + 6];
+  objc_msgSend_smoothedHullForPoints_(PKPathUtility);
   v4 = [PKPathUtility bezierPathFromPoints:__p];
   v5 = [PKStroke alloc];
   cGPath = [v4 CGPath];
@@ -3649,11 +3649,11 @@ void __43__PKTiledView__observeScrollViewDidScroll___block_invoke(uint64_t a1)
     operator delete(__p[0]);
   }
 
-  _Block_object_dispose(&v12, 8);
-  if (v18)
+  _Block_object_dispose(v12, 8);
+  if (v13)
   {
-    v19 = v18;
-    operator delete(v18);
+    v14 = v13;
+    operator delete(v13);
   }
 
   return v8;
@@ -4245,7 +4245,7 @@ LABEL_10:
       src = 0u;
       if (v8)
       {
-        [v8 drawingTransform];
+        objc_msgSend_drawingTransform(v8);
         v13 = *(&src + 1);
         v14 = *&src;
       }
@@ -4320,7 +4320,7 @@ LABEL_10:
   if (v11)
   {
     drawing = [v9 drawing];
-    [(PKTiledView *)self transformFromViewToStrokeSpaceInDrawing:drawing];
+    objc_msgSend_transformFromViewToStrokeSpaceInDrawing_(self);
 
     v13 = [v11 _handleSingleTapAtDrawingLocation:1 fromTapStroke:{y * 0.0 + 0.0 * x + 0.0, y * 0.0 + 0.0 * x + 0.0}];
   }
@@ -5247,7 +5247,7 @@ LABEL_23:
   v9 = inputController;
   if (inputController)
   {
-    [inputController _latestStrokePoint];
+    objc_msgSend__latestStrokePoint(inputController);
   }
 
   else
@@ -5305,7 +5305,7 @@ LABEL_23:
   {
     drawing = [attachmentCopy drawing];
 
-    if (!drawing || ([attachmentCopy drawing], v11 = objc_claimAutoreleasedReturnValue(), -[PKTiledView transformFromViewToStrokeSpaceInDrawing:](self, "transformFromViewToStrokeSpaceInDrawing:", v11), v11, (objc_msgSend(v9, "_handleSingleTapAtDrawingLocation:", y * 0.0 + 0.0 * x + 0.0, y * 0.0 + 0.0 * x + 0.0) & 1) == 0))
+    if (!drawing || ([attachmentCopy drawing], v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend_transformFromViewToStrokeSpaceInDrawing_(self), v11, (objc_msgSend(v9, "_handleSingleTapAtDrawingLocation:", y * 0.0 + 0.0 * x + 0.0, y * 0.0 + 0.0 * x + 0.0) & 1) == 0))
     {
       [(PKTiledView *)self _showEditMenuFromLocation:v9 forAttachment:x, y];
     }
@@ -5632,7 +5632,7 @@ LABEL_16:
       drawing4 = [v28 drawing];
       [drawing4 bounds];
       MaxY = CGRectGetMaxY(v43);
-      [v28 drawingTransform];
+      objc_msgSend_drawingTransform(v28);
       [v32 updateDrawingHeight:MaxY * sqrt(v40 * v40 + *buf * *buf)];
     }
   }
@@ -6225,11 +6225,11 @@ LABEL_79:
         *location = 0u;
         if (v85)
         {
-          [v85 drawingTransform];
+          objc_msgSend_drawingTransform(v85);
           v100 = 0u;
           v101 = 0u;
           v99 = 0u;
-          [v85 preResizeDrawingTransform];
+          objc_msgSend_preResizeDrawingTransform(v85);
           v86 = *location / *&v99;
         }
 
@@ -6350,7 +6350,7 @@ void __54__PKTiledView__layoutSubviewsUpdateTilesForRendering___block_invoke_2(u
   memset(&v45[1], 0, sizeof(CGAffineTransform));
   if (attachmentCopy)
   {
-    [attachmentCopy drawingTransform];
+    objc_msgSend_drawingTransform(attachmentCopy);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_canvasView);
@@ -6370,7 +6370,7 @@ void __54__PKTiledView__layoutSubviewsUpdateTilesForRendering___block_invoke_2(u
   v33 = canvasView;
   if (canvasView)
   {
-    [canvasView _replayCoordinateSystemTransform];
+    objc_msgSend__replayCoordinateSystemTransform(canvasView);
   }
 
   else
@@ -6395,7 +6395,7 @@ void __54__PKTiledView__layoutSubviewsUpdateTilesForRendering___block_invoke_2(u
   if (contentCoordinateSpace)
   {
     memset(&t1, 0, sizeof(t1));
-    [(PKTiledView *)self contentCoordinateSpaceTransform];
+    objc_msgSend_contentCoordinateSpaceTransform(self);
     tx = t1.tx;
     ty = t1.ty;
     v29 = *MEMORY[0x1E695EFF8];
@@ -7361,7 +7361,7 @@ void __51__PKTiledView_renderAttachment_intoCanvas_showing___block_invoke(uint64
     v12 = v11;
     [*(a1 + 48) bounds];
     DKDNormalizedSubrectInRect(v6, v8, v10, v12);
-    [PKMetalUtility transformConvertingRect:"transformConvertingRect:toRect:percent:" toRect:0x3FF0000000000000 percent:?];
+    objc_msgSend_transformConvertingRect_toRect_percent_(PKMetalUtility, 0x3FF0000000000000);
     v13 = *(*(a1 + 64) + 8);
     v14 = v18;
     v13[3] = *buf;
@@ -8794,7 +8794,7 @@ LABEL_19:
     gestureView = 0;
   }
 
-  v20 = [(PKRendererTile *)x layerFrameForLevel:PKRendererTile offset:gestureView];
+  v20 = [PKRendererTile layerFrameForLevel:x offset:y];
   v22 = v21;
   v24 = v23;
   v26 = v25;
@@ -9231,7 +9231,7 @@ LABEL_50:
           }
 
           visibleAttachments = [(PKTiledView *)self visibleAttachments];
-          [(PKTiledView *)self getVisibleTiles:visibleAttachments];
+          objc_msgSend_getVisibleTiles_(self);
 
           v27 = 126 - 2 * __clz((v40 - v39) >> 5);
           if (v40 == v39)
@@ -9317,7 +9317,7 @@ LABEL_50:
         v22 = 0u;
         if (v4)
         {
-          [v4 drawingTransform];
+          objc_msgSend_drawingTransform(v4);
         }
 
         v20 = 0u;
@@ -9346,7 +9346,7 @@ LABEL_50:
               v17[2] = v24;
               if (v10)
               {
-                [v10 drawingTransform];
+                objc_msgSend_drawingTransform(v10);
               }
 
               else
@@ -9411,7 +9411,7 @@ LABEL_50:
         v13 = v12;
         if (v12)
         {
-          [v12 drawingTransform];
+          objc_msgSend_drawingTransform(v12);
           if (sqrt(*(&v98 + 1) * *(&v98 + 1) + *&v98 * *&v98) > 0.0)
           {
             tiles = [v13 tiles];
@@ -9438,7 +9438,7 @@ LABEL_50:
   v22 = v21;
 
   selfCopy2 = self;
-  [(PKTiledView *)self getVisibleTiles:obj];
+  objc_msgSend_getVisibleTiles_(self);
   [MEMORY[0x1E6979518] begin];
   [MEMORY[0x1E6979518] setDisableActions:1];
   v24 = v96;
@@ -9450,7 +9450,7 @@ LABEL_50:
     {
       if (*v24)
       {
-        [*v24 drawingTransform];
+        objc_msgSend_drawingTransform(*v24);
         v26 = *(&v98 + 1);
         v27 = *&v98;
         if (!selfCopy2)
@@ -9473,13 +9473,13 @@ LABEL_19:
 
       gestureView = selfCopy2->_gestureView;
 LABEL_16:
-      v29 = [(PKRendererTile *)v24[1] layerFrameForLevel:PKRendererTile offset:gestureView];
+      v29 = [PKRendererTile layerFrameForLevel:v24[1] offset:v24[2]];
       v31 = v30;
       v33 = v32;
       v35 = v34;
       if (*v24)
       {
-        [*v24 drawingTransform];
+        objc_msgSend_drawingTransform(*v24);
       }
 
       else
@@ -9489,7 +9489,7 @@ LABEL_16:
         v98 = 0u;
       }
 
-      [(PKRendererTile *)v29 drawingFrameForLayerFrame:v31 drawingTransform:v33 contentScale:v35, v25 * sqrt(v26 * v26 + v27 * v27), PKRendererTile, &v98];
+      [PKRendererTile drawingFrameForLayerFrame:v29 drawingTransform:v31 contentScale:v33, v35, v25 * sqrt(v26 * v26 + v27 * v27)];
       v37 = v36;
       v39 = v38;
       v41 = v40;
@@ -9608,7 +9608,7 @@ LABEL_16:
         v68 = MEMORY[0x1E696B098];
         if (v67)
         {
-          [*(*(&v88 + 1) + 8 * j) drawingTransform];
+          objc_msgSend_drawingTransform(*(*(&v88 + 1) + 8 * j));
         }
 
         else
@@ -9705,7 +9705,7 @@ uint64_t __51__PKTiledView_blitOldTilesIntoNewTiles_completion___block_invoke_2(
           v11 = v10;
           if (v10)
           {
-            [v10 CGAffineTransformValue];
+            objc_msgSend_CGAffineTransformValue(v10);
           }
 
           else
@@ -9848,7 +9848,7 @@ uint64_t __51__PKTiledView_blitOldTilesIntoNewTiles_completion___block_invoke_2(
   v15 = v14;
   if (attachmentCopy)
   {
-    [attachmentCopy drawingTransform];
+    objc_msgSend_drawingTransform(attachmentCopy);
     v16 = *(&v72 + 1);
     v17 = *&v72;
   }
@@ -9882,7 +9882,7 @@ LABEL_10:
   }
 
 LABEL_8:
-  [attachmentCopy drawingTransform];
+  objc_msgSend_drawingTransform(attachmentCopy);
 LABEL_11:
   v20 = [(PKRendererTileProperties *)v18 initWithLevel:gestureView offset:&v72 drawingTransform:[(PKTiledView *)self _sixChannelBlendingIsActive] sixChannelMode:[(PKTiledView *)self sixChannelBlendingRendersTransparent] transparentBlending:[(PKTiledView *)self isExtendedDynamicRangeRenderingActive] extendedDynamicRange:x, y];
   tiles = [v13 tiles];
@@ -10066,7 +10066,7 @@ LABEL_32:
 
         if (attachmentCopy)
         {
-          [attachmentCopy drawingTransform];
+          objc_msgSend_drawingTransform(attachmentCopy);
         }
 
         else
@@ -10197,7 +10197,7 @@ LABEL_24:
       }
 
       uuid3 = [(PKDrawing *)self->_dirtyDrawing uuid];
-      version = [(PKDrawing *)self->_dirtyDrawing version];
+      v37 = objc_msgSend_version(self->_dirtyDrawing);
       v48 = [v24 copy];
       ++v16[18];
       tileController = [(PKTiledView *)self tileController];
@@ -10218,7 +10218,7 @@ LABEL_24:
       v59 = v42;
       v43 = uuid3;
       v60 = v43;
-      v44 = version;
+      v44 = v37;
       v61 = v44;
       [(PKTileController *)tileController renderStrokes:v51 additionalStrokes:v41 intoTile:v39 completionBlock:v53];
 
@@ -10236,8 +10236,8 @@ LABEL_24:
     {
       didScrollBlock = self->_didScrollBlock;
       drawing4 = [attachmentCopy drawing];
-      version2 = [drawing4 version];
-      if ([didScrollBlock isEqual:version2])
+      v35 = objc_msgSend_version(drawing4);
+      if ([didScrollBlock isEqual:v35])
       {
         cachedDrawingUUIDForAdditionalStrokes = self->_cachedDrawingUUIDForAdditionalStrokes;
 
@@ -10381,7 +10381,7 @@ LABEL_11:
   v7 = *(a1 + 104);
   if (v7)
   {
-    (*(v7 + 16))();
+    (*(v7 + 16))(v7, a2);
   }
 
   if (*(a1 + 48))
@@ -10919,7 +10919,7 @@ void __56__PKTiledView_commitSelectionIfNecessaryWithCompletion___block_invoke(u
 {
   y = space.y;
   x = space.x;
-  [(PKTiledView *)self transformFromViewToStrokeSpaceInDrawing:drawing];
+  objc_msgSend_transformFromViewToStrokeSpaceInDrawing_(self, a2, drawing);
   v4 = vaddq_f64(0, vmlaq_n_f64(vmulq_n_f64(0, y), 0, x));
   v5 = v4.f64[1];
   result.x = v4.f64[0];
@@ -10934,7 +10934,7 @@ void __56__PKTiledView_commitSelectionIfNecessaryWithCompletion___block_invoke(u
 
   if (v7)
   {
-    [(PKTiledView *)self transformFromStrokeSpaceToViewInAttachment:v7];
+    objc_msgSend_transformFromStrokeSpaceToViewInAttachment_(self);
   }
 
   else
@@ -10963,7 +10963,7 @@ void __56__PKTiledView_commitSelectionIfNecessaryWithCompletion___block_invoke(u
   v7 = canvasView;
   if (canvasView)
   {
-    [canvasView _strokeTransformForAttachment:v9];
+    objc_msgSend__strokeTransformForAttachment_(canvasView);
   }
 
   else
@@ -11119,7 +11119,7 @@ void __56__PKTiledView_commitSelectionIfNecessaryWithCompletion___block_invoke(u
     v46 = v45;
 
     memset(&v55[1], 0, sizeof(CGAffineTransform));
-    [(PKTiledView *)self transformFromViewToStrokeSpaceInDrawing:drawingCopy];
+    objc_msgSend_transformFromViewToStrokeSpaceInDrawing_(self);
     v55[0] = v55[1];
     v61.origin.x = v40;
     v61.origin.y = v42;
@@ -11183,7 +11183,7 @@ void __56__PKTiledView_commitSelectionIfNecessaryWithCompletion___block_invoke(u
   v6 = canvasView;
   if (canvasView)
   {
-    [canvasView strokeTransform];
+    objc_msgSend_strokeTransform(canvasView);
   }
 
   else
@@ -11947,7 +11947,7 @@ LABEL_10:
   v13 = 0u;
   v14 = 0u;
   v12 = 0u;
-  result = [(PKTiledView *)self transformFromViewToStrokeSpaceInAttachment:a5];
+  result = objc_msgSend_transformFromViewToStrokeSpaceInAttachment_(self, point, a5);
   attachment->var0 = vaddq_f64(v14, vmlaq_n_f64(vmulq_n_f64(v13, attachment->var0.var0.y), v12, attachment->var0.var0.x));
   attachment->var9 = -1;
   attachment->var1 = 1.0;
@@ -12463,7 +12463,7 @@ LABEL_72:
       v61 = *&update->var1;
       *location = update->var0;
       v129 = v61;
-      [(PKTiledView *)self convertInputPoint:location toAttachment:v14];
+      objc_msgSend_convertInputPoint_toAttachment_(self);
       if (!*(&self->_editMenuVisible + 1))
       {
         goto LABEL_44;
@@ -12807,7 +12807,7 @@ void __41__PKTiledView_hoverController_didUpdate___block_invoke(uint64_t a1)
     x = touch->var0.var0.x;
     y = touch->var0.var0.y;
     memset(&v78, 0, sizeof(v78));
-    [(PKTiledView *)self transformFromViewToStrokeSpaceInAttachment:attachmentCopy];
+    objc_msgSend_transformFromViewToStrokeSpaceInAttachment_(self);
     strokeSpatialCache = [attachmentCopy strokeSpatialCache];
     v21 = strokeSpatialCache;
     if (strokeSpatialCache && *(strokeSpatialCache + 8) == 1)
@@ -12999,9 +12999,9 @@ void __41__PKTiledView_hoverController_didUpdate___block_invoke(uint64_t a1)
     identifier3 = [v11 identifier];
     v13 = [identifier3 isEqual:@"com.apple.ink.pencil"];
 
-    v69 = 0u;
-    v70 = 0u;
-    v68 = 0u;
+    v77 = 0u;
+    v78 = 0u;
+    v76 = 0u;
     memset(&__s1, 0, sizeof(__s1));
     canvasView = [(PKTiledView *)self canvasView];
     _drawingController = [canvasView _drawingController];
@@ -13009,14 +13009,14 @@ void __41__PKTiledView_hoverController_didUpdate___block_invoke(uint64_t a1)
     v17 = inputController;
     if (inputController)
     {
-      [inputController _latestStrokePoint];
+      objc_msgSend__latestStrokePoint(inputController);
     }
 
     else
     {
-      v69 = 0u;
-      v70 = 0u;
-      v68 = 0u;
+      v77 = 0u;
+      v78 = 0u;
+      v76 = 0u;
       memset(&__s1, 0, sizeof(__s1));
     }
 
@@ -13028,63 +13028,63 @@ void __41__PKTiledView_hoverController_didUpdate___block_invoke(uint64_t a1)
       v21 = inputController2;
       v22 = *&point->var9;
       v23 = *&point->var13;
-      v60 = *&point->var11;
-      v61 = v23;
+      v68 = *&point->var11;
+      v69 = v23;
       v24 = *&point->var1;
       v25 = *&point->var5;
-      v56 = *&point->var3;
-      v57 = v25;
+      v64 = *&point->var3;
+      v65 = v25;
       v26 = *&point->var5;
       v27 = *&point->var9;
-      v58 = *&point->var7;
-      v59 = v27;
+      v66 = *&point->var7;
+      v67 = v27;
       v28 = *&point->var1;
-      v55[0] = point->var0;
-      v55[1] = v28;
+      var0 = point->var0;
+      v63 = v28;
       v29 = *&point->var13;
-      v53[6] = v60;
-      v53[7] = v29;
-      v53[2] = v56;
-      v53[3] = v26;
-      v53[4] = v58;
-      v53[5] = v22;
+      v59 = v68;
+      v60 = v29;
+      v55 = v64;
+      v56 = v26;
+      v57 = v66;
+      v58 = v22;
       var15 = point->var15;
-      v54 = point->var15;
-      v53[0] = v55[0];
-      v53[1] = v24;
+      v61 = point->var15;
+      v53 = var0;
+      v54 = v24;
       if (inputController2)
       {
-        [inputController2 outputCurrentStrokePoint:v55 lastPoint:v53];
+        objc_msgSend_outputCurrentStrokePoint_lastPoint_(inputController2);
       }
 
       else
       {
-        v65 = 0u;
-        v66 = 0u;
-        v64 = 0u;
-        memset(&v63, 0, sizeof(v63));
+        v73 = 0u;
+        v74 = 0u;
+        v72 = 0u;
+        memset(&v71, 0, sizeof(v71));
       }
 
-      __s1 = v63;
-      v68 = v64;
-      v69 = v65;
-      v70 = v66;
+      __s1 = v71;
+      v76 = v72;
+      v77 = v73;
+      v78 = v74;
     }
 
-    memset(&v63, 0, sizeof(v63));
+    memset(&v71, 0, sizeof(v71));
     canvasView3 = [(PKTiledView *)self canvasView];
     v31 = canvasView3;
     if (canvasView3)
     {
-      [canvasView3 strokeTransform];
+      objc_msgSend_strokeTransform(canvasView3);
     }
 
     else
     {
-      memset(&v63, 0, sizeof(v63));
+      memset(&v71, 0, sizeof(v71));
     }
 
-    v51 = v63;
+    v51 = v71;
     CGAffineTransformInvert(&v52, &v51);
     if (!self->_currentPreviewDrawingUUID)
     {
@@ -13092,8 +13092,8 @@ void __41__PKTiledView_hoverController_didUpdate___block_invoke(uint64_t a1)
     }
 
     v32 = __s1.d / sqrt(v52.b * v52.b + v52.a * v52.a);
-    v33 = v63.tx + __s1.c * v63.c + v63.a * __s1.b;
-    v34 = v63.ty + __s1.c * v63.d + v63.b * __s1.b;
+    v33 = v71.tx + __s1.c * v71.c + v71.a * __s1.b;
+    v34 = v71.ty + __s1.c * v71.d + v71.b * __s1.b;
     if (v7)
     {
       v35 = [MEMORY[0x1E69DC728] bezierPathWithOvalInRect:{v33 - (v32 + 1.0) * 0.5, v34 - (v32 + 1.0) * 0.5, v32 + 1.0, v32 + 1.0}];
@@ -13107,10 +13107,10 @@ LABEL_19:
       [MEMORY[0x1E6979518] setDisableActions:1];
       [MEMORY[0x1E6979518] setLowLatency:1];
       [v35 bounds];
-      v72 = CGRectInset(v71, -50.0, -50.0);
-      x = v72.origin.x;
-      y = v72.origin.y;
-      [(PKToolPreviewView *)&self->_currentPreviewDrawingUUID->super.isa prepareWithFrame:v72.origin.x mode:v72.origin.y, v72.size.width, v72.size.height];
+      v80 = CGRectInset(v79, -50.0, -50.0);
+      x = v80.origin.x;
+      y = v80.origin.y;
+      [(PKToolPreviewView *)&self->_currentPreviewDrawingUUID->super.isa prepareWithFrame:v80.origin.x mode:v80.origin.y, v80.size.width, v80.size.height];
       CGAffineTransformMakeTranslation(&v52, -x, -y);
       [v35 applyTransform:&v52];
       cGPath = [v35 CGPath];
@@ -13134,7 +13134,7 @@ LABEL_19:
     if ((v10 | v13))
     {
       tx = __s1.tx;
-      v37 = *(&v68 + 1);
+      v37 = *(&v76 + 1);
       v38 = [(PKTiledView *)self ink];
       behavior = [v38 behavior];
       particleDescriptor = [behavior particleDescriptor];
@@ -13380,7 +13380,7 @@ void __37__PKTiledView_hoverControllerDidEnd___block_invoke(uint64_t a1)
   if (v9)
   {
     drawing = [v9 drawing];
-    [(PKTiledView *)self transformFromViewToStrokeSpaceInAttachment:v10];
+    objc_msgSend_transformFromViewToStrokeSpaceInAttachment_(self);
     strokeSpatialCache = [v10 strokeSpatialCache];
     v13 = strokeSpatialCache;
     if (strokeSpatialCache && *(strokeSpatialCache + 8) == 1)
@@ -13415,7 +13415,7 @@ void __37__PKTiledView_hoverControllerDidEnd___block_invoke(uint64_t a1)
     if (![firstObject _shapeType])
     {
       _strokeData = [firstObject _strokeData];
-      if (![_strokeData hasValidPointTimestampData])
+      if (![(PKShape *)_strokeData hasValidPointTimestampData])
       {
 LABEL_26:
 
@@ -13655,7 +13655,7 @@ void __40__PKTiledView_convertToShapeAtLocation___block_invoke(uint64_t a1)
                   }
 
                   v68 = (selfCopy + 4);
-                  v69 = (a2 - 4);
+                  v69 = a2 - 4;
                   goto LABEL_174;
                 }
 
@@ -13672,7 +13672,7 @@ void __40__PKTiledView_convertToShapeAtLocation___block_invoke(uint64_t a1)
 
                 v72 = (selfCopy + 4);
 LABEL_114:
-                v73 = (a2 - 4);
+                v73 = a2 - 4;
 LABEL_115:
 
                 std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<AttachmentTileInfo *&,AttachmentTileInfo *&>(v72, v73);
@@ -13701,7 +13701,7 @@ LABEL_115:
                 }
 
                 v68 = (selfCopy + 4);
-                v69 = (selfCopy + 8);
+                v69 = selfCopy + 8;
 LABEL_174:
                 std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<AttachmentTileInfo *&,AttachmentTileInfo *&>(v68, v69);
                 if (selfCopy[7] >= selfCopy[3])
@@ -13709,7 +13709,7 @@ LABEL_174:
                   return;
                 }
 
-                v73 = (selfCopy + 4);
+                v73 = selfCopy + 4;
                 v72 = selfCopy;
                 goto LABEL_115;
             }
@@ -13801,12 +13801,12 @@ LABEL_136:
               do
               {
                 v132 = v74;
-                if (*(self + 56) < *(self + 24))
+                if (self[7] < self[3])
                 {
                   v133 = *v74;
                   *v74 = 0.0;
-                  v148 = *(self + 40);
-                  v134 = *(self + 56);
+                  v148 = *(self + 5);
+                  v134 = self[7];
                   v135 = v74;
                   v136 = v74;
                   do
@@ -13853,32 +13853,32 @@ LABEL_136:
                 if (v88 >= v89)
                 {
                   v91 = (2 * v89) | 1;
-                  v92 = self + 32 * v91;
-                  if (2 * v90 + 2 < v9 && *(v92 + 24) < *(v92 + 56))
+                  v92 = &self[4 * v91];
+                  if (2 * v90 + 2 < v9 && v92[3] < v92[7])
                   {
-                    v92 += 32;
+                    v92 += 4;
                     v91 = 2 * v90 + 2;
                   }
 
-                  v93 = self + 32 * v90;
-                  v94 = *(v93 + 24);
-                  if (*(v92 + 24) >= v94)
+                  v93 = &self[4 * v90];
+                  v94 = v93[3];
+                  if (v92[3] >= v94)
                   {
                     v95 = *v93;
-                    *v93 = 0;
-                    v146 = *(v93 + 8);
+                    *v93 = 0.0;
+                    v146 = *(v93 + 1);
                     do
                     {
                       v96 = v93;
                       v93 = v92;
                       v97 = *v92;
-                      *v93 = 0;
+                      *v93 = 0.0;
                       v98 = *v96;
                       *v96 = v97;
 
-                      v99 = *(v93 + 8);
-                      *(v96 + 24) = *(v93 + 24);
-                      *(v96 + 8) = v99;
+                      v99 = *(v93 + 1);
+                      v96[3] = v93[3];
+                      *(v96 + 1) = v99;
                       if (v88 < v91)
                       {
                         break;
@@ -13886,21 +13886,21 @@ LABEL_136:
 
                       v100 = 2 * v91;
                       v91 = (2 * v91) | 1;
-                      v92 = self + 32 * v91;
+                      v92 = &self[4 * v91];
                       v101 = v100 + 2;
-                      if (v101 < v9 && *(v92 + 24) < *(v92 + 56))
+                      if (v101 < v9 && v92[3] < v92[7])
                       {
-                        v92 += 32;
+                        v92 += 4;
                         v91 = v101;
                       }
                     }
 
-                    while (*(v92 + 24) >= v94);
+                    while (v92[3] >= v94);
                     v102 = *v93;
                     *v93 = v95;
 
-                    *(v93 + 8) = v146;
-                    *(v93 + 24) = v94;
+                    *(v93 + 1) = v146;
+                    v93[3] = v94;
                   }
                 }
 
@@ -13912,14 +13912,14 @@ LABEL_136:
               {
                 v103 = 0;
                 v104 = *self;
-                *self = 0;
-                v147 = *(self + 8);
-                v150 = *(self + 24);
+                *self = 0.0;
+                v147 = *(self + 1);
+                v150 = *(self + 3);
                 selfCopy2 = self;
                 do
                 {
-                  v106 = selfCopy2 + 32 * v103;
-                  v107 = v106 + 32;
+                  v106 = &selfCopy2[4 * v103];
+                  v107 = v106 + 4;
                   if (2 * v103 + 2 >= v9)
                   {
                     v103 = (2 * v103) | 1;
@@ -13927,9 +13927,9 @@ LABEL_136:
 
                   else
                   {
-                    v108 = *(v106 + 56);
-                    v109 = *(v106 + 88);
-                    v110 = v106 + 64;
+                    v108 = v106[7];
+                    v109 = v106[11];
+                    v110 = v106 + 8;
                     if (v108 >= v109)
                     {
                       v103 = (2 * v103) | 1;
@@ -13943,13 +13943,13 @@ LABEL_136:
                   }
 
                   v111 = *v107;
-                  *v107 = 0;
+                  *v107 = 0.0;
                   v112 = *selfCopy2;
                   *selfCopy2 = v111;
 
-                  v113 = *(v107 + 8);
-                  *(selfCopy2 + 24) = *(v107 + 24);
-                  *(selfCopy2 + 8) = v113;
+                  v113 = *(v107 + 1);
+                  selfCopy2[3] = v107[3];
+                  *(selfCopy2 + 1) = v113;
                   selfCopy2 = v107;
                 }
 
@@ -13960,8 +13960,8 @@ LABEL_136:
                   v131 = *v107;
                   *v107 = v104;
 
-                  *(v107 + 24) = v150;
-                  *(v107 + 8) = v147;
+                  *(v107 + 3) = v150;
+                  *(v107 + 1) = v147;
                 }
 
                 else
@@ -13972,8 +13972,8 @@ LABEL_136:
                   *v107 = v115;
 
                   v117 = *(a2 - 3);
-                  *(v107 + 24) = *(a2 - 1);
-                  *(v107 + 8) = v117;
+                  v107[3] = *(a2 - 1);
+                  *(v107 + 1) = v117;
                   v118 = *(a2 - 4);
                   *(a2 - 4) = v104;
 
@@ -13985,40 +13985,40 @@ LABEL_136:
                   if (!v120)
                   {
                     v122 = v121 >> 1;
-                    v123 = self + 32 * (v121 >> 1);
-                    v124 = *(v107 + 24);
-                    if (*(v123 + 24) < v124)
+                    v123 = &self[4 * (v121 >> 1)];
+                    v124 = v107[3];
+                    if (v123[3] < v124)
                     {
                       v125 = *v107;
-                      *v107 = 0;
-                      v141 = *(v107 + 8);
+                      *v107 = 0.0;
+                      v141 = *(v107 + 1);
                       do
                       {
                         v126 = v107;
                         v107 = v123;
                         v127 = *v123;
-                        *v107 = 0;
+                        *v107 = 0.0;
                         v128 = *v126;
                         *v126 = v127;
 
-                        v129 = *(v107 + 8);
-                        *(v126 + 24) = *(v107 + 24);
-                        *(v126 + 8) = v129;
+                        v129 = *(v107 + 1);
+                        v126[3] = v107[3];
+                        *(v126 + 1) = v129;
                         if (!v122)
                         {
                           break;
                         }
 
                         v122 = (v122 - 1) >> 1;
-                        v123 = self + 32 * v122;
+                        v123 = &self[4 * v122];
                       }
 
-                      while (*(v123 + 24) < v124);
+                      while (v123[3] < v124);
                       v130 = *v107;
                       *v107 = v125;
 
-                      *(v107 + 8) = v141;
-                      *(v107 + 24) = v124;
+                      *(v107 + 1) = v141;
+                      v107[3] = v124;
                     }
                   }
                 }
@@ -14038,23 +14038,23 @@ LABEL_136:
           if (v9 >= 0x81)
           {
             v13 = *(v11 + 24);
-            if (v13 >= *(self + 24))
+            if (v13 >= self[3])
             {
-              if (v12 >= v13 || (std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<AttachmentTileInfo *&,AttachmentTileInfo *&>(self + 32 * (v9 >> 1), (a2 - 4)), *(v11 + 24) >= *(self + 24)))
+              if (v12 >= v13 || (std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<AttachmentTileInfo *&,AttachmentTileInfo *&>(&self[4 * (v9 >> 1)], (a2 - 4)), *(v11 + 24) >= self[3]))
               {
 LABEL_26:
                 v19 = *(v11 - 8);
                 v20 = *(a2 - 5);
-                if (v19 >= *(self + 56))
+                if (v19 >= self[7])
                 {
-                  if (v20 >= v19 || (std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<AttachmentTileInfo *&,AttachmentTileInfo *&>(v11 - 32, (a2 - 8)), *(v11 - 8) >= *(self + 56)))
+                  if (v20 >= v19 || (std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<AttachmentTileInfo *&,AttachmentTileInfo *&>(v11 - 32, (a2 - 8)), *(v11 - 8) >= self[7]))
                   {
 LABEL_39:
                     v23 = *(v11 + 56);
                     v24 = *(a2 - 9);
-                    if (v23 >= *(self + 88))
+                    if (v23 >= self[11])
                     {
-                      if (v24 >= v23 || (std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<AttachmentTileInfo *&,AttachmentTileInfo *&>(v11 + 32, (a2 - 12)), *(v11 + 56) >= *(self + 88)))
+                      if (v24 >= v23 || (std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<AttachmentTileInfo *&,AttachmentTileInfo *&>(v11 + 32, (a2 - 12)), *(v11 + 56) >= self[11]))
                       {
 LABEL_48:
                         v27 = *(v11 + 24);
@@ -14083,17 +14083,17 @@ LABEL_48:
                           {
 LABEL_57:
                             v31 = *self;
-                            *self = 0;
-                            v142 = *(self + 8);
-                            v149 = *(self + 24);
+                            *self = 0.0;
+                            v142 = *(self + 1);
+                            v149 = *(self + 3);
                             v32 = *v11;
                             *v11 = 0;
                             v33 = *self;
                             *self = v32;
 
                             v34 = *(v11 + 8);
-                            *(self + 24) = *(v11 + 24);
-                            *(self + 8) = v34;
+                            self[3] = *(v11 + 24);
+                            *(self + 1) = v34;
                             v35 = *v11;
                             *v11 = v31;
 
@@ -14116,13 +14116,13 @@ LABEL_57:
                         goto LABEL_57;
                       }
 
-                      v25 = self + 64;
-                      v26 = v11 + 32;
+                      v25 = self + 8;
+                      v26 = (v11 + 32);
                     }
 
                     else
                     {
-                      v25 = self + 64;
+                      v25 = self + 8;
                       if (v24 >= v23)
                       {
                         std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<AttachmentTileInfo *&,AttachmentTileInfo *&>(v25, v11 + 32);
@@ -14131,23 +14131,23 @@ LABEL_57:
                           goto LABEL_48;
                         }
 
-                        v25 = v11 + 32;
+                        v25 = (v11 + 32);
                       }
 
-                      v26 = (a2 - 12);
+                      v26 = a2 - 12;
                     }
 
                     std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<AttachmentTileInfo *&,AttachmentTileInfo *&>(v25, v26);
                     goto LABEL_48;
                   }
 
-                  v21 = self + 32;
-                  v22 = v11 - 32;
+                  v21 = self + 4;
+                  v22 = (v11 - 32);
                 }
 
                 else
                 {
-                  v21 = self + 32;
+                  v21 = self + 4;
                   if (v20 >= v19)
                   {
                     std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<AttachmentTileInfo *&,AttachmentTileInfo *&>(v21, v11 - 32);
@@ -14156,10 +14156,10 @@ LABEL_57:
                       goto LABEL_39;
                     }
 
-                    v21 = v11 - 32;
+                    v21 = (v11 - 32);
                   }
 
-                  v22 = (a2 - 8);
+                  v22 = a2 - 8;
                 }
 
                 std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<AttachmentTileInfo *&,AttachmentTileInfo *&>(v21, v22);
@@ -14167,7 +14167,7 @@ LABEL_57:
               }
 
               selfCopy4 = self;
-              v15 = self + 32 * (v9 >> 1);
+              v15 = &self[4 * (v9 >> 1)];
             }
 
             else
@@ -14175,30 +14175,30 @@ LABEL_57:
               selfCopy4 = self;
               if (v12 >= v13)
               {
-                std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<AttachmentTileInfo *&,AttachmentTileInfo *&>(self, self + 32 * (v9 >> 1));
+                std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<AttachmentTileInfo *&,AttachmentTileInfo *&>(self, &self[4 * (v9 >> 1)]);
                 if (*(a2 - 1) >= *(v11 + 24))
                 {
                   goto LABEL_26;
                 }
 
-                selfCopy4 = self + 32 * (v9 >> 1);
+                selfCopy4 = &self[4 * (v9 >> 1)];
               }
 
-              v15 = (a2 - 4);
+              v15 = a2 - 4;
             }
 
             std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<AttachmentTileInfo *&,AttachmentTileInfo *&>(selfCopy4, v15);
             goto LABEL_26;
           }
 
-          v16 = *(self + 24);
+          v16 = self[3];
           if (v16 < *(v11 + 24))
           {
-            selfCopy5 = self + 32 * (v9 >> 1);
+            selfCopy5 = &self[4 * (v9 >> 1)];
             if (v12 >= v16)
             {
               std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<AttachmentTileInfo *&,AttachmentTileInfo *&>(selfCopy5, self);
-              if (*(a2 - 1) >= *(self + 24))
+              if (*(a2 - 1) >= self[3])
               {
                 goto LABEL_58;
               }
@@ -14206,16 +14206,16 @@ LABEL_57:
               selfCopy5 = self;
             }
 
-            selfCopy6 = (a2 - 4);
+            selfCopy6 = a2 - 4;
             goto LABEL_34;
           }
 
           if (v12 < v16)
           {
             std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<AttachmentTileInfo *&,AttachmentTileInfo *&>(self, (a2 - 4));
-            if (*(self + 24) < *(v11 + 24))
+            if (self[3] < *(v11 + 24))
             {
-              selfCopy5 = self + 32 * (v9 >> 1);
+              selfCopy5 = &self[4 * (v9 >> 1)];
               selfCopy6 = self;
 LABEL_34:
               std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<AttachmentTileInfo *&,AttachmentTileInfo *&>(selfCopy5, selfCopy6);
@@ -14229,18 +14229,18 @@ LABEL_58:
             break;
           }
 
-          v36 = *(self + 24);
-          if (*(self - 8) < v36)
+          v36 = self[3];
+          if (*(self - 1) < v36)
           {
             goto LABEL_61;
           }
 
           v54 = *self;
-          *self = 0;
-          v144 = *(self + 8);
+          *self = 0.0;
+          v144 = *(self + 1);
           if (v36 >= *(a2 - 1))
           {
-            v57 = (self + 32);
+            v57 = self + 4;
             do
             {
               selfCopy = v57;
@@ -14261,9 +14261,9 @@ LABEL_58:
             selfCopy7 = self;
             do
             {
-              selfCopy = (selfCopy7 + 32);
-              v56 = *(selfCopy7 + 56);
-              selfCopy7 += 32;
+              selfCopy = selfCopy7 + 4;
+              v56 = selfCopy7[7];
+              selfCopy7 += 4;
             }
 
             while (v36 >= v56);
@@ -14275,7 +14275,7 @@ LABEL_58:
             v60 = a2;
             do
             {
-              v59 = (v60 - 4);
+              v59 = v60 - 4;
               v61 = *(v60 - 1);
               v60 -= 4;
             }
@@ -14295,8 +14295,8 @@ LABEL_58:
             while (v36 >= v62);
             do
             {
-              v63 = *(v59 - 8);
-              v59 -= 32;
+              v63 = *(v59 - 1);
+              v59 -= 4;
             }
 
             while (v36 < v63);
@@ -14310,8 +14310,8 @@ LABEL_58:
             *self = v64;
 
             v66 = *(selfCopy - 3);
-            *(self + 24) = *(selfCopy - 1);
-            *(self + 8) = v66;
+            self[3] = *(selfCopy - 1);
+            *(self + 1) = v66;
           }
 
           v67 = *(selfCopy - 4);
@@ -14322,27 +14322,27 @@ LABEL_58:
           *(selfCopy - 1) = v36;
         }
 
-        v36 = *(self + 24);
+        v36 = self[3];
 LABEL_61:
         v37 = 0;
         v38 = *self;
-        *self = 0;
-        v143 = *(self + 8);
+        *self = 0.0;
+        v143 = *(self + 1);
         do
         {
-          v39 = *(self + v37 + 56);
-          v37 += 32;
+          v39 = self[v37 + 7];
+          v37 += 4;
         }
 
         while (v39 < v36);
-        v40 = (self + v37);
+        v40 = &self[v37];
         v41 = a2;
-        if (v37 == 32)
+        if (v37 == 4)
         {
           v44 = a2;
           while (v40 < v44)
           {
-            v42 = (v44 - 4);
+            v42 = v44 - 4;
             v45 = *(v44 - 1);
             v44 -= 4;
             if (v45 < v36)
@@ -14358,7 +14358,7 @@ LABEL_61:
         {
           do
           {
-            v42 = (v41 - 4);
+            v42 = v41 - 4;
             v43 = *(v41 - 1);
             v41 -= 4;
           }
@@ -14406,8 +14406,8 @@ LABEL_71:
           *self = v49;
 
           v51 = *(selfCopy - 3);
-          *(self + 24) = *(selfCopy - 1);
-          *(self + 8) = v51;
+          self[3] = *(selfCopy - 1);
+          *(self + 1) = v51;
         }
 
         v52 = *(selfCopy - 4);

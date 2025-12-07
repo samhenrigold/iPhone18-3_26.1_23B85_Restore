@@ -55,34 +55,34 @@
 
   if (isCoordBottomSet)
   {
-    EshGeometryProperties::EshGeometryProperties(v29);
-    if (EshShapeLib::cloneShapeProperties(v8, v29, v12))
+    EshGeometryProperties::EshGeometryProperties(&v29);
+    if (EshShapeLib::cloneShapeProperties(v8, &v29, v12))
     {
-      EshGeometryProperties::addImpliedSegments(v29);
+      EshGeometryProperties::addImpliedSegments(&v29);
       if ((EshPath::isParamsSet(shape + 22) & 1) == 0)
       {
-        Vertices = EshGeometryProperties::getVertices(v29);
+        Vertices = EshGeometryProperties::getVertices(&v29);
         v14 = (*(*Vertices + 16))(Vertices);
         EshPath::takeParams(shape + 22, v14);
       }
 
-      if ((EshPath::isCommandsSet(shape + 22) & 1) == 0 && (!EshPath::isPathTypeSet(shape + 22) || EshPath::getPathType(shape + 22) == 4) && EshGeometryProperties::getSegments(v29))
+      if ((EshPath::isCommandsSet(shape + 22) & 1) == 0 && (!EshPath::isPathTypeSet(shape + 22) || EshPath::getPathType(shape + 22) == 4) && EshGeometryProperties::getSegments(&v29))
       {
-        Segments = EshGeometryProperties::getSegments(v29);
+        Segments = EshGeometryProperties::getSegments(&v29);
         v16 = (*(*Segments + 16))(Segments);
         EshPath::takeCommands(shape + 528, v16);
       }
 
       if ((EshPath::isFormulasSet(shape + 22) & 1) == 0)
       {
-        Formulas = EshGeometryProperties::getFormulas(v29);
+        Formulas = EshGeometryProperties::getFormulas(&v29);
         v18 = (*(*Formulas + 16))(Formulas);
         EshPath::takeFormulas(shape + 528, v18);
       }
 
-      if ((EshPath::isTextBoxRectsSet(shape + 22) & 1) == 0 && EshGeometryProperties::isInscribesSet(v29))
+      if ((EshPath::isTextBoxRectsSet(shape + 22) & 1) == 0 && EshGeometryProperties::isInscribesSet(&v29))
       {
-        Inscribes = EshGeometryProperties::getInscribes(v29);
+        Inscribes = EshGeometryProperties::getInscribes(&v29);
         v20 = (*(*Inscribes + 16))(Inscribes);
         EshPath::takeTextBoxRects(shape + 528, v20);
       }
@@ -130,7 +130,7 @@
       }
     }
 
-    EshGeometryProperties::~EshGeometryProperties(v29);
+    EshGeometryProperties::~EshGeometryProperties(&v29);
   }
 
 LABEL_51:
@@ -404,7 +404,7 @@ LABEL_39:
   _Block_object_dispose(v53, 8);
 }
 
-uint64_t __63__OABShapeGeometry_readFromPathCommands_pathParams_toGeometry___block_invoke(void *a1)
+void *__63__OABShapeGeometry_readFromPathCommands_pathParams_toGeometry___block_invoke(void *a1)
 {
   v3 = a1[4];
   v2 = a1[5];
@@ -529,7 +529,7 @@ uint64_t __63__OABShapeGeometry_readFromPathCommands_pathParams_toGeometry___blo
   {
     if (geometryCopy)
     {
-      isEscher = [geometryCopy geometryCoordSpace];
+      isEscher = objc_msgSend_geometryCoordSpace(geometryCopy);
       v7 = v14[0];
     }
 
@@ -578,7 +578,7 @@ uint64_t __63__OABShapeGeometry_readFromPathCommands_pathParams_toGeometry___blo
   {
     if (geometryCopy)
     {
-      isEscher = [geometryCopy limo];
+      isEscher = objc_msgSend_limo(geometryCopy);
       v7 = v17[0];
     }
 
@@ -616,35 +616,34 @@ uint64_t __63__OABShapeGeometry_readFromPathCommands_pathParams_toGeometry___blo
 
 + (void)appendAdjustPoint:(OADAdjustPoint)point toPathParams:(void *)params
 {
-  y = point.y;
-  [self computedValueWithAdjustCoord:*&point.x];
-  v7 = *(params + 2);
-  if (v7 >= *(params + 3))
+  objc_msgSend_computedValueWithAdjustCoord_(self, a2, *&point.x);
+  v6 = *(params + 2);
+  if (v6 >= *(params + 3))
   {
-    v8 = std::vector<EshComputedValue,ChAllocator<EshComputedValue>>::__emplace_back_slow_path<EshComputedValue const&>(params + 1, &v12);
+    v7 = std::vector<EshComputedValue,ChAllocator<EshComputedValue>>::__emplace_back_slow_path<EshComputedValue const&>(params + 1, &v11);
   }
 
   else
   {
-    *v7 = v12;
-    v8 = (v7 + 1);
+    *v6 = v11;
+    v7 = (v6 + 1);
   }
 
-  *(params + 2) = v8;
-  [self computedValueWithAdjustCoord:y];
-  v9 = *(params + 2);
-  if (v9 >= *(params + 3))
+  *(params + 2) = v7;
+  objc_msgSend_computedValueWithAdjustCoord_(self);
+  v8 = *(params + 2);
+  if (v8 >= *(params + 3))
   {
-    v10 = std::vector<EshComputedValue,ChAllocator<EshComputedValue>>::__emplace_back_slow_path<EshComputedValue const&>(params + 1, &v11);
+    v9 = std::vector<EshComputedValue,ChAllocator<EshComputedValue>>::__emplace_back_slow_path<EshComputedValue const&>(params + 1, &v10);
   }
 
   else
   {
-    *v9 = v11;
-    v10 = (v9 + 1);
+    *v8 = v10;
+    v9 = (v8 + 1);
   }
 
-  *(params + 2) = v10;
+  *(params + 2) = v9;
 }
 
 + (void)writePathCommandsAndParamsFromGeometry:(id)geometry toPath:(EshPath *)path

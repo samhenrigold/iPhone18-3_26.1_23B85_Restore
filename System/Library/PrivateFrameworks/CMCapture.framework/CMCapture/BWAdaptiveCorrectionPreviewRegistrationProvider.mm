@@ -54,21 +54,21 @@
   if (!result)
   {
     ImageBuffer = CMSampleBufferGetImageBuffer(scale);
-    Width = CVPixelBufferGetWidth(ImageBuffer);
-    LODWORD(ImageBuffer) = CVPixelBufferGetHeight(ImageBuffer);
-    v19 = CMGetAttachment(scale, *off_1E798A3C8, 0);
+    CVPixelBufferGetWidth(ImageBuffer);
+    CVPixelBufferGetHeight(ImageBuffer);
+    v18 = CMGetAttachment(scale, *off_1E798A3C8, 0);
     rect.origin.y = 0.0;
     rect.origin.x = 0.0;
     __asm { FMOV            V0.2D, #1.0 }
 
     rect.size = _Q0;
-    CGRectMakeWithDictionaryRepresentation([v19 objectForKeyedSubscript:*off_1E798A5C8], &rect);
-    memcpy(v27, __src, 0x120uLL);
-    result = [BWAdaptiveCorrectionPreviewRegistration flattenNarrowerToWiderTransforms:v27 narrowerDimensions:Width | (ImageBuffer << 32) narrowerFinalCropRect:0 atNarrowerToWiderCameraScale:rect.origin.x useYAnchorAtHeightCenter:rect.origin.y, rect.size.width, rect.size.height, 1.0 / scene];
+    CGRectMakeWithDictionaryRepresentation([v18 objectForKeyedSubscript:*off_1E798A5C8], &rect);
+    memcpy(v26, __src, 0x120uLL);
+    result = objc_msgSend_flattenNarrowerToWiderTransforms_narrowerDimensions_narrowerFinalCropRect_atNarrowerToWiderCameraScale_useYAnchorAtHeightCenter_(BWAdaptiveCorrectionPreviewRegistration, rect.origin.x, rect.origin.y, rect.size.width, rect.size.height, 1.0 / scene);
     p_var1 = &retstr->var0[0].var1;
     for (i = 64; i != 352; i += 96)
     {
-      *p_var1 = vnegq_f64(*&v27[i + 288]);
+      *p_var1 = vnegq_f64(*&v26[i + 288]);
       LOBYTE(p_var1[-1].y) = 1;
       p_var1 = (p_var1 + 24);
     }
@@ -89,19 +89,19 @@
   else
   {
     ImageBuffer = CMSampleBufferGetImageBuffer(narrowerCamera);
-    Width = CVPixelBufferGetWidth(ImageBuffer);
-    LODWORD(ImageBuffer) = CVPixelBufferGetHeight(ImageBuffer);
-    v11 = CMGetAttachment(narrowerCamera, *off_1E798A3C8, 0);
+    CVPixelBufferGetWidth(ImageBuffer);
+    CVPixelBufferGetHeight(ImageBuffer);
+    v10 = CMGetAttachment(narrowerCamera, *off_1E798A3C8, 0);
     rect.origin.y = 0.0;
     rect.origin.x = 0.0;
     __asm { FMOV            V0.2D, #1.0 }
 
     rect.size = _Q0;
-    CGRectMakeWithDictionaryRepresentation([v11 objectForKeyedSubscript:*off_1E798A5C8], &rect);
-    memcpy(v17, __src, sizeof(v17));
-    [BWAdaptiveCorrectionPreviewRegistration flattenNarrowerToWiderTransforms:v17 narrowerDimensions:Width | (ImageBuffer << 32) narrowerFinalCropRect:1 atNarrowerToWiderCameraScale:rect.origin.x useYAnchorAtHeightCenter:rect.origin.y, rect.size.width, rect.size.height, 1.0 / scale];
-    v7 = -v18;
-    v8 = -v19;
+    CGRectMakeWithDictionaryRepresentation([v10 objectForKeyedSubscript:*off_1E798A5C8], &rect);
+    memcpy(v16, __src, sizeof(v16));
+    objc_msgSend_flattenNarrowerToWiderTransforms_narrowerDimensions_narrowerFinalCropRect_atNarrowerToWiderCameraScale_useYAnchorAtHeightCenter_(BWAdaptiveCorrectionPreviewRegistration, rect.origin.x, rect.origin.y, rect.size.width, rect.size.height, 1.0 / scale);
+    v7 = -v17;
+    v8 = -v18;
   }
 
   result.y = v8;
@@ -112,41 +112,27 @@
 - (CGPoint)computeApproximateCorrectionForWiderCamera:(opaqueCMSampleBuffer *)camera narrowerCameraPortType:(id)type narrowerPixelBufferDimensions:(id)dimensions widerToNarrowerCameraScale:(double)scale
 {
   memset(__src, 0, sizeof(__src));
-  v7 = 1.0 / scale;
+  v6 = 1.0 / scale;
   if ([(BWAdaptiveCorrectionPreviewRegistration *)self->_registration computeApproximateCorrectionForWiderCamera:camera narrowerCameraPortType:type narrowerPixelBufferDimensions:dimensions narrowerToWiderCameraScale:__src narrowerToWiderTransformsOut:1.0 / scale])
   {
-    v8 = *MEMORY[0x1E695EFF8];
-    v9 = *(MEMORY[0x1E695EFF8] + 8);
+    v7 = *MEMORY[0x1E695EFF8];
+    v8 = *(MEMORY[0x1E695EFF8] + 8);
     [BWAdaptiveCorrectionPreviewRegistrationProvider computeApproximateCorrectionForWiderCamera:narrowerCameraPortType:narrowerPixelBufferDimensions:widerToNarrowerCameraScale:];
   }
 
   else
   {
-    memcpy(v12, __src, sizeof(v12));
-    [BWAdaptiveCorrectionPreviewRegistration flattenNarrowerToWiderTransforms:v12 narrowerDimensions:dimensions narrowerFinalCropRect:1 atNarrowerToWiderCameraScale:0.0 useYAnchorAtHeightCenter:0.0, 1.0, 1.0, v7];
+    memcpy(v11, __src, sizeof(v11));
+    objc_msgSend_flattenNarrowerToWiderTransforms_narrowerDimensions_narrowerFinalCropRect_atNarrowerToWiderCameraScale_useYAnchorAtHeightCenter_(BWAdaptiveCorrectionPreviewRegistration, 0.0, 0.0, 1.0, 1.0, v6);
+    v7 = -v12;
     v8 = -v13;
-    v9 = -v14;
   }
 
+  v9 = v7;
   v10 = v8;
-  v11 = v9;
-  result.y = v11;
-  result.x = v10;
+  result.y = v10;
+  result.x = v9;
   return result;
-}
-
-- (void)initWithCameraInfoByPortType:(void *)a1 excludeStaticComponentFromAlignmentShifts:.cold.1(void *a1)
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  FigDebugAssert3();
-}
-
-- (uint64_t)computeApproximateCorrectionForWiderCamera:narrowerCameraPortType:narrowerPixelBufferDimensions:widerToNarrowerCameraScale:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
 }
 
 @end

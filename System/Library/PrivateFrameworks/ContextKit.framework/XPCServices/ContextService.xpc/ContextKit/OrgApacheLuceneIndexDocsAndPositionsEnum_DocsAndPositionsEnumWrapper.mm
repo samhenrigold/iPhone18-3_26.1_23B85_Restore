@@ -1,6 +1,7 @@
 @interface OrgApacheLuceneIndexDocsAndPositionsEnum_DocsAndPositionsEnumWrapper
 - (id)attributes;
 - (id)getPayload;
+- (int)advanceWithInt:(int)int;
 - (int)docID;
 - (int)endOffset;
 - (int)freq;
@@ -101,6 +102,19 @@
   nextDoc = [(OrgApacheLuceneIndexPostingsEnum *)in nextDoc];
 
   return sub_100010108(self, nextDoc);
+}
+
+- (int)advanceWithInt:(int)int
+{
+  in = self->in_;
+  if (!in)
+  {
+    JreThrowNullPointerException();
+  }
+
+  v5 = [(OrgApacheLuceneIndexPostingsEnum *)in advanceWithInt:*&int];
+
+  return sub_100010108(self, v5);
 }
 
 - (int64_t)cost

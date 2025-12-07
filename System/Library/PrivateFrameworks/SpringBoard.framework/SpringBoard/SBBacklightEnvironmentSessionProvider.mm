@@ -21,7 +21,7 @@
 
 - (void)_rebuildPresentation
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   _currentSession = [(SBBacklightEnvironmentSessionProvider *)self _currentSession];
   if (_currentSession)
   {
@@ -32,24 +32,25 @@
     embeddedDisplayWindowScene = [windowSceneManager embeddedDisplayWindowScene];
 
     _FBSScene = [embeddedDisplayWindowScene _FBSScene];
+    v10 = _FBSScene;
     if (_FBSScene)
     {
-      v10 = MEMORY[0x277D65DC0];
-      v11 = self->_presentationUpdateLiveRenderAssertion;
-      sharedInstance = [v10 sharedInstance];
-      v13 = [sharedInstance acquireLiveRenderingAssertionForFBSScene:_FBSScene reason:@"updatingPresentation"];
+      v11 = MEMORY[0x277D65DC0];
+      v12 = self->_presentationUpdateLiveRenderAssertion;
+      sharedInstance = [v11 sharedInstance];
+      v14 = [sharedInstance acquireLiveRenderingAssertionForFBSScene:v10 reason:@"updatingPresentation"];
       presentationUpdateLiveRenderAssertion = self->_presentationUpdateLiveRenderAssertion;
-      self->_presentationUpdateLiveRenderAssertion = v13;
+      self->_presentationUpdateLiveRenderAssertion = v14;
 
-      [(BSInvalidatable *)v11 invalidate];
+      [(BSInvalidatable *)v12 invalidate];
     }
 
-    v15 = SBLogBacklight();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = SBLogBacklight(_FBSScene);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 138412290;
-      v18 = _buildPresentation;
-      _os_log_impl(&dword_21ED4E000, v15, OS_LOG_TYPE_DEFAULT, "Rebuilt inactive environment presentation: %@", &v17, 0xCu);
+      v18 = 138412290;
+      v19 = _buildPresentation;
+      _os_log_impl(&dword_21ED4E000, v16, OS_LOG_TYPE_DEFAULT, "Rebuilt inactive environment presentation: %@", &v18, 0xCu);
     }
 
     [_currentSession setPresentation:_buildPresentation];
@@ -57,18 +58,18 @@
     if (v6)
     {
       [(BSInvalidatable *)self->_presentationUpdateLiveRenderAssertion invalidate];
-      v16 = self->_presentationUpdateLiveRenderAssertion;
+      v17 = self->_presentationUpdateLiveRenderAssertion;
       self->_presentationUpdateLiveRenderAssertion = 0;
     }
   }
 
   else
   {
-    _buildPresentation = SBLogBacklight();
+    _buildPresentation = SBLogBacklight(0);
     if (os_log_type_enabled(_buildPresentation, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v17) = 0;
-      _os_log_impl(&dword_21ED4E000, _buildPresentation, OS_LOG_TYPE_DEFAULT, "No active session so not rebuilding inactive environment presentation", &v17, 2u);
+      LOWORD(v18) = 0;
+      _os_log_impl(&dword_21ED4E000, _buildPresentation, OS_LOG_TYPE_DEFAULT, "No active session so not rebuilding inactive environment presentation", &v18, 2u);
     }
   }
 }
@@ -339,7 +340,7 @@
 
   else
   {
-    v15 = SBLogBacklight();
+    v15 = SBLogBacklight(self);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -538,7 +539,7 @@ void __45__SBBacklightEnvironmentSessionProvider_init__block_invoke(uint64_t a1)
 
 void __45__SBBacklightEnvironmentSessionProvider_init__block_invoke_2(uint64_t a1)
 {
-  v2 = SBLogBacklight();
+  v2 = SBLogBacklight(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -571,8 +572,7 @@ void __45__SBBacklightEnvironmentSessionProvider_init__block_invoke_2(uint64_t a
     backlightEnvironmentSceneProviders = self->_backlightEnvironmentSceneProviders;
   }
 
-  [(NSHashTable *)backlightEnvironmentSceneProviders addObject:providerCopy];
-  v8 = SBLogBacklight();
+  v8 = SBLogBacklight([(NSHashTable *)backlightEnvironmentSceneProviders addObject:providerCopy]);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     if (objc_opt_respondsToSelector())
@@ -597,8 +597,7 @@ void __45__SBBacklightEnvironmentSessionProvider_init__block_invoke_2(uint64_t a
 {
   v9 = *MEMORY[0x277D85DE8];
   providerCopy = provider;
-  [(NSHashTable *)self->_backlightEnvironmentSceneProviders removeObject:providerCopy];
-  v5 = SBLogBacklight();
+  v5 = SBLogBacklight([(NSHashTable *)self->_backlightEnvironmentSceneProviders removeObject:providerCopy]);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     if (objc_opt_respondsToSelector())
@@ -633,8 +632,7 @@ void __45__SBBacklightEnvironmentSessionProvider_init__block_invoke_2(uint64_t a
     backlightSceneHostEnvironmentProviders = self->_backlightSceneHostEnvironmentProviders;
   }
 
-  [(NSHashTable *)backlightSceneHostEnvironmentProviders addObject:providerCopy];
-  v8 = SBLogBacklight();
+  v8 = SBLogBacklight([(NSHashTable *)backlightSceneHostEnvironmentProviders addObject:providerCopy]);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     if (objc_opt_respondsToSelector())
@@ -659,8 +657,7 @@ void __45__SBBacklightEnvironmentSessionProvider_init__block_invoke_2(uint64_t a
 {
   v9 = *MEMORY[0x277D85DE8];
   providerCopy = provider;
-  [(NSHashTable *)self->_backlightSceneHostEnvironmentProviders removeObject:providerCopy];
-  v5 = SBLogBacklight();
+  v5 = SBLogBacklight([(NSHashTable *)self->_backlightSceneHostEnvironmentProviders removeObject:providerCopy]);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     if (objc_opt_respondsToSelector())
@@ -685,7 +682,7 @@ void __45__SBBacklightEnvironmentSessionProvider_init__block_invoke_2(uint64_t a
 {
   v9 = *MEMORY[0x277D85DE8];
   providerCopy = provider;
-  v5 = SBLogBacklight();
+  v5 = SBLogBacklight(providerCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     if (objc_opt_respondsToSelector())
@@ -710,7 +707,7 @@ void __45__SBBacklightEnvironmentSessionProvider_init__block_invoke_2(uint64_t a
 {
   v9 = *MEMORY[0x277D85DE8];
   providerCopy = provider;
-  v5 = SBLogBacklight();
+  v5 = SBLogBacklight(providerCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     if (objc_opt_respondsToSelector())
@@ -833,7 +830,7 @@ void __74__SBBacklightEnvironmentSessionProvider_didEndInactiveEnvironmentSessio
 {
   v9 = *MEMORY[0x277D85DE8];
   _buildPresentation = [(SBBacklightEnvironmentSessionProvider *)self _buildPresentation];
-  v4 = SBLogBacklight();
+  v4 = SBLogBacklight(_buildPresentation);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 138412290;

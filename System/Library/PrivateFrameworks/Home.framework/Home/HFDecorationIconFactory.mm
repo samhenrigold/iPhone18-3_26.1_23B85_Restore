@@ -6,7 +6,7 @@
 
 + (id)iconDescriptorForCharacteristicType:(id)type effectiveServiceType:(id)serviceType primaryState:(int64_t)state
 {
-  v28[1] = *MEMORY[0x277D85DE8];
+  v27[1] = *MEMORY[0x277D85DE8];
   typeCopy = type;
   serviceTypeCopy = serviceType;
   if ([typeCopy isEqualToString:*MEMORY[0x277CCF788]])
@@ -132,18 +132,18 @@ LABEL_39:
   {
     v17 = [MEMORY[0x277D755D0] configurationWithPointSize:5 weight:32.0];
     v18 = [[HFSymbolIconConfiguration alloc] initWithSystemImageName:v14 configuration:v17];
-    v27 = &unk_282524168;
-    v28[0] = v18;
-    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:&v27 count:1];
+    v26 = &unk_282524168;
+    v27[0] = v18;
+    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:&v26 count:1];
     v16 = [[HFMultistateImageIconDescriptor alloc] initWithSymbolIconConfigurationsKeyedByPrimaryState:v19];
 
     if (!v16)
     {
       NSLog(&cfstr_Icondescriptor_1.isa, v14);
       v20 = [HFMultistateImageIconDescriptor alloc];
-      v25 = &unk_282524168;
-      v26 = v14;
-      v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
+      v24 = &unk_282524168;
+      v25 = v14;
+      v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
       v16 = [(HFMultistateImageIconDescriptor *)v20 initWithImageIdentifiersKeyedByPrimaryState:v21];
     }
   }
@@ -151,7 +151,6 @@ LABEL_39:
   v22 = [(HFMultistateImageIconDescriptor *)v16 iconDescriptorForPrimaryState:state];
 
 LABEL_40:
-  v23 = *MEMORY[0x277D85DE8];
 
   return v22;
 }

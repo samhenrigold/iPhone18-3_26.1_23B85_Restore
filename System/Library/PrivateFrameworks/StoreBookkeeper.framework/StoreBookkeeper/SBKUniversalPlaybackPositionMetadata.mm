@@ -2,6 +2,7 @@
 + (id)_testableMetadataItem_1;
 + (id)keyValueStoreItemIdentifierForItem:(id)item;
 + (id)keyValueStoreItemIdentifierForUniqueStoreID:(int64_t)d itemTitle:(id)title albumName:(id)name itemArtistName:(id)artistName feedURL:(id)l feedGUID:(id)iD;
++ (id)metadataWithItemIdentifier:(id)identifier bookmarkTime:(double)time bookmarkTimestamp:(double)timestamp hasBeenPlayed:(BOOL)played playCount:(unint64_t)count;
 + (id)metadataWithItemIdentifier:(id)identifier keyValueStorePayload:(id)payload failuresOkay:(BOOL)okay;
 + (id)metadataWithValuesFromDataSourceItem:(id)item;
 - (BOOL)isEqual:(id)equal;
@@ -21,7 +22,7 @@
 
 - (id)keyValueStorePayload
 {
-  v22[4] = *MEMORY[0x277D85DE8];
+  v21[4] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCABB0];
   [(SBKUniversalPlaybackPositionMetadata *)self bookmarkTime];
   v4 = [v3 numberWithDouble:?];
@@ -31,16 +32,16 @@
   [(SBKUniversalPlaybackPositionMetadata *)self timestamp];
   v8 = [v7 numberWithDouble:?];
   v9 = MEMORY[0x277CBEAC0];
-  v22[0] = v4;
-  v22[1] = v5;
-  v22[2] = v6;
-  v22[3] = v8;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:4];
+  v21[0] = v4;
+  v21[1] = v5;
+  v21[2] = v6;
+  v21[3] = v8;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:4];
   v11 = [v9 dictionaryWithObjects:v10 forKeys:&unk_287CA2870];
 
-  v17 = 0;
-  v12 = [MEMORY[0x277CCAC58] dataWithPropertyList:v11 format:200 options:0 error:&v17];
-  v13 = v17;
+  v16 = 0;
+  v12 = [MEMORY[0x277CCAC58] dataWithPropertyList:v11 format:200 options:0 error:&v16];
+  v13 = v16;
   if (v13)
   {
     v14 = os_log_create("com.apple.amp.StoreBookkeeper", "Default");
@@ -48,13 +49,11 @@
     {
       *buf = 138543618;
       selfCopy = self;
-      v20 = 2114;
-      v21 = v13;
+      v19 = 2114;
+      v20 = v13;
       _os_log_impl(&dword_26BC19000, v14, OS_LOG_TYPE_ERROR, "SBKUniversalPlaybackPositionMetadata - error serializing data. %{public}@ error=%{public}@,", buf, 0x16u);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -254,14 +253,14 @@
 
 + (id)metadataWithItemIdentifier:(id)identifier keyValueStorePayload:(id)payload failuresOkay:(BOOL)okay
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   payloadCopy = payload;
   if (payloadCopy)
   {
-    v42 = 0;
-    v10 = [MEMORY[0x277CCAC58] propertyListWithData:payloadCopy options:1 format:0 error:&v42];
-    v11 = v42;
+    v41 = 0;
+    v10 = [MEMORY[0x277CCAC58] propertyListWithData:payloadCopy options:1 format:0 error:&v41];
+    v11 = v41;
     if (v11)
     {
       v12 = v11;
@@ -269,7 +268,7 @@
       if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v44 = v12;
+        v43 = v12;
         _os_log_impl(&dword_26BC19000, v5, OS_LOG_TYPE_ERROR, "SBKUniversalPlaybackPositionMetadata - error deserializing data. error=%{public}@,", buf, 0xCu);
       }
     }
@@ -281,9 +280,9 @@
 
     else
     {
-      v41 = 0;
-      v5 = [objc_alloc(MEMORY[0x277CCAAC8]) initForReadingFromData:payloadCopy error:&v41];
-      v13 = v41;
+      v40 = 0;
+      v5 = [objc_alloc(MEMORY[0x277CCAAC8]) initForReadingFromData:payloadCopy error:&v40];
+      v13 = v40;
       [v5 setDecodingFailurePolicy:0];
       v15 = MEMORY[0x277CBEB98];
       v16 = objc_opt_class();
@@ -301,7 +300,7 @@
           if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v44 = identifierCopy;
+            v43 = identifierCopy;
             _os_log_impl(&dword_26BC19000, v33, OS_LOG_TYPE_ERROR, "SBKUniversalPlaybackPositionMetadata - encountered invalid data while unarchiving payload for itemIdentifier: %@", buf, 0xCu);
           }
 
@@ -460,9 +459,22 @@ LABEL_57:
   v14 = 0;
 LABEL_58:
 
-  v39 = *MEMORY[0x277D85DE8];
-
   return v14;
+}
+
++ (id)metadataWithItemIdentifier:(id)identifier bookmarkTime:(double)time bookmarkTimestamp:(double)timestamp hasBeenPlayed:(BOOL)played playCount:(unint64_t)count
+{
+  playedCopy = played;
+  identifierCopy = identifier;
+  v12 = objc_alloc_init(SBKUniversalPlaybackPositionMetadata);
+  [(SBKUniversalPlaybackPositionMetadata *)v12 setItemIdentifier:identifierCopy];
+
+  [(SBKUniversalPlaybackPositionMetadata *)v12 setTimestamp:timestamp];
+  [(SBKUniversalPlaybackPositionMetadata *)v12 setBookmarkTime:time];
+  [(SBKUniversalPlaybackPositionMetadata *)v12 setHasBeenPlayed:playedCopy];
+  [(SBKUniversalPlaybackPositionMetadata *)v12 setPlayCount:count];
+
+  return v12;
 }
 
 + (id)metadataWithValuesFromDataSourceItem:(id)item
@@ -511,11 +523,11 @@ LABEL_58:
   return v17;
 }
 
-uint64_t __77__SBKUniversalPlaybackPositionMetadata_metadataWithValuesFromDataSourceItem___block_invoke(uint64_t result, uint64_t a2, uint64_t a3)
+id *__77__SBKUniversalPlaybackPositionMetadata_metadataWithValuesFromDataSourceItem___block_invoke(id *result, uint64_t a2, uint64_t a3)
 {
   if (a3)
   {
-    return [*(result + 32) setObject:a3 forKey:a2];
+    return [result[4] setObject:a3 forKey:a2];
   }
 
   return result;
@@ -523,7 +535,7 @@ uint64_t __77__SBKUniversalPlaybackPositionMetadata_metadataWithValuesFromDataSo
 
 + (id)keyValueStoreItemIdentifierForUniqueStoreID:(int64_t)d itemTitle:(id)title albumName:(id)name itemArtistName:(id)artistName feedURL:(id)l feedGUID:(id)iD
 {
-  v39[4] = *MEMORY[0x277D85DE8];
+  v38[4] = *MEMORY[0x277D85DE8];
   titleCopy = title;
   nameCopy = name;
   artistNameCopy = artistName;
@@ -543,8 +555,8 @@ uint64_t __77__SBKUniversalPlaybackPositionMetadata_metadataWithValuesFromDataSo
       v21 = &stru_287C9CB50;
     }
 
-    v38[0] = @"title";
-    v38[1] = @"albumTitle";
+    v37[0] = @"title";
+    v37[1] = @"albumTitle";
     if (nameCopy)
     {
       v22 = nameCopy;
@@ -555,8 +567,8 @@ uint64_t __77__SBKUniversalPlaybackPositionMetadata_metadataWithValuesFromDataSo
       v22 = &stru_287C9CB50;
     }
 
-    v39[0] = v21;
-    v39[1] = v22;
+    v38[0] = v21;
+    v38[1] = v22;
     if (artistNameCopy)
     {
       v23 = artistNameCopy;
@@ -567,16 +579,16 @@ uint64_t __77__SBKUniversalPlaybackPositionMetadata_metadataWithValuesFromDataSo
       v23 = &stru_287C9CB50;
     }
 
-    v38[2] = @"artist";
-    v38[3] = @"podcastGUID";
+    v37[2] = @"artist";
+    v37[3] = @"podcastGUID";
     if (iDCopy)
     {
       v20 = iDCopy;
     }
 
-    v39[2] = v23;
-    v39[3] = v20;
-    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:4];
+    v38[2] = v23;
+    v38[3] = v20;
+    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:4];
     v25 = [v24 mutableCopy];
 
     if (lCopy)
@@ -584,37 +596,37 @@ uint64_t __77__SBKUniversalPlaybackPositionMetadata_metadataWithValuesFromDataSo
       [v25 setObject:lCopy forKeyedSubscript:@"podcastURL"];
     }
 
-    v37[0] = @"podcastURL";
-    v37[1] = @"podcastGUID";
-    v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:2];
+    v36[0] = @"podcastURL";
+    v36[1] = @"podcastGUID";
+    v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:2];
     v19 = storageItemIdentifierForProperties(v26, v25);
 
     if (!v19)
     {
-      v36[0] = @"title";
-      v36[1] = @"artist";
-      v36[2] = @"albumTitle";
-      v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:3];
+      v35[0] = @"title";
+      v35[1] = @"artist";
+      v35[2] = @"albumTitle";
+      v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:3];
       v19 = storageItemIdentifierForProperties(v27, v25);
 
       if (!v19)
       {
-        v35[0] = @"title";
-        v35[1] = @"albumTitle";
-        v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:2];
+        v34[0] = @"title";
+        v34[1] = @"albumTitle";
+        v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:2];
         v19 = storageItemIdentifierForProperties(v28, v25);
 
         if (!v19)
         {
-          v34[0] = @"title";
-          v34[1] = @"artist";
-          v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:2];
+          v33[0] = @"title";
+          v33[1] = @"artist";
+          v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:2];
           v19 = storageItemIdentifierForProperties(v29, v25);
 
           if (!v19)
           {
-            v33 = @"title";
-            v30 = [MEMORY[0x277CBEA60] arrayWithObjects:&v33 count:1];
+            v32 = @"title";
+            v30 = [MEMORY[0x277CBEA60] arrayWithObjects:&v32 count:1];
             v19 = storageItemIdentifierForProperties(v30, v25);
           }
         }
@@ -627,19 +639,17 @@ uint64_t __77__SBKUniversalPlaybackPositionMetadata_metadataWithValuesFromDataSo
     v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"%llu", d];
   }
 
-  v31 = *MEMORY[0x277D85DE8];
-
   return v19;
 }
 
 + (id)keyValueStoreItemIdentifierForItem:(id)item
 {
-  v33[3] = *MEMORY[0x277D85DE8];
+  v32[3] = *MEMORY[0x277D85DE8];
   itemCopy = item;
-  v33[0] = @"storeItemAdamID";
-  v33[1] = @"subscriptionStoreItemAdamID";
-  v33[2] = @"mediaEntityType";
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:3];
+  v32[0] = @"storeItemAdamID";
+  v32[1] = @"subscriptionStoreItemAdamID";
+  v32[2] = @"mediaEntityType";
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:3];
   v5 = valuesForProperties(itemCopy, v4);
   v6 = [v5 objectForKey:@"mediaEntityType"];
   integerValue = [v6 integerValue];
@@ -661,22 +671,8 @@ uint64_t __77__SBKUniversalPlaybackPositionMetadata_metadataWithValuesFromDataSo
 
   v13 = longLongValue;
 
-  if (v13)
+  if (v13 || (([v5 objectForKey:@"subscriptionStoreItemAdamID"], v14 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), v15 = objc_opt_isKindOfClass(), objc_msgSend(v5, "objectForKey:", @"subscriptionStoreItemAdamID"), v16 = objc_claimAutoreleasedReturnValue(), v17 = v16, (v15 & 1) == 0) ? (v18 = objc_msgSend(v16, "unsignedLongLongValue")) : (v18 = objc_msgSend(v16, "longLongValue")), v13 = v18, v17, v14, v13))
   {
-    goto LABEL_9;
-  }
-
-  v14 = [v5 objectForKey:@"subscriptionStoreItemAdamID"];
-  objc_opt_class();
-  v15 = objc_opt_isKindOfClass();
-  v16 = [v5 objectForKey:@"subscriptionStoreItemAdamID"];
-  v17 = v16;
-  v18 = (v15 & 1) != 0 ? [v16 longLongValue] : objc_msgSend(v16, "unsignedLongLongValue");
-  v13 = v18;
-
-  if (v13)
-  {
-LABEL_9:
     if ((integerValue - 3) >= 2)
     {
       v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"%llu", v13];
@@ -686,9 +682,9 @@ LABEL_11:
     }
   }
 
-  v32[0] = @"podcastURL";
-  v32[1] = @"podcastGUID";
-  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:2];
+  v31[0] = @"podcastURL";
+  v31[1] = @"podcastGUID";
+  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:2];
 
   v22 = valuesForProperties(itemCopy, v21);
 
@@ -698,10 +694,10 @@ LABEL_11:
     goto LABEL_13;
   }
 
-  v31[0] = @"title";
-  v31[1] = @"artist";
-  v31[2] = @"albumTitle";
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:3];
+  v30[0] = @"title";
+  v30[1] = @"artist";
+  v30[2] = @"albumTitle";
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:3];
 
   v5 = valuesForProperties(itemCopy, v4);
 
@@ -711,9 +707,9 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  v30[0] = @"title";
-  v30[1] = @"albumTitle";
-  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:2];
+  v29[0] = @"title";
+  v29[1] = @"albumTitle";
+  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:2];
 
   v22 = valuesForProperties(itemCopy, v21);
 
@@ -728,9 +724,9 @@ LABEL_13:
 
   else
   {
-    v29[0] = @"title";
-    v29[1] = @"artist";
-    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:2];
+    v28[0] = @"title";
+    v28[1] = @"artist";
+    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:2];
 
     v5 = valuesForProperties(itemCopy, v4);
 
@@ -740,19 +736,17 @@ LABEL_13:
       goto LABEL_11;
     }
 
-    v28 = @"title";
-    v26 = [MEMORY[0x277CBEA60] arrayWithObjects:&v28 count:1];
+    v27 = @"title";
+    v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v27 count:1];
 
-    v27 = valuesForProperties(itemCopy, v26);
+    v26 = valuesForProperties(itemCopy, v25);
 
-    v20 = storageItemIdentifierForProperties(v26, v27);
-    v4 = v26;
-    v5 = v27;
+    v20 = storageItemIdentifierForProperties(v25, v26);
+    v4 = v25;
+    v5 = v26;
   }
 
 LABEL_14:
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v20;
 }

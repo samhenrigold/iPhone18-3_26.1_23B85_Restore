@@ -25,10 +25,10 @@
 
 - (id)activityForScheduling
 {
-  v17[1] = *MEMORY[0x277D85DE8];
-  v15 = 0;
-  v3 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:self requiringSecureCoding:1 error:&v15];
-  v4 = v15;
+  v16[1] = *MEMORY[0x277D85DE8];
+  v14 = 0;
+  v3 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:self requiringSecureCoding:1 error:&v14];
+  v4 = v14;
   if (v3)
   {
     v5 = MEMORY[0x277D06A00];
@@ -39,9 +39,9 @@
     distantFuture = [MEMORY[0x277CBEAA8] distantFuture];
     v11 = [v5 extensionLaunchActivityWithName:@"com.apple.NLPLearner.QuickTypePFLExtension" priority:v6 forExtensionIdentifier:@"com.apple.NLPLearner.QuickTypePFLExtension" withReason:v7 duration:v8 startingAfter:date startingBefore:distantFuture];
 
-    v16 = @"QuickTypePFLBackgroundTask";
-    v17[0] = v3;
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v15 = @"QuickTypePFLBackgroundTask";
+    v16[0] = v3;
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
     [v11 setUserInfo:v12];
 
     [v11 setRequiresDeviceInactivity:1];
@@ -61,8 +61,6 @@
 
     v11 = 0;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -94,15 +92,13 @@
 
 - (void)activityForScheduling
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   taskIdentifier = [self taskIdentifier];
-  v5 = 138412546;
-  v6 = taskIdentifier;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_error_impl(&dword_25AE22000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to archive task %@: %@", &v5, 0x16u);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412546;
+  v5 = taskIdentifier;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_error_impl(&dword_25AE22000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to archive task %@: %@", &v4, 0x16u);
 }
 
 @end

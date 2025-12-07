@@ -42,9 +42,9 @@
     +[NSString(ContactsFoundationPhoneNumbers) _cn_whitespaceExceptAscii32CharacterSet];
   }
 
-  v1 = _cn_whitespaceExceptAscii32CharacterSet_cn_once_object_3;
+  v2 = _cn_whitespaceExceptAscii32CharacterSet_cn_once_object_3;
 
-  return v1;
+  return v2;
 }
 
 + (id)_cn_LTRControlCharacters
@@ -54,9 +54,9 @@
     +[NSString(ContactsFoundationPhoneNumbers) _cn_LTRControlCharacters];
   }
 
-  v1 = _cn_LTRControlCharacters_cn_once_object_2;
+  v2 = _cn_LTRControlCharacters_cn_once_object_2;
 
-  return v1;
+  return v2;
 }
 
 - (uint64_t)_cn_requiresPhoneNumberSanitizing

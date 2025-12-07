@@ -8,23 +8,24 @@
 {
   v6 = a4;
   v7 = [self decodeObjectOfClass:a3 forKey:v6];
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v8 = v7;
+    v9 = v7;
   }
 
   else
   {
-    v9 = IFDefaultLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+    v10 = IFDefaultLog(isKindOfClass);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
-      [NSCoder(IconFoundationAdditions) _IF_decodeObjectOfClass:v6 forKey:v9];
+      [NSCoder(IconFoundationAdditions) _IF_decodeObjectOfClass:v6 forKey:v10];
     }
 
-    v8 = 0;
+    v9 = 0;
   }
 
-  return v8;
+  return v9;
 }
 
 - (void)_IF_decodeObjectOfClass:()IconFoundationAdditions forKey:.cold.1(uint64_t a1, NSObject *a2)

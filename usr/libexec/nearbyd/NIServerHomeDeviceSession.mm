@@ -8,6 +8,7 @@
 - (NIServerHomeDeviceSession)initWithResourcesManager:(id)manager configuration:(id)configuration error:(id *)error;
 - (id).cxx_construct;
 - (id)_addPeers:(id)peers;
+- (id)_disableAllServicesAndSendHangupSignal:(BOOL)signal;
 - (id)_triggerInitiatorRanging;
 - (id)addObject:(id)object;
 - (id)configure;
@@ -22,11 +23,13 @@
 - (int64_t)_regionCategoryFromDiscoveryToken:(id)token;
 - (int64_t)_regionCategoryFromModelString:(id)string;
 - (int64_t)_roseMotionStateToNIMotionActivityState:(int)state;
+- (optional<rose::RoseServiceRequest>)_prepareServiceRequestWithConfig:(SEL)config;
 - (shared_ptr<WiFiRanging::Session>)_buildWifiSession;
 - (unsigned)_flagsFromDiscoveryToken:(id)token;
 - (unsigned)_homeAnchorVariantFromDiscoveryToken:(id)token;
 - (void)_calculateMagneticFieldBias;
 - (void)_handleBackoffManagerRecommendation:(int)recommendation machContinuousTimeSec:(double)sec screenState:(int)state;
+- (void)_handleMotionStateChange:(int)change;
 - (void)_handleScreenStateChange:(int)change;
 - (void)_handleUWBSystemStateReadinessUpdate:(BOOL)update;
 - (void)_handleWifiRangingAvailableUpdate:(BOOL)update;
@@ -53,6 +56,7 @@
 - (void)didUpdateMinimumPreferredUpdateRate:(int64_t)rate;
 - (void)invalidate;
 - (void)peerInactivityPeriodExceeded:(id)exceeded;
+- (void)rangingServiceDidUpdateState:(int)state cause:(int)cause;
 - (void)responderServiceTicketId:(unsigned __int16)id didChangeRangingUpdateRate:(int)rate newThrottleRate:(float)throttleRate prevThrottleRate:(float)prevThrottleRate effectiveSinceCycleInde:(int)inde;
 - (void)responderSessionDidInvalidatedWithReason:(int)reason serviceTicketId:(unsigned __int16)id;
 - (void)setupBackoffResumeManager;
@@ -92,7 +96,7 @@
 
     if (managerCopy)
     {
-      [managerCopy protobufLogger];
+      objc_msgSend_protobufLogger(managerCopy);
       v16 = v28;
     }
 
@@ -253,7 +257,8 @@ LABEL_11:
       self->_currentSessionRole = 0;
       if (!self->_initiatorSession.__ptr_ && self->_uwbSystemAvailable)
       {
-        [(NIServerHomeDeviceSession *)self _prepareServiceRequestWithConfig:sub_10041C974(v23)];
+        sub_10041C974(v23);
+        objc_msgSend__prepareServiceRequestWithConfig_(self);
         if ((v61 & 1) == 0)
         {
           v42 = [NSString stringWithFormat:@"Unable to prepare service request."];
@@ -265,7 +270,7 @@ LABEL_11:
           goto LABEL_56;
         }
 
-        [(NIServerHomeDeviceSession *)self _buildRoseSession:buf];
+        objc_msgSend__buildRoseSession_(self);
         if (v50 && (*(v50 + 754) & 1) != 0)
         {
           v44 = v51;
@@ -665,7 +670,7 @@ LABEL_58:
 
   else
   {
-    v7 = ([(NIConfiguration *)self->_configuration suspensionPolicy]& 2) != 0;
+    [(NIConfiguration *)self->_configuration suspensionPolicy];
     v3 = ([(NIConfiguration *)self->_configuration suspensionPolicy]>> 2) & 1;
     if (!self->_uwbSystemAvailable)
     {
@@ -768,7 +773,7 @@ LABEL_14:
   {
     if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
     {
-      sub_1004AE914(v7, self);
+      sub_1004AE914();
     }
 
     lifecycleSupervisor = [resourcesManager lifecycleSupervisor];
@@ -1018,9 +1023,9 @@ LABEL_14:
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "#ses-home,Device discovered. Session Identifier: %@. Device: %@", buf, 0x16u);
     }
 
-    v97.receiver = self;
-    v97.super_class = NIServerHomeDeviceSession;
-    resourcesManager = [(NIServerBaseSession *)&v97 resourcesManager];
+    v98.receiver = self;
+    v98.super_class = NIServerHomeDeviceSession;
+    resourcesManager = [(NIServerBaseSession *)&v98 resourcesManager];
     wifiResource = [resourcesManager wifiResource];
     deviceCapabilities = [wifiResource deviceCapabilities];
 
@@ -1034,10 +1039,10 @@ LABEL_14:
       uwbSystemAvailable = 0;
     }
 
-    HIDWORD(v88) = [discoveredCopy isWifiRangingCapable];
-    v95 = xmmword_100567098;
-    v96 = 1;
-    v90 = +[NSUserDefaults standardUserDefaults];
+    HIDWORD(v89) = [discoveredCopy isWifiRangingCapable];
+    v96 = xmmword_100567098;
+    v97 = 1;
+    v91 = +[NSUserDefaults standardUserDefaults];
     if ([discoveredCopy systemKeyRelationship])
     {
       cbDevice = [discoveredCopy cbDevice];
@@ -1053,7 +1058,7 @@ LABEL_14:
         goto LABEL_117;
       }
 
-      v15 = [v90 objectForKey:@"NIHomeDisableAllowListPolicy"];
+      v15 = [v91 objectForKey:@"NIHomeDisableAllowListPolicy"];
       v16 = v15 == 0;
 
       if (v16)
@@ -1063,7 +1068,7 @@ LABEL_14:
 
       else
       {
-        v17 = [v90 BOOLForKey:@"NIHomeDisableAllowListPolicy"];
+        v17 = [v91 BOOLForKey:@"NIHomeDisableAllowListPolicy"];
       }
 
       v24 = sub_10001E184(model);
@@ -1078,7 +1083,7 @@ LABEL_14:
         goto LABEL_117;
       }
 
-      LOBYTE(v95) = [model hasPrefix:{@"AudioAccessory6, 1"}];
+      LOBYTE(v96) = [model hasPrefix:{@"AudioAccessory6, 1"}];
       if ([model hasPrefix:{@"AudioAccessory6, 1"}])
       {
         v26 = 2;
@@ -1089,9 +1094,9 @@ LABEL_14:
         v26 = 1;
       }
 
-      DWORD1(v95) = v26;
+      DWORD1(v96) = v26;
       sub_10041C974(v25);
-      LODWORD(v96) = [(NIServerHomeDeviceSession *)self _intentPredictorConfigFromModelString:model];
+      LODWORD(v97) = [(NIServerHomeDeviceSession *)self _intentPredictorConfigFromModelString:model];
       if ([(NIServerHomeDeviceSession *)self _regionCategoryFromModelString:model]== 10)
       {
         regionSizeCategory = 10;
@@ -1106,50 +1111,50 @@ LABEL_14:
         }
       }
 
-      *(&v95 + 1) = regionSizeCategory;
+      *(&v96 + 1) = regionSizeCategory;
     }
 
     else
     {
       discoveryToken = [discoveredCopy discoveryToken];
-      LOBYTE(v95) = [(NIServerHomeDeviceSession *)self _biasCorrectionRequirementFromDiscoveryToken:discoveryToken];
+      LOBYTE(v96) = [(NIServerHomeDeviceSession *)self _biasCorrectionRequirementFromDiscoveryToken:discoveryToken];
 
       discoveryToken2 = [discoveredCopy discoveryToken];
-      DWORD1(v95) = [(NIServerHomeDeviceSession *)self _magneticFieldStrengthCheckOptionFromDiscoveryToken:discoveryToken2];
+      DWORD1(v96) = [(NIServerHomeDeviceSession *)self _magneticFieldStrengthCheckOptionFromDiscoveryToken:discoveryToken2];
 
       discoveryToken3 = [discoveredCopy discoveryToken];
       [(NIServerHomeDeviceSession *)self _homeAnchorVariantFromDiscoveryToken:discoveryToken3];
 
       discoveryToken4 = [discoveredCopy discoveryToken];
-      LODWORD(v96) = [(NIServerHomeDeviceSession *)self _intentPredictorConfigFromDiscoveryToken:discoveryToken4];
+      LODWORD(v97) = [(NIServerHomeDeviceSession *)self _intentPredictorConfigFromDiscoveryToken:discoveryToken4];
 
       discoveryToken5 = [discoveredCopy discoveryToken];
       v23 = [(NIServerHomeDeviceSession *)self _regionCategoryFromDiscoveryToken:discoveryToken5];
 
       if (v23 == 10 || self->_recommendedProcessingOptions.regionSizeCategory == 10)
       {
-        *(&v95 + 1) = 10;
+        *(&v96 + 1) = 10;
       }
 
       else
       {
-        *(&v95 + 1) = 0;
+        *(&v96 + 1) = 0;
       }
     }
 
     lifecycleSupervisor = [resourcesManager lifecycleSupervisor];
     discoveryToken6 = [discoveredCopy discoveryToken];
-    v100 = discoveryToken6;
-    v30 = [NSArray arrayWithObjects:&v100 count:1];
+    v101 = discoveryToken6;
+    v30 = [NSArray arrayWithObjects:&v101 count:1];
     [lifecycleSupervisor startedDiscoveringPeersWithTokens:v30];
 
     v31 = qword_1009F9820;
     if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
     {
-      LODWORD(v88) = deviceCapabilities;
+      LODWORD(v89) = deviceCapabilities;
       sub_100193120(buf);
       v32 = sub_10000EA44(&buf[16], "require bias correction: ", 25);
-      if (v95)
+      if (v96)
       {
         v33 = "yes";
       }
@@ -1159,7 +1164,7 @@ LABEL_14:
         v33 = "no";
       }
 
-      if (v95)
+      if (v96)
       {
         v34 = 3;
       }
@@ -1171,57 +1176,57 @@ LABEL_14:
 
       v35 = sub_10000EA44(v32, v33, v34);
       std::ios_base::getloc((v35 + *(*v35 - 24)));
-      v36 = std::locale::use_facet(&v98, &std::ctype<char>::id);
+      v36 = std::locale::use_facet(&v99, &std::ctype<char>::id);
       (v36->__vftable[2].~facet_0)(v36, 10);
-      std::locale::~locale(&v98);
+      std::locale::~locale(&v99);
       std::ostream::put();
       std::ostream::flush();
       sub_10000EA44(&buf[16], "magnetic field strength check options: ", 39);
       v37 = std::ostream::operator<<();
       std::ios_base::getloc((v37 + *(*v37 - 24)));
-      v38 = std::locale::use_facet(&v98, &std::ctype<char>::id);
+      v38 = std::locale::use_facet(&v99, &std::ctype<char>::id);
       (v38->__vftable[2].~facet_0)(v38, 10);
-      std::locale::~locale(&v98);
+      std::locale::~locale(&v99);
       std::ostream::put();
       std::ostream::flush();
       sub_10000EA44(&buf[16], "region size category: ", 22);
       v39 = std::ostream::operator<<();
       std::ios_base::getloc((v39 + *(*v39 - 24)));
-      v40 = std::locale::use_facet(&v98, &std::ctype<char>::id);
+      v40 = std::locale::use_facet(&v99, &std::ctype<char>::id);
       (v40->__vftable[2].~facet_0)(v40, 10);
-      std::locale::~locale(&v98);
+      std::locale::~locale(&v99);
       std::ostream::put();
       std::ostream::flush();
       sub_10000EA44(&buf[16], "intent predictor config: ", 25);
       v41 = std::ostream::operator<<();
       std::ios_base::getloc((v41 + *(*v41 - 24)));
-      v42 = std::locale::use_facet(&v98, &std::ctype<char>::id);
+      v42 = std::locale::use_facet(&v99, &std::ctype<char>::id);
       (v42->__vftable[2].~facet_0)(v42, 10);
-      std::locale::~locale(&v98);
+      std::locale::~locale(&v99);
       std::ostream::put();
       std::ostream::flush();
       std::stringbuf::str();
       *&buf[16] = v43;
-      if (v104 < 0)
+      if (v105 < 0)
       {
-        operator delete(v103[7].__locale_);
+        operator delete(v104[7].__locale_);
       }
 
-      std::locale::~locale(v103);
+      std::locale::~locale(v104);
       std::iostream::~basic_iostream();
       std::ios::~ios();
-      v44 = &v92;
-      if (v94 < 0)
+      v44 = &v93;
+      if (v95 < 0)
       {
-        v44 = v92;
+        v44 = v93;
       }
 
-      *v99 = 136315138;
-      *&v99[4] = v44;
-      _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "#ses-home,processing options are %s", v99, 0xCu);
-      if (v94 < 0)
+      *v100 = 136315138;
+      *&v100[4] = v44;
+      _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "#ses-home,processing options are %s", v100, 0xCu);
+      if (v95 < 0)
       {
-        operator delete(v92);
+        operator delete(v93);
       }
     }
 
@@ -1253,7 +1258,7 @@ LABEL_14:
       }
     }
 
-    if (![(NIServerHomeDeviceSession *)self _shouldRespondToDevice:discoveredCopy, v88])
+    if (![(NIServerHomeDeviceSession *)self _shouldRespondToDevice:discoveredCopy, v89])
     {
       if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
       {
@@ -1275,7 +1280,7 @@ LABEL_14:
         __assert_rtn("[NIServerHomeDeviceSession deviceDiscovered:]", "NIServerHomeDeviceSession.mm", 1327, "_currentSessionRole == Role::Responder");
       }
 
-      if (([v90 BOOLForKey:@"NIHomeAllowMobileAsAnchor"] & 1) == 0 && objc_msgSend(discoveredCopy, "isMobilePhoneModel"))
+      if (([v91 BOOLForKey:@"NIHomeAllowMobileAsAnchor"] & 1) == 0 && objc_msgSend(discoveredCopy, "isMobilePhoneModel"))
       {
         v49 = qword_1009F9820;
         if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_INFO))
@@ -1293,27 +1298,27 @@ LABEL_104:
 
       v55 = +[NIServerGRResponderRangingService sharedInstance];
       v56 = [v55 getSessionTicketForDevice:discoveredCopy clientIdentifier:self->_containerUniqueIdentifier clientQueue:self->_clientQueue forDelegate:self];
-      LOWORD(v98.__locale_) = v56;
-      BYTE2(v98.__locale_) = BYTE2(v56);
+      LOWORD(v99.__locale_) = v56;
+      BYTE2(v99.__locale_) = BYTE2(v56);
 
-      if (BYTE2(v98.__locale_) == 1)
+      if (BYTE2(v99.__locale_) == 1)
       {
-        *v99 = [discoveredCopy u64Identifier];
-        v57 = sub_100009978(&self->_responderSessions.__table_.__bucket_list_.__ptr_, v99);
+        *v100 = [discoveredCopy u64Identifier];
+        v57 = sub_100009978(&self->_responderSessions.__table_.__bucket_list_.__ptr_, v100);
         if (v57)
         {
           v58 = qword_1009F9820;
           if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 134217984;
-            *&buf[4] = *v99;
+            *&buf[4] = *v100;
             _os_log_impl(&_mh_execute_header, v58, OS_LOG_TYPE_DEFAULT, "#ses-home,Evicting previous UWB session with same identitifer: 0x%llx", buf, 0xCu);
           }
 
           sub_1000223BC(&self->_responderSessions.__table_.__bucket_list_.__ptr_, v57);
         }
 
-        v59 = [(NIServerHomeDeviceSession *)self objectFromIdentifier:*v99];
+        v59 = [(NIServerHomeDeviceSession *)self objectFromIdentifier:*v100];
         discoveryToken7 = [v59 discoveryToken];
 
         if (discoveryToken7)
@@ -1322,58 +1327,58 @@ LABEL_104:
           sub_10026C2C0(&self->_handoffCAManager, [discoveryToken7 hash], -[NIServerHomeDeviceSession nominalCycleRate](self, "nominalCycleRate"), v61);
         }
 
-        if ((BYTE2(v98.__locale_) & 1) == 0)
+        if ((BYTE2(v99.__locale_) & 1) == 0)
         {
           sub_1000195BC();
         }
 
-        v92 = v99;
-        *buf = &v95;
-        *&buf[8] = &v98;
-        sub_10023DAAC(&self->_responderSessions.__table_.__bucket_list_.__ptr_, v99);
+        v93 = v100;
+        *buf = &v96;
+        *&buf[8] = &v99;
+        sub_10023DAAC(&self->_responderSessions.__table_.__bucket_list_.__ptr_, v100, &unk_100548C50, &v93, buf);
         if ((v62 & 1) == 0 && os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
         {
-          sub_1004AEAFC(v99);
+          sub_1004AEAFC();
         }
 
         v63 = qword_1009F9820;
         if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
         {
           u64Identifier2 = [discoveredCopy u64Identifier];
-          if (v95)
+          if (v96)
           {
-            v65 = "YES";
+            v66 = "YES";
           }
 
           else
           {
-            v65 = "NO";
+            v66 = "NO";
           }
 
-          v66 = sub_1002D6258(*(&v95 + 1));
-          v67 = v66;
-          uTF8String = [v66 UTF8String];
+          v67 = sub_1002D6258(*(&v96 + 1), v64);
+          v68 = v67;
+          uTF8String = [v67 UTF8String];
           *buf = 134218754;
           *&buf[4] = u64Identifier2;
           *&buf[12] = 2080;
-          *&buf[14] = v65;
+          *&buf[14] = v66;
           *&buf[22] = 2080;
-          v102 = uTF8String;
-          LOWORD(v103[0].__locale_) = 1024;
-          *(&v103[0].__locale_ + 2) = DWORD1(v95);
+          v103 = uTF8String;
+          LOWORD(v104[0].__locale_) = 1024;
+          *(&v104[0].__locale_ + 2) = DWORD1(v96);
           _os_log_impl(&_mh_execute_header, v63, OS_LOG_TYPE_DEFAULT, "#ses-home,recorded mac addr 0x%llx needs bias correction: %s, regionCategory: %s, magnetic field strength check option: %d", buf, 0x26u);
         }
 
-        v69 = +[NIServerGRResponderRangingService sharedInstance];
-        v70 = v69;
-        if ((BYTE2(v98.__locale_) & 1) == 0)
+        v70 = +[NIServerGRResponderRangingService sharedInstance];
+        v71 = v70;
+        if ((BYTE2(v99.__locale_) & 1) == 0)
         {
           sub_1000195BC();
         }
 
-        v71 = [v69 triggerRangingForTicket:LOWORD(v98.__locale_) device:discoveredCopy updatedDevice:discoveredCopy clientIdentifier:self->_containerUniqueIdentifier uwbAddressRotated:0];
+        v72 = [v70 triggerRangingForTicket:LOWORD(v99.__locale_) device:discoveredCopy updatedDevice:discoveredCopy clientIdentifier:self->_containerUniqueIdentifier uwbAddressRotated:0];
 
-        if (v71)
+        if (v72)
         {
           if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
           {
@@ -1381,7 +1386,7 @@ LABEL_104:
           }
 
           remote2 = [resourcesManager remote];
-          [remote2 uwbSessionDidFailWithError:v71];
+          [remote2 uwbSessionDidFailWithError:v72];
         }
 
         goto LABEL_117;
@@ -1390,7 +1395,7 @@ LABEL_104:
 
     else
     {
-      if ((v89 & deviceCapabilities) == 0)
+      if ((v90 & deviceCapabilities) == 0)
       {
         if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
         {
@@ -1448,73 +1453,73 @@ LABEL_117:
         }
       }
 
-      v75 = qword_1009F9820;
-      if (os_log_type_enabled(v75, OS_LOG_TYPE_DEFAULT))
+      v76 = qword_1009F9820;
+      if (os_log_type_enabled(v76, OS_LOG_TYPE_DEFAULT))
       {
         cbDevice3 = [discoveredCopy cbDevice];
         model3 = [cbDevice3 model];
         *buf = 138412290;
         *&buf[4] = model3;
-        _os_log_impl(&_mh_execute_header, v75, OS_LOG_TYPE_DEFAULT, "#ses-home,Starting a wifi session with a peer model: %@", buf, 0xCu);
+        _os_log_impl(&_mh_execute_header, v76, OS_LOG_TYPE_DEFAULT, "#ses-home,Starting a wifi session with a peer model: %@", buf, 0xCu);
       }
 
-      [(NIServerHomeDeviceSession *)self _buildWifiSession];
-      v78 = v92;
-      if (v92)
+      objc_msgSend__buildWifiSession(self);
+      v79 = v93;
+      if (v93)
       {
         u64Identifier3 = [discoveredCopy u64Identifier];
         configuration3 = [(NIServerHomeDeviceSession *)self configuration];
         if ([configuration3 isAnchor])
         {
-          v81 = 2;
+          v82 = 2;
         }
 
         else
         {
-          v81 = 1;
+          v82 = 1;
         }
 
-        sub_10003FBF8(buf, u64Identifier3, v81);
+        sub_10003FBF8(buf, u64Identifier3, v82);
 
-        v82 = sub_100005288();
-        sub_10033B03C(self->_wifiCAManager.__ptr_, v82);
+        v83 = sub_100005288();
+        sub_10033B03C(self->_wifiCAManager.__ptr_, v83);
         if ([(NIServerHomeDeviceSession *)self _isWifiRangingAllowed])
         {
-          sub_100040350(v92, buf);
+          sub_100040350(v93, buf);
         }
 
-        v83 = qword_1009F9820;
+        v84 = qword_1009F9820;
         if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
         {
-          *v99 = 0;
-          _os_log_impl(&_mh_execute_header, v83, OS_LOG_TYPE_DEFAULT, "#ses-home,WiFi ranging is not allowed at this time.", v99, 2u);
+          *v100 = 0;
+          _os_log_impl(&_mh_execute_header, v84, OS_LOG_TYPE_DEFAULT, "#ses-home,WiFi ranging is not allowed at this time.", v100, 2u);
         }
 
-        v98.__locale_ = [discoveredCopy u64Identifier];
-        *v99 = &v98;
-        v84 = sub_10023DD04(&self->_wifiSessions.__table_.__bucket_list_.__ptr_, &v98);
-        v86 = v92;
-        v85 = v93;
-        if (v93)
+        v99.__locale_ = [discoveredCopy u64Identifier];
+        *v100 = &v99;
+        v85 = sub_10023DD04(&self->_wifiSessions.__table_.__bucket_list_.__ptr_, &v99, &unk_100548C50, v100);
+        v87 = v93;
+        v86 = v94;
+        if (v94)
         {
-          atomic_fetch_add_explicit(&v93->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v94->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
-        v87 = v84[4];
-        v84[3] = v86;
-        v84[4] = v85;
-        if (v87)
+        v88 = v85[4];
+        v85[3] = v87;
+        v85[4] = v86;
+        if (v88)
         {
-          sub_10000AD84(v87);
+          sub_10000AD84(v88);
         }
       }
 
-      if (v93)
+      if (v94)
       {
-        sub_10000AD84(v93);
+        sub_10000AD84(v94);
       }
 
-      if (v78)
+      if (v79)
       {
         goto LABEL_117;
       }
@@ -1637,7 +1642,7 @@ LABEL_12:
       *v75 = &u64Identifier3;
       *v76 = buf;
       *&v76[8] = &buf[24];
-      sub_10023DAAC(&self->_responderSessions.__table_.__bucket_list_.__ptr_, &u64Identifier3);
+      sub_10023DAAC(&self->_responderSessions.__table_.__bucket_list_.__ptr_, &u64Identifier3, &unk_100548C50, v75, v76);
       v25 = qword_1009F9820;
       if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
       {
@@ -1757,7 +1762,7 @@ LABEL_43:
           }
 
           sub_10023DF8C(&self->_wifiSessions.__table_.__bucket_list_.__ptr_, (v9 + 16));
-          sub_10023DFC4(&self->_wifiSessions.__table_.__bucket_list_.__ptr_, &u64Identifier3);
+          sub_10023DFC4(&self->_wifiSessions.__table_.__bucket_list_.__ptr_, &u64Identifier3, &u64Identifier3, buf);
           sub_1000400F0(*buf);
           v29 = discoveryToken;
           if (*&buf[8])
@@ -1789,7 +1794,7 @@ LABEL_43:
       }
 
       sub_10023DF8C(&self->_wifiSessions.__table_.__bucket_list_.__ptr_, (v9 + 16));
-      sub_10023DFC4(&self->_wifiSessions.__table_.__bucket_list_.__ptr_, &u64Identifier3);
+      sub_10023DFC4(&self->_wifiSessions.__table_.__bucket_list_.__ptr_, &u64Identifier3, &u64Identifier3, v76);
       v40 = u64Identifier3;
       configuration = [(NIServerHomeDeviceSession *)self configuration];
       if ([configuration isAnchor])
@@ -1870,7 +1875,7 @@ LABEL_43:
         _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_DEFAULT, "#ses-home,Starting a wifi session with a peer model: %@", buf, 0xCu);
       }
 
-      [(NIServerHomeDeviceSession *)self _buildWifiSession];
+      objc_msgSend__buildWifiSession(self);
       if (*v76)
       {
         u64Identifier6 = [v71 u64Identifier];
@@ -1911,7 +1916,7 @@ LABEL_43:
 
       *v75 = [v71 u64Identifier];
       *buf = v75;
-      v64 = sub_10023DD04(&self->_wifiSessions.__table_.__bucket_list_.__ptr_, v75);
+      v64 = sub_10023DD04(&self->_wifiSessions.__table_.__bucket_list_.__ptr_, v75, &unk_100548C50, buf);
       v66 = *v76;
       v65 = *&v76[8];
       if (*&v76[8])
@@ -2005,7 +2010,7 @@ LABEL_33:
   {
     if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_FAULT))
     {
-      sub_1004AEDB0(solution + 8);
+      sub_1004AEDB0();
     }
   }
 
@@ -2052,7 +2057,7 @@ LABEL_33:
         {
           if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
           {
-            sub_1004AEED4(&v18);
+            sub_1004AEED4();
           }
 
           goto LABEL_18;
@@ -2370,6 +2375,19 @@ LABEL_4:
   return v3;
 }
 
+- (void)rangingServiceDidUpdateState:(int)state cause:(int)cause
+{
+  if ((state - 1) < 2)
+  {
+    v5 = 1;
+
+    goto _objc_msgSend$_handleUWBSystemStateReadinessUpdate_;
+  }
+
+  if ((state - 3) < 2)
+  {
+    v5 = 0;
+
 - (void)_handleUWBSystemStateReadinessUpdate:(BOOL)update
 {
   updateCopy = update;
@@ -2488,6 +2506,313 @@ LABEL_4:
   }
 }
 
+- (optional<rose::RoseServiceRequest>)_prepareServiceRequestWithConfig:(SEL)config
+{
+  v46 = *&a4.var0;
+  if (!self->_configuration)
+  {
+    sub_1004AF4C4();
+  }
+
+  v6 = +[NSUserDefaults standardUserDefaults];
+  if ([v6 BOOLForKey:@"HomeDeviceEnableSensorFusion"])
+  {
+    v7 = qword_1009F9820;
+    if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "#ses-home,sensor fusion is turned on for handoff from defaults write", buf, 2u);
+    }
+
+    v8 = 4;
+  }
+
+  else
+  {
+    v8 = 2;
+  }
+
+  v9 = [v6 BOOLForKey:{@"HomeDeviceWantsChannelDiversity", v46}];
+  v10 = v9;
+  if (v9)
+  {
+    v11 = qword_1009F9820;
+    if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "#ses-home,* Channel diversity turned ON from default writes.", buf, 2u);
+    }
+  }
+
+  isAnchor = [(NIHomeDeviceConfiguration *)self->_configuration isAnchor];
+  v13 = qword_1009F9820;
+  if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
+  {
+    v14 = @"No";
+    if (isAnchor)
+    {
+      v14 = @"Yes";
+    }
+
+    *buf = 138412290;
+    *&buf[4] = v14;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "#ses-home,Should initiate (is anchor): %@.", buf, 0xCu);
+  }
+
+  if (!isAnchor)
+  {
+    LOWORD(v18) = 0;
+    LOWORD(v17) = 0;
+    goto LABEL_28;
+  }
+
+  v15 = [v6 objectForKey:@"NIHomeAnchorForceAntennaDiversity"];
+  v16 = v15 == 0;
+
+  if (v16)
+  {
+    v17 = 0;
+    v18 = 0;
+  }
+
+  else
+  {
+    v17 = [v6 BOOLForKey:@"NIHomeAnchorForceAntennaDiversity"];
+    v18 = 1;
+  }
+
+  antennaDiversityOverride = [(NIHomeDeviceConfiguration *)self->_configuration antennaDiversityOverride];
+  if (antennaDiversityOverride == 1)
+  {
+    LOWORD(v18) = 1;
+    v17 = 1;
+  }
+
+  else if (antennaDiversityOverride == 2)
+  {
+    v17 = 0;
+    LOWORD(v18) = 1;
+  }
+
+  else if (!v18)
+  {
+    goto LABEL_28;
+  }
+
+  v20 = qword_1009F9820;
+  if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
+  {
+    v21 = "disabled";
+    if (v17)
+    {
+      v21 = "enabled";
+    }
+
+    *buf = 136315138;
+    *&buf[4] = v21;
+    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "#ses-home,Override antenna diversity to %s", buf, 0xCu);
+  }
+
+LABEL_28:
+  v22 = sub_1000054A8();
+  v23 = sub_10041C958(v22[144]);
+  v24 = retstr;
+  v25 = v23 ^ [v6 BOOLForKey:@"NIHomePreferAlternativeAntenna"];
+  v26 = qword_1009F9820;
+  if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 67109120;
+    *&buf[4] = v25;
+    _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "#ses-home,Prefer dedicated antenna for NI Home ranging? %d", buf, 8u);
+  }
+
+  v27 = [v6 BOOLForKey:@"NIHomeDisableDeviceSpecificSTS"];
+  v50 = 0;
+  v51 = 0;
+  v52 = 68354305;
+  v53 = 0;
+  v54 = 0;
+  v55 = 0;
+  v56 = 0;
+  v57 = 3;
+  v58 = v8;
+  v59 = 3;
+  if (v27)
+  {
+    v60 = 0uLL;
+  }
+
+  else
+  {
+    if (v47 == 999)
+    {
+      *&v28 = -1;
+      *(&v28 + 1) = -1;
+    }
+
+    else
+    {
+      v28 = 0uLL;
+      if (v47 == 2)
+      {
+        v28 = xmmword_100548C00;
+      }
+    }
+
+    v60 = v28;
+  }
+
+  v61 = 0;
+  v62 = 6;
+  v63 = v10;
+  v64 = v25;
+  v65 = v17 | (v18 << 8);
+  v66 = 0;
+  v67 = 1;
+  v68 = 7;
+  v29 = sub_10035D02C();
+  v30 = *(v29 + 406);
+  v31 = *(v29 + 407);
+  if (v31)
+  {
+    atomic_fetch_add_explicit(&v31->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  if (v30)
+  {
+    if (sub_1003299D8(v30, &v50, &v50 + 1, 0))
+    {
+      if (isAnchor)
+      {
+        sub_10019C5B4(&v50, buf);
+      }
+
+      else
+      {
+        sub_10019CB3C(&v50, buf);
+      }
+
+      v33 = qword_1009F9820;
+      if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
+      {
+        *v48 = 0;
+        _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "#ses-home,[WatchNearbyDevices] sleep will be turned off", v48, 2u);
+      }
+
+      sessionKey = [(NIHomeDeviceConfiguration *)self->_configuration sessionKey];
+      v35 = sessionKey == 0;
+
+      if (v35)
+      {
+        v39 = qword_1009F9820;
+        if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
+        {
+          *v48 = 0;
+          _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "#ses-home,No session key provided. Use default cipher blob.", v48, 2u);
+        }
+      }
+
+      else
+      {
+        v36 = *(sub_1000054A8() + 187);
+        if (v36)
+        {
+          if (v36 == 2)
+          {
+            sessionKey2 = [(NIHomeDeviceConfiguration *)self->_configuration sessionKey];
+            v41 = [sessionKey2 length] == 16;
+
+            if (v41)
+            {
+LABEL_62:
+              memset(v48, 0, sizeof(v48));
+              sessionKey3 = [(NIHomeDeviceConfiguration *)self->_configuration sessionKey];
+              [sessionKey3 getBytes:v48 length:16];
+
+              *&buf[218] = *v48;
+              if ((buf[234] & 1) == 0)
+              {
+                buf[234] = 1;
+              }
+
+              goto LABEL_72;
+            }
+
+            v43 = qword_1009F9820;
+            if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+            {
+              sessionKey4 = [(NIHomeDeviceConfiguration *)self->_configuration sessionKey];
+              sub_1004AF43C(sessionKey4, v48, v43);
+            }
+          }
+
+          else
+          {
+            if (v36 != 1)
+            {
+              goto LABEL_72;
+            }
+
+            sessionKey5 = [(NIHomeDeviceConfiguration *)self->_configuration sessionKey];
+            v38 = [sessionKey5 length] == 16;
+
+            if (v38)
+            {
+              goto LABEL_62;
+            }
+
+            v43 = qword_1009F9820;
+            if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+            {
+              sessionKey6 = [(NIHomeDeviceConfiguration *)self->_configuration sessionKey];
+              sub_1004AF43C(sessionKey6, v48, v43);
+            }
+          }
+
+          goto LABEL_72;
+        }
+
+        if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
+        {
+          sub_1004AF400();
+        }
+      }
+
+LABEL_72:
+      memcpy(v24, buf, 0x240uLL);
+      v24->var0.__val_.range_enable_params.nbamms.mms_pkt_type.__engaged_ = 1;
+      if (!v31)
+      {
+        goto LABEL_49;
+      }
+
+      goto LABEL_48;
+    }
+
+    if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_FAULT))
+    {
+      sub_1004AF3C4();
+    }
+  }
+
+  else if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
+  {
+    sub_1004AF488();
+  }
+
+  v24->var0.__null_state_ = 0;
+  v24->var0.__val_.range_enable_params.nbamms.mms_pkt_type.__engaged_ = 0;
+  if (v31)
+  {
+LABEL_48:
+    sub_10000AD84(v31);
+  }
+
+LABEL_49:
+
+  return result;
+}
+
 - (shared_ptr<WiFiRanging::Session>)_buildWifiSession
 {
   v7.receiver = self;
@@ -2526,6 +2851,102 @@ LABEL_4:
 
     sub_10023FC38(p_wifiSessions);
   }
+}
+
+- (id)_disableAllServicesAndSendHangupSignal:(BOOL)signal
+{
+  signalCopy = signal;
+  v20.receiver = self;
+  v20.super_class = NIServerHomeDeviceSession;
+  disableAllServices = [(NIServerBaseSession *)&v20 disableAllServices];
+  sub_1001C1ED8(&self->_cachedRegionUpdateEvent);
+  [(CMMotionManager *)self->_motionManager stopMagnetometerUpdates];
+  if (self->_filteredMFStrength.__engaged_)
+  {
+    self->_filteredMFStrength.__engaged_ = 0;
+  }
+
+  *&self->_anon_1c8[8] = *self->_anon_1c8;
+  *&self->_anon_1c8[32] = *&self->_anon_1c8[24];
+  *&self->_anon_1f8[8] = *self->_anon_1f8;
+  *&self->_anon_1f8[32] = *&self->_anon_1f8[24];
+  v6 = qword_1009F9820;
+  if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "#ses-home,streaming raw magnetometer data stopped", buf, 2u);
+  }
+
+  [(NINearbyUpdatesEngine *)self->_updatesEngine invalidate];
+  updatesEngine = self->_updatesEngine;
+  self->_updatesEngine = 0;
+
+  p_initiatorSession = &self->_initiatorSession;
+  if (self->_initiatorSession.__ptr_)
+  {
+    if (signalCopy)
+    {
+      cntrl = self->_initiatorSession.__cntrl_;
+      ptr = self->_initiatorSession.__ptr_;
+      v19 = cntrl;
+      if (cntrl)
+      {
+        atomic_fetch_add_explicit(cntrl + 1, 1uLL, memory_order_relaxed);
+      }
+
+      [(NIServerHomeDeviceSession *)self _sendHangupSignalForSession:&ptr];
+      if (v19)
+      {
+        sub_10000AD84(v19);
+      }
+    }
+
+    sub_10033B864(*p_initiatorSession);
+    v10 = self->_initiatorSession.__cntrl_;
+    *p_initiatorSession = 0;
+    self->_initiatorSession.__cntrl_ = 0;
+    if (v10)
+    {
+      sub_10000AD84(v10);
+    }
+  }
+
+  if (self->_responderSessions.__table_.__size_)
+  {
+    v11 = qword_1009F9820;
+    if (signalCopy)
+    {
+      v12 = qword_1009F9820;
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      {
+        v13 = self->_responderSessions.__table_.__size_ * [(NIServerHomeDeviceSession *)self nominalCycleRate];
+        *buf = 134217984;
+        v22 = v13;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "#ses-home,Cleaning responder sessions. sendHangupSignal = YES. This will take (%llu ms).", buf, 0xCu);
+      }
+    }
+
+    else if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "#ses-home,Cleaning responder sessions.", buf, 2u);
+    }
+
+    for (i = self->_responderSessions.__table_.__first_node_.__next_; i; i = *i)
+    {
+      v15 = +[NIServerGRResponderRangingService sharedInstance];
+      [v15 stopRangingForTicket:*(i + 24) clientIdentifier:self->_containerUniqueIdentifier uwbAddress:i[2] sendingHangUp:signalCopy];
+    }
+
+    sub_100022400(&self->_responderSessions.__table_.__bucket_list_.__ptr_);
+  }
+
+  v16 = +[NIServerGRResponderRangingService sharedInstance];
+  [v16 removeAsInterestedClientIdentifier:self->_containerUniqueIdentifier];
+
+  [(NIServerHomeDeviceSession *)self _stopWiFiSessionsWithReason:@"_disableAllServices"];
+
+  return disableAllServices;
 }
 
 - (void)_peerHungUp:(unint64_t)up
@@ -2588,7 +3009,7 @@ LABEL_4:
     }
 
     LOBYTE(__ns.__rep_) = 0;
-    sub_100025100(buf, 16);
+    sub_100025100(buf, 16, &__ns);
     v7 = *buf;
     **buf = 258;
     *(v7 + 2) = 0;
@@ -2748,7 +3169,7 @@ LABEL_29:
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     sub_100342FC8(var1, v10);
-    sub_1004AF634(v10);
+    sub_1004AF634();
   }
 
   [(NIServerHomeDeviceSession *)self invalidate];
@@ -2956,6 +3377,68 @@ LABEL_8:
   }
 }
 
+- (void)_handleMotionStateChange:(int)change
+{
+  v3 = *&change;
+  dispatch_assert_queue_V2(self->_clientQueue);
+  v5 = qword_1009F9820;
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    sub_1002225C8(v3, __p);
+    v6 = v18 >= 0 ? __p : __p[0];
+    *buf = 136315138;
+    v20 = v6;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "#ses-home,received new motion state %s", buf, 0xCu);
+    if (v18 < 0)
+    {
+      operator delete(__p[0]);
+    }
+  }
+
+  v7 = [(NIServerHomeDeviceSession *)self _roseMotionStateToNIMotionActivityState:v3];
+  if (self->_motionState != v7)
+  {
+    v16.receiver = self;
+    v16.super_class = NIServerHomeDeviceSession;
+    resourcesManager = [(NIServerBaseSession *)&v16 resourcesManager];
+    self->_motionState = v7;
+    remote = [resourcesManager remote];
+    [remote didUpdateMotionState:v7];
+
+    if (v7 == 2 && self->_shouldDeliverUpdates)
+    {
+      p_cachedRegionUpdateEvent = &self->_cachedRegionUpdateEvent;
+      if (self->_cachedRegionUpdateEvent.__engaged_)
+      {
+        v11 = self->_cachedRegionUpdateEvent.var0.__val_._object;
+        if (!p_cachedRegionUpdateEvent->__engaged_)
+        {
+          sub_1000195BC();
+        }
+
+        v12 = p_cachedRegionUpdateEvent->var0.__val_._currentRegion;
+        if (!p_cachedRegionUpdateEvent->__engaged_)
+        {
+          sub_1000195BC();
+        }
+
+        v13 = p_cachedRegionUpdateEvent->var0.__val_._previousRegion;
+        remote2 = [resourcesManager remote];
+        [remote2 object:v11 didUpdateRegion:v12 previousRegion:v13];
+
+        v15 = qword_1009F9820;
+        if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
+        {
+          LOWORD(__p[0]) = 0;
+          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "#ses-home,delivered cached region update event", __p, 2u);
+        }
+
+        sub_1001C1ED8(p_cachedRegionUpdateEvent);
+      }
+    }
+  }
+}
+
 - (void)_handleScreenStateChange:(int)change
 {
   dispatch_assert_queue_V2(self->_clientQueue);
@@ -3099,69 +3582,69 @@ LABEL_5:
 - (void)_calculateMagneticFieldBias
 {
   anon_1c8 = self->_anon_1c8;
-  if (sub_10023B120(self->_anon_1c8))
+  if (sub_10023B120(self->_anon_1c8, a2))
   {
     anon_1f8 = self->_anon_1f8;
-    if (sub_10023B120(self->_anon_1f8))
+    if (sub_10023B120(self->_anon_1f8, v4))
     {
-      v5 = *(anon_1c8 + 4);
-      if (v5 == *(anon_1c8 + 3))
+      v7 = *(anon_1c8 + 4);
+      if (v7 == *(anon_1c8 + 3))
       {
         sub_1004AF790();
       }
 
-      v6 = *&self->_anon_1f8[32];
-      if (v6 == *&self->_anon_1f8[24])
+      v8 = *&self->_anon_1f8[32];
+      if (v8 == *&self->_anon_1f8[24])
       {
         sub_1004AF764();
       }
 
-      v7 = *(v5 - 8);
-      v8 = *(v6 - 8);
-      if (vabdd_f64(v7, v8) < 0.025)
+      v9 = *(v7 - 8);
+      v10 = *(v8 - 8);
+      if (vabdd_f64(v9, v10) < 0.025)
       {
-        v9 = *anon_1c8;
-        v10 = 0uLL;
-        while (v9 != *(anon_1c8 + 1))
+        v11 = *anon_1c8;
+        v12 = 0uLL;
+        while (v11 != *(anon_1c8 + 1))
         {
-          v11 = *v9++;
-          v10 = vaddq_f32(v10, v11);
+          v13 = *v11++;
+          v12 = vaddq_f32(v12, v13);
         }
 
-        v23 = v10;
-        *v12.i32 = sub_10023B120(anon_1c8);
-        v22 = v12;
-        v13 = *anon_1f8;
-        v14 = *&self->_anon_1f8[8];
-        v15 = 0uLL;
-        if (*anon_1f8 != v14)
+        v26 = v12;
+        *v15.i32 = sub_10023B120(anon_1c8, v6);
+        v25 = v15;
+        v16 = *anon_1f8;
+        v17 = *&self->_anon_1f8[8];
+        v18 = 0uLL;
+        if (*anon_1f8 != v17)
         {
           do
           {
-            v16 = *v13++;
-            v15 = vaddq_f32(v15, v16);
+            v19 = *v16++;
+            v18 = vaddq_f32(v18, v19);
           }
 
-          while (v13 != v14);
+          while (v16 != v17);
         }
 
-        v21 = v15;
-        *v17.i32 = sub_10023B120(self->_anon_1f8);
-        v18 = vsubq_f32(vdivq_f32(v23, vdupq_lane_s32(v22, 0)), vdivq_f32(v21, vdupq_lane_s32(v17, 0)));
-        v19 = self->_anon_1a0[24];
-        if (v8 >= v7)
+        v24 = v18;
+        *v20.i32 = sub_10023B120(self->_anon_1f8, v14);
+        v21 = vsubq_f32(vdivq_f32(v26, vdupq_lane_s32(v25, 0)), vdivq_f32(v24, vdupq_lane_s32(v20, 0)));
+        v22 = self->_anon_1a0[24];
+        if (v10 >= v9)
         {
-          v20 = v8;
+          v23 = v10;
         }
 
         else
         {
-          v20 = v7;
+          v23 = v9;
         }
 
-        *&self->_estMagneticFieldBias.var0.__null_state_ = v18;
-        *&self->_anon_1a0[8] = v20;
-        if ((v19 & 1) == 0)
+        *&self->_estMagneticFieldBias.var0.__null_state_ = v21;
+        *&self->_anon_1a0[8] = v23;
+        if ((v22 & 1) == 0)
         {
           self->_anon_1a0[24] = 1;
         }
@@ -3440,11 +3923,12 @@ LABEL_19:
 - (void)responderSessionDidInvalidatedWithReason:(int)reason serviceTicketId:(unsigned __int16)id
 {
   idCopy = id;
+  v5 = *&reason;
   v7 = qword_1009F9820;
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    sub_100342FC8(reason, v12);
-    sub_1004AF634(v12);
+    sub_100342FC8(v5, v12);
+    sub_1004AF634();
   }
 
   next = self->_responderSessions.__table_.__first_node_.__next_;
@@ -3575,7 +4059,7 @@ LABEL_5:
 
   if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
   {
-    sub_1004AF98C(&identifierCopy);
+    sub_1004AF98C();
   }
 
   v9 = 0;
@@ -3779,7 +4263,7 @@ LABEL_6:
   self->_wifiSessions.__table_.__max_load_factor_ = 1.0;
   self->_backoffResumeManager.__ptr_ = 0;
   self->_backoffResumeManager.__cntrl_ = 0;
-  sub_10026C050(&self->_handoffCAManager, a2);
+  sub_10026C050(&self->_handoffCAManager);
   self->_wifiCAManager.__ptr_ = 0;
   self->_wifiCAManager.__cntrl_ = 0;
   self->_filteredMFStrength.var0.__null_state_ = 0;
@@ -3792,7 +4276,7 @@ LABEL_6:
   *self->_anon_1f8 = 0u;
   *&self->_anon_1f8[16] = 0u;
   *&self->_anon_1f8[32] = 0u;
-  sub_1002FE758(&self->_machTimeConverter, v3);
+  sub_1002FE758(&self->_machTimeConverter);
   self->_cachedRegionUpdateEvent.var0.__null_state_ = 0;
   self->_cachedRegionUpdateEvent.__engaged_ = 0;
   self->_btIdentifierHashToObjectMap.__table_.__bucket_list_ = 0u;

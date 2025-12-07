@@ -395,112 +395,112 @@
     [minuteHandConfiguration pegRadius];
     v9 = v8;
     [minuteHandConfiguration pegStrokeWidth];
-    [(CALayer *)self->_minuteHandTransitionPegLayer setBounds:0.0, 0.0, v9 + v10 + v9 + v10, v9 + v10 + v9 + v10];
-    v11 = self->_minuteHandTransitionPegLayer;
-    v12 = _disabledLayerActions();
-    [(CALayer *)v11 setActions:v12];
+    v11 = [(CALayer *)self->_minuteHandTransitionPegLayer setBounds:0.0, 0.0, v9 + v10 + v9 + v10, v9 + v10 + v9 + v10];
+    v12 = self->_minuteHandTransitionPegLayer;
+    v13 = _disabledLayerActions(v11);
+    [(CALayer *)v12 setActions:v13];
 
-    v13 = self->_minuteHandTransitionPegLayer;
-    [(CALayer *)v13 bounds];
-    [(CALayer *)v13 setCornerRadius:v14 * 0.5];
+    v14 = self->_minuteHandTransitionPegLayer;
+    [(CALayer *)v14 bounds];
+    [(CALayer *)v14 setCornerRadius:v15 * 0.5];
   }
 
   if (!self->_minuteHandTransitionBodyLayer)
   {
-    v15 = objc_opt_new();
+    v16 = objc_opt_new();
     minuteHandTransitionBodyLayer = self->_minuteHandTransitionBodyLayer;
-    self->_minuteHandTransitionBodyLayer = v15;
+    self->_minuteHandTransitionBodyLayer = v16;
 
-    v17 = *MEMORY[0x277CBF348];
-    v18 = *(MEMORY[0x277CBF348] + 8);
+    v18 = *MEMORY[0x277CBF348];
+    v19 = *(MEMORY[0x277CBF348] + 8);
     [minuteHandConfiguration handWidth];
-    v20 = v19;
+    v21 = v20;
     [minuteHandConfiguration handLength];
-    [(CALayer *)self->_minuteHandTransitionBodyLayer setBounds:v17, v18, v20, v21];
+    [(CALayer *)self->_minuteHandTransitionBodyLayer setBounds:v18, v19, v21, v22];
     minuteHandView = [(CLKUIAnalogHandsView *)self minuteHandView];
     [minuteHandView bounds];
-    v24 = v23 * 0.5;
+    v25 = v24 * 0.5;
     [minuteHandConfiguration handLength];
-    [(CALayer *)self->_minuteHandTransitionBodyLayer setPosition:v24, v25 * 0.5];
-    v26 = self->_minuteHandTransitionBodyLayer;
-    v27 = _disabledLayerActions();
-    [(CALayer *)v26 setActions:v27];
+    v27 = [(CALayer *)self->_minuteHandTransitionBodyLayer setPosition:v25, v26 * 0.5];
+    v28 = self->_minuteHandTransitionBodyLayer;
+    v29 = _disabledLayerActions(v27);
+    [(CALayer *)v28 setActions:v29];
 
-    [(CALayer *)self->_minuteHandTransitionBodyLayer setCornerRadius:v20 * 0.5];
+    [(CALayer *)self->_minuteHandTransitionBodyLayer setCornerRadius:v21 * 0.5];
   }
 
   if (!self->_minuteHandTransitionStemLayer)
   {
-    v28 = *MEMORY[0x277CBF348];
-    v29 = *(MEMORY[0x277CBF348] + 8);
+    v30 = *MEMORY[0x277CBF348];
+    v31 = *(MEMORY[0x277CBF348] + 8);
     [minuteHandConfiguration armWidth];
-    v31 = v30;
-    [minuteHandConfiguration armLength];
     v33 = v32;
-    v34 = objc_opt_new();
+    [minuteHandConfiguration armLength];
+    v35 = v34;
+    v36 = objc_opt_new();
     minuteHandTransitionStemLayer = self->_minuteHandTransitionStemLayer;
-    self->_minuteHandTransitionStemLayer = v34;
+    self->_minuteHandTransitionStemLayer = v36;
 
     minuteHandView2 = [(CLKUIAnalogHandsView *)self minuteHandView];
     [minuteHandView2 bounds];
-    v38 = v37 * 0.5;
+    v40 = v39 * 0.5;
     [minuteHandConfiguration handLength];
-    v40 = v39;
+    v42 = v41;
     [minuteHandConfiguration armLength];
-    v42 = v40 + v41 * 0.5;
-    [(CALayer *)self->_minuteHandTransitionStemLayer setBounds:v28, v29, v31, v33];
-    [(CALayer *)self->_minuteHandTransitionStemLayer setPosition:v38, v42];
-    v43 = self->_minuteHandTransitionStemLayer;
-    v44 = _disabledLayerActions();
-    [(CALayer *)v43 setActions:v44];
+    v44 = v42 + v43 * 0.5;
+    [(CALayer *)self->_minuteHandTransitionStemLayer setBounds:v30, v31, v33, v35];
+    v45 = [(CALayer *)self->_minuteHandTransitionStemLayer setPosition:v40, v44];
+    v46 = self->_minuteHandTransitionStemLayer;
+    v47 = _disabledLayerActions(v45);
+    [(CALayer *)v46 setActions:v47];
   }
 
   if (!self->_hourHandTransitionBodyLayer)
   {
     hourHandView = [(CLKUIAnalogHandsView *)self hourHandView];
-    v46 = objc_opt_new();
+    v49 = objc_opt_new();
     hourHandTransitionBodyLayer = self->_hourHandTransitionBodyLayer;
-    self->_hourHandTransitionBodyLayer = v46;
+    self->_hourHandTransitionBodyLayer = v49;
 
-    v48 = *MEMORY[0x277CBF348];
-    v49 = *(MEMORY[0x277CBF348] + 8);
+    v51 = *MEMORY[0x277CBF348];
+    v52 = *(MEMORY[0x277CBF348] + 8);
     [hourHandConfiguration handWidth];
-    v51 = v50;
+    v54 = v53;
     [hourHandConfiguration handLength];
-    [(CALayer *)self->_hourHandTransitionBodyLayer setBounds:v48, v49, v51, v52];
+    [(CALayer *)self->_hourHandTransitionBodyLayer setBounds:v51, v52, v54, v55];
     [hourHandView bounds];
-    v54 = v53 * 0.5;
+    v57 = v56 * 0.5;
     [hourHandConfiguration handLength];
-    [(CALayer *)self->_hourHandTransitionBodyLayer setPosition:v54, v55 * 0.5];
-    v56 = self->_hourHandTransitionBodyLayer;
-    v57 = _disabledLayerActions();
-    [(CALayer *)v56 setActions:v57];
+    v59 = [(CALayer *)self->_hourHandTransitionBodyLayer setPosition:v57, v58 * 0.5];
+    v60 = self->_hourHandTransitionBodyLayer;
+    v61 = _disabledLayerActions(v59);
+    [(CALayer *)v60 setActions:v61];
 
-    [(CALayer *)self->_hourHandTransitionBodyLayer setCornerRadius:v51 * 0.5];
+    [(CALayer *)self->_hourHandTransitionBodyLayer setCornerRadius:v54 * 0.5];
   }
 
   hourHandTransitionStemLayer = self->_hourHandTransitionStemLayer;
   if (!hourHandTransitionStemLayer)
   {
-    v59 = *MEMORY[0x277CBF348];
-    v60 = *(MEMORY[0x277CBF348] + 8);
+    v63 = *MEMORY[0x277CBF348];
+    v64 = *(MEMORY[0x277CBF348] + 8);
     [hourHandConfiguration armWidth];
-    v62 = v61;
+    v66 = v65;
     [hourHandConfiguration armLength];
-    v64 = v63;
-    v65 = objc_opt_new();
-    v66 = self->_hourHandTransitionStemLayer;
-    self->_hourHandTransitionStemLayer = v65;
+    v68 = v67;
+    v69 = objc_opt_new();
+    v70 = self->_hourHandTransitionStemLayer;
+    self->_hourHandTransitionStemLayer = v69;
 
     hourHandView2 = [(CLKUIAnalogHandsView *)self hourHandView];
-    [(CALayer *)self->_hourHandTransitionStemLayer setBounds:v59, v60, v62, v64];
+    [(CALayer *)self->_hourHandTransitionStemLayer setBounds:v63, v64, v66, v68];
     [hourHandView2 bounds];
-    v69 = v68 * 0.5;
+    v73 = v72 * 0.5;
     [hourHandView2 bounds];
-    [(CALayer *)self->_hourHandTransitionStemLayer setPosition:v69, v70 * 0.5];
-    v71 = self->_hourHandTransitionStemLayer;
-    v72 = _disabledLayerActions();
-    [(CALayer *)v71 setActions:v72];
+    v75 = [(CALayer *)self->_hourHandTransitionStemLayer setPosition:v73, v74 * 0.5];
+    v76 = self->_hourHandTransitionStemLayer;
+    v77 = _disabledLayerActions(v75);
+    [(CALayer *)v76 setActions:v77];
 
     hourHandTransitionStemLayer = self->_hourHandTransitionStemLayer;
   }

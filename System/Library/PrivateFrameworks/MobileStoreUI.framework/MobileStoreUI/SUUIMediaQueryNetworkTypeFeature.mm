@@ -26,10 +26,10 @@
 
 - (BOOL)evaluateWithValues:(id)values
 {
-  v4 = [values objectForKey:0x286AFFE40];
-  LOBYTE(self) = [v4 isEqualToString:self->_value];
+  v3 = [values objectForKey:0x286AFFE40];
+  isEqualToString = objc_msgSend_isEqualToString_(v3);
 
-  return self;
+  return isEqualToString;
 }
 
 - (id)notificationNames

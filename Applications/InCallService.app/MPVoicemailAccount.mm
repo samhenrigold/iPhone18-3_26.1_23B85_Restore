@@ -12,13 +12,13 @@
 {
   v2 = type metadata accessor for UUID();
   v3 = *(v2 - 8);
-  __chkstk_darwin(v2, v4);
-  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_10015E598(v6);
-  v7.super.isa = UUID._bridgeToObjectiveC()().super.isa;
-  (*(v3 + 8))(v6, v2);
+  __chkstk_darwin(v2);
+  v5 = &v8 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_10015E598(v5);
+  v6.super.isa = UUID._bridgeToObjectiveC()().super.isa;
+  (*(v3 + 8))(v5, v2);
 
-  return v7.super.isa;
+  return v6.super.isa;
 }
 
 - (NSString)accountDescription
@@ -40,22 +40,22 @@
 - (MPVoicemailAccount)initWithUuid:(id)uuid callVoicemailSupported:(BOOL)supported subscribed:(BOOL)subscribed greetingChangeSupported:(BOOL)changeSupported provisioned:(BOOL)provisioned hasHandle:(BOOL)handle accountDescription:(id)description
 {
   v14 = type metadata accessor for UUID();
-  __chkstk_darwin(v14 - 8, v15);
-  v17 = &v22 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v14 - 8);
+  v16 = &v21 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
   if (description)
   {
-    v18 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v20 = v19;
+    v17 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v19 = v18;
   }
 
   else
   {
-    v18 = 0;
-    v20 = 0;
+    v17 = 0;
+    v19 = 0;
   }
 
-  return sub_10015E7A8(v17, supported, subscribed, changeSupported, provisioned, handle, v18, v20);
+  return sub_10015E7A8(v16, supported, subscribed, changeSupported, provisioned, handle, v17, v19);
 }
 
 - (NSString)description

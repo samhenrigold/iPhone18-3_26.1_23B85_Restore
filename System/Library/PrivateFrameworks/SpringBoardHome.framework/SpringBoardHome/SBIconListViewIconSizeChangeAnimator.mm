@@ -137,7 +137,7 @@ LABEL_5:
   [(SBWidgetIconResizeTransitionViewController *)v20 setStartingGridSizeClass:priorGridSizeClass];
   [(SBWidgetIconResizeTransitionViewController *)v20 setEndingGridSizeClass:gridSizeClass];
   [iconViewCopy setOverrideCustomIconImageViewController:v20];
-  [viewCopy iconImageInfoForGridSizeClass:priorGridSizeClass];
+  objc_msgSend_iconImageInfoForGridSizeClass_(viewCopy);
   v22 = v21;
   v24 = v23;
   v26 = v25;

@@ -56,8 +56,7 @@
     v21->_is24HourMode = mode;
     v21->_isLuxo = [deviceCopy deviceCategory] != &dword_0 + 1;
     layer = [(NTKAkitaContentView *)v21 layer];
-    [layer setMasksToBounds:1];
-    v25 = sub_30F4();
+    v25 = sub_30F4([layer setMasksToBounds:1]);
     [layer setActions:v25];
 
     [(NTKAkitaContentView *)v21 _setupSceneForLayer:layer size:width, height];
@@ -346,14 +345,13 @@
 
   if (morphCopy)
   {
-    [morphCopy config];
+    objc_msgSend_config(morphCopy);
   }
 
   CGColor = NTKAkitaColorGetCGColor(0, 0);
   v14 = NTKAkitaColorGetCGColor(0, 1);
   v15 = NTKAkitaColorGetCGColor(0, 0);
   v16 = NTKAkitaColorGetCGColor(0, 0);
-  self->_isLuxo;
   v24 = NTKAkitaColorGetCGColor(0, 0);
   if (self->_role)
   {
@@ -514,7 +512,7 @@
   v9 = 0uLL;
   if (morphCopy)
   {
-    [morphCopy config];
+    objc_msgSend_config(morphCopy);
     v9 = 0uLL;
   }
 
@@ -526,7 +524,7 @@
   v67 = morphCopy;
   if (toMorphCopy)
   {
-    [toMorphCopy config];
+    objc_msgSend_config(toMorphCopy);
     v63 = *(&v71 + 1);
     v10 = *(&v70 + 1);
     v11 = v69;
@@ -1059,8 +1057,8 @@
   [v12 setContentsScale:?];
   [v12 setAlignmentMode:alignmentCopy];
 
-  v23 = sub_30F4();
-  [v12 setActions:v23];
+  v24 = sub_30F4(v23);
+  [v12 setActions:v24];
 
   [parentCopy addSublayer:v12];
 
@@ -1088,8 +1086,7 @@
   }
 
   [v8 setLineCap:v9];
-  [v8 setMiterLimit:1.0];
-  v10 = sub_30F4();
+  v10 = sub_30F4([v8 setMiterLimit:1.0]);
   [v8 setActions:v10];
 
   [parentCopy addSublayer:v8];
@@ -1109,8 +1106,7 @@
   [v8 setFillColor:0];
   [v8 setLineWidth:self->_lineWidth];
   [v8 setLineCap:kCALineCapRound];
-  [v8 setMiterLimit:1.0];
-  v9 = sub_30F4();
+  v9 = sub_30F4([v8 setMiterLimit:1.0]);
   [v8 setActions:v9];
 
   [parentCopy addSublayer:v8];
@@ -1125,8 +1121,7 @@
   parentCopy = parent;
   v7 = objc_opt_new();
   [v7 setPosition:{width * 0.5, height * 0.5}];
-  [v7 setBounds:{0.0, 0.0, width, height}];
-  v8 = sub_30F4();
+  v8 = sub_30F4([v7 setBounds:{0.0, 0.0, width, height}]);
   [v7 setActions:v8];
 
   [parentCopy addSublayer:v7];

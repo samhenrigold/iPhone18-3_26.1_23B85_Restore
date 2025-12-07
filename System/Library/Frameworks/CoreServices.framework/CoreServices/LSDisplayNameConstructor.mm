@@ -5,21 +5,20 @@
 
 void __123___LSDisplayNameConstructor_ConstructForAnyFile__displayNameConstructorsWithContextIfNeeded_bundle_bundleClass_node_error___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v10 = a2;
+  v9 = a2;
   v5 = a3;
   if ([v5 length])
   {
-    v6 = [v10 isEqual:@"LSDefaultLocalizedValue"];
+    v6 = [v9 isEqual:@"LSDefaultLocalizedValue"];
     if (*(a1 + 32) && *(a1 + 80) == 1)
     {
-      v7 = *(a1 + 56);
-      v8 = [objc_opt_class() concatenateBaseName:v5 andExtension:*(a1 + 32)];
+      v7 = [objc_opt_class() concatenateBaseName:v5 andExtension:*(a1 + 32)];
 
-      v5 = v8;
+      v5 = v7;
     }
 
-    v9 = [objc_alloc(*(a1 + 56)) initWithContextIfNeeded:*(a1 + 64) node:*(a1 + 48) isDirectory:*(a1 + 81) bundleClass:*(a1 + 72) desiredDisplayName:v5 treatAsFSName:v6];
-    [*(a1 + 40) setObject:v9 forKeyedSubscript:v10];
+    v8 = [objc_alloc(*(a1 + 56)) initWithContextIfNeeded:*(a1 + 64) node:*(a1 + 48) isDirectory:*(a1 + 81) bundleClass:*(a1 + 72) desiredDisplayName:v5 treatAsFSName:v6];
+    [*(a1 + 40) setObject:v8 forKeyedSubscript:v9];
   }
 }
 
@@ -144,7 +143,7 @@ LABEL_15:
 void __62___LSDisplayNameConstructor_Private__cleanSecondaryExtension___block_invoke(uint64_t a1)
 {
   MEMORY[0x1EEE9AC00](a1);
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v1 = objc_alloc_init(MEMORY[0x1E696AD48]);
   [v1 addCharactersInRange:{0, 1}];
   v2 = 0x1E696A000uLL;
@@ -174,14 +173,14 @@ void __62___LSDisplayNameConstructor_Private__cleanSecondaryExtension___block_in
           Item = uset_getItem();
           if (Item <= 0)
           {
-            v22.location = 0;
-            v22.length = 1;
-            CFCharacterSetAddCharactersInRange(Mutable, v22);
+            v21.location = 0;
+            v21.length = 1;
+            CFCharacterSetAddCharactersInRange(Mutable, v21);
           }
 
           else
           {
-            v12 = CFStringCreateWithCharactersNoCopy(v9, v20, Item, contentsDeallocator);
+            v12 = CFStringCreateWithCharactersNoCopy(v9, v19, Item, contentsDeallocator);
             CFCharacterSetAddCharactersInString(Mutable, v12);
             CFRelease(v12);
           }
@@ -213,8 +212,6 @@ void __62___LSDisplayNameConstructor_Private__cleanSecondaryExtension___block_in
   v16 = [v6 copy];
   v17 = [_LSDisplayNameConstructor(Private) cleanSecondaryExtension:]::nonExtensionCharacters;
   [_LSDisplayNameConstructor(Private) cleanSecondaryExtension:]::nonExtensionCharacters = v16;
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __62___LSDisplayNameConstructor_Private__cleanSecondaryExtension___block_invoke_2(uint64_t a1, CFStringInlineBuffer *a2, uint64_t a3)
@@ -310,7 +307,7 @@ LABEL_12:
   }
 }
 
-uint64_t __55___LSDisplayNameConstructor_RTL__isStringNaturallyRTL___block_invoke(uint64_t a1)
+uint64_t __55___LSDisplayNameConstructor_RTL__isStringNaturallyRTL___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = ubidi_getBaseDirection();
   *(*(*(a1 + 32) + 8) + 24) = result == 1;

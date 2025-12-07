@@ -8,7 +8,7 @@
 
 - (void)dealloc
 {
-  IMLogBacktrace(@"Power");
+  IMLogBacktrace();
   if (self->_assertion)
   {
     if (qword_1EAED8A40 != -1)
@@ -67,7 +67,7 @@ LABEL_6:
     v7->_identifier = v10;
 
     v12 = objc_autoreleasePoolPush();
-    IMLogBacktrace(@"Power");
+    IMLogBacktrace();
     objc_autoreleasePoolPop(v12);
   }
 

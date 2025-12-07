@@ -318,7 +318,7 @@ LABEL_13:
 
       else
       {
-        std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int const&>(&v68, v10);
+        std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int const&>(&v68, v10, &v65);
       }
 
       goto LABEL_13;
@@ -905,11 +905,11 @@ LABEL_92:
     if (!*v7)
     {
       CA::Transaction::ensure_implicit(v4, 1);
-      v7 = *(v6 + 15);
+      v7 = *(v6 + 120);
     }
 
-    v8 = *(v6 + 29);
-    *(v6 + 29) = v8 + 1;
+    v8 = *(v6 + 116);
+    *(v6 + 116) = v8 + 1;
     if (!v8)
     {
       os_unfair_lock_lock(&CA::Transaction::transaction_lock);
@@ -1129,7 +1129,7 @@ LABEL_9:
   *(v3 + 204) |= 4u;
   v4 = mach_absolute_time();
   v5 = CATimeWithHostTime(v4);
-  CA::Transaction::set_frame_begin_time(v2[15], v5);
+  CA::Transaction::set_frame_begin_time(v2[15], 2u, v5);
   v6 = *(v2[15] + 200);
   getpid();
   kdebug_trace();
@@ -1200,15 +1200,15 @@ LABEL_9:
 {
   if (token)
   {
-    v5 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 576);
-    if (!v5)
+    v6 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 576);
+    if (!v6)
     {
-      v5 = CA::Transaction::create(0);
+      v6 = CA::Transaction::create(0);
     }
 
-    v6 = *(v5 + 15);
+    v7 = *(v6 + 15);
 
-    CA::Transaction::set_frame_input_time(v6, time);
+    CA::Transaction::set_frame_input_time(v7, token, time);
   }
 }
 
@@ -1216,13 +1216,13 @@ LABEL_9:
 {
   if (token)
   {
-    v3 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 576);
-    if (!v3)
+    v4 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 576);
+    if (!v4)
     {
-      v3 = CA::Transaction::create(0);
+      v4 = CA::Transaction::create(0);
     }
 
-    CA::Transaction::finish_frame(v3);
+    CA::Transaction::finish_frame(v4, token);
   }
 }
 
@@ -1256,7 +1256,7 @@ LABEL_9:
 
   v5 = *(v4 + 15);
 
-  CA::Transaction::set_frame_begin_time(v5, time);
+  CA::Transaction::set_frame_begin_time(v5, 1u, time);
 }
 
 + (double)beginTime
@@ -1380,7 +1380,7 @@ LABEL_9:
 
     v6 = *(v5 + 15);
 
-    CA::Transaction::set_frame_input_time(v6, time);
+    CA::Transaction::set_frame_input_time(v6, 1u, time);
   }
 }
 

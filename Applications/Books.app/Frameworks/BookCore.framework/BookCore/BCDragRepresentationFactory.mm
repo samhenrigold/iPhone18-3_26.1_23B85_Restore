@@ -244,61 +244,61 @@ LABEL_11:
   {
     v9 = dispatch_group_create();
     dispatch_group_enter(v9);
-    v22 = 0;
-    v23 = &v22;
-    v24 = 0x3032000000;
-    v25 = sub_DAB90;
-    v26 = sub_DABA0;
-    v27 = 0;
+    v23 = 0;
+    v24 = &v23;
+    v25 = 0x3032000000;
+    v26 = sub_DAB90;
+    v27 = sub_DABA0;
+    v28 = 0;
     storeURL = [infoCopy storeURL];
 
     if (storeURL)
     {
       storeURL2 = [infoCopy storeURL];
       identifier2 = [UTTypeURL identifier];
-      v19[0] = _NSConcreteStackBlock;
-      v19[1] = 3221225472;
-      v19[2] = sub_DABA8;
-      v19[3] = &unk_2CCE98;
-      v21 = &v22;
-      v20 = v9;
-      v13 = [storeURL2 loadDataWithTypeIdentifier:identifier2 forItemProviderCompletionHandler:v19];
+      v20[0] = _NSConcreteStackBlock;
+      v20[1] = 3221225472;
+      v20[2] = sub_DABA8;
+      v20[3] = &unk_2CCE98;
+      v22 = &v23;
+      v21 = v9;
+      v14 = [storeURL2 loadDataWithTypeIdentifier:identifier2 forItemProviderCompletionHandler:v20];
 
-      v14 = v20;
+      v15 = v21;
     }
 
     else
     {
-      v14 = BCDragAndDropLog();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v15 = BCDragAndDropLog(v11);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        sub_1E9AE0(v14);
+        sub_1E9AE0(v15);
       }
     }
 
     dispatch_group_wait(v9, 0xFFFFFFFFFFFFFFFFLL);
-    v17 = v23[5];
-    _Block_object_dispose(&v22, 8);
+    v18 = v24[5];
+    _Block_object_dispose(&v23, 8);
   }
 
   else
   {
     identifier3 = [UTTypeUTF8PlainText identifier];
-    v16 = [identifierCopy isEqualToString:identifier3];
+    v17 = [identifierCopy isEqualToString:identifier3];
 
-    if (!v16)
+    if (!v17)
     {
-      v17 = 0;
+      v18 = 0;
       goto LABEL_11;
     }
 
     v9 = sub_DA244(infoCopy);
-    v17 = [v9 dataUsingEncoding:4];
+    v18 = [v9 dataUsingEncoding:4];
   }
 
 LABEL_11:
 
-  return v17;
+  return v18;
 }
 
 @end

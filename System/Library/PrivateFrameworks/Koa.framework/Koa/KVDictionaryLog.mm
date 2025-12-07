@@ -1,13 +1,14 @@
 @interface KVDictionaryLog
 + (void)initialize;
+- (BOOL)_loadLogOrCreate:(BOOL)create readOnly:(BOOL)only error:(id *)error;
 - (BOOL)clear:(id *)clear;
 - (BOOL)clearObjectForKey:(id)key error:(id *)error;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToDictionaryLog:(id)log;
-- (BOOL)isReadOnly;
 - (BOOL)writeUpdatedObject:(id)object forKey:(id)key error:(id *)error;
 - (BOOL)writeUpdatedObjects:(id)objects forKeys:(id)keys error:(id *)error;
 - (KVDictionaryLog)init;
+- (KVDictionaryLog)initWithFilename:(id)filename protectionClass:(int)class directory:(id)directory readOnly:(BOOL)only create:(BOOL)create error:(id *)error;
 - (id)description;
 - (id)mutableDictionaryForKey:(id)key error:(id *)error;
 - (id)objectForKey:(id)key;
@@ -60,14 +61,14 @@
 
 - (BOOL)clear:(id *)clear
 {
-  v59[1] = *MEMORY[0x277D85DE8];
+  v58[1] = *MEMORY[0x277D85DE8];
   if (objc_msgSend_isReadOnly(self, a2, clear, v3, v4, v5))
   {
     v13 = MEMORY[0x277CCA9B8];
-    v58 = *MEMORY[0x277CCA450];
+    v57 = *MEMORY[0x277CCA450];
     v14 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v8, @"instance: %@ is read only.", v10, v11, v12, self);
-    v59[0] = v14;
-    v17 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v15, v59, &v58, 1, v16);
+    v58[0] = v14;
+    v17 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v15, v58, &v57, 1, v16);
     v20 = objc_msgSend_errorWithDomain_code_userInfo_(v13, v18, @"com.apple.koa.dictionary.log", 3, v17, v19);
     v21 = v20;
     v22 = 0;
@@ -90,9 +91,9 @@
   }
 
   logFileURL = self->_logFileURL;
-  v53 = 0;
-  v35 = objc_msgSend_removeItemAtURL_error_(v17, v29, logFileURL, &v53, v32, v33);
-  v36 = v53;
+  v52 = 0;
+  v35 = objc_msgSend_removeItemAtURL_error_(v17, v29, logFileURL, &v52, v32, v33);
+  v36 = v52;
   if (v35)
   {
 LABEL_17:
@@ -123,30 +124,29 @@ LABEL_17:
   if (os_log_type_enabled(qword_28106B3C0, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v55 = "[KVDictionaryLog clear:]";
-    v56 = 2112;
-    v57 = v14;
+    v54 = "[KVDictionaryLog clear:]";
+    v55 = 2112;
+    v56 = v14;
     _os_log_error_impl(&dword_2559A5000, v50, OS_LOG_TYPE_ERROR, "%s %@", buf, 0x16u);
   }
 
   v22 = 0;
 LABEL_18:
 
-  v51 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
 - (BOOL)clearObjectForKey:(id)key error:(id *)error
 {
-  v71[1] = *MEMORY[0x277D85DE8];
+  v70[1] = *MEMORY[0x277D85DE8];
   keyCopy = key;
   if (objc_msgSend_isReadOnly(self, v7, v8, v9, v10, v11))
   {
     v16 = MEMORY[0x277CCA9B8];
-    v70 = *MEMORY[0x277CCA450];
+    v69 = *MEMORY[0x277CCA450];
     v17 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v12, @"instance: %@ is read only.", v13, v14, v15, self);
-    v71[0] = v17;
-    v20 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v18, v71, &v70, 1, v19);
+    v70[0] = v17;
+    v20 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v18, v70, &v69, 1, v19);
     objc_msgSend_errorWithDomain_code_userInfo_(v16, v21, @"com.apple.koa.dictionary.log", 3, v20, v22);
     goto LABEL_10;
   }
@@ -154,10 +154,10 @@ LABEL_18:
   if (!keyCopy)
   {
     v38 = MEMORY[0x277CCA9B8];
-    v68 = *MEMORY[0x277CCA450];
+    v67 = *MEMORY[0x277CCA450];
     v17 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v12, @"Invalid key: %@", v13, v14, v15, 0);
-    v69 = v17;
-    v20 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v39, &v69, &v68, 1, v40);
+    v68 = v17;
+    v20 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v39, &v68, &v67, 1, v40);
     objc_msgSend_errorWithDomain_code_userInfo_(v38, v41, @"com.apple.koa.dictionary.log", 1, v20, v42);
     v43 = LABEL_10:;
     if (error && v43)
@@ -178,20 +178,20 @@ LABEL_18:
     logFileURL = self->_logFileURL;
     log = self->_log;
     protectionClass = self->_protectionClass;
-    v61 = 0;
-    v31 = KVWritePropertyList(log, logFileURL, protectionClass, &v61);
-    v35 = v61;
+    v60 = 0;
+    v31 = KVWritePropertyList(log, logFileURL, protectionClass, &v60);
+    v35 = v60;
     if (v31)
     {
       v36 = qword_28106B3C0;
       if (os_log_type_enabled(qword_28106B3C0, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315650;
-        v63 = "[KVDictionaryLog clearObjectForKey:error:]";
-        v64 = 2112;
-        v65 = v17;
-        v66 = 2112;
-        v67 = keyCopy;
+        v62 = "[KVDictionaryLog clearObjectForKey:error:]";
+        v63 = 2112;
+        v64 = v17;
+        v65 = 2112;
+        v66 = keyCopy;
         _os_log_debug_impl(&dword_2559A5000, v36, OS_LOG_TYPE_DEBUG, "%s Removed object: %@ for key: %@", buf, 0x20u);
       }
 
@@ -222,9 +222,9 @@ LABEL_18:
       if (os_log_type_enabled(qword_28106B3C0, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v63 = "[KVDictionaryLog clearObjectForKey:error:]";
-        v64 = 2112;
-        v65 = v37;
+        v62 = "[KVDictionaryLog clearObjectForKey:error:]";
+        v63 = 2112;
+        v64 = v37;
         _os_log_error_impl(&dword_2559A5000, v58, OS_LOG_TYPE_ERROR, "%s %@", buf, 0x16u);
       }
     }
@@ -236,9 +236,9 @@ LABEL_18:
     if (os_log_type_enabled(qword_28106B3C0, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315394;
-      v63 = "[KVDictionaryLog clearObjectForKey:error:]";
-      v64 = 2112;
-      v65 = keyCopy;
+      v62 = "[KVDictionaryLog clearObjectForKey:error:]";
+      v63 = 2112;
+      v64 = keyCopy;
       _os_log_debug_impl(&dword_2559A5000, v44, OS_LOG_TYPE_DEBUG, "%s No object exists for key: %@", buf, 0x16u);
     }
 
@@ -248,22 +248,21 @@ LABEL_18:
 
 LABEL_26:
 
-  v59 = *MEMORY[0x277D85DE8];
   return v31;
 }
 
 - (BOOL)writeUpdatedObjects:(id)objects forKeys:(id)keys error:(id *)error
 {
-  v161[1] = *MEMORY[0x277D85DE8];
+  v160[1] = *MEMORY[0x277D85DE8];
   objectsCopy = objects;
   keysCopy = keys;
   if (objc_msgSend_isReadOnly(self, v10, v11, v12, v13, v14))
   {
     v20 = MEMORY[0x277CCA9B8];
-    v160 = *MEMORY[0x277CCA450];
+    v159 = *MEMORY[0x277CCA450];
     v21 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v15, @"instance: %@ is read only.", v17, v18, v19, self);
-    v161[0] = v21;
-    v24 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v22, v161, &v160, 1, v23);
+    v160[0] = v21;
+    v24 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v22, v160, &v159, 1, v23);
     objc_msgSend_errorWithDomain_code_userInfo_(v20, v25, @"com.apple.koa.dictionary.log", 3, v24, v26);
     goto LABEL_19;
   }
@@ -272,10 +271,10 @@ LABEL_26:
   if (v27 != objc_msgSend_count(keysCopy, v28, v29, v30, v31, v32))
   {
     v94 = MEMORY[0x277CCA9B8];
-    v158 = *MEMORY[0x277CCA450];
+    v157 = *MEMORY[0x277CCA450];
     v21 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v33, @"Unexpected number of objects: %@ for keys: %@", v34, v35, v36, objectsCopy, keysCopy);
-    v159 = v21;
-    v24 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v95, &v159, &v158, 1, v96);
+    v158 = v21;
+    v24 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v95, &v158, &v157, 1, v96);
     objc_msgSend_errorWithDomain_code_userInfo_(v94, v97, @"com.apple.koa.dictionary.log", 1, v24, v98);
     v99 = LABEL_19:;
     if (error && v99)
@@ -322,11 +321,11 @@ LABEL_26:
         if (os_log_type_enabled(qword_28106B3C0, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315650;
-          v150 = "[KVDictionaryLog writeUpdatedObjects:forKeys:error:]";
-          v151 = 2112;
-          v152 = v64;
-          v153 = 2112;
-          v154 = v69;
+          v149 = "[KVDictionaryLog writeUpdatedObjects:forKeys:error:]";
+          v150 = 2112;
+          v151 = v64;
+          v152 = 2112;
+          v153 = v69;
           _os_log_debug_impl(&dword_2559A5000, v88, OS_LOG_TYPE_DEBUG, "%s object: %@ is already recorded for key: %@", buf, 0x20u);
         }
 
@@ -350,96 +349,96 @@ LABEL_16:
   logFileURL = self->_logFileURL;
   log = self->_log;
   protectionClass = self->_protectionClass;
-  v148 = 0;
-  v106 = KVWritePropertyList(log, logFileURL, protectionClass, &v148);
-  v107 = v148;
-  v108 = v107;
-  if (v106)
+  v147 = 0;
+  v105 = KVWritePropertyList(log, logFileURL, protectionClass, &v147);
+  v106 = v147;
+  v107 = v106;
+  if (v105)
   {
-    v109 = qword_28106B3C0;
+    v108 = qword_28106B3C0;
     if (os_log_type_enabled(qword_28106B3C0, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315906;
-      v150 = "[KVDictionaryLog writeUpdatedObjects:forKeys:error:]";
-      v151 = 2112;
-      v152 = objectsCopy;
-      v153 = 2112;
-      v154 = keysCopy;
-      v155 = 2112;
-      v156 = v21;
-      _os_log_debug_impl(&dword_2559A5000, v109, OS_LOG_TYPE_DEBUG, "%s Updated object(s): %@ for key(s): %@ replacing prior object(s): %@", buf, 0x2Au);
+      v149 = "[KVDictionaryLog writeUpdatedObjects:forKeys:error:]";
+      v150 = 2112;
+      v151 = objectsCopy;
+      v152 = 2112;
+      v153 = keysCopy;
+      v154 = 2112;
+      v155 = v21;
+      _os_log_debug_impl(&dword_2559A5000, v108, OS_LOG_TYPE_DEBUG, "%s Updated object(s): %@ for key(s): %@ replacing prior object(s): %@", buf, 0x2Au);
     }
 
     v100 = 1;
-    v24 = v108;
+    v24 = v107;
     goto LABEL_24;
   }
 
-  v142 = v107;
-  v146 = 0u;
-  v147 = 0u;
-  v144 = 0u;
+  v141 = v106;
   v145 = 0u;
-  v110 = keysCopy;
-  v113 = objc_msgSend_countByEnumeratingWithState_objects_count_(v110, v111, &v144, v157, 16, v112);
-  if (v113)
+  v146 = 0u;
+  v143 = 0u;
+  v144 = 0u;
+  v109 = keysCopy;
+  v112 = objc_msgSend_countByEnumeratingWithState_objects_count_(v109, v110, &v143, v156, 16, v111);
+  if (v112)
   {
-    v118 = v113;
-    v119 = *v145;
+    v117 = v112;
+    v118 = *v144;
     do
     {
-      for (j = 0; j != v118; ++j)
+      for (j = 0; j != v117; ++j)
       {
-        if (*v145 != v119)
+        if (*v144 != v118)
         {
-          objc_enumerationMutation(v110);
+          objc_enumerationMutation(v109);
         }
 
-        v121 = *(*(&v144 + 1) + 8 * j);
-        v126 = objc_msgSend_objectForKey_(v21, v114, v121, v115, v116, v117);
-        v127 = self->_log;
-        if (v126)
+        v120 = *(*(&v143 + 1) + 8 * j);
+        v125 = objc_msgSend_objectForKey_(v21, v113, v120, v114, v115, v116);
+        v126 = self->_log;
+        if (v125)
         {
-          objc_msgSend_setObject_forKey_(v127, v122, v126, v121, v124, v125);
+          objc_msgSend_setObject_forKey_(v126, v121, v125, v120, v123, v124);
         }
 
         else
         {
-          objc_msgSend_removeObjectForKey_(v127, v122, v121, v123, v124, v125);
+          objc_msgSend_removeObjectForKey_(v126, v121, v120, v122, v123, v124);
         }
       }
 
-      v118 = objc_msgSend_countByEnumeratingWithState_objects_count_(v110, v114, &v144, v157, 16, v117);
+      v117 = objc_msgSend_countByEnumeratingWithState_objects_count_(v109, v113, &v143, v156, 16, v116);
     }
 
-    while (v118);
+    while (v117);
   }
 
-  v128 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v133 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v129, @"Failed to write updated object(s): %@ for key(s): %@ reverting to prior object(s): %@", v130, v131, v132, objectsCopy, v110, v21);
-  objc_msgSend_setObject_forKey_(v128, v134, v133, *MEMORY[0x277CCA450], v135, v136);
+  v127 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v132 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v128, @"Failed to write updated object(s): %@ for key(s): %@ reverting to prior object(s): %@", v129, v130, v131, objectsCopy, v109, v21);
+  objc_msgSend_setObject_forKey_(v127, v133, v132, *MEMORY[0x277CCA450], v134, v135);
 
-  if (v142)
+  if (v141)
   {
-    objc_msgSend_setObject_forKey_(v128, v137, v142, *MEMORY[0x277CCA7E8], v138, v139);
+    objc_msgSend_setObject_forKey_(v127, v136, v141, *MEMORY[0x277CCA7E8], v137, v138);
   }
 
-  v24 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v137, @"com.apple.koa.dictionary.log", 8, v128, v139);
+  v24 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v136, @"com.apple.koa.dictionary.log", 8, v127, v138);
 
   if (errorCopy && v24)
   {
-    v140 = v24;
+    v139 = v24;
     *errorCopy = v24;
   }
 
-  v141 = qword_28106B3C0;
+  v140 = qword_28106B3C0;
   if (os_log_type_enabled(qword_28106B3C0, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v150 = "[KVDictionaryLog writeUpdatedObjects:forKeys:error:]";
-    v151 = 2112;
-    v152 = v24;
-    _os_log_error_impl(&dword_2559A5000, v141, OS_LOG_TYPE_ERROR, "%s %@", buf, 0x16u);
+    v149 = "[KVDictionaryLog writeUpdatedObjects:forKeys:error:]";
+    v150 = 2112;
+    v151 = v24;
+    _os_log_error_impl(&dword_2559A5000, v140, OS_LOG_TYPE_ERROR, "%s %@", buf, 0x16u);
   }
 
 LABEL_23:
@@ -447,13 +446,12 @@ LABEL_23:
 LABEL_24:
 
 LABEL_25:
-  v101 = *MEMORY[0x277D85DE8];
   return v100;
 }
 
 - (BOOL)writeUpdatedObject:(id)object forKey:(id)key error:(id *)error
 {
-  v41[1] = *MEMORY[0x277D85DE8];
+  v40[1] = *MEMORY[0x277D85DE8];
   if (object && key)
   {
     objectCopy = object;
@@ -461,8 +459,8 @@ LABEL_25:
     keyCopy = key;
     objectCopy2 = object;
     v14 = objc_msgSend_arrayWithObjects_count_(v8, v11, &objectCopy, 1, v12, v13);
-    v38 = keyCopy;
-    v18 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v15, &v38, 1, v16, v17);
+    v37 = keyCopy;
+    v18 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v15, &v37, 1, v16, v17);
 
     v21 = objc_msgSend_writeUpdatedObjects_forKeys_error_(self, v19, v14, v18, error, v20);
   }
@@ -470,13 +468,13 @@ LABEL_25:
   else
   {
     v22 = MEMORY[0x277CCA9B8];
-    v40 = *MEMORY[0x277CCA450];
+    v39 = *MEMORY[0x277CCA450];
     v23 = MEMORY[0x277CCACA8];
     keyCopy2 = key;
     objectCopy3 = object;
     v14 = objc_msgSend_stringWithFormat_(v23, v26, @"Invalid {object: %@ key: %@}", v27, v28, v29, objectCopy3, keyCopy2);
-    v41[0] = v14;
-    v18 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v30, v41, &v40, 1, v31);
+    v40[0] = v14;
+    v18 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v30, v40, &v39, 1, v31);
     v34 = objc_msgSend_errorWithDomain_code_userInfo_(v22, v32, @"com.apple.koa.dictionary.log", 1, v18, v33);
 
     if (error && v34)
@@ -488,13 +486,12 @@ LABEL_25:
     v21 = 0;
   }
 
-  v36 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
 - (id)mutableDictionaryForKey:(id)key error:(id *)error
 {
-  v43[1] = *MEMORY[0x277D85DE8];
+  v42[1] = *MEMORY[0x277D85DE8];
   keyCopy = key;
   v11 = objc_msgSend_objectForKey_(self, v7, keyCopy, v8, v9, v10);
   objc_opt_class();
@@ -520,13 +517,13 @@ LABEL_13:
   }
 
   v18 = MEMORY[0x277CCA9B8];
-  v42 = *MEMORY[0x277CCA450];
+  v41 = *MEMORY[0x277CCA450];
   v19 = MEMORY[0x277CCACA8];
   v20 = objc_opt_class();
   v21 = NSStringFromClass(v20);
   v26 = objc_msgSend_stringWithFormat_(v19, v22, @"Unexpected object: %@ for key: %@ expected: %@", v23, v24, v25, v11, keyCopy, v21);
-  v43[0] = v26;
-  v29 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v27, v43, &v42, 1, v28);
+  v42[0] = v26;
+  v29 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v27, v42, &v41, 1, v28);
   v32 = objc_msgSend_errorWithDomain_code_userInfo_(v18, v30, @"com.apple.koa.dictionary.log", 4, v29, v31);
 
   if (error && v32)
@@ -539,16 +536,14 @@ LABEL_13:
   if (os_log_type_enabled(qword_28106B3C0, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v39 = "[KVDictionaryLog mutableDictionaryForKey:error:]";
-    v40 = 2112;
-    v41 = v32;
+    v38 = "[KVDictionaryLog mutableDictionaryForKey:error:]";
+    v39 = 2112;
+    v40 = v32;
     _os_log_error_impl(&dword_2559A5000, v34, OS_LOG_TYPE_ERROR, "%s %@", buf, 0x16u);
   }
 
   v35 = 0;
 LABEL_14:
-
-  v36 = *MEMORY[0x277D85DE8];
 
   return v35;
 }
@@ -559,13 +554,6 @@ LABEL_14:
   v12 = objc_msgSend_copy(v6, v7, v8, v9, v10, v11);
 
   return v12;
-}
-
-- (BOOL)isReadOnly
-{
-  log = self->_log;
-  objc_opt_class();
-  return (objc_opt_isKindOfClass() & 1) == 0;
 }
 
 - (id)description
@@ -579,10 +567,236 @@ LABEL_14:
   return v14;
 }
 
+- (BOOL)_loadLogOrCreate:(BOOL)create readOnly:(BOOL)only error:(id *)error
+{
+  errorCopy = error;
+  onlyCopy = only;
+  v85[1] = *MEMORY[0x277D85DE8];
+  v10 = objc_msgSend_path(self->_logFileURL, a2, create, only, error, v5);
+  logFileURL = self->_logFileURL;
+  v71 = 0;
+  v15 = KVReadPropertyList(logFileURL, !onlyCopy, &v71, v12, v13, v14);
+  v16 = v71;
+  log = self->_log;
+  self->_log = v15;
+
+  if (!self->_log)
+  {
+    v39 = objc_msgSend_code(v16, v18, v19, v20, v21, v22);
+    v40 = qword_28106B3C0;
+    if (v39 == 260)
+    {
+      if (os_log_type_enabled(qword_28106B3C0, OS_LOG_TYPE_DEBUG))
+      {
+        *buf = 136315394;
+        v75 = "[KVDictionaryLog _loadLogOrCreate:readOnly:error:]";
+        v76 = 2112;
+        v77 = v10;
+        _os_log_debug_impl(&dword_2559A5000, v40, OS_LOG_TYPE_DEBUG, "%s No prior log found at path: %@", buf, 0x16u);
+      }
+
+      v43 = MEMORY[0x277CCA9B8];
+      v80 = *MEMORY[0x277CCA7E8];
+      v81 = v16;
+      v44 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v41, &v81, &v80, 1, v42);
+      objc_msgSend_errorWithDomain_code_userInfo_(v43, v45, @"com.apple.koa.dictionary.log", 6, v44, v46);
+      v66 = LABEL_26:;
+
+      v16 = v66;
+      if (create)
+      {
+        goto LABEL_14;
+      }
+
+LABEL_27:
+      v60 = 0;
+      if (errorCopy && v16)
+      {
+        v67 = v16;
+        v60 = 0;
+        *errorCopy = v16;
+      }
+
+      goto LABEL_30;
+    }
+
+    if (os_log_type_enabled(qword_28106B3C0, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136315650;
+      v75 = "[KVDictionaryLog _loadLogOrCreate:readOnly:error:]";
+      v76 = 2112;
+      v77 = v10;
+      v78 = 2112;
+      v79 = v16;
+      _os_log_error_impl(&dword_2559A5000, v40, OS_LOG_TYPE_ERROR, "%s Failed to read prior log file at path: %@ error: %@", buf, 0x20u);
+      if (v16)
+      {
+        goto LABEL_22;
+      }
+    }
+
+    else if (v16)
+    {
+LABEL_22:
+      v72 = *MEMORY[0x277CCA7E8];
+      v73 = v16;
+      v44 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v64, &v73, &v72, 1, v65);
+LABEL_25:
+      objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v64, @"com.apple.koa.dictionary.log", 7, v44, v65);
+      goto LABEL_26;
+    }
+
+    v44 = 0;
+    goto LABEL_25;
+  }
+
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    if (onlyCopy)
+    {
+      goto LABEL_16;
+    }
+
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      goto LABEL_16;
+    }
+
+    v70 = errorCopy;
+    v69 = MEMORY[0x277CCA9B8];
+    v84 = *MEMORY[0x277CCA450];
+    v23 = MEMORY[0x277CCACA8];
+    v24 = objc_opt_class();
+    v25 = NSStringFromClass(v24);
+    v26 = objc_opt_class();
+    v27 = NSStringFromClass(v26);
+    v32 = objc_msgSend_stringWithFormat_(v23, v28, @"Expected mutable plist class (%@) but received class (%@) for object: %@ at path: %@", v29, v30, v31, v25, v27, self->_log, v10);
+    v85[0] = v32;
+    v35 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v33, v85, &v84, 1, v34);
+    v38 = objc_msgSend_errorWithDomain_code_userInfo_(v69, v36, @"com.apple.koa.dictionary.log", 5, v35, v37);
+
+    v16 = v35;
+  }
+
+  else
+  {
+    v70 = errorCopy;
+    v47 = MEMORY[0x277CCA9B8];
+    v82 = *MEMORY[0x277CCA450];
+    v48 = MEMORY[0x277CCACA8];
+    v49 = objc_opt_class();
+    v25 = NSStringFromClass(v49);
+    v27 = objc_msgSend_stringWithFormat_(v48, v50, @"Unexpected plist class (%@) of object: %@ at path: %@", v51, v52, v53, v25, self->_log, v10);
+    v83 = v27;
+    v32 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v54, &v83, &v82, 1, v55);
+    v38 = objc_msgSend_errorWithDomain_code_userInfo_(v47, v56, @"com.apple.koa.dictionary.log", 5, v32, v57);
+  }
+
+  v58 = qword_28106B3C0;
+  if (os_log_type_enabled(qword_28106B3C0, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 136315394;
+    v75 = "[KVDictionaryLog _loadLogOrCreate:readOnly:error:]";
+    v76 = 2112;
+    v77 = v38;
+    _os_log_error_impl(&dword_2559A5000, v58, OS_LOG_TYPE_ERROR, "%s %@", buf, 0x16u);
+  }
+
+  v16 = v38;
+  errorCopy = v70;
+  if (!create)
+  {
+    goto LABEL_27;
+  }
+
+LABEL_14:
+  if (onlyCopy)
+  {
+    v59 = self->_log;
+    self->_log = MEMORY[0x277CBEC10];
+
+LABEL_16:
+    v60 = 1;
+    goto LABEL_30;
+  }
+
+  v61 = qword_28106B3C0;
+  if (os_log_type_enabled(qword_28106B3C0, OS_LOG_TYPE_INFO))
+  {
+    *buf = 136315394;
+    v75 = "[KVDictionaryLog _loadLogOrCreate:readOnly:error:]";
+    v76 = 2112;
+    v77 = v10;
+    _os_log_impl(&dword_2559A5000, v61, OS_LOG_TYPE_INFO, "%s Initializing empty log file at path: %@", buf, 0x16u);
+  }
+
+  v62 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v63 = self->_log;
+  self->_log = v62;
+
+  v60 = KVWritePropertyList(self->_log, self->_logFileURL, self->_protectionClass, errorCopy);
+LABEL_30:
+
+  return v60;
+}
+
 - (KVDictionaryLog)init
 {
   v3 = objc_msgSend_exceptionWithName_reason_userInfo_(MEMORY[0x277CBEAD8], a2, *MEMORY[0x277CBE658], @"init unsupported", MEMORY[0x277CBEC10], v2);
   objc_exception_throw(v3);
+}
+
+- (KVDictionaryLog)initWithFilename:(id)filename protectionClass:(int)class directory:(id)directory readOnly:(BOOL)only create:(BOOL)create error:(id *)error
+{
+  createCopy = create;
+  onlyCopy = only;
+  v37[1] = *MEMORY[0x277D85DE8];
+  filenameCopy = filename;
+  directoryCopy = directory;
+  v35.receiver = self;
+  v35.super_class = KVDictionaryLog;
+  v20 = [(KVDictionaryLog *)&v35 init];
+  if (!v20)
+  {
+    goto LABEL_5;
+  }
+
+  if (!filenameCopy || !directoryCopy)
+  {
+    v26 = MEMORY[0x277CCA9B8];
+    v36 = *MEMORY[0x277CCA450];
+    v27 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v16, @"Invalid {filename: %@, directory: %@}", v17, v18, v19, filenameCopy, directoryCopy);
+    v37[0] = v27;
+    v30 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v28, v37, &v36, 1, v29);
+    v33 = objc_msgSend_errorWithDomain_code_userInfo_(v26, v31, @"com.apple.koa.dictionary.log", 2, v30, v32);
+    if (error && v33)
+    {
+      v33 = v33;
+      *error = v33;
+    }
+
+    goto LABEL_10;
+  }
+
+  v21 = objc_msgSend_fileURLWithPath_relativeToURL_(MEMORY[0x277CBEBC0], v16, filenameCopy, directoryCopy, v18, v19);
+  logFileURL = v20->_logFileURL;
+  v20->_logFileURL = v21;
+
+  v20->_protectionClass = class;
+  if (!objc_msgSend__loadLogOrCreate_readOnly_error_(v20, v23, createCopy, onlyCopy, error, v24))
+  {
+LABEL_10:
+    v25 = 0;
+    goto LABEL_11;
+  }
+
+LABEL_5:
+  v25 = v20;
+LABEL_11:
+
+  return v25;
 }
 
 + (void)initialize

@@ -46,13 +46,13 @@
 
 uint64_t __50__AVVCSessionFactory_releasePrimarySessionManager__block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (kAVVCScope)
   {
     v2 = *kAVVCScope;
     if (!v2)
     {
-      goto LABEL_8;
+      return [*(a1 + 32) setPrimarySessionManager:0];
     }
   }
 
@@ -66,19 +66,16 @@ uint64_t __50__AVVCSessionFactory_releasePrimarySessionManager__block_invoke(uin
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [*(a1 + 32) primarySessionManager];
-    v8 = 136315650;
-    v9 = "AVVCSessionFactory.mm";
-    v10 = 1024;
-    v11 = 351;
-    v12 = 2048;
-    v13 = v5;
-    _os_log_impl(&dword_1BA5AC000, v4, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Releasing primary session manager (%p)", &v8, 0x1Cu);
+    v7 = 136315650;
+    v8 = "AVVCSessionFactory.mm";
+    v9 = 1024;
+    v10 = 351;
+    v11 = 2048;
+    v12 = v5;
+    _os_log_impl(&dword_1BA5AC000, v4, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Releasing primary session manager (%p)", &v7, 0x1Cu);
   }
 
-LABEL_8:
-  result = [*(a1 + 32) setPrimarySessionManager:0];
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) setPrimarySessionManager:0];
 }
 
 - (id)auxSessionManagers
@@ -128,181 +125,15 @@ void __40__AVVCSessionFactory_auxSessionManagers__block_invoke(uint64_t a1)
 
 void __37__AVVCSessionFactory_cleanupContext___block_invoke(uint64_t a1)
 {
-  v44 = *MEMORY[0x1E69E9840];
-  if (contextIsRemora(*(a1 + 32)))
-  {
-    v2 = [*(a1 + 32) activationDeviceUID];
-    if (v2)
-    {
-      v3 = [*(a1 + 32) activationDeviceUID];
-      v4 = [v3 length];
-
-      if (v4)
-      {
-        v5 = [*(a1 + 40) sessionManagerMap];
-        v6 = [*(a1 + 32) activationDeviceUID];
-        v7 = [v5 objectForKeyedSubscript:v6];
-
-        v8 = [v7 audioSession];
-        if (kAVVCScope)
-        {
-          v9 = *kAVVCScope;
-          if (!v9)
-          {
-            goto LABEL_24;
-          }
-        }
-
-        else
-        {
-          v9 = MEMORY[0x1E69E9C10];
-          v16 = MEMORY[0x1E69E9C10];
-        }
-
-        v17 = v9;
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
-        {
-          CAX4CCString::CAX4CCString(v31, [*(a1 + 32) activationMode]);
-          v18 = [*(a1 + 32) activationDeviceUID];
-          v19 = [v7 audioSession];
-          *buf = 136316418;
-          v33 = "AVVCSessionFactory.mm";
-          v34 = 1024;
-          v35 = 311;
-          v36 = 2080;
-          v37 = v31;
-          v38 = 2112;
-          v39 = v18;
-          v40 = 2048;
-          v41 = v19;
-          v42 = 2048;
-          v43 = v7;
-          _os_log_impl(&dword_1BA5AC000, v17, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Clean up context(%s, %@), about to release session(%p) and manager(%p)", buf, 0x3Au);
-        }
-
-LABEL_24:
-        if (!v8)
-        {
-          if (kAVVCScope)
-          {
-            v23 = *kAVVCScope;
-            if (!v23)
-            {
-              goto LABEL_41;
-            }
-          }
-
-          else
-          {
-            v23 = MEMORY[0x1E69E9C10];
-            v25 = MEMORY[0x1E69E9C10];
-          }
-
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
-          {
-            *buf = 136315394;
-            v33 = "AVVCSessionFactory.mm";
-            v34 = 1024;
-            v35 = 323;
-            _os_log_impl(&dword_1BA5AC000, v23, OS_LOG_TYPE_ERROR, "%25s:%-5d Unexpected missing session when cleaning up context", buf, 0x12u);
-          }
-
-          goto LABEL_40;
-        }
-
-        v20 = [*(a1 + 40) sessionWillBeDestroyedBlock];
-        v21 = v20 == 0;
-
-        if (v21)
-        {
-LABEL_41:
-          v27 = [*(a1 + 40) sessionManagerMap];
-          v28 = [*(a1 + 32) activationDeviceUID];
-          [v27 setObject:0 forKeyedSubscript:v28];
-
-          goto LABEL_42;
-        }
-
-        v22 = [*(a1 + 40) sessionWillBeDestroyedBlock];
-        v30 = 0;
-        (v22)[2](v22, v7, &v30);
-        v23 = v30;
-
-        if (v23)
-        {
-          if (kAVVCScope)
-          {
-            v24 = *kAVVCScope;
-            if (!v24)
-            {
-              goto LABEL_40;
-            }
-          }
-
-          else
-          {
-            v24 = MEMORY[0x1E69E9C10];
-            v26 = MEMORY[0x1E69E9C10];
-          }
-
-          if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
-          {
-            *buf = 136315650;
-            v33 = "AVVCSessionFactory.mm";
-            v34 = 1024;
-            v35 = 318;
-            v36 = 2112;
-            v37 = v23;
-            _os_log_impl(&dword_1BA5AC000, v24, OS_LOG_TYPE_ERROR, "%25s:%-5d Unexpected error cleaning up context: %@", buf, 0x1Cu);
-          }
-        }
-
-LABEL_40:
-
-        goto LABEL_41;
-      }
-    }
-
-    if (kAVVCScope)
-    {
-      v11 = *kAVVCScope;
-      if (!v11)
-      {
-        goto LABEL_43;
-      }
-    }
-
-    else
-    {
-      v11 = MEMORY[0x1E69E9C10];
-      v14 = MEMORY[0x1E69E9C10];
-    }
-
-    v8 = v11;
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
-    {
-      CAX4CCString::CAX4CCString(v31, [*(a1 + 32) activationMode]);
-      v15 = [*(a1 + 32) activationDeviceUID];
-      *buf = 136315906;
-      v33 = "AVVCSessionFactory.mm";
-      v34 = 1024;
-      v35 = 328;
-      v36 = 2080;
-      v37 = v31;
-      v38 = 2112;
-      v39 = v15;
-      _os_log_impl(&dword_1BA5AC000, v8, OS_LOG_TYPE_ERROR, "%25s:%-5d Can't cleanup because devID is missing in context(%s, %@)", buf, 0x26u);
-    }
-  }
-
-  else
+  v43 = *MEMORY[0x1E69E9840];
+  if (!contextIsRemora(*(a1 + 32)))
   {
     if (kAVVCScope)
     {
       v10 = *kAVVCScope;
       if (!v10)
       {
-        goto LABEL_43;
+        return;
       }
     }
 
@@ -315,25 +146,187 @@ LABEL_40:
     v8 = v10;
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      CAX4CCString::CAX4CCString(v31, [*(a1 + 32) activationMode]);
+      CAX4CCString::CAX4CCString(v30, [*(a1 + 32) activationMode]);
       v13 = [*(a1 + 32) activationDeviceUID];
       *buf = 136315906;
-      v33 = "AVVCSessionFactory.mm";
-      v34 = 1024;
-      v35 = 333;
-      v36 = 2080;
-      v37 = v31;
-      v38 = 2112;
-      v39 = v13;
+      v32 = "AVVCSessionFactory.mm";
+      v33 = 1024;
+      v34 = 333;
+      v35 = 2080;
+      v36 = v30;
+      v37 = 2112;
+      v38 = v13;
       _os_log_impl(&dword_1BA5AC000, v8, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Nothing to clean up for context(%s, %@)", buf, 0x26u);
+    }
+
+LABEL_19:
+    v7 = v8;
+LABEL_42:
+
+    return;
+  }
+
+  v2 = [*(a1 + 32) activationDeviceUID];
+  if (v2)
+  {
+    v3 = [*(a1 + 32) activationDeviceUID];
+    v4 = [v3 length];
+
+    if (v4)
+    {
+      v5 = [*(a1 + 40) sessionManagerMap];
+      v6 = [*(a1 + 32) activationDeviceUID];
+      v7 = [v5 objectForKeyedSubscript:v6];
+
+      v8 = [v7 audioSession];
+      if (kAVVCScope)
+      {
+        v9 = *kAVVCScope;
+        if (!v9)
+        {
+          goto LABEL_24;
+        }
+      }
+
+      else
+      {
+        v9 = MEMORY[0x1E69E9C10];
+        v16 = MEMORY[0x1E69E9C10];
+      }
+
+      v17 = v9;
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      {
+        CAX4CCString::CAX4CCString(v30, [*(a1 + 32) activationMode]);
+        v18 = [*(a1 + 32) activationDeviceUID];
+        v19 = [v7 audioSession];
+        *buf = 136316418;
+        v32 = "AVVCSessionFactory.mm";
+        v33 = 1024;
+        v34 = 311;
+        v35 = 2080;
+        v36 = v30;
+        v37 = 2112;
+        v38 = v18;
+        v39 = 2048;
+        v40 = v19;
+        v41 = 2048;
+        v42 = v7;
+        _os_log_impl(&dword_1BA5AC000, v17, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Clean up context(%s, %@), about to release session(%p) and manager(%p)", buf, 0x3Au);
+      }
+
+LABEL_24:
+      if (!v8)
+      {
+        if (kAVVCScope)
+        {
+          v23 = *kAVVCScope;
+          if (!v23)
+          {
+            goto LABEL_41;
+          }
+        }
+
+        else
+        {
+          v23 = MEMORY[0x1E69E9C10];
+          v25 = MEMORY[0x1E69E9C10];
+        }
+
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 136315394;
+          v32 = "AVVCSessionFactory.mm";
+          v33 = 1024;
+          v34 = 323;
+          _os_log_impl(&dword_1BA5AC000, v23, OS_LOG_TYPE_ERROR, "%25s:%-5d Unexpected missing session when cleaning up context", buf, 0x12u);
+        }
+
+        goto LABEL_40;
+      }
+
+      v20 = [*(a1 + 40) sessionWillBeDestroyedBlock];
+      v21 = v20 == 0;
+
+      if (v21)
+      {
+LABEL_41:
+        v27 = [*(a1 + 40) sessionManagerMap];
+        v28 = [*(a1 + 32) activationDeviceUID];
+        [v27 setObject:0 forKeyedSubscript:v28];
+
+        goto LABEL_42;
+      }
+
+      v22 = [*(a1 + 40) sessionWillBeDestroyedBlock];
+      v29 = 0;
+      (v22)[2](v22, v7, &v29);
+      v23 = v29;
+
+      if (v23)
+      {
+        if (kAVVCScope)
+        {
+          v24 = *kAVVCScope;
+          if (!v24)
+          {
+            goto LABEL_40;
+          }
+        }
+
+        else
+        {
+          v24 = MEMORY[0x1E69E9C10];
+          v26 = MEMORY[0x1E69E9C10];
+        }
+
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 136315650;
+          v32 = "AVVCSessionFactory.mm";
+          v33 = 1024;
+          v34 = 318;
+          v35 = 2112;
+          v36 = v23;
+          _os_log_impl(&dword_1BA5AC000, v24, OS_LOG_TYPE_ERROR, "%25s:%-5d Unexpected error cleaning up context: %@", buf, 0x1Cu);
+        }
+      }
+
+LABEL_40:
+
+      goto LABEL_41;
     }
   }
 
-  v7 = v8;
-LABEL_42:
+  if (!kAVVCScope)
+  {
+    v11 = MEMORY[0x1E69E9C10];
+    v14 = MEMORY[0x1E69E9C10];
+LABEL_17:
+    v8 = v11;
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    {
+      CAX4CCString::CAX4CCString(v30, [*(a1 + 32) activationMode]);
+      v15 = [*(a1 + 32) activationDeviceUID];
+      *buf = 136315906;
+      v32 = "AVVCSessionFactory.mm";
+      v33 = 1024;
+      v34 = 328;
+      v35 = 2080;
+      v36 = v30;
+      v37 = 2112;
+      v38 = v15;
+      _os_log_impl(&dword_1BA5AC000, v8, OS_LOG_TYPE_ERROR, "%25s:%-5d Can't cleanup because devID is missing in context(%s, %@)", buf, 0x26u);
+    }
 
-LABEL_43:
-  v29 = *MEMORY[0x1E69E9840];
+    goto LABEL_19;
+  }
+
+  v11 = *kAVVCScope;
+  if (v11)
+  {
+    goto LABEL_17;
+  }
 }
 
 - (id)sessionManagerForContext:(id)context clientType:(int64_t)type error:(id *)error
@@ -525,7 +518,7 @@ void __62__AVVCSessionFactory_sessionForContext_clientType_completion___block_in
 
 - (void)_wqSessionAndManagerForContext:(id)context clientType:(int64_t)type session:(id *)session manager:(id *)manager error:(id *)error
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   dispatch_assert_queue_V2(self->_workQueue);
   if (contextIsRemora(contextCopy))
@@ -546,12 +539,12 @@ void __62__AVVCSessionFactory_sessionForContext_clientType_completion___block_in
         v20 = audioSession;
         if (!audioSession || !v18)
         {
-          v40 = v18;
-          v41 = audioSession;
-          [(AVVCSessionFactory *)self _wqCreateAuxSessionAndManagerForDeviceUID:contextCopy clientType:type session:&v41 manager:&v40 error:error];
-          v21 = v41;
+          v39 = v18;
+          v40 = audioSession;
+          [(AVVCSessionFactory *)self _wqCreateAuxSessionAndManagerForDeviceUID:contextCopy clientType:type session:&v40 manager:&v39 error:error];
+          v21 = v40;
 
-          v22 = v40;
+          v22 = v39;
           v18 = v22;
           v20 = v21;
         }
@@ -582,9 +575,9 @@ LABEL_17:
     if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v44 = "AVVCSessionFactory.mm";
-      v45 = 1024;
-      v46 = 200;
+      v43 = "AVVCSessionFactory.mm";
+      v44 = 1024;
+      v45 = 200;
       _os_log_impl(&dword_1BA5AC000, v25, OS_LOG_TYPE_ERROR, "%25s:%-5d _wqSessionForContext: activationDeviceUID must be specified for this mode", buf, 0x12u);
     }
 
@@ -592,20 +585,20 @@ LABEL_17:
   }
 
   mEMORY[0x1E698D708] = [MEMORY[0x1E698D708] sharedInstance];
-  v34 = MEMORY[0x1E69E9820];
-  v35 = 3221225472;
-  v36 = __86__AVVCSessionFactory__wqSessionAndManagerForContext_clientType_session_manager_error___block_invoke;
-  v37 = &unk_1E7EF53D8;
+  v33 = MEMORY[0x1E69E9820];
+  v34 = 3221225472;
+  v35 = __86__AVVCSessionFactory__wqSessionAndManagerForContext_clientType_session_manager_error___block_invoke;
+  v36 = &unk_1E7EF53D8;
   v20 = mEMORY[0x1E698D708];
-  v38 = v20;
+  v37 = v20;
   v24 = contextCopy;
-  v39 = v24;
+  v38 = v24;
   if ([AVVCSessionFactory _wqSessionAndManagerForContext:clientType:session:manager:error:]::onceToken != -1)
   {
-    dispatch_once(&[AVVCSessionFactory _wqSessionAndManagerForContext:clientType:session:manager:error:]::onceToken, &v34);
+    dispatch_once(&[AVVCSessionFactory _wqSessionAndManagerForContext:clientType:session:manager:error:]::onceToken, &v33);
   }
 
-  v18 = [(AVVCSessionFactory *)self _wqCreatePrimarySessionManagerIfNeeded:v24 clientType:type error:error, v34, v35, v36, v37];
+  v18 = [(AVVCSessionFactory *)self _wqCreatePrimarySessionManagerIfNeeded:v24 clientType:type error:error, v33, v34, v35, v36];
 
 LABEL_18:
   if (kAVVCScope)
@@ -626,20 +619,20 @@ LABEL_18:
   v29 = v27;
   if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
   {
-    CAX4CCString::CAX4CCString(v42, [(AVVCContextSettings *)contextCopy activationMode]);
+    CAX4CCString::CAX4CCString(v41, [(AVVCContextSettings *)contextCopy activationMode]);
     activationDeviceUID4 = [(AVVCContextSettings *)contextCopy activationDeviceUID];
     *buf = 136316418;
-    v44 = "AVVCSessionFactory.mm";
-    v45 = 1024;
-    v46 = 217;
-    v47 = 2048;
-    v48 = v20;
-    v49 = 2048;
-    v50 = v18;
-    v51 = 2080;
-    v52 = v42;
-    v53 = 2112;
-    v54 = activationDeviceUID4;
+    v43 = "AVVCSessionFactory.mm";
+    v44 = 1024;
+    v45 = 217;
+    v46 = 2048;
+    v47 = v20;
+    v48 = 2048;
+    v49 = v18;
+    v50 = 2080;
+    v51 = v41;
+    v52 = 2112;
+    v53 = activationDeviceUID4;
     _os_log_impl(&dword_1BA5AC000, v29, OS_LOG_TYPE_DEBUG, "%25s:%-5d retrieved session (%p) and sessionManager (%p) for context(%s, %@)", buf, 0x3Au);
   }
 
@@ -655,19 +648,17 @@ LABEL_25:
     v32 = v18;
     *manager = v18;
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 void __86__AVVCSessionFactory__wqSessionAndManagerForContext_clientType_session_manager_error___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (kAVVCScope)
   {
     v2 = *kAVVCScope;
     if (!v2)
     {
-      goto LABEL_8;
+      return;
     }
   }
 
@@ -681,28 +672,25 @@ void __86__AVVCSessionFactory__wqSessionAndManagerForContext_clientType_session_
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    CAX4CCString::CAX4CCString(v8, [*(a1 + 40) activationMode]);
+    CAX4CCString::CAX4CCString(v7, [*(a1 + 40) activationMode]);
     v6 = [*(a1 + 40) activationDeviceUID];
     *buf = 136316162;
-    v10 = "AVVCSessionFactory.mm";
-    v11 = 1024;
-    v12 = 211;
-    v13 = 2048;
-    v14 = v5;
-    v15 = 2080;
-    v16 = v8;
-    v17 = 2112;
-    v18 = v6;
+    v9 = "AVVCSessionFactory.mm";
+    v10 = 1024;
+    v11 = 211;
+    v12 = 2048;
+    v13 = v5;
+    v14 = 2080;
+    v15 = v7;
+    v16 = 2112;
+    v17 = v6;
     _os_log_impl(&dword_1BA5AC000, v4, OS_LOG_TYPE_DEFAULT, "%25s:%-5d First time primary session (%p) retrieved. Context(%s, %@)", buf, 0x30u);
   }
-
-LABEL_8:
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_wqCreatePrimarySessionManagerIfNeeded:(id)needed clientType:(int64_t)type error:(id *)error
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   neededCopy = needed;
   dispatch_assert_queue_V2(self->_workQueue);
   primarySessionManager = self->_primarySessionManager;
@@ -741,18 +729,18 @@ LABEL_12:
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       v18 = self->_primarySessionManager;
-      CAX4CCString::CAX4CCString(v23, [neededCopy activationMode]);
+      CAX4CCString::CAX4CCString(v22, [neededCopy activationMode]);
       activationDeviceUID = [neededCopy activationDeviceUID];
       *buf = 136316162;
-      v25 = "AVVCSessionFactory.mm";
-      v26 = 1024;
-      v27 = 175;
-      v28 = 2048;
-      v29 = v18;
-      v30 = 2080;
-      v31 = v23;
-      v32 = 2112;
-      v33 = activationDeviceUID;
+      v24 = "AVVCSessionFactory.mm";
+      v25 = 1024;
+      v26 = 175;
+      v27 = 2048;
+      v28 = v18;
+      v29 = 2080;
+      v30 = v22;
+      v31 = 2112;
+      v32 = activationDeviceUID;
       _os_log_impl(&dword_1BA5AC000, v17, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Created primary session manager (%p) and setup onetime settings for context(%s, %@)", buf, 0x30u);
     }
 
@@ -762,13 +750,12 @@ LABEL_12:
 LABEL_13:
   v20 = primarySessionManager;
 
-  v21 = *MEMORY[0x1E69E9840];
   return primarySessionManager;
 }
 
 - (void)_wqCreateAuxSessionAndManagerForDeviceUID:(id)d clientType:(int64_t)type session:(id *)session manager:(id *)manager error:(id *)error
 {
-  v73 = *MEMORY[0x1E69E9840];
+  v72 = *MEMORY[0x1E69E9840];
   dCopy = d;
   dispatch_assert_queue_V2(self->_workQueue);
   if ((caulk::product::get_device_class(v10) == 4 || ((v11 = MGGetSInt32Answer(), v12 = MGGetBoolAnswer(), v11 == 7) ? (v13 = 1) : (v13 = v12), v13 == 1)) && (MGGetBoolAnswer() & 1) == 0)
@@ -812,20 +799,20 @@ LABEL_13:
       activationDeviceUID3 = [dCopy activationDeviceUID];
       v25 = [(NSMutableDictionary *)v23 objectForKeyedSubscript:activationDeviceUID3];
       audioSession = [v25 audioSession];
-      CAX4CCString::CAX4CCString(v60, [dCopy activationMode]);
+      CAX4CCString::CAX4CCString(v59, [dCopy activationMode]);
       activationDeviceUID4 = [dCopy activationDeviceUID];
       *buf = 136316418;
-      v62 = "AVVCSessionFactory.mm";
-      v63 = 1024;
-      v64 = 129;
-      v65 = 2048;
-      v66 = v22;
-      v67 = 2048;
-      v68 = audioSession;
-      v69 = 2080;
-      v70 = v60;
-      v71 = 2112;
-      v72 = activationDeviceUID4;
+      v61 = "AVVCSessionFactory.mm";
+      v62 = 1024;
+      v63 = 129;
+      v64 = 2048;
+      v65 = v22;
+      v66 = 2048;
+      v67 = audioSession;
+      v68 = 2080;
+      v69 = v59;
+      v70 = 2112;
+      v71 = activationDeviceUID4;
       _os_log_impl(&dword_1BA5AC000, v20, OS_LOG_TYPE_ERROR, "%25s:%-5d _wqCreateAuxSessionAndManagerForDeviceUID: unexpected existing session manager(%p) audioSession(%p) for context(%s, %@)", buf, 0x3Au);
     }
   }
@@ -859,11 +846,11 @@ LABEL_17:
     {
       code = [*error code];
       *buf = 136315650;
-      v62 = "AVVCSessionFactory.mm";
-      v63 = 1024;
-      v64 = 140;
-      v65 = 1024;
-      LODWORD(v66) = code;
+      v61 = "AVVCSessionFactory.mm";
+      v62 = 1024;
+      v63 = 140;
+      v64 = 1024;
+      LODWORD(v65) = code;
       _os_log_impl(&dword_1BA5AC000, v34, OS_LOG_TYPE_ERROR, "%25s:%-5d _wqCreateAuxSessionAndManagerForDeviceUID: setActivationContext returned error(%d)", buf, 0x18u);
     }
   }
@@ -903,11 +890,11 @@ LABEL_26:
     activationDeviceUID7 = [dCopy activationDeviceUID];
     v45 = [(NSMutableDictionary *)v43 objectForKeyedSubscript:activationDeviceUID7];
     *buf = 136315650;
-    v62 = "AVVCSessionFactory.mm";
-    v63 = 1024;
-    v64 = 146;
-    v65 = 2048;
-    v66 = v45;
+    v61 = "AVVCSessionFactory.mm";
+    v62 = 1024;
+    v63 = 146;
+    v64 = 2048;
+    v65 = v45;
     _os_log_impl(&dword_1BA5AC000, v42, OS_LOG_TYPE_ERROR, "%25s:%-5d _wqCreateAuxSessionAndManagerForDeviceUID: unexpected existing sessionManager(%p)", buf, 0x1Cu);
   }
 
@@ -934,20 +921,20 @@ LABEL_34:
   v50 = v48;
   if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
   {
-    CAX4CCString::CAX4CCString(v60, [dCopy activationMode]);
+    CAX4CCString::CAX4CCString(v59, [dCopy activationMode]);
     activationDeviceUID9 = [dCopy activationDeviceUID];
     *buf = 136316418;
-    v62 = "AVVCSessionFactory.mm";
-    v63 = 1024;
-    v64 = 150;
-    v65 = 2048;
-    v66 = auxiliarySession;
-    v67 = 2048;
-    v68 = v36;
-    v69 = 2080;
-    v70 = v60;
-    v71 = 2112;
-    v72 = activationDeviceUID9;
+    v61 = "AVVCSessionFactory.mm";
+    v62 = 1024;
+    v63 = 150;
+    v64 = 2048;
+    v65 = auxiliarySession;
+    v66 = 2048;
+    v67 = v36;
+    v68 = 2080;
+    v69 = v59;
+    v70 = 2112;
+    v71 = activationDeviceUID9;
     _os_log_impl(&dword_1BA5AC000, v50, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Created aux session (%p) and session manager (%p) and setup onetime settings for context(%s, %@)", buf, 0x3Au);
   }
 
@@ -969,8 +956,6 @@ LABEL_41:
     v54 = v36;
     *manager = v36;
   }
-
-  v55 = *MEMORY[0x1E69E9840];
 }
 
 - (AVVCSessionFactory)init
@@ -995,7 +980,7 @@ LABEL_41:
 
 void __36__AVVCSessionFactory_sharedInstance__block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v1 = objc_alloc_init(*(a1 + 32));
   v2 = sSharedInstance;
   sSharedInstance = v1;
@@ -1005,7 +990,7 @@ void __36__AVVCSessionFactory_sharedInstance__block_invoke(uint64_t a1)
     v3 = *kAVVCScope;
     if (!v3)
     {
-      goto LABEL_8;
+      return;
     }
   }
 
@@ -1017,17 +1002,14 @@ void __36__AVVCSessionFactory_sharedInstance__block_invoke(uint64_t a1)
 
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315650;
-    v7 = "AVVCSessionFactory.mm";
-    v8 = 1024;
-    v9 = 71;
-    v10 = 2048;
-    v11 = sSharedInstance;
-    _os_log_impl(&dword_1BA5AC000, v3, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Created AVVCSessionFactory (%p)", &v6, 0x1Cu);
+    v5 = 136315650;
+    v6 = "AVVCSessionFactory.mm";
+    v7 = 1024;
+    v8 = 71;
+    v9 = 2048;
+    v10 = sSharedInstance;
+    _os_log_impl(&dword_1BA5AC000, v3, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Created AVVCSessionFactory (%p)", &v5, 0x1Cu);
   }
-
-LABEL_8:
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

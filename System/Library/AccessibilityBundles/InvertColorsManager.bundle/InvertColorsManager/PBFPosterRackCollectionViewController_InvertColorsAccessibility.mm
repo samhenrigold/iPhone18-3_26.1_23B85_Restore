@@ -7,17 +7,7 @@
 
 - (void)_accessibilityLoadInvertColors
 {
-  if (!_AXSInvertColorsEnabled())
-  {
-    goto LABEL_4;
-  }
-
-  v3 = [(PBFPosterRackCollectionViewController_InvertColorsAccessibility *)self safeUIViewForKey:@"view"];
-  window = [v3 window];
-  traitCollection = [window traitCollection];
-  userInterfaceStyle = [traitCollection userInterfaceStyle];
-
-  if (userInterfaceStyle == &dword_0 + 2)
+  if (_AXSInvertColorsEnabled() && (-[PBFPosterRackCollectionViewController_InvertColorsAccessibility safeUIViewForKey:](self, "safeUIViewForKey:", @"view"), v3 = objc_claimAutoreleasedReturnValue(), [v3 window], v4 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v4, "traitCollection"), v5 = objc_claimAutoreleasedReturnValue(), v6 = objc_msgSend(v5, "userInterfaceStyle"), v5, v4, v3, v6 == &dword_0 + 2))
   {
     v7 = [(PBFPosterRackCollectionViewController_InvertColorsAccessibility *)self safeUIViewForKey:@"view"];
     v8 = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
@@ -29,7 +19,6 @@
 
   else
   {
-LABEL_4:
     v10 = [(PBFPosterRackCollectionViewController_InvertColorsAccessibility *)self safeUIViewForKey:@"view"];
     [AXInvertColorsAppHelper removeBackgroundView:?];
   }

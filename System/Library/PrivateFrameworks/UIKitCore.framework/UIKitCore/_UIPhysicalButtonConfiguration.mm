@@ -6,20 +6,20 @@
 + (id)_configurationWithPhysicalButton:(unint64_t)button behavior:(unint64_t)behavior behaviorOptions:(id)options;
 + (id)_ringerButtonDynamicActionConfiguration;
 + (id)_volumeConfigurations;
-- (BOOL)_isEqualToConfigurationMinusGeneration:(_BOOL8)result;
 - (BOOL)isEqual:(id)equal;
 - (_UIPhysicalButtonBehaviorOptions)_behaviorOptions;
 - (_UIPhysicalButtonConfiguration)init;
 - (_UIPhysicalButtonConfiguration)initWithBSXPCCoder:(id)coder;
 - (_UIPhysicalButtonConfiguration)initWithCoder:(id)coder;
 - (_UIPhysicalButtonConfiguration)initWithXPCDictionary:(id)dictionary;
-- (id)_initWithPhysicalButton:(unint64_t)button behavior:(void *)behavior behaviorOptions:(uint64_t)options generation:(void *)generation auditToken:;
+- (id)_initWithPhysicalButton:(void *)button behavior:(void *)behavior behaviorOptions:(uint64_t)options generation:(void *)generation auditToken:;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)debugDescriptionWithMultilinePrefix:(id)prefix;
 - (id)descriptionBuilderWithMultilinePrefix:(id)prefix;
 - (id)descriptionWithMultilinePrefix:(id)prefix;
 - (id)succinctDescription;
 - (id)succinctDescriptionBuilder;
+- (uint64_t)_isEqualToConfigurationMinusGeneration:(uint64_t)result;
 - (unint64_t)hash;
 - (void)encodeWithBSXPCCoder:(id)coder;
 - (void)encodeWithCoder:(id)coder;
@@ -84,7 +84,7 @@
   return v14;
 }
 
-- (id)_initWithPhysicalButton:(unint64_t)button behavior:(void *)behavior behaviorOptions:(uint64_t)options generation:(void *)generation auditToken:
+- (id)_initWithPhysicalButton:(void *)button behavior:(void *)behavior behaviorOptions:(uint64_t)options generation:(void *)generation auditToken:
 {
   selfCopy = self;
   if (!self)
@@ -427,7 +427,7 @@ LABEL_26:
   return 0;
 }
 
-- (BOOL)_isEqualToConfigurationMinusGeneration:(_BOOL8)result
+- (uint64_t)_isEqualToConfigurationMinusGeneration:(uint64_t)result
 {
   if (result)
   {
@@ -453,9 +453,9 @@ LABEL_26:
         goto LABEL_22;
       }
 
-      v9 = [v6 isEqual:v7];
+      isEqual = objc_msgSend_isEqual_(v6);
 
-      if (!v9)
+      if (!isEqual)
       {
         return 0;
       }
@@ -476,7 +476,7 @@ LABEL_26:
         goto LABEL_22;
       }
 
-      v12 = [v6 isEqual:v11];
+      v12 = objc_msgSend_isEqual_(v6);
 
       if (!v12)
       {
@@ -496,7 +496,7 @@ LABEL_26:
 
     if (v6 && v14)
     {
-      v15 = [v6 isEqual:v14];
+      v15 = objc_msgSend_isEqual_(v6);
 
       if (v15)
       {

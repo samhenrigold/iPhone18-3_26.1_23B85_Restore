@@ -9,7 +9,7 @@
 - (_EARCustomLMBuilder)initWithConfiguration:(id)configuration
 {
   configurationCopy = configuration;
-  [_EARQuasarTokenizer tokenizerWithModelRoot:configurationCopy];
+  objc_msgSend_tokenizerWithModelRoot_(_EARQuasarTokenizer);
   ptr = self->_tokenizer.__ptr_;
   self->_tokenizer.__ptr_ = __p;
   if (ptr)
@@ -20,7 +20,7 @@
   v6 = [configurationCopy stringByAppendingPathComponent:{@"mini.json", 0}];
   if (v6)
   {
-    [v6 ear_toString];
+    objc_msgSend_ear_toString(v6);
   }
 
   operator new();
@@ -28,29 +28,38 @@
 
 - (BOOL)getFstGrammar:(id)grammar overrideFolder:(id)folder weight:(float)weight errorOut:(id *)out
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   folderCopy = folder;
   weightCopy = weight;
-  v9 = [grammar mutableCopy];
-  v12[0] = 0;
-  v12[1] = v12;
-  v12[2] = 0x4812000000;
-  v12[3] = __Block_byref_object_copy__10;
-  v12[4] = __Block_byref_object_dispose__10;
-  v12[5] = &unk_1B5CADD23;
-  memset(&v12[6], 0, 24);
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __68___EARCustomLMBuilder_getFstGrammar_overrideFolder_weight_errorOut___block_invoke;
-  v11[3] = &unk_1E7C1A410;
-  v11[4] = v12;
-  [v9 enumerateObjectsUsingBlock:v11];
+  v10 = [grammar mutableCopy];
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x4812000000;
+  v19 = __Block_byref_object_copy__10;
+  v20 = __Block_byref_object_dispose__10;
+  v21 = &unk_1B5CADD23;
+  v23 = 0;
+  v24 = 0;
+  v22 = 0;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __68___EARCustomLMBuilder_getFstGrammar_overrideFolder_weight_errorOut___block_invoke;
+  v15[3] = &unk_1E7C1A410;
+  v15[4] = &v16;
+  [v10 enumerateObjectsUsingBlock:v15];
+  ptr = self->_customLMBuilder.__ptr_;
+  v12 = v17;
   if (folderCopy)
   {
-    [folderCopy ear_toString];
+    objc_msgSend_ear_toString(folderCopy);
   }
 
-  quasar::CustomLMBuilder::getFstGrammar();
+  else
+  {
+    memset(&__p, 0, sizeof(__p));
+  }
+
+  quasar::CustomLMBuilder::getFstGrammar(ptr, (v12 + 6), &__p, &weightCopy);
 }
 
 - (id).cxx_construct

@@ -91,18 +91,16 @@
 
 - (NSArray)features
 {
-  v12[2] = *MEMORY[0x1E69E9840];
+  v11[2] = *MEMORY[0x1E69E9840];
   v3 = [FCTagIDFeature alloc];
   publisherTagID = [(FCPublisherTopicFeature *)self publisherTagID];
   v5 = [(FCTagIDFeature *)v3 initWithTagID:publisherTagID];
-  v12[0] = v5;
+  v11[0] = v5;
   v6 = [FCTagIDFeature alloc];
   topicTagID = [(FCPublisherTopicFeature *)self topicTagID];
   v8 = [(FCTagIDFeature *)v6 initWithTagID:topicTagID];
-  v12[1] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:2];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v11[1] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
 
   return v9;
 }

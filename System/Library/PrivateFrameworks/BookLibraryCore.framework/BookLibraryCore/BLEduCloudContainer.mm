@@ -124,7 +124,7 @@
 
 - (id)fileNameForPermlink:(id)permlink
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   permlinkCopy = permlink;
   pathExtension = [permlinkCopy pathExtension];
   v5 = MEMORY[0x277CCACA8];
@@ -144,14 +144,12 @@
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v14 = permlinkCopy;
+      v13 = permlinkCopy;
       _os_log_impl(&dword_241D1F000, v9, OS_LOG_TYPE_ERROR, "Warning. Unable to determine path extension from permlink {%@}", buf, 0xCu);
     }
   }
 
   v10 = [v7 stringByAppendingPathExtension:@"cloudItem"];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -187,18 +185,18 @@
 
 - (BOOL)_addOrUpdateCloudEntryWithDictionary:(id)dictionary error:(id *)error
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
-  v55 = 0;
-  v56 = &v55;
-  v57 = 0x2020000000;
-  v58 = 0;
-  v49 = 0;
-  v50 = &v49;
-  v51 = 0x3032000000;
-  v52 = sub_241D2DC2C;
-  v53 = sub_241D2DC3C;
   v54 = 0;
+  v55 = &v54;
+  v56 = 0x2020000000;
+  v57 = 0;
+  v48 = 0;
+  v49 = &v48;
+  v50 = 0x3032000000;
+  v51 = sub_241D2DC2C;
+  v52 = sub_241D2DC3C;
+  v53 = 0;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"permlink"];
   if (v7)
   {
@@ -214,8 +212,8 @@
   if (!cloudToken || (([(BLEduCloudContainer *)self documentsURL], (v10 = objc_claimAutoreleasedReturnValue()) != 0) ? (v11 = v8 == 0) : (v11 = 1), v11 ? (v12 = 0) : (v12 = 1), v10, cloudToken, !v12))
   {
     v20 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA050] code:4 userInfo:0];
-    defaultManager = v50[5];
-    v50[5] = v20;
+    defaultManager = v49[5];
+    v49[5] = v20;
     goto LABEL_31;
   }
 
@@ -224,56 +222,56 @@
   if ([defaultManager isUbiquitousItemAtURL:v14])
   {
     v15 = [objc_alloc(MEMORY[0x277CCA9E8]) initWithFilePresenter:0];
-    v48 = 0;
-    v44[0] = MEMORY[0x277D85DD0];
-    v44[1] = 3221225472;
-    v44[2] = sub_241D2DC44;
-    v44[3] = &unk_278D173D0;
-    v46 = &v55;
-    v45 = dictionaryCopy;
-    v47 = &v49;
-    v41 = v15;
-    [v15 coordinateWritingItemAtURL:v14 options:0 error:&v48 byAccessor:v44];
-    v16 = v48;
-    if ((v56[3] & 1) == 0)
+    v47 = 0;
+    v43[0] = MEMORY[0x277D85DD0];
+    v43[1] = 3221225472;
+    v43[2] = sub_241D2DC44;
+    v43[3] = &unk_278D173D0;
+    v45 = &v54;
+    v44 = dictionaryCopy;
+    v46 = &v48;
+    v40 = v15;
+    [v15 coordinateWritingItemAtURL:v14 options:0 error:&v47 byAccessor:v43];
+    v16 = v47;
+    if ((v55[3] & 1) == 0)
     {
       v17 = BLDefaultLog();
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        v18 = v50[5];
+        v18 = v49[5];
         *buf = 138412546;
-        v62 = v14;
-        v63 = 2112;
-        v64 = v18;
+        v61 = v14;
+        v62 = 2112;
+        v63 = v18;
         _os_log_impl(&dword_241D1F000, v17, OS_LOG_TYPE_ERROR, "Failed to write plist to %@. Error: %@", buf, 0x16u);
       }
     }
 
-    v19 = v45;
+    v19 = v44;
     goto LABEL_26;
   }
 
-  v41 = [(BLEduCloudContainer *)self fileNameForPermlink:v8];
+  v40 = [(BLEduCloudContainer *)self fileNameForPermlink:v8];
   v21 = NSTemporaryDirectory();
-  v16 = [v21 stringByAppendingPathComponent:v41];
+  v16 = [v21 stringByAppendingPathComponent:v40];
 
   [defaultManager removeItemAtPath:v16 error:0];
   v22 = [MEMORY[0x277CBEBC0] fileURLWithPath:v16];
-  v23 = (v50 + 5);
-  obj = v50[5];
+  v23 = (v49 + 5);
+  obj = v49[5];
   v24 = [(BLEduCloudContainer *)self _writePlist:dictionaryCopy toURL:v22 error:&obj];
   objc_storeStrong(v23, obj);
 
   if (v24)
   {
     v25 = [MEMORY[0x277CBEBC0] fileURLWithPath:v16];
-    v26 = (v50 + 5);
-    v42 = v50[5];
-    v27 = [defaultManager setUbiquitous:1 itemAtURL:v25 destinationURL:v14 error:&v42];
-    objc_storeStrong(v26, v42);
-    *(v56 + 24) = v27;
+    v26 = (v49 + 5);
+    v41 = v49[5];
+    v27 = [defaultManager setUbiquitous:1 itemAtURL:v25 destinationURL:v14 error:&v41];
+    objc_storeStrong(v26, v41);
+    *(v55 + 24) = v27;
 
-    if (v56[3])
+    if (v55[3])
     {
       goto LABEL_27;
     }
@@ -281,11 +279,11 @@
     v19 = BLDefaultLog();
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v28 = v50[5];
+      v28 = v49[5];
       *buf = 138412546;
-      v62 = v14;
-      v63 = 2112;
-      v64 = v28;
+      v61 = v14;
+      v62 = 2112;
+      v63 = v28;
       v29 = "Failed to add cloud item at %@. Error:  %@";
 LABEL_25:
       _os_log_impl(&dword_241D1F000, v19, OS_LOG_TYPE_ERROR, v29, buf, 0x16u);
@@ -297,11 +295,11 @@ LABEL_25:
     v19 = BLDefaultLog();
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v30 = v50[5];
+      v30 = v49[5];
       *buf = 138412546;
-      v62 = v14;
-      v63 = 2112;
-      v64 = v30;
+      v61 = v14;
+      v62 = 2112;
+      v63 = v30;
       v29 = "Failed to write plist to %@. Error:  %@";
       goto LABEL_25;
     }
@@ -321,11 +319,11 @@ LABEL_27:
     if ((v34 & 1) == 0)
     {
       v35 = *MEMORY[0x277CCA120];
-      v59[0] = *MEMORY[0x277CCA160];
-      v59[1] = v35;
-      v60[0] = @"mobile";
-      v60[1] = @"mobile";
-      v36 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v60 forKeys:v59 count:2];
+      v58[0] = *MEMORY[0x277CCA160];
+      v58[1] = v35;
+      v59[0] = @"mobile";
+      v59[1] = @"mobile";
+      v36 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v59 forKeys:v58 count:2];
       path2 = [v14 path];
       [defaultManager setAttributes:v36 ofItemAtPath:path2 error:0];
     }
@@ -334,27 +332,26 @@ LABEL_27:
 LABEL_31:
   if (error)
   {
-    *error = v50[5];
+    *error = v49[5];
   }
 
-  v38 = *(v56 + 24);
+  v38 = *(v55 + 24);
 
-  _Block_object_dispose(&v49, 8);
-  _Block_object_dispose(&v55, 8);
+  _Block_object_dispose(&v48, 8);
+  _Block_object_dispose(&v54, 8);
 
-  v39 = *MEMORY[0x277D85DE8];
   return v38 & 1;
 }
 
 - (BOOL)_coordinatedReadOfPromisesWithError:(id *)error
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   documentsURL = [(BLEduCloudContainer *)self documentsURL];
   path = [documentsURL path];
-  v49 = 0;
-  v8 = [defaultManager contentsOfDirectoryAtPath:path error:&v49];
-  v9 = v49;
+  v48 = 0;
+  v8 = [defaultManager contentsOfDirectoryAtPath:path error:&v48];
+  v9 = v48;
 
   if (v8)
   {
@@ -369,32 +366,32 @@ LABEL_31:
   v11 = v10;
   if (v10)
   {
-    v35 = v11;
-    v37 = v9;
-    v38 = defaultManager;
+    v34 = v11;
+    v36 = v9;
+    v37 = defaultManager;
     errorCopy = error;
     array = [MEMORY[0x277CBEB18] array];
+    v44 = 0u;
     v45 = 0u;
     v46 = 0u;
     v47 = 0u;
-    v48 = 0u;
-    v36 = v8;
+    v35 = v8;
     v13 = v8;
-    v14 = [v13 countByEnumeratingWithState:&v45 objects:v55 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v44 objects:v54 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v46;
+      v16 = *v45;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v46 != v16)
+          if (*v45 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v18 = *(*(&v45 + 1) + 8 * i);
+          v18 = *(*(&v44 + 1) + 8 * i);
           pathExtension = [v18 pathExtension];
           v20 = [pathExtension isEqualToString:@"cloudItem"];
 
@@ -407,7 +404,7 @@ LABEL_31:
           }
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v45 objects:v55 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v44 objects:v54 count:16];
       }
 
       while (v15);
@@ -416,55 +413,55 @@ LABEL_31:
     if ([array count])
     {
       v23 = [objc_alloc(MEMORY[0x277CCA9E8]) initWithFilePresenter:0];
+      v40 = 0u;
       v41 = 0u;
       v42 = 0u;
       v43 = 0u;
-      v44 = 0u;
       v24 = array;
-      v25 = [v24 countByEnumeratingWithState:&v41 objects:v54 count:16];
+      v25 = [v24 countByEnumeratingWithState:&v40 objects:v53 count:16];
       if (v25)
       {
         v26 = v25;
-        v27 = *v42;
+        v27 = *v41;
         do
         {
           for (j = 0; j != v26; ++j)
           {
-            if (*v42 != v27)
+            if (*v41 != v27)
             {
               objc_enumerationMutation(v24);
             }
 
-            v29 = *(*(&v41 + 1) + 8 * j);
-            v40 = 0;
-            [v23 coordinateReadingItemAtURL:v29 options:1 error:&v40 byAccessor:&unk_2853E2808];
-            v30 = v40;
+            v29 = *(*(&v40 + 1) + 8 * j);
+            v39 = 0;
+            [v23 coordinateReadingItemAtURL:v29 options:1 error:&v39 byAccessor:&unk_2853E2808];
+            v30 = v39;
             if (v30)
             {
               v31 = BLDefaultLog();
               if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412546;
-                v51 = v24;
-                v52 = 2112;
-                v53 = v30;
+                v50 = v24;
+                v51 = 2112;
+                v52 = v30;
                 _os_log_impl(&dword_241D1F000, v31, OS_LOG_TYPE_ERROR, "Encountered error doing a coordinated read of %@. Error:  %@", buf, 0x16u);
               }
             }
           }
 
-          v26 = [v24 countByEnumeratingWithState:&v41 objects:v54 count:16];
+          v26 = [v24 countByEnumeratingWithState:&v40 objects:v53 count:16];
         }
 
         while (v26);
       }
     }
 
-    defaultManager = v38;
+    defaultManager = v37;
     error = errorCopy;
-    v8 = v36;
-    v9 = v37;
-    v11 = v35;
+    v8 = v35;
+    v9 = v36;
+    v11 = v34;
   }
 
   if (error)
@@ -473,7 +470,6 @@ LABEL_31:
     *error = v9;
   }
 
-  v33 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -536,23 +532,23 @@ LABEL_31:
 
 - (id)allBookItems
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   array = [MEMORY[0x277CBEB18] array];
   cloudToken = [(BLEduCloudContainer *)self cloudToken];
 
   if (cloudToken)
   {
-    v34 = 0;
-    v5 = [(BLEduCloudContainer *)self _coordinatedReadOfPromisesWithError:&v34];
-    v6 = v34;
+    v33 = 0;
+    v5 = [(BLEduCloudContainer *)self _coordinatedReadOfPromisesWithError:&v33];
+    v6 = v33;
     if (!v5)
     {
       v7 = BLDefaultLog();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v37 = v6;
+        v36 = v6;
         _os_log_impl(&dword_241D1F000, v7, OS_LOG_TYPE_ERROR, "Failed to read cloud container with error:  %@", buf, 0xCu);
       }
     }
@@ -566,9 +562,9 @@ LABEL_31:
     {
       documentsURL = [(BLEduCloudContainer *)self documentsURL];
       path = [documentsURL path];
-      v33 = 0;
-      v8 = [defaultManager contentsOfDirectoryAtPath:path error:&v33];
-      v6 = v33;
+      v32 = 0;
+      v8 = [defaultManager contentsOfDirectoryAtPath:path error:&v32];
+      v6 = v32;
 
       if (!v6)
       {
@@ -577,53 +573,53 @@ LABEL_31:
           goto LABEL_12;
         }
 
-        v31 = 0u;
-        v32 = 0u;
-        v29 = 0u;
         v30 = 0u;
+        v31 = 0u;
+        v28 = 0u;
+        v29 = 0u;
         v11 = v8;
-        v15 = [v11 countByEnumeratingWithState:&v29 objects:v35 count:16];
-        if (v15)
+        v14 = [v11 countByEnumeratingWithState:&v28 objects:v34 count:16];
+        if (v14)
         {
-          v16 = v15;
-          v27 = defaultManager;
-          v17 = *v30;
+          v15 = v14;
+          v26 = defaultManager;
+          v16 = *v29;
           do
           {
-            for (i = 0; i != v16; ++i)
+            for (i = 0; i != v15; ++i)
             {
-              if (*v30 != v17)
+              if (*v29 != v16)
               {
                 objc_enumerationMutation(v11);
               }
 
-              v19 = *(*(&v29 + 1) + 8 * i);
-              if ([v19 hasSuffix:@"cloudItem"])
+              v18 = *(*(&v28 + 1) + 8 * i);
+              if ([v18 hasSuffix:@"cloudItem"])
               {
                 documentsURL2 = [(BLEduCloudContainer *)self documentsURL];
-                v21 = [documentsURL2 URLByAppendingPathComponent:v19];
+                v20 = [documentsURL2 URLByAppendingPathComponent:v18];
 
-                v22 = MEMORY[0x277CBEAC0];
-                path2 = [v21 path];
-                v24 = [v22 dictionaryWithContentsOfFile:path2];
+                v21 = MEMORY[0x277CBEAC0];
+                path2 = [v20 path];
+                v23 = [v21 dictionaryWithContentsOfFile:path2];
 
-                path3 = [v21 path];
-                v26 = [(BLEduCloudContainer *)self dictionaryAsBookItem:v24 path:path3];
+                path3 = [v20 path];
+                v25 = [(BLEduCloudContainer *)self dictionaryAsBookItem:v23 path:path3];
 
-                if (v26)
+                if (v25)
                 {
-                  [array addObject:v26];
+                  [array addObject:v25];
                 }
               }
             }
 
-            v16 = [v11 countByEnumeratingWithState:&v29 objects:v35 count:16];
+            v15 = [v11 countByEnumeratingWithState:&v28 objects:v34 count:16];
           }
 
-          while (v16);
+          while (v15);
           v8 = v11;
           v6 = 0;
-          defaultManager = v27;
+          defaultManager = v26;
         }
 
         else
@@ -642,7 +638,7 @@ LABEL_12:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v37 = v6;
+      v36 = v6;
       _os_log_impl(&dword_241D1F000, v11, OS_LOG_TYPE_ERROR, "Failed to get contents of cloud documents directory. Error:  %@", buf, 0xCu);
     }
 
@@ -651,8 +647,6 @@ LABEL_12:
 
 LABEL_13:
   v12 = [MEMORY[0x277CBEA60] arrayWithArray:array];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -697,41 +691,41 @@ LABEL_13:
 
 - (id)bookItemForURL:(id)l
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   lCopy = l;
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x3032000000;
-  v20 = sub_241D2DC2C;
-  v21 = sub_241D2DC3C;
-  v22 = 0;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = sub_241D2DC2C;
+  v20 = sub_241D2DC3C;
+  v21 = 0;
   v5 = BLDefaultLog();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v24 = lCopy;
+    v23 = lCopy;
     _os_log_impl(&dword_241D1F000, v5, OS_LOG_TYPE_DEBUG, "bookItemForURL: %@", buf, 0xCu);
   }
 
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = sub_241D2EBA0;
-  v16[3] = &unk_278D17468;
-  v16[4] = self;
-  v16[5] = &v17;
-  v6 = MEMORY[0x245CFF560](v16);
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = sub_241D2EBA0;
+  v15[3] = &unk_278D17468;
+  v15[4] = self;
+  v15[5] = &v16;
+  v6 = MEMORY[0x245CFF560](v15);
   if ([lCopy isUbiquitous])
   {
     v7 = [objc_alloc(MEMORY[0x277CCA9E8]) initWithFilePresenter:0];
-    v15 = 0;
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = sub_241D2ECE4;
-    v12[3] = &unk_278D17490;
-    v13 = 0;
-    v14 = v6;
-    [v7 coordinateReadingItemAtURL:lCopy options:1 error:&v15 byAccessor:v12];
-    v8 = v15;
+    v14 = 0;
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = sub_241D2ECE4;
+    v11[3] = &unk_278D17490;
+    v12 = 0;
+    v13 = v6;
+    [v7 coordinateReadingItemAtURL:lCopy options:1 error:&v14 byAccessor:v11];
+    v8 = v14;
   }
 
   else
@@ -740,15 +734,13 @@ LABEL_13:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v24 = lCopy;
+      v23 = lCopy;
       _os_log_impl(&dword_241D1F000, v7, OS_LOG_TYPE_ERROR, "Expected to have a ubiquitous URL but instead got %@", buf, 0xCu);
     }
   }
 
-  v9 = v18[5];
-  _Block_object_dispose(&v17, 8);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = v17[5];
+  _Block_object_dispose(&v16, 8);
 
   return v9;
 }
@@ -785,29 +777,29 @@ LABEL_13:
 
 - (id)bookItemsForPermlinks:(id)permlinks
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   permlinksCopy = permlinks;
   array = [MEMORY[0x277CBEB18] array];
   allBookItems = [(BLEduCloudContainer *)self allBookItems];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v7 = [allBookItems countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [allBookItems countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(allBookItems);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * i);
+        v11 = *(*(&v14 + 1) + 8 * i);
         permlink = [v11 permlink];
         if ([permlinksCopy containsObject:permlink])
         {
@@ -815,13 +807,11 @@ LABEL_13:
         }
       }
 
-      v8 = [allBookItems countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [allBookItems countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return array;
 }

@@ -144,7 +144,7 @@ LABEL_5:
   v7 = sub_1000031B0(off_100121958);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
   {
-    sub_10009856C();
+    sub_10009856C(serializationCopy);
   }
 
   selfCopy = 0;

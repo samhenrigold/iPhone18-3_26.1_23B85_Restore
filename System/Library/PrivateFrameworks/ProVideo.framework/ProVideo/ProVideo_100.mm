@@ -161,44 +161,42 @@ double PSEmitter::genPosLine(uint64_t a1, const CMTime *a2, double *a3, uint64_t
   return result;
 }
 
-uint64_t PSEmitter::genPosGeometry(uint64_t a1, const CMTime *a2, float64x2_t *a3, double a4)
+void PSEmitter::genPosGeometry(uint64_t a1, const CMTime *a2, float64x2_t *a3, void *a4, double a5)
 {
-  result = (*(*a1 + 616))(a1);
-  if (result)
+  v9 = (*(*a1 + 616))(a1);
+  if (v9)
   {
-    v9 = result;
-    v17 = 0.0;
+    v10 = v9;
+    v18 = 0.0;
       ;
     }
 
       ;
     }
 
-    v10 = 0.0;
+    v11 = 0.0;
     if (OZChannel::getValueAsInt((a1 + 31936), MEMORY[0x277CC08F0], 0.0))
     {
-      OZRenderState::OZRenderState(&v16);
-      *&v16.var0.var0 = *&a2->value;
-      v16.var0.var3 = a2->epoch;
-      v14 = 0;
+      OZRenderState::OZRenderState(&v17);
+      *&v17.var0.var0 = *&a2->value;
+      v17.var0.var3 = a2->epoch;
       v15 = 0;
-      v11 = (*(*a1 + 608))(a1);
-      OZRotoshape::getReparametrizedPointOnContour(v9, &v16.var0.var0, &i, &v17, &v15, &v14, v11, 0);
+      v16 = 0;
+      v12 = (*(*a1 + 608))(a1);
+      OZRotoshape::getReparametrizedPointOnContour(v10, &v17.var0.var0, &i, &v18, &v16, &v15, v12, 0, a5, 0);
     }
 
-    v12 = *(v9 + 19448);
-    if (v12)
+    v13 = *(v10 + 19448);
+    if (v13)
     {
-      v10 = (((v12[1] - *v12) >> 3) / 2);
+      v11 = (((v13[1] - *v13) >> 3) / 2);
     }
 
-    result = OZChannelCurve::getCurveValueWithParameter((v9 + 19184), a2, a4 * v10, &i, &v17);
-    v13.f64[0] = i;
-    v13.f64[1] = v17;
-    *a3 = vaddq_f64(*a3, v13);
+    OZChannelCurve::getCurveValueWithParameter((v10 + 19184), a2, a5 * v11, &i, &v18);
+    v14.f64[0] = i;
+    v14.f64[1] = v18;
+    *a3 = vaddq_f64(*a3, v14);
   }
-
-  return result;
 }
 
 float64x2_t PSEmitter::genPosRect(double a1, float64x2_t a2, float64_t a3, uint64_t a4, uint64_t a5, float64x2_t *a6, uint64_t a7)
@@ -333,7 +331,7 @@ LABEL_9:
         v46 = *&v45;
         LOBYTE(v45) = *v39;
         v47 = v45 / 255.0;
-        PCImage::getColorSpace(*(v9 + 744), &v49);
+        PCImage::getColorSpace(&v49, *(v9 + 744));
         PCColor::setRGBA((a5 + 112), v42, v44, v46, v47, &v49);
         PCCFRef<CGColorSpace *>::~PCCFRef(&v49);
       }
@@ -912,7 +910,7 @@ void PSEmitter::genPosFilledBox(uint64_t a1, const CMTime *a2, float64x2_t *a3, 
   v37 = 0.0;
   v38 = 0.0;
   v36 = 0.0;
-  OZChannelScale3D::getValue((a1 + 25392), a2, &v38, &v37, &v36, 0.0);
+  OZChannelScale3D::getValue(a1 + 25392, a2, &v38, &v37, &v36, 0.0);
   v12.f64[0] = a6;
   v12.f64[1] = a7;
   v13 = a8 + a8 + -1.0;
@@ -1266,7 +1264,7 @@ CGColorSpace **PSEmitter::initPropertiesFromImage(CGColorSpace **this, float64_t
           v44 = *&v43;
           LOBYTE(v43) = *v33;
           v45 = v43 / 255.0;
-          PCImage::getColorSpace(v9[93], &v49);
+          PCImage::getColorSpace(&v49, v9[93]);
           PCColor::setRGBA(a7 + 2, v40, v42, v44, v45, &v49);
           return PCCFRef<CGColorSpace *>::~PCCFRef(&v49);
         }
@@ -1292,9 +1290,9 @@ CGColorSpace **PSEmitter::initPropertiesFromImage(CGColorSpace **this, float64_t
   return this;
 }
 
-void sub_26029E9A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_26029E9A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   PCCFRef<CGColorSpace *>::~PCCFRef(va);
   _Unwind_Resume(a1);
 }
@@ -1304,7 +1302,7 @@ float64x2_t PSEmitter::genPosFilledRect(uint64_t a1, const CMTime *a2, float64x2
   v19 = 0.0;
   v20 = 0.0;
   v18 = 0.0;
-  OZChannelScale3D::getValue((a1 + 25392), a2, &v20, &v19, &v18, 0.0);
+  OZChannelScale3D::getValue(a1 + 25392, a2, &v20, &v19, &v18, 0.0);
   v6.f64[0] = a4;
   v6.f64[1] = a5;
   v7 = vaddq_f64(v6, v6);
@@ -1721,35 +1719,35 @@ LABEL_13:
   return (v14 * v12 * v15 - v19 * v17 * (v20 - 2));
 }
 
-void PSEmitter::getSourceBitmap(int a1, void *a2, OZRenderParams *a3)
+void PSEmitter::getSourceBitmap(int a1, uint64_t *a2, OZRenderParams *a3, uint64_t a4, uint64_t a5)
 {
-  OZRenderParams::OZRenderParams(&v16, a3);
-  OZRenderParams::setImageType(&v16, 1);
-  v18 = 1;
-  v19 = 0u;
-  v20 = 0u;
+  OZRenderParams::OZRenderParams(&v18, a3);
+  OZRenderParams::setImageType(&v18, 1);
+  v20 = 1;
+  v21 = 0u;
+  v22 = 0u;
   __asm { FMOV            V0.2D, #1.0 }
 
-  v13[0] = _Q0;
-  OZRenderParams::setResolution(&v16, v13);
-  v17 = a2;
-  v16.var5 = 0x3FF0000000000000;
-  v19 = 0u;
-  v20 = 0u;
-  v10 = *a2;
-  if (v11)
+  v15[0] = _Q0;
+  OZRenderParams::setResolution(&v18, v15);
+  v19 = a2;
+  v18.var5 = 0x3FF0000000000000;
+  v21 = 0u;
+  v22 = 0u;
+  v12 = *a2;
+  if (v13)
   {
-    v16.var7 = v11;
-    (*(*v11 + 1328))(v11);
-    v10 = *a2;
+    v18.var7 = v13;
+    (*(*v13 + 1328))(v13);
+    v12 = *a2;
   }
 
-  v14[1] = 0;
-  v14[0] = 0;
+  v16[1] = 0;
+  v16[0] = 0;
   __asm { FMOV            V0.2D, #-1.0 }
 
-  v15 = _Q0;
-  (*(v10 + 16))(a2, v14, a3);
+  v17 = _Q0;
+  (*(v12 + 16))(a2, v16, a3);
   operator new();
 }
 
@@ -1757,9 +1755,9 @@ void sub_2602A0A64(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint
 {
   PCSharedCount::~PCSharedCount(&STACK[0x338]);
   OZRenderGraphState::~OZRenderGraphState(&a9);
-  LiGraphBuilder::~LiGraphBuilder(&a68);
+  LiGraphBuilder::~LiGraphBuilder(&a65);
   Render360GroupAsEquirectSentry::~Render360GroupAsEquirectSentry(&STACK[0x350]);
-  PCSharedCount::~PCSharedCount(v69 + 1);
+  PCSharedCount::~PCSharedCount(v66 + 1);
   if (a2 == 2)
   {
     __cxa_begin_catch(a1);
@@ -1775,13 +1773,13 @@ void sub_2602A0A64(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint
         std::__shared_weak_count::__release_shared[abi:ne200100](STACK[0x3B8]);
       }
 
-      PCSharedCount::~PCSharedCount(v68 + 1);
+      PCSharedCount::~PCSharedCount(v65 + 1);
       OZRenderParams::~OZRenderParams(&STACK[0x3F0]);
       _Unwind_Resume(a1);
     }
 
-    v72 = __cxa_begin_catch(a1);
-    (*(*v72 + 40))(v72);
+    v69 = __cxa_begin_catch(a1);
+    (*(*v69 + 40))(v69);
     __cxa_end_catch();
   }
 
@@ -3857,10 +3855,10 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<PSEmitter::RenderEntr
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-__n128 std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(PSEmitter::RenderEntry const&,PSEmitter::RenderEntry const&),PSEmitter::RenderEntry*,false>(__int128 *a1, __n128 *a2, uint64_t (**a3)(__n128 *, __n128 *), uint64_t a4, char a5, __n128 result)
+__n128 std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(PSEmitter::RenderEntry const&,PSEmitter::RenderEntry const&),PSEmitter::RenderEntry*,false>(__n128 *a1, __n128 *a2, uint64_t (**a3)(__n128 *, __n128 *), uint64_t a4, char a5, __n128 result)
 {
 LABEL_1:
-  v9 = a2 - 4;
+  v9 = &a2[-4];
   v10 = &a2[-8];
   v11 = &a2[-12];
   v12 = a1;
@@ -3880,7 +3878,7 @@ LABEL_2:
 
       if (v15 == 2)
       {
-        if ((*a3)(a2 - 4, v12))
+        if ((*a3)(&a2[-4], v12, result))
         {
           goto LABEL_77;
         }
@@ -3898,156 +3896,156 @@ LABEL_2:
 
     if (v15 == 4)
     {
-      v127 = (*a3)(v12 + 4, v12);
-      v128 = (*a3)(v12 + 8, v12 + 4);
+      v127 = (*a3)(v12 + 64, v12, result);
+      v128 = (*a3)((v12 + 128), (v12 + 64));
       if (v127)
       {
         if (v128)
         {
-          v247 = v12[2];
-          v274 = v12[3];
+          v247 = *(v12 + 32);
+          v274 = *(v12 + 48);
           v193 = *v12;
-          v220 = v12[1];
-          v129 = v12[9];
-          *v12 = v12[8];
-          v12[1] = v129;
-          v130 = v12[11];
-          v12[2] = v12[10];
-          v12[3] = v130;
-          v12[10] = v247;
-          v12[11] = v274;
-          v12[8] = v193;
-          v12[9] = v220;
+          v220 = *(v12 + 16);
+          v129 = *(v12 + 144);
+          *v12 = *(v12 + 128);
+          *(v12 + 16) = v129;
+          v130 = *(v12 + 176);
+          *(v12 + 32) = *(v12 + 160);
+          *(v12 + 48) = v130;
+          *(v12 + 160) = v247;
+          *(v12 + 176) = v274;
+          *(v12 + 128) = v193;
+          *(v12 + 144) = v220;
         }
 
         else
         {
-          v249 = v12[2];
-          v276 = v12[3];
+          v249 = *(v12 + 32);
+          v276 = *(v12 + 48);
           v195 = *v12;
-          v222 = v12[1];
-          v146 = v12[5];
-          *v12 = v12[4];
-          v12[1] = v146;
-          v147 = v12[7];
-          v12[2] = v12[6];
-          v12[3] = v147;
-          v12[6] = v249;
-          v12[7] = v276;
-          v12[4] = v195;
-          v12[5] = v222;
-          if ((*a3)(v12 + 8, v12 + 4))
+          v222 = *(v12 + 16);
+          v146 = *(v12 + 80);
+          *v12 = *(v12 + 64);
+          *(v12 + 16) = v146;
+          v147 = *(v12 + 112);
+          *(v12 + 32) = *(v12 + 96);
+          *(v12 + 48) = v147;
+          *(v12 + 96) = v249;
+          *(v12 + 112) = v276;
+          *(v12 + 64) = v195;
+          *(v12 + 80) = v222;
+          if ((*a3)((v12 + 128), (v12 + 64)))
           {
-            v149 = v12[6];
-            v148 = v12[7];
-            v151 = v12[4];
-            v150 = v12[5];
-            v152 = v12[9];
-            v12[4] = v12[8];
-            v12[5] = v152;
-            v153 = v12[11];
-            v12[6] = v12[10];
-            v12[7] = v153;
-            v12[8] = v151;
-            v12[9] = v150;
-            v12[10] = v149;
-            v12[11] = v148;
+            v149 = *(v12 + 96);
+            v148 = *(v12 + 112);
+            v151 = *(v12 + 64);
+            v150 = *(v12 + 80);
+            v152 = *(v12 + 144);
+            *(v12 + 64) = *(v12 + 128);
+            *(v12 + 80) = v152;
+            v153 = *(v12 + 176);
+            *(v12 + 96) = *(v12 + 160);
+            *(v12 + 112) = v153;
+            *(v12 + 128) = v151;
+            *(v12 + 144) = v150;
+            *(v12 + 160) = v149;
+            *(v12 + 176) = v148;
           }
         }
       }
 
       else if (v128)
       {
-        v139 = v12[6];
-        v138 = v12[7];
-        v141 = v12[4];
-        v140 = v12[5];
-        v142 = v12[9];
-        v12[4] = v12[8];
-        v12[5] = v142;
-        v143 = v12[11];
-        v12[6] = v12[10];
-        v12[7] = v143;
-        v12[8] = v141;
-        v12[9] = v140;
-        v12[10] = v139;
-        v12[11] = v138;
-        if ((*a3)(v12 + 4, v12))
+        v139 = *(v12 + 96);
+        v138 = *(v12 + 112);
+        v141 = *(v12 + 64);
+        v140 = *(v12 + 80);
+        v142 = *(v12 + 144);
+        *(v12 + 64) = *(v12 + 128);
+        *(v12 + 80) = v142;
+        v143 = *(v12 + 176);
+        *(v12 + 96) = *(v12 + 160);
+        *(v12 + 112) = v143;
+        *(v12 + 128) = v141;
+        *(v12 + 144) = v140;
+        *(v12 + 160) = v139;
+        *(v12 + 176) = v138;
+        if ((*a3)((v12 + 64), v12))
         {
-          v248 = v12[2];
-          v275 = v12[3];
+          v248 = *(v12 + 32);
+          v275 = *(v12 + 48);
           v194 = *v12;
-          v221 = v12[1];
-          v144 = v12[5];
-          *v12 = v12[4];
-          v12[1] = v144;
-          v145 = v12[7];
-          v12[2] = v12[6];
-          v12[3] = v145;
-          v12[6] = v248;
-          v12[7] = v275;
-          v12[4] = v194;
-          v12[5] = v221;
+          v221 = *(v12 + 16);
+          v144 = *(v12 + 80);
+          *v12 = *(v12 + 64);
+          *(v12 + 16) = v144;
+          v145 = *(v12 + 112);
+          *(v12 + 32) = *(v12 + 96);
+          *(v12 + 48) = v145;
+          *(v12 + 96) = v248;
+          *(v12 + 112) = v275;
+          *(v12 + 64) = v194;
+          *(v12 + 80) = v221;
         }
       }
 
-      if (!(*a3)(v9, v12 + 8))
+      if (!(*a3)(v9, (v12 + 128)))
       {
         return result;
       }
 
-      v155 = v12[10];
-      v154 = v12[11];
-      v157 = v12[8];
-      v156 = v12[9];
-      v158 = v9[3];
+      v155 = *(v12 + 160);
+      v154 = *(v12 + 176);
+      v157 = *(v12 + 128);
+      v156 = *(v12 + 144);
+      v158 = *(v9 + 3);
       v160 = *v9;
-      v159 = v9[1];
-      v12[10] = v9[2];
-      v12[11] = v158;
-      v12[8] = v160;
-      v12[9] = v159;
+      v159 = *(v9 + 1);
+      *(v12 + 160) = *(v9 + 2);
+      *(v12 + 176) = v158;
+      *(v12 + 128) = v160;
+      *(v12 + 144) = v159;
       *v9 = v157;
-      v9[1] = v156;
-      v9[2] = v155;
-      v9[3] = v154;
-      if (!(*a3)(v12 + 8, v12 + 4))
+      *(v9 + 1) = v156;
+      *(v9 + 2) = v155;
+      *(v9 + 3) = v154;
+      if (!(*a3)((v12 + 128), (v12 + 64)))
       {
         return result;
       }
 
-      v162 = v12[6];
-      v161 = v12[7];
-      v164 = v12[4];
-      v163 = v12[5];
-      v165 = v12[9];
-      v12[4] = v12[8];
-      v12[5] = v165;
-      v166 = v12[11];
-      v12[6] = v12[10];
-      v12[7] = v166;
-      v12[8] = v164;
-      v12[9] = v163;
-      v12[10] = v162;
-      v12[11] = v161;
+      v162 = *(v12 + 96);
+      v161 = *(v12 + 112);
+      v164 = *(v12 + 64);
+      v163 = *(v12 + 80);
+      v165 = *(v12 + 144);
+      *(v12 + 64) = *(v12 + 128);
+      *(v12 + 80) = v165;
+      v166 = *(v12 + 176);
+      *(v12 + 96) = *(v12 + 160);
+      *(v12 + 112) = v166;
+      *(v12 + 128) = v164;
+      *(v12 + 144) = v163;
+      *(v12 + 160) = v162;
+      *(v12 + 176) = v161;
 LABEL_102:
-      if ((*a3)(v12 + 4, v12))
+      if ((*a3)((v12 + 64), v12))
       {
-        v250 = v12[2];
-        v277 = v12[3];
+        v250 = *(v12 + 32);
+        v277 = *(v12 + 48);
         v196 = *v12;
-        v223 = v12[1];
-        v167 = v12[5];
-        *v12 = v12[4];
-        v12[1] = v167;
-        v168 = v12[7];
-        v12[2] = v12[6];
-        v12[3] = v168;
+        v223 = *(v12 + 16);
+        v167 = *(v12 + 80);
+        *v12 = *(v12 + 64);
+        *(v12 + 16) = v167;
+        v168 = *(v12 + 112);
+        *(v12 + 32) = *(v12 + 96);
+        *(v12 + 48) = v168;
         result = v196;
-        v12[6] = v250;
-        v12[7] = v277;
-        v12[4] = v196;
-        v12[5] = v223;
+        *(v12 + 96) = v250;
+        *(v12 + 112) = v277;
+        *(v12 + 64) = v196;
+        *(v12 + 80) = v223;
       }
 
       return result;
@@ -4056,7 +4054,7 @@ LABEL_102:
     if (v15 == 5)
     {
 
-      result.n128_u64[0] = std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(PSEmitter::RenderEntry const&,PSEmitter::RenderEntry const&),PSEmitter::RenderEntry*,0>(v12, v12 + 4, v12 + 8, v12 + 12, a2 - 4, a3).n128_u64[0];
+      result.n128_u64[0] = std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(PSEmitter::RenderEntry const&,PSEmitter::RenderEntry const&),PSEmitter::RenderEntry*,0>(v12, (v12 + 64), (v12 + 128), (v12 + 192), a2 - 4, a3).n128_u64[0];
       return result;
     }
 
@@ -4089,11 +4087,11 @@ LABEL_10:
       return result;
     }
 
-    v16 = &v12[4 * (v15 >> 1)];
+    v16 = v12 + (v15 >> 1 << 6);
     v17 = *a3;
     if (v15 >= 0x81)
     {
-      v18 = v17(&v12[4 * (v15 >> 1)], v12);
+      v18 = (v17)(v12 + (v15 >> 1 << 6), v12, result);
       v19 = (*a3)(a2 - 4, v16);
       if (v18)
       {
@@ -4118,29 +4116,29 @@ LABEL_10:
         v176 = *a1;
         v203 = a1[1];
         v40 = *v16;
-        v41 = v16[1];
-        v42 = v16[3];
-        a1[2] = v16[2];
+        v41 = *(v16 + 16);
+        v42 = *(v16 + 48);
+        a1[2] = *(v16 + 32);
         a1[3] = v42;
         *a1 = v40;
         a1[1] = v41;
-        v16[2] = v230;
-        v16[3] = v257;
+        *(v16 + 32) = v230;
+        *(v16 + 48) = v257;
         *v16 = v176;
-        v16[1] = v203;
+        *(v16 + 16) = v203;
         if ((*a3)(a2 - 4, v16))
         {
-          v224 = v16[2];
-          v251 = v16[3];
+          v224 = *(v16 + 32);
+          v251 = *(v16 + 48);
           v170 = *v16;
-          v197 = v16[1];
+          v197 = *(v16 + 16);
           v43 = *v9;
           v44 = a2[-3];
           v45 = a2[-1];
-          v16[2] = a2[-2];
-          v16[3] = v45;
+          *(v16 + 32) = a2[-2];
+          *(v16 + 48) = v45;
           *v16 = v43;
-          v16[1] = v44;
+          *(v16 + 16) = v44;
 LABEL_27:
           *v9 = v170;
           a2[-3] = v197;
@@ -4151,17 +4149,17 @@ LABEL_27:
 
       else if (v19)
       {
-        v226 = v16[2];
-        v253 = v16[3];
+        v226 = *(v16 + 32);
+        v253 = *(v16 + 48);
         v172 = *v16;
-        v199 = v16[1];
+        v199 = *(v16 + 16);
         v28 = *v9;
         v29 = a2[-3];
         v30 = a2[-1];
-        v16[2] = a2[-2];
-        v16[3] = v30;
+        *(v16 + 32) = a2[-2];
+        *(v16 + 48) = v30;
         *v16 = v28;
-        v16[1] = v29;
+        *(v16 + 16) = v29;
         *v9 = v172;
         a2[-3] = v199;
         a2[-2] = v226;
@@ -4173,22 +4171,22 @@ LABEL_27:
           v173 = *a1;
           v200 = a1[1];
           v31 = *v16;
-          v32 = v16[1];
-          v33 = v16[3];
-          a1[2] = v16[2];
+          v32 = *(v16 + 16);
+          v33 = *(v16 + 48);
+          a1[2] = *(v16 + 32);
           a1[3] = v33;
           *a1 = v31;
           a1[1] = v32;
-          v16[2] = v227;
-          v16[3] = v254;
+          *(v16 + 32) = v227;
+          *(v16 + 48) = v254;
           *v16 = v173;
-          v16[1] = v200;
+          *(v16 + 16) = v200;
         }
       }
 
-      v46 = &v16[-4];
-      v47 = (*a3)(v16 - 4, a1 + 4);
-      v48 = (*a3)(a2 - 8, v16 - 4);
+      v46 = (v16 - 64);
+      v47 = (*a3)((v16 - 64), a1 + 4);
+      v48 = (*a3)(a2 - 8, (v16 - 64));
       if (v47)
       {
         if (v48)
@@ -4214,30 +4212,30 @@ LABEL_27:
         v207 = a1[5];
         v234 = a1[6];
         v261 = a1[7];
-        v69 = v16[-2];
-        v68 = v16[-1];
-        v70 = v16[-3];
+        v69 = *(v16 - 32);
+        v68 = *(v16 - 16);
+        v70 = *(v16 - 48);
         a1[4] = *v46;
         a1[5] = v70;
         a1[6] = v69;
         a1[7] = v68;
-        v16[-2] = v234;
-        v16[-1] = v261;
+        *(v16 - 32) = v234;
+        *(v16 - 16) = v261;
         *v46 = v180;
-        v16[-3] = v207;
-        if ((*a3)(a2 - 8, v16 - 4))
+        *(v16 - 48) = v207;
+        if ((*a3)(a2 - 8, (v16 - 64)))
         {
-          v235 = v16[-2];
-          v262 = v16[-1];
+          v235 = *(v16 - 32);
+          v262 = *(v16 - 16);
           v181 = *v46;
-          v208 = v16[-3];
+          v208 = *(v16 - 48);
           v71 = *v10;
           v72 = a2[-7];
           v73 = a2[-5];
-          v16[-2] = a2[-6];
-          v16[-1] = v73;
+          *(v16 - 32) = a2[-6];
+          *(v16 - 16) = v73;
           *v46 = v71;
-          v16[-3] = v72;
+          *(v16 - 48) = v72;
           *v10 = v181;
           a2[-7] = v208;
           a2[-6] = v235;
@@ -4249,43 +4247,43 @@ LABEL_39:
 
       else if (v48)
       {
-        v231 = v16[-2];
-        v258 = v16[-1];
+        v231 = *(v16 - 32);
+        v258 = *(v16 - 16);
         v177 = *v46;
-        v204 = v16[-3];
+        v204 = *(v16 - 48);
         v56 = *v10;
         v57 = a2[-7];
         v58 = a2[-5];
-        v16[-2] = a2[-6];
-        v16[-1] = v58;
+        *(v16 - 32) = a2[-6];
+        *(v16 - 16) = v58;
         *v46 = v56;
-        v16[-3] = v57;
+        *(v16 - 48) = v57;
         *v10 = v177;
         a2[-7] = v204;
         a2[-6] = v231;
         a2[-5] = v258;
-        if ((*a3)(v16 - 4, a1 + 4))
+        if ((*a3)((v16 - 64), a1 + 4))
         {
           v178 = a1[4];
           v205 = a1[5];
           v232 = a1[6];
           v259 = a1[7];
-          v60 = v16[-2];
-          v59 = v16[-1];
-          v61 = v16[-3];
+          v60 = *(v16 - 32);
+          v59 = *(v16 - 16);
+          v61 = *(v16 - 48);
           a1[4] = *v46;
           a1[5] = v61;
           a1[6] = v60;
           a1[7] = v59;
-          v16[-2] = v232;
-          v16[-1] = v259;
+          *(v16 - 32) = v232;
+          *(v16 - 16) = v259;
           *v46 = v178;
-          v16[-3] = v205;
+          *(v16 - 48) = v205;
         }
       }
 
-      v74 = (*a3)(v16 + 4, a1 + 8);
-      v75 = (*a3)(a2 - 12, v16 + 4);
+      v74 = (*a3)((v16 + 64), a1 + 8);
+      v75 = (*a3)(a2 - 12, (v16 + 64));
       if (v74)
       {
         if (v75)
@@ -4311,30 +4309,30 @@ LABEL_39:
         v211 = a1[9];
         v238 = a1[10];
         v265 = a1[11];
-        v90 = v16[6];
-        v89 = v16[7];
-        v91 = v16[5];
-        a1[8] = v16[4];
+        v90 = *(v16 + 96);
+        v89 = *(v16 + 112);
+        v91 = *(v16 + 80);
+        a1[8] = *(v16 + 64);
         a1[9] = v91;
         a1[10] = v90;
         a1[11] = v89;
-        v16[6] = v238;
-        v16[7] = v265;
-        v16[4] = v184;
-        v16[5] = v211;
-        if ((*a3)(a2 - 12, v16 + 4))
+        *(v16 + 96) = v238;
+        *(v16 + 112) = v265;
+        *(v16 + 64) = v184;
+        *(v16 + 80) = v211;
+        if ((*a3)(a2 - 12, (v16 + 64)))
         {
-          v239 = v16[6];
-          v266 = v16[7];
-          v185 = v16[4];
-          v212 = v16[5];
+          v239 = *(v16 + 96);
+          v266 = *(v16 + 112);
+          v185 = *(v16 + 64);
+          v212 = *(v16 + 80);
           v92 = *v11;
           v93 = a2[-11];
           v94 = a2[-9];
-          v16[6] = a2[-10];
-          v16[7] = v94;
-          v16[4] = v92;
-          v16[5] = v93;
+          *(v16 + 96) = a2[-10];
+          *(v16 + 112) = v94;
+          *(v16 + 64) = v92;
+          *(v16 + 80) = v93;
           *v11 = v185;
           a2[-11] = v212;
           a2[-10] = v239;
@@ -4346,126 +4344,126 @@ LABEL_48:
 
       else if (v75)
       {
-        v236 = v16[6];
-        v263 = v16[7];
-        v182 = v16[4];
-        v209 = v16[5];
+        v236 = *(v16 + 96);
+        v263 = *(v16 + 112);
+        v182 = *(v16 + 64);
+        v209 = *(v16 + 80);
         v83 = *v11;
         v84 = a2[-11];
         v85 = a2[-9];
-        v16[6] = a2[-10];
-        v16[7] = v85;
-        v16[4] = v83;
-        v16[5] = v84;
+        *(v16 + 96) = a2[-10];
+        *(v16 + 112) = v85;
+        *(v16 + 64) = v83;
+        *(v16 + 80) = v84;
         *v11 = v182;
         a2[-11] = v209;
         a2[-10] = v236;
         a2[-9] = v263;
-        if ((*a3)(v16 + 4, a1 + 8))
+        if ((*a3)((v16 + 64), a1 + 8))
         {
           v183 = a1[8];
           v210 = a1[9];
           v237 = a1[10];
           v264 = a1[11];
-          v87 = v16[6];
-          v86 = v16[7];
-          v88 = v16[5];
-          a1[8] = v16[4];
+          v87 = *(v16 + 96);
+          v86 = *(v16 + 112);
+          v88 = *(v16 + 80);
+          a1[8] = *(v16 + 64);
           a1[9] = v88;
           a1[10] = v87;
           a1[11] = v86;
-          v16[6] = v237;
-          v16[7] = v264;
-          v16[4] = v183;
-          v16[5] = v210;
+          *(v16 + 96) = v237;
+          *(v16 + 112) = v264;
+          *(v16 + 64) = v183;
+          *(v16 + 80) = v210;
         }
       }
 
-      v95 = (*a3)(v16, v16 - 4);
-      v96 = (*a3)(v16 + 4, v16);
+      v95 = (*a3)(v16, (v16 - 64));
+      v96 = (*a3)((v16 + 64), v16);
       if (v95)
       {
         if (v96)
         {
-          v240 = v16[-2];
-          v267 = v16[-1];
+          v240 = *(v16 - 32);
+          v267 = *(v16 - 16);
           v186 = *v46;
-          v213 = v16[-3];
-          v97 = v16[5];
-          *v46 = v16[4];
-          v16[-3] = v97;
-          v98 = v16[7];
-          v16[-2] = v16[6];
-          v16[-1] = v98;
+          v213 = *(v16 - 48);
+          v97 = *(v16 + 80);
+          *v46 = *(v16 + 64);
+          *(v16 - 48) = v97;
+          v98 = *(v16 + 112);
+          *(v16 - 32) = *(v16 + 96);
+          *(v16 - 16) = v98;
           goto LABEL_57;
         }
 
-        v243 = v16[-2];
-        v270 = v16[-1];
+        v243 = *(v16 - 32);
+        v270 = *(v16 - 16);
         v189 = *v46;
-        v216 = v16[-3];
-        v103 = v16[1];
+        v216 = *(v16 - 48);
+        v103 = *(v16 + 16);
         *v46 = *v16;
-        v16[-3] = v103;
-        v104 = v16[3];
-        v16[-2] = v16[2];
-        v16[-1] = v104;
-        v16[2] = v243;
-        v16[3] = v270;
+        *(v16 - 48) = v103;
+        v104 = *(v16 + 48);
+        *(v16 - 32) = *(v16 + 32);
+        *(v16 - 16) = v104;
+        *(v16 + 32) = v243;
+        *(v16 + 48) = v270;
         *v16 = v189;
-        v16[1] = v216;
-        if ((*a3)(v16 + 4, v16))
+        *(v16 + 16) = v216;
+        if ((*a3)((v16 + 64), v16))
         {
-          v240 = v16[2];
-          v267 = v16[3];
+          v240 = *(v16 + 32);
+          v267 = *(v16 + 48);
           v186 = *v16;
-          v213 = v16[1];
-          v105 = v16[5];
-          *v16 = v16[4];
-          v16[1] = v105;
-          v106 = v16[7];
-          v16[2] = v16[6];
-          v16[3] = v106;
+          v213 = *(v16 + 16);
+          v105 = *(v16 + 80);
+          *v16 = *(v16 + 64);
+          *(v16 + 16) = v105;
+          v106 = *(v16 + 112);
+          *(v16 + 32) = *(v16 + 96);
+          *(v16 + 48) = v106;
 LABEL_57:
-          v16[6] = v240;
-          v16[7] = v267;
-          v16[4] = v186;
-          v16[5] = v213;
+          *(v16 + 96) = v240;
+          *(v16 + 112) = v267;
+          *(v16 + 64) = v186;
+          *(v16 + 80) = v213;
         }
       }
 
       else if (v96)
       {
-        v241 = v16[2];
-        v268 = v16[3];
+        v241 = *(v16 + 32);
+        v268 = *(v16 + 48);
         v187 = *v16;
-        v214 = v16[1];
-        v99 = v16[5];
-        *v16 = v16[4];
-        v16[1] = v99;
-        v100 = v16[7];
-        v16[2] = v16[6];
-        v16[3] = v100;
-        v16[6] = v241;
-        v16[7] = v268;
-        v16[4] = v187;
-        v16[5] = v214;
-        if ((*a3)(v16, v16 - 4))
+        v214 = *(v16 + 16);
+        v99 = *(v16 + 80);
+        *v16 = *(v16 + 64);
+        *(v16 + 16) = v99;
+        v100 = *(v16 + 112);
+        *(v16 + 32) = *(v16 + 96);
+        *(v16 + 48) = v100;
+        *(v16 + 96) = v241;
+        *(v16 + 112) = v268;
+        *(v16 + 64) = v187;
+        *(v16 + 80) = v214;
+        if ((*a3)(v16, (v16 - 64)))
         {
-          v242 = v16[-2];
-          v269 = v16[-1];
+          v242 = *(v16 - 32);
+          v269 = *(v16 - 16);
           v188 = *v46;
-          v215 = v16[-3];
-          v101 = v16[1];
+          v215 = *(v16 - 48);
+          v101 = *(v16 + 16);
           *v46 = *v16;
-          v16[-3] = v101;
-          v102 = v16[3];
-          v16[-2] = v16[2];
-          v16[-1] = v102;
-          v16[2] = v242;
-          v16[3] = v269;
+          *(v16 - 48) = v101;
+          v102 = *(v16 + 48);
+          *(v16 - 32) = *(v16 + 32);
+          *(v16 - 16) = v102;
+          *(v16 + 32) = v242;
+          *(v16 + 48) = v269;
           *v16 = v188;
-          v16[1] = v215;
+          *(v16 + 16) = v215;
         }
       }
 
@@ -4474,36 +4472,36 @@ LABEL_57:
       v190 = *a1;
       v217 = a1[1];
       v107 = *v16;
-      v108 = v16[1];
-      v109 = v16[3];
-      a1[2] = v16[2];
+      v108 = *(v16 + 16);
+      v109 = *(v16 + 48);
+      a1[2] = *(v16 + 32);
       a1[3] = v109;
       *a1 = v107;
       a1[1] = v108;
-      v16[2] = v244;
-      v16[3] = v271;
+      *(v16 + 32) = v244;
+      *(v16 + 48) = v271;
       *v16 = v190;
-      v16[1] = v217;
+      *(v16 + 16) = v217;
       goto LABEL_59;
     }
 
-    v23 = v17(v12, &v12[4 * (v15 >> 1)]);
+    v23 = (v17)(v12, v12 + (v15 >> 1 << 6), result);
     v24 = (*a3)(a2 - 4, a1);
     if (v23)
     {
       if (v24)
       {
-        v225 = v16[2];
-        v252 = v16[3];
+        v225 = *(v16 + 32);
+        v252 = *(v16 + 48);
         v171 = *v16;
-        v198 = v16[1];
+        v198 = *(v16 + 16);
         v25 = *v9;
         v26 = a2[-3];
         v27 = a2[-1];
-        v16[2] = a2[-2];
-        v16[3] = v27;
+        *(v16 + 32) = a2[-2];
+        *(v16 + 48) = v27;
         *v16 = v25;
-        v16[1] = v26;
+        *(v16 + 16) = v26;
 LABEL_36:
         *v9 = v171;
         a2[-3] = v198;
@@ -4512,17 +4510,17 @@ LABEL_36:
         goto LABEL_59;
       }
 
-      v233 = v16[2];
-      v260 = v16[3];
+      v233 = *(v16 + 32);
+      v260 = *(v16 + 48);
       v179 = *v16;
-      v206 = v16[1];
+      v206 = *(v16 + 16);
       v62 = *a1;
       v63 = a1[1];
       v64 = a1[3];
-      v16[2] = a1[2];
-      v16[3] = v64;
+      *(v16 + 32) = a1[2];
+      *(v16 + 48) = v64;
       *v16 = v62;
-      v16[1] = v63;
+      *(v16 + 16) = v63;
       a1[2] = v233;
       a1[3] = v260;
       *a1 = v179;
@@ -4563,17 +4561,17 @@ LABEL_36:
       a2[-1] = v255;
       if ((*a3)(a1, v16))
       {
-        v229 = v16[2];
-        v256 = v16[3];
+        v229 = *(v16 + 32);
+        v256 = *(v16 + 48);
         v175 = *v16;
-        v202 = v16[1];
+        v202 = *(v16 + 16);
         v37 = *a1;
         v38 = a1[1];
         v39 = a1[3];
-        v16[2] = a1[2];
-        v16[3] = v39;
+        *(v16 + 32) = a1[2];
+        *(v16 + 48) = v39;
         *v16 = v37;
-        v16[1] = v38;
+        *(v16 + 16) = v38;
         a1[2] = v229;
         a1[3] = v256;
         *a1 = v175;
@@ -4612,7 +4610,7 @@ LABEL_59:
     if (!v112)
     {
 LABEL_64:
-      std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(PSEmitter::RenderEntry const&,PSEmitter::RenderEntry const&),PSEmitter::RenderEntry*,false>(a1, v110, a3, -v14, a5 & 1);
+      result = std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(PSEmitter::RenderEntry const&,PSEmitter::RenderEntry const&),PSEmitter::RenderEntry*,false>(a1, v110, a3, -v14, a5 & 1, result);
       v12 = &v110[4];
 LABEL_66:
       a5 = 0;
@@ -4621,8 +4619,8 @@ LABEL_66:
     }
   }
 
-  v113 = (*a3)(v12 + 4, v12);
-  v114 = (*a3)(v9, v12 + 4);
+  v113 = (*a3)(v12 + 64, v12, result);
+  v114 = (*a3)(v9, (v12 + 64));
   if ((v113 & 1) == 0)
   {
     if (!v114)
@@ -4630,77 +4628,77 @@ LABEL_66:
       return result;
     }
 
-    v132 = v12[6];
-    v131 = v12[7];
-    v134 = v12[4];
-    v133 = v12[5];
-    v135 = v9[3];
+    v132 = *(v12 + 96);
+    v131 = *(v12 + 112);
+    v134 = *(v12 + 64);
+    v133 = *(v12 + 80);
+    v135 = *(v9 + 3);
     v137 = *v9;
-    v136 = v9[1];
-    v12[6] = v9[2];
-    v12[7] = v135;
-    v12[4] = v137;
-    v12[5] = v136;
+    v136 = *(v9 + 1);
+    *(v12 + 96) = *(v9 + 2);
+    *(v12 + 112) = v135;
+    *(v12 + 64) = v137;
+    *(v12 + 80) = v136;
     *v9 = v134;
-    v9[1] = v133;
-    v9[2] = v132;
-    v9[3] = v131;
+    *(v9 + 1) = v133;
+    *(v9 + 2) = v132;
+    *(v9 + 3) = v131;
     goto LABEL_102;
   }
 
   if (v114)
   {
 LABEL_77:
-    v246 = v12[2];
-    v273 = v12[3];
+    v246 = *(v12 + 32);
+    v273 = *(v12 + 48);
     v192 = *v12;
-    v219 = v12[1];
+    v219 = *(v12 + 16);
     v124 = *v9;
-    v125 = v9[1];
-    v126 = v9[3];
-    v12[2] = v9[2];
-    v12[3] = v126;
+    v125 = *(v9 + 1);
+    v126 = *(v9 + 3);
+    *(v12 + 32) = *(v9 + 2);
+    *(v12 + 48) = v126;
     *v12 = v124;
-    v12[1] = v125;
+    *(v12 + 16) = v125;
     *v9 = v192;
-    v9[1] = v219;
-    v9[2] = v246;
+    *(v9 + 1) = v219;
+    *(v9 + 2) = v246;
     result = v273;
-    v9[3] = v273;
+    *(v9 + 3) = v273;
     return result;
   }
 
-  v245 = v12[2];
-  v272 = v12[3];
+  v245 = *(v12 + 32);
+  v272 = *(v12 + 48);
   v191 = *v12;
-  v218 = v12[1];
-  v115 = v12[5];
-  *v12 = v12[4];
-  v12[1] = v115;
-  v116 = v12[7];
-  v12[2] = v12[6];
-  v12[3] = v116;
-  v12[6] = v245;
-  v12[7] = v272;
-  v12[4] = v191;
-  v12[5] = v218;
-  if ((*a3)(v9, v12 + 4))
+  v218 = *(v12 + 16);
+  v115 = *(v12 + 80);
+  *v12 = *(v12 + 64);
+  *(v12 + 16) = v115;
+  v116 = *(v12 + 112);
+  *(v12 + 32) = *(v12 + 96);
+  *(v12 + 48) = v116;
+  *(v12 + 96) = v245;
+  *(v12 + 112) = v272;
+  *(v12 + 64) = v191;
+  *(v12 + 80) = v218;
+  if ((*a3)(v9, (v12 + 64)))
   {
-    v117 = v12[6];
-    result = v12[7];
-    v119 = v12[4];
-    v118 = v12[5];
-    v120 = v9[3];
+    v117 = *(v12 + 96);
+    result = *(v12 + 112);
+    v119 = *(v12 + 64);
+    v118 = *(v12 + 80);
+    v120 = *(v9 + 3);
     v122 = *v9;
-    v121 = v9[1];
-    v12[6] = v9[2];
-    v12[7] = v120;
-    v12[4] = v122;
-    v12[5] = v121;
+    v121 = *(v9 + 1);
+    *(v12 + 96) = *(v9 + 2);
+    *(v12 + 112) = v120;
+    *(v12 + 64) = v122;
+    *(v12 + 80) = v121;
     *v9 = v119;
-    v9[1] = v118;
-    v9[2] = v117;
-    v9[3] = result;
+    *(v9 + 1) = v118;
+    *(v9 + 2) = v117;
+    *(v9 + 3) = result;
   }
 
   return result;
@@ -4975,7 +4973,7 @@ uint64_t std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(PS
             }
 
             v14 -= 64;
-            result = (*a3)(&v21, v6 + v14);
+            result = (*a3)(&v21, v14 + v6);
             if ((result & 1) == 0)
             {
               v18 = (v6 + v14 + 64);
@@ -5004,7 +5002,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(PSEmitter::RenderEntry const&,PSEmitter::RenderEntry const&),PSEmitter::RenderEntry*>(uint64_t result, _OWORD *a2, uint64_t (**a3)(__int128 *, _OWORD *))
+uint64_t std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(PSEmitter::RenderEntry const&,PSEmitter::RenderEntry const&),PSEmitter::RenderEntry*>(uint64_t result, __int128 *a2, uint64_t (**a3)(__int128 *, __int128 *))
 {
   if (result != a2)
   {
@@ -5725,7 +5723,7 @@ LABEL_41:
   }
 }
 
-__n128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(PSEmitter::RenderEntry const&,PSEmitter::RenderEntry const&),PSEmitter::RenderEntry*,PSEmitter::RenderEntry*>(uint64_t a1, __n128 *a2, __n128 *a3, unsigned int (**a4)(__n128 *, __n128 *), __n128 a5)
+char *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(PSEmitter::RenderEntry const&,PSEmitter::RenderEntry const&),PSEmitter::RenderEntry*,PSEmitter::RenderEntry*>(char *a1, char *a2, char *a3, uint64_t (**a4)(__n128 *, __n128 *), __n128 a5)
 {
   if (a1 != a2)
   {
@@ -5735,7 +5733,7 @@ __n128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(
     {
       v10 = (v9 - 2) >> 1;
       v11 = v10 + 1;
-      v12 = (a1 + (v10 << 6));
+      v12 = &a1[64 * v10];
       do
       {
         a5 = std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(PSEmitter::RenderEntry const&,PSEmitter::RenderEntry const&),PSEmitter::RenderEntry*>(a1, a4, v9, v12);
@@ -5754,25 +5752,25 @@ __n128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(
       {
         if ((*a4)(v13, a1, a5))
         {
-          v15 = v13[2];
-          v14 = v13[3];
+          v15 = *(v13 + 2);
+          v14 = *(v13 + 3);
           v17 = *v13;
-          v16 = v13[1];
-          v18 = *(a1 + 48);
+          v16 = *(v13 + 1);
+          v18 = *(a1 + 3);
           v20 = *a1;
-          v19 = *(a1 + 16);
-          v13[2] = *(a1 + 32);
-          v13[3] = v18;
+          v19 = *(a1 + 1);
+          *(v13 + 2) = *(a1 + 2);
+          *(v13 + 3) = v18;
           *v13 = v20;
-          v13[1] = v19;
+          *(v13 + 1) = v19;
           *a1 = v17;
-          *(a1 + 16) = v16;
-          *(a1 + 32) = v15;
-          *(a1 + 48) = v14;
+          *(a1 + 1) = v16;
+          *(a1 + 2) = v15;
+          *(a1 + 3) = v14;
           a5 = std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(PSEmitter::RenderEntry const&,PSEmitter::RenderEntry const&),PSEmitter::RenderEntry*>(a1, a4, v9, a1);
         }
 
-        v13 += 4;
+        v13 += 64;
       }
 
       while (v13 != a3);
@@ -5785,19 +5783,19 @@ __n128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(
         v36 = v7;
         v21 = 0;
         v37 = *a1;
-        v38 = *(a1 + 16);
-        v39 = *(a1 + 32);
-        v40 = *(a1 + 48);
+        v38 = *(a1 + 1);
+        v39 = *(a1 + 2);
+        v40 = *(a1 + 3);
         v22 = a1;
         do
         {
-          v23 = &v22[4 * v21];
-          v24 = v23 + 4;
+          v23 = &v22[64 * v21];
+          v24 = v23 + 64;
           v25 = (2 * v21) | 1;
           v26 = 2 * v21 + 2;
           if (v26 < v9)
           {
-            v27 = v23 + 8;
+            v27 = v23 + 128;
             if ((*a4)(v23 + 4, v23 + 8))
             {
               v24 = v27;
@@ -5806,40 +5804,40 @@ __n128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(
           }
 
           v28 = *v24;
-          v29 = v24[1];
-          v30 = v24[3];
-          v22[2] = v24[2];
-          v22[3] = v30;
+          v29 = *(v24 + 1);
+          v30 = *(v24 + 3);
+          *(v22 + 2) = *(v24 + 2);
+          *(v22 + 3) = v30;
           *v22 = v28;
-          v22[1] = v29;
+          *(v22 + 1) = v29;
           v22 = v24;
           v21 = v25;
         }
 
         while (v25 <= ((v9 - 2) >> 1));
-        v7 = v36 - 4;
-        if (v24 == &v36[-4])
+        v7 = v36 - 64;
+        if (v24 == v36 - 64)
         {
-          v24[2] = v39;
-          v24[3] = v40;
+          *(v24 + 2) = v39;
+          *(v24 + 3) = v40;
           *v24 = v37;
-          v24[1] = v38;
+          *(v24 + 1) = v38;
         }
 
         else
         {
           v31 = *v7;
-          v32 = v36[-3];
-          v33 = v36[-1];
-          v24[2] = v36[-2];
-          v24[3] = v33;
+          v32 = *(v36 - 3);
+          v33 = *(v36 - 1);
+          *(v24 + 2) = *(v36 - 2);
+          *(v24 + 3) = v33;
           *v24 = v31;
-          v24[1] = v32;
+          *(v24 + 1) = v32;
           *v7 = v37;
-          v36[-3] = v38;
-          v36[-2] = v39;
-          v36[-1] = v40;
-          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(PSEmitter::RenderEntry const&,PSEmitter::RenderEntry const&),PSEmitter::RenderEntry*>(a1, &v24[4], a4, (&v24[4] - a1) >> 6);
+          *(v36 - 3) = v38;
+          *(v36 - 2) = v39;
+          *(v36 - 1) = v40;
+          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(PSEmitter::RenderEntry const&,PSEmitter::RenderEntry const&),PSEmitter::RenderEntry*>(a1, (v24 + 64), a4, (v24 + 64 - a1) >> 6);
         }
       }
 
@@ -5852,7 +5850,7 @@ __n128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(
   return a3;
 }
 
-__n128 std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(PSEmitter::RenderEntry const&,PSEmitter::RenderEntry const&),PSEmitter::RenderEntry*>(uint64_t a1, unsigned int (**a2)(__n128 *, __n128 *), uint64_t a3, __n128 *a4)
+__n128 std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(PSEmitter::RenderEntry const&,PSEmitter::RenderEntry const&),PSEmitter::RenderEntry*>(uint64_t a1, uint64_t (**a2)(__n128 *, __n128 *), uint64_t a3, __n128 *a4)
 {
   v6 = a3 - 2;
   if (a3 >= 2)
@@ -5979,12 +5977,12 @@ double std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(PSEmitter::
   return result;
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(OZSimStateElement const&,OZSimStateElement const&),OZSimStateElement*,false>(OZSimStateElement *a1, __int128 *a2, uint64_t (**a3)(__int128 *, const OZSimStateElement *), uint64_t a4, char a5)
+void std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(OZSimStateElement const&,OZSimStateElement const&),OZSimStateElement*,false>(OZSimStateElement *result, OZSimStateElement *a2, uint64_t (**a3)(__int128 *, const OZSimStateElement *), uint64_t a4, char a5)
 {
   v7 = a2;
-  v8 = a1;
+  v8 = result;
   v49 = a2;
-  v50 = a1;
+  v50 = result;
   v9 = 0xEF7BDEF7BDEF7BDFLL;
 LABEL_2:
   for (i = 1 - a4; ; ++i)
@@ -6394,9 +6392,9 @@ LABEL_98:
   }
 }
 
-void sub_2602AAA18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2602AAA18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   OZSimStateElement::~OZSimStateElement(va);
   _Unwind_Resume(a1);
 }
@@ -6411,9 +6409,9 @@ void std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<OZSimStateEl
   OZSimStateElement::~OZSimStateElement(v4);
 }
 
-void sub_2602AAA8C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2602AAA8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   OZSimStateElement::~OZSimStateElement(va);
   _Unwind_Resume(a1);
 }
@@ -6502,7 +6500,7 @@ void std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(OZSimS
             v10 -= 248;
             if ((v11 & 1) == 0)
             {
-              v12 = a1 + v10 + 248;
+              v12 = (a1 + v10 + 248);
               goto LABEL_10;
             }
           }
@@ -6522,14 +6520,14 @@ LABEL_10:
   }
 }
 
-void sub_2602AACC8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2602AACC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   OZSimStateElement::~OZSimStateElement(va);
   _Unwind_Resume(a1);
 }
 
-void std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(OZSimStateElement const&,OZSimStateElement const&),OZSimStateElement*>(__int128 *a1, const OZSimStateElement *a2, uint64_t (**a3)(__int128 *, __int128 *))
+void std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(OZSimStateElement const&,OZSimStateElement const&),OZSimStateElement*>(const OZSimStateElement *a1, const OZSimStateElement *a2, uint64_t (**a3)(__int128 *, __int128 *))
 {
   if (a1 != a2)
   {
@@ -6563,19 +6561,19 @@ void std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (
   }
 }
 
-void sub_2602AADA0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2602AADA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   OZSimStateElement::~OZSimStateElement(va);
   _Unwind_Resume(a1);
 }
 
-const OZSimStateElement *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,OZSimStateElement *,BOOL (*&)(OZSimStateElement const&,OZSimStateElement const&)>(OZSimStateElement *a1, __int128 *a2, unsigned int (**a3)(__int128 *))
+const OZSimStateElement *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,OZSimStateElement *,BOOL (*&)(OZSimStateElement const&,OZSimStateElement const&)>(OZSimStateElement *a1, const OZSimStateElement *a2, uint64_t (**a3)(__int128 *, const OZSimStateElement *))
 {
   v13 = a2;
   v14 = a1;
   OZSimStateElement::OZSimStateElement(v12, a1);
-  if ((*a3)(v12, a2 - 248))
+  if ((*a3)(v12, (a2 - 248)))
   {
     v6 = a1;
     do
@@ -6653,14 +6651,14 @@ const OZSimStateElement *std::__partition_with_equals_on_left[abi:ne200100]<std:
   return v10;
 }
 
-void sub_2602AAF28(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2602AAF28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   OZSimStateElement::~OZSimStateElement(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,OZSimStateElement *,BOOL (*&)(OZSimStateElement const&,OZSimStateElement const&)>(OZSimStateElement *a1, __int128 *a2, uint64_t (**a3)(void))
+uint64_t std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,OZSimStateElement *,BOOL (*&)(OZSimStateElement const&,OZSimStateElement const&)>(OZSimStateElement *a1, const OZSimStateElement *a2, uint64_t (**a3)(__int128 *, __int128 *))
 {
   v15 = a2;
   OZSimStateElement::OZSimStateElement(v14, a1);
@@ -6688,7 +6686,7 @@ uint64_t std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPol
       v15 = v6;
     }
 
-    while (((v10)(v6, v14) & 1) == 0);
+    while ((v10(v6, v14) & 1) == 0);
   }
 
   else
@@ -6740,14 +6738,14 @@ uint64_t std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPol
   return v12;
 }
 
-void sub_2602AB0C0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2602AB0C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   OZSimStateElement::~OZSimStateElement(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(OZSimStateElement const&,OZSimStateElement const&),OZSimStateElement*>(__int128 *a1, const OZSimStateElement *a2, uint64_t (**a3)(__int128 *, const OZSimStateElement *))
+BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(OZSimStateElement const&,OZSimStateElement const&),OZSimStateElement*>(__int128 *a1, const OZSimStateElement *a2, uint64_t (**a3)(__int128 *, const OZSimStateElement *))
 {
   v27 = a2;
   v28 = a1;
@@ -6948,9 +6946,9 @@ LABEL_22:
   return 1;
 }
 
-void sub_2602AB460(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2602AB460(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   OZSimStateElement::~OZSimStateElement(va);
   _Unwind_Resume(a1);
 }
@@ -7038,9 +7036,9 @@ const OZSimStateElement *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlg
   return a3;
 }
 
-void sub_2602AB63C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_2602AB63C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   OZSimStateElement::~OZSimStateElement(va);
   _Unwind_Resume(a1);
 }
@@ -7104,7 +7102,7 @@ void std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(OZSimStateE
   }
 }
 
-__int128 *std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(OZSimStateElement const&,OZSimStateElement const&),OZSimStateElement*>(uint64_t a1, unsigned int (**a2)(uint64_t, uint64_t), uint64_t a3)
+__int128 *std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(OZSimStateElement const&,OZSimStateElement const&),OZSimStateElement*>(__int128 *a1, unsigned int (**a2)(uint64_t, uint64_t), uint64_t a3)
 {
   v6 = 0;
   v7 = (a3 - 2) / 2;
@@ -7117,7 +7115,7 @@ __int128 *std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(
     if (v11 < a3)
     {
       v12 = (v8 + 496);
-      if ((*a2)(v8 + 248, v8 + 496))
+      if ((*a2)((v8 + 248), (v8 + 496)))
       {
         v9 = v12;
         v10 = v11;
@@ -7165,22 +7163,22 @@ void std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(OZSimStateEle
   }
 }
 
-void sub_2602AB960(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2602AB960(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   OZSimStateElement::~OZSimStateElement(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::__tree<double,LessThanDouble,std::allocator<double>>::__emplace_unique_key_args<double,double const&>(uint64_t a1, double *a2)
+void *std::__tree<double,LessThanDouble,std::allocator<double>>::__emplace_unique_key_args<double,double const&>(uint64_t **a1, double *a2, void *a3)
 {
-  v2 = *std::__tree<double,LessThanDouble,std::allocator<double>>::__find_equal<double>(a1, &v4, a2);
-  if (!v2)
+  v3 = *std::__tree<double,LessThanDouble,std::allocator<double>>::__find_equal<double>(a1, &v5, a2);
+  if (!v3)
   {
     operator new();
   }
 
-  return v2;
+  return v3;
 }
 
 void *std::__tree<double,LessThanDouble,std::allocator<double>>::__find_equal<double>(uint64_t a1, void *a2, double *a3)
@@ -7267,9 +7265,9 @@ void PSParticle::PSParticle(PSParticle *this)
   *(this + 56) = 0;
 }
 
-void sub_2602ABB44(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2602ABB44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   PCCFRef<CGColorSpace *>::~PCCFRef(va);
   _Unwind_Resume(a1);
 }
@@ -7304,9 +7302,9 @@ void PSParticle::PSParticle(PSParticle *this, int a2, const CMTime *a3)
   *(this + 56) = a2;
 }
 
-void sub_2602ABC30(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2602ABC30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   PCCFRef<CGColorSpace *>::~PCCFRef(va);
   _Unwind_Resume(a1);
 }
@@ -7529,7 +7527,7 @@ void PSParticleType::PSParticleType(PSParticleType *this, OZFactory *a2, const P
   PCString::PCString(&v72, "Hidden Channel");
   OZChannelBool::OZChannelBool((this + 14552), 0, &v72, (this + 448), 0x88u, 2u, 0, 0);
   PCString::~PCString(&v72);
-  v64 = PCString::PCString(&v72, "Hidden Channel");
+  PCString::PCString(&v72, "Hidden Channel");
   v65 = PSParticleType::PSParticleType_versionChanImpl::getInstance(v64);
   OZChannelDouble::OZChannelDouble((this + 14704), 5, &v72, (this + 448), 0x96u, 2, v65, 0);
   PCString::~PCString(&v72);
@@ -7925,7 +7923,7 @@ void PSParticleType::PSParticleType(PSParticleType *this, PSParticleType *a2, ch
   OZChannelEnum::OZChannelEnum((this + 12808), (a2 + 12808), (this + 448));
   OZChannel2D::OZChannel2D((this + 13064), (a2 + 13064), (this + 448));
   OZChannelScale::OZChannelScale((this + 13504), (a2 + 13504), (this + 448));
-  OZChannelScaleOverRange::OZChannelScaleOverRange((this + 13944), (a2 + 13944), (this + 448));
+  OZChannelScaleOverRange::OZChannelScaleOverRange((this + 13944), a2 + 1743, (this + 448));
   OZChanElementOrFootageRef::OZChanElementOrFootageRef((this + 14392), (a2 + 14392), (this + 448));
   OZChannelBool::OZChannelBool((this + 14552), (a2 + 14552), (this + 448));
   OZChannel::OZChannel((this + 14704), (a2 + 14704), (this + 448));
@@ -8163,7 +8161,7 @@ void PSParticleType::~PSParticleType(PSParticleType *this)
   OZChannel2D::~OZChannel2D((this + 13944));
   OZChannel2D::~OZChannel2D((this + 13504));
   OZChannel2D::~OZChannel2D((this + 13064));
-  OZChannelEnum::~OZChannelEnum((this + 12808));
+  OZChannelEnum::~OZChannelEnum(this + 1601);
   OZChannelBool::~OZChannelBool((this + 12656));
   *(this + 1562) = &unk_287252908;
   *(this + 1564) = &unk_287252CB8;
@@ -8178,7 +8176,7 @@ void PSParticleType::~PSParticleType(PSParticleType *this)
   OZChannelFolder::~OZChannelFolder((this + 11904));
   OZChannel::~OZChannel((this + 11752));
   OZChannel::~OZChannel((this + 11600));
-  OZChannelEnum::~OZChannelEnum((this + 11344));
+  OZChannelEnum::~OZChannelEnum(this + 1418);
   OZChannelPercent::~OZChannelPercent((this + 11192));
   OZChannel::~OZChannel((this + 11040));
   OZChannel::~OZChannel((this + 10888));
@@ -8212,7 +8210,7 @@ void PSParticleType::~PSParticleType(PSParticleType *this)
   *(this + 705) = &unk_28724C978;
   OZChannel::~OZChannel((this + 6632));
   OZChannelColorNoAlpha::~OZChannelColorNoAlpha((this + 5624));
-  OZChannelEnum::~OZChannelEnum((this + 5368));
+  OZChannelEnum::~OZChannelEnum(this + 671);
   OZChannel::~OZChannel((this + 5216));
   OZChannel::~OZChannel((this + 5064));
   OZChannelRotation3D::~OZChannelRotation3D((this + 4208));
@@ -8442,7 +8440,7 @@ void PSParticleType::getSourceImageBounds(uint64_t a1, const OZRenderState *a2, 
   v38 = 0uLL;
   v39 = 0;
   v11 = (*(*a1 + 272))();
-  OZSceneSettings::getFrameDuration((v11 + 336), &v38);
+  OZSceneSettings::getFrameDuration(&v38, (v11 + 336));
   *&time1.var0.var0 = v40;
   time1.var0.var3 = var3;
   v35 = v38;
@@ -8860,7 +8858,7 @@ float64x2_t PSParticleType::getImageParticleBounds(uint64_t a1, uint64_t a2, OZR
       v44.epoch = *(v9 + 3);
       *&v44.value = v10;
       PC_CMTimeSaferSubtract(&v55, &v44, &v60);
-      operator/(&v60, &v53, *(v9 + 13));
+      operator/(&v60, *(v9 + 13), &v53);
       v55.var0 = var0;
       *&v44.value = v53;
       v44.epoch = v54;
@@ -8967,14 +8965,13 @@ CGColorSpace **PSParticleType::getImageParticleMatrix(CGColorSpace **result, CMT
     v116 = *a2;
     v115 = *a2;
     memset(v114, 0, sizeof(v114));
-    *&v85.var0.var0 = *&a2->value;
-    v85.var0.var3 = a2->epoch;
+    v85.var0 = *a2;
     v102 = *(a3 + 8);
     v12.n128_f64[0] = PC_CMTimeSaferSubtract(&v85, &v102, v114);
     v112 = 0uLL;
     v113 = 0;
     v13 = (*(*(v11[2054] + 25) + 272))(v12);
-    OZSceneSettings::getFrameDuration((v13 + 336), &v112);
+    OZSceneSettings::getFrameDuration(&v112, (v13 + 336));
     __asm { FMOV            V0.2D, #1.0 }
 
     v110 = _Q0;
@@ -9255,7 +9252,7 @@ void PSParticleType::addProjectedImageParticleBounds(uint64_t a1, uint64_t a2, u
         v59.epoch = *(v9 + 3);
         *&v59.value = v12;
         PC_CMTimeSaferSubtract(&v40, &v59, &v54);
-        operator/(&v54, v39, *(v9 + 13));
+        operator/(&v54, *(v9 + 13), v39);
         v59 = v56;
         v49 = *v39;
         *&v50 = *&v39[16];
@@ -9301,7 +9298,7 @@ void PSParticleType::addProjectedImageParticleBounds(uint64_t a1, uint64_t a2, u
     v44 = 0u;
     v46 = 0u;
     v47 = 0u;
-    PSParticleType::getImageParticleMatrix3D(a1, a2, v9, a3, &v40);
+    PSParticleType::getImageParticleMatrix3D(a1, a2, v9, a3, &v40.var0);
     v22 = *(&v19 + 1) + *(&v20 + 1);
     v23 = *&v19 + *&v20;
     *&v59.value = v19;
@@ -9428,7 +9425,7 @@ void PSParticleType::addProjectedImageParticleBounds(uint64_t a1, uint64_t a2, u
   }
 }
 
-double PSParticleType::getImageParticleMatrix3D(CGColorSpace **a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+double PSParticleType::getImageParticleMatrix3D(CGColorSpace **a1, uint64_t a2, uint64_t a3, uint64_t a4, double *a5)
 {
   PSParticleType::getImageParticleMatrix(a1, *(a2 + 8), a3, a4, a5, *(a2 + 1497));
   if (*(a2 + 1498) == 1)
@@ -9441,14 +9438,14 @@ double PSParticleType::getImageParticleMatrix3D(CGColorSpace **a1, uint64_t a2, 
 
     else
     {
-      v8 = *(a5 + 24);
-      v9 = *(a5 + 56);
-      v10 = *(a5 + 88);
-      v11 = *(a5 + 120);
-      *(a5 + 24) = 0;
-      *(a5 + 56) = 0;
-      *(a5 + 88) = 0;
-      *(a5 + 120) = 0x3FF0000000000000;
+      v8 = *(a5 + 3);
+      v9 = *(a5 + 7);
+      v10 = *(a5 + 11);
+      v11 = *(a5 + 15);
+      a5[3] = 0.0;
+      a5[7] = 0.0;
+      a5[11] = 0.0;
+      a5[15] = 1.0;
       v19 = 0x3FF0000000000000;
       v15 = 0x3FF0000000000000;
       v12 = 0x3FF0000000000000;
@@ -9552,134 +9549,134 @@ void PSParticleType::addProjectedParticleBounds(uint64_t a1, uint64_t a2, uint64
   }
 }
 
-unint64_t PSParticleType::estimateRenderMemoryImageParticle(uint64_t a1)
+unint64_t PSParticleType::estimateRenderMemoryImageParticle(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v1 = MEMORY[0x28223BE20](a1);
-  v49 = *MEMORY[0x277D85DE8];
-  if (!*(v1 + 16488))
+  MEMORY[0x28223BE20](a1, a2, a3, a4, a5);
+  v53 = *MEMORY[0x277D85DE8];
+  if (!*(v5 + 16488))
   {
     return 0;
   }
 
-  v5 = v4;
-  v6 = v3;
-  v7 = v2;
-  v8 = v1;
-  v9 = *(v3 + 232);
-  if (v9)
+  v9 = v8;
+  v10 = v7;
+  v11 = v6;
+  v12 = v5;
+  v13 = *(v7 + 232);
+  if (v13)
   {
   }
 
   else
   {
-    v10 = 0;
+    v14 = 0;
   }
 
-  v12 = *(v7 + 8);
-  OZRenderState::OZRenderState(&v44, v12);
-  if ((*(v8 + 16529) & 1) == 0)
+  v16 = *(v11 + 8);
+  OZRenderState::OZRenderState(&v48, v16);
+  if ((*(v12 + 16529) & 1) == 0)
   {
-    v43 = *(v10 + 80);
-    if (*(v10 + 13) > 0.0)
+    v47 = *(v14 + 80);
+    if (*(v14 + 13) > 0.0)
     {
-      v41 = 0uLL;
-      v42 = 0;
-      v13 = *&v12->var0.var0;
-      v48[0].epoch = v12->var0.var3;
-      *&v48[0].value = v13;
-      v14 = *(v10 + 8);
-      *&v30[16] = *(v10 + 3);
-      *v30 = v14;
-      PC_CMTimeSaferSubtract(v48, v30, &v41);
-      operator/(&v41, &v46, *(v10 + 13));
-      *v30 = v43;
-      v47 = v46;
-      PC_CMTimeSaferAdd(v30, &v47, v48);
-      v43 = v48[0];
-      v39 = *(v8 + 16464);
-      v40 = *(v8 + 16480);
-      memset(&v38, 0, sizeof(v38));
-      operator/(&v43.value, &v39, &v38);
-      CMTimeMake(&v45, 1, 1);
-      v48[0] = v38;
-      *v30 = v45;
-      PC_CMTimeFloorToSampleDuration(v48, v30, &v46);
-      v48[0] = v38;
-      *v30 = v46;
-      PC_CMTimeSaferSubtract(v48, v30, &v47);
-      operator*(&v47.value, &v39, v48);
-      v43 = v48[0];
+      v45 = 0uLL;
+      v46 = 0;
+      v17 = *&v16->var0.var0;
+      v52[0].epoch = v16->var0.var3;
+      *&v52[0].value = v17;
+      v18 = *(v14 + 8);
+      *&v34[16] = *(v14 + 3);
+      *v34 = v18;
+      PC_CMTimeSaferSubtract(v52, v34, &v45);
+      operator/(&v45, *(v14 + 13), &v50);
+      *v34 = v47;
+      v51 = v50;
+      PC_CMTimeSaferAdd(v34, &v51, v52);
+      v47 = v52[0];
+      v43 = *(v12 + 16464);
+      v44 = *(v12 + 16480);
+      memset(&v42, 0, sizeof(v42));
+      operator/(&v47.value, &v43, &v42);
+      CMTimeMake(&v49, 1, 1);
+      v52[0] = v42;
+      *v34 = v49;
+      PC_CMTimeFloorToSampleDuration(v52, v34, &v50);
+      v52[0] = v42;
+      *v34 = v50;
+      PC_CMTimeSaferSubtract(v52, v34, &v51);
+      operator*(&v51.value, &v43, v52);
+      v47 = v52[0];
     }
 
-    v15 = *(v8 + 16440);
-    v47.epoch = *(v8 + 16456);
-    *&v47.value = v15;
-    *v30 = v43;
-    PC_CMTimeSaferAdd(v30, &v47, v48);
-    v44.var0 = v48[0];
+    v19 = *(v12 + 16440);
+    v51.epoch = *(v12 + 16456);
+    *&v51.value = v19;
+    *v34 = v47;
+    PC_CMTimeSaferAdd(v34, &v51, v52);
+    v48.var0 = v52[0];
   }
 
   __asm { FMOV            V0.2D, #1.0 }
 
-  *&v47.value = _Q0;
-  PCHashWriteStream::PCHashWriteStream(v48);
-  PCHashWriteStream::writeValue(v48, *(v8 + 16488));
-  PCHashWriteStream::writeValue(v48, &v44);
-  v21 = 1.0;
-  v22 = 1.0;
-  if (OZRenderParams::getDoHighQualityResampling(*(v7 + 8)))
+  *&v51.value = _Q0;
+  PCHashWriteStream::PCHashWriteStream(v52);
+  PCHashWriteStream::writeValue(v52, *(v12 + 16488));
+  PCHashWriteStream::writeValue(v52, &v48);
+  v25 = 1.0;
+  v26 = 1.0;
+  if (OZRenderParams::getDoHighQualityResampling(*(v11 + 8)))
   {
-    v37 = 0x3FF0000000000000;
-    v34 = 0x3FF0000000000000;
-    v31 = 0x3FF0000000000000;
-    *v30 = 0x3FF0000000000000;
-    memset(&v30[8], 0, 32);
-    v32 = 0u;
-    v33 = 0u;
-    v35 = 0u;
+    v41 = 0x3FF0000000000000;
+    v38 = 0x3FF0000000000000;
+    v35 = 0x3FF0000000000000;
+    *v34 = 0x3FF0000000000000;
+    memset(&v34[8], 0, 32);
     v36 = 0u;
-    PSParticleType::getImageParticleMatrix3D(v8, v7, v10, v6, v30);
-    PSParticleType::getSourceScaleFactor(v23, v7, v30, &v47);
-    v22 = *&v47.value;
-    PCHashWriteStream::writeValue(v48, *&v47.value);
-    v21 = *&v47.timescale;
-    PCHashWriteStream::writeValue(v48, *&v47.timescale);
+    v37 = 0u;
+    v39 = 0u;
+    v40 = 0u;
+    PSParticleType::getImageParticleMatrix3D(v12, v11, v14, v10, v34);
+    PSParticleType::getSourceScaleFactor(v27, v11, v34, &v51);
+    v26 = *&v51.value;
+    PCHashWriteStream::writeValue(v52, *&v51.value);
+    v25 = *&v51.timescale;
+    PCHashWriteStream::writeValue(v52, *&v51.timescale);
   }
 
-  *&v46.value = *PCHashWriteStream::getHash(v48)->i8;
-  if (v5 + 8 == std::__tree<std::__value_type<PCHash128,BOOL>,std::__map_value_compare<PCHash128,std::__value_type<PCHash128,BOOL>,std::less<PCHash128>,true>,std::allocator<std::__value_type<PCHash128,BOOL>>>::find<PCHash128>(v5, &v46))
+  *&v50.value = *PCHashWriteStream::getHash(v52)->i8;
+  if (v9 + 1 == std::__tree<std::__value_type<PCHash128,BOOL>,std::__map_value_compare<PCHash128,std::__value_type<PCHash128,BOOL>,std::less<PCHash128>,true>,std::allocator<std::__value_type<PCHash128,BOOL>>>::find<PCHash128>(v9, &v50))
   {
-    std::__tree<PCHash128>::__emplace_unique_key_args<PCHash128,PCHash128 const&>(v5, &v46);
+    std::__tree<PCHash128>::__emplace_unique_key_args<PCHash128,PCHash128 const&>(v9, &v50, &v50);
     __asm { FMOV            V0.2D, #-1.0 }
 
-    *&v30[16] = _Q0;
-    PSParticleType::getSourceImageBounds(v8, &v44, v30);
-    v11 = 0;
-    v25 = *&v30[16];
-    if (*&v30[16] > 0.0)
+    *&v34[16] = _Q0;
+    PSParticleType::getSourceImageBounds(v12, &v48, v34);
+    v15 = 0;
+    v29 = *&v34[16];
+    if (*&v34[16] > 0.0)
     {
-      v26 = *&v30[24];
-      if (*&v30[24] > 0.0)
+      v30 = *&v34[24];
+      if (*&v34[24] > 0.0)
       {
-        v27 = PCPixelFormat::getBitsPerPixel(*(*(v7 + 8) + 340)) >> 3;
-        v28 = 0.0;
-        if (fmin(v25, v26) >= 0.0)
+        v31 = PCPixelFormat::getBitsPerPixel(*(*(v11 + 8) + 340)) >> 3;
+        v32 = 0.0;
+        if (fmin(v29, v30) >= 0.0)
         {
-          v28 = v25 * v26;
+          v32 = v29 * v30;
         }
 
-        v11 = vcvtpd_u64_f64(v28 * v22 * v21) * v27;
+        v15 = vcvtpd_u64_f64(v32 * v26 * v25) * v31;
       }
     }
   }
 
   else
   {
-    v11 = 0;
+    v15 = 0;
   }
 
-  PCHashWriteStream::~PCHashWriteStream(v48);
-  return v11;
+  PCHashWriteStream::~PCHashWriteStream(v52);
+  return v15;
 }
 
 uint64_t PSParticleType::getSourceScaleFactor(uint64_t a1, uint64_t a2, __int128 *a3, float64x2_t *a4)
@@ -9708,15 +9705,15 @@ uint64_t PSParticleType::getSourceScaleFactor(uint64_t a1, uint64_t a2, __int128
   return result;
 }
 
-unint64_t PSParticleType::estimateRenderMemory(uint64_t a1, uint64_t a2)
+unint64_t PSParticleType::estimateRenderMemory(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v3 = *(a2 + 8);
-  v4 = *(v3 + 16);
-  *&v6.value = *v3;
-  v6.epoch = v4;
-  if (OZChannel::getValueAsInt((a1 + 11344), &v6, 0.0) == 3)
+  v8 = *(a2 + 8);
+  v9 = *(v8 + 16);
+  *&v12.value = *v8;
+  v12.epoch = v9;
+  if (OZChannel::getValueAsInt((a1 + 11344), &v12, 0.0) == 3)
   {
-    return PSParticleType::estimateRenderMemoryImageParticle(a1);
+    return PSParticleType::estimateRenderMemoryImageParticle(a1, a2, a3, a4, v10);
   }
 
   else

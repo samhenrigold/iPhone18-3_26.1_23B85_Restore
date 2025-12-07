@@ -67,7 +67,7 @@
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v19 = sub_10000FD9C();
+      v19 = sub_10000FD9C(0);
       if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
@@ -115,20 +115,21 @@
   currentLibraryIdentifier = self->_currentLibraryIdentifier;
   if (currentLibraryIdentifier)
   {
-    if ([(NSString *)currentLibraryIdentifier isEqualToString:identifierCopy])
+    v17 = [(NSString *)currentLibraryIdentifier isEqualToString:identifierCopy];
+    if (v17)
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v17 = sub_10000FD9C();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+        v18 = sub_10000FD9C(v17);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
           *&buf[4] = identifierCopy;
-          v18 = "Requested to perform initial download for %{public}@ but we are already doing it";
-          v19 = v17;
-          v20 = 12;
+          v19 = "Requested to perform initial download for %{public}@ but we are already doing it";
+          v20 = v18;
+          v21 = 12;
 LABEL_14:
-          _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, v18, buf, v20);
+          _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, v19, buf, v21);
           goto LABEL_15;
         }
 
@@ -138,17 +139,17 @@ LABEL_14:
 
     else if ((_CPLSilentLogging & 1) == 0)
     {
-      v17 = sub_10000FD9C();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v18 = sub_10000FD9C(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        v28 = self->_currentLibraryIdentifier;
+        v30 = self->_currentLibraryIdentifier;
         *buf = 138543618;
         *&buf[4] = identifierCopy;
         *&buf[12] = 2114;
-        *&buf[14] = v28;
-        v18 = "Requested to perform initial download for %{public}@ but we are already doing %{public}@";
-        v19 = v17;
-        v20 = 22;
+        *&buf[14] = v30;
+        v19 = "Requested to perform initial download for %{public}@ but we are already doing %{public}@";
+        v20 = v18;
+        v21 = 22;
         goto LABEL_14;
       }
 
@@ -156,68 +157,69 @@ LABEL_15:
     }
 
     queue = self->_queue;
-    v43[0] = _NSConcreteStackBlock;
-    v43[1] = 3221225472;
-    v43[2] = sub_100010C34;
-    v43[3] = &unk_100271E98;
-    v44 = completionHandlerCopy;
-    v30 = v43;
+    v45[0] = _NSConcreteStackBlock;
+    v45[1] = 3221225472;
+    v45[2] = sub_100010C34;
+    v45[3] = &unk_100271E98;
+    v46 = completionHandlerCopy;
+    v32 = v45;
     *buf = _NSConcreteStackBlock;
     *&buf[8] = 3221225472;
     *&buf[16] = sub_100002744;
-    v46 = &unk_100271E98;
-    v47 = v30;
-    v31 = queue;
-    v26 = completionHandlerCopy;
-    v32 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, buf);
-    dispatch_async(v31, v32);
+    v48 = &unk_100271E98;
+    v49 = v32;
+    v33 = queue;
+    v28 = completionHandlerCopy;
+    v34 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, buf);
+    dispatch_async(v33, v34);
 
-    v23 = v44;
+    v24 = v46;
     goto LABEL_17;
   }
 
   objc_storeStrong(&self->_currentLibraryIdentifier, identifier);
-  v21 = [NSProgress progressWithTotalUnitCount:11];
-  v42[0] = _NSConcreteStackBlock;
-  v42[1] = 3221225472;
-  v42[2] = sub_100188AA0;
-  v42[3] = &unk_1002724F0;
-  v42[4] = a2;
-  [v21 setCancellationHandler:v42];
-  v39[0] = _NSConcreteStackBlock;
-  v39[1] = 3221225472;
-  v39[2] = sub_100010CA4;
-  v39[3] = &unk_100272658;
-  v39[4] = self;
-  v22 = v21;
-  v40 = v22;
-  v41 = completionHandlerCopy;
-  v23 = completionHandlerCopy;
-  v24 = objc_retainBlock(v39);
+  v22 = [NSProgress progressWithTotalUnitCount:11];
+  v44[0] = _NSConcreteStackBlock;
+  v44[1] = 3221225472;
+  v44[2] = sub_100188AA0;
+  v44[3] = &unk_1002724F0;
+  v44[4] = a2;
+  [v22 setCancellationHandler:v44];
+  v41[0] = _NSConcreteStackBlock;
+  v41[1] = 3221225472;
+  v41[2] = sub_100010CA4;
+  v41[3] = &unk_100272658;
+  v41[4] = self;
+  v23 = v22;
+  v42 = v23;
+  v43 = completionHandlerCopy;
+  v24 = completionHandlerCopy;
+  v25 = objc_retainBlock(v41);
+  v26 = v25;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v25 = sub_10000FD9C();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    v27 = sub_10000FD9C(v25);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
       *&buf[4] = identifierCopy;
-      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Requesting initial download of main scope for %{public}@", buf, 0xCu);
+      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Requesting initial download of main scope for %{public}@", buf, 0xCu);
     }
   }
 
-  v33[0] = _NSConcreteStackBlock;
-  v33[1] = 3221225472;
-  v33[2] = sub_100010D30;
-  v33[3] = &unk_100272798;
-  v33[4] = self;
-  v37 = v24;
-  v34 = identifierCopy;
-  v35 = v22;
-  v38 = handlerCopy;
-  v36 = activityCopy;
-  v26 = v22;
-  v27 = v24;
-  [v26 performAsCurrentWithPendingUnitCount:1 usingBlock:v33];
+  v35[0] = _NSConcreteStackBlock;
+  v35[1] = 3221225472;
+  v35[2] = sub_100010D30;
+  v35[3] = &unk_100272798;
+  v35[4] = self;
+  v39 = v26;
+  v36 = identifierCopy;
+  v37 = v23;
+  v40 = handlerCopy;
+  v38 = activityCopy;
+  v28 = v23;
+  v29 = v26;
+  [v28 performAsCurrentWithPendingUnitCount:1 usingBlock:v35];
 
 LABEL_17:
 }
@@ -257,53 +259,54 @@ LABEL_17:
   handlerCopy = handler;
   dispatch_assert_queue_V2(self->_queue);
   v11 = [NSProgress progressWithTotalUnitCount:2];
+  v12 = v11;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v12 = sub_10000FD9C();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = sub_10000FD9C(v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = "";
+      v14 = "";
       if (scopeCopy)
       {
-        v13 = " with activated main scope";
+        v14 = " with activated main scope";
       }
 
       *buf = 138543618;
-      v30 = identifierCopy;
-      v31 = 2080;
-      v32 = v13;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Requesting %{public}@%s", buf, 0x16u);
+      v31 = identifierCopy;
+      v32 = 2080;
+      v33 = v14;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Requesting %{public}@%s", buf, 0x16u);
     }
   }
 
+  v27[0] = _NSConcreteStackBlock;
+  v27[1] = 3221225472;
+  v27[2] = sub_10000FDE0;
+  v27[3] = &unk_1002724D0;
+  v29 = handlerCopy;
+  v15 = v12;
+  v28 = v15;
+  v16 = handlerCopy;
+  v17 = objc_retainBlock(v27);
   v26[0] = _NSConcreteStackBlock;
   v26[1] = 3221225472;
-  v26[2] = sub_10000FDE0;
-  v26[3] = &unk_1002724D0;
-  v28 = handlerCopy;
-  v14 = v11;
-  v27 = v14;
-  v15 = handlerCopy;
-  v16 = objc_retainBlock(v26);
-  v25[0] = _NSConcreteStackBlock;
-  v25[1] = 3221225472;
-  v25[2] = sub_100188810;
-  v25[3] = &unk_1002724F0;
-  v25[4] = a2;
-  [v14 setCancellationHandler:v25];
-  v20[0] = _NSConcreteStackBlock;
-  v20[1] = 3221225472;
-  v20[2] = sub_10000FE30;
-  v20[3] = &unk_1002725B8;
-  v20[4] = self;
-  v21 = identifierCopy;
-  v24 = scopeCopy;
-  v22 = v14;
-  v23 = v16;
-  v17 = v14;
-  v18 = v16;
-  v19 = identifierCopy;
-  [v17 performAsCurrentWithPendingUnitCount:1 usingBlock:v20];
+  v26[2] = sub_100188810;
+  v26[3] = &unk_1002724F0;
+  v26[4] = a2;
+  [v15 setCancellationHandler:v26];
+  v21[0] = _NSConcreteStackBlock;
+  v21[1] = 3221225472;
+  v21[2] = sub_10000FE30;
+  v21[3] = &unk_1002725B8;
+  v21[4] = self;
+  v22 = identifierCopy;
+  v25 = scopeCopy;
+  v23 = v15;
+  v24 = v17;
+  v18 = v15;
+  v19 = v17;
+  v20 = identifierCopy;
+  [v18 performAsCurrentWithPendingUnitCount:1 usingBlock:v21];
 }
 
 @end

@@ -52,9 +52,9 @@
 - (_DASBARScheduler)initWithScheduler:(id)scheduler
 {
   schedulerCopy = scheduler;
-  v44.receiver = self;
-  v44.super_class = _DASBARScheduler;
-  v6 = [(_DASBARScheduler *)&v44 init];
+  v43.receiver = self;
+  v43.super_class = _DASBARScheduler;
+  v6 = [(_DASBARScheduler *)&v43 init];
   if (v6)
   {
     v7 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
@@ -71,65 +71,64 @@
     v14 = *(v6 + 5);
     *(v6 + 5) = v13;
 
-    v15 = *(v6 + 5);
     dispatch_set_qos_class_fallback();
     objc_storeStrong(v6 + 6, scheduler);
-    v16 = +[NSMutableDictionary dictionary];
-    v17 = *(v6 + 21);
-    *(v6 + 21) = v16;
+    v15 = +[NSMutableDictionary dictionary];
+    v16 = *(v6 + 21);
+    *(v6 + 21) = v15;
 
-    v18 = [_DASDaemonLogger logForCategory:@"bar"];
-    v19 = *(v6 + 22);
-    *(v6 + 22) = v18;
+    v17 = [_DASDaemonLogger logForCategory:@"bar"];
+    v18 = *(v6 + 22);
+    *(v6 + 22) = v17;
 
-    v20 = +[NSMutableSet set];
-    v21 = *(v6 + 12);
-    *(v6 + 12) = v20;
+    v19 = +[NSMutableSet set];
+    v20 = *(v6 + 12);
+    *(v6 + 12) = v19;
 
-    v22 = +[NSMutableSet set];
-    v23 = *(v6 + 13);
-    *(v6 + 13) = v22;
+    v21 = +[NSMutableSet set];
+    v22 = *(v6 + 13);
+    *(v6 + 13) = v21;
 
-    v24 = +[NSMutableSet set];
-    v25 = *(v6 + 14);
-    *(v6 + 14) = v24;
+    v23 = +[NSMutableSet set];
+    v24 = *(v6 + 14);
+    *(v6 + 14) = v23;
 
-    v26 = +[NSMutableSet set];
-    v27 = *(v6 + 17);
-    *(v6 + 17) = v26;
+    v25 = +[NSMutableSet set];
+    v26 = *(v6 + 17);
+    *(v6 + 17) = v25;
 
-    v28 = +[NSMutableSet set];
-    v29 = *(v6 + 18);
-    *(v6 + 18) = v28;
+    v27 = +[NSMutableSet set];
+    v28 = *(v6 + 18);
+    *(v6 + 18) = v27;
 
-    v30 = +[NSMutableSet set];
-    v31 = *(v6 + 15);
-    *(v6 + 15) = v30;
+    v29 = +[NSMutableSet set];
+    v30 = *(v6 + 15);
+    *(v6 + 15) = v29;
 
-    v32 = +[NSMutableSet set];
-    v33 = *(v6 + 16);
-    *(v6 + 16) = v32;
+    v31 = +[NSMutableSet set];
+    v32 = *(v6 + 16);
+    *(v6 + 16) = v31;
 
-    v34 = [[NSUserDefaults alloc] initWithSuiteName:@"com.apple.mt"];
-    v35 = *(v6 + 8);
-    *(v6 + 8) = v34;
+    v33 = [[NSUserDefaults alloc] initWithSuiteName:@"com.apple.mt"];
+    v34 = *(v6 + 8);
+    *(v6 + 8) = v33;
 
-    v36 = [[NSUserDefaults alloc] initWithSuiteName:@"com.apple.mt.launchDelay"];
-    v37 = *(v6 + 9);
-    *(v6 + 9) = v36;
+    v35 = [[NSUserDefaults alloc] initWithSuiteName:@"com.apple.mt.launchDelay"];
+    v36 = *(v6 + 9);
+    *(v6 + 9) = v35;
 
-    v38 = [[NSUserDefaults alloc] initWithSuiteName:@"com.apple.mt.lastLaunch"];
-    v39 = *(v6 + 10);
-    *(v6 + 10) = v38;
+    v37 = [[NSUserDefaults alloc] initWithSuiteName:@"com.apple.mt.lastLaunch"];
+    v38 = *(v6 + 10);
+    *(v6 + 10) = v37;
 
-    v40 = [[NSUserDefaults alloc] initWithSuiteName:@"com.apple.mt.killed"];
-    v41 = *(v6 + 11);
-    *(v6 + 11) = v40;
+    v39 = [[NSUserDefaults alloc] initWithSuiteName:@"com.apple.mt.killed"];
+    v40 = *(v6 + 11);
+    *(v6 + 11) = v39;
 
     [v6 registerForAppKilledNotifications];
     [v6 reloadRequestedDelays];
-    v42 = +[LSApplicationWorkspace defaultWorkspace];
-    [v42 addObserver:v6];
+    v41 = +[LSApplicationWorkspace defaultWorkspace];
+    [v41 addObserver:v6];
   }
 
   return v6;
@@ -345,7 +344,7 @@ LABEL_24:
 - (id)queueAppsWithDelaySpecifiedInSet:(id)set
 {
   setCopy = set;
-  if ([setCopy count])
+  if (objc_msgSend_count(setCopy))
   {
     v5 = [setCopy mutableCopy];
     v16 = 0u;
@@ -405,35 +404,35 @@ LABEL_24:
 - (id)topNAppsUserHasLaunchedInSet:(id)set
 {
   setCopy = set;
-  if ([setCopy count])
+  if (objc_msgSend_count(setCopy))
   {
-    v46 = os_transaction_create();
+    v47 = os_transaction_create();
     context = objc_autoreleasePoolPush();
     v5 = +[NSMutableArray array];
-    v58 = 0u;
     v59 = 0u;
     v60 = 0u;
     v61 = 0u;
+    v62 = 0u;
     v6 = setCopy;
-    v7 = [v6 countByEnumeratingWithState:&v58 objects:v66 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v59 objects:v67 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v59;
+      v9 = *v60;
       do
       {
         for (i = 0; i != v8; i = i + 1)
         {
-          if (*v59 != v9)
+          if (*v60 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = [_DKQuery predicateForEventsWithStringValue:*(*(&v58 + 1) + 8 * i)];
+          v11 = [_DKQuery predicateForEventsWithStringValue:*(*(&v59 + 1) + 8 * i)];
           [v5 addObject:v11];
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v58 objects:v66 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v59 objects:v67 count:16];
       }
 
       while (v8);
@@ -451,66 +450,68 @@ LABEL_24:
     if (countsDictionary)
     {
       v18 = countsDictionary;
+      v19 = objc_msgSend_count(countsDictionary);
     }
 
     else
     {
       v18 = &__NSDictionary0__struct;
+      v19 = objc_msgSend_count(&__NSDictionary0__struct);
     }
 
-    if ([v18 count] > 0x32)
+    if (v19 > 0x32)
     {
-      v42 = v15;
-      v43 = v13;
-      v44 = v12;
-      v45 = setCopy;
+      v43 = v15;
+      v44 = v13;
+      v45 = v12;
+      v46 = setCopy;
       allKeys = [v18 allKeys];
-      v24 = [allKeys mutableCopy];
+      v25 = [allKeys mutableCopy];
 
-      v56[0] = _NSConcreteStackBlock;
-      v56[1] = 3221225472;
-      v56[2] = sub_1000A3DA4;
-      v56[3] = &unk_1001B7A90;
-      v41 = v18;
-      v57 = v18;
-      [v24 sortUsingComparator:v56];
-      v25 = +[NSMutableSet set];
-      v52 = 0u;
+      v57[0] = _NSConcreteStackBlock;
+      v57[1] = 3221225472;
+      v57[2] = sub_1000A3DA4;
+      v57[3] = &unk_1001B7A90;
+      v42 = v18;
+      v58 = v18;
+      [v25 sortUsingComparator:v57];
+      v26 = +[NSMutableSet set];
       v53 = 0u;
       v54 = 0u;
       v55 = 0u;
-      v26 = v24;
-      v27 = [v26 countByEnumeratingWithState:&v52 objects:v65 count:16];
-      if (v27)
+      v56 = 0u;
+      v27 = v25;
+      v28 = [v27 countByEnumeratingWithState:&v53 objects:v66 count:16];
+      if (v28)
       {
-        v28 = v27;
-        v29 = 0;
-        v30 = *v53;
+        v29 = v28;
+        v30 = 0;
+        v31 = *v54;
 LABEL_17:
-        v31 = 0;
+        v32 = 0;
         while (1)
         {
-          if (*v53 != v30)
+          if (*v54 != v31)
           {
-            objc_enumerationMutation(v26);
+            objc_enumerationMutation(v27);
           }
 
-          v32 = *(*(&v52 + 1) + 8 * v31);
-          if ([v6 containsObject:{v32, v41}])
+          v33 = *(*(&v53 + 1) + 8 * v32);
+          if ([v6 containsObject:{v33, v42}])
           {
-            dk_dedup = [v32 dk_dedup];
-            [v25 addObject:dk_dedup];
+            dk_dedup = [v33 dk_dedup];
+            [v26 addObject:dk_dedup];
 
-            if (++v29 == 50)
+            if (++v30 == 50)
             {
               break;
             }
           }
 
-          if (v28 == ++v31)
+          if (v29 == ++v32)
           {
-            v28 = [v26 countByEnumeratingWithState:&v52 objects:v65 count:16];
-            if (v28)
+            v29 = [v27 countByEnumeratingWithState:&v53 objects:v66 count:16];
+            if (v29)
             {
               goto LABEL_17;
             }
@@ -520,67 +521,67 @@ LABEL_17:
         }
       }
 
-      v21 = [v25 mutableCopy];
-      v12 = v44;
-      setCopy = v45;
-      v15 = v42;
-      v13 = v43;
-      v20 = v41;
+      v22 = [v26 mutableCopy];
+      v12 = v45;
+      setCopy = v46;
+      v15 = v43;
+      v13 = v44;
+      v21 = v42;
     }
 
     else
     {
       allKeys2 = [v18 allKeys];
       [NSMutableSet setWithArray:allKeys2];
-      v21 = v20 = v18;
+      v22 = v21 = v18;
 
-      [v21 intersectSet:v6];
+      [v22 intersectSet:v6];
     }
 
     objc_autoreleasePoolPop(v15);
     objc_autoreleasePoolPop(context);
-    v50 = 0u;
     v51 = 0u;
-    v48 = 0u;
+    v52 = 0u;
     v49 = 0u;
-    v22 = v21;
-    v34 = [v22 countByEnumeratingWithState:&v48 objects:v64 count:16];
-    if (v34)
+    v50 = 0u;
+    v23 = v22;
+    v35 = [v23 countByEnumeratingWithState:&v49 objects:v65 count:16];
+    if (v35)
     {
-      v35 = v34;
-      v36 = *v49;
+      v36 = v35;
+      v37 = *v50;
       do
       {
-        for (j = 0; j != v35; j = j + 1)
+        for (j = 0; j != v36; j = j + 1)
         {
-          if (*v49 != v36)
+          if (*v50 != v37)
           {
-            objc_enumerationMutation(v22);
+            objc_enumerationMutation(v23);
           }
 
           log = self->_log;
           if (os_log_type_enabled(log, OS_LOG_TYPE_DEBUG))
           {
-            v39 = *(*(&v48 + 1) + 8 * j);
+            v40 = *(*(&v49 + 1) + 8 * j);
             *buf = 138412290;
-            v63 = v39;
+            v64 = v40;
             _os_log_debug_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEBUG, "User has launched: %@", buf, 0xCu);
           }
         }
 
-        v35 = [v22 countByEnumeratingWithState:&v48 objects:v64 count:16];
+        v36 = [v23 countByEnumeratingWithState:&v49 objects:v65 count:16];
       }
 
-      while (v35);
+      while (v36);
     }
   }
 
   else
   {
-    v22 = setCopy;
+    v23 = setCopy;
   }
 
-  return v22;
+  return v23;
 }
 
 - (BOOL)isBAREnabledOnWiFiOnly
@@ -634,7 +635,7 @@ LABEL_17:
         v20 = v15;
         v61 = v20;
         [v18 enumerateKeysAndObjectsUsingBlock:v59];
-        if ([v20 count])
+        if (objc_msgSend_count(v20))
         {
           if (os_log_type_enabled(self->_log, OS_LOG_TYPE_DEBUG))
           {
@@ -647,7 +648,7 @@ LABEL_17:
           [(NSMutableSet *)self->_disallowedApps unionSet:v20];
         }
 
-        if ([v19 count])
+        if (objc_msgSend_count(v19))
         {
           if (os_log_type_enabled(self->_log, OS_LOG_TYPE_DEBUG))
           {
@@ -1872,7 +1873,7 @@ LABEL_18:
 - (BOOL)appUsesBackgroundTaskScheduler:(id)scheduler
 {
   backgroundTaskSchedulerPermittedIdentifiers = [scheduler backgroundTaskSchedulerPermittedIdentifiers];
-  v4 = [backgroundTaskSchedulerPermittedIdentifiers count] != 0;
+  v4 = objc_msgSend_count(backgroundTaskSchedulerPermittedIdentifiers) != 0;
 
   return v4;
 }

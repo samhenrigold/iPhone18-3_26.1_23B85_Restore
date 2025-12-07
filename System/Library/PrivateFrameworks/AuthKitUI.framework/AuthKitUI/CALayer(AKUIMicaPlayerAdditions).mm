@@ -177,7 +177,6 @@
 
   objc_storeStrong(&v35, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   return v38;
 }
 
@@ -315,7 +314,6 @@
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (id)mp_allLayersWhoseNamesContainString:()AKUIMicaPlayerAdditions
@@ -383,7 +381,6 @@
   objc_storeStrong(&array, 0);
   objc_storeStrong(&mp_allLayersInTree, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -463,7 +460,6 @@
   v4 = MEMORY[0x277D82BE0](array);
   objc_storeStrong(&array, 0);
   objc_storeStrong(v23, 0);
-  *MEMORY[0x277D85DE8];
 
   return v4;
 }

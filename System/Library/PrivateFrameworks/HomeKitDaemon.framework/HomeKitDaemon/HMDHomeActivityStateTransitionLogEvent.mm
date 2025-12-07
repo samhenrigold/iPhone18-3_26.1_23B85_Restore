@@ -7,8 +7,8 @@
 
 - (NSDictionary)coreAnalyticsEventDictionary
 {
-  v18[8] = *MEMORY[0x277D85DE8];
-  v17[0] = @"fromState";
+  v17[8] = *MEMORY[0x277D85DE8];
+  v16[0] = @"fromState";
   fromState = [(HMDHomeActivityStateTransitionLogEvent *)self fromState];
   if (fromState - 1 > 6)
   {
@@ -20,8 +20,8 @@
     v4 = off_278671F60[fromState - 1];
   }
 
-  v18[0] = v4;
-  v17[1] = @"toState";
+  v17[0] = v4;
+  v16[1] = @"toState";
   toState = [(HMDHomeActivityStateTransitionLogEvent *)self toState];
   if (toState - 1 > 6)
   {
@@ -33,8 +33,8 @@
     v6 = off_278671F60[toState - 1];
   }
 
-  v18[1] = v6;
-  v17[2] = @"reason";
+  v17[1] = v6;
+  v16[2] = @"reason";
   reason = [(HMDHomeActivityStateTransitionLogEvent *)self reason];
   if ((reason - 1) > 3)
   {
@@ -46,25 +46,23 @@
     v8 = off_278671F98[reason - 1];
   }
 
-  v18[2] = v8;
-  v17[3] = @"numTransitions_reason1_automated";
+  v17[2] = v8;
+  v16[3] = @"numTransitions_reason1_automated";
   automatedCount = [(HMDHomeActivityStateTransitionLogEvent *)self automatedCount];
-  v18[3] = automatedCount;
-  v17[4] = @"numTransitions_reason2_automatedHoldEnd";
+  v17[3] = automatedCount;
+  v16[4] = @"numTransitions_reason2_automatedHoldEnd";
   automatedHoldEndCount = [(HMDHomeActivityStateTransitionLogEvent *)self automatedHoldEndCount];
-  v18[4] = automatedHoldEndCount;
-  v17[5] = @"numTransitions_reason3_manualHoldEnd";
+  v17[4] = automatedHoldEndCount;
+  v16[5] = @"numTransitions_reason3_manualHoldEnd";
   manualHoldEndCount = [(HMDHomeActivityStateTransitionLogEvent *)self manualHoldEndCount];
-  v18[5] = manualHoldEndCount;
-  v17[6] = @"numTransitions_reason4_manualHoldStart";
+  v17[5] = manualHoldEndCount;
+  v16[6] = @"numTransitions_reason4_manualHoldStart";
   manualHoldStartCount = [(HMDHomeActivityStateTransitionLogEvent *)self manualHoldStartCount];
-  v18[6] = manualHoldStartCount;
-  v17[7] = @"numTransitions_reason5_other";
+  v17[6] = manualHoldStartCount;
+  v16[7] = @"numTransitions_reason5_other";
   otherCount = [(HMDHomeActivityStateTransitionLogEvent *)self otherCount];
-  v18[7] = otherCount;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:8];
-
-  v15 = *MEMORY[0x277D85DE8];
+  v17[7] = otherCount;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:8];
 
   return v14;
 }

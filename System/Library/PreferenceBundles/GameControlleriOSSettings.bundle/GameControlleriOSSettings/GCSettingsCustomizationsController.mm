@@ -254,12 +254,15 @@ LABEL_10:
 - (void)loadDevice
 {
   v3 = [*&self->PSListController_opaque[OBJC_IVAR___PSViewController__specifier] propertyForKey:@"Controller"];
+  v4 = v3;
   if (v3 != self->_device)
   {
+    v5 = v3;
     objc_storeStrong(&self->_device, v3);
+    v4 = v5;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(v3, v4);
 }
 
 - (void)loadCustomizableApps

@@ -35,8 +35,8 @@
         operator delete(v24);
         cap = 0;
         *p_inputPoints = 0;
-        *(p_inputPoints + 8) = 0;
-        *(p_inputPoints + 16) = 0;
+        p_inputPoints[1] = 0;
+        p_inputPoints[2] = 0;
       }
 
       if (v25 <= 0x1E1E1E1E1E1E1E1)
@@ -82,7 +82,7 @@
       if (v30 != v24)
       {
         memmove(*p_inputPoints, v20, v31);
-        v30 = *(p_inputPoints + 8);
+        v30 = p_inputPoints[1];
       }
 
       if (v21 != v32)
@@ -93,7 +93,7 @@
       end = (v30 + v21 - v32);
     }
 
-    *(p_inputPoints + 8) = end;
+    p_inputPoints[1] = end;
   }
 
   v33 = *p_inputPoints;

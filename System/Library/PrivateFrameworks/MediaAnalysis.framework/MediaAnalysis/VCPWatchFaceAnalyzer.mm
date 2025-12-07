@@ -23,7 +23,7 @@
 
 - (int)analyzeAsset:(id)asset cancel:(id)cancel results:(id *)results
 {
-  v75 = *MEMORY[0x1E69E9840];
+  v76 = *MEMORY[0x1E69E9840];
   assetCopy = asset;
   cancelCopy = cancel;
   v9 = cancelCopy;
@@ -32,19 +32,19 @@
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
     if ([defaultManager fileExistsAtPath:@"/tmp/com.apple.mediaanalysisd/"])
     {
-      v41 = 0;
+      v42 = 0;
     }
 
     else
     {
-      v56 = 0;
-      v11 = [defaultManager createDirectoryAtPath:@"/tmp/com.apple.mediaanalysisd/" withIntermediateDirectories:1 attributes:0 error:&v56];
-      v41 = v56;
+      v57 = 0;
+      v11 = [defaultManager createDirectoryAtPath:@"/tmp/com.apple.mediaanalysisd/" withIntermediateDirectories:1 attributes:0 error:&v57];
+      v42 = v57;
       if ((v11 & 1) == 0)
       {
         if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
-          v31 = [v41 description];
+          v31 = [v42 description];
           LODWORD(buf) = 138412290;
           *(&buf + 4) = v31;
           _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to create resource file cache directory (%@)", &buf, 0xCu);
@@ -58,13 +58,13 @@
     v12 = MEMORY[0x1E696AEC0];
     uUID = [MEMORY[0x1E696AFB0] UUID];
     uUIDString = [uUID UUIDString];
-    v40 = [v12 stringWithFormat:@"%@wf-%@", @"/tmp/com.apple.mediaanalysisd/", uUIDString];
+    v41 = [v12 stringWithFormat:@"%@wf-%@", @"/tmp/com.apple.mediaanalysisd/", uUIDString];
 
-    v43 = [objc_alloc(MEMORY[0x1E695DFF8]) initFileURLWithPath:v40 isDirectory:1];
+    v44 = [objc_alloc(MEMORY[0x1E695DFF8]) initFileURLWithPath:v41 isDirectory:1];
     defaultManager2 = [MEMORY[0x1E696AC08] defaultManager];
-    v55 = 0;
-    [defaultManager2 createDirectoryAtURL:v43 withIntermediateDirectories:1 attributes:0 error:&v55];
-    v16 = v55;
+    v56 = 0;
+    [defaultManager2 createDirectoryAtURL:v44 withIntermediateDirectories:1 attributes:0 error:&v56];
+    v16 = v56;
 
     if (v16)
     {
@@ -82,50 +82,50 @@
     resultsCopy = results;
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v67 = 0x3032000000;
-    v68 = __Block_byref_object_copy__68;
-    v69 = __Block_byref_object_dispose__68;
-    v70 = 0;
-    v49 = 0;
-    v50 = &v49;
-    v51 = 0x3032000000;
-    v52 = __Block_byref_object_copy__68;
-    v53 = __Block_byref_object_dispose__68;
-    v54 = 0;
+    v68 = 0x3032000000;
+    v69 = __Block_byref_object_copy__68;
+    v70 = __Block_byref_object_dispose__68;
+    v71 = 0;
+    v50 = 0;
+    v51 = &v50;
+    v52 = 0x3032000000;
+    v53 = __Block_byref_object_copy__68;
+    v54 = __Block_byref_object_dispose__68;
+    v55 = 0;
     v18 = dispatch_semaphore_create(0);
     options = self->_options;
-    v45[0] = MEMORY[0x1E69E9820];
-    v45[1] = 3221225472;
-    v45[2] = __52__VCPWatchFaceAnalyzer_analyzeAsset_cancel_results___block_invoke;
-    v45[3] = &unk_1E8351848;
+    v46[0] = MEMORY[0x1E69E9820];
+    v46[1] = 3221225472;
+    v46[2] = __52__VCPWatchFaceAnalyzer_analyzeAsset_cancel_results___block_invoke;
+    v46[3] = &unk_1E8351848;
     p_buf = &buf;
-    v48 = &v49;
+    v49 = &v50;
     v20 = v18;
-    v46 = v20;
+    v47 = v20;
     v21 = assetCopy;
-    v22 = v43;
+    v22 = v44;
     v23 = options;
-    v24 = v45;
-    v57 = 0;
-    v58 = &v57;
-    v59 = 0x2020000000;
+    v24 = v46;
+    v58 = 0;
+    v59 = &v58;
+    v60 = 0x2020000000;
     v25 = getPFLGeneratePhotosFaceWithOptionsSymbolLoc(void)::ptr;
-    v60 = getPFLGeneratePhotosFaceWithOptionsSymbolLoc(void)::ptr;
+    v61 = getPFLGeneratePhotosFaceWithOptionsSymbolLoc(void)::ptr;
     if (!getPFLGeneratePhotosFaceWithOptionsSymbolLoc(void)::ptr)
     {
-      *&v71 = MEMORY[0x1E69E9820];
-      *(&v71 + 1) = 3221225472;
-      v72 = ___ZL44getPFLGeneratePhotosFaceWithOptionsSymbolLocv_block_invoke;
-      v73 = &unk_1E834C0F0;
-      v74 = &v57;
+      *&v72 = MEMORY[0x1E69E9820];
+      *(&v72 + 1) = 3221225472;
+      v73 = ___ZL44getPFLGeneratePhotosFaceWithOptionsSymbolLocv_block_invoke;
+      v74 = &unk_1E834C0F0;
+      v75 = &v58;
       v26 = PhotosFaceLayoutLibrary();
       v27 = dlsym(v26, "PFLGeneratePhotosFaceWithOptions");
-      *(v74[1] + 24) = v27;
-      getPFLGeneratePhotosFaceWithOptionsSymbolLoc(void)::ptr = *(v74[1] + 24);
-      v25 = v58[3];
+      *(v75[1] + 24) = v27;
+      getPFLGeneratePhotosFaceWithOptionsSymbolLoc(void)::ptr = *(v75[1] + 24);
+      v25 = v59[3];
     }
 
-    _Block_object_dispose(&v57, 8);
+    _Block_object_dispose(&v58, 8);
     if (v25)
     {
       v25(v21, v22, v23, v24);
@@ -139,32 +139,32 @@ LABEL_19:
           if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
           {
             v30 = [*(*(&buf + 1) + 40) description];
-            LODWORD(v71) = 138412290;
-            *(&v71 + 4) = v30;
-            _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Error running exportWatchFaceForAsset: %@", &v71, 0xCu);
+            LODWORD(v72) = 138412290;
+            *(&v72 + 4) = v30;
+            _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Error running exportWatchFaceForAsset: %@", &v72, 0xCu);
           }
         }
 
         else
         {
-          v32 = v50[5];
+          v32 = v51[5];
           if (v32)
           {
-            v64 = @"WatchFaceResults";
-            v61[0] = @"watchFacePath";
-            v61[1] = @"watchFaceData";
-            v62[0] = v40;
-            v62[1] = v32;
-            v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v62 forKeys:v61 count:2];
-            v63 = v33;
-            v34 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v63 count:1];
-            v65 = v34;
-            *resultsCopy = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v65 forKeys:&v64 count:1];
+            v65 = @"WatchFaceResults";
+            v62[0] = @"watchFacePath";
+            v62[1] = @"watchFaceData";
+            v63[0] = v41;
+            v63[1] = v32;
+            v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v63 forKeys:v62 count:2];
+            v64 = v33;
+            v34 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v64 count:1];
+            v66 = v34;
+            *resultsCopy = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v66 forKeys:&v65 count:1];
 
             v10 = 0;
 LABEL_37:
 
-            _Block_object_dispose(&v49, 8);
+            _Block_object_dispose(&v50, 8);
             _Block_object_dispose(&buf, 8);
 
 LABEL_38:
@@ -175,8 +175,8 @@ LABEL_39:
 
           if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
           {
-            LOWORD(v71) = 0;
-            _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Nil Photo Data for asset", &v71, 2u);
+            LOWORD(v72) = 0;
+            _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Nil Photo Data for asset", &v72, 2u);
           }
         }
 
@@ -194,26 +194,26 @@ LABEL_39:
       }
 
       v35 = v21;
-      v57 = 0;
-      v58 = &v57;
-      v59 = 0x2020000000;
+      v58 = 0;
+      v59 = &v58;
+      v60 = 0x2020000000;
       v36 = getPFLCancelGeneratingPhotosFaceForAssetSymbolLoc(void)::ptr;
-      v60 = getPFLCancelGeneratingPhotosFaceForAssetSymbolLoc(void)::ptr;
+      v61 = getPFLCancelGeneratingPhotosFaceForAssetSymbolLoc(void)::ptr;
       if (!getPFLCancelGeneratingPhotosFaceForAssetSymbolLoc(void)::ptr)
       {
-        *&v71 = MEMORY[0x1E69E9820];
-        *(&v71 + 1) = 3221225472;
-        v72 = ___ZL49getPFLCancelGeneratingPhotosFaceForAssetSymbolLocv_block_invoke;
-        v73 = &unk_1E834C0F0;
-        v74 = &v57;
+        *&v72 = MEMORY[0x1E69E9820];
+        *(&v72 + 1) = 3221225472;
+        v73 = ___ZL49getPFLCancelGeneratingPhotosFaceForAssetSymbolLocv_block_invoke;
+        v74 = &unk_1E834C0F0;
+        v75 = &v58;
         v37 = PhotosFaceLayoutLibrary();
         v38 = dlsym(v37, "PFLCancelGeneratingPhotosFaceForAsset");
-        *(v74[1] + 24) = v38;
-        getPFLCancelGeneratingPhotosFaceForAssetSymbolLoc(void)::ptr = *(v74[1] + 24);
-        v36 = v58[3];
+        *(v75[1] + 24) = v38;
+        getPFLCancelGeneratingPhotosFaceForAssetSymbolLoc(void)::ptr = *(v75[1] + 24);
+        v36 = v59[3];
       }
 
-      _Block_object_dispose(&v57, 8);
+      _Block_object_dispose(&v58, 8);
       if (v36)
       {
         v36(v35);
@@ -223,8 +223,8 @@ LABEL_39:
       }
     }
 
-    dlerror();
-    abort_report_np();
+    v40 = dlerror();
+    abort_report_np("%s", v40);
     __break(1u);
   }
 

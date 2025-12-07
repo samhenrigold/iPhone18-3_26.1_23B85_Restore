@@ -118,7 +118,7 @@ uint64_t std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TP
             }
 
             v12 -= 8;
-            result = (*a3)(v14, v6 + v12);
+            result = (*a3)(v14, v12 + v6);
             if ((result & 1) == 0)
             {
               v13 = (v6 + v12 + 8);
@@ -142,7 +142,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TPItnTagHandle_fake ** const&,TPItnTagHandle_fake ** const&),TPItnTagHandle_fake ***>(uint64_t result, void *a2, uint64_t (**a3)(void *, void))
+uint64_t std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TPItnTagHandle_fake ** const&,TPItnTagHandle_fake ** const&),TPItnTagHandle_fake ***>(uint64_t result, void *a2, uint64_t (**a3)(void *, void *))
 {
   if (result != a2)
   {
@@ -152,7 +152,7 @@ uint64_t std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BO
     v7 = (result + 8);
     if ((result + 8) != a2)
     {
-      v9 = result - 8;
+      v9 = (result - 8);
       do
       {
         v10 = v6;
@@ -164,17 +164,16 @@ uint64_t std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BO
           v11 = v9;
           do
           {
-            *(v11 + 16) = *(v11 + 8);
-            result = (*a3)(v12, v11);
-            v11 -= 8;
+            v11[2] = v11[1];
+            result = (*a3)(v12, v11--);
           }
 
           while ((result & 1) != 0);
-          *(v11 + 16) = v12[0];
+          v11[2] = v12[0];
         }
 
         v7 = v6 + 1;
-        v9 += 8;
+        ++v9;
       }
 
       while (v6 + 1 != a2);
@@ -503,7 +502,7 @@ LABEL_13:
       v25 = v23;
       while (1)
       {
-        v26 = a1 + v25;
+        v26 = (a1 + v25);
         *(a1 + v25 + 24) = *(a1 + v25 + 16);
         if (v25 == -16)
         {
@@ -511,7 +510,7 @@ LABEL_13:
         }
 
         v25 -= 8;
-        if (((*a3)(&v30, (v26 + 8)) & 1) == 0)
+        if (((*a3)(&v30, v26 + 1) & 1) == 0)
         {
           v27 = (a1 + v25 + 24);
           goto LABEL_40;
@@ -536,7 +535,7 @@ LABEL_40:
   }
 }
 
-uint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TPItnTagHandle_fake ** const&,TPItnTagHandle_fake ** const&),TPItnTagHandle_fake ***,TPItnTagHandle_fake ***>(uint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t (**a4)(uint64_t *, uint64_t))
+uint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TPItnTagHandle_fake ** const&,TPItnTagHandle_fake ** const&),TPItnTagHandle_fake ***,TPItnTagHandle_fake ***>(uint64_t *a1, uint64_t *a2, uint64_t *a3, unsigned int (**a4)(uint64_t *, uint64_t *))
 {
   if (a1 != a2)
   {
@@ -593,7 +592,7 @@ uint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&
           if (v19 < v8)
           {
             v20 = v16 + 2;
-            if ((*a4)(v16 + 1, (v16 + 2)))
+            if ((*a4)(v16 + 1, v16 + 2))
             {
               v17 = v20;
               v18 = v19;
@@ -728,7 +727,7 @@ uint64_t std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TPItnTagH
   return result;
 }
 
-void *std::vector<TPItnTagHandle_fake **>::__assign_with_size[abi:ne200100]<TPItnTagHandle_fake ** const*,TPItnTagHandle_fake ** const*>(void *result, char *__src, char *a3, unint64_t a4)
+void **std::vector<TPItnTagHandle_fake **>::__assign_with_size[abi:ne200100]<TPItnTagHandle_fake ** const*,TPItnTagHandle_fake ** const*>(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -815,7 +814,7 @@ void *std::vector<TPItnTagHandle_fake **>::__assign_with_size[abi:ne200100]<TPIt
   return result;
 }
 
-void std::vector<TPItnTagHandle_fake **>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<TPItnTagHandle_fake **>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -916,10 +915,10 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<TItnControl>>(uint64_
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-__n128 std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(TItnControl const&,TItnControl const&),TItnControl*,false>(uint64_t a1, __n128 *a2, uint64_t (**a3)(__n128 *, __n128 *), uint64_t a4, char a5, __n128 result)
+__n128 std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(TItnControl const&,TItnControl const&),TItnControl*,false>(__int128 *a1, __n128 *a2, uint64_t (**a3)(__n128 *, __n128 *), uint64_t a4, char a5, __n128 result)
 {
 LABEL_1:
-  v9 = (a2 - 24);
+  v9 = &a2[-2].n128_i64[1];
   v79 = a2 - 3;
   v10 = &a2[-5].n128_i8[8];
   v11 = a1;
@@ -961,12 +960,12 @@ LABEL_2:
 
           v61 = *(v11 + 5);
           result = *(v11 + 24);
-          v62 = v9[1].n128_u64[0];
+          v62 = *(v9 + 16);
           *(v11 + 24) = *v9;
           *(v11 + 5) = v62;
           *v9 = result;
 LABEL_77:
-          v9[1].n128_u64[0] = v61;
+          *(v9 + 16) = v61;
           return result;
         }
 
@@ -977,11 +976,11 @@ LABEL_77:
 
         v68 = *(v11 + 5);
         v69 = *(v11 + 24);
-        v70 = v9[1].n128_u64[0];
+        v70 = *(v9 + 16);
         *(v11 + 24) = *v9;
         *(v11 + 5) = v70;
         *v9 = v69;
-        v9[1].n128_u64[0] = v68;
+        *(v9 + 16) = v68;
         goto LABEL_103;
       case 4uLL:
         v65 = (*a3)((v11 + 24), v11);
@@ -1043,11 +1042,11 @@ LABEL_99:
 
         v74 = *(v11 + 8);
         v75 = v11[3];
-        v76 = v9[1].n128_u64[0];
+        v76 = *(v9 + 16);
         v11[3] = *v9;
         *(v11 + 8) = v76;
         *v9 = v75;
-        v9[1].n128_u64[0] = v74;
+        *(v9 + 16) = v74;
         if (!(*a3)(v11 + 3, (v11 + 24)))
         {
           return result;
@@ -1108,7 +1107,7 @@ LABEL_10:
     }
 
     v16 = v15 >> 1;
-    v17 = (v11 + 24 * (v15 >> 1));
+    v17 = v11 + 24 * (v15 >> 1);
     v18 = *a3;
     if (v14 >= 0xC01)
     {
@@ -1118,27 +1117,27 @@ LABEL_10:
       {
         if (v20)
         {
-          v108 = *(a1 + 16);
+          v108 = *(a1 + 2);
           v81 = *a1;
           v21 = *v9;
-          *(a1 + 16) = a2[-1].n128_u64[1];
+          *(a1 + 2) = a2[-1].n128_u64[1];
           *a1 = v21;
           goto LABEL_27;
         }
 
-        v114 = *(a1 + 16);
+        v114 = *(a1 + 2);
         v87 = *a1;
         v29 = *v17;
-        *(a1 + 16) = v17[1].n128_u64[0];
+        *(a1 + 2) = *(v17 + 16);
         *a1 = v29;
-        v17[1].n128_u64[0] = v114;
+        *(v17 + 16) = v114;
         *v17 = v87;
         if ((*a3)((a2 - 24), v17))
         {
-          v108 = v17[1].n128_u64[0];
+          v108 = *(v17 + 16);
           v81 = *v17;
           v30 = *v9;
-          v17[1].n128_u64[0] = a2[-1].n128_u64[1];
+          *(v17 + 16) = a2[-1].n128_u64[1];
           *v17 = v30;
 LABEL_27:
           *v9 = v81;
@@ -1148,21 +1147,21 @@ LABEL_27:
 
       else if (v20)
       {
-        v110 = v17[1].n128_u64[0];
+        v110 = *(v17 + 16);
         v83 = *v17;
         v25 = *v9;
-        v17[1].n128_u64[0] = a2[-1].n128_u64[1];
+        *(v17 + 16) = a2[-1].n128_u64[1];
         *v17 = v25;
         *v9 = v83;
         a2[-1].n128_u64[1] = v110;
         if ((*a3)(v17, a1))
         {
-          v111 = *(a1 + 16);
+          v111 = *(a1 + 2);
           v84 = *a1;
           v26 = *v17;
-          *(a1 + 16) = v17[1].n128_u64[0];
+          *(a1 + 2) = *(v17 + 16);
           *a1 = v26;
-          v17[1].n128_u64[0] = v111;
+          *(v17 + 16) = v111;
           *v17 = v84;
         }
       }
@@ -1174,11 +1173,11 @@ LABEL_27:
       {
         if (v33)
         {
-          v34 = *(a1 + 40);
+          v34 = *(a1 + 5);
           v35 = *(a1 + 24);
           v36 = a2[-2].n128_u64[0];
           *(a1 + 24) = *v79;
-          *(a1 + 40) = v36;
+          *(a1 + 5) = v36;
           *v79 = v35;
           a2[-2].n128_u64[0] = v34;
         }
@@ -1186,18 +1185,18 @@ LABEL_27:
         else
         {
           v91 = *(a1 + 24);
-          v118 = *(a1 + 40);
-          v41 = *(a1 + 24 * v16 - 8);
+          v118 = *(a1 + 5);
+          v41 = *(a1 + 3 * v16 - 1);
           *(a1 + 24) = *v31;
-          *(a1 + 40) = v41;
-          *(a1 + 24 * v16 - 8) = v118;
+          *(a1 + 5) = v41;
+          *(a1 + 3 * v16 - 1) = v118;
           *v31 = v91;
           if ((*a3)(v79, (a1 + 24 * v16 - 24)))
           {
-            v119 = *(a1 + 24 * v16 - 8);
+            v119 = *(a1 + 3 * v16 - 1);
             v92 = *v31;
             v42 = *v79;
-            *(a1 + 24 * v16 - 8) = a2[-2].n128_u64[0];
+            *(a1 + 3 * v16 - 1) = a2[-2].n128_u64[0];
             *v31 = v42;
             *v79 = v92;
             a2[-2].n128_u64[0] = v119;
@@ -1207,54 +1206,54 @@ LABEL_27:
 
       else if (v33)
       {
-        v115 = *(a1 + 24 * v16 - 8);
+        v115 = *(a1 + 3 * v16 - 1);
         v88 = *v31;
         v37 = *v79;
-        *(a1 + 24 * v16 - 8) = a2[-2].n128_u64[0];
+        *(a1 + 3 * v16 - 1) = a2[-2].n128_u64[0];
         *v31 = v37;
         *v79 = v88;
         a2[-2].n128_u64[0] = v115;
         if ((*a3)((a1 + 24 * v16 - 24), (a1 + 24)))
         {
           v89 = *(a1 + 24);
-          v116 = *(a1 + 40);
-          v38 = *(a1 + 24 * v16 - 8);
+          v116 = *(a1 + 5);
+          v38 = *(a1 + 3 * v16 - 1);
           *(a1 + 24) = *v31;
-          *(a1 + 40) = v38;
-          *(a1 + 24 * v16 - 8) = v116;
+          *(a1 + 5) = v38;
+          *(a1 + 3 * v16 - 1) = v116;
           *v31 = v89;
         }
       }
 
       v43 = a1 + 24 * v16;
-      v44 = (*a3)((v43 + 24), (a1 + 48));
+      v44 = (*a3)((v43 + 24), a1 + 3);
       v45 = (*a3)((a2 - 72), (v43 + 24));
       if (v44)
       {
         if (v45)
         {
-          v46 = *(a1 + 64);
-          v47 = *(a1 + 48);
+          v46 = *(a1 + 8);
+          v47 = a1[3];
           v48 = a2[-4].n128_u64[1];
-          *(a1 + 48) = *v10;
-          *(a1 + 64) = v48;
+          a1[3] = *v10;
+          *(a1 + 8) = v48;
           *v10 = v47;
           goto LABEL_47;
         }
 
-        v95 = *(a1 + 48);
-        v122 = *(a1 + 64);
-        v51 = *(v43 + 40);
-        *(a1 + 48) = *(v43 + 24);
-        *(a1 + 64) = v51;
-        *(v43 + 40) = v122;
+        v95 = a1[3];
+        v122 = *(a1 + 8);
+        v51 = *(v43 + 5);
+        a1[3] = *(v43 + 24);
+        *(a1 + 8) = v51;
+        *(v43 + 5) = v122;
         *(v43 + 24) = v95;
         if ((*a3)((a2 - 72), (v43 + 24)))
         {
-          v123 = *(v43 + 40);
+          v123 = *(v43 + 5);
           v96 = *(v43 + 24);
           v52 = *v10;
-          *(v43 + 40) = a2[-4].n128_u64[1];
+          *(v43 + 5) = a2[-4].n128_u64[1];
           *(v43 + 24) = v52;
           *v10 = v96;
           v46 = v123;
@@ -1265,21 +1264,21 @@ LABEL_47:
 
       else if (v45)
       {
-        v120 = *(v43 + 40);
+        v120 = *(v43 + 5);
         v93 = *(v43 + 24);
         v49 = *v10;
-        *(v43 + 40) = a2[-4].n128_u64[1];
+        *(v43 + 5) = a2[-4].n128_u64[1];
         *(v43 + 24) = v49;
         *v10 = v93;
         a2[-4].n128_u64[1] = v120;
-        if ((*a3)((v43 + 24), (a1 + 48)))
+        if ((*a3)((v43 + 24), a1 + 3))
         {
-          v94 = *(a1 + 48);
-          v121 = *(a1 + 64);
-          v50 = *(v43 + 40);
-          *(a1 + 48) = *(v43 + 24);
-          *(a1 + 64) = v50;
-          *(v43 + 40) = v121;
+          v94 = a1[3];
+          v121 = *(a1 + 8);
+          v50 = *(v43 + 5);
+          a1[3] = *(v43 + 24);
+          *(a1 + 8) = v50;
+          *(v43 + 5) = v121;
           *(v43 + 24) = v94;
         }
       }
@@ -1293,53 +1292,53 @@ LABEL_47:
           v124 = *(v31 + 16);
           v97 = *v31;
           *v31 = *(v43 + 24);
-          *(v31 + 16) = *(v43 + 40);
+          *(v31 + 16) = *(v43 + 5);
           goto LABEL_56;
         }
 
         v127 = *(v31 + 16);
         v100 = *v31;
         *v31 = *v17;
-        *(v31 + 16) = v17[1].n128_u64[0];
-        v17[1].n128_u64[0] = v127;
+        *(v31 + 16) = *(v17 + 16);
+        *(v17 + 16) = v127;
         *v17 = v100;
         if ((*a3)((v43 + 24), v17))
         {
-          v124 = v17[1].n128_u64[0];
+          v124 = *(v17 + 16);
           v97 = *v17;
           *v17 = *(v43 + 24);
-          v17[1].n128_u64[0] = *(v43 + 40);
+          *(v17 + 16) = *(v43 + 5);
 LABEL_56:
-          *(v43 + 40) = v124;
+          *(v43 + 5) = v124;
           *(v43 + 24) = v97;
         }
       }
 
       else if (v54)
       {
-        v125 = v17[1].n128_u64[0];
+        v125 = *(v17 + 16);
         v98 = *v17;
         *v17 = *(v43 + 24);
-        v17[1].n128_u64[0] = *(v43 + 40);
-        *(v43 + 40) = v125;
+        *(v17 + 16) = *(v43 + 5);
+        *(v43 + 5) = v125;
         *(v43 + 24) = v98;
         if ((*a3)(v17, v31))
         {
           v126 = *(v31 + 16);
           v99 = *v31;
           *v31 = *v17;
-          *(v31 + 16) = v17[1].n128_u64[0];
-          v17[1].n128_u64[0] = v126;
+          *(v31 + 16) = *(v17 + 16);
+          *(v17 + 16) = v126;
           *v17 = v99;
         }
       }
 
-      v128 = *(a1 + 16);
+      v128 = *(a1 + 2);
       v101 = *a1;
       v55 = *v17;
-      *(a1 + 16) = v17[1].n128_u64[0];
+      *(a1 + 2) = *(v17 + 16);
       *a1 = v55;
-      v17[1].n128_u64[0] = v128;
+      *(v17 + 16) = v128;
       *v17 = v101;
       goto LABEL_58;
     }
@@ -1350,10 +1349,10 @@ LABEL_56:
     {
       if (v23)
       {
-        v109 = v17[1].n128_u64[0];
+        v109 = *(v17 + 16);
         v82 = *v17;
         v24 = *v9;
-        v17[1].n128_u64[0] = a2[-1].n128_u64[1];
+        *(v17 + 16) = a2[-1].n128_u64[1];
         *v17 = v24;
 LABEL_36:
         *v9 = v82;
@@ -1361,19 +1360,19 @@ LABEL_36:
         goto LABEL_58;
       }
 
-      v117 = v17[1].n128_u64[0];
+      v117 = *(v17 + 16);
       v90 = *v17;
       v39 = *a1;
-      v17[1].n128_u64[0] = *(a1 + 16);
+      *(v17 + 16) = *(a1 + 2);
       *v17 = v39;
-      *(a1 + 16) = v117;
+      *(a1 + 2) = v117;
       *a1 = v90;
       if ((*a3)((a2 - 24), a1))
       {
-        v109 = *(a1 + 16);
+        v109 = *(a1 + 2);
         v82 = *a1;
         v40 = *v9;
-        *(a1 + 16) = a2[-1].n128_u64[1];
+        *(a1 + 2) = a2[-1].n128_u64[1];
         *a1 = v40;
         goto LABEL_36;
       }
@@ -1381,21 +1380,21 @@ LABEL_36:
 
     else if (v23)
     {
-      v112 = *(a1 + 16);
+      v112 = *(a1 + 2);
       v85 = *a1;
       v27 = *v9;
-      *(a1 + 16) = a2[-1].n128_u64[1];
+      *(a1 + 2) = a2[-1].n128_u64[1];
       *a1 = v27;
       *v9 = v85;
       a2[-1].n128_u64[1] = v112;
       if ((*a3)(a1, v17))
       {
-        v113 = v17[1].n128_u64[0];
+        v113 = *(v17 + 16);
         v86 = *v17;
         v28 = *a1;
-        v17[1].n128_u64[0] = *(a1 + 16);
+        *(v17 + 16) = *(a1 + 2);
         *v17 = v28;
-        *(a1 + 16) = v113;
+        *(a1 + 2) = v113;
         *a1 = v86;
       }
     }
@@ -1431,7 +1430,7 @@ LABEL_58:
     if (!v58)
     {
 LABEL_63:
-      std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(TItnControl const&,TItnControl const&),TItnControl*,false>(a1, v56, a3, -v13, a5 & 1);
+      result = std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(TItnControl const&,TItnControl const&),TItnControl*,false>(a1, v56, a3, -v13, a5 & 1);
       v11 = &v56[1].n128_i8[8];
 LABEL_65:
       a5 = 0;
@@ -1456,7 +1455,7 @@ LABEL_76:
     v130 = *(v11 + 2);
     v103 = *v11;
     v64 = *v9;
-    *(v11 + 2) = v9[1].n128_u64[0];
+    *(v11 + 2) = *(v9 + 16);
     *v11 = v64;
     result = v103;
     *v9 = v103;
@@ -1528,7 +1527,7 @@ LABEL_9:
 LABEL_10:
   if ((*a6)(a4, a3))
   {
-    v27 = a3[1].n128_i64[0];
+    v27 = a3[1].n128_u64[0];
     v28 = *a3;
     v29 = a4[1].n128_u64[0];
     *a3 = *a4;
@@ -1559,7 +1558,7 @@ LABEL_10:
 
   if ((*a6)(a5, a4))
   {
-    v37 = a4[1].n128_i64[0];
+    v37 = a4[1].n128_u64[0];
     v38 = *a4;
     v39 = a5[1].n128_u64[0];
     *a4 = *a5;
@@ -1568,7 +1567,7 @@ LABEL_10:
     a5[1].n128_u64[0] = v37;
     if ((*a6)(a4, a3))
     {
-      v40 = a3[1].n128_i64[0];
+      v40 = a3[1].n128_u64[0];
       v41 = *a3;
       v42 = a4[1].n128_u64[0];
       *a3 = *a4;
@@ -1787,7 +1786,7 @@ __int128 *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPol
   return v6;
 }
 
-uint64_t std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,TItnControl *,BOOL (*&)(TItnControl const&,TItnControl const&)>(__int128 *a1, unint64_t a2, uint64_t (**a3)(char *, __int128 *))
+char *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,TItnControl *,BOOL (*&)(TItnControl const&,TItnControl const&)>(char *a1, char *a2, uint64_t (**a3)(char *, __int128 *))
 {
   v6 = 0;
   v17 = *a1;
@@ -1797,9 +1796,9 @@ uint64_t std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPol
     v6 += 24;
   }
 
-  while (((*a3)(a1 + v6, &v17) & 1) != 0);
-  v7 = a1 + v6;
-  v8 = a1 + v6 - 24;
+  while (((*a3)(&a1[v6], &v17) & 1) != 0);
+  v7 = &a1[v6];
+  v8 = &a1[v6 - 24];
   if (v6 == 24)
   {
     do
@@ -1827,7 +1826,7 @@ uint64_t std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPol
 
   if (v7 < a2)
   {
-    v9 = (a1 + v6);
+    v9 = &a1[v6];
     v10 = a2;
     do
     {
@@ -1835,14 +1834,14 @@ uint64_t std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPol
       v11 = v19;
       v20 = *(v9 + 2);
       v12 = v20;
-      v13 = *(v10 + 16);
+      v13 = *(v10 + 2);
       *v9 = *v10;
       *(v9 + 2) = v13;
-      *(v10 + 16) = v12;
+      *(v10 + 2) = v12;
       *v10 = v11;
       do
       {
-        v9 = (v9 + 24);
+        v9 += 24;
       }
 
       while (((*a3)(v9, &v17) & 1) != 0);
@@ -1861,12 +1860,12 @@ uint64_t std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPol
   if (v8 != a1)
   {
     v14 = *v8;
-    *(a1 + 2) = *(v8 + 16);
+    *(a1 + 2) = *(v8 + 2);
     *a1 = v14;
   }
 
   v15 = v17;
-  *(v8 + 16) = v18;
+  *(v8 + 2) = v18;
   *v8 = v15;
   return v8;
 }
@@ -2049,7 +2048,7 @@ LABEL_47:
     {
       v8 = *(a1 + 16);
       v9 = *a1;
-      v10 = a2[-1].n128_i64[1];
+      v10 = a2[-1].n128_u64[1];
       *a1 = *v7;
       *(a1 + 16) = v10;
       *v7 = v9;
@@ -2169,7 +2168,7 @@ LABEL_41:
   }
 }
 
-__n128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TItnControl const&,TItnControl const&),TItnControl*,TItnControl*>(__n128 *a1, __n128 *a2, __n128 *a3, unsigned int (**a4)(uint64_t, __int8 *), __n128 a5)
+char *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TItnControl const&,TItnControl const&),TItnControl*,TItnControl*>(__n128 *a1, __n128 *a2, char *a3, uint64_t (**a4)(uint64_t, __n128 *), __n128 a5)
 {
   if (a1 != a2)
   {
@@ -2200,17 +2199,17 @@ __n128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(
       {
         if ((*a4)(v14, v8, a5))
         {
-          v15 = v14[1].n128_u64[0];
+          v15 = *(v14 + 2);
           v16 = *v14;
           v17 = v8[1].n128_u64[0];
           *v14 = *v8;
-          v14[1].n128_u64[0] = v17;
+          *(v14 + 2) = v17;
           *v8 = v16;
           v8[1].n128_u64[0] = v15;
           a5 = std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TItnControl const&,TItnControl const&),TItnControl*>(v8, a4, v10, v8);
         }
 
-        v14 = (v14 + 24);
+        v14 += 24;
       }
 
       while (v14 != a3);
@@ -2229,14 +2228,14 @@ __n128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(
         v20 = v8;
         do
         {
-          v21 = v20 + 24 * v19;
+          v21 = (v20 + 24 * v19);
           v22 = (v21 + 24);
           v23 = (2 * v19) | 1;
           v24 = 2 * v19 + 2;
           if (v24 < v18)
           {
-            v25 = (v21 + 48);
-            if ((*a4)((v21 + 24), v21 + 48))
+            v25 = v21 + 3;
+            if ((*a4)(&v21[1].n128_i64[1], v21 + 3))
             {
               v22 = v25;
               v23 = v24;
@@ -2251,8 +2250,8 @@ __n128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(
         }
 
         while (v23 <= ((v18 - 2) >> 1));
-        v7 = (v31 - 24);
-        if (v22 == &v31[-2].n128_i8[8])
+        v7 = v31 - 24;
+        if (v22 == (v31 - 24))
         {
           v22[1].n128_u64[0] = v33;
           *v22 = v32;
@@ -2262,10 +2261,10 @@ __n128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(
         else
         {
           v27 = *v7;
-          v22[1].n128_u64[0] = v31[-1].n128_u64[1];
+          v22[1].n128_u64[0] = *(v31 - 1);
           *v22 = v27;
           *v7 = v32;
-          v31[-1].n128_u64[1] = v33;
+          *(v31 - 1) = v33;
           v8 = v30;
           std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TItnControl const&,TItnControl const&),TItnControl*>(v30, &v22[1].n128_i64[1], a4, 0xAAAAAAAAAAAAAAABLL * ((&v22[1].n128_i64[1] - v30) >> 3));
         }
@@ -2280,7 +2279,7 @@ __n128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(
   return a3;
 }
 
-__n128 std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TItnControl const&,TItnControl const&),TItnControl*>(uint64_t a1, unsigned int (**a2)(uint64_t, __int8 *), uint64_t a3, __n128 *a4)
+__n128 std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TItnControl const&,TItnControl const&),TItnControl*>(uint64_t a1, uint64_t (**a2)(uint64_t, __n128 *), uint64_t a3, __n128 *a4)
 {
   v6 = a3 - 2;
   if (a3 >= 2)
@@ -2292,11 +2291,11 @@ __n128 std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TItnContr
     if ((v6 >> 1) >= (0xAAAAAAAAAAAAAAABLL * ((a4 - a1) >> 3)))
     {
       v12 = (0x5555555555555556 * ((a4 - a1) >> 3)) | 1;
-      v13 = (a1 + 24 * v12);
+      v13 = a1 + 24 * v12;
       v14 = 0x5555555555555556 * ((a4 - a1) >> 3) + 2;
-      if (v14 < a3 && (*a2)(a1 + 24 * v12, &v13[1].n128_i8[8]))
+      if (v14 < a3 && (*a2)(a1 + 24 * v12, (v13 + 24)))
       {
-        v13 = (v13 + 24);
+        v13 += 24;
         v12 = v14;
       }
 
@@ -2308,7 +2307,7 @@ __n128 std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TItnContr
         {
           v16 = v13;
           v17 = *v13;
-          v7[1].n128_u64[0] = v13[1].n128_u64[0];
+          v7[1].n128_u64[0] = *(v13 + 16);
           *v7 = v17;
           if (v9 < v12)
           {
@@ -2316,13 +2315,13 @@ __n128 std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TItnContr
           }
 
           v18 = (2 * v12) | 1;
-          v13 = (a1 + 24 * v18);
+          v13 = a1 + 24 * v18;
           v19 = 2 * v12 + 2;
           if (v19 < a3)
           {
-            if ((*a2)(a1 + 24 * v18, &v13[1].n128_i8[8]))
+            if ((*a2)(a1 + 24 * v18, (v13 + 24)))
             {
-              v13 = (v13 + 24);
+              v13 += 24;
               v18 = v19;
             }
           }
@@ -2622,9 +2621,9 @@ LABEL_6:
   return v6;
 }
 
-uint64_t TBuffer<TPItnRuleHandle_fake **>::insert(uint64_t result, unint64_t a2, uint64_t *a3, unint64_t a4)
+const void **TBuffer<TPItnRuleHandle_fake **>::insert(const void **result, unint64_t a2, uint64_t *a3, unint64_t a4)
 {
-  v5 = *(result + 16);
+  v5 = result[2];
   if (v5 >= a2)
   {
     v6 = a2;
@@ -2632,31 +2631,31 @@ uint64_t TBuffer<TPItnRuleHandle_fake **>::insert(uint64_t result, unint64_t a2,
 
   else
   {
-    v6 = *(result + 16);
+    v6 = result[2];
   }
 
   if (*(result + 2072) == 1)
   {
-    v7 = v5 + a4;
-    v8 = *(result + 8);
-    if (v5 + a4 > v8 && v8 < 2 * v7)
+    v7 = &v5[a4];
+    v8 = result[1];
+    if (&v5[a4] > v8 && v8 < 2 * v7)
     {
-      *(result + 8) = (2 * v7) | 1;
+      result[1] = ((2 * v7) | 1);
       operator new[]();
     }
   }
 
   v9 = v6 + a4;
-  v10 = *(result + 8);
+  v10 = result[1];
   if (v6 < v5 && v9 < v10)
   {
-    v12 = v5 + a4;
-    if (v10 < v5 + a4)
+    v12 = &v5[a4];
+    if (v10 < &v5[a4])
     {
-      v12 = *(result + 8);
+      v12 = result[1];
     }
 
-    v13 = v12 - v9;
+    v13 = &v12[-v9];
     if (v13 <= 1)
     {
       v13 = 1;
@@ -2665,7 +2664,7 @@ uint64_t TBuffer<TPItnRuleHandle_fake **>::insert(uint64_t result, unint64_t a2,
     v14 = 8 * v12 - 8;
     do
     {
-      *(*result + v14) = *(*result + v14 - 8 * a4);
+      *(*result + v14) = *(*result + v14 + -8 * a4);
       v14 -= 8;
       --v13;
     }
@@ -2673,7 +2672,7 @@ uint64_t TBuffer<TPItnRuleHandle_fake **>::insert(uint64_t result, unint64_t a2,
     while (v13);
   }
 
-  v15 = v10 - v6;
+  v15 = &v10[-v6];
   if (v10 > v6)
   {
     if (v15 >= a4)
@@ -2696,10 +2695,10 @@ uint64_t TBuffer<TPItnRuleHandle_fake **>::insert(uint64_t result, unint64_t a2,
     }
   }
 
-  *(result + 16) = v5 + a4;
-  if (v5 + a4 < v10)
+  result[2] = &v5[a4];
+  if (&v5[a4] < v10)
   {
-    *(*result + 8 * (v5 + a4)) = 0;
+    *(*result + &v5[a4]) = 0;
   }
 
   return result;
@@ -2881,20 +2880,20 @@ void std::vector<TPItnRuleControl>::__append(uint64_t a1, unint64_t a2)
   }
 }
 
-void std::vector<TWord const*>::resize(void *a1, unint64_t a2)
+void std::vector<TWord const*>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 3;
+  v2 = (result[1] - *result) >> 3;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    std::vector<TWord const*>::__append(a1, a2 - v2);
+    std::vector<TWord const*>::__append(result, a2 - v2);
   }
 }
 
@@ -2957,20 +2956,17 @@ void std::vector<TWord const*>::push_back[abi:ne200100](uint64_t a1, void *a2)
   *(a1 + 8) = v6;
 }
 
-void *std::vector<std::pair<TWord const*,unsigned int>>::reserve(void *result, unint64_t a2)
+void std::vector<std::pair<TWord const*,unsigned int>>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 4)
+  if (a2 > (a1[2] - *a1) >> 4)
   {
     if (!(a2 >> 60))
     {
-      v2 = result[1] - *result;
-      std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<TWord const*,unsigned int>>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<TWord const*,unsigned int>>>(a1, a2);
     }
 
     std::vector<std::wstring>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void std::vector<std::pair<TWord const*,unsigned int>>::push_back[abi:ne200100](uint64_t a1, _OWORD *a2)
@@ -3091,7 +3087,7 @@ void std::vector<std::pair<TWord const*,unsigned long>>::push_back[abi:ne200100]
   *(a1 + 8) = v6;
 }
 
-void std::vector<unsigned long>::push_back[abi:ne200100](const void **a1, void *a2)
+void std::vector<unsigned long>::push_back[abi:ne200100](const void **a1, uint64_t *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -3146,29 +3142,17 @@ void std::vector<unsigned long>::push_back[abi:ne200100](const void **a1, void *
   a1[1] = v6;
 }
 
-void *std::vector<TWord const*>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<TWord const*>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<TWord const*>::__vallocate[abi:ne200100](result, a2);
+    std::vector<TWord const*>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
-}
-
-{
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
-  if (a2)
-  {
-    std::vector<TWord const*>::__vallocate[abi:ne200100](result, a2);
-  }
-
-  return result;
+  return a1;
 }
 
 void sub_2625A8724(_Unwind_Exception *exception_object)
@@ -3183,7 +3167,7 @@ void sub_2625A8724(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<TWord const*>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<TWord const*>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -3256,7 +3240,7 @@ void std::vector<TWord const*>::__append(uint64_t a1, unint64_t a2)
   }
 }
 
-uint64_t std::vector<std::pair<TWord const*,unsigned int>>::__init_with_size[abi:ne200100]<std::pair<TWord const*,unsigned int>*,std::pair<TWord const*,unsigned int>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::pair<TWord const*,unsigned int>>::__init_with_size[abi:ne200100]<std::pair<TWord const*,unsigned int>*,std::pair<TWord const*,unsigned int>*>(uint64_t *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -3278,7 +3262,7 @@ void sub_2625A88E8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<std::pair<TWord const*,unsigned int>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::pair<TWord const*,unsigned int>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -3318,29 +3302,17 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long>>(uint6
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void *std::vector<unsigned long>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<unsigned long>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<unsigned long>::__vallocate[abi:ne200100](result, a2);
+    std::vector<unsigned long>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
-}
-
-{
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
-  if (a2)
-  {
-    std::vector<unsigned long>::__vallocate[abi:ne200100](result, a2);
-  }
-
-  return result;
+  return a1;
 }
 
 void sub_2625A8A74(_Unwind_Exception *exception_object)
@@ -3355,7 +3327,7 @@ void sub_2625A8A74(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<unsigned long>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<unsigned long>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -3363,6 +3335,19 @@ void std::vector<unsigned long>::__vallocate[abi:ne200100](uint64_t a1, unint64_
   }
 
   std::vector<std::wstring>::__throw_length_error[abi:ne200100]();
+}
+
+uint64_t *std::vector<unsigned long>::vector[abi:ne200100](uint64_t *a1, unint64_t a2, uint64_t *a3)
+{
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  if (a2)
+  {
+    std::vector<unsigned long>::__vallocate[abi:ne200100](a1, a2);
+  }
+
+  return a1;
 }
 
 void sub_2625A8B88(_Unwind_Exception *exception_object)
@@ -3439,10 +3424,29 @@ void RecogGermIterator::printSize(RecogGermIterator *this, uint64_t a2, uint64_t
   *a4 = 0;
   *a5 = 0;
   *a6 = 0;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 142, &v59);
-  if (v60)
+  getShipObjectSizeDescription(&v34, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 142);
+  if (v35)
   {
-    v16 = v59;
+    v13 = v34;
+  }
+
+  else
+  {
+    v13 = &unk_26286CC60;
+  }
+
+  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v12, a3, &unk_26286CC60, a3, &unk_26286CC60, v13);
+  DgnString::~DgnString(&v34);
+  if (a2 != -1)
+  {
+    xlprintf("%d ", v14, a2);
+  }
+
+  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v14, a3, &unk_26286CC60);
+  getShipObjectSizeDescription(&v34, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 143);
+  if (v35)
+  {
+    v16 = v34;
   }
 
   else
@@ -3450,33 +3454,103 @@ void RecogGermIterator::printSize(RecogGermIterator *this, uint64_t a2, uint64_t
     v16 = &unk_26286CC60;
   }
 
-  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v12, v13, v14, v15, a3, &unk_26286CC60, a3, &unk_26286CC60, v16);
-  DgnString::~DgnString(&v59);
-  if (a2 != -1)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v15, (a3 + 1), &unk_26286CC60, (34 - a3), (34 - a3), v16, 4, 4, 0);
+  DgnString::~DgnString(&v34);
+  *a4 += 4;
+  *a5 += 4;
+  getShipObjectSizeDescription(&v34, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 144);
+  if (v35)
   {
-    xlprintf("%d ", v17, v18, v19, v20, a2);
-  }
-
-  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v17, v18, v19, v20, a3, &unk_26286CC60);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 143, &v59);
-  if (v60)
-  {
-    v25 = v59;
+    v18 = v34;
   }
 
   else
   {
-    v25 = &unk_26286CC60;
+    v18 = &unk_26286CC60;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v21, v22, v23, v24, (a3 + 1), &unk_26286CC60, (34 - a3), (34 - a3), v25, 4, 4, 0);
-  DgnString::~DgnString(&v59);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v17, (a3 + 1), &unk_26286CC60, (34 - a3), (34 - a3), v18, 4, 4, 0);
+  DgnString::~DgnString(&v34);
   *a4 += 4;
   *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 144, &v59);
-  if (v60)
+  getShipObjectSizeDescription(&v34, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 146);
+  if (v35)
   {
-    v30 = v59;
+    v20 = v34;
+  }
+
+  else
+  {
+    v20 = &unk_26286CC60;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v19, (a3 + 1), &unk_26286CC60, (34 - a3), (34 - a3), v20, 8, 8, 0);
+  v33 = a6;
+  DgnString::~DgnString(&v34);
+  *a4 += 8;
+  *a5 += 8;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v21 = 4;
+  }
+
+  else
+  {
+    v21 = 8;
+  }
+
+  v22 = *(this + 3);
+  if (v22)
+  {
+    v23 = BitArray::sizeObject(v22, 0) + v21;
+    v24 = *(this + 3);
+    if (gShadowDiagnosticShowIdealizedObjectSizes)
+    {
+      v21 = 4;
+    }
+
+    else
+    {
+      v21 = 8;
+    }
+
+    if (v24 && (v21 += BitArray::sizeObject(v24, 1), (v25 = *(this + 3)) != 0))
+    {
+      v26 = BitArray::sizeObject(v25, 3);
+    }
+
+    else
+    {
+      v26 = 0;
+    }
+  }
+
+  else
+  {
+    v26 = 0;
+    v23 = v21;
+  }
+
+  getShipObjectSizeDescription(&v34, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 148);
+  if (v35)
+  {
+    v28 = v34;
+  }
+
+  else
+  {
+    v28 = &unk_26286CC60;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v27, (a3 + 1), &unk_26286CC60, (34 - a3), (34 - a3), v28, v23, v21, v26);
+  DgnString::~DgnString(&v34);
+  *a4 += v23;
+  *a5 += v21;
+  *v33 += v26;
+  getShipObjectSizeDescription(&v34, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 149);
+  if (v35)
+  {
+    v30 = v34;
   }
 
   else
@@ -3484,118 +3558,28 @@ void RecogGermIterator::printSize(RecogGermIterator *this, uint64_t a2, uint64_t
     v30 = &unk_26286CC60;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v26, v27, v28, v29, (a3 + 1), &unk_26286CC60, (34 - a3), (34 - a3), v30, 4, 4, 0);
-  DgnString::~DgnString(&v59);
-  *a4 += 4;
-  *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 146, &v59);
-  if (v60)
-  {
-    v35 = v59;
-  }
-
-  else
-  {
-    v35 = &unk_26286CC60;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v31, v32, v33, v34, (a3 + 1), &unk_26286CC60, (34 - a3), (34 - a3), v35, 8, 8, 0);
-  v58 = a6;
-  DgnString::~DgnString(&v59);
-  *a4 += 8;
-  *a5 += 8;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v36 = 4;
-  }
-
-  else
-  {
-    v36 = 8;
-  }
-
-  v37 = *(this + 3);
-  if (v37)
-  {
-    v38 = BitArray::sizeObject(v37, 0) + v36;
-    v39 = *(this + 3);
-    if (gShadowDiagnosticShowIdealizedObjectSizes)
-    {
-      v36 = 4;
-    }
-
-    else
-    {
-      v36 = 8;
-    }
-
-    if (v39 && (v36 += BitArray::sizeObject(v39, 1), (v40 = *(this + 3)) != 0))
-    {
-      v41 = BitArray::sizeObject(v40, 3);
-    }
-
-    else
-    {
-      v41 = 0;
-    }
-  }
-
-  else
-  {
-    v41 = 0;
-    v38 = v36;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 148, &v59);
-  if (v60)
-  {
-    v46 = v59;
-  }
-
-  else
-  {
-    v46 = &unk_26286CC60;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v42, v43, v44, v45, (a3 + 1), &unk_26286CC60, (34 - a3), (34 - a3), v46, v38, v36, v41);
-  DgnString::~DgnString(&v59);
-  *a4 += v38;
-  *a5 += v36;
-  *v58 += v41;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 149, &v59);
-  if (v60)
-  {
-    v51 = v59;
-  }
-
-  else
-  {
-    v51 = &unk_26286CC60;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v47, v48, v49, v50, (a3 + 1), &unk_26286CC60, (34 - a3), (34 - a3), v51, 1, 1, 0);
-  DgnString::~DgnString(&v59);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v29, (a3 + 1), &unk_26286CC60, (34 - a3), (34 - a3), v30, 1, 1, 0);
+  DgnString::~DgnString(&v34);
   ++*a4;
   ++*a5;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 150, &v59);
-  if (v60)
+  getShipObjectSizeDescription(&v34, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 150);
+  if (v35)
   {
-    v56 = v59;
+    v32 = v34;
   }
 
   else
   {
-    v56 = &unk_26286CC60;
+    v32 = &unk_26286CC60;
   }
 
-  v57 = *a5;
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v52, v53, v54, v55, a3, &unk_26286CC60, (35 - a3), (35 - a3), v56, *a4, *a5, *v58);
-  DgnString::~DgnString(&v59);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v31, a3, &unk_26286CC60, (35 - a3), (35 - a3), v32, *a4, *a5, *v33);
+  DgnString::~DgnString(&v34);
 }
 
-void sub_2625A91B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_2625A91B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   DgnString::~DgnString(va);
   _Unwind_Resume(a1);
 }
@@ -3618,255 +3602,255 @@ void Constraint::setUpTranscription(uint64_t a1, uint64_t *a2, uint64_t a3, unsi
 {
   if (a3)
   {
-    DgnPrimArray<int>::copyArraySlice(a1 + 152, a3, 0, *(a3 + 8));
+    DgnPrimArray<int>::copyArraySlice((a1 + 152), a3, 0, *(a3 + 8));
     *(a1 + 60) = 1;
-    v9 = *(a2 + 2);
-    if (v9 != *(a1 + 160))
+    v7 = *(a2 + 2);
+    if (v7 != *(a1 + 160))
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 211, "kernel/constran", 2, "%s", v7, v8, &unk_26286CC60);
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 211, "kernel/constran", 2, "%s", &unk_26286CC60);
     }
   }
 
   else
   {
     *(a1 + 60) = 0;
-    v9 = *(a2 + 2);
+    v7 = *(a2 + 2);
   }
 
-  v10 = *(a1 + 84);
-  if (v9 > v10)
+  v8 = *(a1 + 84);
+  if (v7 > v8)
   {
-    DgnArray<DgnPrimArray<double>>::reallocElts(a1 + 72, v9 - v10, 0);
+    DgnArray<DgnPrimArray<double>>::reallocElts(a1 + 72, v7 - v8, 0);
   }
 
-  v11 = *(a1 + 80);
-  if (v11 <= v9)
+  v9 = *(a1 + 80);
+  if (v9 <= v7)
   {
-    if (v11 < v9)
+    if (v9 < v7)
     {
-      v14 = v9 - v11;
-      v15 = 16 * v11;
+      v12 = v7 - v9;
+      v13 = 16 * v9;
       do
       {
-        v16 = (*(a1 + 72) + v15);
-        *v16 = 0;
-        v16[1] = 0;
-        v15 += 16;
-        --v14;
+        v14 = (*(a1 + 72) + v13);
+        *v14 = 0;
+        v14[1] = 0;
+        v13 += 16;
+        --v12;
       }
 
-      while (v14);
+      while (v12);
     }
   }
 
-  else if (v11 > v9)
+  else if (v9 > v7)
   {
-    v12 = v11;
-    v13 = 16 * v11 - 16;
+    v10 = v9;
+    v11 = 16 * v9 - 16;
     do
     {
-      --v12;
-      DgnIArray<Utterance *>::~DgnIArray(*(a1 + 72) + v13);
-      v13 -= 16;
+      --v10;
+      DgnIArray<Utterance *>::~DgnIArray(*(a1 + 72) + v11);
+      v11 -= 16;
     }
 
-    while (v12 > v9);
+    while (v10 > v7);
   }
 
-  *(a1 + 80) = v9;
+  *(a1 + 80) = v7;
   if (a4)
   {
-    v17 = *a4;
+    v15 = *a4;
   }
 
   else
   {
-    v17 = 1;
+    v15 = 1;
   }
 
-  PhnIndexSet::PhnIndexSet(v55, v17);
-  v18 = *(a1 + 96);
+  PhnIndexSet::PhnIndexSet(v53, v15);
+  v16 = *(a1 + 96);
+  if (v16 >= 1)
+  {
+    v17 = 16 * v16 - 16;
+    do
+    {
+      BitArray::~BitArray((*(a1 + 88) + v17));
+      v17 -= 16;
+    }
+
+    while (v17 != -16);
+  }
+
+  *(a1 + 96) = 0;
+  v18 = *(a1 + 112);
   if (v18 >= 1)
   {
     v19 = 16 * v18 - 16;
     do
     {
-      BitArray::~BitArray((*(a1 + 88) + v19));
+      BitArray::~BitArray((*(a1 + 104) + v19));
       v19 -= 16;
     }
 
     while (v19 != -16);
   }
 
-  *(a1 + 96) = 0;
-  v20 = *(a1 + 112);
-  if (v20 >= 1)
-  {
-    v21 = 16 * v20 - 16;
-    do
-    {
-      BitArray::~BitArray((*(a1 + 104) + v21));
-      v21 -= 16;
-    }
-
-    while (v21 != -16);
-  }
-
   *(a1 + 112) = 0;
-  v22 = *(a1 + 100);
-  if (v9 > v22)
+  v20 = *(a1 + 100);
+  if (v7 > v20)
   {
-    DgnArray<DgnPrimArray<double>>::reallocElts(a1 + 88, v9 - v22, 0);
+    DgnArray<DgnPrimArray<double>>::reallocElts(a1 + 88, v7 - v20, 0);
   }
 
-  v23 = *(a1 + 116);
-  if (v9 > v23)
+  v21 = *(a1 + 116);
+  if (v7 > v21)
   {
-    DgnArray<DgnPrimArray<double>>::reallocElts(a1 + 104, v9 - v23, 0);
+    DgnArray<DgnPrimArray<double>>::reallocElts(a1 + 104, v7 - v21, 0);
   }
 
-  v48 = (a1 + 120);
-  BitArray::operator=((a1 + 120), v55);
-  if (!v9)
+  v46 = (a1 + 120);
+  BitArray::operator=((a1 + 120), v53);
+  if (!v7)
   {
     if (*(a1 + 64) == 1)
     {
-      **v48 |= 1u;
+      **v46 |= 1u;
     }
 
     goto LABEL_60;
   }
 
-  v24 = 0;
+  v22 = 0;
   do
   {
-    PhnIndexSet::PhnIndexSet((*(a1 + 88) + 16 * *(a1 + 96)), v55);
+    PhnIndexSet::PhnIndexSet((*(a1 + 88) + 16 * *(a1 + 96)), v53);
     ++*(a1 + 96);
-    PhnIndexSet::PhnIndexSet((*(a1 + 104) + 16 * *(a1 + 112)), v55);
+    PhnIndexSet::PhnIndexSet((*(a1 + 104) + 16 * *(a1 + 112)), v53);
     ++*(a1 + 112);
-    ++v24;
+    ++v22;
   }
 
-  while (v9 > v24);
+  while (v7 > v22);
   if (*(a1 + 64))
   {
-    **v48 |= 1u;
-    v25 = 0;
-    v26 = *(a1 + 88);
-    v27 = *(a1 + 104);
+    **v46 |= 1u;
+    v23 = 0;
+    v24 = *(a1 + 88);
+    v25 = *(a1 + 104);
     do
     {
-      v28 = 16 * v25;
-      v29 = *(v26 + v28);
-      v30 = *(v27 + v28);
-      *v29 |= 1u;
-      *v30 |= 1u;
-      ++v25;
+      v26 = 16 * v23;
+      v27 = *(v24 + v26);
+      v28 = *(v25 + v26);
+      *v27 |= 1u;
+      *v28 |= 1u;
+      ++v23;
     }
 
-    while (v9 > v25);
+    while (v7 > v23);
   }
 
-  v31 = 0;
-  v32 = 0;
-  v33 = *a2;
-  v49 = v9;
+  v29 = 0;
+  v30 = 0;
+  v31 = *a2;
+  v47 = v7;
   do
   {
-    *(*(a1 + 72) + 16 * v32 + 8) = 0;
-    v34 = v33 + 16 * v32;
-    if (!*(v34 + 8))
+    *(*(a1 + 72) + 16 * v30 + 8) = 0;
+    v32 = v31 + 16 * v30;
+    if (!*(v32 + 8))
     {
       goto LABEL_59;
     }
 
-    v35 = 0;
-    v50 = (v31 - 1);
-    v51 = (v31 + 1);
+    v33 = 0;
+    v48 = (v29 - 1);
+    v49 = (v29 + 1);
     do
     {
-      v36 = *(*v34 + 4 * v35);
-      v52 = v36;
-      v53 = v32;
-      v54 = xmmword_26286CC40;
-      v37 = (v36 & 0xFE000000) == 0xFA000000 || (v36 & 0xFE000000) == -67108864;
-      if (!v37 && DgnArray<CWIDAC>::find(*(a1 + 72) + 16 * v32, &v52) == -1)
+      v34 = *(*v32 + 4 * v33);
+      v50 = v34;
+      v51 = v30;
+      v52 = xmmword_26286CC40;
+      v35 = (v34 & 0xFE000000) == 0xFA000000 || (v34 & 0xFE000000) == -67108864;
+      if (!v35 && DgnArray<CWIDAC>::find(*(a1 + 72) + 16 * v30, &v50) == -1)
       {
-        v38 = *(*(**VocMgr::smpVocMgr + ((v36 >> 22) & 0x3F8)) + 48);
-        v39 = v36 & 0xFFFFFF;
-        v40 = *(a1 + 64);
-        if (v40)
+        v36 = *(*(**VocMgr::smpVocMgr + ((v34 >> 22) & 0x3F8)) + 48);
+        v37 = v34 & 0xFFFFFF;
+        v38 = *(a1 + 64);
+        if (v38)
         {
-          if (!*(v38[4] + 2 * v39))
+          if (!*(v36[4] + 2 * v37))
           {
             goto LABEL_45;
           }
         }
 
-        else if (*(v38[32] + 4 * v39) != v39)
+        else if (*(v36[32] + 4 * v37) != v37)
         {
           goto LABEL_45;
         }
 
-        v41 = *(a1 + 72) + 16 * v32;
-        v42 = *(v41 + 8);
-        if (v42 == *(v41 + 12))
+        v39 = *(a1 + 72) + 16 * v30;
+        v40 = *(v39 + 8);
+        if (v40 == *(v39 + 12))
         {
-          DgnArray<CWIDAC>::reallocElts(*(a1 + 72) + 16 * v32, 1, 1);
-          v42 = *(v41 + 8);
-          v40 = *(a1 + 64);
+          DgnArray<CWIDAC>::reallocElts(*(a1 + 72) + 16 * v30, 1, 1);
+          v40 = *(v39 + 8);
+          v38 = *(a1 + 64);
         }
 
-        v43 = *v41 + 24 * v42;
-        *v43 = v52;
-        *(v43 + 4) = v53;
-        *(v43 + 8) = v54;
-        *(v41 + 8) = v42 + 1;
-        if ((v40 & 1) != 0 && *(v38[4] + 2 * v39))
+        v41 = *v39 + 24 * v40;
+        *v41 = v50;
+        *(v41 + 4) = v51;
+        *(v41 + 8) = v52;
+        *(v39 + 8) = v40 + 1;
+        if ((v38 & 1) != 0 && *(v36[4] + 2 * v37))
         {
-          v44 = (a1 + 120);
-          if (v32)
+          v42 = (a1 + 120);
+          if (v30)
           {
-            v44 = (*(a1 + 88) + 16 * v50);
+            v42 = (*(a1 + 88) + 16 * v48);
           }
 
-          v45 = (v38[9] + 2 * *(v38[6] + 4 * v39));
-          v46 = v45[*(v38[4] + 2 * v39) - 1];
-          *(*v44 + ((*v45 >> 3) & 0x1FFC)) |= 1 << *v45;
-          if (v51 != *(a1 + 96))
+          v43 = (v36[9] + 2 * *(v36[6] + 4 * v37));
+          v44 = v43[*(v36[4] + 2 * v37) - 1];
+          *(*v42 + ((*v43 >> 3) & 0x1FFC)) |= 1 << *v43;
+          if (v49 != *(a1 + 96))
           {
-            v47 = *(*(a1 + 104) + 16 * v51);
-            *(v47 + ((v46 >> 3) & 0x1FFC)) |= 1 << v46;
+            v45 = *(*(a1 + 104) + 16 * v49);
+            *(v45 + ((v44 >> 3) & 0x1FFC)) |= 1 << v44;
           }
         }
       }
 
 LABEL_45:
-      ++v35;
-      v33 = *a2;
-      v34 = *a2 + 16 * v32;
+      ++v33;
+      v31 = *a2;
+      v32 = *a2 + 16 * v30;
     }
 
-    while (v35 < *(v34 + 8));
-    v9 = v49;
+    while (v33 < *(v32 + 8));
+    v7 = v47;
 LABEL_59:
-    v31 = ++v32;
+    v29 = ++v30;
   }
 
-  while (v9 > v32);
+  while (v7 > v30);
 LABEL_60:
   *(a1 + 296) = 0;
-  BitArray::~BitArray(v55);
+  BitArray::~BitArray(v53);
 }
 
-void sub_2625A9748(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_2625A9748(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   BitArray::~BitArray(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t Constraint::Constraint(uint64_t a1, __int16 a2, int a3, int a4, uint64_t *a5, uint64_t a6, uint64_t a7, uint64_t a8, unint64_t a9, int a10, int a11, char a12, unsigned int *a13)
+uint64_t Constraint::Constraint(uint64_t a1, __int16 a2, int a3, int a4, uint64_t *a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, int a11, char a12, unsigned int *a13)
 {
   *a1 = a2;
   *(a1 + 24) = 0u;
@@ -3932,96 +3916,96 @@ LABEL_7:
 
   if ((v20 & 0xFFFFFFFD) == 0)
   {
-    DgnPrimArray<int>::copyArraySlice(a1 + 168, a7, 0, *(a7 + 8));
+    DgnPrimArray<int>::copyArraySlice((a1 + 168), a7, 0, *(a7 + 8));
     if (a8)
     {
       DgnArray<DgnArray<ParseToken>>::copyArraySlice(a1 + 184, a8, 0, *(a8 + 8));
     }
 
-    v23 = a9;
+    v21 = a9;
     *(a1 + 216) = a9;
     *(a1 + 240) = a10;
     *(a1 + 244) = a11;
     if (a9)
     {
-      v28 = 0;
-      v29 = 0;
+      v26 = 0;
+      v27 = 0;
       if (*(a9 + 24))
       {
-        v24 = 0;
+        v22 = 0;
         do
         {
-          v25 = *(*(v23 + 16) + 4 * v24);
-          if (!*(*(v23 + 80) + 24 * v25 + 8))
+          v23 = *(*(v21 + 16) + 4 * v22);
+          if (!*(*(v21 + 80) + 24 * v23 + 8))
           {
-            Lattice<WordLatticeLC>::appendOutLinks(v23, v25, &v28);
-            v23 = *(a1 + 216);
+            Lattice<WordLatticeLC>::appendOutLinks(v21, v23, &v26);
+            v21 = *(a1 + 216);
           }
 
-          ++v24;
+          ++v22;
         }
 
-        while (v24 < *(v23 + 24));
-        if (v29)
+        while (v22 < *(v21 + 24));
+        if (v27)
         {
-          v26 = 0;
+          v24 = 0;
           do
           {
-            Lattice<WordLatticeLC>::appendOutLinks(*(a1 + 216), *(*(*(a1 + 216) + 128) + 136 * *(v28 + 4 * v26++) + 120), a1 + 224);
+            Lattice<WordLatticeLC>::appendOutLinks(*(a1 + 216), *(*(*(a1 + 216) + 128) + 136 * *(v26 + 4 * v24++) + 120), a1 + 224);
           }
 
-          while (v26 < v29);
-          v23 = *(a1 + 216);
+          while (v24 < v27);
+          v21 = *(a1 + 216);
         }
       }
 
-      if ((*(v23 + 216) & 1) != 0 && *(a1 + 244) != -1)
+      if ((*(v21 + 216) & 1) != 0 && *(a1 + 244) != -1)
       {
         if (*(a1 + 240))
         {
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 399, "kernel/constran", 3, "%s", v21, v22, &errStr_kernel_constran_E_LATTICE_TIME_CONSTRAINT);
-          v23 = *(a1 + 216);
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 399, "kernel/constran", 3, "%s", &errStr_kernel_constran_E_LATTICE_TIME_CONSTRAINT);
+          v21 = *(a1 + 216);
         }
 
-        *(a1 + 248) = WordLattice::computeBackwardScores(v23, a1 + 256);
+        *(a1 + 248) = WordLattice::computeBackwardScores(v21, (a1 + 256));
       }
 
-      DgnPrimArray<unsigned int>::~DgnPrimArray(&v28);
+      DgnPrimArray<unsigned int>::~DgnPrimArray(&v26);
     }
   }
 
   return a1;
 }
 
-void sub_2625A9A78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_2625A9A78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va);
-  Hash<StateSpec,StateSpec,StateSpec,unsigned int>::~Hash(v14 + 592);
-  DgnArray<DgnPrimArray<unsigned char>>::releaseAll(v14 + 576);
-  Hash<StateSpec,StateSpec,StateSpec,unsigned int>::~Hash(v14 + 464);
-  DgnArray<DgnArray<DgnPrimArray<unsigned int>>>::releaseAll(v14 + 448);
-  Hash<StateSpec,StateSpec,StateSpec,BOOL>::~Hash(v15 + 200);
-  DgnArray<DgnPrimArray<unsigned char>>::releaseAll(a11);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(a12);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(v13);
-  DgnArray<DgnPrimArray<unsigned char>>::releaseAll(a8);
+  Hash<StateSpec,StateSpec,StateSpec,unsigned int>::~Hash(v21 + 592);
+  DgnArray<DgnPrimArray<unsigned char>>::releaseAll(v21 + 576);
+  Hash<StateSpec,StateSpec,StateSpec,unsigned int>::~Hash(v21 + 464);
+  DgnArray<DgnArray<DgnPrimArray<unsigned int>>>::releaseAll(v21 + 448);
+  Hash<StateSpec,StateSpec,StateSpec,BOOL>::~Hash(v22 + 200);
+  DgnArray<DgnPrimArray<unsigned char>>::releaseAll(a18);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(a19);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(v20);
+  DgnArray<DgnPrimArray<unsigned char>>::releaseAll(a15);
+  DgnArray<DgnArray<ParseToken>>::releaseAll(a20);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(v23);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(a11);
+  DgnIArray<Utterance *>::~DgnIArray(v22);
+  BitArray::~BitArray((v21 + 120));
+  DgnArray<PhnIndexSet>::releaseAll(a17);
+  DgnArray<PhnIndexSet>::releaseAll(a16);
+  DgnArray<DgnArray<ParseToken>>::releaseAll(a14);
+  DgnArray<DgnArray<ParseToken>>::releaseAll(a12);
   DgnArray<DgnArray<ParseToken>>::releaseAll(a13);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(v16);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(a4);
-  DgnIArray<Utterance *>::~DgnIArray(v15);
-  BitArray::~BitArray((v14 + 120));
-  DgnArray<PhnIndexSet>::releaseAll(a10);
-  DgnArray<PhnIndexSet>::releaseAll(a9);
-  DgnArray<DgnArray<ParseToken>>::releaseAll(a7);
-  DgnArray<DgnArray<ParseToken>>::releaseAll(a5);
-  DgnArray<DgnArray<ParseToken>>::releaseAll(a6);
   _Unwind_Resume(a1);
 }
 
-unint64_t Lattice<WordLatticeLC>::appendOutLinks(unint64_t result, unsigned int a2, uint64_t a3)
+uint64_t *Lattice<WordLatticeLC>::appendOutLinks(uint64_t *result, unsigned int a2, uint64_t a3)
 {
-  v3 = *(*(result + 80) + 24 * a2 + 20);
+  v3 = *(result[10] + 24 * a2 + 20);
   if (v3 != -2)
   {
     v5 = result;
@@ -4037,7 +4021,7 @@ unint64_t Lattice<WordLatticeLC>::appendOutLinks(unint64_t result, unsigned int 
       *(*a3 + 4 * v6) = v3;
       v6 = *(a3 + 8) + 1;
       *(a3 + 8) = v6;
-      v3 = *(*(v5 + 128) + 136 * v3 + 128);
+      v3 = *(v5[16] + 136 * v3 + 128);
     }
 
     while (v3 != -2);
@@ -4087,56 +4071,109 @@ void Constraint::printSize(Constraint *this, uint64_t a2, uint64_t a3, unint64_t
   *a4 = 0;
   *a5 = 0;
   *a6 = 0;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 432, &v306);
-  if (v307)
+  getShipObjectSizeDescription(&v191, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 432);
+  if (v192)
   {
-    v16 = v306;
+    v13 = v191;
   }
 
   else
   {
-    v16 = &unk_26286CC60;
+    v13 = &unk_26286CC60;
   }
 
-  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v12, v13, v14, v15, a3, &unk_26286CC60, a3, &unk_26286CC60, v16);
-  DgnString::~DgnString(&v306);
+  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v12, a3, &unk_26286CC60, a3, &unk_26286CC60, v13);
+  DgnString::~DgnString(&v191);
   if (a2 != -1)
   {
-    xlprintf("%d ", v17, v18, v19, v20, a2);
+    xlprintf("%d ", v14, a2);
   }
 
-  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v17, v18, v19, v20, a3, &unk_26286CC60);
-  v21 = (a3 + 1);
-  v22 = (34 - a3);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 433, &v306);
-  if (v307)
+  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v14, a3, &unk_26286CC60);
+  v15 = (a3 + 1);
+  v16 = (34 - a3);
+  getShipObjectSizeDescription(&v191, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 433);
+  if (v192)
   {
-    v27 = v306;
+    v18 = v191;
   }
 
   else
   {
-    v27 = &unk_26286CC60;
+    v18 = &unk_26286CC60;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v23, v24, v25, v26, (a3 + 1), &unk_26286CC60, (34 - a3), (34 - a3), v27, 2, 2, 0);
-  DgnString::~DgnString(&v306);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v17, (a3 + 1), &unk_26286CC60, (34 - a3), (34 - a3), v18, 2, 2, 0);
+  DgnString::~DgnString(&v191);
   *a4 += 2;
   *a5 += 2;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v28 = 4;
+    v19 = 4;
   }
 
   else
   {
-    v28 = 8;
+    v19 = 8;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 434, &v306);
-  if (v307)
+  getShipObjectSizeDescription(&v191, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 434);
+  if (v192)
   {
-    v33 = v306;
+    v21 = v191;
+  }
+
+  else
+  {
+    v21 = &unk_26286CC60;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v20, (a3 + 1), &unk_26286CC60, (34 - a3), (34 - a3), v21, v19, v19, 0);
+  v190 = a3;
+  DgnString::~DgnString(&v191);
+  *a4 += v19;
+  *a5 += v19;
+  getShipObjectSizeDescription(&v191, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 436);
+  if (v192)
+  {
+    v23 = v191;
+  }
+
+  else
+  {
+    v23 = &unk_26286CC60;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v22, (a3 + 1), &unk_26286CC60, (34 - a3), (34 - a3), v23, 4, 4, 0);
+  DgnString::~DgnString(&v191);
+  *a4 += 4;
+  *a5 += 4;
+  v24 = sizeObject<DgnArray<RecogGerm>>(this + 24, 0);
+  v25 = sizeObject<DgnArray<RecogGerm>>(this + 24, 1);
+  v26 = sizeObject<DgnArray<RecogGerm>>(this + 24, 3);
+  getShipObjectSizeDescription(&v191, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 438);
+  if (v192)
+  {
+    v28 = v191;
+  }
+
+  else
+  {
+    v28 = &unk_26286CC60;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v27, v15, &unk_26286CC60, v16, v16, v28, v24, v25, v26);
+  DgnString::~DgnString(&v191);
+  *a4 += v24;
+  *a5 += v25;
+  *a6 += v26;
+  v29 = sizeObject<DgnArray<RecogGerm>>(this + 40, 0);
+  v30 = sizeObject<DgnArray<RecogGerm>>(this + 40, 1);
+  v31 = sizeObject<DgnArray<RecogGerm>>(this + 40, 3);
+  getShipObjectSizeDescription(&v191, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 440);
+  if (v192)
+  {
+    v33 = v191;
   }
 
   else
@@ -4144,128 +4181,244 @@ void Constraint::printSize(Constraint *this, uint64_t a2, uint64_t a3, unint64_t
     v33 = &unk_26286CC60;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v29, v30, v31, v32, (a3 + 1), &unk_26286CC60, (34 - a3), (34 - a3), v33, v28, v28, 0);
-  v305 = a3;
-  DgnString::~DgnString(&v306);
-  *a4 += v28;
-  *a5 += v28;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 436, &v306);
-  if (v307)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v32, v15, &unk_26286CC60, v16, v16, v33, v29, v30, v31);
+  DgnString::~DgnString(&v191);
+  *a4 += v29;
+  *a5 += v30;
+  *a6 += v31;
+  getShipObjectSizeDescription(&v191, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 441);
+  if (v192)
   {
-    v38 = v306;
+    v35 = v191;
   }
 
   else
   {
-    v38 = &unk_26286CC60;
+    v35 = &unk_26286CC60;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v34, v35, v36, v37, (a3 + 1), &unk_26286CC60, (34 - a3), (34 - a3), v38, 4, 4, 0);
-  DgnString::~DgnString(&v306);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v34, v15, &unk_26286CC60, v16, v16, v35, 4, 4, 0);
+  DgnString::~DgnString(&v191);
   *a4 += 4;
   *a5 += 4;
-  v39 = sizeObject<DgnArray<RecogGerm>>(this + 24, 0);
-  v40 = sizeObject<DgnArray<RecogGerm>>(this + 24, 1);
-  v41 = sizeObject<DgnArray<RecogGerm>>(this + 24, 3);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 438, &v306);
-  if (v307)
+  getShipObjectSizeDescription(&v191, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 442);
+  if (v192)
   {
-    v46 = v306;
+    v37 = v191;
   }
 
   else
   {
-    v46 = &unk_26286CC60;
+    v37 = &unk_26286CC60;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v42, v43, v44, v45, v21, &unk_26286CC60, v22, v22, v46, v39, v40, v41);
-  DgnString::~DgnString(&v306);
-  *a4 += v39;
-  *a5 += v40;
-  *a6 += v41;
-  v47 = sizeObject<DgnArray<RecogGerm>>(this + 40, 0);
-  v48 = sizeObject<DgnArray<RecogGerm>>(this + 40, 1);
-  v49 = sizeObject<DgnArray<RecogGerm>>(this + 40, 3);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 440, &v306);
-  if (v307)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v36, v15, &unk_26286CC60, v16, v16, v37, 1, 1, 0);
+  DgnString::~DgnString(&v191);
+  ++*a4;
+  ++*a5;
+  getShipObjectSizeDescription(&v191, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 444);
+  if (v192)
   {
-    v54 = v306;
+    v39 = v191;
   }
 
   else
   {
-    v54 = &unk_26286CC60;
+    v39 = &unk_26286CC60;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v50, v51, v52, v53, v21, &unk_26286CC60, v22, v22, v54, v47, v48, v49);
-  DgnString::~DgnString(&v306);
-  *a4 += v47;
-  *a5 += v48;
-  *a6 += v49;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 441, &v306);
-  if (v307)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v38, v15, &unk_26286CC60, v16, v16, v39, 1, 1, 0);
+  DgnString::~DgnString(&v191);
+  ++*a4;
+  ++*a5;
+  getShipObjectSizeDescription(&v191, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 446);
+  if (v192)
   {
-    v59 = v306;
+    v41 = v191;
   }
 
   else
   {
-    v59 = &unk_26286CC60;
+    v41 = &unk_26286CC60;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v55, v56, v57, v58, v21, &unk_26286CC60, v22, v22, v59, 4, 4, 0);
-  DgnString::~DgnString(&v306);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v40, v15, &unk_26286CC60, v16, v16, v41, 1, 1, 0);
+  DgnString::~DgnString(&v191);
+  ++*a4;
+  ++*a5;
+  getShipObjectSizeDescription(&v191, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 448);
+  if (v192)
+  {
+    v43 = v191;
+  }
+
+  else
+  {
+    v43 = &unk_26286CC60;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v42, v15, &unk_26286CC60, v16, v16, v43, 1, 1, 0);
+  DgnString::~DgnString(&v191);
+  ++*a4;
+  ++*a5;
+  getShipObjectSizeDescription(&v191, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 449);
+  if (v192)
+  {
+    v45 = v191;
+  }
+
+  else
+  {
+    v45 = &unk_26286CC60;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v44, v15, &unk_26286CC60, v16, v16, v45, 1, 1, 0);
+  DgnString::~DgnString(&v191);
+  ++*a4;
+  ++*a5;
+  getShipObjectSizeDescription(&v191, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 451);
+  if (v192)
+  {
+    v47 = v191;
+  }
+
+  else
+  {
+    v47 = &unk_26286CC60;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v46, v15, &unk_26286CC60, v16, v16, v47, 4, 4, 0);
+  DgnString::~DgnString(&v191);
   *a4 += 4;
   *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 442, &v306);
-  if (v307)
+  v48 = sizeObject<DgnArray<CWIDAC>>(this + 72, 0);
+  v49 = sizeObject<DgnArray<CWIDAC>>(this + 72, 1);
+  v50 = sizeObject<DgnArray<CWIDAC>>(this + 72, 3);
+  getShipObjectSizeDescription(&v191, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 453);
+  if (v192)
   {
-    v64 = v306;
+    v52 = v191;
   }
 
   else
   {
-    v64 = &unk_26286CC60;
+    v52 = &unk_26286CC60;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v60, v61, v62, v63, v21, &unk_26286CC60, v22, v22, v64, 1, 1, 0);
-  DgnString::~DgnString(&v306);
-  ++*a4;
-  ++*a5;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 444, &v306);
-  if (v307)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v51, v15, &unk_26286CC60, v16, v16, v52, v48, v49, v50);
+  DgnString::~DgnString(&v191);
+  *a4 += v48;
+  *a5 += v49;
+  *a6 += v50;
+  v53 = sizeObject<PhnIndexSet>(this + 88, 0);
+  v54 = sizeObject<PhnIndexSet>(this + 88, 1);
+  v55 = sizeObject<PhnIndexSet>(this + 88, 3);
+  getShipObjectSizeDescription(&v191, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 455);
+  if (v192)
   {
-    v69 = v306;
-  }
-
-  else
-  {
-    v69 = &unk_26286CC60;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v65, v66, v67, v68, v21, &unk_26286CC60, v22, v22, v69, 1, 1, 0);
-  DgnString::~DgnString(&v306);
-  ++*a4;
-  ++*a5;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 446, &v306);
-  if (v307)
-  {
-    v74 = v306;
+    v57 = v191;
   }
 
   else
   {
-    v74 = &unk_26286CC60;
+    v57 = &unk_26286CC60;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v70, v71, v72, v73, v21, &unk_26286CC60, v22, v22, v74, 1, 1, 0);
-  DgnString::~DgnString(&v306);
-  ++*a4;
-  ++*a5;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 448, &v306);
-  if (v307)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v56, v15, &unk_26286CC60, v16, v16, v57, v53, v54, v55);
+  DgnString::~DgnString(&v191);
+  *a4 += v53;
+  *a5 += v54;
+  *a6 += v55;
+  v58 = sizeObject<PhnIndexSet>(this + 104, 0);
+  v59 = sizeObject<PhnIndexSet>(this + 104, 1);
+  v60 = sizeObject<PhnIndexSet>(this + 104, 3);
+  getShipObjectSizeDescription(&v191, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 457);
+  if (v192)
   {
-    v79 = v306;
+    v62 = v191;
+  }
+
+  else
+  {
+    v62 = &unk_26286CC60;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v61, v15, &unk_26286CC60, v16, v16, v62, v58, v59, v60);
+  DgnString::~DgnString(&v191);
+  *a4 += v58;
+  *a5 += v59;
+  *a6 += v60;
+  v63 = PhnIndexSet::sizeObject();
+  v64 = PhnIndexSet::sizeObject();
+  v65 = PhnIndexSet::sizeObject();
+  getShipObjectSizeDescription(&v191, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 459);
+  if (v192)
+  {
+    v67 = v191;
+  }
+
+  else
+  {
+    v67 = &unk_26286CC60;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v66, v15, &unk_26286CC60, v16, v16, v67, v63, v64, v65);
+  DgnString::~DgnString(&v191);
+  *a4 += v63;
+  *a5 += v64;
+  *a6 += v65;
+  v68 = sizeObject<RecogGerm>(this + 136, 0);
+  v69 = sizeObject<RecogGerm>(this + 136, 1);
+  v70 = sizeObject<RecogGerm>(this + 136, 3);
+  getShipObjectSizeDescription(&v191, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 461);
+  if (v192)
+  {
+    v72 = v191;
+  }
+
+  else
+  {
+    v72 = &unk_26286CC60;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v71, v15, &unk_26286CC60, v16, v16, v72, v68, v69, v70);
+  DgnString::~DgnString(&v191);
+  *a4 += v68;
+  *a5 += v69;
+  *a6 += v70;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v73 = 12;
+  }
+
+  else
+  {
+    v73 = 16;
+  }
+
+  v74 = *(this + 40);
+  v75 = *(this + 41);
+  if (v75 >= v74)
+  {
+    v76 = 0;
+    if (v74 > 0)
+    {
+      v73 += 4 * (v74 - 1) + 4;
+    }
+
+    v77 = v73 + 4 * (v75 - v74);
+  }
+
+  else
+  {
+    v76 = 4 * v74;
+    v77 = v73;
+  }
+
+  getShipObjectSizeDescription(&v191, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 463);
+  if (v192)
+  {
+    v79 = v191;
   }
 
   else
@@ -4273,66 +4426,153 @@ void Constraint::printSize(Constraint *this, uint64_t a2, uint64_t a3, unint64_t
     v79 = &unk_26286CC60;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v75, v76, v77, v78, v21, &unk_26286CC60, v22, v22, v79, 1, 1, 0);
-  DgnString::~DgnString(&v306);
-  ++*a4;
-  ++*a5;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 449, &v306);
-  if (v307)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v78, v15, &unk_26286CC60, v16, v16, v79, v77, v73, v76);
+  DgnString::~DgnString(&v191);
+  *a4 += v77;
+  *a5 += v73;
+  *a6 += v76;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v84 = v306;
+    v80 = 12;
   }
 
   else
   {
-    v84 = &unk_26286CC60;
+    v80 = 16;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v80, v81, v82, v83, v21, &unk_26286CC60, v22, v22, v84, 1, 1, 0);
-  DgnString::~DgnString(&v306);
-  ++*a4;
-  ++*a5;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 451, &v306);
-  if (v307)
+  v81 = *(this + 44);
+  v82 = *(this + 45);
+  if (v82 >= v81)
   {
-    v89 = v306;
-  }
+    v83 = 0;
+    if (v81 > 0)
+    {
+      v80 += 4 * (v81 - 1) + 4;
+    }
 
-  else
-  {
-    v89 = &unk_26286CC60;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v85, v86, v87, v88, v21, &unk_26286CC60, v22, v22, v89, 4, 4, 0);
-  DgnString::~DgnString(&v306);
-  *a4 += 4;
-  *a5 += 4;
-  v90 = sizeObject<DgnArray<CWIDAC>>(this + 72, 0);
-  v91 = sizeObject<DgnArray<CWIDAC>>(this + 72, 1);
-  v92 = sizeObject<DgnArray<CWIDAC>>(this + 72, 3);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 453, &v306);
-  if (v307)
-  {
-    v97 = v306;
+    v84 = v80 + 4 * (v82 - v81);
   }
 
   else
   {
-    v97 = &unk_26286CC60;
+    v83 = 4 * v81;
+    v84 = v80;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v93, v94, v95, v96, v21, &unk_26286CC60, v22, v22, v97, v90, v91, v92);
-  DgnString::~DgnString(&v306);
-  *a4 += v90;
-  *a5 += v91;
-  *a6 += v92;
-  v98 = sizeObject<PhnIndexSet>(this + 88, 0);
-  v99 = sizeObject<PhnIndexSet>(this + 88, 1);
-  v100 = sizeObject<PhnIndexSet>(this + 88, 3);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 455, &v306);
-  if (v307)
+  getShipObjectSizeDescription(&v191, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 465);
+  if (v192)
   {
-    v105 = v306;
+    v86 = v191;
+  }
+
+  else
+  {
+    v86 = &unk_26286CC60;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v85, v15, &unk_26286CC60, v16, v16, v86, v84, v80, v83);
+  DgnString::~DgnString(&v191);
+  *a4 += v84;
+  *a5 += v80;
+  *a6 += v83;
+  v87 = sizeObject<DgnArray<ParseToken>>(this + 184, 0);
+  v88 = sizeObject<DgnArray<ParseToken>>(this + 184, 1);
+  v89 = sizeObject<DgnArray<ParseToken>>(this + 184, 3);
+  getShipObjectSizeDescription(&v191, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 467);
+  if (v192)
+  {
+    v91 = v191;
+  }
+
+  else
+  {
+    v91 = &unk_26286CC60;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v90, v15, &unk_26286CC60, v16, v16, v91, v87, v88, v89);
+  DgnString::~DgnString(&v191);
+  *a4 += v87;
+  *a5 += v88;
+  *a6 += v89;
+  v92 = sizeObject<DgnPrimArray<unsigned int>>(this + 200, 0);
+  v93 = sizeObject<DgnPrimArray<unsigned int>>(this + 200, 1);
+  v191 = 0;
+  v192 = 0;
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v191);
+  getShipObjectSizeDescription(&v191, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 469);
+  if (v192)
+  {
+    v95 = v191;
+  }
+
+  else
+  {
+    v95 = &unk_26286CC60;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v94, v15, &unk_26286CC60, v16, v16, v95, v92, v93, 0);
+  DgnString::~DgnString(&v191);
+  *a4 += v92;
+  *a5 += v93;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v96 = 4;
+  }
+
+  else
+  {
+    v96 = 8;
+  }
+
+  getShipObjectSizeDescription(&v191, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 471);
+  if (v192)
+  {
+    v98 = v191;
+  }
+
+  else
+  {
+    v98 = &unk_26286CC60;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v97, v15, &unk_26286CC60, v16, v16, v98, v96, v96, 0);
+  DgnString::~DgnString(&v191);
+  *a4 += v96;
+  *a5 += v96;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v99 = 12;
+  }
+
+  else
+  {
+    v99 = 16;
+  }
+
+  v100 = *(this + 58);
+  v101 = *(this + 59);
+  if (v101 >= v100)
+  {
+    v102 = 0;
+    if (v100 > 0)
+    {
+      v99 += 4 * (v100 - 1) + 4;
+    }
+
+    v103 = v99 + 4 * (v101 - v100);
+  }
+
+  else
+  {
+    v102 = 4 * v100;
+    v103 = v99;
+  }
+
+  getShipObjectSizeDescription(&v191, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 473);
+  if (v192)
+  {
+    v105 = v191;
   }
 
   else
@@ -4340,777 +4580,521 @@ void Constraint::printSize(Constraint *this, uint64_t a2, uint64_t a3, unint64_t
     v105 = &unk_26286CC60;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v101, v102, v103, v104, v21, &unk_26286CC60, v22, v22, v105, v98, v99, v100);
-  DgnString::~DgnString(&v306);
-  *a4 += v98;
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v104, v15, &unk_26286CC60, v16, v16, v105, v103, v99, v102);
+  DgnString::~DgnString(&v191);
+  *a4 += v103;
   *a5 += v99;
-  *a6 += v100;
-  v106 = sizeObject<PhnIndexSet>(this + 104, 0);
-  v107 = sizeObject<PhnIndexSet>(this + 104, 1);
-  v108 = sizeObject<PhnIndexSet>(this + 104, 3);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 457, &v306);
-  if (v307)
+  *a6 += v102;
+  getShipObjectSizeDescription(&v191, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 475);
+  if (v192)
   {
-    v113 = v306;
+    v107 = v191;
   }
 
   else
   {
-    v113 = &unk_26286CC60;
+    v107 = &unk_26286CC60;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v109, v110, v111, v112, v21, &unk_26286CC60, v22, v22, v113, v106, v107, v108);
-  DgnString::~DgnString(&v306);
-  *a4 += v106;
-  *a5 += v107;
-  *a6 += v108;
-  v114 = PhnIndexSet::sizeObject(this + 120, 0);
-  v115 = PhnIndexSet::sizeObject(this + 120, 1);
-  v116 = PhnIndexSet::sizeObject(this + 120, 3);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 459, &v306);
-  if (v307)
-  {
-    v121 = v306;
-  }
-
-  else
-  {
-    v121 = &unk_26286CC60;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v117, v118, v119, v120, v21, &unk_26286CC60, v22, v22, v121, v114, v115, v116);
-  DgnString::~DgnString(&v306);
-  *a4 += v114;
-  *a5 += v115;
-  *a6 += v116;
-  v122 = sizeObject<RecogGerm>(this + 136, 0);
-  v123 = sizeObject<RecogGerm>(this + 136, 1);
-  v124 = sizeObject<RecogGerm>(this + 136, 3);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 461, &v306);
-  if (v307)
-  {
-    v129 = v306;
-  }
-
-  else
-  {
-    v129 = &unk_26286CC60;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v125, v126, v127, v128, v21, &unk_26286CC60, v22, v22, v129, v122, v123, v124);
-  DgnString::~DgnString(&v306);
-  *a4 += v122;
-  *a5 += v123;
-  *a6 += v124;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v130 = 12;
-  }
-
-  else
-  {
-    v130 = 16;
-  }
-
-  v131 = *(this + 40);
-  v132 = *(this + 41);
-  if (v132 >= v131)
-  {
-    v133 = 0;
-    if (v131 > 0)
-    {
-      v130 += 4 * (v131 - 1) + 4;
-    }
-
-    v134 = v130 + 4 * (v132 - v131);
-  }
-
-  else
-  {
-    v133 = 4 * v131;
-    v134 = v130;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 463, &v306);
-  if (v307)
-  {
-    v139 = v306;
-  }
-
-  else
-  {
-    v139 = &unk_26286CC60;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v135, v136, v137, v138, v21, &unk_26286CC60, v22, v22, v139, v134, v130, v133);
-  DgnString::~DgnString(&v306);
-  *a4 += v134;
-  *a5 += v130;
-  *a6 += v133;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v140 = 12;
-  }
-
-  else
-  {
-    v140 = 16;
-  }
-
-  v141 = *(this + 44);
-  v142 = *(this + 45);
-  if (v142 >= v141)
-  {
-    v143 = 0;
-    if (v141 > 0)
-    {
-      v140 += 4 * (v141 - 1) + 4;
-    }
-
-    v144 = v140 + 4 * (v142 - v141);
-  }
-
-  else
-  {
-    v143 = 4 * v141;
-    v144 = v140;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 465, &v306);
-  if (v307)
-  {
-    v149 = v306;
-  }
-
-  else
-  {
-    v149 = &unk_26286CC60;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v145, v146, v147, v148, v21, &unk_26286CC60, v22, v22, v149, v144, v140, v143);
-  DgnString::~DgnString(&v306);
-  *a4 += v144;
-  *a5 += v140;
-  *a6 += v143;
-  v150 = sizeObject<DgnArray<ParseToken>>(this + 184, 0);
-  v151 = sizeObject<DgnArray<ParseToken>>(this + 184, 1);
-  v152 = sizeObject<DgnArray<ParseToken>>(this + 184, 3);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 467, &v306);
-  if (v307)
-  {
-    v157 = v306;
-  }
-
-  else
-  {
-    v157 = &unk_26286CC60;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v153, v154, v155, v156, v21, &unk_26286CC60, v22, v22, v157, v150, v151, v152);
-  DgnString::~DgnString(&v306);
-  *a4 += v150;
-  *a5 += v151;
-  *a6 += v152;
-  v158 = sizeObject<DgnPrimArray<unsigned int>>(this + 200, 0);
-  v159 = sizeObject<DgnPrimArray<unsigned int>>(this + 200, 1);
-  v306 = 0;
-  v307 = 0;
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v306);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 469, &v306);
-  if (v307)
-  {
-    v164 = v306;
-  }
-
-  else
-  {
-    v164 = &unk_26286CC60;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v160, v161, v162, v163, v21, &unk_26286CC60, v22, v22, v164, v158, v159, 0);
-  DgnString::~DgnString(&v306);
-  *a4 += v158;
-  *a5 += v159;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v165 = 4;
-  }
-
-  else
-  {
-    v165 = 8;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 471, &v306);
-  if (v307)
-  {
-    v170 = v306;
-  }
-
-  else
-  {
-    v170 = &unk_26286CC60;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v166, v167, v168, v169, v21, &unk_26286CC60, v22, v22, v170, v165, v165, 0);
-  DgnString::~DgnString(&v306);
-  *a4 += v165;
-  *a5 += v165;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v171 = 12;
-  }
-
-  else
-  {
-    v171 = 16;
-  }
-
-  v172 = *(this + 58);
-  v173 = *(this + 59);
-  if (v173 >= v172)
-  {
-    v174 = 0;
-    if (v172 > 0)
-    {
-      v171 += 4 * (v172 - 1) + 4;
-    }
-
-    v175 = v171 + 4 * (v173 - v172);
-  }
-
-  else
-  {
-    v174 = 4 * v172;
-    v175 = v171;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 473, &v306);
-  if (v307)
-  {
-    v180 = v306;
-  }
-
-  else
-  {
-    v180 = &unk_26286CC60;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v176, v177, v178, v179, v21, &unk_26286CC60, v22, v22, v180, v175, v171, v174);
-  DgnString::~DgnString(&v306);
-  *a4 += v175;
-  *a5 += v171;
-  *a6 += v174;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 475, &v306);
-  if (v307)
-  {
-    v185 = v306;
-  }
-
-  else
-  {
-    v185 = &unk_26286CC60;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v181, v182, v183, v184, v21, &unk_26286CC60, v22, v22, v185, 4, 4, 0);
-  DgnString::~DgnString(&v306);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v106, v15, &unk_26286CC60, v16, v16, v107, 4, 4, 0);
+  DgnString::~DgnString(&v191);
   *a4 += 4;
   *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 477, &v306);
-  if (v307)
+  getShipObjectSizeDescription(&v191, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 477);
+  if (v192)
   {
-    v190 = v306;
+    v109 = v191;
   }
 
   else
   {
-    v190 = &unk_26286CC60;
+    v109 = &unk_26286CC60;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v186, v187, v188, v189, v21, &unk_26286CC60, v22, v22, v190, 4, 4, 0);
-  DgnString::~DgnString(&v306);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v108, v15, &unk_26286CC60, v16, v16, v109, 4, 4, 0);
+  DgnString::~DgnString(&v191);
   *a4 += 4;
   *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 479, &v306);
-  if (v307)
+  getShipObjectSizeDescription(&v191, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 479);
+  if (v192)
   {
-    v195 = v306;
+    v111 = v191;
   }
 
   else
   {
-    v195 = &unk_26286CC60;
+    v111 = &unk_26286CC60;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v191, v192, v193, v194, v21, &unk_26286CC60, v22, v22, v195, 4, 4, 0);
-  DgnString::~DgnString(&v306);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v110, v15, &unk_26286CC60, v16, v16, v111, 4, 4, 0);
+  DgnString::~DgnString(&v191);
   *a4 += 4;
   *a5 += 4;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v196 = 12;
+    v112 = 12;
   }
 
   else
   {
-    v196 = 16;
+    v112 = 16;
   }
 
-  v197 = *(this + 66);
-  v198 = *(this + 67);
-  if (v198 >= v197)
+  v113 = *(this + 66);
+  v114 = *(this + 67);
+  if (v114 >= v113)
   {
-    v199 = 0;
-    if (v197 > 0)
+    v115 = 0;
+    if (v113 > 0)
     {
-      v196 += 4 * (v197 - 1) + 4;
+      v112 += 4 * (v113 - 1) + 4;
     }
 
-    v200 = v196 + 4 * (v198 - v197);
+    v116 = v112 + 4 * (v114 - v113);
   }
 
   else
   {
-    v199 = 4 * v197;
-    v200 = v196;
+    v115 = 4 * v113;
+    v116 = v112;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 481, &v306);
-  if (v307)
+  getShipObjectSizeDescription(&v191, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 481);
+  if (v192)
   {
-    v205 = v306;
+    v118 = v191;
   }
 
   else
   {
-    v205 = &unk_26286CC60;
+    v118 = &unk_26286CC60;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v201, v202, v203, v204, v21, &unk_26286CC60, v22, v22, v205, v200, v196, v199);
-  DgnString::~DgnString(&v306);
-  *a4 += v200;
-  *a5 += v196;
-  *a6 += v199;
-  v206 = sizeObject<DgnPrimArray<unsigned int>>(this + 272, 0);
-  v207 = sizeObject<DgnPrimArray<unsigned int>>(this + 272, 1);
-  v306 = 0;
-  v307 = 0;
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v306);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 483, &v306);
-  if (v307)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v117, v15, &unk_26286CC60, v16, v16, v118, v116, v112, v115);
+  DgnString::~DgnString(&v191);
+  *a4 += v116;
+  *a5 += v112;
+  *a6 += v115;
+  v119 = sizeObject<DgnPrimArray<unsigned int>>(this + 272, 0);
+  v120 = sizeObject<DgnPrimArray<unsigned int>>(this + 272, 1);
+  v191 = 0;
+  v192 = 0;
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v191);
+  getShipObjectSizeDescription(&v191, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 483);
+  if (v192)
   {
-    v212 = v306;
+    v122 = v191;
   }
 
   else
   {
-    v212 = &unk_26286CC60;
+    v122 = &unk_26286CC60;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v208, v209, v210, v211, v21, &unk_26286CC60, v22, v22, v212, v206, v207, 0);
-  DgnString::~DgnString(&v306);
-  *a4 += v206;
-  *a5 += v207;
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v121, v15, &unk_26286CC60, v16, v16, v122, v119, v120, 0);
+  DgnString::~DgnString(&v191);
+  *a4 += v119;
+  *a5 += v120;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v213 = 4;
+    v123 = 4;
   }
 
   else
   {
-    v213 = 8;
+    v123 = 8;
   }
 
-  v214 = *(this + 36);
-  if (!v214)
+  v124 = *(this + 36);
+  if (!v124)
   {
-    v217 = 0;
+    v127 = 0;
 LABEL_138:
-    v218 = v213;
+    v128 = v123;
     goto LABEL_144;
   }
 
-  v215 = *(v214 + 8);
-  v216 = *(v214 + 12);
-  if (v216 < v215)
+  v125 = *(v124 + 8);
+  v126 = *(v124 + 12);
+  if (v126 < v125)
   {
     if (gShadowDiagnosticShowIdealizedObjectSizes)
     {
-      v213 = 16;
+      v123 = 16;
     }
 
     else
     {
-      v213 = 24;
+      v123 = 24;
     }
 
-    v217 = 4 * v215;
+    v127 = 4 * v125;
     goto LABEL_138;
   }
 
-  v217 = 0;
-  v219 = 16;
+  v127 = 0;
+  v129 = 16;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v219 = 12;
+    v129 = 12;
   }
 
-  if (v215 > 0)
+  if (v125 > 0)
   {
-    v219 += 4 * (v215 - 1) + 4;
+    v129 += 4 * (v125 - 1) + 4;
   }
 
-  v213 += v219;
-  v218 = v213 + 4 * (v216 - v215);
+  v123 += v129;
+  v128 = v123 + 4 * (v126 - v125);
 LABEL_144:
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 485, &v306);
-  if (v307)
+  getShipObjectSizeDescription(&v191, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 485);
+  if (v192)
   {
-    v224 = v306;
+    v131 = v191;
   }
 
   else
   {
-    v224 = &unk_26286CC60;
+    v131 = &unk_26286CC60;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v220, v221, v222, v223, v21, &unk_26286CC60, v22, v22, v224, v218, v213, v217);
-  DgnString::~DgnString(&v306);
-  *a4 += v218;
-  *a5 += v213;
-  *a6 += v217;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 486, &v306);
-  if (v307)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v130, v15, &unk_26286CC60, v16, v16, v131, v128, v123, v127);
+  DgnString::~DgnString(&v191);
+  *a4 += v128;
+  *a5 += v123;
+  *a6 += v127;
+  getShipObjectSizeDescription(&v191, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 486);
+  if (v192)
   {
-    v229 = v306;
+    v133 = v191;
   }
 
   else
   {
-    v229 = &unk_26286CC60;
+    v133 = &unk_26286CC60;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v225, v226, v227, v228, v21, &unk_26286CC60, v22, v22, v229, 31, 31, 0);
-  DgnString::~DgnString(&v306);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v132, v15, &unk_26286CC60, v16, v16, v133, 31, 31, 0);
+  DgnString::~DgnString(&v191);
   *a4 += 31;
   *a5 += 31;
-  v230 = sizeObject(this + 360);
+  v134 = sizeObject(this + 360, 0);
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v231 = 8;
+    v135 = 8;
   }
 
   else
   {
-    v231 = 12;
-  }
-
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v232 = 2;
-  }
-
-  else
-  {
-    v232 = 3;
-  }
-
-  v233 = *(this + 106) << v232;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v234 = 8;
-  }
-
-  else
-  {
-    v234 = 16;
-  }
-
-  v235 = v230 + v234 + v231 + v233 + 13;
-  v236 = sizeObject(this + 360);
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v237 = 8;
-  }
-
-  else
-  {
-    v237 = 12;
+    v135 = 12;
   }
 
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v238 = 2;
+    v136 = 2;
   }
 
   else
   {
-    v238 = 3;
+    v136 = 3;
   }
 
-  v239 = *(this + 106) << v238;
+  v137 = *(this + 106) << v136;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v240 = 8;
+    v138 = 8;
   }
 
   else
   {
-    v240 = 16;
+    v138 = 16;
   }
 
-  v241 = v236 + v240 + v237 + v239 + 13;
-  v242 = sizeObject(this + 360);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 488, &v306);
-  if (v307)
-  {
-    v247 = v306;
-  }
-
-  else
-  {
-    v247 = &unk_26286CC60;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v243, v244, v245, v246, v21, &unk_26286CC60, v22, v22, v247, v235, v241, v242);
-  DgnString::~DgnString(&v306);
-  *a4 += v235;
-  *a5 += v241;
-  *a6 += v242;
-  v248 = sizeObject<DgnArray<DgnPrimArray<unsigned int>>>(this + 448, 0);
-  v249 = sizeObject<DgnArray<DgnPrimArray<unsigned int>>>(this + 448, 1);
-  v250 = sizeObject<DgnArray<DgnPrimArray<unsigned int>>>(this + 448, 3);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 490, &v306);
-  if (v307)
-  {
-    v255 = v306;
-  }
-
-  else
-  {
-    v255 = &unk_26286CC60;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v251, v252, v253, v254, v21, &unk_26286CC60, v22, v22, v255, v248, v249, v250);
-  DgnString::~DgnString(&v306);
-  *a4 += v248;
-  *a5 += v249;
-  *a6 += v250;
-  v256 = sizeObject(this + 488);
+  v139 = v134 + v138 + v135 + v137 + 13;
+  v140 = sizeObject(this + 360, 1);
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v257 = 8;
+    v141 = 8;
   }
 
   else
   {
-    v257 = 12;
+    v141 = 12;
   }
 
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v258 = 2;
+    v142 = 2;
   }
 
   else
   {
-    v258 = 3;
+    v142 = 3;
   }
 
-  v259 = *(this + 138) << v258;
+  v143 = *(this + 106) << v142;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v260 = 8;
+    v144 = 8;
   }
 
   else
   {
-    v260 = 16;
+    v144 = 16;
   }
 
-  v261 = v256 + v260 + v257 + v259 + 13;
-  v262 = sizeObject(this + 488);
+  v145 = v140 + v144 + v141 + v143 + 13;
+  v146 = sizeObject(this + 360, 3);
+  getShipObjectSizeDescription(&v191, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 488);
+  if (v192)
+  {
+    v148 = v191;
+  }
+
+  else
+  {
+    v148 = &unk_26286CC60;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v147, v15, &unk_26286CC60, v16, v16, v148, v139, v145, v146);
+  DgnString::~DgnString(&v191);
+  *a4 += v139;
+  *a5 += v145;
+  *a6 += v146;
+  v149 = sizeObject<DgnArray<DgnPrimArray<unsigned int>>>(this + 448, 0);
+  v150 = sizeObject<DgnArray<DgnPrimArray<unsigned int>>>(this + 448, 1);
+  v151 = sizeObject<DgnArray<DgnPrimArray<unsigned int>>>(this + 448, 3);
+  getShipObjectSizeDescription(&v191, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 490);
+  if (v192)
+  {
+    v153 = v191;
+  }
+
+  else
+  {
+    v153 = &unk_26286CC60;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v152, v15, &unk_26286CC60, v16, v16, v153, v149, v150, v151);
+  DgnString::~DgnString(&v191);
+  *a4 += v149;
+  *a5 += v150;
+  *a6 += v151;
+  v154 = sizeObject(this + 488, 0);
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v263 = 8;
+    v155 = 8;
   }
 
   else
   {
-    v263 = 12;
-  }
-
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v264 = 2;
-  }
-
-  else
-  {
-    v264 = 3;
-  }
-
-  v265 = *(this + 138) << v264;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v266 = 8;
-  }
-
-  else
-  {
-    v266 = 16;
-  }
-
-  v267 = v262 + v266 + v263 + v265 + 13;
-  v268 = sizeObject(this + 488);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 492, &v306);
-  if (v307)
-  {
-    v273 = v306;
-  }
-
-  else
-  {
-    v273 = &unk_26286CC60;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v269, v270, v271, v272, v21, &unk_26286CC60, v22, v22, v273, v261, v267, v268);
-  DgnString::~DgnString(&v306);
-  *a4 += v261;
-  *a5 += v267;
-  *a6 += v268;
-  v274 = sizeObject<DgnPrimArray<unsigned int>>(this + 576, 0);
-  v275 = sizeObject<DgnPrimArray<unsigned int>>(this + 576, 1);
-  v306 = 0;
-  v307 = 0;
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v306);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 494, &v306);
-  if (v307)
-  {
-    v280 = v306;
-  }
-
-  else
-  {
-    v280 = &unk_26286CC60;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v276, v277, v278, v279, v21, &unk_26286CC60, v22, v22, v280, v274, v275, 0);
-  DgnString::~DgnString(&v306);
-  *a4 += v274;
-  *a5 += v275;
-  v281 = sizeObject(this + 616);
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v282 = 8;
-  }
-
-  else
-  {
-    v282 = 12;
+    v155 = 12;
   }
 
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v283 = 2;
+    v156 = 2;
   }
 
   else
   {
-    v283 = 3;
+    v156 = 3;
   }
 
-  v284 = *(this + 170) << v283;
+  v157 = *(this + 138) << v156;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v285 = 8;
+    v158 = 8;
   }
 
   else
   {
-    v285 = 16;
+    v158 = 16;
   }
 
-  v286 = v281 + v285 + v282 + v284 + 13;
-  v287 = sizeObject(this + 616);
+  v159 = v154 + v158 + v155 + v157 + 13;
+  v160 = sizeObject(this + 488, 1);
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v288 = 8;
+    v161 = 8;
   }
 
   else
   {
-    v288 = 12;
+    v161 = 12;
   }
 
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v289 = 2;
+    v162 = 2;
   }
 
   else
   {
-    v289 = 3;
+    v162 = 3;
   }
 
-  v290 = *(this + 170) << v289;
+  v163 = *(this + 138) << v162;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v291 = 8;
+    v164 = 8;
   }
 
   else
   {
-    v291 = 16;
+    v164 = 16;
   }
 
-  v292 = v287 + v291 + v288 + v290 + 13;
-  v293 = sizeObject(this + 616);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 496, &v306);
-  if (v307)
+  v165 = v160 + v164 + v161 + v163 + 13;
+  v166 = sizeObject(this + 488, 3);
+  getShipObjectSizeDescription(&v191, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 492);
+  if (v192)
   {
-    v298 = v306;
+    v168 = v191;
   }
 
   else
   {
-    v298 = &unk_26286CC60;
+    v168 = &unk_26286CC60;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v294, v295, v296, v297, v21, &unk_26286CC60, v22, v22, v298, v286, v292, v293);
-  DgnString::~DgnString(&v306);
-  *a4 += v286;
-  *a5 += v292;
-  *a6 += v293;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 497, &v306);
-  if (v307)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v167, v15, &unk_26286CC60, v16, v16, v168, v159, v165, v166);
+  DgnString::~DgnString(&v191);
+  *a4 += v159;
+  *a5 += v165;
+  *a6 += v166;
+  v169 = sizeObject<DgnPrimArray<unsigned int>>(this + 576, 0);
+  v170 = sizeObject<DgnPrimArray<unsigned int>>(this + 576, 1);
+  v191 = 0;
+  v192 = 0;
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v191);
+  getShipObjectSizeDescription(&v191, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 494);
+  if (v192)
   {
-    v303 = v306;
+    v172 = v191;
   }
 
   else
   {
-    v303 = &unk_26286CC60;
+    v172 = &unk_26286CC60;
   }
 
-  v304 = *a5;
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v299, v300, v301, v302, v305, &unk_26286CC60, (35 - v305), (35 - v305), v303, *a4, *a5, *a6);
-  DgnString::~DgnString(&v306);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v171, v15, &unk_26286CC60, v16, v16, v172, v169, v170, 0);
+  DgnString::~DgnString(&v191);
+  *a4 += v169;
+  *a5 += v170;
+  v173 = sizeObject(this + 616, 0);
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v174 = 8;
+  }
+
+  else
+  {
+    v174 = 12;
+  }
+
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v175 = 2;
+  }
+
+  else
+  {
+    v175 = 3;
+  }
+
+  v176 = *(this + 170) << v175;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v177 = 8;
+  }
+
+  else
+  {
+    v177 = 16;
+  }
+
+  v178 = v173 + v177 + v174 + v176 + 13;
+  v179 = sizeObject(this + 616, 1);
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v180 = 8;
+  }
+
+  else
+  {
+    v180 = 12;
+  }
+
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v181 = 2;
+  }
+
+  else
+  {
+    v181 = 3;
+  }
+
+  v182 = *(this + 170) << v181;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v183 = 8;
+  }
+
+  else
+  {
+    v183 = 16;
+  }
+
+  v184 = v179 + v183 + v180 + v182 + 13;
+  v185 = sizeObject(this + 616, 3);
+  getShipObjectSizeDescription(&v191, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 496);
+  if (v192)
+  {
+    v187 = v191;
+  }
+
+  else
+  {
+    v187 = &unk_26286CC60;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v186, v15, &unk_26286CC60, v16, v16, v187, v178, v184, v185);
+  DgnString::~DgnString(&v191);
+  *a4 += v178;
+  *a5 += v184;
+  *a6 += v185;
+  getShipObjectSizeDescription(&v191, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 497);
+  if (v192)
+  {
+    v189 = v191;
+  }
+
+  else
+  {
+    v189 = &unk_26286CC60;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v188, v190, &unk_26286CC60, (35 - v190), (35 - v190), v189, *a4, *a5, *a6);
+  DgnString::~DgnString(&v191);
 }
 
-void sub_2625AB2F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_2625AB2F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   DgnString::~DgnString(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t sizeObject<DgnArray<RecogGerm>>(uint64_t a1, int a2)
+uint64_t sizeObject<DgnArray<RecogGerm>>(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v11[0] = 0;
   v11[1] = 0;
   v4 = sizeObject<RecogGerm>(v11, 2);
-  if (a2 == 3)
+  if (v2 == 3)
   {
     v5 = 0;
   }
@@ -5127,7 +5111,7 @@ uint64_t sizeObject<DgnArray<RecogGerm>>(uint64_t a1, int a2)
       v5 = 16;
     }
 
-    if ((a2 & 0xFFFFFFFE) != 2)
+    if ((v2 & 0xFFFFFFFE) != 2)
     {
       v6 = v4;
       v7 = *(a1 + 8);
@@ -5137,7 +5121,7 @@ uint64_t sizeObject<DgnArray<RecogGerm>>(uint64_t a1, int a2)
         v9 = 16 * v7 - 16;
         do
         {
-          v5 += sizeObject<RecogGerm>(*a1 + v9, a2);
+          v5 += sizeObject<RecogGerm>(*a1 + v9, v2);
           --v8;
           v9 -= 16;
         }
@@ -5145,7 +5129,7 @@ uint64_t sizeObject<DgnArray<RecogGerm>>(uint64_t a1, int a2)
         while (v8 > 1);
       }
 
-      if (!a2)
+      if (!v2)
       {
         v5 += v6 * (*(a1 + 12) - *(a1 + 8));
       }
@@ -5156,8 +5140,9 @@ uint64_t sizeObject<DgnArray<RecogGerm>>(uint64_t a1, int a2)
   return v5;
 }
 
-uint64_t sizeObject<DgnArray<CWIDAC>>(uint64_t a1, int a2)
+uint64_t sizeObject<DgnArray<CWIDAC>>(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v10[0] = 0;
   v10[1] = 0;
   v12 = 0x3FFF;
@@ -5173,12 +5158,12 @@ uint64_t sizeObject<DgnArray<CWIDAC>>(uint64_t a1, int a2)
     v4 = 16;
   }
 
-  if (a2 == 3)
+  if (v2 == 3)
   {
     v4 = 0;
   }
 
-  else if ((a2 & 0xFFFFFFFE) != 2)
+  else if ((v2 & 0xFFFFFFFE) != 2)
   {
     v5 = *(a1 + 8);
     v6 = v4;
@@ -5189,7 +5174,7 @@ uint64_t sizeObject<DgnArray<CWIDAC>>(uint64_t a1, int a2)
       v6 = v4;
       do
       {
-        v6 += sizeObject<CWIDAC>(*a1 + v8, a2);
+        v6 += sizeObject<CWIDAC>(*a1 + v8, v2);
         --v7;
         v8 -= 16;
       }
@@ -5197,7 +5182,7 @@ uint64_t sizeObject<DgnArray<CWIDAC>>(uint64_t a1, int a2)
       while (v7 > 1);
     }
 
-    if (a2)
+    if (v2)
     {
       v4 = v6;
     }
@@ -5212,17 +5197,17 @@ uint64_t sizeObject<DgnArray<CWIDAC>>(uint64_t a1, int a2)
   return v4;
 }
 
-void sub_2625AB590(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2625AB590(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   DgnIArray<Utterance *>::~DgnIArray(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t sizeObject<PhnIndexSet>(uint64_t a1, uint64_t a2)
+uint64_t sizeObject<PhnIndexSet>(uint64_t a1, int a2)
 {
   DgnString::DgnString(v11);
-  v4 = PhnIndexSet::sizeObject(v11, 2);
+  v4 = PhnIndexSet::sizeObject();
   if (a2 == 3)
   {
     v5 = 0;
@@ -5250,7 +5235,7 @@ uint64_t sizeObject<PhnIndexSet>(uint64_t a1, uint64_t a2)
         v9 = 16 * v7 - 16;
         do
         {
-          v5 += PhnIndexSet::sizeObject(*a1 + v9, a2);
+          v5 += PhnIndexSet::sizeObject();
           --v8;
           v9 -= 16;
         }
@@ -5446,10 +5431,10 @@ void Constraint::Constraint(Constraint *this, const Constraint *a2)
   PhnIndexSet::PhnIndexSet((this + 120), (a2 + 120));
   *(this + 136) = 0u;
   *(this + 152) = 0u;
-  DgnPrimArray<int>::copyArraySlice(this + 152, a2 + 19, 0, *(a2 + 40));
+  DgnPrimArray<int>::copyArraySlice(this + 19, a2 + 19, 0, *(a2 + 40));
   *(this + 21) = 0;
   *(this + 22) = 0;
-  DgnPrimArray<int>::copyArraySlice(this + 168, a2 + 21, 0, *(a2 + 44));
+  DgnPrimArray<int>::copyArraySlice(this + 21, a2 + 21, 0, *(a2 + 44));
   *(this + 23) = 0;
   *(this + 24) = 0;
   DgnArray<DgnArray<ParseToken>>::copyArraySlice(this + 184, a2 + 23, 0, *(a2 + 48));
@@ -5459,12 +5444,12 @@ void Constraint::Constraint(Constraint *this, const Constraint *a2)
   *(this + 28) = 0;
   *(this + 27) = v5;
   *(this + 29) = 0;
-  DgnPrimArray<int>::copyArraySlice(this + 224, a2 + 28, 0, *(a2 + 58));
+  DgnPrimArray<int>::copyArraySlice(this + 28, a2 + 28, 0, *(a2 + 58));
   *(this + 30) = *(a2 + 30);
   *(this + 62) = *(a2 + 62);
   *(this + 32) = 0;
   *(this + 33) = 0;
-  DgnPrimArray<int>::copyArraySlice(this + 256, a2 + 32, 0, *(a2 + 66));
+  DgnPrimArray<int>::copyArraySlice(this + 32, a2 + 32, 0, *(a2 + 66));
   *(this + 34) = 0;
   *(this + 35) = 0;
   *(this + 75) = -16;
@@ -5632,16 +5617,16 @@ uint64_t Hash<StateSpec,StateSpec,StateSpec,BOOL>::removeAll(uint64_t result)
   return result;
 }
 
-void Constraint::prunePreList(Constraint *this, RecogGermIterator *a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void Constraint::prunePreList(uint64_t this, RecogGermIterator *a2, int a3)
 {
   if (!a2)
   {
     *(this + 62) = a3;
     *(this + 296) = 0;
-    if ((*(this + 17) - 1) > 1)
+    if ((*(this + 68) - 1) > 1)
     {
-      *(this + 1) = 0;
-      *(this + 4) = 0;
+      *(this + 8) = 0;
+      *(this + 16) = 0;
       return;
     }
 
@@ -5650,184 +5635,184 @@ void Constraint::prunePreList(Constraint *this, RecogGermIterator *a2, int a3, u
 
   if (*(a2 + 3) == -1)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 595, "kernel/constran", 1, "%s", a7, a8, &errStr_kernel_constran_E_TOOMANYWORDS);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/constran.cpp", 595, "kernel/constran", 1, "%s", &errStr_kernel_constran_E_TOOMANYWORDS);
   }
 
   *(this + 62) = a3;
   *(this + 296) = 0;
-  if ((*(this + 17) - 1) < 2)
+  if ((*(this + 68) - 1) < 2)
   {
 LABEL_28:
     if (a3)
     {
-      v30 = a2;
+      v25 = a2;
     }
 
     else
     {
-      v30 = 0;
+      v25 = 0;
     }
 
-    *(this + 1) = v30;
+    *(this + 8) = v25;
     *(this + 61) = 1;
     return;
   }
 
-  v11 = *(this + 52);
-  if (v11 >= 1)
+  v6 = *(this + 208);
+  if (v6 >= 1)
   {
     while (1)
     {
-      v12 = v11 - 1;
+      v7 = v6 - 1;
       if ((*(this + 63) & 1) == 0)
       {
         break;
       }
 
-      v13 = *(this + 25);
-      if (v12 >= *(this + 70))
+      v8 = *(this + 200);
+      if (v7 >= *(this + 280))
       {
         goto LABEL_14;
       }
 
-      v14 = *(this + 34) + 16 * v12;
-      v15 = *(v14 + 8);
-      v16 = (v13 + 16 * v12);
-      if (*(v16 + 2) <= (4 * v15))
+      v9 = *(this + 272) + 16 * v7;
+      v10 = *(v9 + 8);
+      v11 = (v8 + 16 * v7);
+      if (*(v11 + 2) <= (4 * v10))
       {
         goto LABEL_14;
       }
 
-      v17 = v15 - 1;
-      if (v17 >= 0)
+      v12 = v10 - 1;
+      if (v12 >= 0)
       {
-        v18 = *v14;
-        v19 = *v16;
-        v20 = 4 * v17;
+        v13 = *v9;
+        v14 = *v11;
+        v15 = 4 * v12;
         do
         {
-          *(v19 + 4 * *(v18 + v20)) = -1;
-          v20 -= 4;
+          *(v14 + 4 * *(v13 + v15)) = -1;
+          v15 -= 4;
         }
 
-        while (v20 != -4);
+        while (v15 != -4);
       }
 
 LABEL_16:
-      if (v11-- <= 1)
+      if (v6-- <= 1)
       {
         goto LABEL_18;
       }
     }
 
-    v13 = *(this + 25);
+    v8 = *(this + 200);
 LABEL_14:
-    v21 = v13 + 16 * v12;
-    v22 = *(v21 + 8);
-    if (v22)
+    v16 = v8 + 16 * v7;
+    v17 = *(v16 + 8);
+    if (v17)
     {
-      memset(*v21, 255, 4 * v22);
+      memset(*v16, 255, 4 * v17);
     }
 
     goto LABEL_16;
   }
 
 LABEL_18:
-  v24 = *(this + 36);
-  if (v24)
+  v19 = *(this + 288);
+  if (v19)
   {
-    *(v24 + 8) = 0;
+    *(v19 + 8) = 0;
   }
 
-  v25 = *(this + 52);
-  v26 = *(this + 71);
-  if (v25 > v26)
+  v20 = *(this + 208);
+  v21 = *(this + 284);
+  if (v20 > v21)
   {
-    DgnArray<DgnPrimArray<double>>::reallocElts(this + 272, v25 - v26, 0);
+    DgnArray<DgnPrimArray<double>>::reallocElts(this + 272, v20 - v21, 0);
   }
 
-  v27 = *(this + 70);
-  if (v27 <= v25)
+  v22 = *(this + 280);
+  if (v22 <= v20)
   {
-    if (v27 < v25)
+    if (v22 < v20)
     {
-      v31 = v25 - v27;
-      v32 = 16 * v27;
+      v26 = v20 - v22;
+      v27 = 16 * v22;
       do
       {
-        v33 = (*(this + 34) + v32);
-        *v33 = 0;
-        v33[1] = 0;
-        v32 += 16;
-        --v31;
+        v28 = (*(this + 272) + v27);
+        *v28 = 0;
+        v28[1] = 0;
+        v27 += 16;
+        --v26;
       }
 
-      while (v31);
+      while (v26);
     }
   }
 
-  else if (v27 > v25)
+  else if (v22 > v20)
   {
-    v28 = v27;
-    v29 = 16 * v27 - 16;
+    v23 = v22;
+    v24 = 16 * v22 - 16;
     do
     {
-      --v28;
-      DgnPrimArray<unsigned int>::~DgnPrimArray(*(this + 34) + v29);
-      v29 -= 16;
+      --v23;
+      DgnPrimArray<unsigned int>::~DgnPrimArray(*(this + 272) + v24);
+      v24 -= 16;
     }
 
-    while (v28 > v25);
+    while (v23 > v20);
   }
 
-  *(this + 70) = v25;
-  if (v25 >= 1)
+  *(this + 280) = v20;
+  if (v20 >= 1)
   {
-    v34 = 0;
-    v35 = vdupq_n_s64(v25 - 1);
-    v36 = (*(this + 34) + 16 * v25 - 24);
+    v29 = 0;
+    v30 = vdupq_n_s64(v20 - 1);
+    v31 = (*(this + 272) + 16 * v20 - 24);
     do
     {
-      v37 = vdupq_n_s64(v34);
-      v38 = vmovn_s64(vcgeq_u64(v35, vorrq_s8(v37, xmmword_26286B680)));
-      if (vuzp1_s16(v38, *v35.i8).u8[0])
+      v32 = vdupq_n_s64(v29);
+      v33 = vmovn_s64(vcgeq_u64(v30, vorrq_s8(v32, xmmword_26286B680)));
+      if (vuzp1_s16(v33, *v30.i8).u8[0])
       {
-        v36[4] = 0;
+        v31[4] = 0;
       }
 
-      if (vuzp1_s16(v38, *&v35).i8[2])
+      if (vuzp1_s16(v33, *&v30).i8[2])
       {
-        *v36 = 0;
+        *v31 = 0;
       }
 
-      if (vuzp1_s16(*&v35, vmovn_s64(vcgeq_u64(v35, vorrq_s8(v37, xmmword_26286BF80)))).i32[1])
+      if (vuzp1_s16(*&v30, vmovn_s64(vcgeq_u64(v30, vorrq_s8(v32, xmmword_26286BF80)))).i32[1])
       {
-        *(v36 - 4) = 0;
-        *(v36 - 8) = 0;
+        *(v31 - 4) = 0;
+        *(v31 - 8) = 0;
       }
 
-      v34 += 4;
-      v36 -= 16;
+      v29 += 4;
+      v31 -= 16;
     }
 
-    while (((v25 + 3) & 0xFFFFFFFC) != v34);
+    while (((v20 + 3) & 0xFFFFFFFC) != v29);
   }
 
-  *(this + 1) = a2;
-  v39 = VocMgr::smpVocMgr;
-  v40 = *(*VocMgr::smpVocMgr + 8);
-  if (v40)
+  *(this + 8) = a2;
+  v34 = VocMgr::smpVocMgr;
+  v35 = *(*VocMgr::smpVocMgr + 8);
+  if (v35)
   {
-    v41 = 0;
-    for (i = 0; i < v40; ++i)
+    v36 = 0;
+    for (i = 0; i < v35; ++i)
     {
-      v43 = *(**VocMgr::smpVocMgr + 8 * i);
-      if (v43)
+      v38 = *(**VocMgr::smpVocMgr + 8 * i);
+      if (v38)
       {
-        v44 = *(v43 + 48);
-        if (v44)
+        v39 = *(v38 + 48);
+        if (v39)
         {
-          v41 += *(v44 + 388);
+          v36 += *(v39 + 388);
         }
       }
     }
@@ -5835,316 +5820,316 @@ LABEL_18:
 
   else
   {
-    v41 = 0;
+    v36 = 0;
   }
 
-  v45 = *(a2 + 3);
-  *(this + 63) = v41 > 4 * v45;
-  v105 = 0x3FFFFAFFFFFFLL;
-  v106 = xmmword_26286CC40;
-  v107 = 0;
-  v108 = 1310720000;
-  v109 = 0;
-  v110 = 0x70000000FFFFFFFELL;
+  v40 = *(a2 + 3);
+  *(this + 63) = v36 > 4 * v40;
+  v100 = 0x3FFFFAFFFFFFLL;
+  v101 = xmmword_26286CC40;
+  v102 = 0;
+  v103 = 1310720000;
+  v104 = 0;
+  v105 = 0x70000000FFFFFFFELL;
   *(a2 + 32) = 0;
   *(a2 + 2) = 0;
-  if (v45)
+  if (v40)
   {
-    v46 = 0;
+    v41 = 0;
     while (1)
     {
-      (*(*a2 + 16))(a2, &v105);
-      v104 = v105;
-      v47 = v105 >> 25;
-      v48 = *(this + 52);
-      v49 = v48;
-      if (v47 >= v48)
+      (*(*a2 + 16))(a2, &v100);
+      v99 = v100;
+      v42 = v100 >> 25;
+      v43 = *(this + 208);
+      v44 = v43;
+      if (v42 >= v43)
       {
         break;
       }
 
-      v50 = *(*(*(**v39 + 8 * v47) + 48) + 388);
-      v51 = *(this + 25);
-      if (v50 > *(v51 + 16 * v47 + 8))
+      v45 = *(*(*(**v34 + 8 * v42) + 48) + 388);
+      v46 = *(this + 200);
+      if (v45 > *(v46 + 16 * v42 + 8))
       {
-        v52 = v51 + 16 * v49;
-        v54 = *(v52 + 8);
-        v53 = *(v52 + 12);
-        if (v50 > v53)
+        v47 = v46 + 16 * v44;
+        v49 = *(v47 + 8);
+        v48 = *(v47 + 12);
+        if (v45 > v48)
         {
-          DgnPrimArray<unsigned int>::reallocElts(v51 + 16 * v49, v50 - v53, 0);
-          v51 = *(this + 25);
+          DgnPrimArray<unsigned int>::reallocElts(v46 + 16 * v44, v45 - v48, 0);
+          v46 = *(this + 200);
         }
 
-        v55 = v49;
-        *(v52 + 8) = v50;
-        memset((*(v51 + 16 * v49) + 4 * v54), 255, 4 * (v50 - v54));
+        v50 = v44;
+        *(v47 + 8) = v45;
+        memset((*(v46 + 16 * v44) + 4 * v49), 255, 4 * (v45 - v49));
         if (*(this + 63) == 1)
         {
-          v56 = *(this + 34);
-          v57 = v56 + 16 * v49;
-          v58 = *(v57 + 8);
-          v59 = *(a2 + 3);
-          if (v59 >= v50)
+          v51 = *(this + 272);
+          v52 = v51 + 16 * v44;
+          v53 = *(v52 + 8);
+          v54 = *(a2 + 3);
+          if (v54 >= v45)
           {
-            v60 = v50;
+            v55 = v45;
           }
 
           else
           {
-            v60 = *(a2 + 3);
+            v55 = *(a2 + 3);
           }
 
-          if (v60 <= 0x3F8)
+          if (v55 <= 0x3F8)
           {
-            v61 = 1016;
+            v56 = 1016;
           }
 
           else
           {
-            v61 = v60;
+            v56 = v55;
           }
 
-          v62 = *(v57 + 8);
-          if (v61 > v58)
+          v57 = *(v52 + 8);
+          if (v56 > v53)
           {
-            if (v59 <= v50)
+            if (v54 <= v45)
             {
-              if (v59 <= 0x3F8)
+              if (v54 <= 0x3F8)
               {
-                v62 = 1016;
+                v57 = 1016;
               }
 
               else
               {
-                v62 = *(a2 + 3);
+                v57 = *(a2 + 3);
               }
             }
 
-            else if (v50 <= 0x3F8)
+            else if (v45 <= 0x3F8)
             {
-              v62 = 1016;
+              v57 = 1016;
             }
 
             else
             {
-              v62 = v50;
+              v57 = v45;
             }
           }
 
-          v101 = *(v57 + 12);
-          if (v62 > v101)
+          v96 = *(v52 + 12);
+          if (v57 > v96)
           {
-            DgnPrimArray<unsigned int>::reallocElts(v57, v62 - v101, 0);
-            v56 = *(this + 34);
-            v101 = *(v56 + 16 * v55 + 12);
+            DgnPrimArray<unsigned int>::reallocElts(v52, v57 - v96, 0);
+            v51 = *(this + 272);
+            v96 = *(v51 + 16 * v50 + 12);
           }
 
-          v102 = v56 + 16 * v55;
-          if (v58 > v101)
+          v97 = v51 + 16 * v50;
+          if (v53 > v96)
           {
-            DgnPrimArray<unsigned int>::reallocElts(v56 + 16 * v55, v58 - v101, 0);
+            DgnPrimArray<unsigned int>::reallocElts(v51 + 16 * v50, v53 - v96, 0);
           }
 
-          *(v102 + 8) = v58;
+          *(v97 + 8) = v53;
         }
       }
 
 LABEL_108:
-      v89 = v104 & 0xFFFFFF;
-      if (v89 != 16777208)
+      v84 = v99 & 0xFFFFFF;
+      if (v84 != 16777208)
       {
-        v90 = *(*(this + 25) + 16 * v47);
-        if (*(v90 + 4 * v89) == -1)
+        v85 = *(*(this + 200) + 16 * v42);
+        if (*(v85 + 4 * v84) == -1)
         {
-          *(v90 + 4 * v89) = v46;
+          *(v85 + 4 * v84) = v41;
           if (*(this + 63) == 1)
           {
-            v98 = *(this + 34) + 16 * v47;
-            v99 = *(v98 + 8);
-            if (v99 == *(v98 + 12))
+            v93 = *(this + 272) + 16 * v42;
+            v94 = *(v93 + 8);
+            if (v94 == *(v93 + 12))
             {
-              DgnPrimArray<unsigned int>::reallocElts(*(this + 34) + 16 * v47, 1, 1);
-              v99 = *(v98 + 8);
+              DgnPrimArray<unsigned int>::reallocElts(*(this + 272) + 16 * v42, 1, 1);
+              v94 = *(v93 + 8);
             }
 
-            *(*v98 + 4 * v99) = v89;
-            ++*(v98 + 8);
+            *(*v93 + 4 * v94) = v84;
+            ++*(v93 + 8);
           }
         }
 
         else
         {
-          v91 = *(this + 36);
-          if (!v91)
+          v86 = *(this + 288);
+          if (!v86)
           {
-            v91 = MemChunkAlloc(0x10uLL, 0);
-            *v91 = 0;
-            v91[1] = 0;
-            *(this + 36) = v91;
+            v86 = MemChunkAlloc(0x10uLL, 0);
+            *v86 = 0;
+            v86[1] = 0;
+            *(this + 288) = v86;
           }
 
-          v92 = *(a2 + 3);
-          if (*(v91 + 2) < v92)
+          v87 = *(a2 + 3);
+          if (*(v86 + 2) < v87)
           {
-            v93 = *(v91 + 3);
-            v94 = v91;
-            if (v92 > v93)
+            v88 = *(v86 + 3);
+            v89 = v86;
+            if (v87 > v88)
             {
-              DgnPrimArray<unsigned int>::reallocElts(v91, v92 - v93, 0);
-              v94 = *(this + 36);
+              DgnPrimArray<unsigned int>::reallocElts(v86, v87 - v88, 0);
+              v89 = *(this + 288);
             }
 
-            *(v91 + 2) = v92;
-            memset(*v94, 255, 4 * *(v94 + 2));
-            v91 = *(this + 36);
+            *(v86 + 2) = v87;
+            memset(*v89, 255, 4 * *(v89 + 2));
+            v86 = *(this + 288);
           }
 
-          v95 = *v91;
-          v96 = *(*(*(this + 25) + 16 * v47) + 4 * v89);
+          v90 = *v86;
+          v91 = *(*(*(this + 200) + 16 * v42) + 4 * v84);
           do
           {
-            v97 = v96;
-            v96 = *(v95 + 4 * v96);
+            v92 = v91;
+            v91 = *(v90 + 4 * v91);
           }
 
-          while (v96 != -1);
-          *(v95 + 4 * v97) = v46;
+          while (v91 != -1);
+          *(v90 + 4 * v92) = v41;
         }
       }
 
-      v100 = *(a2 + 2) + 1;
-      *(a2 + 2) = v100;
+      v95 = *(a2 + 2) + 1;
+      *(a2 + 2) = v95;
       if (*(a2 + 32))
       {
         (*(*a2 + 24))(a2);
-        v100 = *(a2 + 2);
+        v95 = *(a2 + 2);
       }
 
-      ++v46;
-      if (v100 == *(a2 + 3))
+      ++v41;
+      if (v95 == *(a2 + 3))
       {
         goto LABEL_135;
       }
     }
 
-    v63 = v47 + 1;
-    v64 = *(this + 53);
-    if (v64 <= v47)
+    v58 = v42 + 1;
+    v59 = *(this + 212);
+    if (v59 <= v42)
     {
-      DgnArray<DgnPrimArray<double>>::reallocElts(this + 200, v63 - v64, 0);
-      v48 = *(this + 52);
+      DgnArray<DgnPrimArray<double>>::reallocElts(this + 200, v58 - v59, 0);
+      v43 = *(this + 208);
     }
 
-    if (v48 <= v63)
+    if (v43 <= v58)
     {
-      if (v48 <= v47)
+      if (v43 <= v42)
       {
-        v67 = v47 - v48 + 1;
-        v68 = 16 * v48;
+        v62 = v42 - v43 + 1;
+        v63 = 16 * v43;
         do
         {
-          v69 = (*(this + 25) + v68);
-          *v69 = 0;
-          v69[1] = 0;
-          v68 += 16;
-          --v67;
+          v64 = (*(this + 200) + v63);
+          *v64 = 0;
+          v64[1] = 0;
+          v63 += 16;
+          --v62;
         }
 
-        while (v67);
+        while (v62);
       }
     }
 
-    else if (v48 > v63)
+    else if (v43 > v58)
     {
-      v65 = v48;
-      v66 = 16 * v48 - 16;
+      v60 = v43;
+      v61 = 16 * v43 - 16;
       do
       {
-        --v65;
-        DgnPrimArray<unsigned int>::~DgnPrimArray(*(this + 25) + v66);
-        v66 -= 16;
+        --v60;
+        DgnPrimArray<unsigned int>::~DgnPrimArray(*(this + 200) + v61);
+        v61 -= 16;
       }
 
-      while (v65 > v63);
+      while (v60 > v58);
     }
 
-    *(this + 52) = v63;
-    v70 = *(this + 71);
-    if (v70 <= v47)
+    *(this + 208) = v58;
+    v65 = *(this + 284);
+    if (v65 <= v42)
     {
-      DgnArray<DgnPrimArray<double>>::reallocElts(this + 272, v63 - v70, 0);
+      DgnArray<DgnPrimArray<double>>::reallocElts(this + 272, v58 - v65, 0);
     }
 
-    v71 = *(this + 70);
-    if (v71 <= v63)
+    v66 = *(this + 280);
+    if (v66 <= v58)
     {
-      if (v71 <= v47)
+      if (v66 <= v42)
       {
-        v74 = v47 - v71 + 1;
-        v75 = 16 * v71;
+        v69 = v42 - v66 + 1;
+        v70 = 16 * v66;
         do
         {
-          v76 = (*(this + 34) + v75);
-          *v76 = 0;
-          v76[1] = 0;
-          v75 += 16;
-          --v74;
+          v71 = (*(this + 272) + v70);
+          *v71 = 0;
+          v71[1] = 0;
+          v70 += 16;
+          --v69;
         }
 
-        while (v74);
+        while (v69);
       }
     }
 
     else
     {
-      v72 = v71;
-      if (v71 > v63)
+      v67 = v66;
+      if (v66 > v58)
       {
-        v73 = 16 * v71 - 16;
+        v68 = 16 * v66 - 16;
         do
         {
-          --v72;
-          DgnPrimArray<unsigned int>::~DgnPrimArray(*(this + 34) + v73);
-          v73 -= 16;
+          --v67;
+          DgnPrimArray<unsigned int>::~DgnPrimArray(*(this + 272) + v68);
+          v68 -= 16;
         }
 
-        while (v72 > v63);
+        while (v67 > v58);
       }
     }
 
-    *(this + 70) = v63;
-    v77 = 16 * v49;
-    v78 = v63;
+    *(this + 280) = v58;
+    v72 = 16 * v44;
+    v73 = v58;
     while (1)
     {
-      v79 = *(**v39 + 8 * v49);
-      if (v79)
+      v74 = *(**v34 + 8 * v44);
+      if (v74)
       {
-        v80 = *(v79 + 48);
-        if (v80)
+        v75 = *(v74 + 48);
+        if (v75)
         {
           break;
         }
       }
 
 LABEL_107:
-      ++v49;
-      v77 += 16;
-      if (v78 == v49)
+      ++v44;
+      v72 += 16;
+      if (v73 == v44)
       {
         goto LABEL_108;
       }
     }
 
-    v81 = *(v80 + 388);
-    v82 = *(this + 25);
-    v83 = v82 + v77;
-    v84 = *(v82 + v77 + 12);
-    if (v81 <= v84)
+    v76 = *(v75 + 388);
+    v77 = *(this + 200);
+    v78 = v77 + v72;
+    v79 = *(v77 + v72 + 12);
+    if (v76 <= v79)
     {
-      *(v83 + 8) = v81;
-      if (!v81)
+      *(v78 + 8) = v76;
+      if (!v76)
       {
         goto LABEL_98;
       }
@@ -6152,40 +6137,40 @@ LABEL_107:
 
     else
     {
-      DgnPrimArray<unsigned int>::reallocElts(v82 + v77, v81 - v84, 0);
-      *(v83 + 8) = v81;
-      v82 = *(this + 25);
+      DgnPrimArray<unsigned int>::reallocElts(v77 + v72, v76 - v79, 0);
+      *(v78 + 8) = v76;
+      v77 = *(this + 200);
     }
 
-    memset(*(v82 + v77), 255, 4 * v81);
+    memset(*(v77 + v72), 255, 4 * v76);
 LABEL_98:
     if (*(this + 63) == 1)
     {
-      v85 = *(a2 + 3);
-      if (v85 >= v81)
+      v80 = *(a2 + 3);
+      if (v80 >= v76)
       {
-        v85 = v81;
+        v80 = v76;
       }
 
-      if (v85 <= 0x3F8)
+      if (v80 <= 0x3F8)
       {
-        v86 = 1016;
+        v81 = 1016;
       }
 
       else
       {
-        v86 = v85;
+        v81 = v80;
       }
 
-      v87 = *(this + 34);
-      v88 = *(v87 + v77 + 12);
-      if (v86 > v88)
+      v82 = *(this + 272);
+      v83 = *(v82 + v72 + 12);
+      if (v81 > v83)
       {
-        DgnPrimArray<unsigned int>::reallocElts(v87 + v77, v86 - v88, 0);
-        v87 = *(this + 34);
+        DgnPrimArray<unsigned int>::reallocElts(v82 + v72, v81 - v83, 0);
+        v82 = *(this + 272);
       }
 
-      *(v87 + v77 + 8) = 0;
+      *(v82 + v72 + 8) = 0;
     }
 
     goto LABEL_107;
@@ -6193,13 +6178,13 @@ LABEL_98:
 
 LABEL_135:
   *(this + 61) = 0;
-  v103 = *(this + 36);
-  if (v103)
+  v98 = *(this + 288);
+  if (v98)
   {
-    if (!*(v103 + 8))
+    if (!*(v98 + 8))
     {
-      DgnDelete<DgnPrimArray<unsigned int>>(v103);
-      *(this + 36) = 0;
+      DgnDelete<DgnPrimArray<unsigned int>>(v98);
+      *(this + 288) = 0;
     }
   }
 }
@@ -6289,37 +6274,37 @@ void Constraint::seedGivenTraceState(uint64_t a1, unsigned __int16 *a2, uint64_t
     v10 = *(a2 + 1);
   }
 
-  v32 = v10;
-  v30 = *(*(v8 + 36) + 4 * v9);
-  v42 = 0x3FFFFAFFFFFFLL;
-  v43 = xmmword_26286CC40;
-  v44 = 0;
-  *v45 = 1310720000;
-  *&v45[4] = 0;
-  v46 = 0x70000000FFFFFFFELL;
+  v28 = v10;
+  v26 = *(*(v8 + 36) + 4 * v9);
+  v38 = 0x3FFFFAFFFFFFLL;
+  v39 = xmmword_26286CC40;
+  v40 = 0;
+  *v41 = 1310720000;
+  *&v41[4] = 0;
+  v42 = 0x70000000FFFFFFFELL;
   *(a4 + 32) = 0;
   *(a4 + 8) = 0;
   if (*(a4 + 12))
   {
     v14 = a2;
-    v28 = v8;
+    v24 = v8;
     do
     {
-      (*(*a4 + 16))(a4, &v42);
-      if (*(a1 + 62) != 1 || (v43 ? (v20 = v43 == *(v14 + 1)) : (v20 = 1), v20))
+      (*(*a4 + 16))(a4, &v38);
+      if (*(a1 + 62) != 1 || (v39 ? (v16 = v39 == *(v14 + 1)) : (v16 = 1), v16))
       {
-        v21 = v42;
-        if (v7 == v42 >> 25 && StateMgr::isWordIdInState(v8, v32, v42 & 0xFFFFFF, 0, v16, v17, v18, v19))
+        v17 = v38;
+        if (v7 == v38 >> 25 && StateMgr::isWordIdInState(v8, v28, v38 & 0xFFFFFF, 0))
         {
-          v33 = v42;
-          v35 = *(&v43 + 4);
-          v36 = HIDWORD(v43);
-          v37 = v44;
-          v39 = *&v45[2];
-          v40 = v46;
-          v41 = v47;
-          v34 = *(v14 + 1);
-          v38 = v30;
+          v29 = v38;
+          v31 = *(&v39 + 4);
+          v32 = HIDWORD(v39);
+          v33 = v40;
+          v35 = *&v41[2];
+          v36 = v42;
+          v37 = v43;
+          v30 = *(v14 + 1);
+          v34 = v26;
           ++*a6;
           if (*(a1 + 216))
           {
@@ -6327,12 +6312,12 @@ void Constraint::seedGivenTraceState(uint64_t a1, unsigned __int16 *a2, uint64_t
             {
               for (i = 0; i < *(a3 + 2); ++i)
               {
-                v23 = *a3;
-                v24 = *(a1 + 216);
-                v25 = *(*(v24 + 128) + 136 * *(*a3 + 4 * i) + 88);
-                if (*(v24 + 218) == 1)
+                v19 = *a3;
+                v20 = *(a1 + 216);
+                v21 = *(*(v20 + 128) + 136 * *(*a3 + 4 * i) + 88);
+                if (*(v20 + 218) == 1)
                 {
-                  if (v25 != v21)
+                  if (v21 != v17)
                   {
                     continue;
                   }
@@ -6340,18 +6325,18 @@ void Constraint::seedGivenTraceState(uint64_t a1, unsigned __int16 *a2, uint64_t
 
                 else
                 {
-                  if (v25 != VocMgr::getRoot(v6, v21))
+                  if (v21 != VocMgr::getRoot(v6, v17))
                   {
                     continue;
                   }
 
-                  v23 = *a3;
+                  v19 = *a3;
                 }
 
                 if (*(a1 + 62))
                 {
-                  v26 = *(v23 + 4 * i);
-                  if (DWORD1(v43) != -2 && DWORD1(v43) != v26)
+                  v22 = *(v19 + 4 * i);
+                  if (DWORD1(v39) != -2 && DWORD1(v39) != v22)
                   {
                     continue;
                   }
@@ -6359,35 +6344,35 @@ void Constraint::seedGivenTraceState(uint64_t a1, unsigned __int16 *a2, uint64_t
 
                 else
                 {
-                  v26 = *(v23 + 4 * i);
+                  v22 = *(v19 + 4 * i);
                 }
 
-                LODWORD(v35) = v26;
-                Constraint::addToReturnList(a1, &v33, a5);
+                LODWORD(v31) = v22;
+                Constraint::addToReturnList(a1, &v29, a5);
               }
             }
           }
 
           else
           {
-            Constraint::addToReturnList(a1, &v33, a5);
+            Constraint::addToReturnList(a1, &v29, a5);
           }
 
-          v8 = v28;
+          v8 = v24;
           v14 = a2;
         }
       }
 
-      v27 = *(a4 + 8) + 1;
-      *(a4 + 8) = v27;
+      v23 = *(a4 + 8) + 1;
+      *(a4 + 8) = v23;
       if (*(a4 + 32))
       {
         (*(*a4 + 24))(a4);
-        v27 = *(a4 + 8);
+        v23 = *(a4 + 8);
       }
     }
 
-    while (v27 != *(a4 + 12));
+    while (v23 != *(a4 + 12));
   }
 }
 
@@ -6678,9 +6663,9 @@ LABEL_20:
   return DgnPrimArray<unsigned int>::~DgnPrimArray(&v38);
 }
 
-void sub_2625AD24C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2625AD24C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   _Unwind_Resume(a1);
 }
@@ -6951,9 +6936,9 @@ LABEL_35:
   return DgnPrimArray<unsigned int>::~DgnPrimArray(&v43);
 }
 
-void sub_2625AD85C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_2625AD85C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   _Unwind_Resume(a1);
 }
@@ -7021,9 +7006,9 @@ void Constraint::seedGivenState(uint64_t a1, unsigned __int16 *a2, uint64_t *a3,
       v25 = *(a13 + 8);
       if (v25 == *(a13 + 12))
       {
-        v61 = a1;
-        v65 = a2;
-        v59 = a3;
+        v60 = a1;
+        v64 = a2;
+        v58 = a3;
         v26 = a8;
         v27 = a7;
         v29 = a5;
@@ -7033,13 +7018,13 @@ void Constraint::seedGivenState(uint64_t a1, unsigned __int16 *a2, uint64_t *a3,
         a5 = v29;
         v17 = a4;
         v21 = a10;
-        a1 = v61;
+        a1 = v60;
         v16 = a6;
         a7 = v27;
         a8 = v26;
-        a3 = v59;
+        a3 = v58;
         v19 = a15;
-        a2 = v65;
+        a2 = v64;
         v22 = a11;
         v25 = *(a13 + 8);
         v24 = *a14;
@@ -7056,16 +7041,16 @@ void Constraint::seedGivenState(uint64_t a1, unsigned __int16 *a2, uint64_t *a3,
   v31 = *(a2 + 1);
   if (*(*(v30 + 528) + 2 * v31) == 127)
   {
-    v57 = *(*(**VocMgr::smpVocMgr + 8 * v23) + 56);
+    v56 = *(*(**VocMgr::smpVocMgr + 8 * v23) + 56);
     v32 = v16;
     v33 = a9;
-    v64 = v19;
-    v58 = v20;
-    v60 = v18;
+    v63 = v19;
+    v57 = v20;
+    v59 = v18;
     if (*(*(v30 + 336) + v31) == 1)
     {
       v34 = a1;
-      v66 = a2;
+      v65 = a2;
       v35 = a3;
       v36 = v22;
       v37 = a8;
@@ -7073,10 +7058,10 @@ void Constraint::seedGivenState(uint64_t a1, unsigned __int16 *a2, uint64_t *a3,
       v39 = v21;
       v40 = v17;
       v41 = a5;
-      v63 = v32;
-      StateTransition = StateMgr::getStateTransition(v57, v31, 0, a4, a5, v32, a7, a8);
+      v62 = v32;
+      StateTransition = StateMgr::getStateTransition(v56, v31, 0);
       v33 = a9;
-      v32 = v63;
+      v32 = v62;
       v43 = a12;
       a5 = v41;
       v17 = v40;
@@ -7084,7 +7069,7 @@ void Constraint::seedGivenState(uint64_t a1, unsigned __int16 *a2, uint64_t *a3,
       LODWORD(a7) = v38;
       LODWORD(a8) = v37;
       a3 = v35;
-      a2 = v66;
+      a2 = v65;
       v22 = v36;
       v44 = StateTransition;
       a1 = v34;
@@ -7095,12 +7080,11 @@ void Constraint::seedGivenState(uint64_t a1, unsigned __int16 *a2, uint64_t *a3,
         do
         {
           v46 = *(*v44 + 4 * v45);
-          v67[0] = *a2;
-          v68 = v46;
-          LOBYTE(v56) = a16;
-          Constraint::seedGivenState(v34, v67, v35, v17, a5, v32, v38, v37, v33, v21, v22, v43, v58, v60, v64, v56);
+          v66[0] = *a2;
+          v67 = v46;
+          Constraint::seedGivenState(v34, v66, v35, v17, a5, v32, v38, v37, v33, v21, v22, v43, v57, v59, v63, a16);
           v33 = a9;
-          v32 = v63;
+          v32 = v62;
           v43 = a12;
           a5 = v41;
           v17 = v40;
@@ -7109,7 +7093,7 @@ void Constraint::seedGivenState(uint64_t a1, unsigned __int16 *a2, uint64_t *a3,
           LODWORD(a8) = v37;
           a3 = v35;
           a1 = v34;
-          a2 = v66;
+          a2 = v65;
           v22 = v36;
           ++v45;
         }
@@ -7119,14 +7103,14 @@ void Constraint::seedGivenState(uint64_t a1, unsigned __int16 *a2, uint64_t *a3,
     }
 
     v47 = *(a2 + 1);
-    if ((*(a1 + 64) & 1) == 0 || ((v48 = *(*(v57 + 50) + 4 * v47), v48 == -1) || (*a5 = 1, v48 <= v17)) && ((v49 = *(*(v57 + 52) + 4 * v47), v49 == -1) || (*a5 = 1, v49 >= v17)))
+    if ((*(a1 + 64) & 1) == 0 || ((v48 = *(*(v56 + 50) + 4 * v47), v48 == -1) || (*a5 = 1, v48 <= v17)) && ((v49 = *(*(v56 + 52) + 4 * v47), v49 == -1) || (*a5 = 1, v49 >= v17)))
     {
-      if (*(*(v57 + 62) + 4 * v47))
+      if (*(*(v56 + 62) + 4 * v47))
       {
-        LODWORD(v47) = *(*(v57 + 62) + 4 * v47);
+        LODWORD(v47) = *(*(v56 + 62) + 4 * v47);
       }
 
-      v50 = *(*v57 + 80 * v47 + 16);
+      v50 = *(*v56 + 80 * v47 + 16);
       *v21 += v50;
       if (!v32)
       {
@@ -7156,7 +7140,7 @@ LABEL_39:
         }
 
 LABEL_38:
-        if (v50 >= a7 && (!a8 || *(*(v57 + 58) + *(a2 + 1))))
+        if (v50 >= a7 && (!a8 || *(*(v56 + 58) + *(a2 + 1))))
         {
           if (*(a1 + 216))
           {
@@ -7227,196 +7211,196 @@ LABEL_38:
   }
 }
 
-uint64_t Constraint::givenStateCanSeedFinalSilence(uint64_t a1, unsigned __int16 *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t Constraint::givenStateCanSeedFinalSilence(uint64_t a1, unsigned __int16 *a2)
 {
-  v10 = *(*(**VocMgr::smpVocMgr + 8 * *a2) + 56);
-  v11 = *(a2 + 1);
-  if (*(*(v10 + 4) + v11))
+  v4 = *(*(**VocMgr::smpVocMgr + 8 * *a2) + 56);
+  v5 = *(a2 + 1);
+  if (*(*(v4 + 4) + v5))
   {
     return 1;
   }
 
-  if (*(*(v10 + 42) + v11) != 1)
+  if (*(*(v4 + 42) + v5) != 1)
   {
     return 0;
   }
 
-  StateTransition = StateMgr::getStateTransition(v10, v11, 0, a4, a5, a6, a7, a8);
+  StateTransition = StateMgr::getStateTransition(v4, v5, 0);
   if (!*(StateTransition + 8))
   {
     return 0;
   }
 
-  v14 = StateTransition;
-  v15 = 0;
+  v8 = StateTransition;
+  v9 = 0;
   do
   {
-    v16 = *(*v14 + 4 * v15);
-    v17[0] = *a2;
-    v18 = v16;
-    result = Constraint::givenStateCanSeedFinalSilence(a1, v17);
+    v10 = *(*v8 + 4 * v9);
+    v11[0] = *a2;
+    v12 = v10;
+    result = Constraint::givenStateCanSeedFinalSilence(a1, v11);
     if (result)
     {
       break;
     }
 
-    ++v15;
+    ++v9;
   }
 
-  while (v15 < *(v14 + 8));
+  while (v9 < *(v8 + 8));
   return result;
 }
 
-uint64_t Constraint::givenStateGetPrecedingNonAcousticWords(uint64_t result, unsigned __int16 *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t Constraint::givenStateGetPrecedingNonAcousticWords(uint64_t result, unsigned __int16 *a2, uint64_t a3)
 {
-  v10 = result;
-  v11 = *(*(**VocMgr::smpVocMgr + 8 * *a2) + 56);
-  v12 = *(a2 + 1);
-  v13 = *(*(v11 + 64) + 4 * v12);
-  if (v13)
+  v5 = result;
+  v6 = *(*(**VocMgr::smpVocMgr + 8 * *a2) + 56);
+  v7 = *(a2 + 1);
+  v8 = *(*(v6 + 64) + 4 * v7);
+  if (v8)
   {
-    v14 = *v11 + 80 * v13;
-    v15 = *(v14 + 16);
-    if (v15)
+    v9 = *v6 + 80 * v8;
+    v10 = *(v9 + 16);
+    if (v10)
     {
-      for (i = 0; i < v15; ++i)
+      for (i = 0; i < v10; ++i)
       {
-        v17 = *(*(v14 + 8) + 4 * i);
-        if (*(*(*(v11 + 93) + 256) + 4 * v17) == v17)
+        v12 = *(*(v9 + 8) + 4 * i);
+        if (*(*(*(v6 + 93) + 256) + 4 * v12) == v12)
         {
-          v18 = v17 & 0xFFFFFF | (*a2 << 25);
-          v19 = *(a3 + 8);
-          if (!v19)
+          v13 = v12 & 0xFFFFFF | (*a2 << 25);
+          v14 = *(a3 + 8);
+          if (!v14)
           {
             goto LABEL_11;
           }
 
-          v20 = *a3;
-          v21 = *(a3 + 8);
-          v22 = 0xFFFFFFFFLL;
+          v15 = *a3;
+          v16 = *(a3 + 8);
+          v17 = 0xFFFFFFFFLL;
           while (1)
           {
-            v23 = *v20++;
-            if (v23 == v18)
+            v18 = *v15++;
+            if (v18 == v13)
             {
               break;
             }
 
-            --v22;
-            if (!--v21)
+            --v17;
+            if (!--v16)
             {
               goto LABEL_11;
             }
           }
 
-          if (!v22)
+          if (!v17)
           {
 LABEL_11:
-            if (v19 == *(a3 + 12))
+            if (v14 == *(a3 + 12))
             {
               result = DgnPrimArray<unsigned int>::reallocElts(a3, 1, 1);
-              v19 = *(a3 + 8);
+              v14 = *(a3 + 8);
             }
 
-            *(*a3 + 4 * v19) = v18;
+            *(*a3 + 4 * v14) = v13;
             ++*(a3 + 8);
-            v15 = *(v14 + 16);
+            v10 = *(v9 + 16);
           }
         }
       }
 
-      v12 = *(a2 + 1);
+      v7 = *(a2 + 1);
     }
   }
 
-  if (*(*(v11 + 42) + v12) == 1)
+  if (*(*(v6 + 42) + v7) == 1)
   {
-    result = StateMgr::getStateTransition(v11, v12, 0, a4, a5, a6, a7, a8);
+    result = StateMgr::getStateTransition(v6, v7, 0);
     if (*(result + 8))
     {
-      v24 = result;
-      v25 = 0;
+      v19 = result;
+      v20 = 0;
       do
       {
-        v26 = *(*v24 + 4 * v25);
-        v27[0] = *a2;
-        v28 = v26;
-        result = Constraint::givenStateGetPrecedingNonAcousticWords(v10, v27, a3);
-        ++v25;
+        v21 = *(*v19 + 4 * v20);
+        v22[0] = *a2;
+        v23 = v21;
+        result = Constraint::givenStateGetPrecedingNonAcousticWords(v5, v22, a3);
+        ++v20;
       }
 
-      while (v25 < *(v24 + 8));
+      while (v20 < *(v19 + 8));
     }
   }
 
   return result;
 }
 
-uint64_t Constraint::givenStateGetWeights(uint64_t result, unsigned __int16 *a2, uint64_t a3, _BYTE *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t Constraint::givenStateGetWeights(uint64_t result, unsigned __int16 *a2, uint64_t *a3, _BYTE *a4)
 {
-  v11 = result;
-  v12 = *a2;
-  v13 = *(*(**VocMgr::smpVocMgr + 8 * v12) + 56);
-  v14 = *(*(v13 + 34) + 4 * *(a2 + 1));
-  v15 = *(a3 + 8);
-  if (v15 <= v12)
+  v7 = result;
+  v8 = *a2;
+  v9 = *(*(**VocMgr::smpVocMgr + 8 * v8) + 56);
+  v10 = *(*(v9 + 34) + 4 * *(a2 + 1));
+  v11 = *(a3 + 2);
+  if (v11 <= v8)
   {
-    v23 = v12 + 1;
-    v24 = *(a3 + 12);
-    if (v24 <= v12)
+    v19 = v8 + 1;
+    v20 = *(a3 + 3);
+    if (v20 <= v8)
     {
-      result = DgnArray<DgnPrimArray<double>>::reallocElts(a3, v23 - v24, 0);
-      v15 = *(a3 + 8);
+      result = DgnArray<DgnPrimArray<double>>::reallocElts(a3, v19 - v20, 0);
+      v11 = *(a3 + 2);
     }
 
-    if (v15 <= v23)
+    if (v11 <= v19)
     {
-      if (v15 <= v12)
+      if (v11 <= v8)
       {
-        v27 = v12 - v15 + 1;
-        v28 = 16 * v15;
+        v23 = v8 - v11 + 1;
+        v24 = 16 * v11;
         do
         {
-          v29 = (*a3 + v28);
-          *v29 = 0;
-          v29[1] = 0;
-          v28 += 16;
-          --v27;
+          v25 = (*a3 + v24);
+          *v25 = 0;
+          v25[1] = 0;
+          v24 += 16;
+          --v23;
         }
 
-        while (v27);
+        while (v23);
       }
     }
 
-    else if (v15 > v23)
+    else if (v11 > v19)
     {
-      v25 = v15;
-      v26 = 16 * v15 - 16;
+      v21 = v11;
+      v22 = 16 * v11 - 16;
       do
       {
-        --v25;
-        result = DgnPrimArray<unsigned int>::~DgnPrimArray(*a3 + v26);
-        v26 -= 16;
+        --v21;
+        result = DgnPrimArray<unsigned int>::~DgnPrimArray(*a3 + v22);
+        v22 -= 16;
       }
 
-      while (v25 > v23);
+      while (v21 > v19);
     }
 
-    *(a3 + 8) = v23;
-    v12 = *a2;
-    v16 = *a3;
-    LODWORD(v18) = *(*a3 + 16 * v12 + 8);
+    *(a3 + 2) = v19;
+    v8 = *a2;
+    v12 = *a3;
+    LODWORD(v14) = *(*a3 + 16 * v8 + 8);
 LABEL_18:
-    v30 = v16 + 16 * v12;
-    if (v18 == *(v30 + 12))
+    v26 = v12 + 16 * v8;
+    if (v14 == *(v26 + 12))
     {
-      result = DgnPrimArray<unsigned int>::reallocElts(v30, 1, 1);
-      LODWORD(v18) = *(v30 + 8);
+      result = DgnPrimArray<unsigned int>::reallocElts(v26, 1, 1);
+      LODWORD(v14) = *(v26 + 8);
     }
 
-    *(*v30 + 4 * v18) = v14;
-    ++*(v30 + 8);
-    if (v14 != 0xFFFF)
+    *(*v26 + 4 * v14) = v10;
+    ++*(v26 + 8);
+    if (v10 != 0xFFFF)
     {
       *a4 = 0;
     }
@@ -7424,63 +7408,63 @@ LABEL_18:
     goto LABEL_22;
   }
 
-  v16 = *a3;
-  v17 = *a3 + 16 * v12;
-  v18 = *(v17 + 8);
-  if (!v18)
+  v12 = *a3;
+  v13 = *a3 + 16 * v8;
+  v14 = *(v13 + 8);
+  if (!v14)
   {
     goto LABEL_18;
   }
 
-  v19 = *v17;
-  v20 = 0xFFFFFFFFLL;
-  v21 = v18;
+  v15 = *v13;
+  v16 = 0xFFFFFFFFLL;
+  v17 = v14;
   while (1)
   {
-    v22 = *v19++;
-    if (v22 == v14)
+    v18 = *v15++;
+    if (v18 == v10)
     {
       break;
     }
 
-    --v20;
-    if (!--v21)
+    --v16;
+    if (!--v17)
     {
       goto LABEL_18;
     }
   }
 
-  if (!v20)
+  if (!v16)
   {
     goto LABEL_18;
   }
 
 LABEL_22:
-  v31 = *(a2 + 1);
-  if (*(*(v13 + 42) + v31) == 1)
+  v27 = *(a2 + 1);
+  if (*(*(v9 + 42) + v27) == 1)
   {
-    result = StateMgr::getStateTransition(v13, v31, 0, a4, a5, a6, a7, a8);
+    result = StateMgr::getStateTransition(v9, v27, 0);
     if (*(result + 8))
     {
-      v32 = result;
-      v33 = 0;
+      v28 = result;
+      v29 = 0;
       do
       {
-        v34 = *(*v32 + 4 * v33);
-        v35[0] = *a2;
-        v36 = v34;
-        result = Constraint::givenStateGetWeights(v11, v35, a3, a4);
-        ++v33;
+        v30 = *(*v28 + 4 * v29);
+        v31[0] = *a2;
+        v32 = v30;
+        result = Constraint::givenStateGetWeights(v7, v31, a3, a4);
+        ++v29;
       }
 
-      while (v33 < *(v32 + 8));
+      while (v29 < *(v28 + 8));
     }
   }
 
   return result;
 }
 
-uint64_t Constraint::getTraceLegal(uint64_t a1, uint64_t a2, int a3)
+uint64_t Constraint::getTraceLegal(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   *(a1 + 144) = 0;
   v4 = *(a2 + 4);
@@ -7533,7 +7517,7 @@ uint64_t Constraint::getTraceLegal(uint64_t a1, uint64_t a2, int a3)
           {
             do
             {
-              (*(*v11 + 16))(v11, &v26);
+              (*(*v11 + 16))(v11, &v26, a3);
               if (v26 == v10)
               {
                 v12 = WORD2(v26);
@@ -7624,10 +7608,8 @@ uint64_t Constraint::getTraceLegal(uint64_t a1, uint64_t a2, int a3)
   return a1 + 136;
 }
 
-StateMgr *Constraint::getStateLegal(uint64_t a1, unsigned int *a2, unsigned int a3, _BYTE *a4, uint64_t a5, uint64_t a6, uint64_t a7, _DWORD *a8, _DWORD *a9, _DWORD *a10, _DWORD *a11, uint64_t a12, void *a13, uint64_t a14, char a15)
+StateMgr *Constraint::getStateLegal(uint64_t a1, unsigned int *a2, unsigned int a3, _BYTE *a4, uint64_t a5, unsigned int a6, unsigned int a7, _DWORD *a8, _DWORD *a9, _DWORD *a10, _DWORD *a11, uint64_t a12, void *a13, uint64_t a14, char a15)
 {
-  v38 = a6;
-  v39 = a7;
   v17 = a2[2];
   if (!v17)
   {
@@ -7702,7 +7684,7 @@ LABEL_32:
           v35 = *(*StateTransition + 4 * v34);
           v43[0] = v36;
           v44 = v35;
-          Constraint::seedGivenState(a1, v43, &v45, a3, a4, a5, v38, v39, a8, a9, a10, a11, a12, a13, a14, a15);
+          Constraint::seedGivenState(a1, v43, &v45, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15);
           ++v34;
         }
 
@@ -7754,7 +7736,7 @@ LABEL_32:
       if (v24 <= v22)
       {
 LABEL_13:
-        StateTransition = StateMgr::getStateTransition(result, v17, 0, a4, a5, a6, a7, a8);
+        StateTransition = StateMgr::getStateTransition(result, v17, 0);
         goto LABEL_15;
       }
     }
@@ -7763,7 +7745,7 @@ LABEL_13:
   return result;
 }
 
-uint64_t Constraint::getLegal(uint64_t a1, unsigned int *a2, uint64_t a3, uint64_t a4, int *a5, int a6, _DWORD *a7, uint64_t a8, uint64_t *a9, uint64_t a10, char a11)
+uint64_t Constraint::getLegal(uint64_t a1, unsigned int *a2, unsigned int a3, unsigned int a4, int *a5, uint64_t a6, _DWORD *a7, uint64_t a8, uint64_t *a9, uint64_t a10, char a11)
 {
   v13 = a6;
   v18 = a1;
@@ -7951,7 +7933,7 @@ LABEL_27:
   v18 = a1;
   if ((*(a1 + 60) & 1) == 0 && v100 != 1)
   {
-    v13 = -16;
+    LODWORD(v13) = -16;
   }
 
   v38 = *v37;
@@ -8274,9 +8256,9 @@ LABEL_108:
   return v86;
 }
 
-void sub_2625AF40C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_2625AF40C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   _Unwind_Resume(a1);
 }
@@ -8362,7 +8344,7 @@ BOOL Constraint::getCanSeedUsingLatticeTimeConstraintSeedThreshScore(uint64_t a1
 
 uint64_t Constraint::getCanSeedFinalSilence(uint64_t a1, unsigned int *a2, unsigned int a3)
 {
-  v47 = 1;
+  v41 = 1;
   v6 = *(a1 + 68);
   if ((v6 - 1) > 1 || ((v7 = *(a2 + 2), v7 != 0x3FFF) ? (v8 = v7 + 1) : (v8 = 0), *(a1 + 80) == v8))
   {
@@ -8374,22 +8356,22 @@ uint64_t Constraint::getCanSeedFinalSilence(uint64_t a1, unsigned int *a2, unsig
     else
     {
       v11 = a2[3];
-      v45 = 0;
-      v46 = 0;
+      v39 = 0;
+      v40 = 0;
       if (v11 == -2)
       {
-        DgnPrimArray<int>::copyArraySlice(&v45, (a1 + 224), 0, *(a1 + 232));
+        DgnPrimArray<int>::copyArraySlice(&v39, (a1 + 224), 0, *(a1 + 232));
       }
 
       else
       {
-        Lattice<WordLatticeLC>::appendOutLinks(v10, *(*(v10 + 128) + 136 * v11 + 120), &v45);
+        Lattice<WordLatticeLC>::appendOutLinks(v10, *(v10[16] + 136 * v11 + 120), &v39);
       }
 
-      v12 = v46;
-      if (v46)
+      v12 = v40;
+      if (v40)
       {
-        v13 = v45;
+        v13 = v39;
         while (1)
         {
           v14 = *v13++;
@@ -8411,10 +8393,10 @@ uint64_t Constraint::getCanSeedFinalSilence(uint64_t a1, unsigned int *a2, unsig
       {
 LABEL_17:
         v9 = 0;
-        v47 = 0;
+        v41 = 0;
       }
 
-      DgnPrimArray<unsigned int>::~DgnPrimArray(&v45);
+      DgnPrimArray<unsigned int>::~DgnPrimArray(&v39);
       v6 = *(a1 + 68);
     }
   }
@@ -8422,14 +8404,14 @@ LABEL_17:
   else
   {
     v9 = 0;
-    v47 = 0;
+    v41 = 0;
   }
 
   if ((v6 & 0xFFFFFFFD) != 0)
   {
     if (!v9)
     {
-      return v47;
+      return v41;
     }
 
     goto LABEL_22;
@@ -8437,19 +8419,19 @@ LABEL_17:
 
   if (!v9)
   {
-    return v47;
+    return v41;
   }
 
   v19 = a2[2];
-  LOWORD(v45) = *a2 >> 25;
-  HIDWORD(v45) = v19;
-  Bucket = Hash<StateSpec,StateSpec,StateSpec,BOOL>::findBucket(a1 + 336, &v45);
+  LOWORD(v39) = *a2 >> 25;
+  HIDWORD(v39) = v19;
+  Bucket = Hash<StateSpec,StateSpec,StateSpec,BOOL>::findBucket(a1 + 336, &v39);
   if (*Bucket)
   {
-    v47 = *(*Bucket + 20);
-    if ((v47 & 1) == 0)
+    v41 = *(*Bucket + 20);
+    if ((v41 & 1) == 0)
     {
-      return v47;
+      return v41;
     }
 
     goto LABEL_22;
@@ -8457,48 +8439,48 @@ LABEL_17:
 
   if (v19)
   {
-    v27 = *(*(**VocMgr::smpVocMgr + ((*a2 >> 22) & 0x3F8)) + 56);
+    v21 = *(*(**VocMgr::smpVocMgr + ((*a2 >> 22) & 0x3F8)) + 56);
     if (*(a1 + 64) == 1)
     {
-      v28 = *(*(v27 + 54) + 4 * v19);
-      v29 = v28 != -1;
-      if (v28 != -1 && v28 > a3)
+      v22 = *(*(v21 + 54) + 4 * v19);
+      v23 = v22 != -1;
+      if (v22 != -1 && v22 > a3)
       {
         return 0;
       }
 
-      v31 = *(*(v27 + 56) + 4 * v19);
-      if (v31 != -1)
+      v25 = *(*(v21 + 56) + 4 * v19);
+      if (v25 != -1)
       {
-        if (v31 < a3)
+        if (v25 < a3)
         {
           return 0;
         }
 
-        v29 = 1;
+        v23 = 1;
       }
 
-      v39 = *(a1 + 216);
-      if (v39)
+      v33 = *(a1 + 216);
+      if (v33)
       {
-        if (*(v39 + 215) == 1)
+        if (*(v33 + 215) == 1)
         {
-          v40 = *(a1 + 240);
-          if (v40 != -1)
+          v34 = *(a1 + 240);
+          if (v34 != -1)
           {
-            v41 = (*(v39 + 128) + 136 * a2[3]);
-            v42 = v41[4] - a3 + v41[5] + v41[6];
-            if (v42 < 0)
+            v35 = (*(v33 + 128) + 136 * a2[3]);
+            v36 = v35[4] - a3 + v35[5] + v35[6];
+            if (v36 < 0)
             {
-              v42 = -v42;
+              v36 = -v36;
             }
 
-            if (v42 > v40)
+            if (v36 > v34)
             {
               return 0;
             }
 
-            v29 = 1;
+            v23 = 1;
           }
         }
       }
@@ -8506,54 +8488,54 @@ LABEL_17:
 
     else
     {
-      v29 = 0;
+      v23 = 0;
     }
 
-    StateTransition = StateMgr::getStateTransition(v27, v19, 0, v22, v23, v24, v25, v26);
+    StateTransition = StateMgr::getStateTransition(v21, v19, 0);
   }
 
   else
   {
-    v29 = 0;
+    v23 = 0;
     StateTransition = a1 + 168;
   }
 
   if (!*(StateTransition + 8))
   {
 LABEL_58:
-    v47 = 0;
-    if (v29)
+    v41 = 0;
+    if (v23)
     {
-      return v47;
+      return v41;
     }
 
     goto LABEL_61;
   }
 
-  v36 = 0;
+  v30 = 0;
   while (1)
   {
-    v37 = *(*StateTransition + 4 * v36);
-    v43[0] = *a1;
-    v44 = v37;
-    if (Constraint::givenStateCanSeedFinalSilence(a1, v43, v21, v22, v23, v24, v25, v26))
+    v31 = *(*StateTransition + 4 * v30);
+    v37[0] = *a1;
+    v38 = v31;
+    if (Constraint::givenStateCanSeedFinalSilence(a1, v37))
     {
       break;
     }
 
-    if (++v36 >= *(StateTransition + 8))
+    if (++v30 >= *(StateTransition + 8))
     {
       goto LABEL_58;
     }
   }
 
-  if (!v29)
+  if (!v23)
   {
 LABEL_61:
-    Hash<StateSpec,StateSpec,StateSpec,BOOL>::add(a1 + 336, &v45, &v47);
-    if ((v47 & 1) == 0)
+    Hash<StateSpec,StateSpec,StateSpec,BOOL>::add(a1 + 336, &v39, &v41);
+    if ((v41 & 1) == 0)
     {
-      return v47;
+      return v41;
     }
   }
 
@@ -8564,7 +8546,7 @@ LABEL_22:
     v16 = *(*(**VocMgr::smpVocMgr + ((v15 >> 22) & 0x3F8)) + 48);
     if (*(v16 + 418) == 1)
     {
-      v47 = 0;
+      v41 = 0;
       v17 = v15 & 0xFFFFFF;
       if ((v15 & 0xFFFFFF) == 0xFFFFFE)
       {
@@ -8583,42 +8565,42 @@ LABEL_22:
 
       else if ((*(a1 + 64) & 1) == 0)
       {
-        v45 = 0;
-        v46 = 0;
-        WordList::lookupAll(v16, v17, &v45);
-        if (v46)
+        v39 = 0;
+        v40 = 0;
+        WordList::lookupAll(v16, v17, &v39);
+        if (v40)
         {
-          v32 = 0;
+          v26 = 0;
           while (1)
           {
-            v33 = v45[v32];
-            v34 = v33 == 16777214 ? *(v16 + 416) : WordList::getPronPredecessorSeedCategory(v16, v33);
-            if (*(*(*(v16 + 400) + 16 * v34) + *(v16 + 417)) == 1)
+            v27 = v39[v26];
+            v28 = v27 == 16777214 ? *(v16 + 416) : WordList::getPronPredecessorSeedCategory(v16, v27);
+            if (*(*(*(v16 + 400) + 16 * v28) + *(v16 + 417)) == 1)
             {
               break;
             }
 
-            if (++v32 >= v46)
+            if (++v26 >= v40)
             {
               goto LABEL_64;
             }
           }
 
-          v47 = 1;
+          v41 = 1;
         }
 
 LABEL_64:
-        DgnPrimArray<unsigned int>::~DgnPrimArray(&v45);
+        DgnPrimArray<unsigned int>::~DgnPrimArray(&v39);
       }
     }
   }
 
-  return v47;
+  return v41;
 }
 
-void sub_2625AFA58(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2625AFA58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   _Unwind_Resume(a1);
 }
@@ -8741,105 +8723,105 @@ uint64_t Constraint::getMaxEndTime(uint64_t a1, unsigned int *a2)
 uint64_t Constraint::getSeededPrecedingNonAcousticWords(uint64_t a1, unsigned int *a2)
 {
   v4 = a2[2];
-  v31[0] = *a2 >> 25;
-  v32 = v4;
-  Bucket = Hash<StateSpec,StateSpec,StateSpec,BOOL>::findBucket(a1 + 592, v31);
-  v11 = (a1 + 576);
+  v26[0] = *a2 >> 25;
+  v27 = v4;
+  Bucket = Hash<StateSpec,StateSpec,StateSpec,BOOL>::findBucket(a1 + 592, v26);
+  v6 = (a1 + 576);
   if (*Bucket)
   {
-    return *v11 + 16 * *(*Bucket + 5);
+    return *v6 + 16 * *(*Bucket + 5);
   }
 
-  v30 = *(a1 + 584);
-  v13 = v30;
-  v14 = v30;
-  if (v30 == *(a1 + 588))
+  v25 = *(a1 + 584);
+  v8 = v25;
+  v9 = v25;
+  if (v25 == *(a1 + 588))
   {
     DgnArray<DgnPrimArray<double>>::reallocElts(a1 + 576, 1, 1);
-    v14 = *(a1 + 584);
+    v9 = *(a1 + 584);
   }
 
-  v15 = (*(a1 + 576) + 16 * v14);
-  *v15 = 0;
-  v15[1] = 0;
+  v10 = (*(a1 + 576) + 16 * v9);
+  *v10 = 0;
+  v10[1] = 0;
   ++*(a1 + 584);
-  v12 = *(a1 + 576) + 16 * v13;
+  v7 = *(a1 + 576) + 16 * v8;
   if (v4)
   {
-    v16 = *a2 >> 25;
-    StateTransition = StateMgr::getStateTransition(*(*(**VocMgr::smpVocMgr + 8 * v16) + 56), v4, 0, v6, v7, v8, v9, v10);
+    v11 = *a2 >> 25;
+    StateTransition = StateMgr::getStateTransition(*(*(**VocMgr::smpVocMgr + 8 * v11) + 56), v4, 0);
   }
 
   else
   {
     StateTransition = a1 + 168;
-    LOWORD(v16) = *a1;
+    LOWORD(v11) = *a1;
   }
 
   if (*(StateTransition + 8))
   {
-    v18 = 0;
+    v13 = 0;
     do
     {
-      v19 = *(*StateTransition + 4 * v18);
-      v28 = v16;
-      v29 = v19;
-      Constraint::givenStateGetPrecedingNonAcousticWords(a1, &v28, v12, v6, v7, v8, v9, v10);
-      ++v18;
+      v14 = *(*StateTransition + 4 * v13);
+      v23 = v11;
+      v24 = v14;
+      Constraint::givenStateGetPrecedingNonAcousticWords(a1, &v23, v7);
+      ++v13;
     }
 
-    while (v18 < *(StateTransition + 8));
+    while (v13 < *(StateTransition + 8));
   }
 
-  if (!*(v12 + 8))
+  if (!*(v7 + 8))
   {
-    v20 = *(a1 + 588);
-    if (v13 > v20)
+    v15 = *(a1 + 588);
+    if (v8 > v15)
     {
-      DgnArray<DgnPrimArray<double>>::reallocElts(a1 + 576, v13 - v20, 0);
+      DgnArray<DgnPrimArray<double>>::reallocElts(a1 + 576, v8 - v15, 0);
     }
 
-    v21 = *(a1 + 584);
-    if (v21 <= v13)
+    v16 = *(a1 + 584);
+    if (v16 <= v8)
     {
-      if (v21 < v13)
+      if (v16 < v8)
       {
-        v24 = v13 - v21;
-        v25 = 16 * v21;
+        v19 = v8 - v16;
+        v20 = 16 * v16;
         do
         {
-          v26 = (*v11 + v25);
-          *v26 = 0;
-          v26[1] = 0;
-          v25 += 16;
-          --v24;
+          v21 = (*v6 + v20);
+          *v21 = 0;
+          v21[1] = 0;
+          v20 += 16;
+          --v19;
         }
 
-        while (v24);
+        while (v19);
       }
     }
 
-    else if (v21 > v13)
+    else if (v16 > v8)
     {
-      v22 = v21;
-      v23 = 16 * v21 - 16;
+      v17 = v16;
+      v18 = 16 * v16 - 16;
       do
       {
-        --v22;
-        DgnPrimArray<unsigned int>::~DgnPrimArray(*v11 + v23);
-        v23 -= 16;
+        --v17;
+        DgnPrimArray<unsigned int>::~DgnPrimArray(*v6 + v18);
+        v18 -= 16;
       }
 
-      while (v22 > v13);
+      while (v17 > v8);
     }
 
-    *(a1 + 584) = v13;
-    v30 = 0;
-    v12 = *(a1 + 576);
+    *(a1 + 584) = v8;
+    v25 = 0;
+    v7 = *(a1 + 576);
   }
 
-  Hash<StateSpec,StateSpec,StateSpec,unsigned int>::add(a1 + 592, v31, &v30);
-  return v12;
+  Hash<StateSpec,StateSpec,StateSpec,unsigned int>::add(a1 + 592, v26, &v25);
+  return v7;
 }
 
 uint64_t Hash<StateSpec,StateSpec,StateSpec,unsigned int>::add(uint64_t result, unsigned __int16 *a2, _DWORD *a3)
@@ -8907,40 +8889,40 @@ uint64_t Constraint::getSeededWeights(uint64_t a1, unsigned int *a2, unsigned in
 {
   v6 = a2[2];
   v7 = *a2 >> 25;
-  v48[0] = v7;
-  v49 = v6;
-  Bucket = Hash<StateSpec,StateSpec,StateSpec,BOOL>::findBucket(a1 + 464, v48);
+  v43[0] = v7;
+  v44 = v6;
+  Bucket = Hash<StateSpec,StateSpec,StateSpec,BOOL>::findBucket(a1 + 464, v43);
   if (*Bucket)
   {
     return *(a1 + 448) + 16 * *(*Bucket + 5);
   }
 
-  v47 = *(a1 + 456);
-  v15 = v47;
-  v16 = v47;
-  if (v47 == *(a1 + 460))
+  v42 = *(a1 + 456);
+  v10 = v42;
+  v11 = v42;
+  if (v42 == *(a1 + 460))
   {
     DgnArray<DgnPrimArray<double>>::reallocElts(a1 + 448, 1, 1);
-    v16 = *(a1 + 456);
+    v11 = *(a1 + 456);
   }
 
-  v17 = (*(a1 + 448) + 16 * v16);
-  *v17 = 0;
-  v17[1] = 0;
+  v12 = (*(a1 + 448) + 16 * v11);
+  *v12 = 0;
+  v12[1] = 0;
   ++*(a1 + 456);
-  v14 = *(a1 + 448) + 16 * v15;
-  v18 = 1;
-  v46 = 1;
+  v9 = *(a1 + 448) + 16 * v10;
+  v13 = 1;
+  v41 = 1;
   if (v6)
   {
-    v19 = *(*(**VocMgr::smpVocMgr + 8 * v7) + 56);
-    StateTransition = StateMgr::getStateTransition(v19, v6, 0, v9, v10, v11, v12, v13);
-    v21 = *a2;
-    v22 = v21 & 0xFFFFFF;
-    if ((v21 & 0xFFFFFF) != 0xFFFFF8 && (v21 & 0xFE000000) != 0xFC000000)
+    v14 = *(*(**VocMgr::smpVocMgr + 8 * v7) + 56);
+    StateTransition = StateMgr::getStateTransition(v14, v6, 0);
+    v16 = *a2;
+    v17 = v16 & 0xFFFFFF;
+    if ((v16 & 0xFFFFFF) != 0xFFFFF8 && (v16 & 0xFE000000) != 0xFC000000)
     {
-      v23 = *(*(**VocMgr::smpVocMgr + ((v21 >> 22) & 0x3F8)) + 48);
-      if (*(*(v23 + 32) + 2 * v22) == 1 && !*(*(v23 + 592) + 2 * v22))
+      v18 = *(*(**VocMgr::smpVocMgr + ((v16 >> 22) & 0x3F8)) + 48);
+      if (*(*(v18 + 32) + 2 * v17) == 1 && !*(*(v18 + 592) + 2 * v17))
       {
         goto LABEL_25;
       }
@@ -8951,68 +8933,68 @@ uint64_t Constraint::getSeededWeights(uint64_t a1, unsigned int *a2, unsigned in
       goto LABEL_25;
     }
 
-    v24 = *(*(v19 + 34) + 4 * v6);
-    v25 = (v7 + 1);
-    v26 = *(v14 + 12);
-    if (v26 <= v7)
+    v19 = *(*(v14 + 34) + 4 * v6);
+    v20 = (v7 + 1);
+    v21 = *(v9 + 12);
+    if (v21 <= v7)
     {
-      DgnArray<DgnPrimArray<double>>::reallocElts(v14, v25 - v26, 0);
+      DgnArray<DgnPrimArray<double>>::reallocElts(v9, v20 - v21, 0);
     }
 
-    v27 = *(v14 + 8);
-    if (v27 <= v25)
+    v22 = *(v9 + 8);
+    if (v22 <= v20)
     {
-      if (v27 <= v7)
+      if (v22 <= v7)
       {
-        v29 = v7 - v27 + 1;
-        v30 = 16 * v27;
+        v24 = v7 - v22 + 1;
+        v25 = 16 * v22;
         do
         {
-          v31 = (*v14 + v30);
-          *v31 = 0;
-          v31[1] = 0;
-          v30 += 16;
-          --v29;
+          v26 = (*v9 + v25);
+          *v26 = 0;
+          v26[1] = 0;
+          v25 += 16;
+          --v24;
         }
 
-        while (v29);
+        while (v24);
       }
     }
 
-    else if (v27 > v25)
+    else if (v22 > v20)
     {
-      v28 = 16 * v27 - 16;
+      v23 = 16 * v22 - 16;
       do
       {
-        --v27;
-        DgnPrimArray<unsigned int>::~DgnPrimArray(*v14 + v28);
-        v28 -= 16;
+        --v22;
+        DgnPrimArray<unsigned int>::~DgnPrimArray(*v9 + v23);
+        v23 -= 16;
       }
 
-      while (v27 > v25);
+      while (v22 > v20);
     }
 
-    *(v14 + 8) = v25;
-    v32 = *v14 + 16 * v7;
-    v33 = *(v32 + 8);
-    if (v33 == *(v32 + 12))
+    *(v9 + 8) = v20;
+    v27 = *v9 + 16 * v7;
+    v28 = *(v27 + 8);
+    if (v28 == *(v27 + 12))
     {
-      DgnPrimArray<unsigned int>::reallocElts(*v14 + 16 * v7, 1, 1);
-      v33 = *(v32 + 8);
+      DgnPrimArray<unsigned int>::reallocElts(*v9 + 16 * v7, 1, 1);
+      v28 = *(v27 + 8);
     }
 
-    *(*v32 + 4 * v33) = v24;
-    ++*(v32 + 8);
-    if (v24 != 0xFFFF)
+    *(*v27 + 4 * v28) = v19;
+    ++*(v27 + 8);
+    if (v19 != 0xFFFF)
     {
-      v18 = 0;
-      v46 = 0;
+      v13 = 0;
+      v41 = 0;
     }
 
     else
     {
 LABEL_25:
-      v18 = 1;
+      v13 = 1;
     }
   }
 
@@ -9024,113 +9006,113 @@ LABEL_25:
 
   if (*(StateTransition + 8))
   {
-    v34 = 0;
+    v29 = 0;
     do
     {
-      v35 = *(*StateTransition + 4 * v34);
-      v44[0] = v7;
-      v45 = v35;
-      Constraint::givenStateGetWeights(a1, v44, v14, &v46, v10, v11, v12, v13);
-      ++v34;
+      v30 = *(*StateTransition + 4 * v29);
+      v39[0] = v7;
+      v40 = v30;
+      Constraint::givenStateGetWeights(a1, v39, v9, &v41);
+      ++v29;
     }
 
-    while (v34 < *(StateTransition + 8));
-    v18 = v46;
+    while (v29 < *(StateTransition + 8));
+    v13 = v41;
   }
 
-  if (v18)
+  if (v13)
   {
-    v36 = *(a1 + 460);
-    if (v15 > v36)
+    v31 = *(a1 + 460);
+    if (v10 > v31)
     {
-      DgnArray<DgnPrimArray<double>>::reallocElts(a1 + 448, v15 - v36, 0);
+      DgnArray<DgnPrimArray<double>>::reallocElts(a1 + 448, v10 - v31, 0);
     }
 
-    v37 = *(a1 + 456);
-    if (v37 <= v15)
+    v32 = *(a1 + 456);
+    if (v32 <= v10)
     {
-      if (v37 < v15)
+      if (v32 < v10)
       {
-        v40 = v15 - v37;
-        v41 = 16 * v37;
+        v35 = v10 - v32;
+        v36 = 16 * v32;
         do
         {
-          v42 = (*(a1 + 448) + v41);
-          *v42 = 0;
-          v42[1] = 0;
-          v41 += 16;
-          --v40;
+          v37 = (*(a1 + 448) + v36);
+          *v37 = 0;
+          v37[1] = 0;
+          v36 += 16;
+          --v35;
         }
 
-        while (v40);
+        while (v35);
       }
     }
 
-    else if (v37 > v15)
+    else if (v32 > v10)
     {
-      v38 = v37;
-      v39 = 16 * v37 - 16;
+      v33 = v32;
+      v34 = 16 * v32 - 16;
       do
       {
-        DgnArray<DgnPrimArray<unsigned char>>::releaseAll(*(a1 + 448) + v39);
-        --v38;
-        v39 -= 16;
+        DgnArray<DgnPrimArray<unsigned char>>::releaseAll(*(a1 + 448) + v34);
+        --v33;
+        v34 -= 16;
       }
 
-      while (v38 > v15);
+      while (v33 > v10);
     }
 
-    *(a1 + 456) = v15;
-    v47 = 0;
-    v14 = *(a1 + 448);
+    *(a1 + 456) = v10;
+    v42 = 0;
+    v9 = *(a1 + 448);
   }
 
-  Hash<StateSpec,StateSpec,StateSpec,unsigned int>::add(a1 + 464, v48, &v47);
-  return v14;
+  Hash<StateSpec,StateSpec,StateSpec,unsigned int>::add(a1 + 464, v43, &v42);
+  return v9;
 }
 
-BOOL Constraint::getSuccessorRecursivePrefilteringAllowed(unsigned __int16 *a1, unsigned int *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+BOOL Constraint::getSuccessorRecursivePrefilteringAllowed(unsigned __int16 *a1, unsigned int *a2)
 {
-  v9 = a2[2];
-  if (v9)
+  v3 = a2[2];
+  if (v3)
   {
-    v10 = *a2 >> 25;
-    StateTransition = StateMgr::getStateTransition(*(*(**VocMgr::smpVocMgr + 8 * v10) + 56), v9, 0, a4, a5, a6, a7, a8);
+    v4 = *a2 >> 25;
+    StateTransition = StateMgr::getStateTransition(*(*(**VocMgr::smpVocMgr + 8 * v4) + 56), v3, 0);
   }
 
   else
   {
-    v12 = *a1;
-    StateTransition = (a1 + 84);
-    LODWORD(v10) = v12;
+    v6 = *a1;
+    StateTransition = a1 + 84;
+    LODWORD(v4) = v6;
   }
 
-  v13 = *(StateTransition + 2);
-  if (!v13)
+  v7 = *(StateTransition + 2);
+  if (!v7)
   {
     return 0;
   }
 
-  v14 = *(*(*(**VocMgr::smpVocMgr + 8 * v10) + 56) + 680);
-  if (*(v14 + **StateTransition) == 1)
+  v8 = *(*(*(**VocMgr::smpVocMgr + 8 * v4) + 56) + 680);
+  if (*(v8 + **StateTransition) == 1)
   {
     return 1;
   }
 
-  v16 = 1;
+  v10 = 1;
   do
   {
-    v17 = v16;
-    if (v13 == v16)
+    v11 = v10;
+    if (v7 == v10)
     {
       break;
     }
 
-    v18 = *(v14 + (*StateTransition)[v16++]);
+    v12 = *(v8 + *(*StateTransition + 4 * v10++));
   }
 
-  while (v18 != 1);
-  return v17 < v13;
+  while (v12 != 1);
+  return v11 < v7;
 }
 
 uint64_t Constraint::getWeightsForState(uint64_t a1, unsigned int *a2)
@@ -9258,7 +9240,7 @@ uint64_t Constraint::getStateNextPhones(uint64_t a1, unsigned int *a2, _DWORD *a
 
     else
     {
-      Lattice<WordLatticeLC>::appendOutLinks(v12, *(*(v12 + 128) + 136 * v13 + 120), &v30);
+      Lattice<WordLatticeLC>::appendOutLinks(v12, *(v12[16] + 136 * v13 + 120), &v30);
     }
 
     PhnIndexSet::PhnIndexSet(v29, *(v10 + 184));
@@ -9322,18 +9304,18 @@ uint64_t Constraint::getStateNextPhones(uint64_t a1, unsigned int *a2, _DWORD *a
   return 1;
 }
 
-void sub_2625B085C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2625B085C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va1, a3);
-  va_start(va, a3);
-  v4 = va_arg(va1, void);
+  va_start(va1, a5);
+  va_start(va, a5);
   v6 = va_arg(va1, void);
+  v8 = va_arg(va1, void);
   BitArray::~BitArray(va);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va1);
   _Unwind_Resume(a1);
 }
 
-uint64_t DgnArray<CWIDAC>::find(uint64_t a1, uint64_t a2)
+unint64_t DgnArray<CWIDAC>::find(uint64_t a1, uint64_t a2)
 {
   if (!*(a1 + 8))
   {
@@ -9355,7 +9337,7 @@ uint64_t DgnArray<CWIDAC>::find(uint64_t a1, uint64_t a2)
   return v5;
 }
 
-unint64_t DgnArray<CWIDAC>::reallocElts(uint64_t a1, uint64_t a2, int a3)
+uint64_t *DgnArray<CWIDAC>::reallocElts(uint64_t a1, uint64_t a2, int a3)
 {
   v3 = a2;
   if (a3)
@@ -9420,6 +9402,19 @@ void Hash<StateSpec,StateSpec,StateSpec,BOOL>::~Hash(uint64_t a1)
   JUMPOUT(0x26672B1B0);
 }
 
+{
+  *a1 = &unk_287523FF0;
+  if (*(a1 + 8))
+  {
+    Hash<StateSpec,StateSpec,StateSpec,BOOL>::removeAll(a1);
+  }
+
+  DgnPrimFixArray<double>::~DgnPrimFixArray(a1 + 80);
+  DgnPool::~DgnPool((a1 + 24));
+
+  MrecInitModule_sdpres_sdapi();
+}
+
 uint64_t Hash<StateSpec,StateSpec,StateSpec,unsigned int>::Hash(uint64_t a1, const char *a2, int a3)
 {
   HashBase::HashBase(a1, a2);
@@ -9468,6 +9463,19 @@ void Hash<StateSpec,StateSpec,StateSpec,unsigned int>::~Hash(uint64_t a1)
   JUMPOUT(0x26672B1B0);
 }
 
+{
+  *a1 = &unk_287523FC8;
+  if (*(a1 + 8))
+  {
+    Hash<StateSpec,StateSpec,StateSpec,BOOL>::removeAll(a1);
+  }
+
+  DgnPrimFixArray<double>::~DgnPrimFixArray(a1 + 80);
+  DgnPool::~DgnPool((a1 + 24));
+
+  MrecInitModule_sdpres_sdapi();
+}
+
 void *DgnArray<PhnIndexSet>::releaseAll(uint64_t a1)
 {
   v2 = *(a1 + 8);
@@ -9492,20 +9500,6 @@ void *DgnArray<PhnIndexSet>::releaseAll(uint64_t a1)
 
   *(a1 + 8) = 0;
   return result;
-}
-
-uint64_t Hash<StateSpec,StateSpec,StateSpec,BOOL>::~Hash(uint64_t a1)
-{
-  *a1 = &unk_287523FF0;
-  if (*(a1 + 8))
-  {
-    Hash<StateSpec,StateSpec,StateSpec,BOOL>::removeAll(a1);
-  }
-
-  DgnPrimFixArray<double>::~DgnPrimFixArray(a1 + 80);
-  DgnPool::~DgnPool((a1 + 24));
-
-  return MrecInitModule_sdpres_sdapi();
 }
 
 void *DgnArray<DgnArray<DgnPrimArray<unsigned int>>>::releaseAll(uint64_t a1)
@@ -9534,20 +9528,6 @@ void *DgnArray<DgnArray<DgnPrimArray<unsigned int>>>::releaseAll(uint64_t a1)
 
   *(a1 + 8) = 0;
   return result;
-}
-
-uint64_t Hash<StateSpec,StateSpec,StateSpec,unsigned int>::~Hash(uint64_t a1)
-{
-  *a1 = &unk_287523FC8;
-  if (*(a1 + 8))
-  {
-    Hash<StateSpec,StateSpec,StateSpec,BOOL>::removeAll(a1);
-  }
-
-  DgnPrimFixArray<double>::~DgnPrimFixArray(a1 + 80);
-  DgnPool::~DgnPool((a1 + 24));
-
-  return MrecInitModule_sdpres_sdapi();
 }
 
 uint64_t sizeObject<CWIDAC>(uint64_t a1, int a2)
@@ -9597,7 +9577,7 @@ uint64_t sizeObject<CWIDAC>(uint64_t a1, int a2)
   return v5;
 }
 
-uint64_t DgnArray<DgnArray<CWIDAC>>::copyArraySlice(uint64_t result, void *a2, unsigned int a3, unsigned int a4)
+uint64_t DgnArray<DgnArray<CWIDAC>>::copyArraySlice(uint64_t result, void *a2, unsigned int a3, int a4)
 {
   v7 = result;
   v8 = *(result + 8);
@@ -9688,11 +9668,11 @@ LABEL_17:
   return result;
 }
 
-unint64_t DgnArray<CWIDAC>::copyArraySlice(unint64_t result, uint64_t *a2, unsigned int a3, unsigned int a4)
+uint64_t *DgnArray<CWIDAC>::copyArraySlice(uint64_t *result, uint64_t *a2, unsigned int a3, unsigned int a4)
 {
   v7 = result;
-  *(result + 8) = 0;
-  v8 = *(result + 12);
+  *(result + 2) = 0;
+  v8 = *(result + 3);
   if (a4 <= v8)
   {
     v9 = 0;
@@ -9706,7 +9686,7 @@ unint64_t DgnArray<CWIDAC>::copyArraySlice(unint64_t result, uint64_t *a2, unsig
   else
   {
     result = DgnArray<CWIDAC>::reallocElts(result, a4 - v8, 0);
-    v9 = *(v7 + 8);
+    v9 = *(v7 + 2);
   }
 
   v11 = *a2;
@@ -9742,11 +9722,11 @@ LABEL_6:
     while (v16);
   }
 
-  *(v7 + 8) = a4;
+  *(v7 + 2) = a4;
   return result;
 }
 
-void DgnArray<PhnIndexSet>::copyArraySlice(uint64_t a1, void *a2, unsigned int a3, unsigned int a4)
+void DgnArray<PhnIndexSet>::copyArraySlice(uint64_t a1, void *a2, unsigned int a3, int a4)
 {
   v8 = *(a1 + 8);
   if (v8 >= 1)

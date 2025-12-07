@@ -27,7 +27,7 @@
 
   selfCopy = self;
   sub_1C513DC84(v7, v6);
-  sub_1C513EDF0(v7);
+  sub_1C513EDF0(v7, v6);
 }
 
 - (NSString)uniqueName

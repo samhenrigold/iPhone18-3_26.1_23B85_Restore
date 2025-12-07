@@ -1436,8 +1436,8 @@ LABEL_42:
 + (id)chunksForFeatures:(const void *)features metadata:(CHDiffusionPipelinePreprocessingExecutionMetadata *)metadata
 {
   v72 = *MEMORY[0x1E69E9840];
-  sub_1837D3C60(metadata, features, features, metadata, v4, v5, __p);
-  sub_1837D4C4C(__p, metadata, v7, v8, v9, v10, buf);
+  sub_1837D3C60(metadata, features, __p, features, metadata, v4, v5);
+  sub_1837D4C4C(__p, metadata, buf, v7, v8, v9, v10);
   v11 = __p[0];
   if (__p[0])
   {
@@ -1839,16 +1839,16 @@ LABEL_53:
     }
 
     (**begin_node[7].__left_)(&v159);
-    sub_1838B5A6C(left_low, &v159, begin_node[5].__left_, v63, v64, v65, &v156);
+    sub_1838B5A6C(left_low, &v159, begin_node[5].__left_, &v156, v63, v64, v65);
     v66 = v166;
     if (v166 < v167)
     {
       *v166 = 0;
-      *(v66 + 8) = 0;
-      *(v66 + 16) = 0;
+      *(v66 + 1) = 0;
+      *(v66 + 2) = 0;
       sub_1838AB360(v66, v156, v157, 0x6DB6DB6DB6DB6DB7 * ((v157 - v156) >> 3));
-      *(v66 + 24) = v158;
-      v67 = (v66 + 32);
+      *(v66 + 6) = v158;
+      v67 = v66 + 32;
       goto LABEL_92;
     }
 

@@ -45,7 +45,7 @@
 {
   swift_unknownObjectRetain();
   swift_unknownObjectRetain();
-  return sub_100007FAC();
+  return sub_100007FAC(delegate, source);
 }
 
 - (void)configureForRequestOptions:(id)options
@@ -169,7 +169,7 @@
 {
   y = point.y;
   x = point.x;
-  v8 = sub_100093B6C(&qword_10018DFE0);
+  v8 = sub_100093B6C(&qword_10018DFE0, &qword_1000F7530);
   __chkstk_darwin(v8 - 8);
   v10 = &v17 - v9;
   v11 = _Block_copy(completion);
@@ -215,18 +215,21 @@
   v4 = _Block_copy(completion);
   if (v4)
   {
-    *(swift_allocObject() + 16) = v4;
-    v5 = sub_10009E670;
+    v5 = v4;
+    v6 = swift_allocObject();
+    *(v6 + 16) = v5;
+    v7 = sub_10009E670;
   }
 
   else
   {
-    v5 = 0;
+    v7 = 0;
+    v6 = 0;
   }
 
   selfCopy = self;
-  sub_10009B9C4(v5);
-  sub_10009E660(v5);
+  sub_10009B9C4(v7);
+  sub_10009E660(v7, v6);
 }
 
 - (void)siriWillBePresented:(int64_t)presented
@@ -237,7 +240,7 @@
 
 - (void)siriDidOpenURL:(id)l bundleId:(id)id inPlace:(BOOL)place
 {
-  v8 = sub_100093B6C(&unk_10018E310);
+  v8 = sub_100093B6C(&unk_10018E310, &unk_1000F8300);
   __chkstk_darwin(v8 - 8);
   v10 = &v14 - v9;
   if (l)

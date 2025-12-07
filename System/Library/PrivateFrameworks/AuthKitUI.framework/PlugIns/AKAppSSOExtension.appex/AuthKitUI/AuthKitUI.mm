@@ -58,10 +58,9 @@ uint64_t sub_100005AB0(uint64_t a1)
 uint64_t sub_100005BC4(uint64_t a1)
 {
   memcpy(__dst, off_1000184F0, sizeof(__dst));
-  v1 = *(a1 + 40);
-  v2 = _sl_dlopen();
+  v1 = _sl_dlopen();
   result = a1;
-  *(*(*(a1 + 32) + 8) + 24) = v2;
+  *(*(*(a1 + 32) + 8) + 24) = v1;
   qword_100021058 = *(*(*(a1 + 32) + 8) + 24);
   return result;
 }
@@ -72,7 +71,7 @@ uint64_t sub_100005C84()
   v1 = sub_100005AB0(&v2);
   if (!v1)
   {
-    abort_report_np();
+    abort_report_np("%s", v2);
   }
 
   if (v2)
@@ -119,16 +118,16 @@ uint64_t sub_100005E08(uint64_t a1)
 
 id sub_100005E74()
 {
-  v2 = sub_100005D00();
-  if (!v2)
+  v3 = sub_100005D00();
+  if (!v3)
   {
-    dlerror();
-    abort_report_np();
+    v0 = dlerror();
+    abort_report_np("%s", v0);
   }
 
-  v0 = *v2;
+  v1 = *v3;
 
-  return v0;
+  return v1;
 }
 
 uint64_t sub_100005EDC()
@@ -167,16 +166,16 @@ uint64_t sub_100005FE4(uint64_t a1)
 
 id sub_100006050()
 {
-  v2 = sub_100005EDC();
-  if (!v2)
+  v3 = sub_100005EDC();
+  if (!v3)
   {
-    dlerror();
-    abort_report_np();
+    v0 = dlerror();
+    abort_report_np("%s", v0);
   }
 
-  v0 = *v2;
+  v1 = *v3;
 
-  return v0;
+  return v1;
 }
 
 uint64_t sub_100007B1C(uint64_t result, uint64_t a2)
@@ -328,19 +327,18 @@ void sub_100008264(uint64_t a1)
 {
   if (*(*(*(a1 + 64) + 8) + 40))
   {
-    v6 = *(a1 + 32);
-    v4 = *(a1 + 40);
-    v5 = *(*(*(a1 + 64) + 8) + 40);
-    v7 = [*(a1 + 48) credential];
-    v1 = *(a1 + 56);
-    [v6 _sendAuthorizationResponseToRequest:v4 usingTemplate:v5 withCredential:? requestParams:?];
+    v5 = *(a1 + 32);
+    v3 = *(a1 + 40);
+    v4 = *(*(*(a1 + 64) + 8) + 40);
+    v6 = [*(a1 + 48) credential];
+    [v5 _sendAuthorizationResponseToRequest:v3 usingTemplate:v4 withCredential:? requestParams:?];
   }
 
   else
   {
-    v2 = *(a1 + 40);
-    v3 = [NSError ak_errorWithCode:-7029];
-    [v2 completeWithError:?];
+    v1 = *(a1 + 40);
+    v2 = [NSError ak_errorWithCode:-7029];
+    [v1 completeWithError:?];
   }
 }
 

@@ -389,7 +389,7 @@ void __66__WBSLPLinkMetadataProvider_linkMetadataForURL_webView_iconCache___bloc
   return v5;
 }
 
-uint64_t __55__WBSLPLinkMetadataProvider_initWithCacheDirectoryURL___block_invoke(uint64_t a1)
+void *__55__WBSLPLinkMetadataProvider_initWithCacheDirectoryURL___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _setUpCachedResponsePolicy];
   v3 = *(a1 + 32);

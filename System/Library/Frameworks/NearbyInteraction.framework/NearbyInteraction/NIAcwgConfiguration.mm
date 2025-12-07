@@ -91,7 +91,7 @@
 
 - (NIAcwgConfiguration)initWithCoder:(id)coder
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   if (!self)
   {
@@ -107,15 +107,15 @@ LABEL_9:
   {
     v6 = [coderCopy decodeIntForKey:@"lockBtConnHandle"];
     v7 = MEMORY[0x1E695DFD8];
-    v19[0] = objc_opt_class();
-    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:1];
+    v18[0] = objc_opt_class();
+    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
     v9 = [v7 setWithArray:v8];
 
     v10 = MEMORY[0x1E695DFD8];
-    v18[0] = objc_opt_class();
-    v18[1] = objc_opt_class();
-    v18[2] = objc_opt_class();
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:3];
+    v17[0] = objc_opt_class();
+    v17[1] = objc_opt_class();
+    v17[2] = objc_opt_class();
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:3];
     v12 = [v10 setWithArray:v11];
 
     v13 = [coderCopy decodeDictionaryWithKeysOfClasses:v9 objectsOfClasses:v12 forKey:@"debugOptions"];
@@ -141,7 +141,6 @@ LABEL_9:
 
 LABEL_10:
 
-  v16 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

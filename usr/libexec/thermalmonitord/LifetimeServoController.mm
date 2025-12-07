@@ -11,6 +11,7 @@
 - (void)initPerfStateReportingGPU;
 - (void)initSensorList:(__CFArray *)list;
 - (void)overrideInstantaneousAF:(id)f value:(float)value;
+- (void)overrideParam:(id)param value:(int)value;
 - (void)updateCoreAnalyticsInfo;
 - (void)updateForTempMax:(int)max tempAverage:(int)average;
 - (void)updatePerfStateReportingCPU;
@@ -377,7 +378,6 @@ LABEL_60:
     self->_subscriptionCPU = Subscription;
     if (Subscription)
     {
-      subscribedChannelsCPU = self->_subscribedChannelsCPU;
       self->_lastReadingCPU = IOReportCreateSamples();
     }
 
@@ -408,7 +408,6 @@ LABEL_60:
     self->_subscriptionGPU = Subscription;
     if (Subscription)
     {
-      subscribedChannelsGPU = self->_subscribedChannelsGPU;
       self->_lastReadingGPU = IOReportCreateSamples();
     }
 
@@ -809,6 +808,86 @@ LABEL_7:
   }
 }
 
+- (void)overrideParam:(id)param value:(int)value
+{
+  v4 = *&value;
+  if (byte_1000AB2F8 == 1)
+  {
+    v7 = qword_1000AB718;
+    if (os_log_type_enabled(qword_1000AB718, OS_LOG_TYPE_DEFAULT))
+    {
+      v10 = 138412546;
+      paramCopy = param;
+      v12 = 1024;
+      v13 = v4;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "<Notice> LSController: setting %@ to %d", &v10, 0x12u);
+    }
+  }
+
+  if ([param isEqualToString:@"LifetimeServoDieTempMaxMax"])
+  {
+    self->_override_tempMax = v4;
+    return;
+  }
+
+  if ([param isEqualToString:@"LifetimeServoDieTempMaxAverage"])
+  {
+    self->_override_tempAverage = v4;
+    return;
+  }
+
+  if ([param isEqualToString:@"LifetimeServoDieTempTarget"])
+  {
+    self->_override_dieTempTarget = v4;
+    return;
+  }
+
+  if ([param isEqualToString:@"LifetimeServoIntegratorState_E"])
+  {
+    eCoreLoop = self->_eCoreLoop;
+LABEL_12:
+    [(LifetimeServoControlLoop *)eCoreLoop overrideIS:v4];
+    return;
+  }
+
+  if ([param isEqualToString:@"LifetimeServoInstantaneousAF_E"])
+  {
+    pCoreLoop = self->_eCoreLoop;
+LABEL_15:
+    [(LifetimeServoControlLoop *)pCoreLoop overrideAFi:v4];
+    return;
+  }
+
+  if ([param isEqualToString:@"LifetimeServoIntegratorState_P"])
+  {
+    eCoreLoop = self->_pCoreLoop;
+    goto LABEL_12;
+  }
+
+  if ([param isEqualToString:@"LifetimeServoInstantaneousAF_P"])
+  {
+    pCoreLoop = self->_pCoreLoop;
+    goto LABEL_15;
+  }
+
+  if ([param isEqualToString:@"LifetimeServoIntegratorState_G"])
+  {
+    eCoreLoop = self->_gCoreLoop;
+    goto LABEL_12;
+  }
+
+  if ([param isEqualToString:@"LifetimeServoInstantaneousAF_G"])
+  {
+    pCoreLoop = self->_gCoreLoop;
+    goto LABEL_15;
+  }
+
+  if (os_log_type_enabled(qword_1000AB718, OS_LOG_TYPE_ERROR))
+  {
+    sub_100057FD0();
+  }
+}
+
 - (void)updateSystemPowerState:(BOOL)state
 {
   if (state)
@@ -1025,7 +1104,6 @@ LABEL_18:
       *&self->_perfStateFractionCPU[4] = 0u;
       *self->_perfStateFractionCPU = 0u;
       Samples = IOReportCreateSamples();
-      lastReadingCPU = self->_lastReadingCPU;
       SamplesDelta = IOReportCreateSamplesDelta();
       CFRelease(self->_lastReadingCPU);
       self->_lastReadingCPU = Samples;
@@ -1047,7 +1125,6 @@ LABEL_18:
       *self->_perfStateFractionGPU = 0u;
       *&self->_perfStateFractionGPU[4] = 0u;
       Samples = IOReportCreateSamples();
-      lastReadingGPU = self->_lastReadingGPU;
       SamplesDelta = IOReportCreateSamplesDelta();
       CFRelease(self->_lastReadingGPU);
       self->_lastReadingGPU = Samples;

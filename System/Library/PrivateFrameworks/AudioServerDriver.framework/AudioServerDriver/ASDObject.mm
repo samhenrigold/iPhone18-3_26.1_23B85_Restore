@@ -4,12 +4,15 @@
 - (ASDObject)owner;
 - (ASDPlugin)plugin;
 - (ASDPropertyChangedDelegate)propertyChangedDelegate;
+- (BOOL)getProperty:(const AudioObjectPropertyAddress *)property withQualifierSize:(unsigned int)size qualifierData:(const void *)data dataSize:(unsigned int *)dataSize andData:(void *)andData forClient:(int)client;
 - (BOOL)hasProperty:(const AudioObjectPropertyAddress *)property;
 - (BOOL)isPropertySettable:(const AudioObjectPropertyAddress *)settable;
+- (BOOL)setProperty:(const AudioObjectPropertyAddress *)property withQualifierSize:(unsigned int)size qualifierData:(const void *)data dataSize:(unsigned int)dataSize andData:(const void *)andData forClient:(int)client;
 - (NSArray)customProperties;
 - (id)customPropertyWithAddress:(const AudioObjectPropertyAddress *)address;
 - (id)diagnosticDescriptionWithIndent:(id)indent walkTree:(BOOL)tree;
 - (int)addPassthroughPropertyWithUnderlyingObject:(id)object andPropertyAddress:(AudioObjectPropertyAddress)address;
+- (unsigned)dataSizeForProperty:(const AudioObjectPropertyAddress *)property withQualifierSize:(unsigned int)size andQualifierData:(const void *)data;
 - (void)addCustomProperty:(id)property;
 - (void)dealloc;
 - (void)removeCustomProperty:(id)property;
@@ -27,10 +30,7 @@
 
 uint64_t __29__ASDObject_customProperties__block_invoke(uint64_t a1)
 {
-  v2 = [MEMORY[0x277CBEA60] arrayWithArray:*(*(a1 + 32) + 8)];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [MEMORY[0x277CBEA60] arrayWithArray:*(*(a1 + 32) + 8)];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -111,27 +111,27 @@ uint64_t __29__ASDObject_customProperties__block_invoke(uint64_t a1)
 
 - (id)customPropertyWithAddress:(const AudioObjectPropertyAddress *)address
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   customProperties = [(ASDObject *)self customProperties];
-  v5 = [customProperties countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [customProperties countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(customProperties);
         }
 
-        v9 = *(*(&v16 + 1) + 8 * i);
+        v9 = *(*(&v15 + 1) + 8 * i);
         mSelector = address->mSelector;
         if (mSelector == [v9 selector])
         {
@@ -148,7 +148,7 @@ uint64_t __29__ASDObject_customProperties__block_invoke(uint64_t a1)
         }
       }
 
-      v6 = [customProperties countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [customProperties countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v6)
       {
         continue;
@@ -160,8 +160,6 @@ uint64_t __29__ASDObject_customProperties__block_invoke(uint64_t a1)
 
   v13 = 0;
 LABEL_13:
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -218,7 +216,7 @@ LABEL_12:
   return v7;
 }
 
-uint64_t __25__ASDObject_hasProperty___block_invoke(uint64_t a1)
+void *__25__ASDObject_hasProperty___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 8) count];
   *(*(*(a1 + 40) + 8) + 24) = result != 0;
@@ -256,11 +254,268 @@ uint64_t __25__ASDObject_hasProperty___block_invoke(uint64_t a1)
   return isSettable;
 }
 
-uint64_t __68__ASDObject_dataSizeForProperty_withQualifierSize_andQualifierData___block_invoke(uint64_t a1)
+- (unsigned)dataSizeForProperty:(const AudioObjectPropertyAddress *)property withQualifierSize:(unsigned int)size andQualifierData:(const void *)data
+{
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x2020000000;
+  v19 = 0;
+  if (!property)
+  {
+    goto LABEL_14;
+  }
+
+  v6 = *&size;
+  mSelector = property->mSelector;
+  if (property->mSelector <= 1668641651)
+  {
+    if (mSelector == 1650682995)
+    {
+LABEL_9:
+      v19 = 4;
+      goto LABEL_14;
+    }
+
+    v8 = 1668047219;
+  }
+
+  else
+  {
+    if (mSelector == 1668641652)
+    {
+      customPropertyQueue = self->_customPropertyQueue;
+      v15[0] = MEMORY[0x277D85DD0];
+      v15[1] = 3221225472;
+      v15[2] = __68__ASDObject_dataSizeForProperty_withQualifierSize_andQualifierData___block_invoke;
+      v15[3] = &unk_278CE3E28;
+      v15[4] = self;
+      v15[5] = &v16;
+      dispatch_sync(customPropertyQueue, v15);
+      goto LABEL_14;
+    }
+
+    if (mSelector == 1870098020)
+    {
+      goto LABEL_14;
+    }
+
+    v8 = 1937007734;
+  }
+
+  if (mSelector == v8)
+  {
+    goto LABEL_9;
+  }
+
+  v10 = [(ASDObject *)self customPropertyWithAddress:?];
+  v11 = v10;
+  if (v10)
+  {
+    v12 = [v10 dataSizeWithQualifierSize:v6 andQualifierData:data];
+    *(v17 + 6) = v12;
+  }
+
+LABEL_14:
+  v13 = *(v17 + 6);
+  _Block_object_dispose(&v16, 8);
+  return v13;
+}
+
+void *__68__ASDObject_dataSizeForProperty_withQualifierSize_andQualifierData___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 8) count];
   *(*(*(a1 + 40) + 8) + 24) = 12 * result;
   return result;
+}
+
+- (BOOL)getProperty:(const AudioObjectPropertyAddress *)property withQualifierSize:(unsigned int)size qualifierData:(const void *)data dataSize:(unsigned int *)dataSize andData:(void *)andData forClient:(int)client
+{
+  v8 = 0;
+  v39 = *MEMORY[0x277D85DE8];
+  if (!property || !dataSize || !andData)
+  {
+    return v8;
+  }
+
+  v11 = *&client;
+  v13 = *&size;
+  mSelector = property->mSelector;
+  if (property->mSelector > 1668641651)
+  {
+    switch(mSelector)
+    {
+      case 0x63757374u:
+        v19 = *dataSize;
+        if (*dataSize >= 0xC)
+        {
+          v36 = 0u;
+          v37 = 0u;
+          v34 = 0u;
+          v35 = 0u;
+          obj = [(ASDObject *)self customProperties];
+          v23 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+          if (v23)
+          {
+            v24 = v23;
+            v25 = 0;
+            v26 = *v35;
+            v32 = v19 / 0xCuLL;
+            v27 = v32 - 1;
+            while (2)
+            {
+              for (i = 0; i != v24; ++i)
+              {
+                if (*v35 != v26)
+                {
+                  objc_enumerationMutation(obj);
+                }
+
+                v29 = *(*(&v34 + 1) + 8 * i);
+                v30 = andData + 12 * v25;
+                *v30 = [v29 selector];
+                v30[1] = [v29 propertyDataType];
+                v30[2] = [v29 qualifierDataType];
+                if (v27 == v25)
+                {
+                  v25 = v32;
+                  goto LABEL_37;
+                }
+
+                ++v25;
+              }
+
+              v24 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+              if (v24)
+              {
+                continue;
+              }
+
+              break;
+            }
+          }
+
+          else
+          {
+            v25 = 0;
+          }
+
+LABEL_37:
+
+          v20 = 12 * v25;
+        }
+
+        else
+        {
+          v20 = 0;
+        }
+
+        *dataSize = v20;
+        return 1;
+      case 0x6F776E64u:
+        *dataSize = 0;
+        return 1;
+      case 0x73746476u:
+        if (*dataSize >= 4)
+        {
+          *dataSize = 4;
+          WeakRetained = objc_loadWeakRetained(&self->_owner);
+
+          if (WeakRetained)
+          {
+            owner = [(ASDObject *)self owner];
+            *andData = [owner objectID];
+
+            return 1;
+          }
+        }
+
+        return 0;
+    }
+
+    goto LABEL_22;
+  }
+
+  if (mSelector == 1650682995)
+  {
+    if (*dataSize >= 4)
+    {
+      *dataSize = 4;
+      baseClass = [(ASDObject *)self baseClass];
+      goto LABEL_20;
+    }
+
+    return 0;
+  }
+
+  if (mSelector == 1668047219)
+  {
+    if (*dataSize >= 4)
+    {
+      *dataSize = 4;
+      baseClass = [(ASDObject *)self objectClass];
+LABEL_20:
+      *andData = baseClass;
+      return 1;
+    }
+
+    return 0;
+  }
+
+LABEL_22:
+  v21 = [(ASDObject *)self customPropertyWithAddress:?];
+  v22 = v21;
+  if (v21)
+  {
+    v8 = [v21 getPropertyWithQualifierSize:v13 qualifierData:data dataSize:dataSize andData:andData forClient:v11];
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  return v8;
+}
+
+- (BOOL)setProperty:(const AudioObjectPropertyAddress *)property withQualifierSize:(unsigned int)size qualifierData:(const void *)data dataSize:(unsigned int)dataSize andData:(const void *)andData forClient:(int)client
+{
+  if (!property)
+  {
+    return 0;
+  }
+
+  v8 = *&client;
+  v10 = *&dataSize;
+  v12 = *&size;
+  v13 = 0;
+  mSelector = property->mSelector;
+  if (property->mSelector <= 1668641651)
+  {
+    v15 = mSelector == 1650682995;
+    v16 = 1668047219;
+  }
+
+  else
+  {
+    v15 = mSelector == 1668641652 || mSelector == 1870098020;
+    v16 = 1937007734;
+  }
+
+  if (!v15 && mSelector != v16)
+  {
+    v19 = [(ASDObject *)self customPropertyWithAddress:?];
+    if ([v19 isSettable])
+    {
+      v13 = [v19 setPropertyWithQualifierSize:v12 qualifierData:data dataSize:v10 andData:andData forClient:v8];
+    }
+
+    else
+    {
+      v13 = 0;
+    }
+  }
+
+  return v13;
 }
 
 - (void)addCustomProperty:(id)property
@@ -618,7 +873,7 @@ void __34__ASDObject_removeCustomProperty___block_invoke_cold_1()
 
 - (void)addPassthroughPropertyWithUnderlyingObject:(int *)a1 andPropertyAddress:.cold.1(int *a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v1 = *a1;
   v2 = *a1 >> 24;
   if ((v2 - 32) >= 0x5F)
@@ -639,21 +894,20 @@ void __34__ASDObject_removeCustomProperty___block_invoke_cold_1()
   }
 
   v1 = v1;
-  v6[0] = 67109888;
-  v6[1] = v2;
-  v7 = 1024;
-  v8 = v3;
-  v9 = 1024;
-  v10 = v4;
+  v5[0] = 67109888;
+  v5[1] = v2;
+  v6 = 1024;
+  v7 = v3;
+  v8 = 1024;
+  v9 = v4;
   if ((v1 - 32) >= 0x5F)
   {
     v1 = 32;
   }
 
-  v11 = 1024;
-  v12 = v1;
-  _os_log_error_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Failed to add passthrough property '%c%c%c%c'", v6, 0x1Au);
-  v5 = *MEMORY[0x277D85DE8];
+  v10 = 1024;
+  v11 = v1;
+  _os_log_error_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Failed to add passthrough property '%c%c%c%c'", v5, 0x1Au);
 }
 
 @end

@@ -120,7 +120,7 @@
 
 - (id)_dataclassViewController
 {
-  v3 = _AAUILogSystem();
+  v3 = _AAUILogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [AAUISignOutController _dataclassViewController];
@@ -389,7 +389,7 @@ LABEL_21:
   if (!dataclassOptions)
   {
     v4 = [(ACAccountStore *)self->_accountStore dataclassActionsForAccountDeletion:self->_account error:0];
-    v5 = _AAUILogSystem();
+    v5 = _AAUILogSystem(v4);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       [AAUISignOutController _dataclassOptions];
@@ -437,7 +437,7 @@ AAUIDataclassOption *__42__AAUISignOutController__dataclassOptions__block_invoke
   v21 = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
   completionCopy = completion;
-  v8 = _AAUILogSystem();
+  v8 = _AAUILogSystem(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     account = self->_account;
@@ -535,36 +535,36 @@ void __100__AAUISignOutController__mainQueue_promptForConfirmationInViewControll
   v6 = [*(*(a1 + 32) + 1504) aa_altDSID];
   v7 = [v4 analyticsEventWithName:v5 altDSID:v6 flowID:*(*(a1 + 32) + 1512)];
 
-  v8 = _AAUILogSystem();
-  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+  v9 = _AAUILogSystem(v8);
+  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
   if (a2)
   {
-    if (v9)
+    if (v10)
     {
       *buf = 0;
-      _os_log_impl(&dword_1C5355000, v8, OS_LOG_TYPE_DEFAULT, "User opted to cancel sign out.", buf, 2u);
+      _os_log_impl(&dword_1C5355000, v9, OS_LOG_TYPE_DEFAULT, "User opted to cancel sign out.", buf, 2u);
     }
 
     [v7 setObject:*MEMORY[0x1E698BB28] forKeyedSubscript:*MEMORY[0x1E6997820]];
-    v10 = [MEMORY[0x1E698B810] reporter];
-    [v10 sendEvent:v7];
+    v11 = [MEMORY[0x1E698B810] reporter];
+    [v11 sendEvent:v7];
 
-    v11 = *(a1 + 40);
-    v12 = [MEMORY[0x1E696ABC0] aa_errorWithCode:-1];
-    (*(v11 + 16))(v11, 0, v12);
+    v12 = *(a1 + 40);
+    v13 = [MEMORY[0x1E696ABC0] aa_errorWithCode:-1];
+    (*(v12 + 16))(v12, 0, v13);
   }
 
   else
   {
-    if (v9)
+    if (v10)
     {
-      *v14 = 0;
-      _os_log_impl(&dword_1C5355000, v8, OS_LOG_TYPE_DEFAULT, "Continuing sign out with user-specified dataclass actions.", v14, 2u);
+      *v15 = 0;
+      _os_log_impl(&dword_1C5355000, v9, OS_LOG_TYPE_DEFAULT, "Continuing sign out with user-specified dataclass actions.", v15, 2u);
     }
 
     [v7 setObject:*MEMORY[0x1E698BB30] forKeyedSubscript:*MEMORY[0x1E6997820]];
-    v13 = [MEMORY[0x1E698B810] reporter];
-    [v13 sendEvent:v7];
+    v14 = [MEMORY[0x1E698B810] reporter];
+    [v14 sendEvent:v7];
 
     (*(*(a1 + 40) + 16))();
   }
@@ -572,30 +572,30 @@ void __100__AAUISignOutController__mainQueue_promptForConfirmationInViewControll
 
 - (void)_mainQueue_continueSignOutWithDataclassActions:(id)actions
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   actionsCopy = actions;
   dispatch_assert_queue_V2(MEMORY[0x1E69E96A0]);
-  v5 = _AAUILogSystem();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = _AAUILogSystem(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     account = self->_account;
     *buf = 138412546;
-    v12 = account;
-    v13 = 2112;
-    v14 = actionsCopy;
-    _os_log_impl(&dword_1C5355000, v5, OS_LOG_TYPE_DEFAULT, "Attempting to sign out account %@ with dataclass actions %@.", buf, 0x16u);
+    v13 = account;
+    v14 = 2112;
+    v15 = actionsCopy;
+    _os_log_impl(&dword_1C5355000, v6, OS_LOG_TYPE_DEFAULT, "Attempting to sign out account %@ with dataclass actions %@.", buf, 0x16u);
   }
 
   objc_initWeak(buf, self);
   accountStore = self->_accountStore;
-  v8 = self->_account;
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __72__AAUISignOutController__mainQueue_continueSignOutWithDataclassActions___block_invoke;
-  v9[3] = &unk_1E820D308;
-  objc_copyWeak(&v10, buf);
-  [(ACAccountStore *)accountStore removeAccount:v8 withDataclassActions:actionsCopy completion:v9];
-  objc_destroyWeak(&v10);
+  v9 = self->_account;
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __72__AAUISignOutController__mainQueue_continueSignOutWithDataclassActions___block_invoke;
+  v10[3] = &unk_1E820D308;
+  objc_copyWeak(&v11, buf);
+  [(ACAccountStore *)accountStore removeAccount:v9 withDataclassActions:actionsCopy completion:v10];
+  objc_destroyWeak(&v11);
   objc_destroyWeak(buf);
 }
 
@@ -603,7 +603,7 @@ void __72__AAUISignOutController__mainQueue_continueSignOutWithDataclassActions_
 {
   v17 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = _AAUILogSystem();
+  v6 = _AAUILogSystem(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = @"NO";
@@ -658,15 +658,16 @@ void __72__AAUISignOutController__mainQueue_continueSignOutWithDataclassActions_
 {
   dispatch_assert_queue_V2(MEMORY[0x1E69E96A0]);
   delegate = [(AAUISignOutController *)self delegate];
-  if (objc_opt_respondsToSelector())
+  v4 = objc_opt_respondsToSelector();
+  if (v4)
   {
     [delegate signOutControllerDidCancel:self];
   }
 
   else
   {
-    v4 = _AAUISignOutLogSystem();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    v5 = _AAUISignOutLogSystem(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       [AAUISignOutController _delegate_signOutControllerDidCancel];
     }
@@ -681,15 +682,16 @@ void __72__AAUISignOutController__mainQueue_continueSignOutWithDataclassActions_
   errorCopy = error;
   dispatch_assert_queue_V2(MEMORY[0x1E69E96A0]);
   delegate = [(AAUISignOutController *)self delegate];
-  if (objc_opt_respondsToSelector())
+  v8 = objc_opt_respondsToSelector();
+  if (v8)
   {
     [delegate signOutController:self didCompleteWithSuccess:successCopy error:errorCopy];
   }
 
   else
   {
-    v8 = _AAUISignOutLogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v9 = _AAUISignOutLogSystem(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       [AAUISignOutController _delegate_signOutControllerDidCompleteWithSuccess:error:];
     }

@@ -7,11 +7,9 @@ uint64_t ___CalDatabaseCopyOfAllAttachmentFilesInStore_block_invoke(uint64_t res
 {
   if (*(result + 32))
   {
-    v2 = result;
-    v3 = *(a2 + 8);
+    v2 = *(a2 + 8);
     if (CDBLockingAssertionsEnabled == 1 && *(result + 40) != 0)
     {
-      v5 = *(result + 40);
       Context = CPRecordStoreGetContext();
       if (Context)
       {
@@ -19,11 +17,10 @@ uint64_t ___CalDatabaseCopyOfAllAttachmentFilesInStore_block_invoke(uint64_t res
       }
     }
 
-    v7 = *(v2 + 32);
     CPRecordGetID();
     RowidForRecordID = CPRecordStoreGetRowidForRecordID();
 
-    return sqlite3_bind_int64(v3, 1, RowidForRecordID);
+    return sqlite3_bind_int64(v2, 1, RowidForRecordID);
   }
 
   return result;

@@ -59,7 +59,7 @@
 
 - (void)startListening
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   mEMORY[0x277D1A9B8] = [MEMORY[0x277D1A9B8] sharedFeatureFlags];
   photoAnalysisInSpotlightEnabled = [mEMORY[0x277D1A9B8] photoAnalysisInSpotlightEnabled];
 
@@ -71,21 +71,19 @@
       if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
         syndicationLibrary = self->_syndicationLibrary;
-        v8 = 138412290;
-        v9 = syndicationLibrary;
-        _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "Started listening for changes to the syndication library. syndicationLibrary: %@", &v8, 0xCu);
+        v7 = 138412290;
+        v8 = syndicationLibrary;
+        _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "Started listening for changes to the syndication library. syndicationLibrary: %@", &v7, 0xCu);
       }
     }
 
     [(PHPhotoLibrary *)self->_syndicationLibrary registerChangeObserver:self];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopListening
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   mEMORY[0x277D1A9B8] = [MEMORY[0x277D1A9B8] sharedFeatureFlags];
   photoAnalysisInSpotlightEnabled = [mEMORY[0x277D1A9B8] photoAnalysisInSpotlightEnabled];
 
@@ -97,57 +95,53 @@
       if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
         syndicationLibrary = self->_syndicationLibrary;
-        v8 = 138412290;
-        v9 = syndicationLibrary;
-        _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "Stopped listening to changes to the syndication library. syndicationLibrary: %@", &v8, 0xCu);
+        v7 = 138412290;
+        v8 = syndicationLibrary;
+        _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "Stopped listening to changes to the syndication library. syndicationLibrary: %@", &v7, 0xCu);
       }
     }
 
     [(PHPhotoLibrary *)self->_syndicationLibrary unregisterChangeObserver:self];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (PHFetchOptions)analysisFetchOptions
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   analysisFetchOptions = self->_analysisFetchOptions;
   if (!analysisFetchOptions)
   {
-    objc_initWeak(&v14, self->_syndicationLibrary);
+    objc_initWeak(&v13, self->_syndicationLibrary);
     v4 = objc_alloc_init(MEMORY[0x277CD9880]);
-    v5 = objc_loadWeakRetained(&v14);
+    v5 = objc_loadWeakRetained(&v13);
     [(PHFetchOptions *)v4 setPhotoLibrary:v5];
 
     v6 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"creationDate" ascending:0];
-    v16[0] = v6;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+    v15[0] = v6;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
     [(PHFetchOptions *)v4 setSortDescriptors:v7];
 
     v8 = *MEMORY[0x277CD9B10];
-    v15[0] = *MEMORY[0x277CD9A80];
-    v15[1] = v8;
-    v15[2] = *MEMORY[0x277CD9AD0];
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:3];
+    v14[0] = *MEMORY[0x277CD9A80];
+    v14[1] = v8;
+    v14[2] = *MEMORY[0x277CD9AD0];
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:3];
     [(PHFetchOptions *)v4 setFetchPropertySets:v9];
 
     v11 = self->_analysisFetchOptions;
     p_analysisFetchOptions = &self->_analysisFetchOptions;
     *p_analysisFetchOptions = v4;
 
-    objc_destroyWeak(&v14);
+    objc_destroyWeak(&v13);
     analysisFetchOptions = *p_analysisFetchOptions;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return analysisFetchOptions;
 }
 
 - (void)photoLibraryDidChange:(id)change
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   if (IMOSLoggingEnabled())
   {
@@ -155,7 +149,7 @@
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v14 = changeCopy;
+      v13 = changeCopy;
       _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "Syndication library changed. Ingesting new analysis data. change: %@", buf, 0xCu);
     }
   }
@@ -167,22 +161,20 @@
     {
       totalChangeCount = [changeCopy totalChangeCount];
       *buf = 134217984;
-      v14 = totalChangeCount;
+      v13 = totalChangeCount;
       _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "Total change count: %lu.", buf, 0xCu);
     }
   }
 
   changeObservationQueue = [(IMDPhotosSyndicationLibraryChangeListener *)self changeObservationQueue];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = sub_22B5EE804;
-  v11[3] = &unk_278702FA0;
-  v11[4] = self;
-  v12 = changeCopy;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = sub_22B5EE804;
+  v10[3] = &unk_278702FA0;
+  v10[4] = self;
+  v11 = changeCopy;
   v9 = changeCopy;
-  dispatch_async(changeObservationQueue, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  dispatch_async(changeObservationQueue, v10);
 }
 
 @end

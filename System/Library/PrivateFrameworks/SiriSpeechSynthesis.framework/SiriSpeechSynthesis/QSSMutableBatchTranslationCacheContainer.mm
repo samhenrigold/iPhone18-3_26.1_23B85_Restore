@@ -3,11 +3,18 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (int)sentence_count;
 - (void)setRequest_id:(id)request_id;
+- (void)setSentence_count:(int)sentence_count;
 - (void)setSpans:(id)spans;
 - (void)setTranslated_text:(id)translated_text;
 @end
 
 @implementation QSSMutableBatchTranslationCacheContainer
+
+- (void)setSentence_count:(int)sentence_count
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:*&sentence_count];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
 
 - (int)sentence_count
 {

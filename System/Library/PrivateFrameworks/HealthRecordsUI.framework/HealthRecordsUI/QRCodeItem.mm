@@ -8,7 +8,7 @@
 {
   sub_1D13905AC();
 
-  sub_1D1327DEC(sub_1D10D1510, self, "HealthRecordsUI/SignedClinicalDataStatusDataSource.swift", 56);
+  sub_1D1327DEC(sub_1D10D1510, self, "HealthRecordsUI/SignedClinicalDataStatusDataSource.swift", 56, 2, 211);
 }
 
 @end

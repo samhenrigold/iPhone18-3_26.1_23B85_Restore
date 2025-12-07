@@ -56,6 +56,7 @@
 - (BOOL)sleep:(id *)sleep;
 - (BOOL)spotlightReimportFromIdentifier:(id)identifier forPersonHandle:(id)handle startDate:(id)date endDate:(id)endDate error:(id *)error;
 - (BOOL)updateMessages:(id)messages state:(unint64_t)state error:(id *)error;
+- (SGSuggestionsService)initWithMachServiceName:(id)name protocol:(id)protocol useCache:(BOOL)cache;
 - (double)syncTimeout;
 - (id)_daemonConnection;
 - (id)_remoteSuggestionManager;
@@ -138,14 +139,17 @@
 - (void)addSearchableItemMetadata:(id)metadata htmlData:(id)data completion:(id)completion;
 - (void)addSearchableItems:(id)items withCompletion:(id)completion;
 - (void)allContactsLimitedTo:(unint64_t)to withCompletion:(id)completion;
+- (void)allContactsWithSnippets:(BOOL)snippets limitTo:(unint64_t)to withCompletion:(id)completion;
 - (void)allDeliveriesWithLimit:(unint64_t)limit withCompletion:(id)completion;
 - (void)allEventsLimitedTo:(unint64_t)to withCompletion:(id)completion;
 - (void)allRemindersLimitedTo:(unint64_t)to withCompletion:(id)completion;
 - (void)birthdayExtractionsForInterval:(id)interval withCompletion:(id)completion;
 - (void)celebrationExtractionsForInterval:(id)interval withCompletion:(id)completion;
+- (void)clearCachesFully:(BOOL)fully withCompletion:(id)completion;
 - (void)cnContactMatchesForRecordId:(id)id withCompletion:(id)completion;
 - (void)cnContactMatchesForRecordIds:(id)ids withCompletion:(id)completion;
 - (void)confirmContact:(id)contact withCompletion:(id)completion;
+- (void)confirmContactDetailRecord:(id)record confirmationUI:(int)i withCompletion:(id)completion;
 - (void)confirmContactDetailRecord:(id)record withCompletion:(id)completion;
 - (void)confirmEvent:(id)event withCompletion:(id)completion;
 - (void)confirmEventByRecordId:(id)id withCompletion:(id)completion;
@@ -177,23 +181,32 @@
 - (void)eventsForSchemas:(id)schemas usingStore:(id)store completion:(id)completion;
 - (void)extractAttributesAndDonate:(id)donate withCompletion:(id)completion;
 - (void)filteredSuggestionsFromExtractions:(id)extractions origin:(id)origin options:(unint64_t)options withCompletion:(id)completion;
+- (void)foundInStringForRecordId:(id)id style:(unsigned __int8)style withCompletion:(id)completion;
 - (void)fullDownloadRequestBatch:(unint64_t)batch withCompletion:(id)completion;
 - (void)harvestedSuggestionsFromSearchableItem:(id)item options:(unint64_t)options withCompletion:(id)completion;
 - (void)identifyComposeWarningsFromSubject:(id)subject content:(id)content attributes:(id)attributes toRecipients:(id)recipients ccRecipients:(id)ccRecipients bccRecipients:(id)bccRecipients originalToRecipients:(id)toRecipients originalCcRecipients:(id)self0 attachments:(id)self1 withCompletion:(id)self2;
 - (void)identifyFollowUpWarningFromSubject:(id)subject body:(id)body date:(id)date withCompletion:(id)completion;
 - (void)interactionStoreLookupForDetail:(id)detail withCompletion:(id)completion;
 - (void)ipsosMessagesFromSearchableItems:(id)items withCompletion:(id)completion;
+- (void)isEventCandidateForURL:(id)l andTitle:(id)title containsSchemaOrg:(BOOL)org withCompletion:(id)completion;
+- (void)keepDirty:(BOOL)dirty;
 - (void)keysForSchemas:(id)schemas completion:(id)completion;
 - (void)launchAppForSuggestedEventUsingLaunchInfo:(id)info withCompletion:(id)completion;
 - (void)launchInfoForSuggestedEventWithUniqueIdentifier:(id)identifier sourceURL:(id)l clientLocale:(id)locale withCompletion:(id)completion;
+- (void)logEventInteractionForEventWithExternalIdentifier:(id)identifier interface:(unsigned __int16)interface actionType:(unsigned __int16)type;
+- (void)logEventInteractionForEventWithUniqueKey:(id)key interface:(unsigned __int16)interface actionType:(unsigned __int16)type;
+- (void)logMetricAutocompleteResult:(int)result recordId:(id)id contactIdentifier:(id)identifier bundleId:(id)bundleId;
 - (void)logMetricAutocompleteUserSelectedRecordId:(id)id contactIdentifier:(id)identifier bundleId:(id)bundleId;
 - (void)logMetricContactCreated:(id)created contactIdentifier:(id)identifier bundleId:(id)id;
+- (void)logMetricContactSearchResult:(int)result recordId:(id)id contactIdentifier:(id)identifier bundleId:(id)bundleId;
 - (void)logMetricContactSearchResultSelected:(id)selected contactIdentifier:(id)identifier bundleId:(id)id;
 - (void)logMetricSearchResultsIncludedPureSuggestionWithBundleId:(id)id;
 - (void)logMetricSuggestedContactDetailShown:(id)shown contactIdentifier:(id)identifier bundleId:(id)id;
 - (void)logMetricSuggestedContactDetailUsed:(id)used contactIdentifier:(id)identifier bundleId:(id)id;
+- (void)logSuggestionInteractionForRecordId:(id)id interface:(unsigned __int16)interface actionType:(unsigned __int16)type;
 - (void)logUserCreatedReminderTitle:(id)title withCompletion:(id)completion;
 - (void)messagesToRefreshWithCompletion:(id)completion;
+- (void)namesForDetail:(id)detail limitTo:(unint64_t)to prependMaybe:(BOOL)maybe onlySignificant:(BOOL)significant supportsInfoLookup:(BOOL)lookup withCompletion:(id)completion;
 - (void)originFromRecordId:(id)id withCompletion:(id)completion;
 - (void)pingWithCompletion:(id)completion;
 - (void)planReceivedFromServerWithPayload:(id)payload completion:(id)completion;
@@ -204,11 +217,16 @@
 - (void)purgeSpotlightReferencesWithBundleIdentifier:(id)identifier uniqueIdentifiers:(id)identifiers completion:(id)completion;
 - (void)realtimeSuggestionsFromURL:(id)l title:(id)title HTMLPayload:(id)payload extractionDate:(id)date withCompletion:(id)completion;
 - (void)rebuildNamesForDetailCacheWithCompletion:(id)completion;
+- (void)recentURLsWithLimit:(unsigned int)limit withCompletion:(id)completion;
+- (void)registerURLFeedback:(unsigned __int8)feedback absoluteURL:(id)l withCompletion:(id)completion;
+- (void)rejectContact:(id)contact rejectionUI:(int)i withCompletion:(id)completion;
 - (void)rejectContact:(id)contact withCompletion:(id)completion;
+- (void)rejectContactDetailRecord:(id)record rejectionUI:(int)i withCompletion:(id)completion;
 - (void)rejectContactDetailRecord:(id)record withCompletion:(id)completion;
 - (void)rejectEvent:(id)event withCompletion:(id)completion;
 - (void)rejectEventByRecordId:(id)id withCompletion:(id)completion;
 - (void)rejectRealtimeReminder:(id)reminder withCompletion:(id)completion;
+- (void)rejectRecord:(id)record rejectionUI:(int)i withCompletion:(id)completion;
 - (void)rejectRecord:(id)record withCompletion:(id)completion;
 - (void)rejectReminderByRecordId:(id)id withCompletion:(id)completion;
 - (void)reminderAlarmTriggeredForRecordId:(id)id withCompletion:(id)completion;
@@ -216,19 +234,25 @@
 - (void)removeAllStoredPseudoContactsWithCompletion:(id)completion;
 - (void)reportMailIntelligenceFollowUpUserEngagement:(int64_t)engagement forStringFromFollowUpWarning:(id)warning withCompletion:(id)completion;
 - (void)reportMessagesFound:(id)found lost:(id)lost withCompletion:(id)completion;
+- (void)reportUserEngagement:(BOOL)engagement forWarning:(id)warning withCompletion:(id)completion;
+- (void)reportValue:(BOOL)value forFeatureSetting:(int64_t)setting withCompletion:(id)completion;
 - (void)resetConfirmationAndRejectionHistoryWithCompletion:(id)completion;
 - (void)resolveFullDownloadRequests:(id)requests withCompletion:(id)completion;
 - (void)saliencyFromEmailHeaders:(id)headers withCompletion:(id)completion;
 - (void)saliencyFromRFC822Data:(id)data withCompletion:(id)completion;
 - (void)setSyncTimeout:(double)timeout;
 - (void)sleepWithCompletion:(id)completion;
+- (void)sortedSaliencyResultsRestrictedToMailboxTypes:(id)types mailboxIds:(id)ids receivedOnOrAfter:(id)after ascending:(BOOL)ascending limit:(unint64_t)limit withCompletion:(id)completion;
 - (void)sortedUnsubscriptionOpportunitiesForField:(int64_t)field limit:(unint64_t)limit withCompletion:(id)completion;
 - (void)sortedUnsubscriptionOpportunitiesForField:(int64_t)field minCount:(unint64_t)count minScore:(double)score limit:(unint64_t)limit withCompletion:(id)completion;
 - (void)spotlightReimportFromIdentifier:(id)identifier forPersonHandle:(id)handle startDate:(id)date endDate:(id)endDate withCompletion:(id)completion;
 - (void)suggestContactMatchesWithFullTextSearch:(id)search limitTo:(unint64_t)to withCompletion:(id)completion;
 - (void)suggestContactMatchesWithMessagingPrefix:(id)prefix limitTo:(unint64_t)to withCompletion:(id)completion;
+- (void)suggestEventsInFutureLimitTo:(unint64_t)to options:(unsigned int)options withCompletion:(id)completion;
 - (void)suggestEventsInFutureLimitTo:(unint64_t)to withCompletion:(id)completion;
+- (void)suggestEventsStartingAt:(id)at endingAt:(id)endingAt limitTo:(unint64_t)to options:(unsigned int)options withCompletion:(id)completion;
 - (void)suggestEventsStartingAt:(id)at endingAt:(id)endingAt limitTo:(unint64_t)to withCompletion:(id)completion;
+- (void)suggestEventsStartingAt:(id)at endingAt:(id)endingAt prefix:(id)prefix limitTo:(unint64_t)to options:(unsigned int)options withCompletion:(id)completion;
 - (void)suggestEventsStartingAt:(id)at endingAt:(id)endingAt prefix:(id)prefix limitTo:(unint64_t)to withCompletion:(id)completion;
 - (void)suggestionsFromEmailContent:(id)content headers:(id)headers source:(id)source options:(unint64_t)options withCompletion:(id)completion;
 - (void)suggestionsFromRFC822Data:(id)data source:(id)source options:(unint64_t)options withCompletion:(id)completion;
@@ -239,6 +263,8 @@
 - (void)titleSuggestionForMessage:(id)message withCompletion:(id)completion;
 - (void)topSalienciesForMailboxId:(id)id limit:(int64_t)limit withCompletion:(id)completion;
 - (void)updateMessages:(id)messages state:(unint64_t)state withCompletion:(id)completion;
+- (void)urlsFoundBetweenStartDate:(id)date endDate:(id)endDate excludingBundleIdentifiers:(id)identifiers containingSubstring:(id)substring flagFilter:(unsigned __int8)filter limit:(unsigned int)limit withCompletion:(id)completion;
+- (void)urlsFoundBetweenStartDate:(id)date endDate:(id)endDate excludingBundleIdentifiers:(id)identifiers limit:(unsigned int)limit withCompletion:(id)completion;
 - (void)waitForEventWithIdentifier:(id)identifier toAppearInEventStoreWithCompletion:(id)completion;
 - (void)waitForEventWithIdentifier:(id)identifier toAppearInEventStoreWithLastModificationDate:(id)date completion:(id)completion;
 @end
@@ -351,19 +377,19 @@ void __43__SGSuggestionsService_cacheSnapshotFuture__block_invoke(uint64_t a1, v
 
 void __43__SGSuggestionsService_cacheSnapshotFuture__block_invoke_581(uint64_t a1)
 {
-  v36 = *MEMORY[0x1E69E9840];
-  v28 = 0;
-  v29 = &v28;
-  v30 = 0x3032000000;
-  v31 = __Block_byref_object_copy__2207;
-  v32 = __Block_byref_object_dispose__2208;
-  v33 = 0;
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x3032000000;
-  v25 = __Block_byref_object_copy__2207;
-  v26 = __Block_byref_object_dispose__2208;
+  v35 = *MEMORY[0x1E69E9840];
   v27 = 0;
+  v28 = &v27;
+  v29 = 0x3032000000;
+  v30 = __Block_byref_object_copy__2207;
+  v31 = __Block_byref_object_dispose__2208;
+  v32 = 0;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x3032000000;
+  v24 = __Block_byref_object_copy__2207;
+  v25 = __Block_byref_object_dispose__2208;
+  v26 = 0;
   v2 = sgLogHandle();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
@@ -372,21 +398,21 @@ void __43__SGSuggestionsService_cacheSnapshotFuture__block_invoke_581(uint64_t a
   }
 
   v3 = [*(a1 + 32) _daemonConnection];
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __43__SGSuggestionsService_cacheSnapshotFuture__block_invoke_582;
-  v21[3] = &unk_1E7EFB8B8;
-  v21[4] = &v22;
-  v4 = [v3 synchronousRemoteObjectProxyWithErrorHandler:v21];
   v20[0] = MEMORY[0x1E69E9820];
   v20[1] = 3221225472;
-  v20[2] = __43__SGSuggestionsService_cacheSnapshotFuture__block_invoke_2;
-  v20[3] = &unk_1E7EFB8E0;
-  v20[4] = &v28;
-  [v4 namesForDetailCacheSnapshotsWithCompletion:v20];
+  v20[2] = __43__SGSuggestionsService_cacheSnapshotFuture__block_invoke_582;
+  v20[3] = &unk_1E7EFB8B8;
+  v20[4] = &v21;
+  v4 = [v3 synchronousRemoteObjectProxyWithErrorHandler:v20];
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __43__SGSuggestionsService_cacheSnapshotFuture__block_invoke_2;
+  v19[3] = &unk_1E7EFB8E0;
+  v19[4] = &v27;
+  [v4 namesForDetailCacheSnapshotsWithCompletion:v19];
 
-  v5 = v29[5];
-  if (v23[5])
+  v5 = v28[5];
+  if (v22[5])
   {
     if (v5)
     {
@@ -396,14 +422,14 @@ void __43__SGSuggestionsService_cacheSnapshotFuture__block_invoke_581(uint64_t a
     v6 = sgLogHandle();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      v18 = v23[5];
+      v17 = v22[5];
       *buf = 138412290;
-      v35 = v18;
+      v34 = v17;
       _os_log_debug_impl(&dword_1BA729000, v6, OS_LOG_TYPE_DEBUG, "namesForDetail: cacheSnapshot: got xpc response with error %@", buf, 0xCu);
     }
 
     [*(a1 + 40) disassociateFromParentObject];
-    [*(a1 + 40) fail:v23[5]];
+    [*(a1 + 40) fail:v22[5]];
   }
 
   else if (v5)
@@ -416,33 +442,32 @@ void __43__SGSuggestionsService_cacheSnapshotFuture__block_invoke_581(uint64_t a
     }
 
     v8 = objc_opt_new();
-    v9 = [v29[5] response1];
+    v9 = [v28[5] response1];
     v10 = v8[2];
     v8[2] = v9;
 
-    v11 = [v29[5] response2];
+    v11 = [v28[5] response2];
     v12 = v8[1];
     v8[1] = v11;
 
-    v13 = [v29[5] response3];
+    v13 = [v28[5] response3];
     v14 = v8[3];
     v8[3] = v13;
 
     [*(a1 + 40) succeed:v8];
     v15 = MEMORY[0x1E69C5D10];
     v16 = dispatch_get_global_queue(17, 0);
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __43__SGSuggestionsService_cacheSnapshotFuture__block_invoke_587;
-    v19[3] = &unk_1E7EFD118;
-    v19[4] = *(a1 + 32);
-    [v15 runAsyncOnQueue:v16 afterDelaySeconds:v19 block:10.0];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __43__SGSuggestionsService_cacheSnapshotFuture__block_invoke_587;
+    v18[3] = &unk_1E7EFD118;
+    v18[4] = *(a1 + 32);
+    [v15 runAsyncOnQueue:v16 afterDelaySeconds:v18 block:10.0];
   }
 
-  _Block_object_dispose(&v22, 8);
+  _Block_object_dispose(&v21, 8);
 
-  _Block_object_dispose(&v28, 8);
-  v17 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v27, 8);
 }
 
 - (id)_daemonConnection
@@ -475,6 +500,27 @@ void __43__SGSuggestionsService_cacheSnapshotFuture__block_invoke_581(uint64_t a
   v2 = [[self alloc] initWithMachServiceName:@"com.apple.suggestd.events" protocol:&unk_1F387B7A0];
 
   return v2;
+}
+
+- (void)foundInStringForRecordId:(id)id style:(unsigned __int8)style withCompletion:(id)completion
+{
+  styleCopy = style;
+  idCopy = id;
+  completionCopy = completion;
+  if (!idCopy)
+  {
+    currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"SGSuggestionsService.m" lineNumber:2433 description:{@"Invalid parameter not satisfying: %@", @"recordId"}];
+  }
+
+  _remoteSuggestionManager = [(SGSuggestionsService *)self _remoteSuggestionManager];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __70__SGSuggestionsService_foundInStringForRecordId_style_withCompletion___block_invoke;
+  v14[3] = &unk_1E7EFD0A0;
+  v15 = completionCopy;
+  v12 = completionCopy;
+  [_remoteSuggestionManager foundInStringForRecordId:idCopy style:styleCopy withCompletion:v14];
 }
 
 void __70__SGSuggestionsService_foundInStringForRecordId_style_withCompletion___block_invoke(uint64_t a1, void *a2)
@@ -523,6 +569,21 @@ void __61__SGSuggestionsService_foundInStringForRecordId_style_error___block_inv
   [v4 foundInStringForRecordId:v5 style:v6 withCompletion:v8];
 }
 
+- (void)registerURLFeedback:(unsigned __int8)feedback absoluteURL:(id)l withCompletion:(id)completion
+{
+  feedbackCopy = feedback;
+  completionCopy = completion;
+  lCopy = l;
+  _remoteSuggestionManager = [(SGSuggestionsService *)self _remoteSuggestionManager];
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __71__SGSuggestionsService_registerURLFeedback_absoluteURL_withCompletion___block_invoke;
+  v12[3] = &unk_1E7EFB610;
+  v13 = completionCopy;
+  v11 = completionCopy;
+  [_remoteSuggestionManager registerURLFeedback:feedbackCopy absoluteURL:lCopy withCompletion:v12];
+}
+
 void __71__SGSuggestionsService_registerURLFeedback_absoluteURL_withCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v2 = *(a1 + 32);
@@ -565,6 +626,45 @@ void __62__SGSuggestionsService_registerURLFeedback_absoluteURL_error___block_in
   v9 = v3;
   v7 = v3;
   [v6 registerURLFeedback:v4 absoluteURL:v5 withCompletion:v8];
+}
+
+- (void)urlsFoundBetweenStartDate:(id)date endDate:(id)endDate excludingBundleIdentifiers:(id)identifiers containingSubstring:(id)substring flagFilter:(unsigned __int8)filter limit:(unsigned int)limit withCompletion:(id)completion
+{
+  v9 = *&limit;
+  filterCopy = filter;
+  v28 = *MEMORY[0x1E69E9840];
+  dateCopy = date;
+  endDateCopy = endDate;
+  identifiersCopy = identifiers;
+  substringCopy = substring;
+  completionCopy = completion;
+  if ([MEMORY[0x1E69C5D08] isClassCLocked])
+  {
+    v21 = sgLogHandle();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    {
+      v22 = NSStringFromSelector(a2);
+      *buf = 138412290;
+      v27 = v22;
+      _os_log_impl(&dword_1BA729000, v21, OS_LOG_TYPE_DEFAULT, "Cannot query Suggestions (%@) before first unlock.", buf, 0xCu);
+    }
+
+    if (completionCopy)
+    {
+      (*(completionCopy + 2))(completionCopy, MEMORY[0x1E695E0F0], 0);
+    }
+  }
+
+  else
+  {
+    _remoteSuggestionManager = [(SGSuggestionsService *)self _remoteSuggestionManager];
+    v24[0] = MEMORY[0x1E69E9820];
+    v24[1] = 3221225472;
+    v24[2] = __137__SGSuggestionsService_urlsFoundBetweenStartDate_endDate_excludingBundleIdentifiers_containingSubstring_flagFilter_limit_withCompletion___block_invoke;
+    v24[3] = &unk_1E7EFD0A0;
+    v25 = completionCopy;
+    [_remoteSuggestionManager urlsFoundBetweenStartDate:dateCopy endDate:endDateCopy excludingBundleIdentifiers:identifiersCopy containingSubstring:substringCopy flagFilter:filterCopy limit:v9 withCompletion:v24];
+  }
 }
 
 void __137__SGSuggestionsService_urlsFoundBetweenStartDate_endDate_excludingBundleIdentifiers_containingSubstring_flagFilter_limit_withCompletion___block_invoke(uint64_t a1, void *a2)
@@ -623,6 +723,43 @@ void __128__SGSuggestionsService_urlsFoundBetweenStartDate_endDate_excludingBund
   [v4 urlsFoundBetweenStartDate:v5 endDate:v6 excludingBundleIdentifiers:v7 containingSubstring:v8 flagFilter:v9 limit:v10 withCompletion:v12];
 }
 
+- (void)urlsFoundBetweenStartDate:(id)date endDate:(id)endDate excludingBundleIdentifiers:(id)identifiers limit:(unsigned int)limit withCompletion:(id)completion
+{
+  v8 = *&limit;
+  v24 = *MEMORY[0x1E69E9840];
+  dateCopy = date;
+  endDateCopy = endDate;
+  identifiersCopy = identifiers;
+  completionCopy = completion;
+  if ([MEMORY[0x1E69C5D08] isClassCLocked])
+  {
+    v17 = sgLogHandle();
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    {
+      v18 = NSStringFromSelector(a2);
+      *buf = 138412290;
+      v23 = v18;
+      _os_log_impl(&dword_1BA729000, v17, OS_LOG_TYPE_DEFAULT, "Cannot query Suggestions (%@) before first unlock.", buf, 0xCu);
+    }
+
+    if (completionCopy)
+    {
+      (*(completionCopy + 2))(completionCopy, MEMORY[0x1E695E0F0], 0);
+    }
+  }
+
+  else
+  {
+    _remoteSuggestionManager = [(SGSuggestionsService *)self _remoteSuggestionManager];
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __106__SGSuggestionsService_urlsFoundBetweenStartDate_endDate_excludingBundleIdentifiers_limit_withCompletion___block_invoke;
+    v20[3] = &unk_1E7EFD0A0;
+    v21 = completionCopy;
+    [_remoteSuggestionManager urlsFoundBetweenStartDate:dateCopy endDate:endDateCopy excludingBundleIdentifiers:identifiersCopy containingSubstring:0 flagFilter:0 limit:v8 withCompletion:v20];
+  }
+}
+
 void __106__SGSuggestionsService_urlsFoundBetweenStartDate_endDate_excludingBundleIdentifiers_limit_withCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v2 = *(a1 + 32);
@@ -675,6 +812,40 @@ void __97__SGSuggestionsService_urlsFoundBetweenStartDate_endDate_excludingBundl
   v11 = v3;
   v9 = v3;
   [v4 urlsFoundBetweenStartDate:v5 endDate:v6 excludingBundleIdentifiers:v7 limit:v8 withCompletion:v10];
+}
+
+- (void)recentURLsWithLimit:(unsigned int)limit withCompletion:(id)completion
+{
+  v4 = *&limit;
+  v15 = *MEMORY[0x1E69E9840];
+  completionCopy = completion;
+  if ([MEMORY[0x1E69C5D08] isClassCLocked])
+  {
+    v8 = sgLogHandle();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    {
+      v9 = NSStringFromSelector(a2);
+      *buf = 138412290;
+      v14 = v9;
+      _os_log_impl(&dword_1BA729000, v8, OS_LOG_TYPE_DEFAULT, "Cannot query Suggestions (%@) before first unlock.", buf, 0xCu);
+    }
+
+    if (completionCopy)
+    {
+      (*(completionCopy + 2))(completionCopy, MEMORY[0x1E695E0F0], 0);
+    }
+  }
+
+  else
+  {
+    _remoteSuggestionManager = [(SGSuggestionsService *)self _remoteSuggestionManager];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __59__SGSuggestionsService_recentURLsWithLimit_withCompletion___block_invoke;
+    v11[3] = &unk_1E7EFD0A0;
+    v12 = completionCopy;
+    [_remoteSuggestionManager recentURLsWithLimit:v4 withCompletion:v11];
+  }
 }
 
 void __59__SGSuggestionsService_recentURLsWithLimit_withCompletion___block_invoke(uint64_t a1, void *a2)
@@ -775,6 +946,20 @@ void __104__SGSuggestionsService_reportMailIntelligenceFollowUpUserEngagement_fo
   [v4 reportMailIntelligenceFollowUpUserEngagement:v6 forStringFromFollowUpWarning:v5 withCompletion:v9];
 }
 
+- (void)reportValue:(BOOL)value forFeatureSetting:(int64_t)setting withCompletion:(id)completion
+{
+  valueCopy = value;
+  completionCopy = completion;
+  _remoteSuggestionManager = [(SGSuggestionsService *)self _remoteSuggestionManager];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __69__SGSuggestionsService_reportValue_forFeatureSetting_withCompletion___block_invoke;
+  v11[3] = &unk_1E7EFD0A0;
+  v12 = completionCopy;
+  v10 = completionCopy;
+  [_remoteSuggestionManager reportValue:valueCopy forFeatureSetting:setting withCompletion:v11];
+}
+
 void __69__SGSuggestionsService_reportValue_forFeatureSetting_withCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v2 = *(a1 + 32);
@@ -817,6 +1002,21 @@ void __60__SGSuggestionsService_reportValue_forFeatureSetting_error___block_invo
   v9 = v3;
   v7 = v3;
   [v6 reportValue:v4 forFeatureSetting:v5 withCompletion:v8];
+}
+
+- (void)reportUserEngagement:(BOOL)engagement forWarning:(id)warning withCompletion:(id)completion
+{
+  engagementCopy = engagement;
+  completionCopy = completion;
+  warningCopy = warning;
+  _remoteSuggestionManager = [(SGSuggestionsService *)self _remoteSuggestionManager];
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __71__SGSuggestionsService_reportUserEngagement_forWarning_withCompletion___block_invoke;
+  v12[3] = &unk_1E7EFD0A0;
+  v13 = completionCopy;
+  v11 = completionCopy;
+  [_remoteSuggestionManager reportUserEngagement:engagementCopy forWarning:warningCopy withCompletion:v12];
 }
 
 void __71__SGSuggestionsService_reportUserEngagement_forWarning_withCompletion___block_invoke(uint64_t a1, void *a2)
@@ -1208,6 +1408,23 @@ void __93__SGSuggestionsService_preventUnsubscriptionOpportunitiesSuggestionsFor
   v10 = v3;
   v8 = v3;
   [v4 preventUnsubscriptionOpportunitiesSuggestionsForField:v6 toValues:v5 withCompletion:v9];
+}
+
+- (void)sortedSaliencyResultsRestrictedToMailboxTypes:(id)types mailboxIds:(id)ids receivedOnOrAfter:(id)after ascending:(BOOL)ascending limit:(unint64_t)limit withCompletion:(id)completion
+{
+  ascendingCopy = ascending;
+  completionCopy = completion;
+  afterCopy = after;
+  idsCopy = ids;
+  typesCopy = types;
+  _remoteSuggestionManager = [(SGSuggestionsService *)self _remoteSuggestionManager];
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __130__SGSuggestionsService_sortedSaliencyResultsRestrictedToMailboxTypes_mailboxIds_receivedOnOrAfter_ascending_limit_withCompletion___block_invoke;
+  v20[3] = &unk_1E7EFD0A0;
+  v21 = completionCopy;
+  v19 = completionCopy;
+  [_remoteSuggestionManager sortedSaliencyResultsRestrictedToMailboxTypes:typesCopy mailboxIds:idsCopy receivedOnOrAfter:afterCopy ascending:ascendingCopy limit:limit withCompletion:v20];
 }
 
 void __130__SGSuggestionsService_sortedSaliencyResultsRestrictedToMailboxTypes_mailboxIds_receivedOnOrAfter_ascending_limit_withCompletion___block_invoke(uint64_t a1, void *a2)
@@ -1706,6 +1923,65 @@ void __35__SGSuggestionsService_daemonExit___block_invoke(uint64_t a1, void *a2)
   [v4 daemonExitWithCompletion:v6];
 }
 
+- (void)keepDirty:(BOOL)dirty
+{
+  dirtyCopy = dirty;
+  _remoteSuggestionManager = [(SGSuggestionsService *)self _remoteSuggestionManager];
+  [_remoteSuggestionManager keepDirty:dirtyCopy];
+}
+
+- (void)logSuggestionInteractionForRecordId:(id)id interface:(unsigned __int16)interface actionType:(unsigned __int16)type
+{
+  typeCopy = type;
+  interfaceCopy = interface;
+  idCopy = id;
+  if (!idCopy)
+  {
+    currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"SGSuggestionsService.m" lineNumber:2182 description:{@"Invalid parameter not satisfying: %@", @"recordId"}];
+  }
+
+  _remoteSuggestionManager = [(SGSuggestionsService *)self _remoteSuggestionManager];
+  [_remoteSuggestionManager logSuggestionInteractionForRecordId:idCopy interface:interfaceCopy actionType:typeCopy];
+}
+
+- (void)logEventInteractionForEventWithExternalIdentifier:(id)identifier interface:(unsigned __int16)interface actionType:(unsigned __int16)type
+{
+  typeCopy = type;
+  interfaceCopy = interface;
+  identifierCopy = identifier;
+  if (identifierCopy)
+  {
+    _remoteSuggestionManager = [(SGSuggestionsService *)self _remoteSuggestionManager];
+    [_remoteSuggestionManager logEventInteractionForEventWithExternalIdentifier:identifierCopy interface:interfaceCopy actionType:typeCopy];
+  }
+
+  else
+  {
+    v10 = sgLogHandle();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    {
+      *v11 = 0;
+      _os_log_impl(&dword_1BA729000, v10, OS_LOG_TYPE_DEFAULT, "Called logEventInteractionForEventWithExternalIdentifier with nil externalIdentifier. Rejecting.", v11, 2u);
+    }
+  }
+}
+
+- (void)logEventInteractionForEventWithUniqueKey:(id)key interface:(unsigned __int16)interface actionType:(unsigned __int16)type
+{
+  typeCopy = type;
+  interfaceCopy = interface;
+  keyCopy = key;
+  if (!keyCopy)
+  {
+    currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"SGSuggestionsService.m" lineNumber:2160 description:@"uniqueKey can't be nil"];
+  }
+
+  _remoteSuggestionManager = [(SGSuggestionsService *)self _remoteSuggestionManager];
+  [_remoteSuggestionManager logEventInteractionForEventWithUniqueKey:keyCopy interface:interfaceCopy actionType:typeCopy];
+}
+
 - (void)logMetricSearchResultsIncludedPureSuggestionWithBundleId:(id)id
 {
   idCopy = id;
@@ -1758,6 +2034,26 @@ void __35__SGSuggestionsService_daemonExit___block_invoke(uint64_t a1, void *a2)
   [_remoteSuggestionManager logMetricAutocompleteUserSelectedRecordId:idCopy contactIdentifier:identifierCopy bundleId:bundleIdCopy];
 }
 
+- (void)logMetricContactSearchResult:(int)result recordId:(id)id contactIdentifier:(id)identifier bundleId:(id)bundleId
+{
+  v8 = *&result;
+  bundleIdCopy = bundleId;
+  identifierCopy = identifier;
+  idCopy = id;
+  _remoteSuggestionManager = [(SGSuggestionsService *)self _remoteSuggestionManager];
+  [_remoteSuggestionManager logMetricContactSearchResult:v8 recordId:idCopy contactIdentifier:identifierCopy bundleId:bundleIdCopy];
+}
+
+- (void)logMetricAutocompleteResult:(int)result recordId:(id)id contactIdentifier:(id)identifier bundleId:(id)bundleId
+{
+  v8 = *&result;
+  bundleIdCopy = bundleId;
+  identifierCopy = identifier;
+  idCopy = id;
+  _remoteSuggestionManager = [(SGSuggestionsService *)self _remoteSuggestionManager];
+  [_remoteSuggestionManager logMetricAutocompleteResult:v8 recordId:idCopy contactIdentifier:identifierCopy bundleId:bundleIdCopy];
+}
+
 - (id)namesForDetailCaches
 {
   v11 = 0;
@@ -1787,21 +2083,19 @@ void __35__SGSuggestionsService_daemonExit___block_invoke(uint64_t a1, void *a2)
 
 intptr_t __44__SGSuggestionsService_namesForDetailCaches__block_invoke(uint64_t a1, void *a2)
 {
-  v11[2] = *MEMORY[0x1E69E9840];
+  v10[2] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 response1];
-  v11[0] = v4;
+  v10[0] = v4;
   v5 = [v3 response2];
 
-  v11[1] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
+  v10[1] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
   v7 = *(*(a1 + 40) + 8);
   v8 = *(v7 + 40);
   *(v7 + 40) = v6;
 
-  result = dispatch_semaphore_signal(*(a1 + 32));
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
+  return dispatch_semaphore_signal(*(a1 + 32));
 }
 
 - (id)powerState
@@ -1900,7 +2194,7 @@ void __57__SGSuggestionsService_deleteCloudKitZoneWithCompletion___block_invoke(
 
 void __36__SGSuggestionsService_sendRTCLogs___block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = *(a1 + 48);
   v7 = v5;
@@ -1909,9 +2203,9 @@ void __36__SGSuggestionsService_sendRTCLogs___block_invoke(uint64_t a1, char a2,
     v8 = sgLogHandle();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v11 = 138412290;
-      v12 = v7;
-      _os_log_error_impl(&dword_1BA729000, v8, OS_LOG_TYPE_ERROR, "Error! %@", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = v7;
+      _os_log_error_impl(&dword_1BA729000, v8, OS_LOG_TYPE_ERROR, "Error! %@", &v10, 0xCu);
     }
   }
 
@@ -1923,8 +2217,6 @@ void __36__SGSuggestionsService_sendRTCLogs___block_invoke(uint64_t a1, char a2,
 
   *(*(*(a1 + 40) + 8) + 24) = a2;
   dispatch_semaphore_signal(*(a1 + 32));
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __36__SGSuggestionsService_sendRTCLogs___block_invoke_2(uint64_t a1, void *a2)
@@ -2128,6 +2420,22 @@ void __76__SGSuggestionsService_suggestionsFromURL_title_HTMLPayload_withComplet
   }
 }
 
+- (void)isEventCandidateForURL:(id)l andTitle:(id)title containsSchemaOrg:(BOOL)org withCompletion:(id)completion
+{
+  orgCopy = org;
+  completionCopy = completion;
+  titleCopy = title;
+  lCopy = l;
+  _remoteSuggestionManager = [(SGSuggestionsService *)self _remoteSuggestionManager];
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __89__SGSuggestionsService_isEventCandidateForURL_andTitle_containsSchemaOrg_withCompletion___block_invoke;
+  v15[3] = &unk_1E7EFD0A0;
+  v16 = completionCopy;
+  v14 = completionCopy;
+  [_remoteSuggestionManager isEventCandidateForURL:lCopy andTitle:titleCopy containsSchemaOrg:orgCopy withCompletion:v15];
+}
+
 void __89__SGSuggestionsService_isEventCandidateForURL_andTitle_containsSchemaOrg_withCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v2 = *(a1 + 32);
@@ -2140,7 +2448,7 @@ void __89__SGSuggestionsService_isEventCandidateForURL_andTitle_containsSchemaOr
 
 - (void)eventsForSchemas:(id)schemas usingStore:(id)store completion:(id)completion
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   schemasCopy = schemas;
   storeCopy = store;
   completionCopy = completion;
@@ -2171,24 +2479,22 @@ LABEL_3:
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218243;
-    v23 = [schemasCopy count];
-    v24 = 2117;
-    v25 = schemasCopy;
+    v22 = [schemasCopy count];
+    v23 = 2117;
+    v24 = schemasCopy;
     _os_log_impl(&dword_1BA729000, v12, OS_LOG_TYPE_DEFAULT, "eventsForSchemas count=%tu %{sensitive}@", buf, 0x16u);
   }
 
   _remoteSuggestionManager = [(SGSuggestionsService *)self _remoteSuggestionManager];
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __63__SGSuggestionsService_eventsForSchemas_usingStore_completion___block_invoke;
-  v19[3] = &unk_1E7EFBBF0;
-  v20 = storeCopy;
-  v21 = completionCopy;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __63__SGSuggestionsService_eventsForSchemas_usingStore_completion___block_invoke;
+  v18[3] = &unk_1E7EFBBF0;
+  v19 = storeCopy;
+  v20 = completionCopy;
   v14 = completionCopy;
   v15 = storeCopy;
-  [_remoteSuggestionManager schemaOrgToEvents:schemasCopy completion:v19];
-
-  v16 = *MEMORY[0x1E69E9840];
+  [_remoteSuggestionManager schemaOrgToEvents:schemasCopy completion:v18];
 }
 
 void __63__SGSuggestionsService_eventsForSchemas_usingStore_completion___block_invoke(uint64_t a1, void *a2)
@@ -3373,6 +3679,43 @@ void __107__SGSuggestionsService_predictedToEmailAddressesWithToAddresses_ccAddr
   [v4 predictedToEmailAddressesWithToAddresses:v5 ccAddresses:v6 fromAddress:v7 date:v9 bounds:v11 withCompletion:v8];
 }
 
+- (void)rejectContactDetailRecord:(id)record rejectionUI:(int)i withCompletion:(id)completion
+{
+  _confirmRejectUI = *&i;
+  v21 = *MEMORY[0x1E69E9840];
+  recordCopy = record;
+  completionCopy = completion;
+  if (!recordCopy)
+  {
+    currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"SGSuggestionsService.m" lineNumber:1708 description:{@"Invalid parameter not satisfying: %@", @"recordId"}];
+  }
+
+  v11 = sgLogHandle();
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412546;
+    v18 = recordCopy;
+    v19 = 2048;
+    v20 = _confirmRejectUI;
+    _os_log_impl(&dword_1BA729000, v11, OS_LOG_TYPE_DEFAULT, "SGSuggestionsServiceContactsConfirmRejectProtocol-rejectContactDetailRecord: %@ %td", buf, 0x16u);
+  }
+
+  if (_confirmRejectUI == 1)
+  {
+    _confirmRejectUI = [(SGSuggestionsService *)self _confirmRejectUI];
+  }
+
+  _remoteSuggestionManager = [(SGSuggestionsService *)self _remoteSuggestionManager];
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __77__SGSuggestionsService_rejectContactDetailRecord_rejectionUI_withCompletion___block_invoke;
+  v15[3] = &unk_1E7EFB610;
+  v16 = completionCopy;
+  v13 = completionCopy;
+  [_remoteSuggestionManager rejectContactDetailRecord:recordCopy confirmRejectUI:_confirmRejectUI completion:v15];
+}
+
 void __77__SGSuggestionsService_rejectContactDetailRecord_rejectionUI_withCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v2 = *(a1 + 32);
@@ -3419,7 +3762,7 @@ void __68__SGSuggestionsService_rejectContactDetailRecord_rejectionUI_error___bl
 
 - (void)rejectContactDetailRecord:(id)record withCompletion:(id)completion
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   recordCopy = record;
   completionCopy = completion;
   if (!recordCopy)
@@ -3432,21 +3775,19 @@ void __68__SGSuggestionsService_rejectContactDetailRecord_rejectionUI_error___bl
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v18 = recordCopy;
+    v17 = recordCopy;
     _os_log_impl(&dword_1BA729000, v9, OS_LOG_TYPE_DEFAULT, "SGSuggestionsServiceContactsConfirmRejectProtocol-rejectContactDetailRecord %@", buf, 0xCu);
   }
 
   _remoteSuggestionManager = [(SGSuggestionsService *)self _remoteSuggestionManager];
   _confirmRejectUI = [(SGSuggestionsService *)self _confirmRejectUI];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __65__SGSuggestionsService_rejectContactDetailRecord_withCompletion___block_invoke;
-  v15[3] = &unk_1E7EFB610;
-  v16 = completionCopy;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __65__SGSuggestionsService_rejectContactDetailRecord_withCompletion___block_invoke;
+  v14[3] = &unk_1E7EFB610;
+  v15 = completionCopy;
   v12 = completionCopy;
-  [_remoteSuggestionManager rejectContactDetailRecord:recordCopy confirmRejectUI:_confirmRejectUI completion:v15];
-
-  v13 = *MEMORY[0x1E69E9840];
+  [_remoteSuggestionManager rejectContactDetailRecord:recordCopy confirmRejectUI:_confirmRejectUI completion:v14];
 }
 
 void __65__SGSuggestionsService_rejectContactDetailRecord_withCompletion___block_invoke(uint64_t a1, void *a2)
@@ -3485,6 +3826,43 @@ void __56__SGSuggestionsService_rejectContactDetailRecord_error___block_invoke(u
   v8 = v3;
   v6 = v3;
   [v5 rejectContactDetailRecord:v4 withCompletion:v7];
+}
+
+- (void)rejectRecord:(id)record rejectionUI:(int)i withCompletion:(id)completion
+{
+  _confirmRejectUI = *&i;
+  v21 = *MEMORY[0x1E69E9840];
+  recordCopy = record;
+  completionCopy = completion;
+  if (!recordCopy)
+  {
+    currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"SGSuggestionsService.m" lineNumber:1684 description:{@"Invalid parameter not satisfying: %@", @"recordId"}];
+  }
+
+  v11 = sgLogHandle();
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412546;
+    v18 = recordCopy;
+    v19 = 2048;
+    v20 = _confirmRejectUI;
+    _os_log_impl(&dword_1BA729000, v11, OS_LOG_TYPE_DEFAULT, "SGSuggestionsServiceContactsConfirmRejectProtocol-rejectRecord: %@ %td", buf, 0x16u);
+  }
+
+  if (_confirmRejectUI == 1)
+  {
+    _confirmRejectUI = [(SGSuggestionsService *)self _confirmRejectUI];
+  }
+
+  _remoteSuggestionManager = [(SGSuggestionsService *)self _remoteSuggestionManager];
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __64__SGSuggestionsService_rejectRecord_rejectionUI_withCompletion___block_invoke;
+  v15[3] = &unk_1E7EFB610;
+  v16 = completionCopy;
+  v13 = completionCopy;
+  [_remoteSuggestionManager rejectRecord:recordCopy confirmRejectUI:_confirmRejectUI completion:v15];
 }
 
 void __64__SGSuggestionsService_rejectRecord_rejectionUI_withCompletion___block_invoke(uint64_t a1, void *a2)
@@ -3533,7 +3911,7 @@ void __55__SGSuggestionsService_rejectRecord_rejectionUI_error___block_invoke(ui
 
 - (void)rejectRecord:(id)record withCompletion:(id)completion
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   recordCopy = record;
   completionCopy = completion;
   if (!recordCopy)
@@ -3546,21 +3924,19 @@ void __55__SGSuggestionsService_rejectRecord_rejectionUI_error___block_invoke(ui
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v18 = recordCopy;
+    v17 = recordCopy;
     _os_log_impl(&dword_1BA729000, v9, OS_LOG_TYPE_DEFAULT, "SGSuggestionsServiceContactsConfirmRejectProtocol-rejectRecord %@", buf, 0xCu);
   }
 
   _remoteSuggestionManager = [(SGSuggestionsService *)self _remoteSuggestionManager];
   _confirmRejectUI = [(SGSuggestionsService *)self _confirmRejectUI];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __52__SGSuggestionsService_rejectRecord_withCompletion___block_invoke;
-  v15[3] = &unk_1E7EFB610;
-  v16 = completionCopy;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __52__SGSuggestionsService_rejectRecord_withCompletion___block_invoke;
+  v14[3] = &unk_1E7EFB610;
+  v15 = completionCopy;
   v12 = completionCopy;
-  [_remoteSuggestionManager rejectRecord:recordCopy confirmRejectUI:_confirmRejectUI completion:v15];
-
-  v13 = *MEMORY[0x1E69E9840];
+  [_remoteSuggestionManager rejectRecord:recordCopy confirmRejectUI:_confirmRejectUI completion:v14];
 }
 
 void __52__SGSuggestionsService_rejectRecord_withCompletion___block_invoke(uint64_t a1, void *a2)
@@ -3667,6 +4043,41 @@ void __44__SGSuggestionsService_rejectContact_error___block_invoke(uint64_t a1, 
   [v5 rejectContact:v4 withCompletion:v7];
 }
 
+- (void)rejectContact:(id)contact rejectionUI:(int)i withCompletion:(id)completion
+{
+  _confirmRejectUI = *&i;
+  v19 = *MEMORY[0x1E69E9840];
+  contactCopy = contact;
+  completionCopy = completion;
+  if (!contactCopy)
+  {
+    currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"SGSuggestionsService.m" lineNumber:1648 description:{@"Invalid parameter not satisfying: %@", @"contact"}];
+  }
+
+  v11 = sgLogHandle();
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 134217984;
+    v18 = _confirmRejectUI;
+    _os_log_impl(&dword_1BA729000, v11, OS_LOG_TYPE_DEFAULT, "SGSuggestionsServiceContactsConfirmRejectProtocol-rejectContact: %td", buf, 0xCu);
+  }
+
+  if (_confirmRejectUI == 1)
+  {
+    _confirmRejectUI = [(SGSuggestionsService *)self _confirmRejectUI];
+  }
+
+  _remoteSuggestionManager = [(SGSuggestionsService *)self _remoteSuggestionManager];
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __65__SGSuggestionsService_rejectContact_rejectionUI_withCompletion___block_invoke;
+  v15[3] = &unk_1E7EFB610;
+  v16 = completionCopy;
+  v13 = completionCopy;
+  [_remoteSuggestionManager rejectContact:contactCopy confirmRejectUI:_confirmRejectUI completion:v15];
+}
+
 void __65__SGSuggestionsService_rejectContact_rejectionUI_withCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v2 = *(a1 + 32);
@@ -3713,7 +4124,7 @@ void __56__SGSuggestionsService_rejectContact_rejectionUI_error___block_invoke(u
 
 - (void)deleteEventByRecordId:(id)id withCompletion:(id)completion
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   idCopy = id;
   completionCopy = completion;
   if (!idCopy)
@@ -3726,20 +4137,18 @@ void __56__SGSuggestionsService_rejectContact_rejectionUI_error___block_invoke(u
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v17 = idCopy;
+    v16 = idCopy;
     _os_log_impl(&dword_1BA729000, v9, OS_LOG_TYPE_DEFAULT, "SGSuggestionsServiceEventsConfirmRejectProtocol-deleteEventByRecordId: %@", buf, 0xCu);
   }
 
   _remoteSuggestionManager = [(SGSuggestionsService *)self _remoteSuggestionManager];
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __61__SGSuggestionsService_deleteEventByRecordId_withCompletion___block_invoke;
-  v14[3] = &unk_1E7EFB610;
-  v15 = completionCopy;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __61__SGSuggestionsService_deleteEventByRecordId_withCompletion___block_invoke;
+  v13[3] = &unk_1E7EFB610;
+  v14 = completionCopy;
   v11 = completionCopy;
-  [_remoteSuggestionManager deleteEventByRecordId:idCopy completion:v14];
-
-  v12 = *MEMORY[0x1E69E9840];
+  [_remoteSuggestionManager deleteEventByRecordId:idCopy completion:v13];
 }
 
 void __61__SGSuggestionsService_deleteEventByRecordId_withCompletion___block_invoke(uint64_t a1, void *a2)
@@ -3782,7 +4191,7 @@ void __52__SGSuggestionsService_deleteEventByRecordId_error___block_invoke(uint6
 
 - (void)rejectEventByRecordId:(id)id withCompletion:(id)completion
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   idCopy = id;
   completionCopy = completion;
   if (!idCopy)
@@ -3795,20 +4204,18 @@ void __52__SGSuggestionsService_deleteEventByRecordId_error___block_invoke(uint6
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v17 = idCopy;
+    v16 = idCopy;
     _os_log_impl(&dword_1BA729000, v9, OS_LOG_TYPE_DEFAULT, "SGSuggestionsServiceEventsConfirmRejectProtocol-rejectEventByRecordId: %@", buf, 0xCu);
   }
 
   _remoteSuggestionManager = [(SGSuggestionsService *)self _remoteSuggestionManager];
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __61__SGSuggestionsService_rejectEventByRecordId_withCompletion___block_invoke;
-  v14[3] = &unk_1E7EFB610;
-  v15 = completionCopy;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __61__SGSuggestionsService_rejectEventByRecordId_withCompletion___block_invoke;
+  v13[3] = &unk_1E7EFB610;
+  v14 = completionCopy;
   v11 = completionCopy;
-  [_remoteSuggestionManager rejectEventByRecordId:idCopy completion:v14];
-
-  v12 = *MEMORY[0x1E69E9840];
+  [_remoteSuggestionManager rejectEventByRecordId:idCopy completion:v13];
 }
 
 void __61__SGSuggestionsService_rejectEventByRecordId_withCompletion___block_invoke(uint64_t a1, void *a2)
@@ -3851,7 +4258,7 @@ void __52__SGSuggestionsService_rejectEventByRecordId_error___block_invoke(uint6
 
 - (void)confirmEventByRecordId:(id)id withCompletion:(id)completion
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   idCopy = id;
   completionCopy = completion;
   if (!idCopy)
@@ -3864,20 +4271,18 @@ void __52__SGSuggestionsService_rejectEventByRecordId_error___block_invoke(uint6
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v17 = idCopy;
+    v16 = idCopy;
     _os_log_impl(&dword_1BA729000, v9, OS_LOG_TYPE_DEFAULT, "SGSuggestionsServiceEventsConfirmRejectProtocol-confirmEventByRecordId: %@", buf, 0xCu);
   }
 
   _remoteSuggestionManager = [(SGSuggestionsService *)self _remoteSuggestionManager];
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __62__SGSuggestionsService_confirmEventByRecordId_withCompletion___block_invoke;
-  v14[3] = &unk_1E7EFB610;
-  v15 = completionCopy;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __62__SGSuggestionsService_confirmEventByRecordId_withCompletion___block_invoke;
+  v13[3] = &unk_1E7EFB610;
+  v14 = completionCopy;
   v11 = completionCopy;
-  [_remoteSuggestionManager confirmEventByRecordId:idCopy completion:v14];
-
-  v12 = *MEMORY[0x1E69E9840];
+  [_remoteSuggestionManager confirmEventByRecordId:idCopy completion:v13];
 }
 
 void __62__SGSuggestionsService_confirmEventByRecordId_withCompletion___block_invoke(uint64_t a1, void *a2)
@@ -3916,6 +4321,41 @@ void __53__SGSuggestionsService_confirmEventByRecordId_error___block_invoke(uint
   v8 = v3;
   v6 = v3;
   [v5 confirmEventByRecordId:v4 withCompletion:v7];
+}
+
+- (void)confirmContactDetailRecord:(id)record confirmationUI:(int)i withCompletion:(id)completion
+{
+  _confirmRejectUI = *&i;
+  v19 = *MEMORY[0x1E69E9840];
+  recordCopy = record;
+  completionCopy = completion;
+  if (!recordCopy)
+  {
+    currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"SGSuggestionsService.m" lineNumber:1608 description:{@"Invalid parameter not satisfying: %@", @"recordId"}];
+  }
+
+  v11 = sgLogHandle();
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 134217984;
+    v18 = _confirmRejectUI;
+    _os_log_impl(&dword_1BA729000, v11, OS_LOG_TYPE_DEFAULT, "SGSuggestionsServiceContactsConfirmRejectProtocol-confirmContactDetailRecord: %td", buf, 0xCu);
+  }
+
+  if (_confirmRejectUI == 1)
+  {
+    _confirmRejectUI = [(SGSuggestionsService *)self _confirmRejectUI];
+  }
+
+  _remoteSuggestionManager = [(SGSuggestionsService *)self _remoteSuggestionManager];
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __81__SGSuggestionsService_confirmContactDetailRecord_confirmationUI_withCompletion___block_invoke;
+  v15[3] = &unk_1E7EFB610;
+  v16 = completionCopy;
+  v13 = completionCopy;
+  [_remoteSuggestionManager confirmContactDetailRecord:recordCopy confirmRejectUI:_confirmRejectUI completion:v15];
 }
 
 void __81__SGSuggestionsService_confirmContactDetailRecord_confirmationUI_withCompletion___block_invoke(uint64_t a1, void *a2)
@@ -4030,7 +4470,7 @@ void __57__SGSuggestionsService_confirmContactDetailRecord_error___block_invoke(
 
 - (void)confirmRecord:(id)record withCompletion:(id)completion
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   recordCopy = record;
   completionCopy = completion;
   if (!recordCopy)
@@ -4043,21 +4483,19 @@ void __57__SGSuggestionsService_confirmContactDetailRecord_error___block_invoke(
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v18 = recordCopy;
+    v17 = recordCopy;
     _os_log_impl(&dword_1BA729000, v9, OS_LOG_TYPE_DEFAULT, "SGSuggestionsServiceContactsConfirmRejectProtocol-confirmRecord %@", buf, 0xCu);
   }
 
   _remoteSuggestionManager = [(SGSuggestionsService *)self _remoteSuggestionManager];
   _confirmRejectUI = [(SGSuggestionsService *)self _confirmRejectUI];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __53__SGSuggestionsService_confirmRecord_withCompletion___block_invoke;
-  v15[3] = &unk_1E7EFB610;
-  v16 = completionCopy;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __53__SGSuggestionsService_confirmRecord_withCompletion___block_invoke;
+  v14[3] = &unk_1E7EFB610;
+  v15 = completionCopy;
   v12 = completionCopy;
-  [_remoteSuggestionManager confirmRecord:recordCopy confirmRejectUI:_confirmRejectUI completion:v15];
-
-  v13 = *MEMORY[0x1E69E9840];
+  [_remoteSuggestionManager confirmRecord:recordCopy confirmRejectUI:_confirmRejectUI completion:v14];
 }
 
 void __53__SGSuggestionsService_confirmRecord_withCompletion___block_invoke(uint64_t a1, void *a2)
@@ -4166,7 +4604,7 @@ void __45__SGSuggestionsService_confirmContact_error___block_invoke(uint64_t a1,
 
 - (int)_confirmRejectUI
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
   bundleIdentifier = [mainBundle bundleIdentifier];
 
@@ -4193,12 +4631,11 @@ void __45__SGSuggestionsService_confirmContact_error___block_invoke(uint64_t a1,
   v5 = sgLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v8 = 134217984;
-    v9 = v4;
-    _os_log_impl(&dword_1BA729000, v5, OS_LOG_TYPE_INFO, "SGSuggestionsServiceContactsConfirmRejectProtocol-_confirmRejectUI setting ui to %td", &v8, 0xCu);
+    v7 = 134217984;
+    v8 = v4;
+    _os_log_impl(&dword_1BA729000, v5, OS_LOG_TYPE_INFO, "SGSuggestionsServiceContactsConfirmRejectProtocol-_confirmRejectUI setting ui to %td", &v7, 0xCu);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -4334,7 +4771,7 @@ void __43__SGSuggestionsService_confirmEvent_error___block_invoke(uint64_t a1, v
 
 - (void)originFromRecordId:(id)id withCompletion:(id)completion
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   idCopy = id;
   completionCopy = completion;
   if (!idCopy)
@@ -4350,7 +4787,7 @@ void __43__SGSuggestionsService_confirmEvent_error___block_invoke(uint64_t a1, v
     {
       v10 = NSStringFromSelector(a2);
       *buf = 138412290;
-      v17 = v10;
+      v16 = v10;
       _os_log_impl(&dword_1BA729000, v9, OS_LOG_TYPE_DEFAULT, "Cannot query Suggestions (%@) before first unlock.", buf, 0xCu);
     }
 
@@ -4363,15 +4800,13 @@ void __43__SGSuggestionsService_confirmEvent_error___block_invoke(uint64_t a1, v
   else
   {
     _remoteSuggestionManager = [(SGSuggestionsService *)self _remoteSuggestionManager];
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __58__SGSuggestionsService_originFromRecordId_withCompletion___block_invoke;
-    v14[3] = &unk_1E7EFD0A0;
-    v15 = completionCopy;
-    [_remoteSuggestionManager originFromRecordId:idCopy completion:v14];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __58__SGSuggestionsService_originFromRecordId_withCompletion___block_invoke;
+    v13[3] = &unk_1E7EFD0A0;
+    v14 = completionCopy;
+    [_remoteSuggestionManager originFromRecordId:idCopy completion:v13];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __58__SGSuggestionsService_originFromRecordId_withCompletion___block_invoke(uint64_t a1, void *a2)
@@ -4474,7 +4909,7 @@ void __72__SGSuggestionsService_launchAppForSuggestedEventUsingLaunchInfo_error_
 
 - (void)launchInfoForSuggestedEventWithUniqueIdentifier:(id)identifier sourceURL:(id)l clientLocale:(id)locale withCompletion:(id)completion
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   lCopy = l;
   localeCopy = locale;
@@ -4492,7 +4927,7 @@ void __72__SGSuggestionsService_launchAppForSuggestedEventUsingLaunchInfo_error_
     {
       v16 = NSStringFromSelector(a2);
       *buf = 138412290;
-      v23 = v16;
+      v22 = v16;
       _os_log_impl(&dword_1BA729000, v15, OS_LOG_TYPE_DEFAULT, "Cannot query Suggestions (%@) before first unlock.", buf, 0xCu);
     }
 
@@ -4505,15 +4940,13 @@ void __72__SGSuggestionsService_launchAppForSuggestedEventUsingLaunchInfo_error_
   else
   {
     _remoteSuggestionManager = [(SGSuggestionsService *)self _remoteSuggestionManager];
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __110__SGSuggestionsService_launchInfoForSuggestedEventWithUniqueIdentifier_sourceURL_clientLocale_withCompletion___block_invoke;
-    v20[3] = &unk_1E7EFD0A0;
-    v21 = completionCopy;
-    [_remoteSuggestionManager launchInfoForSuggestedEventWithUniqueIdentifier:identifierCopy sourceURL:lCopy clientLocale:localeCopy ignoreUserActivitySupport:0 ignoreMailCheck:0 completion:v20];
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __110__SGSuggestionsService_launchInfoForSuggestedEventWithUniqueIdentifier_sourceURL_clientLocale_withCompletion___block_invoke;
+    v19[3] = &unk_1E7EFD0A0;
+    v20 = completionCopy;
+    [_remoteSuggestionManager launchInfoForSuggestedEventWithUniqueIdentifier:identifierCopy sourceURL:lCopy clientLocale:localeCopy ignoreUserActivitySupport:0 ignoreMailCheck:0 completion:v19];
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __110__SGSuggestionsService_launchInfoForSuggestedEventWithUniqueIdentifier_sourceURL_clientLocale_withCompletion___block_invoke(uint64_t a1, void *a2)
@@ -4566,7 +4999,7 @@ void __101__SGSuggestionsService_launchInfoForSuggestedEventWithUniqueIdentifier
 
 - (void)eventFromUniqueId:(id)id withCompletion:(id)completion
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   idCopy = id;
   completionCopy = completion;
   if (!idCopy)
@@ -4582,7 +5015,7 @@ void __101__SGSuggestionsService_launchInfoForSuggestedEventWithUniqueIdentifier
     {
       v10 = NSStringFromSelector(a2);
       *buf = 138412290;
-      v17 = v10;
+      v16 = v10;
       _os_log_impl(&dword_1BA729000, v9, OS_LOG_TYPE_DEFAULT, "Cannot query Suggestions (%@) before first unlock.", buf, 0xCu);
     }
 
@@ -4595,15 +5028,13 @@ void __101__SGSuggestionsService_launchInfoForSuggestedEventWithUniqueIdentifier
   else
   {
     _remoteSuggestionManager = [(SGSuggestionsService *)self _remoteSuggestionManager];
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __57__SGSuggestionsService_eventFromUniqueId_withCompletion___block_invoke;
-    v14[3] = &unk_1E7EFD0A0;
-    v15 = completionCopy;
-    [_remoteSuggestionManager eventFromUniqueId:idCopy completion:v14];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __57__SGSuggestionsService_eventFromUniqueId_withCompletion___block_invoke;
+    v13[3] = &unk_1E7EFD0A0;
+    v14 = completionCopy;
+    [_remoteSuggestionManager eventFromUniqueId:idCopy completion:v13];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __57__SGSuggestionsService_eventFromUniqueId_withCompletion___block_invoke(uint64_t a1, void *a2)
@@ -4648,7 +5079,7 @@ void __48__SGSuggestionsService_eventFromUniqueId_error___block_invoke(uint64_t 
 
 - (void)eventFromRecordID:(id)d withCompletion:(id)completion
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   dCopy = d;
   completionCopy = completion;
   if (!dCopy)
@@ -4664,7 +5095,7 @@ void __48__SGSuggestionsService_eventFromUniqueId_error___block_invoke(uint64_t 
     {
       v10 = NSStringFromSelector(a2);
       *buf = 138412290;
-      v17 = v10;
+      v16 = v10;
       _os_log_impl(&dword_1BA729000, v9, OS_LOG_TYPE_DEFAULT, "Cannot query Suggestions (%@) before first unlock.", buf, 0xCu);
     }
 
@@ -4677,15 +5108,13 @@ void __48__SGSuggestionsService_eventFromUniqueId_error___block_invoke(uint64_t 
   else
   {
     _remoteSuggestionManager = [(SGSuggestionsService *)self _remoteSuggestionManager];
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __57__SGSuggestionsService_eventFromRecordID_withCompletion___block_invoke;
-    v14[3] = &unk_1E7EFD0A0;
-    v15 = completionCopy;
-    [_remoteSuggestionManager eventFromRecordId:dCopy withCompletion:v14];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __57__SGSuggestionsService_eventFromRecordID_withCompletion___block_invoke;
+    v13[3] = &unk_1E7EFD0A0;
+    v14 = completionCopy;
+    [_remoteSuggestionManager eventFromRecordId:dCopy withCompletion:v13];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __57__SGSuggestionsService_eventFromRecordID_withCompletion___block_invoke(uint64_t a1, void *a2)
@@ -4730,7 +5159,7 @@ void __48__SGSuggestionsService_eventFromRecordID_error___block_invoke(uint64_t 
 
 - (void)emailAddressIsSignificant:(id)significant withCompletion:(id)completion
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   significantCopy = significant;
   completionCopy = completion;
   if (!significantCopy)
@@ -4746,7 +5175,7 @@ void __48__SGSuggestionsService_eventFromRecordID_error___block_invoke(uint64_t 
     {
       v10 = NSStringFromSelector(a2);
       *buf = 138412290;
-      v17 = v10;
+      v16 = v10;
       _os_log_impl(&dword_1BA729000, v9, OS_LOG_TYPE_DEFAULT, "Cannot query Suggestions (%@) before first unlock.", buf, 0xCu);
     }
 
@@ -4759,15 +5188,13 @@ void __48__SGSuggestionsService_eventFromRecordID_error___block_invoke(uint64_t 
   else
   {
     _remoteSuggestionManager = [(SGSuggestionsService *)self _remoteSuggestionManager];
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __65__SGSuggestionsService_emailAddressIsSignificant_withCompletion___block_invoke;
-    v14[3] = &unk_1E7EFD0A0;
-    v15 = completionCopy;
-    [_remoteSuggestionManager emailAddressIsSignificant:significantCopy withCompletion:v14];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __65__SGSuggestionsService_emailAddressIsSignificant_withCompletion___block_invoke;
+    v13[3] = &unk_1E7EFD0A0;
+    v14 = completionCopy;
+    [_remoteSuggestionManager emailAddressIsSignificant:significantCopy withCompletion:v13];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __65__SGSuggestionsService_emailAddressIsSignificant_withCompletion___block_invoke(uint64_t a1, void *a2)
@@ -4812,7 +5239,7 @@ void __56__SGSuggestionsService_emailAddressIsSignificant_error___block_invoke(u
 
 - (void)cnContactMatchesForRecordIds:(id)ids withCompletion:(id)completion
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   idsCopy = ids;
   completionCopy = completion;
   if (!idsCopy)
@@ -4828,7 +5255,7 @@ void __56__SGSuggestionsService_emailAddressIsSignificant_error___block_invoke(u
     {
       v10 = NSStringFromSelector(a2);
       *buf = 138412290;
-      v17 = v10;
+      v16 = v10;
       _os_log_impl(&dword_1BA729000, v9, OS_LOG_TYPE_DEFAULT, "Cannot query Suggestions (%@) before first unlock.", buf, 0xCu);
     }
 
@@ -4841,15 +5268,13 @@ void __56__SGSuggestionsService_emailAddressIsSignificant_error___block_invoke(u
   else
   {
     _remoteSuggestionManager = [(SGSuggestionsService *)self _remoteSuggestionManager];
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __68__SGSuggestionsService_cnContactMatchesForRecordIds_withCompletion___block_invoke;
-    v14[3] = &unk_1E7EFD0A0;
-    v15 = completionCopy;
-    [_remoteSuggestionManager cnContactMatchesForRecordIds:idsCopy withCompletion:v14];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __68__SGSuggestionsService_cnContactMatchesForRecordIds_withCompletion___block_invoke;
+    v13[3] = &unk_1E7EFD0A0;
+    v14 = completionCopy;
+    [_remoteSuggestionManager cnContactMatchesForRecordIds:idsCopy withCompletion:v13];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __68__SGSuggestionsService_cnContactMatchesForRecordIds_withCompletion___block_invoke(uint64_t a1, void *a2)
@@ -4894,7 +5319,7 @@ void __59__SGSuggestionsService_cnContactMatchesForRecordIds_error___block_invok
 
 - (void)cnContactMatchesForRecordId:(id)id withCompletion:(id)completion
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   idCopy = id;
   completionCopy = completion;
   if (!idCopy)
@@ -4910,7 +5335,7 @@ void __59__SGSuggestionsService_cnContactMatchesForRecordIds_error___block_invok
     {
       v10 = NSStringFromSelector(a2);
       *buf = 138412290;
-      v17 = v10;
+      v16 = v10;
       _os_log_impl(&dword_1BA729000, v9, OS_LOG_TYPE_DEFAULT, "Cannot query Suggestions (%@) before first unlock.", buf, 0xCu);
     }
 
@@ -4923,15 +5348,13 @@ void __59__SGSuggestionsService_cnContactMatchesForRecordIds_error___block_invok
   else
   {
     _remoteSuggestionManager = [(SGSuggestionsService *)self _remoteSuggestionManager];
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __67__SGSuggestionsService_cnContactMatchesForRecordId_withCompletion___block_invoke;
-    v14[3] = &unk_1E7EFD0A0;
-    v15 = completionCopy;
-    [_remoteSuggestionManager cnContactMatchesForRecordId:idCopy withCompletion:v14];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __67__SGSuggestionsService_cnContactMatchesForRecordId_withCompletion___block_invoke;
+    v13[3] = &unk_1E7EFD0A0;
+    v14 = completionCopy;
+    [_remoteSuggestionManager cnContactMatchesForRecordId:idCopy withCompletion:v13];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __67__SGSuggestionsService_cnContactMatchesForRecordId_withCompletion___block_invoke(uint64_t a1, void *a2)
@@ -4976,7 +5399,7 @@ void __58__SGSuggestionsService_cnContactMatchesForRecordId_error___block_invoke
 
 - (void)contactFromRecordID:(id)d withCompletion:(id)completion
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   dCopy = d;
   completionCopy = completion;
   if (!dCopy)
@@ -4992,7 +5415,7 @@ void __58__SGSuggestionsService_cnContactMatchesForRecordId_error___block_invoke
     {
       v10 = NSStringFromSelector(a2);
       *buf = 138412290;
-      v17 = v10;
+      v16 = v10;
       _os_log_impl(&dword_1BA729000, v9, OS_LOG_TYPE_DEFAULT, "Cannot query Suggestions (%@) before first unlock.", buf, 0xCu);
     }
 
@@ -5005,15 +5428,13 @@ void __58__SGSuggestionsService_cnContactMatchesForRecordId_error___block_invoke
   else
   {
     _remoteSuggestionManager = [(SGSuggestionsService *)self _remoteSuggestionManager];
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __59__SGSuggestionsService_contactFromRecordID_withCompletion___block_invoke;
-    v14[3] = &unk_1E7EFD0A0;
-    v15 = completionCopy;
-    [_remoteSuggestionManager contactFromRecordId:dCopy withCompletion:v14];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __59__SGSuggestionsService_contactFromRecordID_withCompletion___block_invoke;
+    v13[3] = &unk_1E7EFD0A0;
+    v14 = completionCopy;
+    [_remoteSuggestionManager contactFromRecordId:dCopy withCompletion:v13];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __59__SGSuggestionsService_contactFromRecordID_withCompletion___block_invoke(uint64_t a1, void *a2)
@@ -5072,7 +5493,7 @@ void __50__SGSuggestionsService_contactFromRecordID_error___block_invoke(uint64_
 
 - (void)interactionStoreLookupForDetail:(id)detail withCompletion:(id)completion
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   detailCopy = detail;
   completionCopy = completion;
   if (!detailCopy)
@@ -5088,7 +5509,7 @@ void __50__SGSuggestionsService_contactFromRecordID_error___block_invoke(uint64_
     {
       v10 = NSStringFromSelector(a2);
       *buf = 138412290;
-      v18 = v10;
+      v17 = v10;
       _os_log_impl(&dword_1BA729000, v9, OS_LOG_TYPE_DEFAULT, "Cannot query Suggestions (%@) before first unlock.", buf, 0xCu);
     }
 
@@ -5116,15 +5537,13 @@ void __50__SGSuggestionsService_contactFromRecordID_error___block_invoke(uint64_
   else
   {
     _remoteSuggestionManager = [(SGSuggestionsService *)self _remoteSuggestionManager];
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __71__SGSuggestionsService_interactionStoreLookupForDetail_withCompletion___block_invoke;
-    v15[3] = &unk_1E7EFD0A0;
-    v16 = completionCopy;
-    [_remoteSuggestionManager interactionStoreLookupForDetail:detailCopy withCompletion:v15];
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __71__SGSuggestionsService_interactionStoreLookupForDetail_withCompletion___block_invoke;
+    v14[3] = &unk_1E7EFD0A0;
+    v15 = completionCopy;
+    [_remoteSuggestionManager interactionStoreLookupForDetail:detailCopy withCompletion:v14];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __71__SGSuggestionsService_interactionStoreLookupForDetail_withCompletion___block_invoke(uint64_t a1, void *a2)
@@ -5167,6 +5586,144 @@ void __62__SGSuggestionsService_interactionStoreLookupForDetail_error___block_in
   [v5 interactionStoreLookupForDetail:v4 withCompletion:v7];
 }
 
+- (void)namesForDetail:(id)detail limitTo:(unint64_t)to prependMaybe:(BOOL)maybe onlySignificant:(BOOL)significant supportsInfoLookup:(BOOL)lookup withCompletion:(id)completion
+{
+  lookupCopy = lookup;
+  significantCopy = significant;
+  maybeCopy = maybe;
+  v61 = *MEMORY[0x1E69E9840];
+  detailCopy = detail;
+  completionCopy = completion;
+  if (!detailCopy)
+  {
+    currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"SGSuggestionsService.m" lineNumber:1284 description:{@"Invalid parameter not satisfying: %@", @"detail"}];
+  }
+
+  v17 = sgLogHandle();
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+  {
+    *buf = 134219008;
+    v52 = [detailCopy length];
+    v53 = 2048;
+    toCopy = to;
+    v55 = 1024;
+    v56 = maybeCopy;
+    v57 = 1024;
+    v58 = significantCopy;
+    v59 = 1024;
+    v60 = lookupCopy;
+    _os_log_impl(&dword_1BA729000, v17, OS_LOG_TYPE_INFO, "namesForDetail: %lu length -limitTo: %lu -prependMaybe: %d -onlySignificant: %d -supportsInfoLookup: %d", buf, 0x28u);
+  }
+
+  if (([MEMORY[0x1E69C5D08] isClassCLocked] & 1) != 0 || objc_msgSend(detailCopy, "isEqualToString:", &stru_1F385B250))
+  {
+    v18 = sgLogHandle();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_1BA729000, v18, OS_LOG_TYPE_DEFAULT, "Suggestions namesForDetail either queried before first unlock or with an empty parameter", buf, 2u);
+    }
+
+    if (completionCopy)
+    {
+      (*(completionCopy + 2))(completionCopy, MEMORY[0x1E695E0F0], 0);
+    }
+
+    goto LABEL_25;
+  }
+
+  if (!significantCopy && !lookupCopy)
+  {
+    LODWORD(v19) = +[SGDaemonConnection usingSyncXPC];
+    cacheSnapshotFuture = [(SGSuggestionsService *)self cacheSnapshotFuture];
+    if (!v19)
+    {
+LABEL_24:
+      v39[0] = MEMORY[0x1E69E9820];
+      v39[1] = 3221225472;
+      v39[2] = __110__SGSuggestionsService_namesForDetail_limitTo_prependMaybe_onlySignificant_supportsInfoLookup_withCompletion___block_invoke_595;
+      v39[3] = &unk_1E7EFBA18;
+      v45 = v19;
+      v40 = detailCopy;
+      v46 = maybeCopy;
+      selfCopy = self;
+      v42 = cacheSnapshotFuture;
+      v43 = completionCopy;
+      toCopy2 = to;
+      v47 = significantCopy;
+      v48 = 0;
+      v33 = cacheSnapshotFuture;
+      [v33 wait:v39];
+
+      goto LABEL_25;
+    }
+
+    v36 = v19;
+    v21 = sgLogHandle();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+    {
+      *buf = 0;
+      _os_log_debug_impl(&dword_1BA729000, v21, OS_LOG_TYPE_DEBUG, "namesForDetail: (sync) will synchronously wait for cache snapshot future with timeout", buf, 2u);
+    }
+
+    [(SGSuggestionsService *)self syncTimeout];
+    v38 = [cacheSnapshotFuture waitWithTimeout:v22 * 0.5];
+    second = [v38 second];
+    v24 = sgLogHandle();
+    v25 = os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG);
+    v37 = second;
+    v35 = cacheSnapshotFuture;
+    if (second)
+    {
+      if (v25)
+      {
+        *buf = 138412290;
+        v52 = second;
+        v26 = "namesForDetail: (sync) cache snapshot future wait failed with error %@";
+        v27 = v24;
+        v28 = 12;
+LABEL_27:
+        _os_log_debug_impl(&dword_1BA729000, v27, OS_LOG_TYPE_DEBUG, v26, buf, v28);
+      }
+    }
+
+    else if (v25)
+    {
+      *buf = 0;
+      v26 = "namesForDetail: (sync) cache snapshot future succeeded";
+      v27 = v24;
+      v28 = 2;
+      goto LABEL_27;
+    }
+
+    first = [v38 first];
+    second2 = [v38 second];
+    v19 = [SGFuture createWithImmediateResult:first error:second2];
+
+    cacheSnapshotFuture = v19;
+    LOBYTE(v19) = v36;
+    goto LABEL_24;
+  }
+
+  v29 = sgLogHandle();
+  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 0;
+    _os_log_debug_impl(&dword_1BA729000, v29, OS_LOG_TYPE_DEBUG, "namesForDetail: Bypassing cache because significance checking is required", buf, 2u);
+  }
+
+  _remoteSuggestionManager = [(SGSuggestionsService *)self _remoteSuggestionManager];
+  v49[0] = MEMORY[0x1E69E9820];
+  v49[1] = 3221225472;
+  v49[2] = __110__SGSuggestionsService_namesForDetail_limitTo_prependMaybe_onlySignificant_supportsInfoLookup_withCompletion___block_invoke;
+  v49[3] = &unk_1E7EFD0A0;
+  v50 = completionCopy;
+  [_remoteSuggestionManager namesForDetail:detailCopy limitTo:to prependMaybe:maybeCopy onlySignificant:significantCopy supportsInfoLookup:lookupCopy withCompletion:v49];
+
+LABEL_25:
+}
+
 void __110__SGSuggestionsService_namesForDetail_limitTo_prependMaybe_onlySignificant_supportsInfoLookup_withCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v2 = *(a1 + 32);
@@ -5179,7 +5736,7 @@ void __110__SGSuggestionsService_namesForDetail_limitTo_prependMaybe_onlySignifi
 
 void __110__SGSuggestionsService_namesForDetail_limitTo_prependMaybe_onlySignificant_supportsInfoLookup_withCompletion___block_invoke_595(uint64_t a1, void *a2)
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = sgLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
@@ -5213,38 +5770,38 @@ void __110__SGSuggestionsService_namesForDetail_limitTo_prependMaybe_onlySignifi
     }
 
     v11 = _entitlements_block_invoke__pasExprOnceResult_600;
-    v38[0] = MEMORY[0x1E69E9820];
-    v38[1] = 3221225472;
-    v38[2] = __110__SGSuggestionsService_namesForDetail_limitTo_prependMaybe_onlySignificant_supportsInfoLookup_withCompletion___block_invoke_3;
-    v38[3] = &__block_descriptor_33_e46_v24__0__NSObject_OS_dispatch_queue__8___v___16l;
-    v39 = *(a1 + 72);
-    v12 = MEMORY[0x1BFAF7240](v38);
-    v29[0] = MEMORY[0x1E69E9820];
-    v29[1] = 3221225472;
-    v29[2] = __110__SGSuggestionsService_namesForDetail_limitTo_prependMaybe_onlySignificant_supportsInfoLookup_withCompletion___block_invoke_4;
-    v29[3] = &unk_1E7EFB9F0;
-    v30 = *(a1 + 32);
+    v37[0] = MEMORY[0x1E69E9820];
+    v37[1] = 3221225472;
+    v37[2] = __110__SGSuggestionsService_namesForDetail_limitTo_prependMaybe_onlySignificant_supportsInfoLookup_withCompletion___block_invoke_3;
+    v37[3] = &__block_descriptor_33_e46_v24__0__NSObject_OS_dispatch_queue__8___v___16l;
+    v38 = *(a1 + 72);
+    v12 = MEMORY[0x1BFAF7240](v37);
+    v28[0] = MEMORY[0x1E69E9820];
+    v28[1] = 3221225472;
+    v28[2] = __110__SGSuggestionsService_namesForDetail_limitTo_prependMaybe_onlySignificant_supportsInfoLookup_withCompletion___block_invoke_4;
+    v28[3] = &unk_1E7EFB9F0;
+    v29 = *(a1 + 32);
     v13 = v8;
-    v31 = v13;
+    v30 = v13;
     v14 = v7;
-    v32 = v14;
+    v31 = v14;
     v15 = v12;
-    v35 = v15;
+    v34 = v15;
     v16 = v11;
-    v33 = v16;
-    v37 = *(a1 + 73);
+    v32 = v16;
+    v36 = *(a1 + 73);
     v17 = v9;
-    v34 = v17;
-    v36 = *(a1 + 56);
-    (v12)[2](v15, v10, v29);
+    v33 = v17;
+    v35 = *(a1 + 56);
+    (v12)[2](v15, v10, v28);
     if ((atomic_exchange(_entitlements_block_invoke_reportingFlag, 1u) & 1) == 0)
     {
-      v28[0] = MEMORY[0x1E69E9820];
-      v28[1] = 3221225472;
-      v28[2] = __110__SGSuggestionsService_namesForDetail_limitTo_prependMaybe_onlySignificant_supportsInfoLookup_withCompletion___block_invoke_6;
-      v28[3] = &unk_1E7EFD118;
-      v28[4] = *(a1 + 40);
-      [MEMORY[0x1E69C5D10] runAsyncOnQueue:v16 afterDelaySeconds:v28 block:10.0];
+      v27[0] = MEMORY[0x1E69E9820];
+      v27[1] = 3221225472;
+      v27[2] = __110__SGSuggestionsService_namesForDetail_limitTo_prependMaybe_onlySignificant_supportsInfoLookup_withCompletion___block_invoke_6;
+      v27[3] = &unk_1E7EFD118;
+      v27[4] = *(a1 + 40);
+      [MEMORY[0x1E69C5D10] runAsyncOnQueue:v16 afterDelaySeconds:v27 block:10.0];
     }
   }
 
@@ -5252,9 +5809,9 @@ void __110__SGSuggestionsService_namesForDetail_limitTo_prependMaybe_onlySignifi
   {
     if (v6)
     {
-      v25 = [*(a1 + 48) error];
+      v24 = [*(a1 + 48) error];
       *buf = 138412290;
-      v41 = v25;
+      v40 = v24;
       _os_log_debug_impl(&dword_1BA729000, v5, OS_LOG_TYPE_DEBUG, "namesForDetail: falling back to asking for detail individually because we failed to get a snapshot in [cacheFuture wait:] callback (error: %@)", buf, 0xCu);
     }
 
@@ -5263,18 +5820,16 @@ void __110__SGSuggestionsService_namesForDetail_limitTo_prependMaybe_onlySignifi
     v20 = *(a1 + 73);
     v21 = *(a1 + 74);
     v22 = *(a1 + 75);
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __110__SGSuggestionsService_namesForDetail_limitTo_prependMaybe_onlySignificant_supportsInfoLookup_withCompletion___block_invoke_614;
-    v26[3] = &unk_1E7EFD0A0;
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __110__SGSuggestionsService_namesForDetail_limitTo_prependMaybe_onlySignificant_supportsInfoLookup_withCompletion___block_invoke_614;
+    v25[3] = &unk_1E7EFD0A0;
     v23 = *(a1 + 64);
-    v27 = *(a1 + 56);
-    [v18 namesForDetail:v19 limitTo:v23 prependMaybe:v20 onlySignificant:v21 supportsInfoLookup:v22 withCompletion:v26];
+    v26 = *(a1 + 56);
+    [v18 namesForDetail:v19 limitTo:v23 prependMaybe:v20 onlySignificant:v21 supportsInfoLookup:v22 withCompletion:v25];
 
-    v14 = v27;
+    v14 = v26;
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 void __110__SGSuggestionsService_namesForDetail_limitTo_prependMaybe_onlySignificant_supportsInfoLookup_withCompletion___block_invoke_3(uint64_t a1, dispatch_queue_t queue, dispatch_block_t block)
@@ -5346,11 +5901,11 @@ void __110__SGSuggestionsService_namesForDetail_limitTo_prependMaybe_onlySignifi
 
 void __110__SGSuggestionsService_namesForDetail_limitTo_prependMaybe_onlySignificant_supportsInfoLookup_withCompletion___block_invoke_5(uint64_t a1)
 {
-  v18[1] = *MEMORY[0x1E69E9840];
-  v17 = 0;
-  v2 = [*(a1 + 32) valueForKey:*(a1 + 40) found:&v17];
+  v17[1] = *MEMORY[0x1E69E9840];
+  v16 = 0;
+  v2 = [*(a1 + 32) valueForKey:*(a1 + 40) found:&v16];
   v3 = v2;
-  if (v17 == 1)
+  if (v16 == 1)
   {
     ++_entitlements_block_invoke_foundCount;
     if (v2)
@@ -5373,8 +5928,8 @@ void __110__SGSuggestionsService_namesForDetail_limitTo_prependMaybe_onlySignifi
     v14 = *(a1 + 56);
     if ([v5 length])
     {
-      v18[0] = v5;
-      v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
+      v17[0] = v5;
+      v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
       (*(v14 + 16))(v14, v15, 0);
     }
 
@@ -5389,8 +5944,6 @@ void __110__SGSuggestionsService_namesForDetail_limitTo_prependMaybe_onlySignifi
     (*(*(a1 + 56) + 16))();
     ++_entitlements_block_invoke_notFoundCount;
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __110__SGSuggestionsService_namesForDetail_limitTo_prependMaybe_onlySignificant_supportsInfoLookup_withCompletion___block_invoke_2()
@@ -5528,7 +6081,7 @@ uint64_t __43__SGSuggestionsService_cacheSnapshotFuture__block_invoke_587(uint64
 
 - (void)celebrationExtractionsForInterval:(id)interval withCompletion:(id)completion
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   intervalCopy = interval;
   completionCopy = completion;
   if (!intervalCopy)
@@ -5544,7 +6097,7 @@ uint64_t __43__SGSuggestionsService_cacheSnapshotFuture__block_invoke_587(uint64
     {
       v10 = NSStringFromSelector(a2);
       *buf = 138412290;
-      v17 = v10;
+      v16 = v10;
       _os_log_impl(&dword_1BA729000, v9, OS_LOG_TYPE_DEFAULT, "Cannot query Suggestions (%@) before first unlock.", buf, 0xCu);
     }
 
@@ -5557,15 +6110,13 @@ uint64_t __43__SGSuggestionsService_cacheSnapshotFuture__block_invoke_587(uint64
   else
   {
     _remoteSuggestionManager = [(SGSuggestionsService *)self _remoteSuggestionManager];
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __73__SGSuggestionsService_celebrationExtractionsForInterval_withCompletion___block_invoke;
-    v14[3] = &unk_1E7EFD0A0;
-    v15 = completionCopy;
-    [_remoteSuggestionManager celebrationExtractionsForInterval:intervalCopy withCompletion:v14];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __73__SGSuggestionsService_celebrationExtractionsForInterval_withCompletion___block_invoke;
+    v13[3] = &unk_1E7EFD0A0;
+    v14 = completionCopy;
+    [_remoteSuggestionManager celebrationExtractionsForInterval:intervalCopy withCompletion:v13];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __73__SGSuggestionsService_celebrationExtractionsForInterval_withCompletion___block_invoke(uint64_t a1, void *a2)
@@ -5610,7 +6161,7 @@ void __64__SGSuggestionsService_celebrationExtractionsForInterval_error___block_
 
 - (void)birthdayExtractionsForInterval:(id)interval withCompletion:(id)completion
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   intervalCopy = interval;
   completionCopy = completion;
   if (!intervalCopy)
@@ -5626,7 +6177,7 @@ void __64__SGSuggestionsService_celebrationExtractionsForInterval_error___block_
     {
       v10 = NSStringFromSelector(a2);
       *buf = 138412290;
-      v17 = v10;
+      v16 = v10;
       _os_log_impl(&dword_1BA729000, v9, OS_LOG_TYPE_DEFAULT, "Cannot query Suggestions (%@) before first unlock.", buf, 0xCu);
     }
 
@@ -5639,15 +6190,13 @@ void __64__SGSuggestionsService_celebrationExtractionsForInterval_error___block_
   else
   {
     _remoteSuggestionManager = [(SGSuggestionsService *)self _remoteSuggestionManager];
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __70__SGSuggestionsService_birthdayExtractionsForInterval_withCompletion___block_invoke;
-    v14[3] = &unk_1E7EFD0A0;
-    v15 = completionCopy;
-    [_remoteSuggestionManager birthdayExtractionsForInterval:intervalCopy withCompletion:v14];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __70__SGSuggestionsService_birthdayExtractionsForInterval_withCompletion___block_invoke;
+    v13[3] = &unk_1E7EFD0A0;
+    v14 = completionCopy;
+    [_remoteSuggestionManager birthdayExtractionsForInterval:intervalCopy withCompletion:v13];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __70__SGSuggestionsService_birthdayExtractionsForInterval_withCompletion___block_invoke(uint64_t a1, void *a2)
@@ -5692,7 +6241,7 @@ void __61__SGSuggestionsService_birthdayExtractionsForInterval_error___block_inv
 
 - (void)contactMatchesBySocialProfile:(id)profile bundleIdentifier:(id)identifier withCompletion:(id)completion
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   profileCopy = profile;
   identifierCopy = identifier;
   completionCopy = completion;
@@ -5726,7 +6275,7 @@ LABEL_3:
     {
       v13 = NSStringFromSelector(a2);
       *buf = 138412290;
-      v25 = v13;
+      v24 = v13;
       _os_log_impl(&dword_1BA729000, v12, OS_LOG_TYPE_DEFAULT, "Cannot query Suggestions (%@) before first unlock.", buf, 0xCu);
     }
 
@@ -5744,15 +6293,13 @@ LABEL_3:
     v17 = [(SGSocialProfile *)v14 initWithUsername:0 userIdentifier:profileCopy bundleIdentifier:identifierCopy displayName:0 service:0 teamIdentifier:0 label:0 extractionInfo:v15 recordId:v16];
 
     _remoteSuggestionManager = [(SGSuggestionsService *)self _remoteSuggestionManager];
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = __86__SGSuggestionsService_contactMatchesBySocialProfile_bundleIdentifier_withCompletion___block_invoke;
-    v22[3] = &unk_1E7EFD0A0;
-    v23 = completionCopy;
-    [_remoteSuggestionManager contactMatchesBySocialProfile:v17 withCompletion:v22];
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __86__SGSuggestionsService_contactMatchesBySocialProfile_bundleIdentifier_withCompletion___block_invoke;
+    v21[3] = &unk_1E7EFD0A0;
+    v22 = completionCopy;
+    [_remoteSuggestionManager contactMatchesBySocialProfile:v17 withCompletion:v21];
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __86__SGSuggestionsService_contactMatchesBySocialProfile_bundleIdentifier_withCompletion___block_invoke(uint64_t a1, void *a2)
@@ -5805,7 +6352,7 @@ void __77__SGSuggestionsService_contactMatchesBySocialProfile_bundleIdentifier_e
 
 - (void)contactMatchesBySocialProfile:(id)profile withCompletion:(id)completion
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   profileCopy = profile;
   completionCopy = completion;
   if (!profileCopy)
@@ -5821,7 +6368,7 @@ void __77__SGSuggestionsService_contactMatchesBySocialProfile_bundleIdentifier_e
     {
       v10 = NSStringFromSelector(a2);
       *buf = 138412290;
-      v17 = v10;
+      v16 = v10;
       _os_log_impl(&dword_1BA729000, v9, OS_LOG_TYPE_DEFAULT, "Cannot query Suggestions (%@) before first unlock.", buf, 0xCu);
     }
 
@@ -5834,15 +6381,13 @@ void __77__SGSuggestionsService_contactMatchesBySocialProfile_bundleIdentifier_e
   else
   {
     _remoteSuggestionManager = [(SGSuggestionsService *)self _remoteSuggestionManager];
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __69__SGSuggestionsService_contactMatchesBySocialProfile_withCompletion___block_invoke;
-    v14[3] = &unk_1E7EFD0A0;
-    v15 = completionCopy;
-    [_remoteSuggestionManager contactMatchesBySocialProfile:profileCopy withCompletion:v14];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __69__SGSuggestionsService_contactMatchesBySocialProfile_withCompletion___block_invoke;
+    v13[3] = &unk_1E7EFD0A0;
+    v14 = completionCopy;
+    [_remoteSuggestionManager contactMatchesBySocialProfile:profileCopy withCompletion:v13];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __69__SGSuggestionsService_contactMatchesBySocialProfile_withCompletion___block_invoke(uint64_t a1, void *a2)
@@ -5887,7 +6432,7 @@ void __60__SGSuggestionsService_contactMatchesBySocialProfile_error___block_invo
 
 - (void)contactMatchesByEmailAddress:(id)address withCompletion:(id)completion
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   addressCopy = address;
   completionCopy = completion;
   if (!addressCopy)
@@ -5903,7 +6448,7 @@ void __60__SGSuggestionsService_contactMatchesBySocialProfile_error___block_invo
     {
       v10 = NSStringFromSelector(a2);
       *buf = 138412290;
-      v17 = v10;
+      v16 = v10;
       _os_log_impl(&dword_1BA729000, v9, OS_LOG_TYPE_DEFAULT, "Cannot query Suggestions (%@) before first unlock.", buf, 0xCu);
     }
 
@@ -5916,15 +6461,13 @@ void __60__SGSuggestionsService_contactMatchesBySocialProfile_error___block_invo
   else
   {
     _remoteSuggestionManager = [(SGSuggestionsService *)self _remoteSuggestionManager];
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __68__SGSuggestionsService_contactMatchesByEmailAddress_withCompletion___block_invoke;
-    v14[3] = &unk_1E7EFD0A0;
-    v15 = completionCopy;
-    [_remoteSuggestionManager contactMatchesByEmailAddress:addressCopy withCompletion:v14];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __68__SGSuggestionsService_contactMatchesByEmailAddress_withCompletion___block_invoke;
+    v13[3] = &unk_1E7EFD0A0;
+    v14 = completionCopy;
+    [_remoteSuggestionManager contactMatchesByEmailAddress:addressCopy withCompletion:v13];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __68__SGSuggestionsService_contactMatchesByEmailAddress_withCompletion___block_invoke(uint64_t a1, void *a2)
@@ -5983,7 +6526,7 @@ void __59__SGSuggestionsService_contactMatchesByEmailAddress_error___block_invok
 
 - (void)contactMatchesByPhoneNumber:(id)number withCompletion:(id)completion
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   numberCopy = number;
   completionCopy = completion;
   if (!numberCopy)
@@ -5999,7 +6542,7 @@ void __59__SGSuggestionsService_contactMatchesByEmailAddress_error___block_invok
     {
       v10 = NSStringFromSelector(a2);
       *buf = 138412290;
-      v17 = v10;
+      v16 = v10;
       _os_log_impl(&dword_1BA729000, v9, OS_LOG_TYPE_DEFAULT, "Cannot query Suggestions (%@) before first unlock.", buf, 0xCu);
     }
 
@@ -6012,15 +6555,13 @@ void __59__SGSuggestionsService_contactMatchesByEmailAddress_error___block_invok
   else
   {
     _remoteSuggestionManager = [(SGSuggestionsService *)self _remoteSuggestionManager];
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __67__SGSuggestionsService_contactMatchesByPhoneNumber_withCompletion___block_invoke;
-    v14[3] = &unk_1E7EFD0A0;
-    v15 = completionCopy;
-    [_remoteSuggestionManager contactMatchesByPhoneNumber:numberCopy withCompletion:v14];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __67__SGSuggestionsService_contactMatchesByPhoneNumber_withCompletion___block_invoke;
+    v13[3] = &unk_1E7EFD0A0;
+    v14 = completionCopy;
+    [_remoteSuggestionManager contactMatchesByPhoneNumber:numberCopy withCompletion:v13];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __67__SGSuggestionsService_contactMatchesByPhoneNumber_withCompletion___block_invoke(uint64_t a1, void *a2)
@@ -6162,7 +6703,7 @@ void __77__SGSuggestionsService_harvestedSuggestionsFromSearchableItem_options_e
 
 - (void)extractAttributesAndDonate:(id)donate withCompletion:(id)completion
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   donateCopy = donate;
   completionCopy = completion;
   if (_os_feature_enabled_impl())
@@ -6185,7 +6726,7 @@ void __77__SGSuggestionsService_harvestedSuggestionsFromSearchableItem_options_e
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        v36 = v15;
+        v35 = v15;
         _os_log_impl(&dword_1BA729000, v16, OS_LOG_TYPE_DEFAULT, "Max allowed document age is %ld days", buf, 0xCu);
       }
 
@@ -6200,16 +6741,16 @@ void __77__SGSuggestionsService_harvestedSuggestionsFromSearchableItem_options_e
         if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v36 = v19;
+          v35 = v19;
           _os_log_impl(&dword_1BA729000, v26, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
         }
 
         if (completionCopy)
         {
           v27 = MEMORY[0x1E696ABC0];
-          v33 = @"message";
-          v34 = v19;
-          v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
+          v32 = @"message";
+          v33 = v19;
+          v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
           v29 = [v27 errorWithDomain:@"SGErrorDomain" code:13 userInfo:v28];
           completionCopy[2](completionCopy, 0, v29);
         }
@@ -6219,14 +6760,14 @@ void __77__SGSuggestionsService_harvestedSuggestionsFromSearchableItem_options_e
       {
 LABEL_8:
         _remoteSuggestionManager = [(SGSuggestionsService *)self _remoteSuggestionManager];
-        v31[0] = MEMORY[0x1E69E9820];
-        v31[1] = 3221225472;
-        v31[2] = __66__SGSuggestionsService_extractAttributesAndDonate_withCompletion___block_invoke;
-        v31[3] = &unk_1E7EFD0A0;
-        v32 = completionCopy;
-        [_remoteSuggestionManager extractAttributesAndDonate:donateCopy withCompletion:v31];
+        v30[0] = MEMORY[0x1E69E9820];
+        v30[1] = 3221225472;
+        v30[2] = __66__SGSuggestionsService_extractAttributesAndDonate_withCompletion___block_invoke;
+        v30[3] = &unk_1E7EFD0A0;
+        v31 = completionCopy;
+        [_remoteSuggestionManager extractAttributesAndDonate:donateCopy withCompletion:v30];
 
-        v19 = v32;
+        v19 = v31;
       }
 
       goto LABEL_21;
@@ -6236,9 +6777,9 @@ LABEL_8:
     if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218240;
-      v36 = v12;
-      v37 = 2048;
-      v38 = 819200;
+      v35 = v12;
+      v36 = 2048;
+      v37 = 819200;
       _os_log_impl(&dword_1BA729000, v23, OS_LOG_TYPE_DEFAULT, "Rejecting email with HTML length %lu (max: %lu)", buf, 0x16u);
     }
 
@@ -6261,8 +6802,6 @@ LABEL_11:
     completionCopy[2](completionCopy, 0, contentCreationDate);
 LABEL_21:
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 void __66__SGSuggestionsService_extractAttributesAndDonate_withCompletion___block_invoke(uint64_t a1, void *a2)
@@ -6368,7 +6907,7 @@ void __80__SGSuggestionsService_filteredSuggestionsFromExtractions_origin_option
 
 - (void)suggestionsFromSearchableItem:(id)item options:(unint64_t)options processingType:(unint64_t)type withCompletion:(id)completion
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   itemCopy = item;
   completionCopy = completion;
   if (itemCopy)
@@ -6410,14 +6949,14 @@ LABEL_3:
   if (v18 <= 0xC8000)
   {
     _remoteSuggestionManager = [(SGSuggestionsService *)self _remoteSuggestionManager];
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = __92__SGSuggestionsService_suggestionsFromSearchableItem_options_processingType_withCompletion___block_invoke;
-    v25[3] = &unk_1E7EFD0A0;
-    v26 = completionCopy;
-    [_remoteSuggestionManager suggestionsFromSearchableItem:itemCopy options:options processingType:type withCompletion:v25];
+    v24[0] = MEMORY[0x1E69E9820];
+    v24[1] = 3221225472;
+    v24[2] = __92__SGSuggestionsService_suggestionsFromSearchableItem_options_processingType_withCompletion___block_invoke;
+    v24[3] = &unk_1E7EFD0A0;
+    v25 = completionCopy;
+    [_remoteSuggestionManager suggestionsFromSearchableItem:itemCopy options:options processingType:type withCompletion:v24];
 
-    v20 = v26;
+    v20 = v25;
     goto LABEL_11;
   }
 
@@ -6425,9 +6964,9 @@ LABEL_3:
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218240;
-    v28 = v18;
-    v29 = 2048;
-    v30 = 819200;
+    v27 = v18;
+    v28 = 2048;
+    v29 = 819200;
     _os_log_impl(&dword_1BA729000, v19, OS_LOG_TYPE_DEFAULT, "Rejecting email with HTML length %lu (max: %lu)", buf, 0x16u);
   }
 
@@ -6437,8 +6976,6 @@ LABEL_3:
     (*(completionCopy + 2))(completionCopy, 0, v20);
 LABEL_11:
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __92__SGSuggestionsService_suggestionsFromSearchableItem_options_processingType_withCompletion___block_invoke(uint64_t a1, void *a2)
@@ -6487,7 +7024,7 @@ void __83__SGSuggestionsService_suggestionsFromSearchableItem_options_processing
 
 - (void)suggestionsFromSearchableItem:(id)item options:(unint64_t)options withCompletion:(id)completion
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   itemCopy = item;
   completionCopy = completion;
   if (itemCopy)
@@ -6529,14 +7066,14 @@ LABEL_3:
   if (v16 <= 0xC8000)
   {
     _remoteSuggestionManager = [(SGSuggestionsService *)self _remoteSuggestionManager];
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __77__SGSuggestionsService_suggestionsFromSearchableItem_options_withCompletion___block_invoke;
-    v23[3] = &unk_1E7EFD0A0;
-    v24 = completionCopy;
-    [_remoteSuggestionManager suggestionsFromSearchableItem:itemCopy options:options withCompletion:v23];
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __77__SGSuggestionsService_suggestionsFromSearchableItem_options_withCompletion___block_invoke;
+    v22[3] = &unk_1E7EFD0A0;
+    v23 = completionCopy;
+    [_remoteSuggestionManager suggestionsFromSearchableItem:itemCopy options:options withCompletion:v22];
 
-    v18 = v24;
+    v18 = v23;
     goto LABEL_11;
   }
 
@@ -6544,9 +7081,9 @@ LABEL_3:
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218240;
-    v26 = v16;
-    v27 = 2048;
-    v28 = 819200;
+    v25 = v16;
+    v26 = 2048;
+    v27 = 819200;
     _os_log_impl(&dword_1BA729000, v17, OS_LOG_TYPE_DEFAULT, "Rejecting email with HTML length %lu (max: %lu)", buf, 0x16u);
   }
 
@@ -6556,8 +7093,6 @@ LABEL_3:
     (*(completionCopy + 2))(completionCopy, 0, v18);
 LABEL_11:
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __77__SGSuggestionsService_suggestionsFromSearchableItem_options_withCompletion___block_invoke(uint64_t a1, void *a2)
@@ -6608,7 +7143,7 @@ void __68__SGSuggestionsService_suggestionsFromSearchableItem_options_error___bl
 
 - (void)suggestionsFromEmailContent:(id)content headers:(id)headers source:(id)source options:(unint64_t)options withCompletion:(id)completion
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   contentCopy = content;
   headersCopy = headers;
   sourceCopy = source;
@@ -6669,14 +7204,14 @@ LABEL_5:
   if ([contentCopy length] <= 0xC8000)
   {
     _remoteSuggestionManager = [(SGSuggestionsService *)self _remoteSuggestionManager];
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = __90__SGSuggestionsService_suggestionsFromEmailContent_headers_source_options_withCompletion___block_invoke;
-    v25[3] = &unk_1E7EFD0A0;
-    v26 = completionCopy;
-    [_remoteSuggestionManager suggestionsFromEmailContent:contentCopy headers:headersCopy source:sourceCopy options:options withCompletion:v25];
+    v24[0] = MEMORY[0x1E69E9820];
+    v24[1] = 3221225472;
+    v24[2] = __90__SGSuggestionsService_suggestionsFromEmailContent_headers_source_options_withCompletion___block_invoke;
+    v24[3] = &unk_1E7EFD0A0;
+    v25 = completionCopy;
+    [_remoteSuggestionManager suggestionsFromEmailContent:contentCopy headers:headersCopy source:sourceCopy options:options withCompletion:v24];
 
-    v18 = v26;
+    v18 = v25;
     goto LABEL_11;
   }
 
@@ -6684,9 +7219,9 @@ LABEL_5:
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218240;
-    v28 = [contentCopy length];
-    v29 = 2048;
-    v30 = 819200;
+    v27 = [contentCopy length];
+    v28 = 2048;
+    v29 = 819200;
     _os_log_impl(&dword_1BA729000, v17, OS_LOG_TYPE_DEFAULT, "Rejecting email with HTML length %lu (max: %lu)", buf, 0x16u);
   }
 
@@ -6696,8 +7231,6 @@ LABEL_5:
     (*(completionCopy + 2))(completionCopy, 0, v18);
 LABEL_11:
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __90__SGSuggestionsService_suggestionsFromEmailContent_headers_source_options_withCompletion___block_invoke(uint64_t a1, void *a2)
@@ -6756,7 +7289,7 @@ void __81__SGSuggestionsService_suggestionsFromEmailContent_headers_source_optio
 
 - (void)allDeliveriesWithLimit:(unint64_t)limit withCompletion:(id)completion
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   isClassCLocked = [MEMORY[0x1E69C5D08] isClassCLocked];
   v9 = sgLogHandle();
@@ -6767,7 +7300,7 @@ void __81__SGSuggestionsService_suggestionsFromEmailContent_headers_source_optio
     {
       v11 = NSStringFromSelector(a2);
       *buf = 138412290;
-      v17 = v11;
+      v16 = v11;
       _os_log_impl(&dword_1BA729000, v9, OS_LOG_TYPE_DEFAULT, "Cannot query Suggestions (%@) before first unlock.", buf, 0xCu);
     }
 
@@ -6786,15 +7319,13 @@ void __81__SGSuggestionsService_suggestionsFromEmailContent_headers_source_optio
     }
 
     _remoteSuggestionManager = [(SGSuggestionsService *)self _remoteSuggestionManager];
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __62__SGSuggestionsService_allDeliveriesWithLimit_withCompletion___block_invoke;
-    v14[3] = &unk_1E7EFD0A0;
-    v15 = completionCopy;
-    [_remoteSuggestionManager allDeliveriesWithLimit:limit withCompletion:v14];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __62__SGSuggestionsService_allDeliveriesWithLimit_withCompletion___block_invoke;
+    v13[3] = &unk_1E7EFD0A0;
+    v14 = completionCopy;
+    [_remoteSuggestionManager allDeliveriesWithLimit:limit withCompletion:v13];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __62__SGSuggestionsService_allDeliveriesWithLimit_withCompletion___block_invoke(uint64_t a1, void *a2)
@@ -6955,7 +7486,7 @@ void __54__SGSuggestionsService_reminderTitleForContent_error___block_invoke(uin
 
 - (void)allRemindersLimitedTo:(unint64_t)to withCompletion:(id)completion
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   if ([MEMORY[0x1E69C5D08] isClassCLocked])
   {
@@ -6964,7 +7495,7 @@ void __54__SGSuggestionsService_reminderTitleForContent_error___block_invoke(uin
     {
       v9 = NSStringFromSelector(a2);
       *buf = 138412290;
-      v16 = v9;
+      v15 = v9;
       _os_log_impl(&dword_1BA729000, v8, OS_LOG_TYPE_DEFAULT, "Cannot query Suggestions (%@) before first unlock.", buf, 0xCu);
     }
 
@@ -6984,15 +7515,13 @@ void __54__SGSuggestionsService_reminderTitleForContent_error___block_invoke(uin
     }
 
     _remoteSuggestionManager = [(SGSuggestionsService *)self _remoteSuggestionManager];
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __61__SGSuggestionsService_allRemindersLimitedTo_withCompletion___block_invoke;
-    v13[3] = &unk_1E7EFD0A0;
-    v14 = completionCopy;
-    [_remoteSuggestionManager allRemindersLimitedTo:to withCompletion:v13];
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __61__SGSuggestionsService_allRemindersLimitedTo_withCompletion___block_invoke;
+    v12[3] = &unk_1E7EFD0A0;
+    v13 = completionCopy;
+    [_remoteSuggestionManager allRemindersLimitedTo:to withCompletion:v12];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __61__SGSuggestionsService_allRemindersLimitedTo_withCompletion___block_invoke(uint64_t a1, void *a2)
@@ -7323,7 +7852,7 @@ void __56__SGSuggestionsService_confirmReminderByRecordId_error___block_invoke(u
 
 - (void)allEventsLimitedTo:(unint64_t)to withCompletion:(id)completion
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   if ([MEMORY[0x1E69C5D08] isClassCLocked])
   {
@@ -7332,7 +7861,7 @@ void __56__SGSuggestionsService_confirmReminderByRecordId_error___block_invoke(u
     {
       v9 = NSStringFromSelector(a2);
       *buf = 138412290;
-      v15 = v9;
+      v14 = v9;
       _os_log_impl(&dword_1BA729000, v8, OS_LOG_TYPE_DEFAULT, "Cannot query Suggestions (%@) before first unlock.", buf, 0xCu);
     }
 
@@ -7345,15 +7874,13 @@ void __56__SGSuggestionsService_confirmReminderByRecordId_error___block_invoke(u
   else
   {
     _remoteSuggestionManager = [(SGSuggestionsService *)self _remoteSuggestionManager];
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __58__SGSuggestionsService_allEventsLimitedTo_withCompletion___block_invoke;
-    v12[3] = &unk_1E7EFD0A0;
-    v13 = completionCopy;
-    [_remoteSuggestionManager allEventsLimitedTo:to withCompletion:v12];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __58__SGSuggestionsService_allEventsLimitedTo_withCompletion___block_invoke;
+    v11[3] = &unk_1E7EFD0A0;
+    v12 = completionCopy;
+    [_remoteSuggestionManager allEventsLimitedTo:to withCompletion:v11];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __58__SGSuggestionsService_allEventsLimitedTo_withCompletion___block_invoke(uint64_t a1, void *a2)
@@ -7394,7 +7921,7 @@ void __49__SGSuggestionsService_allEventsLimitedTo_error___block_invoke(uint64_t
 
 - (void)suggestEventsInFutureLimitTo:(unint64_t)to withCompletion:(id)completion
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   if ([MEMORY[0x1E69C5D08] isClassCLocked])
   {
@@ -7403,7 +7930,7 @@ void __49__SGSuggestionsService_allEventsLimitedTo_error___block_invoke(uint64_t
     {
       v9 = NSStringFromSelector(a2);
       *buf = 138412290;
-      v15 = v9;
+      v14 = v9;
       _os_log_impl(&dword_1BA729000, v8, OS_LOG_TYPE_DEFAULT, "Cannot query Suggestions (%@) before first unlock.", buf, 0xCu);
     }
 
@@ -7416,15 +7943,13 @@ void __49__SGSuggestionsService_allEventsLimitedTo_error___block_invoke(uint64_t
   else
   {
     _remoteSuggestionManager = [(SGSuggestionsService *)self _remoteSuggestionManager];
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __68__SGSuggestionsService_suggestEventsInFutureLimitTo_withCompletion___block_invoke;
-    v12[3] = &unk_1E7EFD0A0;
-    v13 = completionCopy;
-    [_remoteSuggestionManager eventsInFutureLimitTo:to options:0 withCompletion:v12];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __68__SGSuggestionsService_suggestEventsInFutureLimitTo_withCompletion___block_invoke;
+    v11[3] = &unk_1E7EFD0A0;
+    v12 = completionCopy;
+    [_remoteSuggestionManager eventsInFutureLimitTo:to options:0 withCompletion:v11];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __68__SGSuggestionsService_suggestEventsInFutureLimitTo_withCompletion___block_invoke(uint64_t a1, void *a2)
@@ -7465,7 +7990,7 @@ void __59__SGSuggestionsService_suggestEventsInFutureLimitTo_error___block_invok
 
 - (void)suggestEventsStartingAt:(id)at endingAt:(id)endingAt prefix:(id)prefix limitTo:(unint64_t)to withCompletion:(id)completion
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   atCopy = at;
   endingAtCopy = endingAt;
   prefixCopy = prefix;
@@ -7515,7 +8040,7 @@ LABEL_4:
     {
       v18 = NSStringFromSelector(a2);
       *buf = 138412290;
-      v27 = v18;
+      v26 = v18;
       _os_log_impl(&dword_1BA729000, v17, OS_LOG_TYPE_DEFAULT, "Cannot query Suggestions (%@) before first unlock.", buf, 0xCu);
     }
 
@@ -7528,15 +8053,13 @@ LABEL_4:
   else
   {
     _remoteSuggestionManager = [(SGSuggestionsService *)self _remoteSuggestionManager];
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = __87__SGSuggestionsService_suggestEventsStartingAt_endingAt_prefix_limitTo_withCompletion___block_invoke;
-    v24[3] = &unk_1E7EFD0A0;
-    v25 = completionCopy;
-    [_remoteSuggestionManager eventsStartingAt:atCopy endingAt:endingAtCopy prefix:prefixCopy limitTo:to options:0 withCompletion:v24];
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __87__SGSuggestionsService_suggestEventsStartingAt_endingAt_prefix_limitTo_withCompletion___block_invoke;
+    v23[3] = &unk_1E7EFD0A0;
+    v24 = completionCopy;
+    [_remoteSuggestionManager eventsStartingAt:atCopy endingAt:endingAtCopy prefix:prefixCopy limitTo:to options:0 withCompletion:v23];
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __87__SGSuggestionsService_suggestEventsStartingAt_endingAt_prefix_limitTo_withCompletion___block_invoke(uint64_t a1, void *a2)
@@ -7595,7 +8118,7 @@ void __78__SGSuggestionsService_suggestEventsStartingAt_endingAt_prefix_limitTo_
 
 - (void)suggestEventsStartingAt:(id)at endingAt:(id)endingAt limitTo:(unint64_t)to withCompletion:(id)completion
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   atCopy = at;
   endingAtCopy = endingAt;
   completionCopy = completion;
@@ -7629,7 +8152,7 @@ LABEL_3:
     {
       v15 = NSStringFromSelector(a2);
       *buf = 138412290;
-      v23 = v15;
+      v22 = v15;
       _os_log_impl(&dword_1BA729000, v14, OS_LOG_TYPE_DEFAULT, "Cannot query Suggestions (%@) before first unlock.", buf, 0xCu);
     }
 
@@ -7642,15 +8165,13 @@ LABEL_3:
   else
   {
     _remoteSuggestionManager = [(SGSuggestionsService *)self _remoteSuggestionManager];
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __80__SGSuggestionsService_suggestEventsStartingAt_endingAt_limitTo_withCompletion___block_invoke;
-    v20[3] = &unk_1E7EFD0A0;
-    v21 = completionCopy;
-    [_remoteSuggestionManager eventsStartingAt:atCopy endingAt:endingAtCopy limitTo:to options:0 withCompletion:v20];
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __80__SGSuggestionsService_suggestEventsStartingAt_endingAt_limitTo_withCompletion___block_invoke;
+    v19[3] = &unk_1E7EFD0A0;
+    v20 = completionCopy;
+    [_remoteSuggestionManager eventsStartingAt:atCopy endingAt:endingAtCopy limitTo:to options:0 withCompletion:v19];
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __80__SGSuggestionsService_suggestEventsStartingAt_endingAt_limitTo_withCompletion___block_invoke(uint64_t a1, void *a2)
@@ -7699,6 +8220,40 @@ void __71__SGSuggestionsService_suggestEventsStartingAt_endingAt_limitTo_error__
   [v4 suggestEventsStartingAt:v5 endingAt:v7 limitTo:v6 withCompletion:v9];
 }
 
+- (void)suggestEventsInFutureLimitTo:(unint64_t)to options:(unsigned int)options withCompletion:(id)completion
+{
+  v5 = *&options;
+  v17 = *MEMORY[0x1E69E9840];
+  completionCopy = completion;
+  if ([MEMORY[0x1E69C5D08] isClassCLocked])
+  {
+    v10 = sgLogHandle();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    {
+      v11 = NSStringFromSelector(a2);
+      *buf = 138412290;
+      v16 = v11;
+      _os_log_impl(&dword_1BA729000, v10, OS_LOG_TYPE_DEFAULT, "Cannot query Suggestions (%@) before first unlock.", buf, 0xCu);
+    }
+
+    if (completionCopy)
+    {
+      (*(completionCopy + 2))(completionCopy, MEMORY[0x1E695E0F0], 0);
+    }
+  }
+
+  else
+  {
+    _remoteSuggestionManager = [(SGSuggestionsService *)self _remoteSuggestionManager];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __76__SGSuggestionsService_suggestEventsInFutureLimitTo_options_withCompletion___block_invoke;
+    v13[3] = &unk_1E7EFD0A0;
+    v14 = completionCopy;
+    [_remoteSuggestionManager eventsInFutureLimitTo:to options:v5 withCompletion:v13];
+  }
+}
+
 void __76__SGSuggestionsService_suggestEventsInFutureLimitTo_options_withCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v2 = *(a1 + 32);
@@ -7741,6 +8296,81 @@ void __67__SGSuggestionsService_suggestEventsInFutureLimitTo_options_error___blo
   v9 = v3;
   v7 = v3;
   [v4 suggestEventsInFutureLimitTo:v5 options:v6 withCompletion:v8];
+}
+
+- (void)suggestEventsStartingAt:(id)at endingAt:(id)endingAt prefix:(id)prefix limitTo:(unint64_t)to options:(unsigned int)options withCompletion:(id)completion
+{
+  v9 = *&options;
+  v29 = *MEMORY[0x1E69E9840];
+  atCopy = at;
+  endingAtCopy = endingAt;
+  prefixCopy = prefix;
+  completionCopy = completion;
+  if (atCopy)
+  {
+    if (endingAtCopy)
+    {
+      goto LABEL_3;
+    }
+
+LABEL_12:
+    currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"SGSuggestionsService.m" lineNumber:846 description:{@"Invalid parameter not satisfying: %@", @"end"}];
+
+    if (prefixCopy)
+    {
+      goto LABEL_4;
+    }
+
+    goto LABEL_13;
+  }
+
+  currentHandler2 = [MEMORY[0x1E696AAA8] currentHandler];
+  [currentHandler2 handleFailureInMethod:a2 object:self file:@"SGSuggestionsService.m" lineNumber:845 description:{@"Invalid parameter not satisfying: %@", @"start"}];
+
+  if (!endingAtCopy)
+  {
+    goto LABEL_12;
+  }
+
+LABEL_3:
+  if (prefixCopy)
+  {
+    goto LABEL_4;
+  }
+
+LABEL_13:
+  currentHandler3 = [MEMORY[0x1E696AAA8] currentHandler];
+  [currentHandler3 handleFailureInMethod:a2 object:self file:@"SGSuggestionsService.m" lineNumber:847 description:{@"Invalid parameter not satisfying: %@", @"prefix"}];
+
+LABEL_4:
+  if ([MEMORY[0x1E69C5D08] isClassCLocked])
+  {
+    v19 = sgLogHandle();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    {
+      v20 = NSStringFromSelector(a2);
+      *buf = 138412290;
+      v28 = v20;
+      _os_log_impl(&dword_1BA729000, v19, OS_LOG_TYPE_DEFAULT, "Cannot query Suggestions (%@) before first unlock.", buf, 0xCu);
+    }
+
+    if (completionCopy)
+    {
+      (*(completionCopy + 2))(completionCopy, MEMORY[0x1E695E0F0], 0);
+    }
+  }
+
+  else
+  {
+    _remoteSuggestionManager = [(SGSuggestionsService *)self _remoteSuggestionManager];
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __95__SGSuggestionsService_suggestEventsStartingAt_endingAt_prefix_limitTo_options_withCompletion___block_invoke;
+    v25[3] = &unk_1E7EFD0A0;
+    v26 = completionCopy;
+    [_remoteSuggestionManager eventsStartingAt:atCopy endingAt:endingAtCopy prefix:prefixCopy limitTo:to options:v9 withCompletion:v25];
+  }
 }
 
 void __95__SGSuggestionsService_suggestEventsStartingAt_endingAt_prefix_limitTo_options_withCompletion___block_invoke(uint64_t a1, void *a2)
@@ -7793,6 +8423,65 @@ void __86__SGSuggestionsService_suggestEventsStartingAt_endingAt_prefix_limitTo_
   v12 = v3;
   v10 = v3;
   [v4 suggestEventsStartingAt:v5 endingAt:v6 prefix:v7 limitTo:v8 options:v9 withCompletion:v11];
+}
+
+- (void)suggestEventsStartingAt:(id)at endingAt:(id)endingAt limitTo:(unint64_t)to options:(unsigned int)options withCompletion:(id)completion
+{
+  v8 = *&options;
+  v25 = *MEMORY[0x1E69E9840];
+  atCopy = at;
+  endingAtCopy = endingAt;
+  completionCopy = completion;
+  if (atCopy)
+  {
+    if (endingAtCopy)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  else
+  {
+    currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"SGSuggestionsService.m" lineNumber:834 description:{@"Invalid parameter not satisfying: %@", @"start"}];
+
+    if (endingAtCopy)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  currentHandler2 = [MEMORY[0x1E696AAA8] currentHandler];
+  [currentHandler2 handleFailureInMethod:a2 object:self file:@"SGSuggestionsService.m" lineNumber:835 description:{@"Invalid parameter not satisfying: %@", @"end"}];
+
+LABEL_3:
+  if ([MEMORY[0x1E69C5D08] isClassCLocked])
+  {
+    v16 = sgLogHandle();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    {
+      v17 = NSStringFromSelector(a2);
+      *buf = 138412290;
+      v24 = v17;
+      _os_log_impl(&dword_1BA729000, v16, OS_LOG_TYPE_DEFAULT, "Cannot query Suggestions (%@) before first unlock.", buf, 0xCu);
+    }
+
+    if (completionCopy)
+    {
+      (*(completionCopy + 2))(completionCopy, MEMORY[0x1E695E0F0], 0);
+    }
+  }
+
+  else
+  {
+    _remoteSuggestionManager = [(SGSuggestionsService *)self _remoteSuggestionManager];
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __88__SGSuggestionsService_suggestEventsStartingAt_endingAt_limitTo_options_withCompletion___block_invoke;
+    v21[3] = &unk_1E7EFD0A0;
+    v22 = completionCopy;
+    [_remoteSuggestionManager eventsStartingAt:atCopy endingAt:endingAtCopy limitTo:to options:v8 withCompletion:v21];
+  }
 }
 
 void __88__SGSuggestionsService_suggestEventsStartingAt_endingAt_limitTo_options_withCompletion___block_invoke(uint64_t a1, void *a2)
@@ -7948,6 +8637,40 @@ void __55__SGSuggestionsService_registerContactsChangeObserver___block_invoke(ui
   objc_sync_exit(v2);
 }
 
+- (void)allContactsWithSnippets:(BOOL)snippets limitTo:(unint64_t)to withCompletion:(id)completion
+{
+  snippetsCopy = snippets;
+  v17 = *MEMORY[0x1E69E9840];
+  completionCopy = completion;
+  if ([MEMORY[0x1E69C5D08] isClassCLocked])
+  {
+    v10 = sgLogHandle();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    {
+      v11 = NSStringFromSelector(a2);
+      *buf = 138412290;
+      v16 = v11;
+      _os_log_impl(&dword_1BA729000, v10, OS_LOG_TYPE_DEFAULT, "Cannot query Suggestions (%@) before first unlock.", buf, 0xCu);
+    }
+
+    if (completionCopy)
+    {
+      (*(completionCopy + 2))(completionCopy, MEMORY[0x1E695E0F0], 0);
+    }
+  }
+
+  else
+  {
+    _remoteSuggestionManager = [(SGSuggestionsService *)self _remoteSuggestionManager];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __71__SGSuggestionsService_allContactsWithSnippets_limitTo_withCompletion___block_invoke;
+    v13[3] = &unk_1E7EFD0A0;
+    v14 = completionCopy;
+    [_remoteSuggestionManager allContactsWithSnippets:snippetsCopy limitTo:to withCompletion:v13];
+  }
+}
+
 void __71__SGSuggestionsService_allContactsWithSnippets_limitTo_withCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v2 = *(a1 + 32);
@@ -7994,7 +8717,7 @@ void __62__SGSuggestionsService_allContactsWithSnippets_limitTo_error___block_in
 
 - (void)allContactsLimitedTo:(unint64_t)to withCompletion:(id)completion
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   if ([MEMORY[0x1E69C5D08] isClassCLocked])
   {
@@ -8003,7 +8726,7 @@ void __62__SGSuggestionsService_allContactsWithSnippets_limitTo_error___block_in
     {
       v9 = NSStringFromSelector(a2);
       *buf = 138412290;
-      v15 = v9;
+      v14 = v9;
       _os_log_impl(&dword_1BA729000, v8, OS_LOG_TYPE_DEFAULT, "Cannot query Suggestions (%@) before first unlock.", buf, 0xCu);
     }
 
@@ -8016,15 +8739,13 @@ void __62__SGSuggestionsService_allContactsWithSnippets_limitTo_error___block_in
   else
   {
     _remoteSuggestionManager = [(SGSuggestionsService *)self _remoteSuggestionManager];
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __60__SGSuggestionsService_allContactsLimitedTo_withCompletion___block_invoke;
-    v12[3] = &unk_1E7EFD0A0;
-    v13 = completionCopy;
-    [_remoteSuggestionManager allContactsWithSnippets:1 limitTo:to withCompletion:v12];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __60__SGSuggestionsService_allContactsLimitedTo_withCompletion___block_invoke;
+    v11[3] = &unk_1E7EFD0A0;
+    v12 = completionCopy;
+    [_remoteSuggestionManager allContactsWithSnippets:1 limitTo:to withCompletion:v11];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __60__SGSuggestionsService_allContactsLimitedTo_withCompletion___block_invoke(uint64_t a1, void *a2)
@@ -8065,7 +8786,7 @@ void __51__SGSuggestionsService_allContactsLimitedTo_error___block_invoke(uint64
 
 - (void)suggestContactMatchesWithMessagingPrefix:(id)prefix limitTo:(unint64_t)to withCompletion:(id)completion
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   prefixCopy = prefix;
   completionCopy = completion;
   if (!prefixCopy)
@@ -8081,7 +8802,7 @@ void __51__SGSuggestionsService_allContactsLimitedTo_error___block_invoke(uint64
     {
       v12 = NSStringFromSelector(a2);
       *buf = 138412290;
-      v19 = v12;
+      v18 = v12;
       _os_log_impl(&dword_1BA729000, v11, OS_LOG_TYPE_DEFAULT, "Cannot query Suggestions (%@) before first unlock.", buf, 0xCu);
     }
 
@@ -8094,15 +8815,13 @@ void __51__SGSuggestionsService_allContactsLimitedTo_error___block_invoke(uint64
   else
   {
     _remoteSuggestionManager = [(SGSuggestionsService *)self _remoteSuggestionManager];
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __88__SGSuggestionsService_suggestContactMatchesWithMessagingPrefix_limitTo_withCompletion___block_invoke;
-    v16[3] = &unk_1E7EFD0A0;
-    v17 = completionCopy;
-    [_remoteSuggestionManager contactMatchesWithMessagingPrefix:prefixCopy limitTo:to withCompletion:v16];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __88__SGSuggestionsService_suggestContactMatchesWithMessagingPrefix_limitTo_withCompletion___block_invoke;
+    v15[3] = &unk_1E7EFD0A0;
+    v16 = completionCopy;
+    [_remoteSuggestionManager contactMatchesWithMessagingPrefix:prefixCopy limitTo:to withCompletion:v15];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __88__SGSuggestionsService_suggestContactMatchesWithMessagingPrefix_limitTo_withCompletion___block_invoke(uint64_t a1, void *a2)
@@ -8153,7 +8872,7 @@ void __79__SGSuggestionsService_suggestContactMatchesWithMessagingPrefix_limitTo
 
 - (void)suggestContactMatchesWithFullTextSearch:(id)search limitTo:(unint64_t)to withCompletion:(id)completion
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   searchCopy = search;
   completionCopy = completion;
   if (!searchCopy)
@@ -8169,7 +8888,7 @@ void __79__SGSuggestionsService_suggestContactMatchesWithMessagingPrefix_limitTo
     {
       v12 = NSStringFromSelector(a2);
       *buf = 138412290;
-      v19 = v12;
+      v18 = v12;
       _os_log_impl(&dword_1BA729000, v11, OS_LOG_TYPE_DEFAULT, "Cannot query Suggestions (%@) before first unlock.", buf, 0xCu);
     }
 
@@ -8182,15 +8901,13 @@ void __79__SGSuggestionsService_suggestContactMatchesWithMessagingPrefix_limitTo
   else
   {
     _remoteSuggestionManager = [(SGSuggestionsService *)self _remoteSuggestionManager];
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __87__SGSuggestionsService_suggestContactMatchesWithFullTextSearch_limitTo_withCompletion___block_invoke;
-    v16[3] = &unk_1E7EFD0A0;
-    v17 = completionCopy;
-    [_remoteSuggestionManager contactMatchesWithFullTextSearch:searchCopy limitTo:to withCompletion:v16];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __87__SGSuggestionsService_suggestContactMatchesWithFullTextSearch_limitTo_withCompletion___block_invoke;
+    v15[3] = &unk_1E7EFD0A0;
+    v16 = completionCopy;
+    [_remoteSuggestionManager contactMatchesWithFullTextSearch:searchCopy limitTo:to withCompletion:v15];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __87__SGSuggestionsService_suggestContactMatchesWithFullTextSearch_limitTo_withCompletion___block_invoke(uint64_t a1, void *a2)
@@ -8241,7 +8958,7 @@ void __78__SGSuggestionsService_suggestContactMatchesWithFullTextSearch_limitTo_
 
 - (void)contactMatchesWithContactIdentifiers:(id)identifiers limitTo:(unint64_t)to withCompletion:(id)completion
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   completionCopy = completion;
   if (!identifiersCopy)
@@ -8257,7 +8974,7 @@ void __78__SGSuggestionsService_suggestContactMatchesWithFullTextSearch_limitTo_
     {
       v12 = NSStringFromSelector(a2);
       *buf = 138412290;
-      v19 = v12;
+      v18 = v12;
       _os_log_impl(&dword_1BA729000, v11, OS_LOG_TYPE_DEFAULT, "Cannot query Suggestions (%@) before first unlock.", buf, 0xCu);
     }
 
@@ -8270,15 +8987,13 @@ void __78__SGSuggestionsService_suggestContactMatchesWithFullTextSearch_limitTo_
   else
   {
     _remoteSuggestionManager = [(SGSuggestionsService *)self _remoteSuggestionManager];
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __84__SGSuggestionsService_contactMatchesWithContactIdentifiers_limitTo_withCompletion___block_invoke;
-    v16[3] = &unk_1E7EFD0A0;
-    v17 = completionCopy;
-    [_remoteSuggestionManager contactMatchesWithContactIdentifiers:identifiersCopy limitTo:to withCompletion:v16];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __84__SGSuggestionsService_contactMatchesWithContactIdentifiers_limitTo_withCompletion___block_invoke;
+    v15[3] = &unk_1E7EFD0A0;
+    v16 = completionCopy;
+    [_remoteSuggestionManager contactMatchesWithContactIdentifiers:identifiersCopy limitTo:to withCompletion:v15];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __84__SGSuggestionsService_contactMatchesWithContactIdentifiers_limitTo_withCompletion___block_invoke(uint64_t a1, void *a2)
@@ -8329,7 +9044,7 @@ void __75__SGSuggestionsService_contactMatchesWithContactIdentifiers_limitTo_err
 
 - (void)contactMatchesWithContactIdentifier:(id)identifier limitTo:(unint64_t)to withCompletion:(id)completion
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   completionCopy = completion;
   if (!identifierCopy)
@@ -8345,7 +9060,7 @@ void __75__SGSuggestionsService_contactMatchesWithContactIdentifiers_limitTo_err
     {
       v12 = NSStringFromSelector(a2);
       *buf = 138412290;
-      v19 = v12;
+      v18 = v12;
       _os_log_impl(&dword_1BA729000, v11, OS_LOG_TYPE_DEFAULT, "Cannot query Suggestions (%@) before first unlock.", buf, 0xCu);
     }
 
@@ -8358,15 +9073,13 @@ void __75__SGSuggestionsService_contactMatchesWithContactIdentifiers_limitTo_err
   else
   {
     _remoteSuggestionManager = [(SGSuggestionsService *)self _remoteSuggestionManager];
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __83__SGSuggestionsService_contactMatchesWithContactIdentifier_limitTo_withCompletion___block_invoke;
-    v16[3] = &unk_1E7EFD0A0;
-    v17 = completionCopy;
-    [_remoteSuggestionManager contactMatchesWithContactIdentifier:identifierCopy limitTo:to withCompletion:v16];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __83__SGSuggestionsService_contactMatchesWithContactIdentifier_limitTo_withCompletion___block_invoke;
+    v15[3] = &unk_1E7EFD0A0;
+    v16 = completionCopy;
+    [_remoteSuggestionManager contactMatchesWithContactIdentifier:identifierCopy limitTo:to withCompletion:v15];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __83__SGSuggestionsService_contactMatchesWithContactIdentifier_limitTo_withCompletion___block_invoke(uint64_t a1, void *a2)
@@ -8417,7 +9130,7 @@ void __74__SGSuggestionsService_contactMatchesWithContactIdentifier_limitTo_erro
 
 - (void)contactMatchesWithContact:(id)contact limitTo:(unint64_t)to withCompletion:(id)completion
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   contactCopy = contact;
   completionCopy = completion;
   if (!contactCopy)
@@ -8433,7 +9146,7 @@ void __74__SGSuggestionsService_contactMatchesWithContactIdentifier_limitTo_erro
     {
       v12 = NSStringFromSelector(a2);
       *buf = 138412290;
-      v19 = v12;
+      v18 = v12;
       _os_log_impl(&dword_1BA729000, v11, OS_LOG_TYPE_DEFAULT, "Cannot query Suggestions (%@) before first unlock.", buf, 0xCu);
     }
 
@@ -8446,15 +9159,13 @@ void __74__SGSuggestionsService_contactMatchesWithContactIdentifier_limitTo_erro
   else
   {
     _remoteSuggestionManager = [(SGSuggestionsService *)self _remoteSuggestionManager];
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __73__SGSuggestionsService_contactMatchesWithContact_limitTo_withCompletion___block_invoke;
-    v16[3] = &unk_1E7EFD0A0;
-    v17 = completionCopy;
-    [_remoteSuggestionManager contactMatchesWithContact:contactCopy limitTo:to withCompletion:v16];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __73__SGSuggestionsService_contactMatchesWithContact_limitTo_withCompletion___block_invoke;
+    v15[3] = &unk_1E7EFD0A0;
+    v16 = completionCopy;
+    [_remoteSuggestionManager contactMatchesWithContact:contactCopy limitTo:to withCompletion:v15];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __73__SGSuggestionsService_contactMatchesWithContact_limitTo_withCompletion___block_invoke(uint64_t a1, void *a2)
@@ -8777,6 +9488,20 @@ void __71__SGSuggestionsService_suggestionsFromRFC822Data_source_options_error__
   [v4 suggestionsFromRFC822Data:v5 source:v7 options:v6 withCompletion:v9];
 }
 
+- (void)clearCachesFully:(BOOL)fully withCompletion:(id)completion
+{
+  fullyCopy = fully;
+  completionCopy = completion;
+  _remoteSuggestionManager = [(SGSuggestionsService *)self _remoteSuggestionManager];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __56__SGSuggestionsService_clearCachesFully_withCompletion___block_invoke;
+  v9[3] = &unk_1E7EFB610;
+  v10 = completionCopy;
+  v8 = completionCopy;
+  [_remoteSuggestionManager clearCachesFully:fullyCopy withCompletion:v9];
+}
+
 void __56__SGSuggestionsService_clearCachesFully_withCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v2 = *(a1 + 32);
@@ -8998,7 +9723,7 @@ void __43__SGSuggestionsService_isEnabledWithError___block_invoke(uint64_t a1, v
 
 void __43__SGSuggestionsService_isEnabledWithError___block_invoke_2(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 error];
 
@@ -9007,10 +9732,10 @@ void __43__SGSuggestionsService_isEnabledWithError___block_invoke_2(uint64_t a1,
     v5 = sgLogHandle();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v10 = [v3 error];
-      v11 = 138412290;
-      v12 = v10;
-      _os_log_error_impl(&dword_1BA729000, v5, OS_LOG_TYPE_ERROR, "Error! %@", &v11, 0xCu);
+      v9 = [v3 error];
+      v10 = 138412290;
+      v11 = v9;
+      _os_log_error_impl(&dword_1BA729000, v5, OS_LOG_TYPE_ERROR, "Error! %@", &v10, 0xCu);
     }
   }
 
@@ -9018,8 +9743,6 @@ void __43__SGSuggestionsService_isEnabledWithError___block_invoke_2(uint64_t a1,
   v7 = [v3 response1];
   v8 = [v3 error];
   (*(v6 + 16))(v6, v7, v8);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setSyncTimeout:(double)timeout
@@ -9036,6 +9759,103 @@ void __43__SGSuggestionsService_isEnabledWithError___block_invoke_2(uint64_t a1,
   syncTimeout = self->_syncTimeout;
   pthread_mutex_unlock(&self->_syncTimeoutLock);
   return syncTimeout;
+}
+
+- (SGSuggestionsService)initWithMachServiceName:(id)name protocol:(id)protocol useCache:(BOOL)cache
+{
+  cacheCopy = cache;
+  *&v27[5] = *MEMORY[0x1E69E9840];
+  nameCopy = name;
+  protocolCopy = protocol;
+  v25.receiver = self;
+  v25.super_class = SGSuggestionsService;
+  v11 = [(SGSuggestionsService *)&v25 init];
+  if (v11)
+  {
+    v12 = [SGSuggestionsService _daemonConnectionFutureForMachServiceName:nameCopy protocol:protocolCopy useCache:cacheCopy];
+    daemonConnectionFuture = v11->_daemonConnectionFuture;
+    v11->_daemonConnectionFuture = v12;
+
+    objc_storeStrong(&v11->_machServiceName, name);
+    v11->_syncTimeout = 100.0;
+    pthread_mutex_init(&v11->_syncTimeoutLock, 0);
+    mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
+    bundleIdentifier = [mainBundle bundleIdentifier];
+
+    if ([nameCopy isEqualToString:@"com.apple.suggestd.suggestionmanager"])
+    {
+      v16 = sgLogHandle();
+      if (!os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+      {
+        goto LABEL_13;
+      }
+
+      *buf = 138412290;
+      *v27 = bundleIdentifier;
+      v17 = "Process using old entitlement (%@)";
+    }
+
+    else
+    {
+      v18 = [&unk_1F3874388 objectForKeyedSubscript:nameCopy];
+      if (v18)
+      {
+        v19 = v18;
+        if (!bundleIdentifier || [SGSuggestionsService hasEntitlement:v18])
+        {
+          goto LABEL_11;
+        }
+
+        v20 = sgLogHandle();
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
+        {
+          _daemonConnection = [(SGSuggestionsService *)v11 _daemonConnection];
+          xpcConnection = [_daemonConnection xpcConnection];
+          processIdentifier = [xpcConnection processIdentifier];
+          *buf = 67109378;
+          v27[0] = processIdentifier;
+          LOWORD(v27[1]) = 2112;
+          *(&v27[1] + 2) = v19;
+          _os_log_fault_impl(&dword_1BA729000, v20, OS_LOG_TYPE_FAULT, "Rejecting connection missing Suggestions entitlement; pid: %d, entitlementKey: %@", buf, 0x12u);
+        }
+
+        if (!_PASEvaluateLogFaultAndProbCrashCriteria())
+        {
+LABEL_11:
+
+LABEL_14:
+          goto LABEL_15;
+        }
+
+LABEL_18:
+        abort();
+      }
+
+      v16 = sgLogHandle();
+      if (!os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+      {
+LABEL_13:
+
+        if (!_PASEvaluateLogFaultAndProbCrashCriteria())
+        {
+          goto LABEL_14;
+        }
+
+        goto LABEL_18;
+      }
+
+      *buf = 138412290;
+      *v27 = nameCopy;
+      v17 = "Mach service %@ attempting to establish XPC connection with unknown entitlement";
+    }
+
+    _os_log_fault_impl(&dword_1BA729000, v16, OS_LOG_TYPE_FAULT, v17, buf, 0xCu);
+    goto LABEL_13;
+  }
+
+LABEL_15:
+
+  return v11;
 }
 
 + (void)prepareForQuery
@@ -9107,7 +9927,7 @@ uint64_t __39__SGSuggestionsService_prepareForQuery__block_invoke_457(uint64_t a
 
 + (BOOL)hasEntitlement:(id)entitlement
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   entitlementCopy = entitlement;
   v4 = entitlementCopy;
   if (hasEntitlement__onceToken == -1)
@@ -9159,9 +9979,9 @@ LABEL_3:
             }
 
             *buf = 138412546;
-            v26 = v4;
-            v27 = 2112;
-            v28 = v20;
+            v25 = v4;
+            v26 = 2112;
+            v27 = v20;
             _os_log_impl(&dword_1BA729000, v19, OS_LOG_TYPE_INFO, "Found %@ entitlement, value: %@", buf, 0x16u);
           }
 
@@ -9179,9 +9999,9 @@ LABEL_3:
           if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412546;
-            v26 = v4;
-            v27 = 2112;
-            v28 = error;
+            v25 = v4;
+            v26 = 2112;
+            v27 = error;
             _os_log_error_impl(&dword_1BA729000, v18, OS_LOG_TYPE_ERROR, "SecTaskCopyValueForEntitlement failed for %@, error: %@", buf, 0x16u);
           }
         }
@@ -9189,7 +10009,7 @@ LABEL_3:
         else if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v26 = v4;
+          v25 = v4;
           _os_log_debug_impl(&dword_1BA729000, v18, OS_LOG_TYPE_DEBUG, "Couldn't find the %@ entitlement", buf, 0xCu);
         }
 
@@ -9231,7 +10051,6 @@ LABEL_31:
   bOOLValue = v10;
 LABEL_32:
 
-  v22 = *MEMORY[0x1E69E9840];
   return bOOLValue;
 }
 

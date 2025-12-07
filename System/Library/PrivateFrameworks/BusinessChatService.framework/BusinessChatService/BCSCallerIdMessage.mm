@@ -104,61 +104,59 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v7 = toCopy;
+  v5 = toCopy;
   if (*&self->_has)
   {
-    phoneHash = self->_phoneHash;
     PBDataWriterWriteInt64Field();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_companyId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_businessId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_locationId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_name)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_logoUrl)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    isVerified = self->_isVerified;
     PBDataWriterWriteBOOLField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_intent)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_conflatedMuid)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 }
 
@@ -276,7 +274,6 @@
     goto LABEL_24;
   }
 
-  v5 = *(equalCopy + 76);
   if (*&self->_has)
   {
     if ((*(equalCopy + 76) & 1) == 0 || self->_phoneHash != *(equalCopy + 1))
@@ -332,7 +329,6 @@
     }
   }
 
-  v11 = *(equalCopy + 76);
   if ((*&self->_has & 2) == 0)
   {
     if ((*(equalCopy + 76) & 2) == 0)
@@ -341,7 +337,7 @@
     }
 
 LABEL_24:
-    v14 = 0;
+    v12 = 0;
     goto LABEL_25;
   }
 
@@ -350,7 +346,6 @@ LABEL_24:
     goto LABEL_24;
   }
 
-  v16 = *(equalCopy + 72);
   if (self->_isVerified)
   {
     if ((*(equalCopy + 72) & 1) == 0)
@@ -374,17 +369,17 @@ LABEL_19:
   conflatedMuid = self->_conflatedMuid;
   if (conflatedMuid | *(equalCopy + 4))
   {
-    v14 = [(NSString *)conflatedMuid isEqual:?];
+    v12 = [(NSString *)conflatedMuid isEqual:?];
   }
 
   else
   {
-    v14 = 1;
+    v12 = 1;
   }
 
 LABEL_25:
 
-  return v14;
+  return v12;
 }
 
 - (unint64_t)hash

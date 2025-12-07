@@ -9,39 +9,39 @@
 
 - (void)notifyDelegate
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   v3 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v42 = "[CDMAssetsDelegateHandler notifyDelegate]";
+    v39 = "[CDMAssetsDelegateHandler notifyDelegate]";
     _os_log_debug_impl(&dword_1DC287000, v3, OS_LOG_TYPE_DEBUG, "%s Start to notify assets delegate.", buf, 0xCu);
   }
 
-  v39 = 0u;
-  v40 = 0u;
+  v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   v4 = self->_assetSetNames;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v37 objects:v51 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v34 objects:v48 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v38;
+    v8 = *v35;
     while (2)
     {
       v9 = 0;
       v10 = v7;
       do
       {
-        if (*v38 != v8)
+        if (*v35 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v11 = *(*(&v37 + 1) + 8 * v9);
-        v12 = [(NSMutableDictionary *)self->_assetsAvailabilities objectForKey:v11, v37];
+        v11 = *(*(&v34 + 1) + 8 * v9);
+        v12 = [(NSMutableDictionary *)self->_assetsAvailabilities objectForKey:v11, v34];
 
         if (!v12)
         {
@@ -49,9 +49,9 @@
           if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
           {
             *buf = 136315394;
-            v42 = "[CDMAssetsDelegateHandler notifyDelegate]";
-            v43 = 2112;
-            v44 = v11;
+            v39 = "[CDMAssetsDelegateHandler notifyDelegate]";
+            v40 = 2112;
+            v41 = v11;
           }
 
           goto LABEL_20;
@@ -64,13 +64,13 @@
           if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
           {
             *buf = 136315906;
-            v42 = "[CDMAssetsDelegateHandler notifyDelegate]";
-            v43 = 2112;
-            v44 = v7;
-            v45 = 2112;
-            v46 = v11;
-            v47 = 2112;
-            v48 = v10;
+            v39 = "[CDMAssetsDelegateHandler notifyDelegate]";
+            v40 = 2112;
+            v41 = v7;
+            v42 = 2112;
+            v43 = v11;
+            v44 = 2112;
+            v45 = v10;
           }
 
 LABEL_20:
@@ -84,7 +84,7 @@ LABEL_20:
       }
 
       while (v6 != v9);
-      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v37 objects:v51 count:16];
+      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v34 objects:v48 count:16];
       v13 = 1;
       if (v6)
       {
@@ -108,9 +108,9 @@ LABEL_21:
   {
     assetsAvailabilities = self->_assetsAvailabilities;
     *buf = 136315394;
-    v42 = "[CDMAssetsDelegateHandler notifyDelegate]";
-    v43 = 2112;
-    v44 = assetsAvailabilities;
+    v39 = "[CDMAssetsDelegateHandler notifyDelegate]";
+    v40 = 2112;
+    v41 = assetsAvailabilities;
     _os_log_debug_impl(&dword_1DC287000, v15, OS_LOG_TYPE_DEBUG, "%s Current assets availabilities status: %@.", buf, 0x16u);
   }
 
@@ -133,48 +133,47 @@ LABEL_21:
       assetSetNames = self->_assetSetNames;
       assetAvailabilityType = self->_assetAvailabilityType;
       *buf = 136316162;
-      v42 = "[CDMAssetsDelegateHandler notifyDelegate]";
-      v43 = 2112;
-      v44 = assetSetNames;
-      v45 = 2112;
-      v46 = v7;
-      v47 = 2112;
-      v48 = v7;
-      v49 = 2048;
-      v50 = assetAvailabilityType;
+      v39 = "[CDMAssetsDelegateHandler notifyDelegate]";
+      v40 = 2112;
+      v41 = assetSetNames;
+      v42 = 2112;
+      v43 = v7;
+      v44 = 2112;
+      v45 = v7;
+      v46 = 2048;
+      v47 = assetAvailabilityType;
       _os_log_impl(&dword_1DC287000, v17, OS_LOG_TYPE_INFO, "%s All assets are available for assetSetNames: %@ for locale: %@. Call assets delegate's assetsAvailable for locale: %@  for assetAvailabilityType: %ld", buf, 0x34u);
     }
 
-    delegate = self->_delegate;
-    v22 = objc_opt_respondsToSelector();
-    v23 = CDMOSLoggerForCategory(0);
-    v24 = os_log_type_enabled(v23, OS_LOG_TYPE_INFO);
-    if (v22)
+    v21 = objc_opt_respondsToSelector();
+    v22 = CDMOSLoggerForCategory(0);
+    v23 = os_log_type_enabled(v22, OS_LOG_TYPE_INFO);
+    if (v21)
     {
-      if (v24)
+      if (v23)
       {
         *buf = 136315138;
-        v42 = "[CDMAssetsDelegateHandler notifyDelegate]";
-        _os_log_impl(&dword_1DC287000, v23, OS_LOG_TYPE_INFO, "%s Selector found for assetsAvailableForLocale:withType:", buf, 0xCu);
+        v39 = "[CDMAssetsDelegateHandler notifyDelegate]";
+        _os_log_impl(&dword_1DC287000, v22, OS_LOG_TYPE_INFO, "%s Selector found for assetsAvailableForLocale:withType:", buf, 0xCu);
       }
 
-      v25 = self->_delegate;
-      v26 = [MEMORY[0x1E695DF58] localeWithLocaleIdentifier:v7];
-      [(CDMTrialAssetsDelegate *)v25 assetsAvailableForLocale:v26 withType:self->_assetAvailabilityType];
+      delegate = self->_delegate;
+      v25 = [MEMORY[0x1E695DF58] localeWithLocaleIdentifier:v7];
+      [(CDMTrialAssetsDelegate *)delegate assetsAvailableForLocale:v25 withType:self->_assetAvailabilityType];
     }
 
     else
     {
-      if (v24)
+      if (v23)
       {
         *buf = 136315138;
-        v42 = "[CDMAssetsDelegateHandler notifyDelegate]";
-        _os_log_impl(&dword_1DC287000, v23, OS_LOG_TYPE_INFO, "%s Selector not found for assetsAvailableForLocale:withType:", buf, 0xCu);
+        v39 = "[CDMAssetsDelegateHandler notifyDelegate]";
+        _os_log_impl(&dword_1DC287000, v22, OS_LOG_TYPE_INFO, "%s Selector not found for assetsAvailableForLocale:withType:", buf, 0xCu);
       }
 
-      v33 = self->_delegate;
-      v34 = [MEMORY[0x1E695DF58] localeWithLocaleIdentifier:v7];
-      [(CDMTrialAssetsDelegate *)v33 assetsAvailableForLocale:v34];
+      v31 = self->_delegate;
+      v32 = [MEMORY[0x1E695DF58] localeWithLocaleIdentifier:v7];
+      [(CDMTrialAssetsDelegate *)v31 assetsAvailableForLocale:v32];
     }
   }
 
@@ -182,28 +181,27 @@ LABEL_21:
   {
     if (v18)
     {
-      v27 = self->_assetSetNames;
-      v28 = self->_assetAvailabilityType;
+      v26 = self->_assetSetNames;
+      v27 = self->_assetAvailabilityType;
       *buf = 136315650;
-      v42 = "[CDMAssetsDelegateHandler notifyDelegate]";
-      v43 = 2112;
-      v44 = v27;
-      v45 = 2048;
-      v46 = v28;
+      v39 = "[CDMAssetsDelegateHandler notifyDelegate]";
+      v40 = 2112;
+      v41 = v26;
+      v42 = 2048;
+      v43 = v27;
       _os_log_impl(&dword_1DC287000, v17, OS_LOG_TYPE_INFO, "%s Not all assets are available for assetSetNames: %@. Call assets delegate's assetsUnavailable for assetAvailabilityType: %ld", buf, 0x20u);
     }
 
-    v29 = self->_delegate;
-    v30 = objc_opt_respondsToSelector();
-    v31 = CDMOSLoggerForCategory(0);
-    v32 = os_log_type_enabled(v31, OS_LOG_TYPE_INFO);
-    if (v30)
+    v28 = objc_opt_respondsToSelector();
+    v29 = CDMOSLoggerForCategory(0);
+    v30 = os_log_type_enabled(v29, OS_LOG_TYPE_INFO);
+    if (v28)
     {
-      if (v32)
+      if (v30)
       {
         *buf = 136315138;
-        v42 = "[CDMAssetsDelegateHandler notifyDelegate]";
-        _os_log_impl(&dword_1DC287000, v31, OS_LOG_TYPE_INFO, "%s Selector found for assetsUnavailableWithType:", buf, 0xCu);
+        v39 = "[CDMAssetsDelegateHandler notifyDelegate]";
+        _os_log_impl(&dword_1DC287000, v29, OS_LOG_TYPE_INFO, "%s Selector found for assetsUnavailableWithType:", buf, 0xCu);
       }
 
       [(CDMTrialAssetsDelegate *)self->_delegate assetsUnavailableWithType:self->_assetAvailabilityType];
@@ -211,23 +209,21 @@ LABEL_21:
 
     else
     {
-      if (v32)
+      if (v30)
       {
         *buf = 136315138;
-        v42 = "[CDMAssetsDelegateHandler notifyDelegate]";
-        _os_log_impl(&dword_1DC287000, v31, OS_LOG_TYPE_INFO, "%s Selector not found for assetsUnavailableWithType:", buf, 0xCu);
+        v39 = "[CDMAssetsDelegateHandler notifyDelegate]";
+        _os_log_impl(&dword_1DC287000, v29, OS_LOG_TYPE_INFO, "%s Selector not found for assetsUnavailableWithType:", buf, 0xCu);
       }
 
       [(CDMTrialAssetsDelegate *)self->_delegate assetsUnavailable];
     }
   }
-
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)assetsUnavailableForAssetSet:(id)set
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   setCopy = set;
   v5 = [(NSArray *)self->_assetSetNames containsObject:setCopy];
   v6 = CDMOSLoggerForCategory(0);
@@ -236,11 +232,11 @@ LABEL_21:
   {
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      v11 = 136315394;
-      v12 = "[CDMAssetsDelegateHandler assetsUnavailableForAssetSet:]";
-      v13 = 2112;
-      v14 = setCopy;
-      _os_log_debug_impl(&dword_1DC287000, &v7->super.super, OS_LOG_TYPE_DEBUG, "%s Asset is unavailable for assetSetName: %@.", &v11, 0x16u);
+      v10 = 136315394;
+      v11 = "[CDMAssetsDelegateHandler assetsUnavailableForAssetSet:]";
+      v12 = 2112;
+      v13 = setCopy;
+      _os_log_debug_impl(&dword_1DC287000, &v7->super.super, OS_LOG_TYPE_DEBUG, "%s Asset is unavailable for assetSetName: %@.", &v10, 0x16u);
     }
 
     v7 = self->_assetsAvailabilities;
@@ -253,22 +249,21 @@ LABEL_21:
   else if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     assetSetNames = self->_assetSetNames;
-    v11 = 136315650;
-    v12 = "[CDMAssetsDelegateHandler assetsUnavailableForAssetSet:]";
-    v13 = 2112;
-    v14 = setCopy;
-    v15 = 2112;
-    v16 = assetSetNames;
-    _os_log_impl(&dword_1DC287000, &v7->super.super, OS_LOG_TYPE_INFO, "%s [WARN]: Not able to find assetSetName: %@ in assetSetName array: %@", &v11, 0x20u);
+    v10 = 136315650;
+    v11 = "[CDMAssetsDelegateHandler assetsUnavailableForAssetSet:]";
+    v12 = 2112;
+    v13 = setCopy;
+    v14 = 2112;
+    v15 = assetSetNames;
+    _os_log_impl(&dword_1DC287000, &v7->super.super, OS_LOG_TYPE_INFO, "%s [WARN]: Not able to find assetSetName: %@ in assetSetName array: %@", &v10, 0x20u);
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (BOOL)assetsAvailableForAssetSet:(id)set forLocale:(id)locale
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   setCopy = set;
   localeCopy = locale;
   v8 = [(NSArray *)self->_assetSetNames containsObject:setCopy];
@@ -278,13 +273,13 @@ LABEL_21:
   {
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      v14 = 136315650;
-      v15 = "[CDMAssetsDelegateHandler assetsAvailableForAssetSet:forLocale:]";
-      v16 = 2112;
-      v17 = setCopy;
-      v18 = 2112;
-      v19 = localeCopy;
-      _os_log_debug_impl(&dword_1DC287000, &v10->super.super, OS_LOG_TYPE_DEBUG, "%s Asset is available for assetSetName: %@ for locale: %@.", &v14, 0x20u);
+      v13 = 136315650;
+      v14 = "[CDMAssetsDelegateHandler assetsAvailableForAssetSet:forLocale:]";
+      v15 = 2112;
+      v16 = setCopy;
+      v17 = 2112;
+      v18 = localeCopy;
+      _os_log_debug_impl(&dword_1DC287000, &v10->super.super, OS_LOG_TYPE_DEBUG, "%s Asset is available for assetSetName: %@ for locale: %@.", &v13, 0x20u);
     }
 
     v10 = self->_assetsAvailabilities;
@@ -297,36 +292,35 @@ LABEL_21:
   else if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     assetSetNames = self->_assetSetNames;
-    v14 = 136315650;
-    v15 = "[CDMAssetsDelegateHandler assetsAvailableForAssetSet:forLocale:]";
-    v16 = 2112;
-    v17 = setCopy;
-    v18 = 2112;
-    v19 = assetSetNames;
-    _os_log_impl(&dword_1DC287000, &v10->super.super, OS_LOG_TYPE_INFO, "%s [WARN]: Not able to find assetSetName: %@ in assetSetName array: %@", &v14, 0x20u);
+    v13 = 136315650;
+    v14 = "[CDMAssetsDelegateHandler assetsAvailableForAssetSet:forLocale:]";
+    v15 = 2112;
+    v16 = setCopy;
+    v17 = 2112;
+    v18 = assetSetNames;
+    _os_log_impl(&dword_1DC287000, &v10->super.super, OS_LOG_TYPE_INFO, "%s [WARN]: Not able to find assetSetName: %@ in assetSetName array: %@", &v13, 0x20u);
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 - (CDMAssetsDelegateHandler)initWithAssetsDelegate:(id)delegate forAssetSets:(id)sets withAssetAvailabilityType:(int64_t)type
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   delegateCopy = delegate;
   setsCopy = sets;
-  v17.receiver = self;
-  v17.super_class = CDMAssetsDelegateHandler;
-  v11 = [(CDMAssetsDelegateHandler *)&v17 init];
+  v16.receiver = self;
+  v16.super_class = CDMAssetsDelegateHandler;
+  v11 = [(CDMAssetsDelegateHandler *)&v16 init];
   if (v11)
   {
     v12 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v19 = "[CDMAssetsDelegateHandler initWithAssetsDelegate:forAssetSets:withAssetAvailabilityType:]";
-      v20 = 2112;
-      v21 = setsCopy;
+      v18 = "[CDMAssetsDelegateHandler initWithAssetsDelegate:forAssetSets:withAssetAvailabilityType:]";
+      v19 = 2112;
+      v20 = setsCopy;
       _os_log_impl(&dword_1DC287000, v12, OS_LOG_TYPE_INFO, "%s Initialize CDMAssetsDelegateHandler for assetSetNames: %@.", buf, 0x16u);
     }
 
@@ -339,7 +333,6 @@ LABEL_21:
     v11->_assetAvailabilityType = type;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

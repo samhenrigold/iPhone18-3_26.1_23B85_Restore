@@ -9329,41 +9329,41 @@ void sub_1DDFFD2CC()
   JUMPOUT(0x1DDFFD308);
 }
 
-void sub_1DDFFD2F4(uint64_t a1, int a2)
+void sub_1DDFFD2F4(void *a1, int a2)
 {
   if (a2)
   {
-    __clang_call_terminate();
+    __clang_call_terminate(a1);
   }
 
   JUMPOUT(0x1DDFFD2C0);
 }
 
-void sub_1DDFFD2FC(uint64_t a1, int a2)
+void sub_1DDFFD2FC(void *a1, int a2)
 {
   if (a2)
   {
-    __clang_call_terminate();
+    __clang_call_terminate(a1);
   }
 
   JUMPOUT(0x1DDFFD2C0);
 }
 
-void sub_1DDFFD328(uint64_t a1, int a2)
+void sub_1DDFFD328(void *a1, int a2)
 {
   if (a2)
   {
-    __clang_call_terminate();
+    __clang_call_terminate(a1);
   }
 
   JUMPOUT(0x1DDFFD2C0);
 }
 
-void sub_1DDFFD330(uint64_t a1, int a2)
+void sub_1DDFFD330(void *a1, int a2)
 {
   if (a2)
   {
-    __clang_call_terminate();
+    __clang_call_terminate(a1);
   }
 
   JUMPOUT(0x1DDFFD2C0);
@@ -9385,61 +9385,61 @@ void sub_1DDFFD338()
   JUMPOUT(0x1DDFFD374);
 }
 
-void sub_1DDFFD360(uint64_t a1, int a2)
+void sub_1DDFFD360(void *a1, int a2)
 {
   if (a2)
   {
-    __clang_call_terminate();
+    __clang_call_terminate(a1);
   }
 
   JUMPOUT(0x1DDFFD2C0);
 }
 
-void sub_1DDFFD3CC(uint64_t a1, int a2)
+void sub_1DDFFD3CC(void *a1, int a2)
 {
   if (a2)
   {
-    __clang_call_terminate();
+    __clang_call_terminate(a1);
   }
 
   JUMPOUT(0x1DDFFD2C0);
 }
 
-void sub_1DDFFD3D4(uint64_t a1, int a2)
+void sub_1DDFFD3D4(void *a1, int a2)
 {
   if (a2)
   {
-    __clang_call_terminate();
+    __clang_call_terminate(a1);
   }
 
   JUMPOUT(0x1DDFFD2C0);
 }
 
-void sub_1DDFFD3DC(uint64_t a1, int a2)
+void sub_1DDFFD3DC(void *a1, int a2)
 {
   if (a2)
   {
-    __clang_call_terminate();
+    __clang_call_terminate(a1);
   }
 
   JUMPOUT(0x1DDFFD2C0);
 }
 
-void sub_1DDFFD3E4(uint64_t a1, int a2)
+void sub_1DDFFD3E4(void *a1, int a2)
 {
   if (a2)
   {
-    __clang_call_terminate();
+    __clang_call_terminate(a1);
   }
 
   JUMPOUT(0x1DDFFD2C0);
 }
 
-void sub_1DDFFD3EC(uint64_t a1, int a2)
+void sub_1DDFFD3EC(void *a1, int a2)
 {
   if (a2)
   {
-    __clang_call_terminate();
+    __clang_call_terminate(a1);
   }
 
   JUMPOUT(0x1DDFFD2C0);

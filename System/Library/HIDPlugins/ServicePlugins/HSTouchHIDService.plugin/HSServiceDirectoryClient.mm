@@ -13,19 +13,19 @@
 {
   if (right->_mp - 1 >= 0xFFFFFFFE)
   {
-    v10 = +[NSAssertionHandler currentHandler];
-    [v10 handleFailureInMethod:a2 object:self file:@"HSServiceDirectory.mm" lineNumber:365 description:{@"Invalid parameter not satisfying: %@", @"sendRight"}];
+    v9 = +[NSAssertionHandler currentHandler];
+    [v9 handleFailureInMethod:a2 object:self file:@"HSServiceDirectory.mm" lineNumber:365 description:{@"Invalid parameter not satisfying: %@", @"sendRight"}];
   }
 
-  v13.receiver = self;
-  v13.super_class = HSServiceDirectoryClient;
-  v5 = [(HSServiceDirectoryClient *)&v13 init];
-  if (v5)
+  v12.receiver = self;
+  v12.super_class = HSServiceDirectoryClient;
+  v4 = [(HSServiceDirectoryClient *)&v12 init];
+  if (v4)
   {
-    [HSMachPortListener getSendRightFromServer:right];
-    if ((v12 - 1) >= 0xFFFFFFFE)
+    objc_msgSend_getSendRightFromServer_(HSMachPortListener);
+    if ((v11 - 1) >= 0xFFFFFFFE)
     {
-      basename_r("/Library/Caches/com.apple.xbs/Sources/HIDSensingPipeline/HIDSensingPipeline/HSServiceDirectory.mm", v14);
+      basename_r("/Library/Caches/com.apple.xbs/Sources/HIDSensingPipeline/HIDSensingPipeline/HSServiceDirectory.mm", v13);
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
         [HSServiceDirectoryClient initWithSendRight:];
@@ -34,44 +34,44 @@
 
     else
     {
-      HSUtil::PortRight::port(v11);
-      v6 = fileport_makefd();
-      if ((v6 & 0x80000000) == 0)
+      HSUtil::PortRight::port(v10);
+      v5 = fileport_makefd();
+      if ((v5 & 0x80000000) == 0)
       {
-        *v14 = &off_1093A0;
-        v15 = &off_1093D0;
-        v16 = v6;
-        if ((v5->_socket._fd & 0x80000000) == 0)
+        *v13 = &off_1093A0;
+        v14 = &off_1093D0;
+        v15 = v5;
+        if ((v4->_socket._fd & 0x80000000) == 0)
         {
-          close(v5->_socket._fd);
-          v5->_socket._fd = -1;
-          v6 = v16;
+          close(v4->_socket._fd);
+          v4->_socket._fd = -1;
+          v5 = v15;
         }
 
-        v5->_socket._fd = v6;
-        v16 = -1;
-        HSUtil::FileDescriptor::~FileDescriptor(v14);
-        v7 = v5;
+        v4->_socket._fd = v5;
+        v15 = -1;
+        HSUtil::FileDescriptor::~FileDescriptor(v13);
+        v6 = v4;
         goto LABEL_15;
       }
 
-      basename_r("/Library/Caches/com.apple.xbs/Sources/HIDSensingPipeline/HIDSensingPipeline/HSServiceDirectory.mm", v14);
+      basename_r("/Library/Caches/com.apple.xbs/Sources/HIDSensingPipeline/HIDSensingPipeline/HSServiceDirectory.mm", v13);
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
         [HSServiceDirectoryClient initWithSendRight:];
       }
     }
 
-    v7 = 0;
+    v6 = 0;
 LABEL_15:
-    HSUtil::SendRight::~SendRight(v11);
+    HSUtil::SendRight::~SendRight(v10);
     goto LABEL_16;
   }
 
-  v7 = 0;
+  v6 = 0;
 LABEL_16:
 
-  return v7;
+  return v6;
 }
 
 - (HSServiceDirectoryClient)initWithSocket:(FileDescriptor *)socket
@@ -143,7 +143,7 @@ LABEL_16:
   }
 
   HSUtil::Buffer::~Buffer(v16);
-  HSUtil::Decoder::decodeArray(&__src, v16);
+  HSUtil::Decoder::decodeArray(v16, &__src);
   if (__src)
   {
     v15 = __cxa_allocate_exception(0x10uLL);
@@ -279,30 +279,34 @@ LABEL_16:
 
 - (void)initWithSendRight:.cold.1()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)initWithSendRight:.cold.2()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)services
 {
   OUTLINED_FUNCTION_4_1(__stack_chk_guard);
-  (*(v0 + 16))();
-  OUTLINED_FUNCTION_4_2(&dword_0, &_os_log_default, v1, "Failed to get services: %s", v2, v3, v4, v5, 2u);
+  LODWORD(v6) = 136315138;
+  *(&v6 + 4) = (*(v0 + 16))();
+  OUTLINED_FUNCTION_4_2(&dword_0, &_os_log_default, v1, "Failed to get services: %s", v2, v3, v4, v5, v6, DWORD2(v6));
 }
 
 - (void)openService:config:.cold.1()
 {
   OUTLINED_FUNCTION_4_1(__stack_chk_guard);
-  (*(v0 + 16))();
-  OUTLINED_FUNCTION_4_2(&dword_0, &_os_log_default, v1, "Failed to open service: %s", v2, v3, v4, v5, 2u);
+  LODWORD(v6) = 136315138;
+  *(&v6 + 4) = (*(v0 + 16))();
+  OUTLINED_FUNCTION_4_2(&dword_0, &_os_log_default, v1, "Failed to open service: %s", v2, v3, v4, v5, v6, DWORD2(v6));
 }
 
 @end

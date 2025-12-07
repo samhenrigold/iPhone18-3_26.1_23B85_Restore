@@ -11,7 +11,7 @@
   v10 = 0;
   if ([stringCopy length])
   {
-    sub_1000C9D60();
+    sub_1000C9D60(stringCopy);
 LABEL_12:
     v4 = 0;
     goto LABEL_8;
@@ -48,7 +48,7 @@ LABEL_7:
       }
     }
 
-    sub_1000C9E00();
+    sub_1000C9E00(stringCopy);
     goto LABEL_12;
   }
 

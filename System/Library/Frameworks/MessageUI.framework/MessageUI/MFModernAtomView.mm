@@ -761,7 +761,7 @@ LABEL_11:
       [_chevronTextAttachment setObject:v15 forKey:v10];
 
       v16 = objc_alloc(MEMORY[0x1E696AD40]);
-      v17 = MFLocalizedAddressSeparator();
+      v17 = MFLocalizedAddressSeparator(v16);
       v38 = [v16 initWithString:v17 attributes:_chevronTextAttachment];
     }
 
@@ -1571,11 +1571,11 @@ uint64_t __70__MFModernAtomView_performBuildInAnimationFromTextColor_withDuratio
   return [v2 setAlpha:0.0];
 }
 
-uint64_t __70__MFModernAtomView_performBuildInAnimationFromTextColor_withDuration___block_invoke_2(uint64_t result, int a2)
+id *__70__MFModernAtomView_performBuildInAnimationFromTextColor_withDuration___block_invoke_2(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) removeFromSuperview];
+    return [result[4] removeFromSuperview];
   }
 
   return result;

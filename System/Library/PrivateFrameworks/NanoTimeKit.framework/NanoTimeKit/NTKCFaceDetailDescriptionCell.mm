@@ -42,8 +42,7 @@
     textContainer2 = [(UITextView *)v2->_textView textContainer];
     [textContainer2 setLineFragmentPadding:0.0];
 
-    [(UITextView *)v2->_textView setTextContainerInset:*MEMORY[0x277D768C8], *(MEMORY[0x277D768C8] + 8), *(MEMORY[0x277D768C8] + 16), *(MEMORY[0x277D768C8] + 24)];
-    v7 = NTKCActionColor();
+    v7 = NTKCActionColor([(UITextView *)v2->_textView setTextContainerInset:*MEMORY[0x277D768C8], *(MEMORY[0x277D768C8] + 8), *(MEMORY[0x277D768C8] + 16), *(MEMORY[0x277D768C8] + 24)]);
     [(UITextView *)v2->_textView setTintColor:v7];
 
     [(UITextView *)v2->_textView setDelegate:v2];

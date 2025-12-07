@@ -26,73 +26,73 @@
     selfCopy = self;
     v42 = objc_alloc_init(NSMutableArray);
     v4 = +[NSMutableArray array];
-    v5 = AXCaptionFonts();
-    v6 = +[NSMutableArray array];
+    v6 = AXCaptionFonts(v4, v5);
+    v7 = +[NSMutableArray array];
     v53 = 0u;
     v54 = 0u;
     v55 = 0u;
     v56 = 0u;
-    obj = v5;
-    v7 = [obj countByEnumeratingWithState:&v53 objects:v59 count:16];
-    if (v7)
+    obj = v6;
+    v8 = [obj countByEnumeratingWithState:&v53 objects:v59 count:16];
+    if (v8)
     {
-      v8 = v7;
-      v9 = *v54;
+      v9 = v8;
+      v10 = *v54;
       do
       {
-        for (i = 0; i != v8; i = i + 1)
+        for (i = 0; i != v9; i = i + 1)
         {
-          if (*v54 != v9)
+          if (*v54 != v10)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = [*(*(&v53 + 1) + 8 * i) objectForKeyedSubscript:@"name"];
-          lowercaseString = [v11 lowercaseString];
+          v12 = [*(*(&v53 + 1) + 8 * i) objectForKeyedSubscript:@"name"];
+          lowercaseString = [v12 lowercaseString];
 
-          v13 = [lowercaseString rangeOfString:@"-"];
-          if (v13 != 0x7FFFFFFFFFFFFFFFLL)
+          v14 = [lowercaseString rangeOfString:@"-"];
+          if (v14 != 0x7FFFFFFFFFFFFFFFLL)
           {
-            v14 = [lowercaseString substringToIndex:v13];
+            v15 = [lowercaseString substringToIndex:v14];
 
-            lowercaseString = v14;
+            lowercaseString = v15;
           }
 
-          [v6 addObject:lowercaseString];
+          [v7 addObject:lowercaseString];
         }
 
-        v8 = [obj countByEnumeratingWithState:&v53 objects:v59 count:16];
+        v9 = [obj countByEnumeratingWithState:&v53 objects:v59 count:16];
       }
 
-      while (v8);
+      while (v9);
     }
 
     v51 = 0u;
     v52 = 0u;
     v49 = 0u;
     v50 = 0u;
-    v15 = +[UIFont familyNames];
-    v16 = [v15 countByEnumeratingWithState:&v49 objects:v58 count:16];
-    if (v16)
+    v16 = +[UIFont familyNames];
+    v17 = [v16 countByEnumeratingWithState:&v49 objects:v58 count:16];
+    if (v17)
     {
-      v17 = v16;
-      v18 = *v50;
+      v18 = v17;
+      v19 = *v50;
       do
       {
-        for (j = 0; j != v17; j = j + 1)
+        for (j = 0; j != v18; j = j + 1)
         {
-          if (*v50 != v18)
+          if (*v50 != v19)
           {
-            objc_enumerationMutation(v15);
+            objc_enumerationMutation(v16);
           }
 
           [v4 addObject:*(*(&v49 + 1) + 8 * j)];
         }
 
-        v17 = [v15 countByEnumeratingWithState:&v49 objects:v58 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v49 objects:v58 count:16];
       }
 
-      while (v17);
+      while (v18);
     }
 
     [v4 sortUsingComparator:&__block_literal_global_63];
@@ -100,64 +100,63 @@
     v48 = 0u;
     v45 = 0u;
     v46 = 0u;
-    v20 = v4;
-    v21 = [v20 countByEnumeratingWithState:&v45 objects:v57 count:16];
-    if (v21)
+    v21 = v4;
+    v22 = [v21 countByEnumeratingWithState:&v45 objects:v57 count:16];
+    if (v22)
     {
-      v22 = v21;
-      v23 = *v46;
+      v23 = v22;
+      v24 = *v46;
       v41 = PSCellClassKey;
       v40 = PSIDKey;
       do
       {
-        for (k = 0; k != v22; ++k)
+        for (k = 0; k != v23; ++k)
         {
-          if (*v46 != v23)
+          if (*v46 != v24)
           {
-            objc_enumerationMutation(v20);
+            objc_enumerationMutation(v21);
           }
 
-          v25 = _CTFontCreateWithNameAndSymbolicTraits();
-          if (v25)
+          v26 = _CTFontCreateWithNameAndSymbolicTraits();
+          if (v26)
           {
-            v26 = v25;
-            v27 = CTFontCopyFullName(v25);
-            v28 = CTFontCopyPostScriptName(v26);
-            v29 = [(__CFString *)v28 rangeOfString:@"-"];
-            v30 = v28;
-            if (v29 != 0x7FFFFFFFFFFFFFFFLL)
+            v27 = v26;
+            v28 = CTFontCopyFullName(v26);
+            v29 = CTFontCopyPostScriptName(v27);
+            v30 = [(__CFString *)v29 rangeOfString:@"-"];
+            v31 = v29;
+            if (v30 != 0x7FFFFFFFFFFFFFFFLL)
             {
-              v30 = [(__CFString *)v28 substringToIndex:v29];
+              v31 = [(__CFString *)v29 substringToIndex:v30];
             }
 
-            CFRelease(v26);
-            lowercaseString2 = [(__CFString *)v28 lowercaseString];
-            lowercaseString3 = [v30 lowercaseString];
-            LOBYTE(v37) = 1;
-            _AXLogWithFacility();
+            CFRelease(v27);
+            lowercaseString2 = [(__CFString *)v29 lowercaseString];
+            lowercaseString3 = [v31 lowercaseString];
+            _AXLogWithFacility(3, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"here: %@/%@");
 
-            lowercaseString4 = [v30 lowercaseString];
-            v33 = [v6 containsObject:lowercaseString4];
+            lowercaseString4 = [v31 lowercaseString];
+            v34 = [v7 containsObject:lowercaseString4];
 
-            if ((v33 & 1) == 0)
+            if ((v34 & 1) == 0)
             {
-              v34 = [PSSpecifier preferenceSpecifierNamed:v27 target:selfCopy set:0 get:0 detail:0 cell:3 edit:0];
-              [v34 setProperty:objc_opt_class() forKey:v41];
-              [v34 setProperty:v28 forKey:v40];
-              [v34 setProperty:&__kCFBooleanTrue forKey:@"isFont"];
-              [v34 setCellType:3];
-              [v42 addObject:v34];
+              v35 = [PSSpecifier preferenceSpecifierNamed:v28 target:selfCopy set:0 get:0 detail:0 cell:3 edit:0];
+              [v35 setProperty:objc_opt_class() forKey:v41];
+              [v35 setProperty:v29 forKey:v40];
+              [v35 setProperty:&__kCFBooleanTrue forKey:@"isFont"];
+              [v35 setCellType:3];
+              [v42 addObject:v35];
             }
           }
         }
 
-        v22 = [v20 countByEnumeratingWithState:&v45 objects:v57 count:16];
+        v23 = [v21 countByEnumeratingWithState:&v45 objects:v57 count:16];
       }
 
-      while (v22);
+      while (v23);
     }
 
-    v35 = *&selfCopy->AXUISettingsBaseListController_opaque[v39];
+    v36 = *&selfCopy->AXUISettingsBaseListController_opaque[v39];
     *&selfCopy->AXUISettingsBaseListController_opaque[v39] = v42;
 
     v3 = *&selfCopy->AXUISettingsBaseListController_opaque[v39];
@@ -171,25 +170,24 @@
   v5 = [view cellForRowAtIndexPath:path];
   specifier = [v5 specifier];
   v7 = [specifier propertyForKey:PSIDKey];
-  v18[0] = @"name";
-  v18[1] = @"size";
-  v19[0] = v7;
-  v19[1] = &off_27B4F0;
-  v18[2] = @"displayName";
+  v17[0] = @"name";
+  v17[1] = @"size";
+  v18[0] = v7;
+  v18[1] = &off_27B4F0;
+  v17[2] = @"displayName";
   name = [specifier name];
-  v18[3] = @"isBold";
-  v19[2] = name;
-  v19[3] = &__kCFBooleanFalse;
-  v9 = [NSDictionary dictionaryWithObjects:v19 forKeys:v18 count:4];
+  v17[3] = @"isBold";
+  v18[2] = name;
+  v18[3] = &__kCFBooleanFalse;
+  v9 = [NSDictionary dictionaryWithObjects:v18 forKeys:v17 count:4];
 
   AXCaptionAddExtraUserFont(v9);
-  LOBYTE(v17) = 1;
-  _AXLogWithFacility();
-  v10 = [(AXCaptionTextAllFontsController *)self specifier:v17];
-  v11 = [v10 propertyForKey:@"TextCategory"];
+  _AXLogWithFacility(3, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"add font: %@");
+  specifier2 = [(AXCaptionTextAllFontsController *)self specifier];
+  v11 = [specifier2 propertyForKey:@"TextCategory"];
   [v11 integerValue];
 
-  v12 = [v10 propertyForKey:@"ProfileId"];
+  v12 = [specifier2 propertyForKey:@"ProfileId"];
   v13 = _CTFontCreateWithNameAndSymbolicTraits();
   v14 = CTFontCopyGraphicsFont(v13, 0);
   if (v13)

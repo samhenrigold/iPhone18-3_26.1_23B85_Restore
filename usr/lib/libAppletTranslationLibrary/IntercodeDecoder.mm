@@ -24,6 +24,7 @@
 + (id)getServiceProviderData:(id)data withPackage:(id)package withModule:(id)module withTransceiver:(id)transceiver withError:(id *)error;
 + (id)getServiceProviderData:(id)data withPublicKey:(id)key withEncryptionScheme:(id)scheme withError:(id *)error;
 + (void)interpretTransactionEvent:(id)event;
+- (id)generateContactEndEvent:(id)event withDidError:(BOOL)error;
 - (id)generateEndEventFromHCI;
 @end
 
@@ -31,12 +32,12 @@
 
 + (id)getAppletStateAndHistory:(id)history withApplet:(id)applet withPackage:(id)package withModule:(id)module withError:(id *)error
 {
-  v26[1] = *MEMORY[0x277D85DE8];
-  v8 = ATLLogObject();
+  v24[1] = *MEMORY[0x277D85DE8];
+  v8 = ATLLogObject(self);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
-    *v22 = 0;
-    _os_log_impl(&dword_22EEF5000, v8, OS_LOG_TYPE_ERROR, "IntercodeDecoder doesn't support getAppletStateAndHistory (implemented in specific subDecoders)", v22, 2u);
+    *v20 = 0;
+    _os_log_impl(&dword_22EEF5000, v8, OS_LOG_TYPE_ERROR, "IntercodeDecoder doesn't support getAppletStateAndHistory (implemented in specific subDecoders)", v20, 2u);
   }
 
   v9 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"IntercodeDecoder doesn't support getAppletStateAndHistory (implemented in specific subDecoders)"];
@@ -45,46 +46,44 @@
   {
     v11 = *error;
     v12 = MEMORY[0x277CCA9B8];
-    v13 = *MEMORY[0x277CCA450];
     if (*error)
     {
-      v14 = *MEMORY[0x277CCA7E8];
-      v23[0] = *MEMORY[0x277CCA450];
-      v23[1] = v14;
-      v24[0] = v9;
-      v24[1] = v11;
-      v15 = MEMORY[0x277CBEAC0];
-      v16 = v24;
-      v17 = v23;
-      v18 = 2;
+      v13 = *MEMORY[0x277CCA7E8];
+      v21[0] = *MEMORY[0x277CCA450];
+      v21[1] = v13;
+      v22[0] = v9;
+      v22[1] = v11;
+      v14 = MEMORY[0x277CBEAC0];
+      v15 = v22;
+      v16 = v21;
+      v17 = 2;
     }
 
     else
     {
-      v25 = *MEMORY[0x277CCA450];
-      v26[0] = v9;
-      v15 = MEMORY[0x277CBEAC0];
-      v16 = v26;
-      v17 = &v25;
-      v18 = 1;
+      v23 = *MEMORY[0x277CCA450];
+      v24[0] = v9;
+      v14 = MEMORY[0x277CBEAC0];
+      v15 = v24;
+      v16 = &v23;
+      v17 = 1;
     }
 
-    v19 = [v15 dictionaryWithObjects:v16 forKeys:v17 count:v18];
-    *error = [v12 errorWithDomain:@"ATL" code:2 userInfo:v19];
+    v18 = [v14 dictionaryWithObjects:v15 forKeys:v16 count:v17];
+    *error = [v12 errorWithDomain:@"ATL" code:2 userInfo:v18];
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 + (id)getAppletStateAndHistory:(id)history withError:(id *)error
 {
-  v23[1] = *MEMORY[0x277D85DE8];
-  v5 = ATLLogObject();
+  v21[1] = *MEMORY[0x277D85DE8];
+  v5 = ATLLogObject(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    *v19 = 0;
-    _os_log_impl(&dword_22EEF5000, v5, OS_LOG_TYPE_ERROR, "IntercodeDecoder doesn't support getAppletStateAndHistory (implemented in specific subDecoders)", v19, 2u);
+    *v17 = 0;
+    _os_log_impl(&dword_22EEF5000, v5, OS_LOG_TYPE_ERROR, "IntercodeDecoder doesn't support getAppletStateAndHistory (implemented in specific subDecoders)", v17, 2u);
   }
 
   v6 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"IntercodeDecoder doesn't support getAppletStateAndHistory (implemented in specific subDecoders)"];
@@ -93,46 +92,44 @@
   {
     v8 = *error;
     v9 = MEMORY[0x277CCA9B8];
-    v10 = *MEMORY[0x277CCA450];
     if (*error)
     {
-      v11 = *MEMORY[0x277CCA7E8];
-      v20[0] = *MEMORY[0x277CCA450];
-      v20[1] = v11;
-      v21[0] = v6;
-      v21[1] = v8;
-      v12 = MEMORY[0x277CBEAC0];
-      v13 = v21;
-      v14 = v20;
-      v15 = 2;
+      v10 = *MEMORY[0x277CCA7E8];
+      v18[0] = *MEMORY[0x277CCA450];
+      v18[1] = v10;
+      v19[0] = v6;
+      v19[1] = v8;
+      v11 = MEMORY[0x277CBEAC0];
+      v12 = v19;
+      v13 = v18;
+      v14 = 2;
     }
 
     else
     {
-      v22 = *MEMORY[0x277CCA450];
-      v23[0] = v6;
-      v12 = MEMORY[0x277CBEAC0];
-      v13 = v23;
-      v14 = &v22;
-      v15 = 1;
+      v20 = *MEMORY[0x277CCA450];
+      v21[0] = v6;
+      v11 = MEMORY[0x277CBEAC0];
+      v12 = v21;
+      v13 = &v20;
+      v14 = 1;
     }
 
-    v16 = [v12 dictionaryWithObjects:v13 forKeys:v14 count:v15];
-    *error = [v9 errorWithDomain:@"ATL" code:2 userInfo:v16];
+    v15 = [v11 dictionaryWithObjects:v12 forKeys:v13 count:v14];
+    *error = [v9 errorWithDomain:@"ATL" code:2 userInfo:v15];
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 + (id)getServiceProviderData:(id)data withPackage:(id)package withModule:(id)module withPublicKey:(id)key withEncryptionScheme:(id)scheme withTransceiver:(id)transceiver withError:(id *)error
 {
-  v27[1] = *MEMORY[0x277D85DE8];
-  v9 = ATLLogObject();
+  v25[1] = *MEMORY[0x277D85DE8];
+  v9 = ATLLogObject(self);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    *v23 = 0;
-    _os_log_impl(&dword_22EEF5000, v9, OS_LOG_TYPE_ERROR, "IntercodeDecoder doesn't support getServiceProviderData (implemented in specific subDecoders)", v23, 2u);
+    *v21 = 0;
+    _os_log_impl(&dword_22EEF5000, v9, OS_LOG_TYPE_ERROR, "IntercodeDecoder doesn't support getServiceProviderData (implemented in specific subDecoders)", v21, 2u);
   }
 
   v10 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"IntercodeDecoder doesn't support getServiceProviderData (implemented in specific subDecoders)"];
@@ -141,46 +138,44 @@
   {
     v12 = *error;
     v13 = MEMORY[0x277CCA9B8];
-    v14 = *MEMORY[0x277CCA450];
     if (*error)
     {
-      v15 = *MEMORY[0x277CCA7E8];
-      v24[0] = *MEMORY[0x277CCA450];
-      v24[1] = v15;
-      v25[0] = v10;
-      v25[1] = v12;
-      v16 = MEMORY[0x277CBEAC0];
-      v17 = v25;
-      v18 = v24;
-      v19 = 2;
+      v14 = *MEMORY[0x277CCA7E8];
+      v22[0] = *MEMORY[0x277CCA450];
+      v22[1] = v14;
+      v23[0] = v10;
+      v23[1] = v12;
+      v15 = MEMORY[0x277CBEAC0];
+      v16 = v23;
+      v17 = v22;
+      v18 = 2;
     }
 
     else
     {
-      v26 = *MEMORY[0x277CCA450];
-      v27[0] = v10;
-      v16 = MEMORY[0x277CBEAC0];
-      v17 = v27;
-      v18 = &v26;
-      v19 = 1;
+      v24 = *MEMORY[0x277CCA450];
+      v25[0] = v10;
+      v15 = MEMORY[0x277CBEAC0];
+      v16 = v25;
+      v17 = &v24;
+      v18 = 1;
     }
 
-    v20 = [v16 dictionaryWithObjects:v17 forKeys:v18 count:v19];
-    *error = [v13 errorWithDomain:@"ATL" code:2 userInfo:v20];
+    v19 = [v15 dictionaryWithObjects:v16 forKeys:v17 count:v18];
+    *error = [v13 errorWithDomain:@"ATL" code:2 userInfo:v19];
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 + (id)getServiceProviderData:(id)data withPackage:(id)package withModule:(id)module withTransceiver:(id)transceiver withError:(id *)error
 {
-  v26[1] = *MEMORY[0x277D85DE8];
-  v8 = ATLLogObject();
+  v24[1] = *MEMORY[0x277D85DE8];
+  v8 = ATLLogObject(self);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
-    *v22 = 0;
-    _os_log_impl(&dword_22EEF5000, v8, OS_LOG_TYPE_ERROR, "IntercodeDecoder doesn't support getServiceProviderData (implemented in specific subDecoders)", v22, 2u);
+    *v20 = 0;
+    _os_log_impl(&dword_22EEF5000, v8, OS_LOG_TYPE_ERROR, "IntercodeDecoder doesn't support getServiceProviderData (implemented in specific subDecoders)", v20, 2u);
   }
 
   v9 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"IntercodeDecoder doesn't support getServiceProviderData (implemented in specific subDecoders)"];
@@ -189,41 +184,49 @@
   {
     v11 = *error;
     v12 = MEMORY[0x277CCA9B8];
-    v13 = *MEMORY[0x277CCA450];
     if (*error)
     {
-      v14 = *MEMORY[0x277CCA7E8];
-      v23[0] = *MEMORY[0x277CCA450];
-      v23[1] = v14;
-      v24[0] = v9;
-      v24[1] = v11;
-      v15 = MEMORY[0x277CBEAC0];
-      v16 = v24;
-      v17 = v23;
-      v18 = 2;
+      v13 = *MEMORY[0x277CCA7E8];
+      v21[0] = *MEMORY[0x277CCA450];
+      v21[1] = v13;
+      v22[0] = v9;
+      v22[1] = v11;
+      v14 = MEMORY[0x277CBEAC0];
+      v15 = v22;
+      v16 = v21;
+      v17 = 2;
     }
 
     else
     {
-      v25 = *MEMORY[0x277CCA450];
-      v26[0] = v9;
-      v15 = MEMORY[0x277CBEAC0];
-      v16 = v26;
-      v17 = &v25;
-      v18 = 1;
+      v23 = *MEMORY[0x277CCA450];
+      v24[0] = v9;
+      v14 = MEMORY[0x277CBEAC0];
+      v15 = v24;
+      v16 = &v23;
+      v17 = 1;
     }
 
-    v19 = [v15 dictionaryWithObjects:v16 forKeys:v17 count:v18];
-    *error = [v12 errorWithDomain:@"ATL" code:2 userInfo:v19];
+    v18 = [v14 dictionaryWithObjects:v15 forKeys:v16 count:v17];
+    *error = [v12 errorWithDomain:@"ATL" code:2 userInfo:v18];
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return 0;
+}
+
+- (id)generateContactEndEvent:(id)event withDidError:(BOOL)error
+{
+  errorCopy = error;
+  eventCopy = event;
+  v6 = +[CalypsoDecoder sharedInstance];
+  v7 = [v6 generateContactEndEvent:eventCopy withDidError:errorCopy];
+
+  return v7;
 }
 
 - (id)generateEndEventFromHCI
 {
-  v2 = ATLLogObject();
+  v2 = ATLLogObject(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -279,7 +282,7 @@
 
 + (void)interpretTransactionEvent:(id)event
 {
-  v3 = ATLLogObject();
+  v3 = ATLLogObject(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -289,7 +292,7 @@
 
 + (id)formatCommutePlanIdentifier:(id)identifier
 {
-  v3 = ATLLogObject();
+  v3 = ATLLogObject(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -301,7 +304,7 @@
 
 + (id)getServiceProviderData:(id)data withError:(id *)error
 {
-  v4 = ATLLogObject();
+  v4 = ATLLogObject(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -313,7 +316,7 @@
 
 + (id)getServiceProviderData:(id)data withPublicKey:(id)key withEncryptionScheme:(id)scheme withError:(id *)error
 {
-  v6 = ATLLogObject();
+  v6 = ATLLogObject(self);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *v8 = 0;
@@ -325,43 +328,39 @@
 
 + (id)decodeEnvironmentBitMap:(id)map
 {
-  v16[5] = *MEMORY[0x277D85DE8];
-  v15[0] = @"EnvNetworkId";
+  v15[5] = *MEMORY[0x277D85DE8];
+  v14[0] = @"EnvNetworkId";
   v3 = MEMORY[0x277CCABB0];
   mapCopy = map;
   v5 = [v3 numberWithBool:{objc_msgSend(mapCopy, "isBitSet:", 0)}];
-  v16[0] = v5;
-  v15[1] = @"EnvApplicationIssuerId";
+  v15[0] = v5;
+  v14[1] = @"EnvApplicationIssuerId";
   v6 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(mapCopy, "isBitSet:", 1)}];
-  v16[1] = v6;
-  v15[2] = @"EnvApplicationEndDate";
+  v15[1] = v6;
+  v14[2] = @"EnvApplicationEndDate";
   v7 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(mapCopy, "isBitSet:", 2)}];
-  v16[2] = v7;
-  v15[3] = @"EnvAuthenticator";
+  v15[2] = v7;
+  v14[3] = @"EnvAuthenticator";
   v8 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(mapCopy, "isBitSet:", 4)}];
-  v16[3] = v8;
-  v15[4] = @"EnvDataBitmap";
+  v15[3] = v8;
+  v14[4] = @"EnvDataBitmap";
   v9 = MEMORY[0x277CCABB0];
   v10 = [mapCopy isBitSet:6];
 
   v11 = [v9 numberWithBool:v10];
-  v16[4] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:5];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v15[4] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:5];
 
   return v12;
 }
 
 + (id)decodeEnvironmentDataBitMap:(id)map
 {
-  v8[1] = *MEMORY[0x277D85DE8];
-  v7 = @"EnvDataCardStatus";
+  v7[1] = *MEMORY[0x277D85DE8];
+  v6 = @"EnvDataCardStatus";
   v3 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(map, "isBitSet:", 0)}];
-  v8[0] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v7[0] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
 
   return v4;
 }
@@ -371,194 +370,192 @@
   v43 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
-  if ([dataCopy length] > 0x1C)
+  v6 = [dataCopy length];
+  if (v6 > 0x1C)
   {
-    v8 = [dataCopy readBinaryValueAtBit:0 numberOfBits:6];
-    v9 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v8];
-    [dictionary setValue:v9 forKey:@"EnvVersionNumber"];
+    v9 = [dataCopy readBinaryValueAtBit:0 numberOfBits:6];
+    v10 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v9];
+    [dictionary setValue:v10 forKey:@"EnvVersionNumber"];
 
-    v10 = [dataCopy readBinaryValueAtBit:6 numberOfBits:7];
-    v11 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v10];
-    v12 = [self decodeEnvironmentBitMap:v11];
+    v11 = [dataCopy readBinaryValueAtBit:6 numberOfBits:7];
+    v12 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v11];
+    v13 = [self decodeEnvironmentBitMap:v12];
 
-    v13 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v10];
-    [dictionary setValue:v13 forKey:@"EnvBitmap"];
+    v14 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v11];
+    [dictionary setValue:v14 forKey:@"EnvBitmap"];
 
-    v14 = [v12 objectForKeyedSubscript:@"EnvNetworkId"];
-    bOOLValue = [v14 BOOLValue];
+    v15 = [v13 objectForKeyedSubscript:@"EnvNetworkId"];
+    bOOLValue = [v15 BOOLValue];
 
     if (bOOLValue)
     {
-      v16 = [dataCopy readBinaryValueAtBit:13 numberOfBits:24];
-      v17 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v16];
-      [dictionary setValue:v17 forKey:@"EnvNetworkId"];
+      v17 = [dataCopy readBinaryValueAtBit:13 numberOfBits:24];
+      v18 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v17];
+      [dictionary setValue:v18 forKey:@"EnvNetworkId"];
 
-      v18 = 37;
+      v19 = 37;
     }
 
     else
     {
-      v18 = 13;
+      v19 = 13;
     }
 
-    v19 = [v12 objectForKeyedSubscript:@"EnvApplicationIssuerId"];
-    bOOLValue2 = [v19 BOOLValue];
+    v20 = [v13 objectForKeyedSubscript:@"EnvApplicationIssuerId"];
+    bOOLValue2 = [v20 BOOLValue];
 
     if (bOOLValue2)
     {
-      v21 = [dataCopy readBinaryValueAtBit:v18 numberOfBits:8];
-      v18 += 8;
-      v22 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v21];
-      [dictionary setValue:v22 forKey:@"EnvApplicationIssuerId"];
+      v22 = [dataCopy readBinaryValueAtBit:v19 numberOfBits:8];
+      v19 += 8;
+      v23 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v22];
+      [dictionary setValue:v23 forKey:@"EnvApplicationIssuerId"];
     }
 
-    v23 = [v12 objectForKeyedSubscript:@"EnvApplicationEndDate"];
-    bOOLValue3 = [v23 BOOLValue];
+    v24 = [v13 objectForKeyedSubscript:@"EnvApplicationEndDate"];
+    bOOLValue3 = [v24 BOOLValue];
 
     if (bOOLValue3)
     {
-      v25 = [dataCopy readBinaryValueAtBit:v18 numberOfBits:14];
-      v18 += 14;
-      v26 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v25];
-      [dictionary setValue:v26 forKey:@"EnvApplicationEndDate"];
+      v26 = [dataCopy readBinaryValueAtBit:v19 numberOfBits:14];
+      v19 += 14;
+      v27 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v26];
+      [dictionary setValue:v27 forKey:@"EnvApplicationEndDate"];
     }
 
-    v27 = [v12 objectForKeyedSubscript:@"EnvAuthenticator"];
-    bOOLValue4 = [v27 BOOLValue];
+    v28 = [v13 objectForKeyedSubscript:@"EnvAuthenticator"];
+    bOOLValue4 = [v28 BOOLValue];
 
     if (bOOLValue4)
     {
-      v29 = [dataCopy readBinaryValueAtBit:v18 numberOfBits:16];
-      v18 += 16;
-      v30 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v29];
-      [dictionary setValue:v30 forKey:@"EnvAuthenticator"];
+      v30 = [dataCopy readBinaryValueAtBit:v19 numberOfBits:16];
+      v19 += 16;
+      v31 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v30];
+      [dictionary setValue:v31 forKey:@"EnvAuthenticator"];
     }
 
-    v31 = [v12 objectForKeyedSubscript:@"EnvDataBitmap"];
-    bOOLValue5 = [v31 BOOLValue];
+    v32 = [v13 objectForKeyedSubscript:@"EnvDataBitmap"];
+    bOOLValue5 = [v32 BOOLValue];
 
     if (bOOLValue5)
     {
-      v33 = [dataCopy readBinaryValueAtBit:v18 numberOfBits:2];
-      v34 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v33];
-      [dictionary setValue:v34 forKey:@"EnvDataBitmap"];
+      v34 = [dataCopy readBinaryValueAtBit:v19 numberOfBits:2];
+      v35 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v34];
+      [dictionary setValue:v35 forKey:@"EnvDataBitmap"];
 
-      v35 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v10];
-      v36 = [self decodeEnvironmentDataBitMap:v35];
+      v36 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v11];
+      v37 = [self decodeEnvironmentDataBitMap:v36];
 
-      v37 = [v36 objectForKeyedSubscript:@"EnvDataCardStatus"];
-      LODWORD(v34) = [v37 BOOLValue];
+      v38 = [v37 objectForKeyedSubscript:@"EnvDataCardStatus"];
+      LODWORD(v35) = [v38 BOOLValue];
 
-      if (v34)
+      if (v35)
       {
-        v38 = [dataCopy readBinaryValueAtBit:v18 + 2 numberOfBits:1];
-        v39 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v38];
-        [dictionary setValue:v39 forKey:@"EnvDataCardStatus"];
+        v39 = [dataCopy readBinaryValueAtBit:v19 + 2 numberOfBits:1];
+        v40 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v39];
+        [dictionary setValue:v40 forKey:@"EnvDataCardStatus"];
       }
     }
 
-    v7 = dictionary;
+    v8 = dictionary;
   }
 
   else
   {
-    v6 = ATLLogObject();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = ATLLogObject(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       v42[0] = 67109120;
       v42[1] = [dataCopy length];
-      _os_log_impl(&dword_22EEF5000, v6, OS_LOG_TYPE_ERROR, "Invalid data length %u", v42, 8u);
+      _os_log_impl(&dword_22EEF5000, v7, OS_LOG_TYPE_ERROR, "Invalid data length %u", v42, 8u);
     }
 
-    v7 = 0;
+    v8 = 0;
   }
 
-  v40 = *MEMORY[0x277D85DE8];
-
-  return v7;
+  return v8;
 }
 
 + (id)decodeContractList:(id)list
 {
   v35 = *MEMORY[0x277D85DE8];
   listCopy = list;
-  if ([listCopy length] == 29)
+  v4 = [listCopy length];
+  if (v4 == 29)
   {
-    v4 = [listCopy readBinaryValueAtBit:0 numberOfBits:4];
-    [MEMORY[0x277CBEB18] arrayWithCapacity:v4];
-    v28 = v27 = v4;
-    if (v4)
+    v5 = [listCopy readBinaryValueAtBit:0 numberOfBits:4];
+    [MEMORY[0x277CBEB18] arrayWithCapacity:v5];
+    v28 = v27 = v5;
+    if (v5)
     {
-      v6 = 0;
-      v7 = 4;
-      *&v5 = 134217984;
-      v26 = v5;
+      v7 = 0;
+      v8 = 4;
+      *&v6 = 134217984;
+      v26 = v6;
       do
       {
-        v8 = [listCopy readBinaryValueAtBit:v7 numberOfBits:{3, v26}];
-        v9 = [listCopy readBinaryValueAtBit:v7 + 3 numberOfBits:4];
-        v10 = v7 + 7;
-        v11 = [listCopy readBinaryValueAtBit:v10 numberOfBits:8];
-        v12 = ATLLogObject();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+        v9 = [listCopy readBinaryValueAtBit:v8 numberOfBits:{3, v26}];
+        v10 = [listCopy readBinaryValueAtBit:v8 + 3 numberOfBits:4];
+        v11 = v8 + 7;
+        v12 = [listCopy readBinaryValueAtBit:v11 numberOfBits:8];
+        v13 = ATLLogObject(v12);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
         {
           *buf = v26;
-          v34 = v11;
-          _os_log_impl(&dword_22EEF5000, v12, OS_LOG_TYPE_DEBUG, "ContractType: %llu", buf, 0xCu);
+          v34 = v12;
+          _os_log_impl(&dword_22EEF5000, v13, OS_LOG_TYPE_DEBUG, "ContractType: %llu", buf, 0xCu);
         }
 
-        v13 = [listCopy readBinaryValueAtBit:v10 + 8 numberOfBits:4];
-        v14 = [listCopy readBinaryValueAtBit:v10 + 12 numberOfBits:5];
+        v14 = [listCopy readBinaryValueAtBit:v11 + 8 numberOfBits:4];
+        v15 = [listCopy readBinaryValueAtBit:v11 + 12 numberOfBits:5];
         v31[0] = @"BestContractBitmap";
-        v15 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v8];
-        v32[0] = v15;
-        v31[1] = @"BestContractIssuer";
         v16 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v9];
-        v32[1] = v16;
+        v32[0] = v16;
+        v31[1] = @"BestContractIssuer";
+        v17 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v10];
+        v32[1] = v17;
         v31[2] = @"BestContractType";
-        v17 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v11];
-        v32[2] = v17;
+        v18 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v12];
+        v32[2] = v18;
         v31[3] = @"BestContractPriority";
-        v18 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v13];
-        v32[3] = v18;
-        v31[4] = @"BestContractPointer";
         v19 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v14];
-        v32[4] = v19;
-        v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:5];
-        [v28 addObject:v20];
+        v32[3] = v19;
+        v31[4] = @"BestContractPointer";
+        v20 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v15];
+        v32[4] = v20;
+        v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:5];
+        [v28 addObject:v21];
 
-        ++v6;
-        v7 = v10 + 17;
+        ++v7;
+        v8 = v11 + 17;
       }
 
-      while (v27 > v6);
+      while (v27 > v7);
     }
 
     v29[0] = @"BestContract";
-    v21 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v27];
+    v22 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v27];
     v29[1] = @"BestContractList";
-    v30[0] = v21;
-    v22 = v28;
+    v30[0] = v22;
+    v23 = v28;
     v30[1] = v28;
-    v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:2];
+    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:2];
   }
 
   else
   {
-    v22 = ATLLogObject();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v23 = ATLLogObject(v4);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
       LODWORD(v34) = [listCopy length];
-      _os_log_impl(&dword_22EEF5000, v22, OS_LOG_TYPE_ERROR, "Invalid data length %u", buf, 8u);
+      _os_log_impl(&dword_22EEF5000, v23, OS_LOG_TYPE_ERROR, "Invalid data length %u", buf, 8u);
     }
 
-    v23 = 0;
+    v24 = 0;
   }
 
-  v24 = *MEMORY[0x277D85DE8];
-
-  return v23;
+  return v24;
 }
 
 + (id)decodeCounterStructure03:(id)structure03
@@ -1121,84 +1118,82 @@
 
 + (id)decodeEventBitMap:(id)map
 {
-  v34[23] = *MEMORY[0x277D85DE8];
-  v33[0] = @"EventNetworkId";
+  v33[23] = *MEMORY[0x277D85DE8];
+  v32[0] = @"EventNetworkId";
   v3 = MEMORY[0x277CCABB0];
   mapCopy = map;
-  v32 = [v3 numberWithBool:{objc_msgSend(mapCopy, "isBitSet:", 1)}];
-  v34[0] = v32;
-  v33[1] = @"EventCode";
-  v31 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(mapCopy, "isBitSet:", 2)}];
-  v34[1] = v31;
-  v33[2] = @"EventResult";
-  v30 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(mapCopy, "isBitSet:", 3)}];
-  v34[2] = v30;
-  v33[3] = @"EventServiceProvider";
-  v29 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(mapCopy, "isBitSet:", 4)}];
-  v34[3] = v29;
-  v33[4] = @"EventNotOkCounter";
-  v28 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(mapCopy, "isBitSet:", 5)}];
-  v34[4] = v28;
-  v33[5] = @"EventSerialNumber";
-  v27 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(mapCopy, "isBitSet:", 6)}];
-  v34[5] = v27;
-  v33[6] = @"EventDestination";
-  v26 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(mapCopy, "isBitSet:", 7)}];
-  v34[6] = v26;
-  v33[7] = @"EventLocationId";
-  v25 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(mapCopy, "isBitSet:", 8)}];
-  v34[7] = v25;
-  v33[8] = @"EventLocationGate";
-  v24 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(mapCopy, "isBitSet:", 9)}];
-  v34[8] = v24;
-  v33[9] = @"EventDevice";
-  v23 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(mapCopy, "isBitSet:", 10)}];
-  v34[9] = v23;
-  v33[10] = @"EventRouteNumber";
-  v22 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(mapCopy, "isBitSet:", 11)}];
-  v34[10] = v22;
-  v33[11] = @"EventRouteVariant";
-  v21 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(mapCopy, "isBitSet:", 12)}];
-  v34[11] = v21;
-  v33[12] = @"EventJourneyRun";
-  v20 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(mapCopy, "isBitSet:", 13)}];
-  v34[12] = v20;
-  v33[13] = @"EventVehicleId";
-  v19 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(mapCopy, "isBitSet:", 14)}];
-  v34[13] = v19;
-  v33[14] = @"EventLocationType";
-  v18 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(mapCopy, "isBitSet:", 16)}];
-  v34[14] = v18;
-  v33[15] = @"EventJourneyInterchanges";
+  v31 = [v3 numberWithBool:{objc_msgSend(mapCopy, "isBitSet:", 1)}];
+  v33[0] = v31;
+  v32[1] = @"EventCode";
+  v30 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(mapCopy, "isBitSet:", 2)}];
+  v33[1] = v30;
+  v32[2] = @"EventResult";
+  v29 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(mapCopy, "isBitSet:", 3)}];
+  v33[2] = v29;
+  v32[3] = @"EventServiceProvider";
+  v28 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(mapCopy, "isBitSet:", 4)}];
+  v33[3] = v28;
+  v32[4] = @"EventNotOkCounter";
+  v27 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(mapCopy, "isBitSet:", 5)}];
+  v33[4] = v27;
+  v32[5] = @"EventSerialNumber";
+  v26 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(mapCopy, "isBitSet:", 6)}];
+  v33[5] = v26;
+  v32[6] = @"EventDestination";
+  v25 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(mapCopy, "isBitSet:", 7)}];
+  v33[6] = v25;
+  v32[7] = @"EventLocationId";
+  v24 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(mapCopy, "isBitSet:", 8)}];
+  v33[7] = v24;
+  v32[8] = @"EventLocationGate";
+  v23 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(mapCopy, "isBitSet:", 9)}];
+  v33[8] = v23;
+  v32[9] = @"EventDevice";
+  v22 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(mapCopy, "isBitSet:", 10)}];
+  v33[9] = v22;
+  v32[10] = @"EventRouteNumber";
+  v21 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(mapCopy, "isBitSet:", 11)}];
+  v33[10] = v21;
+  v32[11] = @"EventRouteVariant";
+  v20 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(mapCopy, "isBitSet:", 12)}];
+  v33[11] = v20;
+  v32[12] = @"EventJourneyRun";
+  v19 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(mapCopy, "isBitSet:", 13)}];
+  v33[12] = v19;
+  v32[13] = @"EventVehicleId";
+  v18 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(mapCopy, "isBitSet:", 14)}];
+  v33[13] = v18;
+  v32[14] = @"EventLocationType";
+  v17 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(mapCopy, "isBitSet:", 16)}];
+  v33[14] = v17;
+  v32[15] = @"EventJourneyInterchanges";
   v5 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(mapCopy, "isBitSet:", 19)}];
-  v34[15] = v5;
-  v33[16] = @"EventTotalJourneys";
+  v33[15] = v5;
+  v32[16] = @"EventTotalJourneys";
   v6 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(mapCopy, "isBitSet:", 21)}];
-  v34[16] = v6;
-  v33[17] = @"EventJourneyDistance";
+  v33[16] = v6;
+  v32[17] = @"EventJourneyDistance";
   v7 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(mapCopy, "isBitSet:", 22)}];
-  v34[17] = v7;
-  v33[18] = @"EventPriceAmount";
+  v33[17] = v7;
+  v32[18] = @"EventPriceAmount";
   v8 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(mapCopy, "isBitSet:", 23)}];
-  v34[18] = v8;
-  v33[19] = @"EventPriceUnit";
+  v33[18] = v8;
+  v32[19] = @"EventPriceUnit";
   v9 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(mapCopy, "isBitSet:", 24)}];
-  v34[19] = v9;
-  v33[20] = @"EventContractPointer";
+  v33[19] = v9;
+  v32[20] = @"EventContractPointer";
   v10 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(mapCopy, "isBitSet:", 25)}];
-  v34[20] = v10;
-  v33[21] = @"EventAuthenticator";
+  v33[20] = v10;
+  v32[21] = @"EventAuthenticator";
   v11 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(mapCopy, "isBitSet:", 26)}];
-  v34[21] = v11;
-  v33[22] = @"EventDataBitmap";
+  v33[21] = v11;
+  v32[22] = @"EventDataBitmap";
   v12 = MEMORY[0x277CCABB0];
   v13 = [mapCopy isBitSet:27];
 
   v14 = [v12 numberWithBool:v13];
-  v34[22] = v14;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:23];
-
-  v16 = *MEMORY[0x277D85DE8];
+  v33[22] = v14;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:23];
 
   return v15;
 }
@@ -1383,210 +1378,200 @@
 
 + (id)decodeContractFFBitMap:(id)map
 {
-  v28[17] = *MEMORY[0x277D85DE8];
-  v27[0] = @"ContractNetworkId";
+  v27[17] = *MEMORY[0x277D85DE8];
+  v26[0] = @"ContractNetworkId";
   v3 = MEMORY[0x277CCABB0];
   mapCopy = map;
-  v26 = [v3 numberWithBool:{objc_msgSend(mapCopy, "isBitSet:", 0)}];
-  v28[0] = v26;
-  v27[1] = @"ContractProvider";
-  v25 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(mapCopy, "isBitSet:", 1)}];
-  v28[1] = v25;
-  v27[2] = @"ContractTariff";
-  v24 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(mapCopy, "isBitSet:", 2)}];
-  v28[2] = v24;
-  v27[3] = @"ContractSerialNumber";
-  v23 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(mapCopy, "isBitSet:", 3)}];
-  v28[3] = v23;
-  v27[4] = @"ContractCustomerInfoBitmap";
-  v22 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(mapCopy, "isBitSet:", 4)}];
-  v28[4] = v22;
-  v27[5] = @"ContractPassengerInfoBitmap";
-  v21 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(mapCopy, "isBitSet:", 5)}];
-  v28[5] = v21;
-  v27[6] = @"ContractPayMethod";
-  v20 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(mapCopy, "isBitSet:", 8)}];
-  v28[6] = v20;
-  v27[7] = @"ContractServices";
-  v19 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(mapCopy, "isBitSet:", 9)}];
-  v28[7] = v19;
-  v27[8] = @"ContractPriceAmount";
-  v18 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(mapCopy, "isBitSet:", 10)}];
-  v28[8] = v18;
-  v27[9] = @"ContractPriceUnit";
+  v25 = [v3 numberWithBool:{objc_msgSend(mapCopy, "isBitSet:", 0)}];
+  v27[0] = v25;
+  v26[1] = @"ContractProvider";
+  v24 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(mapCopy, "isBitSet:", 1)}];
+  v27[1] = v24;
+  v26[2] = @"ContractTariff";
+  v23 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(mapCopy, "isBitSet:", 2)}];
+  v27[2] = v23;
+  v26[3] = @"ContractSerialNumber";
+  v22 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(mapCopy, "isBitSet:", 3)}];
+  v27[3] = v22;
+  v26[4] = @"ContractCustomerInfoBitmap";
+  v21 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(mapCopy, "isBitSet:", 4)}];
+  v27[4] = v21;
+  v26[5] = @"ContractPassengerInfoBitmap";
+  v20 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(mapCopy, "isBitSet:", 5)}];
+  v27[5] = v20;
+  v26[6] = @"ContractPayMethod";
+  v19 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(mapCopy, "isBitSet:", 8)}];
+  v27[6] = v19;
+  v26[7] = @"ContractServices";
+  v18 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(mapCopy, "isBitSet:", 9)}];
+  v27[7] = v18;
+  v26[8] = @"ContractPriceAmount";
+  v17 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(mapCopy, "isBitSet:", 10)}];
+  v27[8] = v17;
+  v26[9] = @"ContractPriceUnit";
   v5 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(mapCopy, "isBitSet:", 11)}];
-  v28[9] = v5;
-  v27[10] = @"ContractRestrictionBitmap";
+  v27[9] = v5;
+  v26[10] = @"ContractRestrictionBitmap";
   v6 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(mapCopy, "isBitSet:", 12)}];
-  v28[10] = v6;
-  v27[11] = @"ContractValidityInfoBitmap";
+  v27[10] = v6;
+  v26[11] = @"ContractValidityInfoBitmap";
   v7 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(mapCopy, "isBitSet:", 13)}];
-  v28[11] = v7;
-  v27[12] = @"ContractJourneyDataBitmap";
+  v27[11] = v7;
+  v26[12] = @"ContractJourneyDataBitmap";
   v8 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(mapCopy, "isBitSet:", 14)}];
-  v28[12] = v8;
-  v27[13] = @"ContractSaleDataBitmap";
+  v27[12] = v8;
+  v26[13] = @"ContractSaleDataBitmap";
   v9 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(mapCopy, "isBitSet:", 15)}];
-  v28[13] = v9;
-  v27[14] = @"ContractStatus";
+  v27[13] = v9;
+  v26[14] = @"ContractStatus";
   v10 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(mapCopy, "isBitSet:", 16)}];
-  v28[14] = v10;
-  v27[15] = @"ContractLoyaltyPoints";
+  v27[14] = v10;
+  v26[15] = @"ContractLoyaltyPoints";
   v11 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(mapCopy, "isBitSet:", 17)}];
-  v28[15] = v11;
-  v27[16] = @"ContractAuthenticator";
+  v27[15] = v11;
+  v26[16] = @"ContractAuthenticator";
   v12 = MEMORY[0x277CCABB0];
   v13 = [mapCopy isBitSet:18];
 
   v14 = [v12 numberWithBool:v13];
-  v28[16] = v14;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:17];
-
-  v16 = *MEMORY[0x277D85DE8];
+  v27[16] = v14;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:17];
 
   return v15;
 }
 
 + (id)decodeContractValidityBitmap:(id)bitmap
 {
-  v20[9] = *MEMORY[0x277D85DE8];
-  v19[0] = @"ContractValidityStartDate";
+  v19[9] = *MEMORY[0x277D85DE8];
+  v18[0] = @"ContractValidityStartDate";
   v3 = MEMORY[0x277CCABB0];
   bitmapCopy = bitmap;
-  v18 = [v3 numberWithBool:{objc_msgSend(bitmapCopy, "isBitSet:", 0)}];
-  v20[0] = v18;
-  v19[1] = @"ContractValidityStartTime";
+  v17 = [v3 numberWithBool:{objc_msgSend(bitmapCopy, "isBitSet:", 0)}];
+  v19[0] = v17;
+  v18[1] = @"ContractValidityStartTime";
   v5 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(bitmapCopy, "isBitSet:", 1)}];
-  v20[1] = v5;
-  v19[2] = @"ContractValidityEndDate";
+  v19[1] = v5;
+  v18[2] = @"ContractValidityEndDate";
   v6 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(bitmapCopy, "isBitSet:", 2)}];
-  v20[2] = v6;
-  v19[3] = @"ContractValidityEndTime";
+  v19[2] = v6;
+  v18[3] = @"ContractValidityEndTime";
   v7 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(bitmapCopy, "isBitSet:", 3)}];
-  v20[3] = v7;
-  v19[4] = @"ContractValidityDuration";
+  v19[3] = v7;
+  v18[4] = @"ContractValidityDuration";
   v8 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(bitmapCopy, "isBitSet:", 4)}];
-  v20[4] = v8;
-  v19[5] = @"ContractValidityLimitDate";
+  v19[4] = v8;
+  v18[5] = @"ContractValidityLimitDate";
   v9 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(bitmapCopy, "isBitSet:", 5)}];
-  v20[5] = v9;
-  v19[6] = @"ContractValidityZones";
+  v19[5] = v9;
+  v18[6] = @"ContractValidityZones";
   v10 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(bitmapCopy, "isBitSet:", 6)}];
-  v20[6] = v10;
-  v19[7] = @"ContractValidityJourneys";
+  v19[6] = v10;
+  v18[7] = @"ContractValidityJourneys";
   v11 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(bitmapCopy, "isBitSet:", 7)}];
-  v20[7] = v11;
-  v19[8] = @"ContractPeriodJourneys";
+  v19[7] = v11;
+  v18[8] = @"ContractPeriodJourneys";
   v12 = MEMORY[0x277CCABB0];
   v13 = [bitmapCopy isBitSet:8];
 
   v14 = [v12 numberWithBool:v13];
-  v20[8] = v14;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:9];
-
-  v16 = *MEMORY[0x277D85DE8];
+  v19[8] = v14;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:9];
 
   return v15;
 }
 
 + (id)decodeContractJourneyDataBitmap:(id)bitmap
 {
-  v19[8] = *MEMORY[0x277D85DE8];
-  v18[0] = @"ContractJourneyOrigin";
+  v18[8] = *MEMORY[0x277D85DE8];
+  v17[0] = @"ContractJourneyOrigin";
   v3 = MEMORY[0x277CCABB0];
   bitmapCopy = bitmap;
   v5 = [v3 numberWithBool:{objc_msgSend(bitmapCopy, "isBitSet:", 0)}];
-  v19[0] = v5;
-  v18[1] = @"ContractJourneyDestination";
+  v18[0] = v5;
+  v17[1] = @"ContractJourneyDestination";
   v6 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(bitmapCopy, "isBitSet:", 1)}];
-  v19[1] = v6;
-  v18[2] = @"ContractJourneyRouteNumbers";
+  v18[1] = v6;
+  v17[2] = @"ContractJourneyRouteNumbers";
   v7 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(bitmapCopy, "isBitSet:", 2)}];
-  v19[2] = v7;
-  v18[3] = @"ContractJourneyRouteVariants";
+  v18[2] = v7;
+  v17[3] = @"ContractJourneyRouteVariants";
   v8 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(bitmapCopy, "isBitSet:", 3)}];
-  v19[3] = v8;
-  v18[4] = @"ContractJourneyRun";
+  v18[3] = v8;
+  v17[4] = @"ContractJourneyRun";
   v9 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(bitmapCopy, "isBitSet:", 4)}];
-  v19[4] = v9;
-  v18[5] = @"ContractJourneyVia";
+  v18[4] = v9;
+  v17[5] = @"ContractJourneyVia";
   v10 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(bitmapCopy, "isBitSet:", 5)}];
-  v19[5] = v10;
-  v18[6] = @"ContractJourneyDistance";
+  v18[5] = v10;
+  v17[6] = @"ContractJourneyDistance";
   v11 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(bitmapCopy, "isBitSet:", 6)}];
-  v19[6] = v11;
-  v18[7] = @"ContractJourneyInterchanges";
+  v18[6] = v11;
+  v17[7] = @"ContractJourneyInterchanges";
   v12 = MEMORY[0x277CCABB0];
   v13 = [bitmapCopy isBitSet:7];
 
   v14 = [v12 numberWithBool:v13];
-  v19[7] = v14;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:8];
-
-  v16 = *MEMORY[0x277D85DE8];
+  v18[7] = v14;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:8];
 
   return v15;
 }
 
 + (id)decodeContractSaleDataBitmap:(id)bitmap
 {
-  v15[4] = *MEMORY[0x277D85DE8];
-  v14[0] = @"ContractSaleDate";
+  v14[4] = *MEMORY[0x277D85DE8];
+  v13[0] = @"ContractSaleDate";
   v3 = MEMORY[0x277CCABB0];
   bitmapCopy = bitmap;
   v5 = [v3 numberWithBool:{objc_msgSend(bitmapCopy, "isBitSet:", 0)}];
-  v15[0] = v5;
-  v14[1] = @"ContractSaleTime";
+  v14[0] = v5;
+  v13[1] = @"ContractSaleTime";
   v6 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(bitmapCopy, "isBitSet:", 1)}];
-  v15[1] = v6;
-  v14[2] = @"ContractSaleAgent";
+  v14[1] = v6;
+  v13[2] = @"ContractSaleAgent";
   v7 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(bitmapCopy, "isBitSet:", 2)}];
-  v15[2] = v7;
-  v14[3] = @"ContractSaleDevice";
+  v14[2] = v7;
+  v13[3] = @"ContractSaleDevice";
   v8 = MEMORY[0x277CCABB0];
   v9 = [bitmapCopy isBitSet:3];
 
   v10 = [v8 numberWithBool:v9];
-  v15[3] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:4];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v14[3] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:4];
 
   return v11;
 }
 
 + (id)decodeContractRestrictionBitmap:(id)bitmap
 {
-  v18[7] = *MEMORY[0x277D85DE8];
-  v17[0] = @"ContractRestrictStart";
+  v17[7] = *MEMORY[0x277D85DE8];
+  v16[0] = @"ContractRestrictStart";
   v3 = MEMORY[0x277CCABB0];
   bitmapCopy = bitmap;
   v5 = [v3 numberWithBool:{objc_msgSend(bitmapCopy, "isBitSet:", 0)}];
-  v18[0] = v5;
-  v17[1] = @"ContractRestrictEnd";
+  v17[0] = v5;
+  v16[1] = @"ContractRestrictEnd";
   v6 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(bitmapCopy, "isBitSet:", 1)}];
-  v18[1] = v6;
-  v17[2] = @"ContractRestrictDay";
+  v17[1] = v6;
+  v16[2] = @"ContractRestrictDay";
   v7 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(bitmapCopy, "isBitSet:", 2)}];
-  v18[2] = v7;
-  v17[3] = @"ContractRestrictTimeCode";
+  v17[2] = v7;
+  v16[3] = @"ContractRestrictTimeCode";
   v8 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(bitmapCopy, "isBitSet:", 3)}];
-  v18[3] = v8;
-  v17[4] = @"ContractRestrictCode";
+  v17[3] = v8;
+  v16[4] = @"ContractRestrictCode";
   v9 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(bitmapCopy, "isBitSet:", 4)}];
-  v18[4] = v9;
-  v17[5] = @"ContractRestrictProduct";
+  v17[4] = v9;
+  v16[5] = @"ContractRestrictProduct";
   v10 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(bitmapCopy, "isBitSet:", 5)}];
-  v18[5] = v10;
-  v17[6] = @"ContractRestrictLocation";
+  v17[5] = v10;
+  v16[6] = @"ContractRestrictLocation";
   v11 = MEMORY[0x277CCABB0];
   v12 = [bitmapCopy isBitSet:6];
 
   v13 = [v11 numberWithBool:v12];
-  v18[6] = v13;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:7];
-
-  v15 = *MEMORY[0x277D85DE8];
+  v17[6] = v13;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:7];
 
   return v14;
 }

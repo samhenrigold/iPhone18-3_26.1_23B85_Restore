@@ -14,6 +14,7 @@
 - (id)_graphicRectangularTemplate;
 - (id)_imageProviderForImageSymbolName:(id)name imageAssetNamePrefix:(id)prefix;
 - (id)_largeModularTemplate;
+- (id)_largeUtilityTemplateSuppressCountdown:(BOOL)countdown;
 - (id)_smallModularTemplate;
 - (id)_smallUtilityTemplate;
 - (id)_swapPlaceholderString:(id)string withTimeStringForDate:(id)date inString:(id)inString usingBaseFont:(id)font smallCapsBaseFont:(id)baseFont;
@@ -294,49 +295,47 @@ LABEL_20:
 
 - (id)_swapPlaceholderString:(id)string withTimeStringForDate:(id)date inString:(id)inString usingBaseFont:(id)font smallCapsBaseFont:(id)baseFont
 {
-  v43[1] = *MEMORY[0x277D85DE8];
+  v42[1] = *MEMORY[0x277D85DE8];
   fontCopy = font;
   inStringCopy = inString;
   dateCopy = date;
   stringCopy = string;
   cLKFontWithLocalizedSmallCaps = [baseFont CLKFontWithLocalizedSmallCaps];
   v16 = MEMORY[0x277CCA898];
-  v42 = *MEMORY[0x277CBB6D0];
-  v17 = v42;
-  v43[0] = MEMORY[0x277CBEC38];
-  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:&v42 count:1];
+  v41 = *MEMORY[0x277CBB6D0];
+  v17 = v41;
+  v42[0] = MEMORY[0x277CBEC38];
+  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:&v41 count:1];
   v19 = [v16 NTKTimeWithDate:dateCopy andDesignatorAttributes:v18 timeZone:0 options:0];
 
   v20 = [v19 mutableCopy];
   [v20 beginEditing];
   v21 = [v20 length];
-  v33 = MEMORY[0x277D85DD0];
-  v34 = 3221225472;
-  v35 = sub_23BDD0F34;
-  v36 = &unk_278B99958;
+  v32 = MEMORY[0x277D85DD0];
+  v33 = 3221225472;
+  v34 = sub_23BDD0F34;
+  v35 = &unk_278B99958;
   v22 = v20;
-  v37 = v22;
+  v36 = v22;
   v23 = cLKFontWithLocalizedSmallCaps;
-  v38 = v23;
+  v37 = v23;
   v24 = fontCopy;
-  v39 = v24;
-  [v22 enumerateAttribute:v17 inRange:0 options:v21 usingBlock:{0x100000, &v33}];
+  v38 = v24;
+  [v22 enumerateAttribute:v17 inRange:0 options:v21 usingBlock:{0x100000, &v32}];
   [v22 endEditing];
   v25 = [inStringCopy rangeOfString:stringCopy];
   v27 = v26;
 
   v28 = objc_alloc(MEMORY[0x277CCAB48]);
-  v40 = *MEMORY[0x277D740A8];
-  v41 = v24;
-  v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
+  v39 = *MEMORY[0x277D740A8];
+  v40 = v24;
+  v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
   v30 = [v28 initWithString:inStringCopy attributes:v29];
 
   if (v25 != 0x7FFFFFFFFFFFFFFFLL)
   {
     [v30 replaceCharactersInRange:v25 withAttributedString:{v27, v22}];
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 
   return v30;
 }
@@ -546,6 +545,45 @@ LABEL_22:
   [v22 setTintColor:systemOrangeColor2];
 
   return v22;
+}
+
+- (id)_largeUtilityTemplateSuppressCountdown:(BOOL)countdown
+{
+  v4 = [(NWCSunriseComplicationTimelineEntryModel *)self _eventTimeAndCountdownAbbreviated:0 suppressCountdown:countdown suppressCommaSeparator:1];
+  if ([(NWCSunriseComplicationTimelineEntryModel *)self isNormalUpcomingEvent])
+  {
+    isSunriseEvent = [(NWCSunriseComplicationTimelineEntryModel *)self isSunriseEvent];
+    v6 = @"sunset.fill";
+    if (isSunriseEvent)
+    {
+      v6 = @"sunrise.fill";
+    }
+
+    v7 = v6;
+    if ([(NWCSunriseComplicationTimelineEntryModel *)self isSunriseEvent])
+    {
+      v8 = @"analogSunrise";
+    }
+
+    else
+    {
+      v8 = @"analogSunset";
+    }
+
+    v9 = [(NWCSunriseComplicationTimelineEntryModel *)self _imageProviderForImageSymbolName:v7 imageAssetNamePrefix:v8];
+
+    systemOrangeColor = [MEMORY[0x277D75348] systemOrangeColor];
+    [v9 setTintColor:systemOrangeColor];
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  v11 = [MEMORY[0x277CBBA80] templateWithTextProvider:v4 imageProvider:v9];
+
+  return v11;
 }
 
 - (id)_circularTemplateIsMedium:(BOOL)medium

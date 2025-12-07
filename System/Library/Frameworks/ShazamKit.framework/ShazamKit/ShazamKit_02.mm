@@ -447,14 +447,14 @@ LABEL_61:
         v66 -= 8;
         if (!v69)
         {
-          v71 = (&a1[1].i64[1] + v66);
+          v71 = (a1 + v66 + 24);
           goto LABEL_73;
         }
       }
 
       v71 = a1;
 LABEL_73:
-      *v71 = v63;
+      v71->i64[0] = v63;
       if (++v57 == 8)
       {
         return &v55->u64[1] == a2;
@@ -591,7 +591,7 @@ LABEL_11:
       else
       {
 
-        return std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,shazam::spectral_peak_t *>(v9, a2->i32);
+        return std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,shazam::spectral_peak_t *>(v9, a2);
       }
     }
 
@@ -600,7 +600,7 @@ LABEL_11:
       if (v9 != a2)
       {
 
-        return std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,shazam::spectral_peak_t *,shazam::spectral_peak_t *>(v9, a2->i64, a2->i64, a3);
+        return std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,shazam::spectral_peak_t *,shazam::spectral_peak_t *>(v9->i64, a2->i64, a2->i64, a3);
       }
 
       return result;
@@ -1380,7 +1380,7 @@ LABEL_14:
   return result;
 }
 
-unsigned int *std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,shazam::spectral_peak_t *>(unsigned int *result, int *a2)
+unsigned int *std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,shazam::spectral_peak_t *>(unsigned int *result, unsigned int *a2)
 {
   if (result != a2)
   {
@@ -1936,14 +1936,14 @@ LABEL_60:
         v56 -= 8;
         if (!v59)
         {
-          v61 = (&a1[1].i64[1] + v56);
+          v61 = (a1 + v56 + 24);
           goto LABEL_72;
         }
       }
 
       v61 = a1;
 LABEL_72:
-      *v61 = v54;
+      v61->i64[0] = v54;
       if (++v51 == 8)
       {
         return &v49->u64[1] == a2;
@@ -1960,16 +1960,16 @@ LABEL_72:
   }
 }
 
-uint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,shazam::spectral_peak_t *,shazam::spectral_peak_t *>(uint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
+uint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,shazam::spectral_peak_t *,shazam::spectral_peak_t *>(uint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
   if (a1 != a2)
   {
-    v8 = (a2 - a1) >> 3;
+    v8 = a2 - a1;
     if (v8 >= 2)
     {
       v9 = (v8 - 2) >> 1;
       v10 = v9 + 1;
-      v11 = (a1 + 8 * v9);
+      v11 = &a1[v9];
       do
       {
         std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,shazam::spectral_peak_t *>(a1, a4, v8, v11--);
@@ -1988,7 +1988,7 @@ uint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__l
         v13 = *v12 < *a1;
         if (*v12 == *a1)
         {
-          v13 = *(v12 + 2) < *(a1 + 4);
+          v13 = *(v12 + 2) < *(a1 + 2);
         }
 
         if (v13)
@@ -2021,7 +2021,7 @@ uint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__l
         {
           *v17 = *v15;
           *v15 = v16;
-          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,shazam::spectral_peak_t *>(a1, (v17 + 1), a4, (v17 - a1 + 8) >> 3);
+          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,shazam::spectral_peak_t *>(a1, (v17 + 1), a4, v17 + 1 - a1);
         }
 
         --v15;
@@ -2055,7 +2055,7 @@ uint64_t std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,
 
       else
       {
-        v10 = *(v8 + 2);
+        v10 = v8[2];
         v11 = *(v8 + 2) < *(v8 + 6);
         if (*v8 != v10)
         {
@@ -2064,7 +2064,7 @@ uint64_t std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,
 
         if (v11)
         {
-          ++v8;
+          v8 += 2;
           v7 = v9;
         }
 
@@ -2106,7 +2106,7 @@ uint64_t std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,
 
           else
           {
-            v18 = *(v8 + 2);
+            v18 = v8[2];
             v19 = *(v8 + 2) < *(v8 + 6);
             if (*v8 != v18)
             {
@@ -2115,7 +2115,7 @@ uint64_t std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,
 
             if (v19)
             {
-              ++v8;
+              v8 += 2;
             }
 
             else
@@ -2232,7 +2232,7 @@ uint64_t std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,vo
   return result;
 }
 
-void *std::vector<shazam::spectral_peak_t>::__assign_with_size[abi:ne200100]<shazam::spectral_peak_t const*,shazam::spectral_peak_t const*>(void *result, char *__src, char *a3, unint64_t a4)
+void **std::vector<shazam::spectral_peak_t>::__assign_with_size[abi:ne200100]<shazam::spectral_peak_t const*,shazam::spectral_peak_t const*>(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -2319,7 +2319,7 @@ void *std::vector<shazam::spectral_peak_t>::__assign_with_size[abi:ne200100]<sha
   return result;
 }
 
-void std::vector<shazam::spectral_peak_t>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<shazam::spectral_peak_t>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -2413,7 +2413,7 @@ LABEL_6:
   return result;
 }
 
-void *std::vector<shazam::ancient_dead_sig_point_t>::__assign_with_size[abi:ne200100]<shazam::ancient_dead_sig_point_t const*,shazam::ancient_dead_sig_point_t const*>(void *result, char *__src, char *a3, unint64_t a4)
+void **std::vector<shazam::ancient_dead_sig_point_t>::__assign_with_size[abi:ne200100]<shazam::ancient_dead_sig_point_t const*,shazam::ancient_dead_sig_point_t const*>(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -2500,7 +2500,7 @@ void *std::vector<shazam::ancient_dead_sig_point_t>::__assign_with_size[abi:ne20
   return result;
 }
 
-void std::vector<shazam::ancient_dead_sig_point_t>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<shazam::ancient_dead_sig_point_t>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -2520,14 +2520,12 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<shazam::ancient_dead_
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void *std::vector<shazam::density_filter<shazam::spectral_peak_t>>::reserve(void *result, unint64_t a2)
+uint64_t *std::vector<shazam::density_filter<shazam::spectral_peak_t>>::reserve(uint64_t *result, unint64_t a2)
 {
   if (a2 > (result[2] - *result) >> 5)
   {
     if (!(a2 >> 59))
     {
-      v2 = result[1] - *result;
-      v3 = result;
       std::__allocate_at_least[abi:ne200100]<std::allocator<shazam::density_filter<shazam::spectral_peak_t>>>(result, a2);
     }
 
@@ -2537,20 +2535,20 @@ void *std::vector<shazam::density_filter<shazam::spectral_peak_t>>::reserve(void
   return result;
 }
 
-void *std::vector<std::vector<shazam::spectral_peak_t>>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<std::vector<shazam::spectral_peak_t>>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<std::vector<shazam::spectral_peak_t>>::__vallocate[abi:ne200100](result, a2);
+    std::vector<std::vector<shazam::spectral_peak_t>>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
-void std::vector<std::vector<shazam::spectral_peak_t>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::vector<shazam::spectral_peak_t>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -2570,33 +2568,33 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<shazam::density_filte
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-int8x16_t *std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<shazam::density_filter<shazam::spectral_peak_t>>,shazam::density_filter<shazam::spectral_peak_t>*>(uint64_t a1, int8x16_t *a2, int8x16_t *a3, int8x16_t *a4)
+int8x16_t *std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<shazam::density_filter<shazam::spectral_peak_t>>,shazam::density_filter<shazam::spectral_peak_t>*>(uint64_t a1, int8x16_t *a2, int8x16_t *a3, __int128 *a4, uint64_t a5, uint64_t a6)
 {
-  v12 = a4;
-  v11 = a4;
-  v8.i64[0] = a1;
-  v8.i64[1] = &v11;
-  v9 = &v12;
+  v14 = a4;
+  v13 = a4;
+  v10.i64[0] = a1;
+  v10.i64[1] = &v13;
+  v11 = &v14;
   if (a2 != a3)
   {
-    v4 = a2;
+    v6 = a2;
     do
     {
-      v5 = *v4;
-      v6 = v4[1];
-      v4 += 2;
-      *a4 = v5;
-      a4[1] = v6;
+      v7 = *v6;
+      v8 = v6[1];
+      v6 += 2;
+      *a4 = v7;
+      a4[1] = v8;
       a4 += 2;
     }
 
-    while (v4 != a3);
-    v12 = a4;
+    while (v6 != a3);
+    v14 = a4;
   }
 
-  v10 = 1;
+  v12 = 1;
   std::__allocator_destroy[abi:ne200100]<std::allocator<shazam::density_filter<shazam::spectral_peak_t>>,shazam::density_filter<shazam::spectral_peak_t>*,shazam::density_filter<shazam::spectral_peak_t>*>(a1, a2, a3);
-  return std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<shazam::density_filter<shazam::spectral_peak_t>>,shazam::density_filter<shazam::spectral_peak_t>*>>::~__exception_guard_exceptions[abi:ne200100](&v8);
+  return std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<shazam::density_filter<shazam::spectral_peak_t>>,shazam::density_filter<shazam::spectral_peak_t>*>>::~__exception_guard_exceptions[abi:ne200100](&v10);
 }
 
 int8x16_t *std::__allocator_destroy[abi:ne200100]<std::allocator<shazam::density_filter<shazam::spectral_peak_t>>,shazam::density_filter<shazam::spectral_peak_t>*,shazam::density_filter<shazam::spectral_peak_t>*>(uint64_t a1, int8x16_t *a2, int8x16_t *a3)
@@ -2655,87 +2653,87 @@ int8x16_t *std::__split_buffer<shazam::density_filter<shazam::spectral_peak_t>>:
   v3 = result;
   while (1)
   {
-    v4 = v3[1].i64[0];
+    v4 = v3[2];
     if (v4 == a2)
     {
       break;
     }
 
-    v3[1].i64[0] = v4 - 32;
+    v3[2] = v4 - 32;
     result = shazam::density_filter<shazam::spectral_peak_t>::flush((v4 - 32));
   }
 
   return result;
 }
 
-uint64_t std::vector<shazam::density_filter<shazam::spectral_peak_t>>::__emplace_back_slow_path<std::vector<shazam::spectral_peak_t> &,shazam::signature_density const&,std::chrono::duration<unsigned char,std::ratio<1l,125l>> const&>(uint64_t a1, uint64_t a2, int *a3, unsigned __int8 *a4)
+uint64_t std::vector<shazam::density_filter<shazam::spectral_peak_t>>::__emplace_back_slow_path<std::vector<shazam::spectral_peak_t> &,shazam::signature_density const&,std::chrono::duration<unsigned char,std::ratio<1l,125l>> const&>(uint64_t a1, uint64_t a2, int *a3, unsigned __int8 *a4, uint64_t a5, uint64_t a6)
 {
-  v4 = (*(a1 + 8) - *a1) >> 5;
-  v5 = v4 + 1;
-  if ((v4 + 1) >> 59)
+  v6 = (*(a1 + 8) - *a1) >> 5;
+  v7 = v6 + 1;
+  if ((v6 + 1) >> 59)
   {
     std::vector<std::vector<shazam::spectral_peak_t>>::__throw_length_error[abi:ne200100]();
   }
 
-  v8 = *(a1 + 16) - *a1;
-  if (v8 >> 4 > v5)
+  v10 = *(a1 + 16) - *a1;
+  if (v10 >> 4 > v7)
   {
-    v5 = v8 >> 4;
+    v7 = v10 >> 4;
   }
 
-  if (v8 >= 0x7FFFFFFFFFFFFFE0)
+  if (v10 >= 0x7FFFFFFFFFFFFFE0)
   {
-    v9 = 0x7FFFFFFFFFFFFFFLL;
+    v11 = 0x7FFFFFFFFFFFFFFLL;
   }
 
   else
   {
-    v9 = v5;
+    v11 = v7;
   }
 
-  v23 = a1;
-  if (v9)
+  v25 = a1;
+  if (v11)
   {
-    std::__allocate_at_least[abi:ne200100]<std::allocator<shazam::density_filter<shazam::spectral_peak_t>>>(a1, v9);
+    std::__allocate_at_least[abi:ne200100]<std::allocator<shazam::density_filter<shazam::spectral_peak_t>>>(a1, v11);
   }
 
-  v10 = (32 * v4);
-  v21.i64[0] = 0;
-  v21.i64[1] = v10;
-  *(&v22 + 1) = 0;
-  v11 = *a3;
-  v12 = *a4;
-  *v10 = 0;
-  v10[1] = a2;
-  if (v11 == 0x7FFFFFFF)
+  v12 = (32 * v6);
+  v23.i64[0] = 0;
+  v23.i64[1] = v12;
+  *(&v24 + 1) = 0;
+  v13 = *a3;
+  v14 = *a4;
+  *v12 = 0;
+  v12[1] = a2;
+  if (v13 == 0x7FFFFFFF)
   {
-    v11 = -1;
+    v13 = -1;
   }
 
-  v13 = v12 == 15;
-  v14 = 256;
-  if (v13)
+  v15 = v14 == 15;
+  v16 = 256;
+  if (v15)
   {
-    v14 = 211;
+    v16 = 211;
   }
 
-  *(32 * v4 + 0x10) = v11;
-  *(32 * v4 + 0x18) = v14;
-  *&v22 = v10 + 4;
-  v15 = *(a1 + 8);
-  v16 = (v10 + *a1 - v15);
-  std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<shazam::density_filter<shazam::spectral_peak_t>>,shazam::density_filter<shazam::spectral_peak_t>*>(a1, *a1, v15, v16);
-  v17 = *a1;
-  *a1 = v16;
-  v18 = *(a1 + 16);
-  v20 = v22;
-  *(a1 + 8) = v22;
-  *&v22 = v17;
-  *(&v22 + 1) = v18;
-  v21.i64[0] = v17;
-  v21.i64[1] = v17;
-  std::__split_buffer<shazam::density_filter<shazam::spectral_peak_t>>::~__split_buffer(&v21);
-  return v20;
+  *(32 * v6 + 0x10) = v13;
+  *(32 * v6 + 0x18) = v16;
+  *&v24 = v12 + 4;
+  v17 = *(a1 + 8);
+  v18 = (v12 + *a1 - v17);
+  std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<shazam::density_filter<shazam::spectral_peak_t>>,shazam::density_filter<shazam::spectral_peak_t>*>(a1, *a1, v17, v18, a5, a6);
+  v19 = *a1;
+  *a1 = v18;
+  v20 = *(a1 + 16);
+  v22 = v24;
+  *(a1 + 8) = v24;
+  *&v24 = v19;
+  *(&v24 + 1) = v20;
+  v23.i64[0] = v19;
+  v23.i64[1] = v19;
+  std::__split_buffer<shazam::density_filter<shazam::spectral_peak_t>>::~__split_buffer(&v23);
+  return v22;
 }
 
 void std::vector<shazam::density_filter<shazam::spectral_peak_t>>::__destroy_vector::operator()[abi:ne200100](void ***a1)
@@ -2758,7 +2756,7 @@ int8x16_t *std::vector<shazam::density_filter<shazam::spectral_peak_t>>::__base_
     i -= 2;
   }
 
-  v3->i64[1] = a2;
+  v3[1] = a2;
   return result;
 }
 
@@ -2804,181 +2802,181 @@ __n128 std::__function::__func<shazam::basic_signature<(shazam::signature_densit
 
 void std::__function::__func<shazam::basic_signature<(shazam::signature_density)24> anonymous namespace::parse<(shazam::signature_density)24>(shazam::packed_signature_view const&)::{lambda(shazam::signature_header const&)#1},std::allocator<shazam::basic_signature<(shazam::signature_density)24> anonymous namespace::parse<(shazam::signature_density)24>(shazam::packed_signature_view const&)::{lambda(shazam::signature_header const&)#1}>,void ()(shazam::signature_header)>::operator()(uint64_t a1, uint64_t a2)
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v4 = *a2;
-  if (*a2 <= 1610809407)
+  if (*a2 > 1610809407)
   {
-    if (v4 > 1610809344)
+    if ((v4 - 1610809408) < 4)
     {
-      if ((v4 - 1610809345) < 3)
+      v12 = (v4 - 1610809408);
+      v13 = *(a1 + 24);
+      if (v12 + 1 > *v13)
       {
-        if ((**(a1 + 16) & 1) == 0)
+        v14 = v12 + 1;
+      }
+
+      else
+      {
+        v14 = *v13;
+      }
+
+      *v13 = v14;
+      if (*(a2 + 8) >= 5uLL)
+      {
+        v15 = *(a2 + 8);
+        v16 = shazam::reinterpret_safer<shazam::spectral_peak_compact_t const*,0>((a2 + 8));
+        v17 = *(*(a1 + 8) + 32) + 24 * v12;
+        v18 = *v17;
+        if (*v17)
         {
-          v5 = (v4 - 1610809345);
-          goto LABEL_28;
+          *(v17 + 8) = v18;
+          operator delete(v18);
+          *v17 = 0;
+          *(v17 + 8) = 0;
+          *(v17 + 16) = 0;
+        }
+
+        *v17 = *v39;
+        *(v17 + 16) = *&v39[16];
+      }
+    }
+
+    else
+    {
+      v6 = (v4 - 1610809600);
+      if (v6 >= 4)
+      {
+        if (v4 == 1610874935)
+        {
+          v28 = *(a1 + 8);
+          std::vector<std::vector<shazam::spectral_peak_t>>::__vdeallocate((v28 + 32));
+          *(v28 + 32) = *v39;
+          *(v28 + 48) = *&v39[16];
+          v38 = v39;
+          memset(v39, 0, 24);
+          std::vector<std::vector<shazam::spectral_peak_t>>::__destroy_vector::operator()[abi:ne200100](&v38);
+          **(a1 + 24) = 4;
         }
       }
 
-      else if ((v4 - 1610809348) < 3)
+      else
       {
-        **(a1 + 16) = 1;
-        v5 = (v4 - 1610809348);
-LABEL_28:
-        v25 = *(a1 + 24);
-        if (v5 + 1 > *v25)
+        v7 = *(a1 + 24);
+        if (v6 + 1 > *v7)
         {
-          v26 = v5 + 1;
+          v8 = v6 + 1;
         }
 
         else
         {
-          v26 = *v25;
+          v8 = *v7;
         }
 
-        *v25 = v26;
-        std::vector<std::vector<shazam::spectral_peak_t>>::resize(*(a1 + 32), v26);
-        std::vector<shazam::signature_header_type>::resize(*(a1 + 40), **(a1 + 24));
-        *(**(a1 + 40) + 4 * v5) = *a2;
-        v27 = **(a1 + 32);
-        v28 = *(a2 + 8);
-        v29 = shazam::reinterpret_safer<shazam::ancient_dead_sig_point_t const*,0>((a2 + 8));
-        v30 = *MEMORY[0x277D85DE8];
+        *v7 = v8;
+        v9 = *(a2 + 8);
+        if (v9 >= 8)
+        {
+          v10 = shazam::reinterpret_safer<shazam::spectral_peak_t const*,0>((a2 + 8));
+          v11 = (*(*(a1 + 8) + 32) + 24 * v6);
 
-        std::vector<shazam::ancient_dead_sig_point_t>::__assign_with_size[abi:ne200100]<shazam::ancient_dead_sig_point_t const*,shazam::ancient_dead_sig_point_t const*>((v27 + 24 * v5), v29, &v29[v28 & 0xFFFFFFFFFFFFFFF0], v28 >> 4);
-        return;
+          std::vector<shazam::spectral_peak_t>::__assign_with_size[abi:ne200100]<shazam::spectral_peak_t const*,shazam::spectral_peak_t const*>(v11, v10, &v10[v9 & 0xFFFFFFFFFFFFFFF8], v9 >> 3);
+        }
       }
-
-      goto LABEL_41;
     }
 
+    return;
+  }
+
+  if (v4 <= 1610809344)
+  {
     switch(v4)
     {
       case 1342177281:
-        v32 = shazam::reinterpret_safer<shazam::legacy_sig_info const*,0>((a2 + 8));
-        shazam::signature_info::convert(v32, v43);
-        if (v44 != 1)
+        v29 = shazam::reinterpret_safer<shazam::legacy_sig_info const*,0>((a2 + 8));
+        shazam::signature_info::convert(v29, v39);
+        if (v40 != 1)
         {
           exception = __cxa_allocate_exception(0x20uLL);
-          error_code = shazam::make_error_code(*v43);
-          MEMORY[0x231921D00](exception, error_code, v38);
+          error_code = shazam::make_error_code(*v39);
+          MEMORY[0x231921D00](exception, error_code, v34);
           __cxa_throw(exception, MEMORY[0x277D82718], MEMORY[0x277D82650]);
         }
 
         break;
       case 1342177282:
-        v33 = shazam::reinterpret_safer<shazam::LegacyFatSigInfo const*,0>((a2 + 8));
-        shazam::signature_info::convert(v33, v43);
-        if (v44 != 1)
+        v30 = shazam::reinterpret_safer<shazam::LegacyFatSigInfo const*,0>((a2 + 8));
+        shazam::signature_info::convert(v39, v30);
+        if (v40 != 1)
         {
-          v39 = __cxa_allocate_exception(0x20uLL);
-          v40 = shazam::make_error_code(*v43);
-          MEMORY[0x231921D00](v39, v40, v41);
-          __cxa_throw(v39, MEMORY[0x277D82718], MEMORY[0x277D82650]);
+          v35 = __cxa_allocate_exception(0x20uLL);
+          v36 = shazam::make_error_code(*v39);
+          MEMORY[0x231921D00](v35, v36, v37);
+          __cxa_throw(v35, MEMORY[0x277D82718], MEMORY[0x277D82650]);
         }
 
         break;
       case 1342177283:
-        v21 = shazam::reinterpret_safer<shazam::SumoSigInfo const*,0>((a2 + 8));
-        shazam::signature_info::signature_info(v43, v21);
-        v22 = *(a1 + 8);
-        v23 = *v43;
-        v24 = *&v43[12];
-LABEL_40:
-        *(v22 + 12) = v24;
-        *v22 = v23;
-        goto LABEL_41;
+        v19 = shazam::reinterpret_safer<shazam::SumoSigInfo const*,0>((a2 + 8));
+        shazam::signature_info::signature_info(v39, v19);
+        v20 = *(a1 + 8);
+        v21 = *v39;
+        v22 = *&v39[12];
+        goto LABEL_40;
       default:
-        goto LABEL_41;
+        return;
     }
 
-    v34 = tl::expected<shazam::signature_info,shazam::sig_error>::value<shazam::signature_info,(void *)0>(v43);
-    v22 = *(a1 + 8);
-    v23 = *v34;
-    v24 = *(v34 + 3);
-    goto LABEL_40;
+    v31 = tl::expected<shazam::signature_info,shazam::sig_error>::value<shazam::signature_info,(void *)0>(v39);
+    v20 = *(a1 + 8);
+    v21 = *v31;
+    v22 = *(v31 + 3);
+LABEL_40:
+    *(v20 + 12) = v22;
+    *v20 = v21;
+    return;
   }
 
-  if ((v4 - 1610809408) < 4)
+  if ((v4 - 1610809345) < 3)
   {
-    v14 = (v4 - 1610809408);
-    v15 = *(a1 + 24);
-    if (v14 + 1 > *v15)
+    if (**(a1 + 16))
     {
-      v16 = v14 + 1;
+      return;
     }
 
-    else
-    {
-      v16 = *v15;
-    }
-
-    *v15 = v16;
-    if (*(a2 + 8) >= 5uLL)
-    {
-      v17 = *(a2 + 8);
-      v18 = shazam::reinterpret_safer<shazam::spectral_peak_compact_t const*,0>((a2 + 8));
-      v19 = *(*(a1 + 8) + 32) + 24 * v14;
-      v20 = *v19;
-      if (*v19)
-      {
-        *(v19 + 8) = v20;
-        operator delete(v20);
-        *v19 = 0;
-        *(v19 + 8) = 0;
-        *(v19 + 16) = 0;
-      }
-
-      *v19 = *v43;
-      *(v19 + 16) = *&v43[16];
-    }
-
-    goto LABEL_41;
-  }
-
-  v6 = (v4 - 1610809600);
-  if (v6 >= 4)
-  {
-    if (v4 == 1610874935)
-    {
-      v31 = *(a1 + 8);
-      std::vector<std::vector<shazam::spectral_peak_t>>::__vdeallocate((v31 + 32));
-      *(v31 + 32) = *v43;
-      *(v31 + 48) = *&v43[16];
-      v42 = v43;
-      memset(v43, 0, 24);
-      std::vector<std::vector<shazam::spectral_peak_t>>::__destroy_vector::operator()[abi:ne200100](&v42);
-      **(a1 + 24) = 4;
-    }
-
-    goto LABEL_41;
-  }
-
-  v7 = *(a1 + 24);
-  if (v6 + 1 > *v7)
-  {
-    v8 = v6 + 1;
+    v5 = (v4 - 1610809345);
   }
 
   else
   {
-    v8 = *v7;
+    if ((v4 - 1610809348) >= 3)
+    {
+      return;
+    }
+
+    **(a1 + 16) = 1;
+    v5 = (v4 - 1610809348);
   }
 
-  *v7 = v8;
-  v9 = *(a2 + 8);
-  if (v9 < 8)
+  v23 = *(a1 + 24);
+  if (v5 + 1 > *v23)
   {
-LABEL_41:
-    v35 = *MEMORY[0x277D85DE8];
-    return;
+    v24 = v5 + 1;
   }
 
-  v10 = shazam::reinterpret_safer<shazam::spectral_peak_t const*,0>((a2 + 8));
-  v11 = *MEMORY[0x277D85DE8];
-  v12 = v10;
-  v13 = (*(*(a1 + 8) + 32) + 24 * v6);
+  else
+  {
+    v24 = *v23;
+  }
 
-  std::vector<shazam::spectral_peak_t>::__assign_with_size[abi:ne200100]<shazam::spectral_peak_t const*,shazam::spectral_peak_t const*>(v13, v12, &v12[v9 & 0xFFFFFFFFFFFFFFF8], v9 >> 3);
+  *v23 = v24;
+  std::vector<std::vector<shazam::spectral_peak_t>>::resize(*(a1 + 32), v24);
+  std::vector<shazam::signature_header_type>::resize(*(a1 + 40), **(a1 + 24));
+  *(**(a1 + 40) + 4 * v5) = *a2;
+  v25 = **(a1 + 32);
+  v26 = *(a2 + 8);
+  v27 = shazam::reinterpret_safer<shazam::ancient_dead_sig_point_t const*,0>((a2 + 8));
+
+  std::vector<shazam::ancient_dead_sig_point_t>::__assign_with_size[abi:ne200100]<shazam::ancient_dead_sig_point_t const*,shazam::ancient_dead_sig_point_t const*>((v25 + 24 * v5), v27, &v27[v26 & 0xFFFFFFFFFFFFFFF0], v26 >> 4);
 }
 
 uint64_t std::__function::__func<shazam::basic_signature<(shazam::signature_density)24> anonymous namespace::parse<(shazam::signature_density)24>(shazam::packed_signature_view const&)::{lambda(shazam::signature_header const&)#1},std::allocator<shazam::basic_signature<(shazam::signature_density)24> anonymous namespace::parse<(shazam::signature_density)24>(shazam::packed_signature_view const&)::{lambda(shazam::signature_header const&)#1}>,void ()(shazam::signature_header)>::target(uint64_t a1, uint64_t a2)
@@ -3006,181 +3004,181 @@ __n128 std::__function::__func<shazam::basic_signature<(shazam::signature_densit
 
 void std::__function::__func<shazam::basic_signature<(shazam::signature_density)2147483647> anonymous namespace::parse<(shazam::signature_density)2147483647>(shazam::packed_signature_view const&)::{lambda(shazam::signature_header const&)#1},std::allocator<shazam::basic_signature<(shazam::signature_density)2147483647> anonymous namespace::parse<(shazam::signature_density)2147483647>(shazam::packed_signature_view const&)::{lambda(shazam::signature_header const&)#1}>,void ()(shazam::signature_header)>::operator()(uint64_t a1, uint64_t a2)
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v4 = *a2;
-  if (*a2 <= 1610809407)
+  if (*a2 > 1610809407)
   {
-    if (v4 > 1610809344)
+    if ((v4 - 1610809408) < 4)
     {
-      if ((v4 - 1610809345) < 3)
+      v12 = (v4 - 1610809408);
+      v13 = *(a1 + 24);
+      if (v12 + 1 > *v13)
       {
-        if ((**(a1 + 16) & 1) == 0)
+        v14 = v12 + 1;
+      }
+
+      else
+      {
+        v14 = *v13;
+      }
+
+      *v13 = v14;
+      if (*(a2 + 8) >= 5uLL)
+      {
+        v15 = *(a2 + 8);
+        v16 = shazam::reinterpret_safer<shazam::spectral_peak_compact_t const*,0>((a2 + 8));
+        v17 = *(*(a1 + 8) + 32) + 24 * v12;
+        v18 = *v17;
+        if (*v17)
         {
-          v5 = (v4 - 1610809345);
-          goto LABEL_28;
+          *(v17 + 8) = v18;
+          operator delete(v18);
+          *v17 = 0;
+          *(v17 + 8) = 0;
+          *(v17 + 16) = 0;
+        }
+
+        *v17 = *v39;
+        *(v17 + 16) = *&v39[16];
+      }
+    }
+
+    else
+    {
+      v6 = (v4 - 1610809600);
+      if (v6 >= 4)
+      {
+        if (v4 == 1610874935)
+        {
+          v28 = *(a1 + 8);
+          std::vector<std::vector<shazam::spectral_peak_t>>::__vdeallocate((v28 + 32));
+          *(v28 + 32) = *v39;
+          *(v28 + 48) = *&v39[16];
+          v38 = v39;
+          memset(v39, 0, 24);
+          std::vector<std::vector<shazam::spectral_peak_t>>::__destroy_vector::operator()[abi:ne200100](&v38);
+          **(a1 + 24) = 4;
         }
       }
 
-      else if ((v4 - 1610809348) < 3)
+      else
       {
-        **(a1 + 16) = 1;
-        v5 = (v4 - 1610809348);
-LABEL_28:
-        v25 = *(a1 + 24);
-        if (v5 + 1 > *v25)
+        v7 = *(a1 + 24);
+        if (v6 + 1 > *v7)
         {
-          v26 = v5 + 1;
+          v8 = v6 + 1;
         }
 
         else
         {
-          v26 = *v25;
+          v8 = *v7;
         }
 
-        *v25 = v26;
-        std::vector<std::vector<shazam::spectral_peak_t>>::resize(*(a1 + 32), v26);
-        std::vector<shazam::signature_header_type>::resize(*(a1 + 40), **(a1 + 24));
-        *(**(a1 + 40) + 4 * v5) = *a2;
-        v27 = **(a1 + 32);
-        v28 = *(a2 + 8);
-        v29 = shazam::reinterpret_safer<shazam::ancient_dead_sig_point_t const*,0>((a2 + 8));
-        v30 = *MEMORY[0x277D85DE8];
+        *v7 = v8;
+        v9 = *(a2 + 8);
+        if (v9 >= 8)
+        {
+          v10 = shazam::reinterpret_safer<shazam::spectral_peak_t const*,0>((a2 + 8));
+          v11 = (*(*(a1 + 8) + 32) + 24 * v6);
 
-        std::vector<shazam::ancient_dead_sig_point_t>::__assign_with_size[abi:ne200100]<shazam::ancient_dead_sig_point_t const*,shazam::ancient_dead_sig_point_t const*>((v27 + 24 * v5), v29, &v29[v28 & 0xFFFFFFFFFFFFFFF0], v28 >> 4);
-        return;
+          std::vector<shazam::spectral_peak_t>::__assign_with_size[abi:ne200100]<shazam::spectral_peak_t const*,shazam::spectral_peak_t const*>(v11, v10, &v10[v9 & 0xFFFFFFFFFFFFFFF8], v9 >> 3);
+        }
       }
-
-      goto LABEL_41;
     }
 
+    return;
+  }
+
+  if (v4 <= 1610809344)
+  {
     switch(v4)
     {
       case 1342177281:
-        v32 = shazam::reinterpret_safer<shazam::legacy_sig_info const*,0>((a2 + 8));
-        shazam::signature_info::convert(v32, v43);
-        if (v44 != 1)
+        v29 = shazam::reinterpret_safer<shazam::legacy_sig_info const*,0>((a2 + 8));
+        shazam::signature_info::convert(v29, v39);
+        if (v40 != 1)
         {
           exception = __cxa_allocate_exception(0x20uLL);
-          error_code = shazam::make_error_code(*v43);
-          MEMORY[0x231921D00](exception, error_code, v38);
+          error_code = shazam::make_error_code(*v39);
+          MEMORY[0x231921D00](exception, error_code, v34);
           __cxa_throw(exception, MEMORY[0x277D82718], MEMORY[0x277D82650]);
         }
 
         break;
       case 1342177282:
-        v33 = shazam::reinterpret_safer<shazam::LegacyFatSigInfo const*,0>((a2 + 8));
-        shazam::signature_info::convert(v33, v43);
-        if (v44 != 1)
+        v30 = shazam::reinterpret_safer<shazam::LegacyFatSigInfo const*,0>((a2 + 8));
+        shazam::signature_info::convert(v39, v30);
+        if (v40 != 1)
         {
-          v39 = __cxa_allocate_exception(0x20uLL);
-          v40 = shazam::make_error_code(*v43);
-          MEMORY[0x231921D00](v39, v40, v41);
-          __cxa_throw(v39, MEMORY[0x277D82718], MEMORY[0x277D82650]);
+          v35 = __cxa_allocate_exception(0x20uLL);
+          v36 = shazam::make_error_code(*v39);
+          MEMORY[0x231921D00](v35, v36, v37);
+          __cxa_throw(v35, MEMORY[0x277D82718], MEMORY[0x277D82650]);
         }
 
         break;
       case 1342177283:
-        v21 = shazam::reinterpret_safer<shazam::SumoSigInfo const*,0>((a2 + 8));
-        shazam::signature_info::signature_info(v43, v21);
-        v22 = *(a1 + 8);
-        v23 = *v43;
-        v24 = *&v43[12];
-LABEL_40:
-        *(v22 + 12) = v24;
-        *v22 = v23;
-        goto LABEL_41;
+        v19 = shazam::reinterpret_safer<shazam::SumoSigInfo const*,0>((a2 + 8));
+        shazam::signature_info::signature_info(v39, v19);
+        v20 = *(a1 + 8);
+        v21 = *v39;
+        v22 = *&v39[12];
+        goto LABEL_40;
       default:
-        goto LABEL_41;
+        return;
     }
 
-    v34 = tl::expected<shazam::signature_info,shazam::sig_error>::value<shazam::signature_info,(void *)0>(v43);
-    v22 = *(a1 + 8);
-    v23 = *v34;
-    v24 = *(v34 + 3);
-    goto LABEL_40;
+    v31 = tl::expected<shazam::signature_info,shazam::sig_error>::value<shazam::signature_info,(void *)0>(v39);
+    v20 = *(a1 + 8);
+    v21 = *v31;
+    v22 = *(v31 + 3);
+LABEL_40:
+    *(v20 + 12) = v22;
+    *v20 = v21;
+    return;
   }
 
-  if ((v4 - 1610809408) < 4)
+  if ((v4 - 1610809345) < 3)
   {
-    v14 = (v4 - 1610809408);
-    v15 = *(a1 + 24);
-    if (v14 + 1 > *v15)
+    if (**(a1 + 16))
     {
-      v16 = v14 + 1;
+      return;
     }
 
-    else
-    {
-      v16 = *v15;
-    }
-
-    *v15 = v16;
-    if (*(a2 + 8) >= 5uLL)
-    {
-      v17 = *(a2 + 8);
-      v18 = shazam::reinterpret_safer<shazam::spectral_peak_compact_t const*,0>((a2 + 8));
-      v19 = *(*(a1 + 8) + 32) + 24 * v14;
-      v20 = *v19;
-      if (*v19)
-      {
-        *(v19 + 8) = v20;
-        operator delete(v20);
-        *v19 = 0;
-        *(v19 + 8) = 0;
-        *(v19 + 16) = 0;
-      }
-
-      *v19 = *v43;
-      *(v19 + 16) = *&v43[16];
-    }
-
-    goto LABEL_41;
-  }
-
-  v6 = (v4 - 1610809600);
-  if (v6 >= 4)
-  {
-    if (v4 == 1610874935)
-    {
-      v31 = *(a1 + 8);
-      std::vector<std::vector<shazam::spectral_peak_t>>::__vdeallocate((v31 + 32));
-      *(v31 + 32) = *v43;
-      *(v31 + 48) = *&v43[16];
-      v42 = v43;
-      memset(v43, 0, 24);
-      std::vector<std::vector<shazam::spectral_peak_t>>::__destroy_vector::operator()[abi:ne200100](&v42);
-      **(a1 + 24) = 4;
-    }
-
-    goto LABEL_41;
-  }
-
-  v7 = *(a1 + 24);
-  if (v6 + 1 > *v7)
-  {
-    v8 = v6 + 1;
+    v5 = (v4 - 1610809345);
   }
 
   else
   {
-    v8 = *v7;
+    if ((v4 - 1610809348) >= 3)
+    {
+      return;
+    }
+
+    **(a1 + 16) = 1;
+    v5 = (v4 - 1610809348);
   }
 
-  *v7 = v8;
-  v9 = *(a2 + 8);
-  if (v9 < 8)
+  v23 = *(a1 + 24);
+  if (v5 + 1 > *v23)
   {
-LABEL_41:
-    v35 = *MEMORY[0x277D85DE8];
-    return;
+    v24 = v5 + 1;
   }
 
-  v10 = shazam::reinterpret_safer<shazam::spectral_peak_t const*,0>((a2 + 8));
-  v11 = *MEMORY[0x277D85DE8];
-  v12 = v10;
-  v13 = (*(*(a1 + 8) + 32) + 24 * v6);
+  else
+  {
+    v24 = *v23;
+  }
 
-  std::vector<shazam::spectral_peak_t>::__assign_with_size[abi:ne200100]<shazam::spectral_peak_t const*,shazam::spectral_peak_t const*>(v13, v12, &v12[v9 & 0xFFFFFFFFFFFFFFF8], v9 >> 3);
+  *v23 = v24;
+  std::vector<std::vector<shazam::spectral_peak_t>>::resize(*(a1 + 32), v24);
+  std::vector<shazam::signature_header_type>::resize(*(a1 + 40), **(a1 + 24));
+  *(**(a1 + 40) + 4 * v5) = *a2;
+  v25 = **(a1 + 32);
+  v26 = *(a2 + 8);
+  v27 = shazam::reinterpret_safer<shazam::ancient_dead_sig_point_t const*,0>((a2 + 8));
+
+  std::vector<shazam::ancient_dead_sig_point_t>::__assign_with_size[abi:ne200100]<shazam::ancient_dead_sig_point_t const*,shazam::ancient_dead_sig_point_t const*>((v25 + 24 * v5), v27, &v27[v26 & 0xFFFFFFFFFFFFFFF0], v26 >> 4);
 }
 
 uint64_t std::__function::__func<shazam::basic_signature<(shazam::signature_density)2147483647> anonymous namespace::parse<(shazam::signature_density)2147483647>(shazam::packed_signature_view const&)::{lambda(shazam::signature_header const&)#1},std::allocator<shazam::basic_signature<(shazam::signature_density)2147483647> anonymous namespace::parse<(shazam::signature_density)2147483647>(shazam::packed_signature_view const&)::{lambda(shazam::signature_header const&)#1}>,void ()(shazam::signature_header)>::target(uint64_t a1, uint64_t a2)
@@ -3292,7 +3290,7 @@ uint64_t std::__function::__func<shazam::freebird_signature shazam::unpack_signa
   }
 }
 
-uint64_t std::vector<shazam::freebird_tensor>::push_back[abi:ne200100](uint64_t *a1, void *a2)
+uint64_t std::vector<shazam::freebird_tensor>::push_back[abi:ne200100](void *a1, void *a2)
 {
   v3 = a1[1];
   if (v3 >= a1[2])
@@ -3323,7 +3321,7 @@ gsl::details *gsl::span<char const,18446744073709551615ul>::make_subspan(gsl::de
     this = (*a1 - a2);
     if (v3 != -1)
     {
-      goto LABEL_4;
+      return this;
     }
 
 LABEL_6:
@@ -3335,24 +3333,22 @@ LABEL_6:
     goto LABEL_6;
   }
 
-LABEL_4:
-  v4 = *(a1 + 1) + a2;
   return this;
 }
 
-uint64_t std::vector<shazam::freebird_tensor>::__construct_one_at_end[abi:ne200100]<shazam::freebird_tensor const&>(uint64_t a1, void *a2)
+uint64_t *std::vector<shazam::freebird_tensor>::__construct_one_at_end[abi:ne200100]<shazam::freebird_tensor const&>(uint64_t a1, void *a2)
 {
   v3 = *(a1 + 8);
   *v3 = *a2;
   v3[2] = 0;
   v3[3] = 0;
   v3[1] = 0;
-  result = std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((v3 + 1), a2[1], a2[2], (a2[2] - a2[1]) >> 2);
+  result = std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v3 + 1, a2[1], a2[2], (a2[2] - a2[1]) >> 2);
   *(a1 + 8) = v3 + 4;
   return result;
 }
 
-uint64_t std::vector<shazam::freebird_tensor>::__emplace_back_slow_path<shazam::freebird_tensor const&>(uint64_t *a1, void *a2)
+uint64_t std::vector<shazam::freebird_tensor>::__emplace_back_slow_path<shazam::freebird_tensor const&>(void *a1, void *a2)
 {
   v2 = (a1[1] - *a1) >> 5;
   v3 = v2 + 1;
@@ -3391,7 +3387,7 @@ uint64_t std::vector<shazam::freebird_tensor>::__emplace_back_slow_path<shazam::
   v8[2] = 0;
   v8[3] = 0;
   v8[1] = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(32 * v2 + 8, a2[1], a2[2], (a2[2] - a2[1]) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((32 * v2 + 8), a2[1], a2[2], (a2[2] - a2[1]) >> 2);
   *&v17 = v17 + 32;
   v9 = a1[1];
   v10 = (v16 + *a1 - v9);
@@ -3409,14 +3405,14 @@ uint64_t std::vector<shazam::freebird_tensor>::__emplace_back_slow_path<shazam::
   return v14;
 }
 
-void sub_230FA9134(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_230FA9134(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<shazam::freebird_tensor>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -3438,7 +3434,7 @@ void sub_230FA91A8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<float>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<float>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 62))
   {
@@ -3662,8 +3658,9 @@ void std::vector<shazam::freebird_tensor>::__vdeallocate(uint64_t *a1)
   }
 }
 
-BOOL shazam::fit_points(uint64_t *a1, int **a2, float *a3, uint64_t a4, float *a5, double *a6, gsl::details *a7, unsigned int a8, float a9)
+BOOL shazam::fit_points(uint64_t *a1, unsigned int **a2, float *a3, uint64_t a4, float *a5, double *a6, gsl::details *a7, uint64_t a8, float a9)
 {
+  v9 = a8;
   *(a7 + 1) = *a7;
   v16 = (a1[3] + 4 * a4);
   v18 = *v16;
@@ -3675,7 +3672,7 @@ BOOL shazam::fit_points(uint64_t *a1, int **a2, float *a3, uint64_t a4, float *a
   {
     do
     {
-      if (*(v21 + 4 * ((v19 + v18) >> 1)) >> 14 < (v20 - a8))
+      if (*(v21 + 4 * ((v19 + v18) >> 1)) >> 14 < v20 - a8)
       {
         v18 = (v19 + v18) >> 1;
       }
@@ -3690,7 +3687,7 @@ BOOL shazam::fit_points(uint64_t *a1, int **a2, float *a3, uint64_t a4, float *a
   }
 
   gsl::span<shazam::peak_tf const,18446744073709551615ul>::span<18446744073709551615ul,0>(&v28, v21 + 4 * v19, v21 + 4 * v17);
-  shazam::match_peaks(*&v28, v29, a2, v20, a7, a8, a9, *a5);
+  shazam::match_peaks(*&v28, v29, a2, v20, a7, v9, a9, *a5);
   if (*(a7 + 1) - *a7 >= 0x60uLL && (v31[0] = gsl::make_span<std::vector<shazam::tfmatch>>(a7), v31[1] = v22, shazam::regress<shazam::tfmatch const,shazam::extractX<shazam::tfmatch const>,shazam::extractY<shazam::tfmatch const>>(v31, &v28), v30 == 1))
   {
     v23 = v28;
@@ -3974,7 +3971,7 @@ LABEL_6:
   return result;
 }
 
-void sub_230FAA3CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t **__p, uint64_t a10, uint64_t a11, uint64_t *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22)
+void sub_230FAA3CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t **__p, uint64_t **a10, uint64_t a11, uint64_t *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22)
 {
   if (__p)
   {
@@ -4008,18 +4005,19 @@ void sub_230FAA3CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   JUMPOUT(0x230FAA398);
 }
 
-void sub_230FAA604(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, uint64_t a15, char a16)
+void sub_230FAA604(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, uint64_t a15, ...)
 {
+  va_start(va, a15);
   if (__p)
   {
     operator delete(__p);
   }
 
-  std::tuple<shazam::basic_signature<(shazam::signature_density)2147483647>,shazam::freebird_signature>::~tuple(&a16);
+  std::tuple<shazam::basic_signature<(shazam::signature_density)2147483647>,shazam::freebird_signature>::~tuple(va);
   if (a2 == 2)
   {
-    v21 = __cxa_begin_catch(a1);
-    [v18 convertException:v21 toError:v17 code:v21[4]];
+    v20 = __cxa_begin_catch(a1);
+    [v17 convertException:v20 toError:v16 code:v20[4]];
     __cxa_end_catch();
   }
 
@@ -4031,7 +4029,7 @@ void sub_230FAA604(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
       _Unwind_Resume(a1);
     }
 
-    [v18 convertException:__cxa_begin_catch(a1) toError:v17 code:4294967196];
+    [v17 convertException:__cxa_begin_catch(a1) toError:v16 code:4294967196];
     __cxa_end_catch();
   }
 
@@ -4040,7 +4038,7 @@ void sub_230FAA604(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 float shazam::get_spect_peak_log_scale(shazam *this)
 {
-  if ((atomic_load_explicit(&qword_27DD3B1F8, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_27DD3B1F8, memory_order_acquire) & 1) == 0)
   {
     shazam::get_spect_peak_log_scale();
   }
@@ -4050,7 +4048,7 @@ float shazam::get_spect_peak_log_scale(shazam *this)
 
 float shazam::get_spect_peak_log_offset(shazam *this)
 {
-  if ((atomic_load_explicit(&qword_27DD3B200, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_27DD3B200, memory_order_acquire) & 1) == 0)
   {
     shazam::get_spect_peak_log_offset();
   }
@@ -4098,21 +4096,21 @@ shazam *shazam::spectral_peak_t::spectral_peak_t(shazam *a1, int a2, unsigned in
 
 void shazam::get_spect_peak_log_scale()
 {
-  if (__cxa_guard_acquire(&qword_27DD3B1F8))
+  if (__cxa_guard_acquire(byte_27DD3B1F8))
   {
     _MergedGlobals = 1152952891;
 
-    __cxa_guard_release(&qword_27DD3B1F8);
+    __cxa_guard_release(byte_27DD3B1F8);
   }
 }
 
 void shazam::get_spect_peak_log_offset()
 {
-  if (__cxa_guard_acquire(&qword_27DD3B200))
+  if (__cxa_guard_acquire(byte_27DD3B200))
   {
     dword_27DD3B1F4 = -1065020014;
 
-    __cxa_guard_release(&qword_27DD3B200);
+    __cxa_guard_release(byte_27DD3B200);
   }
 }
 
@@ -4213,10 +4211,11 @@ uint64_t shazam::get_version_as_string(unsigned int a1, uint64_t a2, uint64_t a3
   return 1;
 }
 
-void sub_230FAAD60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, char a46)
+void sub_230FAAD60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, ...)
 {
+  va_start(va, a45);
   std::ostringstream::~ostringstream(&a13);
-  std::ostringstream::~ostringstream(&a46);
+  std::ostringstream::~ostringstream(va);
   _Unwind_Resume(a1);
 }
 
@@ -4249,9 +4248,9 @@ uint64_t shazam::get_legacy_version_as_string(unsigned int a1, uint64_t a2)
   return MEMORY[0x231921E90](&v14);
 }
 
-void sub_230FAAF3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_230FAAF3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::ostringstream::~ostringstream(va);
   _Unwind_Resume(a1);
 }
@@ -4403,16 +4402,16 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   if (v13[0] == 1)
   {
     v6 = a1 + *(*a1 - 24);
-    v7 = *(v6 + 40);
-    v8 = *(v6 + 8);
-    v9 = *(v6 + 144);
+    v7 = *(v6 + 5);
+    v8 = *(v6 + 2);
+    v9 = *(v6 + 36);
     if (v9 == -1)
     {
       std::ios_base::getloc((a1 + *(*a1 - 24)));
       v10 = std::locale::use_facet(&v14, MEMORY[0x277D82680]);
       v9 = (v10->__vftable[2].~facet_0)(v10, 32);
       std::locale::~locale(&v14);
-      *(v6 + 144) = v9;
+      *(v6 + 36) = v9;
     }
 
     if ((v8 & 0xB0) == 0x20)
@@ -4435,9 +4434,9 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   return a1;
 }
 
-void sub_230FAB4E4(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_230FAB4E4(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
-  MEMORY[0x231921D70](&a10);
+  MEMORY[0x231921D70](&a10, a2, a3, a4, a5, a6, a7, a8);
   __cxa_begin_catch(a1);
   std::ios_base::__set_badbit_and_consider_rethrow((v12 + *(*v12 - 24)));
   __cxa_end_catch();
@@ -4587,17 +4586,7 @@ void std::vector<char>::__append(std::vector<char> *this, std::vector<char>::siz
   }
 }
 
-void shazam::dsp::vDSP_matmul(void *a1)
-{
-  if (!(*a1 >> 62))
-  {
-    v1 = 4 * *a1;
-  }
-
-  operator new[]();
-}
-
-void shazam::dsp::matmul(void *a1, void *a2, unint64_t a3, void *a4)
+void shazam::dsp::matmul(void *a1, void *a2, vDSP_Length a3, void *a4)
 {
   v4 = *a1 / a3;
   if (*a1 % a3)
@@ -4608,15 +4597,15 @@ void shazam::dsp::matmul(void *a1, void *a2, unint64_t a3, void *a4)
 
   else
   {
-    v5 = *a2 / a3;
+    v7 = *a2 / a3;
     if (!(*a2 % a3))
     {
-      if (v5 * v4 > (a4[1] - *a4) >> 3)
+      if (v7 * v4 > (a4[1] - *a4) >> 3)
       {
-        std::vector<std::complex<float>>::resize(a4, v5 * v4);
+        std::vector<std::complex<float>>::resize(a4, v7 * v4);
       }
 
-      shazam::dsp::vDSP_matmul(a1);
+      shazam::dsp::vDSP_matmul(a1, a2, a3, a4, v4, v7);
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
@@ -4633,20 +4622,20 @@ std::logic_error *std::invalid_argument::invalid_argument[abi:ne200100](std::log
   return result;
 }
 
-void std::vector<std::complex<float>>::resize(void *a1, unint64_t a2)
+void std::vector<std::complex<float>>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 3;
+  v2 = (result[1] - *result) >> 3;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    std::vector<std::complex<float>>::__append(a1, a2 - v2);
+    std::vector<std::complex<float>>::__append(result, a2 - v2);
   }
 }
 
@@ -4711,10 +4700,10 @@ void std::vector<std::complex<float>>::__append(uint64_t a1, unint64_t a2)
   }
 }
 
-shazam::dsp::cascade_buf *shazam::dsp::cascade_buf::cascade_buf(shazam::dsp::cascade_buf *this, uint64_t a2, unsigned int a3, unint64_t a4)
+shazam::dsp::cascade_buf *shazam::dsp::cascade_buf::cascade_buf(shazam::dsp::cascade_buf *this, unint64_t a2, unsigned int a3, unint64_t a4)
 {
   *(this + 3) = 0u;
-  v19 = (this + 48);
+  v23 = (this + 48);
   *(this + 12) = 0;
   *(this + 4) = 0u;
   *(this + 5) = 0u;
@@ -4744,45 +4733,45 @@ shazam::dsp::cascade_buf *shazam::dsp::cascade_buf::cascade_buf(shazam::dsp::cas
     if (v7)
     {
       bzero(v7, 0x4010uLL);
-      v20 = v8;
-      v21 = shazam::aligned_free;
-      v22 = 4096;
+      v24 = v8;
+      v25 = shazam::aligned_free;
+      v26 = 4096;
       v9 = 1;
     }
 
     else
     {
       v9 = 0;
-      LODWORD(v20) = 512;
+      LODWORD(v24) = 512;
     }
 
-    v23 = v9;
-    v10 = shazam::unwrap_or_throw<shazam::static_aligned_dual_buffer<float>,shazam::sigx_error,void>(&v20);
-    v11 = v10;
-    v12 = *(this + 4);
-    if (v12 >= *(this + 5))
+    v27 = v9;
+    v10 = shazam::unwrap_or_throw<shazam::static_aligned_dual_buffer<float>,shazam::sigx_error,void>(&v24);
+    v15 = v10;
+    v16 = *(this + 4);
+    if (v16 >= *(this + 5))
     {
-      v14 = std::vector<shazam::static_aligned_dual_buffer<float>>::__emplace_back_slow_path<shazam::static_aligned_dual_buffer<float>>(v5, v10);
+      v18 = std::vector<shazam::static_aligned_dual_buffer<float>>::__emplace_back_slow_path<shazam::static_aligned_dual_buffer<float>>(v5, v10, v11, v12, v13, v14);
     }
 
     else
     {
-      v13 = *v10;
+      v17 = *v10;
       *v10 = 0;
-      *v12 = v13;
-      v12[1] = v10[1];
-      v12[2] = v10[2];
-      v14 = (v12 + 3);
+      *v16 = v17;
+      v16[1] = v10[1];
+      v16[2] = v10[2];
+      v18 = (v16 + 3);
     }
 
-    *(this + 4) = v14;
-    if (v23 == 1)
+    *(this + 4) = v18;
+    if (v27 == 1)
     {
-      v15 = v20;
-      v20 = 0;
-      if (v15)
+      v19 = v24;
+      v24 = 0;
+      if (v19)
       {
-        (v21)(v15, v11);
+        (v25)(v19, v15);
       }
     }
 
@@ -4790,7 +4779,7 @@ shazam::dsp::cascade_buf *shazam::dsp::cascade_buf::cascade_buf(shazam::dsp::cas
   }
 
   while (v6);
-  std::vector<std::complex<float>>::resize(v19, 1uLL);
+  std::vector<std::complex<float>>::resize(v23, 1uLL);
   *(this + 14) = 0;
   *(this + 15) = a4;
   if (a4 >= 0x400)
@@ -4965,15 +4954,15 @@ uint64_t shazam::dsp::cascade_buf::flow(uint64_t a1, uint64_t a2, uint64_t a3)
 
 void shazam::dsp::cascade_buf::cascade(shazam::dsp::cascade_buf *this)
 {
+  v15 = 0;
   v16 = 0;
   v17 = 0;
-  v18 = 0;
-  std::vector<float>::reserve(&v16, 0x200uLL);
+  std::vector<float>::reserve(&v15, 0x200uLL);
   v2 = *this;
   if (*(this + 1) == *this)
   {
-    v6 = v16;
-    if (!v16)
+    v5 = v15;
+    if (!v15)
     {
       return;
     }
@@ -4985,42 +4974,41 @@ void shazam::dsp::cascade_buf::cascade(shazam::dsp::cascade_buf *this)
   v4 = 1024;
   do
   {
-    v5 = *(*(this + 3) + 24 * v3) + 4 * (((*(*(this + 3) + 24 * v3 + 16) >> 1) - 1) & (*(*(this + 6) + 8 * v3) - v4));
     shazam::resample_stream::stream_flow(*(v2 + 8 * v3++));
+    v5 = v15;
     v6 = v16;
-    v7 = v17;
-    if (v16 != v17)
+    if (v15 != v16)
     {
-      v8 = (*(this + 3) + 24 * v3);
-      v9 = *(this + 6);
-      v10 = *v8;
-      v11 = *(v9 + 8 * v3);
-      v12 = v16;
+      v7 = (*(this + 3) + 24 * v3);
+      v8 = *(this + 6);
+      v9 = *v7;
+      v10 = *(v8 + 8 * v3);
+      v11 = v15;
       do
       {
-        v13 = *v12 * 1.4142;
-        *v12++ = v13;
-        v14 = v8[2] >> 1;
-        v15 = (v10 + 4 * ((v14 - 1) & v11));
-        v15[v14] = v13;
-        *v15 = v13;
-        *(v9 + 8 * v3) = ++v11;
+        v12 = *v11 * 1.4142;
+        *v11++ = v12;
+        v13 = v7[2] >> 1;
+        v14 = (v9 + 4 * ((v13 - 1) & v10));
+        v14[v13] = v12;
+        *v14 = v12;
+        *(v8 + 8 * v3) = ++v10;
       }
 
-      while (v12 != v7);
+      while (v11 != v6);
     }
 
     v4 /= 2;
-    v17 = v6;
+    v16 = v5;
     v2 = *this;
   }
 
   while (v3 < (*(this + 1) - *this) >> 3);
-  if (v6)
+  if (v5)
   {
 LABEL_8:
-    v17 = v6;
-    operator delete(v6);
+    v16 = v5;
+    operator delete(v5);
   }
 }
 
@@ -5045,27 +5033,24 @@ gsl::details *gsl::details::span_iterator<float>::operator++(gsl::details *resul
   return result;
 }
 
-void *std::vector<float>::reserve(void *result, unint64_t a2)
+void std::vector<float>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 2)
+  if (a2 > (a1[2] - *a1) >> 2)
   {
     if (!(a2 >> 62))
     {
-      v2 = result[1] - *result;
-      std::__allocate_at_least[abi:ne200100]<std::allocator<shazam::signature_header_type>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<shazam::signature_header_type>>(a1, a2);
     }
 
     std::vector<std::vector<shazam::spectral_peak_t>>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void *shazam::dsp::cascade_buf::set_read_point(shazam::dsp::cascade_buf *this, uint64_t a2, unsigned int a3, uint64_t a4)
 {
-  v6[0] = a3 | (a2 << 32);
-  v6[2] = v6;
-  result = std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(this + 9, v6);
+  v6 = a3 | (a2 << 32);
+  v7 = &v6;
+  result = std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(this + 18, &v6, &std::piecewise_construct, &v7);
   result[3] = a4;
   return result;
 }
@@ -5241,62 +5226,62 @@ uint64_t std::vector<shazam::static_aligned_dual_buffer<float>>::__base_destruct
   return result;
 }
 
-uint64_t std::vector<shazam::static_aligned_dual_buffer<float>>::__emplace_back_slow_path<shazam::static_aligned_dual_buffer<float>>(uint64_t *a1, uint64_t *a2)
+uint64_t std::vector<shazam::static_aligned_dual_buffer<float>>::__emplace_back_slow_path<shazam::static_aligned_dual_buffer<float>>(void *a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v3 = 0xAAAAAAAAAAAAAAALL;
-  v4 = *a1;
-  v5 = a1[1];
-  v6 = v5 - *a1;
-  v7 = 0xAAAAAAAAAAAAAAABLL * (v6 >> 3) + 1;
-  if (v7 > 0xAAAAAAAAAAAAAAALL)
+  v7 = 0xAAAAAAAAAAAAAAALL;
+  v8 = *a1;
+  v9 = a1[1];
+  v10 = v9 - *a1;
+  v11 = 0xAAAAAAAAAAAAAAABLL * (v10 >> 3) + 1;
+  if (v11 > 0xAAAAAAAAAAAAAAALL)
   {
     std::vector<std::vector<shazam::spectral_peak_t>>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x5555555555555556 * ((a1[2] - v4) >> 3) > v7)
+  if (0x5555555555555556 * ((a1[2] - v8) >> 3) > v11)
   {
-    v7 = 0x5555555555555556 * ((a1[2] - v4) >> 3);
+    v11 = 0x5555555555555556 * ((a1[2] - v8) >> 3);
   }
 
-  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - v4) >> 3) < 0x555555555555555)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - v8) >> 3) < 0x555555555555555)
   {
-    v3 = v7;
+    v7 = v11;
   }
 
-  v20 = a1;
-  if (v3)
+  v24 = a1;
+  if (v7)
   {
-    std::__allocate_at_least[abi:ne200100]<std::allocator<shazam::static_aligned_dual_buffer<float>>>(a1, v3);
+    std::__allocate_at_least[abi:ne200100]<std::allocator<shazam::static_aligned_dual_buffer<float>>>(a1, v7);
   }
 
-  v9 = (8 * (v6 >> 3));
-  v17 = 0;
-  v18 = v9;
-  v10 = *a2;
+  v13 = (8 * (v10 >> 3));
+  v21 = 0;
+  v22 = v13;
+  v14 = *a2;
   *a2 = 0;
-  *v9 = v10;
-  v11 = a2[2];
-  v9[1] = a2[1];
-  v9[2] = v11;
-  v19 = (v9 + 3);
-  v12 = v9 - v6;
-  std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<shazam::static_aligned_dual_buffer<float>>,shazam::static_aligned_dual_buffer<float>*>(a1, v4, v5, (v9 - v6));
-  v13 = *a1;
-  *a1 = v12;
-  v14 = a1[2];
-  v16 = v19;
-  *(a1 + 1) = v19;
-  *&v19 = v13;
-  *(&v19 + 1) = v14;
-  v17 = v13;
-  v18 = v13;
-  std::__split_buffer<shazam::static_aligned_dual_buffer<float>>::~__split_buffer(&v17);
-  return v16;
+  *v13 = v14;
+  v15 = a2[2];
+  v13[1] = a2[1];
+  v13[2] = v15;
+  v23 = (v13 + 3);
+  v16 = v13 - v10;
+  std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<shazam::static_aligned_dual_buffer<float>>,shazam::static_aligned_dual_buffer<float>*>(a1, v8, v9, (v13 - v10), a5, a6);
+  v17 = *a1;
+  *a1 = v16;
+  v18 = a1[2];
+  v20 = v23;
+  *(a1 + 1) = v23;
+  *&v23 = v17;
+  *(&v23 + 1) = v18;
+  v21 = v17;
+  v22 = v17;
+  std::__split_buffer<shazam::static_aligned_dual_buffer<float>>::~__split_buffer(&v21);
+  return v20;
 }
 
-void sub_230FACBC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_230FACBC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<shazam::static_aligned_dual_buffer<float>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -5311,35 +5296,35 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<shazam::static_aligne
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<shazam::static_aligned_dual_buffer<float>>,shazam::static_aligned_dual_buffer<float>*>(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<shazam::static_aligned_dual_buffer<float>>,shazam::static_aligned_dual_buffer<float>*>(uint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t *a4, uint64_t a5, uint64_t a6)
 {
-  v11 = a4;
-  v10 = a4;
-  v8[0] = a1;
-  v8[1] = &v10;
-  v8[2] = &v11;
+  v13 = a4;
+  v12 = a4;
+  v10[0] = a1;
+  v10[1] = &v12;
+  v10[2] = &v13;
   if (a2 != a3)
   {
-    v4 = a2;
+    v6 = a2;
     do
     {
-      v5 = *v4;
-      *v4 = 0;
-      *a4 = v5;
-      v6 = v4[2];
-      a4[1] = v4[1];
-      a4[2] = v6;
-      v4 += 3;
+      v7 = *v6;
+      *v6 = 0;
+      *a4 = v7;
+      v8 = v6[2];
+      a4[1] = v6[1];
+      a4[2] = v8;
+      v6 += 3;
       a4 += 3;
     }
 
-    while (v4 != a3);
-    v11 = a4;
+    while (v6 != a3);
+    v13 = a4;
   }
 
-  v9 = 1;
+  v11 = 1;
   std::__allocator_destroy[abi:ne200100]<std::allocator<shazam::static_aligned_dual_buffer<float>>,shazam::static_aligned_dual_buffer<float>*,shazam::static_aligned_dual_buffer<float>*>(a1, a2, a3);
-  return std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<shazam::static_aligned_dual_buffer<float>>,shazam::static_aligned_dual_buffer<float>*>>::~__exception_guard_exceptions[abi:ne200100](v8);
+  return std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<shazam::static_aligned_dual_buffer<float>>,shazam::static_aligned_dual_buffer<float>*>>::~__exception_guard_exceptions[abi:ne200100](v10);
 }
 
 uint64_t std::__allocator_destroy[abi:ne200100]<std::allocator<shazam::static_aligned_dual_buffer<float>>,shazam::static_aligned_dual_buffer<float>*,shazam::static_aligned_dual_buffer<float>*>(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -5375,7 +5360,7 @@ uint64_t std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<st
   return a1;
 }
 
-uint64_t std::__allocator_destroy[abi:ne200100]<std::allocator<shazam::static_aligned_dual_buffer<float>>,std::reverse_iterator<shazam::static_aligned_dual_buffer<float>*>,std::reverse_iterator<shazam::static_aligned_dual_buffer<float>*>>(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, void *a5)
+void std::__allocator_destroy[abi:ne200100]<std::allocator<shazam::static_aligned_dual_buffer<float>>,std::reverse_iterator<shazam::static_aligned_dual_buffer<float>*>,std::reverse_iterator<shazam::static_aligned_dual_buffer<float>*>>(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, void *a5)
 {
   if (a3 != a5)
   {
@@ -5384,11 +5369,11 @@ uint64_t std::__allocator_destroy[abi:ne200100]<std::allocator<shazam::static_al
     {
       v8 = *(v6 - 3);
       v6 -= 3;
-      result = v8;
+      v7 = v8;
       *v6 = 0;
       if (v8)
       {
-        result = (*(a3 - 2))();
+        (*(a3 - 2))(v7, a2);
       }
 
       a3 = v6;
@@ -5396,8 +5381,6 @@ uint64_t std::__allocator_destroy[abi:ne200100]<std::allocator<shazam::static_al
 
     while (v6 != a5);
   }
-
-  return result;
 }
 
 uint64_t std::__split_buffer<shazam::static_aligned_dual_buffer<float>>::~__split_buffer(uint64_t a1)
@@ -5474,33 +5457,33 @@ void *std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>
   return result;
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(float *a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = *(a1 + 2);
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v7 = *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -5508,47 +5491,47 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-void std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long>>>::__rehash<true>(uint64_t a1, size_t __n)
+void std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long>>>::__rehash<true>(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -5564,7 +5547,7 @@ void std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -5572,7 +5555,7 @@ void std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -5596,7 +5579,7 @@ void std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,
     {
 LABEL_6:
 
-      std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long>>>::__do_rehash<true>(a1, prime);
+      std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long>>>::__do_rehash<true>(result, prime);
     }
   }
 }
@@ -5823,20 +5806,17 @@ void sub_230FAD718(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<shazam::spectral_peak_compact_t>::reserve(void *result, unint64_t a2)
+void std::vector<shazam::spectral_peak_compact_t>::reserve(void *a1, unint64_t a2)
 {
-  if (0xCCCCCCCCCCCCCCCDLL * (result[2] - *result) < a2)
+  if (0xCCCCCCCCCCCCCCCDLL * (a1[2] - *a1) < a2)
   {
     if (a2 < 0x3333333333333334)
     {
-      v2 = result[1] - *result;
-      std::__allocate_at_least[abi:ne200100]<std::allocator<shazam::spectral_peak_compact_t>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<shazam::spectral_peak_compact_t>>(a1, a2);
     }
 
     std::vector<std::vector<shazam::spectral_peak_t>>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void std::__allocate_at_least[abi:ne200100]<std::allocator<shazam::spectral_peak_compact_t>>(uint64_t a1, unint64_t a2)
@@ -5849,32 +5829,32 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<shazam::spectral_peak
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-shazam::LegacyFatSigInfo *shazam::signature_info::convert@<X0>(shazam::LegacyFatSigInfo *this@<X0>, uint64_t a2@<X8>)
+shazam::LegacyFatSigInfo *shazam::signature_info::convert@<X0>(shazam::LegacyFatSigInfo **__return_ptr a1@<X8>, shazam::LegacyFatSigInfo *this@<X0>)
 {
   if (*this == -889313920)
   {
-    v4 = this;
-    *(a2 + 23) = 0;
-    *(a2 + 21) = 0;
-    v5 = *(this + 11) >> 19;
+    v3 = this;
+    *(a1 + 23) = 0;
+    *(a1 + 21) = 0;
+    v4 = *(this + 11) >> 19;
     sample_length_samples = shazam::LegacyFatSigInfo::get_sample_length_samples(this);
-    raw_sample_rate = shazam::LegacyFatSigInfo::get_raw_sample_rate(v4);
-    this = shazam::LegacyFatSigInfo::get_stream_pos(v4);
-    *a2 = this;
-    *(a2 + 8) = sample_length_samples;
-    *(a2 + 16) = raw_sample_rate;
-    *(a2 + 20) = v5;
-    v8 = 1;
-    *(a2 + 24) = 0;
+    raw_sample_rate = shazam::LegacyFatSigInfo::get_raw_sample_rate(v3);
+    this = shazam::LegacyFatSigInfo::get_stream_pos(v3);
+    *a1 = this;
+    a1[1] = sample_length_samples;
+    *(a1 + 4) = raw_sample_rate;
+    *(a1 + 20) = v4;
+    v7 = 1;
+    a1[3] = 0;
   }
 
   else
   {
-    v8 = 0;
-    *a2 = 103;
+    v7 = 0;
+    *a1 = 103;
   }
 
-  *(a2 + 32) = v8;
+  *(a1 + 32) = v7;
   return this;
 }
 
@@ -5917,26 +5897,26 @@ shazam::freebird_header *shazam::signature_info::convert@<X0>(shazam::freebird_h
 {
   if (*this == 718889720)
   {
-    v4 = this;
+    v3 = this;
     *(a2 + 23) = 0;
     *(a2 + 21) = 0;
     sample_length_samples = shazam::freebird_header::get_sample_length_samples(this);
-    this = shazam::freebird_header::get_raw_sample_rate(v4);
+    this = shazam::freebird_header::get_raw_sample_rate(v3);
     *a2 = 0;
     *(a2 + 8) = sample_length_samples;
     *(a2 + 16) = this;
     *(a2 + 20) = 0;
-    v6 = 1;
+    v5 = 1;
     *(a2 + 24) = 0;
   }
 
   else
   {
-    v6 = 0;
+    v5 = 0;
     *a2 = 103;
   }
 
-  *(a2 + 32) = v6;
+  *(a2 + 32) = v5;
   return this;
 }
 
@@ -5953,11 +5933,11 @@ shazam::signature_info *shazam::signature_info::signature_info(shazam::signature
   return this;
 }
 
-__n128 shazam::resample_stream::create@<Q0>(shazam::resample_stream *this@<X0>, unsigned int a2@<W1>, uint64_t a3@<X8>)
+__n128 shazam::resample_stream::create@<Q0>(uint64_t *__return_ptr a1@<X8>, shazam::resample_stream *this@<X0>, unsigned int a3@<W1>)
 {
   v4 = this;
-  v6 = std::__gcd<unsigned int>(this, a2);
-  v8 = (a2 / v6) | ((v4 / v6) << 32);
+  v6 = std::__gcd<unsigned int>(this, a3);
+  v8 = (a3 / v6) | ((v4 / v6) << 32);
   if (v8 > 0x300000000)
   {
     if (v8 == 0x300000001)
@@ -5990,8 +5970,8 @@ LABEL_7:
   {
     v15 = 512;
 LABEL_15:
-    *a3 = v15;
-    *(a3 + 128) = 0;
+    *a1 = v15;
+    *(a1 + 128) = 0;
     return result;
   }
 
@@ -6003,7 +5983,7 @@ LABEL_15:
   {
     bzero(v12, 0x810uLL);
     *v19 = v4;
-    *&v19[4] = a2;
+    *&v19[4] = a3;
     memset(&v19[8], 0, 56);
     v21 = shazam::aligned_free;
     v22 = 128;
@@ -6041,27 +6021,27 @@ LABEL_23:
     }
 
     v16 = *&v19[32];
-    *(a3 + 32) = *&v19[16];
-    *(a3 + 48) = v16;
-    *(a3 + 64) = *&v19[48];
+    *(a1 + 2) = *&v19[16];
+    *(a1 + 3) = v16;
+    *(a1 + 4) = *&v19[48];
     v17 = *v19;
-    *a3 = v18;
-    *(a3 + 16) = v17;
+    *a1 = v18;
+    *(a1 + 1) = v17;
     v20 = 0;
-    *(a3 + 80) = v11;
-    *(a3 + 88) = shazam::aligned_free;
-    *(a3 + 96) = 128;
-    *(a3 + 104) = v13;
+    a1[10] = v11;
+    a1[11] = shazam::aligned_free;
+    a1[12] = 128;
+    a1[13] = v13;
     v23 = 0;
-    *(a3 + 112) = shazam::aligned_free;
-    *(a3 + 120) = 512;
-    *(a3 + 128) = 1;
+    a1[14] = shazam::aligned_free;
+    a1[15] = 512;
+    *(a1 + 128) = 1;
     shazam::resample_stream::~resample_stream(&v18);
     return result;
   }
 
-  *a3 = 512;
-  *(a3 + 128) = 0;
+  *a1 = 512;
+  *(a1 + 128) = 0;
 
   free(v11);
   return result;
@@ -6069,8 +6049,8 @@ LABEL_23:
 
 void shazam::resample_stream::create_unique(shazam::resample_stream *this, unsigned int a2)
 {
-  shazam::resample_stream::create(this, a2, v2);
-  shazam::unwrap_or_throw<shazam::resample_stream,shazam::sigx_error,void>(v2);
+  shazam::resample_stream::create(v3, this, a2);
+  shazam::unwrap_or_throw<shazam::resample_stream,shazam::sigx_error,void>(v3);
   operator new();
 }
 
@@ -6097,43 +6077,43 @@ shazam::resample_stream **std::unique_ptr<shazam::resample_stream>::~unique_ptr[
   return a1;
 }
 
-void shazam::resample_stream::push_3_1_tight(void *a1, int *a2, int a3, const void **a4)
+void shazam::resample_stream::push_3_1_tight(void *result, int *a2, unsigned int a3, const void **a4)
 {
   if (a3 >= 1)
   {
     v20 = v4;
     v21 = v5;
     v9 = a3;
-    v11 = a1[8];
-    v10 = a1[9];
+    v11 = result[8];
+    v10 = result[9];
     do
     {
       v12 = *a2;
-      v13 = a1[15] >> 1;
+      v13 = result[15] >> 1;
       v14 = v13 - 1;
-      v15 = a1[13];
+      v15 = result[13];
       v16 = (v15 + 4 * ((v13 - 1) & v10));
       v16[v13] = *a2;
       *v16 = v12;
       v17 = v11 + 1;
-      a1[8] = v11 + 1;
+      result[8] = v11 + 1;
       if (!v11)
       {
         __C = 0.0;
         vDSP_dotpr((v15 + 4 * (v14 & (v10 - 127))), 1, shazam::decimation_3_1_tight_table, 1, &__C, 0x80uLL);
         v18 = __C;
         std::vector<float>::push_back[abi:ne200100](a4, &v18);
-        v17 = a1[8];
+        v17 = result[8];
       }
 
       if (v17 >= 3)
       {
         v17 = 0;
-        a1[8] = 0;
+        result[8] = 0;
       }
 
-      v10 = a1[9] + 1;
-      a1[9] = v10;
+      v10 = result[9] + 1;
+      result[9] = v10;
       ++a2;
       v11 = v17;
       --v9;
@@ -6143,19 +6123,19 @@ void shazam::resample_stream::push_3_1_tight(void *a1, int *a2, int a3, const vo
   }
 }
 
-void shazam::resample_stream::push_44100_to_16000(void *a1, int *a2, int a3, const void **a4)
+void shazam::resample_stream::push_44100_to_16000(void *result, int *a2, unsigned int a3, const void **a4)
 {
   if (a3 >= 1)
   {
     v16 = v4;
     v17 = v5;
     v9 = a3;
-    v10 = a1[3];
+    v10 = result[3];
     do
     {
       v11 = *a2;
-      v12 = a1[12] >> 1;
-      v13 = a1[10];
+      v12 = result[12] >> 1;
+      v13 = result[10];
       v14 = (v13 + 4 * ((v12 - 1) & v10));
       v14[v12] = *a2;
       *v14 = v11;
@@ -6163,11 +6143,11 @@ void shazam::resample_stream::push_44100_to_16000(void *a1, int *a2, int a3, con
       {
         __C = 0.0;
         vDSP_dotpr((v13 + 4 * ((v12 - 1) & (v10 - 23))), 1, shazam::decimation_2_1_loose_table, 1, &__C, 0x18uLL);
-        shazam::resample_stream::push_441_to_320_tight(a1, a4, __C);
-        v10 = a1[3];
+        shazam::resample_stream::push_441_to_320_tight(result, a4, __C);
+        v10 = result[3];
       }
 
-      a1[3] = ++v10;
+      result[3] = ++v10;
       ++a2;
       --v9;
     }
@@ -6176,19 +6156,19 @@ void shazam::resample_stream::push_44100_to_16000(void *a1, int *a2, int a3, con
   }
 }
 
-void shazam::resample_stream::push_2_1_tight(void *a1, int *a2, int a3, const void **a4)
+void shazam::resample_stream::push_2_1_tight(void *result, int *a2, unsigned int a3, const void **a4)
 {
   if (a3 >= 1)
   {
     v17 = v4;
     v18 = v5;
     v9 = a3;
-    v10 = a1[7];
+    v10 = result[7];
     do
     {
       v11 = *a2;
-      v12 = a1[15] >> 1;
-      v13 = a1[13];
+      v12 = result[15] >> 1;
+      v13 = result[13];
       v14 = (v13 + 4 * ((v12 - 1) & v10));
       v14[v12] = *a2;
       *v14 = v11;
@@ -6198,10 +6178,10 @@ void shazam::resample_stream::push_2_1_tight(void *a1, int *a2, int a3, const vo
         vDSP_dotpr((v13 + 4 * ((v12 - 1) & (v10 - 95))), 1, shazam::decimation_2_1_tight_table, 1, &__C, 0x60uLL);
         v15 = __C;
         std::vector<float>::push_back[abi:ne200100](a4, &v15);
-        v10 = a1[7];
+        v10 = result[7];
       }
 
-      a1[7] = ++v10;
+      result[7] = ++v10;
       ++a2;
       --v9;
     }
@@ -6291,18 +6271,18 @@ shazam::resample_stream *shazam::resample_stream::resample_stream(shazam::resamp
   return this;
 }
 
-void sub_230FAE23C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void (*a10)(void), uint64_t a11, char a12)
+void sub_230FAE23C(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void (*a10)(uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t), uint64_t a11, char a12)
 {
   if (a12 == 1 && a9)
   {
-    a10();
+    a10(a9, a2, a3, a4, a5, a6, a7, a8);
   }
 
   v14 = *(v12 + 80);
   *(v12 + 80) = 0;
   if (v14)
   {
-    (*(v12 + 88))();
+    (*(v12 + 88))(v14, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -6368,38 +6348,38 @@ uint64_t shazam::resample_stream::sample_rate_check(shazam::resample_stream *thi
   return result;
 }
 
-void shazam::resample_stream::push_441_to_320_tight(void *a1, const void **a2, float a3)
+void shazam::resample_stream::push_441_to_320_tight(void *result, const void **a2, float a3)
 {
-  v4 = a1[15] >> 1;
-  v6 = a1[4];
-  v5 = a1[5];
-  v7 = (a1[13] + 4 * ((v4 - 1) & v6));
+  v4 = result[15] >> 1;
+  v6 = result[4];
+  v5 = result[5];
+  v7 = (result[13] + 4 * ((v4 - 1) & v6));
   v7[v4] = a3;
   *v7 = a3;
-  v8 = a1[6];
+  v8 = result[6];
   if (v8 - v5 <= 319)
   {
     do
     {
-      v10 = (a1[13] + 4 * (((a1[15] >> 1) - 1) & (a1[4] - 95)));
+      v10 = (result[13] + 4 * (((result[15] >> 1) - 1) & (result[4] - 95)));
       __C = 0.0;
       vDSP_dotpr(v10, 1, &shazam::polyphase_coeffs_441_320[96 * (v5 - v8) + 30624], 1, &__C, 0x60uLL);
       v11 = __C;
       std::vector<float>::push_back[abi:ne200100](a2, &v11);
-      v5 = a1[5];
-      v8 = a1[6] + 441;
-      a1[6] = v8;
+      v5 = result[5];
+      v8 = result[6] + 441;
+      result[6] = v8;
     }
 
     while (v8 - v5 < 320);
-    v6 = a1[4];
+    v6 = result[4];
   }
 
-  a1[4] = v6 + 1;
-  a1[5] = v5 + 320;
+  result[4] = v6 + 1;
+  result[5] = v5 + 320;
 }
 
-void std::vector<float>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
+void std::vector<float>::push_back[abi:ne200100](const void **a1, int *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -6448,7 +6428,7 @@ void std::vector<float>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 4;
   }
 
   a1[1] = v6;
@@ -6602,7 +6582,8 @@ char *std::vector<float>::__insert_with_size[abi:ne200100]<float const*,float co
     v35 = (4 * v16);
     do
     {
-      v36 = *v7++;
+      v36 = *v7;
+      v7 += 4;
       *v35++ = v36;
       v34 -= 4;
     }
@@ -6714,11 +6695,11 @@ uint64_t shazam::CPUSearcher::CPUSearcher(uint64_t a1, uint64_t a2, uint64_t a3,
   return a1;
 }
 
-void shazam::CPUSearcher::search(uint64_t *a1, void **a2, uint64_t *a3, unint64_t a4, unint64_t a5, uint64_t (***a6)(void, unint64_t), uint64_t a7)
+void shazam::CPUSearcher::search(uint64_t *result, void *a2, uint64_t *a3, unint64_t a4, unint64_t a5, uint64_t (***a6)(void, unint64_t), uint64_t a7)
 {
   for (i = a4; i < a5; ++i)
   {
-    v21 = (***a1)();
+    v21 = (***result)();
     v11 = i;
     v12 = *a3;
     v13 = (**a6)(a6, i);
@@ -6731,7 +6712,7 @@ void shazam::CPUSearcher::search(uint64_t *a1, void **a2, uint64_t *a3, unint64_
       v18 = (v12 + 56 * v11);
       do
       {
-        shazam::visit<shazam::CPUSearcher &,shazam::SongDataBase &,shazam::CPUOnePtDatabase &,shazam::CPULMFPDataBase &,shazam::basic_signature<(shazam::signature_density)24> const&,shazam::QueryConfig const&,unsigned long &,std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>> const&,std::function<void ()(shazam::SearchResponse const&)> const&>(*(v16 + 28), a1, *a2, a2[2], v16, v18, v17, &i, &v21, a7);
+        shazam::visit<shazam::CPUSearcher &,shazam::SongDataBase &,shazam::CPUOnePtDatabase &,shazam::CPULMFPDataBase &,shazam::basic_signature<(shazam::signature_density)24> const&,shazam::QueryConfig const&,unsigned long &,std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>> const&,std::function<void ()(shazam::SearchResponse const&)> const&>(*(v16 + 28), result, *a2, a2[2], v16, v18, v17, &i, &v21, a7);
         v16 += 104;
       }
 
@@ -6764,10 +6745,10 @@ void shazam::visit<shazam::CPUSearcher &,shazam::SongDataBase &,shazam::CPUOnePt
   }
 }
 
-void shazam::CPUSearcher::operator()<(AlgoType)1>(uint64_t *a1, void *a2, uint64_t *a3, uint64_t a4, shazam::signature_info *this, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+void shazam::CPUSearcher::operator()<(AlgoType)1>(uint64_t *a1, void *a2, uint64_t *a3, uint64_t a4, shazam::signature_info *this, unsigned int *a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   v16[0] = *(a4 + 8);
-  shazam::make_query<(AlgoType)1>(this, v16, a6, 0x36B0uLL, v17);
+  shazam::make_query<(AlgoType)1>(v17, this, v16, a6, 0x36B0uLL);
   shazam::CPUSearcher::search<(AlgoType)1,shazam::xpair_group<shazam::xpair_fields>>(a1, a2, a3, a4, v17, a6, a7, a8, a9);
   if (v20)
   {
@@ -6838,7 +6819,7 @@ void sub_230FAEBAC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 void shazam::CPUSearcher::operator()<(AlgoType)12>(uint64_t *a1, void *a2, uint64_t *a3, uint64_t a4, shazam::signature_info *this, unsigned int *a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   v16[0] = *(a4 + 8);
-  shazam::make_query<(AlgoType)12>(this, v16, a6, 0x36B0uLL, v17);
+  shazam::make_query<(AlgoType)12>(v17, this, v16, a6, 0x36B0uLL);
   shazam::CPUSearcher::search<(AlgoType)12,shazam::xpair_group<shazam::xpair_fields>>(a1, a2, a3, a4, v17, a6, a7, a8, a9);
   if (v20)
   {
@@ -6906,120 +6887,120 @@ void sub_230FAEE38(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void shazam::make_query<(AlgoType)1>(shazam::signature_info *this@<X1>, uint64_t a2@<X0>, uint64_t a3@<X2>, unint64_t a4@<X3>, float32x2_t *a5@<X8>)
+void shazam::make_query<(AlgoType)1>(float32x2_t *__return_ptr a1@<X8>, shazam::signature_info *this@<X1>, uint64_t a3@<X0>, unsigned int *a4@<X2>, unint64_t a5@<X3>)
 {
   v7 = this;
-  v83 = *MEMORY[0x277D85DE8];
+  v81 = *MEMORY[0x277D85DE8];
   if ((shazam::signature_info::getSampleLength(this) * 125.0) > 1792.0)
   {
     std::ostringstream::basic_ostringstream[abi:ne200100](&__p);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__p, "was ", 4);
     shazam::signature_info::getSampleLength(v7);
-    v51 = std::ostream::operator<<();
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v51, "sec", 3);
+    v50 = std::ostream::operator<<();
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v50, "sec", 3);
     exception = __cxa_allocate_exception(0x20uLL);
     error_code = shazam::make_error_code(0x130);
-    v55 = v54;
+    v54 = v53;
     std::stringbuf::str();
-    MEMORY[0x231921D10](exception, error_code, v55, v72);
+    MEMORY[0x231921D10](exception, error_code, v54, v71);
     __cxa_throw(exception, MEMORY[0x277D82718], MEMORY[0x277D82650]);
   }
 
   SampleLength = shazam::signature_info::getSampleLength(v7);
-  shazam::matrix_for<(AlgoType)1>(a3, v72, LODWORD(SampleLength));
+  shazam::matrix_for<(AlgoType)1>(a4, v71, LODWORD(SampleLength));
+  v68 = 0;
   v69 = 0;
   v70 = 0;
-  v71 = 0;
-  std::vector<shazam::lmfp<(shazam::fp_type)0>>::reserve(&v69, a4);
-  shazam::algo<(AlgoType)1>::tzones_for (v67);
+  std::vector<shazam::lmfp<(shazam::fp_type)0>>::reserve(&v68, a5);
+  shazam::algo<(AlgoType)1>::tzones_for (v66);
   if (0xAAAAAAAAAAAAAAABLL * ((*(v7 + 5) - *(v7 + 4)) >> 3) >= 3)
   {
-    v56 = a5;
+    v55 = a1;
+    v72 = 0;
+    v73 = 0;
     v74 = 0;
-    v75 = 0;
-    v76 = 0;
-    std::vector<shazam::lmfp<(shazam::fp_type)0>>::reserve(&v74, 0x64uLL);
+    std::vector<shazam::lmfp<(shazam::fp_type)0>>::reserve(&v72, 0x64uLL);
     v12 = *(v7 + 4);
     v11 = *(v7 + 5);
     if (v11 != v12)
     {
       v13 = 0;
-      v57 = a2;
-      v60 = v7;
+      v56 = a3;
+      v59 = v7;
       do
       {
-        v14 = v72[v13 + 2];
-        v59 = v13;
+        v14 = v71[1].u32[v13];
+        v58 = v13;
         if (v14)
         {
-          v15 = *(a2 + 8);
+          v15 = *(a3 + 8);
           if (v15)
           {
             v15(&__p, v12 + 24 * v13);
-            shazam::chooseAnchors(&__p, v72[v13 + 2], v72, &v74);
+            shazam::chooseAnchors(&__p, v71[1].u32[v13], v71, &v72);
             if (__p)
             {
-              v82 = __p;
+              v80 = __p;
               operator delete(__p);
             }
           }
 
           else
           {
-            shazam::chooseAnchors((v12 + 24 * v13), v14, v72, &v74);
+            shazam::chooseAnchors((v12 + 24 * v13), v14, v71, &v72);
           }
 
           v12 = *(v7 + 4);
           v11 = *(v7 + 5);
           if (v11 != v12)
           {
-            v58 = 4 * v13;
-            v62 = &v72[v13 + 6];
+            v57 = 4 * v13;
+            v61 = &v71[3] + 4 * v13;
             v16 = 0;
             do
             {
-              v17 = *(v62 + v16);
-              if (*(v62 + v16))
+              v17 = v61[v16];
+              if (v61[v16])
               {
-                if (v68 == 1)
+                if (v67 == 1)
                 {
-                  LODWORD(__p) = v58 + v16;
-                  if (std::__hash_table<std::__hash_value_type<int,shazam::target_zone_2d>,std::__unordered_map_hasher<int,std::__hash_value_type<int,shazam::target_zone_2d>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,shazam::target_zone_2d>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,shazam::target_zone_2d>>>::find<int>(v67, &__p))
+                  LODWORD(__p) = v57 + v16;
+                  if (std::__hash_table<std::__hash_value_type<int,shazam::target_zone_2d>,std::__unordered_map_hasher<int,std::__hash_value_type<int,shazam::target_zone_2d>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,shazam::target_zone_2d>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,shazam::target_zone_2d>>>::find<int>(v66, &__p))
                   {
-                    v18 = std::__hash_table<std::__hash_value_type<int,shazam::target_zone_2d>,std::__unordered_map_hasher<int,std::__hash_value_type<int,shazam::target_zone_2d>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,shazam::target_zone_2d>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,shazam::target_zone_2d>>>::find<int>(v67, &__p);
+                    v18 = std::__hash_table<std::__hash_value_type<int,shazam::target_zone_2d>,std::__unordered_map_hasher<int,std::__hash_value_type<int,shazam::target_zone_2d>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,shazam::target_zone_2d>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,shazam::target_zone_2d>>>::find<int>(v66, &__p);
                     if (!v18)
                     {
                       std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
                     }
 
-                    v66 = *(v18 + 20);
+                    v65 = *(v18 + 20);
                   }
 
                   else
                   {
-                    v66 = 0;
+                    v65 = 0;
                   }
 
                   v12 = *(v7 + 4);
-                  v17 = *(v62 + v16);
+                  v17 = v61[v16];
                 }
 
                 else
                 {
-                  v66 = 0;
+                  v65 = 0;
                 }
 
-                v61 = v16;
-                v65 = (v12 + 24 * v16);
-                v19 = *v65;
+                v60 = v16;
+                v64 = (v12 + 24 * v16);
+                v19 = *v64;
                 bzero(&__p, 0x780uLL);
-                v20 = v74;
-                v64 = v75;
-                if (v74 != v75)
+                v20 = v72;
+                v63 = v73;
+                if (v72 != v73)
                 {
-                  if (HIDWORD(v66))
+                  if (HIDWORD(v65))
                   {
-                    v21 = v66 == 0;
+                    v21 = v65 == 0;
                   }
 
                   else
@@ -7028,25 +7009,25 @@ void shazam::make_query<(AlgoType)1>(shazam::signature_info *this@<X1>, uint64_t
                   }
 
                   v22 = v21;
-                  v63 = v22;
+                  v62 = v22;
                   do
                   {
                     v23 = *v20 + 8;
-                    if (v63)
+                    if (v62)
                     {
                       v24 = *v20 + 197;
                     }
 
                     else
                     {
-                      v23 = *v20 + v66;
-                      v24 = v23 + HIDWORD(v66);
+                      v23 = *v20 + v65;
+                      v24 = v23 + HIDWORD(v65);
                     }
 
-                    v25 = v65[1];
+                    v25 = v64[1];
                     if (v25 == v19)
                     {
-                      v19 = v65[1];
+                      v19 = v64[1];
                       v32 = v19;
                     }
 
@@ -7074,7 +7055,7 @@ void shazam::make_query<(AlgoType)1>(shazam::signature_info *this@<X1>, uint64_t
                       while (v26);
                       if (v25 == v19)
                       {
-                        v32 = v65[1];
+                        v32 = v64[1];
                       }
 
                       else
@@ -7106,11 +7087,11 @@ void shazam::make_query<(AlgoType)1>(shazam::signature_info *this@<X1>, uint64_t
                     }
 
                     v37 = (v32 - v25) >> 3;
-                    gsl::span<shazam::spectral_peak_t const,18446744073709551615ul>::span<18446744073709551615ul,0>(&v78, v19, v32);
+                    gsl::span<shazam::spectral_peak_t const,18446744073709551615ul>::span<18446744073709551615ul,0>(&v76, v19, v32);
                     if (v37 <= v17)
                     {
-                      v37 = v78;
-                      p_p = v79;
+                      v37 = v76;
+                      p_p = v77;
                     }
 
                     else
@@ -7145,13 +7126,13 @@ LABEL_79:
                     v44 = 0;
                     v45 = shazam::FreqLogTable::at(*(v20 + 2));
                     v46 = &p_p[v37];
+                    v76 = p_p;
+                    v77 = v46;
                     v78 = p_p;
-                    v79 = v46;
-                    v80 = p_p;
                     v47 = 2 * (((v45 + -3.46573591) * 3103.75977) & 0x3FFF);
-                    while (v80 != v46)
+                    while (v78 != v46)
                     {
-                      v48 = gsl::details::span_iterator<shazam::spectral_peak_compact_t const>::operator*(&v78);
+                      v48 = gsl::details::span_iterator<shazam::spectral_peak_compact_t const>::operator*(&v76);
                       v47 = v47 & 0x7FFF | ((((v45 - shazam::FreqLogTable::at(*(v48 + 2))) * 151.569275) & 0x3FF) << 15) | (((sqrtf(((v43 * 7.8125) * 0.015625) * (*v48 - v42)) / 830.36) * 120.0) << 25);
                       v49 = v43 - *(v48 + 2);
                       if (v49 < 0)
@@ -7161,16 +7142,16 @@ LABEL_79:
 
                       if (v49 >= 0x101)
                       {
-                        v77 = __PAIR64__(v42, v47);
-                        std::vector<shazam::lmfp<(shazam::fp_type)0>>::push_back[abi:ne200100](&v69, &v77);
+                        v75 = __PAIR64__(v42, v47);
+                        std::vector<shazam::lmfp<(shazam::fp_type)0>>::push_back[abi:ne200100](&v68, &v75);
                         if (v17 == ++v44)
                         {
                           break;
                         }
                       }
 
-                      v41 = gsl::details::span_iterator<shazam::spectral_peak_t const>::operator++(&v78);
-                      if (v78 != p_p || v79 != v46)
+                      v41 = gsl::details::span_iterator<shazam::spectral_peak_t const>::operator++(&v76);
+                      if (v76 != p_p || v77 != v46)
                       {
                         goto LABEL_79;
                       }
@@ -7179,13 +7160,13 @@ LABEL_79:
                     v20 += 2;
                   }
 
-                  while (v20 != v64);
-                  v12 = *(v60 + 4);
+                  while (v20 != v63);
+                  v12 = *(v59 + 4);
                 }
 
-                v7 = v60;
-                v16 = v61;
-                v11 = *(v60 + 5);
+                v7 = v59;
+                v16 = v60;
+                v11 = *(v59 + 5);
               }
 
               ++v16;
@@ -7195,42 +7176,40 @@ LABEL_79:
           }
         }
 
-        v13 = v59 + 1;
-        a2 = v57;
+        v13 = v58 + 1;
+        a3 = v56;
       }
 
-      while (v59 + 1 < 0xAAAAAAAAAAAAAAABLL * ((v11 - v12) >> 3));
+      while (v58 + 1 < 0xAAAAAAAAAAAAAAABLL * ((v11 - v12) >> 3));
     }
 
-    a5 = v56;
-    if (v74)
+    a1 = v55;
+    if (v72)
     {
-      v75 = v74;
-      operator delete(v74);
+      v73 = v72;
+      operator delete(v72);
     }
   }
 
-  std::vector<shazam::lmfp<(shazam::fp_type)0>>::vector[abi:ne200100](&__p, (v70 - v69) >> 3);
-  shazam::kvsort<std::vector<shazam::lmfp<(shazam::fp_type)0>>>(&v69);
-  shazam::Query<(AlgoType)1,std::vector<shazam::lmfp<(shazam::fp_type)0>>>::Query(a5, v7, &v73, &v69);
+  std::vector<shazam::lmfp<(shazam::fp_type)0>>::vector[abi:ne200100](&__p, (v69 - v68) >> 3);
+  shazam::kvsort<std::vector<shazam::lmfp<(shazam::fp_type)0>>>(&v68);
+  shazam::Query<(AlgoType)1,std::vector<shazam::lmfp<(shazam::fp_type)0>>>::Query(a1, v7, &v71[5], &v68);
   if (__p)
   {
-    v82 = __p;
+    v80 = __p;
     operator delete(__p);
   }
 
-  if (v68 == 1)
+  if (v67 == 1)
   {
-    std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long>>>::~__hash_table(v67);
+    std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long>>>::~__hash_table(v66);
   }
 
-  if (v69)
+  if (v68)
   {
-    v70 = v69;
-    operator delete(v69);
+    v69 = v68;
+    operator delete(v68);
   }
-
-  v50 = *MEMORY[0x277D85DE8];
 }
 
 void sub_230FAF690(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30, void *a31, uint64_t a32, uint64_t a33, void *__p, uint64_t a35, int a36, __int16 a37, char a38, char a39, uint64_t a40, uint64_t a41, uint64_t a42, void *a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, void *a50, uint64_t a51)
@@ -7322,11 +7301,11 @@ LABEL_80:
   v117[1] = v30;
   shazam::bin_tracks<shazam::xpair_group<shazam::xpair_fields>>(v117, &v123, a1 + 16);
   v90 = v27;
-  v31 = a1[16];
-  if (a1[17] - v31 != 16)
+  v32 = a1[16];
+  if (a1[17] - v32 != 16)
   {
     v94 = (a1 + 7);
-    v32 = 0;
+    v33 = 0;
     v98 = 0;
     v97 = 0;
     while (1)
@@ -7337,6 +7316,7 @@ LABEL_80:
       *&v104[32] = v131[3];
       *&v106[4] = *v130;
       v107[0] = *&v130[16];
+      v31 = *&v130[32];
       v107[1] = *&v130[32];
       *&v102.__vftable = SampleLength;
       v102.__imp_.__imp_ = 0;
@@ -7349,73 +7329,73 @@ LABEL_80:
       HIDWORD(v107[3]) = v126[0];
       *(&v107[3] + 15) = *(v126 + 3);
       BYTE3(v107[4]) = 0;
-      v33 = (v31 + 16 * v32);
-      v34 = v33[1];
-      ++v32;
-      v35 = *(v31 + 16 * v32 + 8) - v34;
-      v102.__imp_.__imp_ = v35;
-      if (v35 >= 3)
+      v34 = (v32 + 16 * v33);
+      v35 = v34[1];
+      ++v33;
+      v36 = *(v32 + 16 * v33 + 8) - v35;
+      v102.__imp_.__imp_ = v36;
+      if (v36 >= 3)
       {
-        *(v107 + 12) = *v33;
+        *(v107 + 12) = *v34;
         *(&v107[1] + 4) = *(*a2 + 8 * *(v107 + 12));
         *(&v107[1] + 12) = (*(a2[3] + 4 * *(v107 + 12)) * 1000.0);
         begin = a1[7];
-        v36 = a1[8] - begin;
-        if (8 * v35 > v36)
+        v37 = a1[8] - begin;
+        if (8 * v36 > v37)
         {
-          std::vector<char>::__append(v94, 8 * v35 - v36);
+          std::vector<char>::__append(v94, 8 * v36 - v37);
           begin = v94->__begin_;
         }
 
-        if (8 * v35 && !begin)
+        if (8 * v36 && !begin)
         {
           goto LABEL_80;
         }
 
-        v118 = (v35 & 0x1FFFFFFFFFFFFFFFLL);
+        v118 = (v36 & 0x1FFFFFFFFFFFFFFFLL);
         v119 = begin;
-        if (v123 <= v34)
+        if (v123 <= v35)
         {
           goto LABEL_80;
         }
 
-        memcpy(begin, (v124 + 8 * v34), 8 * v35);
+        memcpy(begin, (v124 + 8 * v35), 8 * v36);
         v115 = 0;
         v114 = 0;
         v116 = 0;
-        v37 = v118;
+        v38 = v118;
         if (v118 >= 2)
         {
-          v38 = v119;
-          v39 = (v119 + 4);
-          v40 = 1;
+          v39 = v119;
+          v40 = (v119 + 4);
+          v41 = 1;
           do
           {
-            v41 = *(v38 + 8 * v40);
-            v42 = v39;
+            v42 = *(v39 + 8 * v41);
             v43 = v40;
-            v44 = v39;
+            v44 = v41;
+            v45 = v40;
             do
             {
-              v45 = *v44;
-              v44 -= 2;
-              if (v45 <= SHIDWORD(v41))
+              v46 = *v45;
+              v45 -= 2;
+              if (v46 <= SHIDWORD(v42))
               {
                 break;
               }
 
-              *(v42 + 1) = *(v42 - 1);
-              v42 = v44;
-              --v43;
+              *(v43 + 1) = *(v43 - 1);
+              v43 = v45;
+              --v44;
             }
 
-            while (v43);
-            *(v38 + 8 * v43) = v41;
-            ++v40;
-            v39 += 2;
+            while (v44);
+            *(v39 + 8 * v44) = v42;
+            ++v41;
+            v40 += 2;
           }
 
-          while (v40 != v37);
+          while (v41 != v38);
         }
 
         if (*(v100 + 25) == 1)
@@ -7444,29 +7424,29 @@ LABEL_80:
 
         else
         {
-          v46 = *(&v107[1] + 4) != v96 || v96 == 0;
-          v47 = v98;
-          if (!v46)
+          v47 = *(&v107[1] + 4) != v96 || v96 == 0;
+          v48 = v98;
+          if (!v47)
           {
-            v47 = 1;
+            v48 = 1;
           }
 
-          v98 = v47;
-          v48 = *a5;
+          v98 = v48;
+          v49 = *a5;
           if (*(v95 + 24) >= (-85 * ((*(*a5 + 40) - *(*a5 + 32)) >> 3)))
           {
-            v49 = (-85 * ((*(*a5 + 40) - *(*a5 + 32)) >> 3));
+            v50 = (-85 * ((*(*a5 + 40) - *(*a5 + 32)) >> 3));
           }
 
           else
           {
-            v49 = *(v95 + 24);
+            v50 = *(v95 + 24);
           }
 
-          v113[0] = v49;
+          v113[0] = v50;
           v113[1] = 3;
-          v50 = shazam::signature_info::getSampleLength(v48);
-          v51 = shazam::thresholdScore<(AlgoType)1>(v49, *(a2[6] + *(v107 + 12)), 1.0, v50);
+          v51 = shazam::signature_info::getSampleLength(v49);
+          v52 = shazam::thresholdScore<(AlgoType)1>(v50, *(a2[6] + *(v107 + 12)), 1.0, v51);
           LODWORD(v109) = 0;
           *(&v109 + 1) = 0;
           *v110 = 0;
@@ -7475,111 +7455,111 @@ LABEL_80:
           memset(&v110[8], 0, 60);
           memset(&v111[8], 0, 64);
           v112 = 0u;
-          v52 = v115;
+          v53 = v115;
           if (v114 == v115)
           {
-            v74 = 0.0;
+            v75 = 0.0;
           }
 
           else
           {
-            v53 = (v114 + 80);
+            v54 = (v114 + 80);
             do
             {
-              v54 = *(a2[12] + 8 * *(v107 + 12));
-              v56 = *(v53 - 6);
-              v55 = *(v53 - 5);
-              v108 = v55;
-              v129 = *(v53 - 2);
-              if (*(a5 + 8) <= v55 && *(a5 + 12) >= v55)
+              v55 = *(a2[12] + 8 * *(v107 + 12));
+              v57 = *(v54 - 6);
+              v56 = *(v54 - 5);
+              v108 = v56;
+              v129 = *(v54 - 2);
+              if (*(a5 + 8) <= v56 && *(a5 + 12) >= v56)
               {
                 if (*(a5 + 64) == *(a5 + 72))
                 {
                   shazam::peaksToTFPeaks<std::vector<std::vector<shazam::spectral_peak_t>>>((*a5 + 32), v113, &v127);
-                  v58 = *(a5 + 64);
-                  if (v58)
+                  v59 = *(a5 + 64);
+                  if (v59)
                   {
-                    *(a5 + 72) = v58;
-                    operator delete(v58);
+                    *(a5 + 72) = v59;
+                    operator delete(v59);
                   }
 
                   *(a5 + 64) = v127;
                   *(a5 + 80) = v128;
                 }
 
-                if (shazam::fit_points(a3, (a5 + 64), (a5 + 8), *(v53 + 6), &v108, &v129, (a1 + 13), 3u, v56))
+                if (shazam::fit_points(a3, (a5 + 64), (a5 + 8), *(v54 + 6), &v108, &v129, (a1 + 13), 3, v57))
                 {
-                  *(v53 + 1) = (a1[14] - a1[13]) >> 4;
-                  *(v53 - 1) = v108;
-                  v59 = v129 * 8.0 + v54;
-                  *v53 = v59;
+                  *(v54 + 1) = (a1[14] - a1[13]) >> 4;
+                  *(v54 - 1) = v108;
+                  v60 = v129 * 8.0 + v55;
+                  *v54 = v60;
                   if (*(a5 + 64) == *(a5 + 72))
                   {
                     shazam::peaksToTFPeaks<std::vector<std::vector<shazam::spectral_peak_t>>>((*a5 + 32), v113, &v127);
-                    v60 = *(a5 + 64);
-                    if (v60)
+                    v61 = *(a5 + 64);
+                    if (v61)
                     {
-                      *(a5 + 72) = v60;
-                      operator delete(v60);
+                      *(a5 + 72) = v61;
+                      operator delete(v61);
                     }
 
                     *(a5 + 64) = v127;
                     *(a5 + 80) = v128;
                   }
 
-                  if (shazam::fit_points(a3, (a5 + 64), (a5 + 8), *(v107 + 12), &v108, &v129, (a1 + 13), 3u, v56))
+                  if (shazam::fit_points(a3, (a5 + 64), (a5 + 8), *(v107 + 12), &v108, &v129, (a1 + 13), 3, v57))
                   {
-                    v61 = shazam::score_match(a1 + 13);
-                    *(v53 + 10) = LODWORD(v61);
-                    *(v53 + 11) = v62;
-                    *(v53 + 4) = (a1[14] - a1[13]) >> 4;
-                    *(v53 + 4) = v108;
-                    v63 = v129;
-                    *(v53 - 2) = v129;
-                    v64 = v63 * 8.0 + v54;
-                    *(v53 + 3) = v64;
-                    *(v53 + 3) = v64 + (*(*a5 + 20) - *(a2[15] + *(v53 + 6))) * 8.0;
-                    v65 = *(a2[6] + *(v107 + 12)) >= v49 ? v49 : *(a2[6] + *(v107 + 12));
-                    *(v53 + 9) = v65;
-                    if (v62 > *&v111[28])
+                    v62 = shazam::score_match(a1 + 13);
+                    *(v54 + 10) = LODWORD(v62);
+                    *(v54 + 11) = v63;
+                    *(v54 + 4) = (a1[14] - a1[13]) >> 4;
+                    *(v54 + 4) = v108;
+                    v64 = v129;
+                    *(v54 - 2) = v129;
+                    v65 = v64 * 8.0 + v55;
+                    *(v54 + 3) = v65;
+                    *(v54 + 3) = v65 + (*(*a5 + 20) - *(a2[15] + *(v54 + 6))) * 8.0;
+                    v66 = *(a2[6] + *(v107 + 12)) >= v50 ? v50 : *(a2[6] + *(v107 + 12));
+                    *(v54 + 9) = v66;
+                    if (v63 > *&v111[28])
                     {
-                      v66 = *(v53 - 4);
-                      v109 = *(v53 - 5);
-                      *v110 = v66;
-                      v67 = *(v53 - 3);
-                      v68 = *(v53 - 2);
-                      v69 = *v53;
-                      *&v110[48] = *(v53 - 1);
-                      *&v110[64] = v69;
-                      *&v110[16] = v67;
-                      *&v110[32] = v68;
-                      v70 = v53[1];
-                      v71 = v53[2];
-                      v72 = v53[4];
-                      *&v111[32] = v53[3];
-                      *&v111[48] = v72;
-                      *v111 = v70;
-                      *&v111[16] = v71;
-                      std::string::operator=(&v111[64], (v53 + 5));
+                      v67 = *(v54 - 4);
+                      v109 = *(v54 - 5);
+                      *v110 = v67;
+                      v68 = *(v54 - 3);
+                      v69 = *(v54 - 2);
+                      v70 = *v54;
+                      *&v110[48] = *(v54 - 1);
+                      *&v110[64] = v70;
+                      *&v110[16] = v68;
+                      *&v110[32] = v69;
+                      v71 = v54[1];
+                      v72 = v54[2];
+                      v73 = v54[4];
+                      *&v111[32] = v54[3];
+                      *&v111[48] = v73;
+                      *v111 = v71;
+                      *&v111[16] = v72;
+                      std::string::operator=(&v111[64], (v54 + 5));
                     }
                   }
                 }
               }
 
-              v73 = v53 + 104;
-              v53 = (v53 + 184);
+              v74 = v54 + 104;
+              v54 = (v54 + 184);
             }
 
-            while (v73 != v52);
-            v74 = *&v111[28] * 128.0;
+            while (v74 != v53);
+            v75 = *&v111[28] * 128.0;
           }
 
-          *&v111[28] = v74;
-          if (v74 >= (v51 * *(v100 + 20)))
+          *&v111[28] = v75;
+          if (v75 >= (v52 * *(v100 + 20)))
           {
             if (*&v111[56] == 3)
             {
-              *&v111[28] = v74 * 1.25;
+              *&v111[28] = v75 * 1.25;
             }
 
             std::vector<shazam::Result>::push_back[abi:ne200100](a1 + 10, &v109);
@@ -7601,8 +7581,8 @@ LABEL_80:
         }
       }
 
-      v31 = a1[16];
-      if (v32 >= ((a1[17] - v31) >> 4) - 1)
+      v32 = a1[16];
+      if (v33 >= ((a1[17] - v32) >> 4) - 1)
       {
         goto LABEL_71;
       }
@@ -7612,70 +7592,68 @@ LABEL_80:
   v97 = 0;
   LOBYTE(v98) = 0;
 LABEL_71:
-  v75 = a1[10];
-  v76 = a1[11];
-  v77 = 126 - 2 * __clz(0xD37A6F4DE9BD37A7 * ((v76 - v75) >> 3));
-  if (v76 == v75)
+  v76 = a1[10];
+  v77 = a1[11];
+  v78 = 126 - 2 * __clz(0xD37A6F4DE9BD37A7 * ((v77 - v76) >> 3));
+  if (v77 == v76)
   {
-    v78 = 0;
+    v79 = 0;
   }
 
   else
   {
-    v78 = v77;
+    v79 = v78;
   }
 
-  std::__introsort<std::_ClassicAlgPolicy,std::greater<void> &,shazam::Result *,false>(v75, v76, &v102, v78, 1);
-  v79 = *(v100 + 36);
-  v80 = a1[10];
-  v81 = a1[11];
-  if (v79)
+  std::__introsort<std::_ClassicAlgPolicy,std::greater<void> &,shazam::Result *,false>(v76, v77, &v102, v79, 1, v31);
+  v80 = *(v100 + 36);
+  v81 = a1[10];
+  v82 = a1[11];
+  if (v80)
   {
-    v82 = v96;
-    if (0xD37A6F4DE9BD37A7 * ((v81 - v80) >> 3) > v79)
+    v83 = v96;
+    if (0xD37A6F4DE9BD37A7 * ((v82 - v81) >> 3) > v80)
     {
       std::vector<shazam::Result>::resize(a1 + 10, *(v100 + 36));
-      v80 = a1[10];
-      v81 = a1[11];
+      v81 = a1[10];
+      v82 = a1[11];
     }
   }
 
   else
   {
-    v82 = v96;
+    v83 = v96;
   }
 
   v102.__vftable = 0;
   v102.__imp_.__imp_ = 0;
   *v103 = 0;
-  std::vector<shazam::Result>::__init_with_size[abi:ne200100]<shazam::Result*,shazam::Result*>(&v102, v80, v81, 0xD37A6F4DE9BD37A7 * ((v81 - v80) >> 3));
+  std::vector<shazam::Result>::__init_with_size[abi:ne200100]<shazam::Result*,shazam::Result*>(&v102, v81, v82, 0xD37A6F4DE9BD37A7 * ((v82 - v81) >> 3));
   v103[16] = 1;
-  v84 = *a1;
-  v83 = a1[1];
+  v85 = *a1;
+  v84 = a1[1];
   *&v104[4] = a7;
-  *&v104[12] = v83;
-  v85 = (**v84)(v84);
-  *&v104[20] = (*(*v84 + 24))(v84, a8, v85);
+  *&v104[12] = v84;
+  v86 = (**v85)(v85);
+  *&v104[20] = (*(*v85 + 24))(v85, a8, v86);
   *&v104[28] = 1;
   *&v104[36] = 1;
   *&v104[44] = v16;
   v105 = (v91 - v92) >> 3;
   *v106 = v90;
   *&v106[8] = v89;
-  *&v106[16] = v82;
+  *&v106[16] = v83;
   *(v107 + 4) = v97;
   BYTE12(v107[0]) = v98;
   memcpy(v107 + 13, __src, 0x103uLL);
-  v86 = *(a9 + 24);
-  if (!v86)
+  v87 = *(a9 + 24);
+  if (!v87)
   {
     std::__throw_bad_function_call[abi:ne200100]();
   }
 
-  (*(*v86 + 48))(v86, &v102);
-  result = tl::detail::expected_storage_base<std::vector<shazam::Result>,std::system_error,false,false>::~expected_storage_base(&v102);
-  v88 = *MEMORY[0x277D85DE8];
-  return result;
+  (*(*v87 + 48))(v87, &v102);
+  return tl::detail::expected_storage_base<std::vector<shazam::Result>,std::system_error,false,false>::~expected_storage_base(&v102);
 }
 
 uint64_t std::function<void ()(shazam::SearchResponse const&)>::operator()(uint64_t a1)
@@ -7735,7 +7713,7 @@ float shazam::signature_info::getSampleLength(shazam::signature_info *this)
   return v2 / v3;
 }
 
-void shazam::matrix_for<(AlgoType)1>(uint64_t a1@<X0>, uint64_t a2@<X8>, unsigned int a3@<S0>)
+void shazam::matrix_for<(AlgoType)1>(unsigned int *a1@<X0>, uint64_t a2@<X8>, unsigned int a3@<S0>)
 {
   shazam::algo<(AlgoType)1>::matrix_for (*a1, a2);
   if (*(a1 + 24) == 1)
@@ -7751,13 +7729,13 @@ void shazam::matrix_for<(AlgoType)1>(uint64_t a1@<X0>, uint64_t a2@<X8>, unsigne
     *(a2 + 32) = v13;
   }
 
-  v8 = *(a1 + 4);
+  v8 = *(a1 + 1);
   if ((v8 & 0x100000000) != 0)
   {
     *(a2 + 40) = v8;
   }
 
-  v9 = *(a1 + 12);
+  v9 = *(a1 + 3);
   if ((v9 & 0x100000000) != 0)
   {
     *(a2 + 44) = v9;
@@ -7769,26 +7747,23 @@ void shazam::matrix_for<(AlgoType)1>(uint64_t a1@<X0>, uint64_t a2@<X8>, unsigne
   }
 }
 
-void *std::vector<shazam::lmfp<(shazam::fp_type)0>>::reserve(void *result, unint64_t a2)
+void std::vector<shazam::lmfp<(shazam::fp_type)0>>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 3)
+  if (a2 > (a1[2] - *a1) >> 3)
   {
     if (!(a2 >> 61))
     {
-      v2 = result[1] - *result;
-      std::__allocate_at_least[abi:ne200100]<std::allocator<shazam::spectral_peak_t>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<shazam::spectral_peak_t>>(a1, a2);
     }
 
     std::vector<std::vector<shazam::spectral_peak_t>>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void shazam::kvsort<std::vector<shazam::lmfp<(shazam::fp_type)0>>>(uint64_t a1)
 {
   MEMORY[0x28223BE20](a1);
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v4 = *v1;
   v3 = v1[1];
   v5 = (v3 - *v1) >> 3;
@@ -7796,11 +7771,11 @@ void shazam::kvsort<std::vector<shazam::lmfp<(shazam::fp_type)0>>>(uint64_t a1)
   {
     v6 = v2;
     v7 = v1;
-    bzero(v26, 0x1000uLL);
+    bzero(v25, 0x1000uLL);
     while (v4 != v3)
     {
       v8 = 0;
-      v9 = v26;
+      v9 = v25;
       do
       {
         ++*&v9[4 * *(v4 + v8++)];
@@ -7812,7 +7787,7 @@ void shazam::kvsort<std::vector<shazam::lmfp<(shazam::fp_type)0>>>(uint64_t a1)
     }
 
     v10 = 0;
-    v11 = v26;
+    v11 = v25;
     do
     {
       v12 = 0;
@@ -7834,7 +7809,7 @@ void shazam::kvsort<std::vector<shazam::lmfp<(shazam::fp_type)0>>>(uint64_t a1)
     for (i = 0; i != 4; ++i)
     {
       v16 = 0;
-      v17 = &v26[1024 * i];
+      v17 = &v25[1024 * i];
       v18 = v5;
       do
       {
@@ -7859,8 +7834,6 @@ void shazam::kvsort<std::vector<shazam::lmfp<(shazam::fp_type)0>>>(uint64_t a1)
       v6[2] = v24;
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t *std::__hash_table<std::__hash_value_type<int,shazam::target_zone_2d>,std::__unordered_map_hasher<int,std::__hash_value_type<int,shazam::target_zone_2d>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,shazam::target_zone_2d>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,shazam::target_zone_2d>>>::find<int>(void *a1, int *a2)
@@ -8000,17 +7973,17 @@ void std::vector<shazam::lmfp<(shazam::fp_type)0>>::push_back[abi:ne200100](uint
   *(a1 + 8) = v6;
 }
 
-void *std::vector<shazam::lmfp<(shazam::fp_type)0>>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<shazam::lmfp<(shazam::fp_type)0>>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<shazam::spectral_peak_t>::__vallocate[abi:ne200100](result, a2);
+    std::vector<shazam::spectral_peak_t>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_230FB0864(_Unwind_Exception *exception_object)
@@ -8074,8 +8047,8 @@ void std::vector<shazam::Result>::clear[abi:ne200100](uint64_t *a1)
 
 gsl::details *shazam::search_fingerprints<(AlgoType)1,shazam::xpair_group<shazam::xpair_fields>>(gsl::details *a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, void *a6, void *a7, float a8, float a9)
 {
-  v36[0] = a8;
-  v36[1] = a9;
+  *v36 = a8;
+  *&v36[1] = a9;
   if (*a6 == a6[1])
   {
     return 0;
@@ -8182,13 +8155,13 @@ uint64_t gsl::make_span<std::vector<shazam::lmfp<(shazam::fp_type)0>>>(gsl::deta
 void shazam::xpairsort<shazam::xpair_group<shazam::xpair_fields>>(uint64_t a1)
 {
   MEMORY[0x28223BE20](a1);
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v3 = *v1;
   if (*v1 >= 2uLL)
   {
     v4 = v2;
     v5 = v1;
-    bzero(v37, 0x2000uLL);
+    bzero(v36, 0x2000uLL);
     v7 = 0;
     v8 = v5[1] + 4;
     do
@@ -8198,7 +8171,7 @@ void shazam::xpairsort<shazam::xpair_group<shazam::xpair_fields>>(uint64_t a1)
       do
       {
         v11 = *v10++;
-        ++*&v37[8 * v11 + v9];
+        ++*&v36[8 * v11 + v9];
         v9 += 2048;
       }
 
@@ -8209,7 +8182,7 @@ void shazam::xpairsort<shazam::xpair_group<shazam::xpair_fields>>(uint64_t a1)
 
     while (v7 != v3);
     v12 = 0;
-    v13 = v37;
+    v13 = v36;
     do
     {
       v14 = 0;
@@ -8238,7 +8211,7 @@ void shazam::xpairsort<shazam::xpair_group<shazam::xpair_fields>>(uint64_t a1)
       }
 
       v19 = v5[1];
-      v20 = &v37[2048 * v17];
+      v20 = &v36[2048 * v17];
       if (*&v20[8 * *(v19 + v17 + 4)] != v3)
       {
         v21 = *(v4 + 8);
@@ -8298,8 +8271,6 @@ void shazam::xpairsort<shazam::xpair_group<shazam::xpair_fields>>(uint64_t a1)
 
     while (v17 != 4);
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t gsl::make_span<std::vector<unsigned int>>(gsl::details *a1)
@@ -8376,7 +8347,7 @@ void shazam::bin_tracks<shazam::xpair_group<shazam::xpair_fields>>(unint64_t *a1
         v19 = (16 * v15);
         *v19 = v9;
         v19[1] = v7;
-        v12 = 16 * v15 + 16;
+        v12 = (16 * v15 + 16);
         v20 = &v19[-2 * (v14 >> 4)];
         memcpy(v20, v13, v14);
         a1 = *a3;
@@ -8393,7 +8364,7 @@ void shazam::bin_tracks<shazam::xpair_group<shazam::xpair_fields>>(unint64_t *a1
       {
         *v11 = v9;
         v11[1] = v7;
-        v12 = (v11 + 2);
+        v12 = v11 + 2;
       }
 
       a3[1] = v12;
@@ -8468,7 +8439,7 @@ LABEL_41:
     v36 = (16 * v31);
     *v36 = v25;
     v36[1] = v5;
-    v28 = 16 * v31 + 16;
+    v28 = (16 * v31 + 16);
     v37 = &v36[-2 * (v30 >> 4)];
     memcpy(v37, v29, v30);
     v38 = *a3;
@@ -8485,13 +8456,13 @@ LABEL_41:
   {
     *v27 = v25;
     v27[1] = v5;
-    v28 = (v27 + 2);
+    v28 = v27 + 2;
   }
 
   a3[1] = v28;
 }
 
-void _ZN6shazam14focus_multipleILl2ENS_11xpair_groupIJNS_12xpair_fieldsEEEEPDoFfRKS3_EZNS_11CPUSearcher6searchIL8AlgoType1ES3_EEvRKNS_12SongDataBaseERKNS_16CPUOnePtDatabaseERKNS_15CPULMFPDataBaseERKNS_5QueryIXT_ENSt3__16vectorINS_4lmfpIXsr4algoIXT_EEE6fpTypeEEENSL_9allocatorISO_EEEEEERKNS_11QueryConfigEmNSL_6chrono10time_pointINSY_12steady_clockENSY_8durationIxNSL_5ratioILl1ELl1000000000EEEEEEERKNSL_8functionIFvRKNS_14SearchResponseEEEEEUlRKT_E_EEvN3gsl4spanIT0_Lm18446744073709551615EEExT1_T2_(gsl::details *a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t), uint64_t *a5)
+void _ZN6shazam14focus_multipleILl2ENS_11xpair_groupIJNS_12xpair_fieldsEEEEPDoFfRKS3_EZNS_11CPUSearcher6searchIL8AlgoType1ES3_EEvRKNS_12SongDataBaseERKNS_16CPUOnePtDatabaseERKNS_15CPULMFPDataBaseERKNS_5QueryIXT_ENSt3__16vectorINS_4lmfpIXsr4algoIXT_EEE6fpTypeEEENSL_9allocatorISO_EEEEEERKNS_11QueryConfigEmNSL_6chrono10time_pointINSY_12steady_clockENSY_8durationIxNSL_5ratioILl1ELl1000000000EEEEEEERKNSL_8functionIFvRKNS_14SearchResponseEEEEEUlRKT_E_EEvN3gsl4spanIT0_Lm18446744073709551615EEExT1_T2_(gsl::details *a1, uint64_t a2, uint64_t a3, float (*a4)(unint64_t), uint64_t *a5)
 {
   v29 = a1;
   v30 = a2;
@@ -8511,13 +8482,13 @@ void _ZN6shazam14focus_multipleILl2ENS_11xpair_groupIJNS_12xpair_fieldsEEEEPDoFf
           goto LABEL_23;
         }
 
-        a1 = a4(v30 + v11);
+        a1 = (a4)(v30 + v11);
         if (v29 <= v8)
         {
           goto LABEL_23;
         }
 
-        v13 = v12 - (a4)(v30 + 8 * v8);
+        v13 = v12 - a4(v30 + 8 * v8);
         if (v13 > v10)
         {
           break;
@@ -8564,7 +8535,7 @@ void _ZN6shazam14focus_multipleILl2ENS_11xpair_groupIJNS_12xpair_fieldsEEEEPDoFf
           *&__p.__r_.__value_.__l.__data_ = v25;
         }
 
-        shazam::cull_phase<(AlgoType)1,shazam::xpair_group<shazam::xpair_fields>,2ul,(void *)0>(v15, v31, (v16 + 152), v28);
+        shazam::cull_phase<(AlgoType)1,shazam::xpair_group<shazam::xpair_fields>,2ul,(void *)0>(v15, v31, v16 + 152, v28);
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__p.__r_.__value_.__l.__data_);
@@ -8578,13 +8549,13 @@ void _ZN6shazam14focus_multipleILl2ENS_11xpair_groupIJNS_12xpair_fieldsEEEEPDoFf
           v26 = 8 * v8;
           do
           {
-            a1 = a4(v30 + 8 * v9);
+            a1 = (a4)(v30 + 8 * v9);
             if (v29 <= v8)
             {
               break;
             }
 
-            if ((v27 - (a4)(v30 + v26)) <= v10)
+            if ((v27 - a4(v30 + v26)) <= v10)
             {
               goto LABEL_21;
             }
@@ -8618,7 +8589,7 @@ void sub_230FB1250(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void _ZN6shazam5focusILl2ENS_11xpair_groupIJNS_12xpair_fieldsEEEEPDoFfRKS3_EZNS_11CPUSearcher6searchIL8AlgoType1ES3_EEvRKNS_12SongDataBaseERKNS_16CPUOnePtDatabaseERKNS_15CPULMFPDataBaseERKNS_5QueryIXT_ENSt3__16vectorINS_4lmfpIXsr4algoIXT_EEE6fpTypeEEENSL_9allocatorISO_EEEEEERKNS_11QueryConfigEmNSL_6chrono10time_pointINSY_12steady_clockENSY_8durationIxNSL_5ratioILl1ELl1000000000EEEEEEERKNSL_8functionIFvRKNS_14SearchResponseEEEEEUlRKT_E_EEvN3gsl4spanIT0_Lm18446744073709551615EEExT1_T2_(gsl::details *a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(unint64_t), uint64_t *a5)
+void _ZN6shazam5focusILl2ENS_11xpair_groupIJNS_12xpair_fieldsEEEEPDoFfRKS3_EZNS_11CPUSearcher6searchIL8AlgoType1ES3_EEvRKNS_12SongDataBaseERKNS_16CPUOnePtDatabaseERKNS_15CPULMFPDataBaseERKNS_5QueryIXT_ENSt3__16vectorINS_4lmfpIXsr4algoIXT_EEE6fpTypeEEENSL_9allocatorISO_EEEEEERKNS_11QueryConfigEmNSL_6chrono10time_pointINSY_12steady_clockENSY_8durationIxNSL_5ratioILl1ELl1000000000EEEEEEERKNSL_8functionIFvRKNS_14SearchResponseEEEEEUlRKT_E_EEvN3gsl4spanIT0_Lm18446744073709551615EEExT1_T2_(gsl::details *a1, uint64_t a2, uint64_t a3, float (*a4)(uint64_t), uint64_t *a5)
 {
   v31[0] = a1;
   v31[1] = a2;
@@ -8638,7 +8609,7 @@ LABEL_19:
       }
 
       v13 = v11;
-      a1 = a4(a2 + 8 * v11);
+      a1 = (a4)(a2 + 8 * v11);
       if (v10 >= v8)
       {
 LABEL_10:
@@ -8656,12 +8627,12 @@ LABEL_10:
             goto LABEL_19;
           }
 
-          if ((a4)(v16) >= v15)
+          if (a4(v16) >= v15)
           {
             goto LABEL_10;
           }
 
-          ++v10;
+          v10 = (v10 + 1);
           v16 += 8;
           v9 = v13;
         }
@@ -8672,10 +8643,10 @@ LABEL_10:
       }
 
       v11 = v13 + 1;
-      v10 = v17 + 1;
+      v10 = (v17 + 1);
     }
 
-    while (v17 + 1 < v8);
+    while ((v17 + 1) < v8);
     if (v17 - v13 >= 3)
     {
       v30[0] = gsl::span<shazam::regresspair,18446744073709551615ul>::make_subspan(v31, v9, (v17 - v13));
@@ -8712,7 +8683,7 @@ LABEL_10:
         *&__p.__r_.__value_.__l.__data_ = v29;
       }
 
-      shazam::cull_phase<(AlgoType)1,shazam::xpair_group<shazam::xpair_fields>,2ul,(void *)0>(v19, v32, (v20 + 152), v30);
+      shazam::cull_phase<(AlgoType)1,shazam::xpair_group<shazam::xpair_fields>,2ul,(void *)0>(v19, v32, v20 + 152, v30);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__p.__r_.__value_.__l.__data_);
@@ -8731,7 +8702,7 @@ void sub_230FB13FC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<shazam::Result>::push_back[abi:ne200100](uint64_t *a1, uint64_t a2)
+uint64_t std::vector<shazam::Result>::push_back[abi:ne200100](unint64_t *a1, uint64_t a2)
 {
   v3 = a1[1];
   if (v3 >= a1[2])
@@ -8778,20 +8749,7 @@ void std::vector<shazam::Result>::resize(void *a1, unint64_t a2)
   }
 }
 
-unint64_t shazam::QueryRange<(shazam::fp_type)0>::ConstructFingerprintRange(float *a1, void *a2)
-{
-  v2 = ((*a2 >> 1) & 0x3FFF);
-  v3 = *a1 + v2;
-  v4 = a1[1] + v2;
-  if ((v3 & 0x3FFF) < (v4 & 0x3FFF))
-  {
-    v5 = *a2 | 0x7FFELL;
-  }
-
-  return *a2 & 0xFFFFFFFF00000000 | *a2 & 0xFFFF8001 | (2 * (v4 & 0x3FFF));
-}
-
-unint64_t shazam::binary_fingerprint_search<(AlgoType)1>(gsl::details *a1, uint64_t a2, unint64_t a3, uint64_t this, uint64_t a5, unsigned __int16 *a6)
+uint64_t shazam::binary_fingerprint_search<(AlgoType)1>(gsl::details *a1, uint64_t a2, unint64_t a3, uint64_t this, uint64_t a5, unsigned __int16 *a6)
 {
   if (this == a3)
   {
@@ -8888,34 +8846,34 @@ void std::string::__init_copy_ctor_external(std::string *this, const std::string
   memmove(this, __s, v3);
 }
 
-void shazam::cull_phase<(AlgoType)1,shazam::xpair_group<shazam::xpair_fields>,2ul,(void *)0>(float **a1, uint64_t a2, float **a3, gsl::details **a4)
+void shazam::cull_phase<(AlgoType)1,shazam::xpair_group<shazam::xpair_fields>,2ul,(void *)0>(uint64_t a1, uint64_t a2, uint64_t a3, gsl::details **a4)
 {
   v8 = *a4;
   *(a2 + 24) = *a4;
   v9 = a4[1];
   v12 = shazam::fdelta_compare<shazam::xpair_group<shazam::xpair_fields>>;
   v13[0] = v9;
-  v14 = v9;
-  v15 = &v9[v8];
-  v16 = v9;
-  v13[1] = v15;
-  v13[2] = v15;
+  *&v14 = v9;
+  *(&v14 + 1) = v9 + 8 * v8;
+  v15 = v9;
+  v13[1] = *(&v14 + 1);
+  v13[2] = *(&v14 + 1);
   _ZNSt3__115__sort_dispatchB8ne200100INS_17_ClassicAlgPolicyEN3gsl7details13span_iteratorIN6shazam11xpair_groupIJNS5_12xpair_fieldsEEEEEEPDoFbRKS8_SB_EEEvT0_SE_RT1_(&v14, v13, &v12);
   v10 = *a4;
   v11 = a4[1];
-  v14 = a2;
-  v15 = a3;
-  v16 = a1;
+  *&v14 = a2;
+  *(&v14 + 1) = a3;
+  v15 = a1;
   _ZN6shazam5focusILl2ENS_11xpair_groupIJNS_12xpair_fieldsEEEEPDoFiRKS3_EZNS_10cull_phaseIL8AlgoType1ES3_Lm2ELPv0EEEvRNSt3__16vectorINS_6ResultENSB_9allocatorISD_EEEESD_RNSC_INS_11regresspairENSE_ISI_EEEERKN3gsl4spanIT0_Lm18446744073709551615EEEEUlT_E_EEvSP_xT1_T2_(v10, v11, 21, shazam::f1_diff<shazam::xpair_group<shazam::xpair_fields>>, &v14);
 }
 
-void _ZN6shazam5focusILl2ENS_11xpair_groupIJNS_12xpair_fieldsEEEEPDoFiRKS3_EZNS_10cull_phaseIL8AlgoType1ES3_Lm2ELPv0EEEvRNSt3__16vectorINS_6ResultENSB_9allocatorISD_EEEESD_RNSC_INS_11regresspairENSE_ISI_EEEERKN3gsl4spanIT0_Lm18446744073709551615EEEEUlT_E_EEvSP_xT1_T2_(gsl::details *a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(unint64_t), float ***a5)
+void _ZN6shazam5focusILl2ENS_11xpair_groupIJNS_12xpair_fieldsEEEEPDoFiRKS3_EZNS_10cull_phaseIL8AlgoType1ES3_Lm2ELPv0EEEvRNSt3__16vectorINS_6ResultENSB_9allocatorISD_EEEESD_RNSC_INS_11regresspairENSE_ISI_EEEERKN3gsl4spanIT0_Lm18446744073709551615EEEEUlT_E_EEvSP_xT1_T2_(gsl::details *result, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t), gsl::details **a5)
 {
-  v19[0] = a1;
+  v19[0] = result;
   v19[1] = a2;
-  if (a1)
+  if (result)
   {
-    v9 = a1;
+    v9 = result;
     v10 = 0;
     v11 = 0;
     v12 = 0;
@@ -8924,11 +8882,11 @@ void _ZN6shazam5focusILl2ENS_11xpair_groupIJNS_12xpair_fieldsEEEEPDoFiRKS3_EZNS_
       if (v12 == v9)
       {
 LABEL_15:
-        gsl::details::terminate(a1);
+        gsl::details::terminate(result);
       }
 
       v13 = v12;
-      a1 = a4(a2 + 8 * v12);
+      result = a4(a2 + 8 * v12);
       if (v11 >= v9)
       {
 LABEL_10:
@@ -8937,7 +8895,7 @@ LABEL_10:
 
       else
       {
-        v14 = a3 + a1;
+        v14 = a3 + result;
         v15 = a2 + 8 * v11;
         do
         {
@@ -8946,13 +8904,13 @@ LABEL_10:
             goto LABEL_15;
           }
 
-          a1 = a4(v15);
-          if (v14 <= a1)
+          result = a4(v15);
+          if (v14 <= result)
           {
             goto LABEL_10;
           }
 
-          ++v11;
+          v11 = (v11 + 1);
           v15 += 8;
           v10 = v13;
         }
@@ -8963,10 +8921,10 @@ LABEL_10:
       }
 
       v12 = v13 + 1;
-      v11 = v16 + 1;
+      v11 = (v16 + 1);
     }
 
-    while (v16 + 1 < v9);
+    while ((v16 + 1) < v9);
     if (v16 - v13 >= 3)
     {
       subspan = gsl::span<shazam::regresspair,18446744073709551615ul>::make_subspan(v19, v10, (v16 - v13));
@@ -8975,7 +8933,7 @@ LABEL_10:
   }
 }
 
-void _ZNSt3__115__sort_dispatchB8ne200100INS_17_ClassicAlgPolicyEN3gsl7details13span_iteratorIN6shazam11xpair_groupIJNS5_12xpair_fieldsEEEEEEPDoFbRKS8_SB_EEEvT0_SE_RT1_(void *a1, gsl::details *a2, uint64_t (**a3)(gsl::details *, gsl::details *))
+void _ZNSt3__115__sort_dispatchB8ne200100INS_17_ClassicAlgPolicyEN3gsl7details13span_iteratorIN6shazam11xpair_groupIJNS5_12xpair_fieldsEEEEEEPDoFbRKS8_SB_EEEvT0_SE_RT1_(__int128 *a1, gsl::details *a2, uint64_t (**a3)(gsl::details *, gsl::details *))
 {
   v6 = gsl::details::span_iterator<shazam::xpair_group<shazam::xpair_fields>>::operator-<shazam::xpair_group<shazam::xpair_fields>,0>(a2, a1);
   v7 = 126 - 2 * __clz(v6);
@@ -8990,7 +8948,7 @@ void _ZNSt3__115__sort_dispatchB8ne200100INS_17_ClassicAlgPolicyEN3gsl7details13
   }
 
   v11 = *a1;
-  v12 = a1[2];
+  v12 = *(a1 + 2);
   v9 = *a2;
   v10 = *(a2 + 2);
   _ZNSt3__111__introsortINS_17_ClassicAlgPolicyERPDoFbRKN6shazam11xpair_groupIJNS2_12xpair_fieldsEEEES7_EN3gsl7details13span_iteratorIS5_EELb0EEEvT1_SF_T0_NS_15iterator_traitsISF_E15difference_typeEb(&v11, &v9, a3, v8, 1);
@@ -9006,7 +8964,7 @@ uint64_t gsl::details::span_iterator<shazam::xpair_group<shazam::xpair_fields>>:
   return (*(a1 + 2) - a2[2]) >> 3;
 }
 
-void _ZNSt3__111__introsortINS_17_ClassicAlgPolicyERPDoFbRKN6shazam11xpair_groupIJNS2_12xpair_fieldsEEEES7_EN3gsl7details13span_iteratorIS5_EELb0EEEvT1_SF_T0_NS_15iterator_traitsISF_E15difference_typeEb(gsl::details *a1, gsl::details *a2, uint64_t (**a3)(gsl::details *, gsl::details *), uint64_t a4, char a5)
+void _ZNSt3__111__introsortINS_17_ClassicAlgPolicyERPDoFbRKN6shazam11xpair_groupIJNS2_12xpair_fieldsEEEES7_EN3gsl7details13span_iteratorIS5_EELb0EEEvT1_SF_T0_NS_15iterator_traitsISF_E15difference_typeEb(__n128 *a1, gsl::details *a2, uint64_t (**a3)(gsl::details *, gsl::details *), uint64_t a4, char a5)
 {
   for (i = a4 - 1; ; --i)
   {
@@ -9017,9 +8975,9 @@ void _ZNSt3__111__introsortINS_17_ClassicAlgPolicyERPDoFbRKN6shazam11xpair_group
       {
         case 3:
           v34 = *a1;
-          v35 = *(a1 + 2);
+          v35 = a1[1].n128_u64[0];
           v43 = *a1;
-          v44 = *(a1 + 2);
+          v44 = a1[1].n128_u64[0];
           gsl::details::span_iterator<shazam::xpair_group<shazam::xpair_fields>>::operator+=(&v43, 1);
           v32 = gsl::details::span_iterator<shazam::xpair_group<shazam::xpair_fields>>::operator--(a2);
           v33 = v32[1].n128_u64[0];
@@ -9029,30 +8987,30 @@ void _ZNSt3__111__introsortINS_17_ClassicAlgPolicyERPDoFbRKN6shazam11xpair_group
           return;
         case 4:
           v34 = *a1;
-          v35 = *(a1 + 2);
+          v35 = a1[1].n128_u64[0];
           v43 = *a1;
-          v44 = *(a1 + 2);
+          v44 = a1[1].n128_u64[0];
           gsl::details::span_iterator<shazam::xpair_group<shazam::xpair_fields>>::operator+=(&v43, 1);
           v41 = *a1;
-          v42 = *(a1 + 2);
+          v42 = a1[1].n128_u64[0];
           gsl::details::span_iterator<shazam::xpair_group<shazam::xpair_fields>>::operator+=(&v41, 2);
           v21 = gsl::details::span_iterator<shazam::xpair_group<shazam::xpair_fields>>::operator--(a2);
-          v22 = *(v21 + 2);
+          v22 = v21[1].n128_u64[0];
           v39 = *v21;
           v40 = v22;
           _ZNSt3__17__sort4B8ne200100INS_17_ClassicAlgPolicyERPDoFbRKN6shazam11xpair_groupIJNS2_12xpair_fieldsEEEES7_EN3gsl7details13span_iteratorIS5_EELi0EEEvT1_SF_SF_SF_T0_(&v34, &v43, &v41, &v39, a3);
           return;
         case 5:
           v34 = *a1;
-          v35 = *(a1 + 2);
+          v35 = a1[1].n128_u64[0];
           v43 = *a1;
-          v44 = *(a1 + 2);
+          v44 = a1[1].n128_u64[0];
           gsl::details::span_iterator<shazam::xpair_group<shazam::xpair_fields>>::operator+=(&v43, 1);
           v41 = *a1;
-          v42 = *(a1 + 2);
+          v42 = a1[1].n128_u64[0];
           gsl::details::span_iterator<shazam::xpair_group<shazam::xpair_fields>>::operator+=(&v41, 2);
           v39 = *a1;
-          v40 = *(a1 + 2);
+          v40 = a1[1].n128_u64[0];
           gsl::details::span_iterator<shazam::xpair_group<shazam::xpair_fields>>::operator+=(&v39, 3);
           v30 = gsl::details::span_iterator<shazam::xpair_group<shazam::xpair_fields>>::operator--(a2);
           v31 = *(v30 + 2);
@@ -9079,7 +9037,7 @@ void _ZNSt3__111__introsortINS_17_ClassicAlgPolicyERPDoFbRKN6shazam11xpair_group
         if (v23(v25, v26))
         {
           v34 = *a1;
-          v35 = *(a1 + 2);
+          v35 = a1[1].n128_u64[0];
           v43 = *a2;
           v44 = *(a2 + 2);
           v27 = gsl::details::span_iterator<shazam::spectral_peak_compact_t const>::operator*(&v34);
@@ -9101,12 +9059,12 @@ void _ZNSt3__111__introsortINS_17_ClassicAlgPolicyERPDoFbRKN6shazam11xpair_group
     if (i == -1)
     {
       v34 = *a1;
-      v35 = *(a1 + 2);
+      v35 = a1[1].n128_u64[0];
       v43 = *a2;
       v44 = *(a2 + 2);
       v41 = *a2;
       v42 = *(a2 + 2);
-      _ZNSt3__114__partial_sortB8ne200100INS_17_ClassicAlgPolicyERPDoFbRKN6shazam11xpair_groupIJNS2_12xpair_fieldsEEEES7_EN3gsl7details13span_iteratorIS5_EESE_EET1_SF_SF_T2_RT0_(&v34, &v43, &v41, a3, &v39);
+      _ZNSt3__114__partial_sortB8ne200100INS_17_ClassicAlgPolicyERPDoFbRKN6shazam11xpair_groupIJNS2_12xpair_fieldsEEEES7_EN3gsl7details13span_iteratorIS5_EESE_EET1_SF_SF_T2_RT0_(&v34, &v43, &v41, &v39, a3);
       return;
     }
 
@@ -9114,10 +9072,10 @@ void _ZNSt3__111__introsortINS_17_ClassicAlgPolicyERPDoFbRKN6shazam11xpair_group
     if (v10 < 0x81)
     {
       v34 = *a1;
-      v35 = *(a1 + 2);
+      v35 = a1[1].n128_u64[0];
       gsl::details::span_iterator<shazam::xpair_group<shazam::xpair_fields>>::operator+=(&v34, v11);
       v43 = *a1;
-      v44 = *(a1 + 2);
+      v44 = a1[1].n128_u64[0];
       v41 = *a2;
       v42 = *(a2 + 2);
       gsl::details::span_iterator<shazam::xpair_group<shazam::xpair_fields>>::operator-=(&v41, 1);
@@ -9131,49 +9089,49 @@ void _ZNSt3__111__introsortINS_17_ClassicAlgPolicyERPDoFbRKN6shazam11xpair_group
     else
     {
       v34 = *a1;
-      v35 = *(a1 + 2);
+      v35 = a1[1].n128_u64[0];
       v43 = *a1;
-      v44 = *(a1 + 2);
+      v44 = a1[1].n128_u64[0];
       gsl::details::span_iterator<shazam::xpair_group<shazam::xpair_fields>>::operator+=(&v43, v11);
       v41 = *a2;
       v42 = *(a2 + 2);
       gsl::details::span_iterator<shazam::xpair_group<shazam::xpair_fields>>::operator-=(&v41, 1);
       _ZNSt3__17__sort3B8ne200100INS_17_ClassicAlgPolicyERPDoFbRKN6shazam11xpair_groupIJNS2_12xpair_fieldsEEEES7_EN3gsl7details13span_iteratorIS5_EELi0EEEbT1_SF_SF_T0_(&v34, &v43, &v41, a3);
       v34 = *a1;
-      v35 = *(a1 + 2);
+      v35 = a1[1].n128_u64[0];
       gsl::details::span_iterator<shazam::xpair_group<shazam::xpair_fields>>::operator+=(&v34, 1);
       v43 = *a1;
-      v44 = *(a1 + 2);
+      v44 = a1[1].n128_u64[0];
       gsl::details::span_iterator<shazam::xpair_group<shazam::xpair_fields>>::operator+=(&v43, v11 - 1);
       v41 = *a2;
       v42 = *(a2 + 2);
       gsl::details::span_iterator<shazam::xpair_group<shazam::xpair_fields>>::operator-=(&v41, 2);
       _ZNSt3__17__sort3B8ne200100INS_17_ClassicAlgPolicyERPDoFbRKN6shazam11xpair_groupIJNS2_12xpair_fieldsEEEES7_EN3gsl7details13span_iteratorIS5_EELi0EEEbT1_SF_SF_T0_(&v34, &v43, &v41, a3);
       v34 = *a1;
-      v35 = *(a1 + 2);
+      v35 = a1[1].n128_u64[0];
       gsl::details::span_iterator<shazam::xpair_group<shazam::xpair_fields>>::operator+=(&v34, 2);
       v43 = *a1;
-      v44 = *(a1 + 2);
+      v44 = a1[1].n128_u64[0];
       gsl::details::span_iterator<shazam::xpair_group<shazam::xpair_fields>>::operator+=(&v43, v11 + 1);
       v41 = *a2;
       v42 = *(a2 + 2);
       gsl::details::span_iterator<shazam::xpair_group<shazam::xpair_fields>>::operator-=(&v41, 3);
       _ZNSt3__17__sort3B8ne200100INS_17_ClassicAlgPolicyERPDoFbRKN6shazam11xpair_groupIJNS2_12xpair_fieldsEEEES7_EN3gsl7details13span_iteratorIS5_EELi0EEEbT1_SF_SF_T0_(&v34, &v43, &v41, a3);
       v34 = *a1;
-      v35 = *(a1 + 2);
+      v35 = a1[1].n128_u64[0];
       gsl::details::span_iterator<shazam::xpair_group<shazam::xpair_fields>>::operator+=(&v34, v11 - 1);
       v43 = *a1;
-      v44 = *(a1 + 2);
+      v44 = a1[1].n128_u64[0];
       gsl::details::span_iterator<shazam::xpair_group<shazam::xpair_fields>>::operator+=(&v43, v11);
       v41 = *a1;
-      v42 = *(a1 + 2);
+      v42 = a1[1].n128_u64[0];
       gsl::details::span_iterator<shazam::xpair_group<shazam::xpair_fields>>::operator+=(&v41, v11 + 1);
       _ZNSt3__17__sort3B8ne200100INS_17_ClassicAlgPolicyERPDoFbRKN6shazam11xpair_groupIJNS2_12xpair_fieldsEEEES7_EN3gsl7details13span_iteratorIS5_EELi0EEEbT1_SF_SF_T0_(&v34, &v43, &v41, a3);
       v41 = *a1;
-      v42 = *(a1 + 2);
+      v42 = a1[1].n128_u64[0];
       gsl::details::span_iterator<shazam::xpair_group<shazam::xpair_fields>>::operator+=(&v41, v11);
       v34 = *a1;
-      v35 = *(a1 + 2);
+      v35 = a1[1].n128_u64[0];
       v43 = v41;
       v44 = v42;
       v12 = gsl::details::span_iterator<shazam::spectral_peak_compact_t const>::operator*(&v34);
@@ -9189,14 +9147,14 @@ void _ZNSt3__111__introsortINS_17_ClassicAlgPolicyERPDoFbRKN6shazam11xpair_group
 
     v15 = *a3;
     v34 = *a1;
-    v35 = *(a1 + 2);
+    v35 = a1[1].n128_u64[0];
     gsl::details::span_iterator<shazam::xpair_group<shazam::xpair_fields>>::operator-=(&v34, 1);
     v16 = gsl::details::span_iterator<shazam::spectral_peak_compact_t const>::operator*(&v34);
     v17 = gsl::details::span_iterator<shazam::spectral_peak_compact_t const>::operator*(a1);
     if ((v15(v16, v17) & 1) == 0)
     {
       v43 = *a1;
-      v44 = *(a1 + 2);
+      v44 = a1[1].n128_u64[0];
       v41 = *a2;
       v42 = *(a2 + 2);
       _ZNSt3__131__partition_with_equals_on_leftB8ne200100INS_17_ClassicAlgPolicyEN3gsl7details13span_iteratorIN6shazam11xpair_groupIJNS5_12xpair_fieldsEEEEEERPDoFbRKS8_SB_EEET0_SF_SF_T1_(&v43, &v41, a3, &v34);
@@ -9208,7 +9166,7 @@ void _ZNSt3__111__introsortINS_17_ClassicAlgPolicyERPDoFbRKN6shazam11xpair_group
 
 LABEL_16:
     v43 = *a1;
-    v44 = *(a1 + 2);
+    v44 = a1[1].n128_u64[0];
     v41 = *a2;
     v42 = *(a2 + 2);
     _ZNSt3__132__partition_with_equals_on_rightB8ne200100INS_17_ClassicAlgPolicyEN3gsl7details13span_iteratorIN6shazam11xpair_groupIJNS5_12xpair_fieldsEEEEEERPDoFbRKS8_SB_EEENS_4pairIT0_bEESG_SG_T1_(&v43, &v41, a3, &v34);
@@ -9220,7 +9178,7 @@ LABEL_16:
     }
 
     v41 = *a1;
-    v42 = *(a1 + 2);
+    v42 = a1[1].n128_u64[0];
     v39 = v34;
     v40 = v35;
     v18 = _ZNSt3__127__insertion_sort_incompleteB8ne200100INS_17_ClassicAlgPolicyERPDoFbRKN6shazam11xpair_groupIJNS2_12xpair_fieldsEEEES7_EN3gsl7details13span_iteratorIS5_EEEEbT1_SF_T0_(&v41, &v39, a3);
@@ -9240,7 +9198,7 @@ LABEL_16:
       {
 LABEL_23:
         v41 = *a1;
-        v42 = *(a1 + 2);
+        v42 = a1[1].n128_u64[0];
         v39 = v43;
         v40 = v44;
         _ZNSt3__111__introsortINS_17_ClassicAlgPolicyERPDoFbRKN6shazam11xpair_groupIJNS2_12xpair_fieldsEEEES7_EN3gsl7details13span_iteratorIS5_EELb0EEEvT1_SF_T0_NS_15iterator_traitsISF_E15difference_typeEb(&v41, &v39, a3, i, a5 & 1);
@@ -9251,7 +9209,7 @@ LABEL_23:
       v19 = *(v20 + 2);
       *a1 = *v20;
 LABEL_25:
-      *(a1 + 2) = v19;
+      a1[1].n128_u64[0] = v19;
       continue;
     }
 
@@ -9265,7 +9223,7 @@ LABEL_25:
   }
 
   v34 = *a1;
-  v35 = *(a1 + 2);
+  v35 = a1[1].n128_u64[0];
   v43 = *a2;
   v44 = *(a2 + 2);
   if (a5)
@@ -9658,7 +9616,7 @@ LABEL_13:
   return result;
 }
 
-__n128 _ZNSt3__114__partial_sortB8ne200100INS_17_ClassicAlgPolicyERPDoFbRKN6shazam11xpair_groupIJNS2_12xpair_fieldsEEEES7_EN3gsl7details13span_iteratorIS5_EESE_EET1_SF_SF_T2_RT0_@<Q0>(gsl::details *a1@<X0>, void *a2@<X1>, __n128 *a3@<X2>, unsigned int (**a4)(gsl::details *, gsl::details *)@<X3>, gsl::details *a5@<X8>)
+__n128 _ZNSt3__114__partial_sortB8ne200100INS_17_ClassicAlgPolicyERPDoFbRKN6shazam11xpair_groupIJNS2_12xpair_fieldsEEEES7_EN3gsl7details13span_iteratorIS5_EESE_EET1_SF_SF_T2_RT0_@<Q0>(gsl::details *a1@<X0>, void *a2@<X1>, __n128 *a3@<X2>, __n128 *a4@<X8>, unsigned int (**a5)(gsl::details *, gsl::details *)@<X3>)
 {
   if (*a1 != *a2 || *(a1 + 1) != a2[1])
   {
@@ -9668,8 +9626,8 @@ __n128 _ZNSt3__114__partial_sortB8ne200100INS_17_ClassicAlgPolicyERPDoFbRKN6shaz
   if (*(a1 + 2) == a2[2])
   {
     result = *a3;
-    *a5 = *a3;
-    *(a5 + 2) = a3[1].n128_u64[0];
+    *a4 = *a3;
+    a4[1].n128_u64[0] = a3[1].n128_u64[0];
   }
 
   else
@@ -9680,7 +9638,7 @@ __n128 _ZNSt3__114__partial_sortB8ne200100INS_17_ClassicAlgPolicyERPDoFbRKN6shaz
     v9 = a2[2];
     v6 = *a3;
     v7 = a3[1].n128_u64[0];
-    result.n128_u64[0] = _ZNSt3__119__partial_sort_implB8ne200100INS_17_ClassicAlgPolicyERPDoFbRKN6shazam11xpair_groupIJNS2_12xpair_fieldsEEEES7_EN3gsl7details13span_iteratorIS5_EESE_EET1_SF_SF_T2_OT0_(&v10, &v8, &v6, a4, a5).n128_u64[0];
+    result.n128_u64[0] = _ZNSt3__119__partial_sort_implB8ne200100INS_17_ClassicAlgPolicyERPDoFbRKN6shazam11xpair_groupIJNS2_12xpair_fieldsEEEES7_EN3gsl7details13span_iteratorIS5_EESE_EET1_SF_SF_T2_OT0_(&v10, &v8, &v6, a5, a4).n128_u64[0];
   }
 
   return result;
@@ -9802,7 +9760,7 @@ LABEL_13:
   v32 = *a1;
   v33 = *(a1 + 2);
   v12 = gsl::details::span_iterator<shazam::xpair_group<shazam::xpair_fields>>::operator-=(&v32, 1);
-  if (*&v28 != v32)
+  if (v28 != v32)
   {
     goto LABEL_23;
   }

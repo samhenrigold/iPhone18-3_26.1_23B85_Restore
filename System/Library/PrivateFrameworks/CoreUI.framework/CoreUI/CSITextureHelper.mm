@@ -73,18 +73,18 @@
 
     v13 = [(_CSIRenditionBlockData *)v5 initWithBytes:v6 pixelWidth:*(buffer + 32) pixelHeight:*(buffer + 36) sourceRowbytes:*(buffer + 24) pixelFormat:v12];
     [(_CSIRenditionBlockData *)v13 setRowBytes:?];
-    [(_CSIRenditionBlockData *)v13 expandCSIBitmapData:0 fromSlice:v4 makeReadOnly:0, v14, v15, v16];
+    [(_CSIRenditionBlockData *)v13 expandCSIBitmapData:0 fromSlice:v4 makeReadOnly:0];
     if (v13)
     {
-      v17 = atomic_load(v13 + 5);
+      v14 = atomic_load(v13 + 5);
     }
 
     else
     {
-      v17 = 0;
+      v14 = 0;
     }
 
-    *(buffer + 40) = v17;
+    *(buffer + 40) = v14;
   }
 
   return buffer != 0;

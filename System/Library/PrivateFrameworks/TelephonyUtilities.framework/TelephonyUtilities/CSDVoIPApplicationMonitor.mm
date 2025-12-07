@@ -64,7 +64,7 @@
 
   else
   {
-    v9 = sub_100004778();
+    v9 = sub_100004778(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v11 = 138412290;
@@ -107,7 +107,7 @@
 
   else
   {
-    v14 = sub_100004778();
+    v14 = sub_100004778(0);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       v15 = 138412290;
@@ -137,26 +137,26 @@
 
       if ([allKeys count])
       {
-        v11 = BKSApplicationStateAll;
+        v12 = BKSApplicationStateAll;
       }
 
       else
       {
-        v11 = 0;
+        v12 = 0;
       }
 
       applicationStateMonitor = [(CSDVoIPApplicationMonitor *)self applicationStateMonitor];
-      [applicationStateMonitor updateInterestedBundleIDs:allKeys states:v11];
+      [applicationStateMonitor updateInterestedBundleIDs:allKeys states:v12];
     }
 
     else
     {
-      v13 = sub_100004778();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v14 = sub_100004778(v8);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = 138412290;
-        v15 = applicationCopy;
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "[WARN] Could not obtain bundle identifier from VoIP application %@", &v14, 0xCu);
+        v15 = 138412290;
+        v16 = applicationCopy;
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "[WARN] Could not obtain bundle identifier from VoIP application %@", &v15, 0xCu);
       }
     }
 

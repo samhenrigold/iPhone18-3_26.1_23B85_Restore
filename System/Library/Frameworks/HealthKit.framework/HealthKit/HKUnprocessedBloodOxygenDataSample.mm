@@ -38,7 +38,7 @@
   payload = self->_payload;
   self->_payload = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, payload);
 }
 
 - (HKUnprocessedBloodOxygenDataSample)initWithCoder:(id)coder

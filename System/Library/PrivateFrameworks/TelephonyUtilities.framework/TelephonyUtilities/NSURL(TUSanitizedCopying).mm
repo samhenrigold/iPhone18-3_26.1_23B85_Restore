@@ -14,9 +14,9 @@
     +[NSURL(TUSanitizedCopying) tu_defaultAllowedSchemes];
   }
 
-  v1 = tu_defaultAllowedSchemes_defaultAllowedSchemes;
+  v2 = tu_defaultAllowedSchemes_defaultAllowedSchemes;
 
-  return v1;
+  return v2;
 }
 
 - (id)sanitizedCopy
@@ -44,47 +44,46 @@
 
   if ([lowercaseString length])
   {
-    if ([v6 containsObject:lowercaseString])
+    v9 = [v6 containsObject:lowercaseString];
+    if (v9)
     {
-      v9 = [self copyWithZone:a3];
+      v10 = [self copyWithZone:a3];
       goto LABEL_10;
     }
 
-    v10 = TUDefaultLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = TUDefaultLog(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       v16 = 138412546;
       selfCopy2 = self;
       v18 = 2112;
       v19 = v6;
-      v11 = "[WARN] URL scheme is not in list of allowed schemes: %@ allowedSchemes: %@";
-      v12 = v10;
-      v13 = 22;
+      v12 = "[WARN] URL scheme is not in list of allowed schemes: %@ allowedSchemes: %@";
+      v13 = v11;
+      v14 = 22;
       goto LABEL_8;
     }
   }
 
   else
   {
-    v10 = TUDefaultLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = TUDefaultLog(0);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       v16 = 138412290;
       selfCopy2 = self;
-      v11 = "[WARN] URL does not contain a valid scheme: %@";
-      v12 = v10;
-      v13 = 12;
+      v12 = "[WARN] URL does not contain a valid scheme: %@";
+      v13 = v11;
+      v14 = 12;
 LABEL_8:
-      _os_log_impl(&dword_1956FD000, v12, OS_LOG_TYPE_DEFAULT, v11, &v16, v13);
+      _os_log_impl(&dword_1956FD000, v13, OS_LOG_TYPE_DEFAULT, v12, &v16, v14);
     }
   }
 
-  v9 = 0;
+  v10 = 0;
 LABEL_10:
 
-  v14 = *MEMORY[0x1E69E9840];
-
-  return v9;
+  return v10;
 }
 
 @end

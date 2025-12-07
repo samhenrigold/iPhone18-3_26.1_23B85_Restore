@@ -1,13 +1,13 @@
-void sub_1000023D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000023D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_100002588(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100002588(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -251,9 +251,9 @@ id sub_1000033E0(void *a1)
   return v2;
 }
 
-void sub_1000034F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000034F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -292,16 +292,16 @@ void sub_100003528(uint64_t a1)
   }
 }
 
-void sub_100003654(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100003654(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_100003E38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100003E38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -401,9 +401,9 @@ LABEL_17:
   dispatch_semaphore_signal(*(a1 + 40));
 }
 
-void sub_100004B64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100004B64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -521,16 +521,16 @@ void sub_100004E18(uint64_t a1, void *a2, void *a3)
   }
 }
 
-void sub_10000511C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10000511C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1000055B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000055B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -558,7 +558,6 @@ void sub_100005F2C(uint64_t a1, void *a2)
 
 uint64_t sub_100005FEC()
 {
-  v1 = *(v0 + 24);
 
   return _swift_deallocObject(v0, 32, 7);
 }
@@ -582,77 +581,68 @@ uint64_t sub_10000604C()
       sub_1000092D0(&qword_100213980);
     }
 
-    v2 = v0[9];
-    v3 = type metadata accessor for Logger();
-    v0[13] = sub_100007B5C(v3, qword_100213EE0);
+    v1 = type metadata accessor for Logger();
+    v0[13] = sub_100007B5C(v1, qword_100213EE0);
 
-    v4 = Logger.logObject.getter();
-    v5 = static os_log_type_t.default.getter();
+    v2 = Logger.logObject.getter();
+    v3 = static os_log_type_t.default.getter();
 
-    if (os_log_type_enabled(v4, v5))
+    if (os_log_type_enabled(v2, v3))
     {
-      v7 = v0[8];
-      v6 = v0[9];
-      v8 = swift_slowAlloc();
-      v1 = swift_slowAlloc();
-      *(v8 + 4) = sub_1000096FC(4.8149e-34, v1, v9, v10, v11, v12);
+      v4 = swift_slowAlloc();
+      v59 = swift_slowAlloc();
+      *(v4 + 4) = sub_1000096FC(4.8149e-34, v59, v5, v6, v7, v8, v9, v10, v11, v56, v57);
       sub_1000096E4();
-      _os_log_impl(v13, v14, v15, v16, v8, 0xCu);
-      sub_100008B14(v1);
-      sub_1000094E4(v1);
-      sub_1000094E4(v8);
+      _os_log_impl(v12, v13, v14, v15, v4, 0xCu);
+      sub_100008B14(v59);
+      sub_1000094E4(v59);
+      sub_1000094E4(v4);
     }
 
     sub_1000095A0();
     sub_100007BFC(0, &qword_100212750, &type metadata accessor for IntentParameter);
-    sub_100009764(v17);
+    sub_100009764(v16);
 
-    v18 = IntentParameter.init(wrappedValue:)();
-    sub_1000094B4(v18);
+    v17 = IntentParameter.init(wrappedValue:)();
+    sub_1000094B4(v17);
 
     v0[15] = IntentParameter.init(wrappedValue:)();
-    sub_100007B94();
-    v0[16] = v19;
-    sub_10000947C(v19);
-    v0[17] = *(v20 + 64);
+    sub_100007B94(0);
+    v0[16] = v18;
+    sub_10000947C(v18);
+    v0[17] = *(v19 + 64);
     v0[18] = sub_100009604();
-    v21 = *(v1 + OBJC_IVAR____TtC12itunescloudd22ICDAppIntentDispatcher_localDispatcher);
-    v22 = *(v1 + OBJC_IVAR____TtC12itunescloudd22ICDAppIntentDispatcher_localDispatcher + 8);
     swift_getObjectType();
-    v23 = sub_100009654();
-    sub_100009698(v23);
-    v0[20] = v24;
-    v26 = *(v25 + 64);
-    v27 = sub_100009604();
-    v0[21] = v27;
-    sub_1000093DC(v27, &qword_100212770);
-    sub_10000947C(v28);
-    v30 = *(v29 + 64);
-    v31 = sub_100009604();
-    v32 = type metadata accessor for UTType();
-    sub_100009680(v31, v33, v34, v32);
+    v20 = sub_100009654();
+    sub_100009698(v20);
+    v0[20] = v21;
+    v22 = sub_100009604();
+    v0[21] = v22;
+    sub_1000093DC(v22, &qword_100212770);
+    sub_10000947C(v23);
+    v24 = sub_100009604();
+    v25 = type metadata accessor for UTType();
+    sub_100009680(v24, v26, v27, v25);
     sub_100007C5C(0, &qword_100212778, &type metadata accessor for SnippetEnvironment);
-    sub_10000947C(v35);
-    v37 = *(v36 + 64);
-    v38 = sub_100009604();
-    v39 = type metadata accessor for SnippetEnvironment();
-    sub_100009680(v38, v40, v41, v39);
-    v42 = static AppIntentPerformOptions.defaultConnectionOperationTimeout.getter();
-    sub_10000939C(v42, v43, v44, v45, v46, v47, v48, v49, v65, v66, v67);
+    sub_10000947C(v28);
+    v29 = sub_100009604();
+    v30 = type metadata accessor for SnippetEnvironment();
+    sub_100009680(v29, v31, v32, v30);
+    v33 = static AppIntentPerformOptions.defaultConnectionOperationTimeout.getter();
+    sub_10000939C(v33, v34, v35, v36, v37, v38, v39, v40, v56, v57, v58);
 
-    v50 = type metadata accessor for DefaultPerformAppIntentDelegate();
-    sub_100009764(v50);
+    v41 = type metadata accessor for DefaultPerformAppIntentDelegate();
+    sub_100009764(v41);
     v0[22] = DefaultPerformAppIntentDelegate.init()();
-    v51 = async function pointer to AppIntentDispatching.perform<A>(_:options:delegate:)[1];
-    v52 = swift_task_alloc();
-    v0[23] = v52;
+    v42 = swift_task_alloc();
+    v0[23] = v42;
     sub_100007CD8();
-    *v52 = v0;
-    v52[1] = sub_100006468;
+    *v42 = v0;
+    v42[1] = sub_100006468;
     sub_100009458();
     sub_10000971C();
 
-    return AppIntentDispatching.perform<A>(_:options:delegate:)();
+    return AppIntentDispatching.perform<A>(_:options:delegate:)(v43);
   }
 
   else
@@ -662,23 +652,23 @@ uint64_t sub_10000604C()
       sub_1000092D0(&qword_100213980);
     }
 
-    v54 = type metadata accessor for Logger();
-    sub_100007B5C(v54, qword_100213EE0);
-    v55 = Logger.logObject.getter();
-    v56 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v55, v56))
+    v45 = type metadata accessor for Logger();
+    sub_100007B5C(v45, qword_100213EE0);
+    v46 = Logger.logObject.getter();
+    v47 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v46, v47))
     {
-      v57 = swift_slowAlloc();
-      *v57 = 0;
+      v48 = swift_slowAlloc();
+      *v48 = 0;
       sub_1000096E4();
-      _os_log_impl(v58, v59, v60, v61, v57, 2u);
-      sub_1000094E4(v57);
+      _os_log_impl(v49, v50, v51, v52, v48, 2u);
+      sub_1000094E4(v48);
     }
 
     sub_100009360();
     sub_10000971C();
 
-    return v62();
+    return v53();
   }
 }
 
@@ -687,32 +677,30 @@ uint64_t sub_100006468()
   sub_100009594();
   sub_1000094A8();
   v3 = v2;
-  v4 = v2[23];
-  v5 = *v1;
+  v4 = *v1;
   sub_100009314();
-  *v6 = v5;
+  *v5 = v4;
 
   if (v0)
   {
-    v8 = v3[21];
-    v7 = v3[22];
-    v11 = v3 + 19;
-    v9 = v3[19];
-    v10 = v11[1];
+    v6 = *(v3 + 168);
+    v9 = v3 + 152;
+    v7 = *(v3 + 152);
+    v8 = *(v9 + 8);
 
-    (*(v10 + 8))(v8, v9);
-    v12 = sub_100006704;
+    (*(v8 + 8))(v6, v7);
+    v10 = sub_100006704;
   }
 
   else
   {
-    v13 = sub_1000096B8();
-    v14(v13);
+    v11 = sub_1000096B8();
+    v12(v11);
 
-    v12 = sub_1000065C8;
+    v10 = sub_1000065C8;
   }
 
-  return _swift_task_switch(v12, 0, 0);
+  return _swift_task_switch(v10, 0, 0);
 }
 
 uint64_t sub_1000065C8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
@@ -728,7 +716,7 @@ uint64_t sub_1000065C8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   v22 = Logger.logObject.getter();
   v23 = static os_log_type_t.default.getter();
   v24 = sub_1000094FC(v23);
-  v25 = v15[18];
+  v25 = *(v15 + 144);
   if (v24)
   {
     sub_100009324();
@@ -739,18 +727,16 @@ uint64_t sub_1000065C8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
     sub_10000974C();
     sub_1000095D8();
 
-    sub_1000095BC(v27, v28);
+    sub_1000095BC(v27, v28, v29, v30);
     sub_10000977C();
     *(v17 + 4) = v16;
-    sub_10000937C(&_mh_execute_header, v29, v30, "Received response: %s");
+    sub_10000937C(&_mh_execute_header, v31, v32, "Received response: %s");
     sub_100009424();
     sub_1000094E4(v17);
   }
 
   else
   {
-    v31 = v15[14];
-    v32 = v15[15];
 
     sub_100007D90(v14);
   }
@@ -768,54 +754,51 @@ uint64_t sub_100006704(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
 {
   sub_100009638();
   sub_1000096AC();
-  v18 = v15[21];
 
   sub_100009404();
-  sub_100009534(v19, &qword_100212760);
-  v20 = sub_1000096D8();
-  sub_100009680(v20, v21, v22, v23);
-  v24 = swift_task_alloc();
-  sub_100009518(v24);
-  v25 = Logger.logObject.getter();
-  v26 = static os_log_type_t.default.getter();
-  v27 = sub_1000094FC(v26);
-  v28 = v15[18];
-  if (v27)
+  sub_100009534(v18, &qword_100212760);
+  v19 = sub_1000096D8();
+  sub_100009680(v19, v20, v21, v22);
+  v23 = swift_task_alloc();
+  sub_100009518(v23);
+  v24 = Logger.logObject.getter();
+  v25 = static os_log_type_t.default.getter();
+  v26 = sub_1000094FC(v25);
+  v27 = *(v15 + 144);
+  if (v26)
   {
     sub_100009324();
     sub_10000955C();
     sub_1000096CC();
-    v29 = sub_100009734(4.8149e-34);
-    sub_100009578(v29);
+    v28 = sub_100009734(4.8149e-34);
+    sub_100009578(v28);
     sub_10000974C();
     sub_1000095D8();
 
-    sub_1000095BC(v30, v31);
+    sub_1000095BC(v29, v30, v31, v32);
     sub_10000977C();
     *(v17 + 4) = v16;
-    sub_10000937C(&_mh_execute_header, v32, v33, "Received response: %s");
+    sub_10000937C(&_mh_execute_header, v33, v34, "Received response: %s");
     sub_100009424();
     sub_1000094E4(v17);
   }
 
   else
   {
-    v34 = v15[14];
-    v35 = v15[15];
 
     sub_100007D90(v14);
   }
 
-  sub_100007D90(v28);
+  sub_100007D90(v27);
   sub_100009794();
 
   sub_100009360();
   sub_10000961C();
 
-  return v37(v36, v37, v38, v39, v40, v41, v42, v43, a9, a10, a11, a12, a13, a14);
+  return v36(v35, v36, v37, v38, v39, v40, v41, v42, a9, a10, a11, a12, a13, a14);
 }
 
-uint64_t sub_100006860(int a1, int a2, void *aBlock, void *a4)
+uint64_t sub_100006860(uint64_t a1, uint64_t a2, void *aBlock, void *a4)
 {
   v4[2] = a4;
   v4[3] = _Block_copy(aBlock);
@@ -834,44 +817,40 @@ uint64_t sub_100006860(int a1, int a2, void *aBlock, void *a4)
   return ICDAppIntentDispatcher.dispatchMusicPushNotificationIntentWithTopic(_:payload:)(v6, v8, v9, v11);
 }
 
-uint64_t sub_10000695C()
+uint64_t sub_10000695C(uint64_t a1)
 {
   sub_1000094A8();
-  v2 = v1[6];
-  v3 = v1[5];
-  v4 = v1[4];
-  v5 = v1[3];
-  v6 = v1[2];
-  v7 = *v0;
+  v3 = *(v2 + 24);
+  v4 = *(v2 + 16);
+  v5 = *v1;
   sub_100009314();
-  *v8 = v7;
+  *v6 = v5;
 
-  v5[2](v5);
-  _Block_release(v5);
+  v3[2](v3);
+  _Block_release(v3);
   sub_100009360();
 
-  return v9();
+  return v7();
 }
 
 uint64_t sub_100006AC4(uint64_t a1, uint64_t a2)
 {
   sub_100007C5C(0, &qword_1002127B8, &type metadata accessor for TaskPriority);
-  v5 = (*(*(v4 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
-  v7 = &v12 - v6;
-  v8 = type metadata accessor for TaskPriority();
-  sub_100007CB0(v7, 1, 1, v8);
+  __chkstk_darwin(v4 - 8);
+  v6 = &v11 - v5;
+  v7 = type metadata accessor for TaskPriority();
+  sub_100007CB0(v6, 1, 1, v7);
+  v8 = swift_allocObject();
+  v8[2] = 0;
+  v8[3] = 0;
+  v8[4] = a1;
+  v8[5] = a2;
   v9 = swift_allocObject();
   v9[2] = 0;
   v9[3] = 0;
-  v9[4] = a1;
-  v9[5] = a2;
-  v10 = swift_allocObject();
-  v10[2] = 0;
-  v10[3] = 0;
-  v10[4] = &unk_10016AC18;
-  v10[5] = v9;
-  sub_10000809C(0, 0, v7, &unk_10016AC28, v10);
+  v9[4] = &unk_10016AC18;
+  v9[5] = v8;
+  sub_10000809C(0, 0, v6, &unk_10016AC28, v9);
 }
 
 uint64_t ICDAppIntentDispatcher.dispatchPodcastsPushNotificationIntentWithTopic(_:payload:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -893,77 +872,68 @@ uint64_t sub_100006C00()
       sub_1000092D0(&qword_100213980);
     }
 
-    v2 = v0[9];
-    v3 = type metadata accessor for Logger();
-    v0[13] = sub_100007B5C(v3, qword_100213EE0);
+    v1 = type metadata accessor for Logger();
+    v0[13] = sub_100007B5C(v1, qword_100213EE0);
 
-    v4 = Logger.logObject.getter();
-    v5 = static os_log_type_t.default.getter();
+    v2 = Logger.logObject.getter();
+    v3 = static os_log_type_t.default.getter();
 
-    if (os_log_type_enabled(v4, v5))
+    if (os_log_type_enabled(v2, v3))
     {
-      v7 = v0[8];
-      v6 = v0[9];
-      v8 = swift_slowAlloc();
-      v1 = swift_slowAlloc();
-      *(v8 + 4) = sub_1000096FC(4.8149e-34, v1, v9, v10, v11, v12);
+      v4 = swift_slowAlloc();
+      v59 = swift_slowAlloc();
+      *(v4 + 4) = sub_1000096FC(4.8149e-34, v59, v5, v6, v7, v8, v9, v10, v11, v56, v57);
       sub_1000096E4();
-      _os_log_impl(v13, v14, v15, v16, v8, 0xCu);
-      sub_100008B14(v1);
-      sub_1000094E4(v1);
-      sub_1000094E4(v8);
+      _os_log_impl(v12, v13, v14, v15, v4, 0xCu);
+      sub_100008B14(v59);
+      sub_1000094E4(v59);
+      sub_1000094E4(v4);
     }
 
     sub_1000095A0();
     sub_100007BFC(0, &qword_100212750, &type metadata accessor for IntentParameter);
-    sub_100009764(v17);
+    sub_100009764(v16);
 
-    v18 = IntentParameter.init(wrappedValue:)();
-    sub_1000094B4(v18);
+    v17 = IntentParameter.init(wrappedValue:)();
+    sub_1000094B4(v17);
 
     v0[15] = IntentParameter.init(wrappedValue:)();
-    sub_100007B94();
-    v0[16] = v19;
-    sub_10000947C(v19);
-    v0[17] = *(v20 + 64);
+    sub_100007B94(0);
+    v0[16] = v18;
+    sub_10000947C(v18);
+    v0[17] = *(v19 + 64);
     v0[18] = sub_100009604();
-    v21 = *(v1 + OBJC_IVAR____TtC12itunescloudd22ICDAppIntentDispatcher_localDispatcher);
-    v22 = *(v1 + OBJC_IVAR____TtC12itunescloudd22ICDAppIntentDispatcher_localDispatcher + 8);
     swift_getObjectType();
-    v23 = sub_100009654();
-    sub_100009698(v23);
-    v0[20] = v24;
-    v26 = *(v25 + 64);
-    v27 = sub_100009604();
-    v0[21] = v27;
-    sub_1000093DC(v27, &qword_100212770);
-    sub_10000947C(v28);
-    v30 = *(v29 + 64);
-    v31 = sub_100009604();
-    v32 = type metadata accessor for UTType();
-    sub_100009680(v31, v33, v34, v32);
+    v20 = sub_100009654();
+    sub_100009698(v20);
+    v0[20] = v21;
+    v22 = sub_100009604();
+    v0[21] = v22;
+    sub_1000093DC(v22, &qword_100212770);
+    sub_10000947C(v23);
+    v24 = sub_100009604();
+    v25 = type metadata accessor for UTType();
+    sub_100009680(v24, v26, v27, v25);
     sub_100007C5C(0, &qword_100212778, &type metadata accessor for SnippetEnvironment);
-    sub_10000947C(v35);
-    v37 = *(v36 + 64);
-    v38 = sub_100009604();
-    v39 = type metadata accessor for SnippetEnvironment();
-    sub_100009680(v38, v40, v41, v39);
-    v42 = static AppIntentPerformOptions.defaultConnectionOperationTimeout.getter();
-    sub_10000939C(v42, v43, v44, v45, v46, v47, v48, v49, v65, v66, v67);
+    sub_10000947C(v28);
+    v29 = sub_100009604();
+    v30 = type metadata accessor for SnippetEnvironment();
+    sub_100009680(v29, v31, v32, v30);
+    v33 = static AppIntentPerformOptions.defaultConnectionOperationTimeout.getter();
+    sub_10000939C(v33, v34, v35, v36, v37, v38, v39, v40, v56, v57, v58);
 
-    v50 = type metadata accessor for DefaultPerformAppIntentDelegate();
-    sub_100009764(v50);
+    v41 = type metadata accessor for DefaultPerformAppIntentDelegate();
+    sub_100009764(v41);
     v0[22] = DefaultPerformAppIntentDelegate.init()();
-    v51 = async function pointer to AppIntentDispatching.perform<A>(_:options:delegate:)[1];
-    v52 = swift_task_alloc();
-    v0[23] = v52;
+    v42 = swift_task_alloc();
+    v0[23] = v42;
     sub_100008A7C();
-    *v52 = v0;
-    v52[1] = sub_10000701C;
+    *v42 = v0;
+    v42[1] = sub_10000701C;
     sub_100009458();
     sub_10000971C();
 
-    return AppIntentDispatching.perform<A>(_:options:delegate:)();
+    return AppIntentDispatching.perform<A>(_:options:delegate:)(v43);
   }
 
   else
@@ -973,23 +943,23 @@ uint64_t sub_100006C00()
       sub_1000092D0(&qword_100213980);
     }
 
-    v54 = type metadata accessor for Logger();
-    sub_100007B5C(v54, qword_100213EE0);
-    v55 = Logger.logObject.getter();
-    v56 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v55, v56))
+    v45 = type metadata accessor for Logger();
+    sub_100007B5C(v45, qword_100213EE0);
+    v46 = Logger.logObject.getter();
+    v47 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v46, v47))
     {
-      v57 = swift_slowAlloc();
-      *v57 = 0;
+      v48 = swift_slowAlloc();
+      *v48 = 0;
       sub_1000096E4();
-      _os_log_impl(v58, v59, v60, v61, v57, 2u);
-      sub_1000094E4(v57);
+      _os_log_impl(v49, v50, v51, v52, v48, 2u);
+      sub_1000094E4(v48);
     }
 
     sub_100009360();
     sub_10000971C();
 
-    return v62();
+    return v53();
   }
 }
 
@@ -998,32 +968,30 @@ uint64_t sub_10000701C()
   sub_100009594();
   sub_1000094A8();
   v3 = v2;
-  v4 = v2[23];
-  v5 = *v1;
+  v4 = *v1;
   sub_100009314();
-  *v6 = v5;
+  *v5 = v4;
 
   if (v0)
   {
-    v8 = v3[21];
-    v7 = v3[22];
-    v11 = v3 + 19;
-    v9 = v3[19];
-    v10 = v11[1];
+    v6 = *(v3 + 168);
+    v9 = v3 + 152;
+    v7 = *(v3 + 152);
+    v8 = *(v9 + 8);
 
-    (*(v10 + 8))(v8, v9);
-    v12 = sub_1000072B8;
+    (*(v8 + 8))(v6, v7);
+    v10 = sub_1000072B8;
   }
 
   else
   {
-    v13 = sub_1000096B8();
-    v14(v13);
+    v11 = sub_1000096B8();
+    v12(v11);
 
-    v12 = sub_10000717C;
+    v10 = sub_10000717C;
   }
 
-  return _swift_task_switch(v12, 0, 0);
+  return _swift_task_switch(v10, 0, 0);
 }
 
 uint64_t sub_10000717C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
@@ -1039,7 +1007,7 @@ uint64_t sub_10000717C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   v22 = Logger.logObject.getter();
   v23 = static os_log_type_t.default.getter();
   v24 = sub_1000094FC(v23);
-  v25 = v15[18];
+  v25 = *(v15 + 144);
   if (v24)
   {
     sub_100009324();
@@ -1050,18 +1018,16 @@ uint64_t sub_10000717C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
     sub_10000974C();
     sub_1000095D8();
 
-    sub_1000095BC(v27, v28);
+    sub_1000095BC(v27, v28, v29, v30);
     sub_10000977C();
     *(v17 + 4) = v16;
-    sub_10000937C(&_mh_execute_header, v29, v30, "Received response = %s");
+    sub_10000937C(&_mh_execute_header, v31, v32, "Received response = %s");
     sub_100009424();
     sub_1000094E4(v17);
   }
 
   else
   {
-    v31 = v15[14];
-    v32 = v15[15];
 
     sub_100007D90(v14);
   }
@@ -1079,51 +1045,48 @@ uint64_t sub_1000072B8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
 {
   sub_100009638();
   sub_1000096AC();
-  v18 = v15[21];
 
   sub_100009404();
-  sub_100009534(v19, &qword_100212760);
-  v20 = sub_1000096D8();
-  sub_100009680(v20, v21, v22, v23);
-  v24 = swift_task_alloc();
-  sub_100009518(v24);
-  v25 = Logger.logObject.getter();
-  v26 = static os_log_type_t.default.getter();
-  v27 = sub_1000094FC(v26);
-  v28 = v15[18];
-  if (v27)
+  sub_100009534(v18, &qword_100212760);
+  v19 = sub_1000096D8();
+  sub_100009680(v19, v20, v21, v22);
+  v23 = swift_task_alloc();
+  sub_100009518(v23);
+  v24 = Logger.logObject.getter();
+  v25 = static os_log_type_t.default.getter();
+  v26 = sub_1000094FC(v25);
+  v27 = *(v15 + 144);
+  if (v26)
   {
     sub_100009324();
     sub_10000955C();
     sub_1000096CC();
-    v29 = sub_100009734(4.8149e-34);
-    sub_100009578(v29);
+    v28 = sub_100009734(4.8149e-34);
+    sub_100009578(v28);
     sub_10000974C();
     sub_1000095D8();
 
-    sub_1000095BC(v30, v31);
+    sub_1000095BC(v29, v30, v31, v32);
     sub_10000977C();
     *(v17 + 4) = v16;
-    sub_10000937C(&_mh_execute_header, v32, v33, "Received response = %s");
+    sub_10000937C(&_mh_execute_header, v33, v34, "Received response = %s");
     sub_100009424();
     sub_1000094E4(v17);
   }
 
   else
   {
-    v34 = v15[14];
-    v35 = v15[15];
 
     sub_100007D90(v14);
   }
 
-  sub_100007D90(v28);
+  sub_100007D90(v27);
   sub_100009794();
 
   sub_100009360();
   sub_10000961C();
 
-  return v37(v36, v37, v38, v39, v40, v41, v42, v43, a9, a10, a11, a12, a13, a14);
+  return v36(v35, v36, v37, v38, v39, v40, v41, v42, a9, a10, a11, a12, a13, a14);
 }
 
 uint64_t sub_100007414(void *a1, int a2, void *a3, void *a4, void *aBlock, uint64_t a6, uint64_t a7)
@@ -1142,7 +1105,7 @@ uint64_t sub_100007414(void *a1, int a2, void *a3, void *a4, void *aBlock, uint6
   return sub_100006AC4(a7, v12);
 }
 
-uint64_t sub_100007498(int a1, int a2, void *aBlock, void *a4)
+uint64_t sub_100007498(uint64_t a1, uint64_t a2, void *aBlock, void *a4)
 {
   v4[2] = a4;
   v4[3] = _Block_copy(aBlock);
@@ -1164,32 +1127,29 @@ uint64_t sub_100007498(int a1, int a2, void *aBlock, void *a4)
 uint64_t variable initialization expression of ICDAppIntentDispatcher.localDispatcher()
 {
   v0 = [objc_opt_self() defaultEnvironment];
-  v23[3] = sub_100008AD0();
-  v23[4] = &protocol witness table for LNEnvironment;
-  v23[0] = v0;
+  v16[3] = sub_100008AD0();
+  v16[4] = &protocol witness table for LNEnvironment;
+  v16[0] = v0;
   v1 = type metadata accessor for IntentsServices.DispatcherOptions();
-  v2 = sub_10000934C(v1);
-  v4 = v3;
-  v6 = *(v5 + 64);
-  __chkstk_darwin(v2);
+  sub_10000934C();
+  v3 = v2;
+  __chkstk_darwin(v4);
   sub_100009414();
-  v9 = v8 - v7;
+  v7 = v6 - v5;
   sub_100007C5C(0, &qword_100212788, &type metadata accessor for IntentsServices.InterfaceIdiom);
-  v11 = sub_10000947C(v10);
-  v13 = (*(v12 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin(v11);
+  v9 = sub_10000947C(v8);
+  __chkstk_darwin(v9);
   static IntentsServices.InterfaceIdiom.defaultForCurrentDevice.getter();
-  v14 = type metadata accessor for IntentsServices.PayloadPrivacy();
-  v15 = sub_10000934C(v14);
-  v17 = *(v16 + 64);
-  __chkstk_darwin(v15);
+  type metadata accessor for IntentsServices.PayloadPrivacy();
+  sub_10000934C();
+  __chkstk_darwin(v10);
   sub_100009414();
-  (*(v20 + 104))(v19 - v18, enum case for IntentsServices.PayloadPrivacy.default(_:));
+  (*(v13 + 104))(v12 - v11, enum case for IntentsServices.PayloadPrivacy.default(_:));
   IntentsServices.DispatcherOptions.init(interfaceIdiom:payloadPrivacy:)();
-  v21 = static IntentsServices.localDispatcher(clientLabel:source:environment:options:)();
-  (*(v4 + 8))(v9, v1);
-  sub_100008B14(v23);
-  return v21;
+  v14 = static IntentsServices.localDispatcher(clientLabel:source:environment:options:)();
+  (*(v3 + 8))(v7, v1);
+  sub_100008B14(v16);
+  return v14;
 }
 
 id ICDAppIntentDispatcher.__allocating_init()()
@@ -1203,44 +1163,41 @@ id ICDAppIntentDispatcher.init()()
 {
   v1 = &v0[OBJC_IVAR____TtC12itunescloudd22ICDAppIntentDispatcher_localDispatcher];
   v2 = [objc_opt_self() defaultEnvironment];
-  v28[3] = sub_100008AD0();
-  v28[4] = &protocol witness table for LNEnvironment;
-  v28[0] = v2;
+  v21[3] = sub_100008AD0();
+  v21[4] = &protocol witness table for LNEnvironment;
+  v21[0] = v2;
   v3 = type metadata accessor for IntentsServices.DispatcherOptions();
-  v4 = sub_10000934C(v3);
-  v6 = v5;
-  v8 = *(v7 + 64);
-  __chkstk_darwin(v4);
+  sub_10000934C();
+  v5 = v4;
+  __chkstk_darwin(v6);
   sub_100009414();
-  v11 = v10 - v9;
+  v9 = v8 - v7;
   sub_100007C5C(0, &qword_100212788, &type metadata accessor for IntentsServices.InterfaceIdiom);
-  v13 = sub_10000947C(v12);
-  v15 = *(v14 + 64);
-  __chkstk_darwin(v13);
+  v11 = sub_10000947C(v10);
+  __chkstk_darwin(v11);
   static IntentsServices.InterfaceIdiom.defaultForCurrentDevice.getter();
-  v16 = type metadata accessor for IntentsServices.PayloadPrivacy();
-  v17 = sub_10000934C(v16);
-  v19 = *(v18 + 64);
-  __chkstk_darwin(v17);
+  type metadata accessor for IntentsServices.PayloadPrivacy();
+  sub_10000934C();
+  __chkstk_darwin(v12);
   sub_100009414();
-  (*(v22 + 104))(v21 - v20, enum case for IntentsServices.PayloadPrivacy.default(_:));
+  (*(v15 + 104))(v14 - v13, enum case for IntentsServices.PayloadPrivacy.default(_:));
   IntentsServices.DispatcherOptions.init(interfaceIdiom:payloadPrivacy:)();
-  v23 = static IntentsServices.localDispatcher(clientLabel:source:environment:options:)();
-  v25 = v24;
-  (*(v6 + 8))(v11, v3);
-  sub_100008B14(v28);
-  *v1 = v23;
-  v1[1] = v25;
-  v27.receiver = v0;
-  v27.super_class = type metadata accessor for ICDAppIntentDispatcher();
-  return objc_msgSendSuper2(&v27, "init");
+  v16 = static IntentsServices.localDispatcher(clientLabel:source:environment:options:)();
+  v18 = v17;
+  (*(v5 + 8))(v9, v3);
+  sub_100008B14(v21);
+  *v1 = v16;
+  v1[1] = v18;
+  v20.receiver = v0;
+  v20.super_class = type metadata accessor for ICDAppIntentDispatcher();
+  return objc_msgSendSuper2(&v20, "init");
 }
 
-id ICDAppIntentDispatcher.__deallocating_deinit()
+id ICDAppIntentDispatcher.__deallocating_deinit(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for ICDAppIntentDispatcher();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for ICDAppIntentDispatcher();
+  return objc_msgSendSuper2(&v3, "dealloc");
 }
 
 uint64_t sub_100007AE0()
@@ -1261,15 +1218,15 @@ uint64_t sub_100007B5C(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-void sub_100007B94()
+void sub_100007B94(uint64_t a1)
 {
   if (!qword_100212758)
   {
     sub_100007BFC(255, &qword_100212760, &type metadata accessor for AppIntentSuccessResult);
-    v0 = type metadata accessor for Optional();
-    if (!v1)
+    v1 = type metadata accessor for Optional();
+    if (!v2)
     {
-      atomic_store(v0, &qword_100212758);
+      atomic_store(v1, &qword_100212758);
     }
   }
 }
@@ -1286,7 +1243,7 @@ void sub_100007BFC(uint64_t a1, unint64_t *a2, uint64_t (*a3)(void, void *, void
   }
 }
 
-void sub_100007C5C(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
+void sub_100007C5C(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t))
 {
   if (!*a2)
   {
@@ -1313,121 +1270,115 @@ unint64_t sub_100007CD8()
 
 uint64_t sub_100007D2C(uint64_t a1, uint64_t a2)
 {
-  sub_100007B94();
+  sub_100007B94(0);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
 
 uint64_t sub_100007D90(uint64_t a1)
 {
-  sub_100007B94();
+  sub_100007B94(0);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
 
 uint64_t sub_100007DEC(uint64_t a1, uint64_t a2, int *a3)
 {
-  v7 = (a3 + *a3);
-  v4 = a3[1];
-  v5 = swift_task_alloc();
-  *(v3 + 16) = v5;
-  *v5 = v3;
-  v5[1] = sub_1000092C4;
+  v6 = (a3 + *a3);
+  v4 = swift_task_alloc();
+  *(v3 + 16) = v4;
+  *v4 = v3;
+  v4[1] = sub_1000092C4;
 
-  return v7();
+  return v6();
 }
 
 uint64_t sub_100007ED4(uint64_t a1, uint64_t a2, uint64_t a3, int *a4)
 {
-  v8 = (a4 + *a4);
-  v5 = a4[1];
-  v6 = swift_task_alloc();
-  *(v4 + 16) = v6;
-  *v6 = v4;
-  v6[1] = sub_100007FBC;
+  v7 = (a4 + *a4);
+  v5 = swift_task_alloc();
+  *(v4 + 16) = v5;
+  *v5 = v4;
+  v5[1] = sub_100007FBC;
 
-  return v8();
+  return v7();
 }
 
 uint64_t sub_100007FBC()
 {
   sub_1000096F0();
   sub_1000094A8();
-  v2 = *(v1 + 16);
-  v3 = *v0;
+  v1 = *v0;
   sub_100009314();
-  *v4 = v3;
+  *v2 = v1;
 
   sub_100009360();
 
-  return v5();
+  return v3();
 }
 
 uint64_t sub_10000809C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   sub_100007C5C(0, &qword_1002127B8, &type metadata accessor for TaskPriority);
-  v10 = (*(*(v9 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
-  v12 = v25 - v11;
-  sub_100008E68(a3, v25 - v11);
-  v13 = type metadata accessor for TaskPriority();
-  if (sub_100008EE8(v12, 1, v13) == 1)
+  __chkstk_darwin(v9 - 8);
+  v11 = v22 - v10;
+  sub_100008E68(a3, v22 - v10);
+  v12 = type metadata accessor for TaskPriority();
+  if (sub_100008EE8(v11, 1, v12) == 1)
   {
-    sub_100008F10(v12);
+    sub_100008F10(v11);
   }
 
   else
   {
     TaskPriority.rawValue.getter();
-    (*(*(v13 - 8) + 8))(v12, v13);
+    (*(*(v12 - 8) + 8))(v11, v12);
   }
 
   if (*(a5 + 16))
   {
-    v14 = *(a5 + 24);
-    v15 = *(a5 + 16);
     swift_getObjectType();
     swift_unknownObjectRetain();
-    v16 = dispatch thunk of Actor.unownedExecutor.getter();
-    v18 = v17;
+    v13 = dispatch thunk of Actor.unownedExecutor.getter();
+    v15 = v14;
     swift_unknownObjectRelease();
     if (a2)
     {
 LABEL_6:
-      v19 = String.utf8CString.getter() + 32;
-      v20 = swift_allocObject();
-      *(v20 + 16) = a4;
-      *(v20 + 24) = a5;
+      v16 = String.utf8CString.getter() + 32;
+      v17 = swift_allocObject();
+      *(v17 + 16) = a4;
+      *(v17 + 24) = a5;
 
-      if (v18 | v16)
+      if (v15 | v13)
       {
-        v26[0] = 0;
-        v26[1] = 0;
-        v21 = v26;
-        v26[2] = v16;
-        v26[3] = v18;
+        v23[0] = 0;
+        v23[1] = 0;
+        v18 = v23;
+        v23[2] = v13;
+        v23[3] = v15;
       }
 
       else
       {
-        v21 = 0;
+        v18 = 0;
       }
 
-      v25[1] = 7;
-      v25[2] = v21;
-      v25[3] = v19;
-      v23 = swift_task_create();
+      v22[1] = 7;
+      v22[2] = v18;
+      v22[3] = v16;
+      v20 = swift_task_create();
 
       sub_100008F10(a3);
 
-      return v23;
+      return v20;
     }
   }
 
   else
   {
-    v16 = 0;
-    v18 = 0;
+    v13 = 0;
+    v15 = 0;
     if (a2)
     {
       goto LABEL_6;
@@ -1435,15 +1386,15 @@ LABEL_6:
   }
 
   sub_100008F10(a3);
-  v22 = swift_allocObject();
-  *(v22 + 16) = a4;
-  *(v22 + 24) = a5;
-  if (v18 | v16)
+  v19 = swift_allocObject();
+  *(v19 + 16) = a4;
+  *(v19 + 24) = a5;
+  if (v15 | v13)
   {
-    v26[4] = 0;
-    v26[5] = 0;
-    v26[6] = v16;
-    v26[7] = v18;
+    v23[4] = 0;
+    v23[5] = 0;
+    v23[6] = v13;
+    v23[7] = v15;
   }
 
   return swift_task_create();
@@ -1451,31 +1402,29 @@ LABEL_6:
 
 uint64_t sub_100008348(uint64_t a1, int *a2)
 {
-  v7 = (a2 + *a2);
-  v4 = a2[1];
-  v5 = swift_task_alloc();
-  *(v2 + 16) = v5;
-  *v5 = v2;
-  v5[1] = sub_100008440;
+  v6 = (a2 + *a2);
+  v4 = swift_task_alloc();
+  *(v2 + 16) = v4;
+  *v4 = v2;
+  v4[1] = sub_100008440;
 
-  return v7(a1);
+  return v6(a1);
 }
 
 uint64_t sub_100008440()
 {
   sub_1000096F0();
   sub_1000094A8();
-  v2 = *(v1 + 16);
-  v3 = *v0;
+  v1 = *v0;
   sub_100009314();
-  *v4 = v3;
+  *v2 = v1;
 
   sub_100009360();
 
-  return v5();
+  return v3();
 }
 
-uint64_t sub_100008524(uint64_t a1, unint64_t a2, uint64_t *a3)
+unint64_t sub_100008524(uint64_t a1, unint64_t a2, uint64_t *a3)
 {
 
   v6 = sub_1000085E8(v11, 0, 0, 1, a1, a2);
@@ -1568,16 +1517,14 @@ LABEL_8:
 
 char *sub_1000086E8(uint64_t a1, unint64_t a2)
 {
-  v4 = sub_100008734(a1, a2);
+  v3 = sub_100008734(a1, a2);
   sub_10000884C(&off_1001D9C18);
-  result = v4;
-  v3 = *(v4 + 2) - 1;
-  return result;
+  return v3;
 }
 
 char *sub_100008734(uint64_t a1, unint64_t a2)
 {
-  v4 = HIBYTE(a2) & 0xF;
+  v4 = (HIBYTE(a2) & 0xF);
   if ((a2 & 0x1000000000000000) != 0)
   {
     goto LABEL_19;
@@ -1627,8 +1574,8 @@ char *sub_100008734(uint64_t a1, unint64_t a2)
       {
         if ((a1 & 0x1000000000000000) != 0)
         {
-          v8 = (a2 & 0xFFFFFFFFFFFFFFFLL) + 32;
-          v4 = a1 & 0xFFFFFFFFFFFFLL;
+          v8 = ((a2 & 0xFFFFFFFFFFFFFFFLL) + 32);
+          v4 = (a1 & 0xFFFFFFFFFFFFLL);
         }
 
         else
@@ -1680,21 +1627,20 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if (!result || v5 > *(v3 + 24) >> 1)
   {
     if (v4 <= v5)
     {
-      v8 = v4 + v2;
+      v7 = v4 + v2;
     }
 
     else
     {
-      v8 = v4;
+      v7 = v4;
     }
 
-    result = sub_100008994(result, v8, 1, v3);
+    result = sub_100008994(result, v7, 1, v3);
     v3 = result;
   }
 
@@ -1709,15 +1655,15 @@ LABEL_16:
     goto LABEL_16;
   }
 
-  v9 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v9 < v2)
+  v8 = *(v3 + 16);
+  if ((*(v3 + 24) >> 1) - v8 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v9 + 32), (v6 + 32), v2);
+  memcpy((v3 + v8 + 32), (v6 + 32), v2);
 
   if (!v2)
   {
@@ -1726,12 +1672,12 @@ LABEL_14:
     return result;
   }
 
-  v10 = *(v3 + 16);
-  v11 = __OFADD__(v10, v2);
-  v12 = v10 + v2;
-  if (!v11)
+  v9 = *(v3 + 16);
+  v10 = __OFADD__(v9, v2);
+  v11 = v9 + v2;
+  if (!v10)
   {
-    *(v3 + 16) = v12;
+    *(v3 + 16) = v11;
     goto LABEL_14;
   }
 
@@ -1863,15 +1809,17 @@ unint64_t sub_100008AD0()
   return result;
 }
 
-uint64_t sub_100008B14(uint64_t *a1)
+uint64_t sub_100008B14(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 __n128 sub_100008B84(__n128 *a1, __n128 *a2)
@@ -1947,42 +1895,32 @@ LABEL_8:
 uint64_t sub_100008C34()
 {
   sub_100009594();
-  v1 = v0[2];
-  v2 = v0[3];
-  v4 = v0[4];
-  v3 = v0[5];
-  v5 = swift_task_alloc();
-  v6 = sub_100009550(v5);
-  *v6 = v7;
-  v8 = sub_1000092F0(v6);
+  v0 = swift_task_alloc();
+  v1 = sub_100009550(v0);
+  *v1 = v2;
+  v3 = sub_1000092F0(v1);
 
-  return v9(v8);
+  return v4(v3);
 }
 
 uint64_t sub_100008CD0()
 {
   sub_100009594();
-  v1 = v0[2];
-  v2 = v0[3];
-  v4 = v0[4];
-  v3 = v0[5];
-  v5 = swift_task_alloc();
-  v6 = sub_100009550(v5);
-  *v6 = v7;
-  v8 = sub_1000092F0(v6);
+  v0 = swift_task_alloc();
+  v1 = sub_100009550(v0);
+  *v1 = v2;
+  v3 = sub_1000092F0(v1);
 
-  return v9(v8);
+  return v4(v3);
 }
 
-uint64_t sub_100008D6C()
+uint64_t sub_100008D6C(uint64_t a1, uint64_t a2)
 {
-  v1 = *(v0 + 16);
   swift_unknownObjectRelease();
-  v2 = *(v0 + 40);
 
-  v3 = sub_1000095F4();
+  v2 = sub_1000095F4();
 
-  return _swift_deallocObject(v3, v4, v5);
+  return _swift_deallocObject(v2, v3, v4);
 }
 
 uint64_t sub_100008DA4()
@@ -1991,14 +1929,13 @@ uint64_t sub_100008DA4()
   v2 = v1;
   v3 = v0[2];
   v4 = v0[3];
-  v6 = v0[4];
-  v5 = v0[5];
-  v7 = swift_task_alloc();
-  v8 = sub_100009550(v7);
-  *v8 = v9;
-  v8[1] = sub_1000092C4;
+  v5 = v0[4];
+  v6 = swift_task_alloc();
+  v7 = sub_100009550(v6);
+  *v7 = v8;
+  v7[1] = sub_1000092C4;
 
-  return sub_100007ED4(v2, v3, v4, v6);
+  return sub_100007ED4(v2, v3, v4, v5);
 }
 
 uint64_t sub_100008E68(uint64_t a1, uint64_t a2)
@@ -2017,26 +1954,22 @@ uint64_t sub_100008F10(uint64_t a1)
 
 uint64_t sub_100008F88()
 {
-  v2 = *(v0 + 16);
-  v1 = *(v0 + 24);
-  v3 = swift_task_alloc();
-  v4 = sub_100009550(v3);
-  *v4 = v5;
-  v6 = sub_100009488(v4);
+  v0 = swift_task_alloc();
+  v1 = sub_100009550(v0);
+  *v1 = v2;
+  v3 = sub_100009488(v1);
 
-  return v7(v6);
+  return v4(v3);
 }
 
 uint64_t sub_100009024()
 {
-  v2 = *(v0 + 16);
-  v1 = *(v0 + 24);
-  v3 = swift_task_alloc();
-  v4 = sub_100009550(v3);
-  *v4 = v5;
-  v6 = sub_100009488(v4);
+  v0 = swift_task_alloc();
+  v1 = sub_100009550(v0);
+  *v1 = v2;
+  v3 = sub_100009488(v1);
 
-  return v7(v6);
+  return v4(v3);
 }
 
 uint64_t sub_1000090C0()
@@ -2051,16 +1984,12 @@ uint64_t sub_1000090C0()
 uint64_t sub_100009108()
 {
   sub_100009594();
-  v1 = v0[2];
-  v2 = v0[3];
-  v4 = v0[4];
-  v3 = v0[5];
-  v5 = swift_task_alloc();
-  v6 = sub_100009550(v5);
-  *v6 = v7;
-  v8 = sub_1000092F0(v6);
+  v0 = swift_task_alloc();
+  v1 = sub_100009550(v0);
+  *v1 = v2;
+  v3 = sub_1000092F0(v1);
 
-  return v9(v8);
+  return v4(v3);
 }
 
 uint64_t sub_1000091A4(uint64_t a1, uint64_t a2)
@@ -2085,14 +2014,11 @@ void sub_100009200()
 
 uint64_t *sub_100009254(uint64_t a1, uint64_t *a2)
 {
-  v3 = *(a1 - 8);
-  if ((*(v3 + 80) & 0x20000) != 0)
+  if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v4 = *(v3 + 64);
-    v5 = *(v3 + 80);
-    v6 = swift_slowAlloc();
-    *a2 = v6;
-    return v6;
+    v3 = swift_slowAlloc();
+    *a2 = v3;
+    return v3;
   }
 
   return a2;
@@ -2104,28 +2030,10 @@ uint64_t sub_1000092D0(uint64_t a1)
   return _swift_once(a1, sub_100007AE0);
 }
 
-uint64_t sub_1000092F0(uint64_t a1)
-{
-  *(a1 + 8) = v1;
-  v4 = v3 + *v3;
-  return v2;
-}
-
 uint64_t sub_100009324()
 {
-  v2 = v0[16];
-  v5 = v0[14];
-  v6 = v0[15];
-  v3 = v0[17] + 15;
 
   return swift_slowAlloc();
-}
-
-uint64_t sub_100009360()
-{
-  result = v0 + 8;
-  v2 = *(v0 + 8);
-  return result;
 }
 
 void sub_10000937C(void *a1, uint64_t a2, uint64_t a3, const char *a4)
@@ -2147,13 +2055,6 @@ void sub_1000093DC(uint64_t a1, unint64_t *a2)
   sub_100007C5C(0, a2, &type metadata accessor for UTType);
 }
 
-void sub_100009404()
-{
-  v1 = v0[18];
-  v2 = v0[13];
-  v3 = v0[17] + 15;
-}
-
 uint64_t sub_100009424()
 {
   sub_100008B14(v0);
@@ -2161,20 +2062,11 @@ uint64_t sub_100009424()
   return _swift_slowDealloc(v0, -1, -1);
 }
 
-uint64_t sub_100009488(uint64_t a1)
-{
-  *(a1 + 8) = v1;
-  v4 = v3 + *v3;
-  return v2;
-}
-
 uint64_t sub_1000094B4(uint64_t a1)
 {
   v2[14] = a1;
-  v2[4] = v4;
+  v2[4] = v3;
   v2[5] = v1;
-  v6 = *(v3 + 48);
-  v7 = *(v3 + 52);
 
   return swift_allocObject();
 }
@@ -2217,19 +2109,16 @@ uint64_t sub_100009578(uint64_t a1)
 
 void sub_1000095A0()
 {
-  v1 = v0[11];
-  v2 = v0[12];
-  v3 = v0[9];
-  v4 = v0[10];
+  v1 = v0[9];
   v0[2] = v0[8];
-  v0[3] = v3;
+  v0[3] = v1;
 }
 
-uint64_t sub_1000095BC(uint64_t a1, uint64_t a2, ...)
+unint64_t sub_1000095BC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
 {
-  va_start(va, a2);
+  va_start(va, a4);
 
-  return sub_100008524(v3, v2, va);
+  return sub_100008524(v5, v4, va);
 }
 
 uint64_t sub_1000095D8()
@@ -2258,27 +2147,12 @@ uint64_t sub_100009680(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   return sub_100007CB0(a1, 1, 1, a4);
 }
 
-uint64_t sub_100009698(uint64_t a1)
+unint64_t sub_1000096FC(float a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  *(v1 + 152) = a1;
-  v3 = *(a1 - 8);
-  return a1 - 8;
-}
+  va_start(va, a11);
+  *v13 = a1;
 
-uint64_t sub_1000096B8()
-{
-  v1 = v0[22];
-  v2 = v0[19];
-  v3 = *(v0[20] + 8);
-  return v0[21];
-}
-
-uint64_t sub_1000096FC(float a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
-{
-  va_start(va, a6);
-  *v8 = a1;
-
-  return sub_100008524(v7, v6, va);
+  return sub_100008524(v12, v11, va);
 }
 
 uint64_t sub_100009734(float a1)
@@ -2296,8 +2170,6 @@ uint64_t sub_10000974C()
 
 uint64_t sub_100009764(uint64_t a1)
 {
-  v2 = *(a1 + 48);
-  v3 = *(a1 + 52);
 
   return swift_allocObject();
 }
@@ -2308,12 +2180,11 @@ uint64_t sub_10000977C()
 
 uint64_t sub_100009794()
 {
-  v2 = *(v0 + 144);
 }
 
-void sub_100009B34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100009B34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2374,7 +2245,6 @@ void *sub_100009CFC(uint64_t a1)
 
 uint64_t sub_100009D4C(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100213AA8 = result;
   return result;
@@ -2514,7 +2384,6 @@ void sub_10000A9FC(uint64_t a1, void *a2)
     [v3 writeString:v4 withCode:1634354515];
   }
 
-  v6 = *(a1 + 32);
   v5 = v3;
   ICDAAPUtilitiesWriteContainer();
 }
@@ -2524,25 +2393,24 @@ void sub_10000AB28(uint64_t a1, void *a2)
   v3 = a2;
   if ([*(*(a1 + 32) + 120) count])
   {
-    v10 = _NSConcreteStackBlock;
-    v11 = 3221225472;
-    v12 = sub_10000AC48;
-    v13 = &unk_1001DFAC0;
-    v4 = *(a1 + 40);
-    v14 = *(a1 + 32);
+    v9 = _NSConcreteStackBlock;
+    v10 = 3221225472;
+    v11 = sub_10000AC48;
+    v12 = &unk_1001DFAC0;
+    v13 = *(a1 + 32);
     ICDAAPUtilitiesWriteContainer();
   }
 
-  v5 = *(a1 + 32);
-  v6 = *(v5 + 128);
-  v8[0] = _NSConcreteStackBlock;
-  v8[1] = 3221225472;
-  v8[2] = sub_10000AD20;
-  v8[3] = &unk_1001D9EA0;
-  v8[4] = v5;
-  v9 = v3;
-  v7 = v3;
-  [v6 enumerateObjectsUsingBlock:v8];
+  v4 = *(a1 + 32);
+  v5 = *(v4 + 128);
+  v7[0] = _NSConcreteStackBlock;
+  v7[1] = 3221225472;
+  v7[2] = sub_10000AD20;
+  v7[3] = &unk_1001D9EA0;
+  v7[4] = v4;
+  v8 = v3;
+  v6 = v3;
+  [v5 enumerateObjectsUsingBlock:v7];
 }
 
 void sub_10000AC48(uint64_t a1, void *a2)
@@ -2577,19 +2445,18 @@ void sub_10000AD20(uint64_t a1, void *a2)
       case 3:
         if (v5 && v6)
         {
-          v15 = *(a1 + 40);
-          v24 = v5;
-          v25 = v6;
-          v26 = v7;
-          v27 = v3;
+          v19 = v5;
+          v20 = v6;
+          v21 = v7;
+          v22 = v3;
           ICDAAPUtilitiesWriteContainer();
 
-          v11 = v24;
+          v10 = v19;
           goto LABEL_36;
         }
 
-        v11 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
-        if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+        v10 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
+        if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_36;
         }
@@ -2598,18 +2465,17 @@ void sub_10000AD20(uint64_t a1, void *a2)
       case 4:
         if (v5 && v8)
         {
-          v17 = *(a1 + 40);
-          v21 = v5;
-          v22 = v8;
-          v23 = v3;
+          v16 = v5;
+          v17 = v8;
+          v18 = v3;
           ICDAAPUtilitiesWriteContainer();
 
-          v11 = v21;
+          v10 = v16;
           goto LABEL_36;
         }
 
-        v11 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
-        if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+        v10 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
+        if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_36;
         }
@@ -2618,17 +2484,16 @@ void sub_10000AD20(uint64_t a1, void *a2)
       case 5:
         if (v5 && v8)
         {
-          v12 = *(a1 + 40);
-          v19 = v5;
-          v20 = v8;
+          v14 = v5;
+          v15 = v8;
           ICDAAPUtilitiesWriteContainer();
 
-          v11 = v19;
+          v10 = v14;
           goto LABEL_36;
         }
 
-        v11 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
-        if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+        v10 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
+        if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_36;
         }
@@ -2639,49 +2504,48 @@ void sub_10000AD20(uint64_t a1, void *a2)
     }
 
 LABEL_34:
-    v18 = *(a1 + 32);
+    v13 = *(a1 + 32);
     *buf = 138543618;
-    v34 = v18;
-    v35 = 2114;
-    v36 = v3;
-    v14 = "%{public}@ ignoring track edit with incomplete params: %{public}@";
+    v29 = v13;
+    v30 = 2114;
+    v31 = v3;
+    v12 = "%{public}@ ignoring track edit with incomplete params: %{public}@";
     goto LABEL_35;
   }
 
   switch(v9)
   {
     case 0:
-      v11 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
-      if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v10 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
+      if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_36;
       }
 
-      v13 = *(a1 + 32);
+      v11 = *(a1 + 32);
       *buf = 138543618;
-      v34 = v13;
-      v35 = 2114;
-      v36 = v3;
-      v14 = "%{public}@ ignoring track edit of unknown type: %{public}@";
+      v29 = v11;
+      v30 = 2114;
+      v31 = v3;
+      v12 = "%{public}@ ignoring track edit of unknown type: %{public}@";
 LABEL_35:
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, v14, buf, 0x16u);
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, v12, buf, 0x16u);
       goto LABEL_36;
     case 1:
       if (v4 && v5 && v6)
       {
-        v16 = *(a1 + 40);
-        v29 = v5;
-        v30 = v6;
-        v31 = v7;
-        v32 = v3;
+        v24 = v5;
+        v25 = v6;
+        v26 = v7;
+        v27 = v3;
         ICDAAPUtilitiesWriteContainer();
 
-        v11 = v29;
+        v10 = v24;
         goto LABEL_36;
       }
 
-      v11 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
-      if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v10 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
+      if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_36;
       }
@@ -2690,17 +2554,16 @@ LABEL_35:
     case 2:
       if (v5)
       {
-        v10 = *(a1 + 40);
-        v28 = v5;
+        v23 = v5;
         ICDAAPUtilitiesWriteContainer();
-        v11 = v28;
+        v10 = v23;
 LABEL_36:
 
         break;
       }
 
-      v11 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
-      if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v10 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
+      if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_36;
       }
@@ -2785,18 +2648,17 @@ void sub_10000B5E0(uint64_t a1, void *a2, void *a3)
   {
     [*(a1 + 32) elementCodeForProperty:v5];
     [*(a1 + 32) valueTypeForProperty:v5];
-    v7 = *(a1 + 40);
     ICDAAPUtilitiesWriteProperty();
   }
 
   else
   {
-    v8 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v7 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v9 = 138543362;
-      v10 = v5;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "No DAAP code found for container property: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v5;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "No DAAP code found for container property: %{public}@", &v8, 0xCu);
     }
   }
 }
@@ -3154,6 +3016,13 @@ void sub_10000D15C(uint64_t a1, void *a2, void *a3)
 
     notify_post("com.apple.itunescloudd.sagaUpdateInProgressChanged");
   }
+}
+
+void sub_10000DCCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
+{
+  va_start(va, a30);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 id sub_10000DCF0(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
@@ -4619,9 +4488,9 @@ void sub_100012AEC(uint64_t a1)
   }
 }
 
-void sub_100013788(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100013788(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4668,10 +4537,11 @@ void sub_1000137D0(uint64_t a1, void *a2, void *a3)
   dispatch_semaphore_signal(*(a1 + 40));
 }
 
-void sub_100013F80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_100013F80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
+  va_start(va, a28);
   _Block_object_dispose(&a21, 8);
-  _Block_object_dispose(&a29, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -5576,13 +5446,12 @@ id sub_1000169CC(uint64_t a1)
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v4 = *(a1 + 56);
-    v5 = ICCloudClientGetStringForRequestReason();
-    v7 = 138543618;
-    v8 = v3;
-    v9 = 2114;
-    v10 = v5;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ - Starting to update saga library for reason=%{public}@", &v7, 0x16u);
+    v4 = ICCloudClientGetStringForRequestReason();
+    v6 = 138543618;
+    v7 = v3;
+    v8 = 2114;
+    v9 = v4;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ - Starting to update saga library for reason=%{public}@", &v6, 0x16u);
   }
 
   return [*(a1 + 32) updateSagaLibraryWithClientIdentity:*(a1 + 40) forReason:*(a1 + 56) allowNoisyAuthPrompt:*(a1 + 64) isExplicitUserAction:*(a1 + 65) completionHandler:*(a1 + 48)];
@@ -5855,10 +5724,11 @@ LABEL_21:
   }
 }
 
-void sub_100017D34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_100017D34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
-  _Block_object_dispose(&a31, 8);
-  _Block_object_dispose((v31 - 160), 8);
+  va_start(va, a30);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v30 - 160), 8);
   _Unwind_Resume(a1);
 }
 
@@ -6232,7 +6102,7 @@ LABEL_17:
 void sub_100018E7C(uint64_t a1, void *a2)
 {
   v3 = a2;
-  if (*(a1 + 48) == 1 && *(a1 + 49) == 1 && MSVDeviceSupportsSideLoadedMediaContent() && *(a1 + 40) == -2)
+  if (__PAIR64__(*(a1 + 49), *(a1 + 48)) == 0x100000001 && MSVDeviceSupportsSideLoadedMediaContent() && *(a1 + 40) == -2)
   {
     v4 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -8017,44 +7887,40 @@ void sub_10001FF10(void *a1)
   v2 = *(a1[4] + 56);
   if (v2 && a1[7] && a1[8])
   {
-    v3 = a1[9];
-    v4 = a1[5];
-    v5 = a1[6];
 
     [v2 favoriteEntityWithPersistentID:? sagaID:? entityType:? time:? completionHandler:?];
   }
 
   else
   {
-    v6 = os_log_create("com.apple.amp.itunescloudd", "CloudLibraryCoordinator");
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v3 = os_log_create("com.apple.amp.itunescloudd", "CloudLibraryCoordinator");
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = a1[4];
-      v8 = a1[9];
-      v9 = NSStringFromICFavoriteMediaEntityType();
-      v10 = a1[7];
-      v11 = a1[8];
+      v4 = a1[4];
+      v5 = NSStringFromICFavoriteMediaEntityType();
+      v6 = a1[7];
+      v7 = a1[8];
       *buf = 138544130;
-      v17 = v7;
-      v18 = 2114;
-      v19 = v9;
-      v20 = 2048;
-      v21 = v10;
-      v22 = 2048;
-      v23 = v11;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ - ignore favoriting entityType=%{public}@ with sagaID=%lld, persistentID=%lld as we don't have a valid SagaRequestHandler OR the identifiers are invalid", buf, 0x2Au);
+      v13 = v4;
+      v14 = 2114;
+      v15 = v5;
+      v16 = 2048;
+      v17 = v6;
+      v18 = 2048;
+      v19 = v7;
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ - ignore favoriting entityType=%{public}@ with sagaID=%lld, persistentID=%lld as we don't have a valid SagaRequestHandler OR the identifiers are invalid", buf, 0x2Au);
     }
 
-    v12 = a1[6];
-    if (v12)
+    v8 = a1[6];
+    if (v8)
     {
-      v13 = *(a1[4] + 96);
+      v9 = *(a1[4] + 96);
       block[0] = _NSConcreteStackBlock;
       block[1] = 3221225472;
       block[2] = sub_1000200E4;
       block[3] = &unk_1001DF5C8;
-      v15 = v12;
-      dispatch_async(v13, block);
+      v11 = v8;
+      dispatch_async(v9, block);
     }
   }
 }
@@ -8071,39 +7937,37 @@ void sub_100020258(void *a1)
   v2 = *(a1[4] + 56);
   if (v2 && a1[5] && a1[8])
   {
-    v3 = a1[6];
-    v4 = a1[7];
 
     [v2 favoriteArtistWithPersistentID:? cloudLibraryID:? time:? completionHandler:?];
   }
 
   else
   {
-    v5 = os_log_create("com.apple.amp.itunescloudd", "CloudLibraryCoordinator");
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v3 = os_log_create("com.apple.amp.itunescloudd", "CloudLibraryCoordinator");
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = a1[4];
-      v7 = a1[5];
-      v8 = a1[8];
+      v4 = a1[4];
+      v5 = a1[5];
+      v6 = a1[8];
       *buf = 138543874;
-      v14 = v6;
-      v15 = 2114;
-      v16 = v7;
-      v17 = 2048;
-      v18 = v8;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ - ignore favoriting artist with cloudLibraryID=%{public}@, persistentID=%lld  as we don't have a valid SagaRequestHandler OR the identifiers are invalid", buf, 0x20u);
+      v12 = v4;
+      v13 = 2114;
+      v14 = v5;
+      v15 = 2048;
+      v16 = v6;
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ - ignore favoriting artist with cloudLibraryID=%{public}@, persistentID=%lld  as we don't have a valid SagaRequestHandler OR the identifiers are invalid", buf, 0x20u);
     }
 
-    v9 = a1[7];
-    if (v9)
+    v7 = a1[7];
+    if (v7)
     {
-      v10 = *(a1[4] + 96);
+      v8 = *(a1[4] + 96);
       block[0] = _NSConcreteStackBlock;
       block[1] = 3221225472;
       block[2] = sub_100020400;
       block[3] = &unk_1001DF5C8;
-      v12 = v9;
-      dispatch_async(v10, block);
+      v10 = v7;
+      dispatch_async(v8, block);
     }
   }
 }
@@ -8120,39 +7984,37 @@ void sub_100020574(void *a1)
   v2 = *(a1[4] + 56);
   if (v2 && a1[5] && a1[8])
   {
-    v3 = a1[6];
-    v4 = a1[7];
 
     [v2 favoriteAlbumWithPersistentID:? cloudLibraryID:? time:? completionHandler:?];
   }
 
   else
   {
-    v5 = os_log_create("com.apple.amp.itunescloudd", "CloudLibraryCoordinator");
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v3 = os_log_create("com.apple.amp.itunescloudd", "CloudLibraryCoordinator");
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = a1[4];
-      v7 = a1[5];
-      v8 = a1[8];
+      v4 = a1[4];
+      v5 = a1[5];
+      v6 = a1[8];
       *buf = 138543874;
-      v14 = v6;
-      v15 = 2114;
-      v16 = v7;
-      v17 = 2048;
-      v18 = v8;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ - ignore favoriting album with cloudLibraryID=%{public}@, persistentID=%lld as we don't have a valid SagaRequestHandler OR the identifiers are invalid", buf, 0x20u);
+      v12 = v4;
+      v13 = 2114;
+      v14 = v5;
+      v15 = 2048;
+      v16 = v6;
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ - ignore favoriting album with cloudLibraryID=%{public}@, persistentID=%lld as we don't have a valid SagaRequestHandler OR the identifiers are invalid", buf, 0x20u);
     }
 
-    v9 = a1[7];
-    if (v9)
+    v7 = a1[7];
+    if (v7)
     {
-      v10 = *(a1[4] + 96);
+      v8 = *(a1[4] + 96);
       block[0] = _NSConcreteStackBlock;
       block[1] = 3221225472;
       block[2] = sub_10002071C;
       block[3] = &unk_1001DF5C8;
-      v12 = v9;
-      dispatch_async(v10, block);
+      v10 = v7;
+      dispatch_async(v8, block);
     }
   }
 }
@@ -8169,39 +8031,37 @@ void sub_100020890(void *a1)
   v2 = *(a1[4] + 56);
   if (v2 && a1[8] && a1[5])
   {
-    v3 = a1[6];
-    v4 = a1[7];
 
     [v2 favoritePlaylistWithPersistentID:? globalID:? time:? completionHandler:?];
   }
 
   else
   {
-    v5 = os_log_create("com.apple.amp.itunescloudd", "CloudLibraryCoordinator");
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v3 = os_log_create("com.apple.amp.itunescloudd", "CloudLibraryCoordinator");
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = a1[4];
-      v7 = a1[5];
-      v8 = a1[8];
+      v4 = a1[4];
+      v5 = a1[5];
+      v6 = a1[8];
       *buf = 138543874;
-      v14 = v6;
-      v15 = 2114;
-      v16 = v7;
-      v17 = 2048;
-      v18 = v8;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ - ignore favoriting playlist with globalID=%{public}@, persistentID=%lld as we don't have a valid SagaRequestHandler OR the identifiers are invalid", buf, 0x20u);
+      v12 = v4;
+      v13 = 2114;
+      v14 = v5;
+      v15 = 2048;
+      v16 = v6;
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ - ignore favoriting playlist with globalID=%{public}@, persistentID=%lld as we don't have a valid SagaRequestHandler OR the identifiers are invalid", buf, 0x20u);
     }
 
-    v9 = a1[7];
-    if (v9)
+    v7 = a1[7];
+    if (v7)
     {
-      v10 = *(a1[4] + 96);
+      v8 = *(a1[4] + 96);
       block[0] = _NSConcreteStackBlock;
       block[1] = 3221225472;
       block[2] = sub_100020A38;
       block[3] = &unk_1001DF5C8;
-      v12 = v9;
-      dispatch_async(v10, block);
+      v10 = v7;
+      dispatch_async(v8, block);
     }
   }
 }
@@ -8218,44 +8078,40 @@ void sub_100020B94(void *a1)
   v2 = *(a1[4] + 56);
   if (v2 && a1[7] && a1[8])
   {
-    v3 = a1[9];
-    v4 = a1[5];
-    v5 = a1[6];
 
     [v2 favoriteEntityWithPersistentID:? storeID:? entityType:? time:? completionHandler:?];
   }
 
   else
   {
-    v6 = os_log_create("com.apple.amp.itunescloudd", "CloudLibraryCoordinator");
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v3 = os_log_create("com.apple.amp.itunescloudd", "CloudLibraryCoordinator");
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = a1[4];
-      v8 = a1[9];
-      v9 = NSStringFromICFavoriteMediaEntityType();
-      v11 = a1[7];
-      v10 = a1[8];
+      v4 = a1[4];
+      v5 = NSStringFromICFavoriteMediaEntityType();
+      v7 = a1[7];
+      v6 = a1[8];
       *buf = 138544130;
-      v17 = v7;
-      v18 = 2114;
-      v19 = v9;
-      v20 = 2048;
-      v21 = v10;
-      v22 = 2048;
-      v23 = v11;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ - ignore favoriting entityType=%{public}@ with storeID=%lld, persistentID=%lld as we don't have a valid SagaRequestHandler OR the identifiers are invalid", buf, 0x2Au);
+      v13 = v4;
+      v14 = 2114;
+      v15 = v5;
+      v16 = 2048;
+      v17 = v6;
+      v18 = 2048;
+      v19 = v7;
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ - ignore favoriting entityType=%{public}@ with storeID=%lld, persistentID=%lld as we don't have a valid SagaRequestHandler OR the identifiers are invalid", buf, 0x2Au);
     }
 
-    v12 = a1[6];
-    if (v12)
+    v8 = a1[6];
+    if (v8)
     {
-      v13 = *(a1[4] + 96);
+      v9 = *(a1[4] + 96);
       block[0] = _NSConcreteStackBlock;
       block[1] = 3221225472;
       block[2] = sub_100020D68;
       block[3] = &unk_1001DF5C8;
-      v15 = v12;
-      dispatch_async(v13, block);
+      v11 = v8;
+      dispatch_async(v9, block);
     }
   }
 }
@@ -8763,63 +8619,60 @@ void sub_1000232C4(void *a1)
   {
     if (a1[7])
     {
-      v3 = a1[5];
-      v4 = a1[6];
 
       [v2 setCloudFavoriteSongAddToLibraryBehavior:? clientIdentity:? completionHandler:?];
       return;
     }
 
-    v10 = os_log_create("com.apple.amp.itunescloudd", "CloudLibraryCoordinator");
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v8 = os_log_create("com.apple.amp.itunescloudd", "CloudLibraryCoordinator");
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = a1[4];
-      v12 = a1[7];
-      v13 = ICCloudClientGetStringForAddToLibraryBehavior();
+      v9 = a1[4];
+      v10 = ICCloudClientGetStringForAddToLibraryBehavior();
       *buf = 138543618;
-      v21 = v11;
-      v22 = 2114;
-      v23 = v13;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ - ignoring setCloudFavoriteSongAddToLibraryBehavior as %{public}@ is not a valid behavior", buf, 0x16u);
+      v18 = v9;
+      v19 = 2114;
+      v20 = v10;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ - ignoring setCloudFavoriteSongAddToLibraryBehavior as %{public}@ is not a valid behavior", buf, 0x16u);
     }
 
-    v14 = a1[6];
-    if (v14)
+    v11 = a1[6];
+    if (v11)
     {
-      v15 = *(a1[4] + 96);
+      v12 = *(a1[4] + 96);
       block[0] = _NSConcreteStackBlock;
       block[1] = 3221225472;
       block[2] = sub_10002354C;
       block[3] = &unk_1001DF5C8;
-      v19 = v14;
-      dispatch_async(v15, block);
-      v9 = v19;
+      v16 = v11;
+      dispatch_async(v12, block);
+      v7 = v16;
       goto LABEL_14;
     }
   }
 
   else
   {
-    v5 = os_log_create("com.apple.amp.itunescloudd", "CloudLibraryCoordinator");
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v3 = os_log_create("com.apple.amp.itunescloudd", "CloudLibraryCoordinator");
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = a1[4];
+      v4 = a1[4];
       *buf = 138543362;
-      v21 = v6;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ - ignoring setCloudFavoriteSongAddToLibraryBehavior as we don't have a valid SagaRequestHandler", buf, 0xCu);
+      v18 = v4;
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ - ignoring setCloudFavoriteSongAddToLibraryBehavior as we don't have a valid SagaRequestHandler", buf, 0xCu);
     }
 
-    v7 = a1[6];
-    if (v7)
+    v5 = a1[6];
+    if (v5)
     {
-      v8 = *(a1[4] + 96);
-      v16[0] = _NSConcreteStackBlock;
-      v16[1] = 3221225472;
-      v16[2] = sub_1000235C4;
-      v16[3] = &unk_1001DF5C8;
-      v17 = v7;
-      dispatch_async(v8, v16);
-      v9 = v17;
+      v6 = *(a1[4] + 96);
+      v13[0] = _NSConcreteStackBlock;
+      v13[1] = 3221225472;
+      v13[2] = sub_1000235C4;
+      v13[3] = &unk_1001DF5C8;
+      v14 = v5;
+      dispatch_async(v6, v13);
+      v7 = v14;
 LABEL_14:
     }
   }
@@ -9281,6 +9134,143 @@ void sub_100025260(void *a1)
       block[3] = &unk_1001DF5C8;
       v12 = v9;
       dispatch_async(v10, block);
+    }
+  }
+}
+
+void sub_1000253E0(uint64_t a1)
+{
+  v1 = *(a1 + 32);
+  v2 = [NSError errorWithDomain:ICErrorDomain code:-7002 userInfo:0];
+  (*(v1 + 16))(v1, v2);
+}
+
+void sub_100025558(void *a1)
+{
+  v2 = *(a1[4] + 56);
+  if (v2)
+  {
+    v3 = a1[8];
+    v4 = a1[9];
+    v5 = a1[5];
+    v6 = a1[6];
+    v7 = a1[7];
+
+    [v2 addStoreItemWithAdamID:v3 referral:v5 toPlaylistWithPersistentID:v4 clientIdentity:v6 completionHandler:v7];
+  }
+
+  else
+  {
+    v8 = os_log_create("com.apple.amp.itunescloudd", "CloudLibraryCoordinator");
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    {
+      v9 = a1[4];
+      *buf = 138543362;
+      v15 = v9;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ - ignoring addStoreItemWithAdamID as we don't have a valid SagaRequestHandler", buf, 0xCu);
+    }
+
+    v10 = a1[7];
+    if (v10)
+    {
+      v11 = *(a1[4] + 96);
+      block[0] = _NSConcreteStackBlock;
+      block[1] = 3221225472;
+      block[2] = sub_1000256DC;
+      block[3] = &unk_1001DF5C8;
+      v13 = v10;
+      dispatch_async(v11, block);
+    }
+  }
+}
+
+void sub_1000256DC(uint64_t a1)
+{
+  v1 = *(a1 + 32);
+  v2 = [NSError errorWithDomain:ICErrorDomain code:-7002 userInfo:0];
+  (*(v1 + 16))(v1, v2);
+}
+
+void sub_10002589C(void *a1)
+{
+  v2 = *(a1[4] + 56);
+  if (v2)
+  {
+    v3 = a1[5];
+    v4 = a1[6];
+    v5 = a1[7];
+    v6 = a1[8];
+    v8 = a1[9];
+    v7 = a1[10];
+
+    [v2 addGeniusPlaylistWithPersistentID:v7 name:v3 seedItemIDs:v4 itemIDs:v5 clientIdentity:v6 completionHandler:v8];
+  }
+
+  else
+  {
+    v9 = os_log_create("com.apple.amp.itunescloudd", "CloudLibraryCoordinator");
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    {
+      v10 = a1[4];
+      *buf = 138543362;
+      v16 = v10;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ - ignoring addGeniusPlaylistWithPersistentID as we don't have a valid SagaRequestHandler", buf, 0xCu);
+    }
+
+    v11 = a1[9];
+    if (v11)
+    {
+      v12 = *(a1[4] + 96);
+      block[0] = _NSConcreteStackBlock;
+      block[1] = 3221225472;
+      block[2] = sub_100025A20;
+      block[3] = &unk_1001DF5C8;
+      v14 = v11;
+      dispatch_async(v12, block);
+    }
+  }
+}
+
+void sub_100025A20(uint64_t a1)
+{
+  v1 = *(a1 + 32);
+  v2 = [NSError errorWithDomain:ICErrorDomain code:-7002 userInfo:0];
+  (*(v1 + 16))(v1, 0, v2);
+}
+
+void sub_100025B6C(void *a1)
+{
+  v2 = *(a1[4] + 56);
+  if (v2)
+  {
+    v4 = a1[6];
+    v3 = a1[7];
+    v5 = a1[5];
+
+    [v2 uploadArtworkForPlaylistWithPersistentID:v3 clientIdentity:v5 completionHandler:v4];
+  }
+
+  else
+  {
+    v6 = os_log_create("com.apple.amp.itunescloudd", "CloudLibraryCoordinator");
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    {
+      v7 = a1[4];
+      *buf = 138543362;
+      v13 = v7;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ - ignoring uploadArtworkForPlaylistWithPersistentID as we don't have a valid SagaRequestHandler", buf, 0xCu);
+    }
+
+    v8 = a1[6];
+    if (v8)
+    {
+      v9 = *(a1[4] + 96);
+      block[0] = _NSConcreteStackBlock;
+      block[1] = 3221225472;
+      block[2] = sub_100025CEC;
+      block[3] = &unk_1001DF5C8;
+      v11 = v8;
+      dispatch_async(v9, block);
     }
   }
 }

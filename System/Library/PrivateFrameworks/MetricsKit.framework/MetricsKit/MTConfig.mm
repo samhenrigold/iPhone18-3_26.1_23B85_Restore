@@ -333,31 +333,31 @@ LABEL_7:
 
 - (void)applyDeRes:(id)res sources:(id)sources
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   resCopy = res;
   if (resCopy)
   {
     [(MTConfig *)self deResFieldsForSources:sources];
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
-    obj = v23 = 0u;
-    v7 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+    obj = v22 = 0u;
+    v7 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v21;
+      v9 = *v20;
       do
       {
         v10 = 0;
         do
         {
-          if (*v21 != v9)
+          if (*v20 != v9)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = [MTReflectUtil objectAsDictionary:*(*(&v20 + 1) + 8 * v10)];
+          v11 = [MTReflectUtil objectAsDictionary:*(*(&v19 + 1) + 8 * v10)];
           v12 = [v11 objectForKeyedSubscript:@"fieldName"];
           v13 = [resCopy objectForKeyedSubscript:v12];
 
@@ -374,14 +374,12 @@ LABEL_7:
         }
 
         while (v8 != v10);
-        v8 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v8 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v8);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)computeWithConfigSources:(id)sources

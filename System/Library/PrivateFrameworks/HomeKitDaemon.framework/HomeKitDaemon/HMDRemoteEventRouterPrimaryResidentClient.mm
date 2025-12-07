@@ -56,11 +56,11 @@
 
 void __110__HMDRemoteEventRouterPrimaryResidentClient_handlePrimaryResidentConfirmedDeviceIdentifierChangeNotification___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v16.receiver = *(a1 + 40);
-  v16.super_class = HMDRemoteEventRouterPrimaryResidentClient;
-  objc_msgSendSuper2(&v16, sel_handlePrimaryResidentConfirmedDeviceIdentifierChangeNotification_, v2);
+  v15.receiver = *(a1 + 40);
+  v15.super_class = HMDRemoteEventRouterPrimaryResidentClient;
+  objc_msgSendSuper2(&v15, sel_handlePrimaryResidentConfirmedDeviceIdentifierChangeNotification_, v2);
   v3 = [*(a1 + 40) dataSource];
   v4 = [v3 routerClientPrimaryResidentDeviceIdentifier:*(a1 + 40)];
 
@@ -73,9 +73,9 @@ void __110__HMDRemoteEventRouterPrimaryResidentClient_handlePrimaryResidentConfi
     {
       v12 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v18 = v12;
-      v19 = 2112;
-      v20 = v4;
+      v17 = v12;
+      v18 = 2112;
+      v19 = v4;
       _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Updating primary resident identifier to: %@", buf, 0x16u);
     }
 
@@ -96,8 +96,6 @@ void __110__HMDRemoteEventRouterPrimaryResidentClient_handlePrimaryResidentConfi
     v8 = [*(a1 + 40) eventRouterClient];
     [v8 connectionCapabilityDidChange];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)messageTransportRestriction

@@ -21,15 +21,15 @@
 
 + (void)pushHighPriorityTaskInFlight
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&stru_1EDB26F34);
   v3 = ++qword_1EDB26F70;
   v4 = FCDefaultLog;
   if (os_log_type_enabled(FCDefaultLog, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 134217984;
-    v12 = v3;
-    _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "TaskScheduler: pushed high-priority task depth to %ld", &v11, 0xCu);
+    v10 = 134217984;
+    v11 = v3;
+    _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "TaskScheduler: pushed high-priority task depth to %ld", &v10, 0xCu);
     v3 = qword_1EDB26F70;
   }
 
@@ -38,8 +38,8 @@
     v5 = FCDefaultLog;
     if (os_log_type_enabled(FCDefaultLog, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v11) = 0;
-      _os_log_impl(&dword_1B63EF000, v5, OS_LOG_TYPE_DEFAULT, "TaskScheduler: suspending low-priority queues", &v11, 2u);
+      LOWORD(v10) = 0;
+      _os_log_impl(&dword_1B63EF000, v5, OS_LOG_TYPE_DEFAULT, "TaskScheduler: suspending low-priority queues", &v10, 2u);
     }
 
     postLaunchQueue = [self postLaunchQueue];
@@ -57,7 +57,6 @@
   }
 
   os_unfair_lock_unlock(&stru_1EDB26F34);
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 + (id)postLaunchQueue
@@ -166,15 +165,15 @@ uint64_t __51__FCTaskScheduler_backgroundDownloadOperationQueue__block_invoke()
 
 + (void)popHighPriorityTaskInFlight
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&stru_1EDB26F34);
   v3 = --qword_1EDB26F70;
   v4 = FCDefaultLog;
   if (os_log_type_enabled(FCDefaultLog, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 134217984;
-    v12 = v3;
-    _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "TaskScheduler: popped high-priority task depth to %ld", &v11, 0xCu);
+    v10 = 134217984;
+    v11 = v3;
+    _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "TaskScheduler: popped high-priority task depth to %ld", &v10, 0xCu);
     v3 = qword_1EDB26F70;
   }
 
@@ -183,8 +182,8 @@ uint64_t __51__FCTaskScheduler_backgroundDownloadOperationQueue__block_invoke()
     v5 = FCDefaultLog;
     if (os_log_type_enabled(FCDefaultLog, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v11) = 0;
-      _os_log_impl(&dword_1B63EF000, v5, OS_LOG_TYPE_DEFAULT, "TaskScheduler: resuming low-priority queues", &v11, 2u);
+      LOWORD(v10) = 0;
+      _os_log_impl(&dword_1B63EF000, v5, OS_LOG_TYPE_DEFAULT, "TaskScheduler: resuming low-priority queues", &v10, 2u);
     }
 
     postLaunchQueue = [self postLaunchQueue];
@@ -201,7 +200,6 @@ uint64_t __51__FCTaskScheduler_backgroundDownloadOperationQueue__block_invoke()
   }
 
   os_unfair_lock_unlock(&stru_1EDB26F34);
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 + (void)scheduleLowPriorityBlock:(id)block

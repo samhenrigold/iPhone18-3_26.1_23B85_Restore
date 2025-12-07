@@ -2,6 +2,7 @@
 - (VCMediaAnalyzerDataCollector)initWithDispatchQueue:(id)queue;
 - (void)addAggregatedMediaAnalyzerMetricsToReport:(id)report;
 - (void)dealloc;
+- (void)processMediaAnalyzerEnabled:(BOOL)enabled withCurrentTime:(double)time;
 - (void)processMediaAnalyzerMetrics:(id)metrics;
 @end
 
@@ -46,6 +47,20 @@ LABEL_7:
   [(VCMediaAnalyzerDataCollector *)&v4 dealloc];
 }
 
+- (void)processMediaAnalyzerEnabled:(BOOL)enabled withCurrentTime:(double)time
+{
+  enabledCopy = enabled;
+  dispatch_assert_queue_V2(self->_stateQueue);
+  [(VCMediaAnalyzerDataCollector *)self setMediaAnalyzerEnabled:enabledCopy];
+  if (!enabledCopy)
+  {
+    self->_mediaAnalyzerEnabledDuration = time - self->_mediaAnalyzerLastEnabledTime + self->_mediaAnalyzerEnabledDuration;
+    time = NAN;
+  }
+
+  self->_mediaAnalyzerLastEnabledTime = time;
+}
+
 - (void)processMediaAnalyzerMetrics:(id)metrics
 {
   dispatch_assert_queue_V2(self->_stateQueue);
@@ -71,34 +86,32 @@ LABEL_7:
 
 - (void)initWithDispatchQueue:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
-    VRTraceErrorLogLevelToCSTR(3u);
+    v0 = VRTraceErrorLogLevelToCSTR(3u);
     if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_ERROR))
     {
+      LODWORD(v7) = 136315650;
+      *(&v7 + 4) = v0;
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_1_1(&dword_23D4DF000, v1, v2, " [%s] %s:%d Invalid dispatchQueue provided", v3, v4, v5, v6, 2u);
+      OUTLINED_FUNCTION_1_1(&dword_23D4DF000, v1, v2, " [%s] %s:%d Invalid dispatchQueue provided", v3, v4, v5, v6, v7, DWORD2(v7));
     }
   }
-
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithDispatchQueue:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
-    VRTraceErrorLogLevelToCSTR(3u);
+    v0 = VRTraceErrorLogLevelToCSTR(3u);
     if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_ERROR))
     {
+      LODWORD(v7) = 136315650;
+      *(&v7 + 4) = v0;
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_1_1(&dword_23D4DF000, v1, v2, " [%s] %s:%d Failed to super initialize VCCaptionsDataCollector", v3, v4, v5, v6, 2u);
+      OUTLINED_FUNCTION_1_1(&dword_23D4DF000, v1, v2, " [%s] %s:%d Failed to super initialize VCCaptionsDataCollector", v3, v4, v5, v6, v7, DWORD2(v7));
     }
   }
-
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 @end

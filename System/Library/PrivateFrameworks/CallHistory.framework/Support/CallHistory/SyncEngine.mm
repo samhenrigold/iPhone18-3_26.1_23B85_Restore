@@ -393,7 +393,7 @@ LABEL_28:
     v5 = &off_100053AB0;
   }
 
-  v8 = [result_syncCopy objectForKeyedSubscript:{@"Update", *v17}];
+  v8 = [result_syncCopy objectForKeyedSubscript:{@"Update", *v17, *&v17[8]}];
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
@@ -490,7 +490,7 @@ LABEL_28:
   {
     fetchIterations = self->_fetchIterations;
     *buf = 134217984;
-    v17 = fetchIterations;
+    v16 = fetchIterations;
     _os_log_impl(&_mh_execute_header, logHandle, OS_LOG_TYPE_DEFAULT, "Sync result after %lu iterations", buf, 0xCu);
   }
 
@@ -499,7 +499,7 @@ LABEL_28:
   {
     mergeResultInsertCount = self->_mergeResultInsertCount;
     *buf = 134217984;
-    v17 = mergeResultInsertCount;
+    v16 = mergeResultInsertCount;
     _os_log_impl(&_mh_execute_header, logHandle2, OS_LOG_TYPE_DEFAULT, "%lu inserts", buf, 0xCu);
   }
 
@@ -508,7 +508,7 @@ LABEL_28:
   {
     mergeResultUpdateCount = self->_mergeResultUpdateCount;
     *buf = 134217984;
-    v17 = mergeResultUpdateCount;
+    v16 = mergeResultUpdateCount;
     _os_log_impl(&_mh_execute_header, logHandle3, OS_LOG_TYPE_DEFAULT, "%lu updates", buf, 0xCu);
   }
 
@@ -517,25 +517,24 @@ LABEL_28:
   {
     mergeResultDeleteCount = self->_mergeResultDeleteCount;
     *buf = 134217984;
-    v17 = mergeResultDeleteCount;
+    v16 = mergeResultDeleteCount;
     _os_log_impl(&_mh_execute_header, logHandle4, OS_LOG_TYPE_DEFAULT, "%lu deletes", buf, 0xCu);
   }
 
-  v11 = self->_mergeResultUpdateCount;
-  v12 = [NSString stringWithFormat:@"Applied %lu update %lu insert %lu delete transactions", self->_mergeResultInsertCount, v11, self->_mergeResultDeleteCount];
+  v11 = [NSString stringWithFormat:@"Applied %lu update %lu insert %lu delete transactions", self->_mergeResultInsertCount, self->_mergeResultUpdateCount, self->_mergeResultDeleteCount];
   logHandle5 = [(SyncEngine *)self logHandle];
   if (os_log_type_enabled(logHandle5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v17 = v12;
+    v16 = v11;
     _os_log_impl(&_mh_execute_header, logHandle5, OS_LOG_TYPE_DEFAULT, "Calling back with result %{public}@", buf, 0xCu);
   }
 
-  v14 = objc_retainBlock(self->_callback);
-  v15 = v14;
-  if (v14)
+  v13 = objc_retainBlock(self->_callback);
+  v14 = v13;
+  if (v13)
   {
-    (*(v14 + 2))(v14, 1, v12);
+    (*(v13 + 2))(v13, 1, v11);
   }
 
   [(SyncEngine *)self removeOperationInProgress_sync];

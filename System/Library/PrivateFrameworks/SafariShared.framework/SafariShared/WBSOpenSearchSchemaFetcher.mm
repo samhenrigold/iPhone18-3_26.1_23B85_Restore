@@ -76,12 +76,12 @@ void __64__WBSOpenSearchSchemaFetcher_fetchOpenSearchDescriptionWithURL___block_
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __64__WBSOpenSearchSchemaFetcher_fetchOpenSearchDescriptionWithURL___block_invoke_2(uint64_t a1)
+uint64_t __64__WBSOpenSearchSchemaFetcher_fetchOpenSearchDescriptionWithURL___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 32))
   {
-    v2 = WBS_LOG_CHANNEL_PREFIXSafariSuggestions();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v3 = WBS_LOG_CHANNEL_PREFIXSafariSuggestions(a1, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __64__WBSOpenSearchSchemaFetcher_fetchOpenSearchDescriptionWithURL___block_invoke_2_cold_1();
     }
@@ -109,12 +109,12 @@ void __64__WBSOpenSearchSchemaFetcher_fetchOpenSearchDescriptionWithURL___block_
   dispatch_async(MEMORY[0x1E69E96A0], v11);
 }
 
-void __64__WBSOpenSearchSchemaFetcher_fetchOpenSearchDescriptionWithURL___block_invoke_2_9(uint64_t a1)
+void __64__WBSOpenSearchSchemaFetcher_fetchOpenSearchDescriptionWithURL___block_invoke_2_9(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 32))
   {
-    v2 = WBS_LOG_CHANNEL_PREFIXSafariSuggestions();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v3 = WBS_LOG_CHANNEL_PREFIXSafariSuggestions(a1, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __64__WBSOpenSearchSchemaFetcher_fetchOpenSearchDescriptionWithURL___block_invoke_2_cold_1();
     }
@@ -124,20 +124,20 @@ void __64__WBSOpenSearchSchemaFetcher_fetchOpenSearchDescriptionWithURL___block_
 
   else
   {
-    v11 = [*(a1 + 56) objectForKey:@"OpenSearchDescriptionDocumentURL"];
-    v3 = [*(a1 + 56) objectForKeyedSubscript:@"OpenSearchDescriptionSearchURLTemplate"];
-    v4 = [*(a1 + 56) objectForKeyedSubscript:@"OpenSearchDescriptionURLTemplateForSuggestionsInJSON"];
-    v5 = [*(a1 + 56) objectForKeyedSubscript:@"OpenSearchDescriptionURLTemplateForSuggestionsInXML"];
-    v6 = [WBSOpenSearchDescription alloc];
-    v7 = [v11 absoluteString];
-    v8 = [(WBSOpenSearchDescription *)v6 initWithDescriptionDocumentURLString:v7 searchURLTemplate:v3 urlTemplateForSuggestionsInJSON:v4 urlTemplateForSuggestionsInXML:v5];
+    v12 = [*(a1 + 56) objectForKey:@"OpenSearchDescriptionDocumentURL"];
+    v4 = [*(a1 + 56) objectForKeyedSubscript:@"OpenSearchDescriptionSearchURLTemplate"];
+    v5 = [*(a1 + 56) objectForKeyedSubscript:@"OpenSearchDescriptionURLTemplateForSuggestionsInJSON"];
+    v6 = [*(a1 + 56) objectForKeyedSubscript:@"OpenSearchDescriptionURLTemplateForSuggestionsInXML"];
+    v7 = [WBSOpenSearchDescription alloc];
+    v8 = [v12 absoluteString];
+    v9 = [(WBSOpenSearchDescription *)v7 initWithDescriptionDocumentURLString:v8 searchURLTemplate:v4 urlTemplateForSuggestionsInJSON:v5 urlTemplateForSuggestionsInXML:v6];
 
-    v9 = [MEMORY[0x1E695DF90] dictionary];
-    [v9 setObject:v8 forKeyedSubscript:@"WBSOpenSearchDescription"];
-    v10 = [MEMORY[0x1E696AD88] defaultCenter];
-    [v10 postNotificationName:@"WBSOpenSearchSchemaFetcherDidCollectDescriptionNotification" object:*(a1 + 48) userInfo:v9];
+    v10 = [MEMORY[0x1E695DF90] dictionary];
+    [v10 setObject:v9 forKeyedSubscript:@"WBSOpenSearchDescription"];
+    v11 = [MEMORY[0x1E696AD88] defaultCenter];
+    [v11 postNotificationName:@"WBSOpenSearchSchemaFetcherDidCollectDescriptionNotification" object:*(a1 + 48) userInfo:v10];
 
-    [*(a1 + 48) _didFinishFetchingOpenSearchDescriptionDocumentWithURL:v11];
+    [*(a1 + 48) _didFinishFetchingOpenSearchDescriptionDocumentWithURL:v12];
   }
 }
 

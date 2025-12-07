@@ -46,17 +46,17 @@
 
 - (MAAutoAssetSetOverview)initWithCoder:(id)coder
 {
-  v28[2] = *MEMORY[0x1E69E9840];
+  v27[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v26.receiver = self;
-  v26.super_class = MAAutoAssetSetOverview;
-  v5 = [(MAAutoAssetSetOverview *)&v26 init];
+  v25.receiver = self;
+  v25.super_class = MAAutoAssetSetOverview;
+  v5 = [(MAAutoAssetSetOverview *)&v25 init];
   if (v5)
   {
     v6 = MEMORY[0x1E695DFD8];
-    v28[0] = objc_opt_class();
-    v28[1] = objc_opt_class();
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:2];
+    v27[0] = objc_opt_class();
+    v27[1] = objc_opt_class();
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:2];
     v8 = [v6 setWithArray:v7];
 
     v9 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"clientDomainName"];
@@ -68,10 +68,10 @@
     v5->_assetSetIdentifier = v11;
 
     v13 = objc_alloc(MEMORY[0x1E695DFD8]);
-    v27[0] = objc_opt_class();
-    v27[1] = objc_opt_class();
-    v27[2] = objc_opt_class();
-    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:3];
+    v26[0] = objc_opt_class();
+    v26[1] = objc_opt_class();
+    v26[2] = objc_opt_class();
+    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:3];
     v15 = [v13 initWithArray:v14];
     v16 = [coderCopy decodeObjectOfClasses:v15 forKey:@"configuredAssetEntries"];
     configuredAssetEntries = v5->_configuredAssetEntries;
@@ -95,7 +95,6 @@
     v5->_totalClientCount = [coderCopy decodeIntegerForKey:@"totalClientCount"];
   }
 
-  v24 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

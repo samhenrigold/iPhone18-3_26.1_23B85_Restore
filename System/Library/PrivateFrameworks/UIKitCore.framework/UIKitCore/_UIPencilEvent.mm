@@ -1,4 +1,5 @@
 @interface _UIPencilEvent
+- (id)_cancelAndRemoveAllDescriptorsAndInteractions;
 - (id)_init;
 - (id)debugDescriptionWithMultilinePrefix:(id)prefix;
 - (id)descriptionBuilderWithMultilinePrefix:(id)prefix;
@@ -6,7 +7,6 @@
 - (id)registerInteraction:(uint64_t)interaction;
 - (id)succinctDescription;
 - (id)succinctDescriptionBuilder;
-- (uint64_t)_cancelAndRemoveAllDescriptorsAndInteractions;
 - (uint64_t)_shouldCollectInteraction:(int)interaction consultingInteraction:(void *)consultingInteraction constrainedToWindow:;
 - (void)_cancelAndRemoveInteractionsInAllDeliveryRecordsFromFilter:(uint64_t)filter;
 - (void)_cleanupAfterDispatch;
@@ -488,7 +488,7 @@ LABEL_7:
   }
 }
 
-- (uint64_t)_cancelAndRemoveAllDescriptorsAndInteractions
+- (id)_cancelAndRemoveAllDescriptorsAndInteractions
 {
   v12 = *MEMORY[0x1E69E9840];
   if (result)
@@ -566,7 +566,7 @@ LABEL_11:
     return;
   }
 
-  if (!_UIEventHIDIsPencilBarrelEvent())
+  if (!_UIEventHIDIsPencilBarrelEvent(event))
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
     [currentHandler handleFailureInMethod:a2 object:self file:@"_UIPencilEvent.m" lineNumber:748 description:{@"Invalid hidEvent type for %@: %@", objc_opt_class(), event}];
@@ -644,7 +644,7 @@ LABEL_24:
   IOHIDEventGetDoubleValue();
 LABEL_25:
   self->_normalizedForceVelocity = v11;
-  v12 = _UIEventHIDUIWindowForHIDEvent();
+  v12 = _UIEventHIDUIWindowForHIDEvent(event);
   if ([v12 _isSystemGestureWindow])
   {
     v13 = v12;

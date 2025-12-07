@@ -314,7 +314,7 @@ LABEL_17:
 
 - (void)layoutDocumentView
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   self->_private->ignoreChangedBoundsForBoxNotification = 1;
   WeakRetained = objc_loadWeakRetained(&self->_private->pdfView);
   pDFLayout = [WeakRetained PDFLayout];
@@ -331,73 +331,71 @@ LABEL_17:
   v8 = self->_private;
   v8->documentViewSize.width = v9;
   v8->documentViewSize.height = v6;
-  v10.n128_u64[0] = 0;
-  v11.n128_u64[0] = 0;
-  [(PDFDocumentView *)self setFrame:PDFRectMake(v10, v11, self->_private->documentViewSize.width, self->_private->documentViewSize.height)];
-  v12.n128_u64[0] = 0;
-  v13.n128_u64[0] = 0;
-  [(PDFDocumentView *)self setBounds:PDFRectMake(v12, v13, self->_private->documentViewSize.width, self->_private->documentViewSize.height)];
+  PDFRectMake();
+  [(PDFDocumentView *)self setFrame:?];
+  PDFRectMake();
+  [(PDFDocumentView *)self setBounds:?];
   documentScrollView = [WeakRetained documentScrollView];
   [(PDFDocumentView *)self frame];
-  [documentScrollView setContentSize:{v15, v16}];
+  [documentScrollView setContentSize:{v11, v12}];
   [documentScrollView centerAlign];
 
   pageCount = [v4 pageCount];
   std::vector<CGRect>::resize(&self->_private->pageFrames.__begin_, pageCount);
   if (pageCount >= 1)
   {
-    v18 = 0;
-    v19 = 0;
+    v14 = 0;
+    v15 = 0;
     do
     {
-      v20 = [pDFLayout boundsForPageAtIndex:v19];
-      v21 = *(v20 + 16);
-      v22 = *(v20 + 24);
-      [(PDFDocumentView *)self _pixelAlignPageFrameOrigin:*v20, *(v20 + 8), v21, v22];
-      v24 = &self->_private->pageFrames.__begin_[v18];
-      v24->origin.x = v25;
-      v24->origin.y = v7 - v23 - v22;
-      v24->size.width = v21;
-      v24->size.height = v22;
-      ++v19;
-      ++v18;
+      v16 = [pDFLayout boundsForPageAtIndex:v15];
+      v17 = *(v16 + 16);
+      v18 = *(v16 + 24);
+      [(PDFDocumentView *)self _pixelAlignPageFrameOrigin:*v16, *(v16 + 8), v17, v18];
+      v20 = &self->_private->pageFrames.__begin_[v14];
+      v20->origin.x = v21;
+      v20->origin.y = v7 - v19 - v18;
+      v20->size.width = v17;
+      v20->size.height = v18;
+      ++v15;
+      ++v14;
     }
 
-    while ((pageCount & 0x7FFFFFFF) != v19);
+    while ((pageCount & 0x7FFFFFFF) != v15);
   }
 
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
-  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   allValues = [(NSMutableDictionary *)self->_private->pageViews allValues];
-  v27 = [allValues countByEnumeratingWithState:&v36 objects:v40 count:16];
-  if (v27)
+  v23 = [allValues countByEnumeratingWithState:&v32 objects:v36 count:16];
+  if (v23)
   {
-    v28 = *v37;
+    v24 = *v33;
     do
     {
-      for (i = 0; i != v27; ++i)
+      for (i = 0; i != v23; ++i)
       {
-        if (*v37 != v28)
+        if (*v33 != v24)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v30 = *(*(&v36 + 1) + 8 * i);
-        page = [v30 page];
-        v32 = [v4 indexForPage:page];
+        v26 = *(*(&v32 + 1) + 8 * i);
+        page = [v26 page];
+        v28 = [v4 indexForPage:page];
         begin = self->_private->pageFrames.__begin_;
-        if (v32 < self->_private->pageFrames.__end_ - begin)
+        if (v28 < self->_private->pageFrames.__end_ - begin)
         {
-          [v30 setFrame:{begin[v32].origin.x, begin[v32].origin.y, begin[v32].size.width, begin[v32].size.height}];
+          [v26 setFrame:{begin[v28].origin.x, begin[v28].origin.y, begin[v28].size.width, begin[v28].size.height}];
         }
       }
 
-      v27 = [allValues countByEnumeratingWithState:&v36 objects:v40 count:16];
+      v23 = [allValues countByEnumeratingWithState:&v32 objects:v36 count:16];
     }
 
-    while (v27);
+    while (v23);
   }
 
   [(PDFTextInputView *)self updateTextSelectionGraphics];
@@ -492,7 +490,7 @@ LABEL_17:
           if (functionalDisplayMode == 2)
           {
             v68 = [WeakRetained indexForPage:v9];
-            std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long>(&v71, &v68);
+            std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long>(&v71, &v68, &v68);
             currentPage2 = [v5 currentPage];
             v30 = [pDFLayout facingPageForPage:currentPage2];
 
@@ -503,7 +501,7 @@ LABEL_17:
               if ((v32 & 1) == 0)
               {
                 v74[0] = [WeakRetained indexForPage:v30];
-                std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long>(&v71, v74);
+                std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long>(&v71, v74, v74);
               }
             }
           }
@@ -594,7 +592,7 @@ LABEL_17:
                     if (CGRectIntersectsRect(*begin, v79))
                     {
                       v74[0] = v47 - v33->pageFrames.__begin_;
-                      std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long>(&v68, v74);
+                      std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long>(&v68, v74, v74);
                     }
 
                     ++begin;
@@ -632,7 +630,7 @@ LABEL_17:
         else
         {
           v68 = [WeakRetained indexForPage:v9];
-          std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long>(&v71, &v68);
+          std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long>(&v71, &v68, &v68);
         }
 
         v49 = v71;

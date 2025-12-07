@@ -240,7 +240,6 @@ LABEL_9:
   has = self->_has;
   if ((has & 2) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 0x40) == 0)
@@ -260,7 +259,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  storeType = self->_storeType;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 1) == 0)
@@ -275,7 +273,6 @@ LABEL_4:
   }
 
 LABEL_12:
-  migrationTimeInterval = self->_migrationTimeInterval;
   PBDataWriterWriteDoubleField();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -290,7 +287,6 @@ LABEL_5:
   }
 
 LABEL_13:
-  didVacuum = self->_didVacuum;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 8) == 0)
@@ -305,7 +301,6 @@ LABEL_6:
   }
 
 LABEL_14:
-  deviceClass = self->_deviceClass;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -317,7 +312,6 @@ LABEL_7:
     }
 
 LABEL_16:
-    nextModelVersion = self->_nextModelVersion;
     PBDataWriterWriteInt32Field();
     if ((*&self->_has & 4) == 0)
     {
@@ -328,7 +322,6 @@ LABEL_16:
   }
 
 LABEL_15:
-  previousModelVersion = self->_previousModelVersion;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x10) != 0)
@@ -343,7 +336,6 @@ LABEL_8:
   }
 
 LABEL_17:
-  byteSize = self->_byteSize;
 
   PBDataWriterWriteInt32Field();
 }
@@ -624,7 +616,6 @@ LABEL_9:
   {
     if ((*(equal + 48) & 0x80) != 0)
     {
-      v6 = *(equal + 44);
       if (self->_didVacuum)
       {
         if ((*(equal + 44) & 1) == 0)

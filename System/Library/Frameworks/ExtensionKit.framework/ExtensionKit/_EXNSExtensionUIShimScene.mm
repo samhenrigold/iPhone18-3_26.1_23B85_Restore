@@ -53,9 +53,9 @@ LABEL_10:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v10.receiver = self;
-      v10.super_class = _EXNSExtensionUIShimScene;
-      [(_EXNSExtensionShimScene *)&v10 connectToSession:sessionCopy];
+      v9.receiver = self;
+      v9.super_class = _EXNSExtensionUIShimScene;
+      [(_EXNSExtensionShimScene *)&v9 connectToSession:sessionCopy];
       context = [(_EXNSExtensionShimScene *)self context];
       _principalObject = [context _principalObject];
       [(_EXNSExtensionUIShimScene *)self setViewController:_principalObject];
@@ -66,19 +66,19 @@ LABEL_10:
 
   else
   {
-    v8 = _EXDefaultLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+    extension = _EXDefaultLog();
+    if (os_log_type_enabled(extension, OS_LOG_TYPE_FAULT))
     {
-      [_EXNSExtensionUIShimScene connectToSession:];
+      [_EXNSExtensionUIShimScene connectToSession:sessionCopy];
     }
 
     __break(1u);
   }
 
-  v9 = _EXDefaultLog();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+  v8 = _EXDefaultLog();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
   {
-    [_EXNSExtensionUIShimScene connectToSession:];
+    [_EXNSExtensionUIShimScene connectToSession:extension];
   }
 
   __break(1u);
@@ -106,52 +106,45 @@ LABEL_10:
 
 - (void)makePrincipalObjectForExtension:(objc_class *)a1 .cold.1(objc_class *a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v1 = NSStringFromClass(a1);
+  v8 = 136315906;
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2(&dword_1D29CC000, v2, v3, "%s - %s:%d: Pricipal object is unexpected class '%@'", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2(&dword_1D29CC000, v2, v3, "%s - %s:%d: Pricipal object is unexpected class '%@'", v4, v5, v6, v7, v8);
 }
 
 - (void)makePrincipalObjectForExtension:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v3 = "principalObject!=nil";
-  v4 = 2080;
-  v2 = 136315650;
+  v5 = *MEMORY[0x1E69E9840];
+  v2 = "principalObject!=nil";
+  v3 = 2080;
+  v1 = 136315650;
   OUTLINED_FUNCTION_0();
-  v5 = 58;
-  _os_log_fault_impl(&dword_1D29CC000, v0, OS_LOG_TYPE_FAULT, "%s - %s:%d: The principal object must not be NULL.", &v2, 0x1Cu);
-  v1 = *MEMORY[0x1E69E9840];
+  v4 = 58;
+  _os_log_fault_impl(&dword_1D29CC000, v0, OS_LOG_TYPE_FAULT, "%s - %s:%d: The principal object must not be NULL.", &v1, 0x1Cu);
 }
 
-- (void)connectToSession:.cold.1()
+- (void)connectToSession:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
+  v9 = 136315906;
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2(&dword_1D29CC000, v2, v3, "%s - %s:%d: Unexpected extension class '%@'", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2(&dword_1D29CC000, v3, v4, "%s - %s:%d: Unexpected extension class '%@'", v5, v6, v7, v8, v9);
 }
 
-- (void)connectToSession:.cold.2()
+- (void)connectToSession:(uint64_t)a1 .cold.2(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
+  v9 = 136315906;
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2(&dword_1D29CC000, v2, v3, "%s - %s:%d: Unexpected extension class '%@'", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2(&dword_1D29CC000, v3, v4, "%s - %s:%d: Unexpected extension class '%@'", v5, v6, v7, v8, v9);
 }
 
 @end

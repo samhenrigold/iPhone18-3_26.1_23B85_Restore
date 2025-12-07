@@ -51,31 +51,31 @@ uint64_t __46__RMModelConfigurationBase_usesKeychainAssets__block_invoke()
 - (id)assetReferencesFromKeyPaths:(id)paths payloadObject:(id)object
 {
   selfCopy = self;
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   pathsCopy = paths;
   objectCopy = object;
-  v22 = objc_opt_new();
   v21 = objc_opt_new();
+  v20 = objc_opt_new();
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   v6 = pathsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v25;
+    v9 = *v24;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v25 != v9)
+        if (*v24 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v24 + 1) + 8 * i);
+        v11 = *(*(&v23 + 1) + 8 * i);
         keyPath = [v11 keyPath];
         v13 = [keyPath componentsSeparatedByString:@"."];
 
@@ -85,25 +85,24 @@ uint64_t __46__RMModelConfigurationBase_usesKeychainAssets__block_invoke()
         if (v15)
         {
           v16 = [v13 subarrayWithRange:{1, objc_msgSend(v13, "count") - 1}];
-          [(RMModelConfigurationBase *)selfCopy _walkObject:objectCopy keyPath:v16 assetReference:v11 result:v22 processedIdentifiers:v21];
+          [(RMModelConfigurationBase *)selfCopy _walkObject:objectCopy keyPath:v16 assetReference:v11 result:v21 processedIdentifiers:v20];
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v8);
   }
 
-  v17 = [v22 copy];
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = [v21 copy];
 
   return v17;
 }
 
 - (void)_walkObject:(id)object keyPath:(id)path assetReference:(id)reference result:(id)result processedIdentifiers:(id)identifiers
 {
-  v70 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   pathCopy = path;
   referenceCopy = reference;
@@ -120,32 +119,32 @@ uint64_t __46__RMModelConfigurationBase_usesKeychainAssets__block_invoke()
       if ([pathCopy count] == 1)
       {
         v18 = pathCopy;
-        v64 = 0u;
-        v65 = 0u;
-        v62 = 0u;
         v63 = 0u;
-        v48 = objectCopy;
+        v64 = 0u;
+        v61 = 0u;
+        v62 = 0u;
+        v47 = objectCopy;
         allValues = [objectCopy allValues];
-        v20 = [allValues countByEnumeratingWithState:&v62 objects:v69 count:16];
+        v20 = [allValues countByEnumeratingWithState:&v61 objects:v68 count:16];
         if (v20)
         {
           v21 = v20;
-          v22 = *v63;
+          v22 = *v62;
           do
           {
             for (i = 0; i != v21; ++i)
             {
-              if (*v63 != v22)
+              if (*v62 != v22)
               {
                 objc_enumerationMutation(allValues);
               }
 
-              v24 = *(*(&v62 + 1) + 8 * i);
+              v24 = *(*(&v61 + 1) + 8 * i);
               v25 = [v18 objectAtIndexedSubscript:0];
               [(RMModelConfigurationBase *)self _addAssetReference:referenceCopy identifier:v24 keyPath:v25 result:resultCopy processedIdentifiers:identifiersCopy];
             }
 
-            v21 = [allValues countByEnumeratingWithState:&v62 objects:v69 count:16];
+            v21 = [allValues countByEnumeratingWithState:&v61 objects:v68 count:16];
           }
 
           while (v21);
@@ -153,7 +152,7 @@ uint64_t __46__RMModelConfigurationBase_usesKeychainAssets__block_invoke()
 
 LABEL_11:
 
-        objectCopy = v48;
+        objectCopy = v47;
 LABEL_42:
         pathCopy = v18;
         goto LABEL_43;
@@ -161,29 +160,29 @@ LABEL_42:
 
       v18 = pathCopy;
       v37 = [pathCopy subarrayWithRange:{1, objc_msgSend(pathCopy, "count") - 1}];
+      v57 = 0u;
       v58 = 0u;
       v59 = 0u;
       v60 = 0u;
-      v61 = 0u;
       allValues2 = [objectCopy allValues];
-      v39 = [allValues2 countByEnumeratingWithState:&v58 objects:v68 count:16];
+      v39 = [allValues2 countByEnumeratingWithState:&v57 objects:v67 count:16];
       if (v39)
       {
         v40 = v39;
-        v41 = *v59;
+        v41 = *v58;
         do
         {
           for (j = 0; j != v40; ++j)
           {
-            if (*v59 != v41)
+            if (*v58 != v41)
             {
               objc_enumerationMutation(allValues2);
             }
 
-            [(RMModelConfigurationBase *)self _walkObject:*(*(&v58 + 1) + 8 * j) keyPath:v37 assetReference:referenceCopy result:resultCopy processedIdentifiers:identifiersCopy];
+            [(RMModelConfigurationBase *)self _walkObject:*(*(&v57 + 1) + 8 * j) keyPath:v37 assetReference:referenceCopy result:resultCopy processedIdentifiers:identifiersCopy];
           }
 
-          v40 = [allValues2 countByEnumeratingWithState:&v58 objects:v68 count:16];
+          v40 = [allValues2 countByEnumeratingWithState:&v57 objects:v67 count:16];
         }
 
         while (v40);
@@ -230,32 +229,32 @@ LABEL_19:
       if ([pathCopy count] == 1)
       {
         v18 = pathCopy;
-        v56 = 0u;
-        v57 = 0u;
-        v54 = 0u;
         v55 = 0u;
-        v48 = objectCopy;
+        v56 = 0u;
+        v53 = 0u;
+        v54 = 0u;
+        v47 = objectCopy;
         allValues = objectCopy;
-        v31 = [allValues countByEnumeratingWithState:&v54 objects:v67 count:16];
+        v31 = [allValues countByEnumeratingWithState:&v53 objects:v66 count:16];
         if (v31)
         {
           v32 = v31;
-          v33 = *v55;
+          v33 = *v54;
           do
           {
             for (k = 0; k != v32; ++k)
             {
-              if (*v55 != v33)
+              if (*v54 != v33)
               {
                 objc_enumerationMutation(allValues);
               }
 
-              v35 = *(*(&v54 + 1) + 8 * k);
-              v36 = [v18 objectAtIndexedSubscript:{0, v48}];
+              v35 = *(*(&v53 + 1) + 8 * k);
+              v36 = [v18 objectAtIndexedSubscript:{0, v47}];
               [(RMModelConfigurationBase *)self _addAssetReference:referenceCopy identifier:v35 keyPath:v36 result:resultCopy processedIdentifiers:identifiersCopy];
             }
 
-            v32 = [allValues countByEnumeratingWithState:&v54 objects:v67 count:16];
+            v32 = [allValues countByEnumeratingWithState:&v53 objects:v66 count:16];
           }
 
           while (v32);
@@ -266,32 +265,32 @@ LABEL_19:
 
       v18 = pathCopy;
       v37 = [pathCopy subarrayWithRange:{1, objc_msgSend(pathCopy, "count") - 1}];
+      v49 = 0u;
       v50 = 0u;
       v51 = 0u;
       v52 = 0u;
-      v53 = 0u;
       allValues2 = objectCopy;
-      v44 = [allValues2 countByEnumeratingWithState:&v50 objects:v66 count:16];
-      if (v44)
+      v43 = [allValues2 countByEnumeratingWithState:&v49 objects:v65 count:16];
+      if (v43)
       {
-        v45 = v44;
-        v46 = *v51;
+        v44 = v43;
+        v45 = *v50;
         do
         {
-          for (m = 0; m != v45; ++m)
+          for (m = 0; m != v44; ++m)
           {
-            if (*v51 != v46)
+            if (*v50 != v45)
             {
               objc_enumerationMutation(allValues2);
             }
 
-            [(RMModelConfigurationBase *)self _walkObject:*(*(&v50 + 1) + 8 * m) keyPath:v37 assetReference:referenceCopy result:resultCopy processedIdentifiers:identifiersCopy];
+            [(RMModelConfigurationBase *)self _walkObject:*(*(&v49 + 1) + 8 * m) keyPath:v37 assetReference:referenceCopy result:resultCopy processedIdentifiers:identifiersCopy];
           }
 
-          v45 = [allValues2 countByEnumeratingWithState:&v50 objects:v66 count:16];
+          v44 = [allValues2 countByEnumeratingWithState:&v49 objects:v65 count:16];
         }
 
-        while (v45);
+        while (v44);
       }
 
 LABEL_41:
@@ -306,8 +305,6 @@ LABEL_41:
   }
 
 LABEL_43:
-
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addAssetReference:(id)reference identifier:(id)identifier keyPath:(id)path result:(id)result processedIdentifiers:(id)identifiers
@@ -677,7 +674,7 @@ LABEL_7:
 
 + (id)combineMergeDictionary:(id)dictionary other:(id)other
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   otherCopy = other;
   v7 = otherCopy;
@@ -695,30 +692,30 @@ LABEL_19:
     goto LABEL_19;
   }
 
-  v23 = dictionaryCopy;
+  v22 = dictionaryCopy;
   v8 = [dictionaryCopy mutableCopy];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
-  v22 = v7;
+  v21 = v7;
   v9 = v7;
-  v10 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v25;
+    v12 = *v24;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v25 != v12)
+        if (*v24 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v24 + 1) + 8 * i);
-        v15 = [v8 objectForKeyedSubscript:{v14, v22}];
+        v14 = *(*(&v23 + 1) + 8 * i);
+        v15 = [v8 objectForKeyedSubscript:{v14, v21}];
         v16 = [v9 objectForKeyedSubscript:v14];
         v17 = v16;
         if (v15)
@@ -735,40 +732,34 @@ LABEL_19:
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v11);
   }
 
   v18 = [v8 copy];
-  v7 = v22;
-  dictionaryCopy = v23;
+  v7 = v21;
+  dictionaryCopy = v22;
 LABEL_20:
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
 
 - (void)_walkObject:(void *)a1 keyPath:assetReference:result:processedIdentifiers:.cold.1(void *a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   v1 = [a1 keyPath];
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_261DAE000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Asset reference key path failed: %{public}@ at %{public}@", v3, 0x16u);
-
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_261DAE000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Asset reference key path failed: %{public}@ at %{public}@", v2, 0x16u);
 }
 
 - (void)_addAssetReference:(void *)a1 identifier:keyPath:result:processedIdentifiers:.cold.1(void *a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   v1 = [a1 keyPath];
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_261DAE000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Asset reference key wrong type: %{public}@ at %{public}@", v3, 0x16u);
-
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_261DAE000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Asset reference key wrong type: %{public}@ at %{public}@", v2, 0x16u);
 }
 
 @end

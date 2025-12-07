@@ -44,18 +44,17 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (*&self->_has)
   {
-    dateGenerated = self->_dateGenerated;
     PBDataWriterWriteDoubleField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_diagnosticInfo)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -101,7 +100,6 @@
     goto LABEL_9;
   }
 
-  v5 = *(equalCopy + 24);
   if (*&self->_has)
   {
     if ((*(equalCopy + 24) & 1) == 0 || self->_dateGenerated != *(equalCopy + 1))
@@ -113,24 +111,24 @@
   else if (*(equalCopy + 24))
   {
 LABEL_9:
-    v7 = 0;
+    v6 = 0;
     goto LABEL_10;
   }
 
   diagnosticInfo = self->_diagnosticInfo;
   if (diagnosticInfo | *(equalCopy + 2))
   {
-    v7 = [(NSString *)diagnosticInfo isEqual:?];
+    v6 = [(NSString *)diagnosticInfo isEqual:?];
   }
 
   else
   {
-    v7 = 1;
+    v6 = 1;
   }
 
 LABEL_10:
 
-  return v7;
+  return v6;
 }
 
 - (unint64_t)hash

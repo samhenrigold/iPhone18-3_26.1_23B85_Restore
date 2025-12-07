@@ -15,9 +15,9 @@ void sub_25C7B21A8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_25C7B22A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25C7B22A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -168,14 +168,7 @@ void operator new()
   }
 }
 
-0>();
-}
-
-void __57__NumberAdder_numberOne_numberTwo_withCompletionHandler___block_invoke_2(uint64_t a1, CLConnectionMessage **a2)
-{
-  v3 = *a2;
-  v4 = objc_opt_class();
-  ObjectOfClass = CLConnectionMessage::getObjectOfClass(v3, v4);
+ectionMessage::getObjectOfClass(v3, v4);
   v6 = *(*(*(a1 + 32) + 8) + 40);
   (*(v6 + 16))(v6, [ObjectOfClass intValue]);
   v7 = *(*(*(a1 + 32) + 8) + 40);
@@ -185,22 +178,22 @@ void __57__NumberAdder_numberOne_numberTwo_withCompletionHandler___block_invoke_
 
 - (void)handleMessage:(shared_ptr<CLConnectionMessage>)a3
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v4 = CLConnectionMessage::name(*a3.var0);
   if (*(v4 + 23) < 0)
   {
-    std::string::__init_copy_ctor_external(&v11, *v4, *(v4 + 8));
+    std::string::__init_copy_ctor_external(&v10, *v4, *(v4 + 8));
   }
 
   else
   {
     v5 = *v4;
-    v11.__r_.__value_.__r.__words[2] = *(v4 + 16);
-    *&v11.__r_.__value_.__l.__data_ = v5;
+    v10.__r_.__value_.__r.__words[2] = *(v4 + 16);
+    *&v10.__r_.__value_.__l.__data_ = v5;
   }
 
   v6 = _os_activity_create(&dword_25C7B1000, "CL: #NumberAdder Handling message from service", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_DEFAULT);
-  os_activity_scope_enter(v6, &v10);
+  os_activity_scope_enter(v6, &v9);
 
   if (onceToken_NumberAdder_Default != -1)
   {
@@ -210,32 +203,30 @@ void __57__NumberAdder_numberOne_numberTwo_withCompletionHandler___block_invoke_
   v7 = logObject_NumberAdder_Default;
   if (os_log_type_enabled(logObject_NumberAdder_Default, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = &v11;
-    if ((v11.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    v8 = &v10;
+    if ((v10.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      v8 = v11.__r_.__value_.__r.__words[0];
+      v8 = v10.__r_.__value_.__r.__words[0];
     }
 
     *buf = 68289794;
-    v13 = 0;
-    v14 = 2082;
-    v15 = "";
-    v16 = 2082;
-    v17 = "activity";
-    v18 = 2082;
-    v19 = v8;
-    v20 = 2050;
-    v21 = self;
+    v12 = 0;
+    v13 = 2082;
+    v14 = "";
+    v15 = 2082;
+    v16 = "activity";
+    v17 = 2082;
+    v18 = v8;
+    v19 = 2050;
+    v20 = self;
     _os_log_impl(&dword_25C7B1000, v7, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#NumberAdder Handling message from service, event:%{public, location:escape_only}s, messageName:%{public, location:escape_only}s, self:%{public}p}", buf, 0x30u);
   }
 
-  os_activity_scope_leave(&v10);
-  if (SHIBYTE(v11.__r_.__value_.__r.__words[2]) < 0)
+  os_activity_scope_leave(&v9);
+  if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v11.__r_.__value_.__l.__data_);
+    operator delete(v10.__r_.__value_.__l.__data_);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 @end

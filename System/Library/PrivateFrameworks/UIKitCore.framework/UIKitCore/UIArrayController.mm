@@ -52,7 +52,7 @@ void __31___UIArrayController_predicate__block_invoke(uint64_t a1)
   *(v3 + 40) = v2;
 }
 
-uint64_t __32___UIArrayController_invalidate__block_invoke(uint64_t a1)
+void *__32___UIArrayController_invalidate__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) setDelegate:0];
   *(*(a1 + 32) + 9) = 1;

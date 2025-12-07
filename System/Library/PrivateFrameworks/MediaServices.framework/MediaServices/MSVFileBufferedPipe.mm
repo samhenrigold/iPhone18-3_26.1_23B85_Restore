@@ -11,14 +11,14 @@
 
 - (void)_writeBufferedData
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   if (!self->_readyForData)
   {
-    goto LABEL_25;
+    return;
   }
 
   *&v2 = 138543618;
-  v28 = v2;
+  v27 = v2;
   while (1)
   {
     v4 = objc_autoreleasePoolPush();
@@ -57,10 +57,10 @@
           if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
           {
             v17 = strerror(v11);
-            *buf = v28;
+            *buf = v27;
             selfCopy5 = self;
-            v31 = 2080;
-            v32 = v17;
+            v30 = 2080;
+            v31 = v17;
             _os_log_impl(&dword_1AC81F000, v16, OS_LOG_TYPE_ERROR, "%{public}@: write failed with err=%s, breaking out of _writeBufferedData", buf, 0x16u);
           }
         }
@@ -98,7 +98,7 @@ LABEL_24:
     objc_autoreleasePoolPop(v4);
     if (!self->_readyForData)
     {
-      goto LABEL_25;
+      return;
     }
   }
 
@@ -132,27 +132,27 @@ LABEL_24:
     {
       self->_writeSourceState = 0;
       dispatch_suspend(self->_writeSource);
-      v25 = os_log_create("com.apple.amp.MediaServices", "StreamBufferedPipe");
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+      v24 = os_log_create("com.apple.amp.MediaServices", "StreamBufferedPipe");
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
         selfCopy5 = self;
-        _os_log_impl(&dword_1AC81F000, v25, OS_LOG_TYPE_DEFAULT, "%{public}@: Suspending write source", buf, 0xCu);
+        _os_log_impl(&dword_1AC81F000, v24, OS_LOG_TYPE_DEFAULT, "%{public}@: Suspending write source", buf, 0xCu);
       }
     }
   }
 
   else
   {
-    v26 = os_log_create("com.apple.amp.MediaServices", "StreamBufferedPipe");
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+    v25 = os_log_create("com.apple.amp.MediaServices", "StreamBufferedPipe");
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
       writeSourceState = self->_writeSourceState;
-      *buf = v28;
+      *buf = v27;
       selfCopy5 = self;
-      v31 = 1024;
-      LODWORD(v32) = writeSourceState;
-      _os_log_impl(&dword_1AC81F000, v26, OS_LOG_TYPE_DEFAULT, "%{public}@: No valid data to write, fileHandleForReading is invalid. writerSourceState=%d", buf, 0x12u);
+      v30 = 1024;
+      LODWORD(v31) = writeSourceState;
+      _os_log_impl(&dword_1AC81F000, v25, OS_LOG_TYPE_DEFAULT, "%{public}@: No valid data to write, fileHandleForReading is invalid. writerSourceState=%d", buf, 0x12u);
     }
 
     if (!self->_writeSourceState)
@@ -165,8 +165,6 @@ LABEL_24:
   }
 
   objc_autoreleasePoolPop(v4);
-LABEL_25:
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_inputReadyForReading:(unint64_t)reading
@@ -222,22 +220,22 @@ LABEL_25:
 
 - (void)_createBufferFiles
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v3 = NSTemporaryDirectory();
   v4 = [v3 stringByAppendingPathComponent:@"msv_tmp.XXXXXX"];
 
-  v20 = 0;
-  v5 = MSVCreateTemporaryFileHandle(v4, &v20);
-  v6 = v20;
+  v19 = 0;
+  v5 = MSVCreateTemporaryFileHandle(v4, &v19);
+  v6 = v19;
   writeBufferFileHandle = self->_writeBufferFileHandle;
   self->_writeBufferFileHandle = v5;
 
   if (self->_writeBufferFileHandle)
   {
     unlink([v6 fileSystemRepresentation]);
-    v19 = v6;
-    v8 = MSVCreateTemporaryFileHandle(v4, &v19);
-    v9 = v19;
+    v18 = v6;
+    v8 = MSVCreateTemporaryFileHandle(v4, &v18);
+    v9 = v18;
 
     readBufferFileHandle = self->_readBufferFileHandle;
     self->_readBufferFileHandle = v8;
@@ -256,8 +254,8 @@ LABEL_25:
         v16 = strerror(v14);
         *buf = 138543618;
         selfCopy2 = self;
-        v23 = 2080;
-        v24 = v16;
+        v22 = 2080;
+        v23 = v16;
         _os_log_impl(&dword_1AC81F000, v15, OS_LOG_TYPE_ERROR, "%{public}@: failed to create tmp file for reading. err=%s", buf, 0x16u);
       }
 
@@ -277,13 +275,11 @@ LABEL_25:
       v13 = strerror(v11);
       *buf = 138543618;
       selfCopy2 = self;
-      v23 = 2080;
-      v24 = v13;
+      v22 = 2080;
+      v23 = v13;
       _os_log_impl(&dword_1AC81F000, v12, OS_LOG_TYPE_ERROR, "%{public}@: failed to create tmp file for writing. err=%s", buf, 0x16u);
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (MSVFileBufferedPipe)init
@@ -388,17 +384,17 @@ void __27__MSVFileBufferedPipe_init__block_invoke(uint64_t a1)
 
 void __27__MSVFileBufferedPipe_init__block_invoke_2(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v2 = os_log_create("com.apple.amp.MediaServices", "StreamBufferedPipe");
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = *(v3 + 96);
-    v11 = 138543618;
-    v12 = v3;
-    v13 = 1024;
-    v14 = v4;
-    _os_log_impl(&dword_1AC81F000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@: Cancelling write source handler, writerSourceState=%d", &v11, 0x12u);
+    v10 = 138543618;
+    v11 = v3;
+    v12 = 1024;
+    v13 = v4;
+    _os_log_impl(&dword_1AC81F000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@: Cancelling write source handler, writerSourceState=%d", &v10, 0x12u);
   }
 
   v5 = *(a1 + 32);
@@ -414,8 +410,6 @@ void __27__MSVFileBufferedPipe_init__block_invoke_2(uint64_t a1)
   {
     dispatch_source_cancel(*(v9 + 48));
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __27__MSVFileBufferedPipe_init__block_invoke_3(uint64_t a1)
@@ -426,17 +420,17 @@ void __27__MSVFileBufferedPipe_init__block_invoke_3(uint64_t a1)
 
 void __27__MSVFileBufferedPipe_init__block_invoke_2_4(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v2 = os_log_create("com.apple.amp.MediaServices", "StreamBufferedPipe");
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = *(v3 + 96);
-    v11 = 138543618;
-    v12 = v3;
-    v13 = 1024;
-    v14 = v4;
-    _os_log_impl(&dword_1AC81F000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@: Cancelling read source handler, writerSourceState=%d", &v11, 0x12u);
+    v10 = 138543618;
+    v11 = v3;
+    v12 = 1024;
+    v13 = v4;
+    _os_log_impl(&dword_1AC81F000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@: Cancelling read source handler, writerSourceState=%d", &v10, 0x12u);
   }
 
   v5 = *(a1 + 32);
@@ -453,8 +447,6 @@ void __27__MSVFileBufferedPipe_init__block_invoke_2_4(uint64_t a1)
     *(v9 + 96) = 1;
     dispatch_resume(*(*(a1 + 32) + 40));
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 + (id)pipe

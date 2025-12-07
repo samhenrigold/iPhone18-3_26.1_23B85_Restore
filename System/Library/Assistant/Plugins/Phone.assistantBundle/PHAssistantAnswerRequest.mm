@@ -6,9 +6,9 @@
 
 - (void)performWithCompletion:(id)completion
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -24,13 +24,11 @@
   block[1] = 3221225472;
   block[2] = sub_233522510;
   block[3] = &unk_2789DD7C0;
-  v13 = v8;
-  v14 = completionCopy;
+  v12 = v8;
+  v13 = completionCopy;
   v9 = completionCopy;
   v10 = v8;
   dispatch_sync(v7, block);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

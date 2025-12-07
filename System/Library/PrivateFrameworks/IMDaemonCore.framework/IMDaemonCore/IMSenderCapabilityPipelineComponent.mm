@@ -24,7 +24,7 @@
 
 - (id)runIndividuallyWithInput:(id)input
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   inputCopy = input;
   fromIdentifier = [inputCopy fromIdentifier];
   if ([fromIdentifier length])
@@ -36,79 +36,79 @@
     {
       v6 = objc_alloc(MEMORY[0x277D18A48]);
       toIdentifier2 = [inputCopy toIdentifier];
-      v36 = [v6 initWithUnprefixedURI:toIdentifier2];
+      v35 = [v6 initWithUnprefixedURI:toIdentifier2];
 
       v8 = objc_alloc_init(MEMORY[0x277CBEB58]);
       v9 = MEMORY[0x277D1AA00];
       fromIdentifier2 = [inputCopy fromIdentifier];
-      v61 = fromIdentifier2;
-      v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v61 count:1];
-      v35 = [v9 _currentCachedRemoteDevicesForDestinations:v11 service:@"com.apple.madrid" preferredFromID:v36 listenerID:@"IMSenderCapabilityPipelineComponent"];
+      v60 = fromIdentifier2;
+      v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v60 count:1];
+      v34 = [v9 _currentCachedRemoteDevicesForDestinations:v11 service:@"com.apple.madrid" preferredFromID:v35 listenerID:@"IMSenderCapabilityPipelineComponent"];
 
-      v56 = 0u;
-      v57 = 0u;
-      v54 = 0u;
       v55 = 0u;
-      obj = [v35 allValues];
-      v38 = [obj countByEnumeratingWithState:&v54 objects:v60 count:16];
-      if (v38)
+      v56 = 0u;
+      v53 = 0u;
+      v54 = 0u;
+      obj = [v34 allValues];
+      v37 = [obj countByEnumeratingWithState:&v53 objects:v59 count:16];
+      if (v37)
       {
         v12 = 0;
-        v37 = *v55;
+        v36 = *v54;
         do
         {
-          for (i = 0; i != v38; ++i)
+          for (i = 0; i != v37; ++i)
           {
-            if (*v55 != v37)
+            if (*v54 != v36)
             {
               objc_enumerationMutation(obj);
             }
 
-            v13 = *(*(&v54 + 1) + 8 * i);
+            v13 = *(*(&v53 + 1) + 8 * i);
+            v49 = 0u;
             v50 = 0u;
             v51 = 0u;
             v52 = 0u;
-            v53 = 0u;
-            v42 = v13;
-            v44 = [v42 countByEnumeratingWithState:&v50 objects:v59 count:16];
-            if (v44)
+            v41 = v13;
+            v43 = [v41 countByEnumeratingWithState:&v49 objects:v58 count:16];
+            if (v43)
             {
-              v43 = *v51;
+              v42 = *v50;
               do
               {
-                for (j = 0; j != v44; ++j)
+                for (j = 0; j != v43; ++j)
                 {
-                  if (*v51 != v43)
+                  if (*v50 != v42)
                   {
-                    objc_enumerationMutation(v42);
+                    objc_enumerationMutation(v41);
                   }
 
-                  v15 = *(*(&v50 + 1) + 8 * j);
+                  v15 = *(*(&v49 + 1) + 8 * j);
                   pushToken = [v15 pushToken];
                   pushToken2 = [(IMSenderCapabilityPipelineComponent *)self pushToken];
                   v18 = [pushToken isEqualToData:pushToken2];
 
                   if (v18)
                   {
-                    v48 = 0u;
-                    v49 = 0u;
-                    v46 = 0u;
                     v47 = 0u;
+                    v48 = 0u;
+                    v45 = 0u;
+                    v46 = 0u;
                     registrationProperties = [(IMSenderCapabilityPipelineComponent *)self registrationProperties];
-                    v20 = [registrationProperties countByEnumeratingWithState:&v46 objects:v58 count:16];
+                    v20 = [registrationProperties countByEnumeratingWithState:&v45 objects:v57 count:16];
                     if (v20)
                     {
-                      v21 = *v47;
+                      v21 = *v46;
                       do
                       {
                         for (k = 0; k != v20; ++k)
                         {
-                          if (*v47 != v21)
+                          if (*v46 != v21)
                           {
                             objc_enumerationMutation(registrationProperties);
                           }
 
-                          v23 = *(*(&v46 + 1) + 8 * k);
+                          v23 = *(*(&v45 + 1) + 8 * k);
                           capabilities = [v15 capabilities];
                           v25 = [capabilities valueForCapability:v23];
 
@@ -118,7 +118,7 @@
                           }
                         }
 
-                        v20 = [registrationProperties countByEnumeratingWithState:&v46 objects:v58 count:16];
+                        v20 = [registrationProperties countByEnumeratingWithState:&v45 objects:v57 count:16];
                       }
 
                       while (v20);
@@ -128,17 +128,17 @@
                   }
                 }
 
-                v44 = [v42 countByEnumeratingWithState:&v50 objects:v59 count:16];
+                v43 = [v41 countByEnumeratingWithState:&v49 objects:v58 count:16];
               }
 
-              while (v44);
+              while (v43);
             }
           }
 
-          v38 = [obj countByEnumeratingWithState:&v54 objects:v60 count:16];
+          v37 = [obj countByEnumeratingWithState:&v53 objects:v59 count:16];
         }
 
-        while (v38);
+        while (v37);
       }
 
       else
@@ -149,20 +149,20 @@
       [inputCopy setSenderRegistrationProperties:v8];
       if (IMOSLoggingEnabled())
       {
-        v33 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
+        v32 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
         {
-          v34 = @"NO";
+          v33 = @"NO";
           if (v12)
           {
-            v34 = @"YES";
+            v33 = @"YES";
           }
 
           *buf = 138412546;
-          v63 = v8;
-          v64 = 2112;
-          v65 = v34;
-          _os_log_impl(&dword_22B4CC000, v33, OS_LOG_TYPE_INFO, "<IMSenderCapabilityPipelineComponent> Final capabilities: %@ foundEndpoint: %@", buf, 0x16u);
+          v62 = v8;
+          v63 = 2112;
+          v64 = v33;
+          _os_log_impl(&dword_22B4CC000, v32, OS_LOG_TYPE_INFO, "<IMSenderCapabilityPipelineComponent> Final capabilities: %@ foundEndpoint: %@", buf, 0x16u);
         }
       }
 
@@ -184,9 +184,9 @@
       fromIdentifier3 = [inputCopy fromIdentifier];
       toIdentifier3 = [inputCopy toIdentifier];
       *buf = 138412546;
-      v63 = fromIdentifier3;
-      v64 = 2112;
-      v65 = toIdentifier3;
+      v62 = fromIdentifier3;
+      v63 = 2112;
+      v64 = toIdentifier3;
       _os_log_impl(&dword_22B4CC000, v26, OS_LOG_TYPE_INFO, "<IMSenderCapabilityPipelineComponent> Incomplete identifier(s), returning empty capabilities (from: %@, to: %@)", buf, 0x16u);
     }
   }
@@ -196,8 +196,6 @@
 
   v30 = [objc_alloc(MEMORY[0x277D18E08]) initWithValue:inputCopy];
 LABEL_35:
-
-  v31 = *MEMORY[0x277D85DE8];
 
   return v30;
 }

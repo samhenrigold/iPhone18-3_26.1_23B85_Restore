@@ -12,32 +12,32 @@
 - (int64_t)numberOfSections
 {
   selfCopy = self;
-  v3 = sub_1A4008420();
+  v4 = sub_1A4008420(v3);
 
-  return v3;
+  return v4;
 }
 
 - (int64_t)numberOfItemsInSection:(int64_t)section
 {
   selfCopy = self;
-  v5 = sub_1A40072A4(section);
+  v6 = sub_1A40072A4(section, v5);
 
-  return v5;
+  return v6;
 }
 
 - (PXAssetReference)startingAssetReference
 {
   selfCopy = self;
-  v3 = sub_1A4007564();
+  v4 = sub_1A4007564(v3);
 
-  return v3;
+  return v4;
 }
 
 - (PXSimpleIndexPath)indexPathForAssetReference:(SEL)reference
 {
   v5 = a4;
   selfCopy = self;
-  sub_1A4007698();
+  sub_1A4007698(v5);
 }
 
 - (id)assetReferenceForAssetReference:(id)reference

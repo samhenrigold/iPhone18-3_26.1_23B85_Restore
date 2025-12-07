@@ -1,4 +1,6 @@
 @interface UASimulatorController
++ (id)simulatorControllerForCommandPort:(unsigned int)port;
++ (void)setSimulatorForCommandPort:(unsigned int)port controller:(id)controller;
 - (BOOL)active;
 - (BOOL)terminate;
 - (NSSet)simulators;
@@ -10,6 +12,43 @@
 @end
 
 @implementation UASimulatorController
+
++ (id)simulatorControllerForCommandPort:(unsigned int)port
+{
+  v3 = *&port;
+  os_unfair_lock_lock(&unk_1000E5CB8);
+  v4 = qword_1000E5CB0;
+  if (qword_1000E5CB0)
+  {
+    v5 = [NSNumber numberWithUnsignedInt:v3];
+    v4 = [v4 objectForKeyedSubscript:v5];
+  }
+
+  os_unfair_lock_unlock(&unk_1000E5CB8);
+
+  return v4;
+}
+
++ (void)setSimulatorForCommandPort:(unsigned int)port controller:(id)controller
+{
+  v4 = *&port;
+  controllerCopy = controller;
+  os_unfair_lock_lock(&unk_1000E5CB8);
+  v5 = qword_1000E5CB0;
+  if (controllerCopy && !qword_1000E5CB0)
+  {
+    v6 = +[NSMutableDictionary dictionary];
+    v7 = qword_1000E5CB0;
+    qword_1000E5CB0 = v6;
+
+    v5 = qword_1000E5CB0;
+  }
+
+  v8 = [NSNumber numberWithUnsignedInt:v4];
+  [v5 setObject:controllerCopy forKeyedSubscript:v8];
+
+  os_unfair_lock_unlock(&unk_1000E5CB8);
+}
 
 - (UASimulatorController)initWithManager:(id)manager
 {

@@ -1,5 +1,6 @@
 @interface GPMessagesViewController
 - (_TtC40GenerativePlaygroundMessagesAppExtension24GPMessagesViewController)initWithNibName:(id)name bundle:(id)bundle;
+- (_TtC40GenerativePlaygroundMessagesAppExtension24GPMessagesViewController)initWithShouldBeSheetPresentationControllerDelegate:(BOOL)delegate;
 - (void)_didRemoveAssetArchiveWithIdentifier:(id)identifier;
 - (void)didBecomeActiveWithConversation:(id)conversation;
 - (void)imagePlaygroundViewController:(id)controller didCreateImageAt:(id)at;
@@ -18,8 +19,8 @@
 
 - (void)willBecomeActiveWithConversation:(id)conversation
 {
-  v5 = (*(*(sub_1000031C4(&qword_1000149F0, &qword_10000BAD0) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
+  v5 = sub_1000031C4(&qword_1000149F0, &qword_10000BAD0);
+  __chkstk_darwin(v5 - 8);
   v7 = &v15 - v6;
   conversationCopy = conversation;
   selfCopy = self;
@@ -84,15 +85,29 @@
   return sub_1000063D4(v5, v7, bundle);
 }
 
+- (_TtC40GenerativePlaygroundMessagesAppExtension24GPMessagesViewController)initWithShouldBeSheetPresentationControllerDelegate:(BOOL)delegate
+{
+  delegateCopy = delegate;
+  ObjectType = swift_getObjectType();
+  *(&self->super.super.super.super.isa + OBJC_IVAR____TtC40GenerativePlaygroundMessagesAppExtension24GPMessagesViewController_playgroundViewController) = 0;
+  v6 = OBJC_IVAR____TtC40GenerativePlaygroundMessagesAppExtension24GPMessagesViewController_contextSummarizer;
+  sub_10000A584();
+  swift_allocObject();
+  *(&self->super.super.super.super.isa + v6) = sub_10000A574();
+  *(&self->super.super.super.super.isa + OBJC_IVAR____TtC40GenerativePlaygroundMessagesAppExtension24GPMessagesViewController_stagedAssetIdentifiers) = &_swiftEmptySetSingleton;
+  v8.receiver = self;
+  v8.super_class = ObjectType;
+  return [(GPMessagesViewController *)&v8 initWithShouldBeSheetPresentationControllerDelegate:delegateCopy];
+}
+
 - (void)imagePlaygroundViewController:(id)controller didCreateImageAt:(id)at
 {
   v4 = sub_10000A374();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  __chkstk_darwin();
-  v8 = &v9 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v4);
+  v7 = &v8 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_10000A364();
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 }
 
 - (void)imagePlaygroundViewController:(id)controller didSelectAssets:(id)assets

@@ -35,44 +35,44 @@
 - (void)runWithCompletion:(id)completion
 {
   completionCopy = completion;
-  objc_initWeak(&location, self);
-  v5 = sub_10017DA30();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  inited = objc_initWeak(&location, self);
+  v6 = sub_10017DA30(inited);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     request = [(FMDNetworkAction *)self request];
     *buf = 138412546;
     *&buf[4] = self;
     *&buf[12] = 2112;
     *&buf[14] = request;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%@ run for request - %@", buf, 0x16u);
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%@ run for request - %@", buf, 0x16u);
   }
 
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v28 = sub_10000A938;
-  v29 = sub_100002A74;
+  v30 = sub_10000A938;
+  v31 = sub_100002A74;
   request2 = [(FMDNetworkAction *)self request];
   completionHandler = [request2 completionHandler];
 
-  v18[0] = _NSConcreteStackBlock;
-  v18[1] = 3221225472;
-  v18[2] = sub_100127468;
-  v18[3] = &unk_1002CD198;
-  objc_copyWeak(&v21, &location);
-  v18[4] = self;
-  v20 = buf;
-  v8 = completionCopy;
-  v19 = v8;
-  v9 = objc_retainBlock(v18);
-  v10 = sub_10017DA30();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  v20[0] = _NSConcreteStackBlock;
+  v20[1] = 3221225472;
+  v20[2] = sub_100127468;
+  v20[3] = &unk_1002CD198;
+  objc_copyWeak(&v23, &location);
+  v20[4] = self;
+  v22 = buf;
+  v9 = completionCopy;
+  v21 = v9;
+  v10 = objc_retainBlock(v20);
+  v11 = sub_10017DA30(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
-    sub_100225538(self, v9);
+    sub_100225538(self, v10);
   }
 
   request3 = [(FMDNetworkAction *)self request];
-  [request3 setCompletionHandler:v9];
+  [request3 setCompletionHandler:v10];
 
   request4 = [(FMDNetworkAction *)self request];
   if ([request4 cancelled])
@@ -83,33 +83,33 @@
   {
     serverInteractionController = [(FMDNetworkAction *)self serverInteractionController];
     request5 = [(FMDNetworkAction *)self request];
-    v15 = [serverInteractionController enqueueRequest:request5];
+    v17 = [serverInteractionController enqueueRequest:request5];
 
-    if (v15)
+    if (v17)
     {
       goto LABEL_12;
     }
   }
 
-  v16 = sub_10017DA30();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v18 = sub_10017DA30(v14);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     request6 = [(FMDNetworkAction *)self request];
-    *v23 = 138412546;
+    *v25 = 138412546;
     selfCopy = self;
-    v25 = 2112;
-    v26 = request6;
-    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "%@ request cancelled or did not enqueue: %@", v23, 0x16u);
+    v27 = 2112;
+    v28 = request6;
+    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "%@ request cancelled or did not enqueue: %@", v25, 0x16u);
   }
 
-  if (v8)
+  if (v9)
   {
-    v8[2](v8);
+    v9[2](v9);
   }
 
 LABEL_12:
 
-  objc_destroyWeak(&v21);
+  objc_destroyWeak(&v23);
   _Block_object_dispose(buf, 8);
 
   objc_destroyWeak(&location);
@@ -117,7 +117,7 @@ LABEL_12:
 
 - (void)willCancelAction
 {
-  v3 = sub_10017DA30();
+  v3 = sub_10017DA30(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     request = [(FMDNetworkAction *)self request];

@@ -41,19 +41,17 @@
 
 - (id)dummyRecoveryInfo
 {
-  v11[2] = *MEMORY[0x277D85DE8];
+  v10[2] = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CFD3F0];
-  v10[0] = *MEMORY[0x277CFD3F8];
-  v10[1] = v2;
-  v11[0] = @"mockMID";
-  v11[1] = @"mockPRK";
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
-  v8 = *MEMORY[0x277CFB320];
+  v9[0] = *MEMORY[0x277CFD3F8];
+  v9[1] = v2;
+  v10[0] = @"mockMID";
+  v10[1] = @"mockPRK";
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
+  v7 = *MEMORY[0x277CFB320];
   v4 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v3 requiringSecureCoding:1 error:0];
-  v9 = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v9 forKeys:&v8 count:1];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v8 = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v8 forKeys:&v7 count:1];
 
   return v5;
 }

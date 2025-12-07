@@ -114,10 +114,11 @@ void sub_32E4(id a1)
   _objc_release_x1();
 }
 
-void sub_4428(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_4428(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 void sub_4EF8(uint64_t a1, void *a2, void *a3)
@@ -181,16 +182,15 @@ LABEL_6:
 
 void sub_6048(uint64_t a1, void *a2, void *a3)
 {
-  v8 = a2;
+  v7 = a2;
   v5 = NTKComplicationSlotSubdialTop;
   v6 = a3;
-  if (([v8 isEqualToString:v5] & 1) != 0 || objc_msgSend(v8, "isEqualToString:", NTKComplicationSlotSubdialBottom))
+  if (([v7 isEqualToString:v5] & 1) != 0 || objc_msgSend(v7, "isEqualToString:", NTKComplicationSlotSubdialBottom))
   {
     [*(a1 + 32) _complicationAlphaForEditMode:*(a1 + 40)];
     [*(a1 + 32) _complicationAlphaForEditMode:*(a1 + 48)];
   }
 
-  v7 = *(a1 + 56);
   CLKInterpolateBetweenFloatsClipped();
   [v6 setAlpha:?];
 }
@@ -315,4 +315,25 @@ double sub_857C(uint64_t a1, void *a2)
   os_unfair_lock_unlock(&unk_163D8);
 
   return v5;
+}
+
+void sub_8678(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  sub_4428(&dword_0, a2, a3, "Proteus font loader-got font from permanent set %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_86E4(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  sub_4428(&dword_0, a2, a3, "Proteus font loader-got font from motion cache %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_8750(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  sub_4428(&dword_0, a2, a3, "Proteus font loader-got font from status cache %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }

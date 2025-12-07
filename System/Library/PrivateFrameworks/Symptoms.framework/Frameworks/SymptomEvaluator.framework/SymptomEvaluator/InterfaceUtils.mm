@@ -70,46 +70,45 @@
 
 + (BOOL)interfaceIsDirectLink:(id)link
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   linkCopy = link;
   if (linkCopy)
   {
-    v4 = *MEMORY[0x277CBECE8];
-    v5 = _SCNetworkInterfaceCreateWithBSDName();
-    if (v5)
+    v4 = _SCNetworkInterfaceCreateWithBSDName();
+    if (v4)
     {
       if (_SCNetworkInterfaceIsThunderbolt())
       {
-        v6 = otherLogHandle;
-        v7 = 1;
+        v5 = otherLogHandle;
+        v6 = 1;
         if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v27 = linkCopy;
-          _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_INFO, "Found Thunderbolt DirectLink interface %@", buf, 0xCu);
+          v25 = linkCopy;
+          _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_INFO, "Found Thunderbolt DirectLink interface %@", buf, 0xCu);
         }
 
         goto LABEL_14;
       }
 
-      InterfaceType = SCNetworkInterfaceGetInterfaceType(v5);
+      InterfaceType = SCNetworkInterfaceGetInterfaceType(v4);
       if (InterfaceType)
       {
-        v19 = InterfaceType;
+        v17 = InterfaceType;
         if (CFStringCompare(InterfaceType, *MEMORY[0x277CE1860], 0))
         {
-          v20 = otherLogHandle;
+          v18 = otherLogHandle;
           if (!os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_INFO))
           {
             goto LABEL_13;
           }
 
           *buf = 138412546;
-          v27 = linkCopy;
-          v28 = 2112;
-          v29 = v19;
-          v10 = "Interface %@ has non-Ethernet type %@";
-          v11 = v20;
+          v25 = linkCopy;
+          v26 = 2112;
+          v27 = v17;
+          v9 = "Interface %@ has non-Ethernet type %@";
+          v10 = v18;
           goto LABEL_25;
         }
 
@@ -120,39 +119,39 @@
           CFNumberGetValue(FamilySubType, kCFNumberSInt64Type, &valuePtr);
           if (valuePtr != 1)
           {
-            v24 = otherLogHandle;
+            v22 = otherLogHandle;
             if (!os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_INFO))
             {
               goto LABEL_13;
             }
 
             *buf = 138412546;
-            v27 = linkCopy;
-            v28 = 2048;
-            v29 = valuePtr;
-            v10 = "Interface %@ has non-USB InterfaceSubFamily %llu";
-            v11 = v24;
+            v25 = linkCopy;
+            v26 = 2048;
+            v27 = valuePtr;
+            v9 = "Interface %@ has non-USB InterfaceSubFamily %llu";
+            v10 = v22;
 LABEL_25:
-            v12 = OS_LOG_TYPE_INFO;
-            v13 = 22;
+            v11 = OS_LOG_TYPE_INFO;
+            v12 = 22;
             goto LABEL_12;
           }
 
           IOPath = _SCNetworkInterfaceGetIOPath();
-          v9 = otherLogHandle;
+          v8 = otherLogHandle;
           if (IOPath)
           {
-            v23 = IOPath;
+            v21 = IOPath;
             if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412547;
-              v27 = linkCopy;
-              v28 = 2117;
-              v29 = v23;
-              _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEBUG, "Interface %@ has IOPath %{sensitive}@", buf, 0x16u);
+              v25 = linkCopy;
+              v26 = 2117;
+              v27 = v21;
+              _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEBUG, "Interface %@ has IOPath %{sensitive}@", buf, 0x16u);
             }
 
-            v7 = CFStringFind(v23, @"/AppleUSBNCMData@", 0).location != -1;
+            v6 = CFStringFind(v21, @"/AppleUSBNCMData@", 0).location != -1;
             goto LABEL_14;
           }
 
@@ -162,95 +161,94 @@ LABEL_25:
           }
 
           *buf = 138412290;
-          v27 = linkCopy;
-          v10 = "IOPath for interface %@ is NULL";
+          v25 = linkCopy;
+          v9 = "IOPath for interface %@ is NULL";
         }
 
         else
         {
-          v9 = otherLogHandle;
+          v8 = otherLogHandle;
           if (!os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_13;
           }
 
           *buf = 138412290;
-          v27 = linkCopy;
-          v10 = "InterfaceSubType for %@ is NULL";
+          v25 = linkCopy;
+          v9 = "InterfaceSubType for %@ is NULL";
         }
       }
 
       else
       {
-        v9 = otherLogHandle;
+        v8 = otherLogHandle;
         if (!os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_13;
         }
 
         *buf = 138412290;
-        v27 = linkCopy;
-        v10 = "InterfaceType for %@ is NULL";
+        v25 = linkCopy;
+        v9 = "InterfaceType for %@ is NULL";
       }
     }
 
     else
     {
-      v9 = otherLogHandle;
+      v8 = otherLogHandle;
       if (!os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_ERROR))
       {
 LABEL_13:
-        v7 = 0;
+        v6 = 0;
 LABEL_14:
-        v14 = otherLogHandle;
+        v13 = otherLogHandle;
         if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_DEFAULT))
         {
-          v15 = " not";
-          if (v7)
+          v14 = " not";
+          if (v6)
           {
-            v15 = "";
+            v14 = "";
           }
 
           *buf = 138412546;
-          v27 = linkCopy;
-          v28 = 2080;
-          v29 = v15;
-          _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_DEFAULT, "Interface %@ is%s a DirectLink interface", buf, 0x16u);
+          v25 = linkCopy;
+          v26 = 2080;
+          v27 = v14;
+          _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_DEFAULT, "Interface %@ is%s a DirectLink interface", buf, 0x16u);
         }
 
-        if (v5)
+        if (v4)
         {
-          CFRelease(v5);
+          CFRelease(v4);
         }
 
         goto LABEL_20;
       }
 
       *buf = 138412290;
-      v27 = linkCopy;
-      v10 = "Error obtaining SCNetworkInterface for %@";
+      v25 = linkCopy;
+      v9 = "Error obtaining SCNetworkInterface for %@";
     }
 
-    v11 = v9;
-    v12 = OS_LOG_TYPE_ERROR;
-    v13 = 12;
+    v10 = v8;
+    v11 = OS_LOG_TYPE_ERROR;
+    v12 = 12;
 LABEL_12:
-    _os_log_impl(&dword_23255B000, v11, v12, v10, buf, v13);
+    _os_log_impl(&dword_23255B000, v10, v11, v9, buf, v12);
     goto LABEL_13;
   }
 
-  v8 = otherLogHandle;
+  v7 = otherLogHandle;
   if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
-    _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_ERROR, "Ignoring interface with nil ifName", buf, 2u);
+    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_ERROR, "Ignoring interface with nil ifName", buf, 2u);
   }
 
-  LOBYTE(v7) = 0;
+  LOBYTE(v6) = 0;
 LABEL_20:
 
-  v16 = *MEMORY[0x277D85DE8];
-  return v7;
+  return v6;
 }
 
 @end

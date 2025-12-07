@@ -53,14 +53,12 @@
 
 - (NSArray)dependencies
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   experiment = [(TRIExperimentBaseTask *)self experiment];
   taskAttributing = [(TRITreatmentBaseTask *)self taskAttributing];
   v5 = [TRIFetchExperimentTask taskWithExperimentDeployment:experiment taskAttributing:taskAttributing];
-  v9[0] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v8[0] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
 
   return v6;
 }
@@ -79,7 +77,7 @@
 
 - (void)runDequeueHandlerUsingContext:(id)context
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v5 = [(TRIExperimentBaseTask *)self containerForFirstNamespaceInExperimentWithContext:contextCopy];
   treatmentId = [(TRITreatmentBaseTask *)self treatmentId];
@@ -94,13 +92,11 @@
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       treatmentId2 = [(TRITreatmentBaseTask *)self treatmentId];
-      v12 = 138412290;
-      v13 = treatmentId2;
-      _os_log_error_impl(&dword_26F567000, v9, OS_LOG_TYPE_ERROR, "Failed to drop reference on artifact for treatment %@.", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = treatmentId2;
+      _os_log_error_impl(&dword_26F567000, v9, OS_LOG_TYPE_ERROR, "Failed to drop reference on artifact for treatment %@.", &v11, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_downloadAndSaveMAAssets:(id)assets options:(id)options downloadNotificationKey:(id)key context:(id)context errorResult:(id *)result fetchError:(id *)error
@@ -203,7 +199,7 @@ void __113__TRIFetchTreatmentTask__downloadAndSaveMAAssets_options_downloadNotif
 - (id)_saveTreatment:(id)treatment experimentRecord:(id)record assetURLs:(id)ls assetMetadata:(id)metadata context:(id)context paths:(id)paths downloadOptions:(id)options
 {
   optionsCopy = options;
-  v141 = *MEMORY[0x277D85DE8];
+  v140 = *MEMORY[0x277D85DE8];
   treatmentCopy = treatment;
   recordCopy = record;
   lsCopy = ls;
@@ -211,16 +207,16 @@ void __113__TRIFetchTreatmentTask__downloadAndSaveMAAssets_options_downloadNotif
   contextCopy = context;
   pathsCopy = paths;
   optionsCopy2 = options;
-  v110 = contextCopy;
+  v109 = contextCopy;
   experimentDatabase = [contextCopy experimentDatabase];
   namespaceDatabase = [contextCopy namespaceDatabase];
-  v102 = [[TRIUserCovariates alloc] initWithContext:contextCopy];
-  v133[0] = MEMORY[0x277D85DD0];
-  v133[1] = 3221225472;
-  v133[2] = __111__TRIFetchTreatmentTask__saveTreatment_experimentRecord_assetURLs_assetMetadata_context_paths_downloadOptions___block_invoke;
-  v133[3] = &unk_279DE4AA0;
-  v133[4] = self;
-  v108 = MEMORY[0x2743948D0](v133);
+  v101 = [[TRIUserCovariates alloc] initWithContext:contextCopy];
+  v132[0] = MEMORY[0x277D85DD0];
+  v132[1] = 3221225472;
+  v132[2] = __111__TRIFetchTreatmentTask__saveTreatment_experimentRecord_assetURLs_assetMetadata_context_paths_downloadOptions___block_invoke;
+  v132[3] = &unk_279DE4AA0;
+  v132[4] = self;
+  v107 = MEMORY[0x2743948D0](v132);
   if (treatmentCopy)
   {
     if ([treatmentCopy hasTreatmentId])
@@ -237,49 +233,49 @@ void __113__TRIFetchTreatmentTask__downloadAndSaveMAAssets_options_downloadNotif
           *buf = 0;
           *&buf[8] = buf;
           *&buf[16] = 0x3032000000;
-          v139 = __Block_byref_object_copy__53;
-          *v140 = __Block_byref_object_dispose__53;
-          *&v140[8] = 0;
+          v138 = __Block_byref_object_copy__53;
+          *v139 = __Block_byref_object_dispose__53;
+          *&v139[8] = 0;
           v22 = TRILogCategory_Server();
           if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
           {
             factorLevelArray_Count = [treatmentCopy factorLevelArray_Count];
             treatmentId3 = [(TRITreatmentBaseTask *)self treatmentId];
             experiment = [(TRIExperimentBaseTask *)self experiment];
-            *v135 = 134218498;
-            *&v135[4] = factorLevelArray_Count;
-            *&v135[12] = 2112;
-            *&v135[14] = treatmentId3;
-            *&v135[22] = 2114;
-            v136 = experiment;
-            _os_log_debug_impl(&dword_26F567000, v22, OS_LOG_TYPE_DEBUG, "got %lu factors defined in treatment %@ for experiment %{public}@", v135, 0x20u);
+            *v134 = 134218498;
+            *&v134[4] = factorLevelArray_Count;
+            *&v134[12] = 2112;
+            *&v134[14] = treatmentId3;
+            *&v134[22] = 2114;
+            v135 = experiment;
+            _os_log_debug_impl(&dword_26F567000, v22, OS_LOG_TYPE_DEBUG, "got %lu factors defined in treatment %@ for experiment %{public}@", v134, 0x20u);
           }
 
-          *v135 = 0;
-          *&v135[8] = v135;
-          *&v135[16] = 0x2020000000;
-          LOBYTE(v136) = 1;
+          *v134 = 0;
+          *&v134[8] = v134;
+          *&v134[16] = 0x2020000000;
+          LOBYTE(v135) = 1;
           factorLevelArray = [treatmentCopy factorLevelArray];
-          v128[0] = MEMORY[0x277D85DD0];
-          v128[1] = 3221225472;
-          v128[2] = __111__TRIFetchTreatmentTask__saveTreatment_experimentRecord_assetURLs_assetMetadata_context_paths_downloadOptions___block_invoke_330;
-          v128[3] = &unk_279DE4AC8;
-          v128[4] = self;
-          v131 = v135;
+          v127[0] = MEMORY[0x277D85DD0];
+          v127[1] = 3221225472;
+          v127[2] = __111__TRIFetchTreatmentTask__saveTreatment_experimentRecord_assetURLs_assetMetadata_context_paths_downloadOptions___block_invoke_330;
+          v127[3] = &unk_279DE4AC8;
+          v127[4] = self;
+          v130 = v134;
           v24 = v21;
-          v129 = v24;
-          v130 = namespaceDatabase;
-          v132 = buf;
-          [factorLevelArray enumerateObjectsUsingBlock:v128];
+          v128 = v24;
+          v129 = namespaceDatabase;
+          v131 = buf;
+          [factorLevelArray enumerateObjectsUsingBlock:v127];
 
-          v25 = *(*&v135[8] + 24);
+          v25 = *(*&v134[8] + 24);
           if (v25)
           {
             if (*(*&buf[8] + 40))
             {
               v26 = [MEMORY[0x277D73BE8] dimensionWithName:@"client_app_bundle_id" value:?];
               [(TRIExperimentBaseTask *)self addDimension:v26];
-              v27 = [(TRIUserCovariates *)v102 tri_shortVersionStringForBundleId:*(*&buf[8] + 40)];
+              v27 = [(TRIUserCovariates *)v101 tri_shortVersionStringForBundleId:*(*&buf[8] + 40)];
               v28 = [MEMORY[0x277D73BE8] dimensionWithName:@"client_app_version" value:v27];
               [(TRIExperimentBaseTask *)self addDimension:v28];
             }
@@ -290,11 +286,11 @@ void __113__TRIFetchTreatmentTask__downloadAndSaveMAAssets_options_downloadNotif
           else
           {
             [(TRIFetchTreatmentTask *)self _addMetricForFetchTreatmentTaskError:26];
-            optionsCopy = v108[2](v108, 16);
+            optionsCopy = v107[2](v107, 16);
             allObjects = 0;
           }
 
-          _Block_object_dispose(v135, 8);
+          _Block_object_dispose(v134, 8);
           _Block_object_dispose(buf, 8);
 
           if ((v25 & 1) == 0)
@@ -311,17 +307,17 @@ void __113__TRIFetchTreatmentTask__downloadAndSaveMAAssets_options_downloadNotif
                 experiment2 = [(TRIExperimentBaseTask *)self experiment];
                 startDate = [recordCopy startDate];
                 endDate = [recordCopy endDate];
-                v40 = [experimentDatabase namespacesAreAvailableForExperiment:experiment2 startDate:startDate endDate:endDate namespaces:allObjects];
+                v39 = [experimentDatabase namespacesAreAvailableForExperiment:experiment2 startDate:startDate endDate:endDate namespaces:allObjects];
 
-                if ((v40 & 1) == 0)
+                if ((v39 & 1) == 0)
                 {
-                  v84 = TRILogCategory_Server();
-                  if (os_log_type_enabled(v84, OS_LOG_TYPE_ERROR))
+                  v83 = TRILogCategory_Server();
+                  if (os_log_type_enabled(v83, OS_LOG_TYPE_ERROR))
                   {
                     treatmentId4 = [(TRITreatmentBaseTask *)self treatmentId];
                     experiment3 = [(TRIExperimentBaseTask *)self experiment];
                     shortDesc = [experiment3 shortDesc];
-                    v97 = [allObjects componentsJoinedByString:{@", "}];
+                    v96 = [allObjects componentsJoinedByString:{@", "}];
                     startDate2 = [recordCopy startDate];
                     endDate2 = [recordCopy endDate];
                     *buf = 138413314;
@@ -329,161 +325,161 @@ void __113__TRIFetchTreatmentTask__downloadAndSaveMAAssets_options_downloadNotif
                     *&buf[12] = 2114;
                     *&buf[14] = shortDesc;
                     *&buf[22] = 2114;
-                    v139 = v97;
-                    *v140 = 2112;
-                    *&v140[2] = startDate2;
-                    *&v140[10] = 2112;
-                    *&v140[12] = endDate2;
-                    _os_log_error_impl(&dword_26F567000, v84, OS_LOG_TYPE_ERROR, "cannot install treatment %@ of experiment %{public}@ -- namespaces %{public}@ not available for experimentation during time from %@ to %@", buf, 0x34u);
+                    v138 = v96;
+                    *v139 = 2112;
+                    *&v139[2] = startDate2;
+                    *&v139[10] = 2112;
+                    *&v139[12] = endDate2;
+                    _os_log_error_impl(&dword_26F567000, v83, OS_LOG_TYPE_ERROR, "cannot install treatment %@ of experiment %{public}@ -- namespaces %{public}@ not available for experimentation during time from %@ to %@", buf, 0x34u);
                   }
 
                   [(TRIFetchTreatmentTask *)self _addMetricForFetchTreatmentTaskError:28];
-                  optionsCopy = v108[2](v108, 17);
+                  optionsCopy = v107[2](v107, 17);
                   goto LABEL_86;
                 }
               }
 
-              v33 = 0;
+              v32 = 0;
 LABEL_37:
-              *v135 = 0;
-              *&v135[8] = v135;
-              *&v135[16] = 0x2810000000;
-              v136 = &unk_26F7089E2;
-              v137 = 1;
+              *v134 = 0;
+              *&v134[8] = v134;
+              *&v134[16] = 0x2810000000;
+              v135 = &unk_26F7089E2;
+              v136 = 1;
               *buf = 0;
               *&buf[8] = buf;
               *&buf[16] = 0x3032000000;
-              v139 = __Block_byref_object_copy__53;
-              *v140 = __Block_byref_object_dispose__53;
-              *&v140[8] = 0;
-              v42 = [TRIAssetStore alloc];
+              v138 = __Block_byref_object_copy__53;
+              *v139 = __Block_byref_object_dispose__53;
+              *&v139[8] = 0;
+              v41 = [TRIAssetStore alloc];
               activity = [optionsCopy2 activity];
-              v44 = [(TRIAssetStore *)v42 initWithPaths:pathsCopy monitoredActivity:activity];
+              v43 = [(TRIAssetStore *)v41 initWithPaths:pathsCopy monitoredActivity:activity];
 
               cloudKit = [metadataCopy cloudKit];
-              v122[0] = MEMORY[0x277D85DD0];
-              v122[1] = 3221225472;
-              v122[2] = __111__TRIFetchTreatmentTask__saveTreatment_experimentRecord_assetURLs_assetMetadata_context_paths_downloadOptions___block_invoke_337;
-              v122[3] = &unk_279DE4AF0;
-              v127 = a2;
-              v122[4] = self;
-              v123 = lsCopy;
-              v125 = v135;
-              v46 = v44;
-              v124 = v46;
-              v126 = buf;
-              [cloudKit enumerateObjectsUsingBlock:v122];
+              v121[0] = MEMORY[0x277D85DD0];
+              v121[1] = 3221225472;
+              v121[2] = __111__TRIFetchTreatmentTask__saveTreatment_experimentRecord_assetURLs_assetMetadata_context_paths_downloadOptions___block_invoke_337;
+              v121[3] = &unk_279DE4AF0;
+              v126 = a2;
+              v121[4] = self;
+              v122 = lsCopy;
+              v124 = v134;
+              v45 = v43;
+              v123 = v45;
+              v125 = buf;
+              [cloudKit enumerateObjectsUsingBlock:v121];
 
-              if (*(*&v135[8] + 32))
+              if (*(*&v134[8] + 32))
               {
-                if (*(*&v135[8] + 32) != 2)
+                if (*(*&v134[8] + 32) != 2)
                 {
-                  v49 = 1;
+                  v48 = 1;
                   goto LABEL_45;
                 }
 
                 [(TRIFetchTreatmentTask *)self setWasDeferred:1];
                 [(TRIFetchTreatmentTask *)self _addMetricForFetchTreatmentTaskError:30];
-                v47 = [(TRIFetchTreatmentTask *)self _nextTasksForRunStatus:1];
-                optionsCopy = [TRITaskRunResult resultWithRunStatus:1 reportResultToServer:1 nextTasks:v47 earliestRetryDate:0];
+                v46 = [(TRIFetchTreatmentTask *)self _nextTasksForRunStatus:1];
+                optionsCopy = [TRITaskRunResult resultWithRunStatus:1 reportResultToServer:1 nextTasks:v46 earliestRetryDate:0];
               }
 
               else
               {
-                v47 = [TRICKNativeArtifactProvider fetchRetryDateFromErrorAndOptions:*(*&buf[8] + 40) options:optionsCopy2];
-                if (v47)
+                v46 = [TRICKNativeArtifactProvider fetchRetryDateFromErrorAndOptions:*(*&buf[8] + 40) options:optionsCopy2];
+                if (v46)
                 {
-                  v48 = [(TRIFetchTreatmentTask *)self _nextTasksForRunStatus:1];
-                  optionsCopy = [TRITaskRunResult resultWithRunStatus:1 reportResultToServer:1 nextTasks:v48 earliestRetryDate:v47];
+                  v47 = [(TRIFetchTreatmentTask *)self _nextTasksForRunStatus:1];
+                  optionsCopy = [TRITaskRunResult resultWithRunStatus:1 reportResultToServer:1 nextTasks:v47 earliestRetryDate:v46];
                 }
 
                 else
                 {
-                  optionsCopy = v108[2](v108, 20);
-                  v47 = 0;
+                  optionsCopy = v107[2](v107, 20);
+                  v46 = 0;
                 }
               }
 
-              v49 = 0;
+              v48 = 0;
 LABEL_45:
 
               _Block_object_dispose(buf, 8);
-              _Block_object_dispose(v135, 8);
-              if (!v49)
+              _Block_object_dispose(v134, 8);
+              if (!v48)
               {
 LABEL_86:
 
                 goto LABEL_13;
               }
 
-              v113 = [[TRIClientTreatmentStorage alloc] initWithPaths:pathsCopy];
-              v100 = [(TRIClientTreatmentStorage *)v113 saveTreatment:treatmentCopy];
-              if (v100)
+              v112 = [[TRIClientTreatmentStorage alloc] initWithPaths:pathsCopy];
+              v99 = [(TRIClientTreatmentStorage *)v112 saveTreatment:treatmentCopy];
+              if (v99)
               {
                 treatmentId5 = [recordCopy treatmentId];
-                v51 = treatmentId5 == 0;
+                v50 = treatmentId5 == 0;
 
-                if (!v51 || (-[TRITreatmentBaseTask treatmentId](self, "treatmentId"), v52 = objc_claimAutoreleasedReturnValue(), -[TRIExperimentBaseTask experiment](self, "experiment"), v53 = objc_claimAutoreleasedReturnValue(), v54 = [experimentDatabase setTreatmentId:v52 forExperimentDeployment:v53 usingTransaction:0], v53, v52, (v54 & 1) != 0))
+                if (!v50 || (-[TRITreatmentBaseTask treatmentId](self, "treatmentId"), v51 = objc_claimAutoreleasedReturnValue(), -[TRIExperimentBaseTask experiment](self, "experiment"), v52 = objc_claimAutoreleasedReturnValue(), v53 = [experimentDatabase setTreatmentId:v51 forExperimentDeployment:v52 usingTransaction:0], v52, v51, (v53 & 1) != 0))
                 {
-                  v109 = objc_opt_new();
-                  if ((v33 & 1) != 0 || ![allObjects count])
+                  v108 = objc_opt_new();
+                  if ((v32 & 1) != 0 || ![allObjects count])
                   {
-                    v55 = 2;
+                    v54 = 2;
                   }
 
                   else
                   {
-                    v120 = 0u;
-                    v121 = 0u;
-                    v118 = 0u;
                     v119 = 0u;
+                    v120 = 0u;
+                    v117 = 0u;
+                    v118 = 0u;
                     obj = allObjects;
-                    v114 = [obj countByEnumeratingWithState:&v118 objects:v134 count:16];
-                    if (v114)
+                    v113 = [obj countByEnumeratingWithState:&v117 objects:v133 count:16];
+                    if (v113)
                     {
-                      v112 = *v119;
-                      v55 = 2;
+                      v111 = *v118;
+                      v54 = 2;
                       do
                       {
-                        for (i = 0; i != v114; ++i)
+                        for (i = 0; i != v113; ++i)
                         {
-                          if (*v119 != v112)
+                          if (*v118 != v111)
                           {
                             objc_enumerationMutation(obj);
                           }
 
-                          v57 = *(*(&v118 + 1) + 8 * i);
+                          v56 = *(*(&v117 + 1) + 8 * i);
                           treatmentId6 = [(TRITreatmentBaseTask *)self treatmentId];
-                          v59 = [(TRIClientTreatmentStorage *)v113 urlForFactorsWithTreatmentId:treatmentId6 namespaceName:v57];
+                          v58 = [(TRIClientTreatmentStorage *)v112 urlForFactorsWithTreatmentId:treatmentId6 namespaceName:v56];
 
                           experiment4 = [(TRIExperimentBaseTask *)self experiment];
-                          v61 = [experimentDatabase setTreatmentURL:v59 forExperimentDeployment:experiment4 namespaceName:v57];
+                          v60 = [experimentDatabase setTreatmentURL:v58 forExperimentDeployment:experiment4 namespaceName:v56];
 
-                          if ((v61 & 1) == 0)
+                          if ((v60 & 1) == 0)
                           {
                             [(TRIFetchTreatmentTask *)self _addMetricForFetchTreatmentTaskError:21];
-                            v55 = 3;
+                            v54 = 3;
                           }
 
-                          v62 = [objc_alloc(MEMORY[0x277D737F8]) initWithPaths:pathsCopy];
+                          v61 = [objc_alloc(MEMORY[0x277D737F8]) initWithPaths:pathsCopy];
                           experiment5 = [(TRIExperimentBaseTask *)self experiment];
                           experimentId = [experiment5 experimentId];
-                          [v62 setExperimentId:experimentId];
+                          [v61 setExperimentId:experimentId];
 
                           experiment6 = [(TRIExperimentBaseTask *)self experiment];
-                          [v62 setDeploymentId:{objc_msgSend(experiment6, "deploymentId")}];
+                          [v61 setDeploymentId:{objc_msgSend(experiment6, "deploymentId")}];
 
                           treatmentId7 = [(TRITreatmentBaseTask *)self treatmentId];
-                          [v62 setTreatmentId:treatmentId7];
+                          [v61 setTreatmentId:treatmentId7];
 
-                          [v62 setNamespaceName:v57];
-                          v67 = [v59 triPathAsOwner:0];
-                          stringByDeletingLastPathComponent = [v67 stringByDeletingLastPathComponent];
+                          [v61 setNamespaceName:v56];
+                          v66 = [v58 triPathAsOwner:0];
+                          stringByDeletingLastPathComponent = [v66 stringByDeletingLastPathComponent];
 
-                          if (!stringByDeletingLastPathComponent || ([v62 saveToDir:stringByDeletingLastPathComponent] & 1) == 0)
+                          if (!stringByDeletingLastPathComponent || ([v61 saveToDir:stringByDeletingLastPathComponent] & 1) == 0)
                           {
-                            v69 = TRILogCategory_Server();
-                            if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
+                            v68 = TRILogCategory_Server();
+                            if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
                             {
                               treatmentId8 = [(TRITreatmentBaseTask *)self treatmentId];
                               experiment7 = [(TRIExperimentBaseTask *)self experiment];
@@ -492,24 +488,24 @@ LABEL_86:
                               *&buf[12] = 2114;
                               *&buf[14] = experiment7;
                               *&buf[22] = 2114;
-                              v139 = v57;
-                              _os_log_error_impl(&dword_26F567000, v69, OS_LOG_TYPE_ERROR, "failed to save info for treatment %@ of experiment %{public}@ with namespace %{public}@", buf, 0x20u);
+                              v138 = v56;
+                              _os_log_error_impl(&dword_26F567000, v68, OS_LOG_TYPE_ERROR, "failed to save info for treatment %@ of experiment %{public}@ with namespace %{public}@", buf, 0x20u);
                             }
 
                             [(TRIFetchTreatmentTask *)self _addMetricForFetchTreatmentTaskError:18];
-                            v55 = 3;
+                            v54 = 3;
                           }
 
-                          v70 = [(TRIFetchTreatmentTask *)self _namespaceDescriptorForNamespaceName:v57 fromExperimentRecord:recordCopy referencingFactorsURL:v59];
-                          if (v70)
+                          v69 = [(TRIFetchTreatmentTask *)self _namespaceDescriptorForNamespaceName:v56 fromExperimentRecord:recordCopy referencingFactorsURL:v58];
+                          if (v69)
                           {
-                            [v109 addObject:v70];
+                            [v108 addObject:v69];
                           }
 
                           else
                           {
-                            v71 = TRILogCategory_Server();
-                            if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
+                            v70 = TRILogCategory_Server();
+                            if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
                             {
                               treatmentId9 = [(TRITreatmentBaseTask *)self treatmentId];
                               experiment8 = [(TRIExperimentBaseTask *)self experiment];
@@ -518,45 +514,45 @@ LABEL_86:
                               *&buf[12] = 2114;
                               *&buf[14] = experiment8;
                               *&buf[22] = 2114;
-                              v139 = v57;
-                              _os_log_error_impl(&dword_26F567000, v71, OS_LOG_TYPE_ERROR, "failed to compute namespace descriptor set entry for treatment %@ of experiment %{public}@ with namespace %{public}@", buf, 0x20u);
+                              v138 = v56;
+                              _os_log_error_impl(&dword_26F567000, v70, OS_LOG_TYPE_ERROR, "failed to compute namespace descriptor set entry for treatment %@ of experiment %{public}@ with namespace %{public}@", buf, 0x20u);
                             }
 
                             [(TRIFetchTreatmentTask *)self _addMetricForFetchTreatmentTaskError:7];
-                            v55 = 3;
+                            v54 = 3;
                           }
                         }
 
-                        v114 = [obj countByEnumeratingWithState:&v118 objects:v134 count:16];
+                        v113 = [obj countByEnumeratingWithState:&v117 objects:v133 count:16];
                       }
 
-                      while (v114);
+                      while (v113);
                     }
 
                     else
                     {
-                      v55 = 2;
+                      v54 = 2;
                     }
                   }
 
-                  v88 = [[TRINamespaceDescriptorSetStorage alloc] initWithPaths:pathsCopy];
+                  v87 = [[TRINamespaceDescriptorSetStorage alloc] initWithPaths:pathsCopy];
                   treatmentId10 = [(TRITreatmentBaseTask *)self treatmentId];
-                  v90 = [(TRINamespaceDescriptorSetStorage *)v88 overwriteNamespaceDescriptors:v109 forTreatmentId:treatmentId10];
+                  v89 = [(TRINamespaceDescriptorSetStorage *)v87 overwriteNamespaceDescriptors:v108 forTreatmentId:treatmentId10];
 
-                  if (!v90)
+                  if (!v89)
                   {
                     [(TRIFetchTreatmentTask *)self _addMetricForFetchTreatmentTaskError:17];
-                    v55 = 3;
+                    v54 = 3;
                   }
 
-                  v91 = [(TRIFetchTreatmentTask *)self _nextTasksForRunStatus:v55];
-                  optionsCopy = [TRITaskRunResult resultWithRunStatus:v55 reportResultToServer:1 nextTasks:v91 earliestRetryDate:0];
+                  v90 = [(TRIFetchTreatmentTask *)self _nextTasksForRunStatus:v54];
+                  optionsCopy = [TRITaskRunResult resultWithRunStatus:v54 reportResultToServer:1 nextTasks:v90 earliestRetryDate:0];
 
                   goto LABEL_85;
                 }
 
-                v77 = TRILogCategory_Server();
-                if (os_log_type_enabled(v77, OS_LOG_TYPE_DEBUG))
+                v76 = TRILogCategory_Server();
+                if (os_log_type_enabled(v76, OS_LOG_TYPE_DEBUG))
                 {
                   treatmentId11 = [(TRITreatmentBaseTask *)self treatmentId];
                   experiment9 = [(TRIExperimentBaseTask *)self experiment];
@@ -564,39 +560,39 @@ LABEL_86:
                   *&buf[4] = treatmentId11;
                   *&buf[12] = 2114;
                   *&buf[14] = experiment9;
-                  _os_log_debug_impl(&dword_26F567000, v77, OS_LOG_TYPE_DEBUG, "failed to save treatment id %@ to database for experiment %{public}@", buf, 0x16u);
+                  _os_log_debug_impl(&dword_26F567000, v76, OS_LOG_TYPE_DEBUG, "failed to save treatment id %@ to database for experiment %{public}@", buf, 0x16u);
                 }
 
                 [(TRIFetchTreatmentTask *)self _addMetricForFetchTreatmentTaskError:19];
-                v76 = v108[2](v108, 18);
+                v75 = v107[2](v107, 18);
               }
 
               else
               {
                 [(TRIFetchTreatmentTask *)self _addMetricForFetchTreatmentTaskError:20];
-                v76 = v108[2](v108, 18);
+                v75 = v107[2](v107, 18);
               }
 
-              optionsCopy = v76;
+              optionsCopy = v75;
 LABEL_85:
 
               goto LABEL_86;
             }
 
-            v33 = 0;
+            v32 = 0;
           }
 
           else
           {
             allObjects = 0;
-            v33 = 1;
+            v32 = 1;
           }
         }
 
         else
         {
-          v32 = TRILogCategory_Server();
-          if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+          v31 = TRILogCategory_Server();
+          if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
           {
             treatmentId12 = [(TRITreatmentBaseTask *)self treatmentId];
             experiment10 = [(TRIExperimentBaseTask *)self experiment];
@@ -605,15 +601,15 @@ LABEL_85:
             *&buf[4] = treatmentId12;
             *&buf[12] = 2114;
             *&buf[14] = shortDesc2;
-            _os_log_debug_impl(&dword_26F567000, v32, OS_LOG_TYPE_DEBUG, "no factors defined in treatment %@ for experiment %{public}@", buf, 0x16u);
+            _os_log_debug_impl(&dword_26F567000, v31, OS_LOG_TYPE_DEBUG, "no factors defined in treatment %@ for experiment %{public}@", buf, 0x16u);
           }
 
           allObjects = 0;
-          v33 = 1;
+          v32 = 1;
         }
 
-        v41 = TRILogCategory_Server();
-        if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
+        v40 = TRILogCategory_Server();
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
         {
           treatmentId13 = [(TRITreatmentBaseTask *)self treatmentId];
           experiment11 = [(TRIExperimentBaseTask *)self experiment];
@@ -622,7 +618,7 @@ LABEL_85:
           *&buf[4] = treatmentId13;
           *&buf[12] = 2114;
           *&buf[14] = shortDesc3;
-          _os_log_debug_impl(&dword_26F567000, v41, OS_LOG_TYPE_DEBUG, "no namespaces used in treatment %@ for experiment %{public}@", buf, 0x16u);
+          _os_log_debug_impl(&dword_26F567000, v40, OS_LOG_TYPE_DEBUG, "no namespaces used in treatment %@ for experiment %{public}@", buf, 0x16u);
         }
 
         goto LABEL_37;
@@ -656,36 +652,32 @@ LABEL_85:
   }
 
   [(TRIFetchTreatmentTask *)self _addMetricForFetchTreatmentTaskError:27];
-  optionsCopy = v108[2](v108, 15);
+  optionsCopy = v107[2](v107, 15);
 LABEL_13:
-
-  v30 = *MEMORY[0x277D85DE8];
 
   return optionsCopy;
 }
 
 id __111__TRIFetchTreatmentTask__saveTreatment_experimentRecord_assetURLs_assetMetadata_context_paths_downloadOptions___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = TRILogCategory_Server();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v9 = 134217984;
-    v10 = a2;
-    _os_log_error_impl(&dword_26F567000, v4, OS_LOG_TYPE_ERROR, "Saving treatment failed with reason: %lu", &v9, 0xCu);
+    v8 = 134217984;
+    v9 = a2;
+    _os_log_error_impl(&dword_26F567000, v4, OS_LOG_TYPE_ERROR, "Saving treatment failed with reason: %lu", &v8, 0xCu);
   }
 
   v5 = [*(a1 + 32) _nextTasksForRunStatusFailureWithDeactivationReason:a2];
   v6 = [TRITaskRunResult resultWithRunStatus:3 reportResultToServer:1 nextTasks:v5 earliestRetryDate:0];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 void __111__TRIFetchTreatmentTask__saveTreatment_experimentRecord_assetURLs_assetMetadata_context_paths_downloadOptions___block_invoke_330(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v6 = [a2 factor];
   v7 = [v6 namespaceString];
 
@@ -708,33 +700,31 @@ void __111__TRIFetchTreatmentTask__saveTreatment_experimentRecord_assetURLs_asse
     v13 = TRILogCategory_Server();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v15 = [*(a1 + 32) treatmentId];
-      v16 = [*(a1 + 32) experiment];
-      v17 = 138412546;
-      v18 = v15;
-      v19 = 2114;
-      v20 = v16;
-      _os_log_error_impl(&dword_26F567000, v13, OS_LOG_TYPE_ERROR, "factor message does not contain namespace field in treatment %@ of experiment %{public}@", &v17, 0x16u);
+      v14 = [*(a1 + 32) treatmentId];
+      v15 = [*(a1 + 32) experiment];
+      v16 = 138412546;
+      v17 = v14;
+      v18 = 2114;
+      v19 = v15;
+      _os_log_error_impl(&dword_26F567000, v13, OS_LOG_TYPE_ERROR, "factor message does not contain namespace field in treatment %@ of experiment %{public}@", &v16, 0x16u);
     }
 
     *a4 = 1;
     *(*(*(a1 + 56) + 8) + 24) = 0;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __111__TRIFetchTreatmentTask__saveTreatment_experimentRecord_assetURLs_assetMetadata_context_paths_downloadOptions___block_invoke_337(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = [v6 metadata];
   v8 = [v7 treatmentIndex];
 
   if (!v8)
   {
-    v21 = [MEMORY[0x277CCA890] currentHandler];
-    [v21 handleFailureInMethod:*(a1 + 72) object:*(a1 + 32) file:@"TRIFetchTreatmentTask.m" lineNumber:253 description:{@"Expression was unexpectedly nil/false: %@", @"ra.metadata.treatmentIndex"}];
+    v20 = [MEMORY[0x277CCA890] currentHandler];
+    [v20 handleFailureInMethod:*(a1 + 72) object:*(a1 + 32) file:@"TRIFetchTreatmentTask.m" lineNumber:253 description:{@"Expression was unexpectedly nil/false: %@", @"ra.metadata.treatmentIndex"}];
   }
 
   v9 = [v8 index];
@@ -765,14 +755,14 @@ void __111__TRIFetchTreatmentTask__saveTreatment_experimentRecord_assetURLs_asse
     v17 = TRILogCategory_Server();
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      v19 = [v6 assetId];
-      v20 = [*(a1 + 32) treatmentId];
+      v18 = [v6 assetId];
+      v19 = [*(a1 + 32) treatmentId];
       *buf = 138543874;
-      v24 = v19;
-      v25 = 1024;
-      v26 = v9;
-      v27 = 2112;
-      v28 = v20;
+      v23 = v18;
+      v24 = 1024;
+      v25 = v9;
+      v26 = 2112;
+      v27 = v19;
       _os_log_error_impl(&dword_26F567000, v17, OS_LOG_TYPE_ERROR, "Unexpected missing assetURL for assetId %{public}@ at ck index %d in treatment %@.", buf, 0x1Cu);
     }
 
@@ -781,34 +771,32 @@ void __111__TRIFetchTreatmentTask__saveTreatment_experimentRecord_assetURLs_asse
 
   *a4 = 1;
 LABEL_10:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (unsigned)_ncvForNamespaceName:(id)name inExperimentRecord:(id)record
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   nameCopy = name;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   namespaces = [record namespaces];
-  v7 = [namespaces countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v7 = [namespaces countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v18;
+    v9 = *v17;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(namespaces);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * i);
+        v11 = *(*(&v16 + 1) + 8 * i);
         name = [v11 name];
         v13 = [nameCopy isEqualToString:name];
 
@@ -819,7 +807,7 @@ LABEL_10:
         }
       }
 
-      v8 = [namespaces countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [namespaces countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v8)
       {
         continue;
@@ -832,7 +820,6 @@ LABEL_10:
   compatibilityVersion = -1;
 LABEL_11:
 
-  v15 = *MEMORY[0x277D85DE8];
   return compatibilityVersion;
 }
 
@@ -859,57 +846,57 @@ LABEL_11:
 
 - (id)_fetchTreatmentWithArtifactProvider:(id)provider experimentRecord:(id)record downloadOptions:(id)options context:(id)context treatment:(id *)treatment recordId:(id *)id treatmentFetchError:(id *)error
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   providerCopy = provider;
   recordCopy = record;
   optionsCopy = options;
   contextCopy = context;
   v18 = dispatch_semaphore_create(0);
-  v55 = 0;
-  v56 = &v55;
-  v57 = 0x2020000000;
-  v58 = 3;
-  v49 = 0;
-  v50 = &v49;
-  v51 = 0x3032000000;
-  v52 = __Block_byref_object_copy__53;
-  v53 = __Block_byref_object_dispose__53;
   v54 = 0;
+  v55 = &v54;
+  v56 = 0x2020000000;
+  v57 = 3;
+  v48 = 0;
+  v49 = &v48;
+  v50 = 0x3032000000;
+  v51 = __Block_byref_object_copy__53;
+  v52 = __Block_byref_object_dispose__53;
+  v53 = 0;
   v19 = [[TRIFetchOptions alloc] initWithDownloadOptions:optionsCopy cacheDeleteAvailableSpaceClass:&unk_287FC4D68];
   treatmentId = [(TRITreatmentBaseTask *)self treatmentId];
-  v38[0] = MEMORY[0x277D85DD0];
-  v38[1] = 3221225472;
-  v38[2] = __141__TRIFetchTreatmentTask__fetchTreatmentWithArtifactProvider_experimentRecord_downloadOptions_context_treatment_recordId_treatmentFetchError___block_invoke;
-  v38[3] = &unk_279DE4B18;
+  v37[0] = MEMORY[0x277D85DD0];
+  v37[1] = 3221225472;
+  v37[2] = __141__TRIFetchTreatmentTask__fetchTreatmentWithArtifactProvider_experimentRecord_downloadOptions_context_treatment_recordId_treatmentFetchError___block_invoke;
+  v37[3] = &unk_279DE4B18;
   v21 = recordCopy;
-  v39 = v21;
+  v38 = v21;
   v22 = contextCopy;
-  v40 = v22;
+  v39 = v22;
   selfCopy = self;
-  v43 = &v55;
-  v44 = &v49;
+  v42 = &v54;
+  v43 = &v48;
   errorCopy = error;
   treatmentCopy = treatment;
   idCopy = id;
-  v48 = a2;
+  v47 = a2;
   v23 = v18;
-  v42 = v23;
-  v24 = [providerCopy fetchTreatmentWithId:treatmentId options:v19 completion:v38];
+  v41 = v23;
+  v24 = [providerCopy fetchTreatmentWithId:treatmentId options:v19 completion:v37];
 
   [MEMORY[0x277D425A0] waitForSemaphore:v23];
-  v25 = *(v56 + 6);
+  v25 = *(v55 + 6);
   if (v25 != 2)
   {
     if (v25 == 3)
     {
       v26 = [(TRIFetchTreatmentTask *)self _nextTasksForRunStatus:3];
-      [TRITaskRunResult resultWithRunStatus:3 reportResultToServer:1 nextTasks:v26 earliestRetryDate:v50[5]];
+      [TRITaskRunResult resultWithRunStatus:3 reportResultToServer:1 nextTasks:v26 earliestRetryDate:v49[5]];
     }
 
     else
     {
       v26 = [(TRIFetchTreatmentTask *)self _nextTasksForRunStatusFailureWithDeactivationReason:3];
-      [TRITaskRunResult resultWithRunStatus:v25 reportResultToServer:1 nextTasks:v26 earliestRetryDate:v50[5]];
+      [TRITaskRunResult resultWithRunStatus:v25 reportResultToServer:1 nextTasks:v26 earliestRetryDate:v49[5]];
     }
     v27 = ;
 LABEL_13:
@@ -927,9 +914,9 @@ LABEL_13:
       experiment = [(TRIExperimentBaseTask *)self experiment];
       shortDesc = [experiment shortDesc];
       *buf = 138412546;
-      v60 = treatmentId2;
-      v61 = 2114;
-      v62 = shortDesc;
+      v59 = treatmentId2;
+      v60 = 2114;
+      v61 = shortDesc;
       _os_log_error_impl(&dword_26F567000, v29, OS_LOG_TYPE_ERROR, "CloudKit fetch succeeded, but a valid treatment was not obtained for treatment %@ of experiment %{public}@.", buf, 0x16u);
     }
 
@@ -948,28 +935,26 @@ LABEL_13:
   providerCopy = [TRITaskRunResult resultWithRunStatus:2 reportResultToServer:0 nextTasks:MEMORY[0x277CBEBF8] earliestRetryDate:0, providerCopy];
 LABEL_14:
 
-  _Block_object_dispose(&v49, 8);
-  _Block_object_dispose(&v55, 8);
-
-  v30 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v48, 8);
+  _Block_object_dispose(&v54, 8);
 
   return providerCopy;
 }
 
 void __141__TRIFetchTreatmentTask__fetchTreatmentWithArtifactProvider_experimentRecord_downloadOptions_context_treatment_recordId_treatmentFetchError___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4, uint64_t a5, void *a6, void *a7)
 {
-  v43 = *MEMORY[0x277D85DE8];
-  v33 = a3;
+  v42 = *MEMORY[0x277D85DE8];
+  v32 = a3;
   v13 = a4;
   v14 = a6;
   v15 = a7;
-  v34[0] = MEMORY[0x277D85DD0];
-  v34[1] = 3221225472;
-  v34[2] = __141__TRIFetchTreatmentTask__fetchTreatmentWithArtifactProvider_experimentRecord_downloadOptions_context_treatment_recordId_treatmentFetchError___block_invoke_2;
-  v34[3] = &unk_279DE0208;
-  v35 = *(a1 + 32);
-  v36 = *(a1 + 40);
-  v16 = MEMORY[0x2743948D0](v34);
+  v33[0] = MEMORY[0x277D85DD0];
+  v33[1] = 3221225472;
+  v33[2] = __141__TRIFetchTreatmentTask__fetchTreatmentWithArtifactProvider_experimentRecord_downloadOptions_context_treatment_recordId_treatmentFetchError___block_invoke_2;
+  v33[3] = &unk_279DE0208;
+  v34 = *(a1 + 32);
+  v35 = *(a1 + 40);
+  v16 = MEMORY[0x2743948D0](v33);
   if (a2 > 1)
   {
     if (a2 != 2)
@@ -999,15 +984,15 @@ LABEL_11:
     v23 = TRILogCategory_Server();
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      v27 = [*(a1 + 48) treatmentId];
-      v32 = [*(a1 + 48) experiment];
-      v28 = [v32 shortDesc];
+      v26 = [*(a1 + 48) treatmentId];
+      v31 = [*(a1 + 48) experiment];
+      v27 = [v31 shortDesc];
       *buf = 138412802;
-      v38 = v27;
-      v39 = 2114;
-      v40 = v28;
-      v41 = 2114;
-      v42 = v15;
+      v37 = v26;
+      v38 = 2114;
+      v39 = v27;
+      v40 = 2114;
+      v41 = v15;
       _os_log_error_impl(&dword_26F567000, v23, OS_LOG_TYPE_ERROR, "Fetching treatment %@ of experiment %{public}@: resulted in retry-able error %{public}@", buf, 0x20u);
     }
 
@@ -1023,15 +1008,15 @@ LABEL_19:
     v25 = TRILogCategory_Server();
     if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
-      v29 = [*(a1 + 48) treatmentId];
-      v30 = [*(a1 + 48) experiment];
-      v31 = [v30 shortDesc];
+      v28 = [*(a1 + 48) treatmentId];
+      v29 = [*(a1 + 48) experiment];
+      v30 = [v29 shortDesc];
       *buf = 138412802;
-      v38 = v29;
-      v39 = 2114;
-      v40 = v31;
-      v41 = 2114;
-      v42 = v15;
+      v37 = v28;
+      v38 = 2114;
+      v39 = v30;
+      v40 = 2114;
+      v41 = v15;
       _os_log_error_impl(&dword_26F567000, v25, OS_LOG_TYPE_ERROR, "Error fetching treatment %@ of experiment %{public}@: %{public}@", buf, 0x20u);
     }
 
@@ -1049,9 +1034,9 @@ LABEL_19:
       v21 = [*(a1 + 48) experiment];
       v22 = [v21 shortDesc];
       *buf = 138412546;
-      v38 = v20;
-      v39 = 2114;
-      v40 = v22;
+      v37 = v20;
+      v38 = 2114;
+      v39 = v22;
       _os_log_impl(&dword_26F567000, v19, OS_LOG_TYPE_DEFAULT, "Cancelled fetch of treatment %@ for experiment %{public}@", buf, 0x16u);
     }
 
@@ -1062,39 +1047,37 @@ LABEL_19:
 
 LABEL_20:
   dispatch_semaphore_signal(*(a1 + 56));
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __141__TRIFetchTreatmentTask__fetchTreatmentWithArtifactProvider_experimentRecord_downloadOptions_context_treatment_recordId_treatmentFetchError___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   obj = [*(a1 + 32) namespaces];
-  v4 = [obj countByEnumeratingWithState:&v17 objects:v23 count:16];
+  v4 = [obj countByEnumeratingWithState:&v16 objects:v22 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v18;
+    v6 = *v17;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v18 != v6)
+        if (*v17 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v17 + 1) + 8 * i);
+        v8 = *(*(&v16 + 1) + 8 * i);
         v9 = TRILogCategory_Server();
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
           v10 = [v8 name];
           *buf = 138543362;
-          v22 = v10;
+          v21 = v10;
           _os_log_impl(&dword_26F567000, v9, OS_LOG_TYPE_DEFAULT, "notify namespace download failed: %{public}@", buf, 0xCu);
         }
 
@@ -1107,13 +1090,11 @@ void __141__TRIFetchTreatmentTask__fetchTreatmentWithArtifactProvider_experiment
         [v13 notifyDownloadFailedForKey:v14 withError:a2];
       }
 
-      v5 = [obj countByEnumeratingWithState:&v17 objects:v23 count:16];
+      v5 = [obj countByEnumeratingWithState:&v16 objects:v22 count:16];
     }
 
     while (v5);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_fetchAssetsWithArtifactProvider:(id)provider recordId:(id)id experimentRecord:(id)record assetIndexes:(id)indexes downloadOptions:(id)options context:(id)context assetURLs:(id *)ls treatmentFetchError:(id *)self0
@@ -1185,36 +1166,36 @@ void __141__TRIFetchTreatmentTask__fetchTreatmentWithArtifactProvider_experiment
 
 void __151__TRIFetchTreatmentTask__fetchAssetsWithArtifactProvider_recordId_experimentRecord_assetIndexes_downloadOptions_context_assetURLs_treatmentFetchError___block_invoke(uint64_t a1, double a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v3 = [*(a1 + 32) namespaces];
-  v4 = [v3 countByEnumeratingWithState:&v14 objects:v22 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v13 objects:v21 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v15;
+    v6 = *v14;
     do
     {
       v7 = 0;
       do
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v14 + 1) + 8 * v7);
+        v8 = *(*(&v13 + 1) + 8 * v7);
         v9 = TRILogCategory_Server();
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
         {
           v12 = [v8 name];
           *buf = 138543618;
-          v19 = v12;
-          v20 = 2048;
-          v21 = (a2 * 100.0);
+          v18 = v12;
+          v19 = 2048;
+          v20 = (a2 * 100.0);
           _os_log_debug_impl(&dword_26F567000, v9, OS_LOG_TYPE_DEBUG, "notify namespace download progress: %{public}@, %tu%%", buf, 0x16u);
         }
 
@@ -1226,28 +1207,26 @@ void __151__TRIFetchTreatmentTask__fetchAssetsWithArtifactProvider_recordId_expe
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v14 objects:v22 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v13 objects:v21 count:16];
     }
 
     while (v5);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __151__TRIFetchTreatmentTask__fetchAssetsWithArtifactProvider_recordId_experimentRecord_assetIndexes_downloadOptions_context_assetURLs_treatmentFetchError___block_invoke_371(uint64_t a1, uint64_t a2, void *a3, void *a4, void *a5)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v10 = a3;
   v11 = a4;
   v12 = a5;
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = __151__TRIFetchTreatmentTask__fetchAssetsWithArtifactProvider_recordId_experimentRecord_assetIndexes_downloadOptions_context_assetURLs_treatmentFetchError___block_invoke_2;
-  v29[3] = &unk_279DE0208;
-  v30 = *(a1 + 32);
-  v31 = *(a1 + 40);
-  v13 = MEMORY[0x2743948D0](v29);
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __151__TRIFetchTreatmentTask__fetchAssetsWithArtifactProvider_recordId_experimentRecord_assetIndexes_downloadOptions_context_assetURLs_treatmentFetchError___block_invoke_2;
+  v28[3] = &unk_279DE0208;
+  v29 = *(a1 + 32);
+  v30 = *(a1 + 40);
+  v13 = MEMORY[0x2743948D0](v28);
   if (a2 > 1)
   {
     if (a2 != 2)
@@ -1280,15 +1259,15 @@ void __151__TRIFetchTreatmentTask__fetchAssetsWithArtifactProvider_recordId_expe
     v19 = TRILogCategory_Server();
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v23 = [*(a1 + 48) treatmentId];
-      v28 = [*(a1 + 48) experiment];
-      v24 = [v28 shortDesc];
+      v22 = [*(a1 + 48) treatmentId];
+      v27 = [*(a1 + 48) experiment];
+      v23 = [v27 shortDesc];
       *buf = 138412802;
-      v33 = v23;
-      v34 = 2114;
-      v35 = v24;
-      v36 = 2114;
-      v37 = v12;
+      v32 = v22;
+      v33 = 2114;
+      v34 = v23;
+      v35 = 2114;
+      v36 = v12;
       _os_log_error_impl(&dword_26F567000, v19, OS_LOG_TYPE_ERROR, "Fetching assets for treatment %@ of experiment %{public}@: resulted in retry-able error %{public}@", buf, 0x20u);
     }
 
@@ -1304,15 +1283,15 @@ LABEL_21:
     v21 = TRILogCategory_Server();
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      v25 = [*(a1 + 48) treatmentId];
-      v26 = [*(a1 + 48) experiment];
-      v27 = [v26 shortDesc];
+      v24 = [*(a1 + 48) treatmentId];
+      v25 = [*(a1 + 48) experiment];
+      v26 = [v25 shortDesc];
       *buf = 138412802;
-      v33 = v25;
-      v34 = 2114;
-      v35 = v27;
-      v36 = 2114;
-      v37 = v12;
+      v32 = v24;
+      v33 = 2114;
+      v34 = v26;
+      v35 = 2114;
+      v36 = v12;
       _os_log_error_impl(&dword_26F567000, v21, OS_LOG_TYPE_ERROR, "Error fetching assets for treatment %@ of experiment %{public}@: %{public}@", buf, 0x20u);
     }
 
@@ -1330,9 +1309,9 @@ LABEL_21:
       v17 = [*(a1 + 48) experiment];
       v18 = [v17 shortDesc];
       *buf = 138412546;
-      v33 = v16;
-      v34 = 2114;
-      v35 = v18;
+      v32 = v16;
+      v33 = 2114;
+      v34 = v18;
       _os_log_impl(&dword_26F567000, v15, OS_LOG_TYPE_DEFAULT, "Cancelled fetch of assets for treatment %@ of experiment %{public}@", buf, 0x16u);
     }
 
@@ -1341,39 +1320,37 @@ LABEL_21:
 
 LABEL_22:
   dispatch_semaphore_signal(*(a1 + 56));
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __151__TRIFetchTreatmentTask__fetchAssetsWithArtifactProvider_recordId_experimentRecord_assetIndexes_downloadOptions_context_assetURLs_treatmentFetchError___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   obj = [*(a1 + 32) namespaces];
-  v4 = [obj countByEnumeratingWithState:&v17 objects:v23 count:16];
+  v4 = [obj countByEnumeratingWithState:&v16 objects:v22 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v18;
+    v6 = *v17;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v18 != v6)
+        if (*v17 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v17 + 1) + 8 * i);
+        v8 = *(*(&v16 + 1) + 8 * i);
         v9 = TRILogCategory_Server();
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
           v10 = [v8 name];
           *buf = 138543362;
-          v22 = v10;
+          v21 = v10;
           _os_log_impl(&dword_26F567000, v9, OS_LOG_TYPE_DEFAULT, "notify namespace download failed: %{public}@", buf, 0xCu);
         }
 
@@ -1386,28 +1363,24 @@ void __151__TRIFetchTreatmentTask__fetchAssetsWithArtifactProvider_recordId_expe
         [v13 notifyDownloadFailedForKey:v14 withError:a2];
       }
 
-      v5 = [obj countByEnumeratingWithState:&v17 objects:v23 count:16];
+      v5 = [obj countByEnumeratingWithState:&v16 objects:v22 count:16];
     }
 
     while (v5);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_nextTasksForRunStatusFailureWithDeactivationReason:(unint64_t)reason
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   experiment = [(TRIExperimentBaseTask *)self experiment];
   experimentId = [experiment experimentId];
   experiment2 = [(TRIExperimentBaseTask *)self experiment];
   deploymentId = [experiment2 deploymentId];
   taskAttributing = [(TRITreatmentBaseTask *)self taskAttributing];
   v10 = [TRIDeactivateTreatmentTask taskWithExperimentId:experimentId deploymentId:deploymentId failOnUnrecognizedExperiment:0 triggerEvent:reason taskAttribution:taskAttributing];
-  v14[0] = v10;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v13[0] = v10;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
 
   return v11;
 }
@@ -1423,29 +1396,29 @@ void __151__TRIFetchTreatmentTask__fetchAssetsWithArtifactProvider_recordId_expe
 
 - (id)runUsingContext:(id)context withTaskQueue:(id)queue
 {
-  v211 = *MEMORY[0x277D85DE8];
+  v210 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   queueCopy = queue;
-  v150 = contextCopy;
+  v149 = contextCopy;
   keyValueStore = [contextCopy keyValueStore];
-  v147 = [TRIFetchDateManager managerWithKeyValueStore:keyValueStore];
+  v146 = [TRIFetchDateManager managerWithKeyValueStore:keyValueStore];
 
   experimentDatabase = [contextCopy experimentDatabase];
   experiment = [(TRIExperimentBaseTask *)self experiment];
-  v149 = [experimentDatabase experimentRecordWithExperimentDeployment:experiment];
+  v148 = [experimentDatabase experimentRecordWithExperimentDeployment:experiment];
 
-  if (v149)
+  if (v148)
   {
-    v146 = [(TRIExperimentBaseTask *)self containerForFirstNamespaceInExperimentWithContext:contextCopy];
+    v145 = [(TRIExperimentBaseTask *)self containerForFirstNamespaceInExperimentWithContext:contextCopy];
     paths = [contextCopy paths];
     if (!paths)
     {
       v78 = TRILogCategory_Server();
       if (os_log_type_enabled(v78, OS_LOG_TYPE_ERROR))
       {
-        identifier = [v146 identifier];
+        identifier = [v145 identifier];
         *buf = 138543362;
-        v202 = identifier;
+        v201 = identifier;
         _os_log_error_impl(&dword_26F567000, v78, OS_LOG_TYPE_ERROR, "Unable to fetch treatment into missing app container: %{public}@", buf, 0xCu);
       }
 
@@ -1454,57 +1427,57 @@ void __151__TRIFetchTreatmentTask__fetchAssetsWithArtifactProvider_recordId_expe
       experimentId = [experiment2 experimentId];
       treatmentId = [(TRITreatmentBaseTask *)self treatmentId];
       experiment3 = [(TRIExperimentBaseTask *)self experiment];
-      +[TRITaskUtils updateExperimentHistoryDatabaseWithAllocationStatus:forExperiment:treatment:deployment:experimentRecord:isBecomingObsolete:context:](TRITaskUtils, "updateExperimentHistoryDatabaseWithAllocationStatus:forExperiment:treatment:deployment:experimentRecord:isBecomingObsolete:context:", 7, experimentId, treatmentId, [experiment3 deploymentId], v149, 0, contextCopy);
+      +[TRITaskUtils updateExperimentHistoryDatabaseWithAllocationStatus:forExperiment:treatment:deployment:experimentRecord:isBecomingObsolete:context:](TRITaskUtils, "updateExperimentHistoryDatabaseWithAllocationStatus:forExperiment:treatment:deployment:experimentRecord:isBecomingObsolete:context:", 7, experimentId, treatmentId, [experiment3 deploymentId], v148, 0, contextCopy);
 
-      v141 = [(TRIFetchTreatmentTask *)self _nextTasksForRunStatusFailureWithDeactivationReason:21];
-      v143 = [TRITaskRunResult resultWithRunStatus:3 reportResultToServer:1 nextTasks:v141 earliestRetryDate:0];
+      v140 = [(TRIFetchTreatmentTask *)self _nextTasksForRunStatusFailureWithDeactivationReason:21];
+      v142 = [TRITaskRunResult resultWithRunStatus:3 reportResultToServer:1 nextTasks:v140 earliestRetryDate:0];
       goto LABEL_101;
     }
 
     namespaceDatabase = [contextCopy namespaceDatabase];
     paths2 = [contextCopy paths];
     namespaceDescriptorsDefaultDir = [paths2 namespaceDescriptorsDefaultDir];
-    v141 = [TRINamespaceDescriptorProvider providerWithNamespaceDatabase:namespaceDatabase defaultDescriptorDirectoryPath:namespaceDescriptorsDefaultDir];
+    v140 = [TRINamespaceDescriptorProvider providerWithNamespaceDatabase:namespaceDatabase defaultDescriptorDirectoryPath:namespaceDescriptorsDefaultDir];
 
-    v191 = 0;
-    v192 = &v191;
-    v193 = 0x3032000000;
-    v194 = __Block_byref_object_copy__53;
-    v195 = __Block_byref_object_dispose__53;
+    v190 = 0;
+    v191 = &v190;
+    v192 = 0x3032000000;
+    v193 = __Block_byref_object_copy__53;
+    v194 = __Block_byref_object_dispose__53;
     taskAttributing = [(TRITreatmentBaseTask *)self taskAttributing];
     applicationBundleIdentifier = [taskAttributing applicationBundleIdentifier];
 
-    v185 = 0;
-    v186 = &v185;
-    v187 = 0x3032000000;
-    v188 = __Block_byref_object_copy__53;
-    v189 = __Block_byref_object_dispose__53;
-    v190 = 0;
-    v181 = 0;
-    v182 = &v181;
-    v183 = 0x2020000000;
     v184 = 0;
+    v185 = &v184;
+    v186 = 0x3032000000;
+    v187 = __Block_byref_object_copy__53;
+    v188 = __Block_byref_object_dispose__53;
+    v189 = 0;
+    v180 = 0;
+    v181 = &v180;
+    v182 = 0x2020000000;
+    v183 = 0;
     v15 = objc_autoreleasePoolPush();
-    artifact = [v149 artifact];
+    artifact = [v148 artifact];
     namespaces = [artifact namespaces];
-    v175[0] = MEMORY[0x277D85DD0];
-    v175[1] = 3221225472;
-    v175[2] = __55__TRIFetchTreatmentTask_runUsingContext_withTaskQueue___block_invoke;
-    v175[3] = &unk_279DE4B68;
+    v174[0] = MEMORY[0x277D85DD0];
+    v174[1] = 3221225472;
+    v174[2] = __55__TRIFetchTreatmentTask_runUsingContext_withTaskQueue___block_invoke;
+    v174[3] = &unk_279DE4B68;
     v18 = paths;
-    v178 = &v185;
-    v179 = &v191;
-    v176 = v18;
+    v177 = &v184;
+    v178 = &v190;
+    v175 = v18;
     selfCopy = self;
-    v180 = &v181;
-    [namespaces enumerateObjectsUsingBlock:v175];
+    v179 = &v180;
+    [namespaces enumerateObjectsUsingBlock:v174];
 
     objc_autoreleasePoolPop(v15);
     taskAttributing2 = [(TRITreatmentBaseTask *)self taskAttributing];
     triCloudKitContainer = [taskAttributing2 triCloudKitContainer];
     taskAttributing3 = [(TRITreatmentBaseTask *)self taskAttributing];
     teamIdentifier = [taskAttributing3 teamIdentifier];
-    v140 = [TRICKNativeArtifactProvider providerForContainer:triCloudKitContainer teamId:teamIdentifier bundleId:v192[5] dateProvider:v147 namespaceDescriptorProvider:v141 serverContext:v150];
+    v139 = [TRICKNativeArtifactProvider providerForContainer:triCloudKitContainer teamId:teamIdentifier bundleId:v191[5] dateProvider:v146 namespaceDescriptorProvider:v140 serverContext:v149];
 
     taskAttributing4 = [(TRITreatmentBaseTask *)self taskAttributing];
     networkOptions = [taskAttributing4 networkOptions];
@@ -1536,7 +1509,7 @@ void __151__TRIFetchTreatmentTask__fetchAssetsWithArtifactProvider_recordId_expe
           v30 = allowsCellularAccess;
         }
 
-        if (v30 != 1 || (v31 = v192[5]) != 0 && [v31 length] && (v182[3] & 1) != 0)
+        if (v30 != 1 || (v31 = v191[5]) != 0 && [v31 length] && (v181[3] & 1) != 0)
         {
 
           goto LABEL_15;
@@ -1546,39 +1519,39 @@ void __151__TRIFetchTreatmentTask__fetchAssetsWithArtifactProvider_recordId_expe
         if (os_log_type_enabled(v95, OS_LOG_TYPE_ERROR))
         {
           treatmentId2 = [(TRITreatmentBaseTask *)self treatmentId];
-          experimentDeployment = [v149 experimentDeployment];
+          experimentDeployment = [v148 experimentDeployment];
           experimentId2 = [experimentDeployment experimentId];
-          namespaces2 = [v149 namespaces];
+          namespaces2 = [v148 namespaces];
           firstObject = [namespaces2 firstObject];
           name = [firstObject name];
-          v131 = name;
-          v132 = v192[5];
-          if (*(v182 + 24))
+          v130 = name;
+          v131 = v191[5];
+          if (*(v181 + 24))
           {
-            v133 = @"YES";
+            v132 = @"YES";
           }
 
           else
           {
-            v133 = @"NO";
+            v132 = @"NO";
           }
 
           *buf = 138413314;
-          v202 = treatmentId2;
-          v203 = 2114;
-          v204 = experimentId2;
-          v205 = 2114;
-          v206 = name;
-          v207 = 2114;
-          v208 = v132;
-          v209 = 2114;
-          v210 = v133;
+          v201 = treatmentId2;
+          v202 = 2114;
+          v203 = experimentId2;
+          v204 = 2114;
+          v205 = name;
+          v206 = 2114;
+          v207 = v131;
+          v208 = 2114;
+          v209 = v132;
           _os_log_error_impl(&dword_26F567000, v95, OS_LOG_TYPE_ERROR, "preventing fetch of treatment %@ on cellular for experiment %{public}@ namespace %{public}@, resourceAttributionBundleIdentifier: %{public}@ expensiveNetworkingAllowed: %{public}@", buf, 0x34u);
         }
 
         [(TRIFetchTreatmentTask *)self _addMetricForFetchTreatmentTaskError:23];
         v94 = [(TRIFetchTreatmentTask *)self _nextTasksForRunStatus:1];
-        v143 = [TRITaskRunResult resultWithRunStatus:1 reportResultToServer:0 nextTasks:v94 earliestRetryDate:0];
+        v142 = [TRITaskRunResult resultWithRunStatus:1 reportResultToServer:0 nextTasks:v94 earliestRetryDate:0];
       }
 
       else
@@ -1592,54 +1565,54 @@ void __151__TRIFetchTreatmentTask__fetchAssetsWithArtifactProvider_recordId_expe
 
         [(TRIFetchTreatmentTask *)self _addMetricForFetchTreatmentTaskError:3];
         v94 = [(TRIFetchTreatmentTask *)self _nextTasksForRunStatus:1];
-        v143 = [TRITaskRunResult resultWithRunStatus:1 reportResultToServer:1 nextTasks:v94 earliestRetryDate:0];
+        v142 = [TRITaskRunResult resultWithRunStatus:1 reportResultToServer:1 nextTasks:v94 earliestRetryDate:0];
       }
 
 LABEL_100:
-      _Block_object_dispose(&v181, 8);
-      _Block_object_dispose(&v185, 8);
+      _Block_object_dispose(&v180, 8);
+      _Block_object_dispose(&v184, 8);
 
-      _Block_object_dispose(&v191, 8);
+      _Block_object_dispose(&v190, 8);
 LABEL_101:
 
       goto LABEL_102;
     }
 
 LABEL_15:
-    v173 = 0;
-    v174 = 0;
     v172 = 0;
-    v171 = [(TRIFetchTreatmentTask *)self _fetchTreatmentWithArtifactProvider:v140 experimentRecord:v149 downloadOptions:networkOptions context:v150 treatment:&v173 recordId:&v174 treatmentFetchError:&v172];
-    if ([v171 runStatus] != 2)
+    v173 = 0;
+    v171 = 0;
+    v170 = [(TRIFetchTreatmentTask *)self _fetchTreatmentWithArtifactProvider:v139 experimentRecord:v148 downloadOptions:networkOptions context:v149 treatment:&v172 recordId:&v173 treatmentFetchError:&v171];
+    if ([v170 runStatus] != 2)
     {
-      if (v172)
+      if (v171)
       {
         self->wasDeferred = [TRICKNativeArtifactProvider isActivityDeferralError:?];
-        v83 = TRIFetchErrorParseToMetrics(v172);
+        v83 = TRIFetchErrorParseToMetrics(v171);
         if ([v83 count])
         {
-          v169 = 0u;
-          v170 = 0u;
-          v167 = 0u;
           v168 = 0u;
+          v169 = 0u;
+          v166 = 0u;
+          v167 = 0u;
           v84 = v83;
-          v85 = [v84 countByEnumeratingWithState:&v167 objects:v200 count:16];
+          v85 = [v84 countByEnumeratingWithState:&v166 objects:v199 count:16];
           if (v85)
           {
-            v86 = *v168;
+            v86 = *v167;
             do
             {
               for (i = 0; i != v85; ++i)
               {
-                if (*v168 != v86)
+                if (*v167 != v86)
                 {
                   objc_enumerationMutation(v84);
                 }
 
-                [(TRIExperimentBaseTask *)self addMetric:*(*(&v167 + 1) + 8 * i)];
+                [(TRIExperimentBaseTask *)self addMetric:*(*(&v166 + 1) + 8 * i)];
               }
 
-              v85 = [v84 countByEnumeratingWithState:&v167 objects:v200 count:16];
+              v85 = [v84 countByEnumeratingWithState:&v166 objects:v199 count:16];
             }
 
             while (v85);
@@ -1647,55 +1620,55 @@ LABEL_15:
         }
       }
 
-      if ([v171 runStatus] == 3)
+      if ([v170 runStatus] == 3)
       {
         experiment4 = [(TRIExperimentBaseTask *)self experiment];
         experimentId3 = [experiment4 experimentId];
         treatmentId3 = [(TRITreatmentBaseTask *)self treatmentId];
         experiment5 = [(TRIExperimentBaseTask *)self experiment];
-        +[TRITaskUtils updateExperimentHistoryDatabaseWithAllocationStatus:forExperiment:treatment:deployment:experimentRecord:isBecomingObsolete:context:](TRITaskUtils, "updateExperimentHistoryDatabaseWithAllocationStatus:forExperiment:treatment:deployment:experimentRecord:isBecomingObsolete:context:", 7, experimentId3, treatmentId3, [experiment5 deploymentId], v149, 0, v150);
+        +[TRITaskUtils updateExperimentHistoryDatabaseWithAllocationStatus:forExperiment:treatment:deployment:experimentRecord:isBecomingObsolete:context:](TRITaskUtils, "updateExperimentHistoryDatabaseWithAllocationStatus:forExperiment:treatment:deployment:experimentRecord:isBecomingObsolete:context:", 7, experimentId3, treatmentId3, [experiment5 deploymentId], v148, 0, v149);
       }
 
-      v92 = v171;
-      v143 = v92;
+      v92 = v170;
+      v142 = v92;
       goto LABEL_99;
     }
 
-    if (!v173)
+    if (!v172)
     {
       currentHandler = [MEMORY[0x277CCA890] currentHandler];
       [currentHandler handleFailureInMethod:a2 object:self file:@"TRIFetchTreatmentTask.m" lineNumber:724 description:{@"Invalid parameter not satisfying: %@", @"treatment"}];
     }
 
-    if (!v174)
+    if (!v173)
     {
       currentHandler2 = [MEMORY[0x277CCA890] currentHandler];
       [currentHandler2 handleFailureInMethod:a2 object:self file:@"TRIFetchTreatmentTask.m" lineNumber:725 description:{@"Invalid parameter not satisfying: %@", @"treatmentRecordId"}];
     }
 
-    v138 = objc_opt_new();
+    v137 = objc_opt_new();
     v32 = [[TRIAssetStore alloc] initWithPaths:v18];
-    v33 = v173;
-    v34 = v186[5];
-    keyValueStore2 = [v150 keyValueStore];
+    v33 = v172;
+    v34 = v185[5];
+    keyValueStore2 = [v149 keyValueStore];
     v36 = [TRINamespaceFactorSubscriptionSettings settingsWithKeyValueStore:keyValueStore2];
-    v37 = [TRIClientFactorPackUtils aliasesInNamespace:v186[5]];
-    v139 = [v33 requiredAssetsForInstallationForNamespace:v34 assetStore:v32 maProvider:v138 subscriptionSettings:v36 aliasToUnaliasMap:v37];
+    v37 = [TRIClientFactorPackUtils aliasesInNamespace:v185[5]];
+    v138 = [v33 requiredAssetsForInstallationForNamespace:v34 assetStore:v32 maProvider:v137 subscriptionSettings:v36 aliasToUnaliasMap:v37];
 
-    if (!v139)
+    if (!v138)
     {
       [(TRIFetchTreatmentTask *)self _addMetricForFetchTreatmentTaskError:5];
       experiment6 = [(TRIExperimentBaseTask *)self experiment];
       experimentId4 = [experiment6 experimentId];
       treatmentId4 = [(TRITreatmentBaseTask *)self treatmentId];
       experiment7 = [(TRIExperimentBaseTask *)self experiment];
-      +[TRITaskUtils updateExperimentHistoryDatabaseWithAllocationStatus:forExperiment:treatment:deployment:experimentRecord:isBecomingObsolete:context:](TRITaskUtils, "updateExperimentHistoryDatabaseWithAllocationStatus:forExperiment:treatment:deployment:experimentRecord:isBecomingObsolete:context:", 7, experimentId4, treatmentId4, [experiment7 deploymentId], v149, 0, v150);
+      +[TRITaskUtils updateExperimentHistoryDatabaseWithAllocationStatus:forExperiment:treatment:deployment:experimentRecord:isBecomingObsolete:context:](TRITaskUtils, "updateExperimentHistoryDatabaseWithAllocationStatus:forExperiment:treatment:deployment:experimentRecord:isBecomingObsolete:context:", 7, experimentId4, treatmentId4, [experiment7 deploymentId], v148, 0, v149);
 
       v100 = [(TRIFetchTreatmentTask *)self _nextTasksForRunStatusFailureWithDeactivationReason:22];
-      v143 = [TRITaskRunResult resultWithRunStatus:3 reportResultToServer:1 nextTasks:v100 earliestRetryDate:0];
+      v142 = [TRITaskRunResult resultWithRunStatus:3 reportResultToServer:1 nextTasks:v100 earliestRetryDate:0];
 LABEL_98:
 
-      v92 = v171;
+      v92 = v170;
 LABEL_99:
 
       goto LABEL_100;
@@ -1704,31 +1677,31 @@ LABEL_99:
     v38 = TRILogCategory_Server();
     if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
     {
-      cloudKit = [v139 cloudKit];
+      cloudKit = [v138 cloudKit];
       v40 = [cloudKit count];
-      mobileAsset = [v139 mobileAsset];
+      mobileAsset = [v138 mobileAsset];
       v42 = [mobileAsset count];
       treatmentId5 = [(TRITreatmentBaseTask *)self treatmentId];
       *buf = 134218498;
-      v202 = v40;
-      v203 = 2048;
-      v204 = v42;
-      v205 = 2114;
-      v206 = treatmentId5;
+      v201 = v40;
+      v202 = 2048;
+      v203 = v42;
+      v204 = 2114;
+      v205 = treatmentId5;
       _os_log_impl(&dword_26F567000, v38, OS_LOG_TYPE_DEFAULT, "Found %lu required CK assets and %lu required MA assets for treatment %{public}@", buf, 0x20u);
     }
 
     v44 = objc_opt_new();
-    cloudKit2 = [v139 cloudKit];
-    v164[0] = MEMORY[0x277D85DD0];
-    v164[1] = 3221225472;
-    v164[2] = __55__TRIFetchTreatmentTask_runUsingContext_withTaskQueue___block_invoke_397;
-    v164[3] = &unk_279DE4B90;
-    v164[4] = self;
-    v137 = v44;
-    v165 = v137;
-    v166 = a2;
-    [cloudKit2 enumerateObjectsUsingBlock:v164];
+    cloudKit2 = [v138 cloudKit];
+    v163[0] = MEMORY[0x277D85DD0];
+    v163[1] = 3221225472;
+    v163[2] = __55__TRIFetchTreatmentTask_runUsingContext_withTaskQueue___block_invoke_397;
+    v163[3] = &unk_279DE4B90;
+    v163[4] = self;
+    v136 = v44;
+    v164 = v136;
+    v165 = a2;
+    [cloudKit2 enumerateObjectsUsingBlock:v163];
 
     v46 = TRILogCategory_Server();
     if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
@@ -1736,72 +1709,72 @@ LABEL_99:
       treatmentId6 = [(TRITreatmentBaseTask *)self treatmentId];
       experiment8 = [(TRIExperimentBaseTask *)self experiment];
       shortDesc = [experiment8 shortDesc];
-      v50 = [v137 count];
+      v50 = [v136 count];
       *buf = 138412802;
-      v202 = treatmentId6;
-      v203 = 2114;
-      v204 = shortDesc;
-      v205 = 2048;
-      v206 = v50;
+      v201 = treatmentId6;
+      v202 = 2114;
+      v203 = shortDesc;
+      v204 = 2048;
+      v205 = v50;
       _os_log_impl(&dword_26F567000, v46, OS_LOG_TYPE_DEFAULT, "Treatment %@ of experiment %{public}@ references %tu assets which are required for enrollment and are not already on disk.", buf, 0x20u);
     }
 
-    v163 = 0;
-    v51 = v172;
-    v172 = 0;
+    v162 = 0;
+    v51 = v171;
+    v171 = 0;
 
-    v52 = [(TRIFetchTreatmentTask *)self _fetchAssetsWithArtifactProvider:v140 recordId:v174 experimentRecord:v149 assetIndexes:v137 downloadOptions:networkOptions context:v150 assetURLs:&v163 treatmentFetchError:&v172];
-    v53 = v171;
-    v171 = v52;
+    v52 = [(TRIFetchTreatmentTask *)self _fetchAssetsWithArtifactProvider:v139 recordId:v173 experimentRecord:v148 assetIndexes:v136 downloadOptions:networkOptions context:v149 assetURLs:&v162 treatmentFetchError:&v171];
+    v53 = v170;
+    v170 = v52;
 
-    if ([v171 runStatus] == 2)
+    if ([v170 runStatus] == 2)
     {
-      if (!v163)
+      if (!v162)
       {
         currentHandler3 = [MEMORY[0x277CCA890] currentHandler];
         [currentHandler3 handleFailureInMethod:a2 object:self file:@"TRIFetchTreatmentTask.m" lineNumber:782 description:{@"Invalid parameter not satisfying: %@", @"assetURLs"}];
       }
 
-      v54 = v172;
-      v172 = 0;
+      v54 = v171;
+      v171 = 0;
 
-      mobileAsset2 = [v139 mobileAsset];
-      namespaces3 = [v149 namespaces];
+      mobileAsset2 = [v138 mobileAsset];
+      namespaces3 = [v148 namespaces];
       firstObject2 = [namespaces3 firstObject];
       name2 = [firstObject2 name];
-      v59 = [(TRIFetchTreatmentTask *)self _downloadAndSaveMAAssets:mobileAsset2 options:networkOptions downloadNotificationKey:name2 context:v150 errorResult:&v171 fetchError:&v172];
+      v59 = [(TRIFetchTreatmentTask *)self _downloadAndSaveMAAssets:mobileAsset2 options:networkOptions downloadNotificationKey:name2 context:v149 errorResult:&v170 fetchError:&v171];
 
-      if (v59 && [v171 runStatus] == 2)
+      if (v59 && [v170 runStatus] == 2)
       {
-        v143 = [(TRIFetchTreatmentTask *)self _saveTreatment:v173 experimentRecord:v149 assetURLs:v163 assetMetadata:v139 context:v150 paths:v18 downloadOptions:networkOptions];
-        if ([v143 runStatus] == 2)
+        v142 = [(TRIFetchTreatmentTask *)self _saveTreatment:v172 experimentRecord:v148 assetURLs:v162 assetMetadata:v138 context:v149 paths:v18 downloadOptions:networkOptions];
+        if ([v142 runStatus] == 2)
         {
-          [v163 enumerateKeysAndObjectsUsingBlock:&__block_literal_global_40];
-          v153 = 0u;
-          v154 = 0u;
-          v151 = 0u;
+          [v162 enumerateKeysAndObjectsUsingBlock:&__block_literal_global_40];
           v152 = 0u;
-          namespaces4 = [v149 namespaces];
-          v61 = [namespaces4 countByEnumeratingWithState:&v151 objects:v197 count:16];
+          v153 = 0u;
+          v150 = 0u;
+          v151 = 0u;
+          namespaces4 = [v148 namespaces];
+          v61 = [namespaces4 countByEnumeratingWithState:&v150 objects:v196 count:16];
           if (v61)
           {
-            v62 = *v152;
+            v62 = *v151;
             do
             {
               for (j = 0; j != v61; ++j)
               {
-                if (*v152 != v62)
+                if (*v151 != v62)
                 {
                   objc_enumerationMutation(namespaces4);
                 }
 
-                v64 = *(*(&v151 + 1) + 8 * j);
+                v64 = *(*(&v150 + 1) + 8 * j);
                 v65 = TRILogCategory_Server();
                 if (os_log_type_enabled(v65, OS_LOG_TYPE_DEFAULT))
                 {
                   name3 = [v64 name];
                   *buf = 138543362;
-                  v202 = name3;
+                  v201 = name3;
                   _os_log_impl(&dword_26F567000, v65, OS_LOG_TYPE_DEFAULT, "notify namespace download completed: %{public}@", buf, 0xCu);
                 }
 
@@ -1810,7 +1783,7 @@ LABEL_99:
                 [v67 notifyDownloadCompletedForKey:name4];
               }
 
-              v61 = [namespaces4 countByEnumeratingWithState:&v151 objects:v197 count:16];
+              v61 = [namespaces4 countByEnumeratingWithState:&v150 objects:v196 count:16];
             }
 
             while (v61);
@@ -1820,53 +1793,53 @@ LABEL_99:
           experimentId5 = [experiment9 experimentId];
           treatmentId7 = [(TRITreatmentBaseTask *)self treatmentId];
           experiment10 = [(TRIExperimentBaseTask *)self experiment];
-          +[TRITaskUtils updateExperimentHistoryDatabaseWithAllocationStatus:forExperiment:treatment:deployment:experimentRecord:isBecomingObsolete:context:](TRITaskUtils, "updateExperimentHistoryDatabaseWithAllocationStatus:forExperiment:treatment:deployment:experimentRecord:isBecomingObsolete:context:", 4, experimentId5, treatmentId7, [experiment10 deploymentId], v149, 0, v150);
+          +[TRITaskUtils updateExperimentHistoryDatabaseWithAllocationStatus:forExperiment:treatment:deployment:experimentRecord:isBecomingObsolete:context:](TRITaskUtils, "updateExperimentHistoryDatabaseWithAllocationStatus:forExperiment:treatment:deployment:experimentRecord:isBecomingObsolete:context:", 4, experimentId5, treatmentId7, [experiment10 deploymentId], v148, 0, v149);
           goto LABEL_107;
         }
 
-        if ([v143 runStatus] == 3)
+        if ([v142 runStatus] == 3)
         {
           experiment9 = [(TRIExperimentBaseTask *)self experiment];
           experimentId5 = [experiment9 experimentId];
           treatmentId7 = [(TRITreatmentBaseTask *)self treatmentId];
           experiment10 = [(TRIExperimentBaseTask *)self experiment];
-          +[TRITaskUtils updateExperimentHistoryDatabaseWithAllocationStatus:forExperiment:treatment:deployment:experimentRecord:isBecomingObsolete:context:](TRITaskUtils, "updateExperimentHistoryDatabaseWithAllocationStatus:forExperiment:treatment:deployment:experimentRecord:isBecomingObsolete:context:", 7, experimentId5, treatmentId7, [experiment10 deploymentId], v149, 0, v150);
+          +[TRITaskUtils updateExperimentHistoryDatabaseWithAllocationStatus:forExperiment:treatment:deployment:experimentRecord:isBecomingObsolete:context:](TRITaskUtils, "updateExperimentHistoryDatabaseWithAllocationStatus:forExperiment:treatment:deployment:experimentRecord:isBecomingObsolete:context:", 7, experimentId5, treatmentId7, [experiment10 deploymentId], v148, 0, v149);
 LABEL_107:
         }
 
 LABEL_97:
 
-        v100 = v137;
+        v100 = v136;
         goto LABEL_98;
       }
 
-      if (v172)
+      if (v171)
       {
-        v110 = TRIFetchErrorParseToMetrics(v172);
+        v110 = TRIFetchErrorParseToMetrics(v171);
         if ([v110 count])
         {
-          v157 = 0u;
-          v158 = 0u;
-          v155 = 0u;
           v156 = 0u;
+          v157 = 0u;
+          v154 = 0u;
+          v155 = 0u;
           v111 = v110;
-          v112 = [v111 countByEnumeratingWithState:&v155 objects:v198 count:16];
+          v112 = [v111 countByEnumeratingWithState:&v154 objects:v197 count:16];
           if (v112)
           {
-            v113 = *v156;
+            v113 = *v155;
             do
             {
               for (k = 0; k != v112; ++k)
               {
-                if (*v156 != v113)
+                if (*v155 != v113)
                 {
                   objc_enumerationMutation(v111);
                 }
 
-                [(TRIExperimentBaseTask *)self addMetric:*(*(&v155 + 1) + 8 * k)];
+                [(TRIExperimentBaseTask *)self addMetric:*(*(&v154 + 1) + 8 * k)];
               }
 
-              v112 = [v111 countByEnumeratingWithState:&v155 objects:v198 count:16];
+              v112 = [v111 countByEnumeratingWithState:&v154 objects:v197 count:16];
             }
 
             while (v112);
@@ -1878,49 +1851,49 @@ LABEL_97:
       if (os_log_type_enabled(v115, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v202 = v172;
+        v201 = v171;
         _os_log_error_impl(&dword_26F567000, v115, OS_LOG_TYPE_ERROR, "Failed to download MA treatment assets: %@", buf, 0xCu);
       }
 
-      if ([v171 runStatus] == 3)
+      if ([v170 runStatus] == 3)
       {
         experiment11 = [(TRIExperimentBaseTask *)self experiment];
         experimentId6 = [experiment11 experimentId];
         treatmentId8 = [(TRITreatmentBaseTask *)self treatmentId];
         experiment12 = [(TRIExperimentBaseTask *)self experiment];
-        +[TRITaskUtils updateExperimentHistoryDatabaseWithAllocationStatus:forExperiment:treatment:deployment:experimentRecord:isBecomingObsolete:context:](TRITaskUtils, "updateExperimentHistoryDatabaseWithAllocationStatus:forExperiment:treatment:deployment:experimentRecord:isBecomingObsolete:context:", 7, experimentId6, treatmentId8, [experiment12 deploymentId], v149, 0, v150);
+        +[TRITaskUtils updateExperimentHistoryDatabaseWithAllocationStatus:forExperiment:treatment:deployment:experimentRecord:isBecomingObsolete:context:](TRITaskUtils, "updateExperimentHistoryDatabaseWithAllocationStatus:forExperiment:treatment:deployment:experimentRecord:isBecomingObsolete:context:", 7, experimentId6, treatmentId8, [experiment12 deploymentId], v148, 0, v149);
       }
     }
 
     else
     {
-      if (v172)
+      if (v171)
       {
-        v101 = TRIFetchErrorParseToMetrics(v172);
+        v101 = TRIFetchErrorParseToMetrics(v171);
         if ([v101 count])
         {
-          v161 = 0u;
-          v162 = 0u;
-          v159 = 0u;
           v160 = 0u;
+          v161 = 0u;
+          v158 = 0u;
+          v159 = 0u;
           v102 = v101;
-          v103 = [v102 countByEnumeratingWithState:&v159 objects:v199 count:16];
+          v103 = [v102 countByEnumeratingWithState:&v158 objects:v198 count:16];
           if (v103)
           {
-            v104 = *v160;
+            v104 = *v159;
             do
             {
               for (m = 0; m != v103; ++m)
               {
-                if (*v160 != v104)
+                if (*v159 != v104)
                 {
                   objc_enumerationMutation(v102);
                 }
 
-                [(TRIExperimentBaseTask *)self addMetric:*(*(&v159 + 1) + 8 * m)];
+                [(TRIExperimentBaseTask *)self addMetric:*(*(&v158 + 1) + 8 * m)];
               }
 
-              v103 = [v102 countByEnumeratingWithState:&v159 objects:v199 count:16];
+              v103 = [v102 countByEnumeratingWithState:&v158 objects:v198 count:16];
             }
 
             while (v103);
@@ -1928,17 +1901,17 @@ LABEL_97:
         }
       }
 
-      if ([v171 runStatus] == 3)
+      if ([v170 runStatus] == 3)
       {
         experiment13 = [(TRIExperimentBaseTask *)self experiment];
         experimentId7 = [experiment13 experimentId];
         treatmentId9 = [(TRITreatmentBaseTask *)self treatmentId];
         experiment14 = [(TRIExperimentBaseTask *)self experiment];
-        +[TRITaskUtils updateExperimentHistoryDatabaseWithAllocationStatus:forExperiment:treatment:deployment:experimentRecord:isBecomingObsolete:context:](TRITaskUtils, "updateExperimentHistoryDatabaseWithAllocationStatus:forExperiment:treatment:deployment:experimentRecord:isBecomingObsolete:context:", 7, experimentId7, treatmentId9, [experiment14 deploymentId], v149, 0, v150);
+        +[TRITaskUtils updateExperimentHistoryDatabaseWithAllocationStatus:forExperiment:treatment:deployment:experimentRecord:isBecomingObsolete:context:](TRITaskUtils, "updateExperimentHistoryDatabaseWithAllocationStatus:forExperiment:treatment:deployment:experimentRecord:isBecomingObsolete:context:", 7, experimentId7, treatmentId9, [experiment14 deploymentId], v148, 0, v149);
       }
     }
 
-    v143 = v171;
+    v142 = v170;
     goto LABEL_97;
   }
 
@@ -1949,9 +1922,9 @@ LABEL_97:
     shortDesc2 = [experiment15 shortDesc];
     treatmentId10 = [(TRITreatmentBaseTask *)self treatmentId];
     *buf = 138543618;
-    v202 = shortDesc2;
-    v203 = 2112;
-    v204 = treatmentId10;
+    v201 = shortDesc2;
+    v202 = 2112;
+    v203 = treatmentId10;
     _os_log_error_impl(&dword_26F567000, v73, OS_LOG_TYPE_ERROR, "Unable to look up experiment %{public}@ associated with treatment %@.", buf, 0x16u);
   }
 
@@ -1962,18 +1935,16 @@ LABEL_97:
   experiment17 = [(TRIExperimentBaseTask *)self experiment];
   +[TRITaskUtils updateExperimentHistoryDatabaseWithAllocationStatus:forExperiment:treatment:deployment:experimentRecord:isBecomingObsolete:context:](TRITaskUtils, "updateExperimentHistoryDatabaseWithAllocationStatus:forExperiment:treatment:deployment:experimentRecord:isBecomingObsolete:context:", 7, experimentId8, treatmentId11, [experiment17 deploymentId], 0, 0, contextCopy);
 
-  v146 = [(TRIFetchTreatmentTask *)self _nextTasksForRunStatusFailureWithDeactivationReason:3];
-  v143 = [TRITaskRunResult resultWithRunStatus:3 reportResultToServer:0 nextTasks:v146 earliestRetryDate:0];
+  v145 = [(TRIFetchTreatmentTask *)self _nextTasksForRunStatusFailureWithDeactivationReason:3];
+  v142 = [TRITaskRunResult resultWithRunStatus:3 reportResultToServer:0 nextTasks:v145 earliestRetryDate:0];
 LABEL_102:
 
-  v120 = *MEMORY[0x277D85DE8];
-
-  return v143;
+  return v142;
 }
 
 void __55__TRIFetchTreatmentTask_runUsingContext_withTaskQueue___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = MEMORY[0x277D73750];
   v9 = [*(a1 + 32) namespaceDescriptorsDefaultDir];
@@ -1994,23 +1965,21 @@ void __55__TRIFetchTreatmentTask_runUsingContext_withTaskQueue___block_invoke(ui
     {
       v16 = [*(a1 + 40) treatmentId];
       v17 = *(*(*(a1 + 56) + 8) + 40);
-      v19 = 138412546;
-      v20 = v16;
-      v21 = 2114;
-      v22 = v17;
-      _os_log_impl(&dword_26F567000, v15, OS_LOG_TYPE_INFO, "attributing treatment fetch for %@ to %{public}@", &v19, 0x16u);
+      v18 = 138412546;
+      v19 = v16;
+      v20 = 2114;
+      v21 = v17;
+      _os_log_impl(&dword_26F567000, v15, OS_LOG_TYPE_INFO, "attributing treatment fetch for %@ to %{public}@", &v18, 0x16u);
     }
 
     *(*(*(a1 + 64) + 8) + 24) = [v10 expensiveNetworkingAllowed];
     *a4 = 1;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __55__TRIFetchTreatmentTask_runUsingContext_withTaskQueue___block_invoke_397(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = TRILogCategory_Server();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -2018,9 +1987,9 @@ void __55__TRIFetchTreatmentTask_runUsingContext_withTaskQueue___block_invoke_39
     v5 = [*(a1 + 32) treatmentId];
     v6 = [v3 assetId];
     *buf = 138412546;
-    v13 = v5;
-    v14 = 2114;
-    v15 = v6;
+    v12 = v5;
+    v13 = 2114;
+    v14 = v6;
     _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "Treatment %@ requires asset %{public}@ which is not already on disk; will be downloaded.", buf, 0x16u);
   }
 
@@ -2030,39 +1999,35 @@ void __55__TRIFetchTreatmentTask_runUsingContext_withTaskQueue___block_invoke_39
 
   if (!v9)
   {
-    v11 = [MEMORY[0x277CCA890] currentHandler];
-    [v11 handleFailureInMethod:*(a1 + 48) object:*(a1 + 32) file:@"TRIFetchTreatmentTask.m" lineNumber:748 description:{@"Expression was unexpectedly nil/false: %@", @"ra.metadata.treatmentIndex"}];
+    v10 = [MEMORY[0x277CCA890] currentHandler];
+    [v10 handleFailureInMethod:*(a1 + 48) object:*(a1 + 32) file:@"TRIFetchTreatmentTask.m" lineNumber:748 description:{@"Expression was unexpectedly nil/false: %@", @"ra.metadata.treatmentIndex"}];
   }
 
   [v7 addIndex:{objc_msgSend(v9, "index")}];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __55__TRIFetchTreatmentTask_runUsingContext_withTaskQueue___block_invoke_401(uint64_t a1, uint64_t a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a3;
-  v11 = 0;
-  v4 = *MEMORY[0x277CBE838];
   v10 = 0;
-  v5 = [v3 getResourceValue:&v11 forKey:v4 error:&v10];
-  v6 = v11;
-  v7 = v10;
+  v4 = *MEMORY[0x277CBE838];
+  v9 = 0;
+  v5 = [v3 getResourceValue:&v10 forKey:v4 error:&v9];
+  v6 = v10;
+  v7 = v9;
   if ((v5 & 1) == 0)
   {
     v8 = TRILogCategory_Server();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v13 = v3;
-      v14 = 2114;
-      v15 = v7;
+      v12 = v3;
+      v13 = 2114;
+      v14 = v7;
       _os_log_error_impl(&dword_26F567000, v8, OS_LOG_TYPE_ERROR, "failed fetching file size for url %@ error %{public}@", buf, 0x16u);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_asPersistedTask
@@ -2107,10 +2072,10 @@ void __55__TRIFetchTreatmentTask_runUsingContext_withTaskQueue___block_invoke_40
 
 + (id)parseFromData:(id)data
 {
-  v45 = *MEMORY[0x277D85DE8];
-  v42 = 0;
-  v3 = [(TRIPBMessage *)TRIFetchTreatmentPersistedTask parseFromData:data error:&v42];
-  v4 = v42;
+  v44 = *MEMORY[0x277D85DE8];
+  v41 = 0;
+  v3 = [(TRIPBMessage *)TRIFetchTreatmentPersistedTask parseFromData:data error:&v41];
+  v4 = v41;
   if (!v3)
   {
     v10 = TRILogCategory_Server();
@@ -2122,7 +2087,7 @@ LABEL_32:
     }
 
     *buf = 138543362;
-    v44 = v4;
+    v43 = v4;
     v19 = "Unable to parse buffer as TRIFetchTreatmentPersistedTask: %{public}@";
     v20 = v10;
     v21 = 12;
@@ -2139,7 +2104,7 @@ LABEL_14:
       v31 = objc_opt_class();
       v32 = NSStringFromClass(v31);
       *buf = 138412290;
-      v44 = v32;
+      v43 = v32;
       _os_log_error_impl(&dword_26F567000, v22, OS_LOG_TYPE_ERROR, "Cannot decode message of type %@ with missing field: experimentId", buf, 0xCu);
     }
 
@@ -2152,7 +2117,7 @@ LABEL_14:
     v23 = objc_opt_class();
     v24 = NSStringFromClass(v23);
     *buf = 138412290;
-    v44 = v24;
+    v43 = v24;
     v25 = "Cannot decode message of type %@ with missing field: experimentId";
     goto LABEL_31;
   }
@@ -2171,7 +2136,7 @@ LABEL_14:
     v26 = objc_opt_class();
     v24 = NSStringFromClass(v26);
     *buf = 138412290;
-    v44 = v24;
+    v43 = v24;
     v25 = "Cannot decode message of type %@ with field of length 0: experimentId";
 LABEL_31:
     _os_log_error_impl(&dword_26F567000, v10, OS_LOG_TYPE_ERROR, v25, buf, 0xCu);
@@ -2184,10 +2149,10 @@ LABEL_31:
     v27 = TRILogCategory_Server();
     if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
-      v37 = objc_opt_class();
-      v38 = NSStringFromClass(v37);
+      v36 = objc_opt_class();
+      v37 = NSStringFromClass(v36);
       *buf = 138412290;
-      v44 = v38;
+      v43 = v37;
       _os_log_error_impl(&dword_26F567000, v27, OS_LOG_TYPE_ERROR, "Cannot decode message of type %@ with missing field: treatmentId", buf, 0xCu);
     }
 
@@ -2200,7 +2165,7 @@ LABEL_31:
     v28 = objc_opt_class();
     v24 = NSStringFromClass(v28);
     *buf = 138412290;
-    v44 = v24;
+    v43 = v24;
     v25 = "Cannot decode message of type %@ with missing field: treatmentId";
     goto LABEL_31;
   }
@@ -2219,7 +2184,7 @@ LABEL_31:
     v29 = objc_opt_class();
     v24 = NSStringFromClass(v29);
     *buf = 138412290;
-    v44 = v24;
+    v43 = v24;
     v25 = "Cannot decode message of type %@ with field of length 0: treatmentId";
     goto LABEL_31;
   }
@@ -2235,7 +2200,7 @@ LABEL_31:
     v30 = objc_opt_class();
     v24 = NSStringFromClass(v30);
     *buf = 138412290;
-    v44 = v24;
+    v43 = v24;
     v25 = "Cannot decode message of type %@ with missing field: deploymentId";
     goto LABEL_31;
   }
@@ -2251,7 +2216,7 @@ LABEL_31:
     v33 = objc_opt_class();
     v24 = NSStringFromClass(v33);
     *buf = 138412290;
-    v44 = v24;
+    v43 = v24;
     v25 = "Cannot decode message of type %@ with missing field: taskAttribution";
     goto LABEL_31;
   }
@@ -2294,9 +2259,9 @@ LABEL_31:
       v18 = objc_opt_new();
     }
 
-    v39 = objc_opt_class();
+    v38 = objc_opt_class();
     treatmentId2 = [v3 treatmentId];
-    v34 = [v39 taskWithExperiment:v13 treatmentId:treatmentId2 taskAttributing:v10 capabilityModifier:v18];
+    v34 = [v38 taskWithExperiment:v13 treatmentId:treatmentId2 taskAttributing:v10 capabilityModifier:v18];
 
     if ([v3 hasRetryCount])
     {
@@ -2324,7 +2289,6 @@ LABEL_31:
   }
 
 LABEL_33:
-  v35 = *MEMORY[0x277D85DE8];
 
   return v34;
 }

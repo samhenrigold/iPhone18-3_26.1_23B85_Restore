@@ -21,6 +21,7 @@
 - (id)multiplyWithJavaMathBigInteger:(id)integer;
 - (id)negate;
 - (id)nextProbablePrime;
+- (id)powWithInt:(int)int;
 - (id)remainderWithJavaMathBigInteger:(id)integer;
 - (id)setBitWithInt:(int)int;
 - (id)shiftLeftOneBit;
@@ -706,7 +707,6 @@ LABEL_12:
     v10 = *(v9 + 8);
     if (v10 <= 1)
     {
-      v18 = *(v5 + 1);
       IOSArray_throwOutOfBoundsWithMsg(v10, 1);
     }
 
@@ -733,7 +733,6 @@ LABEL_16:
       v13 = *(v12 + 8);
       if (v13 <= 1)
       {
-        v19 = *(v7 + 1);
         IOSArray_throwOutOfBoundsWithMsg(v13, 1);
       }
 
@@ -769,6 +768,60 @@ LABEL_19:
   }
 
   return JavaMathMultiplication_multiplyWithJavaMathBigInteger_withJavaMathBigInteger_(self, integer);
+}
+
+- (id)powWithInt:(int)int
+{
+  if (int < 0)
+  {
+    v12 = new_JavaLangArithmeticException_initWithNSString_(@"Negative exponent");
+    objc_exception_throw(v12);
+  }
+
+  v3 = *&int;
+  selfCopy = self;
+  if (int == 1)
+  {
+    return selfCopy;
+  }
+
+  if (!int)
+  {
+    return JavaMathBigInteger_ONE_;
+  }
+
+  if ([(JavaMathBigInteger *)self isEqual:JavaMathBigInteger_ONE_]|| [(JavaMathBigInteger *)selfCopy isEqual:JavaMathBigInteger_ZERO_])
+  {
+    return selfCopy;
+  }
+
+  if ([(JavaMathBigInteger *)selfCopy testBitWithInt:0])
+  {
+
+    return JavaMathMultiplication_powWithJavaMathBigInteger_withInt_(selfCopy, v3);
+  }
+
+  else
+  {
+    LODWORD(v6) = 0;
+    LODWORD(v7) = 0;
+    do
+    {
+      v7 = (v7 + 1);
+      v6 = (v6 + v3);
+    }
+
+    while (![(JavaMathBigInteger *)selfCopy testBitWithInt:v7]);
+    PowerOfTwoWithInt = JavaMathBigInteger_getPowerOfTwoWithInt_(v6);
+    if (!PowerOfTwoWithInt || (v9 = PowerOfTwoWithInt, (v10 = [(JavaMathBigInteger *)selfCopy shiftRightWithInt:v7]) == 0))
+    {
+      JreThrowNullPointerException();
+    }
+
+    v11 = [v10 powWithInt:v3];
+
+    return [(JavaMathBigInteger *)v9 multiplyWithJavaMathBigInteger:v11];
+  }
 }
 
 - (id)divideAndRemainderWithJavaMathBigInteger:(id)integer
@@ -1411,42 +1464,42 @@ LABEL_14:
   if (objc_opt_class() == self)
   {
     v2 = [JavaMathBigInteger alloc];
-    JavaMathBigInteger_initWithInt_withInt_(v2, 0, 0);
+    JavaMathBigInteger_initWithInt_withInt_(&v2->super.super.super.isa, 0, 0);
     JreStrongAssignAndConsume(&JavaMathBigInteger_ZERO_, v2);
     v3 = [JavaMathBigInteger alloc];
-    JavaMathBigInteger_initWithInt_withInt_(v3, 1, 1);
+    JavaMathBigInteger_initWithInt_withInt_(&v3->super.super.super.isa, 1, 1);
     JreStrongAssignAndConsume(&JavaMathBigInteger_ONE_, v3);
     v4 = [JavaMathBigInteger alloc];
-    JavaMathBigInteger_initWithInt_withInt_(v4, 1, 10);
+    JavaMathBigInteger_initWithInt_withInt_(&v4->super.super.super.isa, 1, 10);
     JreStrongAssignAndConsume(&JavaMathBigInteger_TEN_, v4);
     v5 = [JavaMathBigInteger alloc];
-    JavaMathBigInteger_initWithInt_withInt_(v5, -1, 1);
+    JavaMathBigInteger_initWithInt_withInt_(&v5->super.super.super.isa, -1, 1);
     JreStrongAssignAndConsume(&JavaMathBigInteger_MINUS_ONE_, v5);
     v19 = JavaMathBigInteger_ZERO_;
     v20 = JavaMathBigInteger_ONE_;
     v6 = [JavaMathBigInteger alloc];
-    JavaMathBigInteger_initWithInt_withInt_(v6, 1, 2);
+    JavaMathBigInteger_initWithInt_withInt_(&v6->super.super.super.isa, 1, 2);
     v21 = v6;
     v7 = [JavaMathBigInteger alloc];
-    JavaMathBigInteger_initWithInt_withInt_(v7, 1, 3);
+    JavaMathBigInteger_initWithInt_withInt_(&v7->super.super.super.isa, 1, 3);
     v22 = v7;
     v8 = [JavaMathBigInteger alloc];
-    JavaMathBigInteger_initWithInt_withInt_(v8, 1, 4);
+    JavaMathBigInteger_initWithInt_withInt_(&v8->super.super.super.isa, 1, 4);
     v23 = v8;
     v9 = [JavaMathBigInteger alloc];
-    JavaMathBigInteger_initWithInt_withInt_(v9, 1, 5);
+    JavaMathBigInteger_initWithInt_withInt_(&v9->super.super.super.isa, 1, 5);
     v24 = v9;
     v10 = [JavaMathBigInteger alloc];
-    JavaMathBigInteger_initWithInt_withInt_(v10, 1, 6);
+    JavaMathBigInteger_initWithInt_withInt_(&v10->super.super.super.isa, 1, 6);
     v25 = v10;
     v11 = [JavaMathBigInteger alloc];
-    JavaMathBigInteger_initWithInt_withInt_(v11, 1, 7);
+    JavaMathBigInteger_initWithInt_withInt_(&v11->super.super.super.isa, 1, 7);
     v26 = v11;
     v12 = [JavaMathBigInteger alloc];
-    JavaMathBigInteger_initWithInt_withInt_(v12, 1, 8);
+    JavaMathBigInteger_initWithInt_withInt_(&v12->super.super.super.isa, 1, 8);
     v27 = v12;
     v13 = [JavaMathBigInteger alloc];
-    JavaMathBigInteger_initWithInt_withInt_(v13, 1, 9);
+    JavaMathBigInteger_initWithInt_withInt_(&v13->super.super.super.isa, 1, 9);
     v28 = v13;
     v29 = JavaMathBigInteger_TEN_;
     v14 = [IOSObjectArray newArrayWithObjects:&v19 count:11 type:JavaMathBigInteger_class_()];

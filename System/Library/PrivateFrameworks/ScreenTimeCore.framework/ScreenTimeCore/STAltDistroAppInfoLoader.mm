@@ -97,7 +97,7 @@
 
 - (void)_startNextRequest
 {
-  v19[4] = *MEMORY[0x1E69E9840];
+  v18[4] = *MEMORY[0x1E69E9840];
   pendingRequests = [(STAltDistroAppInfoLoader *)self pendingRequests];
   v4 = [pendingRequests count];
 
@@ -107,35 +107,33 @@
     firstObject = [pendingRequests2 firstObject];
 
     v7 = *MEMORY[0x1E698B410];
-    v19[0] = *MEMORY[0x1E698B418];
-    v19[1] = v7;
+    v18[0] = *MEMORY[0x1E698B418];
+    v18[1] = v7;
     v8 = *MEMORY[0x1E698B3F0];
-    v19[2] = *MEMORY[0x1E698B3F8];
-    v19[3] = v8;
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:4];
+    v18[2] = *MEMORY[0x1E698B3F8];
+    v18[3] = v8;
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:4];
     objc_initWeak(&location, self);
     requestsFetcher = self->_requestsFetcher;
     request = [firstObject request];
     v12 = [MEMORY[0x1E695DFD8] setWithArray:v9];
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __45__STAltDistroAppInfoLoader__startNextRequest__block_invoke;
-    v15[3] = &unk_1E7CE7F98;
-    objc_copyWeak(&v17, &location);
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __45__STAltDistroAppInfoLoader__startNextRequest__block_invoke;
+    v14[3] = &unk_1E7CE7F98;
+    objc_copyWeak(&v16, &location);
     v13 = firstObject;
-    v16 = v13;
-    [(STAltDistroRequestFetcher *)requestsFetcher _lockupDictionaryForRequest:request includingKeys:v12 withCompletionBlock:v15];
+    v15 = v13;
+    [(STAltDistroRequestFetcher *)requestsFetcher _lockupDictionaryForRequest:request includingKeys:v12 withCompletionBlock:v14];
 
-    objc_destroyWeak(&v17);
+    objc_destroyWeak(&v16);
     objc_destroyWeak(&location);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __45__STAltDistroAppInfoLoader__startNextRequest__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v40[4] = *MEMORY[0x1E69E9840];
+  v39[4] = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -162,74 +160,74 @@ void __45__STAltDistroAppInfoLoader__startNextRequest__block_invoke(uint64_t a1,
     if (v5)
     {
       v14 = [v5 objectForKey:*MEMORY[0x1E698B418]];
-      v17 = [v5 objectForKey:*MEMORY[0x1E698B410]];
-      v18 = [v5 objectForKey:*MEMORY[0x1E698B3F8]];
-      v19 = [v5 objectForKey:*MEMORY[0x1E698B400]];
-      v20 = v19;
-      if (v14 | v17)
+      v16 = [v5 objectForKey:*MEMORY[0x1E698B410]];
+      v17 = [v5 objectForKey:*MEMORY[0x1E698B3F8]];
+      v18 = [v5 objectForKey:*MEMORY[0x1E698B400]];
+      v19 = v18;
+      if (v14 | v16)
       {
-        v35 = v18;
-        v24 = objc_opt_new();
-        v25 = [*(a1 + 32) adamID];
-        [v24 setAdamID:{objc_msgSend(v25, "unsignedLongLongValue")}];
+        v34 = v17;
+        v23 = objc_opt_new();
+        v24 = [*(a1 + 32) adamID];
+        [v23 setAdamID:{objc_msgSend(v24, "unsignedLongLongValue")}];
 
-        v26 = *MEMORY[0x1E698B2F0];
-        v39[0] = *MEMORY[0x1E698B2F8];
-        v39[1] = v26;
-        v40[0] = @"128";
-        v40[1] = @"128";
-        v27 = *MEMORY[0x1E698B2E8];
-        v39[2] = *MEMORY[0x1E698B2E0];
+        v25 = *MEMORY[0x1E698B2F0];
+        v38[0] = *MEMORY[0x1E698B2F8];
+        v38[1] = v25;
+        v39[0] = @"128";
+        v39[1] = @"128";
+        v26 = *MEMORY[0x1E698B2E8];
+        v38[2] = *MEMORY[0x1E698B2E0];
+        v38[3] = v26;
+        v27 = *MEMORY[0x1E698B2D8];
+        v39[2] = *MEMORY[0x1E698B2D0];
         v39[3] = v27;
-        v28 = *MEMORY[0x1E698B2D8];
-        v40[2] = *MEMORY[0x1E698B2D0];
-        v40[3] = v28;
-        v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v40 forKeys:v39 count:4];
-        v30 = [v17 makeURLWithSubstitutions:v29];
-        [v24 setArtworkURL:v30];
+        v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v39 forKeys:v38 count:4];
+        v29 = [v16 makeURLWithSubstitutions:v28];
+        [v23 setArtworkURL:v29];
 
-        v31 = [*(a1 + 32) bundleID];
-        [v24 setBundleIdentifier:v31];
+        v30 = [*(a1 + 32) bundleID];
+        [v23 setBundleIdentifier:v30];
 
-        [v24 setDeveloperName:v20];
+        [v23 setDeveloperName:v19];
         if (v14)
         {
-          [v24 setDisplayName:v14];
+          [v23 setDisplayName:v14];
         }
 
         else
         {
-          v32 = [*(a1 + 32) bundleID];
-          [v24 setDisplayName:v32];
+          v31 = [*(a1 + 32) bundleID];
+          [v23 setDisplayName:v31];
         }
 
-        v33 = [*(a1 + 32) distributorID];
-        [v24 setDistributorID:v33];
+        v32 = [*(a1 + 32) distributorID];
+        [v23 setDistributorID:v32];
 
-        [v24 setDistributorIsThirdParty:1];
-        [v24 setRatingLabel:v36];
-        [v24 setSource:5];
-        v34 = [*(a1 + 32) completion];
-        (v34)[2](v34, 0, v24);
+        [v23 setDistributorIsThirdParty:1];
+        [v23 setRatingLabel:v35];
+        [v23 setSource:5];
+        v33 = [*(a1 + 32) completion];
+        (v33)[2](v33, 0, v23);
 
         goto LABEL_11;
       }
 
-      v21 = MEMORY[0x1E696ABC0];
-      v37 = @"data";
-      v22 = v5;
+      v20 = MEMORY[0x1E696ABC0];
+      v36 = @"data";
+      v21 = v5;
     }
 
     else
     {
-      v21 = MEMORY[0x1E696ABC0];
-      v37 = @"data";
-      v22 = [MEMORY[0x1E695DFB0] null];
+      v20 = MEMORY[0x1E696ABC0];
+      v36 = @"data";
+      v21 = [MEMORY[0x1E695DFB0] null];
     }
 
-    v38 = v22;
-    v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
-    v14 = [v21 errorWithDomain:@"STErrorDomain" code:572 userInfo:v23];
+    v37 = v21;
+    v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
+    v14 = [v20 errorWithDomain:@"STErrorDomain" code:572 userInfo:v22];
 
     if (!v5)
     {
@@ -255,22 +253,18 @@ LABEL_11:
   [*v8 setRequestToRetryOnFailure:0];
   [WeakRetained _startNextRequest];
 LABEL_12:
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __45__STAltDistroAppInfoLoader__startNextRequest__block_invoke_cold_1(id *a1, NSObject *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = [*a1 bundleID];
   v5 = [*a1 distributorID];
-  v7 = 138412546;
-  v8 = v4;
-  v9 = 2112;
-  v10 = v5;
-  _os_log_error_impl(&dword_1B831F000, a2, OS_LOG_TYPE_ERROR, "Loading info for budleId:%@ distributorId:%@ failed. Retrying with nil distributor id.", &v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 138412546;
+  v7 = v4;
+  v8 = 2112;
+  v9 = v5;
+  _os_log_error_impl(&dword_1B831F000, a2, OS_LOG_TYPE_ERROR, "Loading info for budleId:%@ distributorId:%@ failed. Retrying with nil distributor id.", &v6, 0x16u);
 }
 
 @end

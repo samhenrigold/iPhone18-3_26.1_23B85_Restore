@@ -1,8 +1,18 @@
 @interface BusinessSettingsHelper
 - (BOOL)areBusinessUpdatesEnabled;
+- (void)setRCSBusinessMessagesEnabled:(BOOL)enabled;
 @end
 
 @implementation BusinessSettingsHelper
+
+- (void)setRCSBusinessMessagesEnabled:(BOOL)enabled
+{
+  CFPreferencesSetAppValue(@"RCSForBusinessEnabled", [MEMORY[0x277CCABB0] numberWithBool:enabled], @"com.apple.madrid");
+  CFPreferencesSynchronize(@"com.apple.madrid", *MEMORY[0x277CBF040], *MEMORY[0x277CBF010]);
+  DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
+
+  CFNotificationCenterPostNotification(DarwinNotifyCenter, @"com.apple.MobileSMS.ReadReceiptsEnabled.changed", 0, 0, 1u);
+}
 
 - (BOOL)areBusinessUpdatesEnabled
 {

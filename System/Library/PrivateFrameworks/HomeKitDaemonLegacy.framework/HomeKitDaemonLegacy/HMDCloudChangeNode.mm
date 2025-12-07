@@ -97,7 +97,7 @@
 
 - (void)deleteChildren
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (![(HMDCloudChangeNode *)self forceDelete])
   {
     v3 = objc_autoreleasePoolPush();
@@ -107,11 +107,11 @@
     {
       v6 = HMFGetLogIdentifier();
       shortDescription = [(HMDCloudChangeNode *)selfCopy shortDescription];
-      v21 = 138543618;
-      v22 = v6;
-      v23 = 2112;
-      v24 = shortDescription;
-      _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Deleting children objects %@", &v21, 0x16u);
+      v20 = 138543618;
+      v21 = v6;
+      v22 = 2112;
+      v23 = shortDescription;
+      _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Deleting children objects %@", &v20, 0x16u);
     }
 
     objc_autoreleasePoolPop(v3);
@@ -154,8 +154,6 @@
       }
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateWithCloudRecord:(id)record
@@ -487,7 +485,7 @@ LABEL_20:
 
 - (void)logChangeTreeWithIndent:(id)indent
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   indentCopy = indent;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -497,11 +495,11 @@ LABEL_20:
     v8 = HMFGetLogIdentifier();
     shortDescription = [(HMDCloudChangeNode *)selfCopy shortDescription];
     *buf = 138543874;
-    v18 = v8;
-    v19 = 2112;
-    v20 = indentCopy;
-    v21 = 2112;
-    v22 = shortDescription;
+    v17 = v8;
+    v18 = 2112;
+    v19 = indentCopy;
+    v20 = 2112;
+    v21 = shortDescription;
     _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_DEBUG, "%{public}@%@HMDCloudChangeNode<%@>:", buf, 0x20u);
   }
 
@@ -524,8 +522,6 @@ LABEL_20:
 
     while (nextObject2);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)description
@@ -576,7 +572,7 @@ LABEL_20:
 
 - (HMDCloudChangeNode)initWithModel:(id)model
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   v5 = [[HMDCloudChange alloc] initWithObjectChange:modelCopy];
   v6 = v5;
@@ -599,18 +595,17 @@ LABEL_20:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       v15 = HMFGetLogIdentifier();
-      v18 = 138543618;
-      v19 = v15;
-      v20 = 2112;
-      v21 = modelCopy;
-      _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_ERROR, "%{public}@Cannot create cloud change node from %@", &v18, 0x16u);
+      v17 = 138543618;
+      v18 = v15;
+      v19 = 2112;
+      v20 = modelCopy;
+      _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_ERROR, "%{public}@Cannot create cloud change node from %@", &v17, 0x16u);
     }
 
     objc_autoreleasePoolPop(v13);
     v12 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v12;
 }
 

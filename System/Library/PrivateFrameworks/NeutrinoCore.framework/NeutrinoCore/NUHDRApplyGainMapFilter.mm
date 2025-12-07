@@ -21,9 +21,11 @@
 
 uint64_t __57__NUHDRApplyGainMapFilter_flexRangeGainMapApplyRGBKernel__block_invoke()
 {
-  flexRangeGainMapApplyRGBKernel_s_flexRangeGainMapApplyRGBKernel = [MEMORY[0x1E695F618] kernelWithString:{@"vec3 s_pow(vec3 x, vec3 g) {  vec3 a = max(abs(x), 1e-6) \n  return sign(x) * pow(a, g); \n}kernel vec4 flx_gain_apply_rgb(__sample im, __sample gm, vec3 a, vec3 b, vec3 g, vec3 s, vec3 kx, vec3 ky) \n{ \n  vec3 gainLog2 = a * s_pow(gm.rgb, g) + b; \n  vec3 gainLin = exp2(s * gainLog2); \n  vec3 rgb = gainLin * (im.rgb + kx) - ky; \n  return vec4(rgb, 1.0); \n}\n"}];;
+  v0 = [MEMORY[0x1E695F618] kernelWithString:{@"vec3 s_pow(vec3 x, vec3 g) {  vec3 a = max(abs(x), 1e-6) \n  return sign(x) * pow(a, g); \n}kernel vec4 flx_gain_apply_rgb(__sample im, __sample gm, vec3 a, vec3 b, vec3 g, vec3 s, vec3 kx, vec3 ky) \n{ \n  vec3 gainLog2 = a * s_pow(gm.rgb, g) + b; \n  vec3 gainLin = exp2(s * gainLog2); \n  vec3 rgb = gainLin * (im.rgb + kx) - ky; \n  return vec4(rgb, 1.0); \n}\n"}];;
+  v1 = flexRangeGainMapApplyRGBKernel_s_flexRangeGainMapApplyRGBKernel;
+  flexRangeGainMapApplyRGBKernel_s_flexRangeGainMapApplyRGBKernel = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)flexRangeGainMapApplyKernel
@@ -40,9 +42,11 @@ uint64_t __57__NUHDRApplyGainMapFilter_flexRangeGainMapApplyRGBKernel__block_inv
 
 uint64_t __54__NUHDRApplyGainMapFilter_flexRangeGainMapApplyKernel__block_invoke()
 {
-  flexRangeGainMapApplyKernel_s_flexRangeGainMapApplyKernel = [MEMORY[0x1E695F618] kernelWithString:{@"vec3 s_pow(vec3 x, float g) {  vec3 a = max(abs(x), 1e-6) \n  return sign(x) * pow(a, vec3(g)); \n}kernel vec4 flx_gain_apply(__sample im, __sample gm, vec4 p, vec2 k) \n{ \n  vec3 gainLog2 = p.x * s_pow(gm.rgb, p.y) + p.z; \n  vec3 gainLin = exp2(p.w * gainLog2); \n  vec3 rgb = gainLin * (im.rgb + k.x) - k.y; \n  return vec4(rgb, 1.0); \n}\n"}];;
+  v0 = [MEMORY[0x1E695F618] kernelWithString:{@"vec3 s_pow(vec3 x, float g) {  vec3 a = max(abs(x), 1e-6) \n  return sign(x) * pow(a, vec3(g)); \n}kernel vec4 flx_gain_apply(__sample im, __sample gm, vec4 p, vec2 k) \n{ \n  vec3 gainLog2 = p.x * s_pow(gm.rgb, p.y) + p.z; \n  vec3 gainLin = exp2(p.w * gainLog2); \n  vec3 rgb = gainLin * (im.rgb + k.x) - k.y; \n  return vec4(rgb, 1.0); \n}\n"}];;
+  v1 = flexRangeGainMapApplyKernel_s_flexRangeGainMapApplyKernel;
+  flexRangeGainMapApplyKernel_s_flexRangeGainMapApplyKernel = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)meteorPlusGainMapApplyKernel
@@ -59,9 +63,11 @@ uint64_t __54__NUHDRApplyGainMapFilter_flexRangeGainMapApplyKernel__block_invoke
 
 uint64_t __55__NUHDRApplyGainMapFilter_meteorPlusGainMapApplyKernel__block_invoke()
 {
-  meteorPlusGainMapApplyKernel_s_meteorPlusGainMapApplyKernel = [MEMORY[0x1E695F618] kernelWithString:{@"kernel vec4 mpp_gain_apply(__sample im, __sample gm, float h) \n{ \n  float gain = 1.0 + (h - 1.0) * gm.r \n  float3 rgb = gain * im.rgb; \n  return vec4(rgb, 1.0); \n}\n"}];;
+  v0 = [MEMORY[0x1E695F618] kernelWithString:{@"kernel vec4 mpp_gain_apply(__sample im, __sample gm, float h) \n{ \n  float gain = 1.0 + (h - 1.0) * gm.r \n  float3 rgb = gain * im.rgb; \n  return vec4(rgb, 1.0); \n}\n"}];;
+  v1 = meteorPlusGainMapApplyKernel_s_meteorPlusGainMapApplyKernel;
+  meteorPlusGainMapApplyKernel_s_meteorPlusGainMapApplyKernel = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (id)outputImage
@@ -97,10 +103,10 @@ uint64_t __55__NUHDRApplyGainMapFilter_meteorPlusGainMapApplyKernel__block_invok
 
     _imageByClampingAlpha = [v16 _imageByClampingAlpha];
 
-    [_imageByClampingAlpha extent];
+    objc_msgSend_extent(_imageByClampingAlpha);
     v19 = v18;
     v21 = v20;
-    [v5 extent];
+    objc_msgSend_extent(v5);
     CGAffineTransformMakeScale(&v122, v19 / v22, v21 / v23);
     v121 = [v5 imageByApplyingTransform:&v122];
     flexRangeProperties = [(NUHDRApplyGainMapFilter *)self flexRangeProperties];
@@ -172,7 +178,7 @@ uint64_t __55__NUHDRApplyGainMapFilter_meteorPlusGainMapApplyKernel__block_invok
         v61 = [MEMORY[0x1E695F688] vectorWithX:v108 Y:v106 Z:v58];
         [objc_opt_class() flexRangeGainMapApplyRGBKernel];
         v62 = v117 = v14;
-        [_imageByClampingAlpha extent];
+        objc_msgSend_extent(_imageByClampingAlpha);
         v64 = v63;
         v66 = v65;
         v68 = v67;
@@ -213,7 +219,7 @@ uint64_t __55__NUHDRApplyGainMapFilter_meteorPlusGainMapApplyKernel__block_invok
         v35 = [MEMORY[0x1E695F688] vectorWithX:(v88 - v86) Y:(1.0 / v84) Z:v86 W:v30];
         v36 = [MEMORY[0x1E695F688] vectorWithX:v90 Y:v92];
         flexRangeGainMapApplyKernel = [objc_opt_class() flexRangeGainMapApplyKernel];
-        [_imageByClampingAlpha extent];
+        objc_msgSend_extent(_imageByClampingAlpha);
         v95 = v94;
         v97 = v96;
         v99 = v98;
@@ -234,7 +240,7 @@ uint64_t __55__NUHDRApplyGainMapFilter_meteorPlusGainMapApplyKernel__block_invok
     else
     {
       meteorPlusGainMapApplyKernel = [objc_opt_class() meteorPlusGainMapApplyKernel];
-      [_imageByClampingAlpha extent];
+      objc_msgSend_extent(_imageByClampingAlpha);
       v76 = v75;
       v78 = v77;
       v80 = v79;

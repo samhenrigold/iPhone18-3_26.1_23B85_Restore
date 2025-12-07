@@ -95,24 +95,22 @@
 
 - (BOOL)isRunning
 {
-  v7[4] = *MEMORY[0x1E69E9840];
+  v6[4] = *MEMORY[0x1E69E9840];
   selfCopy = self;
-  v5 = 0;
+  v4 = 0;
   v2 = avas::client::DeviceTimeGlobalState::instance(self);
-  v7[0] = &unk_1F215D3B8;
-  v7[1] = &selfCopy;
-  v7[2] = &v5;
-  v7[3] = v7;
-  (*(*v2 + 16))(v2, v7);
-  std::__function::__value_func<void ()(avas::DTSharedBlock const&)>::~__value_func[abi:ne200100](v7);
-  result = v5;
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  v6[0] = &unk_1F215D3B8;
+  v6[1] = &selfCopy;
+  v6[2] = &v4;
+  v6[3] = v6;
+  (*(*v2 + 16))(v2, v6);
+  std::__function::__value_func<void ()(avas::DTSharedBlock const&)>::~__value_func[abi:ne200100](v6);
+  return v4;
 }
 
 - (AVAudioIOPeriod)IOPeriod
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained(self + 1);
   if (!WeakRetained)
   {
@@ -141,43 +139,41 @@ LABEL_8:
 
     *&retstr->var0 = 0u;
     *&retstr->var2 = 0u;
-    goto LABEL_9;
+    return result;
   }
 
-  avas::client::XPCConnection::sync_message<double,unsigned long>(v9, &v20);
+  avas::client::XPCConnection::sync_message<double,unsigned long>(v9, &v19);
   v10 = objc_autoreleasePoolPush();
-  v11 = caulk::xpc::message<objc_object  {objcproto25SessionManagerXPCProtocol}* {__strong},double,unsigned long>::sync_proxy(&v20);
+  v11 = caulk::xpc::message<objc_object  {objcproto25SessionManagerXPCProtocol}* {__strong},double,unsigned long>::sync_proxy(&v19);
   opaqueSessionID = [WeakRetained opaqueSessionID];
   v13 = *(self + 16);
-  v14 = caulk::xpc::message<objc_object  {objcproto25SessionManagerXPCProtocol}* {__strong},double,unsigned long>::reply(&v20);
+  v14 = caulk::xpc::message<objc_object  {objcproto25SessionManagerXPCProtocol}* {__strong},double,unsigned long>::reply(&v19);
   [v11 getIOControllerPeriod:opaqueSessionID decoupledInput:v13 reply:v14];
 
   objc_autoreleasePoolPop(v10);
-  if (v22)
+  if (v21)
   {
 
-    std::__function::__value_func<void ()(NSError *,std::tuple<double,unsigned long> &&)>::~__value_func[abi:ne200100](v21);
+    std::__function::__value_func<void ()(NSError *,std::tuple<double,unsigned long> &&)>::~__value_func[abi:ne200100](v20);
     goto LABEL_7;
   }
 
+  v16 = v22;
   v17 = v23;
-  v18 = v24;
-  retstr->var0 = v23;
-  v19 = 0.0;
-  if (v17 > 0.0)
+  retstr->var0 = v22;
+  v18 = 0.0;
+  if (v16 > 0.0)
   {
-    v19 = v18 / v17;
+    v18 = v17 / v16;
   }
 
-  retstr->var1 = v19;
-  retstr->var2 = v18;
+  retstr->var1 = v18;
+  retstr->var2 = v17;
   retstr->var3 = 1.0;
 
-  std::__function::__value_func<void ()(NSError *,std::tuple<double,unsigned long> &&)>::~__value_func[abi:ne200100](v21);
+  std::__function::__value_func<void ()(NSError *,std::tuple<double,unsigned long> &&)>::~__value_func[abi:ne200100](v20);
   std::__shared_weak_count::__release_shared[abi:ne200100](v8);
 
-LABEL_9:
-  v16 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -194,7 +190,7 @@ LABEL_9:
     v8 = *(self + 9);
     if (v8 >= *(self + 10))
     {
-      v9 = std::vector<std::pair<long,void({block_pointer} {__strong})(AVAudioIOControllerEvent)>>::__emplace_back_slow_path<long const&,void({block_pointer} {__strong}&)(AVAudioIOControllerEvent)>(self + 64, &v12, &v13);
+      v9 = std::vector<std::pair<long,void({block_pointer} {__strong})(AVAudioIOControllerEvent)>>::__emplace_back_slow_path<long const&,void({block_pointer} {__strong}&)(AVAudioIOControllerEvent)>(self + 8, &v12, &v13);
     }
 
     else

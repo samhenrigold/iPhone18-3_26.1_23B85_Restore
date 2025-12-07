@@ -32,9 +32,9 @@
 - (ASClient)initWithHealthStore:(id)store
 {
   storeCopy = store;
-  v16.receiver = self;
-  v16.super_class = ASClient;
-  v5 = [(ASClient *)&v16 init];
+  v17.receiver = self;
+  v17.super_class = ASClient;
+  v5 = [(ASClient *)&v17 init];
   if (v5)
   {
     v6 = HKCreateSerialDispatchQueue();
@@ -46,11 +46,11 @@
     v5->_clientQueue = v8;
 
     v10 = objc_alloc(MEMORY[0x277CCDAA0]);
-    v11 = ASClientTaskIdentifier();
+    v12 = ASClientTaskIdentifier(v10, v11);
     uUID = [MEMORY[0x277CCAD78] UUID];
-    v13 = [v10 initWithHealthStore:storeCopy taskIdentifier:v11 exportedObject:v5 taskUUID:uUID];
+    v14 = [v10 initWithHealthStore:storeCopy taskIdentifier:v12 exportedObject:v5 taskUUID:uUID];
     proxyProvider = v5->_proxyProvider;
-    v5->_proxyProvider = v13;
+    v5->_proxyProvider = v14;
   }
 
   return v5;
@@ -699,11 +699,11 @@ void __38__ASClient__remoteProxy_errorHandler___block_invoke(uint64_t a1)
 void __38__ASClient__remoteProxy_errorHandler___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  ASLoggingInitialize();
-  v4 = ASLogDefault;
+  ASLoggingInitialize(v3, v4);
+  v5 = ASLogDefault;
   if (os_log_type_enabled(ASLogDefault, OS_LOG_TYPE_ERROR))
   {
-    __38__ASClient__remoteProxy_errorHandler___block_invoke_2_cold_1(v3, v4);
+    __38__ASClient__remoteProxy_errorHandler___block_invoke_2_cold_1(v3, v5);
   }
 
   (*(*(a1 + 32) + 16))();
@@ -744,11 +744,10 @@ void __42__ASClient__clientQueueSuccessCompletion___block_invoke(uint64_t a1, ch
 
 void __38__ASClient__remoteProxy_errorHandler___block_invoke_2_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_23E4FA000, a2, OS_LOG_TYPE_ERROR, "Unable to get plugin proxy: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_23E4FA000, a2, OS_LOG_TYPE_ERROR, "Unable to get plugin proxy: %@", &v2, 0xCu);
 }
 
 @end

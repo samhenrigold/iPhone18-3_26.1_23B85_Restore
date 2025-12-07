@@ -111,22 +111,20 @@ void __39__IMMetricsController_flushImmediately__block_invoke(uint64_t a1)
 
 void __39__IMMetricsController_flushImmediately__block_invoke_3(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = _IMStoreLogCategoryDefault();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_1D8CEC000, v3, OS_LOG_TYPE_ERROR, "Error flushing metric events: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_1D8CEC000, v3, OS_LOG_TYPE_ERROR, "Error flushing metric events: %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __39__IMMetricsController_flushImmediately__block_invoke_7(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v4 = a2;
   v5 = a3;
   v6 = _IMStoreLogCategoryDefault();
@@ -135,31 +133,29 @@ void __39__IMMetricsController_flushImmediately__block_invoke_7(uint64_t a1, voi
   {
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v13 = 138412546;
-      v14 = v4;
-      v15 = 2112;
-      v16 = v5;
+      v12 = 138412546;
+      v13 = v4;
+      v14 = 2112;
+      v15 = v5;
       v8 = "Finished flushing %@ metric events. Error: %@";
       v9 = v7;
       v10 = OS_LOG_TYPE_ERROR;
       v11 = 22;
 LABEL_6:
-      _os_log_impl(&dword_1D8CEC000, v9, v10, v8, &v13, v11);
+      _os_log_impl(&dword_1D8CEC000, v9, v10, v8, &v12, v11);
     }
   }
 
   else if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 138412290;
-    v14 = v4;
+    v12 = 138412290;
+    v13 = v4;
     v8 = "Finished flushing %@ metric events.";
     v9 = v7;
     v10 = OS_LOG_TYPE_DEFAULT;
     v11 = 12;
     goto LABEL_6;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)recordEvent:(id)event
@@ -247,7 +243,7 @@ void __35__IMMetricsController_recordEvent___block_invoke(uint64_t a1, void *a2)
 
 void __61__IMMetricsController_addAdditionalFieldsToEvent_completion___block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v6 = a2;
   v7 = a4;
   if (v7)
@@ -256,7 +252,7 @@ void __61__IMMetricsController_addAdditionalFieldsToEvent_completion___block_inv
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v22 = v7;
+      v21 = v7;
       _os_log_impl(&dword_1D8CEC000, v8, OS_LOG_TYPE_ERROR, "Failed to fetch metrics dictionary with error %@", buf, 0xCu);
     }
 
@@ -280,12 +276,12 @@ void __61__IMMetricsController_addAdditionalFieldsToEvent_completion___block_inv
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v19[0] = MEMORY[0x1E69E9820];
-          v19[1] = 3221225472;
-          v19[2] = __61__IMMetricsController_addAdditionalFieldsToEvent_completion___block_invoke_37;
-          v19[3] = &unk_1E8569E68;
-          v20 = *(a1 + 40);
-          [v11 enumerateKeysAndObjectsUsingBlock:v19];
+          v18[0] = MEMORY[0x1E69E9820];
+          v18[1] = 3221225472;
+          v18[2] = __61__IMMetricsController_addAdditionalFieldsToEvent_completion___block_invoke_37;
+          v18[3] = &unk_1E8569E68;
+          v19 = *(a1 + 40);
+          [v11 enumerateKeysAndObjectsUsingBlock:v18];
         }
       }
     }
@@ -295,24 +291,22 @@ void __61__IMMetricsController_addAdditionalFieldsToEvent_completion___block_inv
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v14 = MEMORY[0x1E69E9820];
-        v15 = 3221225472;
-        v16 = __61__IMMetricsController_addAdditionalFieldsToEvent_completion___block_invoke_2;
-        v17 = &unk_1E8569E68;
-        v18 = *(a1 + 40);
-        [v10 enumerateKeysAndObjectsUsingBlock:&v14];
+        v13 = MEMORY[0x1E69E9820];
+        v14 = 3221225472;
+        v15 = __61__IMMetricsController_addAdditionalFieldsToEvent_completion___block_invoke_2;
+        v16 = &unk_1E8569E68;
+        v17 = *(a1 + 40);
+        [v10 enumerateKeysAndObjectsUsingBlock:&v13];
       }
     }
 
-    [*(a1 + 32) addPropertiesWithDictionary:{*(a1 + 40), v14, v15, v16, v17}];
+    [*(a1 + 32) addPropertiesWithDictionary:{*(a1 + 40), v13, v14, v15, v16}];
     v12 = *(a1 + 48);
     if (v12)
     {
       (*(v12 + 16))();
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __61__IMMetricsController_addAdditionalFieldsToEvent_completion___block_invoke_37(uint64_t a1, void *a2, void *a3)

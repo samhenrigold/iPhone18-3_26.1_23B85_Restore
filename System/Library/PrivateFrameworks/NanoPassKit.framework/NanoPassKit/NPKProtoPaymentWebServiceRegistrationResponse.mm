@@ -76,32 +76,30 @@
 {
   toCopy = to;
   has = self->_has;
-  v8 = toCopy;
+  v6 = toCopy;
   if ((has & 2) != 0)
   {
-    pending = self->_pending;
     PBDataWriterWriteBOOLField();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if (has)
   {
-    registrationResult = self->_registrationResult;
     PBDataWriterWriteUint32Field();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_errorData)
   {
     PBDataWriterWriteDataField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_webServiceContextData)
   {
     PBDataWriterWriteDataField();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 
@@ -173,7 +171,6 @@
     goto LABEL_18;
   }
 
-  v5 = *(equalCopy + 36);
   if ((*&self->_has & 2) == 0)
   {
     if ((*(equalCopy + 36) & 2) == 0)
@@ -182,7 +179,7 @@
     }
 
 LABEL_18:
-    v9 = 0;
+    v7 = 0;
     goto LABEL_19;
   }
 
@@ -191,7 +188,6 @@ LABEL_18:
     goto LABEL_18;
   }
 
-  v6 = *(equalCopy + 32);
   if (self->_pending)
   {
     if ((*(equalCopy + 32) & 1) == 0)
@@ -228,17 +224,17 @@ LABEL_4:
   webServiceContextData = self->_webServiceContextData;
   if (webServiceContextData | *(equalCopy + 3))
   {
-    v9 = [(NSData *)webServiceContextData isEqual:?];
+    v7 = [(NSData *)webServiceContextData isEqual:?];
   }
 
   else
   {
-    v9 = 1;
+    v7 = 1;
   }
 
 LABEL_19:
 
-  return v9;
+  return v7;
 }
 
 - (unint64_t)hash

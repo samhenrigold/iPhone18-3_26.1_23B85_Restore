@@ -206,24 +206,24 @@
 
 - (NSString)description
 {
-  v53[12] = *MEMORY[0x1E69E9840];
-  v47 = MEMORY[0x1E696AEC0];
-  v45 = objc_opt_class();
+  v52[12] = *MEMORY[0x1E69E9840];
+  v46 = MEMORY[0x1E696AEC0];
+  v44 = objc_opt_class();
   v3 = MEMORY[0x1E696AEC0];
-  v52 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{-[LACUserInterfaceRequest identifier](self, "identifier")}];
-  v51 = [v3 stringWithFormat:@"identifier: %@", v52];
-  v53[0] = v51;
+  v51 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{-[LACUserInterfaceRequest identifier](self, "identifier")}];
+  v50 = [v3 stringWithFormat:@"identifier: %@", v51];
+  v52[0] = v50;
   v4 = MEMORY[0x1E696AEC0];
   connectionEndpoint = [(LACUserInterfaceRequest *)self connectionEndpoint];
-  v50 = connectionEndpoint;
+  v49 = connectionEndpoint;
   if (!connectionEndpoint)
   {
     connectionEndpoint = [MEMORY[0x1E695DFB0] null];
   }
 
-  v32 = connectionEndpoint;
-  v49 = [v4 stringWithFormat:@"connectionEndpoint: %@", connectionEndpoint];
-  v53[1] = v49;
+  v31 = connectionEndpoint;
+  v48 = [v4 stringWithFormat:@"connectionEndpoint: %@", connectionEndpoint];
+  v52[1] = v48;
   v6 = MEMORY[0x1E696AEC0];
   contextID = [(LACUserInterfaceRequest *)self contextID];
   v8 = contextID;
@@ -232,70 +232,68 @@
     contextID = [MEMORY[0x1E695DFB0] null];
   }
 
-  v48 = v8;
-  v31 = contextID;
-  v46 = [v6 stringWithFormat:@"contextID: %@", contextID];
-  v53[2] = v46;
+  v47 = v8;
+  v30 = contextID;
+  v45 = [v6 stringWithFormat:@"contextID: %@", contextID];
+  v52[2] = v45;
   v9 = MEMORY[0x1E696AEC0];
   clientAuditTokenData = [(LACUserInterfaceRequest *)self clientAuditTokenData];
-  v44 = clientAuditTokenData;
+  v43 = clientAuditTokenData;
   if (!clientAuditTokenData)
   {
     clientAuditTokenData = [MEMORY[0x1E695DFB0] null];
   }
 
-  v30 = clientAuditTokenData;
-  v43 = [v9 stringWithFormat:@"clientAuditTokenData: %@", clientAuditTokenData];
-  v53[3] = v43;
+  v29 = clientAuditTokenData;
+  v42 = [v9 stringWithFormat:@"clientAuditTokenData: %@", clientAuditTokenData];
+  v52[3] = v42;
   v11 = MEMORY[0x1E696AEC0];
   clientInfo = [(LACUserInterfaceRequest *)self clientInfo];
-  v41 = [v11 stringWithFormat:@"clientInfo: %@", clientInfo];
-  v53[4] = v41;
+  v40 = [v11 stringWithFormat:@"clientInfo: %@", clientInfo];
+  v52[4] = v40;
   v12 = MEMORY[0x1E696AEC0];
-  v40 = [MEMORY[0x1E696AD98] numberWithInt:{-[LACUserInterfaceRequest clientProcessId](self, "clientProcessId")}];
-  v39 = [v12 stringWithFormat:@"clientProcessId: %@", v40];
-  v53[5] = v39;
+  v39 = [MEMORY[0x1E696AD98] numberWithInt:{-[LACUserInterfaceRequest clientProcessId](self, "clientProcessId")}];
+  v38 = [v12 stringWithFormat:@"clientProcessId: %@", v39];
+  v52[5] = v38;
   v13 = MEMORY[0x1E696AEC0];
-  v38 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{-[LACUserInterfaceRequest evaluationRequestIdentifier](self, "evaluationRequestIdentifier")}];
-  v37 = [v13 stringWithFormat:@"evaluationRequestIdentifier: %@", v38];
-  v53[6] = v37;
+  v37 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{-[LACUserInterfaceRequest evaluationRequestIdentifier](self, "evaluationRequestIdentifier")}];
+  v36 = [v13 stringWithFormat:@"evaluationRequestIdentifier: %@", v37];
+  v52[6] = v36;
   v14 = MEMORY[0x1E696AEC0];
-  v36 = [MEMORY[0x1E696AD98] numberWithBool:{-[LACUserInterfaceRequest isAuditTokenApplicationIdentity](self, "isAuditTokenApplicationIdentity")}];
-  v35 = [v14 stringWithFormat:@"isAuditTokenApplicationIdentity: %@", v36];
-  v53[7] = v35;
+  v35 = [MEMORY[0x1E696AD98] numberWithBool:{-[LACUserInterfaceRequest isAuditTokenApplicationIdentity](self, "isAuditTokenApplicationIdentity")}];
+  v34 = [v14 stringWithFormat:@"isAuditTokenApplicationIdentity: %@", v35];
+  v52[7] = v34;
   v15 = MEMORY[0x1E696AEC0];
-  v34 = [MEMORY[0x1E696AD98] numberWithBool:{-[LACUserInterfaceRequest isForSiri](self, "isForSiri")}];
-  v33 = [v15 stringWithFormat:@"isForSiri: %@", v34];
-  v53[8] = v33;
+  v33 = [MEMORY[0x1E696AD98] numberWithBool:{-[LACUserInterfaceRequest isForSiri](self, "isForSiri")}];
+  v32 = [v15 stringWithFormat:@"isForSiri: %@", v33];
+  v52[8] = v32;
   v16 = MEMORY[0x1E696AEC0];
   v17 = [MEMORY[0x1E696AD98] numberWithBool:{-[LACUserInterfaceRequest isForSoftwareUpdate](self, "isForSoftwareUpdate")}];
   v18 = [v16 stringWithFormat:@"isForSoftwareUpdate: %@", v17];
-  v53[9] = v18;
+  v52[9] = v18;
   v19 = MEMORY[0x1E696AEC0];
   v20 = [MEMORY[0x1E696AD98] numberWithBool:{-[LACUserInterfaceRequest isRunningInRecovery](self, "isRunningInRecovery")}];
   v21 = [v19 stringWithFormat:@"isRunningInRecovery: %@", v20];
-  v53[10] = v21;
+  v52[10] = v21;
   v22 = MEMORY[0x1E696AEC0];
   v23 = [MEMORY[0x1E696AD98] numberWithBool:{-[LACUserInterfaceRequest isRunningInSystemContext](self, "isRunningInSystemContext")}];
   v24 = [v22 stringWithFormat:@"isRunningInSystemContext: %@", v23];
-  v53[11] = v24;
-  v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:v53 count:12];
+  v52[11] = v24;
+  v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:v52 count:12];
   v26 = [v25 componentsJoinedByString:@" "];;
-  v27 = [v47 stringWithFormat:@"<%@ %p %@>", v45, self, v26];;
+  v27 = [v46 stringWithFormat:@"<%@ %p %@>", v44, self, v26];;
 
-  if (!v44)
+  if (!v43)
   {
   }
 
-  if (!v48)
+  if (!v47)
   {
   }
 
-  if (!v50)
+  if (!v49)
   {
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 
   return v27;
 }

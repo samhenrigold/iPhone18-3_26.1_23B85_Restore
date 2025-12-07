@@ -7,6 +7,7 @@
 - (void)dealloc;
 - (void)deviceStart;
 - (void)deviceStop;
+- (void)handleNewProximityValue:(int)value;
 - (void)registerProximityChangedCallback;
 - (void)unregisterProximityChangedCallback;
 @end
@@ -53,38 +54,38 @@
 
 - (id)sensorData
 {
-  if ([(DAOpticalProximityManager *)self deviceRef]&& (deviceRef = self->_deviceRef, !MTDeviceGetSensorRegionOfType()))
+  if ([(DAOpticalProximityManager *)self deviceRef]&& !MTDeviceGetSensorRegionOfType())
   {
-    v13[0] = @"sensorType";
+    v11[0] = @"sensorType";
+    v3 = [NSNumber numberWithUnsignedChar:0];
+    v12[0] = v3;
+    v11[1] = @"startRow";
+    v4 = [NSNumber numberWithUnsignedChar:0];
+    v12[1] = v4;
+    v11[2] = @"rows";
     v5 = [NSNumber numberWithUnsignedChar:0];
-    v14[0] = v5;
-    v13[1] = @"startRow";
+    v12[2] = v5;
+    v11[3] = @"rowSkip";
     v6 = [NSNumber numberWithUnsignedChar:0];
-    v14[1] = v6;
-    v13[2] = @"rows";
+    v12[3] = v6;
+    v11[4] = @"startCol";
     v7 = [NSNumber numberWithUnsignedChar:0];
-    v14[2] = v7;
-    v13[3] = @"rowSkip";
+    v12[4] = v7;
+    v11[5] = @"cols";
     v8 = [NSNumber numberWithUnsignedChar:0];
-    v14[3] = v8;
-    v13[4] = @"startCol";
+    v12[5] = v8;
+    v11[6] = @"hardwareColoffset";
     v9 = [NSNumber numberWithUnsignedChar:0];
-    v14[4] = v9;
-    v13[5] = @"cols";
-    v10 = [NSNumber numberWithUnsignedChar:0];
-    v14[5] = v10;
-    v13[6] = @"hardwareColoffset";
-    v11 = [NSNumber numberWithUnsignedChar:0];
-    v14[6] = v11;
-    v4 = [NSDictionary dictionaryWithObjects:v14 forKeys:v13 count:7];
+    v12[6] = v9;
+    v2 = [NSDictionary dictionaryWithObjects:v12 forKeys:v11 count:7];
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (BOOL)startProximitySensorUpdatesWithHandler:(id)handler
@@ -144,6 +145,14 @@
   deviceRef = [(DAOpticalProximityManager *)self deviceRef];
 
   _MTUnregisterOpticalProximityChangedCallback(deviceRef, MTProximityChangedCallbackFunc);
+}
+
+- (void)handleNewProximityValue:(int)value
+{
+  v3 = *&value;
+  handler = [(DAOpticalProximityManager *)self handler];
+  v4 = +[NSDate date];
+  handler[2](handler, v3, v4);
 }
 
 @end

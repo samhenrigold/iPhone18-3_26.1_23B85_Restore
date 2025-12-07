@@ -94,7 +94,7 @@ LABEL_18:
 
 - (id)jsonDictionary
 {
-  v18[4] = *MEMORY[0x1E69E9840];
+  v17[4] = *MEMORY[0x1E69E9840];
   webpageViewIdentifier = [(BMSafariBrowsingAssistantUserInteractionDetected *)self webpageViewIdentifier];
   v4 = [webpageViewIdentifier base64EncodedStringWithOptions:0];
 
@@ -105,39 +105,39 @@ LABEL_18:
   visualComponentInteractionInfo = [(BMSafariBrowsingAssistantUserInteractionDetected *)self visualComponentInteractionInfo];
   jsonDictionary2 = [visualComponentInteractionInfo jsonDictionary];
 
-  v17[0] = @"webpageViewIdentifier";
+  v16[0] = @"webpageViewIdentifier";
   null = v4;
   if (!v4)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18[0] = null;
-  v17[1] = @"visualComponent";
+  v17[0] = null;
+  v16[1] = @"visualComponent";
   null2 = jsonDictionary;
   if (!jsonDictionary)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18[1] = null2;
-  v17[2] = @"userInteractionType";
+  v17[1] = null2;
+  v16[2] = @"userInteractionType";
   null3 = v7;
   if (!v7)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18[2] = null3;
-  v17[3] = @"visualComponentInteractionInfo";
+  v17[2] = null3;
+  v16[3] = @"visualComponentInteractionInfo";
   null4 = jsonDictionary2;
   if (!jsonDictionary2)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18[3] = null4;
-  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:4];
+  v17[3] = null4;
+  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:4];
   if (jsonDictionary2)
   {
     if (v7)
@@ -182,14 +182,13 @@ LABEL_12:
 LABEL_19:
 
 LABEL_13:
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
 
 - (BMSafariBrowsingAssistantUserInteractionDetected)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v57[1] = *MEMORY[0x1E69E9840];
+  v56[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"webpageViewIdentifier"];
   if (v7 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
@@ -215,10 +214,10 @@ LABEL_13:
 
         v32 = objc_alloc(MEMORY[0x1E696ABC0]);
         v33 = *MEMORY[0x1E698F240];
-        v54 = *MEMORY[0x1E696A578];
+        v53 = *MEMORY[0x1E696A578];
         v13 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type (%@) for value of field '%@', expected NSData or base64 encoded NSString", objc_opt_class(), @"webpageViewIdentifier"];
-        v55 = v13;
-        v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v55 forKeys:&v54 count:1];
+        v54 = v13;
+        v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v54 forKeys:&v53 count:1];
         v8 = 0;
         selfCopy3 = 0;
         *error = [v32 initWithDomain:v33 code:2 userInfo:v34];
@@ -239,10 +238,10 @@ LABEL_13:
 
         v18 = objc_alloc(MEMORY[0x1E696ABC0]);
         v19 = *MEMORY[0x1E698F240];
-        v56 = *MEMORY[0x1E696A578];
+        v55 = *MEMORY[0x1E696A578];
         v13 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected format for value of field '%@', expected base64 encoding", @"webpageViewIdentifier"];
-        v57[0] = v13;
-        v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v57 forKeys:&v56 count:1];
+        v56[0] = v13;
+        v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v56 forKeys:&v55 count:1];
         v21 = v19;
         self = selfCopy;
         v8 = 0;
@@ -262,7 +261,7 @@ LABEL_13:
   v9 = [dictionaryCopy objectForKeyedSubscript:@"visualComponent"];
   if (!v9 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
-    v43 = 0;
+    v42 = 0;
     goto LABEL_7;
   }
 
@@ -270,9 +269,9 @@ LABEL_13:
   if (objc_opt_isKindOfClass())
   {
     v13 = v9;
-    v47 = 0;
-    v43 = [[BMSafariBrowsingAssistantVisualComponent alloc] initWithJSONDictionary:v13 error:&v47];
-    v14 = v47;
+    v46 = 0;
+    v42 = [[BMSafariBrowsingAssistantVisualComponent alloc] initWithJSONDictionary:v13 error:&v46];
+    v14 = v46;
     if (v14)
     {
       if (error)
@@ -282,13 +281,13 @@ LABEL_13:
       }
 
       selfCopy3 = 0;
-      v16 = v43;
+      v16 = v42;
       goto LABEL_49;
     }
 
 LABEL_7:
     v10 = [dictionaryCopy objectForKeyedSubscript:@"userInteractionType"];
-    v45 = v8;
+    v44 = v8;
     if (v10 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
       selfCopy4 = self;
@@ -307,16 +306,16 @@ LABEL_7:
           {
             v11 = 0;
             selfCopy3 = 0;
-            v16 = v43;
+            v16 = v42;
             goto LABEL_48;
           }
 
           v35 = objc_alloc(MEMORY[0x1E696ABC0]);
           v36 = *MEMORY[0x1E698F240];
-          v50 = *MEMORY[0x1E696A578];
+          v49 = *MEMORY[0x1E696A578];
           v27 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"userInteractionType"];
-          v51 = v27;
-          v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v51 forKeys:&v50 count:1];
+          v50 = v27;
+          v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v50 forKeys:&v49 count:1];
           v37 = [v35 initWithDomain:v36 code:2 userInfo:v28];
           v11 = 0;
           selfCopy3 = 0;
@@ -340,8 +339,8 @@ LABEL_7:
     {
       v28 = 0;
 LABEL_31:
-      v16 = v43;
-      self = -[BMSafariBrowsingAssistantUserInteractionDetected initWithWebpageViewIdentifier:visualComponent:userInteractionType:visualComponentInteractionInfo:](self, "initWithWebpageViewIdentifier:visualComponent:userInteractionType:visualComponentInteractionInfo:", v45, v43, [v11 intValue], v28);
+      v16 = v42;
+      self = -[BMSafariBrowsingAssistantUserInteractionDetected initWithWebpageViewIdentifier:visualComponent:userInteractionType:visualComponentInteractionInfo:](self, "initWithWebpageViewIdentifier:visualComponent:userInteractionType:visualComponentInteractionInfo:", v44, v42, [v11 intValue], v28);
       selfCopy3 = self;
 LABEL_46:
 
@@ -349,7 +348,7 @@ LABEL_47:
 LABEL_48:
 
       v13 = v9;
-      v8 = v45;
+      v8 = v44;
       goto LABEL_49;
     }
 
@@ -358,9 +357,9 @@ LABEL_48:
     if (objc_opt_isKindOfClass())
     {
       v29 = v27;
-      v46 = 0;
-      v28 = [[BMSafariBrowsingAssistantVisualComponentInteractionInfo alloc] initWithJSONDictionary:v29 error:&v46];
-      v30 = v46;
+      v45 = 0;
+      v28 = [[BMSafariBrowsingAssistantVisualComponentInteractionInfo alloc] initWithJSONDictionary:v29 error:&v45];
+      v30 = v45;
       if (!v30)
       {
 
@@ -383,40 +382,40 @@ LABEL_48:
       if (!error)
       {
         selfCopy3 = 0;
-        v16 = v43;
+        v16 = v42;
         goto LABEL_47;
       }
 
-      v41 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v40 = *MEMORY[0x1E698F240];
-      v48 = *MEMORY[0x1E696A578];
+      v40 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v39 = *MEMORY[0x1E698F240];
+      v47 = *MEMORY[0x1E696A578];
       v28 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"visualComponentInteractionInfo"];
-      v49 = v28;
-      v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v49 forKeys:&v48 count:1];
-      *error = [v41 initWithDomain:v40 code:2 userInfo:v31];
+      v48 = v28;
+      v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v48 forKeys:&v47 count:1];
+      *error = [v40 initWithDomain:v39 code:2 userInfo:v31];
 
       selfCopy3 = 0;
     }
 
 LABEL_45:
     self = selfCopy4;
-    v16 = v43;
+    v16 = v42;
     goto LABEL_46;
   }
 
   if (error)
   {
-    v44 = objc_alloc(MEMORY[0x1E696ABC0]);
+    v43 = objc_alloc(MEMORY[0x1E696ABC0]);
     selfCopy5 = self;
     v23 = *MEMORY[0x1E698F240];
-    v52 = *MEMORY[0x1E696A578];
+    v51 = *MEMORY[0x1E696A578];
     errorCopy = error;
     v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"visualComponent"];
-    v53 = v16;
-    v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v53 forKeys:&v52 count:1];
+    v52 = v16;
+    v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v52 forKeys:&v51 count:1];
     v26 = v23;
     self = selfCopy5;
-    *errorCopy = [v44 initWithDomain:v26 code:2 userInfo:v25];
+    *errorCopy = [v43 initWithDomain:v26 code:2 userInfo:v25];
 
     selfCopy3 = 0;
     v13 = v9;
@@ -430,7 +429,6 @@ LABEL_49:
 LABEL_50:
 
 LABEL_51:
-  v38 = *MEMORY[0x1E69E9840];
   return selfCopy3;
 }
 
@@ -458,7 +456,6 @@ LABEL_51:
     PBDataWriterRecallMark();
   }
 
-  userInteractionType = self->_userInteractionType;
   PBDataWriterWriteUint32Field();
   if (self->_visualComponentInteractionInfo)
   {
@@ -697,58 +694,54 @@ LABEL_49:
 
 + (id)protoFields
 {
-  v9[4] = *MEMORY[0x1E69E9840];
+  v8[4] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"webpageViewIdentifier" number:1 type:14 subMessageClass:0];
-  v9[0] = v2;
+  v8[0] = v2;
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"visualComponent" number:2 type:14 subMessageClass:objc_opt_class()];
-  v9[1] = v3;
+  v8[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"userInteractionType" number:3 type:4 subMessageClass:0];
-  v9[2] = v4;
+  v8[2] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"visualComponentInteractionInfo" number:4 type:14 subMessageClass:objc_opt_class()];
-  v9[3] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:4];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v8[3] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:4];
 
   return v6;
 }
 
 + (id)columns
 {
-  v9[4] = *MEMORY[0x1E69E9840];
+  v8[4] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"webpageViewIdentifier" dataType:4 requestOnly:0 fieldNumber:1 protoDataType:14 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"visualComponent_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_663];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"userInteractionType" dataType:0 requestOnly:0 fieldNumber:3 protoDataType:4 convertedType:0];
   v5 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"visualComponentInteractionInfo_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_665];
-  v9[0] = v2;
-  v9[1] = v3;
-  v9[2] = v4;
-  v9[3] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:4];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v8[0] = v2;
+  v8[1] = v3;
+  v8[2] = v4;
+  v8[3] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:4];
 
   return v6;
 }
 
-id __59__BMSafariBrowsingAssistantUserInteractionDetected_columns__block_invoke_2(uint64_t a1, void *a2)
+id __59__BMSafariBrowsingAssistantUserInteractionDetected_columns__block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 visualComponentInteractionInfo];
-  v4 = [v3 jsonDictionary];
-  v5 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 visualComponentInteractionInfo];
+  v5 = [v4 jsonDictionary];
+  v6 = BMConvertObjectToJSONString();
 
-  return v5;
+  return v6;
 }
 
-id __59__BMSafariBrowsingAssistantUserInteractionDetected_columns__block_invoke(uint64_t a1, void *a2)
+id __59__BMSafariBrowsingAssistantUserInteractionDetected_columns__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 visualComponent];
-  v4 = [v3 jsonDictionary];
-  v5 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 visualComponent];
+  v5 = [v4 jsonDictionary];
+  v6 = BMConvertObjectToJSONString();
 
-  return v5;
+  return v6;
 }
 
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version

@@ -54,7 +54,7 @@
 
 - (void)finishIfAppropriate
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (*MEMORY[0x277CBC880] != -1)
   {
     dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
@@ -63,9 +63,9 @@
   v3 = *MEMORY[0x277CBC830];
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
   {
-    v11 = 134217984;
+    v10 = 134217984;
     selfCopy = self;
-    _os_log_debug_impl(&dword_22506F000, v3, OS_LOG_TYPE_DEBUG, "Finishing fetch aggregator: %p", &v11, 0xCu);
+    _os_log_debug_impl(&dword_22506F000, v3, OS_LOG_TYPE_DEBUG, "Finishing fetch aggregator: %p", &v10, 0xCu);
   }
 
   selfCopy2 = self;
@@ -82,13 +82,11 @@
     objc_msgSend_setMarkedToFinishByParent_(selfCopy2, v7, 1);
     objc_sync_exit(selfCopy2);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)main
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if (objc_msgSend_isMarkedToFinishByParent(selfCopy, v3, v4))
@@ -103,17 +101,17 @@
     v6 = *MEMORY[0x277CBC830];
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
     {
-      v11 = v6;
-      v12 = objc_opt_class();
-      v13 = NSStringFromClass(v12);
-      v16 = objc_msgSend_ckShortDescription(selfCopy, v14, v15);
-      v23 = 138543874;
-      v24 = v13;
-      v25 = 2048;
-      v26 = selfCopy;
-      v27 = 2114;
-      v28 = v16;
-      _os_log_debug_impl(&dword_22506F000, v11, OS_LOG_TYPE_DEBUG, "Parent asked record fetch aggregator operation <%{public}@: %p; %{public}@> to finish before it started", &v23, 0x20u);
+      v10 = v6;
+      v11 = objc_opt_class();
+      v12 = NSStringFromClass(v11);
+      v15 = objc_msgSend_ckShortDescription(selfCopy, v13, v14);
+      v22 = 138543874;
+      v23 = v12;
+      v24 = 2048;
+      v25 = selfCopy;
+      v26 = 2114;
+      v27 = v15;
+      _os_log_debug_impl(&dword_22506F000, v10, OS_LOG_TYPE_DEBUG, "Parent asked record fetch aggregator operation <%{public}@: %p; %{public}@> to finish before it started", &v22, 0x20u);
     }
 
     objc_msgSend__finishRecordFetchAggregator(selfCopy, v7, v8);
@@ -132,21 +130,19 @@
     v9 = *MEMORY[0x277CBC830];
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
     {
-      v17 = v9;
-      v18 = objc_opt_class();
-      v19 = NSStringFromClass(v18);
-      v22 = objc_msgSend_ckShortDescription(selfCopy, v20, v21);
-      v23 = 138543874;
-      v24 = v19;
-      v25 = 2048;
-      v26 = selfCopy;
-      v27 = 2114;
-      v28 = v22;
-      _os_log_debug_impl(&dword_22506F000, v17, OS_LOG_TYPE_DEBUG, "Starting record fetch aggregator operation <%{public}@: %p; %{public}@>", &v23, 0x20u);
+      v16 = v9;
+      v17 = objc_opt_class();
+      v18 = NSStringFromClass(v17);
+      v21 = objc_msgSend_ckShortDescription(selfCopy, v19, v20);
+      v22 = 138543874;
+      v23 = v18;
+      v24 = 2048;
+      v25 = selfCopy;
+      v26 = 2114;
+      v27 = v21;
+      _os_log_debug_impl(&dword_22506F000, v16, OS_LOG_TYPE_DEBUG, "Starting record fetch aggregator operation <%{public}@: %p; %{public}@>", &v22, 0x20u);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_recordFetchesAvailable
@@ -191,7 +187,7 @@
 
 - (void)_flushFetchedRecordsToConsumerOrderedLocked
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v4 = objc_msgSend_fetchQueue(self, a2, v2);
   dispatch_assert_queue_V2(v4);
   while (1)
@@ -219,22 +215,20 @@
   v18 = *MEMORY[0x277CBC830];
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
   {
-    v20 = v18;
-    v21 = objc_opt_class();
-    v22 = NSStringFromClass(v21);
-    v25 = objc_msgSend_ckShortDescription(self, v23, v24);
-    v28 = 138544130;
-    v29 = v22;
-    v30 = 2048;
+    v19 = v18;
+    v20 = objc_opt_class();
+    v21 = NSStringFromClass(v20);
+    v24 = objc_msgSend_ckShortDescription(self, v22, v23);
+    v27 = 138544130;
+    v28 = v21;
+    v29 = 2048;
     selfCopy = self;
-    v32 = 2114;
-    v33 = v25;
-    v34 = 2048;
-    v35 = objc_msgSend_highestReturnedOrder(self, v26, v27);
-    _os_log_debug_impl(&dword_22506F000, v20, OS_LOG_TYPE_DEBUG, "Done flushing record callbacks for <%{public}@: %p; %{public}@>. Current highest callback is %lu", &v28, 0x2Au);
+    v31 = 2114;
+    v32 = v24;
+    v33 = 2048;
+    v34 = objc_msgSend_highestReturnedOrder(self, v25, v26);
+    _os_log_debug_impl(&dword_22506F000, v19, OS_LOG_TYPE_DEBUG, "Done flushing record callbacks for <%{public}@: %p; %{public}@>. Current highest callback is %lu", &v27, 0x2Au);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -258,11 +252,11 @@
 
 - (void)_finishRecordFetchAggregator
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   if (objc_msgSend_isFinished(self, a2, v2))
   {
-    v27 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v5, v6);
-    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v27, v28, a2, self, @"CKDRecordFetchAggregator.m", 556, @"You can't finish a CKDRecordFetchAggregator twice");
+    v26 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v5, v6);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v26, v27, a2, self, @"CKDRecordFetchAggregator.m", 556, @"You can't finish a CKDRecordFetchAggregator twice");
   }
 
   if (*MEMORY[0x277CBC880] != -1)
@@ -273,17 +267,17 @@
   v7 = *MEMORY[0x277CBC830];
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
   {
-    v21 = v7;
-    v22 = objc_opt_class();
-    v23 = NSStringFromClass(v22);
-    v26 = objc_msgSend_ckShortDescription(self, v24, v25);
+    v20 = v7;
+    v21 = objc_opt_class();
+    v22 = NSStringFromClass(v21);
+    v25 = objc_msgSend_ckShortDescription(self, v23, v24);
     *buf = 138543874;
-    v31 = v23;
-    v32 = 2048;
+    v30 = v22;
+    v31 = 2048;
     selfCopy = self;
-    v34 = 2114;
-    v35 = v26;
-    _os_log_debug_impl(&dword_22506F000, v21, OS_LOG_TYPE_DEBUG, "Finishing fetch aggregator <%{public}@: %p; %{public}@>", buf, 0x20u);
+    v33 = 2114;
+    v34 = v25;
+    _os_log_debug_impl(&dword_22506F000, v20, OS_LOG_TYPE_DEBUG, "Finishing fetch aggregator <%{public}@: %p; %{public}@>", buf, 0x20u);
   }
 
   v10 = objc_msgSend_fetchSource(self, v8, v9);
@@ -300,8 +294,6 @@
   block[3] = &unk_278545A00;
   block[4] = self;
   dispatch_group_notify(v16, v19, block);
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (CKDFetchRecordsOperation)currentFetchOp
@@ -313,7 +305,7 @@
 
 - (void)_lockedSendFetchRequest
 {
-  v130 = *MEMORY[0x277D85DE8];
+  v129 = *MEMORY[0x277D85DE8];
   v5 = objc_msgSend_fetchQueue(self, a2, v2);
   dispatch_assert_queue_V2(v5);
 
@@ -321,8 +313,8 @@
 
   if (v8)
   {
-    v107 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v9, v10);
-    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v107, v108, a2, self, @"CKDRecordFetchAggregator.m", 317, @"Can't send a fetch request when another one is still outstanding");
+    v106 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v9, v10);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v106, v107, a2, self, @"CKDRecordFetchAggregator.m", 317, @"Can't send a fetch request when another one is still outstanding");
   }
 
   if (*MEMORY[0x277CBC880] != -1)
@@ -330,49 +322,49 @@
     dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
   }
 
-  v109 = a2;
+  v108 = a2;
   v11 = *MEMORY[0x277CBC830];
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
   {
-    v101 = v11;
-    v102 = objc_opt_class();
-    v103 = NSStringFromClass(v102);
-    v106 = objc_msgSend_ckShortDescription(self, v104, v105);
+    v100 = v11;
+    v101 = objc_opt_class();
+    v102 = NSStringFromClass(v101);
+    v105 = objc_msgSend_ckShortDescription(self, v103, v104);
     *buf = 138543874;
-    v122 = v103;
-    v123 = 2048;
+    v121 = v102;
+    v122 = 2048;
     selfCopy = self;
-    v125 = 2114;
-    v126 = v106;
-    _os_log_debug_impl(&dword_22506F000, v101, OS_LOG_TYPE_DEBUG, "Sending fetch requests for <%{public}@: %p; %{public}@>", buf, 0x20u);
+    v124 = 2114;
+    v125 = v105;
+    _os_log_debug_impl(&dword_22506F000, v100, OS_LOG_TYPE_DEBUG, "Sending fetch requests for <%{public}@: %p; %{public}@>", buf, 0x20u);
   }
 
   v12 = objc_alloc_init(MEMORY[0x277CBEB58]);
   v13 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v14 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v116 = 0u;
   v117 = 0u;
   v118 = 0u;
   v119 = 0u;
-  v120 = 0u;
   selfCopy2 = self;
   v17 = objc_msgSend_fetchInfosByOrder(self, v15, v16);
   v20 = objc_msgSend_allValues(v17, v18, v19);
 
-  v22 = objc_msgSend_countByEnumeratingWithState_objects_count_(v20, v21, &v117, v129, 16);
+  v22 = objc_msgSend_countByEnumeratingWithState_objects_count_(v20, v21, &v116, v128, 16);
   if (v22)
   {
     v25 = v22;
-    v26 = *v118;
+    v26 = *v117;
     do
     {
       for (i = 0; i != v25; ++i)
       {
-        if (*v118 != v26)
+        if (*v117 != v26)
         {
           objc_enumerationMutation(v20);
         }
 
-        v28 = *(*(&v117 + 1) + 8 * i);
+        v28 = *(*(&v116 + 1) + 8 * i);
         if (objc_msgSend_state(v28, v23, v24) == 1)
         {
           v29 = objc_msgSend_record(v28, v23, v24);
@@ -408,7 +400,7 @@
         }
       }
 
-      v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(v20, v23, &v117, v129, 16);
+      v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(v20, v23, &v116, v128, 16);
     }
 
     while (v25);
@@ -432,13 +424,13 @@
         v56 = NSStringFromClass(v55);
         v59 = objc_msgSend_ckShortDescription(selfCopy2, v57, v58);
         *buf = 138544130;
-        v122 = v56;
-        v123 = 2048;
+        v121 = v56;
+        v122 = 2048;
         selfCopy = selfCopy2;
-        v125 = 2114;
-        v126 = v59;
-        v127 = 2112;
-        v128 = v12;
+        v124 = 2114;
+        v125 = v59;
+        v126 = 2112;
+        v127 = v12;
         _os_log_impl(&dword_22506F000, v54, OS_LOG_TYPE_INFO, "Fetching the following record IDs from the server for operation <%{public}@: %p; %{public}@>: %@", buf, 0x2Au);
       }
     }
@@ -459,13 +451,13 @@
         v66 = objc_msgSend_ckShortDescription(selfCopy2, v64, v65);
         v68 = objc_msgSend_valueForKeyPath_(v13, v67, @"recordID");
         *buf = 138544130;
-        v122 = v63;
-        v123 = 2048;
+        v121 = v63;
+        v122 = 2048;
         selfCopy = selfCopy2;
-        v125 = 2114;
-        v126 = v66;
-        v127 = 2112;
-        v128 = v68;
+        v124 = 2114;
+        v125 = v66;
+        v126 = 2112;
+        v127 = v68;
         _os_log_impl(&dword_22506F000, v61, OS_LOG_TYPE_INFO, "Running the following full records through a fetch records operation for <%{public}@: %p; %{public}@>: %@", buf, 0x2Au);
       }
     }
@@ -488,20 +480,18 @@
     v95 = objc_msgSend_databaseScope(selfCopy2, v93, v94);
     objc_msgSend_setDatabaseScope_(v69, v96, v95);
     v97 = objc_opt_class();
-    v111[0] = MEMORY[0x277D85DD0];
-    v111[1] = 3221225472;
-    v111[2] = sub_22509FA5C;
-    v111[3] = &unk_27854B280;
-    v112 = v13;
-    v113 = selfCopy2;
-    v116 = v109;
-    v114 = v69;
-    v115 = v14;
+    v110[0] = MEMORY[0x277D85DD0];
+    v110[1] = 3221225472;
+    v110[2] = sub_22509FA5C;
+    v110[3] = &unk_27854B280;
+    v111 = v13;
+    v112 = selfCopy2;
+    v115 = v108;
+    v113 = v69;
+    v114 = v14;
     v98 = v69;
-    objc_msgSend_spawnAndRunOperationOfClass_operationInfo_operationConfigurationBlock_(selfCopy2, v99, v97, v98, v111);
+    objc_msgSend_spawnAndRunOperationOfClass_operationInfo_operationConfigurationBlock_(selfCopy2, v99, v97, v98, v110);
   }
-
-  v100 = *MEMORY[0x277D85DE8];
 }
 
 - (CKDRecordFetchAggregator)initWithOperationInfo:(id)info container:(id)container
@@ -622,7 +612,7 @@
 
 - (void)_performCallbackForFetchInfoLocked:(id)locked
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   lockedCopy = locked;
   v7 = objc_msgSend_fetchQueue(self, v5, v6);
   dispatch_assert_queue_V2(v7);
@@ -636,7 +626,7 @@
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v38 = lockedCopy;
+    v37 = lockedCopy;
     _os_log_debug_impl(&dword_22506F000, v8, OS_LOG_TYPE_DEBUG, "Performing callback for fetch info %@", buf, 0xCu);
   }
 
@@ -653,65 +643,61 @@
   }
 
   v18 = objc_msgSend_callbackQueue(self, v16, v17);
-  v31 = MEMORY[0x277D85DD0];
-  v32 = 3221225472;
-  v33 = sub_22525CA10;
-  v34 = &unk_278545898;
-  v35 = lockedCopy;
+  v30 = MEMORY[0x277D85DD0];
+  v31 = 3221225472;
+  v32 = sub_22525CA10;
+  v33 = &unk_278545898;
+  v34 = lockedCopy;
   selfCopy = self;
   v19 = lockedCopy;
-  dispatch_async(v18, &v31);
+  dispatch_async(v18, &v30);
 
-  v22 = objc_msgSend_fetchInfosByOrder(self, v20, v21, v31, v32, v33, v34);
+  v22 = objc_msgSend_fetchInfosByOrder(self, v20, v21, v30, v31, v32, v33);
   v23 = MEMORY[0x277CCABB0];
   v26 = objc_msgSend_fetchOrder(v19, v24, v25);
   v28 = objc_msgSend_numberWithUnsignedInteger_(v23, v27, v26);
   objc_msgSend_setObject_forKeyedSubscript_(v22, v29, 0, v28);
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_flushFetchedRecordsToConsumerNoOrderingLocked
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v4 = objc_msgSend_fetchQueue(self, a2, v2);
   dispatch_assert_queue_V2(v4);
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v7 = objc_msgSend_fetchInfosByOrder(self, v5, v6, 0);
   v10 = objc_msgSend_allValues(v7, v8, v9);
 
-  v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v11, &v20, v24, 16);
+  v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v11, &v19, v23, 16);
   if (v12)
   {
     v15 = v12;
-    v16 = *v21;
+    v16 = *v20;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v21 != v16)
+        if (*v20 != v16)
         {
           objc_enumerationMutation(v10);
         }
 
-        v18 = *(*(&v20 + 1) + 8 * i);
+        v18 = *(*(&v19 + 1) + 8 * i);
         if (objc_msgSend_state(v18, v13, v14) == 3)
         {
           objc_msgSend__performCallbackForFetchInfoLocked_(self, v13, v18);
         }
       }
 
-      v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v13, &v20, v24, 16);
+      v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v13, &v19, v23, 16);
     }
 
     while (v15);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addRecordFetchInfos:(id)infos
@@ -731,13 +717,13 @@
 
 - (id)_fetchRecord:(id)record recordReadyHandle:(BOOL *)handle withRecordCompletion:(id)completion
 {
-  v194 = *MEMORY[0x277D85DE8];
+  v193 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   completionCopy = completion;
   if (objc_msgSend_isFinished(self, v11, v12))
   {
-    v186 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v13, v14);
-    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v186, v187, a2, self, @"CKDRecordFetchAggregator.m", 462, @"Can't enqueue a new fetch after we've already finished");
+    v185 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v13, v14);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v185, v186, a2, self, @"CKDRecordFetchAggregator.m", 462, @"Can't enqueue a new fetch after we've already finished");
   }
 
   v17 = objc_msgSend_recordID(recordCopy, v13, v14);
@@ -752,7 +738,7 @@
   if (!v23)
   {
     v17 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v18, v19);
-    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v17, v164, a2, self, @"CKDRecordFetchAggregator.m", 463, @"Can't fetch a record without a record ID");
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v17, v163, a2, self, @"CKDRecordFetchAggregator.m", 463, @"Can't fetch a record without a record ID");
 LABEL_4:
   }
 
@@ -777,11 +763,11 @@ LABEL_4:
   v32 = *MEMORY[0x277CBC830];
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
   {
-    v171 = v32;
-    v174 = objc_msgSend_ckShortDescription(v28, v172, v173);
+    v170 = v32;
+    v173 = objc_msgSend_ckShortDescription(v28, v171, v172);
     *buf = 138412290;
-    v193 = v174;
-    _os_log_debug_impl(&dword_22506F000, v171, OS_LOG_TYPE_DEBUG, "Enqueuing a record fetch for record %@", buf, 0xCu);
+    v192 = v173;
+    _os_log_debug_impl(&dword_22506F000, v170, OS_LOG_TYPE_DEBUG, "Enqueuing a record fetch for record %@", buf, 0xCu);
   }
 
   v33 = [CKDRecordFetchInfo alloc];
@@ -789,7 +775,7 @@ LABEL_4:
   Order = objc_msgSend_curFetchOrder(self, v36, v37);
   objc_msgSend_setCurFetchOrder_(self, v39, Order + 1);
   objc_msgSend_setFetchOrder_(v35, v40, Order + 1);
-  v191 = v28;
+  v190 = v28;
   objc_msgSend_setRecordID_(v35, v41, v28);
   v44 = objc_msgSend_record(recordCopy, v42, v43);
   objc_msgSend_setRecord_(v35, v45, v44);
@@ -812,7 +798,7 @@ LABEL_4:
   if (v59)
   {
     handleCopy = handle;
-    v189 = completionCopy;
+    v188 = completionCopy;
     v72 = objc_msgSend_container(self, v70, v71);
     v75 = objc_msgSend_entitlements(v72, v73, v74);
     hasOutOfProcessUIEntitlement = objc_msgSend_hasOutOfProcessUIEntitlement(v75, v76, v77);
@@ -841,7 +827,7 @@ LABEL_4:
     objc_msgSend_setSerializeOwnerInfo_(v96, v97, shouldSerializeOwnerInfo);
 
     handle = handleCopy;
-    completionCopy = v189;
+    completionCopy = v188;
   }
 
   objc_msgSend_setCompletionBlock_(v35, v70, completionCopy);
@@ -873,10 +859,10 @@ LABEL_25:
     goto LABEL_25;
   }
 
-  v165 = objc_msgSend_record(recordCopy, v119, v120);
-  if (objc_msgSend_containsMergeableValues(v165, v166, v167))
+  v164 = objc_msgSend_record(recordCopy, v119, v120);
+  if (objc_msgSend_containsMergeableValues(v164, v165, v166))
   {
-    MergeableValues = objc_msgSend_fetchMergeableValues(self, v168, v169);
+    MergeableValues = objc_msgSend_fetchMergeableValues(self, v167, v168);
 
     completionCopy = v113;
     if ((MergeableValues & 1) == 0)
@@ -899,7 +885,7 @@ LABEL_26:
       goto LABEL_42;
     }
 
-    v190 = completionCopy;
+    v189 = completionCopy;
     handleCopy2 = handle;
     v128 = objc_msgSend_container(self, v125, v126);
     v131 = objc_msgSend_recordCache(v128, v129, v130);
@@ -930,18 +916,18 @@ LABEL_26:
           dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
         }
 
-        v175 = *MEMORY[0x277CBC830];
+        v174 = *MEMORY[0x277CBC830];
         if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
         {
-          v182 = v175;
-          v185 = objc_msgSend_recordID(v35, v183, v184);
+          v181 = v174;
+          v184 = objc_msgSend_recordID(v35, v182, v183);
           *buf = 138412290;
-          v193 = v185;
-          _os_log_debug_impl(&dword_22506F000, v182, OS_LOG_TYPE_DEBUG, "Found record %@ in the cache. Returning that record", buf, 0xCu);
+          v192 = v184;
+          _os_log_debug_impl(&dword_22506F000, v181, OS_LOG_TYPE_DEBUG, "Found record %@ in the cache. Returning that record", buf, 0xCu);
         }
 
-        objc_msgSend_setRecord_(v35, v176, v154);
-        objc_msgSend_setState_(v35, v177, 3);
+        objc_msgSend_setRecord_(v35, v175, v154);
+        objc_msgSend_setState_(v35, v176, 3);
         LOBYTE(v123) = 1;
         goto LABEL_38;
       }
@@ -954,11 +940,11 @@ LABEL_26:
       v161 = *MEMORY[0x277CBC830];
       if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
       {
-        v178 = v161;
-        v181 = objc_msgSend_recordID(v35, v179, v180);
+        v177 = v161;
+        v180 = objc_msgSend_recordID(v35, v178, v179);
         *buf = 138412290;
-        v193 = v181;
-        _os_log_debug_impl(&dword_22506F000, v178, OS_LOG_TYPE_DEBUG, "Found record %@ in the cache, but it needs decryption.  Going through the fetch flow.", buf, 0xCu);
+        v192 = v180;
+        _os_log_debug_impl(&dword_22506F000, v177, OS_LOG_TYPE_DEBUG, "Found record %@ in the cache, but it needs decryption.  Going through the fetch flow.", buf, 0xCu);
       }
     }
 
@@ -968,7 +954,7 @@ LABEL_38:
 LABEL_41:
     handle = handleCopy2;
 
-    completionCopy = v190;
+    completionCopy = v189;
     goto LABEL_42;
   }
 
@@ -982,55 +968,53 @@ LABEL_42:
     *handle = v123;
   }
 
-  v162 = *MEMORY[0x277D85DE8];
-
   return v35;
 }
 
 - (void)fetchRecords:(id)records withPerRecordCompletion:(id)completion
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   recordsCopy = records;
   completionCopy = completion;
   v11 = objc_msgSend_array(MEMORY[0x277CBEB18], v9, v10);
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
   v12 = recordsCopy;
-  v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v13, &v35, v39, 16);
+  v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v13, &v34, v38, 16);
   if (v14)
   {
     v16 = v14;
-    v33 = a2;
+    v32 = a2;
     v17 = 0;
-    v18 = *v36;
+    v18 = *v35;
     v19 = 0x277CCA000uLL;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v36 != v18)
+        if (*v35 != v18)
         {
           objc_enumerationMutation(v12);
         }
 
-        v21 = *(*(&v35 + 1) + 8 * i);
-        v34 = 0;
-        v24 = objc_msgSend__fetchRecord_recordReadyHandle_withRecordCompletion_(self, v15, v21, &v34, completionCopy, v33);
+        v21 = *(*(&v34 + 1) + 8 * i);
+        v33 = 0;
+        v24 = objc_msgSend__fetchRecord_recordReadyHandle_withRecordCompletion_(self, v15, v21, &v33, completionCopy, v32);
         if (!v24)
         {
           v25 = objc_msgSend_currentHandler(*(v19 + 2192), v22, v23);
-          objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v25, v26, v33, self, @"CKDRecordFetchAggregator.m", 528, @"Failed to initialize fetchInfo");
+          objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v25, v26, v32, self, @"CKDRecordFetchAggregator.m", 528, @"Failed to initialize fetchInfo");
 
           v19 = 0x277CCA000;
         }
 
-        v17 += v34;
+        v17 += v33;
         objc_msgSend_addObject_(v11, v22, v24);
       }
 
-      v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v15, &v35, v39, 16);
+      v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v15, &v34, v38, 16);
     }
 
     while (v16);
@@ -1048,8 +1032,6 @@ LABEL_42:
 
     objc_msgSend__addRecordFetchInfos_(self, v31, v11);
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_finishOnCallbackQueueWithError:(id)error

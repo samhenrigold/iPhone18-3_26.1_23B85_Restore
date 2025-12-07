@@ -32,6 +32,7 @@
 - (void)updateDirectionalLayoutMargins;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation OBTableWelcomeController
@@ -143,7 +144,7 @@
 
 - (void)_setTableViewNonHeaderFooterDonation:(id)donation
 {
-  v33[4] = *MEMORY[0x1E69E9840];
+  v32[4] = *MEMORY[0x1E69E9840];
   donationCopy = donation;
   objc_storeStrong(&self->_tableView, donation);
   [(OBTableWelcomeController *)self _updateDirectionalLayoutMarginsForTableView];
@@ -158,37 +159,35 @@
 
     if (tableView)
     {
-      v23 = MEMORY[0x1E696ACD8];
+      v22 = MEMORY[0x1E696ACD8];
       contentView3 = [(OBWelcomeController *)self contentView];
       topAnchor = [contentView3 topAnchor];
       tableView2 = [(OBTableWelcomeController *)self tableView];
       topAnchor2 = [tableView2 topAnchor];
-      v28 = [topAnchor constraintEqualToAnchor:topAnchor2];
-      v33[0] = v28;
+      v27 = [topAnchor constraintEqualToAnchor:topAnchor2];
+      v32[0] = v27;
       contentView4 = [(OBWelcomeController *)self contentView];
       leadingAnchor = [contentView4 leadingAnchor];
       tableView3 = [(OBTableWelcomeController *)self tableView];
       leadingAnchor2 = [tableView3 leadingAnchor];
-      v22 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-      v33[1] = v22;
+      v21 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+      v32[1] = v21;
       contentView5 = [(OBWelcomeController *)self contentView];
       trailingAnchor = [contentView5 trailingAnchor];
       tableView4 = [(OBTableWelcomeController *)self tableView];
       trailingAnchor2 = [tableView4 trailingAnchor];
       v12 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-      v33[2] = v12;
+      v32[2] = v12;
       contentView6 = [(OBWelcomeController *)self contentView];
       bottomAnchor = [contentView6 bottomAnchor];
       tableView5 = [(OBTableWelcomeController *)self tableView];
       bottomAnchor2 = [tableView5 bottomAnchor];
       v17 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-      v33[3] = v17;
-      v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:4];
-      [v23 activateConstraints:v18];
+      v32[3] = v17;
+      v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:4];
+      [v22 activateConstraints:v18];
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (id)scrollView
@@ -256,13 +255,13 @@
 
 - (void)_setTableViewWithHeaderFooterDonation:(id)donation
 {
-  v41[3] = *MEMORY[0x1E69E9840];
+  v40[3] = *MEMORY[0x1E69E9840];
   donationCopy = donation;
   objc_storeStrong(&self->_tableView, donation);
   [(UITableView *)self->_tableView setDelegate:self];
   [donationCopy setTranslatesAutoresizingMaskIntoConstraints:0];
   view = [(OBTableWelcomeController *)self view];
-  v39 = donationCopy;
+  v38 = donationCopy;
   [view addSubview:donationCopy];
 
   array = [MEMORY[0x1E695DF70] array];
@@ -270,21 +269,21 @@
   leadingAnchor = [view2 leadingAnchor];
   tableView = [(OBTableWelcomeController *)self tableView];
   leadingAnchor2 = [tableView leadingAnchor];
-  v34 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v41[0] = v34;
+  v33 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+  v40[0] = v33;
   view3 = [(OBTableWelcomeController *)self view];
   trailingAnchor = [view3 trailingAnchor];
   tableView2 = [(OBTableWelcomeController *)self tableView];
   trailingAnchor2 = [tableView2 trailingAnchor];
   v9 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v41[1] = v9;
+  v40[1] = v9;
   view4 = [(OBTableWelcomeController *)self view];
   bottomAnchor = [view4 bottomAnchor];
   tableView3 = [(OBTableWelcomeController *)self tableView];
   bottomAnchor2 = [tableView3 bottomAnchor];
   v14 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v41[2] = v14;
-  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v41 count:3];
+  v40[2] = v14;
+  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v40 count:3];
   [array addObjectsFromArray:v15];
 
   LODWORD(tableView2) = +[OBFeatureFlags isNaturalUIEnabled];
@@ -329,9 +328,7 @@
   [headerView setFrame:{0.0, 0.0}];
 
   headerContainer4 = [(OBTableWelcomeController *)self headerContainer];
-  [v39 setTableHeaderView:headerContainer4];
-
-  v31 = *MEMORY[0x1E69E9840];
+  [v38 setTableHeaderView:headerContainer4];
 }
 
 - (void)viewDidLayoutSubviews
@@ -339,6 +336,17 @@
   v3.receiver = self;
   v3.super_class = OBTableWelcomeController;
   [(OBWelcomeController *)&v3 viewDidLayoutSubviews];
+  [(OBTableWelcomeController *)self _updateHeaderFooterViewSizeIfNeeded];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = OBTableWelcomeController;
+  [(OBWelcomeController *)&v5 viewWillAppear:appear];
+  tableView = [(OBTableWelcomeController *)self tableView];
+  [tableView setNeedsLayout];
+
   [(OBTableWelcomeController *)self _updateHeaderFooterViewSizeIfNeeded];
 }
 

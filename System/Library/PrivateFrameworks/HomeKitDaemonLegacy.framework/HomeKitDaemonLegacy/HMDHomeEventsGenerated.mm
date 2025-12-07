@@ -37,7 +37,7 @@
 
 void __63__HMDHomeEventsGenerated_expandedTopicsWithTopics_homeManager___block_invoke(uint64_t a1, void *a2)
 {
-  v74 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [MEMORY[0x277CD19F0] decodeTopic:v3];
   v5 = v4;
@@ -68,24 +68,24 @@ void __63__HMDHomeEventsGenerated_expandedTopicsWithTopics_homeManager___block_i
 
     else
     {
-      v22 = [v5 asIndexHomeTopic];
-      if (!v22 || (v23 = v22, [v5 topicSuffix], v24 = objc_claimAutoreleasedReturnValue(), v25 = objc_msgSend(v24, "isEqualToString:", @"info"), v24, v23, !v25))
+      v21 = [v5 asIndexHomeTopic];
+      if (!v21 || (v22 = v21, [v5 topicSuffix], v23 = objc_claimAutoreleasedReturnValue(), v24 = objc_msgSend(v23, "isEqualToString:", @"info"), v23, v22, !v24))
       {
         if ([v3 isEqualToString:@"index.xpc.client.spi"])
         {
-          v46 = [*(a1 + 32) homes];
-          v47 = [v46 copy];
-          v62[0] = MEMORY[0x277D85DD0];
-          v62[1] = 3221225472;
-          v62[2] = __63__HMDHomeEventsGenerated_expandedTopicsWithTopics_homeManager___block_invoke_3;
-          v62[3] = &unk_2797235C0;
-          v48 = *(a1 + 40);
-          v49 = *(a1 + 48);
+          v45 = [*(a1 + 32) homes];
+          v46 = objc_msgSend_copy(v45);
+          v61[0] = MEMORY[0x277D85DD0];
+          v61[1] = 3221225472;
+          v61[2] = __63__HMDHomeEventsGenerated_expandedTopicsWithTopics_homeManager___block_invoke_3;
+          v61[3] = &unk_2797235C0;
+          v47 = *(a1 + 40);
+          v48 = *(a1 + 48);
+          v62 = v47;
           v63 = v48;
-          v64 = v49;
-          [v47 na_each:v62];
+          [v46 na_each:v61];
 
-          v50 = v63;
+          v49 = v62;
         }
 
         else
@@ -95,86 +95,86 @@ void __63__HMDHomeEventsGenerated_expandedTopicsWithTopics_homeManager___block_i
             goto LABEL_9;
           }
 
-          v51 = [*(a1 + 32) homes];
-          v52 = [v51 copy];
-          v59[0] = MEMORY[0x277D85DD0];
-          v59[1] = 3221225472;
-          v59[2] = __63__HMDHomeEventsGenerated_expandedTopicsWithTopics_homeManager___block_invoke_5;
-          v59[3] = &unk_2797235C0;
-          v53 = *(a1 + 40);
-          v54 = *(a1 + 48);
+          v50 = [*(a1 + 32) homes];
+          v51 = objc_msgSend_copy(v50);
+          v58[0] = MEMORY[0x277D85DD0];
+          v58[1] = 3221225472;
+          v58[2] = __63__HMDHomeEventsGenerated_expandedTopicsWithTopics_homeManager___block_invoke_5;
+          v58[3] = &unk_2797235C0;
+          v52 = *(a1 + 40);
+          v53 = *(a1 + 48);
+          v59 = v52;
           v60 = v53;
-          v61 = v54;
-          [v52 na_each:v59];
+          [v51 na_each:v58];
 
-          v50 = v60;
+          v49 = v59;
         }
 
         goto LABEL_9;
       }
 
-      v57 = v3;
-      v26 = *(a1 + 32);
-      v27 = [v5 homeUUID];
-      v28 = [v26 _homeWithUUID:v27];
-      v29 = [v28 accessories];
+      v56 = v3;
+      v25 = *(a1 + 32);
+      v26 = [v5 homeUUID];
+      v27 = [v25 _homeWithUUID:v26];
+      v28 = [v27 accessories];
 
-      v69[0] = MEMORY[0x277D85DD0];
-      v69[1] = 3221225472;
-      v69[2] = __63__HMDHomeEventsGenerated_expandedTopicsWithTopics_homeManager___block_invoke_2;
-      v69[3] = &unk_279723598;
-      v30 = *(a1 + 40);
-      v58 = a1;
-      v31 = *(a1 + 48);
-      v70 = v30;
-      v72 = v31;
-      v56 = v5;
-      v32 = v5;
-      v71 = v32;
-      v55 = v29;
-      [v29 na_each:v69];
-      v67 = 0u;
-      v68 = 0u;
-      v65 = 0u;
+      v68[0] = MEMORY[0x277D85DD0];
+      v68[1] = 3221225472;
+      v68[2] = __63__HMDHomeEventsGenerated_expandedTopicsWithTopics_homeManager___block_invoke_2;
+      v68[3] = &unk_279723598;
+      v29 = *(a1 + 40);
+      v57 = a1;
+      v30 = *(a1 + 48);
+      v69 = v29;
+      v71 = v30;
+      v55 = v5;
+      v31 = v5;
+      v70 = v31;
+      v54 = v28;
+      [v28 na_each:v68];
       v66 = 0u;
-      v33 = [&unk_28662A840 countByEnumeratingWithState:&v65 objects:v73 count:16];
-      if (v33)
+      v67 = 0u;
+      v64 = 0u;
+      v65 = 0u;
+      v32 = [&unk_28662A840 countByEnumeratingWithState:&v64 objects:v72 count:16];
+      if (v32)
       {
-        v34 = v33;
-        v35 = *v66;
+        v33 = v32;
+        v34 = *v65;
         do
         {
-          for (i = 0; i != v34; ++i)
+          for (i = 0; i != v33; ++i)
           {
-            if (*v66 != v35)
+            if (*v65 != v34)
             {
               objc_enumerationMutation(&unk_28662A840);
             }
 
-            v37 = *(*(&v65 + 1) + 8 * i);
-            v38 = [&unk_28662A8B8 objectForKeyedSubscript:v37];
-            v39 = [v38 objectForKeyedSubscript:@"indexes"];
-            v40 = [v39 objectForKeyedSubscript:@"HomeIndex"];
+            v36 = *(*(&v64 + 1) + 8 * i);
+            v37 = [&unk_28662A8B8 objectForKeyedSubscript:v36];
+            v38 = [v37 objectForKeyedSubscript:@"indexes"];
+            v39 = [v38 objectForKeyedSubscript:@"HomeIndex"];
 
-            if (v40)
+            if (v39)
             {
-              v41 = *(v58 + 40);
-              v42 = MEMORY[0x277CCACA8];
-              v43 = [v32 homeUUID];
-              v44 = [v43 UUIDString];
-              v45 = [v42 stringWithFormat:@"home.%@.%@", v44, v37];
-              [v41 addObject:v45];
+              v40 = *(v57 + 40);
+              v41 = MEMORY[0x277CCACA8];
+              v42 = [v31 homeUUID];
+              v43 = [v42 UUIDString];
+              v44 = [v41 stringWithFormat:@"home.%@.%@", v43, v36];
+              [v40 addObject:v44];
             }
           }
 
-          v34 = [&unk_28662A840 countByEnumeratingWithState:&v65 objects:v73 count:16];
+          v33 = [&unk_28662A840 countByEnumeratingWithState:&v64 objects:v72 count:16];
         }
 
-        while (v34);
+        while (v33);
       }
 
-      v5 = v56;
-      v3 = v57;
+      v5 = v55;
+      v3 = v56;
     }
   }
 
@@ -184,8 +184,6 @@ void __63__HMDHomeEventsGenerated_expandedTopicsWithTopics_homeManager___block_i
   }
 
 LABEL_9:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __63__HMDHomeEventsGenerated_expandedTopicsWithTopics_homeManager___block_invoke_2(uint64_t a1, void *a2)
@@ -210,7 +208,7 @@ void __63__HMDHomeEventsGenerated_expandedTopicsWithTopics_homeManager___block_i
 {
   v3 = a2;
   v4 = [v3 accessories];
-  v5 = [v4 copy];
+  v5 = objc_msgSend_copy(v4);
   v9[0] = MEMORY[0x277D85DD0];
   v9[1] = 3221225472;
   v9[2] = __63__HMDHomeEventsGenerated_expandedTopicsWithTopics_homeManager___block_invoke_4;
@@ -228,7 +226,7 @@ void __63__HMDHomeEventsGenerated_expandedTopicsWithTopics_homeManager___block_i
 {
   v3 = a2;
   v4 = [v3 accessories];
-  v5 = [v4 copy];
+  v5 = objc_msgSend_copy(v4);
   v9[0] = MEMORY[0x277D85DD0];
   v9[1] = 3221225472;
   v9[2] = __63__HMDHomeEventsGenerated_expandedTopicsWithTopics_homeManager___block_invoke_6;
@@ -403,7 +401,7 @@ LABEL_8:
     [v5 addObject:v15];
   }
 
-  v16 = [v5 copy];
+  v16 = objc_msgSend_copy(v5);
 
   return v16;
 }
@@ -461,7 +459,7 @@ LABEL_8:
   }
 
 LABEL_9:
-  v19 = [v11 copy];
+  v19 = objc_msgSend_copy(v11);
 
   return v19;
 }
@@ -471,60 +469,13 @@ LABEL_9:
   dCopy = d;
   v7 = [MEMORY[0x277CD19F0] decodeTopic:topic];
   v8 = v7;
-  if (!v7)
+  if (v7 && ([v7 homeUUID], v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v9, "hmf_isEqualToUUID:", dCopy), v9, v10) && ((objc_msgSend(v8, "asAccessorySettingTopic"), v11 = objc_claimAutoreleasedReturnValue(), v11, v11) || (objc_msgSend(v8, "asAccessoryTopic"), (v13 = objc_claimAutoreleasedReturnValue()) != 0) && (v14 = v13, objc_msgSend(v8, "topicSuffix"), v15 = objc_claimAutoreleasedReturnValue(), v16 = +[HMDAccessoryEventsGenerated topicSuffix:isPartOfIndex:](HMDAccessoryEventsGenerated, "topicSuffix:isPartOfIndex:", v15, @"HomeIndex"), v15, v14, v16) || (objc_msgSend(v8, "asHomeEventTopic"), (v17 = objc_claimAutoreleasedReturnValue()) != 0) && (v18 = v17, objc_msgSend(v8, "topicSuffix"), v19 = objc_claimAutoreleasedReturnValue(), objc_msgSend(&unk_28662A7C8, "objectForKeyedSubscript:", v19), v20 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v20, "objectForKeyedSubscript:", @"indexes"), v21 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v21, "objectForKeyedSubscript:", @"HomeIndex"), v22 = objc_claimAutoreleasedReturnValue(), v22, v21, v20, v19, v18, v22)))
   {
-    goto LABEL_9;
-  }
-
-  homeUUID = [v7 homeUUID];
-  v10 = [homeUUID hmf_isEqualToUUID:dCopy];
-
-  if (!v10)
-  {
-    goto LABEL_9;
-  }
-
-  asAccessorySettingTopic = [v8 asAccessorySettingTopic];
-
-  if (asAccessorySettingTopic)
-  {
-    goto LABEL_4;
-  }
-
-  asAccessoryTopic = [v8 asAccessoryTopic];
-  if (asAccessoryTopic)
-  {
-    v14 = asAccessoryTopic;
-    topicSuffix = [v8 topicSuffix];
-    v16 = [HMDAccessoryEventsGenerated topicSuffix:topicSuffix isPartOfIndex:@"HomeIndex"];
-
-    if (v16)
-    {
-      goto LABEL_4;
-    }
-  }
-
-  asHomeEventTopic = [v8 asHomeEventTopic];
-  if (!asHomeEventTopic)
-  {
-    goto LABEL_9;
-  }
-
-  v18 = asHomeEventTopic;
-  topicSuffix2 = [v8 topicSuffix];
-  v20 = [&unk_28662A7C8 objectForKeyedSubscript:topicSuffix2];
-  v21 = [v20 objectForKeyedSubscript:@"indexes"];
-  v22 = [v21 objectForKeyedSubscript:@"HomeIndex"];
-
-  if (v22)
-  {
-LABEL_4:
     v12 = [self homeInfoIndexForHomeUUID:dCopy];
   }
 
   else
   {
-LABEL_9:
     v12 = 0;
   }
 
@@ -606,7 +557,7 @@ LABEL_9:
 
 id __75__HMDHomeEventsGenerated_forwardingTopicsWithTopics_forHomeRouterWithUUID___block_invoke(uint64_t a1, void *a2)
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [MEMORY[0x277CD19F0] decodeTopic:v3];
   v5 = v4;
@@ -637,8 +588,8 @@ id __75__HMDHomeEventsGenerated_forwardingTopicsWithTopics_forHomeRouterWithUUID
       if (v12)
       {
         v13 = [*(a1 + 40) homeInfoIndexForHomeUUID:*(a1 + 32)];
-        v25 = v13;
-        v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v25 count:1];
+        v24 = v13;
+        v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v24 count:1];
 
         goto LABEL_18;
       }
@@ -659,9 +610,9 @@ id __75__HMDHomeEventsGenerated_forwardingTopicsWithTopics_forHomeRouterWithUUID
         if (v18)
         {
           v9 = [*(a1 + 40) homeInfoIndexForHomeUUID:*(a1 + 32)];
-          v24 = v9;
+          v23 = v9;
           v19 = MEMORY[0x277CBEA60];
-          v20 = &v24;
+          v20 = &v23;
 LABEL_17:
           v10 = [v19 arrayWithObjects:v20 count:1];
 
@@ -671,33 +622,30 @@ LABEL_17:
       }
     }
 
-    v23 = v3;
+    v22 = v3;
     v19 = MEMORY[0x277CBEA60];
-    v20 = &v23;
+    v20 = &v22;
     goto LABEL_17;
   }
 
   v9 = [*(a1 + 40) homeInfoIndexForHomeUUID:*(a1 + 32)];
-  v26[0] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:1];
+  v25[0] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
 LABEL_18:
 
 LABEL_19:
-  v21 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
 
 + (id)clientIndexToHomeTopicsForHomeUUID:(id)d
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCACA8];
   uUIDString = [d UUIDString];
   v5 = [v3 stringWithFormat:@"index.home.%@.info", uUIDString];
-  v9[0] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v8[0] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
 
   return v6;
 }

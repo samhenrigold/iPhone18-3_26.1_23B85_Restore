@@ -4,12 +4,15 @@
 - (SagaRequestHandler)initWithConfiguration:(id)configuration progressObserver:(id)observer;
 - (float)updateProgress;
 - (id)_library;
+- (void)_addLibraryOperation:(id)operation priority:(int)priority noLibraryHandler:(id)handler;
 - (void)_handleCloudLibraryUpdateOperationFinishedWithError:(id)error;
 - (void)_handleLibraryEditOperationCompletionUpdatingLibrary:(BOOL)library andSubscribedPlaylist:(unint64_t)playlist completion:(id)completion;
 - (void)_updateLibraryForFailedLibraryPinsOperationWithCompletion:(id)completion;
+- (void)addBackgroundOperation:(id)operation priority:(int)priority;
 - (void)addGeniusPlaylistWithPersistentID:(int64_t)d name:(id)name seedItemIDs:(id)ds itemIDs:(id)iDs clientIdentity:(id)identity completionHandler:(id)handler;
 - (void)addItemWithSagaID:(unint64_t)d toPlaylistWithPersistentID:(int64_t)iD clientIdentity:(id)identity completionHandler:(id)handler;
 - (void)addItemWithSagaID:(unint64_t)d toPlaylistWithPersistentID:(int64_t)iD requestingBundleID:(id)bundleID clientIdentity:(id)identity completionHandler:(id)handler;
+- (void)addOperation:(id)operation priority:(int)priority;
 - (void)addStoreItemWithAdamID:(int64_t)d referral:(id)referral clientIdentity:(id)identity completionHandler:(id)handler;
 - (void)addStoreItemWithAdamID:(int64_t)d referral:(id)referral toPlaylistWithPersistentID:(int64_t)iD clientIdentity:(id)identity completionHandler:(id)handler;
 - (void)addStoreItemWithOpaqueID:(id)d requestingBundleID:(id)iD clientIdentity:(id)identity completionHandler:(id)handler;
@@ -54,7 +57,9 @@
 - (void)removePinnedAlbumWithPersistentID:(int64_t)d cloudAlbumID:(id)iD completion:(id)completion;
 - (void)removePinnedArtistWithPersistentID:(int64_t)d cloudArtistID:(id)iD completion:(id)completion;
 - (void)removePinnedEntityWithPersistentID:(int64_t)d cloudID:(int64_t)iD type:(int64_t)type completion:(id)completion;
+- (void)removePlaylistsWithSagaIDs:(id)ds performDeltaSync:(BOOL)sync clientIdentity:(id)identity completionHandler:(id)handler;
 - (void)resetInvitationURLForCollaborationWithPersistentID:(int64_t)d completion:(id)completion;
+- (void)respondToPendingCollaborator:(id)collaborator onCollaborationWithPersistentID:(int64_t)d withApproval:(BOOL)approval completion:(id)completion;
 - (void)setAlbumArtistProperties:(id)properties withArtistPersistentID:(int64_t)d clientIdentity:(id)identity completionHandler:(id)handler;
 - (void)setAlbumEntityProperties:(id)properties withAlbumPersistentID:(int64_t)d clientIdentity:(id)identity completionHandler:(id)handler;
 - (void)setAlbumProperties:(id)properties forItemsWithAlbumPersistentID:(int64_t)d clientIdentity:(id)identity completionHandler:(id)handler;
@@ -69,6 +74,7 @@
 - (void)updatePinnedLibraryArtistWithPersistentID:(int64_t)d cloudArtistID:(id)iD defaultAction:(int64_t)action completion:(id)completion;
 - (void)updatePinnedLibraryEntityWithPersistentID:(int64_t)d cloudID:(int64_t)iD type:(int64_t)type defaultAction:(int64_t)action completion:(id)completion;
 - (void)updatePlaylistPlayDataWithClientIdentity:(id)identity completionHandler:(id)handler;
+- (void)updateSubscribedPlaylistsWithSagaIDs:(id)ds ignoreMinRefreshInterval:(BOOL)interval requestReason:(int64_t)reason pinnedOnly:(BOOL)only clientIdentity:(id)identity completionHandler:(id)handler;
 - (void)uploadArtworkForPlaylistWithPersistentID:(int64_t)d clientIdentity:(id)identity completionHandler:(id)handler;
 - (void)uploadItemPropertiesWithClientIdentity:(id)identity minimumTimeInterval:(double)interval;
 - (void)uploadPlaylistPropertiesWithClientIdentity:(id)identity minimumTimeInterval:(double)interval;
@@ -436,6 +442,25 @@ LABEL_45:
   }
 }
 
+- (void)_addLibraryOperation:(id)operation priority:(int)priority noLibraryHandler:(id)handler
+{
+  v6 = *&priority;
+  operationCopy = operation;
+  handlerCopy = handler;
+  _library = [(SagaRequestHandler *)self _library];
+  v10 = _library;
+  if (_library)
+  {
+    [_library addOperation:operationCopy priority:v6];
+  }
+
+  else if (handlerCopy)
+  {
+    v11 = [NSError ic_cloudClientErrorWithCode:2009 userInfo:0];
+    handlerCopy[2](handlerCopy, v11);
+  }
+}
+
 - (id)_library
 {
   library = self->_library;
@@ -663,6 +688,44 @@ LABEL_45:
   [(SagaRequestHandler *)self _addLibraryOperation:v15 priority:2 noLibraryHandler:0];
 
   objc_destroyWeak(&v19);
+  objc_destroyWeak(buf);
+}
+
+- (void)respondToPendingCollaborator:(id)collaborator onCollaborationWithPersistentID:(int64_t)d withApproval:(BOOL)approval completion:(id)completion
+{
+  approvalCopy = approval;
+  collaboratorCopy = collaborator;
+  completionCopy = completion;
+  v12 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138543874;
+    selfCopy = self;
+    v23 = 2114;
+    v24 = collaboratorCopy;
+    v25 = 2048;
+    dCopy = d;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%{public}@ - responding to approval request from user %{public}@ for collaboration persistentID %lld", buf, 0x20u);
+  }
+
+  v13 = [SagaCollaborationRespondToPendingCollaboratorOperation alloc];
+  configuration = self->_configuration;
+  clientIdentity = [(ICConnectionConfiguration *)configuration clientIdentity];
+  v16 = [(SagaCollaborationRespondToPendingCollaboratorOperation *)v13 initWithConfiguration:configuration clientIdentity:clientIdentity persistentID:d socialProfileID:collaboratorCopy approval:approvalCopy];
+
+  objc_initWeak(buf, v16);
+  v18[0] = _NSConcreteStackBlock;
+  v18[1] = 3221225472;
+  v18[2] = sub_100089AE0;
+  v18[3] = &unk_1001DD5D0;
+  objc_copyWeak(&v20, buf);
+  v17 = completionCopy;
+  v18[4] = self;
+  v19 = v17;
+  [(SagaCollaborationRespondToPendingCollaboratorOperation *)v16 setCompletionBlock:v18];
+  [(SagaRequestHandler *)self _addLibraryOperation:v16 priority:2 noLibraryHandler:0];
+
+  objc_destroyWeak(&v20);
   objc_destroyWeak(buf);
 }
 
@@ -2132,6 +2195,53 @@ LABEL_10:
   objc_destroyWeak(buf);
 }
 
+- (void)updateSubscribedPlaylistsWithSagaIDs:(id)ds ignoreMinRefreshInterval:(BOOL)interval requestReason:(int64_t)reason pinnedOnly:(BOOL)only clientIdentity:(id)identity completionHandler:(id)handler
+{
+  onlyCopy = only;
+  intervalCopy = interval;
+  dsCopy = ds;
+  identityCopy = identity;
+  handlerCopy = handler;
+  v17 = os_log_create("com.apple.amp.itunescloudd", "CloudSync_Oversize");
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  {
+    v18 = ICCloudClientGetStringForRequestReason();
+    *buf = 138543874;
+    selfCopy = self;
+    v33 = 2114;
+    v34 = v18;
+    v35 = 2114;
+    v36 = dsCopy;
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "%{public}@ - Updating subscribed playlists (reason = %{public}@) with cloud ids = %{public}@", buf, 0x20u);
+  }
+
+  v19 = [[SagaUpdateSubscribedPlaylistsOperation alloc] initWithConfiguration:self->_configuration clientIdentity:identityCopy subscribedPlaylistSagaIDs:dsCopy ignoreMinRefreshInterval:intervalCopy requestReason:reason pinnedOnly:onlyCopy];
+  objc_initWeak(buf, v19);
+  v27[0] = _NSConcreteStackBlock;
+  v27[1] = 3221225472;
+  v27[2] = sub_10008FE88;
+  v27[3] = &unk_1001DD5D0;
+  v20 = dsCopy;
+  v28 = v20;
+  v21 = handlerCopy;
+  v29 = v21;
+  objc_copyWeak(&v30, buf);
+  [(SagaUpdateSubscribedPlaylistsOperation *)v19 setCompletionBlock:v27];
+  [(SagaUpdateSubscribedPlaylistsOperation *)v19 setName:@"com.apple.itunescloudd.SagaRequestHandler.updateSubscribedPlaylistsOperation"];
+  v24[0] = _NSConcreteStackBlock;
+  v24[1] = 3221225472;
+  v24[2] = sub_10008FF98;
+  v24[3] = &unk_1001DFC28;
+  v22 = v20;
+  v25 = v22;
+  v23 = v21;
+  v26 = v23;
+  [(SagaRequestHandler *)self _addLibraryOperation:v19 priority:2 noLibraryHandler:v24];
+
+  objc_destroyWeak(&v30);
+  objc_destroyWeak(buf);
+}
+
 - (void)uploadArtworkForPlaylistWithPersistentID:(int64_t)d clientIdentity:(id)identity completionHandler:(id)handler
 {
   identityCopy = identity;
@@ -2172,6 +2282,50 @@ LABEL_10:
   }
 
   objc_destroyWeak(v21);
+  objc_destroyWeak(buf);
+}
+
+- (void)removePlaylistsWithSagaIDs:(id)ds performDeltaSync:(BOOL)sync clientIdentity:(id)identity completionHandler:(id)handler
+{
+  syncCopy = sync;
+  dsCopy = ds;
+  identityCopy = identity;
+  handlerCopy = handler;
+  v13 = os_log_create("com.apple.amp.itunescloudd", "CloudSync_Oversize");
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138543618;
+    selfCopy = self;
+    v28 = 2114;
+    v29 = dsCopy;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "%{public}@ - Removing playlists with cloud ids = %{public}@", buf, 0x16u);
+  }
+
+  v14 = [[SagaRemovePlaylistOperation alloc] initWithConfiguration:self->_configuration clientIdentity:identityCopy playlistSagaIDs:dsCopy performDeltaSync:syncCopy];
+  objc_initWeak(buf, v14);
+  v22[0] = _NSConcreteStackBlock;
+  v22[1] = 3221225472;
+  v22[2] = sub_100090688;
+  v22[3] = &unk_1001DC420;
+  v22[4] = self;
+  v15 = dsCopy;
+  v23 = v15;
+  v16 = handlerCopy;
+  v24 = v16;
+  objc_copyWeak(&v25, buf);
+  [(SagaRemovePlaylistOperation *)v14 setCompletionBlock:v22];
+  [(SagaRemovePlaylistOperation *)v14 setName:@"com.apple.itunescloudd.SagaRequestHandler.removePlaylistOperation"];
+  v19[0] = _NSConcreteStackBlock;
+  v19[1] = 3221225472;
+  v19[2] = sub_1000907B0;
+  v19[3] = &unk_1001DFC28;
+  v17 = v15;
+  v20 = v17;
+  v18 = v16;
+  v21 = v18;
+  [(SagaRequestHandler *)self _addLibraryOperation:v14 priority:2 noLibraryHandler:v19];
+
+  objc_destroyWeak(&v25);
   objc_destroyWeak(buf);
 }
 
@@ -3024,6 +3178,28 @@ LABEL_10:
   else if (completionCopy)
   {
     completionCopy[2](completionCopy);
+  }
+}
+
+- (void)addBackgroundOperation:(id)operation priority:(int)priority
+{
+  if (operation)
+  {
+    v4 = *&priority;
+    operationCopy = operation;
+    _library = [(SagaRequestHandler *)self _library];
+    [_library addBackgroundOperation:operationCopy priority:v4];
+  }
+}
+
+- (void)addOperation:(id)operation priority:(int)priority
+{
+  if (operation)
+  {
+    v4 = *&priority;
+    operationCopy = operation;
+    _library = [(SagaRequestHandler *)self _library];
+    [_library addOperation:operationCopy priority:v4];
   }
 }
 

@@ -37,9 +37,9 @@
 {
   stringCopy = string;
   text = [(UILabel *)self->_copyrightLabel text];
-  v5 = [text isEqualToString:stringCopy];
+  isEqualToString = objc_msgSend_isEqualToString_(text);
 
-  if ((v5 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     copyrightLabel = self->_copyrightLabel;
     v7 = stringCopy;

@@ -273,28 +273,28 @@ LABEL_24:
   return emptyRange;
 }
 
-uint64_t __31__PLAccountingRange_intersect___block_invoke(uint64_t a1)
+void *__31__PLAccountingRange_intersect___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   intersect__classDebugEnabled = result;
   return result;
 }
 
-uint64_t __31__PLAccountingRange_intersect___block_invoke_17(uint64_t a1)
+void *__31__PLAccountingRange_intersect___block_invoke_17(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   intersect__classDebugEnabled_16 = result;
   return result;
 }
 
-uint64_t __31__PLAccountingRange_intersect___block_invoke_23(uint64_t a1)
+void *__31__PLAccountingRange_intersect___block_invoke_23(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   intersect__classDebugEnabled_22 = result;
   return result;
 }
 
-uint64_t __31__PLAccountingRange_intersect___block_invoke_29(uint64_t a1)
+void *__31__PLAccountingRange_intersect___block_invoke_29(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   intersect__classDebugEnabled_28 = result;
@@ -452,28 +452,28 @@ LABEL_27:
   return v32;
 }
 
-uint64_t __30__PLAccountingRange_overlaps___block_invoke(uint64_t a1)
+void *__30__PLAccountingRange_overlaps___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   overlaps__classDebugEnabled = result;
   return result;
 }
 
-uint64_t __30__PLAccountingRange_overlaps___block_invoke_35(uint64_t a1)
+void *__30__PLAccountingRange_overlaps___block_invoke_35(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   overlaps__classDebugEnabled_34 = result;
   return result;
 }
 
-uint64_t __30__PLAccountingRange_overlaps___block_invoke_41(uint64_t a1)
+void *__30__PLAccountingRange_overlaps___block_invoke_41(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   overlaps__classDebugEnabled_40 = result;
   return result;
 }
 
-uint64_t __30__PLAccountingRange_overlaps___block_invoke_47(uint64_t a1)
+void *__30__PLAccountingRange_overlaps___block_invoke_47(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   overlaps__classDebugEnabled_46 = result;
@@ -536,13 +536,12 @@ LABEL_13:
 
 void __31__PLAccountingRange_emptyRange__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = objc_opt_class();
-  v6 = [MEMORY[0x277CBEAA8] distantPast];
-  v3 = [MEMORY[0x277CBEAA8] distantPast];
-  v4 = [v2 rangeWithStartDate:v6 withEndDate:v3];
-  v5 = emptyRange_emptyRange;
-  emptyRange_emptyRange = v4;
+  v1 = objc_opt_class();
+  v5 = [MEMORY[0x277CBEAA8] distantPast];
+  v2 = [MEMORY[0x277CBEAA8] distantPast];
+  v3 = [v1 rangeWithStartDate:v5 withEndDate:v2];
+  v4 = emptyRange_emptyRange;
+  emptyRange_emptyRange = v3;
 }
 
 - (BOOL)containsDate:(id)date
@@ -595,7 +594,7 @@ void __31__PLAccountingRange_emptyRange__block_invoke(uint64_t a1)
   return v14;
 }
 
-uint64_t __34__PLAccountingRange_containsDate___block_invoke(uint64_t a1)
+void *__34__PLAccountingRange_containsDate___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   containsDate__classDebugEnabled = result;

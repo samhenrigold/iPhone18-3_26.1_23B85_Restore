@@ -1,4 +1,5 @@
 @interface OBBaseWelcomeController
++ (CGSize)_preferredContentSizeInBuddy:(BOOL)buddy;
 + (CGSize)preferredContentSize;
 + (CGSize)preferredContentSizeInSetupAssistant;
 - (BOOL)_isBuddyiPad;
@@ -12,8 +13,11 @@
 - (void)_presentationStyleValidationCheck;
 - (void)loadView;
 - (void)updateDirectionalLayoutMargins;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
+- (void)viewWillDisappear:(BOOL)disappear;
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator;
 @end
 
@@ -44,18 +48,17 @@
   v11 = *MEMORY[0x1E69E9840];
   v8.receiver = self;
   v8.super_class = OBBaseWelcomeController;
-  [(OBBaseWelcomeController *)&v8 viewWillTransitionToSize:coordinator withTransitionCoordinator:size.width, size.height];
-  v5 = _OBLoggingFacility();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v5 = [(OBBaseWelcomeController *)&v8 viewWillTransitionToSize:coordinator withTransitionCoordinator:size.width, size.height];
+  v6 = _OBLoggingFacility(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = [(OBBaseWelcomeController *)self description];
+    v7 = [(OBBaseWelcomeController *)self description];
     *buf = 138412290;
-    v10 = v6;
-    _os_log_impl(&dword_1B4FB6000, v5, OS_LOG_TYPE_DEFAULT, "[%@ viewWillTransitionToSize:withTransitionCoordinator:]", buf, 0xCu);
+    v10 = v7;
+    _os_log_impl(&dword_1B4FB6000, v6, OS_LOG_TYPE_DEFAULT, "[%@ viewWillTransitionToSize:withTransitionCoordinator:]", buf, 0xCu);
   }
 
   [(OBBaseWelcomeController *)self updateDirectionalLayoutMargins];
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)viewDidLoad
@@ -63,22 +66,70 @@
   v9 = *MEMORY[0x1E69E9840];
   v6.receiver = self;
   v6.super_class = OBBaseWelcomeController;
-  [(OBBaseWelcomeController *)&v6 viewDidLoad];
-  v3 = _OBLoggingFacility();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  viewDidLoad = [(OBBaseWelcomeController *)&v6 viewDidLoad];
+  v4 = _OBLoggingFacility(viewDidLoad);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = [(OBBaseWelcomeController *)self description];
+    v5 = [(OBBaseWelcomeController *)self description];
     *buf = 138412290;
-    v8 = v4;
-    _os_log_impl(&dword_1B4FB6000, v3, OS_LOG_TYPE_DEFAULT, "[%@ viewDidLoad]", buf, 0xCu);
+    v8 = v5;
+    _os_log_impl(&dword_1B4FB6000, v4, OS_LOG_TYPE_DEFAULT, "[%@ viewDidLoad]", buf, 0xCu);
   }
 
   if ([(OBBaseWelcomeController *)self conformsToProtocol:&unk_1F2D146E0])
   {
     [(OBBaseWelcomeController *)self setTemplateType:2];
   }
+}
 
-  v5 = *MEMORY[0x1E69E9840];
+- (void)viewDidAppear:(BOOL)appear
+{
+  v10 = *MEMORY[0x1E69E9840];
+  v7.receiver = self;
+  v7.super_class = OBBaseWelcomeController;
+  v4 = [(OBBaseWelcomeController *)&v7 viewDidAppear:appear];
+  v5 = _OBLoggingFacility(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = [(OBBaseWelcomeController *)self description];
+    *buf = 138412290;
+    v9 = v6;
+    _os_log_impl(&dword_1B4FB6000, v5, OS_LOG_TYPE_DEFAULT, "[%@ viewDidAppear:]", buf, 0xCu);
+  }
+
+  [(OBBaseWelcomeController *)self _presentationStyleValidationCheck];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v10 = *MEMORY[0x1E69E9840];
+  v7.receiver = self;
+  v7.super_class = OBBaseWelcomeController;
+  v4 = [(OBBaseWelcomeController *)&v7 viewWillDisappear:disappear];
+  v5 = _OBLoggingFacility(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = [(OBBaseWelcomeController *)self description];
+    *buf = 138412290;
+    v9 = v6;
+    _os_log_impl(&dword_1B4FB6000, v5, OS_LOG_TYPE_DEFAULT, "[%@ viewWillDisappear:]", buf, 0xCu);
+  }
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v10 = *MEMORY[0x1E69E9840];
+  v7.receiver = self;
+  v7.super_class = OBBaseWelcomeController;
+  v4 = [(OBBaseWelcomeController *)&v7 viewDidDisappear:disappear];
+  v5 = _OBLoggingFacility(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = [(OBBaseWelcomeController *)self description];
+    *buf = 138412290;
+    v9 = v6;
+    _os_log_impl(&dword_1B4FB6000, v5, OS_LOG_TYPE_DEFAULT, "[%@ viewDidDisappear:]", buf, 0xCu);
+  }
 }
 
 - (void)updateDirectionalLayoutMargins
@@ -342,11 +393,50 @@ LABEL_39:
 
 - (void)_presentationStyleValidationCheck
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_fault_impl(&dword_1B4FB6000, a2, OS_LOG_TYPE_FAULT, "The modal presentation style %@ is not supported; you must use UIModalPresentationFullScreen or UIModalPresentationFormSheet", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_1B4FB6000, a2, OS_LOG_TYPE_FAULT, "The modal presentation style %@ is not supported; you must use UIModalPresentationFullScreen or UIModalPresentationFormSheet", &v2, 0xCu);
+}
+
++ (CGSize)_preferredContentSizeInBuddy:(BOOL)buddy
+{
+  v3 = +[OBDevice currentDevice];
+  type = [v3 type];
+
+  if (type == 2)
+  {
+    v5 = +[OBUtilities mainScreen];
+    [v5 bounds];
+    v7 = v6;
+
+    v8 = +[OBUtilities mainScreen];
+    [v8 bounds];
+    v10 = v9;
+
+    if (v7 >= v10)
+    {
+      v11 = v10;
+    }
+
+    else
+    {
+      v11 = v7;
+    }
+
+    v12 = fmin(v11 + -88.0, 820.0);
+    v13 = 624.0;
+  }
+
+  else
+  {
+    v13 = *MEMORY[0x1E695F060];
+    v12 = *(MEMORY[0x1E695F060] + 8);
+  }
+
+  result.height = v12;
+  result.width = v13;
+  return result;
 }
 
 - (CGSize)preferredContentSize

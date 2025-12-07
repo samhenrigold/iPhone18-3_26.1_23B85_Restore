@@ -14,7 +14,7 @@
 
   if (objc_opt_respondsToSelector())
   {
-    objc_msgSend_notifyOfInteractionWithPeople_(qword_1EB2EA1C8, v3, peopleCopy);
+    [qword_1EB2EA1C8 notifyOfInteractionWithPeople:peopleCopy];
   }
 }
 

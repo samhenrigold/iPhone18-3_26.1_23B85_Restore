@@ -2,6 +2,7 @@
 - (APOdmlRecipe)initWithDictionary:(id)dictionary;
 - (APOdmlRecipe)initWithMLRTask:(id)task;
 - (id)rangeBoundaryForFeature:(id)feature upperBound:(BOOL)bound;
+- (id)rangeBoundaryForOutput:(BOOL)output;
 - (id)sentinelValuesForFeature:(id)feature;
 - (id)sentinelValuesForOutput;
 @end
@@ -11,323 +12,339 @@
 - (APOdmlRecipe)initWithDictionary:(id)dictionary
 {
   dictionaryCopy = dictionary;
-  v108.receiver = self;
-  v108.super_class = APOdmlRecipe;
-  v6 = [(APOdmlRecipe *)&v108 init];
-  if (v6)
+  v74.receiver = self;
+  v74.super_class = APOdmlRecipe;
+  v5 = [(APOdmlRecipe *)&v74 init];
+  if (v5)
   {
-    v7 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v5, @"ModelType");
-    modelType = v6->_modelType;
-    v6->_modelType = v7;
+    v6 = [dictionaryCopy objectForKeyedSubscript:@"ModelType"];
+    modelType = v5->_modelType;
+    v5->_modelType = v6;
 
-    v10 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v9, @"ModelFileName");
-    modelFileName = v6->_modelFileName;
-    v6->_modelFileName = v10;
+    v8 = [dictionaryCopy objectForKeyedSubscript:@"ModelFileName"];
+    modelFileName = v5->_modelFileName;
+    v5->_modelFileName = v8;
 
-    v13 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v12, @"LossName");
-    lossName = v6->_lossName;
-    v6->_lossName = v13;
+    v10 = [dictionaryCopy objectForKeyedSubscript:@"LossName"];
+    lossName = v5->_lossName;
+    v5->_lossName = v10;
 
-    v16 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v15, @"LabelName");
-    labelName = v6->_labelName;
-    v6->_labelName = v16;
+    v12 = [dictionaryCopy objectForKeyedSubscript:@"LabelName"];
+    labelName = v5->_labelName;
+    v5->_labelName = v12;
 
-    v19 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v18, @"LearningRateName");
-    learningRateName = v6->_learningRateName;
-    v6->_learningRateName = v19;
+    v14 = [dictionaryCopy objectForKeyedSubscript:@"LearningRateName"];
+    learningRateName = v5->_learningRateName;
+    v5->_learningRateName = v14;
 
-    v22 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v21, @"InitName");
-    functionInitName = v6->_functionInitName;
-    v6->_functionInitName = v22;
+    v16 = [dictionaryCopy objectForKeyedSubscript:@"InitName"];
+    functionInitName = v5->_functionInitName;
+    v5->_functionInitName = v16;
 
-    v25 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v24, @"IsTrainingName");
-    isTrainingName = v6->_isTrainingName;
-    v6->_isTrainingName = v25;
+    v18 = [dictionaryCopy objectForKeyedSubscript:@"IsTrainingName"];
+    isTrainingName = v5->_isTrainingName;
+    v5->_isTrainingName = v18;
 
-    v28 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v27, @"IsCounterfactual");
-    isCounterfactual = v6->_isCounterfactual;
-    v6->_isCounterfactual = v28;
+    v20 = [dictionaryCopy objectForKeyedSubscript:@"IsCounterfactual"];
+    isCounterfactual = v5->_isCounterfactual;
+    v5->_isCounterfactual = v20;
 
-    v31 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v30, @"CentralDifferentialPrivacyParameters");
-    privacyParams = v6->_privacyParams;
-    v6->_privacyParams = v31;
+    v22 = [dictionaryCopy objectForKeyedSubscript:@"CentralDifferentialPrivacyParameters"];
+    privacyParams = v5->_privacyParams;
+    v5->_privacyParams = v22;
 
-    v34 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v33, @"L2NormBound");
-    l2NormBound = v6->_l2NormBound;
-    v6->_l2NormBound = v34;
+    v24 = [dictionaryCopy objectForKeyedSubscript:@"L2NormBound"];
+    l2NormBound = v5->_l2NormBound;
+    v5->_l2NormBound = v24;
 
-    v37 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v36, @"LearningRate");
-    learningRate = v6->_learningRate;
-    v6->_learningRate = v37;
+    v26 = [dictionaryCopy objectForKeyedSubscript:@"LearningRate"];
+    learningRate = v5->_learningRate;
+    v5->_learningRate = v26;
 
-    v40 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v39, @"NumLocalIterations");
-    localIterationsCount = v6->_localIterationsCount;
-    v6->_localIterationsCount = v40;
+    v28 = [dictionaryCopy objectForKeyedSubscript:@"NumLocalIterations"];
+    localIterationsCount = v5->_localIterationsCount;
+    v5->_localIterationsCount = v28;
 
-    v43 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v42, @"TrainLayers");
-    trainLayers = v6->_trainLayers;
-    v6->_trainLayers = v43;
+    v30 = [dictionaryCopy objectForKeyedSubscript:@"TrainLayers"];
+    trainLayers = v5->_trainLayers;
+    v5->_trainLayers = v30;
 
-    v46 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v45, @"WeightBySamples");
-    weightBySamples = v6->_weightBySamples;
-    v6->_weightBySamples = v46;
+    v32 = [dictionaryCopy objectForKeyedSubscript:@"WeightBySamples"];
+    weightBySamples = v5->_weightBySamples;
+    v5->_weightBySamples = v32;
 
-    v49 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v48, @"shouldShuffle");
-    shouldShuffle = v6->_shouldShuffle;
-    v6->_shouldShuffle = v49;
+    v34 = [dictionaryCopy objectForKeyedSubscript:@"shouldShuffle"];
+    shouldShuffle = v5->_shouldShuffle;
+    v5->_shouldShuffle = v34;
 
-    v52 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v51, @"des_settings");
-    desSettings = v6->_desSettings;
-    v6->_desSettings = v52;
+    v36 = [dictionaryCopy objectForKeyedSubscript:@"des_settings"];
+    desSettings = v5->_desSettings;
+    v5->_desSettings = v36;
 
-    v55 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v54, @"iCloudAggServiceKey");
-    iCloudServiceKey = v6->_iCloudServiceKey;
-    v6->_iCloudServiceKey = v55;
+    v38 = [dictionaryCopy objectForKeyedSubscript:@"iCloudAggServiceKey"];
+    iCloudServiceKey = v5->_iCloudServiceKey;
+    v5->_iCloudServiceKey = v38;
 
-    v58 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v57, @"maxNorm");
-    maxNorm = v6->_maxNorm;
-    v6->_maxNorm = v58;
+    v40 = [dictionaryCopy objectForKeyedSubscript:@"maxNorm"];
+    maxNorm = v5->_maxNorm;
+    v5->_maxNorm = v40;
 
-    v61 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v60, @"minTrainingSamples");
-    minTrainingSamples = v6->_minTrainingSamples;
-    v6->_minTrainingSamples = v61;
+    v42 = [dictionaryCopy objectForKeyedSubscript:@"minTrainingSamples"];
+    minTrainingSamples = v5->_minTrainingSamples;
+    v5->_minTrainingSamples = v42;
 
-    v64 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v63, @"normBinCount");
-    normBinCount = v6->_normBinCount;
-    v6->_normBinCount = v64;
+    v44 = [dictionaryCopy objectForKeyedSubscript:@"normBinCount"];
+    normBinCount = v5->_normBinCount;
+    v5->_normBinCount = v44;
 
-    v67 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v66, @"WeightNames");
-    weightNames = v6->_weightNames;
-    v6->_weightNames = v67;
+    v46 = [dictionaryCopy objectForKeyedSubscript:@"WeightNames"];
+    weightNames = v5->_weightNames;
+    v5->_weightNames = v46;
 
-    v70 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v69, @"batchSize");
-    batchSize = v6->_batchSize;
-    v6->_batchSize = v70;
+    v48 = [dictionaryCopy objectForKeyedSubscript:@"batchSize"];
+    batchSize = v5->_batchSize;
+    v5->_batchSize = v48;
 
-    v73 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v72, @"featureValueConfig");
-    featureValueConfig = v6->_featureValueConfig;
-    v6->_featureValueConfig = v73;
+    v50 = [dictionaryCopy objectForKeyedSubscript:@"featureValueConfig"];
+    featureValueConfig = v5->_featureValueConfig;
+    v5->_featureValueConfig = v50;
 
-    v76 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v75, @"modelOutputConfig");
-    modelOutputConfig = v6->_modelOutputConfig;
-    v6->_modelOutputConfig = v76;
+    v52 = [dictionaryCopy objectForKeyedSubscript:@"modelOutputConfig"];
+    modelOutputConfig = v5->_modelOutputConfig;
+    v5->_modelOutputConfig = v52;
 
-    v79 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v78, @"augmentedDESRecords");
-    augmentedDESRecords = v6->_augmentedDESRecords;
-    v6->_augmentedDESRecords = v79;
+    v54 = [dictionaryCopy objectForKeyedSubscript:@"augmentedDESRecords"];
+    augmentedDESRecords = v5->_augmentedDESRecords;
+    v5->_augmentedDESRecords = v54;
 
-    v82 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v81, @"augmentedDESRecordsLimit");
-    augmentedDESRecordsLimit = v6->_augmentedDESRecordsLimit;
-    v6->_augmentedDESRecordsLimit = v82;
+    v56 = [dictionaryCopy objectForKeyedSubscript:@"augmentedDESRecordsLimit"];
+    augmentedDESRecordsLimit = v5->_augmentedDESRecordsLimit;
+    v5->_augmentedDESRecordsLimit = v56;
 
-    v85 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v84, @"augmentedDESRecordsRatio");
-    augmentedDESRecordsRatio = v6->_augmentedDESRecordsRatio;
-    v6->_augmentedDESRecordsRatio = v85;
+    v58 = [dictionaryCopy objectForKeyedSubscript:@"augmentedDESRecordsRatio"];
+    augmentedDESRecordsRatio = v5->_augmentedDESRecordsRatio;
+    v5->_augmentedDESRecordsRatio = v58;
 
-    v88 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v87, @"augmentedDESRecordsTruePercentage");
-    augmentedDESRecordsTruePercentage = v6->_augmentedDESRecordsTruePercentage;
-    v6->_augmentedDESRecordsTruePercentage = v88;
+    v60 = [dictionaryCopy objectForKeyedSubscript:@"augmentedDESRecordsTruePercentage"];
+    augmentedDESRecordsTruePercentage = v5->_augmentedDESRecordsTruePercentage;
+    v5->_augmentedDESRecordsTruePercentage = v60;
 
-    v91 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v90, @"augmentedDESRecordsTargetKey");
-    augmentedDESRecordsTargetKey = v6->_augmentedDESRecordsTargetKey;
-    v6->_augmentedDESRecordsTargetKey = v91;
+    v62 = [dictionaryCopy objectForKeyedSubscript:@"augmentedDESRecordsTargetKey"];
+    augmentedDESRecordsTargetKey = v5->_augmentedDESRecordsTargetKey;
+    v5->_augmentedDESRecordsTargetKey = v62;
 
-    v94 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v93, @"InputNames");
-    inputNames = v6->_inputNames;
-    v6->_inputNames = v94;
+    v64 = [dictionaryCopy objectForKeyedSubscript:@"InputNames"];
+    inputNames = v5->_inputNames;
+    v5->_inputNames = v64;
 
-    v97 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v96, @"OutputNames");
-    outputNames = v6->_outputNames;
-    v6->_outputNames = v97;
+    v66 = [dictionaryCopy objectForKeyedSubscript:@"OutputNames"];
+    outputNames = v5->_outputNames;
+    v5->_outputNames = v66;
 
-    v100 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v99, @"MILModel");
+    v68 = [dictionaryCopy objectForKeyedSubscript:@"MILModel"];
 
-    if (v100)
+    if (v68)
     {
-      v101 = [APOdmlRecipe alloc];
-      v103 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v102, @"MILModel");
-      v105 = objc_msgSend_initWithDictionary_(v101, v104, v103);
-      coreMLRecipe = v6->_coreMLRecipe;
-      v6->_coreMLRecipe = v105;
+      v69 = [APOdmlRecipe alloc];
+      v70 = [dictionaryCopy objectForKeyedSubscript:@"MILModel"];
+      v71 = [(APOdmlRecipe *)v69 initWithDictionary:v70];
+      coreMLRecipe = v5->_coreMLRecipe;
+      v5->_coreMLRecipe = v71;
     }
   }
 
-  return v6;
+  return v5;
 }
 
 - (APOdmlRecipe)initWithMLRTask:(id)task
 {
-  v4 = objc_msgSend_parameters(task, a2, task);
-  v95.receiver = self;
-  v95.super_class = APOdmlRecipe;
-  v6 = [(APOdmlRecipe *)&v95 init];
-  if (v6)
+  parameters = [task parameters];
+  v66.receiver = self;
+  v66.super_class = APOdmlRecipe;
+  v5 = [(APOdmlRecipe *)&v66 init];
+  if (v5)
   {
-    v7 = v4 == 0;
+    v6 = parameters == 0;
   }
 
   else
   {
-    v7 = 1;
+    v6 = 1;
   }
 
-  if (!v7)
+  if (!v6)
   {
-    v8 = objc_msgSend_objectForKeyedSubscript_(v4, v5, @"ModelType");
-    modelType = v6->_modelType;
-    v6->_modelType = v8;
+    v7 = [parameters objectForKeyedSubscript:@"ModelType"];
+    modelType = v5->_modelType;
+    v5->_modelType = v7;
 
-    v11 = objc_msgSend_objectForKeyedSubscript_(v4, v10, @"ModelFileName");
-    modelFileName = v6->_modelFileName;
-    v6->_modelFileName = v11;
+    v9 = [parameters objectForKeyedSubscript:@"ModelFileName"];
+    modelFileName = v5->_modelFileName;
+    v5->_modelFileName = v9;
 
-    v14 = objc_msgSend_objectForKeyedSubscript_(v4, v13, @"LossName");
-    lossName = v6->_lossName;
-    v6->_lossName = v14;
+    v11 = [parameters objectForKeyedSubscript:@"LossName"];
+    lossName = v5->_lossName;
+    v5->_lossName = v11;
 
-    v17 = objc_msgSend_objectForKeyedSubscript_(v4, v16, @"LabelName");
-    labelName = v6->_labelName;
-    v6->_labelName = v17;
+    v13 = [parameters objectForKeyedSubscript:@"LabelName"];
+    labelName = v5->_labelName;
+    v5->_labelName = v13;
 
-    v20 = objc_msgSend_objectForKeyedSubscript_(v4, v19, @"LearningRateName");
-    learningRateName = v6->_learningRateName;
-    v6->_learningRateName = v20;
+    v15 = [parameters objectForKeyedSubscript:@"LearningRateName"];
+    learningRateName = v5->_learningRateName;
+    v5->_learningRateName = v15;
 
-    v23 = objc_msgSend_objectForKeyedSubscript_(v4, v22, @"InitName");
-    functionInitName = v6->_functionInitName;
-    v6->_functionInitName = v23;
+    v17 = [parameters objectForKeyedSubscript:@"InitName"];
+    functionInitName = v5->_functionInitName;
+    v5->_functionInitName = v17;
 
-    v26 = objc_msgSend_objectForKeyedSubscript_(v4, v25, @"IsTrainingName");
-    isTrainingName = v6->_isTrainingName;
-    v6->_isTrainingName = v26;
+    v19 = [parameters objectForKeyedSubscript:@"IsTrainingName"];
+    isTrainingName = v5->_isTrainingName;
+    v5->_isTrainingName = v19;
 
-    v29 = objc_msgSend_objectForKeyedSubscript_(v4, v28, @"IsCounterfactual");
-    isCounterfactual = v6->_isCounterfactual;
-    v6->_isCounterfactual = v29;
+    v21 = [parameters objectForKeyedSubscript:@"IsCounterfactual"];
+    isCounterfactual = v5->_isCounterfactual;
+    v5->_isCounterfactual = v21;
 
-    v32 = objc_msgSend_objectForKeyedSubscript_(v4, v31, @"CentralDifferentialPrivacyParameters");
-    privacyParams = v6->_privacyParams;
-    v6->_privacyParams = v32;
+    v23 = [parameters objectForKeyedSubscript:@"CentralDifferentialPrivacyParameters"];
+    privacyParams = v5->_privacyParams;
+    v5->_privacyParams = v23;
 
-    v35 = objc_msgSend_objectForKeyedSubscript_(v4, v34, @"L2NormBound");
-    l2NormBound = v6->_l2NormBound;
-    v6->_l2NormBound = v35;
+    v25 = [parameters objectForKeyedSubscript:@"L2NormBound"];
+    l2NormBound = v5->_l2NormBound;
+    v5->_l2NormBound = v25;
 
-    v38 = objc_msgSend_objectForKeyedSubscript_(v4, v37, @"LearningRate");
-    learningRate = v6->_learningRate;
-    v6->_learningRate = v38;
+    v27 = [parameters objectForKeyedSubscript:@"LearningRate"];
+    learningRate = v5->_learningRate;
+    v5->_learningRate = v27;
 
-    v41 = objc_msgSend_objectForKeyedSubscript_(v4, v40, @"NumLocalIterations");
-    localIterationsCount = v6->_localIterationsCount;
-    v6->_localIterationsCount = v41;
+    v29 = [parameters objectForKeyedSubscript:@"NumLocalIterations"];
+    localIterationsCount = v5->_localIterationsCount;
+    v5->_localIterationsCount = v29;
 
-    v44 = objc_msgSend_objectForKeyedSubscript_(v4, v43, @"TrainLayers");
-    trainLayers = v6->_trainLayers;
-    v6->_trainLayers = v44;
+    v31 = [parameters objectForKeyedSubscript:@"TrainLayers"];
+    trainLayers = v5->_trainLayers;
+    v5->_trainLayers = v31;
 
-    v47 = objc_msgSend_objectForKeyedSubscript_(v4, v46, @"WeightBySamples");
-    weightBySamples = v6->_weightBySamples;
-    v6->_weightBySamples = v47;
+    v33 = [parameters objectForKeyedSubscript:@"WeightBySamples"];
+    weightBySamples = v5->_weightBySamples;
+    v5->_weightBySamples = v33;
 
-    v50 = objc_msgSend_objectForKeyedSubscript_(v4, v49, @"shouldShuffle");
-    shouldShuffle = v6->_shouldShuffle;
-    v6->_shouldShuffle = v50;
+    v35 = [parameters objectForKeyedSubscript:@"shouldShuffle"];
+    shouldShuffle = v5->_shouldShuffle;
+    v5->_shouldShuffle = v35;
 
-    v53 = objc_msgSend_objectForKeyedSubscript_(v4, v52, @"des_settings");
-    desSettings = v6->_desSettings;
-    v6->_desSettings = v53;
+    v37 = [parameters objectForKeyedSubscript:@"des_settings"];
+    desSettings = v5->_desSettings;
+    v5->_desSettings = v37;
 
-    v56 = objc_msgSend_objectForKeyedSubscript_(v4, v55, @"iCloudAggServiceKey");
-    iCloudServiceKey = v6->_iCloudServiceKey;
-    v6->_iCloudServiceKey = v56;
+    v39 = [parameters objectForKeyedSubscript:@"iCloudAggServiceKey"];
+    iCloudServiceKey = v5->_iCloudServiceKey;
+    v5->_iCloudServiceKey = v39;
 
-    v59 = objc_msgSend_objectForKeyedSubscript_(v4, v58, @"maxNorm");
-    maxNorm = v6->_maxNorm;
-    v6->_maxNorm = v59;
+    v41 = [parameters objectForKeyedSubscript:@"maxNorm"];
+    maxNorm = v5->_maxNorm;
+    v5->_maxNorm = v41;
 
-    v62 = objc_msgSend_objectForKeyedSubscript_(v4, v61, @"minTrainingSamples");
-    minTrainingSamples = v6->_minTrainingSamples;
-    v6->_minTrainingSamples = v62;
+    v43 = [parameters objectForKeyedSubscript:@"minTrainingSamples"];
+    minTrainingSamples = v5->_minTrainingSamples;
+    v5->_minTrainingSamples = v43;
 
-    v65 = objc_msgSend_objectForKeyedSubscript_(v4, v64, @"normBinCount");
-    normBinCount = v6->_normBinCount;
-    v6->_normBinCount = v65;
+    v45 = [parameters objectForKeyedSubscript:@"normBinCount"];
+    normBinCount = v5->_normBinCount;
+    v5->_normBinCount = v45;
 
-    v68 = objc_msgSend_objectForKeyedSubscript_(v4, v67, @"WeightNames");
-    weightNames = v6->_weightNames;
-    v6->_weightNames = v68;
+    v47 = [parameters objectForKeyedSubscript:@"WeightNames"];
+    weightNames = v5->_weightNames;
+    v5->_weightNames = v47;
 
-    v71 = objc_msgSend_objectForKeyedSubscript_(v4, v70, @"batchSize");
-    batchSize = v6->_batchSize;
-    v6->_batchSize = v71;
+    v49 = [parameters objectForKeyedSubscript:@"batchSize"];
+    batchSize = v5->_batchSize;
+    v5->_batchSize = v49;
 
-    v74 = objc_msgSend_objectForKeyedSubscript_(v4, v73, @"featureValueConfig");
-    featureValueConfig = v6->_featureValueConfig;
-    v6->_featureValueConfig = v74;
+    v51 = [parameters objectForKeyedSubscript:@"featureValueConfig"];
+    featureValueConfig = v5->_featureValueConfig;
+    v5->_featureValueConfig = v51;
 
-    v77 = objc_msgSend_objectForKeyedSubscript_(v4, v76, @"modelOutputConfig");
-    modelOutputConfig = v6->_modelOutputConfig;
-    v6->_modelOutputConfig = v77;
+    v53 = [parameters objectForKeyedSubscript:@"modelOutputConfig"];
+    modelOutputConfig = v5->_modelOutputConfig;
+    v5->_modelOutputConfig = v53;
 
-    v80 = objc_msgSend_objectForKeyedSubscript_(v4, v79, @"augmentedDESRecords");
-    augmentedDESRecords = v6->_augmentedDESRecords;
-    v6->_augmentedDESRecords = v80;
+    v55 = [parameters objectForKeyedSubscript:@"augmentedDESRecords"];
+    augmentedDESRecords = v5->_augmentedDESRecords;
+    v5->_augmentedDESRecords = v55;
 
-    v83 = objc_msgSend_objectForKeyedSubscript_(v4, v82, @"augmentedDESRecordsLimit");
-    augmentedDESRecordsLimit = v6->_augmentedDESRecordsLimit;
-    v6->_augmentedDESRecordsLimit = v83;
+    v57 = [parameters objectForKeyedSubscript:@"augmentedDESRecordsLimit"];
+    augmentedDESRecordsLimit = v5->_augmentedDESRecordsLimit;
+    v5->_augmentedDESRecordsLimit = v57;
 
-    v86 = objc_msgSend_objectForKeyedSubscript_(v4, v85, @"augmentedDESRecordsRatio");
-    augmentedDESRecordsRatio = v6->_augmentedDESRecordsRatio;
-    v6->_augmentedDESRecordsRatio = v86;
+    v59 = [parameters objectForKeyedSubscript:@"augmentedDESRecordsRatio"];
+    augmentedDESRecordsRatio = v5->_augmentedDESRecordsRatio;
+    v5->_augmentedDESRecordsRatio = v59;
 
-    v89 = objc_msgSend_objectForKeyedSubscript_(v4, v88, @"augmentedDESRecordsTruePercentage");
-    augmentedDESRecordsTruePercentage = v6->_augmentedDESRecordsTruePercentage;
-    v6->_augmentedDESRecordsTruePercentage = v89;
+    v61 = [parameters objectForKeyedSubscript:@"augmentedDESRecordsTruePercentage"];
+    augmentedDESRecordsTruePercentage = v5->_augmentedDESRecordsTruePercentage;
+    v5->_augmentedDESRecordsTruePercentage = v61;
 
-    v92 = objc_msgSend_objectForKeyedSubscript_(v4, v91, @"augmentedDESRecordsTargetKey");
-    augmentedDESRecordsTargetKey = v6->_augmentedDESRecordsTargetKey;
-    v6->_augmentedDESRecordsTargetKey = v92;
+    v63 = [parameters objectForKeyedSubscript:@"augmentedDESRecordsTargetKey"];
+    augmentedDESRecordsTargetKey = v5->_augmentedDESRecordsTargetKey;
+    v5->_augmentedDESRecordsTargetKey = v63;
   }
 
-  return v6;
+  return v5;
 }
 
 - (id)sentinelValuesForFeature:(id)feature
 {
   featureCopy = feature;
-  v7 = objc_msgSend_featureValueConfig(self, v5, v6);
-  v9 = objc_msgSend_objectForKey_(v7, v8, featureCopy);
+  featureValueConfig = [(APOdmlRecipe *)self featureValueConfig];
+  v6 = [featureValueConfig objectForKey:featureCopy];
 
-  v11 = objc_msgSend_objectForKey_(v9, v10, @"sentinelValueSet");
+  v7 = [v6 objectForKey:@"sentinelValueSet"];
 
-  return v11;
+  return v7;
 }
 
 - (id)rangeBoundaryForFeature:(id)feature upperBound:(BOOL)bound
 {
   boundCopy = bound;
   featureCopy = feature;
-  v9 = objc_msgSend_featureValueConfig(self, v7, v8);
-  v11 = objc_msgSend_objectForKey_(v9, v10, featureCopy);
+  featureValueConfig = [(APOdmlRecipe *)self featureValueConfig];
+  v8 = [featureValueConfig objectForKey:featureCopy];
 
-  v13 = kAPOdmlConfigMax;
+  v9 = kAPOdmlConfigMax;
   if (!boundCopy)
   {
-    v13 = kAPOdmlConfigMin;
+    v9 = kAPOdmlConfigMin;
   }
 
-  v14 = objc_msgSend_objectForKey_(v11, v12, *v13);
+  v10 = [v8 objectForKey:*v9];
 
-  return v14;
+  return v10;
 }
 
 - (id)sentinelValuesForOutput
 {
-  v3 = objc_msgSend_modelOutputConfig(self, a2, v2);
-  v5 = objc_msgSend_objectForKey_(v3, v4, @"sentinelValueSet");
+  modelOutputConfig = [(APOdmlRecipe *)self modelOutputConfig];
+  v3 = [modelOutputConfig objectForKey:@"sentinelValueSet"];
 
-  return v5;
+  return v3;
+}
+
+- (id)rangeBoundaryForOutput:(BOOL)output
+{
+  outputCopy = output;
+  modelOutputConfig = [(APOdmlRecipe *)self modelOutputConfig];
+  v5 = modelOutputConfig;
+  v6 = kAPOdmlConfigMax;
+  if (!outputCopy)
+  {
+    v6 = kAPOdmlConfigMin;
+  }
+
+  v7 = [modelOutputConfig objectForKeyedSubscript:*v6];
+
+  return v7;
 }
 
 @end

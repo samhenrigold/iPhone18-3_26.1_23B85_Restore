@@ -70,7 +70,7 @@
 {
   memset(&v7[1], 0, sizeof(CMTimeRange));
   v7[0].start = *a4;
-  result = [(PTCinematographyTrack *)self timeRangeForTime:v7];
+  result = objc_msgSend_timeRangeForTime_(self, time, v7);
   if ((v7[1].start.flags & 1) == 0 || (v7[1].duration.flags & 1) == 0 || v7[1].duration.epoch || v7[1].duration.value < 0)
   {
     v6 = MEMORY[0x277CC0898];
@@ -104,7 +104,7 @@
     {
       v12 = &v10[v11] >> 1;
       memset(&v17, 0, sizeof(v17));
-      [(PTCinematographyTrack *)self timeRangeAtIndex:v12];
+      objc_msgSend_timeRangeAtIndex_(self);
       range = v17;
       time = *a4;
       result = CMTimeRangeContainsTime(&range, &time);
@@ -148,11 +148,12 @@
   result = [(PTCinematographyTrack *)self timeRangeCount];
   if (result)
   {
-    [(PTCinematographyTrack *)self timeRangeAtIndex:0];
+    objc_msgSend_timeRangeAtIndex_(self);
     v13 = v11;
     v14 = v12;
     memset(&v10, 0, sizeof(v10));
-    [(PTCinematographyTrack *)self timeRangeAtIndex:[(PTCinematographyTrack *)self timeRangeCount]- 1];
+    [(PTCinematographyTrack *)self timeRangeCount];
+    objc_msgSend_timeRangeAtIndex_(self);
     CMTimeRangeGetEnd(&v10, &range);
     *&range.start.value = v13;
     range.start.epoch = v14;
@@ -237,7 +238,7 @@
   v6 = script2;
   if (script2)
   {
-    [script2 timeRange];
+    objc_msgSend_timeRange(script2);
   }
 
   else
@@ -290,7 +291,7 @@
         {
           if (v15)
           {
-            [v15 time];
+            objc_msgSend_time(v15);
           }
 
           else
@@ -311,7 +312,7 @@
         {
           if (v15)
           {
-            [v15 time];
+            objc_msgSend_time(v15);
           }
 
           else
@@ -326,7 +327,7 @@
 
         if (v15)
         {
-          [v15 time];
+          objc_msgSend_time(v15);
         }
 
         else
@@ -369,7 +370,7 @@ LABEL_29:
       v19 = script3;
       if (script3)
       {
-        [script3 timeRange];
+        objc_msgSend_timeRange(script3);
       }
 
       else

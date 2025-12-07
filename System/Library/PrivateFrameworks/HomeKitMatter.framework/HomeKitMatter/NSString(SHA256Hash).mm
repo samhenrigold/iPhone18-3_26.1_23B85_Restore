@@ -14,7 +14,7 @@
 
 - (id)hmmtr_sha256hash
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   uTF8String = [self UTF8String];
   v2 = strlen(uTF8String);
   CC_SHA256(uTF8String, v2, md);
@@ -25,8 +25,6 @@
   }
 
   v5 = [MEMORY[0x277CCACA8] stringWithString:v3];
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

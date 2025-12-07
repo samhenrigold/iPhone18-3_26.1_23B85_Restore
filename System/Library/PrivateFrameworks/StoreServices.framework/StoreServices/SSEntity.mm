@@ -71,7 +71,7 @@
 - (BOOL)exists
 {
   v35 = *MEMORY[0x1E69E9840];
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  if (SSIsInternalBuild(self, a2) && _os_feature_enabled_impl())
   {
     v3 = +[SSLogConfig sharedStoreServicesConfig];
     if (!v3)
@@ -90,28 +90,27 @@
       v5 = shouldLog;
     }
 
-    if (os_log_type_enabled([v3 OSLogObject], OS_LOG_TYPE_FAULT))
+    oSLogObject = [v3 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_FAULT))
     {
-      v6 = v5;
+      v7 = v5;
     }
 
     else
     {
-      v6 = v5 & 2;
+      v7 = v5 & 2;
     }
 
-    if (v6)
+    if (v7)
     {
       LODWORD(v30) = 136446210;
       *(&v30 + 4) = "[SSEntity exists]";
-      LODWORD(v23) = 12;
-      v7 = _os_log_send_and_compose_impl();
-      if (v7)
+      if (v8)
       {
-        v8 = v7;
-        v9 = [MEMORY[0x1E696AEC0] stringWithCString:v7 encoding:{4, &v30, v23}];
-        free(v8);
-        SSFileLog(v3, @"%@", v10, v11, v12, v13, v14, v15, v9);
+        v9 = v8;
+        v10 = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:4];
+        free(v9);
+        SSFileLog(v3, @"%@", v11, v12, v13, v14, v15, v16, v10);
       }
     }
   }
@@ -139,28 +138,28 @@
     _existsMessage = [objc_opt_class() _existsMessage];
     if (_existsMessage)
     {
-      v18 = xpc_dictionary_create(0, 0, 0);
-      xpc_dictionary_set_int64(v18, "0", _existsMessage);
-      xpc_dictionary_set_int64(v18, "1", self->_pid);
-      v19 = dispatch_semaphore_create(0);
-      v20 = *(*(&v30 + 1) + 40);
+      v19 = xpc_dictionary_create(0, 0, 0);
+      xpc_dictionary_set_int64(v19, "0", _existsMessage);
+      xpc_dictionary_set_int64(v19, "1", self->_pid);
+      v20 = dispatch_semaphore_create(0);
+      v21 = *(*(&v30 + 1) + 40);
       v24[0] = MEMORY[0x1E69E9820];
       v24[1] = 3221225472;
       v24[2] = __18__SSEntity_exists__block_invoke_2;
       v24[3] = &unk_1E84B0740;
-      v24[4] = v19;
+      v24[4] = v20;
       v24[5] = &v26;
-      [v20 sendMessage:v18 withReply:v24];
-      dispatch_semaphore_wait(v19, 0xFFFFFFFFFFFFFFFFLL);
-      dispatch_release(v19);
-      xpc_release(v18);
+      [v21 sendMessage:v19 withReply:v24];
+      dispatch_semaphore_wait(v20, 0xFFFFFFFFFFFFFFFFLL);
+      dispatch_release(v20);
+      xpc_release(v19);
     }
   }
 
-  v21 = *(v27 + 24);
+  v22 = *(v27 + 24);
   _Block_object_dispose(&v30, 8);
   _Block_object_dispose(&v26, 8);
-  return v21;
+  return v22;
 }
 
 id __18__SSEntity_exists__block_invoke(uint64_t a1)
@@ -318,12 +317,12 @@ intptr_t __36__SSEntity_setValuesWithDictionary___block_invoke_2(uint64_t a1, vo
   dispatch_sync(dispatchQueue, block);
 }
 
-uint64_t __48__SSEntity_resetCachedExternalProperties_count___block_invoke(uint64_t result)
+void *__48__SSEntity_resetCachedExternalProperties_count___block_invoke(void *result)
 {
-  if (*(*(result + 32) + 8))
+  if (*(result[4] + 8))
   {
     v1 = result;
-    if (*(result + 40))
+    if (result[5])
     {
       v2 = 0;
       do
@@ -351,12 +350,12 @@ uint64_t __48__SSEntity_resetCachedExternalProperties_count___block_invoke(uint6
   dispatch_sync(dispatchQueue, block);
 }
 
-uint64_t __40__SSEntity_resetCachedProperties_count___block_invoke(uint64_t result)
+void *__40__SSEntity_resetCachedProperties_count___block_invoke(void *result)
 {
-  if (*(*(result + 32) + 8))
+  if (*(result[4] + 8))
   {
     v1 = result;
-    if (*(result + 40))
+    if (result[5])
     {
       v2 = 0;
       do
@@ -570,7 +569,7 @@ uint64_t __39__SSEntity__becomeManagedOnConnection___block_invoke(uint64_t a1)
   return v3;
 }
 
-uint64_t __32__SSEntity__localExternalValues__block_invoke(uint64_t a1)
+void *__32__SSEntity__localExternalValues__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 24) copy];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -598,7 +597,7 @@ uint64_t __32__SSEntity__localExternalValues__block_invoke(uint64_t a1)
   return v3;
 }
 
-uint64_t __24__SSEntity__localValues__block_invoke(uint64_t a1)
+void *__24__SSEntity__localValues__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 32) copy];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -636,15 +635,15 @@ uint64_t __24__SSEntity__localValues__block_invoke(uint64_t a1)
   dispatch_sync(dispatchQueue, v4);
 }
 
-uint64_t __46__SSEntity__setDirtyCachedExternalProperties___block_invoke(uint64_t result)
+void *__46__SSEntity__setDirtyCachedExternalProperties___block_invoke(void *result)
 {
-  v1 = *(*(result + 32) + 48);
-  if (v1 != *(result + 40))
+  v1 = *(result[4] + 48);
+  if (v1 != result[5])
   {
     v2 = result;
 
-    result = [*(v2 + 40) copy];
-    *(*(v2 + 32) + 48) = result;
+    result = [v2[5] copy];
+    *(v2[4] + 48) = result;
   }
 
   return result;
@@ -662,15 +661,15 @@ uint64_t __46__SSEntity__setDirtyCachedExternalProperties___block_invoke(uint64_
   dispatch_sync(dispatchQueue, v4);
 }
 
-uint64_t __38__SSEntity__setDirtyCachedProperties___block_invoke(uint64_t result)
+void *__38__SSEntity__setDirtyCachedProperties___block_invoke(void *result)
 {
-  v1 = *(*(result + 32) + 56);
-  if (v1 != *(result + 40))
+  v1 = *(result[4] + 56);
+  if (v1 != result[5])
   {
     v2 = result;
 
-    result = [*(v2 + 40) copy];
-    *(*(v2 + 32) + 56) = result;
+    result = [v2[5] copy];
+    *(v2[4] + 56) = result;
   }
 
   return result;
@@ -688,15 +687,15 @@ uint64_t __38__SSEntity__setDirtyCachedProperties___block_invoke(uint64_t result
   dispatch_sync(dispatchQueue, v4);
 }
 
-uint64_t __36__SSEntity__setLocalExternalValues___block_invoke(uint64_t result)
+void *__36__SSEntity__setLocalExternalValues___block_invoke(void *result)
 {
-  v1 = *(*(result + 32) + 24);
-  if (v1 != *(result + 40))
+  v1 = *(result[4] + 24);
+  if (v1 != result[5])
   {
     v2 = result;
 
-    result = [*(v2 + 40) mutableCopy];
-    *(*(v2 + 32) + 24) = result;
+    result = [v2[5] mutableCopy];
+    *(v2[4] + 24) = result;
   }
 
   return result;
@@ -714,15 +713,15 @@ uint64_t __36__SSEntity__setLocalExternalValues___block_invoke(uint64_t result)
   dispatch_sync(dispatchQueue, v4);
 }
 
-uint64_t __28__SSEntity__setLocalValues___block_invoke(uint64_t result)
+void *__28__SSEntity__setLocalValues___block_invoke(void *result)
 {
-  v1 = *(*(result + 32) + 32);
-  if (v1 != *(result + 40))
+  v1 = *(result[4] + 32);
+  if (v1 != result[5])
   {
     v2 = result;
 
-    result = [*(v2 + 40) mutableCopy];
-    *(*(v2 + 32) + 32) = result;
+    result = [v2[5] mutableCopy];
+    *(v2[4] + 32) = result;
   }
 
   return result;
@@ -754,8 +753,8 @@ uint64_t __28__SSEntity__setLocalValues___block_invoke(uint64_t result)
 
 - (void)_getValues:(id *)values forProperties:(const void *)properties count:(unint64_t)count message:(int64_t)message
 {
-  v62 = *MEMORY[0x1E69E9840];
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  v61 = *MEMORY[0x1E69E9840];
+  if (SSIsInternalBuild(self, a2) && _os_feature_enabled_impl())
   {
     v11 = +[SSLogConfig sharedStoreServicesConfig];
     if (!v11)
@@ -774,45 +773,43 @@ uint64_t __28__SSEntity__setLocalValues___block_invoke(uint64_t result)
       v13 = shouldLog;
     }
 
-    if (os_log_type_enabled([v11 OSLogObject], OS_LOG_TYPE_DEBUG))
+    oSLogObject = [v11 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
     {
-      v14 = v13;
+      v15 = v13;
     }
 
     else
     {
-      v14 = v13 & 2;
+      v15 = v13 & 2;
     }
 
-    if (v14)
+    if (v15)
     {
-      LODWORD(v57) = 136446210;
-      *(&v57 + 4) = "[SSEntity _getValues:forProperties:count:message:]";
-      LODWORD(v41) = 12;
-      v40 = &v57;
-      v15 = _os_log_send_and_compose_impl();
-      if (v15)
+      LODWORD(v56) = 136446210;
+      *(&v56 + 4) = "[SSEntity _getValues:forProperties:count:message:]";
+      if (v16)
       {
-        v16 = v15;
-        v17 = [MEMORY[0x1E696AEC0] stringWithCString:v15 encoding:{4, &v57, v41}];
-        free(v16);
-        SSFileLog(v11, @"%@", v18, v19, v20, v21, v22, v23, v17);
+        v17 = v16;
+        v18 = [MEMORY[0x1E696AEC0] stringWithCString:v16 encoding:4];
+        free(v17);
+        SSFileLog(v11, @"%@", v19, v20, v21, v22, v23, v24, v18);
       }
     }
   }
 
-  *&v57 = 0;
-  *(&v57 + 1) = &v57;
-  v58 = 0x3052000000;
-  v59 = __Block_byref_object_copy__32;
-  v60 = __Block_byref_object_dispose__32;
-  v61 = 0;
-  v50 = 0;
-  v51 = &v50;
-  v52 = 0x3052000000;
-  v53 = __Block_byref_object_copy__32;
-  v54 = __Block_byref_object_dispose__32;
-  v55 = 0;
+  *&v56 = 0;
+  *(&v56 + 1) = &v56;
+  v57 = 0x3052000000;
+  v58 = __Block_byref_object_copy__32;
+  v59 = __Block_byref_object_dispose__32;
+  v60 = 0;
+  v49 = 0;
+  v50 = &v49;
+  v51 = 0x3052000000;
+  v52 = __Block_byref_object_copy__32;
+  v53 = __Block_byref_object_dispose__32;
+  v54 = 0;
   dispatchQueue = self->_dispatchQueue;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
@@ -822,23 +819,23 @@ uint64_t __28__SSEntity__setLocalValues___block_invoke(uint64_t result)
   block[9] = properties;
   block[10] = values;
   block[4] = self;
-  block[5] = &v57;
-  block[6] = &v50;
+  block[5] = &v56;
+  block[6] = &v49;
   block[7] = message;
   dispatch_sync(dispatchQueue, block);
-  if (*(*(&v57 + 1) + 40))
+  if (*(*(&v56 + 1) + 40))
   {
-    v25 = xpc_dictionary_create(0, 0, 0);
-    xpc_dictionary_set_int64(v25, "0", message);
-    xpc_dictionary_set_int64(v25, "1", self->_pid);
-    v26 = xpc_array_create(0, 0);
+    v26 = xpc_dictionary_create(0, 0, 0);
+    xpc_dictionary_set_int64(v26, "0", message);
+    xpc_dictionary_set_int64(v26, "1", self->_pid);
+    v27 = xpc_array_create(0, 0);
     if (count)
     {
       propertiesCopy = properties;
       countCopy = count;
       do
       {
-        SSXPCArraySetCFObject(v26, 0xFFFFFFFFFFFFFFFFLL, *propertiesCopy++);
+        SSXPCArraySetCFObject(v27, 0xFFFFFFFFFFFFFFFFLL, *propertiesCopy++);
         --countCopy;
       }
 
@@ -848,85 +845,85 @@ uint64_t __28__SSEntity__setLocalValues___block_invoke(uint64_t result)
     selfCopy = self;
     messageCopy = message;
     propertiesCopy2 = properties;
-    v47 = 0u;
-    v48 = 0u;
-    v45 = 0u;
     v46 = 0u;
-    v31 = v51[5];
-    v32 = [v31 countByEnumeratingWithState:&v45 objects:v56 count:{16, v40}];
-    if (v32)
+    v47 = 0u;
+    v44 = 0u;
+    v45 = 0u;
+    v32 = v50[5];
+    v33 = [v32 countByEnumeratingWithState:&v44 objects:v55 count:16];
+    if (v33)
     {
-      v33 = *v46;
+      v34 = *v45;
       do
       {
-        for (i = 0; i != v32; ++i)
+        for (i = 0; i != v33; ++i)
         {
-          if (*v46 != v33)
+          if (*v45 != v34)
           {
-            objc_enumerationMutation(v31);
+            objc_enumerationMutation(v32);
           }
 
-          SSXPCArraySetCFObject(v26, 0xFFFFFFFFFFFFFFFFLL, *(*(&v45 + 1) + 8 * i));
+          SSXPCArraySetCFObject(v27, 0xFFFFFFFFFFFFFFFFLL, *(*(&v44 + 1) + 8 * i));
         }
 
-        v32 = [v31 countByEnumeratingWithState:&v45 objects:v56 count:16];
+        v33 = [v32 countByEnumeratingWithState:&v44 objects:v55 count:16];
       }
 
-      while (v32);
+      while (v33);
     }
 
-    xpc_dictionary_set_value(v25, "2", v26);
-    xpc_release(v26);
-    if (v51[5])
+    xpc_dictionary_set_value(v26, "2", v27);
+    xpc_release(v27);
+    if (v50[5])
     {
-      v35 = objc_alloc_init(MEMORY[0x1E695DF70]);
+      v36 = objc_alloc_init(MEMORY[0x1E695DF70]);
     }
 
     else
     {
-      v35 = 0;
+      v36 = 0;
     }
 
-    v36 = dispatch_semaphore_create(0);
-    v37 = *(*(&v57 + 1) + 40);
-    v44[0] = MEMORY[0x1E69E9820];
-    v44[1] = 3221225472;
-    v44[2] = __51__SSEntity__getValues_forProperties_count_message___block_invoke_2;
-    v44[3] = &unk_1E84B07B8;
-    v44[6] = &v50;
-    v44[7] = count;
-    v44[8] = values;
-    v44[4] = v35;
-    v44[5] = v36;
-    [v37 sendMessage:v25 withReply:v44];
-    dispatch_semaphore_wait(v36, 0xFFFFFFFFFFFFFFFFLL);
-    dispatch_release(v36);
-    if ([v35 count])
+    v37 = dispatch_semaphore_create(0);
+    v38 = *(*(&v56 + 1) + 40);
+    v43[0] = MEMORY[0x1E69E9820];
+    v43[1] = 3221225472;
+    v43[2] = __51__SSEntity__getValues_forProperties_count_message___block_invoke_2;
+    v43[3] = &unk_1E84B07B8;
+    v43[6] = &v49;
+    v43[7] = count;
+    v43[8] = values;
+    v43[4] = v36;
+    v43[5] = v37;
+    [v38 sendMessage:v26 withReply:v43];
+    dispatch_semaphore_wait(v37, 0xFFFFFFFFFFFFFFFFLL);
+    dispatch_release(v37);
+    if ([v36 count])
     {
-      v38 = selfCopy->_dispatchQueue;
-      v43[0] = MEMORY[0x1E69E9820];
-      v43[1] = 3221225472;
-      v43[2] = __51__SSEntity__getValues_forProperties_count_message___block_invoke_3;
-      v43[3] = &unk_1E84B0808;
-      v43[8] = count;
-      v43[9] = propertiesCopy2;
-      v43[4] = selfCopy;
-      v43[5] = v35;
-      v43[6] = &v50;
-      v43[7] = messageCopy;
-      dispatch_sync(v38, v43);
+      v39 = selfCopy->_dispatchQueue;
+      v42[0] = MEMORY[0x1E69E9820];
+      v42[1] = 3221225472;
+      v42[2] = __51__SSEntity__getValues_forProperties_count_message___block_invoke_3;
+      v42[3] = &unk_1E84B0808;
+      v42[8] = count;
+      v42[9] = propertiesCopy2;
+      v42[4] = selfCopy;
+      v42[5] = v36;
+      v42[6] = &v49;
+      v42[7] = messageCopy;
+      dispatch_sync(v39, v42);
     }
 
-    xpc_release(v25);
+    xpc_release(v26);
   }
 
   for (; count; --count)
   {
-    v39 = *values++;
+    v40 = *values++;
   }
 
-  _Block_object_dispose(&v50, 8);
-  _Block_object_dispose(&v57, 8);
+  _Block_object_dispose(&v49, 8);
+  _Block_object_dispose(&v56, 8);
 }
 
 id __51__SSEntity__getValues_forProperties_count_message___block_invoke(void *a1)

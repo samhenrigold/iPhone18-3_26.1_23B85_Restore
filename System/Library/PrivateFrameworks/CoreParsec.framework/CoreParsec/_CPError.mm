@@ -107,7 +107,6 @@ LABEL_13:
 
   if (domain)
   {
-    domain = self->_domain;
     PBDataWriterWriteStringField();
   }
 
@@ -115,20 +114,17 @@ LABEL_13:
 
   if (reason)
   {
-    reason = self->_reason;
     PBDataWriterWriteStringField();
   }
 
   [(_CPError *)self code];
-  if (v8 != 0.0)
+  if (v6 != 0.0)
   {
-    code = self->_code;
     PBDataWriterWriteDoubleField();
   }
 
   if ([(_CPError *)self errorCode])
   {
-    errorCode = self->_errorCode;
     PBDataWriterWriteUint64Field();
   }
 

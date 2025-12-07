@@ -766,7 +766,7 @@
     [location addObserver:selfCopy selector:sel__axUnregisterForVoiceOverNotifications_ name:*MEMORY[0x29EDC8038] object:?];
     [location addObserver:selfCopy selector:sel__axRegisterForVoiceOverNotifications_ name:*MEMORY[0x29EDC8010] object:0];
     [location addObserver:selfCopy selector:sel__axHandleVoiceOverStatusChanged_ name:*MEMORY[0x29EDC8000] object:0];
-    [_UIKeyboardStateManagerAccessibility _axSetIsObservingAppLifecycleNotifications:selfCopy];
+    [(_UIKeyboardStateManagerAccessibility *)selfCopy _axSetIsObservingAppLifecycleNotifications:?];
   }
 
   mEMORY[0x29EDC7938] = [MEMORY[0x29EDC7938] sharedApplication];
@@ -854,7 +854,7 @@
   defaultCenter3 = [MEMORY[0x29EDBA068] defaultCenter];
   [defaultCenter3 removeObserver:selfCopy name:*MEMORY[0x29EDC8000] object:0];
   MEMORY[0x29EDC9740](defaultCenter3);
-  [_UIKeyboardStateManagerAccessibility _axSetIsObservingAppLifecycleNotifications:selfCopy];
+  [(_UIKeyboardStateManagerAccessibility *)selfCopy _axSetIsObservingAppLifecycleNotifications:?];
   v5.receiver = selfCopy;
   v5.super_class = _UIKeyboardStateManagerAccessibility;
   [(_UIKeyboardStateManagerAccessibility *)&v5 dealloc];

@@ -441,17 +441,18 @@ LABEL_7:
 {
   v2 = BRPrimaryiCloudAccountCopyStatus();
   v3 = 0;
+  v4 = v3;
   if (!v2)
   {
-    v4 = cdui_default_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v5 = cdui_default_log(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      +[(_UIDocumentPickerDescriptor *)v3];
+      +[(_UIDocumentPickerDescriptor *)v4];
     }
   }
 
-  v5 = [v2 objectForKeyedSubscript:*MEMORY[0x277CFAB50]];
-  integerValue = [v5 integerValue];
+  v6 = [v2 objectForKeyedSubscript:*MEMORY[0x277CFAB50]];
+  integerValue = [v6 integerValue];
 
   return integerValue;
 }

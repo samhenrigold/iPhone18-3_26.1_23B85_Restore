@@ -27,35 +27,8 @@
   v4 = [(MTLRasterizationRateLayerDescriptor *)&v10 initWithSampleCount:&v11];
   if (v4)
   {
-    if (!count->var0)
+    if (!count->var0 || (var1 = count->var1) == 0 || (v6 = malloc_type_calloc(var1 + count->var0, 4uLL, 0x100004052888210uLL), (*(v4 + 1) = v6) == 0) || (v7 = *&count->var0, *(v4 + 1) = *&count->var0, *(v4 + 4) = 0, *(v4 + 7) = 0, *(v4 + 40) = v7, *(v4 + 8) = -[MTLRasterizationRateSampleArrayInternal initWithData:numElements:]([MTLRasterizationRateSampleArrayInternal alloc], "initWithData:numElements:", [v4 horizontalSampleStorage], *(v4 + 2)), v8 = -[MTLRasterizationRateSampleArrayInternal initWithData:numElements:]([MTLRasterizationRateSampleArrayInternal alloc], "initWithData:numElements:", objc_msgSend(v4, "verticalSampleStorage"), *(v4 + 3)), *(v4 + 9) = v8, !*(v4 + 8)) || !v8)
     {
-      goto LABEL_7;
-    }
-
-    var1 = count->var1;
-    if (!var1)
-    {
-      goto LABEL_7;
-    }
-
-    v6 = malloc_type_calloc(var1 + count->var0, 4uLL, 0x100004052888210uLL);
-    *(v4 + 1) = v6;
-    if (!v6)
-    {
-      goto LABEL_7;
-    }
-
-    v7 = *&count->var0;
-    *(v4 + 1) = *&count->var0;
-    *(v4 + 4) = 0;
-    *(v4 + 7) = 0;
-    *(v4 + 40) = v7;
-    *(v4 + 8) = -[MTLRasterizationRateSampleArrayInternal initWithData:numElements:]([MTLRasterizationRateSampleArrayInternal alloc], "initWithData:numElements:", [v4 horizontalSampleStorage], *(v4 + 2));
-    v8 = -[MTLRasterizationRateSampleArrayInternal initWithData:numElements:]([MTLRasterizationRateSampleArrayInternal alloc], "initWithData:numElements:", [v4 verticalSampleStorage], *(v4 + 3));
-    *(v4 + 9) = v8;
-    if (!*(v4 + 8) || !v8)
-    {
-LABEL_7:
       [v4 dealloc];
       return 0;
     }
@@ -117,7 +90,7 @@ LABEL_7:
 
 - (id)formattedDescription:(unint64_t)description
 {
-  v20[18] = *MEMORY[0x1E69E9840];
+  v19[18] = *MEMORY[0x1E69E9840];
   p_size = &self->_size;
   v6 = [MEMORY[0x1E695DF70] arrayWithCapacity:self->_size.width];
   v7 = [MEMORY[0x1E695DF70] arrayWithCapacity:self->_size.height];
@@ -151,31 +124,29 @@ LABEL_7:
 
   v13 = [@"\n" stringByPaddingToLength:description + 4 withString:@" " startingAtIndex:0];
   v14 = MEMORY[0x1E696AEC0];
-  v19.receiver = self;
-  v19.super_class = MTLRasterizationRateLayerDescriptorInternal;
-  v15 = [(MTLRasterizationRateLayerDescriptorInternal *)&v19 description];
-  v20[0] = v13;
-  v20[1] = @"sampleCount.width =";
+  v18.receiver = self;
+  v18.super_class = MTLRasterizationRateLayerDescriptorInternal;
+  v15 = [(MTLRasterizationRateLayerDescriptorInternal *)&v18 description];
+  v19[0] = v13;
+  v19[1] = @"sampleCount.width =";
   p_currentSampleCount = &self->_currentSampleCount;
-  v20[2] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:p_currentSampleCount->width];
-  v20[3] = v13;
-  v20[4] = @"sampleCount.height =";
-  v20[5] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:p_currentSampleCount->height];
-  v20[6] = v13;
-  v20[7] = @"maxSampleCount.width =";
-  v20[8] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:p_size->width];
-  v20[9] = v13;
-  v20[10] = @"maxSampleCount.height =";
-  v20[11] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:p_size->height];
-  v20[12] = v13;
-  v20[13] = @"horizontal =";
-  v20[14] = [v6 componentsJoinedByString:{@", "}];
-  v20[15] = v13;
-  v20[16] = @"vertical =";
-  v20[17] = [v7 componentsJoinedByString:{@", "}];
-  result = [v14 stringWithFormat:@"%@%@", v15, objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v20, 18), "componentsJoinedByString:", @" "];
-  v18 = *MEMORY[0x1E69E9840];
-  return result;
+  v19[2] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:p_currentSampleCount->width];
+  v19[3] = v13;
+  v19[4] = @"sampleCount.height =";
+  v19[5] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:p_currentSampleCount->height];
+  v19[6] = v13;
+  v19[7] = @"maxSampleCount.width =";
+  v19[8] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:p_size->width];
+  v19[9] = v13;
+  v19[10] = @"maxSampleCount.height =";
+  v19[11] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:p_size->height];
+  v19[12] = v13;
+  v19[13] = @"horizontal =";
+  v19[14] = [v6 componentsJoinedByString:{@", "}];
+  v19[15] = v13;
+  v19[16] = @"vertical =";
+  v19[17] = [v7 componentsJoinedByString:{@", "}];
+  return [v14 stringWithFormat:@"%@%@", v15, objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v19, 18), "componentsJoinedByString:", @" "];
 }
 
 - (void)setSampleCount:(id *)count

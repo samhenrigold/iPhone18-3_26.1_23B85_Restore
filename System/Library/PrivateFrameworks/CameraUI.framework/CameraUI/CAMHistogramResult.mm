@@ -7,12 +7,12 @@
 
 - (CAMHistogramResult)initWithHistogramObject:(id)object forDeviceFormat:(id)format
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   formatCopy = format;
-  v38.receiver = self;
-  v38.super_class = CAMHistogramResult;
-  v9 = [(CAMHistogramResult *)&v38 init];
+  v39.receiver = self;
+  v39.super_class = CAMHistogramResult;
+  v9 = [(CAMHistogramResult *)&v39 init];
   if (v9)
   {
     lumaHistogramData = [objectCopy lumaHistogramData];
@@ -26,35 +26,35 @@
         uniqueIdentifier = v9->_uniqueIdentifier;
         v9->_uniqueIdentifier = type;
 
-        MEMORY[0x1EEE9AC00](v14);
-        v16 = block - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-        [lumaHistogramData getBytes:v16 length:{objc_msgSend(lumaHistogramData, "length")}];
-        v17 = 0;
+        *&v15 = MEMORY[0x1EEE9AC00](v14).n128_u64[0];
+        v17 = block - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+        [lumaHistogramData getBytes:v17 length:{objc_msgSend(lumaHistogramData, "length", v15)}];
         v18 = 0;
+        v19 = 0;
         do
         {
-          v18 += *&v16[4 * v17++];
+          v19 += *&v17[4 * v18++];
         }
 
-        while (lumaHistogramBinCount != v17);
-        if (v18 <= 1)
+        while (lumaHistogramBinCount != v18);
+        if (v19 <= 1)
         {
-          v19 = 1;
+          v20 = 1;
         }
 
         else
         {
-          v19 = v18;
+          v20 = v19;
         }
 
-        v20 = vcvtmd_u64_f64(lumaHistogramBinCount * 0.0390625);
+        v21 = vcvtmd_u64_f64(lumaHistogramBinCount * 0.0390625);
         MediaSubType = CMFormatDescriptionGetMediaSubType([formatCopy formatDescription]);
-        v22 = 0;
+        v23 = 0;
         if (MediaSubType <= 875704437)
         {
           if (MediaSubType <= 645424687)
           {
-            v24 = 0;
+            v25 = 0;
             if (MediaSubType == 641230384)
             {
               goto LABEL_28;
@@ -67,14 +67,14 @@ LABEL_40:
               block[1] = 3221225472;
               block[2] = __62__CAMHistogramResult_initWithHistogramObject_forDeviceFormat___block_invoke;
               block[3] = &__block_descriptor_36_e5_v8__0l;
-              v37 = MediaSubType;
+              v38 = MediaSubType;
               if (initWithHistogramObject_forDeviceFormat__onceToken != -1)
               {
                 dispatch_once(&initWithHistogramObject_forDeviceFormat__onceToken, block);
               }
 
-              v22 = 0;
-              v24 = 0;
+              v23 = 0;
+              v25 = 0;
               goto LABEL_28;
             }
 
@@ -83,7 +83,7 @@ LABEL_40:
 
           if (MediaSubType == 645424688)
           {
-            v24 = 0;
+            v25 = 0;
             goto LABEL_28;
           }
 
@@ -92,7 +92,7 @@ LABEL_40:
             goto LABEL_27;
           }
 
-          v23 = 875704422;
+          v24 = 875704422;
         }
 
         else
@@ -101,13 +101,13 @@ LABEL_40:
           {
             if (MediaSubType != 875704438 && MediaSubType != 1882468912)
             {
-              v23 = 1885745712;
+              v24 = 1885745712;
               goto LABEL_23;
             }
 
 LABEL_27:
-            v24 = 10;
-            v22 = 8;
+            v25 = 10;
+            v23 = 8;
             goto LABEL_28;
           }
 
@@ -116,55 +116,55 @@ LABEL_27:
             goto LABEL_27;
           }
 
-          v23 = 2019963440;
+          v24 = 2019963440;
         }
 
 LABEL_23:
-        v24 = 0;
-        if (MediaSubType != v23)
+        v25 = 0;
+        if (MediaSubType != v24)
         {
           goto LABEL_40;
         }
 
 LABEL_28:
-        v25 = 0.0;
         v26 = 0.0;
-        v27 = v22 + v20;
-        if (v27)
+        v27 = 0.0;
+        v28 = v23 + v21;
+        if (v28)
         {
-          v28 = 0;
-          v29 = v16;
+          v29 = 0;
+          v30 = v17;
           do
           {
-            v30 = *v29;
-            v29 += 4;
-            v28 += v30;
-            --v27;
+            v31 = *v30;
+            v30 += 4;
+            v29 += v31;
+            --v28;
           }
 
-          while (v27);
-          v26 = v28;
+          while (v28);
+          v27 = v29;
         }
 
-        v31 = v24 + v20;
-        if (v24 + v20)
+        v32 = v25 + v21;
+        if (v25 + v21)
         {
-          v32 = 0;
-          v33 = &v16[4 * lumaHistogramBinCount - 4];
+          v33 = 0;
+          v34 = &v17[4 * lumaHistogramBinCount - 4];
           do
           {
-            v34 = *v33;
-            v33 -= 4;
-            v32 += v34;
-            --v31;
+            v35 = *v34;
+            v34 -= 4;
+            v33 += v35;
+            --v32;
           }
 
-          while (v31);
-          v25 = v32;
+          while (v32);
+          v26 = v33;
         }
 
-        v9->_shadowClipping = v26 / v19;
-        v9->_highlightClipping = v25 / v19;
+        v9->_shadowClipping = v27 / v20;
+        v9->_highlightClipping = v26 / v20;
         lumaHistogramBinCount = v9;
         goto LABEL_37;
       }

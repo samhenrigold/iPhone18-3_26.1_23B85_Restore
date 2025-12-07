@@ -9,7 +9,7 @@
 
 - (id)metrics
 {
-  v14[7] = *MEMORY[0x1E69E9840];
+  v13[7] = *MEMORY[0x1E69E9840];
   ptr = self->_audioZeroFilterImpl.__ptr_;
   v3 = ptr[7];
   v4 = ptr[8];
@@ -47,17 +47,15 @@
   }
 
   array = [MEMORY[0x1E695DF70] array];
-  v13[0] = @"CSInitialContinuousZeros";
+  v12[0] = @"CSInitialContinuousZeros";
   v7 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:v6];
-  v14[0] = v7;
-  v13[1] = @"CSMaxContinuousZeros";
+  v13[0] = v7;
+  v12[1] = @"CSMaxContinuousZeros";
   v8 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:v5];
-  v13[2] = @"CSMidSegmentContinuousZeros";
-  v14[1] = v8;
-  v14[2] = array;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:3];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v12[2] = @"CSMidSegmentContinuousZeros";
+  v13[1] = v8;
+  v13[2] = array;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:3];
 
   return v9;
 }
@@ -162,29 +160,24 @@
     {
       v10 = [packetCopy length];
       ptr = self->_audioZeroFilterImpl.__ptr_;
-      bytes = [v9 bytes];
-      v21 = v10 >> 1;
+      [v9 bytes];
+      v19 = v10 >> 1;
       if (*ptr)
       {
-        v13 = *(ptr + 2);
-        if (v13)
+        v12 = *(ptr + 2);
+        if (v12)
         {
-          time = (time - v13 * ptr[10]);
+          time = (time - v12 * ptr[10]);
         }
 
         timeCopy = time;
         if (v10 >= 2)
         {
-          std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned short>>(v21);
+          std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned short>>(v19);
         }
 
-        if ((*(ptr + 10) & 1) == 0)
-        {
-          v17 = *bytes == 0;
-        }
-
-        v19 = v9;
-        v16 = 0;
+        v17 = v9;
+        v14 = 0;
         *(ptr + 6) = (timeCopy + 0 * ptr[10]);
         timeCopy2 = 0;
       }
@@ -193,20 +186,20 @@
       {
         if (v10 > 1)
         {
-          std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned short>>(v21);
+          std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned short>>(v19);
         }
 
         timeCopy2 = time;
-        v16 = v10 & 0xFFFFFFFFFFFFFFFELL;
+        v14 = v10 & 0xFFFFFFFFFFFFFFFELL;
       }
 
-      [MEMORY[0x1E695DEF0] dataWithBytes:0 length:{v16, v19}];
+      [MEMORY[0x1E695DEF0] dataWithBytes:0 length:{v14, v17}];
       *filteredPacket = time = timeCopy2;
     }
 
     else
     {
-      v14 = packetCopy;
+      v13 = packetCopy;
       *filteredPacket = v9;
     }
   }

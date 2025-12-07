@@ -46,8 +46,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v13[3] = *MEMORY[0x1E69E9840];
-  v12[0] = @"startDateComponents";
+  v12[3] = *MEMORY[0x1E69E9840];
+  v11[0] = @"startDateComponents";
   startDateComponents = self->_startDateComponents;
   null = startDateComponents;
   if (!startDateComponents)
@@ -55,8 +55,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v13[0] = null;
-  v12[1] = @"endDateComponents";
+  v12[0] = null;
+  v11[1] = @"endDateComponents";
   endDateComponents = self->_endDateComponents;
   null2 = endDateComponents;
   if (!endDateComponents)
@@ -64,8 +64,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v13[1] = null2;
-  v12[2] = @"recurrenceRule";
+  v12[1] = null2;
+  v11[2] = @"recurrenceRule";
   recurrenceRule = self->_recurrenceRule;
   null3 = recurrenceRule;
   if (!recurrenceRule)
@@ -73,8 +73,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v13[2] = null3;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:3];
+  v12[2] = null3;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:3];
   if (recurrenceRule)
   {
     if (endDateComponents)
@@ -106,7 +106,6 @@ LABEL_9:
 LABEL_15:
 
 LABEL_10:
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -256,7 +255,7 @@ LABEL_16:
 
 - (EKRecurrenceRule)EKRecurrenceRule
 {
-  v29[1] = *MEMORY[0x1E69E9840];
+  v28[1] = *MEMORY[0x1E69E9840];
   recurrenceRule = self->_recurrenceRule;
   if (!recurrenceRule || [(INRecurrenceRule *)recurrenceRule frequency]== INRecurrenceFrequencyMinute || [(INRecurrenceRule *)self->_recurrenceRule frequency]== INRecurrenceFrequencyHourly || [(INRecurrenceRule *)self->_recurrenceRule frequency]== INRecurrenceFrequencyUnknown)
   {
@@ -279,24 +278,24 @@ LABEL_16:
     v6 = 0;
     if ([(NSDateComponents *)self->_startDateComponents weekday]!= 0x7FFFFFFFFFFFFFFFLL)
     {
-      v25 = 0;
-      v26 = &v25;
-      v27 = 0x2050000000;
+      v24 = 0;
+      v25 = &v24;
+      v26 = 0x2050000000;
       v7 = getEKRecurrenceDayOfWeekClass_softClass;
-      v28 = getEKRecurrenceDayOfWeekClass_softClass;
+      v27 = getEKRecurrenceDayOfWeekClass_softClass;
       if (!getEKRecurrenceDayOfWeekClass_softClass)
       {
-        v20 = MEMORY[0x1E69E9820];
-        v21 = 3221225472;
-        v22 = __getEKRecurrenceDayOfWeekClass_block_invoke;
-        v23 = &unk_1E72888B8;
-        v24 = &v25;
-        __getEKRecurrenceDayOfWeekClass_block_invoke(&v20);
-        v7 = v26[3];
+        v19 = MEMORY[0x1E69E9820];
+        v20 = 3221225472;
+        v21 = __getEKRecurrenceDayOfWeekClass_block_invoke;
+        v22 = &unk_1E72888B8;
+        v23 = &v24;
+        __getEKRecurrenceDayOfWeekClass_block_invoke(&v19);
+        v7 = v25[3];
       }
 
       v8 = v7;
-      _Block_object_dispose(&v25, 8);
+      _Block_object_dispose(&v24, 8);
       v9 = [v7 alloc];
       weekday = [(NSDateComponents *)self->_startDateComponents weekday];
       if ([(NSDateComponents *)self->_startDateComponents weekdayOrdinal]== 0x7FFFFFFFFFFFFFFFLL)
@@ -312,40 +311,38 @@ LABEL_16:
       v6 = [v9 initWithDayOfTheWeek:weekday weekNumber:weekdayOrdinal];
     }
 
-    v25 = 0;
-    v26 = &v25;
-    v27 = 0x2050000000;
-    v15 = getEKRecurrenceRuleClass_softClass;
-    v28 = getEKRecurrenceRuleClass_softClass;
+    v24 = 0;
+    v25 = &v24;
+    v26 = 0x2050000000;
+    v14 = getEKRecurrenceRuleClass_softClass;
+    v27 = getEKRecurrenceRuleClass_softClass;
     if (!getEKRecurrenceRuleClass_softClass)
     {
-      v20 = MEMORY[0x1E69E9820];
-      v21 = 3221225472;
-      v22 = __getEKRecurrenceRuleClass_block_invoke;
-      v23 = &unk_1E72888B8;
-      v24 = &v25;
-      __getEKRecurrenceRuleClass_block_invoke(&v20);
-      v15 = v26[3];
+      v19 = MEMORY[0x1E69E9820];
+      v20 = 3221225472;
+      v21 = __getEKRecurrenceRuleClass_block_invoke;
+      v22 = &unk_1E72888B8;
+      v23 = &v24;
+      __getEKRecurrenceRuleClass_block_invoke(&v19);
+      v14 = v25[3];
     }
 
-    v16 = v15;
-    _Block_object_dispose(&v25, 8);
-    v17 = [v15 alloc];
+    v15 = v14;
+    _Block_object_dispose(&v24, 8);
+    v16 = [v14 alloc];
     interval = [(INRecurrenceRule *)self->_recurrenceRule interval];
     if (v6)
     {
-      v29[0] = v6;
-      v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:1];
-      v12 = [v17 initRecurrenceWithFrequency:v5 interval:interval daysOfTheWeek:v19 daysOfTheMonth:0 monthsOfTheYear:0 weeksOfTheYear:0 daysOfTheYear:0 setPositions:0 end:0];
+      v28[0] = v6;
+      v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:1];
+      v12 = [v16 initRecurrenceWithFrequency:v5 interval:interval daysOfTheWeek:v18 daysOfTheMonth:0 monthsOfTheYear:0 weeksOfTheYear:0 daysOfTheYear:0 setPositions:0 end:0];
     }
 
     else
     {
-      v12 = [v17 initRecurrenceWithFrequency:v5 interval:interval daysOfTheWeek:0 daysOfTheMonth:0 monthsOfTheYear:0 weeksOfTheYear:0 daysOfTheYear:0 setPositions:0 end:0];
+      v12 = [v16 initRecurrenceWithFrequency:v5 interval:interval daysOfTheWeek:0 daysOfTheMonth:0 monthsOfTheYear:0 weeksOfTheYear:0 daysOfTheYear:0 setPositions:0 end:0];
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }

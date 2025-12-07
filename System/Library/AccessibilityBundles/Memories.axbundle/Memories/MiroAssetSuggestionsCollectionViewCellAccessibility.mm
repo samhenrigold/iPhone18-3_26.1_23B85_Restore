@@ -3,6 +3,7 @@
 - (id)_accessibilityPhotoDescription;
 - (id)accessibilityLabel;
 - (unint64_t)accessibilityTraits;
+- (void)configureWithAsset:(id)asset selected:(BOOL)selected;
 @end
 
 @implementation MiroAssetSuggestionsCollectionViewCellAccessibility
@@ -13,6 +14,16 @@
   [validationsCopy validateClass:@"MiroAssetSuggestionsCollectionViewCell" isKindOfClass:@"UICollectionViewCell"];
   [validationsCopy validateClass:@"UICollectionViewCell" hasInstanceMethod:@"isSelected" withFullSignature:{"B", 0}];
   [validationsCopy validateClass:@"MiroAssetSuggestionsCollectionViewCell" hasInstanceMethod:@"configureWithAsset: selected:" withFullSignature:{"v", "@", "B", 0}];
+}
+
+- (void)configureWithAsset:(id)asset selected:(BOOL)selected
+{
+  selectedCopy = selected;
+  v7.receiver = self;
+  v7.super_class = MiroAssetSuggestionsCollectionViewCellAccessibility;
+  assetCopy = asset;
+  [(MiroAssetSuggestionsCollectionViewCellAccessibility *)&v7 configureWithAsset:assetCopy selected:selectedCopy];
+  [(MiroAssetSuggestionsCollectionViewCellAccessibility *)self _accessibilitySetRetainedValue:assetCopy forKey:@"AXAsset", v7.receiver, v7.super_class];
 }
 
 - (unint64_t)accessibilityTraits

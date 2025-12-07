@@ -139,8 +139,6 @@
 
   [(RespiratoryHealthHeroCountdownLabel *)self->_countdownLabel setScaleFactor:factor];
   [(RespiratoryHealthHeroView *)self frame];
-  v13 = self->_watchImageSize.width;
-  height = self->_watchImageSize.height;
 
   [(RespiratoryHealthHeroView *)self setFrame:?];
 }

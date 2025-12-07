@@ -238,7 +238,7 @@
 
 - (id)additionalModelsForSameUser
 {
-  v39[3] = *MEMORY[0x277D85DE8];
+  v38[3] = *MEMORY[0x277D85DE8];
   managedObjectContext = [(_MKFUser *)self managedObjectContext];
   v4 = +[_MKFUser fetchRequest];
   v5 = MEMORY[0x277CCAC30];
@@ -247,15 +247,15 @@
   v8 = [v5 predicateWithFormat:@"(%K == %@) AND (%K != %@)", @"home", home, @"modelID", modelID];
   [v4 setPredicate:v8];
 
-  v39[0] = @"accountIdentifier";
-  v39[1] = @"idsMergeIdentifier";
-  v39[2] = @"modelID";
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:3];
+  v38[0] = @"accountIdentifier";
+  v38[1] = @"idsMergeIdentifier";
+  v38[2] = @"modelID";
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:3];
   [v4 setPropertiesToFetch:v9];
 
-  v32 = 0;
-  v10 = [managedObjectContext executeFetchRequest:v4 error:&v32];
-  v11 = v32;
+  v31 = 0;
+  v10 = [managedObjectContext executeFetchRequest:v4 error:&v31];
+  v11 = v31;
   if (v10)
   {
     if (![v10 count])
@@ -265,14 +265,14 @@
     }
 
     v12 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(v10, "count")}];
-    v30[0] = MEMORY[0x277D85DD0];
-    v30[1] = 3221225472;
-    v30[2] = __39___MKFUser_additionalModelsForSameUser__block_invoke;
-    v30[3] = &unk_278675330;
-    v30[4] = self;
+    v29[0] = MEMORY[0x277D85DD0];
+    v29[1] = 3221225472;
+    v29[2] = __39___MKFUser_additionalModelsForSameUser__block_invoke;
+    v29[3] = &unk_278675330;
+    v29[4] = self;
     v13 = v12;
-    v31 = v13;
-    [v10 hmf_enumerateWithAutoreleasePoolUsingBlock:v30];
+    v30 = v13;
+    [v10 hmf_enumerateWithAutoreleasePoolUsingBlock:v29];
     v14 = [v13 count];
     v15 = objc_autoreleasePoolPush();
     selfCopy = self;
@@ -284,11 +284,11 @@
       {
         v19 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v34 = v19;
-        v35 = 2112;
-        v36 = selfCopy;
-        v37 = 2112;
-        v38 = v13;
+        v33 = v19;
+        v34 = 2112;
+        v35 = selfCopy;
+        v36 = 2112;
+        v37 = v13;
         v20 = "%{public}@%@ matched additional models: %@";
         v21 = v17;
         v22 = 32;
@@ -301,9 +301,9 @@ LABEL_12:
     {
       v19 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v34 = v19;
-      v35 = 2112;
-      v36 = selfCopy;
+      v33 = v19;
+      v34 = 2112;
+      v35 = selfCopy;
       v20 = "%{public}@%@ did not match any other models";
       v21 = v17;
       v22 = 22;
@@ -311,7 +311,7 @@ LABEL_12:
     }
 
     objc_autoreleasePoolPop(v15);
-    v27 = [v13 copy];
+    v27 = objc_msgSend_copy(v13);
 
     goto LABEL_14;
   }
@@ -323,17 +323,15 @@ LABEL_12:
   {
     v26 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v34 = v26;
-    v35 = 2112;
-    v36 = v11;
+    v33 = v26;
+    v34 = 2112;
+    v35 = v11;
     _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_ERROR, "%{public}@Failed to find user models: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v23);
   v27 = 0;
 LABEL_14:
-
-  v28 = *MEMORY[0x277D85DE8];
 
   return v27;
 }
@@ -376,7 +374,7 @@ LABEL_14:
 
 - (id)notificationRegistrationForMediaProperty:(id)property mediaProfile:(id)profile deviceIdsDestination:(id)destination context:(id)context
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   propertyCopy = property;
   profileCopy = profile;
   destinationCopy = destination;
@@ -386,13 +384,13 @@ LABEL_14:
   accessory = [profileCopy accessory];
   uuid = [accessory uuid];
 
-  v28 = propertyCopy;
+  v27 = propertyCopy;
   v18 = [MEMORY[0x277CCAC30] predicateWithFormat:@"(%K == %@) AND (%K == %@) AND (%K == %@) AND (%K == %@) AND (%K.modelID == %@)", @"user", self, @"deviceIdsDestination", destinationCopy, @"mediaProperty", propertyCopy, @"mediaProfileIdentifier", uniqueIdentifier, @"accessory", uuid];
   [v14 setPredicate:v18];
 
-  v29 = 0;
-  v19 = [contextCopy executeFetchRequest:v14 error:&v29];
-  v20 = v29;
+  v28 = 0;
+  v19 = [contextCopy executeFetchRequest:v14 error:&v28];
+  v20 = v28;
   if (v19)
   {
     firstObject = [v19 firstObject];
@@ -405,17 +403,17 @@ LABEL_14:
     v23 = HMFGetOSLogHandle();
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      v26 = HMFGetLogIdentifier();
+      v25 = HMFGetLogIdentifier();
       *buf = 138544386;
-      v31 = v26;
-      v32 = 2112;
-      v33 = v28;
-      v34 = 2112;
-      v35 = profileCopy;
-      v36 = 2112;
-      v37 = destinationCopy;
-      v38 = 2112;
-      v39 = v20;
+      v30 = v25;
+      v31 = 2112;
+      v32 = v27;
+      v33 = 2112;
+      v34 = profileCopy;
+      v35 = 2112;
+      v36 = destinationCopy;
+      v37 = 2112;
+      v38 = v20;
       _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch notification registrations for mediaProperty: %@, mediaProfile: %@, deviceIdsDestination: %@, error: %@", buf, 0x34u);
     }
 
@@ -423,14 +421,12 @@ LABEL_14:
     firstObject = 0;
   }
 
-  v24 = *MEMORY[0x277D85DE8];
-
   return firstObject;
 }
 
 - (id)notificationRegistrationForCharacteristic:(id)characteristic deviceIdsDestination:(id)destination context:(id)context
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   characteristicCopy = characteristic;
   destinationCopy = destination;
   contextCopy = context;
@@ -447,10 +443,10 @@ LABEL_14:
     v17 = [MEMORY[0x277CCAC30] predicateWithFormat:@"(%K == %@) AND (%K == %@) AND (%K.%K == %@) AND (%K.%K.%K == %@) AND (%K.%K.%K.modelID == %@)", @"user", self, @"deviceIdsDestination", destinationCopy, @"characteristic", @"instanceID", instanceID, @"characteristic", @"service", @"instanceID", instanceID2, @"characteristic", @"service", @"accessory", uuid];
     [v11 setPredicate:v17];
 
-    v32 = contextCopy;
-    v34 = 0;
-    v18 = [contextCopy executeFetchRequest:v11 error:&v34];
-    v19 = v34;
+    v31 = contextCopy;
+    v33 = 0;
+    v18 = [contextCopy executeFetchRequest:v11 error:&v33];
+    v19 = v33;
     if (v18)
     {
       firstObject = [v18 firstObject];
@@ -463,15 +459,15 @@ LABEL_14:
       v27 = HMFGetOSLogHandle();
       if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
-        v30 = HMFGetLogIdentifier();
+        v29 = HMFGetLogIdentifier();
         *buf = 138544130;
-        v36 = v30;
-        v37 = 2112;
-        v38 = characteristicCopy;
-        v39 = 2112;
-        v40 = destinationCopy;
-        v41 = 2112;
-        v42 = v19;
+        v35 = v29;
+        v36 = 2112;
+        v37 = characteristicCopy;
+        v38 = 2112;
+        v39 = destinationCopy;
+        v40 = 2112;
+        v41 = v19;
         _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch notification registrations for characteristic: %@, deviceIdsDestination: %@, error: %@", buf, 0x2Au);
       }
 
@@ -479,7 +475,7 @@ LABEL_14:
       firstObject = 0;
     }
 
-    contextCopy = v32;
+    contextCopy = v31;
   }
 
   else
@@ -490,43 +486,41 @@ LABEL_14:
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       HMFGetLogIdentifier();
-      v33 = destinationCopy;
+      v32 = destinationCopy;
       v25 = v24 = contextCopy;
       *buf = 138544130;
-      v36 = v25;
-      v37 = 2112;
-      v38 = instanceID;
-      v39 = 2112;
-      v40 = instanceID2;
-      v41 = 2112;
-      v42 = uuid;
+      v35 = v25;
+      v36 = 2112;
+      v37 = instanceID;
+      v38 = 2112;
+      v39 = instanceID2;
+      v40 = 2112;
+      v41 = uuid;
       _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_ERROR, "%{public}@Error before fetching registration for characteristic, characteristic value should not be nil: instanceID: %@, serviceInstanceID: %@, accessoryUUID: %@", buf, 0x2Au);
 
       contextCopy = v24;
-      destinationCopy = v33;
+      destinationCopy = v32;
     }
 
     objc_autoreleasePoolPop(v21);
     firstObject = 0;
   }
 
-  v28 = *MEMORY[0x277D85DE8];
-
   return firstObject;
 }
 
 - (_MKFUser)userWithAccessCode:(id)code context:(id)context
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   codeCopy = code;
   contextCopy = context;
   v8 = +[_MKFUserAccessCode fetchRequest];
   v9 = [MEMORY[0x277CCAC30] predicateWithFormat:@"(%K == %@) AND (%K == %@)", @"accessCode", codeCopy, @"user", self];
   [v8 setPredicate:v9];
 
-  v20 = 0;
-  v10 = [contextCopy executeFetchRequest:v8 error:&v20];
-  v11 = v20;
+  v19 = 0;
+  v10 = [contextCopy executeFetchRequest:v8 error:&v19];
+  v11 = v19;
   if (v10)
   {
     firstObject = [v10 firstObject];
@@ -542,13 +536,13 @@ LABEL_14:
       v16 = HMFGetLogIdentifier();
       modelID = [(_MKFUser *)selfCopy modelID];
       *buf = 138544130;
-      v22 = v16;
-      v23 = 2112;
-      v24 = codeCopy;
-      v25 = 2112;
-      v26 = modelID;
-      v27 = 2112;
-      v28 = v11;
+      v21 = v16;
+      v22 = 2112;
+      v23 = codeCopy;
+      v24 = 2112;
+      v25 = modelID;
+      v26 = 2112;
+      v27 = v11;
       _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch userAccessCodes with access code %@ and user UUID %@: %@", buf, 0x2Au);
     }
 
@@ -556,14 +550,12 @@ LABEL_14:
     firstObject = 0;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return firstObject;
 }
 
 - (id)matterBulletinRegistrationForEndpointID:(id)d accessoryUUID:(id)iD deviceIdsIdentifier:(id)identifier context:(id)context
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
   identifierCopy = identifier;
@@ -573,9 +565,9 @@ LABEL_14:
   iDCopy = [MEMORY[0x277CCAC30] predicateWithFormat:@"(%K == %@) AND (%K == %@) AND (%K.%K contains %@) AND (%K.%K.modelID contains %@)", @"user", self, @"deviceIdsIdentifier", identifierCopy, @"matterPaths_", @"endpointID", dCopy, @"matterPaths_", @"accessory", iDCopy];
   [v14 setPredicate:iDCopy];
 
-  v26 = 0;
-  v16 = [contextCopy executeFetchRequest:v14 error:&v26];
-  v17 = v26;
+  v25 = 0;
+  v16 = [contextCopy executeFetchRequest:v14 error:&v25];
+  v17 = v25;
   if (v16)
   {
     firstObject = [v16 firstObject];
@@ -589,32 +581,30 @@ LABEL_14:
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       HMFGetLogIdentifier();
-      v22 = v25 = v19;
+      v22 = v24 = v19;
       *buf = 138544130;
-      v28 = v22;
-      v29 = 2112;
-      v30 = dCopy;
-      v31 = 2112;
-      v32 = iDCopy;
-      v33 = 2112;
-      v34 = v17;
+      v27 = v22;
+      v28 = 2112;
+      v29 = dCopy;
+      v30 = 2112;
+      v31 = iDCopy;
+      v32 = 2112;
+      v33 = v17;
       _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch Matter bulletin registration with endpointID %@: on accessory %@, error: %@", buf, 0x2Au);
 
-      v19 = v25;
+      v19 = v24;
     }
 
     objc_autoreleasePoolPop(v19);
     firstObject = 0;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
-
   return firstObject;
 }
 
 - (id)characteristicBulletinRegistrationForAccessory:(id)accessory serviceInstanceID:(id)d characteristicInstanceID:(id)iD deviceIdsIdentifier:(id)identifier context:(id)context
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   dCopy = d;
   iDCopy = iD;
@@ -624,9 +614,9 @@ LABEL_14:
   accessoryCopy = [MEMORY[0x277CCAC30] predicateWithFormat:@"(%K == %@) AND (%K == %@) AND (%K.%K == %@) AND (%K.%K.%K == %@) AND (%K.%K.%K.modelID == %@)", @"user", self, @"deviceIdsIdentifier", identifierCopy, @"characteristic", @"instanceID", iDCopy, @"characteristic", @"service", @"instanceID", dCopy, @"characteristic", @"service", @"accessory", accessoryCopy];
   [v17 setPredicate:accessoryCopy];
 
-  v28 = 0;
-  v19 = [contextCopy executeFetchRequest:v17 error:&v28];
-  v20 = v28;
+  v27 = 0;
+  v19 = [contextCopy executeFetchRequest:v17 error:&v27];
+  v20 = v27;
   if (v19)
   {
     firstObject = [v19 firstObject];
@@ -639,23 +629,21 @@ LABEL_14:
     v23 = HMFGetOSLogHandle();
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      v26 = HMFGetLogIdentifier();
+      v25 = HMFGetLogIdentifier();
       *buf = 138544130;
-      v30 = v26;
-      v31 = 2112;
-      v32 = iDCopy;
-      v33 = 2112;
-      v34 = accessoryCopy;
-      v35 = 2112;
-      v36 = v20;
+      v29 = v25;
+      v30 = 2112;
+      v31 = iDCopy;
+      v32 = 2112;
+      v33 = accessoryCopy;
+      v34 = 2112;
+      v35 = v20;
       _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch characteristic bulletin registration with characteristic instanceID %@: on accessory %@, error: %@", buf, 0x2Au);
     }
 
     objc_autoreleasePoolPop(context);
     firstObject = 0;
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return firstObject;
 }
@@ -700,7 +688,7 @@ LABEL_14:
 
 + (id)sharedUserDataRootForUser:(id)user context:(id)context
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   userCopy = user;
   contextCopy = context;
   hmd_coreData = [contextCopy hmd_coreData];
@@ -717,9 +705,9 @@ LABEL_14:
       v13 = HMFGetLogIdentifier();
       modelID2 = [userCopy modelID];
       *buf = 138543618;
-      v61 = v13;
-      v62 = 2112;
-      v63 = modelID2;
+      v60 = v13;
+      v61 = 2112;
+      v62 = modelID2;
       v15 = "%{public}@Owner %@ does not have a reverse share for their own home";
 LABEL_21:
       _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, v15, buf, 0x16u);
@@ -739,9 +727,9 @@ LABEL_21:
       v13 = HMFGetLogIdentifier();
       modelID2 = [userCopy modelID];
       *buf = 138543618;
-      v61 = v13;
-      v62 = 2112;
-      v63 = modelID2;
+      v60 = v13;
+      v61 = 2112;
+      v62 = modelID2;
       v15 = "%{public}@Shared user %@ does not have a reverse share assigned";
       goto LABEL_21;
     }
@@ -757,48 +745,48 @@ LABEL_22:
   v17 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K == %@", @"homeModelID", modelID];
   [v16 setPredicate:v17];
 
-  v58 = 0;
-  v18 = [contextCopy executeFetchRequest:v16 error:&v58];
-  v19 = v58;
-  v50 = v18;
+  v57 = 0;
+  v18 = [contextCopy executeFetchRequest:v16 error:&v57];
+  v19 = v57;
+  v49 = v18;
   if (v18)
   {
     if ([v18 count])
     {
-      v47 = userCopy;
-      v48 = v19;
-      v43 = v16;
-      v44 = modelID;
-      v52 = reverseShareID;
-      v45 = hmd_coreData;
-      v46 = contextCopy;
+      v46 = userCopy;
+      v47 = v19;
+      v42 = v16;
+      v43 = modelID;
+      v51 = reverseShareID;
+      v44 = hmd_coreData;
+      v45 = contextCopy;
       container = [hmd_coreData container];
+      v53 = 0u;
       v54 = 0u;
       v55 = 0u;
       v56 = 0u;
-      v57 = 0u;
       obj = v18;
-      v21 = [obj countByEnumeratingWithState:&v54 objects:v59 count:16];
+      v21 = [obj countByEnumeratingWithState:&v53 objects:v58 count:16];
       if (v21)
       {
         v22 = v21;
-        v23 = *v55;
+        v23 = *v54;
         while (2)
         {
           for (i = 0; i != v22; ++i)
           {
-            if (*v55 != v23)
+            if (*v54 != v23)
             {
               objc_enumerationMutation(obj);
             }
 
-            v25 = *(*(&v54 + 1) + 8 * i);
+            v25 = *(*(&v53 + 1) + 8 * i);
             objectID = [v25 objectID];
             v27 = [container recordForManagedObjectID:objectID];
 
             if (v27)
             {
-              zoneID = [v52 zoneID];
+              zoneID = [v51 zoneID];
               recordID = [v27 recordID];
               zoneID2 = [recordID zoneID];
               v31 = [zoneID isEqual:zoneID2];
@@ -812,7 +800,7 @@ LABEL_22:
             }
           }
 
-          v22 = [obj countByEnumeratingWithState:&v54 objects:v59 count:16];
+          v22 = [obj countByEnumeratingWithState:&v53 objects:v58 count:16];
           if (v22)
           {
             continue;
@@ -828,21 +816,21 @@ LABEL_22:
       {
         v34 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v61 = v34;
+        v60 = v34;
         _os_log_impl(&dword_229538000, v33, OS_LOG_TYPE_ERROR, "%{public}@Failed to find associated shared data root for user", buf, 0xCu);
       }
 
       objc_autoreleasePoolPop(v32);
       v35 = 0;
 LABEL_29:
-      contextCopy = v46;
-      userCopy = v47;
-      modelID = v44;
-      hmd_coreData = v45;
-      reverseShareID = v52;
-      v19 = v48;
+      contextCopy = v45;
+      userCopy = v46;
+      modelID = v43;
+      hmd_coreData = v44;
+      reverseShareID = v51;
+      v19 = v47;
 
-      v16 = v43;
+      v16 = v42;
       goto LABEL_30;
     }
 
@@ -851,14 +839,14 @@ LABEL_29:
     if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
     {
       HMFGetLogIdentifier();
-      v40 = v49 = v19;
+      v40 = v48 = v19;
       *buf = 138543618;
-      v61 = v40;
-      v62 = 2112;
-      v63 = modelID;
+      v60 = v40;
+      v61 = 2112;
+      v62 = modelID;
       _os_log_impl(&dword_229538000, v37, OS_LOG_TYPE_ERROR, "%{public}@No shared user data roots for home %@", buf, 0x16u);
 
-      v19 = v49;
+      v19 = v48;
     }
   }
 
@@ -869,18 +857,18 @@ LABEL_29:
     if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
     {
       HMFGetLogIdentifier();
-      v53 = v36;
+      v52 = v36;
       v39 = v38 = v19;
       *buf = 138543874;
-      v61 = v39;
-      v62 = 2112;
-      v63 = modelID;
-      v64 = 2112;
-      v65 = v38;
+      v60 = v39;
+      v61 = 2112;
+      v62 = modelID;
+      v63 = 2112;
+      v64 = v38;
       _os_log_impl(&dword_229538000, v37, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch shared user data roots for home %@: %@", buf, 0x20u);
 
       v19 = v38;
-      v36 = v53;
+      v36 = v52;
     }
   }
 
@@ -889,14 +877,13 @@ LABEL_29:
 LABEL_30:
 
 LABEL_31:
-  v41 = *MEMORY[0x277D85DE8];
 
   return v35;
 }
 
 + (id)findUserUsingReverseShareID:(id)d homeModelID:(id)iD context:(id)context
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
   contextCopy = context;
@@ -905,9 +892,9 @@ LABEL_31:
   [v11 setPredicate:iDCopy];
 
   [v11 setFetchLimit:2];
-  v24 = 0;
-  v13 = [contextCopy executeFetchRequest:v11 error:&v24];
-  v14 = v24;
+  v23 = 0;
+  v13 = [contextCopy executeFetchRequest:v11 error:&v23];
+  v14 = v23;
   if (v13)
   {
     if ([v13 count] == 1)
@@ -924,9 +911,9 @@ LABEL_31:
       v19 = HMFGetLogIdentifier();
       v21 = [v13 count];
       *buf = 138543618;
-      v26 = v19;
-      v27 = 2048;
-      v28 = v21;
+      v25 = v19;
+      v26 = 2048;
+      v27 = v21;
       v20 = "%{public}@Failed to fetch working store user resulted into error: %zd matching users";
       goto LABEL_8;
     }
@@ -941,9 +928,9 @@ LABEL_31:
     {
       v19 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v26 = v19;
-      v27 = 2114;
-      v28 = v14;
+      v25 = v19;
+      v26 = 2114;
+      v27 = v14;
       v20 = "%{public}@Failed to fetch working store user resulted into error: %{public}@";
 LABEL_8:
       _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, v20, buf, 0x16u);
@@ -953,8 +940,6 @@ LABEL_8:
   objc_autoreleasePoolPop(v16);
   firstObject = 0;
 LABEL_10:
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return firstObject;
 }

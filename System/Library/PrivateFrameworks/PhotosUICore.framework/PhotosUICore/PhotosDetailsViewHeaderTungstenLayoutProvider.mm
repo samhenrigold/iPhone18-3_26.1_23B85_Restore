@@ -7,7 +7,7 @@
 
 - (id)createGlobalHeaderLayoutForPhotosViewModel:(id)model dataSource:(id)source spec:(id)spec
 {
-  type metadata accessor for PhotosDetailsViewHeaderTungstenLayout();
+  type metadata accessor for PhotosDetailsViewHeaderTungstenLayout(0);
   sub_1A3C341C8(self + OBJC_IVAR____TtC12PhotosUICore45PhotosDetailsViewHeaderTungstenLayoutProvider_titleModel, v8);
   sub_1A43F661C(v8, model);
 }

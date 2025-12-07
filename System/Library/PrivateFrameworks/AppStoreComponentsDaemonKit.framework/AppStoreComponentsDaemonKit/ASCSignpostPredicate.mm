@@ -38,30 +38,30 @@
 
 - (ASCSignpostPredicate)initWithSpans:(id)spans
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   spansCopy = spans;
   v4 = objc_alloc_init(MEMORY[0x277CBEB58]);
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v6 = spansCopy;
-  v7 = [v6 countByEnumeratingWithState:&v19 objects:v25 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v18 objects:v23 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v20;
+    v9 = *v19;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v20 != v9)
+        if (*v19 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v19 + 1) + 8 * i);
+        v11 = *(*(&v18 + 1) + 8 * i);
         dateRange = [v11 dateRange];
         if (dateRange)
         {
@@ -76,18 +76,17 @@
 
         else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
-          [(ASCSignpostPredicate *)buf initWithSpans:v11, &v24];
+          [(ASCSignpostPredicate *)buf initWithSpans:v11, &buf[4]];
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v19 objects:v25 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v18 objects:v23 count:16];
     }
 
     while (v8);
   }
 
   v15 = [(ASCSignpostPredicate *)self initWithTags:v4 dateRanges:v5];
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 

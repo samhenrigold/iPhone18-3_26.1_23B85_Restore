@@ -676,20 +676,21 @@ uint64_t WrdCharacterProperties::WrdCharacterPropertiesOverridden::isAnythingOve
   return result;
 }
 
-uint64_t WrdCPTableHeaders::getTextRun(uint64_t a1, _DWORD *a2, unsigned int a3, int a4)
+uint64_t WrdCPTableHeaders::getTextRun(uint64_t a1, _DWORD *a2, uint64_t a3, uint64_t a4)
 {
+  v4 = a4;
   a2[2] = 2;
   a2[3] = WrdCPTableHeaders::getStartCP(a1, a3, a4);
-  result = WrdCPTableHeaders::getNumberOfCharacters(a1, a3, a4);
+  result = WrdCPTableHeaders::getNumberOfCharacters(a1, a3, v4);
   a2[4] = result;
   return result;
 }
 
-uint64_t WrdCPTableHeaders::getStartCP(uint64_t a1, unsigned int a2, int a3)
+uint64_t WrdCPTableHeaders::getStartCP(uint64_t a1, uint64_t a2, int a3)
 {
   if (a2 > 5)
   {
-    a2 += 6 * a3;
+    LODWORD(a2) = a2 + 6 * a3;
     v3 = *(a1 + 8);
     if (a2 < ((*(a1 + 16) - v3) >> 2))
     {
@@ -709,11 +710,11 @@ LABEL_5:
   return *(v3 + 4 * a2);
 }
 
-uint64_t WrdCPTableHeaders::getNumberOfCharacters(uint64_t a1, int a2, int a3)
+uint64_t WrdCPTableHeaders::getNumberOfCharacters(uint64_t a1, uint64_t a2, int a3)
 {
   if (a2 > 5)
   {
-    a2 += 6 * a3;
+    LODWORD(a2) = a2 + 6 * a3;
     v3 = a2 + 1;
     v4 = *(a1 + 8);
     if (a2 + 1 >= ((*(a1 + 16) - v4) >> 2))
@@ -821,7 +822,7 @@ WrdTableProperties *WrdTableProperties::setAutoFit(WrdTableProperties *this, cha
   return this;
 }
 
-uint64_t WrdTapParser::parseSpacingAndPadding(WrdTapParser *this, int a2, WrdTableProperties *a3, const unsigned __int8 *a4, unsigned __int16 *a5)
+WrdTableCellDescriptor *WrdTapParser::parseSpacingAndPadding(WrdTapParser *this, int a2, WrdTableProperties *a3, const unsigned __int8 *a4, unsigned __int16 *a5)
 {
   v8 = *a4;
   v9 = a4[1];
@@ -1357,7 +1358,7 @@ LABEL_5:
 
   v10 = a2;
   v11 = &v10;
-  v8 = std::__tree<std::__value_type<unsigned int,EshOpt::Value>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,EshOpt::Value>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,EshOpt::Value>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 32, &v10)[5];
+  v8 = std::__tree<std::__value_type<unsigned int,EshOpt::Value>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,EshOpt::Value>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,EshOpt::Value>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 32, &v10, &std::piecewise_construct, &v11)[5];
   if (v8)
   {
     (*(*v8 + 8))(v8);
@@ -1366,17 +1367,17 @@ LABEL_5:
 LABEL_9:
   v10 = a2;
   v11 = &v10;
-  result = std::__tree<std::__value_type<unsigned int,EshOpt::Value>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,EshOpt::Value>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,EshOpt::Value>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 32, &v10);
+  result = std::__tree<std::__value_type<unsigned int,EshOpt::Value>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,EshOpt::Value>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,EshOpt::Value>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 32, &v10, &std::piecewise_construct, &v11);
   result[5] = a3;
   result[6] = 0;
   return result;
 }
 
-uint64_t *EshOpt::takeGenericProperty(uint64_t a1, unsigned int a2, uint64_t a3)
+uint64_t *EshOpt::takeGenericProperty(uint64_t a1, int a2, uint64_t a3)
 {
   v5 = a2;
   v6 = &v5;
-  result = std::__tree<std::__value_type<unsigned int,EshOpt::Value>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,EshOpt::Value>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,EshOpt::Value>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 32, &v5);
+  result = std::__tree<std::__value_type<unsigned int,EshOpt::Value>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,EshOpt::Value>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,EshOpt::Value>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 32, &v5, &std::piecewise_construct, &v6);
   result[5] = a3;
   result[6] = 0;
   return result;
@@ -1867,9 +1868,9 @@ CGColorRef CMShapeRendererCreateGenericRGBA(float a1, float a2, float a3, float 
   return v5;
 }
 
-void sub_25D301014(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_25D301014(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
 
   EshGeometryProperties::~EshGeometryProperties(va);
   _Unwind_Resume(a1);
@@ -1912,7 +1913,7 @@ double EshGeometryProperties::init(EshGeometryProperties *this)
   return result;
 }
 
-uint64_t EshShapeLib::cloneShapeProperties(EshShapeLib *this, unsigned __int16 a2, EshGeometryProperties *a3)
+uint64_t EshShapeLib::cloneShapeProperties(EshShapeLib *this, int32x2_t *a2, EshGeometryProperties *a3)
 {
   ShapeType = getShapeType(this);
   if (ShapeType)
@@ -1923,106 +1924,98 @@ uint64_t EshShapeLib::cloneShapeProperties(EshShapeLib *this, unsigned __int16 a
   return 0;
 }
 
-void *EshBasicTablePropVal<EshComputedValue>::init(void *a1, unsigned int a2, void *a3)
+void EshBasicTablePropVal<EshComputedValue>::init(void *a1, unsigned int a2, void *a3)
 {
   LODWORD(v4) = a2;
-  result = std::vector<EshComputedValue,ChAllocator<EshComputedValue>>::reserve(a1 + 1, a2);
+  std::vector<EshComputedValue,ChAllocator<EshComputedValue>>::reserve(a1 + 1, a2);
   if (v4)
   {
     v4 = v4;
-    result = a1[2];
+    v6 = a1[2];
     do
     {
-      if (result >= a1[3])
+      if (v6 >= a1[3])
       {
-        result = std::vector<EshComputedValue,ChAllocator<EshComputedValue>>::__emplace_back_slow_path<EshComputedValue const&>(a1 + 1, a3);
+        v6 = std::vector<EshComputedValue,ChAllocator<EshComputedValue>>::__emplace_back_slow_path<EshComputedValue const&>(a1 + 1, a3);
       }
 
       else
       {
-        *result++ = *a3;
+        *v6++ = *a3;
       }
 
-      a1[2] = result;
+      a1[2] = v6;
       ++a3;
       --v4;
     }
 
     while (v4);
   }
-
-  return result;
 }
 
-void *EshBasicTablePropVal<EshPathCommand>::init(void *a1, unsigned int a2, void *a3)
+void EshBasicTablePropVal<EshPathCommand>::init(void *a1, unsigned int a2, void *a3)
 {
   LODWORD(v4) = a2;
-  result = std::vector<EshPathCommand,ChAllocator<EshPathCommand>>::reserve(a1 + 1, a2);
+  std::vector<EshPathCommand,ChAllocator<EshPathCommand>>::reserve(a1 + 1, a2);
   if (v4)
   {
     v4 = v4;
-    result = a1[2];
+    v6 = a1[2];
     do
     {
-      if (result >= a1[3])
+      if (v6 >= a1[3])
       {
-        result = std::vector<EshPathCommand,ChAllocator<EshPathCommand>>::__emplace_back_slow_path<EshPathCommand const&>(a1 + 1, a3);
+        v6 = std::vector<EshPathCommand,ChAllocator<EshPathCommand>>::__emplace_back_slow_path<EshPathCommand const&>(a1 + 1, a3);
       }
 
       else
       {
-        *result++ = *a3;
+        *v6++ = *a3;
       }
 
-      a1[2] = result;
+      a1[2] = v6;
       ++a3;
       --v4;
     }
 
     while (v4);
   }
-
-  return result;
 }
 
-uint64_t EshBasicTablePropVal<EshFormula>::init(uint64_t a1, unsigned int a2, _DWORD *a3)
+void EshBasicTablePropVal<EshFormula>::init(uint64_t a1, unsigned int a2, _DWORD *a3)
 {
   LODWORD(v4) = a2;
-  result = std::vector<EshFormula,ChAllocator<EshFormula>>::reserve((a1 + 8), a2);
+  std::vector<EshFormula,ChAllocator<EshFormula>>::reserve((a1 + 8), a2);
   if (v4)
   {
     v4 = v4;
     do
     {
-      result = std::vector<EshFormula,ChAllocator<EshFormula>>::push_back[abi:ne200100](a1 + 8, a3);
+      std::vector<EshFormula,ChAllocator<EshFormula>>::push_back[abi:ne200100](a1 + 8, a3);
       a3 += 7;
       --v4;
     }
 
     while (v4);
   }
-
-  return result;
 }
 
-uint64_t EshBasicTablePropVal<EshComputedRect>::init(uint64_t a1, unsigned int a2, uint64_t a3)
+void EshBasicTablePropVal<EshComputedRect>::init(uint64_t a1, unsigned int a2, uint64_t a3)
 {
   LODWORD(v4) = a2;
-  result = std::vector<EshComputedRect,ChAllocator<EshComputedRect>>::reserve((a1 + 8), a2);
+  std::vector<EshComputedRect,ChAllocator<EshComputedRect>>::reserve((a1 + 8), a2);
   if (v4)
   {
     v4 = v4;
     do
     {
-      result = std::vector<EshComputedRect,ChAllocator<EshComputedRect>>::push_back[abi:ne200100]((a1 + 8), a3);
+      std::vector<EshComputedRect,ChAllocator<EshComputedRect>>::push_back[abi:ne200100]((a1 + 8), a3);
       a3 += 32;
       --v4;
     }
 
     while (v4);
   }
-
-  return result;
 }
 
 uint64_t EshGeometryProperties::addImpliedSegments(uint64_t this)
@@ -2182,10 +2175,10 @@ void EshTablePropVal<EshComputedRect>::~EshTablePropVal(void *a1)
   JUMPOUT(0x25F897000);
 }
 
-void sub_25D3021FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_25D3021FC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = CMDrawingAction;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -2209,7 +2202,7 @@ double TSUCenterOfRect(CGFloat a1, CGFloat a2, CGFloat a3, CGFloat a4)
 
 uint64_t EshFill::getOpacity(EshFill *this)
 {
-  v1 = *EshOpt::getProperty(this->var2, 0x182u);
+  v1 = *EshOpt::getProperty(this->var2, 386);
   if (v1 >= 0x10000)
   {
     return 0x10000;
@@ -2257,16 +2250,16 @@ void PptExOleObjStg::~PptExOleObjStg(PptExOleObjStg *this)
   OcBinaryData::~OcBinaryData((this + 56));
 }
 
-void PptEshGroup::~PptEshGroup(PptEshGroup *this)
+void PptEshGroup::~PptEshGroup(PptEshGroup *this, uint64_t a2)
 {
-  PptEshClientContainer::~PptEshClientContainer((this + 368));
+  PptEshClientContainer::~PptEshClientContainer((this + 368), a2);
   EshGroup::~EshGroup(this);
 
   JUMPOUT(0x25F897000);
 }
 
 {
-  PptEshClientContainer::~PptEshClientContainer((this + 368));
+  PptEshClientContainer::~PptEshClientContainer((this + 368), a2);
 
   EshGroup::~EshGroup(this);
 }
@@ -2917,7 +2910,7 @@ void sub_25D304584(_Unwind_Exception *exception_object, int a2)
   _Unwind_Resume(exception_object);
 }
 
-void XlBinaryReader::start(XlBinaryReader *this, const void **a2)
+void XlBinaryReader::start(XlBinaryReader *this, const void **a2, uint64_t a3)
 {
   if (!*(this + 4))
   {
@@ -2941,7 +2934,7 @@ void XlDocumentProperties::setDefault(XlDocumentProperties *this)
   }
 
   *(this + 4) = 0;
-  operator new[](2);
+  operator new[](2, 0x1000C80BDFB0063);
 }
 
 uint64_t XlDocumentInfo::setDefault(uint64_t this)
@@ -3050,7 +3043,7 @@ void XlParserVisitor::XlParserVisitor(XlParserVisitor *this, SsrwOOStream *a2)
   }
 }
 
-BOOL XlBinaryReader::readEncryptionInfo(uint64_t a1, uint64_t a2, _DWORD *a3, _DWORD *a4)
+BOOL XlBinaryReader::readEncryptionInfo(uint64_t a1, void *a2, _DWORD *a3, _DWORD *a4)
 {
   v7 = *(a1 + 1312);
   v8 = 20;
@@ -4021,11 +4014,11 @@ LABEL_6:
     if ((a4 & 1) == 0)
     {
       *(a6 + 4) = 2;
-      operator new[](a3 + 1);
+      operator new[](a3 + 1, 0x1000C8077774924);
     }
 
     *(a6 + 4) = 1;
-    operator new[](2 * a3 + 2);
+    operator new[](2 * a3 + 2, 0x1000C8077774924);
   }
 
   v45 = v11;
@@ -4051,7 +4044,7 @@ LABEL_6:
             v22 = v16 - v51;
             if (v16 > v51)
             {
-              (*(a2->var0 + 2))(a2, (2 * v22), 1);
+              (*(a2->var0 + 2))(a2, 2 * v22, 1);
               LODWORD(v10) = v10 - 2 * v22;
               v46 -= v22;
             }
@@ -4190,7 +4183,7 @@ LABEL_6:
           a4 = v32;
           if (*this == 1 && (v32 & 1) != 0 && (v47 & 1) == 0)
           {
-            operator new[](2 * a3 + 2);
+            operator new[](2 * a3 + 2, 0x1000C8077774924);
           }
 
           v34 = v49 - v10;
@@ -4222,12 +4215,12 @@ LABEL_55:
     {
       if (v10 >= 4 * v38)
       {
-        operator new[](4);
+        operator new[](4, 0x1000C80BDFB0063);
       }
 
       if ((v10 >> 2))
       {
-        operator new[](4);
+        operator new[](4, 0x1000C80BDFB0063);
       }
 
       v39 = (*(a2->var0 + 9))(a2);
@@ -4987,7 +4980,7 @@ uint64_t XlParserVisitor::visit(XlParserVisitor *this, XlTabId *a2)
   *(this + 18) = (*(**(this + 2) + 40))(*(this + 2));
   if ((v4 >> 1) >= 1)
   {
-    operator new[](((v4 >> 1) << 48) >> 47);
+    operator new[](((v4 >> 1) << 48) >> 47, 0x1000C80BDFB0063);
   }
 
   return XlParserVisitor::endRead(this, a2);
@@ -5212,7 +5205,7 @@ uint64_t XlParserVisitor::visit(XlParserVisitor *this, XlBoundSheet *a2)
     v9 = *(a2 + 2);
     if (v9 != v5)
     {
-      operator new[]((v9 - v5 + 1));
+      operator new[]((v9 - v5 + 1), 0x1000C8077774924);
     }
   }
 
@@ -5224,10 +5217,10 @@ uint64_t XlParserVisitor::visit(XlParserVisitor *this, XlBoundSheet *a2)
     {
       if ((v7 & 1) == 0)
       {
-        operator new[]((v8 - v5));
+        operator new[]((v8 - v5), 0x1000C8077774924);
       }
 
-      operator new[]((v8 - (v5 + 1) + 2));
+      operator new[]((v8 - (v5 + 1) + 2), 0x1000C8077774924);
     }
   }
 
@@ -5248,7 +5241,7 @@ OcText *XlString::takeString(uint64_t a1, char *a2, unsigned int a3, int a4, int
   return result;
 }
 
-uint64_t CsSimpleHeapVector<XlRecord>::pushBack(void *a1, uint64_t *a2)
+void *CsSimpleHeapVector<XlRecord>::pushBack(void *a1, uint64_t *a2)
 {
   v2 = *a2;
   if (!*a2)
@@ -5267,7 +5260,7 @@ uint64_t CsSimpleHeapVector<XlRecord>::pushBack(void *a1, uint64_t *a2)
   else
   {
     *v5 = v2;
-    result = (v5 + 1);
+    result = v5 + 1;
   }
 
   a1[1] = result;
@@ -5409,7 +5402,7 @@ uint64_t XlExtSst::setBucketCount(XlExtSst *this, unsigned int a2)
   *(this + 12) = a2;
   if (a2)
   {
-    operator new[](8 * a2);
+    operator new[](8 * a2, 0x1000C80789AEA99);
   }
 
   return result;
@@ -5455,7 +5448,7 @@ void XlStringExtractor::setStringExtractor(XlStringExtractor *this, SsrwOOStream
         v10 = v9;
       }
 
-      operator new[](v10);
+      operator new[](v10, 0x1000C8052888210);
     }
 
     *(this + 40) = 0;
@@ -5550,7 +5543,7 @@ uint64_t XlDocumentProperties::operator=(uint64_t a1, uint64_t a2)
     v5 = *(a2 + 28);
     if (v5 >= 1)
     {
-      operator new[](2 * *(a2 + 28));
+      operator new[](2 * *(a2 + 28), 0x1000C80BDFB0063);
     }
 
     *(a1 + 28) = v5;
@@ -5570,7 +5563,7 @@ uint64_t XlDocumentProperties::operator=(uint64_t a1, uint64_t a2)
     if (v8 && *(a2 + 104))
     {
       *(a1 + 112) = v8;
-      operator new[](v8);
+      operator new[](v8, 0x1000C8077774924);
     }
   }
 
@@ -6137,7 +6130,7 @@ LABEL_9:
   return XlParserVisitor::endRead(this, a2);
 }
 
-uint64_t CsSimpleHeapVector<XlFont>::pushBack(void *a1, uint64_t *a2)
+void *CsSimpleHeapVector<XlFont>::pushBack(void *a1, uint64_t *a2)
 {
   v2 = *a2;
   if (!*a2)
@@ -6156,7 +6149,7 @@ uint64_t CsSimpleHeapVector<XlFont>::pushBack(void *a1, uint64_t *a2)
   else
   {
     *v5 = v2;
-    result = (v5 + 1);
+    result = v5 + 1;
   }
 
   a1[1] = result;
@@ -6178,11 +6171,11 @@ uint64_t XlFontTable::size(XlFontTable *this)
   }
 }
 
-uint64_t XlFontTable::at(XlFontTable *this, unsigned int a2)
+uint64_t XlFontTable::at(XlFontTable *this, uint64_t a2)
 {
   if (a2 > 3)
   {
-    --a2;
+    LODWORD(a2) = a2 - 1;
     v2 = *(this + 8);
     if (a2 < ((*(this + 9) - v2) >> 3))
     {
@@ -6372,7 +6365,7 @@ void XlParserVisitor::visit(XlParserVisitor *this, XlFormat *a2)
   v5 = a2->var1.var0 + v4;
   if (v5)
   {
-    operator new[](v5 + 1);
+    operator new[](v5 + 1, 0x1000C8077774924);
   }
 
   operator new();
@@ -6413,7 +6406,7 @@ uint64_t OcText::OcText(uint64_t a1, uint64_t a2, int a3)
   return a1;
 }
 
-uint64_t OcText::convert(void *a1, char *__s, int a3, int a4, uint64_t a5)
+uint64_t OcText::convert(unsigned __int16 **a1, char *__s, int a3, int a4, uint64_t a5)
 {
   v5 = 0xFFFFFFFFLL;
   if (a1 && __s)
@@ -6431,7 +6424,7 @@ uint64_t OcText::convert(void *a1, char *__s, int a3, int a4, uint64_t a5)
         v6 = 2 * ChMapTextByCharacterEncoding2(a4, __s, a5, 0, 0, 1);
         if (v6)
         {
-          operator new[]((v6 + 2));
+          operator new[]((v6 + 2), 0x1000C8077774924);
         }
       }
 
@@ -6741,7 +6734,7 @@ LABEL_20:
   return XlParserVisitor::endRead(this, a2);
 }
 
-uint64_t CsSimpleHeapVector<XlXf>::pushBack(void *a1, uint64_t *a2)
+void *CsSimpleHeapVector<XlXf>::pushBack(void *a1, uint64_t *a2)
 {
   v2 = *a2;
   if (!*a2)
@@ -6760,7 +6753,7 @@ uint64_t CsSimpleHeapVector<XlXf>::pushBack(void *a1, uint64_t *a2)
   else
   {
     *v5 = v2;
-    result = (v5 + 1);
+    result = v5 + 1;
   }
 
   a1[1] = result;
@@ -6888,7 +6881,7 @@ uint64_t XlParserVisitor::visit(XlParserVisitor *this, XlStyle *a2)
   return XlParserVisitor::endRead(this, a2);
 }
 
-uint64_t XlCellFormatTable::isStyle(XlCellFormatTable *this, unsigned int a2)
+uint64_t XlCellFormatTable::isStyle(XlCellFormatTable *this, uint64_t a2)
 {
   v2 = *(this + 1);
   if (((*(this + 2) - v2) >> 3) <= a2)
@@ -6899,7 +6892,7 @@ uint64_t XlCellFormatTable::isStyle(XlCellFormatTable *this, unsigned int a2)
   return *(*(v2 + 8 * a2) + 77);
 }
 
-uint64_t XlStyleTable::getName(XlStyleTable *this, unsigned int a2)
+uint64_t XlStyleTable::getName(XlStyleTable *this, uint64_t a2)
 {
   v2 = *(this + 1);
   if (((*(this + 2) - v2) >> 3) <= a2)
@@ -6923,7 +6916,7 @@ uint64_t XlStyleTable::getName(XlStyleTable *this, unsigned int a2)
   return v5 + 8;
 }
 
-uint64_t XlCellFormatTable::getParentCellFormat(XlCellFormatTable *this, unsigned int a2)
+uint64_t XlCellFormatTable::getParentCellFormat(XlCellFormatTable *this, uint64_t a2)
 {
   v2 = *(this + 1);
   if (((*(this + 2) - v2) >> 3) <= a2)
@@ -7024,11 +7017,11 @@ void *XlBinaryReader::read(XlBinaryReader *this, XlPivotInfoTable *a2)
   return result;
 }
 
-void sub_25D30FB44(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_25D30FB44(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -7094,7 +7087,7 @@ void XlColorTable::setDefault(XlColorTable *this)
 
   *(this + 1) = 0;
   *(this + 12) = 56;
-  operator new[](224);
+  operator new[](224, 0x1000C8052888210);
 }
 
 void XlColorTable::~XlColorTable(XlColorTable *this)
@@ -7151,7 +7144,7 @@ void sub_25D3104DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     XlFontTable::setDefault();
   }
 
-  (*(*v10 + 8))(v10);
+  (*(*v10 + 8))(v10, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
@@ -7183,7 +7176,7 @@ XlString *XlString::operator=(XlString *this, uint64_t a2)
     XlString::clearRichText(this);
     if (((*(a2 + 64) - *(a2 + 56)) & 0x7FFFFFFF8) != 0)
     {
-      operator new[](4);
+      operator new[](4, 0x1000C80BDFB0063);
     }
 
     if (*(a2 + 80))
@@ -7425,7 +7418,7 @@ void sub_25D311010(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t XlSheetInfoTable::getSheetName(XlSheetInfoTable *this, unsigned int a2)
+uint64_t XlSheetInfoTable::getSheetName(XlSheetInfoTable *this, uint64_t a2)
 {
   v2 = *(this + 1);
   if (((*(this + 2) - v2) >> 3) <= a2)
@@ -7604,7 +7597,7 @@ uint64_t XlStringExtractor::getString(XlStringExtractor *this, int a2, XlString 
   {
     if (!(v8 >> 30))
     {
-      operator new[](4 * v8);
+      operator new[](4 * v8, 0x1000C8052888210);
     }
 
     exception = __cxa_allocate_exception(4uLL);
@@ -7675,7 +7668,7 @@ LABEL_16:
   if (v3 >= 1)
   {
     v4 = 0;
-    v5 = (v2 + 1);
+    v5 = v2 + 1;
     while (*(v5 - 1) <= a2)
     {
       result = *v5;
@@ -7788,7 +7781,7 @@ uint64_t XlBinaryReader::getSheetCount(XlBinaryReader *this)
   return (*(v1 + 16) - *(v1 + 8)) >> 3;
 }
 
-uint64_t XlSheetInfoTable::getSheetType(XlSheetInfoTable *this, unsigned int a2)
+uint64_t XlSheetInfoTable::getSheetType(XlSheetInfoTable *this, uint64_t a2)
 {
   v2 = *(this + 1);
   if (((*(this + 2) - v2) >> 3) <= a2)
@@ -7799,7 +7792,7 @@ uint64_t XlSheetInfoTable::getSheetType(XlSheetInfoTable *this, unsigned int a2)
   return *(*(v2 + 8 * a2) + 28);
 }
 
-uint64_t XlSheetInfoTable::getSheetHiddenState(XlSheetInfoTable *this, unsigned int a2)
+uint64_t XlSheetInfoTable::getSheetHiddenState(XlSheetInfoTable *this, uint64_t a2)
 {
   v2 = *(this + 1);
   if (((*(this + 2) - v2) >> 3) <= a2)
@@ -7828,7 +7821,7 @@ void XlPivotInfoTable::~XlPivotInfoTable(XlPivotInfoTable *this)
   JUMPOUT(0x25F897000);
 }
 
-_DWORD *XlBinaryReader::setSheet(_DWORD *this, unsigned int a2)
+_DWORD *XlBinaryReader::setSheet(_DWORD *this, uint64_t a2)
 {
   if (this[110] != a2)
   {
@@ -7907,7 +7900,7 @@ void XlBinaryReader::resetWorksheet(XlBinaryReader *this)
   }
 }
 
-uint64_t XlSheetInfoTable::getSheetLocation(XlSheetInfoTable *this, unsigned int a2)
+uint64_t XlSheetInfoTable::getSheetLocation(XlSheetInfoTable *this, uint64_t a2)
 {
   v2 = *(this + 1);
   if (((*(this + 2) - v2) >> 3) <= a2)
@@ -8623,7 +8616,7 @@ uint64_t XlParserVisitor::visit(XlParserVisitor *this, XlIndex *a2)
 
   if (v7 > 3)
   {
-    operator new[](v7 & 0xFFFFFFFC);
+    operator new[](v7 & 0xFFFFFFFC, 0x1000C8052888210);
   }
 
   XlIndex::setDbCellOffsets(a2, *(this + 7), v7 >> 2);
@@ -8680,10 +8673,10 @@ void XlDelta::XlDelta(XlDelta *this, XlHeader *a2)
   v2[2] = 0x3F50624DD2F1A9FCLL;
 }
 
-double SsrwOOStgStream::readFloat64(SsrwOOStgStream *this)
+double SsrwOOStgStream::readFloat64(uint64_t **this)
 {
   v5 = 0.0;
-  v1 = readFloat64(*(this + 24), &v5);
+  v1 = readFloat64(this[24], &v5);
   if (v1)
   {
     v3 = v1;
@@ -8694,7 +8687,7 @@ double SsrwOOStgStream::readFloat64(SsrwOOStgStream *this)
   return v5;
 }
 
-uint64_t readFloat64(uint64_t a1, double *a2)
+uint64_t readFloat64(uint64_t *a1, double *a2)
 {
   v7 = *MEMORY[0x277D85DE8];
   v5 = 8;
@@ -9237,7 +9230,7 @@ uint64_t XlPageProperties::operator=(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-uint64_t XlPageProperties::getHeaderString(XlPageProperties *this)
+OcText *XlPageProperties::getHeaderString(XlPageProperties *this)
 {
   if (!*(this + 5))
   {
@@ -9247,7 +9240,7 @@ uint64_t XlPageProperties::getHeaderString(XlPageProperties *this)
   return *(this + 5);
 }
 
-uint64_t XlPageProperties::getFooterString(XlPageProperties *this)
+OcText *XlPageProperties::getFooterString(XlPageProperties *this)
 {
   if (!*(this + 6))
   {
@@ -9323,7 +9316,7 @@ void XlColInfo::XlColInfo(XlColInfo *this, XlHeader *a2)
   *(v2 + 21) = 0;
 }
 
-uint64_t XlColumnTable::getColumnFirst(XlColumnTable *this, unsigned int a2)
+uint64_t XlColumnTable::getColumnFirst(XlColumnTable *this, uint64_t a2)
 {
   v2 = *(this + 1);
   if (((*(this + 2) - v2) >> 3) <= a2)
@@ -9343,7 +9336,7 @@ uint64_t XlColumnTable::getColumnFirst(XlColumnTable *this, unsigned int a2)
   }
 }
 
-uint64_t XlColumnTable::getColumnLast(XlColumnTable *this, unsigned int a2)
+uint64_t XlColumnTable::getColumnLast(XlColumnTable *this, uint64_t a2)
 {
   v2 = *(this + 1);
   if (((*(this + 2) - v2) >> 3) <= a2)
@@ -9363,7 +9356,7 @@ uint64_t XlColumnTable::getColumnLast(XlColumnTable *this, unsigned int a2)
   }
 }
 
-uint64_t XlColumnTable::getWidth(XlColumnTable *this, unsigned int a2)
+uint64_t XlColumnTable::getWidth(XlColumnTable *this, uint64_t a2)
 {
   v2 = *(this + 1);
   if (((*(this + 2) - v2) >> 3) <= a2)
@@ -9374,7 +9367,7 @@ uint64_t XlColumnTable::getWidth(XlColumnTable *this, unsigned int a2)
   return *(*(v2 + 8 * a2) + 20);
 }
 
-uint64_t XlColumnTable::isHidden(XlColumnTable *this, unsigned int a2)
+uint64_t XlColumnTable::isHidden(XlColumnTable *this, uint64_t a2)
 {
   v2 = *(this + 1);
   if (((*(this + 2) - v2) >> 3) <= a2)
@@ -9385,7 +9378,7 @@ uint64_t XlColumnTable::isHidden(XlColumnTable *this, unsigned int a2)
   return *(*(v2 + 8 * a2) + 24);
 }
 
-uint64_t XlColumnTable::getCellFormat(XlColumnTable *this, unsigned int a2)
+uint64_t XlColumnTable::getCellFormat(XlColumnTable *this, uint64_t a2)
 {
   v2 = *(this + 1);
   if (((*(this + 2) - v2) >> 3) <= a2)
@@ -9428,74 +9421,74 @@ void XlRowBlock::XlRowBlock(XlRowBlock *this)
 
 XlBinaryReader *XlBinaryReader::read(XlBinaryReader *this, XlRowBlock *a2)
 {
-  XlHeader::XlHeader(&v51);
-  result = XlRowBlock::reset(a2);
+  XlHeader::XlHeader(&v52);
+  result = XlRowBlock::reset(a2, v4);
   if ((*(this + 110) & 0x80000000) != 0)
   {
     result = XlBinaryReader::setSheet(this, 0);
   }
 
-  v5 = *(this + 101);
-  if ((v5 & 0x80000000) == 0)
+  v6 = *(this + 101);
+  if ((v6 & 0x80000000) == 0)
   {
     ++*(this + 102);
-    if (*(this + 98) < v5 && *(this + 289) == 1)
+    if (*(this + 98) < v6 && *(this + 289) == 1)
     {
       (*(**(this + 164) + 16))(*(this + 164), *(this + 98), 0);
     }
 
     else
     {
-      *(this + 98) = v5;
+      *(this + 98) = v6;
       (*(**(this + 164) + 16))(*(this + 164));
       *(this + 101) = -1;
     }
 
-    result = XlParserVisitor::getHeader(*(this + 167), &v51, *(this + 1320));
+    result = XlParserVisitor::getHeader(*(this + 167), &v52, *(this + 1320));
     if (*(this + 289) == 1)
     {
-      v6 = -1;
-      while (v51.var1 != 10)
+      v7 = -1;
+      while (v52.var1 != 10)
       {
-        result = XlBinaryReader::isCell(result, &v51);
+        result = XlBinaryReader::isCell(result, &v52);
         if (result)
         {
-          v7 = (*(**(this + 166) + 16))(*(this + 166), 3);
-          v8 = *(this + 164);
+          v8 = (*(**(this + 166) + 16))(*(this + 166), 3);
+          v9 = *(this + 164);
           RecordDataOffset = XlParserVisitor::getRecordDataOffset(*(this + 167));
-          (*(*v8 + 16))(v8, -RecordDataOffset, 1);
-          XlBinaryReader::readCell(this, v7);
-          v50 = v7;
-          v10 = *(this + 53);
-          if (v10 < *(this + 54))
+          (*(*v9 + 16))(v9, -RecordDataOffset, 1);
+          XlBinaryReader::readCell(this, v8);
+          v51 = v8;
+          v11 = *(this + 53);
+          if (v11 < *(this + 54))
           {
 LABEL_13:
-            *v10 = v7;
-            v11 = (v10 + 1);
+            *v11 = v8;
+            v12 = (v11 + 1);
             goto LABEL_14;
           }
 
           while (1)
           {
-            v11 = std::vector<XlCell *,ChAllocator<XlCell *>>::__emplace_back_slow_path<XlCell *>(this + 52, &v50);
+            v12 = std::vector<XlCell *,ChAllocator<XlCell *>>::__emplace_back_slow_path<XlCell *>(this + 52, &v51);
 LABEL_14:
-            *(this + 53) = v11;
+            *(this + 53) = v12;
             if (!*(this + 48))
             {
               break;
             }
 
-            v7 = (*(**(this + 166) + 16))(*(this + 166), 3);
-            XlBinaryReader::processCompressed(this, v7);
-            v50 = v7;
-            v10 = *(this + 53);
-            if (v10 < *(this + 54))
+            v8 = (*(**(this + 166) + 16))(*(this + 166), 3);
+            XlBinaryReader::processCompressed(this, v8);
+            v51 = v8;
+            v11 = *(this + 53);
+            if (v11 < *(this + 54))
             {
               goto LABEL_13;
             }
           }
 
-          result = XlParserVisitor::getHeader(*(this + 167), &v51, *(this + 1320));
+          result = XlParserVisitor::getHeader(*(this + 167), &v52, *(this + 1320));
         }
 
         else
@@ -9505,19 +9498,19 @@ LABEL_14:
             goto LABEL_25;
           }
 
-          if (v6 == -1)
+          if (v7 == -1)
           {
-            v6 = XlParserVisitor::currentRecordLocation(*(this + 167));
+            v7 = XlParserVisitor::currentRecordLocation(*(this + 167));
           }
 
-          result = XlParserVisitor::skipAhead(*(this + 167), &v51, *(this + 1320));
+          result = XlParserVisitor::skipAhead(*(this + 167), &v52, *(this + 1320));
         }
       }
 
       if (*(this + 290))
       {
         *(this + 290) = 0;
-        *(this + 101) = v6;
+        *(this + 101) = v7;
       }
     }
 
@@ -9530,47 +9523,47 @@ LABEL_25:
       }
 
       *(this + 289) = 0;
-      v12 = *(this + 101);
-      if (v12 != -1)
+      v13 = *(this + 101);
+      if (v13 != -1)
       {
-        (*(**(this + 164) + 16))(*(this + 164), v12, 0);
+        (*(**(this + 164) + 16))(*(this + 164), v13, 0);
         *(this + 101) = -1;
       }
 
-      result = XlParserVisitor::getHeader(*(this + 167), &v51, *(this + 1320));
+      result = XlParserVisitor::getHeader(*(this + 167), &v52, *(this + 1320));
     }
 
-    v13 = 0;
     v14 = 0;
-    v15 = 1;
-    while (v51.var1 == 520)
+    v15 = 0;
+    v16 = 1;
+    while (v52.var1 == 520)
     {
-      v16 = (*(**(this + 164) + 80))(*(this + 164));
+      v17 = (*(**(this + 164) + 80))(*(this + 164));
       (*(**(this + 164) + 16))(*(this + 164), 4294967294, 1);
-      v17 = v16;
-      if ((v15 & 1) == 0)
+      v18 = v17;
+      if ((v16 & 1) == 0)
       {
-        if (v16 <= v14 || (v16 - v13) >= 32)
+        if (v17 <= v15 || (v17 - v14) >= 32)
         {
-          v21 = (*(**(this + 164) + 40))(*(this + 164));
+          v22 = (*(**(this + 164) + 40))(*(this + 164));
           result = XlParserVisitor::getRecordDataOffset(*(this + 167));
-          *(this + 101) = v21 - result;
+          *(this + 101) = v22 - result;
           break;
         }
 
-        v17 = v13;
+        v18 = v14;
       }
 
-      v18 = (*(**(this + 166) + 16))(*(this + 166), 5);
-      v19 = *(this + 164);
-      v20 = XlParserVisitor::getRecordDataOffset(*(this + 167));
-      (*(*v19 + 16))(v19, -v20, 1);
-      XlBinaryReader::readRowInfo(this, v18[1]);
-      XlRowBlock::takeRow(a2, v18);
-      result = XlParserVisitor::getHeader(*(this + 167), &v51, *(this + 1320));
-      v15 = 0;
-      v13 = v17;
-      v14 = v16;
+      v19 = (*(**(this + 166) + 16))(*(this + 166), 5);
+      v20 = *(this + 164);
+      v21 = XlParserVisitor::getRecordDataOffset(*(this + 167));
+      (*(*v20 + 16))(v20, -v21, 1);
+      XlBinaryReader::readRowInfo(this, v19[1]);
+      XlRowBlock::takeRow(a2, v19);
+      result = XlParserVisitor::getHeader(*(this + 167), &v52, *(this + 1320));
+      v16 = 0;
+      v14 = v18;
+      v15 = v17;
     }
 
     if (((*(a2 + 2) - *(a2 + 1)) & 0x7FFFFFFF8) != 0)
@@ -9586,10 +9579,10 @@ LABEL_25:
         while (1)
         {
 LABEL_42:
-          var1 = v51.var1;
-          if (v51.var1 != 215 && v51.var1 != 520)
+          var1 = v52.var1;
+          if (v52.var1 != 215 && v52.var1 != 520)
           {
-            result = XlBinaryReader::isCell(result, &v51);
+            result = XlBinaryReader::isCell(result, &v52);
             if (var1 != 229 && result == 0)
             {
 LABEL_82:
@@ -9607,62 +9600,62 @@ LABEL_82:
             }
           }
 
-          v24 = (*(**(this + 164) + 80))(*(this + 164));
+          v25 = (*(**(this + 164) + 80))(*(this + 164));
           result = (*(**(this + 164) + 16))(*(this + 164), 4294967294, 1);
-          v25 = v51.var1;
-          if (v51.var1 == 229)
+          v26 = v52.var1;
+          if (v52.var1 == 229)
           {
-            v31 = (*(**(this + 164) + 40))(*(this + 164));
-            LODWORD(v50) = v31;
-            v32 = *(this + 38);
-            if (v32 >= *(this + 39))
+            v32 = (*(**(this + 164) + 40))(*(this + 164));
+            LODWORD(v51) = v32;
+            v33 = *(this + 38);
+            if (v33 >= *(this + 39))
             {
-              v33 = std::vector<int,ChAllocator<int>>::__emplace_back_slow_path<int>(this + 296, &v50);
+              v34 = std::vector<int,ChAllocator<int>>::__emplace_back_slow_path<int>(this + 296, &v51);
             }
 
             else
             {
-              *v32 = v31;
-              v33 = (v32 + 1);
+              *v33 = v32;
+              v34 = (v33 + 1);
             }
 
-            *(this + 38) = v33;
+            *(this + 38) = v34;
             goto LABEL_66;
           }
 
-          if (v51.var1 == 520)
+          if (v52.var1 == 520)
           {
             break;
           }
 
-          if (v51.var1 == 215)
+          if (v52.var1 == 215)
           {
             if ((*(this + 101) & 0x80000000) != 0)
             {
-              for (i = 215; i != 10 && i != 236; i = v51.var1)
+              for (i = 215; i != 10 && i != 236; i = v52.var1)
               {
-                if (XlBinaryReader::isCell(result, &v51))
+                if (XlBinaryReader::isCell(result, &v52))
                 {
-                  v38 = (*(**(this + 166) + 16))(*(this + 166), 3);
-                  v39 = *(this + 164);
-                  v40 = XlParserVisitor::getRecordDataOffset(*(this + 167));
-                  (*(*v39 + 16))(v39, -v40, 1);
-                  XlBinaryReader::readCell(this, v38);
-                  v50 = v38;
-                  v41 = *(this + 53);
-                  if (v41 >= *(this + 54))
+                  v39 = (*(**(this + 166) + 16))(*(this + 166), 3);
+                  v40 = *(this + 164);
+                  v41 = XlParserVisitor::getRecordDataOffset(*(this + 167));
+                  (*(*v40 + 16))(v40, -v41, 1);
+                  XlBinaryReader::readCell(this, v39);
+                  v51 = v39;
+                  v42 = *(this + 53);
+                  if (v42 >= *(this + 54))
                   {
-                    v42 = std::vector<XlCell *,ChAllocator<XlCell *>>::__emplace_back_slow_path<XlCell *>(this + 52, &v50);
+                    v43 = std::vector<XlCell *,ChAllocator<XlCell *>>::__emplace_back_slow_path<XlCell *>(this + 52, &v51);
                   }
 
                   else
                   {
-                    *v41 = v38;
-                    v42 = (v41 + 1);
+                    *v42 = v39;
+                    v43 = (v42 + 1);
                   }
 
-                  *(this + 53) = v42;
-                  result = XlParserVisitor::getHeader(*(this + 167), &v51, *(this + 1320));
+                  *(this + 53) = v43;
+                  result = XlParserVisitor::getHeader(*(this + 167), &v52, *(this + 1320));
                 }
 
                 else
@@ -9670,13 +9663,13 @@ LABEL_82:
                   if (i == 520)
                   {
 LABEL_100:
-                    v48 = (*(**(this + 164) + 40))(*(this + 164));
+                    v49 = (*(**(this + 164) + 40))(*(this + 164));
                     result = XlParserVisitor::getRecordDataOffset(*(this + 167));
-                    *(this + 101) = v48 - result;
+                    *(this + 101) = v49 - result;
                     goto LABEL_82;
                   }
 
-                  result = XlParserVisitor::skipAhead(*(this + 167), &v51, *(this + 1320));
+                  result = XlParserVisitor::skipAhead(*(this + 167), &v52, *(this + 1320));
                 }
               }
             }
@@ -9684,111 +9677,111 @@ LABEL_100:
             goto LABEL_82;
           }
 
-          if (v24 > v14)
+          if (v25 > v15)
           {
             if ((*(this + 101) & 0x80000000) != 0)
             {
-              while (v25 != 10 && v25 != 236)
+              while (v26 != 10 && v26 != 236)
               {
-                if (XlBinaryReader::isCell(result, &v51))
+                if (XlBinaryReader::isCell(result, &v52))
                 {
-                  v43 = (*(**(this + 166) + 16))(*(this + 166), 3);
-                  if (v43)
+                  v44 = (*(**(this + 166) + 16))(*(this + 166), 3);
+                  if (v44)
                   {
-                    v44 = *(this + 164);
-                    v45 = XlParserVisitor::getRecordDataOffset(*(this + 167));
-                    (*(*v44 + 16))(v44, -v45, 1);
-                    XlBinaryReader::readCell(this, v43);
-                    v50 = v43;
-                    v46 = *(this + 53);
-                    if (v46 >= *(this + 54))
+                    v45 = *(this + 164);
+                    v46 = XlParserVisitor::getRecordDataOffset(*(this + 167));
+                    (*(*v45 + 16))(v45, -v46, 1);
+                    XlBinaryReader::readCell(this, v44);
+                    v51 = v44;
+                    v47 = *(this + 53);
+                    if (v47 >= *(this + 54))
                     {
-                      v47 = std::vector<XlCell *,ChAllocator<XlCell *>>::__emplace_back_slow_path<XlCell *>(this + 52, &v50);
+                      v48 = std::vector<XlCell *,ChAllocator<XlCell *>>::__emplace_back_slow_path<XlCell *>(this + 52, &v51);
                     }
 
                     else
                     {
-                      *v46 = v43;
-                      v47 = (v46 + 1);
+                      *v47 = v44;
+                      v48 = (v47 + 1);
                     }
 
-                    *(this + 53) = v47;
+                    *(this + 53) = v48;
                   }
 
-                  result = XlParserVisitor::getHeader(*(this + 167), &v51, *(this + 1320));
+                  result = XlParserVisitor::getHeader(*(this + 167), &v52, *(this + 1320));
                 }
 
                 else
                 {
-                  if (v25 == 520)
+                  if (v26 == 520)
                   {
                     goto LABEL_100;
                   }
 
-                  result = XlParserVisitor::skipAhead(*(this + 167), &v51, *(this + 1320));
+                  result = XlParserVisitor::skipAhead(*(this + 167), &v52, *(this + 1320));
                 }
 
-                v25 = v51.var1;
+                v26 = v52.var1;
               }
             }
 
             goto LABEL_82;
           }
 
-          if (v24 < v13)
+          if (v25 < v14)
           {
 LABEL_66:
-            result = XlParserVisitor::skipAhead(*(this + 167), &v51, *(this + 1320));
+            result = XlParserVisitor::skipAhead(*(this + 167), &v52, *(this + 1320));
           }
 
           else
           {
-            v26 = (*(**(this + 166) + 16))(*(this + 166), 3);
-            if (v26)
+            v27 = (*(**(this + 166) + 16))(*(this + 166), 3);
+            if (v27)
             {
-              v27 = *(this + 164);
-              v28 = XlParserVisitor::getRecordDataOffset(*(this + 167));
-              (*(*v27 + 16))(v27, -v28, 1);
-              XlBinaryReader::readCell(this, v26);
-              XlRowBlock::takeCell(a2, v26);
+              v28 = *(this + 164);
+              v29 = XlParserVisitor::getRecordDataOffset(*(this + 167));
+              (*(*v28 + 16))(v28, -v29, 1);
+              XlBinaryReader::readCell(this, v27);
+              XlRowBlock::takeCell(a2, v27);
             }
 
             while (*(this + 48))
             {
-              v29 = (*(**(this + 166) + 16))(*(this + 166), 3);
-              if (!v29)
+              v30 = (*(**(this + 166) + 16))(*(this + 166), 3);
+              if (!v30)
               {
                 exception = __cxa_allocate_exception(4uLL);
                 *exception = 1001;
               }
 
-              XlBinaryReader::processCompressed(this, v29);
-              XlRowBlock::takeCell(a2, v29);
+              XlBinaryReader::processCompressed(this, v30);
+              XlRowBlock::takeCell(a2, v30);
             }
 
-            result = XlParserVisitor::getHeader(*(this + 167), &v51, *(this + 1320));
+            result = XlParserVisitor::getHeader(*(this + 167), &v52, *(this + 1320));
           }
         }
 
-        if (v13 + 32 <= v24 || v24 <= v14)
+        if (v14 + 32 <= v25 || v25 <= v15)
         {
           if ((*(this + 101) & 0x80000000) != 0)
           {
-            v30 = (*(**(this + 164) + 40))(*(this + 164));
-            *(this + 101) = v30 - XlParserVisitor::getRecordDataOffset(*(this + 167));
+            v31 = (*(**(this + 164) + 40))(*(this + 164));
+            *(this + 101) = v31 - XlParserVisitor::getRecordDataOffset(*(this + 167));
           }
 
           goto LABEL_66;
         }
 
-        v34 = (*(**(this + 166) + 16))(*(this + 166), 5);
-        v35 = *(this + 164);
-        v36 = XlParserVisitor::getRecordDataOffset(*(this + 167));
-        (*(*v35 + 16))(v35, -v36, 1);
-        XlBinaryReader::readRowInfo(this, v34[1]);
-        XlRowBlock::takeRow(a2, v34);
-        result = XlParserVisitor::getHeader(*(this + 167), &v51, *(this + 1320));
-        v14 = v24;
+        v35 = (*(**(this + 166) + 16))(*(this + 166), 5);
+        v36 = *(this + 164);
+        v37 = XlParserVisitor::getRecordDataOffset(*(this + 167));
+        (*(*v36 + 16))(v36, -v37, 1);
+        XlBinaryReader::readRowInfo(this, v35[1]);
+        XlRowBlock::takeRow(a2, v35);
+        result = XlParserVisitor::getHeader(*(this + 167), &v52, *(this + 1320));
+        v15 = v25;
       }
     }
   }
@@ -9806,40 +9799,40 @@ void sub_25D317BC0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *XlRowBlock::reset(void *this)
+void *XlRowBlock::reset(void *this, uint64_t a2)
 {
-  v1 = this;
-  v2 = this[1];
-  v3 = this[2];
-  if (((v3 - v2) & 0x7FFFFFFF8) != 0)
+  v2 = this;
+  v3 = this[1];
+  v4 = this[2];
+  if (((v4 - v3) & 0x7FFFFFFF8) != 0)
   {
-    v4 = 0;
+    v5 = 0;
     do
     {
-      this = *(v2 + 8 * v4);
+      this = *(v3 + 8 * v5);
       if (this)
       {
-        this = (*(*this + 8))(this);
-        v2 = v1[1];
-        v3 = v1[2];
+        this = (*(*this + 8))(this, a2);
+        v3 = v2[1];
+        v4 = v2[2];
       }
 
-      if (v4 >= ((v3 - v2) >> 3))
+      if (v5 >= ((v4 - v3) >> 3))
       {
         std::vector<TSU::UUIDData<TSP::UUIDData>>::__throw_out_of_range[abi:ne200100]();
       }
 
-      *(v2 + 8 * v4++) = 0;
-      v2 = v1[1];
-      v3 = v1[2];
+      *(v3 + 8 * v5++) = 0;
+      v3 = v2[1];
+      v4 = v2[2];
     }
 
-    while (v4 < ((v3 - v2) >> 3));
+    while (v5 < ((v4 - v3) >> 3));
   }
 
-  v1[2] = v2;
-  *(v1 + 8) = 0;
-  *(v1 + 18) = 0;
+  v2[2] = v3;
+  *(v2 + 8) = 0;
+  *(v2 + 18) = 0;
   return this;
 }
 

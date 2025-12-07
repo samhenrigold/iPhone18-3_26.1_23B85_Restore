@@ -77,7 +77,7 @@
     v8 = v7;
     if (v7)
     {
-      [v7 timeRange];
+      objc_msgSend_timeRange(v7);
       v42 = v41;
       v9 = [(NURenderNode *)self outputVideo:mix];
       v10 = v9;
@@ -103,16 +103,16 @@
           rhs.start.epoch = epoch;
           [v18 setVolume:&rhs atTime:0.0];
           memset(&v40, 0, sizeof(v40));
-          [(PIVideoCrossfadeLoopNode *)self crossfadeDuration];
+          objc_msgSend_crossfadeDuration(self);
           CMTimeMultiply(&rhs.start, &time, 2);
           time = v42;
           CMTimeSubtract(&v40, &time, &rhs.start);
-          [(PIVideoCrossfadeLoopNode *)self crossfadeDuration];
+          objc_msgSend_crossfadeDuration(self);
           start = v40;
           CMTimeRangeMake(&rhs, &start, &time);
           LODWORD(v20) = 1.0;
           [v15 setVolumeRampFromStartVolume:&rhs toEndVolume:v20 timeRange:0.0];
-          [(PIVideoCrossfadeLoopNode *)self crossfadeDuration];
+          objc_msgSend_crossfadeDuration(self);
           start = v40;
           CMTimeRangeMake(&rhs, &start, &time);
           LODWORD(v21) = 1.0;
@@ -227,12 +227,12 @@
             v53 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:3];
             v68 = 0uLL;
             v69 = 0;
-            [(PIVideoCrossfadeLoopNode *)self startTime];
+            objc_msgSend_startTime(self);
             v66 = 0uLL;
             v67 = 0;
-            [(PIVideoCrossfadeLoopNode *)self crossfadeDuration];
+            objc_msgSend_crossfadeDuration(self);
             memset(&buf, 0, sizeof(buf));
-            [(PIVideoCrossfadeLoopNode *)self loopTimeRange];
+            objc_msgSend_loopTimeRange(self);
             memset(&v65, 0, sizeof(v65));
             range = buf;
             CMTimeRangeGetEnd(&start.start, &range);
@@ -316,7 +316,7 @@
             [v53 addObject:v29];
             v33 = objc_alloc_init(MEMORY[0x1E6988060]);
             v14 = v50;
-            [v50 frameDuration];
+            objc_msgSend_frameDuration(v50);
             *&rhs.start.value = v55;
             rhs.start.epoch = v56;
             [v33 setFrameDuration:&rhs];
@@ -454,12 +454,12 @@ LABEL_48:
 
     v121 = 0uLL;
     v122 = 0;
-    [(PIVideoCrossfadeLoopNode *)self startTime];
+    objc_msgSend_startTime(self);
     v119 = 0uLL;
     v120 = 0;
-    [(PIVideoCrossfadeLoopNode *)self crossfadeDuration];
+    objc_msgSend_crossfadeDuration(self);
     memset(&buf, 0, sizeof(buf));
-    [(PIVideoCrossfadeLoopNode *)self loopTimeRange];
+    objc_msgSend_loopTimeRange(self);
     memset(&v118, 0, sizeof(v118));
     range = buf;
     CMTimeRangeGetEnd(&end.start, &range);
@@ -535,7 +535,7 @@ LABEL_48:
         v97 = v8;
         if (v104)
         {
-          [v104 timeRange];
+          objc_msgSend_timeRange(v104);
         }
 
         else
@@ -544,7 +544,7 @@ LABEL_48:
         }
 
         v112 = v118;
-        [v18 conformRange:&v112 inRange:&rhs];
+        objc_msgSend_conformRange_inRange_(v18);
         v111 = v17;
         rhs = lhs;
         *&v112.start.value = v101;
@@ -624,7 +624,7 @@ LABEL_46:
           v40 = MEMORY[0x1E69B3D40];
           if (v104)
           {
-            [v104 timeRange];
+            objc_msgSend_timeRange(v104);
           }
 
           else
@@ -633,7 +633,7 @@ LABEL_46:
           }
 
           v112 = range;
-          [v40 conformRange:&v112 inRange:&rhs];
+          objc_msgSend_conformRange_inRange_(v40);
           v106 = v19;
           rhs = lhs;
           *&v112.start.value = v102;
@@ -706,7 +706,7 @@ LABEL_47:
     memset(&v110, 0, sizeof(v110));
     if (v105)
     {
-      [v105 timeRange];
+      objc_msgSend_timeRange(v105);
     }
 
     else
@@ -741,9 +741,9 @@ LABEL_30:
       v33 = [v7 addMutableTrackWithMediaType:v9 preferredTrackID:3];
       memset(&lhs, 0, sizeof(lhs));
       v34 = MEMORY[0x1E69B3D40];
-      [v104 timeRange];
+      objc_msgSend_timeRange(v104);
       v112 = end;
-      [v34 conformRange:&v112 inRange:&rhs];
+      objc_msgSend_conformRange_inRange_(v34);
       v108 = v90;
       rhs = lhs;
       v112.start = v110;
@@ -872,14 +872,14 @@ LABEL_48:
   }
 
   v12 = evaluationMode;
-  [(PIVideoCrossfadeLoopNode *)self startTime];
-  [(PIVideoCrossfadeLoopNode *)self crossfadeDuration];
+  objc_msgSend_startTime(self);
+  objc_msgSend_crossfadeDuration(self);
   memset(&buf, 0, sizeof(buf));
-  [(PIVideoCrossfadeLoopNode *)self loopTimeRange];
+  objc_msgSend_loopTimeRange(self);
   memset(v70, 0, sizeof(v70));
   if (v10)
   {
-    [v10 time];
+    objc_msgSend_time(v10);
   }
 
   input = [(PIVideoCrossfadeLoopNode *)self input];
@@ -926,7 +926,7 @@ LABEL_34:
       {
         if (v10)
         {
-          [v10 time];
+          objc_msgSend_time(v10);
         }
 
         else
@@ -943,14 +943,14 @@ LABEL_34:
       else
       {
         memset(&lhs, 0, sizeof(lhs));
-        [(PIVideoCrossfadeLoopNode *)self loopTimeRange];
+        objc_msgSend_loopTimeRange(self);
         *&start.start.value = v62;
         start.start.epoch = v63;
         rhs = v70[1];
         CMTimeAdd(&lhs, &start.start, &rhs);
         if (v10)
         {
-          [v10 time];
+          objc_msgSend_time(v10);
         }
 
         else

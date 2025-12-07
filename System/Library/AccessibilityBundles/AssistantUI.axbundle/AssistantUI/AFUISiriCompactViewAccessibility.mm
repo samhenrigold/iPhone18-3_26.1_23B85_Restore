@@ -37,10 +37,10 @@
 
 - (void)_accessibilityLoadAccessibilityInformation
 {
-  v20 = *MEMORY[0x29EDCA608];
-  v18.receiver = self;
-  v18.super_class = AFUISiriCompactViewAccessibility;
-  [(AFUISiriCompactViewAccessibility *)&v18 _accessibilityLoadAccessibilityInformation];
+  v19 = *MEMORY[0x29EDCA608];
+  v17.receiver = self;
+  v17.super_class = AFUISiriCompactViewAccessibility;
+  [(AFUISiriCompactViewAccessibility *)&v17 _accessibilityLoadAccessibilityInformation];
   [(AFUISiriCompactViewAccessibility *)self _axSetLabelForSessionState:[(AFUISiriCompactViewAccessibility *)self safeIntegerForKey:@"_siriSessionState"]];
   v3 = [(AFUISiriCompactViewAccessibility *)self safeValueForKey:@"_reportBugButton"];
   v4 = AssistantUIAccessibilityLocalizedString(@"assistant.reportbug.label");
@@ -52,27 +52,27 @@
   v6 = v5;
   if (v5 && [v5 _accessibilityViewIsVisible])
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     accessibilityElements = [(AFUISiriCompactViewAccessibility *)self accessibilityElements];
-    v8 = [accessibilityElements countByEnumeratingWithState:&v14 objects:v19 count:16];
+    v8 = [accessibilityElements countByEnumeratingWithState:&v13 objects:v18 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v15;
+      v10 = *v14;
       do
       {
         v11 = 0;
         do
         {
-          if (*v15 != v10)
+          if (*v14 != v10)
           {
             objc_enumerationMutation(accessibilityElements);
           }
 
-          v12 = *(*(&v14 + 1) + 8 * v11);
+          v12 = *(*(&v13 + 1) + 8 * v11);
           if (v12 != v6)
           {
             [v12 setAccessibilityElementsHidden:1];
@@ -82,14 +82,12 @@
         }
 
         while (v9 != v11);
-        v9 = [accessibilityElements countByEnumeratingWithState:&v14 objects:v19 count:16];
+        v9 = [accessibilityElements countByEnumeratingWithState:&v13 objects:v18 count:16];
       }
 
       while (v9);
     }
   }
-
-  v13 = *MEMORY[0x29EDCA608];
 }
 
 - (BOOL)accessibilityPerformMagicTap
@@ -174,7 +172,6 @@ void __62__AFUISiriCompactViewAccessibility_accessibilityPerformEscape__block_in
     _UIAccessibilityUnblockPostingOfNotification();
   }
 
-  v8 = *MEMORY[0x29EDC7ED8];
   _AXIgnoreNextNotification();
 }
 

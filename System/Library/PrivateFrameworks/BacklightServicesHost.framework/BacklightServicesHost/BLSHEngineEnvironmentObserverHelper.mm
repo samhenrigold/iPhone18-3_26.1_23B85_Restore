@@ -96,90 +96,88 @@
 
 - (void)didUpdateToPresentation:(id)presentation
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   presentationCopy = presentation;
   os_unfair_lock_lock(&self->_lock);
   v6 = self->_lock_presentation;
   objc_storeStrong(&self->_lock_presentation, presentation);
   array = [MEMORY[0x277CBEB18] array];
   array2 = [MEMORY[0x277CBEB18] array];
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = __63__BLSHEngineEnvironmentObserverHelper_didUpdateToPresentation___block_invoke;
-  v32[3] = &unk_27841F090;
-  v32[4] = self;
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __63__BLSHEngineEnvironmentObserverHelper_didUpdateToPresentation___block_invoke;
+  v31[3] = &unk_27841F090;
+  v31[4] = self;
   v9 = array2;
-  v33 = v9;
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __63__BLSHEngineEnvironmentObserverHelper_didUpdateToPresentation___block_invoke_2;
-  v30[3] = &unk_27841F090;
-  v30[4] = self;
+  v32 = v9;
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __63__BLSHEngineEnvironmentObserverHelper_didUpdateToPresentation___block_invoke_2;
+  v29[3] = &unk_27841F090;
+  v29[4] = self;
   v10 = array;
-  v31 = v10;
-  [presentationCopy differenceFromPresentation:v6 forEachRemoval:v32 forEachAddition:v30];
+  v30 = v10;
+  [presentationCopy differenceFromPresentation:v6 forEachRemoval:v31 forEachAddition:v29];
   os_unfair_lock_unlock(&self->_lock);
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v11 = v10;
-  v12 = [v11 countByEnumeratingWithState:&v26 objects:v35 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v25 objects:v34 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v27;
+    v14 = *v26;
     do
     {
       v15 = 0;
       do
       {
-        if (*v27 != v14)
+        if (*v26 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        [*(*(&v26 + 1) + 8 * v15++) addObserver:self->_engine];
+        [*(*(&v25 + 1) + 8 * v15++) addObserver:self->_engine];
       }
 
       while (v13 != v15);
-      v13 = [v11 countByEnumeratingWithState:&v26 objects:v35 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v25 objects:v34 count:16];
     }
 
     while (v13);
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v16 = v9;
-  v17 = [v16 countByEnumeratingWithState:&v22 objects:v34 count:16];
+  v17 = [v16 countByEnumeratingWithState:&v21 objects:v33 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v23;
+    v19 = *v22;
     do
     {
       v20 = 0;
       do
       {
-        if (*v23 != v19)
+        if (*v22 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        [*(*(&v22 + 1) + 8 * v20++) removeObserver:{self->_engine, v22}];
+        [*(*(&v21 + 1) + 8 * v20++) removeObserver:{self->_engine, v21}];
       }
 
       while (v18 != v20);
-      v18 = [v16 countByEnumeratingWithState:&v22 objects:v34 count:16];
+      v18 = [v16 countByEnumeratingWithState:&v21 objects:v33 count:16];
     }
 
     while (v18);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __63__BLSHEngineEnvironmentObserverHelper_didUpdateToPresentation___block_invoke(uint64_t a1, void *a2)

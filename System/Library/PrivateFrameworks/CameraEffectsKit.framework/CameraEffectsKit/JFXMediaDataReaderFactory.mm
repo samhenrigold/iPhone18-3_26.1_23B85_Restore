@@ -20,9 +20,11 @@
 
 uint64_t __43__JFXMediaDataReaderFactory_sharedInstance__block_invoke()
 {
-  sharedInstance_sInstance_0 = objc_opt_new();
+  v0 = objc_opt_new();
+  v1 = sharedInstance_sInstance_0;
+  sharedInstance_sInstance_0 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (id)createARMetadataReaderWithCreationAttributesProvider:(id)provider name:(id)name

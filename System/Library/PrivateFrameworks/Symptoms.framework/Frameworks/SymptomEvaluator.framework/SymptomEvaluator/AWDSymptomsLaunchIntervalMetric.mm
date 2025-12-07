@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)processAsString:(int)string;
 - (int)StringAsProcess:(id)process;
 - (int)process;
 - (unint64_t)hash;
@@ -56,6 +57,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)processAsString:(int)string
+{
+  if ((string - 1) >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27898E448[string - 1];
+  }
+
+  return v4;
 }
 
 - (int)StringAsProcess:(id)process
@@ -157,12 +173,11 @@ LABEL_11:
 {
   toCopy = to;
   has = self->_has;
-  v9 = toCopy;
+  v6 = toCopy;
   if ((has & 2) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 1) == 0)
     {
@@ -181,15 +196,13 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  intervalSincePreviousLaunch = self->_intervalSincePreviousLaunch;
   PBDataWriterWriteUint64Field();
-  toCopy = v9;
+  toCopy = v6;
   if ((*&self->_has & 4) != 0)
   {
 LABEL_4:
-    process = self->_process;
     PBDataWriterWriteInt32Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_5:

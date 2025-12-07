@@ -61,7 +61,7 @@ void __39__ADJingleRequest_init_withCompletion___block_invoke()
 
 - (void)send
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   v3 = +[ADAMSBagManager sharedInstance];
   bagKey = [(ADJingleRequest *)self bagKey];
   v5 = [v3 retrieveJingleRequestURLFromAMSBagWithPartialityKey:bagKey];
@@ -94,7 +94,7 @@ LABEL_19:
     goto LABEL_20;
   }
 
-  v50 = v5;
+  v49 = v5;
   mEMORY[0x277CE9638] = [MEMORY[0x277CE9638] sharedInstance];
   iTunesAccountDSID = [mEMORY[0x277CE9638] iTunesAccountDSID];
   mEMORY[0x277CE9658] = [MEMORY[0x277CE9658] sharedInstance];
@@ -110,30 +110,30 @@ LABEL_19:
     iTunesStoreAccount = [mEMORY[0x277CE9638]2 iTunesStoreAccount];
     [v12 setAccount:iTunesStoreAccount];
 
-    v49 = v12;
+    v48 = v12;
     [v12 setUrlKnownToBeTrusted:1];
-    v51 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v50 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v53 = 0u;
     v54 = 0u;
     v55 = 0u;
     v56 = 0u;
-    v57 = 0u;
     selfCopy = self;
     requestHeaders = [(ADJingleRequest *)self requestHeaders];
-    v17 = [requestHeaders countByEnumeratingWithState:&v54 objects:v58 count:16];
+    v17 = [requestHeaders countByEnumeratingWithState:&v53 objects:v57 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v55;
+      v19 = *v54;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v55 != v19)
+          if (*v54 != v19)
           {
             objc_enumerationMutation(requestHeaders);
           }
 
-          v21 = *(*(&v54 + 1) + 8 * i);
+          v21 = *(*(&v53 + 1) + 8 * i);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -143,7 +143,7 @@ LABEL_19:
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              [v51 setValue:v23 forKey:v21];
+              [v50 setValue:v23 forKey:v21];
             }
 
             else
@@ -160,51 +160,50 @@ LABEL_19:
           }
         }
 
-        v18 = [requestHeaders countByEnumeratingWithState:&v54 objects:v58 count:16];
+        v18 = [requestHeaders countByEnumeratingWithState:&v53 objects:v57 count:16];
       }
 
       while (v18);
     }
 
     v25 = v12;
-    v5 = v50;
-    completionHandler2 = v51;
-    v27 = [v49 requestWithMethod:4 URL:v50 parameters:v51];
-    v52[0] = MEMORY[0x277D85DD0];
-    v52[1] = 3221225472;
-    v52[2] = __23__ADJingleRequest_send__block_invoke;
-    v52[3] = &unk_278C58330;
-    v52[4] = selfCopy;
-    v53 = v50;
-    [v27 addFinishBlock:v52];
+    v5 = v49;
+    completionHandler2 = v50;
+    v27 = [v48 requestWithMethod:4 URL:v49 parameters:v50];
+    v51[0] = MEMORY[0x277D85DD0];
+    v51[1] = 3221225472;
+    v51[2] = __23__ADJingleRequest_send__block_invoke;
+    v51[3] = &unk_278C58330;
+    v51[4] = selfCopy;
+    v52 = v49;
+    [v27 addFinishBlock:v51];
 
     goto LABEL_19;
   }
 
-  v36 = objc_alloc(MEMORY[0x277CCA9B8]);
-  v37 = MEMORY[0x277CCACA8];
-  v38 = objc_opt_class();
+  v35 = objc_alloc(MEMORY[0x277CCA9B8]);
+  v36 = MEMORY[0x277CCACA8];
+  v37 = objc_opt_class();
   mEMORY[0x277CE9638]3 = [MEMORY[0x277CE9638] sharedInstance];
   iTunesAccountDSID2 = [mEMORY[0x277CE9638]3 iTunesAccountDSID];
   mEMORY[0x277CE9658]2 = [MEMORY[0x277CE9658] sharedInstance];
   [mEMORY[0x277CE9658]2 activeDSIDRecord];
-  v43 = v42 = self;
-  dSID2 = [v43 DSID];
-  v45 = [v37 stringWithFormat:@"[%@]: iTunes DSID mismatch. Active DSID: %@. Record DSID: %@. Cannot request Segments.", v38, iTunesAccountDSID2, dSID2];
-  v46 = [v36 initWithAdCode:3 andDescription:v45];
+  v42 = v41 = self;
+  dSID2 = [v42 DSID];
+  v44 = [v36 stringWithFormat:@"[%@]: iTunes DSID mismatch. Active DSID: %@. Record DSID: %@. Cannot request Segments.", v37, iTunesAccountDSID2, dSID2];
+  v45 = [v35 initWithAdCode:3 andDescription:v44];
 
-  [v46 AD_Log:@"iAdIDLogging"];
-  [(ADJingleRequest *)v42 setError:v46];
-  completionHandler3 = [(ADJingleRequest *)v42 completionHandler];
+  [v45 AD_Log:@"iAdIDLogging"];
+  [(ADJingleRequest *)v41 setError:v45];
+  completionHandler3 = [(ADJingleRequest *)v41 completionHandler];
 
   if (completionHandler3)
   {
-    completionHandler4 = [(ADJingleRequest *)v42 completionHandler];
-    (completionHandler4)[2](completionHandler4, v42);
+    completionHandler4 = [(ADJingleRequest *)v41 completionHandler];
+    (completionHandler4)[2](completionHandler4, v41);
   }
 
 LABEL_21:
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 void __23__ADJingleRequest_send__block_invoke(uint64_t a1, void *a2)

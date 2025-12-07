@@ -376,22 +376,22 @@ void __57__MapsSuggestionsWallet_entriesFromPassesBefore_handler___block_invoke(
 
 - (void)_q_readPassesWithHandler:(void *)handler withEndDate:
 {
-  v70 = *MEMORY[0x1E69E9840];
-  v41 = a2;
+  v72 = *MEMORY[0x1E69E9840];
+  v43 = a2;
   handlerCopy = handler;
   if (self)
   {
-    v43 = handlerCopy;
+    v45 = handlerCopy;
     dispatch_assert_queue_V2(self[1]);
     GEOFindOrCreateLog();
     v6 = val = self;
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      uniqueName = [val uniqueName];
+      uniqueName = [(dispatch_queue_t *)val uniqueName];
       *buf = 138412546;
-      v65 = uniqueName;
-      v66 = 2080;
-      *v67 = "_q_readPassesWithHandler";
+      v67 = uniqueName;
+      v68 = 2080;
+      *v69 = "_q_readPassesWithHandler";
       _os_log_impl(&dword_1C5126000, v6, OS_LOG_TYPE_DEBUG, "{MSgDebug} OBJECT{%@} %s BEGIN", buf, 0x16u);
     }
 
@@ -404,20 +404,20 @@ void __57__MapsSuggestionsWallet_entriesFromPassesBefore_handler___block_invoke(
 
     objc_initWeak(&location, val);
     group = dispatch_group_create();
-    v45 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v47 = objc_alloc_init(MEMORY[0x1E695DF70]);
     if (handlerCopy)
     {
       v9 = GEOFindOrCreateLog();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v65 = handlerCopy;
+        v67 = handlerCopy;
         _os_log_impl(&dword_1C5126000, v9, OS_LOG_TYPE_DEBUG, "endDate for the request is non-nil: %@", buf, 0xCu);
       }
     }
 
     GEOConfigGetDouble();
-    v42 = MapsSuggestionsNowWithOffset(-(v10 * 1000000000.0) / 1000000000.0);
+    v44 = MapsSuggestionsNowWithOffset(-(v10 * 1000000000.0) / 1000000000.0);
     if (handlerCopy)
     {
       v11 = handlerCopy;
@@ -430,77 +430,77 @@ void __57__MapsSuggestionsWallet_entriesFromPassesBefore_handler___block_invoke(
     }
 
     v13 = v11;
-    if ([v11 compare:v42] == -1)
+    if ([v11 compare:v44] == -1)
     {
-      v39 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v39, OS_LOG_TYPE_FAULT))
+      v41 = GEOFindOrCreateLog();
+      if (os_log_type_enabled(v41, OS_LOG_TYPE_FAULT))
       {
         *buf = 138412546;
-        v65 = v13;
-        v66 = 2112;
-        *v67 = v42;
-        _os_log_impl(&dword_1C5126000, v39, OS_LOG_TYPE_FAULT, "end date (%@) for request is before the start date (%@)!", buf, 0x16u);
+        v67 = v13;
+        v68 = 2112;
+        *v69 = v44;
+        _os_log_impl(&dword_1C5126000, v41, OS_LOG_TYPE_FAULT, "end date (%@) for request is before the start date (%@)!", buf, 0x16u);
       }
 
-      if (!v41)
+      if (!v43)
       {
         goto LABEL_51;
       }
 
-      v47 = [MEMORY[0x1E696ABC0] GEOErrorWithCode:-13 reason:@"end date for the request is before the start date"];
-      v41[2](v41, 0);
+      v49 = [MEMORY[0x1E696ABC0] GEOErrorWithCode:-13 reason:@"end date for the request is before the start date"];
+      v43[2](v43, 0);
     }
 
     else
     {
-      v14 = v42;
+      v14 = v44;
       v15 = v13;
-      v47 = [objc_alloc(MEMORY[0x1E696AB80]) initWithStartDate:v14 endDate:v15];
+      v49 = [objc_alloc(MEMORY[0x1E696AB80]) initWithStartDate:v14 endDate:v15];
 
       v16 = GEOFindOrCreateLog();
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v65 = v47;
+        v67 = v49;
         _os_log_impl(&dword_1C5126000, v16, OS_LOG_TYPE_DEBUG, "Looking for passes in window %@", buf, 0xCu);
       }
 
       context = objc_autoreleasePoolPush();
       [val[3] passesOfType:0];
+      v62 = 0u;
+      v63 = 0u;
       v60 = 0u;
-      v61 = 0u;
-      v58 = 0u;
-      obj = v59 = 0u;
-      v17 = [obj countByEnumeratingWithState:&v58 objects:v63 count:16];
+      obj = v61 = 0u;
+      v17 = [obj countByEnumeratingWithState:&v60 objects:v65 count:16];
       if (v17)
       {
-        v18 = *v59;
+        v18 = *v61;
         do
         {
-          v49 = v17;
-          for (i = 0; i != v49; ++i)
+          v51 = v17;
+          for (i = 0; i != v51; ++i)
           {
-            if (*v59 != v18)
+            if (*v61 != v18)
             {
               objc_enumerationMutation(obj);
             }
 
-            v20 = *(*(&v58 + 1) + 8 * i);
+            v20 = *(*(&v60 + 1) + 8 * i);
             v21 = v20;
             if (!v20)
             {
-              v35 = GEOFindOrCreateLog();
-              if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+              v37 = GEOFindOrCreateLog();
+              if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
               {
                 *buf = 136446978;
-                v65 = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Suggestions/MapsSuggestionsWallet.mm";
-                v66 = 1024;
-                *v67 = 323;
-                *&v67[4] = 2082;
-                *&v67[6] = "BOOL _isSupportedPassStyle(PKPass *__strong)";
-                v68 = 2082;
-                v69 = "nil == (pass)";
-                _os_log_impl(&dword_1C5126000, v35, OS_LOG_TYPE_ERROR, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a pass", buf, 0x26u);
+                v67 = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Suggestions/MapsSuggestionsWallet.mm";
+                v68 = 1024;
+                *v69 = 323;
+                *&v69[4] = 2082;
+                *&v69[6] = "BOOL _isSupportedPassStyle(PKPass *__strong)";
+                v70 = 2082;
+                v71 = "nil == (pass)";
+                _os_log_impl(&dword_1C5126000, v37, OS_LOG_TYPE_ERROR, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a pass", buf, 0x26u);
               }
 
               goto LABEL_41;
@@ -514,59 +514,59 @@ void __57__MapsSuggestionsWallet_entriesFromPassesBefore_handler___block_invoke(
               firstObject = [relevantDates firstObject];
               date = [firstObject date];
 
-              if (date && ([v47 containsDate:date] & 1) != 0)
+              if (date && (v27 = [v49 containsDate:date], (v27 & 1) != 0))
               {
-                v27 = GEOFindOrCreateLog();
-                if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+                v29 = GEOFindOrCreateLog();
+                if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
                 {
                   localizedDescription = [v21 localizedDescription];
                   *buf = 138412290;
-                  v65 = localizedDescription;
-                  _os_log_impl(&dword_1C5126000, v27, OS_LOG_TYPE_DEBUG, "✅ Processing pass: %@", buf, 0xCu);
+                  v67 = localizedDescription;
+                  _os_log_impl(&dword_1C5126000, v29, OS_LOG_TYPE_DEBUG, "✅ Processing pass: %@", buf, 0xCu);
                 }
 
-                v29 = objc_autoreleasePoolPush();
-                v30 = [(MapsSuggestionsWallet *)val _q_entryFromPass:v21];
-                if (v30)
+                v31 = objc_autoreleasePoolPush();
+                v32 = [(MapsSuggestionsWallet *)val _q_entryFromPass:v21];
+                if (v32)
                 {
-                  [v45 addObject:v30];
+                  [v47 addObject:v32];
                   dispatch_group_enter(group);
                   dispatch_group_enter(group);
+                  v58[0] = MEMORY[0x1E69E9820];
+                  v58[1] = 3221225472;
+                  v58[2] = __62__MapsSuggestionsWallet__q_readPassesWithHandler_withEndDate___block_invoke;
+                  v58[3] = &unk_1E81F6DC0;
+                  v33 = group;
+                  v59 = v33;
+                  v34 = [(MapsSuggestionsWallet *)val _q_addLocationInfoToEntry:v32 completion:v58];
+                  v35 = val[4];
                   v56[0] = MEMORY[0x1E69E9820];
                   v56[1] = 3221225472;
-                  v56[2] = __62__MapsSuggestionsWallet__q_readPassesWithHandler_withEndDate___block_invoke;
+                  v56[2] = __62__MapsSuggestionsWallet__q_readPassesWithHandler_withEndDate___block_invoke_2;
                   v56[3] = &unk_1E81F6DC0;
-                  v31 = group;
-                  v57 = v31;
-                  v32 = [(MapsSuggestionsWallet *)val _q_addLocationInfoToEntry:v30 completion:v56];
-                  v33 = val[4];
-                  v54[0] = MEMORY[0x1E69E9820];
-                  v54[1] = 3221225472;
-                  v54[2] = __62__MapsSuggestionsWallet__q_readPassesWithHandler_withEndDate___block_invoke_2;
-                  v54[3] = &unk_1E81F6DC0;
-                  v34 = v31;
-                  v55 = v34;
-                  MapsSuggestionsSetArrivalAirportFieldsForEntry(v30, v33, v54);
-                  if (!v32)
+                  v36 = v33;
+                  v57 = v36;
+                  MapsSuggestionsSetArrivalAirportFieldsForEntry(v32, v35, v56);
+                  if (!v34)
                   {
-                    dispatch_group_leave(v34);
+                    dispatch_group_leave(v36);
                   }
 
-                  handlerCopy = v43;
+                  handlerCopy = v45;
                 }
 
-                objc_autoreleasePoolPop(v29);
+                objc_autoreleasePoolPop(v31);
               }
 
-              else if (MapsSuggestionsLoggingIsVerbose())
+              else if (MapsSuggestionsLoggingIsVerbose(v27, v28))
               {
-                v35 = GEOFindOrCreateLog();
-                if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
+                v37 = GEOFindOrCreateLog();
+                if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
                 {
                   localizedDescription2 = [v21 localizedDescription];
                   *buf = 138412290;
-                  v65 = localizedDescription2;
-                  _os_log_impl(&dword_1C5126000, v35, OS_LOG_TYPE_DEBUG, "Skipping %@", buf, 0xCu);
+                  v67 = localizedDescription2;
+                  _os_log_impl(&dword_1C5126000, v37, OS_LOG_TYPE_DEBUG, "Skipping %@", buf, 0xCu);
                 }
 
                 v21 = date;
@@ -581,25 +581,25 @@ LABEL_41:
 LABEL_43:
           }
 
-          v17 = [obj countByEnumeratingWithState:&v58 objects:v63 count:16];
+          v17 = [obj countByEnumeratingWithState:&v60 objects:v65 count:16];
         }
 
         while (v17);
       }
 
       objc_autoreleasePoolPop(context);
-      v37 = val[1];
+      v39 = val[1];
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = __62__MapsSuggestionsWallet__q_readPassesWithHandler_withEndDate___block_invoke_3;
       block[3] = &unk_1E81F5B00;
-      v38 = v37;
-      objc_copyWeak(&v53, &location);
-      v51 = v45;
-      v52 = v41;
-      dispatch_group_notify(group, v38, block);
+      v40 = v39;
+      objc_copyWeak(&v55, &location);
+      v53 = v47;
+      v54 = v43;
+      dispatch_group_notify(group, v40, block);
 
-      objc_destroyWeak(&v53);
+      objc_destroyWeak(&v55);
     }
 
 LABEL_51:
@@ -1371,17 +1371,35 @@ void __58__MapsSuggestionsWallet_hasExpressPaymentCardWithHandler___block_invoke
 
 - (void)_q_addLocationInfoToEntry:(NSObject *)a1 completion:.cold.1(NSObject *a1)
 {
+  v9 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(a1, OS_LOG_TYPE_ERROR))
   {
-    OUTLINED_FUNCTION_2_1(&dword_1C5126000, v2, v3, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires airport code", v4, v5, v6, v7, 2u);
+    *v8 = 136446978;
+    *&v8[4] = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Suggestions/MapsSuggestionsWallet.mm";
+    *&v8[12] = 1024;
+    *&v8[14] = 181;
+    *&v8[18] = 2082;
+    *&v8[20] = "[MapsSuggestionsWallet _q_addLocationInfoToEntry:completion:]";
+    *&v8[28] = 2082;
+    *&v8[30] = "NO == [entry containsKey:MapsSuggestionsFlightFullTargetAirportKey]";
+    OUTLINED_FUNCTION_2_1(&dword_1C5126000, v2, v3, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires airport code", v4, v5, v6, v7, *v8, *&v8[8], *&v8[16], *&v8[24], *&v8[32], v9);
   }
 }
 
 - (void)_q_addLocationInfoToEntry:(NSObject *)a1 completion:.cold.2(NSObject *a1)
 {
+  v9 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(a1, OS_LOG_TYPE_ERROR))
   {
-    OUTLINED_FUNCTION_2_1(&dword_1C5126000, v2, v3, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires entry", v4, v5, v6, v7, 2u);
+    *v8 = 136446978;
+    *&v8[4] = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Suggestions/MapsSuggestionsWallet.mm";
+    *&v8[12] = 1024;
+    *&v8[14] = 180;
+    *&v8[18] = 2082;
+    *&v8[20] = "[MapsSuggestionsWallet _q_addLocationInfoToEntry:completion:]";
+    *&v8[28] = 2082;
+    *&v8[30] = "nil == (entry)";
+    OUTLINED_FUNCTION_2_1(&dword_1C5126000, v2, v3, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires entry", v4, v5, v6, v7, *v8, *&v8[8], *&v8[16], *&v8[24], *&v8[32], v9);
   }
 }
 

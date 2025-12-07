@@ -133,15 +133,15 @@ void __37__WFInterchangeManager_sharedManager__block_invoke(uint64_t a1)
 
 - (void)_performRequest:(id)request
 {
-  v67 = *MEMORY[0x1E69E9840];
+  v66 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   v5 = getWFInterchangeLogObject();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v64 = "[WFInterchangeManager _performRequest:]";
-    v65 = 2112;
-    v66 = requestCopy;
+    v63 = "[WFInterchangeManager _performRequest:]";
+    v64 = 2112;
+    v65 = requestCopy;
     _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_INFO, "%s Performing incoming request: %@", buf, 0x16u);
   }
 
@@ -203,12 +203,12 @@ LABEL_15:
   else
   {
     callbackScheme2 = [(WFInterchangeManager *)self callbackScheme];
-    v22 = [callbackScheme2 app];
-    localizedShortName = [v22 localizedShortName];
+    v21 = [callbackScheme2 app];
+    localizedShortName = [v21 localizedShortName];
   }
 
   callbackSourceNameKey = [scheme2 callbackSourceNameKey];
-  v24 = callbackSourceNameKey;
+  v23 = callbackSourceNameKey;
   if (localizedShortName && callbackSourceNameKey)
   {
     [v16 setObject:localizedShortName forKey:callbackSourceNameKey];
@@ -220,54 +220,54 @@ LABEL_15:
   {
     callbackSuccessURLKey = [scheme2 callbackSuccessURLKey];
     callbackCancelURLKey = [scheme2 callbackCancelURLKey];
-    v57 = callbackCancelURLKey;
-    v58 = callbackSuccessURLKey;
+    v56 = callbackCancelURLKey;
+    v57 = callbackSuccessURLKey;
     if (callbackSuccessURLKey)
     {
-      v60 = localizedShortName;
-      v28 = MEMORY[0x1E696AEC0];
+      v59 = localizedShortName;
+      v27 = MEMORY[0x1E696AEC0];
       callbackScheme3 = [(WFInterchangeManager *)self callbackScheme];
       scheme3 = [callbackScheme3 scheme];
       uniqueID = [requestCopy uniqueID];
       uUIDString = [uniqueID UUIDString];
-      v33 = [v28 stringWithFormat:@"%@://%@/%@/%@", scheme3, @"x-callback-url", @"ic-success", uUIDString];
+      v32 = [v27 stringWithFormat:@"%@://%@/%@/%@", scheme3, @"x-callback-url", @"ic-success", uUIDString];
 
       successURLQueryString = [requestCopy successURLQueryString];
-      v35 = successURLQueryString;
+      v34 = successURLQueryString;
       if (successURLQueryString)
       {
-        v36 = [v33 stringByAppendingFormat:@"?%@", successURLQueryString];
+        v35 = [v32 stringByAppendingFormat:@"?%@", successURLQueryString];
 
-        v33 = v36;
+        v32 = v35;
       }
 
-      callbackSuccessURLKey = v58;
-      [v16 setObject:v33 forKey:v58];
+      callbackSuccessURLKey = v57;
+      [v16 setObject:v32 forKey:v57];
 
-      localizedShortName = v60;
-      callbackCancelURLKey = v57;
+      localizedShortName = v59;
+      callbackCancelURLKey = v56;
     }
 
     if (callbackCancelURLKey)
     {
-      v37 = MEMORY[0x1E696AEC0];
+      v36 = MEMORY[0x1E696AEC0];
       callbackScheme4 = [(WFInterchangeManager *)self callbackScheme];
       scheme4 = [callbackScheme4 scheme];
       [requestCopy uniqueID];
-      v61 = v24;
-      v40 = v16;
-      v42 = v41 = localizedShortName;
-      uUIDString2 = [v42 UUIDString];
-      v44 = [v37 stringWithFormat:@"%@://%@/%@/%@", scheme4, @"x-callback-url", @"ic-cancel", uUIDString2];
+      v60 = v23;
+      v39 = v16;
+      v41 = v40 = localizedShortName;
+      uUIDString2 = [v41 UUIDString];
+      v43 = [v36 stringWithFormat:@"%@://%@/%@/%@", scheme4, @"x-callback-url", @"ic-cancel", uUIDString2];
 
-      localizedShortName = v41;
-      v16 = v40;
-      v24 = v61;
+      localizedShortName = v40;
+      v16 = v39;
+      v23 = v60;
 
-      callbackCancelURLKey = v57;
-      [v16 setObject:v44 forKey:v57];
+      callbackCancelURLKey = v56;
+      [v16 setObject:v43 forKey:v56];
 
-      callbackSuccessURLKey = v58;
+      callbackSuccessURLKey = v57;
     }
   }
 
@@ -276,33 +276,31 @@ LABEL_15:
 
   if (failureHandler && callbackErrorURLKey)
   {
-    v47 = MEMORY[0x1E696AEC0];
+    v46 = MEMORY[0x1E696AEC0];
     callbackScheme5 = [(WFInterchangeManager *)self callbackScheme];
     [callbackScheme5 scheme];
-    v49 = v62 = v24;
+    v48 = v61 = v23;
     [requestCopy uniqueID];
-    v59 = scheme2;
-    v50 = v16;
-    v52 = v51 = localizedShortName;
-    uUIDString3 = [v52 UUIDString];
-    v54 = [v47 stringWithFormat:@"%@://%@/%@/%@", v49, @"x-callback-url", @"ic-error", uUIDString3];
+    v58 = scheme2;
+    v49 = v16;
+    v51 = v50 = localizedShortName;
+    uUIDString3 = [v51 UUIDString];
+    v53 = [v46 stringWithFormat:@"%@://%@/%@/%@", v48, @"x-callback-url", @"ic-error", uUIDString3];
 
-    localizedShortName = v51;
-    v16 = v50;
-    scheme2 = v59;
+    localizedShortName = v50;
+    v16 = v49;
+    scheme2 = v58;
 
-    v24 = v62;
-    [v16 setObject:v54 forKey:callbackErrorURLKey];
+    v23 = v61;
+    [v16 setObject:v53 forKey:callbackErrorURLKey];
   }
 
-  v55 = [requestCopy URL];
-  v56 = [v55 URLByAddingValuesFromQueryDictionary:v16];
-  [requestCopy setGeneratedCallbackURL:v56];
+  v54 = [requestCopy URL];
+  v55 = [v54 URLByAddingValuesFromQueryDictionary:v16];
+  [requestCopy setGeneratedCallbackURL:v55];
 
   [(WFInterchangeManager *)self queueRequest:requestCopy];
 LABEL_16:
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)performRequest:(id)request
@@ -327,127 +325,126 @@ LABEL_16:
 
 void __56__WFInterchangeManager_performQueuedRequestIfApplicable__block_invoke(uint64_t a1)
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E6996CA8] sharedContext];
   if (![v2 applicationState])
   {
 
 LABEL_7:
-    v7 = [*(a1 + 40) generatedCallbackURL];
-    v8 = v7;
-    if (v7)
+    v6 = [*(a1 + 40) generatedCallbackURL];
+    v7 = v6;
+    if (v6)
     {
-      v9 = v7;
+      v8 = v6;
     }
 
     else
     {
-      v9 = [*(a1 + 40) URL];
+      v8 = [*(a1 + 40) URL];
     }
 
-    v10 = v9;
+    v9 = v8;
 
-    v11 = getWFInterchangeLogObject();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v10 = getWFInterchangeLogObject();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v46 = "[WFInterchangeManager performQueuedRequestIfApplicable]_block_invoke";
-      v47 = 2112;
-      v48 = v10;
-      _os_log_impl(&dword_1CA256000, v11, OS_LOG_TYPE_DEFAULT, "%s Performing request: %@", buf, 0x16u);
+      v44 = "[WFInterchangeManager performQueuedRequestIfApplicable]_block_invoke";
+      v45 = 2112;
+      v46 = v9;
+      _os_log_impl(&dword_1CA256000, v10, OS_LOG_TYPE_DEFAULT, "%s Performing request: %@", buf, 0x16u);
     }
 
-    v12 = [*(a1 + 40) deferCompletionUntilReturn];
-    v13 = [MEMORY[0x1E6996CA8] sharedContext];
-    v14 = [v13 canOpenURL:v10];
+    v11 = [*(a1 + 40) deferCompletionUntilReturn];
+    v12 = [MEMORY[0x1E6996CA8] sharedContext];
+    v13 = [v12 canOpenURL:v9];
 
-    if (v14)
+    if (v13)
     {
-      if (v12)
+      if (v11)
       {
-        v15 = +[WFInterchangeURLRequestRegistry sharedRegistry];
-        [v15 registerOutgoingRequest:*(a1 + 40)];
+        v14 = +[WFInterchangeURLRequestRegistry sharedRegistry];
+        [v14 registerOutgoingRequest:*(a1 + 40)];
       }
 
-      v16 = [*(a1 + 40) opener];
+      v15 = [*(a1 + 40) opener];
 
-      if (!v16)
+      if (!v15)
       {
         goto LABEL_27;
       }
 
       *(*(a1 + 32) + 10) = 0;
-      v17 = [*(a1 + 40) opener];
-      v18 = [*(a1 + 40) bundleIdentifier];
-      v38[0] = MEMORY[0x1E69E9820];
-      v38[1] = 3221225472;
-      v38[2] = __56__WFInterchangeManager_performQueuedRequestIfApplicable__block_invoke_213;
-      v38[3] = &unk_1E837CFA8;
-      v39 = *(a1 + 40);
-      v19 = v10;
-      v20 = *(a1 + 32);
-      v40 = v19;
-      v41 = v20;
-      v42 = v12;
-      (v17)[2](v17, v19, v18, v38);
+      v16 = [*(a1 + 40) opener];
+      v17 = [*(a1 + 40) bundleIdentifier];
+      v36[0] = MEMORY[0x1E69E9820];
+      v36[1] = 3221225472;
+      v36[2] = __56__WFInterchangeManager_performQueuedRequestIfApplicable__block_invoke_213;
+      v36[3] = &unk_1E837CFA8;
+      v37 = *(a1 + 40);
+      v18 = v9;
+      v19 = *(a1 + 32);
+      v38 = v18;
+      v39 = v19;
+      v40 = v11;
+      (v16)[2](v16, v18, v17, v36);
 
-      v21 = v39;
+      v20 = v37;
 LABEL_26:
 
 LABEL_27:
-      v37 = *MEMORY[0x1E69E9840];
       return;
     }
 
-    v22 = [*(a1 + 40) scheme];
-    v23 = [v22 app];
-    v24 = [v23 localizedName];
-    v25 = MEMORY[0x1E696AEC0];
-    if (v24)
+    v21 = [*(a1 + 40) scheme];
+    v22 = [v21 app];
+    v23 = [v22 localizedName];
+    v24 = MEMORY[0x1E696AEC0];
+    if (v23)
     {
-      v26 = WFLocalizedString(@"Shortcuts could not open %@ because it is not installed.");
-      v27 = [*(a1 + 40) scheme];
-      v28 = [v27 app];
-      v29 = [v28 localizedName];
-      v21 = [v25 stringWithFormat:v26, v29];
+      v25 = WFLocalizedString(@"Shortcuts could not open %@ because it is not installed.");
+      v26 = [*(a1 + 40) scheme];
+      v27 = [v26 app];
+      v28 = [v27 localizedName];
+      v20 = [v24 stringWithFormat:v25, v28];
     }
 
     else
     {
-      v26 = WFLocalizedString(@"Shortcuts could not open the app for the URL scheme “%@” because the app is not installed on this device.");
-      v27 = [*(a1 + 40) URL];
-      v28 = [v27 scheme];
-      v21 = [v25 stringWithFormat:v26, v28];
+      v25 = WFLocalizedString(@"Shortcuts could not open the app for the URL scheme “%@” because the app is not installed on this device.");
+      v26 = [*(a1 + 40) URL];
+      v27 = [v26 scheme];
+      v20 = [v24 stringWithFormat:v25, v27];
     }
 
-    v30 = MEMORY[0x1E696ABC0];
-    v43 = *MEMORY[0x1E696A578];
-    v44 = v21;
-    v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v44 forKeys:&v43 count:1];
-    v32 = [v30 errorWithDomain:@"InterchangeErrorDomain" code:1 userInfo:v31];
+    v29 = MEMORY[0x1E696ABC0];
+    v41 = *MEMORY[0x1E696A578];
+    v42 = v20;
+    v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
+    v31 = [v29 errorWithDomain:@"InterchangeErrorDomain" code:1 userInfo:v30];
 
-    v33 = [*(a1 + 40) failureHandler];
+    v32 = [*(a1 + 40) failureHandler];
 
-    v34 = *(a1 + 40);
-    if (v33)
+    v33 = *(a1 + 40);
+    if (v32)
     {
-      v35 = [v34 failureHandler];
-      (v35)[2](v35, v32);
+      v34 = [v33 failureHandler];
+      (v34)[2](v34, v31);
     }
 
     else
     {
-      v36 = [v34 successHandler];
+      v35 = [v33 successHandler];
 
-      if (!v36)
+      if (!v35)
       {
 LABEL_25:
 
         goto LABEL_26;
       }
 
-      v35 = [*(a1 + 40) successHandler];
-      (v35[2])(v35, 0, 0);
+      v34 = [*(a1 + 40) successHandler];
+      (v34[2])(v34, 0, 0);
     }
 
     goto LABEL_25;
@@ -462,14 +459,13 @@ LABEL_25:
 
   v4 = *(a1 + 32);
   v5 = *(a1 + 40);
-  v6 = *MEMORY[0x1E69E9840];
 
   [v4 queueRequest:v5];
 }
 
 void __56__WFInterchangeManager_performQueuedRequestIfApplicable__block_invoke_213(uint64_t a1, char a2, void *a3)
 {
-  v39[1] = *MEMORY[0x1E69E9840];
+  v38[1] = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (a2)
   {
@@ -501,73 +497,73 @@ LABEL_12:
     }
 
     v11 = [*(a1 + 40) scheme];
-    if (([v11 isEqualToString:@"tel"] & 1) != 0 || *(*(a1 + 48) + 10) == 1)
+    if ((objc_msgSend_isEqualToString_(v11) & 1) != 0 || *(*(a1 + 48) + 10) == 1)
     {
     }
 
     else
     {
-      v14 = [MEMORY[0x1E6996CA8] sharedContext];
-      v15 = [v14 currentUserInterfaceType];
-      v16 = [v15 isEqualToString:*MEMORY[0x1E6997178]];
+      v13 = [MEMORY[0x1E6996CA8] sharedContext];
+      v14 = [v13 currentUserInterfaceType];
+      isEqualToString = objc_msgSend_isEqualToString_(v14);
 
-      if (!v16)
+      if (!isEqualToString)
       {
         if ([*(a1 + 32) retries] < 6)
         {
-          v27 = dispatch_time(0, 100000000);
+          v26 = dispatch_time(0, 100000000);
           block[0] = MEMORY[0x1E69E9820];
           block[1] = 3221225472;
           block[2] = __56__WFInterchangeManager_performQueuedRequestIfApplicable__block_invoke_2;
           block[3] = &unk_1E837F870;
-          v28 = *(a1 + 32);
-          v29 = *(a1 + 48);
+          v27 = *(a1 + 32);
+          v28 = *(a1 + 48);
+          v35 = v27;
           v36 = v28;
-          v37 = v29;
-          dispatch_after(v27, MEMORY[0x1E69E96A0], block);
+          dispatch_after(v26, MEMORY[0x1E69E96A0], block);
         }
 
         else
         {
-          v17 = [*(a1 + 32) failureHandler];
+          v16 = [*(a1 + 32) failureHandler];
 
-          if (v17)
+          if (v16)
           {
-            v18 = [*(a1 + 32) scheme];
-            v19 = [v18 app];
-            v20 = [v19 localizedName];
-            v21 = MEMORY[0x1E696AEC0];
-            if (v20)
+            v17 = [*(a1 + 32) scheme];
+            v18 = [v17 app];
+            v19 = [v18 localizedName];
+            v20 = MEMORY[0x1E696AEC0];
+            if (v19)
             {
-              v22 = WFLocalizedString(@"Shortcuts could not open %@. It may not be installed on this device.");
-              v23 = [*(a1 + 32) scheme];
-              v24 = [v23 app];
-              v25 = [v24 localizedName];
-              v26 = [v21 localizedStringWithFormat:v22, v25];
+              v21 = WFLocalizedString(@"Shortcuts could not open %@. It may not be installed on this device.");
+              v22 = [*(a1 + 32) scheme];
+              v23 = [v22 app];
+              v24 = [v23 localizedName];
+              v25 = [v20 localizedStringWithFormat:v21, v24];
             }
 
             else
             {
-              v22 = WFLocalizedString(@"Shortcuts could not open the app for the URL scheme “%@”. The app may not be installed on this device.");
-              v23 = [*(a1 + 40) scheme];
-              v26 = [v21 localizedStringWithFormat:v22, v23];
+              v21 = WFLocalizedString(@"Shortcuts could not open the app for the URL scheme “%@”. The app may not be installed on this device.");
+              v22 = [*(a1 + 40) scheme];
+              v25 = [v20 localizedStringWithFormat:v21, v22];
             }
 
-            v30 = [*(a1 + 32) failureHandler];
-            v31 = v30;
+            v29 = [*(a1 + 32) failureHandler];
+            v30 = v29;
             if (v5)
             {
-              (*(v30 + 16))(v30, v5);
+              (*(v29 + 16))(v29, v5);
             }
 
             else
             {
-              v32 = MEMORY[0x1E696ABC0];
-              v38 = *MEMORY[0x1E696A578];
-              v39[0] = v26;
-              v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v39 forKeys:&v38 count:1];
-              v34 = [v32 errorWithDomain:@"InterchangeErrorDomain" code:3 userInfo:v33];
-              (v31)[2](v31, v34);
+              v31 = MEMORY[0x1E696ABC0];
+              v37 = *MEMORY[0x1E696A578];
+              v38[0] = v25;
+              v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v38 forKeys:&v37 count:1];
+              v33 = [v31 errorWithDomain:@"InterchangeErrorDomain" code:3 userInfo:v32];
+              (v30)[2](v30, v33);
             }
           }
         }
@@ -587,8 +583,6 @@ LABEL_12:
   }
 
 LABEL_13:
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __56__WFInterchangeManager_performQueuedRequestIfApplicable__block_invoke_2(uint64_t a1)
@@ -634,34 +628,8 @@ uint64_t __56__WFInterchangeManager_performQueuedRequestIfApplicable__block_invo
     currentDevice = [MEMORY[0x1E69E0A90] currentDevice];
     idiom = [currentDevice idiom];
 
-    if (idiom != 1)
+    if (idiom != 1 || ([MEMORY[0x1E6996CA8] sharedContext], v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "applicationOrNil"), v10 = objc_claimAutoreleasedReturnValue(), v9, !v10) || ((objc_msgSend(v10, "keyWindow"), v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v11, "frame"), v13 = v12, v15 = v14, v11, objc_msgSend(MEMORY[0x1E69E0A90], "currentDevice"), v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v16, "screenBounds"), v18 = v17, v20 = v19, v16, v10, contextCopy = v26, v13 == v18) ? (v21 = v15 == v20) : (v21 = 0), v21 || self->_enteringForeground))
     {
-      goto LABEL_13;
-    }
-
-    mEMORY[0x1E6996CA8] = [MEMORY[0x1E6996CA8] sharedContext];
-    applicationOrNil = [mEMORY[0x1E6996CA8] applicationOrNil];
-
-    if (!applicationOrNil)
-    {
-      goto LABEL_13;
-    }
-
-    keyWindow = [applicationOrNil keyWindow];
-    [keyWindow frame];
-    v13 = v12;
-    v15 = v14;
-
-    currentDevice2 = [MEMORY[0x1E69E0A90] currentDevice];
-    [currentDevice2 screenBounds];
-    v18 = v17;
-    v20 = v19;
-
-    contextCopy = v26;
-    v21 = v13 == v18 && v15 == v20;
-    if (v21 || self->_enteringForeground)
-    {
-LABEL_13:
       self->_enteringForeground = 0;
       v22 = +[WFInterchangeURLRequestRegistry sharedRegistry];
       popActiveRequest = [v22 popActiveRequest];
@@ -713,15 +681,15 @@ LABEL_13:
 
 - (BOOL)handleIncomingRequest:(id)request
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   v5 = getWFInterchangeLogObject();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v28 = "[WFInterchangeManager handleIncomingRequest:]";
-    v29 = 2112;
-    v30 = requestCopy;
+    v27 = "[WFInterchangeManager handleIncomingRequest:]";
+    v28 = 2112;
+    v29 = requestCopy;
     _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_DEBUG, "%s Handling incoming request: %@", buf, 0x16u);
   }
 
@@ -745,13 +713,13 @@ LABEL_13:
     }
 
     v14 = MEMORY[0x1E696ABC0];
-    v25 = *MEMORY[0x1E696A578];
+    v24 = *MEMORY[0x1E696A578];
     v15 = MEMORY[0x1E696AEC0];
     v16 = WFLocalizedString(@"This app does not support the %@ action.");
     action2 = [requestCopy action];
     v18 = [v15 stringWithFormat:v16, action2];
-    v26 = v18;
-    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
+    v25 = v18;
+    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
     v20 = [v14 errorWithDomain:@"InterchangeErrorDomain" code:2 userInfo:v19];
 
     failureHandler = [requestCopy failureHandler];
@@ -766,14 +734,13 @@ LABEL_13:
   v11 = 1;
 LABEL_12:
 
-  v23 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 - (BOOL)handleOpenURL:(id)l fromSourceApplication:(id)application errorHandler:(id)handler postNotification:(BOOL)notification
 {
   notificationCopy = notification;
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   lCopy = l;
   applicationCopy = application;
   handlerCopy = handler;
@@ -781,9 +748,9 @@ LABEL_12:
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v47 = "[WFInterchangeManager handleOpenURL:fromSourceApplication:errorHandler:postNotification:]";
-    v48 = 2112;
-    v49 = lCopy;
+    v46 = "[WFInterchangeManager handleOpenURL:fromSourceApplication:errorHandler:postNotification:]";
+    v47 = 2112;
+    v48 = lCopy;
     _os_log_impl(&dword_1CA256000, v11, OS_LOG_TYPE_INFO, "%s Handling opening URL: %@", buf, 0x16u);
   }
 
@@ -795,45 +762,45 @@ LABEL_12:
 
   if (handlerCopy | v16)
   {
-    v40[0] = MEMORY[0x1E69E9820];
-    v40[1] = 3221225472;
-    v40[2] = __90__WFInterchangeManager_handleOpenURL_fromSourceApplication_errorHandler_postNotification___block_invoke;
-    v40[3] = &unk_1E837CF40;
-    v41 = v16;
+    v39[0] = MEMORY[0x1E69E9820];
+    v39[1] = 3221225472;
+    v39[2] = __90__WFInterchangeManager_handleOpenURL_fromSourceApplication_errorHandler_postNotification___block_invoke;
+    v39[3] = &unk_1E837CF40;
+    v40 = v16;
     selfCopy = self;
-    v43 = handlerCopy;
-    [v12 setFailureHandler:v40];
+    v42 = handlerCopy;
+    [v12 setFailureHandler:v39];
   }
 
-  v35 = handlerCopy;
+  v34 = handlerCopy;
   v17 = [parameters objectForKey:@"x-cancel"];
   v18 = [parameters objectForKey:@"x-success"];
   if (v17 | v18)
   {
-    v37[0] = MEMORY[0x1E69E9820];
-    v37[1] = 3221225472;
-    v37[2] = __90__WFInterchangeManager_handleOpenURL_fromSourceApplication_errorHandler_postNotification___block_invoke_202;
-    v37[3] = &unk_1E837CF78;
-    v38 = v17;
-    v39 = v18;
-    [v12 setSuccessHandler:v37];
+    v36[0] = MEMORY[0x1E69E9820];
+    v36[1] = 3221225472;
+    v36[2] = __90__WFInterchangeManager_handleOpenURL_fromSourceApplication_errorHandler_postNotification___block_invoke_202;
+    v36[3] = &unk_1E837CF78;
+    v37 = v17;
+    v38 = v18;
+    [v12 setSuccessHandler:v36];
   }
 
   v19 = [(WFInterchangeManager *)self handleIncomingRequest:v12];
   v20 = v19;
   if (notificationCopy)
   {
-    v32 = v19;
+    v31 = v19;
     v21 = MEMORY[0x1E695DF90];
-    v44[0] = @"HandleURLNotificationURL";
-    v34 = lCopy;
+    v43[0] = @"HandleURLNotificationURL";
+    v33 = lCopy;
     [lCopy absoluteString];
     v23 = v22 = applicationCopy;
-    v45[0] = v23;
-    v44[1] = @"HandleURLNotificationProcessIdentifier";
+    v44[0] = v23;
+    v43[1] = @"HandleURLNotificationProcessIdentifier";
     v24 = [MEMORY[0x1E696AD98] numberWithInt:getpid()];
-    v45[1] = v24;
-    v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v45 forKeys:v44 count:2];
+    v44[1] = v24;
+    v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v44 forKeys:v43 count:2];
     v26 = [v21 dictionaryWithDictionary:v25];
 
     if (v22)
@@ -847,11 +814,10 @@ LABEL_12:
     [notificationCenter postNotificationName:@"WFInterchangeManagerHandleOpenURLNotification" object:v29 userInfo:v26 deliverImmediately:1];
 
     applicationCopy = v22;
-    lCopy = v34;
-    v20 = v32;
+    lCopy = v33;
+    v20 = v31;
   }
 
-  v30 = *MEMORY[0x1E69E9840];
   return v20;
 }
 
@@ -896,7 +862,7 @@ void __90__WFInterchangeManager_handleOpenURL_fromSourceApplication_errorHandler
 
 void __90__WFInterchangeManager_handleOpenURL_fromSourceApplication_errorHandler_postNotification___block_invoke_2_203(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) isFileURL])
   {
     v2 = getWFInterchangeLogObject();
@@ -904,9 +870,9 @@ void __90__WFInterchangeManager_handleOpenURL_fromSourceApplication_errorHandler
     {
       v3 = *(a1 + 32);
       *buf = 136315394;
-      v10 = "[WFInterchangeManager handleOpenURL:fromSourceApplication:errorHandler:postNotification:]_block_invoke_2";
-      v11 = 2112;
-      v12 = v3;
+      v8 = "[WFInterchangeManager handleOpenURL:fromSourceApplication:errorHandler:postNotification:]_block_invoke_2";
+      v9 = 2112;
+      v10 = v3;
       v4 = "%s Not opening file-based URL in response to success/cancellation: %@";
 LABEL_10:
       _os_log_impl(&dword_1CA256000, v2, OS_LOG_TYPE_ERROR, v4, buf, 0x16u);
@@ -921,88 +887,81 @@ LABEL_10:
     v2 = getWFInterchangeLogObject();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      v6 = *(a1 + 32);
+      v5 = *(a1 + 32);
       *buf = 136315394;
-      v10 = "[WFInterchangeManager handleOpenURL:fromSourceApplication:errorHandler:postNotification:]_block_invoke";
-      v11 = 2112;
-      v12 = v6;
+      v8 = "[WFInterchangeManager handleOpenURL:fromSourceApplication:errorHandler:postNotification:]_block_invoke";
+      v9 = 2112;
+      v10 = v5;
       v4 = "%s URL cannot be used as success/cancellation handler: %@";
       goto LABEL_10;
     }
 
 LABEL_11:
 
-    v7 = *MEMORY[0x1E69E9840];
     return;
   }
 
-  v8 = [MEMORY[0x1E6996CA8] sharedContext];
-  [v8 openURL:*(a1 + 32)];
-  v5 = *MEMORY[0x1E69E9840];
+  v6 = [MEMORY[0x1E6996CA8] sharedContext];
+  [v6 openURL:*(a1 + 32)];
 }
 
 void __90__WFInterchangeManager_handleOpenURL_fromSourceApplication_errorHandler_postNotification___block_invoke_2(uint64_t a1)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   if (v2 && ([v2 isFileURL] & 1) == 0)
   {
     v3 = [MEMORY[0x1E6996CA8] sharedContext];
     if ([v3 canOpenURL:*(a1 + 32)])
     {
-      v4 = *(a1 + 32);
       if ((WFURLIsWebPage() & 1) == 0)
       {
 
+        goto LABEL_13;
+      }
+
+      v4 = WFURLIsUniversalLink();
+
+      if (v4)
+      {
 LABEL_13:
         if ([*(a1 + 32) wf_isAllowedInXCallback])
         {
-          v23 = [*(a1 + 40) interchangeErrorDictionary];
-          v11 = [*(a1 + 32) URLByAddingValuesFromQueryDictionary:?];
-          v12 = [v11 scheme];
-          v13 = [*(a1 + 48) callbackScheme];
-          v14 = [v13 scheme];
-          v15 = [v12 isEqualToString:v14];
+          v17 = [*(a1 + 40) interchangeErrorDictionary];
+          v7 = [*(a1 + 32) URLByAddingValuesFromQueryDictionary:?];
+          v8 = [v7 scheme];
+          v9 = [*(a1 + 48) callbackScheme];
+          v10 = [v9 scheme];
+          isEqualToString = objc_msgSend_isEqualToString_(v8);
 
-          if (v15)
+          if (isEqualToString)
           {
-            v16 = *(a1 + 48);
-            v17 = [MEMORY[0x1E6996CA8] sharedContext];
-            v18 = [v17 bundle];
-            v19 = [v18 bundleIdentifier];
-            [v16 handleOpenURL:v11 fromSourceApplication:v19 errorHandler:*(a1 + 56)];
+            v12 = *(a1 + 48);
+            v13 = [MEMORY[0x1E6996CA8] sharedContext];
+            v14 = [v13 bundle];
+            v15 = [v14 bundleIdentifier];
+            [v12 handleOpenURL:v7 fromSourceApplication:v15 errorHandler:*(a1 + 56)];
           }
 
           else
           {
-            v17 = [MEMORY[0x1E6996CA8] sharedContext];
-            [v17 openURL:v11];
+            v13 = [MEMORY[0x1E6996CA8] sharedContext];
+            [v13 openURL:v7];
           }
-
-          v22 = *MEMORY[0x1E69E9840];
-
-          return;
         }
 
-        v20 = getWFInterchangeLogObject();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+        else
         {
-          *buf = 136315138;
-          v25 = "[WFInterchangeManager handleOpenURL:fromSourceApplication:errorHandler:postNotification:]_block_invoke_2";
-          _os_log_impl(&dword_1CA256000, v20, OS_LOG_TYPE_ERROR, "%s URL cannot be used as failure handler, bailing out.", buf, 0xCu);
+          v16 = getWFInterchangeLogObject();
+          if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+          {
+            *buf = 136315138;
+            v19 = "[WFInterchangeManager handleOpenURL:fromSourceApplication:errorHandler:postNotification:]_block_invoke_2";
+            _os_log_impl(&dword_1CA256000, v16, OS_LOG_TYPE_ERROR, "%s URL cannot be used as failure handler, bailing out.", buf, 0xCu);
+          }
         }
 
-LABEL_19:
-        v21 = *MEMORY[0x1E69E9840];
         return;
-      }
-
-      v5 = *(a1 + 32);
-      v6 = WFURLIsUniversalLink();
-
-      if (v6)
-      {
-        goto LABEL_13;
       }
     }
 
@@ -1011,17 +970,13 @@ LABEL_19:
     }
   }
 
-  v7 = *(a1 + 56);
-  if (!v7)
+  v5 = *(a1 + 56);
+  if (v5)
   {
-    goto LABEL_19;
+    v6 = *(v5 + 16);
+
+    v6();
   }
-
-  v8 = *(a1 + 40);
-  v9 = *(v7 + 16);
-  v10 = *MEMORY[0x1E69E9840];
-
-  v9();
 }
 
 - (void)handleOpenURLRequestNotification:(id)notification

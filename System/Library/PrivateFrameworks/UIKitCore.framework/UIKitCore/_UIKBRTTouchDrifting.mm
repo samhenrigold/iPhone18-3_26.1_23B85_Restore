@@ -1393,7 +1393,7 @@ LABEL_21:
 - (void)_updateDriftView
 {
   v141 = *MEMORY[0x1E69E9840];
-  if ((_UIInternalPreferenceUsesDefault(&_UIInternalPreference__UIKBRT_DriftFeedback, @"_UIKBRT_DriftFeedback", _UIInternalPreferenceUpdateBool) & 1) == 0 && byte_1EA95E55C && self->_supportsDrifting)
+  if (!_UIInternalPreferenceUsesDefault(&_UIInternalPreference__UIKBRT_DriftFeedback, @"_UIKBRT_DriftFeedback", _UIInternalPreferenceUpdateBool) && byte_1EA95E55C && self->_supportsDrifting)
   {
     WeakRetained = objc_loadWeakRetained(&self->_feedbackParentView);
     if (!WeakRetained)

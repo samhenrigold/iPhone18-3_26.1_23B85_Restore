@@ -99,7 +99,6 @@ LABEL_4:
     }
 
 LABEL_6:
-    error = self->_error;
     PBDataWriterWriteInt32Field();
     if ((*&self->_has & 1) == 0)
     {
@@ -109,7 +108,6 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  timestamp = self->_timestamp;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 4) != 0)
@@ -124,7 +122,6 @@ LABEL_3:
   }
 
 LABEL_7:
-  timeIntervalSinceRequest = self->_timeIntervalSinceRequest;
 
   PBDataWriterWriteUint64Field();
 }

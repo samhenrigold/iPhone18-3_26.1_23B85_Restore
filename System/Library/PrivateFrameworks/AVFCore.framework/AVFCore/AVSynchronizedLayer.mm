@@ -34,9 +34,9 @@
 
 - (AVSynchronizedLayer)init
 {
-  v6.receiver = self;
-  v6.super_class = AVSynchronizedLayer;
-  v2 = [(AVSynchronizedLayer *)&v6 init];
+  v7.receiver = self;
+  v7.super_class = AVSynchronizedLayer;
+  v2 = [(AVSynchronizedLayer *)&v7 init];
   if (v2)
   {
     v3 = objc_alloc_init(AVSynchronizedLayerInternal);
@@ -46,7 +46,7 @@
       CFRetain(v3);
       v4 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
       v2->_syncLayer->serialQueue = dispatch_queue_create("AVSynchronizedLayerQueue", v4);
-      v2->_syncLayer->ivarAccessQueue = av_readwrite_dispatch_queue_create("com.apple.avsynchronizedlayer.ivars");
+      v2->_syncLayer->ivarAccessQueue = av_readwrite_dispatch_queue_create("com.apple.avsynchronizedlayer.ivars", v5);
       v2->_syncLayer->oldPlayerItems = [MEMORY[0x1E695DFA8] set];
     }
 

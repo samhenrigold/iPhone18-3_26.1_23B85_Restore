@@ -140,111 +140,111 @@
   dispatch_async(routingQueue, block);
 }
 
-void __42__HUICCBackgroundSoundsButton_updateValue__block_invoke(uint64_t a1)
+void __42__HUICCBackgroundSoundsButton_updateValue__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v43[1] = *MEMORY[0x277D85DE8];
-  v2 = hearingLocString();
-  v3 = [MEMORY[0x277D12E38] sharedUtilities];
-  v4 = [v3 backgroundSoundsRouteDecision];
+  v44[1] = *MEMORY[0x277D85DE8];
+  v3 = hearingLocString();
+  v4 = [MEMORY[0x277D12E38] sharedUtilities];
+  v5 = [v4 backgroundSoundsRouteDecision];
 
-  v5 = [MEMORY[0x277D12E18] sharedInstance];
-  v6 = [v5 comfortSoundsEnabled];
+  v6 = [MEMORY[0x277D12E18] sharedInstance];
+  v7 = [v6 comfortSoundsEnabled];
 
-  if (v6)
+  if (v7)
   {
-    v7 = [MEMORY[0x277D12E18] sharedInstance];
-    v8 = [v7 selectedComfortSound];
-    v9 = [v8 localizedName];
+    v8 = [MEMORY[0x277D12E18] sharedInstance];
+    v9 = [v8 selectedComfortSound];
+    v10 = [v9 localizedName];
 
-    v10 = [MEMORY[0x277D12E18] sharedInstance];
-    LODWORD(v8) = [v10 timerEnabled];
+    v11 = [MEMORY[0x277D12E18] sharedInstance];
+    LODWORD(v9) = [v11 timerEnabled];
 
-    if (v8)
+    if (v9)
     {
-      v11 = [MEMORY[0x277D12E18] sharedInstance];
-      [v11 activeTimerEndTimeStamp];
-      v13 = v12;
+      v12 = [MEMORY[0x277D12E18] sharedInstance];
+      [v12 activeTimerEndTimeStamp];
+      v14 = v13;
       [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
-      v15 = v13 - v14;
+      v16 = v14 - v15;
 
-      if (v15 <= 0.0)
+      if (v16 <= 0.0)
       {
-        v30 = 0;
+        v31 = 0;
       }
 
       else
       {
-        v16 = MEMORY[0x277CCACA8];
-        v17 = comfortSoundsLocString();
-        v18 = comfortSoundsCountdownString();
-        v19 = [v16 stringWithFormat:v17, v9, v18];
+        v17 = MEMORY[0x277CCACA8];
+        v18 = comfortSoundsLocString();
+        v19 = comfortSoundsCountdownString();
+        v20 = [v17 stringWithFormat:v18, v10, v19];
 
-        v20 = comfortSoundsCountdownString();
-        v21 = [v19 rangeOfString:v20];
-        v23 = v22;
+        v21 = comfortSoundsCountdownString();
+        v22 = [v20 rangeOfString:v21];
+        v24 = v23;
 
-        v24 = [*(a1 + 32) _subtitleAttributes];
-        v25 = *MEMORY[0x277D740A8];
-        v26 = [v24 valueForKey:*MEMORY[0x277D740A8]];
-        v27 = [v26 fontDescriptor];
-        [v27 pointSize];
-        v29 = v28;
+        v25 = [*(a1 + 32) _subtitleAttributes];
+        v26 = *MEMORY[0x277D740A8];
+        v27 = [v25 valueForKey:*MEMORY[0x277D740A8]];
+        v28 = [v27 fontDescriptor];
+        [v28 pointSize];
+        v30 = v29;
 
-        v30 = [objc_alloc(MEMORY[0x277CCAB48]) initWithString:v19 attributes:v24];
-        v42 = v25;
-        v31 = [MEMORY[0x277D74300] monospacedDigitSystemFontOfSize:v29 weight:*MEMORY[0x277D74418]];
-        v43[0] = v31;
-        v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:&v42 count:1];
-        [v30 setAttributes:v32 range:{v21, v23}];
+        v31 = [objc_alloc(MEMORY[0x277CCAB48]) initWithString:v20 attributes:v25];
+        v43 = v26;
+        v32 = [MEMORY[0x277D74300] monospacedDigitSystemFontOfSize:v30 weight:*MEMORY[0x277D74418]];
+        v44[0] = v32;
+        v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:&v43 count:1];
+        [v31 setAttributes:v33 range:{v22, v24}];
 
-        v9 = v19;
+        v10 = v20;
       }
 
-      v34 = [*(a1 + 32) countdownTimer];
-      v41[0] = MEMORY[0x277D85DD0];
-      v41[1] = 3221225472;
-      v41[2] = __42__HUICCBackgroundSoundsButton_updateValue__block_invoke_2;
-      v41[3] = &unk_2796F6D90;
-      v41[4] = *(a1 + 32);
-      [v34 afterDelay:v41 processBlock:1.0];
+      v35 = [*(a1 + 32) countdownTimer];
+      v42[0] = MEMORY[0x277D85DD0];
+      v42[1] = 3221225472;
+      v42[2] = __42__HUICCBackgroundSoundsButton_updateValue__block_invoke_2;
+      v42[3] = &unk_2796F6D90;
+      v42[4] = *(a1 + 32);
+      [v35 afterDelay:v42 processBlock:1.0];
     }
 
     else
     {
-      v30 = 0;
+      v31 = 0;
     }
 
-    v33 = 0;
-    if (!v30 && v9)
+    v34 = 0;
+    if (!v31 && v10)
     {
-      v30 = [objc_alloc(MEMORY[0x277CCAB48]) initWithString:v9];
-      v33 = 0;
+      v31 = [objc_alloc(MEMORY[0x277CCAB48]) initWithString:v10];
+      v34 = 0;
     }
   }
 
   else
   {
-    if (v4 == 3 || v4 == 2)
+    if (v5 == 3 || v5 == 2)
     {
-      v33 = hearingLocString();
-      v9 = 0;
+      v34 = hearingLocString();
+      v10 = 0;
     }
 
     else
     {
-      v9 = 0;
-      v33 = 0;
+      v10 = 0;
+      v34 = 0;
     }
 
-    v30 = 0;
+    v31 = 0;
   }
 
-  v38 = v2;
-  v39 = v30;
-  v40 = v33;
-  v35 = v33;
-  v36 = v30;
-  v37 = v2;
+  v39 = v3;
+  v40 = v31;
+  v41 = v34;
+  v36 = v34;
+  v37 = v31;
+  v38 = v3;
   AXPerformBlockOnMainThread();
 }
 

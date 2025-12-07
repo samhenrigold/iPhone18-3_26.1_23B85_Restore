@@ -33,7 +33,7 @@
   if (observer)
   {
     objc_sync_enter(self);
-    std::__tree<objc_object  {objcproto19TSWPStorageObserver}*>::__emplace_unique_key_args<objc_object  {objcproto19TSWPStorageObserver},objc_object  {objcproto19TSWPStorageObserver} const&>(&self->_observers, &observerCopy);
+    std::__tree<objc_object  {objcproto19TSWPStorageObserver}*>::__emplace_unique_key_args<objc_object  {objcproto19TSWPStorageObserver},objc_object  {objcproto19TSWPStorageObserver} const&>(&self->_observers, &observerCopy, &observerCopy);
     objc_sync_exit(self);
   }
 }

@@ -231,31 +231,32 @@ LABEL_13:
   LODWORD(self->_insightReportContext.compilerStatStart.totalSyncCompileTimeMesh) = 0;
   *&self->_layerState.logicalPresentTimeRecord.valuesMinSinceBeginning = 0u;
   *&self->_nextDrawableCout = 0u;
-  [(HUDMTLLayerTracking *)self _updateInfrequentFields];
+  _updateInfrequentFields = [(HUDMTLLayerTracking *)self _updateInfrequentFields];
   screenFPS = self->_layerState.screenFPS;
-  if (*(HUDGetGlobalConfig() + 33))
+  v6 = HUDGetGlobalConfig(_updateInfrequentFields, v5);
+  if (*(v6 + 33))
   {
-    v4 = *(HUDGetGlobalConfig() + 33);
-    if (screenFPS <= v4)
+    v8 = *(HUDGetGlobalConfig(v6, v7) + 33);
+    if (screenFPS <= v8)
     {
-      screenFPS = v4;
+      screenFPS = v8;
     }
   }
 
   if (screenFPS)
   {
-    v5 = screenFPS;
+    v9 = screenFPS;
   }
 
   else
   {
-    v5 = 60;
+    v9 = 60;
   }
 
-  v6 = 0x3B9ACA00uLL / v5;
-  HUDValueHistoryRecordInit(&self->_layerState.presentTimeRecord, 0.0, 1000000000.0, v6);
-  HUDValueHistoryRecordInit(&self->_layerState.logicalFPSRecord.totalNumValues, 0.0, 1000000000.0, v6);
-  HUDValueHistoryRecordInit(&self->_layerState.presentTimeRecord.valuesMaxSinceBeginning, 0.0, 1000000000.0, (2 * v6));
+  v10 = 0x3B9ACA00uLL / v9;
+  HUDValueHistoryRecordInit(&self->_layerState.presentTimeRecord, 0.0, 1000000000.0, v10);
+  HUDValueHistoryRecordInit(&self->_layerState.logicalFPSRecord.totalNumValues, 0.0, 1000000000.0, v10);
+  HUDValueHistoryRecordInit(&self->_layerState.presentTimeRecord.valuesMaxSinceBeginning, 0.0, 1000000000.0, (2 * v10));
   HUDValueHistoryRecordInit(&self->_layerState.presentToOnGlassRecord.valuesMinSinceBeginning, 0.0, 1000.0, 15.0);
   HUDValueHistoryRecordInit(&self->_layerState.fpsRecord.averageSinceBeginning, 0.0, 1000.0, 15.0);
   [(HUDMTLLayerTracking *)self _bridgeMetrics];
@@ -271,13 +272,13 @@ LABEL_13:
   *&self->_safeAreaUpdateCounter = 0;
   for (i = 745; i != 748; ++i)
   {
-    v8 = *(&self->super.isa + i);
+    v12 = *(&self->super.isa + i);
     *(&self->super.isa + i) = 0;
   }
 
   BYTE5(self->_layerState.logicalPresentTimeRecord.averageSinceBeginning) = 0;
-  v9 = +[NSNotificationCenter defaultCenter];
-  [v9 addObserver:self selector:"appWillEnterForeground:" name:@"UIApplicationWillEnterForegroundNotification" object:0];
+  v13 = +[NSNotificationCenter defaultCenter];
+  [v13 addObserver:self selector:"appWillEnterForeground:" name:@"UIApplicationWillEnterForegroundNotification" object:0];
 }
 
 - (void)dealloc
@@ -535,7 +536,8 @@ LABEL_24:
   self->_layerState.lastDeltaNs = prevSnapshotTime;
   [drawableCopy presentedTime];
   state->presentedTime = (v8 * 1000000000.0);
-  state->drawableID = [drawableCopy drawableID];
+  drawableID = [drawableCopy drawableID];
+  state->drawableID = drawableID;
   state->missed = 0;
   if (state->presentedTime)
   {
@@ -543,8 +545,8 @@ LABEL_24:
     heartbeatRate = self->_layerState.heartbeatRate;
     if (heartbeatRate != 0.0)
     {
-      LODWORD(v9) = self->_layerState.screenFPS;
-      if (heartbeatRate != v9 && *(HUDGetGlobalConfig() + 25) == 1)
+      LODWORD(v11) = self->_layerState.screenFPS;
+      if (heartbeatRate != v11 && *(HUDGetGlobalConfig(drawableID, v10) + 25) == 1)
       {
         state->presentedTime = (self->_layerState.heartbeatRate * round(state->presentedTime / self->_layerState.heartbeatRate));
       }
@@ -560,10 +562,10 @@ LABEL_24:
 
     else
     {
-      v11 = HUDCurrentTimeInNs();
-      v12 = _snapshotDrawable_state__everHadPresentedTime;
-      state->presentedTime = v11;
-      if (v12 != 1)
+      v13 = HUDCurrentTimeInNs();
+      v14 = _snapshotDrawable_state__everHadPresentedTime;
+      state->presentedTime = v13;
+      if (v14 != 1)
       {
         goto LABEL_12;
       }
@@ -574,44 +576,44 @@ LABEL_24:
   }
 
 LABEL_12:
-  v13 = HUDCurrentTimeInNs();
+  v15 = HUDCurrentTimeInNs();
   prevPresentedTime = self->_layerState.prevPresentedTime;
   state->prevPresentedTime = prevPresentedTime;
-  state->presentedCallbackTime = v13;
+  state->presentedCallbackTime = v15;
   if (state->missed)
   {
-    v15 = 0;
+    v17 = 0;
   }
 
   else
   {
     presentedTime = state->presentedTime;
-    v33 = presentedTime >= prevPresentedTime;
-    v15 = presentedTime - prevPresentedTime;
-    v17 = v15 != 0 && v33;
-    if (!v33)
+    v35 = presentedTime >= prevPresentedTime;
+    v17 = presentedTime - prevPresentedTime;
+    v19 = v17 != 0 && v35;
+    if (!v35)
     {
-      v15 = 0;
+      v17 = 0;
     }
 
-    if (!v17)
+    if (!v19)
     {
-      v15 = 0;
+      v17 = 0;
     }
   }
 
-  state->presentedDeltaTime = v15;
+  state->presentedDeltaTime = v17;
   layer = [drawableCopy layer];
   [layer contentsScale];
-  *&v19 = v19;
-  state->layerContentsScale = *&v19;
+  *&v21 = v21;
+  state->layerContentsScale = *&v21;
 
   texture = [drawableCopy texture];
   width = [texture width];
   layer2 = [drawableCopy layer];
   [layer2 bounds];
-  v24 = width / v23;
-  state->contentsScale = v24;
+  v26 = width / v25;
+  state->contentsScale = v26;
 
   texture2 = [drawableCopy texture];
   state->drawableWidth = [texture2 width];
@@ -633,13 +635,13 @@ LABEL_12:
     state->detachCodeWhenPresented = IOSurfaceGetDetachModeCode();
 
     detachCodeWhenPresented = state->detachCodeWhenPresented;
-    v29 = WORD2(detachCodeWhenPresented);
+    v31 = WORD2(detachCodeWhenPresented);
     if (WORD2(detachCodeWhenPresented) == 0xFFFF)
     {
-      v29 = WORD2(self->_layerState.prevDetachCodeWhenPresented);
+      v31 = WORD2(self->_layerState.prevDetachCodeWhenPresented);
     }
 
-    self->_layerState.lastDrawableDetached = (LODWORD(state->detachCodeWhenPresentScheduled) | v29) == 0;
+    self->_layerState.lastDrawableDetached = (LODWORD(state->detachCodeWhenPresentScheduled) | v31) == 0;
   }
 
   self->_layerState.prevDetachCodeWhenPresented = detachCodeWhenPresented;
@@ -652,40 +654,40 @@ LABEL_12:
       HUDValueHistoryRecordAddValue(&self->_layerState.presentToOnGlassRecord.valuesMinSinceBeginning, round(1000000000.0 / state->presentedDeltaTime));
       if (state->isLogicalFrame)
       {
-        v31 = state->presentedTime;
+        v33 = state->presentedTime;
         prevLogicalPresentedTime = self->_layerState.prevLogicalPresentedTime;
-        v33 = v31 >= prevLogicalPresentedTime;
-        v34 = v31 - prevLogicalPresentedTime;
-        if (v34 != 0 && v33)
+        v35 = v33 >= prevLogicalPresentedTime;
+        v36 = v33 - prevLogicalPresentedTime;
+        if (v36 != 0 && v35)
         {
-          if (v33)
+          if (v35)
           {
-            v35 = v34;
+            v37 = v36;
           }
 
           else
           {
-            v35 = 0;
+            v37 = 0;
           }
 
-          v36 = v35;
-          HUDValueHistoryRecordAddValue(&self->_layerState.presentToOnGlassRecord.valuesMinSinceBeginning, round(1000000000.0 / v35));
-          HUDValueHistoryRecordAddValue(&self->_layerState.logicalFPSRecord.totalNumValues, v36);
-          v31 = state->presentedTime;
+          v38 = v37;
+          HUDValueHistoryRecordAddValue(&self->_layerState.presentToOnGlassRecord.valuesMinSinceBeginning, round(1000000000.0 / v37));
+          HUDValueHistoryRecordAddValue(&self->_layerState.logicalFPSRecord.totalNumValues, v38);
+          v33 = state->presentedTime;
         }
 
-        self->_layerState.prevLogicalPresentedTime = v31;
+        self->_layerState.prevLogicalPresentedTime = v33;
       }
     }
   }
 
-  v37 = state->presentedTime;
+  v39 = state->presentedTime;
   presentDrawableTime = state->presentDrawableTime;
-  v17 = v37 > presentDrawableTime;
-  v39 = v37 - presentDrawableTime;
-  if (v17 && v39 <= 0xBEBC1FF)
+  v19 = v39 > presentDrawableTime;
+  v41 = v39 - presentDrawableTime;
+  if (v19 && v41 <= 0xBEBC1FF)
   {
-    HUDValueHistoryRecordAddValue(&self->_layerState.presentTimeRecord.valuesMaxSinceBeginning, v39);
+    HUDValueHistoryRecordAddValue(&self->_layerState.presentTimeRecord.valuesMaxSinceBeginning, v41);
   }
 
   os_unfair_lock_unlock(&self->_layerState.logicalPresentTimeRecord.totalNumValues);
@@ -703,28 +705,28 @@ LABEL_12:
       [currentDisplay refreshRate];
       if (v5 > 0.0)
       {
+        v44 = 0u;
+        v45 = 0u;
         v42 = 0u;
         v43 = 0u;
-        v40 = 0u;
-        v41 = 0u;
         availableModes = [currentDisplay availableModes];
-        v7 = [availableModes countByEnumeratingWithState:&v40 objects:v44 count:16];
+        v7 = [availableModes countByEnumeratingWithState:&v42 objects:v46 count:16];
         if (v7)
         {
           v8 = v7;
           v9 = 0;
-          v10 = *v41;
+          v10 = *v43;
           v11 = 1000;
           do
           {
             for (i = 0; i != v8; i = i + 1)
             {
-              if (*v41 != v10)
+              if (*v43 != v10)
               {
                 objc_enumerationMutation(availableModes);
               }
 
-              v13 = *(*(&v40 + 1) + 8 * i);
+              v13 = *(*(&v42 + 1) + 8 * i);
               [v13 refreshRate];
               *&v14 = v14;
               v15 = vcvtas_u32_f32(*&v14);
@@ -742,7 +744,7 @@ LABEL_12:
               }
             }
 
-            v8 = [availableModes countByEnumeratingWithState:&v40 objects:v44 count:16];
+            v8 = [availableModes countByEnumeratingWithState:&v42 objects:v46 count:16];
           }
 
           while (v8);
@@ -755,9 +757,9 @@ LABEL_12:
         }
 
         [currentDisplay refreshRate];
-        self->_layerState.screenFPS = (1.0 / v36);
+        self->_layerState.screenFPS = (1.0 / v38);
         [currentDisplay heartbeatRate];
-        self->_layerState.heartbeatRate = v37;
+        self->_layerState.heartbeatRate = v39;
         if (v9)
         {
           self->_layerState.screenMinRefreshRate = v11;
@@ -767,9 +769,9 @@ LABEL_12:
         else
         {
           [currentDisplay refreshRate];
-          self->_layerState.screenMinRefreshRate = v38;
+          self->_layerState.screenMinRefreshRate = v40;
           [currentDisplay refreshRate];
-          self->_layerState.screenMaxRefreshRate = v39;
+          self->_layerState.screenMaxRefreshRate = v41;
         }
 
         goto LABEL_19;
@@ -807,146 +809,148 @@ LABEL_19:
     self->_layerState.wantsExtendedDynamicRangeContent = [v24 wantsExtendedDynamicRangeContent];
   }
 
-  if ([(HUDMTLLayerTracking *)self isMainLayer])
+  isMainLayer = [(HUDMTLLayerTracking *)self isMainLayer];
+  if (isMainLayer)
   {
-    v25 = HUDGetGlobalConfig();
-    if ((v25[11] & 1) == 0)
+    v27 = HUDGetGlobalConfig(isMainLayer, v26);
+    if ((v27[11] & 1) == 0)
     {
       drawableWidth = self->_lastDrawableState.drawableWidth;
       if (drawableWidth)
       {
-        v27 = *(v25 + 11);
-        v28 = *(v25 + 28);
-        if ((v27 * drawableWidth) < v28)
+        v29 = *(v27 + 11);
+        v30 = *(v27 + 28);
+        if ((v29 * drawableWidth) < v30)
         {
-          if (v27 < (v28 / drawableWidth))
+          if (v29 < (v30 / drawableWidth))
           {
-            v27 = v28 / drawableWidth;
+            v29 = v30 / drawableWidth;
           }
 
-          *(v25 + 11) = v27;
+          *(v27 + 11) = v29;
         }
       }
     }
 
-    v29 = +[_CADeveloperHUDProperties instance];
+    v31 = +[_CADeveloperHUDProperties instance];
     screenFPS = self->_layerState.screenFPS;
-    v31 = [v29 getMetric:@"com.apple.hud-stat.screen-fps"];
-    [v31 setIntValue:screenFPS];
+    v33 = [v31 getMetric:@"com.apple.hud-stat.screen-fps"];
+    [v33 setIntValue:screenFPS];
 
     screenMinRefreshRate = self->_layerState.screenMinRefreshRate;
-    v33 = [v29 getMetric:@"com.apple.hud-stat.screen-refresh-rate-low"];
-    [v33 setIntValue:screenMinRefreshRate];
+    v35 = [v31 getMetric:@"com.apple.hud-stat.screen-refresh-rate-low"];
+    [v35 setIntValue:screenMinRefreshRate];
 
     screenMaxRefreshRate = self->_layerState.screenMaxRefreshRate;
-    v35 = [v29 getMetric:@"com.apple.hud-stat.screen-refresh-rate-high"];
-    [v35 setIntValue:screenMaxRefreshRate];
+    v37 = [v31 getMetric:@"com.apple.hud-stat.screen-refresh-rate-high"];
+    [v37 setIntValue:screenMaxRefreshRate];
   }
 }
 
 - (BOOL)_presentOrSignalDrawable:(id)drawable
 {
   drawableCopy = drawable;
-  v5 = HUDGetGlobalConfig();
-  objc_initWeak(&location, self);
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x9010000000;
-  v36 = 0u;
-  v37 = 0u;
-  v31 = 0u;
-  v32 = 0u;
-  v33 = 0u;
-  v34 = 0u;
-  v35 = 0u;
-  BYTE8(v37) = self->_layerState.lastDrawableDetached;
+  v6 = HUDGetGlobalConfig(drawableCopy, v5);
+  inited = objc_initWeak(&location, self);
+  v35 = 0;
+  v36 = &v35;
+  v37 = 0x9010000000;
+  v44 = 0u;
+  v45 = 0u;
+  v39 = 0u;
+  v40 = 0u;
+  v41 = 0u;
+  v42 = 0u;
+  v43 = 0u;
+  BYTE8(v45) = self->_layerState.lastDrawableDetached;
   frameNumber = self->_layerState.frameNumber;
-  v30 = &unk_5D621;
-  *(&v31 + 1) = frameNumber;
-  GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance();
+  v38 = &unk_5D621;
+  *(&v39 + 1) = frameNumber;
+  GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance(inited, v9);
   CurrentFrame = HUDGPUTimeTrackerGetCurrentFrame(GlobalInstance);
-  v9 = v28;
-  v28[6] = CurrentFrame;
-  v9[12] = self->_layerState.lastDeltaNs;
-  v10 = HUDCurrentTimeInNs();
-  v11 = v28;
-  v28[15] = v10;
-  *(v11 + 138) = 1;
+  v12 = v36;
+  v36[6] = CurrentFrame;
+  v12[12] = self->_layerState.lastDeltaNs;
+  v13 = HUDCurrentTimeInNs();
+  v14 = v36;
+  v36[15] = v13;
+  *(v14 + 138) = 1;
   if (self->_layerState.isMainLayer)
   {
-    v12 = *&self->_CAMetalLayerHasCurrentDisplay;
-    v14 = v12 == 0x7FFFFFFF || v12 == 1;
-    *(v11 + 138) = v14;
+    v15 = *&self->_CAMetalLayerHasCurrentDisplay;
+    v17 = v15 == 0x7FFFFFFF || v15 == 1;
+    *(v14 + 138) = v17;
   }
 
-  v25[0] = _NSConcreteStackBlock;
-  v25[1] = 3221225472;
-  v25[2] = __48__HUDMTLLayerTracking__presentOrSignalDrawable___block_invoke;
-  v25[3] = &unk_69E48;
-  objc_copyWeak(&v26, &location);
-  v25[4] = &v27;
-  [drawableCopy addPresentScheduledHandler:v25];
-  v23[0] = _NSConcreteStackBlock;
-  v23[1] = 3221225472;
-  v23[2] = __48__HUDMTLLayerTracking__presentOrSignalDrawable___block_invoke_2;
-  v23[3] = &unk_69E98;
-  objc_copyWeak(&v24, &location);
-  v23[4] = self;
-  v23[5] = &v27;
-  [drawableCopy addPresentedHandler:v23];
-  objc_destroyWeak(&v24);
-  objc_destroyWeak(&v26);
-  _Block_object_dispose(&v27, 8);
-  if (self->_layerState.isMainLayer && (v5[4] & 1) == 0)
+  v33[0] = _NSConcreteStackBlock;
+  v33[1] = 3221225472;
+  v33[2] = __48__HUDMTLLayerTracking__presentOrSignalDrawable___block_invoke;
+  v33[3] = &unk_69E48;
+  objc_copyWeak(&v34, &location);
+  v33[4] = &v35;
+  [drawableCopy addPresentScheduledHandler:v33];
+  v31[0] = _NSConcreteStackBlock;
+  v31[1] = 3221225472;
+  v31[2] = __48__HUDMTLLayerTracking__presentOrSignalDrawable___block_invoke_2;
+  v31[3] = &unk_69E98;
+  objc_copyWeak(&v32, &location);
+  v31[4] = self;
+  v31[5] = &v35;
+  [drawableCopy addPresentedHandler:v31];
+  objc_destroyWeak(&v32);
+  objc_destroyWeak(&v34);
+  _Block_object_dispose(&v35, 8);
+  if (self->_layerState.isMainLayer && (v6[4] & 1) == 0)
   {
-    if (*(v5 + 13) == 1)
+    if (*(v6 + 13) == 1)
     {
-      *(v5 + 13) = 0;
+      *(v6 + 13) = 0;
       *&self->_CAMetalLayerHasCurrentDisplay = 0;
 LABEL_14:
-      v16 = HUDGPUTimeTrackerGetGlobalInstance();
-      HUDGPUTimeTrackerMarkFrameBoundary(v16);
+      v21 = HUDGPUTimeTrackerGetGlobalInstance(v18, v19);
+      HUDGPUTimeTrackerMarkFrameBoundary(v21);
       goto LABEL_15;
     }
 
-    v15 = *&self->_CAMetalLayerHasCurrentDisplay;
-    if (v15 == 0x7FFFFFFF)
+    v20 = *&self->_CAMetalLayerHasCurrentDisplay;
+    if (v20 == 0x7FFFFFFF)
     {
       goto LABEL_14;
     }
 
-    *&self->_CAMetalLayerHasCurrentDisplay = v15 + 1;
-    if (v15 >= 9)
+    *&self->_CAMetalLayerHasCurrentDisplay = v20 + 1;
+    if (v20 >= 9)
     {
       *&self->_CAMetalLayerHasCurrentDisplay = 0x7FFFFFFF;
       [(HUDMTLLayerTracking *)self resetStats];
-      v20 = +[_CADeveloperHUDProperties instance];
-      [v20 metalFXFrameInterpolatorDisable];
+      v28 = +[_CADeveloperHUDProperties instance];
+      [v28 metalFXFrameInterpolatorDisable];
     }
   }
 
 LABEL_15:
-  v17 = [self->_insightReportContext.compilerStatStart.totalSyncCompileTimeCompute layerTracking:self presentDrawable:drawableCopy];
+  v22 = [self->_insightReportContext.compilerStatStart.totalSyncCompileTimeCompute layerTracking:self presentDrawable:drawableCopy];
   ++self->_layerState.frameNumber;
-  v18 = HUDGPUTimeTrackerGetGlobalInstance();
-  self->_layerState.logicalFrameNumber = HUDGPUTimeTrackerGetCurrentFrame(v18);
-  if (HUDCurrentTimeInNs() - *&self->_cachedSafeArea.origin.x >= 0x3B9ACA01)
+  v24 = HUDGPUTimeTrackerGetGlobalInstance(v22, v23);
+  self->_layerState.logicalFrameNumber = HUDGPUTimeTrackerGetCurrentFrame(v24);
+  v25 = HUDCurrentTimeInNs();
+  if (v25 - *&self->_cachedSafeArea.origin.x >= 0x3B9ACA01)
   {
-    v21[0] = _NSConcreteStackBlock;
-    v21[1] = 3221225472;
-    v21[2] = __48__HUDMTLLayerTracking__presentOrSignalDrawable___block_invoke_4;
-    v21[3] = &unk_69EC0;
-    objc_copyWeak(&v22, &location);
-    v21[4] = self;
-    HUDDispatchQueueAsync(v21);
+    v29[0] = _NSConcreteStackBlock;
+    v29[1] = 3221225472;
+    v29[2] = __48__HUDMTLLayerTracking__presentOrSignalDrawable___block_invoke_4;
+    v29[3] = &unk_69EC0;
+    objc_copyWeak(&v30, &location);
+    v29[4] = self;
+    HUDDispatchQueueAsync(v29);
     *&self->_cachedSafeArea.origin.x = HUDCurrentTimeInNs();
-    objc_destroyWeak(&v22);
+    objc_destroyWeak(&v30);
   }
 
-  HUDInternalPerfMetricFrameBegin();
+  HUDInternalPerfMetricFrameBegin(v25, v26);
   objc_destroyWeak(&location);
 
-  return v17;
+  return v22;
 }
 
 void __48__HUDMTLLayerTracking__presentOrSignalDrawable___block_invoke(uint64_t a1, void *a2)
@@ -980,38 +984,42 @@ void __48__HUDMTLLayerTracking__presentOrSignalDrawable___block_invoke_2(uint64_
 
     if (v6)
     {
-      [v5 _snapshotDrawable:v3 state:*(*(a1 + 40) + 8) + 32];
-      v7 = *(*(a1 + 40) + 8);
-      v8 = v7[7];
-      v9 = v7[8];
-      v10 = v7[6];
-      *(v5 + 7) = v7[5];
-      *(v5 + 13) = v9;
-      *(v5 + 11) = v8;
-      *(v5 + 9) = v10;
-      v11 = v7[2];
-      v12 = v7[3];
-      *(v5 + 5) = v7[4];
-      *(v5 + 3) = v12;
-      *(v5 + 1) = v11;
-      if (*(v5 + 190) && !*(HUDGetGlobalConfig() + 37))
+      v7 = [v5 _snapshotDrawable:v3 state:*(*(a1 + 40) + 8) + 32];
+      v9 = *(*(a1 + 40) + 8);
+      v10 = v9[7];
+      v11 = v9[8];
+      v12 = v9[6];
+      *(v5 + 7) = v9[5];
+      *(v5 + 13) = v11;
+      *(v5 + 11) = v10;
+      *(v5 + 9) = v12;
+      v13 = v9[2];
+      v14 = v9[3];
+      *(v5 + 5) = v9[4];
+      *(v5 + 3) = v14;
+      *(v5 + 1) = v13;
+      if (*(v5 + 190))
       {
-        GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance();
-        HUDGPUTimeTrackerFramePresented(GlobalInstance, *(*(*(a1 + 40) + 8) + 48), *(*(*(a1 + 40) + 8) + 64));
+        v15 = HUDGetGlobalConfig(v7, v8);
+        if (!*(v15 + 37))
+        {
+          GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance(v15, v16);
+          HUDGPUTimeTrackerFramePresented(GlobalInstance, *(*(*(a1 + 40) + 8) + 48), *(*(*(a1 + 40) + 8) + 64));
+        }
       }
 
       [v5[783] layerTracking:v5 drawablePresented:v3];
-      v14 = *(*(*(a1 + 40) + 8) + 88);
+      v18 = *(*(*(a1 + 40) + 8) + 88);
       objc_initWeak(&location, v5);
-      v15[0] = _NSConcreteStackBlock;
-      v15[1] = 3221225472;
-      v15[2] = __48__HUDMTLLayerTracking__presentOrSignalDrawable___block_invoke_3;
-      v15[3] = &unk_69E70;
-      objc_copyWeak(v16, &location);
-      v15[4] = *(a1 + 32);
-      v16[1] = v14;
-      HUDDispatchQueueAsync(v15);
-      objc_destroyWeak(v16);
+      v19[0] = _NSConcreteStackBlock;
+      v19[1] = 3221225472;
+      v19[2] = __48__HUDMTLLayerTracking__presentOrSignalDrawable___block_invoke_3;
+      v19[3] = &unk_69E70;
+      objc_copyWeak(v20, &location);
+      v19[4] = *(a1 + 32);
+      v20[1] = v18;
+      HUDDispatchQueueAsync(v19);
+      objc_destroyWeak(v20);
       objc_destroyWeak(&location);
     }
   }
@@ -1121,16 +1129,16 @@ void __48__HUDMTLLayerTracking__presentOrSignalDrawable___block_invoke_4(uint64_
 
     if (layer)
     {
-      [(HUDMTLLayerTracking *)self resetStats];
-      GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance();
+      resetStats = [(HUDMTLLayerTracking *)self resetStats];
+      GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance(resetStats, v5);
       HUDGPUTimeTrackerReset(GlobalInstance);
-      v5 = HUDGetGlobalConfig();
-      if ((v5[11] & 1) == 0)
+      v9 = HUDGetGlobalConfig(v7, v8);
+      if ((v9[11] & 1) == 0)
       {
-        v6 = v5;
-        v7 = [*(v5 + 21) objectForKeyedSubscript:@"MTL_HUD_SCALE"];
-        [v7 floatValue];
-        *(v6 + 11) = v8;
+        v10 = v9;
+        v11 = [*(v9 + 21) objectForKeyedSubscript:@"MTL_HUD_SCALE"];
+        [v11 floatValue];
+        *(v10 + 11) = v12;
       }
 
       [(HUDMTLLayerTracking *)self _bridgeMetrics];
@@ -1414,19 +1422,8 @@ void __37__HUDMTLLayerTracking_safeAreaInsets__block_invoke(uint64_t a1)
       v7 = +[_CADeveloperHUDProperties instance];
       reportOutputURL = [v7 reportOutputURL];
 
-      if (!reportOutputURL)
+      if (!reportOutputURL || (+[_CADeveloperHUDProperties instance](_CADeveloperHUDProperties, "instance"), v9 = objc_claimAutoreleasedReturnValue(), [v9 reportOutputURL], v10 = objc_claimAutoreleasedReturnValue(), +[NSURL fileURLWithPath:](NSURL, "fileURLWithPath:", v10), obja = objc_claimAutoreleasedReturnValue(), v10, v9, (v6 = obja) == 0))
       {
-        goto LABEL_5;
-      }
-
-      v9 = +[_CADeveloperHUDProperties instance];
-      reportOutputURL2 = [v9 reportOutputURL];
-      obja = [NSURL fileURLWithPath:reportOutputURL2];
-
-      v6 = obja;
-      if (!obja)
-      {
-LABEL_5:
         v11 = objc_opt_new();
         v12 = +[NSLocale currentLocale];
         [v11 setLocale:v12];

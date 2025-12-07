@@ -10,7 +10,7 @@
 {
   v3 = [PXStoryConcreteLayoutSpec alloc];
   extendedTraitCollection = [(PXFeatureSpecManager *)self extendedTraitCollection];
-  v5 = [(PXStoryConcreteLayoutSpec *)v3 initWithExtendedTraitCollection:extendedTraitCollection options:[(PXFeatureSpecManager *)self options] storyConfigurationOptions:[(PXStoryLayoutSpecManager *)self storyConfigurationOptions]];
+  v5 = [(PXStoryConcreteLayoutSpec *)v3 initWithExtendedTraitCollection:extendedTraitCollection options:objc_msgSend_options(self) storyConfigurationOptions:[(PXStoryLayoutSpecManager *)self storyConfigurationOptions]];
 
   return v5;
 }

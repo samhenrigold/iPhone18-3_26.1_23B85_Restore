@@ -366,7 +366,7 @@ void __157__PEAutoAdjustmentController__applyAutoValuesOnCompositionController_w
   }
 }
 
-uint64_t __87__PEAutoAdjustmentController_ensureCacheUpToDateForValuesCalculator_completionHandler___block_invoke(uint64_t a1)
+void *__87__PEAutoAdjustmentController_ensureCacheUpToDateForValuesCalculator_completionHandler___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   if (*(v2 + 40) == 1)

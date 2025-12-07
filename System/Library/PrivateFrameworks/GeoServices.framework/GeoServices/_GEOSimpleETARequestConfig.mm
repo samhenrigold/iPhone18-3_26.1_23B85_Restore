@@ -6,7 +6,6 @@
 
 - (id)offlineTaskQueue
 {
-  v2 = GeoOfflineConfig_SimpleETAMaxConcurrentOfflineTasks[1];
   UInteger = GEOConfigGetUInteger();
   if (UInteger)
   {

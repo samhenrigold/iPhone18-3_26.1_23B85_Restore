@@ -11,7 +11,7 @@
 {
   stringCopy = string;
   replacementsCopy = replacements;
-  if ([stringCopy length] && (-[UITextReplacementGenerator stringToReplace](self, "stringToReplace"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(stringCopy, "isEqualToString:", v8), v8, (v9 & 1) == 0))
+  if ([stringCopy length] && (-[UITextReplacementGenerator stringToReplace](self, "stringToReplace"), v8 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(stringCopy), v8, (isEqualToString & 1) == 0))
   {
     v12[0] = MEMORY[0x1E69E9820];
     v12[1] = 3221225472;
@@ -33,9 +33,9 @@ uint64_t __65__UITextReplacementGenerator_shouldAllowString_intoReplacements___b
 {
   v2 = *(a1 + 32);
   v3 = [a2 menuTitle];
-  v4 = [v2 isEqualToString:v3];
+  isEqualToString = objc_msgSend_isEqualToString_(v2);
 
-  return v4;
+  return isEqualToString;
 }
 
 - (id)replacementWithText:(id)text

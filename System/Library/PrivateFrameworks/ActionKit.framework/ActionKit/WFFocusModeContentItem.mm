@@ -61,14 +61,12 @@
 
 + (id)propertyBuilders
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CFC338];
   v3 = WFLocalizedContentPropertyNameMarker(@"Icon");
   v4 = [v2 keyPath:@"focusMode.symbolImage" name:v3 class:objc_opt_class()];
-  v8[0] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v7[0] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
 
   return v5;
 }

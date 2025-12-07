@@ -240,7 +240,7 @@ LABEL_15:
     v44 = "[NWNumericAccumulator dictionaryRepresentation]_block_invoke";
     v45 = 2112;
     v46 = v21;
-    v29 = _os_log_send_and_compose_impl();
+    v29 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v22, 16, "%{public}s failed to get name for state: %@", buf, 22);
 
     type = OS_LOG_TYPE_ERROR;
     v41 = 0;
@@ -452,7 +452,7 @@ void __29__NWNumericAccumulator_reset__block_invoke(uint64_t a1)
     v13 = __nwlog_obj();
     *v41 = 136446210;
     *&v41[4] = "[NWNumericAccumulator updateState:forName:]";
-    v14 = _os_log_send_and_compose_impl();
+    v14 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v13, 16, "%{public}s called with null state", v41, 12);
 
     buf[0] = 16;
     v32 = 0;
@@ -588,7 +588,7 @@ LABEL_41:
   v17 = __nwlog_obj();
   *v41 = 136446210;
   *&v41[4] = "[NWNumericAccumulator updateState:forName:]";
-  v14 = _os_log_send_and_compose_impl();
+  v14 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v17, 16, "%{public}s called with null name", v41, 12);
 
   buf[0] = 16;
   v32 = 0;
@@ -753,7 +753,7 @@ uint64_t __44__NWNumericAccumulator_updateState_forName___block_invoke(void *a1)
     v11 = __nwlog_obj();
     *buf = 136446210;
     v29 = "[NWNumericAccumulator registerObserverForKeyPath:ofObject:alreadyRegistered:]";
-    v12 = _os_log_send_and_compose_impl();
+    v12 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v11, 16, "%{public}s called with null keyPath", buf, 12);
 
     v27 = OS_LOG_TYPE_ERROR;
     v26 = 0;
@@ -852,7 +852,7 @@ LABEL_33:
   v16 = __nwlog_obj();
   *buf = 136446210;
   v29 = "[NWNumericAccumulator registerObserverForKeyPath:ofObject:alreadyRegistered:]";
-  v12 = _os_log_send_and_compose_impl();
+  v12 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v16, 16, "%{public}s called with null object", buf, 12);
 
   v27 = OS_LOG_TYPE_ERROR;
   v26 = 0;
@@ -1058,7 +1058,7 @@ void __70__NWNumericAccumulator_addAccumulation_withName_forKey_stateCallback___
     v11 = __nwlog_obj();
     *buf = 136446210;
     v28 = "[NWNumericAccumulator addCount:toAccumulation:]";
-    v12 = _os_log_send_and_compose_impl();
+    v12 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v11, 16, "%{public}s called with null count", buf, 12);
 
     v26 = OS_LOG_TYPE_ERROR;
     v25 = 0;
@@ -1159,7 +1159,7 @@ LABEL_33:
   v16 = __nwlog_obj();
   *buf = 136446210;
   v28 = "[NWNumericAccumulator addCount:toAccumulation:]";
-  v12 = _os_log_send_and_compose_impl();
+  v12 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v16, 16, "%{public}s called with null name", buf, 12);
 
   v26 = OS_LOG_TYPE_ERROR;
   v25 = 0;

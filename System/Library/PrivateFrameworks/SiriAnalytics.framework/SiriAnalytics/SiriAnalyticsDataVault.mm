@@ -31,16 +31,15 @@
 {
   v6 = sub_1D992AD44();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  MEMORY[0x1EEE9AC00](v6);
-  v10 = &v14 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](*(v7 + 64));
+  v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   selfCopy = self;
-  sub_1D98CC100(for, v10);
+  sub_1D98CC100(for, v9);
 
-  v12 = sub_1D992ACD4();
-  (*(v7 + 8))(v10, v6);
+  v11 = sub_1D992ACD4();
+  (*(v7 + 8))(v9, v6);
 
-  return v12;
+  return v11;
 }
 
 @end

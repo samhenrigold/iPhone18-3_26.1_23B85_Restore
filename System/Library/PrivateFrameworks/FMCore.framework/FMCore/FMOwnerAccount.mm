@@ -7,6 +7,7 @@
 + (id)primaryAccountWithStore:(id)store error:(id *)error;
 + (id)sharedInstance;
 + (id)subAccountForAccount:(id)account type:(int64_t)type;
++ (void)renewCredentialsWithBundleId:(id)id force:(BOOL)force reason:(id)reason completion:(id)completion;
 - (FMOwnerAccount)init;
 - (FMOwnerAccount)initWithAuthToken:(id)token personId:(id)id;
 - (NSString)firstName;
@@ -98,7 +99,7 @@ uint64_t __32__FMOwnerAccount_sharedInstance__block_invoke()
 
 - (void)accountChanged
 {
-  v3 = LogCategory_Unspecified();
+  v3 = LogCategory_Unspecified(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -120,10 +121,10 @@ uint64_t __32__FMOwnerAccount_sharedInstance__block_invoke()
 
   if (!aa_primaryAppleAccount)
   {
-    v6 = LogCategory_Unspecified();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = LogCategory_Unspecified(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [(FMOwnerAccount *)v6 initializeAccount];
+      [(FMOwnerAccount *)v7 initializeAccount];
     }
   }
 }
@@ -205,7 +206,7 @@ uint64_t __32__FMOwnerAccount_sharedInstance__block_invoke()
 
 - (id)tokenOfType:(int64_t)type
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = objc_alloc_init(MEMORY[0x277CB8F48]);
   aa_primaryAppleAccount = [v5 aa_primaryAppleAccount];
   v7 = aa_primaryAppleAccount;
@@ -229,9 +230,9 @@ uint64_t __32__FMOwnerAccount_sharedInstance__block_invoke()
       aa_fmfAccount = 0;
     }
 
-    v19 = 0;
-    v8 = [aa_fmfAccount credentialWithError:&v19];
-    v11 = v19;
+    v18 = 0;
+    v8 = [aa_fmfAccount credentialWithError:&v18];
+    v11 = v18;
     v12 = [v8 credentialItemForKey:*MEMORY[0x277CB8DE8]];
     v10 = v12;
     if (!v11 && v12)
@@ -243,19 +244,19 @@ uint64_t __32__FMOwnerAccount_sharedInstance__block_invoke()
       goto LABEL_15;
     }
 
-    v14 = LogCategory_Unspecified();
+    v14 = LogCategory_Unspecified(v12);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       username = [aa_fmfAccount username];
       *buf = 138412546;
       typeCopy = username;
-      v22 = 2112;
-      v23 = v11;
+      v21 = 2112;
+      v22 = v11;
       _os_log_impl(&dword_24A2EE000, v14, OS_LOG_TYPE_DEFAULT, "Count not retrieve app token for FMF account [%@]. Error: %@", buf, 0x16u);
     }
   }
 
-  v16 = LogCategory_Unspecified();
+  v16 = LogCategory_Unspecified(aa_primaryAppleAccount);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
   {
     *buf = 134217984;
@@ -265,8 +266,6 @@ uint64_t __32__FMOwnerAccount_sharedInstance__block_invoke()
 
   v13 = 0;
 LABEL_15:
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -279,34 +278,32 @@ LABEL_15:
 
   if (type)
   {
-    v6 = LogCategory_Unspecified();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = LogCategory_Unspecified(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v11 = 134217984;
       typeCopy = type;
-      _os_log_impl(&dword_24A2EE000, v6, OS_LOG_TYPE_DEFAULT, "Unknown FMAuthTokenType: %ld", &v11, 0xCu);
+      _os_log_impl(&dword_24A2EE000, v7, OS_LOG_TYPE_DEFAULT, "Unknown FMAuthTokenType: %ld", &v11, 0xCu);
     }
 
-    v7 = 0;
+    v8 = 0;
   }
 
   else
   {
-    v8 = [dataclassProperties objectForKeyedSubscript:*MEMORY[0x277CB91A0]];
-    v7 = [v8 objectForKeyedSubscript:@"appHostname"];
+    v9 = [dataclassProperties objectForKeyedSubscript:*MEMORY[0x277CB91A0]];
+    v8 = [v9 objectForKeyedSubscript:@"appHostname"];
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-
-  return v7;
+  return v8;
 }
 
 + (id)authTokenForSubAccount:(id)account type:(int64_t)type error:(id *)error
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v19 = 0;
-  v7 = [account credentialWithError:&v19];
-  v8 = v19;
+  v21 = *MEMORY[0x277D85DE8];
+  v18 = 0;
+  v7 = [account credentialWithError:&v18];
+  v8 = v18;
   if (type == 1)
   {
     v10 = MEMORY[0x277CB8E00];
@@ -325,11 +322,11 @@ LABEL_5:
   v12 = v11;
   if (v8 || !v11)
   {
-    v14 = LogCategory_Unspecified();
+    v14 = LogCategory_Unspecified(v11);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v21 = v8;
+      v20 = v8;
       _os_log_impl(&dword_24A2EE000, v14, OS_LOG_TYPE_INFO, "Count not retrieve token for account. Error: %@", buf, 0xCu);
     }
 
@@ -349,8 +346,6 @@ LABEL_5:
   {
     v13 = v11;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -570,74 +565,128 @@ void __39__FMOwnerAccount_ownerAccountWithType___block_invoke(uint64_t a1)
   }
 }
 
-void __71__FMOwnerAccount_renewCredentialsWithBundleId_force_reason_completion___block_invoke(uint64_t a1, unint64_t a2, void *a3)
++ (void)renewCredentialsWithBundleId:(id)id force:(BOOL)force reason:(id)reason completion:(id)completion
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v5 = a3;
-  if (a2 > 2)
+  forceCopy = force;
+  idCopy = id;
+  reasonCopy = reason;
+  completionCopy = completion;
+  v12 = LogCategory_Unspecified(completionCopy);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 0;
+    *buf = 0;
+    _os_log_impl(&dword_24A2EE000, v12, OS_LOG_TYPE_DEFAULT, "FMOwnerAccount renewCredentialsWithBundleId:force:reason:completion:", buf, 2u);
   }
 
-  else
+  v13 = objc_alloc_init(MEMORY[0x277CB8F48]);
+  v27 = 0;
+  v14 = [FMOwnerAccount primaryAccountWithStore:v13 error:&v27];
+  v15 = v27;
+  v16 = v15;
+  if (v15)
   {
-    v6 = off_278FD9AB0[a2];
-  }
-
-  v7 = LogCategory_Unspecified();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
-  {
-    v8 = [*(a1 + 32) aa_personID];
-    v14 = 138412546;
-    v15 = v8;
-    v16 = 2112;
-    v17 = v6;
-    _os_log_impl(&dword_24A2EE000, v7, OS_LOG_TYPE_DEFAULT, "renewCredentials of account %@ completed with status %@", &v14, 0x16u);
-  }
-
-  if (a2 || v5)
-  {
-    v10 = LogCategory_Unspecified();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v17 = LogCategory_Unspecified(v15);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      __71__FMOwnerAccount_renewCredentialsWithBundleId_force_reason_completion___block_invoke_cold_1(v5, v10);
+      [FMOwnerAccount renewCredentialsWithBundleId:v16 force:v17 reason:? completion:?];
     }
 
-    v11 = objc_opt_new();
-    [v11 fm_safeSetObject:v5 forKey:*MEMORY[0x277CCA7E8]];
-    v9 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.icloud.fmcore.FMOwnerAccountError" code:4 userInfo:v11];
+    if (completionCopy)
+    {
+      completionCopy[2](completionCopy, v16);
+    }
   }
 
   else
   {
-    v9 = 0;
-  }
+    dictionary = [MEMORY[0x277CBEB38] dictionary];
+    v19 = idCopy;
+    v20 = *MEMORY[0x277CB90A0];
+    v21 = [MEMORY[0x277CCABB0] numberWithBool:forceCopy];
+    v22 = v20;
+    idCopy = v19;
+    [dictionary fm_safelyMapKey:v22 toObject:v21];
 
-  v12 = *(a1 + 40);
-  if (v12)
+    [dictionary fm_safelyMapKey:*MEMORY[0x277CB9080] toObject:v19];
+    v23 = [MEMORY[0x277CCABB0] numberWithBool:forceCopy];
+    [dictionary fm_safelyMapKey:@"AARenewShouldForceInteraction" toObject:v23];
+
+    [dictionary fm_safelyMapKey:*MEMORY[0x277CB9088] toObject:reasonCopy];
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __71__FMOwnerAccount_renewCredentialsWithBundleId_force_reason_completion___block_invoke;
+    v24[3] = &unk_278FD9A90;
+    v25 = v14;
+    v26 = completionCopy;
+    [v13 renewCredentialsForAccount:v25 options:dictionary completion:v24];
+  }
+}
+
+void __71__FMOwnerAccount_renewCredentialsWithBundleId_force_reason_completion___block_invoke(uint64_t a1, unint64_t a2, void *a3)
+{
+  v19 = *MEMORY[0x277D85DE8];
+  v5 = a3;
+  v6 = v5;
+  if (a2 > 2)
   {
-    (*(v12 + 16))(v12, v9);
+    v7 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
+  else
+  {
+    v7 = off_278FD9AB0[a2];
+  }
+
+  v8 = LogCategory_Unspecified(v5);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  {
+    v9 = [*(a1 + 32) aa_personID];
+    v15 = 138412546;
+    v16 = v9;
+    v17 = 2112;
+    v18 = v7;
+    _os_log_impl(&dword_24A2EE000, v8, OS_LOG_TYPE_DEFAULT, "renewCredentials of account %@ completed with status %@", &v15, 0x16u);
+  }
+
+  if (a2 || v6)
+  {
+    v12 = LogCategory_Unspecified(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    {
+      __71__FMOwnerAccount_renewCredentialsWithBundleId_force_reason_completion___block_invoke_cold_1(v6, v12);
+    }
+
+    v13 = objc_opt_new();
+    [v13 fm_safeSetObject:v6 forKey:*MEMORY[0x277CCA7E8]];
+    v11 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.icloud.fmcore.FMOwnerAccountError" code:4 userInfo:v13];
+  }
+
+  else
+  {
+    v11 = 0;
+  }
+
+  v14 = *(a1 + 40);
+  if (v14)
+  {
+    (*(v14 + 16))(v14, v11);
+  }
 }
 
 + (void)renewCredentialsWithBundleId:(uint64_t)a1 force:(NSObject *)a2 reason:completion:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_24A2EE000, a2, OS_LOG_TYPE_ERROR, "FMOwnerAccount primaryAccountError %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_24A2EE000, a2, OS_LOG_TYPE_ERROR, "FMOwnerAccount primaryAccountError %@", &v2, 0xCu);
 }
 
 void __71__FMOwnerAccount_renewCredentialsWithBundleId_force_reason_completion___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_24A2EE000, a2, OS_LOG_TYPE_ERROR, "renewCredentials failed %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_24A2EE000, a2, OS_LOG_TYPE_ERROR, "renewCredentials failed %@", &v2, 0xCu);
 }
 
 @end

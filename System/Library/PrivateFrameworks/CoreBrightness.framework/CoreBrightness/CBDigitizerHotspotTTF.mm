@@ -3,6 +3,7 @@
 - (float)computeBackoff:(float)backoff;
 - (id)description;
 - (void)dealloc;
+- (void)setTouchReleaseTime:(float)time;
 @end
 
 @implementation CBDigitizerHotspotTTF
@@ -90,6 +91,21 @@ BOOL __40__CBDigitizerHotspotTTF_computeBackoff___block_invoke(uint64_t a1, void
   }
 
   return v10;
+}
+
+- (void)setTouchReleaseTime:(float)time
+{
+  selfCopy = self;
+  v7 = a2;
+  timeCopy = time;
+  -[NSMutableArray addObject:](self->_buffer, "addObject:", [MEMORY[0x1E696AD98] numberWithFloat:*&time]);
+  *&v3 = timeCopy;
+  v5.receiver = selfCopy;
+  v5.super_class = CBDigitizerHotspotTTF;
+  [(CBDigitizerHotspot *)&v5 setTouchReleaseTime:v3];
+  *&v4 = timeCopy;
+  [(CBDigitizerHotspotTTF *)selfCopy computeBackoff:v4];
+  [(CBDigitizerHotspot *)selfCopy setTouchTriggerDelay:?];
 }
 
 @end

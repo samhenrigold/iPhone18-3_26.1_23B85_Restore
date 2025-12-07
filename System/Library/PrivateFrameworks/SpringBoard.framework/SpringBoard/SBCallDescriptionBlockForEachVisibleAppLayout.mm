@@ -6,7 +6,7 @@
 void ___SBCallDescriptionBlockForEachVisibleAppLayout_block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   v10 = a2;
-  if ([*(a1 + 32) containsObject:?])
+  if (objc_msgSend_containsObject_(*(a1 + 32)))
   {
     v5 = (*(*(a1 + 48) + 16))();
     v6 = *(a1 + 40);

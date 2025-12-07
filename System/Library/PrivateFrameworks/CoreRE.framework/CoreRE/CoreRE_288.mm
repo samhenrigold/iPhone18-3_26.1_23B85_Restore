@@ -1,9789 +1,9837 @@
-uint64_t re::DynamicArray<re::RigNode>::operator[](uint64_t a1, unint64_t a2)
+void physx::NpShape::setFlag(uint64_t a1, char a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, float32x4_t a9, double a10, double a11, double a12, double a13, double a14, int32x4_t a15)
 {
-  if (*(a1 + 16) <= a2)
+  if ((*(a1 + 56) & 0x40) != 0)
   {
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-  }
-
-  return *(a1 + 32) + 56 * a2;
-}
-
-uint64_t RERigAssetBuilderSetRigNodeRotation(void *a1, unint64_t a2, char a3, __n128 a4)
-{
-  v4 = a2;
-  v19 = *MEMORY[0x1E69E9840];
-  if (a1[133] <= a2)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v9 = CoreRELog::log;
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 134217984;
-      *&buf[4] = v4;
-      _os_log_error_impl(&dword_1E1C61000, v9, OS_LOG_TYPE_ERROR, "Invalid rig node index: %zu", buf, 0xCu);
-    }
-
-    return 0;
-  }
-
-  v5 = a1;
-  v6 = a1[135] + 56 * a2;
-  v7 = *(v6 + 24);
-  v8 = *(v6 + 16);
-  if (v8 == 2)
-  {
-    v10 = a1[118];
-    if (v10 > v7)
-    {
-      *(a1[120] + 96 * v7 + 32) = a4;
-      if (a1[118] > v7)
-      {
-        *(a1[120] + 96 * v7 + 80) = a3;
-        return 1;
-      }
-
-LABEL_25:
-      v17 = 0u;
-      v18 = 0u;
-      v15 = 0u;
-      v16 = 0u;
-      *buf = 0u;
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-    }
-
-    goto LABEL_22;
-  }
-
-  if (v8 == 1)
-  {
-    if (a1[113] > v7)
-    {
-      *(a1[115] + (v7 << 6) + 16) = a4;
-      if (a1[113] > v7)
-      {
-        *(a1[115] + (v7 << 6) + 48) = a3;
-        return 1;
-      }
-
-      v17 = 0u;
-      v18 = 0u;
-      v15 = 0u;
-      v16 = 0u;
-      *buf = 0u;
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-      goto LABEL_25;
-    }
-
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
-    v16 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_22:
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
-    v16 = 0u;
-    *buf = 0u;
-    v4 = MEMORY[0x1E69E9C10];
-    v5 = v10;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_23;
-  }
-
-  if (CoreRELog::onceToken != -1)
-  {
-LABEL_23:
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-  }
-
-  v12 = CoreRELog::log;
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-  {
-    v13 = *(re::DynamicArray<re::RigNode>::operator[]((v5 + 131), v4) + 16);
-    *buf = 67109120;
-    *&buf[4] = v13;
-    _os_log_error_impl(&dword_1E1C61000, v12, OS_LOG_TYPE_ERROR, "Unknown rig node type: %u", buf, 8u);
-  }
-
-  return 0;
-}
-
-uint64_t RERigAssetBuilderSetRigNodeScale(void *a1, unint64_t a2, __n128 a3)
-{
-  v3 = a2;
-  v18 = *MEMORY[0x1E69E9840];
-  if (a1[133] <= a2)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v8 = CoreRELog::log;
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 134217984;
-      *&buf[4] = v3;
-      _os_log_error_impl(&dword_1E1C61000, v8, OS_LOG_TYPE_ERROR, "Invalid rig node index: %zu", buf, 0xCu);
-    }
-
-    return 0;
-  }
-
-  v4 = a1;
-  v5 = a1[135] + 56 * a2;
-  v6 = *(v5 + 24);
-  v7 = *(v5 + 16);
-  if (v7 == 2)
-  {
-    v9 = a1[118];
-    if (v9 > v6)
-    {
-      *(a1[120] + 96 * v6 + 64) = a3;
-      return 1;
-    }
-
-    goto LABEL_20;
-  }
-
-  if (v7 == 1)
-  {
-    if (a1[113] > v6)
-    {
-      *(a1[115] + (v6 << 6) + 32) = a3;
-      return 1;
-    }
-
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
-    v15 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_20:
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
-    v15 = 0u;
-    *buf = 0u;
-    v3 = MEMORY[0x1E69E9C10];
-    v4 = v9;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_21;
-  }
-
-  if (CoreRELog::onceToken != -1)
-  {
-LABEL_21:
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-  }
-
-  v11 = CoreRELog::log;
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
-  {
-    v12 = *(re::DynamicArray<re::RigNode>::operator[]((v4 + 131), v3) + 16);
-    *buf = 67109120;
-    *&buf[4] = v12;
-    _os_log_error_impl(&dword_1E1C61000, v11, OS_LOG_TYPE_ERROR, "Unknown rig node type: %u", buf, 8u);
-  }
-
-  return 0;
-}
-
-uint64_t RERigAssetBuilderSetRigNodeRotationOrientation(void *a1, unint64_t a2, __n128 a3)
-{
-  v3 = a2;
-  v17 = *MEMORY[0x1E69E9840];
-  if (a1[133] <= a2)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v9 = CoreRELog::log;
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 134217984;
-      *&buf[4] = v3;
-      _os_log_error_impl(&dword_1E1C61000, v9, OS_LOG_TYPE_ERROR, "Invalid rig node index: %zu", buf, 0xCu);
-    }
-
-    return 0;
-  }
-
-  v4 = a1;
-  v5 = a1[135] + 56 * a2;
-  if (*(v5 + 16) == 2)
-  {
-    v6 = *(v5 + 24);
-    v7 = a1[118];
-    if (v7 > v6)
-    {
-      *(a1[120] + 96 * v6 + 16) = a3;
-      return 1;
-    }
-
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
-    v14 = 0u;
-    *buf = 0u;
-    v3 = MEMORY[0x1E69E9C10];
-    v4 = v7;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_16;
-  }
-
-  if (CoreRELog::onceToken != -1)
-  {
-LABEL_16:
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-  }
-
-  v10 = CoreRELog::log;
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-  {
-    v11 = *(re::DynamicArray<re::RigNode>::operator[]((v4 + 131), v3) + 16);
-    *buf = 67109120;
-    *&buf[4] = v11;
-    _os_log_error_impl(&dword_1E1C61000, v10, OS_LOG_TYPE_ERROR, "Invalid rig node type for rotation orientation: %u", buf, 8u);
-  }
-
-  return 0;
-}
-
-uint64_t RERigAssetBuilderSetRigNodeScaleOrientation(void *a1, unint64_t a2, __n128 a3)
-{
-  v3 = a2;
-  v17 = *MEMORY[0x1E69E9840];
-  if (a1[133] <= a2)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v9 = CoreRELog::log;
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 134217984;
-      *&buf[4] = v3;
-      _os_log_error_impl(&dword_1E1C61000, v9, OS_LOG_TYPE_ERROR, "Invalid rig node index: %zu", buf, 0xCu);
-    }
-
-    return 0;
-  }
-
-  v4 = a1;
-  v5 = a1[135] + 56 * a2;
-  if (*(v5 + 16) == 2)
-  {
-    v6 = *(v5 + 24);
-    v7 = a1[118];
-    if (v7 > v6)
-    {
-      *(a1[120] + 96 * v6 + 48) = a3;
-      return 1;
-    }
-
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
-    v14 = 0u;
-    *buf = 0u;
-    v3 = MEMORY[0x1E69E9C10];
-    v4 = v7;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_16;
-  }
-
-  if (CoreRELog::onceToken != -1)
-  {
-LABEL_16:
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-  }
-
-  v10 = CoreRELog::log;
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-  {
-    v11 = *(re::DynamicArray<re::RigNode>::operator[]((v4 + 131), v3) + 16);
-    *buf = 67109120;
-    *&buf[4] = v11;
-    _os_log_error_impl(&dword_1E1C61000, v10, OS_LOG_TYPE_ERROR, "Invalid rig node type for scale orientation: %u", buf, 8u);
-  }
-
-  return 0;
-}
-
-BOOL RERigAssetBuilderSetRigNodeParent(uint64_t a1, unint64_t a2, uint64_t a3)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  v4 = *(a1 + 1064);
-  if (v4 <= a2)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v5 = CoreRELog::log;
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
-    {
-      v7 = 134217984;
-      v8 = a2;
-      _os_log_error_impl(&dword_1E1C61000, v5, OS_LOG_TYPE_ERROR, "Invalid rig node index: %zu", &v7, 0xCu);
-    }
+    v17 = (*(a1 + 64) + 52);
   }
 
   else
   {
-    *(*(a1 + 1080) + 56 * a2 + 32) = a3;
+    v17 = (a1 + 144);
   }
 
-  return v4 > a2;
+  v23 = v15;
+  v24 = v16;
+  v18 = *v17;
+  v19 = v18 | a2;
+  v20 = v18 & ~a2;
+  if (a3)
+  {
+    v20 = v19;
+  }
+
+  v22 = v20;
+  physx::NpShape::setFlagsInternal(a1, &v22, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, v21);
 }
 
-uint64_t RERigAssetBuilderSetRigNodeConstraints(uint64_t a1, unint64_t a2, unint64_t *a3, uint64_t a4)
+uint64_t physx::NpShape::getFlags@<X0>(uint64_t this@<X0>, _BYTE *a2@<X8>)
 {
-  v19 = *MEMORY[0x1E69E9840];
-  if (*(a1 + 1064) <= a2)
+  if ((*(this + 56) & 0x40) != 0)
   {
-    if (CoreRELog::onceToken != -1)
+    v2 = (*(this + 64) + 52);
+  }
+
+  else
+  {
+    v2 = (this + 144);
+  }
+
+  *a2 = *v2;
+  return this;
+}
+
+uint64_t physx::NpShape::getMeshRefCountable(physx::NpShape *this)
+{
+  v1 = this + 152;
+  v2 = *(this + 38);
+  switch(v2)
+  {
+    case 6:
+      if (*(this + 56))
+      {
+        v1 = (*(this + 8) + 64);
+      }
+
+      v3 = (v1 + 8);
+      break;
+    case 5:
+      if (*(this + 56))
+      {
+        v1 = (*(this + 8) + 64);
+      }
+
+      v3 = (v1 + 40);
+      break;
+    case 4:
+      if (*(this + 56))
+      {
+        v1 = (*(this + 8) + 64);
+      }
+
+      v3 = (v1 + 32);
+      break;
+    default:
+      return 0;
+  }
+
+  v4 = *v3;
+  if (v4)
+  {
+    return v4 + 16;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t physx::NpShapeManager::exportExtraData(uint64_t a1, uint64_t a2)
+{
+  result = physx::Cm::PtrTable::exportExtraData(a1, a2);
+  v5 = *(a1 + 8);
+  if (v5 >= 2)
+  {
+    (*(*a2 + 24))(a2, 16);
+    do
     {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+      v6 = 0xFFFFFFFFLL;
+      result = (*(*a2 + 16))(a2, &v6, 8);
+      --v5;
     }
 
-    v15 = CoreRELog::log;
-    if (!os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    while (v5);
+  }
+
+  return result;
+}
+
+uint64_t physx::NpShapeManager::importExtraData(uint64_t result, uint64_t a2)
+{
+  v2 = *(result + 8);
+  if (v2 >= 2)
+  {
+    v3 = (*(a2 + 8) + 15) & 0xFFFFFFFFFFFFFFF0;
+    *(a2 + 8) = v3 + 8 * v2;
+    *result = v3;
+  }
+
+  v4 = *(result + 24);
+  if (v4 >= 2)
+  {
+    v5 = (*(a2 + 8) + 15) & 0xFFFFFFFFFFFFFFF0;
+    *(a2 + 8) = v5 + 8 * v4;
+    *(result + 16) = v5;
+  }
+
+  return result;
+}
+
+uint64_t *physx::NpShapeManager::attachShape(physx::NpShapeManager *this, physx::NpShape *a2, physx::PxRigidActor *a3)
+{
+  v6 = *(physx::NpFactory::mInstance + 832);
+  v7 = *(this + 4);
+  physx::Cm::PtrTable::add(this, a2, v6);
+  physx::Cm::PtrTable::add(this + 2, 0xFFFFFFFFLL, v6);
+  v19 = *(&physx::NpActor::sLazyInitOffsets + *(a3 + 4) + 18);
+  if (((*(a3 + v19 + 8) >> 30) - 1) <= 1)
+  {
+    v20 = *(a3 + v19);
+    if (v20)
+    {
+      v21 = (*(a2 + 8) + 52);
+      if ((*(a2 + 56) & 0x40) == 0)
+      {
+        v21 = a2 + 144;
+      }
+
+      if ((*v21 & 2) != 0)
+      {
+        physx::NpShapeManager::setupSceneQuery(this, (v20 + 8624), a3, v7, v12, v13, v14, v15, v16, v17, v18, v8, v9, v10, v11);
+        v19 = *(&physx::NpActor::sLazyInitOffsets + *(a3 + 4) + 18);
+      }
+    }
+  }
+
+  result = physx::Scb::RigidObject::onShapeAttach((a3 + v19), (a2 + 48));
+  atomic_fetch_add(a2 + 8, 1u);
+  if ((*(a2 + 66) & 0x80000000) != 0)
+  {
+    *(a2 + 5) = a3;
+  }
+
+  atomic_fetch_add(a2 + 66, 1u);
+  return result;
+}
+
+uint64_t physx::NpShapeManager::setupSceneQuery(physx::NpShapeManager *this, physx::Sq::SceneQueryManager *a2, const physx::PxRigidActor *a3, unsigned int a4, float32x4_t a5, double a6, double a7, double a8, double a9, double a10, int32x4_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15)
+{
+  v17 = this;
+  if (*(this + 4) != 1)
+  {
+    v17 = *this;
+  }
+
+  result = physx::Sq::SceneQueryManager::addPrunerShape(a2, *(v17 + a4) + 48, a3 + *(&physx::NpActor::sLazyInitOffsets + *(a3 + 4) + 18), (*(a3 + 4) & 0xFFF7) == 5, *(this + 8), 0, 0, a15, a5, a6, a7, a8, a9, a10, a11);
+  v19 = (this + 16);
+  if (*(this + 12) != 1)
+  {
+    v19 = *v19;
+  }
+
+  v19[a4] = result;
+  return result;
+}
+
+uint64_t *physx::Scb::RigidObject::onShapeAttach(uint64_t *this, physx::Scb::Shape *a2)
+{
+  v2 = *(this + 2);
+  if (v2 >> 30)
+  {
+    v4 = this;
+    v5 = *this;
+    if (*(*this + 7689))
+    {
+      if (v2 >> 30 != 1)
+      {
+        Stream = this[2];
+        if (!Stream)
+        {
+          Stream = physx::Scb::Scene::getStream(v5, BYTE3(v2) & 0xF);
+          v4[2] = Stream;
+        }
+
+        v7 = *(Stream + 144);
+        if (v7)
+        {
+          v8 = 0;
+          v9 = *(Stream + 136);
+          while (*v9 != a2)
+          {
+            ++v8;
+            v9 += 2;
+            if (v7 == v8)
+            {
+              goto LABEL_21;
+            }
+          }
+        }
+
+        else
+        {
+          LODWORD(v8) = 0;
+        }
+
+        if (v8 == v7)
+        {
+LABEL_21:
+          v20 = a2;
+          v14 = *(Stream + 56);
+          if ((*(Stream + 60) & 0x7FFFFFFFu) <= v14)
+          {
+            physx::shdfnd::Array<physx::Scb::Shape *,physx::shdfnd::InlineAllocator<32u,physx::shdfnd::ReflectionAllocator<physx::Scb::Shape *>>>::growAndPushBack(Stream + 8, &v20);
+          }
+
+          else
+          {
+            *(*(Stream + 48) + 8 * v14) = a2;
+            *(Stream + 56) = v14 + 1;
+          }
+        }
+
+        else
+        {
+          v15 = *(Stream + 136);
+          v16 = v7 - 1;
+          *(Stream + 144) = v16;
+          v17 = (v15 + 16 * v16);
+          v18 = *v17;
+          v19 = v15 + 16 * v8;
+          *(v19 + 8) = *(v17 + 8);
+          *v19 = v18;
+        }
+
+        this = physx::Scb::Scene::scheduleForUpdate(*v4, v4);
+        *(v4 + 2) |= 8u;
+      }
+
+      v12 = *(a2 + 2);
+      if ((v12 & 0xF000000) == 0x1000000)
+      {
+        v13 = 0x40000000;
+        goto LABEL_28;
+      }
+    }
+
+    else
+    {
+      if (v2)
+      {
+        v10 = this[2];
+      }
+
+      else
+      {
+        v10 = this + *(&physx::Scb::Actor::sLazyInitOffsets + ((v2 >> 24) & 0xF) + 3) + 12;
+      }
+
+      if ((*v10 & 8) == 0)
+      {
+        atomic_fetch_add(a2 - 4, 1u);
+        v11 = *(this + *(&physx::Scb::Actor::sLazyInitOffsets + (*(this + 11) & 0xF) + 3));
+        if (v11)
+        {
+          this = physx::Sc::Scene::addShape(v11[9], v11, (a2 + 32), 0);
+        }
+      }
+
+      v12 = *(a2 + 2);
+      if ((v12 & 0xF000000) == 0x1000000)
+      {
+        v13 = 0x80000000;
+LABEL_28:
+        *(a2 + 2) = v12 & 0x31FFFFFF | v13;
+        *a2 = v5;
+      }
+    }
+  }
+
+  return this;
+}
+
+uint64_t physx::NpShapeManager::detachShape(physx::NpShapeManager *this, physx::NpShape *a2, physx::PxRigidActor *a3, BOOL a4)
+{
+  v8 = *(this + 4);
+  v9 = this;
+  if (v8 != 1)
+  {
+    if (!*(this + 4))
+    {
+      return 0;
+    }
+
+    v9 = *this;
+  }
+
+  v10 = 0;
+  while (*(v9 + v10) != a2)
+  {
+    if (v8 == ++v10)
+    {
+      return 0;
+    }
+  }
+
+  v12 = a3 + *(&physx::NpActor::sLazyInitOffsets + *(a3 + 4) + 18);
+  if (((*(v12 + 2) >> 30) - 1) <= 1)
+  {
+    v13 = *v12;
+    if (v13)
+    {
+      v14 = (*(a2 + 8) + 52);
+      if ((*(a2 + 56) & 0x40) == 0)
+      {
+        v14 = a2 + 144;
+      }
+
+      if ((*v14 & 2) != 0)
+      {
+        v15 = (this + 16);
+        if (*(this + 12) != 1)
+        {
+          v15 = *v15;
+        }
+
+        physx::Sq::SceneQueryManager::removePrunerShape(v13 + 1078, *(this + 8), v15[v10]);
+        if (*(this + 8) != -1 && *(this + 4) == 1)
+        {
+          *(this + 8) = -1;
+          v16 = *(a3 + 4);
+          if ((v16 & 0xFFFFFFF7) == 5 && (v16 | 8) == 0xD)
+          {
+            physx::Sc::BodySim::disableCompound(*(a3 + 16));
+          }
+        }
+      }
+    }
+  }
+
+  physx::Scb::RigidObject::onShapeDetach((a3 + *(&physx::NpActor::sLazyInitOffsets + *(a3 + 4) + 18)), (a2 + 48), a4, *(a2 + 8) == 1);
+  v17 = *(physx::NpFactory::mInstance + 832);
+  physx::Cm::PtrTable::replaceWithLast(this, v10, v17);
+  physx::Cm::PtrTable::replaceWithLast(this + 2, v10, v17);
+  atomic_fetch_add(a2 + 66, 0xFFFFFFFF);
+  if ((*(a2 + 66) & 0x80000000) != 0)
+  {
+    *(a2 + 5) = 0;
+  }
+
+  if (atomic_fetch_add(a2 + 8, 0xFFFFFFFF) == 1)
+  {
+    (*(*(a2 + 3) + 16))(a2 + 24);
+  }
+
+  return 1;
+}
+
+void physx::Scb::RigidObject::onShapeDetach(int32x2_t **this, physx::Scb::Shape *a2, BOOL a3, int a4)
+{
+  v4 = *(this + 2);
+  if (v4 >> 30)
+  {
+    v8 = *this;
+    if ((*this)[961].i8[1])
+    {
+      if (v4 >> 30 != 1)
+      {
+        Stream = this[2];
+        if (!Stream)
+        {
+          Stream = physx::Scb::Scene::getStream(v8, BYTE3(v4) & 0xF);
+          this[2] = Stream;
+          LODWORD(v4) = *(this + 2);
+        }
+
+        if ((v4 & 0x20) != 0)
+        {
+          v11 = *(Stream + 160);
+          if (v11 == 1)
+          {
+            if (*(Stream + 152) != a2)
+            {
+              goto LABEL_28;
+            }
+
+            *(Stream + 160) = 0;
+            goto LABEL_27;
+          }
+
+          if (!v11)
+          {
+            goto LABEL_27;
+          }
+
+          v14 = 0;
+          v15 = (*&v8[976] + 8 * *(Stream + 152));
+          v16 = *(Stream + 160);
+          do
+          {
+            if (v15[v14] == a2)
+            {
+              v15[v14] = v15[--v16];
+            }
+
+            else
+            {
+              ++v14;
+            }
+
+            --v11;
+          }
+
+          while (v11);
+          *(Stream + 160) = v14;
+          if (!v14)
+          {
+LABEL_27:
+            *(Stream + 152) = 0;
+            *(this + 2) &= ~0x20u;
+            goto LABEL_28;
+          }
+
+          if (v14 == 1)
+          {
+            *(Stream + 152) = *v15;
+          }
+        }
+
+LABEL_28:
+        v17 = *(Stream + 56);
+        if (v17)
+        {
+          v18 = 0;
+          while (*(*(Stream + 48) + 8 * v18) != a2)
+          {
+            if (v17 == ++v18)
+            {
+              goto LABEL_35;
+            }
+          }
+        }
+
+        else
+        {
+          LODWORD(v18) = 0;
+        }
+
+        if (v18 != v17)
+        {
+          v19 = *(Stream + 48);
+          v20 = v17 - 1;
+          *(Stream + 56) = v20;
+          *(v19 + 8 * v18) = *(v19 + 8 * v20);
+          v21 = *(a2 + 2);
+          if ((v21 & 0xF000000) == 0x1000000)
+          {
+            v22 = v21 & 0x31FFFFFF | 0x80000000;
+LABEL_48:
+            *(a2 + 2) = v22;
+            *a2 = v8;
+          }
+
+LABEL_49:
+          physx::Scb::Scene::scheduleForUpdate(*this, this);
+          *(this + 2) |= 8u;
+          return;
+        }
+
+LABEL_35:
+        if ((*(this + *(&physx::Scb::Actor::sLazyInitOffsets + (*(this + 11) & 0xF) + 3) + 12) & 8) != 0)
+        {
+          if (a4)
+          {
+            if ((*(a2 + 11) & 0x10) != 0)
+            {
+              physx::shdfnd::internal::HashSetBase<physx::Sc::BodySim const*,physx::shdfnd::Hash<physx::Sc::BodySim const*>,physx::shdfnd::NonTrackingAllocator,true>::erase(v8 + 967, a2);
+              *(a2 + 2) &= ~0x10000000u;
+            }
+
+LABEL_46:
+            v24 = *(a2 + 2);
+            if ((v24 & 0xF000000) == 0x1000000)
+            {
+              v22 = v24 | 0xC0000000;
+              goto LABEL_48;
+            }
+
+            goto LABEL_49;
+          }
+
+          *&v25 = a2;
+          BYTE8(v25) = 0;
+        }
+
+        else
+        {
+          *&v25 = a2;
+          BYTE8(v25) = a3;
+        }
+
+        v23 = *(Stream + 144);
+        if ((*(Stream + 148) & 0x7FFFFFFFu) <= v23)
+        {
+          physx::shdfnd::Array<physx::Scb::RemovedShape,physx::shdfnd::InlineAllocator<64u,physx::shdfnd::ReflectionAllocator<physx::Scb::RemovedShape>>>::growAndPushBack(Stream + 64, &v25);
+        }
+
+        else
+        {
+          *(*(Stream + 136) + 16 * v23) = v25;
+          ++*(Stream + 144);
+        }
+
+        goto LABEL_46;
+      }
+    }
+
+    else
+    {
+      if (v4)
+      {
+        v12 = this[2];
+      }
+
+      else
+      {
+        v12 = (this + *(&physx::Scb::Actor::sLazyInitOffsets + ((v4 >> 24) & 0xF) + 3) + 12);
+      }
+
+      if ((v12->i8[0] & 8) == 0)
+      {
+        physx::Sc::RigidCore::removeShapeFromScene((this + *(&physx::Scb::Actor::sLazyInitOffsets + ((v4 >> 24) & 0xF) + 3)), (a2 + 32), a3);
+        if (atomic_fetch_add(a2 - 4, 0xFFFFFFFF) == 1)
+        {
+          (*(*(a2 - 3) + 16))();
+        }
+      }
+    }
+
+    v13 = *(a2 + 2);
+    if ((v13 & 0xF000000) == 0x1000000)
+    {
+      *(a2 + 2) = v13 & 0x31FFFFFF;
+      *a2 = 0;
+    }
+  }
+}
+
+uint64_t physx::NpShapeManager::detachAll(physx::NpShapeManager *this, int32x2_t *a2, const physx::PxRigidActor *a3)
+{
+  v4 = *(this + 4);
+  v5 = this;
+  if (v4 != 1)
+  {
+    v5 = *this;
+  }
+
+  if (a2)
+  {
+    physx::NpShapeManager::teardownAllSceneQuery(this, a2 + 1080, a3);
+  }
+
+  if (v4)
+  {
+    do
+    {
+      v6 = *v5;
+      atomic_fetch_add((*v5 + 264), 0xFFFFFFFF);
+      if ((*(v6 + 264) & 0x80000000) != 0)
+      {
+        *(v6 + 40) = 0;
+      }
+
+      if (atomic_fetch_add((v6 + 32), 0xFFFFFFFF) == 1)
+      {
+        (*(*(v6 + 24) + 16))();
+      }
+
+      v5 = (v5 + 8);
+      --v4;
+    }
+
+    while (v4);
+  }
+
+  v7 = *(physx::NpFactory::mInstance + 832);
+  physx::Cm::PtrTable::clear(this, v7);
+
+  return physx::Cm::PtrTable::clear(this + 16, v7);
+}
+
+void physx::NpShapeManager::getWorldBounds(int8x16_t *__return_ptr a1@<X8>, physx::NpShapeManager *this@<X0>, const physx::PxRigidActor *a3@<X1>)
+{
+  v3 = this;
+  v5 = *(this + 4);
+  (*(*a3 + 152))(&v45, a3);
+  if (*(v3 + 4) != 1)
+  {
+    v3 = *v3;
+  }
+
+  v15 = vdup_n_s32(0xFE7FFFFF);
+  v16 = xmmword_1E3113BA0;
+  if (v5)
+  {
+    do
+    {
+      v17 = *v3;
+      v18 = *(*v3 + 56);
+      if (v18)
+      {
+        v19 = *(v17 + 8) + 64;
+      }
+
+      else
+      {
+        v19 = v17 + 152;
+      }
+
+      v38 = v16;
+      if ((v18 & 4) != 0)
+      {
+        v20 = *(v17 + 8);
+      }
+
+      else
+      {
+        v20 = (v17 + 112);
+      }
+
+      *&_D2 = v20[1].f32[0] + v20[1].f32[0];
+      v21 = v20[1].f32[1] + v20[1].f32[1];
+      _S4 = v20[1].f32[2] + v20[1].f32[2];
+      *&v12 = (v47 * v47) + -0.5;
+      *v13.i32 = v45;
+      _Q7.i64[0] = v46;
+      __asm
+      {
+        FMLA            S16, S4, V7.S[1]
+        FMLA            S18, S2, V7.S[1]
+        FMLA            S20, S16, V7.S[1]
+      }
+
+      v30 = v49 + (((v47 * _S18) + (v21 * *&v12)) + (*&v46 * _S16));
+      v31 = *v20;
+      v31.i32[3] = HIDWORD(v46);
+      *&_D2 = ((v47 * (vmuls_lane_f32(v21, vnegq_f32(v31), 3) + (*&v46 * _S4))) + (*&_D2 * *&v12)) + (v45 * _S16);
+      v32 = vextq_s8(vextq_s8(v13, v13, 4uLL), _Q7, 0xCuLL);
+      v32.f32[3] = -v45;
+      v33 = vmlaq_n_f32(vmulq_f32(vextq_s8(vdupq_laneq_s32(*v20, 3), *v20, 4uLL), v32), *v20, v47);
+      v32.f32[3] = -*&v46;
+      *&_Q7.i32[2] = v45;
+      _Q7.i32[3] = v20->i64[1];
+      v34 = vmlsq_f32(vmlaq_f32(vuzp2q_s32(vextq_s8(v33, v33, 4uLL), v33), vextq_s8(vextq_s8(*v20, *v20, 0xCuLL), *v20, 8uLL), v32), _Q7, v31);
+      v35 = vzip1q_s32(v34, vextq_s8(v34, v34, 0xCuLL));
+      v36 = vzip2q_s32(v35, v34);
+      v39 = v36;
+      v40 = v48 + *&_D2;
+      v41 = v30;
+      v42 = v50 + _S20;
+      v36.i64[0] = 0;
+      v10.i32[0] = 1.0;
+      physx::Gu::computeBounds(&v43, v19, &v39, 0, v36, *&v10, _D2, *v35.i64, *v32.i64, v12, v13, v6, v7, v8, v9);
+      v37 = vmovn_s32(vcgtq_f32(v43, v38));
+      _D2 = COERCE_DOUBLE(vmovn_s32(vcgtq_f32(v38, v43)));
+      v37.i16[3] = HIWORD(_D2);
+      v16 = vbslq_s8(vmovl_s16(v37), v38, v43);
+      v10 = vcgt_f32(v15, v44);
+      v15 = vbsl_s8(v10, v15, v44);
+      v3 = (v3 + 8);
+      --v5;
+    }
+
+    while (v5);
+  }
+
+  *a1 = v16;
+  *a1[1].i8 = v15;
+}
+
+int32x2_t *physx::NpShapeManager::clearShapesOnRelease(int32x2_t *result, int32x2_t *a2)
+{
+  v3 = result;
+  v4 = result[1].u16[0];
+  if (v4 != 1)
+  {
+    if (!result[1].i16[0])
+    {
+      return result;
+    }
+
+    v3 = *result;
+  }
+
+  do
+  {
+    v5 = *v3;
+    if ((*(*v3 + 59) & 0x10) != 0)
+    {
+      result = physx::shdfnd::internal::HashSetBase<physx::Sc::BodySim const*,physx::shdfnd::Hash<physx::Sc::BodySim const*>,physx::shdfnd::NonTrackingAllocator,true>::erase(a2 + 967, *&v5 + 48);
+      *(*&v5 + 56) &= ~0x10000000u;
+    }
+
+    ++v3;
+    --v4;
+  }
+
+  while (v4);
+  return result;
+}
+
+uint64_t physx::NpShapeManager::teardownSceneQuery(physx::NpShapeManager *this, int32x2_t *a2, unsigned int a3)
+{
+  v5 = this + 16;
+  v6 = this + 16;
+  if (*(this + 12) != 1)
+  {
+    v6 = *v5;
+  }
+
+  result = physx::Sq::SceneQueryManager::removePrunerShape(a2, *(this + 8), *&v6[8 * a3]);
+  if (*(this + 12) != 1)
+  {
+    v5 = *v5;
+  }
+
+  *&v5[8 * a3] = 0xFFFFFFFFLL;
+  return result;
+}
+
+void physx::NpShapeManager::addBVHStructureShapes(physx::NpShapeManager *this, physx::Sq::SceneQueryManager *a2, const physx::PxRigidActor *a3, const physx::Gu::BVHStructure *a4)
+{
+  v38 = *MEMORY[0x1E69E9840];
+  v8 = *(&physx::NpActor::sLazyInitOffsets + *(a3 + 4) + 18);
+  v9 = *(this + 4);
+  v10 = 8 * v9;
+  v37 = v9 > 0x80;
+  if (v9 < 0x81)
+  {
+    v14 = v10;
+    MEMORY[0x1EEE9AC00](this);
+    v11 = (&v32 - ((v10 + 15) & 0xFFFF0));
+    bzero(v11, v10);
+    v36 = v11;
+    v35 = v9 > 0x80;
+    MEMORY[0x1EEE9AC00](v15);
+    v12 = v11;
+    bzero(v11, v14);
+    v34 = v11;
+    if (!v9)
+    {
+      v21 = 1;
+      v22 = v8;
+      goto LABEL_15;
+    }
+
+    v13 = v9;
+  }
+
+  else
+  {
+    v11 = physx::shdfnd::TempAllocator::allocate(v33, 8 * v9, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpShapeManager.cpp", 357);
+    v36 = v11;
+    v35 = v9 > 0x80;
+    v12 = physx::shdfnd::TempAllocator::allocate(v33, 8 * v9, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpShapeManager.cpp", 358);
+    v34 = v12;
+    v13 = *(this + 4);
+  }
+
+  v16 = 0;
+  v17 = 0;
+  do
+  {
+    v18 = this;
+    if (v13 != 1)
+    {
+      v18 = *this;
+    }
+
+    v19 = *(v18 + v16);
+    if ((*(v19 + 56) & 0x40) != 0)
+    {
+      v20 = (*(v19 + 64) + 52);
+    }
+
+    else
+    {
+      v20 = (v19 + 144);
+    }
+
+    if ((*v20 & 2) != 0)
+    {
+      v11[v17++] = v19 + 48;
+    }
+
+    ++v16;
+  }
+
+  while (v9 != v16);
+  v21 = 0;
+  v22 = *(&physx::NpActor::sLazyInitOffsets + *(a3 + 4) + 18);
+LABEL_15:
+  v23 = *(*(a3 + v22 + *(&physx::Scb::Actor::sLazyInitOffsets + (*(a3 + v22 + 11) & 0xF) + 3)) + 88);
+  *(this + 8) = v23;
+  (*(*a3 + 152))(v33, a3);
+  physx::Sq::SceneQueryManager::addCompoundShape(a2, a4, v23, v33, v12, v11, a3 + v8);
+  if ((v21 & 1) == 0)
+  {
+    v24 = 0;
+    v25 = 0;
+    v26 = *(this + 4);
+    do
+    {
+      v27 = this;
+      if (v26 != 1)
+      {
+        v27 = *this;
+      }
+
+      v28 = *(v27 + v24);
+      if ((*(v28 + 56) & 0x40) != 0)
+      {
+        v29 = (*(v28 + 64) + 52);
+      }
+
+      else
+      {
+        v29 = (v28 + 144);
+      }
+
+      if ((*v29 & 2) != 0)
+      {
+        v30 = this + 16;
+        if (*(this + 12) != 1)
+        {
+          v30 = *(this + 2);
+        }
+
+        v31 = v12[v25++];
+        *&v30[8 * v24] = v31;
+      }
+
+      ++v24;
+    }
+
+    while (v9 != v24);
+  }
+
+  if (v35)
+  {
+    physx::shdfnd::TempAllocator::deallocate(&v34, v12);
+  }
+
+  if (v9 >= 0x81)
+  {
+    physx::shdfnd::TempAllocator::deallocate(&v36, v11);
+  }
+}
+
+void physx::NpShapeManager::visualize(uint64_t **a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v462 = *MEMORY[0x1E69E9840];
+  v8 = (*(*a3 + 560))(a3, 0);
+  if (v8 != 0.0)
+  {
+    v9 = v8;
+    v10 = *(a1 + 4);
+    v416 = v10 != 1 && (a1 = *a1, v10) && (*(*a3 + 560))(a3, 14) != 0.0;
+    if ((*(a3 + 8624) & 0x40) != 0)
+    {
+      v11 = (a3 + 8316);
+    }
+
+    else
+    {
+      v11 = (*(a3 + 1872) + 1888);
+    }
+
+    v12 = (*(*a3 + 560))(a3, 11);
+    v408 = (*(*a3 + 560))(a3, 12);
+    v13 = (*(*a3 + 560))(a3, 16);
+    v15 = (*(*a3 + 560))(a3, 15);
+    v16 = v15 != 0.0 || v408 != 0.0;
+    v405 = v13;
+    if (v13 != 0.0)
+    {
+      v16 = 1;
+    }
+
+    v415 = v11;
+    v417 = v11[3];
+    v418 = *v11;
+    v420 = v16;
+    v17 = *v11 <= v417 && v16;
+    v14.n128_f32[0] = *v11;
+    v18 = (*(*a3 + 560))(a3, 13, v14);
+    (*(*a4 + 152))(&v436, a4);
+    if (v10)
+    {
+      v29 = 0;
+      v30 = v416;
+      v31 = v416 || v17;
+      v414 = v9 * v15;
+      v32 = v9 * v18;
+      v33 = vdup_n_s32(0xFE7FFFFF);
+      v34 = -0.5;
+      v421 = xmmword_1E3113BA0;
+      v406 = a1;
+      v413 = v10;
+      v409 = v12;
+      v419 = v416 || v17;
+      v412 = v32;
+      while (1)
+      {
+        v35 = a1[v29];
+        v36 = *(v35 + 56);
+        if ((v36 & 4) != 0)
+        {
+          v37 = *(v35 + 64);
+        }
+
+        else
+        {
+          v37 = (v35 + 112);
+        }
+
+        _S2 = v37[1].f32[0] + v37[1].f32[0];
+        v39 = v37[1].f32[1] + v37[1].f32[1];
+        _S4 = v37[1].f32[2] + v37[1].f32[2];
+        *&v25 = v34 + (v438 * v438);
+        *v26.i32 = v436;
+        _Q7.i64[0] = v437;
+        __asm
+        {
+          FMLA            S16, S4, V7.S[1]
+          FMLA            S18, S2, V7.S[1]
+          FMLA            S20, S16, V7.S[1]
+        }
+
+        *&v47 = v440 + (((v438 * _S18) + (v39 * *&v25)) + (*&v437 * _S16));
+        v48 = *v37;
+        v48.i32[3] = HIDWORD(v437);
+        *v24.i32 = ((v438 * (vmuls_lane_f32(v39, vnegq_f32(v48), 3) + (*&v437 * _S4))) + (_S2 * *&v25)) + (v436 * _S16);
+        v50 = vextq_s8(vextq_s8(v26, v26, 4uLL), _Q7, 0xCuLL);
+        v50.f32[3] = -v436;
+        v49 = vmlaq_n_f32(vmulq_f32(vextq_s8(vdupq_laneq_s32(*v37, 3), *v37, 4uLL), v50), *v37, v438);
+        v50.f32[3] = -*&v437;
+        *&_Q7.i32[2] = v436;
+        _Q7.i32[3] = v37->i64[1];
+        v51 = vmlsq_f32(vmlaq_f32(vuzp2q_s32(vextq_s8(v49, v49, 4uLL), v49), vextq_s8(vextq_s8(*v37, *v37, 0xCuLL), *v37, 8uLL), v50), _Q7, v48);
+        v52 = vzip1q_s32(v51, vextq_s8(v51, v51, 0xCuLL));
+        v53 = vzip2q_s32(v52, v51);
+        v433 = v53;
+        *v434.i32 = v439 + *v24.i32;
+        v434.i32[1] = v47;
+        v435 = v441 + _S20;
+        if (v36)
+        {
+          v54 = *(v35 + 64) + 64;
+          if ((v36 & 0x40) != 0)
+          {
+LABEL_24:
+            v55 = (*(v35 + 64) + 52);
+            goto LABEL_27;
+          }
+        }
+
+        else
+        {
+          v54 = v35 + 152;
+          if ((v36 & 0x40) != 0)
+          {
+            goto LABEL_24;
+          }
+        }
+
+        v55 = (v35 + 144);
+LABEL_27:
+        v56 = *v55;
+        v53.i64[0] = 0;
+        v58 = (*v55 & 8) != 0 && v12 != 0.0;
+        if ((v31 | v58) == 1)
+        {
+          v23.i32[0] = 1.0;
+          physx::Gu::computeBounds(&v431, v54, &v433, 0, v53, *&v23, *&v24, *v52.i64, *v50.i64, v25, v26, v19, v20, v21, v22);
+          if ((v56 & 8) == 0)
+          {
+            goto LABEL_221;
+          }
+        }
+
+        else
+        {
+          v59.n128_u64[1] = 0xFE7FFFFF7E7FFFFFLL;
+          v431 = xmmword_1E3113BA0;
+          v59.n128_u64[0] = vdup_n_s32(0xFE7FFFFF);
+          v432 = v59.n128_u64[0];
+          if ((v56 & 8) == 0)
+          {
+            goto LABEL_221;
+          }
+        }
+
+        if (v12 != 0.0)
+        {
+          *(a2 + 4) = -256;
+          *(a2 + 36) = 1065353216;
+          *(a2 + 40) = 0;
+          *(a2 + 48) = 0;
+          *(a2 + 56) = 1065353216;
+          *(a2 + 68) = 0;
+          *(a2 + 60) = 0;
+          *(a2 + 76) = 1065353216;
+          *(a2 + 80) = 0;
+          *(a2 + 88) = 0;
+          *(a2 + 96) = 1065353216;
+          *v452 = v431;
+          *&v452[16] = v432;
+          v452[24] = 1;
+          physx::Cm::operator<<(a2, v452);
+        }
+
+        if (v32 != 0.0)
+        {
+          physx::PxMat44::PxMat44(v452, &v433);
+          v60 = *&v452[16];
+          *(a2 + 36) = *v452;
+          *(a2 + 52) = v60;
+          v61 = *&v453[16];
+          *(a2 + 68) = *v453;
+          *(a2 + 84) = v61;
+          *v447 = v32;
+          *&v447[4] = v32;
+          *&v447[8] = v32;
+          *&v447[12] = 0xCF0000CF0000;
+          *&v447[20] = 207;
+          physx::Cm::operator<<(a2, v447);
+        }
+
+        if (!v420 || v418 <= v417 && (*v431.i32 > v415[3] || *v415 > *&v431.i32[3] || *&v431.i32[1] > v415[4] || v415[1] > *v432.i32 || *&v431.i32[2] > v415[5] || v415[2] > *&v432.i32[1]))
+        {
+          goto LABEL_221;
+        }
+
+        v62 = *v54;
+        if (v408 == 0.0)
+        {
+          if (v62 != 5)
+          {
+            goto LABEL_221;
+          }
+
+LABEL_90:
+          v411 = v33;
+          v180 = *(v54 + 40);
+          v182 = *(v54 + 4);
+          v181 = v54 + 4;
+          v183 = *(v181 + 12);
+          v184 = vadd_f32(v183, v183);
+          v185 = vrev64_s32(vmul_f32(v183, v184));
+          v186 = vmul_lane_f32(v184, v183, 1);
+          v187 = *(v181 + 8);
+          v188 = vadd_f32(*v433.f32, *v433.f32);
+          v189 = vmul_f32(*v433.f32, __PAIR64__(v188.u32[1], v433.u32[0]));
+          v190 = vadd_f32(*v433.f32, __PAIR64__(v188.u32[1], v433.u32[0]));
+          v191 = vmul_f32(*v433.f32, v190).f32[0];
+          v190.i32[1] = v189.i32[1];
+          v192 = vrev64_s32(vmul_n_f32(*&v433.u32[2], v190.f32[0]));
+          v193 = vmul_lane_f32(*&v433.u32[2], v188, 1);
+          v194 = vmul_n_f32(vrev64_s32(*&v433.u32[2]), vadd_f32(*&v433.u32[2], *&v433.u32[2]).f32[0]);
+          __asm { FMOV            V22.2S, #1.0 }
+
+          v196 = vzip2_s32(*v433.f32, _D22);
+          v197 = vsub_f32(v196, v190);
+          v198 = vmul_f32(v196, v190);
+          v196.i32[0] = vadd_f32(v198, v194).u32[0];
+          v196.i32[1] = vsub_f32(v197, v194).i32[1];
+          v23 = vsub_f32(v192, v193);
+          v198.f32[1] = 1.0 - v191;
+          v199 = vsub_f32(v198, v194);
+          v200 = vrev64_s32(v199);
+          v201 = vadd_f32(v193, v192);
+          v193.i32[0] = vsub_f32(v193, v192).u32[0];
+          v193.i32[1] = v201.i32[1];
+          v198.f32[0] = v198.f32[1] - v189.f32[1];
+          v202 = *(v181 + 20);
+          v203 = vadd_f32(v202, v202);
+          v204 = vmul_f32(v202, v203);
+          v205 = vmul_n_f32(v202, v184.f32[0]);
+          v206 = vrev64_s32(vmul_lane_f32(v202, v184, 1));
+          v207 = vmul_lane_f32(v203, v202, 1);
+          v208 = vdup_lane_s32(vsub_f32(v186, v207), 0);
+          v208.i32[0] = vadd_f32(v186, v207).u32[0];
+          v209 = vsub_f32(_D22, v185);
+          v210 = vsub_f32(v209, vdup_lane_s32(v204, 0));
+          v211 = vadd_f32(v205, v206);
+          v186.i32[0] = vsub_f32(v205, v206).u32[0];
+          v186.i32[1] = v211.i32[1];
+          v212 = vsub_f32(v206, v205);
+          v213 = vmul_f32(vzip1_s32(v210, v208), v182);
+          v214 = vmul_f32(vzip2_s32(v208, v210), v182);
+          v211.i32[1] = v212.i32[1];
+          v185.f32[0] = vsub_f32(vdup_lane_s32(v209, 1), v185).f32[0];
+          v215 = vmul_f32(v211, v182);
+          v216 = vmul_n_f32(v186, v187);
+          v217 = v187 * v185.f32[0];
+          v218 = vrev64_s32(v208);
+          v219 = vmul_f32(v210, v214);
+          v220 = vadd_f32(vmul_f32(v210, v215), vmul_f32(v208, vrev64_s32(v215)));
+          v221 = vadd_f32(vadd_f32(vmul_f32(v210, v213), vrev64_s32(vmul_f32(v218, v213))), vmul_n_f32(v186, v216.f32[0]));
+          v222 = vadd_f32(vadd_f32(v219, vrev64_s32(vmul_f32(v218, v214))), vmul_lane_f32(v186, v216, 1));
+          v223 = vadd_f32(v220, vmul_n_f32(v186, v217));
+          v224 = v217 * v185.f32[0];
+          v225 = vadd_f32(vadd_f32(vmul_n_f32(vzip1_s32(v213, v214), v211.f32[0]), vmul_lane_f32(vzip2_s32(v213, v214), v212, 1)), vmul_n_f32(v216, v185.f32[0]));
+          *v215.i32 = vaddv_f32(vmul_f32(v211, v215)) + v224;
+          v226 = (v198.f32[0] * *v223.i32) + (vmuls_lane_f32(*v221.i32, v23, 1) + vmul_f32(v201, v222).f32[0]);
+          v227 = vadd_f32(vmul_f32(v193, v223), vadd_f32(vmul_f32(v196, v221), vmul_f32(v200, v222)));
+          v228 = vadd_f32(vmul_f32(v193, vrev64_s32(v223)), vadd_f32(vmul_f32(v196, vrev64_s32(v221)), vrev64_s32(vmul_f32(v199, v222))));
+          v229 = vmuls_lane_f32(v198.f32[0], v223, 1) + vadd_f32(vdup_lane_s32(vmul_f32(v23, v221), 1), vmul_lane_f32(v201, v222, 1)).f32[0];
+          *v26.i8 = vzip2_s32(v199, v196);
+          v196.i32[1] = v200.i32[1];
+          v25 = COERCE_DOUBLE(vmul_f32(*v26.i8, vrev64_s32(v225)));
+          v24 = vmul_n_f32(v193, *v215.i32);
+          v230 = vadd_f32(v24, vadd_f32(vmul_f32(v196, v225), *&v25));
+          v231 = (v198.f32[0] * *v215.i32) + (vmuls_lane_f32(*v225.i32, v23, 1) + vmul_lane_f32(v201, v225, 1).f32[0]);
+          *v447 = vext_s8(v228, v227, 4uLL);
+          *&v447[12] = vext_s8(v227, v228, 4uLL);
+          *&v447[8] = v226;
+          *&v447[20] = v229;
+          v448 = vrev64_s32(v230);
+          v59.n128_u64[0] = v434;
+          v450 = v434;
+          v232 = v435;
+          v449 = v231;
+          v451 = v435;
+          v233 = *(v180 + 32);
+          v234 = *(v180 + 48);
+          v428 = *(v180 + 40);
+          v235 = (*(v180 + 92) >> 1) & 1;
+          if (v418 > v417)
+          {
+            if (v408 == 0.0)
+            {
+              v241 = 0;
+              LODWORD(v424) = *(v180 + 32);
+              v12 = v409;
+              v33 = v411;
+              v32 = v412;
+              v34 = -0.5;
+            }
+
+            else
+            {
+              v242 = *(v180 + 28);
+              *(a2 + 36) = 1065353216;
+              *(a2 + 40) = 0;
+              *(a2 + 48) = 0;
+              *(a2 + 56) = 1065353216;
+              *(a2 + 68) = 0;
+              *(a2 + 60) = 0;
+              *(a2 + 76) = 1065353216;
+              *(a2 + 80) = 0;
+              *(a2 + 88) = 0;
+              *(a2 + 96) = 1065353216;
+              *(a2 + 4) = -65281;
+              if (v242)
+              {
+                v243 = vrev64_s32(v59.n128_u64[0]);
+                v244 = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 16))(physx::shdfnd::Foundation::mInstance + 24, 12 * v242, "NonTrackedAlloc", "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpShapeManager.cpp", 632);
+                v245 = (v244 + 8);
+                v246 = (v428 + 8);
+                do
+                {
+                  v24 = *(v246 - 2);
+                  v25 = COERCE_DOUBLE(vmul_f32(v228, vrev64_s32(v24)));
+                  v247 = v232 + (((v226 * *v24.i32) + vmuls_lane_f32(v229, v24, 1)) + (v231 * *v246));
+                  v59.n128_u64[0] = vrev64_s32(vadd_f32(v243, vadd_f32(vadd_f32(vmul_f32(v227, v24), *&v25), vmul_n_f32(v230, *v246))));
+                  *(v245 - 1) = v59.n128_u64[0];
+                  *v245 = v247;
+                  v245 += 3;
+                  v246 += 3;
+                  --v242;
+                }
+
+                while (v242);
+              }
+
+              else
+              {
+                v244 = 0;
+              }
+
+              v337 = *(a2 + 104);
+              v338 = *(v337 + 32);
+              v339 = *(v337 + 36) & 0x7FFFFFFF;
+              v340 = v338 + 3 * v233;
+              v12 = v409;
+              v33 = v411;
+              v32 = v412;
+              v34 = -0.5;
+              if (v340 > v339)
+              {
+                v341 = 2 * *(v337 + 36);
+                if (!v339)
+                {
+                  v341 = 2;
+                }
+
+                if (v340 <= v341)
+                {
+                  v342 = v341;
+                }
+
+                else
+                {
+                  v342 = v340;
+                }
+
+                physx::shdfnd::Array<physx::PxDebugLine,physx::shdfnd::ReflectionAllocator<physx::PxDebugLine>>::recreate(v337 + 24, v342);
+                v338 = *(v337 + 32);
+              }
+
+              v343 = *(v337 + 24);
+              *(v337 + 32) = v340;
+              if (v233)
+              {
+                v344 = 0;
+                v345 = v343 + 32 * v338;
+                do
+                {
+                  getTriangle(v344, v452, v244, v234, v235);
+                  v346 = *v452;
+                  v347 = *&v452[16];
+                  *v345 = *v452;
+                  *(v345 + 8) = DWORD2(v346);
+                  *(v345 + 12) = -65281;
+                  *(v345 + 16) = HIDWORD(v346);
+                  *(v345 + 20) = v347;
+                  *(v345 + 28) = -65281;
+                  v348 = *&v452[24];
+                  v349 = *v453;
+                  *(v345 + 32) = HIDWORD(v346);
+                  *(v345 + 36) = v347;
+                  *(v345 + 44) = -65281;
+                  *(v345 + 48) = v348;
+                  *(v345 + 56) = v349;
+                  *(v345 + 60) = -65281;
+                  *(v345 + 64) = v348;
+                  *(v345 + 72) = v349;
+                  *(v345 + 76) = -65281;
+                  *(v345 + 80) = v346;
+                  *(v345 + 88) = DWORD2(v346);
+                  *(v345 + 92) = -65281;
+                  v345 += 96;
+                  ++v344;
+                }
+
+                while (v233 != v344);
+              }
+
+              if (v244)
+              {
+                (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24, v244);
+              }
+
+              v241 = 0;
+              LODWORD(v424) = v233;
+            }
+          }
+
+          else
+          {
+            v236 = vextq_s8(*v415, *v415, 8uLL);
+            v237 = vextq_s8(*v415, v236, 0xCuLL);
+            v238 = vsubq_f32(*v415, v237);
+            *(v237.i64 + 4) = *(v415 + 2);
+            v239 = vaddq_f32(*v415, v237);
+            v239.i32[3] = v238.i32[3];
+            v240 = vsub_f32(*(v415 + 4), vext_s8(*v415, *v236.i8, 4uLL));
+            v236.i64[0] = 0x3F0000003F000000;
+            v236.i64[1] = 0x3F0000003F000000;
+            *v452 = xmmword_1E3047670;
+            *&v452[16] = xmmword_1E3047670;
+            *v453 = 1065353216;
+            *&v453[4] = vmulq_f32(v239, v236);
+            *&v453[20] = vmul_f32(v240, 0x3F0000003F000000);
+            if (v233)
+            {
+              v241 = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 16))(physx::shdfnd::Foundation::mInstance + 24, 4 * v233, "NonTrackedAlloc", "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpShapeManager.cpp", 602);
+            }
+
+            else
+            {
+              v241 = 0;
+            }
+
+            v12 = v409;
+            v33 = v411;
+            v32 = v412;
+            v34 = -0.5;
+            v442 = v241;
+            v444 = v233;
+            v443 = 0;
+            v445 = 0;
+            v446 = 0;
+            (physx::Gu::gMidphaseBoxOverlapTable[*(v180 + 8) - 3])(v452, v180, &v433, v181, &v442);
+            v424 = v443;
+            if (v408 != 0.0)
+            {
+              *(a2 + 36) = 1065353216;
+              *(a2 + 40) = 0;
+              *(a2 + 48) = 0;
+              *(a2 + 56) = 1065353216;
+              *(a2 + 68) = 0;
+              *(a2 + 60) = 0;
+              *(a2 + 76) = 1065353216;
+              *(a2 + 80) = 0;
+              *(a2 + 88) = 0;
+              *(a2 + 96) = 1065353216;
+              *(a2 + 4) = -65281;
+              v266 = *(a2 + 104);
+              v267 = *(v266 + 32);
+              v268 = *(v266 + 36) & 0x7FFFFFFF;
+              v269 = v267 + 3 * v424;
+              if (v269 > v268)
+              {
+                v270 = 2 * *(v266 + 36);
+                if (!v268)
+                {
+                  v270 = 2;
+                }
+
+                if (v269 <= v270)
+                {
+                  v271 = v270;
+                }
+
+                else
+                {
+                  v271 = v269;
+                }
+
+                physx::shdfnd::Array<physx::PxDebugLine,physx::shdfnd::ReflectionAllocator<physx::PxDebugLine>>::recreate(v266 + 24, v271);
+                v267 = *(v266 + 32);
+              }
+
+              v272 = *(v266 + 24);
+              *(v266 + 32) = v269;
+              if (v424)
+              {
+                v273 = v272 + 32 * v267;
+                v274 = v241;
+                v275 = v424;
+                do
+                {
+                  v276 = *v274++;
+                  getTriangle(v276, &v454, v428, v234, v447, v235);
+                  v59.n128_f32[0] = v454;
+                  v24.i32[0] = HIDWORD(v455);
+                  v23.i32[0] = LODWORD(v455);
+                  v277 = v456;
+                  v278 = v457;
+                  *&v25 = v458;
+                  *v273 = v454;
+                  *(v273 + 4) = __PAIR64__(v24.u32[0], v23.u32[0]);
+                  *(v273 + 12) = -65281;
+                  *(v273 + 16) = v277;
+                  *(v273 + 20) = v278;
+                  *(v273 + 24) = LODWORD(v25);
+                  *(v273 + 28) = -65281;
+                  *v26.i32 = v459;
+                  _Q7.i32[0] = v460;
+                  v279 = v461;
+                  *(v273 + 32) = v277;
+                  *(v273 + 36) = v278;
+                  *(v273 + 40) = LODWORD(v25);
+                  *(v273 + 44) = -65281;
+                  *(v273 + 48) = v26.i32[0];
+                  *(v273 + 52) = _Q7.i32[0];
+                  *(v273 + 56) = v279;
+                  *(v273 + 60) = -65281;
+                  *(v273 + 64) = v26.i32[0];
+                  *(v273 + 68) = _Q7.i32[0];
+                  *(v273 + 72) = v279;
+                  *(v273 + 76) = -65281;
+                  *(v273 + 80) = v59.n128_u32[0];
+                  *(v273 + 84) = __PAIR64__(v24.u32[0], v23.u32[0]);
+                  *(v273 + 92) = -65281;
+                  v273 += 96;
+                  --v275;
+                }
+
+                while (v275);
+              }
+            }
+          }
+
+          if (v414 != 0.0)
+          {
+            *(a2 + 36) = 1065353216;
+            *(a2 + 40) = 0;
+            *(a2 + 48) = 0;
+            *(a2 + 56) = 1065353216;
+            *(a2 + 68) = 0;
+            *(a2 + 60) = 0;
+            *(a2 + 76) = 1065353216;
+            *(a2 + 80) = 0;
+            *(a2 + 88) = 0;
+            *(a2 + 96) = 1065353216;
+            *(a2 + 4) = -2004353024;
+            if (v424)
+            {
+              v350 = 0;
+              do
+              {
+                if (v241)
+                {
+                  v351 = *(v241 + 4 * v350);
+                }
+
+                else
+                {
+                  v351 = v350;
+                }
+
+                getTriangle(v351, v452, v428, v234, v447, v235);
+                v352 = ((*&v452[4] - *&v452[16]) * (*&v452[8] - *v453)) - ((*&v452[8] - *&v452[20]) * (*&v452[4] - *&v452[28]));
+                v353 = ((*&v452[8] - *&v452[20]) * (*v452 - *&v452[24])) - ((*v452 - *&v452[12]) * (*&v452[8] - *v453));
+                v354 = ((*v452 - *&v452[12]) * (*&v452[4] - *&v452[28])) - ((*&v452[4] - *&v452[16]) * (*v452 - *&v452[24]));
+                v355 = ((v353 * v353) + (v352 * v352)) + (v354 * v354);
+                v356 = 0.0;
+                v357 = 0.0;
+                v358 = 0.0;
+                if (v355 > 0.0)
+                {
+                  v359 = 1.0 / sqrtf(v355);
+                  v358 = v352 * v359;
+                  v357 = v353 * v359;
+                  v356 = v354 * v359;
+                }
+
+                v454 = ((*v452 + *&v452[12]) + *&v452[24]) * 0.33333;
+                *&v455 = ((*&v452[4] + *&v452[16]) + *&v452[28]) * 0.33333;
+                *(&v455 + 1) = ((*&v452[8] + *&v452[20]) + *v453) * 0.33333;
+                v456 = v454 + (v414 * v358);
+                v457 = *&v455 + (v414 * v357);
+                v458 = *(&v455 + 1) + (v414 * v356);
+                v459 = sqrtf((((v414 * v357) * (v414 * v357)) + ((v414 * v358) * (v414 * v358))) + ((v414 * v356) * (v414 * v356))) * 0.15;
+                physx::Cm::operator<<(a2, &v454);
+                ++v350;
+              }
+
+              while (v424 != v350);
+            }
+          }
+
+          v59.n128_f32[0] = v405;
+          v31 = v419;
+          if (v405 == 0.0 || (v360 = *(v180 + 80)) == 0 || (v426 = *(v180 + 48), v430 = *(v180 + 40), *(a2 + 4) = -256, !v424))
+          {
+LABEL_217:
+            if (v241)
+            {
+              (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24, v241, v59);
+            }
+
+            a1 = v406;
+            goto LABEL_220;
+          }
+
+          v361 = 0;
+          v362 = -256;
+          v363 = (*(v180 + 92) >> 1) & 1;
+          while (2)
+          {
+            if (v241)
+            {
+              v364 = *(v241 + 4 * v361);
+            }
+
+            else
+            {
+              v364 = v361;
+            }
+
+            v59.n128_f32[0] = getTriangle(v364, v452, v430, v426, v447, v363);
+            v365 = *(v360 + v364);
+            if ((v365 & 8) != 0)
+            {
+              v366 = *(a2 + 104);
+              v367 = *(v366 + 32);
+              v368 = *(v366 + 36) & 0x7FFFFFFF;
+              v369 = v367 + 1;
+              if (v367 + 1 > v368)
+              {
+                v370 = 2 * *(v366 + 36);
+                if (!v368)
+                {
+                  v370 = 2;
+                }
+
+                if (v369 <= v370)
+                {
+                  v371 = v370;
+                }
+
+                else
+                {
+                  v371 = v369;
+                }
+
+                physx::shdfnd::Array<physx::PxDebugLine,physx::shdfnd::ReflectionAllocator<physx::PxDebugLine>>::recreate(v366 + 24, v371);
+                v367 = *(v366 + 32);
+                v362 = *(a2 + 4);
+              }
+
+              v372 = *(v366 + 24) + 32 * v367;
+              *(v366 + 32) = v369;
+              *v372 = *v452;
+              *(v372 + 8) = *&v452[8];
+              v59.n128_u32[1] = *&v452[16];
+              *(v372 + 16) = *&v452[12];
+              v59.n128_u32[0] = *&v452[20];
+              *(v372 + 24) = *&v452[20];
+              *(v372 + 28) = v362;
+              *(v372 + 12) = v362;
+              if ((v365 & 0x10) != 0)
+              {
+                goto LABEL_200;
+              }
+
+LABEL_190:
+              if ((v365 & 0x20) != 0)
+              {
+LABEL_208:
+                v380 = *(a2 + 104);
+                v381 = *(v380 + 32);
+                v382 = *(v380 + 36) & 0x7FFFFFFF;
+                v383 = v381 + 1;
+                if (v381 + 1 > v382)
+                {
+                  v384 = 2 * *(v380 + 36);
+                  if (!v382)
+                  {
+                    v384 = 2;
+                  }
+
+                  if (v383 <= v384)
+                  {
+                    v385 = v384;
+                  }
+
+                  else
+                  {
+                    v385 = v383;
+                  }
+
+                  physx::shdfnd::Array<physx::PxDebugLine,physx::shdfnd::ReflectionAllocator<physx::PxDebugLine>>::recreate(v380 + 24, v385);
+                  v381 = *(v380 + 32);
+                  v362 = *(a2 + 4);
+                }
+
+                v386 = *(v380 + 24) + 32 * v381;
+                *(v380 + 32) = v383;
+                *v386 = *v452;
+                *(v386 + 8) = *&v452[8];
+                v59.n128_u32[1] = *&v452[28];
+                *(v386 + 16) = *&v452[24];
+                v59.n128_u32[0] = *v453;
+                *(v386 + 24) = *v453;
+                *(v386 + 28) = v362;
+                *(v386 + 12) = v362;
+              }
+            }
+
+            else
+            {
+              if ((v365 & 0x10) == 0)
+              {
+                goto LABEL_190;
+              }
+
+LABEL_200:
+              v373 = *(a2 + 104);
+              v374 = *(v373 + 32);
+              v375 = *(v373 + 36) & 0x7FFFFFFF;
+              v376 = v374 + 1;
+              if (v374 + 1 > v375)
+              {
+                v377 = 2 * *(v373 + 36);
+                if (!v375)
+                {
+                  v377 = 2;
+                }
+
+                if (v376 <= v377)
+                {
+                  v378 = v377;
+                }
+
+                else
+                {
+                  v378 = v376;
+                }
+
+                physx::shdfnd::Array<physx::PxDebugLine,physx::shdfnd::ReflectionAllocator<physx::PxDebugLine>>::recreate(v373 + 24, v378);
+                v374 = *(v373 + 32);
+                v362 = *(a2 + 4);
+              }
+
+              v379 = *(v373 + 24) + 32 * v374;
+              *(v373 + 32) = v376;
+              *v379 = *&v452[12];
+              *(v379 + 8) = *&v452[20];
+              v59.n128_u32[1] = *&v452[28];
+              *(v379 + 16) = *&v452[24];
+              v59.n128_u32[0] = *v453;
+              *(v379 + 24) = *v453;
+              *(v379 + 28) = v362;
+              *(v379 + 12) = v362;
+              if ((v365 & 0x20) != 0)
+              {
+                goto LABEL_208;
+              }
+            }
+
+            v31 = v419;
+            if (v424 == ++v361)
+            {
+              goto LABEL_217;
+            }
+
+            continue;
+          }
+        }
+
+        if (v62 <= 2)
+        {
+          if (v62)
+          {
+            if (v62 == 1)
+            {
+              physx::PxMat44::PxMat44(v452, &v433);
+              v261 = 0;
+              *&v262 = *&v452[4];
+              v263 = *v452;
+              v264 = *v453;
+              *&v453[4] = *&v452[4];
+              *(&v262 + 1) = __PAIR64__(*&v453[16], *&v452[12]);
+              v265 = vnegq_f32(v264);
+              *v453 = *v452;
+              *&v453[12] = *&v452[12];
+              *v452 = vnegq_f32(*&v452[16]);
+              *&v452[16] = v265;
+              *(a2 + 36) = *v452;
+              *(a2 + 52) = v265;
+              *(a2 + 68) = v263;
+              *(a2 + 72) = v262;
+              *(a2 + 88) = *&v453[20];
+              *(a2 + 96) = *&v453[28];
+              *(a2 + 4) = -65281;
+              do
+              {
+                v261 += 2;
+                *v447 = 100;
+                *&v447[4] = v261 * v261;
+                physx::Cm::operator<<(a2, v447);
+              }
+
+              while (v261 < 0x12);
+            }
+
+            else if (v62 == 2)
+            {
+              *(a2 + 4) = -65281;
+              v166 = *(v54 + 4);
+              v167 = *(v54 + 8);
+              physx::PxMat44::PxMat44(v452, &v433);
+              v168 = v166;
+              v32 = v412;
+              v169 = v167;
+              v34 = -0.5;
+              physx::Cm::RenderOutput::outputCapsule(a2, v452, v168, v169);
+            }
+          }
+
+          else
+          {
+            *(a2 + 4) = -65281;
+            v248 = physx::Cm::RenderOutput::operator<<(a2, &v433);
+            v249 = *(v54 + 4);
+            *v452 = 100;
+            *&v452[4] = v249;
+            physx::Cm::operator<<(v248, v452);
+            physx::PxMat44::PxMat44(v452, &v433);
+            v250 = *&v452[16];
+            *(a2 + 36) = *v452;
+            v251 = vnegq_f32(*v453);
+            *&v452[16] = v251;
+            *v453 = v250;
+            *(a2 + 52) = v251;
+            *(a2 + 68) = v250.i32[0];
+            v252 = vextq_s8(v250, v251, 4uLL);
+            v252.i32[3] = *&v453[16];
+            *(a2 + 72) = v252;
+            *(a2 + 88) = *&v453[20];
+            *(a2 + 96) = *&v453[28];
+            v252.i32[0] = *(v54 + 4);
+            *v447 = 100;
+            *&v447[4] = v252.i32[0];
+            v253 = physx::Cm::operator<<(a2, v447);
+            v254 = *&v452[16];
+            v255 = vnegq_f32(*v453);
+            v256 = *v452;
+            *v453 = *v452;
+            *v452 = v255;
+            *(a2 + 36) = v255;
+            *(a2 + 52) = v254;
+            *(a2 + 68) = v256.i32[0];
+            v257 = vextq_s8(v256, v255, 4uLL);
+            v257.i32[3] = *&v453[16];
+            *(a2 + 72) = v257;
+            *(a2 + 88) = *&v453[20];
+            *(a2 + 96) = *&v453[28];
+            v257.i32[0] = *(v54 + 4);
+            *v447 = 100;
+            *&v447[4] = v257.i32[0];
+            physx::Cm::operator<<(v253, v447);
+          }
+
+          goto LABEL_221;
+        }
+
+        if (v62 <= 4)
+        {
+          if (v62 == 3)
+          {
+            *(a2 + 4) = -65281;
+            v258 = physx::Cm::RenderOutput::operator<<(a2, &v433);
+            v259 = *(v54 + 12);
+            v260 = *(v54 + 4);
+            *v452 = vneg_f32(v260);
+            *&v452[12] = v260;
+            *&v452[8] = -v259;
+            *&v452[20] = v259;
+            v452[24] = 1;
+            physx::Cm::operator<<(v258, v452);
+          }
+
+          else
+          {
+            v63 = *(v54 + 32);
+            v64 = *(v63 + 72);
+            v65 = *(v63 + 71);
+            v66 = *(v63 + 70);
+            v407 = v63;
+            v67 = *(v63 + 68);
+            v68 = v433.f32[0];
+            v69.f32[0] = v68 + v68;
+            *&v70 = 1.0 - (v68 * (v68 + v68));
+            v71 = *&v70 - (v433.f32[1] * (v433.f32[1] + v433.f32[1]));
+            v72 = *(v54 + 16);
+            v73 = *(v54 + 24);
+            v74 = vadd_f32(v73, v73);
+            v75 = vmul_f32(v73, v74);
+            v76 = vmul_lane_f32(v74, v73, 1);
+            v77 = vrev64_s32(v72);
+            v78 = vadd_f32(v72, v72);
+            v79 = vrev64_s32(vmul_f32(v72, v78));
+            v80 = vmul_f32(v78, v77);
+            v81.i32[0] = vadd_f32(v80, v76).u32[0];
+            __asm { FMOV            V25.2S, #1.0 }
+
+            v83 = vsub_f32(_D25, v79);
+            v84 = vsub_f32(v80, v76);
+            v79.f32[0] = vsub_f32(vdup_lane_s32(v83, 1), v79).f32[0];
+            v85 = *(v54 + 4);
+            v86 = *(v54 + 12);
+            v80.f32[0] = v86 * v79.f32[0];
+            v76.f32[0] = (v86 * v79.f32[0]) * v79.f32[0];
+            v87 = v434;
+            v88 = vrev64_s32(vmul_n_f32(*&v433.u32[2], v69.f32[0]));
+            v89 = vmul_n_f32(*&v433.u32[2], v433.f32[1] + v433.f32[1]);
+            v90 = vmul_n_f32(vrev64_s32(*&v433.u32[2]), vadd_f32(*&v433.u32[2], *&v433.u32[2]).f32[0]);
+            _D25.i32[0] = v433.i32[1];
+            v69.f32[1] = v433.f32[1] * (v433.f32[1] + v433.f32[1]);
+            v91 = vsub_f32(_D25, v69);
+            v92 = vmul_f32(_D25, v69);
+            v69.i32[0] = vadd_f32(v92, v90).u32[0];
+            v93 = __PAIR64__(v70, v92.u32[0]);
+            v69.i32[1] = vsub_f32(v91, v90).i32[1];
+            v94 = vsub_f32(v88, v89);
+            v95 = vsub_f32(v93, v90);
+            v96 = vadd_f32(v89, v88);
+            v26.i32[0] = vsub_f32(v89, v88).u32[0];
+            v26.i32[1] = v96.i32[1];
+            v97 = vmul_n_f32(v73, v78.f32[0]);
+            v98 = vrev64_s32(vmul_lane_f32(v73, v78, 1));
+            v99 = vsub_f32(v83, vdup_lane_s32(v75, 0));
+            v100 = vadd_f32(v97, v98);
+            v83.i32[0] = vsub_f32(v97, v98).u32[0];
+            v83.i32[1] = v100.i32[1];
+            v101 = vsub_f32(v98, v97);
+            v102 = vzip1_s32(v99, v84);
+            v103 = vmul_n_f32(v102, v85.f32[0]);
+            v104 = vmul_n_f32(v103, v100.f32[0]);
+            v100.i32[1] = v101.i32[1];
+            v81.i32[1] = v99.i32[1];
+            v105 = vrev64_s32(v95);
+            v106 = vmul_lane_f32(v81, v85, 1);
+            v107 = vmul_f32(v100, v85);
+            v108 = vmul_n_f32(v83, v86);
+            v109 = vext_s8(v102, v81, 4uLL);
+            v110 = vzip1_s32(v103, v106);
+            v111 = vzip2_s32(v103, v106);
+            v112 = vrev64_s32(vmul_f32(v109, v111));
+            v113 = vmul_f32(v99, v111);
+            v114 = vadd_f32(vmul_f32(v99, v110), vrev64_s32(vmul_f32(v109, v110)));
+            v115 = vadd_f32(vmul_f32(v99, v107), vrev64_s32(vmul_f32(v109, v107)));
+            v116 = vadd_f32(v114, vmul_n_f32(v83, v108.f32[0]));
+            v117 = vadd_f32(vadd_f32(v113, v112), vmul_lane_f32(v83, v108, 1));
+            v118 = vadd_f32(v115, vmul_n_f32(v83, v80.f32[0]));
+            v119 = vadd_f32(vadd_f32(v104, vmul_lane_f32(v106, v101, 1)), vmul_n_f32(v108, v79.f32[0]));
+            v76.f32[0] = vaddv_f32(vmul_f32(v100, v107)) + v76.f32[0];
+            v120 = vadd_f32(vmul_f32(*v26.i8, v118), vadd_f32(vmul_f32(v69, v116), vmul_f32(v105, v117)));
+            v121 = vadd_f32(vmul_f32(*v26.i8, vrev64_s32(v118)), vadd_f32(vmul_f32(v69, vrev64_s32(v116)), vrev64_s32(vmul_f32(v95, v117))));
+            *&v28 = vadd_f32(vmul_n_f32(v118, v71), vadd_f32(vmul_lane_f32(v116, v94, 1), vmul_n_f32(v117, v96.f32[0])));
+            v122 = vzip2_s32(v95, v69);
+            v69.i32[1] = v105.i32[1];
+            v115.f32[0] = vmuls_lane_f32(*v119.i32, v94, 1);
+            v25 = COERCE_DOUBLE(vmul_f32(v69, v119));
+            v123 = vmul_f32(v122, vrev64_s32(v119));
+            v23 = vmul_lane_f32(v96, v119, 1);
+            v124 = v71 * v76.f32[0];
+            v125 = v435;
+            *(a2 + 36) = vext_s8(v121, v120, 4uLL);
+            *(a2 + 44) = v28;
+            v126 = vadd_f32(vmul_n_f32(*v26.i8, v76.f32[0]), vadd_f32(*&v25, v123));
+            *(a2 + 52) = vext_s8(v120, v121, 4uLL);
+            *(a2 + 60) = DWORD1(v28);
+            *(a2 + 64) = 0;
+            v24 = vrev64_s32(v126);
+            *(a2 + 68) = v24;
+            v127 = v124 + (v115.f32[0] + v23.f32[0]);
+            *(a2 + 76) = v127;
+            *(a2 + 80) = 0;
+            *(a2 + 84) = v87;
+            *(a2 + 92) = v125;
+            *(a2 + 96) = 1065353216;
+            *(a2 + 4) = -65281;
+            if (v65)
+            {
+              v128 = v65;
+              v129 = 0;
+              v130 = v64 + 20 * v65;
+              v131 = vrev64_s32(v87);
+              v132 = v130 + 12 * v66 + 2 * (v67 & 0x7FFF);
+              v133 = 3 * v66;
+              if (v67 >= 0)
+              {
+                v134 = 0;
+              }
+
+              else
+              {
+                v134 = 4 * (v67 & 0x7FFF);
+              }
+
+              v135 = (v132 + v133 + v134);
+              v136 = -65281;
+              v423 = v121;
+              v425 = v120;
+              v422 = v28;
+              v410 = v33;
+              do
+              {
+                v137 = *(*(v407 + 72) + 20 * v129 + 18);
+                v138 = v130 + 12 * *v135;
+                v139 = *(v138 + 8);
+                *v50.f32 = vmul_f32(v121, vrev64_s32(*v138));
+                v24 = vmul_f32(*&v28, *v138);
+                v140 = vaddv_f32(v24) + (v127 * v139);
+                v141 = vadd_f32(v131, vadd_f32(vadd_f32(vmul_f32(v120, *v138), *v50.f32), vmul_n_f32(v126, v139)));
+                v142 = v125 + v140;
+                if (v137 < 2)
+                {
+                  v153 = v125 + v140;
+                  v152 = v141;
+                }
+
+                else
+                {
+                  for (i = 1; i != v137; ++i)
+                  {
+                    v144 = (v130 + 12 * v135[i]);
+                    v50.i32[0] = v144[1].i32[0];
+                    v145 = *v144;
+                    v146 = *(a2 + 104);
+                    v147 = *(v146 + 32);
+                    v148 = *(v146 + 36) & 0x7FFFFFFF;
+                    v149 = v147 + 1;
+                    if (v147 + 1 > v148)
+                    {
+                      v150 = 2 * *(v146 + 36);
+                      if (!v148)
+                      {
+                        v150 = 2;
+                      }
+
+                      if (v149 <= v150)
+                      {
+                        v151 = v150;
+                      }
+
+                      else
+                      {
+                        v151 = v147 + 1;
+                      }
+
+                      v427 = v50;
+                      physx::shdfnd::Array<physx::PxDebugLine,physx::shdfnd::ReflectionAllocator<physx::PxDebugLine>>::recreate(v146 + 24, v151);
+                      v50 = v427;
+                      v28 = v422;
+                      v121 = v423;
+                      v120 = v425;
+                      v147 = *(v146 + 32);
+                      v136 = *(a2 + 4);
+                    }
+
+                    v23 = vadd_f32(vadd_f32(vmul_f32(v120, v145), vmul_f32(v121, vrev64_s32(v145))), vmul_n_f32(v126, v50.f32[0]));
+                    v152 = vadd_f32(v131, v23);
+                    v153 = v125 + (vaddv_f32(vmul_f32(*&v28, v145)) + (v127 * v50.f32[0]));
+                    v154 = *(v146 + 24);
+                    *(v146 + 32) = v149;
+                    v155 = v154 + 32 * v147;
+                    *v155 = vrev64_s32(v141);
+                    *(v155 + 8) = v142;
+                    *(v155 + 16) = vrev64_s32(v152);
+                    *(v155 + 24) = v153;
+                    *(v155 + 28) = v136;
+                    *(v155 + 12) = v136;
+                    v142 = v153;
+                    v141 = v152;
+                  }
+
+                  v156 = (v130 + 12 * *v135);
+                  v157 = v156[1].f32[0];
+                  v24 = vmul_f32(*&v28, *v156);
+                  v141 = vadd_f32(v131, vadd_f32(vadd_f32(vmul_f32(v120, *v156), vmul_f32(v121, vrev64_s32(*v156))), vmul_n_f32(v126, v157)));
+                  v142 = v125 + (vaddv_f32(v24) + (v127 * v157));
+                  a1 = v406;
+                }
+
+                v158 = *(a2 + 104);
+                v159 = *(v158 + 32);
+                v160 = *(v158 + 36) & 0x7FFFFFFF;
+                v161 = v159 + 1;
+                if (v159 + 1 > v160)
+                {
+                  v162 = 2 * *(v158 + 36);
+                  if (!v160)
+                  {
+                    v162 = 2;
+                  }
+
+                  if (v161 <= v162)
+                  {
+                    v163 = v162;
+                  }
+
+                  else
+                  {
+                    v163 = v159 + 1;
+                  }
+
+                  physx::shdfnd::Array<physx::PxDebugLine,physx::shdfnd::ReflectionAllocator<physx::PxDebugLine>>::recreate(v158 + 24, v163);
+                  v28 = v422;
+                  v121 = v423;
+                  v120 = v425;
+                  v159 = *(v158 + 32);
+                  v136 = *(a2 + 4);
+                }
+
+                v164 = *(v158 + 24);
+                *(v158 + 32) = v161;
+                v165 = v164 + 32 * v159;
+                *v165 = vrev64_s32(v152);
+                *(v165 + 8) = v153;
+                *(v165 + 16) = vrev64_s32(v141);
+                *(v165 + 24) = v142;
+                *(v165 + 28) = v136;
+                *(v165 + 12) = v136;
+                v135 += v137;
+                ++v129;
+                v10 = v413;
+                v30 = v416;
+                v12 = v409;
+                v33 = v410;
+                v31 = v419;
+                v32 = v412;
+                v34 = -0.5;
+              }
+
+              while (v129 != v128);
+            }
+          }
+
+          goto LABEL_221;
+        }
+
+        if (v62 == 5)
+        {
+          goto LABEL_90;
+        }
+
+        if (v62 == 6)
+        {
+          v170 = *(v54 + 8);
+          v171 = (*(v170 + 60) * *(v170 + 56));
+          v172 = (2 * v171);
+          *(a2 + 36) = 1065353216;
+          *(a2 + 40) = 0;
+          *(a2 + 48) = 0;
+          *(a2 + 56) = 1065353216;
+          *(a2 + 68) = 0;
+          *(a2 + 60) = 0;
+          *(a2 + 76) = 1065353216;
+          *(a2 + 80) = 0;
+          *(a2 + 88) = 0;
+          *(a2 + 96) = 1065353216;
+          *(a2 + 4) = -65281;
+          if (v418 > v417)
+          {
+            if (v171)
+            {
+              v280 = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 16))(physx::shdfnd::Foundation::mInstance + 24, 12 * v171, "NonTrackedAlloc", "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpShapeManager.cpp", 705, v418);
+              v281 = v280;
+              v282 = 0;
+              v283 = *(v170 + 60);
+              v284 = *(v170 + 80);
+              v23.i32[0] = *(v54 + 16);
+              v285 = *(v54 + 20);
+              v24.i32[0] = *(v54 + 24);
+              v286 = v433.i64[1];
+              *&v25 = v34 + (v433.f32[3] * v433.f32[3]);
+              v287 = v433.i64[0];
+              v288 = -v433.f32[2];
+              v289 = -v433.f32[0];
+              v290 = -v433.f32[1];
+              v291 = (v280 + 8);
+              do
+              {
+                v292 = *v284;
+                v284 += 2;
+                v293 = (v285 * (v282 / v283)) + (v285 * (v282 / v283));
+                v294 = (v23.f32[0] * v292) + (v23.f32[0] * v292);
+                v295 = (*v24.i32 * (v282 % v283)) + (*v24.i32 * (v282 % v283));
+                v296 = ((*(&v287 + 1) * v294) + (*&v287 * v293)) + (*&v286 * v295);
+                v297 = (*(&v286 + 1) * ((v295 * v289) + (*&v286 * v293))) + (v294 * *&v25);
+                v298 = ((*(&v286 + 1) * ((v294 * v288) + (*(&v287 + 1) * v295))) + (v293 * *&v25)) + (*&v287 * v296);
+                v299 = v435 + (((*(&v286 + 1) * ((v293 * v290) + (*&v287 * v294))) + (v295 * *&v25)) + (*&v286 * v296));
+                v300 = *&v434.i32[1] + (v297 + (*(&v287 + 1) * v296));
+                *(v291 - 2) = *v434.i32 + v298;
+                *(v291 - 1) = v300;
+                *v291 = v299;
+                v291 += 3;
+                ++v282;
+              }
+
+              while (v171 != v282);
+              if (!v172)
+              {
+                goto LABEL_157;
+              }
+
+              v301 = 0;
+              v429 = v280;
+              do
+              {
+                v302 = v301 >> 1;
+                v303 = *(v170 + 60);
+                v304 = (v301 >> 1) / v303;
+                if (v304 < *(v170 + 56) - 1 && v302 - v304 * v303 < v303 - 1)
+                {
+                  v305 = *(v170 + 80) + 4 * v302;
+                  v306 = (v305 + 2);
+                  v307 = (v305 + 3);
+                  if ((v301 & 1) == 0)
+                  {
+                    v307 = v306;
+                  }
+
+                  if ((~*v307 & 0x7F) != 0)
+                  {
+                    v308 = *v306;
+                    v309 = v302 + 1 + v303;
+                    v310 = v303 + v302;
+                    if (v301)
+                    {
+                      v311 = v310;
+                    }
+
+                    else
+                    {
+                      v311 = v302 + 1;
+                    }
+
+                    if (v301)
+                    {
+                      v312 = v309;
+                    }
+
+                    else
+                    {
+                      v312 = v301 >> 1;
+                    }
+
+                    if (v301)
+                    {
+                      v313 = v302 + 1;
+                    }
+
+                    else
+                    {
+                      v313 = v310;
+                    }
+
+                    if (v301)
+                    {
+                      v314 = v302 + 1;
+                    }
+
+                    else
+                    {
+                      v309 = v301 >> 1;
+                      v314 = v310;
+                    }
+
+                    if ((v301 & 1) == 0)
+                    {
+                      v302 = v310 + 1;
+                    }
+
+                    if (v308 < 0)
+                    {
+                      v315 = v309;
+                    }
+
+                    else
+                    {
+                      v315 = v311;
+                    }
+
+                    if (v308 >= 0)
+                    {
+                      v316 = v313;
+                    }
+
+                    else
+                    {
+                      v312 = v314;
+                      v316 = v302;
+                    }
+
+                    v317 = *(a2 + 104);
+                    v318 = *(v317 + 32);
+                    v319 = *(v317 + 36) & 0x7FFFFFFF;
+                    v320 = v318 + 3;
+                    if (v318 + 3 > v319)
+                    {
+                      v321 = 2 * *(v317 + 36);
+                      if (!v319)
+                      {
+                        v321 = 2;
+                      }
+
+                      if (v320 <= v321)
+                      {
+                        v322 = v321;
+                      }
+
+                      else
+                      {
+                        v322 = v320;
+                      }
+
+                      v323 = v172;
+                      v324 = v312;
+                      physx::shdfnd::Array<physx::PxDebugLine,physx::shdfnd::ReflectionAllocator<physx::PxDebugLine>>::recreate(v317 + 24, v322);
+                      v312 = v324;
+                      v172 = v323;
+                      v281 = v429;
+                      v318 = *(v317 + 32);
+                    }
+
+                    v325 = *(v317 + 24) + 32 * v318;
+                    *(v317 + 32) = v320;
+                    v326 = v281 + 12 * v312;
+                    v327 = v281 + 12 * v315;
+                    v328 = (v281 + 12 * v316);
+                    v329 = *(v327 + 8);
+                    v330 = *v326;
+                    *(v325 + 8) = *(v326 + 8);
+                    *(v325 + 12) = -65281;
+                    v331 = *v327;
+                    *v325 = v330;
+                    *(v325 + 16) = v331;
+                    *(v325 + 24) = v329;
+                    *(v325 + 28) = -65281;
+                    v332 = v328[1].i32[0];
+                    v333 = *v327;
+                    *(v325 + 40) = *(v327 + 8);
+                    *(v325 + 44) = -65281;
+                    v334 = *v328;
+                    *(v325 + 32) = v333;
+                    *(v325 + 48) = v334;
+                    *(v325 + 56) = v332;
+                    *(v325 + 60) = -65281;
+                    v335 = *(v326 + 8);
+                    v24 = *v328;
+                    *(v325 + 72) = v328[1].i32[0];
+                    *(v325 + 76) = -65281;
+                    v336 = *v326;
+                    *(v325 + 64) = v24;
+                    *(v325 + 80) = v336;
+                    *(v325 + 88) = v335;
+                    *(v325 + 92) = -65281;
+                    a1 = v406;
+                    v10 = v413;
+                    v30 = v416;
+                    v31 = v419;
+                  }
+                }
+
+                ++v301;
+              }
+
+              while (v172 != v301);
+              if (v281)
+              {
+LABEL_157:
+                (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24, v281);
+              }
+            }
+
+            goto LABEL_221;
+          }
+
+          v173 = v415[5];
+          v174 = v415[2];
+          *v24.i32 = (v173 + v174) * 0.5;
+          v175 = *(v415 + 3);
+          v176 = *v415;
+          v177 = vmul_f32(vadd_f32(v175, *v415), 0x3F0000003F000000);
+          *v447 = xmmword_1E30474D0;
+          *&v447[16] = v177;
+          v448.i32[0] = v24.i32[0];
+          v59.n128_f32[0] = (v173 - v174) * 0.5;
+          LODWORD(v454) = 3;
+          v178 = COERCE_DOUBLE(vmul_f32(vsub_f32(v175, v176), 0x3F0000003F000000));
+          v455 = v178;
+          v456 = v59.n128_f32[0];
+          if (v172)
+          {
+            v179 = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 16))(physx::shdfnd::Foundation::mInstance + 24, 4 * (2 * v171), "NonTrackedAlloc", "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpShapeManager.cpp", 680);
+          }
+
+          else
+          {
+            v179 = 0;
+          }
+
+          LOBYTE(v442) = 0;
+          OverlapHeightField = physx::PxMeshQuery::findOverlapHeightField(&v454, v447, v54, v433.f32, v179, 2 * v171, 0, &v442, v59.n128_f64[0], v178, *&v24);
+          v389 = *(a2 + 104);
+          v390 = *(v389 + 32);
+          v391 = *(v389 + 36) & 0x7FFFFFFF;
+          v392 = v390 + 3 * OverlapHeightField;
+          if (v392 > v391)
+          {
+            v393 = 2 * *(v389 + 36);
+            if (!v391)
+            {
+              v393 = 2;
+            }
+
+            if (v392 <= v393)
+            {
+              v394 = v393;
+            }
+
+            else
+            {
+              v394 = v392;
+            }
+
+            physx::shdfnd::Array<physx::PxDebugLine,physx::shdfnd::ReflectionAllocator<physx::PxDebugLine>>::recreate(v389 + 24, v394);
+            v390 = *(v389 + 32);
+          }
+
+          v395 = *(v389 + 24);
+          *(v389 + 32) = v392;
+          if (OverlapHeightField)
+          {
+            v396 = v395 + 32 * v390;
+            v397 = OverlapHeightField;
+            v398 = v179;
+            do
+            {
+              v399 = *v398++;
+              physx::PxMeshQuery::getTriangle(v54, v433.f32, v399, v452, 0, 0);
+              v400 = *v452;
+              v401 = *&v452[16];
+              *v396 = *v452;
+              *(v396 + 8) = DWORD2(v400);
+              *(v396 + 12) = -65281;
+              *(v396 + 16) = HIDWORD(v400);
+              *(v396 + 20) = v401;
+              *(v396 + 28) = -65281;
+              v402 = *&v452[24];
+              v403 = *v453;
+              *(v396 + 32) = HIDWORD(v400);
+              *(v396 + 36) = v401;
+              *(v396 + 44) = -65281;
+              *(v396 + 48) = v402;
+              *(v396 + 56) = v403;
+              *(v396 + 60) = -65281;
+              *(v396 + 64) = v402;
+              *(v396 + 72) = v403;
+              *(v396 + 76) = -65281;
+              *(v396 + 80) = v400;
+              *(v396 + 88) = DWORD2(v400);
+              *(v396 + 92) = -65281;
+              v396 += 96;
+              --v397;
+            }
+
+            while (v397);
+LABEL_238:
+            (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24, v179);
+          }
+
+          else if (v179)
+          {
+            goto LABEL_238;
+          }
+
+LABEL_220:
+          v10 = v413;
+          v30 = v416;
+        }
+
+LABEL_221:
+        if (v30)
+        {
+          v387 = vmovn_s32(vcgtq_f32(v431, v421));
+          v24 = vmovn_s32(vcgtq_f32(v421, v431));
+          v387.i16[3] = v24.i16[3];
+          v421 = vbslq_s8(vmovl_s16(v387), v421, v431);
+          v23 = vcgt_f32(v33, v432);
+          v33 = vbsl_s8(v23, v33, v432);
+        }
+
+        if (++v29 == v10)
+        {
+          if (*v421.i32 <= *&v421.i32[3] && v30)
+          {
+            *(a2 + 4) = -65281;
+            *(a2 + 36) = 1065353216;
+            *(a2 + 40) = 0;
+            *(a2 + 48) = 0;
+            *(a2 + 56) = 1065353216;
+            *(a2 + 68) = 0;
+            *(a2 + 60) = 0;
+            *(a2 + 76) = 1065353216;
+            *(a2 + 80) = 0;
+            *(a2 + 88) = 0;
+            *(a2 + 96) = 1065353216;
+            *v452 = v421;
+            *&v452[16] = v33;
+            v452[24] = 1;
+            physx::Cm::operator<<(a2, v452);
+          }
+
+          return;
+        }
+      }
+    }
+  }
+}
+
+BOOL physx::PxRigidDynamic::isKindOf(physx::PxRigidDynamic *this, const char *a2)
+{
+  if (!strcmp("PxRigidDynamic", a2))
+  {
+    return 1;
+  }
+
+  return physx::PxRigidBody::isKindOf(this, a2);
+}
+
+uint64_t physx::NpActorTemplate<physx::PxRigidDynamic>::getScene(uint64_t a1)
+{
+  v1 = (a1 + *(&physx::NpActor::sLazyInitOffsets + *(a1 + 8) + 18));
+  if (((*(v1 + 2) >> 30) - 1) > 1)
+  {
+    return 0;
+  }
+
+  v2 = *v1;
+  if (v2)
+  {
+    return v2 - 16;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+float physx::NpRigidActorTemplate<physx::PxRigidDynamic>::getWorldBounds@<S0>(physx::PxRigidActor *a1@<X0>, uint64_t a2@<X8>, float a3@<S0>)
+{
+  physx::NpShapeManager::getWorldBounds(&v11, (a1 + 40), a1);
+  v4 = (v12 + v14) * 0.5;
+  v5 = ((v14 - v12) * 0.5) * a3;
+  v6 = v4 - v5;
+  result = v4 + v5;
+  v8 = vmul_f32(vadd_f32(v11, v13), 0x3F0000003F000000);
+  v9 = vmul_n_f32(vmul_f32(vsub_f32(v13, v11), 0x3F0000003F000000), a3);
+  *a2 = vsub_f32(v8, v9);
+  *(a2 + 8) = v6;
+  *(a2 + 12) = vadd_f32(v8, v9);
+  *(a2 + 20) = result;
+  return result;
+}
+
+int32x2_t *physx::NpRigidActorTemplate<physx::PxRigidDynamic>::setActorFlag(int32x2_t *result, int a2, int a3)
+{
+  v5 = result;
+  if (a2 != 8)
+  {
+    goto LABEL_35;
+  }
+
+  v6 = *(&physx::NpActor::sLazyInitOffsets + result[1].u16[0] + 18);
+  v7 = (result + v6);
+  v8 = *(result[1].u32 + v6);
+  if (v8)
+  {
+    v9 = v7[2];
+  }
+
+  else
+  {
+    v9 = (v7 + *(&physx::Scb::Actor::sLazyInitOffsets + ((v8 >> 24) & 0xF) + 3) + 12);
+  }
+
+  v10 = *v7;
+  v11 = v9->u8[0];
+  if (v11 & 8) == 0 || (a3)
+  {
+    if ((v11 & 8) != 0 || !a3)
+    {
+      goto LABEL_35;
+    }
+
+    if (v10)
+    {
+      physx::NpActor::removeConstraintsFromScene(&result[3]);
+      v6 = *(&physx::NpActor::sLazyInitOffsets + v5[1].u16[0] + 18);
+      LODWORD(v8) = *(v5[1].i32 + v6);
+    }
+
+    v17 = v11 | 8;
+    v18 = v5 + v6;
+    v19 = BYTE3(v8) & 0xF;
+    v20 = *(&physx::Scb::Actor::sLazyInitOffsets + v19 + 3);
+    v21 = v8 >> 30;
+    if (v21 == 2)
+    {
+      v22 = *v18;
+      if (*(*v18 + 7689))
+      {
+        goto LABEL_28;
+      }
+    }
+
+    else if (v21 == 3)
+    {
+      v22 = *v18;
+LABEL_28:
+      Stream = *(v18 + 16);
+      if (!Stream)
+      {
+        Stream = physx::Scb::Scene::getStream(v22, v19);
+        *(v18 + 16) = Stream;
+        v22 = *v18;
+      }
+
+      *Stream = v17;
+      physx::Scb::Scene::scheduleForUpdate(v22, v18);
+      *(v18 + 8) |= 1u;
+LABEL_34:
+      result = (*(*v5 + 672))(v5);
+      goto LABEL_35;
+    }
+
+    v26 = (v20 + v18);
+    if (v17 != *(v20 + v18 + 12))
+    {
+      v26[12] = v17;
+      if (*v26)
+      {
+        (*(**v26 + 16))(*v26);
+      }
+    }
+
+    goto LABEL_34;
+  }
+
+  result = (*(*result + 680))(result);
+  v12 = v11 & 0xFFFFFFF7;
+  v13 = v5 + *(&physx::NpActor::sLazyInitOffsets + v5[1].u16[0] + 18);
+  v14 = *(v13 + 8);
+  v15 = (v14 >> 24) & 0xF;
+  v16 = v14 >> 30;
+  if (v16 == 2)
+  {
+    result = *v13;
+    if (*(*v13 + 7689))
     {
       goto LABEL_18;
     }
 
-    v17 = 134217984;
-    v18 = a2;
-    v16 = "Invalid rig node index: %zu";
-    goto LABEL_17;
-  }
-
-  v7 = *(a1 + 1080) + 56 * a2;
-  *(v7 + 40) = 0;
-  *(v7 + 48) = *(a1 + 984);
-  if (!a4)
-  {
-LABEL_8:
-    *(v7 + 40) = a4;
-    return 1;
-  }
-
-  v9 = a4;
-  while (1)
-  {
-    v11 = *a3++;
-    v10 = v11;
-    if (v11 >= *(a1 + 1208))
+LABEL_21:
+    v24 = *(&physx::Scb::Actor::sLazyInitOffsets + v15 + 3) + v13;
+    if (v12 != *(v24 + 12))
     {
-      break;
+      *(v24 + 12) = v12;
+      result = *v24;
+      if (*v24)
+      {
+        result = (*(*result + 16))(result);
+      }
     }
 
-    v12 = re::BucketArray<re::ecs2::VisualProxyScopeManagerStateTracking::buildScopeMaskForEntityHierarchy(re::ecs2::Entity const*)::EntityScopeMask,32ul>::operator[](a1 + 1168, v10);
-    v13 = *(a1 + 984);
-    if (v13 >= *(a1 + 976))
+    goto LABEL_24;
+  }
+
+  if (v16 != 3)
+  {
+    goto LABEL_21;
+  }
+
+  result = *v13;
+LABEL_18:
+  v23 = *(v13 + 16);
+  if (!v23)
+  {
+    v23 = physx::Scb::Scene::getStream(result, v15);
+    *(v13 + 16) = v23;
+    result = *v13;
+  }
+
+  *v23 = v12;
+  result = physx::Scb::Scene::scheduleForUpdate(result, v13);
+  *(v13 + 8) |= 1u;
+LABEL_24:
+  if (v10 && *&v5[4])
+  {
+    result = physx::NpActor::addConstraintsToSceneInternal(v5 + 3);
+  }
+
+LABEL_35:
+  v27 = v5 + *(&physx::NpActor::sLazyInitOffsets + v5[1].u16[0] + 18);
+  v28 = *(v27 + 8);
+  if (a3)
+  {
+    if (v28)
     {
-      re::DynamicArray<re::RigNodeConstraint>::growCapacity((a1 + 968), v13 + 1);
-      v13 = *(a1 + 984);
+      v31 = *(v27 + 16);
+      v29 = (v28 >> 24) & 0xF;
+      v30 = *(&physx::Scb::Actor::sLazyInitOffsets + v29 + 3) + v27;
     }
 
-    *(*(a1 + 1000) + 16 * v13) = *v12;
-    ++*(a1 + 984);
-    ++*(a1 + 992);
-    if (!--v9)
+    else
+    {
+      v29 = (v28 >> 24) & 0xF;
+      v30 = *(&physx::Scb::Actor::sLazyInitOffsets + v29 + 3) + v27;
+      v31 = (v30 + 12);
+    }
+
+    v33 = *v31 | a2;
+  }
+
+  else
+  {
+    if (v28)
+    {
+      v32 = *(v27 + 16);
+      v29 = (v28 >> 24) & 0xF;
+      v30 = *(&physx::Scb::Actor::sLazyInitOffsets + v29 + 3) + v27;
+    }
+
+    else
+    {
+      LODWORD(v29) = BYTE3(v28) & 0xF;
+      v30 = *(&physx::Scb::Actor::sLazyInitOffsets + v29 + 3) + v27;
+      v32 = (v30 + 12);
+    }
+
+    v33 = *v32 & ~a2;
+  }
+
+  v34 = v28 >> 30;
+  if (v34 == 2)
+  {
+    result = *v27;
+    if (*(*v27 + 7689))
+    {
+      goto LABEL_48;
+    }
+  }
+
+  else if (v34 == 3)
+  {
+    result = *v27;
+LABEL_48:
+    v35 = *(v27 + 16);
+    if (!v35)
+    {
+      v35 = physx::Scb::Scene::getStream(result, v29);
+      *(v27 + 16) = v35;
+      result = *v27;
+    }
+
+    *v35 = v33;
+    result = physx::Scb::Scene::scheduleForUpdate(result, v27);
+    *(v27 + 8) |= 1u;
+    return result;
+  }
+
+  if (v33 != *(v30 + 12))
+  {
+    *(v30 + 12) = v33;
+    result = *v30;
+    if (*v30)
+    {
+      v36 = *(*result + 16);
+
+      return v36();
+    }
+  }
+
+  return result;
+}
+
+int32x2_t *physx::NpRigidActorTemplate<physx::PxRigidDynamic>::setActorFlags(int32x2_t *result, _BYTE *a2)
+{
+  v3 = result;
+  v4 = *(&physx::NpActor::sLazyInitOffsets + result[1].u16[0] + 18);
+  v5 = (result + v4);
+  v6 = *(result[1].u32 + v4);
+  if (v6)
+  {
+    v7 = v5[2];
+  }
+
+  else
+  {
+    v7 = (v5 + *(&physx::Scb::Actor::sLazyInitOffsets + ((v6 >> 24) & 0xF) + 3) + 12);
+  }
+
+  v8 = *v5;
+  v9 = v7->u8[0];
+  if ((*a2 & 8) != 0 || (v9 & 8) == 0)
+  {
+    if ((*a2 & 8) == 0 || (v9 & 8) != 0)
+    {
+      goto LABEL_34;
+    }
+
+    if (v8)
+    {
+      physx::NpActor::removeConstraintsFromScene(&result[3]);
+      v4 = *(&physx::NpActor::sLazyInitOffsets + v3[1].u16[0] + 18);
+      LODWORD(v6) = *(v3[1].i32 + v4);
+    }
+
+    v15 = v9 | 8;
+    v16 = v3 + v4;
+    v17 = BYTE3(v6) & 0xF;
+    v18 = *(&physx::Scb::Actor::sLazyInitOffsets + v17 + 3);
+    v19 = v6 >> 30;
+    if (v19 == 2)
+    {
+      v20 = *v16;
+      if (*(*v16 + 7689))
+      {
+        goto LABEL_27;
+      }
+    }
+
+    else if (v19 == 3)
+    {
+      v20 = *v16;
+LABEL_27:
+      Stream = *(v16 + 16);
+      if (!Stream)
+      {
+        Stream = physx::Scb::Scene::getStream(v20, v17);
+        *(v16 + 16) = Stream;
+        v20 = *v16;
+      }
+
+      *Stream = v15;
+      physx::Scb::Scene::scheduleForUpdate(v20, v16);
+      *(v16 + 8) |= 1u;
+LABEL_33:
+      result = (*(*v3 + 672))(v3);
+      goto LABEL_34;
+    }
+
+    v24 = (v18 + v16);
+    if (v15 != *(v18 + v16 + 12))
+    {
+      v24[12] = v15;
+      if (*v24)
+      {
+        (*(**v24 + 16))(*v24);
+      }
+    }
+
+    goto LABEL_33;
+  }
+
+  result = (*(*result + 680))(result);
+  v10 = v9 & 0xFFFFFFF7;
+  v11 = v3 + *(&physx::NpActor::sLazyInitOffsets + v3[1].u16[0] + 18);
+  v12 = *(v11 + 8);
+  v13 = (v12 >> 24) & 0xF;
+  v14 = v12 >> 30;
+  if (v14 == 2)
+  {
+    result = *v11;
+    if (*(*v11 + 7689))
+    {
+      goto LABEL_17;
+    }
+
+LABEL_20:
+    v22 = *(&physx::Scb::Actor::sLazyInitOffsets + v13 + 3) + v11;
+    if (v10 != *(v22 + 12))
+    {
+      *(v22 + 12) = v10;
+      result = *v22;
+      if (*v22)
+      {
+        result = (*(*result + 16))(result);
+      }
+    }
+
+    goto LABEL_23;
+  }
+
+  if (v14 != 3)
+  {
+    goto LABEL_20;
+  }
+
+  result = *v11;
+LABEL_17:
+  v21 = *(v11 + 16);
+  if (!v21)
+  {
+    v21 = physx::Scb::Scene::getStream(result, v13);
+    *(v11 + 16) = v21;
+    result = *v11;
+  }
+
+  *v21 = v10;
+  result = physx::Scb::Scene::scheduleForUpdate(result, v11);
+  *(v11 + 8) |= 1u;
+LABEL_23:
+  if (v8 && *&v3[4])
+  {
+    result = physx::NpActor::addConstraintsToSceneInternal(v3 + 3);
+  }
+
+LABEL_34:
+  v25 = *a2;
+  v26 = v3 + *(&physx::NpActor::sLazyInitOffsets + v3[1].u16[0] + 18);
+  v27 = *(v26 + 8);
+  v28 = (v27 >> 24) & 0xF;
+  v29 = v27 >> 30;
+  if (v29 == 2)
+  {
+    result = *v26;
+    if (*(*v26 + 7689))
+    {
+      goto LABEL_38;
+    }
+  }
+
+  else if (v29 == 3)
+  {
+    result = *v26;
+LABEL_38:
+    v30 = *(v26 + 16);
+    if (!v30)
+    {
+      v30 = physx::Scb::Scene::getStream(result, v28);
+      *(v26 + 16) = v30;
+      result = *v26;
+    }
+
+    *v30 = v25;
+    result = physx::Scb::Scene::scheduleForUpdate(result, v26);
+    *(v26 + 8) |= 1u;
+    return result;
+  }
+
+  v31 = *(&physx::Scb::Actor::sLazyInitOffsets + v28 + 3) + v26;
+  if (v25 != *(v31 + 12))
+  {
+    *(v31 + 12) = v25;
+    result = *v31;
+    if (*v31)
+    {
+      v32 = *(*result + 16);
+
+      return v32();
+    }
+  }
+
+  return result;
+}
+
+uint64_t physx::NpActorTemplate<physx::PxRigidDynamic>::getActorFlags@<X0>(uint64_t result@<X0>, _BYTE *a2@<X8>)
+{
+  v2 = result + *(&physx::NpActor::sLazyInitOffsets + *(result + 8) + 18);
+  v3 = *(v2 + 8);
+  if (v3)
+  {
+    v4 = *(v2 + 16);
+  }
+
+  else
+  {
+    v4 = (*(&physx::Scb::Actor::sLazyInitOffsets + ((v3 >> 24) & 0xF) + 3) + v2 + 12);
+  }
+
+  *a2 = *v4;
+  return result;
+}
+
+physx::Sc::Interaction **physx::NpActorTemplate<physx::PxRigidDynamic>::setDominanceGroup(uint64_t a1, char a2)
+{
+  v3 = a1 + *(&physx::NpActor::sLazyInitOffsets + *(a1 + 8) + 18);
+  v4 = *(v3 + 8);
+  v5 = (v4 >> 24) & 0xF;
+  v6 = *(&physx::Scb::Actor::sLazyInitOffsets + v5 + 3);
+  v7 = v4 >> 30;
+  if (v7 == 2)
+  {
+    v8 = *v3;
+    if (*(*v3 + 7689))
+    {
+      goto LABEL_5;
+    }
+  }
+
+  else if (v7 == 3)
+  {
+    v8 = *v3;
+LABEL_5:
+    Stream = *(v3 + 16);
+    if (!Stream)
+    {
+      Stream = physx::Scb::Scene::getStream(v8, v5);
+      *(v3 + 16) = Stream;
+      v8 = *v3;
+    }
+
+    *(Stream + 1) = a2;
+    result = physx::Scb::Scene::scheduleForUpdate(v8, v3);
+    *(v3 + 8) |= 2u;
+    return result;
+  }
+
+  *(v6 + v3 + 14) = a2;
+  result = *(v3 + v6);
+  if (result)
+  {
+
+    return physx::Sc::ActorSim::setActorsInteractionsDirty(result, 8, 0, 1);
+  }
+
+  return result;
+}
+
+uint64_t physx::NpActorTemplate<physx::PxRigidDynamic>::getDominanceGroup(uint64_t a1)
+{
+  v1 = a1 + *(&physx::NpActor::sLazyInitOffsets + *(a1 + 8) + 18);
+  v2 = *(v1 + 8);
+  if ((v2 & 2) != 0)
+  {
+    v3 = (*(v1 + 16) + 1);
+  }
+
+  else
+  {
+    v3 = (*(&physx::Scb::Actor::sLazyInitOffsets + ((v2 >> 24) & 0xF) + 3) + v1 + 14);
+  }
+
+  return *v3;
+}
+
+uint64_t physx::NpActorTemplate<physx::PxRigidDynamic>::setOwnerClient(uint64_t result, char a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+{
+  v9 = result + *(&physx::NpActor::sLazyInitOffsets + *(result + 8) + 18);
+  if (*v9)
+  {
+    v10 = "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpActorTemplate.h";
+    v11 = "Attempt to set the client id when an actor is already in a scene.";
+    v12 = physx::shdfnd::Foundation::mInstance;
+    v13 = 196;
+    return physx::shdfnd::Foundation::error(v12, 8, v10, v13, v11, a6, a7, a8);
+  }
+
+  v14 = *(v9 + 8);
+  if (v14 >> 30 == 3 || v14 >> 30 == 2 && (MEMORY[0x1E09] & 1) != 0)
+  {
+    v10 = "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/buffering/ScbActor.h";
+    v11 = "Attempt to set the client id when an actor is buffering";
+    v12 = physx::shdfnd::Foundation::mInstance;
+    v13 = 182;
+    return physx::shdfnd::Foundation::error(v12, 8, v10, v13, v11, a6, a7, a8);
+  }
+
+  *(*(&physx::Scb::Actor::sLazyInitOffsets + ((v14 >> 24) & 0xF) + 3) + v9 + 11) = a2;
+  return result;
+}
+
+uint64_t physx::NpActorTemplate<physx::PxRigidDynamic>::getAggregate(uint64_t a1)
+{
+  v1 = *(a1 + 32);
+  if (!v1)
+  {
+    return 0;
+  }
+
+  v2 = *(v1 + 80);
+  if (!v2)
+  {
+    return 0;
+  }
+
+  for (i = *(v1 + 72) + 8; *(i - 8) != 1; i += 16)
+  {
+    if (!--v2)
+    {
+      return 0;
+    }
+  }
+
+  return *i;
+}
+
+float physx::NpRigidDynamic::getGlobalPose@<S0>(physx::NpRigidDynamic *this@<X0>, float *a2@<X8>)
+{
+  if ((*(this + 381) & 4) != 0)
+  {
+    v2 = (*(this + 14) + 224);
+  }
+
+  else
+  {
+    v2 = (this + 176);
+  }
+
+  v3 = v2[4] * -2.0;
+  v4 = v2[5] * -2.0;
+  v5 = v2[6] * -2.0;
+  v7 = v2[2];
+  v6 = v2[3];
+  v8 = (v6 * v6) + -0.5;
+  v9 = v2[1];
+  v10 = ((v4 * v9) + (*v2 * v3)) + (v7 * v5);
+  v11 = ((v3 * v8) - (((v9 * v5) - (v7 * v4)) * v6)) + (*v2 * v10);
+  v12 = ((v4 * v8) - (((v7 * v3) - (*v2 * v5)) * v6)) + (v9 * v10);
+  v13 = ((v5 * v8) - (((*v2 * v4) - (v9 * v3)) * v6)) + (v7 * v10);
+  v14 = v11 + v11;
+  v15 = v12 + v12;
+  v16 = v13 + v13;
+  v17 = *(this + 83);
+  v18 = (v17 * v17) + -0.5;
+  v19 = *(this + 80);
+  v20 = *(this + 81);
+  v21 = *(this + 82);
+  v22 = ((v20 * (v12 + v12)) + (v19 * v14)) + (v21 * v16);
+  v23 = ((v17 * ((v20 * v16) - (v21 * v15))) + (v14 * v18)) + (v19 * v22);
+  v24 = ((v17 * ((v21 * v14) - (v19 * v16))) + (v15 * v18)) + (v20 * v22);
+  v25 = ((v17 * ((v19 * v15) - (v20 * v14))) + (v16 * v18)) + (v21 * v22);
+  v26 = *(this + 84) + v23;
+  v27 = *(this + 85) + v24;
+  v28 = *(this + 86);
+  v29 = (((v6 * v20) - (v17 * v9)) - (v21 * *v2)) + (v7 * v19);
+  v30 = (((v6 * v21) - (v17 * v7)) - (v19 * v9)) + (*v2 * v20);
+  v31 = *v2 * v19;
+  *a2 = (((v6 * v19) - (v17 * *v2)) - (v20 * v7)) + (v9 * v21);
+  a2[1] = v29;
+  a2[2] = v30;
+  a2[3] = ((v31 + (v17 * v6)) + (v20 * v9)) + (v21 * v7);
+  result = v28 + v25;
+  a2[4] = v26;
+  a2[5] = v27;
+  a2[6] = v28 + v25;
+  return result;
+}
+
+uint64_t physx::NpRigidActorTemplate<physx::PxRigidDynamic>::detachShape(physx::PxRigidActor *a1, physx::NpShape *a2, BOOL a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+{
+  if (*(a1 + 10))
+  {
+    physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 8, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpRigidActorTemplate.h", 247, "PxRigidActor::detachShape: Actor is part of a pruning structure, pruning structure is now invalid!", a6, a7, a8);
+    physx::Sq::PruningStructure::invalidate(*(a1 + 10), a1);
+  }
+
+  result = physx::NpShapeManager::detachShape((a1 + 40), a2, a1, a3);
+  if ((result & 1) == 0)
+  {
+    v16 = physx::shdfnd::Foundation::mInstance;
+
+    return physx::shdfnd::Foundation::error(v16, 8, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpRigidActorTemplate.h", 253, "PxRigidActor::detachShape: shape is not attached to this actor!", v13, v14, v15);
+  }
+
+  return result;
+}
+
+uint64_t physx::NpRigidActorTemplate<physx::PxRigidDynamic>::getShapes(uint64_t a1, void *a2, unsigned int a3, unsigned int a4)
+{
+  v4 = (a1 + 40);
+  v5 = *(a1 + 48);
+  if (v5 != 1)
+  {
+    v4 = *v4;
+  }
+
+  v6 = (v5 - a4) & ~((v5 - a4) >> 31);
+  if (v6 >= a3)
+  {
+    result = a3;
+  }
+
+  else
+  {
+    result = v6;
+  }
+
+  if (result)
+  {
+    v8 = &v4[a4];
+    v9 = result;
+    do
+    {
+      v10 = *v8++;
+      *a2++ = v10;
+      --v9;
+    }
+
+    while (v9);
+  }
+
+  return result;
+}
+
+uint64_t physx::NpRigidActorTemplate<physx::PxRigidDynamic>::getNbConstraints(uint64_t a1)
+{
+  v1 = *(a1 + 32);
+  if (!v1)
+  {
+    return 0;
+  }
+
+  v2 = *(v1 + 80);
+  if (!v2)
+  {
+    return 0;
+  }
+
+  LODWORD(result) = 0;
+  v4 = *(v1 + 72);
+  do
+  {
+    v5 = *v4;
+    v4 += 16;
+    if (v5)
+    {
+      result = result;
+    }
+
+    else
+    {
+      result = (result + 1);
+    }
+
+    --v2;
+  }
+
+  while (v2);
+  return result;
+}
+
+float physx::NpRigidBodyTemplate<physx::PxRigidDynamic>::getCMassLocalPose@<S0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  if ((*(a1 + 381) & 4) != 0)
+  {
+    v2 = *(a1 + 112) + 224;
+  }
+
+  else
+  {
+    v2 = a1 + 176;
+  }
+
+  *a2 = *v2;
+  *(a2 + 16) = *(v2 + 16);
+  result = *(v2 + 24);
+  *(a2 + 24) = result;
+  return result;
+}
+
+float *physx::NpRigidBodyTemplate<physx::PxRigidDynamic>::setMass(uint64_t a1, float a2)
+{
+  if (a2 <= 0.0)
+  {
+    v3 = 0.0;
+  }
+
+  else
+  {
+    v3 = 1.0 / a2;
+  }
+
+  v4 = *(a1 + 104);
+  if (v4 >> 30 == 2)
+  {
+    v5 = *(a1 + 96);
+    if (v5[961].i8[1])
     {
       goto LABEL_8;
     }
   }
 
-  if (CoreRELog::onceToken != -1)
+  else if (v4 >> 30 == 3)
   {
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-  }
-
-  v15 = CoreRELog::log;
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
-  {
-    v17 = 134217984;
-    v18 = v10;
-    v16 = "Invalid constraint index: %zu";
-LABEL_17:
-    _os_log_error_impl(&dword_1E1C61000, v15, OS_LOG_TYPE_ERROR, v16, &v17, 0xCu);
-  }
-
-LABEL_18:
-
-  return 0;
-}
-
-uint64_t RERigAssetBuilderAddTwoBoneIKHandle(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
-{
-  v56 = *MEMORY[0x1E69E9840];
-  v21 = a3;
-  v22[0] = a2;
-  v19 = a5;
-  v20 = a4;
-  v6 = a1[158];
-  if (v6 && *re::BucketArray<re::ecs2::OcclusionManagerStateTracking::buildPerEntityStateForDirtyEntityHierarchy(re::ecs2::Entity const*,re::ecs2::WorldRootProvider const&)::EntityOcclusionData,32ul>::operator[]((a1 + 153), v6 - 1) == 1)
-  {
-    v8 = a1[158];
-    if (!v8)
+    v5 = *(a1 + 96);
+LABEL_8:
+    Stream = *(a1 + 112);
+    if (!Stream)
     {
-      goto LABEL_32;
+      Stream = physx::Scb::Scene::getStream(v5, HIBYTE(v4) & 0xF);
+      *(a1 + 112) = Stream;
+      v5 = *(a1 + 96);
     }
 
-    v9 = *(re::BucketArray<re::ecs2::OcclusionManagerStateTracking::buildPerEntityStateForDirtyEntityHierarchy(re::ecs2::Entity const*,re::ecs2::WorldRootProvider const&)::EntityOcclusionData,32ul>::operator[]((a1 + 153), v8 - 1) + 8);
+    *(Stream + 164) = v3;
+    result = physx::Scb::Scene::scheduleForUpdate(v5, a1 + 96);
+    *(a1 + 380) |= 1u;
+    return result;
+  }
+
+  return physx::Sc::BodyCore::setInverseMass((a1 + 128), v3);
+}
+
+float physx::NpRigidBodyTemplate<physx::PxRigidDynamic>::getMass(uint64_t a1)
+{
+  if (*(a1 + 380))
+  {
+    v2 = (*(a1 + 112) + 164);
   }
 
   else
   {
-    v10 = (*(*a1 + 24))(a1);
-    *&v25 = 0;
-    *&v24 = 0;
-    DWORD2(v24) = 0;
-    v23 = v10;
-    re::DynamicArray<re::EvaluationRegisterId<int>>::setCapacity(&v23, 0);
-    ++DWORD2(v24);
-    v11 = (*(*a1 + 24))(a1);
-    *(&v27 + 1) = 0;
-    v26 = 0uLL;
-    LODWORD(v27) = 0;
-    *(&v25 + 1) = v11;
-    re::DynamicArray<re::EvaluationRegisterId<int>>::setCapacity(&v25 + 1, 0);
-    LODWORD(v27) = v27 + 1;
-    v12 = (*(*a1 + 24))(a1);
-    v32 = 0;
-    v29 = 0;
-    v30 = 0;
-    v31 = 0;
-    v28 = v12;
-    re::DynamicArray<re::EvaluationRegisterId<int>>::setCapacity(&v28, 0);
-    ++v31;
-    v13 = (*(*a1 + 24))(a1);
-    v37 = 0;
-    v34 = 0;
-    v35 = 0;
-    v36 = 0;
-    v33 = v13;
-    re::DynamicArray<re::EvaluationRegisterId<int>>::setCapacity(&v33, 0);
-    ++v36;
-    v14 = (*(*a1 + 24))(a1);
-    v42 = 0;
-    v39 = 0;
-    v40 = 0;
-    v41 = 0;
-    v38 = v14;
-    re::DynamicArray<int>::setCapacity(&v38, 0);
-    ++v41;
-    v15 = (*(*a1 + 24))(a1);
-    v47 = 0;
-    v44 = 0;
-    v45 = 0;
-    v46 = 0;
-    v43 = v15;
-    re::DynamicArray<int>::setCapacity(&v43, 0);
-    ++v46;
-    re::DynamicArray<re::RigTwoBoneIKHandles>::add((a1 + 96), &v23);
-    if (v43)
+    v1 = *(a1 + 304);
+    if (v1 && *(v1 + 31) == 1)
     {
-      if (v47)
-      {
-        (*(*v43 + 40))();
-      }
-
-      v47 = 0;
-      v44 = 0;
-      v45 = 0;
-      v43 = 0;
-      ++v46;
-    }
-
-    if (v38)
-    {
-      if (v42)
-      {
-        (*(*v38 + 40))();
-      }
-
-      v42 = 0;
-      v39 = 0;
-      v40 = 0;
-      v38 = 0;
-      ++v41;
-    }
-
-    if (v33)
-    {
-      if (v37)
-      {
-        (*(*v33 + 40))();
-      }
-
-      v37 = 0;
-      v34 = 0;
-      v35 = 0;
-      v33 = 0;
-      ++v36;
-    }
-
-    if (v28)
-    {
-      if (v32)
-      {
-        (*(*v28 + 40))();
-      }
-
-      v32 = 0;
-      v29 = 0;
-      v30 = 0;
-      v28 = 0;
-      ++v31;
-    }
-
-    if (*(&v25 + 1))
-    {
-      if (*(&v27 + 1))
-      {
-        (*(**(&v25 + 1) + 40))();
-      }
-
-      *(&v27 + 1) = 0;
-      v26 = 0uLL;
-      *(&v25 + 1) = 0;
-      LODWORD(v27) = v27 + 1;
-    }
-
-    if (v23.n128_u64[0] && v25)
-    {
-      (*(*v23.n128_u64[0] + 40))();
-    }
-
-    v9 = a1[98] - 1;
-    v23.n128_u8[0] = 1;
-    v23.n128_u64[1] = v9;
-    re::DynamicArray<re::RigNodeConstraint>::add((a1 + 126), &v23);
-  }
-
-  v16 = a1[98];
-  if (v16 <= v9)
-  {
-    v22[1] = 0;
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
-    v25 = 0u;
-    v23 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    v48 = 136315906;
-    v49 = "operator[]";
-    v50 = 1024;
-    v51 = 789;
-    v52 = 2048;
-    v53 = v9;
-    v54 = 2048;
-    v55 = v16;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_32:
-    re::internal::assertLog(4, v7, "assertion failure: '%s' (%s:line %i) Array is empty", "m_size > 0", "last", 768);
-    _os_crash();
-    __break(1u);
-  }
-
-  v17 = (a1[100] + 240 * v9);
-  re::DynamicArray<unsigned long>::add(v17, v22);
-  re::DynamicArray<unsigned long>::add(v17 + 5, &v21);
-  re::DynamicArray<unsigned long>::add(v17 + 10, &v20);
-  re::DynamicArray<unsigned long>::add(v17 + 15, &v19);
-  v23.n128_u8[0] = 1;
-  v23.n128_u64[1] = v9;
-  *&v24 = v17[2] - 1;
-  return a1[158] - 1;
-}
-
-__n128 re::BucketArray<anonymous namespace::RigAssetBuilder::MappedIKHandle,32ul>::add(uint64_t a1, __n128 *a2)
-{
-  v4 = *(a1 + 40);
-  v5 = *(a1 + 8);
-  if (v4 + 1 > 32 * v5)
-  {
-    v5 = *(a1 + 8);
-  }
-
-  if (v5 <= v4 >> 5)
-  {
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-  }
-
-  if (*(a1 + 16))
-  {
-    v6 = a1 + 24;
-  }
-
-  else
-  {
-    v6 = *(a1 + 32);
-  }
-
-  v7 = *(v6 + 8 * (v4 >> 5));
-  ++*(a1 + 40);
-  ++*(a1 + 48);
-  v8 = (v7 + 24 * (v4 & 0x1F));
-  result = *a2;
-  v8[1].n128_u64[0] = a2[1].n128_u64[0];
-  *v8 = result;
-  return result;
-}
-
-uint64_t RERigAssetBuilderSetTwoBoneIKHandleTwistOffset(unint64_t a1, unint64_t a2, float a3)
-{
-  v3 = a2;
-  v21 = *MEMORY[0x1E69E9840];
-  if (*(a1 + 1264) <= a2)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v13 = CoreRELog::log;
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 134217984;
-      *&buf[4] = v3;
-      _os_log_error_impl(&dword_1E1C61000, v13, OS_LOG_TYPE_ERROR, "Invalid IK handle index: %zu", buf, 0xCu);
-    }
-
-    return 0;
-  }
-
-  v5 = a1;
-  if (*re::BucketArray<re::ecs2::OcclusionManagerStateTracking::buildPerEntityStateForDirtyEntityHierarchy(re::ecs2::Entity const*,re::ecs2::WorldRootProvider const&)::EntityOcclusionData,32ul>::operator[](a1 + 1224, a2) != 1)
-  {
-    if (CoreRELog::onceToken == -1)
-    {
-LABEL_14:
-      v14 = CoreRELog::log;
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
-      {
-        v15 = *re::BucketArray<re::ecs2::OcclusionManagerStateTracking::buildPerEntityStateForDirtyEntityHierarchy(re::ecs2::Entity const*,re::ecs2::WorldRootProvider const&)::EntityOcclusionData,32ul>::operator[](v5 + 1224, v3);
-        *buf = 67109120;
-        *&buf[4] = v15;
-        _os_log_error_impl(&dword_1E1C61000, v14, OS_LOG_TYPE_ERROR, "IK handle type is not a two-bone IK: %u", buf, 8u);
-      }
-
-      return 0;
-    }
-
-LABEL_19:
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    goto LABEL_14;
-  }
-
-  v6 = *(re::BucketArray<re::ecs2::OcclusionManagerStateTracking::buildPerEntityStateForDirtyEntityHierarchy(re::ecs2::Entity const*,re::ecs2::WorldRootProvider const&)::EntityOcclusionData,32ul>::operator[](v5 + 1224, v3) + 8);
-  v7 = *(v5 + 784);
-  if (v7 <= v6)
-  {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
-    v18 = 0u;
-    *buf = 0u;
-    v3 = MEMORY[0x1E69E9C10];
-    v5 = v7;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_19;
-  }
-
-  v8 = *(v5 + 800);
-  v9 = *(re::BucketArray<re::ecs2::OcclusionManagerStateTracking::buildPerEntityStateForDirtyEntityHierarchy(re::ecs2::Entity const*,re::ecs2::WorldRootProvider const&)::EntityOcclusionData,32ul>::operator[](v5 + 1224, v3) + 16);
-  v10 = v8 + 240 * v6;
-  v11 = *(v10 + 176);
-  if (v9 >= v11)
-  {
-    re::DynamicArray<float>::resize(v10 + 160, v9 + 1);
-    v11 = *(v10 + 176);
-  }
-
-  if (v11 <= v9)
-  {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
-    v18 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-  }
-
-  *(*(v10 + 192) + 4 * v9) = a3;
-  return 1;
-}
-
-uint64_t RERigAssetBuilderSetTwoBoneIKHandleSoftIKPercentage(unint64_t a1, unint64_t a2, float a3)
-{
-  v3 = a2;
-  v22 = *MEMORY[0x1E69E9840];
-  if (*(a1 + 1264) <= a2)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v14 = CoreRELog::log;
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 134217984;
-      *&buf[4] = v3;
-      _os_log_error_impl(&dword_1E1C61000, v14, OS_LOG_TYPE_ERROR, "Invalid IK handle index: %zu", buf, 0xCu);
-    }
-
-    return 0;
-  }
-
-  v5 = a1;
-  if (*re::BucketArray<re::ecs2::OcclusionManagerStateTracking::buildPerEntityStateForDirtyEntityHierarchy(re::ecs2::Entity const*,re::ecs2::WorldRootProvider const&)::EntityOcclusionData,32ul>::operator[](a1 + 1224, a2) != 1)
-  {
-    if (CoreRELog::onceToken == -1)
-    {
-LABEL_14:
-      v15 = CoreRELog::log;
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
-      {
-        v16 = *re::BucketArray<re::ecs2::OcclusionManagerStateTracking::buildPerEntityStateForDirtyEntityHierarchy(re::ecs2::Entity const*,re::ecs2::WorldRootProvider const&)::EntityOcclusionData,32ul>::operator[](v5 + 1224, v3);
-        *buf = 67109120;
-        *&buf[4] = v16;
-        _os_log_error_impl(&dword_1E1C61000, v15, OS_LOG_TYPE_ERROR, "IK handle type is not a two-bone IK: %u", buf, 8u);
-      }
-
-      return 0;
-    }
-
-LABEL_19:
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    goto LABEL_14;
-  }
-
-  v6 = *(re::BucketArray<re::ecs2::OcclusionManagerStateTracking::buildPerEntityStateForDirtyEntityHierarchy(re::ecs2::Entity const*,re::ecs2::WorldRootProvider const&)::EntityOcclusionData,32ul>::operator[](v5 + 1224, v3) + 8);
-  v7 = *(v5 + 784);
-  if (v7 <= v6)
-  {
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
-    v19 = 0u;
-    *buf = 0u;
-    v3 = MEMORY[0x1E69E9C10];
-    v5 = v7;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_19;
-  }
-
-  v8 = *(v5 + 800);
-  v9 = *(re::BucketArray<re::ecs2::OcclusionManagerStateTracking::buildPerEntityStateForDirtyEntityHierarchy(re::ecs2::Entity const*,re::ecs2::WorldRootProvider const&)::EntityOcclusionData,32ul>::operator[](v5 + 1224, v3) + 16);
-  v11 = (v8 + 240 * v6);
-  v12 = v11[27];
-  if (v9 >= v12)
-  {
-    re::DynamicArray<float>::resize(v11 + 25, v9 + 1, &re::TwoBoneIKOptions::kDefaultSoftIKPercentage, v10);
-    v12 = v11[27];
-  }
-
-  if (v12 <= v9)
-  {
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
-    v19 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-  }
-
-  *(v11[29] + 4 * v9) = a3;
-  return 1;
-}
-
-uint64_t RERigAssetBuilderAddSingleChainIKHandle(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v39 = *MEMORY[0x1E69E9840];
-  v17 = a3;
-  v18 = a2;
-  v16 = a4;
-  v5 = a1[158];
-  if (v5 && *re::BucketArray<re::ecs2::OcclusionManagerStateTracking::buildPerEntityStateForDirtyEntityHierarchy(re::ecs2::Entity const*,re::ecs2::WorldRootProvider const&)::EntityOcclusionData,32ul>::operator[]((a1 + 153), v5 - 1) == 2)
-  {
-    v7 = a1[158];
-    if (!v7)
-    {
-      goto LABEL_20;
-    }
-
-    v8 = *(re::BucketArray<re::ecs2::OcclusionManagerStateTracking::buildPerEntityStateForDirtyEntityHierarchy(re::ecs2::Entity const*,re::ecs2::WorldRootProvider const&)::EntityOcclusionData,32ul>::operator[]((a1 + 153), v7 - 1) + 8);
-  }
-
-  else
-  {
-    v9 = (*(*a1 + 24))(a1);
-    *&v22 = 0;
-    *&v21 = 0;
-    DWORD2(v21) = 0;
-    v20 = v9;
-    re::DynamicArray<re::EvaluationRegisterId<int>>::setCapacity(&v20, 0);
-    ++DWORD2(v21);
-    v10 = (*(*a1 + 24))(a1);
-    *(&v24 + 1) = 0;
-    v23 = 0uLL;
-    LODWORD(v24) = 0;
-    *(&v22 + 1) = v10;
-    re::DynamicArray<re::EvaluationRegisterId<int>>::setCapacity(&v22 + 1, 0);
-    LODWORD(v24) = v24 + 1;
-    v11 = (*(*a1 + 24))(a1);
-    v29 = 0;
-    v26 = 0;
-    v27 = 0;
-    v28 = 0;
-    v25 = v11;
-    re::DynamicArray<re::EvaluationRegisterId<int>>::setCapacity(&v25, 0);
-    ++v28;
-    v30 = 1008981770;
-    v12.n128_f32[0] = re::DynamicArray<re::RigSingleChainIKHandles>::add((a1 + 101), &v20);
-    if (v25)
-    {
-      if (v29)
-      {
-        (*(*v25 + 40))(v12.n128_f32[0]);
-      }
-
-      v29 = 0;
-      v26 = 0;
-      v27 = 0;
-      v25 = 0;
-      ++v28;
-    }
-
-    if (*(&v22 + 1))
-    {
-      if (*(&v24 + 1))
-      {
-        (*(**(&v22 + 1) + 40))(v12);
-      }
-
-      *(&v24 + 1) = 0;
-      v23 = 0uLL;
-      *(&v22 + 1) = 0;
-      LODWORD(v24) = v24 + 1;
-    }
-
-    if (v20.n128_u64[0] && v22)
-    {
-      (*(*v20.n128_u64[0] + 40))(v12);
-    }
-
-    v8 = a1[103] - 1;
-    v20.n128_u8[0] = 2;
-    v20.n128_u64[1] = v8;
-    re::DynamicArray<re::RigNodeConstraint>::add((a1 + 126), &v20);
-  }
-
-  v13 = a1[103];
-  if (v13 <= v8)
-  {
-    v19 = 0;
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
-    v22 = 0u;
-    v20 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    v31 = 136315906;
-    v32 = "operator[]";
-    v33 = 1024;
-    v34 = 789;
-    v35 = 2048;
-    v36 = v8;
-    v37 = 2048;
-    v38 = v13;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_20:
-    re::internal::assertLog(4, v6, "assertion failure: '%s' (%s:line %i) Array is empty", "m_size > 0", "last", 768, v16, v17, v18, v19);
-    _os_crash();
-    __break(1u);
-  }
-
-  v14 = (a1[105] + (v8 << 7));
-  re::DynamicArray<unsigned long>::add(v14, &v18);
-  re::DynamicArray<unsigned long>::add(v14 + 5, &v17);
-  re::DynamicArray<unsigned long>::add(v14 + 10, &v16);
-  v20.n128_u8[0] = 2;
-  v20.n128_u64[1] = v8;
-  *&v21 = v14[2] - 1;
-  return a1[158] - 1;
-}
-
-uint64_t RERigAssetBuilderSetSingleChainIKHandleTolerance(unint64_t a1, unint64_t a2, float a3)
-{
-  v3 = a2;
-  v17 = *MEMORY[0x1E69E9840];
-  if (*(a1 + 1264) <= a2)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v9 = CoreRELog::log;
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 134217984;
-      *&buf[4] = v3;
-      _os_log_error_impl(&dword_1E1C61000, v9, OS_LOG_TYPE_ERROR, "Invalid IK handle index: %zu", buf, 0xCu);
-    }
-
-    return 0;
-  }
-
-  v5 = a1;
-  if (*re::BucketArray<re::ecs2::OcclusionManagerStateTracking::buildPerEntityStateForDirtyEntityHierarchy(re::ecs2::Entity const*,re::ecs2::WorldRootProvider const&)::EntityOcclusionData,32ul>::operator[](a1 + 1224, a2) == 2)
-  {
-    v6 = *(re::BucketArray<re::ecs2::OcclusionManagerStateTracking::buildPerEntityStateForDirtyEntityHierarchy(re::ecs2::Entity const*,re::ecs2::WorldRootProvider const&)::EntityOcclusionData,32ul>::operator[](v5 + 1224, v3) + 8);
-    v7 = *(v5 + 824);
-    if (v7 > v6)
-    {
-      *(*(v5 + 840) + (v6 << 7) + 120) = a3;
-      return 1;
-    }
-
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
-    v14 = 0u;
-    *buf = 0u;
-    v3 = MEMORY[0x1E69E9C10];
-    v5 = v7;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_16;
-  }
-
-  if (CoreRELog::onceToken != -1)
-  {
-LABEL_16:
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-  }
-
-  v10 = CoreRELog::log;
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-  {
-    v11 = *re::BucketArray<re::ecs2::OcclusionManagerStateTracking::buildPerEntityStateForDirtyEntityHierarchy(re::ecs2::Entity const*,re::ecs2::WorldRootProvider const&)::EntityOcclusionData,32ul>::operator[](v5 + 1224, v3);
-    *buf = 67109120;
-    *&buf[4] = v11;
-    _os_log_error_impl(&dword_1E1C61000, v10, OS_LOG_TYPE_ERROR, "IK handle type is not a single-chain IK: %u", buf, 8u);
-  }
-
-  return 0;
-}
-
-uint64_t RERigAssetBuilderFinishRigDefinition(uint64_t a1)
-{
-  v32 = *MEMORY[0x1E69E9840];
-  v2 = (a1 + 24);
-  v3 = (*(*a1 + 24))(a1);
-  re::validateRigDefinitionData(v3, v2, v13);
-  if (v13[0])
-  {
-    v4 = *(a1 + 1320);
-    v5 = *(a1 + 1288);
-    if (v4 + 1 > 4 * v5)
-    {
-      re::BucketArray<re::RigDefinition,4ul>::setBucketsCapacity((a1 + 1280), (v4 + 4) >> 2);
-      v5 = *(a1 + 1288);
-    }
-
-    if (v5 > v4 >> 2)
-    {
-      if (*(a1 + 1296))
-      {
-        v6 = a1 + 1304;
-      }
-
-      else
-      {
-        v6 = *(a1 + 1312);
-      }
-
-      v9 = *(v6 + 8 * (v4 >> 2));
-      ++*(a1 + 1320);
-      ++*(a1 + 1328);
-      re::RigDefinition::RigDefinition(v9 + 1144 * (v4 & 3), v2);
-      re::RigDefinition::deinit(v2);
-      v10 = (*(*a1 + 24))(a1);
-      re::RigDefinition::init(v2, v10);
-      v8 = *(a1 + 1320) - 1;
-      goto LABEL_12;
-    }
-
-    v18 = 0;
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
-    v29 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    v19 = 136315906;
-    v20 = "operator[]";
-    v21 = 1024;
-    v22 = 858;
-    v23 = 2048;
-    v24 = v4 >> 2;
-    v25 = 2048;
-    v26 = v5;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_22;
-  }
-
-  if (CoreRELog::onceToken != -1)
-  {
-LABEL_22:
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-  }
-
-  v7 = CoreRELog::log;
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
-  {
-    if (v15)
-    {
-      v12 = v17;
+      v2 = (v1 + 44);
     }
 
     else
     {
-      v12 = v16;
+      v2 = (a1 + 268);
     }
-
-    *buf = 136315138;
-    *&buf[4] = v12;
-    _os_log_error_impl(&dword_1E1C61000, v7, OS_LOG_TYPE_ERROR, "Rig Definition Validation Failed: %s", buf, 0xCu);
   }
 
-  v8 = -1;
-LABEL_12:
-  if (v13[0] & 1) == 0 && v14 && (v15)
+  result = 0.0;
+  if (*v2 > 0.0)
   {
-    (*(*v14 + 40))(v14, v17);
+    return 1.0 / *v2;
   }
 
-  return v8;
-}
-
-void *re::RigDefinition::init(re::RigDefinition *this, re::Allocator *a2)
-{
-  v3 = this;
-  v5 = a2;
-  *this = a2;
-  re::DynamicArray<re::RigComponentConstraint>::setCapacity(this, 0);
-  ++*(v3 + 6);
-  *(v3 + 5) = a2;
-  re::DynamicArray<re::RigComponentConstraint>::setCapacity(v3 + 5, 0);
-  ++*(v3 + 16);
-  *(v3 + 10) = a2;
-  re::DynamicArray<re::RigBasicConstraint>::setCapacity(v3 + 10, 0);
-  ++*(v3 + 26);
-  *(v3 + 15) = a2;
-  re::DynamicArray<re::RigAimConstraint>::setCapacity(v3 + 15, 0);
-  *(v3 + 20) = a2;
-  v3 = (v3 + 160);
-  ++*(v3 - 4);
-  re::DynamicArray<re::RigNodeConstraint>::setCapacity(v3, 0);
-  ++*(v3 + 6);
-  re::DynamicRegisterTable::initArrays<re::Allocator *&>(v3 + 5, &v5);
-  *(v3 + 45) = v5;
-  re::DynamicArray<re::RigNodeConstraint>::setCapacity(v3 + 45, 0);
-  ++*(v3 + 96);
-  *(v3 + 58) = v5;
-  re::DynamicArray<re::RigNodeConstraint>::setCapacity(v3 + 58, 0);
-  ++*(v3 + 122);
-  *(v3 + 63) = v5;
-  re::DynamicArray<re::RigNodeConstraint>::setCapacity(v3 + 63, 0);
-  ++*(v3 + 132);
-  *(v3 + 68) = v5;
-  re::DynamicArray<re::internal::AnimationCompositionChainEntry>::setCapacity(v3 + 68, 0);
-  ++*(v3 + 142);
-  *(v3 + 73) = v5;
-  re::DynamicArray<re::RigTwoBoneIKHandles>::setCapacity(v3 + 73, 0);
-  ++*(v3 + 152);
-  *(v3 + 78) = v5;
-  re::DynamicArray<re::RigSingleChainIKHandles>::setCapacity(v3 + 78, 0);
-  ++*(v3 + 162);
-  *(v3 + 88) = v5;
-  re::DynamicArray<re::RigTransform>::setCapacity(v3 + 88, 0);
-  ++*(v3 + 182);
-  *(v3 + 93) = v5;
-  re::DynamicArray<re::RigJoint>::setCapacity(v3 + 93, 0);
-  ++*(v3 + 192);
-  *(v3 + 98) = v5;
-  re::DynamicArray<re::RigNodeConstraint>::setCapacity(v3 + 98, 0);
-  ++*(v3 + 202);
-  *(v3 + 103) = v5;
-  re::DynamicArray<re::RigNodeConstraint>::setCapacity(v3 + 103, 0);
-  ++*(v3 + 212);
-  *(v3 + 108) = v5;
-  re::DynamicArray<re::RigNode>::setCapacity(v3 + 108, 0);
-  ++*(v3 + 222);
-  *(v3 + 113) = v5;
-  re::DynamicArray<re::internal::AnimationCompositionChainEntry>::setCapacity(v3 + 113, 0);
-  ++*(v3 + 232);
-  *(v3 + 118) = v5;
-  result = re::DynamicArray<re::RigPose>::setCapacity(v3 + 118, 0);
-  ++*(v3 + 242);
   return result;
 }
 
-uint64_t RERigAssetBuilderGetRigDefinition(uint64_t a1, unint64_t a2)
+float physx::NpRigidBodyTemplate<physx::PxRigidDynamic>::getInvMass(uint64_t a1)
 {
-  if (*(a1 + 1320) <= a2)
+  if (*(a1 + 380))
   {
-    return 0;
+    v2 = *(a1 + 112) + 164;
   }
 
   else
   {
-    return re::BucketArray<re::RigDefinition,4ul>::operator[](a1 + 1280, a2);
+    v1 = *(a1 + 304);
+    if (v1 && *(v1 + 31) == 1)
+    {
+      v2 = v1 + 44;
+    }
+
+    else
+    {
+      v2 = a1 + 268;
+    }
+  }
+
+  return *v2;
+}
+
+uint64_t *physx::NpRigidBodyTemplate<physx::PxRigidDynamic>::setMassSpaceInertiaTensor(uint64_t a1, float32x2_t *a2)
+{
+  __asm { FMOV            V2.2S, #1.0 }
+
+  v8 = vbic_s8(vdiv_f32(_D2, *a2), vceqz_f32(*a2));
+  v9 = a2[1].f32[0];
+  if (v9 == 0.0)
+  {
+    v10 = 0.0;
+  }
+
+  else
+  {
+    v10 = 1.0 / v9;
+  }
+
+  v15 = v8;
+  v16 = v10;
+  v11 = *(a1 + 104);
+  if (v11 >> 30 == 2)
+  {
+    v12 = *(a1 + 96);
+    if (v12[961].i8[1])
+    {
+      goto LABEL_8;
+    }
+
+    return physx::Sc::BodyCore::setInverseInertia((a1 + 128), &v15);
+  }
+
+  if (v11 >> 30 != 3)
+  {
+    return physx::Sc::BodyCore::setInverseInertia((a1 + 128), &v15);
+  }
+
+  v12 = *(a1 + 96);
+LABEL_8:
+  Stream = *(a1 + 112);
+  if (!Stream)
+  {
+    Stream = physx::Scb::Scene::getStream(v12, HIBYTE(v11) & 0xF);
+    *(a1 + 112) = Stream;
+    v12 = *(a1 + 96);
+  }
+
+  *(Stream + 168) = v8;
+  *(Stream + 176) = v10;
+  result = physx::Scb::Scene::scheduleForUpdate(v12, a1 + 96);
+  *(a1 + 380) |= 2u;
+  return result;
+}
+
+float32x2_t *physx::NpRigidBodyTemplate<physx::PxRigidDynamic>::getMassSpaceInertiaTensor@<X0>(float32x2_t *result@<X0>, uint64_t a2@<X8>)
+{
+  if ((result[47].i8[4] & 2) != 0)
+  {
+    v3 = (*&result[14] + 168);
+  }
+
+  else
+  {
+    v2 = result[38];
+    if (*&v2 && *(*&v2 + 31) == 1)
+    {
+      v3 = (*&v2 + 32);
+    }
+
+    else
+    {
+      v3 = result + 32;
+    }
+  }
+
+  v4 = v3[1].f32[0];
+  v5 = 1.0 / v4;
+  _ZF = v4 == 0.0;
+  v7 = 0.0;
+  if (!_ZF)
+  {
+    v7 = v5;
+  }
+
+  __asm { FMOV            V3.2S, #1.0 }
+
+  *a2 = vbic_s8(vdiv_f32(_D3, *v3), vceqz_f32(*v3));
+  *(a2 + 8) = v7;
+  return result;
+}
+
+float physx::NpRigidBodyTemplate<physx::PxRigidDynamic>::getMassSpaceInvInertiaTensor@<S0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  if ((*(a1 + 380) & 2) != 0)
+  {
+    v3 = *(a1 + 112) + 168;
+  }
+
+  else
+  {
+    v2 = *(a1 + 304);
+    if (v2 && *(v2 + 31) == 1)
+    {
+      v3 = v2 + 32;
+    }
+
+    else
+    {
+      v3 = a1 + 256;
+    }
+  }
+
+  *a2 = *v3;
+  result = *(v3 + 8);
+  *(a2 + 8) = result;
+  return result;
+}
+
+float physx::NpRigidBodyTemplate<physx::PxRigidDynamic>::getLinearVelocity@<S0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  *a2 = *(a1 + 348);
+  result = *(a1 + 356);
+  *(a2 + 8) = result;
+  return result;
+}
+
+float physx::NpRigidBodyTemplate<physx::PxRigidDynamic>::getAngularVelocity@<S0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  *a2 = *(a1 + 360);
+  result = *(a1 + 368);
+  *(a2 + 8) = result;
+  return result;
+}
+
+void physx::NpRigidBodyTemplate<physx::PxRigidDynamic>::setRigidBodyFlag(uint64_t a1, int a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+{
+  if ((*(a1 + 381) & 0x40) != 0)
+  {
+    v10 = (*(a1 + 112) + 348);
+  }
+
+  else
+  {
+    v10 = (a1 + 172);
+  }
+
+  v11 = *v10;
+  if (a3)
+  {
+    v12 = v11 | a2;
+  }
+
+  else
+  {
+    v12 = v11 & ~a2;
+  }
+
+  if ((~v12 & 5) == 0)
+  {
+    physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 4, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpRigidBodyTemplate.h", 476, "RigidBody::setRigidBodyFlag: kinematic bodies with CCD enabled are not supported! CCD will be ignored.", a6, a7, a8);
+    v12 &= ~4u;
+  }
+
+  if ((~v12 & 0x24) == 0)
+  {
+    physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 4, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpRigidBodyTemplate.h", 483, "RigidBody::setRigidBodyFlag: eENABLE_CCD can't be raised as the same time as eENABLE_SPECULATIVE_CCD! eENABLE_SPECULATIVE_CCD will be ignored.", a6, a7, a8);
+    v12 &= ~0x20u;
+  }
+
+  v13 = (a1 + *(&physx::NpActor::sLazyInitOffsets + *(a1 + 8) + 18));
+  if (((*(v13 + 2) >> 30) - 1) > 1)
+  {
+    v15 = 0;
+  }
+
+  else
+  {
+    v14 = *v13;
+    if (v14)
+    {
+      v15 = v14 - 16;
+    }
+
+    else
+    {
+      v15 = 0;
+    }
+  }
+
+  if (v11 & 1) == 0 || (v12)
+  {
+    if ((v11 & 1) != 0 || (v12 & 1) == 0)
+    {
+LABEL_54:
+      if ((v11 & 1) != 0 && (v12 & 1) != 0 && ((v12 ^ v11) & 2) != 0 && ((*(a1 + 381) & 0x80) != 0 || *(a1 + 104) >> 30 != 3 && (v29 = *(a1 + 304)) != 0 && *(v29 + 31) == 1 && *(v29 + 28)))
+      {
+        if (v15)
+        {
+          physx::NpShapeManager::markAllSceneQueryForUpdate(a1 + 40, v15 + 8640, a1);
+          ++*(v15 + 8732);
+        }
+      }
+
+LABEL_64:
+      v30 = v12;
+      physx::Scb::Body::setFlags((a1 + 96), &v30);
+      return;
+    }
+
+    if ((*(*a1 + 48))(a1) != 2)
+    {
+      if (*(a1 + 104) >> 30 == 1)
+      {
+        v27 = *(a1 + 304);
+        if (v27)
+        {
+          if (*(v27 + 31) != 1)
+          {
+            physx::Sc::BodyCore::setupSimStateData(a1 + 128, *(*(a1 + 96) + 4384), 1, 0);
+          }
+        }
+      }
+
+      if (v15)
+      {
+        *(v15 + 4700) = vadd_s32(*(v15 + 4700), 0x1FFFFFFFFLL);
+      }
+
+      goto LABEL_64;
+    }
+
+    v25 = physx::shdfnd::Foundation::mInstance;
+
+    physx::shdfnd::Foundation::error(v25, 4, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpRigidBodyTemplate.h", 540, "RigidBody::setRigidBodyFlag: kinematic articulation links are not supported!", v22, v23, v24);
+  }
+
+  else
+  {
+    v16 = *(a1 + 48);
+    v17 = a1 + 40;
+    if (v16 != 1)
+    {
+      if (*(a1 + 48))
+      {
+        v17 = *(a1 + 40);
+        goto LABEL_21;
+      }
+
+LABEL_25:
+      if ((v11 & 2) == 0)
+      {
+LABEL_26:
+        if (!v15)
+        {
+          goto LABEL_51;
+        }
+
+        goto LABEL_50;
+      }
+
+      if ((*(a1 + 381) & 0x80) != 0)
+      {
+        if (!v15)
+        {
+LABEL_51:
+          if (*(a1 + 104) >> 30 == 1)
+          {
+            v28 = *(a1 + 304);
+            if (v28)
+            {
+              physx::Sc::BodyCore::tearDownSimStateData(a1 + 128, *(*(a1 + 96) + 4384), *(v28 + 31) == 1);
+            }
+          }
+
+          goto LABEL_54;
+        }
+      }
+
+      else
+      {
+        if (*(a1 + 104) >> 30 == 3)
+        {
+          goto LABEL_26;
+        }
+
+        v26 = *(a1 + 304);
+        if (!v26 || *(v26 + 31) != 1 || !*(v26 + 28) || !v15)
+        {
+          goto LABEL_26;
+        }
+      }
+
+      physx::NpShapeManager::markAllSceneQueryForUpdate(a1 + 40, v15 + 8640, a1);
+      ++*(v15 + 8732);
+LABEL_50:
+      *(v15 + 4700) = vadd_s32(*(v15 + 4700), 0xFFFFFFFF00000001);
+      goto LABEL_51;
+    }
+
+LABEL_21:
+    while (1)
+    {
+      (*(**v17 + 312))(&v31);
+      if (v31)
+      {
+        v21 = *(*v17 + 152);
+        if ((v21 | 4) == 5 || v21 == 6)
+        {
+          break;
+        }
+      }
+
+      v17 += 8;
+      if (!--v16)
+      {
+        goto LABEL_25;
+      }
+    }
+
+    physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 4, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpRigidBodyTemplate.h", 513, "RigidBody::setRigidBodyFlag: dynamic meshes/planes/heightfields are not supported!", v18, v19, v20);
   }
 }
 
-uint64_t re::BucketArray<re::RigDefinition,4ul>::operator[](uint64_t a1, unint64_t a2)
+void physx::NpRigidBodyTemplate<physx::PxRigidDynamic>::setRigidBodyFlags(uint64_t a1, unsigned __int8 *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
 {
-  v2 = *(a1 + 40);
-  if (v2 <= a2)
+  if ((*(a1 + 381) & 0x40) != 0)
   {
-    re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < m_size", "operator[]", 1011, a2, v2);
-    _os_crash();
-    __break(1u);
-LABEL_8:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
+    v10 = (*(a1 + 112) + 348);
   }
 
-  if (*(a1 + 8) <= a2 >> 2)
+  else
+  {
+    v10 = (a1 + 172);
+  }
+
+  v11 = *v10;
+  v12 = *a2;
+  if ((~v12 & 5) == 0)
+  {
+    physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 4, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpRigidBodyTemplate.h", 476, "RigidBody::setRigidBodyFlag: kinematic bodies with CCD enabled are not supported! CCD will be ignored.", a6, a7, a8);
+    v12 &= ~4u;
+  }
+
+  if ((~v12 & 0x24) == 0)
+  {
+    physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 4, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpRigidBodyTemplate.h", 483, "RigidBody::setRigidBodyFlag: eENABLE_CCD can't be raised as the same time as eENABLE_SPECULATIVE_CCD! eENABLE_SPECULATIVE_CCD will be ignored.", a6, a7, a8);
+    v12 &= 0xDFu;
+  }
+
+  v13 = (a1 + *(&physx::NpActor::sLazyInitOffsets + *(a1 + 8) + 18));
+  if (((*(v13 + 2) >> 30) - 1) > 1)
+  {
+    v15 = 0;
+  }
+
+  else
+  {
+    v14 = *v13;
+    if (v14)
+    {
+      v15 = v14 - 16;
+    }
+
+    else
+    {
+      v15 = 0;
+    }
+  }
+
+  if (v11 & 1) == 0 || (v12)
+  {
+    if ((v11 & 1) != 0 || (v12 & 1) == 0)
+    {
+LABEL_51:
+      if ((v11 & 1) != 0 && (v12 & 1) != 0 && ((v12 ^ v11) & 2) != 0 && ((*(a1 + 381) & 0x80) != 0 || *(a1 + 104) >> 30 != 3 && (v29 = *(a1 + 304)) != 0 && *(v29 + 31) == 1 && *(v29 + 28)))
+      {
+        if (v15)
+        {
+          physx::NpShapeManager::markAllSceneQueryForUpdate(a1 + 40, v15 + 8640, a1);
+          ++*(v15 + 8732);
+        }
+      }
+
+LABEL_61:
+      v30 = v12;
+      physx::Scb::Body::setFlags((a1 + 96), &v30);
+      return;
+    }
+
+    if ((*(*a1 + 48))(a1) != 2)
+    {
+      if (*(a1 + 104) >> 30 == 1)
+      {
+        v27 = *(a1 + 304);
+        if (v27)
+        {
+          if (*(v27 + 31) != 1)
+          {
+            physx::Sc::BodyCore::setupSimStateData(a1 + 128, *(*(a1 + 96) + 4384), 1, 0);
+          }
+        }
+      }
+
+      if (v15)
+      {
+        *(v15 + 4700) = vadd_s32(*(v15 + 4700), 0x1FFFFFFFFLL);
+      }
+
+      goto LABEL_61;
+    }
+
+    v25 = physx::shdfnd::Foundation::mInstance;
+
+    physx::shdfnd::Foundation::error(v25, 4, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpRigidBodyTemplate.h", 540, "RigidBody::setRigidBodyFlag: kinematic articulation links are not supported!", v22, v23, v24);
+  }
+
+  else
+  {
+    v16 = *(a1 + 48);
+    v17 = a1 + 40;
+    if (v16 != 1)
+    {
+      if (*(a1 + 48))
+      {
+        v17 = *(a1 + 40);
+        goto LABEL_18;
+      }
+
+LABEL_22:
+      if ((v11 & 2) == 0)
+      {
+LABEL_23:
+        if (!v15)
+        {
+          goto LABEL_48;
+        }
+
+        goto LABEL_47;
+      }
+
+      if ((*(a1 + 381) & 0x80) != 0)
+      {
+        if (!v15)
+        {
+LABEL_48:
+          if (*(a1 + 104) >> 30 == 1)
+          {
+            v28 = *(a1 + 304);
+            if (v28)
+            {
+              physx::Sc::BodyCore::tearDownSimStateData(a1 + 128, *(*(a1 + 96) + 4384), *(v28 + 31) == 1);
+            }
+          }
+
+          goto LABEL_51;
+        }
+      }
+
+      else
+      {
+        if (*(a1 + 104) >> 30 == 3)
+        {
+          goto LABEL_23;
+        }
+
+        v26 = *(a1 + 304);
+        if (!v26 || *(v26 + 31) != 1 || !*(v26 + 28) || !v15)
+        {
+          goto LABEL_23;
+        }
+      }
+
+      physx::NpShapeManager::markAllSceneQueryForUpdate(a1 + 40, v15 + 8640, a1);
+      ++*(v15 + 8732);
+LABEL_47:
+      *(v15 + 4700) = vadd_s32(*(v15 + 4700), 0xFFFFFFFF00000001);
+      goto LABEL_48;
+    }
+
+LABEL_18:
+    while (1)
+    {
+      (*(**v17 + 312))(&v31);
+      if (v31)
+      {
+        v21 = *(*v17 + 152);
+        if ((v21 | 4) == 5 || v21 == 6)
+        {
+          break;
+        }
+      }
+
+      v17 += 8;
+      if (!--v16)
+      {
+        goto LABEL_22;
+      }
+    }
+
+    physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 4, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpRigidBodyTemplate.h", 513, "RigidBody::setRigidBodyFlag: dynamic meshes/planes/heightfields are not supported!", v18, v19, v20);
+  }
+}
+
+uint64_t physx::NpRigidBodyTemplate<physx::PxRigidDynamic>::getRigidBodyFlags@<X0>(uint64_t result@<X0>, _BYTE *a2@<X8>)
+{
+  if ((*(result + 381) & 0x40) != 0)
+  {
+    v2 = (*(result + 112) + 348);
+  }
+
+  else
+  {
+    v2 = (result + 172);
+  }
+
+  *a2 = *v2;
+  return result;
+}
+
+int32x2_t *physx::NpRigidBodyTemplate<physx::PxRigidDynamic>::setMinCCDAdvanceCoefficient(int32x2_t *result, float a2)
+{
+  v3 = result;
+  v4 = result[13].u32[0];
+  if (v4 >> 30 == 2)
+  {
+    result = result[12];
+    if (result[961].i8[1])
+    {
+      goto LABEL_5;
+    }
+
+LABEL_8:
+    *&v3[25].i32[1] = a2;
+    return result;
+  }
+
+  if (v4 >> 30 != 3)
   {
     goto LABEL_8;
   }
 
-  if (*(a1 + 16))
+  result = result[12];
+LABEL_5:
+  Stream = v3[14];
+  if (!Stream)
   {
-    v3 = a1 + 24;
+    Stream = physx::Scb::Scene::getStream(result, HIBYTE(v4) & 0xF);
+    v3[14] = Stream;
+    result = v3[12];
+  }
+
+  *(Stream + 200) = a2;
+  result = physx::Scb::Scene::scheduleForUpdate(result, &v3[12]);
+  v3[47].i32[1] |= 0x80u;
+  return result;
+}
+
+float physx::NpRigidBodyTemplate<physx::PxRigidDynamic>::getMinCCDAdvanceCoefficient(uint64_t a1)
+{
+  if ((*(a1 + 380) & 0x80) != 0)
+  {
+    v1 = *(a1 + 112) + 200;
   }
 
   else
   {
-    v3 = *(a1 + 32);
+    v1 = a1 + 204;
   }
 
-  return *(v3 + 8 * (a2 >> 2)) + 1144 * (a2 & 3);
+  return *v1;
 }
 
-BOOL RERigAssetBuilderAssignMeshRig(uint64_t a1, unint64_t a2, char a3, const char *a4, const char *a5, const char *a6)
+int32x2_t *physx::NpRigidBodyTemplate<physx::PxRigidDynamic>::setMaxDepenetrationVelocity(int32x2_t *result, float a2)
 {
-  v6 = a2;
-  v45 = *MEMORY[0x1E69E9840];
-  v7 = *(a1 + 1320);
-  if (v7 > a2)
+  v2 = result;
+  v3 = -a2;
+  v4 = result[13].u32[0];
+  if (v4 >> 30 == 2)
   {
-    v24 = 0;
-    v25 = &str_67;
-    v26 = 0;
-    v27 = &str_67;
-    if (a5)
+    result = result[12];
+    if (result[961].i8[1])
     {
+      goto LABEL_5;
     }
 
-    v28 = 0;
-    v29 = &str_67;
-    if (a6)
-    {
-    }
-
-    v30 = v6;
-    v13 = *(a1 + 1376);
-    v14 = *(a1 + 1344);
-    if (v13 + 1 > 8 * v14)
-    {
-      v12 = re::BucketArray<re::DeformationPassBuilder::DeformationInstanceBucket,8ul>::setBucketsCapacity((a1 + 1336), (v13 + 8) >> 3);
-      v14 = *(a1 + 1344);
-    }
-
-    if (v14 > v13 >> 3)
-    {
-      if (*(a1 + 1352))
-      {
-        v15 = a1 + 1360;
-      }
-
-      else
-      {
-        v15 = *(a1 + 1368);
-      }
-
-      v17 = *(v15 + 8 * (v13 >> 3));
-      ++*(a1 + 1376);
-      ++*(a1 + 1384);
-      v18 = v17 + ((v13 & 7) << 6);
-      *v18 = a3;
-      v19 = v24;
-      *(v18 + 8) = *(v18 + 8) & 0xFFFFFFFFFFFFFFFELL | v24 & 1;
-      *(v18 + 8) = v24 & 0xFFFFFFFFFFFFFFFELL | v19 & 1;
-      *(v18 + 16) = v25;
-      v24 = 0;
-      v25 = &str_67;
-      v20 = v26;
-      *(v18 + 24) = *(v18 + 24) & 0xFFFFFFFFFFFFFFFELL | v26 & 1;
-      *(v18 + 24) = v26 & 0xFFFFFFFFFFFFFFFELL | v20 & 1;
-      *(v18 + 32) = v27;
-      v26 = 0;
-      v27 = &str_67;
-      v21 = v28;
-      *(v18 + 40) = *(v18 + 40) & 0xFFFFFFFFFFFFFFFELL | v28 & 1;
-      *(v18 + 40) = v28 & 0xFFFFFFFFFFFFFFFELL | v21 & 1;
-      *(v18 + 48) = v29;
-      v28 = 0;
-      v29 = &str_67;
-      *(v18 + 56) = v30;
-      if (v28)
-      {
-        if (v28)
-        {
-        }
-      }
-
-      v28 = 0;
-      v29 = &str_67;
-      if (v26)
-      {
-        if (v26)
-        {
-        }
-      }
-
-      v26 = 0;
-      v27 = &str_67;
-      if (v24)
-      {
-        if (v24)
-        {
-        }
-      }
-
-      return v7 > v6;
-    }
-
-    v31 = 0;
-    v43 = 0u;
-    v44 = 0u;
-    v41 = 0u;
-    v42 = 0u;
-    *buf = 0u;
-    v6 = MEMORY[0x1E69E9C10];
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    v32 = 136315906;
-    v33 = "operator[]";
-    v34 = 1024;
-    v35 = 858;
-    v36 = 2048;
-    v37 = v13 >> 3;
-    v38 = 2048;
-    v39 = v14;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_27;
+LABEL_8:
+    *&v2[27].i32[1] = v3;
+    return result;
   }
 
-  if (CoreRELog::onceToken != -1)
+  if (v4 >> 30 != 3)
   {
-LABEL_27:
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    goto LABEL_8;
   }
 
-  v16 = CoreRELog::log;
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+  result = result[12];
+LABEL_5:
+  Stream = v2[14];
+  if (!Stream)
   {
-    *buf = 134217984;
-    *&buf[4] = v6;
-    _os_log_error_impl(&dword_1E1C61000, v16, OS_LOG_TYPE_ERROR, "Invalid rig definition index: %zu", buf, 0xCu);
+    Stream = physx::Scb::Scene::getStream(result, HIBYTE(v4) & 0xF);
+    v2[14] = Stream;
+    result = v2[12];
   }
 
-  return v7 > v6;
+  *(Stream + 252) = v3;
+  result = physx::Scb::Scene::scheduleForUpdate(result, &v2[12]);
+  v2[47].i32[1] |= 0x800u;
+  return result;
 }
 
-uint64_t RERigAssetBuilderCreateRigAsset(uint64_t a1, uint64_t a2)
+float physx::NpRigidBodyTemplate<physx::PxRigidDynamic>::getMaxDepenetrationVelocity(uint64_t a1)
 {
-  v40 = *MEMORY[0x1E69E9840];
-  v4 = re::globalAllocators(a1);
-  v5 = (*(*v4[2] + 32))(v4[2], 120, 8);
-  *v5 = 0u;
-  *(v5 + 16) = 0u;
-  *(v5 + 32) = 0u;
-  *(v5 + 48) = 0u;
-  *(v5 + 64) = 0u;
-  *(v5 + 80) = 0u;
-  *(v5 + 96) = 0u;
-  *(v5 + 112) = 0;
-  v6 = *(a1 + 1320);
-  if (*(v5 + 8) < v6)
+  if ((*(a1 + 381) & 8) != 0)
   {
-    re::DynamicArray<re::RigDefinition>::setCapacity(v5, *(a1 + 1320));
-    goto LABEL_4;
-  }
-
-  if (v6)
-  {
-LABEL_4:
-    v7 = 0;
-    v8 = 0;
-    while (1)
-    {
-      v9 = re::BucketArray<re::RigDefinition,4ul>::operator[](a1 + 1280, v8);
-      if (*(v5 + 16) <= v8)
-      {
-        break;
-      }
-
-      re::RigDefinition::operator=((*(v5 + 32) + v7), v9);
-      ++v8;
-      v7 += 1144;
-      if (v6 == v8)
-      {
-        goto LABEL_7;
-      }
-    }
-
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
-    v37 = 0u;
-    v35 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_32:
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
-    v37 = 0u;
-    v35 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-  }
-
-LABEL_7:
-  v10 = *(a1 + 1376);
-  if (*(v5 + 88) < v10)
-  {
-    re::DynamicArray<re::MeshRigGraphIndex>::setCapacity((v5 + 80), *(a1 + 1376));
-    goto LABEL_10;
-  }
-
-  if (v10)
-  {
-LABEL_10:
-    v11 = 0;
-    v12 = 0;
-    do
-    {
-      v13 = re::BucketArray<re::Matrix4x4<float>,8ul>::operator[](a1 + 1336, v12);
-      if (*(v5 + 96) <= v12)
-      {
-        goto LABEL_32;
-      }
-
-      v14 = v13;
-      v15 = *(v5 + 112) + v11;
-      *v15 = *v13;
-      re::StringID::operator=((v15 + 8), (v13 + 8));
-      re::StringID::operator=((v15 + 24), (v14 + 24));
-      re::StringID::operator=((v15 + 40), (v14 + 40));
-      *(v15 + 56) = *(v14 + 56);
-      ++v12;
-      v11 += 64;
-    }
-
-    while (v10 != v12);
-  }
-
-  re::RigDefinition::deinit((a1 + 24));
-  v16 = (*(*a1 + 24))(a1);
-  v17 = re::RigDefinition::init((a1 + 24), v16);
-  v18 = *(a1 + 1208);
-  if (v18)
-  {
-    for (i = 0; i != v18; ++i)
-    {
-      v17 = re::BucketArray<re::ecs2::VisualProxyScopeManagerStateTracking::buildScopeMaskForEntityHierarchy(re::ecs2::Entity const*)::EntityScopeMask,32ul>::operator[](a1 + 1168, i);
-    }
-  }
-
-  *(a1 + 1208) = 0;
-  ++*(a1 + 1216);
-  v20 = *(a1 + 1264);
-  if (v20)
-  {
-    for (j = 0; j != v20; ++j)
-    {
-      v17 = re::BucketArray<re::ecs2::OcclusionManagerStateTracking::buildPerEntityStateForDirtyEntityHierarchy(re::ecs2::Entity const*,re::ecs2::WorldRootProvider const&)::EntityOcclusionData,32ul>::operator[](a1 + 1224, j);
-    }
-  }
-
-  *(a1 + 1264) = 0;
-  ++*(a1 + 1272);
-  v22 = *(a1 + 1320);
-  if (v22)
-  {
-    for (k = 0; k != v22; ++k)
-    {
-      v24 = re::BucketArray<re::RigDefinition,4ul>::operator[](a1 + 1280, k);
-      re::RigDefinition::~RigDefinition(v24);
-    }
-  }
-
-  *(a1 + 1320) = 0;
-  ++*(a1 + 1328);
-  v25 = *(a1 + 1376);
-  if (v25)
-  {
-    for (m = 0; m != v25; ++m)
-    {
-      v27 = re::BucketArray<re::Matrix4x4<float>,8ul>::operator[](a1 + 1336, m);
-      re::StringID::destroyString((v27 + 40));
-      re::StringID::destroyString((v27 + 24));
-      re::StringID::destroyString((v27 + 8));
-    }
-  }
-
-  *(a1 + 1376) = 0;
-  ++*(a1 + 1384);
-  v28 = *(a1 + 1432);
-  if (v28)
-  {
-    for (n = 0; n != v28; ++n)
-    {
-      v30 = re::BucketArray<re::ecs2::RootPhysicsSimulationData,32ul>::operator[](a1 + 1392, n);
-      re::DynamicString::deinit(v30);
-    }
-  }
-
-  *(a1 + 1432) = 0;
-  ++*(a1 + 1440);
-  v31 = re::RigAsset::assetType(v17);
-  (*(*a2 + 424))(&v35, a2, v5, v31, 0, 0, 0);
-  v32 = v35;
-  if (v35)
-  {
-    v33 = (v35 + 8);
-  }
-
-  re::AssetHandle::~AssetHandle(&v35);
-  return v32;
-}
-
-void *re::BucketArray<re::DynamicString,32ul>::setBucketsCapacity(void *result, unint64_t a2)
-{
-  v3 = result;
-  if (*result)
-  {
-    if (result[5] < 32 * a2)
-    {
-      while (1)
-      {
-        v4 = v3[1];
-        if (v4 <= a2)
-        {
-          break;
-        }
-
-        result = re::BucketArray<re::CollisionCastHit,10ul>::freeElementBucket(v3);
-      }
-
-      if (v4 < a2)
-      {
-        v5 = v3 + 3;
-        do
-        {
-          result = (*(**v3 + 32))(*v3, 1024, 0);
-          v6 = result;
-          if (*v3)
-          {
-            v7 = v3[1];
-            v8 = *(v3 + 4);
-            if ((v8 & 1) == 0)
-            {
-              v9 = *v5;
-              v11 = v7 >= *v5;
-              v10 = v7 + 1;
-              v11 = !v11 || v9 >= v10;
-              if (v11)
-              {
-                goto LABEL_24;
-              }
-
-              v12 = 2 * v9;
-              goto LABEL_20;
-            }
-
-            v10 = v7 + 1;
-            if (v10 >= 3)
-            {
-              v12 = 4;
-LABEL_20:
-              if (v12 <= v10)
-              {
-                v14 = v10;
-              }
-
-              else
-              {
-                v14 = v12;
-              }
-
-              result = re::DynamicOverflowArray<std::unique_ptr<void,std::function<void ()(void *)>> *,2ul>::setCapacity(v3, v14);
-              v8 = *(v3 + 4);
-            }
-          }
-
-          else
-          {
-            v13 = v3[1];
-            result = re::DynamicOverflowArray<std::unique_ptr<void,std::function<void ()(void *)>> *,2ul>::setCapacity(v3, v13 + 1);
-            v8 = *(v3 + 4) + 2;
-            *(v3 + 4) = v8;
-          }
-
-LABEL_24:
-          v15 = v3 + 3;
-          if ((v8 & 1) == 0)
-          {
-            v15 = v3[4];
-          }
-
-          v16 = v3[1];
-          v15[v16++] = v6;
-          v3[1] = v16;
-          *(v3 + 4) += 2;
-        }
-
-        while (v16 < a2);
-      }
-    }
+    v1 = (*(a1 + 112) + 252);
   }
 
   else
   {
+    v1 = (a1 + 220);
   }
 
-  return result;
+  return -*v1;
 }
 
-void *re::BucketArray<re::DynamicString,32ul>::init(uint64_t a1, uint64_t a2, unint64_t a3)
+float *physx::NpRigidBodyTemplate<physx::PxRigidDynamic>::setMaxContactImpulse(uint64_t a1, float a2)
 {
-  *a1 = a2;
-  re::DynamicOverflowArray<std::unique_ptr<void,std::function<void ()(void *)>> *,2ul>::setCapacity(a1, a3);
-  *(a1 + 16) += 2;
-  *(a1 + 40) = 0;
-  result = re::BucketArray<re::DynamicString,32ul>::setBucketsCapacity(a1, a3);
-  ++*(a1 + 48);
-  return result;
-}
-
-void *re::BucketArray<re::RigNodeConstraint,32ul>::init(uint64_t a1, uint64_t a2, unint64_t a3)
-{
-  *a1 = a2;
-  re::DynamicOverflowArray<std::unique_ptr<void,std::function<void ()(void *)>> *,2ul>::setCapacity(a1, a3);
-  *(a1 + 16) += 2;
-  *(a1 + 40) = 0;
-  result = re::BucketArray<re::RigNodeConstraint,32ul>::setBucketsCapacity(a1, a3);
-  ++*(a1 + 48);
-  return result;
-}
-
-void *re::BucketArray<anonymous namespace::RigAssetBuilder::MappedIKHandle,32ul>::init(uint64_t a1, uint64_t a2, unint64_t a3)
-{
-  *a1 = a2;
-  re::DynamicOverflowArray<std::unique_ptr<void,std::function<void ()(void *)>> *,2ul>::setCapacity(a1, a3);
-  *(a1 + 16) += 2;
-  *(a1 + 40) = 0;
-  ++*(a1 + 48);
-  return result;
-}
-
-void anonymous namespace::RigAssetBuilder::~RigAssetBuilder(_anonymous_namespace_::RigAssetBuilder *this)
-{
-  *this = &unk_1F5D2D868;
-  v2 = *(this + 179);
-  if (v2)
+  v4 = *(a1 + 104);
+  if (v4 >> 30 == 2)
   {
-    for (i = 0; i != v2; ++i)
+    v5 = *(a1 + 96);
+    if (v5[961].i8[1])
     {
-      v4 = re::BucketArray<re::ecs2::RootPhysicsSimulationData,32ul>::operator[](this + 1392, i);
-      re::DynamicString::deinit(v4);
+      goto LABEL_5;
     }
   }
 
-  while (*(this + 175))
+  else if (v4 >> 30 == 3)
   {
-    re::BucketArray<re::CollisionCastHit,10ul>::freeElementBucket(this + 174);
-  }
-
-  re::DynamicOverflowArray<re::CollisionCastHit *,2ul>::deinit(this + 1392);
-  *(this + 179) = 0;
-  ++*(this + 360);
-  re::DynamicOverflowArray<re::CollisionCastHit *,2ul>::deinit(this + 1392);
-  v5 = *(this + 172);
-  if (v5)
-  {
-    for (j = 0; j != v5; ++j)
+    v5 = *(a1 + 96);
+LABEL_5:
+    Stream = *(a1 + 112);
+    if (!Stream)
     {
-      v7 = re::BucketArray<re::Matrix4x4<float>,8ul>::operator[](this + 1336, j);
-      re::StringID::destroyString((v7 + 40));
-      re::StringID::destroyString((v7 + 24));
-      re::StringID::destroyString((v7 + 8));
+      Stream = physx::Scb::Scene::getStream(v5, HIBYTE(v4) & 0xF);
+      *(a1 + 112) = Stream;
+      v5 = *(a1 + 96);
     }
+
+    *(Stream + 260) = a2;
+    result = physx::Scb::Scene::scheduleForUpdate(v5, a1 + 96);
+    *(a1 + 380) |= 0x2000u;
+    return result;
   }
 
-  while (*(this + 168))
-  {
-    re::BucketArray<re::CollisionCastHit,10ul>::freeElementBucket(this + 167);
-  }
-
-  re::DynamicOverflowArray<re::CollisionCastHit *,2ul>::deinit(this + 1336);
-  *(this + 172) = 0;
-  ++*(this + 346);
-  re::DynamicOverflowArray<re::CollisionCastHit *,2ul>::deinit(this + 1336);
-  v8 = *(this + 165);
-  if (v8)
-  {
-    for (k = 0; k != v8; ++k)
-    {
-      v10 = re::BucketArray<re::RigDefinition,4ul>::operator[](this + 1280, k);
-      re::RigDefinition::~RigDefinition(v10);
-    }
-  }
-
-  while (*(this + 161))
-  {
-    re::BucketArray<re::CollisionCastHit,10ul>::freeElementBucket(this + 160);
-  }
-
-  re::DynamicOverflowArray<re::CollisionCastHit *,2ul>::deinit(this + 1280);
-  *(this + 165) = 0;
-  ++*(this + 332);
-  re::DynamicOverflowArray<re::CollisionCastHit *,2ul>::deinit(this + 1280);
-  v11 = *(this + 158);
-  if (v11)
-  {
-    for (m = 0; m != v11; ++m)
-    {
-      re::BucketArray<re::ecs2::OcclusionManagerStateTracking::buildPerEntityStateForDirtyEntityHierarchy(re::ecs2::Entity const*,re::ecs2::WorldRootProvider const&)::EntityOcclusionData,32ul>::operator[](this + 1224, m);
-    }
-  }
-
-  while (*(this + 154))
-  {
-    re::BucketArray<re::CollisionCastHit,10ul>::freeElementBucket(this + 153);
-  }
-
-  re::DynamicOverflowArray<re::CollisionCastHit *,2ul>::deinit(this + 1224);
-  *(this + 158) = 0;
-  ++*(this + 318);
-  re::DynamicOverflowArray<re::CollisionCastHit *,2ul>::deinit(this + 1224);
-  v13 = *(this + 151);
-  if (v13)
-  {
-    for (n = 0; n != v13; ++n)
-    {
-      re::BucketArray<re::ecs2::VisualProxyScopeManagerStateTracking::buildScopeMaskForEntityHierarchy(re::ecs2::Entity const*)::EntityScopeMask,32ul>::operator[](this + 1168, n);
-    }
-  }
-
-  while (*(this + 147))
-  {
-    re::BucketArray<re::CollisionCastHit,10ul>::freeElementBucket(this + 146);
-  }
-
-  re::DynamicOverflowArray<re::CollisionCastHit *,2ul>::deinit(this + 1168);
-  *(this + 151) = 0;
-  ++*(this + 304);
-  re::DynamicOverflowArray<re::CollisionCastHit *,2ul>::deinit(this + 1168);
-  re::RigDefinition::~RigDefinition((this + 24));
-  *this = &unk_1F5CCF868;
-  objc_destructInstance(this + 8);
+  return physx::Sc::BodyCore::setMaxContactImpulse((a1 + 128), a2);
 }
 
+float physx::NpRigidBodyTemplate<physx::PxRigidDynamic>::getMaxContactImpulse(uint64_t a1)
 {
-
-  JUMPOUT(0x1E6906520);
-}
-
-void *re::BucketArray<re::RigNodeConstraint,32ul>::setBucketsCapacity(void *result, unint64_t a2)
-{
-  v3 = result;
-  if (*result)
+  if ((*(a1 + 381) & 0x20) != 0)
   {
-    if (result[5] < 32 * a2)
-    {
-      while (1)
-      {
-        v4 = v3[1];
-        if (v4 <= a2)
-        {
-          break;
-        }
-
-        result = re::BucketArray<re::CollisionCastHit,10ul>::freeElementBucket(v3);
-      }
-
-      if (v4 < a2)
-      {
-        v5 = v3 + 3;
-        do
-        {
-          result = (*(**v3 + 32))(*v3, 512, 0);
-          v6 = result;
-          if (*v3)
-          {
-            v7 = v3[1];
-            v8 = *(v3 + 4);
-            if ((v8 & 1) == 0)
-            {
-              v9 = *v5;
-              v11 = v7 >= *v5;
-              v10 = v7 + 1;
-              v11 = !v11 || v9 >= v10;
-              if (v11)
-              {
-                goto LABEL_24;
-              }
-
-              v12 = 2 * v9;
-              goto LABEL_20;
-            }
-
-            v10 = v7 + 1;
-            if (v10 >= 3)
-            {
-              v12 = 4;
-LABEL_20:
-              if (v12 <= v10)
-              {
-                v14 = v10;
-              }
-
-              else
-              {
-                v14 = v12;
-              }
-
-              result = re::DynamicOverflowArray<std::unique_ptr<void,std::function<void ()(void *)>> *,2ul>::setCapacity(v3, v14);
-              v8 = *(v3 + 4);
-            }
-          }
-
-          else
-          {
-            v13 = v3[1];
-            result = re::DynamicOverflowArray<std::unique_ptr<void,std::function<void ()(void *)>> *,2ul>::setCapacity(v3, v13 + 1);
-            v8 = *(v3 + 4) + 2;
-            *(v3 + 4) = v8;
-          }
-
-LABEL_24:
-          v15 = v3 + 3;
-          if ((v8 & 1) == 0)
-          {
-            v15 = v3[4];
-          }
-
-          v16 = v3[1];
-          v15[v16++] = v6;
-          v3[1] = v16;
-          *(v3 + 4) += 2;
-        }
-
-        while (v16 < a2);
-      }
-    }
+    v1 = *(a1 + 112) + 260;
   }
 
   else
   {
+    v1 = a1 + 272;
   }
 
-  return result;
+  return *v1;
 }
 
-void *re::BucketArray<anonymous namespace::RigAssetBuilder::MappedIKHandle,32ul>::setBucketsCapacity(void *result, unint64_t a2)
+uint64_t physx::NpRigidBodyTemplate<physx::PxRigidDynamic>::getInternalIslandNodeIndex(uint64_t a1)
 {
-  v3 = result;
-  if (*result)
-  {
-    if (result[5] < 32 * a2)
-    {
-      while (1)
-      {
-        v4 = v3[1];
-        if (v4 <= a2)
-        {
-          break;
-        }
-
-        result = re::BucketArray<re::CollisionCastHit,10ul>::freeElementBucket(v3);
-      }
-
-      if (v4 < a2)
-      {
-        v5 = v3 + 3;
-        do
-        {
-          result = (*(**v3 + 32))(*v3, 768, 0);
-          v6 = result;
-          if (*v3)
-          {
-            v7 = v3[1];
-            v8 = *(v3 + 4);
-            if ((v8 & 1) == 0)
-            {
-              v9 = *v5;
-              v11 = v7 >= *v5;
-              v10 = v7 + 1;
-              v11 = !v11 || v9 >= v10;
-              if (v11)
-              {
-                goto LABEL_24;
-              }
-
-              v12 = 2 * v9;
-              goto LABEL_20;
-            }
-
-            v10 = v7 + 1;
-            if (v10 >= 3)
-            {
-              v12 = 4;
-LABEL_20:
-              if (v12 <= v10)
-              {
-                v14 = v10;
-              }
-
-              else
-              {
-                v14 = v12;
-              }
-
-              result = re::DynamicOverflowArray<std::unique_ptr<void,std::function<void ()(void *)>> *,2ul>::setCapacity(v3, v14);
-              v8 = *(v3 + 4);
-            }
-          }
-
-          else
-          {
-            v13 = v3[1];
-            result = re::DynamicOverflowArray<std::unique_ptr<void,std::function<void ()(void *)>> *,2ul>::setCapacity(v3, v13 + 1);
-            v8 = *(v3 + 4) + 2;
-            *(v3 + 4) = v8;
-          }
-
-LABEL_24:
-          v15 = v3 + 3;
-          if ((v8 & 1) == 0)
-          {
-            v15 = v3[4];
-          }
-
-          v16 = v3[1];
-          v15[v16++] = v6;
-          v3[1] = v16;
-          *(v3 + 4) += 2;
-        }
-
-        while (v16 < a2);
-      }
-    }
-  }
-
-  else
-  {
-  }
-
-  return result;
-}
-
-uint64_t re::BucketArray<re::RigNodeConstraint,32ul>::addUninitialized(uint64_t a1)
-{
-  v2 = *(a1 + 40);
-  v3 = *(a1 + 8);
-  if (v2 + 1 > 32 * v3)
-  {
-    re::BucketArray<re::RigNodeConstraint,32ul>::setBucketsCapacity(a1, (v2 + 32) >> 5);
-    v3 = *(a1 + 8);
-  }
-
-  if (v3 <= v2 >> 5)
-  {
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-  }
-
-  if (*(a1 + 16))
-  {
-    v4 = a1 + 24;
-  }
-
-  else
-  {
-    v4 = *(a1 + 32);
-  }
-
-  v5 = *(v4 + 8 * (v2 >> 5));
-  ++*(a1 + 40);
-  ++*(a1 + 48);
-  return v5 + 16 * (v2 & 0x1F);
-}
-
-void *re::BucketArray<re::RigDefinition,4ul>::setBucketsCapacity(void *result, unint64_t a2)
-{
-  v3 = result;
-  if (*result)
-  {
-    if (result[5] < 4 * a2)
-    {
-      while (1)
-      {
-        v4 = v3[1];
-        if (v4 <= a2)
-        {
-          break;
-        }
-
-        result = re::BucketArray<re::CollisionCastHit,10ul>::freeElementBucket(v3);
-      }
-
-      if (v4 < a2)
-      {
-        v5 = v3 + 3;
-        do
-        {
-          result = (*(**v3 + 32))(*v3, 4576, 0);
-          v6 = result;
-          if (*v3)
-          {
-            v7 = v3[1];
-            v8 = *(v3 + 4);
-            if ((v8 & 1) == 0)
-            {
-              v9 = *v5;
-              v11 = v7 >= *v5;
-              v10 = v7 + 1;
-              v11 = !v11 || v9 >= v10;
-              if (v11)
-              {
-                goto LABEL_22;
-              }
-
-              v12 = 2 * v9;
-              goto LABEL_18;
-            }
-
-            v10 = v7 + 1;
-            if (v10 >= 3)
-            {
-              v12 = 4;
-LABEL_18:
-              if (v12 <= v10)
-              {
-                v14 = v10;
-              }
-
-              else
-              {
-                v14 = v12;
-              }
-
-              result = re::DynamicOverflowArray<std::unique_ptr<void,std::function<void ()(void *)>> *,2ul>::setCapacity(v3, v14);
-              v8 = *(v3 + 4);
-            }
-          }
-
-          else
-          {
-            v13 = v3[1];
-            result = re::DynamicOverflowArray<std::unique_ptr<void,std::function<void ()(void *)>> *,2ul>::setCapacity(v3, v13 + 1);
-            v8 = *(v3 + 4) + 2;
-            *(v3 + 4) = v8;
-          }
-
-LABEL_22:
-          v15 = v3 + 3;
-          if ((v8 & 1) == 0)
-          {
-            v15 = v3[4];
-          }
-
-          v16 = v3[1];
-          v15[v16++] = v6;
-          v3[1] = v16;
-          *(v3 + 4) += 2;
-        }
-
-        while (v16 < a2);
-      }
-    }
-  }
-
-  else
-  {
-    re::DynamicOverflowArray<std::unique_ptr<void,std::function<void ()(void *)>> *,2ul>::setCapacity(v3, a2);
-    *(v3 + 4) += 2;
-    v3[5] = 0;
-    result = re::BucketArray<re::RigDefinition,4ul>::setBucketsCapacity(v3, a2);
-    ++*(v3 + 12);
-  }
-
-  return result;
-}
-
-void *REUILayerGeometryComponentGetComponentType()
-{
-  if (re::ecs2::dispatchOnceInitECSComponents(void)::onceToken != -1)
-  {
-    dispatch_once(&re::ecs2::dispatchOnceInitECSComponents(void)::onceToken, &__block_literal_global_17);
-  }
-
-  return re::ecs2::ComponentImpl<re::ecs2::UILayerGeometryComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)0,(re::ecs2::ComponentTypeBase::Flags)2>::s_componentType;
-}
-
-uint64_t REUILayerGeometryComponentSetWidthSegmentCount(uint64_t this, int a2)
-{
-  if (*(this + 26) != a2)
-  {
-    *(this + 26) = a2;
-    return re::ecs2::Component::enqueueMarkDirty(this);
-  }
-
-  return this;
-}
-
-uint64_t REUILayerGeometryComponentSetHeightSegmentCount(uint64_t this, int a2)
-{
-  if (*(this + 28) != a2)
-  {
-    *(this + 28) = a2;
-    return re::ecs2::Component::enqueueMarkDirty(this);
-  }
-
-  return this;
-}
-
-uint64_t REUILayerGeometryComponentSetFlatDepthSegmentCount(uint64_t this, int a2)
-{
-  if (*(this + 30) != a2)
-  {
-    *(this + 30) = a2;
-    return re::ecs2::Component::enqueueMarkDirty(this);
-  }
-
-  return this;
-}
-
-uint64_t REUILayerGeometryComponentSetCornerRadiusSegmentCount(uint64_t this, int a2)
-{
-  if (*(this + 32) != a2)
-  {
-    *(this + 32) = a2;
-    return re::ecs2::Component::enqueueMarkDirty(this);
-  }
-
-  return this;
-}
-
-uint64_t REUILayerGeometryComponentSetFrontBackBevelSegmentCount(uint64_t this, int a2)
-{
-  if (*(this + 34) != a2)
-  {
-    *(this + 34) = a2;
-    return re::ecs2::Component::enqueueMarkDirty(this);
-  }
-
-  return this;
-}
-
-uint64_t REUILayerGeometryComponentSetBevelFrontDepth(uint64_t this, float a2)
-{
-  v2 = *(this + 36);
-  if (v2 != a2 && vabds_f32(v2, a2) >= (((fabsf(a2) + fabsf(v2)) + 1.0) * 0.00001))
-  {
-    *(this + 36) = a2;
-    return re::ecs2::Component::enqueueMarkDirty(this);
-  }
-
-  return this;
-}
-
-uint64_t REUILayerGeometryComponentSetBevelBackDepth(uint64_t this, float a2)
-{
-  v2 = *(this + 40);
-  if (v2 != a2 && vabds_f32(v2, a2) >= (((fabsf(a2) + fabsf(v2)) + 1.0) * 0.00001))
-  {
-    *(this + 40) = a2;
-    return re::ecs2::Component::enqueueMarkDirty(this);
-  }
-
-  return this;
-}
-
-uint64_t REUILayerGeometryComponentSetFlatDepth(uint64_t this, float a2)
-{
-  v2 = *(this + 44);
-  if (v2 != a2 && vabds_f32(v2, a2) >= (((fabsf(a2) + fabsf(v2)) + 1.0) * 0.00001))
-  {
-    *(this + 44) = a2;
-    return re::ecs2::Component::enqueueMarkDirty(this);
-  }
-
-  return this;
-}
-
-uint64_t REUILayerGeometryComponentSetWidth(uint64_t this, float a2)
-{
-  v2 = *(this + 48);
-  if (v2 != a2 && vabds_f32(v2, a2) >= (((fabsf(a2) + fabsf(v2)) + 1.0) * 0.00001))
-  {
-    *(this + 48) = a2;
-    return re::ecs2::Component::enqueueMarkDirty(this);
-  }
-
-  return this;
-}
-
-uint64_t REUILayerGeometryComponentSetHeight(uint64_t this, float a2)
-{
-  v2 = *(this + 52);
-  if (v2 != a2 && vabds_f32(v2, a2) >= (((fabsf(a2) + fabsf(v2)) + 1.0) * 0.00001))
-  {
-    *(this + 52) = a2;
-    return re::ecs2::Component::enqueueMarkDirty(this);
-  }
-
-  return this;
-}
-
-uint64_t REUILayerGeometryComponentSetCornerRadius(uint64_t this, float a2)
-{
-  v2 = *(this + 56);
-  if (v2 != a2 && vabds_f32(v2, a2) >= (((fabsf(a2) + fabsf(v2)) + 1.0) * 0.00001))
-  {
-    *(this + 56) = a2;
-    return re::ecs2::Component::enqueueMarkDirty(this);
-  }
-
-  return this;
-}
-
-uint64_t REUILayerGeometryComponentSetNeedsVertDistanceToPlatterEdge(uint64_t this, int a2)
-{
-  if (*(this + 60) != a2)
-  {
-    *(this + 60) = a2;
-    return re::ecs2::Component::enqueueMarkDirty(this);
-  }
-
-  return this;
-}
-
-uint64_t REUILayerGeometryComponentSetCurveTheta(uint64_t this, float a2)
-{
-  v2 = *(this + 64);
-  if (v2 != a2 && vabds_f32(v2, a2) >= (((fabsf(a2) + fabsf(v2)) + 1.0) * 0.00001))
-  {
-    *(this + 64) = a2;
-    return re::ecs2::Component::enqueueMarkDirty(this);
-  }
-
-  return this;
-}
-
-uint64_t REUILayerGeometryComponentSetCurveDirectionIsFrontward(uint64_t this, int a2)
-{
-  if (*(this + 68) != a2)
-  {
-    *(this + 68) = a2;
-    return re::ecs2::Component::enqueueMarkDirty(this);
-  }
-
-  return this;
-}
-
-uint64_t REUILayerGeometryComponentSetGroundingShadowType(uint64_t this, int a2)
-{
-  if (*(this + 108) != a2)
-  {
-    *(this + 108) = a2;
-    return re::ecs2::Component::enqueueMarkDirty(this);
-  }
-
-  return this;
-}
-
-uint64_t REAudioFileGroupAssetGetType(re::AudioFileGroupAsset *a1)
-{
-  v1 = *re::AudioFileGroupAsset::assetType(a1);
-  v2 = MEMORY[0x1E696AEC0];
-
-  return [v2 stringWithUTF8String:v1];
-}
-
-uint64_t REAudioFileGroupAssetCreateWithFileAssets(re *a1, void *a2, uint64_t *a3, uint64_t a4)
-{
-  v8 = re::globalAllocators(a1);
-  v9 = (*(*v8[2] + 32))(v8[2], 56, 8);
-  re::AudioFileGroupAsset::AudioFileGroupAsset(v9);
-  v19 = 0;
-  memset(v17, 0, sizeof(v17));
-  for (i = 0; a4; --a4)
-  {
-    v10 = *a3++;
-    re::AssetAPIHelper::assetHandleCreate(v10, &v20);
-    re::DynamicArray<re::AssetHandle>::add(v17, &v20);
-    re::AssetHandle::~AssetHandle(&v20);
-  }
-
-  re::DynamicArray<re::AssetHandle>::operator=(v9 + 8, v17);
-  v11 = [a2 UTF8String];
-  v12 = re::AudioFileGroupAsset::assetType(v11);
-  (*(*a1 + 432))(v16, a1, v9, v12, &v20, 0, 0, 0);
-  if (v20 && (v21 & 1) != 0)
-  {
-    (*(*v20 + 40))();
-  }
-
-  v13 = v16[0];
-  if (v16[0])
-  {
-    v14 = (v16[0] + 8);
-  }
-
-  re::AssetHandle::~AssetHandle(v16);
-  re::DynamicArray<re::AssetHandle>::deinit(v17);
-  return v13;
-}
-
-uint64_t REAudioFileGroupAssetGetByName(uint64_t a1, id a2)
-{
-  v4 = a2;
-  v5 = [a2 UTF8String];
-  v6 = re::AudioFileGroupAsset::assetType(v5);
-  (*(*a1 + 32))(&v10, a1, v5, v6);
-  re::AssetHandle::loadNow(v11, 0);
-  if (v11)
-  {
-    v7 = atomic_load((v11 + 896));
-    if (v7 == 2)
-    {
-      v8 = v10;
-    }
-
-    else
-    {
-      v8 = 0;
-    }
-  }
-
-  else
-  {
-    v8 = 0;
-  }
-
-  re::AssetHandle::~AssetHandle(&v10);
-  return v8;
-}
-
-uint64_t REAudioFileGroupAssetGetAssetCount(uint64_t a1)
-{
-  re::AssetAPIHelper::assetHandleCreate(a1, v4);
-  v1 = re::AssetHandle::blockUntilLoaded<re::AudioFileGroupAsset>(v4);
+  v1 = *(a1 + 128);
   if (v1)
   {
-    v2 = *(v1 + 24);
+    return *(v1 + 176) >> 7;
   }
 
   else
   {
-    v2 = 0;
+    return 0x1FFFFFFLL;
   }
-
-  re::AssetHandle::~AssetHandle(v4);
-  return v2;
 }
 
-uint64_t re::AssetHandle::blockUntilLoaded<re::AudioFileGroupAsset>(re::AudioFileGroupAsset *a1)
+uint64_t physx::NpRigidActorTemplate<physx::PxRigidDynamic>::exportExtraData(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v2 = re::AudioFileGroupAsset::assetType(a1);
-  v3 = re::AssetHandle::assetWithType(a1, v2, 0);
-  if (!v3)
-  {
-    v4 = *re::assetsLogObjects(0);
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
-    {
-      v6 = v4;
-      v7 = re::AssetHandle::assetInfo(a1);
-      if (v7[17])
-      {
-        v8 = v7[18];
-      }
+  physx::NpShapeManager::exportExtraData(a1 + 40, a2);
 
-      else
-      {
-        v8 = v7 + 137;
-      }
-
-      v9 = 136315138;
-      v10 = v8;
-      _os_log_error_impl(&dword_1E1C61000, v6, OS_LOG_TYPE_ERROR, "Invalid asset: '%s'", &v9, 0xCu);
-    }
-  }
-
-  return v3;
+  return physx::NpActor::exportExtraData((a1 + 24), a2);
 }
 
-uint64_t REAudioFileGroupAssetGetAssetAtIndex(uint64_t a1, unint64_t a2)
+void *physx::NpRigidActorTemplate<physx::PxRigidDynamic>::importExtraData(uint64_t a1, uint64_t a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
-  re::AssetAPIHelper::assetHandleCreate(a1, v7);
-  v3 = re::AssetHandle::blockUntilLoaded<re::AudioFileGroupAsset>(v7);
-  if (v3)
+  v2 = *(a1 + 48);
+  if (v2 >= 2)
   {
-    v4 = *(v3 + 24);
-    if (v4 <= a2)
+    v3 = (*(a2 + 8) + 15) & 0xFFFFFFFFFFFFFFF0;
+    *(a2 + 8) = v3 + 8 * v2;
+    *(a1 + 40) = v3;
+  }
+
+  v4 = *(a1 + 64);
+  if (v4 >= 2)
+  {
+    v5 = (*(a2 + 8) + 15) & 0xFFFFFFFFFFFFFFF0;
+    *(a2 + 8) = v5 + 8 * v4;
+    *(a1 + 56) = v5;
+  }
+
+  return physx::NpActor::importExtraData((a1 + 24), a2);
+}
+
+uint64_t physx::NpRigidActorTemplate<physx::PxRigidDynamic>::resolveReferences(uint64_t a1, uint64_t (***a2)(void, uint64_t))
+{
+  v4 = (a1 + 40);
+  v5 = *(a1 + 48);
+  if (v5 != 1)
+  {
+    if (!*(a1 + 48))
     {
-      v7[3] = 0;
-      memset(v16, 0, sizeof(v16));
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      v8 = 136315906;
-      v9 = "operator[]";
-      v10 = 1024;
-      v11 = 797;
-      v12 = 2048;
-      v13 = a2;
-      v14 = 2048;
-      v15 = v4;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
+      goto LABEL_10;
     }
 
-    re::AssetHandle::AssetHandle(v16, (*(v3 + 40) + 24 * a2));
-    v5 = *&v16[0];
-    re::AssetHandle::~AssetHandle(v16);
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  re::AssetHandle::~AssetHandle(v7);
-  return v5;
-}
-
-uint64_t REAudioFileGroupAssetIsCompletelyLoaded(uint64_t a1)
-{
-  re::AssetAPIHelper::assetHandleCreate(a1, v4);
-  v1 = re::AssetHandle::blockUntilLoaded<re::AudioFileGroupAsset>(v4);
-  if (v1)
-  {
-    isCompletelyLoaded = re::AudioFileGroupAsset::isCompletelyLoaded(v1);
-  }
-
-  else
-  {
-    isCompletelyLoaded = 0;
-  }
-
-  re::AssetHandle::~AssetHandle(v4);
-  return isCompletelyLoaded;
-}
-
-void REAudioFileGroupAssetCompleteLoad(uint64_t a1)
-{
-  AssetManager = REAssetGetAssetManager(a1);
-  v3 = re::AudioFileGroupAsset::assetType(AssetManager);
-  v4 = *(AssetManager + 226);
-  v8 = v3;
-  v5 = re::HashTable<re::AssetType const*,std::unique_ptr<re::AssetLoader,std::function<void ()(re::AssetLoader*)>>,re::Hash<re::AssetType const*>,re::EqualTo<re::AssetType const*>,true,false>::operator[](v4, &v8);
-  (*(**v5 + 128))(*v5);
-  v6 = *(*v5 + 24);
-  if (v6)
-  {
-    v7 = (*(*v6 + 24))(v6);
-  }
-
-  else
-  {
-    v7 = 0;
-  }
-
-  REAudioFileGroupAssetCompleteLoadWithService(a1, v7);
-}
-
-void REAudioFileGroupAssetCompleteLoadWithService(uint64_t a1, AudioSceneService *a2)
-{
-  re::AssetAPIHelper::assetHandleCreate(a1, &v9);
-  if (v10 && (v4 = atomic_load((v10 + 896)), v4 == 2))
-  {
-    v5 = atomic_load((v10 + 896));
-    if (v5 == 2)
-    {
-      ++*(v10 + 276);
-      v6 = re::AssetHandle::loadedAsset<re::AudioFileGroupAsset>(&v9);
-      if (v6)
-      {
-        re::AudioFileGroupAsset::completeLoad(v6, a2);
-      }
-    }
-  }
-
-  else
-  {
-    v7 = *re::audioLogObjects(v3);
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
-    {
-      *v8 = 0;
-      _os_log_error_impl(&dword_1E1C61000, v7, OS_LOG_TYPE_ERROR, "[CoreRE] [REAudioFileGroupAsset] Cannot complete loading an audio group file asset that is not loaded.", v8, 2u);
-    }
-  }
-
-  re::AssetHandle::~AssetHandle(&v9);
-}
-
-re::ecs2::ComponentTypeBase *RECustomComponentTypeCreateWithType(_anonymous_namespace_ *a1, uint64_t a2)
-{
-  v21 = *MEMORY[0x1E69E9840];
-  *&v18 = a1;
-  *(&v18 + 1) = a2;
-  if (!a1)
-  {
-    v10 = *re::ecsCoreLogObjects(0);
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 0;
-      v11 = "Invalid type ID.";
-      v12 = v10;
-      v13 = 2;
-LABEL_9:
-      _os_log_impl(&dword_1E1C61000, v12, OS_LOG_TYPE_DEFAULT, v11, buf, v13);
-    }
-
-    return 0;
-  }
-
-  v3 = re::TypeRegistry::typeName(a1, &v18);
-  re::TypeRegistry::typeInfo(a1, &v18, buf);
-  if ((buf[0] & 1) == 0)
-  {
-    v14 = *re::ecsCoreLogObjects(v4);
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
-    {
-      v15 = *(v3 + 1);
-      *buf = 136315138;
-      v20 = v15;
-      v11 = "Type information missing for %s. Type has been declared, but no type information was provided.";
-      v12 = v14;
-      v13 = 12;
-      goto LABEL_9;
-    }
-
-    return 0;
-  }
-
-  v5 = re::ecs2::ComponentTypeRegistry::instance(v4);
-  v6 = re::ecs2::ComponentTypeRegistry::componentTypeWithName(v5, v3);
-  if (!v6)
-  {
-    v7 = re::globalAllocators(0);
-    v6 = (*(*v7[2] + 32))(v7[2], 176, 8);
-    v17 = v18;
-    v8 = re::ecs2::CustomComponentType::CustomComponentType(v6, v3, &v17, 0, 0, 0);
-    v9 = re::ecs2::ComponentTypeRegistry::instance(v8);
-    re::ecs2::ComponentTypeRegistry::add(v9, v6, 0);
-  }
-
-  return v6;
-}
-
-double REDebugRendererDrawLineWithDepth(uint64_t a1, int a2, __n128 a3, __n128 a4, __n128 a5)
-{
-  v5 = *(a1 + 80);
-  v9 = a3;
-  v7 = a5;
-  v8 = a4;
-  return re::DebugRenderer::drawLine(v5, &v9, &v8, &v7, a2);
-}
-
-double REDebugRendererDrawLine(uint64_t a1, __n128 a2, __n128 a3, __n128 a4)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = *(a1 + 80);
-  v6[0] = a2;
-  v6[1] = a3;
-  v6[2] = a4;
-  v7 = 1065353216;
-  *&result = re::DynamicArray<re::RigTransform>::add((v4 + 16), v6).n128_u64[0];
-  return result;
-}
-
-void *REDebugRendererDrawArrowWithDepth(uint64_t a1, int a2, float32x4_t a3, float32x4_t a4, float a5, __n128 a6)
-{
-  v6 = *(a1 + 80);
-  v10 = a3;
-  v8 = a6;
-  v9 = a4;
-  return re::DebugRenderer::drawArrow(v6, &v10, &v9, &v8, a2, a5);
-}
-
-void *REDebugRendererDrawArrow(uint64_t a1, float32x4_t a2, float32x4_t a3, float a4, __n128 a5)
-{
-  v5 = *(a1 + 80);
-  v9 = a2;
-  v7 = a5;
-  v8 = a3;
-  return re::DebugRenderer::drawArrow(v5, &v9, &v8, &v7, 1, a4);
-}
-
-void *REDebugRendererDrawAxisWithWorldPoseWithDepth(uint64_t a1, int a2, float32x4_t a3, float32x4_t a4, float a5, float a6)
-{
-  v7[0] = a3;
-  v7[1] = a4;
-  return re::DebugRenderer::drawAxis(*(a1 + 80), v7, a2, a5, a6);
-}
-
-void *REDebugRendererDrawAxisWithWorldPose(uint64_t a1, float32x4_t a2, float32x4_t a3, float a4, float a5)
-{
-  v6[0] = a2;
-  v6[1] = a3;
-  return re::DebugRenderer::drawAxis(*(a1 + 80), v6, 1, a4, a5);
-}
-
-void *REDebugRendererDrawAxisWithWorldTransformWithDepth(uint64_t a1, int a2, float32x4_t a3, float32x4_t a4, float32x4_t a5, float32x4_t a6, float a7, float a8)
-{
-  v8 = *(a1 + 80);
-  v10[0] = a3;
-  v10[1] = a4;
-  v10[2] = a5;
-  v10[3] = a6;
-  return re::DebugRenderer::drawAxis(v8, v10, a2, a7, a8);
-}
-
-void *REDebugRendererDrawAxisWithWorldTransform(uint64_t a1, float32x4_t a2, float32x4_t a3, float32x4_t a4, float32x4_t a5, float a6, float a7)
-{
-  v7 = *(a1 + 80);
-  v9[0] = a2;
-  v9[1] = a3;
-  v9[2] = a4;
-  v9[3] = a5;
-  return re::DebugRenderer::drawAxis(v7, v9, 1, a6, a7);
-}
-
-double REDebugRendererDrawPointWithDepth(uint64_t a1, int a2, __n128 a3, float a4, __n128 a5)
-{
-  v5 = *(a1 + 80);
-  v7 = a5;
-  v8 = a3;
-  return re::DebugRenderer::drawPoint(v5, &v8, &v7, a2, a4);
-}
-
-double REDebugRendererDrawPoint(uint64_t a1, __n128 a2, float a3, __n128 a4)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = *(a1 + 80);
-  v6[0] = a2;
-  v6[1] = a4;
-  v7 = a3;
-  *&result = re::DynamicArray<re::RenderPoint>::add((v4 + 96), v6).n128_u64[0];
-  return result;
-}
-
-void REDebugRendererDrawTextAtWorldPose(uint64_t a1, const char *a2, uint64_t a3, float32x4_t a4, float32x4_t a5, float32x4_t a6, __n128 a7)
-{
-  v19 = *MEMORY[0x1E69E9840];
-  v17[0] = a4;
-  v17[1] = a5;
-  v17[2] = a6;
-  re::AssetAPIHelper::assetHandleCreate(a3, v16);
-  v9 = re::AssetHandle::assetInfo(v16);
-  if (*(v9 + 13))
-  {
-    v10 = *(v9 + 14);
-  }
-
-  else
-  {
-    v10 = v9 + 105;
-  }
-
-  *&v15.var0 = 0;
-  v15.var1 = &str_67;
-  if (re::TextManager::isFontLoaded(*(a1 + 64), &v15))
-  {
-    v11 = *(a1 + 80);
-    *buf = a7;
-    re::DebugRenderer::drawText(v11, v17, a2, &v15, buf, 0);
-  }
-
-  else
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v13 = CoreRELog::log;
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 136315394;
-      *&buf[4] = v10;
-      *&buf[12] = 2080;
-      *&buf[14] = a2;
-    }
-  }
-
-  if (*&v15.var0)
-  {
-    if (*&v15.var0)
-    {
-    }
-  }
-
-  re::AssetHandle::~AssetHandle(v16);
-}
-
-void REDebugRendererDrawTextAtWorldTransform(uint64_t a1, const char *a2, uint64_t a3, __n128 a4, __n128 a5, __n128 a6, __n128 a7, __n128 a8)
-{
-  v26 = *MEMORY[0x1E69E9840];
-  re::AssetAPIHelper::assetHandleCreate(a3, v22);
-  v10 = re::AssetHandle::assetInfo(v22);
-  if (*(v10 + 13))
-  {
-    v11 = *(v10 + 14);
-  }
-
-  else
-  {
-    v11 = v10 + 105;
-  }
-
-  *&v21.var0 = 0;
-  v21.var1 = &str_67;
-  if (re::TextManager::isFontLoaded(*(a1 + 64), &v21))
-  {
-    v12 = *(a1 + 80);
-    *buf = a4;
-    *&buf[16] = a5;
-    v24 = a6;
-    v25 = a7;
-    v20 = a8;
-    re::DebugRenderer::drawText(v12, buf, a2, &v21, &v20, 0);
-  }
-
-  else
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v14 = CoreRELog::log;
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 136315394;
-      *&buf[4] = v11;
-      *&buf[12] = 2080;
-      *&buf[14] = a2;
-    }
-  }
-
-  if (*&v21.var0)
-  {
-    if (*&v21.var0)
-    {
-    }
-  }
-
-  re::AssetHandle::~AssetHandle(v22);
-}
-
-void REDebugRendererDrawCollisionWorld(re *a1, uint64_t a2)
-{
-  v56 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 10);
-  if (v2)
-  {
-    aBlock[0] = MEMORY[0x1E69E9820];
-    aBlock[1] = 3221225472;
-    aBlock[2] = __REDebugRendererDrawCollisionWorld_block_invoke;
-    aBlock[3] = &__block_descriptor_40_e107_v56__0_Vector3_float________fff__3f___8_Vector3_float________fff__3f___24_Vector3_float________fff__3f___40l;
-    aBlock[4] = v2;
-    v5 = _Block_copy(aBlock);
-    v41[0] = MEMORY[0x1E69E9820];
-    v41[1] = 3221225472;
-    v41[2] = __REDebugRendererDrawCollisionWorld_block_invoke_2;
-    v41[3] = &__block_descriptor_40_e76_v44__0_Vector3_float________fff__3f___8f24_Vector3_float________fff__3f___28l;
-    v41[4] = v2;
-    v6 = _Block_copy(v41);
-    (*(*a2 + 112))(a2, v5, v6, 0, 0);
-    (*(*a2 + 128))(a2);
-    v7 = (*(*a2 + 160))(a2);
-    if (v7)
-    {
-      v8 = (*(*v7 + 56))(v7);
-      if (v8)
-      {
-        v9 = v8;
-        v10 = re::ServiceLocator::serviceOrNull<re::ecs2::PhysicsSimulationService>(v8);
-        if (v10)
-        {
-          v11 = v10;
-          v12 = (*(*v10 + 176))(v10);
-          if (v12)
-          {
-            if (*(v12 + 56) == a2)
-            {
-              v14 = re::ServiceLocator::serviceOrNull<re::ecs2::ECSService>(v9);
-              if (v14)
-              {
-                v34 = v6;
-                v35 = v5;
-                v15 = (*(*v14 + 288))(v14) + 120;
-                re::DataArray<re::ecs2::SceneGroup>::DataArrayIterator<re::ecs2::SceneGroup,re::ecs2::SceneGroup&>::DataArrayIterator(&buf, v15, 0);
-                v16 = buf;
-                v39 = buf;
-                v40 = DWORD2(buf);
-                v17 = WORD4(buf);
-                v18 = HIWORD(DWORD2(buf));
-                v36 = v15;
-                if (v15 != buf || WORD4(buf) != 0xFFFF || v18 != 0xFFFF)
-                {
-                  while (1)
-                  {
-                    v21 = v18;
-                    v22 = *(v16 + 16);
-                    if (v22 <= v18)
-                    {
-                      goto LABEL_43;
-                    }
-
-                    v23 = *(*(v16 + 32) + 16 * v18) + 240 * v17;
-                    v24 = *(v23 + 200);
-                    if (v24)
-                    {
-                      break;
-                    }
-
-LABEL_38:
-                    re::DataArray<re::ecs2::SceneGroup>::DataArrayIterator<re::ecs2::SceneGroup,re::ecs2::SceneGroup&>::increment(&v39);
-                    v16 = v39;
-                    v17 = v40;
-                    v18 = HIWORD(v40);
-                    if (v39 == v36 && v40 == 0xFFFF && HIWORD(v40) == 0xFFFF)
-                    {
-                      goto LABEL_41;
-                    }
-                  }
-
-                  v25 = *(v23 + 216);
-                  v21 = &v25[v24];
-                  while (1)
-                  {
-                    v26 = (*(*v11 + 32))(v11, *v25);
-                    if (v26)
-                    {
-                      v27 = v26;
-                      re::DataArray<re::RigGraphOperatorDefinition>::DataArrayIterator<re::RigGraphOperatorDefinition,re::RigGraphOperatorDefinition&>::DataArrayIterator(&buf, v26, 0);
-                      v28 = buf;
-                      v37 = buf;
-                      v38 = DWORD2(buf);
-                      v29 = WORD4(buf);
-                      v30 = HIWORD(DWORD2(buf));
-                      v31 = v27 == buf && WORD4(buf) == 0xFFFF;
-                      if (!v31 || v30 != 0xFFFF)
-                      {
-                        break;
-                      }
-                    }
-
-LABEL_37:
-                    if (++v25 == v21)
-                    {
-                      goto LABEL_38;
-                    }
-                  }
-
-                  while (1)
-                  {
-                    v22 = v30;
-                    v33 = *(v28 + 16);
-                    if (v33 <= v30)
-                    {
-                      break;
-                    }
-
-                    if (*(*(*(*(v28 + 32) + 16 * v30) + 272 * v29 + 16) + 56) != a2)
-                    {
-                      REDebugRendererDrawCollisionWorld(a1);
-                    }
-
-                    re::DataArray<re::RigGraphOperatorDefinition>::DataArrayIterator<re::RigGraphOperatorDefinition,re::RigGraphOperatorDefinition&>::increment(&v37);
-                    v28 = v37;
-                    v29 = v38;
-                    v30 = HIWORD(v38);
-                    if (v37 == v27 && v38 == 0xFFFF && HIWORD(v38) == 0xFFFF)
-                    {
-                      goto LABEL_37;
-                    }
-                  }
-
-                  aBlock[5] = 0;
-                  v54 = 0u;
-                  v55 = 0u;
-                  v52 = 0u;
-                  v53 = 0u;
-                  buf = 0u;
-                  os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-                  v43 = 136315906;
-                  v44 = "operator[]";
-                  v45 = 1024;
-                  v46 = 797;
-                  v47 = 2048;
-                  v48 = v22;
-                  v49 = 2048;
-                  v50 = v33;
-                  _os_log_send_and_compose_impl();
-                  _os_crash_msg();
-                  __break(1u);
-LABEL_43:
-                  v37 = 0;
-                  v54 = 0u;
-                  v55 = 0u;
-                  v52 = 0u;
-                  v53 = 0u;
-                  buf = 0u;
-                  os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-                  v43 = 136315906;
-                  v44 = "operator[]";
-                  v45 = 1024;
-                  v46 = 797;
-                  v47 = 2048;
-                  v48 = v21;
-                  v49 = 2048;
-                  v50 = v22;
-                  _os_log_send_and_compose_impl();
-                  _os_crash_msg();
-                  __break(1u);
-                }
-
-LABEL_41:
-                v6 = v34;
-                v5 = v35;
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-  else if ((atomic_exchange(REDebugRendererDrawCollisionWorld::__FILE____LINE___logged, 1u) & 1) == 0)
-  {
-    v13 = *re::graphicsLogObjects(a1);
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
-    {
-      LOWORD(buf) = 0;
-      _os_log_impl(&dword_1E1C61000, v13, OS_LOG_TYPE_DEFAULT, "DebugRenderer is null. Probably REDebugRendererDrawCollisionWorld was called from a shared app. Skipping.", &buf, 2u);
-    }
-  }
-}
-
-double __REDebugRendererDrawCollisionWorld_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
-{
-  v11 = *MEMORY[0x1E69E9840];
-  v7 = *(a1 + 32);
-  v9[0] = a2;
-  v9[1] = a3;
-  v9[2] = a4;
-  v9[3] = a5;
-  v9[4] = a6;
-  v9[5] = a7;
-  v10 = 1065353216;
-  *&result = re::DynamicArray<re::RigTransform>::add((v7 + 16), v9).n128_u64[0];
-  return result;
-}
-
-double __REDebugRendererDrawCollisionWorld_block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, float a6)
-{
-  v10 = *MEMORY[0x1E69E9840];
-  v6 = *(a1 + 32);
-  v8[0] = a2;
-  v8[1] = a3;
-  v8[2] = a4;
-  v8[3] = a5;
-  v9 = a6;
-  *&result = re::DynamicArray<re::RenderPoint>::add((v6 + 96), v8).n128_u64[0];
-  return result;
-}
-
-uint64_t REGetGraphicsDebugSettingsManager(uint64_t a1)
-{
-  if (a1)
-  {
-    result = *(a1 + 96);
-    if (result)
-    {
-      return result;
-    }
-
-    v2 = *re::graphicsLogObjects(0);
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-    {
-      v5 = 0;
-      v3 = "RenderManager is initialized, but DebugSettingsManager is not.";
-      v4 = &v5;
-LABEL_7:
-      _os_log_impl(&dword_1E1C61000, v2, OS_LOG_TYPE_DEFAULT, v3, v4, 2u);
-    }
-  }
-
-  else
-  {
-    v2 = *re::graphicsLogObjects(0);
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 0;
-      v3 = "RenderManager not initialized.";
-      v4 = buf;
-      goto LABEL_7;
-    }
-  }
-
-  return 0;
-}
-
-uint64_t RESetGraphicsParameterInt(uint64_t a1, const char *a2, unsigned int a3)
-{
-  if (!a1)
-  {
-    return 3;
-  }
-
-  v15 = 0;
-  v16 = &str_67;
-  if (*(a1 + 112) == 1)
-  {
-    std::mutex::lock((a1 + 48));
-    v7 = re::DebugSettingsManager::contains<int>(a1, &v15);
-    if (v7)
-    {
-      v8 = v7;
-      std::mutex::unlock((a1 + 48));
-      if (v8 >= 6)
-      {
-        v9 = 0;
-      }
-
-      else
-      {
-        v9 = v8;
-      }
-    }
-
-    else
-    {
-      v10 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * ((v15 >> 31) ^ (v15 >> 1))) ^ ((0xBF58476D1CE4E5B9 * ((v15 >> 31) ^ (v15 >> 1))) >> 27));
-      re::HashTable<re::StringID,re::TimelineEventParameterDescription,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::findEntry<re::StringID>(a1, &v15, v10 ^ (v10 >> 31), v17);
-      v11 = *(a1 + 16) + 40 * v18;
-      v13 = *(v11 + 24);
-      v12 = v11 + 24;
-      if ((v13 & 1) == 0)
-      {
-        *v12 = 1;
-      }
-
-      *(v12 + 4) = a3;
-      std::mutex::unlock((a1 + 48));
-      v9 = 0;
-    }
-  }
-
-  else
-  {
-    v9 = 3;
-  }
-
-  if (v15)
-  {
-    if (v15)
-    {
-    }
-  }
-
-  return v9;
-}
-
-uint64_t REGetGraphicsParameterInt(_anonymous_namespace_ *a1, const char *a2, _DWORD *a3)
-{
-  if (!a1)
-  {
-    return 3;
-  }
-
-  v9 = 0;
-  v10 = &str_67;
-  v6 = re::DebugSettingsManager::getWithErrorCode<int>(a1, &v9, a3);
-  if ((v6 - 1) >= 5)
-  {
-    v7 = 0;
-  }
-
-  else
-  {
-    v7 = v6;
-  }
-
-  if (v9)
-  {
-    if (v9)
-    {
-    }
-  }
-
-  return v7;
-}
-
-uint64_t RESetGraphicsParameterFloat(uint64_t a1, const char *a2, float a3)
-{
-  if (!a1)
-  {
-    return 3;
-  }
-
-  v15 = 0;
-  v16 = &str_67;
-  if (*(a1 + 112) == 1)
-  {
-    std::mutex::lock((a1 + 48));
-    v7 = re::DebugSettingsManager::contains<float>(a1, &v15);
-    if (v7)
-    {
-      v8 = v7;
-      std::mutex::unlock((a1 + 48));
-      if (v8 >= 6)
-      {
-        v9 = 0;
-      }
-
-      else
-      {
-        v9 = v8;
-      }
-    }
-
-    else
-    {
-      v10 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * ((v15 >> 31) ^ (v15 >> 1))) ^ ((0xBF58476D1CE4E5B9 * ((v15 >> 31) ^ (v15 >> 1))) >> 27));
-      re::HashTable<re::StringID,re::TimelineEventParameterDescription,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::findEntry<re::StringID>(a1, &v15, v10 ^ (v10 >> 31), v17);
-      v11 = *(a1 + 16) + 40 * v18;
-      v13 = *(v11 + 24);
-      v12 = v11 + 24;
-      if ((v13 & 1) == 0)
-      {
-        *v12 = 1;
-      }
-
-      *(v12 + 4) = LODWORD(a3) | 0x100000000;
-      std::mutex::unlock((a1 + 48));
-      v9 = 0;
-    }
-  }
-
-  else
-  {
-    v9 = 3;
-  }
-
-  if (v15)
-  {
-    if (v15)
-    {
-    }
-  }
-
-  return v9;
-}
-
-uint64_t REGetGraphicsParameterFloat(_anonymous_namespace_ *a1, const char *a2, _DWORD *a3)
-{
-  if (!a1)
-  {
-    return 3;
-  }
-
-  v9 = 0;
-  v10 = &str_67;
-  v6 = re::DebugSettingsManager::getWithErrorCode<float>(a1, &v9, a3);
-  if ((v6 - 1) >= 5)
-  {
-    v7 = 0;
-  }
-
-  else
-  {
-    v7 = v6;
-  }
-
-  if (v9)
-  {
-    if (v9)
-    {
-    }
-  }
-
-  return v7;
-}
-
-uint64_t RESetGraphicsParameterBool(_anonymous_namespace_ *a1, const char *a2, unsigned __int8 a3)
-{
-  v10 = a3;
-  if (!a1)
-  {
-    return 3;
-  }
-
-  v8 = 0;
-  v9 = &str_67;
-  v5 = re::DebugSettingsManager::setWithErrorCode<BOOL>(a1, &v8, &v10);
-  if ((v5 - 1) >= 5)
-  {
-    v6 = 0;
-  }
-
-  else
-  {
-    v6 = v5;
-  }
-
-  if (v8)
-  {
-    if (v8)
-    {
-    }
-  }
-
-  return v6;
-}
-
-uint64_t REGetGraphicsParameterBool(_anonymous_namespace_ *a1, const char *a2, _BYTE *a3)
-{
-  if (!a1)
-  {
-    return 3;
-  }
-
-  v9 = 0;
-  v10 = &str_67;
-  v6 = re::DebugSettingsManager::getWithErrorCode<BOOL>(a1, &v9, a3);
-  if ((v6 - 1) >= 5)
-  {
-    v7 = 0;
-  }
-
-  else
-  {
-    v7 = v6;
-  }
-
-  if (v9)
-  {
-    if (v9)
-    {
-    }
-  }
-
-  return v7;
-}
-
-uint64_t REGetGraphicsParametersAsString(uint64_t a1, uint64_t a2, void *a3)
-{
-  if (!a3)
-  {
-    return 4;
-  }
-
-  result = 0;
-  *a3 = @"Deprecated: params to report.";
-  return result;
-}
-
-uint64_t REThrottleSetParametersForContext(uint64_t result, uint64_t a2)
-{
-  if (!result)
-  {
-    re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) context is null!", "context", "REThrottleSetParametersForContext", 17);
-    _os_crash();
-    __break(1u);
-    goto LABEL_5;
-  }
-
-  if (!a2)
-  {
-LABEL_5:
-    re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) parameters is null!", "parameters", "REThrottleSetParametersForContext", 18);
-    result = _os_crash();
-    __break(1u);
-  }
-
-  return result;
-}
-
-uint64_t REThrottleGetParametersForContext(uint64_t result, uint64_t a2)
-{
-  if (!result)
-  {
-    re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) context is null!", "context", "REThrottleGetParametersForContext", 37);
-    _os_crash();
-    __break(1u);
-    goto LABEL_5;
-  }
-
-  if (!a2)
-  {
-LABEL_5:
-    re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) parameters is null!", "parameters", "REThrottleGetParametersForContext", 38);
-    result = _os_crash();
-    __break(1u);
-  }
-
-  return result;
-}
-
-uint64_t REThrottleSetParametersForEngine(uint64_t result, uint64_t a2)
-{
-  if (!result)
-  {
-    re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) REEngineRef is null!", "engineRef", "REThrottleSetParametersForEngine", 54);
-    _os_crash();
-    __break(1u);
-    goto LABEL_5;
-  }
-
-  if (!a2)
-  {
-LABEL_5:
-    re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) parameters is null!", "parameters", "REThrottleSetParametersForEngine", 55);
-    result = _os_crash();
-    __break(1u);
-  }
-
-  return result;
-}
-
-uint64_t REThrottleGetParametersForEngine(uint64_t result, uint64_t a2)
-{
-  if (!result)
-  {
-    re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) REEngineRef is null!", "engineRef", "REThrottleGetParametersForEngine", 61);
-    _os_crash();
-    __break(1u);
-    goto LABEL_5;
-  }
-
-  if (!a2)
-  {
-LABEL_5:
-    re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) parameters is null!", "parameters", "REThrottleGetParametersForEngine", 62);
-    result = _os_crash();
-    __break(1u);
-  }
-
-  return result;
-}
-
-uint64_t REThrottleServiceSetThermalMitigationLevelAuto(uint64_t result)
-{
-  if (result)
-  {
-    return (*(*result + 128))(result, 0);
-  }
-
-  return result;
-}
-
-uint64_t REThrottleServiceSetThermalMitigationLevelMedium(uint64_t result)
-{
-  if (result)
-  {
-    return (*(*result + 128))(result, 1);
-  }
-
-  return result;
-}
-
-uint64_t REThrottleServiceSetThermalMitigationLevelMax(uint64_t result)
-{
-  if (result)
-  {
-    return (*(*result + 128))(result, 2);
-  }
-
-  return result;
-}
-
-uint64_t REThrottleServiceGetThermalMitigationLevel(uint64_t result)
-{
-  if (result)
-  {
-    return (*(*result + 136))();
-  }
-
-  return result;
-}
-
-void *REPhysicsDebugComponentGetComponentType()
-{
-  if (re::ecs2::dispatchOnceInitECSComponents(void)::onceToken != -1)
-  {
-    dispatch_once(&re::ecs2::dispatchOnceInitECSComponents(void)::onceToken, &__block_literal_global_17);
-  }
-
-  return re::ecs2::ComponentImpl<re::ecs2::PhysicsDebugComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)1,(re::ecs2::ComponentTypeBase::Flags)2>::s_componentType;
-}
-
-void RESceneAddPhysicsDebugComponent(uint64_t a1)
-{
-  v11[0] = 0;
-  SceneDataEntity = makeSceneDataEntity(a1, v11, 1, re::ecs2::Scene::kLocalSceneDataEntityID, 0);
-  v2 = SceneDataEntity;
-  v3 = *(SceneDataEntity + 49);
-  if (!*(SceneDataEntity + 49))
-  {
-    goto LABEL_7;
-  }
-
-  v4 = (re::ecs2::ComponentImpl<re::ecs2::PhysicsDebugComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)1,(re::ecs2::ComponentTypeBase::Flags)2>::s_componentType + 16);
-  v5 = *(SceneDataEntity + 13);
-  v6 = vld1q_dup_s16(v4);
-  v7 = 1;
-  while (1)
-  {
-    v8 = vandq_s8(vceqq_s16(v6, *v5), xmmword_1E306AC00);
-    v8.i16[0] = vmaxvq_u16(v8);
-    if (v8.i32[0])
-    {
-      break;
-    }
-
-    v7 -= 8;
-    ++v5;
-    if (!--v3)
-    {
-      goto LABEL_7;
-    }
-  }
-
-  if (v8.u16[0] - v7 >= *(SceneDataEntity + 48))
-  {
-LABEL_7:
-    v9 = re::ecs2::EntityComponentCollection::getOrAdd((SceneDataEntity + 48), re::ecs2::ComponentImpl<re::ecs2::PhysicsDebugComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)1,(re::ecs2::ComponentTypeBase::Flags)2>::s_componentType);
-    re::ecs2::Component::markDirty(v9);
-    v10 = *(v2 + 27);
-    if (!v10)
-    {
-      v10 = re::ecs2::EntityComponentCollection::add((v2 + 48), re::ecs2::ComponentImpl<re::ecs2::NetworkComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)0,(re::ecs2::ComponentTypeBase::Flags)4>::s_componentType);
-    }
-
-    re::ecs2::NetworkComponent::markDirty(v10, v9);
-  }
-}
-
-void RESceneRemovePhysicsDebugComponent(uint64_t a1)
-{
-  v4[0] = 0;
-  SceneDataEntity = makeSceneDataEntity(a1, v4, 0, re::ecs2::Scene::kLocalSceneDataEntityID, 0);
-  if (SceneDataEntity)
-  {
-    v2 = re::ecs2::ComponentImpl<re::ecs2::PhysicsDebugComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)1,(re::ecs2::ComponentTypeBase::Flags)2>::s_componentType;
-    v3 = (SceneDataEntity + 48);
-
-    re::ecs2::EntityComponentCollection::remove(v3, v2);
-  }
-}
-
-void RESceneSetPhysicsDebugDrawLevel(uint64_t a1, int a2)
-{
-  v6[0] = 0;
-  SceneDataEntity = makeSceneDataEntity(a1, v6, 1, re::ecs2::Scene::kLocalSceneDataEntityID, 0);
-  v4 = re::ecs2::EntityComponentCollection::getOrAdd((SceneDataEntity + 48), re::ecs2::ComponentImpl<re::ecs2::PhysicsDebugComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)1,(re::ecs2::ComponentTypeBase::Flags)2>::s_componentType);
-  *(v4 + 28) = a2;
-  re::ecs2::Component::markDirty(v4);
-  v5 = *(SceneDataEntity + 27);
-  if (!v5)
-  {
-    v5 = re::ecs2::EntityComponentCollection::add((SceneDataEntity + 48), re::ecs2::ComponentImpl<re::ecs2::NetworkComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)0,(re::ecs2::ComponentTypeBase::Flags)4>::s_componentType);
-  }
-
-  re::ecs2::NetworkComponent::markDirty(v5, v4);
-}
-
-uint64_t RESceneGetPhysicsDebugDrawLevel(uint64_t a1)
-{
-  v3[0] = 0;
-  SceneDataEntity = makeSceneDataEntity(a1, v3, 1, re::ecs2::Scene::kLocalSceneDataEntityID, 0);
-  result = re::ecs2::EntityComponentCollection::get((SceneDataEntity + 48), re::ecs2::ComponentImpl<re::ecs2::PhysicsDebugComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)1,(re::ecs2::ComponentTypeBase::Flags)2>::s_componentType);
-  if (result)
-  {
-    return *(result + 28);
-  }
-
-  return result;
-}
-
-void RESceneSetPhysicsDebugDrawMode(uint64_t a1, int a2)
-{
-  v6[0] = 0;
-  SceneDataEntity = makeSceneDataEntity(a1, v6, 1, re::ecs2::Scene::kLocalSceneDataEntityID, 0);
-  v4 = re::ecs2::EntityComponentCollection::getOrAdd((SceneDataEntity + 48), re::ecs2::ComponentImpl<re::ecs2::PhysicsDebugComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)1,(re::ecs2::ComponentTypeBase::Flags)2>::s_componentType);
-  *(v4 + 32) = a2;
-  re::ecs2::Component::markDirty(v4);
-  v5 = *(SceneDataEntity + 27);
-  if (!v5)
-  {
-    v5 = re::ecs2::EntityComponentCollection::add((SceneDataEntity + 48), re::ecs2::ComponentImpl<re::ecs2::NetworkComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)0,(re::ecs2::ComponentTypeBase::Flags)4>::s_componentType);
-  }
-
-  re::ecs2::NetworkComponent::markDirty(v5, v4);
-}
-
-uint64_t RESceneGetPhysicsDebugDrawMode(uint64_t a1)
-{
-  v4[0] = 0;
-  SceneDataEntity = makeSceneDataEntity(a1, v4, 1, re::ecs2::Scene::kLocalSceneDataEntityID, 0);
-  v2 = re::ecs2::EntityComponentCollection::get((SceneDataEntity + 48), re::ecs2::ComponentImpl<re::ecs2::PhysicsDebugComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)1,(re::ecs2::ComponentTypeBase::Flags)2>::s_componentType);
-  if (v2)
-  {
-    return *(v2 + 32);
-  }
-
-  else
-  {
-    return 3;
-  }
-}
-
-void REPhysicsDebugComponentSetDrawLevel(uint64_t a1, int a2)
-{
-  *(a1 + 28) = a2;
-  re::ecs2::Component::markDirty(a1);
-  v3 = *(a1 + 16);
-  v4 = *(v3 + 216);
-  if (!v4)
-  {
-    v4 = re::ecs2::EntityComponentCollection::add((v3 + 48), re::ecs2::ComponentImpl<re::ecs2::NetworkComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)0,(re::ecs2::ComponentTypeBase::Flags)4>::s_componentType);
-  }
-
-  re::ecs2::NetworkComponent::markDirty(v4, a1);
-}
-
-void REPhysicsDebugComponentSetDrawMode(uint64_t a1, int a2)
-{
-  *(a1 + 32) = a2;
-  re::ecs2::Component::markDirty(a1);
-  v3 = *(a1 + 16);
-  v4 = *(v3 + 216);
-  if (!v4)
-  {
-    v4 = re::ecs2::EntityComponentCollection::add((v3 + 48), re::ecs2::ComponentImpl<re::ecs2::NetworkComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)0,(re::ecs2::ComponentTypeBase::Flags)4>::s_componentType);
-  }
-
-  re::ecs2::NetworkComponent::markDirty(v4, a1);
-}
-
-void *REAnimationLibraryComponentGetComponentType()
-{
-  if (re::ecs2::dispatchOnceInitECSComponents(void)::onceToken != -1)
-  {
-    dispatch_once(&re::ecs2::dispatchOnceInitECSComponents(void)::onceToken, &__block_literal_global_17);
-  }
-
-  return re::ecs2::ComponentImpl<re::ecs2::AnimationLibraryComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)0,(re::ecs2::ComponentTypeBase::Flags)4>::s_componentType;
-}
-
-uint64_t REAnimationLibraryComponentAssignAnimationLibraryAsset(uint64_t a1, uint64_t a2)
-{
-  re::AssetAPIHelper::assetHandleCreate(a2, &v6);
-  v3 = *(a1 + 32);
-  *(a1 + 32) = v6;
-  v6 = v3;
-  v4 = *(a1 + 48);
-  *(a1 + 48) = v7;
-  v7 = v4;
-  re::AssetHandle::~AssetHandle(&v6);
-  return re::ecs2::Component::enqueueMarkDirty(a1);
-}
-
-re::ecs2::Entity *REAnimationLibraryComponentCreateDefaultAnimation(re::ecs2::Entity *a1, uint64_t *a2, int a3)
-{
-  v129 = *MEMORY[0x1E69E9840];
-  v6 = re::ecs2::EntityComponentCollection::get((a2 + 6), re::ecs2::ComponentImpl<re::ecs2::AnimationLibraryComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)0,(re::ecs2::ComponentTypeBase::Flags)4>::s_componentType);
-  if (!v6 || (v7 = *(v6 + 40)) == 0 || (v8 = atomic_load((v7 + 896)), v8 != 2))
-  {
-LABEL_59:
-    if (a3)
-    {
-      goto LABEL_60;
-    }
-
-    return 0;
-  }
-
-  v9 = re::AssetHandle::blockUntilLoaded<re::AnimationLibraryAsset>((v6 + 32));
-  v10 = v9[12];
-  if (!a3)
-  {
-    if (v10)
-    {
-      v11 = v9[14];
-      v14 = 40 * v10;
-      while (!re::StringID::operator==(v11, re::kLocalEntitySceneAnimationName) && !re::StringID::operator==(v11, re::kDefaultEntityAnimationName))
-      {
-        v11 += 5;
-        v14 -= 40;
-        if (!v14)
-        {
-          goto LABEL_59;
-        }
-      }
-
-      goto LABEL_17;
-    }
-
-    v27 = v9[17];
-    if (v27)
-    {
-      v28 = 24 * v27;
-      v18 = v9[19];
-      while (1)
-      {
-        v116 = 0;
-        __s1 = &str_67;
-        v29 = re::BasicAsset<re::AnimationScene,&re::kAnimationSceneAssetName,&re::kAnimationSceneAssetExtension>::assetType();
-        v30 = *(v18 + 1);
-        if (v30)
-        {
-          v30 = *(v30 + 280);
-        }
-
-        if (v29 != v30)
-        {
-          v31 = v116;
-          goto LABEL_55;
-        }
-
-        v32 = re::AssetHandle::blockUntilLoaded<re::BasicAsset<re::AnimationScene,&re::kAnimationSceneAssetName,&re::kAnimationSceneAssetExtension>>(v18);
-        v29 = re::AssetHandle::blockUntilLoaded<re::TimelineAsset>(v32);
-        v33 = *(v29 + 16);
-        if (v33)
-        {
-          v29 = re::StringID::operator=(&v116, (v33 + 24));
-        }
-
-        v31 = v116;
-        if (v116 >> 1 == 0x34A574094D1AF786)
-        {
-          v34 = __s1;
-          if (__s1 == "default entity animation")
-          {
-            goto LABEL_113;
-          }
-
-          v35 = "default entity animation";
-        }
-
-        else
-        {
-          if (v116 >> 1 != 0x3D5505122B750911)
-          {
-            goto LABEL_55;
-          }
-
-          v34 = __s1;
-          if (__s1 == "default scene animation")
-          {
-            goto LABEL_113;
-          }
-
-          v35 = "default scene animation";
-        }
-
-        v29 = strcmp(v34, v35);
-        if (!v29)
-        {
-LABEL_113:
-          re::StringID::destroyString(&v116);
-          return v57;
-        }
-
-LABEL_55:
-        if (v31)
-        {
-          if (v116)
-          {
-          }
-        }
-
-        v18 = (v18 + 24);
-        v28 -= 24;
-        if (!v28)
-        {
-          goto LABEL_59;
-        }
-      }
-    }
-
-    return 0;
-  }
-
-  if (v10)
-  {
-    v11 = v9[14];
-    v12 = 40 * v10;
-    while (!re::StringID::operator==(v11, re::kGlobalSceneAnimationName) && !re::StringID::operator==(v11, re::kLocalSubtreeSceneAnimationName))
-    {
-      v11 += 5;
-      v12 -= 40;
-      if (!v12)
-      {
-        goto LABEL_59;
-      }
-    }
-
-LABEL_17:
-  }
-
-  v16 = v9[17];
-  if (v16)
-  {
-    v17 = 24 * v16;
-    v18 = v9[19];
-    while (1)
-    {
-      v116 = 0;
-      __s1 = &str_67;
-      v19 = re::BasicAsset<re::AnimationScene,&re::kAnimationSceneAssetName,&re::kAnimationSceneAssetExtension>::assetType();
-      v20 = *(v18 + 1);
-      if (v20)
-      {
-        v20 = *(v20 + 280);
-      }
-
-      if (v19 == v20)
-      {
-        v22 = re::AssetHandle::blockUntilLoaded<re::BasicAsset<re::AnimationScene,&re::kAnimationSceneAssetName,&re::kAnimationSceneAssetExtension>>(v18);
-        v19 = re::AssetHandle::blockUntilLoaded<re::TimelineAsset>(v22);
-        v24 = *(v19 + 16);
-        if (v24)
-        {
-          v19 = re::StringID::operator=(&v116, (v24 + 24));
-        }
-
-        v21 = v116;
-        if (v116 >> 1 == 0x3455FFA1B1837FA3)
-        {
-          v25 = __s1;
-          if (__s1 == "default subtree animation")
-          {
-            goto LABEL_113;
-          }
-
-          v26 = "default subtree animation";
-LABEL_34:
-          v19 = strcmp(v25, v26);
-          if (!v19)
-          {
-            goto LABEL_113;
-          }
-
-          goto LABEL_35;
-        }
-
-        if (v116 >> 1 == 0x3C015B2DF8573273)
-        {
-          v25 = __s1;
-          if (__s1 == "global scene animation")
-          {
-            goto LABEL_113;
-          }
-
-          v26 = "global scene animation";
-          goto LABEL_34;
-        }
-      }
-
-      else
-      {
-        v21 = v116;
-      }
-
-LABEL_35:
-      if (v21)
-      {
-        if (v116)
-        {
-        }
-      }
-
-      v18 = (v18 + 24);
-      v17 -= 24;
-      if (!v17)
-      {
-        goto LABEL_59;
-      }
-    }
-  }
-
-LABEL_60:
-  re::StackScratchAllocator::StackScratchAllocator(&v116);
-  *v115 = 0;
-  v112[1] = 0;
-  *v113 = 0;
-  v114 = 0;
-  v112[0] = &v116;
-  re::DynamicArray<float *>::setCapacity(v112, 0);
-  ++v114;
-  *&v124 = a2 + 36;
-  v36 = re::DynamicArray<re::RigDataValue *>::add(v112, &v124);
-  v109 = 0;
-  v110 = 0;
-  v111 = 0;
-  v37 = a2[4];
-  if (!v37 || (*(v37 + 304) & 0x80) != 0)
-  {
-    goto LABEL_122;
+    v4 = *v4;
   }
 
   do
   {
-    if (v110)
+    if (*v4)
     {
-      v38 = atomic_load((v110 + 896));
-      if (v38 == 2)
-      {
-        break;
-      }
+      v6 = (**a2)(a2, 0x80000000);
+      *v4 = v6;
     }
 
-    v39 = re::ecs2::EntityComponentCollection::get((v37 + 48), re::ecs2::ComponentImpl<re::ecs2::AnimationLibraryComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)0,(re::ecs2::ComponentTypeBase::Flags)4>::s_componentType);
-    if (!v39)
+    else
     {
-      goto LABEL_93;
+      v6 = 0;
     }
 
-    v40 = *(v39 + 40);
-    if (!v40)
+    atomic_fetch_add((v6 + 32), 1u);
+    if ((*(v6 + 264) & 0x80000000) != 0)
     {
-      goto LABEL_93;
+      *(v6 + 40) = a1;
     }
 
-    v41 = atomic_load((v40 + 896));
-    if (v41 != 2)
-    {
-      goto LABEL_93;
-    }
-
-    v42 = re::AssetHandle::blockUntilLoaded<re::AnimationLibraryAsset>((v39 + 32));
-    v43 = v42[12];
-    if (!v43)
-    {
-      v46 = v42[17];
-      if (!v46)
-      {
-        goto LABEL_93;
-      }
-
-      v47 = v42[19];
-      v48 = 24 * v46;
-      while (2)
-      {
-        *&v124 = 0;
-        *(&v124 + 1) = &str_67;
-        v49 = re::BasicAsset<re::AnimationScene,&re::kAnimationSceneAssetName,&re::kAnimationSceneAssetExtension>::assetType();
-        v50 = *(v47 + 1);
-        if (v50)
-        {
-          v50 = *(v50 + 280);
-        }
-
-        if (v49 != v50)
-        {
-          v51 = v124;
-LABEL_89:
-          if (v51)
-          {
-            if (v124)
-            {
-            }
-          }
-
-          v47 = (v47 + 24);
-          v48 -= 24;
-          if (!v48)
-          {
-            goto LABEL_93;
-          }
-
-          continue;
-        }
-
-        break;
-      }
-
-      v52 = re::AssetHandle::blockUntilLoaded<re::BasicAsset<re::AnimationScene,&re::kAnimationSceneAssetName,&re::kAnimationSceneAssetExtension>>(v47);
-      v49 = re::AssetHandle::blockUntilLoaded<re::TimelineAsset>(v52);
-      v53 = *(v49 + 16);
-      if (v53)
-      {
-        v49 = re::StringID::operator=(&v124, (v53 + 24));
-      }
-
-      v51 = v124;
-      if (v124 >> 1 == 0x3455FFA1B1837FA3)
-      {
-        v54 = *(&v124 + 1);
-        if (*(&v124 + 1) == "default subtree animation")
-        {
-          goto LABEL_96;
-        }
-
-        v55 = "default subtree animation";
-      }
-
-      else
-      {
-        if (v124 >> 1 != 0x3C015B2DF8573273)
-        {
-          goto LABEL_89;
-        }
-
-        v54 = *(&v124 + 1);
-        if (*(&v124 + 1) == "global scene animation")
-        {
-          goto LABEL_96;
-        }
-
-        v55 = "global scene animation";
-      }
-
-      v49 = strcmp(v54, v55);
-      if (!v49)
-      {
-LABEL_96:
-        v56 = re::AssetHandle::operator=(&v109, v47);
-        if (v124)
-        {
-          if (v124)
-          {
-          }
-        }
-
-        goto LABEL_93;
-      }
-
-      goto LABEL_89;
-    }
-
-    v44 = v42[14];
-    v45 = 40 * v43;
-    while (!re::StringID::operator==(v44, re::kGlobalSceneAnimationName) && !re::StringID::operator==(v44, re::kLocalSubtreeSceneAnimationName))
-    {
-      v44 += 5;
-      v45 -= 40;
-      if (!v45)
-      {
-        goto LABEL_93;
-      }
-    }
-
-    re::AssetHandle::operator=(&v109, v44 + 2);
-LABEL_93:
-    *&v124 = v37 + 288;
-    v36 = re::DynamicArray<re::RigDataValue *>::add(v112, &v124);
-    v37 = *(v37 + 32);
+    atomic_fetch_add((v6 + 264), 1u);
+    ++v4;
+    --v5;
   }
 
-  while (v37 && (*(v37 + 304) & 0x80) == 0);
-  if (!v110)
+  while (v5);
+LABEL_10:
+
+  return physx::NpActor::resolveReferences(a1 + 24, a2);
+}
+
+BOOL physx::PxRigidStatic::isKindOf(physx::PxRigidStatic *this, const char *a2)
+{
+  if (!strcmp("PxRigidStatic", a2))
   {
-    goto LABEL_122;
+    return 1;
   }
 
-  v58 = atomic_load((v110 + 896));
-  if (v58 != 2)
+  return physx::PxRigidActor::isKindOf(this, a2);
+}
+
+uint64_t physx::NpActorTemplate<physx::PxRigidStatic>::getScene(uint64_t a1)
+{
+  v1 = (a1 + *(&physx::NpActor::sLazyInitOffsets + *(a1 + 8) + 18));
+  if (((*(v1 + 2) >> 30) - 1) > 1)
   {
-    goto LABEL_122;
+    return 0;
   }
 
-  v36 = re::AssetHandle::blockUntilLoaded<re::BasicAsset<re::AnimationScene,&re::kAnimationSceneAssetName,&re::kAnimationSceneAssetExtension>>(&v109);
-  v105 = v36;
-  v60 = (v36 + 24);
-  v61 = *v115;
-  v62 = *v113;
-  LODWORD(v63) = v115[0];
-  v64 = *v113;
-  while (1)
+  v2 = *v1;
+  if (v2)
   {
-    v65 = v64 - 1;
-    if (v64 == 1)
-    {
-      break;
-    }
-
-    v36 = re::Slice<re::StringID const*>::range(v63, v64, v65);
-    v67 = v60[4];
-    if (!v67)
-    {
-      goto LABEL_122;
-    }
-
-    v64 = v66;
-    if (!v66)
-    {
-      re::internal::assertLog(4, 0, "assertion failure: '%s' (%s:line %i) Array is empty.", "!isEmpty()", "last", 240);
-      _os_crash();
-      __break(1u);
-LABEL_137:
-      re::internal::assertLog(4, v70, "assertion failure: '%s' (%s:line %i) Array is empty.", "!isEmpty()", "last", 240);
-      _os_crash();
-      __break(1u);
-    }
-
-    v63 = v36;
-    v60 = v60[6];
-    v68 = *(v36 + 8 * v66 - 8);
-    v69 = 88 * v67;
-    while (1)
-    {
-      v36 = re::StringID::operator==(v60, v68);
-      if (v36)
-      {
-        break;
-      }
-
-      v60 += 11;
-      v69 -= 88;
-      if (!v69)
-      {
-        goto LABEL_122;
-      }
-    }
-
-    if (!v64)
-    {
-      goto LABEL_137;
-    }
-
-    v36 = re::StringID::operator==(v60, *(v63 + 8 * v64 - 8));
-    if (!v36)
-    {
-      goto LABEL_122;
-    }
-  }
-
-  if (!v60)
-  {
-    goto LABEL_122;
-  }
-
-  if (v62 == -1)
-  {
-    v106 = 0;
-    v127 = 0u;
-    v128 = 0u;
-    v125 = 0u;
-    v126 = 0u;
-    v124 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v121 = 136315906;
-    *&v121[4] = "slice";
-    *&v121[12] = 1024;
-    *&v121[14] = 1119;
-    v122 = 2048;
-    *v123 = 0;
-    *&v123[8] = 2048;
-    *&v123[10] = 0;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_139;
-  }
-
-  v71 = v62 - 1;
-  if (!v62)
-  {
-LABEL_139:
-    re::internal::assertLog(7, v59, v65, "assertion failure: '%s' (%s:line %i) Invalid count. index = %zu, count = %zu, array size = %zu", "endIndexExclusive <= m_size", "slice", 1129, 0, v71, 0, v105, v106);
-    result = _os_crash();
-    __break(1u);
-    return result;
-  }
-
-  if (*(&v118 + 1))
-  {
-    v72 = atomic_load((*(&v118 + 1) + 896));
-    if (v72 == 2)
-    {
-      if (fabs(v74) >= 1.0e-12)
-      {
-        v92 = re::globalAllocators(v73);
-        v93 = (*(*v92[2] + 32))(v92[2], 176, 8);
-        v94 = re::TimelineAssetData::TimelineAssetData(v93, 1);
-        *v94 = &unk_1F5CBE660;
-        *(v94 + 112) = 0;
-        *(v94 + 128) = 0;
-        *(v94 + 136) = 0;
-        *(v94 + 144) = 0;
-        *(v94 + 152) = 0;
-        *(v94 + 72) = 0;
-        *(v93 + 80) = 0;
-        *(v93 + 88) = 0;
-        *(v93 + 168) = 1065353216;
-        *(v93 + 172) = 0;
-        *(v93 + 96) = 1;
-        *(v93 + 104) = v74;
-        re::AssetHandle::operator=(v94 + 72, &v118);
-        TimelineAsset = re::AssetHelper::makeTimelineAsset(v93, v95);
-        v97 = re::TimelineAsset::assetType(TimelineAsset);
-        (*(*a1 + 424))(&v124, a1, TimelineAsset, v97, 0, 0, 0);
-      }
-
-      else
-      {
-        re::AssetHandle::AssetHandle(&v124, &v118);
-      }
-
-      v98 = v118;
-      v118 = v124;
-      v124 = v98;
-      v99 = v119;
-      v119 = v125;
-      *&v125 = v99;
-      re::AssetHandle::~AssetHandle(&v124);
-      v101 = re::globalAllocators(v100);
-      v102 = (*(*v101[2] + 32))(v101[2], 112, 8);
-      *(v102 + 32) = 0u;
-      *(v102 + 48) = 0u;
-      *(v102 + 64) = 0u;
-      *v102 = 0u;
-      *(v102 + 16) = 0u;
-      *(v102 + 80) = 0;
-      *(v102 + 88) = 0;
-      *(v102 + 32) = &str_67;
-      *(v102 + 48) = 0;
-      *(v102 + 56) = 0;
-      *(v102 + 64) = 0;
-      *(v102 + 40) = 0;
-      *(v102 + 96) = 0;
-      *(v102 + 104) = 0;
-      v103 = re::AssetHandle::operator=(v102, &v118);
-      re::StringID::operator=((v103 + 24), v60);
-      re::DynamicArray<re::AnimationSceneEntityData>::operator=(v102 + 40, v60 + 2);
-      *(v102 + 80) = *(v60 + 56);
-      re::AssetHandle::operator=(v102 + 88, v60 + 8);
-      v104 = re::BasicAsset<re::AnimationScene,&re::kAnimationSceneAssetName,&re::kAnimationSceneAssetExtension>::assetType();
-      (*(*a1 + 424))(&v124, a1, v102, v104, 0, 0, 0);
-      v57 = v124;
-      *&v124 = 0;
-      re::AssetHandle::~AssetHandle(&v124);
-      re::AssetHandle::~AssetHandle(&v118);
-      goto LABEL_129;
-    }
-  }
-
-  re::AssetHandle::~AssetHandle(&v118);
-LABEL_122:
-  v75 = re::globalAllocators(v36);
-  v76 = (*(*v75[2] + 32))(v75[2], 112, 8);
-  *(v76 + 32) = 0u;
-  *(v76 + 48) = 0u;
-  *(v76 + 64) = 0u;
-  *v76 = 0u;
-  *(v76 + 16) = 0u;
-  *(v76 + 80) = 0;
-  *(v76 + 88) = 0;
-  *(v76 + 32) = &str_67;
-  *(v76 + 40) = 0;
-  *(v76 + 48) = 0;
-  *(v76 + 56) = 0;
-  *(v76 + 64) = 0;
-  *(v76 + 96) = 0;
-  *(v76 + 104) = 0;
-  *v121 = &unk_1F5D2D9D0;
-  *&v123[4] = v121;
-  *&v126 = &v124 + 8;
-  *&v124 = v76;
-  *(&v124 + 1) = &unk_1F5D2D9D0;
-  std::__function::__value_func<void ()(re::BasicAsset<re::AnimationScene,&re::kAnimationSceneAssetName,&re::kAnimationSceneAssetExtension> *)>::~__value_func[abi:nn200100](v121);
-  v77 = re::StringID::operator=((v124 + 24), a2 + 36);
-  v78 = re::globalAllocators(v77);
-  v79 = (*(*v78[2] + 32))(v78[2], 112, 8);
-  v80 = re::TimelineAssetData::TimelineAssetData(v79, 2);
-  *v80 = &unk_1F5CBE6B8;
-  *(v80 + 104) = 0;
-  *(v80 + 80) = 0;
-  *(v80 + 88) = 0;
-  *(v80 + 72) = 0;
-  *(v80 + 96) = 0;
-  *&v118 = &unk_1F5D2DA50;
-  v120 = &v118;
-  *&v123[12] = &v121[8];
-  *v121 = v80;
-  *&v121[8] = &unk_1F5D2DA50;
-  v81 = std::__function::__value_func<void ()(re::TimelineGroupAssetData *)>::~__value_func[abi:nn200100](&v118);
-  v83 = *v121;
-  if (*(*v121 + 88))
-  {
-    *v121 = 0;
-    v84 = re::AssetHelper::makeTimelineAsset(v83, v82);
-    v85 = re::TimelineAsset::assetType(v84);
-    (*(*a1 + 424))(&v106, a1, v84, v85, 0, 0, 0);
-    v86 = v124;
-    v87 = *(v124 + 8);
-    v88 = *(v124 + 16);
-    *(v124 + 8) = v107;
-    v107 = v87;
-    v89 = *v86;
-    *v86 = 0;
-    *v86 = v106;
-    v86[2] = v108;
-    v106 = v89;
-    v108 = v88;
-    re::AssetHandle::~AssetHandle(&v106);
-    v90 = v124;
-    *&v124 = 0;
-    v91 = re::BasicAsset<re::AnimationScene,&re::kAnimationSceneAssetName,&re::kAnimationSceneAssetExtension>::assetType();
-    (*(*a1 + 424))(&v106, a1, v90, v91, 0, 0, 0);
-    v57 = v106;
-    v106 = 0;
-    re::AssetHandle::~AssetHandle(&v106);
+    return v2 - 16;
   }
 
   else
   {
-    v57 = 0;
+    return 0;
   }
-
-  if (v118 && (BYTE8(v118) & 1) != 0)
-  {
-    (*(*v118 + 40))();
-  }
-
-  std::unique_ptr<re::TimelineGroupAssetData,std::function<void ()(re::TimelineGroupAssetData*)>>::~unique_ptr[abi:nn200100](v121);
-  std::unique_ptr<re::BasicAsset<re::AnimationScene,&re::kAnimationSceneAssetName,&re::kAnimationSceneAssetExtension>,std::function<void ()(re::BasicAsset<re::AnimationScene,&re::kAnimationSceneAssetName,&re::kAnimationSceneAssetExtension>*)>>::~unique_ptr[abi:nn200100](&v124);
-LABEL_129:
-  re::AssetHandle::~AssetHandle(&v109);
-  if (v112[0])
-  {
-    if (*v115)
-    {
-      (*(*v112[0] + 40))();
-    }
-  }
-
-  re::StackScratchAllocator::~StackScratchAllocator(&v116);
-  return v57;
 }
 
-re::ecs2::Entity *anonymous namespace::validateAndRetainSceneAsset(_anonymous_namespace_ *this, const re::AssetHandle *a2, re::ecs2::Entity *a3, AssetService *a4)
+float physx::NpRigidActorTemplate<physx::PxRigidStatic>::getWorldBounds@<S0>(physx::PxRigidActor *a1@<X0>, uint64_t a2@<X8>, float a3@<S0>)
 {
-  v38[4] = *MEMORY[0x1E69E9840];
-  v7 = re::AssetHandle::blockUntilLoaded<re::BasicAsset<re::AnimationScene,&re::kAnimationSceneAssetName,&re::kAnimationSceneAssetExtension>>(this);
-  if (!v7)
+  physx::NpShapeManager::getWorldBounds(&v11, (a1 + 40), a1);
+  v4 = (v12 + v14) * 0.5;
+  v5 = ((v14 - v12) * 0.5) * a3;
+  v6 = v4 - v5;
+  result = v4 + v5;
+  v8 = vmul_f32(vadd_f32(v11, v13), 0x3F0000003F000000);
+  v9 = vmul_n_f32(vmul_f32(vsub_f32(v13, v11), 0x3F0000003F000000), a3);
+  *a2 = vsub_f32(v8, v9);
+  *(a2 + 8) = v6;
+  *(a2 + 12) = vadd_f32(v8, v9);
+  *(a2 + 20) = result;
+  return result;
+}
+
+int32x2_t *physx::NpRigidActorTemplate<physx::PxRigidStatic>::setActorFlag(int32x2_t *result, int a2, int a3)
+{
+  v5 = result;
+  if (a2 != 8)
   {
-    goto LABEL_9;
+    goto LABEL_35;
   }
 
-  v8 = re::StringID::operator==((v7 + 24), a2 + 36);
+  v6 = *(&physx::NpActor::sLazyInitOffsets + result[1].u16[0] + 18);
+  v7 = (result + v6);
+  v8 = *(result[1].u32 + v6);
   if (v8)
   {
-    goto LABEL_9;
-  }
-
-  v9 = re::globalAllocators(v8);
-  v10 = (*(*v9[2] + 32))(v9[2], 112, 8);
-  *(v10 + 32) = 0u;
-  *(v10 + 48) = 0u;
-  *(v10 + 64) = 0u;
-  *v10 = 0u;
-  *(v10 + 16) = 0u;
-  *(v10 + 80) = 0;
-  *(v10 + 88) = 0;
-  *(v10 + 32) = &str_67;
-  *(v10 + 40) = 0;
-  *(v10 + 48) = 0;
-  *(v10 + 56) = 0;
-  *(v10 + 64) = 0;
-  *(v10 + 96) = 0;
-  *(v10 + 104) = 0;
-  v35 = &unk_1F5D2D8B0;
-  v36[2] = &v35;
-  v38[3] = v38;
-  v37 = v10;
-  v38[0] = &unk_1F5D2D8B0;
-  std::__function::__value_func<void ()(re::BasicAsset<re::AnimationScene,&re::kAnimationSceneAssetName,&re::kAnimationSceneAssetExtension> *)>::~__value_func[abi:nn200100](&v35);
-  v11 = re::StringID::operator=(v37 + 3, a2 + 36);
-  v12 = re::globalAllocators(v11);
-  v13 = (*(*v12[2] + 32))(v12[2], 112, 8);
-  v14 = re::TimelineAssetData::TimelineAssetData(v13, 2);
-  *v14 = &unk_1F5CBE6B8;
-  *(v14 + 104) = 0;
-  *(v14 + 80) = 0;
-  *(v14 + 88) = 0;
-  *(v14 + 72) = 0;
-  *(v14 + 96) = 0;
-  v32 = &unk_1F5D2D940;
-  v34 = &v32;
-  v35 = v14;
-  v36[3] = v36;
-  v36[0] = &unk_1F5D2D940;
-  v15 = std::__function::__value_func<void ()(re::TimelineGroupAssetData *)>::~__value_func[abi:nn200100](&v32);
-  v17 = v35;
-  v18 = *(v35 + 11);
-  if (v18)
-  {
-    v35 = 0;
-    TimelineAsset = re::AssetHelper::makeTimelineAsset(v17, v16);
-    v20 = re::TimelineAsset::assetType(TimelineAsset);
-    (*(*a3 + 424))(&v29, a3, TimelineAsset, v20, 0, 0, 0);
-    v21 = v37;
-    v22 = v37[1];
-    v23 = v37[2];
-    v37[1] = v30;
-    v30 = v22;
-    v24 = *v21;
-    *v21 = 0;
-    *v21 = v29;
-    v21[2] = v31;
-    v29 = v24;
-    v31 = v23;
-    re::AssetHandle::~AssetHandle(&v29);
-    v25 = v37;
-    v37 = 0;
-    v26 = re::BasicAsset<re::AnimationScene,&re::kAnimationSceneAssetName,&re::kAnimationSceneAssetExtension>::assetType();
-    (*(*a3 + 424))(&v29, a3, v25, v26, 0, 0, 0);
-    a3 = v29;
-    v29 = 0;
-    re::AssetHandle::~AssetHandle(&v29);
-  }
-
-  if (v32 && (v33 & 1) != 0)
-  {
-    (*(*v32 + 40))();
-  }
-
-  std::unique_ptr<re::TimelineGroupAssetData,std::function<void ()(re::TimelineGroupAssetData*)>>::~unique_ptr[abi:nn200100](&v35);
-  std::unique_ptr<re::BasicAsset<re::AnimationScene,&re::kAnimationSceneAssetName,&re::kAnimationSceneAssetExtension>,std::function<void ()(re::BasicAsset<re::AnimationScene,&re::kAnimationSceneAssetName,&re::kAnimationSceneAssetExtension>*)>>::~unique_ptr[abi:nn200100](&v37);
-  if (!v18)
-  {
-LABEL_9:
-    a3 = *this;
-    if (*this)
-    {
-      v27 = a3 + 8;
-    }
-  }
-
-  return a3;
-}
-
-void anonymous namespace::findTimelineSubtreeWithEntityPath(re::AssetHandle *a1, re::TimelineAsset *a2, re::TimelineAsset *a3, uint64_t a4, unint64_t a5)
-{
-  v10 = re::AssetHandle::blockUntilLoaded<re::TimelineAsset>(a3);
-  if (!v10)
-  {
-    goto LABEL_39;
-  }
-
-  v11 = *(v10 + 8);
-  v68[0] = 46;
-  v12 = re::DynamicString::find((v11 + 40), v68, 1, 0, &v70);
-  if (v70 != 1)
-  {
-    v13 = 0;
-    if (!a5)
-    {
-      goto LABEL_64;
-    }
-
-LABEL_19:
-    v22 = *(v11 + 48);
-    if (v22)
-    {
-      v23 = v22 >> 1;
-    }
-
-    else
-    {
-      v23 = v22 >> 1;
-    }
-
-    if (v13 >= v23)
-    {
-      goto LABEL_45;
-    }
-
-    v24 = re::DynamicString::operator[](v11 + 40, v13);
-    v25 = v24;
-    v26 = *(v11 + 48);
-    if (v26)
-    {
-      v27 = v26 >> 1;
-    }
-
-    else
-    {
-      v27 = v26 >> 1;
-    }
-
-    v28 = v27 - v13;
-    v70 = 0;
-    v71 = &str_67;
-    v30 = *(a4 + 8 * a5 - 8);
-    v31 = v70;
-    v32 = a2;
-    if ((*v30 ^ v70) > 1)
-    {
-      v34 = 1;
-      if ((v70 & 1) == 0)
-      {
-        goto LABEL_38;
-      }
-    }
-
-    else
-    {
-      v29 = v71;
-      v33 = v30[1];
-      if (v71 == v33)
-      {
-        v34 = 0;
-        if ((v70 & 1) == 0)
-        {
-LABEL_38:
-          if (v34)
-          {
-LABEL_39:
-            *a1 = 0;
-            *(a1 + 1) = 0;
-            *(a1 + 2) = 0;
-            return;
-          }
-
-          v12 = re::Slice<re::StringID const*>::range(a4, a5, a5 - 1);
-          v36 = *(v11 + 48);
-          if (v36)
-          {
-            v13 = v36 >> 1;
-          }
-
-          else
-          {
-            v13 = v36 >> 1;
-          }
-
-          if (!v35)
-          {
-            a2 = v32;
-            goto LABEL_64;
-          }
-
-          a4 = v12;
-          a5 = v35;
-          a2 = v32;
-LABEL_45:
-          v37 = *(v11 + 8);
-          if (v37 > 5)
-          {
-            if (v37 > 10 && v37 != 60)
-            {
-              goto LABEL_39;
-            }
-
-            goto LABEL_51;
-          }
-
-          if (v37 > 2)
-          {
-LABEL_51:
-            v38 = v11 + 80;
-LABEL_52:
-            return;
-          }
-
-          if (v37 == 1)
-          {
-            v38 = v11 + 72;
-            goto LABEL_52;
-          }
-
-          if (v37 != 2)
-          {
-            goto LABEL_39;
-          }
-
-          v74 = 0;
-          v71 = 0;
-          v72 = 0;
-          v70 = 0;
-          v73 = 0;
-          v39 = *(v11 + 88);
-          if (v39)
-          {
-            v40 = *(v11 + 104);
-            v41 = 24 * v39;
-            do
-            {
-              if (__s1)
-              {
-                v42 = atomic_load(__s1 + 224);
-                if (v42 == 2)
-                {
-                  re::DynamicArray<re::AssetHandle>::add(&v70, v68);
-                }
-              }
-
-              re::AssetHandle::~AssetHandle(v68);
-              v40 += 24;
-              v41 -= 24;
-            }
-
-            while (v41);
-            if (v72 == 1)
-            {
-              v44 = v74;
-              v45 = a1;
-LABEL_88:
-              re::AssetHandle::AssetHandle(v45, v44);
-LABEL_90:
-              re::DynamicArray<re::AssetHandle>::deinit(&v70);
-              return;
-            }
-
-            v59 = *(v11 + 88);
-            if (v72 != v59)
-            {
-LABEL_89:
-              v63 = re::globalAllocators(v43);
-              v64 = (*(*v63[2] + 32))(v63[2], 112, 8);
-              v65 = re::TimelineAssetData::TimelineAssetData(v64, 2);
-              *v65 = &unk_1F5CBE6B8;
-              *(v65 + 104) = 0;
-              *(v65 + 80) = 0;
-              *(v65 + 88) = 0;
-              *(v65 + 96) = 0;
-              *(v65 + 72) = 0;
-              re::DynamicArray<re::AssetHandle>::operator=(v65 + 72, &v70);
-              TimelineAsset = re::AssetHelper::makeTimelineAsset(v64, v66);
-              re::AssetService::createMemoryAsset<re::TimelineAsset>(a2, TimelineAsset, 0);
-              goto LABEL_90;
-            }
-
-            if (v59)
-            {
-              v60 = (*(v11 + 104) + 8);
-              v61 = 24 * v59;
-              v62 = v74 + 1;
-              while (*v62 == *v60)
-              {
-                v60 += 3;
-                v62 += 3;
-                v61 -= 24;
-                if (!v61)
-                {
-                  goto LABEL_87;
-                }
-              }
-
-              goto LABEL_89;
-            }
-          }
-
-LABEL_87:
-          v45 = a1;
-          v44 = a3;
-          goto LABEL_88;
-        }
-      }
-
-      else
-      {
-        v29 = strcmp(v71, v33);
-        v34 = v29 != 0;
-        if ((v31 & 1) == 0)
-        {
-          goto LABEL_38;
-        }
-      }
-    }
-
-    if (v70)
-    {
-    }
-
-    goto LABEL_38;
-  }
-
-  v13 = 0;
-  if (!a5)
-  {
-    goto LABEL_64;
-  }
-
-  v14 = v71;
-  while (1)
-  {
-    v15 = re::DynamicString::operator[](v11 + 40, v13);
-    *v68 = 0;
-    __s1 = &str_67;
-    v17 = *(a4 + 8 * a5 - 8);
-    v18 = v68[0];
-    if ((*v17 ^ *v68) > 1)
-    {
-      v20 = 1;
-      if ((v68[0] & 1) == 0)
-      {
-        goto LABEL_14;
-      }
-    }
-
-    else
-    {
-      v16 = __s1;
-      v19 = v17[1];
-      if (__s1 == v19)
-      {
-        v20 = 0;
-        if ((v68[0] & 1) == 0)
-        {
-          goto LABEL_14;
-        }
-      }
-
-      else
-      {
-        v16 = strcmp(__s1, v19);
-        v20 = v16 != 0;
-        if ((v18 & 1) == 0)
-        {
-          goto LABEL_14;
-        }
-      }
-    }
-
-    if (v68[0])
-    {
-    }
-
-LABEL_14:
-    if (v20)
-    {
-      *a1 = 0;
-      *(a1 + 1) = 0;
-      *(a1 + 2) = 0;
-      return;
-    }
-
-    a4 = re::Slice<re::StringID const*>::range(a4, a5, a5 - 1);
-    a5 = v21;
-    v13 = v14 + 1;
-    v75 = 46;
-    v12 = re::DynamicString::find((v11 + 40), &v75, 1, v14 + 1, v68);
-    if ((v68[0] & 1) == 0)
-    {
-      break;
-    }
-
-    v14 = __s1;
-    if (!a5)
-    {
-      goto LABEL_64;
-    }
-  }
-
-  if (a5)
-  {
-    goto LABEL_19;
-  }
-
-LABEL_64:
-  v46 = *(v11 + 48);
-  if (v46)
-  {
-    v47 = v46 >> 1;
+    v9 = v7[2];
   }
 
   else
   {
-    v47 = v46 >> 1;
+    v9 = (v7 + *(&physx::Scb::Actor::sLazyInitOffsets + ((v8 >> 24) & 0xF) + 3) + 12);
   }
 
-  if (v13 >= v47)
+  v10 = *v7;
+  v11 = v9->u8[0];
+  if (v11 & 8) == 0 || (a3)
   {
-    if (v47)
+    if ((v11 & 8) != 0 || !a3)
     {
-      if (v54[6])
+      goto LABEL_35;
+    }
+
+    if (v10)
+    {
+      physx::NpActor::removeConstraintsFromScene(&result[3]);
+      v6 = *(&physx::NpActor::sLazyInitOffsets + v5[1].u16[0] + 18);
+      LODWORD(v8) = *(v5[1].i32 + v6);
+    }
+
+    v17 = v11 | 8;
+    v18 = v5 + v6;
+    v19 = BYTE3(v8) & 0xF;
+    v20 = *(&physx::Scb::Actor::sLazyInitOffsets + v19 + 3);
+    v21 = v8 >> 30;
+    if (v21 == 2)
+    {
+      v22 = *v18;
+      if (*(*v18 + 7689))
       {
-        v54[6] = 1;
-        v56 = v54[7];
+        goto LABEL_28;
+      }
+    }
+
+    else if (v21 == 3)
+    {
+      v22 = *v18;
+LABEL_28:
+      Stream = *(v18 + 16);
+      if (!Stream)
+      {
+        Stream = physx::Scb::Scene::getStream(v22, v19);
+        *(v18 + 16) = Stream;
+        v22 = *v18;
       }
 
-      else
-      {
-        *(v54 + 48) = 0;
-        v56 = v54 + 49;
-      }
+      *Stream = v17;
+      physx::Scb::Scene::scheduleForUpdate(v22, v18);
+      *(v18 + 8) |= 1u;
+LABEL_34:
+      result = (*(*v5 + 248))(v5);
+      goto LABEL_35;
+    }
 
-      *v56 = 0;
-      v57 = re::AssetHelper::makeTimelineAsset(v54, v55);
-      v58 = re::TimelineAsset::assetType(v57);
-      (*(*a2 + 424))(a2, v57, v58, 0, 0, 0);
+    v26 = (v20 + v18);
+    if (v17 != *(v20 + v18 + 12))
+    {
+      v26[12] = v17;
+      if (*v26)
+      {
+        (*(**v26 + 16))(*v26);
+      }
+    }
+
+    goto LABEL_34;
+  }
+
+  result = (*(*result + 256))(result);
+  v12 = v11 & 0xFFFFFFF7;
+  v13 = v5 + *(&physx::NpActor::sLazyInitOffsets + v5[1].u16[0] + 18);
+  v14 = *(v13 + 8);
+  v15 = (v14 >> 24) & 0xF;
+  v16 = v14 >> 30;
+  if (v16 == 2)
+  {
+    result = *v13;
+    if (*(*v13 + 7689))
+    {
+      goto LABEL_18;
+    }
+
+LABEL_21:
+    v24 = *(&physx::Scb::Actor::sLazyInitOffsets + v15 + 3) + v13;
+    if (v12 != *(v24 + 12))
+    {
+      *(v24 + 12) = v12;
+      result = *v24;
+      if (*v24)
+      {
+        result = (*(*result + 16))(result);
+      }
+    }
+
+    goto LABEL_24;
+  }
+
+  if (v16 != 3)
+  {
+    goto LABEL_21;
+  }
+
+  result = *v13;
+LABEL_18:
+  v23 = *(v13 + 16);
+  if (!v23)
+  {
+    v23 = physx::Scb::Scene::getStream(result, v15);
+    *(v13 + 16) = v23;
+    result = *v13;
+  }
+
+  *v23 = v12;
+  result = physx::Scb::Scene::scheduleForUpdate(result, v13);
+  *(v13 + 8) |= 1u;
+LABEL_24:
+  if (v10 && *&v5[4])
+  {
+    result = physx::NpActor::addConstraintsToSceneInternal(v5 + 3);
+  }
+
+LABEL_35:
+  v27 = v5 + *(&physx::NpActor::sLazyInitOffsets + v5[1].u16[0] + 18);
+  v28 = *(v27 + 8);
+  if (a3)
+  {
+    if (v28)
+    {
+      v31 = *(v27 + 16);
+      v29 = (v28 >> 24) & 0xF;
+      v30 = *(&physx::Scb::Actor::sLazyInitOffsets + v29 + 3) + v27;
     }
 
     else
     {
-      re::AssetHandle::AssetHandle(a1, a3);
+      v29 = (v28 >> 24) & 0xF;
+      v30 = *(&physx::Scb::Actor::sLazyInitOffsets + v29 + 3) + v27;
+      v31 = (v30 + 12);
     }
+
+    v33 = *v31 | a2;
   }
 
   else
   {
-    v49 = *(v11 + 48);
-    if (v49)
+    if (v28)
     {
-      v50 = v49 >> 1;
+      v32 = *(v27 + 16);
+      v29 = (v28 >> 24) & 0xF;
+      v30 = *(&physx::Scb::Actor::sLazyInitOffsets + v29 + 3) + v27;
     }
 
     else
     {
-      v50 = v49 >> 1;
+      LODWORD(v29) = BYTE3(v28) & 0xF;
+      v30 = *(&physx::Scb::Actor::sLazyInitOffsets + v29 + 3) + v27;
+      v32 = (v30 + 12);
     }
 
-    re::DynamicString::substr((v11 + 40), v13, v50, &v70);
-    re::DynamicString::operator=((v48 + 40), &v70);
-    if (v70)
-    {
-      if (v71)
-      {
-        (*(*v70 + 40))();
-      }
-    }
-
-    v52 = re::AssetHelper::makeTimelineAsset(v48, v51);
-    v53 = re::TimelineAsset::assetType(v52);
-    (*(*a2 + 424))(a2, v52, v53, 0, 0, 0);
-  }
-}
-
-void anonymous namespace::createDefaultSubtreeAnimation(_anonymous_namespace_ *this, re::AnimationSceneEntityData *a2, re::TimelineGroupAssetData *a3, re::DynamicString *a4, AssetService *a5, re::ecs2::Entity *a6)
-{
-  v59[0] = a6;
-  v7 = re::ecs2::EntityComponentCollection::get(&a5[6], re::ecs2::ComponentImpl<re::ecs2::AnimationLibraryComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)0,(re::ecs2::ComponentTypeBase::Flags)4>::s_componentType);
-  if (!v7)
-  {
-    goto LABEL_54;
+    v33 = *v32 & ~a2;
   }
 
-  v8 = *(v7 + 40);
-  if (!v8)
+  v34 = v28 >> 30;
+  if (v34 == 2)
   {
-    goto LABEL_54;
-  }
-
-  v9 = atomic_load((v8 + 896));
-  if (v9 != 2)
-  {
-    goto LABEL_54;
-  }
-
-  v10 = re::AssetHandle::blockUntilLoaded<re::AnimationLibraryAsset>((v7 + 32));
-  v11 = v10[12];
-  if (v11)
-  {
-    v12 = 40 * v11;
-    v13 = v10[14];
-    while (1)
-    {
-      if (v59[0])
-      {
-        if (!re::StringID::operator==(v13, re::kDefaultEntityAnimationName))
-        {
-          goto LABEL_16;
-        }
-      }
-
-      else if (!re::StringID::operator==(v13, re::kGlobalSceneAnimationName) && !re::StringID::operator==(v13, re::kLocalSubtreeSceneAnimationName) && !re::StringID::operator==(v13, re::kLocalEntitySceneAnimationName) && !re::StringID::operator==(v13, re::kDefaultEntityAnimationName))
-      {
-        goto LABEL_16;
-      }
-
-      v14 = re::AssetHandle::blockUntilLoaded<re::BasicAsset<re::AnimationScene,&re::kAnimationSceneAssetName,&re::kAnimationSceneAssetExtension>>((v13 + 2));
-      re::StringID::operator=(this, (v14 + 24));
-      re::DynamicArray<re::AnimationSceneEntityData>::operator=(this + 16, (v14 + 40));
-      *(this + 56) = *(v14 + 80);
-      re::AssetHandle::operator=(this + 64, (v14 + 88));
-      v15 = re::StringID::operator=(this, &a5[36]);
-      v16 = re::globalAllocators(v15);
-      v17 = (*(*v16[2] + 32))(v16[2], 176, 8);
-      v18 = re::TimelineAssetData::TimelineAssetData(v17, 1);
-      *v18 = &unk_1F5CBE660;
-      *(v18 + 112) = 0;
-      *(v18 + 128) = 0;
-      *(v18 + 136) = 0;
-      *(v18 + 144) = 0;
-      *(v18 + 152) = 0;
-      *(v18 + 80) = 0;
-      *(v18 + 88) = 0;
-      *(v18 + 96) = 0;
-      *(v18 + 72) = 0;
-      v19 = v18 + 72;
-      *(v18 + 168) = 1065353216;
-      *(v18 + 172) = 0;
-      re::DynamicString::operator=((v18 + 40), a3);
-      re::AssetHandle::operator=(v19, v14);
-      TimelineAsset = re::AssetHelper::makeTimelineAsset(v17, v20);
-      re::TimelineAsset::assetType(TimelineAsset);
-      (*(*a4 + 424))(&v59[1]);
-      re::DynamicArray<re::AssetHandle>::add(a2 + 9, &v59[1]);
-      re::AssetHandle::~AssetHandle(&v59[1]);
-      if ((v59[0] & 1) == 0 && (re::StringID::operator==(v13, re::kGlobalSceneAnimationName) || re::StringID::operator==(v13, re::kLocalSubtreeSceneAnimationName)))
-      {
-        return;
-      }
-
-LABEL_16:
-      v13 += 5;
-      v12 -= 40;
-      if (!v12)
-      {
-        goto LABEL_54;
-      }
-    }
-  }
-
-  v22 = v10[17];
-  if (!v22)
-  {
-LABEL_54:
-    var0 = a5[43].var0;
-    if (var0)
-    {
-      v43 = a5[45].var0;
-      v44 = 8 * var0;
-      do
-      {
-        v45 = *v43;
-        v46 = re::DynamicString::DynamicString(&v68, a3);
-        if (v69)
-        {
-          v47 = v69 >> 1;
-        }
-
-        else
-        {
-          v47 = v69 >> 1;
-        }
-
-        if (v47)
-        {
-          v46 = re::DynamicString::append(v46, ".", 1uLL);
-        }
-
-        v66 = 0u;
-        v67 = 0u;
-        re::DynamicString::setCapacity(&v66, 0);
-        v48 = strlen(*(v45 + 37));
-        *&v59[1] = *(v45 + 37);
-        v60 = v48;
-        re::internal::escapeBindingKey(&v59[1], &v66);
-        if (BYTE8(v66))
-        {
-          v49 = v67;
-        }
-
-        else
-        {
-          v49 = &v66 + 9;
-        }
-
-        re::DynamicString::format("entities[%s]", &v59[1], v49);
-        v50 = v60 & 1;
-        if (v60)
-        {
-          v51 = v61[0];
-        }
-
-        else
-        {
-          v51 = &v60 + 1;
-        }
-
-        if (v60)
-        {
-          v52 = v60 >> 1;
-        }
-
-        else
-        {
-          v52 = v60 >> 1;
-        }
-
-        re::DynamicString::append(&v68, v51, v52);
-        if (*&v59[1] && v50)
-        {
-          (*(**&v59[1] + 40))();
-        }
-
-        *&v59[1] = 0;
-        v60 = &str_67;
-        v63 = 0;
-        memset(v61, 0, sizeof(v61));
-        v62 = 0;
-        v64 = 0;
-        memset(v65, 0, sizeof(v65));
-        re::StringID::operator=(&v59[1], v45 + 36);
-        re::DynamicArray<re::AnimationSceneEntityData>::add(this + 2, &v59[1]);
-        re::AssetHandle::~AssetHandle(v65);
-        v54 = re::DynamicArray<re::AnimationSceneEntityData>::deinit(v61);
-        if (v59[1])
-        {
-          if (v59[1])
-          {
-          }
-        }
-
-        if (v66 && (BYTE8(v66) & 1) != 0)
-        {
-          (*(*v66 + 40))();
-        }
-
-        if (v68)
-        {
-          if (v69)
-          {
-            (*(*v68 + 40))();
-          }
-        }
-
-        ++v43;
-        v44 -= 8;
-      }
-
-      while (v44);
-    }
-
-    return;
-  }
-
-  v23 = 24 * v22;
-  v24 = v10[19];
-  while (1)
-  {
-    v68 = 0;
-    v69 = &str_67;
-    v25 = re::BasicAsset<re::AnimationScene,&re::kAnimationSceneAssetName,&re::kAnimationSceneAssetExtension>::assetType();
-    v26 = *(v24 + 1);
-    if (v26)
-    {
-      v26 = *(v26 + 280);
-    }
-
-    if (v25 == v26)
-    {
-      v27 = re::AssetHandle::blockUntilLoaded<re::BasicAsset<re::AnimationScene,&re::kAnimationSceneAssetName,&re::kAnimationSceneAssetExtension>>(v24);
-      v25 = re::AssetHandle::blockUntilLoaded<re::TimelineAsset>(v27);
-      v28 = *(v25 + 16);
-      if (v28)
-      {
-        v25 = re::StringID::operator=(&v68, (v28 + 24));
-      }
-    }
-
-    v29 = v68;
-    if (v59[0])
-    {
-      if (v68 >> 1 != 0x34A574094D1AF786)
-      {
-        goto LABEL_50;
-      }
-
-LABEL_31:
-      v31 = v69;
-      if (v69 == "default entity animation")
-      {
-        goto LABEL_42;
-      }
-
-      v32 = "default entity animation";
-      goto LABEL_41;
-    }
-
-    v30 = v68 >> 1;
-    if (v68 >> 1 <= 0x3C015B2DF8573272)
-    {
-      if (v30 == 0x3455FFA1B1837FA3)
-      {
-        v31 = v69;
-        if (v69 == "default subtree animation")
-        {
-          goto LABEL_42;
-        }
-
-        v32 = "default subtree animation";
-        goto LABEL_41;
-      }
-
-      if (v30 != 0x34A574094D1AF786)
-      {
-        goto LABEL_50;
-      }
-
-      goto LABEL_31;
-    }
-
-    if (v30 == 0x3D5505122B750911)
-    {
-      v31 = v69;
-      if (v69 == "default scene animation")
-      {
-        goto LABEL_42;
-      }
-
-      v32 = "default scene animation";
-    }
-
-    else
-    {
-      if (v30 != 0x3C015B2DF8573273)
-      {
-        goto LABEL_50;
-      }
-
-      v31 = v69;
-      if (v69 == "global scene animation")
-      {
-        goto LABEL_42;
-      }
-
-      v32 = "global scene animation";
-    }
-
-LABEL_41:
-    v25 = strcmp(v31, v32);
-    if (v25)
-    {
-      goto LABEL_50;
-    }
-
-LABEL_42:
-    v33 = re::AssetHandle::blockUntilLoaded<re::BasicAsset<re::AnimationScene,&re::kAnimationSceneAssetName,&re::kAnimationSceneAssetExtension>>(v24);
-    re::StringID::operator=(this, (v33 + 24));
-    re::DynamicArray<re::AnimationSceneEntityData>::operator=(this + 16, (v33 + 40));
-    *(this + 56) = *(v33 + 80);
-    re::AssetHandle::operator=(this + 64, (v33 + 88));
-    v34 = re::StringID::operator=(this, &a5[36]);
-    v35 = re::globalAllocators(v34);
-    v36 = (*(*v35[2] + 32))(v35[2], 176, 8);
-    v37 = re::TimelineAssetData::TimelineAssetData(v36, 1);
-    *v37 = &unk_1F5CBE660;
-    *(v37 + 112) = 0;
-    *(v37 + 128) = 0;
-    *(v37 + 136) = 0;
-    *(v37 + 144) = 0;
-    *(v37 + 152) = 0;
-    *(v37 + 80) = 0;
-    *(v37 + 88) = 0;
-    *(v37 + 96) = 0;
-    *(v37 + 72) = 0;
-    v38 = v37 + 72;
-    *(v37 + 168) = 1065353216;
-    *(v37 + 172) = 0;
-    re::DynamicString::operator=((v37 + 40), a3);
-    re::AssetHandle::operator=(v38, v33);
-    v40 = re::AssetHelper::makeTimelineAsset(v36, v39);
-    re::TimelineAsset::assetType(v40);
-    (*(*a4 + 424))(&v59[1]);
-    re::DynamicArray<re::AssetHandle>::add(a2 + 9, &v59[1]);
-    re::AssetHandle::~AssetHandle(&v59[1]);
-    v29 = v68;
-    if (v59[0])
-    {
-      goto LABEL_50;
-    }
-
-    if (v68 >> 1 == 0x3455FFA1B1837FA3)
-    {
-      v25 = v69;
-      if (v69 == "default subtree animation")
-      {
-        break;
-      }
-
-      v41 = "default subtree animation";
-    }
-
-    else
-    {
-      if (v68 >> 1 != 0x3C015B2DF8573273)
-      {
-        goto LABEL_50;
-      }
-
-      v25 = v69;
-      if (v69 == "global scene animation")
-      {
-        break;
-      }
-
-      v41 = "global scene animation";
-    }
-
-    v25 = strcmp(v25, v41);
-    if (!v25)
-    {
-      break;
-    }
-
-LABEL_50:
-    if (v29)
-    {
-      if (v68)
-      {
-      }
-    }
-
-    v24 = (v24 + 24);
-    v23 -= 24;
-    if (!v23)
-    {
-      goto LABEL_54;
-    }
-  }
-
-  if (v29)
-  {
-    if (v68)
-    {
-    }
-  }
-}
-
-uint64_t re::AssetService::createMemoryAsset<re::TimelineAsset>(re::TimelineAsset *a1, uint64_t a2, uint64_t a3)
-{
-  v6 = re::TimelineAsset::assetType(a1);
-  v7 = *(*a1 + 424);
-
-  return v7(a1, a2, v6, 0, a3, 0);
-}
-
-uint64_t REAnimationLibraryComponentGetAnimationLibraryAsset(uint64_t a1)
-{
-  re::AssetHandle::AssetHandle(v3, (a1 + 32));
-  if (v3[1])
-  {
-    v1 = v3[0];
-  }
-
-  else
-  {
-    v1 = 0;
-  }
-
-  re::AssetHandle::~AssetHandle(v3);
-  return v1;
-}
-
-uint64_t REAnimationLibraryComponentGetFirstTransformAnimation(uint64_t a1)
-{
-  v1 = a1;
-  v2 = re::AssetHandle::blockUntilLoaded<re::AnimationLibraryAsset>((a1 + 32));
-  if (!v2 || (v3 = v2, !*(v2 + 56)))
-  {
-    re::AssetHandle::AssetHandle(&v37, (v1 + 32));
-    if (v37)
-    {
-      if (v38)
-      {
-        v4 = *(v38 + 24);
-      }
-
-      else
-      {
-        v4 = 0;
-      }
-
-      v5 = REAnimationLibraryDefinitionCreateFromAnimationLibraryAsset(v4, v37);
-      v6 = AnimationLibraryDefinition::assetData(v5);
-      if (v6)
-      {
-        v7 = *(v6 + 136);
-        if (v7)
-        {
-          v8 = 0;
-          v9 = 0;
-          while (1)
-          {
-            v10 = AnimationLibraryDefinition::assetData(v5);
-            if (*(v10 + 136) <= v9)
-            {
-              v11 = 0;
-            }
-
-            else
-            {
-              v11 = *(*(v10 + 152) + v8);
-            }
-
-            Type = REAssetGetType(v11);
-            if (CFStringCompare(Type, @"Timeline", 0))
-            {
-              goto LABEL_44;
-            }
-
-            v13 = RETimelineDefinitionCreateFromTimeline(v11);
-            v14 = v13;
-            v15 = *(v13 + 48);
-            if (!v15)
-            {
-              v15 = *(re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((v13 + 24)) + 8);
-            }
-
-            v16 = *(v15 + 8);
-            if (v16 > 0x3D)
-            {
-              break;
-            }
-
-            if (v17 > 0x1A || ((1 << v17) & 0x4040400) == 0)
-            {
-              goto LABEL_29;
-            }
-
-            re::make::shared::object<re::Shareable<re::DynamicArray<re::NamedAnimationLibraryEntry>>>(&v36);
-            v1 = v36;
-            if (!*(v36 + 32))
-            {
-              re::DynamicArray<re::NamedAnimationLibraryEntry>::setCapacity((v36 + 24), 1uLL);
-            }
-
-            *&v33.var0 = 0;
-            v33.var1 = &str_67;
-            v35 = 0;
-            v34 = 0;
-            re::AssetAPIHelper::assetHandleCreate(v11, &v31);
-            v19 = v34;
-            v34 = v31;
-            v31 = v19;
-            v20 = v35;
-            v35 = v32;
-            v32 = v20;
-            re::AssetHandle::~AssetHandle(&v31);
-            if (*(v14 + 88) == 1)
-            {
-              v22 = v14 + 96;
-            }
-
-            else
-            {
-              v23 = *(v14 + 48);
-              if (!v23)
-              {
-                v21 = re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((v14 + 24));
-                if (v21)
-                {
-                  v23 = *(v21 + 1);
-                }
-
-                else
-                {
-                  v23 = 0;
-                }
-              }
-
-              v22 = v23 + 24;
-            }
-
-            v24 = *(v22 + 8);
-            *&v31.var0 = 0;
-            v31.var1 = &str_67;
-            v26 = v31;
-            *&v31.var0 = 0;
-            v31.var1 = &str_67;
-            var0 = v33.var0;
-            v33 = v26;
-            if (var0)
-            {
-              if (*&v31.var0)
-              {
-                if (*&v31.var0)
-                {
-                }
-              }
-            }
-
-            re::DynamicArray<re::NamedAnimationLibraryEntry>::add((v1 + 24), &v33);
-
-            re::AssetHandle::~AssetHandle(&v34);
-            if (*&v33.var0)
-            {
-              if (*&v33.var0)
-              {
-              }
-            }
-
-LABEL_42:
-            if (v17 <= 0x1A && ((1 << v17) & 0x4040400) != 0)
-            {
-              re::AssetHandle::~AssetHandle(&v37);
-              return v1;
-            }
-
-LABEL_44:
-            ++v9;
-            v8 += 24;
-            if (v7 == v9)
-            {
-              goto LABEL_45;
-            }
-          }
-
-          v17 = 0;
-LABEL_29:
-
-          goto LABEL_42;
-        }
-      }
-
-LABEL_45:
-    }
-
-    re::AssetHandle::~AssetHandle(&v37);
-    return 0;
-  }
-
-  re::make::shared::object<re::Shareable<re::DynamicArray<re::NamedAnimationLibraryEntry>>>(&v33);
-  v1 = *&v33.var0;
-  if (!*(*&v33.var0 + 32))
-  {
-    re::DynamicArray<re::NamedAnimationLibraryEntry>::setCapacity((*&v33.var0 + 24), 1uLL);
-  }
-
-  re::DynamicArray<re::NamedAnimationLibraryEntry>::add((v1 + 24), *(v3 + 72));
-  return v1;
-}
-
-uint64_t REAnimationLibraryComponentCreateQueryTransformAnimationWithName(uint64_t a1, const char *a2)
-{
-  v4 = re::AssetHandle::blockUntilLoaded<re::AnimationLibraryAsset>((a1 + 32));
-  if (a2)
-  {
-    v5 = *a2;
-    if (*a2)
-    {
-      v6 = a2[1];
-      if (v6)
-      {
-        v7 = (a2 + 2);
-        do
-        {
-          v5 = 31 * v5 + v6;
-          v8 = *v7++;
-          v6 = v8;
-        }
-
-        while (v8);
-      }
-    }
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  v9 = 2 * v5;
-  if (v4 && (v10 = *(v4 + 56)) != 0)
-  {
-    v11 = *(v4 + 72);
-    v12 = 40 * v10;
-    while (1)
-    {
-      if ((*&v11->var0 ^ v9) <= 1)
-      {
-        var1 = v11->var1;
-        if (var1 == a2 || !strcmp(var1, a2))
-        {
-          break;
-        }
-      }
-
-      v11 = (v11 + 40);
-      v12 -= 40;
-      if (!v12)
-      {
-        return 0;
-      }
-    }
-
-    re::make::shared::object<re::Shareable<re::DynamicArray<re::NamedAnimationLibraryEntry>>>(&v45);
-    v15 = *&v45.var0;
-    if (!*(*&v45.var0 + 32))
-    {
-      re::DynamicArray<re::NamedAnimationLibraryEntry>::setCapacity((*&v45.var0 + 24), 1uLL);
-    }
-
-    re::DynamicArray<re::NamedAnimationLibraryEntry>::add((v15 + 24), v11);
-  }
-
-  else
-  {
-    re::AssetHandle::AssetHandle(&v49, (a1 + 32));
-    if (v49)
-    {
-      if (v50)
-      {
-        v14 = *(v50 + 24);
-      }
-
-      else
-      {
-        v14 = 0;
-      }
-
-      v16 = REAnimationLibraryDefinitionCreateFromAnimationLibraryAsset(v14, v49);
-      v17 = AnimationLibraryDefinition::assetData(v16);
-      if (v17)
-      {
-        v18 = *(v17 + 136);
-        if (v18)
-        {
-          v19 = 0;
-          for (i = 0; v18 != i; ++i)
-          {
-            v21 = AnimationLibraryDefinition::assetData(v16);
-            if (*(v21 + 136) <= i)
-            {
-              v22 = 0;
-            }
-
-            else
-            {
-              v22 = *(*(v21 + 152) + v19);
-            }
-
-            Type = REAssetGetType(v22);
-            if (CFStringCompare(Type, @"Timeline", 0) == kCFCompareEqualTo)
-            {
-              v24 = RETimelineDefinitionCreateFromTimeline(v22);
-              v25 = v24;
-              v26 = *(v24 + 48);
-              if (!v26)
-              {
-                v26 = *(re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((v24 + 24)) + 8);
-              }
-
-              v27 = *(v26 + 8);
-              if (v27 <= 0x3D)
-              {
-                v29 = v28 > 0x1A;
-                v30 = (1 << v28) & 0x4040400;
-                if (!v29 && v30 != 0)
-                {
-                  re::AssetAPIHelper::assetHandleCreate(v22, v48);
-                  v32 = *(re::AssetHandle::blockUntilLoaded<re::TimelineAsset>(v48) + 16);
-                  if ((*(v32 + 24) ^ v9) <= 1)
-                  {
-                    v33 = *(v32 + 32);
-                    if (v33 == a2 || !strcmp(v33, a2))
-                    {
-                      re::make::shared::object<re::Shareable<re::DynamicArray<re::NamedAnimationLibraryEntry>>>(&v47);
-                      v15 = v47;
-                      if (!*(v47 + 32))
-                      {
-                        re::DynamicArray<re::NamedAnimationLibraryEntry>::setCapacity((v47 + 24), 1uLL);
-                      }
-
-                      *&v45.var0 = 0;
-                      v45.var1 = &str_67;
-                      memset(v46, 0, sizeof(v46));
-                      v35 = re::AssetHandle::operator=(v46, v48);
-                      v43 = 0;
-                      v44 = &str_67;
-                      v37 = v43;
-                      v38 = v44;
-                      v43 = 0;
-                      v44 = &str_67;
-                      var0 = v45.var0;
-                      v40 = v45.var1;
-                      *&v45.var0 = v37;
-                      v45.var1 = v38;
-                      if (var0)
-                      {
-                        if (v43)
-                        {
-                          if (v43)
-                          {
-                          }
-                        }
-                      }
-
-                      re::DynamicArray<re::NamedAnimationLibraryEntry>::add((v15 + 24), &v45);
-
-                      re::AssetHandle::~AssetHandle(v46);
-                      if (*&v45.var0)
-                      {
-                        if (*&v45.var0)
-                        {
-                        }
-                      }
-
-                      re::AssetHandle::~AssetHandle(v48);
-                      re::AssetHandle::~AssetHandle(&v49);
-                      return v15;
-                    }
-                  }
-
-                  re::AssetHandle::~AssetHandle(v48);
-                }
-              }
-            }
-
-            v19 += 24;
-          }
-        }
-      }
-    }
-
-    re::AssetHandle::~AssetHandle(&v49);
-    return 0;
-  }
-
-  return v15;
-}
-
-uint64_t REAnimationLibraryComponentCreateQueryAllTransformAnimations(uint64_t a1)
-{
-  v2 = re::AssetHandle::blockUntilLoaded<re::AnimationLibraryAsset>((a1 + 32));
-  if (v2 && (v3 = v2, *(v2 + 56)))
-  {
-    re::make::shared::object<re::Shareable<re::DynamicArray<re::NamedAnimationLibraryEntry>>>(v47);
-    v4 = v47[0];
-    re::DynamicArray<re::NamedAnimationLibraryEntry>::operator=(v47[0] + 24, (v3 + 40));
-  }
-
-  else
-  {
-    re::AssetHandle::AssetHandle(&v48, (a1 + 32));
-    if (!v48)
+    result = *v27;
+    if (*(*v27 + 7689))
     {
       goto LABEL_48;
     }
+  }
 
-    if (v49)
+  else if (v34 == 3)
+  {
+    result = *v27;
+LABEL_48:
+    v35 = *(v27 + 16);
+    if (!v35)
     {
-      v5 = *(v49 + 24);
+      v35 = physx::Scb::Scene::getStream(result, v29);
+      *(v27 + 16) = v35;
+      result = *v27;
+    }
+
+    *v35 = v33;
+    result = physx::Scb::Scene::scheduleForUpdate(result, v27);
+    *(v27 + 8) |= 1u;
+    return result;
+  }
+
+  if (v33 != *(v30 + 12))
+  {
+    *(v30 + 12) = v33;
+    result = *v30;
+    if (*v30)
+    {
+      v36 = *(*result + 16);
+
+      return v36();
+    }
+  }
+
+  return result;
+}
+
+int32x2_t *physx::NpRigidActorTemplate<physx::PxRigidStatic>::setActorFlags(int32x2_t *result, _BYTE *a2)
+{
+  v3 = result;
+  v4 = *(&physx::NpActor::sLazyInitOffsets + result[1].u16[0] + 18);
+  v5 = (result + v4);
+  v6 = *(result[1].u32 + v4);
+  if (v6)
+  {
+    v7 = v5[2];
+  }
+
+  else
+  {
+    v7 = (v5 + *(&physx::Scb::Actor::sLazyInitOffsets + ((v6 >> 24) & 0xF) + 3) + 12);
+  }
+
+  v8 = *v5;
+  v9 = v7->u8[0];
+  if ((*a2 & 8) != 0 || (v9 & 8) == 0)
+  {
+    if ((*a2 & 8) == 0 || (v9 & 8) != 0)
+    {
+      goto LABEL_34;
+    }
+
+    if (v8)
+    {
+      physx::NpActor::removeConstraintsFromScene(&result[3]);
+      v4 = *(&physx::NpActor::sLazyInitOffsets + v3[1].u16[0] + 18);
+      LODWORD(v6) = *(v3[1].i32 + v4);
+    }
+
+    v15 = v9 | 8;
+    v16 = v3 + v4;
+    v17 = BYTE3(v6) & 0xF;
+    v18 = *(&physx::Scb::Actor::sLazyInitOffsets + v17 + 3);
+    v19 = v6 >> 30;
+    if (v19 == 2)
+    {
+      v20 = *v16;
+      if (*(*v16 + 7689))
+      {
+        goto LABEL_27;
+      }
+    }
+
+    else if (v19 == 3)
+    {
+      v20 = *v16;
+LABEL_27:
+      Stream = *(v16 + 16);
+      if (!Stream)
+      {
+        Stream = physx::Scb::Scene::getStream(v20, v17);
+        *(v16 + 16) = Stream;
+        v20 = *v16;
+      }
+
+      *Stream = v15;
+      physx::Scb::Scene::scheduleForUpdate(v20, v16);
+      *(v16 + 8) |= 1u;
+LABEL_33:
+      result = (*(*v3 + 248))(v3);
+      goto LABEL_34;
+    }
+
+    v24 = (v18 + v16);
+    if (v15 != *(v18 + v16 + 12))
+    {
+      v24[12] = v15;
+      if (*v24)
+      {
+        (*(**v24 + 16))(*v24);
+      }
+    }
+
+    goto LABEL_33;
+  }
+
+  result = (*(*result + 256))(result);
+  v10 = v9 & 0xFFFFFFF7;
+  v11 = v3 + *(&physx::NpActor::sLazyInitOffsets + v3[1].u16[0] + 18);
+  v12 = *(v11 + 8);
+  v13 = (v12 >> 24) & 0xF;
+  v14 = v12 >> 30;
+  if (v14 == 2)
+  {
+    result = *v11;
+    if (*(*v11 + 7689))
+    {
+      goto LABEL_17;
+    }
+
+LABEL_20:
+    v22 = *(&physx::Scb::Actor::sLazyInitOffsets + v13 + 3) + v11;
+    if (v10 != *(v22 + 12))
+    {
+      *(v22 + 12) = v10;
+      result = *v22;
+      if (*v22)
+      {
+        result = (*(*result + 16))(result);
+      }
+    }
+
+    goto LABEL_23;
+  }
+
+  if (v14 != 3)
+  {
+    goto LABEL_20;
+  }
+
+  result = *v11;
+LABEL_17:
+  v21 = *(v11 + 16);
+  if (!v21)
+  {
+    v21 = physx::Scb::Scene::getStream(result, v13);
+    *(v11 + 16) = v21;
+    result = *v11;
+  }
+
+  *v21 = v10;
+  result = physx::Scb::Scene::scheduleForUpdate(result, v11);
+  *(v11 + 8) |= 1u;
+LABEL_23:
+  if (v8 && *&v3[4])
+  {
+    result = physx::NpActor::addConstraintsToSceneInternal(v3 + 3);
+  }
+
+LABEL_34:
+  v25 = *a2;
+  v26 = v3 + *(&physx::NpActor::sLazyInitOffsets + v3[1].u16[0] + 18);
+  v27 = *(v26 + 8);
+  v28 = (v27 >> 24) & 0xF;
+  v29 = v27 >> 30;
+  if (v29 == 2)
+  {
+    result = *v26;
+    if (*(*v26 + 7689))
+    {
+      goto LABEL_38;
+    }
+  }
+
+  else if (v29 == 3)
+  {
+    result = *v26;
+LABEL_38:
+    v30 = *(v26 + 16);
+    if (!v30)
+    {
+      v30 = physx::Scb::Scene::getStream(result, v28);
+      *(v26 + 16) = v30;
+      result = *v26;
+    }
+
+    *v30 = v25;
+    result = physx::Scb::Scene::scheduleForUpdate(result, v26);
+    *(v26 + 8) |= 1u;
+    return result;
+  }
+
+  v31 = *(&physx::Scb::Actor::sLazyInitOffsets + v28 + 3) + v26;
+  if (v25 != *(v31 + 12))
+  {
+    *(v31 + 12) = v25;
+    result = *v31;
+    if (*v31)
+    {
+      v32 = *(*result + 16);
+
+      return v32();
+    }
+  }
+
+  return result;
+}
+
+uint64_t physx::NpActorTemplate<physx::PxRigidStatic>::getActorFlags@<X0>(uint64_t result@<X0>, _BYTE *a2@<X8>)
+{
+  v2 = result + *(&physx::NpActor::sLazyInitOffsets + *(result + 8) + 18);
+  v3 = *(v2 + 8);
+  if (v3)
+  {
+    v4 = *(v2 + 16);
+  }
+
+  else
+  {
+    v4 = (*(&physx::Scb::Actor::sLazyInitOffsets + ((v3 >> 24) & 0xF) + 3) + v2 + 12);
+  }
+
+  *a2 = *v4;
+  return result;
+}
+
+physx::Sc::Interaction **physx::NpActorTemplate<physx::PxRigidStatic>::setDominanceGroup(uint64_t a1, char a2)
+{
+  v3 = a1 + *(&physx::NpActor::sLazyInitOffsets + *(a1 + 8) + 18);
+  v4 = *(v3 + 8);
+  v5 = (v4 >> 24) & 0xF;
+  v6 = *(&physx::Scb::Actor::sLazyInitOffsets + v5 + 3);
+  v7 = v4 >> 30;
+  if (v7 == 2)
+  {
+    v8 = *v3;
+    if (*(*v3 + 7689))
+    {
+      goto LABEL_5;
+    }
+  }
+
+  else if (v7 == 3)
+  {
+    v8 = *v3;
+LABEL_5:
+    Stream = *(v3 + 16);
+    if (!Stream)
+    {
+      Stream = physx::Scb::Scene::getStream(v8, v5);
+      *(v3 + 16) = Stream;
+      v8 = *v3;
+    }
+
+    *(Stream + 1) = a2;
+    result = physx::Scb::Scene::scheduleForUpdate(v8, v3);
+    *(v3 + 8) |= 2u;
+    return result;
+  }
+
+  *(v6 + v3 + 14) = a2;
+  result = *(v3 + v6);
+  if (result)
+  {
+
+    return physx::Sc::ActorSim::setActorsInteractionsDirty(result, 8, 0, 1);
+  }
+
+  return result;
+}
+
+uint64_t physx::NpActorTemplate<physx::PxRigidStatic>::getDominanceGroup(uint64_t a1)
+{
+  v1 = a1 + *(&physx::NpActor::sLazyInitOffsets + *(a1 + 8) + 18);
+  v2 = *(v1 + 8);
+  if ((v2 & 2) != 0)
+  {
+    v3 = (*(v1 + 16) + 1);
+  }
+
+  else
+  {
+    v3 = (*(&physx::Scb::Actor::sLazyInitOffsets + ((v2 >> 24) & 0xF) + 3) + v1 + 14);
+  }
+
+  return *v3;
+}
+
+uint64_t physx::NpActorTemplate<physx::PxRigidStatic>::setOwnerClient(uint64_t result, char a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+{
+  v9 = result + *(&physx::NpActor::sLazyInitOffsets + *(result + 8) + 18);
+  if (*v9)
+  {
+    v10 = "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpActorTemplate.h";
+    v11 = "Attempt to set the client id when an actor is already in a scene.";
+    v12 = physx::shdfnd::Foundation::mInstance;
+    v13 = 196;
+    return physx::shdfnd::Foundation::error(v12, 8, v10, v13, v11, a6, a7, a8);
+  }
+
+  v14 = *(v9 + 8);
+  if (v14 >> 30 == 3 || v14 >> 30 == 2 && (MEMORY[0x1E09] & 1) != 0)
+  {
+    v10 = "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/buffering/ScbActor.h";
+    v11 = "Attempt to set the client id when an actor is buffering";
+    v12 = physx::shdfnd::Foundation::mInstance;
+    v13 = 182;
+    return physx::shdfnd::Foundation::error(v12, 8, v10, v13, v11, a6, a7, a8);
+  }
+
+  *(*(&physx::Scb::Actor::sLazyInitOffsets + ((v14 >> 24) & 0xF) + 3) + v9 + 11) = a2;
+  return result;
+}
+
+uint64_t physx::NpActorTemplate<physx::PxRigidStatic>::getAggregate(uint64_t a1)
+{
+  v1 = *(a1 + 32);
+  if (!v1)
+  {
+    return 0;
+  }
+
+  v2 = *(v1 + 80);
+  if (!v2)
+  {
+    return 0;
+  }
+
+  for (i = *(v1 + 72) + 8; *(i - 8) != 1; i += 16)
+  {
+    if (!--v2)
+    {
+      return 0;
+    }
+  }
+
+  return *i;
+}
+
+uint64_t physx::NpRigidActorTemplate<physx::PxRigidStatic>::attachShape(physx::PxRigidActor *a1, physx::NpShape *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  if (*(a1 + 10))
+  {
+    physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 8, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpRigidActorTemplate.h", 233, "PxRigidActor::attachShape: Actor is part of a pruning structure, pruning structure is now invalid!", a6, a7, a8);
+    physx::Sq::PruningStructure::invalidate(*(a1 + 10), a1);
+  }
+
+  physx::NpShapeManager::attachShape((a1 + 40), a2, a1);
+  return 1;
+}
+
+uint64_t physx::NpRigidActorTemplate<physx::PxRigidStatic>::detachShape(physx::PxRigidActor *a1, physx::NpShape *a2, BOOL a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+{
+  if (*(a1 + 10))
+  {
+    physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 8, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpRigidActorTemplate.h", 247, "PxRigidActor::detachShape: Actor is part of a pruning structure, pruning structure is now invalid!", a6, a7, a8);
+    physx::Sq::PruningStructure::invalidate(*(a1 + 10), a1);
+  }
+
+  result = physx::NpShapeManager::detachShape((a1 + 40), a2, a1, a3);
+  if ((result & 1) == 0)
+  {
+    v16 = physx::shdfnd::Foundation::mInstance;
+
+    return physx::shdfnd::Foundation::error(v16, 8, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpRigidActorTemplate.h", 253, "PxRigidActor::detachShape: shape is not attached to this actor!", v13, v14, v15);
+  }
+
+  return result;
+}
+
+uint64_t physx::NpRigidActorTemplate<physx::PxRigidStatic>::getShapes(uint64_t a1, void *a2, unsigned int a3, unsigned int a4)
+{
+  v4 = (a1 + 40);
+  v5 = *(a1 + 48);
+  if (v5 != 1)
+  {
+    v4 = *v4;
+  }
+
+  v6 = (v5 - a4) & ~((v5 - a4) >> 31);
+  if (v6 >= a3)
+  {
+    result = a3;
+  }
+
+  else
+  {
+    result = v6;
+  }
+
+  if (result)
+  {
+    v8 = &v4[a4];
+    v9 = result;
+    do
+    {
+      v10 = *v8++;
+      *a2++ = v10;
+      --v9;
+    }
+
+    while (v9);
+  }
+
+  return result;
+}
+
+uint64_t physx::NpRigidActorTemplate<physx::PxRigidStatic>::getNbConstraints(uint64_t a1)
+{
+  v1 = *(a1 + 32);
+  if (!v1)
+  {
+    return 0;
+  }
+
+  v2 = *(v1 + 80);
+  if (!v2)
+  {
+    return 0;
+  }
+
+  LODWORD(result) = 0;
+  v4 = *(v1 + 72);
+  do
+  {
+    v5 = *v4;
+    v4 += 16;
+    if (v5)
+    {
+      result = result;
     }
 
     else
     {
-      v5 = 0;
+      result = (result + 1);
     }
 
-    v4 = REAnimationLibraryDefinitionCreateFromAnimationLibraryAsset(v5, v48);
-    v6 = AnimationLibraryDefinition::assetData(v4);
+    --v2;
+  }
+
+  while (v2);
+  return result;
+}
+
+uint64_t physx::NpRigidActorTemplate<physx::PxRigidStatic>::exportExtraData(uint64_t a1, uint64_t a2)
+{
+  physx::NpShapeManager::exportExtraData(a1 + 40, a2);
+
+  return physx::NpActor::exportExtraData((a1 + 24), a2);
+}
+
+void *physx::NpRigidActorTemplate<physx::PxRigidStatic>::importExtraData(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a1 + 48);
+  if (v2 >= 2)
+  {
+    v3 = (*(a2 + 8) + 15) & 0xFFFFFFFFFFFFFFF0;
+    *(a2 + 8) = v3 + 8 * v2;
+    *(a1 + 40) = v3;
+  }
+
+  v4 = *(a1 + 64);
+  if (v4 >= 2)
+  {
+    v5 = (*(a2 + 8) + 15) & 0xFFFFFFFFFFFFFFF0;
+    *(a2 + 8) = v5 + 8 * v4;
+    *(a1 + 56) = v5;
+  }
+
+  return physx::NpActor::importExtraData((a1 + 24), a2);
+}
+
+uint64_t physx::NpRigidActorTemplate<physx::PxRigidStatic>::resolveReferences(uint64_t a1, uint64_t (***a2)(void, uint64_t))
+{
+  v4 = (a1 + 40);
+  v5 = *(a1 + 48);
+  if (v5 != 1)
+  {
+    if (!*(a1 + 48))
+    {
+      goto LABEL_10;
+    }
+
+    v4 = *v4;
+  }
+
+  do
+  {
+    if (*v4)
+    {
+      v6 = (**a2)(a2, 0x80000000);
+      *v4 = v6;
+    }
+
+    else
+    {
+      v6 = 0;
+    }
+
+    atomic_fetch_add((v6 + 32), 1u);
+    if ((*(v6 + 264) & 0x80000000) != 0)
+    {
+      *(v6 + 40) = a1;
+    }
+
+    atomic_fetch_add((v6 + 264), 1u);
+    ++v4;
+    --v5;
+  }
+
+  while (v5);
+LABEL_10:
+
+  return physx::NpActor::resolveReferences(a1 + 24, a2);
+}
+
+uint64_t physx::NpScene::getTaskManager(physx::NpScene *this)
+{
+  return *(this + 1170);
+}
+
+{
+  return *(this + 1170);
+}
+
+void physx::NpContactCallbackTask::~NpContactCallbackTask(physx::NpContactCallbackTask *this)
+{
+  *this = &unk_1F5D1C1B0;
+  *(this + 2) = 0;
+}
+
+{
+  *this = &unk_1F5D1C1B0;
+  *(this + 2) = 0;
+  JUMPOUT(0x1E6906520);
+}
+
+uint64_t physx::NpRigidActorTemplate<physx::PxRigidDynamic>::release(physx::PxRigidActor *a1)
+{
+  physx::NpActor::releaseConstraints((a1 + 24), a1);
+  v5 = a1 + *(&physx::NpActor::sLazyInitOffsets + *(a1 + 4) + 18);
+  if (((*(v5 + 2) >> 30) - 1) > 1)
+  {
+    v7 = 0;
+  }
+
+  else
+  {
+    v6 = *v5;
     if (v6)
     {
-      v7 = *(v6 + 136);
+      v7 = (v6 - 16);
     }
 
     else
     {
       v7 = 0;
     }
+  }
 
-    re::StackScratchAllocator::StackScratchAllocator(v47);
-    v46 = 0;
-    v43[1] = 0;
-    v44 = 0;
-    v45 = 0;
-    v43[0] = v47;
-    re::DynamicArray<re::NamedAnimationLibraryEntry>::setCapacity(v43, 0);
-    ++v45;
-    if (v7)
+  if (*(a1 + 10))
+  {
+    physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 8, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpRigidActorTemplate.h", 200, "PxRigidActor::release: Actor is part of a pruning structure, pruning structure is now invalid!", v2, v3, v4);
+    physx::Sq::PruningStructure::invalidate(*(a1 + 10), a1);
+  }
+
+  result = physx::NpShapeManager::detachAll((a1 + 40), v7, a1);
+  v14 = *(a1 + 4);
+  if (v14)
+  {
+    v15 = *(*(v14 + 72) + 8);
+
+    return physx::NpAggregate::removeActorAndReinsert(v15, a1, 0, v9, v10, v11, v12, v13);
+  }
+
+  return result;
+}
+
+uint64_t physx::NpRigidActorTemplate<physx::PxRigidDynamic>::attachShape(physx::PxRigidActor *a1, physx::NpShape *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  if (*(a1 + 10))
+  {
+    physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 8, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpRigidActorTemplate.h", 233, "PxRigidActor::attachShape: Actor is part of a pruning structure, pruning structure is now invalid!", a6, a7, a8);
+    physx::Sq::PruningStructure::invalidate(*(a1 + 10), a1);
+  }
+
+  physx::NpShapeManager::attachShape((a1 + 40), a2, a1);
+  return 1;
+}
+
+physx::PxActor *physx::NpActorTemplate<physx::PxRigidDynamic>::release(physx::PxActor *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  v8 = *(result + 4);
+  if (v8)
+  {
+    return physx::NpAggregate::removeActorAndReinsert(*(*(v8 + 72) + 8), result, 0, a4, a5, a6, a7, a8);
+  }
+
+  return result;
+}
+
+int32x2_t *physx::NpActorTemplate<physx::PxRigidDynamic>::setActorFlag(int32x2_t *result, int a2, int a3)
+{
+  v3 = result + *(&physx::NpActor::sLazyInitOffsets + result[1].u16[0] + 18);
+  v4 = *(v3 + 2);
+  if (a3)
+  {
+    if (v4)
     {
-      v8 = 0;
-      for (i = 0; i != v7; ++i)
+      v6 = *(v3 + 2);
+      v7 = (v4 >> 24) & 0xF;
+      v5 = &v3[*(&physx::Scb::Actor::sLazyInitOffsets + v7 + 3)];
+    }
+
+    else
+    {
+      v5 = &v3[*(&physx::Scb::Actor::sLazyInitOffsets + ((v4 >> 24) & 0xF) + 3)];
+      v6 = (v5 + 12);
+      v7 = (v4 >> 24) & 0xF;
+    }
+
+    v9 = *v6 | a2;
+  }
+
+  else
+  {
+    if (v4)
+    {
+      v8 = *(v3 + 2);
+      v7 = (v4 >> 24) & 0xF;
+      v5 = &v3[*(&physx::Scb::Actor::sLazyInitOffsets + v7 + 3)];
+    }
+
+    else
+    {
+      LODWORD(v7) = BYTE3(v4) & 0xF;
+      v5 = &v3[*(&physx::Scb::Actor::sLazyInitOffsets + v7 + 3)];
+      v8 = (v5 + 12);
+    }
+
+    v9 = *v8 & ~a2;
+  }
+
+  v10 = v4 >> 30;
+  if (v10 == 2)
+  {
+    result = *v3;
+    if (*(*v3 + 7689))
+    {
+      goto LABEL_14;
+    }
+  }
+
+  else if (v10 == 3)
+  {
+    result = *v3;
+LABEL_14:
+    Stream = *(v3 + 2);
+    if (!Stream)
+    {
+      Stream = physx::Scb::Scene::getStream(result, v7);
+      *(v3 + 2) = Stream;
+      result = *v3;
+    }
+
+    *Stream = v9;
+    result = physx::Scb::Scene::scheduleForUpdate(result, v3);
+    *(v3 + 2) |= 1u;
+    return result;
+  }
+
+  if (v9 != v5[12])
+  {
+    v5[12] = v9;
+    result = *v5;
+    if (*v5)
+    {
+      v12 = *(*result + 16);
+
+      return v12();
+    }
+  }
+
+  return result;
+}
+
+int32x2_t *physx::NpActorTemplate<physx::PxRigidDynamic>::setActorFlags(int32x2_t *result, unsigned __int8 *a2)
+{
+  v2 = *a2;
+  v3 = result + *(&physx::NpActor::sLazyInitOffsets + result[1].u16[0] + 18);
+  v4 = *(v3 + 2);
+  v5 = (v4 >> 24) & 0xF;
+  v6 = v4 >> 30;
+  if (v6 == 2)
+  {
+    result = *v3;
+    if (*(*v3 + 7689))
+    {
+      goto LABEL_5;
+    }
+  }
+
+  else if (v6 == 3)
+  {
+    result = *v3;
+LABEL_5:
+    Stream = *(v3 + 2);
+    if (!Stream)
+    {
+      Stream = physx::Scb::Scene::getStream(result, v5);
+      *(v3 + 2) = Stream;
+      result = *v3;
+    }
+
+    *Stream = v2;
+    result = physx::Scb::Scene::scheduleForUpdate(result, v3);
+    *(v3 + 2) |= 1u;
+    return result;
+  }
+
+  v8 = &v3[*(&physx::Scb::Actor::sLazyInitOffsets + v5 + 3)];
+  if (v2 != v8[12])
+  {
+    v8[12] = v2;
+    result = *v8;
+    if (*v8)
+    {
+      v9 = *(*result + 16);
+
+      return v9();
+    }
+  }
+
+  return result;
+}
+
+uint64_t physx::Scb::Body::setKinematicTarget(uint64_t *a1, uint64_t a2)
+{
+  v4 = *a1;
+  v5 = *(v4 + 8176);
+  v6 = *(a1 + 2);
+  if (v6 >> 30 != 3 && (v6 >> 30 != 2 || (*(v4 + 7689) & 1) == 0))
+  {
+    result = physx::Sc::BodyCore::setKinematicTarget((a1 + 4), *(v4 + 4384), a2, v5);
+    *(a1 + 70) = 0;
+    *(a1 + 69) = v5;
+    return result;
+  }
+
+  Stream = a1[2];
+  if (!Stream)
+  {
+    Stream = physx::Scb::Scene::getStream(v4, HIBYTE(v6) & 0xF);
+    a1[2] = Stream;
+    v4 = *a1;
+  }
+
+  *(Stream + 272) = *a2;
+  *(Stream + 288) = *(a2 + 16);
+  *(Stream + 296) = *(a2 + 24);
+  physx::Scb::Scene::scheduleForUpdate(v4, a1);
+  *(a1 + 71) |= 0x8000u;
+  v8 = *(a1 + 2) >> 30;
+  if (v8 == 2)
+  {
+    v9 = *a1;
+    if (*(*a1 + 7689))
+    {
+      goto LABEL_11;
+    }
+  }
+
+  else if (v8 == 3)
+  {
+    v9 = *a1;
+LABEL_11:
+    *(a1 + 70) = 0;
+    *(a1 + 69) = v5;
+    result = physx::Scb::Scene::scheduleForUpdate(v9, a1);
+    *(a1 + 71) = *(a1 + 71) & 0xF8FFFFFF | 0x5000000;
+    return result;
+  }
+
+  *(a1 + 70) = 0;
+  *(a1 + 69) = v5;
+
+  return physx::Sc::BodyCore::setWakeCounter((a1 + 4), v5, 1);
+}
+
+uint64_t physx::NpRigidActorTemplate<physx::PxRigidStatic>::release(physx::PxRigidActor *a1)
+{
+  physx::NpActor::releaseConstraints((a1 + 24), a1);
+  v5 = a1 + *(&physx::NpActor::sLazyInitOffsets + *(a1 + 4) + 18);
+  if (((*(v5 + 2) >> 30) - 1) > 1)
+  {
+    v7 = 0;
+  }
+
+  else
+  {
+    v6 = *v5;
+    if (v6)
+    {
+      v7 = (v6 - 16);
+    }
+
+    else
+    {
+      v7 = 0;
+    }
+  }
+
+  if (*(a1 + 10))
+  {
+    physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 8, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpRigidActorTemplate.h", 200, "PxRigidActor::release: Actor is part of a pruning structure, pruning structure is now invalid!", v2, v3, v4);
+    physx::Sq::PruningStructure::invalidate(*(a1 + 10), a1);
+  }
+
+  result = physx::NpShapeManager::detachAll((a1 + 40), v7, a1);
+  v14 = *(a1 + 4);
+  if (v14)
+  {
+    v15 = *(*(v14 + 72) + 8);
+
+    return physx::NpAggregate::removeActorAndReinsert(v15, a1, 0, v9, v10, v11, v12, v13);
+  }
+
+  return result;
+}
+
+physx::PxActor *physx::NpActorTemplate<physx::PxRigidStatic>::release(physx::PxActor *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  v8 = *(result + 4);
+  if (v8)
+  {
+    return physx::NpAggregate::removeActorAndReinsert(*(*(v8 + 72) + 8), result, 0, a4, a5, a6, a7, a8);
+  }
+
+  return result;
+}
+
+int32x2_t *physx::NpActorTemplate<physx::PxRigidStatic>::setActorFlag(int32x2_t *result, int a2, int a3)
+{
+  v3 = result + *(&physx::NpActor::sLazyInitOffsets + result[1].u16[0] + 18);
+  v4 = *(v3 + 2);
+  if (a3)
+  {
+    if (v4)
+    {
+      v6 = *(v3 + 2);
+      v7 = (v4 >> 24) & 0xF;
+      v5 = &v3[*(&physx::Scb::Actor::sLazyInitOffsets + v7 + 3)];
+    }
+
+    else
+    {
+      v5 = &v3[*(&physx::Scb::Actor::sLazyInitOffsets + ((v4 >> 24) & 0xF) + 3)];
+      v6 = (v5 + 12);
+      v7 = (v4 >> 24) & 0xF;
+    }
+
+    v9 = *v6 | a2;
+  }
+
+  else
+  {
+    if (v4)
+    {
+      v8 = *(v3 + 2);
+      v7 = (v4 >> 24) & 0xF;
+      v5 = &v3[*(&physx::Scb::Actor::sLazyInitOffsets + v7 + 3)];
+    }
+
+    else
+    {
+      LODWORD(v7) = BYTE3(v4) & 0xF;
+      v5 = &v3[*(&physx::Scb::Actor::sLazyInitOffsets + v7 + 3)];
+      v8 = (v5 + 12);
+    }
+
+    v9 = *v8 & ~a2;
+  }
+
+  v10 = v4 >> 30;
+  if (v10 == 2)
+  {
+    result = *v3;
+    if (*(*v3 + 7689))
+    {
+      goto LABEL_14;
+    }
+  }
+
+  else if (v10 == 3)
+  {
+    result = *v3;
+LABEL_14:
+    Stream = *(v3 + 2);
+    if (!Stream)
+    {
+      Stream = physx::Scb::Scene::getStream(result, v7);
+      *(v3 + 2) = Stream;
+      result = *v3;
+    }
+
+    *Stream = v9;
+    result = physx::Scb::Scene::scheduleForUpdate(result, v3);
+    *(v3 + 2) |= 1u;
+    return result;
+  }
+
+  if (v9 != v5[12])
+  {
+    v5[12] = v9;
+    result = *v5;
+    if (*v5)
+    {
+      v12 = *(*result + 16);
+
+      return v12();
+    }
+  }
+
+  return result;
+}
+
+int32x2_t *physx::NpActorTemplate<physx::PxRigidStatic>::setActorFlags(int32x2_t *result, unsigned __int8 *a2)
+{
+  v2 = *a2;
+  v3 = result + *(&physx::NpActor::sLazyInitOffsets + result[1].u16[0] + 18);
+  v4 = *(v3 + 2);
+  v5 = (v4 >> 24) & 0xF;
+  v6 = v4 >> 30;
+  if (v6 == 2)
+  {
+    result = *v3;
+    if (*(*v3 + 7689))
+    {
+      goto LABEL_5;
+    }
+  }
+
+  else if (v6 == 3)
+  {
+    result = *v3;
+LABEL_5:
+    Stream = *(v3 + 2);
+    if (!Stream)
+    {
+      Stream = physx::Scb::Scene::getStream(result, v5);
+      *(v3 + 2) = Stream;
+      result = *v3;
+    }
+
+    *Stream = v2;
+    result = physx::Scb::Scene::scheduleForUpdate(result, v3);
+    *(v3 + 2) |= 1u;
+    return result;
+  }
+
+  v8 = &v3[*(&physx::Scb::Actor::sLazyInitOffsets + v5 + 3)];
+  if (v2 != v8[12])
+  {
+    v8[12] = v2;
+    result = *v8;
+    if (*v8)
+    {
+      v9 = *(*result + 16);
+
+      return v9();
+    }
+  }
+
+  return result;
+}
+
+uint64_t physx::NpScene::SceneCompletion::release(physx::NpScene::SceneCompletion *this)
+{
+  v1 = *(this + 3);
+  result = physx::shdfnd::SyncImpl::set(**(this + 5));
+  if (v1)
+  {
+    v3 = *(*v1 + 40);
+
+    return v3(v1);
+  }
+
+  return result;
+}
+
+void physx::Cm::FlushPool::~FlushPool(physx::Cm::FlushPool *this)
+{
+  v2 = *(this + 4);
+  if (v2)
+  {
+    for (i = 0; i < v2; ++i)
+    {
+      if (*(*(this + 1) + 8 * i))
       {
-        v10 = AnimationLibraryDefinition::assetData(v4);
-        if (*(v10 + 136) <= i)
+        (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+        v2 = *(this + 4);
+      }
+    }
+  }
+
+  v4 = *(this + 5);
+  if ((v4 & 0x80000000) == 0 && (v4 & 0x7FFFFFFF) != 0 && *(this + 1) != 0)
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+  }
+
+  physx::shdfnd::MutexT<physx::shdfnd::ReflectionAllocator<physx::shdfnd::MutexImpl>>::~MutexT(this);
+}
+
+void physx::shdfnd::sort<void *,physx::shdfnd::Less<void *>,physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<unsigned char,384u>>>(uint64_t a1, int a2)
+{
+  v40 = *MEMORY[0x1E69E9840];
+  v38 = 0;
+  v37 = v39;
+  v34 = 0x2000000000;
+  v35 = v39;
+  v36 = 0;
+  v2 = a2 - 1;
+  if (a2 - 1 < 1)
+  {
+    return;
+  }
+
+  v4 = 0;
+  v5 = a1 + 8;
+  v6 = v39;
+  memset(v39, 0, sizeof(v39));
+  while (1)
+  {
+    while (1)
+    {
+      if (v2 <= v4)
+      {
+        goto LABEL_34;
+      }
+
+      if ((v2 - v4) <= 4)
+      {
+        break;
+      }
+
+      v7 = (v4 + v2 + ((v4 + v2) >> 31)) >> 1;
+      v8 = *(a1 + 8 * ((v4 + v2) / 2));
+      v9 = *(a1 + 8 * v4);
+      if (v8 < v9)
+      {
+        *(a1 + 8 * v4) = v8;
+        *(a1 + 8 * v7) = v9;
+        v8 = v9;
+        v9 = *(a1 + 8 * v4);
+      }
+
+      v10 = (a1 + 8 * v2);
+      if (*v10 >= v9)
+      {
+        v9 = *v10;
+      }
+
+      else
+      {
+        *(a1 + 8 * v4) = *v10;
+        *v10 = v9;
+        v8 = *(a1 + 8 * v7);
+      }
+
+      if (v9 < v8)
+      {
+        *(a1 + 8 * v7) = v9;
+        *v10 = v8;
+        v8 = *(a1 + 8 * v7);
+      }
+
+      *(a1 + 8 * v7) = *(v10 - 1);
+      *(v10 - 1) = v8;
+      v11 = v2 - 1;
+      v12 = v4;
+      LODWORD(v13) = v2 - 1;
+      while (1)
+      {
+        v14 = 0;
+        v15 = v12;
+        v16 = (a1 + 8 * v12);
+        do
         {
-          v11 = 0;
+          v18 = v16[1];
+          ++v16;
+          v17 = v18;
+          ++v14;
+        }
+
+        while (v18 < v8);
+        v13 = v13;
+        do
+        {
+          v19 = a1 + 8 * v13--;
+          v20 = *(v19 - 8);
+        }
+
+        while (v8 < v20);
+        if (v15 + v14 >= v13)
+        {
+          break;
+        }
+
+        *v16 = v20;
+        *(a1 + 8 * v13) = v17;
+        v8 = *(a1 + 8 * v11);
+        v12 = v14 + v15;
+      }
+
+      *v16 = v8;
+      *(a1 + 8 * v11) = v17;
+      v21 = v34;
+      v22 = HIDWORD(v34) - 1;
+      if (v15 - v4 + v14 >= v2 - v15 - v14)
+      {
+        if (v34 >= v22)
+        {
+          physx::shdfnd::internal::Stack<physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<unsigned char,384u>>>::grow(v33);
+          v21 = v34;
+          v6 = v35;
+        }
+
+        LODWORD(v34) = v21 + 1;
+        *(v6 + v21) = v14 + v15 + 1;
+        v24 = v34;
+        LODWORD(v34) = v34 + 1;
+        *(v6 + v24) = v2;
+        v2 = v15 + v14 - 1;
+      }
+
+      else
+      {
+        if (v34 >= v22)
+        {
+          physx::shdfnd::internal::Stack<physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<unsigned char,384u>>>::grow(v33);
+          v21 = v34;
+          v6 = v35;
+        }
+
+        LODWORD(v34) = v21 + 1;
+        *(v6 + v21) = v4;
+        v23 = v34;
+        LODWORD(v34) = v34 + 1;
+        *(v6 + v23) = v15 - 1 + v14;
+        v4 = v15 + v14 + 1;
+      }
+    }
+
+    v25 = v4;
+    v26 = v4 + 1;
+    do
+    {
+      v27 = v25++;
+      v28 = v26;
+      v29 = v27;
+      v30 = v27;
+      do
+      {
+        if (*(v5 + 8 * v29) < *(a1 + 8 * v30))
+        {
+          v30 = v28;
+        }
+
+        ++v29;
+        ++v28;
+      }
+
+      while (v29 < v2);
+      if (v30 != v27)
+      {
+        v31 = *(a1 + 8 * v30);
+        *(a1 + 8 * v30) = *(a1 + 8 * v27);
+        *(a1 + 8 * v27) = v31;
+      }
+
+      ++v26;
+    }
+
+    while (v25 != v2);
+LABEL_34:
+    v32 = v34;
+    if (!v34)
+    {
+      break;
+    }
+
+    LODWORD(v34) = v34 - 1;
+    v2 = *(v6 + (v32 - 1));
+    LODWORD(v34) = v32 - 2;
+    v4 = *(v6 + (v32 - 2));
+  }
+
+  if (v36)
+  {
+    if (v6)
+    {
+      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
+      if (v38)
+      {
+        physx::shdfnd::TempAllocator::deallocate(&v37, v37);
+      }
+    }
+  }
+}
+
+uint64_t physx::shdfnd::Array<void *,physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<unsigned char,384u>>>::growAndPushBack(uint64_t result, void *a2)
+{
+  v3 = result;
+  v4 = *(result + 12);
+  if ((v4 & 0x7FFFFFFF) != 0)
+  {
+    v5 = 2 * v4;
+  }
+
+  else
+  {
+    v5 = 1;
+  }
+
+  if (v5)
+  {
+    result = physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<unsigned char,384u>>::allocate(result, 8 * v5, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsArray.h", 553);
+    v6 = result;
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  v7 = *(v3 + 8);
+  v8 = (v6 + 8 * v7);
+  if (v7)
+  {
+    v9 = *v3;
+    v10 = v6;
+    do
+    {
+      v11 = *v9++;
+      *v10++ = v11;
+    }
+
+    while (v10 < v8);
+  }
+
+  *v8 = *a2;
+  if ((*(v3 + 12) & 0x80000000) == 0 && *v3)
+  {
+    result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
+    LODWORD(v7) = *(v3 + 8);
+  }
+
+  *v3 = v6;
+  *(v3 + 8) = v7 + 1;
+  *(v3 + 12) = v5;
+  return result;
+}
+
+void *physx::shdfnd::internal::Stack<physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<unsigned char,384u>>>::grow(uint64_t a1)
+{
+  v2 = 2 * *(a1 + 8);
+  *(a1 + 8) = v2;
+  v3 = physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<unsigned char,384u>>::allocate(a1, 4 * v2, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsSortInternals.h", 155);
+  result = memcpy(v3, *(a1 + 16), (4 * *(a1 + 4)));
+  if (*(a1 + 24) == 1 && *(a1 + 16))
+  {
+    result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
+  }
+
+  *(a1 + 24) = 1;
+  *(a1 + 16) = v3;
+  return result;
+}
+
+void physx::shdfnd::sort<void *,physx::shdfnd::Less<void *>,physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<unsigned char,256u>>>(uint64_t a1, int a2)
+{
+  v40 = *MEMORY[0x1E69E9840];
+  v38 = 0;
+  v37 = v39;
+  v34 = 0x2000000000;
+  v35 = v39;
+  v36 = 0;
+  v2 = a2 - 1;
+  if (a2 - 1 < 1)
+  {
+    return;
+  }
+
+  v4 = 0;
+  v5 = a1 + 8;
+  v6 = v39;
+  memset(v39, 0, sizeof(v39));
+  while (1)
+  {
+    while (1)
+    {
+      if (v2 <= v4)
+      {
+        goto LABEL_34;
+      }
+
+      if ((v2 - v4) <= 4)
+      {
+        break;
+      }
+
+      v7 = (v4 + v2 + ((v4 + v2) >> 31)) >> 1;
+      v8 = *(a1 + 8 * ((v4 + v2) / 2));
+      v9 = *(a1 + 8 * v4);
+      if (v8 < v9)
+      {
+        *(a1 + 8 * v4) = v8;
+        *(a1 + 8 * v7) = v9;
+        v8 = v9;
+        v9 = *(a1 + 8 * v4);
+      }
+
+      v10 = (a1 + 8 * v2);
+      if (*v10 >= v9)
+      {
+        v9 = *v10;
+      }
+
+      else
+      {
+        *(a1 + 8 * v4) = *v10;
+        *v10 = v9;
+        v8 = *(a1 + 8 * v7);
+      }
+
+      if (v9 < v8)
+      {
+        *(a1 + 8 * v7) = v9;
+        *v10 = v8;
+        v8 = *(a1 + 8 * v7);
+      }
+
+      *(a1 + 8 * v7) = *(v10 - 1);
+      *(v10 - 1) = v8;
+      v11 = v2 - 1;
+      v12 = v4;
+      LODWORD(v13) = v2 - 1;
+      while (1)
+      {
+        v14 = 0;
+        v15 = v12;
+        v16 = (a1 + 8 * v12);
+        do
+        {
+          v18 = v16[1];
+          ++v16;
+          v17 = v18;
+          ++v14;
+        }
+
+        while (v18 < v8);
+        v13 = v13;
+        do
+        {
+          v19 = a1 + 8 * v13--;
+          v20 = *(v19 - 8);
+        }
+
+        while (v8 < v20);
+        if (v15 + v14 >= v13)
+        {
+          break;
+        }
+
+        *v16 = v20;
+        *(a1 + 8 * v13) = v17;
+        v8 = *(a1 + 8 * v11);
+        v12 = v14 + v15;
+      }
+
+      *v16 = v8;
+      *(a1 + 8 * v11) = v17;
+      v21 = v34;
+      v22 = HIDWORD(v34) - 1;
+      if (v15 - v4 + v14 >= v2 - v15 - v14)
+      {
+        if (v34 >= v22)
+        {
+          physx::shdfnd::internal::Stack<physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<unsigned char,256u>>>::grow(v33);
+          v21 = v34;
+          v6 = v35;
+        }
+
+        LODWORD(v34) = v21 + 1;
+        *(v6 + v21) = v14 + v15 + 1;
+        v24 = v34;
+        LODWORD(v34) = v34 + 1;
+        *(v6 + v24) = v2;
+        v2 = v15 + v14 - 1;
+      }
+
+      else
+      {
+        if (v34 >= v22)
+        {
+          physx::shdfnd::internal::Stack<physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<unsigned char,256u>>>::grow(v33);
+          v21 = v34;
+          v6 = v35;
+        }
+
+        LODWORD(v34) = v21 + 1;
+        *(v6 + v21) = v4;
+        v23 = v34;
+        LODWORD(v34) = v34 + 1;
+        *(v6 + v23) = v15 - 1 + v14;
+        v4 = v15 + v14 + 1;
+      }
+    }
+
+    v25 = v4;
+    v26 = v4 + 1;
+    do
+    {
+      v27 = v25++;
+      v28 = v26;
+      v29 = v27;
+      v30 = v27;
+      do
+      {
+        if (*(v5 + 8 * v29) < *(a1 + 8 * v30))
+        {
+          v30 = v28;
+        }
+
+        ++v29;
+        ++v28;
+      }
+
+      while (v29 < v2);
+      if (v30 != v27)
+      {
+        v31 = *(a1 + 8 * v30);
+        *(a1 + 8 * v30) = *(a1 + 8 * v27);
+        *(a1 + 8 * v27) = v31;
+      }
+
+      ++v26;
+    }
+
+    while (v25 != v2);
+LABEL_34:
+    v32 = v34;
+    if (!v34)
+    {
+      break;
+    }
+
+    LODWORD(v34) = v34 - 1;
+    v2 = *(v6 + (v32 - 1));
+    LODWORD(v34) = v32 - 2;
+    v4 = *(v6 + (v32 - 2));
+  }
+
+  if (v36)
+  {
+    if (v6)
+    {
+      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
+      if (v38)
+      {
+        physx::shdfnd::TempAllocator::deallocate(&v37, v37);
+      }
+    }
+  }
+}
+
+uint64_t physx::shdfnd::Array<void *,physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<unsigned char,256u>>>::growAndPushBack(uint64_t result, void *a2)
+{
+  v3 = result;
+  v4 = *(result + 12);
+  if ((v4 & 0x7FFFFFFF) != 0)
+  {
+    v5 = 2 * v4;
+  }
+
+  else
+  {
+    v5 = 1;
+  }
+
+  if (v5)
+  {
+    result = physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<unsigned char,256u>>::allocate(result, 8 * v5, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsArray.h", 553);
+    v6 = result;
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  v7 = *(v3 + 8);
+  v8 = (v6 + 8 * v7);
+  if (v7)
+  {
+    v9 = *v3;
+    v10 = v6;
+    do
+    {
+      v11 = *v9++;
+      *v10++ = v11;
+    }
+
+    while (v10 < v8);
+  }
+
+  *v8 = *a2;
+  if ((*(v3 + 12) & 0x80000000) == 0 && *v3)
+  {
+    result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
+    LODWORD(v7) = *(v3 + 8);
+  }
+
+  *v3 = v6;
+  *(v3 + 8) = v7 + 1;
+  *(v3 + 12) = v5;
+  return result;
+}
+
+void *physx::shdfnd::internal::Stack<physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<unsigned char,256u>>>::grow(uint64_t a1)
+{
+  v2 = 2 * *(a1 + 8);
+  *(a1 + 8) = v2;
+  v3 = physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<unsigned char,256u>>::allocate(a1, 4 * v2, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsSortInternals.h", 155);
+  result = memcpy(v3, *(a1 + 16), (4 * *(a1 + 4)));
+  if (*(a1 + 24) == 1 && *(a1 + 16))
+  {
+    result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
+  }
+
+  *(a1 + 24) = 1;
+  *(a1 + 16) = v3;
+  return result;
+}
+
+void physx::shdfnd::sort<void *,physx::shdfnd::Less<void *>,physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<unsigned char,128u>>>(uint64_t a1, int a2)
+{
+  v40 = *MEMORY[0x1E69E9840];
+  v38 = 0;
+  v37 = v39;
+  v34 = 0x2000000000;
+  v35 = v39;
+  v36 = 0;
+  v2 = a2 - 1;
+  if (a2 - 1 < 1)
+  {
+    return;
+  }
+
+  v4 = 0;
+  v5 = a1 + 8;
+  v6 = v39;
+  memset(v39, 0, sizeof(v39));
+  while (1)
+  {
+    while (1)
+    {
+      if (v2 <= v4)
+      {
+        goto LABEL_34;
+      }
+
+      if ((v2 - v4) <= 4)
+      {
+        break;
+      }
+
+      v7 = (v4 + v2 + ((v4 + v2) >> 31)) >> 1;
+      v8 = *(a1 + 8 * ((v4 + v2) / 2));
+      v9 = *(a1 + 8 * v4);
+      if (v8 < v9)
+      {
+        *(a1 + 8 * v4) = v8;
+        *(a1 + 8 * v7) = v9;
+        v8 = v9;
+        v9 = *(a1 + 8 * v4);
+      }
+
+      v10 = (a1 + 8 * v2);
+      if (*v10 >= v9)
+      {
+        v9 = *v10;
+      }
+
+      else
+      {
+        *(a1 + 8 * v4) = *v10;
+        *v10 = v9;
+        v8 = *(a1 + 8 * v7);
+      }
+
+      if (v9 < v8)
+      {
+        *(a1 + 8 * v7) = v9;
+        *v10 = v8;
+        v8 = *(a1 + 8 * v7);
+      }
+
+      *(a1 + 8 * v7) = *(v10 - 1);
+      *(v10 - 1) = v8;
+      v11 = v2 - 1;
+      v12 = v4;
+      LODWORD(v13) = v2 - 1;
+      while (1)
+      {
+        v14 = 0;
+        v15 = v12;
+        v16 = (a1 + 8 * v12);
+        do
+        {
+          v18 = v16[1];
+          ++v16;
+          v17 = v18;
+          ++v14;
+        }
+
+        while (v18 < v8);
+        v13 = v13;
+        do
+        {
+          v19 = a1 + 8 * v13--;
+          v20 = *(v19 - 8);
+        }
+
+        while (v8 < v20);
+        if (v15 + v14 >= v13)
+        {
+          break;
+        }
+
+        *v16 = v20;
+        *(a1 + 8 * v13) = v17;
+        v8 = *(a1 + 8 * v11);
+        v12 = v14 + v15;
+      }
+
+      *v16 = v8;
+      *(a1 + 8 * v11) = v17;
+      v21 = v34;
+      v22 = HIDWORD(v34) - 1;
+      if (v15 - v4 + v14 >= v2 - v15 - v14)
+      {
+        if (v34 >= v22)
+        {
+          physx::shdfnd::internal::Stack<physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<unsigned char,128u>>>::grow(v33);
+          v21 = v34;
+          v6 = v35;
+        }
+
+        LODWORD(v34) = v21 + 1;
+        *(v6 + v21) = v14 + v15 + 1;
+        v24 = v34;
+        LODWORD(v34) = v34 + 1;
+        *(v6 + v24) = v2;
+        v2 = v15 + v14 - 1;
+      }
+
+      else
+      {
+        if (v34 >= v22)
+        {
+          physx::shdfnd::internal::Stack<physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<unsigned char,128u>>>::grow(v33);
+          v21 = v34;
+          v6 = v35;
+        }
+
+        LODWORD(v34) = v21 + 1;
+        *(v6 + v21) = v4;
+        v23 = v34;
+        LODWORD(v34) = v34 + 1;
+        *(v6 + v23) = v15 - 1 + v14;
+        v4 = v15 + v14 + 1;
+      }
+    }
+
+    v25 = v4;
+    v26 = v4 + 1;
+    do
+    {
+      v27 = v25++;
+      v28 = v26;
+      v29 = v27;
+      v30 = v27;
+      do
+      {
+        if (*(v5 + 8 * v29) < *(a1 + 8 * v30))
+        {
+          v30 = v28;
+        }
+
+        ++v29;
+        ++v28;
+      }
+
+      while (v29 < v2);
+      if (v30 != v27)
+      {
+        v31 = *(a1 + 8 * v30);
+        *(a1 + 8 * v30) = *(a1 + 8 * v27);
+        *(a1 + 8 * v27) = v31;
+      }
+
+      ++v26;
+    }
+
+    while (v25 != v2);
+LABEL_34:
+    v32 = v34;
+    if (!v34)
+    {
+      break;
+    }
+
+    LODWORD(v34) = v34 - 1;
+    v2 = *(v6 + (v32 - 1));
+    LODWORD(v34) = v32 - 2;
+    v4 = *(v6 + (v32 - 2));
+  }
+
+  if (v36)
+  {
+    if (v6)
+    {
+      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
+      if (v38)
+      {
+        physx::shdfnd::TempAllocator::deallocate(&v37, v37);
+      }
+    }
+  }
+}
+
+uint64_t physx::shdfnd::Array<void *,physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<unsigned char,128u>>>::growAndPushBack(uint64_t result, void *a2)
+{
+  v3 = result;
+  v4 = *(result + 12);
+  if ((v4 & 0x7FFFFFFF) != 0)
+  {
+    v5 = 2 * v4;
+  }
+
+  else
+  {
+    v5 = 1;
+  }
+
+  if (v5)
+  {
+    result = physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<unsigned char,128u>>::allocate(result, 8 * v5, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsArray.h", 553);
+    v6 = result;
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  v7 = *(v3 + 8);
+  v8 = (v6 + 8 * v7);
+  if (v7)
+  {
+    v9 = *v3;
+    v10 = v6;
+    do
+    {
+      v11 = *v9++;
+      *v10++ = v11;
+    }
+
+    while (v10 < v8);
+  }
+
+  *v8 = *a2;
+  if ((*(v3 + 12) & 0x80000000) == 0 && *v3)
+  {
+    result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
+    LODWORD(v7) = *(v3 + 8);
+  }
+
+  *v3 = v6;
+  *(v3 + 8) = v7 + 1;
+  *(v3 + 12) = v5;
+  return result;
+}
+
+void *physx::shdfnd::internal::Stack<physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<unsigned char,128u>>>::grow(uint64_t a1)
+{
+  v2 = 2 * *(a1 + 8);
+  *(a1 + 8) = v2;
+  v3 = physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<unsigned char,128u>>::allocate(a1, 4 * v2, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsSortInternals.h", 155);
+  result = memcpy(v3, *(a1 + 16), (4 * *(a1 + 4)));
+  if (*(a1 + 24) == 1 && *(a1 + 16))
+  {
+    result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
+  }
+
+  *(a1 + 24) = 1;
+  *(a1 + 16) = v3;
+  return result;
+}
+
+void physx::shdfnd::sort<void *,physx::shdfnd::Less<void *>,physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<void *,32u>>>(uint64_t a1, int a2)
+{
+  v40 = *MEMORY[0x1E69E9840];
+  v38 = 0;
+  v37 = v39;
+  v34 = 0x2000000000;
+  v35 = v39;
+  v36 = 0;
+  v2 = a2 - 1;
+  if (a2 - 1 < 1)
+  {
+    return;
+  }
+
+  v4 = 0;
+  v5 = a1 + 8;
+  v6 = v39;
+  memset(v39, 0, sizeof(v39));
+  while (1)
+  {
+    while (1)
+    {
+      if (v2 <= v4)
+      {
+        goto LABEL_34;
+      }
+
+      if ((v2 - v4) <= 4)
+      {
+        break;
+      }
+
+      v7 = (v4 + v2 + ((v4 + v2) >> 31)) >> 1;
+      v8 = *(a1 + 8 * ((v4 + v2) / 2));
+      v9 = *(a1 + 8 * v4);
+      if (v8 < v9)
+      {
+        *(a1 + 8 * v4) = v8;
+        *(a1 + 8 * v7) = v9;
+        v8 = v9;
+        v9 = *(a1 + 8 * v4);
+      }
+
+      v10 = (a1 + 8 * v2);
+      if (*v10 >= v9)
+      {
+        v9 = *v10;
+      }
+
+      else
+      {
+        *(a1 + 8 * v4) = *v10;
+        *v10 = v9;
+        v8 = *(a1 + 8 * v7);
+      }
+
+      if (v9 < v8)
+      {
+        *(a1 + 8 * v7) = v9;
+        *v10 = v8;
+        v8 = *(a1 + 8 * v7);
+      }
+
+      *(a1 + 8 * v7) = *(v10 - 1);
+      *(v10 - 1) = v8;
+      v11 = v2 - 1;
+      v12 = v4;
+      LODWORD(v13) = v2 - 1;
+      while (1)
+      {
+        v14 = 0;
+        v15 = v12;
+        v16 = (a1 + 8 * v12);
+        do
+        {
+          v18 = v16[1];
+          ++v16;
+          v17 = v18;
+          ++v14;
+        }
+
+        while (v18 < v8);
+        v13 = v13;
+        do
+        {
+          v19 = a1 + 8 * v13--;
+          v20 = *(v19 - 8);
+        }
+
+        while (v8 < v20);
+        if (v15 + v14 >= v13)
+        {
+          break;
+        }
+
+        *v16 = v20;
+        *(a1 + 8 * v13) = v17;
+        v8 = *(a1 + 8 * v11);
+        v12 = v14 + v15;
+      }
+
+      *v16 = v8;
+      *(a1 + 8 * v11) = v17;
+      v21 = v34;
+      v22 = HIDWORD(v34) - 1;
+      if (v15 - v4 + v14 >= v2 - v15 - v14)
+      {
+        if (v34 >= v22)
+        {
+          physx::shdfnd::internal::Stack<physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<void *,32u>>>::grow(v33);
+          v21 = v34;
+          v6 = v35;
+        }
+
+        LODWORD(v34) = v21 + 1;
+        *(v6 + v21) = v14 + v15 + 1;
+        v24 = v34;
+        LODWORD(v34) = v34 + 1;
+        *(v6 + v24) = v2;
+        v2 = v15 + v14 - 1;
+      }
+
+      else
+      {
+        if (v34 >= v22)
+        {
+          physx::shdfnd::internal::Stack<physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<void *,32u>>>::grow(v33);
+          v21 = v34;
+          v6 = v35;
+        }
+
+        LODWORD(v34) = v21 + 1;
+        *(v6 + v21) = v4;
+        v23 = v34;
+        LODWORD(v34) = v34 + 1;
+        *(v6 + v23) = v15 - 1 + v14;
+        v4 = v15 + v14 + 1;
+      }
+    }
+
+    v25 = v4;
+    v26 = v4 + 1;
+    do
+    {
+      v27 = v25++;
+      v28 = v26;
+      v29 = v27;
+      v30 = v27;
+      do
+      {
+        if (*(v5 + 8 * v29) < *(a1 + 8 * v30))
+        {
+          v30 = v28;
+        }
+
+        ++v29;
+        ++v28;
+      }
+
+      while (v29 < v2);
+      if (v30 != v27)
+      {
+        v31 = *(a1 + 8 * v30);
+        *(a1 + 8 * v30) = *(a1 + 8 * v27);
+        *(a1 + 8 * v27) = v31;
+      }
+
+      ++v26;
+    }
+
+    while (v25 != v2);
+LABEL_34:
+    v32 = v34;
+    if (!v34)
+    {
+      break;
+    }
+
+    LODWORD(v34) = v34 - 1;
+    v2 = *(v6 + (v32 - 1));
+    LODWORD(v34) = v32 - 2;
+    v4 = *(v6 + (v32 - 2));
+  }
+
+  if (v36)
+  {
+    if (v6)
+    {
+      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
+      if (v38)
+      {
+        physx::shdfnd::TempAllocator::deallocate(&v37, v37);
+      }
+    }
+  }
+}
+
+uint64_t physx::shdfnd::Array<void *,physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<void *,32u>>>::growAndPushBack(uint64_t result, void *a2)
+{
+  v3 = result;
+  v4 = *(result + 12);
+  if ((v4 & 0x7FFFFFFF) != 0)
+  {
+    v5 = 2 * v4;
+  }
+
+  else
+  {
+    v5 = 1;
+  }
+
+  if (v5)
+  {
+    result = physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<void *,32u>>::allocate(result, 8 * v5, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsArray.h", 553);
+    v6 = result;
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  v7 = *(v3 + 8);
+  v8 = (v6 + 8 * v7);
+  if (v7)
+  {
+    v9 = *v3;
+    v10 = v6;
+    do
+    {
+      v11 = *v9++;
+      *v10++ = v11;
+    }
+
+    while (v10 < v8);
+  }
+
+  *v8 = *a2;
+  if ((*(v3 + 12) & 0x80000000) == 0 && *v3)
+  {
+    result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
+    LODWORD(v7) = *(v3 + 8);
+  }
+
+  *v3 = v6;
+  *(v3 + 8) = v7 + 1;
+  *(v3 + 12) = v5;
+  return result;
+}
+
+void *physx::shdfnd::internal::Stack<physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<void *,32u>>>::grow(uint64_t a1)
+{
+  v2 = 2 * *(a1 + 8);
+  *(a1 + 8) = v2;
+  v3 = physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<void *,32u>>::allocate(a1, 4 * v2, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsSortInternals.h", 155);
+  result = memcpy(v3, *(a1 + 16), (4 * *(a1 + 4)));
+  if (*(a1 + 24) == 1 && *(a1 + 16))
+  {
+    result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
+  }
+
+  *(a1 + 24) = 1;
+  *(a1 + 16) = v3;
+  return result;
+}
+
+void physx::shdfnd::sort<void *,physx::shdfnd::Less<void *>,physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<void *,16u>>>(uint64_t a1, int a2)
+{
+  v40 = *MEMORY[0x1E69E9840];
+  v38 = 0;
+  v37 = v39;
+  v34 = 0x2000000000;
+  v35 = v39;
+  v36 = 0;
+  v2 = a2 - 1;
+  if (a2 - 1 < 1)
+  {
+    return;
+  }
+
+  v4 = 0;
+  v5 = a1 + 8;
+  v6 = v39;
+  memset(v39, 0, sizeof(v39));
+  while (1)
+  {
+    while (1)
+    {
+      if (v2 <= v4)
+      {
+        goto LABEL_34;
+      }
+
+      if ((v2 - v4) <= 4)
+      {
+        break;
+      }
+
+      v7 = (v4 + v2 + ((v4 + v2) >> 31)) >> 1;
+      v8 = *(a1 + 8 * ((v4 + v2) / 2));
+      v9 = *(a1 + 8 * v4);
+      if (v8 < v9)
+      {
+        *(a1 + 8 * v4) = v8;
+        *(a1 + 8 * v7) = v9;
+        v8 = v9;
+        v9 = *(a1 + 8 * v4);
+      }
+
+      v10 = (a1 + 8 * v2);
+      if (*v10 >= v9)
+      {
+        v9 = *v10;
+      }
+
+      else
+      {
+        *(a1 + 8 * v4) = *v10;
+        *v10 = v9;
+        v8 = *(a1 + 8 * v7);
+      }
+
+      if (v9 < v8)
+      {
+        *(a1 + 8 * v7) = v9;
+        *v10 = v8;
+        v8 = *(a1 + 8 * v7);
+      }
+
+      *(a1 + 8 * v7) = *(v10 - 1);
+      *(v10 - 1) = v8;
+      v11 = v2 - 1;
+      v12 = v4;
+      LODWORD(v13) = v2 - 1;
+      while (1)
+      {
+        v14 = 0;
+        v15 = v12;
+        v16 = (a1 + 8 * v12);
+        do
+        {
+          v18 = v16[1];
+          ++v16;
+          v17 = v18;
+          ++v14;
+        }
+
+        while (v18 < v8);
+        v13 = v13;
+        do
+        {
+          v19 = a1 + 8 * v13--;
+          v20 = *(v19 - 8);
+        }
+
+        while (v8 < v20);
+        if (v15 + v14 >= v13)
+        {
+          break;
+        }
+
+        *v16 = v20;
+        *(a1 + 8 * v13) = v17;
+        v8 = *(a1 + 8 * v11);
+        v12 = v14 + v15;
+      }
+
+      *v16 = v8;
+      *(a1 + 8 * v11) = v17;
+      v21 = v34;
+      v22 = HIDWORD(v34) - 1;
+      if (v15 - v4 + v14 >= v2 - v15 - v14)
+      {
+        if (v34 >= v22)
+        {
+          physx::shdfnd::internal::Stack<physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<void *,16u>>>::grow(v33);
+          v21 = v34;
+          v6 = v35;
+        }
+
+        LODWORD(v34) = v21 + 1;
+        *(v6 + v21) = v14 + v15 + 1;
+        v24 = v34;
+        LODWORD(v34) = v34 + 1;
+        *(v6 + v24) = v2;
+        v2 = v15 + v14 - 1;
+      }
+
+      else
+      {
+        if (v34 >= v22)
+        {
+          physx::shdfnd::internal::Stack<physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<void *,16u>>>::grow(v33);
+          v21 = v34;
+          v6 = v35;
+        }
+
+        LODWORD(v34) = v21 + 1;
+        *(v6 + v21) = v4;
+        v23 = v34;
+        LODWORD(v34) = v34 + 1;
+        *(v6 + v23) = v15 - 1 + v14;
+        v4 = v15 + v14 + 1;
+      }
+    }
+
+    v25 = v4;
+    v26 = v4 + 1;
+    do
+    {
+      v27 = v25++;
+      v28 = v26;
+      v29 = v27;
+      v30 = v27;
+      do
+      {
+        if (*(v5 + 8 * v29) < *(a1 + 8 * v30))
+        {
+          v30 = v28;
+        }
+
+        ++v29;
+        ++v28;
+      }
+
+      while (v29 < v2);
+      if (v30 != v27)
+      {
+        v31 = *(a1 + 8 * v30);
+        *(a1 + 8 * v30) = *(a1 + 8 * v27);
+        *(a1 + 8 * v27) = v31;
+      }
+
+      ++v26;
+    }
+
+    while (v25 != v2);
+LABEL_34:
+    v32 = v34;
+    if (!v34)
+    {
+      break;
+    }
+
+    LODWORD(v34) = v34 - 1;
+    v2 = *(v6 + (v32 - 1));
+    LODWORD(v34) = v32 - 2;
+    v4 = *(v6 + (v32 - 2));
+  }
+
+  if (v36)
+  {
+    if (v6)
+    {
+      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
+      if (v38)
+      {
+        physx::shdfnd::TempAllocator::deallocate(&v37, v37);
+      }
+    }
+  }
+}
+
+uint64_t physx::shdfnd::Array<void *,physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<void *,16u>>>::growAndPushBack(uint64_t result, void *a2)
+{
+  v3 = result;
+  v4 = *(result + 12);
+  if ((v4 & 0x7FFFFFFF) != 0)
+  {
+    v5 = 2 * v4;
+  }
+
+  else
+  {
+    v5 = 1;
+  }
+
+  if (v5)
+  {
+    result = physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<void *,16u>>::allocate(result, 8 * v5, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsArray.h", 553);
+    v6 = result;
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  v7 = *(v3 + 8);
+  v8 = (v6 + 8 * v7);
+  if (v7)
+  {
+    v9 = *v3;
+    v10 = v6;
+    do
+    {
+      v11 = *v9++;
+      *v10++ = v11;
+    }
+
+    while (v10 < v8);
+  }
+
+  *v8 = *a2;
+  if ((*(v3 + 12) & 0x80000000) == 0 && *v3)
+  {
+    result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
+    LODWORD(v7) = *(v3 + 8);
+  }
+
+  *v3 = v6;
+  *(v3 + 8) = v7 + 1;
+  *(v3 + 12) = v5;
+  return result;
+}
+
+void *physx::shdfnd::internal::Stack<physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<void *,16u>>>::grow(uint64_t a1)
+{
+  v2 = 2 * *(a1 + 8);
+  *(a1 + 8) = v2;
+  v3 = physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<void *,16u>>::allocate(a1, 4 * v2, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsSortInternals.h", 155);
+  result = memcpy(v3, *(a1 + 16), (4 * *(a1 + 4)));
+  if (*(a1 + 24) == 1 && *(a1 + 16))
+  {
+    result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
+  }
+
+  *(a1 + 24) = 1;
+  *(a1 + 16) = v3;
+  return result;
+}
+
+void physx::shdfnd::sort<void *,physx::shdfnd::Less<void *>,physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<void *,8u>>>(uint64_t a1, int a2)
+{
+  v40 = *MEMORY[0x1E69E9840];
+  v38 = 0;
+  v37 = v39;
+  v34 = 0x2000000000;
+  v35 = v39;
+  v36 = 0;
+  v2 = a2 - 1;
+  if (a2 - 1 < 1)
+  {
+    return;
+  }
+
+  v4 = 0;
+  v5 = a1 + 8;
+  v6 = v39;
+  memset(v39, 0, sizeof(v39));
+  while (1)
+  {
+    while (1)
+    {
+      if (v2 <= v4)
+      {
+        goto LABEL_34;
+      }
+
+      if ((v2 - v4) <= 4)
+      {
+        break;
+      }
+
+      v7 = (v4 + v2 + ((v4 + v2) >> 31)) >> 1;
+      v8 = *(a1 + 8 * ((v4 + v2) / 2));
+      v9 = *(a1 + 8 * v4);
+      if (v8 < v9)
+      {
+        *(a1 + 8 * v4) = v8;
+        *(a1 + 8 * v7) = v9;
+        v8 = v9;
+        v9 = *(a1 + 8 * v4);
+      }
+
+      v10 = (a1 + 8 * v2);
+      if (*v10 >= v9)
+      {
+        v9 = *v10;
+      }
+
+      else
+      {
+        *(a1 + 8 * v4) = *v10;
+        *v10 = v9;
+        v8 = *(a1 + 8 * v7);
+      }
+
+      if (v9 < v8)
+      {
+        *(a1 + 8 * v7) = v9;
+        *v10 = v8;
+        v8 = *(a1 + 8 * v7);
+      }
+
+      *(a1 + 8 * v7) = *(v10 - 1);
+      *(v10 - 1) = v8;
+      v11 = v2 - 1;
+      v12 = v4;
+      LODWORD(v13) = v2 - 1;
+      while (1)
+      {
+        v14 = 0;
+        v15 = v12;
+        v16 = (a1 + 8 * v12);
+        do
+        {
+          v18 = v16[1];
+          ++v16;
+          v17 = v18;
+          ++v14;
+        }
+
+        while (v18 < v8);
+        v13 = v13;
+        do
+        {
+          v19 = a1 + 8 * v13--;
+          v20 = *(v19 - 8);
+        }
+
+        while (v8 < v20);
+        if (v15 + v14 >= v13)
+        {
+          break;
+        }
+
+        *v16 = v20;
+        *(a1 + 8 * v13) = v17;
+        v8 = *(a1 + 8 * v11);
+        v12 = v14 + v15;
+      }
+
+      *v16 = v8;
+      *(a1 + 8 * v11) = v17;
+      v21 = v34;
+      v22 = HIDWORD(v34) - 1;
+      if (v15 - v4 + v14 >= v2 - v15 - v14)
+      {
+        if (v34 >= v22)
+        {
+          physx::shdfnd::internal::Stack<physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<void *,8u>>>::grow(v33);
+          v21 = v34;
+          v6 = v35;
+        }
+
+        LODWORD(v34) = v21 + 1;
+        *(v6 + v21) = v14 + v15 + 1;
+        v24 = v34;
+        LODWORD(v34) = v34 + 1;
+        *(v6 + v24) = v2;
+        v2 = v15 + v14 - 1;
+      }
+
+      else
+      {
+        if (v34 >= v22)
+        {
+          physx::shdfnd::internal::Stack<physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<void *,8u>>>::grow(v33);
+          v21 = v34;
+          v6 = v35;
+        }
+
+        LODWORD(v34) = v21 + 1;
+        *(v6 + v21) = v4;
+        v23 = v34;
+        LODWORD(v34) = v34 + 1;
+        *(v6 + v23) = v15 - 1 + v14;
+        v4 = v15 + v14 + 1;
+      }
+    }
+
+    v25 = v4;
+    v26 = v4 + 1;
+    do
+    {
+      v27 = v25++;
+      v28 = v26;
+      v29 = v27;
+      v30 = v27;
+      do
+      {
+        if (*(v5 + 8 * v29) < *(a1 + 8 * v30))
+        {
+          v30 = v28;
+        }
+
+        ++v29;
+        ++v28;
+      }
+
+      while (v29 < v2);
+      if (v30 != v27)
+      {
+        v31 = *(a1 + 8 * v30);
+        *(a1 + 8 * v30) = *(a1 + 8 * v27);
+        *(a1 + 8 * v27) = v31;
+      }
+
+      ++v26;
+    }
+
+    while (v25 != v2);
+LABEL_34:
+    v32 = v34;
+    if (!v34)
+    {
+      break;
+    }
+
+    LODWORD(v34) = v34 - 1;
+    v2 = *(v6 + (v32 - 1));
+    LODWORD(v34) = v32 - 2;
+    v4 = *(v6 + (v32 - 2));
+  }
+
+  if (v36)
+  {
+    if (v6)
+    {
+      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
+      if (v38)
+      {
+        physx::shdfnd::TempAllocator::deallocate(&v37, v37);
+      }
+    }
+  }
+}
+
+uint64_t physx::shdfnd::Array<void *,physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<void *,8u>>>::growAndPushBack(uint64_t result, void *a2)
+{
+  v3 = result;
+  v4 = *(result + 12);
+  if ((v4 & 0x7FFFFFFF) != 0)
+  {
+    v5 = 2 * v4;
+  }
+
+  else
+  {
+    v5 = 1;
+  }
+
+  if (v5)
+  {
+    result = physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<void *,8u>>::allocate(result, 8 * v5, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsArray.h", 553);
+    v6 = result;
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  v7 = *(v3 + 8);
+  v8 = (v6 + 8 * v7);
+  if (v7)
+  {
+    v9 = *v3;
+    v10 = v6;
+    do
+    {
+      v11 = *v9++;
+      *v10++ = v11;
+    }
+
+    while (v10 < v8);
+  }
+
+  *v8 = *a2;
+  if ((*(v3 + 12) & 0x80000000) == 0 && *v3)
+  {
+    result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
+    LODWORD(v7) = *(v3 + 8);
+  }
+
+  *v3 = v6;
+  *(v3 + 8) = v7 + 1;
+  *(v3 + 12) = v5;
+  return result;
+}
+
+void *physx::shdfnd::internal::Stack<physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<void *,8u>>>::grow(uint64_t a1)
+{
+  v2 = 2 * *(a1 + 8);
+  *(a1 + 8) = v2;
+  v3 = physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<void *,8u>>::allocate(a1, 4 * v2, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsSortInternals.h", 155);
+  result = memcpy(v3, *(a1 + 16), (4 * *(a1 + 4)));
+  if (*(a1 + 24) == 1 && *(a1 + 16))
+  {
+    result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
+  }
+
+  *(a1 + 24) = 1;
+  *(a1 + 16) = v3;
+  return result;
+}
+
+uint64_t SqRefFinder::find(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v3 = *(a2 + 8);
+  if (v3 == 5)
+  {
+    v4 = (a2 + 40);
+  }
+
+  else
+  {
+    v4 = 0;
+  }
+
+  if (v3 == 6)
+  {
+    v4 = (a2 + 40);
+  }
+
+  if (v3 == 13)
+  {
+    v5 = (a2 + 40);
+  }
+
+  else
+  {
+    v5 = v4;
+  }
+
+  v6 = *(v5 + 4);
+  v7 = v5;
+  if (v6 != 1)
+  {
+    if (!*(v5 + 4))
+    {
+      v9 = 0xFFFFFFFFLL;
+      goto LABEL_18;
+    }
+
+    v7 = *v5;
+  }
+
+  v8 = 0;
+  v9 = 0xFFFFFFFFLL;
+  while (v7[v8] != a3)
+  {
+    if (v6 == ++v8)
+    {
+      goto LABEL_18;
+    }
+  }
+
+  v9 = v8;
+LABEL_18:
+  v10 = v5 + 2;
+  if (*(v5 + 12) != 1)
+  {
+    v10 = *v10;
+  }
+
+  return v10[v9] >> 1;
+}
+
+uint64_t physx::shdfnd::Array<unsigned short,physx::shdfnd::ReflectionAllocator<unsigned short>>::resize(uint64_t result, unsigned int a2, __int16 *a3)
+{
+  v5 = result;
+  if ((*(result + 12) & 0x7FFFFFFFu) < a2)
+  {
+    result = physx::shdfnd::Array<unsigned short,physx::shdfnd::ReflectionAllocator<unsigned short>>::recreate(result, a2);
+  }
+
+  v6 = *(v5 + 8);
+  if (v6 < a2)
+  {
+    v7 = 0;
+    v8 = *v5 + 2 * v6;
+    v9 = v8 + 2;
+    if (v8 + 2 <= *v5 + 2 * a2)
+    {
+      v9 = *v5 + 2 * a2;
+    }
+
+    v10 = (v9 + ~*v5 - 2 * v6) >> 1;
+    v11 = vdupq_n_s64(v10);
+    v12 = *a3;
+    v13 = (v10 & 0x7FFFFFFFFFFFFFF8) + 8;
+    v14 = (v8 + 8);
+    do
+    {
+      v15 = vdupq_n_s64(v7);
+      v16 = vmovn_s64(vcgeq_u64(v11, vorrq_s8(v15, xmmword_1E3049620)));
+      if (vuzp1_s8(vuzp1_s16(v16, *v11.i8), *v11.i8).u8[0])
+      {
+        *(v14 - 4) = v12;
+      }
+
+      if (vuzp1_s8(vuzp1_s16(v16, *&v11), *&v11).i8[1])
+      {
+        *(v14 - 3) = v12;
+      }
+
+      if (vuzp1_s8(vuzp1_s16(*&v11, vmovn_s64(vcgeq_u64(v11, vorrq_s8(v15, xmmword_1E3049640)))), *&v11).i8[2])
+      {
+        *(v14 - 2) = v12;
+        *(v14 - 1) = v12;
+      }
+
+      v17 = vmovn_s64(vcgeq_u64(v11, vorrq_s8(v15, xmmword_1E3049660)));
+      if (vuzp1_s8(*&v11, vuzp1_s16(v17, *&v11)).i32[1])
+      {
+        *v14 = v12;
+      }
+
+      if (vuzp1_s8(*&v11, vuzp1_s16(v17, *&v11)).i8[5])
+      {
+        v14[1] = v12;
+      }
+
+      if (vuzp1_s8(*&v11, vuzp1_s16(*&v11, vmovn_s64(vcgeq_u64(v11, vorrq_s8(v15, xmmword_1E305F210))))).i8[6])
+      {
+        v14[2] = v12;
+        v14[3] = v12;
+      }
+
+      v7 += 8;
+      v14 += 8;
+    }
+
+    while (v13 != v7);
+  }
+
+  *(v5 + 8) = a2;
+  return result;
+}
+
+uint64_t physx::shdfnd::Array<physx::Scb::Shape *,physx::shdfnd::ReflectionAllocator<physx::Scb::Shape *>>::resize(uint64_t result, uint64_t a2, uint64_t *a3)
+{
+  v4 = a2;
+  v5 = result;
+  if ((*(result + 12) & 0x7FFFFFFFu) < a2)
+  {
+    result = physx::shdfnd::Array<physx::Scb::Shape *,physx::shdfnd::ReflectionAllocator<physx::Scb::Shape *>>::recreate(result, a2);
+  }
+
+  v6 = *(v5 + 8);
+  if (v6 < v4)
+  {
+    v7 = 0;
+    v8 = (*v5 + 8 * v6 + 8);
+    v9 = *v5 + 8 * v4;
+    if (v8 > v9)
+    {
+      v9 = *v5 + 8 * v6 + 8;
+    }
+
+    v10 = *a3;
+    v11 = (v9 + ~*v5 - 8 * v6) >> 3;
+    v12 = vdupq_n_s64(v11);
+    v13 = (v11 + 2) & 0x3FFFFFFFFFFFFFFELL;
+    do
+    {
+      v14 = vmovn_s64(vcgeq_u64(v12, vorrq_s8(vdupq_n_s64(v7), xmmword_1E3049620)));
+      if (v14.i8[0])
+      {
+        *(v8 - 1) = v10;
+      }
+
+      if (v14.i8[4])
+      {
+        *v8 = v10;
+      }
+
+      v7 += 2;
+      v8 += 2;
+    }
+
+    while (v13 != v7);
+  }
+
+  *(v5 + 8) = v4;
+  return result;
+}
+
+uint64_t physx::shdfnd::Array<physx::Scb::Shape *,physx::shdfnd::ReflectionAllocator<physx::Scb::Shape *>>::recreate(uint64_t result, unsigned int a2)
+{
+  v3 = result;
+  if (a2)
+  {
+    result = physx::shdfnd::ReflectionAllocator<physx::Scb::Shape *>::allocate(result, 8 * a2, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsArray.h", 553);
+    v4 = result;
+  }
+
+  else
+  {
+    v4 = 0;
+  }
+
+  v5 = *(v3 + 8);
+  v6 = *v3;
+  if (v5)
+  {
+    v7 = v4 + 8 * v5;
+    v8 = v4;
+    do
+    {
+      v9 = *v6++;
+      *v8++ = v9;
+    }
+
+    while (v8 < v7);
+    v6 = *v3;
+  }
+
+  if ((*(v3 + 12) & 0x80000000) == 0 && v6)
+  {
+    result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
+  }
+
+  *v3 = v4;
+  *(v3 + 12) = a2;
+  return result;
+}
+
+uint64_t physx::shdfnd::ReflectionAllocator<physx::Scb::Shape *>::allocate(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  v7 = physx::shdfnd::Foundation::mInstance;
+  if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
+  {
+    v8 = "static const char *physx::shdfnd::ReflectionAllocator<physx::Scb::Shape *>::getName() [T = physx::Scb::Shape *]";
+  }
+
+  else
+  {
+    v8 = "<allocation names disabled>";
+  }
+
+  v9 = *(*(v7 + 24) + 16);
+
+  return v9(v7 + 24, a2, v8, a3, a4);
+}
+
+uint64_t physx::shdfnd::Array<physx::Scb::Actor *,physx::shdfnd::ReflectionAllocator<physx::Scb::Actor *>>::resize(uint64_t result, uint64_t a2, uint64_t *a3)
+{
+  v4 = a2;
+  v5 = result;
+  if ((*(result + 12) & 0x7FFFFFFFu) < a2)
+  {
+    result = physx::shdfnd::Array<physx::Scb::Actor *,physx::shdfnd::ReflectionAllocator<physx::Scb::Actor *>>::recreate(result, a2);
+  }
+
+  v6 = *(v5 + 8);
+  if (v6 < v4)
+  {
+    v7 = 0;
+    v8 = (*v5 + 8 * v6 + 8);
+    v9 = *v5 + 8 * v4;
+    if (v8 > v9)
+    {
+      v9 = *v5 + 8 * v6 + 8;
+    }
+
+    v10 = *a3;
+    v11 = (v9 + ~*v5 - 8 * v6) >> 3;
+    v12 = vdupq_n_s64(v11);
+    v13 = (v11 + 2) & 0x3FFFFFFFFFFFFFFELL;
+    do
+    {
+      v14 = vmovn_s64(vcgeq_u64(v12, vorrq_s8(vdupq_n_s64(v7), xmmword_1E3049620)));
+      if (v14.i8[0])
+      {
+        *(v8 - 1) = v10;
+      }
+
+      if (v14.i8[4])
+      {
+        *v8 = v10;
+      }
+
+      v7 += 2;
+      v8 += 2;
+    }
+
+    while (v13 != v7);
+  }
+
+  *(v5 + 8) = v4;
+  return result;
+}
+
+uint64_t physx::shdfnd::Array<physx::Scb::Actor *,physx::shdfnd::ReflectionAllocator<physx::Scb::Actor *>>::recreate(uint64_t result, unsigned int a2)
+{
+  v3 = result;
+  if (a2)
+  {
+    result = physx::shdfnd::ReflectionAllocator<physx::Scb::Actor *>::allocate(result, 8 * a2, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsArray.h", 553);
+    v4 = result;
+  }
+
+  else
+  {
+    v4 = 0;
+  }
+
+  v5 = *(v3 + 8);
+  v6 = *v3;
+  if (v5)
+  {
+    v7 = v4 + 8 * v5;
+    v8 = v4;
+    do
+    {
+      v9 = *v6++;
+      *v8++ = v9;
+    }
+
+    while (v8 < v7);
+    v6 = *v3;
+  }
+
+  if ((*(v3 + 12) & 0x80000000) == 0 && v6)
+  {
+    result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
+  }
+
+  *v3 = v4;
+  *(v3 + 12) = a2;
+  return result;
+}
+
+uint64_t physx::shdfnd::ReflectionAllocator<physx::Scb::Actor *>::allocate(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  v7 = physx::shdfnd::Foundation::mInstance;
+  if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
+  {
+    v8 = "static const char *physx::shdfnd::ReflectionAllocator<physx::Scb::Actor *>::getName() [T = physx::Scb::Actor *]";
+  }
+
+  else
+  {
+    v8 = "<allocation names disabled>";
+  }
+
+  v9 = *(*(v7 + 24) + 16);
+
+  return v9(v7 + 24, a2, v8, a3, a4);
+}
+
+uint64_t physx::shdfnd::Array<physx::Scb::Shape *,physx::shdfnd::InlineAllocator<32u,physx::shdfnd::ReflectionAllocator<physx::Scb::Shape *>>>::growAndPushBack(uint64_t result, void *a2)
+{
+  v3 = result;
+  v4 = *(result + 52);
+  if ((v4 & 0x7FFFFFFF) != 0)
+  {
+    v5 = 2 * v4;
+  }
+
+  else
+  {
+    v5 = 1;
+  }
+
+  if (v5)
+  {
+    v6 = (8 * v5);
+    if (v6 > 0x20 || (*(result + 32) & 1) != 0)
+    {
+      result = physx::shdfnd::ReflectionAllocator<physx::Scb::Shape *>::allocate(result, v6, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsArray.h", 553);
+      v7 = result;
+    }
+
+    else
+    {
+      *(result + 32) = 1;
+      v7 = result;
+    }
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  v8 = *(v3 + 48);
+  v9 = (v7 + 8 * v8);
+  if (v8)
+  {
+    v10 = *(v3 + 40);
+    v11 = v7;
+    do
+    {
+      v12 = *v10++;
+      *v11++ = v12;
+    }
+
+    while (v11 < v9);
+  }
+
+  *v9 = *a2;
+  if ((*(v3 + 52) & 0x80000000) == 0)
+  {
+    v13 = *(v3 + 40);
+    if (v13 == v3)
+    {
+      *(v3 + 32) = 0;
+    }
+
+    else if (v13)
+    {
+      result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
+      LODWORD(v8) = *(v3 + 48);
+    }
+  }
+
+  *(v3 + 40) = v7;
+  *(v3 + 48) = v8 + 1;
+  *(v3 + 52) = v5;
+  return result;
+}
+
+uint64_t physx::shdfnd::Array<physx::Scb::RemovedShape,physx::shdfnd::InlineAllocator<64u,physx::shdfnd::ReflectionAllocator<physx::Scb::RemovedShape>>>::growAndPushBack(uint64_t result, _OWORD *a2)
+{
+  v3 = result;
+  v4 = *(result + 84);
+  if ((v4 & 0x7FFFFFFF) != 0)
+  {
+    v5 = 2 * v4;
+  }
+
+  else
+  {
+    v5 = 1;
+  }
+
+  if (v5)
+  {
+    v6 = (16 * v5);
+    if (v6 > 0x40 || (*(result + 64) & 1) != 0)
+    {
+      result = physx::shdfnd::ReflectionAllocator<physx::Scb::RemovedShape>::allocate(result, v6, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsArray.h", 553);
+      v7 = result;
+    }
+
+    else
+    {
+      *(result + 64) = 1;
+      v7 = result;
+    }
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  v8 = *(v3 + 80);
+  if (v8)
+  {
+    v9 = v7 + 16 * v8;
+    v10 = *(v3 + 72);
+    v11 = v7;
+    do
+    {
+      v12 = *v10++;
+      *v11++ = v12;
+    }
+
+    while (v11 < v9);
+    v13 = *(v3 + 80);
+  }
+
+  else
+  {
+    v13 = 0;
+  }
+
+  *(v7 + 16 * v13) = *a2;
+  if ((*(v3 + 84) & 0x80000000) == 0)
+  {
+    v14 = *(v3 + 72);
+    if (v14 == v3)
+    {
+      *(v3 + 64) = 0;
+    }
+
+    else if (v14)
+    {
+      result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
+    }
+  }
+
+  *(v3 + 72) = v7;
+  ++*(v3 + 80);
+  *(v3 + 84) = v5;
+  return result;
+}
+
+uint64_t physx::shdfnd::ReflectionAllocator<physx::Scb::RemovedShape>::allocate(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  v7 = physx::shdfnd::Foundation::mInstance;
+  if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
+  {
+    v8 = "static const char *physx::shdfnd::ReflectionAllocator<physx::Scb::RemovedShape>::getName() [T = physx::Scb::RemovedShape]";
+  }
+
+  else
+  {
+    v8 = "<allocation names disabled>";
+  }
+
+  v9 = *(*(v7 + 24) + 16);
+
+  return v9(v7 + 24, a2, v8, a3, a4);
+}
+
+float getTriangle(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+{
+  v21 = *MEMORY[0x1E69E9840];
+  getTriangle(a1, &v12, a3, a4, a6);
+  v8 = v15;
+  v9 = (((v12 * *(a5 + 8)) + (v13 * *(a5 + 20))) + (v14 * *(a5 + 32))) + *(a5 + 44);
+  *a2 = vadd_f32(vadd_f32(vadd_f32(vmul_n_f32(*a5, v12), vmul_n_f32(*(a5 + 12), v13)), vmul_n_f32(*(a5 + 24), v14)), *(a5 + 36));
+  *(a2 + 8) = v9;
+  v10 = (((v8 * *(a5 + 8)) + (v16 * *(a5 + 20))) + (v17 * *(a5 + 32))) + *(a5 + 44);
+  *(a2 + 12) = vadd_f32(vadd_f32(vadd_f32(vmul_n_f32(*a5, v8), vmul_n_f32(*(a5 + 12), v16)), vmul_n_f32(*(a5 + 24), v17)), *(a5 + 36));
+  *(a2 + 20) = v10;
+  result = (((v18 * *(a5 + 8)) + (v19 * *(a5 + 20))) + (v20 * *(a5 + 32))) + *(a5 + 44);
+  *(a2 + 24) = vadd_f32(vadd_f32(vadd_f32(vmul_n_f32(*a5, v18), vmul_n_f32(*(a5 + 12), v19)), vmul_n_f32(*(a5 + 24), v20)), *(a5 + 36));
+  *(a2 + 32) = result;
+  return result;
+}
+
+float getTriangle(int a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5)
+{
+  v5 = (3 * a1);
+  if (a5)
+  {
+    v6 = *(a4 + 2 * v5);
+    v7 = *(a4 + 2 * (v5 + 1));
+    v8 = *(a4 + 2 * (v5 + 2));
+  }
+
+  else
+  {
+    v6 = *(a4 + 4 * v5);
+    v7 = *(a4 + 4 * (v5 + 1));
+    v8 = *(a4 + 4 * (v5 + 2));
+  }
+
+  v9 = a3 + 12 * v6;
+  *a2 = *v9;
+  *(a2 + 8) = *(v9 + 8);
+  v10 = a3 + 12 * v7;
+  *(a2 + 12) = *v10;
+  *(a2 + 20) = *(v10 + 8);
+  v11 = a3 + 12 * v8;
+  *(a2 + 24) = *v11;
+  result = *(v11 + 8);
+  *(a2 + 32) = result;
+  return result;
+}
+
+physx::PxActor *physx::NpRigidActorTemplate<physx::PxRigidDynamic>::~NpRigidActorTemplate(physx::PxActor *a1)
+{
+  *a1 = &unk_1F5D26828;
+  v2 = *(physx::NpFactory::mInstance + 832);
+  physx::Cm::PtrTable::clear(a1 + 40, v2);
+  physx::Cm::PtrTable::clear(a1 + 56, v2);
+  *a1 = &unk_1F5D26AE8;
+  physx::NpFactory::onActorRelease(physx::NpFactory::mInstance, a1);
+  return a1;
+}
+
+uint64_t physx::Cm::DelegateTask<physx::NpSceneQueries,&physx::NpSceneQueries::sceneQueriesStaticPrunerUpdate>::~DelegateTask(void *a1)
+{
+  *a1 = &unk_1F5D1C1B0;
+  v1 = *(physx::shdfnd::Foundation::mInstance + 24);
+  a1[2] = 0;
+  return (*(v1 + 24))();
+}
+
+uint64_t physx::Cm::DelegateTask<physx::NpSceneQueries,&physx::NpSceneQueries::sceneQueriesStaticPrunerUpdate>::runInternal(uint64_t a1)
+{
+  v1 = *(a1 + 40);
+  result = *(v1 + 8640);
+  if (result && *(v1 + 8680) == 1)
+  {
+    result = (*(*result + 144))(result, 0);
+    if (result)
+    {
+      *(v1 + 8848) = 1;
+    }
+  }
+
+  return result;
+}
+
+uint64_t physx::Cm::DelegateTask<physx::NpSceneQueries,&physx::NpSceneQueries::sceneQueriesDynamicPrunerUpdate>::~DelegateTask(void *a1)
+{
+  *a1 = &unk_1F5D1C1B0;
+  v1 = *(physx::shdfnd::Foundation::mInstance + 24);
+  a1[2] = 0;
+  return (*(v1 + 24))();
+}
+
+uint64_t physx::Cm::DelegateTask<physx::NpSceneQueries,&physx::NpSceneQueries::sceneQueriesDynamicPrunerUpdate>::runInternal(uint64_t a1)
+{
+  v1 = *(a1 + 40);
+  result = *(v1 + 8688);
+  if (result && *(v1 + 8728) == 1)
+  {
+    result = (*(*result + 144))(result, 0);
+    if (result)
+    {
+      *(v1 + 8848) = 1;
+    }
+  }
+
+  return result;
+}
+
+uint64_t physx::Cm::DelegateTask<physx::NpScene,&physx::NpScene::executeScene>::~DelegateTask(void *a1)
+{
+  *a1 = &unk_1F5D1C1B0;
+  v1 = *(physx::shdfnd::Foundation::mInstance + 24);
+  a1[2] = 0;
+  return (*(v1 + 24))();
+}
+
+uint64_t physx::Cm::DelegateTask<physx::NpScene,&physx::NpScene::executeCollide>::~DelegateTask(void *a1)
+{
+  *a1 = &unk_1F5D1C1B0;
+  v1 = *(physx::shdfnd::Foundation::mInstance + 24);
+  a1[2] = 0;
+  return (*(v1 + 24))();
+}
+
+uint64_t physx::Cm::DelegateTask<physx::NpScene,&physx::NpScene::executeAdvance>::~DelegateTask(void *a1)
+{
+  *a1 = &unk_1F5D1C1B0;
+  v1 = *(physx::shdfnd::Foundation::mInstance + 24);
+  a1[2] = 0;
+  return (*(v1 + 24))();
+}
+
+uint64_t physx::shdfnd::Array<physx::PxRigidActor *,physx::shdfnd::ReflectionAllocator<physx::PxRigidActor *>>::recreate(uint64_t result, unsigned int a2)
+{
+  v3 = result;
+  if (a2)
+  {
+    v4 = physx::shdfnd::Foundation::mInstance;
+    if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
+    {
+      v5 = "static const char *physx::shdfnd::ReflectionAllocator<physx::PxRigidActor *>::getName() [T = physx::PxRigidActor *]";
+    }
+
+    else
+    {
+      v5 = "<allocation names disabled>";
+    }
+
+    result = (*(*(v4 + 24) + 16))(v4 + 24, 8 * a2, v5, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsArray.h", 553);
+    v6 = result;
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  v7 = *(v3 + 8);
+  v8 = *v3;
+  if (v7)
+  {
+    v9 = v6 + 8 * v7;
+    v10 = v6;
+    do
+    {
+      v11 = *v8++;
+      *v10++ = v11;
+    }
+
+    while (v10 < v9);
+    v8 = *v3;
+  }
+
+  if ((*(v3 + 12) & 0x80000000) == 0 && v8)
+  {
+    result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+  }
+
+  *v3 = v6;
+  *(v3 + 12) = a2;
+  return result;
+}
+
+uint64_t physx::shdfnd::Array<physx::PxBounds3,physx::shdfnd::InlineAllocator<192u,physx::shdfnd::ReflectionAllocator<physx::PxBounds3>>>::recreate(uint64_t result, unsigned int a2)
+{
+  v3 = result;
+  if (a2 > 8 || (*(result + 192) & 1) != 0)
+  {
+    v5 = physx::shdfnd::Foundation::mInstance;
+    if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
+    {
+      v6 = "static const char *physx::shdfnd::ReflectionAllocator<physx::PxBounds3>::getName() [T = physx::PxBounds3]";
+    }
+
+    else
+    {
+      v6 = "<allocation names disabled>";
+    }
+
+    result = (*(*(v5 + 24) + 16))(v5 + 24, 24 * a2, v6, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsArray.h", 553);
+    v4 = result;
+  }
+
+  else
+  {
+    *(result + 192) = 1;
+    v4 = result;
+  }
+
+  v7 = *(v3 + 208);
+  v8 = *(v3 + 200);
+  if (v7)
+  {
+    v9 = v4 + 24 * v7;
+    v10 = *(v3 + 200);
+    v11 = v4;
+    do
+    {
+      *v11 = *v10;
+      v11[1] = v10[1];
+      v11[2] = v10[2];
+      v11 += 3;
+      v10 += 3;
+    }
+
+    while (v11 < v9);
+  }
+
+  if ((*(v3 + 212) & 0x80000000) == 0)
+  {
+    if (v8 == v3)
+    {
+      *(v3 + 192) = 0;
+    }
+
+    else if (v8)
+    {
+      result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
+    }
+  }
+
+  *(v3 + 200) = v4;
+  *(v3 + 212) = a2;
+  return result;
+}
+
+uint64_t physx::shdfnd::Array<physx::PxRigidActor *,physx::shdfnd::ReflectionAllocator<physx::PxRigidActor *>>::growAndPushBack(uint64_t result, void *a2)
+{
+  v3 = result;
+  v4 = *(result + 12);
+  if ((v4 & 0x7FFFFFFF) != 0)
+  {
+    v5 = 2 * v4;
+  }
+
+  else
+  {
+    v5 = 1;
+  }
+
+  if (v5)
+  {
+    v6 = physx::shdfnd::Foundation::mInstance;
+    if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
+    {
+      v7 = "static const char *physx::shdfnd::ReflectionAllocator<physx::PxRigidActor *>::getName() [T = physx::PxRigidActor *]";
+    }
+
+    else
+    {
+      v7 = "<allocation names disabled>";
+    }
+
+    result = (*(*(v6 + 24) + 16))(v6 + 24, 8 * v5, v7, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsArray.h", 553);
+    v8 = result;
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  v9 = *(v3 + 8);
+  v10 = (v8 + 8 * v9);
+  if (v9)
+  {
+    v11 = *v3;
+    v12 = v8;
+    do
+    {
+      v13 = *v11++;
+      *v12++ = v13;
+    }
+
+    while (v12 < v10);
+  }
+
+  *v10 = *a2;
+  if ((*(v3 + 12) & 0x80000000) == 0 && *v3)
+  {
+    result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+    LODWORD(v9) = *(v3 + 8);
+  }
+
+  *v3 = v8;
+  *(v3 + 8) = v9 + 1;
+  *(v3 + 12) = v5;
+  return result;
+}
+
+void physx::Scb::RigidObject::resetFiltering(physx::Scb::RigidObject *this, physx::Scb::Shape **a2, unsigned int a3)
+{
+  v3 = a3;
+  v6 = *(this + 2);
+  if (v6 >> 30 == 3 || v6 >> 30 == 2 && (*(*this + 7689) & 1) != 0)
+  {
+    Stream = *(this + 2);
+    if (!Stream)
+    {
+      Stream = physx::Scb::Scene::getStream(*this, HIBYTE(v6) & 0xF);
+      *(this + 2) = Stream;
+    }
+
+    v8 = *(Stream + 160);
+    if (v8)
+    {
+      v9 = v8 + v3;
+      v10 = *this;
+      v11 = *(*this + 7816);
+      v35 = 0;
+      physx::shdfnd::Array<physx::Scb::Shape *,physx::shdfnd::ReflectionAllocator<physx::Scb::Shape *>>::resize(v10 + 7808, v11 + v8 + v3, &v35);
+      v12 = *(v10 + 7808);
+      if (!v12)
+      {
+        return;
+      }
+
+      v13 = *(Stream + 160);
+      if (v13 == 1)
+      {
+        v14 = (v12 + 8 * v11);
+        *v14 = *(Stream + 152);
+        v15 = v14 + 1;
+        v16 = v3;
+        do
+        {
+          v17 = *a2++;
+          *v15++ = v17;
+          --v16;
+        }
+
+        while (v16);
+      }
+
+      else
+      {
+        v21 = (v12 + 8 * v11);
+        if (v13)
+        {
+          v22 = (*(*this + 7808) + 8 * *(Stream + 152));
+          v23 = v21;
+          v24 = *(Stream + 160);
+          do
+          {
+            v25 = *v22++;
+            *v23++ = v25;
+            --v24;
+          }
+
+          while (v24);
+        }
+
+        v26 = v3;
+        do
+        {
+          v27 = *a2++;
+          v21[v13++] = v27;
+          --v26;
+        }
+
+        while (v26);
+      }
+
+      *(Stream + 152) = v11;
+      v3 = v9;
+    }
+
+    else if (v3 == 1)
+    {
+      *(Stream + 152) = *a2;
+    }
+
+    else
+    {
+      v28 = *this;
+      v29 = *(*this + 7816);
+      v35 = 0;
+      physx::shdfnd::Array<physx::Scb::Shape *,physx::shdfnd::ReflectionAllocator<physx::Scb::Shape *>>::resize(v28 + 7808, v29 + v3, &v35);
+      v30 = *(v28 + 7808);
+      if (!v30)
+      {
+        return;
+      }
+
+      v31 = (v30 + 8 * v29);
+      v32 = v3;
+      do
+      {
+        v33 = *a2++;
+        *v31++ = v33;
+        --v32;
+      }
+
+      while (v32);
+      *(Stream + 152) = v29;
+    }
+
+    *(Stream + 160) = v3;
+    physx::Scb::Scene::scheduleForUpdate(*this, this);
+    *(this + 2) |= 0x20u;
+  }
+
+  else
+  {
+    v18 = a3;
+    do
+    {
+      v19 = *(&physx::Scb::Actor::sLazyInitOffsets + (*(this + 11) & 0xF) + 3);
+      v20 = *a2++;
+      LODWORD(v35) = 128;
+      v34 = 0;
+      physx::Sc::RigidCore::onShapeChange((this + v19), v20 + 32, &v35, &v34, 0);
+      --v18;
+    }
+
+    while (v18);
+  }
+}
+
+uint64_t physx::shdfnd::Array<physx::NpBatchQuery *,physx::shdfnd::ReflectionAllocator<physx::NpBatchQuery *>>::growAndPushBack(uint64_t result, void *a2)
+{
+  v3 = result;
+  v4 = *(result + 12);
+  if ((v4 & 0x7FFFFFFF) != 0)
+  {
+    v5 = 2 * v4;
+  }
+
+  else
+  {
+    v5 = 1;
+  }
+
+  if (v5)
+  {
+    v6 = physx::shdfnd::Foundation::mInstance;
+    if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
+    {
+      v7 = "static const char *physx::shdfnd::ReflectionAllocator<physx::NpBatchQuery *>::getName() [T = physx::NpBatchQuery *]";
+    }
+
+    else
+    {
+      v7 = "<allocation names disabled>";
+    }
+
+    result = (*(*(v6 + 24) + 16))(v6 + 24, 8 * v5, v7, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsArray.h", 553);
+    v8 = result;
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  v9 = *(v3 + 8);
+  v10 = (v8 + 8 * v9);
+  if (v9)
+  {
+    v11 = *v3;
+    v12 = v8;
+    do
+    {
+      v13 = *v11++;
+      *v12++ = v13;
+    }
+
+    while (v12 < v10);
+  }
+
+  *v10 = *a2;
+  if ((*(v3 + 12) & 0x80000000) == 0 && *v3)
+  {
+    result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+    LODWORD(v9) = *(v3 + 8);
+  }
+
+  *v3 = v8;
+  *(v3 + 8) = v9 + 1;
+  *(v3 + 12) = v5;
+  return result;
+}
+
+uint64_t physx::clipHitsToNewMaxDist<physx::PxSweepHit>(uint64_t a1, uint64_t a2, float a3)
+{
+  if (a2)
+  {
+    v3 = 0;
+    do
+    {
+      v4 = a1 + 56 * v3;
+      if (*(v4 + 48) <= a3)
+      {
+        ++v3;
+      }
+
+      else
+      {
+        a2 = (a2 - 1);
+        v5 = (a1 + 56 * a2);
+        v6 = *v5;
+        *(v4 + 16) = *(v5 + 4);
+        *v4 = v6;
+        *(v4 + 20) = *(v5 + 10);
+        *(v4 + 24) = *(v5 + 24);
+        *(v4 + 40) = *(v5 + 5);
+        *(v4 + 48) = *(v5 + 12);
+        *(v4 + 52) = *(v5 + 13);
+      }
+    }
+
+    while (v3 != a2);
+  }
+
+  return a2;
+}
+
+int32x2_t *physx::Scb::Aggregate::addActor(int32x2_t *result, uint64_t a2)
+{
+  v3 = result;
+  v4 = result[1].u32[0];
+  v5 = v4 >> 30;
+  if ((v4 >> 30) - 1 >= 2)
+  {
+    if (v5 == 3)
+    {
+      return result;
+    }
+
+    goto LABEL_13;
+  }
+
+  result = *result;
+  if (!*v3 || (result[961].i8[1] & 1) == 0)
+  {
+LABEL_13:
+    v12 = *(&physx::Scb::Actor::sLazyInitOffsets + (*(a2 + 11) & 0xF) + 3) + a2;
+    *(v12 + 8) = *(v3 + 32) & 0xFFFFFF | (*(v12 + 11) << 24);
+    return result;
+  }
+
+  Stream = *(v3 + 16);
+  if (!Stream)
+  {
+    Stream = physx::Scb::Scene::getStream(result, HIBYTE(v4) & 0xF);
+    *(v3 + 16) = Stream;
+    result = *v3;
+  }
+
+  v7 = Stream[2];
+  if (v7 != -1)
+  {
+    v8 = Stream[3];
+    if (v8)
+    {
+      v9 = *&result[978] + 8 * v7;
+      v10 = Stream[3];
+      v11 = v9;
+      while (*v11 != a2)
+      {
+        ++v11;
+        if (!--v10)
+        {
+          goto LABEL_15;
+        }
+      }
+
+      v13 = v8 - 1;
+      *v11 = *(v9 + 8 * v13);
+      Stream[3] = v13;
+      result = *v3;
+    }
+  }
+
+LABEL_15:
+  v14 = *Stream;
+  if (*Stream == -1)
+  {
+    v16 = *(v3 + 36);
+    v15 = result + 978;
+    v14 = result[979].u32[0];
+    v18 = 0;
+    result = physx::shdfnd::Array<physx::Scb::Actor *,physx::shdfnd::ReflectionAllocator<physx::Scb::Actor *>>::resize(&result[978], v14 + v16, &v18);
+    *Stream = v14;
+  }
+
+  else
+  {
+    v15 = result + 978;
+  }
+
+  v17 = Stream[1];
+  *(*v15 + 8 * v14 + 8 * v17) = a2;
+  Stream[1] = v17 + 1;
+  if (v5 != 1)
+  {
+    result = physx::Scb::Scene::scheduleForUpdate(*v3, v3);
+  }
+
+  *(v3 + 8) |= 1u;
+  return result;
+}
+
+int32x2_t *physx::Scb::Aggregate::removeActor(int32x2_t *result, uint64_t a2, int a3)
+{
+  v4 = result;
+  v5 = result[1].u32[0];
+  v6 = (v5 >> 30) - 1;
+  if (v6 >= 2)
+  {
+    if (v5 >> 30 == 3)
+    {
+      return result;
+    }
+
+    goto LABEL_14;
+  }
+
+  result = *result;
+  if (!*v4 || (result[961].i8[1] & 1) == 0)
+  {
+LABEL_14:
+    v15 = (*(&physx::Scb::Actor::sLazyInitOffsets + ((*(a2 + 8) >> 24) & 0xF) + 3) + a2);
+    v15[2] |= 0xFFFFFFu;
+    if (v6 <= 1)
+    {
+      if (*v4)
+      {
+        if (a3)
+        {
+          if (*v15)
+          {
+            for (i = *(*v15 + 56); i; i = *i)
+            {
+              result = physx::Sc::ShapeSim::reinsertBroadPhase(i);
+            }
+          }
+        }
+      }
+    }
+
+    return result;
+  }
+
+  Stream = v4[2];
+  if (!Stream)
+  {
+    Stream = physx::Scb::Scene::getStream(result, HIBYTE(v5) & 0xF);
+    v4[2] = Stream;
+    result = *v4;
+  }
+
+  v8 = *Stream;
+  if (v8 == -1 || (v9 = Stream[1]) == 0)
+  {
+LABEL_11:
+    v13 = Stream[2];
+    if (v13 == -1)
+    {
+      v17 = v4[4].i32[1];
+      v14 = result + 978;
+      v13 = result[979].u32[0];
+      v20 = 0;
+      physx::shdfnd::Array<physx::Scb::Actor *,physx::shdfnd::ReflectionAllocator<physx::Scb::Actor *>>::resize(&result[978], v13 + v17, &v20);
+      Stream[2] = v13;
+    }
+
+    else
+    {
+      v14 = result + 978;
+    }
+
+    v18 = Stream[3];
+    *(*v14 + 8 * v13 + 8 * v18) = a2;
+    Stream[3] = v18 + 1;
+    result = physx::Scb::Scene::scheduleForUpdate(*v4, v4);
+    v4[1].i32[0] |= 2u;
+  }
+
+  else
+  {
+    v10 = *&result[978] + 8 * v8;
+    v11 = Stream[1];
+    v12 = v10;
+    while (*v12 != a2)
+    {
+      ++v12;
+      if (!--v11)
+      {
+        goto LABEL_11;
+      }
+    }
+
+    v19 = v9 - 1;
+    *v12 = *(v10 + 8 * v19);
+    Stream[1] = v19;
+  }
+
+  return result;
+}
+
+uint64_t physx::Scb::Base::destroy(uint64_t this)
+{
+  v1 = *(this + 8);
+  if (v1 >> 30 != 3 && (v1 >> 30 != 2 || (*(*this + 7689) & 1) == 0))
+  {
+    return physx::NpDestroy(this);
+  }
+
+  *(this + 8) = v1 | 0x20000000;
+  return this;
+}
+
+int32x2_t *physx::Scb::ObjectTracker::scheduleForInsert(int32x2_t *result, uint64_t a2)
+{
+  v4 = *(a2 + 8);
+  if (v4 >> 30 == 3)
+  {
+    *(a2 + 8) = v4 & 0xBFFFFFFF;
+    if ((v4 & 0x10000000) == 0)
+    {
+
+      return physx::shdfnd::internal::HashSetBase<physx::Sc::BodySim const*,physx::shdfnd::Hash<physx::Sc::BodySim const*>,physx::shdfnd::NonTrackingAllocator,true>::erase(result, a2);
+    }
+  }
+
+  else
+  {
+    v7 = v2;
+    v8 = v3;
+    *(a2 + 8) = v4 & 0x3FFFFFFF | 0x40000000;
+    v5 = a2;
+    v6 = 0;
+    result = physx::shdfnd::internal::HashBase<physx::Sc::ConstraintSim *,physx::Sc::ConstraintSim *,physx::shdfnd::Hash<physx::Sc::ConstraintSim *>,physx::shdfnd::internal::HashSetBase<physx::Sc::ConstraintSim *,physx::shdfnd::Hash<physx::Sc::ConstraintSim *>,physx::shdfnd::NonTrackingAllocator,true>::GetKey,physx::shdfnd::NonTrackingAllocator,true>::create(result, &v5, &v6);
+    if ((v6 & 1) == 0)
+    {
+      *result = v5;
+    }
+  }
+
+  return result;
+}
+
+int32x2_t *physx::Scb::ObjectTracker::scheduleForRemove(int32x2_t *result, uint64_t a2)
+{
+  v4 = *(a2 + 8);
+  if (v4 >> 30 == 2)
+  {
+    *(a2 + 8) = v4 | 0xC0000000;
+    if ((v4 & 0x10000000) == 0)
+    {
+      v7 = v2;
+      v8 = v3;
+      v5 = a2;
+      v6 = 0;
+      result = physx::shdfnd::internal::HashBase<physx::Sc::ConstraintSim *,physx::Sc::ConstraintSim *,physx::shdfnd::Hash<physx::Sc::ConstraintSim *>,physx::shdfnd::internal::HashSetBase<physx::Sc::ConstraintSim *,physx::shdfnd::Hash<physx::Sc::ConstraintSim *>,physx::shdfnd::NonTrackingAllocator,true>::GetKey,physx::shdfnd::NonTrackingAllocator,true>::create(result, &v5, &v6);
+      if ((v6 & 1) == 0)
+      {
+        *result = v5;
+      }
+    }
+  }
+
+  else if (v4 >> 30 == 1)
+  {
+    *(a2 + 8) = v4 & 0x3FFFFFFF;
+
+    return physx::shdfnd::internal::HashSetBase<physx::Sc::BodySim const*,physx::shdfnd::Hash<physx::Sc::BodySim const*>,physx::shdfnd::NonTrackingAllocator,true>::erase(result, a2);
+  }
+
+  return result;
+}
+
+int32x2_t *physx::Scb::ObjectTracker::scheduleForUpdate(int32x2_t *result, uint64_t a2)
+{
+  v4 = *(a2 + 8);
+  if ((v4 & 0x10000000) == 0)
+  {
+    *(a2 + 8) = v4 | 0x10000000;
+    if (v4 >> 30 == 2)
+    {
+      v7 = v2;
+      v8 = v3;
+      v5 = a2;
+      v6 = 0;
+      result = physx::shdfnd::internal::HashBase<physx::Sc::ConstraintSim *,physx::Sc::ConstraintSim *,physx::shdfnd::Hash<physx::Sc::ConstraintSim *>,physx::shdfnd::internal::HashSetBase<physx::Sc::ConstraintSim *,physx::shdfnd::Hash<physx::Sc::ConstraintSim *>,physx::shdfnd::NonTrackingAllocator,true>::GetKey,physx::shdfnd::NonTrackingAllocator,true>::create(result, &v5, &v6);
+      if ((v6 & 1) == 0)
+      {
+        *result = v5;
+      }
+    }
+  }
+
+  return result;
+}
+
+uint64_t physx::Scb::ObjectTracker::clear(uint64_t this)
+{
+  v1 = *(this + 52);
+  if (v1)
+  {
+    v2 = this;
+    v3 = 0;
+    v4 = *(this + 8);
+    do
+    {
+      v5 = *(v4 + 8 * v3);
+      v6 = *(v5 + 8);
+      v7 = v6 & 0xFFFFFFF;
+      if ((v6 >> 30) - 1 > 1)
+      {
+        *v5 = 0;
+      }
+
+      else
+      {
+        v7 |= 0x80000000;
+      }
+
+      *(v5 + 8) = v7;
+      if ((v6 & 0x20000000) != 0)
+      {
+        this = physx::NpDestroy(*(v4 + 8 * v3));
+        v1 = *(v2 + 52);
+      }
+
+      ++v3;
+    }
+
+    while (v3 < v1);
+    v8 = *(v2 + 36);
+    if (v8 && v1)
+    {
+      this = memset(*(v2 + 24), 255, (4 * v8));
+      v9 = *(v2 + 16);
+      v10 = (*(v2 + 32) - 1);
+      if (*(v2 + 32) == 1)
+      {
+        v18 = 0;
+      }
+
+      else
+      {
+        _X10 = v9 + 128;
+        v12 = 1;
+        do
+        {
+          __asm { PRFM            #0, [X10] }
+
+          *(_X10 - 128) = v12++;
+          _X10 += 4;
+          --v10;
+        }
+
+        while (v10);
+        v18 = (*(v2 + 32) - 1);
+      }
+
+      *(v9 + 4 * v18) = -1;
+      *(v2 + 44) = 0;
+      *(v2 + 52) = 0;
+    }
+  }
+
+  return this;
+}
+
+uint64_t physx::Scb::Scene::Scene(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  physx::Sc::Scene::Scene(a1 + 16, a2, a3);
+  *(a1 + 7664) = 0u;
+  v5 = physx::shdfnd::Foundation::mInstance;
+  if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
+  {
+    v6 = "static const char *physx::shdfnd::ReflectionAllocator<physx::shdfnd::MutexImpl>::getName() [T = physx::shdfnd::MutexImpl]";
+  }
+
+  else
+  {
+    v6 = "<allocation names disabled>";
+  }
+
+  v7 = (*(*(v5 + 24) + 16))(v5 + 24, 72, v6, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsMutex.h", 138);
+  *(a1 + 7680) = v7;
+  physx::shdfnd::MutexImpl::MutexImpl(v7);
+  *(a1 + 7688) = 0;
+  physx::Cm::FlushPool::FlushPool((a1 + 7696), 0x4000u);
+  *(a1 + 7768) = 0;
+  *(a1 + 7736) = 0u;
+  *(a1 + 7752) = 0u;
+  *(a1 + 7776) = -3233808384;
+  *(a1 + 7784) = 0;
+  physx::shdfnd::internal::HashBase<physx::Sc::ConstraintSim *,physx::Sc::ConstraintSim *,physx::shdfnd::Hash<physx::Sc::ConstraintSim *>,physx::shdfnd::internal::HashSetBase<physx::Sc::ConstraintSim *,physx::shdfnd::Hash<physx::Sc::ConstraintSim *>,physx::shdfnd::NonTrackingAllocator,true>::GetKey,physx::shdfnd::NonTrackingAllocator,true>::reserveInternal(a1 + 7736, 0x40u);
+  *(a1 + 7872) = 0;
+  *(a1 + 7856) = 0u;
+  *(a1 + 7840) = 0u;
+  *(a1 + 7824) = 0u;
+  *(a1 + 7808) = 0u;
+  *(a1 + 7792) = 0u;
+  *(a1 + 7880) = -3233808384;
+  *(a1 + 7888) = 0;
+  physx::shdfnd::internal::HashBase<physx::Sc::ConstraintSim *,physx::Sc::ConstraintSim *,physx::shdfnd::Hash<physx::Sc::ConstraintSim *>,physx::shdfnd::internal::HashSetBase<physx::Sc::ConstraintSim *,physx::shdfnd::Hash<physx::Sc::ConstraintSim *>,physx::shdfnd::NonTrackingAllocator,true>::GetKey,physx::shdfnd::NonTrackingAllocator,true>::reserveInternal(a1 + 7840, 0x40u);
+  *(a1 + 7928) = 0;
+  *(a1 + 7896) = 0u;
+  *(a1 + 7912) = 0u;
+  *(a1 + 7936) = -3233808384;
+  *(a1 + 7944) = 0;
+  physx::shdfnd::internal::HashBase<physx::Sc::ConstraintSim *,physx::Sc::ConstraintSim *,physx::shdfnd::Hash<physx::Sc::ConstraintSim *>,physx::shdfnd::internal::HashSetBase<physx::Sc::ConstraintSim *,physx::shdfnd::Hash<physx::Sc::ConstraintSim *>,physx::shdfnd::NonTrackingAllocator,true>::GetKey,physx::shdfnd::NonTrackingAllocator,true>::reserveInternal(a1 + 7896, 0x40u);
+  *(a1 + 7984) = 0;
+  *(a1 + 7968) = 0u;
+  *(a1 + 7952) = 0u;
+  *(a1 + 7992) = -3233808384;
+  *(a1 + 8000) = 0;
+  physx::shdfnd::internal::HashBase<physx::Sc::ConstraintSim *,physx::Sc::ConstraintSim *,physx::shdfnd::Hash<physx::Sc::ConstraintSim *>,physx::shdfnd::internal::HashSetBase<physx::Sc::ConstraintSim *,physx::shdfnd::Hash<physx::Sc::ConstraintSim *>,physx::shdfnd::NonTrackingAllocator,true>::GetKey,physx::shdfnd::NonTrackingAllocator,true>::reserveInternal(a1 + 7952, 0x40u);
+  *(a1 + 8040) = 0;
+  *(a1 + 8008) = 0u;
+  *(a1 + 8024) = 0u;
+  *(a1 + 8048) = -3233808384;
+  *(a1 + 8056) = 0;
+  physx::shdfnd::internal::HashBase<physx::Sc::ConstraintSim *,physx::Sc::ConstraintSim *,physx::shdfnd::Hash<physx::Sc::ConstraintSim *>,physx::shdfnd::internal::HashSetBase<physx::Sc::ConstraintSim *,physx::shdfnd::Hash<physx::Sc::ConstraintSim *>,physx::shdfnd::NonTrackingAllocator,true>::GetKey,physx::shdfnd::NonTrackingAllocator,true>::reserveInternal(a1 + 8008, 0x40u);
+  *(a1 + 8096) = 0;
+  *(a1 + 8080) = 0u;
+  *(a1 + 8064) = 0u;
+  *(a1 + 8104) = -3233808384;
+  *(a1 + 8112) = 0;
+  physx::shdfnd::internal::HashBase<physx::Sc::ConstraintSim *,physx::Sc::ConstraintSim *,physx::shdfnd::Hash<physx::Sc::ConstraintSim *>,physx::shdfnd::internal::HashSetBase<physx::Sc::ConstraintSim *,physx::shdfnd::Hash<physx::Sc::ConstraintSim *>,physx::shdfnd::NonTrackingAllocator,true>::GetKey,physx::shdfnd::NonTrackingAllocator,true>::reserveInternal(a1 + 8064, 0x40u);
+  *(a1 + 8152) = 0;
+  *(a1 + 8120) = 0u;
+  *(a1 + 8136) = 0u;
+  *(a1 + 8160) = -3233808384;
+  *(a1 + 8168) = 0;
+  physx::shdfnd::internal::HashBase<physx::Sc::ConstraintSim *,physx::Sc::ConstraintSim *,physx::shdfnd::Hash<physx::Sc::ConstraintSim *>,physx::shdfnd::internal::HashSetBase<physx::Sc::ConstraintSim *,physx::shdfnd::Hash<physx::Sc::ConstraintSim *>,physx::shdfnd::NonTrackingAllocator,true>::GetKey,physx::shdfnd::NonTrackingAllocator,true>::reserveInternal(a1 + 8120, 0x40u);
+  *(a1 + 8176) = *(a2 + 232);
+  *(a1 + 8592) = 0;
+  *(a1 + 8604) = 0;
+  *(a1 + 8324) = 0u;
+  *(a1 + 8340) = 0u;
+  *(a1 + 8356) = 0u;
+  *(a1 + 8372) = 0u;
+  *(a1 + 8388) = 0u;
+  *(a1 + 8404) = 0u;
+  *(a1 + 8420) = 0u;
+  *(a1 + 8432) = 0u;
+  *(a1 + 8284) = 0;
+  *(a1 + 8292) = 0;
+  *(a1 + 8276) = 0;
+  return a1;
+}
+
+void physx::Scb::Scene::switchRigidToNoSim(atomic_uint *this, physx::Scb::RigidObject *a2, int a3)
+{
+  v14 = *MEMORY[0x1E69E9840];
+  v3 = *(a2 + 2);
+  if (v3 >> 30 == 2)
+  {
+    v13 = 0x4000000000;
+    v11[512] = 1;
+    v12 = v11;
+    v4 = (this + 4);
+    v5 = (a2 + *(&physx::Scb::Actor::sLazyInitOffsets + ((v3 >> 24) & 0xF) + 3));
+    if (a3)
+    {
+      physx::Sc::Scene::removeBody(v4, v5, v11, 1);
+    }
+
+    else
+    {
+      physx::Sc::Scene::removeStatic(v4, v5, v11, 1);
+    }
+
+    v6 = v12;
+    if (v13)
+    {
+      v7 = 0;
+      do
+      {
+        v8 = *&v6[8 * v7];
+        if (atomic_fetch_add((v8 - 48), 0xFFFFFFFF) == 1)
+        {
+          (*(*(v8 - 56) + 16))();
+        }
+
+        ++v7;
+      }
+
+      while (v7 < v13);
+      v6 = v12;
+    }
+
+    if ((v13 & 0x8000000000000000) == 0 && (v13 & 0x7FFFFFFF00000000) != 0 && v6 != v11 && v6 != 0)
+    {
+      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24, v6);
+    }
+  }
+}
+
+uint64_t physx::Scb::Scene::switchRigidFromNoSim(uint64_t this, physx::Scb::RigidObject *a2, int a3)
+{
+  v3 = *(a2 + 2);
+  if (v3 >> 30 != 2)
+  {
+    return this;
+  }
+
+  if (a3)
+  {
+    v4 = a2 + *(&physx::Sc::gOffsetTable + *(a2 + 45) + 10);
+    v5 = (v4 + 72);
+    v6 = *(v4 + 40);
+    if (v6 != 1)
+    {
+      v5 = *v5;
+    }
+
+    this = physx::Sc::Scene::addBody((this + 16), (a2 + *(&physx::Scb::Actor::sLazyInitOffsets + ((v3 >> 24) & 0xF) + 3)), v5, v6, 80, 0, *(v4 + 26) != -1);
+    if (!v6)
+    {
+      return this;
+    }
+
+LABEL_10:
+    v9 = v6;
+    do
+    {
+      v10 = *v5++;
+      atomic_fetch_add((v10 + 32), 1u);
+      --v9;
+    }
+
+    while (v9);
+    return this;
+  }
+
+  v7 = a2 + *(&physx::Scb::Actor::sLazyInitOffsets + (BYTE3(v3) & 0xF) + 3);
+  v8 = &v7[*(&physx::Sc::gOffsetTable + v7[13] + 10)];
+  v5 = (v8 + 40);
+  v6 = *(v8 + 24);
+  if (v6 != 1)
+  {
+    v5 = *v5;
+  }
+
+  this = physx::Sc::Scene::addStatic(this + 16, v7, v5, *(v8 + 24), 80, 0);
+  if (v6)
+  {
+    goto LABEL_10;
+  }
+
+  return this;
+}
+
+int32x2_t *physx::Scb::Scene::addActor(int32x2_t *a1, uint64_t *a2, char a3, uint64_t a4)
+{
+  v20 = *MEMORY[0x1E69E9840];
+  if (a3)
+  {
+
+    return physx::Scb::Scene::addRigidNoSim<false,physx::Scb::RigidStatic>(a1, a2, a1 + 980);
+  }
+
+  else
+  {
+    result = physx::Scb::Scene::add<physx::Scb::RigidStatic>(a1, a2, a1 + 980, a4);
+    if (a1[961].i8[1] != 1)
+    {
+      return result;
+    }
+
+    v19 = 0x4000000000;
+    v7 = 1;
+    v17[512] = 1;
+    v18 = v17;
+    v8 = *(a2 + 2);
+    v9 = a2 + *(&physx::Scb::Actor::sLazyInitOffsets + ((v8 >> 24) & 0xF) + 3);
+    v10 = &v9[*(&physx::Sc::gOffsetTable + v9[13] + 10)];
+    v11 = v10 + 40;
+    v12 = *(v10 + 24);
+    if (v12 != 1)
+    {
+      if (!v12)
+      {
+        return result;
+      }
+
+      v11 = *v11;
+      v7 = v12;
+    }
+
+    v13 = *a2;
+    v14 = v8 & 0xC0000000;
+    do
+    {
+      v15 = *v11;
+      v16 = *(*v11 + 56);
+      if ((v16 & 0xF000000) == 0x1000000)
+      {
+        *(v15 + 14) = v16 & 0x31FFFFFF | v14;
+        *(v15 + 6) = v13;
+      }
+
+      v11 += 8;
+      --v7;
+    }
+
+    while (v7);
+  }
+
+  return result;
+}
+
+int32x2_t *physx::Scb::Scene::addActor(int32x2_t *result, uint64_t *a2, char a3, uint64_t a4, uint64_t a5)
+{
+  v6 = result;
+  v46 = *MEMORY[0x1E69E9840];
+  *a2 = result;
+  if (a3)
+  {
+    if (result[961].i8[1])
+    {
+      result = physx::Scb::ObjectTracker::scheduleForInsert(result + 987, a2);
+      v45 = 0x4000000000;
+      v44 = v43;
+      v7 = a2 + *(&physx::Sc::gOffsetTable + *(a2 + 45) + 10);
+      v8 = (v7 + 72);
+      v9 = *(v7 + 80);
+      if (v9 == 1)
+      {
+        v9 = 1;
+        goto LABEL_13;
+      }
+
+      if (v9)
+      {
+        v8 = *v8;
+LABEL_13:
+        v15 = *a2;
+        v16 = a2[1] & 0xC0000000;
+        do
+        {
+          v17 = *v8;
+          v18 = *(*v8 + 56);
+          if ((v18 & 0xF000000) == 0x1000000)
+          {
+            *(v17 + 14) = v18 & 0x31FFFFFF | v16;
+            v17[6] = v15;
+          }
+
+          ++v8;
+          --v9;
+        }
+
+        while (v9);
+      }
+
+LABEL_23:
+      *(a2 + 70) = *(a2 + 69) == 0.0 && *(a2 + 63) == 0.0 && *(a2 + 64) == 0.0 && *(a2 + 65) == 0.0 && *(a2 + 66) == 0.0 && *(a2 + 67) == 0.0 && *(a2 + 68) == 0.0;
+      return result;
+    }
+
+    *(a2 + 2) = a2[1] & 0xFFFFFFF | 0x80000000;
+    v45 = 0x4000000000;
+    v44 = v43;
+    v10 = a2 + *(&physx::Sc::gOffsetTable + *(a2 + 45) + 10);
+    v11 = (v10 + 72);
+    v12 = *(v10 + 80);
+    if (v12 == 1)
+    {
+      v12 = 1;
+    }
+
+    else
+    {
+      if (!v12)
+      {
+        goto LABEL_23;
+      }
+
+      v11 = *v11;
+    }
+
+    do
+    {
+      v19 = *v11;
+      v20 = *(*v11 + 56);
+      if ((v20 & 0xF000000) == 0x1000000)
+      {
+        *(v19 + 14) = v20 & 0x31FFFFFF | 0x80000000;
+        v19[6] = result;
+      }
+
+      ++v11;
+      --v12;
+    }
+
+    while (v12);
+    goto LABEL_23;
+  }
+
+  if (result[961].i8[1])
+  {
+    result = physx::Scb::ObjectTracker::scheduleForInsert(result + 987, a2);
+  }
+
+  else
+  {
+    v13 = *(a2 + 2);
+    *(a2 + 2) = v13 & 0xFFFFFFF | 0x80000000;
+    if (v13)
+    {
+      v14 = a2[2];
+    }
+
+    else
+    {
+      v14 = a2 + *(&physx::Scb::Actor::sLazyInitOffsets + ((v13 >> 24) & 0xF) + 3) + 12;
+    }
+
+    if ((*v14 & 8) != 0)
+    {
+      v45 = 0x4000000000;
+      v44 = v43;
+      v30 = a2 + *(&physx::Sc::gOffsetTable + *(a2 + 45) + 10);
+      v31 = (v30 + 72);
+      v32 = *(v30 + 80);
+      if (v32 == 1)
+      {
+        v32 = 1;
+      }
+
+      else
+      {
+        if (!v32)
+        {
+          goto LABEL_57;
+        }
+
+        v31 = *v31;
+      }
+
+      do
+      {
+        v33 = *v31;
+        v34 = *(*v31 + 56);
+        if ((v34 & 0xF000000) == 0x1000000)
+        {
+          *(v33 + 14) = v34 & 0x31FFFFFF | 0x80000000;
+          v33[6] = result;
+        }
+
+        ++v31;
+        --v32;
+      }
+
+      while (v32);
+    }
+
+    else
+    {
+      v21 = (a2 + 4);
+      v45 = 0x4000000000;
+      v43[512] = 1;
+      v44 = v43;
+      v22 = a2 + *(&physx::Sc::gOffsetTable + *(a2 + 45) + 10) + 32;
+      v23 = (v22 + 40);
+      v24 = *(v22 + 48);
+      if (v24 != 1)
+      {
+        v23 = *v23;
+      }
+
+      result = physx::Sc::Scene::addBody(&result[2], v21, v23, *(v22 + 48), 80, a4, a5 != 0);
+      if (v24)
+      {
+        v25 = *a2;
+        do
+        {
+          v26 = *v23;
+          v27 = *(*v23 + 56);
+          if ((v27 & 0xF000000) == 0x1000000)
+          {
+            *(v26 + 14) = v27 & 0x31FFFFFF | 0x80000000;
+            v26[6] = v25;
+          }
+
+          atomic_fetch_add(v26 + 8, 1u);
+          ++v23;
+          --v24;
+        }
+
+        while (v24);
+      }
+
+      if ((v45 & 0x8000000000000000) == 0)
+      {
+        v28 = (v45 & 0x7FFFFFFF00000000) == 0 || v44 == v43;
+        if (!v28 && v44 != 0)
+        {
+          result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
+        }
+      }
+    }
+  }
+
+LABEL_57:
+  v35 = *(a2 + 69) == 0.0 && *(a2 + 63) == 0.0 && *(a2 + 64) == 0.0 && *(a2 + 65) == 0.0 && *(a2 + 66) == 0.0 && *(a2 + 67) == 0.0 && *(a2 + 68) == 0.0;
+  *(a2 + 70) = v35;
+  if (v6[961].i8[1] == 1)
+  {
+    v45 = 0x4000000000;
+    v44 = v43;
+    v36 = a2 + *(&physx::Sc::gOffsetTable + *(a2 + 45) + 10);
+    v37 = (v36 + 72);
+    v38 = *(v36 + 80);
+    if (v38 == 1)
+    {
+      v38 = 1;
+    }
+
+    else
+    {
+      if (!v38)
+      {
+        return result;
+      }
+
+      v37 = *v37;
+    }
+
+    v39 = *a2;
+    v40 = a2[1] & 0xC0000000;
+    do
+    {
+      v41 = *v37;
+      v42 = *(*v37 + 56);
+      if ((v42 & 0xF000000) == 0x1000000)
+      {
+        *(v41 + 14) = v42 & 0x31FFFFFF | v40;
+        v41[6] = v39;
+      }
+
+      ++v37;
+      --v38;
+    }
+
+    while (v38);
+  }
+
+  return result;
+}
+
+void physx::Scb::Scene::removeActor(int32x2_t *a1, uint64_t *a2, _BOOL8 a3, char a4)
+{
+  v20 = *MEMORY[0x1E69E9840];
+  if (a4)
+  {
+    physx::Scb::Scene::removeRigidNoSim<false,physx::Scb::RigidStatic>(a1, a2, a1 + 980);
+  }
+
+  else
+  {
+    v6 = a3;
+    physx::Scb::Scene::remove<physx::Scb::RigidStatic>(a1, a2, a1 + 980, a3);
+    if (a1[961].i8[1] == 1)
+    {
+      v7 = *(a2 + 2);
+      if (v6)
+      {
+        v7 |= 0x10u;
+        *(a2 + 2) = v7;
+      }
+
+      v19 = 0x4000000000;
+      v8 = 1;
+      v17[512] = 1;
+      v18 = v17;
+      v9 = a2 + *(&physx::Scb::Actor::sLazyInitOffsets + (HIBYTE(v7) & 0xF) + 3);
+      v10 = &v9[*(&physx::Sc::gOffsetTable + v9[13] + 10)];
+      v11 = v10 + 40;
+      v12 = *(v10 + 24);
+      if (v12 != 1)
+      {
+        if (!v12)
+        {
+          goto LABEL_13;
+        }
+
+        v11 = *v11;
+        v8 = v12;
+      }
+
+      v13 = *a2;
+      v14 = v7 & 0xC0000000;
+      do
+      {
+        v15 = *v11;
+        v16 = *(*v11 + 56);
+        if ((v16 & 0xF000000) == 0x1000000)
+        {
+          *(v15 + 14) = v16 & 0x31FFFFFF | v14;
+          *(v15 + 6) = v13;
+        }
+
+        v11 += 8;
+        --v8;
+      }
+
+      while (v8);
+    }
+  }
+
+LABEL_13:
+  *(a2 + 2) &= ~0x20u;
+}
+
+void physx::Scb::Scene::remove<physx::Scb::RigidStatic>(int32x2_t *result, uint64_t a2, int32x2_t *a3, BOOL a4)
+{
+  v27[1] = *MEMORY[0x1E69E9840];
+  if ((result[961].i8[1] & 1) == 0)
+  {
+    v5 = *(&physx::Scb::Actor::sLazyInitOffsets + (*(a2 + 11) & 0xF) + 3) + a2;
+    if ((*(v5 + 12) & 8) == 0)
+    {
+      v27[0] = 0x4000000000;
+      v25 = 1;
+      v26 = v24;
+      v6 = result[549];
+      if (v6)
+      {
+        v7 = (*&v6 + 536);
+      }
+
+      else
+      {
+        v7 = v24;
+      }
+
+      if (v6)
+      {
+        v8 = (*&v6 + 1056);
+      }
+
+      else
+      {
+        v8 = &v26;
+      }
+
+      if (v6)
+      {
+        v9 = (*&v6 + 1064);
+      }
+
+      else
+      {
+        v9 = v27;
+      }
+
+      physx::Sc::Scene::removeStatic(&result[2], (a2 + 32), v7, a4);
+      v10 = *v9;
+      if (v10)
+      {
+        v11 = *v8;
+        v12 = *a2;
+        do
+        {
+          v13 = *v11;
+          v14 = *(*v11 - 24);
+          if ((v14 & 0x10000000) != 0)
+          {
+            physx::Scb::Shape::syncState((v13 - 32));
+            physx::shdfnd::internal::HashSetBase<physx::Sc::BodySim const*,physx::shdfnd::Hash<physx::Sc::BodySim const*>,physx::shdfnd::NonTrackingAllocator,true>::erase(v12 + 967, v13 - 32);
+            v14 = *(v13 - 24) & 0xEFFFFFFF;
+            *(v13 - 24) = v14;
+          }
+
+          if ((v14 & 0xF000000) == 0x1000000)
+          {
+            *(v13 - 24) = v14 & 0x31FFFFFF;
+            *(v13 - 32) = 0;
+          }
+
+          if (atomic_fetch_add((v13 - 48), 0xFFFFFFFF) == 1)
+          {
+            (*(*(v13 - 56) + 16))(v13 - 56);
+          }
+
+          ++v11;
+          --v10;
+        }
+
+        while (v10);
+      }
+
+      if ((v27[0] & 0x8000000000000000) != 0 || (v27[0] & 0x7FFFFFFF00000000) == 0)
+      {
+        goto LABEL_41;
+      }
+
+      v15 = v26;
+      goto LABEL_38;
+    }
+
+    v27[0] = 0x4000000000;
+    v16 = 1;
+    v25 = 1;
+    v26 = v24;
+    v17 = v5 + *(&physx::Sc::gOffsetTable + *(v5 + 13) + 10);
+    v18 = (v17 + 40);
+    v19 = *(v17 + 48);
+    if (v19 != 1)
+    {
+      if (!v19)
+      {
+        v15 = v24;
+        v23 = 64;
+        goto LABEL_37;
+      }
+
+      v18 = *v18;
+      v16 = v19;
+    }
+
+    v20 = *a2;
+    do
+    {
+      v21 = *v18;
+      v22 = *(*v18 + 56);
+      if ((v22 & 0x10000000) != 0)
+      {
+        physx::Scb::Shape::syncState(v21 + 6);
+        physx::shdfnd::internal::HashSetBase<physx::Sc::BodySim const*,physx::shdfnd::Hash<physx::Sc::BodySim const*>,physx::shdfnd::NonTrackingAllocator,true>::erase(v20 + 967, (v21 + 6));
+        v22 = v21[7] & 0xEFFFFFFF;
+        *(v21 + 14) = v22;
+      }
+
+      if ((v22 & 0xF000000) == 0x1000000)
+      {
+        *(v21 + 14) = v22 & 0x31FFFFFF;
+        v21[6] = 0;
+      }
+
+      ++v18;
+      --v16;
+    }
+
+    while (v16);
+    v15 = v26;
+    v23 = HIDWORD(v27[0]);
+    if ((v27[0] & 0x8000000000000000) != 0)
+    {
+      goto LABEL_41;
+    }
+
+LABEL_37:
+    if ((v23 & 0x7FFFFFFF) == 0)
+    {
+LABEL_41:
+      *(a2 + 8) &= 0xFFFFFFFu;
+      *a2 = 0;
+      return;
+    }
+
+LABEL_38:
+    if (v15 != v24 && v15)
+    {
+      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
+    }
+
+    goto LABEL_41;
+  }
+
+  physx::Scb::ObjectTracker::scheduleForRemove(a3, a2);
+}
+
+int32x2_t *physx::Scb::Scene::removeRigidNoSim<false,physx::Scb::RigidStatic>(int32x2_t *result, uint64_t a2, int32x2_t *a3)
+{
+  v28 = *MEMORY[0x1E69E9840];
+  if ((result[961].i8[1] & 1) == 0)
+  {
+    v27 = 0x4000000000;
+    v14 = 1;
+    v25 = 1;
+    v26 = v24;
+    v15 = *(&physx::Scb::Actor::sLazyInitOffsets + (*(a2 + 11) & 0xF) + 3) + a2;
+    v16 = v15 + *(&physx::Sc::gOffsetTable + *(v15 + 13) + 10);
+    v17 = (v16 + 40);
+    v18 = *(v16 + 48);
+    if (v18 != 1)
+    {
+      if (!v18)
+      {
+        v22 = v24;
+        v23 = 64;
+LABEL_20:
+        if ((v23 & 0x7FFFFFFF) != 0 && v22 != v24 && v22)
+        {
+          result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24, v22, a3);
+        }
+
+LABEL_24:
+        *(a2 + 8) &= 0xFFFFFFFu;
+        *a2 = 0;
+        return result;
+      }
+
+      v17 = *v17;
+      v14 = v18;
+    }
+
+    v19 = *a2;
+    do
+    {
+      v20 = *v17;
+      v21 = *(*v17 + 56);
+      if ((v21 & 0x10000000) != 0)
+      {
+        physx::Scb::Shape::syncState(v20 + 6);
+        result = physx::shdfnd::internal::HashSetBase<physx::Sc::BodySim const*,physx::shdfnd::Hash<physx::Sc::BodySim const*>,physx::shdfnd::NonTrackingAllocator,true>::erase(v19 + 967, (v20 + 6));
+        v21 = v20[7] & 0xEFFFFFFF;
+        *(v20 + 14) = v21;
+      }
+
+      if ((v21 & 0xF000000) == 0x1000000)
+      {
+        *(v20 + 14) = v21 & 0x31FFFFFF;
+        v20[6] = 0;
+      }
+
+      ++v17;
+      --v14;
+    }
+
+    while (v14);
+    v22 = v26;
+    v23 = HIDWORD(v27);
+    if (v27 < 0)
+    {
+      goto LABEL_24;
+    }
+
+    goto LABEL_20;
+  }
+
+  result = physx::Scb::ObjectTracker::scheduleForRemove(a3, a2);
+  v27 = 0x4000000000;
+  v4 = 1;
+  v25 = 1;
+  v26 = v24;
+  v5 = *(a2 + 8);
+  v6 = *(&physx::Scb::Actor::sLazyInitOffsets + ((v5 >> 24) & 0xF) + 3) + a2;
+  v7 = v6 + *(&physx::Sc::gOffsetTable + *(v6 + 13) + 10);
+  v8 = (v7 + 40);
+  v9 = *(v7 + 48);
+  if (v9 != 1)
+  {
+    if (!v9)
+    {
+      return result;
+    }
+
+    v8 = *v8;
+    v4 = v9;
+  }
+
+  v10 = *a2;
+  v11 = v5 & 0xC0000000;
+  do
+  {
+    v12 = *v8;
+    v13 = *(*v8 + 56);
+    if ((v13 & 0xF000000) == 0x1000000)
+    {
+      *(v12 + 14) = v13 & 0x31FFFFFF | v11;
+      v12[6] = v10;
+    }
+
+    ++v8;
+    --v4;
+  }
+
+  while (v4);
+  return result;
+}
+
+void physx::Scb::Scene::removeActor(int32x2_t *this, physx::Scb::Body *a2, uint64_t a3, char a4)
+{
+  v60[1] = *MEMORY[0x1E69E9840];
+  if (a4)
+  {
+    v6 = a2 + 32;
+    if (this[961].i8[1])
+    {
+      physx::Scb::ObjectTracker::scheduleForRemove(this + 987, a2);
+      v60[0] = 0x4000000000;
+      v59 = v57;
+      v7 = &v6[*(&physx::Sc::gOffsetTable + *(a2 + 45) + 10)];
+      v8 = v7 + 40;
+      v9 = *(v7 + 24);
+      if (v9 == 1)
+      {
+        v9 = 1;
+        goto LABEL_65;
+      }
+
+      if (v9)
+      {
+        v8 = *v8;
+LABEL_65:
+        v37 = *a2;
+        v38 = *(a2 + 2) & 0xC0000000;
+        do
+        {
+          v39 = *v8;
+          v40 = *(*v8 + 56);
+          if ((v40 & 0xF000000) == 0x1000000)
+          {
+            *(v39 + 14) = v40 & 0x31FFFFFF | v38;
+            *(v39 + 6) = v37;
+          }
+
+          v8 += 8;
+          --v9;
+        }
+
+        while (v9);
+      }
+
+LABEL_69:
+      v41 = *(a2 + 71);
+      v42 = (*(a2 + 2) + 348);
+      if ((v41 & 0x4000) == 0)
+      {
+        v42 = a2 + 76;
+      }
+
+      if (*v42)
+      {
+        physx::Scb::Body::putToSleepInternal(a2);
+      }
+
+      else
+      {
+        *(a2 + 70) = 1;
+        *(a2 + 71) = v41 & 0xFFF0FFFF;
+      }
+
+      *(a2 + 2) &= ~0x20u;
+      return;
+    }
+
+    v60[0] = 0x4000000000;
+    v13 = 1;
+    v58 = 1;
+    v59 = v57;
+    v14 = &v6[*(&physx::Sc::gOffsetTable + *(a2 + 45) + 10)];
+    v15 = v14 + 40;
+    v16 = *(v14 + 24);
+    if (v16 != 1)
+    {
+      if (!v16)
+      {
+        v20 = v57;
+        v21 = 64;
+LABEL_22:
+        if ((v21 & 0x7FFFFFFF) != 0 && v20 != v57 && v20)
+        {
+          (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24, v20, a3);
+        }
+
+LABEL_26:
+        *(a2 + 2) &= 0xFFFFFFFu;
+        *a2 = 0;
+        goto LABEL_69;
+      }
+
+      v15 = *v15;
+      v13 = v16;
+    }
+
+    v17 = *a2;
+    do
+    {
+      v18 = *v15;
+      v19 = *(*v15 + 56);
+      if ((v19 & 0x10000000) != 0)
+      {
+        physx::Scb::Shape::syncState(v18 + 6);
+        physx::shdfnd::internal::HashSetBase<physx::Sc::BodySim const*,physx::shdfnd::Hash<physx::Sc::BodySim const*>,physx::shdfnd::NonTrackingAllocator,true>::erase(v17 + 967, (v18 + 48));
+        v19 = *(v18 + 14) & 0xEFFFFFFF;
+        *(v18 + 14) = v19;
+      }
+
+      if ((v19 & 0xF000000) == 0x1000000)
+      {
+        *(v18 + 14) = v19 & 0x31FFFFFF;
+        *(v18 + 6) = 0;
+      }
+
+      v15 += 8;
+      --v13;
+    }
+
+    while (v13);
+    v20 = v59;
+    v21 = HIDWORD(v60[0]);
+    if ((v60[0] & 0x8000000000000000) != 0)
+    {
+      goto LABEL_26;
+    }
+
+    goto LABEL_22;
+  }
+
+  v10 = a3;
+  v11 = *(a2 + 26);
+  if (*(a2 + 2) >> 30 == 1 && v11 != 0)
+  {
+    physx::Sc::BodyCore::tearDownSimStateData(a2 + 32, *(*a2 + 4384), *(v11 + 31) == 1);
+  }
+
+  if (this[961].i8[1])
+  {
+    physx::Scb::ObjectTracker::scheduleForRemove(this + 987, a2);
+    goto LABEL_53;
+  }
+
+  *(a2 + 71) &= 0xF9FFFFFF;
+  if ((*(a2 + *(&physx::Scb::Actor::sLazyInitOffsets + (*(a2 + 11) & 0xF) + 3) + 12) & 8) != 0)
+  {
+    v60[0] = 0x4000000000;
+    v43 = 1;
+    v58 = 1;
+    v59 = v57;
+    v44 = a2 + *(&physx::Sc::gOffsetTable + *(a2 + 45) + 10);
+    v45 = v44 + 72;
+    v46 = *(v44 + 40);
+    if (v46 != 1)
+    {
+      if (!v46)
+      {
+        v50 = v57;
+        v51 = 64;
+LABEL_85:
+        if ((v51 & 0x7FFFFFFF) != 0 && v50 != v57 && v50)
+        {
+          (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
+        }
+
+        goto LABEL_52;
+      }
+
+      v45 = *v45;
+      v43 = v46;
+    }
+
+    v47 = *a2;
+    do
+    {
+      v48 = *v45;
+      v49 = *(*v45 + 56);
+      if ((v49 & 0x10000000) != 0)
+      {
+        physx::Scb::Shape::syncState(v48 + 6);
+        physx::shdfnd::internal::HashSetBase<physx::Sc::BodySim const*,physx::shdfnd::Hash<physx::Sc::BodySim const*>,physx::shdfnd::NonTrackingAllocator,true>::erase(v47 + 967, (v48 + 48));
+        v49 = *(v48 + 14) & 0xEFFFFFFF;
+        *(v48 + 14) = v49;
+      }
+
+      if ((v49 & 0xF000000) == 0x1000000)
+      {
+        *(v48 + 14) = v49 & 0x31FFFFFF;
+        *(v48 + 6) = 0;
+      }
+
+      v45 += 8;
+      --v43;
+    }
+
+    while (v43);
+    v50 = v59;
+    v51 = HIDWORD(v60[0]);
+    if ((v60[0] & 0x8000000000000000) != 0)
+    {
+      goto LABEL_52;
+    }
+
+    goto LABEL_85;
+  }
+
+  v60[0] = 0x4000000000;
+  v58 = 1;
+  v59 = v57;
+  v22 = this[549];
+  if (v22)
+  {
+    v23 = (*&v22 + 536);
+  }
+
+  else
+  {
+    v23 = v57;
+  }
+
+  if (v22)
+  {
+    v24 = (*&v22 + 1056);
+  }
+
+  else
+  {
+    v24 = &v59;
+  }
+
+  if (v22)
+  {
+    v25 = (*&v22 + 1064);
+  }
+
+  else
+  {
+    v25 = v60;
+  }
+
+  v56 = v10;
+  physx::Sc::Scene::removeBody(&this[2], a2 + 4, v23, v10);
+  v26 = *v25;
+  if (v26)
+  {
+    v27 = *v24;
+    v28 = *a2;
+    do
+    {
+      v29 = *v27;
+      v30 = *(*v27 - 24);
+      if ((v30 & 0x10000000) != 0)
+      {
+        physx::Scb::Shape::syncState((v29 - 32));
+        physx::shdfnd::internal::HashSetBase<physx::Sc::BodySim const*,physx::shdfnd::Hash<physx::Sc::BodySim const*>,physx::shdfnd::NonTrackingAllocator,true>::erase(v28 + 967, v29 - 32);
+        v30 = *(v29 - 24) & 0xEFFFFFFF;
+        *(v29 - 24) = v30;
+      }
+
+      if ((v30 & 0xF000000) == 0x1000000)
+      {
+        *(v29 - 24) = v30 & 0x31FFFFFF;
+        *(v29 - 32) = 0;
+      }
+
+      if (atomic_fetch_add((v29 - 48), 0xFFFFFFFF) == 1)
+      {
+        (*(*(v29 - 56) + 16))(v29 - 56);
+      }
+
+      ++v27;
+      --v26;
+    }
+
+    while (v26);
+  }
+
+  if ((v60[0] & 0x8000000000000000) == 0 && (v60[0] & 0x7FFFFFFF00000000) != 0 && v59 != v57 && v59)
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
+  }
+
+  v10 = v56;
+LABEL_52:
+  *(a2 + 2) &= 0xFFFFFFFu;
+  *a2 = 0;
+LABEL_53:
+  v31 = *(a2 + 71);
+  v32 = (*(a2 + 2) + 348);
+  if ((v31 & 0x4000) == 0)
+  {
+    v32 = a2 + 76;
+  }
+
+  if (*v32)
+  {
+    physx::Scb::Body::putToSleepInternal(a2);
+  }
+
+  else
+  {
+    *(a2 + 70) = 1;
+    *(a2 + 71) = v31 & 0xFFF0FFFF;
+  }
+
+  v33 = *(a2 + 2) & 0xFFFFFFDF;
+  *(a2 + 2) = v33;
+  if (this[961].i8[1] == 1)
+  {
+    if (v10)
+    {
+      v33 |= 0x10u;
+      *(a2 + 2) = v33;
+    }
+
+    v60[0] = 0x4000000000;
+    v59 = v57;
+    v34 = a2 + *(&physx::Sc::gOffsetTable + *(a2 + 45) + 10);
+    v35 = v34 + 72;
+    v36 = *(v34 + 40);
+    if (v36 == 1)
+    {
+      v36 = 1;
+    }
+
+    else
+    {
+      if (!v36)
+      {
+        return;
+      }
+
+      v35 = *v35;
+    }
+
+    v52 = *a2;
+    v53 = v33 & 0xC0000000;
+    do
+    {
+      v54 = *v35;
+      v55 = *(*v35 + 56);
+      if ((v55 & 0xF000000) == 0x1000000)
+      {
+        *(v54 + 14) = v55 & 0x31FFFFFF | v53;
+        *(v54 + 6) = v52;
+      }
+
+      v35 += 8;
+      --v36;
+    }
+
+    while (v36);
+  }
+}
+
+uint64_t *physx::Scb::Scene::add<physx::Scb::Constraint>(int32x2_t *a1, uint64_t a2, int32x2_t *a3)
+{
+  *a2 = a1;
+  if ((a1[961].i8[1] & 1) == 0)
+  {
+    *(a2 + 8) = *(a2 + 8) & 0xFFFFFFF | 0x80000000;
+    v8 = 0;
+    v9 = 0;
+    v5 = a2 - 32;
+    (*(*(a2 - 32) + 56))(a2 - 32, &v9, &v8);
+    if (v9)
+    {
+      v6 = v9 + *(&physx::Scb::Actor::sLazyInitOffsets + (*(v9 + 107) & 0xF) + 3) + 96;
+      if (v8)
+      {
+LABEL_7:
+        v7 = *(&physx::Scb::Actor::sLazyInitOffsets + (*(v8 + 107) & 0xF) + 3) + v8 + 96;
+        return physx::Sc::Scene::addConstraint(a1 + 2, v5 + 56, v6, v7);
+      }
+    }
+
+    else
+    {
+      v6 = 0;
+      if (v8)
+      {
+        goto LABEL_7;
+      }
+    }
+
+    v7 = 0;
+    return physx::Sc::Scene::addConstraint(a1 + 2, v5 + 56, v6, v7);
+  }
+
+  return physx::Scb::ObjectTracker::scheduleForInsert(a3, a2);
+}
+
+void physx::Scb::Scene::removeConstraint(int32x2_t *a1, uint64_t a2)
+{
+  if (a1[961].i8[1])
+  {
+    v3 = a1 + 994;
+
+    physx::Scb::ObjectTracker::scheduleForRemove(v3, a2);
+  }
+
+  else
+  {
+    physx::Sc::Scene::removeConstraint(&a1[2], a2 + 24);
+    *(a2 + 8) &= 0xFFFFFFFu;
+    *a2 = 0;
+  }
+}
+
+physx::Sc::ArticulationCore **physx::Scb::Scene::add<physx::Scb::Articulation>(int32x2_t *a1, uint64_t a2, int32x2_t *a3)
+{
+  *a2 = a1;
+  if (a1[961].i8[1])
+  {
+    return physx::Scb::ObjectTracker::scheduleForInsert(a3, a2);
+  }
+
+  *(a2 + 8) = *(a2 + 8) & 0xFFFFFFF | 0x80000000;
+  v4 = **(a2 + 120);
+  if (v4)
+  {
+    v5 = v4 + 96;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  return physx::Sc::Scene::addArticulation(a1 + 2, (a2 + 24), (v5 + 32));
+}
+
+int32x2_t *physx::Scb::Scene::removeArticulation(int32x2_t *this, physx::Scb::Articulation *a2)
+{
+  v4 = *(a2 + 3);
+  if (v4)
+  {
+    v5 = this[240];
+    v6 = *v4;
+    v8 = *(v4 + 18);
+    (*(**&v5 + 72))(v5, v6, &v8);
+  }
+
+  result = physx::Scb::Scene::remove<physx::Scb::Articulation>(this, a2, this + 1001);
+  *(a2 + 76) = 1;
+  return result;
+}
+
+int32x2_t *physx::Scb::Scene::remove<physx::Scb::Articulation>(int32x2_t *a1, uint64_t a2, int32x2_t *a3)
+{
+  if (a1[961].i8[1])
+  {
+
+    return physx::Scb::ObjectTracker::scheduleForRemove(a3, a2);
+  }
+
+  else
+  {
+    *(a2 + 8) &= 0xFFFFFCFF;
+    result = physx::Sc::Scene::removeArticulation(a1 + 2, (a2 + 24));
+    *(a2 + 8) &= 0xFFFFFFFu;
+    *a2 = 0;
+  }
+
+  return result;
+}
+
+int32x2_t *physx::Scb::Scene::add<physx::Scb::ArticulationJoint>(uint64_t a1, uint64_t a2, int32x2_t *a3)
+{
+  *a2 = a1;
+  if (*(a1 + 7689))
+  {
+    return physx::Scb::ObjectTracker::scheduleForInsert(a3, a2);
+  }
+
+  *(a2 + 8) = *(a2 + 8) & 0xFFFFFFF | 0x80000000;
+  return physx::Sc::Scene::addArticulationJoint(a1 + 16, a2 + 24, (*(a2 + 408) + 128), (*(a2 + 416) + 128));
+}
+
+int32x2_t *physx::Scb::Scene::remove<physx::Scb::ArticulationJoint>(uint64_t a1, uint64_t a2, int32x2_t *a3)
+{
+  if (*(a1 + 7689))
+  {
+
+    return physx::Scb::ObjectTracker::scheduleForRemove(a3, a2);
+  }
+
+  else
+  {
+    result = physx::Sc::Scene::removeArticulationJoint(a1 + 16, (a2 + 24));
+    *(a2 + 8) &= 0xFFFFFFFu;
+    *a2 = 0;
+  }
+
+  return result;
+}
+
+int32x2_t *physx::Scb::Scene::addAggregate(int32x2_t *a1, uint64_t a2)
+{
+  *a2 = a1;
+  if (a1[961].i8[1])
+  {
+    v3 = a1 + 1015;
+
+    return physx::Scb::ObjectTracker::scheduleForInsert(v3, a2);
+  }
+
+  else
+  {
+    result = physx::Sc::Scene::createAggregate(&a1[2], *(a2 + 24), *(a2 + 40));
+    *(a2 + 32) = result;
+    *(a2 + 8) = *(a2 + 8) & 0xFFFFFFF | 0x80000000;
+  }
+
+  return result;
+}
+
+void physx::Scb::Scene::removeAggregate(int32x2_t *a1, uint64_t a2)
+{
+  if (a1[961].i8[1])
+  {
+    v3 = a1 + 1015;
+
+    physx::Scb::ObjectTracker::scheduleForRemove(v3, a2);
+  }
+
+  else
+  {
+    physx::Sc::Scene::deleteAggregate(&a1[2], *(a2 + 32));
+    *(a2 + 8) &= 0xFFFFFFFu;
+    *a2 = 0;
+  }
+}
+
+uint64_t physx::Scb::Scene::addMaterial(uint64_t result, uint64_t a2)
+{
+  v3 = result;
+  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
+  {
+    result = pthread_mutex_lock(*(result + 7680));
+  }
+
+  LOWORD(v5) = *(a2 + 24);
+  HIDWORD(v5) = 0;
+  v4 = *(v3 + 7672);
+  if ((*(v3 + 7676) & 0x7FFFFFFFu) <= v4)
+  {
+    result = physx::shdfnd::Array<physx::Scb::MaterialEvent,physx::shdfnd::ReflectionAllocator<physx::Scb::MaterialEvent>>::growAndPushBack(v3 + 7664, &v5);
+  }
+
+  else
+  {
+    *(*(v3 + 7664) + 8 * v4) = v5;
+    ++*(v3 + 7672);
+  }
+
+  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
+  {
+    return pthread_mutex_unlock(*(v3 + 7680));
+  }
+
+  return result;
+}
+
+uint64_t physx::Scb::Scene::updateMaterial(uint64_t result, uint64_t a2)
+{
+  v3 = result;
+  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
+  {
+    result = pthread_mutex_lock(*(result + 7680));
+  }
+
+  LOWORD(v5) = *(a2 + 24);
+  HIDWORD(v5) = 1;
+  v4 = *(v3 + 7672);
+  if ((*(v3 + 7676) & 0x7FFFFFFFu) <= v4)
+  {
+    result = physx::shdfnd::Array<physx::Scb::MaterialEvent,physx::shdfnd::ReflectionAllocator<physx::Scb::MaterialEvent>>::growAndPushBack(v3 + 7664, &v5);
+  }
+
+  else
+  {
+    *(*(v3 + 7664) + 8 * v4) = v5;
+    ++*(v3 + 7672);
+  }
+
+  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
+  {
+    return pthread_mutex_unlock(*(v3 + 7680));
+  }
+
+  return result;
+}
+
+uint64_t physx::Scb::Scene::removeMaterial(uint64_t result, uint64_t a2)
+{
+  v4 = *(a2 + 24);
+  if (v4 != 0xFFFF)
+  {
+    v8[5] = v2;
+    v8[6] = v3;
+    v6 = result;
+    if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
+    {
+      result = pthread_mutex_lock(*(result + 7680));
+      LOWORD(v4) = *(a2 + 24);
+    }
+
+    LOWORD(v8[0]) = v4;
+    HIDWORD(v8[0]) = 2;
+    v7 = *(v6 + 7672);
+    if ((*(v6 + 7676) & 0x7FFFFFFFu) <= v7)
+    {
+      result = physx::shdfnd::Array<physx::Scb::MaterialEvent,physx::shdfnd::ReflectionAllocator<physx::Scb::MaterialEvent>>::growAndPushBack(v6 + 7664, v8);
+    }
+
+    else
+    {
+      *(*(v6 + 7664) + 8 * v7) = v8[0];
+      ++*(v6 + 7672);
+    }
+
+    if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
+    {
+      return pthread_mutex_unlock(*(v6 + 7680));
+    }
+  }
+
+  return result;
+}
+
+void *physx::Scb::Scene::updateLowLevelMaterial(pthread_mutex_t **this, physx::NpMaterial **a2)
+{
+  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
+  {
+    pthread_mutex_lock(this[960]);
+  }
+
+  if (*(this + 1918))
+  {
+    v4 = 0;
+    v5 = 0;
+    do
+    {
+      v6 = (this[958] + v4);
+      v7 = *v6;
+      v8 = *(v6 + 1);
+      if (v8 == 2)
+      {
+        if (*(this + 6) > v7)
+        {
+          v19 = this[2] + 32 * v7;
+          if (*(v19 + 12) == v7)
+          {
+            (*(**&this[232][27].__opaque[40] + 120))(*&this[232][27].__opaque[40], v19);
+            *(v19 + 12) = -1;
+          }
+        }
+      }
+
+      else
+      {
+        v9 = a2[v7];
+        if (v8 == 1)
+        {
+          if (v9)
+          {
+            v16 = *(v9 + 6);
+            v15 = v9 + 48;
+            v17 = this[2] + 32 * *(v15 + 12);
+            *(v17 + 2) = *(v15 + 2);
+            *v17 = v16;
+            *(v17 + 6) = *(v15 + 6);
+            *(v17 + 7) = *(v15 + 7);
+            v18 = *(v15 + 2);
+            *(v17 + 6) = *(v15 + 6);
+            *(v17 + 2) = v18;
+            (*(**&this[232][27].__opaque[40] + 112))(*&this[232][27].__opaque[40], v15);
+          }
         }
 
         else
         {
-          v11 = *(*(v10 + 152) + v8);
-        }
-
-        Type = REAssetGetType(v11);
-        if (CFStringCompare(Type, @"Timeline", 0) == kCFCompareEqualTo)
-        {
-          v13 = RETimelineDefinitionCreateFromTimeline(v11);
-          v14 = v13;
-          v15 = *(v13 + 48);
-          if (!v15)
+          if (v8)
           {
-            v15 = *(re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((v13 + 24)) + 8);
-          }
-
-          v16 = *(v15 + 8);
-          {
+            v10 = 1;
           }
 
           else
           {
-            *&v40.var0 = 0;
-            v40.var1 = &str_67;
-            v42 = 0;
-            v41 = 0;
-            re::AssetAPIHelper::assetHandleCreate(v11, &v38);
-            v21 = v41;
-            v41 = v38;
-            v38 = v21;
-            v22 = v42;
-            v42 = v39;
-            v39 = v22;
-            re::AssetHandle::~AssetHandle(&v38);
-            if (*(v14 + 88) == 1)
-            {
-              v24 = v14 + 96;
-            }
-
-            else
-            {
-              v25 = *(v14 + 48);
-              if (!v25)
-              {
-                v23 = re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((v14 + 24));
-                if (v23)
-                {
-                  v25 = *(v23 + 1);
-                }
-
-                else
-                {
-                  v25 = 0;
-                }
-              }
-
-              v24 = v25 + 24;
-            }
-
-            v26 = *(v24 + 8);
-            *&v38.var0 = 0;
-            v38.var1 = &str_67;
-            v28 = v38;
-            *&v38.var0 = 0;
-            v38.var1 = &str_67;
-            var0 = v40.var0;
-            var1 = v40.var1;
-            v40 = v28;
-            if (var0)
-            {
-              if (*&v38.var0)
-              {
-                if (*&v38.var0)
-                {
-                }
-              }
-            }
-
-            re::DynamicArray<re::NamedAnimationLibraryEntry>::add(v43, &v40);
-
-            re::AssetHandle::~AssetHandle(&v41);
-            if (*&v40.var0)
-            {
-              if (*&v40.var0)
-              {
-              }
-            }
+            v10 = v9 == 0;
           }
-        }
 
-        v8 += 24;
-      }
-    }
-
-    v33 = v44;
-    if (v44)
-    {
-      re::make::shared::object<re::Shareable<re::DynamicArray<re::NamedAnimationLibraryEntry>>>(&v40);
-      v4 = *&v40.var0;
-      v34 = v44;
-      if (*(*&v40.var0 + 32) < v44)
-      {
-        re::DynamicArray<re::NamedAnimationLibraryEntry>::setCapacity((*&v40.var0 + 24), v44);
-        v34 = v44;
-      }
-
-      if (v34)
-      {
-        v35 = 0;
-        v36 = 0;
-        do
-        {
-          re::DynamicArray<re::NamedAnimationLibraryEntry>::add((v4 + 24), (v46 + v35));
-          ++v36;
-          v35 += 40;
-        }
-
-        while (v36 < v44);
-      }
-    }
-
-    re::DynamicArray<re::NamedAnimationLibraryEntry>::deinit(v43);
-    re::StackScratchAllocator::~StackScratchAllocator(v47);
-    if (v33)
-    {
-      re::AssetHandle::~AssetHandle(&v48);
-    }
-
-    else
-    {
-LABEL_48:
-      re::AssetHandle::~AssetHandle(&v48);
-      return 0;
-    }
-  }
-
-  return v4;
-}
-
-uint64_t re::DynamicArray<re::NamedAnimationLibraryEntry>::operator=(uint64_t a1, uint64_t *a2)
-{
-  if (a1 != a2)
-  {
-    v4 = *a2;
-    if (*a1)
-    {
-      if (v4)
-      {
-        re::DynamicArray<re::NamedAnimationLibraryEntry>::copy(a1, a2);
-        ++*(a1 + 24);
-      }
-
-      else
-      {
-        re::DynamicArray<re::NamedAnimationLibraryEntry>::clear(a1);
-      }
-    }
-
-    else if (v4)
-    {
-      v5 = a2[2];
-      *a1 = v4;
-      re::DynamicArray<re::NamedAnimationLibraryEntry>::setCapacity(a1, v5);
-      ++*(a1 + 24);
-      re::DynamicArray<re::NamedAnimationLibraryEntry>::copy(a1, a2);
-    }
-  }
-
-  return a1;
-}
-
-uint64_t REAnimationLibraryComponentGetTransformQueryResultCount(uint64_t result)
-{
-  if (result)
-  {
-    return *(result + 40);
-  }
-
-  return result;
-}
-
-CFStringRef REAnimationLibraryComponentCopyTransformQueryResultAnimationName(uint64_t a1, unint64_t a2)
-{
-  if (!a1)
-  {
-    return 0;
-  }
-
-  if (*(a1 + 40) <= a2)
-  {
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-  }
-
-  v2 = *(*(a1 + 56) + 40 * a2 + 8);
-
-  return CFStringCreateWithCString(0, v2, 0x8000100u);
-}
-
-uint64_t REAnimationLibraryComponentGetTransformQueryResultAnimationAsset(uint64_t result, unint64_t a2)
-{
-  if (result)
-  {
-    if (*(result + 40) <= a2)
-    {
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-    }
-
-    return *(*(result + 56) + 40 * a2 + 16);
-  }
-
-  return result;
-}
-
-uint64_t REAnimationLibraryComponentGetFirstSkeletalAnimation(uint64_t a1)
-{
-  re::ecs2::AnimationLibraryComponent::constructAnimationLibraryMeshMapping(a1);
-  re::StackScratchAllocator::StackScratchAllocator(v13);
-  v12 = 0;
-  v9[1] = 0;
-  v10 = 0;
-  v11 = 0;
-  v9[0] = v13;
-  re::DynamicArray<re::DynamicArray<unsigned int>>::setCapacity(v9, 0);
-  ++v11;
-  v2 = re::AssetHandle::blockUntilLoaded<re::AnimationLibraryAsset>((a1 + 32));
-  if (v2 && re::AnimationLibraryMeshMapping::getFirstSkeletalAnimation(a1 + 56, v2, v9))
-  {
-    re::make::shared::object<re::Shareable<re::DynamicArray<re::SkeletalAnimationQueryEntry>>>(&v8);
-    v3 = v8;
-    v4 = v10;
-    if (*(v8 + 32) < v10)
-    {
-      re::DynamicArray<re::DynamicArray<unsigned int>>::setCapacity((v8 + 24), v10);
-      v4 = v10;
-    }
-
-    if (v4)
-    {
-      v5 = 0;
-      v6 = 0;
-      do
-      {
-        re::DynamicArray<re::SkeletalAnimationQueryEntry>::add((v3 + 24), (v12 + v5));
-        ++v6;
-        v5 += 40;
-      }
-
-      while (v6 < v10);
-    }
-  }
-
-  else
-  {
-    v3 = 0;
-  }
-
-  re::DynamicArray<re::DynamicArray<unsigned char>>::deinit(v9);
-  re::StackScratchAllocator::~StackScratchAllocator(v13);
-  return v3;
-}
-
-uint64_t REAnimationLibraryComponentCreateQuerySkeletalAnimationWithName(uint64_t a1, const char *a2)
-{
-  re::ecs2::AnimationLibraryComponent::constructAnimationLibraryMeshMapping(a1);
-  re::StackScratchAllocator::StackScratchAllocator(v19);
-  v18 = 0;
-  v15[1] = 0;
-  v16 = 0;
-  v17 = 0;
-  v15[0] = v19;
-  re::DynamicArray<re::DynamicArray<unsigned int>>::setCapacity(v15, 0);
-  ++v17;
-  v4 = re::AssetHandle::blockUntilLoaded<re::AnimationLibraryAsset>((a1 + 32));
-  if (!v4)
-  {
-    goto LABEL_12;
-  }
-
-  v5 = v4;
-  v13 = 0;
-  v14 = &str_67;
-  NamedSkeletalAnimation = re::AnimationLibraryMeshMapping::getNamedSkeletalAnimation(a1 + 56, &v13, v5, v15);
-  v7 = NamedSkeletalAnimation;
-  if (v13)
-  {
-    if (v13)
-    {
-    }
-  }
-
-  if (v7)
-  {
-    re::make::shared::object<re::Shareable<re::DynamicArray<re::SkeletalAnimationQueryEntry>>>(&v13);
-    v8 = v13;
-    v9 = v16;
-    if (*(v13 + 32) < v16)
-    {
-      re::DynamicArray<re::DynamicArray<unsigned int>>::setCapacity((v13 + 24), v16);
-      v9 = v16;
-    }
-
-    if (v9)
-    {
-      v10 = 0;
-      v11 = 0;
-      do
-      {
-        re::DynamicArray<re::SkeletalAnimationQueryEntry>::add((v8 + 24), (v18 + v10));
-        ++v11;
-        v10 += 40;
-      }
-
-      while (v11 < v16);
-    }
-  }
-
-  else
-  {
-LABEL_12:
-    v8 = 0;
-  }
-
-  re::DynamicArray<re::DynamicArray<unsigned char>>::deinit(v15);
-  re::StackScratchAllocator::~StackScratchAllocator(v19);
-  return v8;
-}
-
-uint64_t REAnimationLibraryComponentCreateQueryAllSkeletalAnimations(re::ecs2::AnimationLibraryComponent *a1)
-{
-  re::ecs2::AnimationLibraryComponent::constructAnimationLibraryMeshMapping(a1);
-  re::StackScratchAllocator::StackScratchAllocator(v13);
-  v12 = 0;
-  v9[1] = 0;
-  v10 = 0;
-  v11 = 0;
-  v9[0] = v13;
-  re::DynamicArray<re::DynamicArray<unsigned int>>::setCapacity(v9, 0);
-  ++v11;
-  AllSkeletalAnimations = re::AnimationLibraryMeshMapping::getAllSkeletalAnimations(a1 + 56, v9);
-  v3 = 0;
-  if (AllSkeletalAnimations)
-  {
-    re::make::shared::object<re::Shareable<re::DynamicArray<re::SkeletalAnimationQueryEntry>>>(&v8);
-    v3 = v8;
-    v4 = v10;
-    if (*(v8 + 32) < v10)
-    {
-      re::DynamicArray<re::DynamicArray<unsigned int>>::setCapacity((v8 + 24), v10);
-      v4 = v10;
-    }
-
-    if (v4)
-    {
-      v5 = 0;
-      v6 = 0;
-      do
-      {
-        re::DynamicArray<re::SkeletalAnimationQueryEntry>::add((v3 + 24), (v12 + v5));
-        ++v6;
-        v5 += 40;
-      }
-
-      while (v6 < v10);
-    }
-  }
-
-  re::DynamicArray<re::DynamicArray<unsigned char>>::deinit(v9);
-  re::StackScratchAllocator::~StackScratchAllocator(v13);
-  return v3;
-}
-
-uint64_t REAnimationLibraryComponentGetSkeletalQueryResultCount(uint64_t result)
-{
-  if (result)
-  {
-    return *(result + 40);
-  }
-
-  return result;
-}
-
-uint64_t REAnimationLibraryComponentGetSkeletalQueryResultAnimationCount(uint64_t result, unint64_t a2)
-{
-  if (result)
-  {
-    if (*(result + 40) <= a2)
-    {
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-    }
-
-    return *(*(result + 56) + 40 * a2 + 16);
-  }
-
-  return result;
-}
-
-CFStringRef REAnimationLibraryComponentCopySkeletalQueryResultAnimationName(uint64_t a1, uint64_t a2, unint64_t a3, unint64_t a4)
-{
-  v7 = re::AssetHandle::blockUntilLoaded<re::AnimationLibraryAsset>((a1 + 32));
-  if (!a2 || !v7)
-  {
-    return 0;
-  }
-
-  if (*(a2 + 40) <= a3)
-  {
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_11;
-  }
-
-  v8 = *(a2 + 56) + 40 * a3;
-  if (*(v8 + 16) <= a4)
-  {
-LABEL_11:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_12:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-  }
-
-  v9 = *(*(v8 + 32) + 12 * a4);
-  if (*(v7 + 16) <= v9)
-  {
-    goto LABEL_12;
-  }
-
-  v10 = *(*(v7 + 32) + 120 * v9 + 64);
-
-  return CFStringCreateWithCString(0, v10, 0x8000100u);
-}
-
-CFStringRef REAnimationLibraryComponentCopySkeletalQueryResultSkeletonName(uint64_t a1, uint64_t a2, unint64_t a3, unint64_t a4)
-{
-  v7 = re::AssetHandle::blockUntilLoaded<re::AnimationLibraryAsset>((a1 + 32));
-  if (!a2 || !v7)
-  {
-    return 0;
-  }
-
-  if (*(a2 + 40) <= a3)
-  {
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_11;
-  }
-
-  v8 = *(a2 + 56) + 40 * a3;
-  if (*(v8 + 16) <= a4)
-  {
-LABEL_11:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_12:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-  }
-
-  v9 = *(*(v8 + 32) + 12 * a4);
-  if (*(v7 + 16) <= v9)
-  {
-    goto LABEL_12;
-  }
-
-  v10 = *(*(v7 + 32) + 120 * v9 + 48);
-
-  return CFStringCreateWithCString(0, v10, 0x8000100u);
-}
-
-uint64_t REAnimationLibraryComponentGetSkeletalQueryResultAnimationAsset(uint64_t a1, uint64_t a2, unint64_t a3, unint64_t a4)
-{
-  v7 = re::AssetHandle::blockUntilLoaded<re::AnimationLibraryAsset>((a1 + 32));
-  v8 = 0;
-  if (a2 && v7)
-  {
-    if (*(a2 + 40) <= a3)
-    {
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-    }
-
-    else
-    {
-      v9 = *(a2 + 56) + 40 * a3;
-      if (*(v9 + 16) > a4)
-      {
-        v10 = *(*(v9 + 32) + 12 * a4);
-        if (*(v7 + 16) > v10)
-        {
-          return *(*(v7 + 32) + 120 * v10 + 72);
-        }
-
-LABEL_10:
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-      }
-    }
-
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_10;
-  }
-
-  return v8;
-}
-
-uint64_t REAnimationLibraryComponentGetSkeletalQueryResultAnimationClipAsset(uint64_t a1, uint64_t a2, unint64_t a3, unint64_t a4)
-{
-  v7 = re::AssetHandle::blockUntilLoaded<re::AnimationLibraryAsset>((a1 + 32));
-  v8 = 0;
-  if (a2 && v7)
-  {
-    if (*(a2 + 40) <= a3)
-    {
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-    }
-
-    else
-    {
-      v9 = *(a2 + 56) + 40 * a3;
-      if (*(v9 + 16) > a4)
-      {
-        v10 = *(*(v9 + 32) + 12 * a4);
-        if (*(v7 + 16) > v10)
-        {
-          return *(*(v7 + 32) + 120 * v10 + 96);
-        }
-
-LABEL_10:
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-      }
-    }
-
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_10;
-  }
-
-  return v8;
-}
-
-uint64_t REAnimationLibraryComponentGetSkeletalQueryResultMeshInstanceIndex(uint64_t a1, unint64_t a2, unint64_t a3)
-{
-  if (a1)
-  {
-    if (*(a1 + 40) <= a2)
-    {
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-    }
-
-    else
-    {
-      v3 = *(a1 + 56) + 40 * a2;
-      if (*(v3 + 16) > a3)
-      {
-        return *(*(v3 + 32) + 12 * a3 + 4);
-      }
-    }
-
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-  }
-
-  return 0xFFFFFFFFLL;
-}
-
-uint64_t REAnimationLibraryComponentGetSkeletalQueryResultSkeletonIndex(uint64_t a1, unint64_t a2, unint64_t a3)
-{
-  if (a1)
-  {
-    if (*(a1 + 40) <= a2)
-    {
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-    }
-
-    else
-    {
-      v3 = *(a1 + 56) + 40 * a2;
-      if (*(v3 + 16) > a3)
-      {
-        return *(*(v3 + 32) + 12 * a3 + 8);
-      }
-    }
-
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-  }
-
-  return 0xFFFFFFFFLL;
-}
-
-uint64_t REAnimationLibraryComponentGetAnimationSceneByName(uint64_t a1, const char *a2)
-{
-  if (a2)
-  {
-    v4 = *a2;
-    if (*a2)
-    {
-      v5 = a2[1];
-      if (v5)
-      {
-        v6 = (a2 + 2);
-        do
-        {
-          v4 = 31 * v4 + v5;
-          v7 = *v6++;
-          v5 = v7;
-        }
-
-        while (v7);
-      }
-    }
-  }
-
-  else
-  {
-    v4 = 0;
-  }
-
-  v8 = 2 * v4;
-  v9 = re::AssetHandle::blockUntilLoaded<re::AnimationLibraryAsset>((a1 + 32));
-  if (v9 && (v10 = *(v9 + 96)) != 0)
-  {
-    v11 = *(v9 + 112) + 16;
-    v12 = 40 * v10;
-    while (1)
-    {
-      if ((*(v11 - 16) ^ v8) <= 1)
-      {
-        v13 = *(v11 - 8);
-        if (v13 == a2 || !strcmp(v13, a2))
-        {
-          break;
-        }
-      }
-
-      v11 += 40;
-      v12 -= 40;
-      if (!v12)
-      {
-        return 0;
-      }
-    }
-
-    return *v11;
-  }
-
-  else
-  {
-    re::AssetHandle::AssetHandle(&v29, (a1 + 32));
-    if (v29)
-    {
-      if (v30)
-      {
-        v14 = *(v30 + 24);
-      }
-
-      else
-      {
-        v14 = 0;
-      }
-
-      v16 = REAnimationLibraryDefinitionCreateFromAnimationLibraryAsset(v14, v29);
-      v17 = AnimationLibraryDefinition::assetData(v16);
-      if (v17)
-      {
-        v18 = *(v17 + 136);
-        if (v18)
-        {
-          v19 = 0;
-          for (i = 0; v18 != i; ++i)
+          if (!v10)
           {
-            v21 = AnimationLibraryDefinition::assetData(v16);
-            if (*(v21 + 136) <= i)
-            {
-              v22 = 0;
-            }
-
-            else
-            {
-              v22 = *(*(v21 + 152) + v19);
-            }
-
-            Type = REAssetGetType(v22);
-            if (CFStringCompare(Type, @"AnimationScene", 0) == kCFCompareEqualTo)
-            {
-              re::AssetAPIHelper::assetHandleCreate(v22, v28);
-              v24 = re::AssetHandle::blockUntilLoaded<re::BasicAsset<re::AnimationScene,&re::kAnimationSceneAssetName,&re::kAnimationSceneAssetExtension>>(v28);
-              v25 = *(re::AssetHandle::blockUntilLoaded<re::TimelineAsset>(v24) + 16);
-              if (v25)
-              {
-                if ((*(v25 + 24) ^ v8) <= 1)
-                {
-                  v26 = *(v25 + 32);
-                  if (v26 == a2 || !strcmp(v26, a2))
-                  {
-
-                    v15 = v28[0];
-                    re::AssetHandle::~AssetHandle(v28);
-                    re::AssetHandle::~AssetHandle(&v29);
-                    return v15;
-                  }
-                }
-              }
-
-              re::AssetHandle::~AssetHandle(v28);
-            }
-
-            v19 += 24;
-          }
-        }
-      }
-    }
-
-    re::AssetHandle::~AssetHandle(&v29);
-    return 0;
-  }
-}
-
-uint64_t REAnimationLibraryComponentCreateQueryAllAnimationScenes(uint64_t a1)
-{
-  v2 = re::AssetHandle::blockUntilLoaded<re::AnimationLibraryAsset>((a1 + 32));
-  if (v2 && (v3 = v2, *(v2 + 96)))
-  {
-    re::make::shared::object<re::Shareable<re::DynamicArray<re::NamedAnimationLibraryEntry>>>(&v25);
-    v4 = v25;
-    re::DynamicArray<re::NamedAnimationLibraryEntry>::operator=(v25 + 24, (v3 + 80));
-  }
-
-  else
-  {
-    re::AssetHandle::AssetHandle(&v30, (a1 + 32));
-    if (v30)
-    {
-      if (v31)
-      {
-        v5 = *(v31 + 24);
-      }
-
-      else
-      {
-        v5 = 0;
-      }
-
-      v6 = REAnimationLibraryDefinitionCreateFromAnimationLibraryAsset(v5, v30);
-      v7 = AnimationLibraryDefinition::assetData(v6);
-      if (v7)
-      {
-        v8 = *(v7 + 136);
-        v29 = 0;
-        v26 = 0;
-        v27 = 0;
-        v25 = 0;
-        v28 = 0;
-        if (v8)
-        {
-          v9 = 0;
-          for (i = 0; i != v8; ++i)
-          {
-            v11 = AnimationLibraryDefinition::assetData(v6);
-            if (*(v11 + 136) <= i)
-            {
-              v12 = 0;
-            }
-
-            else
-            {
-              v12 = *(*(v11 + 152) + v9);
-            }
-
-            Type = REAssetGetType(v12);
-            if (CFStringCompare(Type, @"AnimationScene", 0) == kCFCompareEqualTo)
-            {
-              *&v22.var0 = 0;
-              v22.var1 = &str_67;
-              v24 = 0;
-              v23 = 0uLL;
-              re::AssetAPIHelper::assetHandleCreate(v12, &v20);
-              v14 = v23;
-              v23 = v20;
-              v20 = v14;
-              v15 = v24;
-              v24 = v21;
-              v21 = v15;
-              re::AssetHandle::~AssetHandle(&v20);
-              re::AssetAPIHelper::assetHandleCreate(v12, &v20);
-              v16 = re::AssetHandle::blockUntilLoaded<re::BasicAsset<re::AnimationScene,&re::kAnimationSceneAssetName,&re::kAnimationSceneAssetExtension>>(&v20);
-              v17 = re::AssetHandle::blockUntilLoaded<re::TimelineAsset>(v16);
-              re::StringID::operator=(&v22, (*(v17 + 16) + 24));
-              re::DynamicArray<re::NamedAnimationLibraryEntry>::add(&v25, &v22);
-              re::AssetHandle::~AssetHandle(&v20);
-              re::AssetHandle::~AssetHandle(&v23);
-              if (*&v22.var0)
-              {
-                if (*&v22.var0)
-                {
-                }
-              }
-            }
-
-            v9 += 24;
+            v11 = *(v9 + 36);
+            physx::PxsMaterialManager::resize((this + 2), v11 + 1);
+            v12 = *(v9 + 6);
+            v13 = this[2] + 32 * v11;
+            *(v13 + 2) = *(v9 + 14);
+            *v13 = v12;
+            *(v13 + 6) = *(v9 + 30);
+            *(v13 + 7) = *(v9 + 31);
+            v14 = *(v9 + 8);
+            *(v13 + 6) = *(v9 + 18);
+            *(v13 + 2) = v14;
+            (*(**&this[232][27].__opaque[40] + 104))(*&this[232][27].__opaque[40]);
           }
         }
       }
 
-      else
-      {
-        v29 = 0;
-        v26 = 0;
-        v27 = 0;
-        v25 = 0;
-        v28 = 0;
-      }
-
-      re::make::shared::object<re::Shareable<re::DynamicArray<re::NamedAnimationLibraryEntry>>>(&v22);
-      v4 = *&v22.var0;
-      re::DynamicArray<re::NamedAnimationLibraryEntry>::operator=(*&v22.var0 + 24, &v25);
-      re::DynamicArray<re::NamedAnimationLibraryEntry>::deinit(&v25);
+      ++v5;
+      v4 += 8;
     }
 
-    else
-    {
-      v4 = 0;
-    }
-
-    re::AssetHandle::~AssetHandle(&v30);
+    while (v5 < *(this + 1918));
   }
 
-  return v4;
-}
-
-CFStringRef REAnimationLibraryComponentCopyAnimationSceneResultAnimationName(uint64_t a1, unint64_t a2)
-{
-  if (*(a1 + 40) <= a2)
+  result = physx::shdfnd::Array<physx::Scb::MaterialEvent,physx::shdfnd::ReflectionAllocator<physx::Scb::MaterialEvent>>::resize(this + 958, 0, v21);
+  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
   {
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-  }
-
-  v2 = *(*(a1 + 56) + 40 * a2 + 8);
-
-  return CFStringCreateWithCString(0, v2, 0x8000100u);
-}
-
-uint64_t REAnimationLibraryComponentGetAnimationSceneResultAnimationAsset(uint64_t a1, unint64_t a2)
-{
-  if (*(a1 + 40) <= a2)
-  {
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-  }
-
-  return *(*(a1 + 56) + 40 * a2 + 16);
-}
-
-uint64_t std::__function::__func<anonymous namespace::validateAndRetainSceneAsset(re::AssetHandle const&,re::ecs2::Entity *,re::AssetService *)::$_0,std::allocator<anonymous namespace::validateAndRetainSceneAsset(re::AssetHandle const&,re::ecs2::Entity *,re::AssetService *)::$_0>,void ()(re::BasicAsset<re::AnimationScene,&re::kAnimationSceneAssetName,&re::kAnimationSceneAssetExtension> *)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t std::__function::__func<anonymous namespace::validateAndRetainSceneAsset(re::AssetHandle const&,re::ecs2::Entity *,re::AssetService *)::$_1,std::allocator<anonymous namespace::validateAndRetainSceneAsset(re::AssetHandle const&,re::ecs2::Entity *,re::AssetService *)::$_1>,void ()(re::TimelineGroupAssetData *)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-re *re::internal::destroyPersistent<re::TimelineGroupAssetData>(re *result)
-{
-  if (result)
-  {
-    v1 = result;
-    v2 = re::globalAllocators(result)[2];
-    re::DynamicArray<re::AssetHandle>::deinit(v1 + 72);
-    *v1 = &unk_1F5CC3608;
-    re::DynamicString::deinit((v1 + 40));
-    re::StringID::destroyString((v1 + 24));
-    v3 = *(*v2 + 40);
-
-    return v3(v2, v1);
+    return pthread_mutex_unlock(this[960]);
   }
 
   return result;
 }
 
-uint64_t re::Slice<re::StringID const*>::range(int a1, unint64_t a2, unint64_t a3)
-{
-  if (a2 < a3)
-  {
-    re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Index out of range. toExclusive = %zu, size = %zu", "toExclusive <= size()", "range", 249, 0, a2, v3, v4);
-    result = _os_crash();
-    __break(1u);
-  }
-
-  return result;
-}
-
-double anonymous namespace::minimumClipDelay(_anonymous_namespace_ *this, const re::AssetHandle *a2)
-{
-  v3 = re::AssetHandle::blockUntilLoaded<re::TimelineAsset>(this);
-  if (!v3)
-  {
-    return 1.79769313e308;
-  }
-
-  v5 = *(v3 + 8);
-  v6 = *(v5 + 8);
-  if (v6 > 5)
-  {
-    if (v6 <= 10 || v6 == 60)
-    {
-      goto LABEL_9;
-    }
-
-LABEL_22:
-    if (a2)
-    {
-      return 1.79769313e308;
-    }
-
-    else
-    {
-      return 0.0;
-    }
-  }
-
-  if (v6 > 2)
-  {
-LABEL_9:
-    v9 = *(v5 + 152);
-    goto LABEL_10;
-  }
-
-  if (v6 == 1)
-  {
-    v9 = *(v5 + 144);
-LABEL_10:
-    if (v9 <= v8)
-    {
-      return v9;
-    }
-
-    else
-    {
-      return v8;
-    }
-  }
-
-  if (v6 != 2)
-  {
-    goto LABEL_22;
-  }
-
-  v11 = *(v5 + 88);
-  if (!v11)
-  {
-    goto LABEL_22;
-  }
-
-  v12 = *(v5 + 104);
-  v13 = 24 * v11;
-  v7 = 1.79769313e308;
-  do
-  {
-    if (v7 > v14)
-    {
-      v7 = v14;
-    }
-
-    v12 = (v12 + 24);
-    v13 -= 24;
-  }
-
-  while (v13);
-  return v7;
-}
-
-uint64_t std::__function::__value_func<void ()(re::BasicAsset<re::AnimationScene,&re::kAnimationSceneAssetName,&re::kAnimationSceneAssetExtension> *)>::~__value_func[abi:nn200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-uint64_t std::unique_ptr<re::BasicAsset<re::AnimationScene,&re::kAnimationSceneAssetName,&re::kAnimationSceneAssetExtension>,std::function<void ()(re::BasicAsset<re::AnimationScene,&re::kAnimationSceneAssetName,&re::kAnimationSceneAssetExtension>*)>>::~unique_ptr[abi:nn200100](uint64_t *a1)
-{
-  v2 = *a1;
-  *a1 = 0;
-  if (!v2)
-  {
-    goto LABEL_4;
-  }
-
-  v3 = a1[4];
-  v6 = v2;
-  if (v3)
-  {
-    (*(*v3 + 48))(v3, &v6);
-LABEL_4:
-    std::__function::__value_func<void ()(re::BasicAsset<re::AnimationScene,&re::kAnimationSceneAssetName,&re::kAnimationSceneAssetExtension> *)>::~__value_func[abi:nn200100]((a1 + 1));
-    return a1;
-  }
-
-  v5 = std::__throw_bad_function_call[abi:nn200100]();
-  return std::__function::__value_func<void ()(re::TimelineGroupAssetData *)>::~__value_func[abi:nn200100](v5);
-}
-
-uint64_t std::__function::__value_func<void ()(re::TimelineGroupAssetData *)>::~__value_func[abi:nn200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-uint64_t *std::unique_ptr<re::TimelineGroupAssetData,std::function<void ()(re::TimelineGroupAssetData*)>>::~unique_ptr[abi:nn200100](uint64_t *a1)
-{
-  v2 = *a1;
-  *a1 = 0;
-  if (v2)
-  {
-    v3 = a1[4];
-    v5 = v2;
-    if (!v3)
-    {
-      std::__throw_bad_function_call[abi:nn200100]();
-      JUMPOUT(0x1E2F3A1CCLL);
-    }
-
-    (*(*v3 + 48))(v3, &v5);
-  }
-
-  std::__function::__value_func<void ()(re::TimelineGroupAssetData *)>::~__value_func[abi:nn200100]((a1 + 1));
-  return a1;
-}
-
-uint64_t std::__function::__func<REAnimationLibraryComponentCreateDefaultAnimation::$_0,std::allocator<REAnimationLibraryComponentCreateDefaultAnimation::$_0>,void ()(re::BasicAsset<re::AnimationScene,&re::kAnimationSceneAssetName,&re::kAnimationSceneAssetExtension> *)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t std::__function::__func<REAnimationLibraryComponentCreateDefaultAnimation::$_1,std::allocator<REAnimationLibraryComponentCreateDefaultAnimation::$_1>,void ()(re::TimelineGroupAssetData *)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-void re::make::shared::object<re::Shareable<re::DynamicArray<re::NamedAnimationLibraryEntry>>>(re *a1)
-{
-  v2 = re::globalAllocators(a1);
-  v3 = (*(*v2[2] + 32))(v2[2], 64, 8);
-  ArcSharedObject::ArcSharedObject(v3, 0);
-  *(v3 + 24) = 0;
-  *v3 = &unk_1F5D2DAD0;
-  *(v3 + 56) = 0;
-  *(v3 + 32) = 0;
-  *(v3 + 40) = 0;
-  *(v3 + 48) = 0;
-  *a1 = v3;
-}
-
-void *re::Shareable<re::DynamicArray<re::NamedAnimationLibraryEntry>>::~Shareable(void *a1)
-{
-  *a1 = &unk_1F5D2DAD0;
-  re::DynamicArray<re::NamedAnimationLibraryEntry>::deinit((a1 + 3));
-  *a1 = &unk_1F5CCF868;
-  objc_destructInstance(a1 + 1);
-  return a1;
-}
-
-void re::Shareable<re::DynamicArray<re::NamedAnimationLibraryEntry>>::~Shareable(void *a1)
-{
-  *a1 = &unk_1F5D2DAD0;
-  re::DynamicArray<re::NamedAnimationLibraryEntry>::deinit((a1 + 3));
-  *a1 = &unk_1F5CCF868;
-  objc_destructInstance(a1 + 1);
-
-  JUMPOUT(0x1E6906520);
-}
-
-void re::DynamicArray<re::NamedAnimationLibraryEntry>::copy(uint64_t a1, uint64_t a2)
-{
-  v4 = *(a2 + 16);
-  if (v4 >= *(a1 + 16))
-  {
-    re::DynamicArray<re::NamedAnimationLibraryEntry>::setCapacity(a1, *(a2 + 16));
-    std::__copy_impl::operator()[abi:nn200100]<re::NamedAnimationLibraryEntry *,re::NamedAnimationLibraryEntry *,re::NamedAnimationLibraryEntry *>(&v14, *(a2 + 32), (*(a2 + 32) + 40 * *(a1 + 16)), *(a1 + 32));
-    v8 = *(a1 + 16);
-    if (v8 != v4)
-    {
-      v9 = 5 * v8;
-      v10 = (*(a2 + 32) + 8 * v9);
-      v11 = *(a1 + 32) + 8 * v9;
-      v12 = 40 * v4 - 8 * v9;
-      do
-      {
-        re::StringID::StringID(v11, v10);
-        re::AssetHandle::AssetHandle((v11 + 16), &v10[1]);
-        v10 = (v10 + 40);
-        v11 += 40;
-        v12 -= 40;
-      }
-
-      while (v12);
-    }
-  }
-
-  else
-  {
-    std::__copy_impl::operator()[abi:nn200100]<re::NamedAnimationLibraryEntry *,re::NamedAnimationLibraryEntry *,re::NamedAnimationLibraryEntry *>(&v13, *(a2 + 32), (*(a2 + 32) + 40 * v4), *(a1 + 32));
-    v5 = *(a1 + 16);
-    if (v4 != v5)
-    {
-      v6 = *(a1 + 32) + 40 * v4;
-      v7 = 40 * v5 - 40 * v4;
-      do
-      {
-        re::AssetHandle::~AssetHandle((v6 + 16));
-        re::StringID::destroyString(v6);
-        v6 += 40;
-        v7 -= 40;
-      }
-
-      while (v7);
-    }
-  }
-
-  *(a1 + 16) = v4;
-}
-
-uint64_t *std::__copy_impl::operator()[abi:nn200100]<re::NamedAnimationLibraryEntry *,re::NamedAnimationLibraryEntry *,re::NamedAnimationLibraryEntry *>(uint64_t a1, uint64_t *a2, uint64_t *a3, unint64_t *a4)
-{
-  v5 = a2;
-  if (a2 != a3)
-  {
-    do
-    {
-      re::StringID::operator=(a4, v5);
-      re::AssetHandle::operator=((a4 + 2), v5 + 2);
-      v5 += 5;
-      a4 += 5;
-    }
-
-    while (v5 != a3);
-    return a3;
-  }
-
-  return v5;
-}
-
-void re::make::shared::object<re::Shareable<re::DynamicArray<re::SkeletalAnimationQueryEntry>>>(re *a1)
-{
-  v2 = re::globalAllocators(a1);
-  v3 = (*(*v2[2] + 32))(v2[2], 64, 8);
-  ArcSharedObject::ArcSharedObject(v3, 0);
-  *(v3 + 24) = 0;
-  *v3 = &unk_1F5D2DB18;
-  *(v3 + 56) = 0;
-  *(v3 + 32) = 0;
-  *(v3 + 40) = 0;
-  *(v3 + 48) = 0;
-  *a1 = v3;
-}
-
-void *re::Shareable<re::DynamicArray<re::SkeletalAnimationQueryEntry>>::~Shareable(void *a1)
-{
-  *a1 = &unk_1F5D2DB18;
-  re::DynamicArray<re::DynamicArray<unsigned char>>::deinit((a1 + 3));
-  *a1 = &unk_1F5CCF868;
-  objc_destructInstance(a1 + 1);
-  return a1;
-}
-
-void re::Shareable<re::DynamicArray<re::SkeletalAnimationQueryEntry>>::~Shareable(void *a1)
-{
-  *a1 = &unk_1F5D2DB18;
-  re::DynamicArray<re::DynamicArray<unsigned char>>::deinit((a1 + 3));
-  *a1 = &unk_1F5CCF868;
-  objc_destructInstance(a1 + 1);
-
-  JUMPOUT(0x1E6906520);
-}
-
-float REPhysicsForceEffectSimplexNoiseDerivative4(_OWORD *a1, __n128 a2, float a3)
-{
-  v92 = a2.n128_u64[0];
-  v4 = a2.n128_f32[2];
-  v6 = __sincosf_stret(a3);
-  v7 = (v4 + vaddv_f32(v92)) * 0.333333333;
-  *&v7 = v7;
-  v8 = v4 + *&v7;
-  v9 = vadd_f32(v92, vdup_lane_s32(*&v7, 0));
-  v10 = vadd_s32(vmvn_s8(vcgtz_f32(v9)), vcvt_s32_f32(v9));
-  v11 = v8 - (v8 <= 0.0);
-  v12 = v10.u8[4];
-  v13 = vcvt_f32_s32(v10);
-  v14 = v10.i8[0];
-  v15 = (v10.i32[0] + v11 + v10.i32[1]) * 0.166666667;
-  *&v15 = v15;
-  v16 = v11 - *&v15;
-  v17 = vsub_f32(v92, vsub_f32(v13, vdup_lane_s32(*&v15, 0)));
-  v18 = v4 - v16;
-  if (v17.f32[0] >= v17.f32[1])
-  {
-    if (v17.f32[1] >= v18)
-    {
-      v22 = 0;
-      v23 = 0;
-      v19 = 0;
-      v21 = 0x100000001;
-      v20 = 1;
-    }
-
-    else
-    {
-      v19 = 0;
-      v23 = v17.f32[0] < v18;
-      v20 = v17.f32[0] >= v18;
-      v21 = 1;
-      v22 = 1;
-    }
-  }
-
-  else if (v17.f32[1] >= v18)
-  {
-    v23 = 0;
-    v20 = 0;
-    v22 = v17.f32[0] < v18;
-    v21.i32[1] = 1;
-    v21.i32[0] = v17.f32[0] >= v18;
-    v19 = 1;
-  }
-
-  else
-  {
-    v19 = 0;
-    v20 = 0;
-    v21 = 0x100000000;
-    v22 = 1;
-    v23 = 1;
-  }
-
-  v24 = (v18 - v23) + 0.166666667;
-  __asm { FMOV            V4.2S, #-1.0 }
-
-  v30 = vadd_f32(v17, _D4);
-  _D4 = vcvt_f32_f64(vaddq_f64(vcvtq_f64_f32(vsub_f32(v17, vcvt_f32_u32(__PAIR64__(v19, v20)))), vdupq_n_s64(0x3FC55555560C95D4uLL)));
-  v32 = vaddq_f64(vcvtq_f64_f32(vsub_f32(v17, vcvt_f32_u32(v21))), vdupq_n_s64(0x3FD55555560C95D4uLL));
-  v33 = vcvtq_f64_f32(v30);
-  v34 = vdupq_n_s64(0x3FE000000089705FuLL);
-  v35 = ((0.6 - (v17.f32[0] * v17.f32[0])) - (v17.f32[1] * v17.f32[1])) - (v18 * v18);
-  v36 = 0;
-  v37 = 0.0;
-  v38 = 0.0;
-  v39 = 0.0;
-  v40 = 0.0;
-  v41 = 0.0;
-  v42 = 0.0;
-  v43 = 0;
-  if (v35 >= 0.0)
-  {
-    v44 = (&grad3u + 12 * (perm[perm[perm[v11] + v12] + v14] & 0xF));
-    v45 = (&grad3v + 12 * (perm[perm[perm[v11] + v12] + v14] & 0xF));
-    v43 = vmla_n_f32(vmul_n_f32(*v45, v6.__sinval), *v44, v6.__cosval);
-    v38 = (v6.__sinval * v45[1].f32[0]) + (v6.__cosval * v44[1].f32[0]);
-    v40 = v35 * v35;
-    v41 = v40 * v40;
-    v42 = (v40 * v40) * ((COERCE_FLOAT(vmul_f32(v17, v43).i32[1]) + (v43.f32[0] * v17.f32[0])) + (v38 * v18));
-    v39 = ((0.6 - (v17.f32[0] * v17.f32[0])) - (v17.f32[1] * v17.f32[1])) - (v18 * v18);
-  }
-
-  v91 = v39;
-  v93 = v42;
-  v46 = vaddq_f64(v33, v34);
-  v47 = (v18 - v22) + 0.333333334;
-  _D20 = vcvt_f32_f64(v32);
-  _S21 = _D4.i32[1];
-  __asm { FMLS            S6, S21, V4.S[1] }
-
-  v51 = _S6 - (v24 * v24);
-  v52 = 0.0;
-  v53 = 0.0;
-  v54 = 0.0;
-  v55 = 0.0;
-  if (v51 >= 0.0)
-  {
-    v56 = 3 * (perm[v20 + v14 + perm[v19 + v12 + perm[v23 + v11]]] & 0xF);
-    v57 = (&grad3u + 4 * v56);
-    v58 = (&grad3v + 4 * v56);
-    v36 = vmla_n_f32(vmul_n_f32(*v58, v6.__sinval), *v57, v6.__cosval);
-    v37 = (v6.__sinval * v58[1].f32[0]) + (v6.__cosval * v57[1].f32[0]);
-    v53 = v51 * v51;
-    v54 = v53 * v53;
-    v55 = (v53 * v53) * ((COERCE_FLOAT(vmul_f32(v36, _D4).i32[1]) + (v36.f32[0] * _D4.f32[0])) + (v37 * v24));
-    v52 = _S6 - (v24 * v24);
-  }
-
-  _D28 = vcvt_f32_f64(v46);
-  v60 = (v18 + -1.0) + 0.500000001;
-  _S21 = _D20.i32[1];
-  __asm { FMLS            S6, S21, V20.S[1] }
-
-  v63 = _S6 - (v47 * v47);
-  v64 = 0;
-  v65 = 0.0;
-  v66 = 0.0;
-  v67 = 0.0;
-  v68 = 0.0;
-  v69 = 0.0;
-  v70 = 0.0;
-  v71 = 0;
-  if (v63 >= 0.0)
-  {
-    v72 = 3 * (perm[v21.i32[0] + v14 + perm[v21.i32[1] + v12 + perm[v22 + v11]]] & 0xF);
-    v73 = (&grad3u + 4 * v72);
-    v74 = (&grad3v + 4 * v72);
-    v71 = vmla_n_f32(vmul_n_f32(*v74, v6.__sinval), *v73, v6.__cosval);
-    v66 = (v6.__sinval * v74[1].f32[0]) + (v6.__cosval * v73[1].f32[0]);
-    v68 = v63 * v63;
-    v69 = v68 * v68;
-    v70 = (v68 * v68) * ((COERCE_FLOAT(vmul_f32(v71, _D20).i32[1]) + (v71.f32[0] * _D20.f32[0])) + (v66 * v47));
-    v67 = _S6 - (v47 * v47);
-  }
-
-  _S23 = _D28.i32[1];
-  __asm { FMLS            S6, S23, V28.S[1] }
-
-  v77 = _S6 - (v60 * v60);
-  v78 = 0.0;
-  v79 = 0.0;
-  v80 = 0.0;
-  if (v77 >= 0.0)
-  {
-    v81 = 3 * (perm[v14 + 1 + perm[v12 + 1 + perm[v11 + 1]]] & 0xF);
-    v82 = (&grad3u + 12 * (perm[v14 + 1 + perm[v12 + 1 + perm[v11 + 1]]] & 0xF));
-    v83 = (&grad3v + 4 * v81);
-    v64 = vmla_n_f32(vmul_n_f32(*v83, v6.__sinval), *v82, v6.__cosval);
-    v65 = (v6.__sinval * v83[1].f32[0]) + (v6.__cosval * v82[1].f32[0]);
-    v78 = (v77 * v77) * (v77 * v77);
-    v79 = v78 * ((COERCE_FLOAT(vmul_f32(v64, _D28).i32[1]) + (v64.f32[0] * _D28.f32[0])) + (v65 * v60));
-    v80 = v77 * (v77 * v77);
-  }
-
-  if (a1)
-  {
-    v84 = (((v37 * v54) + (v41 * v38)) + (v69 * v66)) + (v78 * v65);
-    *&v5 = ((COERCE_FLOAT(vmul_f32(v64, _D28).i32[1]) + (v64.f32[0] * _D28.f32[0])) + (v65 * v60)) * v80;
-    v85 = ((COERCE_FLOAT(vmul_f32(v71, _D20).i32[1]) + (v71.f32[0] * _D20.f32[0])) + (v66 * v47)) * (v67 * v68);
-    v86 = ((COERCE_FLOAT(vmul_f32(v36, _D4).i32[1]) + (v36.f32[0] * _D4.f32[0])) + (v37 * v24)) * (v52 * v53);
-    v87 = ((COERCE_FLOAT(vmul_f32(v17, v43).i32[1]) + (v43.f32[0] * v17.f32[0])) + (v38 * v18)) * (v91 * v40);
-    v88 = (((v18 * v87) + (v86 * v24)) + (v85 * v47)) + (*&v5 * v60);
-    *&v5 = vadd_f32(vmla_n_f32(vmla_n_f32(vmla_n_f32(vmul_n_f32(v36, v54), v43, v41), v71, v69), v64, v78), vmul_f32(vmla_n_f32(vmla_n_f32(vmla_n_f32(vmul_n_f32(v17, v87), _D4, v86), _D20, v85), _D28, *&v5), 0xC1000000C1000000));
-    __asm { FMOV            V2.2S, #28.0 }
-
-    *&v5 = vmul_f32(*&v5, _D2);
-    *(&v5 + 2) = (v84 + (v88 * -8.0)) * 28.0;
-    *a1 = v5;
-  }
-
-  return (((v93 + v55) + v70) + v79) * 28.0;
-}
-
-void *REMeshOffsetsComponentGetComponentType()
-{
-  if (re::ecs2::dispatchOnceInitECSComponents(void)::onceToken != -1)
-  {
-    dispatch_once(&re::ecs2::dispatchOnceInitECSComponents(void)::onceToken, &__block_literal_global_17);
-  }
-
-  return re::ecs2::ComponentImpl<re::ecs2::MeshOffsetsComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)0,(re::ecs2::ComponentTypeBase::Flags)2>::s_componentType;
-}
-
-uint64_t REMeshOffsetsComponentSetAssignedMeshDeformationEx(uint64_t a1, uint64_t a2)
-{
-  re::AssetAPIHelper::assetHandleCreate(a2, &v6);
-  v3 = *(a1 + 72);
-  *(a1 + 72) = v6;
-  v6 = v3;
-  v4 = *(a1 + 88);
-  *(a1 + 88) = v7;
-  v7 = v4;
-  re::AssetHandle::~AssetHandle(&v6);
-  return re::ecs2::Component::enqueueMarkDirty(a1);
-}
-
-void REMeshOffsetsComponentSetOffsetsCounts(re::ecs2::Component *this, unint64_t a2, uint64_t a3)
-{
-  v6 = *(this + 6);
-  v7 = v6 != a2;
-  if (v6 != a2)
-  {
-    re::DynamicArray<re::ecs2::AssignedMeshOffsetsAttributes>::resize(this + 4, a2);
-  }
-
-  if (a2)
-  {
-    v8 = 0;
-    v9 = 0;
-    do
-    {
-      if (*(this + 6) <= v9)
-      {
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-      }
-
-      v10 = *(this + 8) + v8;
-      v11 = *(a3 + 4 * v9);
-      if (*(v10 + 16) != v11)
-      {
-        re::DynamicArray<float>::resize(v10, v11);
-        v7 = 1;
-      }
-
-      ++v9;
-      v8 += 192;
-    }
-
-    while (a2 != v9);
-  }
-
-  if (v7)
-  {
-
-    re::ecs2::Component::enqueueMarkDirty(this);
-  }
-}
-
-uint64_t REMeshOffsetsComponentGetOffsetsCountEx(re *a1, unint64_t a2)
-{
-  v18 = *MEMORY[0x1E69E9840];
-  if (*(a1 + 6) > a2)
-  {
-    return *(*(a1 + 8) + 192 * a2 + 16);
-  }
-
-  v5 = *re::graphicsLogObjects(a1);
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
-  {
-    v6 = v5;
-    if (v10)
-    {
-      v7 = *&v11[7];
-    }
-
-    else
-    {
-      v7 = v11;
-    }
-
-    v8 = *(a1 + 6);
-    *buf = 136315650;
-    v13 = v7;
-    v14 = 2048;
-    v15 = a2;
-    v16 = 2048;
-    v17 = v8;
-    _os_log_impl(&dword_1E1C61000, v6, OS_LOG_TYPE_DEFAULT, "[%s] Trying to set offsets count for mesh %zu, but only %zu offset meshes are present.", buf, 0x20u);
-
-    if (v9)
-    {
-      if (v10)
-      {
-        (*(*v9 + 40))();
-      }
-    }
-  }
-
-  return 0;
-}
-
-uint64_t REMeshOffsetsComponentSetOffsetsEx(re *a1, unint64_t a2, uint64_t a3, unint64_t a4)
-{
-  v19 = *MEMORY[0x1E69E9840];
-  if (*(a1 + 6) <= a2)
-  {
-    v9 = *re::graphicsLogObjects(a1);
-    result = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
-    if (result)
-    {
-      v10 = v9;
-      v11 = (v14 & 1) != 0 ? *&v15[7] : v15;
-      v12 = *(a1 + 6);
-      *buf = 136315650;
-      *&buf[4] = v11;
-      *&buf[12] = 2048;
-      *&buf[14] = a2;
-      v17 = 2048;
-      v18 = v12;
-      _os_log_impl(&dword_1E1C61000, v10, OS_LOG_TYPE_DEFAULT, "[%s] Trying to set offsets for mesh %zu, but only %zu offset meshes are present. Adjust the offset counts first.", buf, 0x20u);
-
-      result = v13;
-      if (v13)
-      {
-        if (v14)
-        {
-          return (*(*v13 + 40))();
-        }
-      }
-    }
-  }
-
-  else
-  {
-    v6 = (*(a1 + 8) + 192 * a2);
-    v7 = *(v6 + 2);
-    if (v7 >= a4)
-    {
-      v7 = a4;
-    }
-
-    *buf = a3;
-    *&buf[8] = v7;
-    re::DynamicArray<float>::operator=(v6, buf);
-    return re::ecs2::Component::enqueueMarkDirty(a1);
-  }
-
-  return result;
-}
-
-uint64_t REMeshOffsetsComponentSetPreTransform(re *this, unint64_t a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
-{
-  v23 = *MEMORY[0x1E69E9840];
-  if (*(this + 6) <= a2)
-  {
-    v10 = *re::graphicsLogObjects(this);
-    result = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
-    if (result)
-    {
-      v11 = v10;
-      v12 = (v15 & 1) != 0 ? *&v16[7] : v16;
-      v13 = *(this + 6);
-      *buf = 136315650;
-      v18 = v12;
-      v19 = 2048;
-      v20 = a2;
-      v21 = 2048;
-      v22 = v13;
-      _os_log_impl(&dword_1E1C61000, v11, OS_LOG_TYPE_DEFAULT, "[%s] Trying to set pre-transform for mesh %zu, but only %zu offset meshes are present. Adjust the offset counts first.", buf, 0x20u);
-
-      result = v14;
-      if (v14)
-      {
-        if (v15)
-        {
-          return (*(*v14 + 40))();
-        }
-      }
-    }
-  }
-
-  else
-  {
-    v8 = (*(this + 8) + 192 * a2);
-    v8[3] = a3;
-    v8[4] = a4;
-    v8[5] = a5;
-    v8[6] = a6;
-
-    return re::ecs2::Component::enqueueMarkDirty(this);
-  }
-
-  return result;
-}
-
-double REMeshOffsetsComponentGetPreTransform(re *a1, unint64_t a2)
-{
-  v20 = *MEMORY[0x1E69E9840];
-  if (*(a1 + 6) <= a2)
-  {
-    v5 = *re::graphicsLogObjects(a1);
-    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
-    *&v4 = 0;
-    if (v6)
-    {
-      v7 = v5;
-      if (v12)
-      {
-        v8 = *&v13[7];
-      }
-
-      else
-      {
-        v8 = v13;
-      }
-
-      v9 = *(a1 + 6);
-      *buf = 136315650;
-      v15 = v8;
-      v16 = 2048;
-      v17 = a2;
-      v18 = 2048;
-      v19 = v9;
-      _os_log_impl(&dword_1E1C61000, v7, OS_LOG_TYPE_DEFAULT, "[%s] Trying to get post-transform for mesh %zu, but only %zu offset meshes are present.", buf, 0x20u);
-
-      if (v11 && (v12 & 1) != 0)
-      {
-        (*(*v11 + 40))();
-      }
-
-      *&v4 = 0;
-    }
-  }
-
-  else
-  {
-    v4 = *(*(a1 + 8) + 192 * a2 + 48);
-  }
-
-  return *&v4;
-}
-
-uint64_t REMeshOffsetsComponentSetPostTransform(re *this, unint64_t a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
-{
-  v23 = *MEMORY[0x1E69E9840];
-  if (*(this + 6) <= a2)
-  {
-    v10 = *re::graphicsLogObjects(this);
-    result = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
-    if (result)
-    {
-      v11 = v10;
-      v12 = (v15 & 1) != 0 ? *&v16[7] : v16;
-      v13 = *(this + 6);
-      *buf = 136315650;
-      v18 = v12;
-      v19 = 2048;
-      v20 = a2;
-      v21 = 2048;
-      v22 = v13;
-      _os_log_impl(&dword_1E1C61000, v11, OS_LOG_TYPE_DEFAULT, "[%s] Trying to set pre-transform for mesh %zu, but only %zu offset meshes are present. Adjust the offset counts first.", buf, 0x20u);
-
-      result = v14;
-      if (v14)
-      {
-        if (v15)
-        {
-          return (*(*v14 + 40))();
-        }
-      }
-    }
-  }
-
-  else
-  {
-    v8 = (*(this + 8) + 192 * a2);
-    v8[7] = a3;
-    v8[8] = a4;
-    v8[9] = a5;
-    v8[10] = a6;
-
-    return re::ecs2::Component::enqueueMarkDirty(this);
-  }
-
-  return result;
-}
-
-double REMeshOffsetsComponentGetPostTransform(re *a1, unint64_t a2)
-{
-  v20 = *MEMORY[0x1E69E9840];
-  if (*(a1 + 6) <= a2)
-  {
-    v5 = *re::graphicsLogObjects(a1);
-    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
-    *&v4 = 0;
-    if (v6)
-    {
-      v7 = v5;
-      if (v12)
-      {
-        v8 = *&v13[7];
-      }
-
-      else
-      {
-        v8 = v13;
-      }
-
-      v9 = *(a1 + 6);
-      *buf = 136315650;
-      v15 = v8;
-      v16 = 2048;
-      v17 = a2;
-      v18 = 2048;
-      v19 = v9;
-      _os_log_impl(&dword_1E1C61000, v7, OS_LOG_TYPE_DEFAULT, "[%s] Trying to get post-transform for mesh %zu, but only %zu offset meshes are present.", buf, 0x20u);
-
-      if (v11 && (v12 & 1) != 0)
-      {
-        (*(*v11 + 40))();
-      }
-
-      *&v4 = 0;
-    }
-  }
-
-  else
-  {
-    v4 = *(*(a1 + 8) + 192 * a2 + 112);
-  }
-
-  return *&v4;
-}
-
-uint64_t REMeshOffsetsComponentSetBlendingModeEx(uint64_t this, unint64_t a2, int a3)
-{
-  v4 = this;
-  v21 = *MEMORY[0x1E69E9840];
-  if (*(this + 48) <= a2)
-  {
-    v8 = *re::graphicsLogObjects(this);
-    this = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
-    if (this)
-    {
-      v9 = v8;
-      v10 = (v13 & 1) != 0 ? *&v14[7] : v14;
-      v11 = *(v4 + 48);
-      *buf = 136315650;
-      v16 = v10;
-      v17 = 2048;
-      v18 = a2;
-      v19 = 2048;
-      v20 = v11;
-      _os_log_impl(&dword_1E1C61000, v9, OS_LOG_TYPE_DEFAULT, "[%s] Trying to set blending mode to offsets for mesh %zu, but only %zu offset meshes are present. Adjust the offset counts first.", buf, 0x20u);
-
-      this = v12;
-      if (v12)
-      {
-        if (v13)
-        {
-          return (*(*v12 + 40))();
-        }
-      }
-    }
-  }
-
-  else
-  {
-    v5 = *(this + 64) + 192 * a2;
-    v7 = *(v5 + 176);
-    v6 = (v5 + 176);
-    if (v7 != a3)
-    {
-      *v6 = a3;
-
-      return re::ecs2::Component::enqueueMarkDirty(this);
-    }
-  }
-
-  return this;
-}
-
-uint64_t REMeshOffsetsComponentGetBlendingMode(re *a1, unint64_t a2)
-{
-  v19 = *MEMORY[0x1E69E9840];
-  if (*(a1 + 6) > a2)
-  {
-    return *(*(a1 + 8) + 192 * a2 + 176);
-  }
-
-  v5 = *re::graphicsLogObjects(a1);
-  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
-  result = 0;
-  if (v6)
-  {
-    v7 = v5;
-    if (v11)
-    {
-      v8 = *&v12[7];
-    }
-
-    else
-    {
-      v8 = v12;
-    }
-
-    v9 = *(a1 + 6);
-    *buf = 136315650;
-    v14 = v8;
-    v15 = 2048;
-    v16 = a2;
-    v17 = 2048;
-    v18 = v9;
-    _os_log_impl(&dword_1E1C61000, v7, OS_LOG_TYPE_DEFAULT, "[%s] Trying to get blending mode for mesh %zu, but only %zu offset meshes are present.", buf, 0x20u);
-
-    if (v10)
-    {
-      if (v11)
-      {
-        (*(*v10 + 40))();
-      }
-    }
-
-    return 0;
-  }
-
-  return result;
-}
-
-uint64_t REMeshOffsetsComponentSetAssignedMeshDeformation(uint64_t a1, uint64_t a2)
-{
-  re::AssetAPIHelper::assetHandleCreate(a2, &v6);
-  v3 = *(a1 + 72);
-  *(a1 + 72) = v6;
-  v6 = v3;
-  v4 = *(a1 + 88);
-  *(a1 + 88) = v7;
-  v7 = v4;
-  re::AssetHandle::~AssetHandle(&v6);
-  re::DynamicArray<re::ecs2::AssignedMeshOffsetsAttributes>::clear(a1 + 32);
-  return re::ecs2::Component::enqueueMarkDirty(a1);
-}
-
-uint64_t REMeshOffsetsComponentGetOffsetsCount(void *a1, unint64_t a2)
-{
-  if (!re::initializeAttributes<re::ecs2::MeshOffsetsAttributes,re::ecs2::MeshOffsetsComponent>((a1 + 4), a1))
-  {
-    return 0;
-  }
-
-  re::ecs2::Component::enqueueMarkDirty(a1);
-  v4 = a1[6];
-  if (!v4)
-  {
-    return 0;
-  }
-
-  if (v4 <= a2)
-  {
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-  }
-
-  return *(a1[8] + 192 * a2 + 16);
-}
-
-uint64_t re::initializeAttributes<re::ecs2::MeshOffsetsAttributes,re::ecs2::MeshOffsetsComponent>(re::ecs2::MeshOffsetsAttributes *a1, void *a2)
-{
-  v18 = *MEMORY[0x1E69E9840];
-  if (*(a1 + 2))
-  {
-    return 1;
-  }
-
-  v4 = a2[10];
-  if (!v4)
-  {
-    return 0;
-  }
-
-  v5 = atomic_load((v4 + 896));
-  if (v5 != 2)
-  {
-    return 0;
-  }
-
-  v6 = *(a2[2] + 192);
-  if (!v6)
-  {
-    return 0;
-  }
-
-  result = re::AssetHandle::loadedAsset<re::MeshAsset>((v6 + 32));
-  if (result)
-  {
-    v8 = result;
-    v9 = re::AssetHandle::blockUntilLoaded<re::BasicAsset<re::AssignedMeshDeformation,&re::kAssignedMeshDeformationAssetName,&re::kAssignedMeshDeformationAssetExtension>>((a2 + 9));
-    re::DynamicArray<re::ecs2::AssignedMeshOffsetsAttributes>::clear(a1);
-    if (!*(v9 + 16))
-    {
-      return 1;
-    }
-
-    v10 = 0;
-    do
-    {
-      re::MeshNameMap::meshInstancePartsForIdentifier(v8 + 640, (*(v9 + 32) + 40 * v10), &v15);
-      if (v15)
-      {
-        for (i = 0; i != v15; ++i)
-        {
-          v14 = i;
-          v12 = (*(*v17 + 16))(v17, &v14);
-          v14 = i;
-          v13 = (*(*v17 + 16))(v17, &v14);
-          re::ecs2::MeshOffsetsAttributes::add(a1, v8, v12, WORD2(v13));
-        }
-      }
-
-      re::FunctionBase<24ul,re::MeshInstanceAndPartIndex ()(unsigned long)>::destroyCallable(&v16);
-      ++v10;
-      result = 1;
-    }
-
-    while (v10 < *(v9 + 16));
-  }
-
-  return result;
-}
-
-__n128 REMeshOffsetsComponentSetOffsetsWithTransform(void *a1, unint64_t a2, uint64_t a3, unint64_t a4, __n128 a5, __n128 a6, __n128 a7, __n128 a8, __n128 a9, __n128 a10, __n128 a11, __n128 a12)
-{
-  v29 = *MEMORY[0x1E69E9840];
-  if (re::initializeAttributes<re::ecs2::MeshOffsetsAttributes,re::ecs2::MeshOffsetsComponent>((a1 + 4), a1))
-  {
-    re::ecs2::Component::enqueueMarkDirty(a1);
-    v17 = a1[6];
-    if (v17)
-    {
-      if (v17 <= a2)
-      {
-        memset(v28, 0, sizeof(v28));
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-      }
-
-      v18 = (a1[8] + 192 * a2);
-      v19 = v18[1].n128_u64[0];
-      if (v19 >= a4)
-      {
-        v19 = a4;
-      }
-
-      *&v28[0] = a3;
-      *(&v28[0] + 1) = v19;
-      re::DynamicArray<float>::operator=(v18, v28);
-      v18[3] = a5;
-      v18[4] = a6;
-      v18[5] = a7;
-      v18[6] = a8;
-      v18[7] = a9;
-      v18[8] = a10;
-      result = a12;
-      v18[9] = a11;
-      v18[10] = a12;
-      v18[11].n128_u32[0] = 0;
-    }
-  }
-
-  return result;
-}
-
-uint64_t REMeshOffsetsComponentSetBlendingMode(void *a1, unint64_t a2, int a3)
-{
-  result = re::initializeAttributes<re::ecs2::MeshOffsetsAttributes,re::ecs2::MeshOffsetsComponent>((a1 + 4), a1);
-  if (result)
-  {
-    result = re::ecs2::Component::enqueueMarkDirty(a1);
-    v7 = a1[6];
-    if (v7)
-    {
-      if (v7 <= a2)
-      {
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-      }
-
-      *(a1[8] + 192 * a2 + 176) = a3;
-    }
-  }
-
-  return result;
-}
-
-void *REAmbientLightComponentGetComponentType()
-{
-  if (re::ecs2::dispatchOnceInitECSComponents(void)::onceToken != -1)
-  {
-    dispatch_once(&re::ecs2::dispatchOnceInitECSComponents(void)::onceToken, &__block_literal_global_17);
-  }
-
-  return re::ecs2::ComponentImpl<re::ecs2::AmbientLightComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)1,(re::ecs2::ComponentTypeBase::Flags)2>::s_componentType;
-}
-
-uint64_t REAmbientLightComponentSetColor(uint64_t this, __n128 a2)
-{
-  *(this + 64) = a2;
-  *(this + 80) = 0;
-  return re::ecs2::Component::enqueueMarkDirty(this);
-}
-
-uint64_t REAmbientLightComponentSetColorGamut3F(uint64_t this, char a2, __n128 a3)
-{
-  *(this + 64) = a3;
-  *(this + 80) = a2;
-  return re::ecs2::Component::enqueueMarkDirty(this);
-}
-
-double REAmbientLightComponentGetColor(uint64_t a1)
-{
-  v1 = *(a1 + 72);
-  v2 = *(a1 + 80);
-  v4 = *(a1 + 64);
-  v6 = v2;
-  v5 = v1;
-  return COERCE_DOUBLE(re::ColorGamut3F::as(&v4, 0, 1));
-}
-
-__n128 REAmbientLightComponentGetColorGamut3F(uint64_t a1, __n128 *a2, _BYTE *a3, __n128 a4)
-{
-  v4 = *(a1 + 80);
-  a4.n128_u64[0] = *(a1 + 64);
-  a4.n128_u32[2] = *(a1 + 72);
-  *a2 = a4;
-  *a3 = v4;
-  result.n128_u64[0] = a4.n128_u64[0];
-  result.n128_u32[2] = a4.n128_u32[2];
-  return result;
-}
-
-void *REDirectionalLightComponentGetComponentType()
-{
-  if (re::ecs2::dispatchOnceInitECSComponents(void)::onceToken != -1)
-  {
-    dispatch_once(&re::ecs2::dispatchOnceInitECSComponents(void)::onceToken, &__block_literal_global_17);
-  }
-
-  return re::ecs2::ComponentImpl<re::ecs2::DirectionalLightComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)1,(re::ecs2::ComponentTypeBase::Flags)4>::s_componentType;
-}
-
-uint64_t REDirectionalLightComponentSetColor(uint64_t this, __n128 a2)
-{
-  *(this + 352) = a2;
-  *(this + 368) = 0;
-  return re::ecs2::Component::enqueueMarkDirty(this);
-}
-
-uint64_t REDirectionalLightComponentSetColorGamut3F(uint64_t this, char a2, __n128 a3)
-{
-  *(this + 352) = a3;
-  *(this + 368) = a2;
-  return re::ecs2::Component::enqueueMarkDirty(this);
-}
-
-double REDirectionalLightComponentGetColor(uint64_t a1)
-{
-  v1 = *(a1 + 360);
-  v2 = *(a1 + 368);
-  v4 = *(a1 + 352);
-  v6 = v2;
-  v5 = v1;
-  return COERCE_DOUBLE(re::ColorGamut3F::as(&v4, 0, 1));
-}
-
-__n128 REDirectionalLightComponentGetColorGamut3F(uint64_t a1, __n128 *a2, _BYTE *a3, __n128 a4)
-{
-  v4 = *(a1 + 368);
-  a4.n128_u64[0] = *(a1 + 352);
-  a4.n128_u32[2] = *(a1 + 360);
-  *a2 = a4;
-  *a3 = v4;
-  result.n128_u64[0] = a4.n128_u64[0];
-  result.n128_u32[2] = a4.n128_u32[2];
-  return result;
-}
-
-void *RESpotLightComponentGetComponentType()
-{
-  if (re::ecs2::dispatchOnceInitECSComponents(void)::onceToken != -1)
-  {
-    dispatch_once(&re::ecs2::dispatchOnceInitECSComponents(void)::onceToken, &__block_literal_global_17);
-  }
-
-  return re::ecs2::ComponentImpl<re::ecs2::SpotLightComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)1,(re::ecs2::ComponentTypeBase::Flags)4>::s_componentType;
-}
-
-uint64_t RESpotLightComponentSetColor(uint64_t this, __n128 a2)
-{
-  *(this + 288) = a2;
-  *(this + 304) = 0;
-  return re::ecs2::Component::enqueueMarkDirty(this);
-}
-
-uint64_t RESpotLightComponentSetColorGamut3F(uint64_t this, char a2, __n128 a3)
-{
-  *(this + 288) = a3;
-  *(this + 304) = a2;
-  return re::ecs2::Component::enqueueMarkDirty(this);
-}
-
-double RESpotLightComponentGetColor(uint64_t a1)
-{
-  v1 = *(a1 + 296);
-  v2 = *(a1 + 304);
-  v4 = *(a1 + 288);
-  v6 = v2;
-  v5 = v1;
-  return COERCE_DOUBLE(re::ColorGamut3F::as(&v4, 0, 1));
-}
-
-__n128 RESpotLightComponentGetColorGamut3F(uint64_t a1, __n128 *a2, _BYTE *a3, __n128 a4)
-{
-  v4 = *(a1 + 304);
-  a4.n128_u64[0] = *(a1 + 288);
-  a4.n128_u32[2] = *(a1 + 296);
-  *a2 = a4;
-  *a3 = v4;
-  result.n128_u64[0] = a4.n128_u64[0];
-  result.n128_u32[2] = a4.n128_u32[2];
-  return result;
-}
-
-uint64_t RESpotLightComponentSetAttenuationFalloffExponent(uint64_t this, float a2)
-{
-  v2 = *(this + 44);
-  if (v2 != a2 && vabds_f32(v2, a2) >= (((fabsf(a2) + fabsf(v2)) + 1.0) * 0.00001))
-  {
-    if (a2 < 0.0)
-    {
-      a2 = 0.0;
-    }
-
-    *(this + 44) = a2;
-    return re::ecs2::Component::enqueueMarkDirty(this);
-  }
-
-  return this;
-}
-
-void *REPointLightComponentGetComponentType()
-{
-  if (re::ecs2::dispatchOnceInitECSComponents(void)::onceToken != -1)
-  {
-    dispatch_once(&re::ecs2::dispatchOnceInitECSComponents(void)::onceToken, &__block_literal_global_17);
-  }
-
-  return re::ecs2::ComponentImpl<re::ecs2::PointLightComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)1,(re::ecs2::ComponentTypeBase::Flags)4>::s_componentType;
-}
-
-uint64_t REPointLightComponentSetColor(uint64_t this, __n128 a2)
-{
-  *(this + 272) = a2;
-  *(this + 288) = 0;
-  return re::ecs2::Component::enqueueMarkDirty(this);
-}
-
-uint64_t REPointLightComponentSetColorGamut3F(uint64_t this, char a2, __n128 a3)
-{
-  *(this + 272) = a3;
-  *(this + 288) = a2;
-  return re::ecs2::Component::enqueueMarkDirty(this);
-}
-
-double REPointLightComponentGetColor(uint64_t a1)
-{
-  v1 = *(a1 + 280);
-  v2 = *(a1 + 288);
-  v4 = *(a1 + 272);
-  v6 = v2;
-  v5 = v1;
-  return COERCE_DOUBLE(re::ColorGamut3F::as(&v4, 0, 1));
-}
-
-__n128 REPointLightComponentGetColorGamut3F(uint64_t a1, __n128 *a2, _BYTE *a3, __n128 a4)
-{
-  v4 = *(a1 + 288);
-  a4.n128_u64[0] = *(a1 + 272);
-  a4.n128_u32[2] = *(a1 + 280);
-  *a2 = a4;
-  *a3 = v4;
-  result.n128_u64[0] = a4.n128_u64[0];
-  result.n128_u32[2] = a4.n128_u32[2];
-  return result;
-}
-
-uint64_t REPointLightComponentSetAttenuationFalloffExponent(uint64_t this, float a2)
-{
-  v2 = *(this + 36);
-  if (v2 != a2 && vabds_f32(v2, a2) >= (((fabsf(a2) + fabsf(v2)) + 1.0) * 0.00001))
-  {
-    if (a2 < 0.0)
-    {
-      a2 = 0.0;
-    }
-
-    *(this + 36) = a2;
-    return re::ecs2::Component::enqueueMarkDirty(this);
-  }
-
-  return this;
-}
-
-void *RERectAreaLightComponentGetComponentType()
-{
-  if (re::ecs2::dispatchOnceInitECSComponents(void)::onceToken != -1)
-  {
-    dispatch_once(&re::ecs2::dispatchOnceInitECSComponents(void)::onceToken, &__block_literal_global_17);
-  }
-
-  return re::ecs2::ComponentImpl<re::ecs2::RectAreaLightComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)1,(re::ecs2::ComponentTypeBase::Flags)2>::s_componentType;
-}
-
-uint64_t RERectAreaLightComponentSetColor(uint64_t this, __n128 a2)
-{
-  *(this + 192) = a2;
-  *(this + 208) = 0;
-  return re::ecs2::Component::enqueueMarkDirty(this);
-}
-
-uint64_t RERectAreaLightComponentSetColorGamut3F(uint64_t this, char a2, __n128 a3)
-{
-  *(this + 192) = a3;
-  *(this + 208) = a2;
-  return re::ecs2::Component::enqueueMarkDirty(this);
-}
-
-double RERectAreaLightComponentGetColor(uint64_t a1)
-{
-  v1 = *(a1 + 200);
-  v2 = *(a1 + 208);
-  v4 = *(a1 + 192);
-  v6 = v2;
-  v5 = v1;
-  return COERCE_DOUBLE(re::ColorGamut3F::as(&v4, 0, 1));
-}
-
-__n128 RERectAreaLightComponentGetColorGamut3F(uint64_t a1, __n128 *a2, _BYTE *a3, __n128 a4)
-{
-  v4 = *(a1 + 208);
-  a4.n128_u64[0] = *(a1 + 192);
-  a4.n128_u32[2] = *(a1 + 200);
-  *a2 = a4;
-  *a3 = v4;
-  result.n128_u64[0] = a4.n128_u64[0];
-  result.n128_u32[2] = a4.n128_u32[2];
-  return result;
-}
-
-void *REFrustumLightComponentGetComponentType()
-{
-  if (re::ecs2::dispatchOnceInitECSComponents(void)::onceToken != -1)
-  {
-    dispatch_once(&re::ecs2::dispatchOnceInitECSComponents(void)::onceToken, &__block_literal_global_17);
-  }
-
-  return re::ecs2::ComponentImpl<re::ecs2::FrustumLightComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)1,(re::ecs2::ComponentTypeBase::Flags)2>::s_componentType;
-}
-
-uint64_t REFrustumLightComponentSetColor(uint64_t this, __n128 a2)
-{
-  *(this + 304) = a2;
-  *(this + 320) = 0;
-  return re::ecs2::Component::enqueueMarkDirty(this);
-}
-
-uint64_t REFrustumLightComponentSetColorGamut3F(uint64_t this, char a2, __n128 a3)
-{
-  *(this + 304) = a3;
-  *(this + 320) = a2;
-  return re::ecs2::Component::enqueueMarkDirty(this);
-}
-
-double REFrustumLightComponentGetColor(uint64_t a1)
-{
-  v1 = *(a1 + 312);
-  v2 = *(a1 + 320);
-  v4 = *(a1 + 304);
-  v6 = v2;
-  v5 = v1;
-  return COERCE_DOUBLE(re::ColorGamut3F::as(&v4, 0, 1));
-}
-
-__n128 REFrustumLightComponentGetColorGamut3F(uint64_t a1, __n128 *a2, _BYTE *a3, __n128 a4)
-{
-  v4 = *(a1 + 320);
-  a4.n128_u64[0] = *(a1 + 304);
-  a4.n128_u32[2] = *(a1 + 312);
-  *a2 = a4;
-  *a3 = v4;
-  result.n128_u64[0] = a4.n128_u64[0];
-  result.n128_u32[2] = a4.n128_u32[2];
-  return result;
-}
-
-void *REFilterMapComponentGetComponentType()
-{
-  if (re::ecs2::dispatchOnceInitECSComponents(void)::onceToken != -1)
-  {
-    dispatch_once(&re::ecs2::dispatchOnceInitECSComponents(void)::onceToken, &__block_literal_global_17);
-  }
-
-  return re::ecs2::ComponentImpl<re::ecs2::FilterMapComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)1,(re::ecs2::ComponentTypeBase::Flags)2>::s_componentType;
-}
-
-void REFilterMapComponentSetMaterial(uint64_t a1, uint64_t a2)
-{
-  re::AssetAPIHelper::assetHandleCreate(a2, &v5);
-  v3 = *(a1 + 32);
-  *(a1 + 32) = v5;
-  v5 = v3;
-  v4 = *(a1 + 48);
-  *(a1 + 48) = v6;
-  v6 = v4;
-  re::AssetHandle::~AssetHandle(&v5);
-}
-
-void *REShadowMapComponentGetComponentType()
-{
-  if (re::ecs2::dispatchOnceInitECSComponents(void)::onceToken != -1)
-  {
-    dispatch_once(&re::ecs2::dispatchOnceInitECSComponents(void)::onceToken, &__block_literal_global_17);
-  }
-
-  return re::ecs2::ComponentImpl<re::ecs2::ShadowMapComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)1,(re::ecs2::ComponentTypeBase::Flags)2>::s_componentType;
-}
-
-void *REPointLightShadowMapComponentGetComponentType()
-{
-  if (re::ecs2::dispatchOnceInitECSComponents(void)::onceToken != -1)
-  {
-    dispatch_once(&re::ecs2::dispatchOnceInitECSComponents(void)::onceToken, &__block_literal_global_17);
-  }
-
-  return re::ecs2::ComponentImpl<re::ecs2::PointLightShadowMapComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)1,(re::ecs2::ComponentTypeBase::Flags)4>::s_componentType;
-}
-
-uint64_t REPointLightShadowMapComponentGetZNear(uint64_t a1, _DWORD *a2)
-{
-  if (!a2 || *(a1 + 36) != 1)
-  {
-    return 0;
-  }
-
-  *a2 = *(a1 + 40);
-  return 1;
-}
-
-uint64_t REPointLightShadowMapComponentSetZNear(uint64_t this, float *a2)
-{
-  if (!a2)
-  {
-    if (*(this + 36) != 1)
-    {
-      return this;
-    }
-
-    *(this + 36) = 0;
-    return re::ecs2::Component::enqueueMarkDirty(this);
-  }
-
-  v2 = *a2;
-  if (*(this + 36) != 1)
-  {
-    *(this + 36) = 1;
-    goto LABEL_9;
-  }
-
-  if (*(this + 40) != v2)
-  {
-LABEL_9:
-    *(this + 40) = v2;
-    return re::ecs2::Component::enqueueMarkDirty(this);
-  }
-
-  return this;
-}
-
-uint64_t REPointLightShadowMapComponentGetZFar(uint64_t a1, _DWORD *a2)
-{
-  if (!a2 || *(a1 + 44) != 1)
-  {
-    return 0;
-  }
-
-  *a2 = *(a1 + 48);
-  return 1;
-}
-
-uint64_t REPointLightShadowMapComponentSetZFar(uint64_t this, float *a2)
-{
-  if (!a2)
-  {
-    if (*(this + 44) != 1)
-    {
-      return this;
-    }
-
-    *(this + 44) = 0;
-    return re::ecs2::Component::enqueueMarkDirty(this);
-  }
-
-  v2 = *a2;
-  if (*(this + 44) != 1)
-  {
-    *(this + 44) = 1;
-    goto LABEL_9;
-  }
-
-  if (*(this + 48) != v2)
-  {
-LABEL_9:
-    *(this + 48) = v2;
-    return re::ecs2::Component::enqueueMarkDirty(this);
-  }
-
-  return this;
-}
-
-uint64_t REPointLightShadowMapComponentGetCullModeEx(uint64_t a1, void *a2)
-{
-  result = (a2 != 0) & *(a1 + 32);
-  if (result == 1)
-  {
-    *a2 = *(a1 + 33);
-  }
-
-  return result;
-}
-
-uint64_t REPointLightShadowMapComponentSetCullMode(uint64_t this, char *a2)
-{
-  if (a2)
-  {
-    v2 = *a2;
-    if ((*(this + 32) & 1) == 0)
-    {
-      *(this + 32) = 1;
-    }
-
-    *(this + 33) = v2;
-  }
-
-  else if (*(this + 32) == 1)
-  {
-    *(this + 32) = 0;
-  }
-
-  return re::ecs2::Component::enqueueMarkDirty(this);
-}
-
-void *REDirectionalLightShadowMapComponentGetComponentType()
-{
-  if (re::ecs2::dispatchOnceInitECSComponents(void)::onceToken != -1)
-  {
-    dispatch_once(&re::ecs2::dispatchOnceInitECSComponents(void)::onceToken, &__block_literal_global_17);
-  }
-
-  return re::ecs2::ComponentImpl<re::ecs2::DirectionalLightShadowMapComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)1,(re::ecs2::ComponentTypeBase::Flags)4>::s_componentType;
-}
-
-uint64_t REDirectionalLightShadowMapComponentSetDistance(re::ecs2::Component *this, float a2)
-{
-  if (this)
-  {
-    *(this + 52) = dyld_program_sdk_at_least() ^ 1;
-  }
-
-  *(this + 8) = a2;
-
-  return re::ecs2::Component::enqueueMarkDirty(this);
-}
-
-uint64_t REDirectionalLightShadowMapComponentSetZNear(uint64_t this, float a2)
-{
-  if (*(this + 40) != a2)
-  {
-    *(this + 40) = a2;
-    return re::ecs2::Component::enqueueMarkDirty(this);
-  }
-
-  return this;
-}
-
-uint64_t REDirectionalLightShadowMapComponentSetZFar(uint64_t this, float a2)
-{
-  if (*(this + 44) != a2)
-  {
-    *(this + 44) = a2;
-    return re::ecs2::Component::enqueueMarkDirty(this);
-  }
-
-  return this;
-}
-
-uint64_t REDirectionalLightShadowMapComponentGetCullModeEx(uint64_t a1, void *a2)
-{
-  result = (a2 != 0) & *(a1 + 36);
-  if (result == 1)
-  {
-    *a2 = *(a1 + 37);
-  }
-
-  return result;
-}
-
-uint64_t REDirectionalLightShadowMapComponentSetCullMode(uint64_t this, char *a2)
-{
-  if (a2)
-  {
-    v2 = *a2;
-    if ((*(this + 36) & 1) == 0)
-    {
-      *(this + 36) = 1;
-    }
-
-    *(this + 37) = v2;
-  }
-
-  else if (*(this + 36) == 1)
-  {
-    *(this + 36) = 0;
-  }
-
-  return re::ecs2::Component::enqueueMarkDirty(this);
-}
-
-void *RESpotLightShadowMapComponentGetComponentType()
-{
-  if (re::ecs2::dispatchOnceInitECSComponents(void)::onceToken != -1)
-  {
-    dispatch_once(&re::ecs2::dispatchOnceInitECSComponents(void)::onceToken, &__block_literal_global_17);
-  }
-
-  return re::ecs2::ComponentImpl<re::ecs2::SpotLightShadowMapComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)1,(re::ecs2::ComponentTypeBase::Flags)4>::s_componentType;
-}
-
-uint64_t RESpotLightShadowMapComponentGetZNear(uint64_t a1, _DWORD *a2)
-{
-  if (!a2 || *(a1 + 36) != 1)
-  {
-    return 0;
-  }
-
-  *a2 = *(a1 + 40);
-  return 1;
-}
-
-uint64_t RESpotLightShadowMapComponentSetZNear(uint64_t this, float *a2)
-{
-  if (!a2)
-  {
-    if (*(this + 36) != 1)
-    {
-      return this;
-    }
-
-    *(this + 36) = 0;
-    return re::ecs2::Component::enqueueMarkDirty(this);
-  }
-
-  v2 = *a2;
-  if (*(this + 36) != 1)
-  {
-    *(this + 36) = 1;
-    goto LABEL_9;
-  }
-
-  if (*(this + 40) != v2)
-  {
-LABEL_9:
-    *(this + 40) = v2;
-    return re::ecs2::Component::enqueueMarkDirty(this);
-  }
-
-  return this;
-}
-
-uint64_t RESpotLightShadowMapComponentGetZFar(uint64_t a1, _DWORD *a2)
-{
-  if (!a2 || *(a1 + 44) != 1)
-  {
-    return 0;
-  }
-
-  *a2 = *(a1 + 48);
-  return 1;
-}
-
-uint64_t RESpotLightShadowMapComponentSetZFar(uint64_t this, float *a2)
-{
-  if (!a2)
-  {
-    if (*(this + 44) != 1)
-    {
-      return this;
-    }
-
-    *(this + 44) = 0;
-    return re::ecs2::Component::enqueueMarkDirty(this);
-  }
-
-  v2 = *a2;
-  if (*(this + 44) != 1)
-  {
-    *(this + 44) = 1;
-    goto LABEL_9;
-  }
-
-  if (*(this + 48) != v2)
-  {
-LABEL_9:
-    *(this + 48) = v2;
-    return re::ecs2::Component::enqueueMarkDirty(this);
-  }
-
-  return this;
-}
-
-uint64_t RESpotLightShadowMapComponentGetCullModeEx(uint64_t a1, void *a2)
-{
-  result = (a2 != 0) & *(a1 + 32);
-  if (result == 1)
-  {
-    *a2 = *(a1 + 33);
-  }
-
-  return result;
-}
-
-uint64_t RESpotLightShadowMapComponentSetCullMode(uint64_t this, char *a2)
-{
-  if (a2)
-  {
-    v2 = *a2;
-    if ((*(this + 32) & 1) == 0)
-    {
-      *(this + 32) = 1;
-    }
-
-    *(this + 33) = v2;
-  }
-
-  else if (*(this + 32) == 1)
-  {
-    *(this + 32) = 0;
-  }
-
-  return re::ecs2::Component::enqueueMarkDirty(this);
-}
-
-void *RELightComponentGetComponentType()
-{
-  if (re::ecs2::dispatchOnceInitECSComponents(void)::onceToken != -1)
-  {
-    dispatch_once(&re::ecs2::dispatchOnceInitECSComponents(void)::onceToken, &__block_literal_global_17);
-  }
-
-  return re::ecs2::ComponentImpl<re::ecs2::LightComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)1,(re::ecs2::ComponentTypeBase::Flags)2>::s_componentType;
-}
-
-uint64_t RELightComponentSetColor(uint64_t this, __n128 a2)
-{
-  *(this + 864) = a2;
-  *(this + 880) = 0;
-  return re::ecs2::Component::enqueueMarkDirty(this);
-}
-
-double RELightComponentGetColor(uint64_t a1)
-{
-  v1 = *(a1 + 872);
-  v2 = *(a1 + 880);
-  v4 = *(a1 + 864);
-  v6 = v2;
-  v5 = v1;
-  return COERCE_DOUBLE(re::ColorGamut3F::as(&v4, 0, 1));
-}
-
-re::ecs2::Entity *REMakeEntityWithDirectionalLight(float32x4_t a1, float32x4_t a2, __n128 a3)
-{
-  v8[0] = a1;
-  v8[1] = a2;
-  v6 = a3;
-  re::ecs2::LightComponentHelper::makeEntityWithDirectionalLight(v8, &v6, 0, &v7, 0.01, 100.0);
-  v3 = v7;
-  v4 = v7 + 8;
-  if (v7)
-  {
-  }
-
-  return v3;
-}
-
-void *REEntityFunctionConstantComponentGetComponentType()
-{
-  if (re::ecs2::dispatchOnceInitECSComponents(void)::onceToken != -1)
-  {
-    dispatch_once(&re::ecs2::dispatchOnceInitECSComponents(void)::onceToken, &__block_literal_global_17);
-  }
-
-  return re::ecs2::ComponentImpl<re::ecs2::EntityFunctionConstantComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)1,(re::ecs2::ComponentTypeBase::Flags)2>::s_componentType;
-}
-
-uint64_t REEntityFunctionConstantComponentAddOrReplace(uint64_t a1, char *__s, int a3)
-{
-  v15 = *MEMORY[0x1E69E9840];
-  v6 = strlen(__s);
-  if (v6)
-  {
-    MurmurHash3_x64_128(__s, v6, 0, &v12);
-    v7 = (v13 + (v12 << 6) + (v12 >> 2) - 0x61C8864680B583E9) ^ v12;
-  }
-
-  else
-  {
-    v7 = 0;
-  }
-
-  v11 = v7;
-  v12 = 0;
-  v13 = 0;
-  v14 = 0;
-  v8 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * (v7 ^ (v7 >> 30))) ^ ((0xBF58476D1CE4E5B9 * (v7 ^ (v7 >> 30))) >> 27));
-  result = re::HashTable<unsigned long long,re::PeerAttributionContext *,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::findEntry<unsigned long long>(a1 + 32, &v11, v8 ^ (v8 >> 31), &v12);
-  v10 = HIDWORD(v13);
-  if (HIDWORD(v13) == 0x7FFFFFFF)
-  {
-    result = re::HashTable<unsigned long long,int,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::allocEntry(a1 + 32, v13, v12);
-    *(result + 8) = v11;
-    *(result + 16) = a3;
-    ++*(a1 + 72);
-  }
-
-  else
-  {
-    ++*(a1 + 72);
-    *(*(a1 + 48) + 32 * v10 + 16) = a3;
-  }
-
-  return result;
-}
-
-BOOL REEntityFunctionConstantComponentRemove(uint64_t a1, char *__s)
-{
-  v7[2] = *MEMORY[0x1E69E9840];
-  v4 = strlen(__s);
-  if (v4)
-  {
-    MurmurHash3_x64_128(__s, v4, 0, v7);
-    v5 = (v7[1] + (v7[0] << 6) + (v7[0] >> 2) - 0x61C8864680B583E9) ^ v7[0];
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  v7[0] = v5;
-  return re::HashTable<unsigned long long,re::PeerAttributionContext *,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::remove(a1 + 32, v7);
-}
-
-uint64_t REEntityFunctionConstantComponentTryGet(uint64_t a1, char *__s)
-{
-  v8[2] = *MEMORY[0x1E69E9840];
-  v4 = strlen(__s);
-  if (v4)
-  {
-    MurmurHash3_x64_128(__s, v4, 0, v8);
-    v5 = (v8[1] + (v8[0] << 6) + (v8[0] >> 2) - 0x61C8864680B583E9) ^ v8[0];
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  v8[0] = v5;
-  v6 = re::HashTable<unsigned long,unsigned long,re::Hash<unsigned long>,re::EqualTo<unsigned long>,true,false>::tryGet(a1 + 32, v8);
-  if (v6)
-  {
-    return *v6;
-  }
-
-  else
-  {
-    return 0xFFFFFFFFLL;
-  }
-}
-
-BOOL REEntityFunctionConstantComponentCanGet(uint64_t a1, char *__s, _DWORD *a3)
-{
-  v10[2] = *MEMORY[0x1E69E9840];
-  v6 = strlen(__s);
-  if (v6)
-  {
-    MurmurHash3_x64_128(__s, v6, 0, v10);
-    v7 = (v10[1] + (v10[0] << 6) + (v10[0] >> 2) - 0x61C8864680B583E9) ^ v10[0];
-  }
-
-  else
-  {
-    v7 = 0;
-  }
-
-  v10[0] = v7;
-  v8 = re::HashTable<unsigned long,unsigned long,re::Hash<unsigned long>,re::EqualTo<unsigned long>,true,false>::tryGet(a1 + 32, v10);
-  if (v8)
-  {
-    *a3 = *v8;
-  }
-
-  return v8 != 0;
-}
-
-uint64_t REAssetTypeBuilderCreate(re *a1)
-{
-  v1 = re::globalAllocators(a1);
-  v2 = (*(*v1[2] + 32))(v1[2], 104, 8);
-  *v2 = 0u;
-  *(v2 + 16) = 0u;
-  *(v2 + 32) = 0u;
-  *(v2 + 64) = 0u;
-  *(v2 + 80) = 0u;
-  *(v2 + 96) = 0;
-  *(v2 + 48) = 0u;
-  ArcSharedObject::ArcSharedObject(v2, 0);
-  *v2 = &unk_1F5D2DB60;
-  ArcSharedObject::ArcSharedObject((v2 + 24), 0);
-  *(v2 + 24) = &unk_1F5CB8348;
-  *(v2 + 48) = 0u;
-  *(v2 + 64) = 0u;
-  re::DynamicString::setCapacity((v2 + 48), 0);
-  *(v2 + 80) = 0;
-  *(v2 + 88) = 0;
-  *(v2 + 96) = 0;
-  return v2;
-}
-
-re::DynamicString *REAssetTypeBuilderSetName(uint64_t a1, const char *a2)
-{
-  if (result)
-  {
-    v4 = result;
-    v5[0] = a2;
-    v5[1] = strlen(a2);
-    return re::DynamicString::operator=((v4 + 48), v5);
-  }
-
-  return result;
-}
-
-uint64_t anonymous namespace::castAssetTypeBuilder(uint64_t result)
-{
-  if (*(result + 96))
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v1 = CoreRELog::log;
-    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
-    {
-      *v2 = 0;
-      _os_log_error_impl(&dword_1E1C61000, v1, OS_LOG_TYPE_ERROR, "This REAssetTypeBuilder has already completed registering an asset type. It should be released.", v2, 2u);
-    }
-
-    return 0;
-  }
-
-  return result;
-}
-
-void REAssetTypeBuilderSetDataDecoderCallback(uint64_t a1, void *a2)
+void *physx::shdfnd::Array<physx::Scb::MaterialEvent,physx::shdfnd::ReflectionAllocator<physx::Scb::MaterialEvent>>::resize(void *result, uint64_t a2, void *a3)
 {
   v4 = a2;
-  if (v3)
+  v5 = result;
+  if ((*(result + 3) & 0x7FFFFFFFu) < a2)
   {
-    re::CustomAssetRegistrationParameters::setAssetDecoder(v3 + 24, v4);
+    result = physx::shdfnd::Array<physx::Scb::MaterialEvent,physx::shdfnd::ReflectionAllocator<physx::Scb::MaterialEvent>>::recreate(result, a2);
   }
-}
 
-void REAssetTypeBuilderSetDataEncoderCallback(uint64_t a1, void *a2)
-{
-  v4 = a2;
-  if (v3)
+  v6 = *(v5 + 2);
+  if (v6 < v4)
   {
-    re::CustomAssetRegistrationParameters::setAssetEncoder(v3 + 24, v4);
-  }
-}
-
-id REAssetTypeBuilderFinalize(uint64_t a1, re::AssetManager *a2, CFErrorRef *a3)
-{
-  if (v5)
-  {
-    v6 = v5;
-    re::AssetManager::registerCustomAssetType(a2, (v5 + 24), v9);
-    if (v9[0])
+    v7 = *v5 + 8 * v4;
+    v8 = (*v5 + 8 * v6);
+    do
     {
-      result = v10;
-      *(v6 + 96) = v10;
-      return result;
+      *v8++ = *a3;
     }
 
-    if (!a3 || (*a3 = v10, CFRetain(a3), (v9[0] & 1) == 0))
-    {
-    }
+    while (v8 < v7);
   }
 
-  else if (a3)
-  {
-    v8 = CFErrorCreate(0, @"REAssetTypeRegistrationErrorDomain", 5, 0);
-    result = 0;
-    *a3 = v8;
-    return result;
-  }
-
-  return 0;
-}
-
-void anonymous namespace::AssetTypeBuilder::~AssetTypeBuilder(_anonymous_namespace_::AssetTypeBuilder *this)
-{
-  *this = &unk_1F5D2DB60;
-  re::CustomAssetRegistrationParameters::~CustomAssetRegistrationParameters((this + 24));
-  *this = &unk_1F5CCF868;
-  objc_destructInstance(this + 8);
-}
-
-{
-  *this = &unk_1F5D2DB60;
-  re::CustomAssetRegistrationParameters::~CustomAssetRegistrationParameters((this + 24));
-  *this = &unk_1F5CCF868;
-  objc_destructInstance(this + 8);
-
-  JUMPOUT(0x1E6906520);
-}
-
-void *RERemoteEffectsComponentGetComponentType()
-{
-  if (re::ecs2::dispatchOnceInitECSComponents(void)::onceToken != -1)
-  {
-    dispatch_once(&re::ecs2::dispatchOnceInitECSComponents(void)::onceToken, &__block_literal_global_17);
-  }
-
-  return re::ecs2::ComponentImpl<re::ecs2::RemoteEffectsComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)0,(re::ecs2::ComponentTypeBase::Flags)2>::s_componentType;
-}
-
-void **RERemoteEffectsComponentSetIsPlanar(re::ecs2::RemoteEffectsComponent *a1, char a2)
-{
-  LegacyStyle = re::ecs2::RemoteEffectsComponent::getLegacyStyle(a1);
-  if (LegacyStyle)
-  {
-    *(LegacyStyle + 17) = a2;
-  }
-
-  return re::ecs2::Component::markDirty(a1);
-}
-
-uint64_t RERemoteEffectsComponentIsPlanar(re::ecs2::RemoteEffectsComponent *a1)
-{
-  LegacyStyle = re::ecs2::RemoteEffectsComponent::getLegacyStyle(a1);
-  if (LegacyStyle)
-  {
-    v2 = *(LegacyStyle + 17);
-  }
-
-  else
-  {
-    v2 = 1;
-  }
-
-  return v2 & 1;
-}
-
-void **RERemoteEffectsComponentSetIsHierarchical(re::ecs2::RemoteEffectsComponent *a1, char a2)
-{
-  LegacyStyle = re::ecs2::RemoteEffectsComponent::getLegacyStyle(a1);
-  if (LegacyStyle)
-  {
-    *(LegacyStyle + 20) = a2;
-  }
-
-  return re::ecs2::Component::markDirty(a1);
-}
-
-BOOL RERemoteEffectsComponentIsHierarchical(uint64_t a1)
-{
-  v1 = *(a1 + 56);
-  if (!v1)
-  {
-    return 1;
-  }
-
-  v2 = (*(a1 + 72) + 112);
-  v3 = (v1 << 7) - 128;
-  while (*(v2 - 92) == 1)
-  {
-    v5 = *v2;
-    v2 += 16;
-    v4 = v5;
-    if (v5)
-    {
-      v6 = 1;
-    }
-
-    else
-    {
-      v6 = v3 == 0;
-    }
-
-    v3 -= 128;
-    if (v6)
-    {
-      return v4 == 0;
-    }
-  }
-
-  return 0;
-}
-
-void **RERemoteEffectsComponentSetColorTint(re::ecs2::RemoteEffectsComponent *a1, char a2, __n128 a3)
-{
-  LegacyStyle = re::ecs2::RemoteEffectsComponent::getLegacyStyle(a1);
-  if (LegacyStyle)
-  {
-    *(LegacyStyle + 24) = a3.n128_u32[0] | (a3.n128_u32[1] << 32);
-    *(LegacyStyle + 32) = a3.n128_u32[2];
-    *(LegacyStyle + 36) = a2;
-  }
-
-  return re::ecs2::Component::markDirty(a1);
-}
-
-uint64_t RERemoteEffectsComponentGetColorTint(re::ecs2::RemoteEffectsComponent *a1, __int128 *a2, _BYTE *a3)
-{
-  result = re::ecs2::RemoteEffectsComponent::getLegacyStyle(a1);
-  if (result)
-  {
-    v6 = *(result + 24);
-  }
-
-  else
-  {
-    v6 = xmmword_1E304F3C0;
-  }
-
-  *a2 = v6;
-  *a3 = BYTE12(v6);
-  return result;
-}
-
-void **RERemoteEffectsComponentSetStyle(re::ecs2::RemoteEffectsComponent *a1, int a2)
-{
-  v3 = a2 != 2;
-  if (a2 == 2)
-  {
-    v4 = 2;
-  }
-
-  else
-  {
-    v4 = 0;
-  }
-
-  if (a2 == 3)
-  {
-    v3 = 0;
-    v4 = 3;
-  }
-
-  v5 = a2 != 1 && v3;
-  if (a2 == 1)
-  {
-    v6 = 1;
-  }
-
-  else
-  {
-    v6 = v4;
-  }
-
-  LegacyStyle = re::ecs2::RemoteEffectsComponent::getLegacyStyle(a1);
-  if (LegacyStyle)
-  {
-    *(LegacyStyle + 12) = v6;
-    *(LegacyStyle + 22) = v5;
-  }
-
-  return re::ecs2::Component::markDirty(a1);
-}
-
-uint64_t RERemoteEffectsComponentGetStyle(re::ecs2::RemoteEffectsComponent *a1)
-{
-  LegacyStyle = re::ecs2::RemoteEffectsComponent::getLegacyStyle(a1);
-  if (LegacyStyle)
-  {
-    v2 = *(LegacyStyle + 12);
-  }
-
-  else
-  {
-    v2 = 0;
-  }
-
-  __asm { FMOV            V0.2S, #1.0 }
-
-  memset(v10, 0, sizeof(v10));
-  v11 = 0;
-  if (v2 - 1 >= 3)
-  {
-    v8 = 0;
-  }
-
-  else
-  {
-    v8 = v2;
-  }
-
-  re::AssetHandle::~AssetHandle(v10);
-  return v8;
-}
-
-void **RERemoteEffectsComponentSetIntensityMultiplier(re::ecs2::RemoteEffectsComponent *a1, float a2)
-{
-  LegacyStyle = re::ecs2::RemoteEffectsComponent::getLegacyStyle(a1);
-  if (LegacyStyle)
-  {
-    *(LegacyStyle + 40) = a2;
-  }
-
-  return re::ecs2::Component::markDirty(a1);
-}
-
-float RERemoteEffectsComponentGetIntensityMultiplier(re::ecs2::RemoteEffectsComponent *a1)
-{
-  LegacyStyle = re::ecs2::RemoteEffectsComponent::getLegacyStyle(a1);
-  if (LegacyStyle)
-  {
-    return *(LegacyStyle + 40);
-  }
-
-  else
-  {
-    return 1.0;
-  }
-}
-
-void **RERemoteEffectsComponentSetGlowAppearDurationOverride(re::ecs2::RemoteEffectsComponent *a1, double a2)
-{
-  v4[0] = 1;
-  v5 = a2;
-  re::ecs2::RemoteEffectsComponent::setGlowAppearDurationOverride(a1, v4);
-
-  return re::ecs2::Component::markDirty(a1);
-}
-
-void **RERemoteEffectsComponentResetGlowAppearDurationOverride(re::ecs2::RemoteEffectsComponent *a1)
-{
-  v3[0] = 0;
-  re::ecs2::RemoteEffectsComponent::setGlowAppearDurationOverride(a1, v3);
-
-  return re::ecs2::Component::markDirty(a1);
-}
-
-double RERemoteEffectsComponentGetGlowAppearDurationOverride(re::ecs2::RemoteEffectsComponent *a1)
-{
-  LegacyStyle = re::ecs2::RemoteEffectsComponent::getLegacyStyle(a1);
-  if (LegacyStyle && *(LegacyStyle + 56) != 1)
-  {
-    return 0.2;
-  }
-
-  v3 = re::ecs2::RemoteEffectsComponent::getLegacyStyle(a1);
-  if (!v3)
-  {
-    return 0.2;
-  }
-
-  if (*(v3 + 56) == 1)
-  {
-    return *(v3 + 64);
-  }
-
-  return result;
-}
-
-void **RERemoteEffectsComponentSetGlowDisappearDurationOverride(re::ecs2::RemoteEffectsComponent *a1, double a2)
-{
-  v4[0] = 1;
-  v5 = a2;
-  re::ecs2::RemoteEffectsComponent::setGlowDisappearDurationOverride(a1, v4);
-
-  return re::ecs2::Component::markDirty(a1);
-}
-
-void **RERemoteEffectsComponentResetGlowDisappearDurationOverride(re::ecs2::RemoteEffectsComponent *a1)
-{
-  v3[0] = 0;
-  re::ecs2::RemoteEffectsComponent::setGlowDisappearDurationOverride(a1, v3);
-
-  return re::ecs2::Component::markDirty(a1);
-}
-
-double RERemoteEffectsComponentGetGlowDisappearDurationOverride(re::ecs2::RemoteEffectsComponent *a1)
-{
-  LegacyStyle = re::ecs2::RemoteEffectsComponent::getLegacyStyle(a1);
-  if (!LegacyStyle)
-  {
-    return 0.2;
-  }
-
-  if (*(LegacyStyle + 72) == 1)
-  {
-    return *(LegacyStyle + 80);
-  }
-
-  return 0.1;
-}
-
-void **RERemoteEffectsComponentSetEnableAutoFade(re::ecs2::RemoteEffectsComponent *a1, char a2)
-{
-  LegacyStyle = re::ecs2::RemoteEffectsComponent::getLegacyStyle(a1);
-  if (LegacyStyle)
-  {
-    *(LegacyStyle + 18) = a2;
-  }
-
-  return re::ecs2::Component::markDirty(a1);
-}
-
-uint64_t RERemoteEffectsComponentGetEnableAutoFade(re::ecs2::RemoteEffectsComponent *a1)
-{
-  LegacyStyle = re::ecs2::RemoteEffectsComponent::getLegacyStyle(a1);
-  if (LegacyStyle)
-  {
-    v2 = *(LegacyStyle + 18);
-  }
-
-  else
-  {
-    v2 = 0;
-  }
-
-  return v2 & 1;
-}
-
-void **RERemoteEffectsComponentSetOpacityFunction(re::ecs2::RemoteEffectsComponent *a1, int a2)
-{
-  LegacyStyle = re::ecs2::RemoteEffectsComponent::getLegacyStyle(a1);
-  if (LegacyStyle)
-  {
-    v5 = a2 == 1;
-    if (a2 == 2)
-    {
-      v5 = 2;
-    }
-
-    *(LegacyStyle + 16) = v5;
-  }
-
-  return re::ecs2::Component::markDirty(a1);
-}
-
-uint64_t RERemoteEffectsComponentGetOpacityFunction(re::ecs2::RemoteEffectsComponent *a1)
-{
-  result = re::ecs2::RemoteEffectsComponent::getLegacyStyle(a1);
-  if (result)
-  {
-    v2 = *(result + 16);
-    if (v2 == 2)
-    {
-      return 2;
-    }
-
-    else
-    {
-      return v2 == 1;
-    }
-  }
-
-  return result;
-}
-
-void **RERemoteEffectsComponentSetAudioAssetRef(re::ecs2::RemoteEffectsComponent *a1, uint64_t a2)
-{
-  re::AssetAPIHelper::assetHandleCreate(a2, v4);
-  re::ecs2::RemoteEffectsComponent::setAudioAssetHandle(a1, v4);
-  re::AssetHandle::~AssetHandle(v4);
-  return re::ecs2::Component::markDirty(a1);
-}
-
-uint64_t RERemoteEffectsComponentGetAudioAssetRef(re::ecs2::RemoteEffectsComponent *a1)
-{
-  re::ecs2::RemoteEffectsComponent::getAudioAssetHandle(a1, v3);
-  v1 = v3[0];
-  re::AssetHandle::~AssetHandle(v3);
-  return v1;
-}
-
-void **RERemoteEffectsComponentSetFadeUsesActiveTime(re::ecs2::RemoteEffectsComponent *a1, char a2)
-{
-  LegacyStyle = re::ecs2::RemoteEffectsComponent::getLegacyStyle(a1);
-  if (LegacyStyle)
-  {
-    *(LegacyStyle + 19) = a2;
-  }
-
-  return re::ecs2::Component::markDirty(a1);
-}
-
-uint64_t RERemoteEffectsComponentGetFadeUsesActiveTime(re::ecs2::RemoteEffectsComponent *a1)
-{
-  LegacyStyle = re::ecs2::RemoteEffectsComponent::getLegacyStyle(a1);
-  if (LegacyStyle)
-  {
-    v2 = *(LegacyStyle + 19);
-  }
-
-  else
-  {
-    v2 = 0;
-  }
-
-  return v2 & 1;
-}
-
-void **RERemoteEffectsComponentSetFadeUsesActiveTimeMultiplier(re::ecs2::RemoteEffectsComponent *a1, float a2)
-{
-  LegacyStyle = re::ecs2::RemoteEffectsComponent::getLegacyStyle(a1);
-  if (LegacyStyle)
-  {
-    *(LegacyStyle + 44) = a2;
-  }
-
-  return re::ecs2::Component::markDirty(a1);
-}
-
-float RERemoteEffectsComponentGetFadeUsesActiveTimeMultiplier(re::ecs2::RemoteEffectsComponent *a1)
-{
-  LegacyStyle = re::ecs2::RemoteEffectsComponent::getLegacyStyle(a1);
-  if (LegacyStyle)
-  {
-    return *(LegacyStyle + 44);
-  }
-
-  else
-  {
-    return 1.0;
-  }
-}
-
-void **RERemoteEffectsComponentSetActivationDelay(re::ecs2::RemoteEffectsComponent *a1, double a2)
-{
-  LegacyStyle = re::ecs2::RemoteEffectsComponent::getLegacyStyle(a1);
-  if (LegacyStyle)
-  {
-    *(LegacyStyle + 48) = a2;
-  }
-
-  return re::ecs2::Component::markDirty(a1);
-}
-
-double RERemoteEffectsComponentGetActivationDelay(re::ecs2::RemoteEffectsComponent *a1)
-{
-  LegacyStyle = re::ecs2::RemoteEffectsComponent::getLegacyStyle(a1);
-  if (LegacyStyle)
-  {
-    return *(LegacyStyle + 48);
-  }
-
-  else
-  {
-    return 0.0;
-  }
-}
-
-uint64_t RERemoteEffectsComponentHasValidGroupID(re::ecs2::RemoteEffectsComponent *a1)
-{
-  result = re::ecs2::RemoteEffectsComponent::getLegacyStyle(a1);
-  if (result)
-  {
-    return *(result + 112) != 0;
-  }
-
-  return result;
-}
-
-uint64_t RERemoteEffectsComponentGetGroupID(re::ecs2::RemoteEffectsComponent *a1)
-{
-  result = re::ecs2::RemoteEffectsComponent::getLegacyStyle(a1);
-  if (result)
-  {
-    return *(result + 112);
-  }
-
-  return result;
-}
-
-void **RERemoteEffectsComponentSetGroupID(re::ecs2::RemoteEffectsComponent *a1, uint64_t a2)
-{
-  LegacyStyle = re::ecs2::RemoteEffectsComponent::getLegacyStyle(a1);
-  if (LegacyStyle)
-  {
-    *(LegacyStyle + 112) = a2;
-  }
-
-  return re::ecs2::Component::markDirty(a1);
-}
-
-void **RERemoteEffectsComponentSetGroupBehavior(re::ecs2::RemoteEffectsComponent *a1, int a2)
-{
-  LegacyStyle = re::ecs2::RemoteEffectsComponent::getLegacyStyle(a1);
-  if (LegacyStyle)
-  {
-    v5 = a2 == 1;
-    if (a2 == 2)
-    {
-      v5 = 2;
-    }
-
-    *(LegacyStyle + 120) = v5;
-  }
-
-  return re::ecs2::Component::markDirty(a1);
-}
-
-uint64_t RERemoteEffectsComponentGetGroupBehavior(re::ecs2::RemoteEffectsComponent *a1)
-{
-  result = re::ecs2::RemoteEffectsComponent::getLegacyStyle(a1);
-  if (result)
-  {
-    v2 = *(result + 120);
-    if (v2 == 2)
-    {
-      return 2;
-    }
-
-    else
-    {
-      return v2 == 1;
-    }
-  }
-
-  return result;
-}
-
-void **RERemoteEffectsComponentSetEnableDirectPinchAnimation(void **this, char a2)
-{
-  if (this[7])
-  {
-    *(this[9] + 21) = a2;
-    return re::ecs2::Component::markDirty(this);
-  }
-
-  return this;
-}
-
-uint64_t RERemoteEffectsComponentGetEnableDirectPinchAnimation(uint64_t a1)
-{
-  v1 = *(a1 + 56);
-  if (v1)
-  {
-    LOBYTE(v1) = *(*(a1 + 72) + 21);
-  }
-
-  return v1 & 1;
-}
-
-uint64_t RERemoteEffectsComponentGetSettingsModifier(uint64_t a1)
-{
-  v1 = *(a1 + 156);
-  if (v1 == 2)
-  {
-    return 2;
-  }
-
-  else
-  {
-    return v1 == 1;
-  }
-}
-
-void **RERemoteEffectsComponentSetSettingsModifier(void **this, int a2)
-{
-  v2 = a2 == 1;
-  if (a2 == 2)
-  {
-    v2 = 2;
-  }
-
-  *(this + 39) = v2;
-  return re::ecs2::Component::markDirty(this);
-}
-
-uint64_t RERemoteEffectsComponentIsPinchActive(uint64_t a1)
-{
-  if (*(a1 + 86))
-  {
-    v1 = 1;
-  }
-
-  else
-  {
-    v1 = *(a1 + 87);
-  }
-
-  return v1 & 1;
-}
-
-void **RERemoteEffectsComponentSetArePinchesActive(void **this, char a2, char a3)
-{
-  *(this + 87) = a2;
-  *(this + 86) = a3;
-  return re::ecs2::Component::markDirty(this);
-}
-
-uint64_t _RECustomComponentTypeCreate(uint64_t a1, int a2)
-{
-  if (*(a1 + 72))
-  {
-    v4 = re::ecs2::ComponentTypeRegistry::instance(a1);
-    v5 = *(a1 + 8);
-    *buf = 0;
-    v25 = &str_67;
-    v6 = re::ecs2::ComponentTypeRegistry::componentTypeWithName(v4, buf);
-    v7 = v6;
-    if (buf[0])
-    {
-      if (buf[0])
-      {
-      }
-    }
-
-    if (!v7)
-    {
-      v8 = *(a1 + 72);
-      v9 = RESyncSyncableTypeInfoCreate();
-      v10 = v9;
-      if (*a1 >= 2 && (v11 = *(a1 + 80)) != 0)
-      {
-        if (!*(v11 + 24) && *(v11 + 40) == 1)
-        {
-          v12 = *re::ecsCoreLogObjects(v9);
-          v9 = os_log_type_enabled(v12, OS_LOG_TYPE_ERROR);
-          if (v9)
-          {
-            *buf = 0;
-            _os_log_error_impl(&dword_1E1C61000, v12, OS_LOG_TYPE_ERROR, "writeNetworkSnapshot cannot be null", buf, 2u);
-          }
-
-          v11 = *(a1 + 80);
-        }
-
-        v13 = *(v11 + 32);
-        if (!v13)
-        {
-          if (*(v11 + 40) == 1)
-          {
-            v14 = *re::ecsCoreLogObjects(v9);
-            if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
-            {
-              *buf = 0;
-              _os_log_error_impl(&dword_1E1C61000, v14, OS_LOG_TYPE_ERROR, "readNetworkSnapshot cannot be null", buf, 2u);
-            }
-
-            v11 = *(a1 + 80);
-          }
-        }
-
-        v15 = *(v11 + 16);
-        RESyncSyncableTypeInfoSetSupportsNetworkSync();
-        RESyncSyncableTypeInfoSetDebugName();
-        *buf = MEMORY[0x1E69E9820];
-        v25 = 3221225472;
-        v26 = ___ZN12_GLOBAL__N_131GenerateCustomComponentSyncInfoEPK25RECustomComponentTypeInfoP22RESyncSyncableTypeInfo_block_invoke;
-        v27 = &__block_descriptor_48_e56_B32__0__RESyncBitReader__8_v16r__RESyncObjectContext__24l;
-        v28 = v13;
-        v29 = v15;
-        RESyncSyncableTypeInfoSetReadSnapshotCb();
-        RESyncSyncableTypeInfoSetWriteSnapshotCb();
-        RESyncSyncableTypeInfoSetReadPayloadCb();
-        v9 = RESyncSyncableTypeInfoSetWritePayloadCb();
-        v17 = v10;
-      }
-
-      else
-      {
-        v17 = 0;
-      }
-
-      v18 = re::globalAllocators(v9);
-      v7 = (*(*v18[2] + 32))(v18[2], 176, 8);
-      v19 = *(a1 + 8);
-      *buf = 0;
-      v25 = &str_67;
-      v20 = re::ecs2::CustomComponentType::CustomComponentType(v7, buf, v8, v17, 0, a2);
-      if (buf[0])
-      {
-        if (buf[0])
-        {
-        }
-      }
-
-      v21 = RESyncRelease();
-      *(v7 + 112) = *(a1 + 16);
-      *(v7 + 48) = *(a1 + 24);
-      *(v7 + 64) = *(a1 + 40);
-      *(v7 + 88) = *(a1 + 48);
-      *(v7 + 72) = *(a1 + 56);
-      v22 = re::ecs2::ComponentTypeRegistry::instance(v21);
-      re::ecs2::ComponentTypeRegistry::add(v22, v7, 0);
-    }
-  }
-
-  else
-  {
-    v16 = *re::ecsCoreLogObjects(a1);
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 0;
-      _os_log_impl(&dword_1E1C61000, v16, OS_LOG_TYPE_DEFAULT, "introspection must not be null", buf, 2u);
-    }
-
-    return 0;
-  }
-
-  return v7;
-}
-
-uint64_t RECustomComponentTypeCreate(_DWORD *a1)
-{
-  if ((*a1 - 1) > 1)
-  {
-    return 0;
-  }
-
-  else
-  {
-    return _RECustomComponentTypeCreate(a1, 0);
-  }
-}
-
-re *RECustomComponentTypeDestroy(re::ecs2::ComponentTypeRegistry *a1)
-{
-  v2 = re::ecs2::ComponentTypeRegistry::instance(a1);
-  result = re::ecs2::ComponentTypeRegistry::remove(v2, a1);
-  if (a1)
-  {
-    v4 = re::globalAllocators(result)[2];
-    (*(*a1 + 16))(a1);
-    v5 = *(*v4 + 40);
-
-    return v5(v4, a1);
-  }
-
-  return result;
-}
-
-uint64_t RECustomComponentTypeSetEncodeCallback(uint64_t result, uint64_t a2)
-{
-  if (result)
-  {
-    if (a2)
-    {
-      *(result + 96) = a2;
-      return result;
-    }
-  }
-
-  else
-  {
-    re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) Component type must not be null.", "cComponentType", "RECustomComponentTypeSetEncodeCallback", 221);
-    _os_crash();
-    __break(1u);
-  }
-
-  re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) Encode callback must not be null.", "encode", "RECustomComponentTypeSetEncodeCallback", 222);
-  result = _os_crash();
-  __break(1u);
-  return result;
-}
-
-uint64_t RECustomComponentTypeSetDecodeCallback(uint64_t result, uint64_t a2)
-{
-  if (result)
-  {
-    if (a2)
-    {
-      *(result + 104) = a2;
-      return result;
-    }
-  }
-
-  else
-  {
-    re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) Component type must not be null.", "cComponentType", "RECustomComponentTypeSetDecodeCallback", 231);
-    _os_crash();
-    __break(1u);
-  }
-
-  re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) Decode callback must not be null.", "decode", "RECustomComponentTypeSetDecodeCallback", 232);
-  result = _os_crash();
-  __break(1u);
-  return result;
-}
-
-uint64_t ___ZN12_GLOBAL__N_131GenerateCustomComponentSyncInfoEPK25RECustomComponentTypeInfoP22RESyncSyncableTypeInfo_block_invoke(uint64_t a1, uint64_t a2, void *a3)
-{
-  v21 = *MEMORY[0x1E69E9840];
-  v5 = RESyncBitReaderBytesLeft();
-  v6 = v5;
-  if (v5 < 0x41)
-  {
-    RESyncBitReaderReadData();
-    v13 = *(a1 + 32);
-    v12 = *(a1 + 40);
-    v14 = a3[2];
-    v15 = (*(*a3 + 40))(a3);
-    return v13(v12, v14, a3, v15, v20, v6);
-  }
-
-  else
-  {
-    re::StackScratchAllocator::StackScratchAllocator(v20);
-    v19 = 0;
-    v17[1] = 0;
-    v17[2] = 0;
-    v18 = 0;
-    v17[0] = v20;
-    re::DynamicArray<BOOL>::setCapacity(v17, 0);
-    ++v18;
-    re::DynamicArray<BOOL>::resize(v17, v6);
-    RESyncBitReaderReadData();
-    v8 = *(a1 + 32);
-    v7 = *(a1 + 40);
-    v9 = a3[2];
-    v10 = (*(*a3 + 40))(a3);
-    v11 = v8(v7, v9, a3, v10, v19, v6);
-    if (v17[0] && v19)
-    {
-      (*(*v17[0] + 40))();
-    }
-
-    re::StackScratchAllocator::~StackScratchAllocator(v20);
-  }
-
-  return v11;
-}
-
-uint64_t ___ZN12_GLOBAL__N_131GenerateCustomComponentSyncInfoEPK25RECustomComponentTypeInfoP22RESyncSyncableTypeInfo_block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
-{
-  v5 = *(a1 + 40);
-  v9 = *(a1 + 32);
-  v6 = a3[2];
-  v7 = (*(*a3 + 40))(a3);
-
-  return v9(v5, v6, a3, v7, a2);
-}
-
-uint64_t ___ZN12_GLOBAL__N_131GenerateCustomComponentSyncInfoEPK25RECustomComponentTypeInfoP22RESyncSyncableTypeInfo_block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  RESyncBitReaderAlignToByte();
-  v4 = RESyncBitReaderBytesLeft();
-  v5 = RESyncBitReaderDataPtr();
-  RESyncBitReaderSkipData();
-  IsOverflow = RESyncBitReaderIsOverflow();
-  if ((IsOverflow & 1) == 0)
-  {
-    MEMORY[0x1E69049A0](a3, v5, v4);
-  }
-
-  return IsOverflow ^ 1u;
-}
-
-void ___ZN12_GLOBAL__N_131GenerateCustomComponentSyncInfoEPK25RECustomComponentTypeInfoP22RESyncSyncableTypeInfo_block_invoke_4()
-{
-  RESyncBitReaderDataPtr();
-  RESyncBitReaderBytesLeft();
-
-  JUMPOUT(0x1E69049A0);
-}
-
-void *RELoadTraceComponentGetComponentType()
-{
-  if (re::ecs2::dispatchOnceInitECSComponents(void)::onceToken != -1)
-  {
-    dispatch_once(&re::ecs2::dispatchOnceInitECSComponents(void)::onceToken, &__block_literal_global_17);
-  }
-
-  return re::ecs2::ComponentImpl<re::ecs2::LoadTraceComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)0,(re::ecs2::ComponentTypeBase::Flags)2>::s_componentType;
-}
-
-uint64_t RECreateLoadTraceTypeBitFieldSignpostArg(unsigned int a1, int a2)
-{
-  v2 = 256;
-  if (!a2)
-  {
-    v2 = 0;
-  }
-
-  return v2 | a1;
-}
-
-re::ecs2::NetworkComponent *REEntityAddLoadTraceComponent(uint64_t a1, int a2, char a3, char a4)
-{
-  if (re::ecs2::dispatchOnceInitECSComponents(void)::onceToken != -1)
-  {
-    dispatch_once(&re::ecs2::dispatchOnceInitECSComponents(void)::onceToken, &__block_literal_global_17);
-  }
-
-  v8 = re::ecs2::EntityComponentCollection::getOrAdd((a1 + 48), re::ecs2::ComponentImpl<re::ecs2::LoadTraceComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)0,(re::ecs2::ComponentTypeBase::Flags)2>::s_componentType);
-  *(v8 + 28) = a2;
-  *(v8 + 32) = a3;
-  *(v8 + 33) = a4;
-
-  return RENetworkMarkComponentDirty(v8);
-}
-
-float RECollisionGetMinimumBoxDimension()
-{
-  if (re::RECollisionFeatureFlags::getMinimumBoxDimension(void)::onceToken != -1)
-  {
-    dispatch_once(&re::RECollisionFeatureFlags::getMinimumBoxDimension(void)::onceToken, &__block_literal_global_11);
-  }
-
-  return *&re::RECollisionFeatureFlags::gMinimumBoxDimension;
-}
-
-uint64_t RECollisionShapeDestroy(_anonymous_namespace_ *a1)
-{
-  result = (*(*a1 + 24))(a1);
-  if ((result - 2) < 8)
-  {
-    goto LABEL_2;
-  }
-
-  if (result == 1)
-  {
-    return result;
-  }
-
-  if (result == 12)
-  {
-LABEL_2:
-    (**a1)(a1);
-
-    return v4();
-  }
-
-  else if ((result - 10) >= 2)
-  {
-    re::internal::assertLog(4, v3, "assertion failure: '%s' (%s:line %i) Unexpected collision shape type.", "!Unreachable code", "RECollisionShapeDestroy", 218);
-    result = _os_crash();
-    __break(1u);
-  }
-
-  else
-  {
-    re::internal::assertLog(4, v3, "assertion failure: '%s' (%s:line %i) Collision shape type not yet exposed in CoreRE.", "!Unreachable code", "RECollisionShapeDestroy", 215);
-    result = _os_crash();
-    __break(1u);
-  }
-
-  return result;
-}
-
-double RECollisionShapeGetBoundingBox(uint64_t a1, __n128 a2, __n128 a3)
-{
-  v4[2] = a2;
-  v4[3] = a3;
-  (*(*a1 + 16))(v4);
-  return *v4;
-}
-
-uint64_t REBoxShapeCreate(re *inited, __n128 a2)
-{
-  {
-    inited = re::initCollision(inited);
-  }
-
-  v3 = re::globalAllocators(inited)[2];
-  v6 = a2;
-  return (*(*v2 + 32))(v2, v3, &v6);
-}
-
-uint64_t RECapsuleShapeCreate(re *inited, float a2, float a3)
-{
-  {
-    inited = re::initCollision(inited);
-  }
-
-  v6 = re::globalAllocators(inited)[2];
-  v7 = *(*v5 + 40);
-  v8.n128_f32[0] = a2;
-  v9.n128_f32[0] = a3;
-
-  return v7(v5, v6, v8, v9);
-}
-
-uint64_t RECompoundShapeCreate(_anonymous_namespace_ *a1, void *a2, uint64_t a3, uint64_t a4)
-{
-  v40 = *MEMORY[0x1E69E9840];
-  v23 = 0;
-  v24 = 0;
-  v25 = 0;
-  v20 = 0;
-  v21 = 0;
-  v22 = 0;
-  if (a1)
-  {
-    v9 = 0;
-    v10 = 0;
-    v11 = &v35;
-    v12 = v24;
-    v13 = v21;
-    while (v12 != v10)
-    {
-      *(v25 + 8 * v10) = a2[v10];
-      if (v13 == v10)
-      {
-        goto LABEL_15;
-      }
-
-      v14 = (v22 + v9);
-      v15 = *(a3 + v9 + 16);
-      *v14 = *(a3 + v9);
-      v14[1] = v15;
-      v10 = (v10 + 1);
-      v9 += 32;
-      if (a1 == v10)
-      {
-        goto LABEL_6;
-      }
-    }
-
-    v26 = 0;
-    v38 = 0u;
-    v39 = 0u;
-    v37 = 0u;
-    v35 = 0u;
-    v36 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    v27 = 136315906;
-    v28 = "operator[]";
-    v29 = 1024;
-    v30 = 468;
-    v31 = 2048;
-    v32 = v12;
-    v33 = 2048;
-    v34 = v12;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_15:
-    v26 = 0;
-    v11[3] = 0u;
-    v11[4] = 0u;
-    v11[2] = 0u;
-    v35 = 0u;
-    v36 = 0u;
-    a4 = MEMORY[0x1E69E9C10];
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    v27 = 136315906;
-    v28 = "operator[]";
-    v29 = 1024;
-    v30 = 468;
-    v31 = 2048;
-    v32 = v13;
-    v33 = 2048;
-    v34 = v13;
-    _os_log_send_and_compose_impl();
-    inited = _os_crash_msg();
-    __break(1u);
-    goto LABEL_16;
-  }
-
-LABEL_6:
-  a2 = &re::StackScratchAllocator::s_rootsWithPersistentBlocks[17];
-  {
-LABEL_16:
-    inited = re::initCollision(inited);
-    v16 = a2[252];
-  }
-
-  v17 = re::globalAllocators(inited);
-  v18 = (*(*v16 + 160))(v16, v17[2], v25, v22, a1, a4, 0);
-  if (v20 && v21)
-  {
-    (*(*v20 + 40))(v20, v22);
-  }
-
-  if (v23 && v24)
-  {
-    (*(*v23 + 40))(v23, v25);
-  }
-
-  return v18;
-}
-
-__n128 RECompoundShapeGetChildPose(uint64_t a1, unint64_t a2)
-{
-  if (*(a1 + 32) <= a2)
-  {
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-  }
-
-  return *(*(a1 + 40) + 240 * a2 + 112);
-}
-
-uint64_t RECompoundShapeGetChildShape(uint64_t a1, unint64_t a2)
-{
-  if (*(a1 + 32) <= a2)
-  {
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-  }
-
-  return *(*(a1 + 40) + 240 * a2 + 64);
-}
-
-uint64_t REConeShapeCreate(re *inited, float a2, float a3)
-{
-  {
-    inited = re::initCollision(inited);
-  }
-
-  v6 = re::globalAllocators(inited)[2];
-  v7 = *(*v5 + 120);
-  v8.n128_f32[0] = a2;
-  v9.n128_f32[0] = a3;
-
-  return v7(v5, v6, v8, v9);
-}
-
-uint64_t RECylinderShapeCreate(re *inited, float a2, float a3)
-{
-  {
-    inited = re::initCollision(inited);
-  }
-
-  v6 = re::globalAllocators(inited)[2];
-  v7 = *(*v5 + 128);
-  v8.n128_f32[0] = a2;
-  v9.n128_f32[0] = a3;
-
-  return v7(v5, v6, v8, v9);
-}
-
-uint64_t REConvexPolyhedronShapeCreate(re *a1, uint64_t a2)
-{
-  result = REConvexPolyhedronShapeCreateNullable(a1, a2);
-  if (!result)
-  {
-    re::internal::assertLog(4, v3, "assertion failure: '%s' (%s:line %i) Bad parameters passed for convex mesh creation.", "convexPolyhedronShape != nullptr", "REConvexPolyhedronShapeCreate", 364);
-    result = _os_crash();
-    __break(1u);
-  }
-
-  return result;
-}
-
-uint64_t REConvexPolyhedronShapeCreateNullable(re *inited, uint64_t a2)
-{
-  v3 = inited;
-  {
-    inited = re::initCollision(inited);
-  }
-
-  v5 = re::globalAllocators(inited)[2];
-  v6 = *(*v4 + 56);
-
-  return v6(v4, v5, v3, a2);
-}
-
-unint64_t REConvexPolyhedronShapeExtractPositions(uint64_t a1, uint64_t a2)
-{
-  v4 = (*(*a1 + 64))(a1);
-  result = (*(*a1 + 80))(a1);
-  if (result)
-  {
-    for (i = 0; i < result; ++i)
-    {
-      v7 = v4 + (*(*a1 + 72))(a1) * i;
-      *&v8 = *v7;
-      DWORD2(v8) = *(v7 + 8);
-      *(a2 + 16 * i) = v8;
-      result = (*(*a1 + 80))(a1);
-    }
-  }
-
+  *(v5 + 2) = v4;
   return result;
 }

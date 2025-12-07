@@ -13,7 +13,6 @@
 - (id)copyDebugDescriptionForUpdate:(_RBSymbolUpdate *)update;
 - (id)fillProviderForStyle:(unsigned int)style;
 - (int)scaleLevel;
-- (uint64_t)notifyObservers;
 - (uint64_t)unblockObservers;
 - (unsigned)addAnimation:(unsigned int)animation options:(id)options;
 - (unsigned)depth;
@@ -62,120 +61,72 @@
 
 - (void)notifyObservers
 {
-  v23 = *MEMORY[0x1E69E9840];
-  if (self && (*(self + 120) & 1) != 0)
+  v2 = *(self + 8);
+  v3 = *(self + 9);
+  if (v2)
   {
-    v20 = 0;
-    v21 = 0;
-    v22 = 4;
-    os_unfair_lock_lock((self + 80));
-    if (*(self + 104))
+    selfCopy = v2;
+  }
+
+  else
+  {
+    selfCopy = self;
+  }
+
+  if (!v3)
+  {
+    goto LABEL_15;
+  }
+
+  v5 = 16 * v3;
+  v6 = (selfCopy + 8);
+  do
+  {
+    v7 = *v6;
+    v6 += 2;
+    result = [v7 symbolAnimatorDidChange:v7];
+    v5 -= 16;
+  }
+
+  while (v5);
+  if (self)
+  {
+    v2 = *(self + 8);
+    if (v2)
     {
-      v2 = *(self + 104);
+      selfCopy2 = *(self + 8);
     }
 
     else
     {
-      v2 = (self + 88);
+      selfCopy2 = self;
     }
 
-    v3 = *(self + 112);
-    if (v3)
+    if (*(self + 9))
     {
-      v4 = 8 * v3;
-      do
-      {
-        v5 = *v2;
-        selfCopy = self;
-        v7 = v5;
-        v8 = v21;
-        v9 = v21 + 1;
-        if (v22 < v21 + 1)
-        {
-          RB::vector<std::pair<RB::objc_ptr<RBSymbolAnimator *>,RB::objc_ptr<objc_object  {objcproto24RBSymbolAnimatorObserver}*>>,4ul,unsigned long>::reserve_slow(v19, v9);
-          v8 = v21;
-          v9 = v21 + 1;
-        }
-
-        v10 = v20;
-        if (!v20)
-        {
-          v10 = v19;
-        }
-
-        v11 = &v10[16 * v8];
-        *v11 = selfCopy;
-        v11[1] = v7;
-        v21 = v9;
-        ++v2;
-        v4 -= 8;
-      }
-
-      while (v4);
-    }
-
-    os_unfair_lock_unlock((self + 80));
-    *(self + 120) = 0;
-    if (v21)
-    {
-      if (!pthread_main_np())
-      {
-        operator new();
-      }
-
-      v12 = v20;
-      v13 = v19;
-      if (v20)
-      {
-        v13 = v20;
-      }
-
-      if (!v21)
-      {
-        goto LABEL_28;
-      }
-
-      v14 = (v13 + 8);
-      v15 = 16 * v21;
-      do
-      {
-        [*v14 symbolAnimatorDidChange:*v14];
-        v14 += 2;
-        v15 -= 16;
-      }
-
-      while (v15);
-      v12 = v20;
-      v16 = v19;
-      if (v20)
-      {
-        v16 = v20;
-      }
-
-      if (!v21)
-      {
-        goto LABEL_28;
-      }
-
-      v17 = 0;
-      v18 = (v16 + 8);
+      v10 = 0;
+      v11 = (selfCopy2 + 8);
       do
       {
 
-        ++v17;
-        v18 += 2;
+        ++v10;
+        v11 += 2;
       }
 
-      while (v17 < v21);
+      while (v10 < *(self + 9));
+      v2 = *(self + 8);
     }
 
-    v12 = v20;
-LABEL_28:
-    if (v12)
+LABEL_15:
+    if (v2)
     {
-      free(v12);
+      free(v2);
     }
+
+    JUMPOUT(0x19A8C09E0);
   }
+
+  return result;
 }
 
 - (CGRect)alignmentRect
@@ -271,7 +222,7 @@ LABEL_9:
 
 - (void)setRenderingMode:(unsigned int)mode
 {
-  if (RB::Symbol::Animator::set_rendering_mode(&self->_animator, mode))
+  if (RB::Symbol::Animator::set_rendering_mode(&self->_animator, *&mode))
   {
 
     [(RBSymbolAnimator *)self notifyObservers];
@@ -289,7 +240,7 @@ LABEL_9:
 
 - (void)setFlipsRightToLeft:(BOOL)left
 {
-  if (RB::Symbol::Animator::set_flips_rtl(&self->_animator, left))
+  if (RB::Symbol::Animator::set_flips_rtl(&self->_animator._lock._lock, left))
   {
 
     [(RBSymbolAnimator *)self notifyObservers];
@@ -346,7 +297,7 @@ LABEL_9:
 - (void)setColor:(id)color forStyle:(unsigned int)style
 {
   colorCopy = color;
-  if (RB::Symbol::Animator::set_color(&self->_animator, style, &colorCopy))
+  if (RB::Symbol::Animator::set_color(&self->_animator._lock._lock, style, &colorCopy))
   {
     [(RBSymbolAnimator *)self notifyObservers];
   }
@@ -362,7 +313,7 @@ LABEL_9:
 
 - (void)setFillProvider:(id)provider forStyle:(unsigned int)style
 {
-  if (RB::Symbol::Animator::set_fill(&self->_animator, style, provider))
+  if (RB::Symbol::Animator::set_fill(&self->_animator._lock._lock, style, provider))
   {
 
     [(RBSymbolAnimator *)self notifyObservers];
@@ -477,7 +428,7 @@ LABEL_9:
 - (void)setAnchorPoint:(CGPoint)point
 {
   y = point.y;
-  if (RB::Symbol::Animator::set_anchor_point(&self->_animator, vcvt_f32_f64(point)))
+  if (RB::Symbol::Animator::set_anchor_point(&self->_animator._lock._lock, vcvt_f32_f64(point)))
   {
 
     [(RBSymbolAnimator *)self notifyObservers];
@@ -496,7 +447,7 @@ LABEL_9:
 - (void)setPosition:(CGPoint)position
 {
   y = position.y;
-  if (RB::Symbol::Animator::set_position(&self->_animator, vcvt_f32_f64(position)))
+  if (RB::Symbol::Animator::set_position(&self->_animator._lock._lock, vcvt_f32_f64(position)))
   {
 
     [(RBSymbolAnimator *)self notifyObservers];
@@ -515,7 +466,7 @@ LABEL_9:
 - (void)setSize:(CGSize)size
 {
   height = size.height;
-  if (RB::Symbol::Animator::set_size(&self->_animator, vcvt_f32_f64(size)))
+  if (RB::Symbol::Animator::set_size(&self->_animator._lock._lock, vcvt_f32_f64(size)))
   {
 
     [(RBSymbolAnimator *)self notifyObservers];
@@ -1222,26 +1173,25 @@ LABEL_144:
 
 - (CGRect)boundingRect
 {
-  v17 = *MEMORY[0x1E69E9840];
-  v2.n128_u64[0] = vdup_n_s32(0x437F0000u);
-  RB::Symbol::Presentation::Presentation(v16, &self->_animator, 0, 0, 255, 0, v2);
-  v3 = RB::Symbol::Presentation::bounding_rect(v16);
-  v5 = v4;
-  v14 = *(MEMORY[0x1E695F050] + 16);
-  v15 = *MEMORY[0x1E695F050];
-  RB::Symbol::Presentation::~Presentation(v16);
-  v6.i32[0] = 0;
-  v7 = vmvn_s8(vceqz_f32(v5));
-  *v8.i8 = vpmin_u32(v7, v7);
-  v9 = vdupq_lane_s32(*&vcgtq_s32(v6, v8), 0);
-  v10 = vbslq_s8(v9, vcvtq_f64_f32(v5), v14);
-  v11 = vbslq_s8(v9, vcvtq_f64_f32(*&v3), v15);
-  v12 = *&v11.i64[1];
-  v13 = *&v10.i64[1];
-  result.size.width = *v10.i64;
-  result.origin.x = *v11.i64;
-  result.size.height = v13;
-  result.origin.y = v12;
+  v15[281] = *MEMORY[0x1E69E9840];
+  RB::Symbol::Presentation::Presentation(v15, &self->_animator, 0, 0, 255, 0, vdup_n_s32(0x437F0000u));
+  v2 = RB::Symbol::Presentation::bounding_rect(v15);
+  v4 = v3;
+  v13 = *(MEMORY[0x1E695F050] + 16);
+  v14 = *MEMORY[0x1E695F050];
+  RB::Symbol::Presentation::~Presentation(v15);
+  v5.i32[0] = 0;
+  v6 = vmvn_s8(vceqz_f32(v4));
+  *v7.i8 = vpmin_u32(v6, v6);
+  v8 = vdupq_lane_s32(*&vcgtq_s32(v5, v7), 0);
+  v9 = vbslq_s8(v8, vcvtq_f64_f32(v4), v13);
+  v10 = vbslq_s8(v8, vcvtq_f64_f32(*&v2), v14);
+  v11 = *&v10.i64[1];
+  v12 = *&v9.i64[1];
+  result.size.width = *v9.i64;
+  result.origin.x = *v10.i64;
+  result.size.height = v12;
+  result.origin.y = v11;
   return result;
 }
 
@@ -1278,76 +1228,6 @@ LABEL_144:
   }
 
   return v5;
-}
-
-- (uint64_t)notifyObservers
-{
-  v2 = *(self + 8);
-  v3 = *(self + 9);
-  if (v2)
-  {
-    selfCopy = v2;
-  }
-
-  else
-  {
-    selfCopy = self;
-  }
-
-  if (!v3)
-  {
-    goto LABEL_15;
-  }
-
-  v5 = 16 * v3;
-  v6 = (selfCopy + 8);
-  do
-  {
-    v7 = *v6;
-    v6 += 2;
-    result = [v7 symbolAnimatorDidChange:v7];
-    v5 -= 16;
-  }
-
-  while (v5);
-  if (self)
-  {
-    v2 = *(self + 8);
-    if (v2)
-    {
-      selfCopy2 = *(self + 8);
-    }
-
-    else
-    {
-      selfCopy2 = self;
-    }
-
-    if (*(self + 9))
-    {
-      v10 = 0;
-      v11 = (selfCopy2 + 8);
-      do
-      {
-
-        ++v10;
-        v11 += 2;
-      }
-
-      while (v10 < *(self + 9));
-      v2 = *(self + 8);
-    }
-
-LABEL_15:
-    if (v2)
-    {
-      free(v2);
-    }
-
-    JUMPOUT(0x19A8C09E0);
-  }
-
-  return result;
 }
 
 - (void)removeObserver:(uint64_t)observer

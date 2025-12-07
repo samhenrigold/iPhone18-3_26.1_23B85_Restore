@@ -266,7 +266,7 @@ uint64_t __78__UIActivityContinuationManager__displayCurrentActivityContinuation
       NSLog(&cfstr_SNewActivityCa.isa, "[UIActivityContinuationManager handleActivityContinuation:isSuspended:]", self->_currentActivityContinuationType, self->_currentActivityContinuationUUIDString, v7, v8);
     }
 
-    if ([(NSString *)self->_currentActivityContinuationType isEqualToString:v7])
+    if (objc_msgSend_isEqualToString_(self->_currentActivityContinuationType))
     {
       if (_UIStateRestorationDebugLogEnabled())
       {
@@ -392,7 +392,7 @@ void __72__UIActivityContinuationManager_handleActivityContinuation_isSuspended_
 {
   v21[1] = *MEMORY[0x1E69E9840];
   kdebug_trace();
-  if ([*(*(a1 + 32) + 24) isEqualToString:*(a1 + 40)])
+  if (objc_msgSend_isEqualToString_(*(*(a1 + 32) + 24)))
   {
     v2 = *(a1 + 48);
     if (v2)

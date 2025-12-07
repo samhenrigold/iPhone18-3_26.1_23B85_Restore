@@ -653,7 +653,7 @@ void __50__AXSpringBoardGlue_accessibilityInitializeBundle__block_invoke_7()
 
 - (int)lastLockSource
 {
-  v2 = AXSpringBoardFrameworkGlueSBLockScreenControllerInstance();
+  v2 = AXSpringBoardFrameworkGlueSBLockScreenControllerInstance(self);
   v3 = [v2 safeIntForKey:@"_axLastLockSource"];
 
   return v3;
@@ -661,7 +661,7 @@ void __50__AXSpringBoardGlue_accessibilityInitializeBundle__block_invoke_7()
 
 - (BOOL)_axIsAppLibraryOrTodayViewPresent
 {
-  v3 = AXSBHIconManagerFromSharedIconController();
+  v3 = AXSBHIconManagerFromSharedIconController(self, a2);
   if ([v3 safeBoolForKey:@"isMainDisplayLibraryViewVisible"])
   {
     v4 = 1;

@@ -1,6 +1,7 @@
 @interface SPAdvertisement
 - (BOOL)isEqual:(id)equal;
 - (SPAdvertisement)initWithAddress:(id)address advertisementData:(id)data rssi:(int64_t)rssi scanDate:(id)date;
+- (SPAdvertisement)initWithAddress:(id)address advertisementData:(id)data status:(unsigned __int8)status reserved:(id)reserved rssi:(int64_t)rssi scanDate:(id)date isPosh:(BOOL)posh;
 - (SPAdvertisement)initWithCoder:(id)coder;
 - (id)description;
 - (unint64_t)hash;
@@ -19,6 +20,31 @@
   v14 = [(SPAdvertisement *)self initWithAddress:addressCopy advertisementData:dataCopy status:0 reserved:v13 rssi:rssi scanDate:dateCopy isPosh:v16];
 
   return v14;
+}
+
+- (SPAdvertisement)initWithAddress:(id)address advertisementData:(id)data status:(unsigned __int8)status reserved:(id)reserved rssi:(int64_t)rssi scanDate:(id)date isPosh:(BOOL)posh
+{
+  statusCopy = status;
+  addressCopy = address;
+  dataCopy = data;
+  reservedCopy = reserved;
+  dateCopy = date;
+  v22.receiver = self;
+  v22.super_class = SPAdvertisement;
+  v19 = [(SPAdvertisement *)&v22 init];
+  v20 = v19;
+  if (v19)
+  {
+    [(SPAdvertisement *)v19 setAddress:addressCopy];
+    [(SPAdvertisement *)v20 setAdvertisementData:dataCopy];
+    [(SPAdvertisement *)v20 setStatus:statusCopy];
+    [(SPAdvertisement *)v20 setReserved:reservedCopy];
+    [(SPAdvertisement *)v20 setRssi:rssi];
+    [(SPAdvertisement *)v20 setScanDate:dateCopy];
+    [(SPAdvertisement *)v20 setIsPosh:posh];
+  }
+
+  return v20;
 }
 
 - (SPAdvertisement)initWithCoder:(id)coder

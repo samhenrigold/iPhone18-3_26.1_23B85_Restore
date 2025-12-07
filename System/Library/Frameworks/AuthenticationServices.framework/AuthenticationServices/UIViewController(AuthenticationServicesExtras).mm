@@ -73,44 +73,43 @@
 
 - (id)_as_presentedViewControllerStackForPasswordManagerUpToClasses:()AuthenticationServicesExtras
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v4 = a3;
   presentedViewController = [self presentedViewController];
 
   if (presentedViewController)
   {
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v6 = v4;
-    v7 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v20;
+      v9 = *v19;
       array = MEMORY[0x1E695E0F0];
 LABEL_4:
       v11 = 0;
       while (1)
       {
-        if (*v20 != v9)
+        if (*v19 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v19 + 1) + 8 * v11);
         presentedViewController2 = [self presentedViewController];
-        LOBYTE(v12) = objc_opt_isKindOfClass();
+        isKindOfClass = objc_opt_isKindOfClass();
 
-        if (v12)
+        if (isKindOfClass)
         {
           break;
         }
 
         if (v8 == ++v11)
         {
-          v8 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
+          v8 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
           if (v8)
           {
             goto LABEL_4;
@@ -141,8 +140,6 @@ LABEL_10:
   {
     array = MEMORY[0x1E695E0F0];
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return array;
 }

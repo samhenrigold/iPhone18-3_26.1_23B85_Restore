@@ -45,22 +45,23 @@
 
 - (RCWaveformRenderer)initWithNibName:(id)name bundle:(id)bundle
 {
-  v10.receiver = self;
-  v10.super_class = RCWaveformRenderer;
-  v4 = [(RCWaveformRenderer *)&v10 initWithNibName:name bundle:bundle];
+  v11.receiver = self;
+  v11.super_class = RCWaveformRenderer;
+  v4 = [(RCWaveformRenderer *)&v11 initWithNibName:name bundle:bundle];
   v5 = v4;
   if (v4)
   {
     v4->_spacingWidth = 0.0;
     v4->_dataPointWidth = 2.0;
-    v4->_visibleTimeRange.beginTime = RCTimeRangeMake(0.0, 15.0);
-    v5->_visibleTimeRange.endTime = v6;
+    RCTimeRangeMake();
+    v5->_visibleTimeRange.beginTime = v6;
+    v5->_visibleTimeRange.endTime = v7;
     v5->_cachedContentWidth = 0.0;
     v5->_renderedTimeRange = RCTimeRangeZero;
     v5->_renderingQueueIsBusy = 0;
-    v7 = dispatch_queue_create("com.apple.waveformRenderSegmentProcessing", 0);
+    v8 = dispatch_queue_create("com.apple.waveformRenderSegmentProcessing", 0);
     renderingQueue = v5->_renderingQueue;
-    v5->_renderingQueue = v7;
+    v5->_renderingQueue = v8;
 
     v5->_lastVisibleTimeRange = v5->_visibleTimeRange;
     v5->_visibleTimeRangeVelocity = 0.0;
@@ -599,7 +600,7 @@
     __cxa_guard_release(&qword_82350);
   }
 
-  if ((atomic_load_explicit(&qword_82368, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_82368, memory_order_acquire) & 1) == 0)
   {
     sub_41EA8();
   }
@@ -948,7 +949,7 @@ LABEL_83:
           [CATransaction setValue:kCFBooleanTrue forKey:kCATransactionDisableActions];
           if (self->_isOverview)
           {
-            [waveformLayer transform];
+            objc_msgSend_transform(waveformLayer);
             if (!CATransform3DIsIdentity(&v119))
             {
               v84 = *&CATransform3DIdentity.m33;

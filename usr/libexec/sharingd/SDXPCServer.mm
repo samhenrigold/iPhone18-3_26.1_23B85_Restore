@@ -17,7 +17,7 @@
 {
   if (dword_100971A10 <= 50 && (dword_100971A10 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_100971A10, "[SDXPCServer _stateDump]", 50, "State dump: SharingServices\n");
   }
 
   _stateDumpString = [(SDXPCServer *)self _stateDumpString];
@@ -56,17 +56,16 @@
 
 - (id)_stateDumpString
 {
-  v33[7] = 0;
-  NSAppendPrintF();
-  v3 = 0;
+  v38 = 0;
+  NSAppendPrintF(&v38, "\n");
+  v3 = v38;
   v4 = [(SDNearbyAgent *)self->_nearbyAgent description];
   v5 = v4;
   if (v4)
   {
-    v33[6] = v3;
-    v27 = v4;
-    NSAppendPrintF();
-    v6 = v3;
+    v37 = v3;
+    NSAppendPrintF(&v37, "%@\n", v4);
+    v6 = v37;
 
     v3 = v6;
   }
@@ -75,10 +74,9 @@
 
   if (v7)
   {
-    v33[5] = v3;
-    v28 = v7;
-    NSAppendPrintF();
-    v8 = v3;
+    v36 = v3;
+    NSAppendPrintF(&v36, "%@\n", v7);
+    v8 = v36;
 
     v3 = v8;
   }
@@ -87,84 +85,83 @@
 
   if (v9)
   {
-    v33[4] = v3;
-    v29 = v9;
-    NSAppendPrintF();
-    v10 = v3;
+    v35 = v3;
+    NSAppendPrintF(&v35, "%@\n", v9);
+    v10 = v35;
 
     v3 = v10;
   }
 
-  setupAgent = self->_setupAgent;
-  v12 = CUDescriptionWithLevel();
+  v11 = CUDescriptionWithLevel();
 
-  if (v12)
+  if (v11)
   {
-    v33[3] = v3;
-    v29 = v12;
-    NSAppendPrintF();
-    v13 = v3;
+    v34 = v3;
+    NSAppendPrintF(&v34, "%@\n", v11);
+    v12 = v34;
 
-    v3 = v13;
+    v3 = v12;
   }
 
-  v14 = [(SDAutoFillAgent *)self->_autoFillAgent description];
+  v13 = [(SDAutoFillAgent *)self->_autoFillAgent description];
 
-  if (v14)
+  if (v13)
   {
-    v33[2] = v3;
-    v30 = v14;
-    NSAppendPrintF();
-    v15 = v3;
+    v33 = v3;
+    NSAppendPrintF(&v33, "%@\n", v13);
+    v14 = v33;
 
-    v3 = v15;
+    v3 = v14;
   }
 
-  v16 = [(SDProxHandoffAgent *)self->_proxHandoffAgent description];
+  v15 = [(SDProxHandoffAgent *)self->_proxHandoffAgent description];
 
-  if (v16)
+  if (v15)
   {
-    v33[1] = v3;
-    v31 = v16;
-    NSAppendPrintF();
-    v17 = v3;
+    v32 = v3;
+    NSAppendPrintF(&v32, "%@\n", v15);
+    v16 = v32;
 
-    v3 = v17;
+    v3 = v16;
   }
 
-  v33[0] = v3;
-  [(SDXPCServer *)self stateAppendXPCConnections:v33, v31];
-  v18 = v33[0];
+  v31 = v3;
+  [(SDXPCServer *)self stateAppendXPCConnections:&v31];
+  v17 = v31;
 
-  NSAppendPrintF();
-  v19 = v18;
+  v30 = v17;
+  NSAppendPrintF(&v30, "\n");
+  v18 = v30;
 
   detailedDescription = [(SDAppleIDAgent *)self->_appleIDAgent detailedDescription];
 
   if (detailedDescription)
   {
-    v32 = detailedDescription;
-    NSAppendPrintF();
-    v21 = v19;
+    v29 = v18;
+    NSAppendPrintF(&v29, "%@\n", detailedDescription);
+    v20 = v29;
 
-    v19 = v21;
+    v18 = v20;
   }
 
-  v22 = +[SDStatusMonitor sharedMonitor];
-  v23 = [v22 description];
+  v21 = +[SDStatusMonitor sharedMonitor];
+  v22 = [v21 description];
 
-  if (v23)
+  if (v22)
   {
-    NSAppendPrintF();
-    v24 = v19;
+    v28 = v18;
+    NSAppendPrintF(&v28, "%@\n", v22);
+    v23 = v28;
 
-    v19 = v24;
+    v18 = v23;
   }
 
-  NSAppendPrintF();
-  v25 = v19;
+  v27 = v18;
+  NSAppendPrintF(&v27, "SharingServices State End\n");
+  v24 = v27;
+  v25 = v27;
 
-  return v19;
+  return v24;
 }
 
 - (SDXPCServer)initWithAirDropService:(id)service
@@ -201,17 +198,20 @@
 {
   dispatch_assert_queue_V2(self->_dispatchQueue);
   LogSetAppID();
-  LogControl();
-  if (dword_100971A10 <= 30 && (dword_100971A10 != -1 || _LogCategory_Initialize()))
+  v3 = LogControl();
+  if (dword_100971A10 <= 30)
   {
-    sub_1001929B4();
+    if (dword_100971A10 != -1 || (v3 = _LogCategory_Initialize(), v3))
+    {
+      sub_1001929B4(v3, v4, v5);
+    }
   }
 
   if (!self->_xpcListener)
   {
-    v3 = [[NSXPCListener alloc] initWithMachServiceName:@"com.apple.SharingServices"];
+    v6 = [[NSXPCListener alloc] initWithMachServiceName:@"com.apple.SharingServices"];
     xpcListener = self->_xpcListener;
-    self->_xpcListener = v3;
+    self->_xpcListener = v6;
 
     [(NSXPCListener *)self->_xpcListener setDelegate:self];
     [(NSXPCListener *)self->_xpcListener _setQueue:self->_dispatchQueue];
@@ -221,30 +221,30 @@
   SFAWDEnsureInitialized();
   if (!self->_appleIDAgent)
   {
-    v5 = +[SDAppleIDAgent sharedAgent];
+    v8 = +[SDAppleIDAgent sharedAgent];
     appleIDAgent = self->_appleIDAgent;
-    self->_appleIDAgent = v5;
+    self->_appleIDAgent = v8;
   }
 
   if (!self->_subCredentialAgent)
   {
-    v7 = +[SDSubCredentialAgent sharedAgent];
+    v10 = +[SDSubCredentialAgent sharedAgent];
     subCredentialAgent = self->_subCredentialAgent;
-    self->_subCredentialAgent = v7;
+    self->_subCredentialAgent = v10;
   }
 
   if (!self->_hotspotAgent)
   {
-    v9 = +[SDHotspotAgent sharedAgent];
+    v12 = +[SDHotspotAgent sharedAgent];
     hotspotAgent = self->_hotspotAgent;
-    self->_hotspotAgent = v9;
+    self->_hotspotAgent = v12;
   }
 
   if (!self->_nearbyAgent)
   {
-    v11 = +[SDNearbyAgent sharedNearbyAgent];
+    v14 = +[SDNearbyAgent sharedNearbyAgent];
     nearbyAgent = self->_nearbyAgent;
-    self->_nearbyAgent = v11;
+    self->_nearbyAgent = v14;
 
     [(SDNearbyAgent *)self->_nearbyAgent setDispatchQueue:self->_dispatchQueue];
     [(SDNearbyAgent *)self->_nearbyAgent activate];
@@ -252,29 +252,29 @@
 
   if (!self->_riAgent)
   {
-    v36 = 0;
-    v37 = &v36;
-    v38 = 0x2050000000;
-    v13 = qword_10098A018;
-    v39 = qword_10098A018;
+    v38 = 0;
+    v39 = &v38;
+    v40 = 0x2050000000;
+    v16 = qword_10098A018;
+    v41 = qword_10098A018;
     if (!qword_10098A018)
     {
-      v35[0] = _NSConcreteStackBlock;
-      v35[1] = 3221225472;
-      v35[2] = sub_10018FCC8;
-      v35[3] = &unk_1008CDA20;
-      v35[4] = &v36;
-      sub_10018FCC8(v35);
-      v13 = v37[3];
+      v37[0] = _NSConcreteStackBlock;
+      v37[1] = 3221225472;
+      v37[2] = sub_10018FCC8;
+      v37[3] = &unk_1008CDA20;
+      v37[4] = &v38;
+      sub_10018FCC8(v37);
+      v16 = v39[3];
     }
 
-    v14 = v13;
-    _Block_object_dispose(&v36, 8);
-    if ([v13 supportsContentExtensions])
+    v17 = v16;
+    _Block_object_dispose(&v38, 8);
+    if ([v16 supportsContentExtensions])
     {
-      v15 = +[SDRemoteInteractionAgent sharedAgent];
+      v18 = +[SDRemoteInteractionAgent sharedAgent];
       riAgent = self->_riAgent;
-      self->_riAgent = v15;
+      self->_riAgent = v18;
 
       [(SDRemoteInteractionAgent *)self->_riAgent setDispatchQueue:self->_dispatchQueue];
       [(SDRemoteInteractionAgent *)self->_riAgent activate];
@@ -283,9 +283,9 @@
 
   if (!self->_rtiClient)
   {
-    v17 = +[SDSharedRemoteTextInputClient sharedClient];
+    v20 = +[SDSharedRemoteTextInputClient sharedClient];
     rtiClient = self->_rtiClient;
-    self->_rtiClient = v17;
+    self->_rtiClient = v20;
 
     [(SDSharedRemoteTextInputClient *)self->_rtiClient setDispatchQueue:self->_dispatchQueue];
     [(SDSharedRemoteTextInputClient *)self->_rtiClient activate];
@@ -293,9 +293,9 @@
 
   if (!self->_ppAgent && (SFIsDeviceAudioAccessory() & 1) == 0)
   {
-    v19 = +[SDProximityPairingAgent sharedProximityPairingAgent];
+    v22 = +[SDProximityPairingAgent sharedProximityPairingAgent];
     ppAgent = self->_ppAgent;
-    self->_ppAgent = v19;
+    self->_ppAgent = v22;
 
     [(SDProximityPairingAgent *)self->_ppAgent setDispatchQueue:self->_dispatchQueue];
     [(SDProximityPairingAgent *)self->_ppAgent activate];
@@ -303,9 +303,9 @@
 
   if (!self->_setupAgent)
   {
-    v21 = +[SDSetupAgent sharedSetupAgent];
+    v24 = +[SDSetupAgent sharedSetupAgent];
     setupAgent = self->_setupAgent;
-    self->_setupAgent = v21;
+    self->_setupAgent = v24;
 
     [(SDSetupAgent *)self->_setupAgent setDispatchQueue:self->_dispatchQueue];
     [(SDSetupAgent *)self->_setupAgent activate];
@@ -313,9 +313,9 @@
 
   if (!self->_autoFillAgent)
   {
-    v23 = objc_alloc_init(SDAutoFillAgent);
+    v26 = objc_alloc_init(SDAutoFillAgent);
     autoFillAgent = self->_autoFillAgent;
-    self->_autoFillAgent = v23;
+    self->_autoFillAgent = v26;
 
     [(SDAutoFillAgent *)self->_autoFillAgent setDispatchQueue:self->_dispatchQueue];
     [(SDAutoFillAgent *)self->_autoFillAgent activate];
@@ -323,9 +323,9 @@
 
   if (!self->_proxHandoffAgent)
   {
-    v25 = +[SDProxHandoffAgent sharedAgent];
+    v28 = +[SDProxHandoffAgent sharedAgent];
     proxHandoffAgent = self->_proxHandoffAgent;
-    self->_proxHandoffAgent = v25;
+    self->_proxHandoffAgent = v28;
 
     [(SDProxHandoffAgent *)self->_proxHandoffAgent setDispatchQueue:self->_dispatchQueue];
     [(SDProxHandoffAgent *)self->_proxHandoffAgent activate];
@@ -333,17 +333,17 @@
 
   if (!self->_shareAudioService)
   {
-    if ((LODWORD(v35[0]) = 0, Int64 = CFPrefs_GetInt64(), LODWORD(v35[0])) && GestaltGetDeviceClass() - 1 < 3 || Int64)
+    if ((LODWORD(v37[0]) = 0, Int64 = CFPrefs_GetInt64(), LODWORD(v37[0])) && GestaltGetDeviceClass() - 1 < 3 || Int64)
     {
-      v28 = objc_alloc_init(SFShareAudioService);
+      v31 = objc_alloc_init(SFShareAudioService);
       shareAudioService = self->_shareAudioService;
-      self->_shareAudioService = v28;
+      self->_shareAudioService = v31;
 
-      v30 = dispatch_queue_create("ShareAudioService", 0);
-      [(SFShareAudioService *)self->_shareAudioService setDispatchQueue:v30];
+      v33 = dispatch_queue_create("ShareAudioService", 0);
+      [(SFShareAudioService *)self->_shareAudioService setDispatchQueue:v33];
 
-      v31 = +[SDStatusMonitor sharedMonitor];
-      [(SFShareAudioService *)self->_shareAudioService setStatusMonitor:v31];
+      v34 = +[SDStatusMonitor sharedMonitor];
+      [(SFShareAudioService *)self->_shareAudioService setStatusMonitor:v34];
 
       [(SFShareAudioService *)self->_shareAudioService activate];
     }
@@ -364,7 +364,6 @@
   {
     if (IsAppleInternalBuild())
     {
-      v33 = self->_dispatchQueue;
       self->_stateHandle = os_state_add_handler();
     }
   }
@@ -568,55 +567,53 @@
 
 - (void)stateAppendXPCConnections:(id *)connections
 {
-  NSAppendPrintF();
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
-  v29 = 0u;
+  NSAppendPrintF(connections, "-- XPC connections --\n");
+  v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   obj = self->_xpcConnections;
-  v21 = [(NSMutableSet *)obj countByEnumeratingWithState:&v28 objects:v33 count:16];
-  if (v21)
+  v16 = [(NSMutableSet *)obj countByEnumeratingWithState:&v23 objects:v28 count:16];
+  if (v16)
   {
-    v20 = *v29;
+    v15 = *v24;
     do
     {
-      for (i = 0; i != v21; i = i + 1)
+      for (i = 0; i != v16; i = i + 1)
       {
-        if (*v29 != v20)
+        if (*v24 != v15)
         {
           objc_enumerationMutation(obj);
         }
 
-        v5 = *(*(&v28 + 1) + 8 * i);
-        processIdentifier = [*(v5 + 136) processIdentifier];
-        NSAppendPrintF();
-        if ([*(v5 + 16) count])
+        v6 = *(*(&v23 + 1) + 8 * i);
+        NSAppendPrintF(connections, "%#{pid}", [*(v6 + 136) processIdentifier]);
+        if ([*(v6 + 16) count])
         {
-          v23 = i;
-          NSAppendPrintF();
-          v26 = 0u;
-          v27 = 0u;
-          v24 = 0u;
-          v25 = 0u;
-          v22 = v5;
-          v6 = *(v5 + 16);
-          v7 = [v6 countByEnumeratingWithState:&v24 objects:v32 count:16];
-          if (v7)
+          v18 = i;
+          NSAppendPrintF(connections, ", Assertions: ");
+          v21 = 0u;
+          v22 = 0u;
+          v19 = 0u;
+          v20 = 0u;
+          v17 = v6;
+          v7 = *(v6 + 16);
+          v8 = [v7 countByEnumeratingWithState:&v19 objects:v27 count:16];
+          if (v8)
           {
-            v8 = v7;
-            v9 = 0;
-            v10 = *v25;
+            v9 = v8;
+            v10 = 0;
+            v11 = *v20;
             do
             {
-              for (j = 0; j != v8; j = j + 1)
+              for (j = 0; j != v9; j = j + 1)
               {
-                if (*v25 != v10)
+                if (*v20 != v11)
                 {
-                  objc_enumerationMutation(v6);
+                  objc_enumerationMutation(v7);
                 }
 
-                v12 = *(*(&v24 + 1) + 8 * j);
-                if (v9)
+                if (v10)
                 {
                   v13 = ", ";
                 }
@@ -626,78 +623,67 @@
                   v13 = "";
                 }
 
-                v14 = [(NSCountedSet *)self->_assertions countForObject:*(*(&v24 + 1) + 8 * j), v15, v17, v18];
-                v17 = v12;
-                v18 = v14;
-                v15 = v13;
-                NSAppendPrintF();
-                ++v9;
+                NSAppendPrintF(connections, "%s%@ (%ld total)", v13, *(*(&v19 + 1) + 8 * j), [(NSCountedSet *)self->_assertions countForObject:*(*(&v19 + 1) + 8 * j)]);
+                ++v10;
               }
 
-              v8 = [v6 countByEnumeratingWithState:&v24 objects:v32 count:{16, v13, v12, v18}];
+              v9 = [v7 countByEnumeratingWithState:&v19 objects:v27 count:16];
             }
 
-            while (v8);
+            while (v9);
           }
 
-          v5 = v22;
-          i = v23;
+          v6 = v17;
+          i = v18;
         }
 
-        if (*(v5 + 25) == 1)
+        if (*(v6 + 25) == 1)
         {
-          NSAppendPrintF();
+          NSAppendPrintF(connections, ", BTUser");
         }
 
-        if (*(v5 + 32))
+        if (*(v6 + 32))
         {
-          v15 = *(v5 + 32);
-          NSAppendPrintF();
+          NSAppendPrintF(connections, ", %@", *(v6 + 32));
         }
 
-        if (*(v5 + 40))
+        if (*(v6 + 40))
         {
-          v15 = *(v5 + 40);
-          NSAppendPrintF();
+          NSAppendPrintF(connections, ", %@", *(v6 + 40));
         }
 
-        if (*(v5 + 64))
+        if (*(v6 + 64))
         {
-          v15 = *(v5 + 64);
-          NSAppendPrintF();
+          NSAppendPrintF(connections, ", Note: %@", *(v6 + 64));
         }
 
-        if (*(v5 + 72))
+        if (*(v6 + 72))
         {
-          v15 = *(v5 + 72);
-          NSAppendPrintF();
+          NSAppendPrintF(connections, ", PreventExit: '%@'", *(v6 + 72));
         }
 
-        if (*(v5 + 88))
+        if (*(v6 + 88))
         {
-          v15 = *(v5 + 88);
-          NSAppendPrintF();
+          NSAppendPrintF(connections, ", %@", *(v6 + 88));
         }
 
-        if (*(v5 + 96))
+        if (*(v6 + 96))
         {
-          v15 = *(v5 + 96);
-          NSAppendPrintF();
+          NSAppendPrintF(connections, ", %@", *(v6 + 96));
         }
 
-        if (*(v5 + 104))
+        if (*(v6 + 104))
         {
-          v15 = *(v5 + 104);
-          NSAppendPrintF();
+          NSAppendPrintF(connections, ", %@", *(v6 + 104));
         }
 
-        NSAppendPrintF();
+        NSAppendPrintF(connections, "\n");
       }
 
-      v21 = [(NSMutableSet *)obj countByEnumeratingWithState:&v28 objects:v33 count:16];
+      v16 = [(NSMutableSet *)obj countByEnumeratingWithState:&v23 objects:v28 count:16];
     }
 
-    while (v21);
+    while (v16);
   }
 }
 

@@ -1,6 +1,8 @@
 @interface MBStatus
 + (MBStatus)statusWithDrive:(id)drive path:(id)path error:(id *)error;
 + (id)status;
++ (id)stringWithBackupState:(int)state;
++ (id)stringWithSnapshotState:(int)state;
 + (int)backupStateWithString:(id)string;
 + (int)snapshotStateWithString:(id)string;
 - (BOOL)writeToDrive:(id)drive path:(id)path error:(id *)error;
@@ -38,6 +40,20 @@
   return v4;
 }
 
++ (id)stringWithBackupState:(int)state
+{
+  v3 = *&state;
+  if (state < 3)
+  {
+    return off_1000FDFE8[state];
+  }
+
+  v7 = +[NSAssertionHandler currentHandler];
+  [v7 handleFailureInMethod:a2 object:self file:@"MBStatus.m" lineNumber:36 description:{@"Invalid backup state: %d", v3}];
+
+  return 0;
+}
+
 + (int)snapshotStateWithString:(id)string
 {
   stringCopy = string;
@@ -67,6 +83,20 @@
   }
 
   return v4;
+}
+
++ (id)stringWithSnapshotState:(int)state
+{
+  v3 = *&state;
+  if (state < 4)
+  {
+    return off_1000FE000[state];
+  }
+
+  v7 = +[NSAssertionHandler currentHandler];
+  [v7 handleFailureInMethod:a2 object:self file:@"MBStatus.m" lineNumber:67 description:{@"Invalid snapshot state: %d", v3}];
+
+  return 0;
 }
 
 + (id)status

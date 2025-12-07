@@ -65,7 +65,7 @@
 
 - (void)handleProcessInfoStateChanged:(id)changed
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
   userInfo = [changedCopy userInfo];
   v6 = [userInfo objectForKeyedSubscript:@"processInfo"];
@@ -103,8 +103,8 @@
       block[2] = __54__HMDIDSServiceManager_handleProcessInfoStateChanged___block_invoke;
       block[3] = &unk_27868A010;
       block[4] = self;
-      v21 = v8;
-      v22 = bundleIdentifier;
+      v20 = v8;
+      v21 = bundleIdentifier;
       dispatch_async(workQueue, block);
     }
 
@@ -117,9 +117,9 @@
       {
         v18 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v24 = v18;
-        v25 = 2112;
-        v26 = changedCopy;
+        v23 = v18;
+        v24 = 2112;
+        v25 = changedCopy;
         _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_ERROR, "%{public}@Missing process info application bundle identifier: %@", buf, 0x16u);
       }
 
@@ -136,21 +136,19 @@
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v24 = v14;
-      v25 = 2112;
-      v26 = changedCopy;
+      v23 = v14;
+      v24 = 2112;
+      v25 = changedCopy;
       _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Bad process info notification object: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v11);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __54__HMDIDSServiceManager_handleProcessInfoStateChanged___block_invoke(uint64_t a1)
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -159,9 +157,9 @@ void __54__HMDIDSServiceManager_handleProcessInfoStateChanged___block_invoke(uin
     v5 = HMFGetLogIdentifier();
     v6 = *(a1 + 40);
     *buf = 138543618;
-    v55 = v5;
-    v56 = 2112;
-    v57 = v6;
+    v52 = v5;
+    v53 = 2112;
+    v54 = v6;
     _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_DEBUG, "%{public}@Handling process info notification: %@", buf, 0x16u);
   }
 
@@ -226,13 +224,13 @@ void __54__HMDIDSServiceManager_handleProcessInfoStateChanged___block_invoke(uin
     v23 = *(a1 + 48);
     v24 = [(HMDIDSServiceManager *)*(a1 + 32) applicationBundleIdentifiersThatNeedWakingMessages];
     *buf = 138544130;
-    v55 = v22;
-    v56 = 2160;
-    v57 = 1752392040;
-    v58 = 2112;
-    v59 = v23;
-    v60 = 2112;
-    v61 = v24;
+    v52 = v22;
+    v53 = 2160;
+    v54 = 1752392040;
+    v55 = 2112;
+    v56 = v23;
+    v57 = 2112;
+    v58 = v24;
     v25 = "%{public}@Added '%{mask.hash}@' to waking message priority list: %@";
     goto LABEL_20;
   }
@@ -241,24 +239,24 @@ void __54__HMDIDSServiceManager_handleProcessInfoStateChanged___block_invoke(uin
 
   if (!v26)
   {
-    v47 = objc_autoreleasePoolPush();
-    v48 = *(a1 + 32);
-    v49 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
+    v45 = objc_autoreleasePoolPush();
+    v46 = *(a1 + 32);
+    v47 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG))
     {
-      v50 = HMFGetLogIdentifier();
-      v51 = *(a1 + 48);
+      v48 = HMFGetLogIdentifier();
+      v49 = *(a1 + 48);
       *buf = 138543874;
-      v55 = v50;
-      v56 = 2160;
-      v57 = 1752392040;
-      v58 = 2112;
-      v59 = v51;
-      _os_log_impl(&dword_229538000, v49, OS_LOG_TYPE_DEBUG, "%{public}@No changes to waking priority list for '%{mask.hash}@'", buf, 0x20u);
+      v52 = v48;
+      v53 = 2160;
+      v54 = 1752392040;
+      v55 = 2112;
+      v56 = v49;
+      _os_log_impl(&dword_229538000, v47, OS_LOG_TYPE_DEBUG, "%{public}@No changes to waking priority list for '%{mask.hash}@'", buf, 0x20u);
     }
 
-    objc_autoreleasePoolPop(v47);
-    goto LABEL_37;
+    objc_autoreleasePoolPop(v45);
+    return;
   }
 
   v27 = [(HMDIDSServiceManager *)*(a1 + 32) applicationBundleIdentifiersThatNeedWakingMessages];
@@ -273,13 +271,13 @@ void __54__HMDIDSServiceManager_handleProcessInfoStateChanged___block_invoke(uin
     v28 = *(a1 + 48);
     v24 = [(HMDIDSServiceManager *)*(a1 + 32) applicationBundleIdentifiersThatNeedWakingMessages];
     *buf = 138544130;
-    v55 = v22;
-    v56 = 2160;
-    v57 = 1752392040;
-    v58 = 2112;
-    v59 = v28;
-    v60 = 2112;
-    v61 = v24;
+    v52 = v22;
+    v53 = 2160;
+    v54 = 1752392040;
+    v55 = 2112;
+    v56 = v28;
+    v57 = 2112;
+    v58 = v24;
     v25 = "%{public}@Removed '%{mask.hash}@' from waking message priority list: %@";
 LABEL_20:
     _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_INFO, v25, buf, 0x2Au);
@@ -302,9 +300,9 @@ LABEL_21:
     v31 = 1;
 LABEL_27:
     v32 = [*(a1 + 32) service];
-    v53 = 0;
-    v33 = [v32 setWakingPushPriority:v31 error:&v53];
-    v34 = v53;
+    v50 = 0;
+    v33 = [v32 setWakingPushPriority:v31 error:&v50];
+    v34 = v50;
 
     v35 = objc_autoreleasePoolPush();
     v36 = *(a1 + 32);
@@ -315,48 +313,43 @@ LABEL_27:
       if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
       {
         v39 = HMFGetLogIdentifier();
-        v40 = *(a1 + 32);
-        v41 = [objc_opt_class() sharedIDSServiceName];
+        v40 = [objc_opt_class() sharedIDSServiceName];
         *buf = 138543874;
-        v55 = v39;
-        v56 = 2114;
-        v57 = v41;
-        v58 = 2048;
-        v59 = v31;
-        v42 = "%{public}@Set waking push priority for service '%{public}@' to %ld";
-        v43 = v38;
-        v44 = OS_LOG_TYPE_INFO;
-        v45 = 32;
+        v52 = v39;
+        v53 = 2114;
+        v54 = v40;
+        v55 = 2048;
+        v56 = v31;
+        v41 = "%{public}@Set waking push priority for service '%{public}@' to %ld";
+        v42 = v38;
+        v43 = OS_LOG_TYPE_INFO;
+        v44 = 32;
 LABEL_32:
-        _os_log_impl(&dword_229538000, v43, v44, v42, buf, v45);
+        _os_log_impl(&dword_229538000, v42, v43, v41, buf, v44);
       }
     }
 
     else if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
     {
       v39 = HMFGetLogIdentifier();
-      v46 = *(a1 + 32);
-      v41 = [objc_opt_class() sharedIDSServiceName];
+      v40 = [objc_opt_class() sharedIDSServiceName];
       *buf = 138544130;
-      v55 = v39;
-      v56 = 2114;
-      v57 = v41;
-      v58 = 2048;
-      v59 = v31;
-      v60 = 2112;
-      v61 = v34;
-      v42 = "%{public}@Failed to set waking push priority for service '%{public}@' to %ld: %@";
-      v43 = v38;
-      v44 = OS_LOG_TYPE_ERROR;
-      v45 = 42;
+      v52 = v39;
+      v53 = 2114;
+      v54 = v40;
+      v55 = 2048;
+      v56 = v31;
+      v57 = 2112;
+      v58 = v34;
+      v41 = "%{public}@Failed to set waking push priority for service '%{public}@' to %ld: %@";
+      v42 = v38;
+      v43 = OS_LOG_TYPE_ERROR;
+      v44 = 42;
       goto LABEL_32;
     }
 
     objc_autoreleasePoolPop(v35);
   }
-
-LABEL_37:
-  v52 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addProxyServiceLinkPreferencesAssertionHolder:(id)holder
@@ -438,11 +431,11 @@ void __70__HMDIDSServiceManager_addProxyServiceLinkPreferencesAssertionHolder___
 
 - (HMDIDSServiceManager)initWithNotificationCenter:(id)center
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   centerCopy = center;
-  v32.receiver = self;
-  v32.super_class = HMDIDSServiceManager;
-  v6 = [(HMDIDSServiceManager *)&v32 init];
+  v31.receiver = self;
+  v31.super_class = HMDIDSServiceManager;
+  v6 = [(HMDIDSServiceManager *)&v31 init];
   v7 = v6;
   if (v6)
   {
@@ -463,7 +456,7 @@ void __70__HMDIDSServiceManager_addProxyServiceLinkPreferencesAssertionHolder___
       {
         v14 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v34 = v14;
+        v33 = v14;
         _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Unable to determine current product info, this may limit available IDS services", buf, 0xCu);
       }
 
@@ -497,13 +490,12 @@ void __70__HMDIDSServiceManager_addProxyServiceLinkPreferencesAssertionHolder___
     v7->_workQueue = v28;
   }
 
-  v30 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (HMDIDSServiceManager)initWithDefaults
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
   services = self->_services;
   self->_services = v3;
@@ -516,11 +508,11 @@ void __70__HMDIDSServiceManager_addProxyServiceLinkPreferencesAssertionHolder___
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     v10 = HMFGetLogIdentifier();
-    *v32 = 138543618;
-    *&v32[4] = v10;
-    *&v32[12] = 2112;
-    *&v32[14] = v6;
-    _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Using IDS service %@", v32, 0x16u);
+    *v31 = 138543618;
+    *&v31[4] = v10;
+    *&v31[12] = 2112;
+    *&v31[14] = v6;
+    _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Using IDS service %@", v31, 0x16u);
   }
 
   objc_autoreleasePoolPop(v7);
@@ -539,11 +531,11 @@ LABEL_16:
     }
 
     v26 = HMFGetLogIdentifier();
-    *v32 = 138543362;
-    *&v32[4] = v26;
+    *v31 = 138543362;
+    *&v31[4] = v26;
     v27 = "%{public}@Unable to determine current product info, this may limit available IDS services";
 LABEL_15:
-    _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_ERROR, v27, v32, 0xCu);
+    _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_ERROR, v27, v31, 0xCu);
 
     goto LABEL_16;
   }
@@ -556,9 +548,9 @@ LABEL_15:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       v15 = HMFGetLogIdentifier();
-      *v32 = 138543362;
-      *&v32[4] = v15;
-      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Starting proxy service", v32, 0xCu);
+      *v31 = 138543362;
+      *&v31[4] = v15;
+      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Starting proxy service", v31, 0xCu);
     }
 
     objc_autoreleasePoolPop(v12);
@@ -582,8 +574,8 @@ LABEL_15:
     }
 
     v26 = HMFGetLogIdentifier();
-    *v32 = 138543362;
-    *&v32[4] = v26;
+    *v31 = 138543362;
+    *&v31[4] = v26;
     v27 = "%{public}@Unable to determine platform, this may limit available IDS services";
     goto LABEL_15;
   }
@@ -594,9 +586,9 @@ LABEL_15:
   if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
   {
     v21 = HMFGetLogIdentifier();
-    *v32 = 138543362;
-    *&v32[4] = v21;
-    _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_INFO, "%{public}@Starting stream service", v32, 0xCu);
+    *v31 = 138543362;
+    *&v31[4] = v21;
+    _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_INFO, "%{public}@Starting stream service", v31, 0xCu);
   }
 
   objc_autoreleasePoolPop(v18);
@@ -605,7 +597,6 @@ LABEL_17:
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   v29 = [(HMDIDSServiceManager *)selfCopy initWithNotificationCenter:defaultCenter];
 
-  v30 = *MEMORY[0x277D85DE8];
   return v29;
 }
 
@@ -661,10 +652,9 @@ LABEL_17:
 
 void __35__HMDIDSServiceManager_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v18;
-  logCategory__hmf_once_v18 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v18;
+  logCategory__hmf_once_v18 = v0;
 }
 
 + (HMDIDSServiceManager)sharedManager

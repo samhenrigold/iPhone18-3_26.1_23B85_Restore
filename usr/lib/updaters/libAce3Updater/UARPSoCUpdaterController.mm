@@ -79,72 +79,70 @@ LABEL_10:
 
 - (id)firmwareTags
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
   v3 = objc_opt_new();
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v4 = self->_updaters;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        firmwareTagName = [*(*(&v13 + 1) + 8 * i) firmwareTagName];
+        firmwareTagName = [*(*(&v12 + 1) + 8 * i) firmwareTagName];
         [v3 addObject:firmwareTagName];
       }
 
-      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
   }
 
   v10 = [MEMORY[0x29EDB8D80] arrayWithArray:v3];
-
-  v11 = *MEMORY[0x29EDCA608];
 
   return v10;
 }
 
 - (id)ticketNameTags
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
   v3 = objc_opt_new();
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v4 = self->_updaters;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        ticketName = [*(*(&v13 + 1) + 8 * i) ticketName];
+        ticketName = [*(*(&v12 + 1) + 8 * i) ticketName];
         [v3 addObject:ticketName];
       }
 
-      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
@@ -152,14 +150,12 @@ LABEL_10:
 
   v10 = [MEMORY[0x29EDB8D80] arrayWithArray:v3];
 
-  v11 = *MEMORY[0x29EDCA608];
-
   return v10;
 }
 
 - (id)queryInfo
 {
-  v25 = *MEMORY[0x29EDCA608];
+  v24 = *MEMORY[0x29EDCA608];
   if ([(NSMutableArray *)self->_updaters count])
   {
     if (self->_forceLocalSigning)
@@ -169,33 +165,33 @@ LABEL_10:
 
     else
     {
-      v20 = 0u;
-      v21 = 0u;
-      v18 = 0u;
       v19 = 0u;
+      v20 = 0u;
+      v17 = 0u;
+      v18 = 0u;
       v5 = self->_updaters;
-      v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v18 objects:v24 count:16];
+      v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v17 objects:v23 count:16];
       if (v6)
       {
         v7 = v6;
-        v8 = *v19;
+        v8 = *v18;
         while (2)
         {
           for (i = 0; i != v7; ++i)
           {
-            if (*v19 != v8)
+            if (*v18 != v8)
             {
               objc_enumerationMutation(v5);
             }
 
-            if ([*(*(&v18 + 1) + 8 * i) useLocalSigning])
+            if ([*(*(&v17 + 1) + 8 * i) useLocalSigning])
             {
               v3 = 1;
               goto LABEL_15;
             }
           }
 
-          v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v18 objects:v24 count:16];
+          v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v17 objects:v23 count:16];
           if (v7)
           {
             continue;
@@ -209,23 +205,23 @@ LABEL_10:
 LABEL_15:
     }
 
-    v23[0] = self;
-    v22[0] = @"UpdaterRef";
-    v22[1] = @"TicketName";
-    v10 = [(NSMutableArray *)self->_updaters objectAtIndexedSubscript:0, v18];
+    v22[0] = self;
+    v21[0] = @"UpdaterRef";
+    v21[1] = @"TicketName";
+    v10 = [(NSMutableArray *)self->_updaters objectAtIndexedSubscript:0, v17];
     ticketName = [v10 ticketName];
-    v23[1] = ticketName;
-    v22[2] = @"RestoreSystemPartition";
+    v22[1] = ticketName;
+    v21[2] = @"RestoreSystemPartition";
     restorePartition = [(UARPSoCUpdaterController *)self restorePartition];
-    v23[2] = restorePartition;
-    v22[3] = @"LocalSigningID";
+    v22[2] = restorePartition;
+    v21[3] = @"LocalSigningID";
     v13 = [MEMORY[0x29EDBA070] numberWithBool:v3];
-    v23[3] = v13;
-    v22[4] = @"ManifestPrefix";
+    v22[3] = v13;
+    v21[4] = @"ManifestPrefix";
     v14 = [(NSMutableArray *)self->_updaters objectAtIndexedSubscript:0];
     manifestPrefix = [v14 manifestPrefix];
-    v23[4] = manifestPrefix;
-    v4 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v23 forKeys:v22 count:5];
+    v22[4] = manifestPrefix;
+    v4 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v22 forKeys:v21 count:5];
   }
 
   else
@@ -233,37 +229,35 @@ LABEL_15:
     v4 = 0;
   }
 
-  v16 = *MEMORY[0x29EDCA608];
-
   return v4;
 }
 
 - (BOOL)offerFirmwareDataWithDictionary:(id)dictionary
 {
-  v22 = *MEMORY[0x29EDCA608];
+  v21 = *MEMORY[0x29EDCA608];
   dictionaryCopy = dictionary;
   v5 = objc_opt_new();
   [(SoCUpdaterHelper *)self->_log log:@"%s: options = %@", "[UARPSoCUpdaterController offerFirmwareDataWithDictionary:]", dictionaryCopy];
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   personalizationRequests = self->_updaters;
-  v7 = [(NSMutableArray *)personalizationRequests countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v7 = [(NSMutableArray *)personalizationRequests countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v18;
+    v9 = *v17;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(personalizationRequests);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * i);
+        v11 = *(*(&v16 + 1) + 8 * i);
         if ([v11 isDone])
         {
           -[SoCUpdaterHelper log:](self->_log, "log:", @"%s: Skipping Offer Firmware. Updater(LUN:%d,RouterID:%d) has finished.", "-[UARPSoCUpdaterController offerFirmwareDataWithDictionary:]", [v11 logicUnitNumber], objc_msgSend(v11, "routerID"));
@@ -282,7 +276,7 @@ LABEL_15:
         }
       }
 
-      v8 = [(NSMutableArray *)personalizationRequests countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [(NSMutableArray *)personalizationRequests countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v8)
       {
         continue;
@@ -298,34 +292,33 @@ LABEL_15:
   v14 = 1;
 LABEL_14:
 
-  v15 = *MEMORY[0x29EDCA608];
   return v14;
 }
 
 - (BOOL)offerPersonalizationDataWithDictionary:(id)dictionary
 {
-  v23 = *MEMORY[0x29EDCA608];
+  v22 = *MEMORY[0x29EDCA608];
   dictionaryCopy = dictionary;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   obj = self->_updaters;
-  v5 = [(NSMutableArray *)obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v5 = [(NSMutableArray *)obj countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v19;
+    v7 = *v18;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v19 != v7)
+        if (*v18 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v18 + 1) + 8 * i);
+        v9 = *(*(&v17 + 1) + 8 * i);
         -[SoCUpdaterHelper log:](self->_log, "log:", @"%s: Maybe Offer IM4M Asset to Updater(LUN:%d,RouterID:%d); %@", "-[UARPSoCUpdaterController offerPersonalizationDataWithDictionary:]", [v9 logicUnitNumber], objc_msgSend(v9, "routerID"), dictionaryCopy);
         isDone = [v9 isDone];
         log = self->_log;
@@ -347,7 +340,7 @@ LABEL_14:
         }
       }
 
-      v6 = [(NSMutableArray *)obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v6 = [(NSMutableArray *)obj countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v6)
       {
         continue;
@@ -360,36 +353,35 @@ LABEL_14:
   v14 = 1;
 LABEL_13:
 
-  v15 = *MEMORY[0x29EDCA608];
   return v14;
 }
 
 - (BOOL)applyStagedFirmware
 {
-  v17 = *MEMORY[0x29EDCA608];
+  v16 = *MEMORY[0x29EDCA608];
   v3 = 1;
   self->_isDone = 1;
   [(SoCUpdaterHelper *)self->_log log:@"%s", "[UARPSoCUpdaterController applyStagedFirmware]"];
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v4 = self->_updaters;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * i);
+        v9 = *(*(&v11 + 1) + 8 * i);
         if ([v9 isDone])
         {
           -[SoCUpdaterHelper log:](self->_log, "log:", @"%s: Skipping Apply. Updater(LUN:%d,RouterID:%d) has finished.", "-[UARPSoCUpdaterController applyStagedFirmware]", [v9 logicUnitNumber], objc_msgSend(v9, "routerID"));
@@ -411,7 +403,7 @@ LABEL_13:
         }
       }
 
-      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v6)
       {
         continue;
@@ -425,7 +417,6 @@ LABEL_13:
 
 LABEL_15:
 
-  v10 = *MEMORY[0x29EDCA608];
   return v3;
 }
 

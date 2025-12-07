@@ -880,7 +880,7 @@ LABEL_102:
     pPID = [vehicleCopy PPID];
     [(CRVehicle *)v7 setPPID:pPID];
 
-    if (CRIsInternalInstall())
+    if (CRIsInternalInstall(v16, v17))
     {
       date = [MEMORY[0x1E695DF00] date];
       [(CRVehicle *)v7 setLastConnectedDate:date];
@@ -1353,14 +1353,14 @@ LABEL_102:
 {
   identifierCopy = identifier;
   v6 = identifierCopy;
-  if (identifierCopy && [identifierCopy length])
+  if (identifierCopy && (identifierCopy = [identifierCopy length]) != 0)
   {
     objc_storeStrong(&self->_clusterAssetIdentifier, identifier);
   }
 
   else if (self->_clusterAssetIdentifier)
   {
-    v7 = CarGeneralLogging();
+    v7 = CarGeneralLogging(identifierCopy);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *v8 = 0;
@@ -1543,42 +1543,42 @@ LABEL_102:
 
 - (id)wallpaperForDisplayWithID:(id)d
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   dCopy = d;
   displayThemeData = [(CRVehicle *)self displayThemeData];
 
   if (dCopy && displayThemeData)
   {
     displayThemeData2 = [(CRVehicle *)self displayThemeData];
-    v7 = [displayThemeData2 objectForKey:dCopy];
+    v8 = [displayThemeData2 objectForKey:dCopy];
 
-    v8 = CarGeneralLogging();
-    v9 = v8;
-    if (v7)
+    v10 = CarGeneralLogging(v9);
+    v11 = v10;
+    if (v8)
     {
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
-        v13 = 138412290;
-        v14 = dCopy;
-        _os_log_impl(&dword_1C81FC000, v9, OS_LOG_TYPE_INFO, "Returning wallpaper using themeData for display with id: %@", &v13, 0xCu);
+        v15 = 138412290;
+        v16 = dCopy;
+        _os_log_impl(&dword_1C81FC000, v11, OS_LOG_TYPE_INFO, "Returning wallpaper using themeData for display with id: %@", &v15, 0xCu);
       }
     }
 
-    else if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    else if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [(CRVehicle *)dCopy wallpaperForDisplayWithID:v9];
+      [(CRVehicle *)dCopy wallpaperForDisplayWithID:v11];
     }
 
-    currentWallpaper = [v7 currentWallpaper];
+    currentWallpaper = [v8 currentWallpaper];
   }
 
   else
   {
-    v10 = CarGeneralLogging();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v12 = CarGeneralLogging(v6);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v13) = 0;
-      _os_log_impl(&dword_1C81FC000, v10, OS_LOG_TYPE_INFO, "Returning system wallpaper", &v13, 2u);
+      LOWORD(v15) = 0;
+      _os_log_impl(&dword_1C81FC000, v12, OS_LOG_TYPE_INFO, "Returning system wallpaper", &v15, 2u);
     }
 
     currentWallpaper = [(CRVehicle *)self systemWallpaperData];
@@ -1590,49 +1590,49 @@ LABEL_102:
 - (BOOL)setWallpaper:(id)wallpaper forDisplayWithID:(id)d requiresDarkAppearance:(BOOL)appearance
 {
   appearanceCopy = appearance;
-  v26 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   wallpaperCopy = wallpaper;
   dCopy = d;
   displayThemeData = [(CRVehicle *)self displayThemeData];
 
   if (dCopy && displayThemeData)
   {
-    v11 = CarGeneralLogging();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v12 = CarGeneralLogging(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      v24 = 138412290;
-      v25 = dCopy;
-      _os_log_impl(&dword_1C81FC000, v11, OS_LOG_TYPE_INFO, "Set wallpaper using themeData and display id: %@", &v24, 0xCu);
+      v27 = 138412290;
+      v28 = dCopy;
+      _os_log_impl(&dword_1C81FC000, v12, OS_LOG_TYPE_INFO, "Set wallpaper using themeData and display id: %@", &v27, 0xCu);
     }
 
     displayThemeData2 = [(CRVehicle *)self displayThemeData];
-    v13 = [displayThemeData2 objectForKey:dCopy];
+    v14 = [displayThemeData2 objectForKey:dCopy];
 
-    if (v13)
+    if (v14)
     {
-      v14 = [v13 themeDataWithCurrentWallpaper:wallpaperCopy];
+      v16 = [v14 themeDataWithCurrentWallpaper:wallpaperCopy];
 
       displayThemeData3 = [(CRVehicle *)self displayThemeData];
-      v16 = [displayThemeData3 mutableCopy];
+      v18 = [displayThemeData3 mutableCopy];
 
-      [v16 setObject:v14 forKey:dCopy];
-      [(CRVehicle *)self setDisplayThemeData:v16];
+      [v18 setObject:v16 forKey:dCopy];
+      [(CRVehicle *)self setDisplayThemeData:v18];
 
       if (!appearanceCopy)
       {
 LABEL_15:
-        v21 = 1;
+        v24 = 1;
         goto LABEL_19;
       }
 
 LABEL_12:
-      v19 = CarGeneralLogging();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+      v22 = CarGeneralLogging(v19);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
       {
         identifier = [wallpaperCopy identifier];
-        v24 = 138543362;
-        v25 = identifier;
-        _os_log_impl(&dword_1C81FC000, v19, OS_LOG_TYPE_INFO, "Selected #wallpaper %{public}@ doesn't support dynamic appearance. Locking Appearance to Always Dark", &v24, 0xCu);
+        v27 = 138543362;
+        v28 = identifier;
+        _os_log_impl(&dword_1C81FC000, v22, OS_LOG_TYPE_INFO, "Selected #wallpaper %{public}@ doesn't support dynamic appearance. Locking Appearance to Always Dark", &v27, 0xCu);
       }
 
       [(CRVehicle *)self setAppearanceModePreference:2];
@@ -1643,19 +1643,20 @@ LABEL_12:
   else
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v17 = CarGeneralLogging();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+      v20 = CarGeneralLogging(isKindOfClass);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v24) = 0;
-        _os_log_impl(&dword_1C81FC000, v17, OS_LOG_TYPE_INFO, "Set system wallpaper", &v24, 2u);
+        LOWORD(v27) = 0;
+        _os_log_impl(&dword_1C81FC000, v20, OS_LOG_TYPE_INFO, "Set system wallpaper", &v27, 2u);
       }
 
       systemWallpaperData = [(CRVehicle *)self systemWallpaperData];
       [(CRVehicle *)self setPreviousSystemWallpaperData:systemWallpaperData];
 
-      [(CRVehicle *)self setSystemWallpaperData:wallpaperCopy];
+      v19 = [(CRVehicle *)self setSystemWallpaperData:wallpaperCopy];
       if (!appearanceCopy)
       {
         goto LABEL_15;
@@ -1665,56 +1666,56 @@ LABEL_12:
     }
   }
 
-  v22 = CarGeneralLogging();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
+  v25 = CarGeneralLogging(isKindOfClass);
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
   {
     [CRVehicle setWallpaper:forDisplayWithID:requiresDarkAppearance:];
   }
 
-  v21 = 0;
+  v24 = 0;
 LABEL_19:
 
-  return v21;
+  return v24;
 }
 
 - (id)homeScreenStyleDataForDisplayWithID:(id)d
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   dCopy = d;
   displayThemeData = [(CRVehicle *)self displayThemeData];
 
   if (dCopy && displayThemeData)
   {
     displayThemeData2 = [(CRVehicle *)self displayThemeData];
-    v7 = [displayThemeData2 objectForKey:dCopy];
+    v8 = [displayThemeData2 objectForKey:dCopy];
 
-    v8 = CarGeneralLogging();
-    v9 = v8;
-    if (v7)
+    v10 = CarGeneralLogging(v9);
+    v11 = v10;
+    if (v8)
     {
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
-        v13 = 138412290;
-        v14 = dCopy;
-        _os_log_impl(&dword_1C81FC000, v9, OS_LOG_TYPE_INFO, "Returning home screen style using themeData for display with id: %@", &v13, 0xCu);
+        v15 = 138412290;
+        v16 = dCopy;
+        _os_log_impl(&dword_1C81FC000, v11, OS_LOG_TYPE_INFO, "Returning home screen style using themeData for display with id: %@", &v15, 0xCu);
       }
     }
 
-    else if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    else if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [(CRVehicle *)dCopy homeScreenStyleDataForDisplayWithID:v9];
+      [(CRVehicle *)dCopy homeScreenStyleDataForDisplayWithID:v11];
     }
 
-    currentHomeScreenStyle = [v7 currentHomeScreenStyle];
+    currentHomeScreenStyle = [v8 currentHomeScreenStyle];
   }
 
   else
   {
-    v10 = CarGeneralLogging();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v12 = CarGeneralLogging(v6);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v13) = 0;
-      _os_log_impl(&dword_1C81FC000, v10, OS_LOG_TYPE_INFO, "Returning system home screen style data", &v13, 2u);
+      LOWORD(v15) = 0;
+      _os_log_impl(&dword_1C81FC000, v12, OS_LOG_TYPE_INFO, "Returning system home screen style data", &v15, 2u);
     }
 
     currentHomeScreenStyle = [(CRVehicle *)self homeScreenStyleData];
@@ -1725,60 +1726,60 @@ LABEL_19:
 
 - (BOOL)setHomeScreenStyle:(id)style forDisplayWithID:(id)d
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   styleCopy = style;
   dCopy = d;
   displayThemeData = [(CRVehicle *)self displayThemeData];
 
-  v9 = CarGeneralLogging();
-  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_INFO);
+  v10 = CarGeneralLogging(v9);
+  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_INFO);
   if (!dCopy || !displayThemeData)
   {
-    if (v10)
+    if (v11)
     {
-      LOWORD(v19) = 0;
-      _os_log_impl(&dword_1C81FC000, v9, OS_LOG_TYPE_INFO, "Set system home screen style", &v19, 2u);
+      LOWORD(v21) = 0;
+      _os_log_impl(&dword_1C81FC000, v10, OS_LOG_TYPE_INFO, "Set system home screen style", &v21, 2u);
     }
 
     [(CRVehicle *)self setHomeScreenStyleData:styleCopy];
     goto LABEL_10;
   }
 
-  if (v10)
+  if (v11)
   {
-    v19 = 138412290;
-    v20 = dCopy;
-    _os_log_impl(&dword_1C81FC000, v9, OS_LOG_TYPE_INFO, "Set home screen style using themeData and display id: %@", &v19, 0xCu);
+    v21 = 138412290;
+    v22 = dCopy;
+    _os_log_impl(&dword_1C81FC000, v10, OS_LOG_TYPE_INFO, "Set home screen style using themeData and display id: %@", &v21, 0xCu);
   }
 
   displayThemeData2 = [(CRVehicle *)self displayThemeData];
-  v12 = [displayThemeData2 objectForKey:dCopy];
+  v13 = [displayThemeData2 objectForKey:dCopy];
 
-  if (v12)
+  if (v13)
   {
-    v13 = [v12 themeDataWithCurrentHomeScreenStyle:styleCopy];
+    v15 = [v13 themeDataWithCurrentHomeScreenStyle:styleCopy];
 
     displayThemeData3 = [(CRVehicle *)self displayThemeData];
-    v15 = [displayThemeData3 mutableCopy];
+    v17 = [displayThemeData3 mutableCopy];
 
-    [v15 setObject:v13 forKey:dCopy];
-    [(CRVehicle *)self setDisplayThemeData:v15];
+    [v17 setObject:v15 forKey:dCopy];
+    [(CRVehicle *)self setDisplayThemeData:v17];
 
 LABEL_10:
-    v16 = 1;
+    v18 = 1;
     goto LABEL_11;
   }
 
-  v18 = CarGeneralLogging();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
+  v20 = CarGeneralLogging(v14);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
   {
     [CRVehicle setHomeScreenStyle:forDisplayWithID:];
   }
 
-  v16 = 0;
+  v18 = 0;
 LABEL_11:
 
-  return v16;
+  return v18;
 }
 
 - (void)setViewAreas:(id)areas
@@ -1786,19 +1787,26 @@ LABEL_11:
   areasCopy = areas;
   viewAreas = self->_viewAreas;
   p_viewAreas = &self->_viewAreas;
-  v5 = viewAreas;
-  if (!areasCopy && v5 && CRIsInternalInstall())
+  v6 = viewAreas;
+  if (!areasCopy)
   {
-    v8 = CarGeneralLogging();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+    if (v6)
     {
-      [(CRVehicle *)p_viewAreas setViewAreas:v8];
+      v9 = CRIsInternalInstall(0, v4);
+      if (v9)
+      {
+        v10 = CarGeneralLogging(v9);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+        {
+          [(CRVehicle *)p_viewAreas setViewAreas:v10];
+        }
+      }
     }
   }
 
-  v9 = [areasCopy copy];
-  v10 = *p_viewAreas;
-  *p_viewAreas = v9;
+  v11 = [areasCopy copy];
+  v12 = *p_viewAreas;
+  *p_viewAreas = v11;
 }
 
 - (NSString)_axColorFiltersAnalyticsString

@@ -169,10 +169,10 @@ id __58__MFAddressAtomStatusManager_updateTrustForDisplayedAtoms__block_invoke(u
 
 - (void)_updateOtherSignersList:(id)list
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   listCopy = list;
-  v29 = objc_alloc_init(MEMORY[0x277D07090]);
-  [v29 setShouldIncludeDisplayName:1];
+  v28 = objc_alloc_init(MEMORY[0x277D07090]);
+  [v28 setShouldIncludeDisplayName:1];
   addressAtoms = [listCopy addressAtoms];
   otherSigners = [(MFAddressAtomStatusManager *)self otherSigners];
   v5 = [otherSigners count];
@@ -182,28 +182,28 @@ id __58__MFAddressAtomStatusManager_updateTrustForDisplayedAtoms__block_invoke(u
     [currentHandler handleFailureInMethod:a2 object:self file:@"MFAddressAtomStatusManager.m" lineNumber:153 description:@"Signers do not match"];
   }
 
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   obj = otherSigners;
-  v6 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+  v6 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
   if (v6)
   {
     LODWORD(v7) = 0;
-    v30 = *v34;
+    v29 = *v33;
     do
     {
       v8 = 0;
       v7 = v7;
       do
       {
-        if (*v34 != v30)
+        if (*v33 != v29)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v33 + 1) + 8 * v8);
+        v9 = *(*(&v32 + 1) + 8 * v8);
         signingCertificateTrustInfo = [v9 signingCertificateTrustInfo];
         firstEmailAddress = [signingCertificateTrustInfo firstEmailAddress];
 
@@ -226,7 +226,7 @@ id __58__MFAddressAtomStatusManager_updateTrustForDisplayedAtoms__block_invoke(u
             v19 = stringValue2;
           }
 
-          v20 = [v29 stringFromEmailAddressConvertible:v19];
+          v20 = [v28 stringFromEmailAddressConvertible:v19];
           if (!emailAddressValue)
           {
           }
@@ -254,14 +254,13 @@ id __58__MFAddressAtomStatusManager_updateTrustForDisplayedAtoms__block_invoke(u
       }
 
       while (v6 != v8);
-      v6 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+      v6 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
     }
 
     while (v6);
   }
 
   [listCopy updateAtomsForVIP];
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateWithReplyToInformation:(id)information
@@ -426,35 +425,35 @@ void __49__MFAddressAtomStatusManager__updateAtomsInList___block_invoke_2(uint64
 
 void __49__MFAddressAtomStatusManager__updateAtomsInList___block_invoke_3(uint64_t a1)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   obj = *(a1 + 32);
-  v2 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v2 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (!v2)
   {
 
-    goto LABEL_24;
+    return;
   }
 
   LOBYTE(v3) = 0;
-  v23 = *v26;
+  v22 = *v25;
   do
   {
     for (i = 0; i != v2; ++i)
     {
-      if (*v26 != v23)
+      if (*v25 != v22)
       {
         objc_enumerationMutation(obj);
       }
 
-      v5 = *(*(&v25 + 1) + 8 * i);
-      v24 = *(a1 + 56);
+      v5 = *(*(&v24 + 1) + 8 * i);
+      v23 = *(a1 + 56);
       if ([*(a1 + 40) _atomContainsVIPSender:v5])
       {
-        v24 |= 0x10uLL;
+        v23 |= 0x10uLL;
       }
 
       v6 = [MEMORY[0x277D07148] currentDevice];
@@ -470,21 +469,21 @@ void __49__MFAddressAtomStatusManager__updateAtomsInList___block_invoke_3(uint64
 
         v9 = MEMORY[0x277CFBC78];
         v6 = [v5 emailAddress];
-        [v9 presentationOptions:&v24 encodedIntoAddress:v6];
+        [v9 presentationOptions:&v23 encodedIntoAddress:v6];
       }
 
 LABEL_12:
       if (v3)
       {
         v3 = 1;
-        v10 = v24;
+        v10 = v23;
       }
 
       else
       {
         v11 = [v5 presentationOptions];
-        v10 = v24;
-        v3 = ((v24 ^ v11) & 0x1F0) != 0;
+        v10 = v23;
+        v3 = ((v23 ^ v11) & 0x1F0) != 0;
       }
 
       [v5 setPresentationOptions:v10];
@@ -512,7 +511,7 @@ LABEL_12:
       }
     }
 
-    v2 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v2 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
   }
 
   while (v2);
@@ -521,9 +520,6 @@ LABEL_12:
   {
     [*(a1 + 48) updateAtomsForVIP];
   }
-
-LABEL_24:
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (int)actionForTrustInformation:(id)information
@@ -564,27 +560,27 @@ LABEL_24:
 
 void __46__MFAddressAtomStatusManager__updateVIPStatus__block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v4 = [v3 addressAtoms];
-  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v8 = *(*(&v11 + 1) + 8 * i);
+        v8 = *(*(&v10 + 1) + 8 * i);
         if ([*(a1 + 32) _atomContainsVIPSender:v8])
         {
           v9 = [v8 presentationOptions] | 0x10;
@@ -598,14 +594,13 @@ void __46__MFAddressAtomStatusManager__updateVIPStatus__block_invoke(uint64_t a1
         [v8 setPresentationOptions:v9];
       }
 
-      v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
   }
 
   [v3 updateAtomsForVIP];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_atomContainsVIPSender:(id)sender

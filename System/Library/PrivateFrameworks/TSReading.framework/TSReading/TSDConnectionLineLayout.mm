@@ -163,7 +163,7 @@ LABEL_21:
     v26 = 0u;
     v24 = 0u;
 LABEL_6:
-    [(TSDInfoGeometry *)mResizeInfoGeometry transform];
+    objc_msgSend_transform(mResizeInfoGeometry);
     goto LABEL_7;
   }
 

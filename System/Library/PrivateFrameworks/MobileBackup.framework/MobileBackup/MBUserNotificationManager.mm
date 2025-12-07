@@ -112,8 +112,7 @@
     *buf = 134217984;
     v16 = v4;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "Buddy setup complete, sleeping for 1 second then running %lu deferred blocks", buf, 0xCu);
-    [(NSMutableArray *)self->_afterSetupIsDoneBlocks count];
-    _MBLog();
+    _MBLog(@"I ", "Buddy setup complete, sleeping for 1 second then running %lu deferred blocks", [(NSMutableArray *)self->_afterSetupIsDoneBlocks count]);
   }
 
   sleep(1u);
@@ -137,7 +136,7 @@
           objc_enumerationMutation(v5);
         }
 
-        (*(*(*(&v10 + 1) + 8 * v9) + 16))(*(*(&v10 + 1) + 8 * v9));
+        (*(*(*(&v10 + 1) + 8 * v9) + 16))();
         v9 = v9 + 1;
       }
 
@@ -306,7 +305,7 @@ LABEL_11:
   v8 = [(MBUserNotificationManager *)self _mbNotificationForCFNotification:?];
   if ((flagsCopy & 3) == 1)
   {
-    v11 = 1;
+    v12 = 1;
   }
 
   else
@@ -322,25 +321,25 @@ LABEL_11:
         _os_log_impl(&_mh_execute_header, completionBlock2, OS_LOG_TYPE_DEFAULT, "User notification %@ canceled", buf, 0xCu);
 
         identifier2 = [v8 identifier];
-        _MBLog();
+        _MBLog(@"Df", "User notification %@ canceled", identifier2);
       }
 
       goto LABEL_11;
     }
 
-    v11 = 0;
+    v12 = 0;
   }
 
-  v12 = MBGetDefaultLog();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = MBGetDefaultLog();
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = [(MBUserNotificationManager *)self _descriptionForResponse:v11];
+    v14 = [(MBUserNotificationManager *)self _descriptionForResponse:v12];
     *buf = 138412290;
-    v21 = v13;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "User response: %@", buf, 0xCu);
+    v21 = v14;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "User response: %@", buf, 0xCu);
 
-    v19 = [(MBUserNotificationManager *)self _descriptionForResponse:v11];
-    _MBLog();
+    v15 = [(MBUserNotificationManager *)self _descriptionForResponse:v12];
+    _MBLog(@"Df", "User response: %@", v15);
   }
 
   completionBlock = [v8 completionBlock];
@@ -348,17 +347,17 @@ LABEL_11:
   if (completionBlock)
   {
     completionBlock2 = [v8 completionBlock];
-    (*(completionBlock2 + 16))(completionBlock2, v11);
+    (*(completionBlock2 + 16))(completionBlock2, v12);
 LABEL_11:
   }
 
-  v15 = NSMapGet(self->_runLoopSources, notification);
+  v17 = NSMapGet(self->_runLoopSources, notification);
   Main = CFRunLoopGetMain();
-  CFRunLoopRemoveSource(Main, v15, kCFRunLoopDefaultMode);
+  CFRunLoopRemoveSource(Main, v17, kCFRunLoopDefaultMode);
   NSMapRemove(self->_runLoopSources, notification);
   [(NSMutableArray *)self->_notifications removeObject:v8];
-  v17 = +[MBDaemon sharedDaemon];
-  [v17 releaseWorkAssertion:a2];
+  v19 = +[MBDaemon sharedDaemon];
+  [v19 releaseWorkAssertion:a2];
 }
 
 - (void)presentUserNotification:(id)notification account:(id)account completion:(id)completion

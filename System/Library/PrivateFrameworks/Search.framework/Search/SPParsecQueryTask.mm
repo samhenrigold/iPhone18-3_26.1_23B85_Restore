@@ -4,10 +4,12 @@
 - (id)findLocalCopies:(id)copies alternativeResults:(id)results withQueryString:(id)string;
 - (id)rerankMapsResultsWithLocalSignals:(id)signals forQueryId:(int64_t)id;
 - (id)unarchiveWithQuery:(id)query;
+- (void)archiveWithQuery:(id)query didFinishWithResults:(id)results withSuggestions:(id)suggestions withCorrections:(id)corrections suggestionsAreBlended:(BOOL)blended;
 - (void)cancel;
 - (void)dealloc;
 - (void)finished;
 - (void)geoUserSessionEntityString:(id)string;
+- (void)query:(id)query didFinishWithResults:(id)results withSuggestions:(id)suggestions withCorrections:(id)corrections withAlternativeResults:(id)alternativeResults suggestionsAreBlended:(BOOL)blended;
 - (void)queryDidFinishLoading:(id)loading;
 - (void)resumeWithArchive:(id)archive;
 - (void)resumeWithTimeout:(double)timeout;
@@ -113,50 +115,49 @@
 {
   v3 = si_tracing_current_span();
   v4 = *(v3 + 16);
-  v86 = *v3;
-  v87 = v4;
-  v88 = *(v3 + 32);
+  v79 = *v3;
+  v80 = v4;
+  v81 = *(v3 + 32);
   v5 = *v3;
   spanid = si_tracing_calc_next_spanid();
   v7 = *(v3 + 8);
-  v8 = *(v3 + 24);
   *v3 = v5;
   *(v3 + 8) = spanid;
   *(v3 + 16) = v7;
   *(v3 + 28) = 102;
   *(v3 + 32) = "[SPParsecQueryTask finished]";
   si_tracing_log_span_begin();
-  v9 = SPLogForSPLogCategoryDefault();
-  v10 = gSPLogInfoAsDefault;
-  if (os_log_type_enabled(v9, ((gSPLogInfoAsDefault & 1) == 0)))
+  v8 = SPLogForSPLogCategoryDefault();
+  v9 = gSPLogInfoAsDefault;
+  if (os_log_type_enabled(v8, ((gSPLogInfoAsDefault & 1) == 0)))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v9, ((v10 & 1) == 0), "#query parsec finished", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v8, ((v9 & 1) == 0), "#query parsec finished", buf, 2u);
   }
 
   if (pthread_mutex_trylock(&self->_mutex))
   {
-    v57 = "pthread_mutex_trylock(&_mutex)==0";
-    v58 = 278;
+    v56 = "pthread_mutex_trylock(&_mutex)==0";
+    v57 = 278;
     goto LABEL_65;
   }
 
   if (pthread_mutex_unlock(&self->_mutex))
   {
-    v57 = "pthread_mutex_unlock(&_mutex)==0";
-    v58 = 279;
+    v56 = "pthread_mutex_unlock(&_mutex)==0";
+    v57 = 279;
 LABEL_65:
-    __assert_rtn("[SPParsecQueryTask finished]", "SPParsecDatastore.m", v58, v57);
+    __assert_rtn("[SPParsecQueryTask finished]", "SPParsecDatastore.m", v57, v56);
   }
 
   Current = CFAbsoluteTimeGetCurrent();
   self->_queryEndTime = Current;
-  v12 = Current - self->_queryStartTime;
+  v11 = Current - self->_queryStartTime;
   timeOut = self->_timeOut;
-  v74 = v3;
-  if (v12 > timeOut)
+  v67 = v3;
+  if (v11 > timeOut)
   {
-    [(SPParsecDatastore *)self->_store updateParsecBeyondTimeoutCount:v12 - timeOut <= 0.05];
+    [(SPParsecDatastore *)self->_store updateParsecBeyondTimeoutCount:v11 - timeOut <= 0.05];
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_resultPipe);
@@ -173,10 +174,10 @@ LABEL_65:
 
   [(PRSQueryTask *)self->_parsecQuery serverRelevanceScoreThreshold];
   [(PRSRankingConfiguration *)self->_rankingInfo setServerRelevanceScoreThreshold:?];
-  v17 = objc_opt_new();
+  v16 = objc_opt_new();
   engagementSignal = [(PRSQueryTask *)self->_parsecQuery engagementSignal];
-  v19 = [v17 initWithSFEngagementSignal:engagementSignal];
-  [(PRSRankingConfiguration *)self->_rankingInfo setIFunScores:v19];
+  v18 = [v16 initWithSFEngagementSignal:engagementSignal];
+  [(PRSRankingConfiguration *)self->_rankingInfo setIFunScores:v18];
 
   cepDictionary = [(SPParsecDatastore *)self->_store cepDictionary];
   cannedCEPValues = cepDictionary;
@@ -190,256 +191,249 @@ LABEL_65:
   {
   }
 
-  v84 = 0u;
-  v85 = 0u;
-  v82 = 0u;
-  v83 = 0u;
+  v77 = 0u;
+  v78 = 0u;
+  v75 = 0u;
+  v76 = 0u;
   obj = self->_parsecResults;
-  v71 = [(NSArray *)obj countByEnumeratingWithState:&v82 objects:v94 count:16];
-  if (!v71)
+  v64 = [(NSArray *)obj countByEnumeratingWithState:&v75 objects:v87 count:16];
+  if (!v64)
   {
-    v22 = -1.0;
+    v21 = -1.0;
     goto LABEL_42;
   }
 
-  v70 = *v83;
-  v22 = -1.0;
+  v63 = *v76;
+  v21 = -1.0;
   do
   {
-    for (i = 0; i != v71; i = i + 1)
+    for (i = 0; i != v64; i = i + 1)
     {
-      if (*v83 != v70)
+      if (*v76 != v63)
       {
         objc_enumerationMutation(obj);
       }
 
-      v73 = *(*(&v82 + 1) + 8 * i);
-      bundleIdentifier = [v73 bundleIdentifier];
+      v66 = *(*(&v75 + 1) + 8 * i);
+      bundleIdentifier = [v66 bundleIdentifier];
       if ([bundleIdentifier isEqualToString:@"com.apple.parsec.itunes.iosSoftware"])
       {
       }
 
       else
       {
-        bundleIdentifier2 = [v73 bundleIdentifier];
-        v25 = [bundleIdentifier2 hasPrefix:@"com.apple.parsec.app_distr"];
+        bundleIdentifier2 = [v66 bundleIdentifier];
+        v24 = [bundleIdentifier2 hasPrefix:@"com.apple.parsec.app_distr"];
 
-        if (!v25)
+        if (!v24)
         {
           goto LABEL_36;
         }
       }
 
-      v26 = objc_opt_new();
-      results = [v73 results];
-      v28 = [results count] == 0;
+      v25 = objc_opt_new();
+      results = [v66 results];
+      v27 = [results count] == 0;
 
-      if (!v28)
+      if (!v27)
       {
-        v22 = 0.0;
+        v21 = 0.0;
       }
 
-      v80 = 0u;
-      v81 = 0u;
-      v78 = 0u;
-      v79 = 0u;
-      results2 = [v73 results];
-      v30 = [results2 countByEnumeratingWithState:&v78 objects:v93 count:16];
-      if (v30)
+      v73 = 0u;
+      v74 = 0u;
+      v71 = 0u;
+      v72 = 0u;
+      results2 = [v66 results];
+      v29 = [results2 countByEnumeratingWithState:&v71 objects:v86 count:16];
+      if (v29)
       {
-        v31 = *v79;
+        v30 = *v72;
         do
         {
-          for (j = 0; j != v30; j = j + 1)
+          for (j = 0; j != v29; j = j + 1)
           {
-            if (*v79 != v31)
+            if (*v72 != v30)
             {
               objc_enumerationMutation(results2);
             }
 
-            v33 = *(*(&v78 + 1) + 8 * j);
-            applicationBundleIdentifier = [v33 applicationBundleIdentifier];
+            v32 = *(*(&v71 + 1) + 8 * j);
+            applicationBundleIdentifier = [v32 applicationBundleIdentifier];
             if ([(NSSet *)self->_setOfVisibleApps containsObject:applicationBundleIdentifier])
             {
-              v35 = SPLogForSPLogCategoryDefault();
-              v36 = v35;
+              v34 = SPLogForSPLogCategoryDefault();
+              v35 = v34;
               if (gSPLogDebugAsDefault)
               {
-                v37 = OS_LOG_TYPE_DEFAULT;
+                v36 = OS_LOG_TYPE_DEFAULT;
               }
 
               else
               {
-                v37 = OS_LOG_TYPE_DEBUG;
+                v36 = OS_LOG_TYPE_DEBUG;
               }
 
-              if (os_log_type_enabled(v35, v37))
+              if (os_log_type_enabled(v34, v36))
               {
                 *buf = 138412290;
-                v90 = applicationBundleIdentifier;
-                _os_log_impl(&_mh_execute_header, v36, v37, "De-dupped app with bundle id: %@", buf, 0xCu);
+                v83 = applicationBundleIdentifier;
+                _os_log_impl(&_mh_execute_header, v35, v36, "De-dupped app with bundle id: %@", buf, 0xCu);
               }
 
-              v3 = v74;
-              [v26 addObject:v33];
-              v22 = v22 + 1.0;
+              v3 = v67;
+              [v25 addObject:v32];
+              v21 = v21 + 1.0;
             }
           }
 
-          v30 = [results2 countByEnumeratingWithState:&v78 objects:v93 count:16];
+          v29 = [results2 countByEnumeratingWithState:&v71 objects:v86 count:16];
         }
 
-        while (v30);
+        while (v29);
       }
 
-      [v73 removeResultsInArray:v26];
-      [v73 setHiddenExtResults:v26];
+      [v66 removeResultsInArray:v25];
+      [v66 setHiddenExtResults:v25];
 
 LABEL_36:
-      if ([v73 domain] != 1)
+      if ([v66 domain] != 1)
       {
-        [v73 setDomain:2];
+        [v66 setDomain:2];
       }
     }
 
-    v71 = [(NSArray *)obj countByEnumeratingWithState:&v82 objects:v94 count:16];
+    v64 = [(NSArray *)obj countByEnumeratingWithState:&v75 objects:v87 count:16];
   }
 
-  while (v71);
+  while (v64);
 LABEL_42:
 
-  *&v38 = v22;
-  [(PRSRankingConfiguration *)self->_rankingInfo setNumAppsDeduped:v38];
+  *&v37 = v21;
+  [(PRSRankingConfiguration *)self->_rankingInfo setNumAppsDeduped:v37];
   if (self->_canceled)
   {
-    v39 = "finish_canceled";
+    v38 = "finish_canceled";
   }
 
   else
   {
-    v39 = "finished";
+    v38 = "finished";
   }
 
-  sub_100017E38(WeakRetained, v39, "parsec", self->_startTime);
+  sub_100017E38(WeakRetained, v38, "parsec", self->_startTime);
   if (!self->_canceled)
   {
-    v40 = SPLogForSPLogCategoryDefault();
-    v41 = v40;
+    v39 = SPLogForSPLogCategoryDefault();
+    v40 = v39;
     if (gSPLogDebugAsDefault)
     {
-      v42 = OS_LOG_TYPE_DEFAULT;
+      v41 = OS_LOG_TYPE_DEFAULT;
     }
 
     else
     {
-      v42 = OS_LOG_TYPE_DEBUG;
+      v41 = OS_LOG_TYPE_DEBUG;
     }
 
-    if (os_log_type_enabled(v40, v42))
+    if (os_log_type_enabled(v39, v41))
     {
-      v43 = objc_opt_class();
-      v44 = qos_class_self();
+      v42 = objc_opt_class();
+      v43 = qos_class_self();
       *buf = 138412546;
-      v90 = v43;
-      v91 = 1024;
-      LODWORD(v92) = v44;
-      _os_log_impl(&_mh_execute_header, v41, v42, "QOS %@ finished: %d", buf, 0x12u);
+      v83 = v42;
+      v84 = 1024;
+      LODWORD(v85) = v43;
+      _os_log_impl(&_mh_execute_header, v40, v41, "QOS %@ finished: %d", buf, 0x12u);
     }
 
-    v45 = +[SDController workQueue];
-    v46 = qos_class_self();
+    v44 = +[SDController workQueue];
+    v45 = qos_class_self();
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_10005AB34;
     block[3] = &unk_100091EA8;
-    v76 = WeakRetained;
+    v69 = WeakRetained;
     selfCopy = self;
-    v47 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, v46, 0, block);
+    v46 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, v45, 0, block);
     tracing_dispatch_async();
   }
 
-  v48 = SPLogForSPLogCategoryDefault();
-  v49 = v48;
+  v47 = SPLogForSPLogCategoryDefault();
+  v48 = v47;
   if (gSPLogDebugAsDefault)
   {
-    v50 = OS_LOG_TYPE_DEFAULT;
+    v49 = OS_LOG_TYPE_DEFAULT;
   }
 
   else
   {
-    v50 = OS_LOG_TYPE_DEBUG;
+    v49 = OS_LOG_TYPE_DEBUG;
   }
 
-  if (os_log_type_enabled(v48, v50))
+  if (os_log_type_enabled(v47, v49))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v49, v50, "#query parsec done", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v48, v49, "#query parsec done", buf, 2u);
   }
 
-  v51 = SPLogForSPLogCategoryDefault();
-  v52 = v51;
+  v50 = SPLogForSPLogCategoryDefault();
+  v51 = v50;
   if (gSPLogDebugAsDefault)
   {
-    v53 = OS_LOG_TYPE_DEFAULT;
+    v52 = OS_LOG_TYPE_DEFAULT;
   }
 
   else
   {
-    v53 = OS_LOG_TYPE_DEBUG;
+    v52 = OS_LOG_TYPE_DEBUG;
   }
 
-  if (os_log_type_enabled(v51, v53))
+  if (os_log_type_enabled(v50, v52))
   {
     queryContext = [WeakRetained queryContext];
     searchString = [queryContext searchString];
-    v56 = [(NSArray *)self->_parsecResults valueForKey:@"title"];
+    v55 = [(NSArray *)self->_parsecResults valueForKey:@"title"];
     *buf = 138412546;
-    v90 = searchString;
-    v91 = 2112;
-    v92 = v56;
-    _os_log_impl(&_mh_execute_header, v52, v53, "Parsec query: %@ returned results: %@", buf, 0x16u);
+    v83 = searchString;
+    v84 = 2112;
+    v85 = v55;
+    _os_log_impl(&_mh_execute_header, v51, v52, "Parsec query: %@ returned results: %@", buf, 0x16u);
   }
 
   parsecQuery = self->_parsecQuery;
   if (parsecQuery)
   {
     [(PRSQueryTask *)parsecQuery invalidateHandler];
-    v60 = self->_parsecQuery;
+    v59 = self->_parsecQuery;
   }
 
   else
   {
-    v60 = 0;
+    v59 = 0;
   }
 
   self->_parsecQuery = 0;
 
   objc_storeWeak(&self->_resultPipe, 0);
   atomic_fetch_add(dword_1000A8900, 0xFFFFFFFF);
-  v61 = *v3;
-  v62 = *(v3 + 8);
-  v63 = *(v3 + 16);
-  v64 = *(v3 + 24);
-  v65 = *(v3 + 28);
-  v66 = *(v3 + 32);
   si_tracing_log_span_end();
-  v67 = v87;
-  *v3 = v86;
-  *(v3 + 16) = v67;
-  *(v3 + 32) = v88;
+  v60 = v80;
+  *v3 = v79;
+  *(v3 + 16) = v60;
+  *(v3 + 32) = v81;
 }
 
 - (void)cancel
 {
   v3 = si_tracing_current_span();
   v4 = *(v3 + 16);
-  v23 = *v3;
-  v24 = v4;
-  v25 = *(v3 + 32);
+  v14 = *v3;
+  v15 = v4;
+  v16 = *(v3 + 32);
   v5 = *v3;
   spanid = si_tracing_calc_next_spanid();
   v7 = *(v3 + 8);
-  v8 = *(v3 + 24);
   *v3 = v5;
   *(v3 + 8) = spanid;
   *(v3 + 16) = v7;
@@ -447,73 +441,57 @@ LABEL_42:
   *(v3 + 32) = "[SPParsecQueryTask cancel]";
   si_tracing_log_span_begin();
   self->_canceled = 1;
-  v9 = SPLogForSPLogCategoryDefault();
-  v10 = v9;
+  v8 = SPLogForSPLogCategoryDefault();
+  v9 = v8;
   if (gSPLogDebugAsDefault)
   {
-    v11 = OS_LOG_TYPE_DEFAULT;
+    v10 = OS_LOG_TYPE_DEFAULT;
   }
 
   else
   {
-    v11 = OS_LOG_TYPE_DEBUG;
+    v10 = OS_LOG_TYPE_DEBUG;
   }
 
-  if (os_log_type_enabled(v9, v11))
+  if (os_log_type_enabled(v8, v10))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v10, v11, "#query parsec cancel", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v9, v10, "#query parsec cancel", buf, 2u);
   }
 
-  WeakRetained = objc_loadWeakRetained(&self->_resultPipe);
-  queue = self->_queue;
-  v21 = WeakRetained;
+  v12 = objc_loadWeakRetained(&self->_resultPipe);
   tracing_dispatch_async();
 
-  v14 = *v3;
-  v15 = *(v3 + 8);
-  v16 = *(v3 + 16);
-  v17 = *(v3 + 24);
-  v18 = *(v3 + 28);
-  v19 = *(v3 + 32);
   si_tracing_log_span_end();
-  v20 = v24;
-  *v3 = v23;
-  *(v3 + 16) = v20;
-  *(v3 + 32) = v25;
+  v11 = v15;
+  *v3 = v14;
+  *(v3 + 16) = v11;
+  *(v3 + 32) = v16;
 }
 
 - (void)queryDidFinishLoading:(id)loading
 {
   loadingCopy = loading;
-  v5 = si_tracing_current_span();
-  v18 = *v5;
-  v19 = *(v5 + 16);
-  v20 = *(v5 + 32);
-  v6 = *v5;
+  v4 = si_tracing_current_span();
+  v9 = *v4;
+  v10 = *(v4 + 16);
+  v11 = *(v4 + 32);
+  v5 = *v4;
   spanid = si_tracing_calc_next_spanid();
-  v8 = *(v5 + 8);
-  v9 = *(v5 + 24);
-  *v5 = v6;
-  *(v5 + 8) = spanid;
-  *(v5 + 16) = v8;
-  *(v5 + 28) = 102;
-  *(v5 + 32) = "[SPParsecQueryTask queryDidFinishLoading:]";
+  v7 = *(v4 + 8);
+  *v4 = v5;
+  *(v4 + 8) = spanid;
+  *(v4 + 16) = v7;
+  *(v4 + 28) = 102;
+  *(v4 + 32) = "[SPParsecQueryTask queryDidFinishLoading:]";
   si_tracing_log_span_begin();
-  queue = self->_queue;
-  v17 = loadingCopy;
+  v8 = loadingCopy;
   tracing_dispatch_async();
 
-  v11 = *v5;
-  v12 = *(v5 + 8);
-  v13 = *(v5 + 16);
-  v14 = *(v5 + 24);
-  v15 = *(v5 + 28);
-  v16 = *(v5 + 32);
   si_tracing_log_span_end();
-  *v5 = v18;
-  *(v5 + 16) = v19;
-  *(v5 + 32) = v20;
+  *v4 = v9;
+  *(v4 + 16) = v10;
+  *(v4 + 32) = v11;
 }
 
 - (void)geoUserSessionEntityString:(id)string
@@ -523,6 +501,41 @@ LABEL_42:
   [resultPipe setGeoUserSessionEntityString:stringCopy];
 }
 
+- (void)archiveWithQuery:(id)query didFinishWithResults:(id)results withSuggestions:(id)suggestions withCorrections:(id)corrections suggestionsAreBlended:(BOOL)blended
+{
+  blendedCopy = blended;
+  queryCopy = query;
+  resultsCopy = results;
+  suggestionsCopy = suggestions;
+  correctionsCopy = corrections;
+  v15 = si_tracing_current_span();
+  v25 = *v15;
+  v26 = *(v15 + 16);
+  v27 = *(v15 + 32);
+  v16 = *v15;
+  spanid = si_tracing_calc_next_spanid();
+  v18 = *(v15 + 8);
+  *v15 = v16;
+  *(v15 + 8) = spanid;
+  *(v15 + 16) = v18;
+  *(v15 + 28) = 102;
+  *(v15 + 32) = "[SPParsecQueryTask archiveWithQuery:didFinishWithResults:withSuggestions:withCorrections:suggestionsAreBlended:]";
+  si_tracing_log_span_begin();
+  v19 = [[SPParsecArchive alloc] initWithQuery:queryCopy withResults:resultsCopy withSuggestions:suggestionsCopy withCorrections:correctionsCopy suggestionsAreBlended:blendedCopy withStore:self->_store];
+  queryString = [queryCopy queryString];
+  v21 = [SPParsecArchive archivePathForQuery:queryString];
+
+  v22 = [[NSKeyedArchiver alloc] initRequiringSecureCoding:1];
+  [v22 encodeObject:v19 forKey:NSKeyedArchiveRootObjectKey];
+  encodedData = [v22 encodedData];
+  [encodedData writeToFile:v21 atomically:1];
+
+  si_tracing_log_span_end();
+  *v15 = v25;
+  *(v15 + 16) = v26;
+  *(v15 + 32) = v27;
+}
+
 - (id)findLocalCopies:(id)copies alternativeResults:(id)results withQueryString:(id)string
 {
   copiesCopy = copies;
@@ -530,19 +543,18 @@ LABEL_42:
   stringCopy = string;
   v7 = si_tracing_current_span();
   v8 = *(v7 + 16);
-  v170 = *v7;
-  v171 = v8;
-  v172 = *(v7 + 32);
-  v123 = v7;
+  v163 = *v7;
+  v164 = v8;
+  v165 = *(v7 + 32);
+  v116 = v7;
   v9 = *v7;
   spanid = si_tracing_calc_next_spanid();
-  v11 = *(v123 + 8);
-  v12 = *(v123 + 24);
-  *v123 = v9;
-  *(v123 + 8) = spanid;
-  *(v123 + 16) = v11;
-  *(v123 + 28) = 102;
-  *(v123 + 32) = "[SPParsecQueryTask findLocalCopies:alternativeResults:withQueryString:]";
+  v11 = *(v116 + 8);
+  *v116 = v9;
+  *(v116 + 8) = spanid;
+  *(v116 + 16) = v11;
+  *(v116 + 28) = 102;
+  *(v116 + 32) = "[SPParsecQueryTask findLocalCopies:alternativeResults:withQueryString:]";
   si_tracing_log_span_begin();
   if (![copiesCopy count])
   {
@@ -550,63 +562,63 @@ LABEL_42:
     goto LABEL_79;
   }
 
-  v139 = objc_opt_new();
-  v141 = objc_opt_new();
-  v140 = objc_opt_new();
-  v119 = objc_opt_new();
-  v168 = 0u;
-  v169 = 0u;
-  v166 = 0u;
-  v167 = 0u;
+  v132 = objc_opt_new();
+  v134 = objc_opt_new();
+  v133 = objc_opt_new();
+  v112 = objc_opt_new();
+  v161 = 0u;
+  v162 = 0u;
+  v159 = 0u;
+  v160 = 0u;
   obj = copiesCopy;
-  v133 = [obj countByEnumeratingWithState:&v166 objects:v179 count:16];
-  if (!v133)
+  v126 = [obj countByEnumeratingWithState:&v159 objects:v172 count:16];
+  if (!v126)
   {
     goto LABEL_22;
   }
 
-  v131 = *v167;
-  v13 = PRSRankingParsecAppBundleString;
+  v124 = *v160;
+  v12 = PRSRankingParsecAppBundleString;
   do
   {
-    for (i = 0; i != v133; i = i + 1)
+    for (i = 0; i != v126; i = i + 1)
     {
-      if (*v167 != v131)
+      if (*v160 != v124)
       {
         objc_enumerationMutation(obj);
       }
 
-      v14 = *(*(&v166 + 1) + 8 * i);
-      v162 = 0u;
-      v163 = 0u;
-      v164 = 0u;
-      v165 = 0u;
-      results = [v14 results];
-      v16 = [results countByEnumeratingWithState:&v162 objects:v178 count:16];
-      if (v16)
+      v13 = *(*(&v159 + 1) + 8 * i);
+      v155 = 0u;
+      v156 = 0u;
+      v157 = 0u;
+      v158 = 0u;
+      results = [v13 results];
+      v15 = [results countByEnumeratingWithState:&v155 objects:v171 count:16];
+      if (v15)
       {
-        v17 = *v163;
+        v16 = *v156;
         do
         {
-          for (j = 0; j != v16; j = j + 1)
+          for (j = 0; j != v15; j = j + 1)
           {
-            if (*v163 != v17)
+            if (*v156 != v16)
             {
               objc_enumerationMutation(results);
             }
 
-            v19 = *(*(&v162 + 1) + 8 * j);
-            sectionBundleIdentifier = [v19 sectionBundleIdentifier];
-            v21 = [sectionBundleIdentifier isEqualToString:v13];
+            v18 = *(*(&v155 + 1) + 8 * j);
+            sectionBundleIdentifier = [v18 sectionBundleIdentifier];
+            v20 = [sectionBundleIdentifier isEqualToString:v12];
 
-            if (v21)
+            if (v20)
             {
-              title = [v19 title];
+              title = [v18 title];
               text = [title text];
-              [v141 addObject:text];
+              [v134 addObject:text];
 
-              applicationBundleIdentifier = [v19 applicationBundleIdentifier];
-              [v140 addObject:applicationBundleIdentifier];
+              applicationBundleIdentifier = [v18 applicationBundleIdentifier];
+              [v133 addObject:applicationBundleIdentifier];
 LABEL_17:
 
               continue;
@@ -614,62 +626,62 @@ LABEL_17:
 
             if (objc_opt_respondsToSelector())
             {
-              storeIdentifier = [v19 storeIdentifier];
-              v26 = storeIdentifier == 0;
+              storeIdentifier = [v18 storeIdentifier];
+              v25 = storeIdentifier == 0;
 
-              if (!v26)
+              if (!v25)
               {
-                applicationBundleIdentifier = [v19 storeIdentifier];
-                [v139 addObject:applicationBundleIdentifier];
+                applicationBundleIdentifier = [v18 storeIdentifier];
+                [v132 addObject:applicationBundleIdentifier];
                 goto LABEL_17;
               }
             }
           }
 
-          v16 = [results countByEnumeratingWithState:&v162 objects:v178 count:16];
+          v15 = [results countByEnumeratingWithState:&v155 objects:v171 count:16];
         }
 
-        while (v16);
+        while (v15);
       }
     }
 
-    v133 = [obj countByEnumeratingWithState:&v166 objects:v179 count:16];
+    v126 = [obj countByEnumeratingWithState:&v159 objects:v172 count:16];
   }
 
-  while (v133);
+  while (v126);
 LABEL_22:
 
-  v160 = 0u;
-  v161 = 0u;
-  v158 = 0u;
-  v159 = 0u;
-  v27 = resultsCopy;
-  v28 = [v27 countByEnumeratingWithState:&v158 objects:v177 count:16];
-  if (v28)
+  v153 = 0u;
+  v154 = 0u;
+  v151 = 0u;
+  v152 = 0u;
+  v26 = resultsCopy;
+  v27 = [v26 countByEnumeratingWithState:&v151 objects:v170 count:16];
+  if (v27)
   {
-    v29 = *v159;
-    v30 = PRSRankingParsecAppBundleString;
+    v28 = *v152;
+    v29 = PRSRankingParsecAppBundleString;
     do
     {
-      for (k = 0; k != v28; k = k + 1)
+      for (k = 0; k != v27; k = k + 1)
       {
-        if (*v159 != v29)
+        if (*v152 != v28)
         {
-          objc_enumerationMutation(v27);
+          objc_enumerationMutation(v26);
         }
 
-        v32 = *(*(&v158 + 1) + 8 * k);
-        sectionBundleIdentifier2 = [v32 sectionBundleIdentifier];
-        v34 = [sectionBundleIdentifier2 isEqualToString:v30];
+        v31 = *(*(&v151 + 1) + 8 * k);
+        sectionBundleIdentifier2 = [v31 sectionBundleIdentifier];
+        v33 = [sectionBundleIdentifier2 isEqualToString:v29];
 
-        if (v34)
+        if (v33)
         {
-          title2 = [v32 title];
+          title2 = [v31 title];
           text2 = [title2 text];
-          [v141 addObject:text2];
+          [v134 addObject:text2];
 
-          applicationBundleIdentifier2 = [v32 applicationBundleIdentifier];
-          [v140 addObject:applicationBundleIdentifier2];
+          applicationBundleIdentifier2 = [v31 applicationBundleIdentifier];
+          [v133 addObject:applicationBundleIdentifier2];
 LABEL_32:
 
           continue;
@@ -677,260 +689,260 @@ LABEL_32:
 
         if (objc_opt_respondsToSelector())
         {
-          storeIdentifier2 = [v32 storeIdentifier];
-          v39 = storeIdentifier2 == 0;
+          storeIdentifier2 = [v31 storeIdentifier];
+          v38 = storeIdentifier2 == 0;
 
-          if (!v39)
+          if (!v38)
           {
-            applicationBundleIdentifier2 = [v32 storeIdentifier];
-            [v139 addObject:applicationBundleIdentifier2];
+            applicationBundleIdentifier2 = [v31 storeIdentifier];
+            [v132 addObject:applicationBundleIdentifier2];
             goto LABEL_32;
           }
         }
       }
 
-      v28 = [v27 countByEnumeratingWithState:&v158 objects:v177 count:16];
+      v27 = [v26 countByEnumeratingWithState:&v151 objects:v170 count:16];
     }
 
-    while (v28);
+    while (v27);
   }
 
-  if ([v139 count] || objc_msgSend(v141, "count"))
+  if ([v132 count] || objc_msgSend(v134, "count"))
   {
-    v118 = sub_10005C424(@"kMDItemAdamID", v139);
-    v116 = sub_10005C424(@"kMDItemDisplayName", v141);
-    v115 = sub_10005C424(@"kMDItemAlternateNames", v141);
-    if (v116 && v115)
+    v111 = sub_10005C424(@"kMDItemAdamID", v132);
+    v109 = sub_10005C424(@"kMDItemDisplayName", v134);
+    v108 = sub_10005C424(@"kMDItemAlternateNames", v134);
+    if (v109 && v108)
     {
-      v115 = [&stru_100094040 stringByAppendingFormat:@"(_kMDItemBundleID = com.apple.application && ((%@) || (%@)))", v116, v115];
-      if (!v118)
+      v108 = [&stru_100094040 stringByAppendingFormat:@"(_kMDItemBundleID = com.apple.application && ((%@) || (%@)))", v109, v108];
+      if (!v111)
       {
-        v43 = v115;
+        v42 = v108;
         goto LABEL_45;
       }
 
-      v41 = v115;
-      v42 = [(__CFString *)v115 stringByAppendingString:@" || "];
+      v40 = v108;
+      v41 = [(__CFString *)v108 stringByAppendingString:@" || "];
 
-      v43 = v42;
+      v42 = v41;
     }
 
     else
     {
-      v43 = &stru_100094040;
-      if (!v118)
+      v42 = &stru_100094040;
+      if (!v111)
       {
 LABEL_45:
-        v120 = v43;
-        if (![(__CFString *)v43 length])
+        v113 = v42;
+        if (![(__CFString *)v42 length])
         {
 
-          v120 = @"false";
+          v113 = @"false";
         }
 
         WeakRetained = objc_loadWeakRetained(&self->_resultPipe);
-        v46 = [WeakRetained hash];
+        v45 = [WeakRetained hash];
 
-        v47 = [PRSRankingItemRanker alloc];
-        v48 = objc_loadWeakRetained(&self->_resultPipe);
-        queryContext = [v48 queryContext];
+        v46 = [PRSRankingItemRanker alloc];
+        v47 = objc_loadWeakRetained(&self->_resultPipe);
+        queryContext = [v47 queryContext];
         keyboardLanguage = [queryContext keyboardLanguage];
-        v51 = objc_loadWeakRetained(&self->_resultPipe);
-        queryContext2 = [v51 queryContext];
+        v50 = objc_loadWeakRetained(&self->_resultPipe);
+        queryContext2 = [v50 queryContext];
         [queryContext2 currentTime];
-        v53 = -v46;
-        v114 = [v47 initWithSearchString:stringCopy queryID:v53 language:keyboardLanguage currentTime:?];
+        v52 = -v45;
+        v107 = [v46 initWithSearchString:stringCopy queryID:v52 language:keyboardLanguage currentTime:?];
 
-        v54 = objc_loadWeakRetained(&self->_resultPipe);
-        queryContext3 = [v54 queryContext];
+        v53 = objc_loadWeakRetained(&self->_resultPipe);
+        queryContext3 = [v53 queryContext];
         queryKind = [queryContext3 queryKind];
-        v57 = objc_loadWeakRetained(&self->_resultPipe);
-        queryContext4 = [v57 queryContext];
+        v56 = objc_loadWeakRetained(&self->_resultPipe);
+        queryContext4 = [v56 queryContext];
         keyboardLanguage2 = [queryContext4 keyboardLanguage];
-        v126 = [v114 rankingConfigurationWithMeContact:0 emailAddresses:0 phoneFavorites:0 vipList:0 clientBundle:PRSRankingSearchBundleString spotlightQuery:v120 userQuery:stringCopy tokenString:0 queryKind:queryKind flags:0 keyboardLanguage:keyboardLanguage2];
+        v119 = [v107 rankingConfigurationWithMeContact:0 emailAddresses:0 phoneFavorites:0 vipList:0 clientBundle:PRSRankingSearchBundleString spotlightQuery:v113 userQuery:stringCopy tokenString:0 queryKind:queryKind flags:0 keyboardLanguage:keyboardLanguage2];
 
-        v122 = objc_alloc_init(CSSearchQueryContext);
-        [v122 setQueryID:v53];
-        v176 = NSFileProtectionCompleteUntilFirstUserAuthentication;
-        v60 = [NSArray arrayWithObjects:&v176 count:1];
-        [v122 setProtectionClasses:v60];
+        v115 = objc_alloc_init(CSSearchQueryContext);
+        [v115 setQueryID:v52];
+        v169 = NSFileProtectionCompleteUntilFirstUserAuthentication;
+        v59 = [NSArray arrayWithObjects:&v169 count:1];
+        [v115 setProtectionClasses:v59];
 
-        [v122 setEntitledAttributes:1];
-        v61 = rankingPrefetchedAttributesArray();
-        [v122 setFetchAttributes:v61];
+        [v115 setEntitledAttributes:1];
+        v60 = rankingPrefetchedAttributesArray();
+        [v115 setFetchAttributes:v60];
 
-        rankingQueries = [v126 rankingQueries];
-        [v122 setRankingQueries:rankingQueries];
+        rankingQueries = [v119 rankingQueries];
+        [v115 setRankingQueries:rankingQueries];
 
-        v63 = objc_loadWeakRetained(&self->_resultPipe);
-        queryContext5 = [v63 queryContext];
+        v62 = objc_loadWeakRetained(&self->_resultPipe);
+        queryContext5 = [v62 queryContext];
         [queryContext5 currentTime];
-        v66 = v65;
+        v65 = v64;
 
         if (qword_1000A8910 != -1)
         {
           sub_1000639D0();
         }
 
-        v67 = [[NSMapTable alloc] initWithKeyOptions:66307 valueOptions:0 capacity:256];
-        fetchAttributes = [v122 fetchAttributes];
-        v68 = [fetchAttributes count];
-        v155[0] = _NSConcreteStackBlock;
-        v155[1] = 3221225472;
-        v155[2] = sub_10005C658;
-        v155[3] = &unk_100093C18;
-        v157 = v66;
-        v69 = v67;
-        v156 = v69;
-        v113 = objc_retainBlock(v155);
-        v70 = dispatch_group_create();
-        dispatch_group_enter(v70);
-        v71 = objc_alloc_init(NSMutableIndexSet);
-        v72 = objc_opt_new();
+        v66 = [[NSMapTable alloc] initWithKeyOptions:66307 valueOptions:0 capacity:256];
+        fetchAttributes = [v115 fetchAttributes];
+        v67 = [fetchAttributes count];
+        v148[0] = _NSConcreteStackBlock;
+        v148[1] = 3221225472;
+        v148[2] = sub_10005C658;
+        v148[3] = &unk_100093C18;
+        v150 = v65;
+        v68 = v66;
+        v149 = v68;
+        v106 = objc_retainBlock(v148);
+        v69 = dispatch_group_create();
+        dispatch_group_enter(v69);
+        v70 = objc_alloc_init(NSMutableIndexSet);
+        v71 = objc_opt_new();
         Current = CFAbsoluteTimeGetCurrent();
-        if (v68)
+        if (v67)
         {
-          for (m = 0; m != v68; ++m)
+          for (m = 0; m != v67; ++m)
           {
-            requiredAttributes = [v126 requiredAttributes];
-            v76 = [fetchAttributes objectAtIndexedSubscript:m];
-            v77 = [requiredAttributes containsObject:v76];
+            requiredAttributes = [v119 requiredAttributes];
+            v75 = [fetchAttributes objectAtIndexedSubscript:m];
+            v76 = [requiredAttributes containsObject:v75];
 
-            if (v77)
+            if (v76)
             {
-              [v71 addIndex:m];
+              [v70 addIndex:m];
             }
           }
         }
 
-        v146[0] = _NSConcreteStackBlock;
-        v146[1] = 3221225472;
-        v146[2] = sub_10005D244;
-        v146[3] = &unk_100093C80;
-        v108 = v69;
-        v147 = v108;
-        v153 = v68;
-        v109 = v71;
-        v148 = v109;
-        v149 = v140;
-        v150 = v119;
-        v111 = v72;
-        v151 = v111;
-        group = v70;
-        v152 = group;
-        v154 = Current;
-        v112 = objc_retainBlock(v146);
-        v78 = +[SPCoreSpotlightIndexer sharedInstance];
-        v117 = [v78 taskForTopHitQueryWithQueryString:v120 queryContext:v122 eventHandler:v113 resultsHandler:&stru_100093C58 completionHandler:v112];
+        v139[0] = _NSConcreteStackBlock;
+        v139[1] = 3221225472;
+        v139[2] = sub_10005D244;
+        v139[3] = &unk_100093C80;
+        v101 = v68;
+        v140 = v101;
+        v146 = v67;
+        v102 = v70;
+        v141 = v102;
+        v142 = v133;
+        v143 = v112;
+        v104 = v71;
+        v144 = v104;
+        group = v69;
+        v145 = group;
+        v147 = Current;
+        v105 = objc_retainBlock(v139);
+        v77 = +[SPCoreSpotlightIndexer sharedInstance];
+        v110 = [v77 taskForTopHitQueryWithQueryString:v113 queryContext:v115 eventHandler:v106 resultsHandler:&stru_100093C58 completionHandler:v105];
 
-        if (v117)
+        if (v110)
         {
-          v79 = +[SPCoreSpotlightIndexer sharedInstance];
-          [v79 startQueryTask:v117];
+          v78 = +[SPCoreSpotlightIndexer sharedInstance];
+          [v78 startQueryTask:v110];
 
-          v80 = group;
+          v79 = group;
         }
 
         else
         {
-          v80 = group;
+          v79 = group;
           dispatch_group_leave(group);
         }
 
-        v81 = dispatch_time(0, 500000000);
-        dispatch_group_wait(v80, v81);
-        allValues = [v111 allValues];
+        v80 = dispatch_time(0, 500000000);
+        dispatch_group_wait(v79, v80);
+        allValues = [v104 allValues];
         for (obja = 0; [allValues count] > obja; ++obja)
         {
-          v128 = [allValues objectAtIndexedSubscript:?];
-          results2 = [v128 results];
-          v83 = [results2 copy];
+          v121 = [allValues objectAtIndexedSubscript:?];
+          results2 = [v121 results];
+          v82 = [results2 copy];
 
-          v134 = [[NSMutableArray alloc] initWithCapacity:{objc_msgSend(v83, "count")}];
-          v144 = 0u;
-          v145 = 0u;
-          v142 = 0u;
-          v143 = 0u;
-          v132 = v83;
-          v84 = [v132 countByEnumeratingWithState:&v142 objects:v175 count:16];
-          if (v84)
+          v127 = [[NSMutableArray alloc] initWithCapacity:{objc_msgSend(v82, "count")}];
+          v137 = 0u;
+          v138 = 0u;
+          v135 = 0u;
+          v136 = 0u;
+          v125 = v82;
+          v83 = [v125 countByEnumeratingWithState:&v135 objects:v168 count:16];
+          if (v83)
           {
-            v138 = *v143;
+            v131 = *v136;
             do
             {
-              for (n = 0; n != v84; n = n + 1)
+              for (n = 0; n != v83; n = n + 1)
               {
-                if (*v143 != v138)
+                if (*v136 != v131)
                 {
-                  objc_enumerationMutation(v132);
+                  objc_enumerationMutation(v125);
                 }
 
-                v86 = *(*(&v142 + 1) + 8 * n);
-                v87 = objc_loadWeakRetained(&self->_resultPipe);
-                queryContext6 = [v87 queryContext];
-                v89 = [v86 resultWithTime:stringCopy searchString:0 isCorrectedQuery:queryContext6 withQueryContext:v66];
+                v85 = *(*(&v135 + 1) + 8 * n);
+                v86 = objc_loadWeakRetained(&self->_resultPipe);
+                queryContext6 = [v86 queryContext];
+                v88 = [v85 resultWithTime:stringCopy searchString:0 isCorrectedQuery:queryContext6 withQueryContext:v65];
 
-                if (v89)
+                if (v88)
                 {
-                  [v89 setType:26];
-                  rankingItem = [v86 rankingItem];
+                  [v88 setType:26];
+                  rankingItem = [v85 rankingItem];
                   l2FeatureVector = [rankingItem L2FeatureVector];
                   if (l2FeatureVector)
                   {
-                    v92 = v86 == 0;
+                    v91 = v85 == 0;
                   }
 
                   else
                   {
-                    v92 = 1;
+                    v91 = 1;
                   }
 
-                  v93 = !v92;
+                  v92 = !v91;
 
-                  if (v93)
+                  if (v92)
                   {
-                    v173[0] = @"score";
+                    v166[0] = @"score";
                     [rankingItem score];
-                    v94 = [NSNumber numberWithFloat:?];
-                    v174[0] = v94;
-                    v173[1] = @"raw score";
+                    v93 = [NSNumber numberWithFloat:?];
+                    v167[0] = v93;
+                    v166[1] = @"raw score";
                     [rankingItem rawScore];
-                    v95 = [NSNumber numberWithFloat:?];
-                    v174[1] = v95;
-                    v173[2] = @"original score";
+                    v94 = [NSNumber numberWithFloat:?];
+                    v167[1] = v94;
+                    v166[2] = @"original score";
                     l2FeatureVector2 = [rankingItem L2FeatureVector];
                     [l2FeatureVector2 originalL2Score];
-                    v97 = [NSNumber numberWithFloat:?];
-                    v174[2] = v97;
-                    v98 = [NSDictionary dictionaryWithObjects:v174 forKeys:v173 count:3];
-                    [v89 setLocalFeatures:v98];
+                    v96 = [NSNumber numberWithFloat:?];
+                    v167[2] = v96;
+                    v97 = [NSDictionary dictionaryWithObjects:v167 forKeys:v166 count:3];
+                    [v88 setLocalFeatures:v97];
                   }
 
-                  [v134 addObject:v89];
-                  rankingItem2 = [v86 rankingItem];
+                  [v127 addObject:v88];
+                  rankingItem2 = [v85 rankingItem];
                   [rankingItem2 score];
-                  [v89 setL2score:?];
+                  [v88 setL2score:?];
                 }
 
-                [v86 clearClientData];
+                [v85 clearClientData];
               }
 
-              v84 = [v132 countByEnumeratingWithState:&v142 objects:v175 count:16];
+              v83 = [v125 countByEnumeratingWithState:&v135 objects:v168 count:16];
             }
 
-            while (v84);
+            while (v83);
           }
 
-          [v128 setResults:v134];
+          [v121 setResults:v127];
         }
 
         goto LABEL_78;
       }
     }
 
-    v118 = [(__CFString *)v43 stringByAppendingFormat:@"(%@)", v118];
+    v111 = [(__CFString *)v42 stringByAppendingFormat:@"(%@)", v111];
 
-    v43 = v118;
+    v42 = v111;
     goto LABEL_45;
   }
 
@@ -938,19 +950,447 @@ LABEL_45:
 LABEL_78:
 
 LABEL_79:
-  v100 = *v123;
-  v101 = *(v123 + 8);
-  v102 = *(v123 + 16);
-  v103 = *(v123 + 24);
-  v104 = *(v123 + 28);
-  v105 = *(v123 + 32);
   si_tracing_log_span_end();
-  v106 = v171;
-  *v123 = v170;
-  *(v123 + 16) = v106;
-  *(v123 + 32) = v172;
+  v99 = v164;
+  *v116 = v163;
+  *(v116 + 16) = v99;
+  *(v116 + 32) = v165;
 
   return allValues;
+}
+
+- (void)query:(id)query didFinishWithResults:(id)results withSuggestions:(id)suggestions withCorrections:(id)corrections withAlternativeResults:(id)alternativeResults suggestionsAreBlended:(BOOL)blended
+{
+  blendedCopy = blended;
+  queryCopy = query;
+  resultsCopy = results;
+  suggestionsCopy = suggestions;
+  correctionsCopy = corrections;
+  alternativeResultsCopy = alternativeResults;
+  if (byte_1000A8928 == 1)
+  {
+    [(SPParsecQueryTask *)self archiveWithQuery:queryCopy didFinishWithResults:resultsCopy withSuggestions:suggestionsCopy withCorrections:correctionsCopy suggestionsAreBlended:blendedCopy];
+  }
+
+  v105 = blendedCopy;
+  selfCopy = self;
+  v106 = correctionsCopy;
+  v121 = objc_opt_new();
+  v133 = objc_opt_new();
+  v117 = SSEnableSpotlightTopHitPersonalizedRanking();
+  v147 = 0u;
+  v148 = 0u;
+  v149 = 0u;
+  v150 = 0u;
+  obj = resultsCopy;
+  v17 = &MDItemContentModificationDate_ptr;
+  v129 = [obj countByEnumeratingWithState:&v147 objects:v156 count:16];
+  if (v129)
+  {
+    v127 = *v148;
+    v125 = SSSectionIdentifierSuggestions;
+    v131 = SSSectionIdentifierServerRelatedSuggestions;
+    v116 = SSSectionIdentifierWebIndex;
+    v113 = SSSectionIdentifierKG;
+    v114 = SSSectionIdentifierMaps;
+    v112 = SSSectionIdentifierStocks;
+    v111 = SSSectionIdentifierSports;
+    v110 = SSSectionIdentifierMovies;
+    v104 = SSSectionIdentifierParsecDictionary;
+    v103 = SSSectionIdentifierParsecWeather;
+    do
+    {
+      v18 = 0;
+      do
+      {
+        if (*v148 != v127)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        v19 = *(*(&v147 + 1) + 8 * v18);
+        bundleIdentifier = [v19 bundleIdentifier];
+        v21 = [bundleIdentifier isEqualToString:v125];
+
+        if (v21)
+        {
+          v145 = 0u;
+          v146 = 0u;
+          v143 = 0u;
+          v144 = 0u;
+          results = [v19 results];
+          v23 = [results countByEnumeratingWithState:&v143 objects:v155 count:16];
+          if (v23)
+          {
+            v24 = v23;
+            v25 = *v144;
+            do
+            {
+              for (i = 0; i != v24; i = i + 1)
+              {
+                if (*v144 != v25)
+                {
+                  objc_enumerationMutation(results);
+                }
+
+                v27 = *(*(&v143 + 1) + 8 * i);
+                queryContext = [queryCopy queryContext];
+                v29 = [SSSuggestionResultBuilder buildResultWithResult:v27 queryContext:queryContext];
+
+                [v133 addObject:v29];
+              }
+
+              v24 = [results countByEnumeratingWithState:&v143 objects:v155 count:16];
+            }
+
+            while (v24);
+          }
+
+          v17 = &MDItemContentModificationDate_ptr;
+          goto LABEL_54;
+        }
+
+        bundleIdentifier2 = [v19 bundleIdentifier];
+        v31 = [bundleIdentifier2 isEqualToString:v131];
+
+        if (v31)
+        {
+          v122 = v18;
+          v118 = [objc_alloc(v17[317]) initWithResultSection:v19];
+          v32 = objc_opt_new();
+          v139 = 0u;
+          v140 = 0u;
+          v141 = 0u;
+          v142 = 0u;
+          results2 = [v19 results];
+          v34 = [results2 countByEnumeratingWithState:&v139 objects:v154 count:16];
+          if (v34)
+          {
+            v35 = v34;
+            v36 = *v140;
+            do
+            {
+              for (j = 0; j != v35; j = j + 1)
+              {
+                if (*v140 != v36)
+                {
+                  objc_enumerationMutation(results2);
+                }
+
+                v38 = *(*(&v139 + 1) + 8 * j);
+                queryContext2 = [queryCopy queryContext];
+                v40 = [SSSuggestionResultBuilder buildResultWithResult:v38 queryContext:queryContext2];
+
+                [v40 setSectionBundleIdentifier:v131];
+                [v32 addObject:v40];
+              }
+
+              v35 = [results2 countByEnumeratingWithState:&v139 objects:v154 count:16];
+            }
+
+            while (v35);
+          }
+
+          [v118 setResults:v32];
+          [v121 addObject:v118];
+
+          v17 = &MDItemContentModificationDate_ptr;
+          v18 = v122;
+          goto LABEL_54;
+        }
+
+        bundleIdentifier3 = [v19 bundleIdentifier];
+        if (([bundleIdentifier3 isEqualToString:v116] & 1) == 0)
+        {
+          bundleIdentifier4 = [v19 bundleIdentifier];
+          if (([bundleIdentifier4 isEqualToString:v113] & 1) == 0)
+          {
+            bundleIdentifier5 = [v19 bundleIdentifier];
+            if (([bundleIdentifier5 isEqualToString:v114] & 1) == 0)
+            {
+              v123 = v18;
+              bundleIdentifier6 = [v19 bundleIdentifier];
+              if (([bundleIdentifier6 isEqualToString:v112] & 1) == 0)
+              {
+                bundleIdentifier7 = [v19 bundleIdentifier];
+                if (([bundleIdentifier7 isEqualToString:v111] & 1) == 0)
+                {
+                  bundleIdentifier8 = [v19 bundleIdentifier];
+                  if (([bundleIdentifier8 isEqualToString:v110] & 1) == 0)
+                  {
+                    v119 = bundleIdentifier8;
+                    bundleIdentifier9 = [v19 bundleIdentifier];
+                    if (([bundleIdentifier9 hasPrefix:@"com.apple.parsec.itunes."] & 1) == 0)
+                    {
+                      v108 = bundleIdentifier9;
+                      bundleIdentifier10 = [v19 bundleIdentifier];
+                      if (([bundleIdentifier10 isEqualToString:v104] & 1) == 0)
+                      {
+                        [v19 bundleIdentifier];
+                        v63 = v101 = bundleIdentifier7;
+                        v102 = [v63 isEqualToString:v103];
+
+                        v18 = v123;
+                        if ((v102 & 1) == 0)
+                        {
+                          [v121 addObject:v19];
+                          goto LABEL_54;
+                        }
+
+                        goto LABEL_42;
+                      }
+
+                      bundleIdentifier9 = v108;
+                    }
+
+                    bundleIdentifier8 = v119;
+                  }
+                }
+              }
+
+              v18 = v123;
+            }
+          }
+        }
+
+LABEL_42:
+        v49 = [objc_alloc(v17[317]) initWithResultSection:v19];
+        if (_os_feature_enabled_impl())
+        {
+          bundleIdentifier11 = [v19 bundleIdentifier];
+          if (![bundleIdentifier11 isEqualToString:v114])
+          {
+            goto LABEL_48;
+          }
+
+          mapsParsecRanker = [(SPParsecDatastore *)selfCopy->_store mapsParsecRanker];
+
+          if (mapsParsecRanker)
+          {
+            v52 = SPLogForSPLogCategoryDefault();
+            if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
+            {
+              *buf = 0;
+              _os_log_impl(&_mh_execute_header, v52, OS_LOG_TYPE_DEFAULT, "Geo personalization enabled, reranking geo results with local signals", buf, 2u);
+            }
+
+            bundleIdentifier11 = [v19 results];
+            v53 = -[SPParsecQueryTask rerankMapsResultsWithLocalSignals:forQueryId:](selfCopy, "rerankMapsResultsWithLocalSignals:forQueryId:", bundleIdentifier11, [queryCopy queryIdent]);
+            [v49 setResults:v53];
+
+LABEL_48:
+          }
+        }
+
+        v54 = v121;
+        if (v117)
+        {
+          v124 = v18;
+          v55 = SPLogForSPLogCategoryDefault();
+          if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
+          {
+            bundleIdentifier12 = [v49 bundleIdentifier];
+            *buf = 138412290;
+            v153 = bundleIdentifier12;
+            _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_DEFAULT, "TopHit nomination for server results based on local engagement and personalization signals. Server section: %@", buf, 0xCu);
+          }
+
+          queryString = [queryCopy queryString];
+          resultPipe = [(SPParsecQueryTask *)selfCopy resultPipe];
+          queryContext3 = [resultPipe queryContext];
+          keyboardLanguage = [queryContext3 keyboardLanguage];
+          queryContext4 = [queryCopy queryContext];
+          [queryContext4 currentTime];
+          v62 = [SSRankingManager nominateServerTopHitForSection:v49 queryString:queryString language:keyboardLanguage currentTime:?];
+          [v49 setResults:v62];
+
+          v54 = v121;
+          v18 = v124;
+        }
+
+        [v54 addObject:v49];
+
+LABEL_54:
+        v18 = v18 + 1;
+      }
+
+      while (v18 != v129);
+      v64 = [obj countByEnumeratingWithState:&v147 objects:v156 count:16];
+      v129 = v64;
+    }
+
+    while (v64);
+  }
+
+  queryString2 = [queryCopy queryString];
+  v66 = [(SPParsecQueryTask *)selfCopy findLocalCopies:v121 alternativeResults:alternativeResultsCopy withQueryString:queryString2];
+
+  v126 = v66;
+  if ([v66 count])
+  {
+    v67 = [v121 arrayByAddingObjectsFromArray:v66];
+  }
+
+  else
+  {
+    v67 = v121;
+  }
+
+  v68 = v67;
+
+  v132 = +[NSMutableArray array];
+  v69 = objc_opt_new();
+  v135 = 0u;
+  v136 = 0u;
+  v137 = 0u;
+  v138 = 0u;
+  v130 = v68;
+  v70 = [v130 countByEnumeratingWithState:&v135 objects:v151 count:16];
+  v128 = v69;
+  if (v70)
+  {
+    v71 = v70;
+    v72 = *v136;
+    do
+    {
+      for (k = 0; k != v71; k = k + 1)
+      {
+        if (*v136 != v72)
+        {
+          objc_enumerationMutation(v130);
+        }
+
+        v74 = *(*(&v135 + 1) + 8 * k);
+        v75 = [objc_alloc(v17[317]) initWithResultSection:v74];
+        [v75 setSource:2];
+        [v132 addObject:v75];
+        bundleIdentifier13 = [v74 bundleIdentifier];
+
+        if (bundleIdentifier13)
+        {
+          bundleIdentifier14 = [v74 bundleIdentifier];
+          if (!bundleIdentifier14)
+          {
+            goto LABEL_73;
+          }
+
+LABEL_69:
+          [v74 setBundleIdentifier:bundleIdentifier14];
+          [v69 addObject:bundleIdentifier14];
+
+          goto LABEL_73;
+        }
+
+        results3 = [v74 results];
+        if (results3)
+        {
+          v79 = results3;
+          results4 = [v74 results];
+          v81 = [results4 count];
+
+          v69 = v128;
+          if (v81)
+          {
+            results5 = [v74 results];
+            v83 = [results5 objectAtIndex:0];
+            bundleIdentifier14 = [v83 sectionBundleIdentifier];
+
+            v69 = v128;
+            if (bundleIdentifier14)
+            {
+              goto LABEL_69;
+            }
+          }
+        }
+
+LABEL_73:
+      }
+
+      v71 = [v130 countByEnumeratingWithState:&v135 objects:v151 count:16];
+    }
+
+    while (v71);
+  }
+
+  v84 = selfCopy;
+  if (![v132 count] && !objc_msgSend(suggestionsCopy, "count"))
+  {
+    WeakRetained = objc_loadWeakRetained(&selfCopy->_resultPipe);
+    sub_100017E38(WeakRetained, "finish_zero", "parsec", selfCopy->_startTime);
+
+    v69 = v128;
+  }
+
+  if (suggestionsCopy)
+  {
+    v86 = SPLogForSPLogCategoryDefault();
+    v87 = v86;
+    if (gSPLogDebugAsDefault)
+    {
+      v88 = OS_LOG_TYPE_DEFAULT;
+    }
+
+    else
+    {
+      v88 = OS_LOG_TYPE_DEBUG;
+    }
+
+    if (os_log_type_enabled(v86, v88))
+    {
+      *buf = 138412290;
+      v153 = suggestionsCopy;
+      _os_log_impl(&_mh_execute_header, v87, v88, "Received suggestions: %@", buf, 0xCu);
+    }
+
+    v84 = selfCopy;
+  }
+
+  resultPipe2 = [(SPParsecQueryTask *)v84 resultPipe];
+  disabledBundles = [resultPipe2 disabledBundles];
+  if ([disabledBundles count])
+  {
+    disabledBundles2 = [resultPipe2 disabledBundles];
+    v69 = v128;
+    v92 = [NSSet setWithArray:disabledBundles2];
+  }
+
+  else
+  {
+    v92 = 0;
+  }
+
+  if (!selfCopy->_canceled)
+  {
+    v93 = PRSLogCategoryDefault();
+    if (os_log_type_enabled(v93, OS_LOG_TYPE_DEBUG))
+    {
+      sub_100063C40(queryCopy);
+    }
+
+    category_stats = [queryCopy category_stats];
+    [(SPParsecQueryTask *)selfCopy setCategory_stats:category_stats];
+
+    server_features = [queryCopy server_features];
+    [(SPParsecQueryTask *)selfCopy setServer_features:server_features];
+
+    v69 = v128;
+  }
+
+  v96 = v69;
+  if ([v69 count])
+  {
+    v97 = [v69 copy];
+    [(SPParsecQueryTask *)selfCopy setParsecResultsCategoryOrder:v97];
+  }
+
+  [(SPParsecQueryTask *)selfCopy setQuerySuggestionResults:v133];
+  selfCopy->_suggestionsAreBlended = v105;
+  v134 = v92;
+  v98 = queryCopy;
+  v99 = v92;
+  v100 = v132;
+  tracing_dispatch_async();
+  [resultPipe2 addQueryCorrections:v106];
 }
 
 - (id)rerankMapsResultsWithLocalSignals:(id)signals forQueryId:(int64_t)id

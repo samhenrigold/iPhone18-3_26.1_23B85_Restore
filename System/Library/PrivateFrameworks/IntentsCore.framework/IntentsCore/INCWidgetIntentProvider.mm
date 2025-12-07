@@ -10,7 +10,7 @@
 
 - (id)intentsExtensionForExtension:(id)extension compatibleWithIntent:(id)intent error:(id *)error
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   extensionCopy = extension;
   intentCopy = intent;
   compatibilityObject = [extensionCopy compatibilityObject];
@@ -26,33 +26,33 @@
 
     if (v17)
     {
-      v38 = uRLByDeletingLastPathComponent;
-      v39 = extensionCopy;
-      v46 = 0u;
-      v47 = 0u;
-      v44 = 0u;
+      v37 = uRLByDeletingLastPathComponent;
+      v38 = extensionCopy;
       v45 = 0u;
-      v37 = v17;
+      v46 = 0u;
+      v43 = 0u;
+      v44 = 0u;
+      v36 = v17;
       obj = v17;
-      v18 = [obj countByEnumeratingWithState:&v44 objects:v48 count:16];
+      v18 = [obj countByEnumeratingWithState:&v43 objects:v47 count:16];
       if (v18)
       {
         v19 = v18;
-        v20 = *v45;
-        v43 = *MEMORY[0x277CD3858];
-        v41 = *MEMORY[0x277CD3828];
+        v20 = *v44;
+        v42 = *MEMORY[0x277CD3858];
+        v40 = *MEMORY[0x277CD3828];
         do
         {
           v21 = 0;
           v22 = intentCopy;
           do
           {
-            if (*v45 != v20)
+            if (*v44 != v20)
             {
               objc_enumerationMutation(obj);
             }
 
-            v23 = *(*(&v44 + 1) + 8 * v21);
+            v23 = *(*(&v43 + 1) + 8 * v21);
             v24 = objc_autoreleasePoolPush();
             v25 = [objc_alloc(MEMORY[0x277CC1E50]) initWithURL:v23 error:0];
             if (!v25)
@@ -63,7 +63,7 @@
             v26 = v25;
             extensionPointRecord = [v25 extensionPointRecord];
             identifier = [extensionPointRecord identifier];
-            v29 = [identifier isEqualToString:v43];
+            v29 = [identifier isEqualToString:v42];
 
             if ((v29 & 1) == 0)
             {
@@ -79,11 +79,11 @@ LABEL_18:
 
             infoDictionary = [v26 infoDictionary];
             if_extensionAttributesDictionary = [v26 if_extensionAttributesDictionary];
-            v33 = [if_extensionAttributesDictionary objectForKeyedSubscript:v41];
+            v33 = [if_extensionAttributesDictionary objectForKeyedSubscript:v40];
 
-            if (v33 && (objc_opt_class(), (objc_opt_isKindOfClass()) || (v33, [infoDictionary objectForKey:v41 ofClass:objc_opt_class()], (v33 = objc_claimAutoreleasedReturnValue()) != 0)) && objc_msgSend(v33, "containsObject:", intentCopy))
+            if (v33 && (objc_opt_class(), (objc_opt_isKindOfClass()) || (v33, [infoDictionary objectForKey:v40 ofClass:objc_opt_class()], (v33 = objc_claimAutoreleasedReturnValue()) != 0)) && objc_msgSend(v33, "containsObject:", intentCopy))
             {
-              v40 = v26;
+              v39 = v26;
               v34 = 0;
             }
 
@@ -104,19 +104,19 @@ LABEL_21:
           }
 
           while (v19 != v21);
-          v19 = [obj countByEnumeratingWithState:&v44 objects:v48 count:16];
+          v19 = [obj countByEnumeratingWithState:&v43 objects:v47 count:16];
         }
 
         while (v19);
       }
 
-      v40 = 0;
+      v39 = 0;
 LABEL_24:
 
-      uRLByDeletingLastPathComponent = v38;
-      extensionCopy = v39;
-      v17 = v37;
-      v13 = v40;
+      uRLByDeletingLastPathComponent = v37;
+      extensionCopy = v38;
+      v17 = v36;
+      v13 = v39;
     }
 
     else
@@ -125,22 +125,20 @@ LABEL_24:
     }
   }
 
-  v35 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
 - (void)_provideAppIntentWithOptions:(id)options completionHandler:(id)handler
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   handlerCopy = handler;
   dispatch_assert_queue_not_V2(MEMORY[0x277D85CD0]);
   v6 = objc_alloc(MEMORY[0x277CC1E50]);
   extensionBundleIdentifier = [optionsCopy extensionBundleIdentifier];
-  v43 = 0;
-  v8 = [v6 initWithBundleIdentifier:extensionBundleIdentifier error:&v43];
-  v34 = v43;
+  v42 = 0;
+  v8 = [v6 initWithBundleIdentifier:extensionBundleIdentifier error:&v42];
+  v33 = v42;
 
   if (v8)
   {
@@ -164,9 +162,9 @@ LABEL_24:
       v10 = 0;
     }
 
-    v33 = v10;
+    v32 = v10;
 
-    bundleIdentifier = [v33 bundleIdentifier];
+    bundleIdentifier = [v32 bundleIdentifier];
     v13 = bundleIdentifier;
     if (bundleIdentifier)
     {
@@ -197,59 +195,59 @@ LABEL_16:
     v18 = [intentType componentsSeparatedByString:@":"];
     lastObject = [v18 lastObject];
 
-    v44 = 0;
-    v45 = &v44;
-    v46 = 0x2050000000;
+    v43 = 0;
+    v44 = &v43;
+    v45 = 0x2050000000;
     v20 = getLNFullyQualifiedActionIdentifierClass_softClass;
-    v47 = getLNFullyQualifiedActionIdentifierClass_softClass;
+    v46 = getLNFullyQualifiedActionIdentifierClass_softClass;
     if (!getLNFullyQualifiedActionIdentifierClass_softClass)
     {
       *buf = MEMORY[0x277D85DD0];
       *&buf[8] = 3221225472;
       *&buf[16] = __getLNFullyQualifiedActionIdentifierClass_block_invoke;
-      v49 = &unk_2797E8190;
-      v50 = &v44;
+      v48 = &unk_2797E8190;
+      v49 = &v43;
       __getLNFullyQualifiedActionIdentifierClass_block_invoke(buf);
-      v20 = v45[3];
+      v20 = v44[3];
     }
 
     v21 = v20;
-    _Block_object_dispose(&v44, 8);
+    _Block_object_dispose(&v43, 8);
     v22 = [[v20 alloc] initWithActionIdentifier:lastObject bundleIdentifier:v16];
-    v44 = 0;
-    v45 = &v44;
-    v46 = 0x2050000000;
+    v43 = 0;
+    v44 = &v43;
+    v45 = 0x2050000000;
     v23 = getLNActionDefaultValueProviderClass_softClass;
-    v47 = getLNActionDefaultValueProviderClass_softClass;
+    v46 = getLNActionDefaultValueProviderClass_softClass;
     if (!getLNActionDefaultValueProviderClass_softClass)
     {
       *buf = MEMORY[0x277D85DD0];
       *&buf[8] = 3221225472;
       *&buf[16] = __getLNActionDefaultValueProviderClass_block_invoke;
-      v49 = &unk_2797E8190;
-      v50 = &v44;
+      v48 = &unk_2797E8190;
+      v49 = &v43;
       __getLNActionDefaultValueProviderClass_block_invoke(buf);
-      v23 = v45[3];
+      v23 = v44[3];
     }
 
     v24 = v23;
-    _Block_object_dispose(&v44, 8);
+    _Block_object_dispose(&v43, 8);
     v25 = [[v23 alloc] initWithActionIdentifier:v22 actionMetadata:0];
-    v36[0] = MEMORY[0x277D85DD0];
-    v36[1] = 3221225472;
-    v36[2] = __74__INCWidgetIntentProvider__provideAppIntentWithOptions_completionHandler___block_invoke;
-    v36[3] = &unk_2797E8168;
-    v37 = v22;
-    v38 = v25;
-    v39 = lastObject;
-    v42 = handlerCopy;
-    v40 = v16;
-    v41 = optionsCopy;
+    v35[0] = MEMORY[0x277D85DD0];
+    v35[1] = 3221225472;
+    v35[2] = __74__INCWidgetIntentProvider__provideAppIntentWithOptions_completionHandler___block_invoke;
+    v35[3] = &unk_2797E8168;
+    v36 = v22;
+    v37 = v25;
+    v38 = lastObject;
+    v41 = handlerCopy;
+    v39 = v16;
+    v40 = optionsCopy;
     v26 = v16;
     v27 = lastObject;
     v28 = v25;
     v29 = v22;
-    [v28 loadDefaultValuesWithCompletionHandler:v36];
+    [v28 loadDefaultValuesWithCompletionHandler:v35];
 
     goto LABEL_21;
   }
@@ -257,21 +255,19 @@ LABEL_16:
   v11 = *MEMORY[0x277CD38C8];
   if (os_log_type_enabled(*MEMORY[0x277CD38C8], OS_LOG_TYPE_ERROR))
   {
-    v31 = v11;
+    v30 = v11;
     extensionBundleIdentifier2 = [optionsCopy extensionBundleIdentifier];
     *buf = 136315650;
     *&buf[4] = "[INCWidgetIntentProvider _provideAppIntentWithOptions:completionHandler:]";
     *&buf[12] = 2114;
     *&buf[14] = extensionBundleIdentifier2;
     *&buf[22] = 2114;
-    v49 = v34;
-    _os_log_error_impl(&dword_255503000, v31, OS_LOG_TYPE_ERROR, "%s No chrono extension found with identifier: %{public}@. Error: %{public}@", buf, 0x20u);
+    v48 = v33;
+    _os_log_error_impl(&dword_255503000, v30, OS_LOG_TYPE_ERROR, "%s No chrono extension found with identifier: %{public}@. Error: %{public}@", buf, 0x20u);
   }
 
-  (*(handlerCopy + 2))(handlerCopy, 0, v34);
+  (*(handlerCopy + 2))(handlerCopy, 0, v33);
 LABEL_21:
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void __74__INCWidgetIntentProvider__provideAppIntentWithOptions_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -281,7 +277,7 @@ void __74__INCWidgetIntentProvider__provideAppIntentWithOptions_completionHandle
   v6 = a3;
   if (v5)
   {
-    if (WorkflowKitLibraryCore() && getWFLinkActionSerializedParametersForLNActionSymbolLoc())
+    if (WorkflowKitLibraryCore(0) && getWFLinkActionSerializedParametersForLNActionSymbolLoc())
     {
       v7 = [*(a1 + 40) actionMetadata];
       v8 = v5;
@@ -289,8 +285,8 @@ void __74__INCWidgetIntentProvider__provideAppIntentWithOptions_completionHandle
       WFLinkActionSerializedParametersForLNActionSymbolLoc = getWFLinkActionSerializedParametersForLNActionSymbolLoc();
       if (!WFLinkActionSerializedParametersForLNActionSymbolLoc)
       {
-        dlerror();
-        abort_report_np();
+        v21 = dlerror();
+        abort_report_np("%s", v21);
       }
 
       v11 = WFLinkActionSerializedParametersForLNActionSymbolLoc(v8, v9);
@@ -320,11 +316,11 @@ void __74__INCWidgetIntentProvider__provideAppIntentWithOptions_completionHandle
       v16 = *MEMORY[0x277CD38C8];
       if (os_log_type_enabled(*MEMORY[0x277CD38C8], OS_LOG_TYPE_FAULT))
       {
-        v20 = *(a1 + 32);
+        v19 = *(a1 + 32);
         *buf = 136315394;
         v23 = "[INCWidgetIntentProvider _provideAppIntentWithOptions:completionHandler:]_block_invoke";
         v24 = 2112;
-        v25 = v20;
+        v25 = v19;
         _os_log_fault_impl(&dword_255503000, v16, OS_LOG_TYPE_FAULT, "%s Failed to load serialization method - %@", buf, 0x16u);
       }
 
@@ -339,11 +335,11 @@ void __74__INCWidgetIntentProvider__provideAppIntentWithOptions_completionHandle
     v18 = *MEMORY[0x277CD38C8];
     if (os_log_type_enabled(*MEMORY[0x277CD38C8], OS_LOG_TYPE_ERROR))
     {
-      v21 = *(a1 + 32);
+      v20 = *(a1 + 32);
       *buf = 136315650;
       v23 = "[INCWidgetIntentProvider _provideAppIntentWithOptions:completionHandler:]_block_invoke";
       v24 = 2112;
-      v25 = v21;
+      v25 = v20;
       v26 = 2112;
       v27 = v6;
       _os_log_error_impl(&dword_255503000, v18, OS_LOG_TYPE_ERROR, "%s Failed to load default values for %@ widget intent: %@", buf, 0x20u);
@@ -351,8 +347,6 @@ void __74__INCWidgetIntentProvider__provideAppIntentWithOptions_completionHandle
 
     (*(*(a1 + 72) + 16))();
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)provideAppIntentWithOptions:(id)options completionHandler:(id)handler
@@ -383,7 +377,7 @@ void __74__INCWidgetIntentProvider__provideAppIntentWithOptions_completionHandle
 
 - (void)provideIntentWithOptions:(id)options completionHandler:(id)handler
 {
-  v109 = *MEMORY[0x277D85DE8];
+  v108 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   handlerCopy = handler;
   v8 = MEMORY[0x277CD38C8];
@@ -394,11 +388,11 @@ void __74__INCWidgetIntentProvider__provideAppIntentWithOptions_completionHandle
     extensionBundleIdentifier = [optionsCopy extensionBundleIdentifier];
     intentType = [optionsCopy intentType];
     *buf = 136315650;
-    v104 = "[INCWidgetIntentProvider provideIntentWithOptions:completionHandler:]";
-    v105 = 2114;
-    v106 = extensionBundleIdentifier;
-    v107 = 2114;
-    v108 = intentType;
+    v103 = "[INCWidgetIntentProvider provideIntentWithOptions:completionHandler:]";
+    v104 = 2114;
+    v105 = extensionBundleIdentifier;
+    v106 = 2114;
+    v107 = intentType;
     _os_log_impl(&dword_255503000, v10, OS_LOG_TYPE_INFO, "%s Providing intent for chrono with options: extensionBundleIdentifier = %{public}@, intentType = %{public}@", buf, 0x20u);
   }
 
@@ -408,33 +402,33 @@ void __74__INCWidgetIntentProvider__provideAppIntentWithOptions_completionHandle
   if (!v14)
   {
     v15 = MEMORY[0x277CD3A90];
-    v101 = *MEMORY[0x277CD37A0];
-    v102 = MEMORY[0x277CBEC38];
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v102 forKeys:&v101 count:1];
+    v100 = *MEMORY[0x277CD37A0];
+    v101 = MEMORY[0x277CBEC38];
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v101 forKeys:&v100 count:1];
     v17 = [v15 optionsWithDictionary:v16];
 
     mEMORY[0x277CD3A88] = [MEMORY[0x277CD3A88] sharedResolver];
     [mEMORY[0x277CD3A88] setOptions:v17];
     v19 = objc_alloc(MEMORY[0x277CC1E50]);
     extensionBundleIdentifier2 = [optionsCopy extensionBundleIdentifier];
-    v100 = 0;
-    v21 = [v19 initWithBundleIdentifier:extensionBundleIdentifier2 error:&v100];
-    v22 = v100;
+    v99 = 0;
+    v21 = [v19 initWithBundleIdentifier:extensionBundleIdentifier2 error:&v99];
+    v22 = v99;
 
     if (!v21)
     {
       v25 = *v8;
       if (os_log_type_enabled(*v8, OS_LOG_TYPE_ERROR))
       {
-        v89 = v25;
+        v88 = v25;
         extensionBundleIdentifier3 = [optionsCopy extensionBundleIdentifier];
         *buf = 136315650;
-        v104 = "[INCWidgetIntentProvider provideIntentWithOptions:completionHandler:]";
-        v105 = 2114;
-        v106 = extensionBundleIdentifier3;
-        v107 = 2114;
-        v108 = v22;
-        _os_log_error_impl(&dword_255503000, v89, OS_LOG_TYPE_ERROR, "%s No chrono extension found with identifier: %{public}@. Error: %{public}@", buf, 0x20u);
+        v103 = "[INCWidgetIntentProvider provideIntentWithOptions:completionHandler:]";
+        v104 = 2114;
+        v105 = extensionBundleIdentifier3;
+        v106 = 2114;
+        v107 = v22;
+        _os_log_error_impl(&dword_255503000, v88, OS_LOG_TYPE_ERROR, "%s No chrono extension found with identifier: %{public}@. Error: %{public}@", buf, 0x20u);
       }
 
       handlerCopy[2](handlerCopy, 0, v22);
@@ -463,16 +457,16 @@ void __74__INCWidgetIntentProvider__provideAppIntentWithOptions_completionHandle
 
     v26 = v24;
     intentType3 = [optionsCopy intentType];
-    v99 = v22;
-    v96 = v21;
-    v28 = [(INCWidgetIntentProvider *)self intentsExtensionForExtension:v21 compatibleWithIntent:intentType3 error:&v99];
-    v29 = v99;
+    v98 = v22;
+    v95 = v21;
+    v28 = [(INCWidgetIntentProvider *)self intentsExtensionForExtension:v21 compatibleWithIntent:intentType3 error:&v98];
+    v29 = v98;
 
     if (v28)
     {
-      v91 = v29;
-      v92 = v26;
-      v95 = v17;
+      v90 = v29;
+      v91 = v26;
+      v94 = v17;
       v30 = v28;
       bundleIdentifier = [v28 bundleIdentifier];
       v32 = objc_alloc(MEMORY[0x277CD3D38]);
@@ -488,9 +482,9 @@ void __74__INCWidgetIntentProvider__provideAppIntentWithOptions_completionHandle
         if (os_log_type_enabled(*MEMORY[0x277CD38C8], OS_LOG_TYPE_ERROR))
         {
           *buf = 136315394;
-          v104 = "[INCWidgetIntentProvider provideIntentWithOptions:completionHandler:]";
-          v105 = 2114;
-          v106 = v29;
+          v103 = "[INCWidgetIntentProvider provideIntentWithOptions:completionHandler:]";
+          v104 = 2114;
+          v105 = v29;
           _os_log_error_impl(&dword_255503000, v63, OS_LOG_TYPE_ERROR, "%s No intents extension found in same bundle as chrono extension. %{public}@", buf, 0x16u);
         }
 
@@ -499,9 +493,9 @@ void __74__INCWidgetIntentProvider__provideAppIntentWithOptions_completionHandle
       }
 
       v30 = 0;
-      v91 = v29;
-      v92 = v26;
-      v95 = v17;
+      v90 = v29;
+      v91 = v26;
+      v94 = v17;
       bundleIdentifier = [v26 bundleIdentifier];
       v35 = objc_alloc(MEMORY[0x277CD3D38]);
       intentType4 = [optionsCopy intentType];
@@ -509,25 +503,25 @@ void __74__INCWidgetIntentProvider__provideAppIntentWithOptions_completionHandle
     }
 
     v36 = v34;
-    v93 = containingBundleRecord;
+    v92 = containingBundleRecord;
 
-    v94 = mEMORY[0x277CD3A88];
+    v93 = mEMORY[0x277CD3A88];
     v37 = [mEMORY[0x277CD3A88] resolvedIntentMatchingDescriptor:v36];
 
-    intentDefinitionURLs = [v96 intentDefinitionURLs];
+    intentDefinitionURLs = [v95 intentDefinitionURLs];
     allValues = [intentDefinitionURLs allValues];
     v40 = [allValues count];
 
     if (v40)
     {
       v41 = MEMORY[0x277CBEB98];
-      intentDefinitionURLs2 = [v96 intentDefinitionURLs];
+      intentDefinitionURLs2 = [v95 intentDefinitionURLs];
       allValues2 = [intentDefinitionURLs2 allValues];
       v44 = [v41 setWithArray:allValues2];
       allObjects = [v44 allObjects];
 
       v46 = objc_alloc(MEMORY[0x277CD4000]);
-      bundleIdentifier2 = [v96 bundleIdentifier];
+      bundleIdentifier2 = [v95 bundleIdentifier];
       v48 = [v46 _initWithContentsOfURLs:allObjects bundleIdentifier:bundleIdentifier2];
 
       if (v48)
@@ -578,43 +572,43 @@ LABEL_31:
             [v82 _setExtensionBundleId:extensionBundleIdentifier4];
 
             v85 = [[INCIntentDefaultValueProvider alloc] initWithIntent:v82];
-            v97[0] = MEMORY[0x277D85DD0];
-            v97[1] = 3221225472;
-            v97[2] = __70__INCWidgetIntentProvider_provideIntentWithOptions_completionHandler___block_invoke;
-            v97[3] = &unk_2797E8118;
-            v98 = handlerCopy;
-            [(INCIntentDefaultValueProvider *)v85 loadDefaultValuesWithCompletionHandler:v97];
+            v96[0] = MEMORY[0x277D85DD0];
+            v96[1] = 3221225472;
+            v96[2] = __70__INCWidgetIntentProvider_provideIntentWithOptions_completionHandler___block_invoke;
+            v96[3] = &unk_2797E8118;
+            v97 = handlerCopy;
+            [(INCIntentDefaultValueProvider *)v85 loadDefaultValuesWithCompletionHandler:v96];
 
-            mEMORY[0x277CD3A88] = v94;
-            v17 = v95;
-            containingBundleRecord = v93;
+            mEMORY[0x277CD3A88] = v93;
+            v17 = v94;
+            containingBundleRecord = v92;
           }
 
           else
           {
             v86 = *MEMORY[0x277CD38C8];
-            containingBundleRecord = v93;
+            containingBundleRecord = v92;
             if (os_log_type_enabled(*MEMORY[0x277CD38C8], OS_LOG_TYPE_ERROR))
             {
               *buf = 136315138;
-              v104 = "[INCWidgetIntentProvider provideIntentWithOptions:completionHandler:]";
+              v103 = "[INCWidgetIntentProvider provideIntentWithOptions:completionHandler:]";
               _os_log_error_impl(&dword_255503000, v86, OS_LOG_TYPE_ERROR, "%s Unable to create intent from schema.", buf, 0xCu);
             }
 
             handlerCopy[2](handlerCopy, 0, 0);
-            mEMORY[0x277CD3A88] = v94;
-            v17 = v95;
+            mEMORY[0x277CD3A88] = v93;
+            v17 = v94;
           }
 
 LABEL_41:
-          v29 = v91;
-          v26 = v92;
+          v29 = v90;
+          v26 = v91;
 
           v28 = v30;
 LABEL_42:
 
           v22 = v29;
-          v21 = v96;
+          v21 = v95;
 LABEL_43:
 
           goto LABEL_44;
@@ -665,20 +659,18 @@ LABEL_43:
     if (os_log_type_enabled(*MEMORY[0x277CD38C8], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v104 = "[INCWidgetIntentProvider provideIntentWithOptions:completionHandler:]";
+      v103 = "[INCWidgetIntentProvider provideIntentWithOptions:completionHandler:]";
       _os_log_error_impl(&dword_255503000, v87, OS_LOG_TYPE_ERROR, "%s No intent definitions found in extensions.", buf, 0xCu);
     }
 
     handlerCopy[2](handlerCopy, 0, 0);
-    v17 = v95;
-    containingBundleRecord = v93;
+    v17 = v94;
+    containingBundleRecord = v92;
     goto LABEL_41;
   }
 
   [(INCWidgetIntentProvider *)self provideAppIntentWithOptions:optionsCopy completionHandler:handlerCopy];
 LABEL_44:
-
-  v88 = *MEMORY[0x277D85DE8];
 }
 
 + (void)initialize

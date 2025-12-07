@@ -9,14 +9,13 @@
 - (_TtC18FileProviderDaemon19FPFSSQLBackupEngine)initWithUserURL:(id)l outputUserURL:(id)rL
 {
   v4 = sub_1CF9E5A58();
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x1EEE9AC00](v4 - 8);
-  v7 = &v12 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v8);
-  v10 = &v12 - v9;
+  v6 = &v11 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v7);
+  v9 = &v11 - v8;
   sub_1CF9E59D8();
   sub_1CF9E59D8();
-  return FPFSSQLBackupEngine.init(userURL:outputUserURL:)(v10, v7);
+  return FPFSSQLBackupEngine.init(userURL:outputUserURL:)(v9, v6);
 }
 
 - (void)backUpWithCompletionHandler:(id)handler

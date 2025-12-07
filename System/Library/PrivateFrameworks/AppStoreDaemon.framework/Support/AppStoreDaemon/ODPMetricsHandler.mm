@@ -259,7 +259,7 @@
     v51 = sub_1003924A8;
     *&v52 = sub_1003924B8;
     *(&v52 + 1) = 0;
-    v26 = sub_10036C90C();
+    v26 = sub_10036C90C(AppUsageDatabaseStore);
     v39[0] = _NSConcreteStackBlock;
     v39[1] = 3221225472;
     v39[2] = sub_1003924C0;
@@ -399,7 +399,7 @@
   v42 = sub_1003924A8;
   *&v43 = sub_1003924B8;
   *(&v43 + 1) = 0;
-  v21 = sub_10036C90C();
+  v21 = sub_10036C90C(AppUsageDatabaseStore);
   v30[0] = _NSConcreteStackBlock;
   v30[1] = 3221225472;
   v30[2] = sub_100392A88;
@@ -530,7 +530,7 @@ LABEL_19:
               v66 = v4;
               v33 = v10[3];
               logKey = [(ODPMetricsHandler *)self logKey];
-              v35 = sub_1003560A8(1.0, ArcadeManager, v28, v33, v61, logKey);
+              v35 = sub_1003560A8(ArcadeManager, v28, v33, v61, logKey, 1.0);
 
               if (v35)
               {
@@ -678,7 +678,7 @@ LABEL_48:
   if ([v56 count])
   {
     [v59 addObjectsFromArray:v56];
-    v57 = sub_10036C90C();
+    v57 = sub_10036C90C(AppUsageDatabaseStore);
     v70[0] = _NSConcreteStackBlock;
     v70[1] = 3221225472;
     v70[2] = sub_100393268;
@@ -695,7 +695,7 @@ LABEL_48:
   v4 = sub_100393548(&self->super.super.isa, v3);
   if ([v4 count])
   {
-    v5 = sub_10036C90C();
+    v5 = sub_10036C90C(AppUsageDatabaseStore);
     v11[0] = _NSConcreteStackBlock;
     v11[1] = 3221225472;
     v11[2] = sub_1003937E0;
@@ -778,7 +778,7 @@ LABEL_5:
 
 LABEL_6:
 
-  v11 = sub_10036C90C();
+  v11 = sub_10036C90C(AppUsageDatabaseStore);
   v14[0] = _NSConcreteStackBlock;
   v14[1] = 3221225472;
   v14[2] = sub_100393B18;

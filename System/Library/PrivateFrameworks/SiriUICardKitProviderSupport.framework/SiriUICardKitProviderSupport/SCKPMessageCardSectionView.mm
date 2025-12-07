@@ -14,12 +14,12 @@
 
 - (SCKPMessageCardSectionView)initWithMessageCardSection:(id)section delegate:(id)delegate
 {
-  v84 = *MEMORY[0x277D85DE8];
+  v83 = *MEMORY[0x277D85DE8];
   sectionCopy = section;
   obj = delegate;
-  v72.receiver = self;
-  v72.super_class = SCKPMessageCardSectionView;
-  v7 = [(SCKPMessageCardSectionView *)&v72 init];
+  v71.receiver = self;
+  v71.super_class = SCKPMessageCardSectionView;
+  v7 = [(SCKPMessageCardSectionView *)&v71 init];
   v8 = v7;
   if (v7)
   {
@@ -28,54 +28,54 @@
     v8->_messageStatus = messageStatus;
     if (messageStatus == 2 && ([sectionCopy audioMessageURL], v10 = objc_claimAutoreleasedReturnValue(), v11 = v10 == 0, v10, v11))
     {
-      v73 = 0;
-      v74 = &v73;
-      v75 = 0x2050000000;
-      v56 = getCKTextBalloonViewClass_softClass;
-      v76 = getCKTextBalloonViewClass_softClass;
+      v72 = 0;
+      v73 = &v72;
+      v74 = 0x2050000000;
+      v55 = getCKTextBalloonViewClass_softClass;
+      v75 = getCKTextBalloonViewClass_softClass;
       if (!getCKTextBalloonViewClass_softClass)
       {
         *buf = MEMORY[0x277D85DD0];
         *&buf[8] = 3221225472;
         *&buf[16] = __getCKTextBalloonViewClass_block_invoke;
-        v82 = &unk_279C60140;
-        v83 = &v73;
+        v81 = &unk_279C60140;
+        v82 = &v72;
         __getCKTextBalloonViewClass_block_invoke(buf);
-        v56 = v74[3];
+        v55 = v73[3];
       }
 
-      v57 = v56;
-      _Block_object_dispose(&v73, 8);
-      v58 = [v56 alloc];
-      v59 = [v58 initWithFrame:{*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)}];
+      v56 = v55;
+      _Block_object_dispose(&v72, 8);
+      v57 = [v55 alloc];
+      v58 = [v57 initWithFrame:{*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)}];
       sentBalloonView = v8->_sentBalloonView;
-      v8->_sentBalloonView = v59;
+      v8->_sentBalloonView = v58;
 
       [(CKTextBalloonView *)v8->_sentBalloonView setCanUseOpaqueMask:0];
       [(CKTextBalloonView *)v8->_sentBalloonView setOrientation:1];
-      v61 = v8->_sentBalloonView;
-      v62 = objc_alloc(MEMORY[0x277CCA898]);
+      v60 = v8->_sentBalloonView;
+      v61 = objc_alloc(MEMORY[0x277CCA898]);
       messageText = [sectionCopy messageText];
-      v64 = messageText;
+      v63 = messageText;
       if (messageText)
       {
-        v65 = messageText;
+        v64 = messageText;
       }
 
       else
       {
-        v65 = &stru_287A0DB58;
+        v64 = &stru_287A0DB58;
       }
 
-      v79[0] = *MEMORY[0x277D740A8];
-      v66 = [MEMORY[0x277D74300] preferredFontForTextStyle:*MEMORY[0x277D76918]];
-      v80[0] = v66;
-      v79[1] = *MEMORY[0x277D740C0];
+      v78[0] = *MEMORY[0x277D740A8];
+      v65 = [MEMORY[0x277D74300] preferredFontForTextStyle:*MEMORY[0x277D76918]];
+      v79[0] = v65;
+      v78[1] = *MEMORY[0x277D740C0];
       whiteColor = [MEMORY[0x277D75348] whiteColor];
-      v80[1] = whiteColor;
-      v68 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v80 forKeys:v79 count:2];
-      v69 = [v62 initWithString:v65 attributes:v68];
-      [(CKTextBalloonView *)v61 setAttributedText:v69];
+      v79[1] = whiteColor;
+      v67 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v79 forKeys:v78 count:2];
+      v68 = [v61 initWithString:v64 attributes:v67];
+      [(CKTextBalloonView *)v60 setAttributedText:v68];
     }
 
     else
@@ -88,7 +88,7 @@
       [layer setCornerRadius:8.0];
 
       v15 = v8->_textView;
-      v70 = *MEMORY[0x277D76918];
+      v69 = *MEMORY[0x277D76918];
       v16 = [MEMORY[0x277D74300] preferredFontForTextStyle:?];
       [(UITextView *)v15 setFont:v16];
 
@@ -196,17 +196,16 @@
       v49 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
       v50 = [v49 assistantUILocalizedStringForKey:@"SCKP_ATTACHMENT_PLACEHOLDER_TEXT" table:0];
 
-      v77 = *MEMORY[0x277D740A8];
-      v51 = [MEMORY[0x277D74300] preferredFontForTextStyle:v70];
-      v78 = v51;
-      v52 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v78 forKeys:&v77 count:1];
+      v76 = *MEMORY[0x277D740A8];
+      v51 = [MEMORY[0x277D74300] preferredFontForTextStyle:v69];
+      v77 = v51;
+      v52 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v77 forKeys:&v76 count:1];
 
       v53 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:v50 attributes:v52];
       [(UITextView *)v8->_textView setAttributedPlaceholder:v53];
     }
   }
 
-  v54 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

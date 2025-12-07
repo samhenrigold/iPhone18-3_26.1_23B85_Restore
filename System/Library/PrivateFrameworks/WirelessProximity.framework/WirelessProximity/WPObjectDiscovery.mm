@@ -13,6 +13,8 @@
 - (void)receivedTestResponse:(id)response;
 - (void)scanningFailedToStart:(id)start ofType:(unsigned __int8)type;
 - (void)scanningFailedWithError:(id)error;
+- (void)scanningStartedOfType:(unsigned __int8)type;
+- (void)scanningStoppedOfType:(unsigned __int8)type;
 - (void)startScanning;
 - (void)startScanningWithMode:(int64_t)mode;
 - (void)startScanningWithMode:(int64_t)mode Timeout:(double)timeout;
@@ -34,7 +36,7 @@
 
 - (WPObjectDiscovery)initWithDelegate:(id)delegate queue:(id)queue
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
   queueCopy = queue;
   if (_os_feature_enabled_impl())
@@ -55,9 +57,9 @@
 
   else
   {
-    v17.receiver = self;
-    v17.super_class = WPObjectDiscovery;
-    v10 = [(WPClient *)&v17 initWithQueue:queueCopy machName:0];
+    v16.receiver = self;
+    v16.super_class = WPObjectDiscovery;
+    v10 = [(WPClient *)&v16 initWithQueue:queueCopy machName:0];
     p_isa = &v10->super.super.isa;
     if (v10)
     {
@@ -74,9 +76,9 @@
         v13 = v12;
         delegate = [p_isa delegate];
         *buf = 134218240;
-        v19 = p_isa;
-        v20 = 2048;
-        v21 = delegate;
+        v18 = p_isa;
+        v19 = 2048;
+        v20 = delegate;
         _os_log_impl(&dword_274327000, v13, OS_LOG_TYPE_DEFAULT, "ObjectDiscovery initWithDelegate self: %p, delegate: %p", buf, 0x16u);
       }
     }
@@ -85,7 +87,6 @@
     selfCopy = self;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -204,9 +205,9 @@
 
 - (void)startScanning
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_274327000, self, a3, "ObjectDiscovery calling deprecated function %s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[WPObjectDiscovery startScanning]";
+  OUTLINED_FUNCTION_0_0(&dword_274327000, self, a3, "ObjectDiscovery calling deprecated function %s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)startScanningWithMode:(int64_t)mode
@@ -230,7 +231,7 @@
 
 - (void)scanningFailedWithError:(id)error
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   errorCopy = error;
   if (WPLogInitOnce != -1)
   {
@@ -248,21 +249,19 @@
   if (v6)
   {
     v7 = MEMORY[0x277CCA9B8];
-    v12 = *MEMORY[0x277CCA450];
-    v13[0] = errorCopy;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    v11 = *MEMORY[0x277CCA450];
+    v12[0] = errorCopy;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
     v9 = [v7 errorWithDomain:@"WPErrorDomain" code:10 userInfo:v8];
 
     delegate2 = [(WPObjectDiscovery *)self delegate];
     [delegate2 objectDiscovery:self failedToStartScanningWithError:v9];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startScanningWithMode:(int64_t)mode Timeout:(double)timeout
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (_os_feature_enabled_impl())
   {
     if (WPLogInitOnce != -1)
@@ -297,50 +296,48 @@
       if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v20 = 0x4018000000000000;
+        v19 = 0x4018000000000000;
         _os_log_impl(&dword_274327000, v16, OS_LOG_TYPE_DEFAULT, "ObjectDiscovery start scanning: %{public}@", buf, 0xCu);
       }
 
-      v18.receiver = self;
-      v18.super_class = WPObjectDiscovery;
-      [(WPClient *)&v18 startScanning:0x4018000000000000];
+      v17.receiver = self;
+      v17.super_class = WPObjectDiscovery;
+      [(WPClient *)&v17 startScanning:0x4018000000000000];
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isValidScanOptions:(id)options
 {
-  v31[5] = *MEMORY[0x277D85DE8];
+  v30[5] = *MEMORY[0x277D85DE8];
   optionsCopy = options;
-  v31[0] = @"WPObjectDiscoveryScanKeyAdvBuffer";
-  v31[1] = @"WPObjectDiscoveryScanKeyAllowDuplicates";
-  v31[2] = @"WPObjectDiscoveryScanKeyScanWhenLocked";
-  v31[3] = @"WPObjectDiscoveryScanKeyScreenOffRate";
-  v31[4] = @"WPObjectDiscoveryScanKeyScreenOnRate";
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:5];
+  v30[0] = @"WPObjectDiscoveryScanKeyAdvBuffer";
+  v30[1] = @"WPObjectDiscoveryScanKeyAllowDuplicates";
+  v30[2] = @"WPObjectDiscoveryScanKeyScanWhenLocked";
+  v30[3] = @"WPObjectDiscoveryScanKeyScreenOffRate";
+  v30[4] = @"WPObjectDiscoveryScanKeyScreenOnRate";
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:5];
   array = [MEMORY[0x277CBEB18] array];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   v7 = v5;
-  v8 = [v7 countByEnumeratingWithState:&v24 objects:v30 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v23 objects:v29 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v25;
+    v10 = *v24;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v25 != v10)
+        if (*v24 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v24 + 1) + 8 * i);
+        v12 = *(*(&v23 + 1) + 8 * i);
         v13 = [optionsCopy objectForKeyedSubscript:v12];
 
         if (!v13)
@@ -349,7 +346,7 @@
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v24 objects:v30 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v23 objects:v29 count:16];
     }
 
     while (v9);
@@ -375,9 +372,9 @@
     if (v17)
     {
       v18 = MEMORY[0x277CCA9B8];
-      v28 = *MEMORY[0x277CCA450];
-      v29 = v15;
-      v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+      v27 = *MEMORY[0x277CCA450];
+      v28 = v15;
+      v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
       v20 = [v18 errorWithDomain:@"WPErrorDomain" code:8 userInfo:v19];
 
       delegate2 = [(WPObjectDiscovery *)self delegate];
@@ -385,19 +382,18 @@
     }
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v14 == 0;
 }
 
 - (BOOL)isValidScanRequest:(id)request
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   requestCopy = request;
   v5 = requestCopy;
   if (requestCopy)
   {
-    [requestCopy scanningRates];
-    v6 = v17;
+    objc_msgSend_scanningRates(requestCopy);
+    v6 = v16;
   }
 
   else
@@ -454,9 +450,9 @@ LABEL_19:
   }
 
   v11 = MEMORY[0x277CCA9B8];
-  v18 = *MEMORY[0x277CCA450];
-  v19[0] = v7;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+  v17 = *MEMORY[0x277CCA450];
+  v18[0] = v7;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
   v13 = [v11 errorWithDomain:@"WPErrorDomain" code:8 userInfo:v12];
 
   delegate2 = [(WPObjectDiscovery *)self delegate];
@@ -465,13 +461,12 @@ LABEL_19:
   v8 = 0;
 LABEL_20:
 
-  v15 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (void)startScanningWithOptions:(id)options
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   if (WPLogInitOnce != -1)
   {
@@ -482,7 +477,7 @@ LABEL_20:
   if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v11 = optionsCopy;
+    v10 = optionsCopy;
     _os_log_impl(&dword_274327000, v5, OS_LOG_TYPE_DEFAULT, "ObjectDiscovery startScanningWithOptions %@", buf, 0xCu);
   }
 
@@ -502,13 +497,13 @@ LABEL_20:
         if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
-          v11 = v6;
+          v10 = v6;
           _os_log_impl(&dword_274327000, v7, OS_LOG_TYPE_DEFAULT, "ObjectDiscovery start scanning: %{public}@", buf, 0xCu);
         }
 
-        v9.receiver = self;
-        v9.super_class = WPObjectDiscovery;
-        [(WPClient *)&v9 startScanning:v6];
+        v8.receiver = self;
+        v8.super_class = WPObjectDiscovery;
+        [(WPClient *)&v8 startScanning:v6];
       }
     }
   }
@@ -517,13 +512,11 @@ LABEL_20:
   {
     [(WPObjectDiscovery *)self scanningFailedWithError:@"ObjectDiscovery startScanningWithOptions API is disabled"];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopScanning
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if ([(WPObjectDiscovery *)self isScanningEnabled])
   {
     v3 = objc_opt_new();
@@ -537,21 +530,19 @@ LABEL_20:
     if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v8 = v3;
+      v7 = v3;
       _os_log_impl(&dword_274327000, v4, OS_LOG_TYPE_DEFAULT, "ObjectDiscovery stop scanning: %{public}@", buf, 0xCu);
     }
 
-    v6.receiver = self;
-    v6.super_class = WPObjectDiscovery;
-    [(WPClient *)&v6 stopScanning:v3];
+    v5.receiver = self;
+    v5.super_class = WPObjectDiscovery;
+    [(WPClient *)&v5 stopScanning:v3];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateScanningRequest:(id)request withUpdate:(id)update
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   updateCopy = update;
   [requestCopy setUpdateTime:0.0];
@@ -563,15 +554,13 @@ LABEL_20:
   v8 = WiProxLog;
   if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_INFO))
   {
-    v10 = 138543362;
-    v11 = requestCopy;
-    _os_log_impl(&dword_274327000, v8, OS_LOG_TYPE_INFO, "ObjectDiscovery timed-out scanning request: %{public}@", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = requestCopy;
+    _os_log_impl(&dword_274327000, v8, OS_LOG_TYPE_INFO, "ObjectDiscovery timed-out scanning request: %{public}@", &v9, 0xCu);
   }
 
   [(WPObjectDiscovery *)self stopScanning];
   updateCopy[2](updateCopy, 0);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stateDidChange:(int64_t)change
@@ -622,7 +611,7 @@ LABEL_20:
 
 - (void)devicesDiscovered:(id)discovered
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   discoveredCopy = discovered;
   v5 = objc_autoreleasePoolPush();
   delegate = [(WPObjectDiscovery *)self delegate];
@@ -630,18 +619,18 @@ LABEL_20:
 
   if (v7)
   {
-    v13 = 0;
-    v14 = &v13;
-    v15 = 0x3032000000;
-    v16 = __Block_byref_object_copy_;
-    v17 = __Block_byref_object_dispose_;
-    v18 = objc_opt_new();
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __39__WPObjectDiscovery_devicesDiscovered___block_invoke;
-    v12[3] = &unk_279ED7660;
-    v12[4] = &v13;
-    [discoveredCopy enumerateObjectsUsingBlock:v12];
+    v12 = 0;
+    v13 = &v12;
+    v14 = 0x3032000000;
+    v15 = __Block_byref_object_copy_;
+    v16 = __Block_byref_object_dispose_;
+    v17 = objc_opt_new();
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __39__WPObjectDiscovery_devicesDiscovered___block_invoke;
+    v11[3] = &unk_279ED7660;
+    v11[4] = &v12;
+    [discoveredCopy enumerateObjectsUsingBlock:v11];
     if (WPLogInitOnce != -1)
     {
       [WPObjectDiscovery devicesDiscovered:];
@@ -650,19 +639,17 @@ LABEL_20:
     v8 = WiProxLog;
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      -[WPObjectDiscovery devicesDiscovered:].cold.2(buf, [v14[5] count], v8);
+      -[WPObjectDiscovery devicesDiscovered:].cold.2(buf, [v13[5] count], v8);
     }
 
     delegate2 = [(WPObjectDiscovery *)self delegate];
-    v10 = [MEMORY[0x277CBEA60] arrayWithArray:v14[5]];
+    v10 = [MEMORY[0x277CBEA60] arrayWithArray:v13[5]];
     [delegate2 objectDiscovery:self foundDevices:v10];
 
-    _Block_object_dispose(&v13, 8);
+    _Block_object_dispose(&v12, 8);
   }
 
   objc_autoreleasePoolPop(v5);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __39__WPObjectDiscovery_devicesDiscovered___block_invoke(uint64_t a1, uint64_t a2)
@@ -674,6 +661,52 @@ uint64_t __39__WPObjectDiscovery_devicesDiscovered___block_invoke(uint64_t a1, u
   }
 
   return MEMORY[0x2821F96F8]();
+}
+
+- (void)scanningStartedOfType:(unsigned __int8)type
+{
+  delegate = [(WPObjectDiscovery *)self delegate];
+  v5 = objc_opt_respondsToSelector();
+
+  if (v5)
+  {
+    if (WPLogInitOnce != -1)
+    {
+      [WPObjectDiscovery scanningStartedOfType:];
+    }
+
+    v6 = WiProxLog;
+    if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEBUG))
+    {
+      [WPObjectDiscovery scanningStartedOfType:v6];
+    }
+
+    delegate2 = [(WPObjectDiscovery *)self delegate];
+    [delegate2 objectDiscoveryStartedScanning:self];
+  }
+}
+
+- (void)scanningStoppedOfType:(unsigned __int8)type
+{
+  delegate = [(WPObjectDiscovery *)self delegate];
+  v5 = objc_opt_respondsToSelector();
+
+  if (v5)
+  {
+    if (WPLogInitOnce != -1)
+    {
+      [WPObjectDiscovery scanningStoppedOfType:];
+    }
+
+    v6 = WiProxLog;
+    if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEBUG))
+    {
+      [WPObjectDiscovery scanningStoppedOfType:v6];
+    }
+
+    delegate2 = [(WPObjectDiscovery *)self delegate];
+    [delegate2 objectDiscoveryStoppedScanning:self];
+  }
 }
 
 - (void)scanningFailedToStart:(id)start ofType:(unsigned __int8)type
@@ -730,7 +763,7 @@ uint64_t __39__WPObjectDiscovery_devicesDiscovered___block_invoke(uint64_t a1, u
 
 - (void)startTest
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   if (WPLogInitOnce != -1)
   {
     [WPObjectDiscovery(Test) startTest];
@@ -744,20 +777,18 @@ uint64_t __39__WPObjectDiscovery_devicesDiscovered___block_invoke(uint64_t a1, u
 
   if ([(WPClient *)self isTestClient])
   {
-    v7 = @"kWPTestRequestKeyID";
-    v8[0] = &unk_28835C798;
-    v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
-    v6.receiver = self;
-    v6.super_class = WPObjectDiscovery;
-    [(WPClient *)&v6 sendTestRequest:v4];
+    v6 = @"kWPTestRequestKeyID";
+    v7[0] = &unk_28835C798;
+    v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+    v5.receiver = self;
+    v5.super_class = WPObjectDiscovery;
+    [(WPClient *)&v5 sendTestRequest:v4];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopTest
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   if (WPLogInitOnce != -1)
   {
     [WPObjectDiscovery(Test) stopTest];
@@ -771,20 +802,18 @@ uint64_t __39__WPObjectDiscovery_devicesDiscovered___block_invoke(uint64_t a1, u
 
   if ([(WPClient *)self isTestClient])
   {
-    v7 = @"kWPTestRequestKeyID";
-    v8[0] = &unk_28835C7B0;
-    v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
-    v6.receiver = self;
-    v6.super_class = WPObjectDiscovery;
-    [(WPClient *)&v6 sendTestRequest:v4];
+    v6 = @"kWPTestRequestKeyID";
+    v7[0] = &unk_28835C7B0;
+    v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+    v5.receiver = self;
+    v5.super_class = WPObjectDiscovery;
+    [(WPClient *)&v5 sendTestRequest:v4];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateBeaconingState:(id)state
 {
-  v9[2] = *MEMORY[0x277D85DE8];
+  v8[2] = *MEMORY[0x277D85DE8];
   stateCopy = state;
   if (WPLogInitOnce != -1)
   {
@@ -798,22 +827,20 @@ uint64_t __39__WPObjectDiscovery_devicesDiscovered___block_invoke(uint64_t a1, u
 
   if ([(WPClient *)self isTestClient])
   {
-    v8[0] = @"kWPTestRequestKeyID";
-    v8[1] = @"kWPTestBeaconStateKey";
-    v9[0] = &unk_28835C7C8;
-    v9[1] = stateCopy;
-    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
-    v7.receiver = self;
-    v7.super_class = WPObjectDiscovery;
-    [(WPClient *)&v7 sendTestRequest:v5];
+    v7[0] = @"kWPTestRequestKeyID";
+    v7[1] = @"kWPTestBeaconStateKey";
+    v8[0] = &unk_28835C7C8;
+    v8[1] = stateCopy;
+    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
+    v6.receiver = self;
+    v6.super_class = WPObjectDiscovery;
+    [(WPClient *)&v6 sendTestRequest:v5];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateBeaconingKeys:(id)keys
 {
-  v9[2] = *MEMORY[0x277D85DE8];
+  v8[2] = *MEMORY[0x277D85DE8];
   keysCopy = keys;
   if (WPLogInitOnce != -1)
   {
@@ -827,22 +854,20 @@ uint64_t __39__WPObjectDiscovery_devicesDiscovered___block_invoke(uint64_t a1, u
 
   if ([(WPClient *)self isTestClient])
   {
-    v8[0] = @"kWPTestRequestKeyID";
-    v8[1] = @"kWPTestBeaconKeysKey";
-    v9[0] = &unk_28835C7E0;
-    v9[1] = keysCopy;
-    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
-    v7.receiver = self;
-    v7.super_class = WPObjectDiscovery;
-    [(WPClient *)&v7 sendTestRequest:v5];
+    v7[0] = @"kWPTestRequestKeyID";
+    v7[1] = @"kWPTestBeaconKeysKey";
+    v8[0] = &unk_28835C7E0;
+    v8[1] = keysCopy;
+    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
+    v6.receiver = self;
+    v6.super_class = WPObjectDiscovery;
+    [(WPClient *)&v6 sendTestRequest:v5];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateBeaconingStatus:(id)status
 {
-  v9[2] = *MEMORY[0x277D85DE8];
+  v8[2] = *MEMORY[0x277D85DE8];
   statusCopy = status;
   if (WPLogInitOnce != -1)
   {
@@ -856,22 +881,20 @@ uint64_t __39__WPObjectDiscovery_devicesDiscovered___block_invoke(uint64_t a1, u
 
   if ([(WPClient *)self isTestClient])
   {
-    v8[0] = @"kWPTestRequestKeyID";
-    v8[1] = @"kWPTestBeaconStatusKey";
-    v9[0] = &unk_28835C7F8;
-    v9[1] = statusCopy;
-    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
-    v7.receiver = self;
-    v7.super_class = WPObjectDiscovery;
-    [(WPClient *)&v7 sendTestRequest:v5];
+    v7[0] = @"kWPTestRequestKeyID";
+    v7[1] = @"kWPTestBeaconStatusKey";
+    v8[0] = &unk_28835C7F8;
+    v8[1] = statusCopy;
+    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
+    v6.receiver = self;
+    v6.super_class = WPObjectDiscovery;
+    [(WPClient *)&v6 sendTestRequest:v5];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateBeaconingExtended:(id)extended
 {
-  v9[2] = *MEMORY[0x277D85DE8];
+  v8[2] = *MEMORY[0x277D85DE8];
   extendedCopy = extended;
   if (WPLogInitOnce != -1)
   {
@@ -885,22 +908,20 @@ uint64_t __39__WPObjectDiscovery_devicesDiscovered___block_invoke(uint64_t a1, u
 
   if ([(WPClient *)self isTestClient])
   {
-    v8[0] = @"kWPTestRequestKeyID";
-    v8[1] = @"kWPTestBeaconExtendedKey";
-    v9[0] = &unk_28835C810;
-    v9[1] = extendedCopy;
-    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
-    v7.receiver = self;
-    v7.super_class = WPObjectDiscovery;
-    [(WPClient *)&v7 sendTestRequest:v5];
+    v7[0] = @"kWPTestRequestKeyID";
+    v7[1] = @"kWPTestBeaconExtendedKey";
+    v8[0] = &unk_28835C810;
+    v8[1] = extendedCopy;
+    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
+    v6.receiver = self;
+    v6.super_class = WPObjectDiscovery;
+    [(WPClient *)&v6 sendTestRequest:v5];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateNearOwnerTokens:(id)tokens
 {
-  v9[2] = *MEMORY[0x277D85DE8];
+  v8[2] = *MEMORY[0x277D85DE8];
   tokensCopy = tokens;
   if (WPLogInitOnce != -1)
   {
@@ -914,22 +935,20 @@ uint64_t __39__WPObjectDiscovery_devicesDiscovered___block_invoke(uint64_t a1, u
 
   if ([(WPClient *)self isTestClient])
   {
-    v8[0] = @"kWPTestRequestKeyID";
-    v8[1] = @"kWPTestNearOwnerTokensKey";
-    v9[0] = &unk_28835C828;
-    v9[1] = tokensCopy;
-    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
-    v7.receiver = self;
-    v7.super_class = WPObjectDiscovery;
-    [(WPClient *)&v7 sendTestRequest:v5];
+    v7[0] = @"kWPTestRequestKeyID";
+    v7[1] = @"kWPTestNearOwnerTokensKey";
+    v8[0] = &unk_28835C828;
+    v8[1] = tokensCopy;
+    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
+    v6.receiver = self;
+    v6.super_class = WPObjectDiscovery;
+    [(WPClient *)&v6 sendTestRequest:v5];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateBeaconingInterval:(id)interval
 {
-  v9[2] = *MEMORY[0x277D85DE8];
+  v8[2] = *MEMORY[0x277D85DE8];
   intervalCopy = interval;
   if (WPLogInitOnce != -1)
   {
@@ -943,50 +962,45 @@ uint64_t __39__WPObjectDiscovery_devicesDiscovered___block_invoke(uint64_t a1, u
 
   if ([(WPClient *)self isTestClient])
   {
-    v8[0] = @"kWPTestRequestKeyID";
-    v8[1] = @"kWPTestBeaconIntervalKey";
-    v9[0] = &unk_28835C840;
-    v9[1] = intervalCopy;
-    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
-    v7.receiver = self;
-    v7.super_class = WPObjectDiscovery;
-    [(WPClient *)&v7 sendTestRequest:v5];
+    v7[0] = @"kWPTestRequestKeyID";
+    v7[1] = @"kWPTestBeaconIntervalKey";
+    v8[0] = &unk_28835C840;
+    v8[1] = intervalCopy;
+    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
+    v6.receiver = self;
+    v6.super_class = WPObjectDiscovery;
+    [(WPClient *)&v6 sendTestRequest:v5];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)scanRequestFromScanMode:(uint64_t)a3 UpdateTime:(uint64_t)a4 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_274327000, a1, a3, "ObjectDiscovery calling deprecated function %s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[WPObjectDiscovery scanRequestFromScanMode:UpdateTime:]";
+  OUTLINED_FUNCTION_0_0(&dword_274327000, a1, a3, "ObjectDiscovery calling deprecated function %s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)startScanningWithMode:(uint64_t)a3 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_274327000, a1, a3, "ObjectDiscovery calling deprecated function %s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[WPObjectDiscovery startScanningWithMode:]";
+  OUTLINED_FUNCTION_0_0(&dword_274327000, a1, a3, "ObjectDiscovery calling deprecated function %s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)startScanningWithMode:(uint64_t)a3 Timeout:(uint64_t)a4 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_274327000, a1, a3, "ObjectDiscovery calling deprecated function %s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[WPObjectDiscovery startScanningWithMode:Timeout:]";
+  OUTLINED_FUNCTION_0_0(&dword_274327000, a1, a3, "ObjectDiscovery calling deprecated function %s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)stateDidChange:(void *)a1 .cold.2(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v2 = a1;
   [OUTLINED_FUNCTION_6_0() state];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_5_0();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)devicesDiscovered:(os_log_t)log .cold.2(uint8_t *buf, uint64_t a2, os_log_t log)
@@ -998,13 +1012,11 @@ uint64_t __39__WPObjectDiscovery_devicesDiscovered___block_invoke(uint64_t a1, u
 
 - (void)scanningFailedToStart:(void *)a1 ofType:.cold.2(void *a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_6_0() localizedDescription];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_274327000, v1, OS_LOG_TYPE_ERROR, "ObjectDiscovery scanning failed to start with error: %@", v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_274327000, v1, OS_LOG_TYPE_ERROR, "ObjectDiscovery scanning failed to start with error: %@", v4, 0xCu);
 }
 
 @end

@@ -204,7 +204,7 @@ uint64_t __72__STLocalDynamicActivityAttributionManager_currentAttributionForCli
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (id)currentAttributionForAttribution:(id)attribution
@@ -215,7 +215,7 @@ uint64_t __72__STLocalDynamicActivityAttributionManager_currentAttributionForCli
   v20 = 0u;
   if (attributionCopy)
   {
-    [attributionCopy auditToken];
+    objc_msgSend_auditToken(attributionCopy);
   }
 
   v15 = v19;
@@ -275,7 +275,7 @@ uint64_t __77__STLocalDynamicActivityAttributionManager_currentAttributionForAtt
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (void)setLocalizableAttributionKey:(id)key andApplication:(id)application forClient:(id)client
@@ -309,7 +309,7 @@ uint64_t __77__STLocalDynamicActivityAttributionManager_currentAttributionForAtt
 
 void __98__STLocalDynamicActivityAttributionManager_setLocalizableAttributionKey_andApplication_forClient___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   v2 = *(a1 + 48);
   v3 = *(a1 + 56);
@@ -321,7 +321,7 @@ void __98__STLocalDynamicActivityAttributionManager_setLocalizableAttributionKey
   {
     if (v6)
     {
-      [v6 auditToken];
+      objc_msgSend_auditToken(v6);
     }
 
     memset(buf, 0, 32);
@@ -376,8 +376,6 @@ void __98__STLocalDynamicActivityAttributionManager_setLocalizableAttributionKey
       }
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setAttributionLocalizableKey:(id)key maskingClientAuditToken:(id *)token forClient:(id)client
@@ -411,40 +409,40 @@ void __98__STLocalDynamicActivityAttributionManager_setLocalizableAttributionKey
 
 void __107__STLocalDynamicActivityAttributionManager_setAttributionLocalizableKey_maskingClientAuditToken_forClient___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v1 = *(a1 + 40);
   v3 = *(a1 + 48);
   v4 = *(a1 + 72);
-  v18 = *(a1 + 56);
-  v19 = v4;
+  v17 = *(a1 + 56);
+  v18 = v4;
   v5 = v1;
   v6 = v3;
   v7 = v6;
   if (v2)
   {
+    v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     if (v6)
     {
-      [v6 auditToken];
+      objc_msgSend_auditToken(v6);
     }
 
-    *buf = v16;
-    v21 = v17;
+    *buf = v15;
+    v20 = v16;
     v8 = BSExecutablePathForAuditToken();
     if (v8)
     {
-      *buf = v18;
-      v21 = v19;
+      *buf = v17;
+      v20 = v18;
       v9 = BSExecutablePathForAuditToken();
       if (v5 | v9)
       {
-        *buf = v16;
-        v21 = v17;
-        v15[0] = v18;
-        v15[1] = v19;
-        v10 = [STDynamicActivityAttribution attributionForClientAuditToken:buf maskingClientAuditToken:v15 clientExecutablePath:v8 maskingClientExecutablePath:v9 localizationKey:v5];
+        *buf = v15;
+        v20 = v16;
+        v14[0] = v17;
+        v14[1] = v18;
+        v10 = [STDynamicActivityAttribution attributionForClientAuditToken:buf maskingClientAuditToken:v14 clientExecutablePath:v8 maskingClientExecutablePath:v9 localizationKey:v5];
       }
 
       else
@@ -484,8 +482,6 @@ void __107__STLocalDynamicActivityAttributionManager_setAttributionLocalizableKe
       }
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setAttributionStringWithFormat:(id)format maskingClientAuditToken:(id *)token forClient:(id)client
@@ -519,13 +515,13 @@ void __107__STLocalDynamicActivityAttributionManager_setAttributionLocalizableKe
 
 void __109__STLocalDynamicActivityAttributionManager_setAttributionStringWithFormat_maskingClientAuditToken_forClient___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v1 = *(a1 + 40);
   v3 = *(a1 + 48);
   v4 = *(a1 + 72);
-  v17 = *(a1 + 56);
-  v18 = v4;
+  v16 = *(a1 + 56);
+  v17 = v4;
   v5 = v1;
   v6 = v3;
   if (v2)
@@ -533,27 +529,27 @@ void __109__STLocalDynamicActivityAttributionManager_setAttributionStringWithFor
     if ([v5 containsString:@"%@"])
     {
       *buf = 0u;
-      v16 = 0u;
+      v15 = 0u;
       if (v6)
       {
-        [v6 auditToken];
+        objc_msgSend_auditToken(v6);
       }
 
-      *v19 = *buf;
-      v20 = v16;
+      *v18 = *buf;
+      v19 = v15;
       v7 = BSExecutablePathForAuditToken();
       if (v7)
       {
-        *v19 = v17;
-        v20 = v18;
+        *v18 = v16;
+        v19 = v17;
         v8 = BSExecutablePathForAuditToken();
         if (v5)
         {
-          *v19 = *buf;
-          v20 = v16;
-          v14[0] = v17;
-          v14[1] = v18;
-          v9 = [STDynamicActivityAttribution attributionForClientAuditToken:v19 maskingClientAuditToken:v14 clientExecutablePath:v7 maskingClientExecutablePath:v8 stringWithFormat:v5];
+          *v18 = *buf;
+          v19 = v15;
+          v13[0] = v16;
+          v13[1] = v17;
+          v9 = [STDynamicActivityAttribution attributionForClientAuditToken:v18 maskingClientAuditToken:v13 clientExecutablePath:v7 maskingClientExecutablePath:v8 stringWithFormat:v5];
         }
 
         else
@@ -571,9 +567,9 @@ void __109__STLocalDynamicActivityAttributionManager_setAttributionStringWithFor
           v11 = STSystemStatusLogDynamicAttribution();
           if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
           {
-            *v19 = 138412290;
-            *&v19[4] = v9;
-            _os_log_impl(&dword_1DA9C2000, v11, OS_LOG_TYPE_DEFAULT, "New dynamic attribution: %@", v19, 0xCu);
+            *v18 = 138412290;
+            *&v18[4] = v9;
+            _os_log_impl(&dword_1DA9C2000, v11, OS_LOG_TYPE_DEFAULT, "New dynamic attribution: %@", v18, 0xCu);
           }
         }
 
@@ -587,9 +583,9 @@ void __109__STLocalDynamicActivityAttributionManager_setAttributionStringWithFor
         if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
         {
           v10 = BSProcessDescriptionForAuditToken();
-          *v19 = 138412290;
-          *&v19[4] = v10;
-          _os_log_error_impl(&dword_1DA9C2000, v9, OS_LOG_TYPE_ERROR, "setAttributionStringWithFormat:maskingClientAuditToken:forClient: unable to get executable path from client audit token: %@", v19, 0xCu);
+          *v18 = 138412290;
+          *&v18[4] = v10;
+          _os_log_error_impl(&dword_1DA9C2000, v9, OS_LOG_TYPE_ERROR, "setAttributionStringWithFormat:maskingClientAuditToken:forClient: unable to get executable path from client audit token: %@", v18, 0xCu);
         }
       }
     }
@@ -604,8 +600,6 @@ void __109__STLocalDynamicActivityAttributionManager_setAttributionStringWithFor
       }
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setAttributionWebsiteString:(id)string maskingClientAuditToken:(id *)token forClient:(id)client
@@ -639,40 +633,40 @@ void __109__STLocalDynamicActivityAttributionManager_setAttributionStringWithFor
 
 void __106__STLocalDynamicActivityAttributionManager_setAttributionWebsiteString_maskingClientAuditToken_forClient___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v1 = *(a1 + 40);
   v3 = *(a1 + 48);
   v4 = *(a1 + 72);
-  v18 = *(a1 + 56);
-  v19 = v4;
+  v17 = *(a1 + 56);
+  v18 = v4;
   v5 = v1;
   v6 = v3;
   v7 = v6;
   if (v2)
   {
+    v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     if (v6)
     {
-      [v6 auditToken];
+      objc_msgSend_auditToken(v6);
     }
 
-    *buf = v16;
-    v21 = v17;
+    *buf = v15;
+    v20 = v16;
     v8 = BSExecutablePathForAuditToken();
     if (v8)
     {
-      *buf = v18;
-      v21 = v19;
+      *buf = v17;
+      v20 = v18;
       v9 = BSExecutablePathForAuditToken();
       if (v5)
       {
-        *buf = v16;
-        v21 = v17;
-        v15[0] = v18;
-        v15[1] = v19;
-        v10 = [STDynamicActivityAttribution attributionForClientAuditToken:buf maskingClientAuditToken:v15 clientExecutablePath:v8 maskingClientExecutablePath:v9 website:v5];
+        *buf = v15;
+        v20 = v16;
+        v14[0] = v17;
+        v14[1] = v18;
+        v10 = [STDynamicActivityAttribution attributionForClientAuditToken:buf maskingClientAuditToken:v14 clientExecutablePath:v8 maskingClientExecutablePath:v9 website:v5];
       }
 
       else
@@ -712,8 +706,6 @@ void __106__STLocalDynamicActivityAttributionManager_setAttributionWebsiteString
       }
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)subscribeToUpdates:(id)updates
@@ -774,59 +766,58 @@ void __63__STLocalDynamicActivityAttributionManager_subscribeToUpdates___block_i
 
 void __67__STLocalDynamicActivityAttributionManager_unsubscribeFromUpdates___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x1E69E9840];
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x2020000000;
-  v22 = 0;
+  v23 = *MEMORY[0x1E69E9840];
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x2020000000;
+  v21 = 0;
   v2 = [*(*(a1 + 32) + 24) copy];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __67__STLocalDynamicActivityAttributionManager_unsubscribeFromUpdates___block_invoke_2;
-  v15[3] = &unk_1E85DDE68;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __67__STLocalDynamicActivityAttributionManager_unsubscribeFromUpdates___block_invoke_2;
+  v14[3] = &unk_1E85DDE68;
   v3 = *(a1 + 40);
   v4 = *(a1 + 32);
-  v16 = v3;
-  v17 = v4;
-  v18 = &v19;
-  [v2 enumerateKeysAndObjectsUsingBlock:v15];
+  v15 = v3;
+  v16 = v4;
+  v17 = &v18;
+  [v2 enumerateKeysAndObjectsUsingBlock:v14];
 
   [*(*(a1 + 32) + 32) removeObject:*(a1 + 40)];
-  if (*(v20 + 24) == 1 && [*(*(a1 + 32) + 32) count])
+  if (*(v19 + 24) == 1 && [*(*(a1 + 32) + 32) count])
   {
     v5 = [*(*(a1 + 32) + 24) allValues];
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
     v12 = 0u;
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
     v6 = *(*(a1 + 32) + 32);
-    v7 = [v6 countByEnumeratingWithState:&v11 objects:v23 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v10 objects:v22 count:16];
     if (v7)
     {
-      v8 = *v12;
+      v8 = *v11;
       do
       {
         v9 = 0;
         do
         {
-          if (*v12 != v8)
+          if (*v11 != v8)
           {
             objc_enumerationMutation(v6);
           }
 
-          [*(*(&v11 + 1) + 8 * v9++) currentAttributionsDidChange:{v5, v11}];
+          [*(*(&v10 + 1) + 8 * v9++) currentAttributionsDidChange:{v5, v10}];
         }
 
         while (v7 != v9);
-        v7 = [v6 countByEnumeratingWithState:&v11 objects:v23 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v10 objects:v22 count:16];
       }
 
       while (v7);
     }
   }
 
-  _Block_object_dispose(&v19, 8);
-  v10 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v18, 8);
 }
 
 void __67__STLocalDynamicActivityAttributionManager_unsubscribeFromUpdates___block_invoke_2(void *a1, void *a2, void *a3)
@@ -836,14 +827,14 @@ void __67__STLocalDynamicActivityAttributionManager_unsubscribeFromUpdates___blo
   v7 = v6;
   if (v6)
   {
-    [v6 clientAuditToken];
+    objc_msgSend_clientAuditToken(v6);
   }
 
   v8 = BSVersionedPIDForAuditToken();
   v9 = a1[4];
   if (v9)
   {
-    [v9 auditToken];
+    objc_msgSend_auditToken(v9);
   }
 
   if (v8 == BSVersionedPIDForAuditToken())
@@ -855,7 +846,7 @@ void __67__STLocalDynamicActivityAttributionManager_unsubscribeFromUpdates___blo
 
 - (void)_updateAttributionMapWithAttribution:(void *)attribution clientID:
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = a2;
   attributionCopy = attribution;
   v7 = *(self + 24);
@@ -872,38 +863,36 @@ void __67__STLocalDynamicActivityAttributionManager_unsubscribeFromUpdates___blo
   if ([*(self + 32) count])
   {
     allValues = [*(self + 24) allValues];
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
     v9 = *(self + 32);
-    v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v16;
+      v12 = *v15;
       do
       {
         v13 = 0;
         do
         {
-          if (*v16 != v12)
+          if (*v15 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          [*(*(&v15 + 1) + 8 * v13++) currentAttributionsDidChange:{allValues, v15}];
+          [*(*(&v14 + 1) + 8 * v13++) currentAttributionsDidChange:{allValues, v14}];
         }
 
         while (v11 != v13);
-        v11 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v11);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -13,74 +13,74 @@
 
 - (id)_untypedObjectCollectionWithItemClass:(Class)class codableAttribute:(id)attribute error:(id *)error
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   attributeCopy = attribute;
   v7 = 0x1E695D000uLL;
   v8 = objc_alloc(MEMORY[0x1E695DF70]);
   sections = [(INObjectCollection *)self sections];
   v10 = [v8 initWithCapacity:{objc_msgSend(sections, "count")}];
 
-  v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
   v50 = 0u;
+  v51 = 0u;
+  v48 = 0u;
+  v49 = 0u;
   selfCopy = self;
   sections2 = [(INObjectCollection *)self sections];
-  v39 = [sections2 countByEnumeratingWithState:&v49 objects:v56 count:16];
-  if (v39)
+  v38 = [sections2 countByEnumeratingWithState:&v48 objects:v55 count:16];
+  if (v38)
   {
-    v12 = *v50;
-    v43 = sections2;
-    v44 = v10;
-    v37 = *v50;
+    v12 = *v49;
+    v42 = sections2;
+    v43 = v10;
+    v36 = *v49;
     do
     {
       v13 = 0;
       do
       {
-        if (*v50 != v12)
+        if (*v49 != v12)
         {
           objc_enumerationMutation(sections2);
         }
 
-        v41 = v13;
-        v14 = *(*(&v49 + 1) + 8 * v13);
+        v40 = v13;
+        v14 = *(*(&v48 + 1) + 8 * v13);
         v15 = objc_alloc_init(*(v7 + 3952));
+        v44 = 0u;
         v45 = 0u;
         v46 = 0u;
         v47 = 0u;
-        v48 = 0u;
-        v40 = v14;
+        v39 = v14;
         items = [v14 items];
-        v17 = [items countByEnumeratingWithState:&v45 objects:v55 count:16];
+        v17 = [items countByEnumeratingWithState:&v44 objects:v54 count:16];
         if (v17)
         {
           v18 = v17;
-          v19 = *v46;
+          v19 = *v45;
           while (2)
           {
             for (i = 0; i != v18; ++i)
             {
-              if (*v46 != v19)
+              if (*v45 != v19)
               {
                 objc_enumerationMutation(items);
               }
 
-              v21 = *(*(&v45 + 1) + 8 * i);
+              v21 = *(*(&v44 + 1) + 8 * i);
               if ((objc_opt_isKindOfClass() & 1) == 0)
               {
                 v29 = MEMORY[0x1E696ABC0];
-                v53 = *MEMORY[0x1E696A578];
+                v52 = *MEMORY[0x1E696A578];
                 v30 = MEMORY[0x1E696AEC0];
                 v31 = objc_opt_class();
                 v32 = NSStringFromClass(v31);
                 v33 = [v30 stringWithFormat:@"Unexpected class %@", v32];
-                v54 = v33;
-                v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v54 forKeys:&v53 count:1];
+                v53 = v33;
+                v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v53 forKeys:&v52 count:1];
                 *error = [v29 errorWithDomain:@"_INObjectCollectionErrorDomain" code:1001 userInfo:v34];
 
                 v28 = 0;
-                v10 = v44;
+                v10 = v43;
                 goto LABEL_20;
               }
 
@@ -93,7 +93,7 @@
               }
             }
 
-            v18 = [items countByEnumeratingWithState:&v45 objects:v55 count:16];
+            v18 = [items countByEnumeratingWithState:&v44 objects:v54 count:16];
             if (v18)
             {
               continue;
@@ -104,87 +104,85 @@
         }
 
         v25 = [INObjectSection alloc];
-        title = [v40 title];
+        title = [v39 title];
         v27 = [(INObjectSection *)v25 initWithTitle:title items:v15];
-        v10 = v44;
-        [v44 addObject:v27];
+        v10 = v43;
+        [v43 addObject:v27];
 
-        v13 = v41 + 1;
-        sections2 = v43;
+        v13 = v40 + 1;
+        sections2 = v42;
         v7 = 0x1E695D000;
-        v12 = v37;
+        v12 = v36;
       }
 
-      while (v41 + 1 != v39);
-      v39 = [v43 countByEnumeratingWithState:&v49 objects:v56 count:16];
+      while (v40 + 1 != v38);
+      v38 = [v42 countByEnumeratingWithState:&v48 objects:v55 count:16];
     }
 
-    while (v39);
+    while (v38);
   }
 
   v28 = [[INObjectCollection alloc] initWithSections:v10];
   [(INObjectCollection *)v28 setUsesIndexedCollation:[(INObjectCollection *)selfCopy usesIndexedCollation]];
 LABEL_20:
 
-  v35 = *MEMORY[0x1E69E9840];
-
   return v28;
 }
 
 - (id)_typedObjectCollectionWithCodableAttribute:(id)attribute
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   attributeCopy = attribute;
   v5 = objc_alloc(MEMORY[0x1E695DF70]);
   sections = [(INObjectCollection *)self sections];
-  v26 = [v5 initWithCapacity:{objc_msgSend(sections, "count")}];
+  v25 = [v5 initWithCapacity:{objc_msgSend(sections, "count")}];
 
   v7 = objc_alloc_init(INJSONDecoder);
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   selfCopy = self;
   obj = [(INObjectCollection *)self sections];
-  v27 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
-  if (v27)
+  v26 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
+  if (v26)
   {
-    v25 = *v33;
+    v24 = *v32;
     do
     {
-      for (i = 0; i != v27; ++i)
+      for (i = 0; i != v26; ++i)
       {
-        if (*v33 != v25)
+        if (*v32 != v24)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v32 + 1) + 8 * i);
+        v9 = *(*(&v31 + 1) + 8 * i);
         v10 = objc_alloc_init(MEMORY[0x1E695DF70]);
+        v27 = 0u;
         v28 = 0u;
         v29 = 0u;
         v30 = 0u;
-        v31 = 0u;
         items = [v9 items];
-        v12 = [items countByEnumeratingWithState:&v28 objects:v36 count:16];
+        v12 = [items countByEnumeratingWithState:&v27 objects:v35 count:16];
         if (v12)
         {
           v13 = v12;
-          v14 = *v29;
+          v14 = *v28;
           do
           {
             for (j = 0; j != v13; ++j)
             {
-              if (*v29 != v14)
+              if (*v28 != v14)
               {
                 objc_enumerationMutation(items);
               }
 
-              v16 = [(INJSONDecoder *)v7 decodeWithCodableAttribute:attributeCopy from:*(*(&v28 + 1) + 8 * j)];
+              v16 = [(INJSONDecoder *)v7 decodeWithCodableAttribute:attributeCopy from:*(*(&v27 + 1) + 8 * j)];
               [v10 if_addObjectIfNonNil:v16];
             }
 
-            v13 = [items countByEnumeratingWithState:&v28 objects:v36 count:16];
+            v13 = [items countByEnumeratingWithState:&v27 objects:v35 count:16];
           }
 
           while (v13);
@@ -193,19 +191,17 @@ LABEL_20:
         v17 = [INObjectSection alloc];
         title = [v9 title];
         v19 = [(INObjectSection *)v17 initWithTitle:title items:v10];
-        [v26 addObject:v19];
+        [v25 addObject:v19];
       }
 
-      v27 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
+      v26 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
     }
 
-    while (v27);
+    while (v26);
   }
 
-  v20 = [[INObjectCollection alloc] initWithSections:v26];
+  v20 = [[INObjectCollection alloc] initWithSections:v25];
   [(INObjectCollection *)v20 setUsesIndexedCollation:[(INObjectCollection *)selfCopy usesIndexedCollation]];
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v20;
 }
@@ -275,15 +271,14 @@ LABEL_20:
 
 - (INObjectCollection)initWithItems:(NSArray *)items
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   v4 = items;
   v5 = [[INObjectSection alloc] initWithTitle:0 items:v4];
 
-  v10[0] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
+  v9[0] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
   v7 = [(INObjectCollection *)self initWithSections:v6];
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

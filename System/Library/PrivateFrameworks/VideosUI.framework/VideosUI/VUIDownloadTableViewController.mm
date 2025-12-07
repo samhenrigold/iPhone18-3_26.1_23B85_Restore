@@ -83,9 +83,9 @@ void __53__VUIDownloadTableViewController_initWithDataSource___block_invoke(uint
 
 - (void)loadView
 {
-  v43.receiver = self;
-  v43.super_class = VUIDownloadTableViewController;
-  [(VUIDownloadTableViewController *)&v43 loadView];
+  v44.receiver = self;
+  v44.super_class = VUIDownloadTableViewController;
+  [(VUIDownloadTableViewController *)&v44 loadView];
   contentPresenter = [(VUIDownloadTableViewController *)self contentPresenter];
   [contentPresenter setRootViewForViewController:self];
 
@@ -144,36 +144,36 @@ void __53__VUIDownloadTableViewController_initWithDataSource___block_invoke(uint
   aBlock[1] = 3221225472;
   aBlock[2] = __42__VUIDownloadTableViewController_loadView__block_invoke;
   aBlock[3] = &unk_1E872F5D0;
-  objc_copyWeak(&v41, &location);
+  objc_copyWeak(&v42, &location);
   v30 = _Block_copy(aBlock);
   if (_os_feature_enabled_impl())
   {
-    v31 = v39;
-    v39[0] = MEMORY[0x1E69E9820];
-    v39[1] = 3221225472;
-    v39[2] = __42__VUIDownloadTableViewController_loadView__block_invoke_2;
-    v39[3] = &unk_1E872E470;
-    v39[4] = v30;
-    [_TtC8VideosUI22VUIBagServiceProxyObjC isFullTVAppEnabledWithCompletionHandler:v39];
+    v31 = v40;
+    v40[0] = MEMORY[0x1E69E9820];
+    v40[1] = 3221225472;
+    v40[2] = __42__VUIDownloadTableViewController_loadView__block_invoke_2;
+    v40[3] = &unk_1E872E470;
+    v40[4] = v30;
+    [_TtC8VideosUI22VUIBagServiceProxyObjC isFullTVAppEnabledWithCompletionHandler:v40];
   }
 
   else
   {
     v32 = MEMORY[0x1E69E15F8];
-    v31 = v38;
-    v38[0] = MEMORY[0x1E69E9820];
-    v38[1] = 3221225472;
-    v38[2] = __42__VUIDownloadTableViewController_loadView__block_invoke_62;
-    v38[3] = &unk_1E872D790;
-    v38[4] = v30;
-    [v32 isFullTVAppEnabledwithCompletion:v38];
+    v31 = v39;
+    v39[0] = MEMORY[0x1E69E9820];
+    v39[1] = 3221225472;
+    v39[2] = __42__VUIDownloadTableViewController_loadView__block_invoke_62;
+    v39[3] = &unk_1E872D790;
+    v39[4] = v30;
+    [v32 isFullTVAppEnabledwithCompletion:v39];
   }
 
-  v33 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
+  v34 = VUIDefaultLogObject(v33);
+  if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
   {
-    *v37 = 0;
-    _os_log_impl(&dword_1E323F000, v33, OS_LOG_TYPE_INFO, "[VUIDownloadTableViewController] - load view - update content view type to loading", v37, 2u);
+    *v38 = 0;
+    _os_log_impl(&dword_1E323F000, v34, OS_LOG_TYPE_INFO, "[VUIDownloadTableViewController] - load view - update content view type to loading", v38, 2u);
   }
 
   contentPresenter2 = [(VUIDownloadTableViewController *)self contentPresenter];
@@ -185,7 +185,7 @@ void __53__VUIDownloadTableViewController_initWithDataSource___block_invoke(uint
   defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
   [defaultCenter addObserver:self selector:sel_fullscreenPlaybackUIDidChangeNotification_ name:VUIPlaybackManagerFullscreenPlaybackUIDidChangeNotification[0] object:0];
 
-  objc_destroyWeak(&v41);
+  objc_destroyWeak(&v42);
   objc_destroyWeak(&location);
 }
 
@@ -250,12 +250,13 @@ LABEL_8:
 void __42__VUIDownloadTableViewController_loadView__block_invoke_2(uint64_t a1, char a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (v5)
   {
-    v6 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = VUIDefaultLogObject(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __42__VUIDownloadTableViewController_loadView__block_invoke_2_cold_1(a2, v5, v6);
+      __42__VUIDownloadTableViewController_loadView__block_invoke_2_cold_1(a2, v6, v7);
     }
   }
 
@@ -419,7 +420,7 @@ void __42__VUIDownloadTableViewController_loadView__block_invoke_62(uint64_t a1,
 
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path
 {
-  v39[1] = *MEMORY[0x1E69E9840];
+  v40[1] = *MEMORY[0x1E69E9840];
   viewCopy = view;
   pathCopy = path;
   if (![(UITableView *)self->_downloadEntitiesTableView isEditing])
@@ -457,7 +458,7 @@ void __42__VUIDownloadTableViewController_loadView__block_invoke_62(uint64_t a1,
         navigationController = [(VUIDownloadTableViewController *)self navigationController];
         [navigationController pushViewController:v21 animated:1];
 
-        rightBarButtonItem2 = v36;
+        rightBarButtonItem2 = v37;
       }
     }
 
@@ -474,10 +475,10 @@ void __42__VUIDownloadTableViewController_loadView__block_invoke_62(uint64_t a1,
         v30 = downloadExpirationDate;
         if (downloadExpirationDate && ![downloadExpirationDate vui_isInTheFuture])
         {
-          v35 = [(VUIDownloadTableViewController *)self _configureRenewAlertControllerForIndexPath:pathCopy forPreferredStyle:1 withCompletion:0];
-          if (v35)
+          v36 = [(VUIDownloadTableViewController *)self _configureRenewAlertControllerForIndexPath:pathCopy forPreferredStyle:1 withCompletion:0];
+          if (v36)
           {
-            [(VUIDownloadTableViewController *)self presentViewController:v35 animated:1 completion:0];
+            [(VUIDownloadTableViewController *)self presentViewController:v36 animated:1 completion:0];
           }
 
           [viewCopy deselectRowAtIndexPath:pathCopy animated:1];
@@ -486,29 +487,29 @@ void __42__VUIDownloadTableViewController_loadView__block_invoke_62(uint64_t a1,
         else
         {
           v31 = [VUIMediaInfo alloc];
-          v39[0] = v28;
-          v32 = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:1];
+          v40[0] = v28;
+          v32 = [MEMORY[0x1E695DEC8] arrayWithObjects:v40 count:1];
           v33 = [(VUIMediaInfo *)v31 initWithPlaybackContext:3 vuiMediaItems:v32];
 
           [(VUIMediaInfo *)v33 setIntent:1];
-          [(VUIMediaInfo *)v33 setAutomaticPlaybackStart:0];
+          v34 = [(VUIMediaInfo *)v33 setAutomaticPlaybackStart:0];
           if (v33)
           {
-            v37[0] = MEMORY[0x1E69E9820];
-            v37[1] = 3221225472;
-            v37[2] = __68__VUIDownloadTableViewController_tableView_didSelectRowAtIndexPath___block_invoke;
-            v37[3] = &unk_1E872D768;
-            v38 = v28;
-            [VUIActionPlay playMediaInfo:v33 watchType:0 isRentAndWatchNow:0 completion:v37];
-            v34 = v38;
+            v38[0] = MEMORY[0x1E69E9820];
+            v38[1] = 3221225472;
+            v38[2] = __68__VUIDownloadTableViewController_tableView_didSelectRowAtIndexPath___block_invoke;
+            v38[3] = &unk_1E872D768;
+            v39 = v28;
+            [VUIActionPlay playMediaInfo:v33 watchType:0 isRentAndWatchNow:0 completion:v38];
+            v35 = v39;
           }
 
           else
           {
-            v34 = VUIDefaultLogObject();
-            if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+            v35 = VUIDefaultLogObject(v34);
+            if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
             {
-              [VUIDownloadShowTableViewController tableView:v28 didSelectRowAtIndexPath:v34];
+              [VUIDownloadShowTableViewController tableView:v28 didSelectRowAtIndexPath:v35];
             }
           }
         }
@@ -2081,7 +2082,7 @@ id __59__VUIDownloadTableViewController__createDiffableDataSource__block_invoke(
   }
 }
 
-uint64_t __60__VUIDownloadTableViewController__clearTableViewSelections___block_invoke_2(uint64_t a1, void *a2)
+void *__60__VUIDownloadTableViewController__clearTableViewSelections___block_invoke_2(uint64_t a1, void *a2)
 {
   result = [a2 isCancelled];
   if (result)

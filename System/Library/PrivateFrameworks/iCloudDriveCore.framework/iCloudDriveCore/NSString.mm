@@ -12,7 +12,7 @@ uint64_t __75__NSString_BRCPathAdditions__br_currentMobileDocumentsDirWithRefres
 
 void __75__NSString_BRCPathAdditions__br_currentMobileDocumentsDirWithRefreshCache___block_invoke_15(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -21,11 +21,11 @@ void __75__NSString_BRCPathAdditions__br_currentMobileDocumentsDirWithRefreshCac
     v8 = brc_default_log();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 138412546;
-      v14 = v6;
-      v15 = 2112;
-      v16 = v7;
-      _os_log_impl(&dword_223E7A000, v8, OS_LOG_TYPE_DEFAULT, "[WARNING] fetchRootItemForProviderDomain failed with error: %@%@", &v13, 0x16u);
+      v12 = 138412546;
+      v13 = v6;
+      v14 = 2112;
+      v15 = v7;
+      _os_log_impl(&dword_223E7A000, v8, OS_LOG_TYPE_DEFAULT, "[WARNING] fetchRootItemForProviderDomain failed with error: %@%@", &v12, 0x16u);
     }
   }
 
@@ -45,7 +45,6 @@ void __75__NSString_BRCPathAdditions__br_currentMobileDocumentsDirWithRefreshCac
   }
 
   dispatch_group_leave(*(a1 + 32));
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __81__NSString_BRCPackageAdditions__brc_loadForcedPackageExtensionsForCurrentPersona__block_invoke()
@@ -61,15 +60,13 @@ uint64_t __81__NSString_BRCPackageAdditions__brc_loadForcedPackageExtensionsForC
 
 void __75__NSString_BRCPathAdditions__br_currentMobileDocumentsDirWithRefreshCache___block_invoke_15_cold_1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = [a1 fileURL];
-  v7 = 138412546;
-  v8 = v5;
-  v9 = 2112;
-  v10 = a2;
-  _os_log_debug_impl(&dword_223E7A000, a3, OS_LOG_TYPE_DEBUG, "[DEBUG] Root URL %@%@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138412546;
+  v7 = v5;
+  v8 = 2112;
+  v9 = a2;
+  _os_log_debug_impl(&dword_223E7A000, a3, OS_LOG_TYPE_DEBUG, "[DEBUG] Root URL %@%@", &v6, 0x16u);
 }
 
 @end

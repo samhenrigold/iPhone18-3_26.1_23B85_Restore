@@ -1,6 +1,7 @@
 @interface _PASSqliteDatabase
 + (BOOL)isInMemoryPath:(id)path;
 + (_PASSqliteDatabase)sqliteDatabaseWithFilename:(id)filename contentProtection:(int64_t)protection errorHandler:(id)handler error:(id *)error;
++ (_PASSqliteDatabase)sqliteDatabaseWithFilename:(id)filename flags:(int)flags error:(id *)error errorHandler:(id)handler;
 + (id)initializeDatabase:(id)database withContentProtection:(int64_t)protection newDatabaseCreated:(BOOL *)created errorHandler:(id)handler;
 + (id)initializeDatabase:(id)database withProtection:(BOOL)protection newDatabaseCreated:(BOOL *)created;
 + (id)randomlyNamedInMemoryPathWithBaseName:(id)name;
@@ -13,6 +14,7 @@
 - (BOOL)enableQueryPlanLoggingWithPath:(id)path;
 - (BOOL)frailReadTransaction:(id)transaction;
 - (BOOL)frailWriteTransaction:(id)transaction;
+- (BOOL)handleError:(int64_t)error sqliteError:(int)sqliteError forQuery:(id)query onError:(id)onError;
 - (BOOL)hasColumnOnTable:(id)table named:(id)named;
 - (BOOL)hasIndexNamed:(id)named;
 - (BOOL)hasTableNamed:(id)named;
@@ -20,9 +22,12 @@
 - (BOOL)prepAndRunQuery:(id)query onPrep:(id)prep onRow:(id)row onError:(id)error;
 - (BOOL)prepQuery:(id)query onPrep:(id)prep onError:(id)error;
 - (BOOL)runQuery:(id)query onRow:(id)row onError:(id)error;
+- (BOOL)setUserVersion:(unsigned int)version;
 - (BOOL)vacuumWithShouldContinueBlock:(id)block error:(id *)error;
 - (_PASDBTransactionCompletion_)_transactionWithExclusivity:(BOOL)exclusivity transaction:(id)transaction;
+- (_PASSqliteDatabase)initWithFilename:(id)filename flags:(int)flags error:(id *)error;
 - (_PASSqliteDatabase)initWithFilename:(id)filename flags:(int)flags error:(id *)error errorHandler:(id)handler;
+- (id)dbErrorWithCode:(unint64_t)code sqliteReturnValue:(int)value lastErrno:(int)errno query:(id)query;
 - (id)description;
 - (id)freeSpace;
 - (id)languageForFTSTable:(id)table;
@@ -77,28 +82,27 @@
 
 - (unsigned)userVersion
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v7 = 0;
-  v8 = &v7;
-  v9 = 0x2020000000;
-  v10 = 0;
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = __33___PASSqliteDatabase_userVersion__block_invoke;
-  v6[3] = &unk_1E77F2610;
-  v6[4] = &v7;
-  [(_PASSqliteDatabase *)self prepAndRunQuery:@"PRAGMA user_version" onPrep:0 onRow:v6 onError:&__block_literal_global_243];
+  v12 = *MEMORY[0x1E69E9840];
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
+  v9 = 0;
+  v5[0] = MEMORY[0x1E69E9820];
+  v5[1] = 3221225472;
+  v5[2] = __33___PASSqliteDatabase_userVersion__block_invoke;
+  v5[3] = &unk_1E77F2610;
+  v5[4] = &v6;
+  [(_PASSqliteDatabase *)self prepAndRunQuery:@"PRAGMA user_version" onPrep:0 onRow:v5 onError:&__block_literal_global_243];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
   {
-    v5 = *(v8 + 6);
+    v4 = *(v7 + 6);
     *buf = 67109120;
-    v12 = v5;
+    v11 = v4;
     _os_log_debug_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "Returning user_version of: %u", buf, 8u);
   }
 
-  v2 = *(v8 + 6);
-  _Block_object_dispose(&v7, 8);
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *(v7 + 6);
+  _Block_object_dispose(&v6, 8);
   return v2;
 }
 
@@ -112,7 +116,7 @@
 
 - (void)closePermanently
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if ((atomic_exchange(&self->_isClosed._Value, 1u) & 1) == 0)
   {
     pthread_mutex_destroy(&self->_lock);
@@ -137,7 +141,6 @@
       [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D930] format:{@"sqlite3_close returned %d", v4}];
     }
 
-    db = self->_db;
     ITSCollationContextFreeContextForDatabaseHandle();
     self->_db = 0;
     explainedQueriesLogFile = self->_explainedQueriesLogFile;
@@ -147,8 +150,6 @@
       self->_explainedQueriesLogFile = 0;
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)placeCorruptionMarker
@@ -175,6 +176,100 @@
     v5 = [_PASSqliteDatabase corruptionMarkerPathForPath:filename];
     [defaultManager createFileAtPath:v5 contents:0 attributes:0];
   }
+}
+
+- (BOOL)handleError:(int64_t)error sqliteError:(int)sqliteError forQuery:(id)query onError:(id)onError
+{
+  v7 = *&sqliteError;
+  onErrorCopy = onError;
+  v11 = [(_PASSqliteDatabase *)self dbErrorWithCode:error sqliteReturnValue:v7 lastErrno:0 query:query];
+  LOBYTE(v7) = [(_PASSqliteErrorHandlerProtocol *)self->_errorHandler handleSqliteError:v7 error:v11 onError:onErrorCopy db:self];
+
+  return v7;
+}
+
+- (id)dbErrorWithCode:(unint64_t)code sqliteReturnValue:(int)value lastErrno:(int)errno query:(id)query
+{
+  v7 = *&value;
+  queryCopy = query;
+  if ([queryCopy length] >= 0x65)
+  {
+    v11 = [queryCopy substringToIndex:100];
+    v12 = [v11 stringByAppendingString:@"..."];
+
+    queryCopy = v12;
+  }
+
+  v13 = objc_alloc(MEMORY[0x1E696AEC0]);
+  v14 = sqlite3_errstr(v7);
+  v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithUTF8String:sqlite3_errmsg(self->_db)];
+  v16 = [v13 initWithFormat:@"Error(%d %s): %@", v7, v14, v15];
+
+  if (queryCopy)
+  {
+    queryCopy = [v16 stringByAppendingFormat:@" (SQL: %@)", queryCopy];
+
+    v16 = queryCopy;
+  }
+
+  if (code != 1 && !errno)
+  {
+    v29 = 0;
+    if (sqlite3_file_control(self->_db, 0, 4, &v29))
+    {
+      goto LABEL_11;
+    }
+
+    errno = v29;
+  }
+
+  if (errno)
+  {
+    v18 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:errno userInfo:0];
+    v19 = [v16 stringByAppendingFormat:@". May be due to previous POSIX error %@", v18];
+
+    v16 = v19;
+    goto LABEL_12;
+  }
+
+LABEL_11:
+  v18 = 0;
+LABEL_12:
+  freeSpace = [(_PASSqliteDatabase *)self freeSpace];
+  if (freeSpace)
+  {
+    v21 = objc_opt_new();
+    [v21 setNumberStyle:1];
+    [v21 setUsesGroupingSeparator:1];
+    [v21 setGroupingSeparator:{@", "}];
+    [v21 setUsesSignificantDigits:1];
+    [v21 setMinimumSignificantDigits:1];
+    [v21 setMaximumSignificantDigits:1];
+    v22 = [v21 stringFromNumber:freeSpace];
+    v23 = [v16 stringByAppendingFormat:@". Free space (rounded to 1 significant digit): %@ bytes", v22];
+
+    v16 = v23;
+  }
+
+  v24 = objc_opt_new();
+  v25 = v24;
+  if (queryCopy)
+  {
+    [v24 setObject:queryCopy forKeyedSubscript:@"sql"];
+  }
+
+  if (v18)
+  {
+    [v25 setObject:v18 forKeyedSubscript:*MEMORY[0x1E696AA08]];
+  }
+
+  [v25 setObject:v16 forKeyedSubscript:@"reason"];
+  v26 = [MEMORY[0x1E696AD98] numberWithInt:v7];
+  [v25 setObject:v26 forKeyedSubscript:@"sqliteCode"];
+
+  v27 = [MEMORY[0x1E696ABC0] errorWithDomain:@"_PASSqliteDatabaseError" code:code userInfo:v25];
+
+  return v27;
 }
 
 - (id)freeSpace
@@ -322,7 +417,6 @@ LABEL_17:
 
 - (void)withDbLockExecuteBlock:(id)block
 {
-  v13 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   dispatch_group_enter(self->_waitingForLock);
   pthread_mutex_lock(&self->_lock);
@@ -365,8 +459,6 @@ LABEL_17:
   }
 
   pthread_mutex_unlock(&self->_lock);
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)numberOfRowsInTable:(id)table
@@ -499,9 +591,38 @@ LABEL_17:
   return self;
 }
 
+- (BOOL)setUserVersion:(unsigned int)version
+{
+  v3 = *&version;
+  v14 = *MEMORY[0x1E69E9840];
+  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 67109120;
+    *&buf[4] = v3;
+    _os_log_debug_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "Setting user_version to: %u", buf, 8u);
+  }
+
+  *buf = 0;
+  v11 = buf;
+  v12 = 0x2020000000;
+  v13 = 1;
+  v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"PRAGMA user_version = %u", v3];
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __37___PASSqliteDatabase_setUserVersion___block_invoke;
+  v8[3] = &unk_1E77F27F0;
+  v9 = v3;
+  v8[4] = buf;
+  [(_PASSqliteDatabase *)self prepAndRunQuery:v5 onPrep:0 onRow:0 onError:v8];
+
+  v6 = v11[24];
+  _Block_object_dispose(buf, 8);
+  return v6;
+}
+
 - (BOOL)createSnapshot:(id)snapshot
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   snapshotCopy = snapshot;
   if (!snapshotCopy)
   {
@@ -512,17 +633,17 @@ LABEL_17:
   ppDb = 0;
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
   {
-    LODWORD(v21) = 138412290;
-    *(&v21 + 4) = snapshotCopy;
-    _os_log_debug_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "opening to backup: %@", &v21, 0xCu);
+    LODWORD(v20) = 138412290;
+    *(&v20 + 4) = snapshotCopy;
+    _os_log_debug_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "opening to backup: %@", &v20, 0xCu);
   }
 
-  *&v21 = 0;
-  *(&v21 + 1) = &v21;
-  v22 = 0x2020000000;
+  *&v20 = 0;
+  *(&v20 + 1) = &v20;
+  v21 = 0x2020000000;
   v6 = snapshotCopy;
-  v23 = sqlite3_open_v2([snapshotCopy UTF8String], &ppDb, 327686, 0);
-  if (*(*(&v21 + 1) + 24))
+  v22 = sqlite3_open_v2([snapshotCopy UTF8String], &ppDb, 327686, 0);
+  if (*(*(&v20 + 1) + 24))
   {
     v7 = 0;
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
@@ -538,19 +659,19 @@ LABEL_17:
   {
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v19 = 0x2020000000;
-    v20 = 0;
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __37___PASSqliteDatabase_createSnapshot___block_invoke;
-    v12[3] = &unk_1E77F27C8;
-    v12[4] = self;
+    v18 = 0x2020000000;
+    v19 = 0;
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __37___PASSqliteDatabase_createSnapshot___block_invoke;
+    v11[3] = &unk_1E77F27C8;
+    v11[4] = self;
     p_buf = &buf;
-    v15 = &v21;
-    v16 = ppDb;
+    v14 = &v20;
+    v15 = ppDb;
     v8 = snapshotCopy;
-    v13 = v8;
-    [(_PASSqliteDatabase *)self withDbLockExecuteBlock:v12];
+    v12 = v8;
+    [(_PASSqliteDatabase *)self withDbLockExecuteBlock:v11];
     v7 = *(*(&buf + 1) + 24);
 
     _Block_object_dispose(&buf, 8);
@@ -564,9 +685,8 @@ LABEL_17:
     sqlite3_close(ppDb);
   }
 
-  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(&v20, 8);
 
-  v9 = *MEMORY[0x1E69E9840];
   return v7 & 1;
 }
 
@@ -575,10 +695,9 @@ LABEL_17:
   v3 = objc_alloc(MEMORY[0x1E696AEC0]);
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  filename = self->_filename;
-  v7 = [v3 initWithFormat:@"[%@: %@ <%p>]", v5, filename, self->_db];
+  v6 = [v3 initWithFormat:@"[%@: %@ <%p>]", v5, self->_filename, self->_db];
 
-  return v7;
+  return v6;
 }
 
 - (_PASDBTransactionCompletion_)_transactionWithExclusivity:(BOOL)exclusivity transaction:(id)transaction
@@ -779,36 +898,36 @@ LABEL_17:
 
 - (BOOL)prepAndRunNonDataQueries:(id)queries onError:(id)error
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   queriesCopy = queries;
   errorCopy = error;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v8 = queriesCopy;
-  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v17;
+    v11 = *v16;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v17 != v11)
+        if (*v16 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        if (![(_PASSqliteDatabase *)self prepAndRunQuery:*(*(&v16 + 1) + 8 * i) onPrep:0 onRow:0 onError:errorCopy, v16])
+        if (![(_PASSqliteDatabase *)self prepAndRunQuery:*(*(&v15 + 1) + 8 * i) onPrep:0 onRow:0 onError:errorCopy, v15])
         {
           v13 = 0;
           goto LABEL_11;
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v10)
       {
         continue;
@@ -821,7 +940,6 @@ LABEL_17:
   v13 = 1;
 LABEL_11:
 
-  v14 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -1015,7 +1133,7 @@ LABEL_8:
 
 - (BOOL)vacuumWithShouldContinueBlock:(id)block error:(id *)error
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   _pagesToVacuum = [(_PASSqliteDatabase *)self _pagesToVacuum];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
@@ -1054,21 +1172,21 @@ LABEL_8:
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
     *&buf[24] = __Block_byref_object_copy__3437;
-    v27 = __Block_byref_object_dispose__3438;
-    v28 = 0;
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __58___PASSqliteDatabase_vacuumWithShouldContinueBlock_error___block_invoke;
-    v23[3] = &unk_1E77F2590;
-    v23[4] = buf;
-    if (![(_PASSqliteDatabase *)self prepAndRunNonDataQueries:&unk_1F1B30240 onError:v23])
+    v26 = __Block_byref_object_dispose__3438;
+    v27 = 0;
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __58___PASSqliteDatabase_vacuumWithShouldContinueBlock_error___block_invoke;
+    v22[3] = &unk_1E77F2590;
+    v22[4] = buf;
+    if (![(_PASSqliteDatabase *)self prepAndRunNonDataQueries:&unk_1F1B30240 onError:v22])
     {
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v18 = *(*&buf[8] + 40);
-        *v24 = 138412290;
-        v25 = v18;
-        _os_log_error_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "_PASSqliteDatabase: failed to set auto_vacuum to INCREMENTAL for db: %@", v24, 0xCu);
+        v17 = *(*&buf[8] + 40);
+        *v23 = 138412290;
+        v24 = v17;
+        _os_log_error_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "_PASSqliteDatabase: failed to set auto_vacuum to INCREMENTAL for db: %@", v23, 0xCu);
       }
 
       if (error)
@@ -1138,21 +1256,21 @@ LABEL_48:
         *&buf[8] = buf;
         *&buf[16] = 0x3032000000;
         *&buf[24] = __Block_byref_object_copy__3437;
-        v27 = __Block_byref_object_dispose__3438;
-        v28 = 0;
-        v21[0] = MEMORY[0x1E69E9820];
-        v21[1] = 3221225472;
-        v21[2] = __58___PASSqliteDatabase_vacuumWithShouldContinueBlock_error___block_invoke_132;
-        v21[3] = &unk_1E77F2590;
-        v21[4] = buf;
-        if (![(_PASSqliteDatabase *)self prepAndRunQuery:v13 onPrep:0 onRow:0 onError:v21])
+        v26 = __Block_byref_object_dispose__3438;
+        v27 = 0;
+        v20[0] = MEMORY[0x1E69E9820];
+        v20[1] = 3221225472;
+        v20[2] = __58___PASSqliteDatabase_vacuumWithShouldContinueBlock_error___block_invoke_132;
+        v20[3] = &unk_1E77F2590;
+        v20[4] = buf;
+        if (![(_PASSqliteDatabase *)self prepAndRunQuery:v13 onPrep:0 onRow:0 onError:v20])
         {
           if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
           {
             v15 = *(*&buf[8] + 40);
-            *v24 = 138412290;
-            v25 = v15;
-            _os_log_error_impl(&dword_1A7F47000, v10, OS_LOG_TYPE_ERROR, "_PASSqliteDatabase: failed to incrementally vacuum: %@", v24, 0xCu);
+            *v23 = 138412290;
+            v24 = v15;
+            _os_log_error_impl(&dword_1A7F47000, v10, OS_LOG_TYPE_ERROR, "_PASSqliteDatabase: failed to incrementally vacuum: %@", v23, 0xCu);
           }
 
           if (error)
@@ -1188,21 +1306,21 @@ LABEL_48:
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
     *&buf[24] = __Block_byref_object_copy__3437;
-    v27 = __Block_byref_object_dispose__3438;
-    v28 = 0;
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = __58___PASSqliteDatabase_vacuumWithShouldContinueBlock_error___block_invoke_128;
-    v22[3] = &unk_1E77F2590;
-    v22[4] = buf;
-    if (![(_PASSqliteDatabase *)self prepAndRunNonDataQueries:&unk_1F1B30258 onError:v22])
+    v26 = __Block_byref_object_dispose__3438;
+    v27 = 0;
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __58___PASSqliteDatabase_vacuumWithShouldContinueBlock_error___block_invoke_128;
+    v21[3] = &unk_1E77F2590;
+    v21[4] = buf;
+    if (![(_PASSqliteDatabase *)self prepAndRunNonDataQueries:&unk_1F1B30258 onError:v21])
     {
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v19 = *(*&buf[8] + 40);
-        *v24 = 138412290;
-        v25 = v19;
-        _os_log_error_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "_PASSqliteDatabase: failed to set auto_vacuum to INCREMENTAL for db: %@", v24, 0xCu);
+        v18 = *(*&buf[8] + 40);
+        *v23 = 138412290;
+        v24 = v18;
+        _os_log_error_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "_PASSqliteDatabase: failed to set auto_vacuum to INCREMENTAL for db: %@", v23, 0xCu);
       }
 
       if (error)
@@ -1221,22 +1339,21 @@ LABEL_48:
   v14 = 1;
 LABEL_49:
 
-  v16 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 - (unint64_t)_pagesToVacuum
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = [(_PASSqliteDatabase *)self valueForPragmaName:@"page_count"];
   v4 = [(_PASSqliteDatabase *)self valueForPragmaName:@"freelist_count"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
   {
-    v7 = 134218240;
-    v8 = v3;
-    v9 = 2048;
-    v10 = v4;
-    _os_log_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "_PASSqliteDatabase: calculating pages to vacuum -- pageCount %tu freeCount %tu", &v7, 0x16u);
+    v6 = 134218240;
+    v7 = v3;
+    v8 = 2048;
+    v9 = v4;
+    _os_log_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "_PASSqliteDatabase: calculating pages to vacuum -- pageCount %tu freeCount %tu", &v6, 0x16u);
   }
 
   result = 0;
@@ -1251,28 +1368,27 @@ LABEL_49:
         {
           if ((v3 - v4) / v3 <= 0.85 || v4 > 0x3FF)
           {
-            result = (v4 * 0.8);
+            return (v4 * 0.8);
           }
 
           else
           {
             if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
             {
-              v7 = 134218240;
-              v8 = v3;
-              v9 = 2048;
-              v10 = v4;
-              _os_log_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "not enough pages to vacuum: pageCount: %lu; freeCount: %lu", &v7, 0x16u);
+              v6 = 134218240;
+              v7 = v3;
+              v8 = 2048;
+              v9 = v4;
+              _os_log_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "not enough pages to vacuum: pageCount: %lu; freeCount: %lu", &v6, 0x16u);
             }
 
-            result = 0;
+            return 0;
           }
         }
       }
     }
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -1322,9 +1438,19 @@ LABEL_49:
   return v2;
 }
 
+- (_PASSqliteDatabase)initWithFilename:(id)filename flags:(int)flags error:(id *)error
+{
+  v6 = *&flags;
+  filenameCopy = filename;
+  v9 = objc_opt_new();
+  v10 = [(_PASSqliteDatabase *)self initWithFilename:filenameCopy flags:v6 error:error errorHandler:v9];
+
+  return v10;
+}
+
 - (_PASSqliteDatabase)initWithFilename:(id)filename flags:(int)flags error:(id *)error errorHandler:(id)handler
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   filenameCopy = filename;
   handlerCopy = handler;
   if (!filenameCopy)
@@ -1333,9 +1459,9 @@ LABEL_49:
     [currentHandler handleFailureInMethod:a2 object:self file:@"_PASSqliteDatabase.m" lineNumber:671 description:{@"Invalid parameter not satisfying: %@", @"filename"}];
   }
 
-  v44.receiver = self;
-  v44.super_class = _PASSqliteDatabase;
-  v14 = [(_PASSqliteDatabase *)&v44 init];
+  v41.receiver = self;
+  v41.super_class = _PASSqliteDatabase;
+  v14 = [(_PASSqliteDatabase *)&v41 init];
   if (!v14)
   {
     goto LABEL_32;
@@ -1373,12 +1499,12 @@ LABEL_49:
   }
 
   v14->_contentProtectionType = v18;
-  v49.__sig = 0;
-  *v49.__opaque = 0;
-  pthread_mutexattr_init(&v49);
-  pthread_mutexattr_settype(&v49, 2);
-  pthread_mutex_init(&v14->_lock, &v49);
-  pthread_mutexattr_destroy(&v49);
+  v46.__sig = 0;
+  *v46.__opaque = 0;
+  pthread_mutexattr_init(&v46);
+  pthread_mutexattr_settype(&v46, 2);
+  pthread_mutex_init(&v14->_lock, &v46);
+  pthread_mutexattr_destroy(&v46);
   v19 = dispatch_group_create();
   waitingForLock = v14->_waitingForLock;
   v14->_waitingForLock = v19;
@@ -1386,7 +1512,7 @@ LABEL_49:
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v48[0] = filenameCopy;
+    v45[0] = filenameCopy;
     _os_log_debug_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "opening %@", buf, 0xCu);
   }
 
@@ -1394,28 +1520,26 @@ LABEL_49:
   if (!v21)
   {
     getpid();
-    v24 = *MEMORY[0x1E69E9BD0];
     if (sandbox_check() && access([filenameCopy UTF8String], 2))
     {
       chmod([filenameCopy UTF8String], 0x180u);
     }
 
-    db = v14->_db;
     ITSRegisterSQLiteICUTokenizer();
-    v39 = MEMORY[0x1E69E9820];
-    v40 = 3221225472;
-    v41 = __64___PASSqliteDatabase_initWithFilename_flags_error_errorHandler___block_invoke;
-    v42 = &unk_1E77F2DA0;
-    v43 = v14;
-    v26 = MEMORY[0x1AC566DD0](&v39);
+    v36 = MEMORY[0x1E69E9820];
+    v37 = 3221225472;
+    v38 = __64___PASSqliteDatabase_initWithFilename_flags_error_errorHandler___block_invoke;
+    v39 = &unk_1E77F2DA0;
+    v40 = v14;
+    v24 = MEMORY[0x1AC566DD0](&v36);
     busy = sqlite3_busy_timeout(v14->_db, 300000);
     if (busy)
     {
-      v28 = busy;
+      v26 = busy;
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
         *buf = 67109120;
-        LODWORD(v48[0]) = v28;
+        LODWORD(v45[0]) = v26;
         _os_log_error_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Sqlite could not install busy timeout. (rc = %i)", buf, 8u);
         if (!error)
         {
@@ -1426,30 +1550,30 @@ LABEL_49:
       else if (!error)
       {
 LABEL_25:
-        v26[2](v26);
+        v24[2](v24);
 
         goto LABEL_26;
       }
 
-      v29 = MEMORY[0x1E696ABC0];
-      v45 = @"sqliteCode";
-      v30 = [MEMORY[0x1E696AD98] numberWithInt:v28];
-      v46 = v30;
-      v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v46 forKeys:&v45 count:1];
-      *error = [v29 errorWithDomain:@"_PASSqliteDatabaseError" code:2 userInfo:v31];
+      v27 = MEMORY[0x1E696ABC0];
+      v42 = @"sqliteCode";
+      v28 = [MEMORY[0x1E696AD98] numberWithInt:v26];
+      v43 = v28;
+      v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
+      *error = [v27 errorWithDomain:@"_PASSqliteDatabaseError" code:2 userInfo:v29];
 
       goto LABEL_25;
     }
 
     sqlite3_extended_result_codes(v14->_db, 1);
-    v33 = sqlite3_db_config(v14->_db, 1001, 0, 96, 64, v39, v40, v41, v42);
-    if (v33)
+    v31 = sqlite3_db_config(v14->_db, 1001, 0, 96, 64, v36, v37, v38, v39);
+    if (v31)
     {
-      v34 = v33;
+      v32 = v31;
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT))
       {
         *buf = 67109120;
-        LODWORD(v48[0]) = v34;
+        LODWORD(v45[0]) = v32;
         _os_log_fault_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "Error setting lookaside size. (rc = %i)", buf, 8u);
       }
 
@@ -1462,7 +1586,7 @@ LABEL_25:
     _pas_registerSqliteCollections(v14->_db);
 
 LABEL_32:
-    v32 = v14;
+    v30 = v14;
     goto LABEL_33;
   }
 
@@ -1470,11 +1594,11 @@ LABEL_32:
   v23 = *__error();
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v37 = sqlite3_extended_errcode(v14->_db);
+    v34 = sqlite3_extended_errcode(v14->_db);
     *buf = 67109376;
-    LODWORD(v48[0]) = v22;
-    WORD2(v48[0]) = 1024;
-    *(v48 + 6) = v37;
+    LODWORD(v45[0]) = v22;
+    WORD2(v45[0]) = 1024;
+    *(v45 + 6) = v34;
     _os_log_error_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Sqlite didn't open (rc = %d, extended result code = %d)", buf, 0xEu);
     if (!error)
     {
@@ -1491,11 +1615,10 @@ LABEL_17:
   }
 
 LABEL_26:
-  v32 = 0;
+  v30 = 0;
 LABEL_33:
 
-  v35 = *MEMORY[0x1E69E9840];
-  return v32;
+  return v30;
 }
 
 + (void)runDebugCommand:(const char *)command onDbWithHandle:(id)handle
@@ -1521,13 +1644,13 @@ LABEL_33:
 
 + (void)truncateDatabaseAtPath:(id)path
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   ppDb = 0;
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    *v17 = pathCopy;
+    *v16 = pathCopy;
     _os_log_debug_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "opening to truncate: %@", buf, 0xCu);
   }
 
@@ -1537,20 +1660,20 @@ LABEL_33:
     goto LABEL_7;
   }
 
-  v14 = 141;
-  v5 = sqlite3_file_control(ppDb, 0, 101, &v14);
+  v13 = 141;
+  v5 = sqlite3_file_control(ppDb, 0, 101, &v13);
   if (v5)
   {
     v4 = v5;
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v13 = sqlite3_errmsg(ppDb);
+      v12 = sqlite3_errmsg(ppDb);
       *buf = 138412802;
-      *v17 = pathCopy;
-      *&v17[8] = 1024;
-      *&v17[10] = v4;
-      v18 = 2080;
-      v19 = v13;
+      *v16 = pathCopy;
+      *&v16[8] = 1024;
+      *&v16[10] = v4;
+      v17 = 2080;
+      v18 = v12;
       _os_log_error_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Could not truncate sqlite file at %@: rc=%i: %s", buf, 0x1Cu);
     }
 
@@ -1559,16 +1682,16 @@ LABEL_7:
     {
       v6 = sqlite3_errmsg(ppDb);
       *buf = 67109378;
-      *v17 = v4;
-      *&v17[4] = 2080;
-      *&v17[6] = v6;
+      *v16 = v4;
+      *&v16[4] = 2080;
+      *&v16[6] = v6;
       _os_log_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Truncating database failed (rc=%i). Doing unsafe deletion via filesystem: %s", buf, 0x12u);
     }
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      *v17 = pathCopy;
+      *v16 = pathCopy;
       _os_log_debug_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "closing db after failed truncation: %@", buf, 0xCu);
     }
 
@@ -1590,14 +1713,12 @@ LABEL_7:
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    *v17 = pathCopy;
+    *v16 = pathCopy;
     _os_log_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "Sqlite file truncated: %@", buf, 0xCu);
   }
 
   sqlite3_close(ppDb);
 LABEL_12:
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 + (id)randomlyNamedInMemoryPathWithBaseName:(id)name
@@ -1659,9 +1780,19 @@ LABEL_12:
   return v13;
 }
 
++ (_PASSqliteDatabase)sqliteDatabaseWithFilename:(id)filename flags:(int)flags error:(id *)error errorHandler:(id)handler
+{
+  v7 = *&flags;
+  handlerCopy = handler;
+  filenameCopy = filename;
+  v11 = [[_PASSqliteDatabase alloc] initWithFilename:filenameCopy flags:v7 error:error errorHandler:handlerCopy];
+
+  return v11;
+}
+
 + (id)recreateCorruptDatabase:(id)database withContentProtection:(int64_t)protection
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   databaseCopy = database;
   if ([self contentProtectionTypeRequiresDeviceToBeUnlocked:protection])
   {
@@ -1691,20 +1822,18 @@ LABEL_12:
     [_PASSqliteDatabase truncateDatabaseAtPath:databaseCopy];
   }
 
-  v21 = 0;
-  v16 = [_PASSqliteDatabase sqliteDatabaseWithFilename:databaseCopy contentProtection:protection error:&v21];
-  v17 = v21;
+  v20 = 0;
+  v16 = [_PASSqliteDatabase sqliteDatabaseWithFilename:databaseCopy contentProtection:protection error:&v20];
+  v17 = v20;
   if (!v16 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v20 = NSStringFromClass(self);
+    v19 = NSStringFromClass(self);
     *buf = 138412546;
-    v23 = v20;
-    v24 = 2112;
-    v25 = v17;
+    v22 = v19;
+    v23 = 2112;
+    v24 = v17;
     _os_log_error_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@ failed to recreate database during corruption recovery: %@", buf, 0x16u);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
@@ -1726,25 +1855,25 @@ LABEL_12:
 
 + (id)initializeDatabase:(id)database withContentProtection:(int64_t)protection newDatabaseCreated:(BOOL *)created errorHandler:(id)handler
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   databaseCopy = database;
   handlerCopy = handler;
   pthread_mutex_lock(&initializeDatabase_withContentProtection_newDatabaseCreated_errorHandler__initDatabaseLock);
-  v12 = &v26;
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x3032000000;
-  v29 = __Block_byref_object_copy__3437;
-  v30 = __Block_byref_object_dispose__3438;
-  v31 = 0;
+  v12 = &v25;
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x3032000000;
+  v28 = __Block_byref_object_copy__3437;
+  v29 = __Block_byref_object_dispose__3438;
+  v30 = 0;
   if (created)
   {
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
     v14 = [defaultManager fileExistsAtPath:databaseCopy];
 
     *created = v14 ^ 1;
-    v12 = v27;
-    v15 = v27[5];
+    v12 = v26;
+    v15 = v26[5];
   }
 
   else
@@ -1755,15 +1884,15 @@ LABEL_12:
   obj = v15;
   v16 = [_PASSqliteDatabase sqliteDatabaseWithFilename:databaseCopy contentProtection:protection errorHandler:handlerCopy error:&obj];
   objc_storeStrong(v12 + 5, obj);
-  v17 = v27[5];
+  v17 = v26[5];
   if (v17)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v33 = databaseCopy;
-      v34 = 2112;
-      v35 = v17;
+      v32 = databaseCopy;
+      v33 = 2112;
+      v34 = v17;
       _os_log_error_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to initialize database at path %@: %@", buf, 0x16u);
     }
 
@@ -1797,26 +1926,14 @@ LABEL_8:
     goto LABEL_9;
   }
 
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __95___PASSqliteDatabase_initializeDatabase_withContentProtection_newDatabaseCreated_errorHandler___block_invoke;
-  v24[3] = &unk_1E77F2590;
-  v24[4] = &v26;
-  [v16 prepAndRunQuery:@"CREATE TABLE IF NOT EXISTS integrityCheck (inconsequential STRING)" onPrep:0 onRow:0 onError:v24];
-  if (v27[5])
-  {
-    goto LABEL_35;
-  }
-
   v23[0] = MEMORY[0x1E69E9820];
   v23[1] = 3221225472;
-  v23[2] = __95___PASSqliteDatabase_initializeDatabase_withContentProtection_newDatabaseCreated_errorHandler___block_invoke_2;
+  v23[2] = __95___PASSqliteDatabase_initializeDatabase_withContentProtection_newDatabaseCreated_errorHandler___block_invoke;
   v23[3] = &unk_1E77F2590;
-  v23[4] = &v26;
-  [v16 prepAndRunQuery:@"PRAGMA journal_mode=WAL" onPrep:0 onRow:0 onError:v23];
-  if (v27[5] || (v22[0] = MEMORY[0x1E69E9820], v22[1] = 3221225472, v22[2] = __95___PASSqliteDatabase_initializeDatabase_withContentProtection_newDatabaseCreated_errorHandler___block_invoke_3, v22[3] = &unk_1E77F2590, v22[4] = &v26, [v16 prepAndRunQuery:@"PRAGMA synchronous=NORMAL" onPrep:0 onRow:0 onError:v22], v27[5]))
+  v23[4] = &v25;
+  [v16 prepAndRunQuery:@"CREATE TABLE IF NOT EXISTS integrityCheck (inconsequential STRING)" onPrep:0 onRow:0 onError:v23];
+  if (v26[5] || (v22[0] = MEMORY[0x1E69E9820], v22[1] = 3221225472, v22[2] = __95___PASSqliteDatabase_initializeDatabase_withContentProtection_newDatabaseCreated_errorHandler___block_invoke_2, v22[3] = &unk_1E77F2590, v22[4] = &v25, [v16 prepAndRunQuery:@"PRAGMA journal_mode=WAL" onPrep:0 onRow:0 onError:v22], v26[5]) || (v21[0] = MEMORY[0x1E69E9820], v21[1] = 3221225472, v21[2] = __95___PASSqliteDatabase_initializeDatabase_withContentProtection_newDatabaseCreated_errorHandler___block_invoke_3, v21[3] = &unk_1E77F2590, v21[4] = &v25, objc_msgSend(v16, "prepAndRunQuery:onPrep:onRow:onError:", @"PRAGMA synchronous=NORMAL", 0, 0, v21), v26[5]))
   {
-LABEL_35:
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -1845,9 +1962,7 @@ LABEL_9:
     *created = 0;
   }
 
-  _Block_object_dispose(&v26, 8);
-
-  v19 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v25, 8);
 
   return v18;
 }

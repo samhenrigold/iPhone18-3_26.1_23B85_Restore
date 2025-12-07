@@ -37,39 +37,39 @@
 
 - (uint64_t)canShowTapToRadar
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (!self || !os_variant_has_internal_diagnostics())
   {
     return 0;
   }
 
-  v9 = 0u;
   v10 = 0u;
-  v7 = 0u;
+  v11 = 0u;
   v8 = 0u;
-  v4 = *(self + 16);
-  v2 = [v4 countByEnumeratingWithState:&v7 objects:v11 count:16];
-  if (v2)
+  v9 = 0u;
+  v5 = *(self + 16);
+  v3 = [v5 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  if (v3)
   {
-    v5 = *v8;
+    v6 = *v9;
     while (2)
     {
-      for (i = 0; i != v2; ++i)
+      for (i = 0; i != v3; ++i)
       {
-        if (*v8 != v5)
+        if (*v9 != v6)
         {
-          objc_enumerationMutation(v4);
+          objc_enumerationMutation(v5);
         }
 
-        if ([*(*(&v7 + 1) + 8 * i) _isHandwritingTool])
+        if ([*(*(&v8 + 1) + 8 * i) _isHandwritingTool])
         {
-          v2 = 1;
+          v3 = 1;
           goto LABEL_15;
         }
       }
 
-      v2 = [v4 countByEnumeratingWithState:&v7 objects:v11 count:16];
-      if (v2)
+      v3 = [v5 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      if (v3)
       {
         continue;
       }
@@ -80,7 +80,7 @@
 
 LABEL_15:
 
-  return v2;
+  return v3;
 }
 
 - (uint64_t)canShowResetHandwritingEducationPane

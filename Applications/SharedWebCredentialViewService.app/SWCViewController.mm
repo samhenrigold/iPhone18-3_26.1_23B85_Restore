@@ -5,6 +5,7 @@
 - (void)setCredentials:(id)credentials;
 - (void)tableView:(id)view didDeselectRowAtIndexPath:(id)path;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation SWCViewController
@@ -41,7 +42,7 @@
   memset(v13, 0, sizeof(v13));
   if (!sub_100002D24(v13, v8, &v14))
   {
-    localizedDescription = [v14 localizedDescription];
+    localizedDescription = [(__CFError *)v14 localizedDescription];
     NSLog(@"Unable to select item: %@", localizedDescription);
   }
 
@@ -53,6 +54,32 @@
 
   [v12 setTicked:1];
   [v12 layoutSubviews];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v5 = [(NSMutableArray *)self->_credentials objectAtIndex:0];
+  objc_storeStrong(&self->_selectedDict, v5);
+  v6 = [NSIndexPath indexPathForItem:0 inSection:0];
+  selectedCell = self->_selectedCell;
+  self->_selectedCell = v6;
+
+  v8 = [(UITableView *)self->_table cellForRowAtIndexPath:self->_selectedCell];
+  [v8 setTicked:1];
+  [v8 layoutSubviews];
+  [(UITableView *)self->_table selectRowAtIndexPath:self->_selectedCell animated:0 scrollPosition:1];
+  v12 = 0;
+  memset(v11, 0, sizeof(v11));
+  if (!sub_100002D24(v11, v5, &v12))
+  {
+    localizedDescription = [(__CFError *)v12 localizedDescription];
+    NSLog(@"Unable to select item: %@", localizedDescription);
+  }
+
+  v10.receiver = self;
+  v10.super_class = SWCViewController;
+  [(SWCViewController *)&v10 viewWillAppear:appearCopy];
 }
 
 - (void)loadView

@@ -46,42 +46,41 @@
     serialQueue = v7->_serialQueue;
     v7->_serialQueue = v10;
 
-    v12 = ANLogHandleLocalPlaybackSession();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = ANLogHandleLocalPlaybackSession(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
       v29 = &stru_2836DAA20;
       v30 = 2112;
       v31 = @"com.apple.announced.localplaybacksession";
-      _os_log_impl(&dword_2237C8000, v12, OS_LOG_TYPE_DEFAULT, "%@Creating Connection to Service: %@", buf, 0x16u);
+      _os_log_impl(&dword_2237C8000, v13, OS_LOG_TYPE_DEFAULT, "%@Creating Connection to Service: %@", buf, 0x16u);
     }
 
-    v13 = MEMORY[0x277CBEB98];
-    v14 = objc_opt_class();
+    v14 = MEMORY[0x277CBEB98];
     v15 = objc_opt_class();
     v16 = objc_opt_class();
     v17 = objc_opt_class();
-    v18 = [v13 setWithObjects:{v14, v15, v16, v17, objc_opt_class(), 0}];
-    v19 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_2836E9388];
-    [v19 setClasses:v18 forSelector:sel_lastPlayedAnnouncementInfoForEndpointID_completionHandler_ argumentIndex:0 ofReply:1];
-    v20 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_2836E3590];
-    [v20 setClass:objc_opt_class() forSelector:sel_didReceiveAnnouncement_forGroupID_ argumentIndex:0 ofReply:0];
-    [v20 setClasses:v18 forSelector:sel_didUpdatePlaybackInfo_ argumentIndex:0 ofReply:0];
-    v21 = objc_opt_new();
+    v18 = objc_opt_class();
+    v19 = [v14 setWithObjects:{v15, v16, v17, v18, objc_opt_class(), 0}];
+    v20 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_2836E9388];
+    [v20 setClasses:v19 forSelector:sel_lastPlayedAnnouncementInfoForEndpointID_completionHandler_ argumentIndex:0 ofReply:1];
+    v21 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_2836E3590];
+    [v21 setClass:objc_opt_class() forSelector:sel_didReceiveAnnouncement_forGroupID_ argumentIndex:0 ofReply:0];
+    [v21 setClasses:v19 forSelector:sel_didUpdatePlaybackInfo_ argumentIndex:0 ofReply:0];
+    v22 = objc_opt_new();
     delegateProxy = v7->_delegateProxy;
-    v7->_delegateProxy = v21;
+    v7->_delegateProxy = v22;
 
     [(ANLocalPlaybackSessionInterfaceDelegateProxy *)v7->_delegateProxy setDelegate:v7];
-    v23 = [[ANXPCManager alloc] initWithMachServiceName:@"com.apple.announced.localplaybacksession" remoteObjectInterface:v19 exportedInterface:v20 exportedObject:v7->_delegateProxy];
+    v24 = [[ANXPCManager alloc] initWithMachServiceName:@"com.apple.announced.localplaybacksession" remoteObjectInterface:v20 exportedInterface:v21 exportedObject:v7->_delegateProxy];
     xpcManager = v7->_xpcManager;
-    v7->_xpcManager = v23;
+    v7->_xpcManager = v24;
 
     [(ANXPCManager *)v7->_xpcManager setDelegate:v7];
     [(ANXPCManager *)v7->_xpcManager setCheckInProvider:v7];
     [(ANXPCManager *)v7->_xpcManager addCheckInObserver:v7];
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -105,70 +104,66 @@
 {
   v11 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
-  objc_storeWeak(&self->_delegate, delegateCopy);
-  v5 = ANLogHandleLocalPlaybackSession();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v5 = objc_storeWeak(&self->_delegate, delegateCopy);
+  v6 = ANLogHandleLocalPlaybackSession(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 138412546;
     v8 = &stru_2836DAA20;
     v9 = 2112;
     v10 = delegateCopy;
-    _os_log_impl(&dword_2237C8000, v5, OS_LOG_TYPE_DEFAULT, "%@Delegate set to %@", &v7, 0x16u);
+    _os_log_impl(&dword_2237C8000, v6, OS_LOG_TYPE_DEFAULT, "%@Delegate set to %@", &v7, 0x16u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendPlaybackCommand:(id)command completionHandler:(id)handler
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   commandCopy = command;
   handlerCopy = handler;
-  v8 = ANLogHandleLocalPlaybackSession();
+  v8 = ANLogHandleLocalPlaybackSession(handlerCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v21 = &stru_2836DAA20;
-    v22 = 2114;
-    v23 = commandCopy;
+    v20 = &stru_2836DAA20;
+    v21 = 2114;
+    v22 = commandCopy;
     _os_log_impl(&dword_2237C8000, v8, OS_LOG_TYPE_DEFAULT, "%@Sending Playback Command: %{public}@", buf, 0x16u);
   }
 
   xpcManager = [(ANLocalPlaybackSession *)self xpcManager];
   connection = [xpcManager connection];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __64__ANLocalPlaybackSession_sendPlaybackCommand_completionHandler___block_invoke;
-  v18[3] = &unk_2784E1F20;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __64__ANLocalPlaybackSession_sendPlaybackCommand_completionHandler___block_invoke;
+  v17[3] = &unk_2784E1F20;
   v11 = handlerCopy;
-  v19 = v11;
-  v12 = [connection remoteObjectProxyWithErrorHandler:v18];
+  v18 = v11;
+  v12 = [connection remoteObjectProxyWithErrorHandler:v17];
   endpointIdentifier = [(ANLocalPlaybackSession *)self endpointIdentifier];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __64__ANLocalPlaybackSession_sendPlaybackCommand_completionHandler___block_invoke_91;
-  v16[3] = &unk_2784E1F20;
-  v17 = v11;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __64__ANLocalPlaybackSession_sendPlaybackCommand_completionHandler___block_invoke_91;
+  v15[3] = &unk_2784E1F20;
+  v16 = v11;
   v14 = v11;
-  [v12 sendPlaybackCommand:commandCopy forEndpointID:endpointIdentifier completionHandler:v16];
-
-  v15 = *MEMORY[0x277D85DE8];
+  [v12 sendPlaybackCommand:commandCopy forEndpointID:endpointIdentifier completionHandler:v15];
 }
 
 void __64__ANLocalPlaybackSession_sendPlaybackCommand_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = ANLogHandleLocalPlaybackSession();
+  v4 = ANLogHandleLocalPlaybackSession(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v7 = 138412802;
-    v8 = &stru_2836DAA20;
-    v9 = 2080;
-    v10 = "[ANLocalPlaybackSession sendPlaybackCommand:completionHandler:]_block_invoke";
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_2237C8000, v4, OS_LOG_TYPE_ERROR, "%@%s: %@", &v7, 0x20u);
+    v6 = 138412802;
+    v7 = &stru_2836DAA20;
+    v8 = 2080;
+    v9 = "[ANLocalPlaybackSession sendPlaybackCommand:completionHandler:]_block_invoke";
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_2237C8000, v4, OS_LOG_TYPE_ERROR, "%@%s: %@", &v6, 0x20u);
   }
 
   v5 = *(a1 + 32);
@@ -176,36 +171,33 @@ void __64__ANLocalPlaybackSession_sendPlaybackCommand_completionHandler___block_
   {
     (*(v5 + 16))(v5, v3);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __64__ANLocalPlaybackSession_sendPlaybackCommand_completionHandler___block_invoke_91(uint64_t a1, void *a2)
 {
   v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = ANLogHandleLocalPlaybackSession();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = ANLogHandleLocalPlaybackSession(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       v7 = 138412802;
       v8 = &stru_2836DAA20;
       v9 = 2080;
       v10 = "[ANLocalPlaybackSession sendPlaybackCommand:completionHandler:]_block_invoke";
       v11 = 2112;
-      v12 = v3;
-      _os_log_impl(&dword_2237C8000, v4, OS_LOG_TYPE_ERROR, "%@%s: %@", &v7, 0x20u);
+      v12 = v4;
+      _os_log_impl(&dword_2237C8000, v5, OS_LOG_TYPE_ERROR, "%@%s: %@", &v7, 0x20u);
     }
   }
 
-  v5 = *(a1 + 32);
-  if (v5)
+  v6 = *(a1 + 32);
+  if (v6)
   {
-    (*(v5 + 16))(v5, v3);
+    (*(v6 + 16))(v6, v4);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)playAnnouncementsWithOptions:(unint64_t)options completionHandler:(id)handler
@@ -224,35 +216,33 @@ void __64__ANLocalPlaybackSession_sendPlaybackCommand_completionHandler___block_
 
 - (void)playAnnouncementsWithOptions:(unint64_t)options startingAt:(id)at completionHandler:(id)handler
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   if (at)
   {
-    v20[0] = at;
+    v18[0] = at;
     v9 = MEMORY[0x277CBEA60];
     handlerCopy = handler;
     atCopy = at;
-    v12 = [v9 arrayWithObjects:v20 count:1];
+    v12 = [v9 arrayWithObjects:v18 count:1];
   }
 
   else
   {
     handlerCopy2 = handler;
-    v14 = 0;
-    v15 = ANLogHandleLocalPlaybackSession();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v14 = ANLogHandleLocalPlaybackSession(0);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v18 = 138412290;
-      v19 = &stru_2836DAA20;
-      _os_log_impl(&dword_2237C8000, v15, OS_LOG_TYPE_ERROR, "%@Client did not supply a Start Announcement ID", &v18, 0xCu);
+      v16 = 138412290;
+      v17 = &stru_2836DAA20;
+      _os_log_impl(&dword_2237C8000, v14, OS_LOG_TYPE_ERROR, "%@Client did not supply a Start Announcement ID", &v16, 0xCu);
     }
 
     v12 = MEMORY[0x277CBEBF8];
   }
 
-  v16 = [ANPlaybackCommand playCommandWithOptions:options announcementIdentifiers:v12];
+  v15 = [ANPlaybackCommand playCommandWithOptions:options announcementIdentifiers:v12];
 
-  [(ANLocalPlaybackSession *)self sendPlaybackCommand:v16 completionHandler:handler];
-  v17 = *MEMORY[0x277D85DE8];
+  [(ANLocalPlaybackSession *)self sendPlaybackCommand:v15 completionHandler:handler];
 }
 
 - (void)stopPlayingAnnouncementsWithCompletionHandler:(id)handler
@@ -307,29 +297,27 @@ void __67__ANLocalPlaybackSession_lastPlayedAnnouncementInfoWithCompletion___blo
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  v5 = ANLogHandleLocalPlaybackSession();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = ANLogHandleLocalPlaybackSession(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = *(*(*(a1 + 48) + 8) + 40);
+    v7 = *(*(*(a1 + 48) + 8) + 40);
     *buf = 138412546;
     v15 = &stru_2836DAA20;
     v16 = 2112;
-    v17 = v6;
-    _os_log_impl(&dword_2237C8000, v5, OS_LOG_TYPE_DEFAULT, "%@Playback Info (async): %@", buf, 0x16u);
+    v17 = v7;
+    _os_log_impl(&dword_2237C8000, v6, OS_LOG_TYPE_DEFAULT, "%@Playback Info (async): %@", buf, 0x16u);
   }
 
-  v7 = dispatch_get_global_queue(2, 0);
+  v8 = dispatch_get_global_queue(2, 0);
   v11[0] = MEMORY[0x277D85DD0];
   v11[1] = 3221225472;
   v11[2] = __67__ANLocalPlaybackSession_lastPlayedAnnouncementInfoWithCompletion___block_invoke_94;
   v11[3] = &unk_2784E1F48;
-  v8 = *(a1 + 40);
-  v9 = *(a1 + 48);
-  v12 = v8;
-  v13 = v9;
-  dispatch_async(v7, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *(a1 + 40);
+  v10 = *(a1 + 48);
+  v12 = v9;
+  v13 = v10;
+  dispatch_async(v8, v11);
 }
 
 - (NSDictionary)lastPlayedAnnouncementInfo
@@ -350,31 +338,26 @@ void __67__ANLocalPlaybackSession_lastPlayedAnnouncementInfoWithCompletion___blo
   v9[5] = &v10;
   dispatch_sync(serialQueue, v9);
 
-  v4 = ANLogHandleLocalPlaybackSession();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = ANLogHandleLocalPlaybackSession(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = v11[5];
+    v6 = v11[5];
     *buf = 138412546;
     v17 = &stru_2836DAA20;
     v18 = 2112;
-    v19 = v5;
-    _os_log_impl(&dword_2237C8000, v4, OS_LOG_TYPE_DEFAULT, "%@Playback Info (sync): %@", buf, 0x16u);
+    v19 = v6;
+    _os_log_impl(&dword_2237C8000, v5, OS_LOG_TYPE_DEFAULT, "%@Playback Info (sync): %@", buf, 0x16u);
   }
 
-  v6 = v11[5];
+  v7 = v11[5];
   _Block_object_dispose(&v10, 8);
 
-  v7 = *MEMORY[0x277D85DE8];
-
-  return v6;
+  return v7;
 }
 
 uint64_t __52__ANLocalPlaybackSession_lastPlayedAnnouncementInfo__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 8) copy];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 8) copy];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -395,7 +378,7 @@ uint64_t __52__ANLocalPlaybackSession_lastPlayedAnnouncementInfo__block_invoke(u
 - (unint64_t)playbackState
 {
   v18 = *MEMORY[0x277D85DE8];
-  v3 = ANLogHandleLocalPlaybackSession();
+  v3 = ANLogHandleLocalPlaybackSession(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 138412290;
@@ -416,34 +399,33 @@ uint64_t __52__ANLocalPlaybackSession_lastPlayedAnnouncementInfo__block_invoke(u
   v10[5] = &buf;
   dispatch_sync(serialQueue, v10);
 
-  v5 = ANLogHandleLocalPlaybackSession();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = ANLogHandleLocalPlaybackSession(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = *(*(&buf + 1) + 24);
+    v7 = *(*(&buf + 1) + 24);
     *v11 = 138412546;
     v12 = &stru_2836DAA20;
     v13 = 2048;
-    v14 = v6;
-    _os_log_impl(&dword_2237C8000, v5, OS_LOG_TYPE_DEFAULT, "%@Playback state (sync): %lu", v11, 0x16u);
+    v14 = v7;
+    _os_log_impl(&dword_2237C8000, v6, OS_LOG_TYPE_DEFAULT, "%@Playback state (sync): %lu", v11, 0x16u);
   }
 
-  v7 = *(*(&buf + 1) + 24);
+  v8 = *(*(&buf + 1) + 24);
   _Block_object_dispose(&buf, 8);
-  v8 = *MEMORY[0x277D85DE8];
-  return v7;
+  return v8;
 }
 
 - (void)announcementsWillStartPlaying:(unint64_t)playing
 {
-  v23 = *MEMORY[0x277D85DE8];
-  v5 = ANLogHandleLocalPlaybackSession();
+  v22 = *MEMORY[0x277D85DE8];
+  v5 = ANLogHandleLocalPlaybackSession(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
-    v18 = &stru_2836DAA20;
-    v19 = 2080;
-    v20 = "[ANLocalPlaybackSession announcementsWillStartPlaying:]";
-    v21 = 2048;
+    v17 = &stru_2836DAA20;
+    v18 = 2080;
+    v19 = "[ANLocalPlaybackSession announcementsWillStartPlaying:]";
+    v20 = 2048;
     playingCopy = playing;
     _os_log_impl(&dword_2237C8000, v5, OS_LOG_TYPE_DEFAULT, "%@%s, time is %lld", buf, 0x20u);
   }
@@ -457,14 +439,14 @@ uint64_t __52__ANLocalPlaybackSession_lastPlayedAnnouncementInfo__block_invoke(u
     if (v8)
     {
       objc_initWeak(buf, self);
-      v15[0] = MEMORY[0x277D85DD0];
-      v15[1] = 3221225472;
-      v15[2] = __56__ANLocalPlaybackSession_announcementsWillStartPlaying___block_invoke;
-      v15[3] = &unk_2784E1FC0;
-      objc_copyWeak(v16, buf);
-      v16[1] = playing;
-      [ANUtils asyncDispatchOnGlobalQueue:v15];
-      objc_destroyWeak(v16);
+      v14[0] = MEMORY[0x277D85DD0];
+      v14[1] = 3221225472;
+      v14[2] = __56__ANLocalPlaybackSession_announcementsWillStartPlaying___block_invoke;
+      v14[3] = &unk_2784E1FC0;
+      objc_copyWeak(v15, buf);
+      v15[1] = playing;
+      [ANUtils asyncDispatchOnGlobalQueue:v14];
+      objc_destroyWeak(v15);
       objc_destroyWeak(buf);
     }
   }
@@ -482,14 +464,14 @@ uint64_t __52__ANLocalPlaybackSession_lastPlayedAnnouncementInfo__block_invoke(u
     if (v11)
     {
       objc_initWeak(buf, self);
-      v13[0] = MEMORY[0x277D85DD0];
-      v13[1] = 3221225472;
-      v13[2] = __56__ANLocalPlaybackSession_announcementsWillStartPlaying___block_invoke_2;
-      v13[3] = &unk_2784E1FC0;
-      objc_copyWeak(v14, buf);
-      v14[1] = playing;
-      [ANUtils asyncDispatchOnGlobalQueue:v13];
-      objc_destroyWeak(v14);
+      v12[0] = MEMORY[0x277D85DD0];
+      v12[1] = 3221225472;
+      v12[2] = __56__ANLocalPlaybackSession_announcementsWillStartPlaying___block_invoke_2;
+      v12[3] = &unk_2784E1FC0;
+      objc_copyWeak(v13, buf);
+      v13[1] = playing;
+      [ANUtils asyncDispatchOnGlobalQueue:v12];
+      objc_destroyWeak(v13);
       objc_destroyWeak(buf);
     }
   }
@@ -497,8 +479,6 @@ uint64_t __52__ANLocalPlaybackSession_lastPlayedAnnouncementInfo__block_invoke(u
   else
   {
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __56__ANLocalPlaybackSession_announcementsWillStartPlaying___block_invoke(uint64_t a1)
@@ -527,8 +507,8 @@ void __56__ANLocalPlaybackSession_announcementsWillStartPlaying___block_invoke_2
   block[5] = update;
   dispatch_async(serialQueue, block);
 
-  v6 = ANLogHandleLocalPlaybackSession();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = ANLogHandleLocalPlaybackSession(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
     v20 = &stru_2836DAA20;
@@ -536,16 +516,16 @@ void __56__ANLocalPlaybackSession_announcementsWillStartPlaying___block_invoke_2
     v22 = "[ANLocalPlaybackSession announcementsStateUpdate:]";
     v23 = 2048;
     updateCopy = update;
-    _os_log_impl(&dword_2237C8000, v6, OS_LOG_TYPE_DEFAULT, "%@%s, state is %lu", buf, 0x20u);
+    _os_log_impl(&dword_2237C8000, v7, OS_LOG_TYPE_DEFAULT, "%@%s, state is %lu", buf, 0x20u);
   }
 
   delegate = [(ANLocalPlaybackSession *)self delegate];
   if ([delegate conformsToProtocol:&unk_2836E6850])
   {
     delegate2 = [(ANLocalPlaybackSession *)self delegate];
-    v9 = objc_opt_respondsToSelector();
+    v10 = objc_opt_respondsToSelector();
 
-    if (v9)
+    if (v10)
     {
       objc_initWeak(buf, self);
       v16[0] = MEMORY[0x277D85DD0];
@@ -568,9 +548,9 @@ void __56__ANLocalPlaybackSession_announcementsWillStartPlaying___block_invoke_2
   if ([delegate3 conformsToProtocol:&unk_2836E6850])
   {
     delegate4 = [(ANLocalPlaybackSession *)self delegate];
-    v12 = objc_opt_respondsToSelector();
+    v13 = objc_opt_respondsToSelector();
 
-    if (v12)
+    if (v13)
     {
       objc_initWeak(buf, self);
       v14[0] = MEMORY[0x277D85DD0];
@@ -588,26 +568,23 @@ void __56__ANLocalPlaybackSession_announcementsWillStartPlaying___block_invoke_2
   else
   {
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __51__ANLocalPlaybackSession_announcementsStateUpdate___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = ANLogHandleLocalPlaybackSession();
+  v8 = *MEMORY[0x277D85DE8];
+  v2 = ANLogHandleLocalPlaybackSession(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 40);
-    v5 = 138412546;
-    v6 = &stru_2836DAA20;
-    v7 = 2048;
-    v8 = v3;
-    _os_log_impl(&dword_2237C8000, v2, OS_LOG_TYPE_DEFAULT, "%@Updating Playback State: %lu", &v5, 0x16u);
+    v4 = 138412546;
+    v5 = &stru_2836DAA20;
+    v6 = 2048;
+    v7 = v3;
+    _os_log_impl(&dword_2237C8000, v2, OS_LOG_TYPE_DEFAULT, "%@Updating Playback State: %lu", &v4, 0x16u);
   }
 
   *(*(a1 + 32) + 16) = *(a1 + 40);
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __51__ANLocalPlaybackSession_announcementsStateUpdate___block_invoke_127(uint64_t a1)
@@ -656,34 +633,33 @@ LABEL_4:
 
 void __48__ANLocalPlaybackSession_didUpdatePlaybackInfo___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = ANLogHandleLocalPlaybackSession();
+  v8 = *MEMORY[0x277D85DE8];
+  v2 = ANLogHandleLocalPlaybackSession(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v5 = 138412546;
-    v6 = &stru_2836DAA20;
-    v7 = 2112;
-    v8 = v3;
-    _os_log_impl(&dword_2237C8000, v2, OS_LOG_TYPE_DEFAULT, "%@Updating Playback Info: %@", &v5, 0x16u);
+    v4 = 138412546;
+    v5 = &stru_2836DAA20;
+    v6 = 2112;
+    v7 = v3;
+    _os_log_impl(&dword_2237C8000, v2, OS_LOG_TYPE_DEFAULT, "%@Updating Playback Info: %@", &v4, 0x16u);
   }
 
   objc_storeStrong((*(a1 + 40) + 8), *(a1 + 32));
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didReceiveAnnouncement:(id)announcement forGroupID:(id)d
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   announcementCopy = announcement;
   dCopy = d;
-  v8 = ANLogHandleLocalPlaybackSession();
+  v8 = ANLogHandleLocalPlaybackSession(dCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v17 = &stru_2836DAA20;
-    v18 = 2112;
-    v19 = announcementCopy;
+    v16 = &stru_2836DAA20;
+    v17 = 2112;
+    v18 = announcementCopy;
     _os_log_impl(&dword_2237C8000, v8, OS_LOG_TYPE_DEFAULT, "%@Received announcement: %@", buf, 0x16u);
   }
 
@@ -696,15 +672,15 @@ void __48__ANLocalPlaybackSession_didUpdatePlaybackInfo___block_invoke(uint64_t 
     if (v11)
     {
       objc_initWeak(buf, self);
-      v13[0] = MEMORY[0x277D85DD0];
-      v13[1] = 3221225472;
-      v13[2] = __60__ANLocalPlaybackSession_didReceiveAnnouncement_forGroupID___block_invoke;
-      v13[3] = &unk_2784E2038;
-      objc_copyWeak(&v15, buf);
-      v14 = announcementCopy;
-      [ANUtils asyncDispatchOnGlobalQueue:v13];
+      v12[0] = MEMORY[0x277D85DD0];
+      v12[1] = 3221225472;
+      v12[2] = __60__ANLocalPlaybackSession_didReceiveAnnouncement_forGroupID___block_invoke;
+      v12[3] = &unk_2784E2038;
+      objc_copyWeak(&v14, buf);
+      v13 = announcementCopy;
+      [ANUtils asyncDispatchOnGlobalQueue:v12];
 
-      objc_destroyWeak(&v15);
+      objc_destroyWeak(&v14);
       objc_destroyWeak(buf);
     }
   }
@@ -712,8 +688,6 @@ void __48__ANLocalPlaybackSession_didUpdatePlaybackInfo___block_invoke(uint64_t 
   else
   {
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __60__ANLocalPlaybackSession_didReceiveAnnouncement_forGroupID___block_invoke(uint64_t a1)
@@ -848,7 +822,7 @@ void __57__ANLocalPlaybackSession_managerDidInvalidateConnection___block_invoke_
 - (void)managerDidPerformDaemonCheckIn:(id)in
 {
   v19 = *MEMORY[0x277D85DE8];
-  v4 = ANLogHandleLocalPlaybackSession();
+  v4 = ANLogHandleLocalPlaybackSession(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -867,64 +841,58 @@ void __57__ANLocalPlaybackSession_managerDidInvalidateConnection___block_invoke_
   v16[4] = self;
   [v7 lastPlayedAnnouncementInfoForEndpointID:endpointIdentifier completionHandler:v16];
 
-  v9 = ANLogHandleLocalPlaybackSession();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = ANLogHandleLocalPlaybackSession(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
     v18 = &stru_2836DAA20;
-    _os_log_impl(&dword_2237C8000, v9, OS_LOG_TYPE_DEFAULT, "%@Fetching latest playback state", buf, 0xCu);
+    _os_log_impl(&dword_2237C8000, v10, OS_LOG_TYPE_DEFAULT, "%@Fetching latest playback state", buf, 0xCu);
   }
 
   xpcManager2 = [(ANLocalPlaybackSession *)self xpcManager];
   connection2 = [xpcManager2 connection];
-  v12 = [connection2 remoteObjectProxyWithErrorHandler:&__block_literal_global_139];
+  v13 = [connection2 remoteObjectProxyWithErrorHandler:&__block_literal_global_139];
   endpointIdentifier2 = [(ANLocalPlaybackSession *)self endpointIdentifier];
   v15[0] = MEMORY[0x277D85DD0];
   v15[1] = 3221225472;
   v15[2] = __57__ANLocalPlaybackSession_managerDidPerformDaemonCheckIn___block_invoke_140;
   v15[3] = &unk_2784E20F8;
   v15[4] = self;
-  [v12 playbackStateForEndpointID:endpointIdentifier2 completionHandler:v15];
-
-  v14 = *MEMORY[0x277D85DE8];
+  [v13 playbackStateForEndpointID:endpointIdentifier2 completionHandler:v15];
 }
 
 void __57__ANLocalPlaybackSession_managerDidPerformDaemonCheckIn___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = a2;
-  v3 = ANLogHandleLocalPlaybackSession();
+  v3 = ANLogHandleLocalPlaybackSession(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138412802;
-    v6 = &stru_2836DAA20;
-    v7 = 2080;
-    v8 = "[ANLocalPlaybackSession managerDidPerformDaemonCheckIn:]_block_invoke";
-    v9 = 2112;
-    v10 = v2;
-    _os_log_impl(&dword_2237C8000, v3, OS_LOG_TYPE_ERROR, "%@%s: %@", &v5, 0x20u);
+    v4 = 138412802;
+    v5 = &stru_2836DAA20;
+    v6 = 2080;
+    v7 = "[ANLocalPlaybackSession managerDidPerformDaemonCheckIn:]_block_invoke";
+    v8 = 2112;
+    v9 = v2;
+    _os_log_impl(&dword_2237C8000, v3, OS_LOG_TYPE_ERROR, "%@%s: %@", &v4, 0x20u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __57__ANLocalPlaybackSession_managerDidPerformDaemonCheckIn___block_invoke_137(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = a2;
-  v3 = ANLogHandleLocalPlaybackSession();
+  v3 = ANLogHandleLocalPlaybackSession(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138412802;
-    v6 = &stru_2836DAA20;
-    v7 = 2080;
-    v8 = "[ANLocalPlaybackSession managerDidPerformDaemonCheckIn:]_block_invoke";
-    v9 = 2112;
-    v10 = v2;
-    _os_log_impl(&dword_2237C8000, v3, OS_LOG_TYPE_ERROR, "%@%s: %@", &v5, 0x20u);
+    v4 = 138412802;
+    v5 = &stru_2836DAA20;
+    v6 = 2080;
+    v7 = "[ANLocalPlaybackSession managerDidPerformDaemonCheckIn:]_block_invoke";
+    v8 = 2112;
+    v9 = v2;
+    _os_log_impl(&dword_2237C8000, v3, OS_LOG_TYPE_ERROR, "%@%s: %@", &v4, 0x20u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (ANLocalPlaybackSessionDelegate)delegate

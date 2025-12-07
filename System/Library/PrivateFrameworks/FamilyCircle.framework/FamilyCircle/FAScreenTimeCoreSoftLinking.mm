@@ -11,16 +11,64 @@
 - (id)agePresetKeyRatingMovies;
 - (id)agePresetKeyRatingTVShows;
 - (id)agePresetKeySTCustomRestrictionWebFilterState;
+- (void)saveExpressIntroductionSettingsDefaultsWithIsContentRestrictionsEnabled:(BOOL)enabled contentRestrictionsByKey:(id)key isCommunicationSafetyEnabled:(BOOL)safetyEnabled isScreenDistanceEnabled:(BOOL)distanceEnabled isStrictPolicy:(BOOL)policy completionHandler:(id)handler;
 @end
 
 @implementation FAScreenTimeCoreSoftLinking
 
 - (BOOL)isScreenTimePasscodeSet
 {
-  v2 = objc_alloc_init(sub_100004D24());
+  v2 = objc_alloc_init(sub_100004D24(self, a2));
   isRestrictionsPasscodeSet = [v2 isRestrictionsPasscodeSet];
 
   return isRestrictionsPasscodeSet;
+}
+
+- (void)saveExpressIntroductionSettingsDefaultsWithIsContentRestrictionsEnabled:(BOOL)enabled contentRestrictionsByKey:(id)key isCommunicationSafetyEnabled:(BOOL)safetyEnabled isScreenDistanceEnabled:(BOOL)distanceEnabled isStrictPolicy:(BOOL)policy completionHandler:(id)handler
+{
+  policyCopy = policy;
+  distanceEnabledCopy = distanceEnabled;
+  safetyEnabledCopy = safetyEnabled;
+  enabledCopy = enabled;
+  keyCopy = key;
+  handlerCopy = handler;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x2050000000;
+  v15 = qword_1000B98C0;
+  v26 = qword_1000B98C0;
+  if (!qword_1000B98C0)
+  {
+    v22[0] = _NSConcreteStackBlock;
+    v22[1] = 3221225472;
+    v22[2] = sub_100005CD8;
+    v22[3] = &unk_1000A5EF8;
+    v22[4] = &v23;
+    sub_100005CD8(v22);
+    v15 = v24[3];
+  }
+
+  v16 = v15;
+  _Block_object_dispose(&v23, 8);
+  v17 = objc_alloc_init(v15);
+  [v17 setContentRestrictionsIsEnabled:enabledCopy];
+  [v17 setContentRestrictionsValueByKey:keyCopy];
+  [v17 setContentRestrictionsHasStrictPolicy:policyCopy];
+  [v17 setCommunicationSafetyIsEnabled:safetyEnabledCopy];
+  [v17 setCommunicationSafetyHasStrictPolicy:policyCopy];
+  [v17 setScreenDistanceIsEnabled:distanceEnabledCopy];
+  v18 = [v17 setScreenDistanceHasStrictPolicy:policyCopy];
+  v20 = objc_alloc_init(sub_100004D24(v18, v19));
+  if (objc_opt_respondsToSelector())
+  {
+    [v20 saveExpressIntroductionSettingsDefaults:v17 completionHandler:handlerCopy];
+  }
+
+  else
+  {
+    v21 = [NSError fa_familyErrorWithCode:-1019];
+    handlerCopy[2](handlerCopy, v21);
+  }
 }
 
 - (id)agePresetKeySTCustomRestrictionWebFilterState

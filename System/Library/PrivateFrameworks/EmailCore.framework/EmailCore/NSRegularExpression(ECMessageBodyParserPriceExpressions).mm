@@ -8,7 +8,7 @@
 
 + (uint64_t)ec_copyCurrencyRegularExpressionForType:()ECMessageBodyParserPriceExpressions
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = [objc_alloc(MEMORY[0x277CBEAC0]) initWithContentsOfFile:{objc_msgSend(objc_msgSend(MEMORY[0x277CCA8D8], "bundleForClass:", objc_opt_class()), "pathForResource:ofType:", @"CurrencyPatterns", @"plist"}];
   v6 = v5;
   v7 = @"Currency Symbols";
@@ -41,42 +41,41 @@
 
   v11 = [v5 objectForKey:v10];
   v12 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v11, "count")}];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  v13 = [v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v13 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v23;
+    v15 = *v22;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v23 != v15)
+        if (*v22 != v15)
         {
           objc_enumerationMutation(v11);
         }
 
-        [v12 addObject:{objc_msgSend(MEMORY[0x277CCAC68], "escapedPatternForString:", *(*(&v22 + 1) + 8 * i))}];
+        [v12 addObject:{objc_msgSend(MEMORY[0x277CCAC68], "escapedPatternForString:", *(*(&v21 + 1) + 8 * i))}];
       }
 
-      v14 = [v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v14 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v14);
   }
 
   v17 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:v9, objc_msgSend(v12, "componentsJoinedByString:", @"|"];
-  v21 = 0;
-  v18 = [[self alloc] initWithPattern:v17 options:1 error:&v21];
+  v20 = 0;
+  v18 = [[self alloc] initWithPattern:v17 options:1 error:&v20];
   if (!v18)
   {
     +[NSRegularExpression(ECMessageBodyParserPriceExpressions) ec_copyCurrencyRegularExpressionForType:];
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v18;
 }
 

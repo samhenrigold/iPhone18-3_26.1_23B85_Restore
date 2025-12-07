@@ -40,12 +40,9 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  actionID = self->_actionID;
-  v7 = toCopy;
   PBDataWriterWriteUint32Field();
   if (*&self->_has)
   {
-    passcodeType = self->_passcodeType;
     PBDataWriterWriteUint32Field();
   }
 }

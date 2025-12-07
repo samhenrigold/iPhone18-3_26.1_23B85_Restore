@@ -45,7 +45,7 @@
   {
     if (delegateCopy)
     {
-      v6 = sub_10000235C();
+      v6 = sub_10000235C(delegateCopy);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
       {
         sub_10000C5F8(v5);
@@ -65,17 +65,17 @@ LABEL_23:
       v6 = v5;
       sessionChangeContext = [(IUISessionChangeAssistant *)self sessionChangeContext];
       sessionChange = [sessionChangeContext sessionChange];
-      v10 = sub_10000235C();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = sub_10000235C(sessionChange);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = sub_1000038A4(v6);
-        v23 = 136315650;
-        v24 = "[IUISessionChangeAssistant handleTeardownExistingDelegate:]";
-        v25 = 2112;
-        v26 = v11;
-        v27 = 2112;
-        v28 = sessionChange;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%s  outgoingInputSource: %@, sessionChange: %@", &v23, 0x20u);
+        v12 = sub_1000038A4(v6);
+        v26 = 136315650;
+        v27 = "[IUISessionChangeAssistant handleTeardownExistingDelegate:]";
+        v28 = 2112;
+        v29 = v12;
+        v30 = 2112;
+        v31 = sessionChange;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%s  outgoingInputSource: %@, sessionChange: %@", &v26, 0x20u);
       }
 
       controller = [(IUISessionChangeAssistant *)self controller];
@@ -88,24 +88,25 @@ LABEL_23:
           endSessionID = [sessionChange endSessionID];
           sourceSession = [v6 sourceSession];
           uuid = [sourceSession uuid];
-          v16 = [endSessionID isEqual:uuid];
+          v17 = [endSessionID isEqual:uuid];
 
-          if ((v16 & 1) == 0)
+          if ((v17 & 1) == 0)
           {
-            v17 = sub_10000235C();
-            if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+            v19 = sub_10000235C(v18);
+            if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
             {
               sub_10000C4BC();
             }
           }
         }
 
-        if ([v6 isPlaceholder])
+        isPlaceholder = [v6 isPlaceholder];
+        if (isPlaceholder)
         {
-          v18 = sub_10000235C();
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+          v21 = sub_10000235C(isPlaceholder);
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
           {
-            sub_10000C574(v18);
+            sub_10000C574(v21);
           }
         }
 
@@ -113,19 +114,19 @@ LABEL_23:
         [v6 removeFromSuperview];
       }
 
-      v19 = objc_opt_class();
+      v22 = objc_opt_class();
       sessionChangeContext2 = [(IUISessionChangeAssistant *)self sessionChangeContext];
-      v21 = [v19 _responseForCompletedChangeContext:sessionChangeContext2];
+      v24 = [v22 _responseForCompletedChangeContext:sessionChangeContext2];
 
       completion = [sessionChangeContext completion];
-      (completion)[2](completion, v21);
+      (completion)[2](completion, v24);
 
       goto LABEL_23;
     }
 
     if (v5)
     {
-      v6 = sub_10000235C();
+      v6 = sub_10000235C(v8);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
       {
         sub_10000C3FC();
@@ -142,8 +143,8 @@ LABEL_23:
   dispatch_assert_queue_V2(&_dispatch_main_q);
   if (self->_handledIncomingInputSource)
   {
-    v5 = sub_10000235C();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = sub_10000235C(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_10000C950();
     }
@@ -155,8 +156,8 @@ LABEL_30:
 
   if (!self->_handledOutgoingInputSource)
   {
-    v6 = sub_10000235C();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = sub_10000235C(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_10000C69C();
     }
@@ -170,55 +171,56 @@ LABEL_30:
   if (incomingInputSource == delegateCopy)
   {
     self->_handledIncomingInputSource = 1;
-    v5 = delegateCopy;
+    v6 = delegateCopy;
     sessionChangeContext = [(IUISessionChangeAssistant *)self sessionChangeContext];
     sessionChange = [sessionChangeContext sessionChange];
-    v11 = sub_10000235C();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = sub_10000235C(sessionChange);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = sub_1000038A4(v5);
-      v24 = 136315650;
-      v25 = "[IUISessionChangeAssistant handleSetupNewDelegate:]";
-      v26 = 2112;
-      v27 = v12;
-      v28 = 2112;
-      v29 = sessionChange;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%s  incomingInputSource: %@, sessionChange: %@", &v24, 0x20u);
+      v14 = sub_1000038A4(v6);
+      v28 = 136315650;
+      v29 = "[IUISessionChangeAssistant handleSetupNewDelegate:]";
+      v30 = 2112;
+      v31 = v14;
+      v32 = 2112;
+      v33 = sessionChange;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "%s  incomingInputSource: %@, sessionChange: %@", &v28, 0x20u);
     }
 
-    if (v5)
+    if (v6)
     {
       if ([sessionChange isBeginningSession])
       {
         beginSessionID = [sessionChange beginSessionID];
-        sourceSession = [v5 sourceSession];
+        sourceSession = [v6 sourceSession];
         uuid = [sourceSession uuid];
-        v16 = [beginSessionID isEqual:uuid];
+        v18 = [beginSessionID isEqual:uuid];
 
-        if ((v16 & 1) == 0)
+        if ((v18 & 1) == 0)
         {
-          v17 = sub_10000235C();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+          v20 = sub_10000235C(v19);
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
           {
             sub_10000C814();
           }
         }
       }
 
-      if ([v5 isPlaceholder])
+      isPlaceholder = [v6 isPlaceholder];
+      if (isPlaceholder)
       {
-        v18 = sub_10000235C();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+        v22 = sub_10000235C(isPlaceholder);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
         {
-          sub_10000C8CC(v18);
+          sub_10000C8CC(v22);
         }
       }
 
       controller = [(IUISessionChangeAssistant *)self controller];
-      [v5 setDataTransportDelegate:controller];
+      [v6 setDataTransportDelegate:controller];
 
       controller2 = [(IUISessionChangeAssistant *)self controller];
-      [controller2 setTextInputSource:v5];
+      [controller2 setTextInputSource:v6];
 
       if ([sessionChange isBeginningSession])
       {
@@ -248,8 +250,8 @@ LABEL_30:
 
   if (delegateCopy)
   {
-    v5 = sub_10000235C();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    v6 = sub_10000235C(v10);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
       sub_10000C754();
     }
@@ -291,33 +293,34 @@ LABEL_31:
   if (!self->_handledOutgoingInputSource || !self->_handledIncomingInputSource)
   {
     _changeHasNonUIKeyInputInputSource = [(IUISessionChangeAssistant *)self _changeHasNonUIKeyInputInputSource];
-    v4 = sub_10000235C();
-    v5 = v4;
-    if (_changeHasNonUIKeyInputInputSource)
+    v4 = _changeHasNonUIKeyInputInputSource;
+    v5 = sub_10000235C(_changeHasNonUIKeyInputInputSource);
+    v6 = v5;
+    if (v4)
     {
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         sessionChangeContext = [(IUISessionChangeAssistant *)self sessionChangeContext];
         sessionChange = [sessionChangeContext sessionChange];
         outgoingInputSource = [(IUISessionChangeAssistant *)self outgoingInputSource];
-        v9 = sub_1000038A4(outgoingInputSource);
+        v10 = sub_1000038A4(outgoingInputSource);
         incomingInputSource = [(IUISessionChangeAssistant *)self incomingInputSource];
-        v11 = sub_1000038A4(incomingInputSource);
-        v14 = 136315906;
-        v15 = "[IUISessionChangeAssistant finalizeSessionChange]";
-        v16 = 2112;
-        v17 = sessionChange;
-        v18 = 2112;
-        v19 = v9;
-        v20 = 2112;
-        v21 = v11;
-        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%s  Outgoing or incoming input source not handled during -become/resignFirstResponder due to non-UIKeyInput-conforming input source. Handling now. (sessionChange: %@, outgoingInputSource: %@, incomingInputSource: %@)", &v14, 0x2Au);
+        v12 = sub_1000038A4(incomingInputSource);
+        v15 = 136315906;
+        v16 = "[IUISessionChangeAssistant finalizeSessionChange]";
+        v17 = 2112;
+        v18 = sessionChange;
+        v19 = 2112;
+        v20 = v10;
+        v21 = 2112;
+        v22 = v12;
+        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%s  Outgoing or incoming input source not handled during -become/resignFirstResponder due to non-UIKeyInput-conforming input source. Handling now. (sessionChange: %@, outgoingInputSource: %@, incomingInputSource: %@)", &v15, 0x2Au);
       }
     }
 
-    else if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    else if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      sub_10000CA08(self, v5);
+      sub_10000CA08(self, v6);
     }
   }
 

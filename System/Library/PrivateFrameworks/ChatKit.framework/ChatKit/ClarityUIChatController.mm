@@ -39,13 +39,14 @@
 - (void)viewDidLayoutSubviews
 {
   selfCopy = self;
-  sub_1909016F8();
+  sub_1909016F8(selfCopy, v2);
 }
 
 - (void)viewWillAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_19090182C(appear);
+  sub_19090182C(appearCopy, selfCopy);
 }
 
 - (void)viewDidDisappear:(BOOL)disappear
@@ -127,7 +128,7 @@
 
 - (id)dragInteraction:(id)interaction itemsForBeginningSession:(id)session
 {
-  sub_1902188FC(0, &qword_1EAD56AD8);
+  sub_1902188FC(0, &qword_1EAD56AD8, 0x1E69DC990);
   v4 = sub_190D57160();
 
   return v4;

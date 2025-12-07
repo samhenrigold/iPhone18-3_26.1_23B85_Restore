@@ -177,7 +177,7 @@
 
 @implementation MPCModelGenericAVItem
 
-uint64_t __37__MPCModelGenericAVItem_isAlwaysLive__block_invoke(uint64_t a1)
+void *__37__MPCModelGenericAVItem_isAlwaysLive__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) type];
   if (result == 4)
@@ -247,7 +247,7 @@ uint64_t __37__MPCModelGenericAVItem_isAlwaysLive__block_invoke(uint64_t a1)
     v8 = playerItem;
     if (playerItem && [playerItem status] == 1)
     {
-      [(MPCModelGenericAVItem *)self _playerItemDurationIfAvailable];
+      objc_msgSend__playerItemDurationIfAvailable(self);
       v6 = (v10 & 0x1D) != 1;
     }
   }
@@ -517,7 +517,7 @@ LABEL_9:
   return v6;
 }
 
-uint64_t __44__MPCModelGenericAVItem_prefersSeekOverSkip__block_invoke(uint64_t a1)
+void *__44__MPCModelGenericAVItem_prefersSeekOverSkip__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) type];
   if (result == 4)
@@ -735,7 +735,7 @@ void __40__MPCModelGenericAVItem__chapterDataAt___block_invoke(uint64_t a1, void
   {
     [v12 startTime];
     v10 = v9;
-    [v12 duration];
+    objc_msgSend_duration(v12);
     if (v10 + v11 > *(a1 + 48))
     {
       objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
@@ -2845,7 +2845,7 @@ void __78__MPCModelGenericAVItem_nowPlayingInfoCenter_lyricsForContentItem_compl
     v6 = *(&self->super.super.isa + v5);
     if (v6)
     {
-      [v6 currentTime];
+      objc_msgSend_currentTime(v6);
     }
 
     else
@@ -2860,7 +2860,7 @@ void __78__MPCModelGenericAVItem_nowPlayingInfoCenter_lyricsForContentItem_compl
       v9 = *(&self->super.super.isa + v5);
       if (v9)
       {
-        [v9 currentTime];
+        objc_msgSend_currentTime(v9, 0.0);
       }
 
       else
@@ -7101,23 +7101,23 @@ LABEL_7:
   }
 }
 
-void __157__MPCModelGenericAVItem__downloadHLSAsset_destinationURL_sharedCacheURL_assetLoadProperties_loadResult_storeRequestContext_urlBag_fileUpgradeRecommendation___block_invoke_335(uint64_t a1)
+void __157__MPCModelGenericAVItem__downloadHLSAsset_destinationURL_sharedCacheURL_assetLoadProperties_loadResult_storeRequestContext_urlBag_fileUpgradeRecommendation___block_invoke_335(uint64_t a1, const char *a2)
 {
-  v2 = *(a1 + 32);
-  if (v2)
+  v3 = *(a1 + 32);
+  if (v3)
   {
-    [v2 duration];
-    if (v7 >= 1)
+    objc_msgSend_duration(v3, a2);
+    if (v8 >= 1)
     {
       WeakRetained = objc_loadWeakRetained((a1 + 72));
-      v4 = WeakRetained;
+      v5 = WeakRetained;
       if (WeakRetained)
       {
-        v5 = [WeakRetained _createOrUpdateDatabaseEntry:*(a1 + 40) loadResult:*(a1 + 48) urlBag:*(a1 + 56) destinationURL:*(a1 + 64) purgeable:1];
-        if ([*(a1 + 64) isEqual:v4[103]])
+        v6 = [WeakRetained _createOrUpdateDatabaseEntry:*(a1 + 40) loadResult:*(a1 + 48) urlBag:*(a1 + 56) destinationURL:*(a1 + 64) purgeable:1];
+        if ([*(a1 + 64) isEqual:v5[103]])
         {
-          v6 = v4[103];
-          v4[103] = 0;
+          v7 = v5[103];
+          v5[103] = 0;
         }
       }
     }
@@ -8346,7 +8346,7 @@ LABEL_30:
     v623 = 0u;
     v622 = 0u;
     v621 = 0u;
-    [(MPCModelGenericAVItem *)self _timeoutValues];
+    objc_msgSend__timeoutValues(self);
     _storeRequestContext = [(MPCModelGenericAVItem *)self _storeRequestContext];
     _iTunesStorePurchasedMediaKind = [(MPCModelGenericAVItem *)self _iTunesStorePurchasedMediaKind];
     _loudnessInfoMediaKind = [(MPCModelGenericAVItem *)self _loudnessInfoMediaKind];
@@ -12391,7 +12391,7 @@ LABEL_9:
     movie = [(MPModelGenericObject *)self->_flattenedMetadataGenericObject song];
 LABEL_7:
     v6 = movie;
-    [movie duration];
+    objc_msgSend_duration(movie);
     v4 = v7;
   }
 

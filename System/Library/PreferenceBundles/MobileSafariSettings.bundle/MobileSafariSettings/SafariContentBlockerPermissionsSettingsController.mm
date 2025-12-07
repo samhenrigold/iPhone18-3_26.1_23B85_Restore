@@ -10,6 +10,7 @@
 - (void)_setContentBlockerEnabled:(id)enabled forSpecifier:(id)specifier;
 - (void)_setContentBlockerEnabledInPrivateBrowsing:(id)browsing forSpecifier:(id)specifier;
 - (void)_setExtensionIfNeeded;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation SafariContentBlockerPermissionsSettingsController
@@ -31,6 +32,14 @@
   }
 
   return v2;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = SafariContentBlockerPermissionsSettingsController;
+  [(SafariContentBlockerPermissionsSettingsController *)&v4 viewWillAppear:appear];
+  [(SafariContentBlockerPermissionsSettingsController *)self _setExtensionIfNeeded];
 }
 
 - (id)specifiers

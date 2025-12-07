@@ -65,36 +65,35 @@ LABEL_7:
 
 void __67__IXPromisedOutOfBandTransfer_initWithName_client_diskSpaceNeeded___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315394;
-    v7 = "[IXPromisedOutOfBandTransfer initWithName:client:diskSpaceNeeded:]_block_invoke";
-    v8 = 2112;
-    v9 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[IXPromisedOutOfBandTransfer initWithName:client:diskSpaceNeeded:]_block_invoke";
+    v7 = 2112;
+    v8 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", &v5, 0x16u);
   }
 
   *(*(*(a1 + 32) + 8) + 24) = 1;
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __67__IXPromisedOutOfBandTransfer_initWithName_client_diskSpaceNeeded___block_invoke_1(uint64_t a1, uint64_t a2, void *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (v5)
   {
     v6 = IXGetLoggingHandle(kIXLoggingSubsystem);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[IXPromisedOutOfBandTransfer initWithName:client:diskSpaceNeeded:]_block_invoke";
-      v10 = 2112;
-      v11 = v5;
-      _os_log_impl(&dword_1DA47A000, v6, OS_LOG_TYPE_DEFAULT, "%s: Failed tell daemon to set up out of band transfer promise: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[IXPromisedOutOfBandTransfer initWithName:client:diskSpaceNeeded:]_block_invoke";
+      v9 = 2112;
+      v10 = v5;
+      _os_log_impl(&dword_1DA47A000, v6, OS_LOG_TYPE_DEFAULT, "%s: Failed tell daemon to set up out of band transfer promise: %@", &v7, 0x16u);
     }
 
     *(*(*(a1 + 40) + 8) + 24) = 1;
@@ -104,8 +103,6 @@ void __67__IXPromisedOutOfBandTransfer_initWithName_client_diskSpaceNeeded___blo
   {
     [*(a1 + 32) _updateInitWithSeed:a2 notifyDaemon:0];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (IXPromisedOutOfBandTransfer)initWithCoder:(id)coder

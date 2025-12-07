@@ -12,7 +12,7 @@
 - (void)imagePickerController:(id)controller didFinishPickingMediaWithInfo:(id)info
 {
   type metadata accessor for InfoKey(0);
-  sub_10042B060(&qword_1006EF0D0, type metadata accessor for InfoKey);
+  sub_10042B060(&qword_1006EF0D0, type metadata accessor for InfoKey, &unk_100598800);
   v6 = sub_1005726A8();
   controllerCopy = controller;
   selfCopy = self;
@@ -39,7 +39,7 @@
 {
   v6 = sub_10056C8A8();
   v7 = *(v6 - 8);
-  __chkstk_darwin(v6);
+  __chkstk_darwin();
   v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_10056C838();
   controllerCopy = controller;
@@ -52,7 +52,7 @@
 - (void)presentationControllerDidDismiss:(id)dismiss
 {
   type metadata accessor for ImagePicker(0);
-  sub_100009DCC(&qword_1006F4470);
+  sub_100009DCC(&qword_1006F4470, &qword_10059B010);
   sub_100570808();
 }
 

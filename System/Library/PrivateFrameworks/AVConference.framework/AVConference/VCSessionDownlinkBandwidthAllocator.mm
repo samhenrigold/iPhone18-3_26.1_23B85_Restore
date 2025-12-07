@@ -1799,7 +1799,7 @@ LABEL_21:
     }
   }
 
-  [(NSMutableDictionary *)self->_selectedMediaEntriesForClients setObject:v5 forKeyedSubscript:d, *v21, *&v21[16], v22, selfCopy, v24];
+  [(NSMutableDictionary *)self->_selectedMediaEntriesForClients setObject:v5 forKeyedSubscript:d, *v21, *&v21[8], v22, selfCopy, v24];
 }
 
 - (void)reset
@@ -1824,7 +1824,7 @@ LABEL_21:
   dispatch_async(clientQueue, block);
 }
 
-uint64_t __80__VCSessionDownlinkBandwidthAllocator_registerForBandwidthAllocationWithClient___block_invoke(uint64_t a1)
+void *__80__VCSessionDownlinkBandwidthAllocator_registerForBandwidthAllocationWithClient___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 32) containsObject:*(a1 + 40)];
   if ((result & 1) == 0)
@@ -1889,7 +1889,7 @@ uint64_t __80__VCSessionDownlinkBandwidthAllocator_registerForBandwidthAllocatio
   dispatch_async(clientQueue, block);
 }
 
-uint64_t __82__VCSessionDownlinkBandwidthAllocator_deregisterForBandwidthAllocationWithClient___block_invoke(uint64_t a1)
+void *__82__VCSessionDownlinkBandwidthAllocator_deregisterForBandwidthAllocationWithClient___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 32) containsObject:*(a1 + 40)];
   if (result)

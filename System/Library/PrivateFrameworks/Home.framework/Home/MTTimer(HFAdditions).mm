@@ -48,7 +48,7 @@
 
 - (id)hf_targetAccessoryInHome:()HFAdditions
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v4 = a3;
   siriContext = [self siriContext];
   v6 = [siriContext objectForKey:*MEMORY[0x277CFD060]];
@@ -64,27 +64,27 @@
 
       if (v10)
       {
-        v33 = 0u;
-        v34 = 0u;
-        v31 = 0u;
         v32 = 0u;
+        v33 = 0u;
+        v30 = 0u;
+        v31 = 0u;
         queryItems = [v7 queryItems];
-        v12 = [queryItems countByEnumeratingWithState:&v31 objects:v35 count:16];
+        v12 = [queryItems countByEnumeratingWithState:&v30 objects:v34 count:16];
         if (v12)
         {
           v13 = v12;
-          v28 = v7;
-          v14 = *v32;
+          v27 = v7;
+          v14 = *v31;
           while (2)
           {
             for (i = 0; i != v13; ++i)
             {
-              if (*v32 != v14)
+              if (*v31 != v14)
               {
                 objc_enumerationMutation(queryItems);
               }
 
-              v16 = *(*(&v31 + 1) + 8 * i);
+              v16 = *(*(&v30 + 1) + 8 * i);
               name = [v16 name];
               v18 = [@"identifier" isEqualToString:name];
 
@@ -104,7 +104,7 @@
               }
             }
 
-            v13 = [queryItems countByEnumeratingWithState:&v31 objects:v35 count:16];
+            v13 = [queryItems countByEnumeratingWithState:&v30 objects:v34 count:16];
             if (v13)
             {
               continue;
@@ -115,7 +115,7 @@
 
           v21 = 0;
 LABEL_24:
-          v7 = v28;
+          v7 = v27;
         }
 
         else
@@ -134,13 +134,13 @@ LABEL_24:
     v21 = 0;
 LABEL_27:
     accessories = [v4 accessories];
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __49__MTTimer_HFAdditions__hf_targetAccessoryInHome___block_invoke;
-    v29[3] = &unk_277DF3888;
-    v30 = v21;
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __49__MTTimer_HFAdditions__hf_targetAccessoryInHome___block_invoke;
+    v28[3] = &unk_277DF3888;
+    v29 = v21;
     v25 = v21;
-    v23 = [accessories na_firstObjectPassingTest:v29];
+    v23 = [accessories na_firstObjectPassingTest:v28];
 
     goto LABEL_28;
   }
@@ -158,8 +158,8 @@ LABEL_27:
   {
     *buf = 138412546;
     selfCopy = self;
-    v38 = 2112;
-    v39 = v4;
+    v37 = 2112;
+    v38 = v4;
     _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, "No targetReference found for alarm: %@ in home: %@", buf, 0x16u);
   }
 
@@ -167,7 +167,6 @@ LABEL_27:
 LABEL_28:
 
 LABEL_29:
-  v26 = *MEMORY[0x277D85DE8];
 
   return v23;
 }

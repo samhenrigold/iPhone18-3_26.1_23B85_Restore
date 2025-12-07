@@ -1,4 +1,5 @@
 @interface MUPlaceHikingTileViewModel
+- (MUPlaceHikingTileViewModel)initWithGEOTrail:(id)trail hikingItemType:(int)type;
 - (NSString)tileName;
 - (id)footerAttributedStringForFont:(id)font;
 - (id)subtitleAttributedStringForFont:(id)font;
@@ -18,7 +19,7 @@
 
 - (id)footerAttributedStringForFont:(id)font
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   fontCopy = font;
   if ([(MUPlaceHikingTileViewModel *)self hikingItemType]- 1 > 1)
   {
@@ -32,28 +33,28 @@
   }
 
   v7 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v8 = factoids;
-  v9 = [v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v24;
+    v11 = *v23;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v24 != v11)
+        if (*v23 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v23 + 1) + 8 * i);
+        v13 = *(*(&v22 + 1) + 8 * i);
         v14 = _MUFactoidStringForFactoid(v13, fontCopy);
-        [v7 addObject:{v14, v23}];
+        [v7 addObject:{v14, v22}];
 
         lastObject = [v8 lastObject];
 
@@ -67,7 +68,7 @@
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v10);
@@ -75,8 +76,6 @@
 
   v19 = [v7 copy];
   v20 = [MapsUILayout buildAttributedDisplayStringForComponents:v19 reverseIfRTLLayout:1];
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v20;
 }
@@ -123,24 +122,23 @@ void __65__MUPlaceHikingTileViewModel_fetchImageTilewWithSize_completion___block
 {
   if (!a2 || a5)
   {
-    v10 = *(a1 + 32);
-    v11 = *(*(a1 + 32) + 16);
+    v10 = *(*(a1 + 32) + 16);
 
-    v11();
+    v10();
   }
 
   else
   {
     v8 = *(a1 + 56);
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __65__MUPlaceHikingTileViewModel_fetchImageTilewWithSize_completion___block_invoke_2;
-    v12[3] = &unk_1E821A030;
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __65__MUPlaceHikingTileViewModel_fetchImageTilewWithSize_completion___block_invoke_2;
+    v11[3] = &unk_1E821A030;
     v9 = *(a1 + 32);
-    v13 = 0;
-    v14 = v9;
-    v15 = a3;
-    [MapsUIUtilities resizeImageIfNeeded:a2 toFrameSize:v12 displayScale:*(a1 + 40) completion:*(a1 + 48), v8];
+    v12 = 0;
+    v13 = v9;
+    v14 = a3;
+    [MapsUIUtilities resizeImageIfNeeded:a2 toFrameSize:v11 displayScale:*(a1 + 40) completion:*(a1 + 48), v8];
   }
 }
 
@@ -172,6 +170,23 @@ void __65__MUPlaceHikingTileViewModel_fetchImageTilewWithSize_completion___block
   name = [geoTrail name];
 
   return name;
+}
+
+- (MUPlaceHikingTileViewModel)initWithGEOTrail:(id)trail hikingItemType:(int)type
+{
+  v4 = *&type;
+  trailCopy = trail;
+  v10.receiver = self;
+  v10.super_class = MUPlaceHikingTileViewModel;
+  v7 = [(MUPlaceHikingTileViewModel *)&v10 init];
+  v8 = v7;
+  if (v7)
+  {
+    [(MUPlaceHikingTileViewModel *)v7 setGeoTrail:trailCopy];
+    [(MUPlaceHikingTileViewModel *)v8 setHikingItemType:v4];
+  }
+
+  return v8;
 }
 
 @end

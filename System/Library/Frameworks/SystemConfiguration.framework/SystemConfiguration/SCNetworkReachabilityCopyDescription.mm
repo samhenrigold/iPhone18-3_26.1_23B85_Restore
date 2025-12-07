@@ -5,7 +5,7 @@
 
 uint64_t ____SCNetworkReachabilityCopyDescription_block_invoke(uint64_t a1, int a2, nw_endpoint_t endpoint)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   type = nw_endpoint_get_type(endpoint);
   if (type == 2)
   {
@@ -17,8 +17,8 @@ uint64_t ____SCNetworkReachabilityCopyDescription_block_invoke(uint64_t a1, int 
   else if (type == 1)
   {
     address = nw_endpoint_get_address(endpoint);
-    _SC_sockaddr_to_string(address, v11, 0x40uLL);
-    CFStringAppendFormat(*(a1 + 32), 0, @", %s", v11);
+    _SC_sockaddr_to_string(address, v10, 0x40uLL);
+    CFStringAppendFormat(*(a1 + 32), 0, @", %s", v10);
   }
 
   else
@@ -26,7 +26,6 @@ uint64_t ____SCNetworkReachabilityCopyDescription_block_invoke(uint64_t a1, int 
     CFStringAppendFormat(*(a1 + 32), 0, @", unexpected nw_endpoint type: %u", type);
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return 1;
 }
 

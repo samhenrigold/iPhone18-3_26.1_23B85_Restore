@@ -31,10 +31,10 @@ void ___IOHIDEventSystemConnectionCreateVirtualService_block_invoke(uint64_t a1)
   CFRelease(*(a1 + 40));
 }
 
-void ___IOHIDEventSystemConnectionCreateVirtualService_block_invoke_2(uint64_t a1)
+void ___IOHIDEventSystemConnectionCreateVirtualService_block_invoke_2(void *a1)
 {
-  _IOHIDEventSystemConnectionRemoveVirtualService(*(a1 + 32), *(a1 + 40));
-  v2 = *(a1 + 48);
+  _IOHIDEventSystemConnectionRemoveVirtualService(a1[4], a1[5]);
+  v2 = a1[6];
 
   CFRelease(v2);
 }

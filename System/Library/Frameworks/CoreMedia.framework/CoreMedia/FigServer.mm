@@ -3,14 +3,14 @@
 
 @implementation FigServer
 
-void __FigServer_InitializeWithEnvironment_block_invoke(uint64_t a1)
+void __FigServer_InitializeWithEnvironment_block_invoke(uint64_t result)
 {
   if (checkFigRemotePrivTrace_onceToken != -1)
   {
     __FigServer_InitializeWithEnvironment_block_invoke_cold_1();
   }
 
-  v2 = *(a1 + 32);
+  v2 = *(result + 32);
   if (v2 >= 0xA)
   {
     v2 = 10;

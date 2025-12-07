@@ -175,20 +175,18 @@
 
 - (id)sr_dictionaryRepresentation
 {
-  v6[5] = *MEMORY[0x1E69E9840];
-  v5[0] = @"duration";
-  v6[0] = [MEMORY[0x1E696AD98] numberWithDouble:self->_duration];
-  v5[1] = @"totalOutgoingCall";
-  v6[1] = [MEMORY[0x1E696AD98] numberWithInteger:self->_totalOutgoingCalls];
-  v5[2] = @"totalIncomingCall";
-  v6[2] = [MEMORY[0x1E696AD98] numberWithInteger:self->_totalIncomingCalls];
-  v5[3] = @"totalUniqueContacts";
-  v6[3] = [MEMORY[0x1E696AD98] numberWithInteger:{-[SRPhoneUsageReport totalUniqueContacts](self, "totalUniqueContacts")}];
-  v5[4] = @"totalCallDuration";
-  v6[4] = [MEMORY[0x1E696AD98] numberWithDouble:self->_totalPhoneCallDuration];
-  result = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:v5 count:5];
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  v5[5] = *MEMORY[0x1E69E9840];
+  v4[0] = @"duration";
+  v5[0] = [MEMORY[0x1E696AD98] numberWithDouble:self->_duration];
+  v4[1] = @"totalOutgoingCall";
+  v5[1] = [MEMORY[0x1E696AD98] numberWithInteger:self->_totalOutgoingCalls];
+  v4[2] = @"totalIncomingCall";
+  v5[2] = [MEMORY[0x1E696AD98] numberWithInteger:self->_totalIncomingCalls];
+  v4[3] = @"totalUniqueContacts";
+  v5[3] = [MEMORY[0x1E696AD98] numberWithInteger:{-[SRPhoneUsageReport totalUniqueContacts](self, "totalUniqueContacts")}];
+  v4[4] = @"totalCallDuration";
+  v5[4] = [MEMORY[0x1E696AD98] numberWithDouble:self->_totalPhoneCallDuration];
+  return [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:v4 count:5];
 }
 
 @end

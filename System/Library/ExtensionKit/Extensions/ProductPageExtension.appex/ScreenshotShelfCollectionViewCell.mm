@@ -72,7 +72,7 @@
   viewCopy = view;
   cellCopy = cell;
   selfCopy = self;
-  sub_100379E80();
+  sub_100379E80(cellCopy);
 
   (*(v9 + 8))(v11, v8);
 }
@@ -84,7 +84,7 @@
   __chkstk_darwin(v6);
   v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_10075E06C();
-  type metadata accessor for ScreenshotCollectionViewCell();
+  type metadata accessor for ScreenshotCollectionViewCell(0);
   v10 = *(*(swift_dynamicCastClassUnconditional() + OBJC_IVAR____TtC20ProductPageExtension28ScreenshotCollectionViewCell_borderedScreenshotView) + OBJC_IVAR____TtC20ProductPageExtension22BorderedScreenshotView_artworkView);
   cellCopy = cell;
   v12 = v10;
@@ -100,11 +100,11 @@
   v6 = sub_10075E11C();
   v7 = *(v6 - 8);
   __chkstk_darwin(v6);
-  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_10075E06C();
   viewCopy = view;
   selfCopy = self;
-  sub_100377D64(viewCopy);
+  sub_100377D64(viewCopy, v12);
 
   (*(v7 + 8))(v9, v6);
 }

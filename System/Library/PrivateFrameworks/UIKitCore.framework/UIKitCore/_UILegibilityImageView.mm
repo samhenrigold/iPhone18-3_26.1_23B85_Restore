@@ -7,7 +7,7 @@
 
 - (BOOL)_shouldAnimatePropertyWithKey:(id)key
 {
-  if ([key isEqualToString:@"filters.colorMatrix.inputColorMatrix"])
+  if (objc_msgSend_isEqualToString_(key, a2, @"filters.colorMatrix.inputColorMatrix"))
   {
     return 1;
   }

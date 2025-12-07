@@ -1,4 +1,5 @@
 @interface MOSplunkLogger
+- (MOSplunkLogger)initWithName:(id)name configurationURL:(id)l splunkTopic:(id)topic version:(id)version allowInvalidCert:(BOOL)cert;
 - (void)URLSession:(id)session didReceiveChallenge:(id)challenge completionHandler:(id)handler;
 - (void)_onQueue_loadConfiguration;
 - (void)logEventNamed:(id)named value:(id)value;
@@ -6,6 +7,38 @@
 @end
 
 @implementation MOSplunkLogger
+
+- (MOSplunkLogger)initWithName:(id)name configurationURL:(id)l splunkTopic:(id)topic version:(id)version allowInvalidCert:(BOOL)cert
+{
+  certCopy = cert;
+  nameCopy = name;
+  lCopy = l;
+  topicCopy = topic;
+  versionCopy = version;
+  v25.receiver = self;
+  v25.super_class = MOSplunkLogger;
+  v16 = [(MOSplunkLogger *)&v25 init];
+  v17 = v16;
+  if (v16)
+  {
+    objc_storeStrong(&v16->_configurationURL, l);
+    objc_storeStrong(&v17->_splunkTopic, topic);
+    objc_storeStrong(&v17->_version, version);
+    v18 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    [(MOSplunkLogger *)v17 setEvents:v18];
+
+    [(MOSplunkLogger *)v17 setAllowInvalidCert:certCopy];
+    nameCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"%@.SplunkLoggerQueue", nameCopy];
+    uTF8String = [nameCopy UTF8String];
+    v21 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v22 = dispatch_queue_create(uTF8String, v21);
+    [(MOSplunkLogger *)v17 setQueue:v22];
+
+    v23 = v17;
+  }
+
+  return v17;
+}
 
 - (void)_onQueue_loadConfiguration
 {
@@ -15,18 +48,18 @@
   v4 = dispatch_semaphore_create(0);
   ephemeralSessionConfiguration = [MEMORY[0x277CCAD38] ephemeralSessionConfiguration];
   v6 = [MEMORY[0x277CCAD30] sessionWithConfiguration:ephemeralSessionConfiguration delegate:self delegateQueue:0];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __44__MOSplunkLogger__onQueue_loadConfiguration__block_invoke;
-  v15[3] = &unk_279917168;
-  v15[4] = self;
-  v16 = v4;
+  v15 = MEMORY[0x277D85DD0];
+  v16 = 3221225472;
+  v17 = __44__MOSplunkLogger__onQueue_loadConfiguration__block_invoke;
+  v18 = &unk_279917168;
+  selfCopy = self;
+  v20 = v4;
   v7 = v4;
-  v8 = _Block_copy(v15);
-  configurationURL = [(MOSplunkLogger *)self configurationURL];
-  v10 = [v6 dataTaskWithURL:configurationURL completionHandler:v8];
+  v8 = _Block_copy(&v15);
+  v9 = [(MOSplunkLogger *)self configurationURL:v15];
+  v10 = [v6 dataTaskWithURL:v9 completionHandler:v8];
 
-  MOLogWrite(0, 3, "[MOSplunkLogger _onQueue_loadConfiguration]", @"Loading configuration", v11, v12, v13, v14, v15[0]);
+  MOLogWrite(0, 3, "[MOSplunkLogger _onQueue_loadConfiguration]", @"Loading configuration", v11, v12, v13, v14);
   [v10 resume];
   dispatch_semaphore_wait(v7, 0xFFFFFFFFFFFFFFFFLL);
 }
@@ -49,9 +82,9 @@ LABEL_5:
     goto LABEL_6;
   }
 
-  v51 = 0;
-  v16 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v7 options:0 error:&v51];
-  v17 = v51;
+  v50 = 0;
+  v16 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v7 options:0 error:&v50];
+  v17 = v50;
   if (v17)
   {
     v15 = v17;
@@ -65,9 +98,9 @@ LABEL_5:
     v19 = [v16 objectForKeyedSubscript:@"metricsUrl"];
     if (v19)
     {
-      v50 = [MEMORY[0x277CBEBC0] URLWithString:v19];
+      v49 = [MEMORY[0x277CBEBC0] URLWithString:v19];
       v29 = [*(a1 + 32) version];
-      v30 = [v50 URLByAppendingPathComponent:v29];
+      v30 = [v49 URLByAppendingPathComponent:v29];
       v31 = [*(a1 + 32) splunkTopic];
       v32 = [v30 URLByAppendingPathComponent:v31];
       [*(a1 + 32) setSplunkUploadURL:v32];
@@ -78,7 +111,7 @@ LABEL_5:
 
     else
     {
-      MOLogWrite(0, 3, "[MOSplunkLogger _onQueue_loadConfiguration]_block_invoke", @"Could not find metrics URL in configuration", v25, v26, v27, v28, v48);
+      MOLogWrite(0, 3, "[MOSplunkLogger _onQueue_loadConfiguration]_block_invoke", @"Could not find metrics URL in configuration", v25, v26, v27, v28);
     }
 
     v38 = [v16 objectForKeyedSubscript:@"performance"];
@@ -92,7 +125,7 @@ LABEL_5:
 
     else
     {
-      MOLogWrite(0, 3, "[MOSplunkLogger _onQueue_loadConfiguration]_block_invoke", @"Could not find sampling percentage in configuration", v39, v40, v41, v42, v49);
+      MOLogWrite(0, 3, "[MOSplunkLogger _onQueue_loadConfiguration]_block_invoke", @"Could not find sampling percentage in configuration", v39, v40, v41, v42, v48);
     }
 
     v15 = [*(a1 + 32) samplingPercentage];
@@ -114,7 +147,7 @@ LABEL_5:
 
   else
   {
-    MOLogWrite(0, 3, "[MOSplunkLogger _onQueue_loadConfiguration]_block_invoke", @"Configuration does not have the expected format", v21, v22, v23, v24, v48);
+    MOLogWrite(0, 3, "[MOSplunkLogger _onQueue_loadConfiguration]_block_invoke", @"Configuration does not have the expected format", v21, v22, v23, v24);
     v18 = 0;
     v19 = 0;
     v20 = 0;
@@ -147,7 +180,7 @@ LABEL_6:
   dispatch_async(queue2, v8);
 }
 
-uint64_t __45__MOSplunkLogger_uploadEventsWithCompletion___block_invoke(uint64_t a1)
+void *__45__MOSplunkLogger_uploadEventsWithCompletion___block_invoke(uint64_t a1)
 {
   [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
   v3 = v2;
@@ -164,7 +197,7 @@ uint64_t __45__MOSplunkLogger_uploadEventsWithCompletion___block_invoke(uint64_t
 
 void __45__MOSplunkLogger_uploadEventsWithCompletion___block_invoke_2(uint64_t a1)
 {
-  v38[2] = *MEMORY[0x277D85DE8];
+  v35[2] = *MEMORY[0x277D85DE8];
   v2 = arc4random_uniform(0x64u);
   v3 = [*(a1 + 32) samplingPercentage];
   [v3 floatValue];
@@ -172,57 +205,54 @@ void __45__MOSplunkLogger_uploadEventsWithCompletion___block_invoke_2(uint64_t a
 
   if (v5 >= v2)
   {
-    v8 = [MEMORY[0x277CCAD38] ephemeralSessionConfiguration];
-    v9 = [MEMORY[0x277CCAD30] sessionWithConfiguration:v8 delegate:*(a1 + 32) delegateQueue:0];
-    v10 = objc_alloc_init(MEMORY[0x277CCAB70]);
-    v11 = [*(a1 + 32) splunkUploadURL];
-    [v10 setURL:v11];
+    v7 = [MEMORY[0x277CCAD38] ephemeralSessionConfiguration];
+    v8 = [MEMORY[0x277CCAD30] sessionWithConfiguration:v7 delegate:*(a1 + 32) delegateQueue:0];
+    v9 = objc_alloc_init(MEMORY[0x277CCAB70]);
+    v10 = [*(a1 + 32) splunkUploadURL];
+    [v9 setURL:v10];
 
-    [v10 setHTTPMethod:@"POST"];
-    v37[0] = @"postTime";
-    v12 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:clock_gettime_nsec_np(_CLOCK_REALTIME) / 0xF4240];
-    v37[1] = @"events";
-    v38[0] = v12;
-    v13 = [*(a1 + 32) events];
-    v38[1] = v13;
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:2];
+    [v9 setHTTPMethod:@"POST"];
+    v34[0] = @"postTime";
+    v11 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:clock_gettime_nsec_np(_CLOCK_REALTIME) / 0xF4240];
+    v34[1] = @"events";
+    v35[0] = v11;
+    v12 = [*(a1 + 32) events];
+    v35[1] = v12;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:v34 count:2];
 
-    v36 = 0;
-    v15 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v14 options:0 error:&v36];
-    v16 = v36;
-    v21 = v16;
-    if (!v15 || v16)
+    v33 = 0;
+    v14 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v13 options:0 error:&v33];
+    v15 = v33;
+    v20 = v15;
+    if (!v14 || v15)
     {
-      MOLogWrite(0, 3, "[MOSplunkLogger uploadEventsWithCompletion:]_block_invoke_2", @"Failed to serialize Splunk payload: %@", v17, v18, v19, v20, v16);
+      MOLogWrite(0, 3, "[MOSplunkLogger uploadEventsWithCompletion:]_block_invoke_2", @"Failed to serialize Splunk payload: %@", v16, v17, v18, v19, v15);
     }
 
     else
     {
-      [v10 setHTTPBody:v15];
-      v22 = dispatch_semaphore_create(0);
+      [v9 setHTTPBody:v14];
+      v21 = dispatch_semaphore_create(0);
       aBlock[0] = MEMORY[0x277D85DD0];
       aBlock[1] = 3221225472;
       aBlock[2] = __45__MOSplunkLogger_uploadEventsWithCompletion___block_invoke_3;
       aBlock[3] = &unk_2799171B8;
-      v23 = *(a1 + 40);
+      v22 = *(a1 + 40);
       aBlock[4] = *(a1 + 32);
-      v34 = v22;
-      v35 = v23;
-      v24 = v22;
-      v25 = _Block_copy(aBlock);
-      v26 = [v9 dataTaskWithRequest:v10 completionHandler:v25];
-      MOLogWrite(0, 3, "[MOSplunkLogger uploadEventsWithCompletion:]_block_invoke_2", @"Splunk upload start", v27, v28, v29, v30, v32);
-      [v26 resume];
-      dispatch_semaphore_wait(v24, 0xFFFFFFFFFFFFFFFFLL);
+      v31 = v21;
+      v32 = v22;
+      v23 = v21;
+      v24 = _Block_copy(aBlock);
+      v25 = [v8 dataTaskWithRequest:v9 completionHandler:v24];
+      MOLogWrite(0, 3, "[MOSplunkLogger uploadEventsWithCompletion:]_block_invoke_2", @"Splunk upload start", v26, v27, v28, v29);
+      [v25 resume];
+      dispatch_semaphore_wait(v23, 0xFFFFFFFFFFFFFFFFLL);
     }
-
-    v31 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
     v6 = *(*(a1 + 40) + 16);
-    v7 = *MEMORY[0x277D85DE8];
 
     v6();
   }
@@ -230,7 +260,7 @@ void __45__MOSplunkLogger_uploadEventsWithCompletion___block_invoke_2(uint64_t a
 
 void __45__MOSplunkLogger_uploadEventsWithCompletion___block_invoke_3(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v32 = a2;
+  v31 = a2;
   v7 = a3;
   v8 = a4;
   v13 = v8;
@@ -247,13 +277,13 @@ void __45__MOSplunkLogger_uploadEventsWithCompletion___block_invoke_3(uint64_t a
       v14 = v7;
       if ([v14 statusCode] < 200 || objc_msgSend(v14, "statusCode") > 299)
       {
-        v31 = [v14 statusCode];
-        MOLogWrite(0, 3, "[MOSplunkLogger uploadEventsWithCompletion:]_block_invoke_3", @"Splunk upload unexpected status: %d", v25, v26, v27, v28, v31);
+        v30 = [v14 statusCode];
+        MOLogWrite(0, 3, "[MOSplunkLogger uploadEventsWithCompletion:]_block_invoke_3", @"Splunk upload unexpected status: %d", v25, v26, v27, v28, v30);
       }
 
       else
       {
-        MOLogWrite(0, 3, "[MOSplunkLogger uploadEventsWithCompletion:]_block_invoke_3", @"Splunk upload successful", v15, v16, v17, v18, v30);
+        MOLogWrite(0, 3, "[MOSplunkLogger uploadEventsWithCompletion:]_block_invoke_3", @"Splunk upload successful", v15, v16, v17, v18);
         v19 = [*(a1 + 32) events];
         [v19 removeAllObjects];
       }
@@ -308,9 +338,9 @@ void __38__MOSplunkLogger_logEventNamed_value___block_invoke(uint64_t a1)
 
   if (v4 >= 0x3E9)
   {
-    MOLogWrite(0, 3, "[MOSplunkLogger logEventNamed:value:]_block_invoke", @"Maximum number of events exceeded. Discarding oldest event.", v5, v6, v7, v8, v9);
-    v10 = [*(a1 + 32) events];
-    [v10 removeObjectAtIndex:0];
+    MOLogWrite(0, 3, "[MOSplunkLogger logEventNamed:value:]_block_invoke", @"Maximum number of events exceeded. Discarding oldest event.", v5, v6, v7, v8);
+    v9 = [*(a1 + 32) events];
+    [v9 removeObjectAtIndex:0];
   }
 }
 
@@ -318,8 +348,8 @@ void __38__MOSplunkLogger_logEventNamed_value___block_invoke(uint64_t a1)
 {
   challengeCopy = challenge;
   handlerCopy = handler;
-  MOLogWrite(0, 3, "[MOSplunkLogger URLSession:didReceiveChallenge:completionHandler:]", @"Splunk upload challenge", v9, v10, v11, v12, v28);
-  v30 = 0;
+  MOLogWrite(0, 3, "[MOSplunkLogger URLSession:didReceiveChallenge:completionHandler:]", @"Splunk upload challenge", v9, v10, v11, v12);
+  v28 = 0;
   if ([challengeCopy previousFailureCount] >= 1)
   {
     goto LABEL_2;
@@ -336,11 +366,11 @@ void __38__MOSplunkLogger_logEventNamed_value___block_invoke(uint64_t a1)
   }
 
   protectionSpace2 = [challengeCopy protectionSpace];
-  MEMORY[0x25F84B1B0]([protectionSpace2 serverTrust], &v30);
+  MEMORY[0x25F84B1B0]([protectionSpace2 serverTrust], &v28);
 
-  if (![(MOSplunkLogger *)self allowInvalidCert]&& v30 != 4 && v30 != 1)
+  if (![(MOSplunkLogger *)self allowInvalidCert]&& v28 != 4 && v28 != 1)
   {
-    MOLogWrite(0, 3, "[MOSplunkLogger URLSession:didReceiveChallenge:completionHandler:]", @"Error evaluating trust. SecTrustResultType=%d", v17, v18, v19, v20, v30);
+    MOLogWrite(0, 3, "[MOSplunkLogger URLSession:didReceiveChallenge:completionHandler:]", @"Error evaluating trust. SecTrustResultType=%d", v17, v18, v19, v20, v28);
 LABEL_2:
     handlerCopy[2](handlerCopy, 2, 0);
     goto LABEL_11;
@@ -348,7 +378,7 @@ LABEL_2:
 
   if ([(MOSplunkLogger *)self allowInvalidCert])
   {
-    MOLogWrite(0, 3, "[MOSplunkLogger URLSession:didReceiveChallenge:completionHandler:]", @"Force Accepting Credential", v21, v22, v23, v24, v29);
+    MOLogWrite(0, 3, "[MOSplunkLogger URLSession:didReceiveChallenge:completionHandler:]", @"Force Accepting Credential", v21, v22, v23, v24);
   }
 
   v25 = MEMORY[0x277CCACF0];

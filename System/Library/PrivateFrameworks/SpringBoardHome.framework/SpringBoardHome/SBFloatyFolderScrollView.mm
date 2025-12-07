@@ -13,7 +13,7 @@
   [(SBFloatyFolderScrollView *)selfCopy convertPoint:superview toView:x, y];
   v9 = v8;
   v11 = v10;
-  [superview bounds];
+  objc_msgSend_bounds(superview);
   v13.x = v9;
   v13.y = v11;
   LOBYTE(selfCopy) = CGRectContainsPoint(v14, v13);

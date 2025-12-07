@@ -250,7 +250,7 @@
 
 - (id)topicRecordFromEvent:(id)event
 {
-  v87 = *MEMORY[0x277D85DE8];
+  v86 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   source = [eventCopy source];
   bundleID = [source bundleID];
@@ -271,9 +271,9 @@
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v84 = bundleID;
-      v85 = 2112;
-      v86 = itemID;
+      v83 = bundleID;
+      v84 = 2112;
+      v85 = itemID;
       v19 = "Warning: PPDKStorage failed to create topic record from _DKEvent with missing source field(s). bundleID: %@ documentID: %@";
 LABEL_12:
       v20 = v18;
@@ -299,7 +299,7 @@ LABEL_21:
     }
 
     *buf = 138412290;
-    v84 = bundleID;
+    v83 = bundleID;
     v19 = "Warning: PPDKStorage failed to create topic record from _DKEvent with invalid start date. Source: %@";
 LABEL_19:
     v20 = v18;
@@ -318,7 +318,7 @@ LABEL_19:
     }
 
     *buf = 138412290;
-    v84 = bundleID;
+    v83 = bundleID;
     v19 = "Warning: PPDKStorage failed to create named entity record from _DKEvent with metadata==nil. Source: %@";
     goto LABEL_19;
   }
@@ -329,9 +329,9 @@ LABEL_19:
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138740227;
-      v84 = stringValue;
-      v85 = 2113;
-      v86 = bundleID;
+      v83 = stringValue;
+      v84 = 2113;
+      v85 = bundleID;
       v19 = "Warning: PPDKStorage failed to create topic record from _DKEvent due to invalid topic identifier %{sensitive}@. Source: %{private}@";
       goto LABEL_12;
     }
@@ -351,106 +351,106 @@ LABEL_19:
 
   metadata3 = [eventCopy metadata];
   score = [MEMORY[0x277CFE128] score];
-  v28 = [metadata3 objectForKeyedSubscript:score];
+  v27 = [metadata3 objectForKeyedSubscript:score];
 
   metadata4 = [eventCopy metadata];
   decayRate = [MEMORY[0x277CFE128] decayRate];
-  v31 = [metadata4 objectForKeyedSubscript:decayRate];
+  v30 = [metadata4 objectForKeyedSubscript:decayRate];
 
   metadata5 = [eventCopy metadata];
   sentimentScore = [MEMORY[0x277CFE128] sentimentScore];
-  v34 = [metadata5 objectForKeyedSubscript:sentimentScore];
-  v35 = v34;
-  v82 = v31;
-  if (v34)
+  v33 = [metadata5 objectForKeyedSubscript:sentimentScore];
+  v34 = v33;
+  v81 = v30;
+  if (v33)
   {
-    v81 = v34;
+    v80 = v33;
   }
 
   else
   {
     [eventCopy metadata];
-    v37 = v36 = v28;
-    v81 = [v37 objectForKeyedSubscript:@"sentimentScore"];
+    v36 = v35 = v27;
+    v80 = [v36 objectForKeyedSubscript:@"sentimentScore"];
 
-    v28 = v36;
+    v27 = v35;
   }
 
   metadata6 = [eventCopy metadata];
   osBuild = [MEMORY[0x277CFE128] osBuild];
-  v40 = [metadata6 objectForKeyedSubscript:osBuild];
+  v39 = [metadata6 objectForKeyedSubscript:osBuild];
 
   metadata7 = [eventCopy metadata];
   assetVersion = [MEMORY[0x277CFE128] assetVersion];
-  v80 = [metadata7 objectForKeyedSubscript:assetVersion];
+  v79 = [metadata7 objectForKeyedSubscript:assetVersion];
 
   metadata8 = [eventCopy metadata];
-  v77 = [metadata8 objectForKeyedSubscript:@"exactMatchInSourceText"];
+  v76 = [metadata8 objectForKeyedSubscript:@"exactMatchInSourceText"];
 
   metadata9 = [eventCopy metadata];
-  v79 = [metadata9 objectForKeyedSubscript:@"sourceLanguage"];
+  v78 = [metadata9 objectForKeyedSubscript:@"sourceLanguage"];
 
   metadata10 = [eventCopy metadata];
-  v46 = [metadata10 objectForKeyedSubscript:@"sourceRelevanceDate"];
+  v45 = [metadata10 objectForKeyedSubscript:@"sourceRelevanceDate"];
 
   unsignedIntegerValue = [v18 unsignedIntegerValue];
-  v48 = v82;
-  v78 = v28;
-  if (v18 && v28 && v82)
+  v47 = v81;
+  v77 = v27;
+  if (v18 && v27 && v81)
   {
-    v72 = unsignedIntegerValue;
-    [v28 doubleValue];
-    if (v49 <= 2.0)
+    v71 = unsignedIntegerValue;
+    [v27 doubleValue];
+    if (v48 <= 2.0)
     {
-      v50 = v49;
+      v49 = v48;
     }
 
     else
     {
-      v50 = 1.0;
+      v49 = 1.0;
     }
 
-    [v82 doubleValue];
-    v52 = v51;
     [v81 doubleValue];
-    v54 = v53;
-    v76 = v40;
-    v74 = v46;
-    if (v46)
+    v51 = v50;
+    [v80 doubleValue];
+    v53 = v52;
+    v75 = v39;
+    v73 = v45;
+    if (v45)
     {
-      v55 = objc_alloc(MEMORY[0x277CBEAA8]);
-      [v46 doubleValue];
-      v56 = [v55 initWithTimeIntervalSince1970:?];
+      v54 = objc_alloc(MEMORY[0x277CBEAA8]);
+      [v45 doubleValue];
+      v55 = [v54 initWithTimeIntervalSince1970:?];
     }
 
     else
     {
-      v56 = 0;
+      v55 = 0;
     }
 
-    v75 = [objc_alloc(MEMORY[0x277D3A530]) initWithTopicIdentifier:stringValue];
-    v63 = objc_alloc(MEMORY[0x277D3A4D8]);
+    v74 = [objc_alloc(MEMORY[0x277D3A530]) initWithTopicIdentifier:stringValue];
+    v62 = objc_alloc(MEMORY[0x277D3A4D8]);
     source3 = [eventCopy source];
     groupID = [source3 groupID];
     startDate3 = [eventCopy startDate];
-    v73 = v56;
-    v67 = [v63 initWithBundleId:bundleID groupId:groupID documentId:itemID date:startDate3 relevanceDate:v56 contactHandles:0 language:v79 metadata:0];
+    v72 = v55;
+    v66 = [v62 initWithBundleId:bundleID groupId:groupID documentId:itemID date:startDate3 relevanceDate:v55 contactHandles:0 language:v78 metadata:0];
 
     v17 = objc_opt_new();
-    [v17 setTopic:v75];
-    [v17 setSource:v67];
-    [v17 setAlgorithm:v72];
-    [v17 setInitialScore:v50];
-    [v17 setDecayRate:v52];
-    [v17 setSentimentScore:v54];
+    [v17 setTopic:v74];
+    [v17 setSource:v66];
+    [v17 setAlgorithm:v71];
+    [v17 setInitialScore:v49];
+    [v17 setDecayRate:v51];
+    [v17 setSentimentScore:v53];
     source4 = [eventCopy source];
     deviceID = [source4 deviceID];
     [v17 setIsLocal:deviceID == 0];
 
-    [v17 setExtractionOsBuild:v76];
-    if (v80)
+    [v17 setExtractionOsBuild:v75];
+    if (v79)
     {
-      unsignedLongValue = [v80 unsignedLongValue];
+      unsignedLongValue = [v79 unsignedLongValue];
     }
 
     else
@@ -458,50 +458,48 @@ LABEL_19:
       unsignedLongValue = 0xFFFFFFFFLL;
     }
 
-    v48 = v82;
+    v47 = v81;
     [v17 setExtractionAssetVersion:unsignedLongValue];
-    v62 = v77;
-    v71 = [objc_alloc(MEMORY[0x277D3A538]) initWithImpressionCount:1 occurrencesInSource:1 algorithmResultPosition:0 algorithmResultCount:0 exactMatchInSourceText:{objc_msgSend(v77, "BOOLValue")}];
-    [v17 setMetadata:v71];
+    v61 = v76;
+    v70 = [objc_alloc(MEMORY[0x277D3A538]) initWithImpressionCount:1 occurrencesInSource:1 algorithmResultPosition:0 algorithmResultCount:0 exactMatchInSourceText:{objc_msgSend(v76, "BOOLValue")}];
+    [v17 setMetadata:v70];
 
-    v40 = v76;
-    v46 = v74;
+    v39 = v75;
+    v45 = v73;
   }
 
   else
   {
-    v57 = unsignedIntegerValue;
-    v58 = pp_default_log_handle();
-    if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
+    v56 = unsignedIntegerValue;
+    v57 = pp_default_log_handle();
+    if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
     {
-      [MEMORY[0x277D3A548] describeAlgorithm:v57];
-      v59 = v46;
-      v61 = v60 = v40;
+      [MEMORY[0x277D3A548] describeAlgorithm:v56];
+      v58 = v45;
+      v60 = v59 = v39;
       *buf = 138412546;
-      v84 = bundleID;
-      v85 = 2112;
-      v86 = v61;
-      _os_log_impl(&dword_23224A000, v58, OS_LOG_TYPE_DEFAULT, "Warning: PPDKStorage failed to create topic record from _DKEvent with missing metadata field(s). Source: %@ (%@)", buf, 0x16u);
+      v83 = bundleID;
+      v84 = 2112;
+      v85 = v60;
+      _os_log_impl(&dword_23224A000, v57, OS_LOG_TYPE_DEFAULT, "Warning: PPDKStorage failed to create topic record from _DKEvent with missing metadata field(s). Source: %@ (%@)", buf, 0x16u);
 
-      v40 = v60;
-      v46 = v59;
+      v39 = v59;
+      v45 = v58;
     }
 
     v17 = 0;
-    v62 = v77;
+    v61 = v76;
   }
 
 LABEL_22:
 LABEL_23:
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
 
 - (BOOL)_isFutureCompatibilityVersionAttachedToEvent:(uint64_t)event
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   if (!event)
@@ -544,14 +542,13 @@ LABEL_7:
     v15 = pp_default_log_handle();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
-      v18[0] = 67109120;
-      v18[1] = [v11 unsignedIntValue];
-      _os_log_debug_impl(&dword_23224A000, v15, OS_LOG_TYPE_DEBUG, "Rejecting _DKEvent with compatibility version %u from THE MYSTERIOUS FUTURE.", v18, 8u);
+      v17[0] = 67109120;
+      v17[1] = [v11 unsignedIntValue];
+      _os_log_debug_impl(&dword_23224A000, v15, OS_LOG_TYPE_DEBUG, "Rejecting _DKEvent with compatibility version %u from THE MYSTERIOUS FUTURE.", v17, 8u);
     }
   }
 
 LABEL_12:
-  v16 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -656,7 +653,7 @@ LABEL_12:
 
 - (id)namedEntityRecordFromEvent:(id)event
 {
-  v84 = *MEMORY[0x277D85DE8];
+  v83 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   source = [eventCopy source];
   bundleID = [source bundleID];
@@ -674,9 +671,9 @@ LABEL_12:
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v81 = bundleID;
-      v82 = 2112;
-      v83 = itemID;
+      v80 = bundleID;
+      v81 = 2112;
+      v82 = itemID;
       v17 = "Warning: PPDKStorage failed to create topic record from _DKEvent with missing source field(s). bundleID: %@ documentID: %@";
       v18 = v16;
       v19 = 22;
@@ -696,7 +693,7 @@ LABEL_15:
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v81 = bundleID;
+      v80 = bundleID;
       v17 = "Warning: PPDKStorage failed to create named entity record from _DKEvent with metadata==nil. Source: %@";
 LABEL_14:
       v18 = v16;
@@ -718,7 +715,7 @@ LABEL_16:
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v81 = bundleID;
+      v80 = bundleID;
       v17 = "Warning: PPDKStorage failed to create named entity record from _DKEvent with invalid start date. Source: %@";
       goto LABEL_14;
     }
@@ -738,108 +735,108 @@ LABEL_16:
 
   metadata3 = [eventCopy metadata];
   bestLanguage = [MEMORY[0x277CFE090] bestLanguage];
-  v79 = [metadata3 objectForKeyedSubscript:bestLanguage];
+  v78 = [metadata3 objectForKeyedSubscript:bestLanguage];
 
   metadata4 = [eventCopy metadata];
   score = [MEMORY[0x277CFE090] score];
-  v28 = [metadata4 objectForKeyedSubscript:score];
+  v27 = [metadata4 objectForKeyedSubscript:score];
 
   metadata5 = [eventCopy metadata];
   decayRate = [MEMORY[0x277CFE090] decayRate];
-  v31 = [metadata5 objectForKeyedSubscript:decayRate];
+  v30 = [metadata5 objectForKeyedSubscript:decayRate];
 
   metadata6 = [eventCopy metadata];
   algorithm = [MEMORY[0x277CFE090] algorithm];
-  v34 = [metadata6 objectForKeyedSubscript:algorithm];
+  v33 = [metadata6 objectForKeyedSubscript:algorithm];
 
   metadata7 = [eventCopy metadata];
   sentimentScore = [MEMORY[0x277CFE090] sentimentScore];
-  v37 = [metadata7 objectForKeyedSubscript:sentimentScore];
-  v38 = v37;
-  v78 = v28;
-  if (v37)
+  v36 = [metadata7 objectForKeyedSubscript:sentimentScore];
+  v37 = v36;
+  v77 = v27;
+  if (v36)
   {
-    v77 = v37;
+    v76 = v36;
   }
 
   else
   {
     metadata8 = [eventCopy metadata];
-    v77 = [metadata8 objectForKeyedSubscript:@"sentimentScore"];
+    v76 = [metadata8 objectForKeyedSubscript:@"sentimentScore"];
   }
 
   metadata9 = [eventCopy metadata];
   osBuild = [MEMORY[0x277CFE090] osBuild];
-  v42 = [metadata9 objectForKeyedSubscript:osBuild];
+  v41 = [metadata9 objectForKeyedSubscript:osBuild];
 
   metadata10 = [eventCopy metadata];
   assetVersion = [MEMORY[0x277CFE090] assetVersion];
-  v76 = [metadata10 objectForKeyedSubscript:assetVersion];
+  v75 = [metadata10 objectForKeyedSubscript:assetVersion];
 
   metadata11 = [eventCopy metadata];
-  v75 = [metadata11 objectForKeyedSubscript:@"sourceLanguage"];
+  v74 = [metadata11 objectForKeyedSubscript:@"sourceLanguage"];
 
   metadata12 = [eventCopy metadata];
-  v74 = [metadata12 objectForKeyedSubscript:@"sourceRelevanceDate"];
+  v73 = [metadata12 objectForKeyedSubscript:@"sourceRelevanceDate"];
 
-  unsignedIntegerValue = [v34 unsignedIntegerValue];
-  v48 = v78;
-  v47 = v79;
-  if (v16 && v79 && v34 && v78 && v31)
+  unsignedIntegerValue = [v33 unsignedIntegerValue];
+  v47 = v77;
+  v46 = v78;
+  if (v16 && v78 && v33 && v77 && v30)
   {
-    [v78 doubleValue];
-    if (v49 <= 2.0)
-    {
-      v50 = v49;
-    }
-
-    else
-    {
-      v50 = 1.0;
-    }
-
-    [v31 doubleValue];
-    v52 = v51;
     [v77 doubleValue];
-    v54 = v53;
-    v69 = v31;
-    v70 = v42;
-    v73 = v34;
-    if (v74)
+    if (v48 <= 2.0)
     {
-      v55 = objc_alloc(MEMORY[0x277CBEAA8]);
-      [v74 doubleValue];
-      v56 = [v55 initWithTimeIntervalSince1970:?];
+      v49 = v48;
     }
 
     else
     {
-      v56 = 0;
+      v49 = 1.0;
+    }
+
+    [v30 doubleValue];
+    v51 = v50;
+    [v76 doubleValue];
+    v53 = v52;
+    v68 = v30;
+    v69 = v41;
+    v72 = v33;
+    if (v73)
+    {
+      v54 = objc_alloc(MEMORY[0x277CBEAA8]);
+      [v73 doubleValue];
+      v55 = [v54 initWithTimeIntervalSince1970:?];
+    }
+
+    else
+    {
+      v55 = 0;
     }
 
     value = [eventCopy value];
     integerValue = [value integerValue];
 
-    v61 = [objc_alloc(MEMORY[0x277D3A420]) initWithName:v16 category:integerValue language:v79];
-    v62 = objc_alloc(MEMORY[0x277D3A4D8]);
+    v60 = [objc_alloc(MEMORY[0x277D3A420]) initWithName:v16 category:integerValue language:v78];
+    v61 = objc_alloc(MEMORY[0x277D3A4D8]);
     source3 = [eventCopy source];
     groupID = [source3 groupID];
     startDate3 = [eventCopy startDate];
-    v68 = v56;
-    v66 = [v62 initWithBundleId:bundleID groupId:groupID documentId:itemID date:startDate3 relevanceDate:v56 contactHandles:0 language:v75 metadata:0];
+    v67 = v55;
+    v65 = [v61 initWithBundleId:bundleID groupId:groupID documentId:itemID date:startDate3 relevanceDate:v55 contactHandles:0 language:v74 metadata:0];
 
     v15 = objc_opt_new();
-    [v15 setEntity:v61];
-    [v15 setSource:v66];
+    [v15 setEntity:v60];
+    [v15 setSource:v65];
     [v15 setAlgorithm:unsignedIntegerValue];
-    [v15 setInitialScore:v50];
-    [v15 setDecayRate:v52];
-    [v15 setSentimentScore:v54];
-    v42 = v70;
-    [v15 setExtractionOsBuild:v70];
-    if (v76)
+    [v15 setInitialScore:v49];
+    [v15 setDecayRate:v51];
+    [v15 setSentimentScore:v53];
+    v41 = v69;
+    [v15 setExtractionOsBuild:v69];
+    if (v75)
     {
-      unsignedLongValue = [v76 unsignedLongValue];
+      unsignedLongValue = [v75 unsignedLongValue];
     }
 
     else
@@ -847,28 +844,28 @@ LABEL_16:
       unsignedLongValue = 0xFFFFFFFFLL;
     }
 
-    v31 = v69;
+    v30 = v68;
     [v15 setExtractionAssetVersion:unsignedLongValue];
 
-    v48 = v78;
-    v47 = v79;
-    v34 = v73;
+    v47 = v77;
+    v46 = v78;
+    v33 = v72;
   }
 
   else
   {
-    v57 = pp_default_log_handle();
-    if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
+    v56 = pp_default_log_handle();
+    if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
     {
       [MEMORY[0x277D3A438] describeAlgorithm:unsignedIntegerValue];
-      v58 = v71 = v42;
+      v57 = v70 = v41;
       *buf = 138412546;
-      v81 = bundleID;
-      v82 = 2112;
-      v83 = v58;
-      _os_log_impl(&dword_23224A000, v57, OS_LOG_TYPE_DEFAULT, "Warning: PPDKStorage failed to create named entity record from _DKEvent with missing metadata field(s). Source: %@ (%@)", buf, 0x16u);
+      v80 = bundleID;
+      v81 = 2112;
+      v82 = v57;
+      _os_log_impl(&dword_23224A000, v56, OS_LOG_TYPE_DEFAULT, "Warning: PPDKStorage failed to create named entity record from _DKEvent with missing metadata field(s). Source: %@ (%@)", buf, 0x16u);
 
-      v42 = v71;
+      v41 = v70;
     }
 
     v15 = 0;
@@ -877,23 +874,21 @@ LABEL_16:
 LABEL_17:
 LABEL_18:
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return v15;
 }
 
 - (BOOL)deleteAllEventsInEventStream:(id)stream matchingPredicate:(id)predicate error:(id *)error
 {
-  v24[2] = *MEMORY[0x277D85DE8];
+  v23[2] = *MEMORY[0x277D85DE8];
   predicateCopy = predicate;
   v9 = MEMORY[0x277CFE260];
   name = [stream name];
   v11 = [v9 predicateForEventsWithStreamName:name];
 
   v12 = MEMORY[0x277CCA920];
-  v24[0] = v11;
-  v24[1] = predicateCopy;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
+  v23[0] = v11;
+  v23[1] = predicateCopy;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
   v14 = [v12 andPredicateWithSubpredicates:v13];
 
   if (error)
@@ -902,19 +897,18 @@ LABEL_18:
   }
 
   _readWriteKnowledgeStore = [(PPDKStorage *)self _readWriteKnowledgeStore];
-  v21 = 0;
-  v16 = [_readWriteKnowledgeStore deleteAllEventsMatchingPredicate:v14 error:&v21];
-  v17 = v21;
+  v20 = 0;
+  v16 = [_readWriteKnowledgeStore deleteAllEventsMatchingPredicate:v14 error:&v20];
+  v17 = v20;
 
   v18 = pp_default_log_handle();
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v23 = v16;
+    v22 = v16;
     _os_log_impl(&dword_23224A000, v18, OS_LOG_TYPE_DEFAULT, "PPDKStorage deleteAllEventsInEventStream:matchingPredicate delete %lu items", buf, 0xCu);
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v17 == 0;
 }
 
@@ -946,13 +940,13 @@ void __39__PPDKStorage__readWriteKnowledgeStore__block_invoke()
 
 - (BOOL)deleteAllEventsInEventStream:(id)stream error:(id *)error
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   streamCopy = stream;
   _readWriteKnowledgeStore = [(PPDKStorage *)self _readWriteKnowledgeStore];
-  v14 = 0;
-  v8 = [_readWriteKnowledgeStore deleteAllEventsInEventStream:streamCopy error:&v14];
+  v13 = 0;
+  v8 = [_readWriteKnowledgeStore deleteAllEventsInEventStream:streamCopy error:&v13];
 
-  v9 = v14;
+  v9 = v13;
   if (error)
   {
     v10 = v9;
@@ -963,11 +957,10 @@ void __39__PPDKStorage__readWriteKnowledgeStore__block_invoke()
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v16 = v8;
+    v15 = v8;
     _os_log_impl(&dword_23224A000, v11, OS_LOG_TYPE_DEFAULT, "PPDKStorage deleteAllEventsInEventStream delete %lu items", buf, 0xCu);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v9 == 0;
 }
 
@@ -982,7 +975,7 @@ void __39__PPDKStorage__readWriteKnowledgeStore__block_invoke()
 
 - (BOOL)saveEvents:(id)events stream:(id)stream maxRetries:(int64_t)retries retryInterval:(double)interval shouldContinueBlock:(id)block
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   streamCopy = stream;
   blockCopy = block;
@@ -1001,9 +994,9 @@ void __39__PPDKStorage__readWriteKnowledgeStore__block_invoke()
     v18 = blockCopy;
     if (self)
     {
-      v52 = blockCopy;
-      v53 = streamCopy;
-      v54 = eventsCopy;
+      v51 = blockCopy;
+      v52 = streamCopy;
+      v53 = eventsCopy;
       if (interval <= 1.0)
       {
         currentHandler = [MEMORY[0x277CCA890] currentHandler];
@@ -1040,9 +1033,9 @@ LABEL_9:
             if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
             {
               v43 = [v20 count];
-              *v60 = 134217984;
-              v61 = v43;
-              _os_log_impl(&dword_23224A000, v22, OS_LOG_TYPE_INFO, "PPDKStorage sending %tu events to named entity stream.", v60, 0xCu);
+              *v59 = 134217984;
+              v60 = v43;
+              _os_log_impl(&dword_23224A000, v22, OS_LOG_TYPE_INFO, "PPDKStorage sending %tu events to named entity stream.", v59, 0xCu);
             }
 
             _readWriteKnowledgeStore = [(PPDKStorage *)self _readWriteKnowledgeStore];
@@ -1054,7 +1047,7 @@ LABEL_9:
 
           if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
           {
-            *v60 = 0;
+            *v59 = 0;
             v24 = v22;
             v25 = "PPDKStorage: writing to the named entity stream failed because another write already in progress.";
             v26 = 2;
@@ -1068,13 +1061,13 @@ LABEL_9:
           if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
           {
             [(PPDKStorage *)self entityStreamCooldownTimeRemaining];
-            *v60 = 134217984;
-            v61 = v23;
+            *v59 = 134217984;
+            v60 = v23;
             v24 = v22;
             v25 = "PPDKStorage: rate limit blocked write to the named entity stream. %f seconds remaining.";
             v26 = 12;
 LABEL_20:
-            _os_log_debug_impl(&dword_23224A000, v24, OS_LOG_TYPE_DEBUG, v25, v60, v26);
+            _os_log_debug_impl(&dword_23224A000, v24, OS_LOG_TYPE_DEBUG, v25, v59, v26);
           }
         }
 
@@ -1128,9 +1121,9 @@ LABEL_56:
     goto LABEL_56;
   }
 
-  v52 = blockCopy;
-  v53 = streamCopy;
-  v54 = eventsCopy;
+  v51 = blockCopy;
+  v52 = streamCopy;
+  v53 = eventsCopy;
   if (interval <= 1.0)
   {
     currentHandler2 = [MEMORY[0x277CCA890] currentHandler];
@@ -1161,13 +1154,13 @@ LABEL_29:
       if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
       {
         [(PPDKStorage *)self topicStreamCooldownTimeRemaining];
-        *v60 = 134217984;
-        v61 = v36;
+        *v59 = 134217984;
+        v60 = v36;
         v37 = v35;
         v38 = "PPDKStorage: rate limit blocked write to the topic stream. %f seconds remaining.";
         v39 = 12;
 LABEL_40:
-        _os_log_debug_impl(&dword_23224A000, v37, OS_LOG_TYPE_DEBUG, v38, v60, v39);
+        _os_log_debug_impl(&dword_23224A000, v37, OS_LOG_TYPE_DEBUG, v38, v59, v39);
         goto LABEL_34;
       }
 
@@ -1184,7 +1177,7 @@ LABEL_40:
 
     if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
     {
-      *v60 = 0;
+      *v59 = 0;
       v37 = v35;
       v38 = "PPDKStorage: writing to the topic stream failed because another write is already in progress.";
       v39 = 2;
@@ -1216,9 +1209,9 @@ LABEL_34:
   if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
   {
     v46 = [v20 count];
-    *v60 = 134217984;
-    v61 = v46;
-    _os_log_impl(&dword_23224A000, v35, OS_LOG_TYPE_INFO, "PPDKStorage sending %tu events to topic stream", v60, 0xCu);
+    *v59 = 134217984;
+    v60 = v46;
+    _os_log_impl(&dword_23224A000, v35, OS_LOG_TYPE_INFO, "PPDKStorage sending %tu events to topic stream", v59, 0xCu);
   }
 
   _readWriteKnowledgeStore = [(PPDKStorage *)self _readWriteKnowledgeStore];
@@ -1226,38 +1219,37 @@ LABEL_34:
   *(&buf + 1) = 3221225472;
   v45 = __32__PPDKStorage__saveTopicEvents___block_invoke;
 LABEL_51:
-  v56 = v45;
-  v57 = &unk_278973890;
+  v55 = v45;
+  v56 = &unk_278973890;
   v47 = v20;
-  v58 = v47;
+  v57 = v47;
   selfCopy = self;
   [_readWriteKnowledgeStore saveObjects:v47 responseQueue:0 withCompletion:&buf];
 
   v30 = 1;
 LABEL_52:
-  streamCopy = v53;
-  eventsCopy = v54;
-  blockCopy = v52;
+  streamCopy = v52;
+  eventsCopy = v53;
+  blockCopy = v51;
 LABEL_53:
 
 LABEL_54:
 LABEL_55:
 
-  v48 = *MEMORY[0x277D85DE8];
   return v30;
 }
 
 void __32__PPDKStorage__saveTopicEvents___block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = pp_default_log_handle();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = [*(a1 + 32) count];
-    v10 = 134217984;
-    v11 = v7;
-    _os_log_impl(&dword_23224A000, v6, OS_LOG_TYPE_INFO, "_DKKnowledgeStore finished writing %tu events to the topic stream", &v10, 0xCu);
+    v9 = 134217984;
+    v10 = v7;
+    _os_log_impl(&dword_23224A000, v6, OS_LOG_TYPE_INFO, "_DKKnowledgeStore finished writing %tu events to the topic stream", &v9, 0xCu);
   }
 
   if ((a2 & 1) == 0)
@@ -1265,16 +1257,14 @@ void __32__PPDKStorage__saveTopicEvents___block_invoke(uint64_t a1, char a2, voi
     v8 = pp_default_log_handle();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v10 = 138412290;
-      v11 = v5;
-      _os_log_error_impl(&dword_23224A000, v8, OS_LOG_TYPE_ERROR, "_DKKnowledgeStore failed to save topic events with error: %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v5;
+      _os_log_error_impl(&dword_23224A000, v8, OS_LOG_TYPE_ERROR, "_DKKnowledgeStore failed to save topic events with error: %@", &v9, 0xCu);
     }
   }
 
   [*(*(a1 + 40) + 16) runWithLockAcquired:&__block_literal_global_130];
   dispatch_semaphore_signal(*(*(a1 + 40) + 32));
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __32__PPDKStorage__saveTopicEvents___block_invoke_128(uint64_t a1, void *a2)
@@ -1287,15 +1277,15 @@ void __32__PPDKStorage__saveTopicEvents___block_invoke_128(uint64_t a1, void *a2
 
 void __33__PPDKStorage__saveEntityEvents___block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = pp_default_log_handle();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = [*(a1 + 32) count];
-    v10 = 134217984;
-    v11 = v7;
-    _os_log_impl(&dword_23224A000, v6, OS_LOG_TYPE_INFO, "_DKKnowledgeStore finished writing %tu events to the named entity stream.", &v10, 0xCu);
+    v9 = 134217984;
+    v10 = v7;
+    _os_log_impl(&dword_23224A000, v6, OS_LOG_TYPE_INFO, "_DKKnowledgeStore finished writing %tu events to the named entity stream.", &v9, 0xCu);
   }
 
   if ((a2 & 1) == 0)
@@ -1303,16 +1293,14 @@ void __33__PPDKStorage__saveEntityEvents___block_invoke(uint64_t a1, char a2, vo
     v8 = pp_default_log_handle();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v10 = 138412290;
-      v11 = v5;
-      _os_log_error_impl(&dword_23224A000, v8, OS_LOG_TYPE_ERROR, "_DKKnowledgeStore failed to save named entity events with error: %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v5;
+      _os_log_error_impl(&dword_23224A000, v8, OS_LOG_TYPE_ERROR, "_DKKnowledgeStore failed to save named entity events with error: %@", &v9, 0xCu);
     }
   }
 
   [*(*(a1 + 40) + 8) runWithLockAcquired:&__block_literal_global_136];
   dispatch_semaphore_signal(*(*(a1 + 40) + 24));
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __33__PPDKStorage__saveEntityEvents___block_invoke_134(uint64_t a1, void *a2)

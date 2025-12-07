@@ -116,7 +116,7 @@
 
       v35 = objc_opt_class();
       v36 = SSXPCDictionaryCopyObjectWithClass(v5, "13", v35);
-      v6->_newsAppPurchase = [v36 BOOLValue];
+      v6->_newsAppPurchase = [(__CFDate *)v36 BOOLValue];
 
       v37 = objc_opt_class();
       v38 = SSXPCDictionaryCopyObjectWithClass(v5, "7", v37);

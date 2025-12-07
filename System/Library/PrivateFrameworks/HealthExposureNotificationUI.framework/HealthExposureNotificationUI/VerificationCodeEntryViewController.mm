@@ -6,6 +6,7 @@
 - (void)keyboardWillChangeFrame:(id)frame;
 - (void)viewDidLoad;
 - (void)viewSafeAreaInsetsDidChange;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation VerificationCodeEntryViewController
@@ -29,6 +30,21 @@
   VerificationCodeEntryViewController.viewDidLoad()();
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v7.receiver = self;
+  v7.super_class = swift_getObjectType();
+  v4 = v7.receiver;
+  [(VerificationCodeEntryViewController *)&v7 viewWillAppear:appearCopy];
+  v5 = *&v4[OBJC_IVAR____TtC28HealthExposureNotificationUI35VerificationCodeEntryViewController_entryView];
+  if (v5)
+  {
+    v6 = v5;
+    [v6 becomeFirstResponder];
+  }
+}
+
 - (void)viewSafeAreaInsetsDidChange
 {
   selfCopy = self;
@@ -39,14 +55,13 @@
 {
   v4 = sub_251702C84();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_251702C64();
   selfCopy = self;
   sub_2516D5214();
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 }
 
 - (void)didTapHelpButton

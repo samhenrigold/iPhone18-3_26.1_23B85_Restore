@@ -125,11 +125,11 @@
 
 - (AFDictationOptions)initWithCoder:(id)coder
 {
-  v81[2] = *MEMORY[0x1E69E9840];
+  v78[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v77.receiver = self;
-  v77.super_class = AFDictationOptions;
-  v5 = [(AFDictationOptions *)&v77 init];
+  v74.receiver = self;
+  v74.super_class = AFDictationOptions;
+  v5 = [(AFDictationOptions *)&v74 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_applicationName"];
@@ -200,9 +200,9 @@
     v5->_keyboardIdentifier = v36;
 
     v38 = MEMORY[0x1E695DFD8];
-    v81[0] = objc_opt_class();
-    v81[1] = objc_opt_class();
-    v39 = [MEMORY[0x1E695DEC8] arrayWithObjects:v81 count:2];
+    v78[0] = objc_opt_class();
+    v78[1] = objc_opt_class();
+    v39 = [MEMORY[0x1E695DEC8] arrayWithObjects:v78 count:2];
     v40 = [v38 setWithArray:v39];
     v41 = [coderCopy decodeObjectOfClasses:v40 forKey:@"_inlineItemList"];
     inlineItemList = v5->_inlineItemList;
@@ -210,20 +210,20 @@
 
     v5->_voiceSearchTypeOptions = [coderCopy decodeIntegerForKey:@"_voiceSearchTypeOptions"];
     v43 = MEMORY[0x1E695DFD8];
-    v80[0] = objc_opt_class();
-    v80[1] = objc_opt_class();
-    v80[2] = objc_opt_class();
-    v44 = [MEMORY[0x1E695DEC8] arrayWithObjects:v80 count:3];
+    v77[0] = objc_opt_class();
+    v77[1] = objc_opt_class();
+    v77[2] = objc_opt_class();
+    v44 = [MEMORY[0x1E695DEC8] arrayWithObjects:v77 count:3];
     v45 = [v43 setWithArray:v44];
     v46 = [coderCopy decodeObjectOfClasses:v45 forKey:@"_voiceSearchHeaderFields"];
     voiceSearchHeaderFields = v5->_voiceSearchHeaderFields;
     v5->_voiceSearchHeaderFields = v46;
 
     v48 = MEMORY[0x1E695DFD8];
-    v79[0] = objc_opt_class();
-    v79[1] = objc_opt_class();
-    v79[2] = objc_opt_class();
-    v49 = [MEMORY[0x1E695DEC8] arrayWithObjects:v79 count:3];
+    v76[0] = objc_opt_class();
+    v76[1] = objc_opt_class();
+    v76[2] = objc_opt_class();
+    v49 = [MEMORY[0x1E695DEC8] arrayWithObjects:v76 count:3];
     v50 = [v48 setWithArray:v49];
     v51 = [coderCopy decodeObjectOfClasses:v50 forKey:@"_voiceSearchQueryParameters"];
     voiceSearchQueryParameters = v5->_voiceSearchQueryParameters;
@@ -233,11 +233,10 @@
     voiceTriggerEventInfo = v5->_voiceTriggerEventInfo;
     v5->_voiceTriggerEventInfo = v53;
 
-    v55 = v5->_voiceTriggerEventInfo;
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v56 = v5->_voiceTriggerEventInfo;
+      v55 = v5->_voiceTriggerEventInfo;
       v5->_voiceTriggerEventInfo = 0;
     }
 
@@ -254,53 +253,51 @@
     v5->_releaseAudioSessionOnRecordingCompletion = [coderCopy decodeBoolForKey:@"_releaseAudioSessionOnRecordingCompletion"];
     v5->_incremental = [coderCopy decodeBoolForKey:@"_incremental"];
     [coderCopy decodeDoubleForKey:@"_maximumRecognitionDuration"];
-    v5->_maximumRecognitionDuration = v57;
+    v5->_maximumRecognitionDuration = v56;
     v5->_taskHint = [coderCopy decodeIntegerForKey:@"_taskHint"];
-    v58 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_originalAudioFileURL"];
+    v57 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_originalAudioFileURL"];
     originalAudioFileURL = v5->_originalAudioFileURL;
-    v5->_originalAudioFileURL = v58;
+    v5->_originalAudioFileURL = v57;
 
-    v60 = [coderCopy decodePropertyListForKey:@"_recognitionOverrides"];
+    v59 = [coderCopy decodePropertyListForKey:@"_recognitionOverrides"];
     recognitionOverrides = v5->_recognitionOverrides;
-    v5->_recognitionOverrides = v60;
+    v5->_recognitionOverrides = v59;
 
-    v62 = v5->_recognitionOverrides;
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v63 = v5->_recognitionOverrides;
+      v61 = v5->_recognitionOverrides;
       v5->_recognitionOverrides = 0;
     }
 
-    v64 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_modelOverrideURL"];
+    v62 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_modelOverrideURL"];
     modelOverrideURL = v5->_modelOverrideURL;
-    v5->_modelOverrideURL = v64;
+    v5->_modelOverrideURL = v62;
 
-    v66 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_languageDetectionUserContext"];
+    v64 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_languageDetectionUserContext"];
     languageDetectionUserContext = v5->_languageDetectionUserContext;
-    v5->_languageDetectionUserContext = v66;
+    v5->_languageDetectionUserContext = v64;
 
     v5->_dictationInputOrigin = [coderCopy decodeIntegerForKey:@"_dictationInputOrigin"];
-    v68 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_samplingInfo"];
+    v66 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_samplingInfo"];
     samplingInfo = v5->_samplingInfo;
-    v5->_samplingInfo = v68;
+    v5->_samplingInfo = v66;
 
     v5->_shouldClassifyIntent = [coderCopy decodeBoolForKey:@"_shouldClassifyIntent"];
     v5->_shouldRecognizeCommands = [coderCopy decodeBoolForKey:@"_shouldRecognizeCommands"];
     v5->_shouldGenerateVoiceCommandCandidates = [coderCopy decodeBoolForKey:@"_shouldGenerateVoiceCommandCandidates"];
-    v70 = MEMORY[0x1E695DFD8];
-    v78[0] = objc_opt_class();
-    v78[1] = objc_opt_class();
-    v71 = [MEMORY[0x1E695DEC8] arrayWithObjects:v78 count:2];
-    v72 = [v70 setWithArray:v71];
-    v73 = [coderCopy decodeObjectOfClasses:v72 forKey:@"_messagesContext"];
+    v68 = MEMORY[0x1E695DFD8];
+    v75[0] = objc_opt_class();
+    v75[1] = objc_opt_class();
+    v69 = [MEMORY[0x1E695DEC8] arrayWithObjects:v75 count:2];
+    v70 = [v68 setWithArray:v69];
+    v71 = [coderCopy decodeObjectOfClasses:v70 forKey:@"_messagesContext"];
     messagesContext = v5->_messagesContext;
-    v5->_messagesContext = v73;
+    v5->_messagesContext = v71;
 
     v5->_shouldPerformFullPayloadCorrection = [coderCopy decodeBoolForKey:@"_shouldPerformFullPayloadCorrection"];
   }
 
-  v75 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

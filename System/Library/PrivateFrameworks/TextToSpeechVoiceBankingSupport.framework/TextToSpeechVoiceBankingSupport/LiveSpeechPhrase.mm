@@ -38,47 +38,45 @@
 - (NSDate)creationDate
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DDE1A18, &unk_233297730);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v14 - v5;
+  v5 = &v13 - v4;
   selfCopy = self;
-  sub_2331EF0B8(v6);
+  sub_2331EF0B8(v5);
 
-  v8 = sub_23328CE1C();
-  v9 = *(v8 - 8);
-  v10 = (*(v9 + 48))(v6, 1, v8);
-  v11 = 0;
-  if (v10 != 1)
+  v7 = sub_23328CE1C();
+  v8 = *(v7 - 8);
+  v9 = (*(v8 + 48))(v5, 1, v7);
+  v10 = 0;
+  if (v9 != 1)
   {
-    v12 = sub_23328CD9C();
-    (*(v9 + 8))(v6, v8);
-    v11 = v12;
+    v11 = sub_23328CD9C();
+    (*(v8 + 8))(v5, v7);
+    v10 = v11;
   }
 
-  return v11;
+  return v10;
 }
 
 - (void)setCreationDate:(id)date
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DDE1A18, &unk_233297730);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = &v12 - v7;
+  v7 = &v11 - v6;
   if (date)
   {
     sub_23328CDDC();
-    v9 = sub_23328CE1C();
-    (*(*(v9 - 8) + 56))(v8, 0, 1, v9);
+    v8 = sub_23328CE1C();
+    (*(*(v8 - 8) + 56))(v7, 0, 1, v8);
   }
 
   else
   {
-    v10 = sub_23328CE1C();
-    (*(*(v10 - 8) + 56))(v8, 1, 1, v10);
+    v9 = sub_23328CE1C();
+    (*(*(v9 - 8) + 56))(v7, 1, 1, v9);
   }
 
   selfCopy = self;
-  sub_2331EF2F4(v8);
+  sub_2331EF2F4(v7);
 }
 
 + (id)makeEmptyPhrase

@@ -217,58 +217,43 @@ void __39__MRTransactionSource__processMessage___block_invoke_146(uint64_t a1, v
 
 - (void)_processMessage:(uint64_t)a1 .cold.2(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = MRTransactionNameGetDescription(*(a1 + 8));
   OUTLINED_FUNCTION_1_14();
-  OUTLINED_FUNCTION_0_18(&dword_1A2860000, v2, v3, "[MRTransactionSource] Source %@ could not extract reply", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_18(&dword_1A2860000, v2, v3, "[MRTransactionSource] Source %@ could not extract reply", v4, v5, v6, v7);
 }
 
 - (void)_processMessage:(uint64_t)a1 .cold.3(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = MRTransactionNameGetDescription(*(a1 + 8));
   OUTLINED_FUNCTION_1_14();
-  OUTLINED_FUNCTION_0_18(&dword_1A2860000, v2, v3, "[MRTransactionSource] Source %@ could not extract connection", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_18(&dword_1A2860000, v2, v3, "[MRTransactionSource] Source %@ could not extract connection", v4, v5, v6, v7);
 }
 
 - (void)_processMessage:(uint64_t)a1 .cold.4(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = MRTransactionNameGetDescription(*(a1 + 8));
   OUTLINED_FUNCTION_1_14();
-  OUTLINED_FUNCTION_0_18(&dword_1A2860000, v2, v3, "[MRTransactionSource] Source %@ received interrupted/invalid connection to query", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_18(&dword_1A2860000, v2, v3, "[MRTransactionSource] Source %@ received interrupted/invalid connection to query", v4, v5, v6, v7);
 }
 
 void __39__MRTransactionSource__processMessage___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_7_3();
-  v1 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_6_6(v2);
-  v4 = MRTransactionNameGetDescription(*(v3 + 8));
-  v5 = MRTransactionPacketsGetKeys(v0);
+  OUTLINED_FUNCTION_6_6();
+  v2 = MRTransactionNameGetDescription(*(v1 + 8));
+  v3 = MRTransactionPacketsGetKeys(v0);
   OUTLINED_FUNCTION_5_8();
-  OUTLINED_FUNCTION_8_5(&dword_1A2860000, v6, v7, "[MRTransactionSource] %@ sending end signal with packets %@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_8_5(&dword_1A2860000, v4, v5, "[MRTransactionSource] %@ sending end signal with packets %@", v6, v7, v8, v9);
 }
 
 void __39__MRTransactionSource__processMessage___block_invoke_cold_2()
 {
   OUTLINED_FUNCTION_7_3();
-  v1 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_6_6(v2);
-  v4 = MRTransactionNameGetDescription(*(v3 + 8));
-  v5 = MRTransactionPacketsGetKeys(v0);
+  OUTLINED_FUNCTION_6_6();
+  v2 = MRTransactionNameGetDescription(*(v1 + 8));
+  v3 = MRTransactionPacketsGetKeys(v0);
   OUTLINED_FUNCTION_5_8();
-  OUTLINED_FUNCTION_8_5(&dword_1A2860000, v6, v7, "[MRTransactionSource] %@ sending packets: %@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_8_5(&dword_1A2860000, v4, v5, "[MRTransactionSource] %@ sending packets: %@", v6, v7, v8, v9);
 }
 
 @end

@@ -29,6 +29,7 @@
 - (void)didReceiveAopSFZoneUpdate:(AOPRoseSFZoneUpdate)update;
 - (void)didReceiveAopSensorFusionUpdate:(int)update withBtConnHandle:(unsigned __int16)handle;
 - (void)invalidate;
+- (void)prefetchAcwgUrsk:(unsigned int)ursk;
 - (void)processAcwgM1Msg:(id)msg withSessionTriggerReason:(int64_t)reason;
 - (void)processAcwgM3Msg:(id)msg;
 - (void)processAcwgRangingSessionResumeRequestMsg:(unsigned int)msg withResumeTriggerReason:(int64_t)reason;
@@ -120,7 +121,7 @@
   }
 
   *buf = 105;
-  sub_1001FBD78(&self->_suspendReasonStack.c.__map_.__first_, buf);
+  sub_1001FBD78(&self->_suspendReasonStack, buf);
   v11 = qword_1009F9820;
   if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
   {
@@ -357,36 +358,35 @@
       sub_1001FC4E0();
     }
 
-    ptr = selfCopy->_alishaSystem.__ptr_;
     sub_100340E38(buf);
     if (*buf)
     {
-      v12 = qword_1009F9820;
+      v11 = qword_1009F9820;
       if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
       {
-        sub_1004AA194(v12, v13, v14, v15, v16, v17, v18, v19);
+        sub_1004AA194(v11, v12, v13, v14, v15, v16, v17, v18);
       }
 
-      v44 = NSLocalizedDescriptionKey;
-      v45 = @"Failed to query device capabilities.";
-      v20 = [NSDictionary dictionaryWithObjects:&v45 forKeys:&v44 count:1];
-      _configureForOwnerDevice = [NSError errorWithDomain:@"com.apple.NearbyInteraction" code:-5887 userInfo:v20];
+      v43 = NSLocalizedDescriptionKey;
+      v44 = @"Failed to query device capabilities.";
+      v19 = [NSDictionary dictionaryWithObjects:&v44 forKeys:&v43 count:1];
+      _configureForOwnerDevice = [NSError errorWithDomain:@"com.apple.NearbyInteraction" code:-5887 userInfo:v19];
 
       goto LABEL_28;
     }
 
-    if (v42)
+    if (v41)
     {
-      v31 = qword_1009F9820;
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+      v30 = qword_1009F9820;
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
       {
-        if ((v42 & 1) == 0)
+        if ((v41 & 1) == 0)
         {
           sub_1000195BC();
         }
 
         sub_10039C808(&buf[8]);
-        if (v37 >= 0)
+        if (v36 >= 0)
         {
           p_p = &__p;
         }
@@ -396,10 +396,10 @@
           p_p = __p;
         }
 
-        *v46 = 136315138;
-        v47 = p_p;
-        _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "#ses-acwg,Acwg Capabilities: %s", v46, 0xCu);
-        if (v37 < 0)
+        *v45 = 136315138;
+        v46 = p_p;
+        _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "#ses-acwg,Acwg Capabilities: %s", v45, 0xCu);
+        if (v36 < 0)
         {
           operator delete(__p);
         }
@@ -410,17 +410,17 @@
       {
         _configureForOwnerDevice = [(NIServerAcwgSession *)selfCopy _configureForOwnerDevice];
 LABEL_28:
-        if (v42 == 1)
+        if (v41 == 1)
         {
-          if (v40)
+          if (v39)
           {
-            v41 = v40;
-            operator delete(v40);
+            v40 = v39;
+            operator delete(v39);
           }
 
           if (*&buf[8])
           {
-            v39 = *&buf[8];
+            v38 = *&buf[8];
             operator delete(*&buf[8]);
           }
         }
@@ -428,29 +428,29 @@ LABEL_28:
         goto LABEL_33;
       }
 
-      v34 = "_configuration.configurationType == _NIAcwgConfigurationTypeOwner";
-      v35 = 519;
+      v33 = "_configuration.configurationType == _NIAcwgConfigurationTypeOwner";
+      v34 = 519;
     }
 
     else
     {
-      v34 = "response.payload.has_value()";
-      v35 = 507;
+      v33 = "response.payload.has_value()";
+      v34 = 507;
     }
 
-    __assert_rtn("[NIServerAcwgSession configure]", "NIServerAcwgSession.mm", v35, v34);
+    __assert_rtn("[NIServerAcwgSession configure]", "NIServerAcwgSession.mm", v34, v33);
   }
 
-  v22 = qword_1009F9820;
+  v21 = qword_1009F9820;
   if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
   {
-    sub_1004AA11C(v22, v23, v24, v25, v26, v27, v28, v29);
+    sub_1004AA11C(v21, v22, v23, v24, v25, v26, v27, v28);
   }
 
-  v48 = NSLocalizedDescriptionKey;
-  v49 = @"Lock identifier nil or invalid.";
-  v30 = [NSDictionary dictionaryWithObjects:&v49 forKeys:&v48 count:1];
-  _configureForOwnerDevice = [NSError errorWithDomain:@"com.apple.NearbyInteraction" code:-5888 userInfo:v30];
+  v47 = NSLocalizedDescriptionKey;
+  v48 = @"Lock identifier nil or invalid.";
+  v29 = [NSDictionary dictionaryWithObjects:&v48 forKeys:&v47 count:1];
+  _configureForOwnerDevice = [NSError errorWithDomain:@"com.apple.NearbyInteraction" code:-5888 userInfo:v29];
 
 LABEL_33:
 
@@ -578,7 +578,7 @@ LABEL_18:
       abort();
   }
 
-  sub_1001FBD78(&self->_suspendReasonStack.c.__map_.__first_, &v26);
+  sub_1001FBD78(&self->_suspendReasonStack, &v26);
   v17 = sub_1003A3CB0(self->_acwgManager.__ptr_);
   v18 = v17;
   if (!v17)
@@ -666,11 +666,11 @@ LABEL_32:
   {
     *(ptr + 12) = selectedProtocolVersion;
     p_sessionReasonStack = &self->_sessionReasonStack;
-    sub_1001FC5C4(&self->_sessionReasonStack.c.__map_.__first_, &reasonCopy);
+    sub_1001FC5C4(&self->_sessionReasonStack, &reasonCopy);
     v21 = self->_acwgManager.__ptr_;
     if (msgCopy)
     {
-      [msgCopy toStruct];
+      objc_msgSend_toStruct(msgCopy);
     }
 
     else
@@ -807,7 +807,7 @@ LABEL_32:
   v28.super_class = NIServerAcwgSession;
   resourcesManager = [(NIServerBaseSession *)&v28 resourcesManager];
   ptr = self->_acwgManager.__ptr_;
-  *v31 = [msgCopy toStruct];
+  *v31 = objc_msgSend_toStruct(msgCopy);
   *&v31[8] = v16;
   sub_1003A4088(ptr, v31, buf);
   v17 = *buf;
@@ -905,7 +905,7 @@ LABEL_32:
     sub_1004AA7FC();
   }
 
-  sub_1001FBD78(&self->_suspendReasonStack.c.__map_.__first_, &reasonCopy);
+  sub_1001FBD78(&self->_suspendReasonStack, &reasonCopy);
   if ((reasonCopy - 100) <= 7)
   {
     if (((1 << (reasonCopy - 100)) & 0x8F) == 0)
@@ -1026,7 +1026,7 @@ LABEL_15:
 
   p_sessionReasonStack = &self->_sessionReasonStack;
   *buf = reason;
-  sub_1001FC5C4(&self->_sessionReasonStack.c.__map_.__first_, buf);
+  sub_1001FC5C4(&self->_sessionReasonStack, buf);
   sub_1003A4168(self->_acwgManager.__ptr_, msg, buf);
   v18 = *buf;
   v32.receiver = self;
@@ -1096,6 +1096,93 @@ LABEL_15:
     {
       *v30 = 0;
       _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "#ses-acwg,ACWG resume processing succeeded", v30, 2u);
+    }
+  }
+}
+
+- (void)prefetchAcwgUrsk:(unsigned int)ursk
+{
+  v3 = *&ursk;
+  v5 = qword_1009F9820;
+  if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEBUG))
+  {
+    sub_1004AAA3C(v5, v6, v7, v8, v9, v10, v11, v12);
+  }
+
+  v13 = qword_1009F9820;
+  if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 67109120;
+    *&buf[4] = v3;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "#ses-acwg,prefetchAcwgUrsk:%u", buf, 8u);
+  }
+
+  ptr = self->_acwgManager.__ptr_;
+  if (!ptr)
+  {
+    sub_1004AAAB4();
+  }
+
+  v28 = 0;
+  v15 = sub_1003A4338(ptr, v3, &v28);
+  v27.receiver = self;
+  v27.super_class = NIServerAcwgSession;
+  resourcesManager = [(NIServerBaseSession *)&v27 resourcesManager];
+  v17 = resourcesManager;
+  if (v15)
+  {
+    sub_1003A03C4(v28, buf);
+    if (v32 >= 0)
+    {
+      v18 = buf;
+    }
+
+    else
+    {
+      v18 = *buf;
+    }
+
+    v19 = [NSString stringWithFormat:@"prefetchAcwgUrsk failed (%s)", v18];
+    if (v32 < 0)
+    {
+      operator delete(*buf);
+    }
+
+    if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
+    {
+      sub_1004AA2B0();
+    }
+
+    v29 = NSLocalizedDescriptionKey;
+    v30 = v19;
+    v20 = [NSDictionary dictionaryWithObjects:&v30 forKeys:&v29 count:1];
+    v21 = (v15 + 103);
+    if (v21 >= 4)
+    {
+      v22 = -5887;
+    }
+
+    else
+    {
+      v22 = v21 - 19703;
+    }
+
+    v23 = [NSError errorWithDomain:@"com.apple.NearbyInteraction" code:v22 userInfo:v20];
+
+    remote = [v17 remote];
+    [remote didPrefetchAcwgUrsk:v3 error:v23];
+  }
+
+  else
+  {
+    remote2 = [resourcesManager remote];
+    [remote2 didPrefetchAcwgUrsk:v3 error:0];
+
+    v26 = qword_1009F9820;
+    if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "#ses-acwg,ACWG URSK Prefetch succeeded", buf, 2u);
     }
   }
 }
@@ -1498,6 +1585,7 @@ LABEL_16:
 
 - (void)_alishaSessionInvalidatedWithReason:(int)reason
 {
+  v3 = *&reason;
   v5 = qword_1009F9820;
   if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEBUG))
   {
@@ -1507,7 +1595,7 @@ LABEL_16:
   v13 = qword_1009F9820;
   if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
-    sub_100342FC8(reason, v17);
+    sub_100342FC8(v3, v17);
     sub_1004AB0E4(v17);
   }
 
@@ -1919,7 +2007,7 @@ LABEL_16:
       {
         if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_FAULT))
         {
-          sub_1004AB710(__p);
+          sub_1004AB710();
         }
 
         v30 = qword_1009F9820;
@@ -1937,7 +2025,7 @@ LABEL_16:
         abort();
       }
 
-      sub_1001FBD78(&self->_suspendReasonStack.c.__map_.__first_, &v31);
+      sub_1001FBD78(&self->_suspendReasonStack, &v31);
       v22 = sub_1003A3CB0(self->_acwgManager.__ptr_);
       v23 = v22;
       if (!v22)

@@ -22,6 +22,8 @@
 - (void)resetDisplayAlsTable;
 - (void)startMetricCollection:(id)collection;
 - (void)stopMetricCollection:(id)collection;
+- (void)updateDisplayMetrics:(BOOL)metrics withState:(BOOL)state;
+- (void)updateMieMetrics:(BOOL)metrics;
 @end
 
 @implementation PLAWDDisplay
@@ -45,54 +47,50 @@
 
 + (id)entryAggregateDefinitions
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"DisplayAlsMetrics";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"DisplayAlsMetrics";
   entryAggregateDefinitionAwdDisplayAndAls = [self entryAggregateDefinitionAwdDisplayAndAls];
-  v7[0] = entryAggregateDefinitionAwdDisplayAndAls;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = entryAggregateDefinitionAwdDisplayAndAls;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
 
 + (id)entryAggregateDefinitionAwdDisplayAndAls
 {
-  v25[4] = *MEMORY[0x277D85DE8];
-  v24[0] = *MEMORY[0x277D3F4E8];
+  v24[4] = *MEMORY[0x277D85DE8];
+  v23[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F550];
-  v22[0] = *MEMORY[0x277D3F568];
-  v22[1] = v2;
-  v23[0] = &unk_2870FEDF0;
-  v23[1] = MEMORY[0x277CBEC28];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:2];
-  v25[0] = v3;
-  v24[1] = *MEMORY[0x277D3F540];
-  v20[0] = @"MetricsKey";
+  v21[0] = *MEMORY[0x277D3F568];
+  v21[1] = v2;
+  v22[0] = &unk_2870FEDF0;
+  v22[1] = MEMORY[0x277CBEC28];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:2];
+  v24[0] = v3;
+  v23[1] = *MEMORY[0x277D3F540];
+  v19[0] = @"MetricsKey";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat = [mEMORY[0x277D3F198] commonTypeDict_StringFormat];
-  v20[1] = @"MetricsValue";
-  v21[0] = commonTypeDict_StringFormat;
+  v19[1] = @"MetricsValue";
+  v20[0] = commonTypeDict_StringFormat;
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat_aggregateFunction_sum = [mEMORY[0x277D3F198]2 commonTypeDict_RealFormat_aggregateFunction_sum];
-  v21[1] = commonTypeDict_RealFormat_aggregateFunction_sum;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
-  v25[1] = v8;
-  v24[2] = *MEMORY[0x277D3F478];
-  v18 = &unk_2870FEE00;
-  v16 = *MEMORY[0x277D3F470];
+  v20[1] = commonTypeDict_RealFormat_aggregateFunction_sum;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
+  v24[1] = v8;
+  v23[2] = *MEMORY[0x277D3F478];
   v17 = &unk_2870FEE00;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
-  v19 = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
-  v25[2] = v10;
-  v24[3] = *MEMORY[0x277D3F488];
-  v15 = @"MetricsValue";
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v15 count:1];
-  v25[3] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:4];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D3F470];
+  v16 = &unk_2870FEE00;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+  v18 = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+  v24[2] = v10;
+  v23[3] = *MEMORY[0x277D3F488];
+  v14 = @"MetricsValue";
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
+  v24[3] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:4];
 
   return v12;
 }
@@ -177,14 +175,14 @@
   [runningMetrics addObject:collectionCopy];
 }
 
-uint64_t __38__PLAWDDisplay_startMetricCollection___block_invoke(uint64_t a1)
+void *__38__PLAWDDisplay_startMetricCollection___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   startMetricCollection__classDebugEnabled = result;
   return result;
 }
 
-uint64_t __38__PLAWDDisplay_startMetricCollection___block_invoke_64(uint64_t a1)
+void *__38__PLAWDDisplay_startMetricCollection___block_invoke_64(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   startMetricCollection__classDebugEnabled_63 = result;
@@ -282,14 +280,14 @@ uint64_t __38__PLAWDDisplay_startMetricCollection___block_invoke_64(uint64_t a1)
   }
 }
 
-uint64_t __37__PLAWDDisplay_stopMetricCollection___block_invoke(uint64_t a1)
+void *__37__PLAWDDisplay_stopMetricCollection___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   stopMetricCollection__classDebugEnabled = result;
   return result;
 }
 
-uint64_t __37__PLAWDDisplay_stopMetricCollection___block_invoke_73(uint64_t a1)
+void *__37__PLAWDDisplay_stopMetricCollection___block_invoke_73(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   stopMetricCollection__classDebugEnabled_72 = result;
@@ -313,11 +311,11 @@ uint64_t __37__PLAWDDisplay_stopMetricCollection___block_invoke_73(uint64_t a1)
   [touchEventCallback requestEntry];
 }
 
-uint64_t __45__PLAWDDisplay_registerForTouchNotifications__block_invoke(uint64_t result, uint64_t a2)
+id *__45__PLAWDDisplay_registerForTouchNotifications__block_invoke(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) handleTouchCallback:a2];
+    return [result[4] handleTouchCallback:a2];
   }
 
   return result;
@@ -405,51 +403,51 @@ uint64_t __45__PLAWDDisplay_registerForTouchNotifications__block_invoke(uint64_t
   [(PLAWDDisplay *)self setAlsEnabledEventCallback:v26];
 }
 
-uint64_t __52__PLAWDDisplay_registerForDisplayAgentNotifications__block_invoke(uint64_t result, uint64_t a2)
+id *__52__PLAWDDisplay_registerForDisplayAgentNotifications__block_invoke(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) handleDisplayCallback:a2];
+    return [result[4] handleDisplayCallback:a2];
   }
 
   return result;
 }
 
-uint64_t __52__PLAWDDisplay_registerForDisplayAgentNotifications__block_invoke_2(uint64_t result, uint64_t a2)
+id *__52__PLAWDDisplay_registerForDisplayAgentNotifications__block_invoke_2(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) handleBacklightCallback:a2];
+    return [result[4] handleBacklightCallback:a2];
   }
 
   return result;
 }
 
-uint64_t __52__PLAWDDisplay_registerForDisplayAgentNotifications__block_invoke_3(uint64_t result, uint64_t a2)
+id *__52__PLAWDDisplay_registerForDisplayAgentNotifications__block_invoke_3(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) handleAlsUserPreferencesCallback:a2];
+    return [result[4] handleAlsUserPreferencesCallback:a2];
   }
 
   return result;
 }
 
-uint64_t __52__PLAWDDisplay_registerForDisplayAgentNotifications__block_invoke_4(uint64_t result, uint64_t a2)
+id *__52__PLAWDDisplay_registerForDisplayAgentNotifications__block_invoke_4(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) handleBatteryCallback:a2];
+    return [result[4] handleBatteryCallback:a2];
   }
 
   return result;
 }
 
-uint64_t __52__PLAWDDisplay_registerForDisplayAgentNotifications__block_invoke_5(uint64_t result, uint64_t a2)
+id *__52__PLAWDDisplay_registerForDisplayAgentNotifications__block_invoke_5(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) handleAlsEnabledCallback:a2];
+    return [result[4] handleAlsEnabledCallback:a2];
   }
 
   return result;
@@ -505,7 +503,7 @@ uint64_t __52__PLAWDDisplay_registerForDisplayAgentNotifications__block_invoke_5
   }
 }
 
-uint64_t __30__PLAWDDisplay_initTouchStats__block_invoke(uint64_t a1)
+void *__30__PLAWDDisplay_initTouchStats__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   initTouchStats_classDebugEnabled = result;
@@ -514,7 +512,7 @@ uint64_t __30__PLAWDDisplay_initTouchStats__block_invoke(uint64_t a1)
 
 - (void)initDisplayBacklightAlsStats
 {
-  v61[1] = *MEMORY[0x277D85DE8];
+  v60[1] = *MEMORY[0x277D85DE8];
   [(PLAWDDisplay *)self setDispSubmitCnt:0];
   [(PLAWDDisplay *)self setPrevDisplayOn:0];
   [(PLAWDDisplay *)self setPrevMieOn:0];
@@ -536,27 +534,27 @@ uint64_t __30__PLAWDDisplay_initTouchStats__block_invoke(uint64_t a1)
 
   if (v8 && ([v8 objectForKeyedSubscript:@"ALSEnabled"], v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v9, "BOOLValue"), v9, v10))
   {
-    v54 = 1;
+    v53 = 1;
     [(PLAWDDisplay *)self setPrevAlsOn:1];
     [(PLAWDDisplay *)self addEntryToDisplayAlsTable:@"AlsEnableCnt" withValue:1.0];
   }
 
   else
   {
-    v54 = 0;
+    v53 = 0;
   }
 
   if ([MEMORY[0x277D3F6A0] shouldLogDisplay])
   {
-    v55 = v5;
-    v57 = monotonicDate;
+    v54 = v5;
+    v56 = monotonicDate;
     v11 = [MEMORY[0x277D3F6A0] entryKeyForType:*MEMORY[0x277D3F5E8] andName:*MEMORY[0x277D3F7B0]];
     v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@=%@", @"Block", @"Backlight"];
     operator2 = [(PLAWDAuxMetrics *)self operator];
     storage2 = [operator2 storage];
-    v53 = v12;
-    v61[0] = v12;
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v61 count:1];
+    v52 = v12;
+    v60[0] = v12;
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v60 count:1];
     v16 = [storage2 lastEntryForKey:v11 withFilters:v15];
 
     if (v16)
@@ -567,7 +565,7 @@ uint64_t __30__PLAWDDisplay_initTouchStats__block_invoke(uint64_t a1)
       if ([(PLAWDDisplay *)self prevDisplayOn])
       {
         [(PLAWDDisplay *)self addEntryToDisplayAlsTable:@"DisplayOnCount" withValue:1.0];
-        [v57 timeIntervalSince1970];
+        [v56 timeIntervalSince1970];
         [(PLAWDDisplay *)self setDisplayOnTimeStamp:?];
       }
     }
@@ -577,9 +575,9 @@ uint64_t __30__PLAWDDisplay_initTouchStats__block_invoke(uint64_t a1)
       v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@=%@", @"Block", @"MIE"];
       operator3 = [(PLAWDAuxMetrics *)self operator];
       storage3 = [operator3 storage];
-      v52 = v18;
-      v60 = v18;
-      v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v60 count:1];
+      v51 = v18;
+      v59 = v18;
+      v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v59 count:1];
       v22 = [storage3 lastEntryForKey:v11 withFilters:v21];
 
       if (v22)
@@ -590,7 +588,7 @@ uint64_t __30__PLAWDDisplay_initTouchStats__block_invoke(uint64_t a1)
         if ([(PLAWDDisplay *)self prevMieOn])
         {
           [(PLAWDDisplay *)self addEntryToDisplayAlsTable:@"MieOnCount" withValue:1.0];
-          [v57 timeIntervalSince1970];
+          [v56 timeIntervalSince1970];
           [(PLAWDDisplay *)self setMieOnTimeStamp:?];
         }
       }
@@ -609,13 +607,13 @@ uint64_t __30__PLAWDDisplay_initTouchStats__block_invoke(uint64_t a1)
         longValue2 = [v30 longValue];
 
         [(PLAWDDisplay *)self setPrevBklBucketIdx:[(PLAWDDisplay *)self getBklbucketIdx:longValue withLux:longValue2]];
-        [v57 timeIntervalSince1970];
+        [v56 timeIntervalSince1970];
         [(PLAWDDisplay *)self setBklTimeStamp:?];
       }
     }
 
-    v5 = v55;
-    monotonicDate = v57;
+    v5 = v54;
+    monotonicDate = v56;
   }
 
   v32 = [MEMORY[0x277D3F688] entryKeyForType:*MEMORY[0x277D3F5C8] andName:*MEMORY[0x277D3F750]];
@@ -653,15 +651,15 @@ uint64_t __30__PLAWDDisplay_initTouchStats__block_invoke(uint64_t a1)
 
     if (initDisplayBacklightAlsStats_classDebugEnabled == 1)
     {
-      v56 = v5;
-      v58 = monotonicDate;
+      v55 = v5;
+      v57 = monotonicDate;
       v39 = MEMORY[0x277CCACA8];
       prevDisplayOn = [(PLAWDDisplay *)self prevDisplayOn];
       prevBklBucketIdx = [(PLAWDDisplay *)self prevBklBucketIdx];
       prevMieOn = [(PLAWDDisplay *)self prevMieOn];
       prevDeviceCharging = [(PLAWDDisplay *)self prevDeviceCharging];
       [(PLAWDDisplay *)self prevBklPower];
-      v45 = [v39 stringWithFormat:@"%@ : Initialize Display/Backlight/Als: Display-On=%d Backlight-Idx=%ld Mie-On=%d Als-Enabled=%d Plugged=%d bklPower=%f", @"*******PLAWDMetricsService*******", prevDisplayOn, prevBklBucketIdx, prevMieOn, v54, prevDeviceCharging, v44];
+      v45 = [v39 stringWithFormat:@"%@ : Initialize Display/Backlight/Als: Display-On=%d Backlight-Idx=%ld Mie-On=%d Als-Enabled=%d Plugged=%d bklPower=%f", @"*******PLAWDMetricsService*******", prevDisplayOn, prevBklBucketIdx, prevMieOn, v53, prevDeviceCharging, v44];
       v46 = MEMORY[0x277D3F178];
       v47 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/AwdLibrary/PLAWDDisplay.m"];
       lastPathComponent = [v47 lastPathComponent];
@@ -674,15 +672,13 @@ uint64_t __30__PLAWDDisplay_initTouchStats__block_invoke(uint64_t a1)
         [PLAWDDisplay startMetricCollection:];
       }
 
-      v5 = v56;
-      monotonicDate = v58;
+      v5 = v55;
+      monotonicDate = v57;
     }
   }
-
-  v51 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __44__PLAWDDisplay_initDisplayBacklightAlsStats__block_invoke(uint64_t a1)
+void *__44__PLAWDDisplay_initDisplayBacklightAlsStats__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   initDisplayBacklightAlsStats_classDebugEnabled = result;
@@ -756,7 +752,7 @@ LABEL_6:
   }
 }
 
-uint64_t __46__PLAWDDisplay_reInitDisplayBacklightAlsStats__block_invoke(uint64_t a1)
+void *__46__PLAWDDisplay_reInitDisplayBacklightAlsStats__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   reInitDisplayBacklightAlsStats_classDebugEnabled = result;
@@ -912,35 +908,300 @@ uint64_t __46__PLAWDDisplay_reInitDisplayBacklightAlsStats__block_invoke(uint64_
   }
 }
 
-uint64_t __47__PLAWDDisplay_updateDisplayMetrics_withState___block_invoke(uint64_t a1)
+- (void)updateDisplayMetrics:(BOOL)metrics withState:(BOOL)state
+{
+  stateCopy = state;
+  metricsCopy = metrics;
+  monotonicDate = [MEMORY[0x277CBEAA8] monotonicDate];
+  [monotonicDate timeIntervalSince1970];
+  v9 = v8;
+
+  if (metricsCopy)
+  {
+    prevDisplayOn = [(PLAWDDisplay *)self prevDisplayOn];
+    if (stateCopy)
+    {
+      if (!prevDisplayOn)
+      {
+        [(PLAWDDisplay *)self setDisplayOnTimeStamp:v9];
+        [(PLAWDDisplay *)self addEntryToDisplayAlsTable:@"DisplayOnCount" withValue:1.0];
+      }
+    }
+
+    else if (prevDisplayOn)
+    {
+      [(PLAWDDisplay *)self displayOnTimeStamp];
+      v22 = v9 - v21;
+      if ([(PLAWDDisplay *)self prevDeviceCharging])
+      {
+        if (v22 > 0.0)
+        {
+          [(PLAWDDisplay *)self addEntryToDisplayAlsTable:@"PluggedDispOnDur" withValue:v22];
+        }
+
+        if (![MEMORY[0x277D3F180] debugEnabled])
+        {
+          goto LABEL_37;
+        }
+
+        v23 = objc_opt_class();
+        v44[0] = MEMORY[0x277D85DD0];
+        v44[1] = 3221225472;
+        v44[2] = __47__PLAWDDisplay_updateDisplayMetrics_withState___block_invoke_130;
+        v44[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+        v44[4] = v23;
+        if (updateDisplayMetrics_withState__defaultOnce_128 != -1)
+        {
+          dispatch_once(&updateDisplayMetrics_withState__defaultOnce_128, v44);
+        }
+
+        if (updateDisplayMetrics_withState__classDebugEnabled_129 != 1)
+        {
+          goto LABEL_37;
+        }
+
+        v24 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ DisplayEvent: Plugged Display On duration=%f", @"*******PLAWDMetricsService*******", *&v22];
+        v25 = MEMORY[0x277D3F178];
+        v26 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/AwdLibrary/PLAWDDisplay.m"];
+        lastPathComponent = [v26 lastPathComponent];
+        v28 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAWDDisplay updateDisplayMetrics:withState:]"];
+        [v25 logMessage:v24 fromFile:lastPathComponent fromFunction:v28 fromLineNumber:465];
+
+        v29 = PLLogCommon();
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+        {
+          [PLAWDDisplay startMetricCollection:];
+        }
+      }
+
+      else
+      {
+        if (v22 > 0.0)
+        {
+          [(PLAWDDisplay *)self addEntryToDisplayAlsTable:@"UnpluggedDispOnDur" withValue:v22];
+        }
+
+        if (![MEMORY[0x277D3F180] debugEnabled])
+        {
+          goto LABEL_37;
+        }
+
+        v30 = objc_opt_class();
+        v45[0] = MEMORY[0x277D85DD0];
+        v45[1] = 3221225472;
+        v45[2] = __47__PLAWDDisplay_updateDisplayMetrics_withState___block_invoke;
+        v45[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+        v45[4] = v30;
+        if (updateDisplayMetrics_withState__defaultOnce != -1)
+        {
+          dispatch_once(&updateDisplayMetrics_withState__defaultOnce, v45);
+        }
+
+        if (updateDisplayMetrics_withState__classDebugEnabled != 1)
+        {
+          goto LABEL_37;
+        }
+
+        v24 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ DisplayEvent: Unplugged Display On duration=%f", @"*******PLAWDMetricsService*******", *&v22];
+        v31 = MEMORY[0x277D3F178];
+        v32 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/AwdLibrary/PLAWDDisplay.m"];
+        lastPathComponent2 = [v32 lastPathComponent];
+        v34 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAWDDisplay updateDisplayMetrics:withState:]"];
+        [v31 logMessage:v24 fromFile:lastPathComponent2 fromFunction:v34 fromLineNumber:461];
+
+        v29 = PLLogCommon();
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+        {
+          [PLAWDDisplay startMetricCollection:];
+        }
+      }
+    }
+
+LABEL_37:
+    if ([MEMORY[0x277D3F180] debugEnabled])
+    {
+      v35 = objc_opt_class();
+      v43[0] = MEMORY[0x277D85DD0];
+      v43[1] = 3221225472;
+      v43[2] = __47__PLAWDDisplay_updateDisplayMetrics_withState___block_invoke_136;
+      v43[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v43[4] = v35;
+      if (updateDisplayMetrics_withState__defaultOnce_134 != -1)
+      {
+        dispatch_once(&updateDisplayMetrics_withState__defaultOnce_134, v43);
+      }
+
+      if (updateDisplayMetrics_withState__classDebugEnabled_135 == 1)
+      {
+        v36 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ DisplayEvent: currDisp=%d, prevDisp=%d currCharging=%d", @"*******PLAWDMetricsService*******", stateCopy, -[PLAWDDisplay prevDisplayOn](self, "prevDisplayOn"), -[PLAWDDisplay prevDeviceCharging](self, "prevDeviceCharging")];
+        v37 = MEMORY[0x277D3F178];
+        v38 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/AwdLibrary/PLAWDDisplay.m"];
+        lastPathComponent3 = [v38 lastPathComponent];
+        v40 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAWDDisplay updateDisplayMetrics:withState:]"];
+        [v37 logMessage:v36 fromFile:lastPathComponent3 fromFunction:v40 fromLineNumber:468];
+
+        v41 = PLLogCommon();
+        if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
+        {
+          [PLAWDDisplay startMetricCollection:];
+        }
+      }
+    }
+
+    [(PLAWDDisplay *)self setPrevDisplayOn:stateCopy];
+    return;
+  }
+
+  [(PLAWDDisplay *)self displayOnTimeStamp];
+  v12 = v9 - v11;
+  if (v9 - v11 > 0.0)
+  {
+    if (stateCopy)
+    {
+      v13 = @"UnpluggedDispOnDur";
+    }
+
+    else
+    {
+      v13 = @"PluggedDispOnDur";
+    }
+
+    [(PLAWDDisplay *)self addEntryToDisplayAlsTable:v13 withValue:v9 - v11];
+  }
+
+  if ([MEMORY[0x277D3F180] debugEnabled])
+  {
+    v14 = objc_opt_class();
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = __47__PLAWDDisplay_updateDisplayMetrics_withState___block_invoke_142;
+    block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    block[4] = v14;
+    if (updateDisplayMetrics_withState__defaultOnce_140 != -1)
+    {
+      dispatch_once(&updateDisplayMetrics_withState__defaultOnce_140, block);
+    }
+
+    if (updateDisplayMetrics_withState__classDebugEnabled_141 == 1)
+    {
+      v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ :DisplayMetrics: currCharging=%d, prevCharging=%d currDisp=%d dur=%f", @"*******PLAWDMetricsService*******", stateCopy, -[PLAWDDisplay prevDeviceCharging](self, "prevDeviceCharging"), -[PLAWDDisplay prevDisplayOn](self, "prevDisplayOn"), *&v12];
+      v16 = MEMORY[0x277D3F178];
+      v17 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/AwdLibrary/PLAWDDisplay.m"];
+      lastPathComponent4 = [v17 lastPathComponent];
+      v19 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAWDDisplay updateDisplayMetrics:withState:]"];
+      [v16 logMessage:v15 fromFile:lastPathComponent4 fromFunction:v19 fromLineNumber:480];
+
+      v20 = PLLogCommon();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+      {
+        [PLAWDDisplay startMetricCollection:];
+      }
+    }
+  }
+
+  [(PLAWDDisplay *)self setDisplayOnTimeStamp:v9];
+}
+
+void *__47__PLAWDDisplay_updateDisplayMetrics_withState___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   updateDisplayMetrics_withState__classDebugEnabled = result;
   return result;
 }
 
-uint64_t __47__PLAWDDisplay_updateDisplayMetrics_withState___block_invoke_130(uint64_t a1)
+void *__47__PLAWDDisplay_updateDisplayMetrics_withState___block_invoke_130(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   updateDisplayMetrics_withState__classDebugEnabled_129 = result;
   return result;
 }
 
-uint64_t __47__PLAWDDisplay_updateDisplayMetrics_withState___block_invoke_136(uint64_t a1)
+void *__47__PLAWDDisplay_updateDisplayMetrics_withState___block_invoke_136(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   updateDisplayMetrics_withState__classDebugEnabled_135 = result;
   return result;
 }
 
-uint64_t __47__PLAWDDisplay_updateDisplayMetrics_withState___block_invoke_142(uint64_t a1)
+void *__47__PLAWDDisplay_updateDisplayMetrics_withState___block_invoke_142(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   updateDisplayMetrics_withState__classDebugEnabled_141 = result;
   return result;
 }
 
-uint64_t __33__PLAWDDisplay_updateMieMetrics___block_invoke(uint64_t a1)
+- (void)updateMieMetrics:(BOOL)metrics
+{
+  metricsCopy = metrics;
+  monotonicDate = [MEMORY[0x277CBEAA8] monotonicDate];
+  [monotonicDate timeIntervalSince1970];
+  v7 = v6;
+
+  prevMieOn = [(PLAWDDisplay *)self prevMieOn];
+  v9 = 0.0;
+  if (metricsCopy)
+  {
+    if (prevMieOn)
+    {
+      goto LABEL_8;
+    }
+
+    [(PLAWDDisplay *)self setMieOnTimeStamp:v7];
+    v10 = @"MieOnCount";
+    v11 = 1.0;
+    selfCopy2 = self;
+    goto LABEL_7;
+  }
+
+  if (prevMieOn)
+  {
+    [(PLAWDDisplay *)self displayOnTimeStamp];
+    v9 = v7 - v13;
+    if (v7 - v13 > 0.0)
+    {
+      v10 = @"MieOnDur";
+      selfCopy2 = self;
+      v11 = v7 - v13;
+LABEL_7:
+      [(PLAWDDisplay *)selfCopy2 addEntryToDisplayAlsTable:v10 withValue:v11];
+    }
+  }
+
+LABEL_8:
+  if ([MEMORY[0x277D3F180] debugEnabled])
+  {
+    v14 = objc_opt_class();
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = __33__PLAWDDisplay_updateMieMetrics___block_invoke;
+    block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    block[4] = v14;
+    if (updateMieMetrics__defaultOnce != -1)
+    {
+      dispatch_once(&updateMieMetrics__defaultOnce, block);
+    }
+
+    if (updateMieMetrics__classDebugEnabled == 1)
+    {
+      v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ : MieEvent: currMie=%d, prevMie=%d dur =%f", @"*******PLAWDMetricsService*******", metricsCopy, -[PLAWDDisplay prevMieOn](self, "prevMieOn"), *&v9];
+      v16 = MEMORY[0x277D3F178];
+      v17 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/AwdLibrary/PLAWDDisplay.m"];
+      lastPathComponent = [v17 lastPathComponent];
+      v19 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAWDDisplay updateMieMetrics:]"];
+      [v16 logMessage:v15 fromFile:lastPathComponent fromFunction:v19 fromLineNumber:498];
+
+      v20 = PLLogCommon();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+      {
+        [PLAWDDisplay startMetricCollection:];
+      }
+    }
+  }
+
+  [(PLAWDDisplay *)self setPrevMieOn:metricsCopy];
+}
+
+void *__33__PLAWDDisplay_updateMieMetrics___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   updateMieMetrics__classDebugEnabled = result;
@@ -991,7 +1252,7 @@ uint64_t __33__PLAWDDisplay_updateMieMetrics___block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __36__PLAWDDisplay_handleTouchCallback___block_invoke(uint64_t a1)
+void *__36__PLAWDDisplay_handleTouchCallback___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   handleTouchCallback__classDebugEnabled = result;
@@ -1131,7 +1392,7 @@ LABEL_7:
   }
 }
 
-uint64_t __40__PLAWDDisplay_handleBacklightCallback___block_invoke(uint64_t a1)
+void *__40__PLAWDDisplay_handleBacklightCallback___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   handleBacklightCallback__classDebugEnabled = result;
@@ -1176,7 +1437,7 @@ uint64_t __40__PLAWDDisplay_handleBacklightCallback___block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __49__PLAWDDisplay_handleAlsUserPreferencesCallback___block_invoke(uint64_t a1)
+void *__49__PLAWDDisplay_handleAlsUserPreferencesCallback___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   handleAlsUserPreferencesCallback__classDebugEnabled = result;
@@ -1306,14 +1567,14 @@ LABEL_24:
   }
 }
 
-uint64_t __38__PLAWDDisplay_handleBatteryCallback___block_invoke(uint64_t a1)
+void *__38__PLAWDDisplay_handleBatteryCallback___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   handleBatteryCallback__classDebugEnabled = result;
   return result;
 }
 
-uint64_t __38__PLAWDDisplay_handleBatteryCallback___block_invoke_172(uint64_t a1)
+void *__38__PLAWDDisplay_handleBatteryCallback___block_invoke_172(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   handleBatteryCallback__classDebugEnabled_171 = result;
@@ -1367,7 +1628,7 @@ uint64_t __38__PLAWDDisplay_handleBatteryCallback___block_invoke_172(uint64_t a1
   }
 }
 
-uint64_t __41__PLAWDDisplay_handleAlsEnabledCallback___block_invoke(uint64_t a1)
+void *__41__PLAWDDisplay_handleAlsEnabledCallback___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   handleAlsEnabledCallback__classDebugEnabled = result;
@@ -1495,14 +1756,14 @@ uint64_t __41__PLAWDDisplay_handleAlsEnabledCallback___block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __39__PLAWDDisplay_finalizeDisplayAlsTable__block_invoke(uint64_t a1)
+void *__39__PLAWDDisplay_finalizeDisplayAlsTable__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   finalizeDisplayAlsTable_classDebugEnabled = result;
   return result;
 }
 
-uint64_t __39__PLAWDDisplay_finalizeDisplayAlsTable__block_invoke_184(uint64_t a1)
+void *__39__PLAWDDisplay_finalizeDisplayAlsTable__block_invoke_184(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   finalizeDisplayAlsTable_classDebugEnabled_183 = result;
@@ -1511,7 +1772,7 @@ uint64_t __39__PLAWDDisplay_finalizeDisplayAlsTable__block_invoke_184(uint64_t a
 
 - (BOOL)submitDataToAWDServer:(id)server withAwdConn:(id)conn
 {
-  v258 = *MEMORY[0x277D85DE8];
+  v257 = *MEMORY[0x277D85DE8];
   serverCopy = server;
   connCopy = conn;
   v8 = [connCopy newMetricContainerWithIdentifier:{objc_msgSend(serverCopy, "unsignedIntValue")}];
@@ -1551,8 +1812,8 @@ uint64_t __39__PLAWDDisplay_finalizeDisplayAlsTable__block_invoke_184(uint64_t a
         [v21 setTouchStateAnticipateDuration:0];
         [v21 setTouchStateOthersDuration:0];
         v57 = 0.0;
-        v233 = v16;
-        v246 = v21;
+        v232 = v16;
+        v245 = v21;
         if (v19 && v20)
         {
           v58 = [v20 objectForKeyedSubscript:@"On"];
@@ -1564,7 +1825,7 @@ uint64_t __39__PLAWDDisplay_finalizeDisplayAlsTable__block_invoke_184(uint64_t a
 
           if (v63 > 0.0)
           {
-            [v246 setTouchStateOnDuration:v63];
+            [v245 setTouchStateOnDuration:v63];
           }
 
           v64 = [v20 objectForKeyedSubscript:@"Off"];
@@ -1576,7 +1837,7 @@ uint64_t __39__PLAWDDisplay_finalizeDisplayAlsTable__block_invoke_184(uint64_t a
 
           if (v69 > 0.0)
           {
-            [v246 setTouchStateOffDuration:v69];
+            [v245 setTouchStateOffDuration:v69];
           }
 
           v70 = [v20 objectForKeyedSubscript:@"Active"];
@@ -1588,7 +1849,7 @@ uint64_t __39__PLAWDDisplay_finalizeDisplayAlsTable__block_invoke_184(uint64_t a
 
           if (v75 > 0.0)
           {
-            [v246 setTouchStateActiveDuration:v75];
+            [v245 setTouchStateActiveDuration:v75];
           }
 
           v76 = [v20 objectForKeyedSubscript:@"Ready"];
@@ -1600,12 +1861,12 @@ uint64_t __39__PLAWDDisplay_finalizeDisplayAlsTable__block_invoke_184(uint64_t a
 
           if (v81 > 0.0)
           {
-            [v246 setTouchStateReadyDuration:v81];
+            [v245 setTouchStateReadyDuration:v81];
           }
 
           selfCopy = self;
-          v228 = v8;
-          v230 = connCopy;
+          v227 = v8;
+          v229 = connCopy;
           v82 = [v20 objectForKeyedSubscript:@"Anticipate"];
           [v82 doubleValue];
           v84 = v83;
@@ -1615,29 +1876,29 @@ uint64_t __39__PLAWDDisplay_finalizeDisplayAlsTable__block_invoke_184(uint64_t a
 
           if (v87 > 0.0)
           {
-            [v246 setTouchStateAnticipateDuration:v87];
+            [v245 setTouchStateAnticipateDuration:v87];
           }
 
-          v241 = [v20 objectForKeyedSubscript:@"AutoReady"];
-          [v241 doubleValue];
+          v240 = [v20 objectForKeyedSubscript:@"AutoReady"];
+          [v240 doubleValue];
           v89 = v88;
-          v236 = [v20 objectForKeyedSubscript:@"AutoScan"];
-          [v236 doubleValue];
+          v235 = [v20 objectForKeyedSubscript:@"AutoScan"];
+          [v235 doubleValue];
           v91 = v89 + v90;
-          v224 = [v20 objectForKeyedSubscript:@"FaceDetected"];
-          [v224 doubleValue];
+          v223 = [v20 objectForKeyedSubscript:@"FaceDetected"];
+          [v223 doubleValue];
           v93 = v91 + v92;
-          v221 = [v20 objectForKeyedSubscript:@"StationaryFingers"];
-          [v221 doubleValue];
+          v220 = [v20 objectForKeyedSubscript:@"StationaryFingers"];
+          [v220 doubleValue];
           v95 = v93 + v94;
-          v219 = [v20 objectForKeyedSubscript:@"UILock"];
-          [v219 doubleValue];
+          v218 = [v20 objectForKeyedSubscript:@"UILock"];
+          [v218 doubleValue];
           v97 = v95 + v96;
-          v217 = [v20 objectForKeyedSubscript:@"Unknown"];
-          [v217 doubleValue];
+          v216 = [v20 objectForKeyedSubscript:@"Unknown"];
+          [v216 doubleValue];
           v99 = v97 + v98;
-          v215 = [v20 objectForKeyedSubscript:@"VSFOMCal"];
-          [v215 doubleValue];
+          v214 = [v20 objectForKeyedSubscript:@"VSFOMCal"];
+          [v214 doubleValue];
           v101 = v99 + v100;
           v102 = [v19 objectForKeyedSubscript:@"AutoReady"];
           [v102 doubleValue];
@@ -1666,10 +1927,10 @@ uint64_t __39__PLAWDDisplay_finalizeDisplayAlsTable__block_invoke_184(uint64_t a
           v19 = v121;
           v20 = v117;
 
-          v21 = v246;
-          [v246 setTouchStateOthersDuration:v57];
-          v8 = v228;
-          connCopy = v230;
+          v21 = v245;
+          [v245 setTouchStateOthersDuration:v57];
+          v8 = v227;
+          connCopy = v229;
           self = selfCopy;
         }
 
@@ -1678,20 +1939,20 @@ uint64_t __39__PLAWDDisplay_finalizeDisplayAlsTable__block_invoke_184(uint64_t a
         if ([MEMORY[0x277D3F180] debugEnabled])
         {
           v125 = objc_opt_class();
-          v248[0] = MEMORY[0x277D85DD0];
-          v248[1] = 3221225472;
-          v248[2] = __50__PLAWDDisplay_submitDataToAWDServer_withAwdConn___block_invoke_272;
-          v248[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-          v248[4] = v125;
+          v247[0] = MEMORY[0x277D85DD0];
+          v247[1] = 3221225472;
+          v247[2] = __50__PLAWDDisplay_submitDataToAWDServer_withAwdConn___block_invoke_272;
+          v247[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+          v247[4] = v125;
           if (submitDataToAWDServer_withAwdConn__defaultOnce_270 != -1)
           {
-            dispatch_once(&submitDataToAWDServer_withAwdConn__defaultOnce_270, v248);
+            dispatch_once(&submitDataToAWDServer_withAwdConn__defaultOnce_270, v247);
           }
 
           if (submitDataToAWDServer_withAwdConn__classDebugEnabled_271 == 1)
           {
-            v237 = v20;
-            v242 = v19;
+            v236 = v20;
+            v241 = v19;
             v126 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ : Submit Touch stats: submit cnt=%ld metric=%@", @"*******PLAWDMetricsService*******", -[PLAWDDisplay touchSubmitCnt](self, "touchSubmitCnt"), v21];
             v127 = MEMORY[0x277D3F178];
             v128 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/AwdLibrary/PLAWDDisplay.m"];
@@ -1705,38 +1966,38 @@ uint64_t __39__PLAWDDisplay_finalizeDisplayAlsTable__block_invoke_184(uint64_t a
               [PLAWDDisplay startMetricCollection:];
             }
 
-            v20 = v237;
-            v19 = v242;
-            v21 = v246;
+            v20 = v236;
+            v19 = v241;
+            v21 = v245;
           }
         }
 
         if ([MEMORY[0x277D3F180] debugEnabled])
         {
           v132 = objc_opt_class();
-          v247[0] = MEMORY[0x277D85DD0];
-          v247[1] = 3221225472;
-          v247[2] = __50__PLAWDDisplay_submitDataToAWDServer_withAwdConn___block_invoke_278;
-          v247[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-          v247[4] = v132;
+          v246[0] = MEMORY[0x277D85DD0];
+          v246[1] = 3221225472;
+          v246[2] = __50__PLAWDDisplay_submitDataToAWDServer_withAwdConn___block_invoke_278;
+          v246[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+          v246[4] = v132;
           if (submitDataToAWDServer_withAwdConn__defaultOnce_276 != -1)
           {
-            dispatch_once(&submitDataToAWDServer_withAwdConn__defaultOnce_276, v247);
+            dispatch_once(&submitDataToAWDServer_withAwdConn__defaultOnce_276, v246);
           }
 
           if (submitDataToAWDServer_withAwdConn__classDebugEnabled_277 == 1)
           {
-            v229 = v8;
-            v231 = connCopy;
-            v225 = serverCopy;
-            v220 = MEMORY[0x277CCACA8];
+            v228 = v8;
+            v230 = connCopy;
+            v224 = serverCopy;
+            v219 = MEMORY[0x277CCACA8];
             entryID = [v19 entryID];
             entryID2 = [v20 entryID];
-            v227 = [v20 objectForKeyedSubscript:@"On"];
-            [v227 doubleValue];
+            v226 = [v20 objectForKeyedSubscript:@"On"];
+            [v226 doubleValue];
             v134 = v133;
-            v222 = [v19 objectForKeyedSubscript:@"On"];
-            [v222 doubleValue];
+            v221 = [v19 objectForKeyedSubscript:@"On"];
+            [v221 doubleValue];
             v136 = v134 - v135;
             v137 = v19;
             [v20 objectForKeyedSubscript:@"Off"];
@@ -1758,14 +2019,14 @@ uint64_t __39__PLAWDDisplay_finalizeDisplayAlsTable__block_invoke_184(uint64_t a
             v154 = [v137 objectForKeyedSubscript:@"Anticipate"];
             [v154 doubleValue];
             v156 = v153 - v155;
-            v238 = v138;
+            v237 = v138;
             v157 = [v138 objectForKeyedSubscript:@"Active"];
             [v157 doubleValue];
             v159 = v158;
-            v243 = v137;
+            v242 = v137;
             v160 = [v137 objectForKeyedSubscript:@"Active"];
             [v160 doubleValue];
-            v162 = [v220 stringWithFormat:@"%@ : Submit Touch stats: start.entryId=%llu end.entryId=%llu On=%f Off=%f Ready=%f Anticipate=%f Active=%f Others=%f", @"*******PLAWDMetricsService*******", entryID, entryID2, *&v136, *&v144, *&v150, *&v156, v159 - v161, *&v57];
+            v162 = [v219 stringWithFormat:@"%@ : Submit Touch stats: start.entryId=%llu end.entryId=%llu On=%f Off=%f Ready=%f Anticipate=%f Active=%f Others=%f", @"*******PLAWDMetricsService*******", entryID, entryID2, *&v136, *&v144, *&v150, *&v156, v159 - v161, *&v57];
 
             v163 = MEMORY[0x277D3F178];
             v164 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/AwdLibrary/PLAWDDisplay.m"];
@@ -1779,18 +2040,18 @@ uint64_t __39__PLAWDDisplay_finalizeDisplayAlsTable__block_invoke_184(uint64_t a
               [PLAWDDisplay startMetricCollection:];
             }
 
-            serverCopy = v225;
-            v8 = v229;
-            connCopy = v231;
+            serverCopy = v224;
+            v8 = v228;
+            connCopy = v230;
             self = selfCopy2;
-            v20 = v238;
-            v19 = v243;
-            v21 = v246;
+            v20 = v237;
+            v19 = v242;
+            v21 = v245;
           }
         }
 
         [v8 setMetric:v21];
-        v16 = v233;
+        v16 = v232;
       }
 
       if (v20)
@@ -1833,9 +2094,9 @@ uint64_t __39__PLAWDDisplay_finalizeDisplayAlsTable__block_invoke_184(uint64_t a
 
         if (submitDataToAWDServer_withAwdConn__classDebugEnabled == 1)
         {
-          v239 = v19;
-          v244 = v21;
-          v234 = v20;
+          v238 = v19;
+          v243 = v21;
+          v233 = v20;
           v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ : %@", @"*******PLAWDMetricsService*******", v20];
           v24 = MEMORY[0x277D3F178];
           v25 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/AwdLibrary/PLAWDDisplay.m"];
@@ -1849,18 +2110,18 @@ uint64_t __39__PLAWDDisplay_finalizeDisplayAlsTable__block_invoke_184(uint64_t a
             [PLAWDDisplay startMetricCollection:];
           }
 
-          v20 = v234;
-          v19 = v239;
-          v21 = v244;
+          v20 = v233;
+          v19 = v238;
+          v21 = v243;
         }
       }
 
       if (v21)
       {
-        v240 = v19;
-        v232 = v16;
+        v239 = v19;
+        v231 = v16;
         [v21 setTimestamp:{objc_msgSend(connCopy, "getAWDTimestamp")}];
-        memset(v257, 0, 140);
+        memset(v256, 0, 140);
         [v21 setPluggedDisplayOnDuration:0];
         [v21 setUnpluggedDisplayOnDuration:0];
         [v21 setDispOnCount:0];
@@ -1882,32 +2143,32 @@ uint64_t __39__PLAWDDisplay_finalizeDisplayAlsTable__block_invoke_184(uint64_t a
         [v21 setAlsAutoBrightnessCurveL1:0];
         [v21 setAlsAutoBrightnessCurveL2:0];
         [v21 setAlsAutoBrightnessSlider:0];
-        v245 = v21;
+        v244 = v21;
         [v21 setAlsAutoBrightnessCurveEdynth:0];
-        v253 = 0u;
-        v254 = 0u;
-        v251 = 0u;
         v252 = 0u;
-        v235 = v20;
+        v253 = 0u;
+        v250 = 0u;
+        v251 = 0u;
+        v234 = v20;
         v29 = v20;
-        v30 = [v29 countByEnumeratingWithState:&v251 objects:v256 count:16];
+        v30 = [v29 countByEnumeratingWithState:&v250 objects:v255 count:16];
         if (v30)
         {
           v31 = v30;
-          v223 = serverCopy;
-          v32 = *v252;
+          v222 = serverCopy;
+          v32 = *v251;
           v33 = 0.0;
           v34 = 0.0;
           do
           {
             for (i = 0; i != v31; ++i)
             {
-              if (*v252 != v32)
+              if (*v251 != v32)
               {
                 objc_enumerationMutation(v29);
               }
 
-              v36 = *(*(&v251 + 1) + 8 * i);
+              v36 = *(*(&v250 + 1) + 8 * i);
               v37 = [v36 objectForKeyedSubscript:@"MetricsKey"];
               v38 = [v36 objectForKeyedSubscript:@"MetricsValue"];
               [v38 doubleValue];
@@ -1916,38 +2177,38 @@ uint64_t __39__PLAWDDisplay_finalizeDisplayAlsTable__block_invoke_184(uint64_t a
               if ([v37 isEqualToString:@"UnpluggedDispOnDur"])
               {
                 v34 = v34 + v40;
-                [v245 setUnpluggedDisplayOnDuration:(v40 * 1000.0)];
+                [v244 setUnpluggedDisplayOnDuration:(v40 * 1000.0)];
               }
 
               else if ([v37 isEqualToString:@"PluggedDispOnDur"])
               {
                 v34 = v34 + v40;
-                [v245 setPluggedDisplayOnDuration:(v40 * 1000.0)];
+                [v244 setPluggedDisplayOnDuration:(v40 * 1000.0)];
               }
 
               else if ([v37 isEqualToString:@"DisplayOnCount"])
               {
-                [v245 setDispOnCount:v40];
+                [v244 setDispOnCount:v40];
               }
 
               else if ([v37 isEqualToString:@"MieOnCount"])
               {
-                [v245 setMieCount:v40];
+                [v244 setMieCount:v40];
               }
 
               else if ([v37 isEqualToString:@"MieOnDur"])
               {
-                [v245 setMieDuration:(v40 * 1000.0)];
+                [v244 setMieDuration:(v40 * 1000.0)];
               }
 
               else if ([v37 isEqualToString:@"DisplayPower"])
               {
-                [v245 setTotalDisplayPower:(v40 * 1000.0)];
+                [v244 setTotalDisplayPower:(v40 * 1000.0)];
               }
 
               else if ([v37 isEqualToString:@"BacklightPower"])
               {
-                [v245 setTotalBacklightPower:(v40 * 1000.0)];
+                [v244 setTotalBacklightPower:(v40 * 1000.0)];
               }
 
               else if ([v37 isEqualToString:@"IdlePercentDur"])
@@ -1957,12 +2218,12 @@ uint64_t __39__PLAWDDisplay_finalizeDisplayAlsTable__block_invoke_184(uint64_t a
 
               else if ([v37 isEqualToString:@"AlsCount"])
               {
-                [v245 setAlsAutoBrightnessChangeCount:v40];
+                [v244 setAlsAutoBrightnessChangeCount:v40];
               }
 
               else if ([v37 isEqualToString:@"AlsEnableCnt"])
               {
-                [v245 setAlsBrightnessEnableCnt:v40];
+                [v244 setAlsBrightnessEnableCnt:v40];
               }
 
               else
@@ -1970,31 +2231,31 @@ uint64_t __39__PLAWDDisplay_finalizeDisplayAlsTable__block_invoke_184(uint64_t a
                 intValue = [v37 intValue];
                 if ((intValue & 0x80000000) == 0)
                 {
-                  *(v257 + intValue) = (v40 * 1000.0);
+                  *(v256 + intValue) = (v40 * 1000.0);
                 }
               }
             }
 
-            v31 = [v29 countByEnumeratingWithState:&v251 objects:v256 count:16];
+            v31 = [v29 countByEnumeratingWithState:&v250 objects:v255 count:16];
           }
 
           while (v31);
 
-          serverCopy = v223;
-          v19 = v240;
+          serverCopy = v222;
+          v19 = v239;
           if (v34 > 0.0)
           {
             if ([MEMORY[0x277D3F180] debugEnabled])
             {
               v42 = objc_opt_class();
-              v250[0] = MEMORY[0x277D85DD0];
-              v250[1] = 3221225472;
-              v250[2] = __50__PLAWDDisplay_submitDataToAWDServer_withAwdConn___block_invoke_194;
-              v250[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-              v250[4] = v42;
+              v249[0] = MEMORY[0x277D85DD0];
+              v249[1] = 3221225472;
+              v249[2] = __50__PLAWDDisplay_submitDataToAWDServer_withAwdConn___block_invoke_194;
+              v249[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+              v249[4] = v42;
               if (submitDataToAWDServer_withAwdConn__defaultOnce_192 != -1)
               {
-                dispatch_once(&submitDataToAWDServer_withAwdConn__defaultOnce_192, v250);
+                dispatch_once(&submitDataToAWDServer_withAwdConn__defaultOnce_192, v249);
               }
 
               if (submitDataToAWDServer_withAwdConn__classDebugEnabled_193 == 1)
@@ -2012,14 +2273,14 @@ uint64_t __39__PLAWDDisplay_finalizeDisplayAlsTable__block_invoke_184(uint64_t a
                   [PLAWDDisplay startMetricCollection:];
                 }
 
-                v19 = v240;
+                v19 = v239;
               }
             }
 
             v49 = v33 * 100.0 / v34;
             if (v49 > 0.0 && v49 <= 100.0)
             {
-              [v245 setDisplayIdlePercentage:v49];
+              [v244 setDisplayIdlePercentage:v49];
             }
           }
         }
@@ -2032,12 +2293,12 @@ uint64_t __39__PLAWDDisplay_finalizeDisplayAlsTable__block_invoke_184(uint64_t a
         for (j = 0; j != 140; j += 4)
         {
           v171 = objc_alloc_init(MEMORY[0x277D817D8]);
-          [v171 setBucketDuration:*(v257 + j)];
+          [v171 setBucketDuration:*(v256 + j)];
           [v169 addObject:v171];
         }
 
-        v21 = v245;
-        [v245 setBacklightBuckets:v169];
+        v21 = v244;
+        [v244 setBacklightBuckets:v169];
         if (([MEMORY[0x277D3F208] isMac] & 1) == 0)
         {
           v172 = [MEMORY[0x277D3F6A0] entryKeyForType:*MEMORY[0x277D3F5D0] andName:*MEMORY[0x277D3F7A0]];
@@ -2051,70 +2312,70 @@ uint64_t __39__PLAWDDisplay_finalizeDisplayAlsTable__block_invoke_184(uint64_t a
             [v176 doubleValue];
             v178 = v177;
 
-            [v245 setAlsAutoBrightnessCurveE0A:v178];
+            [v244 setAlsAutoBrightnessCurveE0A:v178];
             v179 = [v175 objectForKeyedSubscript:@"E0b"];
             [v179 doubleValue];
             v181 = v180;
 
-            [v245 setAlsAutoBrightnessCurveE0B:v181];
+            [v244 setAlsAutoBrightnessCurveE0B:v181];
             v182 = [v175 objectForKeyedSubscript:@"E1"];
             [v182 doubleValue];
             v184 = v183;
 
-            [v245 setAlsAutoBrightnessCurveE1:v184];
+            [v244 setAlsAutoBrightnessCurveE1:v184];
             v185 = [v175 objectForKeyedSubscript:@"E2"];
             [v185 doubleValue];
             v187 = v186;
 
-            [v245 setAlsAutoBrightnessCurveE2:v187];
+            [v244 setAlsAutoBrightnessCurveE2:v187];
             v188 = [v175 objectForKeyedSubscript:@"L0a"];
             [v188 doubleValue];
             v190 = v189;
 
-            [v245 setAlsAutoBrightnessCurveL0A:v190];
+            [v244 setAlsAutoBrightnessCurveL0A:v190];
             v191 = [v175 objectForKeyedSubscript:@"L0b"];
             [v191 doubleValue];
             v193 = v192;
 
-            [v245 setAlsAutoBrightnessCurveL0B:v193];
+            [v244 setAlsAutoBrightnessCurveL0B:v193];
             v194 = [v175 objectForKeyedSubscript:@"L1"];
             [v194 doubleValue];
             v196 = v195;
 
-            [v245 setAlsAutoBrightnessCurveL1:v196];
+            [v244 setAlsAutoBrightnessCurveL1:v196];
             v197 = [v175 objectForKeyedSubscript:@"L2"];
             [v197 doubleValue];
             v199 = v198;
 
-            [v245 setAlsAutoBrightnessCurveL2:v199];
+            [v244 setAlsAutoBrightnessCurveL2:v199];
             v200 = [v175 objectForKeyedSubscript:@"S"];
             [v200 doubleValue];
             v202 = v201;
 
-            [v245 setAlsAutoBrightnessSlider:v202];
+            [v244 setAlsAutoBrightnessSlider:v202];
             v203 = [v175 objectForKeyedSubscript:@"Lux"];
             [v203 doubleValue];
             v205 = v204;
 
-            [v245 setAlsAutoBrightnessLux:v205];
+            [v244 setAlsAutoBrightnessLux:v205];
           }
 
-          v21 = v245;
+          v21 = v244;
         }
 
         [(PLAWDDisplay *)self setDispSubmitCnt:[(PLAWDDisplay *)self dispSubmitCnt]+ 1];
-        v20 = v235;
+        v20 = v234;
         if ([MEMORY[0x277D3F180] debugEnabled])
         {
           v206 = objc_opt_class();
-          v249[0] = MEMORY[0x277D85DD0];
-          v249[1] = 3221225472;
-          v249[2] = __50__PLAWDDisplay_submitDataToAWDServer_withAwdConn___block_invoke_232;
-          v249[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-          v249[4] = v206;
+          v248[0] = MEMORY[0x277D85DD0];
+          v248[1] = 3221225472;
+          v248[2] = __50__PLAWDDisplay_submitDataToAWDServer_withAwdConn___block_invoke_232;
+          v248[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+          v248[4] = v206;
           if (submitDataToAWDServer_withAwdConn__defaultOnce_230 != -1)
           {
-            dispatch_once(&submitDataToAWDServer_withAwdConn__defaultOnce_230, v249);
+            dispatch_once(&submitDataToAWDServer_withAwdConn__defaultOnce_230, v248);
           }
 
           if (submitDataToAWDServer_withAwdConn__classDebugEnabled_231 == 1)
@@ -2132,15 +2393,15 @@ uint64_t __39__PLAWDDisplay_finalizeDisplayAlsTable__block_invoke_184(uint64_t a
               [PLAWDDisplay startMetricCollection:];
             }
 
-            v20 = v235;
-            v19 = v240;
-            v21 = v245;
+            v20 = v234;
+            v19 = v239;
+            v21 = v244;
           }
         }
 
         [v8 setMetric:v21];
 
-        v16 = v232;
+        v16 = v231;
       }
 
       [(PLAWDDisplay *)self reInitDisplayBacklightAlsStats];
@@ -2160,51 +2421,42 @@ LABEL_104:
 
 LABEL_105:
 
-  v213 = *MEMORY[0x277D85DE8];
   return v51;
 }
 
-uint64_t __50__PLAWDDisplay_submitDataToAWDServer_withAwdConn___block_invoke(uint64_t a1)
+void *__50__PLAWDDisplay_submitDataToAWDServer_withAwdConn___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   submitDataToAWDServer_withAwdConn__classDebugEnabled = result;
   return result;
 }
 
-uint64_t __50__PLAWDDisplay_submitDataToAWDServer_withAwdConn___block_invoke_194(uint64_t a1)
+void *__50__PLAWDDisplay_submitDataToAWDServer_withAwdConn___block_invoke_194(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   submitDataToAWDServer_withAwdConn__classDebugEnabled_193 = result;
   return result;
 }
 
-uint64_t __50__PLAWDDisplay_submitDataToAWDServer_withAwdConn___block_invoke_232(uint64_t a1)
+void *__50__PLAWDDisplay_submitDataToAWDServer_withAwdConn___block_invoke_232(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   submitDataToAWDServer_withAwdConn__classDebugEnabled_231 = result;
   return result;
 }
 
-uint64_t __50__PLAWDDisplay_submitDataToAWDServer_withAwdConn___block_invoke_272(uint64_t a1)
+void *__50__PLAWDDisplay_submitDataToAWDServer_withAwdConn___block_invoke_272(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   submitDataToAWDServer_withAwdConn__classDebugEnabled_271 = result;
   return result;
 }
 
-uint64_t __50__PLAWDDisplay_submitDataToAWDServer_withAwdConn___block_invoke_278(uint64_t a1)
+void *__50__PLAWDDisplay_submitDataToAWDServer_withAwdConn___block_invoke_278(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   submitDataToAWDServer_withAwdConn__classDebugEnabled_277 = result;
   return result;
-}
-
-- (void)startMetricCollection:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_25EE16000, v0, v1, "%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

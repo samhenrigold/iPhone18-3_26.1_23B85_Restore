@@ -113,8 +113,7 @@ void __101__SBSFocusModesHomeScreenSettingsService_homeScreenSnapshotsForSuggest
   v17 = v9;
   selfCopy = self;
   v10 = v9;
-  [v7 configureConnection:&v13];
-  v11 = SBLogFocusModes();
+  v11 = SBLogFocusModes([v7 configureConnection:&v13]);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
@@ -147,7 +146,7 @@ void __60__SBSFocusModesHomeScreenSettingsService_activateConnection__block_invo
 {
   v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = SBLogFocusModes();
+  v3 = SBLogFocusModes(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 138543362;
@@ -160,7 +159,7 @@ void __60__SBSFocusModesHomeScreenSettingsService_activateConnection__block_invo
 {
   v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = SBLogFocusModes();
+  v3 = SBLogFocusModes(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 138543362;
@@ -174,7 +173,7 @@ void __60__SBSFocusModesHomeScreenSettingsService_activateConnection__block_invo
 void __60__SBSFocusModesHomeScreenSettingsService_activateConnection__block_invoke_9(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = SBLogFocusModes();
+  v3 = SBLogFocusModes(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __76__SBSSystemNotesPresentationClientToServerProxy__setupAndActivateConnection__block_invoke_19_cold_1(v2, v3);

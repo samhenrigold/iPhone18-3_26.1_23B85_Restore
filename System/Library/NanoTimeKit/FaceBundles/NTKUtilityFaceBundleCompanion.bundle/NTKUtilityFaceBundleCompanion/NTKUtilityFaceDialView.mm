@@ -2,7 +2,6 @@
 - (NTKUtilityFaceDialView)initWithDevice:(id)device;
 - (void)layoutSubviews;
 - (void)setConfig:(id)config;
-- (void)setStyle:(unint64_t)style;
 - (void)transitionFromConfig:(id)config toConfig:(id)toConfig withFraction:(double)fraction;
 @end
 
@@ -70,22 +69,14 @@
 {
   self->_transitionFrom = config;
   numberImageView = self->_numberImageView;
-  device = self->_device;
-  v6 = [NTKUtilityFaceDialFactory numbersImageForStyle:"numbersImageForStyle:typeface:device:" typeface:? device:?];
-  [(UIImageView *)numberImageView setImage:v6];
+  v5 = [NTKUtilityFaceDialFactory numbersImageForStyle:"numbersImageForStyle:typeface:device:" typeface:? device:?];
+  [(UIImageView *)numberImageView setImage:v5];
 
   [(UIImageView *)self->_numberImageView setContentMode:4];
   [(UIImageView *)self->_numberImageView setAlpha:1.0];
   transitionNumberImageView = self->_transitionNumberImageView;
 
   [(UIImageView *)transitionNumberImageView setAlpha:0.0];
-}
-
-- (void)setStyle:(unint64_t)style
-{
-  self->_transitionFrom.style = style;
-  language = self->_transitionFrom.language;
-  [(NTKUtilityFaceDialView *)self setConfig:?];
 }
 
 - (void)transitionFromConfig:(id)config toConfig:(id)toConfig withFraction:(double)fraction
@@ -104,9 +95,8 @@
     {
       self->_transitionFrom = config;
       numberImageView = self->_numberImageView;
-      device = self->_device;
-      v12 = [NTKUtilityFaceDialFactory numbersImageForStyle:"numbersImageForStyle:typeface:device:" typeface:? device:?];
-      [(UIImageView *)numberImageView setImage:v12];
+      v11 = [NTKUtilityFaceDialFactory numbersImageForStyle:"numbersImageForStyle:typeface:device:" typeface:? device:?];
+      [(UIImageView *)numberImageView setImage:v11];
 
       [(UIImageView *)self->_numberImageView setContentMode:4];
     }
@@ -116,16 +106,16 @@
       self->_transitionTo.style = var0;
       self->_transitionTo.language = var1;
       transitionNumberImageView = self->_transitionNumberImageView;
-      v15 = [NTKUtilityFaceDialFactory numbersImageForStyle:var0 typeface:var1 device:self->_device];
-      [(UIImageView *)transitionNumberImageView setImage:v15];
+      v14 = [NTKUtilityFaceDialFactory numbersImageForStyle:var0 typeface:var1 device:self->_device];
+      [(UIImageView *)transitionNumberImageView setImage:v14];
 
       [(UIImageView *)self->_transitionNumberImageView setContentMode:4];
     }
 
     [(UIImageView *)self->_numberImageView setAlpha:1.0 - fraction];
-    v16 = self->_transitionNumberImageView;
+    v15 = self->_transitionNumberImageView;
 
-    [(UIImageView *)v16 setAlpha:fraction];
+    [(UIImageView *)v15 setAlpha:fraction];
   }
 }
 

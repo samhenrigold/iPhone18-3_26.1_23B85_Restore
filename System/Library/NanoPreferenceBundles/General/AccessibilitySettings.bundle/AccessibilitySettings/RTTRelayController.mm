@@ -2,6 +2,7 @@
 - (id)specifiers;
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path;
 - (void)suspend;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation RTTRelayController
@@ -42,6 +43,17 @@
   v4.receiver = self;
   v4.super_class = RTTRelayController;
   [(RTTRelayController *)&v4 suspend];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  firstResponder = [*(&self->super.super.super.super.super.super.isa + *MEMORY[0x277D3FC60]) firstResponder];
+  [firstResponder resignFirstResponder];
+
+  v6.receiver = self;
+  v6.super_class = RTTRelayController;
+  [(RTTRelayController *)&v6 viewWillDisappear:disappearCopy];
 }
 
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path

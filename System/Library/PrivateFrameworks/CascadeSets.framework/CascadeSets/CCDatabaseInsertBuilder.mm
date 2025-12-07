@@ -72,18 +72,14 @@ LABEL_8:
 
 - (void)setColumnValues:(id)values
 {
-  v4 = [values copy];
-  columnValues = self->_columnValues;
-  self->_columnValues = v4;
+  self->_columnValues = [values copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setReturningColumns:(id)columns
 {
-  v4 = [columns copy];
-  returningColumns = self->_returningColumns;
-  self->_returningColumns = v4;
+  self->_returningColumns = [columns copy];
 
   MEMORY[0x1EEE66BB8]();
 }

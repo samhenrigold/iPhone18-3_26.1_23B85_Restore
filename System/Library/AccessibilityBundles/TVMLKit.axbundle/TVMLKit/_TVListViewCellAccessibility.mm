@@ -4,6 +4,7 @@
 - (id)_accessibilitySupplementaryFooterViews;
 - (id)accessibilityLabel;
 - (unint64_t)accessibilityTraits;
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated;
 @end
 
 @implementation _TVListViewCellAccessibility
@@ -21,37 +22,37 @@
 
 - (id)accessibilityLabel
 {
-  v19 = *MEMORY[0x29EDCA608];
+  v18 = *MEMORY[0x29EDCA608];
   _accessibleSubviews = [(_TVListViewCellAccessibility *)self _accessibleSubviews];
   array = [MEMORY[0x29EDB8DE8] array];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v4 = _accessibleSubviews;
-  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          [array addObject:{v9, v14}];
+          [array addObject:{v9, v13}];
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
@@ -60,36 +61,34 @@
   v10 = [array sortedArrayUsingSelector:sel_accessibilityCompareGeometry_];
   v11 = MEMORY[0x29ED3B640](array);
 
-  v12 = *MEMORY[0x29EDCA608];
-
   return v11;
 }
 
 - (id)_accessibilitySupplementaryFooterViews
 {
-  v17 = *MEMORY[0x29EDCA608];
+  v16 = *MEMORY[0x29EDCA608];
   _accessibleSubviews = [(_TVListViewCellAccessibility *)self _accessibleSubviews];
   array = [MEMORY[0x29EDB8DE8] array];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v4 = _accessibleSubviews;
-  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * i);
+        v9 = *(*(&v11 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) != 0 && [v9 isAccessibilityElement])
         {
@@ -97,15 +96,28 @@
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
 
-  v10 = *MEMORY[0x29EDCA608];
-
   return array;
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+{
+  selectedCopy = selected;
+  v7.receiver = self;
+  v7.super_class = _TVListViewCellAccessibility;
+  [(_TVListViewCellAccessibility *)&v7 setSelected:selected animated:animated];
+  v6 = MEMORY[0x29EDC7FC0];
+  if (!selectedCopy)
+  {
+    v6 = MEMORY[0x29EDC7FA0];
+  }
+
+  [(_TVListViewCellAccessibility *)self setAccessibilityTraits:*v6];
 }
 
 - (unint64_t)accessibilityTraits

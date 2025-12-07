@@ -83,11 +83,11 @@
   return v5;
 }
 
-uint64_t __39__UISlidingBarStateRequest_description__block_invoke(uint64_t result, uint64_t a2, double a3)
+id *__39__UISlidingBarStateRequest_description__block_invoke(id *result, uint64_t a2, double a3)
 {
   if (a3 > 0.0)
   {
-    return [*(result + 32) appendFormat:@" %@Width=%g", a2, *&a3, v3, v4];
+    return [result[4] appendFormat:@" %@Width=%g", a2, *&a3, v3, v4];
   }
 
   return result;

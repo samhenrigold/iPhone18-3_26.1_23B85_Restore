@@ -9,7 +9,7 @@
 
 + (id)unsafeIgnoreSignatureVerifier
 {
-  v2 = [[JPSignatureVerifier alloc] initWithBacking:JetPackSignatureVerifierCreateUnsafeIgnoreSignatureVerifier(self releaseOnDealloc:a2), 1];
+  v2 = [[JPSignatureVerifier alloc] initWithBacking:JetPackSignatureVerifierCreateUnsafeIgnoreSignatureVerifier() releaseOnDealloc:1];
 
   return v2;
 }

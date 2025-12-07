@@ -419,15 +419,15 @@ void __52__CKCloudMessagesDetailController_disableAndDelete___block_invoke(uint6
   }
 }
 
-void __50__CKCloudMessagesDetailController_connectToDaemon__block_invoke()
+void __50__CKCloudMessagesDetailController_connectToDaemon__block_invoke(uint64_t a1, uint64_t a2)
 {
   if (IMOSLoggingEnabled())
   {
-    v0 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+    v2 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
     {
-      *v1 = 0;
-      _os_log_impl(&dword_19020E000, v0, OS_LOG_TYPE_INFO, "connected to daemon", v1, 2u);
+      *v3 = 0;
+      _os_log_impl(&dword_19020E000, v2, OS_LOG_TYPE_INFO, "connected to daemon", v3, 2u);
     }
   }
 }

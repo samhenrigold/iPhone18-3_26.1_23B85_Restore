@@ -3,6 +3,8 @@
 - (BOOL)isEqualToFetchOptions:(id)options;
 - (MOEventBundleFetchOptions)initWithAllowedCategories:(id)categories dateInterval:(id)interval ascending:(BOOL)ascending limit:(id)limit includeDeletedBundles:(BOOL)bundles skipRanking:(BOOL)ranking interfaceType:(unint64_t)type;
 - (MOEventBundleFetchOptions)initWithCoder:(id)coder;
+- (MOEventBundleFetchOptions)initWithIdentifiers:(id)identifiers ascending:(BOOL)ascending filterBundle:(BOOL)bundle;
+- (MOEventBundleFetchOptions)initWithIdentifiers:(id)identifiers ascending:(BOOL)ascending filterBundle:(BOOL)bundle skipRanking:(BOOL)ranking;
 - (id)description;
 - (unint64_t)hash;
 - (void)encodeWithCoder:(id)coder;
@@ -32,6 +34,35 @@
   }
 
   return v20;
+}
+
+- (MOEventBundleFetchOptions)initWithIdentifiers:(id)identifiers ascending:(BOOL)ascending filterBundle:(BOOL)bundle
+{
+  ascendingCopy = ascending;
+  identifiersCopy = identifiers;
+  v9 = [(MOEventBundleFetchOptions *)self initWithDateInterval:0 ascending:ascendingCopy limit:0 includeDeletedBundles:0 skipRanking:0];
+  v10 = v9;
+  if (v9)
+  {
+    objc_storeStrong(&v9->_identifiers, identifiers);
+  }
+
+  return v10;
+}
+
+- (MOEventBundleFetchOptions)initWithIdentifiers:(id)identifiers ascending:(BOOL)ascending filterBundle:(BOOL)bundle skipRanking:(BOOL)ranking
+{
+  rankingCopy = ranking;
+  ascendingCopy = ascending;
+  identifiersCopy = identifiers;
+  v11 = [(MOEventBundleFetchOptions *)self initWithDateInterval:0 ascending:ascendingCopy limit:0 includeDeletedBundles:0 skipRanking:rankingCopy];
+  v12 = v11;
+  if (v11)
+  {
+    objc_storeStrong(&v11->_identifiers, identifiers);
+  }
+
+  return v12;
 }
 
 - (void)encodeWithCoder:(id)coder

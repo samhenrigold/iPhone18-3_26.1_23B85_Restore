@@ -472,7 +472,7 @@ LABEL_35:
     v5 = photoIrisProperties;
     if (photoIrisProperties)
     {
-      [photoIrisProperties photoIrisStillDisplayTime];
+      objc_msgSend_photoIrisStillDisplayTime(photoIrisProperties);
       Seconds = CMTimeGetSeconds(&time);
     }
 
@@ -509,7 +509,7 @@ LABEL_35:
 
       if (v8)
       {
-        [v8 duration];
+        objc_msgSend_duration(v8);
       }
 
       else
@@ -522,7 +522,7 @@ LABEL_35:
       v12 = movie;
       if (movie)
       {
-        [movie duration];
+        objc_msgSend_duration(movie);
       }
 
       else
@@ -537,7 +537,7 @@ LABEL_35:
         memset(&time, 0, sizeof(time));
         if (v8)
         {
-          [v8 vcp_livePhotoStillDisplayTime];
+          objc_msgSend_vcp_livePhotoStillDisplayTime(v8);
           if (time.flags)
           {
             v15 = time;
@@ -585,7 +585,7 @@ LABEL_19:
       v10 = v9;
       if (v9 && ([v9 hasSlowMotionAdjustments] & 1) != 0)
       {
-        [v10 slowMotionTimeRange];
+        objc_msgSend_slowMotionTimeRange(v10);
       }
 
       else
@@ -648,7 +648,7 @@ LABEL_19:
       if ([resources vcp_hasLocalSlowmo:vcp_hasAdjustments] && (objc_msgSend(resources, "vcp_avAsset:", vcp_hasAdjustments), (v7 = objc_claimAutoreleasedReturnValue()) != 0))
       {
         vcp_adjustmentsResource = [resources vcp_adjustmentsResource];
-        [(PHAsset *)self->_asset duration];
+        objc_msgSend_duration(self->_asset);
         v5 = [v7 vcp_assetWithoutAdjustments:vcp_adjustmentsResource duration:?];
       }
 

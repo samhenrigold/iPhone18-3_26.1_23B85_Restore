@@ -11,12 +11,49 @@
 - (void)playWithDetailedCompletion:(id)completion;
 - (void)seekToPositionWithElapsedTime:(double)time completion:(id)completion;
 - (void)setCurrentEpisode:(id)episode;
+- (void)setManifest:(id)manifest startPlayback:(BOOL)playback completion:(id)completion;
 - (void)setManifest:(id)manifest startPlayback:(BOOL)playback detailedCompletion:(id)completion;
 - (void)setPlayerResponseHandler:(id)handler;
 - (void)startPlayback:(id)playback completion:(id)completion;
 @end
 
 @implementation ProxyPlayerController
+
+- (void)setManifest:(id)manifest startPlayback:(BOOL)playback completion:(id)completion
+{
+  playbackCopy = playback;
+  v8 = _Block_copy(completion);
+  if (v8)
+  {
+    v9 = swift_allocObject();
+    *(v9 + 16) = v8;
+    v8 = sub_25EA13F7C;
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  v10 = swift_allocObject();
+  *(v10 + 16) = v8;
+  *(v10 + 24) = v9;
+  v14[4] = sub_25EA13F4C;
+  v14[5] = v10;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 1107296256;
+  v14[2] = sub_25EA13338;
+  v14[3] = &block_descriptor_9;
+  v11 = _Block_copy(v14);
+  manifestCopy = manifest;
+  selfCopy = self;
+  sub_25E9F30DC(v8, v9);
+
+  [(ProxyPlayerController *)selfCopy setManifest:manifestCopy startPlayback:playbackCopy detailedCompletion:v11];
+
+  sub_25E9F30EC(v8, v9);
+  _Block_release(v11);
+}
 
 - (void)setManifest:(id)manifest startPlayback:(BOOL)playback detailedCompletion:(id)completion
 {
@@ -37,7 +74,7 @@
   manifestCopy = manifest;
   selfCopy = self;
   sub_25EA1352C(manifestCopy, playbackCopy, v8, v9);
-  sub_25E9F30EC(v8);
+  sub_25E9F30EC(v8, v9);
 }
 
 - (void)setCurrentEpisode:(id)episode
@@ -76,7 +113,7 @@
 
   selfCopy = self;
   sub_25EA19778(v7, v6);
-  sub_25E9F30EC(v7);
+  sub_25E9F30EC(v7, v6);
 }
 
 - (void)playWithDetailedCompletion:(id)completion
@@ -98,7 +135,7 @@
 
   selfCopy = self;
   sub_25EA1984C(v7, v6);
-  sub_25E9F30EC(v7);
+  sub_25E9F30EC(v7, v6);
 }
 
 - (void)pauseWithCompletion:(id)completion
@@ -120,7 +157,7 @@
 
   selfCopy = self;
   sub_25EA19920(v7, v6);
-  sub_25E9F30EC(v7);
+  sub_25E9F30EC(v7, v6);
 }
 
 - (void)startPlayback:(id)playback completion:(id)completion
@@ -147,11 +184,12 @@
     playbackCopy2 = playback;
     selfCopy2 = self;
     v8 = 0;
+    v7 = 0;
   }
 
   [(ProxyPlayerController *)self setManifest:playback startPlayback:1 completion:v8];
 
-  sub_25E9F30EC(v6);
+  sub_25E9F30EC(v6, v7);
   _Block_release(v8);
 }
 
@@ -174,7 +212,7 @@
 
   selfCopy = self;
   sub_25EA19CF4(v9, v8, time);
-  sub_25E9F30EC(v9);
+  sub_25E9F30EC(v9, v8);
 }
 
 - (void)jumpForwardsWithCompletion:(id)completion
@@ -196,7 +234,7 @@
 
   selfCopy = self;
   sub_25EA19F88(v7, v6);
-  sub_25E9F30EC(v7);
+  sub_25E9F30EC(v7, v6);
 }
 
 - (void)jumpBackwardsWithCompletion:(id)completion
@@ -218,7 +256,7 @@
 
   selfCopy = self;
   sub_25EA1A07C(v7, v6);
-  sub_25E9F30EC(v7);
+  sub_25E9F30EC(v7, v6);
 }
 
 - (double)forwardJumpDuration
@@ -283,7 +321,7 @@
   *v7 = v6;
   v7[1] = v4;
   selfCopy = self;
-  sub_25E9F30EC(v8);
+  sub_25E9F30EC(v8, v9);
 }
 
 - (void)controller:(id)controller defersResponseReplacement:(id)replacement

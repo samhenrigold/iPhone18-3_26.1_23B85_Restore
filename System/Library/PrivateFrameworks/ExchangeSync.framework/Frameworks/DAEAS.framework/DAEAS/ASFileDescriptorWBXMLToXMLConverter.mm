@@ -1,4 +1,5 @@
 @interface ASFileDescriptorWBXMLToXMLConverter
+- (ASFileDescriptorWBXMLToXMLConverter)initWithInputFD:(int)d outputFD:(int)fD usingMetadata:(BOOL)metadata;
 - (BOOL)runSynchronously;
 - (int64_t)readFromInput;
 - (void)outputData:(id)data;
@@ -119,6 +120,20 @@
   }
 
   return 1;
+}
+
+- (ASFileDescriptorWBXMLToXMLConverter)initWithInputFD:(int)d outputFD:(int)fD usingMetadata:(BOOL)metadata
+{
+  v8.receiver = self;
+  v8.super_class = ASFileDescriptorWBXMLToXMLConverter;
+  result = [(ASWBXMLToXMLConverter *)&v8 initUsingMetadata:metadata];
+  if (result)
+  {
+    result->_input = d;
+    result->_output = fD;
+  }
+
+  return result;
 }
 
 @end

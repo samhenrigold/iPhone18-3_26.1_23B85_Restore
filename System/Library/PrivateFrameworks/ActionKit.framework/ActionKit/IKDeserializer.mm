@@ -163,28 +163,28 @@ LABEL_16:
 
 + (BOOL)token:(id *)token andTokenSecret:(id *)secret fromQlineString:(id)string
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v7 = [string componentsSeparatedByString:@"&"];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
-  v8 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v21;
+    v10 = *v20;
     do
     {
       v11 = 0;
       do
       {
-        if (*v21 != v10)
+        if (*v20 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = [*(*(&v20 + 1) + 8 * v11) componentsSeparatedByString:@"="];
+        v12 = [*(*(&v19 + 1) + 8 * v11) componentsSeparatedByString:@"="];
         if ([v12 count] == 2)
         {
           v13 = [v12 objectAtIndex:0];
@@ -201,7 +201,7 @@ LABEL_16:
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v9);
@@ -209,17 +209,12 @@ LABEL_16:
 
   if (*token && *secret)
   {
-    result = 1;
+    return 1;
   }
 
-  else
-  {
-    result = 0;
-    *token = 0;
-    *secret = 0;
-  }
-
-  v19 = *MEMORY[0x277D85DE8];
+  result = 0;
+  *token = 0;
+  *secret = 0;
   return result;
 }
 

@@ -47,18 +47,16 @@
 
 void __43__SKDEmbeddingProcessor_requiredAttributes__block_invoke()
 {
-  v5[4] = *MEMORY[0x277D85DE8];
+  v4[4] = *MEMORY[0x277D85DE8];
   v0 = *MEMORY[0x277CC31F0];
-  v5[0] = *MEMORY[0x277CC31A0];
-  v5[1] = v0;
+  v4[0] = *MEMORY[0x277CC31A0];
+  v4[1] = v0;
   v1 = *MEMORY[0x277CC2760];
-  v5[2] = *MEMORY[0x277CC3140];
-  v5[3] = v1;
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:4];
+  v4[2] = *MEMORY[0x277CC3140];
+  v4[3] = v1;
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:4];
   v3 = requiredAttributes_sEmbeddingReqAttributes;
   requiredAttributes_sEmbeddingReqAttributes = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (id)processedAttributes
@@ -75,45 +73,43 @@ void __43__SKDEmbeddingProcessor_requiredAttributes__block_invoke()
 
 void __44__SKDEmbeddingProcessor_processedAttributes__block_invoke()
 {
-  v4[2] = *MEMORY[0x277D85DE8];
+  v3[2] = *MEMORY[0x277D85DE8];
   v0 = *MEMORY[0x277CC30E0];
-  v4[0] = *MEMORY[0x277CC2FC8];
-  v4[1] = v0;
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:2];
+  v3[0] = *MEMORY[0x277CC2FC8];
+  v3[1] = v0;
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:2];
   v2 = processedAttributes_sEmbeddingAttributes;
   processedAttributes_sEmbeddingAttributes = v1;
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)willProcessRecord:(id)record bundleID:(id)d
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   recordCopy = record;
-  v22.receiver = self;
-  v22.super_class = SKDEmbeddingProcessor;
-  if ([(SKDRecordProcessor *)&v22 willProcessRecord:recordCopy bundleID:d])
+  v21.receiver = self;
+  v21.super_class = SKDEmbeddingProcessor;
+  if ([(SKDRecordProcessor *)&v21 willProcessRecord:recordCopy bundleID:d])
   {
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     processedAttributes = [(SKDEmbeddingProcessor *)self processedAttributes];
-    v8 = [processedAttributes countByEnumeratingWithState:&v18 objects:v23 count:16];
+    v8 = [processedAttributes countByEnumeratingWithState:&v17 objects:v22 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v19;
+      v10 = *v18;
       while (2)
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v19 != v10)
+          if (*v18 != v10)
           {
             objc_enumerationMutation(processedAttributes);
           }
 
-          v12 = [recordCopy objectForKeyedSubscript:*(*(&v18 + 1) + 8 * i)];
+          v12 = [recordCopy objectForKeyedSubscript:*(*(&v17 + 1) + 8 * i)];
 
           if (v12)
           {
@@ -126,7 +122,7 @@ void __44__SKDEmbeddingProcessor_processedAttributes__block_invoke()
           }
         }
 
-        v9 = [processedAttributes countByEnumeratingWithState:&v18 objects:v23 count:16];
+        v9 = [processedAttributes countByEnumeratingWithState:&v17 objects:v22 count:16];
         if (v9)
         {
           continue;
@@ -145,13 +141,12 @@ LABEL_13:
     v13 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 - (id)processRecord:(id)record bundleID:(id)d
 {
-  v69[1] = *MEMORY[0x277D85DE8];
+  v68[1] = *MEMORY[0x277D85DE8];
   recordCopy = record;
   dCopy = d;
   v8 = [SKDRecordUpdate alloc];
@@ -165,19 +160,19 @@ LABEL_13:
   v13 = [recordCopy objectForKey:@"_kMDItemProtectionClass"];
   v14 = [recordCopy objectForKeyedSubscript:*MEMORY[0x277CC31A0]];
   -[SKDItemUpdate setTextContentLength:](v10, "setTextContentLength:", [v14 length]);
-  v66 = v12;
+  v65 = v12;
   v15 = [(SKGProcessor *)self->_processor itemFromRecord:recordCopy referenceIdentifier:v12 bundleIdentifier:dCopy protectionClass:v13];
   context = objc_autoreleasePoolPush();
   logger = [(SKDRecordProcessor *)self logger];
   v17 = [logger trackingEventBeginWithName:@"embeddings" event:v10];
 
   processor = self->_processor;
-  v67[0] = MEMORY[0x277D85DD0];
-  v67[1] = 3221225472;
-  v67[2] = __48__SKDEmbeddingProcessor_processRecord_bundleID___block_invoke;
-  v67[3] = &unk_27893E2E8;
-  v67[4] = self;
-  v19 = [(SKGProcessor *)processor generateEmbeddingsForRecord:recordCopy processedItem:v15 isPriority:0 workCost:0 cancelBlock:v67];
+  v66[0] = MEMORY[0x277D85DD0];
+  v66[1] = 3221225472;
+  v66[2] = __48__SKDEmbeddingProcessor_processRecord_bundleID___block_invoke;
+  v66[3] = &unk_27893E2E8;
+  v66[4] = self;
+  v19 = [(SKGProcessor *)processor generateEmbeddingsForRecord:recordCopy processedItem:v15 isPriority:0 workCost:0 cancelBlock:v66];
   logger2 = [(SKDRecordProcessor *)self logger];
   [logger2 trackingEventEnd:v17];
 
@@ -201,9 +196,9 @@ LABEL_13:
     if ([v15 errorProcessingEmbeddings])
     {
       v21 = objc_alloc(MEMORY[0x277CCA9B8]);
-      v68 = @"messageInfoKey";
-      v69[0] = @"error generating embeddings";
-      v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v69 forKeys:&v68 count:1];
+      v67 = @"messageInfoKey";
+      v68[0] = @"error generating embeddings";
+      v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v68 forKeys:&v67 count:1];
       v23 = [v21 initWithDomain:@"SKDEmbeddingProcessorErrorDomain" code:-1000 userInfo:v22];
 
       v24 = [[SKDRecordUpdate alloc] initWithStatus:4 identifier:dCopy info:v23];
@@ -227,14 +222,14 @@ LABEL_13:
 
         if (v31)
         {
-          v59 = objc_alloc(MEMORY[0x277CC3520]);
+          v58 = objc_alloc(MEMORY[0x277CC3520]);
           format = [embedding format];
-          v54 = [embedding size];
+          v53 = [embedding size];
           version = [embedding version];
           secondaryEmbeddings2 = [embedding secondaryEmbeddings];
-          v60 = [v59 initWithFormat:format dimension:v54 version:version vectors:secondaryEmbeddings2];
+          v59 = [v58 initWithFormat:format dimension:v53 version:version vectors:secondaryEmbeddings2];
 
-          [(SKDItemUpdate *)v10 addAttribute:*MEMORY[0x277CC30E0] value:v60];
+          [(SKDItemUpdate *)v10 addAttribute:*MEMORY[0x277CC30E0] value:v59];
           v34 = MEMORY[0x277CCABB0];
           mEMORY[0x277D657A0] = [MEMORY[0x277D657A0] sharedContext];
           v36 = [v34 numberWithInteger:{objc_msgSend(mEMORY[0x277D657A0], "embeddingModelVersion")}];
@@ -246,14 +241,14 @@ LABEL_13:
 
         if (v38)
         {
-          v61 = objc_alloc(MEMORY[0x277CC3520]);
+          v60 = objc_alloc(MEMORY[0x277CC3520]);
           format2 = [embedding format];
-          v55 = [embedding size];
+          v54 = [embedding size];
           version2 = [embedding version];
           primaryEmbeddings2 = [embedding primaryEmbeddings];
-          v62 = [v61 initWithFormat:format2 dimension:v55 version:version2 vectors:primaryEmbeddings2];
+          v61 = [v60 initWithFormat:format2 dimension:v54 version:version2 vectors:primaryEmbeddings2];
 
-          [(SKDItemUpdate *)v10 addAttribute:*MEMORY[0x277CC2FC8] value:v62];
+          [(SKDItemUpdate *)v10 addAttribute:*MEMORY[0x277CC2FC8] value:v61];
           v41 = MEMORY[0x277CCABB0];
           mEMORY[0x277D657A0]2 = [MEMORY[0x277D657A0] sharedContext];
           v43 = [v41 numberWithInteger:{objc_msgSend(mEMORY[0x277D657A0]2, "embeddingModelVersion")}];
@@ -269,13 +264,13 @@ LABEL_13:
           fsIndexDataContentVersion = [embedding fsIndexDataContentVersion];
           [(SKDItemUpdate *)v10 addAttribute:v45 value:fsIndexDataContentVersion];
 
-          v58 = *MEMORY[0x277CC2B40];
+          v57 = *MEMORY[0x277CC2B40];
           v47 = MEMORY[0x277D65798];
           v48 = MEMORY[0x277CCABB0];
           mEMORY[0x277D657A0]3 = [MEMORY[0x277D657A0] sharedContext];
           v49 = [v48 numberWithInteger:{objc_msgSend(mEMORY[0x277D657A0]3, "embeddingModelVersion")}];
           v50 = [v47 embeddingVersionDataWithVersion:v49];
-          [(SKDItemUpdate *)v10 addAttribute:v58 value:v50];
+          [(SKDItemUpdate *)v10 addAttribute:v57 value:v50];
         }
       }
     }
@@ -292,7 +287,6 @@ LABEL_13:
 LABEL_20:
 
   objc_autoreleasePoolPop(context);
-  v52 = *MEMORY[0x277D85DE8];
 
   return v26;
 }

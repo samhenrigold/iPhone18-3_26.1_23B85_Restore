@@ -6,7 +6,7 @@
 
 - (void)main
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   v3 = [HDCloudSyncCompoundOperation alloc];
   configuration = [(HDCloudSyncOperation *)self configuration];
   cloudState = [(HDCloudSyncOperation *)self cloudState];
@@ -28,8 +28,8 @@
 
     v17 = [HDCloudSyncCreateZonesOperation alloc];
     configuration4 = [(HDCloudSyncOperation *)self configuration];
-    v25[0] = v16;
-    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
+    v24[0] = v16;
+    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
     configuration5 = [(HDCloudSyncOperation *)self configuration];
     repository3 = [configuration5 repository];
     primaryCKContainer = [repository3 primaryCKContainer];
@@ -44,8 +44,6 @@
   [(HDCloudSyncCompoundOperation *)v6 addOperationOfClass:objc_opt_class() transitionHandler:0];
   [(HDCloudSyncCompoundOperation *)v6 addOperationOfClass:objc_opt_class() transitionHandler:0];
   [(HDCloudSyncOperation *)self delegateToOperation:v6];
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 @end

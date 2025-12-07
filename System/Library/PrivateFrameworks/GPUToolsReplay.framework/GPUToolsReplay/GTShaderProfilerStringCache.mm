@@ -45,18 +45,18 @@
 
 - (GTShaderProfilerStringCache)initWithCoder:(id)coder
 {
-  v19[3] = *MEMORY[0x277D85DE8];
+  v18[3] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v18.receiver = self;
-  v18.super_class = GTShaderProfilerStringCache;
-  v5 = [(GTShaderProfilerStringCache *)&v18 init];
+  v17.receiver = self;
+  v17.super_class = GTShaderProfilerStringCache;
+  v5 = [(GTShaderProfilerStringCache *)&v17 init];
   if (v5)
   {
     v6 = MEMORY[0x277CBEB98];
-    v19[0] = objc_opt_class();
-    v19[1] = objc_opt_class();
-    v19[2] = objc_opt_class();
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:3];
+    v18[0] = objc_opt_class();
+    v18[1] = objc_opt_class();
+    v18[2] = objc_opt_class();
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:3];
     v8 = [v6 setWithArray:v7];
     v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"strings"];
     strings = v5->_strings;
@@ -67,15 +67,14 @@
     v5->_stringDict = v11;
 
     v13 = v5->_strings;
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __45__GTShaderProfilerStringCache_initWithCoder___block_invoke;
-    v16[3] = &unk_2796579C0;
-    v17 = v5;
-    [(NSMutableArray *)v13 enumerateObjectsUsingBlock:v16];
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __45__GTShaderProfilerStringCache_initWithCoder___block_invoke;
+    v15[3] = &unk_2796579C0;
+    v16 = v5;
+    [(NSMutableArray *)v13 enumerateObjectsUsingBlock:v15];
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

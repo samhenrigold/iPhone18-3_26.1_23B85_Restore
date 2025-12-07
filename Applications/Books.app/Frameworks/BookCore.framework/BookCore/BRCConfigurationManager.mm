@@ -335,14 +335,15 @@
   cacheLoadedCondition = [(BRCConfigurationManager *)self cacheLoadedCondition];
   [cacheLoadedCondition lock];
 
-  if (![(BRCConfigurationManager *)self cacheLoaded])
+  cacheLoaded = [(BRCConfigurationManager *)self cacheLoaded];
+  if ((cacheLoaded & 1) == 0)
   {
-    v7 = BRCConfigLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = BRCConfigLog(cacheLoaded);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v21 = 134217984;
+      v23 = 134217984;
       loadedCopy = loaded;
-      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "waitForCachedConfigurationLoaded: Waiting for cacheLoaded. timeout: %f", &v21, 0xCu);
+      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "waitForCachedConfigurationLoaded: Waiting for cacheLoaded. timeout: %f", &v23, 0xCu);
     }
   }
 
@@ -351,26 +352,27 @@
     do
     {
       cacheLoadedCondition2 = [(BRCConfigurationManager *)self cacheLoadedCondition];
-      v9 = [cacheLoadedCondition2 waitUntilDate:v5];
+      v10 = [cacheLoadedCondition2 waitUntilDate:v5];
     }
 
-    while (![(BRCConfigurationManager *)self cacheLoaded]&& (v9 & 1) != 0);
+    while (![(BRCConfigurationManager *)self cacheLoaded]&& (v10 & 1) != 0);
   }
 
-  cacheLoaded = [(BRCConfigurationManager *)self cacheLoaded];
-  if (!cacheLoaded)
+  cacheLoaded2 = [(BRCConfigurationManager *)self cacheLoaded];
+  v12 = cacheLoaded2;
+  if ((cacheLoaded2 & 1) == 0)
   {
-    v11 = BRCConfigLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = BRCConfigLog(cacheLoaded2);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      sub_1EA8E0(v11, v12, v13, v14, v15, v16, v17, v18);
+      sub_1EA8E0(v13, v14, v15, v16, v17, v18, v19, v20, loaded);
     }
   }
 
   cacheLoadedCondition3 = [(BRCConfigurationManager *)self cacheLoadedCondition];
   [cacheLoadedCondition3 unlock];
 
-  return cacheLoaded;
+  return v12;
 }
 
 - (void)setValue:(id)value forKey:(id)key forNamespace:(id)namespace
@@ -403,37 +405,37 @@
   if (off_33EEA0 == context)
   {
     v7 = [(BRCConfigurationManager *)self data:path];
-    v13[0] = _NSConcreteStackBlock;
-    v13[1] = 3221225472;
-    v13[2] = sub_12F930;
-    v13[3] = &unk_2CDB18;
-    v13[4] = self;
-    [v7 enumerateKeysAndObjectsUsingBlock:v13];
+    v15[0] = _NSConcreteStackBlock;
+    v15[1] = 3221225472;
+    v15[2] = sub_12F930;
+    v15[3] = &unk_2CDB18;
+    v15[4] = self;
+    [v7 enumerateKeysAndObjectsUsingBlock:v15];
 
-    v8 = BRCConfigLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v9 = BRCConfigLog(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v9 = [(NSUserDefaults *)self->_userDefaults stringForKey:@"BRCOverrideSegmentIDs"];
+      v10 = [(NSUserDefaults *)self->_userDefaults stringForKey:@"BRCOverrideSegmentIDs"];
       *buf = 138412290;
-      v15 = v9;
-      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_INFO, "RemoteConfigInfo: Override SegmentIDs = %@", buf, 0xCu);
+      v17 = v10;
+      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_INFO, "RemoteConfigInfo: Override SegmentIDs = %@", buf, 0xCu);
     }
 
-    v10 = BRCConfigLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v12 = BRCConfigLog(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      v11 = [(NSUserDefaults *)self->_userDefaults stringForKey:@"BRCAdditionalSegmentIDs"];
+      v13 = [(NSUserDefaults *)self->_userDefaults stringForKey:@"BRCAdditionalSegmentIDs"];
       *buf = 138412290;
-      v15 = v11;
-      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_INFO, "RemoteConfigInfo: Additional SegmentIDs = %@", buf, 0xCu);
+      v17 = v13;
+      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_INFO, "RemoteConfigInfo: Additional SegmentIDs = %@", buf, 0xCu);
     }
   }
 
   else
   {
-    v12.receiver = self;
-    v12.super_class = BRCConfigurationManager;
-    [(BRCConfigurationManager *)&v12 observeValueForKeyPath:path ofObject:object change:change context:?];
+    v14.receiver = self;
+    v14.super_class = BRCConfigurationManager;
+    [(BRCConfigurationManager *)&v14 observeValueForKeyPath:path ofObject:object change:change context:?];
   }
 }
 
@@ -576,22 +578,23 @@ LABEL_9:
       dataCopy = [NSString stringWithFormat:@"RemoteConfigMonitor: %@, data = %@", messageCopy, dataCopy];
       jsBridge2 = [(BRCConfigurationManager *)self jsBridge];
       monitorCallback2 = [(BRCConfigurationManager *)self monitorCallback];
-      v20 = dataCopy;
-      v14 = [NSArray arrayWithObjects:&v20 count:1];
+      v21 = dataCopy;
+      v14 = [NSArray arrayWithObjects:&v21 count:1];
       [jsBridge2 enqueueValueCall:monitorCallback2 arguments:v14 file:@"/Library/Caches/com.apple.xbs/Sources/Alder/frameworks/BookCore/BookCore/RemoteConfig/BRCConfigurationManager.m" line:538];
     }
   }
 
-  if ([(BRCConfigurationManager *)self monitoringEnabled])
+  monitoringEnabled = [(BRCConfigurationManager *)self monitoringEnabled];
+  if (monitoringEnabled)
   {
-    v15 = BRCConfigLog();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    v16 = BRCConfigLog(monitoringEnabled);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
-      v17 = messageCopy;
-      v18 = 2112;
-      v19 = dataCopy;
-      _os_log_impl(&dword_0, v15, OS_LOG_TYPE_INFO, "RemoteConfigMonitor: %@, data = %@", buf, 0x16u);
+      v18 = messageCopy;
+      v19 = 2112;
+      v20 = dataCopy;
+      _os_log_impl(&dword_0, v16, OS_LOG_TYPE_INFO, "RemoteConfigMonitor: %@, data = %@", buf, 0x16u);
     }
   }
 }
@@ -747,13 +750,14 @@ LABEL_9:
   v7 = [NSData dataWithContentsOfURL:v6];
   if (v7)
   {
-    v12 = 0;
-    v8 = [NSKeyedUnarchiver unarchivedObjectOfClass:objc_opt_class() fromData:v7 error:&v12];
-    v9 = v12;
+    v13 = 0;
+    v8 = [NSKeyedUnarchiver unarchivedObjectOfClass:objc_opt_class() fromData:v7 error:&v13];
+    v9 = v13;
+    v10 = v9;
     if (v9)
     {
-      v10 = BRCConfigLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = BRCConfigLog(v9);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         sub_1EA950();
       }
@@ -762,7 +766,7 @@ LABEL_9:
 
   else
   {
-    v9 = 0;
+    v10 = 0;
     v8 = 0;
   }
 
@@ -774,28 +778,29 @@ LABEL_9:
   namespaceCopy = namespace;
   dataCopy = data;
   [dataCopy setNamespaceIdentifier:namespaceCopy];
-  v15 = 0;
-  v8 = [NSKeyedArchiver archivedDataWithRootObject:dataCopy requiringSecureCoding:1 error:&v15];
+  v17 = 0;
+  v8 = [NSKeyedArchiver archivedDataWithRootObject:dataCopy requiringSecureCoding:1 error:&v17];
 
-  v9 = v15;
+  v9 = v17;
+  v10 = v9;
   if (!v8)
   {
-    v10 = BRCConfigLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = BRCConfigLog(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_1EA9B8();
     }
   }
 
-  v11 = [(BRCConfigurationManager *)self _cacheURLFromNamespace:namespaceCopy];
-  v14 = v9;
-  [v8 writeToURL:v11 options:1 error:&v14];
-  v12 = v14;
+  v12 = [(BRCConfigurationManager *)self _cacheURLFromNamespace:namespaceCopy];
+  v16 = v10;
+  [v8 writeToURL:v12 options:1 error:&v16];
+  v13 = v16;
 
-  if (v12)
+  if (v13)
   {
-    v13 = BRCConfigLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = BRCConfigLog(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       sub_1EAA20();
     }
@@ -806,27 +811,27 @@ LABEL_9:
 {
   namespaceCopy = namespace;
   v4 = +[NSFileManager defaultManager];
-  v10 = 0;
-  v5 = [v4 URLForDirectory:13 inDomain:1 appropriateForURL:0 create:1 error:&v10];
-  v6 = v10;
+  v11 = 0;
+  v5 = [v4 URLForDirectory:13 inDomain:1 appropriateForURL:0 create:1 error:&v11];
+  v6 = v11;
 
   if (v5)
   {
-    v7 = [v5 URLByAppendingPathComponent:namespaceCopy isDirectory:0];
+    v8 = [v5 URLByAppendingPathComponent:namespaceCopy isDirectory:0];
   }
 
   else
   {
-    v8 = BRCConfigLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = BRCConfigLog(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_1EAA88();
     }
 
-    v7 = 0;
+    v8 = 0;
   }
 
-  return v7;
+  return v8;
 }
 
 - (id)jsBridge

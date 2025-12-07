@@ -63,7 +63,7 @@ uint64_t __34__PrivacyProxyStateRelay_networks__block_invoke(uint64_t a1)
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (SFPrivacyProxyTraffic)traffic
@@ -94,7 +94,7 @@ uint64_t __33__PrivacyProxyStateRelay_traffic__block_invoke(uint64_t a1)
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (PrivacyProxyStateRelay)init
@@ -250,45 +250,6 @@ uint64_t __30__PrivacyProxyStateRelay_init__block_invoke_4(uint64_t a1)
 
 void __57__PrivacyProxyStateRelay_updatePrivacyProxyConfiguration__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v5 = a3;
-  if (v5)
-  {
-    v6 = analyticsLogHandle;
-    if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_ERROR))
-    {
-      v13 = 138412290;
-      v14 = v5;
-      v7 = "Get status returned error: %@";
-      v8 = v6;
-      v9 = OS_LOG_TYPE_ERROR;
-      v10 = 12;
-LABEL_6:
-      _os_log_impl(&dword_23255B000, v8, v9, v7, &v13, v10);
-    }
-  }
-
-  else
-  {
-    [*(a1 + 32) setEnabled:a2];
-    v11 = analyticsLogHandle;
-    if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_INFO))
-    {
-      v13 = 67109120;
-      LODWORD(v14) = a2;
-      v7 = "Privacy proxy enabled: %{BOOL}d";
-      v8 = v11;
-      v9 = OS_LOG_TYPE_INFO;
-      v10 = 8;
-      goto LABEL_6;
-    }
-  }
-
-  v12 = *MEMORY[0x277D85DE8];
-}
-
-void __57__PrivacyProxyStateRelay_updatePrivacyProxyConfiguration__block_invoke_104(uint64_t a1, uint64_t a2, void *a3)
-{
   v14 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (v5)
@@ -298,7 +259,44 @@ void __57__PrivacyProxyStateRelay_updatePrivacyProxyConfiguration__block_invoke_
     {
       v12 = 138412290;
       v13 = v5;
-      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, "Get user tier returned error: %@", &v12, 0xCu);
+      v7 = "Get status returned error: %@";
+      v8 = v6;
+      v9 = OS_LOG_TYPE_ERROR;
+      v10 = 12;
+LABEL_6:
+      _os_log_impl(&dword_23255B000, v8, v9, v7, &v12, v10);
+    }
+  }
+
+  else
+  {
+    [*(a1 + 32) setEnabled:a2];
+    v11 = analyticsLogHandle;
+    if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_INFO))
+    {
+      v12 = 67109120;
+      LODWORD(v13) = a2;
+      v7 = "Privacy proxy enabled: %{BOOL}d";
+      v8 = v11;
+      v9 = OS_LOG_TYPE_INFO;
+      v10 = 8;
+      goto LABEL_6;
+    }
+  }
+}
+
+void __57__PrivacyProxyStateRelay_updatePrivacyProxyConfiguration__block_invoke_104(uint64_t a1, uint64_t a2, void *a3)
+{
+  v13 = *MEMORY[0x277D85DE8];
+  v5 = a3;
+  if (v5)
+  {
+    v6 = analyticsLogHandle;
+    if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_ERROR))
+    {
+      v11 = 138412290;
+      v12 = v5;
+      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, "Get user tier returned error: %@", &v11, 0xCu);
     }
   }
 
@@ -311,27 +309,25 @@ void __57__PrivacyProxyStateRelay_updatePrivacyProxyConfiguration__block_invoke_
       v8 = *(a1 + 32);
       v9 = v7;
       v10 = +[PrivacyProxyStateRelay userTierString:](PrivacyProxyStateRelay, "userTierString:", [v8 userTier]);
-      v12 = 138412290;
-      v13 = v10;
-      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_INFO, "Privacy proxy user tier: %@", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = v10;
+      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_INFO, "Privacy proxy user tier: %@", &v11, 0xCu);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __57__PrivacyProxyStateRelay_updatePrivacyProxyConfiguration__block_invoke_106(uint64_t a1, unint64_t a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (v5)
   {
     v6 = analyticsLogHandle;
     if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_ERROR))
     {
-      v10 = 138412290;
-      v11 = v5;
-      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, "Get traffic state returned error: %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v5;
+      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, "Get traffic state returned error: %@", &v9, 0xCu);
     }
   }
 
@@ -353,13 +349,11 @@ void __57__PrivacyProxyStateRelay_updatePrivacyProxyConfiguration__block_invoke_
     v8 = analyticsLogHandle;
     if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_INFO))
     {
-      v10 = 138412290;
-      v11 = v7;
-      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_INFO, "Privacy proxy traffic: %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v7;
+      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_INFO, "Privacy proxy traffic: %@", &v9, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updatePrivacyProxyStatus
@@ -382,7 +376,7 @@ void __57__PrivacyProxyStateRelay_updatePrivacyProxyConfiguration__block_invoke_
 
 void __50__PrivacyProxyStateRelay_updatePrivacyProxyStatus__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -391,7 +385,7 @@ void __50__PrivacyProxyStateRelay_updatePrivacyProxyStatus__block_invoke(uint64_
     if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v34 = v6;
+      v33 = v6;
       v8 = "Get service status returned error: %@";
       v9 = v7;
       v10 = OS_LOG_TYPE_ERROR;
@@ -427,50 +421,50 @@ LABEL_4:
       v14 = v12;
       v15 = +[PrivacyProxyStateRelay serviceStatusString:](PrivacyProxyStateRelay, "serviceStatusString:", [v13 serviceStatus]);
       *buf = 138412290;
-      v34 = v15;
+      v33 = v15;
       _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_INFO, "Privacy proxy service status: %@", buf, 0xCu);
     }
 
-    v27 = a1;
+    v26 = a1;
     v16 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v27 = 0u;
     v28 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
     v17 = [v5 networkStatuses];
-    v18 = [v17 countByEnumeratingWithState:&v28 objects:v32 count:16];
+    v18 = [v17 countByEnumeratingWithState:&v27 objects:v31 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v29;
+      v20 = *v28;
       do
       {
         for (i = 0; i != v19; ++i)
         {
-          if (*v29 != v20)
+          if (*v28 != v20)
           {
             objc_enumerationMutation(v17);
           }
 
-          v22 = *(*(&v28 + 1) + 8 * i);
+          v22 = *(*(&v27 + 1) + 8 * i);
           v23 = objc_alloc_init(SFPrivacyProxyNetwork);
           -[SFPrivacyProxyNetwork setType:](v23, "setType:", [v22 networkType]);
           -[SFPrivacyProxyNetwork setStatus:](v23, "setStatus:", +[PrivacyProxyStateRelay networkStatusFromNSPStatus:](PrivacyProxyStateRelay, "networkStatusFromNSPStatus:", [v22 networkStatus]));
           [v16 addObject:v23];
         }
 
-        v19 = [v17 countByEnumeratingWithState:&v28 objects:v32 count:16];
+        v19 = [v17 countByEnumeratingWithState:&v27 objects:v31 count:16];
       }
 
       while (v19);
     }
 
-    [*(v27 + 32) setNetworks:v16];
+    [*(v26 + 32) setNetworks:v16];
     v24 = analyticsLogHandle;
     if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v34 = v16;
+      v33 = v16;
       _os_log_impl(&dword_23255B000, v24, OS_LOG_TYPE_INFO, "Privacy proxy network status: %@", buf, 0xCu);
     }
 
@@ -478,8 +472,6 @@ LABEL_4:
   }
 
 LABEL_20:
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updatePrivacyProxyPath
@@ -494,157 +486,127 @@ LABEL_20:
 
 + (unsigned)serviceStatusFromNSPStatus:(unint64_t)status
 {
-  v9 = *MEMORY[0x277D85DE8];
-  if (status >= 8)
+  v8 = *MEMORY[0x277D85DE8];
+  if (status < 8)
   {
-    v5 = analyticsLogHandle;
-    result = os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_ERROR);
-    if (result)
-    {
-      v7 = 134217984;
-      statusCopy = status;
-      _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_ERROR, "serviceStatusFromNSPStatus - invalid nspStatus: %lu", &v7, 0xCu);
-      result = 0;
-    }
+    return status + 1;
   }
 
-  else
+  v5 = analyticsLogHandle;
+  result = os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_ERROR);
+  if (result)
   {
-    result = status + 1;
+    v6 = 134217984;
+    statusCopy = status;
+    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_ERROR, "serviceStatusFromNSPStatus - invalid nspStatus: %lu", &v6, 0xCu);
+    return 0;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 + (id)serviceStatusString:(unsigned int)string
 {
-  v8 = *MEMORY[0x277D85DE8];
-  if (string >= 9)
+  v7 = *MEMORY[0x277D85DE8];
+  if (string < 9)
   {
-    v5 = analyticsLogHandle;
-    if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_ERROR))
-    {
-      v7[0] = 67109120;
-      v7[1] = string;
-      _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_ERROR, "serviceStatusString - invalid status: %u", v7, 8u);
-    }
-
-    result = @"Unknown";
+    return off_27898D4B8[string];
   }
 
-  else
+  v5 = analyticsLogHandle;
+  if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_ERROR))
   {
-    result = off_27898D4B8[string];
+    v6[0] = 67109120;
+    v6[1] = string;
+    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_ERROR, "serviceStatusString - invalid status: %u", v6, 8u);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return @"Unknown";
 }
 
 + (unsigned)userTierFromNSPTier:(unint64_t)tier
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (tier == 1)
   {
-    result = 1;
+    return 1;
   }
 
-  else if (tier == 2)
+  if (tier == 2)
   {
-    result = 2;
+    return 2;
   }
 
-  else
+  v5 = analyticsLogHandle;
+  result = os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_ERROR);
+  if (result)
   {
-    v5 = analyticsLogHandle;
-    result = os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_ERROR);
-    if (result)
-    {
-      v7 = 134217984;
-      tierCopy = tier;
-      _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_ERROR, "userTierFromNSPTier - invalid nspTier: %lu", &v7, 0xCu);
-      result = 0;
-    }
+    v6 = 134217984;
+    tierCopy = tier;
+    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_ERROR, "userTierFromNSPTier - invalid nspTier: %lu", &v6, 0xCu);
+    return 0;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 + (id)userTierString:(unsigned int)string
 {
-  v8 = *MEMORY[0x277D85DE8];
-  if (string >= 3)
+  v7 = *MEMORY[0x277D85DE8];
+  if (string < 3)
   {
-    v5 = analyticsLogHandle;
-    if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_ERROR))
-    {
-      v7[0] = 67109120;
-      v7[1] = string;
-      _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_ERROR, "userTierString - invalid tier: %u", v7, 8u);
-    }
-
-    result = @"Unknown";
+    return off_27898D500[string];
   }
 
-  else
+  v5 = analyticsLogHandle;
+  if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_ERROR))
   {
-    result = off_27898D500[string];
+    v6[0] = 67109120;
+    v6[1] = string;
+    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_ERROR, "userTierString - invalid tier: %u", v6, 8u);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return @"Unknown";
 }
 
 + (unsigned)networkStatusFromNSPStatus:(unint64_t)status
 {
-  v9 = *MEMORY[0x277D85DE8];
-  if (status >= 3)
+  v8 = *MEMORY[0x277D85DE8];
+  if (status < 3)
   {
-    v5 = analyticsLogHandle;
-    result = os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_ERROR);
-    if (result)
-    {
-      v7 = 134217984;
-      statusCopy = status;
-      _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_ERROR, "networkStatusFromNSPStatus - invalid nspStatus: %lu", &v7, 0xCu);
-      result = 0;
-    }
+    return status + 1;
   }
 
-  else
+  v5 = analyticsLogHandle;
+  result = os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_ERROR);
+  if (result)
   {
-    result = status + 1;
+    v6 = 134217984;
+    statusCopy = status;
+    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_ERROR, "networkStatusFromNSPStatus - invalid nspStatus: %lu", &v6, 0xCu);
+    return 0;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 + (id)networkStatusString:(unsigned int)string
 {
-  v8 = *MEMORY[0x277D85DE8];
-  if (string >= 4)
+  v7 = *MEMORY[0x277D85DE8];
+  if (string < 4)
   {
-    v5 = analyticsLogHandle;
-    if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_ERROR))
-    {
-      v7[0] = 67109120;
-      v7[1] = string;
-      _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_ERROR, "networkStatusString - invalid status: %u", v7, 8u);
-    }
-
-    result = @"Unknown";
+    return off_27898D518[string];
   }
 
-  else
+  v5 = analyticsLogHandle;
+  if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_ERROR))
   {
-    result = off_27898D518[string];
+    v6[0] = 67109120;
+    v6[1] = string;
+    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_ERROR, "networkStatusString - invalid status: %u", v6, 8u);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return @"Unknown";
 }
 
 uint64_t __40__PrivacyProxyStateRelay_sharedInstance__block_invoke()

@@ -2534,7 +2534,7 @@ LABEL_10:
   if (result)
   {
     v3 = result;
-    v4 = sub_10034BF18();
+    v4 = sub_10034BF18(result);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       *buf = 138477827;

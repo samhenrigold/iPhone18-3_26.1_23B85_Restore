@@ -238,7 +238,7 @@
 
 - (void)setTemplateInfo:(id)info
 {
-  v211 = *MEMORY[0x29EDCA608];
+  v210 = *MEMORY[0x29EDCA608];
   infoCopy = info;
   v5 = MEMORY[0x29EDBA070];
   v6 = [infoCopy count];
@@ -254,9 +254,9 @@
   }
 
   v11 = 0;
-  v203 = 0;
+  v202 = 0;
   v12 = MEMORY[0x29EDCA988];
-  v181 = infoCopy;
+  v180 = infoCopy;
   do
   {
     if (__osLog)
@@ -272,7 +272,7 @@
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       *buf = 67109120;
-      *&buf[4] = v203;
+      *&buf[4] = v202;
       _os_log_impl(&dword_296CA4000, v13, OS_LOG_TYPE_DEBUG, "PearlCoreAnalyticsDailyTemplateMatchCountsEvent setTemplateInfo: identityIndex: %d\n", buf, 8u);
     }
 
@@ -285,34 +285,34 @@
       goto LABEL_85;
     }
 
-    v207 = 0u;
-    v208 = 0u;
-    v205 = 0u;
     v206 = 0u;
+    v207 = 0u;
+    v204 = 0u;
+    v205 = 0u;
     obj = v14;
-    v204 = [(NSNumber *)obj countByEnumeratingWithState:&v205 objects:v209 count:16];
-    if (!v204)
+    v203 = [(NSNumber *)obj countByEnumeratingWithState:&v204 objects:v208 count:16];
+    if (!v203)
     {
-      v201 = 0;
-      v118 = v203;
-      v182 = v203;
+      v200 = 0;
+      v118 = v202;
+      v181 = v202;
       goto LABEL_63;
     }
 
-    v201 = 0;
-    v202 = *v206;
-    v182 = v203;
-    v183 = 0xFFFF;
+    v200 = 0;
+    v201 = *v205;
+    v181 = v202;
+    v182 = 0xFFFF;
     while (2)
     {
-      for (i = 0; i != v204; ++i)
+      for (i = 0; i != v203; ++i)
       {
-        if (*v206 != v202)
+        if (*v205 != v201)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v205 + 1) + 8 * i);
+        v16 = *(*(&v204 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
@@ -320,7 +320,7 @@
 LABEL_84:
           matchingTemplateCountType1MainTemplate = obj;
 
-          v8 = v181;
+          v8 = v180;
           goto LABEL_85;
         }
 
@@ -376,7 +376,7 @@ LABEL_84:
           }
 
           v21 = *(bytes + 33);
-          if ((v201 & 1) == 0)
+          if ((v200 & 1) == 0)
           {
             v33 = 0;
             v20 = 0;
@@ -396,7 +396,7 @@ LABEL_84:
             v24 = *(bytes + 33);
             v28 = 1;
             v32 = 1;
-            v183 = 1;
+            v182 = 1;
             goto LABEL_40;
           }
 
@@ -450,7 +450,7 @@ LABEL_84:
           }
 
           v23 = *(bytes + 33);
-          if ((v201 & 1) == 0)
+          if ((v200 & 1) == 0)
           {
             v33 = 0;
             v20 = 0;
@@ -470,7 +470,7 @@ LABEL_84:
             v24 = *(bytes + 33);
             v27 = 1;
             v32 = 1;
-            v183 = *(bytes + 38);
+            v182 = *(bytes + 38);
             goto LABEL_40;
           }
 
@@ -543,7 +543,7 @@ LABEL_29:
           }
 
           v22 = *(bytes + 33);
-          if ((v201 & 1) == 0)
+          if ((v200 & 1) == 0)
           {
             v33 = 0;
             v20 = 0;
@@ -556,7 +556,7 @@ LABEL_29:
             v30 = 0;
             v31 = 0;
             v37 = 0;
-            v183 = 0;
+            v182 = 0;
             v35 = *(bytes + 21);
             v34 = 0.0;
             v25 = *(bytes + 29);
@@ -588,17 +588,17 @@ LABEL_29:
 
         v35 = 0.0;
 LABEL_40:
-        v201 = 1;
+        v200 = 1;
 LABEL_41:
-        if (v203 == 1)
+        if (v202 == 1)
         {
           if (v19 == 1)
           {
-            v200 = v35;
-            v185 = v24;
-            v187 = v25;
-            v191 = v21;
-            v195 = v23;
+            v199 = v35;
+            v184 = v24;
+            v186 = v25;
+            v190 = v21;
+            v194 = v23;
             v96 = v22;
             v97 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:{-[NSNumber unsignedIntValue](self->_identity1EnrolledTemplateCountType1NoGlasses, "unsignedIntValue", v34) + v29}];
             identity1EnrolledTemplateCountType1NoGlasses = self->_identity1EnrolledTemplateCountType1NoGlasses;
@@ -616,11 +616,11 @@ LABEL_41:
             identity1MatchingTemplateCountType1NoGlasses = self->_identity1MatchingTemplateCountType1NoGlasses;
             self->_identity1MatchingTemplateCountType1NoGlasses = v103;
 
-            v105 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:{-[NSNumber unsignedIntValue](self->_identity1MatchingTemplateCountType1WithGlasses, "unsignedIntValue") + v191}];
+            v105 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:{-[NSNumber unsignedIntValue](self->_identity1MatchingTemplateCountType1WithGlasses, "unsignedIntValue") + v190}];
             identity1MatchingTemplateCountType1WithGlasses = self->_identity1MatchingTemplateCountType1WithGlasses;
             self->_identity1MatchingTemplateCountType1WithGlasses = v105;
 
-            v107 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:{-[NSNumber unsignedIntValue](self->_identity1MatchingTemplateCountType1Unknown, "unsignedIntValue") + v195}];
+            v107 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:{-[NSNumber unsignedIntValue](self->_identity1MatchingTemplateCountType1Unknown, "unsignedIntValue") + v194}];
             identity1MatchingTemplateCountType1Unknown = self->_identity1MatchingTemplateCountType1Unknown;
             self->_identity1MatchingTemplateCountType1Unknown = v107;
 
@@ -629,23 +629,23 @@ LABEL_41:
               continue;
             }
 
-            v109 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:v183];
+            v109 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:v182];
             identity1Type1MainTemplateHasGlasses = self->_identity1Type1MainTemplateHasGlasses;
             self->_identity1Type1MainTemplateHasGlasses = v109;
 
-            v111 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:v185];
+            v111 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:v184];
             identity1MatchingTemplateCountType1MainTemplate = self->_identity1MatchingTemplateCountType1MainTemplate;
             self->_identity1MatchingTemplateCountType1MainTemplate = v111;
 
-            v113 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:LODWORD(v200)];
+            v113 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:LODWORD(v199)];
             identity1BaseTemplateFeatureCountType1 = self->_identity1BaseTemplateFeatureCountType1;
             self->_identity1BaseTemplateFeatureCountType1 = v113;
 
-            v115 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:HIDWORD(v200)];
+            v115 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:HIDWORD(v199)];
             identity1OnlineUpdateTemplateFeatureCountType1 = self->_identity1OnlineUpdateTemplateFeatureCountType1;
             self->_identity1OnlineUpdateTemplateFeatureCountType1 = v115;
 
-            v55 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:v187];
+            v55 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:v186];
             v56 = 688;
           }
 
@@ -656,9 +656,9 @@ LABEL_41:
               continue;
             }
 
-            v189 = v20;
-            v193 = v36;
-            v198 = v34;
+            v188 = v20;
+            v192 = v36;
+            v197 = v34;
             v57 = v26;
             v58 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:{-[NSNumber unsignedIntValue](self->_identity1EnrolledTemplateCountType0NoGlasses, "unsignedIntValue") + v37}];
             identity1EnrolledTemplateCountType0NoGlasses = self->_identity1EnrolledTemplateCountType0NoGlasses;
@@ -680,34 +680,34 @@ LABEL_41:
             identity1MatchingTemplateCountType0WithGlasses = self->_identity1MatchingTemplateCountType0WithGlasses;
             self->_identity1MatchingTemplateCountType0WithGlasses = v66;
 
-            v68 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:{-[NSNumber unsignedIntValue](self->_identity1MatchingTemplateCountType0Unknown, "unsignedIntValue") + v189}];
+            v68 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:{-[NSNumber unsignedIntValue](self->_identity1MatchingTemplateCountType0Unknown, "unsignedIntValue") + v188}];
             identity1MatchingTemplateCountType0Unknown = self->_identity1MatchingTemplateCountType0Unknown;
             self->_identity1MatchingTemplateCountType0Unknown = v68;
 
-            v70 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:LODWORD(v198)];
+            v70 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:LODWORD(v197)];
             identity1BaseTemplateFeatureCountType0 = self->_identity1BaseTemplateFeatureCountType0;
             self->_identity1BaseTemplateFeatureCountType0 = v70;
 
-            v72 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:HIDWORD(v198)];
+            v72 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:HIDWORD(v197)];
             identity1OnlineUpdateTemplateFeatureCountType0 = self->_identity1OnlineUpdateTemplateFeatureCountType0;
             self->_identity1OnlineUpdateTemplateFeatureCountType0 = v72;
 
-            v55 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:v193];
+            v55 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:v192];
             v56 = 664;
           }
 
           goto LABEL_58;
         }
 
-        if (!v203)
+        if (!v202)
         {
           if (v19 == 1)
           {
-            v199 = v35;
-            v184 = v24;
-            v186 = v25;
-            v190 = v21;
-            v194 = v23;
+            v198 = v35;
+            v183 = v24;
+            v185 = v25;
+            v189 = v21;
+            v193 = v23;
             v75 = v22;
             v76 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:{-[NSNumber unsignedIntValue](self->_identity0EnrolledTemplateCountType1NoGlasses, "unsignedIntValue", v34) + v29}];
             identity0EnrolledTemplateCountType1NoGlasses = self->_identity0EnrolledTemplateCountType1NoGlasses;
@@ -725,11 +725,11 @@ LABEL_41:
             identity0MatchingTemplateCountType1NoGlasses = self->_identity0MatchingTemplateCountType1NoGlasses;
             self->_identity0MatchingTemplateCountType1NoGlasses = v82;
 
-            v84 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:{-[NSNumber unsignedIntValue](self->_identity0MatchingTemplateCountType1WithGlasses, "unsignedIntValue") + v190}];
+            v84 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:{-[NSNumber unsignedIntValue](self->_identity0MatchingTemplateCountType1WithGlasses, "unsignedIntValue") + v189}];
             identity0MatchingTemplateCountType1WithGlasses = self->_identity0MatchingTemplateCountType1WithGlasses;
             self->_identity0MatchingTemplateCountType1WithGlasses = v84;
 
-            v86 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:{-[NSNumber unsignedIntValue](self->_identity0MatchingTemplateCountType1Unknown, "unsignedIntValue") + v194}];
+            v86 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:{-[NSNumber unsignedIntValue](self->_identity0MatchingTemplateCountType1Unknown, "unsignedIntValue") + v193}];
             identity0MatchingTemplateCountType1Unknown = self->_identity0MatchingTemplateCountType1Unknown;
             self->_identity0MatchingTemplateCountType1Unknown = v86;
 
@@ -738,23 +738,23 @@ LABEL_41:
               continue;
             }
 
-            v88 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:v183];
+            v88 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:v182];
             identity0Type1MainTemplateHasGlasses = self->_identity0Type1MainTemplateHasGlasses;
             self->_identity0Type1MainTemplateHasGlasses = v88;
 
-            v90 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:v184];
+            v90 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:v183];
             identity0MatchingTemplateCountType1MainTemplate = self->_identity0MatchingTemplateCountType1MainTemplate;
             self->_identity0MatchingTemplateCountType1MainTemplate = v90;
 
-            v92 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:LODWORD(v199)];
+            v92 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:LODWORD(v198)];
             identity0BaseTemplateFeatureCountType1 = self->_identity0BaseTemplateFeatureCountType1;
             self->_identity0BaseTemplateFeatureCountType1 = v92;
 
-            v94 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:HIDWORD(v199)];
+            v94 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:HIDWORD(v198)];
             identity0OnlineUpdateTemplateFeatureCountType1 = self->_identity0OnlineUpdateTemplateFeatureCountType1;
             self->_identity0OnlineUpdateTemplateFeatureCountType1 = v94;
 
-            v55 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:v186];
+            v55 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:v185];
             v56 = 640;
           }
 
@@ -765,9 +765,9 @@ LABEL_41:
               continue;
             }
 
-            v188 = v20;
-            v192 = v36;
-            v197 = v34;
+            v187 = v20;
+            v191 = v36;
+            v196 = v34;
             v38 = v26;
             v39 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:{-[NSNumber unsignedIntValue](self->_identity0EnrolledTemplateCountType0NoGlasses, "unsignedIntValue") + v37}];
             identity0EnrolledTemplateCountType0NoGlasses = self->_identity0EnrolledTemplateCountType0NoGlasses;
@@ -789,19 +789,19 @@ LABEL_41:
             identity0MatchingTemplateCountType0WithGlasses = self->_identity0MatchingTemplateCountType0WithGlasses;
             self->_identity0MatchingTemplateCountType0WithGlasses = v47;
 
-            v49 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:{-[NSNumber unsignedIntValue](self->_identity0MatchingTemplateCountType0Unknown, "unsignedIntValue") + v188}];
+            v49 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:{-[NSNumber unsignedIntValue](self->_identity0MatchingTemplateCountType0Unknown, "unsignedIntValue") + v187}];
             identity0MatchingTemplateCountType0Unknown = self->_identity0MatchingTemplateCountType0Unknown;
             self->_identity0MatchingTemplateCountType0Unknown = v49;
 
-            v51 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:LODWORD(v197)];
+            v51 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:LODWORD(v196)];
             identity0BaseTemplateFeatureCountType0 = self->_identity0BaseTemplateFeatureCountType0;
             self->_identity0BaseTemplateFeatureCountType0 = v51;
 
-            v53 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:HIDWORD(v197)];
+            v53 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:HIDWORD(v196)];
             identity0OnlineUpdateTemplateFeatureCountType0 = self->_identity0OnlineUpdateTemplateFeatureCountType0;
             self->_identity0OnlineUpdateTemplateFeatureCountType0 = v53;
 
-            v55 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:v192];
+            v55 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:v191];
             v56 = 616;
           }
 
@@ -825,13 +825,13 @@ LABEL_58:
         if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
         {
           *buf = 67109120;
-          *&buf[4] = v203;
+          *&buf[4] = v202;
           _os_log_impl(&dword_296CA4000, v74, OS_LOG_TYPE_ERROR, "Unexpected identity index: %d!\n", buf, 8u);
         }
       }
 
-      v204 = [(NSNumber *)obj countByEnumeratingWithState:&v205 objects:v209 count:16, v34, v35];
-      if (v204)
+      v203 = [(NSNumber *)obj countByEnumeratingWithState:&v204 objects:v208 count:16, v34, v35];
+      if (v203)
       {
         continue;
       }
@@ -839,8 +839,8 @@ LABEL_58:
       break;
     }
 
-    v8 = v181;
-    v118 = v203;
+    v8 = v180;
+    v118 = v202;
     v12 = MEMORY[0x29EDCA988];
 LABEL_63:
 
@@ -854,11 +854,11 @@ LABEL_63:
       identity1MatchingTemplateCountType0 = self->_identity1MatchingTemplateCountType0;
       self->_identity1MatchingTemplateCountType0 = v131;
 
-      v133 = [MEMORY[0x29EDBA070] numberWithBool:v201 & 1];
+      v133 = [MEMORY[0x29EDBA070] numberWithBool:v200 & 1];
       identity1TemplateType1Enrolled = self->_identity1TemplateType1Enrolled;
       self->_identity1TemplateType1Enrolled = v133;
 
-      if (v201)
+      if (v200)
       {
         v135 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:{-[NSNumber unsignedIntValue](self->_identity1EnrolledTemplateCountType1WithGlasses, "unsignedIntValue") + -[NSNumber unsignedIntValue](self->_identity1EnrolledTemplateCountType1NoGlasses, "unsignedIntValue") + -[NSNumber unsignedIntValue](self->_identity1EnrolledTemplateCountType1Unknown, "unsignedIntValue")}];
         identity1EnrolledTemplateCountType1 = self->_identity1EnrolledTemplateCountType1;
@@ -887,7 +887,7 @@ LABEL_69:
       if (os_log_type_enabled(v138, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109120;
-        *&buf[4] = v182;
+        *&buf[4] = v181;
         _os_log_impl(&dword_296CA4000, v138, OS_LOG_TYPE_ERROR, "Unexpected identity index: %d!\n", buf, 8u);
       }
     }
@@ -902,11 +902,11 @@ LABEL_69:
       identity0MatchingTemplateCountType0 = self->_identity0MatchingTemplateCountType0;
       self->_identity0MatchingTemplateCountType0 = v121;
 
-      v123 = [MEMORY[0x29EDBA070] numberWithBool:v201 & 1];
+      v123 = [MEMORY[0x29EDBA070] numberWithBool:v200 & 1];
       identity0TemplateType1Enrolled = self->_identity0TemplateType1Enrolled;
       self->_identity0TemplateType1Enrolled = v123;
 
-      if (v201)
+      if (v200)
       {
         v125 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:{-[NSNumber unsignedIntValue](self->_identity0EnrolledTemplateCountType1WithGlasses, "unsignedIntValue") + -[NSNumber unsignedIntValue](self->_identity0EnrolledTemplateCountType1NoGlasses, "unsignedIntValue") + -[NSNumber unsignedIntValue](self->_identity0EnrolledTemplateCountType1Unknown, "unsignedIntValue")}];
         identity0EnrolledTemplateCountType1 = self->_identity0EnrolledTemplateCountType1;
@@ -918,10 +918,10 @@ LABEL_69:
       }
     }
 
-    v11 = ++v203;
+    v11 = ++v202;
   }
 
-  while ([v8 count] > v203);
+  while ([v8 count] > v202);
 LABEL_76:
   v139 = v8;
   v140 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:{-[NSNumber unsignedIntValue](self->_identity1EnrolledTemplateCountType0, "unsignedIntValue") + -[NSNumber unsignedIntValue](self->_identity0EnrolledTemplateCountType0, "unsignedIntValue")}];
@@ -1003,13 +1003,11 @@ LABEL_76:
   self->_matchingTemplateCountType1MainTemplate = v178;
   v8 = v139;
 LABEL_85:
-
-  v180 = *MEMORY[0x29EDCA608];
 }
 
 - (void)setTemplateInfo:(uint64_t)a1 .cold.1(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x29EDCA608];
+  v8 = *MEMORY[0x29EDCA608];
   if (__osLog)
   {
     v4 = __osLog;
@@ -1023,66 +1021,53 @@ LABEL_85:
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_0();
-    v7 = &unk_296D32C0B;
+    v6 = &unk_296D32C0B;
     OUTLINED_FUNCTION_4();
-    v8 = 140;
-    _os_log_impl(&dword_296CA4000, v4, OS_LOG_TYPE_ERROR, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v6, 0x30u);
+    v7 = 140;
+    _os_log_impl(&dword_296CA4000, v4, OS_LOG_TYPE_ERROR, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v5, 0x30u);
   }
 
   *a2 = a1;
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 - (void)setTemplateInfo:.cold.2()
 {
-  v8 = *MEMORY[0x29EDCA608];
   if (OUTLINED_FUNCTION_16(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_4();
-    OUTLINED_FUNCTION_15(&dword_296CA4000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_15(&dword_296CA4000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x29EDCA608];
 }
 
 - (void)setTemplateInfo:.cold.3()
 {
-  v8 = *MEMORY[0x29EDCA608];
   if (OUTLINED_FUNCTION_16(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_4();
-    OUTLINED_FUNCTION_15(&dword_296CA4000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_15(&dword_296CA4000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x29EDCA608];
 }
 
 - (void)setTemplateInfo:.cold.4()
 {
-  v8 = *MEMORY[0x29EDCA608];
   if (OUTLINED_FUNCTION_16(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_4();
-    OUTLINED_FUNCTION_15(&dword_296CA4000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_15(&dword_296CA4000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x29EDCA608];
 }
 
 - (void)setTemplateInfo:.cold.5()
 {
-  v8 = *MEMORY[0x29EDCA608];
   if (OUTLINED_FUNCTION_16(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_4();
-    OUTLINED_FUNCTION_15(&dword_296CA4000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_15(&dword_296CA4000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x29EDCA608];
 }
 
 @end

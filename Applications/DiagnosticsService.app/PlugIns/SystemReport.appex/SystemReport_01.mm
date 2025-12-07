@@ -51,7 +51,7 @@ uint64_t sub_100018B20(uint64_t a1, unint64_t *a2, unsigned int a3)
   v5 = 0;
   v6 = a3 >> 3;
   *__str = 0u;
-  v22 = 0u;
+  v15 = 0u;
 LABEL_2:
   v7 = -v6;
   while (v7)
@@ -82,7 +82,7 @@ LABEL_2:
           goto LABEL_2;
         }
 
-        sub_100020530("ASPFTLParseBufferToCxt %d: Cannot add %d elements to context", v13, v14, v15, v16, v17, v18, v19, v8);
+        sub_100020530("ASPFTLParseBufferToCxt %d: Cannot add %d elements to context", v8, v10);
       }
 
       return v5;
@@ -92,7103 +92,7098 @@ LABEL_2:
   return v5;
 }
 
-uint64_t sub_100018C50(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_100018C50(uint64_t a1, uint64_t a2, unsigned int a3)
 {
-  v8 = 0;
-  v9 = "ASPMSPParseBufferToCxt: Passed in invalid buffer or empty buffer";
-  if (!a2)
+  v3 = 0;
+  v4 = "ASPMSPParseBufferToCxt: Passed in invalid buffer or empty buffer";
+  if (a2 && (v5 = a3) != 0)
   {
-    goto LABEL_2105;
-  }
-
-  v10 = a3;
-  if (!a3)
-  {
-    goto LABEL_2105;
-  }
-
-  v11 = a2;
-  v8 = 0;
-  v13 = "avg_rd_window_size";
-  v9 = "ASPMSPParseBufferToCxt: avg_rd_window_size(8193): Error adding 5 elements to context";
-  v14 = "ASPMSPParseBufferToCxt: avg_rd_window_size(8193): cfg 5 elements; (5*4) cfg bytes != (%d) buffer bytes";
-  v15 = "num_zq_failures";
-  v16 = "ASPMSPParseBufferToCxt: num_zq_failures(8194): Error adding 1 elements to context";
-  v17 = "ASPMSPParseBufferToCxt: num_zq_failures(8194): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes";
-  v18 = "ASPMSPParseBufferToCxt: lower_die_temperature(8195): Error adding 16 elements to context";
-  while (1)
-  {
-    do
+    v6 = a2;
+    v3 = 0;
+    v8 = "avg_rd_window_size";
+    v4 = "ASPMSPParseBufferToCxt: avg_rd_window_size(8193): Error adding 5 elements to context";
+    v9 = "ASPMSPParseBufferToCxt: avg_rd_window_size(8193): cfg 5 elements; (5*4) cfg bytes != (%d) buffer bytes";
+    v10 = "num_zq_failures";
+    v11 = "ASPMSPParseBufferToCxt: num_zq_failures(8194): Error adding 1 elements to context";
+    v12 = "ASPMSPParseBufferToCxt: num_zq_failures(8194): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes";
+    v13 = "ASPMSPParseBufferToCxt: lower_die_temperature(8195): Error adding 16 elements to context";
+    while (v5)
     {
-      if (!v10)
+      v14 = v6;
+      v15 = *(v6 + 2);
+      v6 += 4;
+      v5 -= 4;
+      if (v15)
       {
-        return v8;
-      }
-
-      v19 = v11;
-      v20 = *(v11 + 2);
-      v11 += 4;
-      v10 -= 4;
-    }
-
-    while (!v20);
-    v21 = *v19;
-    if (v21 != 12286)
-    {
-      if (v21 == 12287 || v10 < v20)
-      {
-        return v8;
-      }
-
-      switch(v21)
-      {
-        case 4097:
-          v23 = v16;
-          v24 = v14;
-          v25 = v13;
-          if (v20 != 4)
-          {
-            sub_100020530("ASPMSPParseBufferToCxt: passWithTmodeFS1_2b(4097): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-          }
-
-          if (v20 >= 8)
-          {
-            v26 = 1;
-          }
-
-          else
-          {
-            v26 = v20 >> 2;
-          }
-
-          if (!sub_1000189BC(a1, "passWithTmodeFS1_2b", v11, 4u, v26))
-          {
-            v9 = "ASPMSPParseBufferToCxt: passWithTmodeFS1_2b(4097): Error adding 1 elements to context";
-            goto LABEL_2105;
-          }
-
-          v8 = v8 + v26;
-          v13 = v25;
-          v14 = v24;
-          v16 = v23;
-          goto LABEL_20;
-        case 4098:
-          v28 = v18;
-          if (v20 != 4)
-          {
-            sub_100020530("ASPMSPParseBufferToCxt: passWithTmodeFS1_4b(4098): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-          }
-
-          if (v20 >= 8)
-          {
-            v29 = 1;
-          }
-
-          else
-          {
-            v29 = v20 >> 2;
-          }
-
-          if (!sub_1000189BC(a1, "passWithTmodeFS1_4b", v11, 4u, v29))
-          {
-            v9 = "ASPMSPParseBufferToCxt: passWithTmodeFS1_4b(4098): Error adding 1 elements to context";
-            goto LABEL_2105;
-          }
-
-          v8 = v8 + v29;
-          v13 = "avg_rd_window_size";
-          v14 = "ASPMSPParseBufferToCxt: avg_rd_window_size(8193): cfg 5 elements; (5*4) cfg bytes != (%d) buffer bytes";
-          v16 = "ASPMSPParseBufferToCxt: num_zq_failures(8194): Error adding 1 elements to context";
-          v18 = v28;
-          break;
-        case 4100:
-          if (v20 != 4)
-          {
-            sub_100020530("ASPMSPParseBufferToCxt: passWithTmodeFS1_2b_fast(4100): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-          }
-
-          if (v20 >= 8)
-          {
-            v27 = 1;
-          }
-
-          else
-          {
-            v27 = v20 >> 2;
-          }
-
-          if (sub_1000189BC(a1, "passWithTmodeFS1_2b_fast", v11, 4u, v27))
-          {
-            goto LABEL_462;
-          }
-
-          v9 = "ASPMSPParseBufferToCxt: passWithTmodeFS1_2b_fast(4100): Error adding 1 elements to context";
-          goto LABEL_2105;
-        case 4101:
-          if (v20 != 4)
-          {
-            sub_100020530("ASPMSPParseBufferToCxt: passWithTmodeFS1_4b_fast(4101): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-          }
-
-          if (v20 >= 8)
-          {
-            v27 = 1;
-          }
-
-          else
-          {
-            v27 = v20 >> 2;
-          }
-
-          if (sub_1000189BC(a1, "passWithTmodeFS1_4b_fast", v11, 4u, v27))
-          {
-            goto LABEL_462;
-          }
-
-          v9 = "ASPMSPParseBufferToCxt: passWithTmodeFS1_4b_fast(4101): Error adding 1 elements to context";
-          goto LABEL_2105;
-        case 4102:
-          if (v20 != 4)
-          {
-            sub_100020530("ASPMSPParseBufferToCxt: numOfCwFailedInTmodeFS2_EOL(4102): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-          }
-
-          if (v20 >= 8)
-          {
-            v27 = 1;
-          }
-
-          else
-          {
-            v27 = v20 >> 2;
-          }
-
-          if (sub_1000189BC(a1, "numOfCwFailedInTmodeFS2_EOL", v11, 4u, v27))
-          {
-            goto LABEL_462;
-          }
-
-          v9 = "ASPMSPParseBufferToCxt: numOfCwFailedInTmodeFS2_EOL(4102): Error adding 1 elements to context";
-          goto LABEL_2105;
-        case 4103:
-          if (v20 != 4)
-          {
-            sub_100020530("ASPMSPParseBufferToCxt: numOfCwFailedInTmodeFS2_DSP_EOL(4103): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-          }
-
-          if (v20 >= 8)
-          {
-            v27 = 1;
-          }
-
-          else
-          {
-            v27 = v20 >> 2;
-          }
-
-          if (sub_1000189BC(a1, "numOfCwFailedInTmodeFS2_DSP_EOL", v11, 4u, v27))
-          {
-            goto LABEL_462;
-          }
-
-          v9 = "ASPMSPParseBufferToCxt: numOfCwFailedInTmodeFS2_DSP_EOL(4103): Error adding 1 elements to context";
-          goto LABEL_2105;
-        case 4104:
-          if (v20 != 4)
-          {
-            sub_100020530("ASPMSPParseBufferToCxt: readAlgoPassWithHardAfterAcq(4104): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-          }
-
-          if (v20 >= 8)
-          {
-            v27 = 1;
-          }
-
-          else
-          {
-            v27 = v20 >> 2;
-          }
-
-          if (sub_1000189BC(a1, "readAlgoPassWithHardAfterAcq", v11, 4u, v27))
-          {
-            goto LABEL_462;
-          }
-
-          v9 = "ASPMSPParseBufferToCxt: readAlgoPassWithHardAfterAcq(4104): Error adding 1 elements to context";
-          goto LABEL_2105;
-        case 4105:
-          if (v20 != 4)
-          {
-            sub_100020530("ASPMSPParseBufferToCxt: firstReadWasHardWithDefaultBDBFastRead(4105): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-          }
-
-          if (v20 >= 8)
-          {
-            v27 = 1;
-          }
-
-          else
-          {
-            v27 = v20 >> 2;
-          }
-
-          if (sub_1000189BC(a1, "firstReadWasHardWithDefaultBDBFastRead", v11, 4u, v27))
-          {
-            goto LABEL_462;
-          }
-
-          v9 = "ASPMSPParseBufferToCxt: firstReadWasHardWithDefaultBDBFastRead(4105): Error adding 1 elements to context";
-          goto LABEL_2105;
-        case 4110:
-          if (v20 != 4)
-          {
-            sub_100020530("ASPMSPParseBufferToCxt: firstReadWasHardWithAcq(4110): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-          }
-
-          if (v20 >= 8)
-          {
-            v27 = 1;
-          }
-
-          else
-          {
-            v27 = v20 >> 2;
-          }
-
-          if (sub_1000189BC(a1, "firstReadWasHardWithAcq", v11, 4u, v27))
-          {
-            goto LABEL_462;
-          }
-
-          v9 = "ASPMSPParseBufferToCxt: firstReadWasHardWithAcq(4110): Error adding 1 elements to context";
-          goto LABEL_2105;
-        case 4117:
-          if (v20 != 4)
-          {
-            sub_100020530("ASPMSPParseBufferToCxt: firstReadWasHardWithDefaultBDB(4117): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-          }
-
-          if (v20 >= 8)
-          {
-            v27 = 1;
-          }
-
-          else
-          {
-            v27 = v20 >> 2;
-          }
-
-          if (sub_1000189BC(a1, "firstReadWasHardWithDefaultBDB", v11, 4u, v27))
-          {
-            goto LABEL_462;
-          }
-
-          v9 = "ASPMSPParseBufferToCxt: firstReadWasHardWithDefaultBDB(4117): Error adding 1 elements to context";
-          goto LABEL_2105;
-        case 4118:
-          if (v20 != 4)
-          {
-            sub_100020530("ASPMSPParseBufferToCxt: readAlgoPassedThroughSyndSumAcquisition(4118): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-          }
-
-          if (v20 >= 8)
-          {
-            v27 = 1;
-          }
-
-          else
-          {
-            v27 = v20 >> 2;
-          }
-
-          if (sub_1000189BC(a1, "readAlgoPassedThroughSyndSumAcquisition", v11, 4u, v27))
-          {
-            goto LABEL_462;
-          }
-
-          v9 = "ASPMSPParseBufferToCxt: readAlgoPassedThroughSyndSumAcquisition(4118): Error adding 1 elements to context";
-          goto LABEL_2105;
-        case 4119:
-          if (v20 != 4)
-          {
-            sub_100020530("ASPMSPParseBufferToCxt: readAlgoPassedThroughSlip(4119): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-          }
-
-          if (v20 >= 8)
-          {
-            v27 = 1;
-          }
-
-          else
-          {
-            v27 = v20 >> 2;
-          }
-
-          if (sub_1000189BC(a1, "readAlgoPassedThroughSlip", v11, 4u, v27))
-          {
-            goto LABEL_462;
-          }
-
-          v9 = "ASPMSPParseBufferToCxt: readAlgoPassedThroughSlip(4119): Error adding 1 elements to context";
-          goto LABEL_2105;
-        case 4123:
-          if (v20 != 4)
-          {
-            sub_100020530("ASPMSPParseBufferToCxt: readAlgoPassWithHardAfterSlip_fast(4123): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-          }
-
-          if (v20 >= 8)
-          {
-            v27 = 1;
-          }
-
-          else
-          {
-            v27 = v20 >> 2;
-          }
-
-          if (sub_1000189BC(a1, "readAlgoPassWithHardAfterSlip_fast", v11, 4u, v27))
-          {
-            goto LABEL_462;
-          }
-
-          v9 = "ASPMSPParseBufferToCxt: readAlgoPassWithHardAfterSlip_fast(4123): Error adding 1 elements to context";
-          goto LABEL_2105;
-        case 4124:
-          if (v20 != 4)
-          {
-            sub_100020530("ASPMSPParseBufferToCxt: readAlgoPassWithFS12BitAfterSlip_fast(4124): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-          }
-
-          if (v20 >= 8)
-          {
-            v27 = 1;
-          }
-
-          else
-          {
-            v27 = v20 >> 2;
-          }
-
-          if (sub_1000189BC(a1, "readAlgoPassWithFS12BitAfterSlip_fast", v11, 4u, v27))
-          {
-            goto LABEL_462;
-          }
-
-          v9 = "ASPMSPParseBufferToCxt: readAlgoPassWithFS12BitAfterSlip_fast(4124): Error adding 1 elements to context";
-          goto LABEL_2105;
-        case 4125:
-          if (v20 != 4)
-          {
-            sub_100020530("ASPMSPParseBufferToCxt: readAlgoPassWithFS14BitAfterSlip_fast(4125): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-          }
-
-          if (v20 >= 8)
-          {
-            v27 = 1;
-          }
-
-          else
-          {
-            v27 = v20 >> 2;
-          }
-
-          if (sub_1000189BC(a1, "readAlgoPassWithFS14BitAfterSlip_fast", v11, 4u, v27))
-          {
-            goto LABEL_462;
-          }
-
-          v9 = "ASPMSPParseBufferToCxt: readAlgoPassWithFS14BitAfterSlip_fast(4125): Error adding 1 elements to context";
-          goto LABEL_2105;
-        case 4126:
-          if (v20 != 4)
-          {
-            sub_100020530("ASPMSPParseBufferToCxt: readAlgoPassWithFS3_fast(4126): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-          }
-
-          if (v20 >= 8)
-          {
-            v27 = 1;
-          }
-
-          else
-          {
-            v27 = v20 >> 2;
-          }
-
-          if (sub_1000189BC(a1, "readAlgoPassWithFS3_fast", v11, 4u, v27))
-          {
-            goto LABEL_462;
-          }
-
-          v9 = "ASPMSPParseBufferToCxt: readAlgoPassWithFS3_fast(4126): Error adding 1 elements to context";
-          goto LABEL_2105;
-        case 4128:
-          if (v20 != 40)
-          {
-            sub_100020530("ASPMSPParseBufferToCxt: deepSoft2Decoded(4128): cfg 10 elements; (10*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-          }
-
-          if (v20 >= 0x2C)
-          {
-            v27 = 10;
-          }
-
-          else
-          {
-            v27 = v20 >> 2;
-          }
-
-          if (sub_1000189BC(a1, "deepSoft2Decoded", v11, 4u, v27))
-          {
-            goto LABEL_462;
-          }
-
-          v9 = "ASPMSPParseBufferToCxt: deepSoft2Decoded(4128): Error adding 10 elements to context";
-          goto LABEL_2105;
-        case 4131:
-          if (v20 != 4)
-          {
-            sub_100020530("ASPMSPParseBufferToCxt: readAlgoPassedThroughSlip_fast(4131): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-          }
-
-          if (v20 >= 8)
-          {
-            v27 = 1;
-          }
-
-          else
-          {
-            v27 = v20 >> 2;
-          }
-
-          if (sub_1000189BC(a1, "readAlgoPassedThroughSlip_fast", v11, 4u, v27))
-          {
-            goto LABEL_462;
-          }
-
-          v9 = "ASPMSPParseBufferToCxt: readAlgoPassedThroughSlip_fast(4131): Error adding 1 elements to context";
-          goto LABEL_2105;
-        case 4132:
-          if (v20 != 4)
-          {
-            sub_100020530("ASPMSPParseBufferToCxt: readAlgoPassedThroughFS3_fast(4132): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-          }
-
-          if (v20 >= 8)
-          {
-            v27 = 1;
-          }
-
-          else
-          {
-            v27 = v20 >> 2;
-          }
-
-          if (sub_1000189BC(a1, "readAlgoPassedThroughFS3_fast", v11, 4u, v27))
-          {
-            goto LABEL_462;
-          }
-
-          v9 = "ASPMSPParseBufferToCxt: readAlgoPassedThroughFS3_fast(4132): Error adding 1 elements to context";
-          goto LABEL_2105;
-        case 4135:
-          if (v20 != 4)
-          {
-            sub_100020530("ASPMSPParseBufferToCxt: readZeroPage(4135): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-          }
-
-          if (v20 >= 8)
-          {
-            v27 = 1;
-          }
-
-          else
-          {
-            v27 = v20 >> 2;
-          }
-
-          if (sub_1000189BC(a1, "readZeroPage", v11, 4u, v27))
-          {
-            goto LABEL_462;
-          }
-
-          v9 = "ASPMSPParseBufferToCxt: readZeroPage(4135): Error adding 1 elements to context";
-          goto LABEL_2105;
-        case 4136:
-          if (v20 != 4)
-          {
-            sub_100020530("ASPMSPParseBufferToCxt: readErasedPage(4136): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-          }
-
-          if (v20 >= 8)
-          {
-            v27 = 1;
-          }
-
-          else
-          {
-            v27 = v20 >> 2;
-          }
-
-          if (sub_1000189BC(a1, "readErasedPage", v11, 4u, v27))
-          {
-            goto LABEL_462;
-          }
-
-          v9 = "ASPMSPParseBufferToCxt: readErasedPage(4136): Error adding 1 elements to context";
-          goto LABEL_2105;
-        case 4137:
-          if (v20 != 4)
-          {
-            sub_100020530("ASPMSPParseBufferToCxt: readFail(4137): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-          }
-
-          if (v20 >= 8)
-          {
-            v27 = 1;
-          }
-
-          else
-          {
-            v27 = v20 >> 2;
-          }
-
-          if (sub_1000189BC(a1, "readFail", v11, 4u, v27))
-          {
-            goto LABEL_462;
-          }
-
-          v9 = "ASPMSPParseBufferToCxt: readFail(4137): Error adding 1 elements to context";
-          goto LABEL_2105;
-        case 4140:
-          if (v20 != 4)
-          {
-            sub_100020530("ASPMSPParseBufferToCxt: bdbDefaultMoveFastToNormal(4140): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-          }
-
-          if (v20 >= 8)
-          {
-            v27 = 1;
-          }
-
-          else
-          {
-            v27 = v20 >> 2;
-          }
-
-          if (sub_1000189BC(a1, "bdbDefaultMoveFastToNormal", v11, 4u, v27))
-          {
-            goto LABEL_462;
-          }
-
-          v9 = "ASPMSPParseBufferToCxt: bdbDefaultMoveFastToNormal(4140): Error adding 1 elements to context";
-          goto LABEL_2105;
-        case 4141:
-          if (v20 != 4)
-          {
-            sub_100020530("ASPMSPParseBufferToCxt: bdbDefaultMoveNormalToFast(4141): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-          }
-
-          if (v20 >= 8)
-          {
-            v27 = 1;
-          }
-
-          else
-          {
-            v27 = v20 >> 2;
-          }
-
-          if (sub_1000189BC(a1, "bdbDefaultMoveNormalToFast", v11, 4u, v27))
-          {
-            goto LABEL_462;
-          }
-
-          v9 = "ASPMSPParseBufferToCxt: bdbDefaultMoveNormalToFast(4141): Error adding 1 elements to context";
-          goto LABEL_2105;
-        case 4145:
-          if (v20 != 4)
-          {
-            sub_100020530("ASPMSPParseBufferToCxt: firstReadWasFS2EOL_DSP(4145): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-          }
-
-          if (v20 >= 8)
-          {
-            v27 = 1;
-          }
-
-          else
-          {
-            v27 = v20 >> 2;
-          }
-
-          if (sub_1000189BC(a1, "firstReadWasFS2EOL_DSP", v11, 4u, v27))
-          {
-            goto LABEL_462;
-          }
-
-          v9 = "ASPMSPParseBufferToCxt: firstReadWasFS2EOL_DSP(4145): Error adding 1 elements to context";
-          goto LABEL_2105;
-        case 4146:
-          if (v20 != 4)
-          {
-            sub_100020530("ASPMSPParseBufferToCxt: firstReadWasFS2EOL(4146): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-          }
-
-          if (v20 >= 8)
-          {
-            v27 = 1;
-          }
-
-          else
-          {
-            v27 = v20 >> 2;
-          }
-
-          if (sub_1000189BC(a1, "firstReadWasFS2EOL", v11, 4u, v27))
-          {
-            goto LABEL_462;
-          }
-
-          v9 = "ASPMSPParseBufferToCxt: firstReadWasFS2EOL(4146): Error adding 1 elements to context";
-          goto LABEL_2105;
-        case 4150:
-          if (v20 != 4)
-          {
-            sub_100020530("ASPMSPParseBufferToCxt: readAlgoPassedThroughFS3(4150): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-          }
-
-          if (v20 >= 8)
-          {
-            v27 = 1;
-          }
-
-          else
-          {
-            v27 = v20 >> 2;
-          }
-
-          if (sub_1000189BC(a1, "readAlgoPassedThroughFS3", v11, 4u, v27))
-          {
-            goto LABEL_462;
-          }
-
-          v9 = "ASPMSPParseBufferToCxt: readAlgoPassedThroughFS3(4150): Error adding 1 elements to context";
-          goto LABEL_2105;
-        case 4153:
-          if (v20 != 4)
-          {
-            sub_100020530("ASPMSPParseBufferToCxt: readAlgoPassWithHardAfterSlip(4153): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-          }
-
-          if (v20 >= 8)
-          {
-            v27 = 1;
-          }
-
-          else
-          {
-            v27 = v20 >> 2;
-          }
-
-          if (sub_1000189BC(a1, "readAlgoPassWithHardAfterSlip", v11, 4u, v27))
-          {
-            goto LABEL_462;
-          }
-
-          v9 = "ASPMSPParseBufferToCxt: readAlgoPassWithHardAfterSlip(4153): Error adding 1 elements to context";
-          goto LABEL_2105;
-        case 4154:
-          if (v20 != 4)
-          {
-            sub_100020530("ASPMSPParseBufferToCxt: readAlgoPassWithFS12BitAfterSlip(4154): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-          }
-
-          if (v20 >= 8)
-          {
-            v27 = 1;
-          }
-
-          else
-          {
-            v27 = v20 >> 2;
-          }
-
-          if (sub_1000189BC(a1, "readAlgoPassWithFS12BitAfterSlip", v11, 4u, v27))
-          {
-            goto LABEL_462;
-          }
-
-          v9 = "ASPMSPParseBufferToCxt: readAlgoPassWithFS12BitAfterSlip(4154): Error adding 1 elements to context";
-          goto LABEL_2105;
-        case 4155:
-          if (v20 != 4)
-          {
-            sub_100020530("ASPMSPParseBufferToCxt: readAlgoPassWithFS14BitAfterSlip(4155): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-          }
-
-          if (v20 >= 8)
-          {
-            v27 = 1;
-          }
-
-          else
-          {
-            v27 = v20 >> 2;
-          }
-
-          if (sub_1000189BC(a1, "readAlgoPassWithFS14BitAfterSlip", v11, 4u, v27))
-          {
-            goto LABEL_462;
-          }
-
-          v9 = "ASPMSPParseBufferToCxt: readAlgoPassWithFS14BitAfterSlip(4155): Error adding 1 elements to context";
-          goto LABEL_2105;
-        case 4156:
-          if (v20 != 4)
-          {
-            sub_100020530("ASPMSPParseBufferToCxt: readAlgoPassWithFS3(4156): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-          }
-
-          if (v20 >= 8)
-          {
-            v27 = 1;
-          }
-
-          else
-          {
-            v27 = v20 >> 2;
-          }
-
-          if (sub_1000189BC(a1, "readAlgoPassWithFS3", v11, 4u, v27))
-          {
-            goto LABEL_462;
-          }
-
-          v9 = "ASPMSPParseBufferToCxt: readAlgoPassWithFS3(4156): Error adding 1 elements to context";
-          goto LABEL_2105;
-        case 4158:
-          if (v20 != 4)
-          {
-            sub_100020530("ASPMSPParseBufferToCxt: readAlgoPassWithFS12BitAfterAcq(4158): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-          }
-
-          if (v20 >= 8)
-          {
-            v27 = 1;
-          }
-
-          else
-          {
-            v27 = v20 >> 2;
-          }
-
-          if (sub_1000189BC(a1, "readAlgoPassWithFS12BitAfterAcq", v11, 4u, v27))
-          {
-            goto LABEL_462;
-          }
-
-          v9 = "ASPMSPParseBufferToCxt: readAlgoPassWithFS12BitAfterAcq(4158): Error adding 1 elements to context";
-          goto LABEL_2105;
-        case 4159:
-          if (v20 != 4)
-          {
-            sub_100020530("ASPMSPParseBufferToCxt: readAlgoPassWithFS14BitAfterAcq(4159): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-          }
-
-          if (v20 >= 8)
-          {
-            v27 = 1;
-          }
-
-          else
-          {
-            v27 = v20 >> 2;
-          }
-
-          if (sub_1000189BC(a1, "readAlgoPassWithFS14BitAfterAcq", v11, 4u, v27))
-          {
-            goto LABEL_462;
-          }
-
-          v9 = "ASPMSPParseBufferToCxt: readAlgoPassWithFS14BitAfterAcq(4159): Error adding 1 elements to context";
-          goto LABEL_2105;
-        case 4164:
-          if (v20 != 4)
-          {
-            sub_100020530("ASPMSPParseBufferToCxt: syndSumAcqConvergedToStaticWalls(4164): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-          }
-
-          if (v20 >= 8)
-          {
-            v27 = 1;
-          }
-
-          else
-          {
-            v27 = v20 >> 2;
-          }
-
-          if (sub_1000189BC(a1, "syndSumAcqConvergedToStaticWalls", v11, 4u, v27))
-          {
-            goto LABEL_462;
-          }
-
-          v9 = "ASPMSPParseBufferToCxt: syndSumAcqConvergedToStaticWalls(4164): Error adding 1 elements to context";
-          goto LABEL_2105;
-        case 4196:
-          if (v20 != 4)
-          {
-            sub_100020530("ASPMSPParseBufferToCxt: readStageNumOfFails100(4196): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-          }
-
-          if (v20 >= 8)
-          {
-            v27 = 1;
-          }
-
-          else
-          {
-            v27 = v20 >> 2;
-          }
-
-          if (sub_1000189BC(a1, "readStageNumOfFails100", v11, 4u, v27))
-          {
-            goto LABEL_462;
-          }
-
-          v9 = "ASPMSPParseBufferToCxt: readStageNumOfFails100(4196): Error adding 1 elements to context";
-          goto LABEL_2105;
-        case 4197:
-          if (v20 != 4)
-          {
-            sub_100020530("ASPMSPParseBufferToCxt: readStageNumOfFails101(4197): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-          }
-
-          if (v20 >= 8)
-          {
-            v27 = 1;
-          }
-
-          else
-          {
-            v27 = v20 >> 2;
-          }
-
-          if (sub_1000189BC(a1, "readStageNumOfFails101", v11, 4u, v27))
-          {
-            goto LABEL_462;
-          }
-
-          v9 = "ASPMSPParseBufferToCxt: readStageNumOfFails101(4197): Error adding 1 elements to context";
-          goto LABEL_2105;
-        case 4198:
-          if (v20 != 4)
-          {
-            sub_100020530("ASPMSPParseBufferToCxt: readStage100(4198): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-          }
-
-          if (v20 >= 8)
-          {
-            v27 = 1;
-          }
-
-          else
-          {
-            v27 = v20 >> 2;
-          }
-
-          if (sub_1000189BC(a1, "readStage100", v11, 4u, v27))
-          {
-            goto LABEL_462;
-          }
-
-          v9 = "ASPMSPParseBufferToCxt: readStage100(4198): Error adding 1 elements to context";
-          goto LABEL_2105;
-        case 4199:
-          if (v20 != 16)
-          {
-            sub_100020530("ASPMSPParseBufferToCxt: readStage101(4199): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-          }
-
-          if (v20 >= 0x14)
-          {
-            v27 = 4;
-          }
-
-          else
-          {
-            v27 = v20 >> 2;
-          }
-
-          if (sub_1000189BC(a1, "readStage101", v11, 4u, v27))
-          {
-            goto LABEL_462;
-          }
-
-          v9 = "ASPMSPParseBufferToCxt: readStage101(4199): Error adding 4 elements to context";
-          goto LABEL_2105;
-        case 4200:
-          if (v20 != 4)
-          {
-            sub_100020530("ASPMSPParseBufferToCxt: initialReadStage100(4200): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-          }
-
-          if (v20 >= 8)
-          {
-            v27 = 1;
-          }
-
-          else
-          {
-            v27 = v20 >> 2;
-          }
-
-          if (sub_1000189BC(a1, "initialReadStage100", v11, 4u, v27))
-          {
-            goto LABEL_462;
-          }
-
-          v9 = "ASPMSPParseBufferToCxt: initialReadStage100(4200): Error adding 1 elements to context";
-          goto LABEL_2105;
-        case 4201:
-          if (v20 != 4)
-          {
-            sub_100020530("ASPMSPParseBufferToCxt: readStage102(4201): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-          }
-
-          if (v20 >= 8)
-          {
-            v27 = 1;
-          }
-
-          else
-          {
-            v27 = v20 >> 2;
-          }
-
-          if (sub_1000189BC(a1, "readStage102", v11, 4u, v27))
-          {
-            goto LABEL_462;
-          }
-
-          v9 = "ASPMSPParseBufferToCxt: readStage102(4201): Error adding 1 elements to context";
-          goto LABEL_2105;
-        case 4202:
-          if (v20 != 4)
-          {
-            sub_100020530("ASPMSPParseBufferToCxt: initialReadStage101(4202): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-          }
-
-          if (v20 >= 8)
-          {
-            v27 = 1;
-          }
-
-          else
-          {
-            v27 = v20 >> 2;
-          }
-
-          if (sub_1000189BC(a1, "initialReadStage101", v11, 4u, v27))
-          {
-            goto LABEL_462;
-          }
-
-          v9 = "ASPMSPParseBufferToCxt: initialReadStage101(4202): Error adding 1 elements to context";
-          goto LABEL_2105;
-        case 4203:
-          if (v20 != 4)
-          {
-            sub_100020530("ASPMSPParseBufferToCxt: nandStageOfLife100(4203): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-          }
-
-          if (v20 >= 8)
-          {
-            v27 = 1;
-          }
-
-          else
-          {
-            v27 = v20 >> 2;
-          }
-
-          if (sub_1000189BC(a1, "nandStageOfLife100", v11, 4u, v27))
-          {
-            goto LABEL_462;
-          }
-
-          v9 = "ASPMSPParseBufferToCxt: nandStageOfLife100(4203): Error adding 1 elements to context";
-          goto LABEL_2105;
-        case 4204:
-          if (v20 != 4)
-          {
-            sub_100020530("ASPMSPParseBufferToCxt: nandStageOfLife101(4204): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-          }
-
-          if (v20 >= 8)
-          {
-            v27 = 1;
-          }
-
-          else
-          {
-            v27 = v20 >> 2;
-          }
-
-          if (sub_1000189BC(a1, "nandStageOfLife101", v11, 4u, v27))
-          {
-            goto LABEL_462;
-          }
-
-          v9 = "ASPMSPParseBufferToCxt: nandStageOfLife101(4204): Error adding 1 elements to context";
-          goto LABEL_2105;
-        case 4205:
-          if (v20 != 16)
-          {
-            sub_100020530("ASPMSPParseBufferToCxt: readStageNumOfFails102(4205): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-          }
-
-          if (v20 >= 0x14)
-          {
-            v27 = 4;
-          }
-
-          else
-          {
-            v27 = v20 >> 2;
-          }
-
-          if (sub_1000189BC(a1, "readStageNumOfFails102", v11, 4u, v27))
-          {
-            goto LABEL_462;
-          }
-
-          v9 = "ASPMSPParseBufferToCxt: readStageNumOfFails102(4205): Error adding 4 elements to context";
-          goto LABEL_2105;
-        case 4206:
-          if (v20 != 4)
-          {
-            sub_100020530("ASPMSPParseBufferToCxt: initialReadStage102(4206): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-          }
-
-          if (v20 >= 8)
-          {
-            v27 = 1;
-          }
-
-          else
-          {
-            v27 = v20 >> 2;
-          }
-
-          if (sub_1000189BC(a1, "initialReadStage102", v11, 4u, v27))
-          {
-            goto LABEL_462;
-          }
-
-          v9 = "ASPMSPParseBufferToCxt: initialReadStage102(4206): Error adding 1 elements to context";
-          goto LABEL_2105;
-        case 4207:
-          if (v20 != 4)
-          {
-            sub_100020530("ASPMSPParseBufferToCxt: readStage103(4207): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-          }
-
-          if (v20 >= 8)
-          {
-            v27 = 1;
-          }
-
-          else
-          {
-            v27 = v20 >> 2;
-          }
-
-          if (sub_1000189BC(a1, "readStage103", v11, 4u, v27))
-          {
-            goto LABEL_462;
-          }
-
-          v9 = "ASPMSPParseBufferToCxt: readStage103(4207): Error adding 1 elements to context";
-          goto LABEL_2105;
-        case 4208:
-          if (v20 != 4)
-          {
-            sub_100020530("ASPMSPParseBufferToCxt: readStage104(4208): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-          }
-
-          if (v20 >= 8)
-          {
-            v27 = 1;
-          }
-
-          else
-          {
-            v27 = v20 >> 2;
-          }
-
-          if (sub_1000189BC(a1, "readStage104", v11, 4u, v27))
-          {
-            goto LABEL_462;
-          }
-
-          v9 = "ASPMSPParseBufferToCxt: readStage104(4208): Error adding 1 elements to context";
-          goto LABEL_2105;
-        case 4209:
-          if (v20 != 16)
-          {
-            sub_100020530("ASPMSPParseBufferToCxt: readStage105(4209): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-          }
-
-          if (v20 >= 0x14)
-          {
-            v27 = 4;
-          }
-
-          else
-          {
-            v27 = v20 >> 2;
-          }
-
-          if (sub_1000189BC(a1, "readStage105", v11, 4u, v27))
-          {
-            goto LABEL_462;
-          }
-
-          v9 = "ASPMSPParseBufferToCxt: readStage105(4209): Error adding 4 elements to context";
-          goto LABEL_2105;
-        case 4210:
-          if (v20 != 16)
-          {
-            sub_100020530("ASPMSPParseBufferToCxt: readStage106(4210): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-          }
-
-          if (v20 >= 0x14)
-          {
-            v27 = 4;
-          }
-
-          else
-          {
-            v27 = v20 >> 2;
-          }
-
-          if (sub_1000189BC(a1, "readStage106", v11, 4u, v27))
-          {
-            goto LABEL_462;
-          }
-
-          v9 = "ASPMSPParseBufferToCxt: readStage106(4210): Error adding 4 elements to context";
-          goto LABEL_2105;
-        case 4211:
-          if (v20 != 16)
-          {
-            sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter100(4211): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-          }
-
-          if (v20 >= 0x14)
-          {
-            v27 = 4;
-          }
-
-          else
-          {
-            v27 = v20 >> 2;
-          }
-
-          if (sub_1000189BC(a1, "dspExceptionParameter100", v11, 4u, v27))
-          {
-            goto LABEL_462;
-          }
-
-          v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter100(4211): Error adding 4 elements to context";
-          goto LABEL_2105;
-        case 4212:
-          if (v20 != 16)
-          {
-            sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter101(4212): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-          }
-
-          if (v20 >= 0x14)
-          {
-            v27 = 4;
-          }
-
-          else
-          {
-            v27 = v20 >> 2;
-          }
-
-          if (sub_1000189BC(a1, "dspExceptionParameter101", v11, 4u, v27))
-          {
-            goto LABEL_462;
-          }
-
-          v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter101(4212): Error adding 4 elements to context";
-          goto LABEL_2105;
-        case 4213:
-          if (v20 != 4)
-          {
-            sub_100020530("ASPMSPParseBufferToCxt: initialReadStage103(4213): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-          }
-
-          if (v20 >= 8)
-          {
-            v27 = 1;
-          }
-
-          else
-          {
-            v27 = v20 >> 2;
-          }
-
-          if (sub_1000189BC(a1, "initialReadStage103", v11, 4u, v27))
-          {
-            goto LABEL_462;
-          }
-
-          v9 = "ASPMSPParseBufferToCxt: initialReadStage103(4213): Error adding 1 elements to context";
-          goto LABEL_2105;
-        case 4214:
-          if (v20 != 4)
-          {
-            sub_100020530("ASPMSPParseBufferToCxt: initialReadStage104(4214): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-          }
-
-          if (v20 >= 8)
-          {
-            v27 = 1;
-          }
-
-          else
-          {
-            v27 = v20 >> 2;
-          }
-
-          if (sub_1000189BC(a1, "initialReadStage104", v11, 4u, v27))
-          {
-            goto LABEL_462;
-          }
-
-          v9 = "ASPMSPParseBufferToCxt: initialReadStage104(4214): Error adding 1 elements to context";
-          goto LABEL_2105;
-        case 4215:
-          if (v20 != 16)
-          {
-            sub_100020530("ASPMSPParseBufferToCxt: readStage107(4215): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-          }
-
-          if (v20 >= 0x14)
-          {
-            v27 = 4;
-          }
-
-          else
-          {
-            v27 = v20 >> 2;
-          }
-
-          if (sub_1000189BC(a1, "readStage107", v11, 4u, v27))
-          {
-            goto LABEL_462;
-          }
-
-          v9 = "ASPMSPParseBufferToCxt: readStage107(4215): Error adding 4 elements to context";
-          goto LABEL_2105;
-        case 4216:
-          if (v20 != 16)
-          {
-            sub_100020530("ASPMSPParseBufferToCxt: readStage108(4216): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-          }
-
-          if (v20 >= 0x14)
-          {
-            v27 = 4;
-          }
-
-          else
-          {
-            v27 = v20 >> 2;
-          }
-
-          if (sub_1000189BC(a1, "readStage108", v11, 4u, v27))
-          {
-            goto LABEL_462;
-          }
-
-          v9 = "ASPMSPParseBufferToCxt: readStage108(4216): Error adding 4 elements to context";
-          goto LABEL_2105;
-        case 4217:
-          if (v20 != 4)
-          {
-            sub_100020530("ASPMSPParseBufferToCxt: nandStageOfLife102(4217): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-          }
-
-          if (v20 >= 8)
-          {
-            v27 = 1;
-          }
-
-          else
-          {
-            v27 = v20 >> 2;
-          }
-
-          if (sub_1000189BC(a1, "nandStageOfLife102", v11, 4u, v27))
-          {
-            goto LABEL_462;
-          }
-
-          v9 = "ASPMSPParseBufferToCxt: nandStageOfLife102(4217): Error adding 1 elements to context";
-          goto LABEL_2105;
-        case 4218:
-          if (v20 != 4)
-          {
-            sub_100020530("ASPMSPParseBufferToCxt: nandStageOfLife103(4218): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-          }
-
-          if (v20 >= 8)
-          {
-            v27 = 1;
-          }
-
-          else
-          {
-            v27 = v20 >> 2;
-          }
-
-          if (sub_1000189BC(a1, "nandStageOfLife103", v11, 4u, v27))
-          {
-            goto LABEL_462;
-          }
-
-          v9 = "ASPMSPParseBufferToCxt: nandStageOfLife103(4218): Error adding 1 elements to context";
-          goto LABEL_2105;
-        case 4219:
-          if (v20 != 4)
-          {
-            sub_100020530("ASPMSPParseBufferToCxt: nandStageOfLife104(4219): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-          }
-
-          if (v20 >= 8)
-          {
-            v27 = 1;
-          }
-
-          else
-          {
-            v27 = v20 >> 2;
-          }
-
-          if (sub_1000189BC(a1, "nandStageOfLife104", v11, 4u, v27))
-          {
-            goto LABEL_462;
-          }
-
-          v9 = "ASPMSPParseBufferToCxt: nandStageOfLife104(4219): Error adding 1 elements to context";
-          goto LABEL_2105;
-        case 4220:
-          if (v20 != 16)
-          {
-            sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter102(4220): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-          }
-
-          if (v20 >= 0x14)
-          {
-            v27 = 4;
-          }
-
-          else
-          {
-            v27 = v20 >> 2;
-          }
-
-          if (sub_1000189BC(a1, "dspExceptionParameter102", v11, 4u, v27))
-          {
-            goto LABEL_462;
-          }
-
-          v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter102(4220): Error adding 4 elements to context";
-          goto LABEL_2105;
-        case 4221:
-          if (v20 != 16)
-          {
-            sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter103(4221): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-          }
-
-          if (v20 >= 0x14)
-          {
-            v27 = 4;
-          }
-
-          else
-          {
-            v27 = v20 >> 2;
-          }
-
-          if (sub_1000189BC(a1, "dspExceptionParameter103", v11, 4u, v27))
-          {
-            goto LABEL_462;
-          }
-
-          v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter103(4221): Error adding 4 elements to context";
-          goto LABEL_2105;
-        case 4222:
-          if (v20 != 16)
-          {
-            sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter104(4222): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-          }
-
-          if (v20 >= 0x14)
-          {
-            v27 = 4;
-          }
-
-          else
-          {
-            v27 = v20 >> 2;
-          }
-
-          if (sub_1000189BC(a1, "dspExceptionParameter104", v11, 4u, v27))
-          {
-            goto LABEL_462;
-          }
-
-          v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter104(4222): Error adding 4 elements to context";
-          goto LABEL_2105;
-        case 4223:
-          if (v20 != 16)
-          {
-            sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter105(4223): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-          }
-
-          if (v20 >= 0x14)
-          {
-            v27 = 4;
-          }
-
-          else
-          {
-            v27 = v20 >> 2;
-          }
-
-          if (sub_1000189BC(a1, "dspExceptionParameter105", v11, 4u, v27))
-          {
-            goto LABEL_462;
-          }
-
-          v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter105(4223): Error adding 4 elements to context";
-          goto LABEL_2105;
-        case 4224:
-          if (v20 != 16)
-          {
-            sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter106(4224): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-          }
-
-          if (v20 >= 0x14)
-          {
-            v27 = 4;
-          }
-
-          else
-          {
-            v27 = v20 >> 2;
-          }
-
-          if (sub_1000189BC(a1, "dspExceptionParameter106", v11, 4u, v27))
-          {
-            goto LABEL_462;
-          }
-
-          v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter106(4224): Error adding 4 elements to context";
-          goto LABEL_2105;
-        case 4225:
-          if (v20 != 16)
-          {
-            sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter107(4225): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-          }
-
-          if (v20 >= 0x14)
-          {
-            v27 = 4;
-          }
-
-          else
-          {
-            v27 = v20 >> 2;
-          }
-
-          if (sub_1000189BC(a1, "dspExceptionParameter107", v11, 4u, v27))
-          {
-LABEL_462:
-            v8 = v8 + v27;
-            v13 = "avg_rd_window_size";
-            v14 = "ASPMSPParseBufferToCxt: avg_rd_window_size(8193): cfg 5 elements; (5*4) cfg bytes != (%d) buffer bytes";
-            v16 = "ASPMSPParseBufferToCxt: num_zq_failures(8194): Error adding 1 elements to context";
-            v18 = "ASPMSPParseBufferToCxt: lower_die_temperature(8195): Error adding 16 elements to context";
-            break;
-          }
-
-          v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter107(4225): Error adding 4 elements to context";
-LABEL_2105:
-          sub_100020530(v9, a2, a3, a4, a5, a6, a7, a8, v39);
-          return v8;
-        default:
-          switch(v21)
-          {
-            case 4226:
-              v30 = v15;
-              v31 = v16;
-              v32 = v13;
-              if (v20 != 16)
-              {
-                sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter108(4226): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-              }
-
-              if (v20 >= 0x14)
-              {
-                v33 = 4;
-              }
-
-              else
-              {
-                v33 = v20 >> 2;
-              }
-
-              if (!sub_1000189BC(a1, "dspExceptionParameter108", v11, 4u, v33))
-              {
-                v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter108(4226): Error adding 4 elements to context";
-                goto LABEL_2105;
-              }
-
-              v8 = v8 + v33;
-              v13 = v32;
-              v14 = "ASPMSPParseBufferToCxt: avg_rd_window_size(8193): cfg 5 elements; (5*4) cfg bytes != (%d) buffer bytes";
-              v16 = v31;
-              v15 = v30;
-              goto LABEL_21;
-            case 4227:
-              v34 = v17;
-              v35 = v16;
-              if (v20 != 16)
-              {
-                sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter109(4227): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-              }
-
-              if (v20 >= 0x14)
-              {
-                v36 = 4;
-              }
-
-              else
-              {
-                v36 = v20 >> 2;
-              }
-
-              if (sub_1000189BC(a1, "dspExceptionParameter109", v11, 4u, v36))
-              {
-                goto LABEL_912;
-              }
-
-              v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter109(4227): Error adding 4 elements to context";
-              goto LABEL_2105;
-            case 4228:
-              v34 = v17;
-              v35 = v16;
-              if (v20 != 16)
-              {
-                sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter110(4228): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-              }
-
-              if (v20 >= 0x14)
-              {
-                v36 = 4;
-              }
-
-              else
-              {
-                v36 = v20 >> 2;
-              }
-
-              if (sub_1000189BC(a1, "dspExceptionParameter110", v11, 4u, v36))
-              {
-                goto LABEL_912;
-              }
-
-              v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter110(4228): Error adding 4 elements to context";
-              goto LABEL_2105;
-            case 4229:
-              v34 = v17;
-              v35 = v16;
-              if (v20 != 16)
-              {
-                sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter111(4229): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-              }
-
-              if (v20 >= 0x14)
-              {
-                v36 = 4;
-              }
-
-              else
-              {
-                v36 = v20 >> 2;
-              }
-
-              if (sub_1000189BC(a1, "dspExceptionParameter111", v11, 4u, v36))
-              {
-                goto LABEL_912;
-              }
-
-              v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter111(4229): Error adding 4 elements to context";
-              goto LABEL_2105;
-            case 4230:
-              v34 = v17;
-              v35 = v16;
-              if (v20 != 16)
-              {
-                sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter112(4230): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-              }
-
-              if (v20 >= 0x14)
-              {
-                v36 = 4;
-              }
-
-              else
-              {
-                v36 = v20 >> 2;
-              }
-
-              if (sub_1000189BC(a1, "dspExceptionParameter112", v11, 4u, v36))
-              {
-                goto LABEL_912;
-              }
-
-              v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter112(4230): Error adding 4 elements to context";
-              goto LABEL_2105;
-            case 4231:
-              v34 = v17;
-              v35 = v16;
-              if (v20 != 16)
-              {
-                sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter113(4231): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-              }
-
-              if (v20 >= 0x14)
-              {
-                v36 = 4;
-              }
-
-              else
-              {
-                v36 = v20 >> 2;
-              }
-
-              if (sub_1000189BC(a1, "dspExceptionParameter113", v11, 4u, v36))
-              {
-                goto LABEL_912;
-              }
-
-              v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter113(4231): Error adding 4 elements to context";
-              goto LABEL_2105;
-            case 4232:
-              v34 = v17;
-              v35 = v16;
-              if (v20 != 256)
-              {
-                sub_100020530("ASPMSPParseBufferToCxt: readStageNumOfFails108(4232): cfg 64 elements; (64*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-              }
-
-              if (v20 >= 0x104)
-              {
-                v36 = 64;
-              }
-
-              else
-              {
-                v36 = v20 >> 2;
-              }
-
-              if (sub_1000189BC(a1, "readStageNumOfFails108", v11, 4u, v36))
-              {
-                goto LABEL_912;
-              }
-
-              v9 = "ASPMSPParseBufferToCxt: readStageNumOfFails108(4232): Error adding 64 elements to context";
-              goto LABEL_2105;
-            case 4233:
-              v34 = v17;
-              v35 = v16;
-              if (v20 != 256)
-              {
-                sub_100020530("ASPMSPParseBufferToCxt: readStageNumOfFails103(4233): cfg 64 elements; (64*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-              }
-
-              if (v20 >= 0x104)
-              {
-                v36 = 64;
-              }
-
-              else
-              {
-                v36 = v20 >> 2;
-              }
-
-              if (sub_1000189BC(a1, "readStageNumOfFails103", v11, 4u, v36))
-              {
-                goto LABEL_912;
-              }
-
-              v9 = "ASPMSPParseBufferToCxt: readStageNumOfFails103(4233): Error adding 64 elements to context";
-              goto LABEL_2105;
-            case 4234:
-              v34 = v17;
-              v35 = v16;
-              if (v20 != 16)
-              {
-                sub_100020530("ASPMSPParseBufferToCxt: readStageNumOfFails104(4234): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-              }
-
-              if (v20 >= 0x14)
-              {
-                v36 = 4;
-              }
-
-              else
-              {
-                v36 = v20 >> 2;
-              }
-
-              if (sub_1000189BC(a1, "readStageNumOfFails104", v11, 4u, v36))
-              {
-                goto LABEL_912;
-              }
-
-              v9 = "ASPMSPParseBufferToCxt: readStageNumOfFails104(4234): Error adding 4 elements to context";
-              goto LABEL_2105;
-            case 4235:
-              v34 = v17;
-              v35 = v16;
-              if (v20 != 16)
-              {
-                sub_100020530("ASPMSPParseBufferToCxt: readStageNumOfFails105(4235): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-              }
-
-              if (v20 >= 0x14)
-              {
-                v36 = 4;
-              }
-
-              else
-              {
-                v36 = v20 >> 2;
-              }
-
-              if (sub_1000189BC(a1, "readStageNumOfFails105", v11, 4u, v36))
-              {
-                goto LABEL_912;
-              }
-
-              v9 = "ASPMSPParseBufferToCxt: readStageNumOfFails105(4235): Error adding 4 elements to context";
-              goto LABEL_2105;
-            case 4236:
-              v34 = v17;
-              v35 = v16;
-              if (v20 != 16)
-              {
-                sub_100020530("ASPMSPParseBufferToCxt: readStageNumOfFails106(4236): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-              }
-
-              if (v20 >= 0x14)
-              {
-                v36 = 4;
-              }
-
-              else
-              {
-                v36 = v20 >> 2;
-              }
-
-              if (sub_1000189BC(a1, "readStageNumOfFails106", v11, 4u, v36))
-              {
-                goto LABEL_912;
-              }
-
-              v9 = "ASPMSPParseBufferToCxt: readStageNumOfFails106(4236): Error adding 4 elements to context";
-              goto LABEL_2105;
-            case 4237:
-              v34 = v17;
-              v35 = v16;
-              if (v20 != 16)
-              {
-                sub_100020530("ASPMSPParseBufferToCxt: readStageNumOfFails107(4237): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-              }
-
-              if (v20 >= 0x14)
-              {
-                v36 = 4;
-              }
-
-              else
-              {
-                v36 = v20 >> 2;
-              }
-
-              if (sub_1000189BC(a1, "readStageNumOfFails107", v11, 4u, v36))
-              {
-                goto LABEL_912;
-              }
-
-              v9 = "ASPMSPParseBufferToCxt: readStageNumOfFails107(4237): Error adding 4 elements to context";
-              goto LABEL_2105;
-            case 4238:
-              v34 = v17;
-              v35 = v16;
-              if (v20 != 16)
-              {
-                sub_100020530("ASPMSPParseBufferToCxt: readStage109(4238): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-              }
-
-              if (v20 >= 0x14)
-              {
-                v36 = 4;
-              }
-
-              else
-              {
-                v36 = v20 >> 2;
-              }
-
-              if (sub_1000189BC(a1, "readStage109", v11, 4u, v36))
-              {
-                goto LABEL_912;
-              }
-
-              v9 = "ASPMSPParseBufferToCxt: readStage109(4238): Error adding 4 elements to context";
-              goto LABEL_2105;
-            case 4239:
-              v34 = v17;
-              v35 = v16;
-              if (v20 != 16)
-              {
-                sub_100020530("ASPMSPParseBufferToCxt: readStage110(4239): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-              }
-
-              if (v20 >= 0x14)
-              {
-                v36 = 4;
-              }
-
-              else
-              {
-                v36 = v20 >> 2;
-              }
-
-              if (sub_1000189BC(a1, "readStage110", v11, 4u, v36))
-              {
-                goto LABEL_912;
-              }
-
-              v9 = "ASPMSPParseBufferToCxt: readStage110(4239): Error adding 4 elements to context";
-              goto LABEL_2105;
-            case 4240:
-              v34 = v17;
-              v35 = v16;
-              if (v20 != 80)
-              {
-                sub_100020530("ASPMSPParseBufferToCxt: readStageNumOfErrorsBin100(4240): cfg 20 elements; (20*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-              }
-
-              if (v20 >= 0x54)
-              {
-                v36 = 20;
-              }
-
-              else
-              {
-                v36 = v20 >> 2;
-              }
-
-              if (sub_1000189BC(a1, "readStageNumOfErrorsBin100", v11, 4u, v36))
-              {
-                goto LABEL_912;
-              }
-
-              v9 = "ASPMSPParseBufferToCxt: readStageNumOfErrorsBin100(4240): Error adding 20 elements to context";
-              goto LABEL_2105;
-            case 4241:
-              v34 = v17;
-              v35 = v16;
-              if (v20 != 80)
-              {
-                sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter114(4241): cfg 20 elements; (20*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-              }
-
-              if (v20 >= 0x54)
-              {
-                v36 = 20;
-              }
-
-              else
-              {
-                v36 = v20 >> 2;
-              }
-
-              if (sub_1000189BC(a1, "dspExceptionParameter114", v11, 4u, v36))
-              {
-                goto LABEL_912;
-              }
-
-              v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter114(4241): Error adding 20 elements to context";
-              goto LABEL_2105;
-            case 4242:
-              v34 = v17;
-              v35 = v16;
-              if (v20 != 4)
-              {
-                sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter115(4242): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-              }
-
-              if (v20 >= 8)
-              {
-                v36 = 1;
-              }
-
-              else
-              {
-                v36 = v20 >> 2;
-              }
-
-              if (sub_1000189BC(a1, "dspExceptionParameter115", v11, 4u, v36))
-              {
-                goto LABEL_912;
-              }
-
-              v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter115(4242): Error adding 1 elements to context";
-              goto LABEL_2105;
-            case 4243:
-              v34 = v17;
-              v35 = v16;
-              if (v20 != 4)
-              {
-                sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter116(4243): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-              }
-
-              if (v20 >= 8)
-              {
-                v36 = 1;
-              }
-
-              else
-              {
-                v36 = v20 >> 2;
-              }
-
-              if (sub_1000189BC(a1, "dspExceptionParameter116", v11, 4u, v36))
-              {
-                goto LABEL_912;
-              }
-
-              v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter116(4243): Error adding 1 elements to context";
-              goto LABEL_2105;
-            case 4244:
-              v34 = v17;
-              v35 = v16;
-              if (v20 != 4)
-              {
-                sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter117(4244): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-              }
-
-              if (v20 >= 8)
-              {
-                v36 = 1;
-              }
-
-              else
-              {
-                v36 = v20 >> 2;
-              }
-
-              if (sub_1000189BC(a1, "dspExceptionParameter117", v11, 4u, v36))
-              {
-                goto LABEL_912;
-              }
-
-              v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter117(4244): Error adding 1 elements to context";
-              goto LABEL_2105;
-            case 4245:
-              v34 = v17;
-              v35 = v16;
-              if (v20 != 4)
-              {
-                sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter118(4245): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-              }
-
-              if (v20 >= 8)
-              {
-                v36 = 1;
-              }
-
-              else
-              {
-                v36 = v20 >> 2;
-              }
-
-              if (sub_1000189BC(a1, "dspExceptionParameter118", v11, 4u, v36))
-              {
-                goto LABEL_912;
-              }
-
-              v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter118(4245): Error adding 1 elements to context";
-              goto LABEL_2105;
-            case 4246:
-              v34 = v17;
-              v35 = v16;
-              if (v20 != 4)
-              {
-                sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter119(4246): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-              }
-
-              if (v20 >= 8)
-              {
-                v36 = 1;
-              }
-
-              else
-              {
-                v36 = v20 >> 2;
-              }
-
-              if (sub_1000189BC(a1, "dspExceptionParameter119", v11, 4u, v36))
-              {
-                goto LABEL_912;
-              }
-
-              v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter119(4246): Error adding 1 elements to context";
-              goto LABEL_2105;
-            case 4247:
-              v34 = v17;
-              v35 = v16;
-              if (v20 != 4)
-              {
-                sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter120(4247): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-              }
-
-              if (v20 >= 8)
-              {
-                v36 = 1;
-              }
-
-              else
-              {
-                v36 = v20 >> 2;
-              }
-
-              if (sub_1000189BC(a1, "dspExceptionParameter120", v11, 4u, v36))
-              {
-                goto LABEL_912;
-              }
-
-              v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter120(4247): Error adding 1 elements to context";
-              goto LABEL_2105;
-            case 4248:
-              v34 = v17;
-              v35 = v16;
-              if (v20 != 4)
-              {
-                sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter121(4248): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-              }
-
-              if (v20 >= 8)
-              {
-                v36 = 1;
-              }
-
-              else
-              {
-                v36 = v20 >> 2;
-              }
-
-              if (sub_1000189BC(a1, "dspExceptionParameter121", v11, 4u, v36))
-              {
-                goto LABEL_912;
-              }
-
-              v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter121(4248): Error adding 1 elements to context";
-              goto LABEL_2105;
-            case 4249:
-              v34 = v17;
-              v35 = v16;
-              if (v20 != 4)
-              {
-                sub_100020530("ASPMSPParseBufferToCxt: cbdr_ref_1(4249): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-              }
-
-              if (v20 >= 8)
-              {
-                v36 = 1;
-              }
-
-              else
-              {
-                v36 = v20 >> 2;
-              }
-
-              if (sub_1000189BC(a1, "cbdr_ref_1", v11, 4u, v36))
-              {
-                goto LABEL_912;
-              }
-
-              v9 = "ASPMSPParseBufferToCxt: cbdr_ref_1(4249): Error adding 1 elements to context";
-              goto LABEL_2105;
-            case 4250:
-              v34 = v17;
-              v35 = v16;
-              if (v20 != 4)
-              {
-                sub_100020530("ASPMSPParseBufferToCxt: cbdr_ref_2(4250): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-              }
-
-              if (v20 >= 8)
-              {
-                v36 = 1;
-              }
-
-              else
-              {
-                v36 = v20 >> 2;
-              }
-
-              if (sub_1000189BC(a1, "cbdr_ref_2", v11, 4u, v36))
-              {
-                goto LABEL_912;
-              }
-
-              v9 = "ASPMSPParseBufferToCxt: cbdr_ref_2(4250): Error adding 1 elements to context";
-              goto LABEL_2105;
-            case 4251:
-              v34 = v17;
-              v35 = v16;
-              if (v20 != 4)
-              {
-                sub_100020530("ASPMSPParseBufferToCxt: cbdr_outlier(4251): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-              }
-
-              if (v20 >= 8)
-              {
-                v36 = 1;
-              }
-
-              else
-              {
-                v36 = v20 >> 2;
-              }
-
-              if (sub_1000189BC(a1, "cbdr_outlier", v11, 4u, v36))
-              {
-                goto LABEL_912;
-              }
-
-              v9 = "ASPMSPParseBufferToCxt: cbdr_outlier(4251): Error adding 1 elements to context";
-              goto LABEL_2105;
-            case 4252:
-              v34 = v17;
-              v35 = v16;
-              if (v20 != 40)
-              {
-                sub_100020530("ASPMSPParseBufferToCxt: cbdr_step_1(4252): cfg 10 elements; (10*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-              }
-
-              if (v20 >= 0x2C)
-              {
-                v36 = 10;
-              }
-
-              else
-              {
-                v36 = v20 >> 2;
-              }
-
-              if (sub_1000189BC(a1, "cbdr_step_1", v11, 4u, v36))
-              {
-                goto LABEL_912;
-              }
-
-              v9 = "ASPMSPParseBufferToCxt: cbdr_step_1(4252): Error adding 10 elements to context";
-              goto LABEL_2105;
-            case 4253:
-              v34 = v17;
-              v35 = v16;
-              if (v20 != 40)
-              {
-                sub_100020530("ASPMSPParseBufferToCxt: cbdr_step_2(4253): cfg 10 elements; (10*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-              }
-
-              if (v20 >= 0x2C)
-              {
-                v36 = 10;
-              }
-
-              else
-              {
-                v36 = v20 >> 2;
-              }
-
-              if (sub_1000189BC(a1, "cbdr_step_2", v11, 4u, v36))
-              {
-                goto LABEL_912;
-              }
-
-              v9 = "ASPMSPParseBufferToCxt: cbdr_step_2(4253): Error adding 10 elements to context";
-              goto LABEL_2105;
-            case 4254:
-              v34 = v17;
-              v35 = v16;
-              if (v20 != 40)
-              {
-                sub_100020530("ASPMSPParseBufferToCxt: cbdr_step_3(4254): cfg 10 elements; (10*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-              }
-
-              if (v20 >= 0x2C)
-              {
-                v36 = 10;
-              }
-
-              else
-              {
-                v36 = v20 >> 2;
-              }
-
-              if (sub_1000189BC(a1, "cbdr_step_3", v11, 4u, v36))
-              {
-                goto LABEL_912;
-              }
-
-              v9 = "ASPMSPParseBufferToCxt: cbdr_step_3(4254): Error adding 10 elements to context";
-              goto LABEL_2105;
-            case 4255:
-              v34 = v17;
-              v35 = v16;
-              if (v20 != 40)
-              {
-                sub_100020530("ASPMSPParseBufferToCxt: cbdr_step_4(4255): cfg 10 elements; (10*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-              }
-
-              if (v20 >= 0x2C)
-              {
-                v36 = 10;
-              }
-
-              else
-              {
-                v36 = v20 >> 2;
-              }
-
-              if (sub_1000189BC(a1, "cbdr_step_4", v11, 4u, v36))
-              {
-                goto LABEL_912;
-              }
-
-              v9 = "ASPMSPParseBufferToCxt: cbdr_step_4(4255): Error adding 10 elements to context";
-              goto LABEL_2105;
-            case 4256:
-              v34 = v17;
-              v35 = v16;
-              if (v20 != 40)
-              {
-                sub_100020530("ASPMSPParseBufferToCxt: cbdr_step_5(4256): cfg 10 elements; (10*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-              }
-
-              if (v20 >= 0x2C)
-              {
-                v36 = 10;
-              }
-
-              else
-              {
-                v36 = v20 >> 2;
-              }
-
-              if (sub_1000189BC(a1, "cbdr_step_5", v11, 4u, v36))
-              {
-                goto LABEL_912;
-              }
-
-              v9 = "ASPMSPParseBufferToCxt: cbdr_step_5(4256): Error adding 10 elements to context";
-              goto LABEL_2105;
-            case 4257:
-              v34 = v17;
-              v35 = v16;
-              if (v20 != 40)
-              {
-                sub_100020530("ASPMSPParseBufferToCxt: cbdr_step_6(4257): cfg 10 elements; (10*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-              }
-
-              if (v20 >= 0x2C)
-              {
-                v36 = 10;
-              }
-
-              else
-              {
-                v36 = v20 >> 2;
-              }
-
-              if (sub_1000189BC(a1, "cbdr_step_6", v11, 4u, v36))
-              {
-                goto LABEL_912;
-              }
-
-              v9 = "ASPMSPParseBufferToCxt: cbdr_step_6(4257): Error adding 10 elements to context";
-              goto LABEL_2105;
-            case 4258:
-              v34 = v17;
-              v35 = v16;
-              if (v20 != 40)
-              {
-                sub_100020530("ASPMSPParseBufferToCxt: cbdr_step_7(4258): cfg 10 elements; (10*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-              }
-
-              if (v20 >= 0x2C)
-              {
-                v36 = 10;
-              }
-
-              else
-              {
-                v36 = v20 >> 2;
-              }
-
-              if (sub_1000189BC(a1, "cbdr_step_7", v11, 4u, v36))
-              {
-                goto LABEL_912;
-              }
-
-              v9 = "ASPMSPParseBufferToCxt: cbdr_step_7(4258): Error adding 10 elements to context";
-              goto LABEL_2105;
-            case 4259:
-              v34 = v17;
-              v35 = v16;
-              if (v20 != 80)
-              {
-                sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter122(4259): cfg 20 elements; (20*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-              }
-
-              if (v20 >= 0x54)
-              {
-                v36 = 20;
-              }
-
-              else
-              {
-                v36 = v20 >> 2;
-              }
-
-              if (sub_1000189BC(a1, "dspExceptionParameter122", v11, 4u, v36))
-              {
-                goto LABEL_912;
-              }
-
-              v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter122(4259): Error adding 20 elements to context";
-              goto LABEL_2105;
-            case 4260:
-              v34 = v17;
-              v35 = v16;
-              if (v20 != 32)
-              {
-                sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter123(4260): cfg 8 elements; (8*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-              }
-
-              if (v20 >= 0x24)
-              {
-                v36 = 8;
-              }
-
-              else
-              {
-                v36 = v20 >> 2;
-              }
-
-              if (sub_1000189BC(a1, "dspExceptionParameter123", v11, 4u, v36))
-              {
-                goto LABEL_912;
-              }
-
-              v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter123(4260): Error adding 8 elements to context";
-              goto LABEL_2105;
-            case 4261:
-              v34 = v17;
-              v35 = v16;
-              if (v20 != 4)
-              {
-                sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter124(4261): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-              }
-
-              if (v20 >= 8)
-              {
-                v36 = 1;
-              }
-
-              else
-              {
-                v36 = v20 >> 2;
-              }
-
-              if (sub_1000189BC(a1, "dspExceptionParameter124", v11, 4u, v36))
-              {
-                goto LABEL_912;
-              }
-
-              v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter124(4261): Error adding 1 elements to context";
-              goto LABEL_2105;
-            case 4262:
-              v34 = v17;
-              v35 = v16;
-              if (v20 != 4)
-              {
-                sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter125(4262): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-              }
-
-              if (v20 >= 8)
-              {
-                v36 = 1;
-              }
-
-              else
-              {
-                v36 = v20 >> 2;
-              }
-
-              if (sub_1000189BC(a1, "dspExceptionParameter125", v11, 4u, v36))
-              {
-                goto LABEL_912;
-              }
-
-              v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter125(4262): Error adding 1 elements to context";
-              goto LABEL_2105;
-            case 4263:
-              v34 = v17;
-              v35 = v16;
-              if (v20 != 4)
-              {
-                sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter126(4263): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-              }
-
-              if (v20 >= 8)
-              {
-                v36 = 1;
-              }
-
-              else
-              {
-                v36 = v20 >> 2;
-              }
-
-              if (sub_1000189BC(a1, "dspExceptionParameter126", v11, 4u, v36))
-              {
-                goto LABEL_912;
-              }
-
-              v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter126(4263): Error adding 1 elements to context";
-              goto LABEL_2105;
-            case 4264:
-              v34 = v17;
-              v35 = v16;
-              if (v20 != 16)
-              {
-                sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter127(4264): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-              }
-
-              if (v20 >= 0x14)
-              {
-                v36 = 4;
-              }
-
-              else
-              {
-                v36 = v20 >> 2;
-              }
-
-              if (sub_1000189BC(a1, "dspExceptionParameter127", v11, 4u, v36))
-              {
-                goto LABEL_912;
-              }
-
-              v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter127(4264): Error adding 4 elements to context";
-              goto LABEL_2105;
-            case 4265:
-              v34 = v17;
-              v35 = v16;
-              if (v20 != 16)
-              {
-                sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter128(4265): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-              }
-
-              if (v20 >= 0x14)
-              {
-                v36 = 4;
-              }
-
-              else
-              {
-                v36 = v20 >> 2;
-              }
-
-              if (sub_1000189BC(a1, "dspExceptionParameter128", v11, 4u, v36))
-              {
-                goto LABEL_912;
-              }
-
-              v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter128(4265): Error adding 4 elements to context";
-              goto LABEL_2105;
-            case 4266:
-              v34 = v17;
-              v35 = v16;
-              if (v20 != 16)
-              {
-                sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter129(4266): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-              }
-
-              if (v20 >= 0x14)
-              {
-                v36 = 4;
-              }
-
-              else
-              {
-                v36 = v20 >> 2;
-              }
-
-              if (sub_1000189BC(a1, "dspExceptionParameter129", v11, 4u, v36))
-              {
-                goto LABEL_912;
-              }
-
-              v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter129(4266): Error adding 4 elements to context";
-              goto LABEL_2105;
-            case 4267:
-              v34 = v17;
-              v35 = v16;
-              if (v20 != 16)
-              {
-                sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter130(4267): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-              }
-
-              if (v20 >= 0x14)
-              {
-                v36 = 4;
-              }
-
-              else
-              {
-                v36 = v20 >> 2;
-              }
-
-              if (sub_1000189BC(a1, "dspExceptionParameter130", v11, 4u, v36))
-              {
-                goto LABEL_912;
-              }
-
-              v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter130(4267): Error adding 4 elements to context";
-              goto LABEL_2105;
-            case 4268:
-              v34 = v17;
-              v35 = v16;
-              if (v20 != 16)
-              {
-                sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter131(4268): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-              }
-
-              if (v20 >= 0x14)
-              {
-                v36 = 4;
-              }
-
-              else
-              {
-                v36 = v20 >> 2;
-              }
-
-              if (sub_1000189BC(a1, "dspExceptionParameter131", v11, 4u, v36))
-              {
-                goto LABEL_912;
-              }
-
-              v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter131(4268): Error adding 4 elements to context";
-              goto LABEL_2105;
-            case 4269:
-              v34 = v17;
-              v35 = v16;
-              if (v20 != 40)
-              {
-                sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter132(4269): cfg 10 elements; (10*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-              }
-
-              if (v20 >= 0x2C)
-              {
-                v36 = 10;
-              }
-
-              else
-              {
-                v36 = v20 >> 2;
-              }
-
-              if (sub_1000189BC(a1, "dspExceptionParameter132", v11, 4u, v36))
-              {
-                goto LABEL_912;
-              }
-
-              v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter132(4269): Error adding 10 elements to context";
-              goto LABEL_2105;
-            case 4270:
-              v34 = v17;
-              v35 = v16;
-              if (v20 != 40)
-              {
-                sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter133(4270): cfg 10 elements; (10*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-              }
-
-              if (v20 >= 0x2C)
-              {
-                v36 = 10;
-              }
-
-              else
-              {
-                v36 = v20 >> 2;
-              }
-
-              if (sub_1000189BC(a1, "dspExceptionParameter133", v11, 4u, v36))
-              {
-                goto LABEL_912;
-              }
-
-              v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter133(4270): Error adding 10 elements to context";
-              goto LABEL_2105;
-            case 4271:
-              v34 = v17;
-              v35 = v16;
-              if (v20 != 4)
-              {
-                sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter134(4271): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-              }
-
-              if (v20 >= 8)
-              {
-                v36 = 1;
-              }
-
-              else
-              {
-                v36 = v20 >> 2;
-              }
-
-              if (sub_1000189BC(a1, "dspExceptionParameter134", v11, 4u, v36))
-              {
-                goto LABEL_912;
-              }
-
-              v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter134(4271): Error adding 1 elements to context";
-              goto LABEL_2105;
-            case 4272:
-              v34 = v17;
-              v35 = v16;
-              if (v20 != 4)
-              {
-                sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter135(4272): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-              }
-
-              if (v20 >= 8)
-              {
-                v36 = 1;
-              }
-
-              else
-              {
-                v36 = v20 >> 2;
-              }
-
-              if (sub_1000189BC(a1, "dspExceptionParameter135", v11, 4u, v36))
-              {
-                goto LABEL_912;
-              }
-
-              v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter135(4272): Error adding 1 elements to context";
-              goto LABEL_2105;
-            case 4273:
-              v34 = v17;
-              v35 = v16;
-              if (v20 != 4)
-              {
-                sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter136(4273): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-              }
-
-              if (v20 >= 8)
-              {
-                v36 = 1;
-              }
-
-              else
-              {
-                v36 = v20 >> 2;
-              }
-
-              if (sub_1000189BC(a1, "dspExceptionParameter136", v11, 4u, v36))
-              {
-                goto LABEL_912;
-              }
-
-              v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter136(4273): Error adding 1 elements to context";
-              goto LABEL_2105;
-            case 4274:
-              v34 = v17;
-              v35 = v16;
-              if (v20 != 4)
-              {
-                sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter137(4274): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-              }
-
-              if (v20 >= 8)
-              {
-                v36 = 1;
-              }
-
-              else
-              {
-                v36 = v20 >> 2;
-              }
-
-              if (sub_1000189BC(a1, "dspExceptionParameter137", v11, 4u, v36))
-              {
-                goto LABEL_912;
-              }
-
-              v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter137(4274): Error adding 1 elements to context";
-              goto LABEL_2105;
-            case 4275:
-              v34 = v17;
-              v35 = v16;
-              if (v20 != 4)
-              {
-                sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter138(4275): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-              }
-
-              if (v20 >= 8)
-              {
-                v36 = 1;
-              }
-
-              else
-              {
-                v36 = v20 >> 2;
-              }
-
-              if (sub_1000189BC(a1, "dspExceptionParameter138", v11, 4u, v36))
-              {
-                goto LABEL_912;
-              }
-
-              v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter138(4275): Error adding 1 elements to context";
-              goto LABEL_2105;
-            case 4276:
-              v34 = v17;
-              v35 = v16;
-              if (v20 != 16)
-              {
-                sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter139(4276): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-              }
-
-              if (v20 >= 0x14)
-              {
-                v36 = 4;
-              }
-
-              else
-              {
-                v36 = v20 >> 2;
-              }
-
-              if (sub_1000189BC(a1, "dspExceptionParameter139", v11, 4u, v36))
-              {
-                goto LABEL_912;
-              }
-
-              v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter139(4276): Error adding 4 elements to context";
-              goto LABEL_2105;
-            case 4277:
-              v34 = v17;
-              v35 = v16;
-              if (v20 != 4)
-              {
-                sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter140(4277): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-              }
-
-              if (v20 >= 8)
-              {
-                v36 = 1;
-              }
-
-              else
-              {
-                v36 = v20 >> 2;
-              }
-
-              if (sub_1000189BC(a1, "dspExceptionParameter140", v11, 4u, v36))
-              {
-                goto LABEL_912;
-              }
-
-              v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter140(4277): Error adding 1 elements to context";
-              goto LABEL_2105;
-            case 4278:
-              v34 = v17;
-              v35 = v16;
-              if (v20 != 4)
-              {
-                sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter141(4278): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-              }
-
-              if (v20 >= 8)
-              {
-                v36 = 1;
-              }
-
-              else
-              {
-                v36 = v20 >> 2;
-              }
-
-              if (sub_1000189BC(a1, "dspExceptionParameter141", v11, 4u, v36))
-              {
-                goto LABEL_912;
-              }
-
-              v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter141(4278): Error adding 1 elements to context";
-              goto LABEL_2105;
-            case 4279:
-              v34 = v17;
-              v35 = v16;
-              if (v20 != 16)
-              {
-                sub_100020530("ASPMSPParseBufferToCxt: fs1_4b_fail(4279): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-              }
-
-              if (v20 >= 0x14)
-              {
-                v36 = 4;
-              }
-
-              else
-              {
-                v36 = v20 >> 2;
-              }
-
-              if (sub_1000189BC(a1, "fs1_4b_fail_", v11, 4u, v36))
-              {
-                goto LABEL_912;
-              }
-
-              v9 = "ASPMSPParseBufferToCxt: fs1_4b_fail(4279): Error adding 4 elements to context";
-              goto LABEL_2105;
-            case 4280:
-              v34 = v17;
-              v35 = v16;
-              if (v20 != 16)
-              {
-                sub_100020530("ASPMSPParseBufferToCxt: fs1_4b_fast_fail(4280): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-              }
-
-              if (v20 >= 0x14)
-              {
-                v36 = 4;
-              }
-
-              else
-              {
-                v36 = v20 >> 2;
-              }
-
-              if (sub_1000189BC(a1, "fs1_4b_fast_fail_", v11, 4u, v36))
-              {
-                goto LABEL_912;
-              }
-
-              v9 = "ASPMSPParseBufferToCxt: fs1_4b_fast_fail(4280): Error adding 4 elements to context";
-              goto LABEL_2105;
-            case 4281:
-              v34 = v17;
-              v35 = v16;
-              if (v20 != 40)
-              {
-                sub_100020530("ASPMSPParseBufferToCxt: dyce_decoded_bit_flips(4281): cfg 10 elements; (10*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-              }
-
-              if (v20 >= 0x2C)
-              {
-                v36 = 10;
-              }
-
-              else
-              {
-                v36 = v20 >> 2;
-              }
-
-              if (sub_1000189BC(a1, "dyce_decoded_bit_flips_", v11, 4u, v36))
-              {
-                goto LABEL_912;
-              }
-
-              v9 = "ASPMSPParseBufferToCxt: dyce_decoded_bit_flips(4281): Error adding 10 elements to context";
-              goto LABEL_2105;
-            case 4282:
-              v34 = v17;
-              v35 = v16;
-              if (v20 != 60)
-              {
-                sub_100020530("ASPMSPParseBufferToCxt: slip_bch(4282): cfg 15 elements; (15*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-              }
-
-              if (v20 >= 0x40)
-              {
-                v36 = 15;
-              }
-
-              else
-              {
-                v36 = v20 >> 2;
-              }
-
-              if (sub_1000189BC(a1, "slip_bch_", v11, 4u, v36))
-              {
-                goto LABEL_912;
-              }
-
-              v9 = "ASPMSPParseBufferToCxt: slip_bch(4282): Error adding 15 elements to context";
-              goto LABEL_2105;
-            case 4283:
-              v34 = v17;
-              v35 = v16;
-              if (v20 != 40)
-              {
-                sub_100020530("ASPMSPParseBufferToCxt: read_fail(4283): cfg 10 elements; (10*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-              }
-
-              if (v20 >= 0x2C)
-              {
-                v36 = 10;
-              }
-
-              else
-              {
-                v36 = v20 >> 2;
-              }
-
-              if (sub_1000189BC(a1, "read_fail_", v11, 4u, v36))
-              {
-                goto LABEL_912;
-              }
-
-              v9 = "ASPMSPParseBufferToCxt: read_fail(4283): Error adding 10 elements to context";
-              goto LABEL_2105;
-            case 4284:
-              v34 = v17;
-              v35 = v16;
-              if (v20 != 40)
-              {
-                sub_100020530("ASPMSPParseBufferToCxt: tr_read_fail(4284): cfg 10 elements; (10*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-              }
-
-              if (v20 >= 0x2C)
-              {
-                v36 = 10;
-              }
-
-              else
-              {
-                v36 = v20 >> 2;
-              }
-
-              if (sub_1000189BC(a1, "tr_read_fail_", v11, 4u, v36))
-              {
-                goto LABEL_912;
-              }
-
-              v9 = "ASPMSPParseBufferToCxt: tr_read_fail(4284): Error adding 10 elements to context";
-              goto LABEL_2105;
-            case 4285:
-              v34 = v17;
-              v35 = v16;
-              if (v20 != 40)
-              {
-                sub_100020530("ASPMSPParseBufferToCxt: tr_aux_bfs_percent(4285): cfg 10 elements; (10*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-              }
-
-              if (v20 >= 0x2C)
-              {
-                v36 = 10;
-              }
-
-              else
-              {
-                v36 = v20 >> 2;
-              }
-
-              if (sub_1000189BC(a1, "tr_aux_bfs_percent_", v11, 4u, v36))
-              {
-                goto LABEL_912;
-              }
-
-              v9 = "ASPMSPParseBufferToCxt: tr_aux_bfs_percent(4285): Error adding 10 elements to context";
-              goto LABEL_2105;
-            case 4286:
-              v34 = v17;
-              v35 = v16;
-              if (v20 != 20)
-              {
-                sub_100020530("ASPMSPParseBufferToCxt: tr_reconstruct_pass_step(4286): cfg 5 elements; (5*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-              }
-
-              if (v20 >= 0x18)
-              {
-                v36 = 5;
-              }
-
-              else
-              {
-                v36 = v20 >> 2;
-              }
-
-              if (sub_1000189BC(a1, "tr_reconstruct_pass_step_", v11, 4u, v36))
-              {
-                goto LABEL_912;
-              }
-
-              v9 = "ASPMSPParseBufferToCxt: tr_reconstruct_pass_step(4286): Error adding 5 elements to context";
-              goto LABEL_2105;
-            case 4287:
-              v34 = v17;
-              v35 = v16;
-              if (v20 != 4)
-              {
-                sub_100020530("ASPMSPParseBufferToCxt: tr_reconstruct_num(4287): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-              }
-
-              if (v20 >= 8)
-              {
-                v36 = 1;
-              }
-
-              else
-              {
-                v36 = v20 >> 2;
-              }
-
-              if (sub_1000189BC(a1, "tr_reconstruct_num", v11, 4u, v36))
-              {
-                goto LABEL_912;
-              }
-
-              v9 = "ASPMSPParseBufferToCxt: tr_reconstruct_num(4287): Error adding 1 elements to context";
-              goto LABEL_2105;
-            case 4301:
-              v34 = v17;
-              v35 = v16;
-              if (v20 != 4)
-              {
-                sub_100020530("ASPMSPParseBufferToCxt: nandStageOfLife105(4301): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-              }
-
-              if (v20 >= 8)
-              {
-                v36 = 1;
-              }
-
-              else
-              {
-                v36 = v20 >> 2;
-              }
-
-              if (sub_1000189BC(a1, "nandStageOfLife105", v11, 4u, v36))
-              {
-                goto LABEL_912;
-              }
-
-              v9 = "ASPMSPParseBufferToCxt: nandStageOfLife105(4301): Error adding 1 elements to context";
-              goto LABEL_2105;
-            case 4302:
-              v34 = v17;
-              v35 = v16;
-              if (v20 != 4)
-              {
-                sub_100020530("ASPMSPParseBufferToCxt: nandStageOfLife106(4302): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", a2, a3, v18, a5, a6, a7, a8, v20);
-              }
-
-              if (v20 >= 8)
-              {
-                v36 = 1;
-              }
-
-              else
-              {
-                v36 = v20 >> 2;
-              }
-
-              if (!sub_1000189BC(a1, "nandStageOfLife106", v11, 4u, v36))
-              {
-                v9 = "ASPMSPParseBufferToCxt: nandStageOfLife106(4302): Error adding 1 elements to context";
-                goto LABEL_2105;
-              }
-
-LABEL_912:
-              v8 = v8 + v36;
-              v13 = "avg_rd_window_size";
-              v14 = "ASPMSPParseBufferToCxt: avg_rd_window_size(8193): cfg 5 elements; (5*4) cfg bytes != (%d) buffer bytes";
-              v16 = v35;
-              v17 = v34;
-              goto LABEL_913;
-            default:
-              a3 = 12297;
-              a2 = 12294;
-              a5 = 12295;
-              a8 = 12290;
-              a7 = 12289;
-              a6 = 12292;
-              switch(v21)
-              {
-                case 4303:
-                  if (v20 != 8)
-                  {
-                    sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter145(4303): cfg 2 elements; (2*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                  }
-
-                  if (v20 >= 0xC)
-                  {
-                    v37 = 2;
-                  }
-
-                  else
-                  {
-                    v37 = v20 >> 2;
-                  }
-
-                  if (sub_1000189BC(a1, "dspExceptionParameter145_", v11, 4u, v37))
-                  {
-                    goto LABEL_1372;
-                  }
-
-                  v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter145(4303): Error adding 2 elements to context";
-                  goto LABEL_2105;
-                case 4304:
-                  if (v20 != 8)
-                  {
-                    sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter146(4304): cfg 2 elements; (2*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                  }
-
-                  if (v20 >= 0xC)
-                  {
-                    v37 = 2;
-                  }
-
-                  else
-                  {
-                    v37 = v20 >> 2;
-                  }
-
-                  if (sub_1000189BC(a1, "dspExceptionParameter146_", v11, 4u, v37))
-                  {
-                    goto LABEL_1372;
-                  }
-
-                  v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter146(4304): Error adding 2 elements to context";
-                  goto LABEL_2105;
-                case 4305:
-                  if (v20 != 8)
-                  {
-                    sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter147(4305): cfg 2 elements; (2*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                  }
-
-                  if (v20 >= 0xC)
-                  {
-                    v37 = 2;
-                  }
-
-                  else
-                  {
-                    v37 = v20 >> 2;
-                  }
-
-                  if (sub_1000189BC(a1, "dspExceptionParameter147_", v11, 4u, v37))
-                  {
-                    goto LABEL_1372;
-                  }
-
-                  v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter147(4305): Error adding 2 elements to context";
-                  goto LABEL_2105;
-                case 4306:
-                  if (v20 != 8)
-                  {
-                    sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter148(4306): cfg 2 elements; (2*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                  }
-
-                  if (v20 >= 0xC)
-                  {
-                    v37 = 2;
-                  }
-
-                  else
-                  {
-                    v37 = v20 >> 2;
-                  }
-
-                  if (sub_1000189BC(a1, "dspExceptionParameter148_", v11, 4u, v37))
-                  {
-                    goto LABEL_1372;
-                  }
-
-                  v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter148(4306): Error adding 2 elements to context";
-                  goto LABEL_2105;
-                case 4307:
-                  if (v20 != 32)
-                  {
-                    sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter149(4307): cfg 8 elements; (8*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                  }
-
-                  if (v20 >= 0x24)
-                  {
-                    v37 = 8;
-                  }
-
-                  else
-                  {
-                    v37 = v20 >> 2;
-                  }
-
-                  if (sub_1000189BC(a1, "dspExceptionParameter149_", v11, 4u, v37))
-                  {
-                    goto LABEL_1372;
-                  }
-
-                  v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter149(4307): Error adding 8 elements to context";
-                  goto LABEL_2105;
-                case 4308:
-                  if (v20 != 24)
-                  {
-                    sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter150(4308): cfg 6 elements; (6*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                  }
-
-                  if (v20 >= 0x1C)
-                  {
-                    v37 = 6;
-                  }
-
-                  else
-                  {
-                    v37 = v20 >> 2;
-                  }
-
-                  if (sub_1000189BC(a1, "dspExceptionParameter150_", v11, 4u, v37))
-                  {
-                    goto LABEL_1372;
-                  }
-
-                  v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter150(4308): Error adding 6 elements to context";
-                  goto LABEL_2105;
-                case 4309:
-                  if (v20 != 20)
-                  {
-                    sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter151(4309): cfg 5 elements; (5*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                  }
-
-                  if (v20 >= 0x18)
-                  {
-                    v37 = 5;
-                  }
-
-                  else
-                  {
-                    v37 = v20 >> 2;
-                  }
-
-                  if (sub_1000189BC(a1, "dspExceptionParameter151_", v11, 4u, v37))
-                  {
-                    goto LABEL_1372;
-                  }
-
-                  v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter151(4309): Error adding 5 elements to context";
-                  goto LABEL_2105;
-                case 4310:
-                  if (v20 != 20)
-                  {
-                    sub_100020530("ASPMSPParseBufferToCxt: nandStageOfLife107(4310): cfg 5 elements; (5*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                  }
-
-                  if (v20 >= 0x18)
-                  {
-                    v37 = 5;
-                  }
-
-                  else
-                  {
-                    v37 = v20 >> 2;
-                  }
-
-                  if (sub_1000189BC(a1, "nandStageOfLife107_", v11, 4u, v37))
-                  {
-                    goto LABEL_1372;
-                  }
-
-                  v9 = "ASPMSPParseBufferToCxt: nandStageOfLife107(4310): Error adding 5 elements to context";
-                  goto LABEL_2105;
-                case 4311:
-                  if (v20 != 20)
-                  {
-                    sub_100020530("ASPMSPParseBufferToCxt: nandStageOfLife108(4311): cfg 5 elements; (5*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                  }
-
-                  if (v20 >= 0x18)
-                  {
-                    v37 = 5;
-                  }
-
-                  else
-                  {
-                    v37 = v20 >> 2;
-                  }
-
-                  if (sub_1000189BC(a1, "nandStageOfLife108_", v11, 4u, v37))
-                  {
-                    goto LABEL_1372;
-                  }
-
-                  v9 = "ASPMSPParseBufferToCxt: nandStageOfLife108(4311): Error adding 5 elements to context";
-                  goto LABEL_2105;
-                case 4312:
-                  if (v20 != 20)
-                  {
-                    sub_100020530("ASPMSPParseBufferToCxt: nandStageOfLife109(4312): cfg 5 elements; (5*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                  }
-
-                  if (v20 >= 0x18)
-                  {
-                    v37 = 5;
-                  }
-
-                  else
-                  {
-                    v37 = v20 >> 2;
-                  }
-
-                  if (sub_1000189BC(a1, "nandStageOfLife109_", v11, 4u, v37))
-                  {
-                    goto LABEL_1372;
-                  }
-
-                  v9 = "ASPMSPParseBufferToCxt: nandStageOfLife109(4312): Error adding 5 elements to context";
-                  goto LABEL_2105;
-                case 4313:
-                  if (v20 != 20)
-                  {
-                    sub_100020530("ASPMSPParseBufferToCxt: nandStageOfLife110(4313): cfg 5 elements; (5*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                  }
-
-                  if (v20 >= 0x18)
-                  {
-                    v37 = 5;
-                  }
-
-                  else
-                  {
-                    v37 = v20 >> 2;
-                  }
-
-                  if (sub_1000189BC(a1, "nandStageOfLife110_", v11, 4u, v37))
-                  {
-                    goto LABEL_1372;
-                  }
-
-                  v9 = "ASPMSPParseBufferToCxt: nandStageOfLife110(4313): Error adding 5 elements to context";
-                  goto LABEL_2105;
-                case 4314:
-                  if (v20 != 4)
-                  {
-                    sub_100020530("ASPMSPParseBufferToCxt: nandStageOfLife111(4314): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                  }
-
-                  if (v20 >= 8)
-                  {
-                    v37 = 1;
-                  }
-
-                  else
-                  {
-                    v37 = v20 >> 2;
-                  }
-
-                  if (sub_1000189BC(a1, "nandStageOfLife111", v11, 4u, v37))
-                  {
-                    goto LABEL_1372;
-                  }
-
-                  v9 = "ASPMSPParseBufferToCxt: nandStageOfLife111(4314): Error adding 1 elements to context";
-                  goto LABEL_2105;
-                case 4315:
-                  if (v20 != 4)
-                  {
-                    sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter152(4315): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                  }
-
-                  if (v20 >= 8)
-                  {
-                    v37 = 1;
-                  }
-
-                  else
-                  {
-                    v37 = v20 >> 2;
-                  }
-
-                  if (sub_1000189BC(a1, "dspExceptionParameter152", v11, 4u, v37))
-                  {
-                    goto LABEL_1372;
-                  }
-
-                  v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter152(4315): Error adding 1 elements to context";
-                  goto LABEL_2105;
-                case 4316:
-                  if (v20 != 4)
-                  {
-                    sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter153(4316): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                  }
-
-                  if (v20 >= 8)
-                  {
-                    v37 = 1;
-                  }
-
-                  else
-                  {
-                    v37 = v20 >> 2;
-                  }
-
-                  if (sub_1000189BC(a1, "dspExceptionParameter153", v11, 4u, v37))
-                  {
-                    goto LABEL_1372;
-                  }
-
-                  v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter153(4316): Error adding 1 elements to context";
-                  goto LABEL_2105;
-                case 4317:
-                  if (v20 != 4)
-                  {
-                    sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter154(4317): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                  }
-
-                  if (v20 >= 8)
-                  {
-                    v37 = 1;
-                  }
-
-                  else
-                  {
-                    v37 = v20 >> 2;
-                  }
-
-                  if (sub_1000189BC(a1, "dspExceptionParameter154", v11, 4u, v37))
-                  {
-                    goto LABEL_1372;
-                  }
-
-                  v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter154(4317): Error adding 1 elements to context";
-                  goto LABEL_2105;
-                case 4318:
-                  if (v20 != 4)
-                  {
-                    sub_100020530("ASPMSPParseBufferToCxt: nandStageOfLife112(4318): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                  }
-
-                  if (v20 >= 8)
-                  {
-                    v37 = 1;
-                  }
-
-                  else
-                  {
-                    v37 = v20 >> 2;
-                  }
-
-                  if (sub_1000189BC(a1, "nandStageOfLife112", v11, 4u, v37))
-                  {
-                    goto LABEL_1372;
-                  }
-
-                  v9 = "ASPMSPParseBufferToCxt: nandStageOfLife112(4318): Error adding 1 elements to context";
-                  goto LABEL_2105;
-                case 4319:
-                  if (v20 != 4)
-                  {
-                    sub_100020530("ASPMSPParseBufferToCxt: nandStageOfLife113(4319): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                  }
-
-                  if (v20 >= 8)
-                  {
-                    v37 = 1;
-                  }
-
-                  else
-                  {
-                    v37 = v20 >> 2;
-                  }
-
-                  if (sub_1000189BC(a1, "nandStageOfLife113", v11, 4u, v37))
-                  {
-                    goto LABEL_1372;
-                  }
-
-                  v9 = "ASPMSPParseBufferToCxt: nandStageOfLife113(4319): Error adding 1 elements to context";
-                  goto LABEL_2105;
-                case 4320:
-                  if (v20 != 4)
-                  {
-                    sub_100020530("ASPMSPParseBufferToCxt: nandStageOfLife114(4320): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                  }
-
-                  if (v20 >= 8)
-                  {
-                    v37 = 1;
-                  }
-
-                  else
-                  {
-                    v37 = v20 >> 2;
-                  }
-
-                  if (sub_1000189BC(a1, "nandStageOfLife114", v11, 4u, v37))
-                  {
-                    goto LABEL_1372;
-                  }
-
-                  v9 = "ASPMSPParseBufferToCxt: nandStageOfLife114(4320): Error adding 1 elements to context";
-                  goto LABEL_2105;
-                case 4321:
-                  if (v20 != 4)
-                  {
-                    sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter155(4321): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                  }
-
-                  if (v20 >= 8)
-                  {
-                    v37 = 1;
-                  }
-
-                  else
-                  {
-                    v37 = v20 >> 2;
-                  }
-
-                  if (sub_1000189BC(a1, "dspExceptionParameter155", v11, 4u, v37))
-                  {
-                    goto LABEL_1372;
-                  }
-
-                  v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter155(4321): Error adding 1 elements to context";
-                  goto LABEL_2105;
-                case 4322:
-                  if (v20 != 4)
-                  {
-                    sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter156(4322): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                  }
-
-                  if (v20 >= 8)
-                  {
-                    v37 = 1;
-                  }
-
-                  else
-                  {
-                    v37 = v20 >> 2;
-                  }
-
-                  if (sub_1000189BC(a1, "dspExceptionParameter156", v11, 4u, v37))
-                  {
-                    goto LABEL_1372;
-                  }
-
-                  v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter156(4322): Error adding 1 elements to context";
-                  goto LABEL_2105;
-                case 4323:
-                  if (v20 != 4)
-                  {
-                    sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter157(4323): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                  }
-
-                  if (v20 >= 8)
-                  {
-                    v37 = 1;
-                  }
-
-                  else
-                  {
-                    v37 = v20 >> 2;
-                  }
-
-                  if (sub_1000189BC(a1, "dspExceptionParameter157", v11, 4u, v37))
-                  {
-                    goto LABEL_1372;
-                  }
-
-                  v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter157(4323): Error adding 1 elements to context";
-                  goto LABEL_2105;
-                case 4324:
-                  if (v20 != 4)
-                  {
-                    sub_100020530("ASPMSPParseBufferToCxt: readStage111(4324): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                  }
-
-                  if (v20 >= 8)
-                  {
-                    v37 = 1;
-                  }
-
-                  else
-                  {
-                    v37 = v20 >> 2;
-                  }
-
-                  if (sub_1000189BC(a1, "readStage111", v11, 4u, v37))
-                  {
-                    goto LABEL_1372;
-                  }
-
-                  v9 = "ASPMSPParseBufferToCxt: readStage111(4324): Error adding 1 elements to context";
-                  goto LABEL_2105;
-                case 4325:
-                  if (v20 != 4)
-                  {
-                    sub_100020530("ASPMSPParseBufferToCxt: nandStageOfLife115(4325): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                  }
-
-                  if (v20 >= 8)
-                  {
-                    v37 = 1;
-                  }
-
-                  else
-                  {
-                    v37 = v20 >> 2;
-                  }
-
-                  if (sub_1000189BC(a1, "nandStageOfLife115", v11, 4u, v37))
-                  {
-                    goto LABEL_1372;
-                  }
-
-                  v9 = "ASPMSPParseBufferToCxt: nandStageOfLife115(4325): Error adding 1 elements to context";
-                  goto LABEL_2105;
-                case 4326:
-                  if (v20 != 4)
-                  {
-                    sub_100020530("ASPMSPParseBufferToCxt: nandStageOfLife116(4326): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                  }
-
-                  if (v20 >= 8)
-                  {
-                    v37 = 1;
-                  }
-
-                  else
-                  {
-                    v37 = v20 >> 2;
-                  }
-
-                  if (sub_1000189BC(a1, "nandStageOfLife116", v11, 4u, v37))
-                  {
-                    goto LABEL_1372;
-                  }
-
-                  v9 = "ASPMSPParseBufferToCxt: nandStageOfLife116(4326): Error adding 1 elements to context";
-                  goto LABEL_2105;
-                case 4327:
-                  if (v20 != 4)
-                  {
-                    sub_100020530("ASPMSPParseBufferToCxt: nandStageOfLife117(4327): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                  }
-
-                  if (v20 >= 8)
-                  {
-                    v37 = 1;
-                  }
-
-                  else
-                  {
-                    v37 = v20 >> 2;
-                  }
-
-                  if (sub_1000189BC(a1, "nandStageOfLife117", v11, 4u, v37))
-                  {
-                    goto LABEL_1372;
-                  }
-
-                  v9 = "ASPMSPParseBufferToCxt: nandStageOfLife117(4327): Error adding 1 elements to context";
-                  goto LABEL_2105;
-                case 4328:
-LABEL_930:
-                  if (v21 < 12288)
-                  {
-                    switch(v21)
-                    {
-                      case 8208:
-                        if (v20 != 4)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: boot_block_read_failures(8208): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 8)
-                        {
-                          v37 = 1;
-                        }
-
-                        else
-                        {
-                          v37 = v20 >> 2;
-                        }
-
-                        if (sub_1000189BC(a1, "boot_block_read_failures", v11, 4u, v37))
-                        {
-                          goto LABEL_1372;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: boot_block_read_failures(8208): Error adding 1 elements to context";
-                        break;
-                      case 8209:
-                        if (v20 != 4)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: boot_block_refresh(8209): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 8)
-                        {
-                          v37 = 1;
-                        }
-
-                        else
-                        {
-                          v37 = v20 >> 2;
-                        }
-
-                        if (sub_1000189BC(a1, "boot_block_refresh", v11, 4u, v37))
-                        {
-                          goto LABEL_1372;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: boot_block_refresh(8209): Error adding 1 elements to context";
-                        break;
-                      case 8210:
-                        if (v20 != 4)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: boot_block_convert_to_main(8210): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 8)
-                        {
-                          v37 = 1;
-                        }
-
-                        else
-                        {
-                          v37 = v20 >> 2;
-                        }
-
-                        if (sub_1000189BC(a1, "boot_block_convert_to_main", v11, 4u, v37))
-                        {
-                          goto LABEL_1372;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: boot_block_convert_to_main(8210): Error adding 1 elements to context";
-                        break;
-                      case 8211:
-                        if (v20 != 4)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: boot_block_read_source_changed(8211): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 8)
-                        {
-                          v37 = 1;
-                        }
-
-                        else
-                        {
-                          v37 = v20 >> 2;
-                        }
-
-                        if (sub_1000189BC(a1, "boot_block_read_source_changed", v11, 4u, v37))
-                        {
-                          goto LABEL_1372;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: boot_block_read_source_changed(8211): Error adding 1 elements to context";
-                        break;
-                      case 8219:
-                        if (v20 != 4)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: number_of_dcc_failures(8219): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 8)
-                        {
-                          v37 = 1;
-                        }
-
-                        else
-                        {
-                          v37 = v20 >> 2;
-                        }
-
-                        if (sub_1000189BC(a1, "number_of_dcc_failures", v11, 4u, v37))
-                        {
-                          goto LABEL_1372;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: number_of_dcc_failures(8219): Error adding 1 elements to context";
-                        break;
-                      case 8234:
-                        if (v20 != 4)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: msp_number_sram_flips(8234): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 8)
-                        {
-                          v37 = 1;
-                        }
-
-                        else
-                        {
-                          v37 = v20 >> 2;
-                        }
-
-                        if (sub_1000189BC(a1, "msp_number_sram_flips", v11, 4u, v37))
-                        {
-                          goto LABEL_1372;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: msp_number_sram_flips(8234): Error adding 1 elements to context";
-                        break;
-                      case 8250:
-                        if (v20 != 120)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: lower_die_temperature(8250): cfg 30 elements; (30*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 0x7C)
-                        {
-                          v37 = 30;
-                        }
-
-                        else
-                        {
-                          v37 = v20 >> 2;
-                        }
-
-                        if (sub_1000189BC(a1, "lower_die_temperature", v11, 4u, v37))
-                        {
-                          goto LABEL_1372;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: lower_die_temperature(8250): Error adding 30 elements to context";
-                        break;
-                      case 8251:
-                        if (v20 != 120)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: higher_die_temperature(8251): cfg 30 elements; (30*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 0x7C)
-                        {
-                          v37 = 30;
-                        }
-
-                        else
-                        {
-                          v37 = v20 >> 2;
-                        }
-
-                        if (sub_1000189BC(a1, "higher_die_temperature", v11, 4u, v37))
-                        {
-                          goto LABEL_1372;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: higher_die_temperature(8251): Error adding 30 elements to context";
-                        break;
-                      case 8258:
-                        if (v20 != 4)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: msp_number_hw_sram_flips(8258): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 8)
-                        {
-                          v37 = 1;
-                        }
-
-                        else
-                        {
-                          v37 = v20 >> 2;
-                        }
-
-                        if (sub_1000189BC(a1, "msp_number_hw_sram_flips", v11, 4u, v37))
-                        {
-                          goto LABEL_1372;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: msp_number_hw_sram_flips(8258): Error adding 1 elements to context";
-                        break;
-                      case 8259:
-                        if (v20 != 12)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: boot_rd_training_failure(8259): cfg 3 elements; (3*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 0x10)
-                        {
-                          v37 = 3;
-                        }
-
-                        else
-                        {
-                          v37 = v20 >> 2;
-                        }
-
-                        if (sub_1000189BC(a1, "boot_rd_training_failure_", v11, 4u, v37))
-                        {
-                          goto LABEL_1372;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: boot_rd_training_failure(8259): Error adding 3 elements to context";
-                        break;
-                      case 8260:
-                        if (v20 != 12)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: boot_wr_training_failure(8260): cfg 3 elements; (3*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 0x10)
-                        {
-                          v37 = 3;
-                        }
-
-                        else
-                        {
-                          v37 = v20 >> 2;
-                        }
-
-                        if (sub_1000189BC(a1, "boot_wr_training_failure_", v11, 4u, v37))
-                        {
-                          goto LABEL_1372;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: boot_wr_training_failure(8260): Error adding 3 elements to context";
-                        break;
-                      case 8261:
-                        if (v20 != 4)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: boot_rd_sdl_overflow(8261): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 8)
-                        {
-                          v37 = 1;
-                        }
-
-                        else
-                        {
-                          v37 = v20 >> 2;
-                        }
-
-                        if (sub_1000189BC(a1, "boot_rd_sdl_overflow", v11, 4u, v37))
-                        {
-                          goto LABEL_1372;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: boot_rd_sdl_overflow(8261): Error adding 1 elements to context";
-                        break;
-                      case 8262:
-                        if (v20 != 4)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: boot_wr_sdl_overflow(8262): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 8)
-                        {
-                          v37 = 1;
-                        }
-
-                        else
-                        {
-                          v37 = v20 >> 2;
-                        }
-
-                        if (sub_1000189BC(a1, "boot_wr_sdl_overflow", v11, 4u, v37))
-                        {
-                          goto LABEL_1372;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: boot_wr_sdl_overflow(8262): Error adding 1 elements to context";
-                        break;
-                      case 8263:
-                        if (v20 != 20)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: boot_rd_pos_win_hist_all_dies(8263): cfg 5 elements; (5*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 0x18)
-                        {
-                          v37 = 5;
-                        }
-
-                        else
-                        {
-                          v37 = v20 >> 2;
-                        }
-
-                        if (sub_1000189BC(a1, "boot_rd_pos_win_hist_all_dies_", v11, 4u, v37))
-                        {
-                          goto LABEL_1372;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: boot_rd_pos_win_hist_all_dies(8263): Error adding 5 elements to context";
-                        break;
-                      case 8264:
-                        if (v20 != 20)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: boot_rd_neg_win_hist_all_dies(8264): cfg 5 elements; (5*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 0x18)
-                        {
-                          v37 = 5;
-                        }
-
-                        else
-                        {
-                          v37 = v20 >> 2;
-                        }
-
-                        if (sub_1000189BC(a1, "boot_rd_neg_win_hist_all_dies_", v11, 4u, v37))
-                        {
-                          goto LABEL_1372;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: boot_rd_neg_win_hist_all_dies(8264): Error adding 5 elements to context";
-                        break;
-                      case 8265:
-                        if (v20 != 20)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: boot_wr_win_hist_all_dies(8265): cfg 5 elements; (5*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 0x18)
-                        {
-                          v37 = 5;
-                        }
-
-                        else
-                        {
-                          v37 = v20 >> 2;
-                        }
-
-                        if (sub_1000189BC(a1, "boot_wr_win_hist_all_dies_", v11, 4u, v37))
-                        {
-                          goto LABEL_1372;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: boot_wr_win_hist_all_dies(8265): Error adding 5 elements to context";
-                        break;
-                      case 8266:
-                        if (v20 != 20)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: boot_rd_pos_win_hist_ch0_die0(8266): cfg 5 elements; (5*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 0x18)
-                        {
-                          v37 = 5;
-                        }
-
-                        else
-                        {
-                          v37 = v20 >> 2;
-                        }
-
-                        if (sub_1000189BC(a1, "boot_rd_pos_win_hist_ch0_die0_", v11, 4u, v37))
-                        {
-                          goto LABEL_1372;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: boot_rd_pos_win_hist_ch0_die0(8266): Error adding 5 elements to context";
-                        break;
-                      case 8267:
-                        if (v20 != 20)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: boot_rd_neg_win_hist_ch0_die0(8267): cfg 5 elements; (5*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 0x18)
-                        {
-                          v37 = 5;
-                        }
-
-                        else
-                        {
-                          v37 = v20 >> 2;
-                        }
-
-                        if (sub_1000189BC(a1, "boot_rd_neg_win_hist_ch0_die0_", v11, 4u, v37))
-                        {
-                          goto LABEL_1372;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: boot_rd_neg_win_hist_ch0_die0(8267): Error adding 5 elements to context";
-                        break;
-                      case 8268:
-                        if (v20 != 20)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: boot_wr_win_hist_ch0_die0(8268): cfg 5 elements; (5*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 0x18)
-                        {
-                          v37 = 5;
-                        }
-
-                        else
-                        {
-                          v37 = v20 >> 2;
-                        }
-
-                        if (sub_1000189BC(a1, "boot_wr_win_hist_ch0_die0_", v11, 4u, v37))
-                        {
-                          goto LABEL_1372;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: boot_wr_win_hist_ch0_die0(8268): Error adding 5 elements to context";
-                        break;
-                      case 8269:
-                        if (v20 != 64)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: pts_vs_boot_mid_rd_p_c0d0_hist(8269): cfg 16 elements; (16*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 0x44)
-                        {
-                          v37 = 16;
-                        }
-
-                        else
-                        {
-                          v37 = v20 >> 2;
-                        }
-
-                        if (sub_1000189BC(a1, "pts_vs_boot_mid_rd_p_c0d0_hist_", v11, 4u, v37))
-                        {
-                          goto LABEL_1372;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: pts_vs_boot_mid_rd_p_c0d0_hist(8269): Error adding 16 elements to context";
-                        break;
-                      case 8270:
-                        if (v20 != 64)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: pts_vs_boot_mid_rd_n_c0d0_hist(8270): cfg 16 elements; (16*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 0x44)
-                        {
-                          v37 = 16;
-                        }
-
-                        else
-                        {
-                          v37 = v20 >> 2;
-                        }
-
-                        if (sub_1000189BC(a1, "pts_vs_boot_mid_rd_n_c0d0_hist_", v11, 4u, v37))
-                        {
-                          goto LABEL_1372;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: pts_vs_boot_mid_rd_n_c0d0_hist(8270): Error adding 16 elements to context";
-                        break;
-                      case 8271:
-                        if (v20 != 64)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: pts_vs_boot_mid_wr_c0d0_hist(8271): cfg 16 elements; (16*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 0x44)
-                        {
-                          v37 = 16;
-                        }
-
-                        else
-                        {
-                          v37 = v20 >> 2;
-                        }
-
-                        if (sub_1000189BC(a1, "pts_vs_boot_mid_wr_c0d0_hist_", v11, 4u, v37))
-                        {
-                          goto LABEL_1372;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: pts_vs_boot_mid_wr_c0d0_hist(8271): Error adding 16 elements to context";
-                        break;
-                      case 8272:
-                        if (v20 != 4)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: pge_rd_training_failure(8272): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 8)
-                        {
-                          v37 = 1;
-                        }
-
-                        else
-                        {
-                          v37 = v20 >> 2;
-                        }
-
-                        if (sub_1000189BC(a1, "pge_rd_training_failure", v11, 4u, v37))
-                        {
-                          goto LABEL_1372;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: pge_rd_training_failure(8272): Error adding 1 elements to context";
-                        break;
-                      case 8273:
-                        if (v20 != 4)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: pge_wr_training_failure(8273): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 8)
-                        {
-                          v37 = 1;
-                        }
-
-                        else
-                        {
-                          v37 = v20 >> 2;
-                        }
-
-                        if (sub_1000189BC(a1, "pge_wr_training_failure", v11, 4u, v37))
-                        {
-                          goto LABEL_1372;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: pge_wr_training_failure(8273): Error adding 1 elements to context";
-                        break;
-                      case 8274:
-                        if (v20 != 4)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: pge_rd_sdl_overflow(8274): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 8)
-                        {
-                          v37 = 1;
-                        }
-
-                        else
-                        {
-                          v37 = v20 >> 2;
-                        }
-
-                        if (sub_1000189BC(a1, "pge_rd_sdl_overflow", v11, 4u, v37))
-                        {
-                          goto LABEL_1372;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: pge_rd_sdl_overflow(8274): Error adding 1 elements to context";
-                        break;
-                      case 8275:
-                        if (v20 != 4)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: pge_wr_sdl_overflow(8275): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 8)
-                        {
-                          v37 = 1;
-                        }
-
-                        else
-                        {
-                          v37 = v20 >> 2;
-                        }
-
-                        if (sub_1000189BC(a1, "pge_wr_sdl_overflow", v11, 4u, v37))
-                        {
-                          goto LABEL_1372;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: pge_wr_sdl_overflow(8275): Error adding 1 elements to context";
-                        break;
-                      case 8276:
-                        if (v20 != 20)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: pge_rd_pos_win_hist_all_dies(8276): cfg 5 elements; (5*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 0x18)
-                        {
-                          v37 = 5;
-                        }
-
-                        else
-                        {
-                          v37 = v20 >> 2;
-                        }
-
-                        if (sub_1000189BC(a1, "pge_rd_pos_win_hist_all_dies_", v11, 4u, v37))
-                        {
-                          goto LABEL_1372;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: pge_rd_pos_win_hist_all_dies(8276): Error adding 5 elements to context";
-                        break;
-                      case 8277:
-                        if (v20 != 20)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: pge_rd_neg_win_hist_all_dies(8277): cfg 5 elements; (5*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 0x18)
-                        {
-                          v37 = 5;
-                        }
-
-                        else
-                        {
-                          v37 = v20 >> 2;
-                        }
-
-                        if (sub_1000189BC(a1, "pge_rd_neg_win_hist_all_dies_", v11, 4u, v37))
-                        {
-                          goto LABEL_1372;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: pge_rd_neg_win_hist_all_dies(8277): Error adding 5 elements to context";
-                        break;
-                      case 8278:
-                        if (v20 != 20)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: pge_wr_win_hist_all_dies(8278): cfg 5 elements; (5*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 0x18)
-                        {
-                          v37 = 5;
-                        }
-
-                        else
-                        {
-                          v37 = v20 >> 2;
-                        }
-
-                        if (sub_1000189BC(a1, "pge_wr_win_hist_all_dies_", v11, 4u, v37))
-                        {
-                          goto LABEL_1372;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: pge_wr_win_hist_all_dies(8278): Error adding 5 elements to context";
-                        break;
-                      case 8279:
-                        if (v20 != 20)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: pge_rd_pos_win_hist_ch0_die0(8279): cfg 5 elements; (5*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 0x18)
-                        {
-                          v37 = 5;
-                        }
-
-                        else
-                        {
-                          v37 = v20 >> 2;
-                        }
-
-                        if (sub_1000189BC(a1, "pge_rd_pos_win_hist_ch0_die0_", v11, 4u, v37))
-                        {
-                          goto LABEL_1372;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: pge_rd_pos_win_hist_ch0_die0(8279): Error adding 5 elements to context";
-                        break;
-                      case 8280:
-                        if (v20 != 20)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: pge_rd_neg_win_hist_ch0_die0(8280): cfg 5 elements; (5*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 0x18)
-                        {
-                          v37 = 5;
-                        }
-
-                        else
-                        {
-                          v37 = v20 >> 2;
-                        }
-
-                        if (sub_1000189BC(a1, "pge_rd_neg_win_hist_ch0_die0_", v11, 4u, v37))
-                        {
-                          goto LABEL_1372;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: pge_rd_neg_win_hist_ch0_die0(8280): Error adding 5 elements to context";
-                        break;
-                      case 8281:
-                        if (v20 != 20)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: pge_wr_win_hist_ch0_die0(8281): cfg 5 elements; (5*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 0x18)
-                        {
-                          v37 = 5;
-                        }
-
-                        else
-                        {
-                          v37 = v20 >> 2;
-                        }
-
-                        if (sub_1000189BC(a1, "pge_wr_win_hist_ch0_die0_", v11, 4u, v37))
-                        {
-                          goto LABEL_1372;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: pge_wr_win_hist_ch0_die0(8281): Error adding 5 elements to context";
-                        break;
-                      case 8282:
-                        if (v20 != 64)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: boot_vs_pge_rd_p_c0d0_hist(8282): cfg 16 elements; (16*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 0x44)
-                        {
-                          v37 = 16;
-                        }
-
-                        else
-                        {
-                          v37 = v20 >> 2;
-                        }
-
-                        if (sub_1000189BC(a1, "boot_vs_pge_rd_p_c0d0_hist_", v11, 4u, v37))
-                        {
-                          goto LABEL_1372;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: boot_vs_pge_rd_p_c0d0_hist(8282): Error adding 16 elements to context";
-                        break;
-                      case 8283:
-                        if (v20 != 64)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: boot_vs_pge_rd_n_c0d0_hist(8283): cfg 16 elements; (16*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 0x44)
-                        {
-                          v37 = 16;
-                        }
-
-                        else
-                        {
-                          v37 = v20 >> 2;
-                        }
-
-                        if (sub_1000189BC(a1, "boot_vs_pge_rd_n_c0d0_hist_", v11, 4u, v37))
-                        {
-                          goto LABEL_1372;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: boot_vs_pge_rd_n_c0d0_hist(8283): Error adding 16 elements to context";
-                        break;
-                      case 8284:
-                        if (v20 != 64)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: boot_vs_pge_wr_c0d0_hist(8284): cfg 16 elements; (16*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 0x44)
-                        {
-                          v37 = 16;
-                        }
-
-                        else
-                        {
-                          v37 = v20 >> 2;
-                        }
-
-                        if (sub_1000189BC(a1, "boot_vs_pge_wr_c0d0_hist_", v11, 4u, v37))
-                        {
-                          goto LABEL_1372;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: boot_vs_pge_wr_c0d0_hist(8284): Error adding 16 elements to context";
-                        break;
-                      case 8285:
-                        if (v20 != 4)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: periodic_rd_training_failure(8285): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 8)
-                        {
-                          v37 = 1;
-                        }
-
-                        else
-                        {
-                          v37 = v20 >> 2;
-                        }
-
-                        if (sub_1000189BC(a1, "periodic_rd_training_failure", v11, 4u, v37))
-                        {
-                          goto LABEL_1372;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: periodic_rd_training_failure(8285): Error adding 1 elements to context";
-                        break;
-                      case 8286:
-                        if (v20 != 4)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: periodic_wr_training_failure(8286): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 8)
-                        {
-                          v37 = 1;
-                        }
-
-                        else
-                        {
-                          v37 = v20 >> 2;
-                        }
-
-                        if (sub_1000189BC(a1, "periodic_wr_training_failure", v11, 4u, v37))
-                        {
-                          goto LABEL_1372;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: periodic_wr_training_failure(8286): Error adding 1 elements to context";
-                        break;
-                      case 8287:
-                        if (v20 != 64)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: pge_vs_periodic_rd_p_c0d0_hist(8287): cfg 16 elements; (16*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 0x44)
-                        {
-                          v37 = 16;
-                        }
-
-                        else
-                        {
-                          v37 = v20 >> 2;
-                        }
-
-                        if (sub_1000189BC(a1, "pge_vs_periodic_rd_p_c0d0_hist_", v11, 4u, v37))
-                        {
-                          goto LABEL_1372;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: pge_vs_periodic_rd_p_c0d0_hist(8287): Error adding 16 elements to context";
-                        break;
-                      case 8288:
-                        if (v20 != 64)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: pge_vs_periodic_rd_n_c0d0_hist(8288): cfg 16 elements; (16*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 0x44)
-                        {
-                          v37 = 16;
-                        }
-
-                        else
-                        {
-                          v37 = v20 >> 2;
-                        }
-
-                        if (sub_1000189BC(a1, "pge_vs_periodic_rd_n_c0d0_hist_", v11, 4u, v37))
-                        {
-                          goto LABEL_1372;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: pge_vs_periodic_rd_n_c0d0_hist(8288): Error adding 16 elements to context";
-                        break;
-                      case 8289:
-                        if (v20 != 64)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: pge_vs_periodic_wr_c0d0_hist(8289): cfg 16 elements; (16*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 0x44)
-                        {
-                          v37 = 16;
-                        }
-
-                        else
-                        {
-                          v37 = v20 >> 2;
-                        }
-
-                        if (sub_1000189BC(a1, "pge_vs_periodic_wr_c0d0_hist_", v11, 4u, v37))
-                        {
-                          goto LABEL_1372;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: pge_vs_periodic_wr_c0d0_hist(8289): Error adding 16 elements to context";
-                        break;
-                      case 8290:
-                        if (v20 != 4)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: periodic_rd_sdl_overflow(8290): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 8)
-                        {
-                          v37 = 1;
-                        }
-
-                        else
-                        {
-                          v37 = v20 >> 2;
-                        }
-
-                        if (sub_1000189BC(a1, "periodic_rd_sdl_overflow", v11, 4u, v37))
-                        {
-                          goto LABEL_1372;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: periodic_rd_sdl_overflow(8290): Error adding 1 elements to context";
-                        break;
-                      case 8291:
-                        if (v20 != 4)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: periodic_wr_sdl_overflow(8291): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 8)
-                        {
-                          v37 = 1;
-                        }
-
-                        else
-                        {
-                          v37 = v20 >> 2;
-                        }
-
-                        if (sub_1000189BC(a1, "periodic_wr_sdl_overflow", v11, 4u, v37))
-                        {
-                          goto LABEL_1372;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: periodic_wr_sdl_overflow(8291): Error adding 1 elements to context";
-                        break;
-                      case 8292:
-                        if (v20 != 4)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: too_frequent_temp_change_rd(8292): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 8)
-                        {
-                          v37 = 1;
-                        }
-
-                        else
-                        {
-                          v37 = v20 >> 2;
-                        }
-
-                        if (sub_1000189BC(a1, "too_frequent_temp_change_rd", v11, 4u, v37))
-                        {
-                          goto LABEL_1372;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: too_frequent_temp_change_rd(8292): Error adding 1 elements to context";
-                        break;
-                      case 8293:
-                        if (v20 != 4)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: too_frequent_temp_change_wr(8293): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 8)
-                        {
-                          v37 = 1;
-                        }
-
-                        else
-                        {
-                          v37 = v20 >> 2;
-                        }
-
-                        if (sub_1000189BC(a1, "too_frequent_temp_change_wr", v11, 4u, v37))
-                        {
-                          goto LABEL_1372;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: too_frequent_temp_change_wr(8293): Error adding 1 elements to context";
-                        break;
-                      case 8294:
-                        if (v20 != 28)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: periodic_rd_training_hist(8294): cfg 7 elements; (7*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 0x20)
-                        {
-                          v37 = 7;
-                        }
-
-                        else
-                        {
-                          v37 = v20 >> 2;
-                        }
-
-                        if (sub_1000189BC(a1, "periodic_rd_training_hist_", v11, 4u, v37))
-                        {
-                          goto LABEL_1372;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: periodic_rd_training_hist(8294): Error adding 7 elements to context";
-                        break;
-                      case 8295:
-                        if (v20 != 28)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: periodic_wr_training_hist(8295): cfg 7 elements; (7*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 0x20)
-                        {
-                          v37 = 7;
-                        }
-
-                        else
-                        {
-                          v37 = v20 >> 2;
-                        }
-
-                        if (sub_1000189BC(a1, "periodic_wr_training_hist_", v11, 4u, v37))
-                        {
-                          goto LABEL_1372;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: periodic_wr_training_hist(8295): Error adding 7 elements to context";
-                        break;
-                      case 8296:
-                        if (v20 != 28)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: periodic_rd_training_latency(8296): cfg 7 elements; (7*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 0x20)
-                        {
-                          v37 = 7;
-                        }
-
-                        else
-                        {
-                          v37 = v20 >> 2;
-                        }
-
-                        if (sub_1000189BC(a1, "periodic_rd_training_latency_", v11, 4u, v37))
-                        {
-                          goto LABEL_1372;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: periodic_rd_training_latency(8296): Error adding 7 elements to context";
-                        break;
-                      case 8297:
-                        if (v20 != 28)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: periodic_wr_training_latency(8297): cfg 7 elements; (7*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 0x20)
-                        {
-                          v37 = 7;
-                        }
-
-                        else
-                        {
-                          v37 = v20 >> 2;
-                        }
-
-                        if (sub_1000189BC(a1, "periodic_wr_training_latency_", v11, 4u, v37))
-                        {
-                          goto LABEL_1372;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: periodic_wr_training_latency(8297): Error adding 7 elements to context";
-                        break;
-                      case 8298:
-                        if (v20 != 48)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: system_temp(8298): cfg 12 elements; (12*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 0x34)
-                        {
-                          v37 = 12;
-                        }
-
-                        else
-                        {
-                          v37 = v20 >> 2;
-                        }
-
-                        if (sub_1000189BC(a1, "system_temp_", v11, 4u, v37))
-                        {
-                          goto LABEL_1372;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: system_temp(8298): Error adding 12 elements to context";
-                        break;
-                      case 8299:
-                        if (v20 != 48)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: temp_diff_150ms(8299): cfg 12 elements; (12*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 0x34)
-                        {
-                          v37 = 12;
-                        }
-
-                        else
-                        {
-                          v37 = v20 >> 2;
-                        }
-
-                        if (sub_1000189BC(a1, "temp_diff_150ms_", v11, 4u, v37))
-                        {
-                          goto LABEL_1372;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: temp_diff_150ms(8299): Error adding 12 elements to context";
-                        break;
-                      case 8300:
-                        if (v20 != 48)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: temp_diff_1s(8300): cfg 12 elements; (12*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 0x34)
-                        {
-                          v37 = 12;
-                        }
-
-                        else
-                        {
-                          v37 = v20 >> 2;
-                        }
-
-                        if (sub_1000189BC(a1, "temp_diff_1s_", v11, 4u, v37))
-                        {
-                          goto LABEL_1372;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: temp_diff_1s(8300): Error adding 12 elements to context";
-                        break;
-                      case 8301:
-                        if (v20 != 28)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: num_of_steps_bigger_win(8301): cfg 7 elements; (7*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 0x20)
-                        {
-                          v37 = 7;
-                        }
-
-                        else
-                        {
-                          v37 = v20 >> 2;
-                        }
-
-                        if (sub_1000189BC(a1, "num_of_steps_bigger_win_", v11, 4u, v37))
-                        {
-                          goto LABEL_1372;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: num_of_steps_bigger_win(8301): Error adding 7 elements to context";
-                        break;
-                      case 8302:
-                        if (v20 != 28)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: num_of_steps_smaller_win(8302): cfg 7 elements; (7*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 0x20)
-                        {
-                          v37 = 7;
-                        }
-
-                        else
-                        {
-                          v37 = v20 >> 2;
-                        }
-
-                        if (sub_1000189BC(a1, "num_of_steps_smaller_win_", v11, 4u, v37))
-                        {
-                          goto LABEL_1372;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: num_of_steps_smaller_win(8302): Error adding 7 elements to context";
-                        break;
-                      default:
-                        goto LABEL_1826;
-                    }
-
-                    goto LABEL_2105;
-                  }
-
-                  if (v21 <= 12292)
-                  {
-                    if (v21 <= 12289)
-                    {
-                      if (v21 == 12288)
-                      {
-                        if (v20 != 8)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: readStageNumOfFails200(12288): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 0x10)
-                        {
-                          v37 = 1;
-                        }
-
-                        else
-                        {
-                          v37 = v20 >> 3;
-                        }
-
-                        if (!sub_1000189BC(a1, "readStageNumOfFails200", v11, 8u, v37))
-                        {
-                          v9 = "ASPMSPParseBufferToCxt: readStageNumOfFails200(12288): Error adding 1 elements to context";
-                          goto LABEL_2105;
-                        }
-                      }
-
-                      else
-                      {
-                        if (v20 != 8)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: initialReadStage200(12289): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 0x10)
-                        {
-                          v37 = 1;
-                        }
-
-                        else
-                        {
-                          v37 = v20 >> 3;
-                        }
-
-                        if (!sub_1000189BC(a1, "initialReadStage200", v11, 8u, v37))
-                        {
-                          v9 = "ASPMSPParseBufferToCxt: initialReadStage200(12289): Error adding 1 elements to context";
-                          goto LABEL_2105;
-                        }
-                      }
-                    }
-
-                    else if (v21 == 12290)
-                    {
-                      if (v20 != 8)
-                      {
-                        sub_100020530("ASPMSPParseBufferToCxt: initialReadStage201(12290): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                      }
-
-                      if (v20 >= 0x10)
-                      {
-                        v37 = 1;
-                      }
-
-                      else
-                      {
-                        v37 = v20 >> 3;
-                      }
-
-                      if (!sub_1000189BC(a1, "initialReadStage201", v11, 8u, v37))
-                      {
-                        v9 = "ASPMSPParseBufferToCxt: initialReadStage201(12290): Error adding 1 elements to context";
-                        goto LABEL_2105;
-                      }
-                    }
-
-                    else if (v21 == 12291)
-                    {
-                      if (v20 != 8)
-                      {
-                        sub_100020530("ASPMSPParseBufferToCxt: readStageNumOfFails201(12291): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                      }
-
-                      if (v20 >= 0x10)
-                      {
-                        v37 = 1;
-                      }
-
-                      else
-                      {
-                        v37 = v20 >> 3;
-                      }
-
-                      if (!sub_1000189BC(a1, "readStageNumOfFails201", v11, 8u, v37))
-                      {
-                        v9 = "ASPMSPParseBufferToCxt: readStageNumOfFails201(12291): Error adding 1 elements to context";
-                        goto LABEL_2105;
-                      }
-                    }
-
-                    else
-                    {
-                      if (v20 != 8)
-                      {
-                        sub_100020530("ASPMSPParseBufferToCxt: initialReadStage202(12292): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                      }
-
-                      if (v20 >= 0x10)
-                      {
-                        v37 = 1;
-                      }
-
-                      else
-                      {
-                        v37 = v20 >> 3;
-                      }
-
-                      if (!sub_1000189BC(a1, "initialReadStage202", v11, 8u, v37))
-                      {
-                        v9 = "ASPMSPParseBufferToCxt: initialReadStage202(12292): Error adding 1 elements to context";
-                        goto LABEL_2105;
-                      }
-                    }
-
-                    goto LABEL_1372;
-                  }
-
-                  if (v21 <= 12295)
-                  {
-                    if (v21 == 12293)
-                    {
-                      if (v20 != 8)
-                      {
-                        sub_100020530("ASPMSPParseBufferToCxt: initialReadStage203(12293): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                      }
-
-                      if (v20 >= 0x10)
-                      {
-                        v37 = 1;
-                      }
-
-                      else
-                      {
-                        v37 = v20 >> 3;
-                      }
-
-                      if (!sub_1000189BC(a1, "initialReadStage203", v11, 8u, v37))
-                      {
-                        v9 = "ASPMSPParseBufferToCxt: initialReadStage203(12293): Error adding 1 elements to context";
-                        goto LABEL_2105;
-                      }
-                    }
-
-                    else if (v21 == 12294)
-                    {
-                      if (v20 != 8)
-                      {
-                        sub_100020530("ASPMSPParseBufferToCxt: readStageNumOfFails202(12294): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                      }
-
-                      if (v20 >= 0x10)
-                      {
-                        v37 = 1;
-                      }
-
-                      else
-                      {
-                        v37 = v20 >> 3;
-                      }
-
-                      if (!sub_1000189BC(a1, "readStageNumOfFails202", v11, 8u, v37))
-                      {
-                        v9 = "ASPMSPParseBufferToCxt: readStageNumOfFails202(12294): Error adding 1 elements to context";
-                        goto LABEL_2105;
-                      }
-                    }
-
-                    else
-                    {
-                      if (v20 != 8)
-                      {
-                        sub_100020530("ASPMSPParseBufferToCxt: readStageNumOfFails203(12295): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                      }
-
-                      if (v20 >= 0x10)
-                      {
-                        v37 = 1;
-                      }
-
-                      else
-                      {
-                        v37 = v20 >> 3;
-                      }
-
-                      if (!sub_1000189BC(a1, "readStageNumOfFails203", v11, 8u, v37))
-                      {
-                        v9 = "ASPMSPParseBufferToCxt: readStageNumOfFails203(12295): Error adding 1 elements to context";
-                        goto LABEL_2105;
-                      }
-                    }
-
-                    goto LABEL_1372;
-                  }
-
-                  switch(v21)
-                  {
-                    case 12296:
-                      if (v20 != 8)
-                      {
-                        sub_100020530("ASPMSPParseBufferToCxt: initialReadStage204(12296): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                      }
-
-                      if (v20 >= 0x10)
-                      {
-                        v37 = 1;
-                      }
-
-                      else
-                      {
-                        v37 = v20 >> 3;
-                      }
-
-                      if (!sub_1000189BC(a1, "initialReadStage204", v11, 8u, v37))
-                      {
-                        v9 = "ASPMSPParseBufferToCxt: initialReadStage204(12296): Error adding 1 elements to context";
-                        goto LABEL_2105;
-                      }
-
-                      goto LABEL_1372;
-                    case 12297:
-                      if (v20 != 8)
-                      {
-                        sub_100020530("ASPMSPParseBufferToCxt: initialReadStage205(12297): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                      }
-
-                      if (v20 >= 0x10)
-                      {
-                        v37 = 1;
-                      }
-
-                      else
-                      {
-                        v37 = v20 >> 3;
-                      }
-
-                      if (!sub_1000189BC(a1, "initialReadStage205", v11, 8u, v37))
-                      {
-                        v9 = "ASPMSPParseBufferToCxt: initialReadStage205(12297): Error adding 1 elements to context";
-                        goto LABEL_2105;
-                      }
-
-                      goto LABEL_1372;
-                    case 12298:
-                      if (v20 != 8)
-                      {
-                        sub_100020530("ASPMSPParseBufferToCxt: initialReadStage206(12298): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                      }
-
-                      if (v20 >= 0x10)
-                      {
-                        v37 = 1;
-                      }
-
-                      else
-                      {
-                        v37 = v20 >> 3;
-                      }
-
-                      if (!sub_1000189BC(a1, "initialReadStage206", v11, 8u, v37))
-                      {
-                        v9 = "ASPMSPParseBufferToCxt: initialReadStage206(12298): Error adding 1 elements to context";
-                        goto LABEL_2105;
-                      }
-
-                      goto LABEL_1372;
-                  }
-
-LABEL_1826:
-                  if (v21 < 0x4000)
-                  {
-                    v13 = "avg_rd_window_size";
-                    v14 = "ASPMSPParseBufferToCxt: avg_rd_window_size(8193): cfg 5 elements; (5*4) cfg bytes != (%d) buffer bytes";
-                    v16 = "ASPMSPParseBufferToCxt: num_zq_failures(8194): Error adding 1 elements to context";
-                    v15 = "num_zq_failures";
-                    v17 = "ASPMSPParseBufferToCxt: num_zq_failures(8194): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes";
-                    v18 = "ASPMSPParseBufferToCxt: lower_die_temperature(8195): Error adding 16 elements to context";
-                    switch(v21)
-                    {
-                      case 12299:
-                        if (v20 != 8)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: initialReadStage207(12299): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", 12294, 12297, "ASPMSPParseBufferToCxt: lower_die_temperature(8195): Error adding 16 elements to context", 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 0x10)
-                        {
-                          v27 = 1;
-                        }
-
-                        else
-                        {
-                          v27 = v20 >> 3;
-                        }
-
-                        if (sub_1000189BC(a1, "initialReadStage207", v11, 8u, v27))
-                        {
-                          goto LABEL_462;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: initialReadStage207(12299): Error adding 1 elements to context";
-                        break;
-                      case 12300:
-                        if (v20 != 8)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: initialReadStage208(12300): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", 12294, 12297, "ASPMSPParseBufferToCxt: lower_die_temperature(8195): Error adding 16 elements to context", 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 0x10)
-                        {
-                          v27 = 1;
-                        }
-
-                        else
-                        {
-                          v27 = v20 >> 3;
-                        }
-
-                        if (sub_1000189BC(a1, "initialReadStage208", v11, 8u, v27))
-                        {
-                          goto LABEL_462;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: initialReadStage208(12300): Error adding 1 elements to context";
-                        break;
-                      case 12301:
-                        if (v20 != 8)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: initialReadStage209(12301): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", 12294, 12297, "ASPMSPParseBufferToCxt: lower_die_temperature(8195): Error adding 16 elements to context", 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 0x10)
-                        {
-                          v27 = 1;
-                        }
-
-                        else
-                        {
-                          v27 = v20 >> 3;
-                        }
-
-                        if (sub_1000189BC(a1, "initialReadStage209", v11, 8u, v27))
-                        {
-                          goto LABEL_462;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: initialReadStage209(12301): Error adding 1 elements to context";
-                        break;
-                      case 12302:
-                        if (v20 != 8)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: readStage200(12302): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", 12294, 12297, "ASPMSPParseBufferToCxt: lower_die_temperature(8195): Error adding 16 elements to context", 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 0x10)
-                        {
-                          v27 = 1;
-                        }
-
-                        else
-                        {
-                          v27 = v20 >> 3;
-                        }
-
-                        if (sub_1000189BC(a1, "readStage200", v11, 8u, v27))
-                        {
-                          goto LABEL_462;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: readStage200(12302): Error adding 1 elements to context";
-                        break;
-                      case 12303:
-                        if (v20 != 32)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: readStage201(12303): cfg 4 elements; (4*8) cfg bytes != (%d) buffer bytes", 12294, 12297, "ASPMSPParseBufferToCxt: lower_die_temperature(8195): Error adding 16 elements to context", 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 0x28)
-                        {
-                          v27 = 4;
-                        }
-
-                        else
-                        {
-                          v27 = v20 >> 3;
-                        }
-
-                        if (sub_1000189BC(a1, "readStage201", v11, 8u, v27))
-                        {
-                          goto LABEL_462;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: readStage201(12303): Error adding 4 elements to context";
-                        break;
-                      case 12304:
-                        if (v20 != 32)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: readStage202(12304): cfg 4 elements; (4*8) cfg bytes != (%d) buffer bytes", 12294, 12297, "ASPMSPParseBufferToCxt: lower_die_temperature(8195): Error adding 16 elements to context", 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 0x28)
-                        {
-                          v27 = 4;
-                        }
-
-                        else
-                        {
-                          v27 = v20 >> 3;
-                        }
-
-                        if (sub_1000189BC(a1, "readStage202", v11, 8u, v27))
-                        {
-                          goto LABEL_462;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: readStage202(12304): Error adding 4 elements to context";
-                        break;
-                      case 12305:
-                        if (v20 != 8)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: initialReadStage210(12305): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", 12294, 12297, "ASPMSPParseBufferToCxt: lower_die_temperature(8195): Error adding 16 elements to context", 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 0x10)
-                        {
-                          v27 = 1;
-                        }
-
-                        else
-                        {
-                          v27 = v20 >> 3;
-                        }
-
-                        if (sub_1000189BC(a1, "initialReadStage210", v11, 8u, v27))
-                        {
-                          goto LABEL_462;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: initialReadStage210(12305): Error adding 1 elements to context";
-                        break;
-                      case 12306:
-                        if (v20 != 8)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: initialReadStage211(12306): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", 12294, 12297, "ASPMSPParseBufferToCxt: lower_die_temperature(8195): Error adding 16 elements to context", 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 0x10)
-                        {
-                          v27 = 1;
-                        }
-
-                        else
-                        {
-                          v27 = v20 >> 3;
-                        }
-
-                        if (sub_1000189BC(a1, "initialReadStage211", v11, 8u, v27))
-                        {
-                          goto LABEL_462;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: initialReadStage211(12306): Error adding 1 elements to context";
-                        break;
-                      case 12307:
-                        if (v20 != 8)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: readStage203(12307): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", 12294, 12297, "ASPMSPParseBufferToCxt: lower_die_temperature(8195): Error adding 16 elements to context", 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 0x10)
-                        {
-                          v27 = 1;
-                        }
-
-                        else
-                        {
-                          v27 = v20 >> 3;
-                        }
-
-                        if (sub_1000189BC(a1, "readStage203", v11, 8u, v27))
-                        {
-                          goto LABEL_462;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: readStage203(12307): Error adding 1 elements to context";
-                        break;
-                      case 12308:
-                        if (v20 != 8)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: readStage204(12308): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", 12294, 12297, "ASPMSPParseBufferToCxt: lower_die_temperature(8195): Error adding 16 elements to context", 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 0x10)
-                        {
-                          v27 = 1;
-                        }
-
-                        else
-                        {
-                          v27 = v20 >> 3;
-                        }
-
-                        if (sub_1000189BC(a1, "readStage204", v11, 8u, v27))
-                        {
-                          goto LABEL_462;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: readStage204(12308): Error adding 1 elements to context";
-                        break;
-                      case 12309:
-                        if (v20 != 8)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: readStage205(12309): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", 12294, 12297, "ASPMSPParseBufferToCxt: lower_die_temperature(8195): Error adding 16 elements to context", 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 0x10)
-                        {
-                          v27 = 1;
-                        }
-
-                        else
-                        {
-                          v27 = v20 >> 3;
-                        }
-
-                        if (sub_1000189BC(a1, "readStage205", v11, 8u, v27))
-                        {
-                          goto LABEL_462;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: readStage205(12309): Error adding 1 elements to context";
-                        break;
-                      case 12310:
-                        if (v20 != 8)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: readStage206(12310): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", 12294, 12297, "ASPMSPParseBufferToCxt: lower_die_temperature(8195): Error adding 16 elements to context", 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 0x10)
-                        {
-                          v27 = 1;
-                        }
-
-                        else
-                        {
-                          v27 = v20 >> 3;
-                        }
-
-                        if (sub_1000189BC(a1, "readStage206", v11, 8u, v27))
-                        {
-                          goto LABEL_462;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: readStage206(12310): Error adding 1 elements to context";
-                        break;
-                      case 12311:
-                        if (v20 != 8)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: readStage207(12311): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", 12294, 12297, "ASPMSPParseBufferToCxt: lower_die_temperature(8195): Error adding 16 elements to context", 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 0x10)
-                        {
-                          v27 = 1;
-                        }
-
-                        else
-                        {
-                          v27 = v20 >> 3;
-                        }
-
-                        if (sub_1000189BC(a1, "readStage207", v11, 8u, v27))
-                        {
-                          goto LABEL_462;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: readStage207(12311): Error adding 1 elements to context";
-                        break;
-                      case 12312:
-                        if (v20 != 8)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: readStage208(12312): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", 12294, 12297, "ASPMSPParseBufferToCxt: lower_die_temperature(8195): Error adding 16 elements to context", 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 0x10)
-                        {
-                          v27 = 1;
-                        }
-
-                        else
-                        {
-                          v27 = v20 >> 3;
-                        }
-
-                        if (sub_1000189BC(a1, "readStage208", v11, 8u, v27))
-                        {
-                          goto LABEL_462;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: readStage208(12312): Error adding 1 elements to context";
-                        break;
-                      case 12313:
-                        if (v20 != 32)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: readStage209(12313): cfg 4 elements; (4*8) cfg bytes != (%d) buffer bytes", 12294, 12297, "ASPMSPParseBufferToCxt: lower_die_temperature(8195): Error adding 16 elements to context", 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 0x28)
-                        {
-                          v27 = 4;
-                        }
-
-                        else
-                        {
-                          v27 = v20 >> 3;
-                        }
-
-                        if (sub_1000189BC(a1, "readStage209", v11, 8u, v27))
-                        {
-                          goto LABEL_462;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: readStage209(12313): Error adding 4 elements to context";
-                        break;
-                      case 12314:
-                        if (v20 != 32)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: readStage210(12314): cfg 4 elements; (4*8) cfg bytes != (%d) buffer bytes", 12294, 12297, "ASPMSPParseBufferToCxt: lower_die_temperature(8195): Error adding 16 elements to context", 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 0x28)
-                        {
-                          v27 = 4;
-                        }
-
-                        else
-                        {
-                          v27 = v20 >> 3;
-                        }
-
-                        if (sub_1000189BC(a1, "readStage210", v11, 8u, v27))
-                        {
-                          goto LABEL_462;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: readStage210(12314): Error adding 4 elements to context";
-                        break;
-                      case 12315:
-                        if (v20 != 8)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: initialReadStage212(12315): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", 12294, 12297, "ASPMSPParseBufferToCxt: lower_die_temperature(8195): Error adding 16 elements to context", 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 0x10)
-                        {
-                          v27 = 1;
-                        }
-
-                        else
-                        {
-                          v27 = v20 >> 3;
-                        }
-
-                        if (sub_1000189BC(a1, "initialReadStage212", v11, 8u, v27))
-                        {
-                          goto LABEL_462;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: initialReadStage212(12315): Error adding 1 elements to context";
-                        break;
-                      case 12316:
-                        if (v20 != 8)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: initialReadStage213(12316): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", 12294, 12297, "ASPMSPParseBufferToCxt: lower_die_temperature(8195): Error adding 16 elements to context", 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 0x10)
-                        {
-                          v27 = 1;
-                        }
-
-                        else
-                        {
-                          v27 = v20 >> 3;
-                        }
-
-                        if (sub_1000189BC(a1, "initialReadStage213", v11, 8u, v27))
-                        {
-                          goto LABEL_462;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: initialReadStage213(12316): Error adding 1 elements to context";
-                        break;
-                      case 12317:
-                        if (v20 != 8)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: readStage211(12317): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", 12294, 12297, "ASPMSPParseBufferToCxt: lower_die_temperature(8195): Error adding 16 elements to context", 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 0x10)
-                        {
-                          v27 = 1;
-                        }
-
-                        else
-                        {
-                          v27 = v20 >> 3;
-                        }
-
-                        if (sub_1000189BC(a1, "readStage211", v11, 8u, v27))
-                        {
-                          goto LABEL_462;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: readStage211(12317): Error adding 1 elements to context";
-                        break;
-                      case 12318:
-                        if (v20 != 8)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: readStage212(12318): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", 12294, 12297, "ASPMSPParseBufferToCxt: lower_die_temperature(8195): Error adding 16 elements to context", 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 0x10)
-                        {
-                          v27 = 1;
-                        }
-
-                        else
-                        {
-                          v27 = v20 >> 3;
-                        }
-
-                        if (sub_1000189BC(a1, "readStage212", v11, 8u, v27))
-                        {
-                          goto LABEL_462;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: readStage212(12318): Error adding 1 elements to context";
-                        break;
-                      case 12319:
-                        if (v20 != 8)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: readStage213(12319): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", 12294, 12297, "ASPMSPParseBufferToCxt: lower_die_temperature(8195): Error adding 16 elements to context", 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 0x10)
-                        {
-                          v27 = 1;
-                        }
-
-                        else
-                        {
-                          v27 = v20 >> 3;
-                        }
-
-                        if (sub_1000189BC(a1, "readStage213", v11, 8u, v27))
-                        {
-                          goto LABEL_462;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: readStage213(12319): Error adding 1 elements to context";
-                        break;
-                      case 12320:
-                        if (v20 != 8)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: readStage214(12320): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", 12294, 12297, "ASPMSPParseBufferToCxt: lower_die_temperature(8195): Error adding 16 elements to context", 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 0x10)
-                        {
-                          v27 = 1;
-                        }
-
-                        else
-                        {
-                          v27 = v20 >> 3;
-                        }
-
-                        if (sub_1000189BC(a1, "readStage214", v11, 8u, v27))
-                        {
-                          goto LABEL_462;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: readStage214(12320): Error adding 1 elements to context";
-                        break;
-                      case 12321:
-                        if (v20 != 8)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: readStage215(12321): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", 12294, 12297, "ASPMSPParseBufferToCxt: lower_die_temperature(8195): Error adding 16 elements to context", 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 0x10)
-                        {
-                          v27 = 1;
-                        }
-
-                        else
-                        {
-                          v27 = v20 >> 3;
-                        }
-
-                        if (sub_1000189BC(a1, "readStage215", v11, 8u, v27))
-                        {
-                          goto LABEL_462;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: readStage215(12321): Error adding 1 elements to context";
-                        break;
-                      case 12322:
-                        if (v20 != 8)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter142(12322): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", 12294, 12297, "ASPMSPParseBufferToCxt: lower_die_temperature(8195): Error adding 16 elements to context", 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 0x10)
-                        {
-                          v27 = 1;
-                        }
-
-                        else
-                        {
-                          v27 = v20 >> 3;
-                        }
-
-                        if (sub_1000189BC(a1, "dspExceptionParameter142", v11, 8u, v27))
-                        {
-                          goto LABEL_462;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter142(12322): Error adding 1 elements to context";
-                        break;
-                      case 12323:
-                        if (v20 != 8)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter143(12323): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", 12294, 12297, "ASPMSPParseBufferToCxt: lower_die_temperature(8195): Error adding 16 elements to context", 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 0x10)
-                        {
-                          v27 = 1;
-                        }
-
-                        else
-                        {
-                          v27 = v20 >> 3;
-                        }
-
-                        if (sub_1000189BC(a1, "dspExceptionParameter143", v11, 8u, v27))
-                        {
-                          goto LABEL_462;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter143(12323): Error adding 1 elements to context";
-                        break;
-                      case 12324:
-                        if (v20 != 8)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter144(12324): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", 12294, 12297, "ASPMSPParseBufferToCxt: lower_die_temperature(8195): Error adding 16 elements to context", 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 0x10)
-                        {
-                          v27 = 1;
-                        }
-
-                        else
-                        {
-                          v27 = v20 >> 3;
-                        }
-
-                        if (sub_1000189BC(a1, "dspExceptionParameter144", v11, 8u, v27))
-                        {
-                          goto LABEL_462;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter144(12324): Error adding 1 elements to context";
-                        break;
-                      case 12325:
-                        if (v20 != 8)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: initialReadStageParameter1(12325): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", 12294, 12297, "ASPMSPParseBufferToCxt: lower_die_temperature(8195): Error adding 16 elements to context", 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 0x10)
-                        {
-                          v27 = 1;
-                        }
-
-                        else
-                        {
-                          v27 = v20 >> 3;
-                        }
-
-                        if (sub_1000189BC(a1, "initialReadStageParameter1", v11, 8u, v27))
-                        {
-                          goto LABEL_462;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: initialReadStageParameter1(12325): Error adding 1 elements to context";
-                        break;
-                      case 12326:
-                        if (v20 != 8)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: initialReadStageParameter2(12326): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", 12294, 12297, "ASPMSPParseBufferToCxt: lower_die_temperature(8195): Error adding 16 elements to context", 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 0x10)
-                        {
-                          v27 = 1;
-                        }
-
-                        else
-                        {
-                          v27 = v20 >> 3;
-                        }
-
-                        if (sub_1000189BC(a1, "initialReadStageParameter2", v11, 8u, v27))
-                        {
-                          goto LABEL_462;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: initialReadStageParameter2(12326): Error adding 1 elements to context";
-                        break;
-                      case 12331:
-                        if (v20 != 20)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: initialReadStage11(12331): cfg 5 elements; (5*4) cfg bytes != (%d) buffer bytes", 12294, 12297, "ASPMSPParseBufferToCxt: lower_die_temperature(8195): Error adding 16 elements to context", 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 0x18)
-                        {
-                          v27 = 5;
-                        }
-
-                        else
-                        {
-                          v27 = v20 >> 2;
-                        }
-
-                        if (sub_1000189BC(a1, "initialReadStage11_", v11, 4u, v27))
-                        {
-                          goto LABEL_462;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: initialReadStage11(12331): Error adding 5 elements to context";
-                        break;
-                      case 12332:
-                        if (v20 != 32)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: initialReadStage12(12332): cfg 8 elements; (8*4) cfg bytes != (%d) buffer bytes", 12294, 12297, "ASPMSPParseBufferToCxt: lower_die_temperature(8195): Error adding 16 elements to context", 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 0x24)
-                        {
-                          v27 = 8;
-                        }
-
-                        else
-                        {
-                          v27 = v20 >> 2;
-                        }
-
-                        if (sub_1000189BC(a1, "initialReadStage12_", v11, 4u, v27))
-                        {
-                          goto LABEL_462;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: initialReadStage12(12332): Error adding 8 elements to context";
-                        break;
-                      case 12333:
-                        if (v20 != 24)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: initialReadStage13(12333): cfg 6 elements; (6*4) cfg bytes != (%d) buffer bytes", 12294, 12297, "ASPMSPParseBufferToCxt: lower_die_temperature(8195): Error adding 16 elements to context", 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 0x1C)
-                        {
-                          v27 = 6;
-                        }
-
-                        else
-                        {
-                          v27 = v20 >> 2;
-                        }
-
-                        if (sub_1000189BC(a1, "initialReadStage13_", v11, 4u, v27))
-                        {
-                          goto LABEL_462;
-                        }
-
-                        v9 = "ASPMSPParseBufferToCxt: initialReadStage13(12333): Error adding 6 elements to context";
-                        break;
-                      default:
-                        goto LABEL_463;
-                    }
-
-                    goto LABEL_2105;
-                  }
-
-                  if (v21 <= 16395)
-                  {
-                    switch(v21)
-                    {
-                      case 16384:
-                        if (v20 != 8)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: fw_version_identifier(16384): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 0x10)
-                        {
-                          v37 = 1;
-                        }
-
-                        else
-                        {
-                          v37 = v20 >> 3;
-                        }
-
-                        if (!sub_1000189BC(a1, "fw_version_identifier", v11, 8u, v37))
-                        {
-                          v9 = "ASPMSPParseBufferToCxt: fw_version_identifier(16384): Error adding 1 elements to context";
-                          goto LABEL_2105;
-                        }
-
-                        goto LABEL_1372;
-                      case 16394:
-                        if (v20 != 4)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: coge_cache_hit_read(16394): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 8)
-                        {
-                          v37 = 1;
-                        }
-
-                        else
-                        {
-                          v37 = v20 >> 2;
-                        }
-
-                        if (!sub_1000189BC(a1, "coge_cache_hit_read", v11, 4u, v37))
-                        {
-                          v9 = "ASPMSPParseBufferToCxt: coge_cache_hit_read(16394): Error adding 1 elements to context";
-                          goto LABEL_2105;
-                        }
-
-                        goto LABEL_1372;
-                      case 16395:
-                        if (v20 != 4)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: coge_cache_miss_read(16395): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 8)
-                        {
-                          v37 = 1;
-                        }
-
-                        else
-                        {
-                          v37 = v20 >> 2;
-                        }
-
-                        if (!sub_1000189BC(a1, "coge_cache_miss_read", v11, 4u, v37))
-                        {
-                          v9 = "ASPMSPParseBufferToCxt: coge_cache_miss_read(16395): Error adding 1 elements to context";
-                          goto LABEL_2105;
-                        }
-
-                        goto LABEL_1372;
-                    }
-                  }
-
-                  else
-                  {
-                    if (v21 <= 16397)
-                    {
-                      if (v21 == 16396)
-                      {
-                        if (v20 != 4)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: coge_cache_hit_program(16396): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 8)
-                        {
-                          v37 = 1;
-                        }
-
-                        else
-                        {
-                          v37 = v20 >> 2;
-                        }
-
-                        if (!sub_1000189BC(a1, "coge_cache_hit_program", v11, 4u, v37))
-                        {
-                          v9 = "ASPMSPParseBufferToCxt: coge_cache_hit_program(16396): Error adding 1 elements to context";
-                          goto LABEL_2105;
-                        }
-                      }
-
-                      else
-                      {
-                        if (v20 != 4)
-                        {
-                          sub_100020530("ASPMSPParseBufferToCxt: coge_cache_miss_program(16397): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                        }
-
-                        if (v20 >= 8)
-                        {
-                          v37 = 1;
-                        }
-
-                        else
-                        {
-                          v37 = v20 >> 2;
-                        }
-
-                        if (!sub_1000189BC(a1, "coge_cache_miss_program", v11, 4u, v37))
-                        {
-                          v9 = "ASPMSPParseBufferToCxt: coge_cache_miss_program(16397): Error adding 1 elements to context";
-                          goto LABEL_2105;
-                        }
-                      }
-
-                      goto LABEL_1372;
-                    }
-
-                    if (v21 == 16398)
-                    {
-                      if (v20 != 4)
-                      {
-                        sub_100020530("ASPMSPParseBufferToCxt: coge_lru_num_of_replacement(16398): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                      }
-
-                      if (v20 >= 8)
-                      {
-                        v37 = 1;
-                      }
-
-                      else
-                      {
-                        v37 = v20 >> 2;
-                      }
-
-                      if (!sub_1000189BC(a1, "coge_lru_num_of_replacement", v11, 4u, v37))
-                      {
-                        v9 = "ASPMSPParseBufferToCxt: coge_lru_num_of_replacement(16398): Error adding 1 elements to context";
-                        goto LABEL_2105;
-                      }
-
-LABEL_1372:
-                      v8 = v8 + v37;
-                      goto LABEL_1373;
-                    }
-
-                    if (v21 == 16399)
-                    {
-                      if (v20 != 4)
-                      {
-                        sub_100020530("ASPMSPParseBufferToCxt: coge_lru_num_of_searches(16399): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                      }
-
-                      if (v20 >= 8)
-                      {
-                        v37 = 1;
-                      }
-
-                      else
-                      {
-                        v37 = v20 >> 2;
-                      }
-
-                      if (!sub_1000189BC(a1, "coge_lru_num_of_searches", v11, 4u, v37))
-                      {
-                        v9 = "ASPMSPParseBufferToCxt: coge_lru_num_of_searches(16399): Error adding 1 elements to context";
-                        goto LABEL_2105;
-                      }
-
-                      goto LABEL_1372;
-                    }
-                  }
-
-LABEL_1373:
-                  v13 = "avg_rd_window_size";
-                  v14 = "ASPMSPParseBufferToCxt: avg_rd_window_size(8193): cfg 5 elements; (5*4) cfg bytes != (%d) buffer bytes";
-                  v16 = "ASPMSPParseBufferToCxt: num_zq_failures(8194): Error adding 1 elements to context";
+        v16 = *v14;
+        if (v16 != 12286)
+        {
+          if (v16 != 12287 && v5 >= v15)
+          {
+            switch(v16)
+            {
+              case 4097:
+                v18 = v11;
+                v19 = v9;
+                v20 = v8;
+                if (v15 != 4)
+                {
+                  sub_100020530("ASPMSPParseBufferToCxt: passWithTmodeFS1_2b(4097): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                }
+
+                if (v15 >= 8)
+                {
+                  v21 = 1;
+                }
+
+                else
+                {
+                  v21 = v15 >> 2;
+                }
+
+                if (sub_1000189BC(a1, "passWithTmodeFS1_2b", v6, 4u, v21))
+                {
+                  v3 = v3 + v21;
+                  v8 = v20;
+                  v9 = v19;
+                  v11 = v18;
 LABEL_20:
-                  v15 = "num_zq_failures";
+                  v10 = "num_zq_failures";
 LABEL_21:
-                  v17 = "ASPMSPParseBufferToCxt: num_zq_failures(8194): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes";
+                  v12 = "ASPMSPParseBufferToCxt: num_zq_failures(8194): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes";
 LABEL_913:
-                  v18 = "ASPMSPParseBufferToCxt: lower_die_temperature(8195): Error adding 16 elements to context";
-                  break;
-                case 4329:
-                  if (v20 != 32)
-                  {
-                    sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter158(4329): cfg 8 elements; (8*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                  }
-
-                  if (v20 >= 0x24)
-                  {
-                    v37 = 8;
-                  }
-
-                  else
-                  {
-                    v37 = v20 >> 2;
-                  }
-
-                  if (sub_1000189BC(a1, "dspExceptionParameter158_", v11, 4u, v37))
-                  {
-                    goto LABEL_1372;
-                  }
-
-                  v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter158(4329): Error adding 8 elements to context";
-                  goto LABEL_2105;
-                case 4330:
-                  if (v20 != 20)
-                  {
-                    sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter159(4330): cfg 5 elements; (5*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                  }
-
-                  if (v20 >= 0x18)
-                  {
-                    v37 = 5;
-                  }
-
-                  else
-                  {
-                    v37 = v20 >> 2;
-                  }
-
-                  if (sub_1000189BC(a1, "dspExceptionParameter159_", v11, 4u, v37))
-                  {
-                    goto LABEL_1372;
-                  }
-
-                  v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter159(4330): Error adding 5 elements to context";
-                  goto LABEL_2105;
-                case 4331:
-                  if (v20 != 24)
-                  {
-                    sub_100020530("ASPMSPParseBufferToCxt: readStage112(4331): cfg 6 elements; (6*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                  }
-
-                  if (v20 >= 0x1C)
-                  {
-                    v37 = 6;
-                  }
-
-                  else
-                  {
-                    v37 = v20 >> 2;
-                  }
-
-                  if (sub_1000189BC(a1, "readStage112_", v11, 4u, v37))
-                  {
-                    goto LABEL_1372;
-                  }
-
-                  v9 = "ASPMSPParseBufferToCxt: readStage112(4331): Error adding 6 elements to context";
-                  goto LABEL_2105;
-                case 4332:
-                  if (v20 != 32)
-                  {
-                    sub_100020530("ASPMSPParseBufferToCxt: readStageFail0(4332): cfg 8 elements; (8*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                  }
-
-                  if (v20 >= 0x24)
-                  {
-                    v37 = 8;
-                  }
-
-                  else
-                  {
-                    v37 = v20 >> 2;
-                  }
-
-                  if (sub_1000189BC(a1, "readStageFail0_", v11, 4u, v37))
-                  {
-                    goto LABEL_1372;
-                  }
-
-                  v9 = "ASPMSPParseBufferToCxt: readStageFail0(4332): Error adding 8 elements to context";
-                  goto LABEL_2105;
-                case 4333:
-                  if (v20 != 16)
-                  {
-                    sub_100020530("ASPMSPParseBufferToCxt: readStage113(4333): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                  }
-
-                  if (v20 >= 0x14)
-                  {
-                    v37 = 4;
-                  }
-
-                  else
-                  {
-                    v37 = v20 >> 2;
-                  }
-
-                  if (sub_1000189BC(a1, "readStage113_", v11, 4u, v37))
-                  {
-                    goto LABEL_1372;
-                  }
-
-                  v9 = "ASPMSPParseBufferToCxt: readStage113(4333): Error adding 4 elements to context";
-                  goto LABEL_2105;
-                case 4334:
-                  if (v20 != 16)
-                  {
-                    sub_100020530("ASPMSPParseBufferToCxt: readStage114(4334): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                  }
-
-                  if (v20 >= 0x14)
-                  {
-                    v37 = 4;
-                  }
-
-                  else
-                  {
-                    v37 = v20 >> 2;
-                  }
-
-                  if (sub_1000189BC(a1, "readStage114_", v11, 4u, v37))
-                  {
-                    goto LABEL_1372;
-                  }
-
-                  v9 = "ASPMSPParseBufferToCxt: readStage114(4334): Error adding 4 elements to context";
-                  goto LABEL_2105;
-                case 4335:
-                  if (v20 != 48)
-                  {
-                    sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter160(4335): cfg 12 elements; (12*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                  }
-
-                  if (v20 >= 0x34)
-                  {
-                    v37 = 12;
-                  }
-
-                  else
-                  {
-                    v37 = v20 >> 2;
-                  }
-
-                  if (sub_1000189BC(a1, "dspExceptionParameter160_", v11, 4u, v37))
-                  {
-                    goto LABEL_1372;
-                  }
-
-                  v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter160(4335): Error adding 12 elements to context";
-                  goto LABEL_2105;
-                case 4336:
-                  if (v20 != 4)
-                  {
-                    sub_100020530("ASPMSPParseBufferToCxt: nandStageOfLife118(4336): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                  }
-
-                  if (v20 >= 8)
-                  {
-                    v37 = 1;
-                  }
-
-                  else
-                  {
-                    v37 = v20 >> 2;
-                  }
-
-                  if (sub_1000189BC(a1, "nandStageOfLife118", v11, 4u, v37))
-                  {
-                    goto LABEL_1372;
-                  }
-
-                  v9 = "ASPMSPParseBufferToCxt: nandStageOfLife118(4336): Error adding 1 elements to context";
-                  goto LABEL_2105;
-                case 4337:
-                  if (v20 != 4)
-                  {
-                    sub_100020530("ASPMSPParseBufferToCxt: nandStageOfLife119(4337): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                  }
-
-                  if (v20 >= 8)
-                  {
-                    v37 = 1;
-                  }
-
-                  else
-                  {
-                    v37 = v20 >> 2;
-                  }
-
-                  if (sub_1000189BC(a1, "nandStageOfLife119", v11, 4u, v37))
-                  {
-                    goto LABEL_1372;
-                  }
-
-                  v9 = "ASPMSPParseBufferToCxt: nandStageOfLife119(4337): Error adding 1 elements to context";
-                  goto LABEL_2105;
-                case 4338:
-                  if (v20 != 40)
-                  {
-                    sub_100020530("ASPMSPParseBufferToCxt: readStage115(4338): cfg 10 elements; (10*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                  }
-
-                  if (v20 >= 0x2C)
-                  {
-                    v37 = 10;
-                  }
-
-                  else
-                  {
-                    v37 = v20 >> 2;
-                  }
-
-                  if (sub_1000189BC(a1, "readStage115_", v11, 4u, v37))
-                  {
-                    goto LABEL_1372;
-                  }
-
-                  v9 = "ASPMSPParseBufferToCxt: readStage115(4338): Error adding 10 elements to context";
-                  goto LABEL_2105;
-                case 4339:
-                  if (v20 != 40)
-                  {
-                    sub_100020530("ASPMSPParseBufferToCxt: readStageFail1(4339): cfg 10 elements; (10*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                  }
-
-                  if (v20 >= 0x2C)
-                  {
-                    v37 = 10;
-                  }
-
-                  else
-                  {
-                    v37 = v20 >> 2;
-                  }
-
-                  if (sub_1000189BC(a1, "readStageFail1_", v11, 4u, v37))
-                  {
-                    goto LABEL_1372;
-                  }
-
-                  v9 = "ASPMSPParseBufferToCxt: readStageFail1(4339): Error adding 10 elements to context";
-                  goto LABEL_2105;
-                case 4340:
-                  if (v20 != 12)
-                  {
-                    sub_100020530("ASPMSPParseBufferToCxt: readStageFail2(4340): cfg 3 elements; (3*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                  }
-
-                  if (v20 >= 0x10)
-                  {
-                    v37 = 3;
-                  }
-
-                  else
-                  {
-                    v37 = v20 >> 2;
-                  }
-
-                  if (sub_1000189BC(a1, "readStageFail2_", v11, 4u, v37))
-                  {
-                    goto LABEL_1372;
-                  }
-
-                  v9 = "ASPMSPParseBufferToCxt: readStageFail2(4340): Error adding 3 elements to context";
-                  goto LABEL_2105;
-                case 4341:
-                  if (v20 != 16)
-                  {
-                    sub_100020530("ASPMSPParseBufferToCxt: readStage116(4341): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                  }
-
-                  if (v20 >= 0x14)
-                  {
-                    v37 = 4;
-                  }
-
-                  else
-                  {
-                    v37 = v20 >> 2;
-                  }
-
-                  if (sub_1000189BC(a1, "readStage116_", v11, 4u, v37))
-                  {
-                    goto LABEL_1372;
-                  }
-
-                  v9 = "ASPMSPParseBufferToCxt: readStage116(4341): Error adding 4 elements to context";
-                  goto LABEL_2105;
-                case 4342:
-                  if (v20 != 40)
-                  {
-                    sub_100020530("ASPMSPParseBufferToCxt: readStage117(4342): cfg 10 elements; (10*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                  }
-
-                  if (v20 >= 0x2C)
-                  {
-                    v37 = 10;
-                  }
-
-                  else
-                  {
-                    v37 = v20 >> 2;
-                  }
-
-                  if (sub_1000189BC(a1, "readStage117_", v11, 4u, v37))
-                  {
-                    goto LABEL_1372;
-                  }
-
-                  v9 = "ASPMSPParseBufferToCxt: readStage117(4342): Error adding 10 elements to context";
-                  goto LABEL_2105;
-                case 4343:
-                  if (v20 != 20)
-                  {
-                    sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter161(4343): cfg 5 elements; (5*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                  }
-
-                  if (v20 >= 0x18)
-                  {
-                    v37 = 5;
-                  }
-
-                  else
-                  {
-                    v37 = v20 >> 2;
-                  }
-
-                  if (sub_1000189BC(a1, "dspExceptionParameter161_", v11, 4u, v37))
-                  {
-                    goto LABEL_1372;
-                  }
-
-                  v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter161(4343): Error adding 5 elements to context";
-                  goto LABEL_2105;
-                case 4344:
-                  if (v20 != 12)
-                  {
-                    sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter162(4344): cfg 3 elements; (3*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                  }
-
-                  if (v20 >= 0x10)
-                  {
-                    v37 = 3;
-                  }
-
-                  else
-                  {
-                    v37 = v20 >> 2;
-                  }
-
-                  if (sub_1000189BC(a1, "dspExceptionParameter162_", v11, 4u, v37))
-                  {
-                    goto LABEL_1372;
-                  }
-
-                  v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter162(4344): Error adding 3 elements to context";
-                  goto LABEL_2105;
-                case 4345:
-                  if (v20 != 40)
-                  {
-                    sub_100020530("ASPMSPParseBufferToCxt: readStage118(4345): cfg 10 elements; (10*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                  }
-
-                  if (v20 >= 0x2C)
-                  {
-                    v37 = 10;
-                  }
-
-                  else
-                  {
-                    v37 = v20 >> 2;
-                  }
-
-                  if (sub_1000189BC(a1, "readStage118_", v11, 4u, v37))
-                  {
-                    goto LABEL_1372;
-                  }
-
-                  v9 = "ASPMSPParseBufferToCxt: readStage118(4345): Error adding 10 elements to context";
-                  goto LABEL_2105;
-                case 4346:
-                  if (v20 != 32)
-                  {
-                    sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter163(4346): cfg 8 elements; (8*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                  }
-
-                  if (v20 >= 0x24)
-                  {
-                    v37 = 8;
-                  }
-
-                  else
-                  {
-                    v37 = v20 >> 2;
-                  }
-
-                  if (sub_1000189BC(a1, "dspExceptionParameter163_", v11, 4u, v37))
-                  {
-                    goto LABEL_1372;
-                  }
-
-                  v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter163(4346): Error adding 8 elements to context";
-                  goto LABEL_2105;
-                case 4347:
-                  if (v20 != 32)
-                  {
-                    sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter164(4347): cfg 8 elements; (8*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                  }
-
-                  if (v20 >= 0x24)
-                  {
-                    v37 = 8;
-                  }
-
-                  else
-                  {
-                    v37 = v20 >> 2;
-                  }
-
-                  if (sub_1000189BC(a1, "dspExceptionParameter164_", v11, 4u, v37))
-                  {
-                    goto LABEL_1372;
-                  }
-
-                  v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter164(4347): Error adding 8 elements to context";
-                  goto LABEL_2105;
-                case 4348:
-                  if (v20 != 32)
-                  {
-                    sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter165(4348): cfg 8 elements; (8*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                  }
-
-                  if (v20 >= 0x24)
-                  {
-                    v37 = 8;
-                  }
-
-                  else
-                  {
-                    v37 = v20 >> 2;
-                  }
-
-                  if (sub_1000189BC(a1, "dspExceptionParameter165_", v11, 4u, v37))
-                  {
-                    goto LABEL_1372;
-                  }
-
-                  v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter165(4348): Error adding 8 elements to context";
-                  goto LABEL_2105;
-                case 4349:
-                  if (v20 != 20)
-                  {
-                    sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter166(4349): cfg 5 elements; (5*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                  }
-
-                  if (v20 >= 0x18)
-                  {
-                    v37 = 5;
-                  }
-
-                  else
-                  {
-                    v37 = v20 >> 2;
-                  }
-
-                  if (sub_1000189BC(a1, "dspExceptionParameter166_", v11, 4u, v37))
-                  {
-                    goto LABEL_1372;
-                  }
-
-                  v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter166(4349): Error adding 5 elements to context";
-                  goto LABEL_2105;
-                case 4350:
-                  if (v20 != 20)
-                  {
-                    sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter167(4350): cfg 5 elements; (5*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                  }
-
-                  if (v20 >= 0x18)
-                  {
-                    v37 = 5;
-                  }
-
-                  else
-                  {
-                    v37 = v20 >> 2;
-                  }
-
-                  if (sub_1000189BC(a1, "dspExceptionParameter167_", v11, 4u, v37))
-                  {
-                    goto LABEL_1372;
-                  }
-
-                  v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter167(4350): Error adding 5 elements to context";
-                  goto LABEL_2105;
-                case 4351:
-                  if (v20 != 12)
-                  {
-                    sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter168(4351): cfg 3 elements; (3*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                  }
-
-                  if (v20 >= 0x10)
-                  {
-                    v37 = 3;
-                  }
-
-                  else
-                  {
-                    v37 = v20 >> 2;
-                  }
-
-                  if (sub_1000189BC(a1, "dspExceptionParameter168_", v11, 4u, v37))
-                  {
-                    goto LABEL_1372;
-                  }
-
-                  v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter168(4351): Error adding 3 elements to context";
-                  goto LABEL_2105;
-                case 4352:
-                  if (v20 != 4)
-                  {
-                    sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter169(4352): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                  }
-
-                  if (v20 >= 8)
-                  {
-                    v37 = 1;
-                  }
-
-                  else
-                  {
-                    v37 = v20 >> 2;
-                  }
-
-                  if (sub_1000189BC(a1, "dspExceptionParameter169", v11, 4u, v37))
-                  {
-                    goto LABEL_1372;
-                  }
-
-                  v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter169(4352): Error adding 1 elements to context";
-                  goto LABEL_2105;
-                default:
-                  switch(v21)
-                  {
-                    case 8193:
-                      if (v20 != 20)
-                      {
-                        sub_100020530("ASPMSPParseBufferToCxt: avg_rd_window_size(8193): cfg 5 elements; (5*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                      }
-
-                      if (v20 >= 0x18)
-                      {
-                        v37 = 5;
-                      }
-
-                      else
-                      {
-                        v37 = v20 >> 2;
-                      }
-
-                      if (!sub_1000189BC(a1, "avg_rd_window_size", v11, 4u, v37))
-                      {
-                        goto LABEL_2105;
-                      }
-
-                      goto LABEL_1372;
-                    case 8194:
-                      if (v20 != 4)
-                      {
-                        sub_100020530("ASPMSPParseBufferToCxt: num_zq_failures(8194): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                      }
-
-                      if (v20 >= 8)
-                      {
-                        v37 = 1;
-                      }
-
-                      else
-                      {
-                        v37 = v20 >> 2;
-                      }
-
-                      if (sub_1000189BC(a1, "num_zq_failures", v11, 4u, v37))
-                      {
-                        goto LABEL_1372;
-                      }
-
-                      v9 = "ASPMSPParseBufferToCxt: num_zq_failures(8194): Error adding 1 elements to context";
-                      break;
-                    case 8195:
-                      if (v20 != 64)
-                      {
-                        sub_100020530("ASPMSPParseBufferToCxt: lower_die_temperature(8195): cfg 16 elements; (16*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                      }
-
-                      if (v20 >= 0x44)
-                      {
-                        v37 = 16;
-                      }
-
-                      else
-                      {
-                        v37 = v20 >> 2;
-                      }
-
-                      if (sub_1000189BC(a1, "lower_die_temperature", v11, 4u, v37))
-                      {
-                        goto LABEL_1372;
-                      }
-
-                      v9 = "ASPMSPParseBufferToCxt: lower_die_temperature(8195): Error adding 16 elements to context";
-                      break;
-                    case 8196:
-                      if (v20 != 64)
-                      {
-                        sub_100020530("ASPMSPParseBufferToCxt: higher_die_temperature(8196): cfg 16 elements; (16*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                      }
-
-                      if (v20 >= 0x44)
-                      {
-                        v37 = 16;
-                      }
-
-                      else
-                      {
-                        v37 = v20 >> 2;
-                      }
-
-                      if (sub_1000189BC(a1, "higher_die_temperature", v11, 4u, v37))
-                      {
-                        goto LABEL_1372;
-                      }
-
-                      v9 = "ASPMSPParseBufferToCxt: higher_die_temperature(8196): Error adding 16 elements to context";
-                      break;
-                    case 8197:
-                      if (v20 != 4)
-                      {
-                        sub_100020530("ASPMSPParseBufferToCxt: number_of_sram_flips(8197): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                      }
-
-                      if (v20 >= 8)
-                      {
-                        v37 = 1;
-                      }
-
-                      else
-                      {
-                        v37 = v20 >> 2;
-                      }
-
-                      if (sub_1000189BC(a1, "number_of_sram_flips", v11, 4u, v37))
-                      {
-                        goto LABEL_1372;
-                      }
-
-                      v9 = "ASPMSPParseBufferToCxt: number_of_sram_flips(8197): Error adding 1 elements to context";
-                      break;
-                    case 8198:
-                      if (v20 != 4)
-                      {
-                        sub_100020530("ASPMSPParseBufferToCxt: number_of_reset_failures(8198): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                      }
-
-                      if (v20 >= 8)
-                      {
-                        v37 = 1;
-                      }
-
-                      else
-                      {
-                        v37 = v20 >> 2;
-                      }
-
-                      if (sub_1000189BC(a1, "number_of_reset_failures", v11, 4u, v37))
-                      {
-                        goto LABEL_1372;
-                      }
-
-                      v9 = "ASPMSPParseBufferToCxt: number_of_reset_failures(8198): Error adding 1 elements to context";
-                      break;
-                    case 8199:
-                      if (v20 != 4)
-                      {
-                        sub_100020530("ASPMSPParseBufferToCxt: device_config(8199): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                      }
-
-                      if (v20 >= 8)
-                      {
-                        v37 = 1;
-                      }
-
-                      else
-                      {
-                        v37 = v20 >> 2;
-                      }
-
-                      if (sub_1000189BC(a1, "device_config", v11, 4u, v37))
-                      {
-                        goto LABEL_1372;
-                      }
-
-                      v9 = "ASPMSPParseBufferToCxt: device_config(8199): Error adding 1 elements to context";
-                      break;
-                    case 8200:
-                      if (v20 != 4)
-                      {
-                        sub_100020530("ASPMSPParseBufferToCxt: number_of_throttling_events(8200): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                      }
-
-                      if (v20 >= 8)
-                      {
-                        v37 = 1;
-                      }
-
-                      else
-                      {
-                        v37 = v20 >> 2;
-                      }
-
-                      if (sub_1000189BC(a1, "number_of_throttling_events", v11, 4u, v37))
-                      {
-                        goto LABEL_1372;
-                      }
-
-                      v9 = "ASPMSPParseBufferToCxt: number_of_throttling_events(8200): Error adding 1 elements to context";
-                      break;
-                    case 8201:
-                      if (v20 != 4)
-                      {
-                        sub_100020530("ASPMSPParseBufferToCxt: link_speed_recoveries(8201): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                      }
-
-                      if (v20 >= 8)
-                      {
-                        v37 = 1;
-                      }
-
-                      else
-                      {
-                        v37 = v20 >> 2;
-                      }
-
-                      if (sub_1000189BC(a1, "link_speed_recoveries", v11, 4u, v37))
-                      {
-                        goto LABEL_1372;
-                      }
-
-                      v9 = "ASPMSPParseBufferToCxt: link_speed_recoveries(8201): Error adding 1 elements to context";
-                      break;
-                    case 8202:
-                      if (v20 != 4)
-                      {
-                        sub_100020530("ASPMSPParseBufferToCxt: fw_updates(8202): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                      }
-
-                      if (v20 >= 8)
-                      {
-                        v37 = 1;
-                      }
-
-                      else
-                      {
-                        v37 = v20 >> 2;
-                      }
-
-                      if (sub_1000189BC(a1, "fw_updates", v11, 4u, v37))
-                      {
-                        goto LABEL_1372;
-                      }
-
-                      v9 = "ASPMSPParseBufferToCxt: fw_updates(8202): Error adding 1 elements to context";
-                      break;
-                    case 8203:
-                      if (v20 != 4)
-                      {
-                        sub_100020530("ASPMSPParseBufferToCxt: maintenance_backup_to_main(8203): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                      }
-
-                      if (v20 >= 8)
-                      {
-                        v37 = 1;
-                      }
-
-                      else
-                      {
-                        v37 = v20 >> 2;
-                      }
-
-                      if (sub_1000189BC(a1, "maintenance_backup_to_main", v11, 4u, v37))
-                      {
-                        goto LABEL_1372;
-                      }
-
-                      v9 = "ASPMSPParseBufferToCxt: maintenance_backup_to_main(8203): Error adding 1 elements to context";
-                      break;
-                    case 8204:
-                      if (v20 != 4)
-                      {
-                        sub_100020530("ASPMSPParseBufferToCxt: maintenance_main_to_backup(8204): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                      }
-
-                      if (v20 >= 8)
-                      {
-                        v37 = 1;
-                      }
-
-                      else
-                      {
-                        v37 = v20 >> 2;
-                      }
-
-                      if (sub_1000189BC(a1, "maintenance_main_to_backup", v11, 4u, v37))
-                      {
-                        goto LABEL_1372;
-                      }
-
-                      v9 = "ASPMSPParseBufferToCxt: maintenance_main_to_backup(8204): Error adding 1 elements to context";
-                      break;
-                    case 8205:
-                      if (v20 != 4)
-                      {
-                        sub_100020530("ASPMSPParseBufferToCxt: boot_block_erase_failures(8205): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                      }
-
-                      if (v20 >= 8)
-                      {
-                        v37 = 1;
-                      }
-
-                      else
-                      {
-                        v37 = v20 >> 2;
-                      }
-
-                      if (sub_1000189BC(a1, "boot_block_erase_failures", v11, 4u, v37))
-                      {
-                        goto LABEL_1372;
-                      }
-
-                      v9 = "ASPMSPParseBufferToCxt: boot_block_erase_failures(8205): Error adding 1 elements to context";
-                      break;
-                    case 8206:
-                      if (v20 != 4)
-                      {
-                        sub_100020530("ASPMSPParseBufferToCxt: boot_block_program_failures(8206): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                      }
-
-                      if (v20 >= 8)
-                      {
-                        v37 = 1;
-                      }
-
-                      else
-                      {
-                        v37 = v20 >> 2;
-                      }
-
-                      if (sub_1000189BC(a1, "boot_block_program_failures", v11, 4u, v37))
-                      {
-                        goto LABEL_1372;
-                      }
-
-                      v9 = "ASPMSPParseBufferToCxt: boot_block_program_failures(8206): Error adding 1 elements to context";
-                      break;
-                    case 8207:
-                      if (v20 != 4)
-                      {
-                        sub_100020530("ASPMSPParseBufferToCxt: boot_block_read_verify_failures(8207): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", 12294, 12297, 12296, 12295, 12292, 12289, 12290, v20);
-                      }
-
-                      if (v20 >= 8)
-                      {
-                        v37 = 1;
-                      }
-
-                      else
-                      {
-                        v37 = v20 >> 2;
-                      }
-
-                      if (sub_1000189BC(a1, "boot_block_read_verify_failures", v11, 4u, v37))
-                      {
-                        goto LABEL_1372;
-                      }
-
-                      v9 = "ASPMSPParseBufferToCxt: boot_block_read_verify_failures(8207): Error adding 1 elements to context";
-                      break;
-                    default:
-                      goto LABEL_930;
-                  }
-
-                  goto LABEL_2105;
-              }
-
-              break;
+                  v13 = "ASPMSPParseBufferToCxt: lower_die_temperature(8195): Error adding 16 elements to context";
+                  goto LABEL_463;
+                }
+
+                sub_100020530("ASPMSPParseBufferToCxt: passWithTmodeFS1_2b(4097): Error adding 1 elements to context");
+                break;
+              case 4098:
+                v23 = v13;
+                if (v15 != 4)
+                {
+                  sub_100020530("ASPMSPParseBufferToCxt: passWithTmodeFS1_4b(4098): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                }
+
+                if (v15 >= 8)
+                {
+                  v24 = 1;
+                }
+
+                else
+                {
+                  v24 = v15 >> 2;
+                }
+
+                if (sub_1000189BC(a1, "passWithTmodeFS1_4b", v6, 4u, v24))
+                {
+                  v3 = v3 + v24;
+                  v8 = "avg_rd_window_size";
+                  v9 = "ASPMSPParseBufferToCxt: avg_rd_window_size(8193): cfg 5 elements; (5*4) cfg bytes != (%d) buffer bytes";
+                  v11 = "ASPMSPParseBufferToCxt: num_zq_failures(8194): Error adding 1 elements to context";
+                  v13 = v23;
+                  goto LABEL_463;
+                }
+
+                sub_100020530("ASPMSPParseBufferToCxt: passWithTmodeFS1_4b(4098): Error adding 1 elements to context");
+                break;
+              case 4100:
+                if (v15 != 4)
+                {
+                  sub_100020530("ASPMSPParseBufferToCxt: passWithTmodeFS1_2b_fast(4100): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                }
+
+                if (v15 >= 8)
+                {
+                  v22 = 1;
+                }
+
+                else
+                {
+                  v22 = v15 >> 2;
+                }
+
+                if (sub_1000189BC(a1, "passWithTmodeFS1_2b_fast", v6, 4u, v22))
+                {
+                  goto LABEL_462;
+                }
+
+                sub_100020530("ASPMSPParseBufferToCxt: passWithTmodeFS1_2b_fast(4100): Error adding 1 elements to context");
+                break;
+              case 4101:
+                if (v15 != 4)
+                {
+                  sub_100020530("ASPMSPParseBufferToCxt: passWithTmodeFS1_4b_fast(4101): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                }
+
+                if (v15 >= 8)
+                {
+                  v22 = 1;
+                }
+
+                else
+                {
+                  v22 = v15 >> 2;
+                }
+
+                if (sub_1000189BC(a1, "passWithTmodeFS1_4b_fast", v6, 4u, v22))
+                {
+                  goto LABEL_462;
+                }
+
+                sub_100020530("ASPMSPParseBufferToCxt: passWithTmodeFS1_4b_fast(4101): Error adding 1 elements to context");
+                break;
+              case 4102:
+                if (v15 != 4)
+                {
+                  sub_100020530("ASPMSPParseBufferToCxt: numOfCwFailedInTmodeFS2_EOL(4102): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                }
+
+                if (v15 >= 8)
+                {
+                  v22 = 1;
+                }
+
+                else
+                {
+                  v22 = v15 >> 2;
+                }
+
+                if (sub_1000189BC(a1, "numOfCwFailedInTmodeFS2_EOL", v6, 4u, v22))
+                {
+                  goto LABEL_462;
+                }
+
+                sub_100020530("ASPMSPParseBufferToCxt: numOfCwFailedInTmodeFS2_EOL(4102): Error adding 1 elements to context");
+                break;
+              case 4103:
+                if (v15 != 4)
+                {
+                  sub_100020530("ASPMSPParseBufferToCxt: numOfCwFailedInTmodeFS2_DSP_EOL(4103): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                }
+
+                if (v15 >= 8)
+                {
+                  v22 = 1;
+                }
+
+                else
+                {
+                  v22 = v15 >> 2;
+                }
+
+                if (sub_1000189BC(a1, "numOfCwFailedInTmodeFS2_DSP_EOL", v6, 4u, v22))
+                {
+                  goto LABEL_462;
+                }
+
+                sub_100020530("ASPMSPParseBufferToCxt: numOfCwFailedInTmodeFS2_DSP_EOL(4103): Error adding 1 elements to context");
+                break;
+              case 4104:
+                if (v15 != 4)
+                {
+                  sub_100020530("ASPMSPParseBufferToCxt: readAlgoPassWithHardAfterAcq(4104): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                }
+
+                if (v15 >= 8)
+                {
+                  v22 = 1;
+                }
+
+                else
+                {
+                  v22 = v15 >> 2;
+                }
+
+                if (sub_1000189BC(a1, "readAlgoPassWithHardAfterAcq", v6, 4u, v22))
+                {
+                  goto LABEL_462;
+                }
+
+                sub_100020530("ASPMSPParseBufferToCxt: readAlgoPassWithHardAfterAcq(4104): Error adding 1 elements to context");
+                break;
+              case 4105:
+                if (v15 != 4)
+                {
+                  sub_100020530("ASPMSPParseBufferToCxt: firstReadWasHardWithDefaultBDBFastRead(4105): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                }
+
+                if (v15 >= 8)
+                {
+                  v22 = 1;
+                }
+
+                else
+                {
+                  v22 = v15 >> 2;
+                }
+
+                if (sub_1000189BC(a1, "firstReadWasHardWithDefaultBDBFastRead", v6, 4u, v22))
+                {
+                  goto LABEL_462;
+                }
+
+                sub_100020530("ASPMSPParseBufferToCxt: firstReadWasHardWithDefaultBDBFastRead(4105): Error adding 1 elements to context");
+                break;
+              case 4110:
+                if (v15 != 4)
+                {
+                  sub_100020530("ASPMSPParseBufferToCxt: firstReadWasHardWithAcq(4110): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                }
+
+                if (v15 >= 8)
+                {
+                  v22 = 1;
+                }
+
+                else
+                {
+                  v22 = v15 >> 2;
+                }
+
+                if (sub_1000189BC(a1, "firstReadWasHardWithAcq", v6, 4u, v22))
+                {
+                  goto LABEL_462;
+                }
+
+                sub_100020530("ASPMSPParseBufferToCxt: firstReadWasHardWithAcq(4110): Error adding 1 elements to context");
+                break;
+              case 4117:
+                if (v15 != 4)
+                {
+                  sub_100020530("ASPMSPParseBufferToCxt: firstReadWasHardWithDefaultBDB(4117): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                }
+
+                if (v15 >= 8)
+                {
+                  v22 = 1;
+                }
+
+                else
+                {
+                  v22 = v15 >> 2;
+                }
+
+                if (sub_1000189BC(a1, "firstReadWasHardWithDefaultBDB", v6, 4u, v22))
+                {
+                  goto LABEL_462;
+                }
+
+                sub_100020530("ASPMSPParseBufferToCxt: firstReadWasHardWithDefaultBDB(4117): Error adding 1 elements to context");
+                break;
+              case 4118:
+                if (v15 != 4)
+                {
+                  sub_100020530("ASPMSPParseBufferToCxt: readAlgoPassedThroughSyndSumAcquisition(4118): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                }
+
+                if (v15 >= 8)
+                {
+                  v22 = 1;
+                }
+
+                else
+                {
+                  v22 = v15 >> 2;
+                }
+
+                if (sub_1000189BC(a1, "readAlgoPassedThroughSyndSumAcquisition", v6, 4u, v22))
+                {
+                  goto LABEL_462;
+                }
+
+                sub_100020530("ASPMSPParseBufferToCxt: readAlgoPassedThroughSyndSumAcquisition(4118): Error adding 1 elements to context");
+                break;
+              case 4119:
+                if (v15 != 4)
+                {
+                  sub_100020530("ASPMSPParseBufferToCxt: readAlgoPassedThroughSlip(4119): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                }
+
+                if (v15 >= 8)
+                {
+                  v22 = 1;
+                }
+
+                else
+                {
+                  v22 = v15 >> 2;
+                }
+
+                if (sub_1000189BC(a1, "readAlgoPassedThroughSlip", v6, 4u, v22))
+                {
+                  goto LABEL_462;
+                }
+
+                sub_100020530("ASPMSPParseBufferToCxt: readAlgoPassedThroughSlip(4119): Error adding 1 elements to context");
+                break;
+              case 4123:
+                if (v15 != 4)
+                {
+                  sub_100020530("ASPMSPParseBufferToCxt: readAlgoPassWithHardAfterSlip_fast(4123): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                }
+
+                if (v15 >= 8)
+                {
+                  v22 = 1;
+                }
+
+                else
+                {
+                  v22 = v15 >> 2;
+                }
+
+                if (sub_1000189BC(a1, "readAlgoPassWithHardAfterSlip_fast", v6, 4u, v22))
+                {
+                  goto LABEL_462;
+                }
+
+                sub_100020530("ASPMSPParseBufferToCxt: readAlgoPassWithHardAfterSlip_fast(4123): Error adding 1 elements to context");
+                break;
+              case 4124:
+                if (v15 != 4)
+                {
+                  sub_100020530("ASPMSPParseBufferToCxt: readAlgoPassWithFS12BitAfterSlip_fast(4124): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                }
+
+                if (v15 >= 8)
+                {
+                  v22 = 1;
+                }
+
+                else
+                {
+                  v22 = v15 >> 2;
+                }
+
+                if (sub_1000189BC(a1, "readAlgoPassWithFS12BitAfterSlip_fast", v6, 4u, v22))
+                {
+                  goto LABEL_462;
+                }
+
+                sub_100020530("ASPMSPParseBufferToCxt: readAlgoPassWithFS12BitAfterSlip_fast(4124): Error adding 1 elements to context");
+                break;
+              case 4125:
+                if (v15 != 4)
+                {
+                  sub_100020530("ASPMSPParseBufferToCxt: readAlgoPassWithFS14BitAfterSlip_fast(4125): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                }
+
+                if (v15 >= 8)
+                {
+                  v22 = 1;
+                }
+
+                else
+                {
+                  v22 = v15 >> 2;
+                }
+
+                if (sub_1000189BC(a1, "readAlgoPassWithFS14BitAfterSlip_fast", v6, 4u, v22))
+                {
+                  goto LABEL_462;
+                }
+
+                sub_100020530("ASPMSPParseBufferToCxt: readAlgoPassWithFS14BitAfterSlip_fast(4125): Error adding 1 elements to context");
+                break;
+              case 4126:
+                if (v15 != 4)
+                {
+                  sub_100020530("ASPMSPParseBufferToCxt: readAlgoPassWithFS3_fast(4126): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                }
+
+                if (v15 >= 8)
+                {
+                  v22 = 1;
+                }
+
+                else
+                {
+                  v22 = v15 >> 2;
+                }
+
+                if (sub_1000189BC(a1, "readAlgoPassWithFS3_fast", v6, 4u, v22))
+                {
+                  goto LABEL_462;
+                }
+
+                sub_100020530("ASPMSPParseBufferToCxt: readAlgoPassWithFS3_fast(4126): Error adding 1 elements to context");
+                break;
+              case 4128:
+                if (v15 != 40)
+                {
+                  sub_100020530("ASPMSPParseBufferToCxt: deepSoft2Decoded(4128): cfg 10 elements; (10*4) cfg bytes != (%d) buffer bytes", v15);
+                }
+
+                if (v15 >= 0x2C)
+                {
+                  v22 = 10;
+                }
+
+                else
+                {
+                  v22 = v15 >> 2;
+                }
+
+                if (sub_1000189BC(a1, "deepSoft2Decoded", v6, 4u, v22))
+                {
+                  goto LABEL_462;
+                }
+
+                sub_100020530("ASPMSPParseBufferToCxt: deepSoft2Decoded(4128): Error adding 10 elements to context");
+                break;
+              case 4131:
+                if (v15 != 4)
+                {
+                  sub_100020530("ASPMSPParseBufferToCxt: readAlgoPassedThroughSlip_fast(4131): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                }
+
+                if (v15 >= 8)
+                {
+                  v22 = 1;
+                }
+
+                else
+                {
+                  v22 = v15 >> 2;
+                }
+
+                if (sub_1000189BC(a1, "readAlgoPassedThroughSlip_fast", v6, 4u, v22))
+                {
+                  goto LABEL_462;
+                }
+
+                sub_100020530("ASPMSPParseBufferToCxt: readAlgoPassedThroughSlip_fast(4131): Error adding 1 elements to context");
+                break;
+              case 4132:
+                if (v15 != 4)
+                {
+                  sub_100020530("ASPMSPParseBufferToCxt: readAlgoPassedThroughFS3_fast(4132): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                }
+
+                if (v15 >= 8)
+                {
+                  v22 = 1;
+                }
+
+                else
+                {
+                  v22 = v15 >> 2;
+                }
+
+                if (sub_1000189BC(a1, "readAlgoPassedThroughFS3_fast", v6, 4u, v22))
+                {
+                  goto LABEL_462;
+                }
+
+                sub_100020530("ASPMSPParseBufferToCxt: readAlgoPassedThroughFS3_fast(4132): Error adding 1 elements to context");
+                break;
+              case 4135:
+                if (v15 != 4)
+                {
+                  sub_100020530("ASPMSPParseBufferToCxt: readZeroPage(4135): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                }
+
+                if (v15 >= 8)
+                {
+                  v22 = 1;
+                }
+
+                else
+                {
+                  v22 = v15 >> 2;
+                }
+
+                if (sub_1000189BC(a1, "readZeroPage", v6, 4u, v22))
+                {
+                  goto LABEL_462;
+                }
+
+                sub_100020530("ASPMSPParseBufferToCxt: readZeroPage(4135): Error adding 1 elements to context");
+                break;
+              case 4136:
+                if (v15 != 4)
+                {
+                  sub_100020530("ASPMSPParseBufferToCxt: readErasedPage(4136): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                }
+
+                if (v15 >= 8)
+                {
+                  v22 = 1;
+                }
+
+                else
+                {
+                  v22 = v15 >> 2;
+                }
+
+                if (sub_1000189BC(a1, "readErasedPage", v6, 4u, v22))
+                {
+                  goto LABEL_462;
+                }
+
+                sub_100020530("ASPMSPParseBufferToCxt: readErasedPage(4136): Error adding 1 elements to context");
+                break;
+              case 4137:
+                if (v15 != 4)
+                {
+                  sub_100020530("ASPMSPParseBufferToCxt: readFail(4137): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                }
+
+                if (v15 >= 8)
+                {
+                  v22 = 1;
+                }
+
+                else
+                {
+                  v22 = v15 >> 2;
+                }
+
+                if (sub_1000189BC(a1, "readFail", v6, 4u, v22))
+                {
+                  goto LABEL_462;
+                }
+
+                sub_100020530("ASPMSPParseBufferToCxt: readFail(4137): Error adding 1 elements to context");
+                break;
+              case 4140:
+                if (v15 != 4)
+                {
+                  sub_100020530("ASPMSPParseBufferToCxt: bdbDefaultMoveFastToNormal(4140): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                }
+
+                if (v15 >= 8)
+                {
+                  v22 = 1;
+                }
+
+                else
+                {
+                  v22 = v15 >> 2;
+                }
+
+                if (sub_1000189BC(a1, "bdbDefaultMoveFastToNormal", v6, 4u, v22))
+                {
+                  goto LABEL_462;
+                }
+
+                sub_100020530("ASPMSPParseBufferToCxt: bdbDefaultMoveFastToNormal(4140): Error adding 1 elements to context");
+                break;
+              case 4141:
+                if (v15 != 4)
+                {
+                  sub_100020530("ASPMSPParseBufferToCxt: bdbDefaultMoveNormalToFast(4141): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                }
+
+                if (v15 >= 8)
+                {
+                  v22 = 1;
+                }
+
+                else
+                {
+                  v22 = v15 >> 2;
+                }
+
+                if (sub_1000189BC(a1, "bdbDefaultMoveNormalToFast", v6, 4u, v22))
+                {
+                  goto LABEL_462;
+                }
+
+                sub_100020530("ASPMSPParseBufferToCxt: bdbDefaultMoveNormalToFast(4141): Error adding 1 elements to context");
+                break;
+              case 4145:
+                if (v15 != 4)
+                {
+                  sub_100020530("ASPMSPParseBufferToCxt: firstReadWasFS2EOL_DSP(4145): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                }
+
+                if (v15 >= 8)
+                {
+                  v22 = 1;
+                }
+
+                else
+                {
+                  v22 = v15 >> 2;
+                }
+
+                if (sub_1000189BC(a1, "firstReadWasFS2EOL_DSP", v6, 4u, v22))
+                {
+                  goto LABEL_462;
+                }
+
+                sub_100020530("ASPMSPParseBufferToCxt: firstReadWasFS2EOL_DSP(4145): Error adding 1 elements to context");
+                break;
+              case 4146:
+                if (v15 != 4)
+                {
+                  sub_100020530("ASPMSPParseBufferToCxt: firstReadWasFS2EOL(4146): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                }
+
+                if (v15 >= 8)
+                {
+                  v22 = 1;
+                }
+
+                else
+                {
+                  v22 = v15 >> 2;
+                }
+
+                if (sub_1000189BC(a1, "firstReadWasFS2EOL", v6, 4u, v22))
+                {
+                  goto LABEL_462;
+                }
+
+                sub_100020530("ASPMSPParseBufferToCxt: firstReadWasFS2EOL(4146): Error adding 1 elements to context");
+                break;
+              case 4150:
+                if (v15 != 4)
+                {
+                  sub_100020530("ASPMSPParseBufferToCxt: readAlgoPassedThroughFS3(4150): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                }
+
+                if (v15 >= 8)
+                {
+                  v22 = 1;
+                }
+
+                else
+                {
+                  v22 = v15 >> 2;
+                }
+
+                if (sub_1000189BC(a1, "readAlgoPassedThroughFS3", v6, 4u, v22))
+                {
+                  goto LABEL_462;
+                }
+
+                sub_100020530("ASPMSPParseBufferToCxt: readAlgoPassedThroughFS3(4150): Error adding 1 elements to context");
+                break;
+              case 4153:
+                if (v15 != 4)
+                {
+                  sub_100020530("ASPMSPParseBufferToCxt: readAlgoPassWithHardAfterSlip(4153): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                }
+
+                if (v15 >= 8)
+                {
+                  v22 = 1;
+                }
+
+                else
+                {
+                  v22 = v15 >> 2;
+                }
+
+                if (sub_1000189BC(a1, "readAlgoPassWithHardAfterSlip", v6, 4u, v22))
+                {
+                  goto LABEL_462;
+                }
+
+                sub_100020530("ASPMSPParseBufferToCxt: readAlgoPassWithHardAfterSlip(4153): Error adding 1 elements to context");
+                break;
+              case 4154:
+                if (v15 != 4)
+                {
+                  sub_100020530("ASPMSPParseBufferToCxt: readAlgoPassWithFS12BitAfterSlip(4154): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                }
+
+                if (v15 >= 8)
+                {
+                  v22 = 1;
+                }
+
+                else
+                {
+                  v22 = v15 >> 2;
+                }
+
+                if (sub_1000189BC(a1, "readAlgoPassWithFS12BitAfterSlip", v6, 4u, v22))
+                {
+                  goto LABEL_462;
+                }
+
+                sub_100020530("ASPMSPParseBufferToCxt: readAlgoPassWithFS12BitAfterSlip(4154): Error adding 1 elements to context");
+                break;
+              case 4155:
+                if (v15 != 4)
+                {
+                  sub_100020530("ASPMSPParseBufferToCxt: readAlgoPassWithFS14BitAfterSlip(4155): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                }
+
+                if (v15 >= 8)
+                {
+                  v22 = 1;
+                }
+
+                else
+                {
+                  v22 = v15 >> 2;
+                }
+
+                if (sub_1000189BC(a1, "readAlgoPassWithFS14BitAfterSlip", v6, 4u, v22))
+                {
+                  goto LABEL_462;
+                }
+
+                sub_100020530("ASPMSPParseBufferToCxt: readAlgoPassWithFS14BitAfterSlip(4155): Error adding 1 elements to context");
+                break;
+              case 4156:
+                if (v15 != 4)
+                {
+                  sub_100020530("ASPMSPParseBufferToCxt: readAlgoPassWithFS3(4156): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                }
+
+                if (v15 >= 8)
+                {
+                  v22 = 1;
+                }
+
+                else
+                {
+                  v22 = v15 >> 2;
+                }
+
+                if (sub_1000189BC(a1, "readAlgoPassWithFS3", v6, 4u, v22))
+                {
+                  goto LABEL_462;
+                }
+
+                sub_100020530("ASPMSPParseBufferToCxt: readAlgoPassWithFS3(4156): Error adding 1 elements to context");
+                break;
+              case 4158:
+                if (v15 != 4)
+                {
+                  sub_100020530("ASPMSPParseBufferToCxt: readAlgoPassWithFS12BitAfterAcq(4158): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                }
+
+                if (v15 >= 8)
+                {
+                  v22 = 1;
+                }
+
+                else
+                {
+                  v22 = v15 >> 2;
+                }
+
+                if (sub_1000189BC(a1, "readAlgoPassWithFS12BitAfterAcq", v6, 4u, v22))
+                {
+                  goto LABEL_462;
+                }
+
+                sub_100020530("ASPMSPParseBufferToCxt: readAlgoPassWithFS12BitAfterAcq(4158): Error adding 1 elements to context");
+                break;
+              case 4159:
+                if (v15 != 4)
+                {
+                  sub_100020530("ASPMSPParseBufferToCxt: readAlgoPassWithFS14BitAfterAcq(4159): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                }
+
+                if (v15 >= 8)
+                {
+                  v22 = 1;
+                }
+
+                else
+                {
+                  v22 = v15 >> 2;
+                }
+
+                if (sub_1000189BC(a1, "readAlgoPassWithFS14BitAfterAcq", v6, 4u, v22))
+                {
+                  goto LABEL_462;
+                }
+
+                sub_100020530("ASPMSPParseBufferToCxt: readAlgoPassWithFS14BitAfterAcq(4159): Error adding 1 elements to context");
+                break;
+              case 4164:
+                if (v15 != 4)
+                {
+                  sub_100020530("ASPMSPParseBufferToCxt: syndSumAcqConvergedToStaticWalls(4164): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                }
+
+                if (v15 >= 8)
+                {
+                  v22 = 1;
+                }
+
+                else
+                {
+                  v22 = v15 >> 2;
+                }
+
+                if (sub_1000189BC(a1, "syndSumAcqConvergedToStaticWalls", v6, 4u, v22))
+                {
+                  goto LABEL_462;
+                }
+
+                sub_100020530("ASPMSPParseBufferToCxt: syndSumAcqConvergedToStaticWalls(4164): Error adding 1 elements to context");
+                break;
+              case 4196:
+                if (v15 != 4)
+                {
+                  sub_100020530("ASPMSPParseBufferToCxt: readStageNumOfFails100(4196): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                }
+
+                if (v15 >= 8)
+                {
+                  v22 = 1;
+                }
+
+                else
+                {
+                  v22 = v15 >> 2;
+                }
+
+                if (sub_1000189BC(a1, "readStageNumOfFails100", v6, 4u, v22))
+                {
+                  goto LABEL_462;
+                }
+
+                sub_100020530("ASPMSPParseBufferToCxt: readStageNumOfFails100(4196): Error adding 1 elements to context");
+                break;
+              case 4197:
+                if (v15 != 4)
+                {
+                  sub_100020530("ASPMSPParseBufferToCxt: readStageNumOfFails101(4197): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                }
+
+                if (v15 >= 8)
+                {
+                  v22 = 1;
+                }
+
+                else
+                {
+                  v22 = v15 >> 2;
+                }
+
+                if (sub_1000189BC(a1, "readStageNumOfFails101", v6, 4u, v22))
+                {
+                  goto LABEL_462;
+                }
+
+                sub_100020530("ASPMSPParseBufferToCxt: readStageNumOfFails101(4197): Error adding 1 elements to context");
+                break;
+              case 4198:
+                if (v15 != 4)
+                {
+                  sub_100020530("ASPMSPParseBufferToCxt: readStage100(4198): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                }
+
+                if (v15 >= 8)
+                {
+                  v22 = 1;
+                }
+
+                else
+                {
+                  v22 = v15 >> 2;
+                }
+
+                if (sub_1000189BC(a1, "readStage100", v6, 4u, v22))
+                {
+                  goto LABEL_462;
+                }
+
+                sub_100020530("ASPMSPParseBufferToCxt: readStage100(4198): Error adding 1 elements to context");
+                break;
+              case 4199:
+                if (v15 != 16)
+                {
+                  sub_100020530("ASPMSPParseBufferToCxt: readStage101(4199): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", v15);
+                }
+
+                if (v15 >= 0x14)
+                {
+                  v22 = 4;
+                }
+
+                else
+                {
+                  v22 = v15 >> 2;
+                }
+
+                if (sub_1000189BC(a1, "readStage101", v6, 4u, v22))
+                {
+                  goto LABEL_462;
+                }
+
+                sub_100020530("ASPMSPParseBufferToCxt: readStage101(4199): Error adding 4 elements to context");
+                break;
+              case 4200:
+                if (v15 != 4)
+                {
+                  sub_100020530("ASPMSPParseBufferToCxt: initialReadStage100(4200): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                }
+
+                if (v15 >= 8)
+                {
+                  v22 = 1;
+                }
+
+                else
+                {
+                  v22 = v15 >> 2;
+                }
+
+                if (sub_1000189BC(a1, "initialReadStage100", v6, 4u, v22))
+                {
+                  goto LABEL_462;
+                }
+
+                sub_100020530("ASPMSPParseBufferToCxt: initialReadStage100(4200): Error adding 1 elements to context");
+                break;
+              case 4201:
+                if (v15 != 4)
+                {
+                  sub_100020530("ASPMSPParseBufferToCxt: readStage102(4201): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                }
+
+                if (v15 >= 8)
+                {
+                  v22 = 1;
+                }
+
+                else
+                {
+                  v22 = v15 >> 2;
+                }
+
+                if (sub_1000189BC(a1, "readStage102", v6, 4u, v22))
+                {
+                  goto LABEL_462;
+                }
+
+                sub_100020530("ASPMSPParseBufferToCxt: readStage102(4201): Error adding 1 elements to context");
+                break;
+              case 4202:
+                if (v15 != 4)
+                {
+                  sub_100020530("ASPMSPParseBufferToCxt: initialReadStage101(4202): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                }
+
+                if (v15 >= 8)
+                {
+                  v22 = 1;
+                }
+
+                else
+                {
+                  v22 = v15 >> 2;
+                }
+
+                if (sub_1000189BC(a1, "initialReadStage101", v6, 4u, v22))
+                {
+                  goto LABEL_462;
+                }
+
+                sub_100020530("ASPMSPParseBufferToCxt: initialReadStage101(4202): Error adding 1 elements to context");
+                break;
+              case 4203:
+                if (v15 != 4)
+                {
+                  sub_100020530("ASPMSPParseBufferToCxt: nandStageOfLife100(4203): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                }
+
+                if (v15 >= 8)
+                {
+                  v22 = 1;
+                }
+
+                else
+                {
+                  v22 = v15 >> 2;
+                }
+
+                if (sub_1000189BC(a1, "nandStageOfLife100", v6, 4u, v22))
+                {
+                  goto LABEL_462;
+                }
+
+                sub_100020530("ASPMSPParseBufferToCxt: nandStageOfLife100(4203): Error adding 1 elements to context");
+                break;
+              case 4204:
+                if (v15 != 4)
+                {
+                  sub_100020530("ASPMSPParseBufferToCxt: nandStageOfLife101(4204): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                }
+
+                if (v15 >= 8)
+                {
+                  v22 = 1;
+                }
+
+                else
+                {
+                  v22 = v15 >> 2;
+                }
+
+                if (sub_1000189BC(a1, "nandStageOfLife101", v6, 4u, v22))
+                {
+                  goto LABEL_462;
+                }
+
+                sub_100020530("ASPMSPParseBufferToCxt: nandStageOfLife101(4204): Error adding 1 elements to context");
+                break;
+              case 4205:
+                if (v15 != 16)
+                {
+                  sub_100020530("ASPMSPParseBufferToCxt: readStageNumOfFails102(4205): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", v15);
+                }
+
+                if (v15 >= 0x14)
+                {
+                  v22 = 4;
+                }
+
+                else
+                {
+                  v22 = v15 >> 2;
+                }
+
+                if (sub_1000189BC(a1, "readStageNumOfFails102", v6, 4u, v22))
+                {
+                  goto LABEL_462;
+                }
+
+                sub_100020530("ASPMSPParseBufferToCxt: readStageNumOfFails102(4205): Error adding 4 elements to context");
+                break;
+              case 4206:
+                if (v15 != 4)
+                {
+                  sub_100020530("ASPMSPParseBufferToCxt: initialReadStage102(4206): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                }
+
+                if (v15 >= 8)
+                {
+                  v22 = 1;
+                }
+
+                else
+                {
+                  v22 = v15 >> 2;
+                }
+
+                if (sub_1000189BC(a1, "initialReadStage102", v6, 4u, v22))
+                {
+                  goto LABEL_462;
+                }
+
+                sub_100020530("ASPMSPParseBufferToCxt: initialReadStage102(4206): Error adding 1 elements to context");
+                break;
+              case 4207:
+                if (v15 != 4)
+                {
+                  sub_100020530("ASPMSPParseBufferToCxt: readStage103(4207): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                }
+
+                if (v15 >= 8)
+                {
+                  v22 = 1;
+                }
+
+                else
+                {
+                  v22 = v15 >> 2;
+                }
+
+                if (sub_1000189BC(a1, "readStage103", v6, 4u, v22))
+                {
+                  goto LABEL_462;
+                }
+
+                sub_100020530("ASPMSPParseBufferToCxt: readStage103(4207): Error adding 1 elements to context");
+                break;
+              case 4208:
+                if (v15 != 4)
+                {
+                  sub_100020530("ASPMSPParseBufferToCxt: readStage104(4208): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                }
+
+                if (v15 >= 8)
+                {
+                  v22 = 1;
+                }
+
+                else
+                {
+                  v22 = v15 >> 2;
+                }
+
+                if (sub_1000189BC(a1, "readStage104", v6, 4u, v22))
+                {
+                  goto LABEL_462;
+                }
+
+                sub_100020530("ASPMSPParseBufferToCxt: readStage104(4208): Error adding 1 elements to context");
+                break;
+              case 4209:
+                if (v15 != 16)
+                {
+                  sub_100020530("ASPMSPParseBufferToCxt: readStage105(4209): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", v15);
+                }
+
+                if (v15 >= 0x14)
+                {
+                  v22 = 4;
+                }
+
+                else
+                {
+                  v22 = v15 >> 2;
+                }
+
+                if (sub_1000189BC(a1, "readStage105", v6, 4u, v22))
+                {
+                  goto LABEL_462;
+                }
+
+                sub_100020530("ASPMSPParseBufferToCxt: readStage105(4209): Error adding 4 elements to context");
+                break;
+              case 4210:
+                if (v15 != 16)
+                {
+                  sub_100020530("ASPMSPParseBufferToCxt: readStage106(4210): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", v15);
+                }
+
+                if (v15 >= 0x14)
+                {
+                  v22 = 4;
+                }
+
+                else
+                {
+                  v22 = v15 >> 2;
+                }
+
+                if (sub_1000189BC(a1, "readStage106", v6, 4u, v22))
+                {
+                  goto LABEL_462;
+                }
+
+                sub_100020530("ASPMSPParseBufferToCxt: readStage106(4210): Error adding 4 elements to context");
+                break;
+              case 4211:
+                if (v15 != 16)
+                {
+                  sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter100(4211): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", v15);
+                }
+
+                if (v15 >= 0x14)
+                {
+                  v22 = 4;
+                }
+
+                else
+                {
+                  v22 = v15 >> 2;
+                }
+
+                if (sub_1000189BC(a1, "dspExceptionParameter100", v6, 4u, v22))
+                {
+                  goto LABEL_462;
+                }
+
+                sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter100(4211): Error adding 4 elements to context");
+                break;
+              case 4212:
+                if (v15 != 16)
+                {
+                  sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter101(4212): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", v15);
+                }
+
+                if (v15 >= 0x14)
+                {
+                  v22 = 4;
+                }
+
+                else
+                {
+                  v22 = v15 >> 2;
+                }
+
+                if (sub_1000189BC(a1, "dspExceptionParameter101", v6, 4u, v22))
+                {
+                  goto LABEL_462;
+                }
+
+                sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter101(4212): Error adding 4 elements to context");
+                break;
+              case 4213:
+                if (v15 != 4)
+                {
+                  sub_100020530("ASPMSPParseBufferToCxt: initialReadStage103(4213): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                }
+
+                if (v15 >= 8)
+                {
+                  v22 = 1;
+                }
+
+                else
+                {
+                  v22 = v15 >> 2;
+                }
+
+                if (sub_1000189BC(a1, "initialReadStage103", v6, 4u, v22))
+                {
+                  goto LABEL_462;
+                }
+
+                sub_100020530("ASPMSPParseBufferToCxt: initialReadStage103(4213): Error adding 1 elements to context");
+                break;
+              case 4214:
+                if (v15 != 4)
+                {
+                  sub_100020530("ASPMSPParseBufferToCxt: initialReadStage104(4214): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                }
+
+                if (v15 >= 8)
+                {
+                  v22 = 1;
+                }
+
+                else
+                {
+                  v22 = v15 >> 2;
+                }
+
+                if (sub_1000189BC(a1, "initialReadStage104", v6, 4u, v22))
+                {
+                  goto LABEL_462;
+                }
+
+                sub_100020530("ASPMSPParseBufferToCxt: initialReadStage104(4214): Error adding 1 elements to context");
+                break;
+              case 4215:
+                if (v15 != 16)
+                {
+                  sub_100020530("ASPMSPParseBufferToCxt: readStage107(4215): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", v15);
+                }
+
+                if (v15 >= 0x14)
+                {
+                  v22 = 4;
+                }
+
+                else
+                {
+                  v22 = v15 >> 2;
+                }
+
+                if (sub_1000189BC(a1, "readStage107", v6, 4u, v22))
+                {
+                  goto LABEL_462;
+                }
+
+                sub_100020530("ASPMSPParseBufferToCxt: readStage107(4215): Error adding 4 elements to context");
+                break;
+              case 4216:
+                if (v15 != 16)
+                {
+                  sub_100020530("ASPMSPParseBufferToCxt: readStage108(4216): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", v15);
+                }
+
+                if (v15 >= 0x14)
+                {
+                  v22 = 4;
+                }
+
+                else
+                {
+                  v22 = v15 >> 2;
+                }
+
+                if (sub_1000189BC(a1, "readStage108", v6, 4u, v22))
+                {
+                  goto LABEL_462;
+                }
+
+                sub_100020530("ASPMSPParseBufferToCxt: readStage108(4216): Error adding 4 elements to context");
+                break;
+              case 4217:
+                if (v15 != 4)
+                {
+                  sub_100020530("ASPMSPParseBufferToCxt: nandStageOfLife102(4217): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                }
+
+                if (v15 >= 8)
+                {
+                  v22 = 1;
+                }
+
+                else
+                {
+                  v22 = v15 >> 2;
+                }
+
+                if (sub_1000189BC(a1, "nandStageOfLife102", v6, 4u, v22))
+                {
+                  goto LABEL_462;
+                }
+
+                sub_100020530("ASPMSPParseBufferToCxt: nandStageOfLife102(4217): Error adding 1 elements to context");
+                break;
+              case 4218:
+                if (v15 != 4)
+                {
+                  sub_100020530("ASPMSPParseBufferToCxt: nandStageOfLife103(4218): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                }
+
+                if (v15 >= 8)
+                {
+                  v22 = 1;
+                }
+
+                else
+                {
+                  v22 = v15 >> 2;
+                }
+
+                if (sub_1000189BC(a1, "nandStageOfLife103", v6, 4u, v22))
+                {
+                  goto LABEL_462;
+                }
+
+                sub_100020530("ASPMSPParseBufferToCxt: nandStageOfLife103(4218): Error adding 1 elements to context");
+                break;
+              case 4219:
+                if (v15 != 4)
+                {
+                  sub_100020530("ASPMSPParseBufferToCxt: nandStageOfLife104(4219): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                }
+
+                if (v15 >= 8)
+                {
+                  v22 = 1;
+                }
+
+                else
+                {
+                  v22 = v15 >> 2;
+                }
+
+                if (sub_1000189BC(a1, "nandStageOfLife104", v6, 4u, v22))
+                {
+                  goto LABEL_462;
+                }
+
+                sub_100020530("ASPMSPParseBufferToCxt: nandStageOfLife104(4219): Error adding 1 elements to context");
+                break;
+              case 4220:
+                if (v15 != 16)
+                {
+                  sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter102(4220): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", v15);
+                }
+
+                if (v15 >= 0x14)
+                {
+                  v22 = 4;
+                }
+
+                else
+                {
+                  v22 = v15 >> 2;
+                }
+
+                if (sub_1000189BC(a1, "dspExceptionParameter102", v6, 4u, v22))
+                {
+                  goto LABEL_462;
+                }
+
+                sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter102(4220): Error adding 4 elements to context");
+                break;
+              case 4221:
+                if (v15 != 16)
+                {
+                  sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter103(4221): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", v15);
+                }
+
+                if (v15 >= 0x14)
+                {
+                  v22 = 4;
+                }
+
+                else
+                {
+                  v22 = v15 >> 2;
+                }
+
+                if (sub_1000189BC(a1, "dspExceptionParameter103", v6, 4u, v22))
+                {
+                  goto LABEL_462;
+                }
+
+                sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter103(4221): Error adding 4 elements to context");
+                break;
+              case 4222:
+                if (v15 != 16)
+                {
+                  sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter104(4222): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", v15);
+                }
+
+                if (v15 >= 0x14)
+                {
+                  v22 = 4;
+                }
+
+                else
+                {
+                  v22 = v15 >> 2;
+                }
+
+                if (sub_1000189BC(a1, "dspExceptionParameter104", v6, 4u, v22))
+                {
+                  goto LABEL_462;
+                }
+
+                sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter104(4222): Error adding 4 elements to context");
+                break;
+              case 4223:
+                if (v15 != 16)
+                {
+                  sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter105(4223): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", v15);
+                }
+
+                if (v15 >= 0x14)
+                {
+                  v22 = 4;
+                }
+
+                else
+                {
+                  v22 = v15 >> 2;
+                }
+
+                if (sub_1000189BC(a1, "dspExceptionParameter105", v6, 4u, v22))
+                {
+                  goto LABEL_462;
+                }
+
+                sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter105(4223): Error adding 4 elements to context");
+                break;
+              case 4224:
+                if (v15 != 16)
+                {
+                  sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter106(4224): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", v15);
+                }
+
+                if (v15 >= 0x14)
+                {
+                  v22 = 4;
+                }
+
+                else
+                {
+                  v22 = v15 >> 2;
+                }
+
+                if (sub_1000189BC(a1, "dspExceptionParameter106", v6, 4u, v22))
+                {
+                  goto LABEL_462;
+                }
+
+                sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter106(4224): Error adding 4 elements to context");
+                break;
+              case 4225:
+                if (v15 != 16)
+                {
+                  sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter107(4225): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", v15);
+                }
+
+                if (v15 >= 0x14)
+                {
+                  v22 = 4;
+                }
+
+                else
+                {
+                  v22 = v15 >> 2;
+                }
+
+                if (sub_1000189BC(a1, "dspExceptionParameter107", v6, 4u, v22))
+                {
+LABEL_462:
+                  v3 = v3 + v22;
+                  v8 = "avg_rd_window_size";
+                  v9 = "ASPMSPParseBufferToCxt: avg_rd_window_size(8193): cfg 5 elements; (5*4) cfg bytes != (%d) buffer bytes";
+                  v11 = "ASPMSPParseBufferToCxt: num_zq_failures(8194): Error adding 1 elements to context";
+                  v13 = "ASPMSPParseBufferToCxt: lower_die_temperature(8195): Error adding 16 elements to context";
+                  goto LABEL_463;
+                }
+
+                sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter107(4225): Error adding 4 elements to context");
+                break;
+              default:
+                switch(v16)
+                {
+                  case 4226:
+                    v25 = v10;
+                    v26 = v11;
+                    v27 = v8;
+                    if (v15 != 16)
+                    {
+                      sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter108(4226): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", v15);
+                    }
+
+                    if (v15 >= 0x14)
+                    {
+                      v28 = 4;
+                    }
+
+                    else
+                    {
+                      v28 = v15 >> 2;
+                    }
+
+                    if (sub_1000189BC(a1, "dspExceptionParameter108", v6, 4u, v28))
+                    {
+                      v3 = v3 + v28;
+                      v8 = v27;
+                      v9 = "ASPMSPParseBufferToCxt: avg_rd_window_size(8193): cfg 5 elements; (5*4) cfg bytes != (%d) buffer bytes";
+                      v11 = v26;
+                      v10 = v25;
+                      goto LABEL_21;
+                    }
+
+                    sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter108(4226): Error adding 4 elements to context");
+                    break;
+                  case 4227:
+                    v29 = v12;
+                    v30 = v11;
+                    if (v15 != 16)
+                    {
+                      sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter109(4227): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", v15);
+                    }
+
+                    if (v15 >= 0x14)
+                    {
+                      v31 = 4;
+                    }
+
+                    else
+                    {
+                      v31 = v15 >> 2;
+                    }
+
+                    if (sub_1000189BC(a1, "dspExceptionParameter109", v6, 4u, v31))
+                    {
+                      goto LABEL_912;
+                    }
+
+                    sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter109(4227): Error adding 4 elements to context");
+                    break;
+                  case 4228:
+                    v29 = v12;
+                    v30 = v11;
+                    if (v15 != 16)
+                    {
+                      sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter110(4228): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", v15);
+                    }
+
+                    if (v15 >= 0x14)
+                    {
+                      v31 = 4;
+                    }
+
+                    else
+                    {
+                      v31 = v15 >> 2;
+                    }
+
+                    if (sub_1000189BC(a1, "dspExceptionParameter110", v6, 4u, v31))
+                    {
+                      goto LABEL_912;
+                    }
+
+                    sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter110(4228): Error adding 4 elements to context");
+                    break;
+                  case 4229:
+                    v29 = v12;
+                    v30 = v11;
+                    if (v15 != 16)
+                    {
+                      sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter111(4229): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", v15);
+                    }
+
+                    if (v15 >= 0x14)
+                    {
+                      v31 = 4;
+                    }
+
+                    else
+                    {
+                      v31 = v15 >> 2;
+                    }
+
+                    if (sub_1000189BC(a1, "dspExceptionParameter111", v6, 4u, v31))
+                    {
+                      goto LABEL_912;
+                    }
+
+                    sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter111(4229): Error adding 4 elements to context");
+                    break;
+                  case 4230:
+                    v29 = v12;
+                    v30 = v11;
+                    if (v15 != 16)
+                    {
+                      sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter112(4230): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", v15);
+                    }
+
+                    if (v15 >= 0x14)
+                    {
+                      v31 = 4;
+                    }
+
+                    else
+                    {
+                      v31 = v15 >> 2;
+                    }
+
+                    if (sub_1000189BC(a1, "dspExceptionParameter112", v6, 4u, v31))
+                    {
+                      goto LABEL_912;
+                    }
+
+                    sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter112(4230): Error adding 4 elements to context");
+                    break;
+                  case 4231:
+                    v29 = v12;
+                    v30 = v11;
+                    if (v15 != 16)
+                    {
+                      sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter113(4231): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", v15);
+                    }
+
+                    if (v15 >= 0x14)
+                    {
+                      v31 = 4;
+                    }
+
+                    else
+                    {
+                      v31 = v15 >> 2;
+                    }
+
+                    if (sub_1000189BC(a1, "dspExceptionParameter113", v6, 4u, v31))
+                    {
+                      goto LABEL_912;
+                    }
+
+                    sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter113(4231): Error adding 4 elements to context");
+                    break;
+                  case 4232:
+                    v29 = v12;
+                    v30 = v11;
+                    if (v15 != 256)
+                    {
+                      sub_100020530("ASPMSPParseBufferToCxt: readStageNumOfFails108(4232): cfg 64 elements; (64*4) cfg bytes != (%d) buffer bytes", v15);
+                    }
+
+                    if (v15 >= 0x104)
+                    {
+                      v31 = 64;
+                    }
+
+                    else
+                    {
+                      v31 = v15 >> 2;
+                    }
+
+                    if (sub_1000189BC(a1, "readStageNumOfFails108", v6, 4u, v31))
+                    {
+                      goto LABEL_912;
+                    }
+
+                    sub_100020530("ASPMSPParseBufferToCxt: readStageNumOfFails108(4232): Error adding 64 elements to context");
+                    break;
+                  case 4233:
+                    v29 = v12;
+                    v30 = v11;
+                    if (v15 != 256)
+                    {
+                      sub_100020530("ASPMSPParseBufferToCxt: readStageNumOfFails103(4233): cfg 64 elements; (64*4) cfg bytes != (%d) buffer bytes", v15);
+                    }
+
+                    if (v15 >= 0x104)
+                    {
+                      v31 = 64;
+                    }
+
+                    else
+                    {
+                      v31 = v15 >> 2;
+                    }
+
+                    if (sub_1000189BC(a1, "readStageNumOfFails103", v6, 4u, v31))
+                    {
+                      goto LABEL_912;
+                    }
+
+                    sub_100020530("ASPMSPParseBufferToCxt: readStageNumOfFails103(4233): Error adding 64 elements to context");
+                    break;
+                  case 4234:
+                    v29 = v12;
+                    v30 = v11;
+                    if (v15 != 16)
+                    {
+                      sub_100020530("ASPMSPParseBufferToCxt: readStageNumOfFails104(4234): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", v15);
+                    }
+
+                    if (v15 >= 0x14)
+                    {
+                      v31 = 4;
+                    }
+
+                    else
+                    {
+                      v31 = v15 >> 2;
+                    }
+
+                    if (sub_1000189BC(a1, "readStageNumOfFails104", v6, 4u, v31))
+                    {
+                      goto LABEL_912;
+                    }
+
+                    sub_100020530("ASPMSPParseBufferToCxt: readStageNumOfFails104(4234): Error adding 4 elements to context");
+                    break;
+                  case 4235:
+                    v29 = v12;
+                    v30 = v11;
+                    if (v15 != 16)
+                    {
+                      sub_100020530("ASPMSPParseBufferToCxt: readStageNumOfFails105(4235): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", v15);
+                    }
+
+                    if (v15 >= 0x14)
+                    {
+                      v31 = 4;
+                    }
+
+                    else
+                    {
+                      v31 = v15 >> 2;
+                    }
+
+                    if (sub_1000189BC(a1, "readStageNumOfFails105", v6, 4u, v31))
+                    {
+                      goto LABEL_912;
+                    }
+
+                    sub_100020530("ASPMSPParseBufferToCxt: readStageNumOfFails105(4235): Error adding 4 elements to context");
+                    break;
+                  case 4236:
+                    v29 = v12;
+                    v30 = v11;
+                    if (v15 != 16)
+                    {
+                      sub_100020530("ASPMSPParseBufferToCxt: readStageNumOfFails106(4236): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", v15);
+                    }
+
+                    if (v15 >= 0x14)
+                    {
+                      v31 = 4;
+                    }
+
+                    else
+                    {
+                      v31 = v15 >> 2;
+                    }
+
+                    if (sub_1000189BC(a1, "readStageNumOfFails106", v6, 4u, v31))
+                    {
+                      goto LABEL_912;
+                    }
+
+                    sub_100020530("ASPMSPParseBufferToCxt: readStageNumOfFails106(4236): Error adding 4 elements to context");
+                    break;
+                  case 4237:
+                    v29 = v12;
+                    v30 = v11;
+                    if (v15 != 16)
+                    {
+                      sub_100020530("ASPMSPParseBufferToCxt: readStageNumOfFails107(4237): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", v15);
+                    }
+
+                    if (v15 >= 0x14)
+                    {
+                      v31 = 4;
+                    }
+
+                    else
+                    {
+                      v31 = v15 >> 2;
+                    }
+
+                    if (sub_1000189BC(a1, "readStageNumOfFails107", v6, 4u, v31))
+                    {
+                      goto LABEL_912;
+                    }
+
+                    sub_100020530("ASPMSPParseBufferToCxt: readStageNumOfFails107(4237): Error adding 4 elements to context");
+                    break;
+                  case 4238:
+                    v29 = v12;
+                    v30 = v11;
+                    if (v15 != 16)
+                    {
+                      sub_100020530("ASPMSPParseBufferToCxt: readStage109(4238): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", v15);
+                    }
+
+                    if (v15 >= 0x14)
+                    {
+                      v31 = 4;
+                    }
+
+                    else
+                    {
+                      v31 = v15 >> 2;
+                    }
+
+                    if (sub_1000189BC(a1, "readStage109", v6, 4u, v31))
+                    {
+                      goto LABEL_912;
+                    }
+
+                    sub_100020530("ASPMSPParseBufferToCxt: readStage109(4238): Error adding 4 elements to context");
+                    break;
+                  case 4239:
+                    v29 = v12;
+                    v30 = v11;
+                    if (v15 != 16)
+                    {
+                      sub_100020530("ASPMSPParseBufferToCxt: readStage110(4239): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", v15);
+                    }
+
+                    if (v15 >= 0x14)
+                    {
+                      v31 = 4;
+                    }
+
+                    else
+                    {
+                      v31 = v15 >> 2;
+                    }
+
+                    if (sub_1000189BC(a1, "readStage110", v6, 4u, v31))
+                    {
+                      goto LABEL_912;
+                    }
+
+                    sub_100020530("ASPMSPParseBufferToCxt: readStage110(4239): Error adding 4 elements to context");
+                    break;
+                  case 4240:
+                    v29 = v12;
+                    v30 = v11;
+                    if (v15 != 80)
+                    {
+                      sub_100020530("ASPMSPParseBufferToCxt: readStageNumOfErrorsBin100(4240): cfg 20 elements; (20*4) cfg bytes != (%d) buffer bytes", v15);
+                    }
+
+                    if (v15 >= 0x54)
+                    {
+                      v31 = 20;
+                    }
+
+                    else
+                    {
+                      v31 = v15 >> 2;
+                    }
+
+                    if (sub_1000189BC(a1, "readStageNumOfErrorsBin100", v6, 4u, v31))
+                    {
+                      goto LABEL_912;
+                    }
+
+                    sub_100020530("ASPMSPParseBufferToCxt: readStageNumOfErrorsBin100(4240): Error adding 20 elements to context");
+                    break;
+                  case 4241:
+                    v29 = v12;
+                    v30 = v11;
+                    if (v15 != 80)
+                    {
+                      sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter114(4241): cfg 20 elements; (20*4) cfg bytes != (%d) buffer bytes", v15);
+                    }
+
+                    if (v15 >= 0x54)
+                    {
+                      v31 = 20;
+                    }
+
+                    else
+                    {
+                      v31 = v15 >> 2;
+                    }
+
+                    if (sub_1000189BC(a1, "dspExceptionParameter114", v6, 4u, v31))
+                    {
+                      goto LABEL_912;
+                    }
+
+                    sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter114(4241): Error adding 20 elements to context");
+                    break;
+                  case 4242:
+                    v29 = v12;
+                    v30 = v11;
+                    if (v15 != 4)
+                    {
+                      sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter115(4242): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                    }
+
+                    if (v15 >= 8)
+                    {
+                      v31 = 1;
+                    }
+
+                    else
+                    {
+                      v31 = v15 >> 2;
+                    }
+
+                    if (sub_1000189BC(a1, "dspExceptionParameter115", v6, 4u, v31))
+                    {
+                      goto LABEL_912;
+                    }
+
+                    sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter115(4242): Error adding 1 elements to context");
+                    break;
+                  case 4243:
+                    v29 = v12;
+                    v30 = v11;
+                    if (v15 != 4)
+                    {
+                      sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter116(4243): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                    }
+
+                    if (v15 >= 8)
+                    {
+                      v31 = 1;
+                    }
+
+                    else
+                    {
+                      v31 = v15 >> 2;
+                    }
+
+                    if (sub_1000189BC(a1, "dspExceptionParameter116", v6, 4u, v31))
+                    {
+                      goto LABEL_912;
+                    }
+
+                    sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter116(4243): Error adding 1 elements to context");
+                    break;
+                  case 4244:
+                    v29 = v12;
+                    v30 = v11;
+                    if (v15 != 4)
+                    {
+                      sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter117(4244): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                    }
+
+                    if (v15 >= 8)
+                    {
+                      v31 = 1;
+                    }
+
+                    else
+                    {
+                      v31 = v15 >> 2;
+                    }
+
+                    if (sub_1000189BC(a1, "dspExceptionParameter117", v6, 4u, v31))
+                    {
+                      goto LABEL_912;
+                    }
+
+                    sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter117(4244): Error adding 1 elements to context");
+                    break;
+                  case 4245:
+                    v29 = v12;
+                    v30 = v11;
+                    if (v15 != 4)
+                    {
+                      sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter118(4245): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                    }
+
+                    if (v15 >= 8)
+                    {
+                      v31 = 1;
+                    }
+
+                    else
+                    {
+                      v31 = v15 >> 2;
+                    }
+
+                    if (sub_1000189BC(a1, "dspExceptionParameter118", v6, 4u, v31))
+                    {
+                      goto LABEL_912;
+                    }
+
+                    sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter118(4245): Error adding 1 elements to context");
+                    break;
+                  case 4246:
+                    v29 = v12;
+                    v30 = v11;
+                    if (v15 != 4)
+                    {
+                      sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter119(4246): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                    }
+
+                    if (v15 >= 8)
+                    {
+                      v31 = 1;
+                    }
+
+                    else
+                    {
+                      v31 = v15 >> 2;
+                    }
+
+                    if (sub_1000189BC(a1, "dspExceptionParameter119", v6, 4u, v31))
+                    {
+                      goto LABEL_912;
+                    }
+
+                    sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter119(4246): Error adding 1 elements to context");
+                    break;
+                  case 4247:
+                    v29 = v12;
+                    v30 = v11;
+                    if (v15 != 4)
+                    {
+                      sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter120(4247): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                    }
+
+                    if (v15 >= 8)
+                    {
+                      v31 = 1;
+                    }
+
+                    else
+                    {
+                      v31 = v15 >> 2;
+                    }
+
+                    if (sub_1000189BC(a1, "dspExceptionParameter120", v6, 4u, v31))
+                    {
+                      goto LABEL_912;
+                    }
+
+                    sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter120(4247): Error adding 1 elements to context");
+                    break;
+                  case 4248:
+                    v29 = v12;
+                    v30 = v11;
+                    if (v15 != 4)
+                    {
+                      sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter121(4248): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                    }
+
+                    if (v15 >= 8)
+                    {
+                      v31 = 1;
+                    }
+
+                    else
+                    {
+                      v31 = v15 >> 2;
+                    }
+
+                    if (sub_1000189BC(a1, "dspExceptionParameter121", v6, 4u, v31))
+                    {
+                      goto LABEL_912;
+                    }
+
+                    sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter121(4248): Error adding 1 elements to context");
+                    break;
+                  case 4249:
+                    v29 = v12;
+                    v30 = v11;
+                    if (v15 != 4)
+                    {
+                      sub_100020530("ASPMSPParseBufferToCxt: cbdr_ref_1(4249): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                    }
+
+                    if (v15 >= 8)
+                    {
+                      v31 = 1;
+                    }
+
+                    else
+                    {
+                      v31 = v15 >> 2;
+                    }
+
+                    if (sub_1000189BC(a1, "cbdr_ref_1", v6, 4u, v31))
+                    {
+                      goto LABEL_912;
+                    }
+
+                    sub_100020530("ASPMSPParseBufferToCxt: cbdr_ref_1(4249): Error adding 1 elements to context");
+                    break;
+                  case 4250:
+                    v29 = v12;
+                    v30 = v11;
+                    if (v15 != 4)
+                    {
+                      sub_100020530("ASPMSPParseBufferToCxt: cbdr_ref_2(4250): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                    }
+
+                    if (v15 >= 8)
+                    {
+                      v31 = 1;
+                    }
+
+                    else
+                    {
+                      v31 = v15 >> 2;
+                    }
+
+                    if (sub_1000189BC(a1, "cbdr_ref_2", v6, 4u, v31))
+                    {
+                      goto LABEL_912;
+                    }
+
+                    sub_100020530("ASPMSPParseBufferToCxt: cbdr_ref_2(4250): Error adding 1 elements to context");
+                    break;
+                  case 4251:
+                    v29 = v12;
+                    v30 = v11;
+                    if (v15 != 4)
+                    {
+                      sub_100020530("ASPMSPParseBufferToCxt: cbdr_outlier(4251): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                    }
+
+                    if (v15 >= 8)
+                    {
+                      v31 = 1;
+                    }
+
+                    else
+                    {
+                      v31 = v15 >> 2;
+                    }
+
+                    if (sub_1000189BC(a1, "cbdr_outlier", v6, 4u, v31))
+                    {
+                      goto LABEL_912;
+                    }
+
+                    sub_100020530("ASPMSPParseBufferToCxt: cbdr_outlier(4251): Error adding 1 elements to context");
+                    break;
+                  case 4252:
+                    v29 = v12;
+                    v30 = v11;
+                    if (v15 != 40)
+                    {
+                      sub_100020530("ASPMSPParseBufferToCxt: cbdr_step_1(4252): cfg 10 elements; (10*4) cfg bytes != (%d) buffer bytes", v15);
+                    }
+
+                    if (v15 >= 0x2C)
+                    {
+                      v31 = 10;
+                    }
+
+                    else
+                    {
+                      v31 = v15 >> 2;
+                    }
+
+                    if (sub_1000189BC(a1, "cbdr_step_1", v6, 4u, v31))
+                    {
+                      goto LABEL_912;
+                    }
+
+                    sub_100020530("ASPMSPParseBufferToCxt: cbdr_step_1(4252): Error adding 10 elements to context");
+                    break;
+                  case 4253:
+                    v29 = v12;
+                    v30 = v11;
+                    if (v15 != 40)
+                    {
+                      sub_100020530("ASPMSPParseBufferToCxt: cbdr_step_2(4253): cfg 10 elements; (10*4) cfg bytes != (%d) buffer bytes", v15);
+                    }
+
+                    if (v15 >= 0x2C)
+                    {
+                      v31 = 10;
+                    }
+
+                    else
+                    {
+                      v31 = v15 >> 2;
+                    }
+
+                    if (sub_1000189BC(a1, "cbdr_step_2", v6, 4u, v31))
+                    {
+                      goto LABEL_912;
+                    }
+
+                    sub_100020530("ASPMSPParseBufferToCxt: cbdr_step_2(4253): Error adding 10 elements to context");
+                    break;
+                  case 4254:
+                    v29 = v12;
+                    v30 = v11;
+                    if (v15 != 40)
+                    {
+                      sub_100020530("ASPMSPParseBufferToCxt: cbdr_step_3(4254): cfg 10 elements; (10*4) cfg bytes != (%d) buffer bytes", v15);
+                    }
+
+                    if (v15 >= 0x2C)
+                    {
+                      v31 = 10;
+                    }
+
+                    else
+                    {
+                      v31 = v15 >> 2;
+                    }
+
+                    if (sub_1000189BC(a1, "cbdr_step_3", v6, 4u, v31))
+                    {
+                      goto LABEL_912;
+                    }
+
+                    sub_100020530("ASPMSPParseBufferToCxt: cbdr_step_3(4254): Error adding 10 elements to context");
+                    break;
+                  case 4255:
+                    v29 = v12;
+                    v30 = v11;
+                    if (v15 != 40)
+                    {
+                      sub_100020530("ASPMSPParseBufferToCxt: cbdr_step_4(4255): cfg 10 elements; (10*4) cfg bytes != (%d) buffer bytes", v15);
+                    }
+
+                    if (v15 >= 0x2C)
+                    {
+                      v31 = 10;
+                    }
+
+                    else
+                    {
+                      v31 = v15 >> 2;
+                    }
+
+                    if (sub_1000189BC(a1, "cbdr_step_4", v6, 4u, v31))
+                    {
+                      goto LABEL_912;
+                    }
+
+                    sub_100020530("ASPMSPParseBufferToCxt: cbdr_step_4(4255): Error adding 10 elements to context");
+                    break;
+                  case 4256:
+                    v29 = v12;
+                    v30 = v11;
+                    if (v15 != 40)
+                    {
+                      sub_100020530("ASPMSPParseBufferToCxt: cbdr_step_5(4256): cfg 10 elements; (10*4) cfg bytes != (%d) buffer bytes", v15);
+                    }
+
+                    if (v15 >= 0x2C)
+                    {
+                      v31 = 10;
+                    }
+
+                    else
+                    {
+                      v31 = v15 >> 2;
+                    }
+
+                    if (sub_1000189BC(a1, "cbdr_step_5", v6, 4u, v31))
+                    {
+                      goto LABEL_912;
+                    }
+
+                    sub_100020530("ASPMSPParseBufferToCxt: cbdr_step_5(4256): Error adding 10 elements to context");
+                    break;
+                  case 4257:
+                    v29 = v12;
+                    v30 = v11;
+                    if (v15 != 40)
+                    {
+                      sub_100020530("ASPMSPParseBufferToCxt: cbdr_step_6(4257): cfg 10 elements; (10*4) cfg bytes != (%d) buffer bytes", v15);
+                    }
+
+                    if (v15 >= 0x2C)
+                    {
+                      v31 = 10;
+                    }
+
+                    else
+                    {
+                      v31 = v15 >> 2;
+                    }
+
+                    if (sub_1000189BC(a1, "cbdr_step_6", v6, 4u, v31))
+                    {
+                      goto LABEL_912;
+                    }
+
+                    sub_100020530("ASPMSPParseBufferToCxt: cbdr_step_6(4257): Error adding 10 elements to context");
+                    break;
+                  case 4258:
+                    v29 = v12;
+                    v30 = v11;
+                    if (v15 != 40)
+                    {
+                      sub_100020530("ASPMSPParseBufferToCxt: cbdr_step_7(4258): cfg 10 elements; (10*4) cfg bytes != (%d) buffer bytes", v15);
+                    }
+
+                    if (v15 >= 0x2C)
+                    {
+                      v31 = 10;
+                    }
+
+                    else
+                    {
+                      v31 = v15 >> 2;
+                    }
+
+                    if (sub_1000189BC(a1, "cbdr_step_7", v6, 4u, v31))
+                    {
+                      goto LABEL_912;
+                    }
+
+                    sub_100020530("ASPMSPParseBufferToCxt: cbdr_step_7(4258): Error adding 10 elements to context");
+                    break;
+                  case 4259:
+                    v29 = v12;
+                    v30 = v11;
+                    if (v15 != 80)
+                    {
+                      sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter122(4259): cfg 20 elements; (20*4) cfg bytes != (%d) buffer bytes", v15);
+                    }
+
+                    if (v15 >= 0x54)
+                    {
+                      v31 = 20;
+                    }
+
+                    else
+                    {
+                      v31 = v15 >> 2;
+                    }
+
+                    if (sub_1000189BC(a1, "dspExceptionParameter122", v6, 4u, v31))
+                    {
+                      goto LABEL_912;
+                    }
+
+                    sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter122(4259): Error adding 20 elements to context");
+                    break;
+                  case 4260:
+                    v29 = v12;
+                    v30 = v11;
+                    if (v15 != 32)
+                    {
+                      sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter123(4260): cfg 8 elements; (8*4) cfg bytes != (%d) buffer bytes", v15);
+                    }
+
+                    if (v15 >= 0x24)
+                    {
+                      v31 = 8;
+                    }
+
+                    else
+                    {
+                      v31 = v15 >> 2;
+                    }
+
+                    if (sub_1000189BC(a1, "dspExceptionParameter123", v6, 4u, v31))
+                    {
+                      goto LABEL_912;
+                    }
+
+                    sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter123(4260): Error adding 8 elements to context");
+                    break;
+                  case 4261:
+                    v29 = v12;
+                    v30 = v11;
+                    if (v15 != 4)
+                    {
+                      sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter124(4261): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                    }
+
+                    if (v15 >= 8)
+                    {
+                      v31 = 1;
+                    }
+
+                    else
+                    {
+                      v31 = v15 >> 2;
+                    }
+
+                    if (sub_1000189BC(a1, "dspExceptionParameter124", v6, 4u, v31))
+                    {
+                      goto LABEL_912;
+                    }
+
+                    sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter124(4261): Error adding 1 elements to context");
+                    break;
+                  case 4262:
+                    v29 = v12;
+                    v30 = v11;
+                    if (v15 != 4)
+                    {
+                      sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter125(4262): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                    }
+
+                    if (v15 >= 8)
+                    {
+                      v31 = 1;
+                    }
+
+                    else
+                    {
+                      v31 = v15 >> 2;
+                    }
+
+                    if (sub_1000189BC(a1, "dspExceptionParameter125", v6, 4u, v31))
+                    {
+                      goto LABEL_912;
+                    }
+
+                    sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter125(4262): Error adding 1 elements to context");
+                    break;
+                  case 4263:
+                    v29 = v12;
+                    v30 = v11;
+                    if (v15 != 4)
+                    {
+                      sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter126(4263): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                    }
+
+                    if (v15 >= 8)
+                    {
+                      v31 = 1;
+                    }
+
+                    else
+                    {
+                      v31 = v15 >> 2;
+                    }
+
+                    if (sub_1000189BC(a1, "dspExceptionParameter126", v6, 4u, v31))
+                    {
+                      goto LABEL_912;
+                    }
+
+                    sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter126(4263): Error adding 1 elements to context");
+                    break;
+                  case 4264:
+                    v29 = v12;
+                    v30 = v11;
+                    if (v15 != 16)
+                    {
+                      sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter127(4264): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", v15);
+                    }
+
+                    if (v15 >= 0x14)
+                    {
+                      v31 = 4;
+                    }
+
+                    else
+                    {
+                      v31 = v15 >> 2;
+                    }
+
+                    if (sub_1000189BC(a1, "dspExceptionParameter127", v6, 4u, v31))
+                    {
+                      goto LABEL_912;
+                    }
+
+                    sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter127(4264): Error adding 4 elements to context");
+                    break;
+                  case 4265:
+                    v29 = v12;
+                    v30 = v11;
+                    if (v15 != 16)
+                    {
+                      sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter128(4265): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", v15);
+                    }
+
+                    if (v15 >= 0x14)
+                    {
+                      v31 = 4;
+                    }
+
+                    else
+                    {
+                      v31 = v15 >> 2;
+                    }
+
+                    if (sub_1000189BC(a1, "dspExceptionParameter128", v6, 4u, v31))
+                    {
+                      goto LABEL_912;
+                    }
+
+                    sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter128(4265): Error adding 4 elements to context");
+                    break;
+                  case 4266:
+                    v29 = v12;
+                    v30 = v11;
+                    if (v15 != 16)
+                    {
+                      sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter129(4266): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", v15);
+                    }
+
+                    if (v15 >= 0x14)
+                    {
+                      v31 = 4;
+                    }
+
+                    else
+                    {
+                      v31 = v15 >> 2;
+                    }
+
+                    if (sub_1000189BC(a1, "dspExceptionParameter129", v6, 4u, v31))
+                    {
+                      goto LABEL_912;
+                    }
+
+                    sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter129(4266): Error adding 4 elements to context");
+                    break;
+                  case 4267:
+                    v29 = v12;
+                    v30 = v11;
+                    if (v15 != 16)
+                    {
+                      sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter130(4267): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", v15);
+                    }
+
+                    if (v15 >= 0x14)
+                    {
+                      v31 = 4;
+                    }
+
+                    else
+                    {
+                      v31 = v15 >> 2;
+                    }
+
+                    if (sub_1000189BC(a1, "dspExceptionParameter130", v6, 4u, v31))
+                    {
+                      goto LABEL_912;
+                    }
+
+                    sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter130(4267): Error adding 4 elements to context");
+                    break;
+                  case 4268:
+                    v29 = v12;
+                    v30 = v11;
+                    if (v15 != 16)
+                    {
+                      sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter131(4268): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", v15);
+                    }
+
+                    if (v15 >= 0x14)
+                    {
+                      v31 = 4;
+                    }
+
+                    else
+                    {
+                      v31 = v15 >> 2;
+                    }
+
+                    if (sub_1000189BC(a1, "dspExceptionParameter131", v6, 4u, v31))
+                    {
+                      goto LABEL_912;
+                    }
+
+                    sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter131(4268): Error adding 4 elements to context");
+                    break;
+                  case 4269:
+                    v29 = v12;
+                    v30 = v11;
+                    if (v15 != 40)
+                    {
+                      sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter132(4269): cfg 10 elements; (10*4) cfg bytes != (%d) buffer bytes", v15);
+                    }
+
+                    if (v15 >= 0x2C)
+                    {
+                      v31 = 10;
+                    }
+
+                    else
+                    {
+                      v31 = v15 >> 2;
+                    }
+
+                    if (sub_1000189BC(a1, "dspExceptionParameter132", v6, 4u, v31))
+                    {
+                      goto LABEL_912;
+                    }
+
+                    sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter132(4269): Error adding 10 elements to context");
+                    break;
+                  case 4270:
+                    v29 = v12;
+                    v30 = v11;
+                    if (v15 != 40)
+                    {
+                      sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter133(4270): cfg 10 elements; (10*4) cfg bytes != (%d) buffer bytes", v15);
+                    }
+
+                    if (v15 >= 0x2C)
+                    {
+                      v31 = 10;
+                    }
+
+                    else
+                    {
+                      v31 = v15 >> 2;
+                    }
+
+                    if (sub_1000189BC(a1, "dspExceptionParameter133", v6, 4u, v31))
+                    {
+                      goto LABEL_912;
+                    }
+
+                    sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter133(4270): Error adding 10 elements to context");
+                    break;
+                  case 4271:
+                    v29 = v12;
+                    v30 = v11;
+                    if (v15 != 4)
+                    {
+                      sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter134(4271): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                    }
+
+                    if (v15 >= 8)
+                    {
+                      v31 = 1;
+                    }
+
+                    else
+                    {
+                      v31 = v15 >> 2;
+                    }
+
+                    if (sub_1000189BC(a1, "dspExceptionParameter134", v6, 4u, v31))
+                    {
+                      goto LABEL_912;
+                    }
+
+                    sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter134(4271): Error adding 1 elements to context");
+                    break;
+                  case 4272:
+                    v29 = v12;
+                    v30 = v11;
+                    if (v15 != 4)
+                    {
+                      sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter135(4272): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                    }
+
+                    if (v15 >= 8)
+                    {
+                      v31 = 1;
+                    }
+
+                    else
+                    {
+                      v31 = v15 >> 2;
+                    }
+
+                    if (sub_1000189BC(a1, "dspExceptionParameter135", v6, 4u, v31))
+                    {
+                      goto LABEL_912;
+                    }
+
+                    sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter135(4272): Error adding 1 elements to context");
+                    break;
+                  case 4273:
+                    v29 = v12;
+                    v30 = v11;
+                    if (v15 != 4)
+                    {
+                      sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter136(4273): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                    }
+
+                    if (v15 >= 8)
+                    {
+                      v31 = 1;
+                    }
+
+                    else
+                    {
+                      v31 = v15 >> 2;
+                    }
+
+                    if (sub_1000189BC(a1, "dspExceptionParameter136", v6, 4u, v31))
+                    {
+                      goto LABEL_912;
+                    }
+
+                    sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter136(4273): Error adding 1 elements to context");
+                    break;
+                  case 4274:
+                    v29 = v12;
+                    v30 = v11;
+                    if (v15 != 4)
+                    {
+                      sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter137(4274): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                    }
+
+                    if (v15 >= 8)
+                    {
+                      v31 = 1;
+                    }
+
+                    else
+                    {
+                      v31 = v15 >> 2;
+                    }
+
+                    if (sub_1000189BC(a1, "dspExceptionParameter137", v6, 4u, v31))
+                    {
+                      goto LABEL_912;
+                    }
+
+                    sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter137(4274): Error adding 1 elements to context");
+                    break;
+                  case 4275:
+                    v29 = v12;
+                    v30 = v11;
+                    if (v15 != 4)
+                    {
+                      sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter138(4275): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                    }
+
+                    if (v15 >= 8)
+                    {
+                      v31 = 1;
+                    }
+
+                    else
+                    {
+                      v31 = v15 >> 2;
+                    }
+
+                    if (sub_1000189BC(a1, "dspExceptionParameter138", v6, 4u, v31))
+                    {
+                      goto LABEL_912;
+                    }
+
+                    sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter138(4275): Error adding 1 elements to context");
+                    break;
+                  case 4276:
+                    v29 = v12;
+                    v30 = v11;
+                    if (v15 != 16)
+                    {
+                      sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter139(4276): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", v15);
+                    }
+
+                    if (v15 >= 0x14)
+                    {
+                      v31 = 4;
+                    }
+
+                    else
+                    {
+                      v31 = v15 >> 2;
+                    }
+
+                    if (sub_1000189BC(a1, "dspExceptionParameter139", v6, 4u, v31))
+                    {
+                      goto LABEL_912;
+                    }
+
+                    sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter139(4276): Error adding 4 elements to context");
+                    break;
+                  case 4277:
+                    v29 = v12;
+                    v30 = v11;
+                    if (v15 != 4)
+                    {
+                      sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter140(4277): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                    }
+
+                    if (v15 >= 8)
+                    {
+                      v31 = 1;
+                    }
+
+                    else
+                    {
+                      v31 = v15 >> 2;
+                    }
+
+                    if (sub_1000189BC(a1, "dspExceptionParameter140", v6, 4u, v31))
+                    {
+                      goto LABEL_912;
+                    }
+
+                    sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter140(4277): Error adding 1 elements to context");
+                    break;
+                  case 4278:
+                    v29 = v12;
+                    v30 = v11;
+                    if (v15 != 4)
+                    {
+                      sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter141(4278): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                    }
+
+                    if (v15 >= 8)
+                    {
+                      v31 = 1;
+                    }
+
+                    else
+                    {
+                      v31 = v15 >> 2;
+                    }
+
+                    if (sub_1000189BC(a1, "dspExceptionParameter141", v6, 4u, v31))
+                    {
+                      goto LABEL_912;
+                    }
+
+                    sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter141(4278): Error adding 1 elements to context");
+                    break;
+                  case 4279:
+                    v29 = v12;
+                    v30 = v11;
+                    if (v15 != 16)
+                    {
+                      sub_100020530("ASPMSPParseBufferToCxt: fs1_4b_fail(4279): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", v15);
+                    }
+
+                    if (v15 >= 0x14)
+                    {
+                      v31 = 4;
+                    }
+
+                    else
+                    {
+                      v31 = v15 >> 2;
+                    }
+
+                    if (sub_1000189BC(a1, "fs1_4b_fail_", v6, 4u, v31))
+                    {
+                      goto LABEL_912;
+                    }
+
+                    sub_100020530("ASPMSPParseBufferToCxt: fs1_4b_fail(4279): Error adding 4 elements to context");
+                    break;
+                  case 4280:
+                    v29 = v12;
+                    v30 = v11;
+                    if (v15 != 16)
+                    {
+                      sub_100020530("ASPMSPParseBufferToCxt: fs1_4b_fast_fail(4280): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", v15);
+                    }
+
+                    if (v15 >= 0x14)
+                    {
+                      v31 = 4;
+                    }
+
+                    else
+                    {
+                      v31 = v15 >> 2;
+                    }
+
+                    if (sub_1000189BC(a1, "fs1_4b_fast_fail_", v6, 4u, v31))
+                    {
+                      goto LABEL_912;
+                    }
+
+                    sub_100020530("ASPMSPParseBufferToCxt: fs1_4b_fast_fail(4280): Error adding 4 elements to context");
+                    break;
+                  case 4281:
+                    v29 = v12;
+                    v30 = v11;
+                    if (v15 != 40)
+                    {
+                      sub_100020530("ASPMSPParseBufferToCxt: dyce_decoded_bit_flips(4281): cfg 10 elements; (10*4) cfg bytes != (%d) buffer bytes", v15);
+                    }
+
+                    if (v15 >= 0x2C)
+                    {
+                      v31 = 10;
+                    }
+
+                    else
+                    {
+                      v31 = v15 >> 2;
+                    }
+
+                    if (sub_1000189BC(a1, "dyce_decoded_bit_flips_", v6, 4u, v31))
+                    {
+                      goto LABEL_912;
+                    }
+
+                    sub_100020530("ASPMSPParseBufferToCxt: dyce_decoded_bit_flips(4281): Error adding 10 elements to context");
+                    break;
+                  case 4282:
+                    v29 = v12;
+                    v30 = v11;
+                    if (v15 != 60)
+                    {
+                      sub_100020530("ASPMSPParseBufferToCxt: slip_bch(4282): cfg 15 elements; (15*4) cfg bytes != (%d) buffer bytes", v15);
+                    }
+
+                    if (v15 >= 0x40)
+                    {
+                      v31 = 15;
+                    }
+
+                    else
+                    {
+                      v31 = v15 >> 2;
+                    }
+
+                    if (sub_1000189BC(a1, "slip_bch_", v6, 4u, v31))
+                    {
+                      goto LABEL_912;
+                    }
+
+                    sub_100020530("ASPMSPParseBufferToCxt: slip_bch(4282): Error adding 15 elements to context");
+                    break;
+                  case 4283:
+                    v29 = v12;
+                    v30 = v11;
+                    if (v15 != 40)
+                    {
+                      sub_100020530("ASPMSPParseBufferToCxt: read_fail(4283): cfg 10 elements; (10*4) cfg bytes != (%d) buffer bytes", v15);
+                    }
+
+                    if (v15 >= 0x2C)
+                    {
+                      v31 = 10;
+                    }
+
+                    else
+                    {
+                      v31 = v15 >> 2;
+                    }
+
+                    if (sub_1000189BC(a1, "read_fail_", v6, 4u, v31))
+                    {
+                      goto LABEL_912;
+                    }
+
+                    sub_100020530("ASPMSPParseBufferToCxt: read_fail(4283): Error adding 10 elements to context");
+                    break;
+                  case 4284:
+                    v29 = v12;
+                    v30 = v11;
+                    if (v15 != 40)
+                    {
+                      sub_100020530("ASPMSPParseBufferToCxt: tr_read_fail(4284): cfg 10 elements; (10*4) cfg bytes != (%d) buffer bytes", v15);
+                    }
+
+                    if (v15 >= 0x2C)
+                    {
+                      v31 = 10;
+                    }
+
+                    else
+                    {
+                      v31 = v15 >> 2;
+                    }
+
+                    if (sub_1000189BC(a1, "tr_read_fail_", v6, 4u, v31))
+                    {
+                      goto LABEL_912;
+                    }
+
+                    sub_100020530("ASPMSPParseBufferToCxt: tr_read_fail(4284): Error adding 10 elements to context");
+                    break;
+                  case 4285:
+                    v29 = v12;
+                    v30 = v11;
+                    if (v15 != 40)
+                    {
+                      sub_100020530("ASPMSPParseBufferToCxt: tr_aux_bfs_percent(4285): cfg 10 elements; (10*4) cfg bytes != (%d) buffer bytes", v15);
+                    }
+
+                    if (v15 >= 0x2C)
+                    {
+                      v31 = 10;
+                    }
+
+                    else
+                    {
+                      v31 = v15 >> 2;
+                    }
+
+                    if (sub_1000189BC(a1, "tr_aux_bfs_percent_", v6, 4u, v31))
+                    {
+                      goto LABEL_912;
+                    }
+
+                    sub_100020530("ASPMSPParseBufferToCxt: tr_aux_bfs_percent(4285): Error adding 10 elements to context");
+                    break;
+                  case 4286:
+                    v29 = v12;
+                    v30 = v11;
+                    if (v15 != 20)
+                    {
+                      sub_100020530("ASPMSPParseBufferToCxt: tr_reconstruct_pass_step(4286): cfg 5 elements; (5*4) cfg bytes != (%d) buffer bytes", v15);
+                    }
+
+                    if (v15 >= 0x18)
+                    {
+                      v31 = 5;
+                    }
+
+                    else
+                    {
+                      v31 = v15 >> 2;
+                    }
+
+                    if (sub_1000189BC(a1, "tr_reconstruct_pass_step_", v6, 4u, v31))
+                    {
+                      goto LABEL_912;
+                    }
+
+                    sub_100020530("ASPMSPParseBufferToCxt: tr_reconstruct_pass_step(4286): Error adding 5 elements to context");
+                    break;
+                  case 4287:
+                    v29 = v12;
+                    v30 = v11;
+                    if (v15 != 4)
+                    {
+                      sub_100020530("ASPMSPParseBufferToCxt: tr_reconstruct_num(4287): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                    }
+
+                    if (v15 >= 8)
+                    {
+                      v31 = 1;
+                    }
+
+                    else
+                    {
+                      v31 = v15 >> 2;
+                    }
+
+                    if (sub_1000189BC(a1, "tr_reconstruct_num", v6, 4u, v31))
+                    {
+                      goto LABEL_912;
+                    }
+
+                    sub_100020530("ASPMSPParseBufferToCxt: tr_reconstruct_num(4287): Error adding 1 elements to context");
+                    break;
+                  case 4301:
+                    v29 = v12;
+                    v30 = v11;
+                    if (v15 != 4)
+                    {
+                      sub_100020530("ASPMSPParseBufferToCxt: nandStageOfLife105(4301): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                    }
+
+                    if (v15 >= 8)
+                    {
+                      v31 = 1;
+                    }
+
+                    else
+                    {
+                      v31 = v15 >> 2;
+                    }
+
+                    if (sub_1000189BC(a1, "nandStageOfLife105", v6, 4u, v31))
+                    {
+                      goto LABEL_912;
+                    }
+
+                    sub_100020530("ASPMSPParseBufferToCxt: nandStageOfLife105(4301): Error adding 1 elements to context");
+                    break;
+                  case 4302:
+                    v29 = v12;
+                    v30 = v11;
+                    if (v15 != 4)
+                    {
+                      sub_100020530("ASPMSPParseBufferToCxt: nandStageOfLife106(4302): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                    }
+
+                    if (v15 >= 8)
+                    {
+                      v31 = 1;
+                    }
+
+                    else
+                    {
+                      v31 = v15 >> 2;
+                    }
+
+                    if (sub_1000189BC(a1, "nandStageOfLife106", v6, 4u, v31))
+                    {
+LABEL_912:
+                      v3 = v3 + v31;
+                      v8 = "avg_rd_window_size";
+                      v9 = "ASPMSPParseBufferToCxt: avg_rd_window_size(8193): cfg 5 elements; (5*4) cfg bytes != (%d) buffer bytes";
+                      v11 = v30;
+                      v12 = v29;
+                      goto LABEL_913;
+                    }
+
+                    sub_100020530("ASPMSPParseBufferToCxt: nandStageOfLife106(4302): Error adding 1 elements to context");
+                    break;
+                  default:
+                    switch(v16)
+                    {
+                      case 4303:
+                        if (v15 != 8)
+                        {
+                          sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter145(4303): cfg 2 elements; (2*4) cfg bytes != (%d) buffer bytes", v15);
+                        }
+
+                        if (v15 >= 0xC)
+                        {
+                          v32 = 2;
+                        }
+
+                        else
+                        {
+                          v32 = v15 >> 2;
+                        }
+
+                        if (sub_1000189BC(a1, "dspExceptionParameter145_", v6, 4u, v32))
+                        {
+                          goto LABEL_1372;
+                        }
+
+                        sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter145(4303): Error adding 2 elements to context");
+                        break;
+                      case 4304:
+                        if (v15 != 8)
+                        {
+                          sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter146(4304): cfg 2 elements; (2*4) cfg bytes != (%d) buffer bytes", v15);
+                        }
+
+                        if (v15 >= 0xC)
+                        {
+                          v32 = 2;
+                        }
+
+                        else
+                        {
+                          v32 = v15 >> 2;
+                        }
+
+                        if (sub_1000189BC(a1, "dspExceptionParameter146_", v6, 4u, v32))
+                        {
+                          goto LABEL_1372;
+                        }
+
+                        sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter146(4304): Error adding 2 elements to context");
+                        break;
+                      case 4305:
+                        if (v15 != 8)
+                        {
+                          sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter147(4305): cfg 2 elements; (2*4) cfg bytes != (%d) buffer bytes", v15);
+                        }
+
+                        if (v15 >= 0xC)
+                        {
+                          v32 = 2;
+                        }
+
+                        else
+                        {
+                          v32 = v15 >> 2;
+                        }
+
+                        if (sub_1000189BC(a1, "dspExceptionParameter147_", v6, 4u, v32))
+                        {
+                          goto LABEL_1372;
+                        }
+
+                        sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter147(4305): Error adding 2 elements to context");
+                        break;
+                      case 4306:
+                        if (v15 != 8)
+                        {
+                          sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter148(4306): cfg 2 elements; (2*4) cfg bytes != (%d) buffer bytes", v15);
+                        }
+
+                        if (v15 >= 0xC)
+                        {
+                          v32 = 2;
+                        }
+
+                        else
+                        {
+                          v32 = v15 >> 2;
+                        }
+
+                        if (sub_1000189BC(a1, "dspExceptionParameter148_", v6, 4u, v32))
+                        {
+                          goto LABEL_1372;
+                        }
+
+                        sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter148(4306): Error adding 2 elements to context");
+                        break;
+                      case 4307:
+                        if (v15 != 32)
+                        {
+                          sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter149(4307): cfg 8 elements; (8*4) cfg bytes != (%d) buffer bytes", v15);
+                        }
+
+                        if (v15 >= 0x24)
+                        {
+                          v32 = 8;
+                        }
+
+                        else
+                        {
+                          v32 = v15 >> 2;
+                        }
+
+                        if (sub_1000189BC(a1, "dspExceptionParameter149_", v6, 4u, v32))
+                        {
+                          goto LABEL_1372;
+                        }
+
+                        sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter149(4307): Error adding 8 elements to context");
+                        break;
+                      case 4308:
+                        if (v15 != 24)
+                        {
+                          sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter150(4308): cfg 6 elements; (6*4) cfg bytes != (%d) buffer bytes", v15);
+                        }
+
+                        if (v15 >= 0x1C)
+                        {
+                          v32 = 6;
+                        }
+
+                        else
+                        {
+                          v32 = v15 >> 2;
+                        }
+
+                        if (sub_1000189BC(a1, "dspExceptionParameter150_", v6, 4u, v32))
+                        {
+                          goto LABEL_1372;
+                        }
+
+                        sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter150(4308): Error adding 6 elements to context");
+                        break;
+                      case 4309:
+                        if (v15 != 20)
+                        {
+                          sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter151(4309): cfg 5 elements; (5*4) cfg bytes != (%d) buffer bytes", v15);
+                        }
+
+                        if (v15 >= 0x18)
+                        {
+                          v32 = 5;
+                        }
+
+                        else
+                        {
+                          v32 = v15 >> 2;
+                        }
+
+                        if (sub_1000189BC(a1, "dspExceptionParameter151_", v6, 4u, v32))
+                        {
+                          goto LABEL_1372;
+                        }
+
+                        sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter151(4309): Error adding 5 elements to context");
+                        break;
+                      case 4310:
+                        if (v15 != 20)
+                        {
+                          sub_100020530("ASPMSPParseBufferToCxt: nandStageOfLife107(4310): cfg 5 elements; (5*4) cfg bytes != (%d) buffer bytes", v15);
+                        }
+
+                        if (v15 >= 0x18)
+                        {
+                          v32 = 5;
+                        }
+
+                        else
+                        {
+                          v32 = v15 >> 2;
+                        }
+
+                        if (sub_1000189BC(a1, "nandStageOfLife107_", v6, 4u, v32))
+                        {
+                          goto LABEL_1372;
+                        }
+
+                        sub_100020530("ASPMSPParseBufferToCxt: nandStageOfLife107(4310): Error adding 5 elements to context");
+                        break;
+                      case 4311:
+                        if (v15 != 20)
+                        {
+                          sub_100020530("ASPMSPParseBufferToCxt: nandStageOfLife108(4311): cfg 5 elements; (5*4) cfg bytes != (%d) buffer bytes", v15);
+                        }
+
+                        if (v15 >= 0x18)
+                        {
+                          v32 = 5;
+                        }
+
+                        else
+                        {
+                          v32 = v15 >> 2;
+                        }
+
+                        if (sub_1000189BC(a1, "nandStageOfLife108_", v6, 4u, v32))
+                        {
+                          goto LABEL_1372;
+                        }
+
+                        sub_100020530("ASPMSPParseBufferToCxt: nandStageOfLife108(4311): Error adding 5 elements to context");
+                        break;
+                      case 4312:
+                        if (v15 != 20)
+                        {
+                          sub_100020530("ASPMSPParseBufferToCxt: nandStageOfLife109(4312): cfg 5 elements; (5*4) cfg bytes != (%d) buffer bytes", v15);
+                        }
+
+                        if (v15 >= 0x18)
+                        {
+                          v32 = 5;
+                        }
+
+                        else
+                        {
+                          v32 = v15 >> 2;
+                        }
+
+                        if (sub_1000189BC(a1, "nandStageOfLife109_", v6, 4u, v32))
+                        {
+                          goto LABEL_1372;
+                        }
+
+                        sub_100020530("ASPMSPParseBufferToCxt: nandStageOfLife109(4312): Error adding 5 elements to context");
+                        break;
+                      case 4313:
+                        if (v15 != 20)
+                        {
+                          sub_100020530("ASPMSPParseBufferToCxt: nandStageOfLife110(4313): cfg 5 elements; (5*4) cfg bytes != (%d) buffer bytes", v15);
+                        }
+
+                        if (v15 >= 0x18)
+                        {
+                          v32 = 5;
+                        }
+
+                        else
+                        {
+                          v32 = v15 >> 2;
+                        }
+
+                        if (sub_1000189BC(a1, "nandStageOfLife110_", v6, 4u, v32))
+                        {
+                          goto LABEL_1372;
+                        }
+
+                        sub_100020530("ASPMSPParseBufferToCxt: nandStageOfLife110(4313): Error adding 5 elements to context");
+                        break;
+                      case 4314:
+                        if (v15 != 4)
+                        {
+                          sub_100020530("ASPMSPParseBufferToCxt: nandStageOfLife111(4314): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                        }
+
+                        if (v15 >= 8)
+                        {
+                          v32 = 1;
+                        }
+
+                        else
+                        {
+                          v32 = v15 >> 2;
+                        }
+
+                        if (sub_1000189BC(a1, "nandStageOfLife111", v6, 4u, v32))
+                        {
+                          goto LABEL_1372;
+                        }
+
+                        sub_100020530("ASPMSPParseBufferToCxt: nandStageOfLife111(4314): Error adding 1 elements to context");
+                        break;
+                      case 4315:
+                        if (v15 != 4)
+                        {
+                          sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter152(4315): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                        }
+
+                        if (v15 >= 8)
+                        {
+                          v32 = 1;
+                        }
+
+                        else
+                        {
+                          v32 = v15 >> 2;
+                        }
+
+                        if (sub_1000189BC(a1, "dspExceptionParameter152", v6, 4u, v32))
+                        {
+                          goto LABEL_1372;
+                        }
+
+                        sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter152(4315): Error adding 1 elements to context");
+                        break;
+                      case 4316:
+                        if (v15 != 4)
+                        {
+                          sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter153(4316): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                        }
+
+                        if (v15 >= 8)
+                        {
+                          v32 = 1;
+                        }
+
+                        else
+                        {
+                          v32 = v15 >> 2;
+                        }
+
+                        if (sub_1000189BC(a1, "dspExceptionParameter153", v6, 4u, v32))
+                        {
+                          goto LABEL_1372;
+                        }
+
+                        sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter153(4316): Error adding 1 elements to context");
+                        break;
+                      case 4317:
+                        if (v15 != 4)
+                        {
+                          sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter154(4317): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                        }
+
+                        if (v15 >= 8)
+                        {
+                          v32 = 1;
+                        }
+
+                        else
+                        {
+                          v32 = v15 >> 2;
+                        }
+
+                        if (sub_1000189BC(a1, "dspExceptionParameter154", v6, 4u, v32))
+                        {
+                          goto LABEL_1372;
+                        }
+
+                        sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter154(4317): Error adding 1 elements to context");
+                        break;
+                      case 4318:
+                        if (v15 != 4)
+                        {
+                          sub_100020530("ASPMSPParseBufferToCxt: nandStageOfLife112(4318): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                        }
+
+                        if (v15 >= 8)
+                        {
+                          v32 = 1;
+                        }
+
+                        else
+                        {
+                          v32 = v15 >> 2;
+                        }
+
+                        if (sub_1000189BC(a1, "nandStageOfLife112", v6, 4u, v32))
+                        {
+                          goto LABEL_1372;
+                        }
+
+                        sub_100020530("ASPMSPParseBufferToCxt: nandStageOfLife112(4318): Error adding 1 elements to context");
+                        break;
+                      case 4319:
+                        if (v15 != 4)
+                        {
+                          sub_100020530("ASPMSPParseBufferToCxt: nandStageOfLife113(4319): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                        }
+
+                        if (v15 >= 8)
+                        {
+                          v32 = 1;
+                        }
+
+                        else
+                        {
+                          v32 = v15 >> 2;
+                        }
+
+                        if (sub_1000189BC(a1, "nandStageOfLife113", v6, 4u, v32))
+                        {
+                          goto LABEL_1372;
+                        }
+
+                        sub_100020530("ASPMSPParseBufferToCxt: nandStageOfLife113(4319): Error adding 1 elements to context");
+                        break;
+                      case 4320:
+                        if (v15 != 4)
+                        {
+                          sub_100020530("ASPMSPParseBufferToCxt: nandStageOfLife114(4320): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                        }
+
+                        if (v15 >= 8)
+                        {
+                          v32 = 1;
+                        }
+
+                        else
+                        {
+                          v32 = v15 >> 2;
+                        }
+
+                        if (sub_1000189BC(a1, "nandStageOfLife114", v6, 4u, v32))
+                        {
+                          goto LABEL_1372;
+                        }
+
+                        sub_100020530("ASPMSPParseBufferToCxt: nandStageOfLife114(4320): Error adding 1 elements to context");
+                        break;
+                      case 4321:
+                        if (v15 != 4)
+                        {
+                          sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter155(4321): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                        }
+
+                        if (v15 >= 8)
+                        {
+                          v32 = 1;
+                        }
+
+                        else
+                        {
+                          v32 = v15 >> 2;
+                        }
+
+                        if (sub_1000189BC(a1, "dspExceptionParameter155", v6, 4u, v32))
+                        {
+                          goto LABEL_1372;
+                        }
+
+                        sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter155(4321): Error adding 1 elements to context");
+                        break;
+                      case 4322:
+                        if (v15 != 4)
+                        {
+                          sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter156(4322): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                        }
+
+                        if (v15 >= 8)
+                        {
+                          v32 = 1;
+                        }
+
+                        else
+                        {
+                          v32 = v15 >> 2;
+                        }
+
+                        if (sub_1000189BC(a1, "dspExceptionParameter156", v6, 4u, v32))
+                        {
+                          goto LABEL_1372;
+                        }
+
+                        sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter156(4322): Error adding 1 elements to context");
+                        break;
+                      case 4323:
+                        if (v15 != 4)
+                        {
+                          sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter157(4323): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                        }
+
+                        if (v15 >= 8)
+                        {
+                          v32 = 1;
+                        }
+
+                        else
+                        {
+                          v32 = v15 >> 2;
+                        }
+
+                        if (sub_1000189BC(a1, "dspExceptionParameter157", v6, 4u, v32))
+                        {
+                          goto LABEL_1372;
+                        }
+
+                        sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter157(4323): Error adding 1 elements to context");
+                        break;
+                      case 4324:
+                        if (v15 != 4)
+                        {
+                          sub_100020530("ASPMSPParseBufferToCxt: readStage111(4324): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                        }
+
+                        if (v15 >= 8)
+                        {
+                          v32 = 1;
+                        }
+
+                        else
+                        {
+                          v32 = v15 >> 2;
+                        }
+
+                        if (sub_1000189BC(a1, "readStage111", v6, 4u, v32))
+                        {
+                          goto LABEL_1372;
+                        }
+
+                        sub_100020530("ASPMSPParseBufferToCxt: readStage111(4324): Error adding 1 elements to context");
+                        break;
+                      case 4325:
+                        if (v15 != 4)
+                        {
+                          sub_100020530("ASPMSPParseBufferToCxt: nandStageOfLife115(4325): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                        }
+
+                        if (v15 >= 8)
+                        {
+                          v32 = 1;
+                        }
+
+                        else
+                        {
+                          v32 = v15 >> 2;
+                        }
+
+                        if (sub_1000189BC(a1, "nandStageOfLife115", v6, 4u, v32))
+                        {
+                          goto LABEL_1372;
+                        }
+
+                        sub_100020530("ASPMSPParseBufferToCxt: nandStageOfLife115(4325): Error adding 1 elements to context");
+                        break;
+                      case 4326:
+                        if (v15 != 4)
+                        {
+                          sub_100020530("ASPMSPParseBufferToCxt: nandStageOfLife116(4326): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                        }
+
+                        if (v15 >= 8)
+                        {
+                          v32 = 1;
+                        }
+
+                        else
+                        {
+                          v32 = v15 >> 2;
+                        }
+
+                        if (sub_1000189BC(a1, "nandStageOfLife116", v6, 4u, v32))
+                        {
+                          goto LABEL_1372;
+                        }
+
+                        sub_100020530("ASPMSPParseBufferToCxt: nandStageOfLife116(4326): Error adding 1 elements to context");
+                        break;
+                      case 4327:
+                        if (v15 != 4)
+                        {
+                          sub_100020530("ASPMSPParseBufferToCxt: nandStageOfLife117(4327): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                        }
+
+                        if (v15 >= 8)
+                        {
+                          v32 = 1;
+                        }
+
+                        else
+                        {
+                          v32 = v15 >> 2;
+                        }
+
+                        if (sub_1000189BC(a1, "nandStageOfLife117", v6, 4u, v32))
+                        {
+                          goto LABEL_1372;
+                        }
+
+                        sub_100020530("ASPMSPParseBufferToCxt: nandStageOfLife117(4327): Error adding 1 elements to context");
+                        break;
+                      case 4328:
+LABEL_930:
+                        if (v16 >= 12288)
+                        {
+                          if (v16 <= 12292)
+                          {
+                            if (v16 <= 12289)
+                            {
+                              if (v16 == 12288)
+                              {
+                                if (v15 != 8)
+                                {
+                                  sub_100020530("ASPMSPParseBufferToCxt: readStageNumOfFails200(12288): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", v15);
+                                }
+
+                                if (v15 >= 0x10)
+                                {
+                                  v32 = 1;
+                                }
+
+                                else
+                                {
+                                  v32 = v15 >> 3;
+                                }
+
+                                if (sub_1000189BC(a1, "readStageNumOfFails200", v6, 8u, v32))
+                                {
+                                  goto LABEL_1372;
+                                }
+
+                                sub_100020530("ASPMSPParseBufferToCxt: readStageNumOfFails200(12288): Error adding 1 elements to context");
+                              }
+
+                              else
+                              {
+                                if (v15 != 8)
+                                {
+                                  sub_100020530("ASPMSPParseBufferToCxt: initialReadStage200(12289): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", v15);
+                                }
+
+                                if (v15 >= 0x10)
+                                {
+                                  v32 = 1;
+                                }
+
+                                else
+                                {
+                                  v32 = v15 >> 3;
+                                }
+
+                                if (sub_1000189BC(a1, "initialReadStage200", v6, 8u, v32))
+                                {
+                                  goto LABEL_1372;
+                                }
+
+                                sub_100020530("ASPMSPParseBufferToCxt: initialReadStage200(12289): Error adding 1 elements to context");
+                              }
+                            }
+
+                            else if (v16 == 12290)
+                            {
+                              if (v15 != 8)
+                              {
+                                sub_100020530("ASPMSPParseBufferToCxt: initialReadStage201(12290): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", v15);
+                              }
+
+                              if (v15 >= 0x10)
+                              {
+                                v32 = 1;
+                              }
+
+                              else
+                              {
+                                v32 = v15 >> 3;
+                              }
+
+                              if (sub_1000189BC(a1, "initialReadStage201", v6, 8u, v32))
+                              {
+                                goto LABEL_1372;
+                              }
+
+                              sub_100020530("ASPMSPParseBufferToCxt: initialReadStage201(12290): Error adding 1 elements to context");
+                            }
+
+                            else if (v16 == 12291)
+                            {
+                              if (v15 != 8)
+                              {
+                                sub_100020530("ASPMSPParseBufferToCxt: readStageNumOfFails201(12291): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", v15);
+                              }
+
+                              if (v15 >= 0x10)
+                              {
+                                v32 = 1;
+                              }
+
+                              else
+                              {
+                                v32 = v15 >> 3;
+                              }
+
+                              if (sub_1000189BC(a1, "readStageNumOfFails201", v6, 8u, v32))
+                              {
+                                goto LABEL_1372;
+                              }
+
+                              sub_100020530("ASPMSPParseBufferToCxt: readStageNumOfFails201(12291): Error adding 1 elements to context");
+                            }
+
+                            else
+                            {
+                              if (v15 != 8)
+                              {
+                                sub_100020530("ASPMSPParseBufferToCxt: initialReadStage202(12292): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", v15);
+                              }
+
+                              if (v15 >= 0x10)
+                              {
+                                v32 = 1;
+                              }
+
+                              else
+                              {
+                                v32 = v15 >> 3;
+                              }
+
+                              if (sub_1000189BC(a1, "initialReadStage202", v6, 8u, v32))
+                              {
+                                goto LABEL_1372;
+                              }
+
+                              sub_100020530("ASPMSPParseBufferToCxt: initialReadStage202(12292): Error adding 1 elements to context");
+                            }
+                          }
+
+                          else if (v16 > 12295)
+                          {
+                            switch(v16)
+                            {
+                              case 12296:
+                                if (v15 != 8)
+                                {
+                                  sub_100020530("ASPMSPParseBufferToCxt: initialReadStage204(12296): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", v15);
+                                }
+
+                                if (v15 >= 0x10)
+                                {
+                                  v32 = 1;
+                                }
+
+                                else
+                                {
+                                  v32 = v15 >> 3;
+                                }
+
+                                if (sub_1000189BC(a1, "initialReadStage204", v6, 8u, v32))
+                                {
+                                  goto LABEL_1372;
+                                }
+
+                                sub_100020530("ASPMSPParseBufferToCxt: initialReadStage204(12296): Error adding 1 elements to context");
+                                break;
+                              case 12297:
+                                if (v15 != 8)
+                                {
+                                  sub_100020530("ASPMSPParseBufferToCxt: initialReadStage205(12297): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", v15);
+                                }
+
+                                if (v15 >= 0x10)
+                                {
+                                  v32 = 1;
+                                }
+
+                                else
+                                {
+                                  v32 = v15 >> 3;
+                                }
+
+                                if (sub_1000189BC(a1, "initialReadStage205", v6, 8u, v32))
+                                {
+                                  goto LABEL_1372;
+                                }
+
+                                sub_100020530("ASPMSPParseBufferToCxt: initialReadStage205(12297): Error adding 1 elements to context");
+                                break;
+                              case 12298:
+                                if (v15 != 8)
+                                {
+                                  sub_100020530("ASPMSPParseBufferToCxt: initialReadStage206(12298): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", v15);
+                                }
+
+                                if (v15 >= 0x10)
+                                {
+                                  v32 = 1;
+                                }
+
+                                else
+                                {
+                                  v32 = v15 >> 3;
+                                }
+
+                                if (sub_1000189BC(a1, "initialReadStage206", v6, 8u, v32))
+                                {
+                                  goto LABEL_1372;
+                                }
+
+                                sub_100020530("ASPMSPParseBufferToCxt: initialReadStage206(12298): Error adding 1 elements to context");
+                                break;
+                              default:
+LABEL_1826:
+                                if (v16 >= 0x4000)
+                                {
+                                  if (v16 <= 16395)
+                                  {
+                                    switch(v16)
+                                    {
+                                      case 16384:
+                                        if (v15 != 8)
+                                        {
+                                          sub_100020530("ASPMSPParseBufferToCxt: fw_version_identifier(16384): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", v15);
+                                        }
+
+                                        if (v15 >= 0x10)
+                                        {
+                                          v32 = 1;
+                                        }
+
+                                        else
+                                        {
+                                          v32 = v15 >> 3;
+                                        }
+
+                                        if (sub_1000189BC(a1, "fw_version_identifier", v6, 8u, v32))
+                                        {
+                                          goto LABEL_1372;
+                                        }
+
+                                        sub_100020530("ASPMSPParseBufferToCxt: fw_version_identifier(16384): Error adding 1 elements to context");
+                                        break;
+                                      case 16394:
+                                        if (v15 != 4)
+                                        {
+                                          sub_100020530("ASPMSPParseBufferToCxt: coge_cache_hit_read(16394): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                                        }
+
+                                        if (v15 >= 8)
+                                        {
+                                          v32 = 1;
+                                        }
+
+                                        else
+                                        {
+                                          v32 = v15 >> 2;
+                                        }
+
+                                        if (sub_1000189BC(a1, "coge_cache_hit_read", v6, 4u, v32))
+                                        {
+                                          goto LABEL_1372;
+                                        }
+
+                                        sub_100020530("ASPMSPParseBufferToCxt: coge_cache_hit_read(16394): Error adding 1 elements to context");
+                                        break;
+                                      case 16395:
+                                        if (v15 != 4)
+                                        {
+                                          sub_100020530("ASPMSPParseBufferToCxt: coge_cache_miss_read(16395): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                                        }
+
+                                        if (v15 >= 8)
+                                        {
+                                          v32 = 1;
+                                        }
+
+                                        else
+                                        {
+                                          v32 = v15 >> 2;
+                                        }
+
+                                        if (sub_1000189BC(a1, "coge_cache_miss_read", v6, 4u, v32))
+                                        {
+                                          goto LABEL_1372;
+                                        }
+
+                                        sub_100020530("ASPMSPParseBufferToCxt: coge_cache_miss_read(16395): Error adding 1 elements to context");
+                                        break;
+                                      default:
+                                        goto LABEL_1373;
+                                    }
+                                  }
+
+                                  else if (v16 > 16397)
+                                  {
+                                    if (v16 == 16398)
+                                    {
+                                      if (v15 != 4)
+                                      {
+                                        sub_100020530("ASPMSPParseBufferToCxt: coge_lru_num_of_replacement(16398): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                                      }
+
+                                      if (v15 >= 8)
+                                      {
+                                        v32 = 1;
+                                      }
+
+                                      else
+                                      {
+                                        v32 = v15 >> 2;
+                                      }
+
+                                      if (sub_1000189BC(a1, "coge_lru_num_of_replacement", v6, 4u, v32))
+                                      {
+                                        goto LABEL_1372;
+                                      }
+
+                                      sub_100020530("ASPMSPParseBufferToCxt: coge_lru_num_of_replacement(16398): Error adding 1 elements to context");
+                                    }
+
+                                    else
+                                    {
+                                      if (v16 != 16399)
+                                      {
+                                        goto LABEL_1373;
+                                      }
+
+                                      if (v15 != 4)
+                                      {
+                                        sub_100020530("ASPMSPParseBufferToCxt: coge_lru_num_of_searches(16399): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                                      }
+
+                                      if (v15 >= 8)
+                                      {
+                                        v32 = 1;
+                                      }
+
+                                      else
+                                      {
+                                        v32 = v15 >> 2;
+                                      }
+
+                                      if (sub_1000189BC(a1, "coge_lru_num_of_searches", v6, 4u, v32))
+                                      {
+                                        goto LABEL_1372;
+                                      }
+
+                                      sub_100020530("ASPMSPParseBufferToCxt: coge_lru_num_of_searches(16399): Error adding 1 elements to context");
+                                    }
+                                  }
+
+                                  else if (v16 == 16396)
+                                  {
+                                    if (v15 != 4)
+                                    {
+                                      sub_100020530("ASPMSPParseBufferToCxt: coge_cache_hit_program(16396): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                                    }
+
+                                    if (v15 >= 8)
+                                    {
+                                      v32 = 1;
+                                    }
+
+                                    else
+                                    {
+                                      v32 = v15 >> 2;
+                                    }
+
+                                    if (sub_1000189BC(a1, "coge_cache_hit_program", v6, 4u, v32))
+                                    {
+                                      goto LABEL_1372;
+                                    }
+
+                                    sub_100020530("ASPMSPParseBufferToCxt: coge_cache_hit_program(16396): Error adding 1 elements to context");
+                                  }
+
+                                  else
+                                  {
+                                    if (v15 != 4)
+                                    {
+                                      sub_100020530("ASPMSPParseBufferToCxt: coge_cache_miss_program(16397): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                                    }
+
+                                    if (v15 >= 8)
+                                    {
+                                      v32 = 1;
+                                    }
+
+                                    else
+                                    {
+                                      v32 = v15 >> 2;
+                                    }
+
+                                    if (sub_1000189BC(a1, "coge_cache_miss_program", v6, 4u, v32))
+                                    {
+                                      goto LABEL_1372;
+                                    }
+
+                                    sub_100020530("ASPMSPParseBufferToCxt: coge_cache_miss_program(16397): Error adding 1 elements to context");
+                                  }
+                                }
+
+                                else
+                                {
+                                  v8 = "avg_rd_window_size";
+                                  v9 = "ASPMSPParseBufferToCxt: avg_rd_window_size(8193): cfg 5 elements; (5*4) cfg bytes != (%d) buffer bytes";
+                                  v11 = "ASPMSPParseBufferToCxt: num_zq_failures(8194): Error adding 1 elements to context";
+                                  v10 = "num_zq_failures";
+                                  v12 = "ASPMSPParseBufferToCxt: num_zq_failures(8194): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes";
+                                  v13 = "ASPMSPParseBufferToCxt: lower_die_temperature(8195): Error adding 16 elements to context";
+                                  switch(v16)
+                                  {
+                                    case 12299:
+                                      if (v15 != 8)
+                                      {
+                                        sub_100020530("ASPMSPParseBufferToCxt: initialReadStage207(12299): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", v15);
+                                      }
+
+                                      if (v15 >= 0x10)
+                                      {
+                                        v22 = 1;
+                                      }
+
+                                      else
+                                      {
+                                        v22 = v15 >> 3;
+                                      }
+
+                                      if (sub_1000189BC(a1, "initialReadStage207", v6, 8u, v22))
+                                      {
+                                        goto LABEL_462;
+                                      }
+
+                                      sub_100020530("ASPMSPParseBufferToCxt: initialReadStage207(12299): Error adding 1 elements to context");
+                                      break;
+                                    case 12300:
+                                      if (v15 != 8)
+                                      {
+                                        sub_100020530("ASPMSPParseBufferToCxt: initialReadStage208(12300): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", v15);
+                                      }
+
+                                      if (v15 >= 0x10)
+                                      {
+                                        v22 = 1;
+                                      }
+
+                                      else
+                                      {
+                                        v22 = v15 >> 3;
+                                      }
+
+                                      if (sub_1000189BC(a1, "initialReadStage208", v6, 8u, v22))
+                                      {
+                                        goto LABEL_462;
+                                      }
+
+                                      sub_100020530("ASPMSPParseBufferToCxt: initialReadStage208(12300): Error adding 1 elements to context");
+                                      break;
+                                    case 12301:
+                                      if (v15 != 8)
+                                      {
+                                        sub_100020530("ASPMSPParseBufferToCxt: initialReadStage209(12301): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", v15);
+                                      }
+
+                                      if (v15 >= 0x10)
+                                      {
+                                        v22 = 1;
+                                      }
+
+                                      else
+                                      {
+                                        v22 = v15 >> 3;
+                                      }
+
+                                      if (sub_1000189BC(a1, "initialReadStage209", v6, 8u, v22))
+                                      {
+                                        goto LABEL_462;
+                                      }
+
+                                      sub_100020530("ASPMSPParseBufferToCxt: initialReadStage209(12301): Error adding 1 elements to context");
+                                      break;
+                                    case 12302:
+                                      if (v15 != 8)
+                                      {
+                                        sub_100020530("ASPMSPParseBufferToCxt: readStage200(12302): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", v15);
+                                      }
+
+                                      if (v15 >= 0x10)
+                                      {
+                                        v22 = 1;
+                                      }
+
+                                      else
+                                      {
+                                        v22 = v15 >> 3;
+                                      }
+
+                                      if (sub_1000189BC(a1, "readStage200", v6, 8u, v22))
+                                      {
+                                        goto LABEL_462;
+                                      }
+
+                                      sub_100020530("ASPMSPParseBufferToCxt: readStage200(12302): Error adding 1 elements to context");
+                                      break;
+                                    case 12303:
+                                      if (v15 != 32)
+                                      {
+                                        sub_100020530("ASPMSPParseBufferToCxt: readStage201(12303): cfg 4 elements; (4*8) cfg bytes != (%d) buffer bytes", v15);
+                                      }
+
+                                      if (v15 >= 0x28)
+                                      {
+                                        v22 = 4;
+                                      }
+
+                                      else
+                                      {
+                                        v22 = v15 >> 3;
+                                      }
+
+                                      if (sub_1000189BC(a1, "readStage201", v6, 8u, v22))
+                                      {
+                                        goto LABEL_462;
+                                      }
+
+                                      sub_100020530("ASPMSPParseBufferToCxt: readStage201(12303): Error adding 4 elements to context");
+                                      break;
+                                    case 12304:
+                                      if (v15 != 32)
+                                      {
+                                        sub_100020530("ASPMSPParseBufferToCxt: readStage202(12304): cfg 4 elements; (4*8) cfg bytes != (%d) buffer bytes", v15);
+                                      }
+
+                                      if (v15 >= 0x28)
+                                      {
+                                        v22 = 4;
+                                      }
+
+                                      else
+                                      {
+                                        v22 = v15 >> 3;
+                                      }
+
+                                      if (sub_1000189BC(a1, "readStage202", v6, 8u, v22))
+                                      {
+                                        goto LABEL_462;
+                                      }
+
+                                      sub_100020530("ASPMSPParseBufferToCxt: readStage202(12304): Error adding 4 elements to context");
+                                      break;
+                                    case 12305:
+                                      if (v15 != 8)
+                                      {
+                                        sub_100020530("ASPMSPParseBufferToCxt: initialReadStage210(12305): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", v15);
+                                      }
+
+                                      if (v15 >= 0x10)
+                                      {
+                                        v22 = 1;
+                                      }
+
+                                      else
+                                      {
+                                        v22 = v15 >> 3;
+                                      }
+
+                                      if (sub_1000189BC(a1, "initialReadStage210", v6, 8u, v22))
+                                      {
+                                        goto LABEL_462;
+                                      }
+
+                                      sub_100020530("ASPMSPParseBufferToCxt: initialReadStage210(12305): Error adding 1 elements to context");
+                                      break;
+                                    case 12306:
+                                      if (v15 != 8)
+                                      {
+                                        sub_100020530("ASPMSPParseBufferToCxt: initialReadStage211(12306): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", v15);
+                                      }
+
+                                      if (v15 >= 0x10)
+                                      {
+                                        v22 = 1;
+                                      }
+
+                                      else
+                                      {
+                                        v22 = v15 >> 3;
+                                      }
+
+                                      if (sub_1000189BC(a1, "initialReadStage211", v6, 8u, v22))
+                                      {
+                                        goto LABEL_462;
+                                      }
+
+                                      sub_100020530("ASPMSPParseBufferToCxt: initialReadStage211(12306): Error adding 1 elements to context");
+                                      break;
+                                    case 12307:
+                                      if (v15 != 8)
+                                      {
+                                        sub_100020530("ASPMSPParseBufferToCxt: readStage203(12307): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", v15);
+                                      }
+
+                                      if (v15 >= 0x10)
+                                      {
+                                        v22 = 1;
+                                      }
+
+                                      else
+                                      {
+                                        v22 = v15 >> 3;
+                                      }
+
+                                      if (sub_1000189BC(a1, "readStage203", v6, 8u, v22))
+                                      {
+                                        goto LABEL_462;
+                                      }
+
+                                      sub_100020530("ASPMSPParseBufferToCxt: readStage203(12307): Error adding 1 elements to context");
+                                      break;
+                                    case 12308:
+                                      if (v15 != 8)
+                                      {
+                                        sub_100020530("ASPMSPParseBufferToCxt: readStage204(12308): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", v15);
+                                      }
+
+                                      if (v15 >= 0x10)
+                                      {
+                                        v22 = 1;
+                                      }
+
+                                      else
+                                      {
+                                        v22 = v15 >> 3;
+                                      }
+
+                                      if (sub_1000189BC(a1, "readStage204", v6, 8u, v22))
+                                      {
+                                        goto LABEL_462;
+                                      }
+
+                                      sub_100020530("ASPMSPParseBufferToCxt: readStage204(12308): Error adding 1 elements to context");
+                                      break;
+                                    case 12309:
+                                      if (v15 != 8)
+                                      {
+                                        sub_100020530("ASPMSPParseBufferToCxt: readStage205(12309): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", v15);
+                                      }
+
+                                      if (v15 >= 0x10)
+                                      {
+                                        v22 = 1;
+                                      }
+
+                                      else
+                                      {
+                                        v22 = v15 >> 3;
+                                      }
+
+                                      if (sub_1000189BC(a1, "readStage205", v6, 8u, v22))
+                                      {
+                                        goto LABEL_462;
+                                      }
+
+                                      sub_100020530("ASPMSPParseBufferToCxt: readStage205(12309): Error adding 1 elements to context");
+                                      break;
+                                    case 12310:
+                                      if (v15 != 8)
+                                      {
+                                        sub_100020530("ASPMSPParseBufferToCxt: readStage206(12310): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", v15);
+                                      }
+
+                                      if (v15 >= 0x10)
+                                      {
+                                        v22 = 1;
+                                      }
+
+                                      else
+                                      {
+                                        v22 = v15 >> 3;
+                                      }
+
+                                      if (sub_1000189BC(a1, "readStage206", v6, 8u, v22))
+                                      {
+                                        goto LABEL_462;
+                                      }
+
+                                      sub_100020530("ASPMSPParseBufferToCxt: readStage206(12310): Error adding 1 elements to context");
+                                      break;
+                                    case 12311:
+                                      if (v15 != 8)
+                                      {
+                                        sub_100020530("ASPMSPParseBufferToCxt: readStage207(12311): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", v15);
+                                      }
+
+                                      if (v15 >= 0x10)
+                                      {
+                                        v22 = 1;
+                                      }
+
+                                      else
+                                      {
+                                        v22 = v15 >> 3;
+                                      }
+
+                                      if (sub_1000189BC(a1, "readStage207", v6, 8u, v22))
+                                      {
+                                        goto LABEL_462;
+                                      }
+
+                                      sub_100020530("ASPMSPParseBufferToCxt: readStage207(12311): Error adding 1 elements to context");
+                                      break;
+                                    case 12312:
+                                      if (v15 != 8)
+                                      {
+                                        sub_100020530("ASPMSPParseBufferToCxt: readStage208(12312): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", v15);
+                                      }
+
+                                      if (v15 >= 0x10)
+                                      {
+                                        v22 = 1;
+                                      }
+
+                                      else
+                                      {
+                                        v22 = v15 >> 3;
+                                      }
+
+                                      if (sub_1000189BC(a1, "readStage208", v6, 8u, v22))
+                                      {
+                                        goto LABEL_462;
+                                      }
+
+                                      sub_100020530("ASPMSPParseBufferToCxt: readStage208(12312): Error adding 1 elements to context");
+                                      break;
+                                    case 12313:
+                                      if (v15 != 32)
+                                      {
+                                        sub_100020530("ASPMSPParseBufferToCxt: readStage209(12313): cfg 4 elements; (4*8) cfg bytes != (%d) buffer bytes", v15);
+                                      }
+
+                                      if (v15 >= 0x28)
+                                      {
+                                        v22 = 4;
+                                      }
+
+                                      else
+                                      {
+                                        v22 = v15 >> 3;
+                                      }
+
+                                      if (sub_1000189BC(a1, "readStage209", v6, 8u, v22))
+                                      {
+                                        goto LABEL_462;
+                                      }
+
+                                      sub_100020530("ASPMSPParseBufferToCxt: readStage209(12313): Error adding 4 elements to context");
+                                      break;
+                                    case 12314:
+                                      if (v15 != 32)
+                                      {
+                                        sub_100020530("ASPMSPParseBufferToCxt: readStage210(12314): cfg 4 elements; (4*8) cfg bytes != (%d) buffer bytes", v15);
+                                      }
+
+                                      if (v15 >= 0x28)
+                                      {
+                                        v22 = 4;
+                                      }
+
+                                      else
+                                      {
+                                        v22 = v15 >> 3;
+                                      }
+
+                                      if (sub_1000189BC(a1, "readStage210", v6, 8u, v22))
+                                      {
+                                        goto LABEL_462;
+                                      }
+
+                                      sub_100020530("ASPMSPParseBufferToCxt: readStage210(12314): Error adding 4 elements to context");
+                                      break;
+                                    case 12315:
+                                      if (v15 != 8)
+                                      {
+                                        sub_100020530("ASPMSPParseBufferToCxt: initialReadStage212(12315): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", v15);
+                                      }
+
+                                      if (v15 >= 0x10)
+                                      {
+                                        v22 = 1;
+                                      }
+
+                                      else
+                                      {
+                                        v22 = v15 >> 3;
+                                      }
+
+                                      if (sub_1000189BC(a1, "initialReadStage212", v6, 8u, v22))
+                                      {
+                                        goto LABEL_462;
+                                      }
+
+                                      sub_100020530("ASPMSPParseBufferToCxt: initialReadStage212(12315): Error adding 1 elements to context");
+                                      break;
+                                    case 12316:
+                                      if (v15 != 8)
+                                      {
+                                        sub_100020530("ASPMSPParseBufferToCxt: initialReadStage213(12316): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", v15);
+                                      }
+
+                                      if (v15 >= 0x10)
+                                      {
+                                        v22 = 1;
+                                      }
+
+                                      else
+                                      {
+                                        v22 = v15 >> 3;
+                                      }
+
+                                      if (sub_1000189BC(a1, "initialReadStage213", v6, 8u, v22))
+                                      {
+                                        goto LABEL_462;
+                                      }
+
+                                      sub_100020530("ASPMSPParseBufferToCxt: initialReadStage213(12316): Error adding 1 elements to context");
+                                      break;
+                                    case 12317:
+                                      if (v15 != 8)
+                                      {
+                                        sub_100020530("ASPMSPParseBufferToCxt: readStage211(12317): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", v15);
+                                      }
+
+                                      if (v15 >= 0x10)
+                                      {
+                                        v22 = 1;
+                                      }
+
+                                      else
+                                      {
+                                        v22 = v15 >> 3;
+                                      }
+
+                                      if (sub_1000189BC(a1, "readStage211", v6, 8u, v22))
+                                      {
+                                        goto LABEL_462;
+                                      }
+
+                                      sub_100020530("ASPMSPParseBufferToCxt: readStage211(12317): Error adding 1 elements to context");
+                                      break;
+                                    case 12318:
+                                      if (v15 != 8)
+                                      {
+                                        sub_100020530("ASPMSPParseBufferToCxt: readStage212(12318): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", v15);
+                                      }
+
+                                      if (v15 >= 0x10)
+                                      {
+                                        v22 = 1;
+                                      }
+
+                                      else
+                                      {
+                                        v22 = v15 >> 3;
+                                      }
+
+                                      if (sub_1000189BC(a1, "readStage212", v6, 8u, v22))
+                                      {
+                                        goto LABEL_462;
+                                      }
+
+                                      sub_100020530("ASPMSPParseBufferToCxt: readStage212(12318): Error adding 1 elements to context");
+                                      break;
+                                    case 12319:
+                                      if (v15 != 8)
+                                      {
+                                        sub_100020530("ASPMSPParseBufferToCxt: readStage213(12319): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", v15);
+                                      }
+
+                                      if (v15 >= 0x10)
+                                      {
+                                        v22 = 1;
+                                      }
+
+                                      else
+                                      {
+                                        v22 = v15 >> 3;
+                                      }
+
+                                      if (sub_1000189BC(a1, "readStage213", v6, 8u, v22))
+                                      {
+                                        goto LABEL_462;
+                                      }
+
+                                      sub_100020530("ASPMSPParseBufferToCxt: readStage213(12319): Error adding 1 elements to context");
+                                      break;
+                                    case 12320:
+                                      if (v15 != 8)
+                                      {
+                                        sub_100020530("ASPMSPParseBufferToCxt: readStage214(12320): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", v15);
+                                      }
+
+                                      if (v15 >= 0x10)
+                                      {
+                                        v22 = 1;
+                                      }
+
+                                      else
+                                      {
+                                        v22 = v15 >> 3;
+                                      }
+
+                                      if (sub_1000189BC(a1, "readStage214", v6, 8u, v22))
+                                      {
+                                        goto LABEL_462;
+                                      }
+
+                                      sub_100020530("ASPMSPParseBufferToCxt: readStage214(12320): Error adding 1 elements to context");
+                                      break;
+                                    case 12321:
+                                      if (v15 != 8)
+                                      {
+                                        sub_100020530("ASPMSPParseBufferToCxt: readStage215(12321): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", v15);
+                                      }
+
+                                      if (v15 >= 0x10)
+                                      {
+                                        v22 = 1;
+                                      }
+
+                                      else
+                                      {
+                                        v22 = v15 >> 3;
+                                      }
+
+                                      if (sub_1000189BC(a1, "readStage215", v6, 8u, v22))
+                                      {
+                                        goto LABEL_462;
+                                      }
+
+                                      sub_100020530("ASPMSPParseBufferToCxt: readStage215(12321): Error adding 1 elements to context");
+                                      break;
+                                    case 12322:
+                                      if (v15 != 8)
+                                      {
+                                        sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter142(12322): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", v15);
+                                      }
+
+                                      if (v15 >= 0x10)
+                                      {
+                                        v22 = 1;
+                                      }
+
+                                      else
+                                      {
+                                        v22 = v15 >> 3;
+                                      }
+
+                                      if (sub_1000189BC(a1, "dspExceptionParameter142", v6, 8u, v22))
+                                      {
+                                        goto LABEL_462;
+                                      }
+
+                                      sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter142(12322): Error adding 1 elements to context");
+                                      break;
+                                    case 12323:
+                                      if (v15 != 8)
+                                      {
+                                        sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter143(12323): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", v15);
+                                      }
+
+                                      if (v15 >= 0x10)
+                                      {
+                                        v22 = 1;
+                                      }
+
+                                      else
+                                      {
+                                        v22 = v15 >> 3;
+                                      }
+
+                                      if (sub_1000189BC(a1, "dspExceptionParameter143", v6, 8u, v22))
+                                      {
+                                        goto LABEL_462;
+                                      }
+
+                                      sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter143(12323): Error adding 1 elements to context");
+                                      break;
+                                    case 12324:
+                                      if (v15 != 8)
+                                      {
+                                        sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter144(12324): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", v15);
+                                      }
+
+                                      if (v15 >= 0x10)
+                                      {
+                                        v22 = 1;
+                                      }
+
+                                      else
+                                      {
+                                        v22 = v15 >> 3;
+                                      }
+
+                                      if (sub_1000189BC(a1, "dspExceptionParameter144", v6, 8u, v22))
+                                      {
+                                        goto LABEL_462;
+                                      }
+
+                                      sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter144(12324): Error adding 1 elements to context");
+                                      break;
+                                    case 12325:
+                                      if (v15 != 8)
+                                      {
+                                        sub_100020530("ASPMSPParseBufferToCxt: initialReadStageParameter1(12325): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", v15);
+                                      }
+
+                                      if (v15 >= 0x10)
+                                      {
+                                        v22 = 1;
+                                      }
+
+                                      else
+                                      {
+                                        v22 = v15 >> 3;
+                                      }
+
+                                      if (sub_1000189BC(a1, "initialReadStageParameter1", v6, 8u, v22))
+                                      {
+                                        goto LABEL_462;
+                                      }
+
+                                      sub_100020530("ASPMSPParseBufferToCxt: initialReadStageParameter1(12325): Error adding 1 elements to context");
+                                      break;
+                                    case 12326:
+                                      if (v15 != 8)
+                                      {
+                                        sub_100020530("ASPMSPParseBufferToCxt: initialReadStageParameter2(12326): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", v15);
+                                      }
+
+                                      if (v15 >= 0x10)
+                                      {
+                                        v22 = 1;
+                                      }
+
+                                      else
+                                      {
+                                        v22 = v15 >> 3;
+                                      }
+
+                                      if (sub_1000189BC(a1, "initialReadStageParameter2", v6, 8u, v22))
+                                      {
+                                        goto LABEL_462;
+                                      }
+
+                                      sub_100020530("ASPMSPParseBufferToCxt: initialReadStageParameter2(12326): Error adding 1 elements to context");
+                                      break;
+                                    case 12331:
+                                      if (v15 != 20)
+                                      {
+                                        sub_100020530("ASPMSPParseBufferToCxt: initialReadStage11(12331): cfg 5 elements; (5*4) cfg bytes != (%d) buffer bytes", v15);
+                                      }
+
+                                      if (v15 >= 0x18)
+                                      {
+                                        v22 = 5;
+                                      }
+
+                                      else
+                                      {
+                                        v22 = v15 >> 2;
+                                      }
+
+                                      if (sub_1000189BC(a1, "initialReadStage11_", v6, 4u, v22))
+                                      {
+                                        goto LABEL_462;
+                                      }
+
+                                      sub_100020530("ASPMSPParseBufferToCxt: initialReadStage11(12331): Error adding 5 elements to context");
+                                      break;
+                                    case 12332:
+                                      if (v15 != 32)
+                                      {
+                                        sub_100020530("ASPMSPParseBufferToCxt: initialReadStage12(12332): cfg 8 elements; (8*4) cfg bytes != (%d) buffer bytes", v15);
+                                      }
+
+                                      if (v15 >= 0x24)
+                                      {
+                                        v22 = 8;
+                                      }
+
+                                      else
+                                      {
+                                        v22 = v15 >> 2;
+                                      }
+
+                                      if (sub_1000189BC(a1, "initialReadStage12_", v6, 4u, v22))
+                                      {
+                                        goto LABEL_462;
+                                      }
+
+                                      sub_100020530("ASPMSPParseBufferToCxt: initialReadStage12(12332): Error adding 8 elements to context");
+                                      break;
+                                    case 12333:
+                                      if (v15 != 24)
+                                      {
+                                        sub_100020530("ASPMSPParseBufferToCxt: initialReadStage13(12333): cfg 6 elements; (6*4) cfg bytes != (%d) buffer bytes", v15);
+                                      }
+
+                                      if (v15 >= 0x1C)
+                                      {
+                                        v22 = 6;
+                                      }
+
+                                      else
+                                      {
+                                        v22 = v15 >> 2;
+                                      }
+
+                                      if (sub_1000189BC(a1, "initialReadStage13_", v6, 4u, v22))
+                                      {
+                                        goto LABEL_462;
+                                      }
+
+                                      sub_100020530("ASPMSPParseBufferToCxt: initialReadStage13(12333): Error adding 6 elements to context");
+                                      break;
+                                    default:
+                                      goto LABEL_463;
+                                  }
+                                }
+
+                                break;
+                            }
+                          }
+
+                          else if (v16 == 12293)
+                          {
+                            if (v15 != 8)
+                            {
+                              sub_100020530("ASPMSPParseBufferToCxt: initialReadStage203(12293): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", v15);
+                            }
+
+                            if (v15 >= 0x10)
+                            {
+                              v32 = 1;
+                            }
+
+                            else
+                            {
+                              v32 = v15 >> 3;
+                            }
+
+                            if (sub_1000189BC(a1, "initialReadStage203", v6, 8u, v32))
+                            {
+                              goto LABEL_1372;
+                            }
+
+                            sub_100020530("ASPMSPParseBufferToCxt: initialReadStage203(12293): Error adding 1 elements to context");
+                          }
+
+                          else if (v16 == 12294)
+                          {
+                            if (v15 != 8)
+                            {
+                              sub_100020530("ASPMSPParseBufferToCxt: readStageNumOfFails202(12294): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", v15);
+                            }
+
+                            if (v15 >= 0x10)
+                            {
+                              v32 = 1;
+                            }
+
+                            else
+                            {
+                              v32 = v15 >> 3;
+                            }
+
+                            if (sub_1000189BC(a1, "readStageNumOfFails202", v6, 8u, v32))
+                            {
+                              goto LABEL_1372;
+                            }
+
+                            sub_100020530("ASPMSPParseBufferToCxt: readStageNumOfFails202(12294): Error adding 1 elements to context");
+                          }
+
+                          else
+                          {
+                            if (v15 != 8)
+                            {
+                              sub_100020530("ASPMSPParseBufferToCxt: readStageNumOfFails203(12295): cfg 1 elements; (1*8) cfg bytes != (%d) buffer bytes", v15);
+                            }
+
+                            if (v15 >= 0x10)
+                            {
+                              v32 = 1;
+                            }
+
+                            else
+                            {
+                              v32 = v15 >> 3;
+                            }
+
+                            if (sub_1000189BC(a1, "readStageNumOfFails203", v6, 8u, v32))
+                            {
+                              goto LABEL_1372;
+                            }
+
+                            sub_100020530("ASPMSPParseBufferToCxt: readStageNumOfFails203(12295): Error adding 1 elements to context");
+                          }
+                        }
+
+                        else
+                        {
+                          switch(v16)
+                          {
+                            case 8208:
+                              if (v15 != 4)
+                              {
+                                sub_100020530("ASPMSPParseBufferToCxt: boot_block_read_failures(8208): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                              }
+
+                              if (v15 >= 8)
+                              {
+                                v32 = 1;
+                              }
+
+                              else
+                              {
+                                v32 = v15 >> 2;
+                              }
+
+                              if (sub_1000189BC(a1, "boot_block_read_failures", v6, 4u, v32))
+                              {
+                                goto LABEL_1372;
+                              }
+
+                              sub_100020530("ASPMSPParseBufferToCxt: boot_block_read_failures(8208): Error adding 1 elements to context");
+                              break;
+                            case 8209:
+                              if (v15 != 4)
+                              {
+                                sub_100020530("ASPMSPParseBufferToCxt: boot_block_refresh(8209): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                              }
+
+                              if (v15 >= 8)
+                              {
+                                v32 = 1;
+                              }
+
+                              else
+                              {
+                                v32 = v15 >> 2;
+                              }
+
+                              if (sub_1000189BC(a1, "boot_block_refresh", v6, 4u, v32))
+                              {
+                                goto LABEL_1372;
+                              }
+
+                              sub_100020530("ASPMSPParseBufferToCxt: boot_block_refresh(8209): Error adding 1 elements to context");
+                              break;
+                            case 8210:
+                              if (v15 != 4)
+                              {
+                                sub_100020530("ASPMSPParseBufferToCxt: boot_block_convert_to_main(8210): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                              }
+
+                              if (v15 >= 8)
+                              {
+                                v32 = 1;
+                              }
+
+                              else
+                              {
+                                v32 = v15 >> 2;
+                              }
+
+                              if (sub_1000189BC(a1, "boot_block_convert_to_main", v6, 4u, v32))
+                              {
+                                goto LABEL_1372;
+                              }
+
+                              sub_100020530("ASPMSPParseBufferToCxt: boot_block_convert_to_main(8210): Error adding 1 elements to context");
+                              break;
+                            case 8211:
+                              if (v15 != 4)
+                              {
+                                sub_100020530("ASPMSPParseBufferToCxt: boot_block_read_source_changed(8211): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                              }
+
+                              if (v15 >= 8)
+                              {
+                                v32 = 1;
+                              }
+
+                              else
+                              {
+                                v32 = v15 >> 2;
+                              }
+
+                              if (sub_1000189BC(a1, "boot_block_read_source_changed", v6, 4u, v32))
+                              {
+                                goto LABEL_1372;
+                              }
+
+                              sub_100020530("ASPMSPParseBufferToCxt: boot_block_read_source_changed(8211): Error adding 1 elements to context");
+                              break;
+                            case 8219:
+                              if (v15 != 4)
+                              {
+                                sub_100020530("ASPMSPParseBufferToCxt: number_of_dcc_failures(8219): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                              }
+
+                              if (v15 >= 8)
+                              {
+                                v32 = 1;
+                              }
+
+                              else
+                              {
+                                v32 = v15 >> 2;
+                              }
+
+                              if (sub_1000189BC(a1, "number_of_dcc_failures", v6, 4u, v32))
+                              {
+                                goto LABEL_1372;
+                              }
+
+                              sub_100020530("ASPMSPParseBufferToCxt: number_of_dcc_failures(8219): Error adding 1 elements to context");
+                              break;
+                            case 8234:
+                              if (v15 != 4)
+                              {
+                                sub_100020530("ASPMSPParseBufferToCxt: msp_number_sram_flips(8234): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                              }
+
+                              if (v15 >= 8)
+                              {
+                                v32 = 1;
+                              }
+
+                              else
+                              {
+                                v32 = v15 >> 2;
+                              }
+
+                              if (sub_1000189BC(a1, "msp_number_sram_flips", v6, 4u, v32))
+                              {
+                                goto LABEL_1372;
+                              }
+
+                              sub_100020530("ASPMSPParseBufferToCxt: msp_number_sram_flips(8234): Error adding 1 elements to context");
+                              break;
+                            case 8250:
+                              if (v15 != 120)
+                              {
+                                sub_100020530("ASPMSPParseBufferToCxt: lower_die_temperature(8250): cfg 30 elements; (30*4) cfg bytes != (%d) buffer bytes", v15);
+                              }
+
+                              if (v15 >= 0x7C)
+                              {
+                                v32 = 30;
+                              }
+
+                              else
+                              {
+                                v32 = v15 >> 2;
+                              }
+
+                              if (sub_1000189BC(a1, "lower_die_temperature", v6, 4u, v32))
+                              {
+                                goto LABEL_1372;
+                              }
+
+                              sub_100020530("ASPMSPParseBufferToCxt: lower_die_temperature(8250): Error adding 30 elements to context");
+                              break;
+                            case 8251:
+                              if (v15 != 120)
+                              {
+                                sub_100020530("ASPMSPParseBufferToCxt: higher_die_temperature(8251): cfg 30 elements; (30*4) cfg bytes != (%d) buffer bytes", v15);
+                              }
+
+                              if (v15 >= 0x7C)
+                              {
+                                v32 = 30;
+                              }
+
+                              else
+                              {
+                                v32 = v15 >> 2;
+                              }
+
+                              if (sub_1000189BC(a1, "higher_die_temperature", v6, 4u, v32))
+                              {
+                                goto LABEL_1372;
+                              }
+
+                              sub_100020530("ASPMSPParseBufferToCxt: higher_die_temperature(8251): Error adding 30 elements to context");
+                              break;
+                            case 8258:
+                              if (v15 != 4)
+                              {
+                                sub_100020530("ASPMSPParseBufferToCxt: msp_number_hw_sram_flips(8258): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                              }
+
+                              if (v15 >= 8)
+                              {
+                                v32 = 1;
+                              }
+
+                              else
+                              {
+                                v32 = v15 >> 2;
+                              }
+
+                              if (sub_1000189BC(a1, "msp_number_hw_sram_flips", v6, 4u, v32))
+                              {
+                                goto LABEL_1372;
+                              }
+
+                              sub_100020530("ASPMSPParseBufferToCxt: msp_number_hw_sram_flips(8258): Error adding 1 elements to context");
+                              break;
+                            case 8259:
+                              if (v15 != 12)
+                              {
+                                sub_100020530("ASPMSPParseBufferToCxt: boot_rd_training_failure(8259): cfg 3 elements; (3*4) cfg bytes != (%d) buffer bytes", v15);
+                              }
+
+                              if (v15 >= 0x10)
+                              {
+                                v32 = 3;
+                              }
+
+                              else
+                              {
+                                v32 = v15 >> 2;
+                              }
+
+                              if (sub_1000189BC(a1, "boot_rd_training_failure_", v6, 4u, v32))
+                              {
+                                goto LABEL_1372;
+                              }
+
+                              sub_100020530("ASPMSPParseBufferToCxt: boot_rd_training_failure(8259): Error adding 3 elements to context");
+                              break;
+                            case 8260:
+                              if (v15 != 12)
+                              {
+                                sub_100020530("ASPMSPParseBufferToCxt: boot_wr_training_failure(8260): cfg 3 elements; (3*4) cfg bytes != (%d) buffer bytes", v15);
+                              }
+
+                              if (v15 >= 0x10)
+                              {
+                                v32 = 3;
+                              }
+
+                              else
+                              {
+                                v32 = v15 >> 2;
+                              }
+
+                              if (sub_1000189BC(a1, "boot_wr_training_failure_", v6, 4u, v32))
+                              {
+                                goto LABEL_1372;
+                              }
+
+                              sub_100020530("ASPMSPParseBufferToCxt: boot_wr_training_failure(8260): Error adding 3 elements to context");
+                              break;
+                            case 8261:
+                              if (v15 != 4)
+                              {
+                                sub_100020530("ASPMSPParseBufferToCxt: boot_rd_sdl_overflow(8261): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                              }
+
+                              if (v15 >= 8)
+                              {
+                                v32 = 1;
+                              }
+
+                              else
+                              {
+                                v32 = v15 >> 2;
+                              }
+
+                              if (sub_1000189BC(a1, "boot_rd_sdl_overflow", v6, 4u, v32))
+                              {
+                                goto LABEL_1372;
+                              }
+
+                              sub_100020530("ASPMSPParseBufferToCxt: boot_rd_sdl_overflow(8261): Error adding 1 elements to context");
+                              break;
+                            case 8262:
+                              if (v15 != 4)
+                              {
+                                sub_100020530("ASPMSPParseBufferToCxt: boot_wr_sdl_overflow(8262): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                              }
+
+                              if (v15 >= 8)
+                              {
+                                v32 = 1;
+                              }
+
+                              else
+                              {
+                                v32 = v15 >> 2;
+                              }
+
+                              if (sub_1000189BC(a1, "boot_wr_sdl_overflow", v6, 4u, v32))
+                              {
+                                goto LABEL_1372;
+                              }
+
+                              sub_100020530("ASPMSPParseBufferToCxt: boot_wr_sdl_overflow(8262): Error adding 1 elements to context");
+                              break;
+                            case 8263:
+                              if (v15 != 20)
+                              {
+                                sub_100020530("ASPMSPParseBufferToCxt: boot_rd_pos_win_hist_all_dies(8263): cfg 5 elements; (5*4) cfg bytes != (%d) buffer bytes", v15);
+                              }
+
+                              if (v15 >= 0x18)
+                              {
+                                v32 = 5;
+                              }
+
+                              else
+                              {
+                                v32 = v15 >> 2;
+                              }
+
+                              if (sub_1000189BC(a1, "boot_rd_pos_win_hist_all_dies_", v6, 4u, v32))
+                              {
+                                goto LABEL_1372;
+                              }
+
+                              sub_100020530("ASPMSPParseBufferToCxt: boot_rd_pos_win_hist_all_dies(8263): Error adding 5 elements to context");
+                              break;
+                            case 8264:
+                              if (v15 != 20)
+                              {
+                                sub_100020530("ASPMSPParseBufferToCxt: boot_rd_neg_win_hist_all_dies(8264): cfg 5 elements; (5*4) cfg bytes != (%d) buffer bytes", v15);
+                              }
+
+                              if (v15 >= 0x18)
+                              {
+                                v32 = 5;
+                              }
+
+                              else
+                              {
+                                v32 = v15 >> 2;
+                              }
+
+                              if (sub_1000189BC(a1, "boot_rd_neg_win_hist_all_dies_", v6, 4u, v32))
+                              {
+                                goto LABEL_1372;
+                              }
+
+                              sub_100020530("ASPMSPParseBufferToCxt: boot_rd_neg_win_hist_all_dies(8264): Error adding 5 elements to context");
+                              break;
+                            case 8265:
+                              if (v15 != 20)
+                              {
+                                sub_100020530("ASPMSPParseBufferToCxt: boot_wr_win_hist_all_dies(8265): cfg 5 elements; (5*4) cfg bytes != (%d) buffer bytes", v15);
+                              }
+
+                              if (v15 >= 0x18)
+                              {
+                                v32 = 5;
+                              }
+
+                              else
+                              {
+                                v32 = v15 >> 2;
+                              }
+
+                              if (sub_1000189BC(a1, "boot_wr_win_hist_all_dies_", v6, 4u, v32))
+                              {
+                                goto LABEL_1372;
+                              }
+
+                              sub_100020530("ASPMSPParseBufferToCxt: boot_wr_win_hist_all_dies(8265): Error adding 5 elements to context");
+                              break;
+                            case 8266:
+                              if (v15 != 20)
+                              {
+                                sub_100020530("ASPMSPParseBufferToCxt: boot_rd_pos_win_hist_ch0_die0(8266): cfg 5 elements; (5*4) cfg bytes != (%d) buffer bytes", v15);
+                              }
+
+                              if (v15 >= 0x18)
+                              {
+                                v32 = 5;
+                              }
+
+                              else
+                              {
+                                v32 = v15 >> 2;
+                              }
+
+                              if (sub_1000189BC(a1, "boot_rd_pos_win_hist_ch0_die0_", v6, 4u, v32))
+                              {
+                                goto LABEL_1372;
+                              }
+
+                              sub_100020530("ASPMSPParseBufferToCxt: boot_rd_pos_win_hist_ch0_die0(8266): Error adding 5 elements to context");
+                              break;
+                            case 8267:
+                              if (v15 != 20)
+                              {
+                                sub_100020530("ASPMSPParseBufferToCxt: boot_rd_neg_win_hist_ch0_die0(8267): cfg 5 elements; (5*4) cfg bytes != (%d) buffer bytes", v15);
+                              }
+
+                              if (v15 >= 0x18)
+                              {
+                                v32 = 5;
+                              }
+
+                              else
+                              {
+                                v32 = v15 >> 2;
+                              }
+
+                              if (sub_1000189BC(a1, "boot_rd_neg_win_hist_ch0_die0_", v6, 4u, v32))
+                              {
+                                goto LABEL_1372;
+                              }
+
+                              sub_100020530("ASPMSPParseBufferToCxt: boot_rd_neg_win_hist_ch0_die0(8267): Error adding 5 elements to context");
+                              break;
+                            case 8268:
+                              if (v15 != 20)
+                              {
+                                sub_100020530("ASPMSPParseBufferToCxt: boot_wr_win_hist_ch0_die0(8268): cfg 5 elements; (5*4) cfg bytes != (%d) buffer bytes", v15);
+                              }
+
+                              if (v15 >= 0x18)
+                              {
+                                v32 = 5;
+                              }
+
+                              else
+                              {
+                                v32 = v15 >> 2;
+                              }
+
+                              if (sub_1000189BC(a1, "boot_wr_win_hist_ch0_die0_", v6, 4u, v32))
+                              {
+                                goto LABEL_1372;
+                              }
+
+                              sub_100020530("ASPMSPParseBufferToCxt: boot_wr_win_hist_ch0_die0(8268): Error adding 5 elements to context");
+                              break;
+                            case 8269:
+                              if (v15 != 64)
+                              {
+                                sub_100020530("ASPMSPParseBufferToCxt: pts_vs_boot_mid_rd_p_c0d0_hist(8269): cfg 16 elements; (16*4) cfg bytes != (%d) buffer bytes", v15);
+                              }
+
+                              if (v15 >= 0x44)
+                              {
+                                v32 = 16;
+                              }
+
+                              else
+                              {
+                                v32 = v15 >> 2;
+                              }
+
+                              if (sub_1000189BC(a1, "pts_vs_boot_mid_rd_p_c0d0_hist_", v6, 4u, v32))
+                              {
+                                goto LABEL_1372;
+                              }
+
+                              sub_100020530("ASPMSPParseBufferToCxt: pts_vs_boot_mid_rd_p_c0d0_hist(8269): Error adding 16 elements to context");
+                              break;
+                            case 8270:
+                              if (v15 != 64)
+                              {
+                                sub_100020530("ASPMSPParseBufferToCxt: pts_vs_boot_mid_rd_n_c0d0_hist(8270): cfg 16 elements; (16*4) cfg bytes != (%d) buffer bytes", v15);
+                              }
+
+                              if (v15 >= 0x44)
+                              {
+                                v32 = 16;
+                              }
+
+                              else
+                              {
+                                v32 = v15 >> 2;
+                              }
+
+                              if (sub_1000189BC(a1, "pts_vs_boot_mid_rd_n_c0d0_hist_", v6, 4u, v32))
+                              {
+                                goto LABEL_1372;
+                              }
+
+                              sub_100020530("ASPMSPParseBufferToCxt: pts_vs_boot_mid_rd_n_c0d0_hist(8270): Error adding 16 elements to context");
+                              break;
+                            case 8271:
+                              if (v15 != 64)
+                              {
+                                sub_100020530("ASPMSPParseBufferToCxt: pts_vs_boot_mid_wr_c0d0_hist(8271): cfg 16 elements; (16*4) cfg bytes != (%d) buffer bytes", v15);
+                              }
+
+                              if (v15 >= 0x44)
+                              {
+                                v32 = 16;
+                              }
+
+                              else
+                              {
+                                v32 = v15 >> 2;
+                              }
+
+                              if (sub_1000189BC(a1, "pts_vs_boot_mid_wr_c0d0_hist_", v6, 4u, v32))
+                              {
+                                goto LABEL_1372;
+                              }
+
+                              sub_100020530("ASPMSPParseBufferToCxt: pts_vs_boot_mid_wr_c0d0_hist(8271): Error adding 16 elements to context");
+                              break;
+                            case 8272:
+                              if (v15 != 4)
+                              {
+                                sub_100020530("ASPMSPParseBufferToCxt: pge_rd_training_failure(8272): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                              }
+
+                              if (v15 >= 8)
+                              {
+                                v32 = 1;
+                              }
+
+                              else
+                              {
+                                v32 = v15 >> 2;
+                              }
+
+                              if (sub_1000189BC(a1, "pge_rd_training_failure", v6, 4u, v32))
+                              {
+                                goto LABEL_1372;
+                              }
+
+                              sub_100020530("ASPMSPParseBufferToCxt: pge_rd_training_failure(8272): Error adding 1 elements to context");
+                              break;
+                            case 8273:
+                              if (v15 != 4)
+                              {
+                                sub_100020530("ASPMSPParseBufferToCxt: pge_wr_training_failure(8273): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                              }
+
+                              if (v15 >= 8)
+                              {
+                                v32 = 1;
+                              }
+
+                              else
+                              {
+                                v32 = v15 >> 2;
+                              }
+
+                              if (sub_1000189BC(a1, "pge_wr_training_failure", v6, 4u, v32))
+                              {
+                                goto LABEL_1372;
+                              }
+
+                              sub_100020530("ASPMSPParseBufferToCxt: pge_wr_training_failure(8273): Error adding 1 elements to context");
+                              break;
+                            case 8274:
+                              if (v15 != 4)
+                              {
+                                sub_100020530("ASPMSPParseBufferToCxt: pge_rd_sdl_overflow(8274): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                              }
+
+                              if (v15 >= 8)
+                              {
+                                v32 = 1;
+                              }
+
+                              else
+                              {
+                                v32 = v15 >> 2;
+                              }
+
+                              if (sub_1000189BC(a1, "pge_rd_sdl_overflow", v6, 4u, v32))
+                              {
+                                goto LABEL_1372;
+                              }
+
+                              sub_100020530("ASPMSPParseBufferToCxt: pge_rd_sdl_overflow(8274): Error adding 1 elements to context");
+                              break;
+                            case 8275:
+                              if (v15 != 4)
+                              {
+                                sub_100020530("ASPMSPParseBufferToCxt: pge_wr_sdl_overflow(8275): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                              }
+
+                              if (v15 >= 8)
+                              {
+                                v32 = 1;
+                              }
+
+                              else
+                              {
+                                v32 = v15 >> 2;
+                              }
+
+                              if (sub_1000189BC(a1, "pge_wr_sdl_overflow", v6, 4u, v32))
+                              {
+                                goto LABEL_1372;
+                              }
+
+                              sub_100020530("ASPMSPParseBufferToCxt: pge_wr_sdl_overflow(8275): Error adding 1 elements to context");
+                              break;
+                            case 8276:
+                              if (v15 != 20)
+                              {
+                                sub_100020530("ASPMSPParseBufferToCxt: pge_rd_pos_win_hist_all_dies(8276): cfg 5 elements; (5*4) cfg bytes != (%d) buffer bytes", v15);
+                              }
+
+                              if (v15 >= 0x18)
+                              {
+                                v32 = 5;
+                              }
+
+                              else
+                              {
+                                v32 = v15 >> 2;
+                              }
+
+                              if (sub_1000189BC(a1, "pge_rd_pos_win_hist_all_dies_", v6, 4u, v32))
+                              {
+                                goto LABEL_1372;
+                              }
+
+                              sub_100020530("ASPMSPParseBufferToCxt: pge_rd_pos_win_hist_all_dies(8276): Error adding 5 elements to context");
+                              break;
+                            case 8277:
+                              if (v15 != 20)
+                              {
+                                sub_100020530("ASPMSPParseBufferToCxt: pge_rd_neg_win_hist_all_dies(8277): cfg 5 elements; (5*4) cfg bytes != (%d) buffer bytes", v15);
+                              }
+
+                              if (v15 >= 0x18)
+                              {
+                                v32 = 5;
+                              }
+
+                              else
+                              {
+                                v32 = v15 >> 2;
+                              }
+
+                              if (sub_1000189BC(a1, "pge_rd_neg_win_hist_all_dies_", v6, 4u, v32))
+                              {
+                                goto LABEL_1372;
+                              }
+
+                              sub_100020530("ASPMSPParseBufferToCxt: pge_rd_neg_win_hist_all_dies(8277): Error adding 5 elements to context");
+                              break;
+                            case 8278:
+                              if (v15 != 20)
+                              {
+                                sub_100020530("ASPMSPParseBufferToCxt: pge_wr_win_hist_all_dies(8278): cfg 5 elements; (5*4) cfg bytes != (%d) buffer bytes", v15);
+                              }
+
+                              if (v15 >= 0x18)
+                              {
+                                v32 = 5;
+                              }
+
+                              else
+                              {
+                                v32 = v15 >> 2;
+                              }
+
+                              if (sub_1000189BC(a1, "pge_wr_win_hist_all_dies_", v6, 4u, v32))
+                              {
+                                goto LABEL_1372;
+                              }
+
+                              sub_100020530("ASPMSPParseBufferToCxt: pge_wr_win_hist_all_dies(8278): Error adding 5 elements to context");
+                              break;
+                            case 8279:
+                              if (v15 != 20)
+                              {
+                                sub_100020530("ASPMSPParseBufferToCxt: pge_rd_pos_win_hist_ch0_die0(8279): cfg 5 elements; (5*4) cfg bytes != (%d) buffer bytes", v15);
+                              }
+
+                              if (v15 >= 0x18)
+                              {
+                                v32 = 5;
+                              }
+
+                              else
+                              {
+                                v32 = v15 >> 2;
+                              }
+
+                              if (sub_1000189BC(a1, "pge_rd_pos_win_hist_ch0_die0_", v6, 4u, v32))
+                              {
+                                goto LABEL_1372;
+                              }
+
+                              sub_100020530("ASPMSPParseBufferToCxt: pge_rd_pos_win_hist_ch0_die0(8279): Error adding 5 elements to context");
+                              break;
+                            case 8280:
+                              if (v15 != 20)
+                              {
+                                sub_100020530("ASPMSPParseBufferToCxt: pge_rd_neg_win_hist_ch0_die0(8280): cfg 5 elements; (5*4) cfg bytes != (%d) buffer bytes", v15);
+                              }
+
+                              if (v15 >= 0x18)
+                              {
+                                v32 = 5;
+                              }
+
+                              else
+                              {
+                                v32 = v15 >> 2;
+                              }
+
+                              if (sub_1000189BC(a1, "pge_rd_neg_win_hist_ch0_die0_", v6, 4u, v32))
+                              {
+                                goto LABEL_1372;
+                              }
+
+                              sub_100020530("ASPMSPParseBufferToCxt: pge_rd_neg_win_hist_ch0_die0(8280): Error adding 5 elements to context");
+                              break;
+                            case 8281:
+                              if (v15 != 20)
+                              {
+                                sub_100020530("ASPMSPParseBufferToCxt: pge_wr_win_hist_ch0_die0(8281): cfg 5 elements; (5*4) cfg bytes != (%d) buffer bytes", v15);
+                              }
+
+                              if (v15 >= 0x18)
+                              {
+                                v32 = 5;
+                              }
+
+                              else
+                              {
+                                v32 = v15 >> 2;
+                              }
+
+                              if (sub_1000189BC(a1, "pge_wr_win_hist_ch0_die0_", v6, 4u, v32))
+                              {
+                                goto LABEL_1372;
+                              }
+
+                              sub_100020530("ASPMSPParseBufferToCxt: pge_wr_win_hist_ch0_die0(8281): Error adding 5 elements to context");
+                              break;
+                            case 8282:
+                              if (v15 != 64)
+                              {
+                                sub_100020530("ASPMSPParseBufferToCxt: boot_vs_pge_rd_p_c0d0_hist(8282): cfg 16 elements; (16*4) cfg bytes != (%d) buffer bytes", v15);
+                              }
+
+                              if (v15 >= 0x44)
+                              {
+                                v32 = 16;
+                              }
+
+                              else
+                              {
+                                v32 = v15 >> 2;
+                              }
+
+                              if (sub_1000189BC(a1, "boot_vs_pge_rd_p_c0d0_hist_", v6, 4u, v32))
+                              {
+                                goto LABEL_1372;
+                              }
+
+                              sub_100020530("ASPMSPParseBufferToCxt: boot_vs_pge_rd_p_c0d0_hist(8282): Error adding 16 elements to context");
+                              break;
+                            case 8283:
+                              if (v15 != 64)
+                              {
+                                sub_100020530("ASPMSPParseBufferToCxt: boot_vs_pge_rd_n_c0d0_hist(8283): cfg 16 elements; (16*4) cfg bytes != (%d) buffer bytes", v15);
+                              }
+
+                              if (v15 >= 0x44)
+                              {
+                                v32 = 16;
+                              }
+
+                              else
+                              {
+                                v32 = v15 >> 2;
+                              }
+
+                              if (sub_1000189BC(a1, "boot_vs_pge_rd_n_c0d0_hist_", v6, 4u, v32))
+                              {
+                                goto LABEL_1372;
+                              }
+
+                              sub_100020530("ASPMSPParseBufferToCxt: boot_vs_pge_rd_n_c0d0_hist(8283): Error adding 16 elements to context");
+                              break;
+                            case 8284:
+                              if (v15 != 64)
+                              {
+                                sub_100020530("ASPMSPParseBufferToCxt: boot_vs_pge_wr_c0d0_hist(8284): cfg 16 elements; (16*4) cfg bytes != (%d) buffer bytes", v15);
+                              }
+
+                              if (v15 >= 0x44)
+                              {
+                                v32 = 16;
+                              }
+
+                              else
+                              {
+                                v32 = v15 >> 2;
+                              }
+
+                              if (sub_1000189BC(a1, "boot_vs_pge_wr_c0d0_hist_", v6, 4u, v32))
+                              {
+                                goto LABEL_1372;
+                              }
+
+                              sub_100020530("ASPMSPParseBufferToCxt: boot_vs_pge_wr_c0d0_hist(8284): Error adding 16 elements to context");
+                              break;
+                            case 8285:
+                              if (v15 != 4)
+                              {
+                                sub_100020530("ASPMSPParseBufferToCxt: periodic_rd_training_failure(8285): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                              }
+
+                              if (v15 >= 8)
+                              {
+                                v32 = 1;
+                              }
+
+                              else
+                              {
+                                v32 = v15 >> 2;
+                              }
+
+                              if (sub_1000189BC(a1, "periodic_rd_training_failure", v6, 4u, v32))
+                              {
+                                goto LABEL_1372;
+                              }
+
+                              sub_100020530("ASPMSPParseBufferToCxt: periodic_rd_training_failure(8285): Error adding 1 elements to context");
+                              break;
+                            case 8286:
+                              if (v15 != 4)
+                              {
+                                sub_100020530("ASPMSPParseBufferToCxt: periodic_wr_training_failure(8286): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                              }
+
+                              if (v15 >= 8)
+                              {
+                                v32 = 1;
+                              }
+
+                              else
+                              {
+                                v32 = v15 >> 2;
+                              }
+
+                              if (sub_1000189BC(a1, "periodic_wr_training_failure", v6, 4u, v32))
+                              {
+                                goto LABEL_1372;
+                              }
+
+                              sub_100020530("ASPMSPParseBufferToCxt: periodic_wr_training_failure(8286): Error adding 1 elements to context");
+                              break;
+                            case 8287:
+                              if (v15 != 64)
+                              {
+                                sub_100020530("ASPMSPParseBufferToCxt: pge_vs_periodic_rd_p_c0d0_hist(8287): cfg 16 elements; (16*4) cfg bytes != (%d) buffer bytes", v15);
+                              }
+
+                              if (v15 >= 0x44)
+                              {
+                                v32 = 16;
+                              }
+
+                              else
+                              {
+                                v32 = v15 >> 2;
+                              }
+
+                              if (sub_1000189BC(a1, "pge_vs_periodic_rd_p_c0d0_hist_", v6, 4u, v32))
+                              {
+                                goto LABEL_1372;
+                              }
+
+                              sub_100020530("ASPMSPParseBufferToCxt: pge_vs_periodic_rd_p_c0d0_hist(8287): Error adding 16 elements to context");
+                              break;
+                            case 8288:
+                              if (v15 != 64)
+                              {
+                                sub_100020530("ASPMSPParseBufferToCxt: pge_vs_periodic_rd_n_c0d0_hist(8288): cfg 16 elements; (16*4) cfg bytes != (%d) buffer bytes", v15);
+                              }
+
+                              if (v15 >= 0x44)
+                              {
+                                v32 = 16;
+                              }
+
+                              else
+                              {
+                                v32 = v15 >> 2;
+                              }
+
+                              if (sub_1000189BC(a1, "pge_vs_periodic_rd_n_c0d0_hist_", v6, 4u, v32))
+                              {
+                                goto LABEL_1372;
+                              }
+
+                              sub_100020530("ASPMSPParseBufferToCxt: pge_vs_periodic_rd_n_c0d0_hist(8288): Error adding 16 elements to context");
+                              break;
+                            case 8289:
+                              if (v15 != 64)
+                              {
+                                sub_100020530("ASPMSPParseBufferToCxt: pge_vs_periodic_wr_c0d0_hist(8289): cfg 16 elements; (16*4) cfg bytes != (%d) buffer bytes", v15);
+                              }
+
+                              if (v15 >= 0x44)
+                              {
+                                v32 = 16;
+                              }
+
+                              else
+                              {
+                                v32 = v15 >> 2;
+                              }
+
+                              if (sub_1000189BC(a1, "pge_vs_periodic_wr_c0d0_hist_", v6, 4u, v32))
+                              {
+                                goto LABEL_1372;
+                              }
+
+                              sub_100020530("ASPMSPParseBufferToCxt: pge_vs_periodic_wr_c0d0_hist(8289): Error adding 16 elements to context");
+                              break;
+                            case 8290:
+                              if (v15 != 4)
+                              {
+                                sub_100020530("ASPMSPParseBufferToCxt: periodic_rd_sdl_overflow(8290): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                              }
+
+                              if (v15 >= 8)
+                              {
+                                v32 = 1;
+                              }
+
+                              else
+                              {
+                                v32 = v15 >> 2;
+                              }
+
+                              if (sub_1000189BC(a1, "periodic_rd_sdl_overflow", v6, 4u, v32))
+                              {
+                                goto LABEL_1372;
+                              }
+
+                              sub_100020530("ASPMSPParseBufferToCxt: periodic_rd_sdl_overflow(8290): Error adding 1 elements to context");
+                              break;
+                            case 8291:
+                              if (v15 != 4)
+                              {
+                                sub_100020530("ASPMSPParseBufferToCxt: periodic_wr_sdl_overflow(8291): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                              }
+
+                              if (v15 >= 8)
+                              {
+                                v32 = 1;
+                              }
+
+                              else
+                              {
+                                v32 = v15 >> 2;
+                              }
+
+                              if (sub_1000189BC(a1, "periodic_wr_sdl_overflow", v6, 4u, v32))
+                              {
+                                goto LABEL_1372;
+                              }
+
+                              sub_100020530("ASPMSPParseBufferToCxt: periodic_wr_sdl_overflow(8291): Error adding 1 elements to context");
+                              break;
+                            case 8292:
+                              if (v15 != 4)
+                              {
+                                sub_100020530("ASPMSPParseBufferToCxt: too_frequent_temp_change_rd(8292): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                              }
+
+                              if (v15 >= 8)
+                              {
+                                v32 = 1;
+                              }
+
+                              else
+                              {
+                                v32 = v15 >> 2;
+                              }
+
+                              if (sub_1000189BC(a1, "too_frequent_temp_change_rd", v6, 4u, v32))
+                              {
+                                goto LABEL_1372;
+                              }
+
+                              sub_100020530("ASPMSPParseBufferToCxt: too_frequent_temp_change_rd(8292): Error adding 1 elements to context");
+                              break;
+                            case 8293:
+                              if (v15 != 4)
+                              {
+                                sub_100020530("ASPMSPParseBufferToCxt: too_frequent_temp_change_wr(8293): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                              }
+
+                              if (v15 >= 8)
+                              {
+                                v32 = 1;
+                              }
+
+                              else
+                              {
+                                v32 = v15 >> 2;
+                              }
+
+                              if (sub_1000189BC(a1, "too_frequent_temp_change_wr", v6, 4u, v32))
+                              {
+                                goto LABEL_1372;
+                              }
+
+                              sub_100020530("ASPMSPParseBufferToCxt: too_frequent_temp_change_wr(8293): Error adding 1 elements to context");
+                              break;
+                            case 8294:
+                              if (v15 != 28)
+                              {
+                                sub_100020530("ASPMSPParseBufferToCxt: periodic_rd_training_hist(8294): cfg 7 elements; (7*4) cfg bytes != (%d) buffer bytes", v15);
+                              }
+
+                              if (v15 >= 0x20)
+                              {
+                                v32 = 7;
+                              }
+
+                              else
+                              {
+                                v32 = v15 >> 2;
+                              }
+
+                              if (sub_1000189BC(a1, "periodic_rd_training_hist_", v6, 4u, v32))
+                              {
+                                goto LABEL_1372;
+                              }
+
+                              sub_100020530("ASPMSPParseBufferToCxt: periodic_rd_training_hist(8294): Error adding 7 elements to context");
+                              break;
+                            case 8295:
+                              if (v15 != 28)
+                              {
+                                sub_100020530("ASPMSPParseBufferToCxt: periodic_wr_training_hist(8295): cfg 7 elements; (7*4) cfg bytes != (%d) buffer bytes", v15);
+                              }
+
+                              if (v15 >= 0x20)
+                              {
+                                v32 = 7;
+                              }
+
+                              else
+                              {
+                                v32 = v15 >> 2;
+                              }
+
+                              if (sub_1000189BC(a1, "periodic_wr_training_hist_", v6, 4u, v32))
+                              {
+                                goto LABEL_1372;
+                              }
+
+                              sub_100020530("ASPMSPParseBufferToCxt: periodic_wr_training_hist(8295): Error adding 7 elements to context");
+                              break;
+                            case 8296:
+                              if (v15 != 28)
+                              {
+                                sub_100020530("ASPMSPParseBufferToCxt: periodic_rd_training_latency(8296): cfg 7 elements; (7*4) cfg bytes != (%d) buffer bytes", v15);
+                              }
+
+                              if (v15 >= 0x20)
+                              {
+                                v32 = 7;
+                              }
+
+                              else
+                              {
+                                v32 = v15 >> 2;
+                              }
+
+                              if (sub_1000189BC(a1, "periodic_rd_training_latency_", v6, 4u, v32))
+                              {
+                                goto LABEL_1372;
+                              }
+
+                              sub_100020530("ASPMSPParseBufferToCxt: periodic_rd_training_latency(8296): Error adding 7 elements to context");
+                              break;
+                            case 8297:
+                              if (v15 != 28)
+                              {
+                                sub_100020530("ASPMSPParseBufferToCxt: periodic_wr_training_latency(8297): cfg 7 elements; (7*4) cfg bytes != (%d) buffer bytes", v15);
+                              }
+
+                              if (v15 >= 0x20)
+                              {
+                                v32 = 7;
+                              }
+
+                              else
+                              {
+                                v32 = v15 >> 2;
+                              }
+
+                              if (sub_1000189BC(a1, "periodic_wr_training_latency_", v6, 4u, v32))
+                              {
+                                goto LABEL_1372;
+                              }
+
+                              sub_100020530("ASPMSPParseBufferToCxt: periodic_wr_training_latency(8297): Error adding 7 elements to context");
+                              break;
+                            case 8298:
+                              if (v15 != 48)
+                              {
+                                sub_100020530("ASPMSPParseBufferToCxt: system_temp(8298): cfg 12 elements; (12*4) cfg bytes != (%d) buffer bytes", v15);
+                              }
+
+                              if (v15 >= 0x34)
+                              {
+                                v32 = 12;
+                              }
+
+                              else
+                              {
+                                v32 = v15 >> 2;
+                              }
+
+                              if (sub_1000189BC(a1, "system_temp_", v6, 4u, v32))
+                              {
+                                goto LABEL_1372;
+                              }
+
+                              sub_100020530("ASPMSPParseBufferToCxt: system_temp(8298): Error adding 12 elements to context");
+                              break;
+                            case 8299:
+                              if (v15 != 48)
+                              {
+                                sub_100020530("ASPMSPParseBufferToCxt: temp_diff_150ms(8299): cfg 12 elements; (12*4) cfg bytes != (%d) buffer bytes", v15);
+                              }
+
+                              if (v15 >= 0x34)
+                              {
+                                v32 = 12;
+                              }
+
+                              else
+                              {
+                                v32 = v15 >> 2;
+                              }
+
+                              if (sub_1000189BC(a1, "temp_diff_150ms_", v6, 4u, v32))
+                              {
+                                goto LABEL_1372;
+                              }
+
+                              sub_100020530("ASPMSPParseBufferToCxt: temp_diff_150ms(8299): Error adding 12 elements to context");
+                              break;
+                            case 8300:
+                              if (v15 != 48)
+                              {
+                                sub_100020530("ASPMSPParseBufferToCxt: temp_diff_1s(8300): cfg 12 elements; (12*4) cfg bytes != (%d) buffer bytes", v15);
+                              }
+
+                              if (v15 >= 0x34)
+                              {
+                                v32 = 12;
+                              }
+
+                              else
+                              {
+                                v32 = v15 >> 2;
+                              }
+
+                              if (sub_1000189BC(a1, "temp_diff_1s_", v6, 4u, v32))
+                              {
+                                goto LABEL_1372;
+                              }
+
+                              sub_100020530("ASPMSPParseBufferToCxt: temp_diff_1s(8300): Error adding 12 elements to context");
+                              break;
+                            case 8301:
+                              if (v15 != 28)
+                              {
+                                sub_100020530("ASPMSPParseBufferToCxt: num_of_steps_bigger_win(8301): cfg 7 elements; (7*4) cfg bytes != (%d) buffer bytes", v15);
+                              }
+
+                              if (v15 >= 0x20)
+                              {
+                                v32 = 7;
+                              }
+
+                              else
+                              {
+                                v32 = v15 >> 2;
+                              }
+
+                              if (sub_1000189BC(a1, "num_of_steps_bigger_win_", v6, 4u, v32))
+                              {
+                                goto LABEL_1372;
+                              }
+
+                              sub_100020530("ASPMSPParseBufferToCxt: num_of_steps_bigger_win(8301): Error adding 7 elements to context");
+                              break;
+                            case 8302:
+                              if (v15 != 28)
+                              {
+                                sub_100020530("ASPMSPParseBufferToCxt: num_of_steps_smaller_win(8302): cfg 7 elements; (7*4) cfg bytes != (%d) buffer bytes", v15);
+                              }
+
+                              if (v15 >= 0x20)
+                              {
+                                v32 = 7;
+                              }
+
+                              else
+                              {
+                                v32 = v15 >> 2;
+                              }
+
+                              if (sub_1000189BC(a1, "num_of_steps_smaller_win_", v6, 4u, v32))
+                              {
+                                goto LABEL_1372;
+                              }
+
+                              sub_100020530("ASPMSPParseBufferToCxt: num_of_steps_smaller_win(8302): Error adding 7 elements to context");
+                              break;
+                            default:
+                              goto LABEL_1826;
+                          }
+                        }
+
+                        break;
+                      case 4329:
+                        if (v15 != 32)
+                        {
+                          sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter158(4329): cfg 8 elements; (8*4) cfg bytes != (%d) buffer bytes", v15);
+                        }
+
+                        if (v15 >= 0x24)
+                        {
+                          v32 = 8;
+                        }
+
+                        else
+                        {
+                          v32 = v15 >> 2;
+                        }
+
+                        if (sub_1000189BC(a1, "dspExceptionParameter158_", v6, 4u, v32))
+                        {
+                          goto LABEL_1372;
+                        }
+
+                        sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter158(4329): Error adding 8 elements to context");
+                        break;
+                      case 4330:
+                        if (v15 != 20)
+                        {
+                          sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter159(4330): cfg 5 elements; (5*4) cfg bytes != (%d) buffer bytes", v15);
+                        }
+
+                        if (v15 >= 0x18)
+                        {
+                          v32 = 5;
+                        }
+
+                        else
+                        {
+                          v32 = v15 >> 2;
+                        }
+
+                        if (sub_1000189BC(a1, "dspExceptionParameter159_", v6, 4u, v32))
+                        {
+                          goto LABEL_1372;
+                        }
+
+                        sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter159(4330): Error adding 5 elements to context");
+                        break;
+                      case 4331:
+                        if (v15 != 24)
+                        {
+                          sub_100020530("ASPMSPParseBufferToCxt: readStage112(4331): cfg 6 elements; (6*4) cfg bytes != (%d) buffer bytes", v15);
+                        }
+
+                        if (v15 >= 0x1C)
+                        {
+                          v32 = 6;
+                        }
+
+                        else
+                        {
+                          v32 = v15 >> 2;
+                        }
+
+                        if (sub_1000189BC(a1, "readStage112_", v6, 4u, v32))
+                        {
+                          goto LABEL_1372;
+                        }
+
+                        sub_100020530("ASPMSPParseBufferToCxt: readStage112(4331): Error adding 6 elements to context");
+                        break;
+                      case 4332:
+                        if (v15 != 32)
+                        {
+                          sub_100020530("ASPMSPParseBufferToCxt: readStageFail0(4332): cfg 8 elements; (8*4) cfg bytes != (%d) buffer bytes", v15);
+                        }
+
+                        if (v15 >= 0x24)
+                        {
+                          v32 = 8;
+                        }
+
+                        else
+                        {
+                          v32 = v15 >> 2;
+                        }
+
+                        if (sub_1000189BC(a1, "readStageFail0_", v6, 4u, v32))
+                        {
+                          goto LABEL_1372;
+                        }
+
+                        sub_100020530("ASPMSPParseBufferToCxt: readStageFail0(4332): Error adding 8 elements to context");
+                        break;
+                      case 4333:
+                        if (v15 != 16)
+                        {
+                          sub_100020530("ASPMSPParseBufferToCxt: readStage113(4333): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", v15);
+                        }
+
+                        if (v15 >= 0x14)
+                        {
+                          v32 = 4;
+                        }
+
+                        else
+                        {
+                          v32 = v15 >> 2;
+                        }
+
+                        if (sub_1000189BC(a1, "readStage113_", v6, 4u, v32))
+                        {
+                          goto LABEL_1372;
+                        }
+
+                        sub_100020530("ASPMSPParseBufferToCxt: readStage113(4333): Error adding 4 elements to context");
+                        break;
+                      case 4334:
+                        if (v15 != 16)
+                        {
+                          sub_100020530("ASPMSPParseBufferToCxt: readStage114(4334): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", v15);
+                        }
+
+                        if (v15 >= 0x14)
+                        {
+                          v32 = 4;
+                        }
+
+                        else
+                        {
+                          v32 = v15 >> 2;
+                        }
+
+                        if (sub_1000189BC(a1, "readStage114_", v6, 4u, v32))
+                        {
+                          goto LABEL_1372;
+                        }
+
+                        sub_100020530("ASPMSPParseBufferToCxt: readStage114(4334): Error adding 4 elements to context");
+                        break;
+                      case 4335:
+                        if (v15 != 48)
+                        {
+                          sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter160(4335): cfg 12 elements; (12*4) cfg bytes != (%d) buffer bytes", v15);
+                        }
+
+                        if (v15 >= 0x34)
+                        {
+                          v32 = 12;
+                        }
+
+                        else
+                        {
+                          v32 = v15 >> 2;
+                        }
+
+                        if (sub_1000189BC(a1, "dspExceptionParameter160_", v6, 4u, v32))
+                        {
+                          goto LABEL_1372;
+                        }
+
+                        sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter160(4335): Error adding 12 elements to context");
+                        break;
+                      case 4336:
+                        if (v15 != 4)
+                        {
+                          sub_100020530("ASPMSPParseBufferToCxt: nandStageOfLife118(4336): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                        }
+
+                        if (v15 >= 8)
+                        {
+                          v32 = 1;
+                        }
+
+                        else
+                        {
+                          v32 = v15 >> 2;
+                        }
+
+                        if (sub_1000189BC(a1, "nandStageOfLife118", v6, 4u, v32))
+                        {
+                          goto LABEL_1372;
+                        }
+
+                        sub_100020530("ASPMSPParseBufferToCxt: nandStageOfLife118(4336): Error adding 1 elements to context");
+                        break;
+                      case 4337:
+                        if (v15 != 4)
+                        {
+                          sub_100020530("ASPMSPParseBufferToCxt: nandStageOfLife119(4337): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                        }
+
+                        if (v15 >= 8)
+                        {
+                          v32 = 1;
+                        }
+
+                        else
+                        {
+                          v32 = v15 >> 2;
+                        }
+
+                        if (sub_1000189BC(a1, "nandStageOfLife119", v6, 4u, v32))
+                        {
+                          goto LABEL_1372;
+                        }
+
+                        sub_100020530("ASPMSPParseBufferToCxt: nandStageOfLife119(4337): Error adding 1 elements to context");
+                        break;
+                      case 4338:
+                        if (v15 != 40)
+                        {
+                          sub_100020530("ASPMSPParseBufferToCxt: readStage115(4338): cfg 10 elements; (10*4) cfg bytes != (%d) buffer bytes", v15);
+                        }
+
+                        if (v15 >= 0x2C)
+                        {
+                          v32 = 10;
+                        }
+
+                        else
+                        {
+                          v32 = v15 >> 2;
+                        }
+
+                        if (sub_1000189BC(a1, "readStage115_", v6, 4u, v32))
+                        {
+                          goto LABEL_1372;
+                        }
+
+                        sub_100020530("ASPMSPParseBufferToCxt: readStage115(4338): Error adding 10 elements to context");
+                        break;
+                      case 4339:
+                        if (v15 != 40)
+                        {
+                          sub_100020530("ASPMSPParseBufferToCxt: readStageFail1(4339): cfg 10 elements; (10*4) cfg bytes != (%d) buffer bytes", v15);
+                        }
+
+                        if (v15 >= 0x2C)
+                        {
+                          v32 = 10;
+                        }
+
+                        else
+                        {
+                          v32 = v15 >> 2;
+                        }
+
+                        if (sub_1000189BC(a1, "readStageFail1_", v6, 4u, v32))
+                        {
+                          goto LABEL_1372;
+                        }
+
+                        sub_100020530("ASPMSPParseBufferToCxt: readStageFail1(4339): Error adding 10 elements to context");
+                        break;
+                      case 4340:
+                        if (v15 != 12)
+                        {
+                          sub_100020530("ASPMSPParseBufferToCxt: readStageFail2(4340): cfg 3 elements; (3*4) cfg bytes != (%d) buffer bytes", v15);
+                        }
+
+                        if (v15 >= 0x10)
+                        {
+                          v32 = 3;
+                        }
+
+                        else
+                        {
+                          v32 = v15 >> 2;
+                        }
+
+                        if (sub_1000189BC(a1, "readStageFail2_", v6, 4u, v32))
+                        {
+                          goto LABEL_1372;
+                        }
+
+                        sub_100020530("ASPMSPParseBufferToCxt: readStageFail2(4340): Error adding 3 elements to context");
+                        break;
+                      case 4341:
+                        if (v15 != 16)
+                        {
+                          sub_100020530("ASPMSPParseBufferToCxt: readStage116(4341): cfg 4 elements; (4*4) cfg bytes != (%d) buffer bytes", v15);
+                        }
+
+                        if (v15 >= 0x14)
+                        {
+                          v32 = 4;
+                        }
+
+                        else
+                        {
+                          v32 = v15 >> 2;
+                        }
+
+                        if (sub_1000189BC(a1, "readStage116_", v6, 4u, v32))
+                        {
+                          goto LABEL_1372;
+                        }
+
+                        sub_100020530("ASPMSPParseBufferToCxt: readStage116(4341): Error adding 4 elements to context");
+                        break;
+                      case 4342:
+                        if (v15 != 40)
+                        {
+                          sub_100020530("ASPMSPParseBufferToCxt: readStage117(4342): cfg 10 elements; (10*4) cfg bytes != (%d) buffer bytes", v15);
+                        }
+
+                        if (v15 >= 0x2C)
+                        {
+                          v32 = 10;
+                        }
+
+                        else
+                        {
+                          v32 = v15 >> 2;
+                        }
+
+                        if (sub_1000189BC(a1, "readStage117_", v6, 4u, v32))
+                        {
+                          goto LABEL_1372;
+                        }
+
+                        sub_100020530("ASPMSPParseBufferToCxt: readStage117(4342): Error adding 10 elements to context");
+                        break;
+                      case 4343:
+                        if (v15 != 20)
+                        {
+                          sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter161(4343): cfg 5 elements; (5*4) cfg bytes != (%d) buffer bytes", v15);
+                        }
+
+                        if (v15 >= 0x18)
+                        {
+                          v32 = 5;
+                        }
+
+                        else
+                        {
+                          v32 = v15 >> 2;
+                        }
+
+                        if (sub_1000189BC(a1, "dspExceptionParameter161_", v6, 4u, v32))
+                        {
+                          goto LABEL_1372;
+                        }
+
+                        sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter161(4343): Error adding 5 elements to context");
+                        break;
+                      case 4344:
+                        if (v15 != 12)
+                        {
+                          sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter162(4344): cfg 3 elements; (3*4) cfg bytes != (%d) buffer bytes", v15);
+                        }
+
+                        if (v15 >= 0x10)
+                        {
+                          v32 = 3;
+                        }
+
+                        else
+                        {
+                          v32 = v15 >> 2;
+                        }
+
+                        if (sub_1000189BC(a1, "dspExceptionParameter162_", v6, 4u, v32))
+                        {
+                          goto LABEL_1372;
+                        }
+
+                        sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter162(4344): Error adding 3 elements to context");
+                        break;
+                      case 4345:
+                        if (v15 != 40)
+                        {
+                          sub_100020530("ASPMSPParseBufferToCxt: readStage118(4345): cfg 10 elements; (10*4) cfg bytes != (%d) buffer bytes", v15);
+                        }
+
+                        if (v15 >= 0x2C)
+                        {
+                          v32 = 10;
+                        }
+
+                        else
+                        {
+                          v32 = v15 >> 2;
+                        }
+
+                        if (sub_1000189BC(a1, "readStage118_", v6, 4u, v32))
+                        {
+                          goto LABEL_1372;
+                        }
+
+                        sub_100020530("ASPMSPParseBufferToCxt: readStage118(4345): Error adding 10 elements to context");
+                        break;
+                      case 4346:
+                        if (v15 != 32)
+                        {
+                          sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter163(4346): cfg 8 elements; (8*4) cfg bytes != (%d) buffer bytes", v15);
+                        }
+
+                        if (v15 >= 0x24)
+                        {
+                          v32 = 8;
+                        }
+
+                        else
+                        {
+                          v32 = v15 >> 2;
+                        }
+
+                        if (sub_1000189BC(a1, "dspExceptionParameter163_", v6, 4u, v32))
+                        {
+                          goto LABEL_1372;
+                        }
+
+                        sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter163(4346): Error adding 8 elements to context");
+                        break;
+                      case 4347:
+                        if (v15 != 32)
+                        {
+                          sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter164(4347): cfg 8 elements; (8*4) cfg bytes != (%d) buffer bytes", v15);
+                        }
+
+                        if (v15 >= 0x24)
+                        {
+                          v32 = 8;
+                        }
+
+                        else
+                        {
+                          v32 = v15 >> 2;
+                        }
+
+                        if (sub_1000189BC(a1, "dspExceptionParameter164_", v6, 4u, v32))
+                        {
+                          goto LABEL_1372;
+                        }
+
+                        sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter164(4347): Error adding 8 elements to context");
+                        break;
+                      case 4348:
+                        if (v15 != 32)
+                        {
+                          sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter165(4348): cfg 8 elements; (8*4) cfg bytes != (%d) buffer bytes", v15);
+                        }
+
+                        if (v15 >= 0x24)
+                        {
+                          v32 = 8;
+                        }
+
+                        else
+                        {
+                          v32 = v15 >> 2;
+                        }
+
+                        if (sub_1000189BC(a1, "dspExceptionParameter165_", v6, 4u, v32))
+                        {
+                          goto LABEL_1372;
+                        }
+
+                        sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter165(4348): Error adding 8 elements to context");
+                        break;
+                      case 4349:
+                        if (v15 != 20)
+                        {
+                          sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter166(4349): cfg 5 elements; (5*4) cfg bytes != (%d) buffer bytes", v15);
+                        }
+
+                        if (v15 >= 0x18)
+                        {
+                          v32 = 5;
+                        }
+
+                        else
+                        {
+                          v32 = v15 >> 2;
+                        }
+
+                        if (sub_1000189BC(a1, "dspExceptionParameter166_", v6, 4u, v32))
+                        {
+                          goto LABEL_1372;
+                        }
+
+                        sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter166(4349): Error adding 5 elements to context");
+                        break;
+                      case 4350:
+                        if (v15 != 20)
+                        {
+                          sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter167(4350): cfg 5 elements; (5*4) cfg bytes != (%d) buffer bytes", v15);
+                        }
+
+                        if (v15 >= 0x18)
+                        {
+                          v32 = 5;
+                        }
+
+                        else
+                        {
+                          v32 = v15 >> 2;
+                        }
+
+                        if (sub_1000189BC(a1, "dspExceptionParameter167_", v6, 4u, v32))
+                        {
+                          goto LABEL_1372;
+                        }
+
+                        sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter167(4350): Error adding 5 elements to context");
+                        break;
+                      case 4351:
+                        if (v15 != 12)
+                        {
+                          sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter168(4351): cfg 3 elements; (3*4) cfg bytes != (%d) buffer bytes", v15);
+                        }
+
+                        if (v15 >= 0x10)
+                        {
+                          v32 = 3;
+                        }
+
+                        else
+                        {
+                          v32 = v15 >> 2;
+                        }
+
+                        if (sub_1000189BC(a1, "dspExceptionParameter168_", v6, 4u, v32))
+                        {
+                          goto LABEL_1372;
+                        }
+
+                        sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter168(4351): Error adding 3 elements to context");
+                        break;
+                      case 4352:
+                        if (v15 != 4)
+                        {
+                          sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter169(4352): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                        }
+
+                        if (v15 >= 8)
+                        {
+                          v32 = 1;
+                        }
+
+                        else
+                        {
+                          v32 = v15 >> 2;
+                        }
+
+                        if (sub_1000189BC(a1, "dspExceptionParameter169", v6, 4u, v32))
+                        {
+LABEL_1372:
+                          v3 = v3 + v32;
+LABEL_1373:
+                          v8 = "avg_rd_window_size";
+                          v9 = "ASPMSPParseBufferToCxt: avg_rd_window_size(8193): cfg 5 elements; (5*4) cfg bytes != (%d) buffer bytes";
+                          v11 = "ASPMSPParseBufferToCxt: num_zq_failures(8194): Error adding 1 elements to context";
+                          goto LABEL_20;
+                        }
+
+                        sub_100020530("ASPMSPParseBufferToCxt: dspExceptionParameter169(4352): Error adding 1 elements to context");
+                        break;
+                      default:
+                        switch(v16)
+                        {
+                          case 8193:
+                            if (v15 != 20)
+                            {
+                              sub_100020530("ASPMSPParseBufferToCxt: avg_rd_window_size(8193): cfg 5 elements; (5*4) cfg bytes != (%d) buffer bytes", v15);
+                            }
+
+                            if (v15 >= 0x18)
+                            {
+                              v32 = 5;
+                            }
+
+                            else
+                            {
+                              v32 = v15 >> 2;
+                            }
+
+                            if (!sub_1000189BC(a1, "avg_rd_window_size", v6, 4u, v32))
+                            {
+                              goto LABEL_2105;
+                            }
+
+                            goto LABEL_1372;
+                          case 8194:
+                            if (v15 != 4)
+                            {
+                              sub_100020530("ASPMSPParseBufferToCxt: num_zq_failures(8194): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                            }
+
+                            if (v15 >= 8)
+                            {
+                              v32 = 1;
+                            }
+
+                            else
+                            {
+                              v32 = v15 >> 2;
+                            }
+
+                            if (sub_1000189BC(a1, "num_zq_failures", v6, 4u, v32))
+                            {
+                              goto LABEL_1372;
+                            }
+
+                            sub_100020530("ASPMSPParseBufferToCxt: num_zq_failures(8194): Error adding 1 elements to context");
+                            break;
+                          case 8195:
+                            if (v15 != 64)
+                            {
+                              sub_100020530("ASPMSPParseBufferToCxt: lower_die_temperature(8195): cfg 16 elements; (16*4) cfg bytes != (%d) buffer bytes", v15);
+                            }
+
+                            if (v15 >= 0x44)
+                            {
+                              v32 = 16;
+                            }
+
+                            else
+                            {
+                              v32 = v15 >> 2;
+                            }
+
+                            if (sub_1000189BC(a1, "lower_die_temperature", v6, 4u, v32))
+                            {
+                              goto LABEL_1372;
+                            }
+
+                            sub_100020530("ASPMSPParseBufferToCxt: lower_die_temperature(8195): Error adding 16 elements to context");
+                            break;
+                          case 8196:
+                            if (v15 != 64)
+                            {
+                              sub_100020530("ASPMSPParseBufferToCxt: higher_die_temperature(8196): cfg 16 elements; (16*4) cfg bytes != (%d) buffer bytes", v15);
+                            }
+
+                            if (v15 >= 0x44)
+                            {
+                              v32 = 16;
+                            }
+
+                            else
+                            {
+                              v32 = v15 >> 2;
+                            }
+
+                            if (sub_1000189BC(a1, "higher_die_temperature", v6, 4u, v32))
+                            {
+                              goto LABEL_1372;
+                            }
+
+                            sub_100020530("ASPMSPParseBufferToCxt: higher_die_temperature(8196): Error adding 16 elements to context");
+                            break;
+                          case 8197:
+                            if (v15 != 4)
+                            {
+                              sub_100020530("ASPMSPParseBufferToCxt: number_of_sram_flips(8197): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                            }
+
+                            if (v15 >= 8)
+                            {
+                              v32 = 1;
+                            }
+
+                            else
+                            {
+                              v32 = v15 >> 2;
+                            }
+
+                            if (sub_1000189BC(a1, "number_of_sram_flips", v6, 4u, v32))
+                            {
+                              goto LABEL_1372;
+                            }
+
+                            sub_100020530("ASPMSPParseBufferToCxt: number_of_sram_flips(8197): Error adding 1 elements to context");
+                            break;
+                          case 8198:
+                            if (v15 != 4)
+                            {
+                              sub_100020530("ASPMSPParseBufferToCxt: number_of_reset_failures(8198): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                            }
+
+                            if (v15 >= 8)
+                            {
+                              v32 = 1;
+                            }
+
+                            else
+                            {
+                              v32 = v15 >> 2;
+                            }
+
+                            if (sub_1000189BC(a1, "number_of_reset_failures", v6, 4u, v32))
+                            {
+                              goto LABEL_1372;
+                            }
+
+                            sub_100020530("ASPMSPParseBufferToCxt: number_of_reset_failures(8198): Error adding 1 elements to context");
+                            break;
+                          case 8199:
+                            if (v15 != 4)
+                            {
+                              sub_100020530("ASPMSPParseBufferToCxt: device_config(8199): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                            }
+
+                            if (v15 >= 8)
+                            {
+                              v32 = 1;
+                            }
+
+                            else
+                            {
+                              v32 = v15 >> 2;
+                            }
+
+                            if (sub_1000189BC(a1, "device_config", v6, 4u, v32))
+                            {
+                              goto LABEL_1372;
+                            }
+
+                            sub_100020530("ASPMSPParseBufferToCxt: device_config(8199): Error adding 1 elements to context");
+                            break;
+                          case 8200:
+                            if (v15 != 4)
+                            {
+                              sub_100020530("ASPMSPParseBufferToCxt: number_of_throttling_events(8200): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                            }
+
+                            if (v15 >= 8)
+                            {
+                              v32 = 1;
+                            }
+
+                            else
+                            {
+                              v32 = v15 >> 2;
+                            }
+
+                            if (sub_1000189BC(a1, "number_of_throttling_events", v6, 4u, v32))
+                            {
+                              goto LABEL_1372;
+                            }
+
+                            sub_100020530("ASPMSPParseBufferToCxt: number_of_throttling_events(8200): Error adding 1 elements to context");
+                            break;
+                          case 8201:
+                            if (v15 != 4)
+                            {
+                              sub_100020530("ASPMSPParseBufferToCxt: link_speed_recoveries(8201): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                            }
+
+                            if (v15 >= 8)
+                            {
+                              v32 = 1;
+                            }
+
+                            else
+                            {
+                              v32 = v15 >> 2;
+                            }
+
+                            if (sub_1000189BC(a1, "link_speed_recoveries", v6, 4u, v32))
+                            {
+                              goto LABEL_1372;
+                            }
+
+                            sub_100020530("ASPMSPParseBufferToCxt: link_speed_recoveries(8201): Error adding 1 elements to context");
+                            break;
+                          case 8202:
+                            if (v15 != 4)
+                            {
+                              sub_100020530("ASPMSPParseBufferToCxt: fw_updates(8202): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                            }
+
+                            if (v15 >= 8)
+                            {
+                              v32 = 1;
+                            }
+
+                            else
+                            {
+                              v32 = v15 >> 2;
+                            }
+
+                            if (sub_1000189BC(a1, "fw_updates", v6, 4u, v32))
+                            {
+                              goto LABEL_1372;
+                            }
+
+                            sub_100020530("ASPMSPParseBufferToCxt: fw_updates(8202): Error adding 1 elements to context");
+                            break;
+                          case 8203:
+                            if (v15 != 4)
+                            {
+                              sub_100020530("ASPMSPParseBufferToCxt: maintenance_backup_to_main(8203): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                            }
+
+                            if (v15 >= 8)
+                            {
+                              v32 = 1;
+                            }
+
+                            else
+                            {
+                              v32 = v15 >> 2;
+                            }
+
+                            if (sub_1000189BC(a1, "maintenance_backup_to_main", v6, 4u, v32))
+                            {
+                              goto LABEL_1372;
+                            }
+
+                            sub_100020530("ASPMSPParseBufferToCxt: maintenance_backup_to_main(8203): Error adding 1 elements to context");
+                            break;
+                          case 8204:
+                            if (v15 != 4)
+                            {
+                              sub_100020530("ASPMSPParseBufferToCxt: maintenance_main_to_backup(8204): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                            }
+
+                            if (v15 >= 8)
+                            {
+                              v32 = 1;
+                            }
+
+                            else
+                            {
+                              v32 = v15 >> 2;
+                            }
+
+                            if (sub_1000189BC(a1, "maintenance_main_to_backup", v6, 4u, v32))
+                            {
+                              goto LABEL_1372;
+                            }
+
+                            sub_100020530("ASPMSPParseBufferToCxt: maintenance_main_to_backup(8204): Error adding 1 elements to context");
+                            break;
+                          case 8205:
+                            if (v15 != 4)
+                            {
+                              sub_100020530("ASPMSPParseBufferToCxt: boot_block_erase_failures(8205): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                            }
+
+                            if (v15 >= 8)
+                            {
+                              v32 = 1;
+                            }
+
+                            else
+                            {
+                              v32 = v15 >> 2;
+                            }
+
+                            if (sub_1000189BC(a1, "boot_block_erase_failures", v6, 4u, v32))
+                            {
+                              goto LABEL_1372;
+                            }
+
+                            sub_100020530("ASPMSPParseBufferToCxt: boot_block_erase_failures(8205): Error adding 1 elements to context");
+                            break;
+                          case 8206:
+                            if (v15 != 4)
+                            {
+                              sub_100020530("ASPMSPParseBufferToCxt: boot_block_program_failures(8206): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                            }
+
+                            if (v15 >= 8)
+                            {
+                              v32 = 1;
+                            }
+
+                            else
+                            {
+                              v32 = v15 >> 2;
+                            }
+
+                            if (sub_1000189BC(a1, "boot_block_program_failures", v6, 4u, v32))
+                            {
+                              goto LABEL_1372;
+                            }
+
+                            sub_100020530("ASPMSPParseBufferToCxt: boot_block_program_failures(8206): Error adding 1 elements to context");
+                            break;
+                          case 8207:
+                            if (v15 != 4)
+                            {
+                              sub_100020530("ASPMSPParseBufferToCxt: boot_block_read_verify_failures(8207): cfg 1 elements; (1*4) cfg bytes != (%d) buffer bytes", v15);
+                            }
+
+                            if (v15 >= 8)
+                            {
+                              v32 = 1;
+                            }
+
+                            else
+                            {
+                              v32 = v15 >> 2;
+                            }
+
+                            if (sub_1000189BC(a1, "boot_block_read_verify_failures", v6, 4u, v32))
+                            {
+                              goto LABEL_1372;
+                            }
+
+                            sub_100020530("ASPMSPParseBufferToCxt: boot_block_read_verify_failures(8207): Error adding 1 elements to context");
+                            break;
+                          default:
+                            goto LABEL_930;
+                        }
+
+                        break;
+                    }
+
+                    break;
+                }
+
+                break;
+            }
           }
 
-          break;
-      }
-    }
+          return v3;
+        }
 
 LABEL_463:
-    v11 += v20;
-    v10 -= v20;
+        v6 += v15;
+        v5 -= v15;
+      }
+    }
   }
+
+  else
+  {
+LABEL_2105:
+    sub_100020530(v4);
+  }
+
+  return v3;
 }
 
 uint64_t sub_100020050(uint64_t result, const char *a2, const char *a3, uint64_t a4)
@@ -7394,13 +7389,14 @@ void sub_1000204BC(uint64_t a1, void *a2, void *a3)
   }
 }
 
-void sub_100020530(const char *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void sub_100020530(const char *a1, ...)
 {
+  va_start(va, a1);
   bzero(__str, 0x400uLL);
   if (!qword_1000D2058)
   {
     qword_1000D2058 = malloc_type_calloc(0x400uLL, 1uLL, 0x100004077774924uLL);
-    vsnprintf(__str, 0x400uLL, a1, &a9);
+    vsnprintf(__str, 0x400uLL, a1, va);
     snprintf(qword_1000D2058, 0x400uLL, "%s", __str);
   }
 }
@@ -7506,8 +7502,12 @@ uint64_t sub_1000207E0(uint64_t a1)
   return pthread_mutex_unlock(&stru_1000D1B68);
 }
 
-void *sub_100021C58(char **a1, int a2, int a3, int a4, void *a5, char a6, char a7)
+void *sub_100021C58(char **a1, uint64_t a2, int a3, uint64_t a4, void *a5, uint64_t a6, uint64_t a7)
 {
+  v7 = a7;
+  v8 = a6;
+  v10 = a4;
+  v12 = a2;
   v13 = a1;
   v21 = 0;
   *a5 = 0;
@@ -7520,10 +7520,10 @@ LABEL_11:
   }
 
   v14 = a3;
-  v15 = sub_100021E08(v13, a2, a3, a4, a7);
+  v15 = sub_100021E08(v13, v12, a3, v10, v7);
   if (!v15)
   {
-    fprintf(__stderrp, "failed to get data size for cmd option %d\n", a2);
+    fprintf(__stderrp, "failed to get data size for cmd option %d\n", v12);
     goto LABEL_11;
   }
 
@@ -7534,7 +7534,7 @@ LABEL_11:
   if (v18)
   {
     bzero(v18, v17);
-    if (sub_100021ED0(v13, a2, v14, a4, v19, v17, a6, a7))
+    if (sub_100021ED0(v13, v12, v14, v10, v19, v17, v8, v7))
     {
       *a5 = v16;
     }
@@ -7800,9 +7800,9 @@ id byteString(void *a1, int a2)
   return v7;
 }
 
-void sub_100022C88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100022C88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7923,9 +7923,9 @@ LABEL_13:
   }
 }
 
-void sub_100026984(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100026984(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7946,6 +7946,13 @@ intptr_t sub_1000269D8(uint64_t a1, uint64_t a2)
   v5 = *(a1 + 32);
 
   return dispatch_semaphore_signal(v5);
+}
+
+void sub_100026F98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
+{
+  va_start(va, a30);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 intptr_t sub_100026FEC(uint64_t a1, uint64_t a2)
@@ -8264,11 +8271,12 @@ void sub_10002C070(uint64_t a1, uint64_t a2)
   [v3 handleNewProximityValue:a2];
 }
 
-void sub_10002C4FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, char a17)
+void sub_10002C4FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, ...)
 {
-  objc_destroyWeak((v17 + 48));
+  va_start(va, location);
+  objc_destroyWeak((v16 + 48));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a17, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -8326,11 +8334,12 @@ void sub_10002C608(uint64_t a1, char a2, void *a3, void *a4)
   dispatch_semaphore_signal(*(a1 + 32));
 }
 
-void sub_10002CCBC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, id location, char a19)
+void sub_10002CCBC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, id location, ...)
 {
-  objc_destroyWeak((v19 + 48));
+  va_start(va, location);
+  objc_destroyWeak((v18 + 48));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a19, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -8373,11 +8382,12 @@ void sub_10002DF08(id a1)
   _objc_release_x1();
 }
 
-void sub_10002E60C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, id location, char a19)
+void sub_10002E60C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, id location, ...)
 {
-  objc_destroyWeak((v19 + 48));
+  va_start(va, location);
+  objc_destroyWeak((v18 + 48));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a19, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -8413,13 +8423,14 @@ intptr_t sub_10002E64C(uint64_t a1)
   return dispatch_semaphore_signal(v9);
 }
 
-void sub_100030544(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, char a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, char a44)
+void sub_100030544(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, ...)
 {
+  va_start(va, a43);
   _Block_object_dispose(&a38, 8);
-  _Block_object_dispose(&a44, 8);
-  _Block_object_dispose((v44 - 248), 8);
-  _Block_object_dispose((v44 - 200), 8);
-  _Block_object_dispose((v44 - 152), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v43 - 248), 8);
+  _Block_object_dispose((v43 - 200), 8);
+  _Block_object_dispose((v43 - 152), 8);
   _Unwind_Resume(a1);
 }
 
@@ -8432,40 +8443,28 @@ uint64_t sub_10003058C(uint64_t result, uint64_t a2)
 
 uint64_t sub_1000305A4(uint64_t a1)
 {
-  v2 = [*(a1 + 32) generateMaxMinAvgCapacity];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) generateMaxMinAvgCapacity];
 
   return _objc_release_x1();
 }
 
 uint64_t sub_1000305F0(uint64_t a1)
 {
-  v2 = [*(a1 + 32) generateTemperatureData];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) generateTemperatureData];
 
   return _objc_release_x1();
 }
 
 uint64_t sub_10003063C(uint64_t a1)
 {
-  v2 = [*(a1 + 32) generateUPOStepper];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) generateUPOStepper];
 
   return _objc_release_x1();
 }
 
 uint64_t sub_100030688(uint64_t a1)
 {
-  v2 = [*(a1 + 32) generateBatteryConfig];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) generateBatteryConfig];
 
   return _objc_release_x1();
 }
@@ -8563,9 +8562,9 @@ LABEL_7:
   dispatch_semaphore_signal(*(a1 + 32));
 }
 
-void sub_100035C2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100035C2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9049,9 +9048,9 @@ uint64_t sub_10003E248(char *a1)
 
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v21 = 134217984;
-    v22 = a1;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "getSensorProvisioningState(%p)\n", &v21, 0xCu);
+    v19 = 134217984;
+    v20 = a1;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "getSensorProvisioningState(%p)\n", &v19, 0xCu);
   }
 
   if (a1)
@@ -9073,19 +9072,19 @@ uint64_t sub_10003E248(char *a1)
           dispatch_once(&qword_1000D1FB0, &stru_100090978);
         }
 
-        v15 = sub_100002BE0(qword_1000D2040);
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        v13 = sub_100002BE0(qword_1000D2040);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
-          v21 = 136316162;
-          v22 = "err == 0 ";
-          v23 = 2048;
-          v24 = v3;
+          v19 = 136316162;
+          v20 = "err == 0 ";
+          v21 = 2048;
+          v22 = v3;
           sub_100002BD4();
-          v25 = "";
+          v23 = "";
           sub_100002AEC();
-          v26 = 406;
+          v24 = 406;
           sub_100002BC4();
-          _os_log_impl(v16, v17, v18, v19, v20, 0x30u);
+          _os_log_impl(v14, v15, v16, v17, v18, 0x30u);
         }
       }
 
@@ -9118,17 +9117,12 @@ uint64_t sub_10003E248(char *a1)
     v5 = sub_100002BE0(qword_1000D2048);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      if (a1)
-      {
-        v6 = *a1;
-      }
-
-      v21 = 67109376;
-      LODWORD(v22) = v3;
+      v19 = 67109376;
+      LODWORD(v20) = v3;
       sub_100002C1C();
       sub_100002BC4();
-LABEL_28:
-      _os_log_impl(v9, v10, v11, v12, v13, 0xEu);
+LABEL_24:
+      _os_log_impl(v7, v8, v9, v10, v11, 0xEu);
     }
   }
 
@@ -9139,23 +9133,18 @@ LABEL_28:
       dispatch_once(&qword_1000D1FB0, &stru_100090978);
     }
 
-    v7 = sub_100002BE0(qword_1000D2048);
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100002BE0(qword_1000D2048);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      if (a1)
-      {
-        v8 = *a1;
-      }
-
-      v21 = 67109376;
-      LODWORD(v22) = 0;
+      v19 = 67109376;
+      LODWORD(v20) = 0;
       sub_100002C1C();
-      v9 = &_mh_execute_header;
-      v12 = "getSensorProvisioningState -> err:0x%x, state:%d\n";
-      v13 = &v21;
-      v10 = &qword_1000D2000;
-      v11 = OS_LOG_TYPE_DEFAULT;
-      goto LABEL_28;
+      v7 = &_mh_execute_header;
+      v10 = "getSensorProvisioningState -> err:0x%x, state:%d\n";
+      v11 = &v19;
+      v8 = &qword_1000D2000;
+      v9 = OS_LOG_TYPE_DEFAULT;
+      goto LABEL_24;
     }
   }
 

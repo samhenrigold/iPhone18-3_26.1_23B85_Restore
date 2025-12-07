@@ -113,32 +113,30 @@ void __60__ATXInformationHeuristicRefreshContextChangeTrigger__start__block_invo
     v5 = [WeakRetained[3] key];
     [v3 setObject:v4 forKey:v5];
 
-    v6 = __atxlog_handle_gi();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = __atxlog_handle_gi(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = WeakRetained[3];
+      v8 = WeakRetained[3];
       v18 = 134218242;
       v19 = WeakRetained;
       v20 = 2112;
-      v21 = v7;
-      _os_log_impl(&dword_23E3EA000, v6, OS_LOG_TYPE_DEFAULT, "ATXInformationHeuristicRefreshContextChangeTrigger (%p): Context changed at keypath %@. Triggering heuristics refresh.", &v18, 0x16u);
+      v21 = v8;
+      _os_log_impl(&dword_23E3EA000, v7, OS_LOG_TYPE_DEFAULT, "ATXInformationHeuristicRefreshContextChangeTrigger (%p): Context changed at keypath %@. Triggering heuristics refresh.", &v18, 0x16u);
     }
 
-    v8 = [WeakRetained delegate];
-    v9 = [WeakRetained registeredHeuristics];
-    [v8 informationHeuristicRefreshTrigger:WeakRetained didTriggerRefreshForHeuristics:v9];
+    v9 = [WeakRetained delegate];
+    v10 = [WeakRetained registeredHeuristics];
+    [v9 informationHeuristicRefreshTrigger:WeakRetained didTriggerRefreshForHeuristics:v10];
   }
 
   else
   {
-    v3 = __atxlog_handle_gi();
+    v3 = __atxlog_handle_gi(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      __60__ATXInformationHeuristicRefreshContextChangeTrigger__start__block_invoke_cold_1(v3, v10, v11, v12, v13, v14, v15, v16);
+      __60__ATXInformationHeuristicRefreshContextChangeTrigger__start__block_invoke_cold_1(v3, v11, v12, v13, v14, v15, v16, v17);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_stop
@@ -223,57 +221,8 @@ void __60__ATXInformationHeuristicRefreshContextChangeTrigger__start__block_invo
   v18.receiver = self;
   v18.super_class = ATXInformationHeuristicRefreshContextChangeTrigger;
   v5 = [(ATXInformationHeuristicRefreshTrigger *)&v18 initWithCoder:coderCopy];
-  if (!v5)
+  if (!v5 || ([coderCopy error], v6 = objc_claimAutoreleasedReturnValue(), v6, v6) || (-[ATXInformationHeuristicRefreshTrigger _safeDecodeObjectOfClass:forKey:withCoder:nonNull:](v5, "_safeDecodeObjectOfClass:forKey:withCoder:nonNull:", objc_opt_class(), @"contextKeyPath", coderCopy, 1), v9 = objc_claimAutoreleasedReturnValue(), contextKeyPath = v5->_contextKeyPath, v5->_contextKeyPath = v9, contextKeyPath, !v5->_contextKeyPath) || (objc_msgSend(coderCopy, "error"), v11 = objc_claimAutoreleasedReturnValue(), v11, v11) || (-[ATXInformationHeuristicRefreshTrigger _safeDecodeObjectOfClass:forKey:withCoder:nonNull:](v5, "_safeDecodeObjectOfClass:forKey:withCoder:nonNull:", objc_opt_class(), @"predicate", coderCopy, 1), v12 = objc_claimAutoreleasedReturnValue(), predicate = v5->_predicate, v5->_predicate = v12, predicate, !v5->_predicate) || (objc_msgSend(coderCopy, "error"), v14 = objc_claimAutoreleasedReturnValue(), v14, v14) || (-[ATXInformationHeuristicRefreshTrigger _safeDecodeObjectOfClass:forKey:withCoder:nonNull:](v5, "_safeDecodeObjectOfClass:forKey:withCoder:nonNull:", objc_opt_class(), @"registrationIdKey", coderCopy, 1), v15 = objc_claimAutoreleasedReturnValue(), registrationIdentifier = v5->_registrationIdentifier, v5->_registrationIdentifier = v15, registrationIdentifier, !v5->_registrationIdentifier) || (objc_msgSend(coderCopy, "error"), v17 = objc_claimAutoreleasedReturnValue(), v17, v17))
   {
-    goto LABEL_3;
-  }
-
-  error = [coderCopy error];
-
-  if (error)
-  {
-    goto LABEL_3;
-  }
-
-  v9 = [(ATXInformationHeuristicRefreshTrigger *)v5 _safeDecodeObjectOfClass:objc_opt_class() forKey:@"contextKeyPath" withCoder:coderCopy nonNull:1];
-  contextKeyPath = v5->_contextKeyPath;
-  v5->_contextKeyPath = v9;
-
-  if (!v5->_contextKeyPath)
-  {
-    goto LABEL_3;
-  }
-
-  error2 = [coderCopy error];
-
-  if (error2)
-  {
-    goto LABEL_3;
-  }
-
-  v12 = [(ATXInformationHeuristicRefreshTrigger *)v5 _safeDecodeObjectOfClass:objc_opt_class() forKey:@"predicate" withCoder:coderCopy nonNull:1];
-  predicate = v5->_predicate;
-  v5->_predicate = v12;
-
-  if (!v5->_predicate)
-  {
-    goto LABEL_3;
-  }
-
-  error3 = [coderCopy error];
-
-  if (error3)
-  {
-    goto LABEL_3;
-  }
-
-  v15 = [(ATXInformationHeuristicRefreshTrigger *)v5 _safeDecodeObjectOfClass:objc_opt_class() forKey:@"registrationIdKey" withCoder:coderCopy nonNull:1];
-  registrationIdentifier = v5->_registrationIdentifier;
-  v5->_registrationIdentifier = v15;
-
-  if (!v5->_registrationIdentifier || ([coderCopy error], v17 = objc_claimAutoreleasedReturnValue(), v17, v17))
-  {
-LABEL_3:
     v7 = 0;
   }
 

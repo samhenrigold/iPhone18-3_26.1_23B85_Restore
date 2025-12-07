@@ -7,12 +7,14 @@
 - (id)_fetchCredentialIdentitiesWithType:(int64_t)type;
 - (int)_createFreshDatabaseSchema;
 - (int)_insertCredentialIdentity:(id)identity;
+- (int)_migrateToSchemaVersion:(int)version;
 - (int)_migrateToSchemaVersion_2;
 - (int)_migrateToSchemaVersion_3;
 - (int)_removeAllCredentialIdentities;
 - (int)_removeCredentialIdentities:(id)identities;
 - (int)_removeCredentialIdentity:(id)identity;
 - (int)_saveCredentialIdentities:(id)identities;
+- (int)_setDatabaseSchemaVersion:(int)version;
 - (int)_updateCredentialIdentity:(id)identity;
 - (int)_vacuum;
 - (int64_t)_rowIDOfCredentialIdentityIfExists:(id)exists;
@@ -25,6 +27,7 @@
 - (void)fetchPasskeyCredentialIdentitiesMatchingDomains:(id)domains completion:(id)completion;
 - (void)fetchPasswordCredentialIdentitiesMatchingDomains:(id)domains completion:(id)completion;
 - (void)fetchStoreEmptyStateWithCompletion:(id)completion;
+- (void)openAndCheckIntegrity:(BOOL)integrity createIfNeeded:(BOOL)needed fallBackToMemoryStoreIfError:(BOOL)error lockingPolicy:(int64_t)policy completionHandler:(id)handler;
 - (void)removeAllCredentialIdentitiesWithCompletion:(id)completion;
 - (void)removeCredentialIdentities:(id)identities completion:(id)completion;
 - (void)replaceCredentialIdentitiesWithIdentities:(id)identities completion:(id)completion;
@@ -58,6 +61,24 @@
   return v7;
 }
 
+- (void)openAndCheckIntegrity:(BOOL)integrity createIfNeeded:(BOOL)needed fallBackToMemoryStoreIfError:(BOOL)error lockingPolicy:(int64_t)policy completionHandler:(id)handler
+{
+  errorCopy = error;
+  neededCopy = needed;
+  integrityCopy = integrity;
+  handlerCopy = handler;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __135__SFExternalCredentialIdentityStore_openAndCheckIntegrity_createIfNeeded_fallBackToMemoryStoreIfError_lockingPolicy_completionHandler___block_invoke;
+  v15[3] = &unk_279B619E8;
+  v15[4] = self;
+  v16 = handlerCopy;
+  v14.receiver = self;
+  v14.super_class = SFExternalCredentialIdentityStore;
+  v13 = handlerCopy;
+  [(WBSSQLiteStore *)&v14 openAndCheckIntegrity:integrityCopy createIfNeeded:neededCopy fallBackToMemoryStoreIfError:errorCopy lockingPolicy:policy completionHandler:v15];
+}
+
 void __135__SFExternalCredentialIdentityStore_openAndCheckIntegrity_createIfNeeded_fallBackToMemoryStoreIfError_lockingPolicy_completionHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
   v4 = [*(a1 + 32) databaseQueue];
@@ -73,41 +94,41 @@ void __135__SFExternalCredentialIdentityStore_openAndCheckIntegrity_createIfNeed
   dispatch_async(v4, block);
 }
 
-uint64_t __135__SFExternalCredentialIdentityStore_openAndCheckIntegrity_createIfNeeded_fallBackToMemoryStoreIfError_lockingPolicy_completionHandler___block_invoke_2(uint64_t a1)
+uint64_t __135__SFExternalCredentialIdentityStore_openAndCheckIntegrity_createIfNeeded_fallBackToMemoryStoreIfError_lockingPolicy_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = (a1 + 48);
+  v3 = (a1 + 48);
   if (*(a1 + 48))
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXCredentials();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = WBS_LOG_CHANNEL_PREFIXCredentials(a1, a2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __135__SFExternalCredentialIdentityStore_openAndCheckIntegrity_createIfNeeded_fallBackToMemoryStoreIfError_lockingPolicy_completionHandler___block_invoke_2_cold_1(v2);
+      __135__SFExternalCredentialIdentityStore_openAndCheckIntegrity_createIfNeeded_fallBackToMemoryStoreIfError_lockingPolicy_completionHandler___block_invoke_2_cold_1();
     }
   }
 
   else
   {
-    v4 = [*(a1 + 32) database];
-    v5 = [v4 handle];
+    v5 = [*(a1 + 32) database];
+    v6 = [v5 handle];
 
-    if (v5)
+    if (v6)
     {
-      sqlite3_create_function_v2(v5, "sf_identity_matches_domains", 3, 2049, 0, credentialIdentityMatchesDomains, 0, 0, 0);
+      sqlite3_create_function_v2(v6, "sf_identity_matches_domains", 3, 2049, 0, credentialIdentityMatchesDomains, 0, 0, 0);
     }
 
-    v6 = objc_alloc(MEMORY[0x277D49B10]);
-    v7 = [*(a1 + 32) database];
-    v8 = [v6 initWithDatabase:v7];
-    v9 = *(a1 + 32);
-    v10 = *(v9 + 64);
-    *(v9 + 64) = v8;
+    v7 = objc_alloc(MEMORY[0x277D49B10]);
+    v8 = [*(a1 + 32) database];
+    v9 = [v7 initWithDatabase:v8];
+    v10 = *(a1 + 32);
+    v11 = *(v10 + 64);
+    *(v10 + 64) = v9;
   }
 
   dispatch_resume(*(*(a1 + 32) + 72));
   result = *(a1 + 40);
   if (result)
   {
-    return (*(result + 16))(result, *v2);
+    return (*(result + 16))(result, *v3);
   }
 
   return result;
@@ -143,40 +164,90 @@ uint64_t __135__SFExternalCredentialIdentityStore_openAndCheckIntegrity_createIf
 
 uint64_t __63__SFExternalCredentialIdentityStore__createFreshDatabaseSchema__block_invoke(uint64_t a1)
 {
-  v7[3] = *MEMORY[0x277D85DE8];
-  *(*(*(a1 + 40) + 8) + 24) = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(*(a1 + 32), 0, @"CREATE TABLE credential_identities (id INTEGER PRIMARY KEY AUTOINCREMENT,identity_type INTEGER DEFAULT 0,service_id TEXT NOT NULL,service_id_type INTEGER NOT NULL DEFAULT 0,external_record_id TEXT DEFAULT NULL,user TEXT DEFAULT NULL,rank INTEGER NOT NULL DEFAULT 0,UNIQUE(service_id, service_id_type, external_record_id, user, identity_type) ON CONFLICT REPLACE)");
-  if (*(*(*(a1 + 40) + 8) + 24) != 101)
+  v10[3] = *MEMORY[0x277D85DE8];
+  v2 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(*(a1 + 32), 0, @"CREATE TABLE credential_identities (id INTEGER PRIMARY KEY AUTOINCREMENT,identity_type INTEGER DEFAULT 0,service_id TEXT NOT NULL,service_id_type INTEGER NOT NULL DEFAULT 0,external_record_id TEXT DEFAULT NULL,user TEXT DEFAULT NULL,rank INTEGER NOT NULL DEFAULT 0,UNIQUE(service_id, service_id_type, external_record_id, user, identity_type) ON CONFLICT REPLACE)");
+  *(*(*(a1 + 40) + 8) + 24) = v2;
+  if (*(*(*(a1 + 40) + 8) + 24) == 101)
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXCredentials();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(*(a1 + 32), 0, @"CREATE INDEX credential_identities__service_id ON credential_identities (service_id)");
+    *(*(*(a1 + 40) + 8) + 24) = v4;
+    if (*(*(*(a1 + 40) + 8) + 24) == 101)
     {
-      v4 = [*(a1 + 32) lastErrorMessage];
-      __63__SFExternalCredentialIdentityStore__createFreshDatabaseSchema__block_invoke_cold_1(v4, v7);
+      return 1;
     }
 
-    goto LABEL_8;
+    v7 = WBS_LOG_CHANNEL_PREFIXCredentials(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    {
+      v9 = [*(a1 + 32) lastErrorMessage];
+      __63__SFExternalCredentialIdentityStore__createFreshDatabaseSchema__block_invoke_cold_2(v9, v10);
+    }
   }
 
-  *(*(*(a1 + 40) + 8) + 24) = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(*(a1 + 32), 0, @"CREATE INDEX credential_identities__service_id ON credential_identities (service_id)");
-  if (*(*(*(a1 + 40) + 8) + 24) != 101)
+  else
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXCredentials();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v7 = WBS_LOG_CHANNEL_PREFIXCredentials(v2, v3);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v5 = [*(a1 + 32) lastErrorMessage];
-      __63__SFExternalCredentialIdentityStore__createFreshDatabaseSchema__block_invoke_cold_2(v5, v7);
+      v8 = [*(a1 + 32) lastErrorMessage];
+      __63__SFExternalCredentialIdentityStore__createFreshDatabaseSchema__block_invoke_cold_1(v8, v10);
+    }
+  }
+
+  return 0;
+}
+
+- (int)_migrateToSchemaVersion:(int)version
+{
+  v3 = *&version;
+  database = [(WBSSQLiteStore *)self database];
+  v6 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(database, 0, @"BEGIN TRANSACTION");
+
+  if (v6 == 101)
+  {
+    aBlock[0] = MEMORY[0x277D85DD0];
+    aBlock[1] = 3221225472;
+    aBlock[2] = __61__SFExternalCredentialIdentityStore__migrateToSchemaVersion___block_invoke;
+    aBlock[3] = &unk_279B61A38;
+    aBlock[4] = self;
+    v9 = _Block_copy(aBlock);
+    if (v3 != 3 && v3 != 2 || (v6 = [(SFExternalCredentialIdentityStore *)self _migrateToSchemaVersion], v6 == 101))
+    {
+      if ([(SFExternalCredentialIdentityStore *)self _setDatabaseSchemaVersion:v3]!= 101)
+      {
+        v9[2](v9);
+        v6 = 101;
+        goto LABEL_15;
+      }
+
+      database2 = [(WBSSQLiteStore *)self database];
+      v6 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(database2, 0, @"COMMIT TRANSACTION");
+
+      if (v6 == 101)
+      {
+LABEL_15:
+
+        return v6;
+      }
+
+      v14 = WBS_LOG_CHANNEL_PREFIXCredentials(v12, v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      {
+        [SFExternalCredentialIdentityStore _migrateToSchemaVersion:];
+      }
     }
 
-LABEL_8:
-
-    result = 0;
-    goto LABEL_9;
+    v9[2](v9);
+    goto LABEL_15;
   }
 
-  result = 1;
-LABEL_9:
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  v10 = WBS_LOG_CHANNEL_PREFIXCredentials(v7, v8);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  {
+    [SFExternalCredentialIdentityStore _migrateToSchemaVersion:];
+  }
+
+  return v6;
 }
 
 void __61__SFExternalCredentialIdentityStore__migrateToSchemaVersion___block_invoke(uint64_t a1)
@@ -186,8 +257,8 @@ void __61__SFExternalCredentialIdentityStore__migrateToSchemaVersion___block_inv
 
   if (v2 != 101)
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXCredentials();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = WBS_LOG_CHANNEL_PREFIXCredentials(v3, v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __61__SFExternalCredentialIdentityStore__migrateToSchemaVersion___block_invoke_cold_1();
     }
@@ -196,22 +267,22 @@ void __61__SFExternalCredentialIdentityStore__migrateToSchemaVersion___block_inv
 
 - (int)_migrateToSchemaVersion_2
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   database = [(WBSSQLiteStore *)self database];
   v4 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(database, 0, @"ALTER TABLE credential_identities ADD COLUMN credential_id TEXT DEFAULT NULL");
 
   if (v4 != 101)
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXCredentials();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v10 = WBS_LOG_CHANNEL_PREFIXCredentials(v5, v6);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       database2 = [(WBSSQLiteStore *)self database];
       lastErrorMessage = [database2 lastErrorMessage];
-      v13 = 138543618;
-      v14 = lastErrorMessage;
-      v15 = 1024;
-      v16 = v4;
-      _os_log_error_impl(&dword_26450F000, v6, OS_LOG_TYPE_ERROR, "Failed to add credential_id column to credential_identities table: %{public}@ (%d)", &v13, 0x12u);
+      v16 = 138543618;
+      v17 = lastErrorMessage;
+      v18 = 1024;
+      v19 = v4;
+      _os_log_error_impl(&dword_26450F000, v10, OS_LOG_TYPE_ERROR, "Failed to add credential_id column to credential_identities table: %{public}@ (%d)", &v16, 0x12u);
     }
 
     goto LABEL_7;
@@ -222,68 +293,67 @@ void __61__SFExternalCredentialIdentityStore__migrateToSchemaVersion___block_inv
 
   if (v4 != 101)
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXCredentials();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v10 = WBS_LOG_CHANNEL_PREFIXCredentials(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       database4 = [(WBSSQLiteStore *)self database];
       lastErrorMessage2 = [database4 lastErrorMessage];
-      v13 = 138543618;
-      v14 = lastErrorMessage2;
-      v15 = 1024;
-      v16 = v4;
-      _os_log_error_impl(&dword_26450F000, v6, OS_LOG_TYPE_ERROR, "Failed to add user_handle column to credential_identities table: %{public}@ (%d)", &v13, 0x12u);
+      v16 = 138543618;
+      v17 = lastErrorMessage2;
+      v18 = 1024;
+      v19 = v4;
+      _os_log_error_impl(&dword_26450F000, v10, OS_LOG_TYPE_ERROR, "Failed to add user_handle column to credential_identities table: %{public}@ (%d)", &v16, 0x12u);
     }
 
 LABEL_7:
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 - (int)_migrateToSchemaVersion_3
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   database = [(WBSSQLiteStore *)self database];
   v4 = SafariShared::WBSSQLiteDatabaseFetch<>(database, @"SELECT * FROM credential_identities");
 
-  v45 = 0u;
+  v48 = 0u;
+  v49 = 0u;
   v46 = 0u;
-  v43 = 0u;
-  v44 = 0u;
+  v47 = 0u;
   obj = v4;
-  v5 = [obj countByEnumeratingWithState:&v43 objects:v48 count:16];
+  v5 = [obj countByEnumeratingWithState:&v46 objects:v51 count:16];
   if (!v5)
   {
     goto LABEL_33;
   }
 
-  v6 = *v44;
+  v6 = *v47;
   do
   {
     for (i = 0; i != v5; ++i)
     {
-      if (*v44 != v6)
+      if (*v47 != v6)
       {
         objc_enumerationMutation(obj);
       }
 
-      v8 = *(*(&v43 + 1) + 8 * i);
-      v42 = [v8 int64AtIndex:0];
+      v8 = *(*(&v46 + 1) + 8 * i);
+      v45 = [v8 int64AtIndex:0];
       v9 = [v8 int64AtIndex:1];
-      v41 = [v8 stringAtIndex:2];
-      v40 = [v8 int64AtIndex:3];
-      v39 = [v8 stringAtIndex:4];
-      v38 = [v8 stringAtIndex:5];
-      v37 = [v8 int64AtIndex:6];
-      v36 = [v8 stringAtIndex:7];
-      v35 = [v8 stringAtIndex:8];
+      v44 = [v8 stringAtIndex:2];
+      v43 = [v8 int64AtIndex:3];
+      v42 = [v8 stringAtIndex:4];
+      v41 = [v8 stringAtIndex:5];
+      v40 = [v8 int64AtIndex:6];
+      v39 = [v8 stringAtIndex:7];
+      v38 = [v8 stringAtIndex:8];
       if (!v9)
       {
-        safari_bestURLForUserTypedString = [v41 safari_bestURLForUserTypedString];
+        safari_bestURLForUserTypedString = [v44 safari_bestURLForUserTypedString];
         if (safari_bestURLForUserTypedString)
         {
-          v19 = [v38 length] == 0;
+          v19 = [v41 length] == 0;
 
           if (!v19)
           {
@@ -297,7 +367,7 @@ LABEL_7:
             {
               v25 = v22;
               [v25 bindInt64:1 atParameterIndex:1];
-              SafariShared::_WBSSQLiteStatementBindAllParameters<2,NSString * {__strong}&,SFCredentialServiceIdentifierType &,NSString * {__strong}&,NSString * {__strong}&,long &,long &>(v25, &v41, &v40, &v39, &v38, &v37, &v42);
+              SafariShared::_WBSSQLiteStatementBindAllParameters<2,NSString * {__strong}&,SFCredentialServiceIdentifierType &,NSString * {__strong}&,NSString * {__strong}&,long &,long &>(v25, &v44, &v43, &v42, &v41, &v40, &v45);
 
               execute = [v25 execute];
               [v25 invalidate];
@@ -314,20 +384,20 @@ LABEL_7:
 
             if (execute != 101)
             {
-              v26 = WBS_LOG_CHANNEL_PREFIXCredentials();
-              if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+              v28 = WBS_LOG_CHANNEL_PREFIXCredentials(v31, v32);
+              if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
               {
                 database3 = [(WBSSQLiteStore *)self database];
                 lastErrorMessage = [database3 lastErrorMessage];
                 *buf = 138543362;
                 *&buf[4] = lastErrorMessage;
-                _os_log_error_impl(&dword_26450F000, v26, OS_LOG_TYPE_ERROR, "Failed to recover a password identity with error: %{public}@", buf, 0xCu);
+                _os_log_error_impl(&dword_26450F000, v28, OS_LOG_TYPE_ERROR, "Failed to recover a password identity with error: %{public}@", buf, 0xCu);
               }
 
 LABEL_29:
 
               v10 = 0;
-              v33 = execute;
+              v36 = execute;
               goto LABEL_30;
             }
           }
@@ -335,7 +405,7 @@ LABEL_29:
       }
 
       v10 = 1;
-      if (v9 == 1 && v36 && v35)
+      if (v9 == 1 && v39 && v38)
       {
         database4 = [(WBSSQLiteStore *)self database];
         v12 = objc_alloc(MEMORY[0x277D49B08]);
@@ -347,7 +417,7 @@ LABEL_29:
         {
           v16 = v13;
           [v16 bindInt64:2 atParameterIndex:1];
-          SafariShared::_WBSSQLiteStatementBindAllParameters<2,NSString * {__strong}&,SFCredentialServiceIdentifierType &,NSString * {__strong}&,NSString * {__strong}&,long &,NSString * {__strong}&,NSString * {__strong}&,long &>(v16, &v41, &v40, &v39, &v38, &v37, &v36, &v35, &v42);
+          SafariShared::_WBSSQLiteStatementBindAllParameters<2,NSString * {__strong}&,SFCredentialServiceIdentifierType &,NSString * {__strong}&,NSString * {__strong}&,long &,NSString * {__strong}&,NSString * {__strong}&,long &>(v16, &v44, &v43, &v42, &v41, &v40, &v39, &v38, &v45);
 
           execute = [v16 execute];
           [v16 invalidate];
@@ -368,14 +438,14 @@ LABEL_29:
           goto LABEL_30;
         }
 
-        v26 = WBS_LOG_CHANNEL_PREFIXCredentials();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+        v28 = WBS_LOG_CHANNEL_PREFIXCredentials(v26, v27);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
         {
           database5 = [(WBSSQLiteStore *)self database];
           lastErrorMessage2 = [database5 lastErrorMessage];
           *buf = 138543362;
           *&buf[4] = lastErrorMessage2;
-          _os_log_error_impl(&dword_26450F000, v26, OS_LOG_TYPE_ERROR, "Failed to recover a passkey identity with error: %{public}@", buf, 0xCu);
+          _os_log_error_impl(&dword_26450F000, v28, OS_LOG_TYPE_ERROR, "Failed to recover a passkey identity with error: %{public}@", buf, 0xCu);
         }
 
         goto LABEL_29;
@@ -389,16 +459,43 @@ LABEL_30:
       }
     }
 
-    v5 = [obj countByEnumeratingWithState:&v43 objects:v48 count:16];
+    v5 = [obj countByEnumeratingWithState:&v46 objects:v51 count:16];
   }
 
   while (v5);
 LABEL_33:
-  v33 = 101;
+  v36 = 101;
 LABEL_34:
 
-  v31 = *MEMORY[0x277D85DE8];
-  return v33;
+  return v36;
+}
+
+- (int)_setDatabaseSchemaVersion:(int)version
+{
+  v3 = *&version;
+  v20 = *MEMORY[0x277D85DE8];
+  database = [(WBSSQLiteStore *)self database];
+  v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"PRAGMA user_version = %d", v3];
+  v7 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(database, 0, v6);
+
+  if (v7 != 101)
+  {
+    v10 = WBS_LOG_CHANNEL_PREFIXCredentials(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      database2 = [(WBSSQLiteStore *)self database];
+      lastErrorMessage = [database2 lastErrorMessage];
+      *buf = 67109634;
+      v15 = v3;
+      v16 = 2114;
+      v17 = lastErrorMessage;
+      v18 = 1024;
+      v19 = v7;
+      _os_log_error_impl(&dword_26450F000, v10, OS_LOG_TYPE_ERROR, "Failed to set the database schema version to %d: %{public}@ (%d)", buf, 0x18u);
+    }
+  }
+
+  return v7;
 }
 
 - (void)saveCredentialIdentities:(id)identities completion:(id)completion
@@ -569,33 +666,34 @@ uint64_t __75__SFExternalCredentialIdentityStore_removeCredentialIdentities_comp
 
 - (int)_removeCredentialIdentities:(id)identities
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   identitiesCopy = identities;
   if ([identitiesCopy count])
   {
-    v15 = 0u;
     v16 = 0u;
-    v13 = 0u;
+    v17 = 0u;
     v14 = 0u;
+    v15 = 0u;
     v5 = identitiesCopy;
-    v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v6)
     {
-      v7 = *v14;
+      v7 = *v15;
       while (2)
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v14 != v7)
+          if (*v15 != v7)
           {
             objc_enumerationMutation(v5);
           }
 
-          v9 = [(SFExternalCredentialIdentityStore *)self _removeCredentialIdentity:*(*(&v13 + 1) + 8 * i), v13];
+          v9 = [(SFExternalCredentialIdentityStore *)self _removeCredentialIdentity:*(*(&v14 + 1) + 8 * i), v14];
+          v11 = v9;
           if (v9 != 101)
           {
-            v10 = WBS_LOG_CHANNEL_PREFIXCredentials();
-            if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+            v12 = WBS_LOG_CHANNEL_PREFIXCredentials(v9, v10);
+            if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
             {
               [(WBSSQLiteStore *)self database];
               [objc_claimAutoreleasedReturnValue() lastErrorMessage];
@@ -607,7 +705,7 @@ uint64_t __75__SFExternalCredentialIdentityStore_removeCredentialIdentities_comp
           }
         }
 
-        v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
         if (v6)
         {
           continue;
@@ -617,38 +715,38 @@ uint64_t __75__SFExternalCredentialIdentityStore_removeCredentialIdentities_comp
       }
     }
 
-    v9 = 101;
+    v11 = 101;
 LABEL_14:
   }
 
   else
   {
-    v9 = 101;
+    v11 = 101;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-  return v9;
+  return v11;
 }
 
 - (int)_removeCredentialIdentity:(id)identity
 {
-  v14[3] = *MEMORY[0x277D85DE8];
+  v15[3] = *MEMORY[0x277D85DE8];
   identityCopy = identity;
   if (identityCopy)
   {
     v5 = [(WBSSQLiteStatementCache *)self->_statements statementForQuery:@"DELETE FROM credential_identities WHERE service_id = ? AND service_id_type = ? AND external_record_id = ? AND user = ? AND identity_type = ?" error:0];
     serviceIdentifier = [identityCopy serviceIdentifier];
-    v14[0] = [identityCopy serviceIdentifierType];
+    v15[0] = [identityCopy serviceIdentifierType];
     externalRecordIdentifier = [identityCopy externalRecordIdentifier];
     user = [identityCopy user];
     type = [identityCopy type];
-    SafariShared::_WBSSQLiteStatementBindAllParameters<1,NSString * {__strong},SFCredentialServiceIdentifierType,NSString * {__strong},NSString * {__strong},long>(v5, &serviceIdentifier, v14, &externalRecordIdentifier, &user, &type);
+    SafariShared::_WBSSQLiteStatementBindAllParameters<1,NSString * {__strong},SFCredentialServiceIdentifierType,NSString * {__strong},NSString * {__strong},long>(v5, &serviceIdentifier, v15, &externalRecordIdentifier, &user, &type);
 
     execute = [v5 execute];
+    v8 = execute;
     if (execute != 101)
     {
-      v7 = WBS_LOG_CHANNEL_PREFIXCredentials();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v9 = WBS_LOG_CHANNEL_PREFIXCredentials(execute, v7);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         [(WBSSQLiteStore *)self database];
         [objc_claimAutoreleasedReturnValue() lastErrorMessage];
@@ -662,23 +760,21 @@ LABEL_14:
 
   else
   {
-    execute = 101;
+    v8 = 101;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
-  return execute;
+  return v8;
 }
 
 - (int)_removeAllCredentialIdentities
 {
-  v8 = *MEMORY[0x277D85DE8];
   database = [(WBSSQLiteStore *)self database];
   v4 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(database, 0, @"DELETE FROM credential_identities");
 
   if (v4 != 101)
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXCredentials();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = WBS_LOG_CHANNEL_PREFIXCredentials(v5, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteStore *)self database];
       [objc_claimAutoreleasedReturnValue() lastErrorMessage];
@@ -687,19 +783,18 @@ LABEL_14:
     }
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 - (int)_vacuum
 {
-  v8 = *MEMORY[0x277D85DE8];
   database = [(WBSSQLiteStore *)self database];
   v4 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(database, 0, @"VACUUM");
+  v6 = v4;
   if (v4 != 101)
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXCredentials();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = WBS_LOG_CHANNEL_PREFIXCredentials(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteStore *)self database];
       [objc_claimAutoreleasedReturnValue() lastErrorMessage];
@@ -708,32 +803,31 @@ LABEL_14:
     }
   }
 
-  v6 = *MEMORY[0x277D85DE8];
-  return v4;
+  return v6;
 }
 
 - (int)_saveCredentialIdentities:(id)identities
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   identitiesCopy = identities;
-  v5 = [identitiesCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [identitiesCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
-    v6 = *v15;
+    v6 = *v14;
 LABEL_3:
     v7 = 0;
     while (1)
     {
-      if (*v15 != v6)
+      if (*v14 != v6)
       {
         objc_enumerationMutation(identitiesCopy);
       }
 
-      v8 = *(*(&v14 + 1) + 8 * v7);
+      v8 = *(*(&v13 + 1) + 8 * v7);
       rowIdentifier = [v8 rowIdentifier];
       if (rowIdentifier == -1)
       {
@@ -759,7 +853,7 @@ LABEL_3:
 
       if (v5 == ++v7)
       {
-        v5 = [identitiesCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v5 = [identitiesCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
         if (v5)
         {
           goto LABEL_3;
@@ -776,16 +870,15 @@ LABEL_14:
     v11 = 101;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (int)_insertCredentialIdentity:(id)identity
 {
-  v30[3] = *MEMORY[0x277D85DE8];
+  v31[3] = *MEMORY[0x277D85DE8];
   identityCopy = identity;
   type = [identityCopy type];
-  v29 = type;
+  v30 = type;
   v6 = &stru_2875FD420;
   if (type > 1)
   {
@@ -808,35 +901,35 @@ LABEL_7:
     }
 
     v10 = [(WBSSQLiteStatementCache *)self->_statements statementForQuery:v9 error:0];
-    if (v29 > 1)
+    if (v30 > 1)
     {
-      if (v29 == 2)
+      if (v30 == 2)
       {
         serviceIdentifier = [identityCopy serviceIdentifier];
-        v30[0] = [identityCopy serviceIdentifierType];
+        v31[0] = [identityCopy serviceIdentifierType];
         externalRecordIdentifier = [identityCopy externalRecordIdentifier];
         user = [identityCopy user];
         rank = [identityCopy rank];
         credentialID = [identityCopy credentialID];
         userHandle = [identityCopy userHandle];
-        SafariShared::_WBSSQLiteStatementBindAllParameters<1,long &,NSString * {__strong},SFCredentialServiceIdentifierType,NSString * {__strong},NSString * {__strong},long,NSString * {__strong},NSString * {__strong}>(v10, &v29, &serviceIdentifier, v30, &externalRecordIdentifier, &user, &rank, &credentialID, &userHandle);
+        SafariShared::_WBSSQLiteStatementBindAllParameters<1,long &,NSString * {__strong},SFCredentialServiceIdentifierType,NSString * {__strong},NSString * {__strong},long,NSString * {__strong},NSString * {__strong}>(v10, &v30, &serviceIdentifier, v31, &externalRecordIdentifier, &user, &rank, &credentialID, &userHandle);
 
         v11 = &serviceIdentifier;
       }
 
       else
       {
-        if (v29 != 4)
+        if (v30 != 4)
         {
           goto LABEL_21;
         }
 
         serviceIdentifier2 = [identityCopy serviceIdentifier];
-        v30[0] = [identityCopy serviceIdentifierType];
+        v31[0] = [identityCopy serviceIdentifierType];
         externalRecordIdentifier2 = [identityCopy externalRecordIdentifier];
         user2 = [identityCopy user];
         rank = [identityCopy rank];
-        SafariShared::_WBSSQLiteStatementBindAllParameters<1,long &,NSString * {__strong},SFCredentialServiceIdentifierType,NSString * {__strong},NSString * {__strong},long>(v10, &v29, &serviceIdentifier2, v30, &externalRecordIdentifier2, &user2, &rank);
+        SafariShared::_WBSSQLiteStatementBindAllParameters<1,long &,NSString * {__strong},SFCredentialServiceIdentifierType,NSString * {__strong},NSString * {__strong},long>(v10, &v30, &serviceIdentifier2, v31, &externalRecordIdentifier2, &user2, &rank);
 
         v11 = &serviceIdentifier2;
       }
@@ -844,31 +937,32 @@ LABEL_7:
 
     else
     {
-      if (!v29)
+      if (!v30)
       {
-        execute = 1;
+        v12 = 1;
 LABEL_26:
 
         goto LABEL_27;
       }
 
-      if (v29 != 1)
+      if (v30 != 1)
       {
 LABEL_21:
         execute = [v10 execute];
+        v12 = execute;
         if (execute == 101)
         {
           database = [(WBSSQLiteStore *)self database];
           [identityCopy setRowIdentifier:{objc_msgSend(database, "lastInsertRowID")}];
 
           [v10 reset];
-          execute = 101;
+          v12 = 101;
         }
 
         else
         {
-          v14 = WBS_LOG_CHANNEL_PREFIXCredentials();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+          v16 = WBS_LOG_CHANNEL_PREFIXCredentials(execute, v14);
+          if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
           {
             [(WBSSQLiteStore *)self database];
             [objc_claimAutoreleasedReturnValue() lastErrorMessage];
@@ -883,11 +977,11 @@ LABEL_21:
       }
 
       serviceIdentifier3 = [identityCopy serviceIdentifier];
-      v30[0] = [identityCopy serviceIdentifierType];
+      v31[0] = [identityCopy serviceIdentifierType];
       externalRecordIdentifier3 = [identityCopy externalRecordIdentifier];
       user3 = [identityCopy user];
       rank = [identityCopy rank];
-      SafariShared::_WBSSQLiteStatementBindAllParameters<1,long &,NSString * {__strong},SFCredentialServiceIdentifierType,NSString * {__strong},NSString * {__strong},long>(v10, &v29, &serviceIdentifier3, v30, &externalRecordIdentifier3, &user3, &rank);
+      SafariShared::_WBSSQLiteStatementBindAllParameters<1,long &,NSString * {__strong},SFCredentialServiceIdentifierType,NSString * {__strong},NSString * {__strong},long>(v10, &v30, &serviceIdentifier3, v31, &externalRecordIdentifier3, &user3, &rank);
 
       v11 = &serviceIdentifier3;
     }
@@ -902,20 +996,19 @@ LABEL_21:
     goto LABEL_7;
   }
 
-  execute = 1;
+  v12 = 1;
 LABEL_27:
 
-  v15 = *MEMORY[0x277D85DE8];
-  return execute;
+  return v12;
 }
 
 - (int)_updateCredentialIdentity:(id)identity
 {
-  v26[3] = *MEMORY[0x277D85DE8];
+  v27[3] = *MEMORY[0x277D85DE8];
   identityCopy = identity;
   type = [identityCopy type];
   v6 = 0;
-  v25 = type;
+  v26 = type;
   if (type > 1)
   {
     if (type == 2)
@@ -923,14 +1016,14 @@ LABEL_27:
       v7 = identityCopy;
       v6 = [(WBSSQLiteStatementCache *)self->_statements statementForQuery:@"UPDATE credential_identities SET identity_type = ? error:service_id = ?, service_id_type = ?, external_record_id = ?, user = ?, rank = ?, credential_id = ?, user_handle = ? WHERE id = ?", 0];
       serviceIdentifier = [v7 serviceIdentifier];
-      v26[0] = [v7 serviceIdentifierType];
+      v27[0] = [v7 serviceIdentifierType];
       externalRecordIdentifier = [v7 externalRecordIdentifier];
       user = [v7 user];
       rank = [v7 rank];
       credentialID = [v7 credentialID];
       userHandle = [v7 userHandle];
       rowIdentifier = [v7 rowIdentifier];
-      SafariShared::_WBSSQLiteStatementBindAllParameters<1,long &,NSString * {__strong},SFCredentialServiceIdentifierType,NSString * {__strong},NSString * {__strong},long,NSString * {__strong},NSString * {__strong},long>(v6, &v25, &serviceIdentifier, v26, &externalRecordIdentifier, &user, &rank, &credentialID, &userHandle, &rowIdentifier);
+      SafariShared::_WBSSQLiteStatementBindAllParameters<1,long &,NSString * {__strong},SFCredentialServiceIdentifierType,NSString * {__strong},NSString * {__strong},long,NSString * {__strong},NSString * {__strong},long>(v6, &v26, &serviceIdentifier, v27, &externalRecordIdentifier, &user, &rank, &credentialID, &userHandle, &rowIdentifier);
     }
 
     else
@@ -942,12 +1035,12 @@ LABEL_27:
 
       v6 = [(WBSSQLiteStatementCache *)self->_statements statementForQuery:@"UPDATE credential_identities SET identity_type = ? error:service_id = ?, service_id_type = ?, external_record_id = ?, user = ?, rank = ? WHERE id = ?", 0];
       serviceIdentifier2 = [identityCopy serviceIdentifier];
-      v26[0] = [identityCopy serviceIdentifierType];
+      v27[0] = [identityCopy serviceIdentifierType];
       externalRecordIdentifier2 = [identityCopy externalRecordIdentifier];
       user2 = [identityCopy user];
       rank = [identityCopy rank];
       rowIdentifier = [identityCopy rowIdentifier];
-      SafariShared::_WBSSQLiteStatementBindAllParameters<1,long &,NSString * {__strong},SFCredentialServiceIdentifierType,NSString * {__strong},NSString * {__strong},long,long>(v6, &v25, &serviceIdentifier2, v26, &externalRecordIdentifier2, &user2, &rank, &rowIdentifier);
+      SafariShared::_WBSSQLiteStatementBindAllParameters<1,long &,NSString * {__strong},SFCredentialServiceIdentifierType,NSString * {__strong},NSString * {__strong},long,long>(v6, &v26, &serviceIdentifier2, v27, &externalRecordIdentifier2, &user2, &rank, &rowIdentifier);
 
       v7 = serviceIdentifier2;
     }
@@ -957,7 +1050,7 @@ LABEL_27:
 
   if (!type)
   {
-    execute = 1;
+    v8 = 1;
     goto LABEL_16;
   }
 
@@ -965,12 +1058,12 @@ LABEL_27:
   {
     v6 = [(WBSSQLiteStatementCache *)self->_statements statementForQuery:@"UPDATE credential_identities SET identity_type = ? error:service_id = ?, service_id_type = ?, external_record_id = ?, user = ?, rank = ? WHERE id = ?", 0];
     serviceIdentifier3 = [identityCopy serviceIdentifier];
-    v26[0] = [identityCopy serviceIdentifierType];
+    v27[0] = [identityCopy serviceIdentifierType];
     externalRecordIdentifier3 = [identityCopy externalRecordIdentifier];
     user3 = [identityCopy user];
     rank = [identityCopy rank];
     rowIdentifier = [identityCopy rowIdentifier];
-    SafariShared::_WBSSQLiteStatementBindAllParameters<1,long &,NSString * {__strong},SFCredentialServiceIdentifierType,NSString * {__strong},NSString * {__strong},long,long>(v6, &v25, &serviceIdentifier3, v26, &externalRecordIdentifier3, &user3, &rank, &rowIdentifier);
+    SafariShared::_WBSSQLiteStatementBindAllParameters<1,long &,NSString * {__strong},SFCredentialServiceIdentifierType,NSString * {__strong},NSString * {__strong},long,long>(v6, &v26, &serviceIdentifier3, v27, &externalRecordIdentifier3, &user3, &rank, &rowIdentifier);
 
     v7 = serviceIdentifier3;
 LABEL_10:
@@ -978,16 +1071,17 @@ LABEL_10:
 
 LABEL_11:
   execute = [v6 execute];
+  v8 = execute;
   if (execute == 101)
   {
     [v6 reset];
-    execute = 101;
+    v8 = 101;
   }
 
   else
   {
-    v9 = WBS_LOG_CHANNEL_PREFIXCredentials();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = WBS_LOG_CHANNEL_PREFIXCredentials(execute, v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteStore *)self database];
       [objc_claimAutoreleasedReturnValue() lastErrorMessage];
@@ -1000,8 +1094,7 @@ LABEL_11:
 
 LABEL_16:
 
-  v10 = *MEMORY[0x277D85DE8];
-  return execute;
+  return v8;
 }
 
 - (void)fetchCredentialIdentitiesWithCompletion:(id)completion
@@ -1176,32 +1269,32 @@ LABEL_10:
 
 - (id)_fetchCredentialIdentitiesMatchingDomains:(id)domains credentialIdentityType:(id)type
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   domainsCopy = domains;
   typeCopy = type;
-  v32 = domainsCopy;
+  v31 = domainsCopy;
   if ([domainsCopy count])
   {
     v7 = [MEMORY[0x277CBEB58] set];
-    v41 = 0u;
-    v42 = 0u;
-    v39 = 0u;
     v40 = 0u;
+    v41 = 0u;
+    v38 = 0u;
+    v39 = 0u;
     v8 = domainsCopy;
-    v9 = [v8 countByEnumeratingWithState:&v39 objects:v44 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v38 objects:v43 count:16];
     if (v9)
     {
-      v10 = *v40;
+      v10 = *v39;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v40 != v10)
+          if (*v39 != v10)
           {
             objc_enumerationMutation(v8);
           }
 
-          v12 = *(*(&v39 + 1) + 8 * i);
+          v12 = *(*(&v38 + 1) + 8 * i);
           safari_highLevelDomainFromHost = [v12 safari_highLevelDomainFromHost];
           v14 = safari_highLevelDomainFromHost;
           if (safari_highLevelDomainFromHost)
@@ -1220,7 +1313,7 @@ LABEL_10:
           [v7 addObject:lowercaseString];
         }
 
-        v9 = [v8 countByEnumeratingWithState:&v39 objects:v44 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v38 objects:v43 count:16];
       }
 
       while (v9);
@@ -1228,32 +1321,32 @@ LABEL_10:
 
     v18 = objc_alloc(MEMORY[0x277D49B08]);
     database = [(WBSSQLiteStore *)self database];
-    v33 = [v18 initWithDatabase:database query:{@"SELECT * FROM credential_identities WHERE sf_identity_matches_domains(service_id, service_id_type, ?) == 1"}];
+    v32 = [v18 initWithDatabase:database query:{@"SELECT * FROM credential_identities WHERE sf_identity_matches_domains(service_id, service_id_type, ?) == 1"}];
 
-    sqlite3_bind_pointer([v33 handle], 1, v7, "domainSet", 0);
-    fetch = [v33 fetch];
+    sqlite3_bind_pointer([v32 handle], 1, v7, "domainSet", 0);
+    fetch = [v32 fetch];
     array = [MEMORY[0x277CBEB18] array];
     matchAllTypes = [typeCopy matchAllTypes];
     typeToMatch = [typeCopy typeToMatch];
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
     v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
     v23 = fetch;
-    v24 = [v23 countByEnumeratingWithState:&v35 objects:v43 count:16];
+    v24 = [v23 countByEnumeratingWithState:&v34 objects:v42 count:16];
     if (v24)
     {
-      v25 = *v36;
+      v25 = *v35;
       do
       {
         for (j = 0; j != v24; ++j)
         {
-          if (*v36 != v25)
+          if (*v35 != v25)
           {
             objc_enumerationMutation(v23);
           }
 
-          v27 = [(SFExternalCredentialIdentityStore *)self _credentialIdentityFromRow:*(*(&v35 + 1) + 8 * j)];
+          v27 = [(SFExternalCredentialIdentityStore *)self _credentialIdentityFromRow:*(*(&v34 + 1) + 8 * j)];
           v28 = v27;
           if (v27 && ((matchAllTypes & 1) != 0 || [v27 type] == typeToMatch))
           {
@@ -1261,7 +1354,7 @@ LABEL_10:
           }
         }
 
-        v24 = [v23 countByEnumeratingWithState:&v35 objects:v43 count:16];
+        v24 = [v23 countByEnumeratingWithState:&v34 objects:v42 count:16];
       }
 
       while (v24);
@@ -1272,8 +1365,6 @@ LABEL_10:
   {
     array = MEMORY[0x277CBEBF8];
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -1309,50 +1400,48 @@ LABEL_10:
 
 - (id)_fetchCredentialIdentities
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   database = [(WBSSQLiteStore *)self database];
   v5 = SafariShared::WBSSQLiteDatabaseFetch<>(database, @"SELECT * FROM credential_identities");
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v6 = v5;
-  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = [(SFExternalCredentialIdentityStore *)self _credentialIdentityFromRow:*(*(&v13 + 1) + 8 * i), v13];
+        v10 = [(SFExternalCredentialIdentityStore *)self _credentialIdentityFromRow:*(*(&v12 + 1) + 8 * i), v12];
         if (v10)
         {
           [array addObject:v10];
         }
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return array;
 }
 
 - (id)_fetchCredentialIdentitiesWithType:(int64_t)type
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   v6 = objc_alloc(MEMORY[0x277D49B08]);
   database = [(WBSSQLiteStore *)self database];
@@ -1360,24 +1449,24 @@ LABEL_10:
 
   [v8 bindInt64:type atParameterIndex:1];
   [v8 fetch];
+  v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
-  v9 = v18 = 0u;
-  v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v16 = 0u;
+  v9 = v17 = 0u;
+  v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v10)
   {
-    v11 = *v18;
+    v11 = *v17;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(v9);
         }
 
-        v13 = [(SFExternalCredentialIdentityStore *)self _credentialIdentityFromRow:*(*(&v17 + 1) + 8 * i), v17];
+        v13 = [(SFExternalCredentialIdentityStore *)self _credentialIdentityFromRow:*(*(&v16 + 1) + 8 * i), v16];
         v14 = v13;
         if (v13 && [v13 type] == type)
         {
@@ -1385,13 +1474,11 @@ LABEL_10:
         }
       }
 
-      v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v10);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -1441,15 +1528,6 @@ uint64_t __72__SFExternalCredentialIdentityStore_fetchStoreEmptyStateWithComplet
   return v5;
 }
 
-void __135__SFExternalCredentialIdentityStore_openAndCheckIntegrity_createIfNeeded_fallBackToMemoryStoreIfError_lockingPolicy_completionHandler___block_invoke_2_cold_1(uint64_t *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *a1;
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 void __63__SFExternalCredentialIdentityStore__createFreshDatabaseSchema__block_invoke_cold_1(void *a1, uint64_t a2)
 {
   OUTLINED_FUNCTION_2_0(a1, a2, 5.8381e-34);
@@ -1460,14 +1538,6 @@ void __63__SFExternalCredentialIdentityStore__createFreshDatabaseSchema__block_i
 {
   OUTLINED_FUNCTION_2_0(a1, a2, 5.8381e-34);
   OUTLINED_FUNCTION_1_1(&dword_26450F000, v3, v4, "Failed to create index on identities table with error %{public}@", v5);
-}
-
-- (void)_migrateToSchemaVersion:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removeCredentialIdentities:.cold.1()

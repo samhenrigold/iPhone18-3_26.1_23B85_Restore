@@ -272,9 +272,11 @@ uint64_t __42__PXBadgeHelper_loopingBadgeTemplateImage__block_invoke()
   v3 = loopingBadgeTemplateImage_image;
   loopingBadgeTemplateImage_image = v2;
 
-  loopingBadgeTemplateImage_image = [loopingBadgeTemplateImage_image imageWithRenderingMode:2];
+  v4 = [loopingBadgeTemplateImage_image imageWithRenderingMode:2];
+  v5 = loopingBadgeTemplateImage_image;
+  loopingBadgeTemplateImage_image = v4;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v4, v5);
 }
 
 + (UIImage)loopingBadgeImage
@@ -330,9 +332,11 @@ uint64_t __44__PXBadgeHelper_livePhotoBadgeShadowedImage__block_invoke()
   v3 = livePhotoBadgeShadowedImage_image;
   livePhotoBadgeShadowedImage_image = v2;
 
-  livePhotoBadgeShadowedImage_image = [livePhotoBadgeShadowedImage_image imageWithRenderingMode:2];
+  v4 = [livePhotoBadgeShadowedImage_image imageWithRenderingMode:2];
+  v5 = livePhotoBadgeShadowedImage_image;
+  livePhotoBadgeShadowedImage_image = v4;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v4, v5);
 }
 
 + (UIImage)gradientImage
@@ -370,9 +374,11 @@ void __30__PXBadgeHelper_gradientImage__block_invoke()
 
 uint64_t __41__PXBadgeHelper_largeSymbolConfiguration__block_invoke()
 {
-  largeSymbolConfiguration_largeSymbolConfiguration = [MEMORY[0x1E69DCAD8] configurationWithScale:3];
+  v0 = [MEMORY[0x1E69DCAD8] configurationWithScale:3];
+  v1 = largeSymbolConfiguration_largeSymbolConfiguration;
+  largeSymbolConfiguration_largeSymbolConfiguration = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (UIImageSymbolConfiguration)mediumSymbolConfiguration
@@ -389,9 +395,11 @@ uint64_t __41__PXBadgeHelper_largeSymbolConfiguration__block_invoke()
 
 uint64_t __42__PXBadgeHelper_mediumSymbolConfiguration__block_invoke()
 {
-  mediumSymbolConfiguration_mediumSymbolConfiguration = [MEMORY[0x1E69DCAD8] configurationWithScale:2];
+  v0 = [MEMORY[0x1E69DCAD8] configurationWithScale:2];
+  v1 = mediumSymbolConfiguration_mediumSymbolConfiguration;
+  mediumSymbolConfiguration_mediumSymbolConfiguration = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (UIImageSymbolConfiguration)smallSymbolConfiguration
@@ -408,9 +416,11 @@ uint64_t __42__PXBadgeHelper_mediumSymbolConfiguration__block_invoke()
 
 uint64_t __41__PXBadgeHelper_smallSymbolConfiguration__block_invoke()
 {
-  smallSymbolConfiguration_smallSymbolConfiguration = [MEMORY[0x1E69DCAD8] configurationWithScale:1];
+  v0 = [MEMORY[0x1E69DCAD8] configurationWithScale:1];
+  v1 = smallSymbolConfiguration_smallSymbolConfiguration;
+  smallSymbolConfiguration_smallSymbolConfiguration = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (UIImageSymbolConfiguration)miniSymbolConfiguration
@@ -427,9 +437,11 @@ uint64_t __41__PXBadgeHelper_smallSymbolConfiguration__block_invoke()
 
 uint64_t __40__PXBadgeHelper_miniSymbolConfiguration__block_invoke()
 {
-  miniSymbolConfiguration_miniSymbolConfiguration = [MEMORY[0x1E69DCAD8] configurationWithPointSize:11.0];
+  v0 = [MEMORY[0x1E69DCAD8] configurationWithPointSize:11.0];
+  v1 = miniSymbolConfiguration_miniSymbolConfiguration;
+  miniSymbolConfiguration_miniSymbolConfiguration = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

@@ -51,20 +51,20 @@
     return 0;
   }
 
-  v32.receiver = self;
-  v32.super_class = FigCaptureSessionParsedPreviewSinkConfiguration;
-  v5 = objc_msgSendSuper2(&v32, sel_init);
+  v39.receiver = self;
+  v39.super_class = FigCaptureSessionParsedPreviewSinkConfiguration;
+  v5 = objc_msgSendSuper2(&v39, sel_init);
   if (!v5)
   {
     return 0;
   }
 
   v6 = v5;
-  *(v5 + 22) = configuration;
+  v5[22] = configuration;
   v7 = FigCaptureConnectionConfigurationWithUnderlyingDeviceType([a2 metadataObjectConnectionConfigurations], configuration);
   v6[8] = v7;
-  v29 = FigCaptureMetadataObjectConfigurationRequiresFaceTracking(v7);
-  v28 = FigCaptureMetadataObjectConfigurationRequiresSceneClassification(v7);
+  v36 = FigCaptureMetadataObjectConfigurationRequiresFaceTracking(v7);
+  v35 = FigCaptureMetadataObjectConfigurationRequiresSceneClassification(v7);
   if ([objc_msgSend(a2 "stillImageConnectionConfiguration")] == configuration)
   {
     stillImageConnectionConfiguration = [a2 stillImageConnectionConfiguration];
@@ -82,23 +82,23 @@
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_0();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24, v25, v26, v27, v29, v31, v33, v35);
 
     return 0;
   }
 
-  v24 = v6;
-  memset(v31, 0, sizeof(v31));
-  v12 = OUTLINED_FUNCTION_1_0(v10, v11, v31, v30);
+  v28 = v6;
+  memset(v38, 0, sizeof(v38));
+  v12 = OUTLINED_FUNCTION_1_0(v10, v11, v38, v37);
   if (!v12)
   {
     goto LABEL_27;
   }
 
   v13 = v12;
-  v26 = v6 + 6;
-  v27 = v6 + 7;
-  v25 = v6 + 5;
+  v32 = v6 + 6;
+  v34 = v6 + 7;
+  v30 = v6 + 5;
   v14 = v6 + 4;
   do
   {
@@ -110,9 +110,9 @@
         objc_enumerationMutation(v9);
       }
 
-      v17 = *(v31[0].super_class + i);
+      v17 = *(v38[0].super_class + i);
       v18 = [objc_msgSend(v17 "sinkConfiguration")];
-      v20 = v24 + 1;
+      v20 = v28 + 1;
       switch(v18)
       {
         case 1:
@@ -121,8 +121,8 @@ LABEL_24:
           *v20 = v18;
           continue;
         case 0xB:
-          v20 = v24 + 3;
-          if ((v29 & 1) == 0)
+          v20 = v28 + 3;
+          if ((v36 & 1) == 0)
           {
             goto LABEL_24;
           }
@@ -136,18 +136,18 @@ LABEL_24:
             case 0:
               goto LABEL_24;
             case 1:
-              v20 = v25;
-              if ((v28 & 1) == 0)
+              v20 = v30;
+              if ((v35 & 1) == 0)
               {
                 goto LABEL_24;
               }
 
               break;
             case 3:
-              v20 = v26;
+              v20 = v32;
               goto LABEL_24;
             case 4:
-              v20 = v27;
+              v20 = v34;
               goto LABEL_24;
             default:
               continue;
@@ -155,7 +155,7 @@ LABEL_24:
 
           break;
         default:
-          v20 = v24 + 2;
+          v20 = v28 + 2;
           if (v18 == 12)
           {
             goto LABEL_24;
@@ -165,14 +165,14 @@ LABEL_24:
       }
     }
 
-    v13 = OUTLINED_FUNCTION_1_0(v18, v19, v31, v30);
+    v13 = OUTLINED_FUNCTION_1_0(v18, v19, v38, v37);
   }
 
   while (v13);
 LABEL_27:
   cameraConfiguration = [a2 cameraConfiguration];
-  v22 = v24;
-  v24[10] = cameraConfiguration;
+  v22 = v28;
+  v28[10] = cameraConfiguration;
   return v22;
 }
 

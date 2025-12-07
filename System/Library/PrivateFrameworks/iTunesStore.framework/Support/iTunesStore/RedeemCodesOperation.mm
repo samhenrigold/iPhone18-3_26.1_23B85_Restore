@@ -189,14 +189,12 @@
   v72 = v24;
   v73 = 2114;
   v74 = hashedDescription;
-  LODWORD(v61) = 32;
-  v60 = &v69;
-  v26 = _os_log_send_and_compose_impl();
+  v26 = _os_log_send_and_compose_impl(v20, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%{public}@: [%{public}@] The server told us to redeem the code again using the iCloud account. iCloudAccount = %{public}@", &v69, 32);
 
   self = v23;
   if (v26)
   {
-    oSLogObject = [NSString stringWithCString:v26 encoding:4, &v69, v61];
+    oSLogObject = [NSString stringWithCString:v26 encoding:4];
     free(v26);
     v60 = oSLogObject;
     SSFileLog();
@@ -234,16 +232,21 @@ LABEL_20:
       shouldLog2 = [v34 shouldLog];
       if ([v34 shouldLogToDisk])
       {
-        v36 = shouldLog2 | 2;
+        LODWORD(v36) = shouldLog2 | 2;
       }
 
       else
       {
-        v36 = shouldLog2;
+        LODWORD(v36) = shouldLog2;
       }
 
       oSLogObject2 = [v34 OSLogObject];
-      if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+      {
+        v36 = v36;
+      }
+
+      else
       {
         v36 &= 2u;
       }
@@ -268,26 +271,25 @@ LABEL_20:
         v73 = 2114;
         v74 = error;
         LODWORD(v61) = 32;
-        v60 = &v69;
-        v44 = _os_log_send_and_compose_impl();
+        v44 = _os_log_send_and_compose_impl(v36, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%{public}@: [%{public}@] The user cancelled the redeem. error = %{public}@", &v69, v61);
 
         if (!v44)
         {
-LABEL_44:
+LABEL_46:
 
           SSError();
           error = v45 = error;
           v55 = v65;
-          goto LABEL_48;
+          goto LABEL_50;
         }
 
-        oSLogObject2 = [NSString stringWithCString:v44 encoding:4, &v69, v61];
+        oSLogObject2 = [NSString stringWithCString:v44 encoding:4];
         free(v44);
         v60 = oSLogObject2;
         SSFileLog();
       }
 
-      goto LABEL_44;
+      goto LABEL_46;
     }
   }
 
@@ -299,7 +301,7 @@ LABEL_44:
   {
     v55 = v65;
     v56 = v66;
-    goto LABEL_49;
+    goto LABEL_51;
   }
 
   v45 = +[SSLogConfig sharedDaemonConfig];
@@ -311,16 +313,21 @@ LABEL_44:
   shouldLog3 = [v45 shouldLog];
   if ([v45 shouldLogToDisk])
   {
-    v47 = shouldLog3 | 2;
+    LODWORD(v47) = shouldLog3 | 2;
   }
 
   else
   {
-    v47 = shouldLog3;
+    LODWORD(v47) = shouldLog3;
   }
 
   oSLogObject3 = [v45 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_ERROR))
+  {
+    v47 = v47;
+  }
+
+  else
   {
     v47 &= 2u;
   }
@@ -340,17 +347,16 @@ LABEL_44:
     v73 = 2114;
     v74 = error;
     LODWORD(v61) = 32;
-    v60 = &v69;
-    v54 = _os_log_send_and_compose_impl();
+    v54 = _os_log_send_and_compose_impl(v47, 0, 0, 0, &_mh_execute_header, oSLogObject3, 16, "%{public}@: [%{public}@] Failed to authenticate the iCloud account. The redeem will fail. error = %{public}@", &v69, v61);
 
     if (!v54)
     {
       v55 = v65;
       v27 = v63;
-      goto LABEL_48;
+      goto LABEL_50;
     }
 
-    oSLogObject3 = [NSString stringWithCString:v54 encoding:4, &v69, v61];
+    oSLogObject3 = [NSString stringWithCString:v54 encoding:4];
     free(v54);
     v60 = oSLogObject3;
     SSFileLog();
@@ -363,9 +369,9 @@ LABEL_44:
     v55 = v65;
   }
 
-LABEL_48:
+LABEL_50:
   v56 = v66;
-LABEL_49:
+LABEL_51:
   if (error)
   {
     v57 = error;
@@ -401,23 +407,28 @@ LABEL_49:
   shouldLog = [v7 shouldLog];
   if ([v7 shouldLogToDisk])
   {
-    v9 = shouldLog | 2;
+    LODWORD(v9) = shouldLog | 2;
   }
 
   else
   {
-    v9 = shouldLog;
+    LODWORD(v9) = shouldLog;
   }
 
   oSLogObject = [v7 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  {
+    v9 = v9;
+  }
+
+  else
   {
     v9 &= 2u;
   }
 
   if (!v9)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
   v11 = objc_opt_class();
@@ -430,17 +441,15 @@ LABEL_49:
   v83 = logCorrelationKey;
   v84 = 2048;
   v85 = v14;
-  LODWORD(v60) = 32;
-  v59 = &v80;
-  v15 = _os_log_send_and_compose_impl();
+  v15 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%{public}@: [%{public}@] Redeeming %lu codes headless", &v80, 32);
 
   if (v15)
   {
-    oSLogObject = [NSString stringWithCString:v15 encoding:4, &v80, v60];
+    oSLogObject = [NSString stringWithCString:v15 encoding:4];
     free(v15);
     v59 = oSLogObject;
     SSFileLog();
-LABEL_11:
+LABEL_12:
   }
 
   v78 = 0u;
@@ -453,7 +462,7 @@ LABEL_11:
   v69 = [(NSArray *)obj countByEnumeratingWithState:&v76 objects:v88 count:16];
   if (!v69)
   {
-    goto LABEL_58;
+    goto LABEL_60;
   }
 
   v63 = kISDialogKey;
@@ -552,7 +561,7 @@ LABEL_11:
             [(RedeemCodesOperation *)selfCopy _postNotificationWithResponse:v26];
             v29 = v64;
             v30 = v26;
-            goto LABEL_40;
+            goto LABEL_41;
           }
         }
 
@@ -581,7 +590,7 @@ LABEL_11:
 
       v29 = v17;
       v30 = v23;
-LABEL_40:
+LABEL_41:
       [v29 setObject:v30 forKey:{v19, v59}];
 
       objc_autoreleasePoolPop(context);
@@ -597,16 +606,21 @@ LABEL_40:
         shouldLog2 = [v37 shouldLog];
         if ([v37 shouldLogToDisk])
         {
-          v39 = shouldLog2 | 2;
+          LODWORD(v39) = shouldLog2 | 2;
         }
 
         else
         {
-          v39 = shouldLog2;
+          LODWORD(v39) = shouldLog2;
         }
 
         oSLogObject2 = [v37 OSLogObject];
-        if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+        {
+          v39 = v39;
+        }
+
+        else
         {
           v39 &= 2u;
         }
@@ -621,23 +635,22 @@ LABEL_40:
           v82 = 2114;
           v83 = logCorrelationKey2;
           LODWORD(v60) = 22;
-          v59 = &v80;
-          v44 = _os_log_send_and_compose_impl();
+          v44 = _os_log_send_and_compose_impl(v39, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%{public}@: [%{public}@] Canceled redeem batch", &v80, v60);
 
           if (!v44)
           {
-LABEL_57:
+LABEL_59:
 
-            goto LABEL_58;
+            goto LABEL_60;
           }
 
-          oSLogObject2 = [NSString stringWithCString:v44 encoding:4, &v80, v60];
+          oSLogObject2 = [NSString stringWithCString:v44 encoding:4];
           free(v44);
           v59 = oSLogObject2;
           SSFileLog();
         }
 
-        goto LABEL_57;
+        goto LABEL_59;
       }
 
       v18 = v18 + 1;
@@ -650,7 +663,7 @@ LABEL_57:
   }
 
   while (v36);
-LABEL_58:
+LABEL_60:
 
   sharedDaemonConfig = [v6[412] sharedDaemonConfig];
   if (!sharedDaemonConfig)
@@ -698,21 +711,21 @@ LABEL_58:
     v86 = 2048;
     v87 = v55;
     LODWORD(v60) = 42;
-    v56 = _os_log_send_and_compose_impl();
+    v56 = _os_log_send_and_compose_impl(v49, 0, 0, 0, &_mh_execute_header, oSLogObject3, 0, "%{public}@: [%{public}@] Redeemed %lu codes with %lu failures", &v80, v60);
 
     if (v56)
     {
-      oSLogObject3 = [NSString stringWithCString:v56 encoding:4, &v80, v60];
+      oSLogObject3 = [NSString stringWithCString:v56 encoding:4];
       free(v56);
       SSFileLog();
-      goto LABEL_70;
+      goto LABEL_72;
     }
   }
 
   else
   {
     v54 = v65;
-LABEL_70:
+LABEL_72:
   }
 
   [v16 lock];
@@ -758,16 +771,21 @@ LABEL_27:
     shouldLog = [v22 shouldLog];
     if ([v22 shouldLogToDisk])
     {
-      v24 = shouldLog | 2;
+      LODWORD(v24) = shouldLog | 2;
     }
 
     else
     {
-      v24 = shouldLog;
+      LODWORD(v24) = shouldLog;
     }
 
     oSLogObject = [v22 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v24 = v24;
+    }
+
+    else
     {
       v24 &= 2u;
     }
@@ -784,13 +802,11 @@ LABEL_27:
       v134 = logCorrelationKey;
       v135 = 2048;
       v136 = v29;
-      LODWORD(v98) = 32;
-      v97 = &v131;
-      v30 = _os_log_send_and_compose_impl();
+      v30 = _os_log_send_and_compose_impl(v24, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%{public}@: [%{public}@] Redeeming %lu codes", &v131, 32, v99);
 
       if (!v30)
       {
-LABEL_38:
+LABEL_39:
 
         v124 = 0u;
         v125 = 0u;
@@ -802,7 +818,7 @@ LABEL_38:
         if (!v106)
         {
           v18 = v109;
-          goto LABEL_95;
+          goto LABEL_97;
         }
 
         v104 = *v123;
@@ -919,19 +935,19 @@ LABEL_38:
                 v43 = v110;
                 if (!v35)
                 {
-                  goto LABEL_61;
+                  goto LABEL_62;
                 }
 
-                goto LABEL_59;
+                goto LABEL_60;
               }
             }
 
             if (!v35)
             {
-              goto LABEL_61;
+              goto LABEL_62;
             }
 
-LABEL_59:
+LABEL_60:
             if ([v35 kind] != 1)
             {
               v56 = [ISDialogOperation operationWithDialog:v35];
@@ -944,7 +960,7 @@ LABEL_59:
               v31 = selfCopy;
             }
 
-LABEL_61:
+LABEL_62:
             v58 = v31[15];
             if (v58)
             {
@@ -1010,14 +1026,14 @@ LABEL_61:
             {
               [v31 _postNotificationWithResponse:v34];
               [v101 setObject:v34 forKey:v111];
-              goto LABEL_91;
+              goto LABEL_93;
             }
 
             if (v33)
             {
               if (v71)
               {
-                goto LABEL_78;
+                goto LABEL_79;
               }
             }
 
@@ -1026,22 +1042,22 @@ LABEL_61:
               v33 = SSError();
               if (v71)
               {
-                goto LABEL_78;
+                goto LABEL_79;
               }
             }
 
             if (ISErrorIsEqual())
             {
-LABEL_78:
+LABEL_79:
               v72 = v18;
               v73 = SSErrorBySettingUserInfoValue();
 
               v33 = v73;
-              goto LABEL_80;
+              goto LABEL_81;
             }
 
             v72 = v18;
-LABEL_80:
+LABEL_81:
             [v103 setObject:v33 forKey:v111];
             v74 = +[SSLogConfig sharedDaemonConfig];
             if (!v74)
@@ -1049,21 +1065,26 @@ LABEL_80:
               v74 = +[SSLogConfig sharedConfig];
             }
 
-            shouldLog2 = [v74 shouldLog];
+            LODWORD(v75) = [v74 shouldLog];
             if ([v74 shouldLogToDisk])
             {
-              shouldLog2 |= 2u;
+              LODWORD(v75) = v75 | 2;
             }
 
             oSLogObject2 = [v74 OSLogObject];
-            if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
             {
-              shouldLog2 &= 2u;
+              v75 = v75;
             }
 
-            if (!shouldLog2)
+            else
             {
-              goto LABEL_89;
+              v75 &= 2u;
+            }
+
+            if (!v75)
+            {
+              goto LABEL_91;
             }
 
             v77 = objc_opt_class();
@@ -1081,23 +1102,22 @@ LABEL_80:
             v137 = 2114;
             v138 = v81;
             LODWORD(v98) = 42;
-            v97 = &v131;
-            v82 = _os_log_send_and_compose_impl();
+            v82 = _os_log_send_and_compose_impl(v75, 0, 0, 0, &_mh_execute_header, oSLogObject2, 16, "%{public}@: [%{public}@] Redeem operation failed for code: %@, error: %{public}@", &v131, v98);
 
             v72 = v109;
             v33 = v78;
 
             if (v82)
             {
-              oSLogObject2 = [NSString stringWithCString:v82 encoding:4, &v131, v98];
+              oSLogObject2 = [NSString stringWithCString:v82 encoding:4];
               free(v82);
               v97 = oSLogObject2;
               SSFileLog();
-LABEL_89:
+LABEL_91:
             }
 
             v18 = v72;
-LABEL_91:
+LABEL_93:
 
             objc_autoreleasePoolPop(context);
             v32 = v108 + 1;
@@ -1107,18 +1127,18 @@ LABEL_91:
           v106 = [(NSArray *)obj countByEnumeratingWithState:&v122 objects:v139 count:16];
           if (!v106)
           {
-            goto LABEL_95;
+            goto LABEL_97;
           }
         }
       }
 
-      oSLogObject = [NSString stringWithCString:v30 encoding:4, &v131, v98, v99];
+      oSLogObject = [NSString stringWithCString:v30 encoding:4];
       free(v30);
       v97 = oSLogObject;
       SSFileLog();
     }
 
-    goto LABEL_38;
+    goto LABEL_39;
   }
 
   v130 = 0;
@@ -1135,15 +1155,15 @@ LABEL_91:
     v7 = +[SSLogConfig sharedConfig];
   }
 
-  shouldLog3 = [v7 shouldLog];
+  shouldLog2 = [v7 shouldLog];
   if ([v7 shouldLogToDisk])
   {
-    v9 = shouldLog3 | 2;
+    v9 = shouldLog2 | 2;
   }
 
   else
   {
-    v9 = shouldLog3;
+    v9 = shouldLog2;
   }
 
   oSLogObject3 = [v7 OSLogObject];
@@ -1169,16 +1189,14 @@ LABEL_91:
     v134 = logCorrelationKey3;
     v135 = 2114;
     v136 = v15;
-    LODWORD(v98) = 32;
-    v97 = &v131;
-    v16 = _os_log_send_and_compose_impl();
+    v16 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &_mh_execute_header, oSLogObject3, 0, "%{public}@: [%{public}@] Fetch redeem code metadata failed with error: %{public}@", &v131, 32, v99);
 
     if (!v16)
     {
       goto LABEL_17;
     }
 
-    oSLogObject3 = [NSString stringWithCString:v16 encoding:4, &v131, v98, v99];
+    oSLogObject3 = [NSString stringWithCString:v16 encoding:4];
     free(v16);
     v97 = oSLogObject3;
     SSFileLog();
@@ -1216,7 +1234,7 @@ LABEL_17:
       while (v19);
     }
 
-LABEL_95:
+LABEL_97:
   }
 
   else
@@ -1231,15 +1249,15 @@ LABEL_95:
     v83 = +[SSLogConfig sharedConfig];
   }
 
-  shouldLog4 = [v83 shouldLog];
+  shouldLog3 = [v83 shouldLog];
   if ([v83 shouldLogToDisk])
   {
-    v85 = shouldLog4 | 2;
+    v85 = shouldLog3 | 2;
   }
 
   else
   {
-    v85 = shouldLog4;
+    v85 = shouldLog3;
   }
 
   oSLogObject4 = [v83 OSLogObject];
@@ -1256,7 +1274,7 @@ LABEL_95:
   if (!v87)
   {
     v88 = selfCopy;
-    goto LABEL_108;
+    goto LABEL_110;
   }
 
   v88 = selfCopy;
@@ -1274,15 +1292,15 @@ LABEL_95:
   v137 = 2048;
   v138 = v93;
   LODWORD(v98) = 42;
-  v94 = _os_log_send_and_compose_impl();
+  v94 = _os_log_send_and_compose_impl(v87, 0, 0, 0, &_mh_execute_header, oSLogObject4, 0, "%{public}@: [%{public}@] Redeemed %lu codes with %lu failures", &v131, v98);
 
   v18 = v109;
   if (v94)
   {
-    oSLogObject4 = [NSString stringWithCString:v94 encoding:4, &v131, v98];
+    oSLogObject4 = [NSString stringWithCString:v94 encoding:4];
     free(v94);
     SSFileLog();
-LABEL_108:
+LABEL_110:
   }
 
   [v88 lock];
@@ -1469,545 +1487,558 @@ LABEL_6:
 
 - (BOOL)_fetchRedeemCodeMetadataWithError:(id *)error
 {
-  v106 = objc_alloc_init(NSMutableDictionary);
-  v125 = objc_alloc_init(NSMutableDictionary);
+  v105 = objc_alloc_init(NSMutableDictionary);
+  v124 = objc_alloc_init(NSMutableDictionary);
   userAgent = [(RedeemCodesOperation *)self userAgent];
   authenticationContext = [(RedeemCodesOperation *)self authenticationContext];
   v6 = [authenticationContext mutableCopy];
 
   v7 = SSHTTPHeaderUserAgent;
-  v120 = v6;
+  v119 = v6;
   [v6 setValue:userAgent forHTTPHeaderField:SSHTTPHeaderUserAgent];
-  v128 = objc_alloc_init(NSMutableArray);
+  v127 = objc_alloc_init(NSMutableArray);
   v8 = +[SSLogConfig sharedDaemonConfig];
   if (!v8)
   {
     v8 = +[SSLogConfig sharedConfig];
   }
 
-  v108 = v7;
-  v109 = userAgent;
-  shouldLog = [v8 shouldLog];
+  v107 = v7;
+  v108 = userAgent;
+  LODWORD(userAgent) = [v8 shouldLog];
   if ([v8 shouldLogToDisk])
   {
-    shouldLog |= 2u;
+    LODWORD(userAgent) = userAgent | 2;
   }
 
   oSLogObject = [v8 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
   {
-    shouldLog &= 2u;
+    userAgent = userAgent;
   }
 
-  v11 = &OBJC_INSTANCE_METHODS_NSMutableCopying;
-  if (!shouldLog)
+  else
   {
-    goto LABEL_10;
+    userAgent &= 2u;
   }
 
-  v12 = objc_opt_class();
+  v10 = &OBJC_INSTANCE_METHODS_NSMutableCopying;
+  if (!userAgent)
+  {
+    goto LABEL_11;
+  }
+
+  v11 = objc_opt_class();
   redeemCodes = self->_redeemCodes;
-  v14 = v12;
-  v15 = redeemCodes;
-  v11 = &OBJC_INSTANCE_METHODS_NSMutableCopying;
-  v144 = 138543618;
-  v145 = v12;
-  v146 = 2050;
-  v147 = [(NSArray *)v15 count];
-  LODWORD(v104) = 22;
-  v102 = &v144;
-  v16 = _os_log_send_and_compose_impl();
+  v13 = v11;
+  v14 = redeemCodes;
+  v10 = &OBJC_INSTANCE_METHODS_NSMutableCopying;
+  v143 = 138543618;
+  v144 = v11;
+  v145 = 2050;
+  v146 = [(NSArray *)v14 count];
+  v15 = _os_log_send_and_compose_impl(userAgent, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%{public}@: Fetching metadata for %{public}lu codes", &v143, 22);
 
-  if (v16)
+  if (v15)
   {
-    oSLogObject = [NSString stringWithCString:v16 encoding:4, &v144, v104];
-    free(v16);
-    v102 = oSLogObject;
+    oSLogObject = [NSString stringWithCString:v15 encoding:4];
+    free(v15);
+    v101 = oSLogObject;
     SSFileLog();
-LABEL_10:
+LABEL_11:
   }
 
-  v141 = 0u;
-  v142 = 0u;
-  v139 = 0u;
   v140 = 0u;
+  v141 = 0u;
+  v138 = 0u;
+  v139 = 0u;
   obj = self->_redeemCodes;
   selfCopy = self;
-  v121 = [(NSArray *)obj countByEnumeratingWithState:&v139 objects:v151 count:16];
-  if (!v121)
+  v120 = [(NSArray *)obj countByEnumeratingWithState:&v138 objects:v150 count:16];
+  if (!v120)
   {
-    v110 = 0;
-    v107 = 1;
-    goto LABEL_62;
+    v109 = 0;
+    v106 = 1;
+    goto LABEL_65;
   }
 
-  v110 = 0;
-  v107 = 1;
-  v116 = SSVRedeemCodeMetadataQueryParameterRedeemCode;
-  v118 = *v140;
-  v115 = SSVRedeemCodeMetadataURLBagKey;
-  v18 = v108;
-  v17 = v109;
+  v109 = 0;
+  v106 = 1;
+  v115 = SSVRedeemCodeMetadataQueryParameterRedeemCode;
+  v117 = *v139;
+  v114 = SSVRedeemCodeMetadataURLBagKey;
+  v17 = v107;
+  v16 = v108;
   do
   {
-    v19 = 0;
+    v18 = 0;
     do
     {
-      if (*v140 != v118)
+      if (*v139 != v117)
       {
         objc_enumerationMutation(obj);
       }
 
-      v20 = *(*(&v139 + 1) + 8 * v19);
-      v21 = objc_autoreleasePoolPush();
-      v22 = objc_alloc_init(ISStoreURLOperation);
-      [v22 setAuthenticationContext:v120];
-      v23 = +[DaemonProtocolDataProvider provider];
-      [v22 setDataProvider:v23];
+      v19 = *(*(&v138 + 1) + 8 * v18);
+      v20 = objc_autoreleasePoolPush();
+      v21 = objc_alloc_init(ISStoreURLOperation);
+      [v21 setAuthenticationContext:v119];
+      v22 = +[DaemonProtocolDataProvider provider];
+      [v21 setDataProvider:v22];
 
-      [v22 setNeedsAuthentication:{-[RedeemCodesOperation _canPerformExtendedBiometricActions](self, "_canPerformExtendedBiometricActions") ^ 1}];
-      v24 = objc_alloc_init(SSMutableURLRequestProperties);
-      [v24 setValue:v20 forRequestParameter:v116];
-      [v24 setURLBagKey:v115];
-      [v24 setValue:v17 forHTTPHeaderField:v18];
-      [v22 setRequestProperties:v24];
-      v138 = 0;
-      LODWORD(v23) = [(RedeemCodesOperation *)self runSubOperation:v22 returningError:&v138];
-      v25 = v138;
-      v126 = v25;
-      if (v23)
+      [v21 setNeedsAuthentication:{-[RedeemCodesOperation _canPerformExtendedBiometricActions](self, "_canPerformExtendedBiometricActions") ^ 1}];
+      v23 = objc_alloc_init(SSMutableURLRequestProperties);
+      [v23 setValue:v19 forRequestParameter:v115];
+      [v23 setURLBagKey:v114];
+      [v23 setValue:v16 forHTTPHeaderField:v17];
+      [v21 setRequestProperties:v23];
+      v137 = 0;
+      LODWORD(v22) = [(RedeemCodesOperation *)self runSubOperation:v21 returningError:&v137];
+      v24 = v137;
+      v125 = v24;
+      if (v22)
       {
-        dataProvider = [v22 dataProvider];
+        dataProvider = [v21 dataProvider];
         output = [dataProvider output];
 
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v123 = v21;
+          v122 = v20;
           oSLogObject2 = output;
-          v29 = [oSLogObject2 objectForKey:@"failureType"];
-          if (v29)
+          v28 = [oSLogObject2 objectForKey:@"failureType"];
+          if (v28)
           {
           }
 
           else
           {
-            v36 = [[SSVRedeemCodeMetadata alloc] initWithRedeemCodeDictionary:oSLogObject2];
-            if (v36)
+            v35 = [[SSVRedeemCodeMetadata alloc] initWithRedeemCodeDictionary:oSLogObject2];
+            if (v35)
             {
-              v37 = v36;
-              [v106 setObject:v36 forKey:v20];
-              v136 = 0u;
-              v137 = 0u;
-              v134 = 0u;
+              v36 = v35;
+              [v105 setObject:v35 forKey:v19];
               v135 = 0u;
-              v114 = v37;
-              items = [v37 items];
-              v39 = [items countByEnumeratingWithState:&v134 objects:v150 count:16];
-              if (v39)
+              v136 = 0u;
+              v133 = 0u;
+              v134 = 0u;
+              v113 = v36;
+              items = [v36 items];
+              v38 = [items countByEnumeratingWithState:&v133 objects:v149 count:16];
+              if (v38)
               {
-                v40 = v39;
-                v41 = *v135;
+                v39 = v38;
+                v40 = *v134;
                 do
                 {
-                  for (i = 0; i != v40; i = i + 1)
+                  for (i = 0; i != v39; i = i + 1)
                   {
-                    if (*v135 != v41)
+                    if (*v134 != v40)
                     {
                       objc_enumerationMutation(items);
                     }
 
-                    v43 = +[NSNumber numberWithLongLong:](NSNumber, "numberWithLongLong:", [*(*(&v134 + 1) + 8 * i) itemIdentifier]);
-                    [v128 addObject:v43];
+                    v42 = +[NSNumber numberWithLongLong:](NSNumber, "numberWithLongLong:", [*(*(&v133 + 1) + 8 * i) itemIdentifier]);
+                    [v127 addObject:v42];
                   }
 
-                  v40 = [items countByEnumeratingWithState:&v134 objects:v150 count:16];
+                  v39 = [items countByEnumeratingWithState:&v133 objects:v149 count:16];
                 }
 
-                while (v40);
+                while (v39);
               }
 
-              v30 = 0;
+              v29 = 0;
               output = oSLogObject2;
-              v18 = v108;
-              v17 = v109;
-              goto LABEL_33;
+              v17 = v107;
+              v16 = v108;
+              goto LABEL_35;
             }
           }
 
-          v30 = 0;
+          v29 = 0;
           output = oSLogObject2;
-LABEL_33:
+LABEL_35:
 
-          v21 = v123;
-          goto LABEL_36;
+          v20 = v122;
+          goto LABEL_38;
         }
 
-        v30 = 0;
+        v29 = 0;
       }
 
       else
       {
-        v113 = [(RedeemCodesOperation *)self _didUserCancelWithError:v25];
-        if (v113)
+        v112 = [(RedeemCodesOperation *)self _didUserCancelWithError:v24];
+        if (v112)
         {
-          v31 = SSError();
+          v30 = SSError();
 
-          v110 = SSErrorBySettingUserInfoValue();
+          v109 = SSErrorBySettingUserInfoValue();
 
-          v107 = 0;
+          v106 = 0;
         }
 
-        v123 = v21;
-        output = [SSLogConfig sharedDaemonConfig:v102];
+        v122 = v20;
+        output = +[SSLogConfig sharedDaemonConfig];
         if (!output)
         {
           output = +[SSLogConfig sharedConfig];
         }
 
-        shouldLog2 = [output shouldLog];
+        LODWORD(v31) = [output shouldLog];
         if ([output shouldLogToDisk])
         {
-          shouldLog2 |= 2u;
+          LODWORD(v31) = v31 | 2;
         }
 
         oSLogObject2 = [output OSLogObject];
-        if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
         {
-          shouldLog2 &= 2u;
+          v31 = v31;
         }
 
-        if (!shouldLog2)
+        else
         {
-          goto LABEL_32;
+          v31 &= 2u;
         }
 
-        v33 = objc_opt_class();
-        v111 = v33;
-        v34 = AMSLogableError();
-        v144 = 138543874;
-        v145 = v33;
-        v146 = 2112;
-        v147 = v20;
-        v148 = 2114;
-        v149 = v34;
-        LODWORD(v104) = 32;
-        v102 = &v144;
-        v35 = _os_log_send_and_compose_impl();
-
-        if (v35)
+        if (!v31)
         {
-          oSLogObject2 = [NSString stringWithCString:v35 encoding:4, &v144, v104];
-          free(v35);
-          v102 = oSLogObject2;
+          goto LABEL_34;
+        }
+
+        v32 = objc_opt_class();
+        v110 = v32;
+        v33 = AMSLogableError();
+        v143 = 138543874;
+        v144 = v32;
+        v145 = 2112;
+        v146 = v19;
+        v147 = 2114;
+        v148 = v33;
+        LODWORD(v103) = 32;
+        v34 = _os_log_send_and_compose_impl(v31, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%{public}@: Failed to fetch metadata for redeem code: %@, error: %{public}@", &v143, v103);
+
+        if (v34)
+        {
+          oSLogObject2 = [NSString stringWithCString:v34 encoding:4];
+          free(v34);
+          v101 = oSLogObject2;
           SSFileLog();
-          v18 = v108;
-          v17 = v109;
-LABEL_32:
-          v30 = v113;
-          goto LABEL_33;
+          v17 = v107;
+          v16 = v108;
+LABEL_34:
+          v29 = v112;
+          goto LABEL_35;
         }
 
-        v18 = v108;
-        v17 = v109;
-        v21 = v123;
-        v30 = v113;
+        v17 = v107;
+        v16 = v108;
+        v20 = v122;
+        v29 = v112;
       }
 
-LABEL_36:
+LABEL_38:
 
-      objc_autoreleasePoolPop(v21);
-      if (v30)
+      objc_autoreleasePoolPop(v20);
+      if (v29)
       {
-        v45 = +[SSLogConfig sharedDaemonConfig];
+        v44 = +[SSLogConfig sharedDaemonConfig];
         self = selfCopy;
-        v11 = &OBJC_INSTANCE_METHODS_NSMutableCopying;
-        if (!v45)
+        v10 = &OBJC_INSTANCE_METHODS_NSMutableCopying;
+        if (!v44)
         {
-          v45 = +[SSLogConfig sharedConfig];
+          v44 = +[SSLogConfig sharedConfig];
         }
 
-        shouldLog3 = [v45 shouldLog];
-        if ([v45 shouldLogToDisk])
+        LODWORD(v45) = [v44 shouldLog];
+        if ([v44 shouldLogToDisk])
         {
-          shouldLog3 |= 2u;
+          LODWORD(v45) = v45 | 2;
         }
 
-        oSLogObject3 = [v45 OSLogObject];
-        if (!os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
+        oSLogObject3 = [v44 OSLogObject];
+        if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
         {
-          shouldLog3 &= 2u;
+          v45 = v45;
         }
 
-        if (shouldLog3)
+        else
         {
-          v48 = objc_opt_class();
-          v144 = 138543362;
-          v145 = v48;
-          v49 = v48;
-          LODWORD(v104) = 12;
-          v102 = &v144;
-          v50 = _os_log_send_and_compose_impl();
+          v45 &= 2u;
+        }
 
-          if (!v50)
+        if (v45)
+        {
+          v47 = objc_opt_class();
+          v143 = 138543362;
+          v144 = v47;
+          v48 = v47;
+          LODWORD(v103) = 12;
+          v49 = _os_log_send_and_compose_impl(v45, 0, 0, 0, &_mh_execute_header, oSLogObject3, 0, "%{public}@: Canceled redeem metadata batch", &v143, v103);
+
+          if (!v49)
           {
-LABEL_60:
+LABEL_63:
 
-            goto LABEL_62;
+            goto LABEL_65;
           }
 
-          oSLogObject3 = [NSString stringWithCString:v50 encoding:4, &v144, v104];
-          free(v50);
-          v102 = oSLogObject3;
+          oSLogObject3 = [NSString stringWithCString:v49 encoding:4];
+          free(v49);
+          v101 = oSLogObject3;
           SSFileLog();
         }
 
-        goto LABEL_60;
+        goto LABEL_63;
       }
 
-      v19 = v19 + 1;
+      v18 = v18 + 1;
       self = selfCopy;
-      v11 = &OBJC_INSTANCE_METHODS_NSMutableCopying;
+      v10 = &OBJC_INSTANCE_METHODS_NSMutableCopying;
     }
 
-    while (v19 != v121);
-    v44 = [(NSArray *)obj countByEnumeratingWithState:&v139 objects:v151 count:16];
-    v121 = v44;
+    while (v18 != v120);
+    v43 = [(NSArray *)obj countByEnumeratingWithState:&v138 objects:v150 count:16];
+    v120 = v43;
   }
 
-  while (v44);
-LABEL_62:
+  while (v43);
+LABEL_65:
 
-  v51 = &CFDictionaryGetValue_ptr;
-  v52 = +[SSLogConfig sharedDaemonConfig];
-  if (!v52)
+  v50 = &CFDictionaryGetValue_ptr;
+  v51 = +[SSLogConfig sharedDaemonConfig];
+  if (!v51)
   {
-    v52 = +[SSLogConfig sharedConfig];
+    v51 = +[SSLogConfig sharedConfig];
   }
 
-  shouldLog4 = [v52 shouldLog];
-  if ([v52 shouldLogToDisk])
+  LODWORD(v52) = [v51 shouldLog];
+  if ([v51 shouldLogToDisk])
   {
-    shouldLog4 |= 2u;
+    LODWORD(v52) = v52 | 2;
   }
 
-  oSLogObject4 = [v52 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEFAULT))
+  oSLogObject4 = [v51 OSLogObject];
+  if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEFAULT))
   {
-    shouldLog4 &= 2u;
+    v52 = v52;
   }
 
-  if (shouldLog4)
+  else
   {
-    v55 = objc_opt_class();
-    v144 = 138543362;
-    v145 = v55;
-    v56 = v55;
-    LODWORD(v104) = 12;
-    v103 = &v144;
-    v57 = _os_log_send_and_compose_impl();
+    v52 &= 2u;
+  }
 
-    if (v57)
+  if (v52)
+  {
+    v54 = objc_opt_class();
+    v143 = 138543362;
+    v144 = v54;
+    v55 = v54;
+    LODWORD(v103) = 12;
+    v56 = _os_log_send_and_compose_impl(v52, 0, 0, 0, &_mh_execute_header, oSLogObject4, 0, "%{public}@: Performing a software-library lookup operation…", &v143, v103);
+
+    if (v56)
     {
-      oSLogObject4 = [NSString stringWithCString:v57 encoding:4, &v144, v104];
-      free(v57);
-      v103 = oSLogObject4;
+      oSLogObject4 = [NSString stringWithCString:v56 encoding:4];
+      free(v56);
+      v102 = oSLogObject4;
       SSFileLog();
-      goto LABEL_71;
+      goto LABEL_75;
     }
   }
 
   else
   {
-LABEL_71:
+LABEL_75:
   }
 
-  v133 = 0;
-  v119 = [[SoftwareLibraryLookupOperation alloc] initWithItemIdentifiers:v128];
-  v58 = [RedeemCodesOperation runSubOperation:"runSubOperation:returningError:" returningError:?];
-  v117 = 0;
-  if (!v58)
+  v132 = 0;
+  v118 = [[SoftwareLibraryLookupOperation alloc] initWithItemIdentifiers:v127];
+  v57 = [RedeemCodesOperation runSubOperation:"runSubOperation:returningError:" returningError:?];
+  v116 = 0;
+  if (!v57)
   {
-    goto LABEL_117;
+    goto LABEL_121;
   }
 
-  [(SoftwareLibraryLookupOperation *)v119 softwareLibraryItems];
+  [(SoftwareLibraryLookupOperation *)v118 softwareLibraryItems];
+  v128 = 0u;
   v129 = 0u;
   v130 = 0u;
-  v131 = 0u;
-  v127 = v132 = 0u;
-  v59 = [v127 countByEnumeratingWithState:&v129 objects:v143 count:16];
-  if (!v59)
+  v126 = v131 = 0u;
+  v58 = [v126 countByEnumeratingWithState:&v128 objects:v142 count:16];
+  if (!v58)
   {
-    goto LABEL_116;
+    goto LABEL_120;
   }
 
-  v60 = v59;
-  v61 = *v130;
-  v62 = SSSoftwareLibraryItemPropertyITunesItemIdentifier;
-  v63 = SSSoftwareLibraryItemPropertyITunesVersionIdentifier;
-  v124 = *v130;
+  v59 = v58;
+  v60 = *v129;
+  v61 = SSSoftwareLibraryItemPropertyITunesItemIdentifier;
+  v62 = SSSoftwareLibraryItemPropertyITunesVersionIdentifier;
+  v123 = *v129;
   while (2)
   {
-    v64 = 0;
+    v63 = 0;
     while (2)
     {
-      if (*v130 != v61)
+      if (*v129 != v60)
       {
-        objc_enumerationMutation(v127);
+        objc_enumerationMutation(v126);
       }
 
-      v65 = *(*(&v129 + 1) + 8 * v64);
-      v66 = [v65 valueForProperty:{v62, v103, v104}];
-      v67 = [v65 valueForProperty:v63];
-      v68 = v67;
-      if (v66)
+      v64 = *(*(&v128 + 1) + 8 * v63);
+      v65 = [v64 valueForProperty:{v61, v102}];
+      v66 = [v64 valueForProperty:v62];
+      v67 = v66;
+      if (v65)
       {
-        v69 = v67 == 0;
+        v68 = v66 == 0;
       }
 
       else
       {
-        v69 = 1;
+        v68 = 1;
       }
 
-      if (!v69)
+      if (!v68)
       {
-        [v125 setObject:v67 forKey:v66];
-        goto LABEL_114;
+        [v124 setObject:v66 forKey:v65];
+        goto LABEL_118;
       }
 
-      if (!v66)
+      if (!v65)
       {
-        sharedDaemonConfig = [v51[412] sharedDaemonConfig];
+        sharedDaemonConfig = [v50[412] sharedDaemonConfig];
         if (!sharedDaemonConfig)
         {
-          sharedDaemonConfig = [v51[412] sharedConfig];
+          sharedDaemonConfig = [v50[412] sharedConfig];
         }
 
-        shouldLog5 = [sharedDaemonConfig shouldLog];
+        shouldLog = [sharedDaemonConfig shouldLog];
         if ([sharedDaemonConfig shouldLogToDisk])
         {
-          v72 = shouldLog5 | 2;
+          v71 = shouldLog | 2;
         }
 
         else
         {
-          v72 = shouldLog5;
+          v71 = shouldLog;
         }
 
         oSLogObject5 = [sharedDaemonConfig OSLogObject];
         if (os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_DEFAULT))
         {
-          v74 = v72;
+          v73 = v71;
         }
 
         else
         {
-          v74 = v72 & 2;
+          v73 = v71 & 2;
         }
 
-        if (v74)
+        if (v73)
         {
-          v75 = objc_opt_class();
-          v144 = 138543362;
-          v145 = v75;
-          v76 = v75;
-          LODWORD(v104) = 12;
-          v103 = &v144;
-          v77 = _os_log_send_and_compose_impl();
+          v74 = objc_opt_class();
+          v143 = 138543362;
+          v144 = v74;
+          v75 = v74;
+          LODWORD(v103) = 12;
+          v76 = _os_log_send_and_compose_impl(v73, 0, 0, 0, &_mh_execute_header, oSLogObject5, 0, "%{public}@: No iTunes identifier", &v143, v103);
 
-          v51 = &CFDictionaryGetValue_ptr;
-          if (!v77)
+          v50 = &CFDictionaryGetValue_ptr;
+          if (!v76)
           {
-            goto LABEL_99;
+            goto LABEL_103;
           }
 
-          oSLogObject5 = [NSString stringWithCString:v77 encoding:4, &v144, v104];
-          free(v77);
-          v103 = oSLogObject5;
+          oSLogObject5 = [NSString stringWithCString:v76 encoding:4];
+          free(v76);
+          v102 = oSLogObject5;
           SSFileLog();
         }
 
         else
         {
-          v51 = &CFDictionaryGetValue_ptr;
+          v50 = &CFDictionaryGetValue_ptr;
         }
 
-LABEL_99:
-        v61 = v124;
-        if (!v68)
+LABEL_103:
+        v60 = v123;
+        if (!v67)
         {
-          goto LABEL_100;
+          goto LABEL_104;
         }
 
-        goto LABEL_114;
+        goto LABEL_118;
       }
 
-      if (!v67)
+      if (!v66)
       {
-LABEL_100:
-        sharedDaemonConfig2 = [v51[412] sharedDaemonConfig];
+LABEL_104:
+        sharedDaemonConfig2 = [v50[412] sharedDaemonConfig];
         if (!sharedDaemonConfig2)
         {
-          sharedDaemonConfig2 = [v51[412] sharedConfig];
+          sharedDaemonConfig2 = [v50[412] sharedConfig];
         }
 
-        shouldLog6 = [sharedDaemonConfig2 shouldLog];
+        shouldLog2 = [sharedDaemonConfig2 shouldLog];
         if ([sharedDaemonConfig2 shouldLogToDisk])
         {
-          v80 = shouldLog6 | 2;
+          v79 = shouldLog2 | 2;
         }
 
         else
         {
-          v80 = shouldLog6;
+          v79 = shouldLog2;
         }
 
         oSLogObject6 = [sharedDaemonConfig2 OSLogObject];
         if (os_log_type_enabled(oSLogObject6, OS_LOG_TYPE_DEFAULT))
         {
-          v82 = v80;
+          v81 = v79;
         }
 
         else
         {
-          v82 = v80 & 2;
+          v81 = v79 & 2;
         }
 
-        if (v82)
+        if (v81)
         {
-          v83 = objc_opt_class();
-          v144 = 138543362;
-          v145 = v83;
-          v84 = v83;
-          LODWORD(v104) = 12;
-          v103 = &v144;
-          v85 = _os_log_send_and_compose_impl();
+          v82 = objc_opt_class();
+          v143 = 138543362;
+          v144 = v82;
+          v83 = v82;
+          LODWORD(v103) = 12;
+          v84 = _os_log_send_and_compose_impl(v81, 0, 0, 0, &_mh_execute_header, oSLogObject6, 0, "%{public}@: No installed external version", &v143, v103);
 
-          v51 = &CFDictionaryGetValue_ptr;
-          if (v85)
+          v50 = &CFDictionaryGetValue_ptr;
+          if (v84)
           {
-            oSLogObject6 = [NSString stringWithCString:v85 encoding:4, &v144, v104];
-            free(v85);
-            v103 = oSLogObject6;
+            oSLogObject6 = [NSString stringWithCString:v84 encoding:4];
+            free(v84);
+            v102 = oSLogObject6;
             SSFileLog();
-            goto LABEL_112;
+            goto LABEL_116;
           }
         }
 
         else
         {
-          v51 = &CFDictionaryGetValue_ptr;
-LABEL_112:
+          v50 = &CFDictionaryGetValue_ptr;
+LABEL_116:
         }
 
-        v61 = v124;
+        v60 = v123;
       }
 
-LABEL_114:
+LABEL_118:
 
-      if (v60 != ++v64)
+      if (v59 != ++v63)
       {
         continue;
       }
@@ -2015,8 +2046,8 @@ LABEL_114:
       break;
     }
 
-    v60 = [v127 countByEnumeratingWithState:&v129 objects:v143 count:16];
-    if (v60)
+    v59 = [v126 countByEnumeratingWithState:&v128 objects:v142 count:16];
+    if (v59)
     {
       continue;
     }
@@ -2024,77 +2055,82 @@ LABEL_114:
     break;
   }
 
-LABEL_116:
+LABEL_120:
 
   self = selfCopy;
-  v11 = &OBJC_INSTANCE_METHODS_NSMutableCopying;
-LABEL_117:
-  sharedDaemonConfig3 = [v51[412] sharedDaemonConfig];
+  v10 = &OBJC_INSTANCE_METHODS_NSMutableCopying;
+LABEL_121:
+  sharedDaemonConfig3 = [v50[412] sharedDaemonConfig];
   if (!sharedDaemonConfig3)
   {
-    sharedDaemonConfig3 = [v51[412] sharedConfig];
+    sharedDaemonConfig3 = [v50[412] sharedConfig];
   }
 
-  shouldLog7 = [sharedDaemonConfig3 shouldLog];
+  LODWORD(v86) = [sharedDaemonConfig3 shouldLog];
   if ([sharedDaemonConfig3 shouldLogToDisk])
   {
-    shouldLog7 |= 2u;
+    LODWORD(v86) = v86 | 2;
   }
 
   oSLogObject7 = [sharedDaemonConfig3 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject7, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(oSLogObject7, OS_LOG_TYPE_INFO))
   {
-    shouldLog7 &= 2u;
+    v86 = v86;
   }
 
-  if (shouldLog7)
+  else
   {
-    v89 = objc_opt_class();
-    v90 = v11;
-    v91 = v89;
-    v92 = [v106 count];
-    v144 = v90[447];
-    v145 = v89;
-    v146 = 2050;
-    v147 = v92;
-    LODWORD(v104) = 22;
-    v93 = _os_log_send_and_compose_impl();
+    v86 &= 2u;
+  }
 
+  if (v86)
+  {
+    v88 = objc_opt_class();
+    v89 = v10;
+    v90 = v88;
+    v91 = [v105 count];
+    v143 = v89[447];
+    v144 = v88;
+    v145 = 2050;
+    v146 = v91;
+    LODWORD(v103) = 22;
+    v92 = _os_log_send_and_compose_impl(v86, 0, 0, 0, &_mh_execute_header, oSLogObject7, 1, "%{public}@: Found metadata for %{public}lu codes", &v143, v103);
+
+    v93 = v108;
     v94 = v109;
-    v95 = v110;
-    if (v93)
+    if (v92)
     {
-      oSLogObject7 = [NSString stringWithCString:v93 encoding:4, &v144, v104];
-      free(v93);
+      oSLogObject7 = [NSString stringWithCString:v92 encoding:4];
+      free(v92);
       SSFileLog();
-      goto LABEL_127;
+      goto LABEL_132;
     }
   }
 
   else
   {
+    v93 = v108;
     v94 = v109;
-    v95 = v110;
-LABEL_127:
+LABEL_132:
   }
 
   [(RedeemCodesOperation *)self lock];
-  v96 = [v106 copy];
+  v95 = [v105 copy];
   redeemMetadataByCode = self->_redeemMetadataByCode;
-  self->_redeemMetadataByCode = v96;
+  self->_redeemMetadataByCode = v95;
 
-  v98 = [v125 copy];
+  v97 = [v124 copy];
   installedExternalVersionByiTunesIdentifier = self->_installedExternalVersionByiTunesIdentifier;
-  self->_installedExternalVersionByiTunesIdentifier = v98;
+  self->_installedExternalVersionByiTunesIdentifier = v97;
 
   [(RedeemCodesOperation *)self unlock];
-  if (error && v95)
+  if (error && v94)
   {
-    v100 = v95;
-    *error = v95;
+    v99 = v94;
+    *error = v94;
   }
 
-  return v107 & 1;
+  return v106 & 1;
 }
 
 - (id)_installedExternalVersionForRedeemCodeMetadata:(id)metadata
@@ -2120,13 +2156,13 @@ LABEL_127:
 {
   v2 = [SSURLBagContext contextWithBagType:0];
   v3 = [[ISLoadURLBagOperation alloc] initWithBagContext:v2];
-  v20[0] = _NSConcreteStackBlock;
-  v20[1] = 3221225472;
-  v20[2] = sub_100206AF8;
-  v20[3] = &unk_100327110;
+  v19[0] = _NSConcreteStackBlock;
+  v19[1] = 3221225472;
+  v19[2] = sub_100206AF8;
+  v19[3] = &unk_100327110;
   v4 = dispatch_semaphore_create(0);
-  v21 = v4;
-  [v3 setCompletionBlock:v20];
+  v20 = v4;
+  [v3 setCompletionBlock:v19];
   v5 = +[ISOperationQueue mainQueue];
   [v5 addOperation:v3];
 
@@ -2142,16 +2178,21 @@ LABEL_127:
     shouldLog = [v7 shouldLog];
     if ([v7 shouldLogToDisk])
     {
-      v9 = shouldLog | 2;
+      LODWORD(v9) = shouldLog | 2;
     }
 
     else
     {
-      v9 = shouldLog;
+      LODWORD(v9) = shouldLog;
     }
 
     oSLogObject = [v7 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    {
+      v9 = v9;
+    }
+
+    else
     {
       v9 &= 2u;
     }
@@ -2159,30 +2200,28 @@ LABEL_127:
     if (v9)
     {
       v11 = objc_opt_class();
-      v22 = 138543362;
-      v23 = v11;
+      v21 = 138543362;
+      v22 = v11;
       v12 = v11;
-      LODWORD(v19) = 12;
-      v18 = &v22;
-      v13 = _os_log_send_and_compose_impl();
+      v13 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &_mh_execute_header, oSLogObject, 16, "%{public}@: Failed to fetch bag.", &v21, 12);
 
       if (!v13)
       {
-LABEL_13:
+LABEL_14:
 
-        goto LABEL_14;
+        goto LABEL_15;
       }
 
-      oSLogObject = [NSString stringWithCString:v13 encoding:4, &v22, v19];
+      oSLogObject = [NSString stringWithCString:v13 encoding:4];
       free(v13);
       v18 = oSLogObject;
       SSFileLog();
     }
 
-    goto LABEL_13;
+    goto LABEL_14;
   }
 
-LABEL_14:
+LABEL_15:
   uRLBag = [v3 URLBag];
   v15 = [uRLBag valueForKey:@"redeemCodeLanding"];
   v16 = v15 == 0;
@@ -2202,16 +2241,21 @@ LABEL_14:
   shouldLog = [v4 shouldLog];
   if ([v4 shouldLogToDisk])
   {
-    v6 = shouldLog | 2;
+    LODWORD(v6) = shouldLog | 2;
   }
 
   else
   {
-    v6 = shouldLog;
+    LODWORD(v6) = shouldLog;
   }
 
   oSLogObject = [v4 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+  {
+    v6 = v6;
+  }
+
+  else
   {
     v6 &= 2u;
   }
@@ -2221,22 +2265,20 @@ LABEL_14:
     v25 = 138543362;
     v26 = objc_opt_class();
     v8 = v26;
-    LODWORD(v21) = 12;
-    v20 = &v25;
-    v9 = _os_log_send_and_compose_impl();
+    v9 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &_mh_execute_header, oSLogObject, 2, "%{public}@: Sending redeem succeeded notification", &v25, 12);
 
     if (!v9)
     {
-      goto LABEL_12;
+      goto LABEL_13;
     }
 
-    oSLogObject = [NSString stringWithCString:v9 encoding:4, &v25, v21];
+    oSLogObject = [NSString stringWithCString:v9 encoding:4];
     free(v9);
     v20 = oSLogObject;
     SSFileLog();
   }
 
-LABEL_12:
+LABEL_13:
   v22 = 0;
   v10 = [NSKeyedArchiver archivedDataWithRootObject:responseCopy requiringSecureCoding:1 error:&v22];
 
@@ -2250,7 +2292,7 @@ LABEL_12:
     CFNotificationCenterPostNotification(DistributedCenter, kSSPurchaseRequestSucceededNotification, 0, v12, 1u);
     oSLogObject2 = +[EventDispatcher eventDispatcher];
     [oSLogObject2 postEventWithName:SSEventNamePurchaseSucceeded userInfo:v12];
-    goto LABEL_24;
+    goto LABEL_26;
   }
 
   v12 = +[SSLogConfig sharedStoreServicesConfig];
@@ -2262,23 +2304,28 @@ LABEL_12:
   shouldLog2 = [(__CFDictionary *)v12 shouldLog];
   if ([(__CFDictionary *)v12 shouldLogToDisk])
   {
-    v14 = shouldLog2 | 2;
+    LODWORD(v14) = shouldLog2 | 2;
   }
 
   else
   {
-    v14 = shouldLog2;
+    LODWORD(v14) = shouldLog2;
   }
 
   oSLogObject2 = [(__CFDictionary *)v12 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
+  {
+    v14 = v14;
+  }
+
+  else
   {
     v14 &= 2u;
   }
 
   if (!v14)
   {
-    goto LABEL_24;
+    goto LABEL_26;
   }
 
   v16 = objc_opt_class();
@@ -2288,14 +2335,14 @@ LABEL_12:
   v28 = v11;
   v17 = v16;
   LODWORD(v21) = 22;
-  v18 = _os_log_send_and_compose_impl();
+  v18 = _os_log_send_and_compose_impl(v14, 0, 0, 0, &_mh_execute_header, oSLogObject2, 16, "%{public}@: Failed to archive response. Error = %{public}@", &v25, v21);
 
   if (v18)
   {
-    oSLogObject2 = [NSString stringWithCString:v18 encoding:4, &v25, v21];
+    oSLogObject2 = [NSString stringWithCString:v18 encoding:4];
     free(v18);
     SSFileLog();
-LABEL_24:
+LABEL_26:
   }
 }
 

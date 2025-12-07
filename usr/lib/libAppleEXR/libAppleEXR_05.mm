@@ -31,7 +31,7 @@ uint64_t TileDecoder_B44A::ExtractPlane(uint64_t a1, uint64_t a2, uint64_t a3, u
   return (*(TileDecoder_B44A::ExtractPlane(void const*,unsigned long,ChannelInfo const&,TileInfo const&,void *,unsigned long,long)const::kFuncTable + ((8 * (v15[18] != 1)) | (16 * (v20 != 0)))))(CompressedDataPtr, CompressedDataSize, a4, v21, a5, v23, a1, a6, v19, a8);
 }
 
-__int16 *ExtractPlane_B44A<unsigned short,(StreamType)0>(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t a4, uint64_t a5, unsigned int *a6, uint64_t a7, __int16 *a8, int16x4_t *a9, uint64_t a10)
+__int16 *ExtractPlane_B44A<unsigned short,(StreamType)0>(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t a4, uint64_t a5, unsigned int *a6, uint64_t a7, int16x4_t *a8, int16x4_t *a9, uint64_t a10)
 {
   result = AXRStreamB44A<unsigned short,(StreamType)0>::AXRStreamB44A(&v34, a3);
   v13 = a6[2];
@@ -121,12 +121,12 @@ LABEL_17:
 
         else
         {
-          a8[1] = v34;
-          *a8 = v25;
-          v15[1] = v25;
-          *v15 = v25;
-          v16[1] = v25;
-          *v16 = v25;
+          a8->i16[1] = v34;
+          a8->i16[0] = v25;
+          v15->i16[1] = v25;
+          v15->i16[0] = v25;
+          v16->i16[1] = v25;
+          v16->i16[0] = v25;
           v17->i16[1] = v25;
           v27 -= 2;
           v24 = 4;
@@ -135,9 +135,9 @@ LABEL_17:
 
         if (v27 >= 1)
         {
-          *(a8 + v24) = v25;
-          *(v15 + v24) = v25;
-          *(v16 + v24) = v25;
+          *(a8->i16 + v24) = v25;
+          *(v15->i16 + v24) = v25;
+          *(v16->i16 + v24) = v25;
           *(v17->i16 + v24) = v25;
           v24 |= 2uLL;
         }
@@ -153,7 +153,7 @@ LABEL_17:
         v16 = (v16 + v24);
         v17 = (v17 + v24);
         LODWORD(v24) = a6[5];
-        ++v22;
+        v22 = (v22 + 1);
       }
 
       if (result)
@@ -175,12 +175,9 @@ LABEL_17:
           v30 = result - v22 + 1;
           do
           {
-            *a8 = v29;
-            a8 += 4;
-            *v15 = v29;
-            v15 += 4;
-            *v16 = v29;
-            v16 += 4;
+            *a8++ = v29;
+            *v15++ = v29;
+            *v16++ = v29;
             *v17++ = v29;
             --v30;
           }
@@ -196,28 +193,28 @@ LABEL_17:
         v32 = 4 - v24;
         if ((v32 & 2) == 0)
         {
-          *a8 = v34;
-          *v15 = v31;
-          *v16 = v31;
+          a8->i16[0] = v34;
+          v15->i16[0] = v31;
+          v16->i16[0] = v31;
 LABEL_42:
           v17->i16[0] = v31;
           goto LABEL_43;
         }
 
-        a8[1] = v34;
-        *a8 = v31;
-        v15[1] = v31;
-        *v15 = v31;
-        v16[1] = v31;
-        *v16 = v31;
+        a8->i16[1] = v34;
+        a8->i16[0] = v31;
+        v15->i16[1] = v31;
+        v15->i16[0] = v31;
+        v16->i16[1] = v31;
+        v16->i16[0] = v31;
         v17->i16[1] = v31;
         v17->i16[0] = v31;
         if (v32)
         {
-          a8[2] = v31;
-          v15[2] = v31;
+          a8->i16[2] = v31;
+          v15->i16[2] = v31;
           v17 = (v17 + 4);
-          v16[2] = v31;
+          v16->i16[2] = v31;
           goto LABEL_42;
         }
       }
@@ -242,7 +239,7 @@ LABEL_15:
   return result;
 }
 
-_DWORD *ExtractPlane_B44A<unsigned int,(StreamType)0>(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t a4, uint64_t a5, unsigned int *a6, uint64_t a7, int32x2_t *a8, int32x2_t *a9, uint64_t a10)
+unint64_t ExtractPlane_B44A<unsigned int,(StreamType)0>(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t a4, uint64_t a5, unsigned int *a6, uint64_t a7, int32x2_t *a8, int32x2_t *a9, uint64_t a10)
 {
   result = AXRStreamB44<unsigned int,(StreamType)0>::AXRStreamB44(&v36, a3);
   v13 = a6[2];
@@ -376,7 +373,7 @@ LABEL_17:
 
       if (!v29)
       {
-        result = (result - (v24 != 0));
+        result = result - (v24 != 0);
         if (v22 <= result)
         {
           v30 = vld1q_dup_f32(&v36);
@@ -448,7 +445,7 @@ LABEL_15:
   return result;
 }
 
-uint64_t ExtractPlane_B44A<unsigned short,(StreamType)1>(uint64_t result, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unsigned int *a6, uint64_t a7, char *a8, char *a9, uint64_t a10)
+void *ExtractPlane_B44A<unsigned short,(StreamType)1>(void *result, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unsigned int *a6, uint64_t a7, char *a8, char *a9, uint64_t a10)
 {
   v49 = result;
   v58 = 0;
@@ -499,7 +496,7 @@ uint64_t ExtractPlane_B44A<unsigned short,(StreamType)1>(uint64_t result, unint6
       v24 = &a8[v15];
       v25 = &a8[v15 + v15];
       v23 = &v25[v15];
-      v26 = (v22 + v49);
+      v26 = (v49 + v22);
       if (a2 - v22 >= HIDWORD(v22))
       {
         v27 = HIDWORD(v22);
@@ -615,7 +612,7 @@ LABEL_29:
           *a8 = v34.i32[0];
           *v24 = v34.i32[2];
           *v25 = v33.i32[0];
-          v31[1] = v33.i16[5];
+          *(v31 + 1) = v33.i16[5];
           v34 = vrev64q_s32(v34);
           *v31 = v33.i16[4];
           v33 = vrev64q_s32(v33);
@@ -628,7 +625,7 @@ LABEL_29:
           *&a8[v37] = v34.i16[0];
           *&v24[v37] = v34.i16[4];
           *&v25[v37] = v33.i16[0];
-          *(v31 + v37) = v33.i16[4];
+          *&v31[v37] = v33.i16[4];
           v37 |= 2uLL;
         }
 
@@ -641,7 +638,7 @@ LABEL_29:
         a8 += v37;
         v24 += v37;
         v25 += v37;
-        v31 = (v31 + v37);
+        v31 += v37;
         ++v32;
       }
 
@@ -670,7 +667,7 @@ LABEL_29:
             *v25 = v43.i64[0];
             v25 += 8;
             *v31 = vextq_s8(v43, v43, 8uLL).u64[0];
-            v31 += 4;
+            v31 += 8;
             --v42;
           }
 
@@ -700,7 +697,7 @@ LABEL_29:
             *(a8 + 2) = v46.i16[2];
             *(v24 + 2) = v46.i16[6];
             *(v25 + 2) = v45.i16[2];
-            v31[2] = v45.i16[6];
+            *(v31 + 2) = v45.i16[6];
           }
 
           goto LABEL_55;
@@ -1219,7 +1216,7 @@ void TileDecoder_B44::~TileDecoder_B44(void **this)
   JUMPOUT(0x29C25E8F0);
 }
 
-uint64_t TileDecoder_B44::Decompress@<X0>(size_t *this@<X1>, uint64_t result@<X0>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+uint64_t TileDecoder_B44::Decompress@<X0>(size_t *this@<X1>, uint64_t result@<X0>, uint64_t a3@<X2>, void **a4@<X8>)
 {
   if (*(a3 + 52) || (*(result + 56) & 3) != 0 || (*(result + 60) & 3) != 0)
   {
@@ -1227,7 +1224,7 @@ uint64_t TileDecoder_B44::Decompress@<X0>(size_t *this@<X1>, uint64_t result@<X0
   }
 
   *a4 = *(result + 128);
-  *(a4 + 8) = 0;
+  a4[1] = 0;
   return result;
 }
 
@@ -1509,11 +1506,11 @@ unsigned __int16 **AXRStreamB44A<unsigned short,(StreamType)1>::load4x4@<X0>(uns
   v3 = *result;
   if (*result)
   {
-    v4 = v3 + 3;
+    v4 = (v3 + 3);
     v5 = result[1];
     v6 = 0uLL;
     v7 = 0uLL;
-    if (v3 + 3 <= v5)
+    if ((v3 + 3) <= v5)
     {
       if (*(v3 + 2) == 252)
       {
@@ -1529,7 +1526,7 @@ unsigned __int16 **AXRStreamB44A<unsigned short,(StreamType)1>::load4x4@<X0>(uns
         v7 = v6;
       }
 
-      else if ((v3 + 7) <= v5)
+      else if (v3 + 7 <= v5)
       {
         v10.i64[0] = *(v3 + 1);
         v10.i64[1] = *(v3 + 3);
@@ -1572,7 +1569,7 @@ unsigned __int16 **AXRStreamB44A<unsigned short,(StreamType)1>::load4x4@<X0>(uns
   return result;
 }
 
-uint64_t TileDecoder_PXR24::Decompress@<X0>(size_t *this@<X1>, uint64_t a2@<X0>, uint64_t a3@<X2>, size_t *a4@<X3>, void **a5@<X8>)
+size_t TileDecoder_PXR24::Decompress@<X0>(size_t *this@<X1>, uint64_t a2@<X0>, uint64_t a3@<X2>, size_t *a4@<X3>, void **a5@<X8>)
 {
   AXRBufferPool::allocate(this, a5);
   if (!*a5)
@@ -1725,7 +1722,7 @@ void sub_296B10D24(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t TileDecoder_PXR24::Interleave(uint64_t a1, uint64_t a2, uint64_t a3, _DWORD *a4, unsigned int a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+void *TileDecoder_PXR24::Interleave(uint64_t a1, uint64_t a2, uint64_t a3, _DWORD *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   v24[0] = 0;
   v24[1] = 0;
@@ -4264,7 +4261,7 @@ float *CompressedInterleave2<unsigned int,(StreamType)1,(StreamType)1>(float *re
               v56 = xmmword_296B8F060;
               do
               {
-                v152.val[0] = v50;
+                v152 = v50;
                 result = (v57 + v63);
                 v191.val[1] = *(v161[0] + v63 - 32);
                 v201.val[1] = *(v161[0] + v63 - 16);
@@ -4363,7 +4360,7 @@ float *CompressedInterleave2<unsigned int,(StreamType)1,(StreamType)1>(float *re
                 *v42.i8 = vadd_s32(*&vextq_s8(v45, v45, 8uLL), vadd_s32(vdup_lane_s32(*v182.val[1].i8, 1), *&vextq_s8(v182.val[1], v182.val[1], 8uLL)));
                 v182.val[1] = vdupq_laneq_s32(v46, 3);
                 *v182.val[0].i8 = vadd_s32(*&vextq_s8(v182.val[1], v182.val[1], 8uLL), vadd_s32(vdup_lane_s32(*v182.val[0].i8, 1), *&vextq_s8(v182.val[0], v182.val[0], 8uLL)));
-                v50.i64[1] = v152.val[0].i64[1];
+                v50.i64[1] = v152.i64[1];
                 *v39.i8 = vadd_s32(vadd_s32(*&vextq_s8(v178.val[1], v178.val[1], 8uLL), vadd_s32(vdup_lane_s32(*v199.val[0].i8, 1), *&vextq_s8(v199.val[0], v199.val[0], 8uLL))), *v39.i8);
                 v40 = vextq_s8(v65, v65, 8uLL);
                 *v40.i8 = vadd_s32(vadd_s32(*v193.val[1].i8, *&vextq_s8(v193.val[1], v193.val[1], 8uLL)), vadd_s32(*v65.i8, *v40.i8));
@@ -4374,7 +4371,7 @@ float *CompressedInterleave2<unsigned int,(StreamType)1,(StreamType)1>(float *re
                 v41 = xmmword_296B8F040;
                 *v40.i8 = vadd_s32(*v42.i8, vadd_s32(*v40.i8, vadd_s32(vadd_s32(*v191.val[1].i8, *v44.i8), vadd_s32(*v193.val[0].i8, *v43.i8))));
                 *v39.i8 = vzip2_s32(*v40.i8, *v39.i8);
-                *v50.i8 = vadd_s32(*v39.i8, *v152.val[0].i8);
+                *v50.i8 = vadd_s32(*v39.i8, *v152.i8);
                 v63 += 32;
               }
 

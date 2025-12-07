@@ -184,15 +184,15 @@ LABEL_9:
 
 - (void)_updateState
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if ([(HKSPPersistentStateMachineState *)self _isExpired])
   {
     v3 = HKSPLogForCategory(7uLL);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v8 = objc_opt_class();
-      v4 = v8;
+      v7 = objc_opt_class();
+      v4 = v7;
       _os_log_impl(&dword_269A84000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] already expired", buf, 0xCu);
     }
 
@@ -201,18 +201,16 @@ LABEL_9:
 
   else
   {
-    v6.receiver = self;
-    v6.super_class = HKSPPersistentStateMachineState;
-    [(HKSPStateMachineState *)&v6 _updateState];
+    v5.receiver = self;
+    v5.super_class = HKSPPersistentStateMachineState;
+    [(HKSPStateMachineState *)&v5 _updateState];
     [(HKSPPersistentStateMachineState *)self _expireOrRescheduleExpirationIfNecessary];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_expireOrRescheduleExpirationIfNecessary
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if ([(HKSPStateMachineState *)self isCurrentState])
   {
     _updateExpirationDate = [(HKSPPersistentStateMachineState *)self _updateExpirationDate];
@@ -221,10 +219,10 @@ LABEL_9:
       v4 = HKSPLogForCategory(7uLL);
       if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = 138543362;
-        v11 = objc_opt_class();
-        v5 = v11;
-        _os_log_impl(&dword_269A84000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] now expired", &v10, 0xCu);
+        v9 = 138543362;
+        v10 = objc_opt_class();
+        v5 = v10;
+        _os_log_impl(&dword_269A84000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] now expired", &v9, 0xCu);
       }
 
       [(HKSPPersistentStateMachineState *)self stateDidExpire];
@@ -235,18 +233,16 @@ LABEL_9:
       v6 = HKSPLogForCategory(7uLL);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = 138543362;
-        v11 = objc_opt_class();
-        v7 = v11;
-        _os_log_impl(&dword_269A84000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] rescheduling expiration", &v10, 0xCu);
+        v9 = 138543362;
+        v10 = objc_opt_class();
+        v7 = v10;
+        _os_log_impl(&dword_269A84000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] rescheduling expiration", &v9, 0xCu);
       }
 
       stateMachine = [(HKSPStateMachineState *)self stateMachine];
       [stateMachine scheduleStateExpiration];
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)_hasExpirationDate:(id)date
@@ -272,7 +268,7 @@ LABEL_9:
 
 + (BOOL)_isExpired:(id)expired currentDate:(id)date
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   expiredCopy = expired;
   dateCopy = date;
   if (![self _hasExpirationDate:expiredCopy])
@@ -291,13 +287,13 @@ LABEL_9:
       v11 = objc_opt_class();
       v12 = v11;
       startDate2 = [expiredCopy startDate];
-      v21 = 138543618;
-      v22 = v11;
-      v23 = 2114;
-      v24 = startDate2;
+      v20 = 138543618;
+      v21 = v11;
+      v22 = 2114;
+      v23 = startDate2;
       v14 = "[%{public}@] it's before the entry date (%{public}@)";
 LABEL_8:
-      _os_log_impl(&dword_269A84000, v10, OS_LOG_TYPE_DEFAULT, v14, &v21, 0x16u);
+      _os_log_impl(&dword_269A84000, v10, OS_LOG_TYPE_DEFAULT, v14, &v20, 0x16u);
 
       goto LABEL_9;
     }
@@ -321,10 +317,10 @@ LABEL_10:
     v17 = objc_opt_class();
     v12 = v17;
     startDate2 = [expiredCopy endDate];
-    v21 = 138543618;
-    v22 = v17;
-    v23 = 2114;
-    v24 = startDate2;
+    v20 = 138543618;
+    v21 = v17;
+    v22 = 2114;
+    v23 = startDate2;
     v14 = "[%{public}@] it's after expiration date (%{public}@)";
     goto LABEL_8;
   }
@@ -334,13 +330,12 @@ LABEL_9:
   v18 = 1;
 LABEL_11:
 
-  v19 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
 - (HKSPPersistentStateMachineState)stateWithIdentifierDidExpire:(id)expire
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   expireCopy = expire;
   stateIdentifier = [(HKSPStateMachineState *)self stateIdentifier];
   v6 = [stateIdentifier isEqualToString:expireCopy];
@@ -351,10 +346,10 @@ LABEL_11:
   {
     if (v8)
     {
-      v13 = 138543362;
-      v14 = objc_opt_class();
-      v9 = v14;
-      _os_log_impl(&dword_269A84000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] expiring", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = objc_opt_class();
+      v9 = v13;
+      _os_log_impl(&dword_269A84000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] expiring", &v12, 0xCu);
     }
 
     [(HKSPPersistentStateMachineState *)self stateDidExpire];
@@ -364,16 +359,15 @@ LABEL_11:
   {
     if (v8)
     {
-      v13 = 138543618;
-      v14 = objc_opt_class();
-      v15 = 2114;
-      v16 = expireCopy;
-      v10 = v14;
-      _os_log_impl(&dword_269A84000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] ignoring expired identifier %{public}@", &v13, 0x16u);
+      v12 = 138543618;
+      v13 = objc_opt_class();
+      v14 = 2114;
+      v15 = expireCopy;
+      v10 = v13;
+      _os_log_impl(&dword_269A84000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] ignoring expired identifier %{public}@", &v12, 0x16u);
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -532,7 +526,7 @@ LABEL_14:
 
 - (id)_updatedLifetimeIntervalWithStartDate:(id)date
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   startDate = [(NSDateInterval *)self->_lifetimeInterval startDate];
   v6 = NAEqualObjects();
@@ -585,13 +579,13 @@ LABEL_13:
     v16 = v15;
     hkspDescription = [distantFuture hkspDescription];
     hkspDescription2 = [dateCopy hkspDescription];
-    v25 = 138543874;
-    v26 = v15;
-    v27 = 2114;
-    v28 = hkspDescription;
-    v29 = 2114;
-    v30 = hkspDescription2;
-    _os_log_impl(&dword_269A84000, v14, OS_LOG_TYPE_DEFAULT, "[%{public}@] expiration: %{public}@ is before entry: %{public}@, treated as expired now", &v25, 0x20u);
+    v24 = 138543874;
+    v25 = v15;
+    v26 = 2114;
+    v27 = hkspDescription;
+    v28 = 2114;
+    v29 = hkspDescription2;
+    _os_log_impl(&dword_269A84000, v14, OS_LOG_TYPE_DEFAULT, "[%{public}@] expiration: %{public}@ is before entry: %{public}@, treated as expired now", &v24, 0x20u);
   }
 
   stateMachine = [(HKSPStateMachineState *)self stateMachine];
@@ -601,16 +595,12 @@ LABEL_13:
   v22 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:v21 endDate:v21];
 LABEL_14:
 
-  v23 = *MEMORY[0x277D85DE8];
-
   return v22;
 }
 
 - (void)_resetLifetimeInterval
 {
-  infiniteInterval = [objc_opt_class() infiniteInterval];
-  lifetimeInterval = self->_lifetimeInterval;
-  self->_lifetimeInterval = infiniteInterval;
+  self->_lifetimeInterval = [objc_opt_class() infiniteInterval];
 
   MEMORY[0x2821F96F8]();
 }

@@ -62,14 +62,12 @@
 
 uint64_t __33__CSPlaybackManager_addObserver___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   result = objc_opt_respondsToSelector();
   if (result)
   {
-    v4 = *(a1 + 32);
-    v5 = *(*(a1 + 40) + 40);
+    v3 = *(a1 + 32);
 
-    return [v4 playbackManager:? didUpdateState:?];
+    return [v3 playbackManager:? didUpdateState:?];
   }
 
   return result;
@@ -95,12 +93,12 @@ uint64_t __33__CSPlaybackManager_addObserver___block_invoke(uint64_t a1)
 - (void)play
 {
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
-  v3 = ContinuitySingLog();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = ContinuitySingLog(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315138;
-    v7 = "[CSPlaybackManager play]";
-    _os_log_impl(&dword_2441FB000, v3, OS_LOG_TYPE_DEFAULT, "%s: Requesting play", &v6, 0xCu);
+    v7 = 136315138;
+    v8 = "[CSPlaybackManager play]";
+    _os_log_impl(&dword_2441FB000, v4, OS_LOG_TYPE_DEFAULT, "%s: Requesting play", &v7, 0xCu);
   }
 
   response = [(MPRequestResponseController *)self->_mediaPlayerResponseController response];
@@ -112,12 +110,12 @@ uint64_t __33__CSPlaybackManager_addObserver___block_invoke(uint64_t a1)
 - (void)pause
 {
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
-  v3 = ContinuitySingLog();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = ContinuitySingLog(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315138;
-    v7 = "[CSPlaybackManager pause]";
-    _os_log_impl(&dword_2441FB000, v3, OS_LOG_TYPE_DEFAULT, "%s: Requesting pause", &v6, 0xCu);
+    v7 = 136315138;
+    v8 = "[CSPlaybackManager pause]";
+    _os_log_impl(&dword_2441FB000, v4, OS_LOG_TYPE_DEFAULT, "%s: Requesting pause", &v7, 0xCu);
   }
 
   response = [(MPRequestResponseController *)self->_mediaPlayerResponseController response];
@@ -129,12 +127,12 @@ uint64_t __33__CSPlaybackManager_addObserver___block_invoke(uint64_t a1)
 - (void)forward
 {
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
-  v3 = ContinuitySingLog();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = ContinuitySingLog(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315138;
-    v9 = "[CSPlaybackManager forward]";
-    _os_log_impl(&dword_2441FB000, v3, OS_LOG_TYPE_DEFAULT, "%s: Requesting forward", &v8, 0xCu);
+    v9 = 136315138;
+    v10 = "[CSPlaybackManager forward]";
+    _os_log_impl(&dword_2441FB000, v4, OS_LOG_TYPE_DEFAULT, "%s: Requesting forward", &v9, 0xCu);
   }
 
   response = [(MPRequestResponseController *)self->_mediaPlayerResponseController response];
@@ -148,12 +146,12 @@ uint64_t __33__CSPlaybackManager_addObserver___block_invoke(uint64_t a1)
 - (void)backward
 {
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
-  v3 = ContinuitySingLog();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = ContinuitySingLog(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315138;
-    v9 = "[CSPlaybackManager backward]";
-    _os_log_impl(&dword_2441FB000, v3, OS_LOG_TYPE_DEFAULT, "%s: Requesting back", &v8, 0xCu);
+    v9 = 136315138;
+    v10 = "[CSPlaybackManager backward]";
+    _os_log_impl(&dword_2441FB000, v4, OS_LOG_TYPE_DEFAULT, "%s: Requesting back", &v9, 0xCu);
   }
 
   response = [(MPRequestResponseController *)self->_mediaPlayerResponseController response];
@@ -179,35 +177,35 @@ uint64_t __33__CSPlaybackManager_addObserver___block_invoke(uint64_t a1)
 
   [vocalsControlCommand minLevel];
   v10 = v9;
-  [vocalsControlCommand maxLevel];
-  v12 = v11;
-  v13 = v10;
-  if (v11 != v10)
+  maxLevel = [vocalsControlCommand maxLevel];
+  v13 = v12;
+  v14 = v10;
+  if (v12 != v10)
   {
     levelCopy = level;
-    v15 = fmax(fmin(levelCopy, 1.0), 0.0);
-    v13 = v10 + (v15 * (v12 - v10));
+    v16 = fmax(fmin(levelCopy, 1.0), 0.0);
+    v14 = v10 + (v16 * (v13 - v10));
   }
 
-  v16 = ContinuitySingLog();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v17 = ContinuitySingLog(maxLevel);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = 136316162;
-    v20 = "[CSPlaybackManager setVocalAttenuationLevel:]";
-    v21 = 2048;
+    v20 = 136316162;
+    v21 = "[CSPlaybackManager setVocalAttenuationLevel:]";
+    v22 = 2048;
     levelCopy2 = level;
-    v23 = 2048;
-    v24 = v13;
-    v25 = 2048;
-    v26 = v10;
-    v27 = 2048;
-    v28 = v12;
-    _os_log_impl(&dword_2441FB000, v16, OS_LOG_TYPE_DEFAULT, "%s: Setting unit level to %f with mediaVocalLevel %f, min %f and max %f", &v19, 0x34u);
+    v24 = 2048;
+    v25 = v14;
+    v26 = 2048;
+    v27 = v10;
+    v28 = 2048;
+    v29 = v13;
+    _os_log_impl(&dword_2441FB000, v17, OS_LOG_TYPE_DEFAULT, "%s: Setting unit level to %f with mediaVocalLevel %f, min %f and max %f", &v20, 0x34u);
   }
 
-  *&v17 = v13;
-  v18 = [vocalsControlCommand setVocalsLevel:v17];
-  [(CSPlaybackManager *)self _sendRequest:v18];
+  *&v18 = v14;
+  v19 = [vocalsControlCommand setVocalsLevel:v18];
+  [(CSPlaybackManager *)self _sendRequest:v19];
 }
 
 - (void)_handleNewPlaybackState:(id)state
@@ -349,7 +347,7 @@ void __56__CSPlaybackManager__setupMediaPlayerResponseController__block_invoke_2
 
   else
   {
-    v6 = ContinuitySingLog();
+    v6 = ContinuitySingLog(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [CSPlaybackManager _sendRequest:v6];
@@ -360,7 +358,7 @@ void __56__CSPlaybackManager__setupMediaPlayerResponseController__block_invoke_2
 void __34__CSPlaybackManager__sendRequest___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = ContinuitySingLog();
+  v4 = ContinuitySingLog(v3);
   v5 = v4;
   if (v3)
   {
@@ -445,41 +443,41 @@ void __58__CSPlaybackManager_controller_defersResponseReplacement___block_invoke
     v20 = v19;
     [v18 minLevel];
     v22 = v21;
-    [v18 maxLevel];
-    v24 = v23;
-    v25 = 0.0;
-    if (v23 != v22)
+    v23 = [v18 maxLevel];
+    v25 = v24;
+    v26 = 0.0;
+    if (v24 != v22)
     {
-      v25 = ((fmaxf(v22, fminf(v20, v23)) - v22) / (v23 - v22));
+      v26 = ((fmaxf(v22, fminf(v20, v24)) - v22) / (v24 - v22));
     }
 
-    v26 = ContinuitySingLog();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+    v27 = ContinuitySingLog(v23);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
-      v29 = 136316162;
-      v30 = "[CSPlaybackManager controller:defersResponseReplacement:]_block_invoke";
-      v31 = 2048;
-      v32 = v20;
-      v33 = 2048;
-      v34 = v22;
-      v35 = 2048;
-      v36 = v24;
-      v37 = 2048;
-      v38 = v25;
-      _os_log_impl(&dword_2441FB000, v26, OS_LOG_TYPE_DEFAULT, "%s: Received mediaVocalLevel %f with min %f, max %f and unit level %f", &v29, 0x34u);
+      v30 = 136316162;
+      v31 = "[CSPlaybackManager controller:defersResponseReplacement:]_block_invoke";
+      v32 = 2048;
+      v33 = v20;
+      v34 = 2048;
+      v35 = v22;
+      v36 = 2048;
+      v37 = v25;
+      v38 = 2048;
+      v39 = v26;
+      _os_log_impl(&dword_2441FB000, v27, OS_LOG_TYPE_DEFAULT, "%s: Received mediaVocalLevel %f with min %f, max %f and unit level %f", &v30, 0x34u);
     }
 
-    v27 = v9;
-    v28 = v25;
+    v28 = v9;
+    v29 = v26;
   }
 
   else
   {
-    v28 = 1.0;
-    v27 = v9;
+    v29 = 1.0;
+    v28 = v9;
   }
 
-  [(CSPlaybackState *)v27 setVocalAttenuationLevel:v28];
+  [(CSPlaybackState *)v28 setVocalAttenuationLevel:v29];
   [*(a1 + 32) _handleNewPlaybackState:v9];
 }
 
@@ -498,7 +496,7 @@ void __58__CSPlaybackManager_controller_defersResponseReplacement___block_invoke
   v4 = playingItem;
   if (playingItem)
   {
-    [playingItem duration];
+    objc_msgSend_duration(playingItem);
     v5 = v7;
   }
 
@@ -519,7 +517,7 @@ void __58__CSPlaybackManager_controller_defersResponseReplacement___block_invoke
   v7 = playingItem;
   if (playingItem)
   {
-    [playingItem duration];
+    objc_msgSend_duration(playingItem);
     v8 = v11;
   }
 
@@ -550,7 +548,7 @@ void __58__CSPlaybackManager_controller_defersResponseReplacement___block_invoke
   v10 = playingItem;
   if (playingItem)
   {
-    [playingItem duration];
+    objc_msgSend_duration(playingItem);
     v11 = v15;
   }
 

@@ -44,36 +44,36 @@ uint64_t featextract_ClassOpen(_WORD *a1, int a2, uint64_t a3)
 
 uint64_t featextract_ObjOpen(uint64_t a1, uint64_t a2, _WORD *a3, uint64_t a4, uint64_t a5)
 {
-  v24 = 0;
-  v25 = 0;
-  v23 = 0;
-  v22 = 0;
+  v19 = 0;
+  v20 = 0;
+  v18 = 0;
+  v17 = 0;
   *a5 = 0;
   *(a5 + 8) = 0;
-  inited = InitRsrcFunction(a3, a4, &v25);
+  inited = InitRsrcFunction(a3, a4, &v20);
   if ((inited & 0x80000000) != 0)
   {
     return inited;
   }
 
-  v10 = heap_Calloc(*(v25 + 8), 1, 104);
-  if (!v10 || (v15 = v10, *v10 = a3, v10[1] = a4, v16 = v25, v10[2] = v25, v10[3] = a1, v10[5] = 0, v10[6] = 0, v10[4] = 0, v17 = heap_Calloc(*(v16 + 8), 1, 3656), (v15[12] = v17) == 0))
+  v10 = heap_Calloc(*(v20 + 8), 1, 104);
+  if (!v10 || (v11 = v10, *v10 = a3, v10[1] = a4, v12 = v20, v10[2] = v20, v10[3] = a1, v10[5] = 0, v10[6] = 0, v10[4] = 0, v13 = heap_Calloc(*(v12 + 8), 1, 3656), (v11[12] = v13) == 0))
   {
     Object = 2364547082;
-    log_OutPublic(*(v25 + 32), "FEATEXTRACT", 31000, 0, v11, v12, v13, v14, v21);
+    log_OutPublic(*(v20 + 32), "FEATEXTRACT", 31000, 0);
     return Object;
   }
 
-  paramc_ParamSetStr(*(v15[2] + 40), "voiceaddon", "");
-  Voice = featextract_loadVoice(v15);
-  if ((Voice & 0x80000000) != 0 || (Voice = objc_GetObject(*(v25 + 48), "LINGDB", &v23), (Voice & 0x80000000) != 0))
+  paramc_ParamSetStr(*(v11[2] + 40), "voiceaddon", "");
+  Voice = featextract_loadVoice(v11);
+  if ((Voice & 0x80000000) != 0 || (Voice = objc_GetObject(*(v20 + 48), "LINGDB", &v18), (Voice & 0x80000000) != 0))
   {
     Object = Voice;
     goto LABEL_14;
   }
 
-  v15[5] = *(v23 + 8);
-  Object = objc_GetObject(*(v25 + 48), "SYNTHSTREAM", &v24);
+  v11[5] = *(v18 + 8);
+  Object = objc_GetObject(*(v20 + 48), "SYNTHSTREAM", &v19);
   if ((Object & 0x80000000) != 0)
   {
 LABEL_14:
@@ -83,14 +83,14 @@ LABEL_14:
     return Object;
   }
 
-  v15[6] = *(v24 + 8);
-  *(v15 + 22) = 0;
-  if ((paramc_ParamGetUInt(*(v25 + 40), "usewordorthography", &v22) & 0x80000000) == 0 && v22 == 1)
+  v11[6] = *(v19 + 8);
+  *(v11 + 22) = 0;
+  if ((paramc_ParamGetUInt(*(v20 + 40), "usewordorthography", &v17) & 0x80000000) == 0 && v17 == 1)
   {
-    *(v15 + 22) = 1;
+    *(v11 + 22) = 1;
   }
 
-  *a5 = v15;
+  *a5 = v11;
   *(a5 + 8) = 415;
   return Object;
 }
@@ -142,7 +142,7 @@ uint64_t featextract_ObjClose(void *a1, int a2)
   return result;
 }
 
-uint64_t featextract_loadVoice(_WORD **a1)
+uint64_t featextract_loadVoice(uint64_t *a1)
 {
   v21 = *MEMORY[0x277D85DE8];
   LODWORD(v19) = 0;
@@ -153,7 +153,7 @@ uint64_t featextract_loadVoice(_WORD **a1)
     if (v3)
     {
       v4 = BrokerString;
-      if (!cstdlib_strcmp(v3 + 152, __s2))
+      if (!cstdlib_strcmp((v3 + 152), __s2))
       {
         goto LABEL_19;
       }
@@ -169,7 +169,7 @@ uint64_t featextract_loadVoice(_WORD **a1)
 
   v6 = v5;
   v7 = a1[4];
-  if (!v7 || cstdlib_strcmp(v7 + 152, __s2))
+  if (!v7 || cstdlib_strcmp((v7 + 152), __s2))
   {
     v8 = uselect_CheckForDataFile(*a1, a1[1], __s2, &v19);
     v4 = v8;
@@ -221,15 +221,15 @@ LABEL_19:
   v10 = a1[4];
   if (v10)
   {
-    if (cstdlib_strcmp(v10 + 152, __s2))
+    if (cstdlib_strcmp((v10 + 152), __s2))
     {
       v11 = a1[3];
-      if (!v11 || (v12 = *(v11 + 6)) == 0)
+      if (!v11 || (v12 = *(v11 + 48)) == 0)
       {
-        v12 = *(a1[2] + 6);
+        v12 = *(a1[2] + 48);
       }
 
-      AddRefCountedObject = objc_ReleaseObject(v12, (a1[4] + 76));
+      AddRefCountedObject = objc_ReleaseObject(v12, a1[4] + 152);
       a1[4] = 0;
       if ((AddRefCountedObject & 0x80000000) != 0)
       {
@@ -245,7 +245,7 @@ LABEL_19:
 
   v19 = 0;
   v13 = a1[3];
-  if (v13 && (v14 = *(v13 + 6)) != 0)
+  if (v13 && (v14 = *(v13 + 48)) != 0)
   {
     v15 = a1[2];
   }
@@ -264,17 +264,17 @@ LABEL_19:
 
   v16 = *(v19 + 32);
   a1[4] = v16;
-  AddRefCountedObject = paramc_ParamSetStr(*(a1[2] + 5), "uselectrawdataversion", (v16 + 64));
+  AddRefCountedObject = paramc_ParamSetStr(*(a1[2] + 40), "uselectrawdataversion", (v16 + 64));
   if ((AddRefCountedObject & 0x80000000) != 0)
   {
     return AddRefCountedObject;
   }
 
-  v17 = paramc_ParamSetStr(*(a1[2] + 5), "uselectreductionversion", a1[4] + 140);
+  v17 = paramc_ParamSetStr(*(a1[2] + 40), "uselectreductionversion", (a1[4] + 140));
   v4 = v17;
   if ((v17 & 0x80000000) == 0)
   {
-    if (a1[4][1789] == 2)
+    if (*(a1[4] + 3578) == 2)
     {
       return v17;
     }
@@ -537,7 +537,7 @@ uint64_t Downsample__ResetStates(uint64_t result)
   return result;
 }
 
-uint64_t *Downsample__Generate(uint64_t a1, int a2)
+uint64_t *Downsample__Generate(uint64_t a1, unsigned int a2)
 {
   if (a2 > 3)
   {
@@ -1575,7 +1575,7 @@ uint64_t Vect__Insert(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
   return result;
 }
 
-const void **Vect__Cut(const void **result, uint64_t a2, int a3, int a4)
+const void **Vect__Cut(const void **result, uint64_t a2, unsigned int a3, int a4)
 {
   v5 = *(result + 2);
   if (v5 <= a3)
@@ -1705,7 +1705,7 @@ _WORD *WSOLA__SetTimeScaleFactor(_WORD *result, int a2)
   return result;
 }
 
-uint64_t WSOLA__Create(uint64_t a1, __int16 a2)
+unsigned __int16 *WSOLA__Create(uint64_t a1, __int16 a2)
 {
   v4 = *(a1 + 8);
   v5 = heap_Calloc(v4, 336, 1);
@@ -3255,24 +3255,24 @@ LABEL_6:
   return result;
 }
 
-uint64_t Wsola__Process(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t Wsola__Process(uint64_t a1)
 {
-  v9 = *(a1 + 1088);
-  if (*(*(v9 + 160) + 12) != 35)
+  v2 = *(a1 + 1088);
+  if (*(*(v2 + 160) + 12) != 35)
   {
-    v14 = 0;
+    v7 = 0;
 LABEL_9:
-    v15 = *(v9 + 168);
-    if (v14 >= v15)
+    v8 = *(v2 + 168);
+    if (v7 >= v8)
     {
 LABEL_28:
-      synth_ProcessMarkers(a1, a2, a3, a4, a5, a6, a7, a8);
-      if (!*(a1 + 1144) || (v26 = (*(a1 + 1096) + *(a1 + 1048)), v26 < 1) || (ClientBuffer = InOut__InsertSilence(a1, v26, *(v9 + 168) - 1), (ClientBuffer & 0x80000000) == 0) && !InOut__IsEndState(a1))
+      synth_ProcessMarkers(a1);
+      if (!*(a1 + 1144) || (v13 = *(a1 + 1096) + *(a1 + 1048), v13 < 1) || (ClientBuffer = InOut__InsertSilence(a1, v13, *(v2 + 168) - 1), (ClientBuffer & 0x80000000) == 0) && !InOut__IsEndState(a1))
       {
         *(a1 + 1076) = 1;
         *(a1 + 1024) = *(a1 + 1028);
-        ++*(v9 + 224);
-        ClientBuffer = InOut__GetClientBuffer(a1, v26, v27, v28, v29, v30, v31, v32);
+        ++*(v2 + 224);
+        ClientBuffer = InOut__GetClientBuffer(a1);
         if ((ClientBuffer & 0x80000000) == 0)
         {
           InOut__IsEndState(a1);
@@ -3282,54 +3282,54 @@ LABEL_28:
       return ClientBuffer;
     }
 
-    v16 = v14 == v15 - 1;
-    v17 = v14;
-    v18 = 56 * v14;
+    v9 = v7 == v8 - 1;
+    v10 = v7;
+    v11 = 56 * v7;
     while (1)
     {
-      ClientBuffer = Wsola__newunit(a1, *(v9 + 152) + v18);
+      ClientBuffer = Wsola__newunit(a1, *(v2 + 152) + v11);
       if ((ClientBuffer & 0x80000000) != 0 || InOut__IsEndState(a1))
       {
         return ClientBuffer;
       }
 
-      if ((*(*(v9 + 152) + v18 + 48) & 0xF) != 0)
+      if ((*(*(v2 + 152) + v11 + 48) & 0xF) != 0)
       {
-        if ((*(*(v9 + 152) + v18 + 48) & 2) != 0)
+        if ((*(*(v2 + 152) + v11 + 48) & 2) != 0)
         {
-          v25 = Wsola__matchpreviousunit_wsola(a1, v17, v16);
+          v12 = Wsola__matchpreviousunit_wsola(a1, v10, v9);
         }
 
-        else if (*(*(v9 + 152) + v18 + 48))
+        else if (*(*(v2 + 152) + v11 + 48))
         {
-          v25 = Wsola__plosive_silence(a1, v17);
+          v12 = Wsola__plosive_silence(a1, v10);
         }
 
         else
         {
-          if ((*(*(v9 + 152) + v18 + 48) & 4) == 0)
+          if ((*(*(v2 + 152) + v11 + 48) & 4) == 0)
           {
             goto LABEL_23;
           }
 
-          v25 = Wsola__plosive_rs(a1, v17);
+          v12 = Wsola__plosive_rs(a1, v10);
         }
       }
 
       else
       {
-        v25 = Wsola__Silence(a1, v17, v16);
+        v12 = Wsola__Silence(a1, v10, v9);
       }
 
-      ClientBuffer = v25;
-      if ((v25 & 0x80000000) != 0 || InOut__IsEndState(a1))
+      ClientBuffer = v12;
+      if ((v12 & 0x80000000) != 0 || InOut__IsEndState(a1))
       {
         return ClientBuffer;
       }
 
 LABEL_23:
-      v16 = v17 == *(v9 + 168) - 1;
-      ClientBuffer = Wsola__middle(a1, v17, v19, v20, v21, v22, v23, v24);
+      v9 = v10 == *(v2 + 168) - 1;
+      ClientBuffer = Wsola__middle(a1, v10);
       if ((ClientBuffer & 0x80000000) != 0)
       {
         return ClientBuffer;
@@ -3340,33 +3340,33 @@ LABEL_23:
         return ClientBuffer;
       }
 
-      ClientBuffer = Wsola__tail(a1, v17);
+      ClientBuffer = Wsola__tail(a1, v10);
       if ((ClientBuffer & 0x80000000) != 0 || InOut__IsEndState(a1))
       {
         return ClientBuffer;
       }
 
-      ++v17;
-      v18 += 56;
-      if (v17 >= *(v9 + 168))
+      ++v10;
+      v11 += 56;
+      if (v10 >= *(v2 + 168))
       {
         goto LABEL_28;
       }
     }
   }
 
-  ClientBuffer = Wsola__newunit(a1, *(v9 + 152));
+  ClientBuffer = Wsola__newunit(a1, *(v2 + 152));
   if ((ClientBuffer & 0x80000000) == 0 && !InOut__IsEndState(a1))
   {
-    v11 = *(a1 + 1088);
-    Wsola__updateSubunits(v11, 0, 0);
-    v12 = *(v11 + 152);
-    if (*(v12 + 46))
+    v4 = *(a1 + 1088);
+    Wsola__updateSubunits(v4, 0, 0);
+    v5 = *(v4 + 152);
+    if (*(v5 + 46))
     {
-      v13 = *(v12 + 40);
-      if (v13)
+      v6 = *(v5 + 40);
+      if (v6)
       {
-        ClientBuffer = InOut__InsertSilence(a1, v13, 0);
+        ClientBuffer = InOut__InsertSilence(a1, v6, 0);
         if ((ClientBuffer & 0x80000000) != 0)
         {
           return ClientBuffer;
@@ -3384,18 +3384,18 @@ LABEL_23:
     else
     {
       ClientBuffer = 0;
-      *(v12 + 40) = 0;
+      *(v5 + 40) = 0;
     }
 
     if (!InOut__IsEndState(a1))
     {
-      ClientBuffer = Wsola__middle(a1, 0, v33, v34, v35, v36, v37, v38);
+      ClientBuffer = Wsola__middle(a1, 0);
       if ((ClientBuffer & 0x80000000) == 0 && !InOut__IsEndState(a1))
       {
         ClientBuffer = Wsola__tail(a1, 0);
         if ((ClientBuffer & 0x80000000) == 0 && !InOut__IsEndState(a1))
         {
-          v14 = 1;
+          v7 = 1;
           goto LABEL_9;
         }
       }
@@ -3501,53 +3501,51 @@ LABEL_24:
   return result;
 }
 
-uint64_t Wsola__middle(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t Wsola__middle(uint64_t a1, unsigned int a2)
 {
-  v9 = *(a1 + 1088);
-  v10 = *(*(v9 + 152) + 56 * a2 + 48);
-  if (v10 >= 0x10 && (v10 & 0x20) == 0)
+  v3 = *(a1 + 1088);
+  v4 = *(*(v3 + 152) + 56 * a2 + 48);
+  if (v4 >= 0x10 && (v4 & 0x20) == 0)
   {
-    if ((v10 & 0x10) != 0)
+    if ((v4 & 0x10) != 0)
     {
-      v12 = 180;
-      v13 = 20;
+      v6 = 180;
+      v7 = 20;
     }
 
     else
     {
-      if ((v10 & 0x40) == 0)
+      if ((v4 & 0x40) == 0)
       {
-        v14 = 0;
+        v8 = 0;
         goto LABEL_12;
       }
 
-      v12 = 20;
-      v13 = 208;
+      v6 = 20;
+      v7 = 208;
     }
   }
 
   else
   {
-    v12 = 20;
-    v13 = 4;
+    v6 = 20;
+    v7 = 4;
   }
 
-  v15 = *(v9 + 36);
-  v16 = *(v9 + v13) + *(v9 + v12);
-  v14 = (v15 - v16);
-  if (v15 - v16 < 0)
+  v8 = *(v3 + 36) - (*(v3 + v7) + *(v3 + v6));
+  if (v8 < 0)
   {
     return 0;
   }
 
 LABEL_12:
-  v17 = InOut__AudioWriteToClientWithMarkers(a1, a2, v14, 2, a5, a6, a7, a8);
-  if ((v17 & 0x80000000) == 0 && !InOut__IsEndState(a1))
+  v9 = InOut__AudioWriteToClientWithMarkers(a1, a2, v8, 2);
+  if ((v9 & 0x80000000) == 0 && !InOut__IsEndState(a1))
   {
-    *(v9 + 20) += v14;
+    *(v3 + 20) += v8;
   }
 
-  return v17;
+  return v9;
 }
 
 uint64_t Wsola__tail(uint64_t a1, int a2)
@@ -3585,7 +3583,7 @@ LABEL_7:
   return Lookup_DeInit(v3);
 }
 
-uint64_t Wsola__matchpreviousunit_wsola(uint64_t a1, uint64_t a2, int a3)
+uint64_t Wsola__matchpreviousunit_wsola(uint64_t a1, int a2, int a3)
 {
   v6 = *(a1 + 1088);
   v7 = **(*(v6 + 152) + 56 * a2 + 8);
@@ -3691,17 +3689,17 @@ uint64_t Wsola__matchpreviousunit_wsola(uint64_t a1, uint64_t a2, int a3)
   {
     if (*(*(v6 + 160) + 10))
     {
-      v50 = 0;
-      if (Wsola__findNextEventInSubUnit(v6, 0, &v50))
+      v42 = 0;
+      if (Wsola__findNextEventInSubUnit(v6, 0, &v42))
       {
         v35 = *(v6 + 152);
         v36 = *(v35 + 46);
-        if (v50 < v36)
+        if (v42 < v36)
         {
           v37 = *(v35 + 44);
           v38 = *(v6 + 144);
-          v39 = (*(v6 + 160) + 16 * v50 + 16 * v37);
-          v40 = v36 - v50;
+          v39 = (*(v6 + 160) + 16 * v42 + 16 * v37);
+          v40 = v36 - v42;
           do
           {
             if (*v39 > v38)
@@ -3721,14 +3719,14 @@ uint64_t Wsola__matchpreviousunit_wsola(uint64_t a1, uint64_t a2, int a3)
 
   else
   {
-    v51 = 0;
+    v43 = 0;
     if (a2 != 1)
     {
-      if (Wsola__findNextEventInSubUnit(v6, a2 - 1, &v51))
+      if (Wsola__findNextEventInSubUnit(v6, a2 - 1, &v43))
       {
         v28 = *(v6 + 152);
         v29 = *(v28 + 56 * v27 + 46);
-        if (v51 < v29)
+        if (v43 < v29)
         {
           v30 = *(v6 + 4);
           if (v30 >= *(*(v6 + 48) + 4))
@@ -3743,8 +3741,8 @@ uint64_t Wsola__matchpreviousunit_wsola(uint64_t a1, uint64_t a2, int a3)
 
           v31 = *(v28 + 56 * v27 + 44);
           v32 = *(v6 + 144) + v30;
-          v33 = (*(v6 + 160) + 16 * v51 + 16 * v31);
-          v34 = v29 - v51;
+          v33 = (*(v6 + 160) + 16 * v43 + 16 * v31);
+          v34 = v29 - v43;
           do
           {
             if (*v33 > v32)
@@ -3763,12 +3761,12 @@ uint64_t Wsola__matchpreviousunit_wsola(uint64_t a1, uint64_t a2, int a3)
   }
 
   InOut__PutVectorInBuffer(v6, *(v6 + 48), 0, *(v6 + 4));
-  v11 = InOut__AudioWriteToClientWithMarkers(a1, (a2 - 1), *(v6 + 4), 1, v41, v42, v43, v44);
+  v11 = InOut__AudioWriteToClientWithMarkers(a1, a2 - 1, *(v6 + 4), 1);
   if ((v11 & 0x80000000) == 0 && !InOut__IsEndState(a1))
   {
     Wsola__updateSubunits(v6, a2, *(*(v6 + 152) + 56 * a2 + 36));
     InOut__PutVectorInBuffer(v6, *(v6 + 48), *(v6 + 4), *(v6 + 4));
-    v11 = InOut__AudioWriteToClientWithMarkers(a1, a2, *(v6 + 4), 0, v45, v46, v47, v48);
+    v11 = InOut__AudioWriteToClientWithMarkers(a1, a2, *(v6 + 4), 0);
     if ((v11 & 0x80000000) == 0 && !InOut__IsEndState(a1))
     {
       InOut__PutVectorInBuffer(v6, *(v6 + 64), *v6 + v20, (*(*(v6 + 64) + 4) - (*v6 + v20)));
@@ -3781,6 +3779,7 @@ uint64_t Wsola__matchpreviousunit_wsola(uint64_t a1, uint64_t a2, int a3)
 
 uint64_t Wsola__Silence(uint64_t a1, uint64_t a2, int a3)
 {
+  v4 = a2;
   v6 = *(a1 + 1088);
   v7 = **(*(v6 + 152) + 56 * a2 + 8);
   v8 = *(v6 + 4);
@@ -3811,24 +3810,24 @@ uint64_t Wsola__Silence(uint64_t a1, uint64_t a2, int a3)
   Wsola__fade_out(v6, *(v6 + 48), 0, *(v6 + 4));
   v12 = *(v6 + 4);
   *(v6 + 32) = v12 >> 1;
-  v13 = *(v6 + 152) + 56 * a2;
+  v13 = *(v6 + 152) + 56 * v4;
   *(v13 + 36) -= v12 >> 1;
-  v14 = a2 - 1;
-  if (a2 < 1)
+  v14 = v4 - 1;
+  if (v4 < 1)
   {
     if (*(*(v6 + 160) + 10))
     {
-      v38 = 0;
-      if (Wsola__findNextEventInSubUnit(v6, 0, &v38))
+      v30 = 0;
+      if (Wsola__findNextEventInSubUnit(v6, 0, &v30))
       {
         v22 = *(v6 + 152);
         v23 = *(v22 + 46);
-        if (v38 < v23)
+        if (v30 < v23)
         {
           v24 = *(v22 + 44);
           v25 = *(v6 + 144);
-          v26 = (*(v6 + 160) + 16 * v38 + 16 * v24);
-          v27 = v23 - v38;
+          v26 = (*(v6 + 160) + 16 * v30 + 16 * v24);
+          v27 = v23 - v30;
           do
           {
             if (*v26 > v25)
@@ -3848,14 +3847,14 @@ uint64_t Wsola__Silence(uint64_t a1, uint64_t a2, int a3)
 
   else
   {
-    v39 = 0;
-    if (a2 != 1)
+    v31 = 0;
+    if (v4 != 1)
     {
-      if (Wsola__findNextEventInSubUnit(v6, a2 - 1, &v39))
+      if (Wsola__findNextEventInSubUnit(v6, v4 - 1, &v31))
       {
         v15 = *(v6 + 152);
         v16 = *(v15 + 56 * v14 + 46);
-        if (v39 < v16)
+        if (v31 < v16)
         {
           v17 = *(v6 + 4);
           if (v17 >= *(*(v6 + 48) + 4))
@@ -3870,8 +3869,8 @@ uint64_t Wsola__Silence(uint64_t a1, uint64_t a2, int a3)
 
           v18 = *(v15 + 56 * v14 + 44);
           v19 = *(v6 + 144) + v17;
-          v20 = (*(v6 + 160) + 16 * v39 + 16 * v18);
-          v21 = v16 - v39;
+          v20 = (*(v6 + 160) + 16 * v31 + 16 * v18);
+          v21 = v16 - v31;
           do
           {
             if (*v20 > v19)
@@ -3890,17 +3889,17 @@ uint64_t Wsola__Silence(uint64_t a1, uint64_t a2, int a3)
   }
 
   InOut__PutVectorInBuffer(v6, *(v6 + 48), 0, *(v6 + 4));
-  inserted = InOut__AudioWriteToClientWithMarkers(a1, (a2 - 1), *(v6 + 4), 1, v28, v29, v30, v31);
+  inserted = InOut__AudioWriteToClientWithMarkers(a1, v4 - 1, *(v6 + 4), 1);
   if ((inserted & 0x80000000) == 0 && !InOut__IsEndState(a1))
   {
-    v32 = *(*(v6 + 152) + 56 * a2 + 40);
-    Wsola__updateSubunits(v6, a2, *(*(v6 + 152) + 56 * a2 + 36) + v32);
-    inserted = InOut__InsertSilence(a1, v32, a2);
+    v28 = *(*(v6 + 152) + 56 * v4 + 40);
+    Wsola__updateSubunits(v6, v4, *(*(v6 + 152) + 56 * v4 + 36) + v28);
+    inserted = InOut__InsertSilence(a1, v28, v4);
     if ((inserted & 0x80000000) == 0 && !InOut__IsEndState(a1))
     {
       Wsola__fade_in(v6, *(v6 + 64), 0, *(v6 + 4));
       InOut__PutVectorInBuffer(v6, *(v6 + 64), 0, *(v6 + 4));
-      inserted = InOut__AudioWriteToClientWithMarkers(a1, a2, *(v6 + 4), 0, v33, v34, v35, v36);
+      inserted = InOut__AudioWriteToClientWithMarkers(a1, v4, *(v6 + 4), 0);
       if ((inserted & 0x80000000) == 0 && !InOut__IsEndState(a1))
       {
         InOut__PutVectorInBuffer(v6, *(v6 + 64), *(v6 + 4), (*(*(v6 + 64) + 4) - *(v6 + 4)));
@@ -3912,7 +3911,7 @@ uint64_t Wsola__Silence(uint64_t a1, uint64_t a2, int a3)
   return inserted;
 }
 
-_DWORD *Wsola__copy(_DWORD *result, uint64_t a2, int a3, int a4)
+_DWORD *Wsola__copy(_DWORD *result, uint64_t a2, int a3, unsigned int a4)
 {
   if (a4 >= 1)
   {
@@ -3931,7 +3930,7 @@ _DWORD *Wsola__copy(_DWORD *result, uint64_t a2, int a3, int a4)
   return result;
 }
 
-void Wsola__zero(uint64_t a1, int a2, int a3)
+void Wsola__zero(uint64_t a1, int a2, unsigned int a3)
 {
   if (a3 >= 1)
   {
@@ -4127,7 +4126,7 @@ LABEL_11:
   return result;
 }
 
-uint64_t Wsola__matchpreviousunit_rs(uint64_t a1, uint64_t a2)
+uint64_t Wsola__matchpreviousunit_rs(uint64_t a1, int a2)
 {
   v4 = *(a1 + 1088);
   v5 = **(*(v4 + 152) + 56 * a2 + 8);
@@ -4299,25 +4298,25 @@ uint64_t Wsola__matchpreviousunit_rs(uint64_t a1, uint64_t a2)
   Wsola__WindowsOverlap_rs(v4, v12, v13, v15, v39);
   if (a2 <= 0)
   {
-    v42 = (a2 - 1);
+    v42 = a2 - 1;
   }
 
   else
   {
-    v58 = 0;
-    v42 = (a2 - 1);
+    v50 = 0;
+    v42 = a2 - 1;
     if (a2 != 1)
     {
-      if (Wsola__findNextEventInSubUnit(v4, a2 - 1, &v58))
+      if (Wsola__findNextEventInSubUnit(v4, a2 - 1, &v50))
       {
         v43 = *(v4 + 152) + 56 * v42;
         v44 = *(v43 + 46);
-        if (v58 < v44)
+        if (v50 < v44)
         {
           v45 = *(v43 + 44);
           v46 = *(v4 + 144) + v15 + *(v4 + 204);
-          v47 = (*(v4 + 160) + 16 * v58 + 16 * v45);
-          v48 = v44 - v58;
+          v47 = (*(v4 + 160) + 16 * v50 + 16 * v45);
+          v48 = v44 - v50;
           do
           {
             if (*v47 > v46)
@@ -4336,12 +4335,12 @@ uint64_t Wsola__matchpreviousunit_rs(uint64_t a1, uint64_t a2)
   }
 
   InOut__PutVectorInBuffer(v4, *(v4 + 48), 0, (*(v4 + 204) + v15));
-  v9 = InOut__AudioWriteToClientWithMarkers(a1, v42, (*(v4 + 204) + v15), 1, v49, v50, v51, v52);
+  v9 = InOut__AudioWriteToClientWithMarkers(a1, v42, *(v4 + 204) + v15, 1);
   if ((v9 & 0x80000000) == 0 && !InOut__IsEndState(a1))
   {
     Wsola__updateSubunits(v4, a2, *(*(v4 + 152) + 56 * a2 + 36));
     InOut__PutVectorInBuffer(v4, *(v4 + 48), *(v4 + 204) + v15, *(v4 + 204));
-    v9 = InOut__AudioWriteToClientWithMarkers(a1, a2, *(v4 + 204), 0, v53, v54, v55, v56);
+    v9 = InOut__AudioWriteToClientWithMarkers(a1, a2, *(v4 + 204), 0);
     if ((v9 & 0x80000000) == 0 && !InOut__IsEndState(a1))
     {
       InOut__PutVectorInBuffer(v4, *(v4 + 64), *(v4 + 200) + v39, (*(*(v4 + 64) + 4) - (*(v4 + 200) + v39)));
@@ -4352,7 +4351,7 @@ uint64_t Wsola__matchpreviousunit_rs(uint64_t a1, uint64_t a2)
   return v9;
 }
 
-uint64_t Wsola__plosive_rs(uint64_t a1, uint64_t a2)
+uint64_t Wsola__plosive_rs(uint64_t a1, int a2)
 {
   v4 = *(a1 + 1088);
   v5 = **(*(v4 + 152) + 56 * a2 + 8);
@@ -4388,17 +4387,17 @@ uint64_t Wsola__plosive_rs(uint64_t a1, uint64_t a2)
   {
     if (*(*(v4 + 160) + 10))
     {
-      v32 = 0;
-      if (Wsola__findNextEventInSubUnit(v4, 0, &v32))
+      v24 = 0;
+      if (Wsola__findNextEventInSubUnit(v4, 0, &v24))
       {
         v17 = *(v4 + 152);
         v18 = *(v17 + 46);
-        if (v32 < v18)
+        if (v24 < v18)
         {
           v19 = *(v17 + 44);
           v20 = *(v4 + 144);
-          v21 = (*(v4 + 160) + 16 * v32 + 16 * v19);
-          v22 = v18 - v32;
+          v21 = (*(v4 + 160) + 16 * v24 + 16 * v19);
+          v22 = v18 - v24;
           do
           {
             if (*v21 > v20)
@@ -4418,19 +4417,19 @@ uint64_t Wsola__plosive_rs(uint64_t a1, uint64_t a2)
 
   else
   {
-    v33 = 0;
+    v25 = 0;
     if (a2 != 1)
     {
-      if (Wsola__findNextEventInSubUnit(v4, a2 - 1, &v33))
+      if (Wsola__findNextEventInSubUnit(v4, a2 - 1, &v25))
       {
         v11 = *(v4 + 152);
         v12 = *(v11 + 56 * v10 + 46);
-        if (v33 < v12)
+        if (v25 < v12)
         {
           v13 = *(v11 + 56 * v10 + 44);
           v14 = *(v4 + 144) + *(v4 + 208);
-          v15 = (*(v4 + 160) + 16 * v33 + 16 * v13);
-          v16 = v12 - v33;
+          v15 = (*(v4 + 160) + 16 * v25 + 16 * v13);
+          v16 = v12 - v25;
           do
           {
             if (*v15 > v14)
@@ -4449,13 +4448,13 @@ uint64_t Wsola__plosive_rs(uint64_t a1, uint64_t a2)
   }
 
   InOut__PutVectorInBuffer(v4, *(v4 + 48), 0, *(*(v4 + 48) + 4));
-  v8 = InOut__AudioWriteToClientWithMarkers(a1, (a2 - 1), *(*(v4 + 48) + 4), 1, v23, v24, v25, v26);
+  v8 = InOut__AudioWriteToClientWithMarkers(a1, a2 - 1, *(*(v4 + 48) + 4), 1);
   if ((v8 & 0x80000000) == 0 && !InOut__IsEndState(a1))
   {
     Wsola__fade_in_burst(v4, *(v4 + 64), 0, *(*(v4 + 64) + 4));
     Wsola__updateSubunits(v4, a2, *(*(v4 + 152) + 56 * a2 + 36));
     InOut__PutVectorInBuffer(v4, *(v4 + 64), 0, *(*(v4 + 64) + 4));
-    v8 = InOut__AudioWriteToClientWithMarkers(a1, a2, *(*(v4 + 64) + 4), 0, v27, v28, v29, v30);
+    v8 = InOut__AudioWriteToClientWithMarkers(a1, a2, *(*(v4 + 64) + 4), 0);
     if ((v8 & 0x80000000) == 0 && !InOut__IsEndState(a1))
     {
       Wsola__updatepointers(v4, *(v4 + 212) + *(v4 + 32));
@@ -4467,6 +4466,7 @@ uint64_t Wsola__plosive_rs(uint64_t a1, uint64_t a2)
 
 uint64_t Wsola__plosive_silence(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v4 = *(a1 + 1088);
   v5 = **(*(v4 + 152) + 56 * a2 + 8);
   v6 = *(v4 + 180);
@@ -4495,21 +4495,21 @@ uint64_t Wsola__plosive_silence(uint64_t a1, uint64_t a2)
   }
 
   *(v4 + 32) = 0;
-  if (a2 < 1)
+  if (v2 < 1)
   {
     if (*(*(v4 + 160) + 10))
     {
-      v32 = 0;
-      if (Wsola__findNextEventInSubUnit(v4, 0, &v32))
+      v24 = 0;
+      if (Wsola__findNextEventInSubUnit(v4, 0, &v24))
       {
         v16 = *(v4 + 152);
         v17 = *(v16 + 46);
-        if (v32 < v17)
+        if (v24 < v17)
         {
           v18 = *(v16 + 44);
           v19 = *(v4 + 144);
-          v20 = (*(v4 + 160) + 16 * v32 + 16 * v18);
-          v21 = v17 - v32;
+          v20 = (*(v4 + 160) + 16 * v24 + 16 * v18);
+          v21 = v17 - v24;
           do
           {
             if (*v20 > v19)
@@ -4529,19 +4529,19 @@ uint64_t Wsola__plosive_silence(uint64_t a1, uint64_t a2)
 
   else
   {
-    v33 = 0;
-    if (a2 != 1)
+    v25 = 0;
+    if (v2 != 1)
     {
-      if (Wsola__findNextEventInSubUnit(v4, a2 - 1, &v33))
+      if (Wsola__findNextEventInSubUnit(v4, v2 - 1, &v25))
       {
-        v10 = *(v4 + 152) + 56 * (a2 - 1);
+        v10 = *(v4 + 152) + 56 * (v2 - 1);
         v11 = *(v10 + 46);
-        if (v33 < v11)
+        if (v25 < v11)
         {
           v12 = *(v10 + 44);
           v13 = *(v4 + 144);
-          v14 = (*(v4 + 160) + 16 * v33 + 16 * v12);
-          v15 = v11 - v33;
+          v14 = (*(v4 + 160) + 16 * v25 + 16 * v12);
+          v15 = v11 - v25;
           do
           {
             if (*v14 > v13)
@@ -4560,17 +4560,17 @@ uint64_t Wsola__plosive_silence(uint64_t a1, uint64_t a2)
   }
 
   InOut__PutVectorInBuffer(v4, *(v4 + 48), 0, *(v4 + 180));
-  inserted = InOut__AudioWriteToClientWithMarkers(a1, (a2 - 1), 1, 1, v22, v23, v24, v25);
+  inserted = InOut__AudioWriteToClientWithMarkers(a1, v2 - 1, 1, 1);
   if ((inserted & 0x80000000) == 0 && !InOut__IsEndState(a1))
   {
-    v26 = *(*(v4 + 152) + 56 * a2 + 40);
-    Wsola__updateSubunits(v4, a2, *(*(v4 + 152) + 56 * a2 + 36) + v26);
-    inserted = InOut__InsertSilence(a1, v26, a2);
+    v22 = *(*(v4 + 152) + 56 * v2 + 40);
+    Wsola__updateSubunits(v4, v2, *(*(v4 + 152) + 56 * v2 + 36) + v22);
+    inserted = InOut__InsertSilence(a1, v22, v2);
     if ((inserted & 0x80000000) == 0 && !InOut__IsEndState(a1))
     {
-      Wsola__updateSubunits(v4, a2, *(*(v4 + 152) + 56 * a2 + 36));
+      Wsola__updateSubunits(v4, v2, *(*(v4 + 152) + 56 * v2 + 36));
       InOut__PutVectorInBuffer(v4, *(v4 + 64), 0, *(*(v4 + 64) + 4));
-      inserted = InOut__AudioWriteToClientWithMarkers(a1, a2, *(*(v4 + 64) + 4), 0, v27, v28, v29, v30);
+      inserted = InOut__AudioWriteToClientWithMarkers(a1, v2, *(*(v4 + 64) + 4), 0);
       if ((inserted & 0x80000000) == 0 && !InOut__IsEndState(a1))
       {
         Wsola__updatepointers(v4, *(v4 + 180) + *(v4 + 32));
@@ -5443,49 +5443,49 @@ LABEL_25:
 
 void synth_doWsolaSynthesis(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 1088);
-  v21 = 0;
-  v22 = 0;
-  v20 = 0;
-  Psola_GetSynthMode(a1, &v22 + 1, v24, v23, &v22, &v21 + 1, &v21, &v20);
+  v8 = 0;
+  v9 = 0;
+  v7 = 0;
+  Psola_GetSynthMode(a1, &v9 + 1, v11, v10, &v9, &v8 + 1, &v8, &v7);
   Synth_LinkMsgLayers(a1);
-  if ((v3 & 0x80000000) == 0 && (synthfx_ExtractFeaturesForSynth_Demi(SHIDWORD(v22) > 0, a1 + 512) & 0x80000000) == 0)
+  if ((v3 & 0x80000000) == 0 && (synthfx_ExtractFeaturesForSynth_Demi(SHIDWORD(v9) > 0, a1 + 512) & 0x80000000) == 0)
   {
-    if ((Synth_Reset(a1) & 0x80000000) == 0 && (Synth__InitForProcessing(a1) & 0x80000000) == 0 && (InOut__GetClientBuffer(a1, v4, v5, v6, v7, v8, v9, v10) & 0x80000000) == 0 && !InOut__IsEndState(a1) && *(a1 + 1024))
+    if ((Synth_Reset(a1) & 0x80000000) == 0 && (Synth__InitForProcessing(a1) & 0x80000000) == 0 && (InOut__GetClientBuffer(a1) & 0x80000000) == 0 && !InOut__IsEndState(a1) && *(a1 + 1024))
     {
       *(v2 + 144) = 0;
-      if (SHIDWORD(v22) < 2)
+      if (SHIDWORD(v9) < 2)
       {
-        if (HIDWORD(v22) == 1)
+        if (HIDWORD(v9) == 1)
         {
-          v17 = v22;
-          if (v22 >= 1)
+          v4 = v9;
+          if (v9 >= 1)
           {
-            v17 = 10 * v22;
-            LODWORD(v22) = 10 * v22;
+            v4 = 10 * v9;
+            LODWORD(v9) = 10 * v9;
           }
 
-          v18 = HIDWORD(v21);
-          if (SHIDWORD(v21) >= 1)
+          v5 = HIDWORD(v8);
+          if (SHIDWORD(v8) >= 1)
           {
-            v18 = 10 * HIDWORD(v21);
-            HIDWORD(v21) *= 10;
+            v5 = 10 * HIDWORD(v8);
+            HIDWORD(v8) *= 10;
           }
 
-          v19 = v21;
-          if (v21 >= 1)
+          v6 = v8;
+          if (v8 >= 1)
           {
-            v19 = 10 * v21;
-            LODWORD(v21) = 10 * v21;
+            v6 = 10 * v8;
+            LODWORD(v8) = 10 * v8;
           }
 
-          Psola_Process(a1, v17, v18, v19);
+          Psola_Process(a1, v4, v5, v6);
         }
 
         else
         {
-          Wsola__Process(a1, HIDWORD(v22), v11, v12, v13, v14, v15, v16);
+          Wsola__Process(a1);
         }
       }
 
@@ -5536,7 +5536,7 @@ uint64_t synth_SetRateBaseline(uint64_t a1, unsigned int a2)
   }
 
   *(a1 + 1056) = v3;
-  *(a1 + 1052) = MapProsodyValue_Scaling(50, 100, 400, v3, 100);
+  *(a1 + 1052) = MapProsodyValue_Scaling(50, 100, 0x190u, v3, 100);
   return 0;
 }
 
@@ -5563,7 +5563,7 @@ uint64_t synth_SetPitchBaseline(uint64_t a1, unsigned int a2)
   }
 
   *(a1 + 1060) = v3;
-  *(a1 + 1054) = MapProsodyValue_Scaling(50, 100, 200, v3, 100);
+  *(a1 + 1054) = MapProsodyValue_Scaling(50, 100, 0xC8u, v3, 100);
   return 0;
 }
 
@@ -5610,27 +5610,28 @@ uint64_t CheckForVFStateTriggers(uint64_t a1, _DWORD *a2)
   return result;
 }
 
-uint64_t synth_ProcessMarkers(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t synth_ProcessMarkers(uint64_t a1)
 {
-  v8 = *(a1 + 1082);
-  if (v8 < *(a1 + 1080))
+  v1 = *(a1 + 1082);
+  if (v1 < *(a1 + 1080))
   {
-    v10 = 32 * v8;
+    v3 = 32 * v1;
     do
     {
       if (*(a1 + 1152))
       {
-        v11 = *(a1 + 648);
-        v12 = *(v11 + v10);
-        if (v12 == 16)
+        v4 = *(a1 + 648);
+        v5 = *(v4 + v3);
+        if (v5 == 16)
         {
-          if (*(v11 + v10 + 24) != 100)
+          v7 = *(v4 + v3 + 24);
+          if (v7 != 100)
           {
-            log_OutPublic(*(*(a1 + 16) + 32), "SYNTH", 45002, "%s%u", a5, a6, a7, a8, "pitch");
+            log_OutPublic(*(*(a1 + 16) + 32), "SYNTH", 45002, "%s%u", "pitch", v7);
           }
         }
 
-        else if (v12 == 13)
+        else if (v5 == 13)
         {
           result = synth_ResetParams(a1);
           if ((result & 0x80000000) != 0)
@@ -5640,17 +5641,17 @@ uint64_t synth_ProcessMarkers(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4
         }
       }
 
-      result = CheckForVFStateTriggers(a1, (*(a1 + 648) + v10));
+      result = CheckForVFStateTriggers(a1, (*(a1 + 648) + v3));
       if ((result & 0x80000000) != 0)
       {
         return result;
       }
 
-      ++v8;
-      v10 += 32;
+      ++v1;
+      v3 += 32;
     }
 
-    while (v8 < *(a1 + 1080));
+    while (v1 < *(a1 + 1080));
   }
 
   return 0;
@@ -5730,88 +5731,87 @@ uint64_t InOut__PutVectorInBuffer(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
   return a4;
 }
 
-uint64_t InOut__GetClientBuffer(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t InOut__GetClientBuffer(uint64_t a1)
 {
-  v8 = *(a1 + 1008);
-  if (v8)
+  v1 = *(a1 + 1008);
+  if (v1)
   {
-    v9 = *(*(a1 + 1000) + 56);
+    v2 = *(*(a1 + 1000) + 56);
   }
 
   else
   {
-    v9 = *(*(a1 + 984) + 56);
-    v8 = *(a1 + 992);
+    v2 = *(*(a1 + 984) + 56);
+    v1 = *(a1 + 992);
   }
 
-  return InOut__PutOutput(a1, v9, v8, *(a1 + 1076) == 0, a5, a6, a7, a8);
+  return InOut__PutOutput(a1, v2, v1, *(a1 + 1076) == 0);
 }
 
-uint64_t InOut__PutOutput(uint64_t a1, uint64_t (*a2)(uint64_t, void, uint64_t, uint64_t, uint64_t, uint64_t), uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t InOut__PutOutput(uint64_t a1, uint64_t (*a2)(uint64_t, void, uint64_t, uint64_t, uint64_t, uint64_t), uint64_t a3, int a4)
 {
-  v11 = *(a1 + 1072);
-  if (v11 == 1)
+  v7 = *(a1 + 1072);
+  if (v7 == 1)
   {
-    v15 = a4;
-    result = synth_ProcessMarkers(a1, a2, a3, a4, a5, a6, a7, a8);
+    result = synth_ProcessMarkers(a1);
     if ((result & 0x80000000) != 0)
     {
       return result;
     }
 
-    v16 = *(a1 + 1080);
-    v17 = *(a1 + 1082);
-    v18 = (v16 - v17);
-    if (v16 == v17)
+    v12 = *(a1 + 1080);
+    v13 = *(a1 + 1082);
+    v14 = (v12 - v13);
+    if (v12 == v13)
+    {
+      v15 = 0;
+    }
+
+    else
+    {
+      v15 = *(a1 + 648) + 32 * v13;
+    }
+
+    *(a1 + 1082) = v12;
+    if (a4)
+    {
+      v16 = 2;
+    }
+
+    else
+    {
+      v16 = 3;
+    }
+
+    *(a1 + 1032) = v16;
+    v17 = *(a1 + 1024);
+    v18 = v17 != 0;
+    v19 = v17 - 1;
+    if (!v18)
     {
       v19 = 0;
     }
 
-    else
+    if (v12 != v13)
     {
-      v19 = *(a1 + 648) + 32 * v17;
-    }
-
-    *(a1 + 1082) = v16;
-    if (v15)
-    {
-      v20 = 2;
-    }
-
-    else
-    {
-      v20 = 3;
-    }
-
-    *(a1 + 1032) = v20;
-    v21 = *(a1 + 1024);
-    v22 = v21 != 0;
-    v23 = v21 - 1;
-    if (!v22)
-    {
-      v23 = 0;
-    }
-
-    if (v16 != v17)
-    {
-      v24 = (v19 + 12);
-      v25 = v18;
+      v20 = (v15 + 12);
+      v21 = v14;
       do
       {
-        if (*v24 > v23)
+        if (*v20 > v19)
         {
-          *v24 = v23;
+          *v20 = v19;
         }
 
-        v24 += 8;
-        --v25;
+        v20 += 8;
+        --v21;
       }
 
-      while (v25);
+      while (v21);
     }
 
-    result = a2(a3, v20, a1 + 1016, a1 + 1024, v19, v18);
-    if ((result & 0x80000000) == 0 && *(a1 + 1016) && v15 && *(a1 + 1024))
+    result = a2(a3, v16, a1 + 1016, a1 + 1024, v15, v14);
+    if ((result & 0x80000000) == 0 && *(a1 + 1016) && a4 && *(a1 + 1024))
     {
       *(a1 + 1084) += *(a1 + 1036);
       *(a1 + 1036) = 0;
@@ -5822,25 +5822,25 @@ uint64_t InOut__PutOutput(uint64_t a1, uint64_t (*a2)(uint64_t, void, uint64_t, 
     goto LABEL_27;
   }
 
-  if (v11)
+  if (v7)
   {
     return 0;
   }
 
   *(a1 + 1024) = 0;
   *(a1 + 1036) = 0;
-  v12 = (a1 + 1016);
+  v8 = (a1 + 1016);
   result = a2(a3, *(a1 + 1032), a1 + 1016, a1 + 1024, 0, 0);
-  if ((result & 0x80000000) != 0 || !*(a1 + 1024) || !*v12)
+  if ((result & 0x80000000) != 0 || !*(a1 + 1024) || !*v8)
   {
 LABEL_27:
-    v14 = 2;
+    v10 = 2;
     goto LABEL_28;
   }
 
-  v14 = 1;
+  v10 = 1;
 LABEL_28:
-  *(a1 + 1072) = v14;
+  *(a1 + 1072) = v10;
   return result;
 }
 
@@ -5957,153 +5957,152 @@ uint64_t purgeBufferToVector(uint64_t result, _DWORD *a2, _WORD *a3)
   return result;
 }
 
-uint64_t InOut__AudioWriteToClient__No_Subunits(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t InOut__AudioWriteToClient__No_Subunits(uint64_t a1, uint64_t a2, int a3)
 {
   if (a3 < 1)
   {
     return 0;
   }
 
-  v8 = a3;
-  v11 = *(a1 + 1088);
+  v3 = a3;
+  v6 = *(a1 + 1088);
   do
   {
-    v12 = *(a1 + 1028);
-    v13 = *(a1 + 1024);
-    if (v12 >= v13)
+    v7 = *(a1 + 1028);
+    v8 = *(a1 + 1024);
+    if (v7 >= v8)
     {
-      result = InOut__GetClientBuffer(a1, a2, a3, a4, a5, a6, a7, a8);
+      result = InOut__GetClientBuffer(a1);
       if ((result & 0x80000000) != 0 || *(a1 + 1072) == 2)
       {
         return result;
       }
 
-      v13 = *(a1 + 1024);
-      v12 = *(a1 + 1028);
+      v8 = *(a1 + 1024);
+      v7 = *(a1 + 1028);
     }
 
-    v15 = v13 - v12;
-    if (v8 >= v15)
+    v10 = v8 - v7;
+    if (v3 >= v10)
     {
-      v16 = v15;
+      v11 = v10;
     }
 
     else
     {
-      v16 = v8;
+      v11 = v3;
     }
 
-    *(v11 + 144) += v16;
-    result = synthDecodeToClient(a1, a2, v16, a4, a5, a6, a7, a8);
+    *(v6 + 144) += v11;
+    result = synthDecodeToClient(a1, a2, v11);
     if ((result & 0x80000000) != 0)
     {
       break;
     }
 
-    v8 -= v16;
+    v3 -= v11;
   }
 
-  while (*(a1 + 1072) != 2 && v8 > 0);
+  while (*(a1 + 1072) != 2 && v3 > 0);
   return result;
 }
 
-uint64_t synthDecodeToClient(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t synthDecodeToClient(uint64_t a1, uint64_t a2, unsigned int a3)
 {
-  v8 = a3;
-  v11 = *(a1 + 1088);
-  v12 = *(a1 + 1028);
-  v13 = *(a1 + 1024);
-  if (v12 < v13)
+  v6 = *(a1 + 1088);
+  v7 = *(a1 + 1028);
+  v8 = *(a1 + 1024);
+  if (v7 < v8)
   {
     result = 0;
     goto LABEL_7;
   }
 
-  result = InOut__GetClientBuffer(a1, a2, a3, a4, a5, a6, a7, a8);
+  result = InOut__GetClientBuffer(a1);
   if ((result & 0x80000000) == 0 && *(a1 + 1072) != 2)
   {
-    v13 = *(a1 + 1024);
-    v12 = *(a1 + 1028);
+    v8 = *(a1 + 1024);
+    v7 = *(a1 + 1028);
 LABEL_7:
-    v15 = v13 - v12;
-    if (v15 >= v8)
+    v10 = v8 - v7;
+    if (v10 >= a3)
     {
-      v16 = v8;
+      v11 = a3;
     }
 
     else
     {
-      v16 = v15;
+      v11 = v10;
     }
 
-    v24 = v16;
-    v17 = *(*(v11 + 72) + 4);
-    if (v17 >= 1)
+    v19 = v11;
+    v12 = *(*(v6 + 72) + 4);
+    if (v12 >= 1)
     {
-      purgeBufferToVector(v11, &v24, (*(a1 + 1016) + 2 * v12));
+      purgeBufferToVector(v6, &v19, (*(a1 + 1016) + 2 * v7));
       result = 0;
-      v18 = v24;
-      v12 = *(a1 + 1028) + v24;
-      *(a1 + 1028) = v12;
-      v24 = v16 - v18;
-      v17 = *(*(v11 + 72) + 4);
+      v13 = v19;
+      v7 = *(a1 + 1028) + v19;
+      *(a1 + 1028) = v7;
+      v19 = v11 - v13;
+      v12 = *(*(v6 + 72) + 4);
     }
 
-    if (v17)
+    if (v12)
     {
       do
       {
 LABEL_15:
-        *(a1 + 1036) += v16;
-        v8 -= v16;
-        if (!v8)
+        *(a1 + 1036) += v11;
+        a3 -= v11;
+        if (!a3)
         {
           return result;
         }
 
-        result = InOut__GetClientBuffer(a1, a2, a3, a4, a5, a6, a7, a8);
+        result = InOut__GetClientBuffer(a1);
         if ((result & 0x80000000) != 0 || *(a1 + 1072) == 2)
         {
           return result;
         }
 
-        v20 = *(a1 + 1028);
-        if (*(a1 + 1024) - v20 >= v8)
+        v15 = *(a1 + 1028);
+        if (*(a1 + 1024) - v15 >= a3)
         {
-          v16 = v8;
+          v11 = a3;
         }
 
         else
         {
-          v16 = *(a1 + 1024) - v20;
+          v11 = *(a1 + 1024) - v15;
         }
 
-        v23 = v16;
-        v21 = *(*(v11 + 72) + 4);
-        if (v21 >= 1)
+        v18 = v11;
+        v16 = *(*(v6 + 72) + 4);
+        if (v16 >= 1)
         {
-          purgeBufferToVector(v11, &v23, (*(a1 + 1016) + 2 * v20));
+          purgeBufferToVector(v6, &v18, (*(a1 + 1016) + 2 * v15));
           result = 0;
-          v22 = v23;
-          LODWORD(v20) = *(a1 + 1028) + v23;
-          *(a1 + 1028) = v20;
-          v23 = v16 - v22;
-          v21 = *(*(v11 + 72) + 4);
+          v17 = v18;
+          LODWORD(v15) = *(a1 + 1028) + v18;
+          *(a1 + 1028) = v15;
+          v18 = v11 - v17;
+          v16 = *(*(v6 + 72) + 4);
         }
       }
 
-      while (v21);
-      result = Lookup_Decode(a2, &v23, *(a1 + 1016) + 2 * v20);
-      v19 = v23;
+      while (v16);
+      result = Lookup_Decode(a2, &v18, *(a1 + 1016) + 2 * v15);
+      v14 = v18;
     }
 
     else
     {
-      result = Lookup_Decode(a2, &v24, *(a1 + 1016) + 2 * v12);
-      v19 = v24;
+      result = Lookup_Decode(a2, &v19, *(a1 + 1016) + 2 * v7);
+      v14 = v19;
     }
 
-    *(a1 + 1028) += v19;
+    *(a1 + 1028) += v14;
     goto LABEL_15;
   }
 
@@ -6133,7 +6132,7 @@ uint64_t synth_LimitMarkersDestPos(uint64_t result, uint64_t a2, unsigned int a3
   return result;
 }
 
-uint64_t InOut__AudioWriteToClientWithMarkers(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t InOut__AudioWriteToClientWithMarkers(uint64_t a1, unsigned int a2, int a3, int a4)
 {
   if (a3 < 1)
   {
@@ -6142,151 +6141,150 @@ uint64_t InOut__AudioWriteToClientWithMarkers(uint64_t a1, uint64_t a2, uint64_t
 
   else
   {
-    v8 = a4;
-    v9 = a3;
-    v10 = a2;
-    v12 = *(a1 + 1088);
+    v5 = a3;
+    v8 = *(a1 + 1088);
     if ((a2 & 0x80000000) != 0)
     {
       if (*(a1 + 618))
       {
-        v47 = 0;
-        v48 = 0;
+        v45 = 0;
+        v46 = 0;
         goto LABEL_21;
       }
 
-      v13 = 0;
+      v9 = 0;
     }
 
     else
     {
-      v13 = **(*(v12 + 152) + 56 * a2 + 8);
+      v9 = **(*(v8 + 152) + 56 * a2 + 8);
       if (*(a1 + 618))
       {
-        v48 = 0;
-        v47 = v13;
-        if (Wsola__findNextEventInSubUnit(v12, a2, &v48) && *(*(v12 + 160) + 16 * (v48 + *(*(v12 + 152) + 56 * v10 + 44))) < *(v12 + 144))
+        v46 = 0;
+        v45 = v9;
+        if (Wsola__findNextEventInSubUnit(v8, a2, &v46) && *(*(v8 + 160) + 16 * (v46 + *(*(v8 + 152) + 56 * a2 + 44))) < *(v8 + 144))
         {
           do
           {
-            v14 = *(v12 + 152);
-            v15 = v14 + 56 * v10;
-            if (v48 >= *(v15 + 46))
+            v10 = *(v8 + 152);
+            v11 = v10 + 56 * a2;
+            if (v46 >= *(v11 + 46))
             {
               break;
             }
 
-            v16 = *(v12 + 160);
-            v17 = v16 + 16 * (v48 + *(v15 + 44));
-            if (*v17 >= *(v12 + 144))
+            v12 = *(v8 + 160);
+            v13 = v12 + 16 * (v46 + *(v11 + 44));
+            if (*v13 >= *(v8 + 144))
             {
               break;
             }
 
-            v18 = *(v17 + 8);
-            v19 = *(v17 + 10);
-            if (v19 + v18 > *(a1 + 656))
+            v14 = *(v13 + 8);
+            v15 = *(v13 + 10);
+            v16 = *(a1 + 656);
+            if (v15 + v14 > v16)
             {
-              log_OutPublic(*(*(a1 + 16) + 32), "SYNTH", 45000, "%s%u%s%u%s%u", a5, a6, a7, a8, "index");
-              v19 = *(a1 + 656);
-              if (v18 >= v19)
+              log_OutPublic(*(*(a1 + 16) + 32), "SYNTH", 45000, "%s%u%s%u%s%u", "index", v14, "count", v15, "total", v16);
+              v15 = *(a1 + 656);
+              if (v14 >= v15)
               {
-                v18 = *(a1 + 656);
+                v14 = *(a1 + 656);
               }
 
-              LOWORD(v19) = v19 - v18;
-              v14 = *(v12 + 152);
-              v16 = *(v12 + 160);
+              LOWORD(v15) = v15 - v14;
+              v10 = *(v8 + 152);
+              v12 = *(v8 + 160);
             }
 
-            v20 = *(v14 + 56 * v10 + 44);
-            if (v19)
+            v17 = *(v10 + 56 * a2 + 44);
+            if (v15)
             {
-              v21 = *(a1 + 1084);
-              v22 = v19;
-              v23 = *(a1 + 648) + 32 * v18 + 16;
+              v18 = *(a1 + 1084);
+              v19 = v15;
+              v20 = *(a1 + 648) + 32 * v14 + 16;
               do
               {
-                *(v23 - 4) = (*(v16 + 16 * (v48 + v20)) - v21);
-                v23 += 32;
-                --v22;
+                *(v20 - 4) = (*(v12 + 16 * (v46 + v17)) - v18);
+                v20 += 32;
+                --v19;
               }
 
-              while (v22);
+              while (v19);
             }
 
-            *(v16 + 16 * (v48 + v20) + 10) = 0;
-            *(a1 + 1080) = v19 + v18;
+            *(v12 + 16 * (v46 + v17) + 10) = 0;
+            *(a1 + 1080) = v15 + v14;
           }
 
-          while (Wsola__findNextEventInSubUnit(v12, v10, &v48));
+          while (Wsola__findNextEventInSubUnit(v8, a2, &v46));
         }
 
         while (1)
         {
 LABEL_21:
-          v26 = *(a1 + 1028);
-          v27 = *(a1 + 1024);
-          if (v26 >= v27)
+          v23 = *(a1 + 1028);
+          v24 = *(a1 + 1024);
+          if (v23 >= v24)
           {
-            ClientBuffer = InOut__GetClientBuffer(a1, a2, a3, a4, a5, a6, a7, a8);
+            ClientBuffer = InOut__GetClientBuffer(a1);
             if ((ClientBuffer & 0x80000000) != 0 || *(a1 + 1072) == 2)
             {
               return ClientBuffer;
             }
 
-            v27 = *(a1 + 1024);
-            v26 = *(a1 + 1028);
+            v24 = *(a1 + 1024);
+            v23 = *(a1 + 1028);
           }
 
-          v28 = v27 - v26;
-          if (v9 >= v28)
+          v25 = v24 - v23;
+          if (v5 >= v25)
           {
-            v29 = v28;
-          }
-
-          else
-          {
-            v29 = v9;
-          }
-
-          *(v12 + 144) += v29;
-          if (v9 <= v28)
-          {
-            v30 = 1;
+            v26 = v25;
           }
 
           else
           {
-            v30 = 2;
+            v26 = v5;
           }
 
-          if (v8 == 2)
+          *(v8 + 144) += v26;
+          if (v5 <= v25)
           {
-            v8 = v30;
+            v27 = 1;
           }
 
-          if ((v10 & 0x80000000) == 0)
+          else
           {
-            v31 = v48;
-            v32 = *(v12 + 152);
-            if (v48 < *(v32 + 56 * v10 + 46))
+            v27 = 2;
+          }
+
+          if (a4 == 2)
+          {
+            a4 = v27;
+          }
+
+          if ((a2 & 0x80000000) == 0)
+          {
+            v28 = v46;
+            v29 = *(v8 + 152);
+            if (v46 < *(v29 + 56 * a2 + 46))
             {
               break;
             }
           }
 
 LABEL_55:
-          ClientBuffer = synthDecodeToClient(a1, v47, v29, a4, a5, a6, a7, a8);
+          ClientBuffer = synthDecodeToClient(a1, v45, v26);
           if ((ClientBuffer & 0x80000000) == 0 && *(a1 + 1072) != 2)
           {
-            v9 -= v29;
-            if ((v10 & 0x80000000) == 0 && v9 >= 1)
+            v5 -= v26;
+            if ((a2 & 0x80000000) == 0 && v5 >= 1)
             {
-              Wsola__findNextEventInSubUnit(v12, v10, &v48);
+              Wsola__findNextEventInSubUnit(v8, a2, &v46);
             }
 
-            if (v9 > 0)
+            if (v5 > 0)
             {
               continue;
             }
@@ -6295,81 +6293,82 @@ LABEL_55:
           return ClientBuffer;
         }
 
-        v33 = *(v12 + 160);
+        v30 = *(v8 + 160);
         while (1)
         {
-          v34 = *(v32 + 56 * v10 + 44);
-          if (v8 == 1)
+          v31 = *(v29 + 56 * a2 + 44);
+          if (a4 == 1)
           {
-            v35 = v31 + v34;
-            v36 = *(v12 + 144);
-            if (*(v33 + 16 * v35 + 10))
+            v32 = v28 + v31;
+            v33 = *(v8 + 144);
+            if (*(v30 + 16 * v32 + 10))
             {
-              v37 = *(v33 + 16 * v35);
+              v34 = *(v30 + 16 * v32);
               goto LABEL_43;
             }
           }
 
           else
           {
-            v36 = *(v12 + 144);
-            v35 = v34 + v31;
+            v33 = *(v8 + 144);
+            v32 = v31 + v28;
           }
 
-          v38 = (v33 + 16 * v35);
-          v37 = *v38;
-          if (*v38 <= v36 && *(v38 + 5))
+          v35 = (v30 + 16 * v32);
+          v34 = *v35;
+          if (*v35 <= v33 && *(v35 + 5))
           {
-            if (v8 == 1)
+            if (a4 == 1)
             {
 LABEL_43:
-              if (v37 < v36)
+              if (v34 < v33)
               {
-                v36 = v37;
+                v33 = v34;
               }
 
-              *(v33 + 16 * v35) = v36;
+              *(v30 + 16 * v32) = v33;
             }
 
-            v39 = v33 + 16 * v35;
-            v40 = *(v39 + 8);
-            v41 = *(v39 + 10);
-            if (v41 + v40 > *(a1 + 656))
+            v36 = v30 + 16 * v32;
+            v37 = *(v36 + 8);
+            v38 = *(v36 + 10);
+            v39 = *(a1 + 656);
+            if (v38 + v37 > v39)
             {
-              log_OutPublic(*(*(a1 + 16) + 32), "SYNTH", 45000, "%s%u%s%u%s%u", a5, a6, a7, a8, "index");
-              v42 = *(a1 + 656);
-              if (v40 >= v42)
+              log_OutPublic(*(*(a1 + 16) + 32), "SYNTH", 45000, "%s%u%s%u%s%u", "index", v37, "count", v38, "total", v39);
+              v40 = *(a1 + 656);
+              if (v37 >= v40)
               {
-                v40 = *(a1 + 656);
+                v37 = *(a1 + 656);
               }
 
-              LOWORD(v41) = v42 - v40;
-              v32 = *(v12 + 152);
-              v33 = *(v12 + 160);
+              LOWORD(v38) = v40 - v37;
+              v29 = *(v8 + 152);
+              v30 = *(v8 + 160);
             }
 
-            v43 = v31 + *(v32 + 56 * v10 + 44);
-            if (v41)
+            v41 = v28 + *(v29 + 56 * a2 + 44);
+            if (v38)
             {
-              v44 = *(v33 + 16 * v43) - *(a1 + 1084);
-              v45 = v41;
-              v46 = (*(a1 + 648) + 32 * v40 + 16);
+              v42 = *(v30 + 16 * v41) - *(a1 + 1084);
+              v43 = v38;
+              v44 = (*(a1 + 648) + 32 * v37 + 16);
               do
               {
-                *(v46 - 1) = v44;
-                *v46 = 0;
-                v46 += 8;
-                --v45;
+                *(v44 - 1) = v42;
+                *v44 = 0;
+                v44 += 8;
+                --v43;
               }
 
-              while (v45);
+              while (v43);
             }
 
-            *(v33 + 16 * v43 + 10) = 0;
-            *(a1 + 1080) = v41 + v40;
+            *(v30 + 16 * v41 + 10) = 0;
+            *(a1 + 1080) = v38 + v37;
           }
 
-          if (++v31 >= *(v32 + 56 * v10 + 46))
+          if (++v28 >= *(v29 + 56 * a2 + 46))
           {
             goto LABEL_55;
           }
@@ -6377,11 +6376,11 @@ LABEL_43:
       }
     }
 
-    return InOut__AudioWriteToClient__No_Subunits(a1, v13, a3, a4, a5, a6, a7, a8);
+    return InOut__AudioWriteToClient__No_Subunits(a1, v9, a3);
   }
 }
 
-uint64_t InOut__InsertSilence(uint64_t a1, unsigned int a2, uint64_t a3)
+uint64_t InOut__InsertSilence(uint64_t a1, int a2, unsigned int a3)
 {
   v6 = *(a1 + 1088);
   v7 = **(v6 + 72);
@@ -6402,59 +6401,57 @@ uint64_t InOut__InsertSilence(uint64_t a1, unsigned int a2, uint64_t a3)
   {
     do
     {
-      v16 = a2;
+      v12 = a2;
       if (v9 < a2)
       {
-        v16 = v9;
+        v12 = v9;
       }
 
       if (a2 >= v9)
       {
-        v17 = v9;
+        v13 = v9;
       }
 
       else
       {
-        v17 = a2;
+        v13 = a2;
       }
 
-      v18 = *(*(v6 + 48) + 8);
-      v19 = *(v6 + 72);
-      v20 = *(v19 + 8);
+      v14 = *(*(v6 + 48) + 8);
+      v15 = *(v6 + 72);
+      v16 = *(v15 + 8);
       do
       {
-        v21 = *v18++;
-        *v20++ = v21;
-        --v16;
+        v17 = *v14++;
+        *v16++ = v17;
+        --v12;
       }
 
-      while (v16);
-      *(v19 + 4) = v17;
-      result = InOut__AudioWriteToClientWithMarkers(a1, a3, v17, 0, v10, v11, v12, v13);
+      while (v12);
+      *(v15 + 4) = v13;
+      result = InOut__AudioWriteToClientWithMarkers(a1, a3, v13, 0);
       if ((result & 0x80000000) != 0)
       {
         break;
       }
 
-      v22 = *(a1 + 1072) == 2 || (a2 - v9) <= 0;
+      v18 = *(a1 + 1072) == 2 || a2 - v9 <= 0;
       a2 -= v9;
     }
 
-    while (!v22);
+    while (!v18);
   }
 
   return result;
 }
 
-uint64_t Psola_OutputDataPart(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t Psola_OutputDataPart(uint64_t a1, uint64_t a2, int a3, unsigned int a4)
 {
-  v8 = a4;
-  v9 = a3;
-  v12 = *(a1 + 1028);
-  v13 = *(a1 + 1024);
-  if (v12 >= v13)
+  v8 = *(a1 + 1028);
+  v9 = *(a1 + 1024);
+  if (v8 >= v9)
   {
-    ClientBuffer = InOut__GetClientBuffer(a1, a2, a3, a4, a5, a6, a7, a8);
+    ClientBuffer = InOut__GetClientBuffer(a1);
     if ((ClientBuffer & 0x80000000) != 0)
     {
       return ClientBuffer;
@@ -6467,8 +6464,8 @@ LABEL_24:
       return ClientBuffer;
     }
 
-    v13 = *(a1 + 1024);
-    v12 = *(a1 + 1028);
+    v9 = *(a1 + 1024);
+    v8 = *(a1 + 1028);
   }
 
   else
@@ -6476,37 +6473,37 @@ LABEL_24:
     ClientBuffer = 0;
   }
 
-  LODWORD(v15) = v13 - v12;
-  if (v15 >= v8)
+  LODWORD(v11) = v9 - v8;
+  if (v11 >= a4)
   {
-    v15 = v8;
+    v11 = a4;
   }
 
   else
   {
-    v15 = v15;
+    v11 = v11;
   }
 
-  if (v15 >= 1)
+  if (v11 >= 1)
   {
-    v16 = *(a1 + 1016);
-    v17 = (a2 + 2 * v9);
-    v18 = v12;
-    v19 = v15;
+    v12 = *(a1 + 1016);
+    v13 = (a2 + 2 * a3);
+    v14 = v8;
+    v15 = v11;
     do
     {
-      v20 = *v17++;
-      *(v16 + 2 * v18++) = v20;
-      --v19;
+      v16 = *v13++;
+      *(v12 + 2 * v14++) = v16;
+      --v15;
     }
 
-    while (v19);
+    while (v15);
   }
 
-  *(a1 + 1028) = v15 + v12;
-  *(a1 + 1036) += v15;
-  v21 = v8 - v15;
-  if (!v21)
+  *(a1 + 1028) = v11 + v8;
+  *(a1 + 1036) += v11;
+  v17 = a4 - v11;
+  if (!v17)
   {
 LABEL_23:
     if ((ClientBuffer & 0x80000000) != 0)
@@ -6517,10 +6514,10 @@ LABEL_23:
     goto LABEL_24;
   }
 
-  v22 = v15 + v9;
+  v18 = v11 + a3;
   while (1)
   {
-    ClientBuffer = InOut__GetClientBuffer(a1, a2, a3, a4, a5, a6, a7, a8);
+    ClientBuffer = InOut__GetClientBuffer(a1);
     if ((ClientBuffer & 0x80000000) != 0)
     {
       return ClientBuffer;
@@ -6531,39 +6528,39 @@ LABEL_23:
       goto LABEL_24;
     }
 
-    v23 = *(a1 + 1028);
-    LODWORD(v24) = *(a1 + 1024) - v23;
-    if (v24 >= v21)
+    v19 = *(a1 + 1028);
+    LODWORD(v20) = *(a1 + 1024) - v19;
+    if (v20 >= v17)
     {
-      v24 = v21;
+      v20 = v17;
     }
 
     else
     {
-      v24 = v24;
+      v20 = v20;
     }
 
-    if (v24 >= 1)
+    if (v20 >= 1)
     {
-      v25 = *(a1 + 1016);
-      v26 = (a2 + 2 * v22);
-      v27 = *(a1 + 1028);
-      v28 = v24;
+      v21 = *(a1 + 1016);
+      v22 = (a2 + 2 * v18);
+      v23 = *(a1 + 1028);
+      v24 = v20;
       do
       {
-        v29 = *v26++;
-        *(v25 + 2 * v27++) = v29;
-        --v28;
+        v25 = *v22++;
+        *(v21 + 2 * v23++) = v25;
+        --v24;
       }
 
-      while (v28);
+      while (v24);
     }
 
-    v22 += v24;
-    *(a1 + 1028) = v24 + v23;
-    *(a1 + 1036) += v24;
-    v21 -= v24;
-    if (!v21)
+    v18 += v20;
+    *(a1 + 1028) = v20 + v19;
+    *(a1 + 1036) += v20;
+    v17 -= v20;
+    if (!v17)
     {
       goto LABEL_23;
     }
@@ -6664,7 +6661,7 @@ uint64_t Psola_GetDecodedUnitData_VE(uint64_t a1, uint64_t *a2, uint64_t a3, uns
   return v20;
 }
 
-uint64_t Psola_IsAdjacent(uint64_t a1, void **a2, signed int a3, void **a4, signed int a5, _DWORD *a6)
+uint64_t Psola_IsAdjacent(uint64_t a1, void *a2, uint64_t a3, void *a4, uint64_t a5, _DWORD *a6)
 {
   v15 = 0;
   v16 = 0;
@@ -6683,8 +6680,9 @@ uint64_t Psola_IsAdjacent(uint64_t a1, void **a2, signed int a3, void **a4, sign
 
   if (v6 && a3 >= 1 && a5 >= 1)
   {
+    v11 = a5;
     Lookup_GetUnitData(*a2, a3, &v15);
-    Lookup_GetUnitData(*a4, a5, v14);
+    Lookup_GetUnitData(*a4, v11, v14);
     v13 = cstdlib_abs((HIDWORD(v14[0]) - (HIDWORD(v15) + v16)));
     if (v13 <= 3)
     {
@@ -6699,13 +6697,13 @@ uint64_t Psola_Process(uint64_t a1, int a2, int a3, int a4)
 {
   ClientBuffer = 2164269066;
   v9 = *(a1 + 1088);
-  v73 = 0;
-  *v74 = 0;
-  v71 = 0;
-  v72 = 0;
-  v70 = 0;
-  v69 = 0;
-  v68 = 0;
+  v59 = 0;
+  *v60 = 0;
+  v57 = 0;
+  v58 = 0;
+  v56 = 0;
+  v55 = 0;
+  v54 = 0;
   v10 = heap_Alloc(*(*(a1 + 16) + 8), 4812);
   if (!v10)
   {
@@ -6717,7 +6715,7 @@ uint64_t Psola_Process(uint64_t a1, int a2, int a3, int a4)
   if (!v12)
   {
     v22 = 0;
-    v67 = 0;
+    v53 = 0;
     v21 = 0;
     v20 = 0;
     v19 = 0;
@@ -6731,7 +6729,7 @@ uint64_t Psola_Process(uint64_t a1, int a2, int a3, int a4)
   if (!v13 || (*(v13 + 8) = 961, v15 = heap_Alloc(*(*(a1 + 16) + 8), 1922), (*v14 = v15) == 0) || (v14[3] = 961, v16 = heap_Alloc(*(*(a1 + 16) + 8), 1922), (v14[2] = v16) == 0) || (v14[5] = 961, v17 = heap_Alloc(*(*(a1 + 16) + 8), 1922), (v14[4] = v17) == 0))
   {
     v22 = 0;
-    v67 = 0;
+    v53 = 0;
     v21 = 0;
     v20 = 0;
     v19 = 0;
@@ -6743,44 +6741,44 @@ uint64_t Psola_Process(uint64_t a1, int a2, int a3, int a4)
   if (!v18)
   {
     v22 = 0;
-    v67 = 0;
+    v53 = 0;
     v21 = 0;
     v20 = 0;
     v19 = 0;
     goto LABEL_47;
   }
 
-  v57 = a2;
+  v43 = a2;
   v19 = heap_Alloc(*(*(a1 + 16) + 8), 60008);
   if (!v19)
   {
     v22 = 0;
-    v67 = 0;
+    v53 = 0;
     v21 = 0;
     v20 = 0;
     goto LABEL_47;
   }
 
-  v55 = a3;
+  v41 = a3;
   v20 = heap_Alloc(*(*(a1 + 16) + 8), 60008);
   if (!v20)
   {
     v22 = 0;
-    v67 = 0;
+    v53 = 0;
     v21 = 0;
     goto LABEL_47;
   }
 
-  v58 = a4;
+  v44 = a4;
   v21 = heap_Alloc(*(*(a1 + 16) + 8), 60006);
-  if (!v21 || (v67 = heap_Alloc(*(*(a1 + 16) + 8), 60006)) == 0)
+  if (!v21 || (v53 = heap_Alloc(*(*(a1 + 16) + 8), 60006)) == 0)
   {
     v22 = 0;
-    v67 = 0;
+    v53 = 0;
     goto LABEL_47;
   }
 
-  v65 = v9;
+  v51 = v9;
   v22 = heap_Alloc(*(*(a1 + 16) + 8), 60006);
   if (!v22)
   {
@@ -6792,9 +6790,9 @@ uint64_t Psola_Process(uint64_t a1, int a2, int a3, int a4)
   *v21 = 0;
   v21[2] = 0;
   *v19 = 0;
-  *v67 = 0;
-  v67[2] = 0;
-  UnitModif = Psola_SetUpCrossFading(a1, 0xFFFFFFFFLL, 0xFFFFFFFFLL, 100, 100, v21, v67, &v73, &v72 + 1);
+  *v53 = 0;
+  v53[2] = 0;
+  UnitModif = Psola_SetUpCrossFading(a1, -1, -1, 100, 100, v21, v53, &v59, &v58 + 1);
   if ((UnitModif & 0x80000000) != 0)
   {
 LABEL_74:
@@ -6802,44 +6800,44 @@ LABEL_74:
     goto LABEL_47;
   }
 
-  v63 = 0;
+  v49 = 0;
   v24 = 0;
-  v56 = 0;
-  v74[0] = 0;
-  LODWORD(v25) = *(v65 + 168);
-  v59 = 1;
+  v42 = 0;
+  v60[0] = 0;
+  LODWORD(v25) = *(v51 + 168);
+  v45 = 1;
   v26 = -1;
   v27 = -1;
   do
   {
-    v61 = v26;
-    v62 = v27;
-    v66 = v24;
+    v47 = v26;
+    v48 = v27;
+    v52 = v24;
     if (v24 >= v25)
     {
-      v60 = 0;
-      v64 = -1;
+      v46 = 0;
+      v50 = -1;
     }
 
     else
     {
-      v28 = *(v65 + 152) + v63;
-      v64 = *v28;
-      v60 = *(v28 + 8);
-      Psola_checkMarker(a1, v65, v24);
-      v24 = v66;
-      LOWORD(v25) = *(v65 + 168);
+      v28 = *(v51 + 152) + v49;
+      v50 = *v28;
+      v46 = *(v28 + 8);
+      Psola_checkMarker(a1, v51, v24);
+      v24 = v52;
+      LOWORD(v25) = *(v51 + 168);
     }
 
-    if (v24 < v25 && (Psola_SilUnitLen(a1, *(v65 + 152) + v63, v58) & 0x80000000) != 0)
+    if (v24 < v25 && (Psola_SilUnitLen(a1, *(v51 + 152) + v49, v44) & 0x80000000) != 0)
     {
-      if (!v60)
+      if (!v46)
       {
         ClientBuffer = 2164269062;
         goto LABEL_47;
       }
 
-      UnitModif = Pmk_Lookup_UnitPeriInfo(v60[2], v64, v20);
+      UnitModif = Pmk_Lookup_UnitPeriInfo(*(v46 + 16), v50, v20);
       if ((UnitModif & 0x80000000) != 0)
       {
         goto LABEL_74;
@@ -6848,34 +6846,34 @@ LABEL_74:
       Psola_AssignPeriRanges(v20);
       if (!v20[2])
       {
-        v41 = v18;
-        v42 = v21;
-        v35 = v66;
-        v26 = v61;
-        v27 = v62;
+        v34 = v18;
+        v35 = v21;
+        v30 = v52;
+        v26 = v47;
+        v27 = v48;
         goto LABEL_38;
       }
 
-      if (*(a1 + 1148) && (Psola_IsAdjacent(a1, v56, v62, v60, v64, &v69), v69))
+      if (*(a1 + 1148) && (Psola_IsAdjacent(a1, v42, v48, v46, v50, &v55), v55))
       {
         Psola_SyncOverlappingPeriods(v19, v20);
-        v40 = 1;
+        v33 = 1;
       }
 
       else
       {
-        v40 = 100;
+        v33 = 100;
       }
 
-      v54 = v40;
-      UnitModif = Psola_CalculateModificationFactors(a1, *(v65 + 152) + v63, v57, v55, v58, &v71, &v70 + 1, &v70);
+      v40 = v33;
+      UnitModif = Psola_CalculateModificationFactors(a1, *(v51 + 152) + v49, v43, v41, v44, &v57, &v56 + 1, &v56);
       if ((UnitModif & 0x80000000) != 0)
       {
         goto LABEL_74;
       }
 
-      UnitModif = Psola_GetUnitModif (a1, v64, v20, v71, SHIDWORD(v70), v70, v22, v43);
-      v29 = v54;
+      UnitModif = Psola_GetUnitModif (a1, v50, v20, v57, SHIDWORD(v56), v56, v22);
+      v29 = v40;
       if ((UnitModif & 0x80000000) != 0)
       {
         goto LABEL_74;
@@ -6890,36 +6888,36 @@ LABEL_74:
       v22[2] = 0;
     }
 
-    UnitModif = Psola_SetUpCrossFading(a1, v62, v64, v29, v29, v67, v22, &v72, &v71 + 1);
+    UnitModif = Psola_SetUpCrossFading(a1, v48, v50, v29, v29, v53, v22, &v58, &v57 + 1);
     if ((UnitModif & 0x80000000) != 0)
     {
       goto LABEL_74;
     }
 
-    v35 = v66;
-    if (v66 && (v61 & 0x80000000) == 0)
+    v30 = v52;
+    if (v52 && (v47 & 0x80000000) == 0)
     {
-      v36 = Psola_SilUnitLen(a1, *(v65 + 152) + 56 * v61, v58);
+      v31 = Psola_SilUnitLen(a1, *(v51 + 152) + 56 * v47, v44);
       if (*v19)
       {
-        v39 = v36;
+        v32 = v31;
       }
 
       else
       {
-        v39 = v36 & ~(v36 >> 31);
+        v32 = v31 & ~(v31 >> 31);
       }
 
-      if (v39 < 0)
+      if (v32 < 0)
       {
-        UnitModif = Psola_LoadUnitData(a1, v56, v62, v19, v12, &v74[1], &v73 + 1);
+        UnitModif = Psola_LoadUnitData(a1, v42, v48, v19, v12, &v60[1], &v59 + 1);
         if ((UnitModif & 0x80000000) != 0)
         {
           goto LABEL_74;
         }
 
-        UnitModif = Psola_DoPeriSynth(a1, v62, v61, v11, v14, &v68, v12, HIDWORD(v73), v19, v67, v73, SHIDWORD(v72), v72, SHIDWORD(v71), v74);
-        v35 = v66;
+        UnitModif = Psola_DoPeriSynth(a1, v48, v47, v11, v14, &v54, v12, SHIDWORD(v59), v19, v53, v59, SHIDWORD(v58), v58, SHIDWORD(v57), v60);
+        v30 = v52;
         if ((UnitModif & 0x80000000) != 0)
         {
           goto LABEL_74;
@@ -6928,48 +6926,48 @@ LABEL_74:
 
       else
       {
-        Psola_SynthSilence(a1, v62, v61, v11, v39, v74, v37, v38);
-        v35 = v66;
+        Psola_SynthSilence(a1, v48, v47, v11, v32, v60);
+        v30 = v52;
       }
     }
 
-    v59 = 3 - v59;
-    v26 = v35;
-    v41 = v19;
+    v45 = 3 - v45;
+    v26 = v30;
+    v34 = v19;
     v19 = v20;
-    v42 = v67;
-    v67 = v22;
-    v27 = v64;
-    v56 = v60;
-    HIDWORD(v72) = HIDWORD(v71);
-    LODWORD(v73) = v72;
+    v35 = v53;
+    v53 = v22;
+    v27 = v50;
+    v42 = v46;
+    HIDWORD(v58) = HIDWORD(v57);
+    LODWORD(v59) = v58;
     v22 = v21;
     v20 = v18;
-    v21 = v42;
-    v18 = v41;
+    v21 = v35;
+    v18 = v34;
 LABEL_38:
-    v24 = v35 + 1;
-    v25 = *(v65 + 168);
-    v63 += 56;
+    v24 = v30 + 1;
+    v25 = *(v51 + 168);
+    v49 += 56;
   }
 
-  while (v35 < v25);
-  v21 = v42;
-  v18 = v41;
+  while (v30 < v25);
+  v21 = v35;
+  v18 = v34;
   if (*(a1 + 1144))
   {
-    v31 = (*(a1 + 1096) + *(a1 + 1048));
-    if (v31 >= 1)
+    v39 = *(a1 + 1096) + *(a1 + 1048);
+    if (v39 >= 1)
     {
-      Psola_SynthSilence(a1, 0xFFFFFFFFLL, v25 - 1, v11, v31, v74, v33, v34);
+      Psola_SynthSilence(a1, -1, (v25 - 1), v11, v39, v60);
     }
   }
 
-  Psola_FlushOlaBufPart(a1, v11, v11[2] + *v11, v30, v31, v32, v33, v34);
+  Psola_FlushOlaBufPart(a1, v11, v11[2] + *v11);
   *(a1 + 1076) = 1;
   *(a1 + 1024) = *(a1 + 1028);
-  ++*(v65 + 224);
-  ClientBuffer = InOut__GetClientBuffer(a1, v47, v48, v49, v50, v51, v52, v53);
+  ++*(v51 + 224);
+  ClientBuffer = InOut__GetClientBuffer(a1);
   if ((ClientBuffer & 0x80000000) == 0)
   {
     InOut__IsEndState(a1);
@@ -6989,16 +6987,16 @@ LABEL_47:
       heap_Free(*(*(a1 + 16) + 8), *v14);
     }
 
-    v44 = v14[2];
-    if (v44)
+    v36 = v14[2];
+    if (v36)
     {
-      heap_Free(*(*(a1 + 16) + 8), v44);
+      heap_Free(*(*(a1 + 16) + 8), v36);
     }
 
-    v45 = v14[4];
-    if (v45)
+    v37 = v14[4];
+    if (v37)
     {
-      heap_Free(*(*(a1 + 16) + 8), v45);
+      heap_Free(*(*(a1 + 16) + 8), v37);
     }
 
     heap_Free(*(*(a1 + 16) + 8), v14);
@@ -7024,9 +7022,9 @@ LABEL_47:
     heap_Free(*(*(a1 + 16) + 8), v21);
   }
 
-  if (v67)
+  if (v53)
   {
-    heap_Free(*(*(a1 + 16) + 8), v67);
+    heap_Free(*(*(a1 + 16) + 8), v53);
   }
 
   if (v22)
@@ -7037,7 +7035,7 @@ LABEL_47:
   return ClientBuffer;
 }
 
-uint64_t Psola_SetUpCrossFading(uint64_t a1, uint64_t a2, uint64_t a3, int a4, int a5, unsigned __int16 *a6, unsigned __int16 *a7, _DWORD *a8, int *a9)
+uint64_t Psola_SetUpCrossFading(uint64_t a1, int a2, int a3, int a4, int a5, unsigned __int16 *a6, unsigned __int16 *a7, _DWORD *a8, int *a9)
 {
   v9 = *(a1 + 1040);
   v10 = v9 * a4;
@@ -7171,7 +7169,7 @@ LABEL_9:
     return 2164269071;
   }
 
-  log_OutText(*(*(a1 + 16) + 32), "PSOLA", 99, 0, "crossfading lengths between unit %d and %d: %d+%d\n", a6, a7, a8, a2);
+  log_OutText(*(*(a1 + 16) + 32), "PSOLA", 99, 0, "crossfading lengths between unit %d and %d: %d+%d\n", a2, a3, *a8, v14);
   return 0;
 }
 
@@ -7291,7 +7289,7 @@ unsigned __int16 *Psola_AssignPeriRanges(unsigned __int16 *result)
     v3 = 0;
     v4 = result + 10004;
     result[1] = 0;
-    v5 = (result + 4);
+    v5 = result + 4;
     while (*v5 < 0)
     {
       result[1] = ++v3;
@@ -7374,7 +7372,7 @@ unsigned __int16 *Psola_SyncOverlappingPeriods(unsigned __int16 *result, unsigne
   if (result[1] && a2[1])
   {
     v2 = result[1] + result[2] - 1;
-    v3 = (a2 + 3);
+    v3 = a2 + 3;
     v4 = a2[2] + a2[1] + a2[3];
     v5 = a2 + 4;
     v6 = v2;
@@ -7388,7 +7386,7 @@ unsigned __int16 *Psola_SyncOverlappingPeriods(unsigned __int16 *result, unsigne
     {
       v16 = 0;
       *v5 = v8;
-      v19 = (a2 + 4);
+      v19 = a2 + 4;
     }
 
     else
@@ -7641,39 +7639,38 @@ uint64_t Psola_CalculateModificationFactors(uint64_t a1, uint64_t a2, int a3, in
   return result;
 }
 
-uint64_t Psola_GetUnitModif (uint64_t a1, uint64_t a2, unsigned __int16 *a3, int a4, int a5, uint64_t a6, uint64_t a7, unsigned __int16 *a8)
+uint64_t Psola_GetUnitModif (uint64_t a1, int a2, unsigned __int16 *a3, int a4, int a5, int a6, unsigned __int16 *a7)
 {
-  v8 = a7;
-  v11 = a3[1];
-  v12 = a3[2] + v11 - 1;
-  if (v11 <= v12)
+  v10 = a3[1];
+  v11 = a3[2] + v10 - 1;
+  if (v10 <= v11)
   {
-    v13 = 0;
-    v14 = a3[1];
+    v12 = 0;
+    v13 = a3[1];
     do
     {
-      v13 += a3[v14++ + 10004];
+      v12 += a3[v13++ + 10004];
     }
 
-    while (v14 <= v12);
+    while (v13 <= v11);
   }
 
   else
   {
-    v13 = 0;
+    v12 = 0;
   }
 
-  v15 = a6;
-  if ((a6 & 0x80000000) != 0)
+  v14 = a6;
+  if (a6 < 0)
   {
-    v16 = (1000 * v13 + *(a1 + 1040) / 2) / *(a1 + 1040);
-    v15 = (-1000 * a6 + v16 / 2) / v16;
+    v15 = (1000 * v12 + *(a1 + 1040) / 2) / *(a1 + 1040);
+    v14 = (-1000 * a6 + v15 / 2) / v15;
   }
 
-  v17 = v13;
-  if (v15)
+  v16 = v12;
+  if (v14)
   {
-    v17 = (v15 * v13 + 500) / 1000;
+    v16 = (v14 * v12 + 500) / 1000;
   }
 
   result = 2164269065;
@@ -7682,157 +7679,156 @@ uint64_t Psola_GetUnitModif (uint64_t a1, uint64_t a2, unsigned __int16 *a3, int
     return 2164269074;
   }
 
-  v51 = a3[2] + v11;
+  v49 = a3[2] + v10;
   *a7 = 0;
-  if (v11)
+  if (v10)
   {
-    for (i = 0; i != v11; *a7 = i)
+    for (i = 0; i != v10; *a7 = i)
     {
-      *(a7 + 2 * i + 6) = i;
-      *(a7 + 20006 + 2 * i) = 0;
-      *(a7 + 40006 + 2 * i) = a3[i + 10004];
+      a7[i + 3] = i;
+      a7[i + 10003] = 0;
+      a7[i + 20003] = a3[i + 10004];
       ++i;
     }
 
-    v20 = v11;
+    v19 = v10;
   }
 
   else
   {
-    v20 = 0;
+    v19 = 0;
   }
 
-  *(a7 + 2) = 0;
-  if (v11 <= v12)
+  a7[1] = 0;
+  if (v10 <= v11)
   {
+    v29 = 0;
+    v30 = 0;
+    v31 = 0;
     v32 = 0;
-    v33 = 0;
-    v34 = 0;
-    v35 = 0;
-    v52 = a3 + 10004;
-    v53 = a5 - a4;
-    v36 = a3 + 20004;
+    v51 = a3 + 10004;
+    v52 = a5 - a4;
+    v33 = a3 + 20004;
     while (1)
     {
-      v37 = v52[v11];
-      if (v15)
+      v34 = v51[v10];
+      if (v14)
       {
-        v35 += (v15 * v37 + 500) / 1000;
+        v32 += (v14 * v34 + 500) / 1000;
       }
 
       else
       {
-        v35 = v34 + v37;
+        v32 = v31 + v34;
       }
 
-      v38 = v20 <= 0x2710 ? 10000 : v20;
-      v39 = v11 == v12 && v34 == 0;
-      v40 = v39;
-      if (v34 + (v37 >> 1) <= v35 || v40)
+      v35 = v19 <= 0x2710 ? 10000 : v19;
+      v36 = v10 == v11 && v31 == 0;
+      v37 = v36;
+      if (v31 + (v34 >> 1) <= v32 || v37)
       {
         break;
       }
 
 LABEL_84:
-      v33 += v37;
-      LOWORD(v11) = v11 + 1;
-      if (v11 > v12)
+      v30 += v34;
+      LOWORD(v10) = v10 + 1;
+      if (v10 > v11)
       {
         goto LABEL_21;
       }
     }
 
-    v42 = 0;
-    a8 = &v8[v20];
-    v43 = v38 - v20;
+    v39 = 0;
+    v40 = &a7[v19];
+    v41 = v35 - v19;
     while (1)
     {
-      v44 = a4;
-      if (v15)
+      v42 = a4;
+      if (v14)
       {
-        if (v17)
+        if (v16)
         {
-          v44 = (v17 / 2 + v34 * v53) / v17 + a4;
+          v42 = (v16 / 2 + v31 * v52) / v16 + a4;
         }
       }
 
       else
       {
-        v44 = (v13 / 2 + v33 * v53) / v13 + a4;
+        v42 = (v12 / 2 + v30 * v52) / v12 + a4;
       }
 
-      v45 = v37;
-      if (v36[v11] != 1)
+      v43 = v34;
+      if (v33[v10] != 1)
       {
         goto LABEL_63;
       }
 
-      if (v44 < 1)
+      if (v42 < 1)
       {
-        v45 = v37;
-        if ((v44 & 0x80000000) == 0)
+        v43 = v34;
+        if ((v42 & 0x80000000) == 0)
         {
           goto LABEL_63;
         }
 
-        v46 = *(a1 + 1040);
-        v44 = -v44;
+        v44 = *(a1 + 1040);
+        v42 = -v42;
       }
 
       else
       {
-        v46 = 1000 * v52[v11];
+        v44 = 1000 * v51[v10];
       }
 
-      v45 = (v46 + (v44 >> 1)) / v44;
+      v43 = (v44 + (v42 >> 1)) / v42;
 LABEL_63:
-      if (!v43)
+      if (!v41)
       {
         return result;
       }
 
-      if (v45 <= 0x10)
+      if (v43 <= 0x10)
       {
-        v47 = 16;
+        v45 = 16;
       }
 
       else
       {
-        v47 = v45;
+        v45 = v43;
       }
 
-      if (v47 >= 0x3C1)
+      if (v45 >= 0x3C1)
       {
-        v47 = 961;
+        v45 = 961;
       }
 
-      a8[3] = v11;
-      a8[20003] = v47;
-      if (v36[v11])
+      v40[3] = v10;
+      v40[20003] = v45;
+      if (v33[v10])
       {
-        v48 = 0;
+        v46 = 0;
       }
 
       else
       {
-        v48 = v42;
+        v46 = v39;
       }
 
-      v42 = 1 - v42;
-      v34 += v47;
-      if (!v15)
+      v39 = 1 - v39;
+      v31 += v45;
+      if (!v14)
       {
-        v35 = v34;
+        v32 = v31;
       }
 
-      a8[10003] = v48;
-      v8[1] = ++v32;
-      a6 = v34 + (v37 >> 1);
-      a7 = v11 == v12 && v34 == 0;
-      ++v20;
-      ++a8;
-      --v43;
-      if (a6 > v35 && (a7 & 1) == 0)
+      v40[10003] = v46;
+      a7[1] = ++v29;
+      v48 = v10 == v11 && v31 == 0;
+      ++v19;
+      ++v40;
+      --v41;
+      if (v31 + (v34 >> 1) > v32 && !v48)
       {
         goto LABEL_84;
       }
@@ -7840,33 +7836,34 @@ LABEL_63:
   }
 
 LABEL_21:
-  v21 = a3[2] + a3[1] + a3[3];
-  v8[2] = 0;
-  if (v51 >= v21)
+  v20 = a3[2] + a3[1] + a3[3];
+  a7[2] = 0;
+  if (v49 >= v20)
   {
 LABEL_28:
-    log_OutText(*(*(a1 + 16) + 32), "PSOLA", 99, 0, "modified unit %d: f0Beg=%d, f0End=%d, dur=%d\n", a6, a7, a8, a2);
-    if (v8[1] + *v8 + v8[2])
+    log_OutText(*(*(a1 + 16) + 32), "PSOLA", 99, 0, "modified unit %d: f0Beg=%d, f0End=%d, dur=%d\n", a2, a4, a5, a6);
+    if (a7[1] + *a7 + a7[2])
     {
-      v30 = 0;
-      v31 = (v8[1] + *v8 + v8[2]);
+      v26 = 0;
+      v27 = (a7[1] + *a7 + a7[2]);
       do
       {
-        if (v30 == *v8)
+        if (v26 == *a7)
         {
-          log_OutText(*(*(a1 + 16) + 32), "PSOLA", 100, 0, "  --- start of nominal part\n", v27, v28, v29, v50);
+          log_OutText(*(*(a1 + 16) + 32), "PSOLA", 100, 0, "  --- start of nominal part\n");
         }
 
-        log_OutText(*(*(a1 + 16) + 32), "PSOLA", 100, 0, "  peri num: %d, type: %d, orig len: %d, new len: %d, rev: %d\n", v27, v28, v29, v8[v30 + 3]);
-        if (v30 == *v8 + v8[1] - 1)
+        v28 = a7[v26 + 3];
+        log_OutText(*(*(a1 + 16) + 32), "PSOLA", 100, 0, "  peri num: %d, type: %d, orig len: %d, new len: %d, rev: %d\n", a7[v26 + 3], a3[v28 + 20004], a3[v28 + 10004], a7[v26 + 20003], a7[v26 + 10003]);
+        if (v26 == *a7 + a7[1] - 1)
         {
-          log_OutText(*(*(a1 + 16) + 32), "PSOLA", 100, 0, "  --- end of nominal part\n", v27, v28, v29, v50);
+          log_OutText(*(*(a1 + 16) + 32), "PSOLA", 100, 0, "  --- end of nominal part\n");
         }
 
-        ++v30;
+        ++v26;
       }
 
-      while (v31 != v30);
+      while (v27 != v26);
     }
 
     return 0;
@@ -7874,30 +7871,30 @@ LABEL_28:
 
   else
   {
-    v22 = 0;
-    v23 = v51;
-    if (v20 <= 0x2710)
+    v21 = 0;
+    v22 = v49;
+    if (v19 <= 0x2710)
     {
-      v24 = 10000;
+      v23 = 10000;
     }
 
     else
     {
-      v24 = v20;
+      v23 = v19;
     }
 
-    v25 = v24 - v20;
-    v26 = &v8[v20];
-    while (v25)
+    v24 = v23 - v19;
+    v25 = &a7[v19];
+    while (v24)
     {
-      v26[3] = v23;
-      v26[10003] = 0;
-      v26[20003] = a3[v23 + 10004];
-      v8[2] = ++v22;
-      ++v23;
-      --v25;
-      ++v26;
-      if (v23 >= v21)
+      v25[3] = v22;
+      v25[10003] = 0;
+      v25[20003] = a3[v22 + 10004];
+      a7[2] = ++v21;
+      ++v22;
+      --v24;
+      ++v25;
+      if (v22 >= v20)
       {
         goto LABEL_28;
       }
@@ -7907,34 +7904,35 @@ LABEL_28:
   return result;
 }
 
-void Psola_SynthSilence(uint64_t a1, uint64_t a2, int a3, int *a4, int a5, int *a6, uint64_t a7, uint64_t a8)
+void Psola_SynthSilence(uint64_t a1, int a2, uint64_t a3, int *a4, int a5, int *a6)
 {
-  log_OutText(*(*(a1 + 16) + 32), "PSOLA", 99, 0, "PMK: %d 0 %d\n", a6, a7, a8, a2);
-  v17 = *(a1 + 1052);
-  if (v17 == 100)
+  v9 = a3;
+  log_OutText(*(*(a1 + 16) + 32), "PSOLA", 99, 0, "PMK: %d 0 %d\n", a2, a5);
+  v12 = *(a1 + 1052);
+  if (v12 == 100)
   {
-    v18 = 1000;
+    v13 = 1000;
   }
 
-  else if (v17 - 50 > 0x15E)
+  else if (v12 - 50 > 0x15E)
   {
-    v18 = 0;
+    v13 = 0;
   }
 
   else
   {
-    v18 = ((v17 >> 1) + 100000) / v17;
+    v13 = ((v12 >> 1) + 100000) / v12;
   }
 
-  v33 = (v18 * a5 + 500) / 1000;
-  log_OutText(*(*(a1 + 16) + 32), "PSOLA", 99, 0, "synthesizing silence for unit %d, len=%d\n", v14, v15, v16, a2);
-  Psola_FlushOlaBufPart(a1, a4, *a6, v19, v20, v21, v22, v23);
-  Psola_DepositMarkers(a1, a3, v24, v25, v26, v27, v28, v29);
-  v32 = (*a6 + v33);
-  *a6 = v32;
-  if (*a4 <= v32)
+  v14 = (v13 * a5 + 500) / 1000;
+  log_OutText(*(*(a1 + 16) + 32), "PSOLA", 99, 0, "synthesizing silence for unit %d, len=%d\n", a2, v14);
+  Psola_FlushOlaBufPart(a1, a4, *a6);
+  Psola_DepositMarkers(a1, v9);
+  v15 = *a6 + v14;
+  *a6 = v15;
+  if (*a4 <= v15)
   {
-    Psola_AddToOlaBufAux(a1, a4, v34, 0, 0, v32, v30, v31);
+    Psola_AddToOlaBufAux(a1, a4, v16, 0, 0, v15);
   }
 }
 
@@ -7947,7 +7945,7 @@ uint64_t Psola_LoadUnitData(uint64_t a1, uint64_t *a2, uint64_t a3, unsigned __i
   v10 = a4[1] + a4[2] + a4[3] - 1;
   v11 = &a4[v10];
   v12 = *a4;
-  v14 = (a4 + 4);
+  v14 = a4 + 4;
   v13 = a4[4];
   *a7 = 0;
   if (v13 <= 0)
@@ -7982,144 +7980,144 @@ uint64_t Psola_LoadUnitData(uint64_t a1, uint64_t *a2, uint64_t a3, unsigned __i
   return result;
 }
 
-uint64_t Psola_DoPeriSynth(uint64_t a1, uint64_t a2, int a3, int *a4, uint64_t a5, int *a6, uint64_t a7, uint64_t a8, uint64_t a9, unsigned __int16 *a10, int a11, int a12, int a13, int a14, int *a15)
+uint64_t Psola_DoPeriSynth(uint64_t a1, int a2, int a3, int *a4, void *a5, unsigned int *a6, uint64_t a7, int a8, uint64_t a9, unsigned __int16 *a10, int a11, int a12, int a13, int a14, unsigned int *a15)
 {
-  v15 = a8;
   v17 = a1;
-  log_OutText(*(*(a1 + 16) + 32), "PSOLA", 99, 0, "synthesizing unit %d\n", a6, a7, a8, a2);
-  log_OutText(*(*(v17 + 16) + 32), "PSOLA", 99, 0, "PMK: %d", v18, v19, v20, a2);
+  log_OutText(*(*(a1 + 16) + 32), "PSOLA", 99, 0, "synthesizing unit %d\n", a2);
+  log_OutText(*(*(v17 + 16) + 32), "PSOLA", 99, 0, "PMK: %d", a2);
   if (a10[1])
   {
-    v24 = *a10;
+    v18 = *a10;
     do
     {
-      log_OutText(*(*(v17 + 16) + 32), "PSOLA", 99, 0, " %d %d", v21, v22, v23, *(a9 + 40008 + 2 * a10[v24++ + 3]));
+      log_OutText(*(*(v17 + 16) + 32), "PSOLA", 99, 0, " %d %d", *(a9 + 40008 + 2 * a10[v18 + 3]), a10[v18 + 20003]);
+      ++v18;
     }
 
-    while (a10[1] + *a10 > v24);
+    while (a10[1] + *a10 > v18);
   }
 
-  v25 = a15;
-  log_OutText(*(*(v17 + 16) + 32), "PSOLA", 99, 0, "\n", v21, v22, v23, v87);
-  v26 = *a10;
-  v27 = a10[1];
-  v28 = v27 + v26;
-  v29 = a10 + 20003;
-  v30 = 0;
+  v19 = a15;
+  log_OutText(*(*(v17 + 16) + 32), "PSOLA", 99, 0, "\n");
+  v20 = *a10;
+  v21 = a10[1];
+  v22 = v21 + v20;
+  v23 = a10 + 20003;
+  v24 = 0;
   if (*a10)
   {
-    v31 = *a10;
-    v32 = (a10 + 20003);
+    v25 = *a10;
+    v26 = a10 + 20003;
     do
     {
-      v33 = *v32++;
-      v30 += v33;
-      --v31;
+      v27 = *v26++;
+      v24 += v27;
+      --v25;
     }
 
-    while (v31);
+    while (v25);
   }
 
-  v34 = 0;
+  v28 = 0;
   if (a10[1])
   {
-    v35 = &v29[*a10];
+    v29 = &v23[*a10];
     do
     {
-      v36 = *v35++;
-      v34 += v36;
-      LODWORD(v27) = v27 - 1;
+      v30 = *v29++;
+      v28 += v30;
+      LODWORD(v21) = v21 - 1;
     }
 
-    while (v27);
+    while (v21);
   }
 
-  v37 = v28 + a10[2];
-  v38 = a13;
-  v39 = *a15;
-  v101 = a12 + a11;
-  if ((v101 < 0) ^ __OFADD__(a12, a11) | (v101 == 0))
+  v31 = v22 + a10[2];
+  v32 = a13;
+  v33 = *a15;
+  v77 = a12 + a11;
+  if ((v77 < 0) ^ __OFADD__(a12, a11) | (v77 == 0))
   {
-    v101 = (v29[v26] + (v29[v26] >> 15)) << 16 >> 17;
-    v97 = *a15;
+    v77 = (v23[v20] + (v23[v20] >> 15)) << 16 >> 17;
+    v73 = *a15;
   }
 
   else
   {
-    v97 = v39 - a11;
+    v73 = v33 - a11;
   }
 
-  v100 = a14 + a13;
+  v76 = a14 + a13;
   if ((a14 + a13 < 0) ^ __OFADD__(a14, a13) | (a14 + a13 == 0))
   {
-    v40 = v29[v28 - 1];
-    v38 = (v40 + (v40 >> 15)) >> 1;
-    v100 = v38;
+    v34 = v23[v22 - 1];
+    v32 = (v34 + (v34 >> 15)) >> 1;
+    v76 = v32;
   }
 
-  v41 = v39 + v34;
-  if (v37)
+  v35 = v33 + v28;
+  if (v31)
   {
-    v42 = 0;
-    v43 = 0;
-    v92 = v41 - v38;
-    v44 = v39 - v30;
-    v96 = (a10 + 3);
-    v94 = (a10 + 20003);
-    v95 = a9 + 20008;
-    v45 = a9 + 8;
-    v89 = (v37 - 1);
-    v90 = v37;
-    v91 = (v37 + 1);
-    v46 = v15;
-    v47 = a5;
-    v105 = a9 + 8;
-    v93 = v17;
+    v36 = 0;
+    v37 = 0;
+    v68 = v35 - v32;
+    v38 = v33 - v24;
+    v72 = a10 + 3;
+    v70 = a10 + 20003;
+    v71 = a9 + 20008;
+    v39 = a9 + 8;
+    v65 = (v31 - 1);
+    v66 = v31;
+    v67 = (v31 + 1);
+    v40 = a8;
+    v41 = a5;
+    v81 = a9 + 8;
+    v69 = v17;
     while (1)
     {
-      v106 = v43;
-      v107 = v44;
-      if (v42)
+      v82 = v37;
+      v83 = v38;
+      if (v36)
       {
-        if (v42 == v90)
+        if (v36 == v66)
         {
-          v48 = v96[v89];
-          LODWORD(v49) = *(v95 + 2 * v48);
-          result = Psola_CopyDataPart(*(*(v17 + 16) + 8), a7, *(v45 + 2 * v48) + v46, v49, v47);
+          v42 = v72[v65];
+          LODWORD(v43) = *(v71 + 2 * v42);
+          result = Psola_CopyDataPart(*(*(v17 + 16) + 8), a7, *(v39 + 2 * v42) + v40, v43, v41);
           if ((result & 0x80000000) != 0)
           {
             return result;
           }
 
-          LODWORD(v51) = 0;
-          v52 = 0;
-          v53 = v89;
-          v54 = a10 + 20003;
+          LODWORD(v45) = 0;
+          v46 = 0;
+          v47 = v65;
+          v48 = a10 + 20003;
         }
 
         else
         {
-          v56 = v96[v42];
-          v57 = v56 - 1;
-          if (a10[v42 + 10003])
+          v50 = v72[v36];
+          v51 = v50 - 1;
+          if (a10[v36 + 10003])
           {
-            v49 = *(v95 + 2 * v56);
-            v51 = *(v95 + 2 * v57);
-            v58 = *(v105 + 2 * v56);
-            result = Psola_ReallocIfNeeded(*(*(v17 + 16) + 8), v47, v49);
-            if (v49 >= 1 && (result & 0x80000000) == 0)
+            v43 = *(v71 + 2 * v50);
+            v45 = *(v71 + 2 * v51);
+            v52 = *(v81 + 2 * v50);
+            result = Psola_ReallocIfNeeded(*(*(v17 + 16) + 8), v41, v43);
+            if (v43 >= 1 && (result & 0x80000000) == 0)
             {
-              v59 = (a7 + 2 * (v58 + v15));
-              v60 = (*v47 + 2 * v49 - 2);
-              v61 = v49;
+              v53 = (a7 + 2 * (v52 + a8));
+              v54 = (*v41 + 2 * v43 - 2);
+              v55 = v43;
               do
               {
-                v62 = *v59++;
-                *v60-- = v62;
-                --v61;
+                v56 = *v53++;
+                *v54-- = v56;
+                --v55;
               }
 
-              while (v61);
+              while (v55);
             }
 
             if ((result & 0x80000000) != 0)
@@ -8127,36 +8125,36 @@ uint64_t Psola_DoPeriSynth(uint64_t a1, uint64_t a2, int a3, int *a4, uint64_t a
               return result;
             }
 
-            v63 = *(v105 + 2 * v57);
-            result = Psola_ReallocIfNeeded(*(*(v17 + 16) + 8), (v47 + 16), v51);
-            if (v51 >= 1 && (result & 0x80000000) == 0)
+            v57 = *(v81 + 2 * v51);
+            result = Psola_ReallocIfNeeded(*(*(v17 + 16) + 8), v41 + 2, v45);
+            if (v45 >= 1 && (result & 0x80000000) == 0)
             {
-              v64 = (a7 + 2 * (v63 + v15));
-              v65 = (*(v47 + 16) + 2 * v51 - 2);
-              v66 = v51;
+              v58 = (a7 + 2 * (v57 + a8));
+              v59 = (v41[2] + 2 * v45 - 2);
+              v60 = v45;
               do
               {
-                v67 = *v64++;
-                *v65-- = v67;
-                --v66;
+                v61 = *v58++;
+                *v59-- = v61;
+                --v60;
               }
 
-              while (v66);
+              while (v60);
             }
           }
 
           else
           {
-            LODWORD(v49) = *(v95 + 2 * v57);
-            LODWORD(v51) = *(v95 + 2 * v56);
-            v68 = v46;
-            result = Psola_CopyDataPart(*(*(v17 + 16) + 8), a7, *(v105 + 2 * v57) + v46, v49, v47);
+            LODWORD(v43) = *(v71 + 2 * v51);
+            LODWORD(v45) = *(v71 + 2 * v50);
+            v62 = v40;
+            result = Psola_CopyDataPart(*(*(v17 + 16) + 8), a7, *(v81 + 2 * v51) + v40, v43, v41);
             if ((result & 0x80000000) != 0)
             {
               return result;
             }
 
-            result = Psola_CopyDataPart(*(*(v17 + 16) + 8), a7, *(v105 + 2 * v56) + v68, v51, (v47 + 16));
+            result = Psola_CopyDataPart(*(*(v17 + 16) + 8), a7, *(v81 + 2 * v50) + v62, v45, v41 + 2);
           }
 
           if ((result & 0x80000000) != 0)
@@ -8164,87 +8162,87 @@ uint64_t Psola_DoPeriSynth(uint64_t a1, uint64_t a2, int a3, int *a4, uint64_t a
             return result;
           }
 
-          v53 = v42 - 1;
-          v54 = a10 + 20003;
-          v52 = v94[v42];
+          v47 = v36 - 1;
+          v48 = a10 + 20003;
+          v46 = v70[v36];
         }
 
-        v69 = v54[v53];
-        if (v49 <= v69)
+        v63 = v48[v47];
+        if (v43 <= v63)
         {
-          v103 = 0;
+          v79 = 0;
         }
 
         else
         {
-          cstdlib_memmove(*v47, (*v47 + 2 * (v49 - v54[v53])), 2 * v54[v53]);
-          v103 = 0;
-          LODWORD(v49) = v69;
+          cstdlib_memmove(*v41, (*v41 + 2 * (v43 - v48[v47])), 2 * v48[v47]);
+          v79 = 0;
+          LODWORD(v43) = v63;
         }
       }
 
       else
       {
-        v55 = *v96;
-        LODWORD(v51) = *(v95 + 2 * v55);
-        v103 = Psola_CopyDataPart(*(*(v17 + 16) + 8), a7, *(v45 + 2 * v55) + v46, v51, (v47 + 16));
-        if ((v103 & 0x80000000) != 0)
+        v49 = *v72;
+        LODWORD(v45) = *(v71 + 2 * v49);
+        v79 = Psola_CopyDataPart(*(*(v17 + 16) + 8), a7, *(v39 + 2 * v49) + v40, v45, v41 + 2);
+        if ((v79 & 0x80000000) != 0)
         {
-          return v103;
+          return v79;
         }
 
-        LODWORD(v49) = 0;
-        v52 = *v94;
+        LODWORD(v43) = 0;
+        v46 = *v70;
       }
 
-      if (v51 >= v52)
+      if (v45 >= v46)
       {
-        LODWORD(v51) = v52;
+        LODWORD(v45) = v46;
       }
 
-      Psola_ApplyHanning(*(v47 + 32), a6, *v47, v49, 1);
-      Psola_ApplyHanning(*(v47 + 32), a6, *(v47 + 16), v51, 0);
-      Psola_ApplyFadingPart(*v47, v49, v107 - v49, v97, v101, 1);
-      Psola_ApplyFadingPart(*(v47 + 16), v51, v107, v97, v101, 1);
-      Psola_ApplyFadingPart(*v47, v49, v107 - v49, v92, v100, 0);
-      Psola_ApplyFadingPart(*(v47 + 16), v51, v107, v92, v100, 0);
-      v17 = v93;
-      Psola_AddToOlaBuf(v93, a4, *v47, v49, v107 - v49, v70, v71, v72);
-      Psola_AddToOlaBuf(v93, a4, *(v47 + 16), v51, v107, v73, v74, v75);
-      v44 = v52 + v107;
-      if (v106)
+      Psola_ApplyHanning(v41[4], a6, *v41, v43, 1);
+      Psola_ApplyHanning(v41[4], a6, v41[2], v45, 0);
+      Psola_ApplyFadingPart(*v41, v43, v83 - v43, v73, v77, 1);
+      Psola_ApplyFadingPart(v41[2], v45, v83, v73, v77, 1);
+      Psola_ApplyFadingPart(*v41, v43, v83 - v43, v68, v76, 0);
+      Psola_ApplyFadingPart(v41[2], v45, v83, v68, v76, 0);
+      v17 = v69;
+      Psola_AddToOlaBuf(v69, a4, *v41, v43, v83 - v43);
+      Psola_AddToOlaBuf(v69, a4, v41[2], v45, v83);
+      v38 = v46 + v83;
+      if (v82)
       {
-        v47 = a5;
-        v45 = a9 + 8;
-        v43 = 1;
+        v41 = a5;
+        v39 = a9 + 8;
+        v37 = 1;
       }
 
       else
       {
-        if (v44 >= *a15 + 961 || v42 == v90)
+        if (v38 >= (*a15 + 961) || v36 == v66)
         {
-          Psola_FlushOlaBufPart(v93, a4, *a15, v76, v77, v78, v79, v80);
-          Psola_DepositMarkers(v93, a3, v81, v82, v83, v84, v85, v86);
-          v103 = 0;
-          v43 = 1;
+          Psola_FlushOlaBufPart(v69, a4, *a15);
+          Psola_DepositMarkers(v69, a3);
+          v79 = 0;
+          v37 = 1;
         }
 
         else
         {
-          v43 = 0;
+          v37 = 0;
         }
 
-        v47 = a5;
-        v45 = a9 + 8;
+        v41 = a5;
+        v39 = a9 + 8;
       }
 
-      ++v42;
-      v46 = v15;
-      if (v42 == v91)
+      ++v36;
+      v40 = a8;
+      if (v36 == v67)
       {
-        v25 = a15;
-        v41 = *a15 + v34;
-        result = v103;
+        v19 = a15;
+        v35 = *a15 + v28;
+        result = v79;
         goto LABEL_54;
       }
     }
@@ -8252,232 +8250,232 @@ uint64_t Psola_DoPeriSynth(uint64_t a1, uint64_t a2, int a3, int *a4, uint64_t a
 
   result = 0;
 LABEL_54:
-  *v25 = v41;
+  *v19 = v35;
   return result;
 }
 
-void Psola_FlushOlaBufPart(uint64_t a1, _DWORD *a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void Psola_FlushOlaBufPart(uint64_t a1, _DWORD *a2, int a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
-  v8 = a3 - *a2;
-  if (v8 >= 1)
+  v17 = *MEMORY[0x277D85DE8];
+  v3 = a3 - *a2;
+  if (v3 >= 1)
   {
-    v11 = a2[1];
-    v12 = a2[2];
-    if (v8 >= v12)
+    v6 = a2[1];
+    v7 = a2[2];
+    if (v3 >= v7)
     {
-      v13 = a2[2];
+      v8 = a2[2];
     }
 
     else
     {
-      v13 = v8;
+      v8 = v3;
     }
 
-    if (v13 >= 2400 - v11)
+    if (v8 >= 2400 - v6)
     {
-      v14 = (2400 - v11);
-    }
-
-    else
-    {
-      v14 = v13;
-    }
-
-    v15 = v8 - v14;
-    if (v8 >= v12)
-    {
-      v16 = (v12 - v14);
+      v9 = 2400 - v6;
     }
 
     else
     {
-      v16 = v15;
+      v9 = v8;
     }
 
-    if (v14 >= 1)
+    if (v3 >= v7)
     {
-      Psola_OutputDataPart(a1, (a2 + 3), v11, v14, a5, a6, a7, a8);
-      bzero(a2 + 2 * a2[1] + 12, (2 * v14));
+      v10 = v7 - v9;
     }
 
-    if (v16 >= 1)
+    else
     {
-      Psola_OutputDataPart(a1, (a2 + 3), 0, v16, a5, a6, a7, a8);
-      bzero(a2 + 3, (2 * v16));
+      v10 = v3 - v9;
     }
 
-    v17 = v15 - v16;
-    if (v17 >= 1)
+    if (v9 >= 1)
     {
-      v22 = 0;
-      memset(v21, 0, sizeof(v21));
+      Psola_OutputDataPart(a1, (a2 + 3), v6, v9);
+      bzero(a2 + 2 * a2[1] + 12, (2 * v9));
+    }
+
+    if (v10 >= 1)
+    {
+      Psola_OutputDataPart(a1, (a2 + 3), 0, v10);
+      bzero(a2 + 3, (2 * v10));
+    }
+
+    v11 = v3 - v9 - v10;
+    if (v11 >= 1)
+    {
+      v16 = 0;
+      memset(v15, 0, sizeof(v15));
       do
       {
-        if (v17 >= 0x64)
+        if (v11 >= 0x64)
         {
-          v18 = 100;
+          v12 = 100;
         }
 
         else
         {
-          v18 = v17;
+          v12 = v11;
         }
 
-        Psola_OutputDataPart(a1, v21, 0, v18, a5, a6, a7, a8);
-        v19 = __OFSUB__(v17, v18);
-        v17 -= v18;
+        Psola_OutputDataPart(a1, v15, 0, v12);
+        v13 = __OFSUB__(v11, v12);
+        v11 -= v12;
       }
 
-      while (!((v17 < 0) ^ v19 | (v17 == 0)));
+      while (!((v11 < 0) ^ v13 | (v11 == 0)));
     }
 
-    v20 = a2[1] + v8;
-    *a2 += v8;
-    a2[1] = v20 % 2400;
-    a2[2] -= v16 + v14;
+    v14 = a2[1] + v3;
+    *a2 += v3;
+    a2[1] = v14 % 2400;
+    a2[2] -= v10 + v9;
   }
 }
 
-uint64_t Psola_DepositMarkers(uint64_t result, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t Psola_DepositMarkers(uint64_t result, int a2)
 {
-  v8 = result;
-  v9 = *(*(result + 1088) + 160) + 16 * *(*(*(result + 1088) + 152) + 56 * a2 + 44);
-  v10 = *(v9 + 10) + *(v9 + 8);
-  if (v10 > *(result + 656))
+  v2 = result;
+  v3 = *(*(result + 1088) + 160) + 16 * *(*(*(result + 1088) + 152) + 56 * a2 + 44);
+  v4 = *(v3 + 8);
+  v5 = *(v3 + 10);
+  v6 = v5 + v4;
+  v7 = *(result + 656);
+  if (v5 + v4 > v7)
   {
-    result = log_OutPublic(*(*(result + 16) + 32), "PSOLA", 45000, "%s%u%s%u%s%u", a5, a6, a7, a8, "index");
-    v10 = *(v8 + 656);
+    result = log_OutPublic(*(*(result + 16) + 32), "PSOLA", 45000, "%s%u%s%u%s%u", "index", v4, "count", v5, "total", v7);
+    v6 = *(v2 + 656);
   }
 
-  v11 = *(v8 + 1080);
-  if (v10 > v11)
+  v8 = *(v2 + 1080);
+  if (v6 > v8)
   {
-    v12 = *(v8 + 1028);
-    v13 = (*(v8 + 648) + 32 * v11 + 16);
-    v14 = v10 - v11;
+    v9 = *(v2 + 1028);
+    v10 = (*(v2 + 648) + 32 * v8 + 16);
+    v11 = v6 - v8;
     do
     {
-      *(v13 - 1) = v12;
-      *v13 = 0;
-      v13 += 8;
-      --v14;
+      *(v10 - 1) = v9;
+      *v10 = 0;
+      v10 += 8;
+      --v11;
     }
 
-    while (v14);
-    *(v8 + 1080) = v10;
-    *(v9 + 10) = 0;
+    while (v11);
+    *(v2 + 1080) = v6;
+    *(v3 + 10) = 0;
   }
 
   return result;
 }
 
-void Psola_AddToOlaBuf(uint64_t a1, int *a2, uint64_t a3, int a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void Psola_AddToOlaBuf(uint64_t result, int *a2, uint64_t a3, int a4, int a5)
 {
   if (*a2 <= a5)
   {
-    v19 = v8;
-    v20 = v9;
-    v10 = a5;
-    v11 = a4;
+    v16 = v5;
+    v17 = v6;
+    v7 = a5;
+    v8 = a4;
     if (a4 < 1)
     {
-      Psola_AddToOlaBufAux(a1, a2, v18, 0, 0, a5, a7, a8);
+      Psola_AddToOlaBufAux(result, a2, v15, 0, 0, a5);
     }
 
     else
     {
-      v15 = 0;
+      v12 = 0;
       do
       {
-        if (v11 >= 0x960)
+        if (v8 >= 0x960)
         {
-          v16 = 2400;
+          v13 = 2400;
         }
 
         else
         {
-          v16 = v11;
+          v13 = v8;
         }
 
-        Psola_AddToOlaBufAux(a1, a2, a3, v15, v16, v10, a7, a8);
-        v15 = (v16 + v15);
-        v10 = (v10 + v16);
-        v17 = __OFSUB__(v11, v16);
-        v11 -= v16;
+        Psola_AddToOlaBufAux(result, a2, a3, v12, v13, v7);
+        v12 += v13;
+        v7 += v13;
+        v14 = __OFSUB__(v8, v13);
+        v8 -= v13;
       }
 
-      while (!((v11 < 0) ^ v17 | (v11 == 0)));
+      while (!((v8 < 0) ^ v14 | (v8 == 0)));
     }
   }
 }
 
-void Psola_AddToOlaBufAux(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void Psola_AddToOlaBufAux(uint64_t a1, int *a2, uint64_t a3, int a4, int a5, int a6)
 {
-  v8 = a6;
-  v9 = a5;
-  v10 = a4;
-  v13 = a6 + a5;
-  v14 = a6 + a5 - 2400;
-  v15 = *a2;
-  if (v14 > *a2)
+  v11 = a6 + a5;
+  v12 = a6 + a5 - 2400;
+  v13 = *a2;
+  if (v12 > *a2)
   {
-    Psola_FlushOlaBufPart(a1, a2, v14, a4, a5, a6, a7, a8);
-    v15 = *a2;
+    Psola_FlushOlaBufPart(a1, a2, v12);
+    v13 = *a2;
   }
 
-  v16 = (v8 - v15 + a2[1]) % 2400;
-  if (2400 - v16 >= v9)
+  v14 = (a6 - v13 + a2[1]) % 2400;
+  if (2400 - v14 >= a5)
   {
-    v17 = v9;
+    v15 = a5;
   }
 
   else
   {
-    v17 = 2400 - v16;
+    v15 = 2400 - v14;
   }
 
-  v18 = v9 - v17;
-  if (v17 >= 1)
+  v16 = a5 - v15;
+  if (v15 >= 1)
   {
-    v19 = a2 + v16 + 6;
-    v20 = (a3 + 2 * v10);
-    v21 = v17;
+    v17 = a2 + v14 + 6;
+    v18 = (a3 + 2 * a4);
+    v19 = v15;
     do
     {
-      v22 = *v20++;
-      *v19++ += v22;
-      --v21;
+      v20 = *v18++;
+      *v17++ += v20;
+      --v19;
     }
 
-    while (v21);
+    while (v19);
   }
 
-  if (v18 >= 1)
+  if (v16 >= 1)
   {
-    v23 = v17 + v10;
-    v24 = a2 + 3;
-    v25 = (a3 + 2 * v23);
+    v21 = v15 + a4;
+    v22 = a2 + 3;
+    v23 = (a3 + 2 * v21);
     do
     {
-      v26 = *v25++;
-      *v24++ += v26;
-      --v18;
+      v24 = *v23++;
+      *v22 += v24;
+      v22 = (v22 + 2);
+      --v16;
     }
 
-    while (v18);
+    while (v16);
   }
 
-  v27 = v13 - v15;
-  if (a2[2] > v27)
+  v25 = v11 - v13;
+  if (a2[2] > v25)
   {
-    v27 = a2[2];
+    v25 = a2[2];
   }
 
-  a2[2] = v27;
+  a2[2] = v25;
 }
 
-uint64_t Psola_CopyDataPart(uint64_t *a1, uint64_t a2, int a3, unsigned int a4, uint64_t *a5)
+uint64_t Psola_CopyDataPart(uint64_t *a1, uint64_t a2, int a3, unsigned int a4, void **a5)
 {
   v8 = a4;
   v9 = Psola_ReallocIfNeeded(a1, a5, a4);
@@ -8489,7 +8487,7 @@ uint64_t Psola_CopyDataPart(uint64_t *a1, uint64_t a2, int a3, unsigned int a4, 
   return v9;
 }
 
-__int16 *Psola_ApplyHanning(__int16 *result, int *a2, __int16 *a3, int a4, int a5)
+__int16 *Psola_ApplyHanning(__int16 *result, unsigned int *a2, __int16 *a3, unsigned int a4, int a5)
 {
   if (*a2 != a4)
   {
@@ -9556,15 +9554,15 @@ uint64_t synth_ResetParams(uint64_t a1)
   {
     if ((*(a1 + 1152) & 1) == 0 || (result = (*(*(a1 + 1000) + 48))(*(a1 + 1008)), (result & 0x80000000) == 0))
     {
-      result = paramc_ParamSetInt(*(*(a1 + 16) + 40), "waitfactor", 2u);
+      result = paramc_ParamSetInt(*(*(a1 + 16) + 40), "waitfactor", 2);
       if ((result & 0x80000000) == 0 && (*(a1 + 1152) & 2) != 0)
       {
-        result = paramc_ParamSetUInt(*(*(a1 + 16) + 40), "rate", 0x64u);
+        result = paramc_ParamSetUInt(*(*(a1 + 16) + 40), "rate", 100);
         if ((result & 0x80000000) == 0)
         {
           v3 = *(*(a1 + 16) + 40);
 
-          return paramc_ParamSetUInt(v3, "pitch", 0x64u);
+          return paramc_ParamSetUInt(v3, "pitch", 100);
         }
       }
     }
@@ -9669,7 +9667,7 @@ uint64_t synth_ObjOpen(uint64_t a1, int a2, _WORD *a3, uint64_t a4, uint64_t a5)
         if ((paramc_ParamGetInt(*(*(v13 + 16) + 40), "waitfactor", &v30) & 0x80000000) != 0)
         {
           *(v13 + 1044) = 2;
-          paramc_ParamSetInt(*(*(v13 + 16) + 40), "waitfactor", 2u);
+          paramc_ParamSetInt(*(*(v13 + 16) + 40), "waitfactor", 2);
         }
 
         else
@@ -9761,7 +9759,7 @@ uint64_t synth_ObjClose(uint64_t a1, int a2)
   return synth_loc_ObjClose(a1, 0);
 }
 
-uint64_t synth_ObjReopen(_WORD **a1, int a2)
+uint64_t synth_ObjReopen(void *a1, int a2)
 {
   v68 = *MEMORY[0x277D85DE8];
   v3 = 2164269066;
@@ -9797,7 +9795,7 @@ uint64_t synth_ObjReopen(_WORD **a1, int a2)
   v46 = 0;
   v44 = 0;
   v4 = a1[2];
-  paramc_ParamSetStr(*(v4 + 5), "voiceaddon", "");
+  paramc_ParamSetStr(*(v4 + 40), "voiceaddon", "");
   BrokerString = synth_CreateBrokerString(a1[2], __src, 0x100uLL, 0, 0);
   if ((BrokerString & 0x80000000) == 0)
   {
@@ -9877,7 +9875,7 @@ LABEL_21:
   }
 
   cstdlib_strcpy(a1 + 672, __src);
-  Int = paramc_ParamGetInt(*(a1[2] + 5), "frequencyhz", a1 + 260);
+  Int = paramc_ParamGetInt(*(a1[2] + 40), "frequencyhz", a1 + 260);
   if ((Int & 0x80000000) != 0)
   {
     return Int;
@@ -9905,24 +9903,24 @@ LABEL_29:
   }
 
   *(a1 + 1152) = 1;
-  if ((paramc_ParamGetStr(*(v4 + 5), "typeofsynthesis", &__s1) & 0x80000000) == 0)
+  if ((paramc_ParamGetStr(*(v4 + 40), "typeofsynthesis", &__s1) & 0x80000000) == 0)
   {
     if (!cstdlib_strcmp(__s1, "psola"))
     {
       *(a1 + 1152) = 2;
     }
 
-    paramc_ParamRelease(*(v4 + 5));
+    paramc_ParamRelease(*(v4 + 40));
   }
 
 LABEL_30:
   if ((a1[144] & 2) != 0)
   {
     v41 = 0;
-    if ((paramc_ParamGetUInt(*(a1[2] + 5), "rate_baseline", &v41 + 1) & 0x80000000) != 0)
+    if ((paramc_ParamGetUInt(*(a1[2] + 40), "rate_baseline", &v41 + 1) & 0x80000000) != 0)
     {
       *(a1 + 264) = 100;
-      paramc_ParamSetUInt(*(a1[2] + 5), "rate_baseline", 0x64u);
+      paramc_ParamSetUInt(*(a1[2] + 40), "rate_baseline", 100);
     }
 
     else
@@ -9930,10 +9928,10 @@ LABEL_30:
       *(a1 + 264) = WORD2(v41);
     }
 
-    if ((paramc_ParamGetUInt(*(a1[2] + 5), "rate", &v41 + 1) & 0x80000000) != 0)
+    if ((paramc_ParamGetUInt(*(a1[2] + 40), "rate", &v41 + 1) & 0x80000000) != 0)
     {
       *(a1 + 526) = 100;
-      paramc_ParamSetUInt(*(a1[2] + 5), "rate", 0x64u);
+      paramc_ParamSetUInt(*(a1[2] + 40), "rate", 100);
       v11 = *(a1 + 526);
     }
 
@@ -9943,11 +9941,11 @@ LABEL_30:
       *(a1 + 526) = WORD2(v41);
     }
 
-    *(a1 + 526) = MapProsodyValue_Scaling(50, 100, 400, *(a1 + 264), v11);
-    if ((paramc_ParamGetUInt(*(a1[2] + 5), "pitch_baseline", &v41) & 0x80000000) != 0)
+    *(a1 + 526) = MapProsodyValue_Scaling(50, 100, 0x190u, *(a1 + 264), v11);
+    if ((paramc_ParamGetUInt(*(a1[2] + 40), "pitch_baseline", &v41) & 0x80000000) != 0)
     {
       *(a1 + 265) = 100;
-      paramc_ParamSetUInt(*(a1[2] + 5), "pitch_baseline", 0x64u);
+      paramc_ParamSetUInt(*(a1[2] + 40), "pitch_baseline", 100);
     }
 
     else
@@ -9955,10 +9953,10 @@ LABEL_30:
       *(a1 + 265) = v41;
     }
 
-    if ((paramc_ParamGetUInt(*(a1[2] + 5), "pitch", &v41) & 0x80000000) != 0)
+    if ((paramc_ParamGetUInt(*(a1[2] + 40), "pitch", &v41) & 0x80000000) != 0)
     {
       *(a1 + 527) = 100;
-      paramc_ParamSetUInt(*(a1[2] + 5), "pitch", 0x64u);
+      paramc_ParamSetUInt(*(a1[2] + 40), "pitch", 100);
       v12 = *(a1 + 527);
     }
 
@@ -9968,8 +9966,8 @@ LABEL_30:
       *(a1 + 527) = v41;
     }
 
-    *(a1 + 527) = MapProsodyValue_Scaling(50, 100, 200, *(a1 + 265), v12);
-    v13 = *(a1[2] + 5);
+    *(a1 + 527) = MapProsodyValue_Scaling(50, 100, 0xC8u, *(a1 + 265), v12);
+    v13 = *(a1[2] + 40);
     v39 = *(a1 + 60);
     v40 = a1[122];
     Int = paramc_ListenerAdd(v13, "rate_baseline", &v39);
@@ -9978,7 +9976,7 @@ LABEL_30:
       return Int;
     }
 
-    v14 = *(a1[2] + 5);
+    v14 = *(a1[2] + 40);
     v39 = *(a1 + 60);
     v40 = a1[122];
     Int = paramc_ListenerAdd(v14, "rate", &v39);
@@ -9989,7 +9987,7 @@ LABEL_30:
 
     if (a1[126])
     {
-      (*(a1[125] + 5))();
+      (*(a1[125] + 40))();
       a1[126] = 0;
     }
   }
@@ -9999,10 +9997,10 @@ LABEL_30:
     Int = tsm_GetInterface(1u, a1 + 125);
     if ((Int & 0x80000000) == 0)
     {
-      v10 = *(a1[123] + 7);
+      v10 = *(a1[123] + 56);
       *&v39 = a1[124];
       *(&v39 + 1) = v10;
-      Int = (*(a1[125] + 4))(*a1, a1[1], &v39, a1 + 126);
+      Int = (*(a1[125] + 32))(*a1, a1[1], &v39, a1 + 126);
       if ((Int & 0x80000000) != 0)
       {
         a1[126] = 0;
@@ -10018,29 +10016,29 @@ LABEL_30:
 LABEL_52:
   synth_Wsola__Wsola(a1);
   v15 = a1[136];
-  v16 = *(v15 + 3);
-  v17 = heap_Alloc(*(v4 + 1), 4 * v16);
+  v16 = *(v15 + 12);
+  v17 = heap_Alloc(*(v4 + 8), 4 * v16);
   a1[138] = v17;
   if (v17)
   {
-    Synth__SetVectPointer(v17, *(v15 + 6), v16);
-    v18 = *(v15 + 3);
-    v19 = heap_Alloc(*(v4 + 1), 4 * v18);
+    Synth__SetVectPointer(v17, *(v15 + 48), v16);
+    v18 = *(v15 + 12);
+    v19 = heap_Alloc(*(v4 + 8), 4 * v18);
     a1[139] = v19;
     if (v19)
     {
-      Synth__SetVectPointer(v19, *(v15 + 8), v18);
-      v20 = (*(v15 + 2) + *(v15 + 3));
-      v21 = heap_Alloc(*(v4 + 1), 4 * v20);
+      Synth__SetVectPointer(v19, *(v15 + 64), v18);
+      v20 = (*(v15 + 8) + *(v15 + 12));
+      v21 = heap_Alloc(*(v4 + 8), 4 * v20);
       a1[140] = v21;
       if (v21)
       {
-        Synth__SetVectPointer(v21, *(v15 + 9), v20);
-        v22 = heap_Alloc(*(v4 + 1), 2 * *(v15 + 3));
+        Synth__SetVectPointer(v21, *(v15 + 72), v20);
+        v22 = heap_Alloc(*(v4 + 8), 2 * *(v15 + 12));
         a1[142] = v22;
         if (v22)
         {
-          *(v15 + 5) = v22;
+          *(v15 + 40) = v22;
           synth_SetWaitPeriod(a1, *(a1 + 522));
           Int = synth_GetDataHandles(a1, __src, &v46, &v45, &v44);
           if ((Int & 0x80000000) != 0)
@@ -10049,7 +10047,7 @@ LABEL_52:
           }
 
           *(a1 + 232) = 1;
-          v23 = heap_Calloc(*(v4 + 1), 1, 40);
+          v23 = heap_Calloc(*(v4 + 8), 1, 40);
           a1[117] = v23;
           if (v23)
           {
@@ -10059,17 +10057,17 @@ LABEL_52:
             *(v25 + 8) = v24;
             *(v25 + 16) = v44;
             *(v25 + 24) = 0;
-            v26 = heap_Calloc(*(v4 + 1), 1, 1);
-            *&a1[117][20 * (*(a1 + 232) - 1) + 16] = v26;
+            v26 = heap_Calloc(*(v4 + 8), 1, 1);
+            *(a1[117] + 40 * (*(a1 + 232) - 1) + 32) = v26;
             if (v26)
             {
-              Int = paramc_ParamGetStr(*(v4 + 5), "voice", &v50);
+              Int = paramc_ParamGetStr(*(v4 + 40), "voice", &v50);
               if ((Int & 0x80000000) != 0)
               {
                 return Int;
               }
 
-              if ((paramc_ParamGetStr(*(v4 + 5), "voiceoperatingpoint", &__s) & 0x80000000) != 0)
+              if ((paramc_ParamGetStr(*(v4 + 40), "voiceoperatingpoint", &__s) & 0x80000000) != 0)
               {
                 v27 = 0;
               }
@@ -10079,7 +10077,7 @@ LABEL_52:
                 v27 = cstdlib_strlen(__s) + 1;
               }
 
-              if ((paramc_ParamGetStr(*(v4 + 5), "vopversion", &__s2) & 0x80000000) != 0 || !cstdlib_strcmp(__s2, "0.0.0"))
+              if ((paramc_ParamGetStr(*(v4 + 40), "vopversion", &__s2) & 0x80000000) != 0 || !cstdlib_strcmp(__s2, "0.0.0"))
               {
                 v28 = 0;
               }
@@ -10089,7 +10087,7 @@ LABEL_52:
                 v28 = cstdlib_strlen(__s2) + 1;
               }
 
-              v29 = *(v4 + 1);
+              v29 = *(v4 + 8);
               v30 = cstdlib_strlen(v50);
               v31 = heap_Calloc(v29, 1, (v27 + v28 + v30 + 14));
               a1[118] = v31;
@@ -10123,14 +10121,14 @@ LABEL_52:
                   cstdlib_strcat(a1[118], __s2);
                 }
 
-                paramc_ParamRelease(*(v4 + 5));
-                if ((paramc_ParamGetStr(*(v4 + 5), a1[118], &v49) & 0x80000000) == 0 || (Int = paramc_ParamSetStr(*(v4 + 5), a1[118], ""), (Int & 0x80000000) == 0) && (Int = paramc_ParamGetStr(*(v4 + 5), a1[118], &v49), (Int & 0x80000000) == 0))
+                paramc_ParamRelease(*(v4 + 40));
+                if ((paramc_ParamGetStr(*(v4 + 40), a1[118], &v49) & 0x80000000) == 0 || (Int = paramc_ParamSetStr(*(v4 + 40), a1[118], ""), (Int & 0x80000000) == 0) && (Int = paramc_ParamGetStr(*(v4 + 40), a1[118], &v49), (Int & 0x80000000) == 0))
                 {
                   Int = synth_UpdateAddons(a1, v49);
                   if ((Int & 0x80000000) == 0)
                   {
-                    paramc_ParamRelease(*(v4 + 5));
-                    v36 = *(v4 + 5);
+                    paramc_ParamRelease(*(v4 + 40));
+                    v36 = *(v4 + 40);
                     v37 = a1[118];
                     v39 = *(a1 + 60);
                     v40 = a1[122];

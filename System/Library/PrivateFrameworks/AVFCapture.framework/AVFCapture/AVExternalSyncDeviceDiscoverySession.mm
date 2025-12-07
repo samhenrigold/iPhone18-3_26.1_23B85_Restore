@@ -25,7 +25,7 @@
   return isSupported_sIsSupported_0;
 }
 
-uint64_t __51__AVExternalSyncDeviceDiscoverySession_isSupported__block_invoke()
+void *__51__AVExternalSyncDeviceDiscoverySession_isSupported__block_invoke()
 {
   result = AVGestaltGetBoolAnswer(@"AVGQVYXTSFZ3R7TURIB5WPPITDPJLY");
   isSupported_sIsSupported_0 = result;
@@ -53,9 +53,9 @@ AVExternalSyncDeviceDiscoverySession *__53__AVExternalSyncDeviceDiscoverySession
 {
   if (+[AVExternalSyncDeviceDiscoverySession isSupported])
   {
-    v6.receiver = self;
-    v6.super_class = AVExternalSyncDeviceDiscoverySession;
-    v3 = [(AVExternalSyncDeviceDiscoverySession *)&v6 init];
+    v7.receiver = self;
+    v7.super_class = AVExternalSyncDeviceDiscoverySession;
+    v3 = [(AVExternalSyncDeviceDiscoverySession *)&v7 init];
     if (v3)
     {
       v3->_devices = objc_alloc_init(MEMORY[0x1E695DF70]);
@@ -70,7 +70,7 @@ AVExternalSyncDeviceDiscoverySession *__53__AVExternalSyncDeviceDiscoverySession
   else
   {
     v4 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v4, v5))
     {
       objc_exception_throw(v4);
     }
@@ -282,8 +282,8 @@ void __58__AVExternalSyncDeviceDiscoverySession_setupNotifications__block_invoke
 {
   if (AVExternalSyncDeviceDiscoverySessionUsbConnectedChangedContext == context)
   {
-    v8 = [objc_msgSend(change objectForKeyedSubscript:{*MEMORY[0x1E696A500], object), "BOOLValue"}];
-    if (v8 != [objc_msgSend(change objectForKeyedSubscript:{*MEMORY[0x1E696A4F0]), "BOOLValue"}])
+    v8 = [objc_msgSend_objectForKeyedSubscript_(change a2];
+    if (v8 != [objc_msgSend_objectForKeyedSubscript_(change) BOOLValue])
     {
       [(AVExternalSyncDeviceDiscoverySession *)self willChangeValueForKey:@"devices"];
 

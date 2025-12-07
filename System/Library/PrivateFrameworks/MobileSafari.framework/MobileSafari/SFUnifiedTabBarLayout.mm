@@ -542,150 +542,107 @@ void __69__SFUnifiedTabBarLayout_enumerateLayoutForItemsAtIndexes_usingBlock___b
 {
   v13 = a2;
   [*(a1 + 32) _cornerRadiiForItem:v13];
-  v15 = v14;
-  v17 = v16;
   [*(*(a1 + 32) + 8) bounds];
-  v106.origin.x = v18;
-  v106.origin.y = v19;
-  v106.size.width = v20;
-  v106.size.height = v21;
-  v105.origin.x = a4;
-  v105.origin.y = a5;
-  v105.size.width = a6;
-  v105.size.height = a7;
-  v22 = CGRectIntersectsRect(v105, v106);
-  v23 = _SFFlipRectInCoordinateSpace(*(*(a1 + 32) + 16), a4, a5, a6, a7, *(a1 + 48), *(a1 + 56), *(a1 + 64), *(a1 + 72));
-  v25 = v24;
-  v27 = v26;
-  v29 = v28;
+  v70.origin.x = v14;
+  v70.origin.y = v15;
+  v70.size.width = v16;
+  v70.size.height = v17;
+  v69.origin.x = a4;
+  v69.origin.y = a5;
+  v69.size.width = a6;
+  v69.size.height = a7;
+  CGRectIntersectsRect(v69, v70);
+  v18 = _SFFlipRectInCoordinateSpace(*(*(a1 + 32) + 16), a4, a5, a6, a7, *(a1 + 48), *(a1 + 56), *(a1 + 64), *(a1 + 72));
+  v20 = v19;
+  v22 = v21;
+  v24 = v23;
   [*(a1 + 32) _zPositionForItem:v13];
-  v31 = v30;
-  v32 = [*(a1 + 32) _visibleSeparatorEdgesForItemAtIndex:a3];
+  [*(a1 + 32) _visibleSeparatorEdgesForItemAtIndex:a3];
   [*(a1 + 32) _separatorOutset];
-  v34 = v33;
-  v35 = *(a1 + 32);
-  if (v35[200])
+  v25 = *(a1 + 32);
+  if (v25[200])
   {
-    [v35 _slideFrame:a3 forItemAtIndex:v23 pinnedActiveItemOffset:{v25, v27, v29, *(a1 + 80)}];
-    v23 = v36;
-    v25 = v37;
-    v27 = v38;
-    v29 = v39;
-    v35 = *(a1 + 32);
+    [v25 _slideFrame:a3 forItemAtIndex:v18 pinnedActiveItemOffset:{v20, v22, v24, *(a1 + 80)}];
+    v25 = *(a1 + 32);
   }
 
-  *v83 = v23;
-  *&v83[1] = v25;
-  *&v83[2] = v27;
-  *&v83[3] = v29;
   __asm { FMOV            V0.2D, #1.0 }
 
-  v84 = _Q0;
-  v85 = v31;
-  v86 = v22;
-  *v88 = 0;
-  v87 = 0;
-  *&v88[7] = 0;
-  *&v88[15] = 0x3FF0000000000000;
-  *&v88[23] = v15;
-  *&v88[31] = v17;
-  *&v88[39] = 0;
-  *&v88[47] = v32;
-  *&v88[55] = v34;
-  *&v88[63] = 0x3FF0000000000000;
-  [v35 _scrollSlowingLayoutInfoForItemAtIndex:a3 withLayoutInfo:v83 activeItemFrame:{*(a1 + 88), *(a1 + 96), *(a1 + 104), *(a1 + 112)}];
-  v45 = v89;
-  v46 = v90;
-  v47 = v91;
-  v48 = v92;
-  v50 = v93;
-  v49 = v94;
-  v51 = v95;
-  v52 = v96;
-  v53 = v98;
-  v81 = v100;
-  v82 = v99;
-  v54 = v101;
-  v55 = v102;
-  v79 = v104;
-  v80 = v103;
-  v56 = *(a1 + 32);
-  *(v83 + 3) = *&v97[3];
-  LODWORD(v83[0]) = *v97;
-  v57 = [*(v56 + 232) activeItem];
-  v58 = v57;
-  if (v57 == v13)
+  objc_msgSend__scrollSlowingLayoutInfoForItemAtIndex_withLayoutInfo_activeItemFrame_(v25, *(a1 + 88), *(a1 + 96), *(a1 + 104), *(a1 + 112));
+  v31 = v61;
+  v32 = v62;
+  v33 = v63;
+  v34 = v64;
+  v36 = v65;
+  v35 = v66;
+  v37 = v68;
+  v60 = v67;
+  LOBYTE(v60) = v67;
+  v38 = [*(*(a1 + 32) + 232) activeItem];
+  v39 = v38;
+  if (v38 == v13)
   {
-    v60 = [*(*(a1 + 32) + 232) revealsSquishedActiveItem];
+    v41 = [*(*(a1 + 32) + 232) revealsSquishedActiveItem];
 
-    v59 = *(a1 + 32);
-    if ((v60 & 1) == 0)
+    v40 = *(a1 + 32);
+    if ((v41 & 1) == 0)
     {
-      v53 = *(v59 + 104) - *(v59 + 120);
+      v37 = *(v40 + 104) - *(v40 + 120);
     }
   }
 
   else
   {
 
-    v59 = *(a1 + 32);
+    v40 = *(a1 + 32);
   }
 
-  v61 = [*(v59 + 232) activeItemIsExpanded];
-  v62 = *(a1 + 32);
-  if (v61 && (*(v62 + 224) & 1) == 0 && (*(v62 + 200) & 1) == 0)
+  v42 = [*(v40 + 232) activeItemIsExpanded];
+  v43 = *(a1 + 32);
+  if (v42 && (*(v43 + 224) & 1) == 0 && (*(v43 + 200) & 1) == 0)
   {
-    v63 = [*(v62 + 232) activeItem];
+    v44 = [*(v43 + 232) activeItem];
 
-    v62 = *(a1 + 32);
-    if (v63 == v13)
+    v43 = *(a1 + 32);
+    if (v44 == v13)
     {
-      [v62 _safeArea];
-      v45 = v64;
-      v46 = v65;
-      v47 = v66;
-      v48 = v67;
-      v62 = *(a1 + 32);
+      [v43 _safeArea];
+      v31 = v45;
+      v32 = v46;
+      v33 = v47;
+      v34 = v48;
+      v43 = *(a1 + 32);
     }
 
     else
     {
-      v49 = v49 * *(v62 + 168);
-      v50 = 0.0;
+      v35 = v66 * *(v43 + 168);
+      v36 = 0.0;
     }
   }
 
-  v68 = _SFFlipRectInCoordinateSpace(*(v62 + 16), v45, v46, v47, v48, *(a1 + 48), *(a1 + 56), *(a1 + 64), *(a1 + 72));
-  v70 = v69;
-  v72 = v71;
-  v74 = v73;
-  v75 = [v13 isDragging];
-  v76 = *(a1 + 40);
-  v77 = *(v76 + 16);
-  v78 = v50 * 0.5;
-  if (!v75)
+  v49 = _SFFlipRectInCoordinateSpace(*(v43 + 16), v31, v32, v33, v34, *(a1 + 48), *(a1 + 56), *(a1 + 64), *(a1 + 72));
+  v51 = v50;
+  v53 = v52;
+  v55 = v54;
+  v56 = [v13 isDragging];
+  v57 = *(a1 + 40);
+  v58 = *(v57 + 16);
+  v59 = v36 * 0.5;
+  if (!v56)
   {
-    v78 = v50;
+    v59 = v36;
   }
 
-  v89 = v68;
-  v90 = v70;
-  v91 = v72;
-  v92 = v74;
-  v93 = v78;
-  v94 = v49;
-  v95 = v51;
-  v96 = v52;
-  *v97 = v83[0];
-  *&v97[3] = *(v83 + 3);
-  v98 = v53;
-  v100 = v81;
-  v99 = v82;
-  v101 = v54;
-  v102 = v55;
-  v103 = v80;
-  v104 = v79;
-  v77(v76, v13, a3, &v89);
+  v61 = v49;
+  v62 = v51;
+  v63 = v53;
+  v64 = v55;
+  v65 = v59;
+  v66 = v35;
+  v67 = v60;
+  v68 = v37;
+  v58(v57, v13, a3, &v61);
 }
 
 - (void)enumerateInitialLayoutForAppearingItemsAtIndexes:(id)indexes withTransitionInfo:(id)info usingBlock:(id)block
@@ -719,7 +676,7 @@ void __69__SFUnifiedTabBarLayout_enumerateLayoutForItemsAtIndexes_usingBlock___b
   [(SFUnifiedTabBarLayout *)self _enumerateFramesForItemsAtIndexes:v19 pinActiveItem:0 usingBlock:v20];
 }
 
-void __104__SFUnifiedTabBarLayout_enumerateInitialLayoutForAppearingItemsAtIndexes_withTransitionInfo_usingBlock___block_invoke(uint64_t a1, void *a2, uint64_t a3, double a4, CGFloat a5, CGFloat a6, CGFloat a7)
+void __104__SFUnifiedTabBarLayout_enumerateInitialLayoutForAppearingItemsAtIndexes_withTransitionInfo_usingBlock___block_invoke(uint64_t a1, void *a2, _BYTE *a3, double a4, CGFloat a5, CGFloat a6, CGFloat a7)
 {
   v13 = a2;
   v14 = a4 - *(a1 + 64);
@@ -763,7 +720,7 @@ void __104__SFUnifiedTabBarLayout_enumerateInitialLayoutForAppearingItemsAtIndex
       if ((v28 & 1) == 0)
       {
         v29 = [*(v26 + 232) items];
-        if ([v29 count] - 1 == a3)
+        if (([v29 count] - 1) == a3)
         {
           v30 = [*(a1 + 40) count];
 
@@ -1201,18 +1158,18 @@ LABEL_6:
   y = a6.origin.y;
   x = a6.origin.x;
   result = [(SFUnifiedTabBarLayout *)self _itemAtIndexIsPinned:?];
-  if (result || (result = [(SFUnifiedTabBarItemArrangement *)self->_itemArrangement activeItemIndex], result == info) || ((v69 = 0u, v70 = 0u, v71.origin.x = x, v71.origin.y = y, v71.size.width = width, v71.size.height = height, [(SFUnifiedTabBarLayout *)self _scrollSlowingInfoForItemAtIndex:info activeItemWidth:CGRectGetWidth(v71)], [(SFUnifiedTabBarLayout *)self _unpinnedItemSafeArea], v16 = v15, v18 = v17 + 0.0, v20 = v19 + 0.0, v22 = v21 - (0.0 + 0.0), v24 = frame->var0.origin.x, v23 = frame->var0.origin.y, v72.size.width = frame->var0.size.width, v25 = frame->var0.size.height, v68 = v72.size.width, v72.origin.x = frame->var0.origin.x, v72.origin.y = v23, v72.size.height = v25, MinX = CGRectGetMinX(v72), v73.origin.x = v18, v73.origin.y = v20, v73.size.width = v22, v73.size.height = v16, v67 = MinX - CGRectGetMinX(v73), v74.origin.x = v18, v74.origin.y = v20, v74.size.width = v22, v74.size.height = v16, MaxX = CGRectGetMaxX(v74), v66 = v24, v75.origin.x = v24, v75.origin.y = v23, v75.size.width = v68, v75.size.height = v25, v28 = MaxX - CGRectGetMaxX(v75), v67 >= v28) ? (v29 = &v70) : (v29 = &v69), v67 >= v28 ? (v30 = v28) : (v30 = v67), v31 = self->_scrollSlowingInset, v30 >= v31))
+  if (result || (result = [(SFUnifiedTabBarItemArrangement *)self->_itemArrangement activeItemIndex], result == info) || ((v70 = 0u, v71 = 0u, v72.origin.x = x, v72.origin.y = y, v72.size.width = width, v72.size.height = height, v15 = CGRectGetWidth(v72), objc_msgSend__scrollSlowingInfoForItemAtIndex_activeItemWidth_(self, v15), [(SFUnifiedTabBarLayout *)self _unpinnedItemSafeArea], v17 = v16, v19 = v18 + 0.0, v21 = v20 + 0.0, v23 = v22 - (0.0 + 0.0), v25 = frame->var0.origin.x, v24 = frame->var0.origin.y, v73.size.width = frame->var0.size.width, v26 = frame->var0.size.height, v69 = v73.size.width, v73.origin.x = frame->var0.origin.x, v73.origin.y = v24, v73.size.height = v26, MinX = CGRectGetMinX(v73), v74.origin.x = v19, v74.origin.y = v21, v74.size.width = v23, v74.size.height = v17, v68 = MinX - CGRectGetMinX(v74), v75.origin.x = v19, v75.origin.y = v21, v75.size.width = v23, v75.size.height = v17, MaxX = CGRectGetMaxX(v75), v67 = v25, v76.origin.x = v25, v76.origin.y = v24, v76.size.width = v69, v76.size.height = v26, v29 = MaxX - CGRectGetMaxX(v76), v68 >= v29) ? (v30 = &v71) : (v30 = &v70), v68 >= v29 ? (v31 = v29) : (v31 = v68), v32 = self->_scrollSlowingInset, v31 >= v32))
   {
-    v39 = *&frame->var11;
+    v40 = *&frame->var11;
     *&retstr->var9.var1 = *&frame->var9.var1;
-    *&retstr->var11 = v39;
+    *&retstr->var11 = v40;
     retstr->var13 = frame->var13;
-    v40 = *&frame->var3;
+    v41 = *&frame->var3;
     *&retstr->var1 = *&frame->var1;
-    *&retstr->var3 = v40;
-    v41 = *&frame->var8;
+    *&retstr->var3 = v41;
+    v42 = *&frame->var8;
     *&retstr->var6 = *&frame->var6;
-    *&retstr->var8 = v41;
+    *&retstr->var8 = v42;
     size = frame->var0.size;
     retstr->var0.origin = frame->var0.origin;
     retstr->var0.size = size;
@@ -1220,96 +1177,96 @@ LABEL_6:
 
   else
   {
-    v32 = *v29;
-    v33 = _SFUninterpolate(v30, v31, v31 * -0.570796327);
-    v34 = 1.0;
-    if (v32 == 1)
+    v33 = *v30;
+    v34 = _SFUninterpolate(v31, v32, v32 * -0.570796327);
+    v35 = 1.0;
+    if (v33 == 1)
     {
-      v35 = _SFUninterpolate(v33, 1.0, 1.57079633);
-      v34 = _SFInterpolate(1.0, 0.3, fmax(fmin(v35, 1.0), 0.0));
+      v36 = _SFUninterpolate(v34, 1.0, 1.57079633);
+      v35 = _SFInterpolate(1.0, 0.3, fmax(fmin(v36, 1.0), 0.0));
     }
 
-    v65 = v34;
-    v36 = CGRectGetHeight(frame->var0) * 0.5;
-    if (v32 == 1 && v33 < 1.0)
+    v66 = v35;
+    v37 = CGRectGetHeight(frame->var0) * 0.5;
+    if (v33 == 1 && v34 < 1.0)
     {
       scrollSlowingInset = self->_scrollSlowingInset;
-      v44 = sin(v33 * 1.57079633);
-      v45 = scrollSlowingInset - v30 - v44 * scrollSlowingInset;
-      v46 = v36 - scrollSlowingInset * (1.0 - v44);
-      v38 = v45;
-      v47 = fmax(v46, 0.0);
-      v36 = v36 - sqrt(v36 * v36 - v47 * v47);
+      v45 = sin(v34 * 1.57079633);
+      v46 = scrollSlowingInset - v31 - v45 * scrollSlowingInset;
+      v47 = v37 - scrollSlowingInset * (1.0 - v45);
+      v39 = v46;
+      v48 = fmax(v47, 0.0);
+      v37 = v37 - sqrt(v37 * v37 - v48 * v48);
     }
 
     else
     {
-      if (v30 < 0.0)
+      if (v31 < 0.0)
       {
-        v38 = -v30;
+        v39 = -v31;
       }
 
       else
       {
-        v38 = 0.0;
+        v39 = 0.0;
       }
 
-      if (v30 >= 0.0)
+      if (v31 >= 0.0)
       {
-        v36 = -1.79769313e308;
+        v37 = -1.79769313e308;
       }
     }
 
-    if (v67 >= v28)
+    if (v68 >= v29)
     {
-      v48 = v66 - v38;
-      v50 = -1.0 - info;
-      v51 = 8;
+      v49 = v67 - v39;
+      v51 = -1.0 - info;
+      v52 = 8;
     }
 
     else
     {
-      v48 = v66 + v38;
+      v49 = v67 + v39;
       items = [(SFUnifiedTabBarItemArrangement *)self->_itemArrangement items];
-      v50 = -([items count] - info);
+      v51 = -([items count] - info);
 
-      v51 = 2;
+      v52 = 2;
     }
 
-    v52 = _SFUninterpolate(0.4, 1.0, v33);
-    v53 = _SFInterpolate(1.0, 3.0, fmax(fmin(v52, 1.0), 0.0));
-    v54 = *&frame->var11;
+    v53 = _SFUninterpolate(0.4, 1.0, v34);
+    v54 = _SFInterpolate(1.0, 3.0, fmax(fmin(v53, 1.0), 0.0));
+    v55 = *&frame->var11;
     *&retstr->var9.var1 = *&frame->var9.var1;
-    *&retstr->var11 = v54;
+    *&retstr->var11 = v55;
     retstr->var13 = frame->var13;
-    v55 = *&frame->var3;
+    v56 = *&frame->var3;
     *&retstr->var1 = *&frame->var1;
-    *&retstr->var3 = v55;
-    v56 = *&frame->var8;
+    *&retstr->var3 = v56;
+    v57 = *&frame->var8;
     *&retstr->var6 = *&frame->var6;
-    *&retstr->var8 = v56;
-    v57 = frame->var0.size;
+    *&retstr->var8 = v57;
+    v58 = frame->var0.size;
     retstr->var0.origin = frame->var0.origin;
-    retstr->var0.size = v57;
-    retstr->var0.origin.x = SFFloorRectToPixels(v48, v23, v68, v25);
-    retstr->var0.origin.y = v58;
-    retstr->var0.size.width = v59;
-    retstr->var0.size.height = v60;
-    retstr->var1 = v65 * retstr->var1;
+    retstr->var0.size = v58;
+    retstr->var0.origin.x = SFFloorRectToPixels(v49, v24, v69, v26);
+    retstr->var0.origin.y = v59;
+    retstr->var0.size.width = v60;
+    retstr->var0.size.height = v61;
+    retstr->var1 = v66 * retstr->var1;
     items2 = [(SFUnifiedTabBarItemArrangement *)self->_itemArrangement items];
-    retstr->var3 = retstr->var3 + v50 / ([items2 count] + 1);
+    retstr->var3 = retstr->var3 + v51 / ([items2 count] + 1);
 
-    v63 = v33 < 1.57079633 || v32 == 0;
-    retstr->var4 = v63;
+    v64 = v34 < 1.57079633 || v33 == 0;
+    retstr->var4 = v64;
     result = [(SFUnifiedTabBarLayout *)self _minimumHorizontalOffsetForOccludedItems];
-    retstr->var5 = v38 >= v64;
-    retstr->var10 = v51;
-    if (v33 > 0.75)
+    retstr->var5 = v39 >= v65;
+    retstr->var10 = v52;
+    if (v34 > 0.75)
     {
       retstr->var11 = 0;
     }
 
-    retstr->var13 = fmax(v53, v36);
+    retstr->var13 = fmax(v54, v37);
   }
 
   return result;
@@ -2573,28 +2530,28 @@ void __53__SFUnifiedTabBarLayout_indexesOfItemsVisibleInRect___block_invoke(uint
 
 - (UIEdgeInsets)_insetsForActiveItemPinnableArea
 {
-  if ([(SFUnifiedTabBarLayout *)self _activeItemIsPinned]|| (v3 = [(SFUnifiedTabBarItemArrangement *)self->_itemArrangement activeItemIndex], v3 == 0x7FFFFFFFFFFFFFFFLL))
+  if ([(SFUnifiedTabBarLayout *)self _activeItemIsPinned]|| [(SFUnifiedTabBarItemArrangement *)self->_itemArrangement activeItemIndex]== 0x7FFFFFFFFFFFFFFFLL)
   {
-    v5 = *MEMORY[0x1E69DDCE0];
-    v4 = *(MEMORY[0x1E69DDCE0] + 8);
-    v6 = *(MEMORY[0x1E69DDCE0] + 16);
-    v7 = *(MEMORY[0x1E69DDCE0] + 24);
+    v4 = *MEMORY[0x1E69DDCE0];
+    v3 = *(MEMORY[0x1E69DDCE0] + 8);
+    v5 = *(MEMORY[0x1E69DDCE0] + 16);
+    v6 = *(MEMORY[0x1E69DDCE0] + 24);
   }
 
   else
   {
-    v5 = 0.0;
-    [(SFUnifiedTabBarLayout *)self _scrollSlowingInfoForItemAtIndex:v3 activeItemWidth:0.0, 0];
     v4 = 0.0;
-    v7 = 0.0;
+    objc_msgSend__scrollSlowingInfoForItemAtIndex_activeItemWidth_(self, 0.0, 0);
+    v3 = 0.0;
     v6 = 0.0;
+    v5 = 0.0;
   }
 
-  v8 = v5;
-  result.right = v7;
-  result.bottom = v6;
-  result.left = v4;
-  result.top = v8;
+  v7 = v4;
+  result.right = v6;
+  result.bottom = v5;
+  result.left = v3;
+  result.top = v7;
   return result;
 }
 
@@ -2625,9 +2582,9 @@ void __53__SFUnifiedTabBarLayout_indexesOfItemsVisibleInRect___block_invoke(uint
   return v7;
 }
 
-uint64_t __49__SFUnifiedTabBarLayout_nonVisibleSectionIndexes__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void *__49__SFUnifiedTabBarLayout_nonVisibleSectionIndexes__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  result = [*(*(a1 + 32) + 184) containsIndex:a5];
+  result = [*(*(a1 + 32) + 184) containsIndex:{a5, a4}];
   if (result)
   {
     v8 = *(a1 + 40);

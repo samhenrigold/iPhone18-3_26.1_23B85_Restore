@@ -16,7 +16,7 @@
 
 - (BOOL)commit
 {
-  v187 = *MEMORY[0x1E69E9840];
+  v186 = *MEMORY[0x1E69E9840];
   if (self->_invalid)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
@@ -24,9 +24,9 @@
   }
 
   v3 = [(MSVSQLDatabaseTransaction *)self statementWithString:@"COMMIT TRANSACTION" error:0];
-  v168 = 0;
-  [(MSVSQLDatabaseTransaction *)self executeStatement:v3 error:&v168];
-  v4 = v168;
+  v167 = 0;
+  [(MSVSQLDatabaseTransaction *)self executeStatement:v3 error:&v167];
+  v4 = v167;
   [v3 invalidate];
   if (!v4)
   {
@@ -49,7 +49,6 @@
       }
 
       v8 = v7;
-      v182 = 0u;
       v181 = 0u;
       v180 = 0u;
       v179 = 0u;
@@ -57,13 +56,14 @@
       v177 = 0u;
       v176 = 0u;
       v175 = 0u;
+      v174 = 0u;
       *buf = xmmword_1AC881C40;
       *&buf[16] = vaddq_s64(vdupq_n_s64(v6), xmmword_1AC881C50);
-      v170 = v6;
-      v171 = v6 + 0x61C8864E7A143579;
+      v169 = v6;
+      v170 = v6 + 0x61C8864E7A143579;
+      v171 = 0u;
       v172 = 0u;
-      v173 = 0u;
-      v174 = 0;
+      v173 = 0;
       v9 = v8;
       uTF8String = [(_MSVSQLConnection *)v9 UTF8String];
       v11 = [(_MSVSQLConnection *)v9 length];
@@ -118,9 +118,9 @@
           goto LABEL_78;
         }
 
-        v13 = HIBYTE(v171);
-        v14 = v171 & 0xFFFFFFFFFFFFFFLL;
-        v15 = HIBYTE(v171) & 7;
+        v13 = HIBYTE(v170);
+        v14 = v170 & 0xFFFFFFFFFFFFFFLL;
+        v15 = HIBYTE(v170) & 7;
         if (v15)
         {
           v16 = 8 - v15;
@@ -163,23 +163,23 @@ LABEL_28:
               v44 = v13 << 56;
             }
 
-            v171 = v44;
+            v170 = v44;
 LABEL_78:
 
-            memset(&v183[8], 0, 64);
-            *v183 = *buf;
+            memset(&v182[8], 0, 64);
+            *v182 = *buf;
             if (*buf > 3000)
             {
               if (*buf <= 4000)
               {
                 if (*buf == 3001)
                 {
-                  *&v183[8] = _MSV_XXH_XXH64_digest(&buf[8]);
+                  *&v182[8] = _MSV_XXH_XXH64_digest(&buf[8]);
                 }
 
                 else if (*buf == 4000)
                 {
-                  CC_MD5_Final(&v183[8], &buf[8]);
+                  CC_MD5_Final(&v182[8], &buf[8]);
                 }
               }
 
@@ -188,13 +188,13 @@ LABEL_78:
                 switch(*buf)
                 {
                   case 0xFA1:
-                    CC_SHA1_Final(&v183[8], &buf[8]);
+                    CC_SHA1_Final(&v182[8], &buf[8]);
                     break;
                   case 0x10A0:
-                    CC_SHA256_Final(&v183[8], &buf[8]);
+                    CC_SHA256_Final(&v182[8], &buf[8]);
                     break;
                   case 0x11A0:
-                    CC_SHA512_Final(&v183[8], &buf[8]);
+                    CC_SHA512_Final(&v182[8], &buf[8]);
                     break;
                 }
               }
@@ -209,13 +209,13 @@ LABEL_78:
                 if (*buf == 1000)
                 {
                   v65 = (*&buf[8] + *&buf[16]) ^ __ROR8__(*&buf[16], 51);
-                  v66 = *&buf[24] + (v170 ^ v171);
-                  v67 = __ROR8__(v170 ^ v171, 48);
+                  v66 = *&buf[24] + (v169 ^ v170);
+                  v67 = __ROR8__(v169 ^ v170, 48);
                   v68 = (v66 ^ v67) + __ROR8__(*&buf[8] + *&buf[16], 32);
                   v69 = v68 ^ __ROR8__(v66 ^ v67, 43);
                   v70 = v66 + v65;
                   v71 = v70 ^ __ROR8__(v65, 47);
-                  v72 = (v68 ^ v171) + v71;
+                  v72 = (v68 ^ v170) + v71;
                   v73 = v72 ^ __ROR8__(v71, 51);
                   v74 = (__ROR8__(v70, 32) ^ 0xFFLL) + v69;
                   v75 = __ROR8__(v69, 48);
@@ -241,8 +241,8 @@ LABEL_78:
                   *&buf[8] = v92;
                   *&buf[16] = v94 ^ __ROR8__(v89, 47);
                   *&buf[24] = __ROR8__(v94, 32);
-                  v170 = v93;
-                  *&v183[8] = *&buf[16] ^ v92 ^ *&buf[24] ^ v93;
+                  v169 = v93;
+                  *&v182[8] = *&buf[16] ^ v92 ^ *&buf[24] ^ v93;
                 }
               }
 
@@ -254,18 +254,18 @@ LABEL_78:
               }
 
 LABEL_115:
-              v184[0] = *v183;
-              v184[1] = *&v183[16];
-              v184[2] = *&v183[32];
-              v184[3] = *&v183[48];
-              v185 = *&v183[64];
-              if (*v183 > 3999)
+              v183[0] = *v182;
+              v183[1] = *&v182[16];
+              v183[2] = *&v182[32];
+              v183[3] = *&v182[48];
+              v184 = *&v182[64];
+              if (*v182 > 3999)
               {
-                if (*v183 > 4255)
+                if (*v182 > 4255)
                 {
-                  if (*v183 == 4256)
+                  if (*v182 == 4256)
                   {
-                    v151 = v184 + 8;
+                    v151 = v183 + 8;
                     v152 = malloc_type_calloc(0x40uLL, 1uLL, 0x100004077774924uLL);
                     v153 = v152;
                     for (i = 0; i != 64; i += 2)
@@ -283,12 +283,12 @@ LABEL_115:
 
                   else
                   {
-                    if (*v183 != 4512)
+                    if (*v182 != 4512)
                     {
                       goto LABEL_167;
                     }
 
-                    v129 = v184 + 8;
+                    v129 = v183 + 8;
                     v130 = malloc_type_calloc(0x80uLL, 1uLL, 0x100004077774924uLL);
                     v131 = v130;
                     for (j = 0; j != 128; j += 2)
@@ -305,9 +305,9 @@ LABEL_115:
                   }
                 }
 
-                else if (*v183 == 4000)
+                else if (*v182 == 4000)
                 {
-                  v141 = v184 + 8;
+                  v141 = v183 + 8;
                   v142 = malloc_type_calloc(0x20uLL, 1uLL, 0x100004077774924uLL);
                   v143 = v142;
                   for (k = 0; k != 32; k += 2)
@@ -325,12 +325,12 @@ LABEL_115:
 
                 else
                 {
-                  if (*v183 != 4001)
+                  if (*v182 != 4001)
                   {
                     goto LABEL_167;
                   }
 
-                  v116 = v184 + 8;
+                  v116 = v183 + 8;
                   v117 = malloc_type_calloc(0x28uLL, 1uLL, 0x100004077774924uLL);
                   v118 = v117;
                   for (m = 0; m != 40; m += 2)
@@ -349,15 +349,15 @@ LABEL_115:
 
               else
               {
-                if (*v183 <= 2999)
+                if (*v182 <= 2999)
                 {
-                  if (*v183 == 1000)
+                  if (*v182 == 1000)
                   {
-                    v135 = *(&v184[0] + 1);
-                    if (*(&v184[0] + 1))
+                    v135 = *(&v183[0] + 1);
+                    if (*(&v183[0] + 1))
                     {
-                      v136 = &v187 + 1;
-                      quot = *(&v184[0] + 1);
+                      v136 = &v186 + 1;
+                      quot = *(&v183[0] + 1);
                       do
                       {
                         v138 = lldiv(quot, 10);
@@ -384,7 +384,7 @@ LABEL_115:
                         v115 = (v136 - 2);
                       }
 
-                      v114 = (&v187 - v115);
+                      v114 = (&v186 - v115);
                       goto LABEL_151;
                     }
 
@@ -393,12 +393,12 @@ LABEL_168:
                     goto LABEL_163;
                   }
 
-                  if (*v183 == 2000)
+                  if (*v182 == 2000)
                   {
-                    v110 = DWORD2(v184[0]);
-                    if (DWORD2(v184[0]))
+                    v110 = DWORD2(v183[0]);
+                    if (DWORD2(v183[0]))
                     {
-                      v111 = &v187;
+                      v111 = &v186;
                       do
                       {
                         v112 = ldiv(v110, 10);
@@ -418,7 +418,7 @@ LABEL_168:
                       }
 
                       while (v112.quot);
-                      v114 = (&v187 - v111);
+                      v114 = (&v186 - v111);
                       v115 = v111;
 LABEL_151:
                       v140 = CFStringCreateWithBytes(0, v115, v114, 0x8000100u, 0);
@@ -452,22 +452,22 @@ LABEL_163:
 
 LABEL_167:
                   currentHandler4 = [MEMORY[0x1E696AAA8] currentHandler];
-                  v165 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString * _Nonnull _MSVHashGetDigest(MSVHash)"];
-                  [currentHandler4 handleFailureInFunction:v165 file:@"MSVHasher+Algorithms.h" lineNumber:356 description:@"Cannot obtain digest from unknown hasher algorithm"];
+                  v164 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString * _Nonnull _MSVHashGetDigest(MSVHash)"];
+                  [currentHandler4 handleFailureInFunction:v164 file:@"MSVHasher+Algorithms.h" lineNumber:356 description:@"Cannot obtain digest from unknown hasher algorithm"];
 
                   v157 = &stru_1F214F018;
                   goto LABEL_163;
                 }
 
-                if (*v183 == 3000)
+                if (*v182 == 3000)
                 {
-                  LODWORD(v186[0]) = bswap32(DWORD2(v184[0]));
+                  LODWORD(v185[0]) = bswap32(DWORD2(v183[0]));
                   v147 = malloc_type_calloc(8uLL, 1uLL, 0x100004077774924uLL);
                   v148 = 0;
                   v149 = v147 + 1;
                   do
                   {
-                    v150 = *(v186 + v148);
+                    v150 = *(v185 + v148);
                     *(v149 - 1) = MSVFastHexStringFromBytes_hexCharacters_4916[v150 >> 4];
                     *v149 = MSVFastHexStringFromBytes_hexCharacters_4916[v150 & 0xF];
                     v149 += 2;
@@ -482,18 +482,18 @@ LABEL_167:
 
                 else
                 {
-                  if (*v183 != 3001)
+                  if (*v182 != 3001)
                   {
                     goto LABEL_167;
                   }
 
-                  v186[0] = bswap64(*(&v184[0] + 1));
+                  v185[0] = bswap64(*(&v183[0] + 1));
                   v125 = malloc_type_calloc(0x10uLL, 1uLL, 0x100004077774924uLL);
                   v126 = 0;
                   v127 = v125 + 1;
                   do
                   {
-                    v128 = *(v186 + v126);
+                    v128 = *(v185 + v126);
                     *(v127 - 1) = MSVFastHexStringFromBytes_hexCharacters_4916[v128 >> 4];
                     *v127 = MSVFastHexStringFromBytes_hexCharacters_4916[v128 & 0xF];
                     v127 += 2;
@@ -518,7 +518,7 @@ LABEL_167:
                 goto LABEL_115;
               }
 
-              v95 = &v170;
+              v95 = &v169;
               if (*&buf[12])
               {
                 v96 = vaddvq_s32(vorrq_s8(vshlq_u32(*&buf[16], xmmword_1AC881C30), vshlq_u32(*&buf[16], xmmword_1AC881C20)));
@@ -530,7 +530,7 @@ LABEL_167:
               }
 
               v100 = *&buf[8] + v96;
-              v101 = v172 & 0xF;
+              v101 = v171 & 0xF;
               if (v101 >= 4)
               {
                 do
@@ -582,13 +582,13 @@ LABEL_113:
             v107 = (-1028477387 * (v109 ^ (v109 >> 13))) ^ ((-1028477387 * (v109 ^ (v109 >> 13))) >> 16);
             *&buf[8] = v107;
 LABEL_114:
-            *&v183[8] = v107;
+            *&v182[8] = v107;
             goto LABEL_115;
           }
 
           v18 = 8 * v15;
           v19 = uTF8String;
-          v20 = v171 & 0xFFFFFFFFFFFFFFLL;
+          v20 = v170 & 0xFFFFFFFFFFFFFFLL;
           do
           {
             v21 = *v19++;
@@ -598,17 +598,17 @@ LABEL_114:
 
           while (v18 != 64);
           v22 = (*&buf[8] + *&buf[16]) ^ __ROR8__(*&buf[16], 51);
-          v23 = *&buf[24] + (v170 ^ v20);
-          v24 = __ROR8__(v170 ^ v20, 48);
+          v23 = *&buf[24] + (v169 ^ v20);
+          v24 = __ROR8__(v169 ^ v20, 48);
           v25 = (v23 ^ v24) + __ROR8__(*&buf[8] + *&buf[16], 32);
           v26 = v25 ^ __ROR8__(v23 ^ v24, 43);
           v27 = v23 + v22;
           *&buf[24] = __ROR8__(v27, 32);
-          v170 = v26;
+          v169 = v26;
           *&buf[8] = v25 ^ v20;
           *&buf[16] = v27 ^ __ROR8__(v22, 47);
           uTF8String += v16;
-          v171 = (v16 + v13) << 56;
+          v170 = (v16 + v13) << 56;
           v12 = v17;
         }
 
@@ -617,7 +617,7 @@ LABEL_114:
           v28 = *&buf[8];
           v31 = *&buf[24];
           v30 = *&buf[16];
-          v29 = v170;
+          v29 = v169;
           do
           {
             v32 = *uTF8String;
@@ -633,7 +633,7 @@ LABEL_114:
             v30 = v39 ^ __ROR8__(v35, 47);
             v31 = __ROR8__(v39, 32);
             *&buf[24] = v31;
-            v170 = v29;
+            v169 = v29;
             v28 = v38 ^ v32;
             *&buf[8] = v28;
             *&buf[16] = v30;
@@ -791,7 +791,6 @@ LABEL_67:
 
 LABEL_166:
 
-  v162 = *MEMORY[0x1E69E9840];
   return v4 == 0;
 }
 
@@ -809,7 +808,7 @@ LABEL_166:
 
 - (__CFString)initWithConnection:(void *)connection name:(void *)name error:
 {
-  v223[0] = *MEMORY[0x1E69E9840];
+  v222[0] = *MEMORY[0x1E69E9840];
   v8 = a2;
   connectionCopy = connection;
   if (!self)
@@ -817,9 +816,9 @@ LABEL_166:
     goto LABEL_190;
   }
 
-  v202.receiver = self;
-  v202.super_class = MSVSQLDatabaseTransaction;
-  v10 = [(__CFString *)&v202 init];
+  v201.receiver = self;
+  v201.super_class = MSVSQLDatabaseTransaction;
+  v10 = [(__CFString *)&v201 init];
   self = v10;
   if (!v10)
   {
@@ -830,7 +829,6 @@ LABEL_166:
   objc_storeStrong(&v10->data, a2);
   v11 = MSVHasherSharedSeed();
   v12 = v8[7];
-  v215 = 0u;
   v214 = 0u;
   v213 = 0u;
   v212 = 0u;
@@ -838,13 +836,14 @@ LABEL_166:
   v210 = 0u;
   v209 = 0u;
   v208 = 0u;
+  v207 = 0u;
   *buf = xmmword_1AC881C40;
   *&buf[16] = vaddq_s64(vdupq_n_s64(v11), xmmword_1AC881C50);
-  *&v204 = v11;
-  *(&v204 + 1) = v11 + 0x61C8864E7A143579;
+  *&v203 = v11;
+  *(&v203 + 1) = v11 + 0x61C8864E7A143579;
+  v204 = 0u;
   v205 = 0u;
-  v206 = 0u;
-  v207 = 0;
+  v206 = 0;
   v13 = v12;
   uTF8String = [v13 UTF8String];
   v15 = [v13 length];
@@ -1039,9 +1038,9 @@ LABEL_60:
     goto LABEL_71;
   }
 
-  v17 = HIBYTE(*(&v204 + 1));
-  v18 = *(&v204 + 1) & 0xFFFFFFFFFFFFFFLL;
-  v19 = HIBYTE(*(&v204 + 1)) & 7;
+  v17 = HIBYTE(*(&v203 + 1));
+  v18 = *(&v203 + 1) & 0xFFFFFFFFFFFFFFLL;
+  v19 = HIBYTE(*(&v203 + 1)) & 7;
   if (!v19)
   {
     goto LABEL_17;
@@ -1053,7 +1052,7 @@ LABEL_60:
   {
     v22 = 8 * v19;
     v23 = uTF8String;
-    v24 = *(&v204 + 1) & 0xFFFFFFFFFFFFFFLL;
+    v24 = *(&v203 + 1) & 0xFFFFFFFFFFFFFFLL;
     do
     {
       v25 = *v23++;
@@ -1063,17 +1062,17 @@ LABEL_60:
 
     while (v22 != 64);
     v26 = (*&buf[8] + *&buf[16]) ^ __ROR8__(*&buf[16], 51);
-    v27 = *&buf[24] + (v204 ^ v24);
-    v28 = __ROR8__(v204 ^ v24, 48);
+    v27 = *&buf[24] + (v203 ^ v24);
+    v28 = __ROR8__(v203 ^ v24, 48);
     v29 = (v27 ^ v28) + __ROR8__(*&buf[8] + *&buf[16], 32);
     v30 = v29 ^ __ROR8__(v27 ^ v28, 43);
     v31 = v27 + v26;
     *&buf[24] = __ROR8__(v31, 32);
-    *&v204 = v30;
+    *&v203 = v30;
     *&buf[8] = v29 ^ v24;
     *&buf[16] = v31 ^ __ROR8__(v26, 47);
     uTF8String += v20;
-    *(&v204 + 1) = (v20 + v17) << 56;
+    *(&v203 + 1) = (v20 + v17) << 56;
     v16 = v21;
 LABEL_17:
     if (v16 >= 8)
@@ -1081,7 +1080,7 @@ LABEL_17:
       v32 = *&buf[8];
       v35 = *&buf[24];
       v34 = *&buf[16];
-      v33 = v204;
+      v33 = v203;
       do
       {
         v36 = *uTF8String;
@@ -1097,7 +1096,7 @@ LABEL_17:
         v34 = v43 ^ __ROR8__(v39, 47);
         v35 = __ROR8__(v43, 32);
         *&buf[24] = v35;
-        *&v204 = v33;
+        *&v203 = v33;
         v32 = v42 ^ v36;
         *&buf[8] = v32;
         *&buf[16] = v34;
@@ -1146,23 +1145,23 @@ LABEL_17:
     v48 = v17 << 56;
   }
 
-  *(&v204 + 1) = v48;
+  *(&v203 + 1) = v48;
 LABEL_71:
 
-  memset(&v216[8], 0, 64);
-  *v216 = *buf;
+  memset(&v215[8], 0, 64);
+  *v215 = *buf;
   if (*buf > 3000)
   {
     if (*buf <= 4000)
     {
       if (*buf == 3001)
       {
-        *&v216[8] = _MSV_XXH_XXH64_digest(&buf[8]);
+        *&v215[8] = _MSV_XXH_XXH64_digest(&buf[8]);
       }
 
       else if (*buf == 4000)
       {
-        CC_MD5_Final(&v216[8], &buf[8]);
+        CC_MD5_Final(&v215[8], &buf[8]);
       }
     }
 
@@ -1171,13 +1170,13 @@ LABEL_71:
       switch(*buf)
       {
         case 0xFA1:
-          CC_SHA1_Final(&v216[8], &buf[8]);
+          CC_SHA1_Final(&v215[8], &buf[8]);
           break;
         case 0x10A0:
-          CC_SHA256_Final(&v216[8], &buf[8]);
+          CC_SHA256_Final(&v215[8], &buf[8]);
           break;
         case 0x11A0:
-          CC_SHA512_Final(&v216[8], &buf[8]);
+          CC_SHA512_Final(&v215[8], &buf[8]);
           break;
       }
     }
@@ -1194,7 +1193,7 @@ LABEL_71:
         goto LABEL_108;
       }
 
-      v99 = &v204;
+      v99 = &v203;
       if (*&buf[12])
       {
         v100 = vaddvq_s32(vorrq_s8(vshlq_u32(*&buf[16], xmmword_1AC881C30), vshlq_u32(*&buf[16], xmmword_1AC881C20)));
@@ -1206,7 +1205,7 @@ LABEL_71:
       }
 
       v104 = *&buf[8] + v100;
-      v105 = v205 & 0xF;
+      v105 = v204 & 0xF;
       if (v105 >= 4)
       {
         do
@@ -1257,7 +1256,7 @@ LABEL_106:
     v111 = (-1028477387 * (v113 ^ (v113 >> 13))) ^ ((-1028477387 * (v113 ^ (v113 >> 13))) >> 16);
     *&buf[8] = v111;
 LABEL_107:
-    *&v216[8] = v111;
+    *&v215[8] = v111;
     goto LABEL_108;
   }
 
@@ -1266,13 +1265,13 @@ LABEL_107:
     if (*buf == 1000)
     {
       v69 = (*&buf[8] + *&buf[16]) ^ __ROR8__(*&buf[16], 51);
-      v70 = *&buf[24] + (v204 ^ *(&v204 + 1));
-      v71 = __ROR8__(v204 ^ *(&v204 + 1), 48);
+      v70 = *&buf[24] + (v203 ^ *(&v203 + 1));
+      v71 = __ROR8__(v203 ^ *(&v203 + 1), 48);
       v72 = (v70 ^ v71) + __ROR8__(*&buf[8] + *&buf[16], 32);
       v73 = v72 ^ __ROR8__(v70 ^ v71, 43);
       v74 = v70 + v69;
       v75 = v74 ^ __ROR8__(v69, 47);
-      v76 = (v72 ^ *(&v204 + 1)) + v75;
+      v76 = (v72 ^ *(&v203 + 1)) + v75;
       v77 = v76 ^ __ROR8__(v75, 51);
       v78 = (__ROR8__(v74, 32) ^ 0xFFLL) + v73;
       v79 = __ROR8__(v73, 48);
@@ -1298,8 +1297,8 @@ LABEL_107:
       *&buf[8] = v96;
       *&buf[16] = v98 ^ __ROR8__(v93, 47);
       *&buf[24] = __ROR8__(v98, 32);
-      *&v204 = v97;
-      *&v216[8] = *&buf[16] ^ v96 ^ *&buf[24] ^ v97;
+      *&v203 = v97;
+      *&v215[8] = *&buf[16] ^ v96 ^ *&buf[24] ^ v97;
     }
   }
 
@@ -1311,18 +1310,18 @@ LABEL_107:
   }
 
 LABEL_108:
-  *v217 = *v216;
-  v218 = *&v216[16];
-  v219 = *&v216[32];
-  v220 = *&v216[48];
-  v221 = *&v216[64];
-  if (*v216 > 3999)
+  *v216 = *v215;
+  v217 = *&v215[16];
+  v218 = *&v215[32];
+  v219 = *&v215[48];
+  v220 = *&v215[64];
+  if (*v215 > 3999)
   {
-    if (*v216 > 4255)
+    if (*v215 > 4255)
     {
-      if (*v216 == 4256)
+      if (*v215 == 4256)
       {
-        v155 = &v217[8];
+        v155 = &v216[8];
         v156 = malloc_type_calloc(0x40uLL, 1uLL, 0x100004077774924uLL);
         v157 = v156;
         for (i = 0; i != 64; i += 2)
@@ -1340,12 +1339,12 @@ LABEL_108:
 
       else
       {
-        if (*v216 != 4512)
+        if (*v215 != 4512)
         {
           goto LABEL_173;
         }
 
-        v133 = &v217[8];
+        v133 = &v216[8];
         v134 = malloc_type_calloc(0x80uLL, 1uLL, 0x100004077774924uLL);
         v135 = v134;
         for (j = 0; j != 128; j += 2)
@@ -1362,9 +1361,9 @@ LABEL_108:
       }
     }
 
-    else if (*v216 == 4000)
+    else if (*v215 == 4000)
     {
-      v145 = &v217[8];
+      v145 = &v216[8];
       v146 = malloc_type_calloc(0x20uLL, 1uLL, 0x100004077774924uLL);
       v147 = v146;
       for (k = 0; k != 32; k += 2)
@@ -1382,12 +1381,12 @@ LABEL_108:
 
     else
     {
-      if (*v216 != 4001)
+      if (*v215 != 4001)
       {
         goto LABEL_173;
       }
 
-      v120 = &v217[8];
+      v120 = &v216[8];
       v121 = malloc_type_calloc(0x28uLL, 1uLL, 0x100004077774924uLL);
       v122 = v121;
       for (m = 0; m != 40; m += 2)
@@ -1408,17 +1407,17 @@ LABEL_154:
     goto LABEL_155;
   }
 
-  if (*v216 > 2999)
+  if (*v215 > 2999)
   {
-    if (*v216 == 3000)
+    if (*v215 == 3000)
     {
-      LODWORD(v222[0]) = bswap32(*&v217[8]);
+      LODWORD(v221[0]) = bswap32(*&v216[8]);
       v151 = malloc_type_calloc(8uLL, 1uLL, 0x100004077774924uLL);
       v152 = 0;
       v153 = v151 + 1;
       do
       {
-        v154 = *(v222 + v152);
+        v154 = *(v221 + v152);
         *(v153 - 1) = MSVFastHexStringFromBytes_hexCharacters_4916[v154 >> 4];
         *v153 = MSVFastHexStringFromBytes_hexCharacters_4916[v154 & 0xF];
         v153 += 2;
@@ -1433,18 +1432,18 @@ LABEL_154:
 
     else
     {
-      if (*v216 != 3001)
+      if (*v215 != 3001)
       {
         goto LABEL_173;
       }
 
-      v222[0] = bswap64(*&v217[8]);
+      v221[0] = bswap64(*&v216[8]);
       v129 = malloc_type_calloc(0x10uLL, 1uLL, 0x100004077774924uLL);
       v130 = 0;
       v131 = v129 + 1;
       do
       {
-        v132 = *(v222 + v130);
+        v132 = *(v221 + v130);
         *(v131 - 1) = MSVFastHexStringFromBytes_hexCharacters_4916[v132 >> 4];
         *v131 = MSVFastHexStringFromBytes_hexCharacters_4916[v132 & 0xF];
         v131 += 2;
@@ -1460,13 +1459,13 @@ LABEL_154:
     goto LABEL_154;
   }
 
-  if (*v216 == 1000)
+  if (*v215 == 1000)
   {
-    v139 = *&v217[8];
-    if (*&v217[8])
+    v139 = *&v216[8];
+    if (*&v216[8])
     {
-      v140 = v223 + 1;
-      quot = *&v217[8];
+      v140 = v222 + 1;
+      quot = *&v216[8];
       do
       {
         v142 = lldiv(quot, 10);
@@ -1493,14 +1492,14 @@ LABEL_154:
         v119 = (v140 - 2);
       }
 
-      v118 = (v223 - v119);
+      v118 = (v222 - v119);
       goto LABEL_144;
     }
 
     goto LABEL_174;
   }
 
-  if (*v216 != 2000)
+  if (*v215 != 2000)
   {
 LABEL_173:
     currentHandler3 = [MEMORY[0x1E696AAA8] currentHandler];
@@ -1511,10 +1510,10 @@ LABEL_173:
     goto LABEL_156;
   }
 
-  v114 = *&v217[8];
-  if (*&v217[8])
+  v114 = *&v216[8];
+  if (*&v216[8])
   {
-    v115 = v223;
+    v115 = v222;
     do
     {
       v116 = ldiv(v114, 10);
@@ -1534,7 +1533,7 @@ LABEL_173:
     }
 
     while (v116.quot);
-    v118 = (v223 - v115);
+    v118 = (v222 - v115);
     v119 = v115;
 LABEL_144:
     v144 = CFStringCreateWithBytes(0, v119, v118, 0x8000100u, 0);
@@ -1579,7 +1578,7 @@ LABEL_156:
   v164 = objc_msgSendSuper2(buf, sel_init);
   if (v164)
   {
-    v198 = v8;
+    v197 = v8;
     v167 = connectionCopy;
     v168 = [v166 copy];
     name = v164->_name;
@@ -1598,8 +1597,8 @@ LABEL_156:
       v173 = os_log_create("com.apple.amp.MediaServices", "SQL");
       if (os_log_type_enabled(v173, OS_LOG_TYPE_DEFAULT))
       {
-        *v217 = 0;
-        _os_log_impl(&dword_1AC81F000, v173, OS_LOG_TYPE_DEFAULT, "[SQL] Taking Process Assertion", v217, 2u);
+        *v216 = 0;
+        _os_log_impl(&dword_1AC81F000, v173, OS_LOG_TYPE_DEFAULT, "[SQL] Taking Process Assertion", v216, 2u);
       }
 
       v174 = [objc_alloc(MEMORY[0x1E698D038]) initWithPID:getpid() flags:1 reason:4 name:@"MSVSQLDatabase"];
@@ -1612,8 +1611,8 @@ LABEL_156:
         v177 = os_log_create("com.apple.amp.MediaServices", "SQL");
         if (os_log_type_enabled(v177, OS_LOG_TYPE_DEFAULT))
         {
-          *v217 = 0;
-          _os_log_impl(&dword_1AC81F000, v177, OS_LOG_TYPE_DEFAULT, "[SQL] Invalidating Existing Process Assertion", v217, 2u);
+          *v216 = 0;
+          _os_log_impl(&dword_1AC81F000, v177, OS_LOG_TYPE_DEFAULT, "[SQL] Invalidating Existing Process Assertion", v216, 2u);
         }
 
         [(MSVSonicAssertion *)v171 invalidate];
@@ -1632,7 +1631,7 @@ LABEL_156:
 LABEL_177:
 
         connectionCopy = v167;
-        v8 = v198;
+        v8 = v197;
         goto LABEL_178;
       }
     }
@@ -1661,8 +1660,8 @@ LABEL_179:
       *&buf[14] = v8;
       *&buf[22] = 2114;
       *&buf[24] = v163;
-      LOWORD(v204) = 2114;
-      *(&v204 + 2) = v185;
+      LOWORD(v203) = 2114;
+      *(&v203 + 2) = v185;
       v186 = "[SQL:%{public}@:%p] initWithConnection:… name:%{public}@… | acquired process assertion [database transaction] assertion=%{public}@";
       v187 = v184;
       v188 = OS_LOG_TYPE_DEFAULT;
@@ -1691,12 +1690,12 @@ LABEL_184:
   isa = self[1].isa;
   self[1].isa = v190;
 
-  v201 = 0;
-  v192 = [(__CFString *)self statementWithString:@"BEGIN TRANSACTION" error:&v201];
-  v193 = v201;
-  v200 = v193;
-  [(__CFString *)self executeStatement:v192 error:&v200];
-  v194 = v200;
+  v200 = 0;
+  v192 = [(__CFString *)self statementWithString:@"BEGIN TRANSACTION" error:&v200];
+  v193 = v200;
+  v199 = v193;
+  [(__CFString *)self executeStatement:v192 error:&v199];
+  v194 = v199;
 
   if (v194)
   {
@@ -1712,7 +1711,6 @@ LABEL_184:
   }
 
 LABEL_190:
-  v196 = *MEMORY[0x1E69E9840];
   return self;
 }
 
@@ -1843,7 +1841,7 @@ LABEL_190:
 
 - (BOOL)rollback
 {
-  v187 = *MEMORY[0x1E69E9840];
+  v186 = *MEMORY[0x1E69E9840];
   if (self->_invalid)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
@@ -1851,9 +1849,9 @@ LABEL_190:
   }
 
   v3 = [(MSVSQLDatabaseTransaction *)self statementWithString:@"ROLLBACK TRANSACTION" error:0];
-  v168 = 0;
-  [(MSVSQLDatabaseTransaction *)self executeStatement:v3 error:&v168];
-  v4 = v168;
+  v167 = 0;
+  [(MSVSQLDatabaseTransaction *)self executeStatement:v3 error:&v167];
+  v4 = v167;
   [v3 invalidate];
   if (!v4)
   {
@@ -1876,7 +1874,6 @@ LABEL_190:
       }
 
       v8 = v7;
-      v182 = 0u;
       v181 = 0u;
       v180 = 0u;
       v179 = 0u;
@@ -1884,13 +1881,14 @@ LABEL_190:
       v177 = 0u;
       v176 = 0u;
       v175 = 0u;
+      v174 = 0u;
       *buf = xmmword_1AC881C40;
       *&buf[16] = vaddq_s64(vdupq_n_s64(v6), xmmword_1AC881C50);
-      v170 = v6;
-      v171 = v6 + 0x61C8864E7A143579;
+      v169 = v6;
+      v170 = v6 + 0x61C8864E7A143579;
+      v171 = 0u;
       v172 = 0u;
-      v173 = 0u;
-      v174 = 0;
+      v173 = 0;
       v9 = v8;
       uTF8String = [(_MSVSQLConnection *)v9 UTF8String];
       v11 = [(_MSVSQLConnection *)v9 length];
@@ -1945,9 +1943,9 @@ LABEL_190:
           goto LABEL_78;
         }
 
-        v13 = HIBYTE(v171);
-        v14 = v171 & 0xFFFFFFFFFFFFFFLL;
-        v15 = HIBYTE(v171) & 7;
+        v13 = HIBYTE(v170);
+        v14 = v170 & 0xFFFFFFFFFFFFFFLL;
+        v15 = HIBYTE(v170) & 7;
         if (v15)
         {
           v16 = 8 - v15;
@@ -1990,23 +1988,23 @@ LABEL_28:
               v44 = v13 << 56;
             }
 
-            v171 = v44;
+            v170 = v44;
 LABEL_78:
 
-            memset(&v183[8], 0, 64);
-            *v183 = *buf;
+            memset(&v182[8], 0, 64);
+            *v182 = *buf;
             if (*buf > 3000)
             {
               if (*buf <= 4000)
               {
                 if (*buf == 3001)
                 {
-                  *&v183[8] = _MSV_XXH_XXH64_digest(&buf[8]);
+                  *&v182[8] = _MSV_XXH_XXH64_digest(&buf[8]);
                 }
 
                 else if (*buf == 4000)
                 {
-                  CC_MD5_Final(&v183[8], &buf[8]);
+                  CC_MD5_Final(&v182[8], &buf[8]);
                 }
               }
 
@@ -2015,13 +2013,13 @@ LABEL_78:
                 switch(*buf)
                 {
                   case 0xFA1:
-                    CC_SHA1_Final(&v183[8], &buf[8]);
+                    CC_SHA1_Final(&v182[8], &buf[8]);
                     break;
                   case 0x10A0:
-                    CC_SHA256_Final(&v183[8], &buf[8]);
+                    CC_SHA256_Final(&v182[8], &buf[8]);
                     break;
                   case 0x11A0:
-                    CC_SHA512_Final(&v183[8], &buf[8]);
+                    CC_SHA512_Final(&v182[8], &buf[8]);
                     break;
                 }
               }
@@ -2036,13 +2034,13 @@ LABEL_78:
                 if (*buf == 1000)
                 {
                   v65 = (*&buf[8] + *&buf[16]) ^ __ROR8__(*&buf[16], 51);
-                  v66 = *&buf[24] + (v170 ^ v171);
-                  v67 = __ROR8__(v170 ^ v171, 48);
+                  v66 = *&buf[24] + (v169 ^ v170);
+                  v67 = __ROR8__(v169 ^ v170, 48);
                   v68 = (v66 ^ v67) + __ROR8__(*&buf[8] + *&buf[16], 32);
                   v69 = v68 ^ __ROR8__(v66 ^ v67, 43);
                   v70 = v66 + v65;
                   v71 = v70 ^ __ROR8__(v65, 47);
-                  v72 = (v68 ^ v171) + v71;
+                  v72 = (v68 ^ v170) + v71;
                   v73 = v72 ^ __ROR8__(v71, 51);
                   v74 = (__ROR8__(v70, 32) ^ 0xFFLL) + v69;
                   v75 = __ROR8__(v69, 48);
@@ -2068,8 +2066,8 @@ LABEL_78:
                   *&buf[8] = v92;
                   *&buf[16] = v94 ^ __ROR8__(v89, 47);
                   *&buf[24] = __ROR8__(v94, 32);
-                  v170 = v93;
-                  *&v183[8] = *&buf[16] ^ v92 ^ *&buf[24] ^ v93;
+                  v169 = v93;
+                  *&v182[8] = *&buf[16] ^ v92 ^ *&buf[24] ^ v93;
                 }
               }
 
@@ -2081,18 +2079,18 @@ LABEL_78:
               }
 
 LABEL_115:
-              v184[0] = *v183;
-              v184[1] = *&v183[16];
-              v184[2] = *&v183[32];
-              v184[3] = *&v183[48];
-              v185 = *&v183[64];
-              if (*v183 > 3999)
+              v183[0] = *v182;
+              v183[1] = *&v182[16];
+              v183[2] = *&v182[32];
+              v183[3] = *&v182[48];
+              v184 = *&v182[64];
+              if (*v182 > 3999)
               {
-                if (*v183 > 4255)
+                if (*v182 > 4255)
                 {
-                  if (*v183 == 4256)
+                  if (*v182 == 4256)
                   {
-                    v151 = v184 + 8;
+                    v151 = v183 + 8;
                     v152 = malloc_type_calloc(0x40uLL, 1uLL, 0x100004077774924uLL);
                     v153 = v152;
                     for (i = 0; i != 64; i += 2)
@@ -2110,12 +2108,12 @@ LABEL_115:
 
                   else
                   {
-                    if (*v183 != 4512)
+                    if (*v182 != 4512)
                     {
                       goto LABEL_167;
                     }
 
-                    v129 = v184 + 8;
+                    v129 = v183 + 8;
                     v130 = malloc_type_calloc(0x80uLL, 1uLL, 0x100004077774924uLL);
                     v131 = v130;
                     for (j = 0; j != 128; j += 2)
@@ -2132,9 +2130,9 @@ LABEL_115:
                   }
                 }
 
-                else if (*v183 == 4000)
+                else if (*v182 == 4000)
                 {
-                  v141 = v184 + 8;
+                  v141 = v183 + 8;
                   v142 = malloc_type_calloc(0x20uLL, 1uLL, 0x100004077774924uLL);
                   v143 = v142;
                   for (k = 0; k != 32; k += 2)
@@ -2152,12 +2150,12 @@ LABEL_115:
 
                 else
                 {
-                  if (*v183 != 4001)
+                  if (*v182 != 4001)
                   {
                     goto LABEL_167;
                   }
 
-                  v116 = v184 + 8;
+                  v116 = v183 + 8;
                   v117 = malloc_type_calloc(0x28uLL, 1uLL, 0x100004077774924uLL);
                   v118 = v117;
                   for (m = 0; m != 40; m += 2)
@@ -2176,15 +2174,15 @@ LABEL_115:
 
               else
               {
-                if (*v183 <= 2999)
+                if (*v182 <= 2999)
                 {
-                  if (*v183 == 1000)
+                  if (*v182 == 1000)
                   {
-                    v135 = *(&v184[0] + 1);
-                    if (*(&v184[0] + 1))
+                    v135 = *(&v183[0] + 1);
+                    if (*(&v183[0] + 1))
                     {
-                      v136 = &v187 + 1;
-                      quot = *(&v184[0] + 1);
+                      v136 = &v186 + 1;
+                      quot = *(&v183[0] + 1);
                       do
                       {
                         v138 = lldiv(quot, 10);
@@ -2211,7 +2209,7 @@ LABEL_115:
                         v115 = (v136 - 2);
                       }
 
-                      v114 = (&v187 - v115);
+                      v114 = (&v186 - v115);
                       goto LABEL_151;
                     }
 
@@ -2220,12 +2218,12 @@ LABEL_168:
                     goto LABEL_163;
                   }
 
-                  if (*v183 == 2000)
+                  if (*v182 == 2000)
                   {
-                    v110 = DWORD2(v184[0]);
-                    if (DWORD2(v184[0]))
+                    v110 = DWORD2(v183[0]);
+                    if (DWORD2(v183[0]))
                     {
-                      v111 = &v187;
+                      v111 = &v186;
                       do
                       {
                         v112 = ldiv(v110, 10);
@@ -2245,7 +2243,7 @@ LABEL_168:
                       }
 
                       while (v112.quot);
-                      v114 = (&v187 - v111);
+                      v114 = (&v186 - v111);
                       v115 = v111;
 LABEL_151:
                       v140 = CFStringCreateWithBytes(0, v115, v114, 0x8000100u, 0);
@@ -2279,22 +2277,22 @@ LABEL_163:
 
 LABEL_167:
                   currentHandler4 = [MEMORY[0x1E696AAA8] currentHandler];
-                  v165 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString * _Nonnull _MSVHashGetDigest(MSVHash)"];
-                  [currentHandler4 handleFailureInFunction:v165 file:@"MSVHasher+Algorithms.h" lineNumber:356 description:@"Cannot obtain digest from unknown hasher algorithm"];
+                  v164 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString * _Nonnull _MSVHashGetDigest(MSVHash)"];
+                  [currentHandler4 handleFailureInFunction:v164 file:@"MSVHasher+Algorithms.h" lineNumber:356 description:@"Cannot obtain digest from unknown hasher algorithm"];
 
                   v157 = &stru_1F214F018;
                   goto LABEL_163;
                 }
 
-                if (*v183 == 3000)
+                if (*v182 == 3000)
                 {
-                  LODWORD(v186[0]) = bswap32(DWORD2(v184[0]));
+                  LODWORD(v185[0]) = bswap32(DWORD2(v183[0]));
                   v147 = malloc_type_calloc(8uLL, 1uLL, 0x100004077774924uLL);
                   v148 = 0;
                   v149 = v147 + 1;
                   do
                   {
-                    v150 = *(v186 + v148);
+                    v150 = *(v185 + v148);
                     *(v149 - 1) = MSVFastHexStringFromBytes_hexCharacters_4916[v150 >> 4];
                     *v149 = MSVFastHexStringFromBytes_hexCharacters_4916[v150 & 0xF];
                     v149 += 2;
@@ -2309,18 +2307,18 @@ LABEL_167:
 
                 else
                 {
-                  if (*v183 != 3001)
+                  if (*v182 != 3001)
                   {
                     goto LABEL_167;
                   }
 
-                  v186[0] = bswap64(*(&v184[0] + 1));
+                  v185[0] = bswap64(*(&v183[0] + 1));
                   v125 = malloc_type_calloc(0x10uLL, 1uLL, 0x100004077774924uLL);
                   v126 = 0;
                   v127 = v125 + 1;
                   do
                   {
-                    v128 = *(v186 + v126);
+                    v128 = *(v185 + v126);
                     *(v127 - 1) = MSVFastHexStringFromBytes_hexCharacters_4916[v128 >> 4];
                     *v127 = MSVFastHexStringFromBytes_hexCharacters_4916[v128 & 0xF];
                     v127 += 2;
@@ -2345,7 +2343,7 @@ LABEL_167:
                 goto LABEL_115;
               }
 
-              v95 = &v170;
+              v95 = &v169;
               if (*&buf[12])
               {
                 v96 = vaddvq_s32(vorrq_s8(vshlq_u32(*&buf[16], xmmword_1AC881C30), vshlq_u32(*&buf[16], xmmword_1AC881C20)));
@@ -2357,7 +2355,7 @@ LABEL_167:
               }
 
               v100 = *&buf[8] + v96;
-              v101 = v172 & 0xF;
+              v101 = v171 & 0xF;
               if (v101 >= 4)
               {
                 do
@@ -2409,13 +2407,13 @@ LABEL_113:
             v107 = (-1028477387 * (v109 ^ (v109 >> 13))) ^ ((-1028477387 * (v109 ^ (v109 >> 13))) >> 16);
             *&buf[8] = v107;
 LABEL_114:
-            *&v183[8] = v107;
+            *&v182[8] = v107;
             goto LABEL_115;
           }
 
           v18 = 8 * v15;
           v19 = uTF8String;
-          v20 = v171 & 0xFFFFFFFFFFFFFFLL;
+          v20 = v170 & 0xFFFFFFFFFFFFFFLL;
           do
           {
             v21 = *v19++;
@@ -2425,17 +2423,17 @@ LABEL_114:
 
           while (v18 != 64);
           v22 = (*&buf[8] + *&buf[16]) ^ __ROR8__(*&buf[16], 51);
-          v23 = *&buf[24] + (v170 ^ v20);
-          v24 = __ROR8__(v170 ^ v20, 48);
+          v23 = *&buf[24] + (v169 ^ v20);
+          v24 = __ROR8__(v169 ^ v20, 48);
           v25 = (v23 ^ v24) + __ROR8__(*&buf[8] + *&buf[16], 32);
           v26 = v25 ^ __ROR8__(v23 ^ v24, 43);
           v27 = v23 + v22;
           *&buf[24] = __ROR8__(v27, 32);
-          v170 = v26;
+          v169 = v26;
           *&buf[8] = v25 ^ v20;
           *&buf[16] = v27 ^ __ROR8__(v22, 47);
           uTF8String += v16;
-          v171 = (v16 + v13) << 56;
+          v170 = (v16 + v13) << 56;
           v12 = v17;
         }
 
@@ -2444,7 +2442,7 @@ LABEL_114:
           v28 = *&buf[8];
           v31 = *&buf[24];
           v30 = *&buf[16];
-          v29 = v170;
+          v29 = v169;
           do
           {
             v32 = *uTF8String;
@@ -2460,7 +2458,7 @@ LABEL_114:
             v30 = v39 ^ __ROR8__(v35, 47);
             v31 = __ROR8__(v39, 32);
             *&buf[24] = v31;
-            v170 = v29;
+            v169 = v29;
             v28 = v38 ^ v32;
             *&buf[8] = v28;
             *&buf[16] = v30;
@@ -2618,7 +2616,6 @@ LABEL_67:
 
 LABEL_166:
 
-  v162 = *MEMORY[0x1E69E9840];
   return v4 == 0;
 }
 

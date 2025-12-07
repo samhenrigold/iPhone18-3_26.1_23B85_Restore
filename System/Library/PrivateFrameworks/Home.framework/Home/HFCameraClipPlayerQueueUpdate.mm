@@ -47,7 +47,7 @@ id __97__HFCameraClipPlayerQueueUpdate_initWithClipManager_clips_targetPosition_
 
 - (void)performUpdatesOnQueue:(id)queue
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   queueCopy = queue;
   initialQueuedItems = [(HFCameraClipPlayerQueueUpdate *)self initialQueuedItems];
   queuableItems = [queueCopy queuableItems];
@@ -58,23 +58,23 @@ id __97__HFCameraClipPlayerQueueUpdate_initWithClipManager_clips_targetPosition_
     if ([(HFCameraClipPlayerQueueUpdate *)self hasQueueChanges])
     {
       queueDiff = [(HFCameraClipPlayerQueueUpdate *)self queueDiff];
-      v23[0] = MEMORY[0x277D85DD0];
-      v23[1] = 3221225472;
-      v23[2] = __55__HFCameraClipPlayerQueueUpdate_performUpdatesOnQueue___block_invoke;
-      v23[3] = &unk_277DF2B48;
+      v22[0] = MEMORY[0x277D85DD0];
+      v22[1] = 3221225472;
+      v22[2] = __55__HFCameraClipPlayerQueueUpdate_performUpdatesOnQueue___block_invoke;
+      v22[3] = &unk_277DF2B48;
       v9 = queueCopy;
-      v24 = v9;
+      v23 = v9;
       selfCopy = self;
-      [queueDiff enumerateDeletesUsingBlock:v23];
+      [queueDiff enumerateDeletesUsingBlock:v22];
 
       queueDiff2 = [(HFCameraClipPlayerQueueUpdate *)self queueDiff];
-      v17 = MEMORY[0x277D85DD0];
-      v18 = 3221225472;
-      v19 = __55__HFCameraClipPlayerQueueUpdate_performUpdatesOnQueue___block_invoke_2;
-      v20 = &unk_277DF2B48;
+      v16 = MEMORY[0x277D85DD0];
+      v17 = 3221225472;
+      v18 = __55__HFCameraClipPlayerQueueUpdate_performUpdatesOnQueue___block_invoke_2;
+      v19 = &unk_277DF2B48;
       selfCopy2 = self;
-      v22 = v9;
-      [queueDiff2 enumerateInsertsUsingBlock:&v17];
+      v21 = v9;
+      [queueDiff2 enumerateInsertsUsingBlock:&v16];
     }
 
     queuableItems2 = [queueCopy queuableItems];
@@ -97,22 +97,20 @@ id __97__HFCameraClipPlayerQueueUpdate_initWithClipManager_clips_targetPosition_
       queuableItems3 = [queueCopy queuableItems];
       *buf = 138413058;
       selfCopy3 = self;
-      v28 = 2112;
-      v29 = queueCopy;
-      v30 = 2112;
-      v31 = initialQueuedItems2;
-      v32 = 2112;
-      v33 = queuableItems3;
+      v27 = 2112;
+      v28 = queueCopy;
+      v29 = 2112;
+      v30 = initialQueuedItems2;
+      v31 = 2112;
+      v32 = queuableItems3;
       _os_log_error_impl(&dword_20D9BF000, firstObject, OS_LOG_TYPE_ERROR, "Attempting to perform updates %@ on queue %@ when its items do not match our initial queued items! Expected; %@, actual: %@", buf, 0x2Au);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __55__HFCameraClipPlayerQueueUpdate_performUpdatesOnQueue___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v4 = [*(a1 + 32) queuableItems];
   v5 = [v4 count];
 
@@ -129,21 +127,19 @@ void __55__HFCameraClipPlayerQueueUpdate_performUpdatesOnQueue___block_invoke(ui
     v11 = HFLogForCategory(0x17uLL);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v13 = [*(a1 + 32) queuableItems];
-      v14 = 134218240;
-      v15 = a2;
-      v16 = 2048;
-      v17 = [v13 count] - v5;
-      _os_log_error_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_ERROR, "Remove from queue at index %lu actually resulted in net %lu items!", &v14, 0x16u);
+      v12 = [*(a1 + 32) queuableItems];
+      v13 = 134218240;
+      v14 = a2;
+      v15 = 2048;
+      v16 = [v12 count] - v5;
+      _os_log_error_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_ERROR, "Remove from queue at index %lu actually resulted in net %lu items!", &v13, 0x16u);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __55__HFCameraClipPlayerQueueUpdate_performUpdatesOnQueue___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v4 = [*(a1 + 32) updatedClipQueue];
   v5 = [v4 objectAtIndexedSubscript:a2];
 
@@ -164,15 +160,15 @@ void __55__HFCameraClipPlayerQueueUpdate_performUpdatesOnQueue___block_invoke_2(
   v13 = [v12 count];
 
   v14 = *(a1 + 40);
-  v23 = MEMORY[0x277D85DD0];
-  v24 = 3221225472;
-  v25 = __55__HFCameraClipPlayerQueueUpdate_performUpdatesOnQueue___block_invoke_2;
-  v26 = &unk_277DF2B70;
-  v28 = a2;
+  v22 = MEMORY[0x277D85DD0];
+  v23 = 3221225472;
+  v24 = __55__HFCameraClipPlayerQueueUpdate_performUpdatesOnQueue___block_invoke_2;
+  v25 = &unk_277DF2B70;
+  v27 = a2;
   v15 = v14;
-  v27 = v15;
-  v16 = __55__HFCameraClipPlayerQueueUpdate_performUpdatesOnQueue___block_invoke_2(&v23);
-  [v15 insertQueueableItem:v8 afterItem:{v16, v23, v24, v25, v26}];
+  v26 = v15;
+  v16 = __55__HFCameraClipPlayerQueueUpdate_performUpdatesOnQueue___block_invoke_2(&v22);
+  [v15 insertQueueableItem:v8 afterItem:{v16, v22, v23, v24, v25}];
 
   v17 = [*(a1 + 40) queuableItems];
   v18 = [v17 count];
@@ -182,22 +178,20 @@ void __55__HFCameraClipPlayerQueueUpdate_performUpdatesOnQueue___block_invoke_2(
     v19 = HFLogForCategory(0x17uLL);
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v21 = [*(a1 + 40) queuableItems];
-      v22 = [v21 count];
+      v20 = [*(a1 + 40) queuableItems];
+      v21 = [v20 count];
       *buf = 134218240;
-      v30 = a2;
-      v31 = 2048;
-      v32 = v22 - v13;
+      v29 = a2;
+      v30 = 2048;
+      v31 = v21 - v13;
       _os_log_error_impl(&dword_20D9BF000, v19, OS_LOG_TYPE_ERROR, "Insert in queue at index %lu actually resulted in net %lu items!", buf, 0x16u);
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 id __55__HFCameraClipPlayerQueueUpdate_performUpdatesOnQueue___block_invoke_2(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 40);
   v3 = [*(a1 + 32) queuableItems];
   v4 = [v3 count];
@@ -213,13 +207,13 @@ id __55__HFCameraClipPlayerQueueUpdate_performUpdatesOnQueue___block_invoke_2(ui
       v10 = HFLogForCategory(0x17uLL);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        v13 = *(a1 + 40);
-        v14 = [*(a1 + 32) queuableItems];
-        v15 = 134218242;
-        v16 = v13;
-        v17 = 2112;
-        v18 = v14;
-        _os_log_error_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_ERROR, "Insertion index %lu is out of bounds of queue %@! This likely indicates that the queue was mutated from out under the queue update.", &v15, 0x16u);
+        v12 = *(a1 + 40);
+        v13 = [*(a1 + 32) queuableItems];
+        v14 = 134218242;
+        v15 = v12;
+        v16 = 2112;
+        v17 = v13;
+        _os_log_error_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_ERROR, "Insertion index %lu is out of bounds of queue %@! This likely indicates that the queue was mutated from out under the queue update.", &v14, 0x16u);
       }
     }
 
@@ -231,8 +225,6 @@ id __55__HFCameraClipPlayerQueueUpdate_performUpdatesOnQueue___block_invoke_2(ui
     v5 = [*(a1 + 32) queuableItems];
     v6 = [v5 objectAtIndexedSubscript:*(a1 + 40)];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -296,24 +288,13 @@ uint64_t __50__HFCameraClipPlayerQueueUpdate__computeQueueDiff__block_invoke_3(u
   v9 = [v7 objectForKeyedSubscript:v8];
   v10 = [v9 isPlayable];
 
-  if (!v10)
-  {
-    goto LABEL_4;
-  }
-
-  v11 = [*(a1 + 32) initialQueuedItemsByClipID];
-  v12 = [v6 uniqueIdentifier];
-  v13 = [v11 objectForKeyedSubscript:v12];
-  v14 = [v13 isPlayable];
-
-  if (v14)
+  if (v10 && ([*(a1 + 32) initialQueuedItemsByClipID], v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "uniqueIdentifier"), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v11, "objectForKeyedSubscript:", v12), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v13, "isPlayable"), v13, v12, v11, v14))
   {
     v15 = [v5 isEqual:v6];
   }
 
   else
   {
-LABEL_4:
     v15 = 0;
   }
 
@@ -322,23 +303,23 @@ LABEL_4:
 
 - (id)_buildNewClipQueueForPosition:(id)position
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   positionCopy = position;
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x2020000000;
-  v30 = 0x7FFFFFFFFFFFFFFFLL;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x2020000000;
+  v29 = 0x7FFFFFFFFFFFFFFFLL;
   clips = [(HFCameraClipPlayerQueueUpdate *)self clips];
-  v21 = MEMORY[0x277D85DD0];
-  v22 = 3221225472;
-  v23 = __63__HFCameraClipPlayerQueueUpdate__buildNewClipQueueForPosition___block_invoke;
-  v24 = &unk_277DF2C00;
+  v20 = MEMORY[0x277D85DD0];
+  v21 = 3221225472;
+  v22 = __63__HFCameraClipPlayerQueueUpdate__buildNewClipQueueForPosition___block_invoke;
+  v23 = &unk_277DF2C00;
   v6 = positionCopy;
-  v25 = v6;
-  v26 = &v27;
-  [clips enumerateObjectsUsingBlock:&v21];
+  v24 = v6;
+  v25 = &v26;
+  [clips enumerateObjectsUsingBlock:&v20];
 
-  if (v28[3] == 0x7FFFFFFFFFFFFFFFLL)
+  if (v27[3] == 0x7FFFFFFFFFFFFFFFLL)
   {
     v7 = HFLogForCategory(0x17uLL);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
@@ -346,11 +327,11 @@ LABEL_4:
       clip = [v6 clip];
       uniqueIdentifier = [clip uniqueIdentifier];
       clips2 = [(HFCameraClipPlayerQueueUpdate *)self clips];
-      v20 = [clips2 count];
+      v19 = [clips2 count];
       *buf = 138412546;
-      v32 = uniqueIdentifier;
-      v33 = 2048;
-      v34 = v20;
+      v31 = uniqueIdentifier;
+      v32 = 2048;
+      v33 = v19;
       _os_log_error_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_ERROR, "Could not find matching playlist for clip %@ in clips %ld", buf, 0x16u);
     }
 
@@ -359,7 +340,7 @@ LABEL_4:
 
   else
   {
-    if ([(HFCameraClipPlayerQueueUpdate *)self queueLimit:v21])
+    if ([(HFCameraClipPlayerQueueUpdate *)self queueLimit:v20])
     {
       queueLimit = [(HFCameraClipPlayerQueueUpdate *)self queueLimit];
     }
@@ -371,7 +352,7 @@ LABEL_4:
 
     clips3 = [(HFCameraClipPlayerQueueUpdate *)self clips];
     v11 = [clips3 count];
-    v12 = v28[3];
+    v12 = v27[3];
 
     clips4 = [(HFCameraClipPlayerQueueUpdate *)self clips];
     v7 = clips4;
@@ -385,11 +366,10 @@ LABEL_4:
       v14 = queueLimit;
     }
 
-    v8 = [clips4 subarrayWithRange:v28[3], v14];
+    v8 = [clips4 subarrayWithRange:v27[3], v14];
   }
 
-  _Block_object_dispose(&v27, 8);
-  v15 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v26, 8);
 
   return v8;
 }

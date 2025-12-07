@@ -1,8 +1,49 @@
 @interface DAExchangeOAuthFlowController
+- (DAExchangeOAuthFlowController)initWithAuthURI:(id)i easEndPoint:(id)point username:(id)username accountId:(id)id claims:(id)claims isOnPrem:(BOOL)prem;
 - (void)exchangeAuthCode:(id)code codeVerifier:(id)verifier claims:(id)claims withCompletion:(id)completion;
 @end
 
 @implementation DAExchangeOAuthFlowController
+
+- (DAExchangeOAuthFlowController)initWithAuthURI:(id)i easEndPoint:(id)point username:(id)username accountId:(id)id claims:(id)claims isOnPrem:(BOOL)prem
+{
+  premCopy = prem;
+  iCopy = i;
+  pointCopy = point;
+  usernameCopy = username;
+  idCopy = id;
+  claimsCopy = claims;
+  if (_os_feature_enabled_impl())
+  {
+    if ([pointCopy isEqualToString:*MEMORY[0x277D07A10]])
+    {
+      v19 = 1;
+    }
+
+    else
+    {
+      v19 = 2;
+    }
+  }
+
+  else
+  {
+    v19 = 2;
+  }
+
+  v24.receiver = self;
+  v24.super_class = DAExchangeOAuthFlowController;
+  v20 = [(DAEASOAuthFlowController *)&v24 initWithOAuthType:v19 authURI:iCopy username:usernameCopy accountId:idCopy claims:claimsCopy isOnPrem:premCopy];
+  v21 = v20;
+  if (v20)
+  {
+    [(DAEASOAuthFlowController *)v20 setEasEndPoint:pointCopy];
+    v22 = [DAEASOAuthClient clientIDForOAuthType:[(DAEASOAuthFlowController *)v21 oauthType]];
+    [(DAEASOAuthFlowController *)v21 setClientID:v22];
+  }
+
+  return v21;
+}
 
 - (void)exchangeAuthCode:(id)code codeVerifier:(id)verifier claims:(id)claims withCompletion:(id)completion
 {

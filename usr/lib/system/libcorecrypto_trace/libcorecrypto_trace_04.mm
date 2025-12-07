@@ -48,15 +48,15 @@ uint64_t ccaes_ofb_crypt_vng_vector(uint64_t result, int8x16_t *a2, uint64_t a3,
   return result;
 }
 
-void *ccaes_siv_decrypt_mode()
+void *ccaes_siv_decrypt_mode(uint64_t a1)
 {
-  v0 = ccaes_cbc_encrypt_mode();
-  v1 = ccaes_ctr_crypt_mode();
-  ccmode_factory_siv_decrypt(&siv_decrypt, v0, v1);
+  v1 = ccaes_cbc_encrypt_mode(a1);
+  v2 = ccaes_ctr_crypt_mode(v1);
+  ccmode_factory_siv_decrypt(&siv_decrypt, v1, v2);
   return &siv_decrypt;
 }
 
-uint64_t ccrsa_sign_pkcs1v15_blinded_ws(uint64_t a1, uint64_t (**a2)(void, uint64_t, uint64_t), uint64_t *a3, unsigned __int8 *a4, size_t a5, const void *a6, unint64_t *a7, char *a8)
+uint64_t ccrsa_sign_pkcs1v15_blinded_ws(uint64_t a1, uint64_t (**a2)(void, uint64_t, void *), uint64_t *a3, unsigned __int8 *a4, size_t a5, const void *a6, unint64_t *a7, unsigned __int8 *a8)
 {
   v16 = *a3;
   v17 = ccn_write_uint_size_public_value(*a3, a3 + 3);
@@ -86,7 +86,7 @@ uint64_t ccrsa_sign_pkcs1v15_blinded_ws(uint64_t a1, uint64_t (**a2)(void, uint6
   return result;
 }
 
-uint64_t ccrsa_sign_pkcs1v15_blinded(uint64_t (**a1)(void, uint64_t, uint64_t), unint64_t *a2, unsigned __int8 *a3, size_t a4, const void *a5, unint64_t *a6, char *a7)
+uint64_t ccrsa_sign_pkcs1v15_blinded(uint64_t (**a1)(void, uint64_t, void *), unint64_t *a2, unsigned __int8 *a3, size_t a4, const void *a5, unint64_t *a6, unsigned __int8 *a7)
 {
   v14 = *a2;
   v15 = 9 * *a2;
@@ -130,7 +130,7 @@ uint64_t ccrsa_sign_pkcs1v15_blinded(uint64_t (**a1)(void, uint64_t, uint64_t), 
   return v23;
 }
 
-uint64_t ccrsa_sign_pkcs1v15(unint64_t *a1, unsigned __int8 *a2, size_t a3, const void *a4, unint64_t *a5, char *a6)
+uint64_t ccrsa_sign_pkcs1v15(unint64_t *a1, unsigned __int8 *a2, size_t a3, const void *a4, unint64_t *a5, unsigned __int8 *a6)
 {
   v15 = timingsafe_enable_if_supported();
   v12 = ccrng(0);
@@ -148,14 +148,14 @@ uint64_t ccrsa_sign_pkcs1v15(unint64_t *a1, unsigned __int8 *a2, size_t a3, cons
   return v13;
 }
 
-uint64_t ccrsa_sign_pkcs1v15_msg_blinded_ws(uint64_t a1, uint64_t (**a2)(void, uint64_t, uint64_t), uint64_t *a3, uint64_t a4, size_t a5, char *a6, unint64_t *a7, char *a8)
+uint64_t ccrsa_sign_pkcs1v15_msg_blinded_ws(uint64_t a1, uint64_t (**a2)(void, uint64_t, void *), uint64_t *a3, size_t *a4, size_t a5, char *a6, unint64_t *a7, unsigned __int8 *a8)
 {
   v16 = *MEMORY[0x29EDCA608];
   ccdigest_internal(a4, a5, a6, v15);
-  return ccrsa_sign_pkcs1v15_blinded_ws(a1, a2, a3, *(a4 + 32), *a4, v15, a7, a8);
+  return ccrsa_sign_pkcs1v15_blinded_ws(a1, a2, a3, a4[4], *a4, v15, a7, a8);
 }
 
-uint64_t ccrsa_sign_pkcs1v15_msg_blinded(uint64_t (**a1)(void, uint64_t, uint64_t), unint64_t *a2, uint64_t a3, size_t a4, char *a5, unint64_t *a6, char *a7)
+uint64_t ccrsa_sign_pkcs1v15_msg_blinded(uint64_t (**a1)(void, uint64_t, void *), unint64_t *a2, size_t *a3, size_t a4, char *a5, unint64_t *a6, unsigned __int8 *a7)
 {
   v28 = *MEMORY[0x29EDCA608];
   v14 = *a2;
@@ -196,12 +196,12 @@ uint64_t ccrsa_sign_pkcs1v15_msg_blinded(uint64_t (**a1)(void, uint64_t, uint64_
   }
 
   ccdigest_internal(a3, a4, a5, v27);
-  v23 = ccrsa_sign_pkcs1v15_blinded_ws(v25, a1, a2, *(a3 + 32), *a3, v27, a6, a7);
+  v23 = ccrsa_sign_pkcs1v15_blinded_ws(v25, a1, a2, a3[4], *a3, v27, a6, a7);
   v26(v25);
   return v23;
 }
 
-uint64_t ccrsa_sign_pkcs1v15_msg(unint64_t *a1, uint64_t a2, size_t a3, char *a4, unint64_t *a5, char *a6)
+uint64_t ccrsa_sign_pkcs1v15_msg(unint64_t *a1, size_t *a2, size_t a3, char *a4, unint64_t *a5, unsigned __int8 *a6)
 {
   v17 = *MEMORY[0x29EDCA608];
   v15 = timingsafe_enable_if_supported();
@@ -209,7 +209,7 @@ uint64_t ccrsa_sign_pkcs1v15_msg(unint64_t *a1, uint64_t a2, size_t a3, char *a4
   v12 = ccrng(0);
   if (v12)
   {
-    v13 = ccrsa_sign_pkcs1v15_blinded(v12, a1, *(a2 + 32), *a2, v16, a5, a6);
+    v13 = ccrsa_sign_pkcs1v15_blinded(v12, a1, a2[4], *a2, v16, a5, a6);
   }
 
   else
@@ -233,14 +233,14 @@ uint64_t ccsha3_final(unint64_t *a1, uint64_t a2, void *a3, uint64_t (*a4)(uint6
   }
 
   MEMORY[0x2A1C7C4A8](a1);
-  v11 = v15 - v10;
+  v11 = (v15 - v10);
   memcpy(v15 - v10, v13, v12 + 12);
-  cckeccak_absorb_and_pad((v11 + 8), v7, *&v11[v8 + 8 + v7], &v11[v8 + 8], 6u);
-  cckeccak_squeeze((v11 + 8), a1[2], *a1, a3, a4);
+  cckeccak_absorb_and_pad(v11 + 1, v7, *(v11 + v8 + v7 + 8), (v11 + v8 + 8), 6u);
+  cckeccak_squeeze(v11 + 1, a1[2], *a1, a3, a4);
   return cc_clear(a1[1] + a1[2] + 12, v11);
 }
 
-uint64_t ccrsa_check_delta_100bits_ws(uint64_t a1, uint64_t a2, uint64_t *a3, unint64_t *a4, uint64_t *a5, unint64_t *a6)
+uint64_t ccrsa_check_delta_100bits_ws(uint64_t a1, uint64_t a2, uint64_t *a3, unint64_t *a4, unint64_t *a5, unint64_t *a6)
 {
   v12 = *(a1 + 16);
   v13 = (*(a1 + 24))();
@@ -264,63 +264,64 @@ uint64_t ccrsa_check_delta_100bits_ws(uint64_t a1, uint64_t a2, uint64_t *a3, un
   }
 }
 
-uint64_t ccrsa_crt_make_fips186_key_ws(uint64_t a1, unint64_t a2, uint64_t *a3, uint64_t a4, void *a5, void *a6, void *a7)
+uint64_t ccrsa_crt_make_fips186_key_ws(uint64_t a1, unint64_t a2, unint64_t *a3, uint64_t a4, void *a5, uint64_t *a6, uint64_t *a7)
 {
   v13 = *a3;
   v14 = (*a3 >> 1) + 1;
-  v15 = ccrsa_ctx_public(a3);
-  v16 = ccn_bitlen_internal(v14, a6);
-  if (ccn_bitlen_internal(v14, a7) + v16 > (v13 << 6))
+  ccrsa_ctx_public();
+  v16 = v15;
+  v17 = ccn_bitlen_internal(v14, a6);
+  if (ccn_bitlen_internal(v14, a7) + v17 > v13 << 6)
   {
     return 4294967273;
   }
 
-  v27 = *(a1 + 16);
-  v18 = &v15[2 * *v15];
-  v19 = v18 + 4;
+  v28 = *(a1 + 16);
+  v19 = &v16[2 * *v16];
+  v20 = v19 + 4;
   if (a4)
   {
-    ccn_set(a4, v18 + 4, a5);
+    ccn_set(a4, v19 + 4, a5);
   }
 
-  ccn_zero(v13 - a4, &v19[a4]);
-  v20 = ccn_cmp_public_value(v14, a6, a7);
-  if (v20 >= 0)
+  ccn_zero(v13 - a4, &v20[a4]);
+  v21 = ccn_cmp_public_value(v14, a6, a7);
+  if (v21 >= 0)
   {
-    v21 = a7;
+    v22 = a7;
   }
 
   else
   {
-    v21 = a6;
+    v22 = a6;
   }
 
-  if (v20 >= 0)
+  if (v21 >= 0)
   {
     a7 = a6;
   }
 
   *ccrsa_ctx_private_zp(a3) = v14;
-  v22 = ccrsa_ctx_private_zp(a3);
-  *(v22 + 16 * *ccrsa_ctx_private_zp(a3) + 32) = v14;
   v23 = ccrsa_ctx_private_zp(a3);
+  v23[2 * *ccrsa_ctx_private_zp(a3) + 4] = v14;
   v24 = ccrsa_ctx_private_zp(a3);
-  v25 = v24 + 16 * *ccrsa_ctx_private_zp(a3);
-  ccn_set(v14, v23 + 3, a7);
-  ccn_set(v14, (v25 + 56), v21);
-  result = cczp_init_ws(a1, v23);
-  if (result || (result = cczp_init_ws(a1, (v25 + 32)), result))
+  v25 = ccrsa_ctx_private_zp(a3);
+  v26 = &v25[2 * *ccrsa_ctx_private_zp(a3)];
+  ccn_set(v14, v24 + 3, a7);
+  ccn_set(v14, v26 + 7, v22);
+  result = cczp_init_ws(a1, v24);
+  if (result || (result = cczp_init_ws(a1, v26 + 4), result))
   {
-    v26 = v27;
+    v27 = v28;
   }
 
   else
   {
     result = ccrsa_crt_makekey_ws(a1, a3);
-    v26 = v27;
+    v27 = v28;
     if (!result)
     {
-      if (cczp_bitlen(v15) + 1 >= a2)
+      if (cczp_bitlen(v16) + 1 >= a2)
       {
         result = 0;
       }
@@ -332,11 +333,11 @@ uint64_t ccrsa_crt_make_fips186_key_ws(uint64_t a1, unint64_t a2, uint64_t *a3, 
     }
   }
 
-  *(a1 + 16) = v26;
+  *(a1 + 16) = v27;
   return result;
 }
 
-uint64_t ccrsa_generate_fips186_key_trace(unint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t (**a5)(void, unint64_t, void *), unsigned int (**a6)(void, unint64_t, uint64_t), void *a7)
+uint64_t ccrsa_generate_fips186_key_trace(unint64_t a1, unint64_t *a2, unint64_t a3, unsigned __int8 *a4, uint64_t (**a5)(void, unint64_t, void *), unsigned int (**a6)(void, unint64_t, uint64_t), void *a7)
 {
   v9 = a1 + 63;
   v10 = (a1 + 63) >> 6;
@@ -365,8 +366,8 @@ uint64_t ccrsa_generate_fips186_key_trace(unint64_t a1, uint64_t *a2, uint64_t a
   v19 = v9 >> 7;
   v20 = 3 * (v9 >> 7) + 3;
   v21 = cc_malloc_clear(8 * (v18 + v20));
-  v66[0] = v21;
-  v57 = v10;
+  v67[0] = v21;
+  v58 = v10;
   v22 = CCRSA_CRT_POWER_BLINDED_WORKSPACE_N(v10);
   if (9 * v10 <= v22)
   {
@@ -387,10 +388,10 @@ uint64_t ccrsa_generate_fips186_key_trace(unint64_t a1, uint64_t *a2, uint64_t a
     v27 = v24;
   }
 
-  v66[1] = v27 + v20;
-  v67 = 0;
-  v68 = cc_ws_alloc;
-  v69 = cc_ws_free;
+  v67[1] = v27 + v20;
+  v68 = 0;
+  v69 = cc_ws_alloc;
+  v70 = cc_ws_free;
   if (!v21)
   {
     return 4294967283;
@@ -400,67 +401,68 @@ uint64_t ccrsa_generate_fips186_key_trace(unint64_t a1, uint64_t *a2, uint64_t a
   {
     v29 = a1;
     *a2 = v10;
-    v30 = ccrsa_ctx_public(a2);
-    v31 = v30 + 3;
+    ccrsa_ctx_public();
+    v31 = v30;
+    v32 = v30 + 3;
     if (ccn_read_uint_internal(v10, &v30[2 * *v30 + 4], a3, a4))
     {
       v28 = 4294967268;
-      cc_ws_free(v66);
+      cc_ws_free(v67);
     }
 
     else
     {
-      v32 = v19 + 1;
-      v65 = cc_ws_alloc(v66, v19 + 1);
-      v33 = v68(v66, v19 + 1);
-      v34 = *a2;
-      v52 = *v30;
-      v35 = a1 + 1;
-      v36 = v68(v66, v32);
-      v61 = v32;
-      cc_clear(8 * v32, v36);
-      v55 = v36;
-      v56 = (v29 + 1) >> 1;
-      ccn_set_bit(v36, v56, 1);
+      v33 = v19 + 1;
+      v66 = cc_ws_alloc(v67, v19 + 1);
+      v34 = v69(v67, v19 + 1);
+      v35 = *a2;
+      v53 = *v31;
+      v36 = a1 + 1;
+      v37 = v69(v67, v33);
+      v62 = v33;
+      cc_clear(8 * v33, v37);
+      v56 = v37;
+      v57 = (v29 + 1) >> 1;
+      ccn_set_bit(v37, v57, 1);
       if (v29 >= 0x200)
       {
-        v53 = &a2[3 * v34];
-        v54 = v29;
-        v37 = 171;
+        v54 = &a2[3 * v35];
+        v55 = v29;
+        v38 = 171;
         if (v29 > 0xFFE)
         {
-          v37 = 201;
+          v38 = 201;
         }
 
-        v38 = 101;
+        v39 = 101;
         if (v29 > 0x400)
         {
-          v38 = 141;
+          v39 = 141;
         }
 
-        v39 = (a3 + 7) >> 3;
+        v40 = (a3 + 7) >> 3;
         if (v29 <= 0xBFE)
         {
-          v40 = v38;
+          v41 = v39;
         }
 
         else
         {
-          v40 = v37;
+          v41 = v38;
         }
 
-        v41 = &v31[2 * v52];
-        v60 = v29 - (v35 >> 1);
-        v42 = v61;
+        v42 = &v32[2 * v53];
+        v61 = v29 - (v36 >> 1);
+        v43 = v62;
 LABEL_27:
-        v43 = ccn_bitlen_internal(v39, v41 + 1);
-        v44 = v67;
-        v45 = v68(v66, v42);
-        v46 = v68(v66, v42);
+        v44 = ccn_bitlen_internal(v40, v42 + 1);
+        v45 = v68;
+        v46 = v69(v67, v43);
+        v47 = v69(v67, v43);
         v28 = 4294967268;
-        if ((v41[1] & 1) != 0 && (v43 - 256) >= 0xFFFFFFFFFFFFFF11)
+        if ((v42[1] & 1) != 0 && v44 - 256 >= 0xFFFFFFFFFFFFFF11)
         {
-          v47 = v46;
+          v48 = v47;
           if (a7)
           {
             cc_clear(0x1830uLL, a7);
@@ -468,10 +470,10 @@ LABEL_27:
             a7[2] = 0;
           }
 
-          probable_prime_ws = ccrsa_generate_probable_prime_ws(v66, v56, v65, v45, v40, v40, v39, v41 + 1, a5, a6, a7);
+          probable_prime_ws = ccrsa_generate_probable_prime_ws(v67, v57, v66, v46, v41, v41, v40, v42 + 1, a5, a6, a7);
           if (!probable_prime_ws)
           {
-            v49 = 0;
+            v50 = 0;
             while (1)
             {
               if (a7)
@@ -480,42 +482,42 @@ LABEL_27:
                 a7[2] = 1;
               }
 
-              probable_prime_ws = ccrsa_generate_probable_prime_ws(v66, v60, v33, v47, v40, v40, v39, v41 + 1, a5, a6, a7);
+              probable_prime_ws = ccrsa_generate_probable_prime_ws(v67, v61, v34, v48, v41, v41, v40, v42 + 1, a5, a6, a7);
               if (probable_prime_ws)
               {
                 break;
               }
 
-              v50 = ccrsa_check_delta_100bits_ws(v66, v61, v65, v33, v45->i64, v47);
-              v28 = v50;
-              if (v49 <= 0x62)
+              v51 = ccrsa_check_delta_100bits_ws(v67, v62, v66, v34, v46, v48);
+              v28 = v51;
+              if (v50 <= 0x62)
               {
-                ++v49;
-                if (v50 == -39)
+                ++v50;
+                if (v51 == -39)
                 {
                   continue;
                 }
               }
 
-              v67 = v44;
-              if (v50)
+              v68 = v45;
+              if (v51)
               {
                 goto LABEL_44;
               }
 
-              probable_prime_ws = ccrsa_crt_make_fips186_key_ws(v66, v54, a2, v39, v41 + 1, v65, v33);
+              probable_prime_ws = ccrsa_crt_make_fips186_key_ws(v67, v55, a2, v40, v42 + 1, v66, v34);
               if (probable_prime_ws)
               {
                 break;
               }
 
-              v42 = v61;
-              if (ccn_cmpn_internal(v57, v53 + 4, v61, v55) < 1)
+              v43 = v62;
+              if (ccn_cmpn_internal(v58, (v54 + 4), v62, v56) < 1)
               {
                 goto LABEL_27;
               }
 
-              if (ccrsa_pairwise_consistency_check_ws(v66, a2, a5))
+              if (ccrsa_pairwise_consistency_check_ws(v67, a2, a5))
               {
                 v28 = 4294967259;
               }
@@ -539,25 +541,25 @@ LABEL_27:
       }
 
 LABEL_44:
-      v67 = 0;
-      v69(v66);
+      v68 = 0;
+      v70(v67);
     }
   }
 
   else
   {
     v28 = 4294967273;
-    cc_ws_free(v66);
+    cc_ws_free(v67);
   }
 
   return v28;
 }
 
-uint64_t ccrsa_generate_fips186_key(unint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t (**a5)(void, unint64_t, void *), unsigned int (**a6)(void, unint64_t, uint64_t))
+uint64_t ccrsa_generate_fips186_key(unint64_t a1, unint64_t *a2, unint64_t a3, unsigned __int8 *a4, uint64_t (**a5)(void, unint64_t, void *), unsigned int (**a6)(void, unint64_t, uint64_t))
 {
   v14 = timingsafe_enable_if_supported();
   fips186_key_trace = ccrsa_generate_fips186_key_trace(a1, a2, a3, a4, a5, a6, 0);
-  cc_try_abort_if (fips186_key_trace == -37);
+  cc_try_abort_if (fips186_key_trace == -37, "ccrsa_generate_fips186_key consistency");
   cc_disable_dit_with_sb(&v14);
   return fips186_key_trace;
 }
@@ -595,13 +597,13 @@ LABEL_9:
   return result;
 }
 
-BOOL OUTLINED_FUNCTION_2_12()
+uint64_t OUTLINED_FUNCTION_2_12()
 {
 
   return ccn_add1_ws(v0, v2, v1, v1, 1);
 }
 
-uint64_t ccrsa_sign_pss_blinded(uint64_t (**a1)(void, uint64_t, uint64_t), unint64_t *a2, uint64_t *a3, uint64_t a4, unint64_t a5, uint64_t (**a6)(void, unint64_t, char *), size_t a7, char *a8, unint64_t *a9, char *a10)
+uint64_t ccrsa_sign_pss_blinded(uint64_t (**a1)(void, uint64_t, void *), unint64_t *a2, uint64_t *a3, uint64_t a4, size_t a5, uint64_t (**a6)(void, unint64_t, char *), size_t a7, char *a8, unint64_t *a9, char *a10)
 {
   v50 = *MEMORY[0x29EDCA608];
   v17 = *a2;
@@ -691,7 +693,7 @@ LABEL_24:
 
     else
     {
-      v34 = v33(a6, 12uLL, v49);
+      v34 = v33(a6, 12, v49);
       __memcpy_chk();
       cc_clear(a5, v49);
     }
@@ -743,8 +745,8 @@ uint64_t fipspost_post_hkdf(char a1)
 {
   v44 = *MEMORY[0x29EDCA608];
   v2 = ccsha1_di();
-  v3 = ccsha256_di();
-  v4 = ccsha512_di();
+  v3 = ccsha256_di(v2);
+  v4 = ccsha512_di(v3);
   v5 = ccsha3_224_di();
   v6 = ccsha3_256_di();
   v7 = ccsha3_384_di();
@@ -806,7 +808,7 @@ uint64_t fipspost_post_hkdf(char a1)
   return v10;
 }
 
-uint64_t ccn_cond_swap(uint64_t a1, char a2, uint64_t *a3, uint64_t *a4)
+unint64_t ccn_cond_swap(uint64_t a1, char a2, unint64_t *a3, unint64_t *a4)
 {
   result = ccn_mux_next_mask();
   for (i = __ROR8__(0x5555555555555555, a2 | (2 * result)); a1; --a1)
@@ -877,13 +879,13 @@ uint64_t cccmac_generate_subkeys(uint64_t a1, uint64_t a2, uint64_t a3, char *a4
   return result;
 }
 
-uint64_t ccec_affine_point_from_x_ws(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
+uint64_t ccec_affine_point_from_x_ws(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4)
 {
   v7 = *a2;
   v8 = *(a1 + 16);
   (*(a1 + 24))(a1, *a2);
   (*(a1 + 24))(a1, v7);
-  if ((ccn_cmp_public_value(*a2, a4, a2 + 3) & 0x80000000) != 0)
+  if ((ccn_cmp_public_value(*a2, a4, (a2 + 3)) & 0x80000000) != 0)
   {
     cczp_to_ws(a1, a2);
     cczp_sqr_ws(a1, a2);
@@ -1012,7 +1014,7 @@ BOOL fips_allowed_drbg_(char *__s1, const char *a2, const char *a3)
   return result;
 }
 
-uint64_t ccn_divmod_ws(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6, char *a7, uint64_t a8)
+uint64_t ccn_divmod_ws(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6, char *a7, uint64_t *a8)
 {
   v58[2] = *MEMORY[0x29EDCA608];
   v12 = ccn_n(a6, a8);
@@ -1024,7 +1026,7 @@ uint64_t ccn_divmod_ws(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, uint
   v16 = (*(a1 + 24))(a1, v12 + 1);
   v14[v12] = 0;
   v51 = v12 - 1;
-  v17 = __clz(*(a8 + 8 * (v12 - 1)));
+  v17 = __clz(a8[v12 - 1]);
   ccn_shift_left(v12, v14, a8, v17, v18);
   v53 = v17;
   if (v12)
@@ -1071,8 +1073,8 @@ uint64_t ccn_divmod_ws(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, uint
       v15->i64[0] = ((*(v31 - 1) & v47) >> v48) | v34;
     }
 
-    v35 = v15->i64[v12];
-    v36 = v15->i64[v51];
+    v35 = v15->u64[v12];
+    v36 = v15->u64[v51];
     v56 = v14[v51];
     v37 = v35 + ((v35 * v50) >> 64) - ((((v36 - v56) ^ v36 | v56 ^ v36) ^ v36) >> 63) + 2;
     v55 = v37 | -((((((v35 * v50) >> 64) - ((((v36 - v56) ^ v36 | v56 ^ v36) ^ v36) >> 63) + 2) ^ v37 | v37 ^ v35) ^ v37) >> 63);
@@ -1084,9 +1086,9 @@ uint64_t ccn_divmod_ws(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, uint
     v39 = ccn_add1_ws(0, 2, v58, v58, v56);
     v40 = v55 + v39;
     v16[v12] = ccn_mul1(v12, v16, v14, v55 + v39);
-    v41 = ccn_sub_ws(v52, v12 + 1, v15, v15->i64, v16);
-    v42 = v41 - ccn_cond_add(v12 + 1, v41, v15->i64, v15->i64, v14);
-    result = ccn_cond_add(v12 + 1, v42, v15->i64, v15->i64, v14);
+    v41 = ccn_sub_ws(v52, v12 + 1, v15, v15, v16);
+    v42 = v41 - ccn_cond_add(v12 + 1, v41, v15, v15->i64, v14);
+    result = ccn_cond_add(v12 + 1, v42, v15, v15->i64, v14);
     if (a5 && v32 < a4)
     {
       *(a5 + 8 * v32) = v40 - (v41 + v42);
@@ -1186,7 +1188,7 @@ uint64_t ccckg2_derive_sk_ws(uint64_t a1, uint64_t a2, _BYTE *a3, uint64_t a4, u
   *v16 = v12;
   v17 = cczp_bitlen(v12);
   result = ccec_raw_import_pub(v12, ((v17 + 7) >> 2) & 0x3FFFFFFFFFFFFFFELL, a3 + 1, v16);
-  if (result || (result = ccec_validate_point_and_projectify_ws(a1, v12, v14, (v16 + 2)), result) || (result = ccec_mult_blinded_ws(a1, v12, v15, a2 + 8 * **(a2 + 8) + 40, v14, a7), result) || (result = ccec_affinify_ws(a1, v12), result))
+  if (result || (result = ccec_validate_point_and_projectify_ws(a1, v12, v14, (v16 + 2)), result) || (result = ccec_mult_blinded_ws(a1, v12, v15, (a2 + 8 * **(a2 + 8) + 40), v14, a7), result) || (result = ccec_affinify_ws(a1, v12), result))
   {
     v20 = v25;
   }
@@ -1292,7 +1294,7 @@ uint64_t ccn_cmpn_public_value(unint64_t a1, uint64_t a2, unint64_t a3, uint64_t
   }
 
   v8 = ccn_cmp_public_value(v4, a2, a4);
-  if (ccn_n(v6 - v4, v5 + 8 * v4))
+  if (ccn_n(v6 - v4, (v5 + 8 * v4)))
   {
     return v7;
   }
@@ -1383,7 +1385,7 @@ unint64_t CCHE_DECRYPT_WORKSPACE_N(uint64_t a1, int a2)
   return v7 + v9;
 }
 
-uint64_t cche_decrypt(unint64_t *a1, unsigned int *a2, uint64_t a3, _DWORD **a4)
+uint64_t cche_decrypt(unsigned int **a1, unsigned int *a2, uint64_t a3, uint64_t *a4)
 {
   v15 = timingsafe_enable_if_supported();
   v8 = cche_param_ctx_polynomial_degree(a2);
@@ -1471,7 +1473,7 @@ double ccmode_factory_gcm_encrypt(void *a1, void *a2)
   return result;
 }
 
-uint64_t ccss_shamir_share_generator_init(uint64_t *a1, int *a2, unsigned int (**a3)(void, unint64_t, uint64_t), uint64_t a4, unint64_t a5)
+uint64_t ccss_shamir_share_generator_init(uint64_t *a1, int *a2, unsigned int (**a3)(void, unint64_t, uint64_t), unsigned __int8 *a4, unint64_t a5)
 {
   if ((MEMORY[0xFFFFFC010] & 0x200000000000000) == 0 || (_ReadStatusReg(ARM64_SYSREG(3, 3, 4, 2, 5)) & 0x1000000) != 0)
   {
@@ -1511,7 +1513,7 @@ uint64_t ccss_shamir_share_generator_init(uint64_t *a1, int *a2, unsigned int (*
   return share_poly_ws;
 }
 
-uint64_t ccss_shamir_share_generator_init_with_secrets_less_than_prime(uint64_t *a1, int *a2, unsigned int (**a3)(void, unint64_t, uint64_t), uint64_t a4, unint64_t a5)
+uint64_t ccss_shamir_share_generator_init_with_secrets_less_than_prime(uint64_t *a1, int *a2, unsigned int (**a3)(void, unint64_t, uint64_t), unsigned __int8 *a4, unint64_t a5)
 {
   if ((MEMORY[0xFFFFFC010] & 0x200000000000000) == 0 || (_ReadStatusReg(ARM64_SYSREG(3, 3, 4, 2, 5)) & 0x1000000) != 0)
   {
@@ -1551,7 +1553,7 @@ uint64_t ccss_shamir_share_generator_init_with_secrets_less_than_prime(uint64_t 
   return share_poly_ws;
 }
 
-uint64_t ccder_blob_decode_oid(unsigned __int8 **a1, unsigned __int8 **a2)
+uint64_t ccder_blob_decode_oid(unsigned __int8 **a1, uint64_t *a2)
 {
   v3 = *a1;
   v6[0] = 0;
@@ -1837,16 +1839,17 @@ uint64_t ccmldsa_polyvecl_bitunpack_z(uint64_t result, uint64_t a2, uint64_t a3)
   return result;
 }
 
-uint64_t ccmldsa_polyvecl_checknorm(uint64_t a1, uint64_t a2, int a3)
+uint64_t ccmldsa_polyvecl_checknorm(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (!*(a1 + 8))
   {
     return 0;
   }
 
+  v3 = a3;
   v6 = 0;
   v7 = 0;
-  while (!ccmldsa_poly_checknorm(a2 + 4 * (v6 & 0xFFFFFF00), a3))
+  while (!ccmldsa_poly_checknorm(a2 + 4 * (v6 & 0xFFFFFF00), v3))
   {
     ++v7;
     v6 += 256;
@@ -2019,9 +2022,9 @@ uint64_t ccmldsa_polyveck_power2round(uint64_t result, uint64_t a2, uint64_t a3,
   return result;
 }
 
-void ccmldsa_polyveck_shiftl(uint64_t a1, uint64_t a2)
+void ccmldsa_polyveck_shiftl(uint64_t result, uint64_t a2)
 {
-  if (*(a1 + 4))
+  if (*(result + 4))
   {
     v4 = 0;
     v5 = 0;
@@ -2032,7 +2035,7 @@ void ccmldsa_polyveck_shiftl(uint64_t a1, uint64_t a2)
       v4 += 256;
     }
 
-    while (v5 < *(a1 + 4));
+    while (v5 < *(result + 4));
   }
 }
 
@@ -2251,16 +2254,17 @@ uint64_t ccmldsa_polyveck_bitunpack_t1(uint64_t result, uint64_t a2, uint64_t a3
   return result;
 }
 
-uint64_t ccmldsa_polyveck_checknorm(uint64_t a1, uint64_t a2, int a3)
+uint64_t ccmldsa_polyveck_checknorm(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (!*(a1 + 4))
   {
     return 0;
   }
 
+  v3 = a3;
   v6 = 0;
   v7 = 0;
-  while (!ccmldsa_poly_checknorm(a2 + 4 * (v6 & 0xFFFFFF00), a3))
+  while (!ccmldsa_poly_checknorm(a2 + 4 * (v6 & 0xFFFFFF00), v3))
   {
     ++v7;
     v6 += 256;
@@ -2591,7 +2595,7 @@ uint64_t ccder_sizeof_len(unint64_t a1)
   }
 }
 
-void *ccaes_xts_encrypt_mode()
+void *ccaes_xts_encrypt_mode(uint64_t a1)
 {
   if (fipspost_trace_is_active())
   {
@@ -2912,7 +2916,7 @@ uint64_t ccpolyzp_po2cyc_coeff_scalar_mul_ws(uint64_t result, _DWORD **a2, int *
   return result;
 }
 
-void *ccsha224_di()
+void *ccsha224_di(uint64_t a1)
 {
   if (fipspost_trace_is_active())
   {
@@ -2981,7 +2985,7 @@ uint64_t ccwrap_auth_encrypt_withiv(uint64_t a1, uint64_t a2, size_t a3, const v
   return v14;
 }
 
-uint64_t ccdh_import_pub(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+uint64_t ccdh_import_pub(uint64_t a1, unint64_t a2, unsigned __int8 *a3, void *a4)
 {
   if ((MEMORY[0xFFFFFC010] & 0x200000000000000) == 0 || (_ReadStatusReg(ARM64_SYSREG(3, 3, 4, 2, 5)) & 0x1000000) != 0)
   {
@@ -3007,7 +3011,7 @@ uint64_t ccdh_import_pub(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
   {
     v16 = ccdh_gp_n(a1);
     v17 = ccdh_gp_prime(a1);
-    if (ccn_cmp_public_value(v16, a4 + 2, v17) >= 0)
+    if (ccn_cmp_public_value(v16, (a4 + 2), v17) >= 0)
     {
       v15 = 4294967247;
     }
@@ -3038,7 +3042,7 @@ uint64_t ccmode_xts_init(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uin
   return v10;
 }
 
-uint64_t ccapsic_client_init_internal(uint64_t **a1, uint64_t **a2, uint64_t *a3, size_t a4, const void *a5)
+uint64_t ccapsic_client_init_internal(void **a1, uint64_t **a2, uint64_t *a3, size_t a4, const void *a5)
 {
   v9 = *a2;
   *a1 = *a2;
@@ -3067,7 +3071,7 @@ uint64_t ccapsic_client_init_internal(uint64_t **a1, uint64_t **a2, uint64_t *a3
       goto LABEL_9;
     }
 
-    memcpy(&(&a1[9 * **a1 + 24])[2 * **a1], v14, 24 * *v9);
+    memcpy(&a1[9 * **a1 + 24] + 2 * **a1, v14, 24 * *v9);
     v16 = ccec_projectify_ws(v25, v9);
     if (v16 || (v16 = ccec_projectify_ws(v25, v9), v16))
     {
@@ -3117,7 +3121,7 @@ LABEL_15:
   return 4294967283;
 }
 
-uint64_t ccapsic_client_init(uint64_t **a1, uint64_t **a2, uint64_t *a3, size_t a4, const void *a5)
+uint64_t ccapsic_client_init(void **a1, uint64_t **a2, uint64_t *a3, size_t a4, const void *a5)
 {
   v12 = timingsafe_enable_if_supported();
   inited = ccapsic_client_init_internal(a1, a2, a3, a4, a5);
@@ -3127,13 +3131,13 @@ uint64_t ccapsic_client_init(uint64_t **a1, uint64_t **a2, uint64_t *a3, size_t 
 
 uint64_t cckem_kyber1024_generate_key(uint64_t a1, uint64_t (**a2)(void, uint64_t, _OWORD *))
 {
-  v4 = (cckem_public_ctx() + 8);
+  cckem_public_ctx();
   v5 = (a1 + *(*a1 + 16) + 8);
 
-  return ccmlkem_kem_keypair(cckyber1024_params, v4, v5, a2);
+  return ccmlkem_kem_keypair(cckyber1024_params, (v4 + 8), v5, a2);
 }
 
-uint64_t ccec_mult_default_ws(uint64_t a1, uint64_t *a2, uint64_t *a3, _BYTE *a4, unint64_t a5, uint64_t *a6)
+uint64_t ccec_mult_default_ws(uint64_t a1, unint64_t *a2, uint64_t *a3, _BYTE *a4, unint64_t a5, uint64_t *a6)
 {
   v12 = a2 + 4;
   if (cczp_bitlen(&a2[5 * *a2 + 4]) < a5)
@@ -3161,7 +3165,7 @@ uint64_t ccec_mult_default_ws(uint64_t a1, uint64_t *a2, uint64_t *a3, _BYTE *a4
   v51 = (a5 + 63) >> 6;
   v58 = v18;
   ccn_shift_right(v51, v18, v18, v56);
-  ccec_double_ws(a1, a2);
+  ccec_double_ws(a1, a2, v17, a6);
   ccn_mux(3 * v14, !v56, v17, a6, v17);
   if (!ccn_n(v14, v17))
   {
@@ -3229,8 +3233,8 @@ LABEL_13:
           v29 = (*(v27->i64 + ((v32 >> 3) & 0x1FFFFFFFFFFFFFF8)) >> v32) & 1;
           cczp_cond_negate(a2, v30, v31, v31);
           ccn_cond_swap(v57, v29 ^ v34 | v33 ^ 1, v26, v21);
-          ccec_mult_XYCZaddC_ws(v49, a2);
-          ccec_mult_XYCZadd_ws(v49, a2);
+          ccec_mult_XYCZaddC_ws(v49, a2, v26, v21);
+          ccec_mult_XYCZadd_ws(v49, a2, v26, v21);
           LOBYTE(v30) = v29 & (v33 ^ 1);
           v27 = v18;
           v33 |= v29;
@@ -3248,7 +3252,7 @@ LABEL_13:
 
       cczp_cond_negate(a2, v30, v31, v31);
       ccn_cond_swap(v57, v27->i8[0] & 1 ^ v29, v26, v21);
-      ccec_mult_XYCZaddC_ws(v49, a2);
+      ccec_mult_XYCZaddC_ws(v49, a2, v26, v21);
       ccn_set(v57, __dst, v21);
       v35 = v27->i64[0];
       ccn_cond_swap(v57, v27->i8[0] & 1, v26, v21);
@@ -3265,7 +3269,7 @@ LABEL_13:
       cczp_mul_ws(v49, a2);
       *(v49 + 16) = v42;
       ccn_cond_swap(v57, v35 & 1, v36, v21);
-      ccec_mult_XYCZadd_ws(v49, a2);
+      ccec_mult_XYCZadd_ws(v49, a2, v36, v21);
       ccn_mux(v57, v35 & 1, v36, v21, v36);
       cczp_mul_ws(v49, a2);
       cczp_mul_ws(v49, a2);
@@ -3297,13 +3301,13 @@ LABEL_16:
   return result;
 }
 
-uint64_t ccec_mult_XYCZaddC_ws(uint64_t a1, void *a2)
+uint64_t ccec_mult_XYCZaddC_ws(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v4 = *a2;
-  v5 = *(a1 + 16);
+  v6 = *a2;
+  v7 = *(a1 + 16);
   (*(a1 + 24))(a1, *a2);
-  (*(a1 + 24))(a1, v4);
-  (*(a1 + 24))(a1, v4);
+  (*(a1 + 24))(a1, v6);
+  (*(a1 + 24))(a1, v6);
   cczp_sub_ws(a1, a2);
   cczp_sqr_ws(a1, a2);
   cczp_mul_ws(a1, a2);
@@ -3323,16 +3327,16 @@ uint64_t ccec_mult_XYCZaddC_ws(uint64_t a1, void *a2)
   cczp_sub_ws(a1, a2);
   cczp_mul_ws(a1, a2);
   result = cczp_sub_ws(a1, a2);
-  *(a1 + 16) = v5;
+  *(a1 + 16) = v7;
   return result;
 }
 
-uint64_t ccec_mult_XYCZadd_ws(uint64_t a1, void *a2)
+uint64_t ccec_mult_XYCZadd_ws(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v4 = *a2;
-  v5 = *(a1 + 16);
+  v6 = *a2;
+  v7 = *(a1 + 16);
   (*(a1 + 24))(a1, *a2);
-  (*(a1 + 24))(a1, v4);
+  (*(a1 + 24))(a1, v6);
   cczp_sub_ws(a1, a2);
   cczp_sqr_ws(a1, a2);
   cczp_mul_ws(a1, a2);
@@ -3346,7 +3350,7 @@ uint64_t ccec_mult_XYCZadd_ws(uint64_t a1, void *a2)
   cczp_sub_ws(a1, a2);
   cczp_mul_ws(a1, a2);
   result = cczp_sub_ws(a1, a2);
-  *(a1 + 16) = v5;
+  *(a1 + 16) = v7;
   return result;
 }
 
@@ -3530,7 +3534,7 @@ LABEL_9:
   return -16;
 }
 
-uint64_t fipspost_trace_call(uint64_t result)
+const char *fipspost_trace_call(const char *result)
 {
   if ((fipspost_trace_fips_mode & 0x80) == 0 || !fipspost_trace_writer || (v1 = result, v2 = mach_absolute_time(), printf("FIPSPOST_USER [%llu] %s:%d: TRACE: event: %s\n", v2, "fipspost_trace_call", 172, v1), result = fipspost_trace_hook_idx(v1), v3 = result, result > 0xEF) || (result = fipspost_trace_writer(fipspost_trace_writer_ctx, &v3, 1), result))
   {
@@ -3644,13 +3648,13 @@ uint64_t ccaes_cfb_decrypt_vng(int8x16_t *a1, unint64_t a2, int8x16_t *a3, int8x
   if (!v13)
   {
     v14 = 0;
-    v15 = a1[1].i64 + v9;
-    v16 = v15 + 8 * v10;
+    v15 = &a1[1].i8[v9];
+    v16 = &v15[8 * v10];
     do
     {
       v17 = a3->i8[v14];
-      *(v16 + v14) = v17;
-      a4->i8[v14] = *(v15 + v14) ^ v17;
+      v16[v14] = v17;
+      a4->i8[v14] = v15[v14] ^ v17;
       v18 = v14 + 1;
       if (v9 + v14 == 15)
       {
@@ -4094,7 +4098,7 @@ uint64_t cche_ciphertext_coeff_decompose_nptexts(uint64_t a1, uint64_t a2)
   return v4;
 }
 
-uint64_t ccder_sizeof_eckey(unint64_t a1, uint64_t a2, uint64_t a3)
+unint64_t ccder_sizeof_eckey(unint64_t a1, uint64_t a2, uint64_t a3)
 {
   v6 = ccder_sizeof_uint64(1);
   v7 = ccder_sizeof(4, a1) + v6;
@@ -4267,7 +4271,7 @@ uint64_t ccrsa_num_mr_iterations_aux(unint64_t a1)
   }
 }
 
-uint64_t ccrsa_import_pub(uint64_t *a1, uint64_t a2, unsigned __int8 *a3)
+uint64_t ccrsa_import_pub(unint64_t *a1, uint64_t a2, unsigned __int8 *a3)
 {
   if (ccder_decode_rsa_pub_x509(a1, a3, &a3[a2]))
   {
@@ -4357,7 +4361,7 @@ LABEL_8:
   return v2;
 }
 
-BOOL ccn_sub_asm(_BOOL8 result, void *a2, uint64_t *a3, unint64_t *a4)
+BOOL ccn_sub_asm(_BOOL8 result, unint64_t *a2, unint64_t *a3, unint64_t *a4)
 {
   v4 = 1;
   if (result)
@@ -4395,10 +4399,10 @@ BOOL ccn_sub_asm(_BOOL8 result, void *a2, uint64_t *a3, unint64_t *a4)
       v16 = v15 - 4;
       v18 = *a3;
       v19 = a3[1];
-      v17 = a3 + 2;
+      v17 = (a3 + 2);
       v21 = *a4;
       v22 = a4[1];
-      v20 = (a4 + 2);
+      v20 = a4 + 2;
       v24 = *v17;
       v25 = v17[1];
       v23 = v17 + 2;
@@ -4483,10 +4487,10 @@ uint64_t ccec_affinify_jacobian_ws(uint64_t a1, uint64_t *a2, uint64_t a3, uint6
   return v9;
 }
 
-uint64_t ccec_affinify_homogeneous_ws(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
+uint64_t ccec_affinify_homogeneous_ws(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4)
 {
   v7 = cczp_n(a2);
-  if (!ccn_n(v7, a4 + 16 * *a2))
+  if (!ccn_n(v7, (a4 + 16 * *a2)))
   {
     return 4294967289;
   }
@@ -4644,12 +4648,14 @@ uint64_t ccmgf(uint64_t a1, uint64_t a2, uint64_t a3, size_t a4, char *a5)
   return 0;
 }
 
-uint64_t *ccaes_ccm_encrypt_mode()
+uint64_t *ccaes_ccm_encrypt_mode(uint64_t a1)
 {
-  v0 = (*(ccaes_ecb_encrypt_mode() + 1) + 7) & 0xFFFFFFFFFFFFFFF8;
-  v1 = v0 + ((*ccaes_ecb_encrypt_mode() + 7) & 0xFFFFFFFFFFFFFFF8) + 8;
-  v2 = ccaes_ecb_encrypt_mode();
-  ccm_encrypt_info = v1;
+  v1 = ccaes_ecb_encrypt_mode(a1);
+  v2 = (v1[1] + 7) & 0xFFFFFFFFFFFFFFF8;
+  v3 = ccaes_ecb_encrypt_mode(v1);
+  v4 = v2 + ((*v3 + 7) & 0xFFFFFFFFFFFFFFF8) + 8;
+  v5 = ccaes_ecb_encrypt_mode(v3);
+  ccm_encrypt_info = v4;
   unk_2A14EF780 = xmmword_299DA2690;
   qword_2A14EF790 = ccmode_ccm_init;
   qword_2A14EF798 = ccmode_ccm_set_iv;
@@ -4657,14 +4663,14 @@ uint64_t *ccaes_ccm_encrypt_mode()
   qword_2A14EF7A8 = ccaes_vng_ccm_encrypt_wrapper;
   qword_2A14EF7B0 = ccmode_ccm_finalize;
   qword_2A14EF7B8 = ccmode_ccm_reset;
-  unk_2A14EF7C0 = v2;
+  unk_2A14EF7C0 = v5;
   byte_2A14EF7C8 = 1;
   *algn_2A14EF7C9 = 0;
   dword_2A14EF7CC = 0;
   return &ccm_encrypt_info;
 }
 
-BOOL ccn_neg(uint64_t a1, uint64_t *a2, uint64_t *a3)
+uint64_t ccn_neg(uint64_t a1, uint64_t *a2, uint64_t *a3)
 {
   if (a1)
   {
@@ -4683,7 +4689,7 @@ BOOL ccn_neg(uint64_t a1, uint64_t *a2, uint64_t *a3)
   return ccn_add1_ws(0, a1, a2, a2, 1);
 }
 
-void ccaes_arm_decrypt_key_with_key_length_check(uint64_t a1, int8x16_t *a2, uint64_t a3, int8x16_t *a4, double a5, double a6, double a7, double a8, double a9, double a10, int64x2_t a11)
+void ccaes_arm_decrypt_key_with_key_length_check(uint64_t a1, int8x16_t *a2, unint64_t a3, int8x16_t *a4, double a5, double a6, double a7, double a8, double a9, double a10, int64x2_t a11)
 {
   if (a3 <= 127)
   {
@@ -4831,7 +4837,7 @@ uint64_t ccrng_getentropy_generate(int a1, unint64_t a2, char *buffer)
   return 0;
 }
 
-uint64_t ccrng_drbg_init(uint64_t (**a1)(uint64_t a1, uint64_t a2, uint64_t a3), uint64_t a2, uint64_t (*a3)(uint64_t a1, uint64_t a2, uint64_t a3))
+uint64_t ccrng_drbg_init(uint64_t (**a1)(uint64_t a1, uint64_t a2, uint64_t a3), uint64_t (*a2)(uint64_t a1, uint64_t a2, uint64_t a3), uint64_t (*a3)(uint64_t a1, uint64_t a2, uint64_t a3))
 {
   v8 = timingsafe_enable_if_supported();
   inited = ccdrbg_init_internal(a2);
@@ -5171,7 +5177,7 @@ unsigned __int8 *ccder_decode_dhparams(uint64_t *a1, unsigned __int8 *a2, unsign
   }
 
   v11 = ccder_decode_uint(v6, &v8[*a1 + 1 + *a1], v9, v17);
-  v12 = ccdh_lookup_gp(v6, (a1 + 3), v6, &v8[*a1 + 1 + *a1]);
+  v12 = ccdh_lookup_gp(v6, a1 + 3, v6, &v8[*a1 + 1 + *a1]);
   if (v12)
   {
     ccdh_copy_gp(a1, v12);
@@ -5220,9 +5226,9 @@ unsigned __int8 *ccder_decode_dhparam_n(unsigned __int8 *a1, unsigned __int8 *a2
   return result;
 }
 
-uint64_t ccrsa_decrypt_oaep_blinded_ws(uint64_t a1, uint64_t (**a2)(void, uint64_t, uint64_t), uint64_t *a3, uint64_t *a4, size_t *a5, void *a6, unint64_t a7, uint64_t a8, size_t a9, char *a10)
+uint64_t ccrsa_decrypt_oaep_blinded_ws(uint64_t a1, uint64_t (**a2)(void, uint64_t, void *), unint64_t *a3, size_t *a4, size_t *a5, void *a6, unint64_t a7, unsigned __int8 *a8, size_t a9, char *a10)
 {
-  v18 = ccrsa_ctx_public(a3);
+  ccrsa_ctx_public();
   v19 = ccrsa_block_size(v18);
   v20 = 2 * *a4;
   if (v19 < v20 + 2)
@@ -5926,7 +5932,7 @@ uint64_t ccrsa_encrypt_eme_pkcs1v15_ws(uint64_t a1, uint64_t *a2, uint64_t (**a3
           result = ccrsa_eme_pkcs1v15_encode_internal(a3, v14, v18, a6, a7);
           if (!result)
           {
-            result = ccrsa_pub_crypt_ws(a1, a2);
+            result = ccrsa_pub_crypt_ws(a1, a2, v18);
             if (!result)
             {
               v19 = ccn_write_uint_padded_ct_internal(v16, v18, v14, a5);
@@ -5978,12 +5984,12 @@ uint64_t ccrsa_encrypt_eme_pkcs1v15(uint64_t *a1, uint64_t (**a2)(void, size_t, 
   return v14;
 }
 
-uint64_t fipspost_post_aes_xts(char a1)
+uint64_t fipspost_post_aes_xts(uint64_t a1)
 {
-  v12 = *MEMORY[0x29EDCA608];
+  v13 = *MEMORY[0x29EDCA608];
+  v12 = 0;
   v11 = 0;
-  v10 = 0;
-  v9 = 41;
+  v10 = 41;
   if ((a1 & 0x10) != 0)
   {
     v1 = &unk_299DB0E28;
@@ -5994,29 +6000,30 @@ uint64_t fipspost_post_aes_xts(char a1)
     v1 = &unk_299DB0E3A;
   }
 
-  v2 = ccaes_xts_encrypt_mode();
-  v7 = 0;
+  v2 = ccaes_xts_encrypt_mode(a1);
   v8 = 0;
-  if (ccxts_one_shot(v2, 16, v1, "O\x9B6!r\x8D\x8AgT\x9Ft\xAA\b-X\xEF\x14{\xB2\xA2\x05\x97M\x1E\xFD8h\x85\xB2G\x97", &v9, 1, "\x18\x14{\xB2\xA2\x05\x97M\x1E\xFD8h\x85\xB2G\x97", &v7))
+  v9 = 0;
+  v3 = ccxts_one_shot(v2, 16, v1, "O\x9B6!r\x8D\x8AgT\x9Ft\xAA\b-X\xEF\x14{\xB2\xA2\x05\x97M\x1E\xFD8h\x85\xB2G\x97", &v10, 1, "\x18\x14{\xB2\xA2\x05\x97M\x1E\xFD8h\x85\xB2G\x97", &v8);
+  if (v3)
   {
     mach_absolute_time();
     printf("FIPSPOST_USER [%llu] %s:%d: FAILED: encrypt\n");
     return 4294967223;
   }
 
-  if (v7 == 0x15E6D4FF84381AB9 && v8 == 0xFFA95FCBAEAA5A1CLL)
+  if (v8 == 0x15E6D4FF84381AB9 && v9 == 0xFFA95FCBAEAA5A1CLL)
   {
-    v5 = ccaes_xts_decrypt_mode();
-    v7 = 0;
+    v6 = ccaes_xts_decrypt_mode(v3);
     v8 = 0;
-    if (ccxts_one_shot(v5, 16, v1, "O\x9B6!r\x8D\x8AgT\x9Ft\xAA\b-X\xEF\x14{\xB2\xA2\x05\x97M\x1E\xFD8h\x85\xB2G\x97", &v9, 1, "\xB9\x1A8\x84\xFF\xD4\xE6\x15\x1CZ\xAA\xAE\xCB\x5F\xA9\xFF", &v7))
+    v9 = 0;
+    if (ccxts_one_shot(v6, 16, v1, "O\x9B6!r\x8D\x8AgT\x9Ft\xAA\b-X\xEF\x14{\xB2\xA2\x05\x97M\x1E\xFD8h\x85\xB2G\x97", &v10, 1, "\xB9\x1A8\x84\xFF\xD4\xE6\x15\x1CZ\xAA\xAE\xCB\x5F\xA9\xFF", &v8))
     {
       mach_absolute_time();
       printf("FIPSPOST_USER [%llu] %s:%d: FAILED: decrypt\n");
       return 4294967223;
     }
 
-    if (v7 == 0x4D9705A2B27B1418 && v8 == 0x9747B2856838FD1ELL)
+    if (v8 == 0x4D9705A2B27B1418 && v9 == 0x9747B2856838FD1ELL)
     {
       return 0;
     }
@@ -6071,7 +6078,7 @@ LABEL_11:
   return ccpost_report(a1, a2, 0);
 }
 
-uint64_t ccn_cond_clear(uint64_t a1, char a2, uint64_t *a3)
+unint64_t ccn_cond_clear(uint64_t a1, char a2, unint64_t *a3)
 {
   result = ccn_mux_next_mask();
   for (i = __ROR8__(0x5555555555555555, a2 | (2 * result)); a1; --a1)
@@ -6295,7 +6302,7 @@ uint64_t fipspost_post_mlkem_decapsulate(uint64_t a1)
   return v9;
 }
 
-uint64_t ccspake_mac_hkdf_hmac_compute(uint64_t a1, size_t a2, char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+uint64_t ccspake_mac_hkdf_hmac_compute(uint64_t a1, size_t a2, char *a3, int a4, void *a5, uint64_t a6, uint64_t a7)
 {
   v7 = *(a1 + 8);
   if (*(v7 + 24) != a6)
@@ -6308,7 +6315,7 @@ uint64_t ccspake_mac_hkdf_hmac_compute(uint64_t a1, size_t a2, char *a3, uint64_
   return 0;
 }
 
-uint64_t ccdh_check_pub_ws(uint64_t a1, void *a2, void *a3)
+uint64_t ccdh_check_pub_ws(uint64_t a1, void *a2, uint64_t *a3)
 {
   v6 = ccdh_gp_n(a2);
   if (v6 != ccdh_gp_n(*a3))
@@ -6336,14 +6343,14 @@ uint64_t ccdh_check_pub_ws(uint64_t a1, void *a2, void *a3)
     goto LABEL_7;
   }
 
-  v13 = ccn_cmp_public_value(v6, a3 + 2, v11);
+  v13 = ccn_cmp_public_value(v6, (a3 + 2), v11);
   result = 4294967247;
   if ((v13 & 0x80000000) == 0 || !v6)
   {
     goto LABEL_8;
   }
 
-  if (ccn_n(v6, a3 + 2) <= 1 && a3[2] < 2uLL || ccdh_gp_order_bitlen(a2) && ((v14 = ccdh_gp_order(a2), cczp_mm_power_fast_ws(a1, a2, v11, (a3 + 2), v14)) || ccn_n(v6, v11) != 1 || *v11 != 1))
+  if (ccn_n(v6, a3 + 2) <= 1 && a3[2] < 2 || ccdh_gp_order_bitlen(a2) && ((v14 = ccdh_gp_order(a2), cczp_mm_power_fast_ws(a1, a2, v11, (a3 + 2), v14)) || ccn_n(v6, v11) != 1 || *v11 != 1))
   {
 LABEL_7:
     result = 4294967247;
@@ -6413,10 +6420,10 @@ uint64_t ccrsa_crt_makekey_ws(uint64_t a1, uint64_t *a2)
 {
   v4 = ccrsa_ctx_private_zp(a2);
   v5 = ccrsa_ctx_private_zp(a2);
-  v6 = v5 + 16 * *ccrsa_ctx_private_zp(a2);
+  v6 = &v5[2 * *ccrsa_ctx_private_zp(a2)];
   v7 = cczp_n(a2);
   v8 = cczp_n(v4);
-  v9 = cczp_n(v6 + 32);
+  v9 = cczp_n((v6 + 4));
   if (v8 < v9 || v8 > (v7 >> 1) + 1)
   {
     return 0xFFFFFFFFLL;
@@ -6424,7 +6431,7 @@ uint64_t ccrsa_crt_makekey_ws(uint64_t a1, uint64_t *a2)
 
   v11 = v9;
   v12 = cczp_prime(v4);
-  v13 = cczp_prime(v6 + 32);
+  v13 = cczp_prime((v6 + 4));
   if (ccn_cmpn_internal(v8, v12, v11, v13) < 1)
   {
     return 4294967289;
@@ -6436,7 +6443,7 @@ uint64_t ccrsa_crt_makekey_ws(uint64_t a1, uint64_t *a2)
   v42 = (*(a1 + 24))(a1, (v7 >> 1) + 1);
   cc_clear(8 * v7, v14);
   v15 = cczp_prime(v4);
-  v16 = cczp_prime(v6 + 32);
+  v16 = cczp_prime((v6 + 4));
   v45 = a1;
   v46 = v14;
   ccn_mul_ws(a1, v11, v14, v15, v16);
@@ -6448,12 +6455,9 @@ uint64_t ccrsa_crt_makekey_ws(uint64_t a1, uint64_t *a2)
     v19 = &v46[8 * v11];
     do
     {
-      v20 = cczp_prime(v6 + 32);
+      v20 = cczp_prime((v6 + 4));
       v21 = cczp_prime(v4);
-      *v17 = ccn_addmul1(v11, v19, v20, *(v21 + 8 * v18));
-      v17 += 8;
-      ++v18;
-      v19 += 8;
+      *v17++ = ccn_addmul1(v11, v19++, v20, *(v21 + 8 * v18++));
     }
 
     while (v8 != v18);
@@ -6465,7 +6469,7 @@ uint64_t ccrsa_crt_makekey_ws(uint64_t a1, uint64_t *a2)
   {
     v23 = cczp_prime(v4);
     ccn_set(v8, __dst, v23);
-    v24 = cczp_prime(v6 + 32);
+    v24 = cczp_prime((v6 + 4));
     if (v11)
     {
       ccn_set(v11, v42, v24);
@@ -6478,25 +6482,25 @@ uint64_t ccrsa_crt_makekey_ws(uint64_t a1, uint64_t *a2)
     ccn_lcm_ws(v45, v8, v46, __dst, v42);
     v25 = &a2[2 * *a2 + 3];
     v26 = &a2[3 * *a2 + 3];
-    v27 = ccn_n(v7, v25 + 8);
-    result = ccn_invmod_ws(v45, v7, (v26 + 8), v27, (v25 + 8), v46);
+    v27 = ccn_n(v7, v25 + 1);
+    result = ccn_invmod_ws(v45, v7, v26 + 1, v27, v25 + 2, v46);
     if (!result)
     {
       v28 = ccrsa_ctx_private_zp(a2);
-      v29 = v28 + 16 * *ccrsa_ctx_private_zp(a2);
-      v30 = (v29 + 16 * *ccrsa_ctx_private_zp(a2) + 64);
-      ccn_divmod_ws(v45, v7, v26 + 8, 0, 0, v8, v30, __dst);
+      v29 = &v28[2 * *ccrsa_ctx_private_zp(a2)];
+      v30 = &v29[2 * *ccrsa_ctx_private_zp(a2) + 8];
+      ccn_divmod_ws(v45, v7, (v26 + 1), 0, 0, v8, v30, __dst);
       v31 = ccrsa_ctx_private_zp(a2);
-      v32 = v31 + 16 * *ccrsa_ctx_private_zp(a2);
-      v33 = v32 + 16 * *ccrsa_ctx_private_zp(a2);
+      v32 = &v31[2 * *ccrsa_ctx_private_zp(a2)];
+      v33 = &v32[2 * *ccrsa_ctx_private_zp(a2)];
       v34 = ccrsa_ctx_private_zp(a2);
-      ccn_divmod_ws(v45, v7, v26 + 8, 0, 0, v8, (v33 + 8 * *v34 + 64), v42);
+      ccn_divmod_ws(v45, v7, (v26 + 1), 0, 0, v8, &v33[*v34 + 8], v42);
       v35 = ccrsa_ctx_private_zp(a2);
-      v36 = v35 + 16 * *ccrsa_ctx_private_zp(a2);
-      v37 = v36 + 16 * *ccrsa_ctx_private_zp(a2);
-      v38 = v37 + 8 * *ccrsa_ctx_private_zp(a2);
-      v39 = (v38 + 8 * *ccrsa_ctx_private_zp(a2) + 64);
-      v40 = cczp_prime(v6 + 32);
+      v36 = &v35[2 * *ccrsa_ctx_private_zp(a2)];
+      v37 = &v36[2 * *ccrsa_ctx_private_zp(a2)];
+      v38 = &v37[*ccrsa_ctx_private_zp(a2)];
+      v39 = &v38[*ccrsa_ctx_private_zp(a2) + 8];
+      v40 = cczp_prime((v6 + 4));
       v22 = v45;
       if (v11)
       {
@@ -6526,7 +6530,7 @@ uint64_t ccrsa_crt_makekey_ws(uint64_t a1, uint64_t *a2)
   return result;
 }
 
-uint64_t ccec_compressed_x962_import_pub(unint64_t *a1, uint64_t a2, unsigned __int8 *a3, unint64_t **a4)
+uint64_t ccec_compressed_x962_import_pub(uint64_t *a1, uint64_t a2, unsigned __int8 *a3, uint64_t **a4)
 {
   LODWORD(result) = ccec_x963_import_pub(a1, a2, a3, a4);
   if (result == -7)
@@ -6540,15 +6544,15 @@ uint64_t ccec_compressed_x962_import_pub(unint64_t *a1, uint64_t a2, unsigned __
   }
 }
 
-void *ccaes_siv_encrypt_mode()
+void *ccaes_siv_encrypt_mode(uint64_t a1)
 {
-  v0 = ccaes_cbc_encrypt_mode();
-  v1 = ccaes_ctr_crypt_mode();
-  ccmode_factory_siv_encrypt(&siv_encrypt, v0, v1);
+  v1 = ccaes_cbc_encrypt_mode(a1);
+  v2 = ccaes_ctr_crypt_mode(v1);
+  ccmode_factory_siv_encrypt(&siv_encrypt, v1, v2);
   return &siv_encrypt;
 }
 
-uint64_t ccz_mod(uint64_t a1, void *a2, void *a3)
+uint64_t ccz_mod(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v8 = timingsafe_enable_if_supported();
   memset(v7, 0, sizeof(v7));
@@ -6564,9 +6568,9 @@ unint64_t *ccdigest_update_internal(unint64_t *result, void *a2, size_t a3, char
   v7 = result;
   v8 = result[2];
   v9 = a2 + result[1] + 8;
-  if (v8 <= *(v9 + v8))
+  if (v8 <= *&v9[v8])
   {
-    *(v9 + v8) = 0;
+    *&v9[v8] = 0;
   }
 
   if (a3)
@@ -6687,7 +6691,7 @@ uint64_t ccec_compact_export(int a1, char *a2, uint64_t *a3)
   return v7;
 }
 
-uint64_t ccec_raw_import_priv_only(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t **a4)
+uint64_t ccec_raw_import_priv_only(unint64_t *a1, unint64_t a2, unsigned __int8 *a3, unint64_t **a4)
 {
   v11 = timingsafe_enable_if_supported();
   if (a2 == (cczp_bitlen(&a1[5 * *a1 + 4]) + 7) >> 3)
@@ -6746,12 +6750,13 @@ uint64_t ccdes3_ltc_setup(uint64_t a1, _OWORD *a2, uint64_t a3, uint64_t a4)
   }
 }
 
-uint64_t ccss_shamir_share_bag_set_ith_share(void *a1, unsigned int a2, uint64_t a3)
+uint64_t ccss_shamir_share_bag_set_ith_share(void *a1, uint64_t a2, uint64_t a3)
 {
+  v4 = a2;
   result = ccss_shamir_consistent_primes(*a1 + 8, *a3);
   if (!result)
   {
-    if (**a1 <= a2)
+    if (**a1 <= v4)
     {
       return 4294967165;
     }
@@ -6760,7 +6765,7 @@ uint64_t ccss_shamir_share_bag_set_ith_share(void *a1, unsigned int a2, uint64_t
     {
       v7 = *(a3 + 8);
 
-      return ccss_shamir_share_bag_set_ith_share_with_xy(a1, a2, v7, (a3 + 16));
+      return ccss_shamir_share_bag_set_ith_share_with_xy(a1, v4, v7, (a3 + 16));
     }
   }
 
@@ -6858,7 +6863,7 @@ uint64_t ccss_shamir_share_export(uint64_t a1, _DWORD *a2, char *a3, unint64_t a
   return v15;
 }
 
-uint64_t ccrsa_verify_pkcs1v15_allowshortsigs(uint64_t *a1, uint64_t a2, unint64_t a3, uint64_t a4, unint64_t a5, uint64_t a6, _BYTE *a7)
+uint64_t ccrsa_verify_pkcs1v15_allowshortsigs(uint64_t *a1, uint64_t a2, unint64_t a3, uint64_t a4, unint64_t a5, unsigned __int8 *a6, _BYTE *a7)
 {
   v18[2] = *MEMORY[0x29EDCA608];
   v17 = timingsafe_enable_if_supported();
@@ -7238,7 +7243,7 @@ _DWORD *ge_scalarmult(_DWORD *a1, int8x16_t *a2, uint64_t a3)
   return ge_p1p1_to_p3(a1, v32);
 }
 
-uint64_t ge_select_cached(uint64_t *a1, uint64_t *a2, int a3)
+uint64_t ge_select_cached(uint64_t *a1, uint64_t *a2, unsigned int a3)
 {
   memset(v9, 0, sizeof(v9));
   memset(v8, 0, sizeof(v8));
@@ -7279,7 +7284,8 @@ _DWORD *ge_scalarmult_cofactor(_DWORD *a1)
 uint64_t ge_has_small_order(uint64_t a1)
 {
   v1 = 0;
-  memset(v14, 0, 7);
+  *&v14[3] = 0;
+  *v14 = 0;
   v2 = &ge_has_small_order_small_order_blocklist;
   do
   {
@@ -7321,16 +7327,17 @@ uint64_t ge_has_small_order(uint64_t a1)
   return (v12 >> 8) & 1;
 }
 
-uint64_t ge_cmov_cached(uint64_t *a1, uint64_t *a2, char a3)
+uint64_t ge_cmov_cached(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
+  v3 = a3;
   fe_cmov(a1, a2, a3);
-  fe_cmov(a1 + 5, a2 + 5, a3);
-  fe_cmov(a1 + 10, a2 + 10, a3);
+  fe_cmov(a1 + 5, a2 + 5, v3);
+  fe_cmov(a1 + 10, a2 + 10, v3);
 
-  return fe_cmov(a1 + 15, a2 + 15, a3);
+  return fe_cmov(a1 + 15, a2 + 15, v3);
 }
 
-uint64_t fipspost_post_aes_cbc(char a1)
+uint64_t fipspost_post_aes_cbc(uint64_t a1)
 {
   v1 = "\x012]\xE3\x14\xE9)\xED\x08\x97\x87Т\x05\xD1\xEB3";
   v31 = *MEMORY[0x29EDCA608];
@@ -7359,7 +7366,7 @@ uint64_t fipspost_post_aes_cbc(char a1)
   v4 = &v19;
   v29 = "\xAA6W\x9B\fr\xC5\x28\x16{p\x12\xD7\xFA\xF0\xDE\x9Ef\x1D\xB3\x809 \x9Ar\xC7\xD2\x96@f\x88\xF2\x1D\xB3\x809 \x9Ar\xC7\xD2\x96@f\x88\xF2PSPOST_USER [%llu] %s:%d: FAILED: test %d\n";
   v30 = v3;
-  v5 = ccaes_cbc_encrypt_mode();
+  v5 = ccaes_cbc_encrypt_mode(a1);
   v6 = ccaes_cbc_decrypt_mode();
   v7 = 0;
   v8 = 0;
@@ -7396,7 +7403,7 @@ uint64_t fipspost_post_aes_cbc(char a1)
   return 4294967223;
 }
 
-uint64_t cczp_mm_redc_ws(uint64_t a1, void *a2, uint64_t *a3, uint64_t *a4)
+uint64_t cczp_mm_redc_ws(uint64_t a1, void *a2, uint64_t *a3, unint64_t *a4)
 {
   v8 = cczp_n(a2);
   v9 = v8;
@@ -7423,11 +7430,12 @@ uint64_t cczp_mm_redc_ws(uint64_t a1, void *a2, uint64_t *a3, uint64_t *a4)
   return ccn_mux(v9, v16, a3, &a4[v9], a4);
 }
 
-uint64_t fipspost_post_aes_ecb(char a1)
+uint64_t fipspost_post_aes_ecb(uint64_t a1)
 {
+  v1 = a1;
   v13 = *MEMORY[0x29EDCA608];
-  v2 = ccaes_ecb_encrypt_mode();
-  if ((a1 & 0x10) != 0)
+  v2 = ccaes_ecb_encrypt_mode(a1);
+  if ((v1 & 0x10) != 0)
   {
     v3 = &invalid_key_0;
   }
@@ -7506,15 +7514,15 @@ uint64_t cccast_ecb_encrypt(uint64_t a1, uint64_t a2, unsigned int *a3, _DWORD *
   return 0;
 }
 
-void *ccaes_siv_hmac_sha256_encrypt_mode()
+void *ccaes_siv_hmac_sha256_encrypt_mode(uint64_t a1)
 {
-  v0 = ccsha256_di();
-  v1 = ccaes_ctr_crypt_mode();
-  ccmode_factory_siv_hmac_encrypt(&siv_hmac_encrypt, v0, v1);
+  v1 = ccsha256_di(a1);
+  v2 = ccaes_ctr_crypt_mode(v1);
+  ccmode_factory_siv_hmac_encrypt(&siv_hmac_encrypt, v1, v2);
   return &siv_hmac_encrypt;
 }
 
-unint64_t CCHE_CIPHERTEXT_MOD_SWITCH_DOWN_WORKSPACE_N(unsigned int a1, int a2)
+unint64_t CCHE_CIPHERTEXT_MOD_SWITCH_DOWN_WORKSPACE_N(uint64_t a1, uint64_t a2)
 {
   result = CCPOLYZP_PO2CYC_BASE_CONVERT_MOD_T_DIVIDE_AND_ROUND_Q_LAST_WORKSPACE_N(a1, a2);
   if (result <= 8)
@@ -7547,7 +7555,7 @@ LABEL_3:
   return v20;
 }
 
-uint64_t ccecies_decrypt_gcm_from_shared_secret(uint64_t a1, uint64_t a2, size_t a3, char *a4, unint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, rsize_t *a11, void *a12)
+uint64_t ccecies_decrypt_gcm_from_shared_secret(uint64_t a1, uint64_t a2, size_t a3, char *a4, unint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, unint64_t *a11, void *a12)
 {
   v25 = timingsafe_enable_if_supported();
   v18 = ccecies_pub_key_size_cp(a1, a2);
@@ -7581,21 +7589,16 @@ LABEL_6:
 
 uint64_t ccec_der_export_priv_size(uint64_t *a1, uint64_t a2, int a3)
 {
-  v10 = timingsafe_enable_if_supported();
-  v6 = cczp_bitlen(*a1 + 40 * **a1 + 32);
+  v7 = timingsafe_enable_if_supported();
+  cczp_bitlen(*a1 + 40 * **a1 + 32);
   if (a3)
   {
-    v7 = ((cczp_bitlen(*a1) + 7) >> 2) | 1;
+    cczp_bitlen(*a1);
   }
 
-  else
-  {
-    v7 = 0;
-  }
-
-  v8 = ccder_encode_eckey_size((v6 + 7) >> 3, a2, v7);
-  cc_disable_dit_with_sb(&v10);
-  return v8;
+  v5 = ccder_encode_eckey_size();
+  cc_disable_dit_with_sb(&v7);
+  return v5;
 }
 
 uint64_t ccec_der_export_priv(uint64_t **a1, const void *a2, int a3, uint64_t a4, uint64_t a5)
@@ -7665,9 +7668,9 @@ LABEL_14:
   return v17;
 }
 
-uint64_t fipspost_post_aes_gcm(char a1)
+uint64_t fipspost_post_aes_gcm(uint64_t a1)
 {
-  v10 = *MEMORY[0x29EDCA608];
+  v11 = *MEMORY[0x29EDCA608];
   if ((a1 & 0x10) != 0)
   {
     v1 = "\x01\xF2\xA1\x24\x6B\xFF-\x89:\xEF\xCD\xE5\x90z\x12\a\x9B";
@@ -7688,26 +7691,27 @@ uint64_t fipspost_post_aes_gcm(char a1)
     v2 = "&\x86\xF5\xA1\x1F\x0CKS\x81\n[2\xB0\xA8\xFF\xBC";
   }
 
-  v8 = *v1;
-  v3 = ccaes_gcm_decrypt_mode();
+  v9 = *v1;
+  v3 = ccaes_gcm_decrypt_mode(a1);
+  if (v4)
   {
     mach_absolute_time();
     printf("FIPSPOST_USER [%llu] %s:%d: FAILED: ccgcm_one_shot decrypt\n");
     return 4294967223;
   }
 
-  if (v8 == *v1 && *(&v8 + 1) == *(v1 + 1))
+  if (v9 == *v1 && *(&v9 + 1) == *(v1 + 1))
   {
-    v8 = 0uLL;
-    v6 = ccaes_gcm_encrypt_mode();
-    if (ccgcm_one_shot(v6, 16, "pȿ\xB6\x02v\xE2\x18\xA0\uD8AA\xD1\xFD\xC1\x9C", 12, &unk_299DB295C, 0, 0, 0, 0, v9, 16, &v8))
+    v9 = 0uLL;
+    v7 = ccaes_gcm_encrypt_mode(v4);
+    if (ccgcm_one_shot(v7, 16, "pȿ\xB6\x02v\xE2\x18\xA0\uD8AA\xD1\xFD\xC1\x9C", 12, &unk_299DB295C, 0, 0, 0, 0, v10, 16, &v9))
     {
       mach_absolute_time();
       printf("FIPSPOST_USER [%llu] %s:%d: FAILED: ccgcm_one_shot encrypt\n");
       return 4294967223;
     }
 
-    if (v8 == *v2 && *(&v8 + 1) == *(v2 + 1))
+    if (v9 == *v2 && *(&v9 + 1) == *(v2 + 1))
     {
       return 0;
     }
@@ -7725,7 +7729,7 @@ uint64_t fipspost_post_aes_gcm(char a1)
   return 4294967221;
 }
 
-uint64_t ccrsa_sign_pss(unint64_t *a1, uint64_t *a2, uint64_t a3, unint64_t a4, uint64_t (**a5)(void, unint64_t, char *), size_t a6, char *a7, unint64_t *a8, char *a9)
+uint64_t ccrsa_sign_pss(unint64_t *a1, uint64_t *a2, uint64_t a3, size_t a4, uint64_t (**a5)(void, unint64_t, char *), size_t a6, char *a7, unint64_t *a8, char *a9)
 {
   v20 = timingsafe_enable_if_supported();
   v17 = ccrng(0);
@@ -7743,7 +7747,7 @@ uint64_t ccrsa_sign_pss(unint64_t *a1, uint64_t *a2, uint64_t a3, unint64_t a4, 
   return v18;
 }
 
-uint64_t ccrsa_sign_pss_msg(unint64_t *a1, uint64_t *a2, uint64_t a3, unint64_t a4, uint64_t (**a5)(void, unint64_t, char *), size_t a6, char *a7, unint64_t *a8, char *a9)
+uint64_t ccrsa_sign_pss_msg(unint64_t *a1, uint64_t *a2, uint64_t a3, size_t a4, uint64_t (**a5)(void, unint64_t, char *), size_t a6, char *a7, unint64_t *a8, char *a9)
 {
   v22 = *MEMORY[0x29EDCA608];
   v20 = timingsafe_enable_if_supported();
@@ -7836,7 +7840,7 @@ _BYTE *cc_disable_dit(_BYTE *result)
   return result;
 }
 
-uint64_t ccder_encode_rsa_pub_size(uint64_t *a1)
+unint64_t ccder_encode_rsa_pub_size(uint64_t *a1)
 {
   v1 = a1 + 3;
   v2 = *a1;
@@ -7858,7 +7862,7 @@ unsigned __int8 *ccrsa_import_pub_n(uint64_t a1, unsigned __int8 *a2)
   return result;
 }
 
-uint64_t ccrsa_export_priv_size(uint64_t *a1)
+unint64_t ccrsa_export_priv_size(uint64_t *a1)
 {
   v4 = timingsafe_enable_if_supported();
   v2 = ccder_encode_rsa_priv_size(a1);
@@ -7866,7 +7870,7 @@ uint64_t ccrsa_export_priv_size(uint64_t *a1)
   return v2;
 }
 
-BOOL ccrsa_export_priv(void *a1, uint64_t a2, uint64_t a3)
+BOOL ccrsa_export_priv(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   v8 = timingsafe_enable_if_supported();
   v6 = ccder_encode_rsa_priv_internal(a1, a3, a3 + a2) != a3;
@@ -7882,7 +7886,7 @@ unsigned __int8 *ccrsa_import_priv_n(uint64_t a1, unsigned __int8 *a2)
   return v4;
 }
 
-BOOL ccrsa_import_priv(uint64_t *a1, uint64_t a2, unsigned __int8 *a3)
+BOOL ccrsa_import_priv(unint64_t *a1, uint64_t a2, unsigned __int8 *a3)
 {
   v8 = timingsafe_enable_if_supported();
   v6 = ccder_decode_rsa_priv_internal(a1, a3, &a3[a2]) == 0;
@@ -7890,7 +7894,7 @@ BOOL ccrsa_import_priv(uint64_t *a1, uint64_t a2, unsigned __int8 *a3)
   return v6;
 }
 
-uint64_t ccrsa_oaep_encode(size_t *a1, uint64_t (**a2)(void, size_t, char *), uint64_t a3, char *a4, size_t a5, const void *a6)
+uint64_t ccrsa_oaep_encode(size_t *a1, uint64_t (**a2)(void, uint64_t, char *), uint64_t a3, unint64_t *a4, size_t a5, const void *a6)
 {
   v14 = timingsafe_enable_if_supported();
   v12 = ccrsa_oaep_encode_parameter_internal(a1, a2, a3, a4, a5, a6, 0, 0);
@@ -7898,7 +7902,7 @@ uint64_t ccrsa_oaep_encode(size_t *a1, uint64_t (**a2)(void, size_t, char *), ui
   return v12;
 }
 
-uint64_t ccrsa_oaep_decode(uint64_t *a1, size_t *a2, void *a3, uint64_t a4, unint64_t *a5)
+uint64_t ccrsa_oaep_decode(size_t *a1, size_t *a2, void *a3, uint64_t a4, unint64_t *a5)
 {
   v12 = timingsafe_enable_if_supported();
   v10 = ccrsa_oaep_decode_parameter(a1, a2, a3, a4, a5, 0, 0);
@@ -7906,7 +7910,7 @@ uint64_t ccrsa_oaep_decode(uint64_t *a1, size_t *a2, void *a3, uint64_t a4, unin
   return v10;
 }
 
-char *ccrsa_block_start(uint64_t a1, char *a2, int a3)
+uint64_t ccrsa_block_start(uint64_t a1, void *a2, int a3)
 {
   v4 = (a1 + 7) & 0xFFFFFFFFFFFFFFF8;
   v5 = v4 - a1;
@@ -7915,7 +7919,7 @@ char *ccrsa_block_start(uint64_t a1, char *a2, int a3)
     cc_clear(v4 - a1, a2);
   }
 
-  return &a2[v5];
+  return a2 + v5;
 }
 
 unsigned int *sha1_compress_0(unsigned int *result, uint64_t a2, const char *a3)
@@ -8218,7 +8222,7 @@ uint64_t ccaes_ecb_decrypt(_DWORD *a1, uint64_t a2, _DWORD *a3, int *a4)
   return 0;
 }
 
-int8x16_t *ccaes_xts_decrypt_vng_vector(int8x16_t *result, uint64_t a2, int64x2_t *a3, uint64_t a4, int8x16_t *a5)
+int8x16_t *ccaes_xts_decrypt_vng_vector(int8x16_t *result, uint64_t a2, uint64x2_t *a3, uint64_t a4, int8x16_t *a5)
 {
   v6 = a5[15].u32[0];
   v7 = veorq_s8(v5, v5);
@@ -8619,7 +8623,7 @@ void *ccmode_factory_ofb_crypt(void *result, void *a2)
   return result;
 }
 
-uint64_t ccrsa_decrypt_oaep_ws(uint64_t a1, uint64_t *a2, uint64_t *a3, size_t *a4, void *a5, unint64_t a6, uint64_t a7, size_t a8, char *a9)
+uint64_t ccrsa_decrypt_oaep_ws(uint64_t a1, unint64_t *a2, size_t *a3, size_t *a4, void *a5, unint64_t a6, unsigned __int8 *a7, size_t a8, char *a9)
 {
   v17 = ccrng(0);
   if (v17)
@@ -8633,7 +8637,7 @@ uint64_t ccrsa_decrypt_oaep_ws(uint64_t a1, uint64_t *a2, uint64_t *a3, size_t *
   }
 }
 
-uint64_t ccrsa_decrypt_oaep(unint64_t *a1, uint64_t *a2, size_t *a3, void *a4, unint64_t a5, uint64_t a6, size_t a7, char *a8)
+uint64_t ccrsa_decrypt_oaep(unint64_t *a1, size_t *a2, size_t *a3, void *a4, unint64_t a5, unsigned __int8 *a6, size_t a7, char *a8)
 {
   v29 = timingsafe_enable_if_supported();
   v15 = *a1;
@@ -8683,9 +8687,9 @@ uint64_t ccrsa_decrypt_oaep(unint64_t *a1, uint64_t *a2, size_t *a3, void *a4, u
   return v24;
 }
 
-uint64_t ccdrbg_df_derive_keys(uint64_t (**a1)(void), uint64_t a2, uint64_t a3, rsize_t a4, void *a5)
+uint64_t ccdrbg_df_derive_keys(uint64_t (**a1)(uint64_t (**)(void), uint64_t, uint64_t), uint64_t a2, uint64_t a3, rsize_t a4, void *a5)
 {
-  v7 = (*a1)();
+  v7 = (*a1)(a1, a2, a3);
   if (v7)
   {
     cc_clear(a4, a5);
@@ -9173,7 +9177,7 @@ uint64_t ccder_sizeof_tag(uint64_t a1)
   }
 }
 
-int64x2_t *ccaes_xts_encrypt_vng_wrapper(uint64_t a1, unint64_t *a2, uint64_t a3, uint64_t a4, int8x16_t *a5)
+uint64x2_t *ccaes_xts_encrypt_vng_wrapper(uint64_t a1, unint64_t *a2, uint64_t a3, uint64_t a4, int8x16_t *a5)
 {
   v5 = *a2 + a3;
   if (v5 > 0x100000)
@@ -9191,7 +9195,7 @@ int64x2_t *ccaes_xts_encrypt_vng_wrapper(uint64_t a1, unint64_t *a2, uint64_t a3
   return v6;
 }
 
-uint64_t ccz_subi(uint64_t a1, uint64_t a2, unsigned int a3)
+uint64_t ccz_subi(void *a1, uint64_t a2, unsigned int a3)
 {
   v9[1] = *MEMORY[0x29EDCA608];
   v8 = timingsafe_enable_if_supported();
@@ -9248,7 +9252,7 @@ uint64_t ccn_lcm_ws(uint64_t a1, unint64_t a2, uint64_t a3, void *a4, void *a5)
   v10 = *(a1 + 16);
   v11 = (*(a1 + 24))();
   v12 = ccn_gcd_ws(a1, a2, v11->i64, a2, a4, a2, a5);
-  ccn_div_exact_ws(a1, a2, v11->i8, a5, v11);
+  ccn_div_exact_ws(a1, a2, v11, a5, v11);
   ccn_shift_right_multi(a2, v11, v11, v12);
   result = ccn_mul_ws(a1, a2, a3, a4, v11);
   *(a1 + 16) = v10;
@@ -9332,7 +9336,7 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  v3 = ccmldsa_public_ctx(v29);
+  ccmldsa_public_ctx();
   if (ccmldsa_export_pubkey(v3, 0xA20uLL, __s1))
   {
     mach_absolute_time();
@@ -9434,7 +9438,7 @@ LABEL_8:
       LOBYTE(v27) = 110;
     }
 
-    ccmldsa_public_ctx(v29);
+    ccmldsa_public_ctx();
     v20 = ccmldsa_verify();
     if (v20)
     {
@@ -9466,7 +9470,7 @@ const char *cc_impl_name(int a1)
   }
 }
 
-int8x16_t *ccaes_xts_encrypt_vng_vector(int8x16_t *result, uint64_t a2, int64x2_t *a3, uint64_t a4, __int128 *a5)
+int8x16_t *ccaes_xts_encrypt_vng_vector(int8x16_t *result, uint64_t a2, uint64x2_t *a3, uint64_t a4, __int128 *a5)
 {
   v6 = *(a5 + 60);
   v7 = veorq_s8(v5, v5);

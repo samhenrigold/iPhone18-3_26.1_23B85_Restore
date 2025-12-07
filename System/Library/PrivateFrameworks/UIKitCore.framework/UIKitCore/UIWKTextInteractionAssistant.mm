@@ -205,7 +205,8 @@
 
 - (id)generatorForRange:(id)range withOptions:(unint64_t)options
 {
-  if ([range isEqual:{-[UITextSelection selectedRange](-[UITextInteractionAssistant activeSelection](self, "activeSelection"), "selectedRange")}])
+  [(UITextSelection *)[(UITextInteractionAssistant *)self activeSelection] selectedRange];
+  if (objc_msgSend_isEqual_(range))
   {
     if ([+[UIKeyboardImpl activeInstance](UIKeyboardImpl "activeInstance")])
     {
@@ -579,7 +580,7 @@ uint64_t __48__UIWKTextInteractionAssistant_selectionChanged__block_invoke(uint6
   return [a2 returnExecutionToParent];
 }
 
-uint64_t __48__UIWKTextInteractionAssistant_selectionChanged__block_invoke_2()
+void *__48__UIWKTextInteractionAssistant_selectionChanged__block_invoke_2()
 {
   result = [&__block_literal_global_370_1 copy];
   _MergedGlobals_15_9 = result;
@@ -1069,14 +1070,14 @@ uint64_t __94__UIWKTextInteractionAssistant_selectionChangedWithGestureAt_withGe
   return [a2 returnExecutionToParent];
 }
 
-uint64_t __94__UIWKTextInteractionAssistant_selectionChangedWithGestureAt_withGesture_withState_withFlags___block_invoke_2()
+void *__94__UIWKTextInteractionAssistant_selectionChangedWithGestureAt_withGesture_withState_withFlags___block_invoke_2()
 {
   result = [&__block_literal_global_375_5 copy];
   qword_1ED49C0D0 = result;
   return result;
 }
 
-uint64_t __94__UIWKTextInteractionAssistant_selectionChangedWithGestureAt_withGesture_withState_withFlags___block_invoke_4(uint64_t a1, int a2)
+void *__94__UIWKTextInteractionAssistant_selectionChangedWithGestureAt_withGesture_withState_withFlags___block_invoke_4(uint64_t a1, int a2)
 {
   if (a2)
   {
@@ -1191,7 +1192,7 @@ uint64_t __89__UIWKTextInteractionAssistant_selectionChangedWithTouchAt_withSele
   return [a2 returnExecutionToParent];
 }
 
-uint64_t __89__UIWKTextInteractionAssistant_selectionChangedWithTouchAt_withSelectionTouch_withFlags___block_invoke_3()
+void *__89__UIWKTextInteractionAssistant_selectionChangedWithTouchAt_withSelectionTouch_withFlags___block_invoke_3()
 {
   result = [&__block_literal_global_386 copy];
   qword_1ED49C0E0 = result;
@@ -1205,7 +1206,7 @@ uint64_t __89__UIWKTextInteractionAssistant_selectionChangedWithTouchAt_withSele
   return [a2 returnExecutionToParent];
 }
 
-uint64_t __89__UIWKTextInteractionAssistant_selectionChangedWithTouchAt_withSelectionTouch_withFlags___block_invoke_6()
+void *__89__UIWKTextInteractionAssistant_selectionChangedWithTouchAt_withSelectionTouch_withFlags___block_invoke_6()
 {
   result = [&__block_literal_global_393_2 copy];
   qword_1ED49C0F0 = result;
@@ -1338,7 +1339,7 @@ uint64_t __54__UIWKTextInteractionAssistant_rangeSelectionStarted___block_invoke
   return [a2 returnExecutionToParent];
 }
 
-uint64_t __54__UIWKTextInteractionAssistant_rangeSelectionStarted___block_invoke_2()
+void *__54__UIWKTextInteractionAssistant_rangeSelectionStarted___block_invoke_2()
 {
   result = [&__block_literal_global_399_0 copy];
   qword_1ED49C100 = result;
@@ -1388,7 +1389,7 @@ uint64_t __52__UIWKTextInteractionAssistant_rangeSelectionEnded___block_invoke(u
   return [a2 returnExecutionToParent];
 }
 
-uint64_t __52__UIWKTextInteractionAssistant_rangeSelectionEnded___block_invoke_2()
+void *__52__UIWKTextInteractionAssistant_rangeSelectionEnded___block_invoke_2()
 {
   result = [&__block_literal_global_403_0 copy];
   qword_1ED49C110 = result;
@@ -1432,7 +1433,7 @@ uint64_t __54__UIWKTextInteractionAssistant_rangeSelectionCanceled__block_invoke
   return [a2 returnExecutionToParent];
 }
 
-uint64_t __54__UIWKTextInteractionAssistant_rangeSelectionCanceled__block_invoke_2()
+void *__54__UIWKTextInteractionAssistant_rangeSelectionCanceled__block_invoke_2()
 {
   result = [&__block_literal_global_407_1 copy];
   qword_1ED49C120 = result;
@@ -1458,7 +1459,7 @@ uint64_t __54__UIWKTextInteractionAssistant_rangeSelectionCanceled__block_invoke
   [(UIKeyboardTaskQueue *)taskQueue addTask:v4 breadcrumb:qword_1ED49C130];
 }
 
-uint64_t __42__UIWKTextInteractionAssistant_selectWord__block_invoke()
+void *__42__UIWKTextInteractionAssistant_selectWord__block_invoke()
 {
   result = [&__block_literal_global_411_2 copy];
   qword_1ED49C130 = result;
@@ -1490,7 +1491,7 @@ uint64_t __42__UIWKTextInteractionAssistant_selectWord__block_invoke_3(uint64_t 
   [(UIKeyboardTaskQueue *)taskQueue addTask:v5 breadcrumb:qword_1ED49C140];
 }
 
-uint64_t __42__UIWKTextInteractionAssistant_selectAll___block_invoke()
+void *__42__UIWKTextInteractionAssistant_selectAll___block_invoke()
 {
   result = [&__block_literal_global_415_0 copy];
   qword_1ED49C140 = result;
@@ -1714,7 +1715,7 @@ uint64_t __79__UIWKTextInteractionAssistant_textRangeAdjustmentInteraction_didBe
   return [a2 returnExecutionToParent];
 }
 
-uint64_t __79__UIWKTextInteractionAssistant_textRangeAdjustmentInteraction_didBeginAtPoint___block_invoke_2()
+void *__79__UIWKTextInteractionAssistant_textRangeAdjustmentInteraction_didBeginAtPoint___block_invoke_2()
 {
   result = [&__block_literal_global_427_1 copy];
   qword_1ED49C150 = result;
@@ -1774,7 +1775,7 @@ uint64_t __75__UIWKTextInteractionAssistant_textRangeAdjustmentInteractionWasCan
   return [a2 returnExecutionToParent];
 }
 
-uint64_t __75__UIWKTextInteractionAssistant_textRangeAdjustmentInteractionWasCancelled___block_invoke_2()
+void *__75__UIWKTextInteractionAssistant_textRangeAdjustmentInteractionWasCancelled___block_invoke_2()
 {
   result = [&__block_literal_global_431_1 copy];
   qword_1ED49C160 = result;

@@ -8,7 +8,7 @@
 - (uint64_t)computeNumDigestExpansions
 {
   v25 = *MEMORY[0x277D85DE8];
-  v2 = __atxlog_handle_notification_management();
+  v2 = __atxlog_handle_notification_management(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     uuid = [self uuid];
@@ -43,22 +43,21 @@
   v15[4] = &buf;
   v8 = [v7 sinkWithCompletion:v16 receiveInput:v15];
 
-  v9 = __atxlog_handle_notification_management();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = __atxlog_handle_notification_management(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     uuid2 = [self uuid];
-    v11 = *(*(&buf + 1) + 24);
+    v12 = *(*(&buf + 1) + 24);
     *v18 = 138543618;
     v19 = uuid2;
     v20 = 2048;
-    v21 = v11;
-    _os_log_impl(&dword_2263AA000, v9, OS_LOG_TYPE_DEFAULT, "Computed digest expansions for: %{public}@: %ld", v18, 0x16u);
+    v21 = v12;
+    _os_log_impl(&dword_2263AA000, v10, OS_LOG_TYPE_DEFAULT, "Computed digest expansions for: %{public}@: %ld", v18, 0x16u);
   }
 
-  v12 = *(*(&buf + 1) + 24);
+  v13 = *(*(&buf + 1) + 24);
   _Block_object_dispose(&buf, 8);
-  v13 = *MEMORY[0x277D85DE8];
-  return v12;
+  return v13;
 }
 
 - (void)populateEngagementFromSource:()EngagementTracking

@@ -12,18 +12,18 @@
 - (RPPerson)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v12.receiver = self;
-  v12.super_class = RPPerson;
-  v5 = [(RPPerson *)&v12 init];
+  v19.receiver = self;
+  v19.super_class = RPPerson;
+  v5 = [(RPPerson *)&v19 init];
   if (!v5)
   {
     goto LABEL_11;
   }
 
-  v13 = 0;
+  v20 = 0;
   if (NSDecodeSInt64RangedIfPresent())
   {
-    v5->_activityLevel = v13;
+    v5->_activityLevel = v20;
   }
 
   v6 = coderCopy;
@@ -32,10 +32,10 @@
 
   objc_opt_class();
   NSDecodeNSArrayOfClassIfPresent();
-  v13 = 0;
+  v20 = 0;
   if (NSDecodeSInt64RangedIfPresent())
   {
-    v5->_flags = v13;
+    v5->_flags = v20;
   }
 
   v7 = v6;
@@ -44,30 +44,30 @@
 
   if (!v5->_identifier)
   {
-    v10 = RPErrorF();
-    [v7 failWithError:v10];
+    v16 = RPErrorF(4294960591, "Decode person with no identifier", v8, v9, v10, v11, v12, v13, v18);
+    [v7 failWithError:v16];
 
 LABEL_11:
-    v9 = 0;
+    v15 = 0;
     goto LABEL_12;
   }
 
-  v8 = v7;
+  v14 = v7;
   objc_opt_class();
   NSDecodeObjectIfPresent();
 
-  v13 = 0;
+  v20 = 0;
   if (NSDecodeSInt64RangedIfPresent())
   {
-    v5->_proximity = v13;
+    v5->_proximity = v20;
   }
 
   objc_opt_class();
   NSDecodeObjectIfPresent();
-  v9 = v5;
+  v15 = v5;
 LABEL_12:
 
-  return v9;
+  return v15;
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -133,7 +133,7 @@ LABEL_12:
 
 - (id)descriptionWithLevel:(int)level
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   if (level <= 49)
   {
     v5 = 100;
@@ -144,19 +144,16 @@ LABEL_12:
     v5 = 8;
   }
 
-  v56 = 0;
-  identifier = self->_identifier;
-  NSAppendPrintF();
-  v6 = 0;
+  v60 = 0;
+  NSAppendPrintF(&v60, "RPPerson ID %{mask}", self->_identifier);
+  v6 = v60;
   v7 = v6;
   flags = self->_flags;
   if (flags)
   {
-    v55 = v6;
-    identifier = flags;
-    v44 = &unk_1B6F2E74A;
-    NSAppendPrintF();
-    v9 = v55;
+    v59 = v6;
+    NSAppendPrintF(&v59, ", Fl %#{flags}", flags, &unk_1B6F2E74A);
+    v9 = v59;
 
     v7 = v9;
   }
@@ -164,177 +161,174 @@ LABEL_12:
   name = self->_name;
   if (name)
   {
-    v54 = v7;
-    identifier = name;
-    NSAppendPrintF();
-    v11 = v7;
+    v58 = v7;
+    v11 = name;
+    NSAppendPrintF(&v58, ", Nm '%@'", v11);
+    v12 = v58;
 
-    v7 = v11;
+    v7 = v12;
   }
 
   contactID = self->_contactID;
   if (contactID)
   {
-    v53 = v7;
-    identifier = v5;
-    v44 = contactID;
-    NSAppendPrintF();
-    v13 = v7;
+    v57 = v7;
+    v14 = contactID;
+    NSAppendPrintF(&v57, ", CNID '%.*@'", v5, v14);
+    v15 = v57;
 
-    v7 = v13;
+    v7 = v15;
   }
 
   proximity = self->_proximity;
   if (proximity)
   {
-    v52 = v7;
+    v56 = v7;
     switch(proximity)
     {
       case 10:
-        v15 = "Immed";
+        v17 = "Immed";
         break;
       case 30:
-        v15 = "Far";
+        v17 = "Far";
         break;
       case 20:
-        v15 = "Near";
+        v17 = "Near";
         break;
       default:
-        v15 = "?";
+        v17 = "?";
         break;
     }
 
-    identifier = v15;
-    NSAppendPrintF();
-    v16 = v52;
+    NSAppendPrintF(&v56, ", Px %s", v17);
+    v18 = v56;
 
-    v7 = v16;
+    v7 = v18;
   }
 
   relativeLocation = self->_relativeLocation;
   if (relativeLocation)
   {
-    v51 = v7;
-    identifier = relativeLocation;
-    NSAppendPrintF();
-    v18 = v7;
+    v55 = v7;
+    v20 = relativeLocation;
+    NSAppendPrintF(&v55, ", RL %@", v20);
+    v21 = v55;
 
-    v7 = v18;
+    v7 = v21;
   }
 
   activityLevel = self->_activityLevel;
   if (activityLevel)
   {
-    v50 = v7;
+    v54 = v7;
     if (activityLevel > 0xE)
     {
-      v20 = "?";
+      v23 = "?";
     }
 
     else
     {
-      v20 = off_1E7C94C38[activityLevel - 1];
+      v23 = off_1E7C94C38[activityLevel - 1];
     }
 
-    identifier = v20;
-    NSAppendPrintF();
-    v21 = v50;
+    NSAppendPrintF(&v54, ", AcLv %s", v23);
+    v24 = v54;
 
-    v7 = v21;
+    v7 = v24;
   }
 
-  v22 = self->_devices;
-  v23 = v22;
-  if (v22)
+  v25 = self->_devices;
+  v26 = v25;
+  if (v25)
   {
-    v24 = [(NSArray *)v22 count];
+    v27 = [(NSArray *)v25 count];
+    v28 = v27;
     if (level > 49)
     {
-      NSAppendPrintF();
-      v39 = v7;
+      v46 = v7;
+      NSAppendPrintF(&v46, ", %d device(s)", v27);
+      v43 = v46;
     }
 
     else
     {
-      v48 = 0u;
-      v49 = 0u;
-      v46 = 0u;
-      v47 = 0u;
-      v25 = v23;
-      v26 = [(NSArray *)v25 countByEnumeratingWithState:&v46 objects:v57 count:16];
-      if (!v26)
+      v52 = 0u;
+      v53 = 0u;
+      v50 = 0u;
+      v51 = 0u;
+      v29 = v26;
+      v30 = [(NSArray *)v29 countByEnumeratingWithState:&v50 objects:v61 count:16];
+      if (!v30)
       {
 LABEL_44:
 
         goto LABEL_45;
       }
 
-      v27 = v26;
-      v45 = v23;
-      v28 = 0;
-      v29 = 1;
-      v30 = v24;
-      v31 = *v47;
+      v31 = v30;
+      v45 = v26;
+      v32 = 0;
+      v33 = 1;
+      v34 = v28;
+      v35 = *v51;
       do
       {
-        for (i = 0; i != v27; ++i)
+        for (i = 0; i != v31; ++i)
         {
-          if (*v47 != v31)
+          if (*v51 != v35)
           {
-            objc_enumerationMutation(v25);
+            objc_enumerationMutation(v29);
           }
 
-          v33 = *(*(&v46 + 1) + 8 * i);
-          if (v29)
+          v37 = *(*(&v50 + 1) + 8 * i);
+          if (v33)
           {
-            v43 = v30;
-            NSAppendPrintF();
-            v34 = v7;
+            v49 = v7;
+            NSAppendPrintF(&v49, ", %d device(s) <", v34);
+            v38 = v49;
 
-            v7 = v34;
-          }
-
-          name = [v33 name];
-          v36 = name;
-          if (name)
-          {
-            v37 = ", ";
-            if (!v28)
-            {
-              v37 = "";
-            }
-
-            v43 = v37;
-            v44 = name;
-            NSAppendPrintF();
-            v38 = v7;
-
-            ++v28;
             v7 = v38;
           }
 
-          v29 = 0;
+          name = [v37 name];
+          v40 = name;
+          if (name)
+          {
+            v48 = v7;
+            v41 = ", ";
+            if (!v32)
+            {
+              v41 = "";
+            }
+
+            NSAppendPrintF(&v48, "%s'%@'", v41, name);
+            v42 = v48;
+
+            ++v32;
+            v7 = v42;
+          }
+
+          v33 = 0;
         }
 
-        v27 = [(NSArray *)v25 countByEnumeratingWithState:&v46 objects:v57 count:16];
-        v29 = 0;
+        v31 = [(NSArray *)v29 countByEnumeratingWithState:&v50 objects:v61 count:16];
+        v33 = 0;
       }
 
-      while (v27);
+      while (v31);
 
-      NSAppendPrintF();
-      v39 = v7;
-      v23 = v45;
+      v47 = v7;
+      NSAppendPrintF(&v47, ">");
+      v43 = v47;
+      v26 = v45;
     }
 
-    v25 = v7;
-    v7 = v39;
+    v29 = v7;
+    v7 = v43;
     goto LABEL_44;
   }
 
 LABEL_45:
-
-  v40 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

@@ -139,175 +139,115 @@ LABEL_11:
   {
     v10 = updateCopy && [descriptorCopy descriptorAudienceType] == 2;
     productBuildVersion = [v9 productBuildVersion];
-    v13 = MEMORY[0x277D64578];
-    if (!v10)
-    {
-      v13 = MEMORY[0x277D646C8];
-    }
-
-    v14 = *v13;
-    if (v10)
-    {
-      v15 = MEMORY[0x277D64588];
-    }
-
-    else
-    {
-      v15 = MEMORY[0x277D646D8];
-    }
-
-    if (v10)
-    {
-      v16 = MEMORY[0x277D64570];
-    }
-
-    else
-    {
-      v16 = MEMORY[0x277D64680];
-    }
-
-    if (v10)
-    {
-      v17 = MEMORY[0x277D64560];
-    }
-
-    else
-    {
-      v17 = MEMORY[0x277D64598];
-    }
-
-    if (v10)
-    {
-      v18 = MEMORY[0x277D64568];
-    }
-
-    else
-    {
-      v18 = MEMORY[0x277D64678];
-    }
-
-    v63 = productBuildVersion;
     [eventCopy setSafeObject:? forKey:?];
     updateTypeName = [v9 updateTypeName];
-    v20 = *v15;
-    v62 = updateTypeName;
     [eventCopy setSafeObject:? forKey:?];
-    v21 = *MEMORY[0x277D647A8];
-    v22 = *MEMORY[0x277D64730];
+    v12 = *MEMORY[0x277D647A8];
+    v13 = *MEMORY[0x277D64730];
     if ([v9 rampEnabled])
     {
-      v23 = v21;
+      v14 = v12;
     }
 
     else
     {
-      v23 = v22;
+      v14 = v13;
     }
 
-    v24 = v23;
-    v25 = *v16;
-    v61 = v24;
+    v42 = v14;
     [eventCopy setSafeObject:? forKey:?];
-    v26 = +[SUCoreDescriptor nameForDescriptorAudienceType:](SUCoreDescriptor, "nameForDescriptorAudienceType:", [v9 descriptorAudienceType]);
-    v27 = *v17;
-    v60 = v26;
+    v41 = +[SUCoreDescriptor nameForDescriptorAudienceType:](SUCoreDescriptor, "nameForDescriptorAudienceType:", [v9 descriptorAudienceType]);
     [eventCopy setSafeObject:? forKey:?];
-    v28 = +[SUCoreDescriptor nameForDescriptorPreferredUpdateType:](SUCoreDescriptor, "nameForDescriptorPreferredUpdateType:", [v9 preferredUpdateType]);
-    v29 = *v18;
-    v59 = v28;
+    v40 = +[SUCoreDescriptor nameForDescriptorPreferredUpdateType:](SUCoreDescriptor, "nameForDescriptorPreferredUpdateType:", [v9 preferredUpdateType]);
     [eventCopy setSafeObject:? forKey:?];
     if ([v9 mandatoryUpdateEligible])
     {
-      v30 = v21;
+      v15 = v12;
     }
 
     else
     {
-      v30 = v22;
+      v15 = v13;
     }
 
-    v31 = v30;
-    v32 = *MEMORY[0x277D64630];
-    v58 = v31;
+    v39 = v15;
     [eventCopy setSafeObject:? forKey:?];
     if ([v9 mandatoryUpdateOptional])
     {
-      v33 = v21;
+      v16 = v12;
     }
 
     else
     {
-      v33 = v22;
+      v16 = v13;
     }
 
-    v34 = v33;
-    v35 = *MEMORY[0x277D64638];
-    v57 = v34;
+    v38 = v16;
     [eventCopy setSafeObject:? forKey:?];
     associatedSplatDescriptor = [v9 associatedSplatDescriptor];
     if (associatedSplatDescriptor)
     {
-      v37 = v21;
+      v18 = v12;
     }
 
     else
     {
-      v37 = v22;
+      v18 = v13;
     }
 
-    v38 = v37;
-    [eventCopy setSafeObject:v38 forKey:*MEMORY[0x277D64690]];
-    v55 = v38;
-    if (v38)
+    v19 = v18;
+    [eventCopy setSafeObject:v19 forKey:*MEMORY[0x277D64690]];
+    v36 = v19;
+    if (v19)
     {
       productBuildVersion2 = [associatedSplatDescriptor productBuildVersion];
       [eventCopy setSafeObject:productBuildVersion2 forKey:*MEMORY[0x277D64688]];
     }
 
-    v56 = associatedSplatDescriptor;
-    v40 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v9, "totalRequiredFreeSpace")}];
-    v41 = MEMORY[0x277D64580];
+    v37 = associatedSplatDescriptor;
+    v21 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v9, "totalRequiredFreeSpace")}];
+    v22 = MEMORY[0x277D64580];
     if (!v10)
     {
-      v41 = MEMORY[0x277D646D0];
+      v22 = MEMORY[0x277D646D0];
     }
 
-    [eventCopy setSafeObject:v40 forKey:*v41];
-    v42 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v9, "preSUStagingRequiredSize")}];
-    v43 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v9, "preSUStagingOptionalSize")}];
+    [eventCopy setSafeObject:v21 forKey:*v22];
+    v23 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v9, "preSUStagingRequiredSize")}];
+    v24 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v9, "preSUStagingOptionalSize")}];
     if ([v9 enablePreSUStaging])
     {
-      v44 = v21;
+      v25 = v12;
     }
 
     else
     {
-      v44 = v22;
+      v25 = v13;
     }
 
-    v45 = MEMORY[0x277CCABB0];
-    v46 = v44;
-    v47 = [v45 numberWithUnsignedLongLong:{objc_msgSend(v9, "preSUStagingMaxSize")}];
-    [eventCopy setSafeObject:v42 forKey:*MEMORY[0x277D64670]];
-    [eventCopy setSafeObject:v43 forKey:*MEMORY[0x277D64668]];
-    [eventCopy setSafeObject:v46 forKey:*MEMORY[0x277D64658]];
+    v26 = MEMORY[0x277CCABB0];
+    v27 = v25;
+    v28 = [v26 numberWithUnsignedLongLong:{objc_msgSend(v9, "preSUStagingMaxSize")}];
+    [eventCopy setSafeObject:v23 forKey:*MEMORY[0x277D64670]];
+    [eventCopy setSafeObject:v24 forKey:*MEMORY[0x277D64668]];
+    [eventCopy setSafeObject:v27 forKey:*MEMORY[0x277D64658]];
 
-    [eventCopy setSafeObject:v47 forKey:*MEMORY[0x277D64660]];
-    v64 = 0;
-    v65 = 0;
-    v48 = [SUCoreSpace cacheDeleteGetReserveSpace:&v65 withError:&v64];
-    v49 = v65;
-    v50 = v64;
-    v51 = v50;
-    if (!v48 && !v50)
+    [eventCopy setSafeObject:v28 forKey:*MEMORY[0x277D64660]];
+    v45 = 0;
+    v46 = 0;
+    v29 = [SUCoreSpace cacheDeleteGetReserveSpace:&v46 withError:&v45];
+    v30 = v46;
+    v31 = v45;
+    v32 = v31;
+    if (!v29 && !v31)
     {
-      v52 = [v49 safeObjectForKey:@"CACHE_DELETE_RESERVE_SPACE_FILESYSTEM_AMOUNT" ofClass:objc_opt_class()];
-      [v49 safeObjectForKey:@"CACHE_DELETE_RESERVE_SPACE_AMOUNT" ofClass:objc_opt_class()];
-      v54 = v53 = v40;
-      [eventCopy setSafeObject:v52 forKey:*MEMORY[0x277D64860]];
-      [eventCopy setSafeObject:v54 forKey:*MEMORY[0x277D64858]];
+      v33 = [v30 safeObjectForKey:@"CACHE_DELETE_RESERVE_SPACE_FILESYSTEM_AMOUNT" ofClass:objc_opt_class()];
+      [v30 safeObjectForKey:@"CACHE_DELETE_RESERVE_SPACE_AMOUNT" ofClass:objc_opt_class()];
+      v35 = v34 = v21;
+      [eventCopy setSafeObject:v33 forKey:*MEMORY[0x277D64860]];
+      [eventCopy setSafeObject:v35 forKey:*MEMORY[0x277D64858]];
 
-      v40 = v53;
+      v21 = v34;
     }
   }
 

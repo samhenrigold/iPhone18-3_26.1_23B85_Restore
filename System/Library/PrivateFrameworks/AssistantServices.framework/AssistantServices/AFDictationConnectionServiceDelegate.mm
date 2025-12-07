@@ -142,7 +142,7 @@
 
 - (void)speechRecognitionDidFinishWithError:(id)error
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   v5 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
@@ -150,9 +150,9 @@
     v6 = v5;
     domain = [errorCopy domain];
     *buf = 136315394;
-    v19 = "[AFDictationConnectionServiceDelegate speechRecognitionDidFinishWithError:]";
-    v20 = 2112;
-    v21 = domain;
+    v18 = "[AFDictationConnectionServiceDelegate speechRecognitionDidFinishWithError:]";
+    v19 = 2112;
+    v20 = domain;
     _os_log_impl(&dword_1912FE000, v6, OS_LOG_TYPE_INFO, "%s idle timer speechRecognitionDidFinishWithError called with error %@", buf, 0x16u);
   }
 
@@ -170,17 +170,15 @@
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_connection);
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __76__AFDictationConnectionServiceDelegate_speechRecognitionDidFinishWithError___block_invoke;
-  v15[3] = &unk_1E7349860;
-  v16 = WeakRetained;
-  v17 = errorCopy;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __76__AFDictationConnectionServiceDelegate_speechRecognitionDidFinishWithError___block_invoke;
+  v14[3] = &unk_1E7349860;
+  v15 = WeakRetained;
+  v16 = errorCopy;
   v12 = errorCopy;
   v13 = WeakRetained;
-  [v13 _dispatchAsync:v15];
-
-  v14 = *MEMORY[0x1E69E9840];
+  [v13 _dispatchAsync:v14];
 }
 
 uint64_t __76__AFDictationConnectionServiceDelegate_speechRecognitionDidFinishWithError___block_invoke(uint64_t a1)
@@ -190,7 +188,7 @@ uint64_t __76__AFDictationConnectionServiceDelegate_speechRecognitionDidFinishWi
   if (v2)
   {
     v3 = [v2 domain];
-    if ([v3 isEqualToString:@"kAFAssistantErrorDomain"])
+    if (objc_msgSend_isEqualToString_(v3))
     {
       if ([*(a1 + 40) code] == 34)
       {
@@ -513,13 +511,6 @@ id __162__AFDictationConnectionServiceDelegate_speechDidRecognizePhrases_rawPhra
   return v2;
 }
 
-uint64_t __162__AFDictationConnectionServiceDelegate_speechDidRecognizePhrases_rawPhrases_utterances_rawUtterances_nluResult_usingSpeechModel_correctionContext_audioAnalytics___block_invoke_2(uint64_t a1)
-{
-  [*(a1 + 32) _cancelRequestTimeout];
-  v2 = *(a1 + 88);
-  return [*(a1 + 32) _tellSpeechDelegateDidRecognizeSpeechPhrases:*(a1 + 40) rawPhrases:*(a1 + 48) utterances:*(a1 + 56) rawUtterances:*(a1 + 64) nluResult:*(a1 + 72) languageModel:*(a1 + 80) correctionIdentifier:v2 audioAnalytics:*(a1 + 96)];
-}
-
 - (void)speechDidRecognizeVoiceCommandCandidatePackage:(id)package nluResult:(id)result
 {
   packageCopy = package;
@@ -708,13 +699,13 @@ uint64_t __61__AFDictationConnectionServiceDelegate_speechRecordingDidEnd__block
 
 - (void)speechRecordingDidBeginWithOptions:(id)options sessionUUID:(id)d sessionRequestUUID:(id)iD
 {
-  v29[5] = *MEMORY[0x1E69E9840];
+  v28[5] = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   dCopy = d;
   iDCopy = iD;
   kdebug_trace();
   v11 = +[AFAnalytics sharedAnalytics];
-  v28[0] = @"dictationUIInteractionIdentifier";
+  v27[0] = @"dictationUIInteractionIdentifier";
   interactionIdentifier = [optionsCopy interactionIdentifier];
   v13 = interactionIdentifier;
   if (interactionIdentifier)
@@ -727,8 +718,8 @@ uint64_t __61__AFDictationConnectionServiceDelegate_speechRecordingDidEnd__block
     v14 = &stru_1F0512680;
   }
 
-  v29[0] = v14;
-  v28[1] = @"speechRecognitionSource";
+  v28[0] = v14;
+  v27[1] = @"speechRecognitionSource";
   v15 = @"server";
   if ([optionsCopy forceOfflineRecognition] && objc_msgSend(optionsCopy, "secureOfflineOnly"))
   {
@@ -745,10 +736,10 @@ uint64_t __61__AFDictationConnectionServiceDelegate_speechRecordingDidEnd__block
     v16 = &stru_1F0512680;
   }
 
-  v29[1] = v15;
-  v29[2] = v16;
-  v28[2] = @"sessionID";
-  v28[3] = @"sessionRequestUUID";
+  v28[1] = v15;
+  v28[2] = v16;
+  v27[2] = @"sessionID";
+  v27[3] = @"sessionRequestUUID";
   if (iDCopy)
   {
     v17 = iDCopy;
@@ -759,8 +750,8 @@ uint64_t __61__AFDictationConnectionServiceDelegate_speechRecordingDidEnd__block
     v17 = &stru_1F0512680;
   }
 
-  v29[3] = v17;
-  v28[4] = @"dictationOptInStatus";
+  v28[3] = v17;
+  v27[4] = @"dictationOptInStatus";
   v18 = +[AFPreferences sharedPreferences];
   siriDataSharingOptInStatus = [v18 siriDataSharingOptInStatus];
   if (siriDataSharingOptInStatus > 3)
@@ -774,21 +765,19 @@ uint64_t __61__AFDictationConnectionServiceDelegate_speechRecordingDidEnd__block
   }
 
   v21 = v20;
-  v29[4] = v21;
-  v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:v28 count:5];
+  v28[4] = v21;
+  v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:v27 count:5];
   [v11 logEventWithType:2209 context:v22];
 
   WeakRetained = objc_loadWeakRetained(&self->_connection);
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = __106__AFDictationConnectionServiceDelegate_speechRecordingDidBeginWithOptions_sessionUUID_sessionRequestUUID___block_invoke;
-  v26[3] = &unk_1E7349860;
-  v26[4] = self;
-  v27 = optionsCopy;
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __106__AFDictationConnectionServiceDelegate_speechRecordingDidBeginWithOptions_sessionUUID_sessionRequestUUID___block_invoke;
+  v25[3] = &unk_1E7349860;
+  v25[4] = self;
+  v26 = optionsCopy;
   v24 = optionsCopy;
-  [WeakRetained _dispatchAsync:v26];
-
-  v25 = *MEMORY[0x1E69E9840];
+  [WeakRetained _dispatchAsync:v25];
 }
 
 void __106__AFDictationConnectionServiceDelegate_speechRecordingDidBeginWithOptions_sessionUUID_sessionRequestUUID___block_invoke(uint64_t a1)

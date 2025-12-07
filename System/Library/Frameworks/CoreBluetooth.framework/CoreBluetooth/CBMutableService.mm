@@ -1,5 +1,6 @@
 @interface CBMutableService
 - (CBMutableService)initWithDictionary:(id)dictionary;
+- (CBMutableService)initWithType:(CBUUID *)UUID primary:(BOOL)isPrimary;
 - (id)description;
 - (void)dealloc;
 - (void)handlePowerNotOn;
@@ -7,6 +8,39 @@
 @end
 
 @implementation CBMutableService
+
+- (CBMutableService)initWithType:(CBUUID *)UUID primary:(BOOL)isPrimary
+{
+  v4 = isPrimary;
+  v7 = UUID;
+  data = [(CBUUID *)v7 data];
+  if ([data length] != 2)
+  {
+    data2 = [(CBUUID *)v7 data];
+    v10 = [data2 length];
+
+    if (v10 == 16)
+    {
+      goto LABEL_5;
+    }
+
+    data = [MEMORY[0x1E696AAA8] currentHandler];
+    [data handleFailureInMethod:a2 object:self file:@"CBService.m" lineNumber:146 description:{@"Invalid parameter not satisfying: %@", @"UUID.data.length == 2 || UUID.data.length == 16"}];
+  }
+
+LABEL_5:
+  v14.receiver = self;
+  v14.super_class = CBMutableService;
+  v11 = [(CBAttribute *)&v14 initWithUUID:v7];
+  v12 = v11;
+  if (v11)
+  {
+    [(CBService *)v11 setIsPrimary:v4];
+    [(CBMutableService *)v12 addObserver:v12 forKeyPath:@"characteristics" options:0 context:0];
+  }
+
+  return v12;
+}
 
 - (CBMutableService)initWithDictionary:(id)dictionary
 {
@@ -36,77 +70,73 @@
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if ([path isEqualToString:{@"characteristics", object, change, context}])
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     characteristics = [(CBService *)self characteristics];
-    v8 = [characteristics countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v8 = [characteristics countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v14;
+      v10 = *v13;
       do
       {
         v11 = 0;
         do
         {
-          if (*v14 != v10)
+          if (*v13 != v10)
           {
             objc_enumerationMutation(characteristics);
           }
 
-          [*(*(&v13 + 1) + 8 * v11++) setService:self];
+          [*(*(&v12 + 1) + 8 * v11++) setService:self];
         }
 
         while (v9 != v11);
-        v9 = [characteristics countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v9 = [characteristics countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v9);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handlePowerNotOn
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   characteristics = [(CBService *)self characteristics];
-  v3 = [characteristics countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [characteristics countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(characteristics);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) handlePowerNotOn];
+        [*(*(&v7 + 1) + 8 * v6++) handlePowerNotOn];
       }
 
       while (v4 != v6);
-      v4 = [characteristics countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [characteristics countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (id)description

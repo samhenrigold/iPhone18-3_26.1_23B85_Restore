@@ -18,7 +18,7 @@
   v4 = [(PVCVPixelBufferImageBufferImpl *)&v9 init];
   if (v4)
   {
-    HGCVPixelBuffer::create(buffer, &v8);
+    HGCVPixelBuffer::create(&v8, buffer);
     m_Obj = v4->_pixelBuffer.m_Obj;
     v6 = v8;
     if (m_Obj == v8)
@@ -81,7 +81,7 @@
   v8 = [(PVCVPixelBufferImageBufferImpl *)&v13 init];
   if (v8)
   {
-    HGCVPixelBuffer::create(buffer, &v12);
+    HGCVPixelBuffer::create(&v12, buffer);
     m_Obj = v8->_pixelBuffer.m_Obj;
     v10 = v12;
     if (m_Obj == v12)

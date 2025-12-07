@@ -45,7 +45,7 @@
 {
   userCopy = user;
   ringCopy2 = ring;
-  v128[2] = *MEMORY[0x277D85DE8];
+  v127[2] = *MEMORY[0x277D85DE8];
   typesCopy = types;
   nameCopy = name;
   unitCopy = unit;
@@ -54,7 +54,7 @@
   selfCopy = self;
   v26 = [self _keyForGoalType:{objc_msgSend(firstObject, "integerValue")}];
 
-  v106 = unitCopy;
+  v105 = unitCopy;
   if ([typesCopy count] == 3)
   {
     v27 = @"ALL";
@@ -70,7 +70,7 @@ LABEL_11:
   {
     v27 = @"ALL";
 LABEL_10:
-    unitCopy = v106;
+    unitCopy = v105;
     goto LABEL_11;
   }
 
@@ -97,17 +97,17 @@ LABEL_10:
     goto LABEL_10;
   }
 
-  unitCopy = v106;
+  unitCopy = v105;
   v27 = v26;
 LABEL_12:
-  v99 = [selfCopy _keyForEventType:identifierCopy aboveAverage:remaining < 0.0];
-  v100 = v27;
-  v105 = [MEMORY[0x277CCACA8] stringWithFormat:@"GOAL_INCOMPLETE_DESCRIPTION_%@_%@", v27, v99];
+  v98 = [selfCopy _keyForEventType:identifierCopy aboveAverage:remaining < 0.0];
+  v99 = v27;
+  v104 = [MEMORY[0x277CCACA8] stringWithFormat:@"GOAL_INCOMPLETE_DESCRIPTION_%@_%@", v27, v98];
   unitString = [unitCopy unitString];
   uppercaseString = [unitString uppercaseString];
 
   v39 = MEMORY[0x277CBEB18];
-  v102 = uppercaseString;
+  v101 = uppercaseString;
   v40 = [MEMORY[0x277CCACA8] stringWithFormat:@"_%@", uppercaseString];
   v41 = [v39 arrayWithObjects:{&stru_285E7AAA8, v40, 0}];
 
@@ -118,109 +118,109 @@ LABEL_12:
 
     if ([v43 length])
     {
-      v128[0] = @"_NAME";
-      v102 = [MEMORY[0x277CCACA8] stringWithFormat:@"_NAME_%@", v102];
-      v128[1] = v102;
-      v45 = [MEMORY[0x277CBEA60] arrayWithObjects:v128 count:2];
+      v127[0] = @"_NAME";
+      v101 = [MEMORY[0x277CCACA8] stringWithFormat:@"_NAME_%@", v101];
+      v127[1] = v101;
+      v45 = [MEMORY[0x277CBEA60] arrayWithObjects:v127 count:2];
       [v41 addObjectsFromArray:v45];
     }
   }
 
-  v103 = nameCopy;
+  v102 = nameCopy;
   if (ringCopy2 >= 1)
   {
+    v119 = 0u;
     v120 = 0u;
     v121 = 0u;
     v122 = 0u;
-    v123 = 0u;
     v46 = [v41 copy];
-    v47 = [v46 countByEnumeratingWithState:&v120 objects:v127 count:16];
+    v47 = [v46 countByEnumeratingWithState:&v119 objects:v126 count:16];
     if (v47)
     {
       v48 = v47;
-      v49 = *v121;
+      v49 = *v120;
       do
       {
         for (i = 0; i != v48; ++i)
         {
-          if (*v121 != v49)
+          if (*v120 != v49)
           {
             objc_enumerationMutation(v46);
           }
 
-          v51 = [*(*(&v120 + 1) + 8 * i) stringByAppendingString:@"_WALK"];
+          v51 = [*(*(&v119 + 1) + 8 * i) stringByAppendingString:@"_WALK"];
           [v41 addObject:v51];
         }
 
-        v48 = [v46 countByEnumeratingWithState:&v120 objects:v127 count:16];
+        v48 = [v46 countByEnumeratingWithState:&v119 objects:v126 count:16];
       }
 
       while (v48);
     }
 
-    nameCopy = v103;
+    nameCopy = v102;
   }
 
   if (userCopy)
   {
+    v115 = 0u;
     v116 = 0u;
     v117 = 0u;
     v118 = 0u;
-    v119 = 0u;
     v52 = [v41 copy];
-    v53 = [v52 countByEnumeratingWithState:&v116 objects:v126 count:16];
+    v53 = [v52 countByEnumeratingWithState:&v115 objects:v125 count:16];
     if (v53)
     {
       v54 = v53;
-      v55 = *v117;
+      v55 = *v116;
       do
       {
         for (j = 0; j != v54; ++j)
         {
-          if (*v117 != v55)
+          if (*v116 != v55)
           {
             objc_enumerationMutation(v52);
           }
 
-          v57 = [*(*(&v116 + 1) + 8 * j) stringByAppendingString:@"_WHEELCHAIR"];
+          v57 = [*(*(&v115 + 1) + 8 * j) stringByAppendingString:@"_WHEELCHAIR"];
           [v41 addObject:v57];
         }
 
-        v54 = [v52 countByEnumeratingWithState:&v116 objects:v126 count:16];
+        v54 = [v52 countByEnumeratingWithState:&v115 objects:v125 count:16];
       }
 
       while (v54);
     }
 
-    nameCopy = v103;
+    nameCopy = v102;
   }
 
   if (standalone)
   {
+    v111 = 0u;
     v112 = 0u;
     v113 = 0u;
     v114 = 0u;
-    v115 = 0u;
     v58 = [v41 copy];
-    v59 = [v58 countByEnumeratingWithState:&v112 objects:v125 count:16];
+    v59 = [v58 countByEnumeratingWithState:&v111 objects:v124 count:16];
     if (v59)
     {
       v60 = v59;
-      v61 = *v113;
+      v61 = *v112;
       do
       {
         for (k = 0; k != v60; ++k)
         {
-          if (*v113 != v61)
+          if (*v112 != v61)
           {
             objc_enumerationMutation(v58);
           }
 
-          v63 = [*(*(&v112 + 1) + 8 * k) stringByAppendingString:@"_STANDALONE"];
+          v63 = [*(*(&v111 + 1) + 8 * k) stringByAppendingString:@"_STANDALONE"];
           [v41 addObject:v63];
         }
 
-        v60 = [v58 countByEnumeratingWithState:&v112 objects:v125 count:16];
+        v60 = [v58 countByEnumeratingWithState:&v111 objects:v124 count:16];
       }
 
       while (v60);
@@ -230,7 +230,7 @@ LABEL_12:
   typeCopy2 = type;
   v65 = FILocalizationTableForExperienceType();
   v66 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v101 = v65;
+  v100 = v65;
   v67 = FIRandomStringWithKeyAndPossibleSuffixesWithTableName();
 
   if ([v67 containsString:@"<hours-remaining>"])
@@ -245,7 +245,7 @@ LABEL_12:
 
     if (ceil(remaining) == 1.0)
     {
-      v98 = typesCopy;
+      v97 = typesCopy;
       _HKInitializeLogging();
       v70 = *v68;
       if (os_log_type_enabled(*v68, OS_LOG_TYPE_DEBUG))
@@ -254,30 +254,30 @@ LABEL_12:
       }
 
       array = [MEMORY[0x277CBEB18] array];
+      v107 = 0u;
       v108 = 0u;
       v109 = 0u;
       v110 = 0u;
-      v111 = 0u;
       v72 = v41;
-      v73 = [v72 countByEnumeratingWithState:&v108 objects:v124 count:16];
+      v73 = [v72 countByEnumeratingWithState:&v107 objects:v123 count:16];
       if (v73)
       {
         v74 = v73;
-        v75 = *v109;
+        v75 = *v108;
         do
         {
           for (m = 0; m != v74; ++m)
           {
-            if (*v109 != v75)
+            if (*v108 != v75)
             {
               objc_enumerationMutation(v72);
             }
 
-            v77 = [@"_SINGULAR" stringByAppendingString:*(*(&v108 + 1) + 8 * m)];
+            v77 = [@"_SINGULAR" stringByAppendingString:*(*(&v107 + 1) + 8 * m)];
             [array addObject:v77];
           }
 
-          v74 = [v72 countByEnumeratingWithState:&v108 objects:v124 count:16];
+          v74 = [v72 countByEnumeratingWithState:&v107 objects:v123 count:16];
         }
 
         while (v74);
@@ -285,17 +285,17 @@ LABEL_12:
 
       v78 = [MEMORY[0x277CBEA60] arrayWithArray:array];
       v79 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      nameCopy = v103;
+      nameCopy = v102;
       v80 = FIRandomStringWithKeyAndPossibleSuffixesWithTableName();
 
       v67 = v80;
-      typesCopy = v98;
+      typesCopy = v97;
       typeCopy2 = type;
     }
   }
 
   v81 = [MEMORY[0x277CCDAB0] jouleUnitWithMetricPrefix:9];
-  v82 = [v106 isEqual:v81];
+  v82 = [v105 isEqual:v81];
 
   if (v82)
   {
@@ -306,7 +306,7 @@ LABEL_12:
   else
   {
     minuteUnit = [MEMORY[0x277CCDAB0] minuteUnit];
-    v86 = [v106 isEqual:minuteUnit];
+    v86 = [v105 isEqual:minuteUnit];
 
     if (v86)
     {
@@ -329,12 +329,12 @@ LABEL_12:
     }
   }
 
-  v87 = [v105 stringByAppendingString:v84];
+  v87 = [v104 stringByAppendingString:v84];
   v88 = [selfCopy _localizeCount:v87 forKey:typeCopy2 experienceType:remaining];
 
   v89 = [v67 stringByReplacingOccurrencesOfString:v83 withString:v88];
 
-  v90 = [v105 stringByAppendingString:@"_WALK_VALUE"];
+  v90 = [v104 stringByAppendingString:@"_WALK_VALUE"];
   v91 = [selfCopy _localizeCount:v90 forKey:typeCopy2 experienceType:ring];
 
   v92 = FILocalizeCount();
@@ -351,8 +351,6 @@ LABEL_12:
       [FCCDailyGoalLocalizer localizedDescriptionForIncompleteGoalTypes:v95 percentComplete:? value:? valueRemaining:? date:? firstName:? moveUnit:? isWheelchairUser:? progressEventIdentifier:? minutesToWalkToCompleteRing:? hasCurrentMoveStreak:? experienceType:? isStandalone:?];
     }
   }
-
-  v96 = *MEMORY[0x277D85DE8];
 
   return v94;
 }
@@ -423,7 +421,7 @@ LABEL_12:
 {
   userCopy = user;
   exceededCopy = exceeded;
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   completedCopy = completed;
   dateCopy = date;
   nameCopy = name;
@@ -472,7 +470,7 @@ LABEL_12:
     v21 = v22;
   }
 
-  v43 = [MEMORY[0x277CCACA8] stringWithFormat:@"GOAL_COMPLETE_DESCRIPTION_%@%@%@", v17, v20, v21];
+  v42 = [MEMORY[0x277CCACA8] stringWithFormat:@"GOAL_COMPLETE_DESCRIPTION_%@%@%@", v17, v20, v21];
   v23 = [MEMORY[0x277CBEB18] arrayWithObject:&stru_285E7AAA8];
   if (nameCopy)
   {
@@ -485,84 +483,82 @@ LABEL_12:
     }
   }
 
-  v45 = v17;
-  v46 = dateCopy;
-  v44 = v21;
+  v44 = v17;
+  v45 = dateCopy;
+  v43 = v21;
   if (userCopy)
   {
+    v50 = 0u;
     v51 = 0u;
     v52 = 0u;
     v53 = 0u;
-    v54 = 0u;
     v26 = [v23 copy];
-    v27 = [v26 countByEnumeratingWithState:&v51 objects:v56 count:16];
+    v27 = [v26 countByEnumeratingWithState:&v50 objects:v55 count:16];
     if (v27)
     {
       v28 = v27;
-      v29 = *v52;
+      v29 = *v51;
       do
       {
         for (i = 0; i != v28; ++i)
         {
-          if (*v52 != v29)
+          if (*v51 != v29)
           {
             objc_enumerationMutation(v26);
           }
 
-          v31 = [*(*(&v51 + 1) + 8 * i) stringByAppendingString:@"_WHEELCHAIR"];
+          v31 = [*(*(&v50 + 1) + 8 * i) stringByAppendingString:@"_WHEELCHAIR"];
           [v23 addObject:v31];
         }
 
-        v28 = [v26 countByEnumeratingWithState:&v51 objects:v56 count:16];
+        v28 = [v26 countByEnumeratingWithState:&v50 objects:v55 count:16];
       }
 
       while (v28);
     }
 
-    dateCopy = v46;
-    v21 = v44;
+    dateCopy = v45;
+    v21 = v43;
   }
 
   if (standalone)
   {
+    v46 = 0u;
     v47 = 0u;
     v48 = 0u;
     v49 = 0u;
-    v50 = 0u;
     v32 = [v23 copy];
-    v33 = [v32 countByEnumeratingWithState:&v47 objects:v55 count:16];
+    v33 = [v32 countByEnumeratingWithState:&v46 objects:v54 count:16];
     if (v33)
     {
       v34 = v33;
-      v35 = *v48;
+      v35 = *v47;
       do
       {
         for (j = 0; j != v34; ++j)
         {
-          if (*v48 != v35)
+          if (*v47 != v35)
           {
             objc_enumerationMutation(v32);
           }
 
-          v37 = [*(*(&v47 + 1) + 8 * j) stringByAppendingString:@"_STANDALONE"];
+          v37 = [*(*(&v46 + 1) + 8 * j) stringByAppendingString:@"_STANDALONE"];
           [v23 addObject:v37];
         }
 
-        v34 = [v32 countByEnumeratingWithState:&v47 objects:v55 count:16];
+        v34 = [v32 countByEnumeratingWithState:&v46 objects:v54 count:16];
       }
 
       while (v34);
     }
 
-    dateCopy = v46;
-    v21 = v44;
+    dateCopy = v45;
+    v21 = v43;
   }
 
   v38 = FILocalizationTableForExperienceType();
   v39 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v40 = FIRandomStringWithKeyAndPossibleSuffixesWithTableName();
-
-  v41 = *MEMORY[0x277D85DE8];
 
   return v40;
 }
@@ -621,41 +617,39 @@ LABEL_12:
 
 + (id)_keyForGoalTypes:(id)types
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   typesCopy = types;
   v5 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(typesCopy, "count")}];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v6 = typesCopy;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [self _keyForGoalType:{objc_msgSend(*(*(&v15 + 1) + 8 * i), "unsignedIntegerValue", v15)}];
+        v11 = [self _keyForGoalType:{objc_msgSend(*(*(&v14 + 1) + 8 * i), "unsignedIntegerValue", v14)}];
         [v5 addObject:v11];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
 
   v12 = [v5 componentsJoinedByString:@"_"];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -720,11 +714,10 @@ LABEL_12:
 
 + (void)localizedDescriptionForIncompleteGoalTypes:(os_log_t)log percentComplete:(double)a2 value:valueRemaining:date:firstName:moveUnit:isWheelchairUser:progressEventIdentifier:minutesToWalkToCompleteRing:hasCurrentMoveStreak:experienceType:isStandalone:.cold.1(os_log_t log, double a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
-  v4 = a2;
-  _os_log_debug_impl(&dword_24B53B000, log, OS_LOG_TYPE_DEBUG, "Localization checking for singular using remaining value %lf", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
+  v3 = a2;
+  _os_log_debug_impl(&dword_24B53B000, log, OS_LOG_TYPE_DEBUG, "Localization checking for singular using remaining value %lf", &v2, 0xCu);
 }
 
 @end

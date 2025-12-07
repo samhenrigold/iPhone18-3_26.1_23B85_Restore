@@ -5,6 +5,7 @@
 - (KTOptInManager)initWithApplication:(id)application;
 - (void)changeOptInState:(unint64_t)state detailedCompletionBlock:(id)block;
 - (void)getOptInState:(BOOL)state completionBlock:(id)block;
+- (void)setOptInState:(BOOL)state completionBlock:(id)block;
 - (void)setOptInState:(BOOL)state detailedCompletionBlock:(id)block;
 - (void)waitForIDSRegistration:(BOOL)registration complete:(id)complete;
 @end
@@ -40,9 +41,9 @@
   [TransparencyXPCConnection invokeXPCWithBlock:v17 synchronous:sync errorHandler:v14];
 }
 
-void __43__KTOptInManager_getOptInState_completion___block_invoke(void *a1, void *a2, void *a3)
+void __43__KTOptInManager_getOptInState_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -56,21 +57,18 @@ void __43__KTOptInManager_getOptInState_completion___block_invoke(void *a1, void
     v8 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_3;
     if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_3, OS_LOG_TYPE_ERROR))
     {
-      v11 = 138412290;
-      v12 = v7;
-      _os_log_impl(&dword_1E10DB000, v8, OS_LOG_TYPE_ERROR, "Unknown invokeXPCWithBlock error: %@", &v11, 0xCu);
+      v9 = 138412290;
+      v10 = v7;
+      _os_log_impl(&dword_1E10DB000, v8, OS_LOG_TYPE_ERROR, "Unknown invokeXPCWithBlock error: %@", &v9, 0xCu);
     }
 
-    v9 = a1[4];
-    (*(a1[6] + 16))();
+    (*(*(a1 + 48) + 16))();
   }
 
   else
   {
-    [v5 getKTOptInState:a1[5] completion:a1[6]];
+    [v5 getKTOptInState:*(a1 + 40) completion:*(a1 + 48)];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __43__KTOptInManager_getOptInState_completion___block_invoke_2()
@@ -82,7 +80,7 @@ uint64_t __43__KTOptInManager_getOptInState_completion___block_invoke_2()
 
 void __43__KTOptInManager_getOptInState_completion___block_invoke_209(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK_3 != -1)
   {
@@ -92,15 +90,12 @@ void __43__KTOptInManager_getOptInState_completion___block_invoke_209(uint64_t a
   v4 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_3;
   if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_3, OS_LOG_TYPE_ERROR))
   {
-    v7 = 138412290;
-    v8 = v3;
-    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "getOptInState error: %@", &v7, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "getOptInState error: %@", &v5, 0xCu);
   }
 
-  v5 = *(a1 + 32);
   (*(*(a1 + 40) + 16))();
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __43__KTOptInManager_getOptInState_completion___block_invoke_2_210()
@@ -143,15 +138,15 @@ uint64_t __43__KTOptInManager_getOptInState_completion___block_invoke_2_210()
 
 - (KTOptInManager)initWithApplication:(id)application
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   applicationCopy = application;
   v6 = [TransparencyApplication applicationValueForIdentifier:applicationCopy];
 
   if (v6)
   {
-    v15.receiver = self;
-    v15.super_class = KTOptInManager;
-    v7 = [(KTOptInManager *)&v15 init];
+    v14.receiver = self;
+    v14.super_class = KTOptInManager;
+    v7 = [(KTOptInManager *)&v14 init];
     v8 = v7;
     if (v7)
     {
@@ -176,14 +171,13 @@ uint64_t __43__KTOptInManager_getOptInState_completion___block_invoke_2_210()
     if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_3, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v17 = applicationCopy;
+      v16 = applicationCopy;
       _os_log_impl(&dword_1E10DB000, v12, OS_LOG_TYPE_ERROR, "Unknown application identifier: %@", buf, 0xCu);
     }
 
     selfCopy = 0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -214,7 +208,7 @@ uint64_t __38__KTOptInManager_initWithApplication___block_invoke()
 
 void __31__KTOptInManager_getOptInState__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -229,7 +223,7 @@ void __31__KTOptInManager_getOptInState__block_invoke(uint64_t a1, void *a2, voi
     if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_3, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v20 = v7;
+      v19 = v7;
       _os_log_impl(&dword_1E10DB000, v15, OS_LOG_TYPE_ERROR, "Unknown invokeXPCSynchronousCallWithBlock error: %@", buf, 0xCu);
     }
   }
@@ -248,7 +242,7 @@ void __31__KTOptInManager_getOptInState__block_invoke(uint64_t a1, void *a2, voi
       v10 = v8;
       v11 = [v9 applicationIdentifier];
       *buf = 138543362;
-      v20 = v11;
+      v19 = v11;
       _os_log_impl(&dword_1E10DB000, v10, OS_LOG_TYPE_INFO, "Sending synchronous opt-in state fetch for %{public}@", buf, 0xCu);
     }
 
@@ -256,15 +250,13 @@ void __31__KTOptInManager_getOptInState__block_invoke(uint64_t a1, void *a2, voi
     v13 = [*(a1 + 32) applicationIdentifier];
     v14 = [(KTOptInStateRequest *)v12 initWithApplication:v13];
 
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __31__KTOptInManager_getOptInState__block_invoke_224;
-    v17[3] = &unk_1E8701578;
-    v18 = *(a1 + 32);
-    [v5 getKTOptInState:v14 completion:v17];
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __31__KTOptInManager_getOptInState__block_invoke_224;
+    v16[3] = &unk_1E8701578;
+    v17 = *(a1 + 32);
+    [v5 getKTOptInState:v14 completion:v16];
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __31__KTOptInManager_getOptInState__block_invoke_2()
@@ -283,7 +275,7 @@ uint64_t __31__KTOptInManager_getOptInState__block_invoke_220()
 
 void __31__KTOptInManager_getOptInState__block_invoke_224(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -299,11 +291,11 @@ void __31__KTOptInManager_getOptInState__block_invoke_224(uint64_t a1, void *a2,
       v8 = *(a1 + 32);
       v9 = v7;
       v10 = [v8 applicationIdentifier];
-      v12 = 138543618;
-      v13 = v10;
-      v14 = 2112;
-      v15 = v6;
-      _os_log_impl(&dword_1E10DB000, v9, OS_LOG_TYPE_ERROR, "opt-in state fetch for %{public}@ failed: %@", &v12, 0x16u);
+      v11 = 138543618;
+      v12 = v10;
+      v13 = 2112;
+      v14 = v6;
+      _os_log_impl(&dword_1E10DB000, v9, OS_LOG_TYPE_ERROR, "opt-in state fetch for %{public}@ failed: %@", &v11, 0x16u);
     }
   }
 
@@ -311,8 +303,6 @@ void __31__KTOptInManager_getOptInState__block_invoke_224(uint64_t a1, void *a2,
   {
     *(*(*(a1 + 40) + 8) + 24) = [v5 state] == 1;
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __31__KTOptInManager_getOptInState__block_invoke_2_225()
@@ -324,7 +314,7 @@ uint64_t __31__KTOptInManager_getOptInState__block_invoke_2_225()
 
 void __31__KTOptInManager_getOptInState__block_invoke_229(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK_3 != -1)
   {
@@ -334,12 +324,10 @@ void __31__KTOptInManager_getOptInState__block_invoke_229(uint64_t a1, void *a2)
   v3 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_3;
   if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_3, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_1E10DB000, v3, OS_LOG_TYPE_ERROR, "Unknown getOptInState error: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_1E10DB000, v3, OS_LOG_TYPE_ERROR, "Unknown getOptInState error: %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __31__KTOptInManager_getOptInState__block_invoke_2_232()
@@ -370,7 +358,7 @@ uint64_t __31__KTOptInManager_getOptInState__block_invoke_2_232()
 
 void __48__KTOptInManager_getOptInState_completionBlock___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -385,7 +373,7 @@ void __48__KTOptInManager_getOptInState_completionBlock___block_invoke(uint64_t 
     if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_3, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v20 = v7;
+      v19 = v7;
       _os_log_impl(&dword_1E10DB000, v15, OS_LOG_TYPE_ERROR, "Unknown invokeXPCAsynchronousCallWithBlock error: %@", buf, 0xCu);
     }
 
@@ -406,7 +394,7 @@ void __48__KTOptInManager_getOptInState_completionBlock___block_invoke(uint64_t 
       v10 = v8;
       v11 = [v9 applicationIdentifier];
       *buf = 138543362;
-      v20 = v11;
+      v19 = v11;
       _os_log_impl(&dword_1E10DB000, v10, OS_LOG_TYPE_INFO, "Sending asynchronous opt-in state fetch for %{public}@", buf, 0xCu);
     }
 
@@ -415,15 +403,13 @@ void __48__KTOptInManager_getOptInState_completionBlock___block_invoke(uint64_t 
     v14 = [(KTOptInStateRequest *)v12 initWithApplication:v13];
 
     [(KTOptInStateRequest *)v14 setFetchCloudKit:*(a1 + 48)];
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __48__KTOptInManager_getOptInState_completionBlock___block_invoke_240;
-    v17[3] = &unk_1E87015A0;
-    v18 = *(a1 + 40);
-    [v5 getKTOptInState:v14 completion:v17];
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __48__KTOptInManager_getOptInState_completionBlock___block_invoke_240;
+    v16[3] = &unk_1E87015A0;
+    v17 = *(a1 + 40);
+    [v5 getKTOptInState:v14 completion:v16];
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __48__KTOptInManager_getOptInState_completionBlock___block_invoke_2()
@@ -451,6 +437,19 @@ void __48__KTOptInManager_getOptInState_completionBlock___block_invoke_240(uint6
   (*(v8 + 16))(v8, v7, v9, v5);
 }
 
+- (void)setOptInState:(BOOL)state completionBlock:(id)block
+{
+  stateCopy = state;
+  blockCopy = block;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __48__KTOptInManager_setOptInState_completionBlock___block_invoke;
+  v8[3] = &unk_1E87015F0;
+  v9 = blockCopy;
+  v7 = blockCopy;
+  [(KTOptInManager *)self setOptInState:stateCopy detailedCompletionBlock:v8];
+}
+
 - (void)waitForIDSRegistration:(BOOL)registration complete:(id)complete
 {
   completeCopy = complete;
@@ -471,7 +470,7 @@ void __48__KTOptInManager_getOptInState_completionBlock___block_invoke_240(uint6
 
 void __50__KTOptInManager_waitForIDSRegistration_complete___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -485,9 +484,9 @@ void __50__KTOptInManager_waitForIDSRegistration_complete___block_invoke(uint64_
     v8 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_3;
     if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_3, OS_LOG_TYPE_ERROR))
     {
-      v10 = 138412290;
-      v11 = v7;
-      _os_log_impl(&dword_1E10DB000, v8, OS_LOG_TYPE_ERROR, "Unknown invokeXPCAsynchronousCallWithBlock error: %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v7;
+      _os_log_impl(&dword_1E10DB000, v8, OS_LOG_TYPE_ERROR, "Unknown invokeXPCAsynchronousCallWithBlock error: %@", &v9, 0xCu);
     }
 
     (*(*(a1 + 32) + 16))();
@@ -497,8 +496,6 @@ void __50__KTOptInManager_waitForIDSRegistration_complete___block_invoke(uint64_
   {
     [v5 waitForIDSRegistration:*(a1 + 40) complete:*(a1 + 32)];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __50__KTOptInManager_waitForIDSRegistration_complete___block_invoke_2()
@@ -510,7 +507,7 @@ uint64_t __50__KTOptInManager_waitForIDSRegistration_complete___block_invoke_2()
 
 void __50__KTOptInManager_waitForIDSRegistration_complete___block_invoke_245(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK_3 != -1)
   {
@@ -520,14 +517,12 @@ void __50__KTOptInManager_waitForIDSRegistration_complete___block_invoke_245(uin
   v4 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_3;
   if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_3, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown checkIDSRegistration error: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown checkIDSRegistration error: %@", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __50__KTOptInManager_waitForIDSRegistration_complete___block_invoke_2_246()
@@ -572,7 +567,7 @@ void __56__KTOptInManager_setOptInState_detailedCompletionBlock___block_invoke(u
 
 void __56__KTOptInManager_setOptInState_detailedCompletionBlock___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -586,9 +581,9 @@ void __56__KTOptInManager_setOptInState_detailedCompletionBlock___block_invoke_2
     v14 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_3;
     if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_3, OS_LOG_TYPE_ERROR))
     {
-      v16 = 138412290;
-      v17 = v7;
-      _os_log_impl(&dword_1E10DB000, v14, OS_LOG_TYPE_ERROR, "Unknown invokeXPCSynchronousCallWithBlock error: %@", &v16, 0xCu);
+      v15 = 138412290;
+      v16 = v7;
+      _os_log_impl(&dword_1E10DB000, v14, OS_LOG_TYPE_ERROR, "Unknown invokeXPCSynchronousCallWithBlock error: %@", &v15, 0xCu);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -608,16 +603,14 @@ void __56__KTOptInManager_setOptInState_detailedCompletionBlock___block_invoke_2
       v10 = *(a1 + 32);
       v11 = v9;
       v12 = [v10 applicationIdentifier];
-      v16 = 138543362;
-      v17 = v12;
-      _os_log_impl(&dword_1E10DB000, v11, OS_LOG_TYPE_INFO, "Sending synchronous opt-in state set for %{public}@", &v16, 0xCu);
+      v15 = 138543362;
+      v16 = v12;
+      _os_log_impl(&dword_1E10DB000, v11, OS_LOG_TYPE_INFO, "Sending synchronous opt-in state set for %{public}@", &v15, 0xCu);
     }
 
     v13 = [*(a1 + 32) applicationIdentifier];
     [v5 changeOptInState:v8 application:v13 completionBlock:*(a1 + 40)];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __56__KTOptInManager_setOptInState_detailedCompletionBlock___block_invoke_3()
@@ -636,7 +629,7 @@ uint64_t __56__KTOptInManager_setOptInState_detailedCompletionBlock___block_invo
 
 void __56__KTOptInManager_setOptInState_detailedCompletionBlock___block_invoke_254(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK_3 != -1)
   {
@@ -646,14 +639,12 @@ void __56__KTOptInManager_setOptInState_detailedCompletionBlock___block_invoke_2
   v4 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_3;
   if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_3, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown setKTOptInState error: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown setKTOptInState error: %@", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __56__KTOptInManager_setOptInState_detailedCompletionBlock___block_invoke_2_255()
@@ -698,7 +689,7 @@ void __59__KTOptInManager_changeOptInState_detailedCompletionBlock___block_invok
 
 void __59__KTOptInManager_changeOptInState_detailedCompletionBlock___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -712,9 +703,9 @@ void __59__KTOptInManager_changeOptInState_detailedCompletionBlock___block_invok
     v15 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_3;
     if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_3, OS_LOG_TYPE_ERROR))
     {
-      v17 = 138412290;
-      v18 = v7;
-      _os_log_impl(&dword_1E10DB000, v15, OS_LOG_TYPE_ERROR, "Unknown invokeXPCSynchronousCallWithBlock error: %@", &v17, 0xCu);
+      v16 = 138412290;
+      v17 = v7;
+      _os_log_impl(&dword_1E10DB000, v15, OS_LOG_TYPE_ERROR, "Unknown invokeXPCSynchronousCallWithBlock error: %@", &v16, 0xCu);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -734,19 +725,17 @@ void __59__KTOptInManager_changeOptInState_detailedCompletionBlock___block_invok
       v10 = v8;
       v11 = [v9 applicationIdentifier];
       v12 = *(a1 + 48);
-      v17 = 138543618;
-      v18 = v11;
-      v19 = 1024;
-      v20 = v12;
-      _os_log_impl(&dword_1E10DB000, v10, OS_LOG_TYPE_INFO, "Sending synchronous opt-in state set for %{public}@: %d", &v17, 0x12u);
+      v16 = 138543618;
+      v17 = v11;
+      v18 = 1024;
+      v19 = v12;
+      _os_log_impl(&dword_1E10DB000, v10, OS_LOG_TYPE_INFO, "Sending synchronous opt-in state set for %{public}@: %d", &v16, 0x12u);
     }
 
     v13 = *(a1 + 48);
     v14 = [*(a1 + 32) applicationIdentifier];
     [v5 changeOptInState:v13 application:v14 completionBlock:*(a1 + 40)];
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __59__KTOptInManager_changeOptInState_detailedCompletionBlock___block_invoke_3()
@@ -765,7 +754,7 @@ uint64_t __59__KTOptInManager_changeOptInState_detailedCompletionBlock___block_i
 
 void __59__KTOptInManager_changeOptInState_detailedCompletionBlock___block_invoke_263(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK_3 != -1)
   {
@@ -775,14 +764,12 @@ void __59__KTOptInManager_changeOptInState_detailedCompletionBlock___block_invok
   v4 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_3;
   if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_3, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown changeOptInState error: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown changeOptInState error: %@", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __59__KTOptInManager_changeOptInState_detailedCompletionBlock___block_invoke_2_264()

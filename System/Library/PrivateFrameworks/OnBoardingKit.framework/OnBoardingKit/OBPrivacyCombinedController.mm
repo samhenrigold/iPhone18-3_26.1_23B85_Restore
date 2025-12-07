@@ -1,6 +1,7 @@
 @interface OBPrivacyCombinedController
 + (void)presentPrivacyCombinedControllerOverController:(id)controller dismissHandler:(id)handler;
 - (OBPrivacyCombinedController)initWithBundles:(id)bundles;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation OBPrivacyCombinedController
@@ -25,6 +26,18 @@
   -[OBPrivacyCombinedController setAllowsOpeningSafari:](v5, "setAllowsOpeningSafari:", [v6 preventOpeningSafari] ^ 1);
 
   return &v5->super;
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = OBPrivacyCombinedController;
+  [(OBWelcomeController *)&v5 viewDidAppear:appear];
+  if ([(OBPrivacyCombinedController *)self isMovingToParentViewController])
+  {
+    v4 = +[OBAnalyticsManager sharedManager];
+    [v4 logPresentationOfPrivacyUnifiedAbout];
+  }
 }
 
 + (void)presentPrivacyCombinedControllerOverController:(id)controller dismissHandler:(id)handler

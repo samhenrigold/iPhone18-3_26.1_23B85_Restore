@@ -1,6 +1,6 @@
 @interface PixelMemory
 - (PixelMemory)initWithCvPixelBuffer:(__CVBuffer *)buffer skipClamp:(BOOL)clamp readOnly:(BOOL)only;
-- (__n128)readYCbCrValueAtX:(int)x Y:(int)y;
+- (__n64)readYCbCrValueAtX:(int)x Y:(int)y;
 - (double)readFourChannelAtX:(unsigned int)x Y:(unsigned int)y;
 - (float)ReadYValue8AtX:(int)x Y:(int)y;
 - (float)readBlurredYValueAtX:(int)x Y:(int)y;
@@ -8,6 +8,7 @@
 - (id)readYCbCrValueAtArrayX:(id)x ArrayY:(id)y;
 - (int16x4_t)SampleFourChannelAtX:(float)x Y:;
 - (unsigned)readOneChannelAtX:(int)x Y:(int)y Channel:(char)channel;
+- (unsigned)sampleOneChannelAtX:(float)x Y:(float)y Channel:(char)channel;
 - (void)dealloc;
 - (void)writeCbCrValueCb:(signed __int16)cb Cr:(signed __int16)cr X:(int)x Y:(int)y;
 - (void)writeFloat:(float)float X:(int)x Y:(int)y;
@@ -115,6 +116,27 @@
   *&self->_pMemory[v5 * self->_bytePerPixel + HIDWORD(v5) * self->_stride] = float;
 }
 
+- (unsigned)sampleOneChannelAtX:(float)x Y:(float)y Channel:(char)channel
+{
+  channelCopy = channel;
+  v11 = floorf(x);
+  LODWORD(v5) = vcvtms_s32_f32(x);
+  v12 = floorf(y);
+  LODWORD(v6) = vcvtms_s32_f32(y);
+  v13 = [(PixelMemory *)self readOneChannelAtX:v5 Y:v6 Channel:channel];
+  v14 = [(PixelMemory *)self readOneChannelAtX:(v5 + 1) Y:v6 Channel:channelCopy];
+  v15 = [(PixelMemory *)self readOneChannelAtX:v5 Y:(v6 + 1) Channel:channelCopy];
+  v16 = [(PixelMemory *)self readOneChannelAtX:(v5 + 1) Y:(v6 + 1) Channel:channelCopy];
+  v17 = x - v11;
+  v18 = fminf(((y - v12) * ((v17 * v16) + ((1.0 - v17) * v15))) + ((1.0 - (y - v12)) * ((v17 * v14) + ((1.0 - v17) * v13))), 255.0);
+  if (v18 < 0.0)
+  {
+    return 0.0;
+  }
+
+  return v18;
+}
+
 - (int16x4_t)SampleFourChannelAtX:(float)x Y:
 {
   v8 = floorf(a2);
@@ -138,12 +160,10 @@
   return vmovn_s32(vcvtq_s32_f32(vminnmq_f32(vmaxnmq_f32(vmlaq_n_f32(vmulq_n_f32(vmlaq_n_f32(vmulq_n_f32(v22, *v16.i32), v20, 1.0 - *v16.i32), x - v9), vmlaq_n_f32(vmulq_n_f32(v19, *v16.i32), v18, 1.0 - *v16.i32), 1.0 - (x - v9)), 0), vdupq_n_s32(0x437F0000u))));
 }
 
-- (__n128)readYCbCrValueAtX:(int)x Y:(int)y
+- (__n64)readYCbCrValueAtX:(int)x Y:(int)y
 {
-  v4 = (*(self + 56) + *(self + 24) * (y / 2) + 4 * (x / 2));
-  result.n128_f32[0] = (*(*(self + 48) + *(self + 20) * y + 2 * x) >> 6);
-  result.n128_f32[1] = (*v4 >> 6);
-  result.n128_f32[2] = (v4[1] >> 6);
+  result.n64_f32[0] = (*(*(self + 48) + *(self + 20) * y + 2 * x) >> 6);
+  result.n64_f32[1] = (*(*(self + 56) + *(self + 24) * (y / 2) + 4 * (x / 2)) >> 6);
   return result;
 }
 
@@ -364,24 +384,24 @@
   if (!buffer)
   {
     fig_log_get_emitter();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v5, v27.receiver, v27.super_class, v28, v29, v30, v31);
     goto LABEL_38;
   }
 
   onlyCopy = only;
-  v26.receiver = self;
-  v26.super_class = PixelMemory;
-  v9 = [(PixelMemory *)&v26 init];
-  selfCopy = v9;
-  if (!v9)
+  v27.receiver = self;
+  v27.super_class = PixelMemory;
+  v10 = [(PixelMemory *)&v27 init];
+  selfCopy = v10;
+  if (!v10)
   {
 LABEL_38:
-    v24 = 0;
+    v25 = 0;
     goto LABEL_36;
   }
 
-  v9->_buf = buffer;
-  v9->_width = CVPixelBufferGetWidth(buffer);
+  v10->_buf = buffer;
+  v10->_width = CVPixelBufferGetWidth(buffer);
   selfCopy->_height = CVPixelBufferGetHeight(buffer);
   PixelFormatType = CVPixelBufferGetPixelFormatType(buffer);
   selfCopy->_format = PixelFormatType;
@@ -389,23 +409,23 @@ LABEL_38:
   {
     selfCopy->_stride = CVPixelBufferGetBytesPerRowOfPlane(buffer, 0);
     BytesPerRowOfPlane = CVPixelBufferGetBytesPerRowOfPlane(buffer, 1uLL);
-    v13 = 24;
+    v14 = 24;
   }
 
   else
   {
     BytesPerRowOfPlane = CVPixelBufferGetBytesPerRow(buffer);
-    v13 = 20;
+    v14 = 20;
   }
 
-  *(&selfCopy->super.isa + v13) = BytesPerRowOfPlane;
+  *(&selfCopy->super.isa + v14) = BytesPerRowOfPlane;
   CVPixelBufferRetain(selfCopy->_buf);
   format = selfCopy->_format;
   if (format != 1111970369 && format != 1278226481)
   {
     if (format == 1278226488 || format == 1278226534)
     {
-      v18 = 1;
+      v19 = 1;
       goto LABEL_26;
     }
 
@@ -417,18 +437,6 @@ LABEL_38:
 
   if (format == 1278226481)
   {
-    v18 = 1;
-  }
-
-  else
-  {
-    v18 = 4;
-  }
-
-LABEL_26:
-  selfCopy->_channels = v18;
-  if (format == 1278226488)
-  {
     v19 = 1;
   }
 
@@ -437,30 +445,42 @@ LABEL_26:
     v19 = 4;
   }
 
-  selfCopy->_bytePerPixel = v19;
+LABEL_26:
+  selfCopy->_channels = v19;
+  if (format == 1278226488)
+  {
+    v20 = 1;
+  }
+
+  else
+  {
+    v20 = 4;
+  }
+
+  selfCopy->_bytePerPixel = v20;
   selfCopy->_readBufferOnly = onlyCopy;
   CVPixelBufferLockBaseAddress(buffer, onlyCopy);
-  v20 = selfCopy->_format;
-  if (v20 == 2019963440 || v20 == 2016686640)
+  v21 = selfCopy->_format;
+  if (v21 == 2019963440 || v21 == 2016686640)
   {
     selfCopy->_pMemory = CVPixelBufferGetBaseAddressOfPlane(buffer, 0);
     BaseAddressOfPlane = CVPixelBufferGetBaseAddressOfPlane(buffer, 1uLL);
-    v23 = 56;
+    v24 = 56;
   }
 
   else
   {
     BaseAddressOfPlane = CVPixelBufferGetBaseAddress(buffer);
-    v23 = 48;
+    v24 = 48;
   }
 
-  *(&selfCopy->super.isa + v23) = BaseAddressOfPlane;
+  *(&selfCopy->super.isa + v24) = BaseAddressOfPlane;
   selfCopy->_skipClamp = clamp;
   selfCopy = selfCopy;
-  v24 = selfCopy;
+  v25 = selfCopy;
 LABEL_36:
 
-  return v24;
+  return v25;
 }
 
 @end

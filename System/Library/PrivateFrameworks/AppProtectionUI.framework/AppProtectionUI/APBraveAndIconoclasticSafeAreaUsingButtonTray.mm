@@ -45,7 +45,7 @@
   *&v14 = fittingPriority;
   [*(&selfCopy->super.super.super.isa + OBJC_IVAR____TtC15AppProtectionUI45APBraveAndIconoclasticSafeAreaUsingButtonTray_stack) systemLayoutSizeFittingSize:v13 withHorizontalFittingPriority:v15 verticalFittingPriority:{v12, v14}];
 
-  v16 = CGPointMake(width);
+  CGPointMake();
   result.height = v17;
   result.width = v16;
   return result;
@@ -55,14 +55,15 @@
 {
   selfCopy = self;
   [(APBraveAndIconoclasticSafeAreaUsingButtonTray *)selfCopy bounds];
-  [(APBraveAndIconoclasticSafeAreaUsingButtonTray *)selfCopy sizeThatFits:CGPointMake(v3)];
-  v5 = v4;
-  v7 = v6;
+  CGPointMake();
+  [(APBraveAndIconoclasticSafeAreaUsingButtonTray *)selfCopy sizeThatFits:?];
+  v4 = v3;
+  v6 = v5;
 
-  v8 = v5;
-  v9 = v7;
-  result.height = v9;
-  result.width = v8;
+  v7 = v4;
+  v8 = v6;
+  result.height = v8;
+  result.width = v7;
   return result;
 }
 

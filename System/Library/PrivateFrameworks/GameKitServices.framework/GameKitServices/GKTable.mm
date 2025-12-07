@@ -19,10 +19,10 @@
 
 - (GKTable)initWithSize:(unint64_t)size
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v9.receiver = self;
-  v9.super_class = GKTable;
-  v4 = [(GKTable *)&v9 init];
+  v10 = *MEMORY[0x277D85DE8];
+  v8.receiver = self;
+  v8.super_class = GKTable;
+  v4 = [(GKTable *)&v8 init];
   if (v4)
   {
     if (size)
@@ -41,12 +41,12 @@
     v4->_items = v6;
     if (v6)
     {
-      v10.__sig = 0xAAAAAAAAAAAAAAAALL;
-      *v10.__opaque = 0xAAAAAAAAAAAAAAAALL;
-      pthread_mutexattr_init(&v10);
-      pthread_mutexattr_settype(&v10, 2);
-      pthread_mutex_init(&v4->_lock, &v10);
-      pthread_mutexattr_destroy(&v10);
+      v9.__sig = 0xAAAAAAAAAAAAAAAALL;
+      *v9.__opaque = 0xAAAAAAAAAAAAAAAALL;
+      pthread_mutexattr_init(&v9);
+      pthread_mutexattr_settype(&v9, 2);
+      pthread_mutex_init(&v4->_lock, &v9);
+      pthread_mutexattr_destroy(&v9);
     }
 
     else
@@ -60,11 +60,10 @@
         }
       }
 
-      v4 = 0;
+      return 0;
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -80,34 +79,34 @@
 
 - (id)objectForKey:(unsigned int)key
 {
-  [(GKTable *)self lock];
+  lock = [(GKTable *)self lock];
   count = self->_count;
   if (count)
   {
-    v6 = 0;
-    while (self->_items[v6].var0 != key)
+    v8 = 0;
+    while (self->_items[v8].var0 != key)
     {
-      ++v6;
+      ++v8;
       if (!--count)
       {
         goto LABEL_5;
       }
     }
 
-    v8 = micro();
-    v9 = &self->_items[v6];
-    v9->var3 = v8;
-    v7 = v9->var1;
+    v10 = micro(lock, v6);
+    v11 = &self->_items[v8];
+    v11->var3 = v10;
+    v9 = v11->var1;
   }
 
   else
   {
 LABEL_5:
-    v7 = 0;
+    v9 = 0;
   }
 
   [(GKTable *)self unlock];
-  return v7;
+  return v9;
 }
 
 - (id)allObjects
@@ -135,41 +134,41 @@ LABEL_5:
 
 - (void)setObject:(id)object forKey:(unsigned int)key
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   [(GKTable *)self lock];
   count = self->_count;
   if (!count)
   {
-    LODWORD(v10) = 0;
+    LODWORD(v11) = 0;
 LABEL_7:
     if (count == self->_size)
     {
-      v11 = count + 20;
+      v12 = count + 20;
       items = malloc_type_realloc(self->_items, 32 * (count + 20), 0x10800406DC01D99uLL);
       if (!items)
       {
         if (VRTraceGetErrorLogLevelForModule() >= 3)
         {
-          v21 = VRTraceErrorLogLevelToCSTR();
-          v22 = *MEMORY[0x277CE5818];
+          v23 = VRTraceErrorLogLevelToCSTR();
+          v24 = *MEMORY[0x277CE5818];
           if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
           {
-            v23 = *__error();
-            v24 = 136316674;
-            v25 = v21;
-            v26 = 2080;
-            v27 = "[GKTable setObject:forKey:]";
-            v28 = 1024;
-            v29 = 482;
-            v30 = 2048;
+            v25 = *__error();
+            v26 = 136316674;
+            v27 = v23;
+            v28 = 2080;
+            v29 = "[GKTable setObject:forKey:]";
+            v30 = 1024;
+            v31 = 482;
+            v32 = 2048;
             selfCopy3 = self;
-            v32 = 2112;
+            v34 = 2112;
             objectCopy4 = object;
-            v34 = 1024;
-            keyCopy3 = key;
             v36 = 1024;
-            LODWORD(v37) = v23;
-            _os_log_error_impl(&dword_24E50C000, v22, OS_LOG_TYPE_ERROR, " [%s] %s:%d GKTable[%p] setObject:[%@]forKey:[%d] realloc error %d", &v24, 0x3Cu);
+            keyCopy3 = key;
+            v38 = 1024;
+            LODWORD(v39) = v25;
+            _os_log_error_impl(&dword_24E50C000, v24, OS_LOG_TYPE_ERROR, " [%s] %s:%d GKTable[%p] setObject:[%@]forKey:[%d] realloc error %d", &v26, 0x3Cu);
           }
         }
 
@@ -177,7 +176,7 @@ LABEL_7:
       }
 
       self->_items = items;
-      self->_size = v11;
+      self->_size = v12;
       count = self->_count;
     }
 
@@ -187,88 +186,87 @@ LABEL_7:
     }
 
     items[count].var0 = key;
-    *&self->_items[self->_count].var2 = vdupq_lane_s64(COERCE__INT64(micro()), 0);
+    *&self->_items[self->_count].var2 = vdupq_lane_s64(COERCE__INT64(micro(items, v7)), 0);
     objectCopy2 = object;
-    v14 = self->_count;
-    self->_items[v14].var1 = objectCopy2;
-    self->_count = v14 + 1;
+    v15 = self->_count;
+    self->_items[v15].var1 = objectCopy2;
+    self->_count = v15 + 1;
     if (VRTraceGetErrorLogLevelForModule() >= 7)
     {
-      v15 = VRTraceErrorLogLevelToCSTR();
-      v16 = *MEMORY[0x277CE5818];
+      v16 = VRTraceErrorLogLevelToCSTR();
+      v17 = *MEMORY[0x277CE5818];
       if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
       {
-        v24 = 136316674;
-        v25 = v15;
-        v26 = 2080;
-        v27 = "[GKTable setObject:forKey:]";
-        v28 = 1024;
-        v29 = 493;
-        v30 = 2048;
+        v26 = 136316674;
+        v27 = v16;
+        v28 = 2080;
+        v29 = "[GKTable setObject:forKey:]";
+        v30 = 1024;
+        v31 = 493;
+        v32 = 2048;
         selfCopy3 = self;
-        v32 = 2112;
+        v34 = 2112;
         objectCopy4 = object;
-        v34 = 1024;
-        keyCopy3 = key;
         v36 = 1024;
-        LODWORD(v37) = v10;
-        _os_log_impl(&dword_24E50C000, v16, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d GKTable[%p] setObject:[%@] forKey:[%d] @%d", &v24, 0x3Cu);
+        keyCopy3 = key;
+        v38 = 1024;
+        LODWORD(v39) = v11;
+        _os_log_impl(&dword_24E50C000, v17, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d GKTable[%p] setObject:[%@] forKey:[%d] @%d", &v26, 0x3Cu);
       }
     }
 
     goto LABEL_20;
   }
 
-  v8 = 0;
-  v9 = 8;
-  while (*(self->_items + v9 - 8) != key)
+  v9 = 0;
+  v10 = 8;
+  while (*(self->_items + v10 - 8) != key)
   {
-    ++v8;
-    v9 += 32;
-    if (count == v8)
+    ++v9;
+    v10 += 32;
+    if (count == v9)
     {
-      v10 = self->_count;
+      v11 = self->_count;
       goto LABEL_7;
     }
   }
 
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
-    v17 = VRTraceErrorLogLevelToCSTR();
-    v18 = *MEMORY[0x277CE5818];
+    v18 = VRTraceErrorLogLevelToCSTR();
+    v19 = *MEMORY[0x277CE5818];
     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
     {
-      v19 = *(&self->_items->var0 + v9);
-      v24 = 136316930;
-      v25 = v17;
-      v26 = 2080;
-      v27 = "[GKTable setObject:forKey:]";
-      v28 = 1024;
-      v29 = 466;
-      v30 = 2048;
+      v20 = *(&self->_items->var0 + v10);
+      v26 = 136316930;
+      v27 = v18;
+      v28 = 2080;
+      v29 = "[GKTable setObject:forKey:]";
+      v30 = 1024;
+      v31 = 466;
+      v32 = 2048;
       selfCopy3 = self;
-      v32 = 2112;
+      v34 = 2112;
       objectCopy4 = object;
-      v34 = 1024;
+      v36 = 1024;
       keyCopy3 = key;
-      v36 = 2112;
-      v37 = v19;
-      v38 = 1024;
-      v39 = v8;
-      _os_log_impl(&dword_24E50C000, v18, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d GKTable[%p] setObject:[%@] forKey:[%d] replacing [%@] @%d", &v24, 0x46u);
+      v38 = 2112;
+      v39 = v20;
+      v40 = 1024;
+      v41 = v9;
+      _os_log_impl(&dword_24E50C000, v19, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d GKTable[%p] setObject:[%@] forKey:[%d] replacing [%@] @%d", &v26, 0x46u);
     }
   }
 
-  if ([*(&self->_items->var0 + v9) conformsToProtocol:&unk_28619F958])
+  if ([*(&self->_items->var0 + v10) conformsToProtocol:&unk_28619F958])
   {
-    [*(&self->_items->var0 + v9) cleanupForGKTable:self];
+    [*(&self->_items->var0 + v10) cleanupForGKTable:self];
   }
 
-  *(&self->_items->var1 + v9) = vdupq_lane_s64(COERCE__INT64(micro()), 0);
-  *(&self->_items->var0 + v9) = object;
+  *(&self->_items->var1 + v10) = vdupq_lane_s64(COERCE__INT64(micro(v21, v22)), 0);
+  *(&self->_items->var0 + v10) = object;
 LABEL_20:
   [(GKTable *)self unlock];
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)touchObject:(id)object
@@ -280,9 +278,10 @@ LABEL_20:
     v6 = 0;
     do
     {
-      if ([self->_items[v5].var1 isEqual:object])
+      v7 = [self->_items[v5].var1 isEqual:object];
+      if (v7)
       {
-        *&self->_items[v5].var2 = vdupq_lane_s64(COERCE__INT64(micro()), 0);
+        *&self->_items[v5].var2 = vdupq_lane_s64(COERCE__INT64(micro(v7, v8)), 0);
       }
 
       ++v6;
@@ -297,28 +296,28 @@ LABEL_20:
 
 - (void)touchObjectForKey:(unsigned int)key
 {
-  [(GKTable *)self lock];
+  lock = [(GKTable *)self lock];
   count = self->_count;
   if (count)
   {
-    v6 = 0;
-    v7 = 0;
+    v8 = 0;
+    v9 = 0;
     items = self->_items;
     do
     {
-      if (items[v6].var0 == key)
+      if (items[v8].var0 == key)
       {
-        *&v9 = micro();
+        *&v11 = micro(lock, v6);
         items = self->_items;
         count = self->_count;
-        *&items[v6].var2 = vdupq_lane_s64(v9, 0);
+        *&items[v8].var2 = vdupq_lane_s64(v11, 0);
       }
 
-      ++v7;
-      ++v6;
+      ++v9;
+      ++v8;
     }
 
-    while (v7 < count);
+    while (v9 < count);
   }
 
   [(GKTable *)self unlock];
@@ -326,7 +325,7 @@ LABEL_20:
 
 - (void)removeObjectForKey:(unsigned int)key
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   [(GKTable *)self lock];
   count = self->_count;
   if (count)
@@ -335,7 +334,7 @@ LABEL_20:
     v8 = 0;
     v9 = MEMORY[0x277CE5818];
     *&v5 = 136316674;
-    v18 = v5;
+    v17 = v5;
     do
     {
       if (self->_items[v7].var0 == key)
@@ -347,25 +346,25 @@ LABEL_20:
           if (os_log_type_enabled(*v9, OS_LOG_TYPE_DEFAULT))
           {
             var1 = self->_items[v7].var1;
-            *buf = v18;
-            v20 = v10;
-            v21 = 2080;
-            v22 = "[GKTable removeObjectForKey:]";
-            v23 = 1024;
-            v24 = 524;
-            v25 = 2048;
+            *buf = v17;
+            v19 = v10;
+            v20 = 2080;
+            v21 = "[GKTable removeObjectForKey:]";
+            v22 = 1024;
+            v23 = 524;
+            v24 = 2048;
             selfCopy = self;
-            v27 = 2112;
-            v28 = var1;
-            v29 = 1024;
+            v26 = 2112;
+            v27 = var1;
+            v28 = 1024;
             keyCopy = key;
-            v31 = 1024;
-            v32 = v8;
+            v30 = 1024;
+            v31 = v8;
             _os_log_impl(&dword_24E50C000, v11, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d GKTable[%p] removeObject:[%@] forKey:[%d] @%d", buf, 0x3Cu);
           }
         }
 
-        if ([self->_items[v7].var1 conformsToProtocol:{&unk_28619F958, v18}])
+        if ([self->_items[v7].var1 conformsToProtocol:{&unk_28619F958, v17}])
         {
           [self->_items[v7].var1 cleanupForGKTable:self];
         }
@@ -392,7 +391,6 @@ LABEL_20:
   }
 
   [(GKTable *)self unlock];
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeAllObjects
@@ -430,7 +428,6 @@ LABEL_20:
     v6 = 8;
     do
     {
-      v7 = *(&self->_items->var0 + v6);
       if (objc_opt_respondsToSelector())
       {
         [*(&self->_items->var0 + v6) performSelector:selector];
@@ -455,7 +452,6 @@ LABEL_20:
     v8 = 8;
     do
     {
-      v9 = *(&self->_items->var0 + v8);
       if (objc_opt_respondsToSelector())
       {
         [*(&self->_items->var0 + v8) performSelector:selector withObject:object];
@@ -474,51 +470,51 @@ LABEL_20:
 - (void)lock
 {
   OUTLINED_FUNCTION_6_2();
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_4_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x2Cu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Cu);
 }
 
 - (void)unlock
 {
   OUTLINED_FUNCTION_6_2();
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_4_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x2Cu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Cu);
 }
 
 - (void)print
 {
   v3 = objc_alloc_init(MEMORY[0x277CCA8B0]);
-  v4 = micro();
+  v5 = micro(v3, v4);
   [(GKTable *)self lock];
-  v5 = MEMORY[0x277D85DF8];
+  v6 = MEMORY[0x277D85DF8];
   fprintf(*MEMORY[0x277D85DF8], "GKTable[%x] (%lu/%lu): {\n", self, self->_count, self->_size);
   if (self->_count)
   {
-    v6 = 0;
     v7 = 0;
+    v8 = 0;
     do
     {
-      fprintf(*v5, "\t%d => [%s] (Q:-%.3lf, U:-%.3lf)\n", self->_items[v6].var0, [objc_msgSend(self->_items[v6].var1 "description")], v4 - self->_items[v6].var3, v4 - self->_items[v6].var2);
+      v9 = *v6;
+      v10 = &self->_items[v7];
+      var0 = v10->var0;
+      uTF8String = [objc_msgSend_description(v10->var1) UTF8String];
+      fprintf(v9, "\t%d => [%s] (Q:-%.3lf, U:-%.3lf)\n", var0, uTF8String, v5 - self->_items[v7].var3, v5 - self->_items[v7].var2);
+      ++v8;
       ++v7;
-      ++v6;
     }
 
-    while (v7 < self->_count);
+    while (v8 < self->_count);
   }
 
-  fwrite("}\n", 2uLL, 1uLL, *v5);
+  fwrite("}\n", 2uLL, 1uLL, *v6);
   [(GKTable *)self unlock];
 
   [v3 drain];
@@ -526,13 +522,11 @@ LABEL_20:
 
 - (void)initWithSize:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
   OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x22u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
 }
 
 @end

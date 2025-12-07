@@ -227,13 +227,13 @@ LABEL_22:
 
 - (void)_rebuildFillStyles
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   selfCopy = self;
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
-  v4 = 138543362;
-  v5 = v3;
-  _os_log_error_impl(&dword_1C3942000, selfCopy, OS_LOG_TYPE_ERROR, "%{public}@: Asked to create fill style for unsupported sleep category value", &v4, 0xCu);
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
+  v5 = 138543362;
+  v6 = v4;
+  _os_log_error_impl(&dword_1C3942000, selfCopy, OS_LOG_TYPE_ERROR, "%{public}@: Asked to create fill style for unsupported sleep category value", &v5, 0xCu);
 }
 
 - (void)coordinatesForBlock:(uint64_t)a1 blockPath:(uint64_t)a2 xAxis:yAxis:.cold.1(uint64_t a1, uint64_t a2)

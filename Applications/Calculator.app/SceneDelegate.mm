@@ -76,17 +76,15 @@
       sub_1000827A4();
       v5 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
-      v9 = v5;
       v6 = v1;
       specialized Array._makeUniqueAndReserveCapacityIfNotUnique()();
-      if (*((v9 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v9 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+      if (*((v5 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v5 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
       {
-        v8 = *((v5 & 0xFFFFFFFFFFFFFF8) + 0x10);
         specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
       }
 
       specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
-      if (v9)
+      if (v5)
       {
         v7.super.isa = Array._bridgeToObjectiveC()().super.isa;
       }

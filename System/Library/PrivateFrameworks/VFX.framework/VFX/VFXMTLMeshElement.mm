@@ -28,12 +28,12 @@
   effectiveIndexOffset_low = LODWORD(self->_effectiveIndexOffset);
   if (drawIndexedPrimitivesIndirectBuffer)
   {
-    return objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], a2, @"<VFXMTLMeshElement: %p | type: %d, index buffer: %@ (%d indices), indirect buffer: %@, effective count: %d, offset: %d>", v2, self, primitiveType_low, indexBuffer, indexCount_low, drawIndexedPrimitivesIndirectBuffer, LODWORD(self->_effectiveIndexCount), effectiveIndexOffset_low);
+    return objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], a2, @"<VFXMTLMeshElement: %p | type: %d, index buffer: %@ (%d indices), indirect buffer: %@, effective count: %d, offset: %d>", self, primitiveType_low, indexBuffer, indexCount_low, drawIndexedPrimitivesIndirectBuffer, LODWORD(self->_effectiveIndexCount), effectiveIndexOffset_low);
   }
 
   else
   {
-    return objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], a2, @"<VFXMTLMeshElement: %p | type: %d, index buffer: %@ (%d indices), effective count: %d, offset: %d>", v2, self, primitiveType_low, indexBuffer, indexCount_low, LODWORD(self->_effectiveIndexCount), effectiveIndexOffset_low);
+    return objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], a2, @"<VFXMTLMeshElement: %p | type: %d, index buffer: %@ (%d indices), effective count: %d, offset: %d>", self, primitiveType_low, indexBuffer, indexCount_low, LODWORD(self->_effectiveIndexCount), effectiveIndexOffset_low);
   }
 }
 

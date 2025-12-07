@@ -15,6 +15,7 @@
 - (unsigned)cellularType;
 - (unsigned)moduleStatus;
 - (unsigned)signalBars;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
 - (void)unregisterObserver:(id)observer;
 @end
@@ -222,6 +223,98 @@
   v3 = contentURLActionCharacteristic != 0;
 
   return v3;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x0000000036100001"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    moduleStatusCharacteristic = [(CAFCellularStatus *)self moduleStatusCharacteristic];
+    uniqueIdentifier2 = [moduleStatusCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      [observers cellularStatusService:self didUpdateModuleStatus:{-[CAFCellularStatus moduleStatus](self, "moduleStatus")}];
+LABEL_16:
+
+      goto LABEL_17;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType2 = [updateCopy characteristicType];
+  if ([characteristicType2 isEqual:@"0x0000000036100002"])
+  {
+    uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+    signalBarsCharacteristic = [(CAFCellularStatus *)self signalBarsCharacteristic];
+    uniqueIdentifier4 = [signalBarsCharacteristic uniqueIdentifier];
+    v17 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+    if (v17)
+    {
+      observers = [(CAFService *)self observers];
+      [observers cellularStatusService:self didUpdateSignalBars:{-[CAFCellularStatus signalBars](self, "signalBars")}];
+      goto LABEL_16;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType3 = [updateCopy characteristicType];
+  if ([characteristicType3 isEqual:@"0x0000000036100003"])
+  {
+    uniqueIdentifier5 = [updateCopy uniqueIdentifier];
+    cellularTypeCharacteristic = [(CAFCellularStatus *)self cellularTypeCharacteristic];
+    uniqueIdentifier6 = [cellularTypeCharacteristic uniqueIdentifier];
+    v22 = [uniqueIdentifier5 isEqual:uniqueIdentifier6];
+
+    if (v22)
+    {
+      observers = [(CAFService *)self observers];
+      [observers cellularStatusService:self didUpdateCellularType:{-[CAFCellularStatus cellularType](self, "cellularType")}];
+      goto LABEL_16;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers = [updateCopy characteristicType];
+  if (![observers isEqual:@"0x0000000036000066"])
+  {
+    goto LABEL_16;
+  }
+
+  uniqueIdentifier7 = [updateCopy uniqueIdentifier];
+  contentURLActionCharacteristic = [(CAFCellularStatus *)self contentURLActionCharacteristic];
+  uniqueIdentifier8 = [contentURLActionCharacteristic uniqueIdentifier];
+  v26 = [uniqueIdentifier7 isEqual:uniqueIdentifier8];
+
+  if (v26)
+  {
+    observers = [(CAFService *)self observers];
+    contentURLAction = [(CAFCellularStatus *)self contentURLAction];
+    [observers cellularStatusService:self didUpdateContentURLAction:contentURLAction];
+
+    goto LABEL_16;
+  }
+
+LABEL_17:
+  v28.receiver = self;
+  v28.super_class = CAFCellularStatus;
+  [(CAFService *)&v28 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForModuleStatus

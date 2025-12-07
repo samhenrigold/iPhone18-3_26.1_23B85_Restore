@@ -33,7 +33,7 @@
 
 - (id)generatedPasswordForAppWithAssociatedDomains:(id)domains passwordRules:(id)rules confirmPasswordRules:(id)passwordRules
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   domainsCopy = domains;
   rulesCopy = rules;
   passwordRulesCopy = passwordRules;
@@ -86,26 +86,26 @@ LABEL_26:
     goto LABEL_28;
   }
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   v16 = domainsCopy;
-  v17 = [v16 countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v17 = [v16 countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v30;
+    v19 = *v29;
     while (2)
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v30 != v19)
+        if (*v29 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        v21 = [(WBSPasswordGenerationManager *)self->_passwordGenerationManager defaultRequirementsForDomain:*(*(&v29 + 1) + 8 * i), v29];
+        v21 = [(WBSPasswordGenerationManager *)self->_passwordGenerationManager defaultRequirementsForDomain:*(*(&v28 + 1) + 8 * i), v28];
         if (v21)
         {
           v22 = v21;
@@ -113,7 +113,7 @@ LABEL_26:
         }
       }
 
-      v18 = [v16 countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v18 = [v16 countByEnumeratingWithState:&v28 objects:v32 count:16];
       if (v18)
       {
         continue;
@@ -138,7 +138,6 @@ LABEL_19:
 LABEL_27:
 
 LABEL_28:
-  v27 = *MEMORY[0x277D85DE8];
 
   return v24;
 }

@@ -1284,13 +1284,13 @@ LABEL_32:
     computeCommandEncoder = [v16 computeCommandEncoder];
     if (computeCommandEncoder)
     {
-      v27[0] = vmovn_s64(*v14);
+      v27 = vmovn_s64(*v14);
       [v20 width];
       OUTLINED_FUNCTION_13([v19 width]);
       OUTLINED_FUNCTION_32(64);
       OUTLINED_FUNCTION_11();
       [v24 setBuffer:? offset:? atIndex:?];
-      [computeCommandEncoder setBytes:v27 length:8 atIndex:1];
+      [computeCommandEncoder setBytes:&v27 length:8 atIndex:1];
       [OUTLINED_FUNCTION_21() setBytes:? length:? atIndex:?];
       [OUTLINED_FUNCTION_7_0() setTexture:? atIndex:?];
       OUTLINED_FUNCTION_9();

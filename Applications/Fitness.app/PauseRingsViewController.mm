@@ -22,7 +22,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_1003C023C();
+  sub_1003C023C(selfCopy);
 }
 
 - (_TtC10FitnessApp24PauseRingsViewController)initWithNibName:(id)name bundle:(id)bundle

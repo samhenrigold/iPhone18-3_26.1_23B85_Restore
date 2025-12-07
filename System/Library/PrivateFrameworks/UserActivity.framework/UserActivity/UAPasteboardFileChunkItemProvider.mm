@@ -29,7 +29,7 @@
 
 - (void)getDataWithCompletionBlock:(id)block
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   dataFile = [(UAPasteboardFileChunkItemProvider *)self dataFile];
 
@@ -47,10 +47,10 @@
       {
         type2 = [(UAPasteboardFileChunkItemProvider *)self type];
         *buf = 138543618;
-        v39 = type2;
-        v40 = 2112;
-        v41 = objc_opt_class();
-        v12 = v41;
+        v38 = type2;
+        v39 = 2112;
+        v40 = objc_opt_class();
+        v12 = v40;
         _os_log_impl(&dword_226A4E000, v9, OS_LOG_TYPE_INFO, "[Local Pasteboard] Found converter for type: %{public}@ -> %@", buf, 0x16u);
       }
 
@@ -83,9 +83,9 @@ LABEL_22:
         }
 
         v29 = MEMORY[0x277CCA9B8];
-        v34 = *MEMORY[0x277CCA450];
-        v35 = @"Zero length data from converter";
-        v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
+        v33 = *MEMORY[0x277CCA450];
+        v34 = @"Zero length data from converter";
+        v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
         v20 = [v29 errorWithDomain:@"UAContinuityErrorDomain" code:-124 userInfo:v30];
       }
 
@@ -99,9 +99,9 @@ LABEL_22:
         }
 
         v23 = MEMORY[0x277CCA9B8];
-        v36 = *MEMORY[0x277CCA450];
-        v37 = @"Zero length data to convert";
-        v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
+        v35 = *MEMORY[0x277CCA450];
+        v36 = @"Zero length data to convert";
+        v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
         v20 = [v23 errorWithDomain:@"UAContinuityErrorDomain" code:-124 userInfo:v18];
       }
 
@@ -113,7 +113,7 @@ LABEL_22:
     {
       type3 = [(UAPasteboardFileChunkItemProvider *)self type];
       *buf = 138412290;
-      v39 = type3;
+      v38 = type3;
       _os_log_impl(&dword_226A4E000, v9, OS_LOG_TYPE_INFO, "[Local Pasteboard] No converter for type, using file stream: %@", buf, 0xCu);
     }
 
@@ -128,16 +128,14 @@ LABEL_22:
   else
   {
     v21 = MEMORY[0x277CCA9B8];
-    v32 = *MEMORY[0x277CCA450];
-    v33 = @"File Provider does not have a backing file";
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
+    v31 = *MEMORY[0x277CCA450];
+    v32 = @"File Provider does not have a backing file";
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
     v16 = [v21 errorWithDomain:@"UAContinuityErrorDomain" code:-124 userInfo:v8];
     blockCopy[2](blockCopy, 0, v16);
   }
 
 LABEL_23:
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -1,6 +1,7 @@
 @interface WFRemoteWebSheetViewController
 + (id)requestViewControllerWithConnectionHandler:(id)handler;
 - (WFRemoteWebSheetViewControllerDelegate)delegate;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 - (void)viewServiceDidTerminateWithError:(id)error;
 - (void)webSheetViewControllerContentDidFinishLoading;
@@ -20,90 +21,95 @@
 
 - (void)viewDidLoad
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v6.receiver = self;
-  v6.super_class = WFRemoteWebSheetViewController;
-  [(WFRemoteWebSheetViewController *)&v6 viewDidLoad];
+  v10 = *MEMORY[0x277D85DE8];
+  v7.receiver = self;
+  v7.super_class = WFRemoteWebSheetViewController;
+  [(WFRemoteWebSheetViewController *)&v7 viewDidLoad];
   v3 = WFLogForCategory(0);
   v4 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v3 && os_log_type_enabled(v3, v4))
+  v5 = v4;
+  if (WFCurrentLogLevel(v4, v6) >= 3 && v3 && os_log_type_enabled(v3, v5))
   {
     *buf = 136315138;
-    v8 = "[WFRemoteWebSheetViewController viewDidLoad]";
-    _os_log_impl(&dword_273FB9000, v3, v4, "%s", buf, 0xCu);
+    v9 = "[WFRemoteWebSheetViewController viewDidLoad]";
+    _os_log_impl(&dword_273FB9000, v3, v5, "%s", buf, 0xCu);
   }
 
   [(WFRemoteWebSheetViewController *)self _setupButtonListener];
-  v5 = *MEMORY[0x277D85DE8];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  clearColor = [MEMORY[0x277D75348] clearColor];
+  view = [(WFRemoteWebSheetViewController *)self view];
+  [view setBackgroundColor:clearColor];
 }
 
 - (void)webSheetViewControllerContentDidStartLoading
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = WFLogForCategory(0);
   v4 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v3 && os_log_type_enabled(v3, v4))
+  v5 = v4;
+  if (WFCurrentLogLevel(v4, v6) >= 3 && v3 && os_log_type_enabled(v3, v5))
   {
-    v7 = 136315138;
-    v8 = "[WFRemoteWebSheetViewController webSheetViewControllerContentDidStartLoading]";
-    _os_log_impl(&dword_273FB9000, v3, v4, "%s", &v7, 0xCu);
+    v8 = 136315138;
+    v9 = "[WFRemoteWebSheetViewController webSheetViewControllerContentDidStartLoading]";
+    _os_log_impl(&dword_273FB9000, v3, v5, "%s", &v8, 0xCu);
   }
 
   delegate = [(WFRemoteWebSheetViewController *)self delegate];
   [delegate remoteWebSheetViewController:self handleEvent:0 context:0];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)webSheetViewControllerContentReadyForPresentation
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = WFLogForCategory(0);
   v4 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v3 && os_log_type_enabled(v3, v4))
+  v5 = v4;
+  if (WFCurrentLogLevel(v4, v6) >= 3 && v3 && os_log_type_enabled(v3, v5))
   {
-    v7 = 136315138;
-    v8 = "[WFRemoteWebSheetViewController webSheetViewControllerContentReadyForPresentation]";
-    _os_log_impl(&dword_273FB9000, v3, v4, "%s", &v7, 0xCu);
+    v8 = 136315138;
+    v9 = "[WFRemoteWebSheetViewController webSheetViewControllerContentReadyForPresentation]";
+    _os_log_impl(&dword_273FB9000, v3, v5, "%s", &v8, 0xCu);
   }
 
   delegate = [(WFRemoteWebSheetViewController *)self delegate];
   [delegate remoteWebSheetViewController:self handleEvent:1 context:0];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)webSheetViewControllerContentDidFinishLoading
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = WFLogForCategory(0);
   v4 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v3 && os_log_type_enabled(v3, v4))
+  v5 = v4;
+  if (WFCurrentLogLevel(v4, v6) >= 3 && v3 && os_log_type_enabled(v3, v5))
   {
-    v7 = 136315138;
-    v8 = "[WFRemoteWebSheetViewController webSheetViewControllerContentDidFinishLoading]";
-    _os_log_impl(&dword_273FB9000, v3, v4, "%s", &v7, 0xCu);
+    v8 = 136315138;
+    v9 = "[WFRemoteWebSheetViewController webSheetViewControllerContentDidFinishLoading]";
+    _os_log_impl(&dword_273FB9000, v3, v5, "%s", &v8, 0xCu);
   }
 
   delegate = [(WFRemoteWebSheetViewController *)self delegate];
   [delegate remoteWebSheetViewController:self handleEvent:2 context:0];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)viewServiceDidTerminateWithError:(id)error
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v5 = WFLogForCategory(0);
   v6 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v5 && os_log_type_enabled(v5, v6))
+  v7 = v6;
+  if (WFCurrentLogLevel(v6, v8) >= 3 && v5 && os_log_type_enabled(v5, v7))
   {
-    v12 = 136315394;
-    v13 = "[WFRemoteWebSheetViewController viewServiceDidTerminateWithError:]";
-    v14 = 2112;
-    v15 = errorCopy;
-    _os_log_impl(&dword_273FB9000, v5, v6, "%s: error %@", &v12, 0x16u);
+    v13 = 136315394;
+    v14 = "[WFRemoteWebSheetViewController viewServiceDidTerminateWithError:]";
+    v15 = 2112;
+    v16 = errorCopy;
+    _os_log_impl(&dword_273FB9000, v5, v7, "%s: error %@", &v13, 0x16u);
   }
 
   if (errorCopy)
@@ -119,13 +125,11 @@
 
   if (delegate)
   {
-    v9 = objc_alloc_init(WFRemoteWebSheetViewControllerErrorContext);
-    [(WFRemoteWebSheetViewControllerErrorContext *)v9 setError:errorCopy];
+    v11 = objc_alloc_init(WFRemoteWebSheetViewControllerErrorContext);
+    [(WFRemoteWebSheetViewControllerErrorContext *)v11 setError:errorCopy];
     delegate2 = [(WFRemoteWebSheetViewController *)self delegate];
-    [delegate2 remoteWebSheetViewController:self handleEvent:3 context:v9];
+    [delegate2 remoteWebSheetViewController:self handleEvent:3 context:v11];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (WFRemoteWebSheetViewControllerDelegate)delegate

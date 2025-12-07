@@ -54,7 +54,7 @@
   pearlSettings = self->_pearlSettings;
   if (pearlSettings)
   {
-    [(CSLockScreenPearlSettings *)pearlSettings proudLockControllerViewControllerConfiguration];
+    objc_msgSend_proudLockControllerViewControllerConfiguration(pearlSettings, a2);
   }
 
   proudLockContainerViewController = [(CSProudLockViewController *)self proudLockContainerViewController];

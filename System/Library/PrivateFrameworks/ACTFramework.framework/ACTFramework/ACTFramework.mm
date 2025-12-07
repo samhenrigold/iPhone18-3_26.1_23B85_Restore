@@ -1007,7 +1007,7 @@ uint64_t sub_23C443D00(uint64_t result)
   return result;
 }
 
-uint64_t ABRegInitContext(int a1, int a2, char a3, char a4, char a5, char a6, int *a7)
+uint64_t ABRegInitContext(unsigned int a1, unsigned int a2, char a3, char a4, char a5, char a6, unsigned int *a7)
 {
   v7 = 0xFFFFFFFFLL;
   if (a1 >= 1 && a2 >= 1)
@@ -1687,155 +1687,155 @@ LABEL_75:
   return v55;
 }
 
-uint64_t ABRegRegisterSlices(uint64_t a1, int a2, int a3, uint64_t a4, float *a5, float *a6, _DWORD *a7, _DWORD *a8)
+uint64_t ABRegRegisterSlices(__n128 a1, __n128 a2, uint64_t a3, int a4, int a5, uint64_t a6, float *a7, float *a8, _DWORD *a9, _DWORD *a10)
 {
-  if (!a4)
+  if (!a6)
   {
-    v17 = 4294967293;
+    v19 = 4294967293;
     ACTLogMessageImp(4, "ABReg error %d @ %s (line %d)", -3, "/Library/Caches/com.apple.xbs/Sources/ACTFramework/LegacyPano/ABReg.c", 1018);
-    return v17;
+    return v19;
   }
 
-  v15 = *(a4 + 4);
-  v49 = *a4 - 1;
+  v17 = *(a6 + 4);
+  v51 = *a6 - 1;
+  v52 = 0;
+  v49 = v17 - 1;
   v50 = 0;
-  v47 = v15 - 1;
+  v47 = v51;
   v48 = 0;
-  v45 = v49;
+  v45 = v17 - 1;
   v46 = 0;
-  v43 = v15 - 1;
   v44 = 0;
-  v42 = 0;
-  v16 = *a6;
-  if (fabsf(*a6) > v15)
+  v18 = *a8;
+  if (fabsf(*a8) > v17)
   {
-    v16 = 0.0;
+    v18 = 0.0;
   }
 
-  sub_23C445234(&v50, &v49, &v48, &v47, &v46, &v45, &v44, &v43, *a5, v16, 1, &v42 + 4, &v42);
-  if (a3 != 1 && a3 != 2)
+  sub_23C445234(&v52, &v51, &v50, &v49, &v48, &v47, &v46, &v45, *a7, v18, 1u, &v44 + 4, &v44);
+  if (a5 != 1 && a5 != 2)
   {
-    v17 = 0xFFFFFFFFLL;
+    v19 = 0xFFFFFFFFLL;
     ACTLogMessageImp(4, "ABReg error %d @ %s (line %d)", -1, "/Library/Caches/com.apple.xbs/Sources/ACTFramework/LegacyPano/ABReg.c", 1101);
-    return v17;
+    return v19;
   }
 
-  if ((a2 & 0xFFFFFFFD) != 1)
+  if ((a4 & 0xFFFFFFFD) != 1)
   {
     goto LABEL_15;
   }
 
-  *a7 = 0;
-  v18 = v49;
-  v19 = v50;
-  v20 = projectionRowsFromIntegralImage(0, *(a4 + 16), v50, v49, v48, v47, *(a4 + 40));
-  if ((v20 & 0x80000000) != 0)
+  *a9 = 0;
+  v20 = v51;
+  v21 = v52;
+  v22 = projectionRowsFromIntegralImage(0, *(a6 + 16), v52, v51, v50, v49, *(a6 + 40));
+  if ((v22 & 0x80000000) != 0)
   {
-    v33 = v20;
-    v34 = 1118;
+    v35 = v22;
+    v36 = 1118;
 LABEL_26:
-    ACTLogMessageImp(4, "ABReg error %d @ %s (line %d)", v33, "/Library/Caches/com.apple.xbs/Sources/ACTFramework/LegacyPano/ABReg.c", v34);
-    return v33;
-  }
-
-  v21 = projectionRowsFromIntegralImage(1, *(a4 + 16), v46, v45, v44, v43, *(a4 + 48));
-  if ((v21 & 0x80000000) != 0)
-  {
-    v33 = v21;
-    v34 = 1121;
-    goto LABEL_26;
-  }
-
-  v22 = v18 - v19;
-  v23 = signatureDerivative(*(a4 + 40), v22 + 1, *(a4 + 72));
-  if ((v23 & 0x80000000) != 0)
-  {
-    v37 = v23;
-    v38 = 1124;
-LABEL_31:
-    ACTLogMessageImp(4, "ABReg error %d @ %s (line %d)", v37, "/Library/Caches/com.apple.xbs/Sources/ACTFramework/LegacyPano/ABReg.c", v38);
-    return v37;
-  }
-
-  v24 = signatureDerivative(*(a4 + 48), v22 + 1, *(a4 + 80));
-  if ((v24 & 0x80000000) != 0)
-  {
-    v37 = v24;
-    v38 = 1125;
-    goto LABEL_31;
-  }
-
-  v25 = ABRegComputeShift();
-  if ((v25 & 0x80000000) != 0)
-  {
-    v35 = v25;
-    v36 = 1131;
-    goto LABEL_34;
-  }
-
-  *a5 = *(&v42 + 1) + 0.0;
-LABEL_15:
-  if ((a2 & 0xFFFFFFFE) != 2)
-  {
-    return 0;
-  }
-
-  *a8 = 0;
-  v26 = v47;
-  v27 = v48;
-  v28 = projectionColsFromIntegralImage(0, *(a4 + 16), v50, v49, v48, v47, *(a4 + 24));
-  if ((v28 & 0x80000000) != 0)
-  {
-    v35 = v28;
-    v36 = 1149;
-LABEL_34:
     ACTLogMessageImp(4, "ABReg error %d @ %s (line %d)", v35, "/Library/Caches/com.apple.xbs/Sources/ACTFramework/LegacyPano/ABReg.c", v36);
     return v35;
   }
 
-  v29 = projectionColsFromIntegralImage(1, *(a4 + 16), v46, v45, v44, v43, *(a4 + 32));
-  if ((v29 & 0x80000000) != 0)
+  v23 = projectionRowsFromIntegralImage(1, *(a6 + 16), v48, v47, v46, v45, *(a6 + 48));
+  if ((v23 & 0x80000000) != 0)
   {
-    v35 = v29;
-    v36 = 1152;
-    goto LABEL_34;
+    v35 = v23;
+    v36 = 1121;
+    goto LABEL_26;
   }
 
-  v30 = signatureDerivative(*(a4 + 24), v26 - v27 + 1, *(a4 + 56));
-  if ((v30 & 0x80000000) != 0)
+  v24 = v20 - v21;
+  v25 = signatureDerivative(*(a6 + 40), v24 + 1, *(a6 + 72));
+  if ((v25 & 0x80000000) != 0)
   {
-    v39 = v30;
-    v40 = 1155;
-LABEL_36:
+    v39 = v25;
+    v40 = 1124;
+LABEL_31:
     ACTLogMessageImp(4, "ABReg error %d @ %s (line %d)", v39, "/Library/Caches/com.apple.xbs/Sources/ACTFramework/LegacyPano/ABReg.c", v40);
     return v39;
   }
 
-  v31 = signatureDerivative(*(a4 + 32), v26 - v27 + 1, *(a4 + 64));
+  v26 = signatureDerivative(*(a6 + 48), v24 + 1, *(a6 + 80));
+  if ((v26 & 0x80000000) != 0)
+  {
+    v39 = v26;
+    v40 = 1125;
+    goto LABEL_31;
+  }
+
+  v27 = ABRegComputeShift();
+  if ((v27 & 0x80000000) != 0)
+  {
+    v37 = v27;
+    v38 = 1131;
+    goto LABEL_34;
+  }
+
+  *a7 = *(&v44 + 1) + 0.0;
+LABEL_15:
+  if ((a4 & 0xFFFFFFFE) != 2)
+  {
+    return 0;
+  }
+
+  *a10 = 0;
+  v28 = v49;
+  v29 = v50;
+  v30 = projectionColsFromIntegralImage(0, *(a6 + 16), v52, v51, v50, v49, *(a6 + 24));
+  if ((v30 & 0x80000000) != 0)
+  {
+    v37 = v30;
+    v38 = 1149;
+LABEL_34:
+    ACTLogMessageImp(4, "ABReg error %d @ %s (line %d)", v37, "/Library/Caches/com.apple.xbs/Sources/ACTFramework/LegacyPano/ABReg.c", v38);
+    return v37;
+  }
+
+  v31 = projectionColsFromIntegralImage(1, *(a6 + 16), v48, v47, v46, v45, *(a6 + 32));
   if ((v31 & 0x80000000) != 0)
   {
-    v39 = v31;
-    v40 = 1156;
+    v37 = v31;
+    v38 = 1152;
+    goto LABEL_34;
+  }
+
+  v32 = signatureDerivative(*(a6 + 24), v28 - v29 + 1, *(a6 + 56));
+  if ((v32 & 0x80000000) != 0)
+  {
+    v41 = v32;
+    v42 = 1155;
+LABEL_36:
+    ACTLogMessageImp(4, "ABReg error %d @ %s (line %d)", v41, "/Library/Caches/com.apple.xbs/Sources/ACTFramework/LegacyPano/ABReg.c", v42);
+    return v41;
+  }
+
+  v33 = signatureDerivative(*(a6 + 32), v28 - v29 + 1, *(a6 + 64));
+  if ((v33 & 0x80000000) != 0)
+  {
+    v41 = v33;
+    v42 = 1156;
     goto LABEL_36;
   }
 
-  v32 = ABRegComputeShift();
-  if ((v32 & 0x80000000) != 0)
+  v34 = ABRegComputeShift();
+  if ((v34 & 0x80000000) != 0)
   {
-    v17 = v32;
-    ACTLogMessageImp(4, "ABReg error %d @ %s (line %d)", v32, "/Library/Caches/com.apple.xbs/Sources/ACTFramework/LegacyPano/ABReg.c", 1162);
+    v19 = v34;
+    ACTLogMessageImp(4, "ABReg error %d @ %s (line %d)", v34, "/Library/Caches/com.apple.xbs/Sources/ACTFramework/LegacyPano/ABReg.c", 1162);
   }
 
   else
   {
-    v17 = 0;
-    *a6 = *&v42 + 0.0;
+    v19 = 0;
+    *a8 = *&v44 + 0.0;
   }
 
-  return v17;
+  return v19;
 }
 
-uint64_t sub_23C445234(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, float a9, float a10, int a11, uint64_t a12, uint64_t a13)
+uint64_t sub_23C445234(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, float a9, float a10, unsigned int a11, uint64_t a12, uint64_t a13)
 {
   if (a11 >= 1)
   {
@@ -1891,34 +1891,36 @@ uint64_t sub_23C445234(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, u
   return result;
 }
 
-uint64_t ABRegRegisterSlicesRobust(int a1, float a2, uint64_t a3, int a4, uint64_t a5, float *a6, float *a7, _DWORD *a8, float *a9)
+uint64_t ABRegRegisterSlicesRobust(uint64_t a1, __n128 a2, __n128 a3, uint64_t a4, int a5, unsigned int *a6, float *a7, float *a8, _DWORD *a9, float *a10)
 {
-  v78 = *MEMORY[0x277D85DE8];
-  if (!a5)
+  v79 = *MEMORY[0x277D85DE8];
+  if (!a6)
   {
-    v19 = 4294967293;
+    v20 = 4294967293;
     ACTLogMessageImp(4, "ABReg error %d @ %s (line %d)", -3, "/Library/Caches/com.apple.xbs/Sources/ACTFramework/LegacyPano/ABReg.c", 1181);
-    return v19;
-  }
-
-  v10 = a7;
-  *a8 = 0;
-  *a9 = 0.0;
-  v16 = ABRegRegisterSlices(2, 1, a4, a5, a6, a7, a8, a9);
-  if ((v16 & 0x80000000) != 0)
-  {
-    v20 = v16;
-    v21 = 1190;
-LABEL_12:
-    ACTLogMessageImp(4, "ABReg error %d @ %s (line %d)", v20, "/Library/Caches/com.apple.xbs/Sources/ACTFramework/LegacyPano/ABReg.c", v21);
     return v20;
   }
 
-  v17 = blockyfyGeometry(*a5, *(a5 + 4), a1, 2, 1, 0, v77, v76, a2, 0.0, v75, v74);
+  v11 = a8;
+  v15 = a2.n128_f32[0];
+  v16 = a1;
+  *a9 = 0;
+  *a10 = 0.0;
+  v17 = ABRegRegisterSlices(a2, a3, 2, 1, a5, a6, a7, a8, a9, a10);
   if ((v17 & 0x80000000) != 0)
   {
-    v20 = v17;
-    v21 = 1217;
+    v21 = v17;
+    v22 = 1190;
+LABEL_12:
+    ACTLogMessageImp(4, "ABReg error %d @ %s (line %d)", v21, "/Library/Caches/com.apple.xbs/Sources/ACTFramework/LegacyPano/ABReg.c", v22);
+    return v21;
+  }
+
+  v18 = blockyfyGeometry(*a6, a6[1], v16, 2, 1, 0, v78, v77, v15, 0.0, v76, v75);
+  if ((v18 & 0x80000000) != 0)
+  {
+    v21 = v18;
+    v22 = 1217;
     goto LABEL_12;
   }
 
@@ -1926,207 +1928,207 @@ LABEL_12:
   __memcpy_chk();
   __memcpy_chk();
   __memcpy_chk();
-  v18 = *v10;
-  if (fabsf(*v10) > *(a5 + 4))
+  v19 = *v11;
+  if (fabsf(*v11) > a6[1])
   {
-    v18 = 0.0;
+    v19 = 0.0;
   }
 
-  sub_23C445234(v77, v76, v75, v74, v73, v72, v71, v70, *a6, v18, a1, v69, v68);
-  if (a4 != 1 && a4 != 2)
+  sub_23C445234(v78, v77, v76, v75, v74, v73, v72, v71, *a7, v19, v16, v70, v69);
+  if (a5 != 1 && a5 != 2)
   {
-    v19 = 0xFFFFFFFFLL;
+    v20 = 0xFFFFFFFFLL;
     ACTLogMessageImp(4, "ABReg error %d @ %s (line %d)", -1, "/Library/Caches/com.apple.xbs/Sources/ACTFramework/LegacyPano/ABReg.c", 1261);
-    return v19;
+    return v20;
   }
 
-  if (a1 < 1)
+  if (v16 < 1)
   {
-    v38 = 0.0;
-    v37 = -3.4028e38;
-    v36 = 3.4028e38;
-    v33 = 0.0;
+    v39 = 0.0;
+    v38 = -3.4028e38;
+    v37 = 3.4028e38;
+    v34 = 0.0;
     goto LABEL_31;
   }
 
-  v65 = v10;
-  v23 = 0;
-  v24 = a1;
+  v66 = v11;
+  v24 = 0;
+  v25 = v16;
   do
   {
-    v25 = v74[v23];
-    v26 = v75[v23];
-    v27 = projectionColsFromIntegralImage(0, *(a5 + 16), v77[v23], v76[v23], v26, v25, *(a5 + 24));
-    if ((v27 & 0x80000000) != 0)
-    {
-      v20 = v27;
-      v21 = 1275;
-      goto LABEL_12;
-    }
-
-    v28 = projectionColsFromIntegralImage(1, *(a5 + 16), *&v73[v23 * 4], *&v72[v23 * 4], *&v71[v23 * 4], *&v70[v23 * 4], *(a5 + 32));
+    v26 = v75[v24];
+    v27 = v76[v24];
+    v28 = projectionColsFromIntegralImage(0, *(a6 + 2), v78[v24], v77[v24], v27, v26, *(a6 + 3));
     if ((v28 & 0x80000000) != 0)
     {
-      v20 = v28;
-      v21 = 1278;
+      v21 = v28;
+      v22 = 1275;
       goto LABEL_12;
     }
 
-    v29 = v25 - v26;
-    v30 = signatureDerivative(*(a5 + 24), v29 + 1, *(a5 + 56));
-    if ((v30 & 0x80000000) != 0)
+    v29 = projectionColsFromIntegralImage(1, *(a6 + 2), *&v74[v24 * 4], *&v73[v24 * 4], *&v72[v24 * 4], *&v71[v24 * 4], *(a6 + 4));
+    if ((v29 & 0x80000000) != 0)
     {
-      v63 = v30;
-      v64 = 1281;
-LABEL_54:
-      ACTLogMessageImp(4, "ABReg error %d @ %s (line %d)", v63, "/Library/Caches/com.apple.xbs/Sources/ACTFramework/LegacyPano/ABReg.c", v64);
-      return v63;
+      v21 = v29;
+      v22 = 1278;
+      goto LABEL_12;
     }
 
-    v31 = signatureDerivative(*(a5 + 32), v29 + 1, *(a5 + 64));
+    v30 = v26 - v27;
+    v31 = signatureDerivative(*(a6 + 3), v30 + 1, *(a6 + 7));
     if ((v31 & 0x80000000) != 0)
     {
-      v63 = v31;
-      v64 = 1282;
-      goto LABEL_54;
+      v64 = v31;
+      v65 = 1281;
+LABEL_54:
+      ACTLogMessageImp(4, "ABReg error %d @ %s (line %d)", v64, "/Library/Caches/com.apple.xbs/Sources/ACTFramework/LegacyPano/ABReg.c", v65);
+      return v64;
     }
 
-    v32 = ABRegComputeShift();
+    v32 = signatureDerivative(*(a6 + 4), v30 + 1, *(a6 + 8));
     if ((v32 & 0x80000000) != 0)
     {
-      v63 = v32;
-      v64 = 1288;
+      v64 = v32;
+      v65 = 1282;
       goto LABEL_54;
     }
 
-    *&v67[v23 * 4] = *&v68[v23 * 4] + 0.0;
-    ++v23;
+    v33 = ABRegComputeShift();
+    if ((v33 & 0x80000000) != 0)
+    {
+      v64 = v33;
+      v65 = 1288;
+      goto LABEL_54;
+    }
+
+    *&v68[v24 * 4] = *&v69[v24 * 4] + 0.0;
+    ++v24;
   }
 
-  while (a1 != v23);
-  v33 = 0.0;
-  v34 = v66;
+  while (v16 != v24);
+  v34 = 0.0;
   v35 = v67;
-  v36 = 3.4028e38;
-  v37 = -3.4028e38;
-  v38 = 0.0;
-  v10 = v65;
+  v36 = v68;
+  v37 = 3.4028e38;
+  v38 = -3.4028e38;
+  v39 = 0.0;
+  v11 = v66;
   do
   {
-    v39 = *v35++;
-    v40 = v39;
-    if (v36 > v39)
+    v40 = *v36++;
+    v41 = v40;
+    if (v37 > v40)
     {
-      v36 = v40;
+      v37 = v41;
     }
 
-    if (v37 < v40)
+    if (v38 < v41)
     {
-      v37 = v40;
+      v38 = v41;
     }
 
-    v41 = *v34++;
-    v38 = v38 + v41;
-    v33 = v33 + v40;
-    --v24;
+    v42 = *v35++;
+    v39 = v39 + v42;
+    v34 = v34 + v41;
+    --v25;
   }
 
-  while (v24);
+  while (v25);
 LABEL_31:
-  if (isZero(v38))
+  if (isZero(v39))
   {
     return 0;
   }
 
-  if ((v37 - v36) >= 0.000001)
+  if ((v38 - v37) >= 0.000001)
   {
-    v45 = vcvtms_s32_f32((v37 - v36) * 0.125);
-    if (v45 <= 1)
+    v46 = vcvtms_s32_f32((v38 - v37) * 0.125);
+    if (v46 <= 1)
     {
-      v46 = 1;
+      v47 = 1;
     }
 
     else
     {
-      v46 = v45;
+      v47 = v46;
     }
 
-    bzero(*(a5 + 152), 4 * v46);
-    bzero(*(a5 + 168), 4 * v46);
-    bzero(*(a5 + 160), 4 * v46);
-    if (a1 >= 1)
+    bzero(*(a6 + 19), 4 * v47);
+    bzero(*(a6 + 21), 4 * v47);
+    bzero(*(a6 + 20), 4 * v47);
+    if (v16 >= 1)
     {
-      v47 = *(a5 + 152);
-      v48 = *(a5 + 160);
-      v49 = v66;
+      v48 = *(a6 + 19);
+      v49 = *(a6 + 20);
       v50 = v67;
-      v51 = a1;
-      v52 = *(a5 + 168);
+      v51 = v68;
+      v52 = v16;
+      v53 = *(a6 + 21);
       do
       {
-        v53 = *v50++;
-        v54 = v53;
-        v55 = vcvtms_s32_f32((v53 - v36) * 0.125);
-        v56 = *v49++;
-        v57 = v56;
-        if (v46 == v55)
+        v54 = *v51++;
+        v55 = v54;
+        v56 = vcvtms_s32_f32((v54 - v37) * 0.125);
+        v57 = *v50++;
+        v58 = v57;
+        if (v47 == v56)
         {
-          v55 = v46 - 1;
+          v56 = v47 - 1;
         }
 
-        *(v47 + 4 * v55) = v57 + *(v47 + 4 * v55);
-        *(v48 + 4 * v55) = *(v48 + 4 * v55) + 1.0;
-        *(v52 + 4 * v55) = *(v52 + 4 * v55) + (v54 * v57);
-        --v51;
+        *(v48 + 4 * v56) = v58 + *(v48 + 4 * v56);
+        *(v49 + 4 * v56) = *(v49 + 4 * v56) + 1.0;
+        *(v53 + 4 * v56) = *(v53 + 4 * v56) + (v55 * v58);
+        --v52;
       }
 
-      while (v51);
+      while (v52);
     }
 
-    if (v46 < 1)
+    if (v47 < 1)
     {
+      v63 = 0.0;
       v62 = 0.0;
       v61 = 0.0;
-      v60 = 0.0;
     }
 
     else
     {
-      v58 = 0;
-      v60 = 0.0;
+      v59 = 0;
       v61 = 0.0;
       v62 = 0.0;
+      v63 = 0.0;
       do
       {
-        v59 = *(a5 + 152);
-        if (*(v59 + v58) > v62)
+        v60 = *(a6 + 19);
+        if (*(v60 + v59) > v63)
         {
-          v61 = *(*(a5 + 160) + v58);
-          v60 = *(*(a5 + 168) + v58);
-          v62 = *(v59 + v58);
+          v62 = *(*(a6 + 20) + v59);
+          v61 = *(*(a6 + 21) + v59);
+          v63 = *(v60 + v59);
         }
 
-        v58 += 4;
+        v59 += 4;
       }
 
-      while (4 * v46 != v58);
+      while (4 * v47 != v59);
     }
 
-    *v10 = v60 / v62;
-    v44 = v62 / v61;
+    *v11 = v61 / v63;
+    v45 = v63 / v62;
   }
 
   else
   {
-    v42 = 1.0 / a1;
-    v43 = v42 * v33;
-    v44 = v42 * v38;
-    *v10 = v43;
+    v43 = 1.0 / v16;
+    v44 = v43 * v34;
+    v45 = v43 * v39;
+    *v11 = v44;
   }
 
-  v19 = 0;
-  *a9 = v44;
-  return v19;
+  v20 = 0;
+  *a10 = v45;
+  return v20;
 }
 
 void *createACTRegistrationContext()
@@ -2192,7 +2194,7 @@ void deleteACTRegistrationContext(void *a1)
   }
 }
 
-uint64_t resetACTRegistrationContext(int a1, int a2, uint64_t a3)
+uint64_t resetACTRegistrationContext(unsigned int a1, unsigned int a2, uint64_t a3)
 {
   if (a3)
   {
@@ -2287,7 +2289,7 @@ __n128 setACTRegistrationCumulativeTransform(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t registerSampleBuffers(uint64_t a1, CVPixelBufferRef pixelBuffer, uint64_t a3, __CVBuffer *a4, uint64_t a5, int a6, _OWORD *a7, _DWORD *a8, unsigned __int8 a9)
+uint64_t registerSampleBuffers(uint64_t a1, CVPixelBufferRef pixelBuffer, uint64_t a3, __CVBuffer *a4, uint64_t a5, int a6, _OWORD *a7, _DWORD *a8, char a9)
 {
   if (!*a1)
   {
@@ -2312,7 +2314,7 @@ uint64_t registerSampleBuffers(uint64_t a1, CVPixelBufferRef pixelBuffer, uint64
     v22 = v80;
     v81 = v23;
     v24 = *(MEMORY[0x277CBF2C0] + 32);
-    v82 = v24;
+    v82[0] = v24;
     v76 = v80;
     v77 = v23;
     v78 = v24;
@@ -2339,7 +2341,7 @@ uint64_t registerSampleBuffers(uint64_t a1, CVPixelBufferRef pixelBuffer, uint64
         v26 = 0;
         v76 = v80;
         v77 = v81;
-        v78 = v82;
+        v78 = v82[0];
         v58 = 1;
 LABEL_19:
         v23 = v65;
@@ -2436,8 +2438,8 @@ LABEL_32:
     MFGetMotionFilterIncrementalTranslation(pixelBuffer, a4, *(a1 + 32), &v71 + 1, &v71);
     v70 = *(a1 + 8);
     v67 = *(a1 + 13);
-    v35 = *&v82;
-    v36 = *(&v82 + 1);
+    v35 = *v82;
+    v36 = *(v82 + 1);
     v61 = v36;
     v64 = v35;
     v37 = v9;
@@ -2562,9 +2564,9 @@ uint64_t ACTPreRegisterSlices(__CVBuffer *a1, uint64_t a2, __CVBuffer *a3, uint6
 
 uint64_t ACTRegisterSlices(__CVBuffer *a1, uint64_t a2, __CVBuffer *a3, uint64_t a4, int a5, int *a6, uint64_t a7, uint64_t a8, float *a9, uint64_t a10)
 {
-  v36 = *MEMORY[0x277D85DE8];
-  getACTRegistrationMethodDescription(*a10, v34);
-  __sprintf_chk(__format, 0, 0x200uLL, "{ACTRegistration|registrationMethod:%s}", v34);
+  v38 = *MEMORY[0x277D85DE8];
+  getACTRegistrationMethodDescription(*a10, v36);
+  __sprintf_chk(__format, 0, 0x200uLL, "{ACTRegistration|registrationMethod:%s}", v36);
   if (*(a10 + 92))
   {
     syslog(5, "%s", __format);
@@ -2585,35 +2587,36 @@ uint64_t ACTRegisterSlices(__CVBuffer *a1, uint64_t a2, __CVBuffer *a3, uint64_t
     v20 = CVPixelBufferGetBytesPerRowOfPlane(a3, 0);
     *&v21 = *(a7 + 32);
     *&v22 = *(a7 + 40);
-    v33 = __PAIR64__(v21, v22);
+    v35 = __PAIR64__(v21, v22);
     updated = ABRegUpdateIntegralImage(BaseAddressOfPlane + BytesPerRowOfPlane * a4, v20, *(a10 + 24));
-    v32 = 0;
+    v34 = 0;
     if (!updated)
     {
-      updated = ABRegRegisterSlicesRobust(10, 0.5, 5, *(a10 + 20), *(a10 + 24), &v33 + 1, &v33, &v32 + 1, &v32);
-      *a9 = v32;
+      v24.n128_u32[0] = 0.5;
+      updated = ABRegRegisterSlicesRobust(10, v24, v25, 5, *(a10 + 20), *(a10 + 24), &v35 + 1, &v35, &v34 + 1, &v34);
+      *a9 = v34;
     }
 
-    if (!correctTxTyWithIspData(&v33 + 1, &v33, a10))
+    if (!correctTxTyWithIspData(&v35 + 1, &v35, a10))
     {
-      ACTLogMessageImp(1, "{ACTRegistration|txty corrected %f %f}\n", *(&v33 + 1), *&v33);
+      ACTLogMessageImp(1, "{ACTRegistration|txty corrected %f %f}\n", *(&v35 + 1), *&v35);
       updated = 0;
     }
 
     v17 = 4294967292;
-    v24 = 2;
+    v26 = 2;
     if ((updated & 0x80000000) == 0 && updated != 1)
     {
-      CGAffineTransformMakeTranslation(&v31, *(&v33 + 1), *&v33);
-      v25 = *&v31.c;
-      *a8 = *&v31.a;
-      *(a8 + 16) = v25;
-      *(a8 + 32) = *&v31.tx;
+      CGAffineTransformMakeTranslation(&v33, *(&v35 + 1), *&v35);
+      v27 = *&v33.c;
+      *a8 = *&v33.a;
+      *(a8 + 16) = v27;
+      *(a8 + 32) = *&v33.tx;
       v17 = *a9 < 0.175;
-      v24 = 2 * v17;
+      v26 = 2 * v17;
     }
 
-    *a6 = v24;
+    *a6 = v26;
   }
 
   else
@@ -2625,9 +2628,9 @@ uint64_t ACTRegisterSlices(__CVBuffer *a1, uint64_t a2, __CVBuffer *a3, uint64_t
       return v17;
     }
 
-    LODWORD(v31.a) = 0;
-    v33 = 0;
-    if (MFRegRegisterSlices(a1, a3, *(a10 + 32), &v31, &v33 + 1, &v33))
+    LODWORD(v33.a) = 0;
+    v35 = 0;
+    if (MFRegRegisterSlices(a1, a3, *(a10 + 32), &v33, &v35 + 1, &v35))
     {
       *a6 = 0;
       v17 = 4294967292;
@@ -2636,9 +2639,9 @@ uint64_t ACTRegisterSlices(__CVBuffer *a1, uint64_t a2, __CVBuffer *a3, uint64_t
     else
     {
       v17 = 0;
-      v27 = *(&v33 + 1);
-      *(a8 + 32) = *&v31.a;
-      *(a8 + 40) = v27;
+      v29 = *(&v35 + 1);
+      *(a8 + 32) = *&v33.a;
+      *(a8 + 40) = v29;
     }
   }
 
@@ -2650,16 +2653,19 @@ uint64_t ACTRegisterSlices(__CVBuffer *a1, uint64_t a2, __CVBuffer *a3, uint64_t
 
   if (*(a10 + 93))
   {
-    ACTLogMessageImp(1, __format, v28, v29, v30);
+    ACTLogMessageImp(1, __format, v30, v31, v32);
   }
 
   return v17;
 }
 
-uint64_t ACTPostRegisterSlices(__CVBuffer *a1, uint64_t a2, __CVBuffer *a3, uint64_t a4, int a5, int a6, uint64_t a7, int a8, char a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13)
+uint64_t ACTPostRegisterSlices(__CVBuffer *a1, uint64_t a2, __CVBuffer *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13)
 {
+  v13 = a8;
+  v14 = a6;
+  v15 = a5;
   v37 = *MEMORY[0x277D85DE8];
-  __sprintf_chk(__format, 0, 0x200uLL, "{ACTRegistration|postRegistration}");
+  __sprintf_chk(__format, 0, 0x200uLL, "{ACTRegistration|postRegistration}", a5, a6, a7);
   if (*(a13 + 92))
   {
     syslog(5, "%s", __format);
@@ -2684,7 +2690,7 @@ uint64_t ACTPostRegisterSlices(__CVBuffer *a1, uint64_t a2, __CVBuffer *a3, uint
   *(a13 + 40) = *&v35.a;
   *(a13 + 56) = v20;
   *(a13 + 72) = *&v35.tx;
-  if (!(a6 | a5) && *(a13 + 16) && *(a13 + 8) != 2 && *(a13 + 4) == 2 && a9)
+  if (!(v14 | v15) && *(a13 + 16) && *(a13 + 8) != 2 && *(a13 + 4) == 2 && a9)
   {
     LODWORD(t1.a) = 0;
     LODWORD(t2.a) = 0;
@@ -2727,7 +2733,7 @@ uint64_t ACTPostRegisterSlices(__CVBuffer *a1, uint64_t a2, __CVBuffer *a3, uint
   if (!v21)
   {
 LABEL_12:
-    if ((a8 & 1) == 0)
+    if ((v13 & 1) == 0)
     {
       v22 = *(a11 + 32) - *(a10 + 32);
       v23 = *(a11 + 40) - *(a10 + 40);
@@ -2747,10 +2753,10 @@ LABEL_12:
 
   if (*(a13 + 95) == 1)
   {
-    ACTAttachRegistrationMetadata(a1, MEMORY[0x277CBF2C0], *(a13 + 8), a8);
+    ACTAttachRegistrationMetadata(a1, MEMORY[0x277CBF2C0], *(a13 + 8), v13);
   }
 
-  ACTAttachRegistrationMetadata(a3, a11, *(a13 + 8), a8);
+  ACTAttachRegistrationMetadata(a3, a11, *(a13 + 8), v13);
   return v21;
 }
 
@@ -3421,28 +3427,28 @@ char *createACTNoiseReductionContext(uint64_t a1)
   *(v2 + 21) = 0;
   if ((*(v2 + 26) - 4) <= 4 && !*(v2 + 22) && !*(v2 + 23))
   {
-    v7 = objc_msgSend_sharedInstance(MEMORY[0x277CF3B80], v4, v5, v6);
-    v11 = objc_msgSend_cameraParameters(v7, v8, v9, v10);
+    v4 = [MEMORY[0x277CF3B80] sharedInstance];
+    v5 = [v4 cameraParameters];
 
-    v12 = *(v2 + 26);
-    if (v12)
+    v6 = *(v2 + 26);
+    if (v6)
     {
-      CFRelease(v12);
+      CFRelease(v6);
     }
 
     *(v2 + 26) = 0;
-    if (v11)
+    if (v5)
     {
-      Value = CFDictionaryGetValue(v11, @"TuningParameters");
-      v14 = Value;
+      Value = CFDictionaryGetValue(v5, @"TuningParameters");
+      v8 = Value;
       if (Value)
       {
-        v15 = CFDictionaryGetValue(Value, @"DefaultSensorIDs");
-        *(v2 + 26) = CFRetain(v15);
+        v9 = CFDictionaryGetValue(Value, @"DefaultSensorIDs");
+        *(v2 + 26) = CFRetain(v9);
       }
 
-      MutableCopy = CFDictionaryCreateMutableCopy(0, 0, v14);
-      CFRelease(v11);
+      MutableCopy = CFDictionaryCreateMutableCopy(0, 0, v8);
+      CFRelease(v5);
     }
 
     else
@@ -3450,25 +3456,25 @@ char *createACTNoiseReductionContext(uint64_t a1)
       MutableCopy = CFDictionaryCreateMutable(0, 1, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
     }
 
-    v18 = *(v2 + 26);
-    if ((v18 - 5) < 2)
+    v11 = *(v2 + 26);
+    if ((v11 - 5) < 2)
     {
       Mutable = CFDictionaryCreateMutable(0, 1, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
       CFDictionaryAddValue(Mutable, *MEMORY[0x277CF4088], MutableCopy);
       LODWORD(valuePtr[0]) = 2;
-      v27 = CFNumberCreate(0, kCFNumberIntType, valuePtr);
-      CFDictionaryAddValue(Mutable, *MEMORY[0x277CF6948], v27);
-      if (v27)
+      v18 = CFNumberCreate(0, kCFNumberIntType, valuePtr);
+      CFDictionaryAddValue(Mutable, *MEMORY[0x277CF6948], v18);
+      if (v18)
       {
-        CFRelease(v27);
+        CFRelease(v18);
       }
 
-      LODWORD(v42[0]) = 1;
-      v28 = CFNumberCreate(0, kCFNumberIntType, v42);
-      CFDictionaryAddValue(Mutable, *MEMORY[0x277CF6950], v28);
-      if (v28)
+      LODWORD(v29[0]) = 1;
+      v19 = CFNumberCreate(0, kCFNumberIntType, v29);
+      CFDictionaryAddValue(Mutable, *MEMORY[0x277CF6950], v19);
+      if (v19)
       {
-        CFRelease(v28);
+        CFRelease(v19);
       }
 
       CFDictionaryAddValue(Mutable, *MEMORY[0x277CF6958], *MEMORY[0x277CBED28]);
@@ -3477,60 +3483,60 @@ char *createACTNoiseReductionContext(uint64_t a1)
       goto LABEL_30;
     }
 
-    if ((v18 - 7) >= 2)
+    if ((v11 - 7) >= 2)
     {
-      if (v18 == 4)
+      if (v11 == 4)
       {
         LODWORD(valuePtr[0]) = 2;
-        v29 = CFNumberCreate(0, kCFNumberIntType, valuePtr);
-        CFDictionaryAddValue(MutableCopy, @"NoiseReductionMethod", v29);
-        CFRelease(v29);
+        v20 = CFNumberCreate(0, kCFNumberIntType, valuePtr);
+        CFDictionaryAddValue(MutableCopy, @"NoiseReductionMethod", v20);
+        CFRelease(v20);
         *(v2 + 21) = noiseReductionContextCreateWithOptions();
       }
 
       goto LABEL_30;
     }
 
-    v19 = *MEMORY[0x277CF6950];
-    v42[0] = *MEMORY[0x277CF4088];
-    v42[1] = v19;
+    v12 = *MEMORY[0x277CF6950];
+    v29[0] = *MEMORY[0x277CF4088];
+    v29[1] = v12;
     valuePtr[0] = MutableCopy;
     valuePtr[1] = &unk_284F10670;
-    v20 = *MEMORY[0x277CF6958];
-    v42[2] = *MEMORY[0x277CF6948];
-    v42[3] = v20;
+    v13 = *MEMORY[0x277CF6958];
+    v29[2] = *MEMORY[0x277CF6948];
+    v29[3] = v13;
     valuePtr[2] = &unk_284F10688;
     valuePtr[3] = &unk_284F106A0;
-    v23 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v17, valuePtr, v42, 4);
-    v24 = *(v2 + 26) - 7;
-    if (v24 > 2)
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:valuePtr forKeys:v29 count:4];
+    v15 = *(v2 + 26) - 7;
+    if (v15 > 2)
     {
-      v25 = 0;
+      v16 = 0;
     }
 
     else
     {
-      v25 = objc_msgSend_bundleWithPath_(MEMORY[0x277CCA8D8], v21, off_278BBD5F8[v24], v22);
+      v16 = [MEMORY[0x277CCA8D8] bundleWithPath:off_278BBD5F8[v15]];
     }
 
-    v41 = 0;
-    v30 = objc_msgSend_loadAndReturnError_(v25, v21, &v41, v22);
-    v31 = v41;
-    if (v30)
+    v28 = 0;
+    v21 = [v16 loadAndReturnError:&v28];
+    v22 = v28;
+    if (v21)
     {
-      v32 = *(v2 + 26) - 7;
-      if (v32 <= 2)
+      v23 = *(v2 + 26) - 7;
+      if (v23 <= 2)
       {
-        NSClassFromString(&off_278BBD610[v32]->isa);
+        NSClassFromString(&off_278BBD610[v23]->isa);
       }
 
-      v33 = objc_opt_new();
-      v36 = v33;
-      if (v33 && !objc_msgSend_setupWithOptions_(v33, v34, v23, v35))
+      v24 = objc_opt_new();
+      v25 = v24;
+      if (v24 && ![v24 setupWithOptions:v14])
       {
-        objc_msgSend_setFusionMode_(v36, v37, 1, v38);
-        v39 = v36;
-        *(v2 + 23) = v39;
+        [v25 setFusionMode:1];
+        v26 = v25;
+        *(v2 + 23) = v26;
 LABEL_29:
 
 LABEL_30:
@@ -3541,10 +3547,10 @@ LABEL_30:
 
     else
     {
-      v36 = 0;
+      v25 = 0;
     }
 
-    v39 = 0;
+    v26 = 0;
     goto LABEL_29;
   }
 
@@ -3615,11 +3621,11 @@ double updateACTNoiseReductionContext(uint64_t a1, CFDictionaryRef theDict)
   return result;
 }
 
-void setACTNoiseReductionCropRect(uint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t *a4, uint64_t *a5, int a6)
+void setACTNoiseReductionCropRect(uint64_t result, uint64_t *a2, uint64_t *a3, unint64_t *a4, unint64_t *a5, int a6)
 {
-  v13 = *(a1 + 48);
-  v12 = *(a1 + 56);
-  v14 = *(a1 + 104);
+  v13 = *(result + 48);
+  v12 = *(result + 56);
+  v14 = *(result + 104);
   if (v14 == 3 || v14 == 0)
   {
     v16 = *a2;
@@ -3649,8 +3655,8 @@ void setACTNoiseReductionCropRect(uint64_t a1, uint64_t *a2, uint64_t *a3, uint6
 
   else if ((v14 - 4) <= 4)
   {
-    updateMultiBandNoiseReductionCropRect(*(a1 + 200), *a2, *a3, *a4, *a5);
-    v14 = *(a1 + 104);
+    updateMultiBandNoiseReductionCropRect(*(result + 200), *a2, *a3, *a4, *a5);
+    v14 = *(result + 104);
   }
 
   if ((v14 | 2) == 3)
@@ -3730,14 +3736,14 @@ void setACTNoiseReductionCropRect(uint64_t a1, uint64_t *a2, uint64_t *a3, uint6
     *a3 = v30 & 0xFFFFFFFFFFFFFFFELL;
     v31 = *a5 & 0xFFFFFFFFFFFFFFFELL;
     *a5 = v31;
-    updateBandPassNoiseReductionCropRect(*(a1 + 200), *a2, *a3, v24, v31);
+    updateBandPassNoiseReductionCropRect(*(result + 200), *a2, *a3, v24, v31);
   }
 
-  *(a1 + 72) = *a2;
-  *(a1 + 80) = *a3;
-  *(a1 + 88) = *a4;
-  *(a1 + 96) = *a5;
-  *(a1 + 216) = a6;
+  *(result + 72) = *a2;
+  *(result + 80) = *a3;
+  *(result + 88) = *a4;
+  *(result + 96) = *a5;
+  *(result + 216) = a6;
 }
 
 uint64_t ACTNoiseReduction(int *a1, CVPixelBufferRef pixelBuffer)
@@ -4047,35 +4053,35 @@ LABEL_46:
   *(a1 + 156) = 0;
 }
 
-void resetNoiseReductionContext(uint64_t a1)
+void resetNoiseReductionContext(uint64_t result)
 {
-  if (a1)
+  if (result)
   {
-    v2 = *(a1 + 104);
+    v2 = *(result + 104);
     if (v2 == 1)
     {
-      v3 = *(a1 + 200);
+      v3 = *(result + 200);
       if (!v3)
       {
 LABEL_8:
-        *(a1 + 156) = 1;
-        *(a1 + 160) = 0;
-        *(a1 + 216) = 0;
+        *(result + 156) = 1;
+        *(result + 160) = 0;
+        *(result + 216) = 0;
         return;
       }
 
       destroyBandPassNoiseReductionContext(v3);
-      *(a1 + 200) = 0;
-      v2 = *(a1 + 104);
+      *(result + 200) = 0;
+      v2 = *(result + 104);
     }
 
     if ((v2 - 4) <= 4)
     {
-      v4 = *(a1 + 200);
+      v4 = *(result + 200);
       if (v4)
       {
         destroyMultiBandNoiseReductionContext(v4);
-        *(a1 + 200) = 0;
+        *(result + 200) = 0;
       }
     }
 
@@ -4140,7 +4146,7 @@ void deleteNoiseReductionContext(uint64_t a1)
   }
 }
 
-void *ACTFinalThreadedNoiseReduction(void *result, unint64_t *a2, unint64_t *a3, unint64_t *a4, unint64_t *a5)
+double *ACTFinalThreadedNoiseReduction(double *result, unint64_t *a2, unint64_t *a3, unint64_t *a4, unint64_t *a5)
 {
   if (result)
   {
@@ -4151,21 +4157,21 @@ void *ACTFinalThreadedNoiseReduction(void *result, unint64_t *a2, unint64_t *a3,
       ACTThreadMutexLock(result);
       ACTThreadMutexUnlock(*v5);
       FigSimpleMutexLock();
-      *(v5 + 1) = *a2;
-      *(v5 + 2) = *a3;
-      *(v5 + 3) = *a4;
-      *(v5 + 4) = *a5;
+      v5[1] = *a2;
+      v5[2] = *a3;
+      v5[3] = *a4;
+      v5[4] = *a5;
       ++*(v5 + 18);
       *(v5 + 80) = 1;
       FigSimpleMutexUnlock();
-      ACTThreadWakeup();
+      ACTThreadWakeup(*v5);
       FigSemaphoreWaitRelative();
       FigSimpleMutexLock();
-      v10 = *(v5 + 6);
-      *a2 = *(v5 + 5);
+      v10 = v5[6];
+      *a2 = v5[5];
       *a3 = v10;
-      v11 = *(v5 + 8);
-      *a4 = *(v5 + 7);
+      v11 = v5[8];
+      *a4 = v5[7];
       *a5 = v11;
 
       return FigSimpleMutexUnlock();
@@ -4335,13 +4341,13 @@ void *ACTThreadCreate(uint64_t a1, uint64_t a2, uint64_t a3, const __CFDictionar
     *(v7 + 1) = 0;
     *(v7 + 4) = a1;
     *(v7 + 5) = a2;
-    valuePtr = 64;
+    HIDWORD(v18) = 64;
     if (a4)
     {
       Value = CFDictionaryGetValue(a4, @"ACTThreadBufferRingSize");
       if (Value)
       {
-        CFNumberGetValue(Value, kCFNumberIntType, &valuePtr);
+        CFNumberGetValue(Value, kCFNumberIntType, &v18 + 4);
       }
 
       v10 = CFDictionaryGetValue(a4, @"ACTThreadIdentifier");
@@ -4364,9 +4370,9 @@ void *ACTThreadCreate(uint64_t a1, uint64_t a2, uint64_t a3, const __CFDictionar
 
     v12 = FigSimpleMutexCreate();
     v8[2] = v12;
-    if (!v12 || (v13 = FigSemaphoreCreate(), (v8[1] = v13) == 0) || (v14 = *MEMORY[0x277CC1AC8], keys[0] = *MEMORY[0x277CC1AD0], keys[1] = v14, values[0] = *MEMORY[0x277CBED10], values[1] = v11, v15 = CFDictionaryCreate(*MEMORY[0x277CBECE8], keys, values, 2, MEMORY[0x277CBF138], MEMORY[0x277CBF150]), *(v8 + 24) = 1, v16 = FigThreadCreate(), CFRelease(v15), !*v8) || v16)
+    if (!v12 || (v13 = FigSemaphoreCreate(), (v8[1] = v13) == 0) || (v14 = *MEMORY[0x277CC1AC8], keys[0] = *MEMORY[0x277CC1AD0], keys[1] = v14, values = *MEMORY[0x277CBED10], v20 = v11, v15 = CFDictionaryCreate(*MEMORY[0x277CBECE8], keys, &values, 2, MEMORY[0x277CBF138], MEMORY[0x277CBF150]), *(v8 + 24) = 1, v16 = FigThreadCreate(), CFRelease(v15), !*v8) || v16)
     {
-      FigSignalErrorAtGM();
+      FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v18, values, v20);
       ACTThreadRelease(v8);
       return 0;
     }
@@ -4551,27 +4557,27 @@ float getCFPreferenceFloat(const __CFString *a1, const __CFString *a2, float Dou
 uint64_t copyDebugDescrioption(void *a1)
 {
   v2 = objc_autoreleasePoolPush();
-  v6 = objc_msgSend_description(a1, v3, v4, v5);
+  v3 = [a1 description];
   objc_autoreleasePoolPop(v2);
-  return v6;
+  return v3;
 }
 
 void getIspTxTy(opaqueCMSampleBuffer *a1, _DWORD *a2, _DWORD *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   CMSampleBufferGetImageBuffer(a1);
   v6 = CMGetAttachment(a1, @"ClientSpecifiedMetadata", 0);
-  v9 = objc_msgSend_objectForKey_(v6, v7, @"Translation", v8);
+  v7 = [v6 objectForKey:@"Translation"];
 
-  if (v9)
+  if (v7)
   {
-    v12 = objc_msgSend_objectForKeyedSubscript_(v6, v10, @"Translation", v11);
-    if (objc_msgSend_length(v12, v13, v14, v15) == 8)
+    v8 = [v6 objectForKeyedSubscript:@"Translation"];
+    if ([v8 length] == 8)
     {
-      objc_msgSend_getBytes_length_(v12, v16, v18, 8);
-      v17 = v18[1];
-      *a2 = v18[0];
-      *a3 = v17;
+      [v8 getBytes:v10 length:8];
+      v9 = v10[1];
+      *a2 = v10[0];
+      *a3 = v9;
     }
   }
 
@@ -4942,13 +4948,13 @@ uint64_t DoBandPassNoiseReductionComplete(uint64_t result, int a2)
       }
 
       *(v2 + 212) = 0;
-      v11 = 0;
-      v10 = 1;
-      v9 = 4;
-      sysctlbyname("hw.ncpu", &v10, &v9, 0, 0);
+      v13 = 0;
+      v12 = 1;
+      v10 = 4;
+      sysctlbyname("hw.ncpu", &v12, &v10, 0, 0);
       v4 = *(v2 + 208);
       v5 = *(v2 + 200);
-      if ((v4 - v5) >= 4 && v10 >= 2)
+      if ((v4 - v5) >= 4 && v12 >= 2)
       {
         v7 = v5 + ((v4 - v5) >> 1);
         *(v2 + 272) = v7;
@@ -4963,7 +4969,7 @@ uint64_t DoBandPassNoiseReductionComplete(uint64_t result, int a2)
           return result;
         }
 
-        FigSignalErrorAtGM();
+        FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v9, v10, v11);
         *(v2 + 208) = *(v2 + 280);
       }
 
@@ -5172,13 +5178,13 @@ void *Blending_zero()
   return result;
 }
 
-int8x16_t Blending_start(uint64_t a1, uint64_t a2, __CVBuffer *a3, __CVBuffer *a4, double a5, float a6, float32x2_t a7, float32_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, int a16, int a17, int a18, int a19, int a20, int a21, int a22, unint64_t a23)
+int8x16_t Blending_start(uint64_t a1, uint64_t a2, __CVBuffer *a3, __CVBuffer *a4, double a5, double a6, float32x2_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, float32_t s3_0, uint64_t a12, uint64_t a13, uint64_t a14, int a16, int a17, int a18, int a19, int a20, int a21, int a22, unint64_t a23)
 {
   v27 = (*(a1 + 56) + 1) >> 1;
   *(a1 + 148) = a7.i32[0];
   *(a1 + 152) = v27;
-  Blending_overlap(a1, a23, a22, 0, a5, a6, a7, a8);
-  sub_23C44C4D4(a15, a2, a16, a3, a4, *(a1 + 192), *(a1 + 200), *(a1 + 224), *(a1 + 228), HIDWORD(*(a1 + 228)), *(a1 + 236), v35, a18, a19, a20);
+  Blending_overlap(a1, a23, a22, 0, a5, *&a6, a7, s3_0);
+  sub_23C44C4D4(a14, a2, a16, a3, a4, *(a1 + 192), *(a1 + 200), *(a1 + 224), *(a1 + 228), HIDWORD(*(a1 + 228)), *(a1 + 236), v35, a18, a19, a20);
   v28 = *(a1 + 272);
   v29 = *(a1 + 204);
   if (v28 >= v29)
@@ -5847,13 +5853,13 @@ void *Blending_zero_v2()
   return result;
 }
 
-int8x16_t Blending_start_v2(uint64_t a1, uint64_t a2, __CVBuffer *a3, __CVBuffer *a4, double a5, float a6, float32x2_t a7, float32_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, int a16, int a17, int a18, int a19, int a20, int a21, int a22, unint64_t a23)
+int8x16_t Blending_start_v2(uint64_t a1, uint64_t a2, __CVBuffer *a3, __CVBuffer *a4, double a5, double a6, float32x2_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, float32_t s3_0, uint64_t a12, uint64_t a13, uint64_t a14, int a15, int a16, int a17, int a18, int a19, int a21, int a22, unint64_t a23)
 {
   v27 = (*(a1 + 56) + 1) >> 1;
   *(a1 + 148) = a7.i32[0];
   *(a1 + 152) = v27;
-  Blending_overlap_v2(a1, a23, a22, 0, a5, a6, a7, a8);
-  sub_23C44C4D4(a15, a2, a16, a3, a4, *(a1 + 192), *(a1 + 200), *(a1 + 224), *(a1 + 228), HIDWORD(*(a1 + 228)), *(a1 + 236), v35, a18, a19, a20);
+  Blending_overlap_v2(a1, a23, a22, 0, a5, *&a6, a7, s3_0);
+  sub_23C44C4D4(a14, a2, a15, a3, a4, *(a1 + 192), *(a1 + 200), *(a1 + 224), *(a1 + 228), HIDWORD(*(a1 + 228)), *(a1 + 236), v35, a17, a18, a19);
   v28 = *(a1 + 272);
   v29 = *(a1 + 204);
   if (v28 >= v29)
@@ -6378,8 +6384,9 @@ void *BlendingCtrl_zero()
   return v0;
 }
 
-void BlendingCtrl_createBlendingContext(void ***a1, int a2, uint64_t a3, int a4, size_t a5, uint64_t a6, uint64_t a7)
+void BlendingCtrl_createBlendingContext(uint64_t **a1, unint64_t a2, uint64_t a3, int a4, size_t a5, uint64_t a6, uint64_t a7)
 {
+  v11 = a2;
   pixelBufferOut[2] = *MEMORY[0x277D85DE8];
   v13 = BlendingCtrl_zero();
   v14 = v13;
@@ -6389,16 +6396,16 @@ void BlendingCtrl_createBlendingContext(void ***a1, int a2, uint64_t a3, int a4,
   }
 
   v15 = *v13;
-  *(v15 + 8) = a4;
-  *(v15 + 70) = 0;
-  *(v15 + 14) = a5;
-  *(v15 + 15) = a6;
-  *(v15 + 16) = a7;
+  *(v15 + 32) = a4;
+  *(v15 + 280) = 0;
+  *(v15 + 112) = a5;
+  *(v15 + 120) = a6;
+  *(v15 + 128) = a7;
   v16 = a1[1];
   if (v16 && (v17 = *(v16 + 26), (v17 | 2) == 3))
   {
     v18 = 1;
-    ACTLogMessageImp(1, "mode = %d: padding buffer to %d", v17, ((a2 + 63) & 0xFFFFFFC0) + 64);
+    ACTLogMessageImp(1, "mode = %d: padding buffer to %d", v17, ((v11 + 63) & 0xFFFFFFC0) + 64);
   }
 
   else
@@ -6427,25 +6434,25 @@ void BlendingCtrl_createBlendingContext(void ***a1, int a2, uint64_t a3, int a4,
   v50 = a5;
   CVPixelBufferLockBaseAddress(*v15, 0);
   *(v15 + 8) = 1;
-  *(v15 + 5) = 0;
+  *(v15 + 40) = 0;
   BaseAddressOfPlane = CVPixelBufferGetBaseAddressOfPlane(*v15, 0);
   v24 = CVPixelBufferGetBaseAddressOfPlane(*v15, 1uLL);
-  *(v15 + 2) = CVPixelBufferGetWidth(*v15);
-  *(v15 + 3) = CVPixelBufferGetHeight(*v15);
+  *(v15 + 16) = CVPixelBufferGetWidth(*v15);
+  *(v15 + 24) = CVPixelBufferGetHeight(*v15);
   HeightOfPlane = CVPixelBufferGetHeightOfPlane(*v15, 1uLL);
-  v26 = (*(v15 + 2) + 1) & 0xFFFFFFFFFFFFFFFELL;
+  v26 = (*(v15 + 16) + 1) & 0xFFFFFFFFFFFFFFFELL;
   BytesPerRowOfPlane = CVPixelBufferGetBytesPerRowOfPlane(*v15, 0);
   v28 = CVPixelBufferGetBytesPerRowOfPlane(*v15, 1uLL);
-  v29 = *(v15 + 2);
+  v29 = *(v15 + 16);
   if (v18)
   {
     v29 -= 64;
-    *(v15 + 2) = v29;
+    *(v15 + 16) = v29;
     v26 -= 64;
   }
 
-  v30 = Blending_constructor(BaseAddressOfPlane, v29, *(v15 + 3), BytesPerRowOfPlane, v24, v26, HeightOfPlane, v28, *(v15 + 14), *(v15 + 15), *(v15 + 29));
-  *(v15 + 27) = v30;
+  v30 = Blending_constructor(BaseAddressOfPlane, v29, *(v15 + 24), BytesPerRowOfPlane, v24, v26, HeightOfPlane, v28, *(v15 + 112), *(v15 + 120), *(v15 + 232));
+  *(v15 + 216) = v30;
   if (!v30)
   {
     goto LABEL_7;
@@ -6467,8 +6474,8 @@ void BlendingCtrl_createBlendingContext(void ***a1, int a2, uint64_t a3, int a4,
   CFRelease(v36);
   CFDictionaryAddValue(Mutable, *MEMORY[0x277CC4E30], v35);
   CFRelease(v35);
-  v37 = *(v15 + 14);
-  v51 = *(v15 + 15);
+  v37 = *(v15 + 112);
+  v51 = *(v15 + 120);
   v52 = v37;
   v38 = CFNumberCreate(v19, kCFNumberSInt32Type, &v52);
   CFDictionaryAddValue(Mutable, *MEMORY[0x277CC4EC8], v38);
@@ -6481,7 +6488,7 @@ void BlendingCtrl_createBlendingContext(void ***a1, int a2, uint64_t a3, int a4,
   CFDictionaryAddValue(Mutable, *MEMORY[0x277CC4DE8], IOSurfacePropertiesDictionary);
   CFRelease(IOSurfacePropertiesDictionary);
   applyWiringAssertionToProperties(&pixelBufferAttributes);
-  CVPixelBufferPoolCreate(v19, v33, pixelBufferAttributes, v15 + 6);
+  CVPixelBufferPoolCreate(v19, v33, pixelBufferAttributes, (v15 + 48));
   CFRelease(v33);
   CFRelease(pixelBufferAttributes);
   pixelBufferOut[0] = 0;
@@ -6492,7 +6499,7 @@ void BlendingCtrl_createBlendingContext(void ***a1, int a2, uint64_t a3, int a4,
     v42 = pixelBufferOut;
     do
     {
-      CVPixelBufferPoolCreatePixelBuffer(v19, *(v15 + 6), v42);
+      CVPixelBufferPoolCreatePixelBuffer(v19, *(v15 + 48), v42);
       CVPixelBufferLockBaseAddress(*v42, 0);
       BaseAddress = CVPixelBufferGetBaseAddress(*v42);
       DataSize = CVPixelBufferGetDataSize(*v42);
@@ -6510,12 +6517,12 @@ void BlendingCtrl_createBlendingContext(void ***a1, int a2, uint64_t a3, int a4,
     }
   }
 
-  v47 = PixelShuffler_constructor(v50, *(v15 + 15));
-  *(v15 + 28) = v47;
-  if (v47 && (CVPixelBufferUnlockBaseAddress(*v15, 0), *(v15 + 8) = 0, !VTImageRotationSessionCreate()) && (v48 = FlareDetector_constructor(), (*(v15 + 37) = v48) != 0) && (v49 = BlendingDefaults_constructor(), (*(v15 + 38) = v49) != 0))
+  v47 = PixelShuffler_constructor(v50, *(v15 + 120));
+  *(v15 + 224) = v47;
+  if (v47 && (CVPixelBufferUnlockBaseAddress(*v15, 0), *(v15 + 8) = 0, !VTImageRotationSessionCreate()) && (v48 = FlareDetector_constructor(), (*(v15 + 296) = v48) != 0) && (v49 = BlendingDefaults_constructor(), (*(v15 + 304) = v49) != 0))
   {
     *a1 = v14;
-    *(v15 + 39) = a1;
+    *(v15 + 312) = a1;
   }
 
   else
@@ -6526,7 +6533,7 @@ LABEL_7:
   }
 }
 
-void BlendingCtrl_deleteBlendingContext(void **a1)
+void BlendingCtrl_deleteBlendingContext(__CVBuffer ***a1)
 {
   if (a1)
   {
@@ -7154,7 +7161,7 @@ LABEL_54:
   v54.i32[0] = *(v4 + 104);
   v55 = *(v4 + 136);
   *&v55 = v24;
-  Blending_start(*(v4 + 216), *(v4 + 288), a2, *v4, *&v55, 0.0, v54, *(v4 + 108), v14, v13, BytesPerRowOfPlane, v16, BaseAddressOfPlane, v12, *(v4 + 224), *(v4 + 280), v59, *(v4 + 136), HIDWORD(*(v4 + 136)), *(v4 + 144), HIDWORD(*(v4 + 136)), *(v4 + 152), *(v4 + 160));
+  Blending_start(*(v4 + 216), *(v4 + 288), a2, *v4, *&v55, 0.0, v54, v14, v13, BytesPerRowOfPlane, v16, *(v4 + 108), BaseAddressOfPlane, v12, *(v4 + 224), *(v4 + 280), v59, *(v4 + 136), HIDWORD(*(v4 + 136)), *(v4 + 144), HIDWORD(*(v4 + 136)), *(v4 + 152), *(v4 + 160));
   v56 = valuePtr;
   v57 = ACT_getHostTime();
   ACTLogMessageImp(1, "{Blending%d|Blending_startTook:%f}", v56, v57 - v53);
@@ -7500,8 +7507,9 @@ void *BlendingCtrl_zero_v2()
   return v0;
 }
 
-void BlendingCtrl_createBlendingContext_v2(void ***a1, int a2, uint64_t a3, int a4, size_t a5, uint64_t a6, uint64_t a7, char a8)
+void BlendingCtrl_createBlendingContext_v2(uint64_t **a1, unint64_t a2, uint64_t a3, int a4, size_t a5, uint64_t a6, uint64_t a7, char a8)
 {
+  v13 = a2;
   pixelBufferOut[2] = *MEMORY[0x277D85DE8];
   v15 = BlendingCtrl_zero_v2();
   v16 = v15;
@@ -7511,11 +7519,11 @@ void BlendingCtrl_createBlendingContext_v2(void ***a1, int a2, uint64_t a3, int 
   }
 
   v17 = *v15;
-  *(v17 + 8) = a4;
-  *(v17 + 70) = 0;
-  *(v17 + 14) = a5;
-  *(v17 + 15) = a6;
-  *(v17 + 16) = a7;
+  *(v17 + 32) = a4;
+  *(v17 + 280) = 0;
+  *(v17 + 112) = a5;
+  *(v17 + 120) = a6;
+  *(v17 + 128) = a7;
   v18 = a1[1];
   if (!v18 || (v19 = *(v18 + 26), (v19 | 2) != 3))
   {
@@ -7532,7 +7540,7 @@ LABEL_8:
   }
 
   v20 = 1;
-  ACTLogMessageImp(1, "mode = %d: padding buffer to %d", v19, ((a2 + 63) & 0xFFFFFFC0) + 64);
+  ACTLogMessageImp(1, "mode = %d: padding buffer to %d", v19, ((v13 + 63) & 0xFFFFFFC0) + 64);
   if (a8)
   {
     goto LABEL_8;
@@ -7561,25 +7569,25 @@ LABEL_5:
 LABEL_9:
   CVPixelBufferLockBaseAddress(v25, 0);
   *(v17 + 8) = 1;
-  *(v17 + 5) = 0;
+  *(v17 + 40) = 0;
   BaseAddressOfPlane = CVPixelBufferGetBaseAddressOfPlane(*v17, 0);
   v27 = CVPixelBufferGetBaseAddressOfPlane(*v17, 1uLL);
-  *(v17 + 2) = CVPixelBufferGetWidth(*v17);
-  *(v17 + 3) = CVPixelBufferGetHeight(*v17);
+  *(v17 + 16) = CVPixelBufferGetWidth(*v17);
+  *(v17 + 24) = CVPixelBufferGetHeight(*v17);
   HeightOfPlane = CVPixelBufferGetHeightOfPlane(*v17, 1uLL);
-  v29 = (*(v17 + 2) + 1) & 0xFFFFFFFFFFFFFFFELL;
+  v29 = (*(v17 + 16) + 1) & 0xFFFFFFFFFFFFFFFELL;
   BytesPerRowOfPlane = CVPixelBufferGetBytesPerRowOfPlane(*v17, 0);
   v31 = CVPixelBufferGetBytesPerRowOfPlane(*v17, 1uLL);
-  v32 = *(v17 + 2);
+  v32 = *(v17 + 16);
   if (v20)
   {
     v32 -= 64;
-    *(v17 + 2) = v32;
+    *(v17 + 16) = v32;
     v29 -= 64;
   }
 
-  v33 = Blending_constructor_v2(BaseAddressOfPlane, v32, *(v17 + 3), BytesPerRowOfPlane, v27, v29, HeightOfPlane, v31, *(v17 + 14), *(v17 + 15), *(v17 + 29));
-  *(v17 + 27) = v33;
+  v33 = Blending_constructor_v2(BaseAddressOfPlane, v32, *(v17 + 24), BytesPerRowOfPlane, v27, v29, HeightOfPlane, v31, *(v17 + 112), *(v17 + 120), *(v17 + 232));
+  *(v17 + 216) = v33;
   if (v33)
   {
     *(v33 + 144) = v20;
@@ -7599,8 +7607,8 @@ LABEL_9:
     CFRelease(v40);
     CFDictionaryAddValue(Mutable, *MEMORY[0x277CC4E30], v39);
     CFRelease(v39);
-    v41 = *(v17 + 14);
-    v54 = *(v17 + 15);
+    v41 = *(v17 + 112);
+    v54 = *(v17 + 120);
     v55 = v41;
     v42 = CFNumberCreate(v34, kCFNumberSInt32Type, &v55);
     CFDictionaryAddValue(Mutable, *MEMORY[0x277CC4EC8], v42);
@@ -7613,7 +7621,7 @@ LABEL_9:
     CFDictionaryAddValue(Mutable, *MEMORY[0x277CC4DE8], IOSurfacePropertiesDictionary);
     CFRelease(IOSurfacePropertiesDictionary);
     applyWiringAssertionToProperties(&pixelBufferAttributes);
-    CVPixelBufferPoolCreate(v34, v37, pixelBufferAttributes, v17 + 6);
+    CVPixelBufferPoolCreate(v34, v37, pixelBufferAttributes, (v17 + 48));
     CFRelease(v37);
     CFRelease(pixelBufferAttributes);
     pixelBufferOut[0] = 0;
@@ -7624,7 +7632,7 @@ LABEL_9:
       v46 = pixelBufferOut;
       do
       {
-        CVPixelBufferPoolCreatePixelBuffer(v34, *(v17 + 6), v46);
+        CVPixelBufferPoolCreatePixelBuffer(v34, *(v17 + 48), v46);
         CVPixelBufferLockBaseAddress(*v46, 0);
         BaseAddress = CVPixelBufferGetBaseAddress(*v46);
         DataSize = CVPixelBufferGetDataSize(*v46);
@@ -7642,8 +7650,8 @@ LABEL_9:
       }
     }
 
-    v51 = PixelShuffler_constructor(a5, *(v17 + 15));
-    *(v17 + 28) = v51;
+    v51 = PixelShuffler_constructor(a5, *(v17 + 120));
+    *(v17 + 224) = v51;
     if (v51)
     {
       CVPixelBufferUnlockBaseAddress(*v17, 0);
@@ -7651,15 +7659,15 @@ LABEL_9:
       if (!VTImageRotationSessionCreate())
       {
         v52 = FlareDetector_constructor();
-        *(v17 + 37) = v52;
+        *(v17 + 296) = v52;
         if (v52)
         {
           v53 = BlendingDefaults_constructor();
-          *(v17 + 38) = v53;
+          *(v17 + 304) = v53;
           if (v53)
           {
             *a1 = v16;
-            *(v17 + 39) = a1;
+            *(v17 + 312) = a1;
             return;
           }
         }
@@ -7672,7 +7680,7 @@ LABEL_20:
   *a1 = 0;
 }
 
-void BlendingCtrl_deleteBlendingContext_v2(void **a1)
+void BlendingCtrl_deleteBlendingContext_v2(__CVBuffer ***a1)
 {
   if (a1)
   {
@@ -8289,7 +8297,7 @@ LABEL_54:
   v54.i32[0] = *(v4 + 104);
   v55 = *(v4 + 136);
   *&v55 = v24;
-  Blending_start_v2(*(v4 + 216), *(v4 + 288), a2, *v4, *&v55, 0.0, v54, *(v4 + 108), v14, v13, BytesPerRowOfPlane, v16, BaseAddressOfPlane, v12, *(v4 + 224), *(v4 + 280), v59, *(v4 + 136), HIDWORD(*(v4 + 136)), *(v4 + 144), HIDWORD(*(v4 + 136)), *(v4 + 152), *(v4 + 160));
+  Blending_start_v2(*(v4 + 216), *(v4 + 288), a2, *v4, *&v55, 0.0, v54, v14, v13, BytesPerRowOfPlane, v16, *(v4 + 108), BaseAddressOfPlane, v12, *(v4 + 224), *(v4 + 280), v59, *(v4 + 136), HIDWORD(*(v4 + 136)), *(v4 + 144), HIDWORD(*(v4 + 136)), *(v4 + 152), *(v4 + 160));
   v56 = valuePtr;
   v57 = ACT_getHostTime();
   ACTLogMessageImp(1, "{Blending%d|Blending_startTook:%f}", v56, v57 - v53);
@@ -8653,7 +8661,7 @@ double BlendingDefaults_copy(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t getPointersFromGeometry(uint64_t a1, uint64_t a2, int *a3, _DWORD *a4, int *a5, _DWORD *a6, int a7, void *a8, _DWORD *a9, _DWORD *a10)
+uint64_t getPointersFromGeometry(uint64_t a1, uint64_t a2, int *a3, _DWORD *a4, int *a5, _DWORD *a6, unsigned int a7, void *a8, _DWORD *a9, _DWORD *a10)
 {
   if (a7 >= 1)
   {
@@ -8741,8 +8749,11 @@ uint64_t blockyfyGeometry(int a1, int a2, int a3, char a4, int a5, char a6, _DWO
   return 0;
 }
 
-_DWORD *FastFilter_constructor(unsigned int a1, unsigned int a2, unsigned int a3)
+_DWORD *FastFilter_constructor(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a3;
+  v4 = a2;
+  v5 = a1;
   v6 = malloc_type_calloc(1uLL, 0x68uLL, 0x103004088C62291uLL);
   v7 = v6;
   if (!v6)
@@ -8750,16 +8761,16 @@ _DWORD *FastFilter_constructor(unsigned int a1, unsigned int a2, unsigned int a3
     goto LABEL_10;
   }
 
-  v6[7] = a2;
-  v6[8] = a3;
-  v6[9] = a1;
+  v6[7] = v4;
+  v6[8] = v3;
+  v6[9] = v5;
   v6[1] = -1;
   v6[2] = -1;
   *(v6 + 6) = -1;
-  v8 = (boxFilter_uint8_init(a1, a2, a3) & 0x80000000) != 0 ? 0 : boxFilter_uint8_init(a1, a2, a3);
-  if (v7[3] == -1 && v8 <= horTentFilter_uint8_init(a1, a2, a3))
+  v8 = (boxFilter_uint8_init(v5, v4, v3) & 0x80000000) != 0 ? 0 : boxFilter_uint8_init(v5, v4, v3);
+  if (v7[3] == -1 && v8 <= horTentFilter_uint8_init(v5, v4, v3))
   {
-    v8 = horTentFilter_uint8_init(a1, a2, a3);
+    v8 = horTentFilter_uint8_init(v5, v4, v3);
   }
 
   if (v8)
@@ -8872,7 +8883,7 @@ uint64_t FastFilter_allocFilterSpecificData(uint64_t a1, int a2)
   return 0;
 }
 
-uint64_t FastFilter_execute(uint64_t a1, int a2, CVPixelBufferRef pixelBuffer, __CVBuffer *a4, uint64_t a5, uint64_t a6, vImagePixelCount a7, vImagePixelCount a8)
+vImage_Error FastFilter_execute(uint64_t a1, int a2, CVPixelBufferRef pixelBuffer, __CVBuffer *a4, uint64_t a5, uint64_t a6, vImagePixelCount a7, vImagePixelCount a8)
 {
   if (a2 == 2)
   {
@@ -8921,7 +8932,7 @@ vImage_Error FastFilter_BoxFilter(uint64_t a1, CVPixelBufferRef pixelBuffer, __C
   return result;
 }
 
-uint64_t FastFilter_HorTentFilter(uint64_t a1, __CVBuffer *a2, __CVBuffer *a3, uint64_t a4, uint64_t a5, vImagePixelCount a6, vImagePixelCount a7)
+vImage_Error FastFilter_HorTentFilter(uint64_t a1, __CVBuffer *a2, __CVBuffer *a3, uint64_t a4, uint64_t a5, vImagePixelCount a6, vImagePixelCount a7)
 {
   if (*(a1 + 80) != 1)
   {
@@ -8972,7 +8983,7 @@ vImage_Error FastFilter_HorTentFilterByResampling(uint64_t a1, CVPixelBufferRef 
   return result;
 }
 
-void *FastFilter_HorBoxFilterAndSubsampling(uint64_t a1, CVPixelBufferRef pixelBuffer, unint64_t a3, uint64_t a4, unint64_t a5, uint64_t a6)
+char *FastFilter_HorBoxFilterAndSubsampling(uint64_t a1, CVPixelBufferRef pixelBuffer, unint64_t a3, uint64_t a4, unint64_t a5, uint64_t a6)
 {
   BytesPerRowOfPlane = CVPixelBufferGetBytesPerRowOfPlane(pixelBuffer, 0);
   v13 = CVPixelBufferGetBytesPerRowOfPlane(*(a1 + 88), 0);
@@ -8981,7 +8992,7 @@ void *FastFilter_HorBoxFilterAndSubsampling(uint64_t a1, CVPixelBufferRef pixelB
   if (a6)
   {
     v16 = 0;
-    v17 = result + v13 * a4 + (a3 >> 3);
+    v17 = &result[v13 * a4 + (a3 >> 3)];
     v18 = &BaseAddressOfPlane[BytesPerRowOfPlane * a4 + a3];
     do
     {
@@ -8996,7 +9007,7 @@ void *FastFilter_HorBoxFilterAndSubsampling(uint64_t a1, CVPixelBufferRef pixelB
 
           v27 = vmovl_u8(*&v18[v19]);
           v27.i16[0] = vaddvq_s16(v27);
-          *(v17 + v20++) = v27.i32[0] >> 3;
+          v17[v20++] = v27.i32[0] >> 3;
           v19 += 8;
         }
 
@@ -9605,8 +9616,8 @@ LABEL_13:
 
 uint64_t ACT_FigSampleBufferProcessorStartPanoramaCaptureWithMetadata(uint64_t a1, const void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
-  Storage = sbp_pano_getStorage();
+  v19 = *MEMORY[0x277D85DE8];
+  Storage = sbp_pano_getStorage(a1);
   if (*(Storage + 196))
   {
     return 0xFFFFFFFFLL;
@@ -9622,14 +9633,14 @@ uint64_t ACT_FigSampleBufferProcessorStartPanoramaCaptureWithMetadata(uint64_t a
   {
     if (!*(Storage + 456))
     {
-      v18 = 0;
-      v19 = 0;
+      v16 = 0;
       v17 = 0;
+      v15 = 0;
       v6 = CFCalendarCreateWithIdentifier(*MEMORY[0x277CBECE8], *MEMORY[0x277CBEE80]);
       Current = CFAbsoluteTimeGetCurrent();
-      CFCalendarDecomposeAbsoluteTime(v6, Current, "yMdHms", &v19 + 4, &v19, &v18 + 4, &v18, &v17 + 4, &v17);
+      CFCalendarDecomposeAbsoluteTime(v6, Current, "yMdHms", &v17 + 4, &v17, &v16 + 4, &v16, &v15 + 4, &v15);
       CFRelease(v6);
-      snprintf((v4 + 456), 0x100uLL, "/var/mobile/Library/Caches/com.apple.camera/Pano_%d-%d-%d_%d-%d-%d", HIDWORD(v19), v19, HIDWORD(v18), v18, HIDWORD(v17), v17);
+      snprintf((v4 + 456), 0x100uLL, "/var/mobile/Library/Caches/com.apple.camera/Pano_%d-%d-%d_%d-%d-%d", HIDWORD(v17), v17, HIDWORD(v16), v16, HIDWORD(v15), v15);
       if (mkdir((v4 + 456), 0x1FFu) == -1)
       {
         bzero(__filename, 0x400uLL);
@@ -9684,252 +9695,270 @@ uint64_t ACT_FigSampleBufferProcessorStartPanoramaCaptureWithMetadata(uint64_t a
   ACTLogMessageImp(1, "{Default|direction:%d}\n", v10);
   setACTRegistrationDirection(*(v4 + 432), *(v4 + 164));
   setPanoramaDirection(*(v4 + 424));
-  v14 = *(v4 + 864);
-  if (v14)
+  v12 = *(v4 + 864);
+  if (v12)
   {
-    RobustPano_setDirection(v14, *(v4 + 164), v12, v13);
+    RobustPano_setDirection(v12, *(v4 + 164));
   }
 
-  v15 = 0.0;
+  v13 = 0.0;
   if (*(v4 + 164) == 2)
   {
-    v15 = *(v4 + 312);
+    v13 = *(v4 + 312);
   }
 
-  *(v4 + 264) = v15;
-  *(v4 + 268) = v15;
+  *(v4 + 264) = v13;
+  *(v4 + 268) = v13;
   *(v4 + 196) = 1;
   if (!a2)
   {
     return 0;
   }
 
-  v16 = CFRetain(a2);
+  v14 = CFRetain(a2);
   result = 0;
-  *(v4 + 720) = v16;
+  *(v4 + 720) = v14;
   return result;
 }
 
-uint64_t ACT_FigSampleBufferProcessorStopPanoramaCapture()
+uint64_t ACT_FigSampleBufferProcessorStopPanoramaCapture(uint64_t a1)
 {
-  Storage = sbp_pano_getStorage();
-  v1 = *(Storage + 864);
-  if (v1)
+  Storage = sbp_pano_getStorage(a1);
+  v2 = *(Storage + 864);
+  if (v2)
   {
-    RobustPano_stopCapture(v1);
+    RobustPano_stopCapture(v2);
   }
 
   return LegacyPano_stopCapture(Storage);
 }
 
-uint64_t ACT_FigSampleBufferProcessorCreateForPanoramaWithOptions(uint64_t a1, const __CFDictionary *a2, void *a3)
+uint64_t ACT_FigSampleBufferProcessorCreateForPanoramaWithOptions(uint64_t a1, const __CFDictionary *a2, CFTypeRef *a3)
 {
-  if (a2 && a3)
+  if (a2)
   {
-    valuePtr = getCFPreferenceFloat(@"ACTPanoramaPreviewScale", @"com.apple.act", 0.066667);
-    Value = CFDictionaryGetValue(a2, @"ACTPanoramaPreviewScale");
-    if (Value)
+    if (a3)
     {
-      CFNumberGetValue(Value, kCFNumberFloatType, &valuePtr);
-    }
-
-    v11 = 10800;
-    v12 = 0;
-    v6 = CFDictionaryGetValue(a2, @"ACTFrameWidth");
-    if (v6)
-    {
-      CFNumberGetValue(v6, kCFNumberIntType, &v12);
-      v7 = CFDictionaryGetValue(a2, @"ACTPanoramaMaxWidth");
-      if (v7)
+      valuePtr = getCFPreferenceFloat(@"ACTPanoramaPreviewScale", @"com.apple.act", 0.066667);
+      Value = CFDictionaryGetValue(a2, @"ACTPanoramaPreviewScale");
+      if (Value)
       {
-        CFNumberGetValue(v7, kCFNumberIntType, &v11);
-        v8 = v11;
+        CFNumberGetValue(Value, kCFNumberFloatType, &valuePtr);
+      }
+
+      v15 = 10800;
+      v16 = 0;
+      v7 = CFDictionaryGetValue(a2, @"ACTFrameWidth");
+      if (!v7)
+      {
+        return 0xFFFFFFFFLL;
+      }
+
+      CFNumberGetValue(v7, kCFNumberIntType, &v16);
+      v8 = CFDictionaryGetValue(a2, @"ACTPanoramaMaxWidth");
+      if (v8)
+      {
+        CFNumberGetValue(v8, kCFNumberIntType, &v15);
+        v9 = v15;
       }
 
       else
       {
-        v8 = 10800;
+        v9 = 10800;
       }
 
-      CFPreferenceNumber = getCFPreferenceNumber(@"ACTPanoramaMaxWidth", @"com.apple.act", v8);
-      v11 = CFPreferenceNumber;
-      return ACT_FigSampleBufferProcessorCreateForPanoramaWithOptionsAndPreviewSize((valuePtr * CFPreferenceNumber), (valuePtr * v12), CFPreferenceNumber, a2, a3);
+      CFPreferenceNumber = getCFPreferenceNumber(@"ACTPanoramaMaxWidth", @"com.apple.act", v9);
+      v15 = CFPreferenceNumber;
+      return ACT_FigSampleBufferProcessorCreateForPanoramaWithOptionsAndPreviewSize((valuePtr * CFPreferenceNumber), (valuePtr * v16), CFPreferenceNumber, a2, a3);
     }
 
-    else
-    {
-      return 0xFFFFFFFFLL;
-    }
+    emitter = fig_log_get_emitter();
+    v11 = v3;
+    v12 = 1201;
   }
 
   else
   {
-    fig_log_get_emitter();
-
-    return FigSignalErrorAtGM();
+    emitter = fig_log_get_emitter();
+    v11 = v3;
+    v12 = 1198;
   }
+
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294954516, "(Fig)", v12, v11);
 }
 
-uint64_t ACT_FigSampleBufferProcessorCreateForPanoramaWithOptionsAndPreviewSize(double a1, double a2, uint64_t a3, const __CFDictionary *a4, void *a5)
+uint64_t ACT_FigSampleBufferProcessorCreateForPanoramaWithOptionsAndPreviewSize(double a1, double a2, uint64_t a3, const __CFDictionary *a4, CFTypeRef *a5)
 {
-  v9 = MGCopyAnswer();
-  v53 = 0;
-  if (v9 == *MEMORY[0x277CBED10])
+  v10 = MGCopyAnswer();
+  v55 = 0;
+  if (v10 == *MEMORY[0x277CBED10])
   {
-    v10 = MGCopyAnswer();
-    v11 = *MEMORY[0x277CBED28];
-    CFRelease(v10);
-    if (v10 != v11)
+    v11 = MGCopyAnswer();
+    v12 = *MEMORY[0x277CBED28];
+    CFRelease(v11);
+    if (v11 != v12)
     {
-      v14 = 0;
-      v45 = 0xFFFFFFFFLL;
-LABEL_40:
-      if (v9)
+      v15 = 0;
+      v47 = 0xFFFFFFFFLL;
+LABEL_41:
+      if (v10)
       {
-        CFRelease(v9);
+        CFRelease(v10);
       }
 
-      if (v14)
+      if (v15)
       {
-        CFRelease(v14);
+        CFRelease(v15);
       }
 
-      if (v53)
+      if (v55)
       {
-        CFRelease(v53);
+        CFRelease(v55);
       }
 
-      return v45;
+      return v47;
     }
   }
 
-  if (a4 && a5)
+  if (a4)
   {
-    FigSampleBufferProcessorGetClassID();
-    v12 = CMDerivedObjectCreate();
-    if (v12)
+    if (a5)
     {
-      v45 = v12;
-      v14 = 0;
-    }
-
-    else
-    {
-      v13 = ACT_CopyDefaultConfigurationForPanorama();
-      v14 = v13;
-      v16 = v13 && (Value = CFDictionaryGetValue(v13, @"ACTPanoramaRobustPano")) != 0 && CFBooleanGetValue(Value) != 0;
-      CFPreferenceNumber = getCFPreferenceNumber(@"robustPano.enable", @"com.apple.act", v16);
-      Storage = sbp_pano_getStorage(v53);
-      bzero(Storage, 0x400uLL);
-      *(Storage + 872) = CFPreferenceNumber > 0;
-      LegacyPano_createProcessor(v53, a4, a1, a2);
-      *a5 = v53;
-      v53 = 0;
-      if (CFPreferenceNumber >= 1)
+      FigSampleBufferProcessorGetClassID();
+      v13 = CMDerivedObjectCreate();
+      if (v13)
       {
-        v52 = 0;
-        v50 = 0u;
-        v51 = 0u;
-        valuePtr = 0u;
-        v49 = 0u;
-        v19 = CFDictionaryGetValue(a4, @"ACTFrameWidth");
-        if (v19)
+        v47 = v13;
+        v15 = 0;
+      }
+
+      else
+      {
+        v14 = ACT_CopyDefaultConfigurationForPanorama();
+        v15 = v14;
+        v17 = v14 && (Value = CFDictionaryGetValue(v14, @"ACTPanoramaRobustPano")) != 0 && CFBooleanGetValue(Value) != 0;
+        CFPreferenceNumber = getCFPreferenceNumber(@"robustPano.enable", @"com.apple.act", v17);
+        Storage = sbp_pano_getStorage(v55);
+        bzero(Storage, 0x400uLL);
+        *(Storage + 872) = CFPreferenceNumber > 0;
+        LegacyPano_createProcessor(v55, a4, a1, a2);
+        *a5 = v55;
+        v55 = 0;
+        if (CFPreferenceNumber >= 1)
         {
-          if (CFNumberGetValue(v19, kCFNumberCFIndexType, &valuePtr))
+          v54 = 0;
+          v52 = 0u;
+          v53 = 0u;
+          valuePtr = 0u;
+          v51 = 0u;
+          v23 = CFDictionaryGetValue(a4, @"ACTFrameWidth");
+          if (v23)
           {
-            v20 = CFDictionaryGetValue(a4, @"ACTFrameHeight");
-            if (v20)
+            if (CFNumberGetValue(v23, kCFNumberCFIndexType, &valuePtr))
             {
-              if (CFNumberGetValue(v20, kCFNumberCFIndexType, &valuePtr + 8))
+              v24 = CFDictionaryGetValue(a4, @"ACTFrameHeight");
+              if (v24)
               {
-                v21 = CFDictionaryGetValue(a4, @"ACTPanoramaTranslationCorrection");
-                if (v21)
+                if (CFNumberGetValue(v24, kCFNumberCFIndexType, &valuePtr + 8))
                 {
-                  v22 = v21;
-                  v23 = CFDictionaryGetValue(v21, @"movingAverageFilterSize");
-                  CFNumberGetValue(v23, kCFNumberIntType, &v50 + 4);
-                  v24 = CFDictionaryGetValue(v22, @"referenceMeanStartingFrame");
-                  CFNumberGetValue(v24, kCFNumberIntType, &v50 + 8);
-                  v25 = CFDictionaryGetValue(v22, @"atlasTranslationShiftLowThreshold");
-                  CFNumberGetValue(v25, kCFNumberFloat32Type, &v50 + 12);
-                  v26 = CFDictionaryGetValue(v22, @"atlasTranslationShiftHighThreshold");
-                  CFNumberGetValue(v26, kCFNumberFloat32Type, &v51);
-                  v27 = CFDictionaryGetValue(v22, @"atlasTranslationCorrectionStrength");
-                  CFNumberGetValue(v27, kCFNumberFloat32Type, &v51 + 4);
-                  v28 = v50;
-                }
+                  v25 = CFDictionaryGetValue(a4, @"ACTPanoramaTranslationCorrection");
+                  if (v25)
+                  {
+                    v26 = v25;
+                    v27 = CFDictionaryGetValue(v25, @"movingAverageFilterSize");
+                    CFNumberGetValue(v27, kCFNumberIntType, &v52 + 4);
+                    v28 = CFDictionaryGetValue(v26, @"referenceMeanStartingFrame");
+                    CFNumberGetValue(v28, kCFNumberIntType, &v52 + 8);
+                    v29 = CFDictionaryGetValue(v26, @"atlasTranslationShiftLowThreshold");
+                    CFNumberGetValue(v29, kCFNumberFloat32Type, &v52 + 12);
+                    v30 = CFDictionaryGetValue(v26, @"atlasTranslationShiftHighThreshold");
+                    CFNumberGetValue(v30, kCFNumberFloat32Type, &v53);
+                    v31 = CFDictionaryGetValue(v26, @"atlasTranslationCorrectionStrength");
+                    CFNumberGetValue(v31, kCFNumberFloat32Type, &v53 + 4);
+                    v32 = v52;
+                  }
 
-                else
-                {
-                  v28 = 0;
-                  LOBYTE(v50) = 0;
-                }
+                  else
+                  {
+                    v32 = 0;
+                    LOBYTE(v52) = 0;
+                  }
 
-                LODWORD(v46[0]) = 0;
-                LOBYTE(v50) = getCFPreferenceNumber(@"enableTranslationCorrection", @"com.apple.act", v28) > 0;
-                v54 = 0.0;
-                v30 = CFDictionaryGetValue(v14, @"ACTPanoramaVerticalDriftFilterWeight");
-                if (v30)
-                {
-                  CFNumberGetValue(v30, kCFNumberFloat32Type, &v54);
-                  v31 = v54;
-                }
+                  LODWORD(v48[0]) = 0;
+                  LOBYTE(v52) = getCFPreferenceNumber(@"enableTranslationCorrection", @"com.apple.act", v32) > 0;
+                  v56 = 0.0;
+                  v34 = CFDictionaryGetValue(v15, @"ACTPanoramaVerticalDriftFilterWeight");
+                  if (v34)
+                  {
+                    CFNumberGetValue(v34, kCFNumberFloat32Type, &v56);
+                    v35 = v56;
+                  }
 
-                else
-                {
-                  v31 = 0.0;
-                }
+                  else
+                  {
+                    v35 = 0.0;
+                  }
 
-                DWORD2(v51) = getCFPreferenceFloat(@"ACTPanoramaVerticalDriftFilterWeight", @"com.apple.act", v31);
-                if (v54 > 0.0)
-                {
-                  LOBYTE(v50) = 0;
-                }
+                  DWORD2(v53) = getCFPreferenceFloat(@"ACTPanoramaVerticalDriftFilterWeight", @"com.apple.act", v35);
+                  if (v56 > 0.0)
+                  {
+                    LOBYTE(v52) = 0;
+                  }
 
-                v32 = CFDictionaryGetValue(v14, @"ACTPanoramaRobustPanoNRFUsePanoType");
-                v33 = v32 && CFBooleanGetValue(v32);
-                BYTE12(v51) = v33;
-                v34 = CFDictionaryGetValue(v14, @"ACTPanoramaRobustPanoDisableCropping");
-                v35 = v34 && CFBooleanGetValue(v34);
-                BYTE13(v51) = v35;
-                v36 = *(Storage + 328);
-                *&valuePtr = *(Storage + 336);
-                *(&valuePtr + 1) = v36;
-                v37 = CFDictionaryGetValue(v14, @"ACTPanoramaMaxWidth");
-                v38 = CFNumberGetValue(v37, kCFNumberIntType, v46);
-                v39 = SLODWORD(v46[0]);
-                if (!v38)
-                {
-                  v39 = 0x4000;
-                }
+                  v36 = CFDictionaryGetValue(v15, @"ACTPanoramaRobustPanoNRFUsePanoType");
+                  v37 = v36 && CFBooleanGetValue(v36);
+                  BYTE12(v53) = v37;
+                  v38 = CFDictionaryGetValue(v15, @"ACTPanoramaRobustPanoDisableCropping");
+                  v39 = v38 && CFBooleanGetValue(v38);
+                  BYTE13(v53) = v39;
+                  v40 = *(Storage + 328);
+                  *&valuePtr = *(Storage + 336);
+                  *(&valuePtr + 1) = v40;
+                  v41 = CFDictionaryGetValue(v15, @"ACTPanoramaMaxWidth");
+                  v42 = CFNumberGetValue(v41, kCFNumberIntType, v48);
+                  v43 = SLODWORD(v48[0]);
+                  if (!v42)
+                  {
+                    v43 = 0x4000;
+                  }
 
-                *&v49 = 16 * ((valuePtr * 1.1 + 15.0) * 0.0625);
-                *(&v49 + 1) = v39;
+                  *&v51 = 16 * ((valuePtr * 1.1 + 15.0) * 0.0625);
+                  *(&v51 + 1) = v43;
+                }
               }
             }
           }
+
+          v44 = getCFPreferenceNumber(@"robustPano.disableCropping", @"com.apple.act", 0) > 0;
+          *(Storage + 421) = v44;
+          BYTE13(v53) = v44;
+          v48[2] = v52;
+          v48[3] = v53;
+          v49 = v54;
+          v48[0] = valuePtr;
+          v48[1] = v51;
+          Processor = RobustPano_createProcessor(v48);
+          *(Storage + 864) = Processor;
+          RobustPano_reset(Processor, v46);
         }
 
-        v40 = getCFPreferenceNumber(@"robustPano.disableCropping", @"com.apple.act", 0) > 0;
-        *(Storage + 421) = v40;
-        BYTE13(v51) = v40;
-        v46[2] = v50;
-        v46[3] = v51;
-        v47 = v52;
-        v46[0] = valuePtr;
-        v46[1] = v49;
-        Processor = RobustPano_createProcessor(v46);
-        *(Storage + 864) = Processor;
-        RobustPano_reset(Processor, v42, v43, v44);
+        v47 = 0;
       }
 
-      v45 = 0;
+      goto LABEL_41;
     }
 
-    goto LABEL_40;
+    emitter = fig_log_get_emitter();
+    v19 = v5;
+    v20 = 1252;
   }
 
-  fig_log_get_emitter();
+  else
+  {
+    emitter = fig_log_get_emitter();
+    v19 = v5;
+    v20 = 1249;
+  }
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294954516, "(Fig)", v20, v19);
 }

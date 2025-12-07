@@ -3,12 +3,16 @@
 - (BOOL)isForeground;
 - (FPDProcessMonitor)initWithExcludedBundleIDs:(id)ds;
 - (FPDProcessMonitorDelegate)delegate;
+- (id)_bundleIDForPID:(int)d;
 - (id)description;
 - (id)prettyDescription;
+- (void)_addPIDToObserve:(int)observe;
 - (void)_configureAppMonitor:(id)monitor;
 - (void)_createMonitor;
 - (void)_handleProcessStateUpdate:(id)update;
 - (void)_invalidate;
+- (void)_removePIDToObserve:(int)observe;
+- (void)_startMonitoringAndSendInitialNotificationForPID:(int)d;
 - (void)_updateMonitoredBundleIDs;
 - (void)addPIDToObserve:(int)observe;
 - (void)addPIDToObserveSync:(int)sync;
@@ -232,6 +236,35 @@ void __42__FPDProcessMonitor__configureAppMonitor___block_invoke_2(uint64_t a1, 
   }
 }
 
+- (id)_bundleIDForPID:(int)d
+{
+  v3 = MEMORY[0x1E69C75D0];
+  v4 = MEMORY[0x1E69C7610];
+  v5 = [MEMORY[0x1E69C7640] targetWithPid:*&d];
+  v6 = [v4 predicateMatchingTarget:v5];
+  v7 = [v3 handleForPredicate:v6 error:0];
+
+  currentState = [v7 currentState];
+  bundle = [v7 bundle];
+  identifier = [bundle identifier];
+
+  return identifier;
+}
+
+- (void)_startMonitoringAndSendInitialNotificationForPID:(int)d
+{
+  v3 = *&d;
+  v5 = MEMORY[0x1E69C75D0];
+  v6 = MEMORY[0x1E69C7610];
+  v7 = [MEMORY[0x1E69C7640] targetWithPid:?];
+  v8 = [v6 predicateMatchingTarget:v7];
+  v10 = [v5 handleForPredicate:v8 error:0];
+
+  currentState = [v10 currentState];
+  [(FPDProcessMonitor *)self process:v3 didBecomeForeground:[(FPDProcessMonitor *)self _isProcessForeground:currentState]];
+  [(FPDProcessMonitor *)self _updateMonitoredBundleIDs];
+}
+
 - (void)_invalidate
 {
   [(RBSProcessMonitor *)self->_monitor invalidate];
@@ -239,10 +272,72 @@ void __42__FPDProcessMonitor__configureAppMonitor___block_invoke_2(uint64_t a1, 
   self->_monitor = 0;
 }
 
+- (void)_addPIDToObserve:(int)observe
+{
+  v3 = *&observe;
+  dispatch_assert_queue_V2(self->_notificationQueue);
+  v5 = [MEMORY[0x1E696AD98] numberWithInt:v3];
+  if ([(NSCountedSet *)self->_pids countForObject:v5])
+  {
+    v6 = 0;
+  }
+
+  else
+  {
+    v7 = [(NSMutableDictionary *)self->_bundleIDForPID objectForKeyedSubscript:v5];
+
+    if (v7)
+    {
+      v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[ASSERT] ‼️ state machine is broken"];
+      v11 = fp_current_or_default_log();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+      {
+        [(FPDProcessMonitor *)v10 _addPIDToObserve:v11];
+      }
+
+      __assert_rtn("-[FPDProcessMonitor _addPIDToObserve:]", "/Library/Caches/com.apple.xbs/Sources/FileProviderTools/fileproviderd/FPDProcessMonitor.m", 276, [v10 UTF8String]);
+    }
+
+    v8 = [(FPDProcessMonitor *)self _bundleIDForPID:v3];
+    if (v8)
+    {
+      v6 = v8;
+      [(NSMutableDictionary *)self->_bundleIDForPID setObject:v8 forKeyedSubscript:v5];
+      if (![(NSSet *)self->_excludedBundleIDs containsObject:v6])
+      {
+        [(NSCountedSet *)self->_bundleIDs addObject:v6];
+        [(NSCountedSet *)self->_pids addObject:v5];
+        [(FPDProcessMonitor *)self _startMonitoringAndSendInitialNotificationForPID:v3];
+        goto LABEL_13;
+      }
+
+      v9 = fp_current_or_default_log();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      {
+        [(FPDProcessMonitor *)v3 _addPIDToObserve:v9];
+      }
+    }
+
+    else
+    {
+      v9 = fp_current_or_default_log();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      {
+        [(FPDProcessMonitor *)v3 _addPIDToObserve:v9];
+      }
+
+      v6 = 0;
+    }
+  }
+
+  [(NSCountedSet *)self->_pids addObject:v5];
+LABEL_13:
+}
+
 - (void)process:(int)process didBecomeForeground:(BOOL)foreground
 {
   foregroundCopy = foreground;
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   bundleIDForPID = self->_bundleIDForPID;
   v8 = [MEMORY[0x1E696AD98] numberWithInt:?];
   v9 = [(NSMutableDictionary *)bundleIDForPID objectForKeyedSubscript:v8];
@@ -253,20 +348,20 @@ void __42__FPDProcessMonitor__configureAppMonitor___block_invoke_2(uint64_t a1, 
     v11 = fp_current_or_default_log();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      v18 = @"background";
+      v17 = @"background";
       *buf = 134218754;
-      v20 = section;
-      v21 = 2112;
+      v19 = section;
+      v20 = 2112;
       if (foregroundCopy)
       {
-        v18 = @"foreground";
+        v17 = @"foreground";
       }
 
       selfCopy = self;
-      v23 = 1024;
+      v22 = 1024;
       processCopy = process;
-      v25 = 2112;
-      v26 = v18;
+      v24 = 2112;
+      v25 = v17;
       _os_log_debug_impl(&dword_1CEFC7000, v11, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx received a notif for %@ that [%d] became %@", buf, 0x26u);
     }
 
@@ -295,8 +390,6 @@ void __42__FPDProcessMonitor__configureAppMonitor___block_invoke_2(uint64_t a1, 
 
     __fp_leave_section_Debug();
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addPIDToObserve:(int)observe
@@ -330,6 +423,60 @@ void __42__FPDProcessMonitor__configureAppMonitor___block_invoke_2(uint64_t a1, 
     v6[4] = self;
     syncCopy = sync;
     dispatch_sync(notificationQueue, v6);
+  }
+}
+
+- (void)_removePIDToObserve:(int)observe
+{
+  v3 = *&observe;
+  dispatch_assert_queue_V2(self->_notificationQueue);
+  v11 = [MEMORY[0x1E696AD98] numberWithInt:v3];
+  if (![(NSCountedSet *)self->_pids countForObject:?])
+  {
+    v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[ASSERT] ‼️ removed an object that wasn't observed %@", v11];
+    v10 = fp_current_or_default_log();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+    {
+      [(FPDProcessMonitor *)v9 _addPIDToObserve:v10];
+    }
+
+    __assert_rtn("-[FPDProcessMonitor _removePIDToObserve:]", "/Library/Caches/com.apple.xbs/Sources/FileProviderTools/fileproviderd/FPDProcessMonitor.m", 359, [v9 UTF8String]);
+  }
+
+  [(NSCountedSet *)self->_pids removeObject:v11];
+  if (![(NSCountedSet *)self->_pids countForObject:v11])
+  {
+    v5 = [(NSMutableDictionary *)self->_bundleIDForPID objectForKeyedSubscript:v11];
+    if (v5)
+    {
+      [(NSMutableDictionary *)self->_bundleIDForPID setObject:0 forKeyedSubscript:v11];
+      [(NSCountedSet *)self->_bundleIDs removeObject:v5];
+      if (![(NSCountedSet *)self->_bundleIDs countForObject:v5])
+      {
+        selfCopy = self;
+        objc_sync_enter(selfCopy);
+        if ([(NSMutableSet *)selfCopy->_foregroundBundleIDs count])
+        {
+          [(NSMutableSet *)selfCopy->_foregroundBundleIDs removeObject:v5];
+          v7 = [(NSMutableSet *)selfCopy->_foregroundBundleIDs count];
+          objc_sync_exit(selfCopy);
+
+          [(FPDProcessMonitor *)selfCopy _stopMonitoringPID:v3];
+          if (!v7)
+          {
+            delegate = [(FPDProcessMonitor *)selfCopy delegate];
+            [delegate processMonitor:selfCopy didBecomeForeground:0];
+          }
+        }
+
+        else
+        {
+          objc_sync_exit(selfCopy);
+
+          [(FPDProcessMonitor *)selfCopy _stopMonitoringPID:v3];
+        }
+      }
+    }
   }
 }
 
@@ -391,29 +538,26 @@ void __33__FPDProcessMonitor_setDelegate___block_invoke(uint64_t a1)
 
 - (void)_addPIDToObserve:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_fault_impl(&dword_1CEFC7000, a2, OS_LOG_TYPE_FAULT, "[CRIT] %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_fault_impl(&dword_1CEFC7000, a2, OS_LOG_TYPE_FAULT, "[CRIT] %{public}@", &v2, 0xCu);
 }
 
 - (void)_addPIDToObserve:(int)a1 .cold.2(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_debug_impl(&dword_1CEFC7000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] bundle is excluded %d", v3, 8u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_debug_impl(&dword_1CEFC7000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] bundle is excluded %d", v2, 8u);
 }
 
 - (void)_addPIDToObserve:(int)a1 .cold.3(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_debug_impl(&dword_1CEFC7000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] no bundle ID for %d", v3, 8u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_debug_impl(&dword_1CEFC7000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] no bundle ID for %d", v2, 8u);
 }
 
 @end

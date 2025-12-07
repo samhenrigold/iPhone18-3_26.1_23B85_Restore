@@ -7,9 +7,8 @@ void ___NETRBClientSetFixtureForwardedPorts_block_invoke(uint64_t a1)
 {
   if (__NETRBClientValidateClient(*(a1 + 48)))
   {
-    v8 = *(a1 + 48);
+    NETRBErrorLog("invalid client %p");
 LABEL_3:
-    NETRBErrorLog();
     *(*(*(a1 + 32) + 8) + 24) = 0;
     return;
   }
@@ -17,6 +16,7 @@ LABEL_3:
   v2 = xpc_dictionary_create(0, 0, 0);
   if (!v2)
   {
+    NETRBErrorLog("xpc_dictionary_create() failed");
     goto LABEL_3;
   }
 
@@ -29,21 +29,19 @@ LABEL_3:
   v6 = netrbXPCForwardedHighPort;
   v7 = xpc_dictionary_get_uint64(*(a1 + 56), netrbClientForwardedHighPort);
   xpc_dictionary_set_uint64(v3, v6, v7);
-  v9 = *(a1 + 48);
-  NETRBInfoLog();
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 0x40000000;
-  v10[2] = ___NETRBClientSetFixtureForwardedPorts_block_invoke_2;
-  v10[3] = &unk_279967630;
-  v11 = *(a1 + 40);
-  *(*(*(a1 + 32) + 8) + 24) = NETRBXPCSetupAndSend(0, v3, v10);
+  NETRBInfoLog("client %p xpc send -> set forwarded ports", *(a1 + 48));
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 0x40000000;
+  v8[2] = ___NETRBClientSetFixtureForwardedPorts_block_invoke_2;
+  v8[3] = &unk_279967630;
+  v9 = *(a1 + 40);
+  *(*(*(a1 + 32) + 8) + 24) = NETRBXPCSetupAndSend(0, v3, v8);
   xpc_release(v3);
 }
 
 uint64_t ___NETRBClientSetFixtureForwardedPorts_block_invoke_2(uint64_t a1, void *a2)
 {
-  v5 = *(a1 + 40);
-  result = NETRBInfoLog();
+  result = NETRBInfoLog("client %p set forwarded ports xpc response received", *(a1 + 40));
   if (a2)
   {
     result = xpc_dictionary_get_uint64(a2, netrbXPCResponse);

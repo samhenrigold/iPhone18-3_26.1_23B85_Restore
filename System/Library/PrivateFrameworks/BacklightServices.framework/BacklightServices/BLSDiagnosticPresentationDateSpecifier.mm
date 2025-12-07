@@ -158,8 +158,8 @@ uint64_t __64__BLSDiagnosticPresentationDateSpecifier_initWithXPCDictionary___bl
   v5 = BSCreateDeserializedBSXPCEncodableObjectFromXPCDictionary();
   if (!v5)
   {
-    v6 = bls_diagnostics_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+    v7 = bls_diagnostics_log(0);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
       __64__BLSDiagnosticPresentationDateSpecifier_initWithXPCDictionary___block_invoke_cold_2();
     }
@@ -168,10 +168,11 @@ uint64_t __64__BLSDiagnosticPresentationDateSpecifier_initWithXPCDictionary___bl
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v6 = bls_diagnostics_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+    v7 = bls_diagnostics_log(isKindOfClass);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
       __64__BLSDiagnosticPresentationDateSpecifier_initWithXPCDictionary___block_invoke_cold_1();
     }
@@ -194,21 +195,20 @@ LABEL_9:
   [(NSDate *)self->_presentationDate timeIntervalSinceReferenceDate];
   xpc_dictionary_set_double(xdict, uTF8String, v5);
   [@"specifiers" UTF8String];
-  specifiers = self->_specifiers;
   BSSerializeArrayOfBSXPCEncodableObjectsToXPCDictionaryWithKey();
 }
 
 - (BLSDiagnosticPresentationDateSpecifier)initWithCoder:(id)coder
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"presentationDate"];
   if (v5)
   {
     v6 = MEMORY[0x277CBEB98];
-    v13[0] = objc_opt_class();
-    v13[1] = objc_opt_class();
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
+    v12[0] = objc_opt_class();
+    v12[1] = objc_opt_class();
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
     v8 = [v6 setWithArray:v7];
     v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"specifiers"];
 
@@ -218,7 +218,7 @@ LABEL_9:
 
   else
   {
-    v9 = bls_diagnostics_log();
+    v9 = bls_diagnostics_log(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
       [BLSDiagnosticPresentationDateSpecifier initWithCoder:];
@@ -227,7 +227,6 @@ LABEL_9:
     selfCopy = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -241,28 +240,11 @@ LABEL_9:
 
 void __64__BLSDiagnosticPresentationDateSpecifier_initWithXPCDictionary___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_3();
-  v4 = 2114;
-  v5 = v0;
-  _os_log_fault_impl(&dword_21FE25000, v1, OS_LOG_TYPE_FAULT, "decoded object:%{public}@ for %{public}@ is not a BLSDiagnosticEnvironmentDateSpecifier class", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-void __64__BLSDiagnosticPresentationDateSpecifier_initWithXPCDictionary___block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_0_5(&dword_21FE25000, v0, v1, "unable to decode specifiers for %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initWithCoder:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_0_5(&dword_21FE25000, v0, v1, "invalid date from %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v3 = 2114;
+  v4 = v0;
+  _os_log_fault_impl(&dword_21FE25000, v1, OS_LOG_TYPE_FAULT, "decoded object:%{public}@ for %{public}@ is not a BLSDiagnosticEnvironmentDateSpecifier class", v2, 0x16u);
 }
 
 @end

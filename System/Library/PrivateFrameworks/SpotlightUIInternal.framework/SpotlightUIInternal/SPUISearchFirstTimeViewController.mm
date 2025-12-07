@@ -12,7 +12,7 @@
 
 + (int64_t)viewCount
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.spotlightui"];
   if ([v2 integerForKey:@"SPUISearchFirstTimeLastOSVersionUsed"] <= 15)
   {
@@ -20,8 +20,8 @@
     v4 = processInfo;
     if (processInfo)
     {
-      [processInfo operatingSystemVersion];
-      v5 = v12;
+      objc_msgSend_operatingSystemVersion(processInfo);
+      v5 = v11;
     }
 
     else
@@ -50,13 +50,12 @@
   if (os_log_type_enabled(v7, v9))
   {
     *buf = 138412546;
-    v14 = v2;
-    v15 = 2048;
-    v16 = v6;
+    v13 = v2;
+    v14 = 2048;
+    v15 = v6;
     _os_log_impl(&dword_26B837000, v8, v9, "[FTE] count from new prefs (%@) is: %ld", buf, 0x16u);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -123,7 +122,7 @@
 
 + (void)updateViewCountToCount:(int64_t)count
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.spotlightui"];
   [v4 setInteger:count forKey:@"SPUISearchFirstTimeShowCount"];
   v5 = SPLogForSPLogCategoryDefault();
@@ -140,15 +139,14 @@
 
   if (os_log_type_enabled(v5, v7))
   {
-    v9 = 138412546;
-    v10 = v4;
-    v11 = 2048;
+    v8 = 138412546;
+    v9 = v4;
+    v10 = 2048;
     countCopy = count;
-    _os_log_impl(&dword_26B837000, v6, v7, "[FTE] updating view count in %@ to: %ld", &v9, 0x16u);
+    _os_log_impl(&dword_26B837000, v6, v7, "[FTE] updating view count in %@ to: %ld", &v8, 0x16u);
   }
 
   notify_post("com.apple.spotlightui.prefschanged");
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)useZKWFTE

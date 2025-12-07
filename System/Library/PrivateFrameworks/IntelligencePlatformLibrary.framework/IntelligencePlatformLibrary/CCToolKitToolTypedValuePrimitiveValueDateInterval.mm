@@ -252,9 +252,9 @@ LABEL_21:
         {
           v28 = [CCToolKitToolTimestamp alloc];
           v25 = CCPBReaderReadDataNoCopy();
-          v42 = 0;
-          v26 = [(CCItemMessage *)v28 initWithData:v25 error:&v42];
-          v9 = v42;
+          v40 = 0;
+          v26 = [(CCItemMessage *)v28 initWithData:v25 error:&v40];
+          v9 = v40;
           v27 = 32;
           goto LABEL_26;
         }
@@ -263,9 +263,9 @@ LABEL_21:
         {
           v24 = [CCToolKitToolTimestamp alloc];
           v25 = CCPBReaderReadDataNoCopy();
-          v43 = 0;
-          v26 = [(CCItemMessage *)v24 initWithData:v25 error:&v43];
-          v9 = v43;
+          v41 = 0;
+          v26 = [(CCItemMessage *)v24 initWithData:v25 error:&v41];
+          v9 = v41;
           v27 = 24;
 LABEL_26:
           v29 = *(&self->super.super.isa + v27);
@@ -279,7 +279,6 @@ LABEL_27:
         {
           v33 = objc_opt_class();
           v25 = NSStringFromClass(v33);
-          v34 = *&v5[*v8];
           v9 = CCSkipFieldErrorForMessage();
           goto LABEL_27;
         }
@@ -307,23 +306,22 @@ LABEL_39:
   if (!*&v5[*v8])
   {
     v9 = 0;
-    v39 = 1;
+    v37 = 1;
     goto LABEL_43;
   }
 
 LABEL_40:
-  v35 = objc_opt_class();
-  v36 = NSStringFromClass(v35);
-  v37 = *&v5[*v8];
-  v38 = CCInvalidBufferErrorForMessage();
+  v34 = objc_opt_class();
+  v35 = NSStringFromClass(v34);
+  v36 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
   v9 = 0;
 LABEL_41:
-  v39 = 0;
+  v37 = 0;
 LABEL_43:
 
-  return v39;
+  return v37;
 }
 
 - (CCToolKitToolTypedValuePrimitiveValueDateInterval)initWithStart:(id)start end:(id)end duration:(id)duration error:(id *)error

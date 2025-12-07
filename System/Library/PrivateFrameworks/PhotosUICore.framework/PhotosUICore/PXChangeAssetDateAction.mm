@@ -125,11 +125,11 @@ uint64_t __39__PXChangeAssetDateAction_performUndo___block_invoke(id *a1)
   [(PXPhotosAction *)self performChanges:v12 completionHandler:actionCopy];
 }
 
-uint64_t __41__PXChangeAssetDateAction_performAction___block_invoke(uint64_t a1)
+uint64_t __41__PXChangeAssetDateAction_performAction___block_invoke(id *a1)
 {
   v7 = *MEMORY[0x1E69E9840];
   memset(v5, 0, sizeof(v5));
-  obj = *(a1 + 32);
+  obj = a1[4];
   if ([obj countByEnumeratingWithState:v5 objects:v6 count:16])
   {
     v2 = **(&v5[0] + 1);
@@ -140,8 +140,8 @@ uint64_t __41__PXChangeAssetDateAction_performAction___block_invoke(uint64_t a1)
     PXDateClampedToGregorianCalendar();
   }
 
-  [*(a1 + 56) setOriginalDateByLocalIdentifier:*(a1 + 40)];
-  return [*(a1 + 56) setOriginalTimeZoneByLocalIdentifier:*(a1 + 48)];
+  [a1[7] setOriginalDateByLocalIdentifier:a1[5]];
+  return [a1[7] setOriginalTimeZoneByLocalIdentifier:a1[6]];
 }
 
 - (PXChangeAssetDateAction)initWithAssets:(id)assets dateOffset:(double)offset timeZone:(id)zone

@@ -26,9 +26,9 @@
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
   v5 = NSStringFromTSUCellCoord();
-  v9 = objc_msgSend_stringWithFormat_(v3, v6, @"%@ mergeSource: %@ mergeRegion: %@", v7, v8, v4, v5, self->_mergeRegion);
+  v8 = objc_msgSend_stringWithFormat_(v3, v6, @"%@ mergeSource: %@ mergeRegion: %@", v7, v4, v5, self->_mergeRegion);
 
-  return v9;
+  return v8;
 }
 
 @end

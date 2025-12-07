@@ -16,11 +16,11 @@
 
 - (id)_dictionaryRepresentation
 {
-  v14[4] = *MEMORY[0x1E69E9840];
-  v13[0] = @"reactionType";
+  v13[4] = *MEMORY[0x1E69E9840];
+  v12[0] = @"reactionType";
   v3 = [MEMORY[0x1E696AD98] numberWithInteger:self->_reactionType];
-  v14[0] = v3;
-  v13[1] = @"reactionDescription";
+  v13[0] = v3;
+  v12[1] = @"reactionDescription";
   reactionDescription = self->_reactionDescription;
   null = reactionDescription;
   if (!reactionDescription)
@@ -28,8 +28,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v14[1] = null;
-  v13[2] = @"emoji";
+  v13[1] = null;
+  v12[2] = @"emoji";
   emoji = self->_emoji;
   null2 = emoji;
   if (!emoji)
@@ -37,8 +37,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v14[2] = null2;
-  v13[3] = @"sticker";
+  v13[2] = null2;
+  v12[3] = @"sticker";
   sticker = self->_sticker;
   null3 = sticker;
   if (!sticker)
@@ -46,8 +46,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v14[3] = null3;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:4];
+  v13[3] = null3;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:4];
   if (sticker)
   {
     if (emoji)
@@ -79,7 +79,6 @@ LABEL_9:
 LABEL_15:
 
 LABEL_10:
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

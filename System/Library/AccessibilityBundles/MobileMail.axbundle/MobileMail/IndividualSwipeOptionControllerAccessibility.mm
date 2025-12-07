@@ -6,24 +6,22 @@
 
 - (void)tableView:(id)view willDisplayCell:(id)cell forRowAtIndexPath:(id)path
 {
-  v12.receiver = self;
-  v12.super_class = IndividualSwipeOptionControllerAccessibility;
+  v10.receiver = self;
+  v10.super_class = IndividualSwipeOptionControllerAccessibility;
   cellCopy = cell;
-  [(IndividualSwipeOptionControllerAccessibility *)&v12 tableView:view willDisplayCell:cellCopy forRowAtIndexPath:path];
+  [(IndividualSwipeOptionControllerAccessibility *)&v10 tableView:view willDisplayCell:cellCopy forRowAtIndexPath:path];
   textLabel = [cellCopy textLabel];
-  isEnabled = [textLabel isEnabled];
-  v10 = *MEMORY[0x29EDC7FA8];
-  if (isEnabled)
+  if ([textLabel isEnabled])
   {
-    v11 = 0;
+    v9 = 0;
   }
 
   else
   {
-    v11 = *MEMORY[0x29EDC7FA8];
+    v9 = *MEMORY[0x29EDC7FA8];
   }
 
-  [cellCopy setAccessibilityTraits:v11];
+  [cellCopy setAccessibilityTraits:v9];
 }
 
 @end

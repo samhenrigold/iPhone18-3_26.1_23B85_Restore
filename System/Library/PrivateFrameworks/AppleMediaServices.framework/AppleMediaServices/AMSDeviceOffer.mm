@@ -175,7 +175,7 @@ LABEL_15:
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0 || ([MEMORY[0x1E695DFD8] setWithArray:v25], (v26 = objc_claimAutoreleasedReturnValue()) == 0))
       {
-        v27 = [dictionaryCopy objectForKeyedSubscript:{@"serialNumber", *v33}];
+        v27 = [dictionaryCopy objectForKeyedSubscript:{@"serialNumber", *v33, *&v33[8]}];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -259,7 +259,7 @@ LABEL_49:
 
   else
   {
-    v7 = unk_1F07D08C8(AMSDeviceOfferIdentifieriCloud, "lowercaseString");
+    v7 = unk_1F07D13D0(AMSDeviceOfferIdentifieriCloud, "lowercaseString");
     v8 = [lowercaseString isEqualToString:v7];
 
     if (v8)

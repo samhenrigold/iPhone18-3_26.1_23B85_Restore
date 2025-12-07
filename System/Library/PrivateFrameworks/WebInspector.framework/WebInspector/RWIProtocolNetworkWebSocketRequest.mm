@@ -44,7 +44,7 @@
     v11.receiver = self;
     v11.super_class = RWIProtocolNetworkWebSocketRequest;
     v5 = [(RWIProtocolJSONObject *)&v11 objectForKey:@"headers"];
-    [v5 toJSONObject];
+    objc_msgSend_toJSONObject(v5);
     v6 = v12;
     ++*v12;
     v13 = v6;

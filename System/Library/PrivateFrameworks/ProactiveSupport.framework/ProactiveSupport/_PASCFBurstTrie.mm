@@ -15,16 +15,12 @@
     return 0;
   }
 
-  trie = self->_trie;
   if (CFBurstTrieContainsUTF8String())
   {
     return 0;
   }
 
-  else
-  {
-    return 0;
-  }
+  return 0;
 }
 
 - (unsigned)payloadForString:(id)string range:(_NSRange)range
@@ -37,33 +33,29 @@
 
 - (unsigned)payloadForString:(id)string
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   stringCopy = string;
-  v5 = [(__CFString *)stringCopy length];
+  v4 = [(__CFString *)stringCopy length];
   if (CFStringGetCStringPtr(stringCopy, 0x600u))
   {
-    trie = self->_trie;
-LABEL_3:
-    CFBurstTrieContainsUTF8String();
-    goto LABEL_4;
+    goto LABEL_2;
   }
 
-  if (v5 <= 0xFF && [(__CFString *)stringCopy getCString:__s maxLength:385 encoding:4])
+  if (v4 <= 0xFF && [(__CFString *)stringCopy getCString:__s maxLength:385 encoding:4])
   {
-    v9 = self->_trie;
     strlen(__s);
+LABEL_2:
+    CFBurstTrieContainsUTF8String();
     goto LABEL_3;
   }
 
   if (stringCopy)
   {
-    v10 = self->_trie;
     CFBurstTrieContains();
   }
 
-LABEL_4:
+LABEL_3:
 
-  v7 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -81,7 +73,7 @@ LABEL_4:
 
 - (_PASCFBurstTrie)initWithPath:(id)path
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   if (!pathCopy)
   {
@@ -89,15 +81,15 @@ LABEL_4:
     [currentHandler handleFailureInMethod:a2 object:self file:@"_PASCFBurstTrie.m" lineNumber:30 description:{@"Invalid parameter not satisfying: %@", @"path"}];
   }
 
-  v12.receiver = self;
-  v12.super_class = _PASCFBurstTrie;
-  v6 = [(_PASCFBurstTrie *)&v12 init];
+  v11.receiver = self;
+  v11.super_class = _PASCFBurstTrie;
+  v6 = [(_PASCFBurstTrie *)&v11 init];
   if (v6 && (v7 = CFBurstTrieCreateFromFile(), (v6->_trie = v7) == 0))
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v14 = pathCopy;
+      v13 = pathCopy;
       _os_log_error_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Could not open trie: %@", buf, 0xCu);
     }
 
@@ -109,7 +101,6 @@ LABEL_4:
     v8 = v6;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v8;
 }
 

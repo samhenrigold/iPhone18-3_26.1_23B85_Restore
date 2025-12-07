@@ -47,7 +47,7 @@
 {
   height = size.height;
   width = size.width;
-  v20[2] = *MEMORY[0x277D85DE8];
+  v19[2] = *MEMORY[0x277D85DE8];
   idCopy = id;
   if (attributes)
   {
@@ -70,19 +70,17 @@
     v11 = &stru_286C69F68;
   }
 
-  v19[0] = @"cid";
-  v19[1] = @"size";
-  v20[0] = v11;
+  v18[0] = @"cid";
+  v18[1] = @"size";
+  v19[0] = v11;
   v12 = [MEMORY[0x277CCAE60] valueWithCGSize:{width, height}];
-  v20[1] = v12;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
+  v19[1] = v12;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
   [v10 setObject:v13 forKeyedSubscript:@"NNMKInlineImage"];
 
   v14 = objc_alloc(MEMORY[0x277CCA898]);
   65532 = [MEMORY[0x277CCACA8] stringWithFormat:@"%C", 65532];
   v16 = [v14 initWithString:65532 attributes:v10];
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -337,9 +335,9 @@
 
 - (void)_addDataDetectionAttributes:(id)attributes
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   attributesCopy = attributes;
-  v28 = 0;
+  v27 = 0;
   v4 = DDScannerCreate();
   if (v4)
   {
@@ -347,30 +345,30 @@
     [attributesCopy string];
     if (DDScannerScanString())
     {
+      v23 = 0u;
       v24 = 0u;
       v25 = 0u;
       v26 = 0u;
-      v27 = 0u;
       v6 = DDScannerCopyResultsWithOptions();
-      v7 = [v6 countByEnumeratingWithState:&v24 objects:v29 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v23 objects:v28 count:16];
       if (v7)
       {
         v8 = v7;
         cf = v5;
-        v23 = attributesCopy;
+        v22 = attributesCopy;
         v9 = 0;
-        v10 = *v25;
+        v10 = *v24;
         v11 = *MEMORY[0x277D041D8];
         do
         {
           for (i = 0; i != v8; ++i)
           {
-            if (*v25 != v10)
+            if (*v24 != v10)
             {
               objc_enumerationMutation(v6);
             }
 
-            v13 = *(*(&v24 + 1) + 8 * i);
+            v13 = *(*(&v23 + 1) + 8 * i);
             Category = DDResultGetCategory();
             Range = DDResultGetRange();
             if ((Category - 1) <= 2)
@@ -378,22 +376,22 @@
               v17 = Range;
               v18 = v16;
               v19 = [MEMORY[0x277D04218] resultFromCoreResult:{v13, cf}];
-              [v23 addAttribute:v11 value:v19 range:{v17, v18}];
+              [v22 addAttribute:v11 value:v19 range:{v17, v18}];
 
               v9 = 1;
             }
           }
 
-          v8 = [v6 countByEnumeratingWithState:&v24 objects:v29 count:16];
+          v8 = [v6 countByEnumeratingWithState:&v23 objects:v28 count:16];
         }
 
         while (v8);
 
         CFRelease(cf);
-        attributesCopy = v23;
+        attributesCopy = v22;
         if (v9)
         {
-          [v23 dd_replaceResultAttributesWithSimpleLinksForTypes:7 context:0];
+          [v22 dd_replaceResultAttributesWithSimpleLinksForTypes:7 context:0];
         }
 
         goto LABEL_19;
@@ -407,11 +405,10 @@
   v20 = __logCategories;
   if (os_log_type_enabled(__logCategories, OS_LOG_TYPE_ERROR))
   {
-    [(NNMKContentAttributedStringHTMLParser *)v20 _addDataDetectionAttributes:v28];
+    [(NNMKContentAttributedStringHTMLParser *)v20 _addDataDetectionAttributes:v27];
   }
 
 LABEL_19:
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_appendComponentWithKey:(id)key from:(id)from to:(id)to
@@ -561,37 +558,37 @@ LABEL_28:
 
 - (BOOL)isWebLink:(id)link
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   linkCopy = link;
   dataDetector = [(NNMKContentAttributedStringHTMLParser *)self dataDetector];
   v6 = [dataDetector matchesInString:linkCopy options:0 range:{0, objc_msgSend(linkCopy, "length")}];
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v7 = v6;
-  v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v8)
   {
-    v9 = *v14;
+    v9 = *v13;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        if ([*(*(&v13 + 1) + 8 * i) resultType] == 32)
+        if ([*(*(&v12 + 1) + 8 * i) resultType] == 32)
         {
           LOBYTE(v8) = 1;
           goto LABEL_11;
         }
       }
 
-      v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v8)
       {
         continue;
@@ -603,29 +600,25 @@ LABEL_28:
 
 LABEL_11:
 
-  v11 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (void)dataDetector
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
   selfCopy = self;
-  _os_log_error_impl(&dword_25B19F000, a2, OS_LOG_TYPE_ERROR, "Error instantiating NSDataDetector: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_25B19F000, a2, OS_LOG_TYPE_ERROR, "Error instantiating NSDataDetector: %{public}@", &v2, 0xCu);
 }
 
 - (void)_addDataDetectionAttributes:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 description];
-  v6 = 138412290;
-  v7 = v4;
-  _os_log_error_impl(&dword_25B19F000, v3, OS_LOG_TYPE_ERROR, "Unable to create DDScanner: %@", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138412290;
+  v6 = v4;
+  _os_log_error_impl(&dword_25B19F000, v3, OS_LOG_TYPE_ERROR, "Unable to create DDScanner: %@", &v5, 0xCu);
 }
 
 @end

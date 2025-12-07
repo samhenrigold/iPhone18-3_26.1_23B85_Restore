@@ -24,8 +24,6 @@
 - (id)_snapshotRequestForOptions:(unint64_t)options screen:(id)screen levelSet:(id)set;
 - (id)_updateContentStyleWithAppearance:(id)appearance;
 - (id)executeSceneSnapshotForDefinition:(id)definition options:(unint64_t)options;
-- (uint64_t)deviceMotionController:(uint64_t)controller didUpdateMotionWithRotation:(_OWORD *)rotation;
-- (uint64_t)updateMotionWithRotation:(_OWORD *)rotation;
 - (unint64_t)supportedInterfaceOrientations;
 - (void)_beginExecutingSnapshotsIfNeeded;
 - (void)_createPosterScene;
@@ -46,6 +44,7 @@
 - (void)addTransition:(id)transition;
 - (void)applyVisualEffect:(id)effect;
 - (void)dealloc;
+- (void)deviceMotionController:(uint64_t)controller didUpdateMotionWithRotation:(_OWORD *)rotation;
 - (void)didMoveToParentViewController:(id)controller;
 - (void)registerPosterAppearanceObserver:(id)observer;
 - (void)scene:(id)scene clientDidConnect:(id)connect;
@@ -73,6 +72,7 @@
 - (void)transitionDidEnd:(id)end;
 - (void)transitionDidUpdate:(id)update;
 - (void)updateLayoutForChangedObscuredSubviewBounds;
+- (void)updateMotionWithRotation:(_OWORD *)rotation;
 - (void)userTapEventOccurredWithLocation:(CGPoint)location;
 - (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidDisappear:(BOOL)disappear;
@@ -93,7 +93,7 @@
   contextCopy = context;
   v11 = [v9 unarchiveConfigurationAtURL:lCopy format:-1 error:&v16];
   v12 = v16;
-  v13 = PRUISLogRendering();
+  v13 = PRUISLogRendering(v12);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
     [PRUISPosterRenderingViewController initWithArchivedConfigurationURL:context:boundingShape:];
@@ -105,7 +105,7 @@
 
 - (PRUISPosterRenderingViewController)initWithPosterContents:(id)contents context:(id)context boundingShape:(int64_t)shape extensionInstance:(id)instance snapshotController:(id)controller initialSnapshotBundle:(id)bundle renderingMode:(unint64_t)mode snapshotDefinition:(id)self0
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   contentsCopy = contents;
   contextCopy = context;
   instanceCopy = instance;
@@ -114,15 +114,15 @@
   v20 = contentsCopy;
   v21 = bundleCopy;
   definitionCopy = definition;
-  v48.receiver = self;
-  v48.super_class = PRUISPosterRenderingViewController;
-  v22 = [(PRUISPosterRenderingViewController *)&v48 initWithNibName:0 bundle:0];
+  v49.receiver = self;
+  v49.super_class = PRUISPosterRenderingViewController;
+  v22 = [(PRUISPosterRenderingViewController *)&v49 initWithNibName:0 bundle:0];
   if (!v22)
   {
     goto LABEL_26;
   }
 
-  v44 = v20;
+  v45 = v20;
   _path = [v20 _path];
   NSClassFromString(&cfstr_Pfserverposter.isa);
   if (!_path)
@@ -160,7 +160,7 @@
 
   else
   {
-    instance = [v44 role];
+    instance = [v45 role];
     if ([instance isEqualToString:*MEMORY[0x1E69C5218]])
     {
       v28 = +[PRUISPosterSnapshotController sharedIncomingCallSnapshotController];
@@ -201,13 +201,13 @@
   deviceMotionController = v22->_deviceMotionController;
   v22->_deviceMotionController = v35;
 
-  [(PRUISDeviceMotionController *)v22->_deviceMotionController setDelegate:v22];
+  v37 = [(PRUISDeviceMotionController *)v22->_deviceMotionController setDelegate:v22];
   if (v21)
   {
-    v37 = [(PRUISPosterRenderingViewController *)v22 _buildSnapshotImageViewsFromBundle:v22->_initialSnapshotBundle];
+    _createPosterScene = [(PRUISPosterRenderingViewController *)v22 _buildSnapshotImageViewsFromBundle:v22->_initialSnapshotBundle];
     if (mode == 3)
     {
-      if (v37)
+      if (_createPosterScene)
       {
         goto LABEL_23;
       }
@@ -217,15 +217,15 @@
 
 LABEL_22:
     v22->_renderingMode = mode;
-    [(PRUISPosterRenderingViewController *)v22 _createPosterScene];
+    _createPosterScene = [(PRUISPosterRenderingViewController *)v22 _createPosterScene];
     goto LABEL_23;
   }
 
-  v38 = PRUISLogRendering();
-  if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+  v39 = PRUISLogRendering(v37);
+  if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1CAE63000, v38, OS_LOG_TYPE_DEFAULT, "Initial snapshot bundle was nil, not building snapshot image views", buf, 2u);
+    _os_log_impl(&dword_1CAE63000, v39, OS_LOG_TYPE_DEFAULT, "Initial snapshot bundle was nil, not building snapshot image views", buf, 2u);
   }
 
   if (mode != 3)
@@ -239,21 +239,21 @@ LABEL_21:
   v22->_pendTransitionToRenderingModeOnViewDidAppear = &unk_1F4AE1E20;
 
 LABEL_23:
-  v40 = PRUISLogRendering();
-  if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+  v41 = PRUISLogRendering(_createPosterScene);
+  if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
   {
-    v41 = objc_opt_class();
-    v42 = NSStringFromClass(v41);
+    v42 = objc_opt_class();
+    v43 = NSStringFromClass(v42);
     *buf = 138543874;
-    v50 = v42;
-    v51 = 2050;
-    v52 = v22;
-    v53 = 2048;
-    v54 = v44;
-    _os_log_impl(&dword_1CAE63000, v40, OS_LOG_TYPE_DEFAULT, "<%{public}@:%{public}p> init. contents: <%p>", buf, 0x20u);
+    v51 = v43;
+    v52 = 2050;
+    v53 = v22;
+    v54 = 2048;
+    v55 = v45;
+    _os_log_impl(&dword_1CAE63000, v41, OS_LOG_TYPE_DEFAULT, "<%{public}@:%{public}p> init. contents: <%p>", buf, 0x20u);
   }
 
-  v20 = v44;
+  v20 = v45;
 LABEL_26:
 
   return v22;
@@ -353,7 +353,7 @@ LABEL_26:
 - (void)dealloc
 {
   v14 = *MEMORY[0x1E69E9840];
-  v3 = PRUISLogRendering();
+  v3 = PRUISLogRendering(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = objc_opt_class();
@@ -380,20 +380,20 @@ LABEL_26:
 
 - (void)viewDidDisappear:(BOOL)disappear
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v7.receiver = self;
-  v7.super_class = PRUISPosterRenderingViewController;
-  [(PRUISPosterRenderingViewController *)&v7 viewDidDisappear:disappear];
-  v4 = PRUISLogRendering();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v13 = *MEMORY[0x1E69E9840];
+  v8.receiver = self;
+  v8.super_class = PRUISPosterRenderingViewController;
+  v4 = [(PRUISPosterRenderingViewController *)&v8 viewDidDisappear:disappear];
+  v5 = PRUISLogRendering(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = objc_opt_class();
-    v6 = NSStringFromClass(v5);
+    v6 = objc_opt_class();
+    v7 = NSStringFromClass(v6);
     *buf = 138543618;
-    v9 = v6;
-    v10 = 2050;
+    v10 = v7;
+    v11 = 2050;
     selfCopy = self;
-    _os_log_impl(&dword_1CAE63000, v4, OS_LOG_TYPE_DEFAULT, "<%{public}@:%{public}p> viewDidDisappear", buf, 0x16u);
+    _os_log_impl(&dword_1CAE63000, v5, OS_LOG_TYPE_DEFAULT, "<%{public}@:%{public}p> viewDidDisappear", buf, 0x16u);
   }
 }
 
@@ -403,18 +403,18 @@ LABEL_26:
   v3 = NSStringFromClass(v2);
   view = [self view];
   [view frame];
-  v5 = NSStringFromCGRect(v15);
+  v5 = NSStringFromCGRect(v14);
   view2 = [self view];
   [view2 bounds];
-  v7 = NSStringFromCGRect(v16);
+  v7 = NSStringFromCGRect(v15);
   OUTLINED_FUNCTION_11();
   OUTLINED_FUNCTION_7();
-  OUTLINED_FUNCTION_13(&dword_1CAE63000, v8, v9, "<%{public}@:%{public}p> begin viewDidLayoutSubviews, view.frame: %{public}@, view.bounds: %{public}@", v10, v11, v12, v13, v14);
+  OUTLINED_FUNCTION_13(&dword_1CAE63000, v8, v9, "<%{public}@:%{public}p> begin viewDidLayoutSubviews, view.frame: %{public}@, view.bounds: %{public}@", v10, v11, v12, v13);
 }
 
 void __59__PRUISPosterRenderingViewController_viewDidLayoutSubviews__block_invoke(uint64_t a1)
 {
-  v2 = PRUISLogRendering();
+  v2 = PRUISLogRendering(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __59__PRUISPosterRenderingViewController_viewDidLayoutSubviews__block_invoke_cold_1(a1);
@@ -428,7 +428,7 @@ void __59__PRUISPosterRenderingViewController_viewDidLayoutSubviews__block_invok
   [(PRUISPosterRenderingViewController *)&v15 viewDidLoad];
   view = [(PRUISPosterRenderingViewController *)self view];
   [view setBackgroundColor:self->_viewBackgroundColor];
-  [(PRUISPosterRenderingViewController *)self renderingMetrics];
+  objc_msgSend_renderingMetrics(self);
   _contentViewCoordinator = [(PRUISPosterRenderingViewController *)self _contentViewCoordinator];
   obscurableContentView = [_contentViewCoordinator obscurableContentView];
 
@@ -549,7 +549,7 @@ void __59__PRUISPosterRenderingViewController_viewDidLayoutSubviews__block_invok
   }
 
   self->_activeOrientation = _toWindowOrientation;
-  [(PRUISPosterRenderingViewController *)self renderingMetrics];
+  objc_msgSend_renderingMetrics(self);
   v15 = v22;
   v14 = v23;
   if (coordinatorCopy)
@@ -589,7 +589,7 @@ void __59__PRUISPosterRenderingViewController_viewDidLayoutSubviews__block_invok
   contentViewCoordinator = self->_contentViewCoordinator;
   if (!contentViewCoordinator)
   {
-    [(PRUISPosterRenderingViewController *)self renderingMetrics];
+    objc_msgSend_renderingMetrics(self, a2);
     v4 = [[PRUISPosterContentViewCoordinator alloc] initWithBounds:v8, v9, v10, v11];
     v5 = self->_contentViewCoordinator;
     self->_contentViewCoordinator = v4;
@@ -667,11 +667,11 @@ void __66__PRUISPosterRenderingViewController__presentationContextModifier__bloc
 
 - (void)_setRenderingMode:(unint64_t)mode canUseInitialSnapshotBundle:(BOOL)bundle
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   if (mode >= 4)
   {
-    v8 = PRUISLogRendering();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = PRUISLogRendering(self);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [PRUISPosterRenderingViewController _setRenderingMode:canUseInitialSnapshotBundle:];
     }
@@ -683,10 +683,11 @@ void __66__PRUISPosterRenderingViewController__presentationContextModifier__bloc
   pendTransitionToRenderingModeOnViewDidAppear = self->_pendTransitionToRenderingModeOnViewDidAppear;
   if (pendTransitionToRenderingModeOnViewDidAppear)
   {
-    if ([(NSNumber *)pendTransitionToRenderingModeOnViewDidAppear unsignedIntegerValue]== mode)
+    unsignedIntegerValue = [(NSNumber *)pendTransitionToRenderingModeOnViewDidAppear unsignedIntegerValue];
+    if (unsignedIntegerValue == mode)
     {
-      v8 = PRUISLogRendering();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = PRUISLogRendering(unsignedIntegerValue);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         [PRUISPosterRenderingViewController _setRenderingMode:canUseInitialSnapshotBundle:];
       }
@@ -694,25 +695,25 @@ void __66__PRUISPosterRenderingViewController__presentationContextModifier__bloc
       goto LABEL_8;
     }
 
-    v9 = self->_pendTransitionToRenderingModeOnViewDidAppear;
+    v10 = self->_pendTransitionToRenderingModeOnViewDidAppear;
   }
 
   else
   {
-    v9 = 0;
+    v10 = 0;
   }
 
   self->_pendTransitionToRenderingModeOnViewDidAppear = 0;
 
-  if (self->_renderingMode != mode || v9 != 0)
+  if (self->_renderingMode != mode || v10 != 0)
   {
     aBlock[0] = MEMORY[0x1E69E9820];
     aBlock[1] = 3221225472;
     aBlock[2] = __84__PRUISPosterRenderingViewController__setRenderingMode_canUseInitialSnapshotBundle___block_invoke;
     aBlock[3] = &unk_1E83A7C18;
     aBlock[4] = self;
-    v11 = _Block_copy(aBlock);
-    v8 = v11;
+    v12 = _Block_copy(aBlock);
+    v9 = v12;
     if (mode != 3)
     {
       if (!self->_scene)
@@ -720,31 +721,31 @@ void __66__PRUISPosterRenderingViewController__presentationContextModifier__bloc
         [(PRUISPosterRenderingViewController *)self _createPosterScene];
       }
 
-      (*(v8 + 16))(v8, mode);
+      (*(v9 + 16))(v9, mode);
       goto LABEL_8;
     }
 
-    v39[0] = MEMORY[0x1E69E9820];
-    v39[1] = 3221225472;
-    v39[2] = __84__PRUISPosterRenderingViewController__setRenderingMode_canUseInitialSnapshotBundle___block_invoke_88;
-    v39[3] = &unk_1E83A7C40;
-    v39[4] = self;
-    v12 = v11;
-    v40 = v12;
-    v41 = 3;
-    v13 = _Block_copy(v39);
-    v38[0] = MEMORY[0x1E69E9820];
-    v38[1] = 3221225472;
-    v38[2] = __84__PRUISPosterRenderingViewController__setRenderingMode_canUseInitialSnapshotBundle___block_invoke_90;
-    v38[3] = &unk_1E83A7C68;
-    v38[4] = self;
-    v14 = _Block_copy(v38);
+    v41[0] = MEMORY[0x1E69E9820];
+    v41[1] = 3221225472;
+    v41[2] = __84__PRUISPosterRenderingViewController__setRenderingMode_canUseInitialSnapshotBundle___block_invoke_88;
+    v41[3] = &unk_1E83A7C40;
+    v41[4] = self;
+    v13 = v12;
+    v42 = v13;
+    v43 = 3;
+    v14 = _Block_copy(v41);
+    v40[0] = MEMORY[0x1E69E9820];
+    v40[1] = 3221225472;
+    v40[2] = __84__PRUISPosterRenderingViewController__setRenderingMode_canUseInitialSnapshotBundle___block_invoke_90;
+    v40[3] = &unk_1E83A7C68;
+    v40[4] = self;
+    v15 = _Block_copy(v40);
     if (bundleCopy)
     {
       initialSnapshotBundle = self->_initialSnapshotBundle;
       if (initialSnapshotBundle)
       {
-        if ((*(v13 + 2))(v13, initialSnapshotBundle, @"Will continue by trying to take a snapshot..."))
+        if ((*(v14 + 2))(v14, initialSnapshotBundle, @"Will continue by trying to take a snapshot..."))
         {
 
           goto LABEL_41;
@@ -755,92 +756,93 @@ void __66__PRUISPosterRenderingViewController__presentationContextModifier__bloc
     snapshotDefinition = [(PRUISPosterRenderingViewController *)self snapshotDefinition];
     if (snapshotDefinition)
     {
-      if ([(PRUISPosterRenderingViewController *)self _isSceneContentReady])
+      _isSceneContentReady = [(PRUISPosterRenderingViewController *)self _isSceneContentReady];
+      if (_isSceneContentReady)
       {
-        v17 = PRUISLogRendering();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+        v19 = PRUISLogRendering(_isSceneContentReady);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
-          v18 = objc_opt_class();
-          v19 = NSStringFromClass(v18);
+          v20 = objc_opt_class();
+          v21 = NSStringFromClass(v20);
           *buf = 138543618;
-          v44 = v19;
-          v45 = 2050;
+          v46 = v21;
+          v47 = 2050;
           selfCopy2 = self;
-          _os_log_impl(&dword_1CAE63000, v17, OS_LOG_TYPE_DEFAULT, "<%{public}@:%{public}p> Capturing snapshot using the content-ready scene.", buf, 0x16u);
+          _os_log_impl(&dword_1CAE63000, v19, OS_LOG_TYPE_DEFAULT, "<%{public}@:%{public}p> Capturing snapshot using the content-ready scene.", buf, 0x16u);
         }
 
-        v20 = [(PRUISPosterRenderingViewController *)self executeSceneSnapshotForDefinition:snapshotDefinition options:2];
+        v22 = [(PRUISPosterRenderingViewController *)self executeSceneSnapshotForDefinition:snapshotDefinition options:2];
+        v37[0] = MEMORY[0x1E69E9820];
+        v37[1] = 3221225472;
+        v37[2] = __84__PRUISPosterRenderingViewController__setRenderingMode_canUseInitialSnapshotBundle___block_invoke_99;
+        v37[3] = &unk_1E83A7C90;
+        v37[4] = self;
+        v38 = v14;
+        v39 = v15;
         v35[0] = MEMORY[0x1E69E9820];
         v35[1] = 3221225472;
-        v35[2] = __84__PRUISPosterRenderingViewController__setRenderingMode_canUseInitialSnapshotBundle___block_invoke_99;
-        v35[3] = &unk_1E83A7C90;
+        v35[2] = __84__PRUISPosterRenderingViewController__setRenderingMode_canUseInitialSnapshotBundle___block_invoke_107;
+        v35[3] = &unk_1E83A7CB8;
         v35[4] = self;
-        v36 = v13;
-        v37 = v14;
-        v33[0] = MEMORY[0x1E69E9820];
-        v33[1] = 3221225472;
-        v33[2] = __84__PRUISPosterRenderingViewController__setRenderingMode_canUseInitialSnapshotBundle___block_invoke_107;
-        v33[3] = &unk_1E83A7CB8;
-        v33[4] = self;
-        v34 = v37;
+        v36 = v39;
         mainThreadScheduler = [MEMORY[0x1E69C5268] mainThreadScheduler];
-        [v20 addSuccessBlock:v35 andFailureBlock:v33 scheduler:mainThreadScheduler];
+        [v22 addSuccessBlock:v37 andFailureBlock:v35 scheduler:mainThreadScheduler];
 
-        v22 = v36;
+        v24 = v38;
 LABEL_36:
 
         goto LABEL_40;
       }
 
       snapshotController = self->_snapshotController;
-      v25 = PRUISLogRendering();
-      v26 = v25;
+      v27 = PRUISLogRendering(_isSceneContentReady);
+      v28 = v27;
       if (snapshotController)
       {
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
         {
-          v27 = objc_opt_class();
-          v28 = NSStringFromClass(v27);
+          v29 = objc_opt_class();
+          v30 = NSStringFromClass(v29);
           *buf = 138543618;
-          v44 = v28;
-          v45 = 2050;
+          v46 = v30;
+          v47 = 2050;
           selfCopy2 = self;
-          _os_log_impl(&dword_1CAE63000, v26, OS_LOG_TYPE_DEFAULT, "<%{public}@:%{public}p> Capturing snapshot using the snapshot controller.", buf, 0x16u);
+          _os_log_impl(&dword_1CAE63000, v28, OS_LOG_TYPE_DEFAULT, "<%{public}@:%{public}p> Capturing snapshot using the snapshot controller.", buf, 0x16u);
         }
 
-        v20 = [(UIViewController *)self pruis_snapshotRequestForDefinition:snapshotDefinition interfaceOrientation:self->_activeOrientation bounds:0 screen:self->_posterContents posterContents:*MEMORY[0x1E695F050], *(MEMORY[0x1E695F050] + 8), *(MEMORY[0x1E695F050] + 16), *(MEMORY[0x1E695F050] + 24)];
-        [v20 setRetryCount:2];
-        v29 = self->_snapshotController;
-        v30[0] = MEMORY[0x1E69E9820];
-        v30[1] = 3221225472;
-        v30[2] = __84__PRUISPosterRenderingViewController__setRenderingMode_canUseInitialSnapshotBundle___block_invoke_112;
-        v30[3] = &unk_1E83A7D08;
-        v30[4] = self;
-        v31 = v14;
-        v32 = v13;
-        [(PRUISPosterSnapshotController *)v29 executeSnapshotRequest:v20 completionBlock:v30];
+        v22 = [(UIViewController *)self pruis_snapshotRequestForDefinition:snapshotDefinition interfaceOrientation:self->_activeOrientation bounds:0 screen:self->_posterContents posterContents:*MEMORY[0x1E695F050], *(MEMORY[0x1E695F050] + 8), *(MEMORY[0x1E695F050] + 16), *(MEMORY[0x1E695F050] + 24)];
+        [v22 setRetryCount:2];
+        v31 = self->_snapshotController;
+        v32[0] = MEMORY[0x1E69E9820];
+        v32[1] = 3221225472;
+        v32[2] = __84__PRUISPosterRenderingViewController__setRenderingMode_canUseInitialSnapshotBundle___block_invoke_112;
+        v32[3] = &unk_1E83A7D08;
+        v32[4] = self;
+        v33 = v15;
+        v34 = v14;
+        [(PRUISPosterSnapshotController *)v31 executeSnapshotRequest:v22 completionBlock:v32];
 
-        v22 = v31;
+        v24 = v33;
         goto LABEL_36;
       }
 
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
-        [PRUISPosterRenderingViewController _setRenderingMode:canUseInitialSnapshotBundle:];
+        [PRUISPosterRenderingViewController _setRenderingMode:? canUseInitialSnapshotBundle:?];
       }
 
-      (*(v14 + 2))(v14, @"Scene content was not ready and there is no snapshotController.");
+      (*(v15 + 2))(v15, @"Scene content was not ready and there is no snapshotController.");
     }
 
     else
     {
-      v23 = PRUISLogRendering();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      v25 = PRUISLogRendering(0);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
-        [PRUISPosterRenderingViewController _setRenderingMode:canUseInitialSnapshotBundle:];
+        [PRUISPosterRenderingViewController _setRenderingMode:? canUseInitialSnapshotBundle:?];
       }
 
-      (*(v14 + 2))(v14, @"nil snapshot definition");
+      (*(v15 + 2))(v15, @"nil snapshot definition");
     }
 
 LABEL_40:
@@ -859,7 +861,7 @@ LABEL_41:
 uint64_t __84__PRUISPosterRenderingViewController__setRenderingMode_canUseInitialSnapshotBundle___block_invoke(uint64_t a1, uint64_t a2)
 {
   v17 = *MEMORY[0x1E69E9840];
-  v4 = PRUISLogRendering();
+  v4 = PRUISLogRendering(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = objc_opt_class();
@@ -894,7 +896,7 @@ uint64_t __84__PRUISPosterRenderingViewController__setRenderingMode_canUseInitia
   v17 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = [*(a1 + 32) _buildSnapshotImageViewsFromBundle:a2];
-  v7 = PRUISLogRendering();
+  v7 = PRUISLogRendering(v6);
   v8 = v7;
   if (v6)
   {
@@ -944,7 +946,7 @@ void __84__PRUISPosterRenderingViewController__setRenderingMode_canUseInitialSna
 uint64_t __84__PRUISPosterRenderingViewController__setRenderingMode_canUseInitialSnapshotBundle___block_invoke_2(uint64_t a1)
 {
   v14 = *MEMORY[0x1E69E9840];
-  v2 = PRUISLogRendering();
+  v2 = PRUISLogRendering(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = objc_opt_class();
@@ -968,7 +970,7 @@ void __84__PRUISPosterRenderingViewController__setRenderingMode_canUseInitialSna
 {
   v18 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = PRUISLogRendering();
+  v4 = PRUISLogRendering(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = objc_opt_class();
@@ -1007,7 +1009,7 @@ void __84__PRUISPosterRenderingViewController__setRenderingMode_canUseInitialSna
 void __84__PRUISPosterRenderingViewController__setRenderingMode_canUseInitialSnapshotBundle___block_invoke_107(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PRUISLogRendering();
+  v4 = PRUISLogRendering(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __84__PRUISPosterRenderingViewController__setRenderingMode_canUseInitialSnapshotBundle___block_invoke_107_cold_1(a1, v3);
@@ -1022,7 +1024,7 @@ void __84__PRUISPosterRenderingViewController__setRenderingMode_canUseInitialSna
   v8 = a3;
   v9 = a4;
   v10 = a5;
-  v11 = PRUISLogRendering();
+  v11 = PRUISLogRendering(v10);
   v12 = v11;
   if (v8)
   {
@@ -1322,54 +1324,56 @@ void __68__PRUISPosterRenderingViewController_setContentOcclusionRectangles___bl
 void __56__PRUISPosterRenderingViewController_applyVisualEffect___block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 48));
+  v3 = WeakRetained;
   if (WeakRetained)
   {
-    v3 = PRUISLogRendering();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = PRUISLogRendering(WeakRetained);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __56__PRUISPosterRenderingViewController_applyVisualEffect___block_invoke_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
+      __56__PRUISPosterRenderingViewController_applyVisualEffect___block_invoke_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
     }
 
-    v11 = [objc_alloc(MEMORY[0x1E69DD298]) initWithEffect:*(a1 + 32)];
-    v12 = WeakRetained[124];
-    WeakRetained[124] = v11;
+    v12 = [objc_alloc(MEMORY[0x1E69DD298]) initWithEffect:*(a1 + 32)];
+    v13 = v3[124];
+    v3[124] = v12;
 
-    v13 = [*(a1 + 40) view];
-    [v13 bounds];
-    [WeakRetained[124] setFrame:?];
+    v14 = [*(a1 + 40) view];
+    [v14 bounds];
+    [v3[124] setFrame:?];
 
-    [WeakRetained[124] setAutoresizingMask:18];
-    v14 = [*(a1 + 40) viewIfLoaded];
-    [v14 addSubview:WeakRetained[124]];
+    [v3[124] setAutoresizingMask:18];
+    v15 = [*(a1 + 40) viewIfLoaded];
+    [v15 addSubview:v3[124]];
 
-    v15 = [WeakRetained[132] obscurableContentView];
-    v16 = [*(a1 + 40) viewIfLoaded];
-    [v16 bringSubviewToFront:v15];
+    v16 = [v3[132] obscurableContentView];
+    v17 = [*(a1 + 40) viewIfLoaded];
+    [v17 bringSubviewToFront:v16];
   }
 }
 
 void __56__PRUISPosterRenderingViewController_applyVisualEffect___block_invoke_126(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v3 = WeakRetained;
   if (WeakRetained)
   {
-    v3 = PRUISLogRendering();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = PRUISLogRendering(WeakRetained);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __56__PRUISPosterRenderingViewController_applyVisualEffect___block_invoke_126_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
+      __56__PRUISPosterRenderingViewController_applyVisualEffect___block_invoke_126_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
     }
 
-    [WeakRetained[124] removeFromSuperview];
-    v11 = WeakRetained[124];
-    WeakRetained[124] = 0;
+    [v3[124] removeFromSuperview];
+    v12 = v3[124];
+    v3[124] = 0;
 
-    if (WeakRetained[131])
+    if (v3[131])
     {
-      v12 = [*(a1 + 32) viewIfLoaded];
-      [v12 addSubview:WeakRetained[131]];
-
       v13 = [*(a1 + 32) viewIfLoaded];
-      [v13 bringSubviewToFront:WeakRetained[131]];
+      [v13 addSubview:v3[131]];
+
+      v14 = [*(a1 + 32) viewIfLoaded];
+      [v14 bringSubviewToFront:v3[131]];
     }
   }
 }
@@ -1413,7 +1417,7 @@ uint64_t __63__PRUISPosterRenderingViewController__defaultExtensionProvider__blo
   extensionProvider = [(PRUISPosterSnapshotController *)self->_snapshotController extensionProvider];
   if (!extensionProvider)
   {
-    v4 = PRUISLogRendering();
+    v4 = PRUISLogRendering(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = objc_opt_class();
@@ -1433,7 +1437,7 @@ uint64_t __63__PRUISPosterRenderingViewController__defaultExtensionProvider__blo
 
 - (BOOL)_buildSnapshotImageViewsFromBundle:(id)bundle
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   bundleCopy = bundle;
   BSDispatchQueueAssertMain();
   if (!bundleCopy)
@@ -1455,16 +1459,16 @@ uint64_t __63__PRUISPosterRenderingViewController__defaultExtensionProvider__blo
 
   if (v7)
   {
-    v11 = PRUISLogRendering();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = PRUISLogRendering(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = objc_opt_class();
-      v13 = NSStringFromClass(v12);
-      v47 = 138543618;
-      v48 = v13;
-      v49 = 2050;
+      v13 = objc_opt_class();
+      v14 = NSStringFromClass(v13);
+      v48 = 138543618;
+      v49 = v14;
+      v50 = 2050;
       selfCopy2 = self;
-      _os_log_impl(&dword_1CAE63000, v11, OS_LOG_TYPE_DEFAULT, "<%{public}@:%{public}p> Showing snapshot image (in front of obscurable content) until Rendering View Controller shows content.", &v47, 0x16u);
+      _os_log_impl(&dword_1CAE63000, v12, OS_LOG_TYPE_DEFAULT, "<%{public}@:%{public}p> Showing snapshot image (in front of obscurable content) until Rendering View Controller shows content.", &v48, 0x16u);
     }
 
     snapshotFloatingImageView = self->_snapshotFloatingImageView;
@@ -1473,9 +1477,9 @@ uint64_t __63__PRUISPosterRenderingViewController__defaultExtensionProvider__blo
       [(UIImageView *)snapshotFloatingImageView removeFromSuperview];
     }
 
-    v15 = [objc_alloc(MEMORY[0x1E69DCAE0]) initWithImage:v7];
-    v16 = self->_snapshotFloatingImageView;
-    self->_snapshotFloatingImageView = v15;
+    v16 = [objc_alloc(MEMORY[0x1E69DCAE0]) initWithImage:v7];
+    v17 = self->_snapshotFloatingImageView;
+    self->_snapshotFloatingImageView = v16;
 
     [(UIImageView *)self->_snapshotFloatingImageView setContentMode:2];
     layer = [(UIImageView *)self->_snapshotFloatingImageView layer];
@@ -1488,23 +1492,23 @@ uint64_t __63__PRUISPosterRenderingViewController__defaultExtensionProvider__blo
     isDepthEffectDisabled = [renderingConfiguration isDepthEffectDisabled];
 
     view = [(PRUISPosterRenderingViewController *)self view];
-    v23 = view;
-    v24 = self->_snapshotFloatingImageView;
+    v24 = view;
+    v25 = self->_snapshotFloatingImageView;
     if (isDepthEffectDisabled)
     {
-      [view insertSubview:v24 atIndex:0];
+      [view insertSubview:v25 atIndex:0];
     }
 
     else
     {
-      [view addSubview:v24];
+      [view addSubview:v25];
     }
 
     [(UIImageView *)self->_snapshotFloatingImageView setTranslatesAutoresizingMaskIntoConstraints:0];
-    v25 = MEMORY[0x1E696ACD8];
+    v26 = MEMORY[0x1E696ACD8];
     view2 = [(PRUISPosterRenderingViewController *)self view];
-    v27 = [view2 pui_constraintsPinningSubview:self->_snapshotFloatingImageView toEdges:15];
-    [v25 activateConstraints:v27];
+    v28 = [view2 pui_constraintsPinningSubview:self->_snapshotFloatingImageView toEdges:15];
+    [v26 activateConstraints:v28];
 
     if (DEBUG_RENDERING_MODE_onceToken != -1)
     {
@@ -1524,16 +1528,16 @@ uint64_t __63__PRUISPosterRenderingViewController__defaultExtensionProvider__blo
 
   if (v9)
   {
-    v31 = PRUISLogRendering();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+    v32 = PRUISLogRendering(v10);
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
     {
-      v32 = objc_opt_class();
-      v33 = NSStringFromClass(v32);
-      v47 = 138543618;
-      v48 = v33;
-      v49 = 2050;
+      v33 = objc_opt_class();
+      v34 = NSStringFromClass(v33);
+      v48 = 138543618;
+      v49 = v34;
+      v50 = 2050;
       selfCopy2 = self;
-      _os_log_impl(&dword_1CAE63000, v31, OS_LOG_TYPE_DEFAULT, "<%{public}@:%{public}p> Showing snapshot image (behind obscurable content) until Rendering View Controller shows content.", &v47, 0x16u);
+      _os_log_impl(&dword_1CAE63000, v32, OS_LOG_TYPE_DEFAULT, "<%{public}@:%{public}p> Showing snapshot image (behind obscurable content) until Rendering View Controller shows content.", &v48, 0x16u);
     }
 
     snapshotAllExceptFloatingImageView = self->_snapshotAllExceptFloatingImageView;
@@ -1542,9 +1546,9 @@ uint64_t __63__PRUISPosterRenderingViewController__defaultExtensionProvider__blo
       [(UIImageView *)snapshotAllExceptFloatingImageView removeFromSuperview];
     }
 
-    v35 = [objc_alloc(MEMORY[0x1E69DCAE0]) initWithImage:v9];
-    v36 = self->_snapshotAllExceptFloatingImageView;
-    self->_snapshotAllExceptFloatingImageView = v35;
+    v36 = [objc_alloc(MEMORY[0x1E69DCAE0]) initWithImage:v9];
+    v37 = self->_snapshotAllExceptFloatingImageView;
+    self->_snapshotAllExceptFloatingImageView = v36;
 
     [(UIImageView *)self->_snapshotAllExceptFloatingImageView setContentMode:2];
     [(UIImageView *)self->_snapshotAllExceptFloatingImageView setAutoresizingMask:18];
@@ -1555,10 +1559,10 @@ uint64_t __63__PRUISPosterRenderingViewController__defaultExtensionProvider__blo
     [view3 insertSubview:self->_snapshotAllExceptFloatingImageView atIndex:0];
 
     [(UIImageView *)self->_snapshotAllExceptFloatingImageView setTranslatesAutoresizingMaskIntoConstraints:0];
-    v39 = MEMORY[0x1E696ACD8];
+    v40 = MEMORY[0x1E696ACD8];
     view4 = [(PRUISPosterRenderingViewController *)self view];
-    v41 = [view4 pui_constraintsPinningSubview:self->_snapshotAllExceptFloatingImageView toEdges:15];
-    [v39 activateConstraints:v41];
+    v42 = [view4 pui_constraintsPinningSubview:self->_snapshotAllExceptFloatingImageView toEdges:15];
+    [v40 activateConstraints:v42];
 
     if (DEBUG_RENDERING_MODE_onceToken != -1)
     {
@@ -1578,21 +1582,21 @@ uint64_t __63__PRUISPosterRenderingViewController__defaultExtensionProvider__blo
 
   if (self->_snapshotFloatingImageView)
   {
-    v45 = 1;
+    v46 = 1;
   }
 
   else
   {
-    v45 = self->_snapshotAllExceptFloatingImageView != 0;
+    v46 = self->_snapshotAllExceptFloatingImageView != 0;
   }
 
-  return v45;
+  return v46;
 }
 
 - (void)_teardownSnapshotImageViews
 {
   v14 = *MEMORY[0x1E69E9840];
-  v3 = PRUISLogRendering();
+  v3 = PRUISLogRendering(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = objc_opt_class();
@@ -1641,55 +1645,56 @@ uint64_t __63__PRUISPosterRenderingViewController__defaultExtensionProvider__blo
 
     if (provider)
     {
-      v6 = [objc_alloc(MEMORY[0x1E69635D0]) initWithBundleIdentifier:provider error:0];
-      v7 = [v6 URL];
+      v7 = [objc_alloc(MEMORY[0x1E69635D0]) initWithBundleIdentifier:provider error:0];
+      v8 = [v7 URL];
     }
 
     else
     {
-      v9 = PRUISLogRendering();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v10 = PRUISLogRendering(v6);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         [(PRUISPosterRenderingViewController *)self _currentAppearance];
       }
 
-      v7 = 0;
+      v8 = 0;
     }
 
     role = [(PFPosterContents *)self->_posterContents role];
-    if (v7)
+    v12 = role;
+    if (v8)
     {
-      v11 = [(PRPosterTitleStyleConfiguration *)self->_titleStyleConfiguration effectiveTimeFontWithExtensionBundleURL:v7 forRole:role];
+      v13 = [(PRPosterTitleStyleConfiguration *)self->_titleStyleConfiguration effectiveTimeFontWithExtensionBundleURL:v8 forRole:role];
     }
 
     else
     {
-      v12 = PRUISLogRendering();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v14 = PRUISLogRendering(role);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         [(PRUISPosterRenderingViewController *)self _currentAppearance];
       }
 
-      v11 = [MEMORY[0x1E69C5340] defaultTitleFontForRole:role];
+      v13 = [MEMORY[0x1E69C5340] defaultTitleFontForRole:v12];
     }
 
-    v13 = v11;
+    v15 = v13;
 
-    v14 = [v13 fontWithSize:84.0];
+    v16 = [v15 fontWithSize:84.0];
 
-    v15 = objc_alloc(MEMORY[0x1E69C52D0]);
-    v16 = objc_alloc(MEMORY[0x1E69C52D8]);
+    v17 = objc_alloc(MEMORY[0x1E69C52D0]);
+    v18 = objc_alloc(MEMORY[0x1E69C52D8]);
     whiteColor = [MEMORY[0x1E69DC888] whiteColor];
-    v18 = [v16 initWithColor:whiteColor];
-    v8 = [v15 initWithFont:v14 labelColor:v18 preferredTitleAlignment:-[PRPosterTitleStyleConfiguration preferredTitleAlignment](self->_titleStyleConfiguration preferredTitleLayout:{"preferredTitleAlignment"), -[PRPosterTitleStyleConfiguration preferredTitleLayout](self->_titleStyleConfiguration, "preferredTitleLayout")}];
+    v20 = [v18 initWithColor:whiteColor];
+    v9 = [v17 initWithFont:v16 labelColor:v20 preferredTitleAlignment:-[PRPosterTitleStyleConfiguration preferredTitleAlignment](self->_titleStyleConfiguration preferredTitleLayout:{"preferredTitleAlignment"), -[PRPosterTitleStyleConfiguration preferredTitleLayout](self->_titleStyleConfiguration, "preferredTitleLayout")}];
   }
 
   else
   {
-    v8 = 0;
+    v9 = 0;
   }
 
-  return v8;
+  return v9;
 }
 
 - (id)_obscurableContentView
@@ -2060,7 +2065,7 @@ LABEL_14:
 
       [(UIScenePresenter *)self->_floatingPresenter modifyPresentationContext:&__block_literal_global_156];
       [(UIScenePresenter *)self->_floatingPresenter activate];
-      [(PRUISPosterRenderingViewController *)self renderingMetrics];
+      objc_msgSend_renderingMetrics(self);
       presentationView = [(UIScenePresenter *)self->_floatingPresenter presentationView];
       floatingSceneView = self->_floatingSceneView;
       self->_floatingSceneView = presentationView;
@@ -2292,7 +2297,7 @@ uint64_t __90__PRUISPosterRenderingViewController__setSceneContentHidden_animati
   }
 }
 
-- (uint64_t)updateMotionWithRotation:(_OWORD *)rotation
+- (void)updateMotionWithRotation:(_OWORD *)rotation
 {
   v3 = *(self + 1192);
   v4 = rotation[1];
@@ -2305,7 +2310,7 @@ uint64_t __90__PRUISPosterRenderingViewController__setSceneContentHidden_animati
 {
   settingsCopy = settings;
   contextCopy = context;
-  v8 = PRUISLogRendering();
+  v8 = PRUISLogRendering(contextCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [PRUISPosterRenderingViewController scene:willUpdateSettings:withTransitionContext:];
@@ -2317,7 +2322,7 @@ uint64_t __90__PRUISPosterRenderingViewController__setSceneContentHidden_animati
   v21 = *MEMORY[0x1E69E9840];
   sceneCopy = scene;
   actionsCopy = actions;
-  v8 = PRUISLogRendering();
+  v8 = PRUISLogRendering(actionsCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = objc_opt_class();
@@ -2340,7 +2345,7 @@ uint64_t __90__PRUISPosterRenderingViewController__setSceneContentHidden_animati
 {
   v19 = *MEMORY[0x1E69E9840];
   changeCopy = change;
-  v5 = PRUISLogRendering();
+  v5 = PRUISLogRendering(changeCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();
@@ -2367,7 +2372,7 @@ uint64_t __90__PRUISPosterRenderingViewController__setSceneContentHidden_animati
 {
   v16 = *MEMORY[0x1E69E9840];
   activateCopy = activate;
-  v5 = PRUISLogRendering();
+  v5 = PRUISLogRendering(activateCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();
@@ -2426,7 +2431,7 @@ void __61__PRUISPosterRenderingViewController_scene_clientDidConnect___block_inv
 
 - (void)sceneDidDeactivate:(id)deactivate withError:(id)error
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   deactivateCopy = deactivate;
   errorCopy = error;
   domain = [errorCopy domain];
@@ -2436,22 +2441,22 @@ void __61__PRUISPosterRenderingViewController_scene_clientDidConnect___block_inv
 
     if (code == 1)
     {
-      pf_jetsamReason = PRUISLogRendering();
+      pf_jetsamReason = PRUISLogRendering(v10);
       if (os_log_type_enabled(pf_jetsamReason, OS_LOG_TYPE_ERROR))
       {
-        v11 = objc_opt_class();
-        v12 = NSStringFromClass(v11);
+        v12 = objc_opt_class();
+        v13 = NSStringFromClass(v12);
         identityToken = [deactivateCopy identityToken];
         stringRepresentation = [identityToken stringRepresentation];
-        v28 = 138544130;
-        v29 = v12;
-        v30 = 2050;
+        v30 = 138544130;
+        v31 = v13;
+        v32 = 2050;
         selfCopy4 = self;
-        v32 = 2112;
-        v33 = stringRepresentation;
         v34 = 2112;
-        v35 = errorCopy;
-        _os_log_error_impl(&dword_1CAE63000, pf_jetsamReason, OS_LOG_TYPE_ERROR, "<%{public}@:%{public}p> scene %@ did deactivate with fatal error %@", &v28, 0x2Au);
+        v35 = stringRepresentation;
+        v36 = 2112;
+        v37 = errorCopy;
+        _os_log_error_impl(&dword_1CAE63000, pf_jetsamReason, OS_LOG_TYPE_ERROR, "<%{public}@:%{public}p> scene %@ did deactivate with fatal error %@", &v30, 0x2Au);
       }
 
       goto LABEL_15;
@@ -2465,22 +2470,22 @@ void __61__PRUISPosterRenderingViewController_scene_clientDidConnect___block_inv
   pf_jetsamReason = [errorCopy pf_jetsamReason];
   if (!pf_jetsamReason)
   {
-    v16 = PRUISLogRendering();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v18 = PRUISLogRendering(0);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      v23 = objc_opt_class();
-      v19 = NSStringFromClass(v23);
+      v25 = objc_opt_class();
+      v21 = NSStringFromClass(v25);
       identityToken2 = [deactivateCopy identityToken];
       stringRepresentation2 = [identityToken2 stringRepresentation];
-      v28 = 138544130;
-      v29 = v19;
-      v30 = 2050;
+      v30 = 138544130;
+      v31 = v21;
+      v32 = 2050;
       selfCopy4 = self;
-      v32 = 2112;
-      v33 = stringRepresentation2;
       v34 = 2112;
-      v35 = errorCopy;
-      v22 = "<%{public}@:%{public}p> scene %@ did deactivate with transient error %@";
+      v35 = stringRepresentation2;
+      v36 = 2112;
+      v37 = errorCopy;
+      v24 = "<%{public}@:%{public}p> scene %@ did deactivate with transient error %@";
       goto LABEL_17;
     }
 
@@ -2491,27 +2496,28 @@ LABEL_11:
   }
 
   allowEvent = [(PFDebounceFilter *)self->_jetsamDebounceFilter allowEvent];
-  v16 = PRUISLogRendering();
-  v17 = os_log_type_enabled(v16, OS_LOG_TYPE_ERROR);
-  if (allowEvent)
+  v17 = allowEvent;
+  v18 = PRUISLogRendering(allowEvent);
+  v19 = os_log_type_enabled(v18, OS_LOG_TYPE_ERROR);
+  if (v17)
   {
-    if (v17)
+    if (v19)
     {
-      v18 = objc_opt_class();
-      v19 = NSStringFromClass(v18);
+      v20 = objc_opt_class();
+      v21 = NSStringFromClass(v20);
       identityToken2 = [deactivateCopy identityToken];
       stringRepresentation2 = [identityToken2 stringRepresentation];
-      v28 = 138544130;
-      v29 = v19;
-      v30 = 2050;
+      v30 = 138544130;
+      v31 = v21;
+      v32 = 2050;
       selfCopy4 = self;
-      v32 = 2112;
-      v33 = stringRepresentation2;
       v34 = 2112;
-      v35 = pf_jetsamReason;
-      v22 = "<%{public}@:%{public}p> scene %@ did deactivate with jetsam error with reason %@. Trying to activate live again.";
+      v35 = stringRepresentation2;
+      v36 = 2112;
+      v37 = pf_jetsamReason;
+      v24 = "<%{public}@:%{public}p> scene %@ did deactivate with jetsam error with reason %@. Trying to activate live again.";
 LABEL_17:
-      _os_log_error_impl(&dword_1CAE63000, v16, OS_LOG_TYPE_ERROR, v22, &v28, 0x2Au);
+      _os_log_error_impl(&dword_1CAE63000, v18, OS_LOG_TYPE_ERROR, v24, &v30, 0x2Au);
 
       goto LABEL_11;
     }
@@ -2519,21 +2525,21 @@ LABEL_17:
     goto LABEL_11;
   }
 
-  if (v17)
+  if (v19)
   {
-    v24 = objc_opt_class();
-    v25 = NSStringFromClass(v24);
+    v26 = objc_opt_class();
+    v27 = NSStringFromClass(v26);
     identityToken3 = [deactivateCopy identityToken];
     stringRepresentation3 = [identityToken3 stringRepresentation];
-    v28 = 138544130;
-    v29 = v25;
-    v30 = 2050;
+    v30 = 138544130;
+    v31 = v27;
+    v32 = 2050;
     selfCopy4 = self;
-    v32 = 2112;
-    v33 = stringRepresentation3;
     v34 = 2112;
-    v35 = pf_jetsamReason;
-    _os_log_error_impl(&dword_1CAE63000, v16, OS_LOG_TYPE_ERROR, "<%{public}@:%{public}p> scene %@ did deactivate with jetsam error with reason %@. Transitioning to snapshot.", &v28, 0x2Au);
+    v35 = stringRepresentation3;
+    v36 = 2112;
+    v37 = pf_jetsamReason;
+    _os_log_error_impl(&dword_1CAE63000, v18, OS_LOG_TYPE_ERROR, "<%{public}@:%{public}p> scene %@ did deactivate with jetsam error with reason %@. Transitioning to snapshot.", &v30, 0x2Au);
   }
 
   [(PRUISPosterRenderingViewController *)self _setRenderingMode:3 canUseInitialSnapshotBundle:1];
@@ -2546,7 +2552,7 @@ LABEL_15:
   sceneCopy = scene;
   diffCopy = diff;
   contextCopy = context;
-  v12 = PRUISLogRendering();
+  v12 = PRUISLogRendering(contextCopy);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     v30 = objc_opt_class();
@@ -2699,7 +2705,7 @@ void __112__PRUISPosterRenderingViewController_scene_didUpdateClientSettingsWith
   }
 }
 
-- (uint64_t)deviceMotionController:(uint64_t)controller didUpdateMotionWithRotation:(_OWORD *)rotation
+- (void)deviceMotionController:(uint64_t)controller didUpdateMotionWithRotation:(_OWORD *)rotation
 {
   v4 = rotation[1];
   v6[0] = *rotation;
@@ -2728,7 +2734,7 @@ void __112__PRUISPosterRenderingViewController_scene_didUpdateClientSettingsWith
   v11 = processHandle;
   if (processHandle)
   {
-    [processHandle auditToken];
+    objc_msgSend_auditToken(processHandle);
   }
 
   else
@@ -2831,17 +2837,17 @@ id __80__PRUISPosterRenderingViewController_executeSceneSnapshotForDefinition_op
 
 - (BOOL)addEvent:(id)event outError:(id *)error
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   type = [eventCopy type];
   if ((PRRenderingEventTypeIsValid() & 1) == 0)
   {
     newAction = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid PRRenderingEventType: %@", type];
-    v17 = PFFunctionNameForAddress();
-    v15 = PFGeneralErrorFromObjectWithLocalizedFailureReason();
+    v18 = PFFunctionNameForAddress();
+    v16 = PFGeneralErrorFromObjectWithLocalizedFailureReason();
 
-    v18 = PRUISLogRendering();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v20 = PRUISLogRendering(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       [PRUISPosterRenderingViewController addEvent:outError:];
     }
@@ -2853,63 +2859,67 @@ id __80__PRUISPosterRenderingViewController_executeSceneSnapshotForDefinition_op
   pr_requestedRenderingEventTypes = [clientSettings pr_requestedRenderingEventTypes];
   v10 = [pr_requestedRenderingEventTypes containsObject:type];
 
-  if ((v10 & 1) == 0 && (PRRenderingEventTypeIsGrandfathered() & 1) == 0)
+  if ((v10 & 1) == 0)
   {
-    newAction = [MEMORY[0x1E696AEC0] stringWithFormat:@"Client has not requested to receive PRRenderingEvents of type: %@", type];
-    v21 = PFFunctionNameForAddress();
-    v15 = PFGeneralErrorFromObjectWithLocalizedFailureReason();
-
-    v18 = PRUISLogRendering();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    IsGrandfathered = PRRenderingEventTypeIsGrandfathered();
+    if ((IsGrandfathered & 1) == 0)
     {
-      v22 = objc_opt_class();
-      v23 = NSStringFromClass(v22);
-      *buf = 138543874;
-      v25 = v23;
-      v26 = 2050;
-      selfCopy2 = self;
-      v28 = 2114;
-      v29 = v15;
-      _os_log_impl(&dword_1CAE63000, v18, OS_LOG_TYPE_DEFAULT, "<%{public}@:%{public}p> %{public}@", buf, 0x20u);
-    }
+      newAction = [MEMORY[0x1E696AEC0] stringWithFormat:@"Client has not requested to receive PRRenderingEvents of type: %@", type];
+      v23 = PFFunctionNameForAddress();
+      v16 = PFGeneralErrorFromObjectWithLocalizedFailureReason();
+
+      v20 = PRUISLogRendering(v24);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      {
+        v25 = objc_opt_class();
+        v26 = NSStringFromClass(v25);
+        *buf = 138543874;
+        v28 = v26;
+        v29 = 2050;
+        selfCopy2 = self;
+        v31 = 2114;
+        v32 = v16;
+        _os_log_impl(&dword_1CAE63000, v20, OS_LOG_TYPE_DEFAULT, "<%{public}@:%{public}p> %{public}@", buf, 0x20u);
+      }
 
 LABEL_9:
 
-    if (error)
-    {
-      v19 = v15;
-      v16 = 0;
-      *error = v15;
-    }
+      if (error)
+      {
+        v21 = v16;
+        v17 = 0;
+        *error = v16;
+      }
 
-    else
-    {
-      v16 = 0;
-    }
+      else
+      {
+        v17 = 0;
+      }
 
-    goto LABEL_12;
+      goto LABEL_12;
+    }
   }
 
-  v11 = PRUISLogRendering();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = PRUISLogRendering(IsGrandfathered);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = objc_opt_class();
-    v13 = NSStringFromClass(v12);
+    v13 = objc_opt_class();
+    v14 = NSStringFromClass(v13);
     *buf = 138543874;
-    v25 = v13;
-    v26 = 2050;
+    v28 = v14;
+    v29 = 2050;
     selfCopy2 = self;
-    v28 = 2114;
-    v29 = eventCopy;
-    _os_log_impl(&dword_1CAE63000, v11, OS_LOG_TYPE_DEFAULT, "<%{public}@:%{public}p> adding PRRenderingEvent: %{public}@", buf, 0x20u);
+    v31 = 2114;
+    v32 = eventCopy;
+    _os_log_impl(&dword_1CAE63000, v12, OS_LOG_TYPE_DEFAULT, "<%{public}@:%{public}p> adding PRRenderingEvent: %{public}@", buf, 0x20u);
   }
 
   newAction = [eventCopy newAction];
-  v15 = [MEMORY[0x1E695DFD8] setWithObject:newAction];
-  v16 = [(FBScene *)self->_scene pui_safelySendActions:v15 outError:error];
+  v16 = [MEMORY[0x1E695DFD8] setWithObject:newAction];
+  v17 = [(FBScene *)self->_scene pui_safelySendActions:v16 outError:error];
 LABEL_12:
 
-  return v16;
+  return v17;
 }
 
 - (void)userTapEventOccurredWithLocation:(CGPoint)location
@@ -2923,34 +2933,34 @@ LABEL_12:
   {
 
 LABEL_4:
-    v12 = PRUISLogRendering();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = PRUISLogRendering(v9);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      *v23 = 0;
-      _os_log_impl(&dword_1CAE63000, v12, OS_LOG_TYPE_DEFAULT, "Sending user tap event to client scene", v23, 2u);
+      *v24 = 0;
+      _os_log_impl(&dword_1CAE63000, v13, OS_LOG_TYPE_DEFAULT, "Sending user tap event to client scene", v24, 2u);
     }
 
-    v13 = [objc_alloc(MEMORY[0x1E69C5350]) initWithType:*v8 location:{x, y}];
-    newAction = [v13 newAction];
-    v15 = [MEMORY[0x1E695DFD8] setWithObject:newAction];
-    [(FBScene *)self->_scene sendActions:v15];
+    v14 = [objc_alloc(MEMORY[0x1E69C5350]) initWithType:*v8 location:{x, y}];
+    newAction = [v14 newAction];
+    v16 = [MEMORY[0x1E695DFD8] setWithObject:newAction];
+    [(FBScene *)self->_scene sendActions:v16];
 
     goto LABEL_9;
   }
 
   clientSettings2 = [(FBScene *)self->_scene clientSettings];
   pr_requestedRenderingEventTypes = [clientSettings2 pr_requestedRenderingEventTypes];
-  v11 = [pr_requestedRenderingEventTypes containsObject:*v8];
+  v12 = [pr_requestedRenderingEventTypes containsObject:*v8];
 
-  if (v11)
+  if (v12)
   {
     goto LABEL_4;
   }
 
-  v13 = PRUISLogRendering();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+  v14 = PRUISLogRendering(v9);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
-    [(PRUISPosterRenderingViewController *)v13 userTapEventOccurredWithLocation:v16, v17, v18, v19, v20, v21, v22];
+    [(PRUISPosterRenderingViewController *)v14 userTapEventOccurredWithLocation:v17, v18, v19, v20, v21, v22, v23];
   }
 
 LABEL_9:
@@ -2958,13 +2968,14 @@ LABEL_9:
 
 - (void)addTransition:(id)transition
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   transitionCopy = transition;
   type = [transitionCopy type];
-  if ((PRRenderingTransitionTypeIsValid() & 1) == 0)
+  IsValid = PRRenderingTransitionTypeIsValid();
+  if ((IsValid & 1) == 0)
   {
-    v9 = PRUISLogRendering();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = PRUISLogRendering(IsValid);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [PRUISPosterRenderingViewController addTransition:];
     }
@@ -2974,23 +2985,23 @@ LABEL_9:
 
   clientSettings = [(FBScene *)self->_scene clientSettings];
   pr_requestedRenderingTransitionTypes = [clientSettings pr_requestedRenderingTransitionTypes];
-  v8 = [pr_requestedRenderingTransitionTypes containsObject:type];
+  v9 = [pr_requestedRenderingTransitionTypes containsObject:type];
 
-  v9 = PRUISLogRendering();
-  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
-  if ((v8 & 1) == 0)
+  v11 = PRUISLogRendering(v10);
+  v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+  if ((v9 & 1) == 0)
   {
-    if (v10)
+    if (v12)
     {
-      v13 = objc_opt_class();
-      v14 = NSStringFromClass(v13);
-      v15 = 138543874;
-      v16 = v14;
-      v17 = 2050;
+      v15 = objc_opt_class();
+      v16 = NSStringFromClass(v15);
+      v17 = 138543874;
+      v18 = v16;
+      v19 = 2050;
       selfCopy2 = self;
-      v19 = 2114;
-      v20 = type;
-      _os_log_impl(&dword_1CAE63000, v9, OS_LOG_TYPE_DEFAULT, "<%{public}@:%{public}p> Client has not requested to receive PRRenderingTransitions of type: %{public}@", &v15, 0x20u);
+      v21 = 2114;
+      v22 = type;
+      _os_log_impl(&dword_1CAE63000, v11, OS_LOG_TYPE_DEFAULT, "<%{public}@:%{public}p> Client has not requested to receive PRRenderingTransitions of type: %{public}@", &v17, 0x20u);
     }
 
 LABEL_10:
@@ -2998,17 +3009,17 @@ LABEL_10:
     goto LABEL_11;
   }
 
-  if (v10)
+  if (v12)
   {
-    v11 = objc_opt_class();
-    v12 = NSStringFromClass(v11);
-    v15 = 138543874;
-    v16 = v12;
-    v17 = 2050;
+    v13 = objc_opt_class();
+    v14 = NSStringFromClass(v13);
+    v17 = 138543874;
+    v18 = v14;
+    v19 = 2050;
     selfCopy2 = self;
-    v19 = 2114;
-    v20 = transitionCopy;
-    _os_log_impl(&dword_1CAE63000, v9, OS_LOG_TYPE_DEFAULT, "<%{public}@:%{public}p> adding PRRenderingTransition: %{public}@", &v15, 0x20u);
+    v21 = 2114;
+    v22 = transitionCopy;
+    _os_log_impl(&dword_1CAE63000, v11, OS_LOG_TYPE_DEFAULT, "<%{public}@:%{public}p> adding PRRenderingTransition: %{public}@", &v17, 0x20u);
   }
 
   [transitionCopy addObserver:self];
@@ -3018,7 +3029,7 @@ LABEL_11:
 - (void)_notifySceneOfTransitionState:(id)state
 {
   stateCopy = state;
-  v5 = PRUISLogRendering();
+  v5 = PRUISLogRendering(stateCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [PRUISPosterRenderingViewController _notifySceneOfTransitionState:];
@@ -3050,7 +3061,7 @@ void __68__PRUISPosterRenderingViewController__notifySceneOfTransitionState___bl
 {
   v15 = *MEMORY[0x1E69E9840];
   beginCopy = begin;
-  v5 = PRUISLogRendering();
+  v5 = PRUISLogRendering(beginCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();
@@ -3071,7 +3082,7 @@ void __68__PRUISPosterRenderingViewController__notifySceneOfTransitionState___bl
 - (void)transitionDidUpdate:(id)update
 {
   updateCopy = update;
-  v5 = PRUISLogRendering();
+  v5 = PRUISLogRendering(updateCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [PRUISPosterRenderingViewController transitionDidUpdate:];
@@ -3085,7 +3096,7 @@ void __68__PRUISPosterRenderingViewController__notifySceneOfTransitionState___bl
 {
   v15 = *MEMORY[0x1E69E9840];
   endCopy = end;
-  v5 = PRUISLogRendering();
+  v5 = PRUISLogRendering(endCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();
@@ -3240,7 +3251,7 @@ void __68__PRUISPosterRenderingViewController__notifySceneOfTransitionState___bl
 
   else
   {
-    v9 = PRUISLogRendering();
+    v9 = PRUISLogRendering(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *v12 = 0;
@@ -3280,7 +3291,7 @@ void __68__PRUISPosterRenderingViewController__notifySceneOfTransitionState___bl
 
     else
     {
-      v10 = PRUISLogRendering();
+      v10 = PRUISLogRendering(0);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         LOWORD(buf[0]) = 0;
@@ -3364,49 +3375,50 @@ void __70__PRUISPosterRenderingViewController_Deprecated___processNextSnapshot__
 {
   requestCopy = request;
   snapshotController = self->_snapshotController;
-  v17 = 0;
-  v6 = [(PRUISPosterSnapshotController *)snapshotController currentSnapshotBundleForRequest:requestCopy error:&v17];
-  v7 = v17;
+  v18 = 0;
+  v6 = [(PRUISPosterSnapshotController *)snapshotController currentSnapshotBundleForRequest:requestCopy error:&v18];
+  v7 = v18;
+  v8 = v7;
   if (v6)
   {
     definition = [requestCopy definition];
     levelSets = [definition levelSets];
     firstObject = [levelSets firstObject];
 
-    v11 = [v6 snapshotForLevelSet:firstObject];
-    if (!v11)
+    v12 = [v6 snapshotForLevelSet:firstObject];
+    if (!v12)
     {
-      v12 = PRUISLogRendering();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v13 = PRUISLogRendering(0);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1CAE63000, v12, OS_LOG_TYPE_DEFAULT, "Snapshot bundle did not contain desired levelSet", buf, 2u);
+        _os_log_impl(&dword_1CAE63000, v13, OS_LOG_TYPE_DEFAULT, "Snapshot bundle did not contain desired levelSet", buf, 2u);
       }
     }
   }
 
   else
   {
-    v13 = PRUISLogRendering();
-    firstObject = v13;
-    if (v7)
+    v14 = PRUISLogRendering(v7);
+    firstObject = v14;
+    if (v8)
     {
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         [PRUISPosterRenderingViewController(Deprecated) _cachedImageForRequest:];
       }
     }
 
-    else if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    else if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      *v15 = 0;
-      _os_log_impl(&dword_1CAE63000, firstObject, OS_LOG_TYPE_DEFAULT, "Unable to fetch latest snapshot bundle", v15, 2u);
+      *v16 = 0;
+      _os_log_impl(&dword_1CAE63000, firstObject, OS_LOG_TYPE_DEFAULT, "Unable to fetch latest snapshot bundle", v16, 2u);
     }
 
-    v11 = 0;
+    v12 = 0;
   }
 
-  return v11;
+  return v12;
 }
 
 - (id)_snapshotRequestForDefinition:(id)definition screen:(id)screen
@@ -3447,7 +3459,7 @@ void __70__PRUISPosterRenderingViewController_Deprecated___processNextSnapshot__
 
 - (void)initWithPosterContents:(char *)a1 context:boundingShape:extensionInstance:snapshotController:initialSnapshotBundle:renderingMode:snapshotDefinition:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:PFServerPosterPathClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -3455,7 +3467,7 @@ void __70__PRUISPosterRenderingViewController_Deprecated___processNextSnapshot__
     v3 = OUTLINED_FUNCTION_4();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:PFServerPosterPathClass]", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -3465,7 +3477,7 @@ void __70__PRUISPosterRenderingViewController_Deprecated___processNextSnapshot__
 
 - (void)initWithPosterContents:(char *)a1 context:boundingShape:extensionInstance:snapshotController:initialSnapshotBundle:renderingMode:snapshotDefinition:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"PUIPosterBoundingShapeIsValid(puiBoundingShape)"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -3473,7 +3485,7 @@ void __70__PRUISPosterRenderingViewController_Deprecated___processNextSnapshot__
     v3 = OUTLINED_FUNCTION_4();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"PUIPosterBoundingShapeIsValid(puiBoundingShape)", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -3483,7 +3495,7 @@ void __70__PRUISPosterRenderingViewController_Deprecated___processNextSnapshot__
 
 - (void)initWithPosterContents:(char *)a1 context:boundingShape:extensionInstance:snapshotController:initialSnapshotBundle:renderingMode:snapshotDefinition:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -3491,7 +3503,7 @@ void __70__PRUISPosterRenderingViewController_Deprecated___processNextSnapshot__
     v3 = OUTLINED_FUNCTION_4();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -3505,13 +3517,13 @@ void __59__PRUISPosterRenderingViewController_viewDidLayoutSubviews__block_invok
   v3 = NSStringFromClass(v2);
   v4 = [*(a1 + 32) view];
   [v4 frame];
-  v5 = NSStringFromCGRect(v15);
+  v5 = NSStringFromCGRect(v14);
   v6 = [*(a1 + 32) view];
   [v6 bounds];
-  v7 = NSStringFromCGRect(v16);
+  v7 = NSStringFromCGRect(v15);
   OUTLINED_FUNCTION_11();
   OUTLINED_FUNCTION_7();
-  OUTLINED_FUNCTION_13(&dword_1CAE63000, v8, v9, "<%{public}@:%{public}p> [PRUISPosterRenderingViewController] end viewDidLayoutSubviews, view.frame: %{public}@, view.bounds: %{public}@", v10, v11, v12, v13, v14);
+  OUTLINED_FUNCTION_13(&dword_1CAE63000, v8, v9, "<%{public}@:%{public}p> [PRUISPosterRenderingViewController] end viewDidLayoutSubviews, view.frame: %{public}@, view.bounds: %{public}@", v10, v11, v12, v13);
 }
 
 - (void)_setRenderingMode:canUseInitialSnapshotBundle:.cold.1()
@@ -3536,28 +3548,28 @@ void __59__PRUISPosterRenderingViewController_viewDidLayoutSubviews__block_invok
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x20u);
 }
 
-- (void)_setRenderingMode:canUseInitialSnapshotBundle:.cold.3()
+- (void)_setRenderingMode:(uint64_t)a1 canUseInitialSnapshotBundle:.cold.3(uint64_t a1)
 {
-  v1 = objc_opt_class();
-  NSStringFromClass(v1);
+  v2 = objc_opt_class();
+  NSStringFromClass(v2);
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_12();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_10();
   OUTLINED_FUNCTION_1_3();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x20u);
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
 }
 
-- (void)_setRenderingMode:canUseInitialSnapshotBundle:.cold.4()
+- (void)_setRenderingMode:(uint64_t)a1 canUseInitialSnapshotBundle:.cold.4(uint64_t a1)
 {
-  v1 = objc_opt_class();
-  NSStringFromClass(v1);
+  v2 = objc_opt_class();
+  NSStringFromClass(v2);
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_12();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_10();
   OUTLINED_FUNCTION_1_3();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x20u);
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
 }
 
 void __84__PRUISPosterRenderingViewController__setRenderingMode_canUseInitialSnapshotBundle___block_invoke_88_cold_1()
@@ -3583,7 +3595,7 @@ void __84__PRUISPosterRenderingViewController__setRenderingMode_canUseInitialSna
 
 - (void)_buildSnapshotImageViewsFromBundle:(char *)a1 .cold.3(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"bundle"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -3591,7 +3603,7 @@ void __84__PRUISPosterRenderingViewController__setRenderingMode_canUseInitialSna
     v3 = OUTLINED_FUNCTION_4();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"bundle", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -3642,7 +3654,7 @@ void __84__PRUISPosterRenderingViewController__setRenderingMode_canUseInitialSna
   v0 = objc_opt_class();
   v1 = NSStringFromClass(v0);
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_14(&dword_1CAE63000, v2, v3, "<%{public}@:%{public}p> _notifySceneOfTransitionState: %{public}@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_14(&dword_1CAE63000, v2, v3, "<%{public}@:%{public}p> _notifySceneOfTransitionState: %{public}@", v4, v5, v6, v7);
 }
 
 - (void)transitionDidUpdate:.cold.1()
@@ -3651,7 +3663,7 @@ void __84__PRUISPosterRenderingViewController__setRenderingMode_canUseInitialSna
   v0 = objc_opt_class();
   v1 = NSStringFromClass(v0);
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_14(&dword_1CAE63000, v2, v3, "<%{public}@:%{public}p> transitionDidUpdate: %{public}@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_14(&dword_1CAE63000, v2, v3, "<%{public}@:%{public}p> transitionDidUpdate: %{public}@", v4, v5, v6, v7);
 }
 
 @end

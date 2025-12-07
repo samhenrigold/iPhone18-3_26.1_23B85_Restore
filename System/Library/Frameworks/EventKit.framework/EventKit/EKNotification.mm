@@ -21,13 +21,11 @@
 
 void __50__EKNotification_knownRelationshipSingleValueKeys__block_invoke()
 {
-  v3[1] = *MEMORY[0x1E69E9840];
-  v3[0] = *MEMORY[0x1E6992A98];
-  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:1];
+  v2[1] = *MEMORY[0x1E69E9840];
+  v2[0] = *MEMORY[0x1E6992A98];
+  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v2 count:1];
   v1 = knownRelationshipSingleValueKeys_keys_1;
   knownRelationshipSingleValueKeys_keys_1 = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 + (id)knownRelationshipWeakKeys
@@ -44,15 +42,13 @@ void __50__EKNotification_knownRelationshipSingleValueKeys__block_invoke()
 
 void __43__EKNotification_knownRelationshipWeakKeys__block_invoke()
 {
-  v4[2] = *MEMORY[0x1E69E9840];
+  v3[2] = *MEMORY[0x1E69E9840];
   v0 = *MEMORY[0x1E6992AC0];
-  v4[0] = *MEMORY[0x1E6992A98];
-  v4[1] = v0;
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:2];
+  v3[0] = *MEMORY[0x1E6992A98];
+  v3[1] = v0;
+  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:2];
   v2 = knownRelationshipWeakKeys_keys_2;
   knownRelationshipWeakKeys_keys_2 = v1;
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (EKObjectID)objectID

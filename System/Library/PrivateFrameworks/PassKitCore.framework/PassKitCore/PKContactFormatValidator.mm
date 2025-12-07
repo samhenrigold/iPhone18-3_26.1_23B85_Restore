@@ -391,7 +391,7 @@ LABEL_10:
   fieldCopy = field;
   v7 = [(PKContactFormatConfiguration *)self->_configuration contactFieldConfigurationForCountryCode:code];
   addressFormatConfiguration = [v7 addressFormatConfiguration];
-  if ([fieldCopy isEqualToString:*MEMORY[0x1E695CC30]])
+  if (objc_msgSend_isEqualToString_(fieldCopy))
   {
     streetFieldConfiguration = [addressFormatConfiguration streetFieldConfiguration];
 LABEL_13:
@@ -399,31 +399,31 @@ LABEL_13:
     goto LABEL_14;
   }
 
-  if ([fieldCopy isEqualToString:*MEMORY[0x1E695CC40]])
+  if (objc_msgSend_isEqualToString_(fieldCopy))
   {
     streetFieldConfiguration = [addressFormatConfiguration subLocalityFieldConfiguration];
     goto LABEL_13;
   }
 
-  if ([fieldCopy isEqualToString:*MEMORY[0x1E695CC00]])
+  if (objc_msgSend_isEqualToString_(fieldCopy))
   {
     streetFieldConfiguration = [addressFormatConfiguration cityFieldConfiguration];
     goto LABEL_13;
   }
 
-  if ([fieldCopy isEqualToString:*MEMORY[0x1E695CC38]])
+  if (objc_msgSend_isEqualToString_(fieldCopy))
   {
     streetFieldConfiguration = [addressFormatConfiguration subAdministrativeAreaFieldConfiguration];
     goto LABEL_13;
   }
 
-  if ([fieldCopy isEqualToString:*MEMORY[0x1E695CC28]])
+  if (objc_msgSend_isEqualToString_(fieldCopy))
   {
     streetFieldConfiguration = [addressFormatConfiguration stateFieldConfiguration];
     goto LABEL_13;
   }
 
-  if ([fieldCopy isEqualToString:*MEMORY[0x1E695CC18]])
+  if (objc_msgSend_isEqualToString_(fieldCopy))
   {
     streetFieldConfiguration = [addressFormatConfiguration postalCodeFieldConfiguration];
     goto LABEL_13;
@@ -616,7 +616,7 @@ LABEL_10:
   return v9 & 1;
 }
 
-uint64_t __82__PKContactFormatValidator__isFieldEntry_validForPickerContactFieldConfiguration___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__82__PKContactFormatValidator__isFieldEntry_validForPickerContactFieldConfiguration___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 isValueAccepted:*(a1 + 32)];
   if (result)
@@ -659,7 +659,7 @@ uint64_t __82__PKContactFormatValidator__isFieldEntry_validForPickerContactField
           if ([v13 isValueAccepted:entryCopy])
           {
             submissionValue = [v13 submissionValue];
-            if (![entryCopy isEqualToString:submissionValue])
+            if (!objc_msgSend_isEqualToString_(entryCopy))
             {
               goto LABEL_14;
             }

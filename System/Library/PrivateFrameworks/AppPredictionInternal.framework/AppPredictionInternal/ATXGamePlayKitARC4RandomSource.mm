@@ -199,56 +199,50 @@
 
 - (unint64_t)nextBits:(int)bits
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (bits < 1)
   {
-    result = 0;
+    return 0;
+  }
+
+  v3 = 0;
+  if (bits >= 0x40)
+  {
+    bitsCopy = 64;
   }
 
   else
   {
-    v3 = 0;
-    if (bits >= 0x40)
-    {
-      bitsCopy = 64;
-    }
-
-    else
-    {
-      bitsCopy = bits;
-    }
-
-    v5 = (bitsCopy + 7) >> 3;
-    state = self->_state;
-    var2 = state->var2;
-    LODWORD(v8) = state->var0;
-    var1 = state->var1;
-    do
-    {
-      v8 = (v8 + 1);
-      v10 = var2[v8];
-      LOBYTE(var1) = v10 + var1;
-      var2[v8] = var2[var1];
-      var2[var1] = v10;
-      v15[v3++] = var2[(var2[v8] + v10)];
-    }
-
-    while (v5 != v3);
-    v11 = 0;
-    v12 = 0;
-    state->var0 = v8;
-    state->var1 = var1;
-    do
-    {
-      v12 = v15[v11++] | (v12 << 8);
-    }
-
-    while (v5 != v11);
-    result = v12 >> (((bitsCopy + 7) & 0xF8u) - bitsCopy);
+    bitsCopy = bits;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-  return result;
+  v5 = (bitsCopy + 7) >> 3;
+  state = self->_state;
+  var2 = state->var2;
+  LODWORD(v8) = state->var0;
+  var1 = state->var1;
+  do
+  {
+    v8 = (v8 + 1);
+    v10 = var2[v8];
+    LOBYTE(var1) = v10 + var1;
+    var2[v8] = var2[var1];
+    var2[var1] = v10;
+    v14[v3++] = var2[(var2[v8] + v10)];
+  }
+
+  while (v5 != v3);
+  v11 = 0;
+  v12 = 0;
+  state->var0 = v8;
+  state->var1 = var1;
+  do
+  {
+    v12 = v14[v11++] | (v12 << 8);
+  }
+
+  while (v5 != v11);
+  return v12 >> (((bitsCopy + 7) & 0xF8u) - bitsCopy);
 }
 
 - (int64_t)nextInt

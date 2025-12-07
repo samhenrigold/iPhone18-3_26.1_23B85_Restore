@@ -34,7 +34,7 @@
   v10 = v9;
   if (v9)
   {
-    [v9 decimalValue];
+    objc_msgSend_decimalValue(v9);
   }
 
   else

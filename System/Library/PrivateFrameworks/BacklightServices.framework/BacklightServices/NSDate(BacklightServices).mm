@@ -114,9 +114,9 @@
 {
   mach_continuous_time();
   BSTimeDifferenceFromMachTimeToMachTime();
-  v3 = [self initWithTimeIntervalSinceNow:v2];
+  v5 = [self initWithTimeIntervalSinceNow:v4];
 
-  return v3;
+  return v5;
 }
 
 - (id)bls_initWithBSContinuousMachTime:()BacklightServices

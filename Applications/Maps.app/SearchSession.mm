@@ -1153,14 +1153,14 @@ LABEL_8:
 
 - (BOOL)isOptionsLowFuel
 {
-  if (([(SearchSession *)self options]& 2) != 0)
+  if ((objc_msgSend_options(self, a2) & 2) != 0)
   {
     return 1;
   }
 
   else
   {
-    return [(SearchSession *)self options]& 1;
+    return objc_msgSend_options(self) & 1;
   }
 }
 

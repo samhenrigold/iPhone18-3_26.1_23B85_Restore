@@ -20,7 +20,7 @@
   v7 = OBJC_IVAR____TtC10FitnessApp22ActivityChartDataCache_basalEnergyCache;
   *(&self->super.isa + v7) = [objc_allocWithZone(NSCache) init];
   v9.receiver = self;
-  v9.super_class = type metadata accessor for ActivityChartDataCache();
+  v9.super_class = type metadata accessor for ActivityChartDataCache(0);
   return [(ActivityChartDataCache *)&v9 init];
 }
 

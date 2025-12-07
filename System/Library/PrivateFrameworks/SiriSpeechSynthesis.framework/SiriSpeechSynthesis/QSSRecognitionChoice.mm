@@ -39,51 +39,51 @@ flatbuffers::DetachedBuffer *__36__QSSRecognitionChoice_flatbuffData__block_invo
 
 - (Offset<siri::speech::schema_fb::RecognitionChoice>)addObjectToBuffer:(void *)buffer
 {
-  v27 = *MEMORY[0x277D85DE8];
-  memset(&v25, 0, sizeof(v25));
+  v26 = *MEMORY[0x277D85DE8];
+  memset(&v24, 0, sizeof(v24));
   alternative_index = [(QSSRecognitionChoice *)self alternative_index];
-  std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::reserve(&v25, [alternative_index count]);
+  std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::reserve(&v24, [alternative_index count]);
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   alternative_index2 = [(QSSRecognitionChoice *)self alternative_index];
-  v7 = [alternative_index2 countByEnumeratingWithState:&v21 objects:v26 count:16];
+  v7 = [alternative_index2 countByEnumeratingWithState:&v20 objects:v25 count:16];
   if (v7)
   {
-    v8 = *v22;
+    v8 = *v21;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v22 != v8)
+        if (*v21 != v8)
         {
           objc_enumerationMutation(alternative_index2);
         }
 
-        intValue = [*(*(&v21 + 1) + 8 * i) intValue];
-        std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::push_back[abi:ne200100](&v25, &intValue);
+        intValue = [*(*(&v20 + 1) + 8 * i) intValue];
+        std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::push_back[abi:ne200100](&v24, &intValue);
       }
 
-      v7 = [alternative_index2 countByEnumeratingWithState:&v21 objects:v26 count:16];
+      v7 = [alternative_index2 countByEnumeratingWithState:&v20 objects:v25 count:16];
     }
 
     while (v7);
   }
 
-  begin = v25.__begin_;
-  if (v25.__end_ == v25.__begin_)
+  begin = v24.__begin_;
+  if (v24.__end_ == v24.__begin_)
   {
     v11 = &flatbuffers::data<int,std::allocator<int>>(std::vector<int> const&)::t;
   }
 
   else
   {
-    v11 = v25.__begin_;
+    v11 = v24.__begin_;
   }
 
-  v12 = flatbuffers::FlatBufferBuilder::CreateVector<int>(buffer, v11, v25.__end_ - v25.__begin_);
+  v12 = flatbuffers::FlatBufferBuilder::CreateVector<int>(buffer, v11, v24.__end_ - v24.__begin_);
   confidence = [(QSSRecognitionChoice *)self confidence];
   flatbuffers::FlatBufferBuilder::NotNested(buffer);
   *(buffer + 70) = 1;
@@ -98,7 +98,6 @@ flatbuffers::DetachedBuffer *__36__QSSRecognitionChoice_flatbuffData__block_invo
     operator delete(begin);
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v17;
 }
 

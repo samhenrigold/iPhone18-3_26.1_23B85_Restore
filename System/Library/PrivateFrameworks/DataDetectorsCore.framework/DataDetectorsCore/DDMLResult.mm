@@ -92,28 +92,7 @@ LABEL_11:
     [v5 range];
     v7 = v6;
     [(DDMLResult *)self range];
-    if (v7 != v8)
-    {
-      goto LABEL_8;
-    }
-
-    range = [v5 range];
-    if (range != [(DDMLResult *)self range])
-    {
-      goto LABEL_8;
-    }
-
-    matchedString = [v5 matchedString];
-    matchedString2 = [(DDMLResult *)self matchedString];
-    v12 = [matchedString isEqualToString:matchedString2];
-
-    if (!v12)
-    {
-      goto LABEL_8;
-    }
-
-    classification = [v5 classification];
-    if (classification == [(DDMLResult *)self classification])
+    if (v7 == v8 && (v9 = [v5 range], v9 == -[DDMLResult range](self, "range")) && (objc_msgSend(v5, "matchedString"), v10 = objc_claimAutoreleasedReturnValue(), -[DDMLResult matchedString](self, "matchedString"), v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v10, "isEqualToString:", v11), v11, v10, v12) && (v13 = objc_msgSend(v5, "classification"), v13 == -[DDMLResult classification](self, "classification")))
     {
       [v5 confidence];
       v15 = v14;
@@ -123,7 +102,6 @@ LABEL_11:
 
     else
     {
-LABEL_8:
       v17 = 0;
     }
   }

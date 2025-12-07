@@ -15,9 +15,9 @@
     dispatch_once(&qword_1ED6A5108, &__block_literal_global_41);
   }
 
-  v0 = qword_1ED6A5110;
+  v1 = qword_1ED6A5110;
 
-  return v0;
+  return v1;
 }
 
 - (uint64_t)programLinkedOnOrAfterDawnburstE
@@ -83,7 +83,7 @@ void __40__PKContentVersionUtility_sharedUtility__block_invoke()
   qword_1ED6A5110 = v0;
 }
 
-uint64_t __59__PKContentVersionUtility_programLinkedOnOrAfterDawnburstE__block_invoke()
+uint64_t __59__PKContentVersionUtility_programLinkedOnOrAfterDawnburstE__block_invoke(uint64_t a1, uint64_t a2)
 {
   result = dyld_program_sdk_at_least();
   byte_1ED6A5101 = result;
@@ -110,7 +110,7 @@ uint64_t __59__PKContentVersionUtility_programLinkedOnOrAfterDawnburstE__block_i
   return v1 & 1;
 }
 
-uint64_t __58__PKContentVersionUtility_programLinkedOnOrAfterDawnburst__block_invoke()
+uint64_t __58__PKContentVersionUtility_programLinkedOnOrAfterDawnburst__block_invoke(uint64_t a1, uint64_t a2)
 {
   result = dyld_program_sdk_at_least();
   _MergedGlobals_139 = result;

@@ -24,7 +24,7 @@
 
 void __65__HMDCameraPowerAssertionHandler_deregisterRemoteRequestHandler___block_invoke(uint64_t a1)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) currentRequestHandlerSessionIDs];
   v3 = [v2 containsObject:*(a1 + 40)];
 
@@ -38,13 +38,13 @@ void __65__HMDCameraPowerAssertionHandler_deregisterRemoteRequestHandler___block
       v20 = HMFGetLogIdentifier();
       v21 = *(a1 + 40);
       v22 = [*(a1 + 32) currentRequestHandlerSessionIDs];
-      v24 = 138543874;
-      v25 = v20;
-      v26 = 2112;
-      v27 = v21;
-      v28 = 2112;
-      v29 = v22;
-      _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@Cannot find session %@ in current assertion holders %@", &v24, 0x20u);
+      v23 = 138543874;
+      v24 = v20;
+      v25 = 2112;
+      v26 = v21;
+      v27 = 2112;
+      v28 = v22;
+      _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@Cannot find session %@ in current assertion holders %@", &v23, 0x20u);
     }
 
     goto LABEL_13;
@@ -61,13 +61,13 @@ void __65__HMDCameraPowerAssertionHandler_deregisterRemoteRequestHandler___block
     v8 = HMFGetLogIdentifier();
     v9 = *(a1 + 40);
     v10 = [*(a1 + 32) currentRequestHandlerSessionIDs];
-    v24 = 138543874;
-    v25 = v8;
-    v26 = 2112;
-    v27 = v9;
-    v28 = 2112;
-    v29 = v10;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Deregistering power assertion holder %@, current camera power assertion holders: %@", &v24, 0x20u);
+    v23 = 138543874;
+    v24 = v8;
+    v25 = 2112;
+    v26 = v9;
+    v27 = 2112;
+    v28 = v10;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Deregistering power assertion holder %@, current camera power assertion holders: %@", &v23, 0x20u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -86,13 +86,13 @@ void __65__HMDCameraPowerAssertionHandler_deregisterRemoteRequestHandler___block
       if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
         v16 = HMFGetLogIdentifier();
-        v24 = 138543362;
-        v25 = v16;
+        v23 = 138543362;
+        v24 = v16;
         v17 = "%{public}@Releasing power assertion for camera";
         v18 = v15;
         v19 = OS_LOG_TYPE_INFO;
 LABEL_12:
-        _os_log_impl(&dword_2531F8000, v18, v19, v17, &v24, 0xCu);
+        _os_log_impl(&dword_2531F8000, v18, v19, v17, &v23, 0xCu);
       }
     }
 
@@ -104,8 +104,8 @@ LABEL_12:
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         v16 = HMFGetLogIdentifier();
-        v24 = 138543362;
-        v25 = v16;
+        v23 = 138543362;
+        v24 = v16;
         v17 = "%{public}@Needed to release power assertion, but it isnt valid?";
         v18 = v15;
         v19 = OS_LOG_TYPE_ERROR;
@@ -117,8 +117,6 @@ LABEL_13:
 
     objc_autoreleasePoolPop(v13);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerRemoteRequestHandler:(id)handler forSessionID:(id)d
@@ -140,7 +138,7 @@ LABEL_13:
 
 void __76__HMDCameraPowerAssertionHandler_registerRemoteRequestHandler_forSessionID___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -148,11 +146,11 @@ void __76__HMDCameraPowerAssertionHandler_registerRemoteRequestHandler_forSessio
   {
     v5 = HMFGetLogIdentifier();
     v6 = *(a1 + 40);
-    v22 = 138543618;
-    v23 = v5;
-    v24 = 2112;
-    v25 = v6;
-    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@Registering power assertion holder for session %@", &v22, 0x16u);
+    v21 = 138543618;
+    v22 = v5;
+    v23 = 2112;
+    v24 = v6;
+    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@Registering power assertion holder for session %@", &v21, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
@@ -173,19 +171,19 @@ void __76__HMDCameraPowerAssertionHandler_registerRemoteRequestHandler_forSessio
       if (v13)
       {
         v14 = HMFGetLogIdentifier();
-        v22 = 138543362;
-        v23 = v14;
+        v21 = 138543362;
+        v22 = v14;
         v15 = "%{public}@Failed to create power assertion for camera request handler";
 LABEL_9:
-        _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, v15, &v22, 0xCu);
+        _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, v15, &v21, 0xCu);
       }
     }
 
     else if (v13)
     {
       v14 = HMFGetLogIdentifier();
-      v22 = 138543362;
-      v23 = v14;
+      v21 = 138543362;
+      v22 = v14;
       v15 = "%{public}@Taking power assertion for camera";
       goto LABEL_9;
     }
@@ -200,15 +198,14 @@ LABEL_9:
   {
     v19 = HMFGetLogIdentifier();
     v20 = [*(a1 + 32) currentRequestHandlerSessionIDs];
-    v22 = 138543618;
-    v23 = v19;
-    v24 = 2112;
-    v25 = v20;
-    _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_INFO, "%{public}@Current camera power assertion holders: %@", &v22, 0x16u);
+    v21 = 138543618;
+    v22 = v19;
+    v23 = 2112;
+    v24 = v20;
+    _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_INFO, "%{public}@Current camera power assertion holders: %@", &v21, 0x16u);
   }
 
   objc_autoreleasePoolPop(v16);
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDCameraPowerAssertionHandler)init
@@ -247,12 +244,11 @@ LABEL_9:
 
 uint64_t __45__HMDCameraPowerAssertionHandler_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v1_126132;
-  logCategory__hmf_once_v1_126132 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v1_126132;
+  logCategory__hmf_once_v1_126132 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (id)sharedHandler

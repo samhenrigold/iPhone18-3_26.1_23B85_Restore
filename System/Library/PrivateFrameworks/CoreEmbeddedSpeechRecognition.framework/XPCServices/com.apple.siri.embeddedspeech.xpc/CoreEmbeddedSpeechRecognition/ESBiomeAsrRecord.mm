@@ -134,37 +134,8 @@
   v16 = [(ESBiomeAsrRecord *)&v31 init];
   if (v16)
   {
-    if (![nameCopy isEqualToString:@"Dictation"])
+    if (![nameCopy isEqualToString:@"Dictation"] || !objc_msgSend(idCopy, "length") || !objc_msgSend(interactionIdCopy, "length") || !objc_msgSend(languageCopy, "length") || !AFDeviceSupportsSiriUOD() || (+[AFPreferences sharedPreferences](AFPreferences, "sharedPreferences"), v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(v17, "isDictationHIPAACompliant"), v17, (v18 & 1) != 0) || (+[AFPreferences sharedPreferences](AFPreferences, "sharedPreferences"), v19 = objc_claimAutoreleasedReturnValue(), v20 = objc_msgSend(v19, "siriDataSharingOptInStatus"), v19, v20 != 1))
     {
-      goto LABEL_11;
-    }
-
-    if (![idCopy length])
-    {
-      goto LABEL_11;
-    }
-
-    if (![interactionIdCopy length])
-    {
-      goto LABEL_11;
-    }
-
-    if (![languageCopy length])
-    {
-      goto LABEL_11;
-    }
-
-    if (!AFDeviceSupportsSiriUOD())
-    {
-      goto LABEL_11;
-    }
-
-    v17 = +[AFPreferences sharedPreferences];
-    isDictationHIPAACompliant = [v17 isDictationHIPAACompliant];
-
-    if ((isDictationHIPAACompliant & 1) != 0 || (+[AFPreferences sharedPreferences](AFPreferences, "sharedPreferences"), v19 = objc_claimAutoreleasedReturnValue(), v20 = [v19 siriDataSharingOptInStatus], v19, v20 != 1))
-    {
-LABEL_11:
       v29 = 0;
       goto LABEL_12;
     }

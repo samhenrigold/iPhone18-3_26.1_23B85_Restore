@@ -75,7 +75,7 @@
 
 - (VFX_RE_C_EntityConstants_s)_computeEntityData
 {
-  sub_1AF22BD6C(&self->_entityBufferMetadata, &off_1E7A7D438, 13, self->_drawCallContext, &v17);
+  sub_1AF22BD6C(v21, &self->_entityBufferMetadata, &off_1E7A7D438, 13, self->_drawCallContext);
   *&retstr[2].environmentLightingWeight = 0u;
   *&retstr[3].debugMode = 0u;
   *&retstr[2].tintFactor = 0u;
@@ -86,191 +86,196 @@
   *&retstr[1].fadeOpacity = 0u;
   *&retstr->lodDrawInfo = 0u;
   *&retstr->clippingIndexSlice.offset = 0u;
-  sub_1AF22BFA0(&v17, &retstr->fadeOpacity);
-  sub_1AF22BFA0(&v18, &retstr->tintFactor);
-  v4 = v19;
-  if (!v19)
+  sub_1AF22BFA0(v21, &retstr->fadeOpacity);
+  v4 = sub_1AF22BFA0(&v22, &retstr->tintFactor);
+  v6 = v23;
+  if (!v23)
   {
-    v5 = sub_1AF0D5194();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    v7 = sub_1AF0D5194(v4, v5);
+    v4 = os_log_type_enabled(v7, OS_LOG_TYPE_FAULT);
+    if (v4)
     {
       sub_1AFDEBE1C();
     }
   }
 
-  v7 = *(v4 + 24);
-  v6 = (v4 + 24);
-  if (v7 != 4)
+  v9 = *(v6 + 24);
+  v8 = (v6 + 24);
+  if (v9 != 4)
   {
-    v8 = sub_1AF0D5194();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+    v10 = sub_1AF0D5194(v4, v5);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
       sub_1AFDEBE9C();
     }
   }
 
-  v9 = sub_1AF22C83C(&v19);
-  memcpy(&retstr->clippingIndexSlice, v9, *v6);
-  sub_1AF22C044(&v20, &retstr->btTextureReadIndex);
-  sub_1AF22C044(&v21, &retstr->stencilReferenceValue);
-  sub_1AF22BFA0(&v22, &retstr->environmentLightingWeight);
-  sub_1AF22C0E8(&v23, &retstr[1].fadeOpacity);
-  v10 = v24;
-  if (!v24)
+  v11 = sub_1AF22C83C(&v23, v5);
+  memcpy(&retstr->clippingIndexSlice, v11, *v8);
+  sub_1AF22C044(&v24, &retstr->btTextureReadIndex);
+  sub_1AF22C044(&v25, &retstr->stencilReferenceValue);
+  sub_1AF22BFA0(&v26, &retstr->environmentLightingWeight);
+  v12 = sub_1AF22C0E8(&v27, &retstr[1].fadeOpacity);
+  v14 = v28;
+  if (!v28)
   {
-    v11 = sub_1AF0D5194();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+    v15 = sub_1AF0D5194(v12, v13);
+    v12 = os_log_type_enabled(v15, OS_LOG_TYPE_FAULT);
+    if (v12)
     {
       sub_1AFDEBE1C();
     }
   }
 
-  v13 = *(v10 + 24);
-  v12 = (v10 + 24);
-  if (v13 != 1)
+  v17 = *(v14 + 24);
+  v16 = (v14 + 24);
+  if (v17 != 1)
   {
-    v14 = sub_1AF0D5194();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+    v18 = sub_1AF0D5194(v12, v13);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
     {
       sub_1AFDEBF20();
     }
   }
 
-  v15 = sub_1AF22C83C(&v24);
-  memcpy(&retstr[2].sfFactor, v15, *v12);
-  sub_1AF22C18C(&v25, &retstr[2].sfFactor + 2);
-  sub_1AF22BFA0(&v26, &retstr[2].btTextureReadIndex);
-  sub_1AF22BFA0(&v27, &retstr->sfFactor);
-  sub_1AF22BFA0(&v28, &retstr[3]);
-  return sub_1AF22C18C(&v29, &retstr[3].tintFactor);
+  v19 = sub_1AF22C83C(&v28, v13);
+  memcpy(&retstr[2].sfFactor, v19, *v16);
+  sub_1AF22C18C(&v29, &retstr[2].sfFactor + 2);
+  sub_1AF22BFA0(&v30, &retstr[2].btTextureReadIndex);
+  sub_1AF22BFA0(&v31, &retstr->sfFactor);
+  sub_1AF22BFA0(&v32, &retstr[3]);
+  return sub_1AF22C18C(&v33, &retstr[3].tintFactor);
 }
 
 - (void)_computeViewData
 {
-  sub_1AF22BD6C((self + 624), &off_1E7A7D5D8, 9, *(self + 8), &v16);
+  sub_1AF22BD6C(v20, self + 624, &off_1E7A7D5D8, 9, *(self + 8));
   bzero(a2, 0x400uLL);
-  sub_1AF22C3D0(&v16, a2);
-  sub_1AF22C3D0(&v17, (a2 + 256));
-  sub_1AF22C3D0(&v18, (a2 + 512));
-  sub_1AF22C3D0(&v19, (a2 + 640));
-  v3 = v20;
-  if (!v20)
+  sub_1AF22C3D0(v20, a2);
+  sub_1AF22C3D0(&v21, (a2 + 256));
+  sub_1AF22C3D0(&v22, (a2 + 512));
+  v3 = sub_1AF22C3D0(&v23, (a2 + 640));
+  v5 = v24;
+  if (!v24)
   {
-    v4 = sub_1AF0D5194();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v6 = sub_1AF0D5194(v3, v4);
+    v3 = os_log_type_enabled(v6, OS_LOG_TYPE_FAULT);
+    if (v3)
     {
       sub_1AFDEBE1C();
     }
   }
 
-  v6 = *(v3 + 24);
-  v5 = (v3 + 24);
-  if (v6 != 32)
+  v8 = *(v5 + 24);
+  v7 = (v5 + 24);
+  if (v8 != 32)
   {
-    v7 = sub_1AF0D5194();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+    v9 = sub_1AF0D5194(v3, v4);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
       sub_1AFDEC284();
     }
   }
 
-  v8 = sub_1AF22C83C(&v20);
-  memcpy((a2 + 768), v8, *v5);
-  sub_1AF22C0E8(&v21, (a2 + 880));
-  v9 = v22;
-  if (!v22)
+  v10 = sub_1AF22C83C(&v24, v4);
+  memcpy((a2 + 768), v10, *v7);
+  v11 = sub_1AF22C0E8(&v25, (a2 + 880));
+  v13 = v26;
+  if (!v26)
   {
-    v10 = sub_1AF0D5194();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+    v14 = sub_1AF0D5194(v11, v12);
+    v11 = os_log_type_enabled(v14, OS_LOG_TYPE_FAULT);
+    if (v11)
     {
       sub_1AFDEBE1C();
     }
   }
 
-  v12 = *(v9 + 24);
-  v11 = (v9 + 24);
-  if (v12 != 32)
+  v16 = *(v13 + 24);
+  v15 = (v13 + 24);
+  if (v16 != 32)
   {
-    v13 = sub_1AF0D5194();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+    v17 = sub_1AF0D5194(v11, v12);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
     {
       sub_1AFDEC284();
     }
   }
 
-  v14 = sub_1AF22C83C(&v22);
-  memcpy((a2 + 832), v14, *v11);
-  sub_1AF22BFA0(&v23, (a2 + 940));
-  return sub_1AF22BFA0(v24, (a2 + 944));
+  v18 = sub_1AF22C83C(&v26, v12);
+  memcpy((a2 + 832), v18, *v15);
+  sub_1AF22BFA0(&v27, (a2 + 940));
+  return sub_1AF22BFA0(&v28, (a2 + 944));
 }
 
 - (VFX_RE_C_GlobalConstants_s)_computeGlobalData
 {
   v3 = v2;
-  sub_1AF22BD6C(&self->_globalBufferMetadata, &off_1E7A7D778, 2, self->_drawCallContext, &v11);
+  sub_1AF22BD6C(v13, &self->_globalBufferMetadata, &off_1E7A7D778, 2, self->_drawCallContext);
   v3[2] = 0u;
   v3[3] = 0u;
   *v3 = 0u;
   v3[1] = 0u;
-  v4 = v11;
-  if (!v11)
+  v6 = v13[0];
+  if (!v13[0])
   {
-    v5 = sub_1AF0D5194();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    v7 = sub_1AF0D5194(v4, v5);
+    v4 = os_log_type_enabled(v7, OS_LOG_TYPE_FAULT);
+    if (v4)
     {
       sub_1AFDEBE1C();
     }
   }
 
-  v7 = *(v4 + 24);
-  v6 = (v4 + 24);
-  if (v7 != 16)
+  v9 = *(v6 + 24);
+  v8 = (v6 + 24);
+  if (v9 != 16)
   {
-    v8 = sub_1AF0D5194();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+    v10 = sub_1AF0D5194(v4, v5);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
       sub_1AFDEC38C();
     }
   }
 
-  v9 = sub_1AF22C83C(&v11);
-  memcpy(v3, v9, *v6);
-  return sub_1AF22BFA0(v12, v3 + 20);
+  v11 = sub_1AF22C83C(v13, v5);
+  memcpy(v3, v11, *v8);
+  return sub_1AF22BFA0(&v14, v3 + 20);
 }
 
 - (re_vfx_object_constants)_computeVFXObjectConstants
 {
-  objc_msgSend__updateAvailableSelectors(self, a2, v2, v3);
+  objc_msgSend__updateAvailableSelectors(self, a2, v2);
   drawCallContext = self->_drawCallContext;
   if (self->_respondToSystemTreatmentRenderOptions)
   {
-    v9 = objc_msgSend_systemTreatmentsRenderOptions(drawCallContext, v5, v6, v7);
-    v13 = ((2 * v9) & 0x7E0 | v9 & 7);
+    v7 = objc_msgSend_systemTreatmentsRenderOptions(drawCallContext, v4, v5);
+    v10 = ((2 * v7) & 0x7E0 | v7 & 7);
   }
 
   else
   {
-    if (objc_msgSend_enableBreakthrough(drawCallContext, v5, v6, v7))
+    if (objc_msgSend_enableBreakthrough(drawCallContext, v4, v5))
     {
-      v17 = 2;
+      v13 = 2;
     }
 
     else
     {
-      v17 = 0;
+      v13 = 0;
     }
 
-    v13 = (v17 | objc_msgSend_enableClipping(self->_drawCallContext, v14, v15, v16));
+    v10 = (v13 | objc_msgSend_enableClipping(self->_drawCallContext, v11, v12));
   }
 
-  if (objc_msgSend_portalClippingMode(self->_drawCallContext, v10, v11, v12) - 1 >= 3)
+  if (objc_msgSend_portalClippingMode(self->_drawCallContext, v8, v9) - 1 >= 3)
   {
-    return v13;
+    return v10;
   }
 
   else
   {
-    return (*&v13 | 0x10);
+    return (*&v10 | 0x10);
   }
 }
 

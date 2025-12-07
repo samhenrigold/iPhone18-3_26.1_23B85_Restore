@@ -3,6 +3,8 @@
 - (BOOL)hasBlownAir;
 - (BOOL)hasFilament;
 - (id)formattedValue;
+- (void)setHasBlownAir:(BOOL)air;
+- (void)setHasFilament:(BOOL)filament;
 @end
 
 @implementation CAFDefrostTypesCharacteristic
@@ -21,11 +23,25 @@
   return [CAFBitMaskUtilities bitmask:defrostTypesValue hasOption:1];
 }
 
+- (void)setHasBlownAir:(BOOL)air
+{
+  v4 = [CAFBitMaskUtilities bitmask:[(CAFDefrostTypesCharacteristic *)self defrostTypesValue] setOption:1 on:air];
+
+  [(CAFDefrostTypesCharacteristic *)self setDefrostTypesValue:v4];
+}
+
 - (BOOL)hasFilament
 {
   defrostTypesValue = [(CAFDefrostTypesCharacteristic *)self defrostTypesValue];
 
   return [CAFBitMaskUtilities bitmask:defrostTypesValue hasOption:2];
+}
+
+- (void)setHasFilament:(BOOL)filament
+{
+  v4 = [CAFBitMaskUtilities bitmask:[(CAFDefrostTypesCharacteristic *)self defrostTypesValue] setOption:2 on:filament];
+
+  [(CAFDefrostTypesCharacteristic *)self setDefrostTypesValue:v4];
 }
 
 - (id)formattedValue

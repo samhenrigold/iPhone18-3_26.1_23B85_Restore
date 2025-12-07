@@ -193,7 +193,7 @@ uint64_t __33__SRSensorPruner_setupConnection__block_invoke_51(uint64_t a1)
 
 - (void)registerWithDaemonIfNeededWithReply:(id)reply
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   connectionDidInterrupt = [(SRSensorPruner *)self connectionDidInterrupt];
   if ([(SRSensorPruner *)self connectionDidInvalidate])
   {
@@ -212,56 +212,49 @@ uint64_t __33__SRSensorPruner_setupConnection__block_invoke_51(uint64_t a1)
     }
 
     connection = self->_connection;
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __54__SRSensorPruner_registerWithDaemonIfNeededWithReply___block_invoke;
-    v12[3] = &unk_1E8330408;
-    v12[4] = reply;
-    v8 = [(NSXPCConnection *)connection remoteObjectProxyWithErrorHandler:v12];
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __54__SRSensorPruner_registerWithDaemonIfNeededWithReply___block_invoke;
+    v10[3] = &unk_1E8330408;
+    v10[4] = reply;
+    v8 = [(NSXPCConnection *)connection remoteObjectProxyWithErrorHandler:v10];
     [v8 startPruningForSensor:-[SRSensorPruner sensor](self deviceId:{"sensor"), -[SRDevice deviceIdentifier](-[SRSensorPruner device](self, "device"), "deviceIdentifier")}];
     if (v8)
     {
       [(SRSensorPruner *)self setConnectionDidInterrupt:0];
       (*(reply + 2))(reply, 0);
     }
-
-    v9 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v10 = *(reply + 2);
-    v11 = *MEMORY[0x1E69E9840];
+    v9 = *(reply + 2);
 
-    v10(reply, 0);
+    v9(reply, 0);
   }
 }
 
 uint64_t __54__SRSensorPruner_registerWithDaemonIfNeededWithReply___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v4 = SRLogPruner;
   if (os_log_type_enabled(SRLogPruner, OS_LOG_TYPE_ERROR))
   {
-    v7 = 138543362;
-    v8 = a2;
-    _os_log_error_impl(&dword_1C914D000, v4, OS_LOG_TYPE_ERROR, "Failed to connect to daemon because %{public}@", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = a2;
+    _os_log_error_impl(&dword_1C914D000, v4, OS_LOG_TYPE_ERROR, "Failed to connect to daemon because %{public}@", &v6, 0xCu);
   }
 
-  result = (*(*(a1 + 32) + 16))();
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 32) + 16))();
 }
 
 - (SRDatastore)datastore
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   nextDatastoreFiles = [(SRSensorPruner *)self nextDatastoreFiles];
   if (!nextDatastoreFiles)
   {
-LABEL_8:
-    result = self->_datastore;
-    goto LABEL_12;
+    return self->_datastore;
   }
 
   v4 = nextDatastoreFiles;
@@ -275,13 +268,13 @@ LABEL_8:
   v9 = SRLogPruner;
   if (os_log_type_enabled(SRLogPruner, OS_LOG_TYPE_DEBUG))
   {
-    v15 = 138543874;
-    v16 = v5;
-    v17 = 2114;
-    v18 = v6;
-    v19 = 2114;
-    v20 = v8;
-    _os_log_debug_impl(&dword_1C914D000, v9, OS_LOG_TYPE_DEBUG, "Creating a new datastore with samples: %{public}@, metadata: %{public}@, defaults: %{public}@", &v15, 0x20u);
+    v14 = 138543874;
+    v15 = v5;
+    v16 = 2114;
+    v17 = v6;
+    v18 = 2114;
+    v19 = v8;
+    _os_log_debug_impl(&dword_1C914D000, v9, OS_LOG_TYPE_DEBUG, "Creating a new datastore with samples: %{public}@, metadata: %{public}@, defaults: %{public}@", &v14, 0x20u);
   }
 
   if ([(NSDictionary *)v4 objectForKeyedSubscript:0x1F48C05C0])
@@ -295,20 +288,17 @@ LABEL_8:
 
     self->_datastore = v11;
 
-    goto LABEL_8;
+    return self->_datastore;
   }
 
   v13 = SRLogPruner;
   if (os_log_type_enabled(SRLogPruner, OS_LOG_TYPE_DEBUG))
   {
-    LOWORD(v15) = 0;
-    _os_log_debug_impl(&dword_1C914D000, v13, OS_LOG_TYPE_DEBUG, "No sample file received so clearing the datastore", &v15, 2u);
+    LOWORD(v14) = 0;
+    _os_log_debug_impl(&dword_1C914D000, v13, OS_LOG_TYPE_DEBUG, "No sample file received so clearing the datastore", &v14, 2u);
   }
 
-  result = 0;
-LABEL_12:
-  v14 = *MEMORY[0x1E69E9840];
-  return result;
+  return 0;
 }
 
 - (void)removeSamplesFrom:(double)from to:(double)to
@@ -369,55 +359,52 @@ uint64_t __39__SRSensorPruner_removeSamplesFrom_to___block_invoke_2(uint64_t a1,
 {
   location[3] = *MEMORY[0x1E69E9840];
   datastore = [(SRSensorPruner *)self datastore];
-  [(SRDatastore *)datastore startTimeOfCurrentSegment];
-  if (from <= to && v11 <= to)
+  startTimeOfCurrentSegment = [(SRDatastore *)datastore startTimeOfCurrentSegment];
+  if (from > to || startTimeOfCurrentSegment > to)
   {
-    v21[0] = 0;
-    v21[1] = v21;
-    v21[2] = 0x2020000000;
-    *&v21[3] = from;
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __49__SRSensorPruner_removeSamplesFrom_to_inSegment___block_invoke;
-    v20[3] = &unk_1E8330738;
-    v20[4] = v21;
-    [(SRDatastore *)datastore removeSamplesFrom:v20 to:from callback:to];
-    v15 = SRLogPruner;
+    delegate = [(SRSensorPruner *)self delegate];
+    if (objc_opt_respondsToSelector())
+    {
+
+      [(SRSensorPrunerDelegate *)delegate sensorPrunerDidStopPruning:self];
+    }
+  }
+
+  else
+  {
+    v19[0] = 0;
+    v19[1] = v19;
+    v19[2] = 0x2020000000;
+    *&v19[3] = from;
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __49__SRSensorPruner_removeSamplesFrom_to_inSegment___block_invoke;
+    v18[3] = &unk_1E8330738;
+    v18[4] = v19;
+    [(SRDatastore *)datastore removeSamplesFrom:v18 to:from callback:to];
+    v14 = SRLogPruner;
     if (os_log_type_enabled(SRLogPruner, OS_LOG_TYPE_DEBUG))
     {
       LODWORD(location[0]) = 138543362;
       *(location + 4) = segment;
-      _os_log_debug_impl(&dword_1C914D000, v15, OS_LOG_TYPE_DEBUG, "Requesting next segment after %{public}@", location, 0xCu);
+      _os_log_debug_impl(&dword_1C914D000, v14, OS_LOG_TYPE_DEBUG, "Requesting next segment after %{public}@", location, 0xCu);
     }
 
     objc_initWeak(location, self);
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __49__SRSensorPruner_removeSamplesFrom_to_inSegment___block_invoke_59;
-    v18[3] = &unk_1E8330788;
-    v18[4] = self;
-    objc_copyWeak(v19, location);
-    v18[5] = segment;
-    v18[6] = v21;
-    v19[1] = *&to;
-    [(SRSensorPruner *)self registerWithDaemonIfNeededWithReply:v18];
-    objc_destroyWeak(v19);
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __49__SRSensorPruner_removeSamplesFrom_to_inSegment___block_invoke_59;
+    v16[3] = &unk_1E8330788;
+    v16[4] = self;
+    objc_copyWeak(v17, location);
+    v16[5] = segment;
+    v16[6] = v19;
+    v17[1] = *&to;
+    [(SRSensorPruner *)self registerWithDaemonIfNeededWithReply:v16];
+    objc_destroyWeak(v17);
     objc_destroyWeak(location);
-    _Block_object_dispose(v21, 8);
-    goto LABEL_13;
+    _Block_object_dispose(v19, 8);
   }
-
-  delegate = [(SRSensorPruner *)self delegate];
-  if ((objc_opt_respondsToSelector() & 1) == 0)
-  {
-LABEL_13:
-    v17 = *MEMORY[0x1E69E9840];
-    return;
-  }
-
-  v14 = *MEMORY[0x1E69E9840];
-
-  [(SRSensorPrunerDelegate *)delegate sensorPrunerDidStopPruning:self];
 }
 
 void __49__SRSensorPruner_removeSamplesFrom_to_inSegment___block_invoke_59(uint64_t a1, uint64_t a2)
@@ -451,7 +438,7 @@ void __49__SRSensorPruner_removeSamplesFrom_to_inSegment___block_invoke_59(uint6
 
 uint64_t __49__SRSensorPruner_removeSamplesFrom_to_inSegment___block_invoke_2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = [a2 objectForKeyedSubscript:0x1F48C0660];
   if (v4)
   {
@@ -459,15 +446,13 @@ uint64_t __49__SRSensorPruner_removeSamplesFrom_to_inSegment___block_invoke_2(ui
     v6 = SRLogPruner;
     if (os_log_type_enabled(SRLogPruner, OS_LOG_TYPE_ERROR))
     {
-      v9 = 138543362;
-      v10 = v5;
-      _os_log_error_impl(&dword_1C914D000, v6, OS_LOG_TYPE_ERROR, "Error requesting a file handle for pruning. %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v5;
+      _os_log_error_impl(&dword_1C914D000, v6, OS_LOG_TYPE_ERROR, "Error requesting a file handle for pruning. %{public}@", &v8, 0xCu);
     }
   }
 
-  result = [objc_loadWeak((a1 + 40)) continuePruneFrom:a2 to:*(*(*(a1 + 32) + 8) + 24) withDatastoreFiles:*(a1 + 48)];
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return [objc_loadWeak((a1 + 40)) continuePruneFrom:a2 to:*(*(*(a1 + 32) + 8) + 24) withDatastoreFiles:*(a1 + 48)];
 }
 
 - (void)continuePruneFrom:(double)from to:(double)to withDatastoreFiles:(id)files
@@ -566,23 +551,22 @@ void __34__SRSensorPruner_removeAllSamples__block_invoke(uint64_t a1, uint64_t a
 
 uint64_t __34__SRSensorPruner_removeAllSamples__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v4 = [objc_loadWeak((a1 + 40)) delegate];
   v5 = SRLogPruner;
   if (os_log_type_enabled(SRLogPruner, OS_LOG_TYPE_ERROR))
   {
-    v8 = 138543362;
-    v9 = a2;
-    _os_log_error_impl(&dword_1C914D000, v5, OS_LOG_TYPE_ERROR, "Failed to connect to daemon because %{public}@", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = a2;
+    _os_log_error_impl(&dword_1C914D000, v5, OS_LOG_TYPE_ERROR, "Failed to connect to daemon because %{public}@", &v7, 0xCu);
   }
 
   result = objc_opt_respondsToSelector();
   if (result)
   {
-    result = [v4 sensorPrunerDidStopPruningAllData:*(a1 + 32)];
+    return [v4 sensorPrunerDidStopPruningAllData:*(a1 + 32)];
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -618,22 +602,21 @@ uint64_t __34__SRSensorPruner_removeAllSamples__block_invoke_62(uint64_t a1)
 
 uint64_t __80__SRSensorPruner_removeAllSamplesForAllSensorsWithConnection_completionHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v4 = SRLogPruner;
   if (os_log_type_enabled(SRLogPruner, OS_LOG_TYPE_ERROR))
   {
-    v7 = 138543362;
-    v8 = a2;
-    _os_log_error_impl(&dword_1C914D000, v4, OS_LOG_TYPE_ERROR, "Failed to connect to daemon because %{public}@", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = a2;
+    _os_log_error_impl(&dword_1C914D000, v4, OS_LOG_TYPE_ERROR, "Failed to connect to daemon because %{public}@", &v6, 0xCu);
   }
 
   result = *(a1 + 32);
   if (result)
   {
-    result = (*(result + 16))(result, a2);
+    return (*(result + 16))(result, a2);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 

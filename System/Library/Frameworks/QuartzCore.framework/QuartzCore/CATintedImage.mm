@@ -19,20 +19,20 @@
   image = self->_image;
   if (image)
   {
-    v5 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 576);
-    if (v5 && (v6 = *(v5 + 40)) != 0)
+    v6 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 576);
+    if (v6 && (v7 = *(v6 + 40)) != 0)
     {
-      v7 = *(v6 + 112);
+      v8 = *(v7 + 112);
     }
 
     else
     {
-      v7 = CAGetColorSpace(36);
+      v8 = CAGetColorSpace(36);
     }
 
     copy_flags = self->_copy_flags;
 
-    CA::Render::prepare_image(image, v7, copy_flags, v2);
+    CA::Render::prepare_image(image, v8, copy_flags, v2, v3);
   }
 }
 

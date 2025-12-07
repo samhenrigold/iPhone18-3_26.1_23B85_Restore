@@ -383,7 +383,7 @@ void ColorsWheelContext_destroy(void ***a1)
   }
 }
 
-uint64_t ColorsWheelContext_computeColorComponent(uint64_t a1, int a2, float a3, double a4, double a5, float a6)
+uint64_t ColorsWheelContext_computeColorComponent(uint64_t a1, uint64_t a2, float a3, double a4, double a5, float a6)
 {
   if (a3 < 0.0 || a3 > 1.0)
   {
@@ -422,7 +422,7 @@ LABEL_10:
   return (((v15 * (LODWORD(a6) / 255.0)) + ((1.0 - v15) * (v14 / 255.0))) * 255.0);
 }
 
-uint64_t ColorsWheelContext_drawMatrix_f32(uint64_t result, int a2, int a3, float *a4, int a5, int a6, uint64_t a7, int a8, double a9, double a10, double a11, float a12, int a13)
+uint64_t ColorsWheelContext_drawMatrix_f32(uint64_t result, unsigned int a2, unsigned int a3, float *a4, int a5, int a6, uint64_t a7, int a8, double a9, double a10, double a11, float a12, int a13)
 {
   if (a3 >= 1)
   {
@@ -633,7 +633,7 @@ double setDefaultConfig(uint64_t a1)
   return result;
 }
 
-id packDetectionResult(void *a1, void *a2, CGFloat a3, CGFloat a4, float a5, float32x2_t a6, uint64_t a7, int a8, void *a9, CMTime *a10, uint64_t a11, uint64_t a12, void *a13, void *a14, unint64_t a15)
+id packDetectionResult(void *a1, void *a2, CGFloat a3, CGFloat a4, float a5, double a6, uint64_t a7, int a8, void *a9, CMTime *a10, uint64_t a11, uint64_t a12, void *a13, void *a14, unint64_t a15)
 {
   v21 = a1;
   v22 = a2;
@@ -663,16 +663,16 @@ id packDetectionResult(void *a1, void *a2, CGFloat a3, CGFloat a4, float a5, flo
   v106 = v32;
   [v33 setObject:v32 forKeyedSubscript:@"RepairMeta_HW"];
   v34 = [v28 mutableBytes];
-  v35 = vmul_f32(a6, a6);
+  v35 = vmul_f32(*&a6, *&a6);
   v35.f32[0] = sqrtf(vaddv_f32(v35));
   v36 = [NSNumber numberWithFloat:*&v35];
   [v33 setObject:v36 forKeyedSubscript:@"OpticalCenterOffsetMag"];
 
-  v37 = [NSNumber numberWithFloat:*&a6];
+  v37 = [NSNumber numberWithFloat:a6];
   [v33 setObject:v37 forKeyedSubscript:@"OpticalCenterOffsetX"];
 
-  HIDWORD(v38) = a6.i32[1];
-  LODWORD(v38) = a6.i32[1];
+  HIDWORD(v38) = HIDWORD(a6);
+  LODWORD(v38) = HIDWORD(a6);
   v39 = [NSNumber numberWithFloat:v38];
   [v33 setObject:v39 forKeyedSubscript:@"OpticalCenterOffsetY"];
 
@@ -1162,7 +1162,7 @@ void BoundingBoxToBuffer(void *a1, void *a2, void *a3, uint64_t a4)
   }
 }
 
-uint64_t createVTDeghostingFrame(uint64_t a1, uint64_t a2, int a3, __int128 *a4, const void *a5, const void *a6)
+uint64_t createVTDeghostingFrame(uint64_t a1, uint64_t a2, int a3, __n128 *a4, const void *a5, const void *a6)
 {
   Mutable = CFDictionaryCreateMutable(kCFAllocatorDefault, 3, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
   if (a2)
@@ -1188,12 +1188,9 @@ LABEL_3:
 LABEL_4:
   if (a4)
   {
-    v13 = a4[1];
-    v14 = a4[2];
-    v15 = *a4;
-    v16 = VTCreateArrayRepresentationOfHomographyMatrix();
-    CFDictionaryAddValue(Mutable, kVTDeghostingFrameKey_Homography, v16);
-    CFRelease(v16);
+    v13 = VTCreateArrayRepresentationOfHomographyMatrix();
+    CFDictionaryAddValue(Mutable, kVTDeghostingFrameKey_Homography, v13);
+    CFRelease(v13);
   }
 
   if (a6)
@@ -1201,72 +1198,80 @@ LABEL_4:
     CFDictionaryAddValue(Mutable, kVTDeghostingFrameKey_RepairWeights, a6);
   }
 
-  v17 = VTDeghostingFrameBufferCreate();
+  v14 = VTDeghostingFrameBufferCreate();
   CFRelease(Mutable);
-  return v17;
+  return v14;
 }
 
-uint64_t getWSpatialUsingGhostMotion_PA_L(float *a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5, float *a6, float a7)
+void getWSpatialUsingGhostMotion_PA_L(float *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, float *a6, float a7)
 {
-  if (!a4)
+  if (a4)
   {
-    return getWSpatialUsingGhostMotion_PA_L_cold_3();
-  }
+    if (a5)
+    {
+      if (a2)
+      {
+        v10 = fminf(fmaxf((a7 + -450.0) / 2150.0, 0.0), 1.0);
+        if (a3)
+        {
+          v11 = 0.01;
+        }
 
-  if (!a5)
-  {
-    return getWSpatialUsingGhostMotion_PA_L_cold_2();
-  }
+        else
+        {
+          v11 = 0.005;
+        }
 
-  if (!a2)
-  {
-    return getWSpatialUsingGhostMotion_PA_L_cold_1();
-  }
+        v12 = a1[1];
+        v13 = *a1;
+        v14 = v12;
+        v15 = a1[2] - *a1;
+        v16 = v15;
+        v17 = a1[3] - v12;
+        v18 = v17;
+        v25 = 0;
+        v19 = v15 * v17;
+        v24 = 0;
+        getWSpatialFromOverlap(&v25, &v25 + 1, a2, &v24, a4, 0, v13, v14, v15, v17, v15 * v17);
+        v23 = 0.0;
+        v22 = 0;
+        getWSpatialFromOverlap(&v23, &v25 + 1, a2, &v22, a5, 1, v13, v14, v16, v18, v19);
+        if (v10 > 0.5 && *&v25 <= 0.9 && v23 <= 0.8)
+        {
+          v20 = (v10 * fminf(fmaxf((*&v25 + v23) + -0.5, 0.0), 1.0)) / 5.0 + *(&v25 + 1);
+          *(&v25 + 1) = v20;
+        }
 
-  v10 = fminf(fmaxf((a7 + -450.0) / 2150.0, 0.0), 1.0);
-  if (a3)
-  {
-    v11 = 0.01;
+        v21 = *(&v25 + 1);
+        if (v24)
+        {
+          v21 = v11 + *(&v25 + 1);
+        }
+
+        if (v22)
+        {
+          v21 = v11 + v21;
+        }
+
+        *a6 = fminf(v21, 1.0);
+      }
+
+      else
+      {
+        getWSpatialUsingGhostMotion_PA_L_cold_1(a1, 0, a3, a7);
+      }
+    }
+
+    else
+    {
+      getWSpatialUsingGhostMotion_PA_L_cold_2(a1, a2, a3, a7);
+    }
   }
 
   else
   {
-    v11 = 0.005;
+    getWSpatialUsingGhostMotion_PA_L_cold_3(a1, a2, a3, 0, a5, a6, a7);
   }
-
-  v12 = a1[1];
-  v13 = *a1;
-  v14 = v12;
-  v15 = a1[2] - *a1;
-  v16 = v15;
-  v17 = a1[3] - v12;
-  v18 = v17;
-  v26 = 0;
-  v19 = v15 * v17;
-  v25 = 0;
-  getWSpatialFromOverlap(&v26, &v26 + 1, a2, &v25, a4, 0, v13, v14, v15, v17, v15 * v17);
-  v24 = 0.0;
-  v23 = 0;
-  result = getWSpatialFromOverlap(&v24, &v26 + 1, a2, &v23, a5, 1, v13, v14, v16, v18, v19);
-  if (v10 > 0.5 && *&v26 <= 0.9 && v24 <= 0.8)
-  {
-    v21 = (v10 * fminf(fmaxf((*&v26 + v24) + -0.5, 0.0), 1.0)) / 5.0 + *(&v26 + 1);
-    *(&v26 + 1) = v21;
-  }
-
-  v22 = *(&v26 + 1);
-  if (v25)
-  {
-    v22 = v11 + *(&v26 + 1);
-  }
-
-  if (v23)
-  {
-    v22 = v11 + v22;
-  }
-
-  *a6 = fminf(v22, 1.0);
-  return result;
 }
 
 void __destructor_8_s8_s16_s24_s32(uint64_t a1)
@@ -1286,10 +1291,11 @@ id __copy_constructor_8_8_t0w8_s8_s16_s24_s32_t40w8(void *a1, uint64_t a2)
   return result;
 }
 
-void sub_12D38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_12D38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
+  va_start(va, a28);
   __destructor_8_s8_s16_s24_s32(&a23);
-  __destructor_8_s8_s16_s24_s32(&a29);
+  __destructor_8_s8_s16_s24_s32(va);
   _Unwind_Resume(a1);
 }
 
@@ -1298,7 +1304,7 @@ uint64_t syncRoiMotions(float32x2_t *a1)
   v1 = a1->i16[0];
   if (v1 >= 1)
   {
-    v2 = &a1[207];
+    v2 = a1 + 207;
     v3 = a1->i16[0];
     v4 = a1 + 223;
     do
@@ -1312,7 +1318,7 @@ uint64_t syncRoiMotions(float32x2_t *a1)
     do
     {
       v5 = v1;
-      v6 = &a1[223];
+      v6 = a1 + 223;
       v7 = a1 + 7;
       v8 = 0.0;
       v9 = 0.0;
@@ -1322,21 +1328,22 @@ uint64_t syncRoiMotions(float32x2_t *a1)
         v7 += 4;
         v11 = vsub_f32(a1[4 * v3 + 7], v10);
         v11.f32[0] = 1.0 - fminf(fmaxf(sqrtf(vaddv_f32(vmul_f32(v11, v11))) * 0.0039062, 0.0), 1.0);
-        v10.i32[0] = *v6++;
+        v10.i32[0] = v6->i32[0];
+        v6 = (v6 + 4);
         v8 = v8 + (v11.f32[0] * v10.f32[0]);
         v9 = v9 + v11.f32[0];
         --v5;
       }
 
       while (v5);
-      v12 = *&v2[2 * v3];
+      v12 = v2->f32[v3];
       v13 = v8 / v9;
       if (v12 >= v13)
       {
         v12 = v13;
       }
 
-      *&v2[2 * v3++] = v12;
+      v2->f32[v3++] = v12;
     }
 
     while (v3 != v1);
@@ -1793,43 +1800,50 @@ CFTypeRef getKeypointDataFromSampleBuffer(const void *a1)
 
 uint64_t extractFutureReferenceFrames(uint64_t a1, uint64_t *a2, int a3)
 {
-  v29 = 0u;
-  v28 = 0u;
-  if (!a1 || (*(a1 + 12) = 0, !a2) || (v5 = *(a1 + 8), v5 >= 3))
+  v42 = 0u;
+  v41 = 0u;
+  if (!a1 || (*(a1 + 12) = 0, !a2) || (v6 = *(a1 + 8), v6 >= 3))
   {
     fig_log_get_emitter();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v3, v28, key, v32, v34, v36, v38);
     OneFrameFromSampleBuffer = 2;
     goto LABEL_24;
   }
 
-  if (*(a2 + 3) - 1 < v5)
+  if (*(a2 + 3) - 1 < v6)
   {
-    v5 = *(a2 + 3) - 1;
+    v6 = *(a2 + 3) - 1;
   }
 
-  if (v5 >= 1)
+  if (v6 >= 1)
   {
-    v6 = a3;
-    v7 = 0;
+    v7 = a3;
+    v29 = v3;
     v8 = 0;
-    v9 = 48 * v5;
+    v9 = 0;
+    keya = @"MetaData";
+    v37 = @"RepairMeta";
+    v10 = 48 * v6;
+    v33 = @"InputTexture";
+    v35 = @"RepairMeta_HW";
+    v39 = a3;
     do
     {
-      v10 = *a2;
-      v11 = *a2 + v7;
-      v12 = *(v11 + 24);
-      if (!v12)
+      v11 = *a2;
+      v12 = *a2 + v8;
+      v13 = *(v12 + 24);
+      if (!v13)
       {
         fig_log_get_emitter();
-        FigDebugAssert3();
+        LODWORD(v27) = 0;
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v27, v29, v29, keya, v33, v35, v37, v38);
         OneFrameFromSampleBuffer = 4294954516;
         goto LABEL_24;
       }
 
-      if (v6)
+      if (v7)
       {
-        OneFrameFromSampleBuffer = fetchOneFrameFromSampleBuffer(&v27, v12);
+        OneFrameFromSampleBuffer = fetchOneFrameFromSampleBuffer(&v40, v13);
         if (OneFrameFromSampleBuffer)
         {
           goto LABEL_11;
@@ -1838,20 +1852,20 @@ uint64_t extractFutureReferenceFrames(uint64_t a1, uint64_t *a2, int a3)
         goto LABEL_19;
       }
 
-      ImageBuffer = CMSampleBufferGetImageBuffer(*(v11 + 24));
+      ImageBuffer = CMSampleBufferGetImageBuffer(*(v12 + 24));
       if (ImageBuffer)
       {
-        v15 = *(v10 + v7 + 32);
-        if (v15)
+        v16 = *(v11 + v8 + 32);
+        if (v16)
         {
-          if (*(v10 + v7 + 40) != 1)
+          if (*(v11 + v8 + 40) != 1)
           {
             OneFrameFromSampleBuffer = 0;
-            v15 = 0;
+            v16 = 0;
             goto LABEL_17;
           }
 
-          v15 = CFDictionaryGetValue(v15, @"MetaData");
+          v16 = CFDictionaryGetValue(v16, keya);
         }
 
         OneFrameFromSampleBuffer = 0;
@@ -1860,63 +1874,65 @@ uint64_t extractFutureReferenceFrames(uint64_t a1, uint64_t *a2, int a3)
       else
       {
         fig_log_get_emitter();
-        FigDebugAssert3();
-        v15 = 0;
+        LODWORD(v27) = 0;
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v27, v29, v29, keya, v33, v35, v37, v38);
+        v16 = 0;
         OneFrameFromSampleBuffer = 4294954516;
       }
 
 LABEL_17:
-      v16 = v28;
-      *&v28 = v15;
-      v17 = v15;
+      v17 = v41;
+      *&v41 = v16;
+      v18 = v16;
 
-      v27 = ImageBuffer;
-      v18 = v10 + v7;
-      v19 = [*(v18 + 32) objectForKeyedSubscript:@"RepairMeta"];
-      v6 = a3;
-      v20 = *(&v28 + 1);
-      *(&v28 + 1) = v19;
+      v40 = ImageBuffer;
+      v19 = v11 + v8;
+      v20 = [*(v19 + 32) objectForKeyedSubscript:v37];
+      v7 = v39;
+      v21 = *(&v41 + 1);
+      *(&v41 + 1) = v20;
 
-      v21 = [*(v18 + 32) objectForKeyedSubscript:@"RepairMeta_HW"];
-      v22 = v29;
-      *&v29 = v21;
+      v22 = [*(v19 + 32) objectForKeyedSubscript:v35];
+      v23 = v42;
+      *&v42 = v22;
 
-      v23 = [*(v18 + 32) objectForKeyedSubscript:@"InputTexture"];
-      v24 = *(&v29 + 1);
-      *(&v29 + 1) = v23;
+      v24 = [*(v19 + 32) objectForKeyedSubscript:v33];
+      v25 = *(&v42 + 1);
+      *(&v42 + 1) = v24;
 
       if (!ImageBuffer)
       {
 LABEL_11:
         fig_log_get_emitter();
-        FigDebugAssert3();
+        LODWORD(v27) = 0;
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v27, v29, v29, keya, v33, v35, v37, v38);
         goto LABEL_24;
       }
 
-      if (!v28)
+      if (!v41)
       {
         break;
       }
 
 LABEL_19:
-      __copy_assignment_8_8_t0w8_s8_s16_s24_s32_t40w8(*a1 + v8, &v27);
+      __copy_assignment_8_8_t0w8_s8_s16_s24_s32_t40w8(*a1 + v9, &v40);
       ++*(a1 + 12);
-      v8 += 48;
-      v7 += 24;
+      v9 += 48;
+      v8 += 24;
     }
 
-    while (v9 != v8);
+    while (v10 != v9);
   }
 
   OneFrameFromSampleBuffer = 0;
 LABEL_24:
-  __destructor_8_s8_s16_s24_s32(&v27);
+  __destructor_8_s8_s16_s24_s32(&v40);
   return OneFrameFromSampleBuffer;
 }
 
-void sub_17660(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_17660(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   __destructor_8_s8_s16_s24_s32(va);
   _Unwind_Resume(a1);
 }
@@ -1931,10 +1947,11 @@ void __copy_assignment_8_8_t0w8_s8_s16_s24_s32_t40w8(uint64_t a1, uint64_t a2)
   *(a1 + 40) = *(a2 + 40);
 }
 
-uint64_t initLookAheadFrameArray(uint64_t a1, int a2)
+uint64_t initLookAheadFrameArray(uint64_t a1, uint64_t a2)
 {
   if (a1)
   {
+    v2 = a2;
     v4 = *a1;
     if (v4)
     {
@@ -1943,12 +1960,12 @@ uint64_t initLookAheadFrameArray(uint64_t a1, int a2)
     }
 
     *(a1 + 8) = 0;
-    v5 = malloc_type_calloc(a2, 0x30uLL, 0xA004077B9D09AuLL);
+    v5 = malloc_type_calloc(v2, 0x30uLL, 0xA004077B9D09AuLL);
     *a1 = v5;
     if (v5)
     {
       result = 0;
-      *(a1 + 8) = a2;
+      *(a1 + 8) = v2;
     }
 
     else
@@ -1960,7 +1977,7 @@ uint64_t initLookAheadFrameArray(uint64_t a1, int a2)
 
   else
   {
-    initLookAheadFrameArray_cold_2();
+    initLookAheadFrameArray_cold_2(0, a2);
     return 2;
   }
 
@@ -2020,9 +2037,9 @@ LABEL_8:
   }
 }
 
-void sub_18258(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18258(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   __destructor_8_s8_s16_s24_s32(va);
   _Unwind_Resume(a1);
 }
@@ -2102,16 +2119,16 @@ __CVBuffer *createPixelBufferFromInput(__CVBuffer *a1)
   return PixelBuffer;
 }
 
-__CVBuffer *createPixelBufferFromInputWithDifferentRes(__CVBuffer *a1)
+__CVBuffer *createPixelBufferFromInputWithDifferentRes(__CVBuffer *a1, uint64_t a2, uint64_t a3)
 {
   equivalentUncompressedPixelFormat(a1);
   PixelBuffer = CreatePixelBuffer();
-  v3 = CVBufferCopyAttachments(a1, kCVAttachmentMode_ShouldPropagate);
-  if (v3)
+  v5 = CVBufferCopyAttachments(a1, kCVAttachmentMode_ShouldPropagate);
+  if (v5)
   {
-    v4 = v3;
-    CVBufferSetAttachments(PixelBuffer, v3, kCVAttachmentMode_ShouldPropagate);
-    CFRelease(v4);
+    v6 = v5;
+    CVBufferSetAttachments(PixelBuffer, v5, kCVAttachmentMode_ShouldPropagate);
+    CFRelease(v6);
   }
 
   return PixelBuffer;
@@ -2139,15 +2156,15 @@ id equivalentUncompressedPixelFormat(__CVBuffer *a1)
   return PixelFormatType;
 }
 
-__CVBuffer *createPixelBufferFromInputWithDifferentFormat(__CVBuffer *a1)
+__CVBuffer *createPixelBufferFromInputWithDifferentFormat(__CVBuffer *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   PixelBuffer = CreatePixelBuffer();
-  v3 = CVBufferCopyAttachments(a1, kCVAttachmentMode_ShouldPropagate);
-  if (v3)
+  v6 = CVBufferCopyAttachments(a1, kCVAttachmentMode_ShouldPropagate);
+  if (v6)
   {
-    v4 = v3;
-    CVBufferSetAttachments(PixelBuffer, v3, kCVAttachmentMode_ShouldPropagate);
-    CFRelease(v4);
+    v7 = v6;
+    CVBufferSetAttachments(PixelBuffer, v6, kCVAttachmentMode_ShouldPropagate);
+    CFRelease(v7);
   }
 
   return PixelBuffer;
@@ -2615,55 +2632,19 @@ LABEL_8:
   return v17;
 }
 
-uint64_t adjustColorAndSpatialKey(uint64_t a1, __int128 *a2, int a3)
+uint64_t adjustColorAndSpatialKey(uint64_t a1, __int128 *a2, uint64_t a3)
 {
   if (!a1)
   {
-    return adjustColorAndSpatialKey_cold_1();
+    return adjustColorAndSpatialKey_cold_1(0, a2, a3);
   }
 
   if (a3)
   {
     IOSurfaceGetBulkAttachments();
-    v17 = a2[6];
-    v19 = a2[7];
-    v21 = *(a2 + 32);
-    v9 = a2[2];
-    v11 = a2[3];
-    v13 = a2[4];
-    v15 = a2[5];
-    v5 = *a2;
-    v7 = a2[1];
-  }
-
-  else
-  {
-    v18 = a2[6];
-    v20 = a2[7];
-    v22 = *(a2 + 32);
-    v10 = a2[2];
-    v12 = a2[3];
-    v14 = a2[4];
-    v16 = a2[5];
-    v6 = *a2;
-    v8 = a2[1];
   }
 
   return IOSurfaceSetBulkAttachments2();
-}
-
-uint64_t createBBoxArrayWithMeta_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-uint64_t createVTDeghostingFrame_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
 }
 
 uint64_t getWSpatialFromOverlap(uint64_t result, float *a2, uint64_t a3, _BYTE *a4, uint64_t a5, int a6, CGFloat a7, CGFloat a8, CGFloat a9, CGFloat a10, float a11)
@@ -2723,31 +2704,10 @@ uint64_t getWSpatialFromOverlap(uint64_t result, float *a2, uint64_t a3, _BYTE *
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_0_0();
-    return FigDebugAssert3();
+    return FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
   }
 
   return result;
-}
-
-uint64_t getWSpatialUsingGhostMotion_PA_L_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-uint64_t getWSpatialUsingGhostMotion_PA_L_cold_2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-uint64_t getWSpatialUsingGhostMotion_PA_L_cold_3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
 }
 
 uint64_t warpPrevMetaBuffer(void *a1, uint64_t a2, int a3, int32x4_t a4, int32x4_t a5, int32x4_t a6)
@@ -2905,7 +2865,7 @@ uint64_t syncWeightsSpatialForSWWeights(float32x2_t *a1)
     do
     {
       v4 = v1;
-      v5 = &a1[709];
+      v5 = a1 + 709;
       v6 = a1 + 7;
       v7 = 0.0;
       v8 = 0.0;
@@ -2915,7 +2875,8 @@ uint64_t syncWeightsSpatialForSWWeights(float32x2_t *a1)
         v6 += 4;
         v10 = vsub_f32(a1[4 * v2 + 7], v9);
         v10.f32[0] = 1.0 - fminf(fmaxf(sqrtf(vaddv_f32(vmul_f32(v10, v10))) * 0.0078125, 0.0), 1.0);
-        v9.i32[0] = *v5++;
+        v9.i32[0] = v5->i32[0];
+        v5 = (v5 + 4);
         v8 = v8 + (v10.f32[0] * v9.f32[0]);
         v7 = v7 + v10.f32[0];
         --v4;
@@ -2937,7 +2898,7 @@ uint64_t fetchOneFrameFromSampleBuffer(__CVBuffer **a1, CMSampleBufferRef sbuf)
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_1_0();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v19, v20, v21, v22, v23, v24, v25, v26);
     v6 = 0;
     v17 = 2;
     goto LABEL_9;
@@ -2947,7 +2908,7 @@ uint64_t fetchOneFrameFromSampleBuffer(__CVBuffer **a1, CMSampleBufferRef sbuf)
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_1_0();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     v6 = 0;
     v17 = 4294954516;
     goto LABEL_9;
@@ -2959,7 +2920,7 @@ uint64_t fetchOneFrameFromSampleBuffer(__CVBuffer **a1, CMSampleBufferRef sbuf)
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_1_0();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v19, v20, v21, v22, v23, v24, v25, v26);
     goto LABEL_14;
   }
 
@@ -2977,7 +2938,7 @@ LABEL_14:
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_1_0();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
 
     goto LABEL_14;
   }
@@ -2996,76 +2957,6 @@ LABEL_14:
 LABEL_9:
 
   return v17;
-}
-
-uint64_t createConfigDictForRepair_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-uint64_t createConfigDictForDetection_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-uint64_t getLightSourceMaskFromSampleBuffer_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-uint64_t getAttachedMediaFromSampleBuffer_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-uint64_t getAttachedMediaFromSampleBuffer_cold_2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-uint64_t getKeypointDataFromSampleBuffer_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-uint64_t getKeypointDataFromSampleBuffer_cold_2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-uint64_t getKeypointDataFromSampleBuffer_cold_3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-uint64_t initLookAheadFrameArray_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-uint64_t initLookAheadFrameArray_cold_2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
 }
 
 __CVBuffer *createSingleCachedTextureFromPixelBuffer(__CVBuffer *a1, __CVMetalTextureCache *a2, void *a3, int a4, char a5)
@@ -3122,7 +3013,7 @@ __CVBuffer *createSingleCachedTextureFromPixelBuffer(__CVBuffer *a1, __CVMetalTe
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_1_2();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     v18 = 0;
   }
 
@@ -3136,25 +3027,4 @@ LABEL_11:
 LABEL_13:
 
   return a1;
-}
-
-uint64_t createSingleTextureFromYuvBuffer_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-uint64_t createSingleTextureFromYuvBuffer_cold_2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-uint64_t adjustColorAndSpatialKey_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
 }

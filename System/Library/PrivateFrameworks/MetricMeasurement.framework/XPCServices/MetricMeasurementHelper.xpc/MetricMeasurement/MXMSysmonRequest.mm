@@ -67,42 +67,42 @@
   v6 = [v4 subarrayWithRange:{0, v5}];
 
   v7 = +[NSMutableDictionary dictionary];
-  v16 = 0u;
-  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v8 = v6;
-  v9 = [v8 countByEnumeratingWithState:&v16 objects:v22 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v18 objects:v24 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v17;
+    v11 = *v19;
     do
     {
       for (i = 0; i != v10; i = i + 1)
       {
-        if (*v17 != v11)
+        if (*v19 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v16 + 1) + 8 * i);
-        v14 = [processesCopy objectForKeyedSubscript:{v13, v16}];
+        v13 = *(*(&v18 + 1) + 8 * i);
+        v14 = [processesCopy objectForKeyedSubscript:{v13, v18}];
         [v7 setValue:v14 forKey:v13];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v16 objects:v22 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v18 objects:v24 count:16];
     }
 
     while (v10);
   }
 
-  v15 = _MXMGetLog();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+  v17 = _MXMGetLog(v15, v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v21 = v7;
-    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "Top five processes: %@", buf, 0xCu);
+    v23 = v7;
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "Top five processes: %@", buf, 0xCu);
   }
 }
 
@@ -151,7 +151,6 @@
 {
   self->_interval = round(interval + interval) * 0.5;
   request = [(MXMSysmonRequest *)self request];
-  v4 = self->_interval * 1000.0;
   sysmon_request_set_interval();
 }
 

@@ -30,48 +30,48 @@
 
 - (BOOL)populateSimpleSelector:(SEL)selector error:(id *)error
 {
-  v27[1] = *MEMORY[0x1E69E9840];
+  v26[1] = *MEMORY[0x1E69E9840];
   if ([(FSMimic *)self->_mimic hasObjectValueForSelector:?])
   {
     goto LABEL_2;
   }
 
-  v10 = categorizeSelector(selector);
+  v9 = categorizeSelector(selector);
   LOBYTE(mimic) = 0;
-  if (v10 > 2)
+  if (v9 > 2)
   {
-    if ((v10 - 5) >= 2)
+    if ((v9 - 5) >= 2)
     {
-      if (v10 == 3)
+      if (v9 == 3)
       {
         mimic = self->_mimic;
-        v11 = self->_node;
-        v12 = mimic;
-        v25 = 0.0;
-        LODWORD(mimic) = [v11 selector];
+        v10 = self->_node;
+        v11 = mimic;
+        v24 = 0.0;
+        LODWORD(mimic) = [v10 selector];
         if (mimic)
         {
-          v24 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:*&v25];
-          [v12 setObjectValue:v24 forSelector:selector];
+          v23 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:*&v24];
+          [v11 setObjectValue:v23 forSelector:selector];
         }
       }
 
       else
       {
-        if (v10 != 4)
+        if (v9 != 4)
         {
-          goto LABEL_3;
+          return mimic;
         }
 
         mimic = self->_mimic;
-        v11 = self->_node;
-        v12 = mimic;
-        v25 = 0.0;
-        LODWORD(mimic) = [v11 selector];
+        v10 = self->_node;
+        v11 = mimic;
+        v24 = 0.0;
+        LODWORD(mimic) = [v10 selector];
         if (mimic)
         {
-          v14 = [MEMORY[0x1E696AD98] numberWithDouble:v25];
-          [v12 setObjectValue:v14 forSelector:selector];
+          v13 = [MEMORY[0x1E696AD98] numberWithDouble:v24];
+          [v11 setObjectValue:v13 forSelector:selector];
         }
       }
 
@@ -80,11 +80,11 @@
 
     if (error)
     {
-      v26 = *MEMORY[0x1E696A278];
-      v15 = NSStringFromSelector(selector);
-      v27[0] = v15;
-      v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v26 count:1];
-      *error = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -50, v16, "[FSMimicPopulator populateSimpleSelector:error:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Base/FSMimic.mm", 487);
+      v25 = *MEMORY[0x1E696A278];
+      v14 = NSStringFromSelector(selector);
+      v26[0] = v14;
+      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+      *error = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -50, v15, "[FSMimicPopulator populateSimpleSelector:error:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Base/FSMimic.mm", 487);
     }
 
     LOBYTE(mimic) = 0;
@@ -92,55 +92,53 @@
 
   else
   {
-    if (!v10)
+    if (!v9)
     {
-      v17 = self->_mimic;
-      v18 = self->_node;
-      v19 = v17;
-      selector = [v18 selector];
-      v21 = [MEMORY[0x1E696AD98] numberWithBool:selector];
-      [(FSMimic *)v19 setObjectValue:v21 forSelector:selector];
+      v16 = self->_mimic;
+      v17 = self->_node;
+      v18 = v16;
+      selector = [v17 selector];
+      v20 = [MEMORY[0x1E696AD98] numberWithBool:selector];
+      [(FSMimic *)v18 setObjectValue:v20 forSelector:selector];
 
 LABEL_2:
       LOBYTE(mimic) = 1;
-      goto LABEL_3;
+      return mimic;
     }
 
-    if (v10 != 1)
+    if (v9 != 1)
     {
-      if (v10 != 2)
+      if (v9 != 2)
       {
-        goto LABEL_3;
+        return mimic;
       }
 
       mimic = self->_mimic;
-      v11 = self->_node;
-      v12 = mimic;
-      LODWORD(v25) = 0;
-      LODWORD(mimic) = [v11 selector];
+      v10 = self->_node;
+      v11 = mimic;
+      LODWORD(v24) = 0;
+      LODWORD(mimic) = [v10 selector];
       if (mimic)
       {
-        v13 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:LODWORD(v25)];
-        [v12 setObjectValue:v13 forSelector:selector];
+        v12 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:LODWORD(v24)];
+        [v11 setObjectValue:v12 forSelector:selector];
       }
 
 LABEL_26:
 
-      goto LABEL_3;
+      return mimic;
     }
 
     mimic = self->_node;
-    v22 = self->_mimic;
+    v21 = self->_mimic;
     selector2 = [mimic selector];
     LOBYTE(mimic) = selector2 != 0;
     if (selector2)
     {
-      [(FSMimic *)v22 setObjectValue:selector2 forSelector:selector];
+      [(FSMimic *)v21 setObjectValue:selector2 forSelector:selector];
     }
   }
 
-LABEL_3:
-  v8 = *MEMORY[0x1E69E9840];
   return mimic;
 }
 

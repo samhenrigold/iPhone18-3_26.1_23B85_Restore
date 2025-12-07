@@ -160,29 +160,29 @@ void __71__RMStoreProfilesController_installedProfileIdentifierByDeclarationKey_
 
 - (id)configurationByDeclarationKeyForConfigurations:(id)configurations
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   configurationsCopy = configurations;
   v5 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(configurationsCopy, "count")}];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v6 = configurationsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v18;
+    v9 = *v17;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * i);
+        v11 = *(*(&v16 + 1) + 8 * i);
         store = [v11 store];
         declaration = [v11 declaration];
         v14 = [(RMStoreProfilesController *)self declarationKeyForStore:store declaration:declaration];
@@ -190,13 +190,11 @@ void __71__RMStoreProfilesController_installedProfileIdentifierByDeclarationKey_
         [v5 setObject:v11 forKeyedSubscript:v14];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v8);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -265,15 +263,15 @@ void __98__RMStoreProfilesController_downloadAndInstallProfileDeclaration_store_
 
 - (void)_installProfileAtPath:(id)path store:(id)store declaration:(id)declaration completionHandler:(id)handler
 {
-  v36[1] = *MEMORY[0x277D85DE8];
+  v35[1] = *MEMORY[0x277D85DE8];
   pathCopy = path;
   storeCopy = store;
   declarationCopy = declaration;
   handlerCopy = handler;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v34 = 0;
-  v15 = [defaultManager attributesOfItemAtPath:pathCopy error:&v34];
-  v16 = v34;
+  v33 = 0;
+  v15 = [defaultManager attributesOfItemAtPath:pathCopy error:&v33];
+  v16 = v33;
   v17 = [v15 objectForKeyedSubscript:*MEMORY[0x277CCA1C0]];
 
   declarationIdentifier = [declarationCopy declarationIdentifier];
@@ -281,22 +279,22 @@ void __98__RMStoreProfilesController_downloadAndInstallProfileDeclaration_store_
   {
     if ([v17 longLongValue] >= 1 && objc_msgSend(v17, "longLongValue") < 30721)
     {
-      v33 = 0;
-      v24 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:pathCopy options:0 error:&v33];
-      v25 = v33;
+      v32 = 0;
+      v24 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:pathCopy options:0 error:&v32];
+      v25 = v32;
       if (v24)
       {
         [(RMStoreProfilesController *)self declarationKeyForStore:storeCopy declaration:declarationCopy];
-        v26 = v29 = v25;
-        v30[0] = MEMORY[0x277D85DD0];
-        v30[1] = 3221225472;
-        v30[2] = __87__RMStoreProfilesController__installProfileAtPath_store_declaration_completionHandler___block_invoke;
-        v30[3] = &unk_279B05F50;
-        v31 = declarationIdentifier;
-        v32 = handlerCopy;
-        [(RMStoreProfilesController *)self _installProfileData:v24 store:storeCopy declarationKey:v26 completionHandler:v30];
+        v26 = v28 = v25;
+        v29[0] = MEMORY[0x277D85DD0];
+        v29[1] = 3221225472;
+        v29[2] = __87__RMStoreProfilesController__installProfileAtPath_store_declaration_completionHandler___block_invoke;
+        v29[3] = &unk_279B05F50;
+        v30 = declarationIdentifier;
+        v31 = handlerCopy;
+        [(RMStoreProfilesController *)self _installProfileData:v24 store:storeCopy declarationKey:v26 completionHandler:v29];
 
-        v25 = v29;
+        v25 = v28;
       }
 
       else
@@ -320,9 +318,9 @@ void __98__RMStoreProfilesController_downloadAndInstallProfileDeclaration_store_
       }
 
       v20 = MEMORY[0x277CCA9B8];
-      v35 = *MEMORY[0x277CCA068];
-      v36[0] = @"Invalid profile size";
-      v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:&v35 count:1];
+      v34 = *MEMORY[0x277CCA068];
+      v35[0] = @"Invalid profile size";
+      v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:&v34 count:1];
       v22 = [v20 errorWithDomain:@"ProfilesErrorDomain" code:0 userInfo:v21];
 
       (*(handlerCopy + 2))(handlerCopy, 0, v22);
@@ -340,8 +338,6 @@ void __98__RMStoreProfilesController_downloadAndInstallProfileDeclaration_store_
 
     (*(handlerCopy + 2))(handlerCopy, 0, v16);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __87__RMStoreProfilesController__installProfileAtPath_store_declaration_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -355,13 +351,13 @@ void __87__RMStoreProfilesController__installProfileAtPath_store_declaration_com
   {
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __87__RMStoreProfilesController__installProfileAtPath_store_declaration_completionHandler___block_invoke_cold_1(a1);
+      __87__RMStoreProfilesController__installProfileAtPath_store_declaration_completionHandler___block_invoke_cold_1();
     }
   }
 
   else if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    __87__RMStoreProfilesController__installProfileAtPath_store_declaration_completionHandler___block_invoke_cold_2(a1);
+    __87__RMStoreProfilesController__installProfileAtPath_store_declaration_completionHandler___block_invoke_cold_2();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -445,7 +441,7 @@ LABEL_2:
     v15 = [MEMORY[0x277D45F58] profilesController];
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
-      __88__RMStoreProfilesController__installProfileData_store_declarationKey_completionHandler___block_invoke_2_cold_2((a1 + 7));
+      __88__RMStoreProfilesController__installProfileData_store_declarationKey_completionHandler___block_invoke_2_cold_2();
     }
 
     v16 = a1[6];
@@ -465,20 +461,18 @@ LABEL_2:
   }
 }
 
-uint64_t __88__RMStoreProfilesController__installProfileData_store_declarationKey_completionHandler___block_invoke_32(void *a1, uint64_t a2)
+uint64_t __88__RMStoreProfilesController__installProfileData_store_declarationKey_completionHandler___block_invoke_32(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
     v3 = [MEMORY[0x277D45F58] profilesController];
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      __88__RMStoreProfilesController__installProfileData_store_declarationKey_completionHandler___block_invoke_32_cold_1(a1);
+      __88__RMStoreProfilesController__installProfileData_store_declarationKey_completionHandler___block_invoke_32_cold_1();
     }
   }
 
-  v4 = a1[5];
-  v5 = a1[4];
-  return (*(a1[6] + 16))();
+  return (*(*(a1 + 48) + 16))();
 }
 
 - (void)uninstallProfileWithIdentifier:(id)identifier store:(id)store completionHandler:(id)handler
@@ -499,93 +493,46 @@ uint64_t __88__RMStoreProfilesController__installProfileData_store_declarationKe
 
 - (void)installedProfileIdentifierByDeclarationKey
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_2(&dword_261E36000, a2, a3, "Profile identifiers by declaration key: %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_2_2(&dword_261E36000, a2, a3, "Profile identifiers by declaration key: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __98__RMStoreProfilesController_downloadAndInstallProfileDeclaration_store_fromURL_completionHandler___block_invoke_cold_1(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [*(a1 + 32) declarationIdentifier];
   OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_3_1(&dword_261E36000, v2, v3, "Unable to download profile or declaration identifier %{public}@: %{public}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_installProfileAtPath:store:declaration:completionHandler:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_4(&dword_261E36000, v0, v1, "Unable to read profile for declaration identifier %{public}@: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_1(&dword_261E36000, v2, v3, "Unable to download profile or declaration identifier %{public}@: %{public}@", v4, v5, v6, v7);
 }
 
 - (void)_installProfileAtPath:(uint64_t)a1 store:(void *)a2 declaration:completionHandler:.cold.2(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  [a2 longLongValue];
-  OUTLINED_FUNCTION_3_1(&dword_261E36000, v2, v3, "Profile for declaration identifier %{public}@ has invalid size %lld", v4, v5, v6, v7, 2u);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_installProfileAtPath:store:declaration:completionHandler:.cold.3()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_4(&dword_261E36000, v0, v1, "Unable to check size of profile for declaration identifier %{public}@: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-void __87__RMStoreProfilesController__installProfileAtPath_store_declaration_completionHandler___block_invoke_cold_1(uint64_t a1)
-{
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  OUTLINED_FUNCTION_9();
-  OUTLINED_FUNCTION_4(&dword_261E36000, v2, v3, "Error installing profile for declaration identifier %{public}@: %{public}@");
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-void __87__RMStoreProfilesController__installProfileAtPath_store_declaration_completionHandler___block_invoke_cold_2(uint64_t a1)
-{
-  v10 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  OUTLINED_FUNCTION_9();
-  OUTLINED_FUNCTION_2_2(&dword_261E36000, v2, v3, "Installed profile for declaration identifier %{public}@", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x277D85DE8];
+  *v8 = 138543618;
+  *&v8[4] = a1;
+  *&v8[12] = 2048;
+  *&v8[14] = [a2 longLongValue];
+  OUTLINED_FUNCTION_3_1(&dword_261E36000, v2, v3, "Profile for declaration identifier %{public}@ has invalid size %lld", v4, v5, v6, v7, *v8, *&v8[8], *&v8[16]);
 }
 
 void __88__RMStoreProfilesController__installProfileData_store_declarationKey_completionHandler___block_invoke_2_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_2(&dword_261E36000, a2, a3, "Installed profile with identifier %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_2_2(&dword_261E36000, a2, a3, "Installed profile with identifier %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
-void __88__RMStoreProfilesController__installProfileData_store_declarationKey_completionHandler___block_invoke_2_cold_2(uint64_t a1)
+void __88__RMStoreProfilesController__installProfileData_store_declarationKey_completionHandler___block_invoke_32_cold_1()
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v1 = *(*(*a1 + 8) + 40);
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_9();
-  OUTLINED_FUNCTION_2_2(&dword_261E36000, v2, v3, "Uninstall old profile during replacement with identifier %{public}@", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-void __88__RMStoreProfilesController__installProfileData_store_declarationKey_completionHandler___block_invoke_32_cold_1(uint64_t a1)
-{
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *(*(*(a1 + 56) + 8) + 40);
-  OUTLINED_FUNCTION_9();
-  _os_log_error_impl(&dword_261E36000, v2, OS_LOG_TYPE_ERROR, "Unable to uninstall old profile during replacement with identifier %{public}@", v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_261E36000, v0, OS_LOG_TYPE_ERROR, "Unable to uninstall old profile during replacement with identifier %{public}@", v1, 0xCu);
 }
 
 - (void)uninstallProfileWithIdentifier:(uint64_t)a3 store:(uint64_t)a4 completionHandler:(uint64_t)a5 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_2(&dword_261E36000, a2, a3, "Uninstalling profile with identifier %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_2_2(&dword_261E36000, a2, a3, "Uninstalling profile with identifier %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

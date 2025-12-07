@@ -259,35 +259,35 @@ void __87__HKQuantitySeriesSampleQuery_client_deliverQuantitySeries_seriesAnchor
 
 void __87__HKQuantitySeriesSampleQuery_client_deliverQuantitySeries_seriesAnchor_isFinal_query___block_invoke_15(uint64_t a1)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) values];
   v3 = [v2 count];
 
   if (v3)
   {
-    v30 = [*(a1 + 40) deactivateCallCount];
-    v31 = 0u;
-    v32 = 0u;
-    v33 = 0u;
-    v34 = 0u;
+    v25 = [*(a1 + 40) deactivateCallCount];
+    v26 = 0u;
+    v27 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     obj = [*(a1 + 32) values];
-    v4 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+    v4 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
     if (v4)
     {
       v5 = v4;
       v6 = 0;
-      v7 = *v32;
+      v7 = *v27;
 LABEL_4:
       v8 = 0;
       while (1)
       {
-        if (*v32 != v7)
+        if (*v27 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v31 + 1) + 8 * v8);
-        if ([*(a1 + 40) deactivateCallCount] > v30)
+        v9 = *(*(&v26 + 1) + 8 * v8);
+        if ([*(a1 + 40) deactivateCallCount] > v25)
         {
           break;
         }
@@ -338,13 +338,12 @@ LABEL_4:
           [v22 count];
         }
 
-        v23 = *(a1 + 40);
         (*(*(*(*(a1 + 48) + 8) + 40) + 16))();
 
         objc_autoreleasePoolPop(v10);
         if (v5 == ++v8)
         {
-          v5 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+          v5 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
           if (v5)
           {
             goto LABEL_4;
@@ -354,18 +353,13 @@ LABEL_4:
         }
       }
     }
-
-    v24 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v25 = *(a1 + 40);
-    v26 = *(a1 + 56);
-    v27 = *(*(*(*(a1 + 48) + 8) + 40) + 16);
-    v28 = *MEMORY[0x1E69E9840];
+    v23 = *(*(*(*(a1 + 48) + 8) + 40) + 16);
 
-    v27();
+    v23();
   }
 }
 
@@ -451,44 +445,44 @@ void __78__HKQuantitySeriesSampleQuery_client_deliverEnumerationResults_isFinal_
 
 void __78__HKQuantitySeriesSampleQuery_client_deliverEnumerationResults_isFinal_query___block_invoke_2(uint64_t a1)
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) results];
   v3 = [v2 count];
 
   if (v3)
   {
-    v31 = [*(a1 + 40) deactivateCallCount];
+    v27 = [*(a1 + 40) deactivateCallCount];
     v6 = [*(a1 + 40) objectType];
-    v32 = [v6 canonicalUnit];
+    v28 = [v6 canonicalUnit];
 
-    v35 = 0u;
-    v36 = 0u;
-    v33 = 0u;
-    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
     obj = [*(a1 + 32) results];
-    v30 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
-    if (v30)
+    v26 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+    if (v26)
     {
-      v29 = *v34;
+      v25 = *v30;
 LABEL_4:
       v7 = 0;
       v8 = v3 - 1;
       while (1)
       {
-        if (*v34 != v29)
+        if (*v30 != v25)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v33 + 1) + 8 * v7);
-        if ([*(a1 + 40) deactivateCallCount] > v31)
+        v9 = *(*(&v29 + 1) + 8 * v7);
+        if ([*(a1 + 40) deactivateCallCount] > v27)
         {
           break;
         }
 
         v10 = objc_autoreleasePoolPush();
         [v9 value];
-        v11 = [HKQuantity quantityWithUnit:v32 doubleValue:?];
+        v11 = [HKQuantity quantityWithUnit:v28 doubleValue:?];
         v12 = MEMORY[0x1E696AFB0];
         v13 = [v9 uuid];
         v14 = [v12 hk_UUIDWithData:v13];
@@ -515,11 +509,11 @@ LABEL_4:
         objc_autoreleasePoolPop(v10);
         ++v7;
         --v8;
-        if (v30 == v7)
+        if (v26 == v7)
         {
           v3 = v8 + 1;
-          v30 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
-          if (v30)
+          v26 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+          if (v26)
           {
             goto LABEL_4;
           }
@@ -528,20 +522,15 @@ LABEL_4:
         }
       }
     }
-
-    v23 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v24 = *(a1 + 40);
-    v25 = *(a1 + 56);
-    v26 = *(*(*(*(a1 + 48) + 8) + 40) + 16);
-    v27 = *MEMORY[0x1E69E9840];
+    v23 = *(*(*(*(a1 + 48) + 8) + 40) + 16);
     v4.n128_u64[0] = 0;
     v5.n128_u64[0] = 0;
 
-    v26(v4, v5);
+    v23(v4, v5);
   }
 }
 

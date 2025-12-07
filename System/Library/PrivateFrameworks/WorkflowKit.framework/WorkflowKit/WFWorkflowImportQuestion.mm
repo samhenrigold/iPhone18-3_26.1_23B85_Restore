@@ -62,7 +62,7 @@
 
 - (WFWorkflowImportQuestion)initWithSerializedRepresentation:(id)representation workflowActions:(id)actions
 {
-  v34[2] = *MEMORY[0x1E69E9840];
+  v33[2] = *MEMORY[0x1E69E9840];
   actionsCopy = actions;
   representationCopy = representation;
   v8 = [representationCopy objectForKey:@"Category"];
@@ -83,9 +83,9 @@
 
   v20 = [representationCopy objectForKey:@"DefaultValue"];
 
-  v21 = [v10 isEqualToString:@"Parameter"];
+  isEqualToString = objc_msgSend_isEqualToString_(v10);
   v22 = 0;
-  if (v16 && v13 && v21)
+  if (v16 && v13 && isEqualToString)
   {
     unsignedIntegerValue = [v13 unsignedIntegerValue];
     if (unsignedIntegerValue >= [actionsCopy count])
@@ -100,23 +100,23 @@
       v25 = [v24 parameterForKey:v16];
       if (v25)
       {
-        v32 = v24;
-        v34[0] = @"Hidden";
-        v34[1] = @"NotSupported";
-        v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:2];
+        v31 = v24;
+        v33[0] = @"Hidden";
+        v33[1] = @"NotSupported";
+        v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:2];
         importQuestionBehavior = [v25 importQuestionBehavior];
         v28 = [v26 containsObject:importQuestionBehavior];
 
         if (v28)
         {
           v29 = 0;
-          v24 = v32;
+          v24 = v31;
         }
 
         else
         {
-          v24 = v32;
-          v29 = [v32 createStateForParameter:v25 fromSerializedRepresentation:v20];
+          v24 = v31;
+          v29 = [v31 createStateForParameter:v25 fromSerializedRepresentation:v20];
         }
 
         v22 = [[WFWorkflowImportQuestion alloc] initWithAction:v24 parameter:v25 question:v19 defaultState:v29];
@@ -131,13 +131,12 @@
     }
   }
 
-  v30 = *MEMORY[0x1E69E9840];
   return v22;
 }
 
 - (WFWorkflowImportQuestion)initWithAction:(id)action parameter:(id)parameter question:(id)question defaultState:(id)state
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   actionCopy = action;
   parameterCopy = parameter;
   questionCopy = question;
@@ -162,11 +161,11 @@
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v28 = "[WFWorkflowImportQuestion initWithAction:parameter:question:defaultState:]";
-      v29 = 2114;
-      v30 = parameterCopy;
-      v31 = 2114;
-      v32 = actionCopy;
+      v27 = "[WFWorkflowImportQuestion initWithAction:parameter:question:defaultState:]";
+      v28 = 2114;
+      v29 = parameterCopy;
+      v30 = 2114;
+      v31 = actionCopy;
       _os_log_impl(&dword_1CA256000, v23, OS_LOG_TYPE_ERROR, "%s Import Question unable to find parameter %{public}@ on action %{public}@", buf, 0x20u);
     }
 
@@ -174,9 +173,9 @@
     goto LABEL_12;
   }
 
-  v26.receiver = self;
-  v26.super_class = WFWorkflowImportQuestion;
-  v18 = [(WFWorkflowImportQuestion *)&v26 init];
+  v25.receiver = self;
+  v25.super_class = WFWorkflowImportQuestion;
+  v18 = [(WFWorkflowImportQuestion *)&v25 init];
   v19 = v18;
   if (v18)
   {
@@ -192,7 +191,6 @@
 LABEL_12:
   }
 
-  v24 = *MEMORY[0x1E69E9840];
   return v19;
 }
 

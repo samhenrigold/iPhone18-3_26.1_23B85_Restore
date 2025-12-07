@@ -1,16 +1,16 @@
-void xzm_malloc_zone_free_definite_size_slow(uint64_t a1, unint64_t a2, unint64_t a3)
+void xzm_malloc_zone_free_definite_size_slow(uint64_t result, uint64_t a2, unint64_t a3)
 {
   if (!a2)
   {
     return;
   }
 
-  v180 = a1;
+  v180 = result;
   v179 = a2;
   v178 = 0;
   v177 = 0;
   v176 = 0;
-  v189 = a1;
+  v189 = result;
   v187 = 0;
   v186 = &v177;
   v185 = &v176;
@@ -18,10 +18,10 @@ void xzm_malloc_zone_free_definite_size_slow(uint64_t a1, unint64_t a2, unint64_
   v192 = a2;
   v191 = a2 & 0xF0FFFFFFFFFFFFFFLL;
   v188 = a2 & 0xF0FFFFFFFFFFFFFFLL;
-  v193 = a1;
-  if (*(a1 + 240))
+  v193 = result;
+  if (*(result + 240))
   {
-    v31 = *(a1 + 240);
+    v31 = *(result + 240);
   }
 
   else
@@ -508,19 +508,19 @@ LABEL_117:
   }
 
   v32 = 0;
-  if (v181 || (*(a1 + 360) & 0x80) == 0)
+  if (v181 || (*(result + 360) & 0x80) == 0)
   {
     goto LABEL_253;
   }
 
-  if (*(a1 + 240))
+  if (*(result + 240))
   {
-    v23 = *(a1 + 240);
+    v23 = *(result + 240);
   }
 
   else
   {
-    v23 = a1;
+    v23 = result;
   }
 
   v32 = v23;
@@ -1033,7 +1033,7 @@ LABEL_244:
   }
 
 LABEL_253:
-  if ((*(a1 + 360) & 0x20) != 0 && a3 >= 0x401)
+  if ((*(result + 360) & 0x20) != 0 && a3 >= 0x401)
   {
     _platform_memset();
   }
@@ -1045,23 +1045,23 @@ LABEL_253:
 
   else
   {
-    xzm_malloc_zone_free_definite_size(a1, a2);
+    xzm_malloc_zone_free_definite_size(result, a2);
   }
 }
 
-void xzm_malloc_zone_try_free_default_slow(uint64_t a1, unint64_t a2)
+void xzm_malloc_zone_try_free_default_slow(uint64_t result, uint64_t a2)
 {
   if (!a2)
   {
     return;
   }
 
-  v179 = a1;
+  v179 = result;
   v178 = a2;
   v177 = 0;
   v176 = 0;
   v175 = 0;
-  v188 = a1;
+  v188 = result;
   v186 = 0;
   v185 = &v176;
   v184 = &v175;
@@ -1069,10 +1069,10 @@ void xzm_malloc_zone_try_free_default_slow(uint64_t a1, unint64_t a2)
   v191 = a2;
   v190 = a2 & 0xF0FFFFFFFFFFFFFFLL;
   v187 = a2 & 0xF0FFFFFFFFFFFFFFLL;
-  v192 = a1;
-  if (*(a1 + 240))
+  v192 = result;
+  if (*(result + 240))
   {
-    v30 = *(a1 + 240);
+    v30 = *(result + 240);
   }
 
   else
@@ -1560,19 +1560,19 @@ LABEL_117:
 
   v32 = v180;
   v31 = 0;
-  if (v180 || (*(a1 + 360) & 0x80) == 0)
+  if (v180 || (*(result + 360) & 0x80) == 0)
   {
     goto LABEL_252;
   }
 
-  if (*(a1 + 240))
+  if (*(result + 240))
   {
-    v22 = *(a1 + 240);
+    v22 = *(result + 240);
   }
 
   else
   {
-    v22 = a1;
+    v22 = result;
   }
 
   v31 = v22;
@@ -2081,7 +2081,7 @@ LABEL_244:
 LABEL_252:
   if (v32)
   {
-    if (v32 >= 0x401 && (*(a1 + 360) & 0x20) != 0)
+    if (v32 >= 0x401 && (*(result + 360) & 0x20) != 0)
     {
       _platform_memset();
     }
@@ -2093,7 +2093,7 @@ LABEL_252:
 
     else
     {
-      xzm_malloc_zone_try_free_default(a1, a2);
+      xzm_malloc_zone_try_free_default(result, a2);
     }
   }
 
@@ -2105,7 +2105,7 @@ LABEL_252:
 
 uint64_t xzm_malloc_zone_malloc_type_malloc_slow(uint64_t a1, unint64_t a2, uint64_t a3)
 {
-  malloc_thread_options = _xzm_xzone_get_malloc_thread_options();
+  malloc_thread_options = _xzm_xzone_get_malloc_thread_options(a1);
   if ((*(a1 + 360) & 0x80) != 0 && a2 <= 0x8000)
   {
     if (*(a1 + 240))
@@ -2229,7 +2229,7 @@ uint64_t xzm_malloc_zone_malloc_type_malloc_slow(uint64_t a1, unint64_t a2, uint
       JUMPOUT(0x883F8);
     }
 
-    if ((malloc_thread_options & 1) != 0 && !_xzm_mem_is_zero())
+    if ((malloc_thread_options & 1) != 0 && !_xzm_mem_is_zero(v21, a2))
     {
       qword_D8128 = "BUG IN LIBMALLOC: malloc assertion _xzm_mem_is_zero(ptr, size) failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/xzone_malloc.c:3625)";
       __break(1u);
@@ -2398,7 +2398,7 @@ uint64_t xzm_malloc_zone_malloc_type_malloc_slow(uint64_t a1, unint64_t a2, uint
       JUMPOUT(0x88AA4);
     }
 
-    if ((malloc_thread_options & 1) != 0 && !_xzm_mem_is_zero())
+    if ((malloc_thread_options & 1) != 0 && !_xzm_mem_is_zero(v19, a2))
     {
       qword_D8128 = "BUG IN LIBMALLOC: malloc assertion _xzm_mem_is_zero(ptr, size) failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/xzone_malloc.c:3625)";
       __break(1u);
@@ -2473,7 +2473,7 @@ uint64_t xzm_malloc_zone_malloc_type_calloc_slow(uint64_t a1, unint64_t a2, unin
 
   else
   {
-    malloc_set_errno_fast(1, 12);
+    a1 = malloc_set_errno_fast(1, 12);
     v118 = -1;
   }
 
@@ -2483,7 +2483,7 @@ uint64_t xzm_malloc_zone_malloc_type_calloc_slow(uint64_t a1, unint64_t a2, unin
   }
 
   v15 = v17;
-  v14 = _xzm_xzone_get_malloc_thread_options() | 1;
+  v14 = _xzm_xzone_get_malloc_thread_options(a1) | 1;
   if ((*(v20 + 360) & 0x80) != 0 && v16 <= 0x8000)
   {
     v106 = v20;
@@ -2632,7 +2632,7 @@ uint64_t xzm_malloc_zone_malloc_type_calloc_slow(uint64_t a1, unint64_t a2, unin
       JUMPOUT(0x89A14);
     }
 
-    if ((v28 & 1) != 0 && !_xzm_mem_is_zero())
+    if ((v28 & 1) != 0 && !_xzm_mem_is_zero(v27, v29))
     {
       qword_D8128 = "BUG IN LIBMALLOC: malloc assertion _xzm_mem_is_zero(ptr, size) failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/xzone_malloc.c:3625)";
       __break(1u);
@@ -2848,7 +2848,7 @@ uint64_t xzm_malloc_zone_malloc_type_calloc_slow(uint64_t a1, unint64_t a2, unin
       JUMPOUT(0x89328);
     }
 
-    if ((v38 & 1) != 0 && !_xzm_mem_is_zero())
+    if ((v38 & 1) != 0 && !_xzm_mem_is_zero(v37, v39))
     {
       qword_D8128 = "BUG IN LIBMALLOC: malloc assertion _xzm_mem_is_zero(ptr, size) failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/xzone_malloc.c:3625)";
       __break(1u);
@@ -2912,7 +2912,7 @@ uint64_t xzm_malloc_zone_malloc_type_calloc_slow(uint64_t a1, unint64_t a2, unin
   }
 }
 
-uint64_t xzm_malloc_zone_malloc_type_realloc_slow(uint64_t a1, unint64_t a2, unint64_t a3, uint64_t a4)
+const void *xzm_malloc_zone_malloc_type_realloc_slow(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4)
 {
   v62 = (*(a1 + 360) & 0x80) != 0;
   v61 = (*(a1 + 360) & 0x20) != 0;
@@ -4695,7 +4695,7 @@ LABEL_383:
   v81 = v85;
   if (!v105)
   {
-    malloc_report_pointer_was_not_allocated(80, v85);
+    malloc_report_pointer_was_not_allocated(0x50u, v85);
   }
 
   if (v83 && *(v83 + 34) != *(v86 + 208))
@@ -4827,7 +4827,7 @@ LABEL_490:
 
 unint64_t xzm_malloc_zone_malloc_type_memalign_slow(uint64_t a1, unint64_t a2, unint64_t a3, uint64_t a4)
 {
-  malloc_thread_options = _xzm_xzone_get_malloc_thread_options();
+  malloc_thread_options = _xzm_xzone_get_malloc_thread_options(a1);
   if ((*(a1 + 360) & 0x80) != 0 && a3 <= 0x8000)
   {
     if (*(a1 + 240))
@@ -4888,7 +4888,7 @@ unint64_t xzm_malloc_zone_malloc_type_malloc_with_options_slow(uint64_t a1, unin
 
 uint64_t _xzm_malloc_zone_malloc_entry(uint64_t a1, unint64_t a2, uint64_t a3, int a4)
 {
-  v13 = HIWORD(a3);
+  v14 = HIWORD(a3);
   if (a2 <= 0x8000)
   {
     if ((*(a1 + 360) & 0x80) != 0)
@@ -4898,7 +4898,7 @@ uint64_t _xzm_malloc_zone_malloc_entry(uint64_t a1, unint64_t a2, uint64_t a3, i
       JUMPOUT(0x8E360);
     }
 
-    v16 = a3;
+    v17 = a3;
     if (*(a1 + 240))
     {
       v8 = *(a1 + 240);
@@ -4913,8 +4913,8 @@ uint64_t _xzm_malloc_zone_malloc_entry(uint64_t a1, unint64_t a2, uint64_t a3, i
     {
       if (a2 > 0x80)
       {
-        v20 = 63 - __clz(a2 - 1);
-        v21 = (((a2 - 1) >> (v20 - 2)) & 3 | (4 * v20)) - 20;
+        v21 = 63 - __clz(a2 - 1);
+        v22 = (((a2 - 1) >> (v21 - 2)) & 3 | (4 * v21)) - 20;
       }
 
       else
@@ -4929,72 +4929,72 @@ uint64_t _xzm_malloc_zone_malloc_entry(uint64_t a1, unint64_t a2, uint64_t a3, i
           v7 = a2 >> 4;
         }
 
-        v21 = v7 - 1;
+        v22 = v7 - 1;
       }
     }
 
     else
     {
-      v21 = 0;
+      v22 = 0;
     }
 
-    v15 = *(v8[55] + v21);
+    v16 = *(v8[55] + v22);
     if (HIWORD(a3) == 256)
     {
-      v14 = 0;
+      v15 = 0;
     }
 
     else if (((WORD2(a3) >> 10) & 3) == 1)
     {
-      v14 = 1;
+      v15 = 1;
     }
 
     else
     {
       if (!a3)
       {
-        v16 = HIDWORD(malloc_entropy[0]);
+        v17 = HIDWORD(malloc_entropy[0]);
       }
 
-      v19 = v15 - 2;
-      if ((v15 - 2) >= 5u)
+      v20 = v16 - 2;
+      if ((v16 - 2) >= 5u)
       {
         qword_D8128 = "BUG IN LIBMALLOC: malloc assertion ptr_bucket_count <= XZM_POINTER_BUCKETS_MAX failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/xzone_malloc.c:80)";
         __break(1u);
         JUMPOUT(0x8E5D8);
       }
 
-      v18 = 0;
-      if (v19 >= 2u)
+      v19 = 0;
+      if (v20 >= 2u)
       {
-        v17 = (v8[49] * v16 + v8[50]) >> 32;
-        if (v19 == 2)
+        v18 = (v8[49] * v17 + v8[50]) >> 32;
+        if (v20 == 2)
         {
-          v18 = v17 & 1;
+          v19 = v18 & 1;
         }
 
-        else if (v19 == 3)
+        else if (v20 == 3)
         {
-          v18 = v17 % 3;
+          v19 = v18 % 3;
         }
 
         else
         {
-          v18 = v17 & 3;
+          v19 = v18 & 3;
         }
       }
 
-      v14 = v18 + 2;
+      v15 = v19 + 2;
     }
 
-    if (v14 >= v15)
+    if (v15 >= v16)
     {
       qword_D8128 = "BUG IN LIBMALLOC: malloc assertion bucket < bin_bucket_count failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/xzone_malloc.c:172)";
       __break(1u);
       JUMPOUT(0x8E708);
     }
 
-    v10 = _xzm_xzone_malloc(a1, a2, *(v8[56] + v21) + v14, a4);
+    v10 = _xzm_xzone_malloc(a1, a2, *(v8[56] + v22) + v15, a4);
   }
 
   else
@@ -5009,7 +5009,7 @@ uint64_t _xzm_malloc_zone_malloc_entry(uint64_t a1, unint64_t a2, uint64_t a3, i
     JUMPOUT(0x8E764);
   }
 
-  if ((a4 & 1) != 0 && !_xzm_mem_is_zero())
+  if ((a4 & 1) != 0 && !_xzm_mem_is_zero(v10, a2))
   {
     qword_D8128 = "BUG IN LIBMALLOC: malloc assertion _xzm_mem_is_zero(ptr, size) failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/xzone_malloc.c:3625)";
     __break(1u);
@@ -5024,7 +5024,7 @@ uint64_t _xzm_malloc_zone_malloc_entry(uint64_t a1, unint64_t a2, uint64_t a3, i
     if (v9 <= *(a1 + 376))
     {
       v5 = 1;
-      if (v13 == 256)
+      if (v14 == 256)
       {
         v5 = *(a1 + 369);
       }
@@ -5056,7 +5056,7 @@ uint64_t _xzm_malloc_zone_malloc_entry(uint64_t a1, unint64_t a2, uint64_t a3, i
   return v10;
 }
 
-uint64_t _xzm_xzone_get_malloc_thread_options()
+uint64_t _xzm_xzone_get_malloc_thread_options(uint64_t a1)
 {
   if ((malloc_get_thread_options() & 8) != 0)
   {
@@ -5253,7 +5253,7 @@ uint64_t _xzm_malloc_zone_malloc_type_calloc_entry(uint64_t a1, unint64_t a2, un
       JUMPOUT(0x8EFE8);
     }
 
-    if ((v23 & 1) != 0 && !_xzm_mem_is_zero())
+    if ((v23 & 1) != 0 && !_xzm_mem_is_zero(v22, v24))
     {
       qword_D8128 = "BUG IN LIBMALLOC: malloc assertion _xzm_mem_is_zero(ptr, size) failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/xzone_malloc.c:3625)";
       __break(1u);
@@ -5317,77 +5317,77 @@ uint64_t _xzm_malloc_zone_malloc_type_calloc_entry(uint64_t a1, unint64_t a2, un
   }
 }
 
-void _xzm_xzone_thread_cache_detach(uint64_t a1, uint64_t a2, uint64_t a3)
+void _xzm_xzone_thread_cache_detach(uint64_t a1, uint64_t a2, atomic_ullong **a3)
 {
-  v15 = *a3;
-  v14 = *(a2 + 68);
-  v13 = *(a3 + 18);
-  v12 = **a3;
-  v10 = *(a3 + 16) < 0x400u;
+  v14 = *a3;
+  v13 = *(a2 + 68);
+  v12 = *(a3 + 9);
+  v11 = **a3;
+  v9 = *(a3 + 8) < 0x400u;
   for (i = 0; ; i = 0)
   {
-    while ((v12 & 0x40000000) != 0)
+    while ((v11 & 0x40000000) != 0)
     {
       _xzm_walk_lock_wait(a1);
-      v12 = *v15;
+      v11 = *v14;
     }
 
-    v11 = v12 & 0xFFFFFFFFF03FFFFFLL;
-    v8 = ((v12 >> 11) & 0x7FF) + v13;
-    if (v8 == v14)
+    v10 = v11 & 0xFFFFFFFFF03FFFFFLL;
+    v7 = ((v11 >> 11) & 0x7FF) + v12;
+    if (v7 == v13)
     {
-      v11 = v12 & 0xFFFFFFFFF0000000 | 0x7FF;
+      v10 = v11 & 0xFFFFFFFFF0000000 | 0x7FF;
     }
 
-    else if (v8)
+    else if (v7)
     {
-      v6 = 0;
-      if ((v12 & 0x10000000) == 0)
+      v5 = 0;
+      if ((v11 & 0x10000000) == 0)
       {
-        v6 = ((v12 >> 29) & 1) == 0;
+        v5 = ((v11 >> 29) & 1) == 0;
       }
 
-      if (!v6)
+      if (!v5)
       {
         qword_D8128 = "BUG IN LIBMALLOC: malloc assertion !old_meta.xca_on_partial_list && !old_meta.xca_on_empty_list failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/xzone_malloc.c:2726)";
         __break(1u);
         JUMPOUT(0x8F42CLL);
       }
 
-      v11 = v12 & 0xFFFFFFFFF00007FFLL | ((v8 & 0x7FF) << 11) | 0x10000000;
+      v10 = v11 & 0xFFFFFFFFF00007FFLL | ((v7 & 0x7FF) << 11) | 0x10000000;
       i = 1;
-      if ((v12 & 0x7FF) == 0x400)
+      if ((v11 & 0x7FF) == 0x400)
       {
-        v11 = v12 & 0xFFFFF00070000000 | ((v8 & 0x7FF) << 11) & 0xFFFFF0007FFFF800 | 0x10000000 | *(a3 + 16) & 0x7FF | ((*(a3 + 20) & 0x1FFF) << 31);
+        v10 = v11 & 0xFFFFF00070000000 | ((v7 & 0x7FF) << 11) & 0xFFFFF0007FFFF800 | 0x10000000 | a3[2] & 0x7FF | ((*(a3 + 10) & 0x1FFF) << 31);
       }
 
       else
       {
-        if ((v12 & 0x7FF) >= 0x400)
+        if ((v11 & 0x7FF) >= 0x400)
         {
           qword_D8128 = "BUG IN LIBMALLOC: malloc assertion old_meta.xca_alloc_head < XZM_FREE_LIMIT failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/xzone_malloc.c:2735)";
           __break(1u);
           JUMPOUT(0x8F4D4);
         }
 
-        if (v10)
+        if (v9)
         {
-          _xzm_xzone_thread_cache_detach_link_to_remote(a1, a3, v12);
-          v10 = 0;
+          _xzm_xzone_thread_cache_detach_link_to_remote(a1, a3, v11);
+          v9 = 0;
         }
       }
     }
 
-    v7 = v12;
-    v3 = v12;
-    v4 = v12;
-    atomic_compare_exchange_strong_explicit(v15, &v4, v11, memory_order_release, memory_order_relaxed);
+    v6 = v11;
+    v3 = v11;
+    v4 = v11;
+    atomic_compare_exchange_strong_explicit(v14, &v4, v10, memory_order_release, memory_order_relaxed);
     if (v4 != v3)
     {
-      v7 = v4;
+      v6 = v4;
     }
 
-    v12 = v7;
+    v11 = v6;
     if (v4 == v3)
     {
       break;
@@ -5396,21 +5396,20 @@ void _xzm_xzone_thread_cache_detach(uint64_t a1, uint64_t a2, uint64_t a3)
 
   if (malloc_tracing_enabled)
   {
-    v5 = *(a3 + 16);
     kdebug_trace();
   }
 
-  if ((~v11 & 0x7FF) != 0)
+  if ((~v10 & 0x7FF) != 0)
   {
     if (i)
     {
-      _xzm_chunk_list_slot_push(a1, a2, *(a1 + 232), v15);
+      _xzm_chunk_list_slot_push(a1, a2, *(a1 + 232), v14);
     }
   }
 
   else
   {
-    _xzm_xzone_madvise_freelist_chunk(a1, a2, v15);
+    _xzm_xzone_madvise_freelist_chunk(a1, a2, v14);
   }
 }
 
@@ -5453,7 +5452,7 @@ uint64_t _xzm_xzone_thread_cache_detach_link_to_remote(uint64_t result, uint64_t
       JUMPOUT(0x8F7FCLL);
     }
 
-    if (*(v14 + 8) != (*(v14 + 8) & 0x7FFLL | (((*(v14 + 16) >> 11) & 0x1FFFLL) << 11) & 0xFFFFFF))
+    if (*(v14 + 8) != (*(v14 + 8) & 0x7FFLL | (((*(v14 + 8) >> 11) & 0x1FFFLL) << 11) & 0xFFFFFF))
     {
       qword_D8128 = "BUG IN CLIENT OF LIBMALLOC: corrupt tiny freelist - linkage, client likely has a buffer overflow or use-after-free bug";
       qword_D8158 = *(&v11 + 1);
@@ -5461,7 +5460,7 @@ uint64_t _xzm_xzone_thread_cache_detach_link_to_remote(uint64_t result, uint64_t
       JUMPOUT(0x8F8ACLL);
     }
 
-    v10 = (*(v14 + 8) >> 64) & 0x7FFLL;
+    v10 = *(v14 + 8) & 0x7FFLL;
     if (v10 == 1024)
     {
       break;
@@ -5485,7 +5484,7 @@ uint64_t _xzm_xzone_thread_cache_detach_link_to_remote(uint64_t result, uint64_t
       JUMPOUT(0x8F9C0);
     }
 
-    v13 = (*(v14 + 8) >> 64) & 0x7FFLL;
+    v13 = *(v14 + 8) & 0x7FFLL;
   }
 
   if (i != ((a3 >> 11) & 0x7FF))
@@ -5538,69 +5537,64 @@ void malloc_slowpath_update()
   }
 }
 
-void __malloc_init(uint64_t a1)
+void __malloc_init(uint64_t *a1)
 {
-  v15 = a1;
-  bzero(v16, 0x400uLL);
-  v14 = MEMORY[0xFFFFF4084] != 0;
-  v13 = 1023;
-  if (MEMORY[0xFFFFF4084] && !sysctlbyname("kern.bootargs", v16, &v13, 0, 0) && v13)
+  v10 = a1;
+  bzero(v11, 0x400uLL);
+  v9 = MEMORY[0xFFFFF4084] != 0;
+  v8 = 1023;
+  if (MEMORY[0xFFFFF4084] && !sysctlbyname("kern.bootargs", v11, &v8, 0, 0) && v8)
   {
-    v16[v13 + 1] = 0;
+    v11[v8 + 1] = 0;
   }
 
   if (vm_kernel_page_size <= vm_page_size)
   {
-    v7 = vm_page_size;
+    v2 = vm_page_size;
   }
 
   else
   {
-    v7 = vm_kernel_page_size;
+    v2 = vm_kernel_page_size;
   }
 
-  malloc_absolute_max_size = -1 - 2 * v7;
-  v12 = *_NSGetEnviron();
-  v11 = _malloc_allow_internal_security_policy(v12);
-  if (v11 != (malloc_internal_security_policy & 1))
+  malloc_absolute_max_size = -1 - 2 * v2;
+  v7 = *_NSGetEnviron();
+  v6 = _malloc_allow_internal_security_policy(v7);
+  if (v6 != (malloc_internal_security_policy & 1))
   {
-    malloc_internal_security_policy = v11;
+    malloc_internal_security_policy = v6;
   }
 
   _malloc_init_featureflags();
-  v9 = 0;
-  for (i = v15; ; ++i)
+  v4 = 0;
+  for (i = v10; ; ++i)
   {
-    v6 = 0;
+    v1 = 0;
     if (i)
     {
-      v6 = *i != 0;
+      v1 = *i != 0;
     }
 
-    if (!v6)
+    if (!v1)
     {
       break;
     }
 
-    v1 = *i;
     if (_platform_strstr() == *i)
     {
-      v2 = *i;
-      v8 = __entropy_from_kernel();
-      v5 = *i;
-      v3 = *i;
+      v3 = __entropy_from_kernel(*i);
       _platform_strlen();
       _platform_bzero();
-      if (v8 == 2)
+      if (v3 == 2)
       {
         _malloc_entropy_initialized = 1;
       }
     }
 
-    v4 = *i;
     if (_platform_strstr() == *i)
     {
-      v9 = *i;
+      v4 = *i;
     }
   }
 
@@ -5610,53 +5604,53 @@ void __malloc_init(uint64_t a1)
     _malloc_entropy_initialized = 1;
   }
 
-  if (v9)
-  {
-    __malloc_init_experiments();
-  }
-
-  __malloc_init_from_bootargs(v16);
-  mvm_aslr_init();
-  j__malloc_default_zone();
-  _malloc_initialize(v15, v16);
-}
-
-uint64_t __entropy_from_kernel()
-{
-  v2 = 0;
-  v4 = _platform_strchr();
   if (v4)
   {
-    v5 = v4 + 1;
+    __malloc_init_experiments(v4);
+  }
+
+  __malloc_init_from_bootargs(v11);
+  mvm_aslr_init();
+  j__malloc_default_zone();
+  _malloc_initialize(v10, v11);
+}
+
+uint64_t __entropy_from_kernel(uint64_t a1)
+{
+  v3 = 0;
+  v5 = _platform_strchr();
+  if (v5)
+  {
+    v6 = v5 + 1;
     while (1)
     {
-      v1 = 0;
-      if (v5)
+      v2 = 0;
+      if (v6)
       {
-        v1 = v2 < 2;
+        v2 = v3 < 2;
       }
 
-      if (!v1)
+      if (!v2)
       {
         break;
       }
 
       _platform_strlcpy();
-      v3 = _platform_strchr();
-      if (v3)
+      v4 = _platform_strchr();
+      if (v4)
       {
-        *v3 = 0;
+        *v4 = 0;
       }
 
-      malloc_entropy[v2++] = strtoull_l(v7, 0, 0, 0);
-      v5 = _platform_strchr();
-      if (v5)
+      malloc_entropy[v3++] = strtoull_l(v8, 0, 0, 0);
+      v6 = _platform_strchr();
+      if (v6)
       {
-        ++v5;
+        ++v6;
       }
     }
 
-    return v2;
+    return v3;
   }
 
   else
@@ -5665,17 +5659,17 @@ uint64_t __entropy_from_kernel()
   }
 }
 
-unint64_t __malloc_init_experiments()
+unint64_t __malloc_init_experiments(uint64_t a1)
 {
-  v1 = 0;
+  v2 = 0;
   result = _platform_strchr();
   if (result)
   {
     result = strtoull_l((result + 1), 0, 16, 0);
-    v1 = result;
+    v2 = result;
   }
 
-  if (v1 == 1)
+  if (v2 == 1)
   {
     magazine_medium_enabled = 0;
   }
@@ -5693,7 +5687,7 @@ void __malloc_init_from_bootargs(_BYTE *a1)
     v9 = malloc_common_convert_to_long(v11, &v10);
     if (*v10 || v9 < 0)
     {
-      malloc_report(3, "malloc_max_magazines must be positive - ignored.\n");
+      malloc_report(3u, "malloc_max_magazines must be positive - ignored.\n");
     }
 
     else
@@ -5709,7 +5703,7 @@ void __malloc_init_from_bootargs(_BYTE *a1)
     v7 = malloc_common_convert_to_long(v11, &v8);
     if (*v8 || v7 < 0)
     {
-      malloc_report(3, "malloc_large_expanded_cache_threshold must be positive - ignored.\n");
+      malloc_report(3u, "malloc_large_expanded_cache_threshold must be positive - ignored.\n");
     }
 
     else
@@ -5725,7 +5719,7 @@ void __malloc_init_from_bootargs(_BYTE *a1)
     v5 = malloc_common_convert_to_long(v11, &v6);
     if (*v6 || v5 > 1)
     {
-      malloc_report(3, "malloc_zero_on_free_enabled must be 0 or 1 - ignored.\n");
+      malloc_report(3u, "malloc_zero_on_free_enabled must be 0 or 1 - ignored.\n");
     }
 
     else
@@ -5741,7 +5735,7 @@ void __malloc_init_from_bootargs(_BYTE *a1)
     v3 = malloc_common_convert_to_long(v11, &v4);
     if (*v4 || v3 < 0)
     {
-      malloc_report(3, "malloc_zero_on_free_sample_period must be positive - ignored.\n");
+      malloc_report(3u, "malloc_zero_on_free_sample_period must be positive - ignored.\n");
     }
 
     else
@@ -5757,7 +5751,7 @@ void __malloc_init_from_bootargs(_BYTE *a1)
     v1 = malloc_common_convert_to_long(v11, &v2);
     if (*v2 || v1 > 1)
     {
-      malloc_report(3, "malloc_secure_allocator must be 0 or 1 - ignored.\n");
+      malloc_report(3u, "malloc_secure_allocator must be 0 or 1 - ignored.\n");
     }
 
     else
@@ -5774,7 +5768,7 @@ void _malloc_initialize(uint64_t a1, _BYTE *a2)
   ncpuclusters = MEMORY[0xFFFFFC02F];
   if (MEMORY[0xFFFFFC036] % MEMORY[0xFFFFFC035])
   {
-    malloc_report(3, "*** FATAL ERROR - logical_ncpus %% phys_ncpus != 0\n.\n");
+    malloc_report(3u, "*** FATAL ERROR - logical_ncpus %% phys_ncpus != 0\n.\n");
     qword_D8128 = "FATAL ERROR - logical_ncpus %% phys_ncpus != 0\n";
     qword_D8158 = logical_ncpus % phys_ncpus;
     __break(1u);
@@ -5796,7 +5790,7 @@ void _malloc_initialize(uint64_t a1, _BYTE *a2)
   {
     if (v5 != 4)
     {
-      malloc_report(3, "*** FATAL ERROR - logical_ncpus / phys_ncpus not 1, 2, or 4.\n");
+      malloc_report(3u, "*** FATAL ERROR - logical_ncpus / phys_ncpus not 1, 2, or 4.\n");
       qword_D8128 = "FATAL ERROR - logical_ncpus / phys_ncpus not 1, 2, or 4";
       qword_D8158 = logical_ncpus / phys_ncpus;
       __break(1u);
@@ -5861,7 +5855,7 @@ void _malloc_initialize(uint64_t a1, _BYTE *a2)
   malloc_memorypressure_mask_msl_4libdispatch |= malloc_memorystatus_mask_resource_exception_handling;
   if (malloc_report_config)
   {
-    malloc_report(5, "Internal Security Policy: %d\n");
+    malloc_report(5u, "Internal Security Policy: %d\n", malloc_internal_security_policy & 1);
   }
 
   malloc_sanitizer_enabled = sanitizer_should_enable();
@@ -5916,7 +5910,7 @@ void _malloc_initialize(uint64_t a1, _BYTE *a2)
     mvm_guarded_range_init();
     if (malloc_report_config & 1) != 0 && (malloc_internal_security_policy)
     {
-      malloc_report(5, "Guarded Range Config (base/size/carveout): 0x%lx / 0x%lx / 0x%lx\n");
+      malloc_report(5u, "Guarded Range Config (base/size/carveout): 0x%lx / 0x%lx / 0x%lx\n", malloc_guarded_range_config, *(&malloc_guarded_range_config + 1), qword_DA438);
     }
 
     initial_xzone_zone = xzm_main_malloc_zone_create(malloc_debug_flags, v9, a1, a2);
@@ -5948,7 +5942,7 @@ void _malloc_initialize(uint64_t a1, _BYTE *a2)
     {
       if (malloc_report_config)
       {
-        malloc_report(5, "NanoV2 Config:\n\tNano On Xzone: %d\n");
+        malloc_report(5u, "NanoV2 Config:\n\tNano On Xzone: %d\n", v2 == initial_xzone_zone);
       }
 
       initial_nano_zone = nanov2_create_zone(v2, malloc_debug_flags);
@@ -5972,11 +5966,11 @@ void _malloc_initialize(uint64_t a1, _BYTE *a2)
   initial_num_zones = malloc_num_zones;
   if ((malloc_report_config & 1) != 0 && initial_scalable_zone)
   {
-    malloc_report(5, "Magazine Config:\n\tMax Magazines: %d\n\tMedium Enabled: %d\n\tAggressive Madvise: %d\n\tScribble: %d\n");
+    malloc_report(5u, "Magazine Config:\n\tMax Magazines: %d\n\tMedium Enabled: %d\n\tAggressive Madvise: %d\n\tScribble: %d\n", max_magazines, magazine_medium_enabled & 1, aggressive_madvise_enabled & 1, (malloc_debug_flags & 0x20) != 0);
   }
 }
 
-uint64_t **__malloc_late_init(uint64_t a1)
+char ***__malloc_late_init(uint64_t a1)
 {
   register_pgm_zone(*(a1 + 24) & 1);
   result = stack_logging_early_finished(a1);
@@ -5999,7 +5993,7 @@ void register_pgm_zone(char a1)
   }
 }
 
-uint64_t **stack_logging_early_finished(uint64_t a1)
+char ***stack_logging_early_finished(uint64_t a1)
 {
   if (*a1 >= 2uLL && *(a1 + 32))
   {
@@ -6009,16 +6003,15 @@ uint64_t **stack_logging_early_finished(uint64_t a1)
   result = _NSGetEnviron();
   for (i = *result; *i; ++i)
   {
-    v2 = *i;
     result = _platform_strncmp();
     if (!result)
     {
       result = _malloc_register_stack_logger(1);
       if (off_DA350)
       {
-        v4 = off_DA350;
-        v3 = _NSGetEnviron();
-        result = v4(*v3);
+        v3 = off_DA350;
+        v2 = _NSGetEnviron();
+        result = v3(*v2);
       }
 
       break;
@@ -6160,13 +6153,13 @@ uint64_t malloc_gdb_po_unsafe()
   }
 }
 
-void malloc_zone_register_while_locked(uint64_t a1, char a2)
+void malloc_zone_register_while_locked(_BYTE *a1, char a2)
 {
   for (i = 0; i != malloc_num_zones; ++i)
   {
     if (a1 == *(malloc_zones + i))
     {
-      malloc_report(3, "Attempted to register zone more than once: %p\n");
+      malloc_report(3u, "Attempted to register zone more than once: %p\n", a1);
       return;
     }
   }
@@ -6212,7 +6205,7 @@ void malloc_zone_register_while_locked(uint64_t a1, char a2)
     plat = mvm_allocate_plat(0, v4, 0, 1, 0x2000, 1, 0);
     if (!plat)
     {
-      malloc_report(3, "malloc_zone_register allocation failed\n");
+      malloc_report(3u, "malloc_zone_register allocation failed\n");
       return;
     }
 
@@ -6424,21 +6417,17 @@ void malloc_create_legacy_default_zone()
   }
 
   zone = *malloc_zones;
-  if (*(*malloc_zones + 72))
+  if (*(*malloc_zones + 72) && !_platform_strcmp())
   {
-    zone_name = zone->zone_name;
-    if (!_platform_strcmp())
-    {
-      malloc_set_zone_name(zone, 0);
-    }
+    malloc_set_zone_name(zone, 0);
   }
 
   malloc_set_zone_name(legacy_scalable_zone, "DefaultMallocZone");
   malloc_zone_register_while_locked(legacy_scalable_zone, 1);
-  v2 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 24);
-  v3 = v2;
-  atomic_compare_exchange_strong_explicit(&_malloc_lock, &v3, 0, memory_order_release, memory_order_relaxed);
-  if (v3 != v2)
+  v1 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 24);
+  v2 = v1;
+  atomic_compare_exchange_strong_explicit(&_malloc_lock, &v2, 0, memory_order_release, memory_order_relaxed);
+  if (v2 != v1)
   {
     os_unfair_lock_unlock(&_malloc_lock);
   }
@@ -6667,90 +6656,110 @@ void malloc_zone_unregister(malloc_zone_t *zone)
       os_unfair_lock_unlock(&_malloc_lock);
     }
 
-    malloc_report(3, "*** malloc_zone_unregister() failed for %p\n");
+    malloc_report(3u, "*** malloc_zone_unregister() failed for %p\n", zone);
   }
 }
 
-void malloc_zone_check_fail(uint64_t a1, uint64_t a2)
+void malloc_zone_check_fail(const char *a1, const char *a2, ...)
 {
-  v8 = _simple_salloc();
-  if (v8)
+  va_start(va, a2);
+  v10 = _simple_salloc();
+  if (v10)
   {
-    _simple_sprintf();
+    _simple_sprintf(v10, "*** MallocCheckHeap: FAILED check at operation #%d\n", malloc_check_counter - 1);
   }
 
   else
   {
-    malloc_report(16, "*** MallocCheckHeap: FAILED check at operation #%d\n");
+    malloc_report(0x10u, "*** MallocCheckHeap: FAILED check at operation #%d\n", malloc_check_counter - 1);
   }
 
   if (frames)
   {
-    v7 = 1;
-    if (v8)
+    v9 = 1;
+    if (v10)
     {
       _simple_sappend();
-      while (v7 < num_frames)
+      while (v9 < num_frames)
       {
-        v2 = v7++;
-        v4 = *(frames + 8 * v2);
-        _simple_sprintf();
+        v2 = v9++;
+        _simple_sprintf(v10, "%p ", *(frames + 8 * v2));
       }
 
-      _simple_string();
-      malloc_report(16, "%s\n(Use 'atos' for a symbolic stack)\n");
+      v3 = _simple_string();
+      malloc_report(0x10u, "%s\n(Use 'atos' for a symbolic stack)\n", v3);
     }
 
     else
     {
-      malloc_report(16, "Stack for last operation where the malloc check succeeded: ");
-      while (v7 < num_frames)
+      malloc_report(0x10u, "Stack for last operation where the malloc check succeeded: ");
+      while (v9 < num_frames)
       {
-        v3 = v7++;
-        v5 = *(frames + 8 * v3);
-        malloc_report(16, "%p ");
+        v4 = v9++;
+        malloc_report(0x10u, "%p ", *(frames + 8 * v4));
       }
 
-      malloc_report(16, "\n(Use 'atos' for a symbolic stack)\n");
+      malloc_report(0x10u, "\n(Use 'atos' for a symbolic stack)\n");
     }
   }
 
   if (malloc_check_each > 1)
   {
-    malloc_report(16, "*** Recommend using 'setenv MallocCheckHeapStart %d; setenv MallocCheckHeapEach %d' to narrow down failure\n");
+    if (malloc_check_each <= 0xA)
+    {
+      v6 = 1;
+    }
+
+    else
+    {
+      v6 = malloc_check_each / 0xAu;
+    }
+
+    if (malloc_check_counter <= (malloc_check_each + 1))
+    {
+      v5 = 1;
+    }
+
+    else
+    {
+      v5 = malloc_check_counter - 1 - malloc_check_each;
+    }
+
+    malloc_report(0x10u, "*** Recommend using 'setenv MallocCheckHeapStart %d; setenv MallocCheckHeapEach %d' to narrow down failure\n", v5, v6);
   }
 
-  if (v8)
+  if (v10)
   {
     _simple_sfree();
   }
 
-  v6 = 0;
+  v8 = 0;
+  v7 = 147;
   if (malloc_check_abort)
   {
-    malloc_vreport(211, 0, a1, 0, a2);
+    v7 = 211;
   }
 
   else if (malloc_check_sleep <= 0)
   {
     if (malloc_check_sleep < 0)
     {
-      malloc_report(5, "*** Will sleep once for %d seconds to leave time to attach\n");
-      v6 = -malloc_check_sleep;
+      malloc_report(5u, "*** Will sleep once for %d seconds to leave time to attach\n", -malloc_check_sleep);
+      v8 = -malloc_check_sleep;
       malloc_check_sleep = 0;
     }
-
-    malloc_vreport(147, v6, a1, 0, a2);
   }
 
   else
   {
-    malloc_report(5, "*** Will sleep for %d seconds to leave time to attach\n");
-    malloc_vreport(147, malloc_check_sleep, a1, 0, a2);
+    malloc_report(5u, "*** Will sleep for %d seconds to leave time to attach\n", malloc_check_sleep);
+    v8 = malloc_check_sleep;
   }
+
+  malloc_vreport(v7, v8, a1, 0, a2, va);
 }
 
-uint64_t _malloc_zone_malloc(void *a1, unint64_t a2, unsigned int a3)
+const void *_malloc_zone_malloc(_DWORD *a1, unint64_t a2, unsigned int a3)
 {
   v6 = a1;
   if (a1 == default_zone && !lite_zone)
@@ -6764,7 +6773,7 @@ uint64_t _malloc_zone_malloc(void *a1, unint64_t a2, unsigned int a3)
     v4 = 1;
     if (!malloc_logger)
     {
-      v4 = *(v6 + 104) < 0xDu;
+      v4 = v6[26] < 0xDu;
     }
   }
 
@@ -6775,14 +6784,14 @@ uint64_t _malloc_zone_malloc(void *a1, unint64_t a2, unsigned int a3)
 
   if (a2 <= malloc_absolute_max_size)
   {
-    if (*(v6 + 104) >= 0x10u)
+    if (v6[26] >= 0x10u)
     {
-      return (*(v6 + 160))(v6, a2, (v5 >> 2));
+      return (*(v6 + 20))(v6, a2, (v5 >> 2));
     }
 
     else
     {
-      return (*(v6 + 24))(v6, a2);
+      return (*(v6 + 3))(v6, a2);
     }
   }
 
@@ -6793,7 +6802,7 @@ uint64_t _malloc_zone_malloc(void *a1, unint64_t a2, unsigned int a3)
   }
 }
 
-uint64_t _malloc_zone_malloc_instrumented_or_legacy(uint64_t a1, unint64_t a2, unsigned int a3)
+const void *_malloc_zone_malloc_instrumented_or_legacy(uint64_t a1, unint64_t a2, unsigned int a3)
 {
   v6 = 0;
   if (!*(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 904))
@@ -6823,7 +6832,7 @@ uint64_t _malloc_zone_malloc_instrumented_or_legacy(uint64_t a1, unint64_t a2, u
 
     if (malloc_simple_stack_logging)
     {
-      malloc_report(805, "malloc (%p/%llu): ");
+      malloc_report(0x325u, "malloc (%p/%llu): ", v5, a2);
     }
 
     if (malloc_tracing_enabled)
@@ -6845,7 +6854,7 @@ uint64_t _malloc_zone_malloc_instrumented_or_legacy(uint64_t a1, unint64_t a2, u
   return v5;
 }
 
-uint64_t _malloc_zone_calloc(void *a1, uint64_t a2, uint64_t a3, unsigned int a4)
+const void *_malloc_zone_calloc(_DWORD *a1, uint64_t a2, uint64_t a3, unsigned int a4)
 {
   v7 = a1;
   if (a1 == default_zone && !lite_zone)
@@ -6859,7 +6868,7 @@ uint64_t _malloc_zone_calloc(void *a1, uint64_t a2, uint64_t a3, unsigned int a4
     v5 = 1;
     if (!malloc_logger)
     {
-      v5 = *(v7 + 104) < 0xDu;
+      v5 = v7[26] < 0xDu;
     }
   }
 
@@ -6868,15 +6877,15 @@ uint64_t _malloc_zone_calloc(void *a1, uint64_t a2, uint64_t a3, unsigned int a4
     return _malloc_zone_calloc_instrumented_or_legacy(v7, a2, a3, a4);
   }
 
-  if (*(v7 + 104) >= 0x10u)
+  if (v7[26] >= 0x10u)
   {
-    return (*(v7 + 168))(v7, a2, a3, (v6 >> 2));
+    return (*(v7 + 21))(v7, a2, a3, (v6 >> 2));
   }
 
-  return (*(v7 + 32))(v7, a2, a3);
+  return (*(v7 + 4))(v7, a2, a3);
 }
 
-uint64_t _malloc_zone_calloc_instrumented_or_legacy(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4)
+const void *_malloc_zone_calloc_instrumented_or_legacy(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4)
 {
   v7 = 0;
   if (!*(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 904))
@@ -6903,7 +6912,7 @@ uint64_t _malloc_zone_calloc_instrumented_or_legacy(uint64_t a1, uint64_t a2, ui
 
   if (malloc_simple_stack_logging)
   {
-    malloc_report(805, "calloc (%p/%llu*%llu): ");
+    malloc_report(0x325u, "calloc (%p/%llu*%llu): ", v6, a2, a3);
   }
 
   if (malloc_tracing_enabled)
@@ -6924,7 +6933,7 @@ uint64_t _malloc_zone_calloc_instrumented_or_legacy(uint64_t a1, uint64_t a2, ui
   return v6;
 }
 
-uint64_t _malloc_zone_valloc(uint64_t a1, unint64_t a2, unsigned int a3)
+const void *_malloc_zone_valloc(uint64_t a1, unint64_t a2, unsigned int a3)
 {
   v6 = 0;
   if (!*(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 904))
@@ -6954,7 +6963,7 @@ uint64_t _malloc_zone_valloc(uint64_t a1, unint64_t a2, unsigned int a3)
 
     if (malloc_simple_stack_logging)
     {
-      malloc_report(805, "valloc (%p/%llu): ");
+      malloc_report(0x325u, "valloc (%p/%llu): ", v5, a2);
     }
 
     if (malloc_tracing_enabled)
@@ -6976,7 +6985,7 @@ uint64_t _malloc_zone_valloc(uint64_t a1, unint64_t a2, unsigned int a3)
   return v5;
 }
 
-uint64_t _malloc_zone_realloc(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4)
+const void *_malloc_zone_realloc(uint64_t a1, const void *a2, unint64_t a3, uint64_t a4)
 {
   v6 = 0;
   if (!*(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 904))
@@ -7006,7 +7015,7 @@ uint64_t _malloc_zone_realloc(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a
 
     if (malloc_simple_stack_logging)
     {
-      malloc_report(805, "realloc (%p->%p/%llu): ");
+      malloc_report(0x325u, "realloc (%p->%p/%llu): ", a2, v5, a3);
     }
 
     if (malloc_tracing_enabled)
@@ -7027,11 +7036,6 @@ void malloc_zone_free(malloc_zone_t *zone, void *ptr)
 {
   if (malloc_tracing_enabled)
   {
-    if (ptr)
-    {
-      v2 = *ptr;
-    }
-
     kdebug_trace();
   }
 
@@ -7042,7 +7046,7 @@ void malloc_zone_free(malloc_zone_t *zone, void *ptr)
 
   if (malloc_simple_stack_logging)
   {
-    malloc_report(805, "malloc_zone_free (%p): ");
+    malloc_report(0x325u, "malloc_zone_free (%p): ", ptr);
   }
 
   if (malloc_check_start)
@@ -7108,7 +7112,7 @@ LABEL_21:
   return v9;
 }
 
-uint64_t _malloc_zone_memalign(uint64_t a1, unint64_t a2, unint64_t a3, unsigned int a4, uint64_t a5)
+const void *_malloc_zone_memalign(uint64_t a1, unint64_t a2, unint64_t a3, unsigned int a4, uint64_t a5)
 {
   v9 = 0;
   if (!*(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 904))
@@ -7161,7 +7165,7 @@ uint64_t _malloc_zone_memalign(uint64_t a1, unint64_t a2, unint64_t a3, unsigned
 
           if (malloc_simple_stack_logging)
           {
-            malloc_report(805, "memalign (%p/%llu,%llu): ");
+            malloc_report(0x325u, "memalign (%p/%llu,%llu): ", v8, a2, a3);
           }
 
           if (malloc_tracing_enabled)
@@ -7387,15 +7391,10 @@ LABEL_38:
   }
 }
 
-uint64_t malloc_zone_free_definite_size(uint64_t a1, uint64_t *a2, uint64_t a3)
+uint64_t malloc_zone_free_definite_size(uint64_t a1, void *a2, uint64_t a3)
 {
   if (malloc_tracing_enabled)
   {
-    if (a2 && a3)
-    {
-      v4 = *a2;
-    }
-
     kdebug_trace();
   }
 
@@ -7406,7 +7405,7 @@ uint64_t malloc_zone_free_definite_size(uint64_t a1, uint64_t *a2, uint64_t a3)
 
   if (malloc_simple_stack_logging)
   {
-    malloc_report(805, "free (%p/%llu): ");
+    malloc_report(0x325u, "free (%p/%llu): ", a2, a3);
   }
 
   if (malloc_check_start)
@@ -7583,7 +7582,7 @@ size_t malloc_good_size(size_t size)
   return (*(v2 + 8))(default_zone, size);
 }
 
-uint64_t _posix_memalign(uint64_t *a1, unint64_t a2, unint64_t a3)
+uint64_t _posix_memalign(void *a1, unint64_t a2, unint64_t a3)
 {
   v5 = _malloc_zone_memalign(default_zone, a2, a3, 0, (v3 >> 2));
   if (v5)
@@ -7725,7 +7724,7 @@ void *_malloc_zone_malloc_with_options_outlined(malloc_zone_t *a1, size_t a2, si
 
     if (malloc_simple_stack_logging)
     {
-      malloc_report(805, "malloc_with_options (%p/%llu,%llu): ");
+      malloc_report(0x325u, "malloc_with_options (%p/%llu,%llu): ", v12, a2, a3);
     }
 
     if (malloc_tracing_enabled)
@@ -7739,7 +7738,7 @@ void *_malloc_zone_malloc_with_options_outlined(malloc_zone_t *a1, size_t a2, si
 LABEL_14:
     if ((a4 & 0xFFFFFFFFFFFFFFFCLL) != 0)
     {
-      malloc_zone_error(64, 1, "malloc_zone_malloc_with_options: unsupported options 0x%llx\n");
+      malloc_zone_error(64, 1, "malloc_zone_malloc_with_options: unsupported options 0x%llx\n", a4);
       __break(1u);
       JUMPOUT(0x95CCCLL);
     }
@@ -8210,7 +8209,7 @@ void malloc_zone_batch_free(malloc_zone_t *zone, void **to_be_freed, unsigned in
   }
 }
 
-uint64_t malloc_get_all_zones(int a1, uint64_t a2, uint64_t **a3, unsigned int *a4)
+uint64_t malloc_get_all_zones(unsigned int a1, uint64_t (*a2)(void, _UNKNOWN **, uint64_t, uint64_t **), uint64_t **a3, unsigned int *a4)
 {
   v15 = a1;
   v14 = a2;
@@ -8224,20 +8223,20 @@ uint64_t malloc_get_all_zones(int a1, uint64_t a2, uint64_t **a3, unsigned int *
   v6 = 0;
   v5 = 0;
   v14 = reader_or_in_memory_fallback_6(a2, a1);
-  v9 = v14(v15, v11, 8, &v7);
+  v9 = (v14)(v15, v11, 8, &v7);
   if (v9)
   {
-    malloc_report(3, "*** malloc_get_all_zones: error reading zones_address at %p\n");
+    malloc_report(3u, "*** malloc_get_all_zones: error reading zones_address at %p\n", v11);
     return v9;
   }
 
   else
   {
     v8 = *v7;
-    v9 = v14(v15, v10, 4, &v5);
+    v9 = (v14)(v15, v10, 4, &v5);
     if (v9)
     {
-      malloc_report(3, "*** malloc_get_all_zones: error reading num_zones at %p\n");
+      malloc_report(3u, "*** malloc_get_all_zones: error reading num_zones at %p\n", v10);
       return v9;
     }
 
@@ -8245,10 +8244,10 @@ uint64_t malloc_get_all_zones(int a1, uint64_t a2, uint64_t **a3, unsigned int *
     {
       v6 = *v5;
       *v12 = v6;
-      v9 = v14(v15, v8, 8 * v6, v13);
+      v9 = (v14)(v15, v8, 8 * v6, v13);
       if (v9)
       {
-        malloc_report(3, "*** malloc_get_all_zones: error reading zones at %p\n");
+        malloc_report(3u, "*** malloc_get_all_zones: error reading zones at %p\n", &v8);
         return v9;
       }
 
@@ -8260,7 +8259,7 @@ uint64_t malloc_get_all_zones(int a1, uint64_t a2, uint64_t **a3, unsigned int *
   }
 }
 
-uint64_t (*reader_or_in_memory_fallback_6(uint64_t a1, int a2))(int a1, uint64_t a2, uint64_t a3, void *a4)
+uint64_t (*reader_or_in_memory_fallback_6(uint64_t a1, unsigned int a2))()
 {
   if (a1)
   {
@@ -8438,26 +8437,28 @@ void malloc_zone_log(malloc_zone_t *zone, void *address)
   }
 }
 
-void DefaultMallocError()
+void DefaultMallocError(uint64_t a1)
 {
-  if (_simple_salloc())
+  v3 = a1;
+  v2 = _simple_salloc();
+  if (v2)
   {
-    _simple_sprintf();
-    _simple_string();
-    malloc_report(16, "%s\n");
+    _simple_sprintf(v2, "*** error %d", v3);
+    v1 = _simple_string();
+    malloc_report(0x10u, "%s\n", v1);
     qword_D8128 = _simple_string();
   }
 
   else
   {
-    malloc_report(16, "*** error %d\n");
+    malloc_report(0x10u, "*** error %d\n", v3);
     qword_D8128 = "*** DefaultMallocError called";
   }
 
   abort();
 }
 
-void _malloc_lock_all(void (*a1)(atomic_uint *))
+void _malloc_lock_all(uint64_t (*a1)(uint64_t))
 {
   v6 = 0;
   v1 = 0;
@@ -8770,7 +8771,7 @@ void malloc_singlethreaded()
 {
   if (!malloc_singlethreaded_warned)
   {
-    malloc_report(3, "*** OBSOLETE: malloc_singlethreaded()\n");
+    malloc_report(3u, "*** OBSOLETE: malloc_singlethreaded()\n");
     malloc_singlethreaded_warned = 1;
   }
 }
@@ -8810,7 +8811,7 @@ uint64_t _malloc_register_stack_logger(char a1)
 
     else
     {
-      malloc_report(4, "failed to load MallocStackLogging.framework\n");
+      malloc_report(4u, "failed to load MallocStackLogging.framework\n");
       v2 = 0;
     }
   }
@@ -9314,17 +9315,17 @@ void set_flags_from_environment()
       {
         malloc_debug_flags |= 3u;
         malloc_debug_flags &= ~4u;
-        malloc_report(5, "adding guard pages for large allocator blocks\n");
+        malloc_report(5u, "adding guard pages for large allocator blocks\n");
         if (getenv("MallocDoNotProtectPrelude"))
         {
           malloc_debug_flags |= 8u;
-          malloc_report(5, "... but not protecting prelude guard page\n");
+          malloc_report(5u, "... but not protecting prelude guard page\n");
         }
 
         if (getenv("MallocDoNotProtectPostlude"))
         {
           malloc_debug_flags |= 0x10u;
-          malloc_report(5, "... but not protecting postlude guard page\n");
+          malloc_report(5u, "... but not protecting postlude guard page\n");
         }
       }
 
@@ -9332,20 +9333,20 @@ void set_flags_from_environment()
       {
         malloc_debug_flags |= 7u;
         malloc_debug_flags &= 0xFFFFFFE7;
-        malloc_report(5, "adding guard pages to all regions\n");
+        malloc_report(5u, "adding guard pages to all regions\n");
       }
     }
 
     if (getenv("MallocScribble"))
     {
       malloc_debug_flags |= 0x20u;
-      malloc_report(5, "enabling scribbling to detect mods to free blocks\n");
+      malloc_report(5u, "enabling scribbling to detect mods to free blocks\n");
     }
 
     if (getenv("MallocErrorAbort"))
     {
       malloc_debug_flags |= 0x40u;
-      malloc_report(5, "enabling abort() on bad malloc or free\n");
+      malloc_report(5u, "enabling abort() on bad malloc or free\n");
     }
 
     if (getenv("MallocTracing"))
@@ -9392,7 +9393,7 @@ void set_flags_from_environment()
         }
       }
 
-      malloc_report(5, "checks heap after operation #%d and each %d operations\n");
+      malloc_report(5u, "checks heap after operation #%d and each %d operations\n", malloc_check_start, malloc_check_each);
       v34 = getenv("MallocCheckHeapAbort");
       if (v34)
       {
@@ -9401,7 +9402,7 @@ void set_flags_from_environment()
 
       if (malloc_check_abort)
       {
-        malloc_report(5, "will abort on heap corruption\n");
+        malloc_report(5u, "will abort on heap corruption\n");
       }
 
       else
@@ -9416,18 +9417,18 @@ void set_flags_from_environment()
         {
           if (malloc_check_sleep < 0)
           {
-            malloc_report(5, "will sleep once for %d seconds on heap corruption\n");
+            malloc_report(5u, "will sleep once for %d seconds on heap corruption\n", -malloc_check_sleep);
           }
 
           else
           {
-            malloc_report(5, "no sleep on heap corruption\n");
+            malloc_report(5u, "no sleep on heap corruption\n");
           }
         }
 
         else
         {
-          malloc_report(5, "will sleep for %d seconds on heap corruption\n");
+          malloc_report(5u, "will sleep for %d seconds on heap corruption\n", malloc_check_sleep);
         }
       }
     }
@@ -9446,30 +9447,30 @@ void set_flags_from_environment()
         if (v29 == 0xFFFF)
         {
           max_magazines = ncpuclusters;
-          malloc_report(5, "Maximum magazines limited to ncpuclusters (%d)\n");
+          malloc_report(5u, "Maximum magazines limited to ncpuclusters (%d)\n", ncpuclusters);
         }
 
         else if ((v29 & 0x80000000) != 0)
         {
-          malloc_report(3, "Maximum magazines must be positive - ignored.\n");
+          malloc_report(3u, "Maximum magazines must be positive - ignored.\n");
         }
 
         else if (v29 > logical_ncpus)
         {
           max_magazines = logical_ncpus;
-          malloc_report(5, "Maximum magazines limited to number of logical CPUs (%d)\n");
+          malloc_report(5u, "Maximum magazines limited to number of logical CPUs (%d)\n", logical_ncpus);
         }
 
         else
         {
           max_magazines = v29;
-          malloc_report(5, "Maximum magazines set to %d\n");
+          malloc_report(5u, "Maximum magazines set to %d\n", v29);
         }
       }
 
       else
       {
-        malloc_report(5, "Maximum magazines defaulted to %d\n");
+        malloc_report(5u, "Maximum magazines defaulted to %d\n", max_magazines);
       }
     }
 
@@ -9480,12 +9481,12 @@ void set_flags_from_environment()
       if (v28)
       {
         magazine_large_expanded_cache_threshold = v28;
-        malloc_report(5, "Large expanded cache threshold set to %lly\n");
+        malloc_report(5u, "Large expanded cache threshold set to %lly\n", v28);
       }
 
       else
       {
-        malloc_report(5, "Large expanded cache threshold defaulted to %lly\n");
+        malloc_report(5u, "Large expanded cache threshold defaulted to %lly\n", magazine_large_expanded_cache_threshold);
       }
     }
 
@@ -9494,13 +9495,13 @@ void set_flags_from_environment()
     {
       if (strtoull(v34, 0, 0))
       {
-        malloc_report(5, "Disabling ASLR slide on large allocations\n");
+        malloc_report(5u, "Disabling ASLR slide on large allocations\n");
         malloc_debug_flags |= 0x20000000u;
       }
 
       else
       {
-        malloc_report(5, "Enabling ASLR slide on large allocations\n");
+        malloc_report(5u, "Enabling ASLR slide on large allocations\n");
         malloc_debug_flags &= ~0x20000000u;
       }
     }
@@ -9512,7 +9513,7 @@ void set_flags_from_environment()
       v25 = malloc_common_convert_to_long(v34, &v26);
       if (*v26 || v26 == v34 || v25 > 1)
       {
-        malloc_report(3, "MallocSpaceEfficient must be 0 or 1.\n");
+        malloc_report(3u, "MallocSpaceEfficient must be 0 or 1.\n");
       }
 
       else
@@ -9529,7 +9530,7 @@ void set_flags_from_environment()
       v23 = malloc_common_convert_to_long(v34, &v24);
       if (*v24 || v24 == v34 || v23 > 1)
       {
-        malloc_report(3, "MallocAggressiveMadvise must be 0 or 1.\n");
+        malloc_report(3u, "MallocAggressiveMadvise must be 0 or 1.\n");
       }
 
       else
@@ -9544,7 +9545,7 @@ void set_flags_from_environment()
       v22 = strtol(v34, 0, 0);
       if (v22 <= 0)
       {
-        malloc_report(3, "MallocRecircRetainedRegions must be positive - ignored.\n");
+        malloc_report(3u, "MallocRecircRetainedRegions must be positive - ignored.\n");
       }
 
       else
@@ -9560,7 +9561,7 @@ void set_flags_from_environment()
       v20 = malloc_common_convert_to_long(v34, &v21);
       if (*v21 || v21 == v34 || v20 > 1)
       {
-        malloc_report(3, "MallocZeroOnFree must be 0 or 1.\n");
+        malloc_report(3u, "MallocZeroOnFree must be 0 or 1.\n");
       }
 
       else
@@ -9576,7 +9577,7 @@ void set_flags_from_environment()
       v18 = malloc_common_convert_to_long(v34, &v19);
       if (*v19 || v19 == v34 || v18 > 1)
       {
-        malloc_report(3, "MallocZeroOnAlloc must be 0 or 1.\n");
+        malloc_report(3u, "MallocZeroOnAlloc must be 0 or 1.\n");
       }
 
       else
@@ -9601,7 +9602,7 @@ void set_flags_from_environment()
       v17 = strtol(v34, 0, 0);
       if (v17 <= 0)
       {
-        malloc_report(3, "malloc_zero_on_free_sample_period must be positive - ignored.\n");
+        malloc_report(3u, "malloc_zero_on_free_sample_period must be positive - ignored.\n");
       }
 
       else
@@ -9617,7 +9618,7 @@ void set_flags_from_environment()
       v15 = malloc_common_convert_to_long(v34, &v16);
       if (*v16 || v16 == v34 || v15 > 1)
       {
-        malloc_report(3, "MallocSecureAllocator must be 0 or 1.\n");
+        malloc_report(3u, "MallocSecureAllocator must be 0 or 1.\n");
       }
 
       else
@@ -9633,7 +9634,7 @@ void set_flags_from_environment()
       v13 = malloc_common_convert_to_long(v34, &v14);
       if (*v14 || v14 == v34 || v13 > 1)
       {
-        malloc_report(3, "MallocSecureAllocatorNano must be 0 or 1.\n");
+        malloc_report(3u, "MallocSecureAllocatorNano must be 0 or 1.\n");
       }
 
       else
@@ -9659,7 +9660,7 @@ void set_flags_from_environment()
       v11 = malloc_common_convert_to_long(v34, &v12);
       if (*v12 || v12 == v34 || v11 > 1)
       {
-        malloc_report(3, "MallocNanoOnXzone must be 0 or 1.\n");
+        malloc_report(3u, "MallocNanoOnXzone must be 0 or 1.\n");
       }
 
       else
@@ -9685,7 +9686,7 @@ void set_flags_from_environment()
       v9 = malloc_common_convert_to_long(v34, &v10);
       if (*v10 || v10 == v34 || v9 > 1)
       {
-        malloc_report(3, "MallocSecureAllocatorCreateMzones must be 0 or 1.\n");
+        malloc_report(3u, "MallocSecureAllocatorCreateMzones must be 0 or 1.\n");
       }
 
       else
@@ -9701,7 +9702,7 @@ void set_flags_from_environment()
       v7 = malloc_common_convert_to_long(v34, &v8);
       if (*v8 || v8 == v34 || v7 > 1)
       {
-        malloc_report(3, "MallocSecureAllocatorPurgeableZone must be 0 or 1.\n");
+        malloc_report(3u, "MallocSecureAllocatorPurgeableZone must be 0 or 1.\n");
       }
 
       else
@@ -9717,7 +9718,7 @@ void set_flags_from_environment()
       v5 = malloc_common_convert_to_long(v34, &v6);
       if (*v6 || v6 == v34 || v5 > 1)
       {
-        malloc_report(3, "MallocEarlyMallocSecTransitionSupport must be 0 or 1.\n");
+        malloc_report(3u, "MallocEarlyMallocSecTransitionSupport must be 0 or 1.\n");
       }
 
       else
@@ -9739,7 +9740,7 @@ void set_flags_from_environment()
 
     if (getenv("MallocHelp"))
     {
-      malloc_report(5, "environment variables that can be set for debug:\n- MallocLogFile <f> to create/append messages to file <f> instead of stderr\n- MallocGuardEdges to add 2 guard pages for each large block\n- MallocDoNotProtectPrelude to disable protection (when previous flag set)\n- MallocDoNotProtectPostlude to disable protection (when previous flag set)\n- MallocStackLogging to record all stacks.  Tools like leaks can then be applied\n- MallocStackLoggingNoCompact to record all stacks.  Needed for malloc_history\n- MallocStackLoggingDirectory to set location of stack logs, which can grow large; default is /tmp\n- MallocScribble to detect writing on free blocks and missing initializers:\n  0x55 is written upon free and 0xaa is written on allocation\n- MallocCheckHeapStart <n> to start checking the heap after <n> operations\n- MallocCheckHeapEach <s> to repeat the checking of the heap after <s> operations\n- MallocCheckHeapSleep <t> to sleep <t> seconds on heap corruption\n- MallocCheckHeapAbort <b> to abort on heap corruption if <b> is non-zero\n- MallocCorruptionAbort to abort on malloc errors, but not on out of memory for 32-bit processes\n  MallocCorruptionAbort is always set on 64-bit processes\n- MallocErrorAbort to abort on any malloc error, including out of memory\n- MallocTracing to emit kdebug trace points on malloc entry points\n- MallocZeroOnFree to enable or disable zero-on-free behavior (for debugging only)\n- MallocCheckZeroOnFreeCorruption to enable zero-on-free corruption detection\n- MallocHelp - this help!\n");
+      malloc_report(5u, "environment variables that can be set for debug:\n- MallocLogFile <f> to create/append messages to file <f> instead of stderr\n- MallocGuardEdges to add 2 guard pages for each large block\n- MallocDoNotProtectPrelude to disable protection (when previous flag set)\n- MallocDoNotProtectPostlude to disable protection (when previous flag set)\n- MallocStackLogging to record all stacks.  Tools like leaks can then be applied\n- MallocStackLoggingNoCompact to record all stacks.  Needed for malloc_history\n- MallocStackLoggingDirectory to set location of stack logs, which can grow large; default is /tmp\n- MallocScribble to detect writing on free blocks and missing initializers:\n  0x55 is written upon free and 0xaa is written on allocation\n- MallocCheckHeapStart <n> to start checking the heap after <n> operations\n- MallocCheckHeapEach <s> to repeat the checking of the heap after <s> operations\n- MallocCheckHeapSleep <t> to sleep <t> seconds on heap corruption\n- MallocCheckHeapAbort <b> to abort on heap corruption if <b> is non-zero\n- MallocCorruptionAbort to abort on malloc errors, but not on out of memory for 32-bit processes\n  MallocCorruptionAbort is always set on 64-bit processes\n- MallocErrorAbort to abort on any malloc error, including out of memory\n- MallocTracing to emit kdebug trace points on malloc entry points\n- MallocZeroOnFree to enable or disable zero-on-free behavior (for debugging only)\n- MallocCheckZeroOnFreeCorruption to enable zero-on-free corruption detection\n- MallocHelp - this help!\n");
     }
   }
 }

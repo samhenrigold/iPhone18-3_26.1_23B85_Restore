@@ -40,11 +40,12 @@
   v2 = *(&self->super.super.super.super.isa + OBJC_IVAR____TtC22SubscribePageExtension10PlayButton_tapActionBlock);
   if (v2)
   {
+    v3 = *&self->backgroundView[OBJC_IVAR____TtC22SubscribePageExtension10PlayButton_tapActionBlock];
     selfCopy = self;
-    v4 = sub_10001B5AC(v2);
-    v2(v4);
+    v5 = sub_10001B5AC(v2, v3);
+    v2(v5);
 
-    sub_1000164A8(v2);
+    sub_1000164A8(v2, v3);
   }
 }
 

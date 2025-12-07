@@ -23,6 +23,7 @@
 - (void)scheduleMaintenanceTaskForAwardingWithCompletion:(id)completion;
 - (void)setLastSuccessfulRunDate:(id)date;
 - (void)setMaintenanceTaskScheduled:(BOOL)scheduled;
+- (void)shouldForceActivityAppInstalled:(BOOL)installed;
 - (void)templateStore:(id)store didAddNewTemplates:(id)templates;
 - (void)templateStoreDidFinishInitialFetch:(id)fetch;
 @end
@@ -97,13 +98,13 @@
 
 - (void)setLastSuccessfulRunDate:(id)date
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   v6 = ACHLogAwardScheduling();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v16 = dateCopy;
+    v15 = dateCopy;
     _os_log_impl(&dword_221DDC000, v6, OS_LOG_TYPE_DEFAULT, "SET: lastSuccessfulRunDate = %@", buf, 0xCu);
   }
 
@@ -113,9 +114,9 @@
   v8 = [v7 numberWithDouble:?];
   localKeyValueDomain = [(ACHCompanionAwardingScheduler *)self localKeyValueDomain];
   v10 = NSStringFromSelector(sel_lastSuccessfulRunDate);
-  v14 = 0;
-  [localKeyValueDomain setNumber:v8 forKey:v10 error:&v14];
-  v11 = v14;
+  v13 = 0;
+  [localKeyValueDomain setNumber:v8 forKey:v10 error:&v13];
+  v11 = v13;
 
   if (v11)
   {
@@ -127,8 +128,6 @@
   }
 
   notify_post(*MEMORY[0x277CE8BB8]);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (NSDate)lastSuccessfulRunDate
@@ -189,20 +188,18 @@
 
 void __59__ACHCompanionAwardingScheduler_clearLastSuccessfulRunDate__block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = a3;
   if ((a2 & 1) == 0)
   {
     v5 = ACHLogAwardScheduling();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138543362;
-      v8 = v4;
-      _os_log_impl(&dword_221DDC000, v5, OS_LOG_TYPE_DEFAULT, "Error clearning last run date: %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v4;
+      _os_log_impl(&dword_221DDC000, v5, OS_LOG_TYPE_DEFAULT, "Error clearning last run date: %{public}@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)maintenanceTaskScheduled
@@ -216,20 +213,19 @@ void __59__ACHCompanionAwardingScheduler_clearLastSuccessfulRunDate__block_invok
 - (void)setMaintenanceTaskScheduled:(BOOL)scheduled
 {
   scheduledCopy = scheduled;
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   queue = [(ACHCompanionAwardingScheduler *)self queue];
   dispatch_assert_queue_V2(queue);
 
   v6 = ACHLogAwardScheduling();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v8[0] = 67109120;
-    v8[1] = scheduledCopy;
-    _os_log_impl(&dword_221DDC000, v6, OS_LOG_TYPE_DEFAULT, "SET: maintenanceTaskScheduled %d", v8, 8u);
+    v7[0] = 67109120;
+    v7[1] = scheduledCopy;
+    _os_log_impl(&dword_221DDC000, v6, OS_LOG_TYPE_DEFAULT, "SET: maintenanceTaskScheduled %d", v7, 8u);
   }
 
   self->_maintenanceTaskScheduled = scheduledCopy;
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_systemTimeZoneDidChange:(id)change
@@ -263,13 +259,13 @@ void __58__ACHCompanionAwardingScheduler__systemTimeZoneDidChange___block_invoke
   dispatch_async(queue, block);
 }
 
-uint64_t __62__ACHCompanionAwardingScheduler__cloudRestoreStatusDidChange___block_invoke(uint64_t a1)
+void *__62__ACHCompanionAwardingScheduler__cloudRestoreStatusDidChange___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = ACHLogAwardScheduling();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = ACHLogAwardScheduling();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_221DDC000, v2, OS_LOG_TYPE_DEFAULT, "[ACHCompanionScheduler] received cloud restore status change notification", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_221DDC000, v3, OS_LOG_TYPE_DEFAULT, "[ACHCompanionScheduler] received cloud restore status change notification", v5, 2u);
   }
 
   result = [*(a1 + 32) shouldRunImmediatelyOnCloudSyncCompletion];
@@ -283,31 +279,29 @@ uint64_t __62__ACHCompanionAwardingScheduler__cloudRestoreStatusDidChange___bloc
 
 - (void)_queue_removeAllEarnedInstances
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   queue = [(ACHCompanionAwardingScheduler *)self queue];
   dispatch_assert_queue_V2(queue);
 
   earnedInstanceStore = [(ACHCompanionAwardingScheduler *)self earnedInstanceStore];
   earnedInstanceStore2 = [(ACHCompanionAwardingScheduler *)self earnedInstanceStore];
   earnedInstances = [earnedInstanceStore2 earnedInstances];
-  v11 = 0;
-  v7 = [earnedInstanceStore removeEarnedInstances:earnedInstances error:&v11];
-  v8 = v11;
+  v10 = 0;
+  v7 = [earnedInstanceStore removeEarnedInstances:earnedInstances error:&v10];
+  v8 = v10;
 
   v9 = ACHLogDatabase();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109378;
-    v13 = v7;
-    v14 = 2114;
-    v15 = v8;
+    v12 = v7;
+    v13 = 2114;
+    v14 = v8;
     _os_log_impl(&dword_221DDC000, v9, OS_LOG_TYPE_DEFAULT, "Removed earned instances due to companion app deletion with success: %{BOOL}d, %{public}@", buf, 0x12u);
   }
 
   [(ACHCompanionAwardingScheduler *)self setShouldRetryEarnedInstanceDeletion:v7 ^ 1u];
   [(ACHCompanionAwardingScheduler *)self clearLastSuccessfulRunDate];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startUp
@@ -469,7 +463,7 @@ void __66__ACHCompanionAwardingScheduler__runBackgroundTaskWithCompletion___bloc
   }
 }
 
-uint64_t __66__ACHCompanionAwardingScheduler__runBackgroundTaskWithCompletion___block_invoke_323(uint64_t a1)
+void *__66__ACHCompanionAwardingScheduler__runBackgroundTaskWithCompletion___block_invoke_323(uint64_t a1)
 {
   result = [*(a1 + 32) shouldRetryEarnedInstanceDeletion];
   if (result)
@@ -489,20 +483,19 @@ uint64_t __66__ACHCompanionAwardingScheduler__runBackgroundTaskWithCompletion___
 
 void __66__ACHCompanionAwardingScheduler__runBackgroundTaskWithCompletion___block_invoke_324(uint64_t a1, int a2, void *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = ACHLogAwardScheduling();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v8[0] = 67109378;
-    v8[1] = a2;
-    v9 = 2114;
-    v10 = v5;
-    _os_log_impl(&dword_221DDC000, v6, OS_LOG_TYPE_DEFAULT, "Periodic activity awarding evaluation finished with success=%d, error=%{public}@", v8, 0x12u);
+    v7[0] = 67109378;
+    v7[1] = a2;
+    v8 = 2114;
+    v9 = v5;
+    _os_log_impl(&dword_221DDC000, v6, OS_LOG_TYPE_DEFAULT, "Periodic activity awarding evaluation finished with success=%d, error=%{public}@", v7, 0x12u);
   }
 
   (*(*(a1 + 32) + 16))();
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)templateStore:(id)store didAddNewTemplates:(id)templates
@@ -702,7 +695,7 @@ void __65__ACHCompanionAwardingScheduler__queue_requestAwardingEvaluation__block
 
 void __65__ACHCompanionAwardingScheduler__queue_requestAwardingEvaluation__block_invoke_328(uint64_t a1, int a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = ACHLogAwardScheduling();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -714,9 +707,9 @@ void __65__ACHCompanionAwardingScheduler__queue_requestAwardingEvaluation__block
     }
 
     *buf = 138543618;
-    v18 = v7;
-    v19 = 2114;
-    v20 = v5;
+    v17 = v7;
+    v18 = 2114;
+    v19 = v5;
     _os_log_impl(&dword_221DDC000, v6, OS_LOG_TYPE_DEFAULT, "Historical evaluation complete with success: %{public}@, error: %{public}@", buf, 0x16u);
   }
 
@@ -726,17 +719,15 @@ void __65__ACHCompanionAwardingScheduler__queue_requestAwardingEvaluation__block
   block[2] = __65__ACHCompanionAwardingScheduler__queue_requestAwardingEvaluation__block_invoke_335;
   block[3] = &unk_278491F68;
   v9 = *(a1 + 32);
-  v16 = a2;
+  v15 = a2;
   block[4] = v9;
-  v15 = v5;
+  v14 = v5;
   v10 = v5;
   dispatch_sync(v8, block);
 
   v11 = *(*(a1 + 40) + 8);
   v12 = *(v11 + 40);
   *(v11 + 40) = 0;
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_performCleanupTasks
@@ -758,6 +749,12 @@ void __65__ACHCompanionAwardingScheduler__queue_requestAwardingEvaluation__block
   v5 = v4 < 86400.0;
 
   return v5;
+}
+
+- (void)shouldForceActivityAppInstalled:(BOOL)installed
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:installed];
+  [(ACHCompanionAwardingScheduler *)self setForceActivityAppInstalled:v4];
 }
 
 - (void)overrideCoalescingDelay:(double)delay
@@ -802,37 +799,37 @@ void __65__ACHCompanionAwardingScheduler__queue_requestAwardingEvaluation__block
 
 - (void)_queue_callAwardingCompletionsWithSuccess:(BOOL)success error:(id)error
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   queue = [(ACHCompanionAwardingScheduler *)self queue];
   dispatch_assert_queue_V2(queue);
 
   [(ACHCompanionAwardingScheduler *)self _queue_performCleanupTasks];
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v7 = self->_awardEvaluationCompletionBlocks;
-  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v16;
+    v10 = *v15;
     do
     {
       v11 = 0;
       do
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        (*(*(*(&v15 + 1) + 8 * v11++) + 16))();
+        (*(*(*(&v14 + 1) + 8 * v11++) + 16))();
       }
 
       while (v9 != v11);
-      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v9);
@@ -841,14 +838,12 @@ void __65__ACHCompanionAwardingScheduler__queue_requestAwardingEvaluation__block
   v12 = ACHLogAwardScheduling();
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    *v14 = 0;
-    _os_log_impl(&dword_221DDC000, v12, OS_LOG_TYPE_DEFAULT, "Finished calling run completion handlers", v14, 2u);
+    *v13 = 0;
+    _os_log_impl(&dword_221DDC000, v12, OS_LOG_TYPE_DEFAULT, "Finished calling run completion handlers", v13, 2u);
   }
 
   [(ACHCompanionAwardingScheduler *)self setMaintenanceTaskScheduled:0];
   [(NSMutableArray *)self->_awardEvaluationCompletionBlocks removeAllObjects];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dataStoreDidPopulate:(id)populate
@@ -862,13 +857,13 @@ void __65__ACHCompanionAwardingScheduler__queue_requestAwardingEvaluation__block
   dispatch_async(queue, block);
 }
 
-uint64_t __54__ACHCompanionAwardingScheduler_dataStoreDidPopulate___block_invoke(uint64_t a1)
+void *__54__ACHCompanionAwardingScheduler_dataStoreDidPopulate___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = ACHLogAwardScheduling();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = ACHLogAwardScheduling();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_221DDC000, v2, OS_LOG_TYPE_DEFAULT, "[ACHCompanionScheduler] received data store is loaded", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_221DDC000, v3, OS_LOG_TYPE_DEFAULT, "[ACHCompanionScheduler] received data store is loaded", v5, 2u);
   }
 
   [*(a1 + 32) setDataStoreIsLoaded:1];
@@ -883,20 +878,18 @@ uint64_t __54__ACHCompanionAwardingScheduler_dataStoreDidPopulate___block_invoke
 
 - (void)setLastSuccessfulRunDate:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_221DDC000, a2, OS_LOG_TYPE_ERROR, "Error setting last scheduled run date: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_221DDC000, a2, OS_LOG_TYPE_ERROR, "Error setting last scheduled run date: %@", &v2, 0xCu);
 }
 
 - (void)lastSuccessfulRunDate
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_221DDC000, a2, OS_LOG_TYPE_ERROR, "Error fetching last scheduled run date: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_221DDC000, a2, OS_LOG_TYPE_ERROR, "Error fetching last scheduled run date: %@", &v2, 0xCu);
 }
 
 @end

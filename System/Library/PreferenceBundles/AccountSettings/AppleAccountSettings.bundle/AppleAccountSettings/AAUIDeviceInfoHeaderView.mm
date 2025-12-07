@@ -38,7 +38,7 @@
 - (void)willMoveToSuperview:(id)superview
 {
   superviewCopy = superview;
-  v5 = _AAUILogSystem();
+  v5 = _AAUILogSystem(superviewCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -69,22 +69,23 @@
 - (void)_updateFindMyLink
 {
   _isFindMyIsInstalled = [(AAUIDeviceInfoHeaderView *)self _isFindMyIsInstalled];
-  if ([(AATrustedDevice *)self->_device showFMIPLink]&& self->_findMyIsInstalled != _isFindMyIsInstalled)
+  showFMIPLink = [(AATrustedDevice *)self->_device showFMIPLink];
+  if (showFMIPLink && self->_findMyIsInstalled != _isFindMyIsInstalled)
   {
     self->_findMyIsInstalled = _isFindMyIsInstalled;
     if (_isFindMyIsInstalled)
     {
-      v4 = _AAUILogSystem();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      v5 = _AAUILogSystem(showFMIPLink);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "Updating for Find My installation.", buf, 2u);
+        _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "Updating for Find My installation.", buf, 2u);
       }
 
-      v5 = v9;
-      v9[0] = _NSConcreteStackBlock;
-      v9[1] = 3221225472;
-      v6 = sub_BF20;
+      v6 = v10;
+      v10[0] = _NSConcreteStackBlock;
+      v10[1] = 3221225472;
+      v7 = sub_BF20;
     }
 
     else
@@ -94,23 +95,23 @@
         return;
       }
 
-      v7 = _AAUILogSystem();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v8 = _AAUILogSystem(showFMIPLink);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Updating for Find My removal", buf, 2u);
+        _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Updating for Find My removal", buf, 2u);
       }
 
-      v5 = v8;
-      v8[0] = _NSConcreteStackBlock;
-      v8[1] = 3221225472;
-      v6 = sub_C100;
+      v6 = v9;
+      v9[0] = _NSConcreteStackBlock;
+      v9[1] = 3221225472;
+      v7 = sub_C100;
     }
 
-    v5[2] = v6;
-    v5[3] = &unk_59680;
-    v5[4] = self;
-    dispatch_async(&_dispatch_main_q, v5);
+    v6[2] = v7;
+    v6[3] = &unk_59680;
+    v6[4] = self;
+    dispatch_async(&_dispatch_main_q, v6);
   }
 }
 
@@ -223,7 +224,7 @@
   v6 = v5;
   if (!v5)
   {
-    v7 = _AAUILogSystem();
+    v7 = _AAUILogSystem(v3);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
@@ -302,7 +303,7 @@
 
 - (void)_getLazyLoadedDeviceImage
 {
-  v3 = _AAUILogSystem();
+  v3 = _AAUILogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;

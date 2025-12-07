@@ -50,14 +50,14 @@
 
 - (VCVoiceShortcut)initWithCoder:(id)coder
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"identifier"];
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"phrase"];
-  v23 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"shortcutName"];
-  v22 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"shortcutDescription"];
+  v22 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"shortcutName"];
+  v21 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"shortcutDescription"];
   v7 = v5;
-  v21 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"associatedAppBundleIdentifier"];
+  v20 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"associatedAppBundleIdentifier"];
   v8 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"dateCreated"];
   v9 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"dateLastModified"];
   v10 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"lastRunDate"];
@@ -66,25 +66,25 @@
   v13 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"keyImageData"];
 
   selfCopy = 0;
-  if (v7 && v6 && v23 && v8 && v9)
+  if (v7 && v6 && v22 && v8 && v9)
   {
-    v24 = 0;
-    v15 = [VCVoiceShortcut initWithIdentifier:"initWithIdentifier:phrase:shortcutName:shortcutDescription:associatedAppBundleIdentifier:dateCreated:dateLastModified:lastRunDate:runEventsCount:shortcut:keyImageData:error:" phrase:v7 shortcutName:v9 shortcutDescription:v10 associatedAppBundleIdentifier:v11 dateCreated:v12 dateLastModified:v13 lastRunDate:&v24 runEventsCount:? shortcut:? keyImageData:? error:?];
-    v16 = v24;
+    v23 = 0;
+    v15 = [VCVoiceShortcut initWithIdentifier:"initWithIdentifier:phrase:shortcutName:shortcutDescription:associatedAppBundleIdentifier:dateCreated:dateLastModified:lastRunDate:runEventsCount:shortcut:keyImageData:error:" phrase:v7 shortcutName:v9 shortcutDescription:v10 associatedAppBundleIdentifier:v11 dateCreated:v12 dateLastModified:v13 lastRunDate:&v23 runEventsCount:? shortcut:? keyImageData:? error:?];
+    v16 = v23;
     if (v16)
     {
-      v20 = v7;
+      v19 = v7;
       v17 = getWFVoiceShortcutClientLogObject();
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v26 = "[VCVoiceShortcut initWithCoder:]";
-        v27 = 2112;
-        v28 = v16;
+        v25 = "[VCVoiceShortcut initWithCoder:]";
+        v26 = 2112;
+        v27 = v16;
         _os_log_impl(&dword_1B1DE3000, v17, OS_LOG_TYPE_ERROR, "%s Failed to construct a valid VoiceShortcut from coder: %@", buf, 0x16u);
       }
 
-      v7 = v20;
+      v7 = v19;
     }
 
     self = v15;
@@ -92,7 +92,6 @@
     selfCopy = self;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -321,7 +320,7 @@ LABEL_45:
 
 - (VCVoiceShortcut)initWithIdentifier:(id)identifier phrase:(id)phrase shortcutName:(id)name shortcutDescription:(id)description associatedAppBundleIdentifier:(id)bundleIdentifier dateCreated:(id)created dateLastModified:(id)modified lastRunDate:(id)self0 runEventsCount:(id)self1 shortcut:(id)self2 keyImageData:(id)self3 error:(id *)self4
 {
-  v76 = *MEMORY[0x1E69E9840];
+  v75 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   phraseCopy = phrase;
   nameCopy = name;
@@ -337,31 +336,31 @@ LABEL_45:
   if (![identifierCopy length])
   {
     [MEMORY[0x1E696AAA8] currentHandler];
-    v54 = v53 = createdCopy;
-    [v54 handleFailureInMethod:a2 object:self file:@"VCVoiceShortcut.m" lineNumber:49 description:{@"Invalid parameter not satisfying: %@", @"identifier.length"}];
+    v53 = v52 = createdCopy;
+    [v53 handleFailureInMethod:a2 object:self file:@"VCVoiceShortcut.m" lineNumber:49 description:{@"Invalid parameter not satisfying: %@", @"identifier.length"}];
 
-    createdCopy = v53;
+    createdCopy = v52;
   }
 
   if (![phraseCopy length])
   {
     [MEMORY[0x1E696AAA8] currentHandler];
-    v56 = v55 = createdCopy;
-    [v56 handleFailureInMethod:a2 object:self file:@"VCVoiceShortcut.m" lineNumber:50 description:{@"Invalid parameter not satisfying: %@", @"phrase.length"}];
+    v55 = v54 = createdCopy;
+    [v55 handleFailureInMethod:a2 object:self file:@"VCVoiceShortcut.m" lineNumber:50 description:{@"Invalid parameter not satisfying: %@", @"phrase.length"}];
 
-    createdCopy = v55;
+    createdCopy = v54;
   }
 
   if (![nameCopy length])
   {
     [MEMORY[0x1E696AAA8] currentHandler];
-    v58 = v57 = createdCopy;
-    [v58 handleFailureInMethod:a2 object:self file:@"VCVoiceShortcut.m" lineNumber:51 description:{@"Invalid parameter not satisfying: %@", @"shortcutName.length"}];
+    v57 = v56 = createdCopy;
+    [v57 handleFailureInMethod:a2 object:self file:@"VCVoiceShortcut.m" lineNumber:51 description:{@"Invalid parameter not satisfying: %@", @"shortcutName.length"}];
 
-    createdCopy = v57;
+    createdCopy = v56;
   }
 
-  v65 = createdCopy;
+  v64 = createdCopy;
   if (!createdCopy)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
@@ -417,11 +416,11 @@ LABEL_29:
     if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v71 = "[VCVoiceShortcut initWithIdentifier:phrase:shortcutName:shortcutDescription:associatedAppBundleIdentifier:dateCreated:dateLastModified:lastRunDate:runEventsCount:shortcut:keyImageData:error:]";
-      v72 = 2114;
-      v73 = shortcutCopy;
-      v74 = 2114;
-      v75 = @"an associatedAppBundleIdentifier is required on the shortcut";
+      v70 = "[VCVoiceShortcut initWithIdentifier:phrase:shortcutName:shortcutDescription:associatedAppBundleIdentifier:dateCreated:dateLastModified:lastRunDate:runEventsCount:shortcut:keyImageData:error:]";
+      v71 = 2114;
+      v72 = shortcutCopy;
+      v73 = 2114;
+      v74 = @"an associatedAppBundleIdentifier is required on the shortcut";
       _os_log_impl(&dword_1B1DE3000, v50, OS_LOG_TYPE_ERROR, "%s Failed to init VCVoiceShortcut with shortcut=%{public}@ because %{public}@", buf, 0x20u);
     }
 
@@ -435,9 +434,9 @@ LABEL_29:
     goto LABEL_29;
   }
 
-  v69.receiver = self;
-  v69.super_class = VCVoiceShortcut;
-  selfCopy = [(VCVoiceShortcut *)&v69 init];
+  v68.receiver = self;
+  v68.super_class = VCVoiceShortcut;
+  selfCopy = [(VCVoiceShortcut *)&v68 init];
   if (!selfCopy)
   {
 LABEL_28:
@@ -488,7 +487,6 @@ LABEL_28:
   v48 = selfCopy;
 LABEL_30:
 
-  v51 = *MEMORY[0x1E69E9840];
   return v48;
 }
 

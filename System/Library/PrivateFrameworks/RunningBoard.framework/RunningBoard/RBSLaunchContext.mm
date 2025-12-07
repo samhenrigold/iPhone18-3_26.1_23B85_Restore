@@ -49,12 +49,4 @@ uint64_t __58__RBSLaunchContext_RBLaunchChecks___needsEligibilityCheck__block_in
   return MEMORY[0x2821F96F8]();
 }
 
-void __67__RBSLaunchContext_RBLaunchChecks___recordPassesEligibilityChecks___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_2(&dword_262485000, v0, v1, "device is ineligible for domain %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 @end

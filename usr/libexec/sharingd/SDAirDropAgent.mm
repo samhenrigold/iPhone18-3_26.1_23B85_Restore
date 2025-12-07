@@ -133,57 +133,55 @@
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Creating browse agent", buf, 2u);
   }
 
-  dispatchQueue = self->_dispatchQueue;
-  v5 = nw_agent_create();
-  [(SDAirDropAgent *)self setBrowseAgent:v5];
+  v4 = nw_agent_create();
+  [(SDAirDropAgent *)self setBrowseAgent:v4];
 
   browseAgent = [(SDAirDropAgent *)self browseAgent];
 
   if (browseAgent)
   {
     *buf = 0;
-    v17 = 0;
+    v15 = 0;
     browseAgent2 = [(SDAirDropAgent *)self browseAgent];
     nw_agent_get_uuid();
 
-    v8 = [[NSUUID alloc] initWithUUIDBytes:buf];
-    [(SDAirDropAgent *)self setIdentifier:v8];
+    v7 = [[NSUUID alloc] initWithUUIDBytes:buf];
+    [(SDAirDropAgent *)self setIdentifier:v7];
 
-    v9 = airdrop_nw_log();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v8 = airdrop_nw_log();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       identifier = [(SDAirDropAgent *)self identifier];
-      v14 = 138412290;
-      v15 = identifier;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Browse Agent UUID=%@", &v14, 0xCu);
+      v12 = 138412290;
+      v13 = identifier;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Browse Agent UUID=%@", &v12, 0xCu);
     }
 
     [(SDAirDropAgent *)self _setupPolicy];
     [(SDAirDropAgent *)self _setupBrowseHandlers];
     [(SDAirDropAgent *)self _setupAssertHandlers];
+    v10 = airdrop_nw_log();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    {
+      LOWORD(v12) = 0;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Activating browse agent", &v12, 2u);
+    }
+
+    nw_agent_change_state();
     v11 = airdrop_nw_log();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v14) = 0;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Activating browse agent", &v14, 2u);
-    }
-
-    browseAgent = self->_browseAgent;
-    nw_agent_change_state();
-    v13 = airdrop_nw_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
-    {
-      LOWORD(v14) = 0;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Browse agent ready!", &v14, 2u);
+      LOWORD(v12) = 0;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Browse agent ready!", &v12, 2u);
     }
   }
 
   else
   {
-    v13 = airdrop_nw_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v11 = airdrop_nw_log();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      sub_1001D6D38(v13);
+      sub_1001D6D38(v11);
     }
   }
 }

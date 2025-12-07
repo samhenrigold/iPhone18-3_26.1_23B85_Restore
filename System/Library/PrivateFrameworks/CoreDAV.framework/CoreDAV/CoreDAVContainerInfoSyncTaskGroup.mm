@@ -54,7 +54,7 @@
 
 - (void)startTaskGroup
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   copyContainerParserMappings = [(CoreDAVContainerInfoSyncTaskGroup *)self copyContainerParserMappings];
   v4 = +[CoreDAVLogging sharedLogging];
   WeakRetained = objc_loadWeakRetained(&self->super._accountInfoProvider);
@@ -63,9 +63,9 @@
   if (v6 && os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     containerURL = self->_containerURL;
-    v12 = 138412290;
-    v13 = containerURL;
-    _os_log_impl(&dword_2452FB000, v6, OS_LOG_TYPE_INFO, "Sending out a container info sync task to %@", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = containerURL;
+    _os_log_impl(&dword_2452FB000, v6, OS_LOG_TYPE_INFO, "Sending out a container info sync task to %@", &v11, 0xCu);
   }
 
   v8 = [[CoreDAVSyncReportTask alloc] initWithPropertiesToFind:copyContainerParserMappings atURL:self->_containerURL withDepth:3 previousSyncToken:self->_previousSyncToken];
@@ -77,45 +77,43 @@
   [(CoreDAVTask *)v8 setTimeoutInterval:self->super._timeoutInterval];
   v10 = objc_loadWeakRetained(&self->super._taskManager);
   [v10 submitQueuedCoreDAVTask:v8];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)task:(id)task didFinishWithError:(id)error
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   errorCopy = error;
   if ([(NSMutableSet *)self->super._outstandingTasks containsObject:taskCopy])
   {
     [(NSMutableSet *)self->super._outstandingTasks removeObject:taskCopy];
-    v37 = taskCopy;
+    v36 = taskCopy;
+    v43 = 0u;
     v44 = 0u;
     v45 = 0u;
     v46 = 0u;
-    v47 = 0u;
-    v38 = taskCopy;
-    multiStatus = [v38 multiStatus];
+    v37 = taskCopy;
+    multiStatus = [v37 multiStatus];
     responses = [multiStatus responses];
 
     obj = responses;
-    v10 = [responses countByEnumeratingWithState:&v44 objects:v50 count:16];
-    v36 = errorCopy;
+    v10 = [responses countByEnumeratingWithState:&v43 objects:v49 count:16];
+    v35 = errorCopy;
     if (v10)
     {
       v11 = v10;
-      v39 = 0;
-      v12 = *v45;
+      v38 = 0;
+      v12 = *v44;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v45 != v12)
+          if (*v44 != v12)
           {
             objc_enumerationMutation(obj);
           }
 
-          v14 = *(*(&v44 + 1) + 8 * i);
+          v14 = *(*(&v43 + 1) + 8 * i);
           firstHref = [v14 firstHref];
           payloadAsFullURL = [firstHref payloadAsFullURL];
 
@@ -138,18 +136,18 @@
 
             else
             {
-              notFoundHREFs = [v38 notFoundHREFs];
+              notFoundHREFs = [v37 notFoundHREFs];
               v24 = [notFoundHREFs containsObject:payloadAsFullURL];
 
               if ((v24 & 1) == 0)
               {
-                v25 = v39;
-                if (!v39)
+                v25 = v38;
+                if (!v38)
                 {
                   v25 = objc_alloc_init(MEMORY[0x277CBEB18]);
                 }
 
-                v39 = v25;
+                v38 = v25;
                 [v25 addObject:v18];
               }
             }
@@ -164,13 +162,13 @@
             if (v18 && os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v49 = v14;
+              v48 = v14;
               _os_log_impl(&dword_2452FB000, v18, OS_LOG_TYPE_DEFAULT, "Could not find the first HREF's URL. Response is %@", buf, 0xCu);
             }
           }
         }
 
-        v11 = [obj countByEnumeratingWithState:&v44 objects:v50 count:16];
+        v11 = [obj countByEnumeratingWithState:&v43 objects:v49 count:16];
       }
 
       while (v11);
@@ -178,17 +176,17 @@
 
     else
     {
-      v39 = 0;
+      v38 = 0;
     }
 
     delegate = [(CoreDAVContainerInfoSyncTaskGroup *)self delegate];
-    notFoundHREFs2 = [v38 notFoundHREFs];
+    notFoundHREFs2 = [v37 notFoundHREFs];
     allObjects = [notFoundHREFs2 allObjects];
-    [delegate containerInfoSyncTask:self retrievedAddedOrModifiedContainers:v39 removedContainerURLs:allObjects];
+    [delegate containerInfoSyncTask:self retrievedAddedOrModifiedContainers:v38 removedContainerURLs:allObjects];
 
-    if ([v38 moreToSync])
+    if ([v37 moreToSync])
     {
-      nextSyncToken = [v38 nextSyncToken];
+      nextSyncToken = [v37 nextSyncToken];
 
       v30 = +[CoreDAVLogging sharedLogging];
       v31 = objc_loadWeakRetained(&self->super._accountInfoProvider);
@@ -202,7 +200,7 @@
           _os_log_impl(&dword_2452FB000, v32, OS_LOG_TYPE_INFO, "Server told us there was more container info data to fetch, so syncing again", buf, 2u);
         }
 
-        nextSyncToken2 = [v38 nextSyncToken];
+        nextSyncToken2 = [v37 nextSyncToken];
         previousSyncToken = self->_previousSyncToken;
         self->_previousSyncToken = nextSyncToken2;
       }
@@ -220,27 +218,25 @@
       }
 
       [(CoreDAVContainerInfoSyncTaskGroup *)self startTaskGroup];
-      errorCopy = v36;
-      taskCopy = v37;
+      errorCopy = v35;
+      taskCopy = v36;
     }
 
     else
     {
-      v41[0] = MEMORY[0x277D85DD0];
-      v41[1] = 3221225472;
-      v41[2] = __61__CoreDAVContainerInfoSyncTaskGroup_task_didFinishWithError___block_invoke;
-      v41[3] = &unk_278E30FB8;
-      v41[4] = self;
-      v42 = v38;
-      errorCopy = v36;
-      v43 = v36;
-      [(CoreDAVTaskGroup *)self finishCoreDAVTaskGroupWithError:0 delegateCallbackBlock:v41];
+      v40[0] = MEMORY[0x277D85DD0];
+      v40[1] = 3221225472;
+      v40[2] = __61__CoreDAVContainerInfoSyncTaskGroup_task_didFinishWithError___block_invoke;
+      v40[3] = &unk_278E30FB8;
+      v40[4] = self;
+      v41 = v37;
+      errorCopy = v35;
+      v42 = v35;
+      [(CoreDAVTaskGroup *)self finishCoreDAVTaskGroupWithError:0 delegateCallbackBlock:v40];
 
-      taskCopy = v37;
+      taskCopy = v36;
     }
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 void __61__CoreDAVContainerInfoSyncTaskGroup_task_didFinishWithError___block_invoke(uint64_t a1)

@@ -11,7 +11,7 @@
   {
     caraccessoryd = [self caraccessoryd];
 LABEL_57:
-    v6 = caraccessoryd;
+    v7 = caraccessoryd;
     goto LABEL_58;
   }
 
@@ -147,31 +147,31 @@ LABEL_57:
     goto LABEL_57;
   }
 
-  if (![identifierCopy caseInsensitiveCompare:@"iOSOnly"])
+  v5 = [identifierCopy caseInsensitiveCompare:@"iOSOnly"];
+  if (!v5)
   {
     caraccessoryd = [self iOSOnly];
     goto LABEL_57;
   }
 
-  v5 = CAFRegistrationLogging();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  v6 = CAFRegistrationLogging(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    [(CAFRegistrations *)identifierCopy registrationDictionaryForIdentifier:v5];
+    [(CAFRegistrations *)identifierCopy registrationDictionaryForIdentifier:v6];
   }
 
-  v6 = &unk_284683598;
+  v7 = &unk_284683598;
 LABEL_58:
 
-  return v6;
+  return v7;
 }
 
 + (void)registrationDictionaryForIdentifier:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_231618000, a2, OS_LOG_TYPE_ERROR, "Unknown registration identifier %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_231618000, a2, OS_LOG_TYPE_ERROR, "Unknown registration identifier %@", &v2, 0xCu);
 }
 
 @end

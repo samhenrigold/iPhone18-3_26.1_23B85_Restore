@@ -81,7 +81,6 @@ LABEL_10:
     goto LABEL_10;
   }
 
-  v7 = equalCopy[9];
   if (self->_excludeEvent)
   {
     if ((equalCopy[9] & 1) == 0)
@@ -167,20 +166,18 @@ LABEL_11:
 {
   toCopy = to;
   has = self->_has;
-  v8 = toCopy;
+  v6 = toCopy;
   if ((has & 2) != 0)
   {
-    excludeEvent = self->_excludeEvent;
     PBDataWriterWriteBOOLField();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if (has)
   {
-    excludeCount = self->_excludeCount;
     PBDataWriterWriteBOOLField();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 

@@ -3,9 +3,16 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (int)confidence;
 - (void)setAlternative_index:(id)alternative_index;
+- (void)setConfidence:(int)confidence;
 @end
 
 @implementation QSSMutableRecognitionChoice
+
+- (void)setConfidence:(int)confidence
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:*&confidence];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
 
 - (int)confidence
 {

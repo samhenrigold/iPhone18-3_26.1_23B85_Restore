@@ -19,7 +19,7 @@
     appBundleIdentifier = v5->_appBundleIdentifier;
     v5->_appBundleIdentifier = v6;
 
-    v8 = +[NSSet _baassets_propertyListClasses];
+    v8 = +[(NSSet *)MEMORY[0x277CBEB98]];
     v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"appStoreMetadata"];
     appStoreMetadata = v5->_appStoreMetadata;
     v5->_appStoreMetadata = v9;

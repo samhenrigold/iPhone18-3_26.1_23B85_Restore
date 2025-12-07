@@ -20,7 +20,7 @@
 
 - (void)recordInstallWithBundleID:(NSString *)d appInstallType:(unsigned __int8)type token:(NSString *)token logKey:(_TtC9appstored6LogKey *)key completionHandler:(id)handler
 {
-  v13 = sub_100085D40(&qword_10059C3E0);
+  v13 = sub_100085D40(&qword_10059C3E0, &qword_1004344C0);
   __chkstk_darwin(v13 - 8);
   v15 = &v25 - v14;
   v16 = _Block_copy(handler);

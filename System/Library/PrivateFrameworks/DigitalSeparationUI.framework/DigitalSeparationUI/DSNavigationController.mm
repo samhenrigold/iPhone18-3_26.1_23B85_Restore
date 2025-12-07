@@ -16,6 +16,7 @@
 - (id)initStartingWithURL:(id)l;
 - (id)paneBeforePane:(id)pane;
 - (id)paneInstanceForType:(Class)type;
+- (id)popViewControllerAnimated:(BOOL)animated;
 - (void)_pushWelcomeControllerAsTopView;
 - (void)_setupRatchetObserver;
 - (void)authToReturnToSafetyCheck;
@@ -30,6 +31,7 @@
 - (void)hideNetworkError;
 - (void)navigationController:(id)controller willShowViewController:(id)viewController animated:(BOOL)animated;
 - (void)popToPreviousPane:(id)pane;
+- (void)presentViewController:(id)controller animated:(BOOL)animated completion:(id)completion;
 - (void)presentationControllerDidDismiss:(id)dismiss;
 - (void)pushNextPane;
 - (void)pushPaneAfterPaneType:(Class)type;
@@ -53,6 +55,7 @@
 - (void)updateDaemonModelForCurrentPane;
 - (void)updateReachabilityState:(id)state;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 - (void)willEnterForeground:(id)foreground;
 - (void)willResignActive:(id)active;
 @end
@@ -200,7 +203,7 @@ void __30__DSNavigationController_init__block_invoke(uint64_t a1, void *a2)
   dispatch_async(MEMORY[0x277D85CD0], v6);
 }
 
-uint64_t __50__DSNavigationController_updateReachabilityState___block_invoke(uint64_t a1)
+void *__50__DSNavigationController_updateReachabilityState___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isShowingNetworkError];
   if (result)
@@ -296,51 +299,50 @@ uint64_t __50__DSNavigationController_updateReachabilityState___block_invoke(uin
 
 - (void)startWithPanes:(id)panes
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   panesCopy = panes;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v6 = panesCopy;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       v10 = 0;
       do
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * v10);
+        v11 = *(*(&v14 + 1) + 8 * v10);
         v12 = objc_opt_class();
         v13 = NSStringFromClass(v12);
-        [dictionary setValue:v11 forKey:{v13, v15}];
+        [dictionary setValue:v11 forKey:{v13, v14}];
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
 
   [(DSNavigationController *)self setCachedPanes:dictionary];
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)initStartingWithURL:(id)l
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   lCopy = l;
   v5 = [(DSNavigationController *)self init];
   v6 = v5;
@@ -363,21 +365,20 @@ LABEL_4:
   v10 = DSLog_15;
   if (os_log_type_enabled(DSLog_15, OS_LOG_TYPE_INFO))
   {
-    v13 = 138412290;
-    v14 = lCopy;
-    _os_log_impl(&dword_248C7E000, v10, OS_LOG_TYPE_INFO, "Safety Check will not act on URL path %@, staying on landing page", &v13, 0xCu);
+    v12 = 138412290;
+    v13 = lCopy;
+    _os_log_impl(&dword_248C7E000, v10, OS_LOG_TYPE_INFO, "Safety Check will not act on URL path %@, staying on landing page", &v12, 0xCu);
   }
 
   v9 = 0;
 LABEL_8:
 
-  v11 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (void)startWithURL:(id)l
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   lCopy = l;
   navigationManager = [(DSNavigationController *)self navigationManager];
   v6 = [navigationManager navigationForURL:lCopy];
@@ -385,9 +386,9 @@ LABEL_8:
   v7 = DSLog_15;
   if (os_log_type_enabled(DSLog_15, OS_LOG_TYPE_INFO))
   {
-    v12 = 138412290;
-    v13 = v6;
-    _os_log_impl(&dword_248C7E000, v7, OS_LOG_TYPE_INFO, "Initiating new flow for deep link: %@", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = v6;
+    _os_log_impl(&dword_248C7E000, v7, OS_LOG_TYPE_INFO, "Initiating new flow for deep link: %@", &v11, 0xCu);
   }
 
   [(DSNavigationController *)self setDeepLink:v6];
@@ -400,8 +401,44 @@ LABEL_8:
 
   navigationChapters = [v6 navigationChapters];
   [(DSNavigationController *)self setNavigationChapters:navigationChapters];
+}
 
-  v11 = *MEMORY[0x277D85DE8];
+- (void)viewWillAppear:(BOOL)appear
+{
+  v15[1] = *MEMORY[0x277D85DE8];
+  v13.receiver = self;
+  v13.super_class = DSNavigationController;
+  [(DSNavigationController *)&v13 viewWillAppear:appear];
+  cachedPanes = [(DSNavigationController *)self cachedPanes];
+
+  if (!cachedPanes)
+  {
+    if ((MGGetBoolAnswer() & 1) != 0 || ![(DSNavigationController *)self isStandardFlow])
+    {
+      [(DSNavigationController *)self setCachedPanes:MEMORY[0x277CBEC10]];
+    }
+
+    else
+    {
+      v5 = objc_alloc_init(DSSharingPermissionsController);
+      [(DSSharingPermissionsController *)v5 setDelegate:self];
+      v6 = objc_opt_class();
+      v7 = NSStringFromClass(v6);
+      v14 = v7;
+      v15[0] = v5;
+      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+      [(DSNavigationController *)self setCachedPanes:v8];
+
+      workQueue = [(DSNavigationController *)self workQueue];
+      v11[0] = MEMORY[0x277D85DD0];
+      v11[1] = 3221225472;
+      v11[2] = __41__DSNavigationController_viewWillAppear___block_invoke;
+      v11[3] = &unk_278F75408;
+      v12 = v5;
+      v10 = v5;
+      dispatch_async(workQueue, v11);
+    }
+  }
 }
 
 - (void)viewDidLoad
@@ -578,6 +615,14 @@ void __46__DSNavigationController_setupConnectionError__block_invoke_2()
 {
   presentingViewController = [(DSNavigationController *)self presentingViewController];
   [presentingViewController dismissViewControllerAnimated:1 completion:0];
+}
+
+- (id)popViewControllerAnimated:(BOOL)animated
+{
+  topViewController = [(DSNavigationController *)self topViewController];
+  [(DSNavigationController *)self popToPreviousPane:topViewController];
+
+  return topViewController;
 }
 
 - (id)paneBeforePane:(id)pane
@@ -865,7 +910,7 @@ void __52__DSNavigationController_pushPaneType_loadRemoteUI___block_invoke(uint6
 
 uint64_t __52__DSNavigationController_pushPaneType_loadRemoteUI___block_invoke_2(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (v2 && *(a1 + 72) == 1)
   {
@@ -873,53 +918,31 @@ uint64_t __52__DSNavigationController_pushPaneType_loadRemoteUI___block_invoke_2
     [v3 showButtonsAvailable];
   }
 
-  if (*(a1 + 72))
+  if ((*(a1 + 72) & 1) == 0 && ([*(a1 + 40) deepLink], (v4 = objc_claimAutoreleasedReturnValue()) != 0) && (v5 = v4, v6 = *(a1 + 64), objc_msgSend(*(a1 + 40), "deepLink"), v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "navigationOrder"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v8, "firstObject"), v8, v7, v5, v6 == v9))
   {
-    goto LABEL_7;
-  }
-
-  v4 = [*(a1 + 40) deepLink];
-  if (!v4)
-  {
-    goto LABEL_7;
-  }
-
-  v5 = v4;
-  v6 = *(a1 + 64);
-  v7 = [*(a1 + 40) deepLink];
-  v8 = [v7 navigationOrder];
-  v9 = [v8 firstObject];
-
-  if (v6 == v9)
-  {
-    v16 = DSLog_15;
+    v15 = DSLog_15;
     if (os_log_type_enabled(DSLog_15, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = *(a1 + 40);
-      v18 = v16;
-      v19 = [v17 deepLink];
-      v21 = 138412290;
-      v22 = v19;
-      _os_log_impl(&dword_248C7E000, v18, OS_LOG_TYPE_DEFAULT, "Asked to open to entrypoint %@ but shouldShow returns false", &v21, 0xCu);
+      v16 = *(a1 + 40);
+      v17 = v15;
+      v18 = [v16 deepLink];
+      v19 = 138412290;
+      v20 = v18;
+      _os_log_impl(&dword_248C7E000, v17, OS_LOG_TYPE_DEFAULT, "Asked to open to entrypoint %@ but shouldShow returns false", &v19, 0xCu);
     }
 
-    result = [*(a1 + 48) pushPaneWithController:*(a1 + 56) paneType:*(a1 + 64) shouldShow:1];
-    v20 = *MEMORY[0x277D85DE8];
+    return [*(a1 + 48) pushPaneWithController:*(a1 + 56) paneType:*(a1 + 64) shouldShow:1];
   }
 
   else
   {
-LABEL_7:
     v10 = *(a1 + 48);
     v11 = *(a1 + 56);
     v12 = *(a1 + 64);
     v13 = *(a1 + 72);
-    v14 = *MEMORY[0x277D85DE8];
 
     return [v10 pushPaneWithController:v11 paneType:v12 shouldShow:v13];
   }
-
-  return result;
 }
 
 - (void)pushPaneWithController:(id)controller paneType:(Class)type shouldShow:(BOOL)show
@@ -1005,9 +1028,24 @@ LABEL_7:
   }
 }
 
-void __68__DSNavigationController_presentViewController_animated_completion___block_invoke(uint64_t a1)
+- (void)presentViewController:(id)controller animated:(BOOL)animated completion:(id)completion
 {
-  v2 = *(a1 + 32);
+  animatedCopy = animated;
+  controllerCopy = controller;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __68__DSNavigationController_presentViewController_animated_completion___block_invoke;
+  v10[3] = &unk_278F75650;
+  v11 = controllerCopy;
+  selfCopy = self;
+  v9.receiver = self;
+  v9.super_class = DSNavigationController;
+  v8 = controllerCopy;
+  [(DSNavigationController *)&v9 presentViewController:v8 animated:animatedCopy completion:v10];
+}
+
+void __68__DSNavigationController_presentViewController_animated_completion___block_invoke(uint64_t a1, uint64_t a2)
+{
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -1154,16 +1192,16 @@ LABEL_9:
 
 - (void)destroyConnectedWindowScene
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   mEMORY[0x277D75128] = [MEMORY[0x277D75128] sharedApplication];
   connectedScenes = [mEMORY[0x277D75128] connectedScenes];
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v5 = connectedScenes;
-  v6 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (!v6)
   {
 LABEL_11:
@@ -1172,17 +1210,17 @@ LABEL_11:
   }
 
   v7 = v6;
-  v8 = *v22;
+  v8 = *v21;
 LABEL_3:
   v9 = 0;
   while (1)
   {
-    if (*v22 != v8)
+    if (*v21 != v8)
     {
       objc_enumerationMutation(v5);
     }
 
-    v10 = *(*(&v21 + 1) + 8 * v9);
+    v10 = *(*(&v20 + 1) + 8 * v9);
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
@@ -1201,7 +1239,7 @@ LABEL_3:
 LABEL_9:
     if (v7 == ++v9)
     {
-      v7 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
       if (v7)
       {
         goto LABEL_3;
@@ -1230,23 +1268,19 @@ LABEL_14:
     v19 = [MEMORY[0x277CBEB98] setWithObject:v18];
     [_FBSScene sendActions:v19];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __53__DSNavigationController_destroyConnectedWindowScene__block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = DSLog_15;
   if (os_log_type_enabled(DSLog_15, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_248C7E000, v3, OS_LOG_TYPE_DEFAULT, "Scene destruction request completed with response: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_248C7E000, v3, OS_LOG_TYPE_DEFAULT, "Scene destruction request completed with response: %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)rightNavButtonTapped
@@ -1348,11 +1382,10 @@ void __46__DSNavigationController_willEnterForeground___block_invoke_2(uint64_t 
 
 - (void)authToReturnToSafetyCheck
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_248C7E000, a2, OS_LOG_TYPE_ERROR, "Cannot evaluate authentication policy for Safety Check, policy error %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_248C7E000, a2, OS_LOG_TYPE_ERROR, "Cannot evaluate authentication policy for Safety Check, policy error %@", &v2, 0xCu);
 }
 
 void __51__DSNavigationController_authToReturnToSafetyCheck__block_invoke(uint64_t a1)
@@ -1376,26 +1409,26 @@ void __51__DSNavigationController_authToReturnToSafetyCheck__block_invoke(uint64
 
 void __51__DSNavigationController_authToReturnToSafetyCheck__block_invoke_490(uint64_t a1, int a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v7 = DSLog_15;
   if (os_log_type_enabled(DSLog_15, OS_LOG_TYPE_INFO))
   {
     *buf = 67109120;
-    LODWORD(v15) = a2;
+    LODWORD(v14) = a2;
     _os_log_impl(&dword_248C7E000, v7, OS_LOG_TYPE_INFO, "Asked user to auth for Safety Check when foregrounding with success: %d", buf, 8u);
   }
 
   if (a2)
   {
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __51__DSNavigationController_authToReturnToSafetyCheck__block_invoke_2;
-    v13[3] = &unk_278F75408;
-    v13[4] = WeakRetained;
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __51__DSNavigationController_authToReturnToSafetyCheck__block_invoke_2;
+    v12[3] = &unk_278F75408;
+    v12[4] = WeakRetained;
     v8 = MEMORY[0x277D85CD0];
-    v9 = v13;
+    v9 = v12;
 LABEL_9:
     dispatch_async(v8, v9);
     goto LABEL_10;
@@ -1407,7 +1440,7 @@ LABEL_9:
     if (os_log_type_enabled(DSLog_15, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v15 = v5;
+      v14 = v5;
       _os_log_impl(&dword_248C7E000, v10, OS_LOG_TYPE_INFO, "Error authenticating for Safety Check, going back to base Preferences %@", buf, 0xCu);
     }
 
@@ -1425,21 +1458,17 @@ LABEL_10:
       __51__DSNavigationController_authToReturnToSafetyCheck__block_invoke_490_cold_1(v5, v11);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __51__DSNavigationController_authToReturnToSafetyCheck__block_invoke_491()
 {
-  v5[1] = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CC1E80] defaultWorkspace];
   v1 = [MEMORY[0x277CBEBC0] URLWithString:@"settings-navigation://com.apple.Settings"];
-  v4 = *MEMORY[0x277CC1E10];
-  v5[0] = MEMORY[0x277CBEC38];
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
+  v3 = *MEMORY[0x277CC1E10];
+  v4[0] = MEMORY[0x277CBEC38];
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:&v3 count:1];
   [v0 openSensitiveURL:v1 withOptions:v2];
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void __51__DSNavigationController_authToReturnToSafetyCheck__block_invoke_2(uint64_t a1)
@@ -1523,48 +1552,46 @@ void __51__DSNavigationController_authToReturnToSafetyCheck__block_invoke_2(uint
 
 id __72__DSNavigationController_sendSummaryAnalyticsWithQuickExit_finalScreen___block_invoke(uint64_t a1)
 {
-  v24[10] = *MEMORY[0x277D85DE8];
-  v23[0] = @"numPeopleStoppedSharing";
+  v23[10] = *MEMORY[0x277D85DE8];
+  v22[0] = @"numPeopleStoppedSharing";
   v2 = MEMORY[0x277CCABB0];
-  v22 = [*(a1 + 32) unsharedPeople];
-  v21 = [v2 numberWithUnsignedInteger:{objc_msgSend(v22, "count")}];
-  v24[0] = v21;
-  v23[1] = @"numSourcesStoppedSharing";
+  v21 = [*(a1 + 32) unsharedPeople];
+  v20 = [v2 numberWithUnsignedInteger:{objc_msgSend(v21, "count")}];
+  v23[0] = v20;
+  v22[1] = @"numSourcesStoppedSharing";
   v3 = MEMORY[0x277CCABB0];
-  v20 = [*(a1 + 32) unsharedResourcesBySource];
-  v19 = [v3 numberWithUnsignedInteger:{objc_msgSend(v20, "count")}];
-  v24[1] = v19;
-  v23[2] = @"numAppsStoppedPermissions";
+  v19 = [*(a1 + 32) unsharedResourcesBySource];
+  v18 = [v3 numberWithUnsignedInteger:{objc_msgSend(v19, "count")}];
+  v23[1] = v18;
+  v22[2] = @"numAppsStoppedPermissions";
   v4 = MEMORY[0x277CCABB0];
-  v18 = [*(a1 + 32) unsharedApps];
-  v5 = [v4 numberWithUnsignedInteger:{objc_msgSend(v18, "count")}];
-  v24[2] = v5;
-  v23[3] = @"numTypesStoppedPermissions";
+  v17 = [*(a1 + 32) unsharedApps];
+  v5 = [v4 numberWithUnsignedInteger:{objc_msgSend(v17, "count")}];
+  v23[2] = v5;
+  v22[3] = @"numTypesStoppedPermissions";
   v6 = MEMORY[0x277CCABB0];
   v7 = [*(a1 + 32) unsharedPermissions];
   v8 = [v6 numberWithUnsignedInteger:{objc_msgSend(v7, "count")}];
-  v24[3] = v8;
-  v23[4] = @"chapter";
+  v23[3] = v8;
+  v22[4] = @"chapter";
   v9 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "currentChapterForAnalytics")}];
-  v24[4] = v9;
-  v23[5] = @"flowType";
+  v23[4] = v9;
+  v22[5] = @"flowType";
   v10 = [*(a1 + 32) flowTypeForAnalytics];
-  v24[5] = v10;
-  v23[6] = @"wasFinalScreen";
+  v23[5] = v10;
+  v22[6] = @"wasFinalScreen";
   v11 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 40)];
-  v24[6] = v11;
-  v23[7] = @"wasQuickExit";
+  v23[6] = v11;
+  v22[7] = @"wasQuickExit";
   v12 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 41)];
-  v24[7] = v12;
-  v23[8] = @"wasRatchetEnabled";
+  v23[7] = v12;
+  v22[8] = @"wasRatchetEnabled";
   v13 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(MEMORY[0x277D054D8], "shouldShowBioRatchetFlow")}];
-  v24[8] = v13;
-  v23[9] = @"wasFamiliarLocation";
+  v23[8] = v13;
+  v22[9] = @"wasFamiliarLocation";
   v14 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(*(a1 + 32), "isInFamiliarLocation")}];
-  v24[9] = v14;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:10];
-
-  v16 = *MEMORY[0x277D85DE8];
+  v23[9] = v14;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:10];
 
   return v15;
 }
@@ -1587,16 +1614,14 @@ id __72__DSNavigationController_sendSummaryAnalyticsWithQuickExit_finalScreen___
 
 id __60__DSNavigationController_sendSummaryAnalyticsWithEventName___block_invoke(uint64_t a1)
 {
-  v8[2] = *MEMORY[0x277D85DE8];
-  v7[0] = @"FlowType";
+  v7[2] = *MEMORY[0x277D85DE8];
+  v6[0] = @"FlowType";
   v2 = [*(a1 + 32) flowTypeForAnalytics];
-  v7[1] = @"Operation";
-  v8[0] = v2;
+  v6[1] = @"Operation";
+  v7[0] = v2;
   v3 = NSStringFromClass(*(a1 + 40));
-  v8[1] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v7[1] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
 
   return v4;
 }
@@ -1627,29 +1652,28 @@ id __60__DSNavigationController_sendSummaryAnalyticsWithEventName___block_invoke
     for (i = 1; ; ++i)
     {
       viewControllers2 = [(DSNavigationController *)self viewControllers];
-      v15 = [viewControllers2 objectAtIndexedSubscript:v5];
+      v13 = [viewControllers2 objectAtIndexedSubscript:v5];
 
-      v8 = [(DSNavigationController *)self currentFlowType]? off_278F748C0 : off_278F74840;
-      v9 = *v8;
-      v10 = objc_opt_class();
+      [(DSNavigationController *)self currentFlowType];
+      v8 = objc_opt_class();
       v5 = i;
-      if (objc_opt_class() == v10)
+      if (objc_opt_class() == v8)
       {
         break;
       }
 
       viewControllers3 = [(DSNavigationController *)self viewControllers];
-      v12 = [viewControllers3 count];
+      v10 = [viewControllers3 count];
 
-      if (v12 <= v5)
+      if (v10 <= v5)
       {
         return;
       }
     }
 
     viewControllers4 = [(DSNavigationController *)self viewControllers];
-    v14 = [viewControllers4 subarrayWithRange:{0, i}];
-    [(OBNavigationController *)self setViewControllers:v14];
+    v12 = [viewControllers4 subarrayWithRange:{0, i}];
+    [(OBNavigationController *)self setViewControllers:v12];
   }
 }
 
@@ -1682,36 +1706,29 @@ id __60__DSNavigationController_sendSummaryAnalyticsWithEventName___block_invoke
       return;
     }
 
-    currentFlowType = [(DSNavigationController *)self currentFlowType];
-    v5 = off_278F74848;
-    if (currentFlowType)
-    {
-      v5 = off_278F74950;
-    }
-
-    v6 = *v5;
-    v7 = [(DSNavigationController *)self paneInstanceForType:objc_opt_class()];
-    [(OBNavigationController *)self pushViewController:v7 animated:1];
-    topViewController = v7;
+    [(DSNavigationController *)self currentFlowType];
+    v4 = [(DSNavigationController *)self paneInstanceForType:objc_opt_class()];
+    [(OBNavigationController *)self pushViewController:v4 animated:1];
+    topViewController = v4;
   }
 }
 
 - (BOOL)isInFamiliarLocation
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CD4790]);
   authContext = self->_authContext;
   self->_authContext = v3;
 
   v5 = self->_authContext;
-  v14[0] = &unk_285BB9430;
-  v14[1] = &unk_285BB9448;
-  v15[0] = MEMORY[0x277CBEC38];
-  v15[1] = MEMORY[0x277CBEC38];
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
-  v13 = 0;
-  v7 = [(LAContext *)v5 evaluatePolicy:1025 options:v6 error:&v13];
-  v8 = v13;
+  v13[0] = &unk_285BB9430;
+  v13[1] = &unk_285BB9448;
+  v14[0] = MEMORY[0x277CBEC38];
+  v14[1] = MEMORY[0x277CBEC38];
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
+  v12 = 0;
+  v7 = [(LAContext *)v5 evaluatePolicy:1025 options:v6 error:&v12];
+  v8 = v12;
 
   if (v7)
   {
@@ -1725,7 +1742,6 @@ id __60__DSNavigationController_sendSummaryAnalyticsWithEventName___block_invoke
 
   v10 = v9;
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -1746,21 +1762,21 @@ id __60__DSNavigationController_sendSummaryAnalyticsWithEventName___block_invoke
 
 - (void)updateDaemonModelForCurrentPane
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   topViewControllerType = [(DSNavigationController *)self topViewControllerType];
   if (topViewControllerType == objc_opt_class())
   {
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     unpairedComputers = [(DSNavigationController *)self unpairedComputers];
-    v5 = [unpairedComputers countByEnumeratingWithState:&v29 objects:v34 count:16];
+    v5 = [unpairedComputers countByEnumeratingWithState:&v28 objects:v33 count:16];
     v6 = MEMORY[0x277D48DD8];
     if (v5)
     {
       v7 = v5;
-      v8 = *v30;
+      v8 = *v29;
       v9 = *MEMORY[0x277D48DD8];
       v10 = *MEMORY[0x277D48DE0];
       do
@@ -1768,12 +1784,12 @@ id __60__DSNavigationController_sendSummaryAnalyticsWithEventName___block_invoke
         v11 = 0;
         do
         {
-          if (*v30 != v8)
+          if (*v29 != v8)
           {
             objc_enumerationMutation(unpairedComputers);
           }
 
-          v12 = *(*(&v29 + 1) + 8 * v11);
+          v12 = *(*(&v28 + 1) + 8 * v11);
           daemonProxy = [(DSNavigationController *)self daemonProxy];
           [daemonProxy removeSignalWithIdentifier:v12 sharingType:v9 signalType:v10];
 
@@ -1784,22 +1800,22 @@ id __60__DSNavigationController_sendSummaryAnalyticsWithEventName___block_invoke
         }
 
         while (v7 != v11);
-        v7 = [unpairedComputers countByEnumeratingWithState:&v29 objects:v34 count:16];
+        v7 = [unpairedComputers countByEnumeratingWithState:&v28 objects:v33 count:16];
       }
 
       while (v7);
     }
 
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     reviewedComputers2 = [(DSNavigationController *)self reviewedComputers];
-    v16 = [reviewedComputers2 countByEnumeratingWithState:&v25 objects:v33 count:16];
+    v16 = [reviewedComputers2 countByEnumeratingWithState:&v24 objects:v32 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v26;
+      v18 = *v25;
       v19 = *v6;
       v20 = *MEMORY[0x277D48DE0];
       do
@@ -1807,12 +1823,12 @@ id __60__DSNavigationController_sendSummaryAnalyticsWithEventName___block_invoke
         v21 = 0;
         do
         {
-          if (*v26 != v18)
+          if (*v25 != v18)
           {
             objc_enumerationMutation(reviewedComputers2);
           }
 
-          v22 = *(*(&v25 + 1) + 8 * v21);
+          v22 = *(*(&v24 + 1) + 8 * v21);
           daemonProxy2 = [(DSNavigationController *)self daemonProxy];
           [daemonProxy2 addSignalWithIdentifier:v22 sharingType:v19 signalType:v20];
 
@@ -1820,14 +1836,12 @@ id __60__DSNavigationController_sendSummaryAnalyticsWithEventName___block_invoke
         }
 
         while (v17 != v21);
-        v17 = [reviewedComputers2 countByEnumeratingWithState:&v25 objects:v33 count:16];
+        v17 = [reviewedComputers2 countByEnumeratingWithState:&v24 objects:v32 count:16];
       }
 
       while (v17);
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)entryMethod
@@ -1866,11 +1880,10 @@ id __60__DSNavigationController_sendSummaryAnalyticsWithEventName___block_invoke
 
 void __51__DSNavigationController_authToReturnToSafetyCheck__block_invoke_490_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_248C7E000, a2, OS_LOG_TYPE_ERROR, "Error while evaluating authentication policy for Safety Check, error %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_248C7E000, a2, OS_LOG_TYPE_ERROR, "Error while evaluating authentication policy for Safety Check, error %@", &v2, 0xCu);
 }
 
 @end

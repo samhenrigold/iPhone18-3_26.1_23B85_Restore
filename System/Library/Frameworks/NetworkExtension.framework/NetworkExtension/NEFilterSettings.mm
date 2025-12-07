@@ -3,6 +3,7 @@
 - (NEFilterSettings)initWithCoder:(id)coder;
 - (NEFilterSettings)initWithRules:(NSArray *)rules defaultAction:(NEFilterAction)defaultAction;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 - (void)encodeWithCoder:(id)coder;
 @end
 
@@ -46,9 +47,22 @@
   [coderCopy encodeInteger:self->_defaultAction forKey:@"defaultAction"];
 }
 
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v7 = [objc_alloc(MEMORY[0x1E696AD60]) initWithCapacity:0];
+  rules = [(NEFilterSettings *)self rules];
+  [v7 appendPrettyObject:rules withName:@"rules" andIndent:v5 options:options];
+
+  v9 = [NEFilterProvider descriptionForAction:?];
+  [v7 appendPrettyObject:v9 withName:@"defaultAction" andIndent:v5 options:options];
+
+  return v7;
+}
+
 - (BOOL)checkValidityAndCollectErrors:(id)errors
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   errorsCopy = errors;
   defaultAction = self->_defaultAction;
   if ((defaultAction - 1) > 1)
@@ -87,35 +101,34 @@
     v7 = 0;
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v14 = self->_rules;
-  v15 = [(NSArray *)v14 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v15 = [(NSArray *)v14 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v22;
+    v17 = *v21;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v22 != v17)
+        if (*v21 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v7 &= [*(*(&v21 + 1) + 8 * i) checkValidityAndCollectErrors:errorsCopy];
+        v7 &= [*(*(&v20 + 1) + 8 * i) checkValidityAndCollectErrors:errorsCopy];
       }
 
-      v16 = [(NSArray *)v14 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v16 = [(NSArray *)v14 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v16);
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

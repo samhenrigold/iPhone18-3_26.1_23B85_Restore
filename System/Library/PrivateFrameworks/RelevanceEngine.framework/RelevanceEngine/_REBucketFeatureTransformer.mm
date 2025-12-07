@@ -206,55 +206,7 @@ LABEL_13:
     {
       v5 = equalCopy;
       min = self->_min;
-      v7 = v5->_min;
-      if (min != v7)
-      {
-        v11 = REFeatureValueTypeForTaggedPointer(self->_min);
-        if (v11 != REFeatureValueTypeForTaggedPointer(v7))
-        {
-          goto LABEL_14;
-        }
-
-        v12 = REFeatureValueForTaggedPointer(min);
-        v13 = REFeatureValueForTaggedPointer(v7);
-        v14 = [v12 isEqual:v13];
-
-        if (!v14)
-        {
-          goto LABEL_14;
-        }
-      }
-
-      max = self->_max;
-      v9 = v5->_max;
-      if (max != v9)
-      {
-        v15 = REFeatureValueTypeForTaggedPointer(self->_max);
-        if (v15 != REFeatureValueTypeForTaggedPointer(v9))
-        {
-          goto LABEL_14;
-        }
-
-        v16 = REFeatureValueForTaggedPointer(max);
-        v17 = REFeatureValueForTaggedPointer(v9);
-        v18 = [v16 isEqual:v17];
-
-        if (!v18)
-        {
-          goto LABEL_14;
-        }
-      }
-
-      if (self->_count == v5->_count)
-      {
-        v10 = self->_bitCount == v5->_bitCount;
-      }
-
-      else
-      {
-LABEL_14:
-        v10 = 0;
-      }
+      v10 = (min == v7 || (v11 = REFeatureValueTypeForTaggedPointer(self->_min), v11 == REFeatureValueTypeForTaggedPointer(v7)) && (REFeatureValueForTaggedPointer(min), v12 = v7 = v5->_min;
     }
 
     else

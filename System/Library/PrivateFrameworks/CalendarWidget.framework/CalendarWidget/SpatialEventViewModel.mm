@@ -41,95 +41,89 @@
 {
   v3 = sub_1E487732C();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  v6 = MEMORY[0x1EEE9AC00](v3);
-  v8 = &v19 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v6);
-  v10 = &v19 - v9;
-  v11 = OBJC_IVAR____TtC14CalendarWidget21SpatialEventViewModel_viewStartDate;
-  v12 = self + OBJC_IVAR____TtC14CalendarWidget21SpatialEventViewModel_event;
-  v13 = type metadata accessor for Event();
-  v14 = *(v13 + 20);
-  v15 = -*&v12[*(v13 + 28)];
+  v5 = MEMORY[0x1EEE9AC00](v3);
+  v7 = &v14 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v5);
+  v9 = &v14 - v8;
+  v10 = OBJC_IVAR____TtC14CalendarWidget21SpatialEventViewModel_viewStartDate;
+  type metadata accessor for Event(0);
   selfCopy = self;
   sub_1E48772AC();
   sub_1E47A7308();
   if (sub_1E4878ADC())
   {
 
-    (*(v4 + 32))(v10, v8, v3);
+    (*(v4 + 32))(v9, v7, v3);
   }
 
   else
   {
-    (*(v4 + 8))(v8, v3);
-    (*(v4 + 16))(v10, self + v11, v3);
+    (*(v4 + 8))(v7, v3);
+    (*(v4 + 16))(v9, self + v10, v3);
   }
 
-  v17 = sub_1E48772BC();
-  (*(v4 + 8))(v10, v3);
+  v12 = sub_1E48772BC();
+  (*(v4 + 8))(v9, v3);
 
-  return v17;
+  return v12;
 }
 
 - (NSDate)start
 {
   v3 = sub_1E487732C();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x1EEE9AC00](v3);
-  v7 = &v15 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = self + OBJC_IVAR____TtC14CalendarWidget21SpatialEventViewModel_viewStartDate;
-  v9 = self + OBJC_IVAR____TtC14CalendarWidget21SpatialEventViewModel_event;
-  v10 = &v9[*(type metadata accessor for Event() + 20)];
+  v6 = &v14 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = self + OBJC_IVAR____TtC14CalendarWidget21SpatialEventViewModel_viewStartDate;
+  v8 = self + OBJC_IVAR____TtC14CalendarWidget21SpatialEventViewModel_event;
+  v9 = &v8[*(type metadata accessor for Event(0) + 20)];
   sub_1E47A7308();
   selfCopy = self;
   if (sub_1E4878ADC())
   {
-    v12 = v10;
+    v11 = v9;
   }
 
   else
   {
-    v12 = v8;
+    v11 = v7;
   }
 
-  (*(v4 + 16))(v7, v12, v3);
+  (*(v4 + 16))(v6, v11, v3);
 
-  v13 = sub_1E48772BC();
-  (*(v4 + 8))(v7, v3);
+  v12 = sub_1E48772BC();
+  (*(v4 + 8))(v6, v3);
 
-  return v13;
+  return v12;
 }
 
 - (NSDate)end
 {
   v3 = sub_1E487732C();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x1EEE9AC00](v3);
-  v7 = &v15 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = self + OBJC_IVAR____TtC14CalendarWidget21SpatialEventViewModel_viewEndDate;
-  v9 = self + OBJC_IVAR____TtC14CalendarWidget21SpatialEventViewModel_event;
-  v10 = &v9[*(type metadata accessor for Event() + 24)];
+  v6 = &v14 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = self + OBJC_IVAR____TtC14CalendarWidget21SpatialEventViewModel_viewEndDate;
+  v8 = self + OBJC_IVAR____TtC14CalendarWidget21SpatialEventViewModel_event;
+  v9 = &v8[*(type metadata accessor for Event(0) + 24)];
   sub_1E47A7308();
   selfCopy = self;
   if (sub_1E4878ACC())
   {
-    v12 = v10;
+    v11 = v9;
   }
 
   else
   {
-    v12 = v8;
+    v11 = v7;
   }
 
-  (*(v4 + 16))(v7, v12, v3);
+  (*(v4 + 16))(v6, v11, v3);
 
-  v13 = sub_1E48772BC();
-  (*(v4 + 8))(v7, v3);
+  v12 = sub_1E48772BC();
+  (*(v4 + 8))(v6, v3);
 
-  return v13;
+  return v12;
 }
 
 - (double)viewMaxNaturalTextHeight

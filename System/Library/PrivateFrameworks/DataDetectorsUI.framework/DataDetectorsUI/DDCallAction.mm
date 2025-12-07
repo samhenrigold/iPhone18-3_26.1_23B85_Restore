@@ -68,47 +68,46 @@
 
 - (id)localizedName
 {
-  v35 = 0;
-  v36 = &v35;
-  v37 = 0x3032000000;
-  v38 = __Block_byref_object_copy__5;
-  v39 = __Block_byref_object_dispose__5;
-  v40 = 0;
-  v29 = 0;
-  v30 = &v29;
-  v31 = 0x3032000000;
-  v32 = __Block_byref_object_copy__5;
-  v33 = __Block_byref_object_dispose__5;
   v34 = 0;
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x3032000000;
-  v26 = __Block_byref_object_copy__5;
-  v27 = __Block_byref_object_dispose__5;
+  v35 = &v34;
+  v36 = 0x3032000000;
+  v37 = __Block_byref_object_copy__5;
+  v38 = __Block_byref_object_dispose__5;
+  v39 = 0;
   v28 = 0;
+  v29 = &v28;
+  v30 = 0x3032000000;
+  v31 = __Block_byref_object_copy__5;
+  v32 = __Block_byref_object_dispose__5;
+  v33 = 0;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x3032000000;
+  v25 = __Block_byref_object_copy__5;
+  v26 = __Block_byref_object_dispose__5;
+  v27 = 0;
   activity_block[0] = MEMORY[0x277D85DD0];
   activity_block[1] = 3221225472;
   activity_block[2] = __29__DDCallAction_localizedName__block_invoke;
   activity_block[3] = &unk_2782917E8;
   activity_block[4] = self;
-  activity_block[5] = &v23;
-  activity_block[6] = &v35;
-  activity_block[7] = &v29;
+  activity_block[5] = &v22;
+  activity_block[6] = &v34;
+  activity_block[7] = &v28;
   _os_activity_initiate(&dword_21AB70000, "searching for name in Contacts to display Call label", OS_ACTIVITY_FLAG_DEFAULT, activity_block);
   supportsPrimaryCalling = [MEMORY[0x277D6EDE8] supportsPrimaryCalling];
-  if ([v36[5] length])
+  if ([v35[5] length])
   {
-    if ([v24[5] length])
+    if ([v23[5] length])
     {
       v4 = MEMORY[0x277CCACA8];
       v5 = DDLocalizedString(@"%@ (%@)");
-      v6 = v36[5];
-      v7 = [v4 stringWithFormat:v5, v6, v24[5]];
+      v6 = [v4 stringWithFormat:v5, v35[5], v23[5]];
 
-      v8 = [(DDCallAction *)self localizedCallStringForName:v7 usingCallRelay:supportsPrimaryCalling ^ 1];
-      if (v8 && [(DDCallAction *)self _titleFitsInActionSheet:v8])
+      v7 = [(DDCallAction *)self localizedCallStringForName:v6 usingCallRelay:supportsPrimaryCalling ^ 1];
+      if (v7 && [(DDCallAction *)self _titleFitsInActionSheet:v7])
       {
-        v9 = v8;
+        v8 = v7;
 
         goto LABEL_36;
       }
@@ -116,12 +115,12 @@
 
     else
     {
-      v8 = 0;
+      v7 = 0;
     }
 
-    v10 = [(DDCallAction *)self localizedCallStringForName:supportsPrimaryCalling ^ 1 usingCallRelay:?];
+    v9 = [(DDCallAction *)self localizedCallStringForName:supportsPrimaryCalling ^ 1 usingCallRelay:?];
 
-    if (v10 && [(DDCallAction *)self _titleFitsInActionSheet:v10])
+    if (v9 && [(DDCallAction *)self _titleFitsInActionSheet:v9])
     {
       goto LABEL_34;
     }
@@ -129,23 +128,23 @@
 
   else
   {
-    v10 = 0;
+    v9 = 0;
   }
 
-  if (![v30[5] length])
+  if (![v29[5] length])
   {
 LABEL_16:
     if (supportsPrimaryCalling)
     {
 LABEL_20:
-      if (v10)
+      if (v9)
       {
         goto LABEL_43;
       }
 
       if ([(DDCallAction *)self isEmail])
       {
-        v15 = self->super._phoneNumber;
+        v14 = self->super._phoneNumber;
       }
 
       else
@@ -157,19 +156,19 @@ LABEL_20:
           phoneNumber = self->super._phoneNumber;
         }
 
-        v15 = phoneNumber;
+        v14 = phoneNumber;
       }
 
-      if (![(NSString *)v15 length])
+      if (![(NSString *)v14 length])
       {
 
-        v10 = 0;
+        v9 = 0;
         if (supportsPrimaryCalling)
         {
 LABEL_32:
-          if (!v10)
+          if (!v9)
           {
-            v10 = DDLocalizedString(@"Call");
+            v9 = DDLocalizedString(@"Call");
           }
 
           goto LABEL_34;
@@ -178,21 +177,21 @@ LABEL_32:
 LABEL_31:
         supplementalDialTelephonyCallString = [MEMORY[0x277D6EDE0] supplementalDialTelephonyCallString];
 
-        v10 = supplementalDialTelephonyCallString;
+        v9 = supplementalDialTelephonyCallString;
         goto LABEL_32;
       }
 
-      v18 = MEMORY[0x277CCACA8];
-      v19 = DDLocalizedStringWithDefaultValue(@"CALL_NUMBER", 0, 0, @"Call %@");
-      v10 = [v18 stringWithFormat:v19, v15];
+      v17 = MEMORY[0x277CCACA8];
+      v18 = DDLocalizedStringWithDefaultValue(@"CALL_NUMBER", 0, 0, @"Call %@");
+      v9 = [v17 stringWithFormat:v18, v14];
 
-      if (v10)
+      if (v9)
       {
 LABEL_43:
-        if ([(DDCallAction *)self _titleFitsInActionSheet:v10])
+        if ([(DDCallAction *)self _titleFitsInActionSheet:v9])
         {
 LABEL_34:
-          v12 = v10;
+          v11 = v9;
           goto LABEL_35;
         }
       }
@@ -206,28 +205,28 @@ LABEL_34:
     }
 
 LABEL_17:
-    v13 = self->super._phoneNumber;
-    if (v13)
+    v12 = self->super._phoneNumber;
+    if (v12)
     {
-      v14 = [MEMORY[0x277D6EDE0] supplementalDialTelephonyCallStringForDestination:v13 isPhoneNumber:1];
+      v13 = [MEMORY[0x277D6EDE0] supplementalDialTelephonyCallStringForDestination:v12 isPhoneNumber:1];
 
-      v10 = v14;
+      v9 = v13;
     }
 
     goto LABEL_20;
   }
 
-  v11 = [(DDCallAction *)self localizedCallStringForName:supportsPrimaryCalling ^ 1 usingCallRelay:?];
+  v10 = [(DDCallAction *)self localizedCallStringForName:supportsPrimaryCalling ^ 1 usingCallRelay:?];
 
-  if (!v11)
+  if (!v10)
   {
-    v10 = 0;
+    v9 = 0;
     goto LABEL_16;
   }
 
-  if (![(DDCallAction *)self _titleFitsInActionSheet:v11])
+  if (![(DDCallAction *)self _titleFitsInActionSheet:v10])
   {
-    v10 = v11;
+    v9 = v10;
     if (supportsPrimaryCalling)
     {
       goto LABEL_20;
@@ -236,17 +235,17 @@ LABEL_17:
     goto LABEL_17;
   }
 
-  v12 = v11;
+  v11 = v10;
 LABEL_35:
-  v9 = v12;
+  v8 = v11;
 LABEL_36:
 
-  _Block_object_dispose(&v23, 8);
-  _Block_object_dispose(&v29, 8);
+  _Block_object_dispose(&v22, 8);
+  _Block_object_dispose(&v28, 8);
 
-  _Block_object_dispose(&v35, 8);
+  _Block_object_dispose(&v34, 8);
 
-  return v9;
+  return v8;
 }
 
 void __29__DDCallAction_localizedName__block_invoke(void *a1)
@@ -419,13 +418,11 @@ void __45__DDCallAction_notificationTitleTargetString__block_invoke(void *a1)
     scheme = [(NSURL *)self->super.super._url scheme];
     lowercaseString = [scheme lowercaseString];
 
-    v9 = self->super.super._result;
-    v10 = *MEMORY[0x277D04160];
     if ((DDResultHasType() & 1) != 0 || [MEMORY[0x277CBEBC0] isDefaultCallingAppScheme:lowercaseString])
     {
       if (self->super.super._isDefaultAction)
       {
-        v11 = 1;
+        v9 = 1;
       }
 
       else
@@ -433,22 +430,22 @@ void __45__DDCallAction_notificationTitleTargetString__block_invoke(void *a1)
         bizItem = [(DDTelephoneNumberAction *)self bizItem];
         if (bizItem)
         {
-          v11 = 1;
+          v9 = 1;
         }
 
         else
         {
-          v11 = dd_hostApplicationCanListCallProviders() ^ 1;
+          v9 = dd_hostApplicationCanListCallProviders(0, v10) ^ 1;
         }
       }
     }
 
     else
     {
-      v11 = 0;
+      v9 = 0;
     }
 
-    [v5 setAllowProviderFallback:v11];
+    [v5 setAllowProviderFallback:v9];
   }
 
   else
@@ -542,22 +539,21 @@ void __45__DDCallAction_notificationTitleTargetString__block_invoke(void *a1)
 - (BOOL)_titleFitsInActionSheet:(_BOOL8)sheet
 {
   sheetCopy = sheet;
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   if (sheet)
   {
     v3 = MEMORY[0x277D74300];
     v4 = a2;
     v5 = [v3 systemFontOfSize:-[DDCallAction _systemFontSize](sheetCopy)];
-    v11 = *MEMORY[0x277D740A8];
-    v12[0] = v5;
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v10 = *MEMORY[0x277D740A8];
+    v11[0] = v5;
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
     [v4 sizeWithAttributes:v6];
     v8 = v7;
 
     sheetCopy = v8 <= 304.0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return sheetCopy;
 }
 
@@ -580,14 +576,6 @@ void __45__DDCallAction_notificationTitleTargetString__block_invoke(void *a1)
   }
 
   return v6;
-}
-
-- (void)performFromView:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

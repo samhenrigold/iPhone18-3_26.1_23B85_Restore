@@ -42,24 +42,25 @@
 - (void)uninstallParallelPlaceholderForIdentity:(id)identity reason:(id)reason
 {
   identityCopy = identity;
-  v17 = kMIUninstallParallelPlaceholderKey;
-  v18 = &__kCFBooleanTrue;
+  v18 = kMIUninstallParallelPlaceholderKey;
+  v19 = &__kCFBooleanTrue;
   reasonCopy = reason;
-  v7 = [NSDictionary dictionaryWithObjects:&v18 forKeys:&v17 count:1];
-  v8 = sub_100013E64(identityCopy, v7, reasonCopy);
+  v7 = [NSDictionary dictionaryWithObjects:&v19 forKeys:&v18 count:1];
+  v11 = 0;
+  v8 = sub_100013E64(identityCopy, v7, reasonCopy, &v11);
 
-  v9 = 0;
+  v9 = v11;
   if ((v8 & 1) == 0)
   {
     v10 = sub_1000031B0(off_100121958);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v12 = "[IXSAppUninstaller uninstallParallelPlaceholderForIdentity:reason:]";
-      v13 = 2112;
-      v14 = identityCopy;
-      v15 = 2112;
-      v16 = v9;
+      v13 = "[IXSAppUninstaller uninstallParallelPlaceholderForIdentity:reason:]";
+      v14 = 2112;
+      v15 = identityCopy;
+      v16 = 2112;
+      v17 = v9;
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%s: Failed to uninstall parallel placeholder %@: %@", buf, 0x20u);
     }
   }
@@ -477,43 +478,44 @@ LABEL_24:
   identityCopy = identity;
   nameCopy = name;
   completionCopy = completion;
+  v18 = completionCopy;
   if (recordCopy)
   {
-    sub_100032CFC();
-    v18 = v27 = removability;
-    v19 = [v18 localizedStringForKey:@"AUTHENTICATE_TO_DELETE_APP_TITLE" value:&stru_100105BA0 table:@"IXUninstallAlert"];
+    sub_100032CFC(completionCopy);
+    v19 = v28 = removability;
+    v20 = [v19 localizedStringForKey:@"AUTHENTICATE_TO_DELETE_APP_TITLE" value:&stru_100105BA0 table:@"IXUninstallAlert"];
     [recordCopy localizedName];
-    v21 = v20 = identityCopy;
-    v22 = [NSString localizedStringWithFormat:v19, v21];
+    v22 = v21 = identityCopy;
+    v23 = [NSString localizedStringWithFormat:v20, v22];
 
-    identityCopy = v20;
-    v23 = +[APGuard sharedGuard];
-    v28[0] = _NSConcreteStackBlock;
-    v28[1] = 3221225472;
-    v28[2] = sub_10001A684;
-    v28[3] = &unk_100101618;
-    v28[4] = self;
-    v29 = recordCopy;
-    v30 = v20;
-    v31 = nameCopy;
+    identityCopy = v21;
+    v24 = +[APGuard sharedGuard];
+    v29[0] = _NSConcreteStackBlock;
+    v29[1] = 3221225472;
+    v29[2] = sub_10001A684;
+    v29[3] = &unk_100101618;
+    v29[4] = self;
+    v30 = recordCopy;
+    v31 = v21;
+    v32 = nameCopy;
     flagsCopy = flags;
-    v32 = completionCopy;
-    v34 = v27;
-    [v23 authenticateUnconditionallyWithReason:v22 completion:v28];
+    v33 = v18;
+    v35 = v28;
+    [v24 authenticateUnconditionallyWithReason:v23 completion:v29];
   }
 
   else
   {
-    v24 = sub_1000031B0(off_100121958);
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v25 = sub_1000031B0(off_100121958);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
       sub_10009A018();
     }
 
-    v18 = sub_1000405FC("[IXSAppUninstaller _promptForUnlockOfAppRecord:identity:clientName:flags:completion:removability:]", 435, @"IXErrorDomain", 1uLL, 0, 0, @"No record specified with unlock prompt", v25, v26);
-    if (completionCopy)
+    v19 = sub_1000405FC("[IXSAppUninstaller _promptForUnlockOfAppRecord:identity:clientName:flags:completion:removability:]", 435, @"IXErrorDomain", 1uLL, 0, 0, @"No record specified with unlock prompt", v26, v27);
+    if (v18)
     {
-      (*(completionCopy + 2))(completionCopy, 0, v18);
+      (v18)[2](v18, 0, v19);
     }
   }
 }

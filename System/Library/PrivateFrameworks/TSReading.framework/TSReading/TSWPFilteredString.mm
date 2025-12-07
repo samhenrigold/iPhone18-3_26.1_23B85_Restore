@@ -66,7 +66,7 @@
   _Block_object_dispose(v11, 8);
 }
 
-uint64_t __42__TSWPFilteredString_getCharacters_range___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+void *__42__TSWPFilteredString_getCharacters_range___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = [objc_msgSend(*(a1 + 32) "sourceString")];
   *(*(*(a1 + 40) + 8) + 24) += a3;

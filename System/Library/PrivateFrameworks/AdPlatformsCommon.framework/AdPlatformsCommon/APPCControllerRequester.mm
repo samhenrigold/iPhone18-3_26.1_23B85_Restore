@@ -17,49 +17,49 @@
 
 - (void)endRequests
 {
-  objc_msgSend__invalidateAndfulfillAllRequestsWithError_(self, a2, 0, v2, v3, v4, v5);
-  v49 = objc_msgSend_lock(self, v7, v8, v9, v10, v11, v12);
-  objc_msgSend_lock(v49, v13, v14, v15, v16, v17, v18);
-  objc_msgSend_setInvalid_(self, v19, 1, v20, v21, v22, v23);
-  objc_msgSend_unlock(v49, v24, v25, v26, v27, v28, v29);
-  v36 = objc_msgSend_requestCoordinator(self, v30, v31, v32, v33, v34, v35);
-  v43 = objc_msgSend_requesterID(self, v37, v38, v39, v40, v41, v42);
-  objc_msgSend_finishedWithRequestsForID_(v36, v44, v43, v45, v46, v47, v48);
+  objc_msgSend__invalidateAndfulfillAllRequestsWithError_(self, a2, 0);
+  v17 = objc_msgSend_lock(self, v3, v4);
+  objc_msgSend_lock(v17, v5, v6);
+  objc_msgSend_setInvalid_(self, v7, 1);
+  objc_msgSend_unlock(v17, v8, v9);
+  v12 = objc_msgSend_requestCoordinator(self, v10, v11);
+  v15 = objc_msgSend_requesterID(self, v13, v14);
+  objc_msgSend_finishedWithRequestsForID_(v12, v16, v15);
 }
 
 - (APPCControllerRequester)initWithDeliveryBlock:(id)block
 {
   blockCopy = block;
-  v42.receiver = self;
-  v42.super_class = APPCControllerRequester;
-  v5 = [(APPCControllerRequester *)&v42 init];
-  v12 = v5;
+  v26.receiver = self;
+  v26.super_class = APPCControllerRequester;
+  v5 = [(APPCControllerRequester *)&v26 init];
+  v8 = v5;
   if (v5)
   {
     v5->_invalid = 0;
-    v13 = objc_msgSend_dictionary(MEMORY[0x1E695DF90], v6, v7, v8, v9, v10, v11);
-    requestCompletionBlockByRequestID = v12->_requestCompletionBlockByRequestID;
-    v12->_requestCompletionBlockByRequestID = v13;
+    v9 = objc_msgSend_dictionary(MEMORY[0x1E695DF90], v6, v7);
+    requestCompletionBlockByRequestID = v8->_requestCompletionBlockByRequestID;
+    v8->_requestCompletionBlockByRequestID = v9;
 
-    v15 = _Block_copy(blockCopy);
-    newPromotedContentsDeliveryBlock = v12->_newPromotedContentsDeliveryBlock;
-    v12->_newPromotedContentsDeliveryBlock = v15;
+    v11 = _Block_copy(blockCopy);
+    newPromotedContentsDeliveryBlock = v8->_newPromotedContentsDeliveryBlock;
+    v8->_newPromotedContentsDeliveryBlock = v11;
 
-    v17 = objc_alloc(MEMORY[0x1E69861D8]);
-    v23 = objc_msgSend_initWithOptions_(v17, v18, 1, v19, v20, v21, v22);
-    lock = v12->_lock;
-    v12->_lock = v23;
+    v13 = objc_alloc(MEMORY[0x1E69861D8]);
+    v15 = objc_msgSend_initWithOptions_(v13, v14, 1);
+    lock = v8->_lock;
+    v8->_lock = v15;
 
-    v31 = objc_msgSend_UUID(MEMORY[0x1E696AFB0], v25, v26, v27, v28, v29, v30);
-    requesterID = v12->_requesterID;
-    v12->_requesterID = v31;
+    v19 = objc_msgSend_UUID(MEMORY[0x1E696AFB0], v17, v18);
+    requesterID = v8->_requesterID;
+    v8->_requesterID = v19;
 
-    v39 = objc_msgSend_requestCoordinator(APControllerRequesterCoordinator, v33, v34, v35, v36, v37, v38);
-    requestCoordinator = v12->_requestCoordinator;
-    v12->_requestCoordinator = v39;
+    v23 = objc_msgSend_requestCoordinator(APControllerRequesterCoordinator, v21, v22);
+    requestCoordinator = v8->_requestCoordinator;
+    v8->_requestCoordinator = v23;
   }
 
-  return v12;
+  return v8;
 }
 
 - (void)requestPromotedContentOfTypes:(id)types forContext:(id)context completionHandler:(id)handler
@@ -67,20 +67,20 @@
   typesCopy = types;
   contextCopy = context;
   handlerCopy = handler;
-  v16 = objc_msgSend__preprocessHandler_(self, v11, handlerCopy, v12, v13, v14, v15);
-  if (v16)
+  v12 = objc_msgSend__preprocessHandler_(self, v11, handlerCopy);
+  if (v12)
   {
     objc_initWeak(&location, self);
-    v23 = objc_msgSend_requestCoordinator(self, v17, v18, v19, v20, v21, v22);
-    v27[0] = MEMORY[0x1E69E9820];
-    v27[1] = 3221225472;
-    v27[2] = sub_1BAFCFDC0;
-    v27[3] = &unk_1E7F20E68;
-    objc_copyWeak(&v29, &location);
-    v28 = v16;
-    objc_msgSend_requestPromotedContentOfTypes_forRequester_forContext_completionHandler_(v23, v24, typesCopy, self, contextCopy, v25, v26, v27);
+    v15 = objc_msgSend_requestCoordinator(self, v13, v14);
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = sub_1BAFCFDC0;
+    v17[3] = &unk_1E7F20E68;
+    objc_copyWeak(&v19, &location);
+    v18 = v12;
+    objc_msgSend_requestPromotedContentOfTypes_forRequester_forContext_completionHandler_(v15, v16, typesCopy, self, contextCopy, v17);
 
-    objc_destroyWeak(&v29);
+    objc_destroyWeak(&v19);
     objc_destroyWeak(&location);
   }
 }
@@ -91,21 +91,21 @@
   contextCopy = context;
   handlerCopy = handler;
   completionHandlerCopy = completionHandler;
-  v21 = objc_msgSend__preprocessHandler_(self, v16, completionHandlerCopy, v17, v18, v19, v20);
-  if (v21)
+  v17 = objc_msgSend__preprocessHandler_(self, v16, completionHandlerCopy);
+  if (v17)
   {
     objc_initWeak(&location, self);
-    v28 = objc_msgSend_requestCoordinator(self, v22, v23, v24, v25, v26, v27);
-    v32[0] = MEMORY[0x1E69E9820];
-    v32[1] = 3221225472;
-    v32[2] = sub_1BAFCFFA8;
-    v32[3] = &unk_1E7F20E90;
-    v34 = handlerCopy;
-    objc_copyWeak(&v35, &location);
-    v33 = v21;
-    objc_msgSend_sendAndRankContent_forContext_placement_completionHandler_(v28, v29, contentCopy, contextCopy, placement, v30, v31, v32);
+    v20 = objc_msgSend_requestCoordinator(self, v18, v19);
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = sub_1BAFCFFA8;
+    v22[3] = &unk_1E7F20E90;
+    v24 = handlerCopy;
+    objc_copyWeak(&v25, &location);
+    v23 = v17;
+    objc_msgSend_sendAndRankContent_forContext_placement_completionHandler_(v20, v21, contentCopy, contextCopy, placement, v22);
 
-    objc_destroyWeak(&v35);
+    objc_destroyWeak(&v25);
     objc_destroyWeak(&location);
   }
 
@@ -117,240 +117,230 @@
 
 - (void)connectionSevered
 {
-  v18[3] = *MEMORY[0x1E69E9840];
-  v5 = *MEMORY[0x1E696A588];
-  v17[0] = *MEMORY[0x1E696A578];
-  v17[1] = v5;
-  v18[0] = @"PCController requester was invalidated.";
-  v18[1] = @"The user asked to invalidate the requester.";
-  v17[2] = *MEMORY[0x1E696A598];
-  v18[2] = @"Create a new PCController requester and try again.";
-  v6 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], a2, v18, v17, 3, v2, v3);
-  v10 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x1E696ABC0], v7, @"APPCControllerRequesterErrorDomain", 5003, v6, v8, v9);
-  objc_msgSend__invalidateAndfulfillAllRequestsWithError_(self, v11, v10, v12, v13, v14, v15);
-
-  v16 = *MEMORY[0x1E69E9840];
+  v9[3] = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E696A588];
+  v8[0] = *MEMORY[0x1E696A578];
+  v8[1] = v3;
+  v9[0] = @"PCController requester was invalidated.";
+  v9[1] = @"The user asked to invalidate the requester.";
+  v8[2] = *MEMORY[0x1E696A598];
+  v9[2] = @"Create a new PCController requester and try again.";
+  v4 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], a2, v9, v8, 3);
+  v6 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x1E696ABC0], v5, @"APPCControllerRequesterErrorDomain", 5003, v4);
+  objc_msgSend__invalidateAndfulfillAllRequestsWithError_(self, v7, v6);
 }
 
 - (void)contentResponses:(id)responses
 {
-  v72 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   responsesCopy = responses;
-  v11 = objc_msgSend_lock(self, v5, v6, v7, v8, v9, v10);
-  objc_msgSend_lock(v11, v12, v13, v14, v15, v16, v17);
+  v7 = objc_msgSend_lock(self, v5, v6);
+  objc_msgSend_lock(v7, v8, v9);
 
-  v24 = objc_msgSend_newPromotedContentsDeliveryBlock(self, v18, v19, v20, v21, v22, v23);
-  if (v24)
+  v12 = objc_msgSend_newPromotedContentsDeliveryBlock(self, v10, v11);
+  if (v12)
   {
-    v31 = v24;
-    v32 = objc_msgSend_invalid(self, v25, v26, v27, v28, v29, v30);
+    v15 = v12;
+    v16 = objc_msgSend_invalid(self, v13, v14);
 
-    if ((v32 & 1) == 0)
+    if ((v16 & 1) == 0)
     {
-      v33 = APLogForCategory();
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
+      v17 = APLogForCategory();
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
       {
-        v70 = 134217984;
-        v71 = objc_msgSend_count(responsesCopy, v34, v35, v36, v37, v38, v39);
-        _os_log_impl(&dword_1BAFC4000, v33, OS_LOG_TYPE_INFO, "Received promoted contents: %lu", &v70, 0xCu);
+        v33 = 134217984;
+        v34 = objc_msgSend_count(responsesCopy, v18, v19);
+        _os_log_impl(&dword_1BAFC4000, v17, OS_LOG_TYPE_INFO, "Received promoted contents: %lu", &v33, 0xCu);
       }
 
-      v46 = objc_msgSend_newPromotedContentsDeliveryBlock(self, v40, v41, v42, v43, v44, v45);
-      (v46)[2](v46, responsesCopy);
+      v22 = objc_msgSend_newPromotedContentsDeliveryBlock(self, v20, v21);
+      (v22)[2](v22, responsesCopy);
     }
   }
 
-  v47 = objc_msgSend_newPromotedContentsDeliveryBlock(self, v25, v26, v27, v28, v29, v30);
+  v23 = objc_msgSend_newPromotedContentsDeliveryBlock(self, v13, v14);
 
-  if (!v47)
+  if (!v23)
   {
-    v54 = APLogForCategory();
-    if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
+    v26 = APLogForCategory();
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v70) = 0;
-      _os_log_impl(&dword_1BAFC4000, v54, OS_LOG_TYPE_ERROR, "Promoted contents are discarded due to missing delivery block.", &v70, 2u);
+      LOWORD(v33) = 0;
+      _os_log_impl(&dword_1BAFC4000, v26, OS_LOG_TYPE_ERROR, "Promoted contents are discarded due to missing delivery block.", &v33, 2u);
     }
   }
 
-  if (objc_msgSend_invalid(self, v48, v49, v50, v51, v52, v53))
+  if (objc_msgSend_invalid(self, v24, v25))
   {
-    v61 = APLogForCategory();
-    if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
+    v29 = APLogForCategory();
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v70) = 0;
-      _os_log_impl(&dword_1BAFC4000, v61, OS_LOG_TYPE_ERROR, "Promoted contents are discarded because the requester is invalid.", &v70, 2u);
+      LOWORD(v33) = 0;
+      _os_log_impl(&dword_1BAFC4000, v29, OS_LOG_TYPE_ERROR, "Promoted contents are discarded because the requester is invalid.", &v33, 2u);
     }
   }
 
-  v62 = objc_msgSend_lock(self, v55, v56, v57, v58, v59, v60);
-  objc_msgSend_unlock(v62, v63, v64, v65, v66, v67, v68);
-
-  v69 = *MEMORY[0x1E69E9840];
+  v30 = objc_msgSend_lock(self, v27, v28);
+  objc_msgSend_unlock(v30, v31, v32);
 }
 
 - (id)proxyURL
 {
-  v8 = objc_msgSend_requestCoordinator(self, a2, v2, v3, v4, v5, v6);
-  v14 = objc_msgSend_proxyURLForRequester_(v8, v9, self, v10, v11, v12, v13);
+  v4 = objc_msgSend_requestCoordinator(self, a2, v2);
+  v6 = objc_msgSend_proxyURLForRequester_(v4, v5, self);
 
-  return v14;
+  return v6;
 }
 
 - (void)proxyURLWithCompletionHandler:(id)handler
 {
   handlerCopy = handler;
-  v15 = objc_msgSend_requestCoordinator(self, v5, v6, v7, v8, v9, v10);
-  objc_msgSend_proxyURLForRequester_withCompletionHandler_(v15, v11, self, handlerCopy, v12, v13, v14);
+  v8 = objc_msgSend_requestCoordinator(self, v5, v6);
+  objc_msgSend_proxyURLForRequester_withCompletionHandler_(v8, v7, self, handlerCopy);
 }
 
 - (void)preWarm:(id)warm completion:(id)completion
 {
   completionCopy = completion;
   warmCopy = warm;
-  v17 = objc_msgSend_requestCoordinator(self, v8, v9, v10, v11, v12, v13);
-  objc_msgSend_preWarm_forRequester_completion_(v17, v14, warmCopy, self, completionCopy, v15, v16);
+  v11 = objc_msgSend_requestCoordinator(self, v8, v9);
+  objc_msgSend_preWarm_forRequester_completion_(v11, v10, warmCopy, self, completionCopy);
 }
 
 - (void)_invalidateAndfulfillAllRequestsWithError:(id)error
 {
-  v82 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   errorCopy = error;
-  v11 = objc_msgSend_lock(self, v5, v6, v7, v8, v9, v10);
-  objc_msgSend_lock(v11, v12, v13, v14, v15, v16, v17);
+  v7 = objc_msgSend_lock(self, v5, v6);
+  objc_msgSend_lock(v7, v8, v9);
 
-  objc_msgSend_setLastError_(self, v18, errorCopy, v19, v20, v21, v22);
-  v29 = objc_msgSend_requestCompletionBlockByRequestID(self, v23, v24, v25, v26, v27, v28);
-  v36 = objc_msgSend_allValues(v29, v30, v31, v32, v33, v34, v35);
+  objc_msgSend_setLastError_(self, v10, errorCopy);
+  v13 = objc_msgSend_requestCompletionBlockByRequestID(self, v11, v12);
+  v16 = objc_msgSend_allValues(v13, v14, v15);
 
-  v43 = objc_msgSend_requestCompletionBlockByRequestID(self, v37, v38, v39, v40, v41, v42);
-  objc_msgSend_removeAllObjects(v43, v44, v45, v46, v47, v48, v49);
+  v19 = objc_msgSend_requestCompletionBlockByRequestID(self, v17, v18);
+  objc_msgSend_removeAllObjects(v19, v20, v21);
 
-  v56 = objc_msgSend_lock(self, v50, v51, v52, v53, v54, v55);
-  objc_msgSend_unlock(v56, v57, v58, v59, v60, v61, v62);
+  v24 = objc_msgSend_lock(self, v22, v23);
+  objc_msgSend_unlock(v24, v25, v26);
 
-  v79 = 0u;
-  v80 = 0u;
-  v77 = 0u;
-  v78 = 0u;
-  v63 = v36;
-  v67 = objc_msgSend_countByEnumeratingWithState_objects_count_(v63, v64, &v77, v81, 16, v65, v66);
-  if (v67)
+  v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
+  v27 = v16;
+  v29 = objc_msgSend_countByEnumeratingWithState_objects_count_(v27, v28, &v36, v40, 16);
+  if (v29)
   {
-    v68 = v67;
-    v69 = *v78;
+    v30 = v29;
+    v31 = *v37;
     do
     {
-      v70 = 0;
+      v32 = 0;
       do
       {
-        if (*v78 != v69)
+        if (*v37 != v31)
         {
-          objc_enumerationMutation(v63);
+          objc_enumerationMutation(v27);
         }
 
-        (*(*(*(&v77 + 1) + 8 * v70++) + 16))();
+        (*(*(*(&v36 + 1) + 8 * v32++) + 16))();
       }
 
-      while (v68 != v70);
-      v68 = objc_msgSend_countByEnumeratingWithState_objects_count_(v63, v71, &v77, v81, 16, v72, v73);
+      while (v30 != v32);
+      v30 = objc_msgSend_countByEnumeratingWithState_objects_count_(v27, v33, &v36, v40, 16);
     }
 
-    while (v68);
+    while (v30);
   }
 
-  v74 = APLogForCategory();
-  if (os_log_type_enabled(v74, OS_LOG_TYPE_INFO))
+  v34 = APLogForCategory();
+  if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
   {
-    *v76 = 0;
-    _os_log_impl(&dword_1BAFC4000, v74, OS_LOG_TYPE_INFO, "XPC connection is closed.", v76, 2u);
+    *v35 = 0;
+    _os_log_impl(&dword_1BAFC4000, v34, OS_LOG_TYPE_INFO, "XPC connection is closed.", v35, 2u);
   }
-
-  v75 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleCompletionOfRequest:(id)request
 {
-  v67 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   requestCopy = request;
-  v11 = objc_msgSend_lock(self, v5, v6, v7, v8, v9, v10);
-  objc_msgSend_lock(v11, v12, v13, v14, v15, v16, v17);
+  v7 = objc_msgSend_lock(self, v5, v6);
+  objc_msgSend_lock(v7, v8, v9);
 
-  v24 = objc_msgSend_requestCompletionBlockByRequestID(self, v18, v19, v20, v21, v22, v23);
-  v30 = objc_msgSend_objectForKey_(v24, v25, requestCopy, v26, v27, v28, v29);
+  v12 = objc_msgSend_requestCompletionBlockByRequestID(self, v10, v11);
+  v14 = objc_msgSend_objectForKey_(v12, v13, requestCopy);
 
-  v37 = objc_msgSend_requestCompletionBlockByRequestID(self, v31, v32, v33, v34, v35, v36);
-  objc_msgSend_removeObjectForKey_(v37, v38, requestCopy, v39, v40, v41, v42);
+  v17 = objc_msgSend_requestCompletionBlockByRequestID(self, v15, v16);
+  objc_msgSend_removeObjectForKey_(v17, v18, requestCopy);
 
-  v49 = objc_msgSend_lock(self, v43, v44, v45, v46, v47, v48);
-  objc_msgSend_unlock(v49, v50, v51, v52, v53, v54, v55);
+  v21 = objc_msgSend_lock(self, v19, v20);
+  objc_msgSend_unlock(v21, v22, v23);
 
-  if (v30)
+  if (v14)
   {
-    v30[2](v30, 0);
+    v14[2](v14, 0);
   }
 
   else
   {
-    v56 = APLogForCategory();
-    if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
+    v24 = APLogForCategory();
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      v63 = objc_msgSend_lastError(self, v57, v58, v59, v60, v61, v62);
-      v65 = 138543362;
-      v66 = v63;
-      _os_log_impl(&dword_1BAFC4000, v56, OS_LOG_TYPE_ERROR, "Request completion block was triggered due to %{public}@.", &v65, 0xCu);
+      v27 = objc_msgSend_lastError(self, v25, v26);
+      v28 = 138543362;
+      v29 = v27;
+      _os_log_impl(&dword_1BAFC4000, v24, OS_LOG_TYPE_ERROR, "Request completion block was triggered due to %{public}@.", &v28, 0xCu);
     }
   }
-
-  v64 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_preprocessHandler:(id)handler
 {
-  v83[3] = *MEMORY[0x1E69E9840];
+  v39[3] = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
-  v11 = objc_msgSend_lock(self, v5, v6, v7, v8, v9, v10);
-  objc_msgSend_lock(v11, v12, v13, v14, v15, v16, v17);
+  v7 = objc_msgSend_lock(self, v5, v6);
+  objc_msgSend_lock(v7, v8, v9);
 
-  if (objc_msgSend_invalid(self, v18, v19, v20, v21, v22, v23))
+  if (objc_msgSend_invalid(self, v10, v11))
   {
-    v30 = APLogForCategory();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    v14 = APLogForCategory();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      *v81 = 0;
-      _os_log_impl(&dword_1BAFC4000, v30, OS_LOG_TYPE_ERROR, "Invalid requester cannot request promoted content.", v81, 2u);
+      *v37 = 0;
+      _os_log_impl(&dword_1BAFC4000, v14, OS_LOG_TYPE_ERROR, "Invalid requester cannot request promoted content.", v37, 2u);
     }
 
-    v31 = *MEMORY[0x1E696A588];
-    v82[0] = *MEMORY[0x1E696A578];
-    v82[1] = v31;
-    v83[0] = @"PCController requester was invalidated.";
-    v83[1] = @"The user asked to invalidate the requester.";
-    v82[2] = *MEMORY[0x1E696A598];
-    v83[2] = @"Create a new PCController requester and try again.";
-    v35 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v32, v83, v82, 3, v33, v34);
-    v39 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x1E696ABC0], v36, @"APPCControllerRequesterErrorDomain", 5003, v35, v37, v38);
-    handlerCopy[2](handlerCopy, v39);
+    v15 = *MEMORY[0x1E696A588];
+    v38[0] = *MEMORY[0x1E696A578];
+    v38[1] = v15;
+    v39[0] = @"PCController requester was invalidated.";
+    v39[1] = @"The user asked to invalidate the requester.";
+    v38[2] = *MEMORY[0x1E696A598];
+    v39[2] = @"Create a new PCController requester and try again.";
+    v17 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v16, v39, v38, 3);
+    v19 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x1E696ABC0], v18, @"APPCControllerRequesterErrorDomain", 5003, v17);
+    handlerCopy[2](handlerCopy, v19);
 
-    v46 = objc_msgSend_lock(self, v40, v41, v42, v43, v44, v45);
-    objc_msgSend_unlock(v46, v47, v48, v49, v50, v51, v52);
+    v22 = objc_msgSend_lock(self, v20, v21);
+    objc_msgSend_unlock(v22, v23, v24);
 
-    v53 = 0;
+    v25 = 0;
   }
 
   else
   {
-    v53 = objc_msgSend_UUID(MEMORY[0x1E696AFB0], v24, v25, v26, v27, v28, v29);
-    v60 = objc_msgSend_requestCompletionBlockByRequestID(self, v54, v55, v56, v57, v58, v59);
-    v61 = _Block_copy(handlerCopy);
+    v25 = objc_msgSend_UUID(MEMORY[0x1E696AFB0], v12, v13);
+    v28 = objc_msgSend_requestCompletionBlockByRequestID(self, v26, v27);
+    v29 = _Block_copy(handlerCopy);
 
-    objc_msgSend_setObject_forKey_(v60, v62, v61, v53, v63, v64, v65);
-    v72 = objc_msgSend_lock(self, v66, v67, v68, v69, v70, v71);
-    objc_msgSend_unlock(v72, v73, v74, v75, v76, v77, v78);
+    objc_msgSend_setObject_forKey_(v28, v30, v29, v25);
+    v33 = objc_msgSend_lock(self, v31, v32);
+    objc_msgSend_unlock(v33, v34, v35);
   }
 
-  v79 = *MEMORY[0x1E69E9840];
-
-  return v53;
+  return v25;
 }
 
 @end

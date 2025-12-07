@@ -29,6 +29,10 @@
 - (void)_workerQueuePrepareForService;
 - (void)_workerQueueRemoveAllCarrierProfiles;
 - (void)_workerQueueSignIntoFaceTimeWithUsername:(id)username;
+- (void)_workerQueue_setParametersForSettingsByType:(id)type configurationUUID:(id)d toSystem:(BOOL)system user:(BOOL)user credentialSet:(id)set senderPID:(int)iD sender:(id)sender assertion:(id)self0 completion:(id)self1;
+- (void)allowedImportFromAppBundleIDs:(id)ds importingAppBundleID:(id)d importingIsManaged:(BOOL)managed completion:(id)completion;
+- (void)allowedKeyboardBundleIDsAfterApplyingFilterToBundleIDs:(id)ds messageSendingAppBundleID:(id)d hostAppBundleID:(id)iD accountIsManaged:(BOOL)managed completion:(id)completion;
+- (void)allowedOpenInAppBundleIDs:(id)ds originatingAppBundleID:(id)d originatingIsManaged:(BOOL)managed completion:(id)completion;
 - (void)applicationsDidInstall:(id)install;
 - (void)applyPairingWatchMDMEnrollmentData:(id)data source:(id)source completion:(id)completion;
 - (void)applyRestrictionDictionary:(id)dictionary toSystem:(BOOL)system overrideRestrictions:(BOOL)restrictions appsAndOptions:(id)options clientType:(id)type clientUUID:(id)d sender:(id)sender localizedClientDescription:(id)self0 localizedWarningMessage:(id)self1 completion:(id)self2;
@@ -54,6 +58,7 @@
 - (void)installProfileData:(id)data interactionClient:(id)client options:(id)options source:(id)source completion:(id)completion;
 - (void)installProvisioningProfileData:(id)data managingProfileIdentifier:(id)identifier completion:(id)completion;
 - (void)isPasscodeCompliantWithNamedPolicy:(id)policy completion:(id)completion;
+- (void)loadMailAccountsWithAuditToken:(id *)token filteringEnabled:(BOOL)enabled sourceAccountManagement:(int)management completion:(id)completion;
 - (void)localeChanged;
 - (void)managedSystemConfigurationServiceIDsWithCompletion:(id)completion;
 - (void)managedWiFiNetworkNamesWithCompletion:(id)completion;
@@ -96,10 +101,19 @@
 - (void)resetAllSettingsToDefaultsIsUserInitiated:(BOOL)initiated sender:(id)sender completion:(id)completion;
 - (void)resetPasscodeMetadataWithCompletion:(id)completion;
 - (void)restoreCloudConfigAndMDMProfileFromSetAsideDataWithCompletion:(id)completion;
+- (void)setAllowedURLStrings:(id)strings senderPID:(int)d sender:(id)sender completion:(id)completion;
+- (void)setAutoCorrectionAllowed:(BOOL)allowed senderPID:(int)d sender:(id)sender completion:(id)completion;
+- (void)setContinuousPathKeyboardAllowed:(BOOL)allowed senderPID:(int)d sender:(id)sender completion:(id)completion;
+- (void)setKeyboardShortcutsAllowed:(BOOL)allowed senderPID:(int)d sender:(id)sender completion:(id)completion;
 - (void)setParametersForSettingsByType:(id)type configurationUUID:(id)d toSystem:(BOOL)system user:(BOOL)user credentialSet:(id)set senderPID:(int)iD sender:(id)sender completion:(id)self0;
+- (void)setPredictiveKeyboardAllowed:(BOOL)allowed senderPID:(int)d sender:(id)sender completion:(id)completion;
+- (void)setSmartPunctuationAllowed:(BOOL)allowed senderPID:(int)d sender:(id)sender completion:(id)completion;
+- (void)setSpellCheckAllowed:(BOOL)allowed senderPID:(int)d sender:(id)sender completion:(id)completion;
 - (void)setURLsFromUserBookmarkDictsAsSettings:(id)settings sender:(id)sender;
+- (void)setUserBookmarks:(id)bookmarks senderPID:(int)d sender:(id)sender completion:(id)completion;
 - (void)setUserInfo:(id)info forClientUUID:(id)d sender:(id)sender completion:(id)completion;
 - (void)signerIdentityForBundleID:(id)d completion:(id)completion;
+- (void)stageMDMEnrollmentInfoForPairingWatchWithProfileData:(id)data orServiceURL:(id)l anchorCertificates:(id)certificates supervised:(BOOL)supervised declarationKeys:(id)keys declarationConfiguration:(id)configuration completion:(id)completion;
 - (void)start;
 - (void)storeActivationRecord:(id)record completion:(id)completion;
 - (void)storeCertificateData:(id)data forIPCUIdentifier:(id)identifier completion:(id)completion;
@@ -1153,6 +1167,508 @@ LABEL_5:
   }
 }
 
+- (void)allowedOpenInAppBundleIDs:(id)ds originatingAppBundleID:(id)d originatingIsManaged:(BOOL)managed completion:(id)completion
+{
+  managedCopy = managed;
+  dsCopy = ds;
+  completionCopy = completion;
+  v30 = MCContainingBundleIDForBundleID();
+  v11 = _MCLogObjects[0];
+  if (os_log_type_enabled(_MCLogObjects[0], OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 138543874;
+    v40 = v30;
+    v41 = 1024;
+    v42 = managedCopy;
+    v43 = 2114;
+    v44 = dsCopy;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEBUG, "Checking for app bundle IDs allowed for Open In. Originating Bundle: %{public}@, account is managed: %d. Original list: %{public}@", buf, 0x1Cu);
+  }
+
+  v29 = completionCopy;
+  v12 = MCBundleIDToContainingBundleIDMap();
+  v13 = _MCLogObjects[0];
+  if (os_log_type_enabled(_MCLogObjects[0], OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 138543362;
+    v40 = v12;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEBUG, "Resolved app extension containers to: %{public}@", buf, 0xCu);
+  }
+
+  allValues = [v12 allValues];
+  v15 = +[MDMManagedMediaReader attributesByAppID];
+  allKeys = [v15 allKeys];
+  v17 = [MCRestrictionManager allowedOpenInAppBundleIDsWithOriginalAppBundleIDs:allValues managedAppBundleIDs:allKeys localAppBundleID:v30 localAccountIsManaged:managedCopy mayOpenFromUnmanagedToManaged:[(MCProfileServiceServer *)self mayOpenFromUnmanagedToManaged] mayOpenFromManagedToUnmanaged:[(MCProfileServiceServer *)self mayOpenFromManagedToUnmanaged] isAppBundleIDExemptBlock:&stru_10011B9D0 isAppBundleIDAccountBasedBlock:&stru_10011B9F0];
+
+  v18 = [NSSet setWithArray:v17];
+  v19 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [dsCopy count]);
+  v34 = 0u;
+  v35 = 0u;
+  v36 = 0u;
+  v37 = 0u;
+  v20 = dsCopy;
+  v21 = [v20 countByEnumeratingWithState:&v34 objects:v38 count:16];
+  if (v21)
+  {
+    v22 = v21;
+    v23 = *v35;
+    do
+    {
+      for (i = 0; i != v22; i = i + 1)
+      {
+        if (*v35 != v23)
+        {
+          objc_enumerationMutation(v20);
+        }
+
+        v25 = *(*(&v34 + 1) + 8 * i);
+        v26 = [v12 objectForKeyedSubscript:v25];
+        if ([v18 containsObject:v26])
+        {
+          [v19 addObject:v25];
+        }
+      }
+
+      v22 = [v20 countByEnumeratingWithState:&v34 objects:v38 count:16];
+    }
+
+    while (v22);
+  }
+
+  v27 = _MCLogObjects[0];
+  if (os_log_type_enabled(_MCLogObjects[0], OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 138543362;
+    v40 = v19;
+    _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEBUG, "Result: %{public}@", buf, 0xCu);
+  }
+
+  if (v29)
+  {
+    v28 = dispatch_get_global_queue(0, 0);
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = sub_10000756C;
+    block[3] = &unk_10011B918;
+    v33 = v29;
+    v32 = v19;
+    dispatch_async(v28, block);
+  }
+}
+
+- (void)allowedImportFromAppBundleIDs:(id)ds importingAppBundleID:(id)d importingIsManaged:(BOOL)managed completion:(id)completion
+{
+  managedCopy = managed;
+  dsCopy = ds;
+  completionCopy = completion;
+  v30 = MCContainingBundleIDForBundleID();
+  v11 = _MCLogObjects[0];
+  if (os_log_type_enabled(_MCLogObjects[0], OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 138543874;
+    v40 = v30;
+    v41 = 1024;
+    v42 = managedCopy;
+    v43 = 2114;
+    v44 = dsCopy;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEBUG, "Checking for app bundle IDs allowed for Import From. Originating Bundle: %{public}@, account is managed: %d. Original list: %{public}@", buf, 0x1Cu);
+  }
+
+  v29 = completionCopy;
+  v12 = MCBundleIDToContainingBundleIDMap();
+  v13 = _MCLogObjects[0];
+  if (os_log_type_enabled(_MCLogObjects[0], OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 138543362;
+    v40 = v12;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEBUG, "Resolved app extension containers to: %{public}@", buf, 0xCu);
+  }
+
+  allValues = [v12 allValues];
+  v15 = +[MDMManagedMediaReader attributesByAppID];
+  allKeys = [v15 allKeys];
+  v17 = [MCRestrictionManager allowedImportFromAppBundleIDsWithOriginalAppBundleIDs:allValues managedAppBundleIDs:allKeys localAppBundleID:v30 localAccountIsManaged:managedCopy mayOpenFromUnmanagedToManaged:[(MCProfileServiceServer *)self mayOpenFromUnmanagedToManaged] mayOpenFromManagedToUnmanaged:[(MCProfileServiceServer *)self mayOpenFromManagedToUnmanaged] isAppBundleIDExemptBlock:&stru_10011BA10 isAppBundleIDAccountBasedBlock:&stru_10011BA30];
+
+  v18 = [NSSet setWithArray:v17];
+  v19 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [dsCopy count]);
+  v34 = 0u;
+  v35 = 0u;
+  v36 = 0u;
+  v37 = 0u;
+  v20 = dsCopy;
+  v21 = [v20 countByEnumeratingWithState:&v34 objects:v38 count:16];
+  if (v21)
+  {
+    v22 = v21;
+    v23 = *v35;
+    do
+    {
+      for (i = 0; i != v22; i = i + 1)
+      {
+        if (*v35 != v23)
+        {
+          objc_enumerationMutation(v20);
+        }
+
+        v25 = *(*(&v34 + 1) + 8 * i);
+        v26 = [v12 objectForKeyedSubscript:v25];
+        if ([v18 containsObject:v26])
+        {
+          [v19 addObject:v25];
+        }
+      }
+
+      v22 = [v20 countByEnumeratingWithState:&v34 objects:v38 count:16];
+    }
+
+    while (v22);
+  }
+
+  v27 = _MCLogObjects[0];
+  if (os_log_type_enabled(_MCLogObjects[0], OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 138543362;
+    v40 = v19;
+    _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEBUG, "Result: %{public}@", buf, 0xCu);
+  }
+
+  if (v29)
+  {
+    v28 = dispatch_get_global_queue(0, 0);
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = sub_10000798C;
+    block[3] = &unk_10011B918;
+    v33 = v29;
+    v32 = v19;
+    dispatch_async(v28, block);
+  }
+}
+
+- (void)allowedKeyboardBundleIDsAfterApplyingFilterToBundleIDs:(id)ds messageSendingAppBundleID:(id)d hostAppBundleID:(id)iD accountIsManaged:(BOOL)managed completion:(id)completion
+{
+  managedCopy = managed;
+  dsCopy = ds;
+  completionCopy = completion;
+  dCopy = d;
+  v13 = MCContainingBundleIDForBundleID();
+  v14 = MCContainingBundleIDForBundleID();
+
+  v15 = _MCLogObjects[0];
+  if (os_log_type_enabled(_MCLogObjects[0], OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 138543874;
+    v50 = v13;
+    v51 = 1024;
+    v52 = managedCopy;
+    v53 = 2114;
+    v54 = dsCopy;
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEBUG, "Checking for 3rd party keyboards allowed for Bundle ID %{public}@, account is managed: %d. Original list: %{public}@", buf, 0x1Cu);
+  }
+
+  v16 = v14;
+  v39 = v13;
+  if (MCIsAppBasicallySafari())
+  {
+    v17 = +[MCRestrictionManager sharedManager];
+    v18 = [v17 effectiveUnionValuesForSetting:MCFeatureManagedWebDomains];
+    managedCopy = v18 != 0;
+  }
+
+  else
+  {
+    v17 = [MCAccountUtilities accountDataclassesForBundleID:v13];
+    if (v17)
+    {
+      managedCopy = [MCAccountUtilities hasManagedAccountOfDataclasses:v17];
+    }
+
+    else if ((MCIsAppAccountBasedSourceForOpenIn() & 1) == 0)
+    {
+      v19 = +[MDMManagedMediaReader attributesByAppID];
+      allKeys = [v19 allKeys];
+      managedCopy = [allKeys containsObject:v16];
+    }
+  }
+
+  v38 = v16;
+
+  v21 = MCBundleIDToContainingBundleIDMap();
+  v22 = _MCLogObjects[0];
+  if (os_log_type_enabled(_MCLogObjects[0], OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 138543362;
+    v50 = v21;
+    _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEBUG, "Resolved keyboard extension containers to: %{public}@", buf, 0xCu);
+  }
+
+  allValues = [v21 allValues];
+  v24 = +[MDMManagedMediaReader attributesByAppID];
+  allKeys2 = [v24 allKeys];
+  v26 = [MCRestrictionManager allowedKeyboardBundleIDsAfterApplyingFilterToBundleIDs:allValues managedAppBundleIDs:allKeys2 hostAppIsManaged:managedCopy mayOpenFromUnmanagedToManaged:[(MCProfileServiceServer *)self mayOpenFromUnmanagedToManaged] mayOpenFromManagedToUnmanaged:[(MCProfileServiceServer *)self mayOpenFromManagedToUnmanaged]];
+
+  v27 = [NSSet setWithArray:v26];
+  v28 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [dsCopy count]);
+  v44 = 0u;
+  v45 = 0u;
+  v46 = 0u;
+  v47 = 0u;
+  v29 = dsCopy;
+  v30 = [v29 countByEnumeratingWithState:&v44 objects:v48 count:16];
+  if (v30)
+  {
+    v31 = v30;
+    v32 = *v45;
+    do
+    {
+      for (i = 0; i != v31; i = i + 1)
+      {
+        if (*v45 != v32)
+        {
+          objc_enumerationMutation(v29);
+        }
+
+        v34 = *(*(&v44 + 1) + 8 * i);
+        v35 = [v21 objectForKeyedSubscript:v34];
+        if ([v27 containsObject:v35])
+        {
+          [v28 addObject:v34];
+        }
+      }
+
+      v31 = [v29 countByEnumeratingWithState:&v44 objects:v48 count:16];
+    }
+
+    while (v31);
+  }
+
+  v36 = _MCLogObjects[0];
+  if (os_log_type_enabled(_MCLogObjects[0], OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 138543362;
+    v50 = v28;
+    _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEBUG, "Result: %{public}@", buf, 0xCu);
+  }
+
+  if (completionCopy)
+  {
+    v37 = dispatch_get_global_queue(0, 0);
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = sub_100007E74;
+    block[3] = &unk_10011B918;
+    v43 = completionCopy;
+    v42 = v28;
+    dispatch_async(v37, block);
+  }
+}
+
+- (void)loadMailAccountsWithAuditToken:(id *)token filteringEnabled:(BOOL)enabled sourceAccountManagement:(int)management completion:(id)completion
+{
+  v6 = *&management;
+  enabledCopy = enabled;
+  completionCopy = completion;
+  v10 = MCBundleIDFromAuditToken();
+  if (v10)
+  {
+    v11 = +[MailAccount activeAccounts];
+    v12 = [NSPredicate predicateWithBlock:&stru_10011BA70];
+    v13 = [v11 filteredArrayUsingPredicate:v12];
+
+    buf[0] = 0;
+    v33[0] = 0;
+    if (enabledCopy && [(MCProfileServiceServer *)self shouldApplyFilterForBundleID:v10 sourceAccountManagement:v6 outAllowManagedAccounts:buf outAllowUnmanagedAccounts:v33])
+    {
+      v30[0] = _NSConcreteStackBlock;
+      v30[1] = 3221225472;
+      v30[2] = sub_100008228;
+      v30[3] = &unk_10011BA90;
+      v31 = buf[0];
+      v32 = v33[0];
+      v14 = [NSPredicate predicateWithBlock:v30];
+      v15 = [v13 filteredArrayUsingPredicate:v14];
+    }
+
+    else
+    {
+      v15 = v13;
+    }
+
+    v16 = +[NSMutableArray array];
+    v28[0] = _NSConcreteStackBlock;
+    v28[1] = 3221225472;
+    v28[2] = sub_100008288;
+    v28[3] = &unk_10011BAB8;
+    v29 = v16;
+    v17 = v16;
+    [v15 enumerateObjectsUsingBlock:v28];
+    v18 = [v17 copy];
+
+    v19 = 0;
+  }
+
+  else
+  {
+    v20 = _MCLogObjects[0];
+    if (os_log_type_enabled(_MCLogObjects[0], OS_LOG_TYPE_ERROR))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "Could not retrieve the bundle ID of the calling process for filtered mail sheets.", buf, 2u);
+    }
+
+    v21 = MCXPCErrorDomain;
+    v15 = MCErrorArray();
+    v19 = [NSError MCErrorWithDomain:v21 code:39001 descriptionArray:v15 errorType:MCErrorTypeFatal, 0];
+    v18 = 0;
+  }
+
+  if (completionCopy)
+  {
+    v22 = dispatch_get_global_queue(0, 0);
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = sub_1000082E0;
+    block[3] = &unk_10011BAE0;
+    v26 = completionCopy;
+    v24 = v18;
+    v25 = v19;
+    dispatch_async(v22, block);
+  }
+}
+
+- (void)setAutoCorrectionAllowed:(BOOL)allowed senderPID:(int)d sender:(id)sender completion:(id)completion
+{
+  v7 = *&d;
+  allowedCopy = allowed;
+  completionCopy = completion;
+  senderCopy = sender;
+  v14 = [[DMCPowerAssertion alloc] initWithReason:@"profiled-SetAutoCorrectionAllowed"];
+  v11 = +[MCRestrictionManagerWriter sharedManager];
+  [v11 setSenderPID:v7];
+
+  v12 = +[MCRestrictionManagerWriter sharedManager];
+  [v12 setBoolValue:allowedCopy forSetting:MCFeatureAutoCorrectionAllowed sender:senderCopy];
+
+  v13 = +[MCRestrictionManagerWriter sharedManager];
+  [v13 setSenderPID:getpid()];
+
+  completionCopy[2](completionCopy, 0);
+}
+
+- (void)setSmartPunctuationAllowed:(BOOL)allowed senderPID:(int)d sender:(id)sender completion:(id)completion
+{
+  v7 = *&d;
+  allowedCopy = allowed;
+  completionCopy = completion;
+  senderCopy = sender;
+  v14 = [[DMCPowerAssertion alloc] initWithReason:@"profiled-SetSmartPunctuationAllowed"];
+  v11 = +[MCRestrictionManagerWriter sharedManager];
+  [v11 setSenderPID:v7];
+
+  v12 = +[MCRestrictionManagerWriter sharedManager];
+  [v12 setBoolValue:allowedCopy forSetting:MCFeatureSmartPunctuationAllowed sender:senderCopy];
+
+  v13 = +[MCRestrictionManagerWriter sharedManager];
+  [v13 setSenderPID:getpid()];
+
+  completionCopy[2](completionCopy, 0);
+}
+
+- (void)setPredictiveKeyboardAllowed:(BOOL)allowed senderPID:(int)d sender:(id)sender completion:(id)completion
+{
+  v7 = *&d;
+  allowedCopy = allowed;
+  completionCopy = completion;
+  senderCopy = sender;
+  v14 = [[DMCPowerAssertion alloc] initWithReason:@"profiled-SetPredictiveKeyboardAllowed"];
+  v11 = +[MCRestrictionManagerWriter sharedManager];
+  [v11 setSenderPID:v7];
+
+  v12 = +[MCRestrictionManagerWriter sharedManager];
+  [v12 setBoolValue:allowedCopy forSetting:MCFeaturePredictiveKeyboardAllowed sender:senderCopy];
+
+  v13 = +[MCRestrictionManagerWriter sharedManager];
+  [v13 setSenderPID:getpid()];
+
+  completionCopy[2](completionCopy, 0);
+}
+
+- (void)setContinuousPathKeyboardAllowed:(BOOL)allowed senderPID:(int)d sender:(id)sender completion:(id)completion
+{
+  v7 = *&d;
+  allowedCopy = allowed;
+  completionCopy = completion;
+  senderCopy = sender;
+  v14 = [[DMCPowerAssertion alloc] initWithReason:@"profiled-SetContinuousPathKeyboardAllowed"];
+  v11 = +[MCRestrictionManagerWriter sharedManager];
+  [v11 setSenderPID:v7];
+
+  v12 = +[MCRestrictionManagerWriter sharedManager];
+  [v12 setBoolValue:allowedCopy forSetting:MCFeatureContinuousPathKeyboardAllowed sender:senderCopy];
+
+  v13 = +[MCRestrictionManagerWriter sharedManager];
+  [v13 setSenderPID:getpid()];
+
+  completionCopy[2](completionCopy, 0);
+}
+
+- (void)setKeyboardShortcutsAllowed:(BOOL)allowed senderPID:(int)d sender:(id)sender completion:(id)completion
+{
+  v7 = *&d;
+  allowedCopy = allowed;
+  completionCopy = completion;
+  senderCopy = sender;
+  v14 = [[DMCPowerAssertion alloc] initWithReason:@"profiled-SetKeyboardShortcutsAllowed"];
+  v11 = +[MCRestrictionManagerWriter sharedManager];
+  [v11 setSenderPID:v7];
+
+  v12 = +[MCRestrictionManagerWriter sharedManager];
+  [v12 setBoolValue:allowedCopy forSetting:MCFeatureKeyboardShortcutsAllowed sender:senderCopy];
+
+  v13 = +[MCRestrictionManagerWriter sharedManager];
+  [v13 setSenderPID:getpid()];
+
+  completionCopy[2](completionCopy, 0);
+}
+
+- (void)setSpellCheckAllowed:(BOOL)allowed senderPID:(int)d sender:(id)sender completion:(id)completion
+{
+  v7 = *&d;
+  allowedCopy = allowed;
+  completionCopy = completion;
+  senderCopy = sender;
+  v14 = [[DMCPowerAssertion alloc] initWithReason:@"profiled-SetSpellCheckAllowed"];
+  v11 = +[MCRestrictionManagerWriter sharedManager];
+  [v11 setSenderPID:v7];
+
+  v12 = +[MCRestrictionManagerWriter sharedManager];
+  [v12 setBoolValue:allowedCopy forSetting:MCFeatureSpellCheckAllowed sender:senderCopy];
+
+  v13 = +[MCRestrictionManagerWriter sharedManager];
+  [v13 setSenderPID:getpid()];
+
+  completionCopy[2](completionCopy, 0);
+}
+
+- (void)setAllowedURLStrings:(id)strings senderPID:(int)d sender:(id)sender completion:(id)completion
+{
+  v7 = *&d;
+  completionCopy = completion;
+  senderCopy = sender;
+  stringsCopy = strings;
+  v15 = [[DMCPowerAssertion alloc] initWithReason:@"profiled-SetAllowedURLStrings"];
+  v12 = +[MCRestrictionManagerWriter sharedManager];
+  [v12 setSenderPID:v7];
+
+  v13 = +[MCRestrictionManagerWriter sharedManager];
+  [v13 setIntersectionValues:stringsCopy forSetting:MCFeatureWebContentFilterAutoPermittedURLs sender:senderCopy];
+
+  v14 = +[MCRestrictionManagerWriter sharedManager];
+  [v14 setSenderPID:getpid()];
+
+  completionCopy[2](completionCopy, 0);
+}
+
 - (void)notifyStartComplianceTimer:(id)timer completion:(id)completion
 {
   timerCopy = timer;
@@ -1449,6 +1965,27 @@ LABEL_5:
   v26 = dCopy;
   v27 = typeCopy;
   dispatch_async(workerQueue, block);
+}
+
+- (void)_workerQueue_setParametersForSettingsByType:(id)type configurationUUID:(id)d toSystem:(BOOL)system user:(BOOL)user credentialSet:(id)set senderPID:(int)iD sender:(id)sender assertion:(id)self0 completion:(id)self1
+{
+  v11 = *&iD;
+  userCopy = user;
+  systemCopy = system;
+  completionCopy = completion;
+  senderCopy = sender;
+  setCopy = set;
+  dCopy = d;
+  typeCopy = type;
+  v21 = +[MCRestrictionManagerWriter sharedManager];
+  [v21 setSenderPID:v11];
+  [v21 setParametersForSettingsByType:typeCopy configurationUUID:dCopy toSystem:systemCopy user:userCopy credentialSet:setCopy sender:senderCopy];
+
+  [v21 setSenderPID:getpid()];
+  if (completionCopy)
+  {
+    completionCopy[2](completionCopy, 0);
+  }
 }
 
 - (void)removeBoolSetting:(id)setting sender:(id)sender completion:(id)completion
@@ -3227,6 +3764,27 @@ LABEL_16:
   return v5;
 }
 
+- (void)setUserBookmarks:(id)bookmarks senderPID:(int)d sender:(id)sender completion:(id)completion
+{
+  v7 = *&d;
+  completionCopy = completion;
+  senderCopy = sender;
+  bookmarksCopy = bookmarks;
+  v17 = [[DMCPowerAssertion alloc] initWithReason:@"profiled-SetUserBookmarks"];
+  v13 = [(MCProfileServiceServer *)self bookmarksFromBookmarkDicts:bookmarksCopy];
+  v14 = +[MCBookmarkManager sharedManager];
+  [v14 setUserBookmarks:v13];
+
+  v15 = +[MCRestrictionManagerWriter sharedManager];
+  [v15 setSenderPID:v7];
+
+  [(MCProfileServiceServer *)self setURLsFromUserBookmarkDictsAsSettings:bookmarksCopy sender:senderCopy];
+  v16 = +[MCRestrictionManagerWriter sharedManager];
+  [v16 setSenderPID:getpid()];
+
+  completionCopy[2](completionCopy, 0);
+}
+
 - (void)validateAppBundleIDs:(id)ds completion:(id)completion
 {
   completionCopy = completion;
@@ -3382,6 +3940,19 @@ LABEL_16:
 
 LABEL_3:
   completionCopy[2](completionCopy, v6, 0);
+}
+
+- (void)stageMDMEnrollmentInfoForPairingWatchWithProfileData:(id)data orServiceURL:(id)l anchorCertificates:(id)certificates supervised:(BOOL)supervised declarationKeys:(id)keys declarationConfiguration:(id)configuration completion:(id)completion
+{
+  supervisedCopy = supervised;
+  completionCopy = completion;
+  configurationCopy = configuration;
+  keysCopy = keys;
+  certificatesCopy = certificates;
+  lCopy = l;
+  dataCopy = data;
+  v21 = objc_opt_new();
+  [v21 stageMDMEnrollmentInfoForPairingWatchWithProfileData:dataCopy orServiceURL:lCopy anchorCertificates:certificatesCopy supervised:supervisedCopy declarationKeys:keysCopy declarationConfiguration:configurationCopy completion:completionCopy];
 }
 
 - (void)unstageMDMEnrollmentInfoForPairingWatchWithCompletion:(id)completion

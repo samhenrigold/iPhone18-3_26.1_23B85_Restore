@@ -11,6 +11,7 @@
 - (void)sleepWithCompletionHandler:(id)handler;
 - (void)startWithOptions:(id)options completionHandler:(id)handler;
 - (void)startedWithError:(id)error;
+- (void)stopWithReason:(int)reason;
 - (void)validateWithCompletionHandler:(id)handler;
 - (void)wake;
 @end
@@ -19,14 +20,14 @@
 
 - (void)validateWithCompletionHandler:(id)handler
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v5 = ne_log_obj();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v16 = 138412290;
+    v15 = 138412290;
     selfCopy = self;
-    _os_log_debug_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_DEBUG, "%@: Validating", &v16, 0xCu);
+    _os_log_debug_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_DEBUG, "%@: Validating", &v15, 0xCu);
   }
 
   v6 = @"com.apple.developer.networking.networkextension";
@@ -78,16 +79,14 @@ LABEL_11:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       requiredEntitlement = [(NEExtensionProviderHostContext *)self requiredEntitlement];
-      v16 = 67109120;
+      v15 = 67109120;
       LODWORD(selfCopy) = requiredEntitlement;
-      _os_log_error_impl(&dword_1BA83C000, v13, OS_LOG_TYPE_ERROR, "Provider is missing the required NetworkExtension entitlement (%x)", &v16, 8u);
+      _os_log_error_impl(&dword_1BA83C000, v13, OS_LOG_TYPE_ERROR, "Provider is missing the required NetworkExtension entitlement (%x)", &v15, 8u);
     }
 
     vendorContext = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:@"NEFilterErrorDomain" code:1 userInfo:0];
     handlerCopy[2](handlerCopy, vendorContext);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (id)vendorContext
@@ -139,15 +138,15 @@ LABEL_11:
 
 void __47__NEExtensionProviderHostContext_vendorContext__block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = ne_log_obj();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v10 = 138412290;
-    v11 = v3;
-    _os_log_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_INFO, "Error while calling extension: %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = v3;
+    _os_log_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_INFO, "Error while calling extension: %@", &v9, 0xCu);
   }
 
   if (WeakRetained)
@@ -164,8 +163,8 @@ void __47__NEExtensionProviderHostContext_vendorContext__block_invoke(uint64_t a
       v8 = ne_log_obj();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v10) = 0;
-        _os_log_error_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_ERROR, "Host context delegate is nil, cannot notify of extension failure", &v10, 2u);
+        LOWORD(v9) = 0;
+        _os_log_error_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_ERROR, "Host context delegate is nil, cannot notify of extension failure", &v9, 2u);
       }
 
       v7 = 0;
@@ -177,33 +176,52 @@ void __47__NEExtensionProviderHostContext_vendorContext__block_invoke(uint64_t a
     v7 = ne_log_obj();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v10) = 0;
-      _os_log_error_impl(&dword_1BA83C000, v7, OS_LOG_TYPE_ERROR, "Host context is nil, cannot notify of extension failure", &v10, 2u);
+      LOWORD(v9) = 0;
+      _os_log_error_impl(&dword_1BA83C000, v7, OS_LOG_TYPE_ERROR, "Host context is nil, cannot notify of extension failure", &v9, 2u);
     }
   }
+}
 
-  v9 = *MEMORY[0x1E69E9840];
+- (void)stopWithReason:(int)reason
+{
+  v11 = *MEMORY[0x1E69E9840];
+  if (!self->_stopped)
+  {
+    v3 = *&reason;
+    self->_stopped = 1;
+    v5 = ne_log_obj();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    {
+      v7 = 138412546;
+      selfCopy = self;
+      v9 = 2048;
+      v10 = v3;
+      _os_log_debug_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_DEBUG, "%@: Stopping with reason %ld", &v7, 0x16u);
+    }
+
+    [(NEUserNotification *)self->_notification cancel];
+    vendorContext = [(NEExtensionProviderHostContext *)&self->super.super.isa vendorContext];
+    [vendorContext stopWithReason:v3];
+  }
 }
 
 - (void)startWithOptions:(id)options completionHandler:(id)handler
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   handlerCopy = handler;
   v8 = ne_log_obj();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412546;
+    v10 = 138412546;
     selfCopy = self;
-    v13 = 2048;
-    v14 = optionsCopy;
-    _os_log_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_DEFAULT, "%@: Starting with options %p", &v11, 0x16u);
+    v12 = 2048;
+    v13 = optionsCopy;
+    _os_log_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_DEFAULT, "%@: Starting with options %p", &v10, 0x16u);
   }
 
   vendorContext = [(NEExtensionProviderHostContext *)&self->super.super.isa vendorContext];
   [vendorContext startWithOptions:optionsCopy completionHandler:handlerCopy];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)displayMessage:(id)message message:(id)a4 completionHandler:(id)handler
@@ -226,22 +244,20 @@ void __47__NEExtensionProviderHostContext_vendorContext__block_invoke(uint64_t a
 
 - (void)startedWithError:(id)error
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   v5 = ne_log_obj();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v8 = 138412546;
+    v7 = 138412546;
     selfCopy = self;
-    v10 = 2112;
-    v11 = errorCopy;
-    _os_log_debug_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_DEBUG, "%@: started with error %@", &v8, 0x16u);
+    v9 = 2112;
+    v10 = errorCopy;
+    _os_log_debug_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_DEBUG, "%@: started with error %@", &v7, 0x16u);
   }
 
   delegate = [(NEExtensionProviderHostContext *)&self->super.super.isa delegate];
   [delegate extension:self didStartWithError:errorCopy];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (id)delegate
@@ -257,19 +273,17 @@ void __47__NEExtensionProviderHostContext_vendorContext__block_invoke(uint64_t a
 
 - (void)dispose
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = ne_log_obj();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    v6 = 138412290;
+    v5 = 138412290;
     selfCopy = self;
-    _os_log_debug_impl(&dword_1BA83C000, v3, OS_LOG_TYPE_DEBUG, "%@: disposing", &v6, 0xCu);
+    _os_log_debug_impl(&dword_1BA83C000, v3, OS_LOG_TYPE_DEBUG, "%@: disposing", &v5, 0xCu);
   }
 
   vendorContext = [(NEExtensionProviderHostContext *)&self->super.super.isa vendorContext];
   [vendorContext dispose];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)createWithCompletionHandler:(id)handler
@@ -281,42 +295,38 @@ void __47__NEExtensionProviderHostContext_vendorContext__block_invoke(uint64_t a
 
 - (void)wake
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = ne_log_obj();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    v6 = 138412290;
+    v5 = 138412290;
     selfCopy = self;
-    _os_log_debug_impl(&dword_1BA83C000, v3, OS_LOG_TYPE_DEBUG, "%@: Waking", &v6, 0xCu);
+    _os_log_debug_impl(&dword_1BA83C000, v3, OS_LOG_TYPE_DEBUG, "%@: Waking", &v5, 0xCu);
   }
 
   vendorContext = [(NEExtensionProviderHostContext *)&self->super.super.isa vendorContext];
   [vendorContext wake];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sleepWithCompletionHandler:(id)handler
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v5 = ne_log_obj();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v8 = 138412290;
+    v7 = 138412290;
     selfCopy = self;
-    _os_log_debug_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_DEBUG, "%@: Sleeping", &v8, 0xCu);
+    _os_log_debug_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_DEBUG, "%@: Sleeping", &v7, 0xCu);
   }
 
   vendorContext = [(NEExtensionProviderHostContext *)&self->super.super.isa vendorContext];
   [vendorContext sleepWithCompletionHandler:handlerCopy];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setConfiguration:(id)configuration extensionIdentifier:(id)identifier
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v6 = MEMORY[0x1E696AEC0];
   identifierCopy = identifier;
   configurationCopy = configuration;
@@ -337,8 +347,6 @@ void __47__NEExtensionProviderHostContext_vendorContext__block_invoke(uint64_t a
 
   vendorContext = [(NEExtensionProviderHostContext *)&self->super.super.isa vendorContext];
   [vendorContext setConfiguration:configurationCopy extensionIdentifier:identifierCopy];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 + (id)_extensionAuxiliaryHostProtocol
@@ -355,9 +363,11 @@ void __47__NEExtensionProviderHostContext_vendorContext__block_invoke(uint64_t a
 
 uint64_t __65__NEExtensionProviderHostContext__extensionAuxiliaryHostProtocol__block_invoke()
 {
-  _extensionAuxiliaryHostProtocol_protocol_2908 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F38C0B60];
+  v0 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F38C0B60];
+  v1 = _extensionAuxiliaryHostProtocol_protocol_2908;
+  _extensionAuxiliaryHostProtocol_protocol_2908 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)_extensionAuxiliaryVendorProtocol
@@ -374,9 +384,11 @@ uint64_t __65__NEExtensionProviderHostContext__extensionAuxiliaryHostProtocol__b
 
 uint64_t __67__NEExtensionProviderHostContext__extensionAuxiliaryVendorProtocol__block_invoke()
 {
-  _extensionAuxiliaryVendorProtocol_protocol_2912 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F38C0AA8];
+  v0 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F38C0AA8];
+  v1 = _extensionAuxiliaryVendorProtocol_protocol_2912;
+  _extensionAuxiliaryVendorProtocol_protocol_2912 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (id)initWithVendorEndpoint:(void *)endpoint processIdentity:(void *)identity delegate:

@@ -1,6 +1,7 @@
 @interface SUCorePolicySoftwareUpdateDownload
 - (BOOL)isEqual:(id)equal;
 - (SUCorePolicySoftwareUpdateDownload)initWithCoder:(id)coder;
+- (SUCorePolicySoftwareUpdateDownload)initWithSkipPhaseSet:(BOOL)set;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)summary;
@@ -9,6 +10,21 @@
 @end
 
 @implementation SUCorePolicySoftwareUpdateDownload
+
+- (SUCorePolicySoftwareUpdateDownload)initWithSkipPhaseSet:(BOOL)set
+{
+  setCopy = set;
+  v7.receiver = self;
+  v7.super_class = SUCorePolicySoftwareUpdateDownload;
+  v4 = [(SUCorePolicySoftwareUpdateDownload *)&v7 init];
+  v5 = v4;
+  if (v4)
+  {
+    [(SUCorePolicySoftwareUpdateDownload *)v4 backToDefaultsWithSkipPhaseSet:setCopy];
+  }
+
+  return v5;
+}
 
 - (void)backToDefaultsWithSkipPhaseSet:(BOOL)set
 {
@@ -19,7 +35,6 @@
   self->_specifiedFields = 0;
   self->_maxPreSUStagingOptionalSize = -1;
   self->_skipPhase = set;
-  additionalOptions = self->_additionalOptions;
   self->_additionalOptions = 0;
   MEMORY[0x2821F96F8]();
 }

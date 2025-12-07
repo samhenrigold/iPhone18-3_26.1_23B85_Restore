@@ -623,24 +623,24 @@ LABEL_13:
   }
 }
 
-void __64__BPSWatchSetupProxCardViewController__launchWatchAppForPairing__block_invoke()
+void __64__BPSWatchSetupProxCardViewController__launchWatchAppForPairing__block_invoke(uint64_t a1)
 {
-  v0 = pbb_proxcard_log();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = pbb_proxcard_log();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_241E74000, v0, OS_LOG_TYPE_DEFAULT, "Launching Watch app", buf, 2u);
+    _os_log_impl(&dword_241E74000, v1, OS_LOG_TYPE_DEFAULT, "Launching Watch app", buf, 2u);
   }
 
-  v1 = objc_alloc_init(MEMORY[0x277D54C30]);
-  v2 = [MEMORY[0x277CBEBC0] URLWithString:@"bridge://?action=StartPairing"];
-  v4[0] = MEMORY[0x277D85DD0];
-  v4[1] = 3221225472;
-  v4[2] = __64__BPSWatchSetupProxCardViewController__launchWatchAppForPairing__block_invoke_127;
-  v4[3] = &unk_278D23948;
-  v5 = v1;
-  v3 = v1;
-  [v3 openSetupURL:v2 completion:v4];
+  v2 = objc_alloc_init(MEMORY[0x277D54C30]);
+  v3 = [MEMORY[0x277CBEBC0] URLWithString:@"bridge://?action=StartPairing"];
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 3221225472;
+  v5[2] = __64__BPSWatchSetupProxCardViewController__launchWatchAppForPairing__block_invoke_127;
+  v5[3] = &unk_278D23948;
+  v6 = v2;
+  v4 = v2;
+  [v4 openSetupURL:v3 completion:v5];
 }
 
 void __64__BPSWatchSetupProxCardViewController__launchWatchAppForPairing__block_invoke_127(uint64_t a1, void *a2)

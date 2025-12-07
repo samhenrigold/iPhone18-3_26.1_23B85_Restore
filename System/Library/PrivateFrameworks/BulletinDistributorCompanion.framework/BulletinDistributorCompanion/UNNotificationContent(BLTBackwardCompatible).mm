@@ -26,20 +26,19 @@
   v4 = a3;
   [self blt_encodeWithCoder:v4];
   _blt_encodedShouldAddToNotificationsList = [self _blt_encodedShouldAddToNotificationsList];
+  v6 = _blt_encodedShouldAddToNotificationsList;
   if (_blt_encodedShouldAddToNotificationsList)
   {
-    v6 = blt_ids_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = blt_ids_log(_blt_encodedShouldAddToNotificationsList);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8[0] = 67109120;
-      v8[1] = [_blt_encodedShouldAddToNotificationsList BOOLValue];
-      _os_log_impl(&dword_241FB3000, v6, OS_LOG_TYPE_DEFAULT, "Encoding content shouldAddToNotificationsList: %{BOOL}u", v8, 8u);
+      v8[1] = [v6 BOOLValue];
+      _os_log_impl(&dword_241FB3000, v7, OS_LOG_TYPE_DEFAULT, "Encoding content shouldAddToNotificationsList: %{BOOL}u", v8, 8u);
     }
 
-    [v4 encodeBool:objc_msgSend(_blt_encodedShouldAddToNotificationsList forKey:{"BOOLValue"), @"shouldAddToNotificationsList"}];
+    [v4 encodeBool:objc_msgSend(v6 forKey:{"BOOLValue"), @"shouldAddToNotificationsList"}];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)blt_preEncodeShouldAddToNotificationsList:()BLTBackwardCompatible

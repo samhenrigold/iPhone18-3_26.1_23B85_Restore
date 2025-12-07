@@ -10,7 +10,7 @@
   if (!lazy protocol witness table cache variable for type [String : [String : Float]] and conformance <> [A : B])
   {
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSDySSSDySSSfGGMd, &_sSDySSSDySSSfGGMR);
-    lazy protocol witness table accessor for type [String : Float] and conformance <> [A : B](&lazy protocol witness table cache variable for type [String : Float] and conformance <> [A : B]);
+    lazy protocol witness table accessor for type [String : Float] and conformance <> [A : B](&lazy protocol witness table cache variable for type [String : Float] and conformance <> [A : B], MEMORY[0x277D837D8], MEMORY[0x277D83AA0], MEMORY[0x277D83508]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type [String : [String : Float]] and conformance <> [A : B]);
   }

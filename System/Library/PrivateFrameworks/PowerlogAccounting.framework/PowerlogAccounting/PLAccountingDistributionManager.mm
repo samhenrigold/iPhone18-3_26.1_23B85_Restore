@@ -136,14 +136,14 @@
   }
 }
 
-uint64_t __61__PLAccountingDistributionManager_addEnergyEstimate_withNow___block_invoke(uint64_t a1)
+void *__61__PLAccountingDistributionManager_addEnergyEstimate_withNow___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   addEnergyEstimate_withNow__classDebugEnabled_0 = result;
   return result;
 }
 
-uint64_t __61__PLAccountingDistributionManager_addEnergyEstimate_withNow___block_invoke_20(uint64_t a1)
+void *__61__PLAccountingDistributionManager_addEnergyEstimate_withNow___block_invoke_20(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   addEnergyEstimate_withNow__classDebugEnabled_19 = result;
@@ -229,14 +229,14 @@ uint64_t __61__PLAccountingDistributionManager_addEnergyEstimate_withNow___block
   }
 }
 
-uint64_t __56__PLAccountingDistributionManager_addDistributionEvent___block_invoke(uint64_t a1)
+void *__56__PLAccountingDistributionManager_addDistributionEvent___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   addDistributionEvent__classDebugEnabled = result;
   return result;
 }
 
-uint64_t __56__PLAccountingDistributionManager_addDistributionEvent___block_invoke_31(uint64_t a1)
+void *__56__PLAccountingDistributionManager_addDistributionEvent___block_invoke_31(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   addDistributionEvent__classDebugEnabled_30 = result;
@@ -320,14 +320,14 @@ uint64_t __56__PLAccountingDistributionManager_addDistributionEvent___block_invo
   }
 }
 
-uint64_t __99__PLAccountingDistributionManager_closeLastDistributionEventForwardWithDistributionID_withEndDate___block_invoke(uint64_t a1)
+void *__99__PLAccountingDistributionManager_closeLastDistributionEventForwardWithDistributionID_withEndDate___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   closeLastDistributionEventForwardWithDistributionID_withEndDate__classDebugEnabled = result;
   return result;
 }
 
-uint64_t __99__PLAccountingDistributionManager_closeLastDistributionEventForwardWithDistributionID_withEndDate___block_invoke_49(uint64_t a1)
+void *__99__PLAccountingDistributionManager_closeLastDistributionEventForwardWithDistributionID_withEndDate___block_invoke_49(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   closeLastDistributionEventForwardWithDistributionID_withEndDate__classDebugEnabled_48 = result;
@@ -352,7 +352,7 @@ uint64_t __99__PLAccountingDistributionManager_closeLastDistributionEventForward
   return v2;
 }
 
-uint64_t __52__PLAccountingDistributionManager_freeTimerInterval__block_invoke(uint64_t a1)
+void *__52__PLAccountingDistributionManager_freeTimerInterval__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] doubleForKey:*(a1 + 32) ifNotSet:*(a1 + 40)];
   freeTimerInterval_objectForKey_0 = v2;
@@ -361,21 +361,21 @@ uint64_t __52__PLAccountingDistributionManager_freeTimerInterval__block_invoke(u
 
 - (void)reloadDependenciesNewerThanDate:(id)date
 {
-  v115 = *MEMORY[0x277D85DE8];
+  v114 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   v5 = 0x277D3F000uLL;
   selfCopy = self;
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v6 = objc_opt_class();
-    v110[0] = MEMORY[0x277D85DD0];
-    v110[1] = 3221225472;
-    v110[2] = __67__PLAccountingDistributionManager_reloadDependenciesNewerThanDate___block_invoke;
-    v110[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v110[4] = v6;
+    v109[0] = MEMORY[0x277D85DD0];
+    v109[1] = 3221225472;
+    v109[2] = __67__PLAccountingDistributionManager_reloadDependenciesNewerThanDate___block_invoke;
+    v109[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v109[4] = v6;
     if (reloadDependenciesNewerThanDate__defaultOnce_0 != -1)
     {
-      dispatch_once(&reloadDependenciesNewerThanDate__defaultOnce_0, v110);
+      dispatch_once(&reloadDependenciesNewerThanDate__defaultOnce_0, v109);
     }
 
     if (reloadDependenciesNewerThanDate__classDebugEnabled_0 == 1)
@@ -407,46 +407,46 @@ uint64_t __52__PLAccountingDistributionManager_freeTimerInterval__block_invoke(u
 
     if ((v15 & 1) == 0)
     {
-      v86 = dateCopy;
-      v108 = 0u;
-      v109 = 0u;
-      v106 = 0u;
+      v85 = dateCopy;
       v107 = 0u;
+      v108 = 0u;
+      v105 = 0u;
+      v106 = 0u;
       obj = +[PLAccountingEngine allDistributionIDs];
-      v88 = [obj countByEnumeratingWithState:&v106 objects:v114 count:16];
-      if (!v88)
+      v87 = [obj countByEnumeratingWithState:&v105 objects:v113 count:16];
+      if (!v87)
       {
         goto LABEL_83;
       }
 
-      v87 = *v107;
-      v84 = *MEMORY[0x277D3F420];
-      v83 = *MEMORY[0x277D3F418];
-      v89 = *MEMORY[0x277D3F410];
+      v86 = *v106;
+      v83 = *MEMORY[0x277D3F420];
+      v82 = *MEMORY[0x277D3F418];
+      v88 = *MEMORY[0x277D3F410];
       v16 = 0x277CCA000uLL;
       while (1)
       {
         v17 = 0;
         do
         {
-          if (*v107 != v87)
+          if (*v106 != v86)
           {
             objc_enumerationMutation(obj);
           }
 
-          v93 = v17;
-          v18 = *(*(&v106 + 1) + 8 * v17);
+          v92 = v17;
+          v18 = *(*(&v105 + 1) + 8 * v17);
           if ([*(v5 + 384) debugEnabled])
           {
             v19 = objc_opt_class();
-            v105[0] = MEMORY[0x277D85DD0];
-            v105[1] = 3221225472;
-            v105[2] = __67__PLAccountingDistributionManager_reloadDependenciesNewerThanDate___block_invoke_63;
-            v105[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-            v105[4] = v19;
+            v104[0] = MEMORY[0x277D85DD0];
+            v104[1] = 3221225472;
+            v104[2] = __67__PLAccountingDistributionManager_reloadDependenciesNewerThanDate___block_invoke_63;
+            v104[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+            v104[4] = v19;
             if (reloadDependenciesNewerThanDate__defaultOnce_61 != -1)
             {
-              dispatch_once(&reloadDependenciesNewerThanDate__defaultOnce_61, v105);
+              dispatch_once(&reloadDependenciesNewerThanDate__defaultOnce_61, v104);
             }
 
             if (reloadDependenciesNewerThanDate__classDebugEnabled_62 == 1)
@@ -462,7 +462,7 @@ uint64_t __52__PLAccountingDistributionManager_freeTimerInterval__block_invoke(u
               if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138412290;
-                v113 = v20;
+                v112 = v20;
                 _os_log_debug_impl(&dword_25EDCD000, v25, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
               }
 
@@ -476,14 +476,14 @@ uint64_t __52__PLAccountingDistributionManager_freeTimerInterval__block_invoke(u
           if ([*(v5 + 384) debugEnabled])
           {
             v27 = objc_opt_class();
-            v104[0] = MEMORY[0x277D85DD0];
-            v104[1] = 3221225472;
-            v104[2] = __67__PLAccountingDistributionManager_reloadDependenciesNewerThanDate___block_invoke_72;
-            v104[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-            v104[4] = v27;
+            v103[0] = MEMORY[0x277D85DD0];
+            v103[1] = 3221225472;
+            v103[2] = __67__PLAccountingDistributionManager_reloadDependenciesNewerThanDate___block_invoke_72;
+            v103[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+            v103[4] = v27;
             if (reloadDependenciesNewerThanDate__defaultOnce_70_0 != -1)
             {
-              dispatch_once(&reloadDependenciesNewerThanDate__defaultOnce_70_0, v104);
+              dispatch_once(&reloadDependenciesNewerThanDate__defaultOnce_70_0, v103);
             }
 
             if (reloadDependenciesNewerThanDate__classDebugEnabled_71_0 == 1)
@@ -499,7 +499,7 @@ uint64_t __52__PLAccountingDistributionManager_freeTimerInterval__block_invoke(u
               if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138412290;
-                v113 = v28;
+                v112 = v28;
                 _os_log_debug_impl(&dword_25EDCD000, v33, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
               }
             }
@@ -512,8 +512,8 @@ uint64_t __52__PLAccountingDistributionManager_freeTimerInterval__block_invoke(u
             {
               v35 = +[PLAccountingDistributionEventIntervalEntry entryKey];
               v42 = *(v16 + 3240);
-              [v86 timeIntervalSince1970];
-              [v42 stringWithFormat:@"(timestamp+%@) >= %f", v83, v43, v79, v80, v81];
+              [v85 timeIntervalSince1970];
+              [v42 stringWithFormat:@"(timestamp+%@) >= %f", v82, v43, v78, v79, v80];
               goto LABEL_39;
             }
 
@@ -522,8 +522,8 @@ uint64_t __52__PLAccountingDistributionManager_freeTimerInterval__block_invoke(u
             {
               v35 = +[PLAccountingDistributionEventPointEntry entryKey];
               v39 = *(v16 + 3240);
-              [v86 timeIntervalSince1970];
-              [v39 stringWithFormat:@"(timestamp+%@) >= %f", v84, v40, v79, v80, v81];
+              [v85 timeIntervalSince1970];
+              [v39 stringWithFormat:@"(timestamp+%@) >= %f", v83, v40, v78, v79, v80];
               v34 = LABEL_39:;
             }
           }
@@ -534,9 +534,9 @@ uint64_t __52__PLAccountingDistributionManager_freeTimerInterval__block_invoke(u
             {
               v35 = +[PLAccountingDistributionEventForwardEntry entryKey];
               v36 = *(v16 + 3240);
-              [v86 timeIntervalSince1970];
-              v82 = v41;
-              v38 = v84;
+              [v85 timeIntervalSince1970];
+              v81 = v41;
+              v38 = v83;
               goto LABEL_37;
             }
 
@@ -545,30 +545,30 @@ uint64_t __52__PLAccountingDistributionManager_freeTimerInterval__block_invoke(u
             {
               v35 = +[PLAccountingDistributionEventBackwardEntry entryKey];
               v36 = *(v16 + 3240);
-              [v86 timeIntervalSince1970];
-              v82 = v37;
-              v38 = v83;
+              [v85 timeIntervalSince1970];
+              v81 = v37;
+              v38 = v82;
 LABEL_37:
-              [v36 stringWithFormat:@"ID >= (SELECT MIN(ID)-1 FROM '%@' WHERE (%@ = %@ AND (timestamp+%@) >= %f))", v35, v89, v18, v38, v82];
+              [v36 stringWithFormat:@"ID >= (SELECT MIN(ID)-1 FROM '%@' WHERE (%@ = %@ AND (timestamp+%@) >= %f))", v35, v88, v18, v38, v81];
               goto LABEL_39;
             }
           }
 
-          v91 = v34;
-          v79 = v18;
-          v80 = v34;
-          v44 = [*(v16 + 3240) stringWithFormat:@"SELECT * FROM '%@' WHERE (%@ = %@ AND (%@))", v35, v89];;
+          v90 = v34;
+          v78 = v18;
+          v79 = v34;
+          v44 = [*(v16 + 3240) stringWithFormat:@"SELECT * FROM '%@' WHERE (%@ = %@ AND (%@))", v35, v88];;
           if ([*(v5 + 384) debugEnabled])
           {
             v45 = objc_opt_class();
-            v103[0] = MEMORY[0x277D85DD0];
-            v103[1] = 3221225472;
-            v103[2] = __67__PLAccountingDistributionManager_reloadDependenciesNewerThanDate___block_invoke_91;
-            v103[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-            v103[4] = v45;
+            v102[0] = MEMORY[0x277D85DD0];
+            v102[1] = 3221225472;
+            v102[2] = __67__PLAccountingDistributionManager_reloadDependenciesNewerThanDate___block_invoke_91;
+            v102[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+            v102[4] = v45;
             if (reloadDependenciesNewerThanDate__defaultOnce_89_0 != -1)
             {
-              dispatch_once(&reloadDependenciesNewerThanDate__defaultOnce_89_0, v103);
+              dispatch_once(&reloadDependenciesNewerThanDate__defaultOnce_89_0, v102);
             }
 
             if (reloadDependenciesNewerThanDate__classDebugEnabled_90_0 == 1)
@@ -584,7 +584,7 @@ LABEL_37:
               if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138412290;
-                v113 = v46;
+                v112 = v46;
                 _os_log_debug_impl(&dword_25EDCD000, v51, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
               }
             }
@@ -594,18 +594,18 @@ LABEL_37:
           storage = [mEMORY[0x277D3F2A0] storage];
           v54 = [storage entriesForKey:v35 withQuery:v44];
 
-          v90 = v44;
+          v89 = v44;
           if ([*(v5 + 384) debugEnabled])
           {
             v55 = objc_opt_class();
-            v102[0] = MEMORY[0x277D85DD0];
-            v102[1] = 3221225472;
-            v102[2] = __67__PLAccountingDistributionManager_reloadDependenciesNewerThanDate___block_invoke_98;
-            v102[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-            v102[4] = v55;
+            v101[0] = MEMORY[0x277D85DD0];
+            v101[1] = 3221225472;
+            v101[2] = __67__PLAccountingDistributionManager_reloadDependenciesNewerThanDate___block_invoke_98;
+            v101[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+            v101[4] = v55;
             if (reloadDependenciesNewerThanDate__defaultOnce_96_0 != -1)
             {
-              dispatch_once(&reloadDependenciesNewerThanDate__defaultOnce_96_0, v102);
+              dispatch_once(&reloadDependenciesNewerThanDate__defaultOnce_96_0, v101);
             }
 
             if (reloadDependenciesNewerThanDate__classDebugEnabled_97_0 == 1)
@@ -621,19 +621,19 @@ LABEL_37:
               if (os_log_type_enabled(v61, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138412290;
-                v113 = v56;
+                v112 = v56;
                 _os_log_debug_impl(&dword_25EDCD000, v61, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
               }
             }
           }
 
-          v92 = v35;
-          v100 = 0u;
-          v101 = 0u;
-          v98 = 0u;
+          v91 = v35;
           v99 = 0u;
-          v95 = v54;
-          v62 = [v95 countByEnumeratingWithState:&v98 objects:v111 count:16];
+          v100 = 0u;
+          v97 = 0u;
+          v98 = 0u;
+          v94 = v54;
+          v62 = [v94 countByEnumeratingWithState:&v97 objects:v110 count:16];
           if (!v62)
           {
             v64 = 0;
@@ -642,19 +642,19 @@ LABEL_37:
 
           v63 = v62;
           v64 = 0;
-          v65 = *v99;
+          v65 = *v98;
           v66 = intValue;
           do
           {
             v67 = 0;
             do
             {
-              if (*v99 != v65)
+              if (*v98 != v65)
               {
-                objc_enumerationMutation(v95);
+                objc_enumerationMutation(v94);
               }
 
-              v68 = *(*(&v98 + 1) + 8 * v67);
+              v68 = *(*(&v97 + 1) + 8 * v67);
               if ([*(v5 + 384) debugEnabled])
               {
                 v69 = objc_opt_class();
@@ -681,7 +681,7 @@ LABEL_37:
                   if (os_log_type_enabled(v75, OS_LOG_TYPE_DEBUG))
                   {
                     *buf = 138412290;
-                    v113 = v70;
+                    v112 = v70;
                     _os_log_debug_impl(&dword_25EDCD000, v75, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
                   }
 
@@ -740,68 +740,66 @@ LABEL_77:
             }
 
             while (v63 != v67);
-            v63 = [v95 countByEnumeratingWithState:&v98 objects:v111 count:16];
+            v63 = [v94 countByEnumeratingWithState:&v97 objects:v110 count:16];
           }
 
           while (v63);
 LABEL_81:
 
-          v17 = v93 + 1;
+          v17 = v92 + 1;
           v16 = 0x277CCA000;
         }
 
-        while (v93 + 1 != v88);
-        v88 = [obj countByEnumeratingWithState:&v106 objects:v114 count:16];
-        if (!v88)
+        while (v92 + 1 != v87);
+        v87 = [obj countByEnumeratingWithState:&v105 objects:v113 count:16];
+        if (!v87)
         {
 LABEL_83:
 
-          dateCopy = v86;
+          dateCopy = v85;
           break;
         }
       }
     }
   }
-
-  v78 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __67__PLAccountingDistributionManager_reloadDependenciesNewerThanDate___block_invoke(uint64_t a1)
+void *__67__PLAccountingDistributionManager_reloadDependenciesNewerThanDate___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   reloadDependenciesNewerThanDate__classDebugEnabled_0 = result;
   return result;
 }
 
-uint64_t __67__PLAccountingDistributionManager_reloadDependenciesNewerThanDate___block_invoke_63(uint64_t a1)
+void *__67__PLAccountingDistributionManager_reloadDependenciesNewerThanDate___block_invoke_63(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   reloadDependenciesNewerThanDate__classDebugEnabled_62 = result;
   return result;
 }
 
-uint64_t __67__PLAccountingDistributionManager_reloadDependenciesNewerThanDate___block_invoke_72(uint64_t a1)
+void *__67__PLAccountingDistributionManager_reloadDependenciesNewerThanDate___block_invoke_72(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   reloadDependenciesNewerThanDate__classDebugEnabled_71_0 = result;
   return result;
 }
 
-uint64_t __67__PLAccountingDistributionManager_reloadDependenciesNewerThanDate___block_invoke_91(uint64_t a1)
+void *__67__PLAccountingDistributionManager_reloadDependenciesNewerThanDate___block_invoke_91(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   reloadDependenciesNewerThanDate__classDebugEnabled_90_0 = result;
   return result;
 }
 
-uint64_t __67__PLAccountingDistributionManager_reloadDependenciesNewerThanDate___block_invoke_98(uint64_t a1)
+void *__67__PLAccountingDistributionManager_reloadDependenciesNewerThanDate___block_invoke_98(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   reloadDependenciesNewerThanDate__classDebugEnabled_97_0 = result;
   return result;
 }
 
-uint64_t __67__PLAccountingDistributionManager_reloadDependenciesNewerThanDate___block_invoke_104(uint64_t a1)
+void *__67__PLAccountingDistributionManager_reloadDependenciesNewerThanDate___block_invoke_104(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   reloadDependenciesNewerThanDate__classDebugEnabled_103_0 = result;
@@ -856,7 +854,7 @@ uint64_t __67__PLAccountingDistributionManager_reloadDependenciesNewerThanDate__
   dispatch_async(workQueue, block);
 }
 
-uint64_t __95__PLAccountingDistributionManager_didDistributeToChildEnergyEstimate_fromParentEnergyEstimate___block_invoke(uint64_t a1)
+void *__95__PLAccountingDistributionManager_didDistributeToChildEnergyEstimate_fromParentEnergyEstimate___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   didDistributeToChildEnergyEstimate_fromParentEnergyEstimate__classDebugEnabled = result;
@@ -914,7 +912,7 @@ void __95__PLAccountingDistributionManager_didDistributeToChildEnergyEstimate_fr
   dispatch_async(workQueue, block);
 }
 
-uint64_t __63__PLAccountingDistributionManager_didDistributeEnergyEstimate___block_invoke(uint64_t a1)
+void *__63__PLAccountingDistributionManager_didDistributeEnergyEstimate___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   didDistributeEnergyEstimate__classDebugEnabled = result;
@@ -1017,14 +1015,14 @@ void __63__PLAccountingDistributionManager_didDistributeEnergyEstimate___block_i
   return v23;
 }
 
-uint64_t __57__PLAccountingDistributionManager_dependencyIDsForOwner___block_invoke(uint64_t a1)
+void *__57__PLAccountingDistributionManager_dependencyIDsForOwner___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   dependencyIDsForOwner__classDebugEnabled_0 = result;
   return result;
 }
 
-uint64_t __57__PLAccountingDistributionManager_dependencyIDsForOwner___block_invoke_121(uint64_t a1)
+void *__57__PLAccountingDistributionManager_dependencyIDsForOwner___block_invoke_121(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   dependencyIDsForOwner__classDebugEnabled_120_0 = result;
@@ -1033,7 +1031,7 @@ uint64_t __57__PLAccountingDistributionManager_dependencyIDsForOwner___block_inv
 
 - (id)ownerIDsForDependency:(id)dependency
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   dependencyCopy = dependency;
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
@@ -1074,14 +1072,14 @@ uint64_t __57__PLAccountingDistributionManager_dependencyIDsForOwner___block_inv
     if ([MEMORY[0x277D3F180] debugEnabled])
     {
       v14 = objc_opt_class();
-      v46[0] = MEMORY[0x277D85DD0];
-      v46[1] = 3221225472;
-      v46[2] = __57__PLAccountingDistributionManager_ownerIDsForDependency___block_invoke_131;
-      v46[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v46[4] = v14;
+      v45[0] = MEMORY[0x277D85DD0];
+      v45[1] = 3221225472;
+      v45[2] = __57__PLAccountingDistributionManager_ownerIDsForDependency___block_invoke_131;
+      v45[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v45[4] = v14;
       if (ownerIDsForDependency__defaultOnce_129 != -1)
       {
-        dispatch_once(&ownerIDsForDependency__defaultOnce_129, v46);
+        dispatch_once(&ownerIDsForDependency__defaultOnce_129, v45);
       }
 
       if (ownerIDsForDependency__classDebugEnabled_130 == 1)
@@ -1104,30 +1102,30 @@ uint64_t __57__PLAccountingDistributionManager_dependencyIDsForOwner___block_inv
     if (v13)
     {
       v21 = [MEMORY[0x277CBEB58] set];
+      v41 = 0u;
       v42 = 0u;
       v43 = 0u;
       v44 = 0u;
-      v45 = 0u;
       v22 = v13;
-      v23 = [v22 countByEnumeratingWithState:&v42 objects:v48 count:16];
+      v23 = [v22 countByEnumeratingWithState:&v41 objects:v47 count:16];
       if (v23)
       {
         v24 = v23;
-        v25 = *v43;
+        v25 = *v42;
         do
         {
           for (i = 0; i != v24; ++i)
           {
-            if (*v43 != v25)
+            if (*v42 != v25)
             {
               objc_enumerationMutation(v22);
             }
 
-            v27 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(*(*(&v42 + 1) + 8 * i), "entryID")}];
+            v27 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(*(*(&v41 + 1) + 8 * i), "entryID")}];
             [v21 addObject:v27];
           }
 
-          v24 = [v22 countByEnumeratingWithState:&v42 objects:v48 count:16];
+          v24 = [v22 countByEnumeratingWithState:&v41 objects:v47 count:16];
         }
 
         while (v24);
@@ -1136,19 +1134,19 @@ uint64_t __57__PLAccountingDistributionManager_dependencyIDsForOwner___block_inv
       if ([MEMORY[0x277D3F180] debugEnabled])
       {
         v28 = objc_opt_class();
-        v37 = MEMORY[0x277D85DD0];
-        v38 = 3221225472;
-        v39 = __57__PLAccountingDistributionManager_ownerIDsForDependency___block_invoke_135;
-        v40 = &__block_descriptor_40_e5_v8__0lu32l8;
-        v41 = v28;
+        v36 = MEMORY[0x277D85DD0];
+        v37 = 3221225472;
+        v38 = __57__PLAccountingDistributionManager_ownerIDsForDependency___block_invoke_135;
+        v39 = &__block_descriptor_40_e5_v8__0lu32l8;
+        v40 = v28;
         if (ownerIDsForDependency__defaultOnce_133 != -1)
         {
-          dispatch_once(&ownerIDsForDependency__defaultOnce_133, &v37);
+          dispatch_once(&ownerIDsForDependency__defaultOnce_133, &v36);
         }
 
         if (ownerIDsForDependency__classDebugEnabled_134 == 1)
         {
-          v29 = [MEMORY[0x277CCACA8] stringWithFormat:@"distributionRuleIDs=%@", v21, v37, v38, v39, v40, v41, v42];
+          v29 = [MEMORY[0x277CCACA8] stringWithFormat:@"distributionRuleIDs=%@", v21, v36, v37, v38, v39, v40, v41];
           v30 = MEMORY[0x277D3F178];
           v31 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogAccounting/Distribution/PLAccountingDistributionManager.m"];
           lastPathComponent3 = [v31 lastPathComponent];
@@ -1175,26 +1173,24 @@ uint64_t __57__PLAccountingDistributionManager_dependencyIDsForOwner___block_inv
     v21 = 0;
   }
 
-  v35 = *MEMORY[0x277D85DE8];
-
   return v21;
 }
 
-uint64_t __57__PLAccountingDistributionManager_ownerIDsForDependency___block_invoke(uint64_t a1)
+void *__57__PLAccountingDistributionManager_ownerIDsForDependency___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   ownerIDsForDependency__classDebugEnabled_0 = result;
   return result;
 }
 
-uint64_t __57__PLAccountingDistributionManager_ownerIDsForDependency___block_invoke_131(uint64_t a1)
+void *__57__PLAccountingDistributionManager_ownerIDsForDependency___block_invoke_131(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   ownerIDsForDependency__classDebugEnabled_130 = result;
   return result;
 }
 
-uint64_t __57__PLAccountingDistributionManager_ownerIDsForDependency___block_invoke_135(uint64_t a1)
+void *__57__PLAccountingDistributionManager_ownerIDsForDependency___block_invoke_135(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   ownerIDsForDependency__classDebugEnabled_134 = result;

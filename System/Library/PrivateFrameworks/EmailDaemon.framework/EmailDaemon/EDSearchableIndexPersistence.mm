@@ -117,83 +117,79 @@ void __43__EDSearchableIndexPersistence_signpostLog__block_invoke(uint64_t a1)
 
 + (id)tablesAndForeignKeysToResolve:(id *)resolve associationsToResolve:(id *)toResolve
 {
-  v33[4] = *MEMORY[0x1E69E9840];
+  v32[4] = *MEMORY[0x1E69E9840];
   searchableMessagesTableSchema = [self searchableMessagesTableSchema];
   searchableAttachmentsTableSchema = [self searchableAttachmentsTableSchema];
   searchableRichLinksTableSchema = [self searchableRichLinksTableSchema];
   searchableDataDetectionResultsTableSchema = [self searchableDataDetectionResultsTableSchema];
   searchableRebuildTableSchema = [self searchableRebuildTableSchema];
   v5 = [EDPersistenceForeignKeyPlaceholder alloc];
-  v27 = [searchableMessagesTableSchema columnForName:@"message"];
-  v21 = +[EDMessagePersistence messagesTableName];
-  v22 = [EDPersistenceForeignKeyPlaceholder initWithColumn:v5 tableName:"initWithColumn:tableName:onDelete:onUpdate:" onDelete:v27 onUpdate:?];
-  v33[0] = v22;
+  v26 = [searchableMessagesTableSchema columnForName:@"message"];
+  v20 = +[EDMessagePersistence messagesTableName];
+  v21 = [EDPersistenceForeignKeyPlaceholder initWithColumn:v5 tableName:"initWithColumn:tableName:onDelete:onUpdate:" onDelete:v26 onUpdate:?];
+  v32[0] = v21;
   v6 = [EDPersistenceForeignKeyPlaceholder alloc];
-  v26 = [searchableAttachmentsTableSchema columnForName:@"attachment"];
+  v25 = [searchableAttachmentsTableSchema columnForName:@"attachment"];
   v7 = +[EDAttachmentPersistence messageAttachmentsTableName];
-  v8 = [(EDPersistenceForeignKeyPlaceholder *)v6 initWithColumn:v26 tableName:v7 onDelete:3 onUpdate:0];
-  v33[1] = v8;
+  v8 = [(EDPersistenceForeignKeyPlaceholder *)v6 initWithColumn:v25 tableName:v7 onDelete:3 onUpdate:0];
+  v32[1] = v8;
   v9 = [EDPersistenceForeignKeyPlaceholder alloc];
   v10 = [searchableRichLinksTableSchema columnForName:@"rich_link"];
   v11 = +[EDRichLinkPersistence richLinksTableName];
   v12 = [(EDPersistenceForeignKeyPlaceholder *)v9 initWithColumn:v10 tableName:v11 onDelete:3 onUpdate:0];
-  v33[2] = v12;
+  v32[2] = v12;
   v13 = [EDPersistenceForeignKeyPlaceholder alloc];
   v14 = [searchableDataDetectionResultsTableSchema columnForName:@"message_id"];
   v15 = +[EDMessagePersistence messagesTableName];
   v16 = [(EDPersistenceForeignKeyPlaceholder *)v13 initWithColumn:v14 tableName:v15 onDelete:3 onUpdate:0];
-  v33[3] = v16;
-  *resolve = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:4];
+  v32[3] = v16;
+  *resolve = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:4];
 
   *toResolve = MEMORY[0x1E695E0F0];
-  v32[0] = searchableMessagesTableSchema;
+  v31[0] = searchableMessagesTableSchema;
   searchableMessageTombstonesTableSchema = [self searchableMessageTombstonesTableSchema];
-  v32[1] = searchableMessageTombstonesTableSchema;
-  v32[2] = searchableAttachmentsTableSchema;
-  v32[3] = searchableRichLinksTableSchema;
-  v32[4] = searchableDataDetectionResultsTableSchema;
-  v32[5] = searchableRebuildTableSchema;
-  v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:6];
-
-  v19 = *MEMORY[0x1E69E9840];
+  v31[1] = searchableMessageTombstonesTableSchema;
+  v31[2] = searchableAttachmentsTableSchema;
+  v31[3] = searchableRichLinksTableSchema;
+  v31[4] = searchableDataDetectionResultsTableSchema;
+  v31[5] = searchableRebuildTableSchema;
+  v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:6];
 
   return v18;
 }
 
 + (id)searchableRebuildTableSchema
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc(MEMORY[0x1E699B958]);
   v3 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"message_id" nullable:0];
-  v8[0] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
+  v7[0] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
   v5 = [v2 initWithName:@"searchable_rebuild" rowIDType:2 columns:v4];
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 + (id)searchableMessagesTableSchema
 {
-  v24[4] = *MEMORY[0x1E69E9840];
+  v23[4] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E699B958]);
   searchableMessagesTableName = [self searchableMessagesTableName];
   v5 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"message" nullable:1];
-  v24[0] = v5;
+  v23[0] = v5;
   v6 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"transaction_id" nullable:0];
-  v24[1] = v6;
+  v23[1] = v6;
   v7 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"message_body_indexed" nullable:0];
-  v24[2] = v7;
+  v23[2] = v7;
   v8 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"reindex_type" nullable:0];
-  v24[3] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:4];
+  v23[3] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:4];
   v10 = [v3 initWithName:searchableMessagesTableName rowIDType:1 rowIDAlias:@"message_id" columns:v9];
 
-  v23[0] = @"message";
-  v23[1] = @"reindex_type";
-  v23[2] = @"transaction_id";
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:3];
+  v22[0] = @"message";
+  v22[1] = @"reindex_type";
+  v22[2] = @"transaction_id";
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:3];
   [v10 addIndexForColumns:v11];
 
   v12 = [objc_alloc(MEMORY[0x1E699B8C8]) initWithName:@"reindex_type"];
@@ -201,121 +197,111 @@ void __43__EDSearchableIndexPersistence_signpostLog__block_invoke(uint64_t a1)
 
   v14 = objc_alloc(MEMORY[0x1E699B900]);
   name = [v10 name];
-  v22[0] = @"reindex_type";
-  v22[1] = @"message_id";
-  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:2];
+  v21[0] = @"reindex_type";
+  v21[1] = @"message_id";
+  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:2];
   v17 = [v14 initWithTableName:name columnNames:v16 where:v13 unique:0];
   [v10 addIndex:v17];
 
-  v21[0] = @"transaction_id";
-  v21[1] = @"message_id";
-  v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:2];
+  v20[0] = @"transaction_id";
+  v20[1] = @"message_id";
+  v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:2];
   [v10 addIndexForColumns:v18];
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 + (id)searchableMessageTombstonesTableSchema
 {
-  v12[3] = *MEMORY[0x1E69E9840];
+  v11[3] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc(MEMORY[0x1E699B958]);
   v3 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"type" nullable:0];
-  v12[0] = v3;
+  v11[0] = v3;
   v4 = [MEMORY[0x1E699B8D0] textColumnWithName:@"identifier" collation:1 nullable:0];
-  v12[1] = v4;
+  v11[1] = v4;
   v5 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"transaction_id" nullable:1];
-  v12[2] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:3];
+  v11[2] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:3];
   v7 = [v2 initWithName:@"searchable_message_tombstones" rowIDType:2 columns:v6];
 
   [v7 addUniquenessConstraintForColumns:&unk_1F45E6FA0 conflictResolution:1];
-  v11[0] = @"transaction_id";
-  v11[1] = @"type";
-  v11[2] = @"identifier";
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:3];
+  v10[0] = @"transaction_id";
+  v10[1] = @"type";
+  v10[2] = @"identifier";
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:3];
   [v7 addIndexForColumns:v8];
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 + (id)searchableAttachmentsTableSchema
 {
-  v14[3] = *MEMORY[0x1E69E9840];
+  v13[3] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc(MEMORY[0x1E699B958]);
   v3 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"attachment" nullable:1];
-  v14[0] = v3;
+  v13[0] = v3;
   v4 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"message_id" nullable:1];
-  v14[1] = v4;
+  v13[1] = v4;
   v5 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"transaction_id" nullable:0];
-  v14[2] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:3];
+  v13[2] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:3];
   v7 = [v2 initWithName:@"searchable_attachments" rowIDType:1 rowIDAlias:@"attachment_id" columns:v6];
 
-  v13 = @"attachment";
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:1];
+  v12 = @"attachment";
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:1];
   [v7 addIndexForColumns:v8];
 
-  v12 = @"message_id";
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:1];
+  v11 = @"message_id";
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v11 count:1];
   [v7 addIndexForColumns:v9];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 + (id)searchableRichLinksTableSchema
 {
-  v14[3] = *MEMORY[0x1E69E9840];
+  v13[3] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc(MEMORY[0x1E699B958]);
   v3 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"rich_link" nullable:1];
-  v14[0] = v3;
+  v13[0] = v3;
   v4 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"message_id" nullable:1];
-  v14[1] = v4;
+  v13[1] = v4;
   v5 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"transaction_id" nullable:0];
-  v14[2] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:3];
+  v13[2] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:3];
   v7 = [v2 initWithName:@"searchable_rich_links" rowIDType:1 rowIDAlias:@"rich_link_id" columns:v6];
 
-  v13 = @"rich_link";
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:1];
+  v12 = @"rich_link";
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:1];
   [v7 addIndexForColumns:v8];
 
-  v12 = @"message_id";
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:1];
+  v11 = @"message_id";
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v11 count:1];
   [v7 addIndexForColumns:v9];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 + (id)searchableDataDetectionResultsTableSchema
 {
-  v14[3] = *MEMORY[0x1E69E9840];
+  v13[3] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc(MEMORY[0x1E699B958]);
   v3 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"data_detection_result" nullable:1];
-  v14[0] = v3;
+  v13[0] = v3;
   v4 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"message" nullable:1];
-  v14[1] = v4;
+  v13[1] = v4;
   v5 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"transaction_id" nullable:0];
-  v14[2] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:3];
+  v13[2] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:3];
   v7 = [v2 initWithName:@"searchable_data_detection_results" rowIDType:1 columns:v6];
 
-  v13 = @"message";
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:1];
+  v12 = @"message";
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:1];
   [v7 addIndexForColumns:v8];
 
-  v12 = @"data_detection_result";
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:1];
+  v11 = @"data_detection_result";
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v11 count:1];
   [v7 addIndexForColumns:v9];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -394,7 +380,7 @@ uint64_t __57__EDSearchableIndexPersistence_lastProcessedAttachmentID__block_inv
 
 - (void)setLastProcessedAttachmentID:(id)d
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   dCopy = d;
   os_unfair_lock_lock(&self->_lastProcessedAttachmentIDLock);
   if (self->_lastProcessedAttachmentID == dCopy)
@@ -410,23 +396,21 @@ uint64_t __57__EDSearchableIndexPersistence_lastProcessedAttachmentID__block_inv
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v13 = dCopy;
-      v14 = 2112;
-      v15 = @"com.apple.mail.searchableIndex.lastProcessedAttachmentIDKey";
+      v12 = dCopy;
+      v13 = 2112;
+      v14 = @"com.apple.mail.searchableIndex.lastProcessedAttachmentIDKey";
       _os_log_impl(&dword_1C61EF000, v6, OS_LOG_TYPE_DEFAULT, "Setting object:%@ for key: %@", buf, 0x16u);
     }
 
     database = [(EDSearchableIndexPersistence *)self database];
     v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[EDSearchableIndexPersistence setLastProcessedAttachmentID:]"];
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __61__EDSearchableIndexPersistence_setLastProcessedAttachmentID___block_invoke;
-    v10[3] = &unk_1E8251CB8;
-    v11 = dCopy;
-    [database __performWriteWithCaller:v8 usingBlock:v10];
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __61__EDSearchableIndexPersistence_setLastProcessedAttachmentID___block_invoke;
+    v9[3] = &unk_1E8251CB8;
+    v10 = dCopy;
+    [database __performWriteWithCaller:v8 usingBlock:v9];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (id)getIndexSnapshot
@@ -653,7 +637,7 @@ uint64_t __64__EDSearchableIndexPersistence_itemsToRemoveForSearchableIndex___bl
 
 - (id)itemsToIndexForSearchableIndex:(id)index excludingIdentifiers:(id)identifiers count:(unint64_t)count cancelationToken:(id)token
 {
-  v120 = *MEMORY[0x1E69E9840];
+  v119 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   tokenCopy = token;
   selfCopy = self;
@@ -673,7 +657,7 @@ uint64_t __64__EDSearchableIndexPersistence_itemsToRemoveForSearchableIndex___bl
     *&buf[12] = 2048;
     *&buf[14] = rebuildIndexState;
     *&buf[22] = 2112;
-    v117 = v12;
+    v116 = v12;
     _os_log_impl(&dword_1C61EF000, v10, OS_LOG_TYPE_DEFAULT, "SearchableIndex is requesting a batch of up to %lu items requiring indexing, rebuild state = %lu, turbo mode = %@", buf, 0x20u);
   }
 
@@ -681,12 +665,12 @@ uint64_t __64__EDSearchableIndexPersistence_itemsToRemoveForSearchableIndex___bl
   {
     database = [(EDSearchableIndexPersistence *)selfCopy database];
     v14 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[EDSearchableIndexPersistence itemsToIndexForSearchableIndex:excludingIdentifiers:count:cancelationToken:]"];
-    v105[0] = MEMORY[0x1E69E9820];
-    v105[1] = 3221225472;
-    v105[2] = __107__EDSearchableIndexPersistence_itemsToIndexForSearchableIndex_excludingIdentifiers_count_cancelationToken___block_invoke;
-    v105[3] = &unk_1E8251CB8;
-    v105[4] = selfCopy;
-    [database __performReadWithCaller:v14 usingBlock:v105];
+    v104[0] = MEMORY[0x1E69E9820];
+    v104[1] = 3221225472;
+    v104[2] = __107__EDSearchableIndexPersistence_itemsToIndexForSearchableIndex_excludingIdentifiers_count_cancelationToken___block_invoke;
+    v104[3] = &unk_1E8251CB8;
+    v104[4] = selfCopy;
+    [database __performReadWithCaller:v14 usingBlock:v104];
   }
 
   v15 = objc_alloc_init(MEMORY[0x1E695DF70]);
@@ -694,43 +678,43 @@ uint64_t __64__EDSearchableIndexPersistence_itemsToRemoveForSearchableIndex___bl
   aBlock[1] = 3221225472;
   aBlock[2] = __107__EDSearchableIndexPersistence_itemsToIndexForSearchableIndex_excludingIdentifiers_count_cancelationToken___block_invoke_420;
   aBlock[3] = &unk_1E8256FF8;
-  v71 = v15;
-  v103 = v71;
+  v70 = v15;
+  v102 = v70;
   countCopy = count;
-  v72 = _Block_copy(aBlock);
-  v79 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v81 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v71 = _Block_copy(aBlock);
+  v78 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v80 = objc_alloc_init(MEMORY[0x1E695DFA8]);
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v117 = __Block_byref_object_copy__39;
-  v118 = __Block_byref_object_dispose__39;
-  v119 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v116 = __Block_byref_object_copy__39;
+  v117 = __Block_byref_object_dispose__39;
+  v118 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v97 = 0u;
   v98 = 0u;
   v99 = 0u;
   v100 = 0u;
-  v101 = 0u;
   obj = identifiersCopy;
-  v16 = [obj countByEnumeratingWithState:&v98 objects:v115 count:16];
+  v16 = [obj countByEnumeratingWithState:&v97 objects:v114 count:16];
   if (v16)
   {
-    v17 = *v99;
+    v17 = *v98;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v99 != v17)
+        if (*v98 != v17)
         {
           objc_enumerationMutation(obj);
         }
 
-        v19 = *(*(&v98 + 1) + 8 * i);
+        v19 = *(*(&v97 + 1) + 8 * i);
         v20 = [EDSearchableIndexAttachmentItem attachmentPersistentIDFromItemIdentifier:v19];
         v21 = [EDSearchableIndexRichLinkItem richLinkItemIdentifierFromSearchableItemIdentifier:v19];
         v22 = v21;
         if (v20)
         {
-          [v81 addObject:v20];
+          [v80 addObject:v20];
         }
 
         else if (v21)
@@ -757,31 +741,31 @@ uint64_t __64__EDSearchableIndexPersistence_itemsToRemoveForSearchableIndex___bl
 
         else
         {
-          [v79 addObject:v19];
+          [v78 addObject:v19];
         }
       }
 
-      v16 = [obj countByEnumeratingWithState:&v98 objects:v115 count:16];
+      v16 = [obj countByEnumeratingWithState:&v97 objects:v114 count:16];
     }
 
     while (v16);
   }
 
-  v92[0] = MEMORY[0x1E69E9820];
-  v92[1] = 3221225472;
-  v92[2] = __107__EDSearchableIndexPersistence_itemsToIndexForSearchableIndex_excludingIdentifiers_count_cancelationToken___block_invoke_2;
-  v92[3] = &unk_1E8257020;
-  v31 = v72;
-  v97 = v31;
+  v91[0] = MEMORY[0x1E69E9820];
+  v91[1] = 3221225472;
+  v91[2] = __107__EDSearchableIndexPersistence_itemsToIndexForSearchableIndex_excludingIdentifiers_count_cancelationToken___block_invoke_2;
+  v91[3] = &unk_1E8257020;
+  v31 = v71;
+  v96 = v31;
   v32 = tokenCopy;
-  v93 = v32;
-  v94 = selfCopy;
-  v69 = v79;
-  v95 = v69;
-  v76 = v71;
-  v96 = v76;
-  [(EDSearchableIndexPersistence *)selfCopy _enumerateSearchableIndexMessageIndexingTypesUsingBlock:v92];
-  v74 = v31;
+  v92 = v32;
+  v93 = selfCopy;
+  v68 = v78;
+  v94 = v68;
+  v75 = v70;
+  v95 = v75;
+  [(EDSearchableIndexPersistence *)selfCopy _enumerateSearchableIndexMessageIndexingTypesUsingBlock:v91];
+  v73 = v31;
   v33 = v31[2](v31);
   if (v33 >= 0xC)
   {
@@ -797,12 +781,12 @@ uint64_t __64__EDSearchableIndexPersistence_itemsToRemoveForSearchableIndex___bl
   signpostID = [(EDSearchableIndexPersistence *)selfCopy signpostID];
   if (signpostID - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v35))
   {
-    LODWORD(v110) = 134217984;
-    *(&v110 + 4) = v34;
-    _os_signpost_emit_with_name_impl(&dword_1C61EF000, v35, OS_SIGNPOST_INTERVAL_BEGIN, signpostID, "EDSearchableIndexPersistenceWhileLoop", "limit=%ld", &v110, 0xCu);
+    LODWORD(v109) = 134217984;
+    *(&v109 + 4) = v34;
+    _os_signpost_emit_with_name_impl(&dword_1C61EF000, v35, OS_SIGNPOST_INTERVAL_BEGIN, signpostID, "EDSearchableIndexPersistenceWhileLoop", "limit=%ld", &v109, 0xCu);
   }
 
-  v75 = [MEMORY[0x1E695DF00] now];
+  v74 = [MEMORY[0x1E695DF00] now];
   do
   {
     if (!v34 || ([v32 isCanceled] & 1) != 0)
@@ -810,52 +794,52 @@ uint64_t __64__EDSearchableIndexPersistence_itemsToRemoveForSearchableIndex___bl
       break;
     }
 
-    *&v110 = 0;
-    *(&v110 + 1) = &v110;
-    v111 = 0x3032000000;
-    v112 = __Block_byref_object_copy__39;
-    v113 = __Block_byref_object_dispose__39;
-    v114 = 0;
+    *&v109 = 0;
+    *(&v109 + 1) = &v109;
+    v110 = 0x3032000000;
+    v111 = __Block_byref_object_copy__39;
+    v112 = __Block_byref_object_dispose__39;
+    v113 = 0;
     database2 = [(EDSearchableIndexPersistence *)selfCopy database];
     v38 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[EDSearchableIndexPersistence itemsToIndexForSearchableIndex:excludingIdentifiers:count:cancelationToken:]"];
-    v87[0] = MEMORY[0x1E69E9820];
-    v87[1] = 3221225472;
-    v87[2] = __107__EDSearchableIndexPersistence_itemsToIndexForSearchableIndex_excludingIdentifiers_count_cancelationToken___block_invoke_425;
-    v87[3] = &unk_1E8254100;
-    v91 = &v110;
-    v88 = v81;
-    v89 = selfCopy;
+    v86[0] = MEMORY[0x1E69E9820];
+    v86[1] = 3221225472;
+    v86[2] = __107__EDSearchableIndexPersistence_itemsToIndexForSearchableIndex_excludingIdentifiers_count_cancelationToken___block_invoke_425;
+    v86[3] = &unk_1E8254100;
+    v90 = &v109;
+    v87 = v80;
+    v88 = selfCopy;
     v39 = v32;
-    v90 = v39;
-    [database2 __performReadWithCaller:v38 usingBlock:v87];
+    v89 = v39;
+    [database2 __performReadWithCaller:v38 usingBlock:v86];
 
     v40 = +[EDSearchableIndexPersistence log];
     if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
     {
-      v41 = [*(*(&v110 + 1) + 40) count];
-      *v106 = 134217984;
-      v107 = *&v41;
-      _os_log_impl(&dword_1C61EF000, v40, OS_LOG_TYPE_DEFAULT, "Found item count:%lu for attachment indexing", v106, 0xCu);
+      v41 = [*(*(&v109 + 1) + 40) count];
+      *v105 = 134217984;
+      v106 = *&v41;
+      _os_log_impl(&dword_1C61EF000, v40, OS_LOG_TYPE_DEFAULT, "Found item count:%lu for attachment indexing", v105, 0xCu);
     }
 
-    if ([*(*(&v110 + 1) + 40) count] && (objc_msgSend(v39, "isCanceled") & 1) == 0)
+    if ([*(*(&v109 + 1) + 40) count] && (objc_msgSend(v39, "isCanceled") & 1) == 0)
     {
-      v43 = [(EDSearchableIndexPersistence *)selfCopy _attachmentItemsFromAttachmentData:*(*(&v110 + 1) + 40) limit:v34 cancelationToken:v39];
+      v43 = [(EDSearchableIndexPersistence *)selfCopy _attachmentItemsFromAttachmentData:*(*(&v109 + 1) + 40) limit:v34 cancelationToken:v39];
       v44 = [v43 count];
       v45 = +[EDSearchableIndexPersistence log];
       if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
       {
-        v46 = [*(*(&v110 + 1) + 40) count];
-        *v106 = 134218240;
-        v107 = *&v44;
-        v108 = 2048;
-        v109 = v46;
-        _os_log_impl(&dword_1C61EF000, v45, OS_LOG_TYPE_DEFAULT, "Generated %lu attachment items from %lu attachment data", v106, 0x16u);
+        v46 = [*(*(&v109 + 1) + 40) count];
+        *v105 = 134218240;
+        v106 = *&v44;
+        v107 = 2048;
+        v108 = v46;
+        _os_log_impl(&dword_1C61EF000, v45, OS_LOG_TYPE_DEFAULT, "Generated %lu attachment items from %lu attachment data", v105, 0x16u);
       }
 
       if (v44)
       {
-        [v76 addObjectsFromArray:v43];
+        [v75 addObjectsFromArray:v43];
         if (v34 >= v44)
         {
           v34 -= v44;
@@ -868,7 +852,7 @@ uint64_t __64__EDSearchableIndexPersistence_itemsToRemoveForSearchableIndex___bl
       }
 
       v47 = [MEMORY[0x1E695DF00] now];
-      [v47 timeIntervalSinceDate:v75];
+      [v47 timeIntervalSinceDate:v74];
       v49 = v48;
 
       v42 = v49 < 5.0;
@@ -878,9 +862,9 @@ uint64_t __64__EDSearchableIndexPersistence_itemsToRemoveForSearchableIndex___bl
         v50 = +[EDSearchableIndexPersistence log];
         if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
         {
-          *v106 = 134217984;
-          v107 = v49;
-          _os_log_error_impl(&dword_1C61EF000, v50, OS_LOG_TYPE_ERROR, "Taking too long to find attachmentItems after:%f", v106, 0xCu);
+          *v105 = 134217984;
+          v106 = v49;
+          _os_log_error_impl(&dword_1C61EF000, v50, OS_LOG_TYPE_ERROR, "Taking too long to find attachmentItems after:%f", v105, 0xCu);
         }
       }
     }
@@ -890,7 +874,7 @@ uint64_t __64__EDSearchableIndexPersistence_itemsToRemoveForSearchableIndex___bl
       v42 = 0;
     }
 
-    _Block_object_dispose(&v110, 8);
+    _Block_object_dispose(&v109, 8);
   }
 
   while (v42);
@@ -898,12 +882,12 @@ uint64_t __64__EDSearchableIndexPersistence_itemsToRemoveForSearchableIndex___bl
   signpostID2 = [(EDSearchableIndexPersistence *)selfCopy signpostID];
   if (signpostID2 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v51))
   {
-    LOWORD(v110) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C61EF000, v51, OS_SIGNPOST_INTERVAL_END, signpostID2, "EDSearchableIndexPersistenceWhileLoop", "", &v110, 2u);
+    LOWORD(v109) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1C61EF000, v51, OS_SIGNPOST_INTERVAL_END, signpostID2, "EDSearchableIndexPersistenceWhileLoop", "", &v109, 2u);
   }
 
-  v53 = v74[2]();
-  v77 = [MEMORY[0x1E695DF00] now];
+  v53 = v73[2]();
+  v76 = [MEMORY[0x1E695DF00] now];
   if (v53 >= 0xC)
   {
     v53 = 12;
@@ -916,53 +900,48 @@ uint64_t __64__EDSearchableIndexPersistence_itemsToRemoveForSearchableIndex___bl
       break;
     }
 
-    *&v110 = 0;
-    *(&v110 + 1) = &v110;
-    v111 = 0x3032000000;
-    v112 = __Block_byref_object_copy__39;
-    v113 = __Block_byref_object_dispose__39;
-    v114 = 0;
+    *&v109 = 0;
+    *(&v109 + 1) = &v109;
+    v110 = 0x3032000000;
+    v111 = __Block_byref_object_copy__39;
+    v112 = __Block_byref_object_dispose__39;
+    v113 = 0;
     database3 = [(EDSearchableIndexPersistence *)selfCopy database];
     v55 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[EDSearchableIndexPersistence itemsToIndexForSearchableIndex:excludingIdentifiers:count:cancelationToken:]"];
-    v83[0] = MEMORY[0x1E69E9820];
-    v83[1] = 3221225472;
-    v83[2] = __107__EDSearchableIndexPersistence_itemsToIndexForSearchableIndex_excludingIdentifiers_count_cancelationToken___block_invoke_426;
-    v83[3] = &unk_1E8257048;
-    v85 = &v110;
-    v86 = buf;
+    v82[0] = MEMORY[0x1E69E9820];
+    v82[1] = 3221225472;
+    v82[2] = __107__EDSearchableIndexPersistence_itemsToIndexForSearchableIndex_excludingIdentifiers_count_cancelationToken___block_invoke_426;
+    v82[3] = &unk_1E8257048;
+    v84 = &v109;
+    v85 = buf;
     v56 = v32;
-    v84 = v56;
-    [database3 __performReadWithCaller:v55 usingBlock:v83];
+    v83 = v56;
+    [database3 __performReadWithCaller:v55 usingBlock:v82];
 
-    if (![*(*(&v110 + 1) + 40) count])
+    if ([*(*(&v109 + 1) + 40) count] && (objc_msgSend(v56, "isCanceled") & 1) == 0)
     {
-      goto LABEL_58;
-    }
-
-    if (([v56 isCanceled] & 1) == 0)
-    {
-      v58 = [(EDSearchableIndexPersistence *)selfCopy _richLinkItemsFromRichLinkData:*(*(&v110 + 1) + 40) limit:v53 cancelationToken:v56];
+      v58 = [(EDSearchableIndexPersistence *)selfCopy _richLinkItemsFromRichLinkData:*(*(&v109 + 1) + 40) limit:v53 cancelationToken:v56];
       v59 = [v58 count];
       v60 = +[EDSearchableIndexPersistence log];
       if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
       {
         v61 = [v58 count];
-        *v106 = 134218240;
-        v107 = *&v59;
-        v108 = 2048;
-        v109 = v61;
-        _os_log_impl(&dword_1C61EF000, v60, OS_LOG_TYPE_DEFAULT, "Generated %lu rich link items from %lu rich link data", v106, 0x16u);
+        *v105 = 134218240;
+        v106 = *&v59;
+        v107 = 2048;
+        v108 = v61;
+        _os_log_impl(&dword_1C61EF000, v60, OS_LOG_TYPE_DEFAULT, "Generated %lu rich link items from %lu rich link data", v105, 0x16u);
       }
 
       if (v59)
       {
-        [v76 addObjectsFromArray:v58];
-        v82[0] = MEMORY[0x1E69E9820];
-        v82[1] = 3221225472;
-        v82[2] = __107__EDSearchableIndexPersistence_itemsToIndexForSearchableIndex_excludingIdentifiers_count_cancelationToken___block_invoke_427;
-        v82[3] = &unk_1E8257070;
-        v82[4] = buf;
-        [v58 enumerateObjectsUsingBlock:v82];
+        [v75 addObjectsFromArray:v58];
+        v81[0] = MEMORY[0x1E69E9820];
+        v81[1] = 3221225472;
+        v81[2] = __107__EDSearchableIndexPersistence_itemsToIndexForSearchableIndex_excludingIdentifiers_count_cancelationToken___block_invoke_427;
+        v81[3] = &unk_1E8257070;
+        v81[4] = buf;
+        [v58 enumerateObjectsUsingBlock:v81];
         if (v53 >= v59)
         {
           v53 -= v59;
@@ -975,7 +954,7 @@ uint64_t __64__EDSearchableIndexPersistence_itemsToRemoveForSearchableIndex___bl
       }
 
       v62 = [MEMORY[0x1E695DF00] now];
-      [v62 timeIntervalSinceDate:v77];
+      [v62 timeIntervalSinceDate:v76];
       v64 = v63;
 
       v57 = v64 < 5.0;
@@ -985,27 +964,25 @@ uint64_t __64__EDSearchableIndexPersistence_itemsToRemoveForSearchableIndex___bl
         v65 = +[EDSearchableIndexPersistence log];
         if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
         {
-          *v106 = 134217984;
-          v107 = v64;
-          _os_log_error_impl(&dword_1C61EF000, v65, OS_LOG_TYPE_ERROR, "Taking too long to find rich link items after:%f", v106, 0xCu);
+          *v105 = 134217984;
+          v106 = v64;
+          _os_log_error_impl(&dword_1C61EF000, v65, OS_LOG_TYPE_ERROR, "Taking too long to find rich link items after:%f", v105, 0xCu);
         }
       }
     }
 
     else
     {
-LABEL_58:
       v57 = 0;
     }
 
-    _Block_object_dispose(&v110, 8);
+    _Block_object_dispose(&v109, 8);
   }
 
   while (v57);
-  v66 = v76;
+  v66 = v75;
 
   _Block_object_dispose(buf, 8);
-  v67 = *MEMORY[0x1E69E9840];
 
   return v66;
 }
@@ -1051,16 +1028,16 @@ unint64_t __107__EDSearchableIndexPersistence_itemsToIndexForSearchableIndex_exc
   }
 }
 
-uint64_t __107__EDSearchableIndexPersistence_itemsToIndexForSearchableIndex_excludingIdentifiers_count_cancelationToken___block_invoke_2(uint64_t a1, uint64_t a2)
+unint64_t __107__EDSearchableIndexPersistence_itemsToIndexForSearchableIndex_excludingIdentifiers_count_cancelationToken___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   result = (*(*(a1 + 64) + 16))();
   if (result)
   {
     v5 = result;
     if ([*(a1 + 32) isCanceled])
     {
-      result = 0;
+      return 0;
     }
 
     else
@@ -1078,13 +1055,13 @@ uint64_t __107__EDSearchableIndexPersistence_itemsToIndexForSearchableIndex_excl
       v10 = [*(a1 + 40) signpostID];
       if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
       {
-        v15 = 134218496;
-        v16 = a2;
-        v17 = 2048;
-        v18 = v5;
-        v19 = 1024;
-        v20 = [MEMORY[0x1E699B858] bucketMessageCount:v7];
-        _os_signpost_emit_with_name_impl(&dword_1C61EF000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v10, "EDSearchableIndexPersistenceMessagesToItems", "type=%ld limit=%lu messageCount=%u", &v15, 0x1Cu);
+        v14 = 134218496;
+        v15 = a2;
+        v16 = 2048;
+        v17 = v5;
+        v18 = 1024;
+        v19 = [MEMORY[0x1E699B858] bucketMessageCount:v7];
+        _os_signpost_emit_with_name_impl(&dword_1C61EF000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v10, "EDSearchableIndexPersistenceMessagesToItems", "type=%ld limit=%lu messageCount=%u", &v14, 0x1Cu);
       }
 
       v11 = [*(a1 + 40) searchableIndexItemsFromMessages:v6 type:a2];
@@ -1092,16 +1069,15 @@ uint64_t __107__EDSearchableIndexPersistence_itemsToIndexForSearchableIndex_excl
       v13 = [*(a1 + 40) signpostID];
       if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
       {
-        LOWORD(v15) = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C61EF000, v12, OS_SIGNPOST_INTERVAL_END, v13, "EDSearchableIndexPersistenceMessagesToItems", "", &v15, 2u);
+        LOWORD(v14) = 0;
+        _os_signpost_emit_with_name_impl(&dword_1C61EF000, v12, OS_SIGNPOST_INTERVAL_END, v13, "EDSearchableIndexPersistenceMessagesToItems", "", &v14, 2u);
       }
 
       [*(a1 + 56) addObjectsFromArray:v11];
-      result = 1;
+      return 1;
     }
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -1191,7 +1167,7 @@ uint64_t __73__EDSearchableIndexPersistence_selectMessageIDsFromBacklogWithBatch
 
 - (id)_messagesRequiringIndexingForType:(int64_t)type excludingIdentifiers:(id)identifiers limit:(int64_t)limit
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v8 = [identifiers componentsJoinedByString:{@", "}];
   v9 = 0;
   v10 = 0;
@@ -1249,7 +1225,7 @@ LABEL_10:
     {
       *buf = 134218240;
       typeCopy = type;
-      v26 = 2048;
+      v25 = 2048;
       limitCopy = limit;
       _os_signpost_emit_with_name_impl(&dword_1C61EF000, v15, OS_SIGNPOST_INTERVAL_BEGIN, signpostID, "EDSearchableIndexPersistenceMessagesForIndexing", "type=%ld limit=%ld", buf, 0x16u);
     }
@@ -1281,8 +1257,6 @@ LABEL_10:
       _os_log_impl(&dword_1C61EF000, v21, OS_LOG_TYPE_DEFAULT, "Reindex complete. Switching to EDSearchableIndexRebuildTableStateUseDefaultQuery state", buf, 2u);
     }
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return v20;
 }
@@ -1693,7 +1667,7 @@ uint64_t __85__EDSearchableIndexPersistence_searchableIndex_messagesNeedToBeDona
 
 - (void)searchableIndex:(id)index invalidateItemsGreaterThanTransaction:(int64_t)transaction
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v6 = +[EDSearchableIndexPersistence log];
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
@@ -1704,15 +1678,13 @@ uint64_t __85__EDSearchableIndexPersistence_searchableIndex_messagesNeedToBeDona
 
   database = [(EDSearchableIndexPersistence *)self database];
   v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[EDSearchableIndexPersistence searchableIndex:invalidateItemsGreaterThanTransaction:]"];
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __86__EDSearchableIndexPersistence_searchableIndex_invalidateItemsGreaterThanTransaction___block_invoke;
-  v10[3] = &unk_1E82503F0;
-  v10[4] = self;
-  v10[5] = transaction;
-  [database __performWriteWithCaller:v8 usingBlock:v10];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __86__EDSearchableIndexPersistence_searchableIndex_invalidateItemsGreaterThanTransaction___block_invoke;
+  v9[3] = &unk_1E82503F0;
+  v9[4] = self;
+  v9[5] = transaction;
+  [database __performWriteWithCaller:v8 usingBlock:v9];
 }
 
 uint64_t __86__EDSearchableIndexPersistence_searchableIndex_invalidateItemsGreaterThanTransaction___block_invoke(uint64_t a1, void *a2)
@@ -1781,36 +1753,34 @@ uint64_t __78__EDSearchableIndexPersistence_searchableIndex_invalidateItemsInTra
 
 - (void)searchableIndex:(id)index prepareToIndexAttachmentsForMessageWithIdentifier:(id)identifier
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v6 = +[EDSearchableIndexPersistence log];
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v15 = identifierCopy;
+    v14 = identifierCopy;
     _os_log_impl(&dword_1C61EF000, v6, OS_LOG_TYPE_DEFAULT, "Clearing existing searchable_attachment entries for message_id %@", buf, 0xCu);
   }
 
   database = [(EDSearchableIndexPersistence *)self database];
   v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[EDSearchableIndexPersistence searchableIndex:prepareToIndexAttachmentsForMessageWithIdentifier:]"];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __98__EDSearchableIndexPersistence_searchableIndex_prepareToIndexAttachmentsForMessageWithIdentifier___block_invoke;
-  v12[3] = &unk_1E8251CB8;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __98__EDSearchableIndexPersistence_searchableIndex_prepareToIndexAttachmentsForMessageWithIdentifier___block_invoke;
+  v11[3] = &unk_1E8251CB8;
   v9 = identifierCopy;
-  v13 = v9;
-  [database __performWriteWithCaller:v8 usingBlock:v12];
+  v12 = v9;
+  [database __performWriteWithCaller:v8 usingBlock:v11];
 
   [(EDSearchableIndexPersistence *)self setLastProcessedAttachmentID:0];
   v10 = +[EDSearchableIndexPersistence log];
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v15 = v9;
+    v14 = v9;
     _os_log_impl(&dword_1C61EF000, v10, OS_LOG_TYPE_DEFAULT, "SearchableIndex is preparing to index attachments for message with identifier: %{public}@", buf, 0xCu);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)verificationDataSamplesForSearchableIndex:(id)index count:(unint64_t)count lastVerifiedMessageID:(int64_t)d
@@ -1885,7 +1855,7 @@ uint64_t __73__EDSearchableIndexPersistence_distinctTransactionIDsForSearchableI
 
 - (void)clearOrphanedSearchableMessagesFromDatabase
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = +[EDSearchableIndexPersistence signpostLog];
   v4 = os_signpost_id_generate(v3);
 
@@ -1898,53 +1868,51 @@ uint64_t __73__EDSearchableIndexPersistence_distinctTransactionIDsForSearchableI
   }
 
   *buf = 0;
-  v15 = buf;
-  v16 = 0x2020000000;
-  v17 = 0;
+  v14 = buf;
+  v15 = 0x2020000000;
+  v16 = 0;
   database = [(EDSearchableIndexPersistence *)self database];
   v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[EDSearchableIndexPersistence clearOrphanedSearchableMessagesFromDatabase]"];
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __75__EDSearchableIndexPersistence_clearOrphanedSearchableMessagesFromDatabase__block_invoke;
-  v13[3] = &unk_1E8251DA0;
-  v13[4] = buf;
-  [database __performWriteWithCaller:v8 usingBlock:v13];
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __75__EDSearchableIndexPersistence_clearOrphanedSearchableMessagesFromDatabase__block_invoke;
+  v12[3] = &unk_1E8251DA0;
+  v12[4] = buf;
+  [database __performWriteWithCaller:v8 usingBlock:v12];
 
   v9 = +[EDSearchableIndexPersistence signpostLog];
   v10 = v9;
   if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
   {
-    v11 = *(v15 + 3);
-    *v18 = 134349056;
-    v19 = v11;
-    _os_signpost_emit_with_name_impl(&dword_1C61EF000, v10, OS_SIGNPOST_INTERVAL_END, v4, "EDSearchableIndexPersistenceOrphanedValues", "SpotlightVerificationOrphanedValues=%{public,signpost.telemetry:number1}lu enableTelemetry=YES ", v18, 0xCu);
+    v11 = *(v14 + 3);
+    *v17 = 134349056;
+    v18 = v11;
+    _os_signpost_emit_with_name_impl(&dword_1C61EF000, v10, OS_SIGNPOST_INTERVAL_END, v4, "EDSearchableIndexPersistenceOrphanedValues", "SpotlightVerificationOrphanedValues=%{public,signpost.telemetry:number1}lu enableTelemetry=YES ", v17, 0xCu);
   }
 
   _Block_object_dispose(buf, 8);
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __75__EDSearchableIndexPersistence_clearOrphanedSearchableMessagesFromDatabase__block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   *(*(*(a1 + 32) + 8) + 24) = [(EDPersistenceDatabaseConnection *)v3 clearReferencesToMissingSearchableMessages];
   v4 = +[EDSearchableIndexPersistence log];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(*(*(a1 + 32) + 8) + 24);
-    v8 = 134217984;
-    v9 = v5;
-    _os_log_impl(&dword_1C61EF000, v4, OS_LOG_TYPE_DEFAULT, "Setting %lu orphaned searchable_message values to NULL", &v8, 0xCu);
+    v7 = 134217984;
+    v8 = v5;
+    _os_log_impl(&dword_1C61EF000, v4, OS_LOG_TYPE_DEFAULT, "Setting %lu orphaned searchable_message values to NULL", &v7, 0xCu);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
 - (void)queueRedonationForDownloadedMessagesWithUnindexedBodies
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   v2 = +[EDSearchableIndexPersistence signpostLog];
   spid = os_signpost_id_generate(v2);
 
@@ -1957,8 +1925,8 @@ uint64_t __75__EDSearchableIndexPersistence_clearOrphanedSearchableMessagesFromD
   }
 
   date = [MEMORY[0x1E695DF00] date];
+  v32 = 0;
   v33 = 0;
-  v34 = 0;
   longLongValue = *MEMORY[0x1E699A728];
   do
   {
@@ -1966,44 +1934,44 @@ uint64_t __75__EDSearchableIndexPersistence_clearOrphanedSearchableMessagesFromD
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v43 = __Block_byref_object_copy__39;
-    v44 = __Block_byref_object_dispose__39;
-    v45 = 0;
+    v42 = __Block_byref_object_copy__39;
+    v43 = __Block_byref_object_dispose__39;
+    v44 = 0;
     database = [(EDSearchableIndexPersistence *)self database];
     v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[EDSearchableIndexPersistence queueRedonationForDownloadedMessagesWithUnindexedBodies]"];
-    v40[0] = MEMORY[0x1E69E9820];
-    v40[1] = 3221225472;
-    v40[2] = __87__EDSearchableIndexPersistence_queueRedonationForDownloadedMessagesWithUnindexedBodies__block_invoke;
-    v40[3] = &unk_1E8251CE0;
-    v40[4] = buf;
-    v40[5] = longLongValue;
-    v40[6] = 200;
-    [database __performReadWithCaller:v8 usingBlock:v40];
+    v39[0] = MEMORY[0x1E69E9820];
+    v39[1] = 3221225472;
+    v39[2] = __87__EDSearchableIndexPersistence_queueRedonationForDownloadedMessagesWithUnindexedBodies__block_invoke;
+    v39[3] = &unk_1E8251CE0;
+    v39[4] = buf;
+    v39[5] = longLongValue;
+    v39[6] = 200;
+    [database __performReadWithCaller:v8 usingBlock:v39];
 
     v9 = [*(*&buf[8] + 40) count];
     if (v9)
     {
       v10 = objc_opt_new();
       v11 = [(EDMessagePersistence *)self->_messagePersistence persistedMessagesForDatabaseIDs:*(*&buf[8] + 40) requireProtectedData:0 temporarilyUnavailableDatabaseIDs:0];
-      v38 = 0u;
-      v39 = 0u;
-      v36 = 0u;
       v37 = 0u;
+      v38 = 0u;
+      v35 = 0u;
+      v36 = 0u;
       v12 = v11;
-      v13 = [v12 countByEnumeratingWithState:&v36 objects:v41 count:16];
+      v13 = [v12 countByEnumeratingWithState:&v35 objects:v40 count:16];
       if (v13)
       {
-        v14 = *v37;
+        v14 = *v36;
         do
         {
           for (i = 0; i != v13; ++i)
           {
-            if (*v37 != v14)
+            if (*v36 != v14)
             {
               objc_enumerationMutation(v12);
             }
 
-            v16 = *(*(&v36 + 1) + 8 * i);
+            v16 = *(*(&v35 + 1) + 8 * i);
             if ([v16 isMessageContentLocallyAvailable])
             {
               persistedMessageID = [v16 persistedMessageID];
@@ -2012,7 +1980,7 @@ uint64_t __75__EDSearchableIndexPersistence_clearOrphanedSearchableMessagesFromD
             }
           }
 
-          v13 = [v12 countByEnumeratingWithState:&v36 objects:v41 count:16];
+          v13 = [v12 countByEnumeratingWithState:&v35 objects:v40 count:16];
         }
 
         while (v13);
@@ -2024,8 +1992,8 @@ uint64_t __75__EDSearchableIndexPersistence_clearOrphanedSearchableMessagesFromD
       lastObject = [*(*&buf[8] + 40) lastObject];
       longLongValue = [lastObject longLongValue];
 
-      v34 += v19;
-      v33 = (v33 + v20);
+      v33 += v19;
+      v32 = (v32 + v20);
     }
 
     _Block_object_dispose(buf, 8);
@@ -2041,14 +2009,14 @@ uint64_t __75__EDSearchableIndexPersistence_clearOrphanedSearchableMessagesFromD
   v25 = +[EDSearchableIndexPersistence log];
   if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
   {
-    v26 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v34];
-    v27 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v33];
+    v26 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v33];
+    v27 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v32];
     *buf = 138412802;
     *&buf[4] = v26;
     *&buf[12] = 2048;
     *&buf[14] = v24;
     *&buf[22] = 2112;
-    v43 = v27;
+    v42 = v27;
     _os_log_impl(&dword_1C61EF000, v25, OS_LOG_TYPE_DEFAULT, "Found %@ messages with unindexed bodies in %0.2f seconds. %@ are available locally.", buf, 0x20u);
   }
 
@@ -2059,13 +2027,11 @@ uint64_t __75__EDSearchableIndexPersistence_clearOrphanedSearchableMessagesFromD
     *buf = 134218496;
     *&buf[4] = v24;
     *&buf[12] = 2048;
-    *&buf[14] = v34;
+    *&buf[14] = v33;
     *&buf[22] = 2048;
-    v43 = v33;
+    v42 = v32;
     _os_signpost_emit_with_name_impl(&dword_1C61EF000, v29, OS_SIGNPOST_INTERVAL_END, spid, "EDSearchableIndexPersistenceUnindexedBodies", "duration: %g, unindexed: %llu , available: %llu", buf, 0x20u);
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __87__EDSearchableIndexPersistence_queueRedonationForDownloadedMessagesWithUnindexedBodies__block_invoke(void *a1, void *a2)
@@ -2099,98 +2065,97 @@ void __68__EDSearchableIndexPersistence__searchableIndexMessageIndexingTypes__bl
 
 - (void)_enumerateSearchableIndexMessageIndexingTypesUsingBlock:(id)block
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   _searchableIndexMessageIndexingTypes = [(EDSearchableIndexPersistence *)self _searchableIndexMessageIndexingTypes];
   v6 = [_searchableIndexMessageIndexingTypes count];
-  v15 = -86;
+  v14 = -86;
   v7 = atomic_load(&self->_currentIndexingTypeIndex);
-  v15 = v7;
-  v8 = atomic_load(&v15);
+  v14 = v7;
+  v8 = atomic_load(&v14);
   while (1)
   {
-    v9 = atomic_load(&v15);
+    v9 = atomic_load(&v14);
     v10 = [_searchableIndexMessageIndexingTypes objectAtIndexedSubscript:v9];
     if ((blockCopy[2](blockCopy, [v10 integerValue]) & 1) == 0)
     {
       break;
     }
 
-    if (v6 <= (atomic_fetch_add(&v15, 1u) + 1))
+    if (v6 <= (atomic_fetch_add(&v14, 1u) + 1))
     {
-      atomic_store(0, &v15);
+      atomic_store(0, &v14);
     }
 
-    v11 = atomic_load(&v15);
+    v11 = atomic_load(&v14);
     if (v11 == v8)
     {
       goto LABEL_10;
     }
   }
 
-  v12 = atomic_load(&v15);
+  v12 = atomic_load(&v14);
   atomic_store(v12, &self->_currentIndexingTypeIndex);
   v13 = +[EDSearchableIndexPersistence log];
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v17 = v10;
+    v16 = v10;
     _os_log_impl(&dword_1C61EF000, v13, OS_LOG_TYPE_DEFAULT, "Did not finish indexing all types. Starting with type %{public}@ next time.", buf, 0xCu);
   }
 
 LABEL_10:
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_assignIndexedItems:(id)items connection:(id)connection query:(id)query indexedBindingsGenerator:(id)generator
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
   connectionCopy = connection;
   queryCopy = query;
   generatorCopy = generator;
-  v28 = itemsCopy;
+  v27 = itemsCopy;
   if ([itemsCopy count])
   {
-    v30 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v29 = objc_alloc_init(MEMORY[0x1E695DF70]);
     v10 = [connectionCopy preparedStatementForQueryString:queryCopy];
-    v39 = 0u;
-    v40 = 0u;
-    v37 = 0u;
     v38 = 0u;
+    v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
     obj = itemsCopy;
-    v11 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
+    v11 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
     if (!v11)
     {
       goto LABEL_15;
     }
 
-    v34 = *v38;
-    v32 = *MEMORY[0x1E699B770];
+    v33 = *v37;
+    v31 = *MEMORY[0x1E699B770];
     while (1)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v38 != v34)
+        if (*v37 != v33)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v37 + 1) + 8 * i);
+        v13 = *(*(&v36 + 1) + 8 * i);
         v14 = MEMORY[0x1E696AD98];
         messageID = [v13 messageID];
         v16 = [v14 numberWithLongLong:{objc_msgSend(messageID, "databaseID")}];
 
         v17 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v13, "hasBodyData")}];
         v18 = generatorCopy[2](generatorCopy, v16, v17);
-        v36 = 0;
-        v19 = [v10 executeWithIndexedBindings:v18 usingBlock:0 error:&v36];
-        v20 = v36;
+        v35 = 0;
+        v19 = [v10 executeWithIndexedBindings:v18 usingBlock:0 error:&v35];
+        v20 = v35;
         v21 = v20;
         if ((v19 & 1) == 0)
         {
           domain = [v20 domain];
-          if ([domain isEqualToString:v32])
+          if ([domain isEqualToString:v31])
           {
             v23 = [v21 code] == 19;
 
@@ -2198,7 +2163,7 @@ LABEL_10:
             {
               messageID2 = [v13 messageID];
               stringValue = [messageID2 stringValue];
-              [v30 addObject:stringValue];
+              [v29 addObject:stringValue];
 
               goto LABEL_13;
             }
@@ -2216,7 +2181,7 @@ LABEL_13:
         [v10 resetWithError:0];
       }
 
-      v11 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
+      v11 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
       if (!v11)
       {
 LABEL_15:
@@ -2226,66 +2191,64 @@ LABEL_15:
     }
   }
 
-  v30 = MEMORY[0x1E695E0F0];
+  v29 = MEMORY[0x1E695E0F0];
 LABEL_17:
 
-  v26 = *MEMORY[0x1E69E9840];
-
-  return v30;
+  return v29;
 }
 
 - (id)_assignIndexedItems:(id)items transaction:(int64_t)transaction connection:(id)connection
 {
-  v75 = *MEMORY[0x1E69E9840];
+  v74 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
   connectionCopy = connection;
-  v60 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v61 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v59 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v60 = objc_alloc_init(MEMORY[0x1E695DFA8]);
   messages = [itemsCopy messages];
   v8 = [messages count];
 
   if (v8)
   {
-    v56 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"INSERT OR REPLACE INTO searchable_messages (message_id, message, transaction_id, reindex_type, message_body_indexed) VALUES (?, ?, %lld, %ld, ?)", transaction, 0];
+    v55 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"INSERT OR REPLACE INTO searchable_messages (message_id, message, transaction_id, reindex_type, message_body_indexed) VALUES (?, ?, %lld, %ld, ?)", transaction, 0];
     aBlock[0] = MEMORY[0x1E69E9820];
     aBlock[1] = 3221225472;
     aBlock[2] = __75__EDSearchableIndexPersistence__assignIndexedItems_transaction_connection___block_invoke;
     aBlock[3] = &unk_1E82570C0;
-    v71 = v61;
-    v57 = _Block_copy(aBlock);
+    v70 = v60;
+    v56 = _Block_copy(aBlock);
     messages2 = [itemsCopy messages];
-    v10 = [(EDSearchableIndexPersistence *)self _assignIndexedItems:messages2 connection:connectionCopy query:v56 indexedBindingsGenerator:v57];
+    v10 = [(EDSearchableIndexPersistence *)self _assignIndexedItems:messages2 connection:connectionCopy query:v55 indexedBindingsGenerator:v56];
 
-    [v60 addObjectsFromArray:v10];
+    [v59 addObjectsFromArray:v10];
     if ([(EDSearchableIndexPersistence *)self rebuildIndexState]== 1)
     {
       v11 = objc_alloc_init(MEMORY[0x1E695DF70]);
-      v68 = 0u;
-      v69 = 0u;
-      v66 = 0u;
       v67 = 0u;
+      v68 = 0u;
+      v65 = 0u;
+      v66 = 0u;
       messages3 = [itemsCopy messages];
-      v13 = [messages3 countByEnumeratingWithState:&v66 objects:v74 count:16];
+      v13 = [messages3 countByEnumeratingWithState:&v65 objects:v73 count:16];
       if (v13)
       {
-        v14 = *v67;
+        v14 = *v66;
         do
         {
           for (i = 0; i != v13; ++i)
           {
-            if (*v67 != v14)
+            if (*v66 != v14)
             {
               objc_enumerationMutation(messages3);
             }
 
             v16 = MEMORY[0x1E696AD98];
-            messageID = [*(*(&v66 + 1) + 8 * i) messageID];
+            messageID = [*(*(&v65 + 1) + 8 * i) messageID];
             v18 = [v16 numberWithLongLong:{objc_msgSend(messageID, "databaseID")}];
 
             [v11 addObject:v18];
           }
 
-          v13 = [messages3 countByEnumeratingWithState:&v66 objects:v74 count:16];
+          v13 = [messages3 countByEnumeratingWithState:&v65 objects:v73 count:16];
         }
 
         while (v13);
@@ -2295,9 +2258,9 @@ LABEL_17:
       v20 = [v19 in:v11];
 
       v21 = [objc_alloc(MEMORY[0x1E699B8E8]) initWithTable:@"searchable_rebuild" where:v20];
-      v65 = 0;
-      v22 = [connectionCopy executeDeleteStatement:v21 error:&v65];
-      v23 = v65;
+      v64 = 0;
+      v22 = [connectionCopy executeDeleteStatement:v21 error:&v64];
+      v23 = v64;
       if ((v22 & 1) == 0)
       {
         [connectionCopy handleError:v23 message:@"Deleting from searchable_rebuild table"];
@@ -2311,19 +2274,19 @@ LABEL_17:
   if (v25)
   {
     v26 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"INSERT OR REPLACE INTO searchable_messages (message_id, message, transaction_id, reindex_type, message_body_indexed) VALUES (?, ?, %lld, %ld, COALESCE((SELECT message_body_indexed FROM searchable_messages WHERE message_id = ?), ?))", transaction, 0];
-    v63[0] = MEMORY[0x1E69E9820];
-    v63[1] = 3221225472;
-    v63[2] = __75__EDSearchableIndexPersistence__assignIndexedItems_transaction_connection___block_invoke_2;
-    v63[3] = &unk_1E82570C0;
-    v64 = v61;
-    v27 = _Block_copy(v63);
+    v62[0] = MEMORY[0x1E69E9820];
+    v62[1] = 3221225472;
+    v62[2] = __75__EDSearchableIndexPersistence__assignIndexedItems_transaction_connection___block_invoke_2;
+    v62[3] = &unk_1E82570C0;
+    v63 = v60;
+    v27 = _Block_copy(v62);
     updatedMessages2 = [itemsCopy updatedMessages];
     v29 = [(EDSearchableIndexPersistence *)self _assignIndexedItems:updatedMessages2 connection:connectionCopy query:v26 indexedBindingsGenerator:v27];
 
-    [v60 addObjectsFromArray:v29];
+    [v59 addObjectsFromArray:v29];
   }
 
-  if ([v61 count])
+  if ([v60 count])
   {
     v30 = objc_alloc(MEMORY[0x1E699B960]);
     v31 = +[EDMessagePersistence messagesTableName];
@@ -2331,7 +2294,7 @@ LABEL_17:
 
     v33 = [MEMORY[0x1E699B8C8] column:@"ROWID"];
     [v32 setObject:v33 forKeyedSubscript:@"searchable_message"];
-    v34 = [v33 in:v61];
+    v34 = [v33 in:v60];
     [v32 setWhereClause:v34];
 
     [connectionCopy executeUpdateStatement:v32 error:0];
@@ -2349,14 +2312,14 @@ LABEL_17:
       attachments2 = [itemsCopy attachments];
       v40 = [v38 numberWithUnsignedInteger:{objc_msgSend(attachments2, "count")}];
       *buf = 138412290;
-      v73 = v40;
+      v72 = v40;
       _os_log_impl(&dword_1C61EF000, v37, OS_LOG_TYPE_DEFAULT, "Inserting %@ attachment items into the searchable_attachments table", buf, 0xCu);
     }
 
     attachments3 = [itemsCopy attachments];
     v42 = [(EDPersistenceDatabaseConnection *)connectionCopy assignIndexedAttachmentItems:attachments3 transaction:transaction];
 
-    [v60 addObjectsFromArray:v42];
+    [v59 addObjectsFromArray:v42];
   }
 
   richLinks = [itemsCopy richLinks];
@@ -2371,14 +2334,14 @@ LABEL_17:
       richLinks2 = [itemsCopy richLinks];
       v48 = [v46 numberWithUnsignedInteger:{objc_msgSend(richLinks2, "count")}];
       *buf = 138412290;
-      v73 = v48;
+      v72 = v48;
       _os_log_impl(&dword_1C61EF000, v45, OS_LOG_TYPE_DEFAULT, "Inserting %@ rich link items into the searchable_rich_links table", buf, 0xCu);
     }
 
     richLinks3 = [itemsCopy richLinks];
     v50 = [(EDPersistenceDatabaseConnection *)connectionCopy assignIndexedRichLinkItems:richLinks3 transaction:transaction];
 
-    [v60 addObjectsFromArray:v50];
+    [v59 addObjectsFromArray:v50];
   }
 
   dataDetectionItems = [itemsCopy dataDetectionItems];
@@ -2390,72 +2353,66 @@ LABEL_17:
     [(EDSearchableIndexPersistence *)self _assignIndexedDataDetectionItems:dataDetectionItems2 transaction:transaction connection:connectionCopy];
   }
 
-  v54 = *MEMORY[0x1E69E9840];
-
-  return v60;
+  return v59;
 }
 
 id __75__EDSearchableIndexPersistence__assignIndexedItems_transaction_connection___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v10[3] = *MEMORY[0x1E69E9840];
+  v9[3] = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   [*(a1 + 32) addObject:v5];
-  v10[0] = v5;
-  v10[1] = v5;
-  v10[2] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:3];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v9[0] = v5;
+  v9[1] = v5;
+  v9[2] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:3];
 
   return v7;
 }
 
 id __75__EDSearchableIndexPersistence__assignIndexedItems_transaction_connection___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v10[4] = *MEMORY[0x1E69E9840];
+  v9[4] = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   [*(a1 + 32) addObject:v5];
-  v10[0] = v5;
-  v10[1] = v5;
-  v10[2] = v5;
-  v10[3] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:4];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v9[0] = v5;
+  v9[1] = v5;
+  v9[2] = v5;
+  v9[3] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:4];
 
   return v7;
 }
 
 - (id)_attachmentItemsFromAttachmentData:(id)data limit:(unint64_t)limit cancelationToken:(id)token
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   tokenCopy = token;
-  v35 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:limit];
-  v37 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-  v48 = 0u;
-  v49 = 0u;
-  v46 = 0u;
+  v34 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:limit];
+  v36 = objc_alloc_init(MEMORY[0x1E695DFA8]);
   v47 = 0u;
+  v48 = 0u;
+  v45 = 0u;
+  v46 = 0u;
   obj = dataCopy;
-  v8 = [obj countByEnumeratingWithState:&v46 objects:v50 count:16];
+  v8 = [obj countByEnumeratingWithState:&v45 objects:v49 count:16];
   if (v8)
   {
     v9 = 0;
-    v33 = *v47;
+    v32 = *v46;
     limitCopy = limit;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v47 != v33)
+        if (*v46 != v32)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v46 + 1) + 8 * i);
+        v11 = *(*(&v45 + 1) + 8 * i);
         attachmentPersistentID = [v11 attachmentPersistentID];
 
         attachmentID = [v11 attachmentID];
@@ -2463,17 +2420,17 @@ id __75__EDSearchableIndexPersistence__assignIndexedItems_transaction_connection
         messagePersistentID = [v11 messagePersistentID];
         name = [v11 name];
         mailboxID = [v11 mailboxID];
-        v41[0] = MEMORY[0x1E69E9820];
-        v41[1] = 3221225472;
-        v41[2] = __90__EDSearchableIndexPersistence__attachmentItemsFromAttachmentData_limit_cancelationToken___block_invoke;
-        v41[3] = &unk_1E82570E8;
+        v40[0] = MEMORY[0x1E69E9820];
+        v40[1] = 3221225472;
+        v40[2] = __90__EDSearchableIndexPersistence__attachmentItemsFromAttachmentData_limit_cancelationToken___block_invoke;
+        v40[3] = &unk_1E82570E8;
         v9 = attachmentPersistentID;
-        v42 = v9;
-        v43 = v11;
-        v18 = v35;
-        v44 = v18;
-        v45 = v37;
-        [(EDSearchableIndexPersistence *)self attachmentItemMetadataForAttachmentID:attachmentID attachmentPersistentID:attachmentPersistentID2 messagePersistentID:messagePersistentID name:name mailboxID:mailboxID result:v41];
+        v41 = v9;
+        v42 = v11;
+        v18 = v34;
+        v43 = v18;
+        v44 = v36;
+        [(EDSearchableIndexPersistence *)self attachmentItemMetadataForAttachmentID:attachmentID attachmentPersistentID:attachmentPersistentID2 messagePersistentID:messagePersistentID name:name mailboxID:mailboxID result:v40];
 
         if ([v18 count] >= limitCopy)
         {
@@ -2489,7 +2446,7 @@ id __75__EDSearchableIndexPersistence__assignIndexedItems_transaction_connection
         }
       }
 
-      v8 = [obj countByEnumeratingWithState:&v46 objects:v50 count:16];
+      v8 = [obj countByEnumeratingWithState:&v45 objects:v49 count:16];
       if (v8)
       {
         continue;
@@ -2506,9 +2463,9 @@ id __75__EDSearchableIndexPersistence__assignIndexedItems_transaction_connection
 
 LABEL_13:
 
-  if ([v37 count])
+  if ([v36 count])
   {
-    allObjects = [v37 allObjects];
+    allObjects = [v36 allObjects];
     v21 = [allObjects componentsJoinedByString:{@", "}];
 
     v22 = objc_alloc(MEMORY[0x1E696AEC0]);
@@ -2517,15 +2474,15 @@ LABEL_13:
 
     database = [(EDSearchableIndexPersistence *)self database];
     v26 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[EDSearchableIndexPersistence _attachmentItemsFromAttachmentData:limit:cancelationToken:]"];
-    v38[0] = MEMORY[0x1E69E9820];
-    v38[1] = 3221225472;
-    v38[2] = __90__EDSearchableIndexPersistence__attachmentItemsFromAttachmentData_limit_cancelationToken___block_invoke_2;
-    v38[3] = &unk_1E8250328;
+    v37[0] = MEMORY[0x1E69E9820];
+    v37[1] = 3221225472;
+    v37[2] = __90__EDSearchableIndexPersistence__attachmentItemsFromAttachmentData_limit_cancelationToken___block_invoke_2;
+    v37[3] = &unk_1E8250328;
     v27 = v24;
-    v39 = v27;
+    v38 = v27;
     v28 = v21;
-    v40 = v28;
-    [database __performWriteWithCaller:v26 usingBlock:v38];
+    v39 = v28;
+    [database __performWriteWithCaller:v26 usingBlock:v37];
   }
 
   if (v9)
@@ -2533,9 +2490,7 @@ LABEL_13:
     [(EDSearchableIndexPersistence *)self setLastProcessedAttachmentID:v9];
   }
 
-  v29 = *MEMORY[0x1E69E9840];
-
-  return v35;
+  return v34;
 }
 
 void __90__EDSearchableIndexPersistence__attachmentItemsFromAttachmentData_limit_cancelationToken___block_invoke(uint64_t a1, void *a2, int a3)
@@ -2624,45 +2579,45 @@ uint64_t __90__EDSearchableIndexPersistence__attachmentItemsFromAttachmentData_l
 
 - (id)_richLinkItemsFromRichLinkData:(id)data limit:(unint64_t)limit cancelationToken:(id)token
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   tokenCopy = token;
-  v33 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:limit];
-  v34 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v32 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:limit];
+  v33 = objc_alloc_init(MEMORY[0x1E695DFA8]);
   limitCopy = limit;
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
   v41 = 0u;
+  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
   obj = dataCopy;
-  v8 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
+  v8 = [obj countByEnumeratingWithState:&v39 objects:v43 count:16];
   if (v8)
   {
-    v9 = *v41;
+    v9 = *v40;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v41 != v9)
+        if (*v40 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v40 + 1) + 8 * i);
+        v11 = *(*(&v39 + 1) + 8 * i);
         richLinkID = [v11 richLinkID];
         messageID = [v11 messageID];
         mailboxID = [v11 mailboxID];
         title = [v11 title];
         v16 = [v11 url];
-        v37[0] = MEMORY[0x1E69E9820];
-        v37[1] = 3221225472;
-        v37[2] = __86__EDSearchableIndexPersistence__richLinkItemsFromRichLinkData_limit_cancelationToken___block_invoke;
-        v37[3] = &unk_1E8257110;
-        v37[4] = v11;
-        v17 = v33;
-        v38 = v17;
-        v39 = v34;
-        [(EDSearchableIndexPersistence *)self searchableRichLinkItemMetadataForRichLinkID:richLinkID messagePersistentID:messageID mailboxID:mailboxID title:title url:v16 result:v37];
+        v36[0] = MEMORY[0x1E69E9820];
+        v36[1] = 3221225472;
+        v36[2] = __86__EDSearchableIndexPersistence__richLinkItemsFromRichLinkData_limit_cancelationToken___block_invoke;
+        v36[3] = &unk_1E8257110;
+        v36[4] = v11;
+        v17 = v32;
+        v37 = v17;
+        v38 = v33;
+        [(EDSearchableIndexPersistence *)self searchableRichLinkItemMetadataForRichLinkID:richLinkID messagePersistentID:messageID mailboxID:mailboxID title:title url:v16 result:v36];
 
         if ([v17 count] >= limitCopy)
         {
@@ -2678,7 +2633,7 @@ uint64_t __90__EDSearchableIndexPersistence__attachmentItemsFromAttachmentData_l
         }
       }
 
-      v8 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
+      v8 = [obj countByEnumeratingWithState:&v39 objects:v43 count:16];
       if (v8)
       {
         continue;
@@ -2690,9 +2645,9 @@ uint64_t __90__EDSearchableIndexPersistence__attachmentItemsFromAttachmentData_l
 
 LABEL_12:
 
-  if ([v34 count])
+  if ([v33 count])
   {
-    allObjects = [v34 allObjects];
+    allObjects = [v33 allObjects];
     v20 = [allObjects componentsJoinedByString:{@", "}];
 
     v21 = objc_alloc(MEMORY[0x1E696AEC0]);
@@ -2701,18 +2656,16 @@ LABEL_12:
 
     database = [(EDSearchableIndexPersistence *)self database];
     v25 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[EDSearchableIndexPersistence _richLinkItemsFromRichLinkData:limit:cancelationToken:]"];
-    v35[0] = MEMORY[0x1E69E9820];
-    v35[1] = 3221225472;
-    v35[2] = __86__EDSearchableIndexPersistence__richLinkItemsFromRichLinkData_limit_cancelationToken___block_invoke_2;
-    v35[3] = &unk_1E8251CB8;
+    v34[0] = MEMORY[0x1E69E9820];
+    v34[1] = 3221225472;
+    v34[2] = __86__EDSearchableIndexPersistence__richLinkItemsFromRichLinkData_limit_cancelationToken___block_invoke_2;
+    v34[3] = &unk_1E8251CB8;
     v26 = v23;
-    v36 = v26;
-    [database __performWriteWithCaller:v25 usingBlock:v35];
+    v35 = v26;
+    [database __performWriteWithCaller:v25 usingBlock:v34];
   }
 
-  v27 = *MEMORY[0x1E69E9840];
-
-  return v33;
+  return v32;
 }
 
 void __86__EDSearchableIndexPersistence__richLinkItemsFromRichLinkData_limit_cancelationToken___block_invoke(uint64_t a1, void *a2, int a3)
@@ -2864,7 +2817,7 @@ void __86__EDSearchableIndexPersistence__richLinkItemsFromRichLinkData_limit_can
 
 - (void)searchableRichLinkItemMetadataForRichLinkID:(id)d messagePersistentID:(id)iD mailboxID:(int64_t)mailboxID title:(id)title url:(id)url result:(id)result
 {
-  v38[1] = *MEMORY[0x1E69E9840];
+  v37[1] = *MEMORY[0x1E69E9840];
   dCopy = d;
   iDCopy = iD;
   titleCopy = title;
@@ -2872,8 +2825,8 @@ void __86__EDSearchableIndexPersistence__richLinkItemsFromRichLinkData_limit_can
   resultCopy = result;
   messagePersistence = [(EDSearchableIndexPersistence *)self messagePersistence];
   v17 = [MEMORY[0x1E696AD98] numberWithLongLong:{objc_msgSend(iDCopy, "databaseID")}];
-  v38[0] = v17;
-  v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v38 count:1];
+  v37[0] = v17;
+  v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v37 count:1];
   v19 = [messagePersistence persistedMessagesForDatabaseIDs:v18 requireProtectedData:0 temporarilyUnavailableDatabaseIDs:0];
   firstObject = [v19 firstObject];
 
@@ -2918,8 +2871,6 @@ void __86__EDSearchableIndexPersistence__richLinkItemsFromRichLinkData_limit_can
 
     resultCopy[2](resultCopy, 0, 1);
   }
-
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 - (id)allMailboxIdentifiersForMessage:(id)message
@@ -2931,28 +2882,28 @@ void __86__EDSearchableIndexPersistence__richLinkItemsFromRichLinkData_limit_can
 
 - (void)_assignIndexedDataDetectionItems:(id)items transaction:(int64_t)transaction connection:(id)connection
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   obj = items;
-  v7 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v7 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v7)
   {
-    v8 = *v20;
+    v8 = *v19;
     v9 = *MEMORY[0x1E699A728];
     do
     {
       v10 = 0;
       do
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v19 + 1) + 8 * v10);
+        v11 = *(*(&v18 + 1) + 8 * v10);
         messagePersistence = [(EDSearchableIndexPersistence *)self messagePersistence];
         messageID = [v11 messageID];
         v14 = [messagePersistence globalIDForMessageWithDatabaseID:objc_msgSend(messageID mailboxScope:{"databaseID"), 0}];
@@ -2968,13 +2919,11 @@ void __86__EDSearchableIndexPersistence__richLinkItemsFromRichLinkData_limit_can
       }
 
       while (v7 != v10);
-      v7 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v7 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v7);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_addSearchableDataDetectionResults:(id)results withMessage:(id)message transaction:(int64_t)transaction
@@ -3013,31 +2962,31 @@ void __86__EDSearchableIndexPersistence__richLinkItemsFromRichLinkData_limit_can
 
 uint64_t __91__EDSearchableIndexPersistence__addSearchableDataDetectionResults_withMessage_transaction___block_invoke(uint64_t a1, void *a2)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [objc_alloc(MEMORY[0x1E699B910]) initWithTable:@"searchable_data_detection_results"];
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   obj = *(a1 + 32);
-  v5 = [obj countByEnumeratingWithState:&v24 objects:v34 count:16];
+  v5 = [obj countByEnumeratingWithState:&v23 objects:v33 count:16];
   if (v5)
   {
-    v7 = *v25;
+    v7 = *v24;
     *&v6 = 138412546;
-    v21 = v6;
+    v20 = v6;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v25 != v7)
+        if (*v24 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v24 + 1) + 8 * i);
-        v10 = [MEMORY[0x1E696AD98] numberWithLongLong:{objc_msgSend(*(a1 + 40), "databaseID", v21)}];
+        v9 = *(*(&v23 + 1) + 8 * i);
+        v10 = [MEMORY[0x1E696AD98] numberWithLongLong:{objc_msgSend(*(a1 + 40), "databaseID", v20)}];
         [v4 setObject:v10 forKeyedSubscript:@"message"];
 
         v11 = [MEMORY[0x1E696AD98] numberWithLongLong:{objc_msgSend(v9, "longLongValue")}];
@@ -3047,9 +2996,9 @@ uint64_t __91__EDSearchableIndexPersistence__addSearchableDataDetectionResults_w
         [v4 setObject:v12 forKeyedSubscript:@"transaction_id"];
 
         v13 = *(*(a1 + 56) + 8);
-        v23 = *(v13 + 40);
-        v14 = [v3 executeInsertStatement:v4 error:&v23];
-        objc_storeStrong((v13 + 40), v23);
+        v22 = *(v13 + 40);
+        v14 = [v3 executeInsertStatement:v4 error:&v22];
+        objc_storeStrong((v13 + 40), v22);
         *(*(*(a1 + 48) + 8) + 24) = v14;
         if (*(*(*(a1 + 48) + 8) + 24))
         {
@@ -3057,10 +3006,10 @@ uint64_t __91__EDSearchableIndexPersistence__addSearchableDataDetectionResults_w
           if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
           {
             v16 = *(a1 + 40);
-            *buf = v21;
-            v29 = v9;
-            v30 = 2112;
-            v31 = v16;
+            *buf = v20;
+            v28 = v9;
+            v29 = 2112;
+            v30 = v16;
             _os_log_impl(&dword_1C61EF000, v15, OS_LOG_TYPE_DEFAULT, "Data detection result %@ with message %@ was successfully added to the searchable_data_detection_results table", buf, 0x16u);
           }
         }
@@ -3070,21 +3019,20 @@ uint64_t __91__EDSearchableIndexPersistence__addSearchableDataDetectionResults_w
           v17 = +[EDSearchableIndexPersistence log];
           if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
           {
-            __91__EDSearchableIndexPersistence__addSearchableDataDetectionResults_withMessage_transaction___block_invoke_cold_1(v32, a1 + 56, &v33, v17);
+            __91__EDSearchableIndexPersistence__addSearchableDataDetectionResults_withMessage_transaction___block_invoke_cold_1(v31, a1 + 56, &v32, v17);
           }
 
           [v3 handleError:*(*(*(a1 + 56) + 8) + 40) message:@"Storing searchable data detection results"];
         }
       }
 
-      v5 = [obj countByEnumeratingWithState:&v24 objects:v34 count:16];
+      v5 = [obj countByEnumeratingWithState:&v23 objects:v33 count:16];
     }
 
     while (v5);
   }
 
   v18 = *(*(*(a1 + 48) + 8) + 24);
-  v19 = *MEMORY[0x1E69E9840];
   return v18 & 1;
 }
 
@@ -3097,13 +3045,12 @@ uint64_t __91__EDSearchableIndexPersistence__addSearchableDataDetectionResults_w
 
 - (void)searchableRichLinkItemMetadataForRichLinkID:(os_log_t)log messagePersistentID:mailboxID:title:url:result:.cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_fault_impl(&dword_1C61EF000, log, OS_LOG_TYPE_FAULT, "Encountered a reference to a non-existent message in the rich_links table for richLinkPersistentID:%{public}@, messagePersistentID:%{public}@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 2114;
+  v6 = a2;
+  _os_log_fault_impl(&dword_1C61EF000, log, OS_LOG_TYPE_FAULT, "Encountered a reference to a non-existent message in the rich_links table for richLinkPersistentID:%{public}@, messagePersistentID:%{public}@", &v3, 0x16u);
 }
 
 void __91__EDSearchableIndexPersistence__addSearchableDataDetectionResults_withMessage_transaction___block_invoke_cold_1(uint8_t *buf, uint64_t a2, void *a3, os_log_t log)

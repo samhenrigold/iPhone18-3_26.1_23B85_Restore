@@ -28,20 +28,21 @@
 - (GCPlayerIndicatorXPCProxyClientEndpointDescription)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v10.receiver = self;
-  v10.super_class = GCPlayerIndicatorXPCProxyClientEndpointDescription;
-  v5 = [(GCPlayerIndicatorXPCProxyClientEndpointDescription *)&v10 init];
+  v11.receiver = self;
+  v11.super_class = GCPlayerIndicatorXPCProxyClientEndpointDescription;
+  v5 = [(GCPlayerIndicatorXPCProxyClientEndpointDescription *)&v11 init];
+  v6 = v5;
   if (v5)
   {
-    v6 = GCIPCObjectIdentifier_Classes();
-    v7 = [coderCopy decodeObjectOfClasses:v6 forKey:@"identifier"];
-    identifier = v5->_identifier;
-    v5->_identifier = v7;
+    v7 = GCIPCObjectIdentifier_Classes(v5);
+    v8 = [coderCopy decodeObjectOfClasses:v7 forKey:@"identifier"];
+    identifier = v6->_identifier;
+    v6->_identifier = v8;
 
-    v5->_initialPlayerIndex = [coderCopy decodeIntegerForKey:@"initialPlayerIndex"];
+    v6->_initialPlayerIndex = [coderCopy decodeIntegerForKey:@"initialPlayerIndex"];
   }
 
-  return v5;
+  return v6;
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -68,43 +69,43 @@
   if (v8)
   {
     playerIndicatorXPCProxyServiceRemoteServer = [v8 playerIndicatorXPCProxyServiceRemoteServer];
-    v10 = [[GCPlayerIndicatorXPCProxyClientEndpoint alloc] initWithIdentifier:self->_identifier initialPlayerIndex:self->_initialPlayerIndex];
+    v12 = [[GCPlayerIndicatorXPCProxyClientEndpoint alloc] initWithIdentifier:self->_identifier initialPlayerIndex:self->_initialPlayerIndex];
     iPCObjectRegistry = [v5 IPCObjectRegistry];
-    [iPCObjectRegistry registerIPCObject:v10];
+    [iPCObjectRegistry registerIPCObject:v12];
 
-    v12 = dispatch_semaphore_create(0);
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __77__GCPlayerIndicatorXPCProxyClientEndpointDescription_materializeWithContext___block_invoke;
-    v21[3] = &unk_1E841B6C8;
-    v13 = v10;
-    v22 = v13;
-    v23 = v8;
-    v24 = v12;
-    v14 = v12;
-    v15 = v8;
-    [playerIndicatorXPCProxyServiceRemoteServer playerIndicatorXPCProxyServiceClientEndpointConnect:v13 reply:v21];
-    v16 = dispatch_time(0, 1000000000);
-    dispatch_semaphore_wait(v14, v16);
-    v17 = self->_materializedObject;
-    self->_materializedObject = v13;
-    v18 = v13;
+    v14 = dispatch_semaphore_create(0);
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __77__GCPlayerIndicatorXPCProxyClientEndpointDescription_materializeWithContext___block_invoke;
+    v23[3] = &unk_1E841B6C8;
+    v15 = v12;
+    v24 = v15;
+    v25 = v8;
+    v26 = v14;
+    v16 = v14;
+    v17 = v8;
+    [playerIndicatorXPCProxyServiceRemoteServer playerIndicatorXPCProxyServiceClientEndpointConnect:v15 reply:v23];
+    v18 = dispatch_time(0, 1000000000);
+    dispatch_semaphore_wait(v16, v18);
+    v19 = self->_materializedObject;
+    self->_materializedObject = v15;
+    v20 = v15;
 
     materializedObject = self->_materializedObject;
 LABEL_4:
-    v19 = materializedObject;
+    v21 = materializedObject;
     goto LABEL_5;
   }
 
-  if (gc_isInternalBuild())
+  if (gc_isInternalBuild(v9, v10))
   {
-    [GCBatteryXPCProxyClientEndpointDescription materializeWithContext:];
+    [GCBatteryXPCProxyClientEndpointDescription materializeWithContext:?];
   }
 
-  v19 = 0;
+  v21 = 0;
 LABEL_5:
 
-  return v19;
+  return v21;
 }
 
 intptr_t __77__GCPlayerIndicatorXPCProxyClientEndpointDescription_materializeWithContext___block_invoke(void *a1, void *a2)

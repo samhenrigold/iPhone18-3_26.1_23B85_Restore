@@ -177,7 +177,7 @@ LABEL_13:
   v14 = v13;
   if (v13)
   {
-    [v13 clientLocation];
+    objc_msgSend_clientLocation(v13);
   }
 
   else
@@ -342,7 +342,7 @@ LABEL_14:
     *buf = 0u;
     if (v28)
     {
-      [v28 clientLocation];
+      objc_msgSend_clientLocation(v28);
     }
 
     type = [v5 type];

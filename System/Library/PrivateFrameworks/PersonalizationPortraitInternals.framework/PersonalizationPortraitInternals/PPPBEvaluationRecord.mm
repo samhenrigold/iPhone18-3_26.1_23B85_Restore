@@ -115,18 +115,17 @@ LABEL_9:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (self->_contents)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    deviceId = self->_deviceId;
     PBDataWriterWriteInt64Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 

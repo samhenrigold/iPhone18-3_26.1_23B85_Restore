@@ -184,16 +184,16 @@
   v13 = _Block_copy(aBlock);
   domain = [v12 domain];
   code = [v12 code];
-  if ([domain isEqualToString:@"PKProvisioningErrorDomain"])
+  if (objc_msgSend_isEqualToString_(domain))
   {
     v16 = [v12 copy];
     v17 = 0;
     goto LABEL_38;
   }
 
-  if (![domain isEqualToString:@"PKDisplayableError"])
+  if (!objc_msgSend_isEqualToString_(domain))
   {
-    if ([domain isEqualToString:*MEMORY[0x1E696A978]])
+    if (objc_msgSend_isEqualToString_(domain))
     {
       v24 = PKLocalizedPaymentString(&cfstr_CouldNotConnec.isa, 0);
       v25 = v64[5];
@@ -219,7 +219,7 @@
       goto LABEL_22;
     }
 
-    if ([domain isEqualToString:@"PKWebServiceErrorDomain"])
+    if (objc_msgSend_isEqualToString_(domain))
     {
       localizedFailureReason = 0;
       v23 = 1;
@@ -296,7 +296,7 @@ LABEL_28:
       goto LABEL_29;
     }
 
-    if (![domain isEqualToString:@"PKPaymentWebServiceErrorDomain"])
+    if (!objc_msgSend_isEqualToString_(domain))
     {
       v13[2](v13);
       goto LABEL_28;

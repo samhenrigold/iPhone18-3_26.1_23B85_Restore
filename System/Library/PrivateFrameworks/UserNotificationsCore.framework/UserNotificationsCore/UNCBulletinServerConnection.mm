@@ -50,20 +50,18 @@ uint64_t __46__UNCBulletinServerConnection_clientInterface__block_invoke()
 
 void __46__UNCBulletinServerConnection_serverInterface__block_invoke()
 {
-  v7[2] = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E69E9840];
   v0 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F5681B98];
   v1 = serverInterface___interface_0;
   serverInterface___interface_0 = v0;
 
   v2 = serverInterface___interface_0;
   v3 = MEMORY[0x1E695DFD8];
-  v7[0] = objc_opt_class();
-  v7[1] = objc_opt_class();
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
+  v6[0] = objc_opt_class();
+  v6[1] = objc_opt_class();
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
   v5 = [v3 setWithArray:v4];
   [v2 setClasses:v5 forSelector:sel_getActiveSectionIDsWithHandler_ argumentIndex:0 ofReply:1];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (UNCBulletinServerConnection)init
@@ -99,7 +97,7 @@ void __46__UNCBulletinServerConnection_serverInterface__block_invoke()
 
 - (id)_ensureBBServerSettingsConnection
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   bbServerConnection = self->_bbServerConnection;
   if (!bbServerConnection)
   {
@@ -119,28 +117,26 @@ void __46__UNCBulletinServerConnection_serverInterface__block_invoke()
     [(NSXPCConnection *)self->_bbServerConnection setInterruptionHandler:&__block_literal_global_23_0];
     objc_initWeak(&location, self);
     v10 = self->_bbServerConnection;
-    v15 = MEMORY[0x1E69E9820];
-    v16 = 3221225472;
-    v17 = __64__UNCBulletinServerConnection__ensureBBServerSettingsConnection__block_invoke_24;
-    v18 = &unk_1E85D7F30;
-    objc_copyWeak(&v19, &location);
-    [(NSXPCConnection *)v10 setInvalidationHandler:&v15];
-    [(NSXPCConnection *)self->_bbServerConnection resume:v15];
+    v14 = MEMORY[0x1E69E9820];
+    v15 = 3221225472;
+    v16 = __64__UNCBulletinServerConnection__ensureBBServerSettingsConnection__block_invoke_24;
+    v17 = &unk_1E85D7F30;
+    objc_copyWeak(&v18, &location);
+    [(NSXPCConnection *)v10 setInvalidationHandler:&v14];
+    [(NSXPCConnection *)self->_bbServerConnection resume:v14];
     v11 = *MEMORY[0x1E6983358];
     if (os_log_type_enabled(*MEMORY[0x1E6983358], OS_LOG_TYPE_DEFAULT))
     {
       v12 = self->_bbServerConnection;
       *buf = 138412290;
-      v22 = v12;
+      v21 = v12;
       _os_log_impl(&dword_1DA7A9000, v11, OS_LOG_TYPE_DEFAULT, "UNCBulletinServerConnection: Connected to BBServer: %@", buf, 0xCu);
     }
 
-    objc_destroyWeak(&v19);
+    objc_destroyWeak(&v18);
     objc_destroyWeak(&location);
     bbServerConnection = self->_bbServerConnection;
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return bbServerConnection;
 }
@@ -278,23 +274,23 @@ void __47__UNCBulletinServerConnection_activeSectionIDs__block_invoke(uint64_t a
 
 void __48__UNCBulletinServerConnection_serverProxyObject__block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3(&dword_1DA7A9000, a2, a3, "BulletinServerConnection failed to get sync remote proxy: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_3(&dword_1DA7A9000, a2, a3, "BulletinServerConnection failed to get sync remote proxy: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __53__UNCBulletinServerConnection_asyncServerProxyObject__block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3(&dword_1DA7A9000, a2, a3, "BulletinServerConnection failed to get async remote proxy: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_3(&dword_1DA7A9000, a2, a3, "BulletinServerConnection failed to get async remote proxy: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __47__UNCBulletinServerConnection_activeSectionIDs__block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3(&dword_1DA7A9000, a2, a3, "BulletinServerConnection error reading -activeSectionIDs: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_3(&dword_1DA7A9000, a2, a3, "BulletinServerConnection error reading -activeSectionIDs: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

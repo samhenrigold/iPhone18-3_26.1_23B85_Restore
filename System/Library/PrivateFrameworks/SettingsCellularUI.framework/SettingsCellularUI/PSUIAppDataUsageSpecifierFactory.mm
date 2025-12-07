@@ -221,9 +221,9 @@ LABEL_23:
 
 - (void)addAppUsageSpecifiersToContentSpecifiers:(id)specifiers
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   specifiersCopy = specifiers;
-  v29 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v28 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v4 = [PSUIAppsAndCategoriesDataUsageSubgroup alloc];
   WeakRetained = objc_loadWeakRetained(&self->_policySpecifierDelegate);
   statisticsCache = self->_statisticsCache;
@@ -231,57 +231,57 @@ LABEL_23:
   v8 = [(PSUIAppsAndCategoriesDataUsageSubgroup *)v4 initWithPolicySpecifierDelegate:WeakRetained statisticsCache:statisticsCache policyCache:mEMORY[0x277D4D840] usageType:self->_usageType];
 
   v9 = +[CTUIDataUsageSorting userSelectedComparator];
-  v27 = v8;
+  v26 = v8;
   v10 = [(PSUIAppsAndCategoriesDataUsageSubgroup *)v8 specifiersWithSortComparator:v9];
 
   _bundleClassForHotspotDataUsage = [(PSUIAppDataUsageSpecifierFactory *)self _bundleClassForHotspotDataUsage];
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
   obj = v10;
-  v12 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
+  v12 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v36;
+    v14 = *v35;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v36 != v14)
+        if (*v35 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v35 + 1) + 8 * i);
+        v16 = *(*(&v34 + 1) + 8 * i);
         [v16 setBillingPeriodSource:self->_billingPeriodSelectorSpecifier];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v33 = 0u;
-          v34 = 0u;
-          v31 = 0u;
           v32 = 0u;
+          v33 = 0u;
+          v30 = 0u;
+          v31 = 0u;
           subcategorySpecifiers = [v16 subcategorySpecifiers];
-          v18 = [subcategorySpecifiers countByEnumeratingWithState:&v31 objects:v39 count:16];
+          v18 = [subcategorySpecifiers countByEnumeratingWithState:&v30 objects:v38 count:16];
           if (v18)
           {
             v19 = v18;
-            v20 = *v32;
+            v20 = *v31;
             do
             {
               for (j = 0; j != v19; ++j)
               {
-                if (*v32 != v20)
+                if (*v31 != v20)
                 {
                   objc_enumerationMutation(subcategorySpecifiers);
                 }
 
-                [*(*(&v31 + 1) + 8 * j) setBillingPeriodSource:self->_billingPeriodSelectorSpecifier];
+                [*(*(&v30 + 1) + 8 * j) setBillingPeriodSource:self->_billingPeriodSelectorSpecifier];
               }
 
-              v19 = [subcategorySpecifiers countByEnumeratingWithState:&v31 objects:v39 count:16];
+              v19 = [subcategorySpecifiers countByEnumeratingWithState:&v30 objects:v38 count:16];
             }
 
             while (v19);
@@ -300,11 +300,11 @@ LABEL_23:
           }
 
           subcategorySpecifiers = [v16 bundleID];
-          [(NSArray *)v29 addObject:subcategorySpecifiers];
+          [(NSArray *)v28 addObject:subcategorySpecifiers];
         }
       }
 
-      v13 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
+      v13 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
     }
 
     while (v13);
@@ -314,9 +314,7 @@ LABEL_23:
   [specifiersCopy setAppSpecifiers:v24];
 
   bundleIDs = self->_bundleIDs;
-  self->_bundleIDs = v29;
-
-  v26 = *MEMORY[0x277D85DE8];
+  self->_bundleIDs = v28;
 }
 
 - (void)addTrailingSpecifiersToContentSpecifiers:(id)specifiers

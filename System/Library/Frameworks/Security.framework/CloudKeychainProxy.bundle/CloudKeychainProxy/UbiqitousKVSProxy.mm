@@ -526,9 +526,7 @@
 {
   if (self->_inCallout)
   {
-    v4 = objc_retainBlock(flush);
-    shadowFlushBlock = self->_shadowFlushBlock;
-    self->_shadowFlushBlock = v4;
+    self->_shadowFlushBlock = objc_retainBlock(flush);
 
     _objc_release_x1();
   }
@@ -690,22 +688,7 @@ LABEL_7:
 {
   keysCopy = keys;
   accountCopy = account;
-  if (!accountCopy)
-  {
-    goto LABEL_4;
-  }
-
-  accountUUID = [(UbiqitousKVSProxy *)self accountUUID];
-  if (!accountUUID)
-  {
-    goto LABEL_4;
-  }
-
-  v9 = accountUUID;
-  accountUUID2 = [(UbiqitousKVSProxy *)self accountUUID];
-  v11 = [accountCopy isEqualToString:accountUUID2];
-
-  if ((v11 & 1) == 0)
+  if (accountCopy && (-[UbiqitousKVSProxy accountUUID](self, "accountUUID"), (v8 = objc_claimAutoreleasedReturnValue()) != 0) && (v9 = v8, -[UbiqitousKVSProxy accountUUID](self, "accountUUID"), v10 = objc_claimAutoreleasedReturnValue(), v11 = [accountCopy isEqualToString:v10], v10, v9, (v11 & 1) == 0))
   {
     v12 = sub_10000AE54("proxy");
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
@@ -717,7 +700,6 @@ LABEL_7:
 
   else
   {
-LABEL_4:
     v13[0] = _NSConcreteStackBlock;
     v13[1] = 3221225472;
     v13[2] = sub_100005190;

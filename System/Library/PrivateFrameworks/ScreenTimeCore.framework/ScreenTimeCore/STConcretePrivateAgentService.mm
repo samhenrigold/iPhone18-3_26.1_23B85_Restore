@@ -33,6 +33,7 @@
 - (void)lastCommunicationLimitsModifcationDateForDSID:(id)d completionHandler:(id)handler;
 - (void)lastModifcationDateForDSID:(id)d completionHandler:(id)handler;
 - (void)loadEncodedSettingsForEncodedUser:(id)user withEncodedDefaults:(id)defaults completion:(id)completion;
+- (void)loadRegionRatingsDataForStorefront:(id)storefront includeUnrated:(BOOL)unrated completionHandler:(id)handler;
 - (void)managingGuardianAppleIDsForLocalUserWithCompletionHandler:(id)handler;
 - (void)needsToSetRestrictionsPasscodeWithReplyHandler:(id)handler;
 - (void)performMigrationFromMCXSettings:(id)settings completionHandler:(id)handler;
@@ -48,7 +49,10 @@
 - (void)screenTimeStateWithCompletionHandler:(id)handler;
 - (void)screenTimeSyncStateWithCompletionHandler:(id)handler;
 - (void)setContactManagementState:(int64_t)state forDSID:(id)d completionHandler:(id)handler;
+- (void)setLocationSharingModificationAllowed:(BOOL)allowed forDSID:(id)d completionHandler:(id)handler;
 - (void)setRestrictionsPasscode:(id)passcode completionHandler:(id)handler;
+- (void)setScreenTimeEnabled:(BOOL)enabled completionHandler:(id)handler;
+- (void)setScreenTimeSyncingEnabled:(BOOL)enabled completionHandler:(id)handler;
 - (void)shouldAllowOneMoreMinuteForBundleIdentifier:(id)identifier replyHandler:(id)handler;
 - (void)shouldAllowOneMoreMinuteForCategoryIdentifier:(id)identifier replyHandler:(id)handler;
 - (void)shouldAllowOneMoreMinuteForWebDomain:(id)domain replyHandler:(id)handler;
@@ -325,6 +329,22 @@
   [delegate setContactManagementState:state forDSID:dCopy completionHandler:handlerCopy];
 }
 
+- (void)setScreenTimeEnabled:(BOOL)enabled completionHandler:(id)handler
+{
+  enabledCopy = enabled;
+  handlerCopy = handler;
+  delegate = [(STConcretePrivateAgentService *)self delegate];
+  [delegate setScreenTimeEnabled:enabledCopy completionHandler:handlerCopy];
+}
+
+- (void)setScreenTimeSyncingEnabled:(BOOL)enabled completionHandler:(id)handler
+{
+  enabledCopy = enabled;
+  handlerCopy = handler;
+  delegate = [(STConcretePrivateAgentService *)self delegate];
+  [delegate setScreenTimeSyncingEnabled:enabledCopy completionHandler:handlerCopy];
+}
+
 - (void)isContentPrivacyEnabledForDSID:(id)d completionHandler:(id)handler
 {
   handlerCopy = handler;
@@ -426,6 +446,15 @@
   [delegate isLocationSharingModificationAllowedForDSID:dCopy completionHandler:handlerCopy];
 }
 
+- (void)setLocationSharingModificationAllowed:(BOOL)allowed forDSID:(id)d completionHandler:(id)handler
+{
+  allowedCopy = allowed;
+  handlerCopy = handler;
+  dCopy = d;
+  delegate = [(STConcretePrivateAgentService *)self delegate];
+  [delegate setLocationSharingModificationAllowed:allowedCopy forDSID:dCopy completionHandler:handlerCopy];
+}
+
 - (void)postNotificationForContext:(id)context
 {
   contextCopy = context;
@@ -461,6 +490,15 @@
   handlerCopy = handler;
   delegate = [(STConcretePrivateAgentService *)self delegate];
   [delegate managingGuardianAppleIDsForLocalUserWithCompletionHandler:handlerCopy];
+}
+
+- (void)loadRegionRatingsDataForStorefront:(id)storefront includeUnrated:(BOOL)unrated completionHandler:(id)handler
+{
+  unratedCopy = unrated;
+  handlerCopy = handler;
+  storefrontCopy = storefront;
+  delegate = [(STConcretePrivateAgentService *)self delegate];
+  [delegate loadRegionRatingsDataForStorefront:storefrontCopy includeUnrated:unratedCopy completionHandler:handlerCopy];
 }
 
 - (void)saveExpressIntroductionSettingsDefaults:(id)defaults completionHandler:(id)handler

@@ -65,7 +65,7 @@ void __72__STKAlertSessionEventQueue_acquireEventQueueHaltingAssertionForReason_
   dispatch_async(v5, v7);
 }
 
-uint64_t __72__STKAlertSessionEventQueue_acquireEventQueueHaltingAssertionForReason___block_invoke_2(uint64_t a1)
+void *__72__STKAlertSessionEventQueue_acquireEventQueueHaltingAssertionForReason___block_invoke_2(uint64_t a1)
 {
   [*(*(a1 + 32) + 16) removeObject:*(a1 + 40)];
   result = [*(*(a1 + 32) + 16) count];
@@ -114,74 +114,70 @@ uint64_t __72__STKAlertSessionEventQueue_acquireEventQueueHaltingAssertionForRea
 - (void)_queue_enqueueEvent:(id)event
 {
   eventCopy = event;
-  queue = self->_queue;
   BSDispatchQueueAssert();
-  v5 = eventCopy;
+  v4 = eventCopy;
   if (eventCopy)
   {
     queue_eventQueue = self->_queue_eventQueue;
     if (!queue_eventQueue)
     {
       array = [MEMORY[0x277CBEB18] array];
-      v8 = self->_queue_eventQueue;
+      v7 = self->_queue_eventQueue;
       self->_queue_eventQueue = array;
 
       queue_eventQueue = self->_queue_eventQueue;
     }
 
-    v9 = MEMORY[0x266731D40](eventCopy);
-    [(NSMutableArray *)queue_eventQueue addObject:v9];
+    v8 = MEMORY[0x266731D40](eventCopy);
+    [(NSMutableArray *)queue_eventQueue addObject:v8];
 
     [(STKAlertSessionEventQueue *)self _queue_dequeueEventsIfPossible];
-    v5 = eventCopy;
+    v4 = eventCopy;
   }
 }
 
 - (void)_queue_dequeueEventsIfPossible
 {
-  v18 = *MEMORY[0x277D85DE8];
-  queue = self->_queue;
+  v16 = *MEMORY[0x277D85DE8];
   BSDispatchQueueAssert();
-  v15 = 0u;
-  v16 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v4 = [(NSMutableArray *)self->_queue_eventQueue copy];
-  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
-  if (v5)
+  v11 = 0u;
+  v12 = 0u;
+  v3 = [(NSMutableArray *)self->_queue_eventQueue copy];
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v4)
   {
-    v6 = v5;
-    v7 = *v14;
+    v5 = v4;
+    v6 = *v12;
     do
     {
-      v8 = 0;
+      v7 = 0;
       do
       {
-        if (*v14 != v7)
+        if (*v12 != v6)
         {
-          objc_enumerationMutation(v4);
+          objc_enumerationMutation(v3);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * v8);
+        v8 = *(*(&v11 + 1) + 8 * v7);
         if (![(NSMutableArray *)self->_queue_haltingAssertions count])
         {
-          (*(v9 + 16))(v9);
+          (*(v8 + 16))(v8);
           queue_eventQueue = self->_queue_eventQueue;
-          v11 = MEMORY[0x266731D40](v9);
-          [(NSMutableArray *)queue_eventQueue removeObject:v11];
+          v10 = MEMORY[0x266731D40](v8);
+          [(NSMutableArray *)queue_eventQueue removeObject:v10];
         }
 
-        ++v8;
+        ++v7;
       }
 
-      while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      while (v5 != v7);
+      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    while (v6);
+    while (v5);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 @end

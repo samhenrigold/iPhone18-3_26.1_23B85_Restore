@@ -8,6 +8,7 @@
 - (FTFileTransferringDelegate)delegate;
 - (void)cleanUpTemporaryFileIfExistsForClientFileURL:(id)l;
 - (void)performFileCopierOperation:(unint64_t)operation onInputURL:(id)l outputURL:(id)rL completion:(id)completion;
+- (void)service:(id)service account:(id)account identifier:(id)identifier didSendWithSuccess:(BOOL)success error:(id)error;
 - (void)service:(id)service account:(id)account incomingResourceAtURL:(id)l metadata:(id)metadata fromID:(id)d context:(id)context;
 - (void)transferFileAtTemporaryURL:(id)l toDestinations:(id)destinations withMetadata:(id)metadata;
 - (void)transferFileAtURL:(id)l toDestinations:(id)destinations withMetadata:(id)metadata;
@@ -59,7 +60,7 @@
   lCopy = l;
   destinationsCopy = destinations;
   metadataCopy = metadata;
-  v11 = FTDefaultLog();
+  v11 = FTDefaultLog(metadataCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
@@ -89,7 +90,7 @@
   lCopy = l;
   completionCopy = completion;
   uRLByDeletingLastPathComponent = [lCopy URLByDeletingLastPathComponent];
-  v9 = FTDefaultLog();
+  v9 = FTDefaultLog(uRLByDeletingLastPathComponent);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -120,67 +121,67 @@
   queue = [(FTFileTransferController *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v12 = FTDefaultLog();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = FTDefaultLog(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     allObjects = [destinationsCopy allObjects];
-    v14 = TULoggableStringForHandles();
+    v15 = TULoggableStringForHandles();
     *buf = 138412546;
-    v34 = lCopy;
-    v35 = 2112;
-    v36 = v14;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "temporaryClientFileURL: %@, destinations: %@", buf, 0x16u);
+    v36 = lCopy;
+    v37 = 2112;
+    v38 = v15;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "temporaryClientFileURL: %@, destinations: %@", buf, 0x16u);
   }
 
   buf[0] = 0;
-  v15 = +[NSFileManager defaultManager];
+  v16 = +[NSFileManager defaultManager];
   path = [lCopy path];
-  v17 = [v15 fileExistsAtPath:path isDirectory:buf];
+  v18 = [v16 fileExistsAtPath:path isDirectory:buf];
 
-  if (v17)
+  if (v18)
   {
-    v18 = +[NSMutableDictionary dictionary];
-    v19 = [NSNumber numberWithBool:buf[0]];
-    [v18 setObject:v19 forKeyedSubscript:@"CSDFileTransferringMetadataKeyIsDirectory"];
+    v20 = +[NSMutableDictionary dictionary];
+    v21 = [NSNumber numberWithBool:buf[0]];
+    [v20 setObject:v21 forKeyedSubscript:@"CSDFileTransferringMetadataKeyIsDirectory"];
 
-    [v18 setObject:metadataCopy forKeyedSubscript:@"CSDFileTransferringMetadataKeyUserData"];
-    v27[0] = _NSConcreteStackBlock;
-    v27[1] = 3221225472;
-    v27[2] = sub_100008A28;
-    v27[3] = &unk_1000512C8;
-    v28 = destinationsCopy;
-    v20 = v18;
-    v29 = v20;
-    v30 = metadataCopy;
+    [v20 setObject:metadataCopy forKeyedSubscript:@"CSDFileTransferringMetadataKeyUserData"];
+    v29[0] = _NSConcreteStackBlock;
+    v29[1] = 3221225472;
+    v29[2] = sub_100008A28;
+    v29[3] = &unk_1000512C8;
+    v30 = destinationsCopy;
+    v22 = v20;
+    v31 = v22;
+    v32 = metadataCopy;
     selfCopy = self;
-    v21 = lCopy;
-    v32 = v21;
-    v22 = objc_retainBlock(v27);
-    v23 = v22;
+    v23 = lCopy;
+    v34 = v23;
+    v24 = objc_retainBlock(v29);
+    v25 = v24;
     if (buf[0] == 1)
     {
-      v24[0] = _NSConcreteStackBlock;
-      v24[1] = 3221225472;
-      v24[2] = sub_100008CE0;
-      v24[3] = &unk_1000512F0;
-      v24[4] = self;
-      v25 = v21;
-      v26 = v23;
-      [(FTFileTransferController *)self zipDirectoryAtURL:v25 completion:v24];
+      v26[0] = _NSConcreteStackBlock;
+      v26[1] = 3221225472;
+      v26[2] = sub_100008CE0;
+      v26[3] = &unk_1000512F0;
+      v26[4] = self;
+      v27 = v23;
+      v28 = v25;
+      [(FTFileTransferController *)self zipDirectoryAtURL:v27 completion:v26];
     }
 
     else
     {
-      (v22[2])(v22, v21);
+      (v24[2])(v24, v23);
     }
   }
 
   else
   {
-    v20 = FTDefaultLog();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v22 = FTDefaultLog(v19);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      sub_100039248(buf);
+      sub_100039248();
     }
   }
 }
@@ -194,45 +195,113 @@
   queue = [(FTFileTransferController *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v17 = FTDefaultLog();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  v18 = FTDefaultLog(v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     serviceIdentifier = [serviceCopy serviceIdentifier];
-    v19 = IDSLoggableDescriptionForHandleOnService();
+    v20 = IDSLoggableDescriptionForHandleOnService();
     *buf = 138412802;
-    v38 = lCopy;
-    v39 = 2112;
-    v40 = metadataCopy;
-    v41 = 2112;
-    v42 = v19;
-    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "incomingResourceURL: %@ metadata: %@ fromID: %@", buf, 0x20u);
+    v39 = lCopy;
+    v40 = 2112;
+    v41 = metadataCopy;
+    v42 = 2112;
+    v43 = v20;
+    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "incomingResourceURL: %@ metadata: %@ fromID: %@", buf, 0x20u);
   }
 
-  v20 = [metadataCopy objectForKeyedSubscript:@"CSDFileTransferringMetadataKeyIsDirectory"];
-  bOOLValue = [v20 BOOLValue];
+  v21 = [metadataCopy objectForKeyedSubscript:@"CSDFileTransferringMetadataKeyIsDirectory"];
+  bOOLValue = [v21 BOOLValue];
 
-  v22 = [metadataCopy objectForKeyedSubscript:@"CSDFileTransferringMetadataKeyUserData"];
-  v23 = [v22 objectForKeyedSubscript:@"CSDMomentsControllerMetadataKeyTransactionID"];
-  v24 = dispatch_semaphore_create(0);
+  v23 = [metadataCopy objectForKeyedSubscript:@"CSDFileTransferringMetadataKeyUserData"];
+  v24 = [v23 objectForKeyedSubscript:@"CSDMomentsControllerMetadataKeyTransactionID"];
+  v25 = dispatch_semaphore_create(0);
   sandboxDelegate = [(FTFileTransferController *)self sandboxDelegate];
-  v31[0] = _NSConcreteStackBlock;
-  v31[1] = 3221225472;
-  v31[2] = sub_10000900C;
-  v31[3] = &unk_100051318;
-  v31[4] = self;
-  v32 = lCopy;
-  v36 = bOOLValue;
-  v33 = v22;
-  v34 = dCopy;
-  v35 = v24;
-  v26 = v24;
-  v27 = dCopy;
-  v28 = v22;
-  v29 = lCopy;
-  [sandboxDelegate requestSandboxExtensionForTransactionID:v23 reply:v31];
+  v32[0] = _NSConcreteStackBlock;
+  v32[1] = 3221225472;
+  v32[2] = sub_10000900C;
+  v32[3] = &unk_100051318;
+  v32[4] = self;
+  v33 = lCopy;
+  v37 = bOOLValue;
+  v34 = v23;
+  v35 = dCopy;
+  v36 = v25;
+  v27 = v25;
+  v28 = dCopy;
+  v29 = v23;
+  v30 = lCopy;
+  [sandboxDelegate requestSandboxExtensionForTransactionID:v24 reply:v32];
 
-  v30 = dispatch_time(0, 5000000000);
-  dispatch_semaphore_wait(v26, v30);
+  v31 = dispatch_time(0, 5000000000);
+  dispatch_semaphore_wait(v27, v31);
+}
+
+- (void)service:(id)service account:(id)account identifier:(id)identifier didSendWithSuccess:(BOOL)success error:(id)error
+{
+  successCopy = success;
+  serviceCopy = service;
+  accountCopy = account;
+  identifierCopy = identifier;
+  errorCopy = error;
+  queue = [(FTFileTransferController *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  v18 = FTDefaultLog(v17);
+  v19 = v18;
+  if (successCopy)
+  {
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    {
+      v29 = 138412290;
+      v30 = identifierCopy;
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "successfully sent file with identifier: %@", &v29, 0xCu);
+    }
+  }
+
+  else if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+  {
+    sub_100039338();
+  }
+
+  clientFileURLByIdentifier = [(FTFileTransferController *)self clientFileURLByIdentifier];
+  v21 = [clientFileURLByIdentifier objectForKeyedSubscript:identifierCopy];
+
+  if (v21)
+  {
+    [(FTFileTransferController *)self cleanUpTemporaryFileIfExistsForClientFileURL:v21];
+    delegate = [(FTFileTransferController *)self delegate];
+    transactionIDByIDSFileIdentifier = [(FTFileTransferController *)self transactionIDByIDSFileIdentifier];
+    v25 = [transactionIDByIDSFileIdentifier objectForKeyedSubscript:identifierCopy];
+    [delegate fileTransferer:self didTransferFileAtURL:v21 transactionID:v25 successfully:successCopy];
+
+    clientFileURLByIdentifier2 = [(FTFileTransferController *)self clientFileURLByIdentifier];
+    [clientFileURLByIdentifier2 setObject:0 forKeyedSubscript:identifierCopy];
+
+    transactionIDByIDSFileIdentifier2 = [(FTFileTransferController *)self transactionIDByIDSFileIdentifier];
+    [transactionIDByIDSFileIdentifier2 setObject:0 forKeyedSubscript:identifierCopy];
+  }
+
+  else
+  {
+    transactionIDByIDSFileIdentifier2 = FTDefaultLog(v22);
+    if (os_log_type_enabled(transactionIDByIDSFileIdentifier2, OS_LOG_TYPE_DEFAULT))
+    {
+      clientFileURLByIdentifier3 = [(FTFileTransferController *)self clientFileURLByIdentifier];
+      v29 = 138413570;
+      v30 = serviceCopy;
+      v31 = 2112;
+      v32 = accountCopy;
+      v33 = 2112;
+      v34 = identifierCopy;
+      v35 = 1024;
+      v36 = successCopy;
+      v37 = 2112;
+      v38 = errorCopy;
+      v39 = 2112;
+      v40 = clientFileURLByIdentifier3;
+      _os_log_impl(&_mh_execute_header, transactionIDByIDSFileIdentifier2, OS_LOG_TYPE_DEFAULT, "[WARN] Unexpected nil clientFileURL for service: %@, account: %@, identifier: %@, didSendWithSuccess: %d, error: %@, clientFileURLByIdentifier: %@", &v29, 0x3Au);
+    }
+  }
 }
 
 + (id)copyFileAtURL:(id)l toTemporaryFileWithName:(id)name
@@ -246,55 +315,55 @@
   v11 = [NSURL fileURLWithPath:v10];
 
   v12 = +[NSFileManager defaultManager];
-  v23 = 0;
-  LODWORD(v8) = [v12 createDirectoryAtURL:v11 withIntermediateDirectories:1 attributes:0 error:&v23];
-  v13 = v23;
+  v25 = 0;
+  LODWORD(v8) = [v12 createDirectoryAtURL:v11 withIntermediateDirectories:1 attributes:0 error:&v25];
+  v13 = v25;
 
   if (!v8)
   {
-    v19 = FTDefaultLog();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v21 = FTDefaultLog(v14);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       sub_1000393A0();
     }
 
-    v14 = 0;
-    v17 = v13;
+    v15 = 0;
+    v18 = v13;
     goto LABEL_9;
   }
 
-  v14 = [v11 URLByAppendingPathComponent:nameCopy];
-  v15 = +[NSFileManager defaultManager];
-  v22 = v13;
-  v16 = [v15 copyItemAtURL:lCopy toURL:v14 error:&v22];
-  v17 = v22;
+  v15 = [v11 URLByAppendingPathComponent:nameCopy];
+  v16 = +[NSFileManager defaultManager];
+  v24 = v13;
+  v17 = [v16 copyItemAtURL:lCopy toURL:v15 error:&v24];
+  v18 = v24;
 
-  if ((v16 & 1) == 0)
+  if ((v17 & 1) == 0)
   {
-    v19 = FTDefaultLog();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v21 = FTDefaultLog(v19);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412802;
-      v25 = lCopy;
-      v26 = 2112;
-      v27 = v14;
+      v27 = lCopy;
       v28 = 2112;
-      v29 = v17;
-      _os_log_error_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "Failed to copy URL at %@ to %@: %@", buf, 0x20u);
+      v29 = v15;
+      v30 = 2112;
+      v31 = v18;
+      _os_log_error_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "Failed to copy URL at %@ to %@: %@", buf, 0x20u);
     }
 
 LABEL_9:
-    v18 = v14;
+    v20 = v15;
 
-    v14 = 0;
+    v15 = 0;
     goto LABEL_10;
   }
 
-  v18 = v14;
+  v20 = v15;
 LABEL_10:
-  v20 = v14;
+  v22 = v15;
 
-  return v20;
+  return v22;
 }
 
 + (id)renameResourceAtURL:(id)l toResourceWithName:(id)name
@@ -302,22 +371,22 @@ LABEL_10:
   lCopy = l;
   v7 = [self renamedResourceURL:lCopy withName:name];
   v8 = +[NSFileManager defaultManager];
-  v13 = 0;
-  v9 = [v8 moveItemAtURL:lCopy toURL:v7 error:&v13];
-  v10 = v13;
+  v14 = 0;
+  v9 = [v8 moveItemAtURL:lCopy toURL:v7 error:&v14];
+  v10 = v14;
 
   if ((v9 & 1) == 0)
   {
-    v11 = FTDefaultLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = FTDefaultLog(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412802;
-      v15 = lCopy;
-      v16 = 2112;
-      v17 = v7;
-      v18 = 2112;
-      v19 = v10;
-      _os_log_error_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "Error moving url %@ to %@: %@", buf, 0x20u);
+      v16 = lCopy;
+      v17 = 2112;
+      v18 = v7;
+      v19 = 2112;
+      v20 = v10;
+      _os_log_error_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "Error moving url %@ to %@: %@", buf, 0x20u);
     }
 
     v7 = 0;
@@ -344,23 +413,23 @@ LABEL_10:
 {
   lCopy = l;
   v4 = +[NSFileManager defaultManager];
-  v9 = 0;
-  v5 = [v4 removeItemAtURL:lCopy error:&v9];
-  v6 = v9;
+  v10 = 0;
+  v5 = [v4 removeItemAtURL:lCopy error:&v10];
+  v6 = v10;
 
-  v7 = FTDefaultLog();
-  v8 = v7;
+  v8 = FTDefaultLog(v7);
+  v9 = v8;
   if (v5)
   {
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v11 = lCopy;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Deleted contents at URL: %@", buf, 0xCu);
+      v12 = lCopy;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Deleted contents at URL: %@", buf, 0xCu);
     }
   }
 
-  else if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     sub_100038938();
   }
@@ -380,7 +449,7 @@ LABEL_10:
   v13 = [v12 stringByAppendingPathExtension:@"zip"];
 
   v14 = [NSURL fileURLWithPath:v13];
-  v15 = FTDefaultLog();
+  v15 = FTDefaultLog(v14);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
@@ -411,30 +480,30 @@ LABEL_10:
   queue = [(FTFileTransferController *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v14 = FTDefaultLog();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v15 = FTDefaultLog(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218498;
     operationCopy = operation;
-    v28 = 2112;
-    v29 = lCopy;
-    v30 = 2112;
-    v31 = rLCopy;
-    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "operation: %ld, inputURL: %@, outputURL: %@", buf, 0x20u);
+    v29 = 2112;
+    v30 = lCopy;
+    v31 = 2112;
+    v32 = rLCopy;
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "operation: %ld, inputURL: %@, outputURL: %@", buf, 0x20u);
   }
 
-  v15 = [IMFileCopier alloc];
-  v22 = lCopy;
-  v23 = rLCopy;
-  v24 = completionCopy;
+  v16 = [IMFileCopier alloc];
+  v23 = lCopy;
+  v24 = rLCopy;
+  v25 = completionCopy;
   operationCopy2 = operation;
-  v16 = completionCopy;
-  v17 = rLCopy;
-  v18 = lCopy;
-  v19 = [(FTFileTransferController *)self queue:_NSConcreteStackBlock];
-  v20 = [v15 initWithInputURL:v18 outputURL:v17 identifier:0 operation:operation completionBlock:&v21 queue:v19];
+  v17 = completionCopy;
+  v18 = rLCopy;
+  v19 = lCopy;
+  v20 = [(FTFileTransferController *)self queue:_NSConcreteStackBlock];
+  v21 = [v16 initWithInputURL:v19 outputURL:v18 identifier:0 operation:operation completionBlock:&v22 queue:v20];
 
-  [v20 start];
+  [v21 start];
 }
 
 - (void)cleanUpTemporaryFileIfExistsForClientFileURL:(id)l
@@ -448,12 +517,12 @@ LABEL_10:
 
   if (v7)
   {
-    v8 = FTDefaultLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = FTDefaultLog(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412290;
-      v11 = v7;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "deleting temporary file at URL: %@", &v10, 0xCu);
+      v11 = 138412290;
+      v12 = v7;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "deleting temporary file at URL: %@", &v11, 0xCu);
     }
 
     [objc_opt_class() deleteContentsAtURL:v7];

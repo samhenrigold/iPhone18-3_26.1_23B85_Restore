@@ -28,6 +28,7 @@
 - (void)addFinalizeHandler:(id)handler;
 - (void)dealloc;
 - (void)filterIdentifiers:(const void *)identifiers;
+- (void)pushScopeForField:(int)field message:(const Message *)message usingBlock:(id)block;
 - (void)readLazyReferenceMessage:(const void *)message class:(Class)class protocol:(id)protocol completion:(id)completion;
 - (void)readLazyReferenceMessage:(const void *)message completion:(id)completion;
 - (void)readLazyReferenceMessage:(const void *)message ownershipMode:(int64_t)mode validateStrongReferences:(BOOL)references allowUnknownObject:(BOOL)object class:(Class)class protocol:(id)protocol validateClass:(BOOL)validateClass selector:(SEL)self0 delegate:(id)self1 completion:(id)self2;
@@ -35,11 +36,13 @@
 - (void)readReferenceMessage:(const void *)message class:(Class)class protocol:(id)protocol completion:(id)completion;
 - (void)readReferenceMessage:(const void *)message class:(Class)class protocol:(id)protocol repeatedMessage:(const void *)repeatedMessage class:(Class)a7 protocol:(id)a8 completion:(id)completion;
 - (void)readReferenceMessage:(const void *)message completion:(id)completion;
+- (void)readReferenceMessage:(const void *)message isWeak:(BOOL)weak validateStrongReferences:(BOOL)references allowUnknownObject:(BOOL)object class:(Class)class protocol:(id)protocol validateClass:(BOOL)validateClass selector:(SEL)self0 weakSelector:(SEL)self1 completion:(id)self2;
 - (void)readRepeatedLazyReferenceMessage:(const void *)message class:(Class)class protocol:(id)protocol completion:(id)completion;
 - (void)readRepeatedLazyReferenceMessage:(const void *)message completion:(id)completion;
 - (void)readRepeatedLazyReferenceMessage:(const void *)message ownershipMode:(int64_t)mode validateStrongReferences:(BOOL)references allowUnknownObject:(BOOL)object class:(Class)class protocol:(id)protocol validateClass:(BOOL)validateClass selector:(SEL)self0 delegate:(id)self1 completion:(id)self2;
 - (void)readRepeatedReferenceMessage:(const void *)message class:(Class)class protocol:(id)protocol completion:(id)completion;
 - (void)readRepeatedReferenceMessage:(const void *)message completion:(id)completion;
+- (void)readRepeatedReferenceMessage:(const void *)message isWeak:(BOOL)weak validateStrongReferences:(BOOL)references allowUnknownObject:(BOOL)object class:(Class)class protocol:(id)protocol validateClass:(BOOL)validateClass selector:(SEL)self0 completion:(id)self1;
 - (void)readRepeatedUnknownLazyReferenceMessage:(const void *)message ownershipMode:(int64_t)mode completion:(id)completion;
 - (void)readRepeatedUnownedReferenceMessage:(const void *)message class:(Class)class protocol:(id)protocol completion:(id)completion;
 - (void)readRepeatedUnownedReferenceMessage:(const void *)message completion:(id)completion;
@@ -242,6 +245,102 @@ LABEL_13:
   }
 
   return Message;
+}
+
+- (void)pushScopeForField:(int)field message:(const Message *)message usingBlock:(id)block
+{
+  v6 = *&field;
+  blockCopy = block;
+  if (!blockCopy)
+  {
+    v9 = MEMORY[0x277D81150];
+    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "[TSPUnarchiver pushScopeForField:message:usingBlock:]");
+    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPUnarchiver.mm");
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v9, v13, v10, v12, 143, 0, "invalid nil value for '%{public}s'", "block");
+
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v14, v15);
+  }
+
+  v16 = (*(message->var0 + 19))(message);
+  v18 = objc_msgSend_messageWithDescriptor_(self, v17, v16);
+  v19 = *(self + 19);
+  if (!v19)
+  {
+    operator new();
+  }
+
+  v20 = *(v19 + 16);
+  if (v20 == *(v19 + 20))
+  {
+    google::protobuf::RepeatedField<unsigned int>::Reserve();
+  }
+
+  *(*(v19 + 24) + 4 * v20) = v6;
+  *(v19 + 16) = v20 + 1;
+  v21 = (*(*v18 + 152))(v18);
+  (*(*v18 + 152))(v18);
+  v23 = v22;
+  FieldByNumber = google::protobuf::Descriptor::FindFieldByNumber(v21, v6);
+  if (!FieldByNumber)
+  {
+    FieldByNumber = google::protobuf::Reflection::FindKnownExtensionByNumber(v23, v6);
+    if (!FieldByNumber)
+    {
+      v38 = *(v21 + 1);
+      if (*(v38 + 23) < 0)
+      {
+        v38 = *v38;
+      }
+
+      v39 = *(self + 3);
+      v40 = sub_2769B2558(*(self + 19), v25);
+      TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Invalid field scope for object with identifier %llu. Expected message type is %{public}s. Field path is %{public}@.", "[TSPUnarchiver pushScopeForField:message:usingBlock:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPUnarchiver.mm", 164, v39, v38, v40);
+
+      v41 = MEMORY[0x277D81150];
+      v43 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v42, "[TSPUnarchiver pushScopeForField:message:usingBlock:]");
+      v46 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v44, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPUnarchiver.mm");
+      v47 = *(v21 + 1);
+      if (*(v47 + 23) < 0)
+      {
+        v47 = *v47;
+      }
+
+      v48 = *(self + 3);
+      v49 = sub_2769B2558(*(self + 19), v45);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v41, v50, v43, v46, 164, 1, "Invalid field scope for object with identifier %llu. Expected message type is %{public}s. Field path is %{public}@.", v48, v47, v49);
+
+      TSUCrashBreakpoint();
+      abort();
+    }
+  }
+
+  HasField = google::protobuf::Reflection::HasField(v23, v18, FieldByNumber);
+  blockCopy[2](blockCopy, HasField);
+  v28 = *(self + 19);
+  v29 = *(v28 + 16);
+  if (v29 == 1)
+  {
+    v30 = sub_2769E22E8(v28);
+    MEMORY[0x277C9F670](v30, 0x1081C40B6D36AFBLL);
+    *(self + 19) = 0;
+  }
+
+  else
+  {
+    if (v29 <= 0)
+    {
+      v31 = MEMORY[0x277D81150];
+      v32 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v27, "[TSPUnarchiver pushScopeForField:message:usingBlock:]");
+      v34 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v33, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPUnarchiver.mm");
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v31, v35, v32, v34, 174, 0, "Unbalanced push/pop operations on _currentFieldPath.");
+
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v36, v37);
+      v28 = *(self + 19);
+      v29 = *(v28 + 16);
+    }
+
+    *(v28 + 16) = v29 - 1;
+  }
 }
 
 - (void)readReferenceMessage:(const void *)message class:(Class)class protocol:(id)protocol completion:(id)completion
@@ -490,6 +589,153 @@ LABEL_9:
   objc_msgSend_readReferenceMessage_isWeak_validateStrongReferences_allowUnknownObject_class_protocol_validateClass_selector_weakSelector_completion_(self, v24, message, 0, 0, 0, v23, 0, v25, a2, sel_readWeakReferenceMessage_class_protocol_completion_, completionCopy);
 }
 
+- (void)readReferenceMessage:(const void *)message isWeak:(BOOL)weak validateStrongReferences:(BOOL)references allowUnknownObject:(BOOL)object class:(Class)class protocol:(id)protocol validateClass:(BOOL)validateClass selector:(SEL)self0 weakSelector:(SEL)self1 completion:(id)self2
+{
+  referencesCopy = references;
+  weakCopy = weak;
+  protocolCopy = protocol;
+  completionCopy = completion;
+  if (completionCopy)
+  {
+    if (!validateClass)
+    {
+      goto LABEL_20;
+    }
+
+    if (objc_opt_class() != class)
+    {
+      v21 = objc_opt_class();
+      if ((objc_msgSend_isSubclassOfClass_(class, v22, v21) & 1) == 0)
+      {
+        if (objc_opt_class() == class)
+        {
+          v47 = MEMORY[0x277D81150];
+          v86 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v23, "[TSPUnarchiver readReferenceMessage:isWeak:validateStrongReferences:allowUnknownObject:class:protocol:validateClass:selector:weakSelector:completion:]");
+          v88 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v48, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPUnarchiver.mm");
+          v49 = objc_opt_class();
+          v28 = objc_msgSend_stringForSelector_objectClass_(v49, v50, selector, class);
+          v51 = v47;
+          v33 = v86;
+          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v51, v52, v86, v88, 224, 0, "You should provide a more specific object reference wrapper class for the %{public}@ function.", v28);
+          goto LABEL_19;
+        }
+
+        v24 = objc_opt_class();
+        if ((objc_msgSend_isSubclassOfClass_(class, v25, v24) & 1) == 0)
+        {
+          v53 = MEMORY[0x277D81150];
+          v87 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v18, "[TSPUnarchiver readReferenceMessage:isWeak:validateStrongReferences:allowUnknownObject:class:protocol:validateClass:selector:weakSelector:completion:]");
+          v88 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v54, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPUnarchiver.mm");
+          v55 = objc_opt_class();
+          v28 = objc_msgSend_stringForSelector_objectClass_(v55, v56, selector, class);
+          v57 = v53;
+          v33 = v87;
+          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v57, v58, v87, v88, 224, 0, "You should provide a TSPObject or TSPObjectReferenceWrapper subclass for the %{public}@ function.", v28);
+          goto LABEL_19;
+        }
+
+        if (protocolCopy)
+        {
+          v26 = MEMORY[0x277D81150];
+          v83 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v18, "[TSPUnarchiver readReferenceMessage:isWeak:validateStrongReferences:allowUnknownObject:class:protocol:validateClass:selector:weakSelector:completion:]");
+          v88 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v27, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPUnarchiver.mm");
+          v80 = v26;
+          v28 = NSStringFromProtocol(protocolCopy);
+          v29 = objc_opt_class();
+          v31 = objc_msgSend_stringForSelector_objectClass_(v29, v30, selector, class);
+          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v80, v32, v83, v88, 224, 0, "You should not define any protocol (including %{public}@) when using object reference wrapper for the %{public}@ function.", v28, v31);
+
+          v33 = v83;
+LABEL_19:
+
+          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v59, v60);
+          goto LABEL_20;
+        }
+      }
+
+      goto LABEL_20;
+    }
+
+    if (protocolCopy)
+    {
+      if (&unk_2885E6538 == protocolCopy)
+      {
+        v81 = MEMORY[0x277D81150];
+        v84 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v18, "[TSPUnarchiver readReferenceMessage:isWeak:validateStrongReferences:allowUnknownObject:class:protocol:validateClass:selector:weakSelector:completion:]");
+        v88 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v34, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPUnarchiver.mm");
+        v33 = v84;
+        v35 = objc_opt_class();
+        v28 = objc_msgSend_stringForSelector_objectClass_(v35, v36, selector, class);
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v81, v37, v84, v88, 224, 0, "You should provide a more specific protocol for the %{public}@ function.", v28);
+        goto LABEL_19;
+      }
+
+LABEL_20:
+      v61 = *(message + 3);
+      objc_msgSend_validateReferenceToObjectIdentifier_objectClass_isWeak_validateStrongReferences_selector_weakSelector_(self, v18, v61, class, &weakCopy, referencesCopy, selector, sel_readWeakReferenceMessage_class_protocol_completion_);
+      v64 = objc_msgSend_copy(completionCopy, v62, v63);
+      v65 = weakCopy;
+      v66 = protocolCopy;
+      v89 = v61;
+      v90 = _Block_copy(v64);
+      v91 = v65;
+      objectCopy = object;
+      classCopy = class;
+      v94 = v66;
+      sub_2769B3C78(self + 10, &v89, v67, v68, v69, v70);
+
+      goto LABEL_21;
+    }
+
+    v38 = objc_msgSend_sourceType(self, v18, v20);
+    if ((v38 - 4) >= 2)
+    {
+      if (v38 == 1)
+      {
+        v71 = objc_msgSend_delegate(self, v18, v39);
+        if (objc_msgSend_packageIdentifier(v71, v72, v73) == 2)
+        {
+
+          goto LABEL_20;
+        }
+
+        v76 = objc_msgSend_objectClass(self, v74, v75);
+        isInternalObjectContainerClass = objc_msgSend_tsp_isInternalObjectContainerClass(v76, v77, v78);
+
+        if (isInternalObjectContainerClass)
+        {
+          goto LABEL_20;
+        }
+
+        goto LABEL_16;
+      }
+
+      if (v38 != 2)
+      {
+        goto LABEL_20;
+      }
+    }
+
+    v40 = objc_msgSend_objectClass(self, v18, v39);
+    if (objc_msgSend_tsp_isInternalObjectContainerClass(v40, v41, v42))
+    {
+      goto LABEL_20;
+    }
+
+LABEL_16:
+    v82 = MEMORY[0x277D81150];
+    v85 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v18, "[TSPUnarchiver readReferenceMessage:isWeak:validateStrongReferences:allowUnknownObject:class:protocol:validateClass:selector:weakSelector:completion:]");
+    v88 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v43, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPUnarchiver.mm");
+    v33 = v85;
+    v44 = objc_opt_class();
+    v28 = objc_msgSend_stringForSelector_objectClass_(v44, v45, selector, class);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v82, v46, v85, v88, 224, 0, "You should provide a more specific object class for the %{public}@ function.", v28);
+    goto LABEL_19;
+  }
+
+LABEL_21:
+}
+
 - (void)readRepeatedReferenceMessage:(const void *)message class:(Class)class protocol:(id)protocol completion:(id)completion
 {
   protocolCopy = protocol;
@@ -734,6 +980,177 @@ LABEL_9:
   v23 = objc_opt_class();
   LOBYTE(v25) = 0;
   objc_msgSend_readRepeatedReferenceMessage_isWeak_validateStrongReferences_allowUnknownObject_class_protocol_validateClass_selector_completion_(self, v24, message, 0, 0, 0, v23, 0, v25, a2, completionCopy);
+}
+
+- (void)readRepeatedReferenceMessage:(const void *)message isWeak:(BOOL)weak validateStrongReferences:(BOOL)references allowUnknownObject:(BOOL)object class:(Class)class protocol:(id)protocol validateClass:(BOOL)validateClass selector:(SEL)self0 completion:(id)self1
+{
+  referencesCopy = references;
+  protocolCopy = protocol;
+  completionCopy = completion;
+  if (!completionCopy)
+  {
+    goto LABEL_25;
+  }
+
+  if (!validateClass)
+  {
+    goto LABEL_20;
+  }
+
+  if (objc_opt_class() != class)
+  {
+    v19 = objc_opt_class();
+    if ((objc_msgSend_isSubclassOfClass_(class, v20, v19) & 1) == 0)
+    {
+      if (objc_opt_class() == class)
+      {
+        v45 = MEMORY[0x277D81150];
+        v80 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v21, "[TSPUnarchiver readRepeatedReferenceMessage:isWeak:validateStrongReferences:allowUnknownObject:class:protocol:validateClass:selector:completion:]");
+        v75 = v45;
+        v82 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v46, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPUnarchiver.mm");
+        v30 = v80;
+        v47 = objc_opt_class();
+        v25 = objc_msgSend_stringForSelector_objectClass_(v47, v48, selector, class);
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v75, v49, v80, v82, 280, 0, "You should provide a more specific object reference wrapper class for the %{public}@ function.", v25);
+        goto LABEL_19;
+      }
+
+      v22 = objc_opt_class();
+      if ((objc_msgSend_isSubclassOfClass_(class, v23, v22) & 1) == 0)
+      {
+        v50 = MEMORY[0x277D81150];
+        v81 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, "[TSPUnarchiver readRepeatedReferenceMessage:isWeak:validateStrongReferences:allowUnknownObject:class:protocol:validateClass:selector:completion:]");
+        v76 = v50;
+        v82 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v51, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPUnarchiver.mm");
+        v30 = v81;
+        v52 = objc_opt_class();
+        v25 = objc_msgSend_stringForSelector_objectClass_(v52, v53, selector, class);
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v76, v54, v81, v82, 280, 0, "You should provide a TSPObject or TSPObjectReferenceWrapper subclass for the %{public}@ function.", v25);
+        goto LABEL_19;
+      }
+
+      if (protocolCopy)
+      {
+        v72 = MEMORY[0x277D81150];
+        v77 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, "[TSPUnarchiver readRepeatedReferenceMessage:isWeak:validateStrongReferences:allowUnknownObject:class:protocol:validateClass:selector:completion:]");
+        v82 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v24, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPUnarchiver.mm");
+        v25 = NSStringFromProtocol(protocolCopy);
+        v26 = objc_opt_class();
+        v28 = objc_msgSend_stringForSelector_objectClass_(v26, v27, selector, class);
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v72, v29, v77, v82, 280, 0, "You should not define any protocol (including %{public}@) when using object reference wrapper for the %{public}@ function.", v25, v28);
+
+        v30 = v77;
+LABEL_19:
+
+        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v55, v56);
+        goto LABEL_20;
+      }
+    }
+
+    goto LABEL_20;
+  }
+
+  if (!protocolCopy)
+  {
+    v36 = objc_msgSend_sourceType(self, v17, v18);
+    if ((v36 - 4) >= 2)
+    {
+      if (v36 == 1)
+      {
+        v63 = objc_msgSend_delegate(self, v17, v18);
+        if (objc_msgSend_packageIdentifier(v63, v64, v65) == 2)
+        {
+
+          goto LABEL_20;
+        }
+
+        v68 = objc_msgSend_objectClass(self, v66, v67);
+        isInternalObjectContainerClass = objc_msgSend_tsp_isInternalObjectContainerClass(v68, v69, v70);
+
+        if (isInternalObjectContainerClass)
+        {
+          goto LABEL_20;
+        }
+
+        goto LABEL_16;
+      }
+
+      if (v36 != 2)
+      {
+        goto LABEL_20;
+      }
+    }
+
+    v37 = objc_msgSend_objectClass(self, v17, v18);
+    if (objc_msgSend_tsp_isInternalObjectContainerClass(v37, v38, v39))
+    {
+      goto LABEL_20;
+    }
+
+LABEL_16:
+    v40 = MEMORY[0x277D81150];
+    v79 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, "[TSPUnarchiver readRepeatedReferenceMessage:isWeak:validateStrongReferences:allowUnknownObject:class:protocol:validateClass:selector:completion:]");
+    v74 = v40;
+    v82 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v41, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPUnarchiver.mm");
+    v30 = v79;
+    v42 = objc_opt_class();
+    v25 = objc_msgSend_stringForSelector_objectClass_(v42, v43, selector, class);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v74, v44, v79, v82, 280, 0, "You should provide a more specific object class for the %{public}@ function.", v25);
+    goto LABEL_19;
+  }
+
+  if (&unk_2885E6538 == protocolCopy)
+  {
+    v31 = MEMORY[0x277D81150];
+    v78 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, "[TSPUnarchiver readRepeatedReferenceMessage:isWeak:validateStrongReferences:allowUnknownObject:class:protocol:validateClass:selector:completion:]");
+    v73 = v31;
+    v82 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v32, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPUnarchiver.mm");
+    v30 = v78;
+    v33 = objc_opt_class();
+    v25 = objc_msgSend_stringForSelector_objectClass_(v33, v34, selector, class);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v73, v35, v78, v82, 280, 0, "You should provide a more specific protocol for the %{public}@ function.", v25);
+    goto LABEL_19;
+  }
+
+LABEL_20:
+  v57 = objc_msgSend_copy(completionCopy, v17, v18);
+  v58 = protocolCopy;
+  v87 = 0;
+  v88 = 0;
+  __p = 0;
+  v89 = _Block_copy(v57);
+  weakCopy = weak;
+  objectCopy = object;
+  classCopy = class;
+  v93 = v58;
+  sub_2769B4EE4(self + 13, &__p);
+
+  if (__p)
+  {
+    v87 = __p;
+    operator delete(__p);
+  }
+
+  v59 = (*(self + 14) - 56);
+  v60 = *(message + 2);
+  sub_2769B4FA0(v59, v60);
+  if (v60 >= 1)
+  {
+    v62 = 8;
+    do
+    {
+      __p = *(*(*(message + 2) + v62) + 24);
+      weakCopy2 = weak;
+      objc_msgSend_validateReferenceToObjectIdentifier_objectClass_isWeak_validateStrongReferences_selector_weakSelector_(self, v61, __p, class, &weakCopy2, referencesCopy, selector, sel_readRepeatedWeakReferenceMessage_class_protocol_completion_);
+      sub_2769B5040(v59, &__p);
+      v62 += 8;
+      --v60;
+    }
+
+    while (v60);
+  }
+
+LABEL_25:
 }
 
 - (void)readLazyReferenceMessage:(const void *)message class:(Class)class protocol:(id)protocol completion:(id)completion
@@ -1904,13 +2321,13 @@ LABEL_9:
       if (objc_opt_class() == class)
       {
         v49 = MEMORY[0x277D81150];
-        v82 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v22, "[TSPUnarchiver readWeakReferenceToObjectUUID:delegate:class:protocol:selector:completion:]");
+        v86 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v22, "[TSPUnarchiver readWeakReferenceToObjectUUID:delegate:class:protocol:selector:completion:]");
         v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v50, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPUnarchiver.mm");
         v51 = objc_opt_class();
         v27 = objc_msgSend_stringForSelector_objectClass_(v51, v52, selector, class);
         v53 = v49;
-        v32 = v82;
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v53, v54, v82, v26, 543, 0, "You should provide a more specific object reference wrapper class for the %{public}@ function.", v27);
+        v32 = v86;
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v53, v54, v86, v26, 543, 0, "You should provide a more specific object reference wrapper class for the %{public}@ function.", v27);
         goto LABEL_17;
       }
 
@@ -1918,27 +2335,27 @@ LABEL_9:
       if ((objc_msgSend_isSubclassOfClass_(class, v24, v23) & 1) == 0)
       {
         v55 = MEMORY[0x277D81150];
-        v83 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v18, "[TSPUnarchiver readWeakReferenceToObjectUUID:delegate:class:protocol:selector:completion:]");
+        v87 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v18, "[TSPUnarchiver readWeakReferenceToObjectUUID:delegate:class:protocol:selector:completion:]");
         v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v56, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPUnarchiver.mm");
         v57 = objc_opt_class();
         v27 = objc_msgSend_stringForSelector_objectClass_(v57, v58, selector, class);
         v59 = v55;
-        v32 = v83;
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v59, v60, v83, v26, 543, 0, "You should provide a TSPObject or TSPObjectReferenceWrapper subclass for the %{public}@ function.", v27);
+        v32 = v87;
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v59, v60, v87, v26, 543, 0, "You should provide a TSPObject or TSPObjectReferenceWrapper subclass for the %{public}@ function.", v27);
         goto LABEL_17;
       }
 
       if (protocolCopy)
       {
-        v77 = MEMORY[0x277D81150];
-        v79 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v18, "[TSPUnarchiver readWeakReferenceToObjectUUID:delegate:class:protocol:selector:completion:]");
+        v81 = MEMORY[0x277D81150];
+        v83 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v18, "[TSPUnarchiver readWeakReferenceToObjectUUID:delegate:class:protocol:selector:completion:]");
         v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v25, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPUnarchiver.mm");
         v27 = NSStringFromProtocol(protocolCopy);
         v28 = objc_opt_class();
         v30 = objc_msgSend_stringForSelector_objectClass_(v28, v29, selector, class);
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v77, v31, v79, v26, 543, 0, "You should not define any protocol (including %{public}@) when using object reference wrapper for the %{public}@ function.", v27, v30);
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v81, v31, v83, v26, 543, 0, "You should not define any protocol (including %{public}@) when using object reference wrapper for the %{public}@ function.", v27, v30);
 
-        v32 = v79;
+        v32 = v83;
 LABEL_17:
 
         objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v61, v62);
@@ -1956,15 +2373,15 @@ LABEL_17:
     {
       if (v39 == 1)
       {
-        v68 = objc_msgSend_delegate(self, v18, v40);
-        if (objc_msgSend_packageIdentifier(v68, v69, v70) == 2)
+        v72 = objc_msgSend_delegate(self, v18, v40);
+        if (objc_msgSend_packageIdentifier(v72, v73, v74) == 2)
         {
 
           goto LABEL_18;
         }
 
-        v73 = objc_msgSend_objectClass(self, v71, v72);
-        isInternalObjectContainerClass = objc_msgSend_tsp_isInternalObjectContainerClass(v73, v74, v75);
+        v77 = objc_msgSend_objectClass(self, v75, v76);
+        isInternalObjectContainerClass = objc_msgSend_tsp_isInternalObjectContainerClass(v77, v78, v79);
 
         if (isInternalObjectContainerClass)
         {
@@ -1988,26 +2405,26 @@ LABEL_17:
 
 LABEL_14:
     v44 = MEMORY[0x277D81150];
-    v81 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v18, "[TSPUnarchiver readWeakReferenceToObjectUUID:delegate:class:protocol:selector:completion:]");
-    v78 = v44;
+    v85 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v18, "[TSPUnarchiver readWeakReferenceToObjectUUID:delegate:class:protocol:selector:completion:]");
+    v82 = v44;
     v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v45, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPUnarchiver.mm");
-    v32 = v81;
+    v32 = v85;
     v46 = objc_opt_class();
     v27 = objc_msgSend_stringForSelector_objectClass_(v46, v47, selector, class);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v78, v48, v81, v26, 543, 0, "You should provide a more specific object class for the %{public}@ function.", v27);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v82, v48, v85, v26, 543, 0, "You should provide a more specific object class for the %{public}@ function.", v27);
     goto LABEL_17;
   }
 
   if (&unk_2885E6538 == protocolCopy)
   {
     v33 = MEMORY[0x277D81150];
-    v80 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v18, "[TSPUnarchiver readWeakReferenceToObjectUUID:delegate:class:protocol:selector:completion:]");
+    v84 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v18, "[TSPUnarchiver readWeakReferenceToObjectUUID:delegate:class:protocol:selector:completion:]");
     v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v34, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPUnarchiver.mm");
     v35 = objc_opt_class();
     v27 = objc_msgSend_stringForSelector_objectClass_(v35, v36, selector, class);
     v37 = v33;
-    v32 = v80;
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v37, v38, v80, v26, 543, 0, "You should provide a more specific protocol for the %{public}@ function.", v27);
+    v32 = v84;
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v37, v38, v84, v26, 543, 0, "You should provide a more specific protocol for the %{public}@ function.", v27);
     goto LABEL_17;
   }
 
@@ -2015,12 +2432,12 @@ LABEL_18:
   v63 = objc_msgSend_objectIdentifierForUUID_(delegateCopy, v18, dCopy);
   v66 = objc_msgSend_copy(completionCopy, v64, v65);
   v67 = protocolCopy;
-  v84 = v63;
-  v85 = _Block_copy(v66);
-  v86 = 1;
+  v88 = v63;
+  v89 = _Block_copy(v66);
+  v90 = 1;
   classCopy = class;
-  v88 = v67;
-  sub_2769B3C78(self + 10, &v84);
+  v92 = v67;
+  sub_2769B3C78(self + 10, &v88, v68, v69, v70, v71);
 }
 
 - (id)readRepeatedWeakObjectUUIDReferenceMessage:(const void *)message class:(Class)class protocol:(id)protocol completion:(id)completion

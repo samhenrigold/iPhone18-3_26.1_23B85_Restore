@@ -55,38 +55,39 @@
 
 - (IDSDeliveryController)init
 {
-  v17.receiver = self;
-  v17.super_class = IDSDeliveryController;
-  v2 = [(IDSDeliveryController *)&v17 init];
+  v18.receiver = self;
+  v18.super_class = IDSDeliveryController;
+  v2 = [(IDSDeliveryController *)&v18 init];
+  v3 = v2;
   if (v2)
   {
-    v3 = sub_1004A52E4();
-    messageDelivery = v2->_messageDelivery;
-    v2->_messageDelivery = v3;
+    v4 = sub_1004A52E4(v2);
+    messageDelivery = v3->_messageDelivery;
+    v3->_messageDelivery = v4;
 
-    v5 = [[IDSRateLimiter alloc] initWithLimit:10 timeLimit:1800.0];
-    tokenURINegativeCache = v2->_tokenURINegativeCache;
-    v2->_tokenURINegativeCache = v5;
+    v6 = [[IDSRateLimiter alloc] initWithLimit:10 timeLimit:1800.0];
+    tokenURINegativeCache = v3->_tokenURINegativeCache;
+    v3->_tokenURINegativeCache = v6;
 
-    v7 = [IDSPushHandler sharedInstanceWithPortName:@"com.apple.identityservicesd.aps"];
-    v8 = im_primary_queue();
-    [v7 addListener:v2 topics:0 commands:0 queue:v8];
+    v8 = [IDSPushHandler sharedInstanceWithPortName:@"com.apple.identityservicesd.aps"];
+    v9 = im_primary_queue();
+    [v8 addListener:v3 topics:0 commands:0 queue:v9];
 
-    v9 = [IDSCoalesceMessageQueueManager alloc];
-    v10 = +[IDSServerBag sharedInstance];
-    v11 = [(IDSCoalesceMessageQueueManager *)v9 initWithBag:v10];
-    coalesceMessageQueueManager = v2->_coalesceMessageQueueManager;
-    v2->_coalesceMessageQueueManager = v11;
+    v10 = [IDSCoalesceMessageQueueManager alloc];
+    v11 = +[IDSServerBag sharedInstance];
+    v12 = [(IDSCoalesceMessageQueueManager *)v10 initWithBag:v11];
+    coalesceMessageQueueManager = v3->_coalesceMessageQueueManager;
+    v3->_coalesceMessageQueueManager = v12;
 
-    [(IDSCoalesceMessageQueueManager *)v2->_coalesceMessageQueueManager setDelegate:v2];
-    [(FTMessageDelivery *)v2->_messageDelivery setDisallowRetry:0];
-    if ([(IDSDeliveryController *)v2 shouldMinimizeBagCacheTime])
+    [(IDSCoalesceMessageQueueManager *)v3->_coalesceMessageQueueManager setDelegate:v3];
+    [(FTMessageDelivery *)v3->_messageDelivery setDisallowRetry:0];
+    if ([(IDSDeliveryController *)v3 shouldMinimizeBagCacheTime])
     {
-      v13 = OSLogHandleForIDSCategory();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v14 = OSLogHandleForIDSCategory();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        *v16 = 0;
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Forcing a bag fetch to refresh EN versioning", v16, 2u);
+        *v17 = 0;
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Forcing a bag fetch to refresh EN versioning", v17, 2u);
       }
 
       if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
@@ -94,14 +95,14 @@
         _IDSLogV();
       }
 
-      v14 = +[IDSServerBag sharedInstance];
-      [v14 forceBagLoad];
+      v15 = +[IDSServerBag sharedInstance];
+      [v15 forceBagLoad];
     }
 
-    [(IDSDeliveryController *)v2 addTokenURINegativeCacheClearBlock];
+    [(IDSDeliveryController *)v3 addTokenURINegativeCacheClearBlock];
   }
 
-  return v2;
+  return v3;
 }
 
 - (void)setSenderKeyDistributionManager:(id)manager
@@ -1688,7 +1689,7 @@ LABEL_45:
 
     v29 = [[IDSServiceProperties alloc] initWithServiceIdentifier:serviceCopy];
     dataUsageBundleID = [v29 dataUsageBundleID];
-    v31 = [IDSDaemon _IMTransferServiceController]_0();
+    v31 = [IDSDaemon _IMTransferServiceController]_0(dataUsageBundleID);
     stringByResolvingAndStandardizingPath = [v26 stringByResolvingAndStandardizingPath];
     v33 = [NSString stringGUIDForObject:v26];
     v58[0] = _NSConcreteStackBlock;
@@ -2539,7 +2540,7 @@ LABEL_138:
     v66 = 0;
     if (iDCopy && v65)
     {
-      v66 = [iDCopy isEqualToIgnoringCase:v65];
+      v66 = objc_msgSend_isEqualToIgnoringCase_(iDCopy);
     }
   }
 
@@ -2553,7 +2554,7 @@ LABEL_138:
     lastObject = [isCopy lastObject];
     tokenFreeURI = [lastObject tokenFreeURI];
     prefixedURI = [tokenFreeURI prefixedURI];
-    v66 |= [prefixedURI isEqualToIgnoringCase:iDCopy];
+    v66 |= objc_msgSend_isEqualToIgnoringCase_(prefixedURI);
   }
 
   [(IDSPeerAccessoryMessage *)v51 setWantsResponse:responseCopy];

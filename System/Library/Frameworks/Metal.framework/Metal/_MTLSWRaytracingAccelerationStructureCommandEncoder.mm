@@ -62,45 +62,43 @@ LABEL_7:
 
 - (void)substreamSynchronizeAccelerationStructures:(id)structures access:(unint64_t)access
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v7 = [structures countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [structures countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       v10 = 0;
       do
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(structures);
         }
 
         progressBins = self->_progressBins;
-        buffer = [*(*(&v15 + 1) + 8 * v10) buffer];
-        v14[0] = MEMORY[0x1E69E9820];
-        v14[1] = 3221225472;
-        v14[2] = __105___MTLSWRaytracingAccelerationStructureCommandEncoder_substreamSynchronizeAccelerationStructures_access___block_invoke;
-        v14[3] = &unk_1E6EEB998;
-        v14[4] = self;
-        MTLProgressBinsSynchronizeBufferAccess(progressBins, buffer, access, v14);
+        buffer = [*(*(&v14 + 1) + 8 * v10) buffer];
+        v13[0] = MEMORY[0x1E69E9820];
+        v13[1] = 3221225472;
+        v13[2] = __105___MTLSWRaytracingAccelerationStructureCommandEncoder_substreamSynchronizeAccelerationStructures_access___block_invoke;
+        v13[3] = &unk_1E6EEB998;
+        v13[4] = self;
+        MTLProgressBinsSynchronizeBufferAccess(progressBins, buffer, access, v13);
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [structures countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [structures countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)beginBVHSubstream
@@ -125,9 +123,9 @@ LABEL_7:
 
 - (_MTLSWRaytracingAccelerationStructureCommandEncoder)initWithCommandBuffer:(id)buffer
 {
-  v9.receiver = self;
-  v9.super_class = _MTLSWRaytracingAccelerationStructureCommandEncoder;
-  v4 = [(_MTLObjectWithLabel *)&v9 init];
+  v10.receiver = self;
+  v10.super_class = _MTLSWRaytracingAccelerationStructureCommandEncoder;
+  v4 = [(_MTLObjectWithLabel *)&v10 init];
   if (v4)
   {
     v4->_device = [buffer device];
@@ -151,7 +149,17 @@ LABEL_7:
 
     if ([_MTLSWRaytracingAccelerationStructureCommandEncoder initWithCommandBuffer:]::numSubstreams >= 2)
     {
-      MTLProgressBinsMake();
+      if ([_MTLSWRaytracingAccelerationStructureCommandEncoder initWithCommandBuffer:]::numSubstreams >= 3)
+      {
+        v7 = 3;
+      }
+
+      else
+      {
+        v7 = [_MTLSWRaytracingAccelerationStructureCommandEncoder initWithCommandBuffer:]::numSubstreams;
+      }
+
+      MTLProgressBinsMake(v7, 0x80u, 547.61, 0.00035879, 1.9567, 0.00045325, 0.1188, 0.0000070741);
     }
 
     [(MTLComputePassDescriptor *)v6 setUsedForRaytracingEmulation:1];
@@ -163,9 +171,9 @@ LABEL_7:
 
 - (_MTLSWRaytracingAccelerationStructureCommandEncoder)initWithCommandBuffer:(id)buffer descriptor:(id)descriptor
 {
-  v10.receiver = self;
-  v10.super_class = _MTLSWRaytracingAccelerationStructureCommandEncoder;
-  v6 = [(_MTLObjectWithLabel *)&v10 init];
+  v11.receiver = self;
+  v11.super_class = _MTLSWRaytracingAccelerationStructureCommandEncoder;
+  v6 = [(_MTLObjectWithLabel *)&v11 init];
   if (v6)
   {
     v6->_device = [buffer device];
@@ -182,12 +190,22 @@ LABEL_7:
 
     if (-[_MTLSWRaytracingAccelerationStructureCommandEncoder initWithCommandBuffer:descriptor:]::numSubstreams >= 2 && [descriptor enableSubstreams])
     {
-      MTLProgressBinsMake();
+      if ([_MTLSWRaytracingAccelerationStructureCommandEncoder initWithCommandBuffer:descriptor:]::numSubstreams >= 3)
+      {
+        v7 = 3;
+      }
+
+      else
+      {
+        v7 = [_MTLSWRaytracingAccelerationStructureCommandEncoder initWithCommandBuffer:descriptor:]::numSubstreams;
+      }
+
+      MTLProgressBinsMake(v7, 0x80u, 547.61, 0.00035879, 1.9567, 0.00045325, 0.1188, 0.0000070741);
     }
 
-    v7 = [descriptor convertToComputePassDescriptorWithConcurrentDispatch:-[_MTLSWRaytracingAccelerationStructureCommandEncoder initWithCommandBuffer:descriptor:]::useConcurrentDispatch];
-    [v7 setUsedForRaytracingEmulation:1];
-    v6->_computeEncoder = [(MTLCommandBuffer *)v6->_commandBuffer computeCommandEncoderWithDescriptor:v7];
+    v8 = [descriptor convertToComputePassDescriptorWithConcurrentDispatch:-[_MTLSWRaytracingAccelerationStructureCommandEncoder initWithCommandBuffer:descriptor:]::useConcurrentDispatch];
+    [v8 setUsedForRaytracingEmulation:1];
+    v6->_computeEncoder = [(MTLCommandBuffer *)v6->_commandBuffer computeCommandEncoderWithDescriptor:v8];
   }
 
   return v6;
@@ -266,56 +284,54 @@ LABEL_7:
     v12 = *(instanceCountBuffer + 48);
     if (v12)
     {
-      v29 = *(instanceCountBuffer + 40);
+      v27 = *(instanceCountBuffer + 40);
       PrimitiveCountFromDescriptor = MTLProgressBinsGetPrimitiveCountFromDescriptor(v7);
-      v31 = *(v12 + 8);
-      v32 = *(v12 + 12);
+      v29 = *(v12 + 8);
+      v30 = *(v12 + 12);
       if (*(v12 + 40) < 2uLL)
       {
-        v34 = 0;
+        v31 = 0;
       }
 
       else
       {
-        v33 = *(v12 + 24);
         do
         {
           OUTLINED_FUNCTION_41();
-          if (v37)
+          if (v34)
           {
-            v34 = v36;
+            v31 = v33;
           }
         }
 
-        while (v35 != v36 + 1);
+        while (v32 != v33 + 1);
       }
 
-      *(v12 + 42) = v34;
-      *(v12 + 44) = v31 + (v32 * PrimitiveCountFromDescriptor);
-      [v29 setSubstream:v34];
-      v38 = *(instanceCountBuffer + 48);
+      *(v12 + 42) = v31;
+      *(v12 + 44) = v29 + (v30 * PrimitiveCountFromDescriptor);
+      [v27 setSubstream:v31];
+      v35 = *(instanceCountBuffer + 48);
       [v8 buffer];
       OUTLINED_FUNCTION_4_0();
       OUTLINED_FUNCTION_52();
-      v52 = __127___MTLSWRaytracingAccelerationStructureCommandEncoder_buildAccelerationStructure_descriptor_scratchBuffer_scratchBufferOffset___block_invoke;
-      v53 = &unk_1E6EEB998;
-      v54 = instanceCountBuffer;
-      MTLProgressBinsSynchronizeBufferAccess(v38, v39, 1, v51);
-      [OUTLINED_FUNCTION_27() substreamSynchronizeDescriptor:? access:?];
-      v40 = *(instanceCountBuffer + 48);
-      OUTLINED_FUNCTION_18();
-      v48 = __127___MTLSWRaytracingAccelerationStructureCommandEncoder_buildAccelerationStructure_descriptor_scratchBuffer_scratchBufferOffset___block_invoke_2;
+      v48 = __127___MTLSWRaytracingAccelerationStructureCommandEncoder_buildAccelerationStructure_descriptor_scratchBuffer_scratchBufferOffset___block_invoke;
       v49 = &unk_1E6EEB998;
       v50 = instanceCountBuffer;
-      MTLProgressBinsSynchronizeBufferAccess(v41, buffer, 1, v47);
+      MTLProgressBinsSynchronizeBufferAccess(v35, v36, 1, v47);
+      [OUTLINED_FUNCTION_27() substreamSynchronizeDescriptor:? access:?];
+      OUTLINED_FUNCTION_18();
+      v44 = __127___MTLSWRaytracingAccelerationStructureCommandEncoder_buildAccelerationStructure_descriptor_scratchBuffer_scratchBufferOffset___block_invoke_2;
+      v45 = &unk_1E6EEB998;
+      v46 = instanceCountBuffer;
+      MTLProgressBinsSynchronizeBufferAccess(v37, buffer, 1, v43);
     }
   }
 
   v13 = objc_autoreleasePoolPush();
   objc_opt_class();
   objc_opt_class();
-  v45 = isInstanceDescriptor;
-  v43 = v8;
+  v41 = isInstanceDescriptor;
+  v39 = v8;
   if ([OUTLINED_FUNCTION_46() isSubclassOfClass:?])
   {
     if ([(MTLAccelerationStructureDescriptor *)v7 instanceDescriptorType]== 2 || [(MTLAccelerationStructureDescriptor *)v7 instanceDescriptorType]== 4)
@@ -371,7 +387,7 @@ LABEL_15:
   }
 
   v23 = (v22 + 255) & 0xFFFFFFFFFFFFFF00;
-  v46 = instanceCountBuffer;
+  v42 = instanceCountBuffer;
   if (v17)
   {
     [gPUBVHBuilder getMTLInstanceBoundingBoxesWithEncoder:*(instanceCountBuffer + 40) descriptor:v17 boundingBoxBuffer:buffer boundingBoxBufferOffset:v23 + offset];
@@ -382,9 +398,7 @@ LABEL_15:
 
   objc_opt_class();
   objc_opt_class();
-  v25 = [OUTLINED_FUNCTION_46() isSubclassOfClass:?];
-  v26 = *(instanceCountBuffer + 40);
-  if (v25)
+  if ([OUTLINED_FUNCTION_46() isSubclassOfClass:?])
   {
     instanceCountBuffer = [(MTLAccelerationStructureDescriptor *)v7 instanceCountBuffer];
     [OUTLINED_FUNCTION_24() buildGenericBVHWithEncoder:instanceCountBuffer descriptor:-[MTLAccelerationStructureDescriptor instanceCountBufferOffset](v7 outputBuffer:"instanceCountBufferOffset") outputBufferOffset:? scratchBuffer:? scratchBufferOffset:? primitiveCountBuffer:? primitiveCountBufferOffset:?];
@@ -395,18 +409,18 @@ LABEL_15:
     [OUTLINED_FUNCTION_24() buildGenericBVHWithEncoder:? descriptor:? outputBuffer:? outputBufferOffset:? scratchBuffer:? scratchBufferOffset:?];
   }
 
-  [&OBJC_IVAR___MTLIOAccelResourcePool__priv encodeMTLSWBVHWithEncoder:*(v46 + 40) descriptor:v7 bvhDescriptor:v17 outputBuffer:objc_msgSend(v43 outputBufferOffset:"buffer") genericBVHBuffer:objc_msgSend(v43 genericBVHBufferOffset:"bufferOffset") scratchBuffer:instanceCountBuffer scratchBufferOffset:((v14 + v23 + 255) & 0xFFFFFFFFFFFFFF00) + offset gpuResourceID:instanceCountBuffer accelerationStructureUniqueIdentifier:{offset, objc_msgSend(v43, "gpuResourceID"), objc_msgSend(v43, "accelerationStructureUniqueIdentifier")}];
+  [&OBJC_IVAR___MTLIOAccelResourcePool__priv encodeMTLSWBVHWithEncoder:*(v42 + 40) descriptor:v7 bvhDescriptor:v17 outputBuffer:objc_msgSend(v39 outputBufferOffset:"buffer") genericBVHBuffer:objc_msgSend(v39 genericBVHBufferOffset:"bufferOffset") scratchBuffer:instanceCountBuffer scratchBufferOffset:((v14 + v23 + 255) & 0xFFFFFFFFFFFFFF00) + offset gpuResourceID:instanceCountBuffer accelerationStructureUniqueIdentifier:{offset, objc_msgSend(v39, "gpuResourceID"), objc_msgSend(v39, "accelerationStructureUniqueIdentifier")}];
   objc_autoreleasePoolPop(context);
   objc_autoreleasePoolPop(v13);
-  if ((v45 & 1) == 0)
+  if ((v41 & 1) == 0)
   {
-    v27 = *(v46 + 48);
-    if (v27)
+    v25 = *(v42 + 48);
+    if (v25)
     {
-      v28 = MTLProgressBinsUpdate(v27);
-      if ((v28 & 0x80000000) == 0 && (*(v46 + 56) & 1) == 0)
+      v26 = MTLProgressBinsUpdate(v25);
+      if ((v26 & 0x80000000) == 0 && (*(v42 + 56) & 1) == 0)
       {
-        [*(v46 + 40) signalProgress:v28];
+        [*(v42 + 40) signalProgress:v26];
       }
     }
   }
@@ -423,7 +437,7 @@ LABEL_15:
     v12 = OUTLINED_FUNCTION_8_0(v7);
     if (v14)
     {
-      OUTLINED_FUNCTION_7_0(v11);
+      OUTLINED_FUNCTION_7_0();
       do
       {
         OUTLINED_FUNCTION_13_0();
@@ -439,10 +453,9 @@ LABEL_15:
     OUTLINED_FUNCTION_20();
     v16 = OUTLINED_FUNCTION_12_0();
     MTLProgressBinsSynchronizeBufferAccess(v16, v17, 0, v18);
-    v19 = *(v5 + 48);
     OUTLINED_FUNCTION_0_7();
     OUTLINED_FUNCTION_9_0();
-    MTLProgressBinsSynchronizeBufferAccess(v20, v21, 1, v22);
+    MTLProgressBinsSynchronizeBufferAccess(v19, v20, 1, v21);
   }
 
   [*(v5 + 24) GPUBVHBuilder];
@@ -465,55 +478,53 @@ LABEL_15:
 - (void)writeCompactedAccelerationStructureSize:(id)size toBuffer:(id)buffer offset:(unint64_t)offset sizeDataType:(unint64_t)type
 {
   OUTLINED_FUNCTION_16();
-  v33 = v9;
-  v34 = v10;
+  v31 = v9;
+  v32 = v10;
   OUTLINED_FUNCTION_14_0();
   [v11 beginBVHSubstream];
   v12 = *(v6 + 48);
   if (v12)
   {
-    v18 = OUTLINED_FUNCTION_8_0(v12);
-    if (v20)
+    v17 = OUTLINED_FUNCTION_8_0(v12);
+    if (v19)
     {
-      OUTLINED_FUNCTION_7_0(v17);
+      OUTLINED_FUNCTION_7_0();
       do
       {
         OUTLINED_FUNCTION_13_0();
         OUTLINED_FUNCTION_28();
       }
 
-      while (!v21);
+      while (!v20);
     }
 
-    OUTLINED_FUNCTION_11_0(v16, v17, v18, v19);
-    v22 = *(v6 + 48);
+    OUTLINED_FUNCTION_11_0(v15, v16, v17, v18);
+    v21 = *(v6 + 48);
     [v8 buffer];
     OUTLINED_FUNCTION_1_4();
     OUTLINED_FUNCTION_20();
-    v31 = __124___MTLSWRaytracingAccelerationStructureCommandEncoder_writeCompactedAccelerationStructureSize_toBuffer_offset_sizeDataType___block_invoke;
-    v32 = &unk_1E6EEB998;
+    v29 = __124___MTLSWRaytracingAccelerationStructureCommandEncoder_writeCompactedAccelerationStructureSize_toBuffer_offset_sizeDataType___block_invoke;
+    v30 = &unk_1E6EEB998;
     OUTLINED_FUNCTION_19();
-    MTLProgressBinsSynchronizeBufferAccess(v22, v23, 0, v24);
-    v25 = *(v6 + 48);
+    MTLProgressBinsSynchronizeBufferAccess(v21, v22, 0, v23);
     OUTLINED_FUNCTION_0_7();
-    v28 = __124___MTLSWRaytracingAccelerationStructureCommandEncoder_writeCompactedAccelerationStructureSize_toBuffer_offset_sizeDataType___block_invoke_2;
-    v29 = &unk_1E6EEB998;
-    v30 = v6;
-    MTLProgressBinsSynchronizeBufferAccess(v26, v7, 1, &v27);
+    v26 = __124___MTLSWRaytracingAccelerationStructureCommandEncoder_writeCompactedAccelerationStructureSize_toBuffer_offset_sizeDataType___block_invoke_2;
+    v27 = &unk_1E6EEB998;
+    v28 = v6;
+    MTLProgressBinsSynchronizeBufferAccess(v24, v7, 1, &v25);
   }
 
   [*(v6 + 24) GPUBVHBuilder];
-  v13 = *(v6 + 40);
   [v8 buffer];
   [v8 bufferOffset];
   [OUTLINED_FUNCTION_31() writeCompactedMTLSWBVHSizeWithEncoder:? BVHBuffer:? BVHBufferOffset:? toBuffer:? sizeBufferOffset:? sizeDataType:?];
-  v14 = *(v6 + 48);
-  if (v14)
+  v13 = *(v6 + 48);
+  if (v13)
   {
-    v15 = MTLProgressBinsUpdate(v14);
-    if ((v15 & 0x80000000) == 0 && (*(v6 + 56) & 1) == 0)
+    v14 = MTLProgressBinsUpdate(v13);
+    if ((v14 & 0x80000000) == 0 && (*(v6 + 56) & 1) == 0)
     {
-      [*(v6 + 40) signalProgress:v15];
+      [*(v6 + 40) signalProgress:v14];
     }
   }
 
@@ -527,7 +538,7 @@ LABEL_15:
   if (progressBins)
   {
     destinationCopy = destination;
-    v17 = OUTLINED_FUNCTION_45(40);
+    v17 = OUTLINED_FUNCTION_45();
     PrimitiveCountFromDescriptor = MTLProgressBinsGetPrimitiveCountFromDescriptor(v17);
     v19 = *(progressBins + 4);
     v20 = *(progressBins + 5);
@@ -679,7 +690,7 @@ LABEL_15:
     v12 = OUTLINED_FUNCTION_8_0(v7);
     if (v14)
     {
-      OUTLINED_FUNCTION_7_0(v11);
+      OUTLINED_FUNCTION_7_0();
       do
       {
         OUTLINED_FUNCTION_13_0();
@@ -695,10 +706,9 @@ LABEL_15:
     OUTLINED_FUNCTION_20();
     v16 = OUTLINED_FUNCTION_12_0();
     MTLProgressBinsSynchronizeBufferAccess(v16, v17, 0, v18);
-    v19 = *(v5 + 48);
     OUTLINED_FUNCTION_0_7();
     OUTLINED_FUNCTION_9_0();
-    MTLProgressBinsSynchronizeBufferAccess(v20, v21, 1, v22);
+    MTLProgressBinsSynchronizeBufferAccess(v19, v20, 1, v21);
   }
 
   [*(v5 + 24) GPUBVHBuilder];
@@ -729,7 +739,7 @@ LABEL_15:
     v15 = OUTLINED_FUNCTION_8_0(v9);
     if (v17)
     {
-      OUTLINED_FUNCTION_7_0(v14);
+      OUTLINED_FUNCTION_7_0();
       do
       {
         OUTLINED_FUNCTION_13_0();
@@ -740,15 +750,13 @@ LABEL_15:
     }
 
     OUTLINED_FUNCTION_11_0(v13, v14, v15, v16);
-    v19 = *(v6 + 48);
     OUTLINED_FUNCTION_1_4();
     OUTLINED_FUNCTION_20();
     OUTLINED_FUNCTION_19();
-    MTLProgressBinsSynchronizeBufferAccess(v20, v7, 0, v21);
-    v22 = *(v6 + 48);
+    MTLProgressBinsSynchronizeBufferAccess(v19, v7, 0, v20);
     OUTLINED_FUNCTION_0_7();
     OUTLINED_FUNCTION_9_0();
-    MTLProgressBinsSynchronizeBufferAccess(v23, v24, 1, v25);
+    MTLProgressBinsSynchronizeBufferAccess(v21, v22, 1, v23);
   }
 
   [*(v6 + 24) GPUBVHBuilder];
@@ -778,7 +786,7 @@ LABEL_15:
     v15 = OUTLINED_FUNCTION_8_0(v9);
     if (v17)
     {
-      OUTLINED_FUNCTION_7_0(v14);
+      OUTLINED_FUNCTION_7_0();
       do
       {
         OUTLINED_FUNCTION_13_0();
@@ -789,15 +797,13 @@ LABEL_15:
     }
 
     OUTLINED_FUNCTION_11_0(v13, v14, v15, v16);
-    v19 = *(v6 + 48);
     OUTLINED_FUNCTION_1_4();
     OUTLINED_FUNCTION_20();
     OUTLINED_FUNCTION_19();
-    MTLProgressBinsSynchronizeBufferAccess(v20, v7, 0, v21);
-    v22 = *(v6 + 48);
+    MTLProgressBinsSynchronizeBufferAccess(v19, v7, 0, v20);
     OUTLINED_FUNCTION_0_7();
     OUTLINED_FUNCTION_9_0();
-    MTLProgressBinsSynchronizeBufferAccess(v23, v24, 1, v25);
+    MTLProgressBinsSynchronizeBufferAccess(v21, v22, 1, v23);
   }
 
   [*(v6 + 24) GPUBVHBuilder];
@@ -832,10 +838,9 @@ LABEL_15:
     OUTLINED_FUNCTION_20();
     v12 = OUTLINED_FUNCTION_12_0();
     MTLProgressBinsSynchronizeBufferAccess(v12, v13, 0, v14);
-    v15 = *(v5 + 48);
     OUTLINED_FUNCTION_0_7();
     OUTLINED_FUNCTION_9_0();
-    MTLProgressBinsSynchronizeBufferAccess(v16, v17, 1, v18);
+    MTLProgressBinsSynchronizeBufferAccess(v15, v16, 1, v17);
   }
 
   [*(v5 + 24) GPUBVHBuilder];
@@ -862,33 +867,31 @@ LABEL_15:
   [v8 beginBVHSubstream];
   if (*(v6 + 48))
   {
-    v12 = [OUTLINED_FUNCTION_45(40) size];
-    OUTLINED_FUNCTION_40(v12);
-    v13 = *(v6 + 48);
+    v11 = [OUTLINED_FUNCTION_45() size];
+    OUTLINED_FUNCTION_40(v11);
+    v12 = *(v6 + 48);
     [v7 buffer];
     OUTLINED_FUNCTION_1_4();
     OUTLINED_FUNCTION_20();
     OUTLINED_FUNCTION_19();
-    MTLProgressBinsSynchronizeBufferAccess(v13, v14, 0, v15);
+    MTLProgressBinsSynchronizeBufferAccess(v12, v13, 0, v14);
     [OUTLINED_FUNCTION_27() substreamSynchronizeAccelerationStructures:? access:?];
-    v16 = *(v6 + 48);
     OUTLINED_FUNCTION_0_7();
     OUTLINED_FUNCTION_9_0();
-    MTLProgressBinsSynchronizeBufferAccess(v17, v18, 1, v19);
+    MTLProgressBinsSynchronizeBufferAccess(v15, v16, 1, v17);
   }
 
   [*(v6 + 24) GPUBVHBuilder];
-  v9 = *(v6 + 40);
   [v7 buffer];
   [v7 bufferOffset];
   [OUTLINED_FUNCTION_31() writeSerializedMTLSWBVHWithEncoder:? BVHBuffer:? BVHBufferOffset:? primitiveAccelerationStructures:? toBuffer:? serializedBufferOffset:?];
-  v10 = *(v6 + 48);
-  if (v10)
+  v9 = *(v6 + 48);
+  if (v9)
   {
-    v11 = MTLProgressBinsUpdate(v10);
-    if ((v11 & 0x80000000) == 0 && (*(v6 + 56) & 1) == 0)
+    v10 = MTLProgressBinsUpdate(v9);
+    if ((v10 & 0x80000000) == 0 && (*(v6 + 56) & 1) == 0)
     {
-      [*(v6 + 40) signalProgress:v11];
+      [*(v6 + 40) signalProgress:v10];
     }
   }
 
@@ -911,10 +914,9 @@ LABEL_15:
     OUTLINED_FUNCTION_20();
     v17 = OUTLINED_FUNCTION_12_0();
     MTLProgressBinsSynchronizeBufferAccess(v17, v18, 1, v19);
-    v20 = *(v5 + 48);
     OUTLINED_FUNCTION_0_7();
     OUTLINED_FUNCTION_9_0();
-    MTLProgressBinsSynchronizeBufferAccess(v21, v22, 0, v23);
+    MTLProgressBinsSynchronizeBufferAccess(v20, v21, 0, v22);
   }
 
   v13 = objc_opt_new();
@@ -942,7 +944,7 @@ LABEL_15:
   [v13 beginBVHSubstream];
   if (*(v6 + 48))
   {
-    v17 = [OUTLINED_FUNCTION_45(40) size];
+    v17 = [OUTLINED_FUNCTION_45() size];
     OUTLINED_FUNCTION_40(v17);
     v18 = *(v6 + 48);
     [v8 buffer];
@@ -951,10 +953,9 @@ LABEL_15:
     OUTLINED_FUNCTION_19();
     MTLProgressBinsSynchronizeBufferAccess(v18, v19, 1, v20);
     [OUTLINED_FUNCTION_27() substreamSynchronizeAccelerationStructures:? access:?];
-    v21 = *(v6 + 48);
     OUTLINED_FUNCTION_0_7();
     OUTLINED_FUNCTION_9_0();
-    MTLProgressBinsSynchronizeBufferAccess(v22, v23, 0, v24);
+    MTLProgressBinsSynchronizeBufferAccess(v21, v22, 0, v23);
   }
 
   v14 = objc_opt_new();
@@ -976,47 +977,45 @@ LABEL_15:
 - (void)deserializePrimitiveAccelerationStructure:(id)structure fromBuffer:(id)buffer serializedBufferOffset:(unint64_t)offset withDescriptor:(id)descriptor
 {
   OUTLINED_FUNCTION_33();
-  v30 = v7;
-  v31 = v8;
+  v28 = v7;
+  v29 = v8;
   v10 = v9;
   v12 = v11;
   v14 = v13;
   [v13 beginBVHSubstream];
   if (*(v14 + 6))
   {
-    v18 = OUTLINED_FUNCTION_26();
-    OUTLINED_FUNCTION_17(v18);
+    v17 = OUTLINED_FUNCTION_26();
+    OUTLINED_FUNCTION_17(v17);
     [v6 setSubstream:?];
-    v19 = *(v14 + 6);
+    v18 = *(v14 + 6);
     [v12 buffer];
     OUTLINED_FUNCTION_5_0();
     OUTLINED_FUNCTION_50();
-    v28 = __146___MTLSWRaytracingAccelerationStructureCommandEncoder_deserializePrimitiveAccelerationStructure_fromBuffer_serializedBufferOffset_withDescriptor___block_invoke;
-    v29 = &unk_1E6EEB998;
+    v26 = __146___MTLSWRaytracingAccelerationStructureCommandEncoder_deserializePrimitiveAccelerationStructure_fromBuffer_serializedBufferOffset_withDescriptor___block_invoke;
+    v27 = &unk_1E6EEB998;
     OUTLINED_FUNCTION_51();
-    MTLProgressBinsSynchronizeBufferAccess(v19, v20, 1, v21);
-    v22 = *(v14 + 6);
+    MTLProgressBinsSynchronizeBufferAccess(v18, v19, 1, v20);
     OUTLINED_FUNCTION_3_0();
-    v25 = __146___MTLSWRaytracingAccelerationStructureCommandEncoder_deserializePrimitiveAccelerationStructure_fromBuffer_serializedBufferOffset_withDescriptor___block_invoke_2;
-    v26 = &unk_1E6EEB998;
-    v27 = v14;
-    MTLProgressBinsSynchronizeBufferAccess(v23, v10, 0, v24);
+    v23 = __146___MTLSWRaytracingAccelerationStructureCommandEncoder_deserializePrimitiveAccelerationStructure_fromBuffer_serializedBufferOffset_withDescriptor___block_invoke_2;
+    v24 = &unk_1E6EEB998;
+    v25 = v14;
+    MTLProgressBinsSynchronizeBufferAccess(v21, v10, 0, v22);
   }
 
   [*(v14 + 3) GPUBVHBuilder];
-  v15 = *(v14 + 5);
   [v12 buffer];
   OUTLINED_FUNCTION_38();
   [v12 gpuResourceID];
   [v12 accelerationStructureUniqueIdentifier];
   [OUTLINED_FUNCTION_10_0() writeDeserializedMTLSWBVHWithEncoder:? BVHBuffer:? BVHBufferOffset:? primitiveAccelerationStructures:? fromBuffer:? serializedBufferOffset:? accelerationStructureMTLResourceID:? accelerationStructureUniqueIdentifier:?];
-  v16 = *(v14 + 6);
-  if (v16)
+  v15 = *(v14 + 6);
+  if (v15)
   {
-    v17 = MTLProgressBinsUpdate(v16);
-    if ((v17 & 0x80000000) == 0 && (*(v14 + 56) & 1) == 0)
+    v16 = MTLProgressBinsUpdate(v15);
+    if ((v16 & 0x80000000) == 0 && (*(v14 + 56) & 1) == 0)
     {
-      [*(v14 + 5) signalProgress:v17];
+      [*(v14 + 5) signalProgress:v16];
     }
   }
 
@@ -1039,10 +1038,9 @@ LABEL_15:
     OUTLINED_FUNCTION_20();
     v12 = OUTLINED_FUNCTION_12_0();
     MTLProgressBinsSynchronizeBufferAccess(v12, v13, 0, v14);
-    v15 = *(v5 + 48);
     OUTLINED_FUNCTION_0_7();
     OUTLINED_FUNCTION_9_0();
-    MTLProgressBinsSynchronizeBufferAccess(v16, v17, 1, v18);
+    MTLProgressBinsSynchronizeBufferAccess(v15, v16, 1, v17);
   }
 
   [*(v5 + 24) GPUBVHBuilder];
@@ -1078,10 +1076,9 @@ LABEL_15:
     OUTLINED_FUNCTION_20();
     v12 = OUTLINED_FUNCTION_12_0();
     MTLProgressBinsSynchronizeBufferAccess(v12, v13, 0, v14);
-    v15 = *(v5 + 48);
     OUTLINED_FUNCTION_0_7();
     OUTLINED_FUNCTION_9_0();
-    MTLProgressBinsSynchronizeBufferAccess(v16, v17, 1, v18);
+    MTLProgressBinsSynchronizeBufferAccess(v15, v16, 1, v17);
   }
 
   [*(v5 + 24) GPUBVHBuilder];
@@ -1112,63 +1109,60 @@ LABEL_15:
   progressBins = self->_progressBins;
   if (progressBins)
   {
-    v18 = OUTLINED_FUNCTION_8_0(progressBins);
-    if (v20)
+    v16 = OUTLINED_FUNCTION_8_0(progressBins);
+    if (v18)
     {
-      OUTLINED_FUNCTION_7_0(v17);
+      OUTLINED_FUNCTION_7_0();
       do
       {
         OUTLINED_FUNCTION_13_0();
         OUTLINED_FUNCTION_28();
       }
 
-      while (!v21);
+      while (!v19);
     }
 
     else
     {
-      v22 = 0;
+      v20 = 0;
     }
 
-    *(v17 + 42) = v22;
-    *(v17 + 44) = v18 + (v19 * 64.0);
-    [v16 setSubstream:v22];
-    v23 = self->_progressBins;
+    *(v15 + 42) = v20;
+    *(v15 + 44) = v16 + (v17 * 64.0);
+    [v14 setSubstream:v20];
     buffer = [structure buffer];
-    v32[0] = MEMORY[0x1E69E9820];
-    v32[1] = 3221225472;
-    v32[2] = __113___MTLSWRaytracingAccelerationStructureCommandEncoder_writeGenericBVHStructureSizesOfAccelerationStructure_into___block_invoke;
-    v32[3] = &unk_1E6EEB998;
-    v32[4] = self;
-    OUTLINED_FUNCTION_56(buffer, buffer, v25, v32);
+    v29[0] = MEMORY[0x1E69E9820];
+    v29[1] = 3221225472;
+    v29[2] = __113___MTLSWRaytracingAccelerationStructureCommandEncoder_writeGenericBVHStructureSizesOfAccelerationStructure_into___block_invoke;
+    v29[3] = &unk_1E6EEB998;
+    v29[4] = self;
+    OUTLINED_FUNCTION_56(buffer, buffer, v22, v29);
   }
 
   v8 = [(MTLDevice *)self->_device newBufferWithLength:64 options:0];
   [(MTLDevice *)self->_device GPUBVHBuilder];
-  computeEncoder = self->_computeEncoder;
   [into version];
   [structure buffer];
   [structure bufferOffset];
-  v10 = [OUTLINED_FUNCTION_10_0() writeGenericBVHStructureSizesWithEncoder:? version:? BVHBuffer:? BVHBufferOffset:? toBuffer:? sizesBufferOffset:?];
-  commandBuffer = self->_commandBuffer;
+  v9 = [OUTLINED_FUNCTION_10_0() writeGenericBVHStructureSizesWithEncoder:? version:? BVHBuffer:? BVHBufferOffset:? toBuffer:? sizesBufferOffset:?];
   OUTLINED_FUNCTION_21();
-  v27 = 3221225472;
-  v28 = __113___MTLSWRaytracingAccelerationStructureCommandEncoder_writeGenericBVHStructureSizesOfAccelerationStructure_into___block_invoke_2;
-  v29 = &unk_1E6EEB9C0;
-  v30 = v8;
+  v24 = 3221225472;
+  v25 = __113___MTLSWRaytracingAccelerationStructureCommandEncoder_writeGenericBVHStructureSizesOfAccelerationStructure_into___block_invoke_2;
+  v26 = &unk_1E6EEB9C0;
+  v27 = v8;
   intoCopy = into;
-  [v12 addCompletedHandler:v26];
-  v13 = self->_progressBins;
-  if (v13)
+  [v10 addCompletedHandler:v23];
+  v11 = self->_progressBins;
+  if (v11)
   {
-    v14 = MTLProgressBinsUpdate(v13);
-    if ((v14 & 0x80000000) == 0 && !self->_virtualSubstreamsEnabled)
+    v12 = MTLProgressBinsUpdate(v11);
+    if ((v12 & 0x80000000) == 0 && !self->_virtualSubstreamsEnabled)
     {
-      [(MTLComputeCommandEncoderSPI *)self->_computeEncoder signalProgress:v14];
+      [(MTLComputeCommandEncoderSPI *)self->_computeEncoder signalProgress:v12];
     }
   }
 
-  return v10;
+  return v9;
 }
 
 - (BOOL)writeGenericBVHStructureOfAccelerationStructure:(id)structure into:(id)into
@@ -1181,107 +1175,105 @@ LABEL_15:
       [(_MTLSWRaytracingAccelerationStructureCommandEncoder *)self beginBVHSubstream];
       if (self->_progressBins)
       {
-        computeEncoder = self->_computeEncoder;
-        v11 = [structure size];
-        OUTLINED_FUNCTION_49(v11, v11);
-        progressBins = self->_progressBins;
+        v10 = [structure size];
+        OUTLINED_FUNCTION_49(v10, v10);
         buffer = [structure buffer];
-        v44[0] = MEMORY[0x1E69E9820];
-        v44[1] = 3221225472;
-        v44[2] = __108___MTLSWRaytracingAccelerationStructureCommandEncoder_writeGenericBVHStructureOfAccelerationStructure_into___block_invoke;
-        v44[3] = &unk_1E6EEB998;
-        v44[4] = self;
-        OUTLINED_FUNCTION_56(buffer, buffer, v14, v44);
+        v42[0] = MEMORY[0x1E69E9820];
+        v42[1] = 3221225472;
+        v42[2] = __108___MTLSWRaytracingAccelerationStructureCommandEncoder_writeGenericBVHStructureOfAccelerationStructure_into___block_invoke;
+        v42[3] = &unk_1E6EEB998;
+        v42[4] = self;
+        OUTLINED_FUNCTION_56(buffer, buffer, v12, v42);
         headerBuffer = [OUTLINED_FUNCTION_29() headerBuffer];
-        v43[0] = MEMORY[0x1E69E9820];
-        v43[1] = 3221225472;
-        v43[2] = __108___MTLSWRaytracingAccelerationStructureCommandEncoder_writeGenericBVHStructureOfAccelerationStructure_into___block_invoke_2;
-        v43[3] = &unk_1E6EEB998;
-        v43[4] = self;
-        OUTLINED_FUNCTION_36(headerBuffer, headerBuffer, v16, v43);
+        v41[0] = MEMORY[0x1E69E9820];
+        v41[1] = 3221225472;
+        v41[2] = __108___MTLSWRaytracingAccelerationStructureCommandEncoder_writeGenericBVHStructureOfAccelerationStructure_into___block_invoke_2;
+        v41[3] = &unk_1E6EEB998;
+        v41[4] = self;
+        OUTLINED_FUNCTION_36(headerBuffer, headerBuffer, v14, v41);
         if ([intoCopy innerNodeBuffer])
         {
           innerNodeBuffer = [OUTLINED_FUNCTION_29() innerNodeBuffer];
-          v42[0] = MEMORY[0x1E69E9820];
-          v42[1] = 3221225472;
-          v42[2] = __108___MTLSWRaytracingAccelerationStructureCommandEncoder_writeGenericBVHStructureOfAccelerationStructure_into___block_invoke_3;
-          v42[3] = &unk_1E6EEB998;
-          v42[4] = self;
-          OUTLINED_FUNCTION_36(innerNodeBuffer, innerNodeBuffer, v21, v42);
+          v40[0] = MEMORY[0x1E69E9820];
+          v40[1] = 3221225472;
+          v40[2] = __108___MTLSWRaytracingAccelerationStructureCommandEncoder_writeGenericBVHStructureOfAccelerationStructure_into___block_invoke_3;
+          v40[3] = &unk_1E6EEB998;
+          v40[4] = self;
+          OUTLINED_FUNCTION_36(innerNodeBuffer, innerNodeBuffer, v19, v40);
         }
 
         if ([intoCopy leafNodeBuffer])
         {
           leafNodeBuffer = [OUTLINED_FUNCTION_29() leafNodeBuffer];
-          v41[0] = MEMORY[0x1E69E9820];
-          v41[1] = 3221225472;
-          v41[2] = __108___MTLSWRaytracingAccelerationStructureCommandEncoder_writeGenericBVHStructureOfAccelerationStructure_into___block_invoke_4;
-          v41[3] = &unk_1E6EEB998;
-          v41[4] = self;
-          OUTLINED_FUNCTION_36(leafNodeBuffer, leafNodeBuffer, v23, v41);
+          v39[0] = MEMORY[0x1E69E9820];
+          v39[1] = 3221225472;
+          v39[2] = __108___MTLSWRaytracingAccelerationStructureCommandEncoder_writeGenericBVHStructureOfAccelerationStructure_into___block_invoke_4;
+          v39[3] = &unk_1E6EEB998;
+          v39[4] = self;
+          OUTLINED_FUNCTION_36(leafNodeBuffer, leafNodeBuffer, v21, v39);
         }
 
         if ([intoCopy primitiveBuffer])
         {
           primitiveBuffer = [OUTLINED_FUNCTION_29() primitiveBuffer];
-          v40[0] = MEMORY[0x1E69E9820];
-          v40[1] = 3221225472;
-          v40[2] = __108___MTLSWRaytracingAccelerationStructureCommandEncoder_writeGenericBVHStructureOfAccelerationStructure_into___block_invoke_5;
-          v40[3] = &unk_1E6EEB998;
-          v40[4] = self;
-          OUTLINED_FUNCTION_36(primitiveBuffer, primitiveBuffer, v25, v40);
+          v38[0] = MEMORY[0x1E69E9820];
+          v38[1] = 3221225472;
+          v38[2] = __108___MTLSWRaytracingAccelerationStructureCommandEncoder_writeGenericBVHStructureOfAccelerationStructure_into___block_invoke_5;
+          v38[3] = &unk_1E6EEB998;
+          v38[4] = self;
+          OUTLINED_FUNCTION_36(primitiveBuffer, primitiveBuffer, v23, v38);
         }
 
         if ([intoCopy geometryBuffer])
         {
           geometryBuffer = [OUTLINED_FUNCTION_29() geometryBuffer];
-          v39[0] = MEMORY[0x1E69E9820];
-          v39[1] = 3221225472;
-          v39[2] = __108___MTLSWRaytracingAccelerationStructureCommandEncoder_writeGenericBVHStructureOfAccelerationStructure_into___block_invoke_6;
-          v39[3] = &unk_1E6EEB998;
-          v39[4] = self;
-          OUTLINED_FUNCTION_36(geometryBuffer, geometryBuffer, v27, v39);
+          v37[0] = MEMORY[0x1E69E9820];
+          v37[1] = 3221225472;
+          v37[2] = __108___MTLSWRaytracingAccelerationStructureCommandEncoder_writeGenericBVHStructureOfAccelerationStructure_into___block_invoke_6;
+          v37[3] = &unk_1E6EEB998;
+          v37[4] = self;
+          OUTLINED_FUNCTION_36(geometryBuffer, geometryBuffer, v25, v37);
         }
 
         if ([intoCopy instanceTransformBuffer])
         {
           instanceTransformBuffer = [OUTLINED_FUNCTION_29() instanceTransformBuffer];
-          v38[0] = MEMORY[0x1E69E9820];
-          v38[1] = 3221225472;
-          v38[2] = __108___MTLSWRaytracingAccelerationStructureCommandEncoder_writeGenericBVHStructureOfAccelerationStructure_into___block_invoke_7;
-          v38[3] = &unk_1E6EEB998;
-          v38[4] = self;
-          OUTLINED_FUNCTION_36(instanceTransformBuffer, instanceTransformBuffer, v29, v38);
+          v36[0] = MEMORY[0x1E69E9820];
+          v36[1] = 3221225472;
+          v36[2] = __108___MTLSWRaytracingAccelerationStructureCommandEncoder_writeGenericBVHStructureOfAccelerationStructure_into___block_invoke_7;
+          v36[3] = &unk_1E6EEB998;
+          v36[4] = self;
+          OUTLINED_FUNCTION_36(instanceTransformBuffer, instanceTransformBuffer, v27, v36);
         }
 
         if ([intoCopy perPrimitiveDataBuffer])
         {
           perPrimitiveDataBuffer = [OUTLINED_FUNCTION_29() perPrimitiveDataBuffer];
-          v37[0] = MEMORY[0x1E69E9820];
-          v37[1] = 3221225472;
-          v37[2] = __108___MTLSWRaytracingAccelerationStructureCommandEncoder_writeGenericBVHStructureOfAccelerationStructure_into___block_invoke_8;
-          v37[3] = &unk_1E6EEB998;
-          v37[4] = self;
-          OUTLINED_FUNCTION_36(perPrimitiveDataBuffer, perPrimitiveDataBuffer, v31, v37);
+          v35[0] = MEMORY[0x1E69E9820];
+          v35[1] = 3221225472;
+          v35[2] = __108___MTLSWRaytracingAccelerationStructureCommandEncoder_writeGenericBVHStructureOfAccelerationStructure_into___block_invoke_8;
+          v35[3] = &unk_1E6EEB998;
+          v35[4] = self;
+          OUTLINED_FUNCTION_36(perPrimitiveDataBuffer, perPrimitiveDataBuffer, v29, v35);
         }
 
         if ([intoCopy controlPointBuffer])
         {
           [OUTLINED_FUNCTION_29() controlPointBuffer];
           OUTLINED_FUNCTION_21();
-          v33 = 3221225472;
-          v34 = __108___MTLSWRaytracingAccelerationStructureCommandEncoder_writeGenericBVHStructureOfAccelerationStructure_into___block_invoke_9;
-          v35 = &unk_1E6EEB998;
+          v31 = 3221225472;
+          v32 = __108___MTLSWRaytracingAccelerationStructureCommandEncoder_writeGenericBVHStructureOfAccelerationStructure_into___block_invoke_9;
+          v33 = &unk_1E6EEB998;
           selfCopy = self;
-          OUTLINED_FUNCTION_36(v17, v18, v19, v32);
+          OUTLINED_FUNCTION_36(v15, v16, v17, v30);
         }
       }
 
       LOBYTE(intoCopy) = [-[MTLDevice GPUBVHBuilder](self->_device "GPUBVHBuilder")];
-      v7 = self->_progressBins;
-      if (v7)
+      progressBins = self->_progressBins;
+      if (progressBins)
       {
-        v8 = MTLProgressBinsUpdate(v7);
+        v8 = MTLProgressBinsUpdate(progressBins);
         if ((v8 & 0x80000000) == 0 && !self->_virtualSubstreamsEnabled)
         {
           [(MTLComputeCommandEncoderSPI *)self->_computeEncoder signalProgress:v8];
@@ -1309,7 +1301,7 @@ LABEL_15:
     v12 = OUTLINED_FUNCTION_8_0(v7);
     if (v14)
     {
-      OUTLINED_FUNCTION_7_0(v11);
+      OUTLINED_FUNCTION_7_0();
       do
       {
         OUTLINED_FUNCTION_13_0();
@@ -1325,10 +1317,9 @@ LABEL_15:
     OUTLINED_FUNCTION_20();
     v16 = OUTLINED_FUNCTION_12_0();
     MTLProgressBinsSynchronizeBufferAccess(v16, v17, 0, v18);
-    v19 = *(v5 + 48);
     OUTLINED_FUNCTION_0_7();
     OUTLINED_FUNCTION_9_0();
-    MTLProgressBinsSynchronizeBufferAccess(v20, v21, 1, v22);
+    MTLProgressBinsSynchronizeBufferAccess(v19, v20, 1, v21);
   }
 
   [*(v5 + 24) GPUBVHBuilder];
@@ -1455,10 +1446,9 @@ LABEL_15:
     OUTLINED_FUNCTION_20();
     v12 = OUTLINED_FUNCTION_12_0();
     MTLProgressBinsSynchronizeBufferAccess(v12, v13, 0, v14);
-    v15 = *(v5 + 48);
     OUTLINED_FUNCTION_0_7();
     OUTLINED_FUNCTION_9_0();
-    MTLProgressBinsSynchronizeBufferAccess(v16, v17, 1, v18);
+    MTLProgressBinsSynchronizeBufferAccess(v15, v16, 1, v17);
   }
 
   [*(v5 + 24) GPUBVHBuilder];
@@ -1488,7 +1478,7 @@ LABEL_15:
     v12 = OUTLINED_FUNCTION_8_0(v7);
     if (v14)
     {
-      OUTLINED_FUNCTION_7_0(v11);
+      OUTLINED_FUNCTION_7_0();
       do
       {
         OUTLINED_FUNCTION_13_0();
@@ -1504,10 +1494,9 @@ LABEL_15:
     OUTLINED_FUNCTION_20();
     v16 = OUTLINED_FUNCTION_12_0();
     MTLProgressBinsSynchronizeBufferAccess(v16, v17, 0, v18);
-    v19 = *(v5 + 48);
     OUTLINED_FUNCTION_0_7();
     OUTLINED_FUNCTION_9_0();
-    MTLProgressBinsSynchronizeBufferAccess(v20, v21, 1, v22);
+    MTLProgressBinsSynchronizeBufferAccess(v19, v20, 1, v21);
   }
 
   [*(v5 + 24) GPUBVHBuilder];

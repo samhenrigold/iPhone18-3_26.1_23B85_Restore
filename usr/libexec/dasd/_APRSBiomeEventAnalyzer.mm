@@ -59,9 +59,7 @@
 - (void)logCompletion:(id)completion forAnalysisName:(id)name
 {
   nameCopy = name;
-  state = [completion state];
-  log = self->_log;
-  if (state)
+  if ([completion state])
   {
     if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
     {

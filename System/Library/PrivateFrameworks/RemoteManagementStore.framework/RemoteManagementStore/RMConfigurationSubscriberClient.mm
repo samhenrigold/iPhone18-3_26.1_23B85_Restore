@@ -60,7 +60,7 @@
 + (int)runConfigurationSubscriberClientWithApplicators:(id)applicators publisherClass:(Class)class initializeSandbox:(BOOL)sandbox
 {
   sandboxCopy = sandbox;
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   applicatorsCopy = applicators;
   configurationSubscriberClient = [MEMORY[0x277D45F58] configurationSubscriberClient];
   if (os_log_type_enabled(configurationSubscriberClient, OS_LOG_TYPE_DEBUG))
@@ -86,7 +86,7 @@
     {
       v12 = NSUserName();
       *buf = 138412290;
-      v25 = v12;
+      v24 = v12;
       _os_log_impl(&dword_261E36000, configurationSubscriberClient3, OS_LOG_TYPE_INFO, "User: %@", buf, 0xCu);
     }
 
@@ -95,7 +95,7 @@
     {
       v14 = NSHomeDirectory();
       *buf = 138412290;
-      v25 = v14;
+      v24 = v14;
       _os_log_impl(&dword_261E36000, configurationSubscriberClient4, OS_LOG_TYPE_INFO, "Home directory: %@", buf, 0xCu);
     }
 
@@ -104,7 +104,7 @@
     {
       v16 = NSTemporaryDirectory();
       *buf = 138412290;
-      v25 = v16;
+      v24 = v16;
       _os_log_impl(&dword_261E36000, configurationSubscriberClient5, OS_LOG_TYPE_INFO, "Temp directory: %@", buf, 0xCu);
     }
 
@@ -126,7 +126,6 @@
     v20 = 0;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
@@ -144,28 +143,28 @@
 
 + (void)_registerApplicatorModelClasses:(id)classes
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   classesCopy = classes;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v4 = [classesCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [classesCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v14;
+    v6 = *v13;
     do
     {
       v7 = 0;
       do
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(classesCopy);
         }
 
-        v8 = *(*(&v13 + 1) + 8 * v7);
+        v8 = *(*(&v12 + 1) + 8 * v7);
         if (objc_opt_respondsToSelector())
         {
           supportedConfigurationClassesArray = [v8 supportedConfigurationClassesArray];
@@ -190,39 +189,37 @@ LABEL_11:
       }
 
       while (v5 != v7);
-      v5 = [classesCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [classesCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v5);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_registerPublisherModelClasses:(id)classes
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   classesCopy = classes;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v4 = [classesCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [classesCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       v7 = 0;
       do
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(classesCopy);
         }
 
-        v8 = *(*(&v11 + 1) + 8 * v7);
+        v8 = *(*(&v10 + 1) + 8 * v7);
         if (objc_opt_respondsToSelector())
         {
           supportedStatusClasses = [v8 supportedStatusClasses];
@@ -233,13 +230,11 @@ LABEL_11:
       }
 
       while (v5 != v7);
-      v5 = [classesCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [classesCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchConfigurationsWithTypes:(id)types scope:(int64_t)scope completionHandler:(id)handler
@@ -261,9 +256,9 @@ LABEL_11:
 
 void __88__RMConfigurationSubscriberClient_fetchConfigurationsWithTypes_scope_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   v7 = a2;
-  v37 = a3;
+  v36 = a3;
   v8 = a4;
   if (v8)
   {
@@ -281,94 +276,92 @@ void __88__RMConfigurationSubscriberClient_fetchConfigurationsWithTypes_scope_co
 
   else
   {
-    v34 = 0;
+    v33 = 0;
     v12 = objc_opt_new();
+    v41 = 0u;
     v42 = 0u;
     v43 = 0u;
     v44 = 0u;
-    v45 = 0u;
-    v36 = a1;
+    v35 = a1;
     v13 = *(a1 + 40);
-    v14 = [v13 countByEnumeratingWithState:&v42 objects:v47 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v41 objects:v46 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v43;
+      v16 = *v42;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v43 != v16)
+          if (*v42 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v18 = *(*(&v42 + 1) + 8 * i);
+          v18 = *(*(&v41 + 1) + 8 * i);
           v19 = objc_opt_new();
           [v12 setObject:v19 forKeyedSubscript:v18];
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v42 objects:v47 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v41 objects:v46 count:16];
       }
 
       while (v15);
     }
 
     v20 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v7, "count")}];
+    v37 = 0u;
     v38 = 0u;
     v39 = 0u;
     v40 = 0u;
-    v41 = 0u;
-    v35 = v7;
+    v34 = v7;
     v21 = v7;
-    v22 = [v21 countByEnumeratingWithState:&v38 objects:v46 count:16];
+    v22 = [v21 countByEnumeratingWithState:&v37 objects:v45 count:16];
     if (v22)
     {
       v23 = v22;
-      v24 = *v39;
+      v24 = *v38;
       do
       {
         for (j = 0; j != v23; ++j)
         {
-          if (*v39 != v24)
+          if (*v38 != v24)
           {
             objc_enumerationMutation(v21);
           }
 
-          v26 = *(*(&v38 + 1) + 8 * j);
-          v27 = *(v36 + 32);
+          v26 = *(*(&v37 + 1) + 8 * j);
+          v27 = *(v35 + 32);
           v28 = [v26 identifier];
-          v29 = [v37 objectForKeyedSubscript:v28];
+          v29 = [v36 objectForKeyedSubscript:v28];
           [v27 _buildSubscribedReferences:v12 declarations:v29 store:v26];
 
           v30 = [v26 identifier];
           [v20 setObject:v26 forKeyedSubscript:v30];
         }
 
-        v23 = [v21 countByEnumeratingWithState:&v38 objects:v46 count:16];
+        v23 = [v21 countByEnumeratingWithState:&v37 objects:v45 count:16];
       }
 
       while (v23);
     }
 
-    v31 = [*(v36 + 32) subscriberDelegate];
+    v31 = [*(v35 + 32) subscriberDelegate];
 
     if (v31)
     {
-      v32 = [*(v36 + 32) subscriberDelegate];
-      [v32 didFetchConfigurationsByType:v12 storesByIdentifier:v20 scope:*(v36 + 56) completionHandler:*(v36 + 48)];
+      v32 = [*(v35 + 32) subscriberDelegate];
+      [v32 didFetchConfigurationsByType:v12 storesByIdentifier:v20 scope:*(v35 + 56) completionHandler:*(v35 + 48)];
     }
 
     else
     {
-      (*(*(v36 + 48) + 16))();
+      (*(*(v35 + 48) + 16))();
     }
 
-    v8 = v34;
-    v7 = v35;
+    v8 = v33;
+    v7 = v34;
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchConfigurationUIsWithTypes:(id)types scope:(int64_t)scope completionHandler:(id)handler
@@ -390,9 +383,9 @@ void __88__RMConfigurationSubscriberClient_fetchConfigurationsWithTypes_scope_co
 
 void __90__RMConfigurationSubscriberClient_fetchConfigurationUIsWithTypes_scope_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   v7 = a2;
-  v37 = a3;
+  v36 = a3;
   v8 = a4;
   if (v8)
   {
@@ -410,94 +403,92 @@ void __90__RMConfigurationSubscriberClient_fetchConfigurationUIsWithTypes_scope_
 
   else
   {
-    v34 = 0;
+    v33 = 0;
     v12 = objc_opt_new();
+    v41 = 0u;
     v42 = 0u;
     v43 = 0u;
     v44 = 0u;
-    v45 = 0u;
-    v36 = a1;
+    v35 = a1;
     v13 = *(a1 + 40);
-    v14 = [v13 countByEnumeratingWithState:&v42 objects:v47 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v41 objects:v46 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v43;
+      v16 = *v42;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v43 != v16)
+          if (*v42 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v18 = *(*(&v42 + 1) + 8 * i);
+          v18 = *(*(&v41 + 1) + 8 * i);
           v19 = objc_opt_new();
           [v12 setObject:v19 forKeyedSubscript:v18];
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v42 objects:v47 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v41 objects:v46 count:16];
       }
 
       while (v15);
     }
 
     v20 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v7, "count")}];
+    v37 = 0u;
     v38 = 0u;
     v39 = 0u;
     v40 = 0u;
-    v41 = 0u;
-    v35 = v7;
+    v34 = v7;
     v21 = v7;
-    v22 = [v21 countByEnumeratingWithState:&v38 objects:v46 count:16];
+    v22 = [v21 countByEnumeratingWithState:&v37 objects:v45 count:16];
     if (v22)
     {
       v23 = v22;
-      v24 = *v39;
+      v24 = *v38;
       do
       {
         for (j = 0; j != v23; ++j)
         {
-          if (*v39 != v24)
+          if (*v38 != v24)
           {
             objc_enumerationMutation(v21);
           }
 
-          v26 = *(*(&v38 + 1) + 8 * j);
-          v27 = *(v36 + 32);
+          v26 = *(*(&v37 + 1) + 8 * j);
+          v27 = *(v35 + 32);
           v28 = [v26 identifier];
-          v29 = [v37 objectForKeyedSubscript:v28];
+          v29 = [v36 objectForKeyedSubscript:v28];
           [v27 _buildSubscribedReferences:v12 declarations:v29 store:v26];
 
           v30 = [v26 identifier];
           [v20 setObject:v26 forKeyedSubscript:v30];
         }
 
-        v23 = [v21 countByEnumeratingWithState:&v38 objects:v46 count:16];
+        v23 = [v21 countByEnumeratingWithState:&v37 objects:v45 count:16];
       }
 
       while (v23);
     }
 
-    v31 = [*(v36 + 32) subscriberDelegate];
+    v31 = [*(v35 + 32) subscriberDelegate];
 
     if (v31)
     {
-      v32 = [*(v36 + 32) subscriberDelegate];
-      [v32 didFetchConfigurationsWithVisibleUIByType:v12 storesByIdentifier:v20 scope:*(v36 + 56) completionHandler:*(v36 + 48)];
+      v32 = [*(v35 + 32) subscriberDelegate];
+      [v32 didFetchConfigurationsWithVisibleUIByType:v12 storesByIdentifier:v20 scope:*(v35 + 56) completionHandler:*(v35 + 48)];
     }
 
     else
     {
-      (*(*(v36 + 48) + 16))();
+      (*(*(v35 + 48) + 16))();
     }
 
-    v8 = v34;
-    v7 = v35;
+    v8 = v33;
+    v7 = v34;
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendStatusKeys:(id)keys storeIdentifier:(id)identifier scope:(int64_t)scope completionHandler:(id)handler
@@ -528,7 +519,7 @@ void __90__RMConfigurationSubscriberClient_sendStatusKeys_storeIdentifier_scope_
     v7 = [MEMORY[0x277D45F58] configurationSubscriberClient];
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __90__RMConfigurationSubscriberClient_sendStatusKeys_storeIdentifier_scope_completionHandler___block_invoke_cold_1(a1);
+      __90__RMConfigurationSubscriberClient_sendStatusKeys_storeIdentifier_scope_completionHandler___block_invoke_cold_1();
     }
   }
 
@@ -571,7 +562,7 @@ void __90__RMConfigurationSubscriberClient_sendStatusKeys_storeIdentifier_scope_
     v6 = [MEMORY[0x277D45F58] configurationSubscriberClient];
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __90__RMConfigurationSubscriberClient_sendStatusKeys_storeIdentifier_scope_completionHandler___block_invoke_30_cold_1(a1);
+      __90__RMConfigurationSubscriberClient_sendStatusKeys_storeIdentifier_scope_completionHandler___block_invoke_30_cold_1();
     }
 
     (*(*(a1 + 48) + 16))();
@@ -585,31 +576,31 @@ void __90__RMConfigurationSubscriberClient_sendStatusKeys_storeIdentifier_scope_
 
 - (void)_buildSubscribedReferences:(id)references declarations:(id)declarations store:(id)store
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   referencesCopy = references;
   declarationsCopy = declarations;
   storeCopy = store;
   v8 = objc_opt_new();
+  v50 = 0u;
+  v51 = 0u;
+  v52 = 0u;
   v53 = 0u;
-  v54 = 0u;
-  v55 = 0u;
-  v56 = 0u;
   v9 = declarationsCopy;
-  v10 = [v9 countByEnumeratingWithState:&v53 objects:v61 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v50 objects:v58 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v54;
+    v12 = *v51;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v54 != v12)
+        if (*v51 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v53 + 1) + 8 * i);
+        v14 = *(*(&v50 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -618,92 +609,89 @@ void __90__RMConfigurationSubscriberClient_sendStatusKeys_storeIdentifier_scope_
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v53 objects:v61 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v50 objects:v58 count:16];
     }
 
     while (v11);
   }
 
-  v51 = 0u;
-  v52 = 0u;
+  v48 = 0u;
   v49 = 0u;
-  v50 = 0u;
+  v46 = 0u;
+  v47 = 0u;
   obj = v9;
-  v16 = [obj countByEnumeratingWithState:&v49 objects:v60 count:16];
+  v16 = [obj countByEnumeratingWithState:&v46 objects:v57 count:16];
   if (v16)
   {
     v18 = v16;
-    v19 = *v50;
-    v20 = 0x277D46000uLL;
+    v19 = *v47;
     *&v17 = 138543362;
-    v39 = v17;
-    v40 = *v50;
+    v36 = v17;
+    v37 = *v47;
     do
     {
-      v21 = 0;
-      v43 = v18;
+      v20 = 0;
+      v40 = v18;
       do
       {
-        if (*v50 != v19)
+        if (*v47 != v19)
         {
           objc_enumerationMutation(obj);
         }
 
-        v22 = *(*(&v49 + 1) + 8 * v21);
-        v23 = *v20;
+        v21 = *(*(&v46 + 1) + 8 * v20);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          assetReferences = [v22 assetReferences];
-          v25 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(assetReferences, "count")}];
+          assetReferences = [v21 assetReferences];
+          v23 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(assetReferences, "count")}];
+          v42 = 0u;
+          v43 = 0u;
+          v44 = 0u;
           v45 = 0u;
-          v46 = 0u;
-          v47 = 0u;
-          v48 = 0u;
-          v26 = assetReferences;
-          v27 = [v26 countByEnumeratingWithState:&v45 objects:v59 count:16];
-          if (v27)
+          v24 = assetReferences;
+          v25 = [v24 countByEnumeratingWithState:&v42 objects:v56 count:16];
+          if (v25)
           {
-            v28 = v27;
-            v29 = *v46;
+            v26 = v25;
+            v27 = *v43;
             do
             {
-              for (j = 0; j != v28; ++j)
+              for (j = 0; j != v26; ++j)
               {
-                if (*v46 != v29)
+                if (*v43 != v27)
                 {
-                  objc_enumerationMutation(v26);
+                  objc_enumerationMutation(v24);
                 }
 
-                identifier = [*(*(&v45 + 1) + 8 * j) identifier];
-                v32 = [v8 objectForKeyedSubscript:identifier];
-                if (v32)
+                identifier = [*(*(&v42 + 1) + 8 * j) identifier];
+                v30 = [v8 objectForKeyedSubscript:identifier];
+                if (v30)
                 {
-                  [v25 addObject:v32];
+                  [v23 addObject:v30];
                 }
               }
 
-              v28 = [v26 countByEnumeratingWithState:&v45 objects:v59 count:16];
+              v26 = [v24 countByEnumeratingWithState:&v42 objects:v56 count:16];
             }
 
-            while (v28);
+            while (v26);
           }
 
-          if (![v25 count])
+          if (![v23 count])
           {
 
-            v25 = 0;
+            v23 = 0;
           }
 
-          v33 = [[RMSubscribedConfigurationReference alloc] initWithDeclaration:v22 subscriberStore:storeCopy assets:v25];
-          declarationType = [v22 declarationType];
-          v35 = [referencesCopy objectForKeyedSubscript:declarationType];
-          v36 = v35;
-          v19 = v40;
-          v20 = 0x277D46000;
-          if (v35)
+          v31 = [[RMSubscribedConfigurationReference alloc] initWithDeclaration:v21 subscriberStore:storeCopy assets:v23];
+          declarationType = [v21 declarationType];
+          v33 = [referencesCopy objectForKeyedSubscript:declarationType];
+          v34 = v33;
+          v19 = v37;
+          if (v33)
           {
-            [v35 addObject:v33];
+            [v33 addObject:v31];
           }
 
           else
@@ -711,71 +699,48 @@ void __90__RMConfigurationSubscriberClient_sendStatusKeys_storeIdentifier_scope_
             configurationSubscriberClient = [MEMORY[0x277D45F58] configurationSubscriberClient];
             if (os_log_type_enabled(configurationSubscriberClient, OS_LOG_TYPE_ERROR))
             {
-              *buf = v39;
-              v58 = declarationType;
+              *buf = v36;
+              v55 = declarationType;
               _os_log_error_impl(&dword_261E36000, configurationSubscriberClient, OS_LOG_TYPE_ERROR, "Store returned unexpected configuration type %{public}@ - ignoring", buf, 0xCu);
             }
           }
 
-          v18 = v43;
+          v18 = v40;
         }
 
-        ++v21;
+        ++v20;
       }
 
-      while (v21 != v18);
-      v18 = [obj countByEnumeratingWithState:&v49 objects:v60 count:16];
+      while (v20 != v18);
+      v18 = [obj countByEnumeratingWithState:&v46 objects:v57 count:16];
     }
 
     while (v18);
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 + (void)runConfigurationSubscriberClientWithApplicators:(NSObject *)a1 publisherClass:initializeSandbox:.cold.1(NSObject *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCA8D8] mainBundle];
   v3 = [v2 bundleIdentifier];
-  v5 = 138543362;
-  v6 = v3;
-  _os_log_debug_impl(&dword_261E36000, a1, OS_LOG_TYPE_DEBUG, "Starting Configuration Subscriber XPC Service: %{public}@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138543362;
+  v5 = v3;
+  _os_log_debug_impl(&dword_261E36000, a1, OS_LOG_TYPE_DEBUG, "Starting Configuration Subscriber XPC Service: %{public}@", &v4, 0xCu);
 }
 
 + (void)runConfigurationSubscriberClientWithApplicators:(char)a1 publisherClass:(NSObject *)a2 initializeSandbox:.cold.2(char a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = @"No";
   if (a1)
   {
     v2 = @"Yes";
   }
 
-  v4 = 138543362;
-  v5 = v2;
-  _os_log_debug_impl(&dword_261E36000, a2, OS_LOG_TYPE_DEBUG, "Will initialize Configuration Subscriber sandbox: %{public}@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-void __90__RMConfigurationSubscriberClient_sendStatusKeys_storeIdentifier_scope_completionHandler___block_invoke_cold_1(uint64_t a1)
-{
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_4(&dword_261E36000, v2, v3, "Failed to lookup store %{public}@: %{public}@");
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-void __90__RMConfigurationSubscriberClient_sendStatusKeys_storeIdentifier_scope_completionHandler___block_invoke_30_cold_1(uint64_t a1)
-{
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_4(&dword_261E36000, v2, v3, "Failed to fetch status keys %{public}@: %{public}@");
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = 138543362;
+  v4 = v2;
+  _os_log_debug_impl(&dword_261E36000, a2, OS_LOG_TYPE_DEBUG, "Will initialize Configuration Subscriber sandbox: %{public}@", &v3, 0xCu);
 }
 
 @end

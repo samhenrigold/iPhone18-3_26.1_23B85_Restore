@@ -1,16 +1,21 @@
 @interface CKDistributedTimestampImmutableStateVector
 + (void)initialize;
+- (BOOL)containsTimestampsWithAtomState:(unsigned __int8)state;
 - (BOOL)hasAtomStateNotInStateVector:(id)vector;
 - (BOOL)hasTimestampsNotInVector:(id)vector;
 - (BOOL)includesTimestamp:(id)timestamp;
 - (BOOL)isEqual:(id)equal;
 - (CKDistributedTimestampImmutableStateVector)init;
+- (CKDistributedTimestampImmutableStateVector)initWithClockValuesInIndexSet:(id)set withAtomState:(unsigned __int8)state forSiteIdentifier:(id)identifier;
 - (CKDistributedTimestampImmutableStateVector)initWithCoder:(id)coder;
 - (id)allSiteIdentifiers;
 - (id)clockValuesForSiteIdentifier:(id)identifier;
 - (id)clockVector;
+- (id)descriptionWithStringSiteIdentifiers:(BOOL)identifiers usingSuperscripts:(BOOL)superscripts;
 - (id)mutableCopyWithZone:(_NSZone *)zone;
 - (id)vectorFillingInImplicitClockValuesUsingSiteIdentifiers:(id)identifiers;
+- (id)vectorFilteredByAtomState:(unsigned __int8)state;
+- (id)vectorFilteredByClockType:(unsigned __int8)type;
 - (id)vectorFilteredByModifier:(id)modifier;
 - (id)vectorFilteredBySiteIdentifiers:(id)identifiers;
 - (int64_t)compareToVector:(id)vector;
@@ -43,22 +48,37 @@
 
 + (void)initialize
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   v3 = objc_opt_class();
-  v7[0] = objc_opt_class();
-  v5 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v4, v7, 1);
+  v6[0] = objc_opt_class();
+  v5 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v4, v6, 1);
   sub_1886CEE50(self, v3, v5, 0, 1);
+}
 
-  v6 = *MEMORY[0x1E69E9840];
+- (CKDistributedTimestampImmutableStateVector)initWithClockValuesInIndexSet:(id)set withAtomState:(unsigned __int8)state forSiteIdentifier:(id)identifier
+{
+  stateCopy = state;
+  setCopy = set;
+  identifierCopy = identifier;
+  v12 = objc_msgSend_init(self, v10, v11);
+  if (v12)
+  {
+    v13 = objc_opt_new();
+    objc_msgSend_addClockValuesInIndexSet_withAtomState_forSiteIdentifier_(v13, v14, setCopy, stateCopy, identifierCopy);
+    v17 = objc_msgSend_backingVector(v13, v15, v16);
+    objc_msgSend__setBackingState_(v12, v18, v17);
+  }
+
+  return v12;
 }
 
 - (CKDistributedTimestampImmutableStateVector)initWithCoder:(id)coder
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v26.receiver = self;
-  v26.super_class = CKDistributedTimestampImmutableStateVector;
-  v5 = [(CKDistributedTimestampImmutableStateVector *)&v26 init];
+  v25.receiver = self;
+  v25.super_class = CKDistributedTimestampImmutableStateVector;
+  v5 = [(CKDistributedTimestampImmutableStateVector *)&v25 init];
   if (!v5)
   {
     goto LABEL_11;
@@ -78,9 +98,9 @@
 
   v9 = [CKDPDistributedTimestamps alloc];
   v11 = objc_msgSend_initWithData_(v9, v10, v8);
-  v25 = 0;
-  v13 = objc_msgSend_attributedVectorFromPDistributedTimestamps_error_(CKDistributedTimestampAttributedVector, v12, v11, &v25);
-  v14 = v25;
+  v24 = 0;
+  v13 = objc_msgSend_attributedVectorFromPDistributedTimestamps_error_(CKDistributedTimestampAttributedVector, v12, v11, &v24);
+  v14 = v24;
   objc_msgSend__setBackingState_(v5, v15, v13);
 
   if (!v14)
@@ -101,7 +121,7 @@ LABEL_11:
   if (os_log_type_enabled(ck_log_facility_distributed_sync, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v28 = v14;
+    v27 = v14;
     _os_log_error_impl(&dword_1883EA000, v16, OS_LOG_TYPE_ERROR, "Error initializing distributed timestamp vector from data in coder: %@", buf, 0xCu);
   }
 
@@ -110,7 +130,6 @@ LABEL_11:
   v18 = 0;
 LABEL_12:
 
-  v23 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
@@ -315,6 +334,15 @@ LABEL_12:
   objc_msgSend_enumerateAllClockValuesUsingBlock_(v7, v9, v10);
 }
 
+- (BOOL)containsTimestampsWithAtomState:(unsigned __int8)state
+{
+  stateCopy = state;
+  v4 = objc_msgSend_backingVector(self, a2, state);
+  LOBYTE(stateCopy) = objc_msgSend_clockVector_timestampCountForAtomState_(v4, v5, stateCopy) != 0;
+
+  return stateCopy;
+}
+
 - (id)vectorFilteredBySiteIdentifiers:(id)identifiers
 {
   identifiersCopy = identifiers;
@@ -332,6 +360,28 @@ LABEL_12:
   v5 = objc_opt_new();
   v8 = objc_msgSend_backingVector(self, v6, v7);
   v10 = objc_msgSend_vectorFilteredByModifier_(v8, v9, modifierCopy);
+  objc_msgSend__setBackingState_(v5, v11, v10);
+
+  return v5;
+}
+
+- (id)vectorFilteredByClockType:(unsigned __int8)type
+{
+  typeCopy = type;
+  v5 = objc_opt_new();
+  v8 = objc_msgSend_backingVector(self, v6, v7);
+  v10 = objc_msgSend_clockVector_vectorFilteredByClockType_(v8, v9, typeCopy);
+  objc_msgSend__setBackingState_(v5, v11, v10);
+
+  return v5;
+}
+
+- (id)vectorFilteredByAtomState:(unsigned __int8)state
+{
+  stateCopy = state;
+  v5 = objc_opt_new();
+  v8 = objc_msgSend_backingVector(self, v6, v7);
+  v10 = objc_msgSend_clockVector_vectorFilteredByAtomState_(v8, v9, stateCopy);
   objc_msgSend__setBackingState_(v5, v11, v10);
 
   return v5;
@@ -357,6 +407,20 @@ LABEL_12:
   objc_msgSend__swapContentsWithVector_(v11, v12, v8);
 
   return v3;
+}
+
+- (id)descriptionWithStringSiteIdentifiers:(BOOL)identifiers usingSuperscripts:(BOOL)superscripts
+{
+  identifiersCopy = identifiers;
+  v6 = objc_msgSend_backingVector(self, a2, identifiers);
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = sub_18855D38C;
+  v9[3] = &unk_1E70BD528;
+  superscriptsCopy = superscripts;
+  v7 = sub_188559258(v6, identifiersCopy, v9);
+
+  return v7;
 }
 
 @end

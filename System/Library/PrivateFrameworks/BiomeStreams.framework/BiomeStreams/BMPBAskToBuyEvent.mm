@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)statusAsString:(int)string;
 - (int)StringAsStatus:(id)status;
 - (int)status;
 - (unint64_t)hash;
@@ -42,6 +43,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)statusAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E6E53140[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsStatus:(id)status
@@ -222,93 +238,89 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v9 = toCopy;
+  v5 = toCopy;
   if (self->_requestID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    eventTime = self->_eventTime;
     PBDataWriterWriteDoubleField();
-    toCopy = v9;
+    toCopy = v5;
   }
 
   if (self->_userID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v5;
   }
 
   if (self->_actionUserID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v5;
   }
 
   if ((*&self->_has & 4) != 0)
   {
-    status = self->_status;
     PBDataWriterWriteInt32Field();
-    toCopy = v9;
+    toCopy = v5;
   }
 
   if (self->_itemTitle)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v5;
   }
 
   if (self->_itemDescription)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v5;
   }
 
   if (self->_itemLocalizedPrice)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v5;
   }
 
   if (self->_thumbnailPath)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v5;
   }
 
   if (self->_ageRating)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v5;
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    starRating = self->_starRating;
     PBDataWriterWriteFloatField();
-    toCopy = v9;
+    toCopy = v5;
   }
 
   if (self->_productType)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v5;
   }
 
   if ((*&self->_has & 8) != 0)
   {
-    isActionUserDevice = self->_isActionUserDevice;
     PBDataWriterWriteBOOLField();
-    toCopy = v9;
+    toCopy = v5;
   }
 
   if (self->_storeLink)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v5;
   }
 }
 
@@ -488,7 +500,6 @@
     }
   }
 
-  v6 = *(equalCopy + 108);
   if (*&self->_has)
   {
     if ((*(equalCopy + 108) & 1) == 0 || self->_eventTime != *(equalCopy + 1))
@@ -517,7 +528,6 @@
     }
   }
 
-  v9 = *(equalCopy + 108);
   if ((*&self->_has & 4) != 0)
   {
     if ((*(equalCopy + 108) & 4) == 0 || self->_status != *(equalCopy + 19))
@@ -574,7 +584,6 @@
   }
 
   has = self->_has;
-  v16 = *(equalCopy + 108);
   if ((has & 2) != 0)
   {
     if ((*(equalCopy + 108) & 2) == 0 || self->_starRating != *(equalCopy + 18))
@@ -599,7 +608,6 @@
     has = self->_has;
   }
 
-  v18 = *(equalCopy + 108);
   if ((has & 8) == 0)
   {
     if ((*(equalCopy + 108) & 8) == 0)
@@ -608,7 +616,7 @@
     }
 
 LABEL_41:
-    v20 = 0;
+    v16 = 0;
     goto LABEL_42;
   }
 
@@ -617,7 +625,6 @@ LABEL_41:
     goto LABEL_41;
   }
 
-  v22 = *(equalCopy + 104);
   if (self->_isActionUserDevice)
   {
     if ((*(equalCopy + 104) & 1) == 0)
@@ -635,17 +642,17 @@ LABEL_38:
   storeLink = self->_storeLink;
   if (storeLink | *(equalCopy + 10))
   {
-    v20 = [(NSString *)storeLink isEqual:?];
+    v16 = [(NSString *)storeLink isEqual:?];
   }
 
   else
   {
-    v20 = 1;
+    v16 = 1;
   }
 
 LABEL_42:
 
-  return v20;
+  return v16;
 }
 
 - (unint64_t)hash

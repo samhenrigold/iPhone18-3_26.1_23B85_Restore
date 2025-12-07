@@ -9,9 +9,9 @@
 {
   contextCopy = context;
   cubeCopy = cube;
-  v44.receiver = self;
-  v44.super_class = PTStudioLightColorCorrectionAndConversion;
-  v8 = [(PTStudioLightColorCorrectionAndConversion *)&v44 init];
+  v46.receiver = self;
+  v46.super_class = PTStudioLightColorCorrectionAndConversion;
+  v8 = [(PTStudioLightColorCorrectionAndConversion *)&v46 init];
   v9 = v8;
   if (v8)
   {
@@ -22,68 +22,68 @@
 
     if (v9->_studioLightColorCorrectionRGBToYUV)
     {
-      v12 = objc_alloc_init(MEMORY[0x277CD7058]);
-      v13 = v12;
-      if (v12)
+      v13 = objc_alloc_init(MEMORY[0x277CD7058]);
+      v14 = v13;
+      if (v13)
       {
-        [v12 setTextureType:7];
-        [v13 setWidth:32];
-        [v13 setHeight:32];
-        [v13 setDepth:32];
-        [v13 setPixelFormat:70];
-        [v13 setUsage:3];
-        device = [contextCopy device];
-        v15 = [device newTextureWithDescriptor:v13];
+        [v13 setTextureType:7];
+        [v14 setWidth:32];
+        [v14 setHeight:32];
+        [v14 setDepth:32];
+        [v14 setPixelFormat:70];
+        [v14 setUsage:3];
+        v15 = objc_msgSend_device(contextCopy);
+        v16 = [v15 newTextureWithDescriptor:v14];
         cubeTexture = v9->_cubeTexture;
-        v9->_cubeTexture = v15;
+        v9->_cubeTexture = v16;
 
         if (v9->_cubeTexture)
         {
-          device2 = [contextCopy device];
-          v18 = [device2 newBufferWithLength:16 options:0];
+          v19 = objc_msgSend_device(contextCopy);
+          v20 = [v19 newBufferWithLength:16 options:0];
           rgbMinMax = v9->_rgbMinMax;
-          v9->_rgbMinMax = v18;
+          v9->_rgbMinMax = v20;
 
-          v20 = v9;
+          v22 = v9;
 LABEL_15:
 
           goto LABEL_16;
         }
 
-        v28 = _PTLogSystem();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+        v30 = _PTLogSystem(v18);
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
         {
-          [(PTStudioLightColorCorrectionAndConversion *)v28 initWithMetalContext:v36 correctionColorCube:v37, v38, v39, v40, v41, v42];
+          [(PTStudioLightColorCorrectionAndConversion *)v30 initWithMetalContext:v38 correctionColorCube:v39, v40, v41, v42, v43, v44];
         }
       }
 
       else
       {
-        v28 = _PTLogSystem();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+        v30 = _PTLogSystem(0);
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
         {
-          [(PTStudioLightColorCorrectionAndConversion *)v28 initWithMetalContext:v29 correctionColorCube:v30, v31, v32, v33, v34, v35];
+          [(PTStudioLightColorCorrectionAndConversion *)v30 initWithMetalContext:v31 correctionColorCube:v32, v33, v34, v35, v36, v37];
         }
       }
     }
 
     else
     {
-      v13 = _PTLogSystem();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v14 = _PTLogSystem(v12);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        [(PTStudioLightColorCorrectionAndConversion *)v13 initWithMetalContext:v21 correctionColorCube:v22, v23, v24, v25, v26, v27];
+        [(PTStudioLightColorCorrectionAndConversion *)v14 initWithMetalContext:v23 correctionColorCube:v24, v25, v26, v27, v28, v29];
       }
     }
 
-    v20 = 0;
+    v22 = 0;
     goto LABEL_15;
   }
 
-  v20 = 0;
+  v22 = 0;
 LABEL_16:
 
-  return v20;
+  return v22;
 }
 
 - (unsigned)initializeCubeMap:(id)map inputTexture:(id)texture
@@ -91,9 +91,9 @@ LABEL_16:
   memset(v22, 0, sizeof(v22));
   textureCopy = texture;
   mapCopy = map;
-  [PTColorConversion getColorMatrix:textureCopy toRGB:0];
+  objc_msgSend_getColorMatrix_toRGB_(PTColorConversion);
   memset(v21, 0, sizeof(v21));
-  [PTColorConversion getColorMatrix:textureCopy toRGB:1];
+  objc_msgSend_getColorMatrix_toRGB_(PTColorConversion);
   transferFunction = [textureCopy transferFunction];
   v9 = [PTColorConversion getTransferFunction:transferFunction toLinear:1];
 
@@ -124,6 +124,27 @@ LABEL_16:
   [computeCommandEncoder endEncoding];
 
   return 0;
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 correctionColorCube:(uint64_t)a4 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_cubeTexture";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 correctionColorCube:(uint64_t)a4 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "texDesc";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 correctionColorCube:(uint64_t)a4 .cold.3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_studioLightColorCorrectionRGBToYUV";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

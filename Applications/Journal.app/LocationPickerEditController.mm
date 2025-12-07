@@ -30,7 +30,7 @@
 {
   appearingCopy = appearing;
   v9.receiver = self;
-  v9.super_class = type metadata accessor for LocationPickerEditController();
+  v9.super_class = type metadata accessor for LocationPickerEditController(0);
   v4 = v9.receiver;
   [(LocationPickerEditController *)&v9 viewIsAppearing:appearingCopy];
   traitCollection = [v4 traitCollection];
@@ -103,7 +103,7 @@
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  sub_100830B30();
+  sub_100830B30(v9);
 
   (*(v7 + 8))(v9, v6);
 }

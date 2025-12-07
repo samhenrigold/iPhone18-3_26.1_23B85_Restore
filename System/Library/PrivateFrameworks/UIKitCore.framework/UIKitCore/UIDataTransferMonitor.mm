@@ -26,7 +26,7 @@ void __61___UIDataTransferMonitor__transferQueue_sendFinishedCallback__block_inv
   [WeakRetained dataTransferMonitorFinishedTransfers:*(a1 + 32)];
 }
 
-uint64_t __41___UIDataTransferMonitor_totalItemsCount__block_invoke(uint64_t a1)
+void *__41___UIDataTransferMonitor_totalItemsCount__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 48) count];
   *(*(*(a1 + 40) + 8) + 24) = result;

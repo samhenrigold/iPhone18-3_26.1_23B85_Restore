@@ -49,7 +49,7 @@
 
 - (void)handleObject:(id)object forSFSession:(id)session
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   sessionCopy = session;
   v8 = [(DEDSharingInbound *)self log];
@@ -68,7 +68,7 @@
     {
       v12 = [objectCopy objectForKeyedSubscript:@"myIdentifier"];
       *buf = 138412290;
-      v63 = v12;
+      v62 = v12;
       _os_log_impl(&dword_248AD7000, v11, OS_LOG_TYPE_DEFAULT, "received ready_check setup command with identifier [%@]", buf, 0xCu);
     }
 
@@ -79,13 +79,13 @@
     }
 
     v14 = +[DEDDevice currentDeviceWithDaemonInfo];
-    v61[0] = @"ready_device";
+    v60[0] = @"ready_device";
     v15 = [objectCopy objectForKeyedSubscript:{@"yourIdentifier", @"setup", @"myIdentifier"}];
-    v61[1] = v15;
-    v60[2] = @"device";
+    v60[1] = v15;
+    v59[2] = @"device";
     serialize = [v14 serialize];
-    v61[2] = serialize;
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v61 forKeys:v60 count:3];
+    v60[2] = serialize;
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v60 forKeys:v59 count:3];
 
     [sessionCopy sendWithFlags:0 object:v17];
   }
@@ -100,7 +100,7 @@
     {
       v21 = [objectCopy objectForKeyedSubscript:@"myIdentifier"];
       *buf = 138412290;
-      v63 = v21;
+      v62 = v21;
       _os_log_impl(&dword_248AD7000, v20, OS_LOG_TYPE_DEFAULT, "received ready_device setup command with identifier [%@]", buf, 0xCu);
     }
 
@@ -141,7 +141,7 @@
     {
       v32 = [objectCopy objectForKeyedSubscript:@"myIdentifier"];
       *buf = 138412290;
-      v63 = v32;
+      v62 = v32;
       _os_log_impl(&dword_248AD7000, v31, OS_LOG_TYPE_DEFAULT, "received start_session setup command with identifier [%@]", buf, 0xCu);
     }
 
@@ -183,7 +183,7 @@
     {
       v48 = [objectCopy objectForKeyedSubscript:@"myIdentifier"];
       *buf = 138412290;
-      v63 = v48;
+      v62 = v48;
       _os_log_impl(&dword_248AD7000, v47, OS_LOG_TYPE_DEFAULT, "received start_session setup command with identifier [%@]", buf, 0xCu);
     }
 
@@ -206,7 +206,7 @@
     {
       v53 = [objectCopy objectForKeyedSubscript:@"myIdentifier"];
       *buf = 138412290;
-      v63 = v53;
+      v62 = v53;
       _os_log_impl(&dword_248AD7000, v52, OS_LOG_TYPE_DEFAULT, "received session setup command with identifier [%@]", buf, 0xCu);
     }
 
@@ -226,13 +226,11 @@
 
     [(DEDSharingInbound *)self handleObject:objectCopy forSFSession:sessionCopy forBugSession:v55 callingDevice:v57];
   }
-
-  v59 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleObject:(id)object forSFSession:(id)session forBugSession:(id)bugSession callingDevice:(id)device
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   sessionCopy = session;
   bugSessionCopy = bugSession;
@@ -279,7 +277,7 @@ LABEL_28:
     {
       v21 = [objectCopy objectForKeyedSubscript:@"identifier"];
       v22 = [objectCopy objectForKeyedSubscript:@"parameters"];
-      v61 = v21;
+      v60 = v21;
       v23 = [[DEDExtensionIdentifier alloc] initWithString:v21];
       v24 = [objectCopy objectForKeyedSubscript:@"deferDate"];
       extensionIdentifier = [(DEDExtensionIdentifier *)v23 extensionIdentifier];
@@ -307,42 +305,42 @@ LABEL_28:
     {
       if ([v16 isEqualToString:@"supportsExtensions"])
       {
-        v59 = v20;
-        v60 = deviceCopy;
+        v58 = v20;
+        v59 = deviceCopy;
         array = [MEMORY[0x277CBEB18] array];
+        v61 = 0u;
         v62 = 0u;
         v63 = 0u;
         v64 = 0u;
-        v65 = 0u;
         v30 = [objectCopy objectForKeyedSubscript:@"extensions"];
-        v31 = [v30 countByEnumeratingWithState:&v62 objects:v66 count:16];
+        v31 = [v30 countByEnumeratingWithState:&v61 objects:v65 count:16];
         if (v31)
         {
           v32 = v31;
-          v33 = *v63;
+          v33 = *v62;
           do
           {
             for (i = 0; i != v32; ++i)
             {
-              if (*v63 != v33)
+              if (*v62 != v33)
               {
                 objc_enumerationMutation(v30);
               }
 
-              v35 = [DEDExtension extensionWithDictionary:*(*(&v62 + 1) + 8 * i)];
+              v35 = [DEDExtension extensionWithDictionary:*(*(&v61 + 1) + 8 * i)];
               [array addObject:v35];
             }
 
-            v32 = [v30 countByEnumeratingWithState:&v62 objects:v66 count:16];
+            v32 = [v30 countByEnumeratingWithState:&v61 objects:v65 count:16];
           }
 
           while (v32);
         }
 
-        v20 = v59;
-        [v59 supportsDiagnostics:array];
+        v20 = v58;
+        [v58 supportsDiagnostics:array];
 
-        deviceCopy = v60;
+        deviceCopy = v59;
         goto LABEL_28;
       }
 
@@ -368,21 +366,21 @@ LABEL_28:
 
         if ([v16 isEqualToString:@"didGetStatus"])
         {
-          v39 = [objectCopy objectForKeyedSubscript:@"groups"];
-          v40 = [v39 ded_mapWithBlock:&__block_literal_global_31];
+          v38 = [objectCopy objectForKeyedSubscript:@"groups"];
+          v39 = [v38 ded_mapWithBlock:&__block_literal_global_31];
 
-          v41 = [objectCopy objectForKeyedSubscript:@"extensions"];
-          v42 = [v41 ded_mapWithBlock:&__block_literal_global_117];
+          v40 = [objectCopy objectForKeyedSubscript:@"extensions"];
+          v41 = [v40 ded_mapWithBlock:&__block_literal_global_117];
 
-          [v20 hasCollected:v40 isCollecting:v42];
+          [v20 hasCollected:v39 isCollecting:v41];
         }
 
         else
         {
           if ([v16 isEqualToString:@"didGetState"])
           {
-            v43 = [objectCopy objectForKeyedSubscript:@"state"];
-            integerValue = [v43 integerValue];
+            v42 = [objectCopy objectForKeyedSubscript:@"state"];
+            integerValue = [v42 integerValue];
 
             delegate3 = [objectCopy objectForKeyedSubscript:@"info"];
             [v20 didGetState:integerValue info:delegate3];
@@ -391,16 +389,16 @@ LABEL_28:
 
           if ([v16 isEqualToString:@"didSyncStatus"])
           {
-            v45 = [objectCopy objectForKeyedSubscript:@"groups"];
-            delegate3 = [v45 ded_mapWithBlock:&__block_literal_global_128];
+            v44 = [objectCopy objectForKeyedSubscript:@"groups"];
+            delegate3 = [v44 ded_mapWithBlock:&__block_literal_global_128];
 
-            v46 = [objectCopy objectForKeyedSubscript:@"extensions"];
-            v47 = [v46 ded_mapWithBlock:&__block_literal_global_130];
+            v45 = [objectCopy objectForKeyedSubscript:@"extensions"];
+            v46 = [v45 ded_mapWithBlock:&__block_literal_global_130];
 
-            v48 = [objectCopy objectForKeyedSubscript:@"identifiers"];
-            v49 = [v48 ded_mapWithBlock:&__block_literal_global_135];
+            v47 = [objectCopy objectForKeyedSubscript:@"identifiers"];
+            v48 = [v47 ded_mapWithBlock:&__block_literal_global_135];
 
-            [v20 hasCollected:delegate3 isCollecting:v47 identifiers:v49];
+            [v20 hasCollected:delegate3 isCollecting:v46 identifiers:v48];
             goto LABEL_16;
           }
 
@@ -416,11 +414,11 @@ LABEL_28:
             {
               if ([v16 isEqualToString:@"compressionProgress"])
               {
-                v51 = [objectCopy objectForKeyedSubscript:@"compressed"];
-                unsignedLongLongValue = [v51 unsignedLongLongValue];
+                v50 = [objectCopy objectForKeyedSubscript:@"compressed"];
+                unsignedLongLongValue = [v50 unsignedLongLongValue];
 
-                v53 = [objectCopy objectForKeyedSubscript:@"total"];
-                unsignedLongLongValue2 = [v53 unsignedLongLongValue];
+                v52 = [objectCopy objectForKeyedSubscript:@"total"];
+                unsignedLongLongValue2 = [v52 unsignedLongLongValue];
 
                 [v20 compressionProgress:unsignedLongLongValue total:unsignedLongLongValue2];
                 goto LABEL_28;
@@ -428,11 +426,11 @@ LABEL_28:
 
               if ([v16 isEqualToString:@"uploadProgress"])
               {
-                v55 = [objectCopy objectForKeyedSubscript:@"uploaded"];
-                longLongValue = [v55 longLongValue];
+                v54 = [objectCopy objectForKeyedSubscript:@"uploaded"];
+                longLongValue = [v54 longLongValue];
 
-                v57 = [objectCopy objectForKeyedSubscript:@"total"];
-                longLongValue2 = [v57 longLongValue];
+                v56 = [objectCopy objectForKeyedSubscript:@"total"];
+                longLongValue2 = [v56 longLongValue];
 
                 [v20 uploadProgress:longLongValue total:longLongValue2];
                 goto LABEL_28;
@@ -484,22 +482,22 @@ LABEL_28:
             goto LABEL_16;
           }
 
-          v40 = [objectCopy objectForKeyedSubscript:@"filesForAdopt"];
-          v50 = [(DEDSharingInbound *)self log];
-          if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
+          v39 = [objectCopy objectForKeyedSubscript:@"filesForAdopt"];
+          v49 = [(DEDSharingInbound *)self log];
+          if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
           {
-            [DEDSharingInbound handleObject:v50 forSFSession:? forBugSession:? callingDevice:?];
+            [DEDSharingInbound handleObject:v49 forSFSession:? forBugSession:? callingDevice:?];
           }
 
-          [v20 adoptFiles:v40 withCompletion:0];
+          [v20 adoptFiles:v39 withCompletion:0];
         }
 
         goto LABEL_28;
       }
 
       delegate3 = [objectCopy objectForKeyedSubscript:@"identifier"];
-      v38 = [objectCopy objectForKeyedSubscript:@"group"];
-      v28 = [DEDAttachmentGroup groupWithDictionary:v38];
+      v37 = [objectCopy objectForKeyedSubscript:@"group"];
+      v28 = [DEDAttachmentGroup groupWithDictionary:v37];
 
       [v20 finishedDiagnosticWithIdentifier:delegate3 result:v28];
     }
@@ -509,8 +507,6 @@ LABEL_16:
   }
 
 LABEL_29:
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 DEDExtensionIdentifier *__75__DEDSharingInbound_handleObject_forSFSession_forBugSession_callingDevice___block_invoke_5(uint64_t a1, void *a2)
@@ -545,50 +541,41 @@ DEDExtensionIdentifier *__75__DEDSharingInbound_handleObject_forSFSession_forBug
 
 - (void)handleObject:forSFSession:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_0_9();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleObject:forSFSession:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_0_9();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleObject:(void *)a1 forSFSession:(NSObject *)a2 .cold.4(void *a1, NSObject *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = [a1 name];
-  v6 = 138412546;
-  v7 = v4;
-  v8 = 2048;
-  v9 = [a1 status];
-  _os_log_debug_impl(&dword_248AD7000, a2, OS_LOG_TYPE_DEBUG, "checkReadiness callback for %@ (status %ld)", &v6, 0x16u);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138412546;
+  v6 = v4;
+  v7 = 2048;
+  v8 = [a1 status];
+  _os_log_debug_impl(&dword_248AD7000, a2, OS_LOG_TYPE_DEBUG, "checkReadiness callback for %@ (status %ld)", &v5, 0x16u);
 }
 
 - (void)handleObject:forSFSession:forBugSession:callingDevice:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_0_9();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleObject:forSFSession:forBugSession:callingDevice:.cold.2()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_0();
-  _os_log_error_impl(&dword_248AD7000, v0, OS_LOG_TYPE_ERROR, "Unknown command given [%{public}@]", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_248AD7000, v0, OS_LOG_TYPE_ERROR, "Unknown command given [%{public}@]", v1, 0xCu);
 }
 
 @end

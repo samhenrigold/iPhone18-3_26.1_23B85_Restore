@@ -497,22 +497,22 @@ LABEL_19:
 
 + (BOOL)getWidth:(unint64_t *)width height:(unint64_t *)height ofBlobNamed:(id)named forNetworkModelFileWithPath:(id)path error:(id *)error
 {
-  v45[19] = *MEMORY[0x1E69E9840];
+  v46[19] = *MEMORY[0x1E69E9840];
   namedCopy = named;
   pathCopy = path;
   uTF8String = [namedCopy UTF8String];
-  std::string::basic_string[abi:ne200100]<0>(&v42, [pathCopy UTF8String]);
-  size = HIBYTE(v42.__r_.__value_.__r.__words[2]);
-  v15 = HIBYTE(v42.__r_.__value_.__r.__words[2]);
-  v16 = v42.__r_.__value_.__r.__words[0];
-  if ((v42.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+  std::string::basic_string[abi:ne200100]<0>(&v43, [pathCopy UTF8String]);
+  size = HIBYTE(v43.__r_.__value_.__r.__words[2]);
+  v15 = HIBYTE(v43.__r_.__value_.__r.__words[2]);
+  v16 = v43.__r_.__value_.__r.__words[0];
+  if ((v43.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
   {
-    size = v42.__r_.__value_.__l.__size_;
+    size = v43.__r_.__value_.__l.__size_;
   }
 
   else
   {
-    v16 = &v42;
+    v16 = &v43;
   }
 
   v17 = 0uLL;
@@ -557,59 +557,69 @@ LABEL_15:
       v26 = v20 - v16;
       if (v26 != -1)
       {
-        std::string::replace(&v42, v26 + 10, 0xFFFFFFFFFFFFFFFFLL, "shape", 5uLL);
-        std::ifstream::basic_ifstream(v43);
+        std::string::replace(&v43, v26 + 10, 0xFFFFFFFFFFFFFFFFLL, "shape", 5uLL);
+        if ((v43.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        {
+          v27 = &v43;
+        }
+
+        else
+        {
+          v27 = v43.__r_.__value_.__r.__words[0];
+        }
+
+        std::ifstream::basic_ifstream(v44, v27);
         std::string::basic_string[abi:ne200100]<0>(__p, "json");
         Espresso::load_network_shape();
-        if (v37 < 0)
+        if (v38 < 0)
         {
           operator delete(__p[0]);
         }
 
         std::string::basic_string[abi:ne200100]<0>(__p, uTF8String);
-        v27 = std::__tree<std::__value_type<std::string,std::vector<float>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<float>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<float>>>>::find<std::string>(v38, __p);
-        if (&v39 == v27 && (v27 = std::__tree<std::__value_type<std::string,std::vector<float>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<float>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<float>>>>::find<std::string>(&v40, __p), &v41 == v27))
+        v28 = std::__tree<std::__value_type<std::string,std::vector<float>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<float>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<float>>>>::find<std::string>(&v39, __p);
+        if (&v40 == v28 && (v28 = std::__tree<std::__value_type<std::string,std::vector<float>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<float>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<float>>>>::find<std::string>(&v41, __p), &v42 == v28))
         {
-          v30 = 0uLL;
+          v31 = 0uLL;
         }
 
         else
         {
-          v28 = *(v27 + 56);
-          *&v29 = v28;
-          *(&v29 + 1) = SHIDWORD(v28);
-          v30 = v29;
+          v29 = *(v28 + 56);
+          *&v30 = v29;
+          *(&v30 + 1) = SHIDWORD(v29);
+          v31 = v30;
         }
 
-        v34 = v30;
-        if (v37 < 0)
+        v35 = v31;
+        if (v38 < 0)
         {
           operator delete(__p[0]);
         }
 
-        std::__tree<std::__value_type<std::string,Espresso::layer_shape>,std::__map_value_compare<std::string,std::__value_type<std::string,Espresso::layer_shape>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,Espresso::layer_shape>>>::destroy(v41);
-        std::__tree<std::__value_type<std::string,Espresso::layer_shape>,std::__map_value_compare<std::string,std::__value_type<std::string,Espresso::layer_shape>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,Espresso::layer_shape>>>::destroy(v39);
-        v43[0] = *MEMORY[0x1E69E54C8];
-        *(v43 + *(v43[0] - 24)) = *(MEMORY[0x1E69E54C8] + 24);
-        MEMORY[0x1AC556860](&v44);
+        std::__tree<std::__value_type<std::string,Espresso::layer_shape>,std::__map_value_compare<std::string,std::__value_type<std::string,Espresso::layer_shape>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,Espresso::layer_shape>>>::destroy(v42);
+        std::__tree<std::__value_type<std::string,Espresso::layer_shape>,std::__map_value_compare<std::string,std::__value_type<std::string,Espresso::layer_shape>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,Espresso::layer_shape>>>::destroy(v40);
+        v44[0] = *MEMORY[0x1E69E54C8];
+        *(v44 + *(v44[0] - 24)) = *(MEMORY[0x1E69E54C8] + 24);
+        MEMORY[0x1AC556860](&v45);
         std::istream::~istream();
-        MEMORY[0x1AC556A40](v45);
+        MEMORY[0x1AC556A40](v46);
         v25 = 0;
         v24 = 1;
-        v15 = HIBYTE(v42.__r_.__value_.__r.__words[2]);
-        v17 = v34;
+        v15 = HIBYTE(v43.__r_.__value_.__r.__words[2]);
+        v17 = v35;
       }
     }
 
     if ((v15 & 0x80) == 0)
     {
-LABEL_26:
+LABEL_29:
       if ((v24 & 1) == 0)
       {
-        goto LABEL_27;
+        goto LABEL_30;
       }
 
-      goto LABEL_31;
+      goto LABEL_34;
     }
   }
 
@@ -617,32 +627,32 @@ LABEL_26:
   {
     v24 = 0;
     v25 = 4294967290;
-    if ((*(&v42.__r_.__value_.__s + 23) & 0x80) == 0)
+    if ((*(&v43.__r_.__value_.__s + 23) & 0x80) == 0)
     {
-      goto LABEL_26;
+      goto LABEL_29;
     }
   }
 
-  v35 = v17;
-  operator delete(v42.__r_.__value_.__l.__data_);
-  v17 = v35;
+  v36 = v17;
+  operator delete(v43.__r_.__value_.__l.__data_);
+  v17 = v36;
   if ((v24 & 1) == 0)
   {
-LABEL_27:
+LABEL_30:
     if (error)
     {
       pathCopy = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"unable to introspect %@", pathCopy];
       *error = [VNError errorForEspressoReturnStatus:v25 localizedDescription:pathCopy];
 
-LABEL_40:
+LABEL_43:
       LOBYTE(error) = 0;
-      goto LABEL_41;
+      goto LABEL_44;
     }
 
-    goto LABEL_41;
+    goto LABEL_44;
   }
 
-LABEL_31:
+LABEL_34:
   if (v17 && *(&v17 + 1))
   {
     if (width)
@@ -663,10 +673,10 @@ LABEL_31:
     pathCopy2 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"blob %@ was not found in %@", namedCopy, pathCopy];
     *error = [VNError errorForInvalidArgumentWithLocalizedDescription:pathCopy2];
 
-    goto LABEL_40;
+    goto LABEL_43;
   }
 
-LABEL_41:
+LABEL_44:
 
   return error;
 }

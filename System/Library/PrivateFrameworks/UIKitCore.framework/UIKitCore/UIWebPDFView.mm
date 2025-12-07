@@ -332,10 +332,11 @@ LABEL_3:
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
 {
-  if ([path isEqualToString:@"backgroundImage"])
+  if (objc_msgSend_isEqualToString_(path, a2, @"backgroundImage"))
   {
     v11 = [change objectForKey:*MEMORY[0x1E696A4F0]];
-    if (([v11 isEqual:{objc_msgSend(MEMORY[0x1E695DFB0], "null")}] & 1) == 0)
+    [MEMORY[0x1E695DFB0] null];
+    if ((objc_msgSend_isEqual_(v11) & 1) == 0)
     {
       v12[0] = MEMORY[0x1E69E9820];
       v12[1] = 3221225472;
@@ -363,7 +364,7 @@ LABEL_3:
   }
 }
 
-uint64_t __63__UIWebPDFView_observeValueForKeyPath_ofObject_change_context___block_invoke(uint64_t a1)
+void *__63__UIWebPDFView_observeValueForKeyPath_ofObject_change_context___block_invoke(uint64_t a1)
 {
   v14 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) setHidden:0];
@@ -1376,7 +1377,7 @@ LABEL_3:
   v14 = v13;
   if (v5)
   {
-    [v5 transform];
+    objc_msgSend_transform(v5);
   }
 
   else
@@ -1405,7 +1406,7 @@ LABEL_3:
   v14 = v13;
   if (v5)
   {
-    [v5 transform];
+    objc_msgSend_transform(v5);
   }
 
   else
@@ -1434,7 +1435,7 @@ LABEL_3:
   v14 = v13;
   if (v5)
   {
-    [v5 transform];
+    objc_msgSend_transform(v5);
   }
 
   else
@@ -1506,109 +1507,109 @@ LABEL_3:
 
 - (CGPDFPage)imageForContactRect:(CGFloat)rect onPageInViewRect:(CGFloat)viewRect destinationRect:(CGFloat)destinationRect
 {
-  v71.origin.x = a10;
-  v71.origin.y = a11;
-  v71.size.width = a12;
-  v71.size.height = a13;
-  v72 = CGRectIntegral(v71);
-  width = v72.size.width;
-  height = v72.size.height;
-  x = v72.origin.x;
-  y = v72.origin.y;
-  if (CGRectIsEmpty(v72))
+  v64.origin.x = a10;
+  v64.origin.y = a11;
+  v64.size.width = a12;
+  v64.size.height = a13;
+  v65 = CGRectIntegral(v64);
+  width = v65.size.width;
+  height = v65.size.height;
+  x = v65.origin.x;
+  y = v65.origin.y;
+  if (CGRectIsEmpty(v65))
   {
     return 0;
   }
 
-  v73.origin.x = a2;
-  v73.origin.y = rect;
-  v73.size.width = viewRect;
-  v73.size.height = destinationRect;
-  v74 = CGRectIntegral(v73);
-  v29 = v74.origin.x;
-  v30 = v74.origin.y;
-  v31 = v74.size.width;
-  v32 = v74.size.height;
-  if (CGRectIsEmpty(v74))
+  v66.origin.x = a2;
+  v66.origin.y = rect;
+  v66.size.width = viewRect;
+  v66.size.height = destinationRect;
+  v67 = CGRectIntegral(v66);
+  v22 = v67.origin.x;
+  v23 = v67.origin.y;
+  v24 = v67.size.width;
+  v25 = v67.size.height;
+  if (CGRectIsEmpty(v67))
   {
     return 0;
   }
 
-  v33 = [self _pageNumberForRect:{a6, a7, a8, a9}];
-  if (!v33)
+  v26 = [self _pageNumberForRect:{a6, a7, a8, a9}];
+  if (!v26)
   {
     return 0;
   }
 
-  Page = CGPDFDocumentGetPage([self cgPDFDocument], v33);
+  Page = CGPDFDocumentGetPage([self cgPDFDocument], v26);
   ImageFromCurrentImageContext = Page;
   if (Page)
   {
-    v36 = CGPDFPageGetRotationAngle(Page) % 360;
-    v37 = v36 + (v36 < 0 ? 0x168 : 0);
-    v38 = v37 == 90 || v37 == 270;
-    if (v38)
+    v29 = CGPDFPageGetRotationAngle(Page) % 360;
+    v30 = v29 + (v29 < 0 ? 0x168 : 0);
+    v31 = v30 == 90 || v30 == 270;
+    if (v31)
     {
-      v39 = height;
+      v32 = height;
     }
 
     else
     {
-      v39 = width;
+      v32 = width;
     }
 
-    v62 = v39;
-    if (!v38)
+    v55 = v32;
+    if (!v31)
     {
       width = height;
     }
 
-    memset(&v66, 0, 32);
+    memset(&v59, 0, 32);
     memset(&transform, 0, sizeof(transform));
-    v75.origin.x = v29;
-    v75.origin.y = v30;
-    v75.size.width = v31;
-    v75.size.height = v32;
-    MinX = CGRectGetMinX(v75);
-    v76.origin.x = v29;
-    v76.origin.y = v30;
-    v76.size.width = v31;
-    v76.size.height = v32;
-    v40 = v29;
-    MinY = CGRectGetMinY(v76);
-    v77.origin.x = v40;
-    v77.origin.y = v30;
-    v77.size.width = v31;
-    v77.size.height = v32;
-    MaxX = CGRectGetMaxX(v77);
-    v78.origin.x = v40;
-    v78.origin.y = v30;
-    v78.size.width = v31;
-    v78.size.height = v32;
-    MaxY = CGRectGetMaxY(v78);
-    v79.origin.x = v40;
-    v79.origin.y = v30;
-    v79.size.width = v31;
-    v79.size.height = v32;
-    txa = CGRectGetWidth(v79);
-    v80.origin.x = v40;
-    v80.origin.y = v30;
-    v80.size.width = v31;
-    v80.size.height = v32;
-    v44 = CGRectGetHeight(v80);
-    v45 = CGPDFPageGetRotationAngle(ImageFromCurrentImageContext) % 360;
-    v46 = v45 + (v45 < 0 ? 0x168 : 0);
-    if (v46 > 179)
+    v68.origin.x = v22;
+    v68.origin.y = v23;
+    v68.size.width = v24;
+    v68.size.height = v25;
+    MinX = CGRectGetMinX(v68);
+    v69.origin.x = v22;
+    v69.origin.y = v23;
+    v69.size.width = v24;
+    v69.size.height = v25;
+    v33 = v22;
+    MinY = CGRectGetMinY(v69);
+    v70.origin.x = v33;
+    v70.origin.y = v23;
+    v70.size.width = v24;
+    v70.size.height = v25;
+    MaxX = CGRectGetMaxX(v70);
+    v71.origin.x = v33;
+    v71.origin.y = v23;
+    v71.size.width = v24;
+    v71.size.height = v25;
+    MaxY = CGRectGetMaxY(v71);
+    v72.origin.x = v33;
+    v72.origin.y = v23;
+    v72.size.width = v24;
+    v72.size.height = v25;
+    txa = CGRectGetWidth(v72);
+    v73.origin.x = v33;
+    v73.origin.y = v23;
+    v73.size.width = v24;
+    v73.size.height = v25;
+    v37 = CGRectGetHeight(v73);
+    v38 = CGPDFPageGetRotationAngle(ImageFromCurrentImageContext) % 360;
+    v39 = v38 + (v38 < 0 ? 0x168 : 0);
+    if (v39 > 179)
     {
-      v47 = x;
-      if (v46 != 180)
+      v40 = x;
+      if (v39 != 180)
       {
-        if (v46 == 270)
+        if (v39 == 270)
         {
           MaxX = -MinX;
-          *&v66.a = xmmword_18A64B720;
-          *&v66.c = xmmword_18A681780;
-          v48 = MaxY;
+          *&v59.a = xmmword_18A64B720;
+          *&v59.c = xmmword_18A681780;
+          v41 = MaxY;
           goto LABEL_22;
         }
 
@@ -1616,106 +1617,106 @@ LABEL_30:
         abort();
       }
 
-      v66.a = -1.0;
-      v66.b = 0.0;
-      v66.c = 0.0;
-      v66.d = -1.0;
-      v48 = MaxX;
+      v59.a = -1.0;
+      v59.b = 0.0;
+      v59.c = 0.0;
+      v59.d = -1.0;
+      v41 = MaxX;
       MaxX = MaxY;
     }
 
     else
     {
-      v47 = x;
-      if (v46)
+      v40 = x;
+      if (v39)
       {
-        if (v46 == 90)
+        if (v39 == 90)
         {
-          v48 = -MinY;
-          *&v66.a = xmmword_18A67CAC0;
-          *&v66.c = xmmword_18A64B730;
+          v41 = -MinY;
+          *&v59.a = xmmword_18A67CAC0;
+          *&v59.c = xmmword_18A64B730;
 LABEL_22:
-          v50 = v44;
-          v44 = txa;
+          v43 = v37;
+          v37 = txa;
 LABEL_26:
-          v66.tx = v48;
-          v66.ty = MaxX;
-          CGAffineTransformMakeTranslation(&transform, v50 * -0.5, v44 * -0.5);
-          t1 = v66;
+          v59.tx = v41;
+          v59.ty = MaxX;
+          CGAffineTransformMakeTranslation(&transform, v43 * -0.5, v37 * -0.5);
+          t1 = v59;
           t2 = transform;
-          CGAffineTransformConcat(&v66, &t1, &t2);
-          v81.origin.x = v47;
-          v81.origin.y = y;
-          v81.size.width = v62;
-          v81.size.height = width;
-          txb = CGRectGetMinX(v81);
-          v82.origin.x = v47;
-          v82.origin.y = y;
-          v82.size.width = v62;
-          v82.size.height = width;
-          v51 = CGRectGetMinY(v82);
-          v83.origin.x = v47;
-          v83.origin.y = y;
-          v83.size.width = v62;
-          v83.size.height = width;
-          v52 = CGRectGetWidth(v83);
-          v84.origin.x = v47;
-          v84.origin.y = y;
-          v84.size.width = v62;
-          v84.size.height = width;
-          v53 = CGRectGetHeight(v84);
-          v54 = fmin(v52 / v50, v53 / v44);
-          CGAffineTransformMakeScale(&t1, v54, v54);
+          CGAffineTransformConcat(&v59, &t1, &t2);
+          v74.origin.x = v40;
+          v74.origin.y = y;
+          v74.size.width = v55;
+          v74.size.height = width;
+          txb = CGRectGetMinX(v74);
+          v75.origin.x = v40;
+          v75.origin.y = y;
+          v75.size.width = v55;
+          v75.size.height = width;
+          v44 = CGRectGetMinY(v75);
+          v76.origin.x = v40;
+          v76.origin.y = y;
+          v76.size.width = v55;
+          v76.size.height = width;
+          v45 = CGRectGetWidth(v76);
+          v77.origin.x = v40;
+          v77.origin.y = y;
+          v77.size.width = v55;
+          v77.size.height = width;
+          v46 = CGRectGetHeight(v77);
+          v47 = fmin(v45 / v43, v46 / v37);
+          CGAffineTransformMakeScale(&t1, v47, v47);
           transform = t1;
-          t2 = v66;
-          v67 = t1;
-          CGAffineTransformConcat(&t1, &t2, &v67);
-          v66 = t1;
-          CGAffineTransformMakeTranslation(&t1, v52 * 0.5, v53 * 0.5);
+          t2 = v59;
+          v60 = t1;
+          CGAffineTransformConcat(&t1, &t2, &v60);
+          v59 = t1;
+          CGAffineTransformMakeTranslation(&t1, v45 * 0.5, v46 * 0.5);
           transform = t1;
-          t2 = v66;
-          v67 = t1;
-          CGAffineTransformConcat(&t1, &t2, &v67);
-          v66 = t1;
-          CGAffineTransformMakeTranslation(&t1, txb, v51);
+          t2 = v59;
+          v60 = t1;
+          CGAffineTransformConcat(&t1, &t2, &v60);
+          v59 = t1;
+          CGAffineTransformMakeTranslation(&t1, txb, v44);
           transform = t1;
-          t2 = v66;
-          v67 = t1;
-          CGAffineTransformConcat(&t1, &t2, &v67);
-          v66 = t1;
-          _UIGraphicsBeginImageContextWithOptions(1, 0, v62, width, 0.0);
+          t2 = v59;
+          v60 = t1;
+          CGAffineTransformConcat(&t1, &t2, &v60);
+          v59 = t1;
+          _UIGraphicsBeginImageContextWithOptions(1, 0, v55, width, 0.0);
           ContextStack = GetContextStack(0);
           if (*ContextStack < 1)
           {
-            v56 = 0;
+            v49 = 0;
           }
 
           else
           {
-            v56 = ContextStack[3 * (*ContextStack - 1) + 1];
+            v49 = ContextStack[3 * (*ContextStack - 1) + 1];
           }
 
-          v85.origin.x = v47;
-          v85.origin.y = y;
-          v85.size.width = v62;
-          v85.size.height = width;
-          CGContextClipToRect(v56, v85);
-          v86.origin.x = v47;
-          v86.origin.y = y;
-          v86.size.width = v62;
-          v86.size.height = width;
-          v57 = CGRectGetHeight(v86);
-          CGContextTranslateCTM(v56, 0.0, v57);
-          CGContextScaleCTM(v56, 1.0, -1.0);
-          transform = v66;
-          CGContextConcatCTM(v56, &transform);
-          CGContextSetFillColorWithColor(v56, [+[UIColor CGColor] whiteColor];
-          v87.origin.x = v47;
-          v87.origin.y = y;
-          v87.size.width = v62;
-          v87.size.height = width;
-          CGContextFillRect(v56, v87);
-          CGContextDrawPDFPage(v56, ImageFromCurrentImageContext);
+          v78.origin.x = v40;
+          v78.origin.y = y;
+          v78.size.width = v55;
+          v78.size.height = width;
+          CGContextClipToRect(v49, v78);
+          v79.origin.x = v40;
+          v79.origin.y = y;
+          v79.size.width = v55;
+          v79.size.height = width;
+          v50 = CGRectGetHeight(v79);
+          CGContextTranslateCTM(v49, 0.0, v50);
+          CGContextScaleCTM(v49, 1.0, -1.0);
+          transform = v59;
+          CGContextConcatCTM(v49, &transform);
+          CGContextSetFillColorWithColor(v49, [+[UIColor CGColor] whiteColor];
+          v80.origin.x = v40;
+          v80.origin.y = y;
+          v80.size.width = v55;
+          v80.size.height = width;
+          CGContextFillRect(v49, v80);
+          CGContextDrawPDFPage(v49, ImageFromCurrentImageContext);
           ImageFromCurrentImageContext = _UIGraphicsGetImageFromCurrentImageContext(0);
           UIGraphicsEndImageContext();
           return ImageFromCurrentImageContext;
@@ -1724,15 +1725,15 @@ LABEL_26:
         goto LABEL_30;
       }
 
-      v48 = -MinX;
+      v41 = -MinX;
       MaxX = -MinY;
-      v66.a = 1.0;
-      v66.b = 0.0;
-      v66.c = 0.0;
-      v66.d = 1.0;
+      v59.a = 1.0;
+      v59.b = 0.0;
+      v59.c = 0.0;
+      v59.d = 1.0;
     }
 
-    v50 = txa;
+    v43 = txa;
     goto LABEL_26;
   }
 

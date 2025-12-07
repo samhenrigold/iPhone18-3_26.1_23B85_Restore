@@ -1,10 +1,31 @@
 @interface FMDRequestCurrentLocation
 - (BOOL)canReplace:(id)replace;
 - (BOOL)canRequestBeRetriedNow;
+- (FMDRequestCurrentLocation)initWithAccount:(id)account location:(id)location finalLocation:(BOOL)finalLocation reason:(int64_t)reason accuracyChange:(double)change cacheValidityDuration:(double)duration;
 - (id)requestBody;
 @end
 
 @implementation FMDRequestCurrentLocation
+
+- (FMDRequestCurrentLocation)initWithAccount:(id)account location:(id)location finalLocation:(BOOL)finalLocation reason:(int64_t)reason accuracyChange:(double)change cacheValidityDuration:(double)duration
+{
+  finalLocationCopy = finalLocation;
+  locationCopy = location;
+  v18.receiver = self;
+  v18.super_class = FMDRequestCurrentLocation;
+  v15 = [(FMDRequest *)&v18 initWithAccount:account];
+  v16 = v15;
+  if (v15)
+  {
+    [(FMDRequestCurrentLocation *)v15 setLocation:locationCopy];
+    [(FMDRequestCurrentLocation *)v16 setFinalLocation:finalLocationCopy];
+    [(FMDRequestCurrentLocation *)v16 setPublishReason:reason];
+    [(FMDRequestCurrentLocation *)v16 setAccuracyChange:change];
+    [(FMDRequestCurrentLocation *)v16 setCacheValidityDuration:duration];
+  }
+
+  return v16;
+}
 
 - (id)requestBody
 {

@@ -260,39 +260,39 @@ LABEL_9:
     carrierBundleProvisioningStyle = self->_carrierBundleProvisioningStyle;
     ignoreCache = self->_ignoreCache;
     wantsPartialResults = self->_wantsPartialResults;
-    [(SUScriptObject *)self unlock];
+    unlock = [(SUScriptObject *)self unlock];
     if (!service)
     {
-      [MEMORY[0x1E69E2F88] throwException:@"Invalid argument"];
+      unlock = [MEMORY[0x1E69E2F88] throwException:@"Invalid argument"];
     }
 
-    v11 = reason == 1;
-    v12 = [objc_alloc(getICStoreRequestContextClass()) initWithBlock:&__block_literal_global_12];
-    v13 = [objc_alloc(getICMusicSubscriptionStatusRequestClass()) initWithStoreRequestContext:v12];
-    [v13 setCarrierBundleProvisioningStyle:carrierBundleProvisioningStyle];
-    [v13 setReason:v11];
+    v12 = reason == 1;
+    v13 = [objc_alloc(getICStoreRequestContextClass(unlock)) initWithBlock:&__block_literal_global_12];
+    v14 = [objc_alloc(getICMusicSubscriptionStatusRequestClass()) initWithStoreRequestContext:v13];
+    [v14 setCarrierBundleProvisioningStyle:carrierBundleProvisioningStyle];
+    [v14 setReason:v12];
     if (ignoreCache)
     {
-      [v13 setShouldIgnoreCache:1];
+      v15 = [v14 setShouldIgnoreCache:1];
     }
 
     else
     {
-      [v13 setAllowsFallbackToExpiredStatus:1];
-      [v13 setAllowsFallbackToStatusNeedingReload:1];
+      [v14 setAllowsFallbackToExpiredStatus:1];
+      v15 = [v14 setAllowsFallbackToStatusNeedingReload:1];
     }
 
-    sharedStatusController = [(objc_class *)getICMusicSubscriptionStatusControllerClass() sharedStatusController];
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __72__SUScriptSubscriptionStatusRequest_performRequestWithCallbackFunction___block_invoke_2;
-    v16[3] = &unk_1E8166A90;
-    v18 = ignoreCache;
-    v19 = wantsPartialResults;
-    v16[4] = self;
+    sharedStatusController = [getICMusicSubscriptionStatusControllerClass(v15) sharedStatusController];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __72__SUScriptSubscriptionStatusRequest_performRequestWithCallbackFunction___block_invoke_2;
+    v18[3] = &unk_1E8166A90;
+    v20 = ignoreCache;
+    v21 = wantsPartialResults;
+    v18[4] = self;
+    v19 = v5;
     v17 = v5;
-    v15 = v5;
-    [sharedStatusController performSubscriptionStatusRequest:v13 withStatusHandler:v16];
+    [sharedStatusController performSubscriptionStatusRequest:v14 withStatusHandler:v18];
   }
 
   else
@@ -311,9 +311,9 @@ void __72__SUScriptSubscriptionStatusRequest_performRequestWithCallbackFunction_
   v5 = [(objc_class *)getICUserIdentityStoreClass() defaultIdentityStore];
   [v3 setIdentityStore:v5];
 
-  [v3 setAllowsExpiredBags:1];
-  v6 = [objc_alloc(getICURLResponseAuthenticationProviderClass()) initWithUserInteractionLevel:1];
-  [v3 setAuthenticationProvider:v6];
+  v6 = [v3 setAllowsExpiredBags:1];
+  v7 = [objc_alloc(getICURLResponseAuthenticationProviderClass(v6)) initWithUserInteractionLevel:1];
+  [v3 setAuthenticationProvider:v7];
 }
 
 void __72__SUScriptSubscriptionStatusRequest_performRequestWithCallbackFunction___block_invoke_2(uint64_t a1, void *a2, uint64_t a3)

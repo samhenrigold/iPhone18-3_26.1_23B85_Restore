@@ -8,7 +8,7 @@
 
 - (uint64_t)addSelfToBuffer:()NSStringSASerializable bufferLength:withCompletedSerializationDictionary:
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if (!a3 || !a5)
   {
     goto LABEL_11;
@@ -27,29 +27,27 @@
 
   if ([v9 length] + 1 > (a4 - 16))
   {
-    v13 = *__error();
-    v14 = _sa_logt();
-    v15 = a4 - 17;
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v12 = *__error();
+    v13 = _sa_logt();
+    v14 = a4 - 17;
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
       uTF8String = [self UTF8String];
-      v26 = 2048;
-      v27 = v15;
-      v28 = 2048;
-      v29 = [v10 length];
-      _os_log_error_impl(&dword_1E0E2F000, v14, OS_LOG_TYPE_ERROR, "%s claimed it was %lu UTF8 characters, but ended up being %lu", buf, 0x20u);
+      v18 = 2048;
+      v19 = v14;
+      v20 = 2048;
+      v21 = [v10 length];
+      _os_log_error_impl(&dword_1E0E2F000, v13, OS_LOG_TYPE_ERROR, "%s claimed it was %lu UTF8 characters, but ended up being %lu", buf, 0x20u);
     }
 
-    *__error() = v13;
-    uTF8String2 = [self UTF8String];
-    [v10 length];
-    _SASetCrashLogMessage(771, "%s claimed it was %lu UTF8 characters, but ended up being %lu", v17, v18, v19, v20, v21, v22, uTF8String2);
+    *__error() = v12;
+    _SASetCrashLogMessage(771, "%s claimed it was %lu UTF8 characters, but ended up being %lu", [self UTF8String], v14, objc_msgSend(v10, "length"));
     _os_crash();
     __break(1u);
 LABEL_11:
-    v23 = [SAException exceptionWithName:@"Encoding failure" reason:@"Invalid args" userInfo:0];
-    objc_exception_throw(v23);
+    v15 = [SAException exceptionWithName:@"Encoding failure" reason:@"Invalid args" userInfo:0];
+    objc_exception_throw(v15);
   }
 
   memmove(v8, [v10 bytes], objc_msgSend(v10, "length"));
@@ -57,7 +55,6 @@ LABEL_11:
   a3[1] = [v10 length] + 1;
 LABEL_7:
 
-  v11 = *MEMORY[0x1E69E9840];
   return 1;
 }
 

@@ -196,70 +196,70 @@ LABEL_5:
 
 - (int64_t)_drain
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v3 = 0;
   v4 = 8;
   os_unfair_lock_lock(&self->_lock);
   if ([(BPSSubscriptionStatus *)self->_status state]== 1)
   {
     v5 = 0;
-    v25 = 8;
+    v24 = 8;
     while (self->_downstreamDemand)
     {
       if (![(NSMutableArray *)self->_values count]&& self->_terminal)
       {
-        v23 = +[BPSSubscriptionStatus terminal];
+        v22 = +[BPSSubscriptionStatus terminal];
         status = self->_status;
-        self->_status = v23;
+        self->_status = v22;
 
         os_unfair_lock_unlock((self + v4));
         [(BPSSubscriber *)self->_downstream receiveCompletion:self->_terminal];
-        goto LABEL_25;
+        return v5;
       }
 
-      v6 = [(BPSBufferInner *)self _lockedPopWithDemand:self->_downstreamDemand, v25];
+      v6 = [(BPSBufferInner *)self _lockedPopWithDemand:self->_downstreamDemand, v24];
       self->_downstreamDemand -= [v6 count];
       if (![v6 count])
       {
         os_unfair_lock_unlock((self + v4));
 
-        goto LABEL_25;
+        return v5;
       }
 
       self->_recursion = 1;
       os_unfair_lock_unlock((self + v4));
-      v29 = 0u;
-      v30 = 0u;
-      v27 = 0u;
       v28 = 0u;
+      v29 = 0u;
+      v26 = 0u;
+      v27 = 0u;
       v7 = v6;
-      v8 = [v7 countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v26 objects:v30 count:16];
       if (v8)
       {
         v9 = v8;
-        v26 = v5;
+        v25 = v5;
         v10 = 0;
-        v11 = *v28;
+        v11 = *v27;
         do
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v28 != v11)
+            if (*v27 != v11)
             {
               objc_enumerationMutation(v7);
             }
 
-            v3 += [(BPSSubscriber *)self->_downstream receiveInput:*(*(&v27 + 1) + 8 * i)];
+            v3 += [(BPSSubscriber *)self->_downstream receiveInput:*(*(&v26 + 1) + 8 * i)];
           }
 
           v10 += v9;
-          v9 = [v7 countByEnumeratingWithState:&v27 objects:v31 count:16];
+          v9 = [v7 countByEnumeratingWithState:&v26 objects:v30 count:16];
         }
 
         while (v9);
         v13 = v10;
-        v5 = v26;
-        v4 = v25;
+        v5 = v25;
+        v4 = v24;
       }
 
       else
@@ -293,17 +293,17 @@ LABEL_5:
     terminal = self->_terminal;
     if (terminal && [(BPSCompletion *)terminal state]== 1)
     {
-      v18 = +[BPSSubscriptionStatus terminal];
-      v19 = self->_status;
-      self->_status = v18;
+      v17 = +[BPSSubscriptionStatus terminal];
+      v18 = self->_status;
+      self->_status = v17;
 
       os_unfair_lock_unlock((self + v4));
       downstream = self->_downstream;
       error = [(BPSCompletion *)self->_terminal error];
-      v22 = [BPSCompletion failureWithError:error];
-      [(BPSSubscriber *)downstream receiveCompletion:v22];
+      v21 = [BPSCompletion failureWithError:error];
+      [(BPSSubscriber *)downstream receiveCompletion:v21];
 
-      goto LABEL_25;
+      return v5;
     }
 
     v14 = (self + v4);
@@ -317,8 +317,6 @@ LABEL_23:
   }
 
   os_unfair_lock_unlock(v14);
-LABEL_25:
-  v15 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -354,29 +352,29 @@ LABEL_25:
 
 - (id)newBookmark
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   upstreamSubscriptions = [(BPSBufferInner *)self upstreamSubscriptions];
   v3 = [MEMORY[0x1E695E0F0] mutableCopy];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v4 = upstreamSubscriptions;
-  v5 = [v4 countByEnumeratingWithState:&v21 objects:v27 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v20 objects:v26 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v22;
+    v7 = *v21;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v22 != v7)
+        if (*v21 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v21 + 1) + 8 * i);
+        v9 = *(*(&v20 + 1) + 8 * i);
         if ([v9 conformsToProtocol:&unk_1F4871E60])
         {
           newBookmark = [v9 newBookmark];
@@ -392,7 +390,7 @@ LABEL_25:
           if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v26 = v9;
+            v25 = v9;
             _os_log_error_impl(&dword_1C871B000, v11, OS_LOG_TYPE_ERROR, "Subscription %@ could not create bookmark", buf, 0xCu);
           }
         }
@@ -403,7 +401,7 @@ LABEL_13:
         [v3 addObject:newBookmark];
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v21 objects:v27 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v20 objects:v26 count:16];
     }
 
     while (v6);
@@ -415,20 +413,19 @@ LABEL_13:
   v16 = NSStringFromClass(v15);
   v17 = [(BMBookmarkNode *)v13 initWithValue:values upstreams:v3 name:v16];
 
-  v18 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
 - (id)upstreamSubscriptions
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_lock);
   if ([(BPSSubscriptionStatus *)self->_status state]== 1)
   {
     subscription = [(BPSSubscriptionStatus *)self->_status subscription];
     os_unfair_lock_unlock(&self->_lock);
-    v7[0] = subscription;
-    v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
+    v6[0] = subscription;
+    v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
   }
 
   else
@@ -436,8 +433,6 @@ LABEL_13:
     os_unfair_lock_unlock(&self->_lock);
     v4 = MEMORY[0x1E695E0F0];
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

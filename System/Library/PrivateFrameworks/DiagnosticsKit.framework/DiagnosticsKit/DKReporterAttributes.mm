@@ -13,33 +13,33 @@
 
 - (void)_validateAndAddDomain:(id)domain withInfo:(id)info toManifest:(id)manifest
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   domainCopy = domain;
   infoCopy = info;
   manifestCopy = manifest;
   v9 = [infoCopy alwaysGetKey:@"DKReporterManifestVersion" ofType:objc_opt_class()];
   v10 = [infoCopy alwaysGetKey:@"DKReporterManifestResources" ofType:objc_opt_class()];
   v11 = [MEMORY[0x277CBEB58] set];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v12 = v10;
-  v13 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v22;
+    v15 = *v21;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v22 != v15)
+        if (*v21 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = *(*(&v21 + 1) + 8 * i);
+        v17 = *(*(&v20 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -47,7 +47,7 @@
         }
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v14);
@@ -58,35 +58,33 @@
   {
     [manifestCopy addObject:v18];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_validateAndAddExtensionManifest:(id)manifest toManifest:(id)toManifest
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   manifestCopy = manifest;
   toManifestCopy = toManifest;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v8 = [manifestCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [manifestCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v16;
+    v10 = *v15;
     do
     {
       v11 = 0;
       do
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(manifestCopy);
         }
 
-        v12 = *(*(&v15 + 1) + 8 * v11);
+        v12 = *(*(&v14 + 1) + 8 * v11);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -98,13 +96,11 @@
       }
 
       while (v9 != v11);
-      v9 = [manifestCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [manifestCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v9);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (DKReporterAttributes)initWithExtension:(id)extension

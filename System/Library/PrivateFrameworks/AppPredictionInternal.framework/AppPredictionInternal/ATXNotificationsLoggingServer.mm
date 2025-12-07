@@ -32,13 +32,13 @@
   return v3;
 }
 
-uint64_t __47__ATXNotificationsLoggingServer_sharedInstance__block_invoke()
+uint64_t __47__ATXNotificationsLoggingServer_sharedInstance__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_new();
-  v1 = sharedInstance_instance_4;
-  sharedInstance_instance_4 = v0;
+  v2 = objc_opt_new();
+  v3 = sharedInstance_instance_4;
+  sharedInstance_instance_4 = v2;
 
-  return MEMORY[0x2821F96F8](v0, v1);
+  return MEMORY[0x2821F96F8](v2, v3);
 }
 
 - (ATXNotificationsLoggingServer)init
@@ -91,11 +91,11 @@ uint64_t __47__ATXNotificationsLoggingServer_sharedInstance__block_invoke()
   return v2;
 }
 
-id __37__ATXNotificationsLoggingServer_init__block_invoke()
+id __37__ATXNotificationsLoggingServer_init__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_new();
+  v2 = objc_opt_new();
 
-  return v0;
+  return v2;
 }
 
 - (void)_donateNotificationToPortraitWithNotificationsInterface:(id)interface
@@ -109,16 +109,16 @@ id __37__ATXNotificationsLoggingServer_init__block_invoke()
 
     if (v7)
     {
-      v8 = [(ATXNotificationsLoggingServer *)self _createPortraitNotificationWithNotificationInterface:interfaceCopy];
-      v9 = MEMORY[0x277D425A0];
+      v9 = [(ATXNotificationsLoggingServer *)self _createPortraitNotificationWithNotificationInterface:interfaceCopy];
+      v10 = MEMORY[0x277D425A0];
       donationQueue = self->_donationQueue;
-      v13[0] = MEMORY[0x277D85DD0];
-      v13[1] = 3221225472;
-      v13[2] = __89__ATXNotificationsLoggingServer__donateNotificationToPortraitWithNotificationsInterface___block_invoke;
-      v13[3] = &unk_278596BB8;
-      v14 = v8;
-      v11 = v8;
-      [v9 runAsyncOnQueue:donationQueue afterDelaySeconds:v13 block:60.0];
+      v14[0] = MEMORY[0x277D85DD0];
+      v14[1] = 3221225472;
+      v14[2] = __89__ATXNotificationsLoggingServer__donateNotificationToPortraitWithNotificationsInterface___block_invoke;
+      v14[3] = &unk_278596BB8;
+      v15 = v9;
+      v12 = v9;
+      [v10 runAsyncOnQueue:donationQueue afterDelaySeconds:v14 block:60.0];
 
       goto LABEL_7;
     }
@@ -128,11 +128,11 @@ id __37__ATXNotificationsLoggingServer_init__block_invoke()
   {
   }
 
-  v11 = __atxlog_handle_default();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = __atxlog_handle_default(v8);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    *v12 = 0;
-    _os_log_impl(&dword_2263AA000, v11, OS_LOG_TYPE_DEFAULT, "ATXNotificationsLoggingServer could not donate notification to PersonalizationPortrait as it was missing a sectionID or message", v12, 2u);
+    *v13 = 0;
+    _os_log_impl(&dword_2263AA000, v12, OS_LOG_TYPE_DEFAULT, "ATXNotificationsLoggingServer could not donate notification to PersonalizationPortrait as it was missing a sectionID or message", v13, 2u);
   }
 
 LABEL_7:
@@ -144,7 +144,7 @@ void __89__ATXNotificationsLoggingServer__donateNotificationToPortraitWithNotifi
   v6 = 0;
   v2 = [MEMORY[0x277D3A388] donateNotification:v1 error:&v6];
   v3 = v6;
-  v4 = __atxlog_handle_default();
+  v4 = __atxlog_handle_default(v3);
   v5 = v4;
   if (v2)
   {
@@ -205,26 +205,25 @@ void __89__ATXNotificationsLoggingServer__donateNotificationToPortraitWithNotifi
   v14[1] = *MEMORY[0x277D85DE8];
   idCopy = id;
   timestampCopy = timestamp;
+  v9 = timestampCopy;
   if (idCopy)
   {
     identifier = [MEMORY[0x277CFE240] identifier];
     v13 = identifier;
     v14[0] = idCopy;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
-    v11 = ATXNEventTypeToString();
-    [(ATXNotificationsLoggingServer *)self logToCoreDuet:v10 identifier:v11 timestamp:timestampCopy];
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+    v12 = ATXNEventTypeToString();
+    [(ATXNotificationsLoggingServer *)self logToCoreDuet:v11 identifier:v12 timestamp:v9];
   }
 
   else
   {
-    identifier = __atxlog_handle_notification_management();
+    identifier = __atxlog_handle_notification_management(timestampCopy);
     if (os_log_type_enabled(identifier, OS_LOG_TYPE_FAULT))
     {
       [ATXNotificationsLoggingServer _logEventToCoreDuet:identifier forNotificationId:? timestamp:?];
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logNotification:(id)notification withNotificationId:(id)id timestamp:(id)timestamp
@@ -265,36 +264,37 @@ void __89__ATXNotificationsLoggingServer__donateNotificationToPortraitWithNotifi
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
   connectionCopy = connection;
-  v6 = __atxlog_handle_default();
+  v6 = __atxlog_handle_default(connectionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    *v12 = 0;
-    _os_log_impl(&dword_2263AA000, v6, OS_LOG_TYPE_INFO, "Established connection", v12, 2u);
+    *v13 = 0;
+    _os_log_impl(&dword_2263AA000, v6, OS_LOG_TYPE_INFO, "Established connection", v13, 2u);
   }
 
   v7 = [connectionCopy valueForEntitlement:@"com.apple.notifications.logging"];
-  if (v7 && (objc_opt_respondsToSelector() & 1) != 0 && ([v7 BOOLValue] & 1) != 0)
+  v8 = v7;
+  if (v7 && (v7 = objc_opt_respondsToSelector(), (v7 & 1) != 0) && (v7 = [v8 BOOLValue], (v7 & 1) != 0))
   {
-    v8 = ATXNotificationsLoggingInterface();
-    [connectionCopy setExportedInterface:v8];
+    v9 = ATXNotificationsLoggingInterface();
+    [connectionCopy setExportedInterface:v9];
 
     [connectionCopy setExportedObject:self];
     [connectionCopy resume];
-    v9 = 1;
+    v10 = 1;
   }
 
   else
   {
-    v10 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = __atxlog_handle_notification_management(v7);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [ATXNotificationsLoggingServer listener:shouldAcceptNewConnection:];
     }
 
-    v9 = 0;
+    v10 = 0;
   }
 
-  return v9;
+  return v10;
 }
 
 - (void)logToCoreDuet:(id)duet identifier:(id)identifier timestamp:(id)timestamp
@@ -322,43 +322,40 @@ void __89__ATXNotificationsLoggingServer__donateNotificationToPortraitWithNotifi
 
   if ((v20 & 1) == 0)
   {
-    v22 = __atxlog_handle_default();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v23 = __atxlog_handle_default(v22);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       [ATXNotificationsLoggingServer logToCoreDuet:identifier:timestamp:];
     }
   }
 
   objc_sync_exit(v17);
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getDuetMetadataFromNotification:(id)notification metadata:(id)metadata
 {
-  v19[2] = *MEMORY[0x277D85DE8];
+  v18[2] = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   v6 = [MEMORY[0x277CEB1B0] getBundleIdFromMetadata:metadata];
   v7 = [MEMORY[0x277CEB3B8] parentAppBundleIdForClipBundleID:v6];
   v8 = objc_opt_new();
   identifier = [MEMORY[0x277CFE240] identifier];
-  v18[0] = identifier;
-  v19[0] = notificationCopy;
+  v17[0] = identifier;
+  v18[0] = notificationCopy;
   bundleID = [MEMORY[0x277CFE240] bundleID];
-  v18[1] = bundleID;
-  v19[1] = v6;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
+  v17[1] = bundleID;
+  v18[1] = v6;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
   [v8 addEntriesFromDictionary:v11];
 
   if (v7)
   {
     appBundleID = [MEMORY[0x277CFE158] appBundleID];
-    v16 = appBundleID;
-    v17 = v7;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
+    v15 = appBundleID;
+    v16 = v7;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
     [v8 addEntriesFromDictionary:v13];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -469,7 +466,7 @@ void __89__ATXNotificationsLoggingServer__donateNotificationToPortraitWithNotifi
   v6 = dsCopy;
   if (!dsCopy)
   {
-    v7 = __atxlog_handle_notification_management();
+    v7 = __atxlog_handle_notification_management(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
       [ATXNotificationsLoggingServer logNotificationDeliveryUI:i notificationUUIDs:v7];
@@ -498,38 +495,33 @@ void __89__ATXNotificationsLoggingServer__donateNotificationToPortraitWithNotifi
 
 void __89__ATXNotificationsLoggingServer__donateNotificationToPortraitWithNotificationsInterface___block_invoke_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(&dword_2263AA000, v0, OS_LOG_TYPE_ERROR, "ATXNotificationsLoggingServer could not donate notification to PersonalizationPortrait: %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_2263AA000, v0, OS_LOG_TYPE_ERROR, "ATXNotificationsLoggingServer could not donate notification to PersonalizationPortrait: %@", v1, 0xCu);
 }
 
 - (void)listener:shouldAcceptNewConnection:.cold.1()
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
-  v3 = 2114;
-  v4 = @"com.apple.notifications.logging";
-  _os_log_error_impl(&dword_2263AA000, v0, OS_LOG_TYPE_ERROR, "ATXNotificationsLoggingServer: Rejecting connection %{public}@ without entitlement %{public}@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = 2114;
+  v3 = @"com.apple.notifications.logging";
+  _os_log_error_impl(&dword_2263AA000, v0, OS_LOG_TYPE_ERROR, "ATXNotificationsLoggingServer: Rejecting connection %{public}@ without entitlement %{public}@", v1, 0x16u);
 }
 
 - (void)logToCoreDuet:identifier:timestamp:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(&dword_2263AA000, v0, OS_LOG_TYPE_ERROR, "Notifications donation to CoreDuet failed: %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_2263AA000, v0, OS_LOG_TYPE_ERROR, "Notifications donation to CoreDuet failed: %@", v1, 0xCu);
 }
 
 - (void)logNotificationDeliveryUI:(uint64_t)a1 notificationUUIDs:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v3 = ATXNotificationDeliveryUIToString();
   OUTLINED_FUNCTION_2();
-  _os_log_fault_impl(&dword_2263AA000, a2, OS_LOG_TYPE_FAULT, "-logNotificationDeliveryUI:notificationUUIDs: deliveryUI: %{public}@. notificationsUUIDs was nil, this shouldn't happen.", v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_2263AA000, a2, OS_LOG_TYPE_FAULT, "-logNotificationDeliveryUI:notificationUUIDs: deliveryUI: %{public}@. notificationsUUIDs was nil, this shouldn't happen.", v4, 0xCu);
 }
 
 @end

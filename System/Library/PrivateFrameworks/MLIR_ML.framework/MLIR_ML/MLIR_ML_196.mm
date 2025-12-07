@@ -1,3 +1,934 @@
+__n128 _ZNKSt3__110__function6__funcIZNK4mlir18SparseElementsAttr20try_value_begin_implIjEEN4llvm9FailureOrINS5_15mapped_iteratorINS5_6detail15SafeIntIteratorIlLb0EEENS_8functionIFT_lEEEDTclclsr3stdE7declvalISE_EEdeclL_ZNS_7declvalB8nn200100ISA_EEDTclsr3stdE9__declvalISC_ELi0EEEvEEEEEEEENS2_6detail17ElementsAttrTraitIS3_E13OverloadTokenISC_EEEUllE_NS_9allocatorISP_EEFjlEE7__cloneEPNS0_6__baseISS_EE(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_28689B0A0;
+  *(a2 + 8) = 0;
+  *(a2 + 16) = 0;
+  *(a2 + 24) = 0;
+  v3 = *(a1 + 8);
+  v2 = *(a1 + 16);
+  if (v2 != v3)
+  {
+    if (((v2 - v3) & 0x8000000000000000) == 0)
+    {
+      operator new();
+    }
+
+    std::string::__throw_length_error[abi:nn200100]();
+  }
+
+  result = *(a1 + 32);
+  *(a2 + 44) = *(a1 + 44);
+  *(a2 + 32) = result;
+  *(a2 + 60) = 0;
+  return result;
+}
+
+void _ZNSt3__110__function6__funcIZNK4mlir18SparseElementsAttr20try_value_begin_implIjEEN4llvm9FailureOrINS5_15mapped_iteratorINS5_6detail15SafeIntIteratorIlLb0EEENS_8functionIFT_lEEEDTclclsr3stdE7declvalISE_EEdeclL_ZNS_7declvalB8nn200100ISA_EEDTclsr3stdE9__declvalISC_ELi0EEEvEEEEEEEENS2_6detail17ElementsAttrTraitIS3_E13OverloadTokenISC_EEEUllE_NS_9allocatorISP_EEFjlEE7destroyEv(uint64_t a1)
+{
+  v2 = *(a1 + 8);
+  if (v2)
+  {
+    *(a1 + 16) = v2;
+    operator delete(v2);
+  }
+}
+
+void _ZNSt3__110__function6__funcIZNK4mlir18SparseElementsAttr20try_value_begin_implIjEEN4llvm9FailureOrINS5_15mapped_iteratorINS5_6detail15SafeIntIteratorIlLb0EEENS_8functionIFT_lEEEDTclclsr3stdE7declvalISE_EEdeclL_ZNS_7declvalB8nn200100ISA_EEDTclsr3stdE9__declvalISC_ELi0EEEvEEEEEEEENS2_6detail17ElementsAttrTraitIS3_E13OverloadTokenISC_EEEUllE_NS_9allocatorISP_EEFjlEE18destroy_deallocateEv(void *a1)
+{
+  v2 = a1[1];
+  if (v2)
+  {
+    a1[2] = v2;
+    v3 = a1;
+    operator delete(v2);
+    a1 = v3;
+    v1 = vars8;
+  }
+
+  operator delete(a1);
+}
+
+uint64_t _ZNSt3__110__function6__funcIZNK4mlir18SparseElementsAttr20try_value_begin_implIjEEN4llvm9FailureOrINS5_15mapped_iteratorINS5_6detail15SafeIntIteratorIlLb0EEENS_8functionIFT_lEEEDTclclsr3stdE7declvalISE_EEdeclL_ZNS_7declvalB8nn200100ISA_EEDTclsr3stdE9__declvalISC_ELi0EEEvEEEEEEEENS2_6detail17ElementsAttrTraitIS3_E13OverloadTokenISC_EEEUllE_NS_9allocatorISP_EEFjlEEclEOl(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  v3 = *(a1 + 16) - v2;
+  if ((v3 & 0x7FFFFFFF8) == 0)
+  {
+    return *(a1 + 56);
+  }
+
+  v4 = 0;
+  v5 = -(v3 >> 3);
+  while (1)
+  {
+    v6 = *v2++;
+    if (v6 == *a2)
+    {
+      break;
+    }
+
+    if (v5 == --v4)
+    {
+      return *(a1 + 56);
+    }
+  }
+
+  v8 = *(a1 + 48) - v4;
+  if (*(a1 + 40))
+  {
+    v8 = 0;
+  }
+
+  return *(*(a1 + 32) + 4 * v8);
+}
+
+uint64_t _ZNKSt3__110__function6__funcIZNK4mlir18SparseElementsAttr20try_value_begin_implIjEEN4llvm9FailureOrINS5_15mapped_iteratorINS5_6detail15SafeIntIteratorIlLb0EEENS_8functionIFT_lEEEDTclclsr3stdE7declvalISE_EEdeclL_ZNS_7declvalB8nn200100ISA_EEDTclsr3stdE9__declvalISC_ELi0EEEvEEEEEEEENS2_6detail17ElementsAttrTraitIS3_E13OverloadTokenISC_EEEUllE_NS_9allocatorISP_EEFjlEE6targetERKSt9type_info(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a2 + 8);
+  if (v2 == 0x8000000257394D80)
+  {
+    return a1 + 8;
+  }
+
+  if (((v2 & 0x8000000257394D80 & 0x8000000000000000) != 0) == __OFSUB__(v2, 0x8000000257394D80))
+  {
+    return 0;
+  }
+
+  v4 = a1;
+  v5 = strcmp((v2 & 0x7FFFFFFFFFFFFFFFLL), (0x8000000257394D80 & 0x7FFFFFFFFFFFFFFFLL));
+  a1 = v4;
+  if (!v5)
+  {
+    return a1 + 8;
+  }
+
+  return 0;
+}
+
+uint64_t mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<unsigned int ()(long)>,unsigned int>,unsigned int>::~OpaqueIterator(uint64_t result)
+{
+  *result = &unk_28689B130;
+  if (*(result + 48) == 1)
+  {
+    v1 = *(result + 40);
+    if (v1 == result + 16)
+    {
+      v2 = result;
+      (*(*v1 + 32))(*(result + 40));
+    }
+
+    else
+    {
+      if (!v1)
+      {
+        return result;
+      }
+
+      v2 = result;
+      (*(*v1 + 40))(*(result + 40));
+    }
+
+    return v2;
+  }
+
+  return result;
+}
+
+void mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<unsigned int ()(long)>,unsigned int>,unsigned int>::~OpaqueIterator(uint64_t a1)
+{
+  *a1 = &unk_28689B130;
+  if (*(a1 + 48) == 1)
+  {
+    v1 = *(a1 + 40);
+    if (v1 == a1 + 16)
+    {
+      (*(*v1 + 32))(*(a1 + 40));
+    }
+
+    else if (v1)
+    {
+      (*(*v1 + 40))(*(a1 + 40));
+    }
+  }
+
+  JUMPOUT(0x259C63180);
+}
+
+void mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<unsigned int ()(long)>,unsigned int>,unsigned int>::at(uint64_t a1, uint64_t a2)
+{
+  v5 = *(a1 + 8) + a2;
+  v2 = *(a1 + 40);
+  if (v2)
+  {
+    (*(*v2 + 48))(v2, &v5);
+  }
+
+  else
+  {
+    v3 = std::__throw_bad_function_call[abi:nn200100]();
+    mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<unsigned long long>(v3, v4);
+  }
+}
+
+void mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<unsigned long long>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+{
+  v8 = *MEMORY[0x277D85DE8];
+  mlir::SparseElementsAttr::try_value_begin_impl<unsigned long long>(a1, v6);
+  if (v7 == 1)
+  {
+    v4 = mlir::detail::ElementsAttrTrait<mlir::DenseResourceElementsAttr>::getNumElements(a1) == 1;
+    mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<unsigned long long ()(long)>,unsigned long long> &>(v4, v6, &v5);
+  }
+
+  *a2 = 0;
+  a2[16] = 0;
+}
+
+void mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::getValueImpl<signed char,short,int,long long,short,unsigned short,int,unsigned int,long,unsigned long,std::complex<llvm::APInt>,std::complex<unsigned char>,std::complex<unsigned short>,std::complex<unsigned int>,std::complex<unsigned long long>,std::complex<signed char>,std::complex<short>,std::complex<int>,std::complex<long long>,llvm::APFloat,float,double,std::complex<llvm::APFloat>,std::complex<float>,std::complex<double>,llvm::StringRef,std::integral_constant<BOOL,false>>(mlir::SparseElementsAttr *a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+{
+  {
+    v7 = a1;
+    v3 = a2;
+    v5 = a3;
+    mlir::detail::ElementsAttrTrait<mlir::mps::MPSBufferTensorAttr>::getValueImpl<signed char,short,int,long long,half,float,__emulated_bf16,complex_support::complex_fp<float,(void *)0>,complex_support::complex_fp<half,(void *)0>,std::integral_constant<BOOL,true>>();
+    a2 = v3;
+    a3 = v5;
+    a1 = v7;
+    if (mlir::detail::TypeIDResolver<signed char,void>::resolveTypeID(void)::id != v3)
+    {
+      goto LABEL_3;
+    }
+
+LABEL_9:
+
+    mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<signed char>(a1, a3);
+    return;
+  }
+
+  if (mlir::detail::TypeIDResolver<signed char,void>::resolveTypeID(void)::id == a2)
+  {
+    goto LABEL_9;
+  }
+
+LABEL_3:
+  {
+    if (mlir::detail::TypeIDResolver<short,void>::resolveTypeID(void)::id != a2)
+    {
+LABEL_5:
+
+      mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::getValueImpl<int,long long,short,unsigned short,int,unsigned int,long,unsigned long,std::complex<llvm::APInt>,std::complex<unsigned char>,std::complex<unsigned short>,std::complex<unsigned int>,std::complex<unsigned long long>,std::complex<signed char>,std::complex<short>,std::complex<int>,std::complex<long long>,llvm::APFloat,float,double,std::complex<llvm::APFloat>,std::complex<float>,std::complex<double>,llvm::StringRef,std::integral_constant<BOOL,false>>(a1, a2, a3);
+      return;
+    }
+  }
+
+  else
+  {
+    v8 = a1;
+    v4 = a2;
+    v6 = a3;
+    mlir::detail::ElementsAttrTrait<mlir::DenseIntOrFPElementsAttr>::getValueImpl<short,int,long long,short,unsigned short,int,unsigned int,long,unsigned long,std::complex<unsigned char>,std::complex<unsigned short>,std::complex<unsigned int>,std::complex<unsigned long long>,std::complex<signed char>,std::complex<short>,std::complex<int>,std::complex<long long>,float,double,std::complex<float>,std::complex<double>,std::integral_constant<BOOL,true>>();
+    a2 = v4;
+    a3 = v6;
+    a1 = v8;
+    if (mlir::detail::TypeIDResolver<short,void>::resolveTypeID(void)::id != v4)
+    {
+      goto LABEL_5;
+    }
+  }
+
+  mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<short>(a1, a3);
+}
+
+void mlir::SparseElementsAttr::try_value_begin_impl<unsigned long long>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+{
+  v10 = *MEMORY[0x277D85DE8];
+  v6[0] = *(*a1 + 32);
+  mlir::DenseElementsAttr::tryGetValues<unsigned long long,void>(v6, v8);
+  if (v9)
+  {
+    v7[0] = *(v8 + 1);
+    *(v7 + 15) = v8[2];
+    mlir::SparseElementsAttr::getFlattenedSparseIndices(a1, &__p);
+    if (v5 != __p)
+    {
+      if (((v5 - __p) & 0x8000000000000000) == 0)
+      {
+        operator new();
+      }
+
+      std::string::__throw_length_error[abi:nn200100]();
+    }
+
+    operator new();
+  }
+
+  *a2 = 0;
+  a2[48] = 0;
+}
+
+void mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<unsigned long long ()(long)>,unsigned long long> &>(char a1@<W0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
+{
+  v7 = *MEMORY[0x277D85DE8];
+  *a3 = 0;
+  a3[1] = a1;
+  v4[0] = 0;
+  v6 = 0;
+  if (*(a2 + 40) == 1)
+  {
+    v3 = a2[4];
+    if (v3)
+    {
+      if (v3 == a2 + 1)
+      {
+        v5 = v4;
+        (*(*v3 + 24))(v3, v4);
+      }
+
+      else
+      {
+        v5 = (*(*v3 + 16))(v3);
+      }
+    }
+
+    else
+    {
+      v5 = 0;
+    }
+
+    v6 = 1;
+  }
+
+  operator new();
+}
+
+void *_ZNSt3__110__function6__funcIZNK4mlir18SparseElementsAttr20try_value_begin_implIyEEN4llvm9FailureOrINS5_15mapped_iteratorINS5_6detail15SafeIntIteratorIlLb0EEENS_8functionIFT_lEEEDTclclsr3stdE7declvalISE_EEdeclL_ZNS_7declvalB8nn200100ISA_EEDTclsr3stdE9__declvalISC_ELi0EEEvEEEEEEEENS2_6detail17ElementsAttrTraitIS3_E13OverloadTokenISC_EEEUllE_NS_9allocatorISP_EEFylEED1Ev(void *result)
+{
+  *result = &unk_28689B190;
+  v1 = result[1];
+  if (v1)
+  {
+    result[2] = v1;
+    v2 = result;
+    operator delete(v1);
+    return v2;
+  }
+
+  return result;
+}
+
+void _ZNSt3__110__function6__funcIZNK4mlir18SparseElementsAttr20try_value_begin_implIyEEN4llvm9FailureOrINS5_15mapped_iteratorINS5_6detail15SafeIntIteratorIlLb0EEENS_8functionIFT_lEEEDTclclsr3stdE7declvalISE_EEdeclL_ZNS_7declvalB8nn200100ISA_EEDTclsr3stdE9__declvalISC_ELi0EEEvEEEEEEEENS2_6detail17ElementsAttrTraitIS3_E13OverloadTokenISC_EEEUllE_NS_9allocatorISP_EEFylEED0Ev(void *a1)
+{
+  *a1 = &unk_28689B190;
+  v2 = a1[1];
+  if (v2)
+  {
+    a1[2] = v2;
+    operator delete(v2);
+    v1 = vars8;
+  }
+
+  JUMPOUT(0x259C63180);
+}
+
+__n128 _ZNKSt3__110__function6__funcIZNK4mlir18SparseElementsAttr20try_value_begin_implIyEEN4llvm9FailureOrINS5_15mapped_iteratorINS5_6detail15SafeIntIteratorIlLb0EEENS_8functionIFT_lEEEDTclclsr3stdE7declvalISE_EEdeclL_ZNS_7declvalB8nn200100ISA_EEDTclsr3stdE9__declvalISC_ELi0EEEvEEEEEEEENS2_6detail17ElementsAttrTraitIS3_E13OverloadTokenISC_EEEUllE_NS_9allocatorISP_EEFylEE7__cloneEPNS0_6__baseISS_EE(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_28689B190;
+  *(a2 + 8) = 0;
+  *(a2 + 16) = 0;
+  *(a2 + 24) = 0;
+  v3 = *(a1 + 8);
+  v2 = *(a1 + 16);
+  if (v2 != v3)
+  {
+    if (((v2 - v3) & 0x8000000000000000) == 0)
+    {
+      operator new();
+    }
+
+    std::string::__throw_length_error[abi:nn200100]();
+  }
+
+  result = *(a1 + 32);
+  v5 = *(a1 + 48);
+  *(a2 + 32) = result;
+  *(a2 + 48) = v5;
+  return result;
+}
+
+void _ZNSt3__110__function6__funcIZNK4mlir18SparseElementsAttr20try_value_begin_implIyEEN4llvm9FailureOrINS5_15mapped_iteratorINS5_6detail15SafeIntIteratorIlLb0EEENS_8functionIFT_lEEEDTclclsr3stdE7declvalISE_EEdeclL_ZNS_7declvalB8nn200100ISA_EEDTclsr3stdE9__declvalISC_ELi0EEEvEEEEEEEENS2_6detail17ElementsAttrTraitIS3_E13OverloadTokenISC_EEEUllE_NS_9allocatorISP_EEFylEE7destroyEv(uint64_t a1)
+{
+  v2 = *(a1 + 8);
+  if (v2)
+  {
+    *(a1 + 16) = v2;
+    operator delete(v2);
+  }
+}
+
+void _ZNSt3__110__function6__funcIZNK4mlir18SparseElementsAttr20try_value_begin_implIyEEN4llvm9FailureOrINS5_15mapped_iteratorINS5_6detail15SafeIntIteratorIlLb0EEENS_8functionIFT_lEEEDTclclsr3stdE7declvalISE_EEdeclL_ZNS_7declvalB8nn200100ISA_EEDTclsr3stdE9__declvalISC_ELi0EEEvEEEEEEEENS2_6detail17ElementsAttrTraitIS3_E13OverloadTokenISC_EEEUllE_NS_9allocatorISP_EEFylEE18destroy_deallocateEv(void *a1)
+{
+  v2 = a1[1];
+  if (v2)
+  {
+    a1[2] = v2;
+    v3 = a1;
+    operator delete(v2);
+    a1 = v3;
+    v1 = vars8;
+  }
+
+  operator delete(a1);
+}
+
+uint64_t _ZNSt3__110__function6__funcIZNK4mlir18SparseElementsAttr20try_value_begin_implIyEEN4llvm9FailureOrINS5_15mapped_iteratorINS5_6detail15SafeIntIteratorIlLb0EEENS_8functionIFT_lEEEDTclclsr3stdE7declvalISE_EEdeclL_ZNS_7declvalB8nn200100ISA_EEDTclsr3stdE9__declvalISC_ELi0EEEvEEEEEEEENS2_6detail17ElementsAttrTraitIS3_E13OverloadTokenISC_EEEUllE_NS_9allocatorISP_EEFylEEclEOl(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  v3 = *(a1 + 16) - v2;
+  if ((v3 & 0x7FFFFFFF8) == 0)
+  {
+    return *(a1 + 56);
+  }
+
+  v4 = 0;
+  v5 = -(v3 >> 3);
+  while (1)
+  {
+    v6 = *v2++;
+    if (v6 == *a2)
+    {
+      break;
+    }
+
+    if (v5 == --v4)
+    {
+      return *(a1 + 56);
+    }
+  }
+
+  v8 = *(a1 + 48) - v4;
+  if (*(a1 + 40))
+  {
+    v8 = 0;
+  }
+
+  return *(*(a1 + 32) + 8 * v8);
+}
+
+uint64_t _ZNKSt3__110__function6__funcIZNK4mlir18SparseElementsAttr20try_value_begin_implIyEEN4llvm9FailureOrINS5_15mapped_iteratorINS5_6detail15SafeIntIteratorIlLb0EEENS_8functionIFT_lEEEDTclclsr3stdE7declvalISE_EEdeclL_ZNS_7declvalB8nn200100ISA_EEDTclsr3stdE9__declvalISC_ELi0EEEvEEEEEEEENS2_6detail17ElementsAttrTraitIS3_E13OverloadTokenISC_EEEUllE_NS_9allocatorISP_EEFylEE6targetERKSt9type_info(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a2 + 8);
+  if (v2 == 0x8000000257395143)
+  {
+    return a1 + 8;
+  }
+
+  if (((v2 & 0x8000000257395143 & 0x8000000000000000) != 0) == __OFSUB__(v2, 0x8000000257395143))
+  {
+    return 0;
+  }
+
+  v4 = a1;
+  v5 = strcmp((v2 & 0x7FFFFFFFFFFFFFFFLL), (0x8000000257395143 & 0x7FFFFFFFFFFFFFFFLL));
+  a1 = v4;
+  if (!v5)
+  {
+    return a1 + 8;
+  }
+
+  return 0;
+}
+
+uint64_t mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<unsigned long long ()(long)>,unsigned long long>,unsigned long long>::~OpaqueIterator(uint64_t result)
+{
+  *result = &unk_28689B220;
+  if (*(result + 48) == 1)
+  {
+    v1 = *(result + 40);
+    if (v1 == result + 16)
+    {
+      v2 = result;
+      (*(*v1 + 32))(*(result + 40));
+    }
+
+    else
+    {
+      if (!v1)
+      {
+        return result;
+      }
+
+      v2 = result;
+      (*(*v1 + 40))(*(result + 40));
+    }
+
+    return v2;
+  }
+
+  return result;
+}
+
+void mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<unsigned long long ()(long)>,unsigned long long>,unsigned long long>::~OpaqueIterator(uint64_t a1)
+{
+  *a1 = &unk_28689B220;
+  if (*(a1 + 48) == 1)
+  {
+    v1 = *(a1 + 40);
+    if (v1 == a1 + 16)
+    {
+      (*(*v1 + 32))(*(a1 + 40));
+    }
+
+    else if (v1)
+    {
+      (*(*v1 + 40))(*(a1 + 40));
+    }
+  }
+
+  JUMPOUT(0x259C63180);
+}
+
+void mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<unsigned long long ()(long)>,unsigned long long>,unsigned long long>::at(uint64_t a1, uint64_t a2)
+{
+  v5 = *(a1 + 8) + a2;
+  v2 = *(a1 + 40);
+  if (v2)
+  {
+    (*(*v2 + 48))(v2, &v5);
+  }
+
+  else
+  {
+    v3 = std::__throw_bad_function_call[abi:nn200100]();
+    mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<signed char>(v3, v4);
+  }
+}
+
+void mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<signed char>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+{
+  v8 = *MEMORY[0x277D85DE8];
+  mlir::SparseElementsAttr::try_value_begin_impl<signed char>(a1, v6);
+  if (v7 == 1)
+  {
+    v4 = mlir::detail::ElementsAttrTrait<mlir::DenseResourceElementsAttr>::getNumElements(a1) == 1;
+    mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<signed char ()(long)>,signed char> &>(v4, v6, &v5);
+  }
+
+  *a2 = 0;
+  a2[16] = 0;
+}
+
+void mlir::SparseElementsAttr::try_value_begin_impl<signed char>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+{
+  v10 = *MEMORY[0x277D85DE8];
+  v6[0] = *(*a1 + 32);
+  mlir::DenseElementsAttr::tryGetValues<signed char,void>(v6, v8);
+  if (v9)
+  {
+    v7[0] = *(v8 + 1);
+    *(v7 + 15) = v8[2];
+    mlir::SparseElementsAttr::getFlattenedSparseIndices(a1, &__p);
+    if (v5 != __p)
+    {
+      if (((v5 - __p) & 0x8000000000000000) == 0)
+      {
+        operator new();
+      }
+
+      std::string::__throw_length_error[abi:nn200100]();
+    }
+
+    operator new();
+  }
+
+  *a2 = 0;
+  a2[48] = 0;
+}
+
+void mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<signed char ()(long)>,signed char> &>(char a1@<W0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
+{
+  v7 = *MEMORY[0x277D85DE8];
+  *a3 = 0;
+  a3[1] = a1;
+  v4[0] = 0;
+  v6 = 0;
+  if (*(a2 + 40) == 1)
+  {
+    v3 = a2[4];
+    if (v3)
+    {
+      if (v3 == a2 + 1)
+      {
+        v5 = v4;
+        (*(*v3 + 24))(v3, v4);
+      }
+
+      else
+      {
+        v5 = (*(*v3 + 16))(v3);
+      }
+    }
+
+    else
+    {
+      v5 = 0;
+    }
+
+    v6 = 1;
+  }
+
+  operator new();
+}
+
+void *_ZNSt3__110__function6__funcIZNK4mlir18SparseElementsAttr20try_value_begin_implIaEEN4llvm9FailureOrINS5_15mapped_iteratorINS5_6detail15SafeIntIteratorIlLb0EEENS_8functionIFT_lEEEDTclclsr3stdE7declvalISE_EEdeclL_ZNS_7declvalB8nn200100ISA_EEDTclsr3stdE9__declvalISC_ELi0EEEvEEEEEEEENS2_6detail17ElementsAttrTraitIS3_E13OverloadTokenISC_EEEUllE_NS_9allocatorISP_EEFalEED1Ev(void *result)
+{
+  *result = &unk_28689B280;
+  v1 = result[1];
+  if (v1)
+  {
+    result[2] = v1;
+    v2 = result;
+    operator delete(v1);
+    return v2;
+  }
+
+  return result;
+}
+
+void _ZNSt3__110__function6__funcIZNK4mlir18SparseElementsAttr20try_value_begin_implIaEEN4llvm9FailureOrINS5_15mapped_iteratorINS5_6detail15SafeIntIteratorIlLb0EEENS_8functionIFT_lEEEDTclclsr3stdE7declvalISE_EEdeclL_ZNS_7declvalB8nn200100ISA_EEDTclsr3stdE9__declvalISC_ELi0EEEvEEEEEEEENS2_6detail17ElementsAttrTraitIS3_E13OverloadTokenISC_EEEUllE_NS_9allocatorISP_EEFalEED0Ev(void *a1)
+{
+  *a1 = &unk_28689B280;
+  v2 = a1[1];
+  if (v2)
+  {
+    a1[2] = v2;
+    operator delete(v2);
+    v1 = vars8;
+  }
+
+  JUMPOUT(0x259C63180);
+}
+
+__n128 _ZNKSt3__110__function6__funcIZNK4mlir18SparseElementsAttr20try_value_begin_implIaEEN4llvm9FailureOrINS5_15mapped_iteratorINS5_6detail15SafeIntIteratorIlLb0EEENS_8functionIFT_lEEEDTclclsr3stdE7declvalISE_EEdeclL_ZNS_7declvalB8nn200100ISA_EEDTclsr3stdE9__declvalISC_ELi0EEEvEEEEEEEENS2_6detail17ElementsAttrTraitIS3_E13OverloadTokenISC_EEEUllE_NS_9allocatorISP_EEFalEE7__cloneEPNS0_6__baseISS_EE(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_28689B280;
+  *(a2 + 8) = 0;
+  *(a2 + 16) = 0;
+  *(a2 + 24) = 0;
+  v3 = *(a1 + 8);
+  v2 = *(a1 + 16);
+  if (v2 != v3)
+  {
+    if (((v2 - v3) & 0x8000000000000000) == 0)
+    {
+      operator new();
+    }
+
+    std::string::__throw_length_error[abi:nn200100]();
+  }
+
+  result = *(a1 + 32);
+  *(a2 + 41) = *(a1 + 41);
+  *(a2 + 32) = result;
+  *(a2 + 57) = 0;
+  *(a2 + 60) = 0;
+  return result;
+}
+
+void _ZNSt3__110__function6__funcIZNK4mlir18SparseElementsAttr20try_value_begin_implIaEEN4llvm9FailureOrINS5_15mapped_iteratorINS5_6detail15SafeIntIteratorIlLb0EEENS_8functionIFT_lEEEDTclclsr3stdE7declvalISE_EEdeclL_ZNS_7declvalB8nn200100ISA_EEDTclsr3stdE9__declvalISC_ELi0EEEvEEEEEEEENS2_6detail17ElementsAttrTraitIS3_E13OverloadTokenISC_EEEUllE_NS_9allocatorISP_EEFalEE7destroyEv(uint64_t a1)
+{
+  v2 = *(a1 + 8);
+  if (v2)
+  {
+    *(a1 + 16) = v2;
+    operator delete(v2);
+  }
+}
+
+void _ZNSt3__110__function6__funcIZNK4mlir18SparseElementsAttr20try_value_begin_implIaEEN4llvm9FailureOrINS5_15mapped_iteratorINS5_6detail15SafeIntIteratorIlLb0EEENS_8functionIFT_lEEEDTclclsr3stdE7declvalISE_EEdeclL_ZNS_7declvalB8nn200100ISA_EEDTclsr3stdE9__declvalISC_ELi0EEEvEEEEEEEENS2_6detail17ElementsAttrTraitIS3_E13OverloadTokenISC_EEEUllE_NS_9allocatorISP_EEFalEE18destroy_deallocateEv(void *a1)
+{
+  v2 = a1[1];
+  if (v2)
+  {
+    a1[2] = v2;
+    v3 = a1;
+    operator delete(v2);
+    a1 = v3;
+    v1 = vars8;
+  }
+
+  operator delete(a1);
+}
+
+uint64_t _ZNSt3__110__function6__funcIZNK4mlir18SparseElementsAttr20try_value_begin_implIaEEN4llvm9FailureOrINS5_15mapped_iteratorINS5_6detail15SafeIntIteratorIlLb0EEENS_8functionIFT_lEEEDTclclsr3stdE7declvalISE_EEdeclL_ZNS_7declvalB8nn200100ISA_EEDTclsr3stdE9__declvalISC_ELi0EEEvEEEEEEEENS2_6detail17ElementsAttrTraitIS3_E13OverloadTokenISC_EEEUllE_NS_9allocatorISP_EEFalEEclEOl(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  v3 = *(a1 + 16) - v2;
+  if ((v3 & 0x7FFFFFFF8) == 0)
+  {
+    return *(a1 + 56);
+  }
+
+  v4 = 0;
+  v5 = -(v3 >> 3);
+  while (1)
+  {
+    v6 = *v2++;
+    if (v6 == *a2)
+    {
+      break;
+    }
+
+    if (v5 == --v4)
+    {
+      return *(a1 + 56);
+    }
+  }
+
+  v8 = *(a1 + 48) - v4;
+  if (*(a1 + 40))
+  {
+    v8 = 0;
+  }
+
+  return *(*(a1 + 32) + v8);
+}
+
+uint64_t _ZNKSt3__110__function6__funcIZNK4mlir18SparseElementsAttr20try_value_begin_implIaEEN4llvm9FailureOrINS5_15mapped_iteratorINS5_6detail15SafeIntIteratorIlLb0EEENS_8functionIFT_lEEEDTclclsr3stdE7declvalISE_EEdeclL_ZNS_7declvalB8nn200100ISA_EEDTclsr3stdE9__declvalISC_ELi0EEEvEEEEEEEENS2_6detail17ElementsAttrTraitIS3_E13OverloadTokenISC_EEEUllE_NS_9allocatorISP_EEFalEE6targetERKSt9type_info(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a2 + 8);
+  if (v2 == 0x8000000257395506)
+  {
+    return a1 + 8;
+  }
+
+  if (((v2 & 0x8000000257395506 & 0x8000000000000000) != 0) == __OFSUB__(v2, 0x8000000257395506))
+  {
+    return 0;
+  }
+
+  v4 = a1;
+  v5 = strcmp((v2 & 0x7FFFFFFFFFFFFFFFLL), (0x8000000257395506 & 0x7FFFFFFFFFFFFFFFLL));
+  a1 = v4;
+  if (!v5)
+  {
+    return a1 + 8;
+  }
+
+  return 0;
+}
+
+uint64_t mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<signed char ()(long)>,signed char>,signed char>::~OpaqueIterator(uint64_t result)
+{
+  *result = &unk_28689B310;
+  if (*(result + 48) == 1)
+  {
+    v1 = *(result + 40);
+    if (v1 == result + 16)
+    {
+      v2 = result;
+      (*(*v1 + 32))(*(result + 40));
+    }
+
+    else
+    {
+      if (!v1)
+      {
+        return result;
+      }
+
+      v2 = result;
+      (*(*v1 + 40))(*(result + 40));
+    }
+
+    return v2;
+  }
+
+  return result;
+}
+
+void mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<signed char ()(long)>,signed char>,signed char>::~OpaqueIterator(uint64_t a1)
+{
+  *a1 = &unk_28689B310;
+  if (*(a1 + 48) == 1)
+  {
+    v1 = *(a1 + 40);
+    if (v1 == a1 + 16)
+    {
+      (*(*v1 + 32))(*(a1 + 40));
+    }
+
+    else if (v1)
+    {
+      (*(*v1 + 40))(*(a1 + 40));
+    }
+  }
+
+  JUMPOUT(0x259C63180);
+}
+
+void mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<signed char ()(long)>,signed char>,signed char>::at(uint64_t a1, uint64_t a2)
+{
+  v5 = *(a1 + 8) + a2;
+  v2 = *(a1 + 40);
+  if (v2)
+  {
+    (*(*v2 + 48))(v2, &v5);
+  }
+
+  else
+  {
+    v3 = std::__throw_bad_function_call[abi:nn200100]();
+    mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<short>(v3, v4);
+  }
+}
+
+void mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<short>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+{
+  v8 = *MEMORY[0x277D85DE8];
+  mlir::SparseElementsAttr::try_value_begin_impl<short>(a1, v6);
+  if (v7 == 1)
+  {
+    v4 = mlir::detail::ElementsAttrTrait<mlir::DenseResourceElementsAttr>::getNumElements(a1) == 1;
+    mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<short ()(long)>,short> &>(v4, v6, &v5);
+  }
+
+  *a2 = 0;
+  a2[16] = 0;
+}
+
+void mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::getValueImpl<int,long long,short,unsigned short,int,unsigned int,long,unsigned long,std::complex<llvm::APInt>,std::complex<unsigned char>,std::complex<unsigned short>,std::complex<unsigned int>,std::complex<unsigned long long>,std::complex<signed char>,std::complex<short>,std::complex<int>,std::complex<long long>,llvm::APFloat,float,double,std::complex<llvm::APFloat>,std::complex<float>,std::complex<double>,llvm::StringRef,std::integral_constant<BOOL,false>>(mlir::SparseElementsAttr *a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+{
+  {
+    v7 = a1;
+    v3 = a2;
+    v5 = a3;
+    mlir::detail::ElementsAttrTrait<mlir::DenseIntOrFPElementsAttr>::getValueImpl<int,long long,short,unsigned short,int,unsigned int,long,unsigned long,std::complex<unsigned char>,std::complex<unsigned short>,std::complex<unsigned int>,std::complex<unsigned long long>,std::complex<signed char>,std::complex<short>,std::complex<int>,std::complex<long long>,float,double,std::complex<float>,std::complex<double>,std::integral_constant<BOOL,true>>();
+    a2 = v3;
+    a3 = v5;
+    a1 = v7;
+    if (mlir::detail::TypeIDResolver<int,void>::resolveTypeID(void)::id != v3)
+    {
+      goto LABEL_3;
+    }
+
+LABEL_9:
+
+    mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<int>(a1, a3);
+    return;
+  }
+
+  if (mlir::detail::TypeIDResolver<int,void>::resolveTypeID(void)::id == a2)
+  {
+    goto LABEL_9;
+  }
+
+LABEL_3:
+  {
+    if (mlir::detail::TypeIDResolver<long long,void>::resolveTypeID(void)::id != a2)
+    {
+LABEL_5:
+
+      mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::getValueImpl<short,unsigned short,int,unsigned int,long,unsigned long,std::complex<llvm::APInt>,std::complex<unsigned char>,std::complex<unsigned short>,std::complex<unsigned int>,std::complex<unsigned long long>,std::complex<signed char>,std::complex<short>,std::complex<int>,std::complex<long long>,llvm::APFloat,float,double,std::complex<llvm::APFloat>,std::complex<float>,std::complex<double>,llvm::StringRef,std::integral_constant<BOOL,false>>(a1, a2, a3);
+      return;
+    }
+  }
+
+  else
+  {
+    v8 = a1;
+    v4 = a2;
+    v6 = a3;
+    mlir::detail::ElementsAttrTrait<mlir::mps::MPSBufferTensorAttr>::getValueImpl<long long,half,float,__emulated_bf16,complex_support::complex_fp<float,(void *)0>,complex_support::complex_fp<half,(void *)0>,std::integral_constant<BOOL,true>>();
+    a2 = v4;
+    a3 = v6;
+    a1 = v8;
+    if (mlir::detail::TypeIDResolver<long long,void>::resolveTypeID(void)::id != v4)
+    {
+      goto LABEL_5;
+    }
+  }
+
+  mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<long long>(a1, a3);
+}
+
+void mlir::SparseElementsAttr::try_value_begin_impl<short>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+{
+  v10 = *MEMORY[0x277D85DE8];
+  v6[0] = *(*a1 + 32);
+  mlir::DenseElementsAttr::tryGetValues<short,void>(v6, v8);
+  if (v9)
+  {
+    v7[0] = *(v8 + 1);
+    *(v7 + 15) = v8[2];
+    mlir::SparseElementsAttr::getFlattenedSparseIndices(a1, &__p);
+    if (v5 != __p)
+    {
+      if (((v5 - __p) & 0x8000000000000000) == 0)
+      {
+        operator new();
+      }
+
+      std::string::__throw_length_error[abi:nn200100]();
+    }
+
+    operator new();
+  }
+
+  *a2 = 0;
+  a2[48] = 0;
+}
+
+void mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<short ()(long)>,short> &>(char a1@<W0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
+{
+  v7 = *MEMORY[0x277D85DE8];
+  *a3 = 0;
+  a3[1] = a1;
+  v4[0] = 0;
+  v6 = 0;
+  if (*(a2 + 40) == 1)
+  {
+    v3 = a2[4];
+    if (v3)
+    {
+      if (v3 == a2 + 1)
+      {
+        v5 = v4;
+        (*(*v3 + 24))(v3, v4);
+      }
+
+      else
+      {
+        v5 = (*(*v3 + 16))(v3);
+      }
+    }
+
+    else
+    {
+      v5 = 0;
+    }
+
+    v6 = 1;
+  }
+
+  operator new();
+}
+
+void *_ZNSt3__110__function6__funcIZNK4mlir18SparseElementsAttr20try_value_begin_implIsEEN4llvm9FailureOrINS5_15mapped_iteratorINS5_6detail15SafeIntIteratorIlLb0EEENS_8functionIFT_lEEEDTclclsr3stdE7declvalISE_EEdeclL_ZNS_7declvalB8nn200100ISA_EEDTclsr3stdE9__declvalISC_ELi0EEEvEEEEEEEENS2_6detail17ElementsAttrTraitIS3_E13OverloadTokenISC_EEEUllE_NS_9allocatorISP_EEFslEED1Ev(void *result)
+{
+  *result = &unk_28689B370;
+  v1 = result[1];
+  if (v1)
+  {
+    result[2] = v1;
+    v2 = result;
+    operator delete(v1);
+    return v2;
+  }
+
+  return result;
+}
+
 void _ZNSt3__110__function6__funcIZNK4mlir18SparseElementsAttr20try_value_begin_implIsEEN4llvm9FailureOrINS5_15mapped_iteratorINS5_6detail15SafeIntIteratorIlLb0EEENS_8functionIFT_lEEEDTclclsr3stdE7declvalISE_EEdeclL_ZNS_7declvalB8nn200100ISA_EEDTclsr3stdE9__declvalISC_ELi0EEEvEEEEEEEENS2_6detail17ElementsAttrTraitIS3_E13OverloadTokenISC_EEEUllE_NS_9allocatorISP_EEFslEED0Ev(void *a1)
 {
   *a1 = &unk_28689B370;
@@ -170,47 +1101,49 @@ void mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm:
   JUMPOUT(0x259C63180);
 }
 
-uint64_t mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<short ()(long)>,short>,short>::at(uint64_t a1, uint64_t a2)
+void mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<short ()(long)>,short>,short>::at(uint64_t a1, uint64_t a2)
 {
-  v6 = *(a1 + 8) + a2;
+  v5 = *(a1 + 8) + a2;
   v2 = *(a1 + 40);
   if (v2)
   {
-    return (*(*v2 + 48))(v2, &v6);
+    (*(*v2 + 48))(v2, &v5);
   }
 
-  v4 = std::__throw_bad_function_call[abi:nn200100]();
-  return mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<int>(v4, v5);
+  else
+  {
+    v3 = std::__throw_bad_function_call[abi:nn200100]();
+    mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<int>(v3, v4);
+  }
 }
 
-uint64_t mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<int>@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<int>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
   v8 = *MEMORY[0x277D85DE8];
-  result = mlir::SparseElementsAttr::try_value_begin_impl<int>(a1, v7);
-  if (v7[48] == 1)
+  mlir::SparseElementsAttr::try_value_begin_impl<int>(a1, v6);
+  if (v7 == 1)
   {
-    v5 = mlir::detail::ElementsAttrTrait<mlir::DenseResourceElementsAttr>::getNumElements(a1) == 1;
-    mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<int ()(long)>,int> &>(v5, v7, &v6);
+    v4 = mlir::detail::ElementsAttrTrait<mlir::DenseResourceElementsAttr>::getNumElements(a1) == 1;
+    mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<int ()(long)>,int> &>(v4, v6, &v5);
   }
 
   *a2 = 0;
   a2[16] = 0;
-  return result;
 }
 
-uint64_t mlir::SparseElementsAttr::try_value_begin_impl<int>@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void mlir::SparseElementsAttr::try_value_begin_impl<int>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v7[0] = *(*a1 + 32);
-  result = mlir::DenseElementsAttr::tryGetValues<int,void>(v7, v9);
-  if (v10)
+  v10 = *MEMORY[0x277D85DE8];
+  v6[0] = *(*a1 + 32);
+  mlir::DenseElementsAttr::tryGetValues<int,void>(v6, v8);
+  if (v9)
   {
-    v8[0] = *(v9 + 1);
-    *(v8 + 15) = v9[2];
+    v7[0] = *(v8 + 1);
+    *(v7 + 15) = v8[2];
     mlir::SparseElementsAttr::getFlattenedSparseIndices(a1, &__p);
-    if (v6 != __p)
+    if (v5 != __p)
     {
-      if (((v6 - __p) & 0x8000000000000000) == 0)
+      if (((v5 - __p) & 0x8000000000000000) == 0)
       {
         operator new();
       }
@@ -223,10 +1156,9 @@ uint64_t mlir::SparseElementsAttr::try_value_begin_impl<int>@<X0>(mlir::SparseEl
 
   *a2 = 0;
   a2[48] = 0;
-  return result;
 }
 
-void mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<int ()(long)>,int> &>(char a1@<W0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+void mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<int ()(long)>,int> &>(char a1@<W0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
 {
   v7 = *MEMORY[0x277D85DE8];
   *a3 = 0;
@@ -235,10 +1167,10 @@ void mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm
   v6 = 0;
   if (*(a2 + 40) == 1)
   {
-    v3 = *(a2 + 32);
+    v3 = a2[4];
     if (v3)
     {
-      if (v3 == a2 + 8)
+      if (v3 == a2 + 1)
       {
         v5 = v4;
         (*(*v3 + 24))(v3, v4);
@@ -447,32 +1379,34 @@ void mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm:
   JUMPOUT(0x259C63180);
 }
 
-uint64_t mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<int ()(long)>,int>,int>::at(uint64_t a1, uint64_t a2)
+void mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<int ()(long)>,int>,int>::at(uint64_t a1, uint64_t a2)
 {
-  v6 = *(a1 + 8) + a2;
+  v5 = *(a1 + 8) + a2;
   v2 = *(a1 + 40);
   if (v2)
   {
-    return (*(*v2 + 48))(v2, &v6);
+    (*(*v2 + 48))(v2, &v5);
   }
 
-  v4 = std::__throw_bad_function_call[abi:nn200100]();
-  return mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<long long>(v4, v5);
+  else
+  {
+    v3 = std::__throw_bad_function_call[abi:nn200100]();
+    mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<long long>(v3, v4);
+  }
 }
 
-uint64_t mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<long long>@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<long long>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
   v8 = *MEMORY[0x277D85DE8];
-  result = mlir::SparseElementsAttr::try_value_begin_impl<long long>(a1, v7);
-  if (v7[48] == 1)
+  mlir::SparseElementsAttr::try_value_begin_impl<long long>(a1, v6);
+  if (v7 == 1)
   {
-    v5 = mlir::detail::ElementsAttrTrait<mlir::DenseResourceElementsAttr>::getNumElements(a1) == 1;
-    mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<long long ()(long)>,long long> &>(v5, v7, &v6);
+    v4 = mlir::detail::ElementsAttrTrait<mlir::DenseResourceElementsAttr>::getNumElements(a1) == 1;
+    mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<long long ()(long)>,long long> &>(v4, v6, &v5);
   }
 
   *a2 = 0;
   a2[16] = 0;
-  return result;
 }
 
 void mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::getValueImpl<short,unsigned short,int,unsigned int,long,unsigned long,std::complex<llvm::APInt>,std::complex<unsigned char>,std::complex<unsigned short>,std::complex<unsigned int>,std::complex<unsigned long long>,std::complex<signed char>,std::complex<short>,std::complex<int>,std::complex<long long>,llvm::APFloat,float,double,std::complex<llvm::APFloat>,std::complex<float>,std::complex<double>,llvm::StringRef,std::integral_constant<BOOL,false>>(mlir::SparseElementsAttr *a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
@@ -530,19 +1464,19 @@ LABEL_5:
   mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<unsigned short>(a1, a3);
 }
 
-uint64_t mlir::SparseElementsAttr::try_value_begin_impl<long long>@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void mlir::SparseElementsAttr::try_value_begin_impl<long long>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v7[0] = *(*a1 + 32);
-  result = mlir::DenseElementsAttr::tryGetValues<long long,void>(v7, v9);
-  if (v10)
+  v10 = *MEMORY[0x277D85DE8];
+  v6[0] = *(*a1 + 32);
+  mlir::DenseElementsAttr::tryGetValues<long long,void>(v6, v8);
+  if (v9)
   {
-    v8[0] = *(v9 + 1);
-    *(v8 + 15) = v9[2];
+    v7[0] = *(v8 + 1);
+    *(v7 + 15) = v8[2];
     mlir::SparseElementsAttr::getFlattenedSparseIndices(a1, &__p);
-    if (v6 != __p)
+    if (v5 != __p)
     {
-      if (((v6 - __p) & 0x8000000000000000) == 0)
+      if (((v5 - __p) & 0x8000000000000000) == 0)
       {
         operator new();
       }
@@ -555,10 +1489,9 @@ uint64_t mlir::SparseElementsAttr::try_value_begin_impl<long long>@<X0>(mlir::Sp
 
   *a2 = 0;
   a2[48] = 0;
-  return result;
 }
 
-void mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<long long ()(long)>,long long> &>(char a1@<W0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+void mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<long long ()(long)>,long long> &>(char a1@<W0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
 {
   v7 = *MEMORY[0x277D85DE8];
   *a3 = 0;
@@ -567,10 +1500,10 @@ void mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm
   v6 = 0;
   if (*(a2 + 40) == 1)
   {
-    v3 = *(a2 + 32);
+    v3 = a2[4];
     if (v3)
     {
-      if (v3 == a2 + 8)
+      if (v3 == a2 + 1)
       {
         v5 = v4;
         (*(*v3 + 24))(v3, v4);
@@ -905,34 +1838,33 @@ LABEL_5:
   mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<unsigned long>(a1, a3);
 }
 
-uint64_t mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<long>@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<long>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
   v8 = *MEMORY[0x277D85DE8];
-  result = mlir::SparseElementsAttr::try_value_begin_impl<long>(a1, v7);
-  if (v7[48] == 1)
+  mlir::SparseElementsAttr::try_value_begin_impl<long>(a1, v6);
+  if (v7 == 1)
   {
-    v5 = mlir::detail::ElementsAttrTrait<mlir::DenseResourceElementsAttr>::getNumElements(a1) == 1;
-    mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<long ()(long)>,long> &>(v5, v7, &v6);
+    v4 = mlir::detail::ElementsAttrTrait<mlir::DenseResourceElementsAttr>::getNumElements(a1) == 1;
+    mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<long ()(long)>,long> &>(v4, v6, &v5);
   }
 
   *a2 = 0;
   a2[16] = 0;
-  return result;
 }
 
-uint64_t mlir::SparseElementsAttr::try_value_begin_impl<long>@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void mlir::SparseElementsAttr::try_value_begin_impl<long>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v7[0] = *(*a1 + 32);
-  result = mlir::DenseElementsAttr::tryGetValues<long long,void>(v7, v9);
-  if (v10)
+  v10 = *MEMORY[0x277D85DE8];
+  v6[0] = *(*a1 + 32);
+  mlir::DenseElementsAttr::tryGetValues<long long,void>(v6, v8);
+  if (v9)
   {
-    v8[0] = *(v9 + 1);
-    *(v8 + 15) = v9[2];
+    v7[0] = *(v8 + 1);
+    *(v7 + 15) = v8[2];
     mlir::SparseElementsAttr::getFlattenedSparseIndices(a1, &__p);
-    if (v6 != __p)
+    if (v5 != __p)
     {
-      if (((v6 - __p) & 0x8000000000000000) == 0)
+      if (((v5 - __p) & 0x8000000000000000) == 0)
       {
         operator new();
       }
@@ -945,10 +1877,9 @@ uint64_t mlir::SparseElementsAttr::try_value_begin_impl<long>@<X0>(mlir::SparseE
 
   *a2 = 0;
   a2[48] = 0;
-  return result;
 }
 
-void mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<long ()(long)>,long> &>(char a1@<W0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+void mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<long ()(long)>,long> &>(char a1@<W0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
 {
   v7 = *MEMORY[0x277D85DE8];
   *a3 = 0;
@@ -957,10 +1888,10 @@ void mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm
   v6 = 0;
   if (*(a2 + 40) == 1)
   {
-    v3 = *(a2 + 32);
+    v3 = a2[4];
     if (v3)
     {
-      if (v3 == a2 + 8)
+      if (v3 == a2 + 1)
       {
         v5 = v4;
         (*(*v3 + 24))(v3, v4);
@@ -1169,32 +2100,34 @@ void mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm:
   JUMPOUT(0x259C63180);
 }
 
-uint64_t mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<long ()(long)>,long>,long>::at(uint64_t a1, uint64_t a2)
+void mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<long ()(long)>,long>,long>::at(uint64_t a1, uint64_t a2)
 {
-  v6 = *(a1 + 8) + a2;
+  v5 = *(a1 + 8) + a2;
   v2 = *(a1 + 40);
   if (v2)
   {
-    return (*(*v2 + 48))(v2, &v6);
+    (*(*v2 + 48))(v2, &v5);
   }
 
-  v4 = std::__throw_bad_function_call[abi:nn200100]();
-  return mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<unsigned long>(v4, v5);
+  else
+  {
+    v3 = std::__throw_bad_function_call[abi:nn200100]();
+    mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<unsigned long>(v3, v4);
+  }
 }
 
-uint64_t mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<unsigned long>@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<unsigned long>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
   v8 = *MEMORY[0x277D85DE8];
-  result = mlir::SparseElementsAttr::try_value_begin_impl<unsigned long>(a1, v7);
-  if (v7[48] == 1)
+  mlir::SparseElementsAttr::try_value_begin_impl<unsigned long>(a1, v6);
+  if (v7 == 1)
   {
-    v5 = mlir::detail::ElementsAttrTrait<mlir::DenseResourceElementsAttr>::getNumElements(a1) == 1;
-    mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<unsigned long ()(long)>,unsigned long> &>(v5, v7, &v6);
+    v4 = mlir::detail::ElementsAttrTrait<mlir::DenseResourceElementsAttr>::getNumElements(a1) == 1;
+    mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<unsigned long ()(long)>,unsigned long> &>(v4, v6, &v5);
   }
 
   *a2 = 0;
   a2[16] = 0;
-  return result;
 }
 
 void mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::getValueImpl<std::complex<llvm::APInt>,std::complex<unsigned char>,std::complex<unsigned short>,std::complex<unsigned int>,std::complex<unsigned long long>,std::complex<signed char>,std::complex<short>,std::complex<int>,std::complex<long long>,llvm::APFloat,float,double,std::complex<llvm::APFloat>,std::complex<float>,std::complex<double>,llvm::StringRef,std::integral_constant<BOOL,false>>(mlir::SparseElementsAttr *a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
@@ -1252,19 +2185,19 @@ LABEL_5:
   mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<unsigned char>>(a1, a3);
 }
 
-uint64_t mlir::SparseElementsAttr::try_value_begin_impl<unsigned long>@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void mlir::SparseElementsAttr::try_value_begin_impl<unsigned long>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v7[0] = *(*a1 + 32);
-  result = mlir::DenseElementsAttr::tryGetValues<unsigned long long,void>(v7, v9);
-  if (v10)
+  v10 = *MEMORY[0x277D85DE8];
+  v6[0] = *(*a1 + 32);
+  mlir::DenseElementsAttr::tryGetValues<unsigned long long,void>(v6, v8);
+  if (v9)
   {
-    v8[0] = *(v9 + 1);
-    *(v8 + 15) = v9[2];
+    v7[0] = *(v8 + 1);
+    *(v7 + 15) = v8[2];
     mlir::SparseElementsAttr::getFlattenedSparseIndices(a1, &__p);
-    if (v6 != __p)
+    if (v5 != __p)
     {
-      if (((v6 - __p) & 0x8000000000000000) == 0)
+      if (((v5 - __p) & 0x8000000000000000) == 0)
       {
         operator new();
       }
@@ -1277,10 +2210,9 @@ uint64_t mlir::SparseElementsAttr::try_value_begin_impl<unsigned long>@<X0>(mlir
 
   *a2 = 0;
   a2[48] = 0;
-  return result;
 }
 
-void mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<unsigned long ()(long)>,unsigned long> &>(char a1@<W0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+void mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<unsigned long ()(long)>,unsigned long> &>(char a1@<W0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
 {
   v7 = *MEMORY[0x277D85DE8];
   *a3 = 0;
@@ -1289,10 +2221,10 @@ void mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm
   v6 = 0;
   if (*(a2 + 40) == 1)
   {
-    v3 = *(a2 + 32);
+    v3 = a2[4];
     if (v3)
     {
-      if (v3 == a2 + 8)
+      if (v3 == a2 + 1)
       {
         v5 = v4;
         (*(*v3 + 24))(v3, v4);
@@ -1501,48 +2433,50 @@ void mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm:
   JUMPOUT(0x259C63180);
 }
 
-unint64_t mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<unsigned long ()(long)>,unsigned long>,unsigned long>::at(uint64_t a1, uint64_t a2)
+void mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<unsigned long ()(long)>,unsigned long>,unsigned long>::at(uint64_t a1, uint64_t a2)
 {
-  v6 = *(a1 + 8) + a2;
+  v5 = *(a1 + 8) + a2;
   v2 = *(a1 + 40);
   if (v2)
   {
-    return (*(*v2 + 48))(v2, &v6);
+    (*(*v2 + 48))(v2, &v5);
   }
 
-  v4 = std::__throw_bad_function_call[abi:nn200100]();
-  return mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<llvm::APInt>>(v4, v5);
+  else
+  {
+    v3 = std::__throw_bad_function_call[abi:nn200100]();
+    mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<llvm::APInt>>(v3, v4);
+  }
 }
 
-unint64_t mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<llvm::APInt>>@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<llvm::APInt>>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
   v8 = *MEMORY[0x277D85DE8];
-  result = mlir::SparseElementsAttr::try_value_begin_impl<std::complex<llvm::APInt>>(a1, v7);
-  if (v7[48] == 1)
+  mlir::SparseElementsAttr::try_value_begin_impl<std::complex<llvm::APInt>>(a1, v6);
+  if (v7 == 1)
   {
-    v5 = mlir::detail::ElementsAttrTrait<mlir::DenseResourceElementsAttr>::getNumElements(a1) == 1;
-    mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<llvm::APInt> ()(long)>,std::complex<llvm::APInt>> &>(v5, v7, &v6);
+    v4 = mlir::detail::ElementsAttrTrait<mlir::DenseResourceElementsAttr>::getNumElements(a1) == 1;
+    mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<llvm::APInt> ()(long)>,std::complex<llvm::APInt>> &>(v4, v6, &v5);
   }
 
   *a2 = 0;
   a2[16] = 0;
-  return result;
 }
 
-unint64_t mlir::SparseElementsAttr::try_value_begin_impl<std::complex<llvm::APInt>>@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void mlir::SparseElementsAttr::try_value_begin_impl<std::complex<llvm::APInt>>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  mlir::SparseElementsAttr::getZeroValue<std::complex<llvm::APInt>>(a1, &v7);
-  v11[0] = *(*a1 + 32);
-  result = mlir::DenseElementsAttr::tryGetComplexIntValues(v11, v13);
-  if (v14)
+  v14 = *MEMORY[0x277D85DE8];
+  mlir::SparseElementsAttr::getZeroValue<std::complex<llvm::APInt>>(a1, &v6);
+  v10[0] = *(*a1 + 32);
+  mlir::DenseElementsAttr::tryGetComplexIntValues(v12, v10);
+  if (v13)
   {
-    v12[0] = *(v13 + 1);
-    *(v12 + 15) = v13[1];
+    v11[0] = *(v12 + 1);
+    *(v11 + 15) = v12[1];
     mlir::SparseElementsAttr::getFlattenedSparseIndices(a1, &__p);
-    if (v6 != __p)
+    if (v5 != __p)
     {
-      if (((v6 - __p) & 0x8000000000000000) == 0)
+      if (((v5 - __p) & 0x8000000000000000) == 0)
       {
         operator new();
       }
@@ -1550,36 +2484,26 @@ unint64_t mlir::SparseElementsAttr::try_value_begin_impl<std::complex<llvm::APIn
       std::string::__throw_length_error[abi:nn200100]();
     }
 
-    v8 = 0;
-    v10 = 0;
-    v11[3] = 0;
+    v7 = 0;
+    v9 = 0;
+    v10[3] = 0;
     operator new();
   }
 
   *a2 = 0;
   a2[48] = 0;
-  if (v10 >= 0x41)
+  if (v9 >= 0x41 && v8)
   {
-    result = v9;
-    if (v9)
-    {
-      result = MEMORY[0x259C63150](v9, 0x1000C8000313F17);
-    }
+    MEMORY[0x259C63150](v8, 0x1000C8000313F17);
   }
 
-  if (v8 >= 0x41)
+  if (v7 >= 0x41 && v6)
   {
-    result = v7;
-    if (v7)
-    {
-      return MEMORY[0x259C63150](v7, 0x1000C8000313F17);
-    }
+    MEMORY[0x259C63150](v6, 0x1000C8000313F17);
   }
-
-  return result;
 }
 
-void mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<llvm::APInt> ()(long)>,std::complex<llvm::APInt>> &>(char a1@<W0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+void mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<llvm::APInt> ()(long)>,std::complex<llvm::APInt>> &>(char a1@<W0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
 {
   v7 = *MEMORY[0x277D85DE8];
   *a3 = 0;
@@ -1588,10 +2512,10 @@ void mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm
   v6 = 0;
   if (*(a2 + 40) == 1)
   {
-    v3 = *(a2 + 32);
+    v3 = a2[4];
     if (v3)
     {
-      if (v3 == a2 + 8)
+      if (v3 == a2 + 1)
       {
         v5 = v4;
         (*(*v3 + 24))(v3, v4);
@@ -1614,21 +2538,21 @@ void mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm
   operator new();
 }
 
-uint64_t mlir::SparseElementsAttr::getZeroValue<std::complex<llvm::APInt>>@<X0>(void **a1@<X0>, uint64_t a2@<X8>)
+uint64_t mlir::SparseElementsAttr::getZeroValue<std::complex<llvm::APInt>>@<X0>(void **a1@<X0>, uint64_t *a2@<X8>)
 {
   ElementType = mlir::detail::ElementsAttrTrait<mlir::DenseResourceElementsAttr>::getElementType(a1);
   result = mlir::IntegerType::getWidth(&ElementType);
   v5 = result;
   if (result > 0x40)
   {
-    llvm::APInt::initSlowCase(&v4);
+    llvm::APInt::initSlowCase(&v4, 0, 0);
   }
 
   v4 = 0;
-  *(a2 + 8) = result;
+  *(a2 + 2) = result;
   *a2 = 0;
-  *(a2 + 24) = result;
-  *(a2 + 16) = v4;
+  *(a2 + 6) = result;
+  a2[2] = v4;
   return result;
 }
 
@@ -1789,7 +2713,7 @@ LABEL_5:
     a3[2] = v8;
     if (v8 > 0x40)
     {
-      llvm::APInt::initSlowCase(a3, (result + 8));
+      llvm::APInt::initSlowCase(a3, result + 8);
     }
 
     *a3 = result[8];
@@ -1798,7 +2722,7 @@ LABEL_5:
     if (v9 > 0x40)
     {
 
-      llvm::APInt::initSlowCase((a3 + 4), (result + 10));
+      llvm::APInt::initSlowCase((a3 + 4), result + 10);
     }
 
     *(a3 + 2) = result[10];
@@ -1831,12 +2755,12 @@ uint64_t _ZNKSt3__110__function6__funcIZNK4mlir18SparseElementsAttr20try_value_b
   return 0;
 }
 
-uint64_t _ZNSt3__110__function6__funcIZNK4mlir18SparseElementsAttr20try_value_begin_implINS_7complexIN4llvm5APIntEEEEENS6_9FailureOrINS6_15mapped_iteratorINS6_6detail15SafeIntIteratorIlLb0EEENS_8functionIFT_lEEEDTclclsr3stdE7declvalISH_EEdeclL_ZNS_7declvalB8nn200100ISD_EEDTclsr3stdE9__declvalISF_ELi0EEEvEEEEEEEENS2_6detail17ElementsAttrTraitIS3_E13OverloadTokenISF_EEEUllE_NS_9allocatorISS_EEFS8_lEEC2B8nn200100ERKSS_OSU_(uint64_t result, uint64_t a2)
+uint64_t _ZNSt3__110__function6__funcIZNK4mlir18SparseElementsAttr20try_value_begin_implINS_7complexIN4llvm5APIntEEEEENS6_9FailureOrINS6_15mapped_iteratorINS6_6detail15SafeIntIteratorIlLb0EEENS_8functionIFT_lEEEDTclclsr3stdE7declvalISH_EEdeclL_ZNS_7declvalB8nn200100ISD_EEDTclsr3stdE9__declvalISF_ELi0EEEvEEEEEEEENS2_6detail17ElementsAttrTraitIS3_E13OverloadTokenISF_EEEUllE_NS_9allocatorISS_EEFS8_lEEC2B8nn200100ERKSS_OSU_(uint64_t a1, uint64_t a2)
 {
-  *result = &unk_28689B820;
-  *(result + 8) = 0;
-  *(result + 16) = 0;
-  *(result + 24) = 0;
+  *a1 = &unk_28689B820;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  *(a1 + 24) = 0;
   v2 = *(a2 + 8);
   if (v2 != *a2)
   {
@@ -1849,25 +2773,25 @@ uint64_t _ZNSt3__110__function6__funcIZNK4mlir18SparseElementsAttr20try_value_be
   }
 
   v3 = *(a2 + 40);
-  *(result + 32) = *(a2 + 24);
-  *(result + 48) = v3;
+  *(a1 + 32) = *(a2 + 24);
+  *(a1 + 48) = v3;
   v4 = *(a2 + 64);
-  *(result + 72) = v4;
+  *(a1 + 72) = v4;
   if (v4 > 0x40)
   {
-    llvm::APInt::initSlowCase((result + 64), (a2 + 56));
+    llvm::APInt::initSlowCase((a1 + 64), (a2 + 56));
   }
 
-  *(result + 64) = *(a2 + 56);
+  *(a1 + 64) = *(a2 + 56);
   v5 = *(a2 + 80);
-  *(result + 88) = v5;
+  *(a1 + 88) = v5;
   if (v5 > 0x40)
   {
-    llvm::APInt::initSlowCase((result + 80), (a2 + 72));
+    llvm::APInt::initSlowCase((a1 + 80), (a2 + 72));
   }
 
-  *(result + 80) = *(a2 + 72);
-  return result;
+  *(a1 + 80) = *(a2 + 72);
+  return a1;
 }
 
 uint64_t mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<llvm::APInt> ()(long)>,std::complex<llvm::APInt>>,std::complex<llvm::APInt>>::~OpaqueIterator(uint64_t result)
@@ -1919,32 +2843,34 @@ void mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm:
   JUMPOUT(0x259C63180);
 }
 
-uint64_t mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<llvm::APInt> ()(long)>,std::complex<llvm::APInt>>,std::complex<llvm::APInt>>::at(uint64_t a1, uint64_t a2)
+void mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<llvm::APInt> ()(long)>,std::complex<llvm::APInt>>,std::complex<llvm::APInt>>::at(uint64_t a1, uint64_t a2)
 {
-  v6 = *(a1 + 8) + a2;
+  v5 = *(a1 + 8) + a2;
   v2 = *(a1 + 40);
   if (v2)
   {
-    return (*(*v2 + 48))(v2, &v6);
+    (*(*v2 + 48))(v2, &v5);
   }
 
-  v4 = std::__throw_bad_function_call[abi:nn200100]();
-  return mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<unsigned char>>(v4, v5);
+  else
+  {
+    v3 = std::__throw_bad_function_call[abi:nn200100]();
+    mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<unsigned char>>(v3, v4);
+  }
 }
 
-uint64_t mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<unsigned char>>@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<unsigned char>>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
   v8 = *MEMORY[0x277D85DE8];
-  result = mlir::SparseElementsAttr::try_value_begin_impl<std::complex<unsigned char>>(a1, v7);
-  if (v7[48] == 1)
+  mlir::SparseElementsAttr::try_value_begin_impl<std::complex<unsigned char>>(a1, v6);
+  if (v7 == 1)
   {
-    v5 = mlir::detail::ElementsAttrTrait<mlir::DenseResourceElementsAttr>::getNumElements(a1) == 1;
-    mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<unsigned char> ()(long)>,std::complex<unsigned char>> &>(v5, v7, &v6);
+    v4 = mlir::detail::ElementsAttrTrait<mlir::DenseResourceElementsAttr>::getNumElements(a1) == 1;
+    mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<unsigned char> ()(long)>,std::complex<unsigned char>> &>(v4, v6, &v5);
   }
 
   *a2 = 0;
   a2[16] = 0;
-  return result;
 }
 
 void mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::getValueImpl<std::complex<unsigned short>,std::complex<unsigned int>,std::complex<unsigned long long>,std::complex<signed char>,std::complex<short>,std::complex<int>,std::complex<long long>,llvm::APFloat,float,double,std::complex<llvm::APFloat>,std::complex<float>,std::complex<double>,llvm::StringRef,std::integral_constant<BOOL,false>>(mlir::SparseElementsAttr *a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
@@ -2002,19 +2928,19 @@ LABEL_5:
   mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<unsigned int>>(a1, a3);
 }
 
-uint64_t mlir::SparseElementsAttr::try_value_begin_impl<std::complex<unsigned char>>@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void mlir::SparseElementsAttr::try_value_begin_impl<std::complex<unsigned char>>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v7[0] = *(*a1 + 32);
-  result = mlir::DenseElementsAttr::tryGetValues<std::complex<unsigned char>,unsigned char,void>(v7, v9);
-  if (v10)
+  v10 = *MEMORY[0x277D85DE8];
+  v6[0] = *(*a1 + 32);
+  mlir::DenseElementsAttr::tryGetValues<std::complex<unsigned char>,unsigned char,void>(v6, v8);
+  if (v9)
   {
-    v8[0] = *(v9 + 1);
-    *(v8 + 15) = v9[2];
+    v7[0] = *(v8 + 1);
+    *(v7 + 15) = v8[2];
     mlir::SparseElementsAttr::getFlattenedSparseIndices(a1, &__p);
-    if (v6 != __p)
+    if (v5 != __p)
     {
-      if (((v6 - __p) & 0x8000000000000000) == 0)
+      if (((v5 - __p) & 0x8000000000000000) == 0)
       {
         operator new();
       }
@@ -2027,10 +2953,9 @@ uint64_t mlir::SparseElementsAttr::try_value_begin_impl<std::complex<unsigned ch
 
   *a2 = 0;
   a2[48] = 0;
-  return result;
 }
 
-void mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<unsigned char> ()(long)>,std::complex<unsigned char>> &>(char a1@<W0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+void mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<unsigned char> ()(long)>,std::complex<unsigned char>> &>(char a1@<W0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
 {
   v7 = *MEMORY[0x277D85DE8];
   *a3 = 0;
@@ -2039,10 +2964,10 @@ void mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm
   v6 = 0;
   if (*(a2 + 40) == 1)
   {
-    v3 = *(a2 + 32);
+    v3 = a2[4];
     if (v3)
     {
-      if (v3 == a2 + 8)
+      if (v3 == a2 + 1)
       {
         v5 = v4;
         (*(*v3 + 24))(v3, v4);
@@ -2252,47 +3177,49 @@ void mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm:
   JUMPOUT(0x259C63180);
 }
 
-uint64_t mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<unsigned char> ()(long)>,std::complex<unsigned char>>,std::complex<unsigned char>>::at(uint64_t a1, uint64_t a2)
+void mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<unsigned char> ()(long)>,std::complex<unsigned char>>,std::complex<unsigned char>>::at(uint64_t a1, uint64_t a2)
 {
-  v6 = *(a1 + 8) + a2;
+  v5 = *(a1 + 8) + a2;
   v2 = *(a1 + 40);
   if (v2)
   {
-    return (*(*v2 + 48))(v2, &v6);
+    (*(*v2 + 48))(v2, &v5);
   }
 
-  v4 = std::__throw_bad_function_call[abi:nn200100]();
-  return mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<unsigned short>>(v4, v5);
+  else
+  {
+    v3 = std::__throw_bad_function_call[abi:nn200100]();
+    mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<unsigned short>>(v3, v4);
+  }
 }
 
-uint64_t mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<unsigned short>>@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<unsigned short>>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
   v8 = *MEMORY[0x277D85DE8];
-  result = mlir::SparseElementsAttr::try_value_begin_impl<std::complex<unsigned short>>(a1, v7);
-  if (v7[48] == 1)
+  mlir::SparseElementsAttr::try_value_begin_impl<std::complex<unsigned short>>(a1, v6);
+  if (v7 == 1)
   {
-    v5 = mlir::detail::ElementsAttrTrait<mlir::DenseResourceElementsAttr>::getNumElements(a1) == 1;
-    mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<unsigned short> ()(long)>,std::complex<unsigned short>> &>(v5, v7, &v6);
+    v4 = mlir::detail::ElementsAttrTrait<mlir::DenseResourceElementsAttr>::getNumElements(a1) == 1;
+    mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<unsigned short> ()(long)>,std::complex<unsigned short>> &>(v4, v6, &v5);
   }
 
   *a2 = 0;
   a2[16] = 0;
-  return result;
 }
 
-uint64_t mlir::SparseElementsAttr::try_value_begin_impl<std::complex<unsigned short>>@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void mlir::SparseElementsAttr::try_value_begin_impl<std::complex<unsigned short>>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v7[0] = *(*a1 + 32);
-  result = mlir::DenseElementsAttr::tryGetValues<std::complex<unsigned short>,unsigned short,void>(v7, v9);
-  if (v10)
+  v10 = *MEMORY[0x277D85DE8];
+  v6[0] = *(*a1 + 32);
+  mlir::DenseElementsAttr::tryGetValues<std::complex<unsigned short>,unsigned short,void>(v6, v8);
+  if (v9)
   {
-    v8[0] = *(v9 + 1);
-    *(v8 + 15) = v9[2];
+    v7[0] = *(v8 + 1);
+    *(v7 + 15) = v8[2];
     mlir::SparseElementsAttr::getFlattenedSparseIndices(a1, &__p);
-    if (v6 != __p)
+    if (v5 != __p)
     {
-      if (((v6 - __p) & 0x8000000000000000) == 0)
+      if (((v5 - __p) & 0x8000000000000000) == 0)
       {
         operator new();
       }
@@ -2305,10 +3232,9 @@ uint64_t mlir::SparseElementsAttr::try_value_begin_impl<std::complex<unsigned sh
 
   *a2 = 0;
   a2[48] = 0;
-  return result;
 }
 
-void mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<unsigned short> ()(long)>,std::complex<unsigned short>> &>(char a1@<W0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+void mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<unsigned short> ()(long)>,std::complex<unsigned short>> &>(char a1@<W0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
 {
   v7 = *MEMORY[0x277D85DE8];
   *a3 = 0;
@@ -2317,10 +3243,10 @@ void mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm
   v6 = 0;
   if (*(a2 + 40) == 1)
   {
-    v3 = *(a2 + 32);
+    v3 = a2[4];
     if (v3)
     {
-      if (v3 == a2 + 8)
+      if (v3 == a2 + 1)
       {
         v5 = v4;
         (*(*v3 + 24))(v3, v4);
@@ -2529,32 +3455,34 @@ void mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm:
   JUMPOUT(0x259C63180);
 }
 
-uint64_t mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<unsigned short> ()(long)>,std::complex<unsigned short>>,std::complex<unsigned short>>::at(uint64_t a1, uint64_t a2)
+void mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<unsigned short> ()(long)>,std::complex<unsigned short>>,std::complex<unsigned short>>::at(uint64_t a1, uint64_t a2)
 {
-  v6 = *(a1 + 8) + a2;
+  v5 = *(a1 + 8) + a2;
   v2 = *(a1 + 40);
   if (v2)
   {
-    return (*(*v2 + 48))(v2, &v6);
+    (*(*v2 + 48))(v2, &v5);
   }
 
-  v4 = std::__throw_bad_function_call[abi:nn200100]();
-  return mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<unsigned int>>(v4, v5);
+  else
+  {
+    v3 = std::__throw_bad_function_call[abi:nn200100]();
+    mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<unsigned int>>(v3, v4);
+  }
 }
 
-uint64_t mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<unsigned int>>@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<unsigned int>>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
   v8 = *MEMORY[0x277D85DE8];
-  result = mlir::SparseElementsAttr::try_value_begin_impl<std::complex<unsigned int>>(a1, v7);
-  if (v7[48] == 1)
+  mlir::SparseElementsAttr::try_value_begin_impl<std::complex<unsigned int>>(a1, v6);
+  if (v7 == 1)
   {
-    v5 = mlir::detail::ElementsAttrTrait<mlir::DenseResourceElementsAttr>::getNumElements(a1) == 1;
-    mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<unsigned int> ()(long)>,std::complex<unsigned int>> &>(v5, v7, &v6);
+    v4 = mlir::detail::ElementsAttrTrait<mlir::DenseResourceElementsAttr>::getNumElements(a1) == 1;
+    mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<unsigned int> ()(long)>,std::complex<unsigned int>> &>(v4, v6, &v5);
   }
 
   *a2 = 0;
   a2[16] = 0;
-  return result;
 }
 
 void mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::getValueImpl<std::complex<unsigned long long>,std::complex<signed char>,std::complex<short>,std::complex<int>,std::complex<long long>,llvm::APFloat,float,double,std::complex<llvm::APFloat>,std::complex<float>,std::complex<double>,llvm::StringRef,std::integral_constant<BOOL,false>>(mlir::SparseElementsAttr *a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
@@ -2612,19 +3540,19 @@ LABEL_5:
   mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<signed char>>(a1, a3);
 }
 
-uint64_t mlir::SparseElementsAttr::try_value_begin_impl<std::complex<unsigned int>>@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void mlir::SparseElementsAttr::try_value_begin_impl<std::complex<unsigned int>>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v7[0] = *(*a1 + 32);
-  result = mlir::DenseElementsAttr::tryGetValues<std::complex<unsigned int>,unsigned int,void>(v7, v9);
-  if (v10)
+  v10 = *MEMORY[0x277D85DE8];
+  v6[0] = *(*a1 + 32);
+  mlir::DenseElementsAttr::tryGetValues<std::complex<unsigned int>,unsigned int,void>(v6, v8);
+  if (v9)
   {
-    v8[0] = *(v9 + 1);
-    *(v8 + 15) = v9[2];
+    v7[0] = *(v8 + 1);
+    *(v7 + 15) = v8[2];
     mlir::SparseElementsAttr::getFlattenedSparseIndices(a1, &__p);
-    if (v6 != __p)
+    if (v5 != __p)
     {
-      if (((v6 - __p) & 0x8000000000000000) == 0)
+      if (((v5 - __p) & 0x8000000000000000) == 0)
       {
         operator new();
       }
@@ -2637,10 +3565,9 @@ uint64_t mlir::SparseElementsAttr::try_value_begin_impl<std::complex<unsigned in
 
   *a2 = 0;
   a2[48] = 0;
-  return result;
 }
 
-void mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<unsigned int> ()(long)>,std::complex<unsigned int>> &>(char a1@<W0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+void mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<unsigned int> ()(long)>,std::complex<unsigned int>> &>(char a1@<W0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
 {
   v7 = *MEMORY[0x277D85DE8];
   *a3 = 0;
@@ -2649,10 +3576,10 @@ void mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm
   v6 = 0;
   if (*(a2 + 40) == 1)
   {
-    v3 = *(a2 + 32);
+    v3 = a2[4];
     if (v3)
     {
-      if (v3 == a2 + 8)
+      if (v3 == a2 + 1)
       {
         v5 = v4;
         (*(*v3 + 24))(v3, v4);
@@ -2861,47 +3788,49 @@ void mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm:
   JUMPOUT(0x259C63180);
 }
 
-uint64_t mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<unsigned int> ()(long)>,std::complex<unsigned int>>,std::complex<unsigned int>>::at(uint64_t a1, uint64_t a2)
+void mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<unsigned int> ()(long)>,std::complex<unsigned int>>,std::complex<unsigned int>>::at(uint64_t a1, uint64_t a2)
 {
-  v6 = *(a1 + 8) + a2;
+  v5 = *(a1 + 8) + a2;
   v2 = *(a1 + 40);
   if (v2)
   {
-    return (*(*v2 + 48))(v2, &v6);
+    (*(*v2 + 48))(v2, &v5);
   }
 
-  v4 = std::__throw_bad_function_call[abi:nn200100]();
-  return mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<unsigned long long>>(v4, v5);
+  else
+  {
+    v3 = std::__throw_bad_function_call[abi:nn200100]();
+    mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<unsigned long long>>(v3, v4);
+  }
 }
 
-uint64_t mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<unsigned long long>>@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<unsigned long long>>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
   v8 = *MEMORY[0x277D85DE8];
-  result = mlir::SparseElementsAttr::try_value_begin_impl<std::complex<unsigned long long>>(a1, v7);
-  if (v7[48] == 1)
+  mlir::SparseElementsAttr::try_value_begin_impl<std::complex<unsigned long long>>(a1, v6);
+  if (v7 == 1)
   {
-    v5 = mlir::detail::ElementsAttrTrait<mlir::DenseResourceElementsAttr>::getNumElements(a1) == 1;
-    mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<unsigned long long> ()(long)>,std::complex<unsigned long long>> &>(v5, v7, &v6);
+    v4 = mlir::detail::ElementsAttrTrait<mlir::DenseResourceElementsAttr>::getNumElements(a1) == 1;
+    mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<unsigned long long> ()(long)>,std::complex<unsigned long long>> &>(v4, v6, &v5);
   }
 
   *a2 = 0;
   a2[16] = 0;
-  return result;
 }
 
-uint64_t mlir::SparseElementsAttr::try_value_begin_impl<std::complex<unsigned long long>>@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void mlir::SparseElementsAttr::try_value_begin_impl<std::complex<unsigned long long>>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v7[0] = *(*a1 + 32);
-  result = mlir::DenseElementsAttr::tryGetValues<std::complex<unsigned long long>,unsigned long long,void>(v7, v9);
-  if (v10)
+  v10 = *MEMORY[0x277D85DE8];
+  v6[0] = *(*a1 + 32);
+  mlir::DenseElementsAttr::tryGetValues<std::complex<unsigned long long>,unsigned long long,void>(v6, v8);
+  if (v9)
   {
-    v8[0] = *(v9 + 1);
-    *(v8 + 15) = v9[2];
+    v7[0] = *(v8 + 1);
+    *(v7 + 15) = v8[2];
     mlir::SparseElementsAttr::getFlattenedSparseIndices(a1, &__p);
-    if (v6 != __p)
+    if (v5 != __p)
     {
-      if (((v6 - __p) & 0x8000000000000000) == 0)
+      if (((v5 - __p) & 0x8000000000000000) == 0)
       {
         operator new();
       }
@@ -2914,10 +3843,9 @@ uint64_t mlir::SparseElementsAttr::try_value_begin_impl<std::complex<unsigned lo
 
   *a2 = 0;
   a2[48] = 0;
-  return result;
 }
 
-void mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<unsigned long long> ()(long)>,std::complex<unsigned long long>> &>(char a1@<W0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+void mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<unsigned long long> ()(long)>,std::complex<unsigned long long>> &>(char a1@<W0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
 {
   v7 = *MEMORY[0x277D85DE8];
   *a3 = 0;
@@ -2926,10 +3854,10 @@ void mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm
   v6 = 0;
   if (*(a2 + 40) == 1)
   {
-    v3 = *(a2 + 32);
+    v3 = a2[4];
     if (v3)
     {
-      if (v3 == a2 + 8)
+      if (v3 == a2 + 1)
       {
         v5 = v4;
         (*(*v3 + 24))(v3, v4);
@@ -3139,32 +4067,34 @@ void mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm:
   JUMPOUT(0x259C63180);
 }
 
-uint64_t mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<unsigned long long> ()(long)>,std::complex<unsigned long long>>,std::complex<unsigned long long>>::at(uint64_t a1, uint64_t a2)
+void mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<unsigned long long> ()(long)>,std::complex<unsigned long long>>,std::complex<unsigned long long>>::at(uint64_t a1, uint64_t a2)
 {
-  v6 = *(a1 + 8) + a2;
+  v5 = *(a1 + 8) + a2;
   v2 = *(a1 + 40);
   if (v2)
   {
-    return (*(*v2 + 48))(v2, &v6);
+    (*(*v2 + 48))(v2, &v5);
   }
 
-  v4 = std::__throw_bad_function_call[abi:nn200100]();
-  return mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<signed char>>(v4, v5);
+  else
+  {
+    v3 = std::__throw_bad_function_call[abi:nn200100]();
+    mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<signed char>>(v3, v4);
+  }
 }
 
-uint64_t mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<signed char>>@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<signed char>>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
   v8 = *MEMORY[0x277D85DE8];
-  result = mlir::SparseElementsAttr::try_value_begin_impl<std::complex<signed char>>(a1, v7);
-  if (v7[48] == 1)
+  mlir::SparseElementsAttr::try_value_begin_impl<std::complex<signed char>>(a1, v6);
+  if (v7 == 1)
   {
-    v5 = mlir::detail::ElementsAttrTrait<mlir::DenseResourceElementsAttr>::getNumElements(a1) == 1;
-    mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<signed char> ()(long)>,std::complex<signed char>> &>(v5, v7, &v6);
+    v4 = mlir::detail::ElementsAttrTrait<mlir::DenseResourceElementsAttr>::getNumElements(a1) == 1;
+    mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<signed char> ()(long)>,std::complex<signed char>> &>(v4, v6, &v5);
   }
 
   *a2 = 0;
   a2[16] = 0;
-  return result;
 }
 
 void mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::getValueImpl<std::complex<short>,std::complex<int>,std::complex<long long>,llvm::APFloat,float,double,std::complex<llvm::APFloat>,std::complex<float>,std::complex<double>,llvm::StringRef,std::integral_constant<BOOL,false>>(mlir::SparseElementsAttr *a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
@@ -3222,19 +4152,19 @@ LABEL_5:
   mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<int>>(a1, a3);
 }
 
-uint64_t mlir::SparseElementsAttr::try_value_begin_impl<std::complex<signed char>>@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void mlir::SparseElementsAttr::try_value_begin_impl<std::complex<signed char>>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v7[0] = *(*a1 + 32);
-  result = mlir::DenseElementsAttr::tryGetValues<std::complex<signed char>,signed char,void>(v7, v9);
-  if (v10)
+  v10 = *MEMORY[0x277D85DE8];
+  v6[0] = *(*a1 + 32);
+  mlir::DenseElementsAttr::tryGetValues<std::complex<signed char>,signed char,void>(v6, v8);
+  if (v9)
   {
-    v8[0] = *(v9 + 1);
-    *(v8 + 15) = v9[2];
+    v7[0] = *(v8 + 1);
+    *(v7 + 15) = v8[2];
     mlir::SparseElementsAttr::getFlattenedSparseIndices(a1, &__p);
-    if (v6 != __p)
+    if (v5 != __p)
     {
-      if (((v6 - __p) & 0x8000000000000000) == 0)
+      if (((v5 - __p) & 0x8000000000000000) == 0)
       {
         operator new();
       }
@@ -3247,10 +4177,9 @@ uint64_t mlir::SparseElementsAttr::try_value_begin_impl<std::complex<signed char
 
   *a2 = 0;
   a2[48] = 0;
-  return result;
 }
 
-void mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<signed char> ()(long)>,std::complex<signed char>> &>(char a1@<W0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+void mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<signed char> ()(long)>,std::complex<signed char>> &>(char a1@<W0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
 {
   v7 = *MEMORY[0x277D85DE8];
   *a3 = 0;
@@ -3259,10 +4188,10 @@ void mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm
   v6 = 0;
   if (*(a2 + 40) == 1)
   {
-    v3 = *(a2 + 32);
+    v3 = a2[4];
     if (v3)
     {
-      if (v3 == a2 + 8)
+      if (v3 == a2 + 1)
       {
         v5 = v4;
         (*(*v3 + 24))(v3, v4);
@@ -3472,47 +4401,49 @@ void mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm:
   JUMPOUT(0x259C63180);
 }
 
-uint64_t mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<signed char> ()(long)>,std::complex<signed char>>,std::complex<signed char>>::at(uint64_t a1, uint64_t a2)
+void mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<signed char> ()(long)>,std::complex<signed char>>,std::complex<signed char>>::at(uint64_t a1, uint64_t a2)
 {
-  v6 = *(a1 + 8) + a2;
+  v5 = *(a1 + 8) + a2;
   v2 = *(a1 + 40);
   if (v2)
   {
-    return (*(*v2 + 48))(v2, &v6);
+    (*(*v2 + 48))(v2, &v5);
   }
 
-  v4 = std::__throw_bad_function_call[abi:nn200100]();
-  return mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<short>>(v4, v5);
+  else
+  {
+    v3 = std::__throw_bad_function_call[abi:nn200100]();
+    mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<short>>(v3, v4);
+  }
 }
 
-uint64_t mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<short>>@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<short>>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
   v8 = *MEMORY[0x277D85DE8];
-  result = mlir::SparseElementsAttr::try_value_begin_impl<std::complex<short>>(a1, v7);
-  if (v7[48] == 1)
+  mlir::SparseElementsAttr::try_value_begin_impl<std::complex<short>>(a1, v6);
+  if (v7 == 1)
   {
-    v5 = mlir::detail::ElementsAttrTrait<mlir::DenseResourceElementsAttr>::getNumElements(a1) == 1;
-    mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<short> ()(long)>,std::complex<short>> &>(v5, v7, &v6);
+    v4 = mlir::detail::ElementsAttrTrait<mlir::DenseResourceElementsAttr>::getNumElements(a1) == 1;
+    mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<short> ()(long)>,std::complex<short>> &>(v4, v6, &v5);
   }
 
   *a2 = 0;
   a2[16] = 0;
-  return result;
 }
 
-uint64_t mlir::SparseElementsAttr::try_value_begin_impl<std::complex<short>>@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void mlir::SparseElementsAttr::try_value_begin_impl<std::complex<short>>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v7[0] = *(*a1 + 32);
-  result = mlir::DenseElementsAttr::tryGetValues<std::complex<short>,short,void>(v7, v9);
-  if (v10)
+  v10 = *MEMORY[0x277D85DE8];
+  v6[0] = *(*a1 + 32);
+  mlir::DenseElementsAttr::tryGetValues<std::complex<short>,short,void>(v6, v8);
+  if (v9)
   {
-    v8[0] = *(v9 + 1);
-    *(v8 + 15) = v9[2];
+    v7[0] = *(v8 + 1);
+    *(v7 + 15) = v8[2];
     mlir::SparseElementsAttr::getFlattenedSparseIndices(a1, &__p);
-    if (v6 != __p)
+    if (v5 != __p)
     {
-      if (((v6 - __p) & 0x8000000000000000) == 0)
+      if (((v5 - __p) & 0x8000000000000000) == 0)
       {
         operator new();
       }
@@ -3525,10 +4456,9 @@ uint64_t mlir::SparseElementsAttr::try_value_begin_impl<std::complex<short>>@<X0
 
   *a2 = 0;
   a2[48] = 0;
-  return result;
 }
 
-void mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<short> ()(long)>,std::complex<short>> &>(char a1@<W0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+void mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<short> ()(long)>,std::complex<short>> &>(char a1@<W0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
 {
   v7 = *MEMORY[0x277D85DE8];
   *a3 = 0;
@@ -3537,10 +4467,10 @@ void mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm
   v6 = 0;
   if (*(a2 + 40) == 1)
   {
-    v3 = *(a2 + 32);
+    v3 = a2[4];
     if (v3)
     {
-      if (v3 == a2 + 8)
+      if (v3 == a2 + 1)
       {
         v5 = v4;
         (*(*v3 + 24))(v3, v4);
@@ -3749,32 +4679,34 @@ void mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm:
   JUMPOUT(0x259C63180);
 }
 
-uint64_t mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<short> ()(long)>,std::complex<short>>,std::complex<short>>::at(uint64_t a1, uint64_t a2)
+void mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<short> ()(long)>,std::complex<short>>,std::complex<short>>::at(uint64_t a1, uint64_t a2)
 {
-  v6 = *(a1 + 8) + a2;
+  v5 = *(a1 + 8) + a2;
   v2 = *(a1 + 40);
   if (v2)
   {
-    return (*(*v2 + 48))(v2, &v6);
+    (*(*v2 + 48))(v2, &v5);
   }
 
-  v4 = std::__throw_bad_function_call[abi:nn200100]();
-  return mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<int>>(v4, v5);
+  else
+  {
+    v3 = std::__throw_bad_function_call[abi:nn200100]();
+    mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<int>>(v3, v4);
+  }
 }
 
-uint64_t mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<int>>@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<int>>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
   v8 = *MEMORY[0x277D85DE8];
-  result = mlir::SparseElementsAttr::try_value_begin_impl<std::complex<int>>(a1, v7);
-  if (v7[48] == 1)
+  mlir::SparseElementsAttr::try_value_begin_impl<std::complex<int>>(a1, v6);
+  if (v7 == 1)
   {
-    v5 = mlir::detail::ElementsAttrTrait<mlir::DenseResourceElementsAttr>::getNumElements(a1) == 1;
-    mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<int> ()(long)>,std::complex<int>> &>(v5, v7, &v6);
+    v4 = mlir::detail::ElementsAttrTrait<mlir::DenseResourceElementsAttr>::getNumElements(a1) == 1;
+    mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<int> ()(long)>,std::complex<int>> &>(v4, v6, &v5);
   }
 
   *a2 = 0;
   a2[16] = 0;
-  return result;
 }
 
 void mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::getValueImpl<std::complex<long long>,llvm::APFloat,float,double,std::complex<llvm::APFloat>,std::complex<float>,std::complex<double>,llvm::StringRef,std::integral_constant<BOOL,false>>(mlir::SparseElementsAttr *a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
@@ -3832,19 +4764,19 @@ LABEL_5:
   mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<llvm::APFloat>(a1, a3);
 }
 
-uint64_t mlir::SparseElementsAttr::try_value_begin_impl<std::complex<int>>@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void mlir::SparseElementsAttr::try_value_begin_impl<std::complex<int>>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v7[0] = *(*a1 + 32);
-  result = mlir::DenseElementsAttr::tryGetValues<std::complex<int>,int,void>(v7, v9);
-  if (v10)
+  v10 = *MEMORY[0x277D85DE8];
+  v6[0] = *(*a1 + 32);
+  mlir::DenseElementsAttr::tryGetValues<std::complex<int>,int,void>(v6, v8);
+  if (v9)
   {
-    v8[0] = *(v9 + 1);
-    *(v8 + 15) = v9[2];
+    v7[0] = *(v8 + 1);
+    *(v7 + 15) = v8[2];
     mlir::SparseElementsAttr::getFlattenedSparseIndices(a1, &__p);
-    if (v6 != __p)
+    if (v5 != __p)
     {
-      if (((v6 - __p) & 0x8000000000000000) == 0)
+      if (((v5 - __p) & 0x8000000000000000) == 0)
       {
         operator new();
       }
@@ -3857,10 +4789,9 @@ uint64_t mlir::SparseElementsAttr::try_value_begin_impl<std::complex<int>>@<X0>(
 
   *a2 = 0;
   a2[48] = 0;
-  return result;
 }
 
-void mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<int> ()(long)>,std::complex<int>> &>(char a1@<W0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+void mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<int> ()(long)>,std::complex<int>> &>(char a1@<W0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
 {
   v7 = *MEMORY[0x277D85DE8];
   *a3 = 0;
@@ -3869,10 +4800,10 @@ void mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm
   v6 = 0;
   if (*(a2 + 40) == 1)
   {
-    v3 = *(a2 + 32);
+    v3 = a2[4];
     if (v3)
     {
-      if (v3 == a2 + 8)
+      if (v3 == a2 + 1)
       {
         v5 = v4;
         (*(*v3 + 24))(v3, v4);
@@ -4081,47 +5012,49 @@ void mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm:
   JUMPOUT(0x259C63180);
 }
 
-uint64_t mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<int> ()(long)>,std::complex<int>>,std::complex<int>>::at(uint64_t a1, uint64_t a2)
+void mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<int> ()(long)>,std::complex<int>>,std::complex<int>>::at(uint64_t a1, uint64_t a2)
 {
-  v6 = *(a1 + 8) + a2;
+  v5 = *(a1 + 8) + a2;
   v2 = *(a1 + 40);
   if (v2)
   {
-    return (*(*v2 + 48))(v2, &v6);
+    (*(*v2 + 48))(v2, &v5);
   }
 
-  v4 = std::__throw_bad_function_call[abi:nn200100]();
-  return mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<long long>>(v4, v5);
+  else
+  {
+    v3 = std::__throw_bad_function_call[abi:nn200100]();
+    mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<long long>>(v3, v4);
+  }
 }
 
-uint64_t mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<long long>>@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<long long>>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
   v8 = *MEMORY[0x277D85DE8];
-  result = mlir::SparseElementsAttr::try_value_begin_impl<std::complex<long long>>(a1, v7);
-  if (v7[48] == 1)
+  mlir::SparseElementsAttr::try_value_begin_impl<std::complex<long long>>(a1, v6);
+  if (v7 == 1)
   {
-    v5 = mlir::detail::ElementsAttrTrait<mlir::DenseResourceElementsAttr>::getNumElements(a1) == 1;
-    mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<long long> ()(long)>,std::complex<long long>> &>(v5, v7, &v6);
+    v4 = mlir::detail::ElementsAttrTrait<mlir::DenseResourceElementsAttr>::getNumElements(a1) == 1;
+    mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<long long> ()(long)>,std::complex<long long>> &>(v4, v6, &v5);
   }
 
   *a2 = 0;
   a2[16] = 0;
-  return result;
 }
 
-uint64_t mlir::SparseElementsAttr::try_value_begin_impl<std::complex<long long>>@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void mlir::SparseElementsAttr::try_value_begin_impl<std::complex<long long>>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v7[0] = *(*a1 + 32);
-  result = mlir::DenseElementsAttr::tryGetValues<std::complex<long long>,long long,void>(v7, v9);
-  if (v10)
+  v10 = *MEMORY[0x277D85DE8];
+  v6[0] = *(*a1 + 32);
+  mlir::DenseElementsAttr::tryGetValues<std::complex<long long>,long long,void>(v6, v8);
+  if (v9)
   {
-    v8[0] = *(v9 + 1);
-    *(v8 + 15) = v9[2];
+    v7[0] = *(v8 + 1);
+    *(v7 + 15) = v8[2];
     mlir::SparseElementsAttr::getFlattenedSparseIndices(a1, &__p);
-    if (v6 != __p)
+    if (v5 != __p)
     {
-      if (((v6 - __p) & 0x8000000000000000) == 0)
+      if (((v5 - __p) & 0x8000000000000000) == 0)
       {
         operator new();
       }
@@ -4134,10 +5067,9 @@ uint64_t mlir::SparseElementsAttr::try_value_begin_impl<std::complex<long long>>
 
   *a2 = 0;
   a2[48] = 0;
-  return result;
 }
 
-void mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<long long> ()(long)>,std::complex<long long>> &>(char a1@<W0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+void mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<long long> ()(long)>,std::complex<long long>> &>(char a1@<W0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
 {
   v7 = *MEMORY[0x277D85DE8];
   *a3 = 0;
@@ -4146,10 +5078,10 @@ void mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm
   v6 = 0;
   if (*(a2 + 40) == 1)
   {
-    v3 = *(a2 + 32);
+    v3 = a2[4];
     if (v3)
     {
-      if (v3 == a2 + 8)
+      if (v3 == a2 + 1)
       {
         v5 = v4;
         (*(*v3 + 24))(v3, v4);
@@ -4377,9 +5309,9 @@ void mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm:
 
 void mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<llvm::APFloat>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   mlir::SparseElementsAttr::try_value_begin_impl<llvm::APFloat>(a1, v6);
-  if (v6[48] == 1)
+  if (v7 == 1)
   {
     v4 = mlir::detail::ElementsAttrTrait<mlir::DenseResourceElementsAttr>::getNumElements(a1) == 1;
     mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<llvm::APFloat ()(long)>,llvm::APFloat> &>(v4, v6, &v5);
@@ -4446,31 +5378,31 @@ LABEL_5:
 
 void mlir::SparseElementsAttr::try_value_begin_impl<llvm::APFloat>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
-  v22 = *MEMORY[0x277D85DE8];
-  *v19 = mlir::detail::ElementsAttrTrait<mlir::DenseResourceElementsAttr>::getElementType(a1);
-  FloatSemantics = mlir::FloatType::getFloatSemantics(v19);
-  v5 = llvm::APFloatBase::PPCDoubleDouble(FloatSemantics);
-  if (v5 == FloatSemantics)
+  v24 = *MEMORY[0x277D85DE8];
+  *v21 = mlir::detail::ElementsAttrTrait<mlir::DenseResourceElementsAttr>::getElementType(a1);
+  FloatSemantics = mlir::FloatType::getFloatSemantics(v21);
+  v7 = llvm::APFloatBase::PPCDoubleDouble(FloatSemantics);
+  if (v7 == FloatSemantics)
   {
-    llvm::detail::DoubleAPFloat::DoubleAPFloat(&v18, FloatSemantics);
+    llvm::detail::DoubleAPFloat::DoubleAPFloat(&v20, FloatSemantics);
   }
 
-  llvm::detail::IEEEFloat::IEEEFloat(&v18, FloatSemantics);
-  v15[0] = *(*a1 + 32);
-  mlir::DenseElementsAttr::tryGetFloatValues(v15, v19);
-  if (v21)
+  llvm::detail::IEEEFloat::IEEEFloat(&v20, FloatSemantics, v5, v6);
+  v17[0] = *(*a1 + 32);
+  mlir::DenseElementsAttr::tryGetFloatValues(v21, v17);
+  if (v23)
   {
-    v6 = v19[0];
-    v16 = *&v19[1];
-    v17[0] = *v20;
-    *(v17 + 15) = *&v20[15];
-    mlir::SparseElementsAttr::getFlattenedSparseIndices(a1, &v7);
+    v8 = v21[0];
+    v18 = *&v21[1];
+    v19[0] = *v22;
+    *(v19 + 15) = *&v22[15];
+    mlir::SparseElementsAttr::getFlattenedSparseIndices(a1, &v9);
     __p[1] = 0;
-    v10 = 0;
+    v12 = 0;
     __p[0] = 0;
-    if (v8 != v7)
+    if (v10 != v9)
     {
-      if (((v8 - v7) & 0x8000000000000000) == 0)
+      if (((v10 - v9) & 0x8000000000000000) == 0)
       {
         operator new();
       }
@@ -4478,38 +5410,38 @@ void mlir::SparseElementsAttr::try_value_begin_impl<llvm::APFloat>(mlir::SparseE
       std::string::__throw_length_error[abi:nn200100]();
     }
 
-    v11 = v6;
-    v12 = v16;
-    *v13 = v17[0];
-    *&v13[15] = *(v17 + 15);
-    if (v5 == v18.n128_u64[0])
+    v13 = v8;
+    v14 = v18;
+    *v15 = v19[0];
+    *&v15[15] = *(v19 + 15);
+    if (v7 == v20.n128_u64[0])
     {
-      llvm::detail::DoubleAPFloat::DoubleAPFloat(&v14, &v18);
+      llvm::detail::DoubleAPFloat::DoubleAPFloat(&v16, &v20);
     }
 
     else
     {
-      llvm::detail::IEEEFloat::IEEEFloat(&v14, &v18);
+      llvm::detail::IEEEFloat::IEEEFloat(&v16, &v20);
     }
 
-    v15[3] = 0;
+    v17[3] = 0;
     operator new();
   }
 
   *a2 = 0;
   a2[48] = 0;
-  if (v5 == v18.n128_u64[0])
+  if (v7 == v20.n128_u64[0])
   {
-    llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v18);
+    llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v20);
   }
 
   else
   {
-    llvm::detail::IEEEFloat::~IEEEFloat(&v18);
+    llvm::detail::IEEEFloat::~IEEEFloat(&v20);
   }
 }
 
-void mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<llvm::APFloat ()(long)>,llvm::APFloat> &>(char a1@<W0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+void mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<llvm::APFloat ()(long)>,llvm::APFloat> &>(char a1@<W0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
 {
   v7 = *MEMORY[0x277D85DE8];
   *a3 = 0;
@@ -4518,10 +5450,10 @@ void mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm
   v6 = 0;
   if (*(a2 + 40) == 1)
   {
-    v3 = *(a2 + 32);
+    v3 = a2[4];
     if (v3)
     {
-      if (v3 == a2 + 8)
+      if (v3 == a2 + 1)
       {
         v5 = v4;
         (*(*v3 + 24))(v3, v4);
@@ -4544,15 +5476,15 @@ void mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm
   operator new();
 }
 
-void *_ZNSt3__110__function6__funcIZNK4mlir18SparseElementsAttr20try_value_begin_implIN4llvm7APFloatEEENS5_9FailureOrINS5_15mapped_iteratorINS5_6detail15SafeIntIteratorIlLb0EEENS_8functionIFT_lEEEDTclclsr3stdE7declvalISF_EEdeclL_ZNS_7declvalB8nn200100ISB_EEDTclsr3stdE9__declvalISD_ELi0EEEvEEEEEEEENS2_6detail17ElementsAttrTraitIS3_E13OverloadTokenISD_EEEUllE_NS_9allocatorISQ_EEFS6_lEED1Ev(void *a1)
+llvm::APFloatBase *_ZNSt3__110__function6__funcIZNK4mlir18SparseElementsAttr20try_value_begin_implIN4llvm7APFloatEEENS5_9FailureOrINS5_15mapped_iteratorINS5_6detail15SafeIntIteratorIlLb0EEENS_8functionIFT_lEEEDTclclsr3stdE7declvalISF_EEdeclL_ZNS_7declvalB8nn200100ISB_EEDTclsr3stdE9__declvalISD_ELi0EEEvEEEEEEEENS2_6detail17ElementsAttrTraitIS3_E13OverloadTokenISD_EEEUllE_NS_9allocatorISQ_EEFS6_lEED1Ev(llvm::APFloatBase *a1)
 {
   *a1 = &unk_28689C078;
-  v2 = (a1 + 10);
-  v3 = a1[10];
+  v2 = (a1 + 80);
+  v3 = *(a1 + 10);
   if (llvm::APFloatBase::PPCDoubleDouble(a1) == v3)
   {
     llvm::detail::DoubleAPFloat::~DoubleAPFloat(v2);
-    v4 = a1[1];
+    v4 = *(a1 + 1);
     if (!v4)
     {
       return a1;
@@ -4562,26 +5494,26 @@ void *_ZNSt3__110__function6__funcIZNK4mlir18SparseElementsAttr20try_value_begin
   }
 
   llvm::detail::IEEEFloat::~IEEEFloat(v2);
-  v4 = a1[1];
+  v4 = *(a1 + 1);
   if (v4)
   {
 LABEL_3:
-    a1[2] = v4;
+    *(a1 + 2) = v4;
     operator delete(v4);
   }
 
   return a1;
 }
 
-void _ZNSt3__110__function6__funcIZNK4mlir18SparseElementsAttr20try_value_begin_implIN4llvm7APFloatEEENS5_9FailureOrINS5_15mapped_iteratorINS5_6detail15SafeIntIteratorIlLb0EEENS_8functionIFT_lEEEDTclclsr3stdE7declvalISF_EEdeclL_ZNS_7declvalB8nn200100ISB_EEDTclsr3stdE9__declvalISD_ELi0EEEvEEEEEEEENS2_6detail17ElementsAttrTraitIS3_E13OverloadTokenISD_EEEUllE_NS_9allocatorISQ_EEFS6_lEED0Ev(void *a1)
+void _ZNSt3__110__function6__funcIZNK4mlir18SparseElementsAttr20try_value_begin_implIN4llvm7APFloatEEENS5_9FailureOrINS5_15mapped_iteratorINS5_6detail15SafeIntIteratorIlLb0EEENS_8functionIFT_lEEEDTclclsr3stdE7declvalISF_EEdeclL_ZNS_7declvalB8nn200100ISB_EEDTclsr3stdE9__declvalISD_ELi0EEEvEEEEEEEENS2_6detail17ElementsAttrTraitIS3_E13OverloadTokenISD_EEEUllE_NS_9allocatorISQ_EEFS6_lEED0Ev(llvm::APFloatBase *a1)
 {
   *a1 = &unk_28689C078;
-  v2 = (a1 + 10);
-  v3 = a1[10];
+  v2 = (a1 + 80);
+  v3 = *(a1 + 10);
   if (llvm::APFloatBase::PPCDoubleDouble(a1) == v3)
   {
     llvm::detail::DoubleAPFloat::~DoubleAPFloat(v2);
-    v4 = a1[1];
+    v4 = *(a1 + 1);
     if (!v4)
     {
 LABEL_4:
@@ -4593,26 +5525,26 @@ LABEL_4:
   else
   {
     llvm::detail::IEEEFloat::~IEEEFloat(v2);
-    v4 = a1[1];
+    v4 = *(a1 + 1);
     if (!v4)
     {
       goto LABEL_4;
     }
   }
 
-  a1[2] = v4;
+  *(a1 + 2) = v4;
   operator delete(v4);
   goto LABEL_4;
 }
 
-void *_ZNKSt3__110__function6__funcIZNK4mlir18SparseElementsAttr20try_value_begin_implIN4llvm7APFloatEEENS5_9FailureOrINS5_15mapped_iteratorINS5_6detail15SafeIntIteratorIlLb0EEENS_8functionIFT_lEEEDTclclsr3stdE7declvalISF_EEdeclL_ZNS_7declvalB8nn200100ISB_EEDTclsr3stdE9__declvalISD_ELi0EEEvEEEEEEEENS2_6detail17ElementsAttrTraitIS3_E13OverloadTokenISD_EEEUllE_NS_9allocatorISQ_EEFS6_lEE7__cloneEPNS0_6__baseIST_EE(uint64_t a1, uint64_t a2)
+void *_ZNKSt3__110__function6__funcIZNK4mlir18SparseElementsAttr20try_value_begin_implIN4llvm7APFloatEEENS5_9FailureOrINS5_15mapped_iteratorINS5_6detail15SafeIntIteratorIlLb0EEENS_8functionIFT_lEEEDTclclsr3stdE7declvalISF_EEdeclL_ZNS_7declvalB8nn200100ISB_EEDTclsr3stdE9__declvalISD_ELi0EEEvEEEEEEEENS2_6detail17ElementsAttrTraitIS3_E13OverloadTokenISD_EEEUllE_NS_9allocatorISQ_EEFS6_lEE7__cloneEPNS0_6__baseIST_EE(llvm::APFloatBase *a1, uint64_t a2)
 {
   *a2 = &unk_28689C078;
   *(a2 + 8) = 0;
   *(a2 + 16) = 0;
   *(a2 + 24) = 0;
-  v4 = *(a1 + 8);
-  v3 = *(a1 + 16);
+  v4 = *(a1 + 1);
+  v3 = *(a1 + 2);
   if (v3 != v4)
   {
     if (((v3 - v4) & 0x8000000000000000) == 0)
@@ -4623,12 +5555,12 @@ void *_ZNKSt3__110__function6__funcIZNK4mlir18SparseElementsAttr20try_value_begi
     std::string::__throw_length_error[abi:nn200100]();
   }
 
-  v5 = *(a1 + 32);
-  v6 = *(a1 + 48);
-  *(a2 + 64) = *(a1 + 64);
+  v5 = *(a1 + 2);
+  v6 = *(a1 + 3);
+  *(a2 + 64) = *(a1 + 8);
   *(a2 + 32) = v5;
   *(a2 + 48) = v6;
-  v8 = *(a1 + 80);
+  v8 = *(a1 + 10);
   v7 = (a1 + 80);
   if (llvm::APFloatBase::PPCDoubleDouble(a1) == v8)
   {
@@ -4643,14 +5575,14 @@ void *_ZNKSt3__110__function6__funcIZNK4mlir18SparseElementsAttr20try_value_begi
   }
 }
 
-void _ZNSt3__110__function6__funcIZNK4mlir18SparseElementsAttr20try_value_begin_implIN4llvm7APFloatEEENS5_9FailureOrINS5_15mapped_iteratorINS5_6detail15SafeIntIteratorIlLb0EEENS_8functionIFT_lEEEDTclclsr3stdE7declvalISF_EEdeclL_ZNS_7declvalB8nn200100ISB_EEDTclsr3stdE9__declvalISD_ELi0EEEvEEEEEEEENS2_6detail17ElementsAttrTraitIS3_E13OverloadTokenISD_EEEUllE_NS_9allocatorISQ_EEFS6_lEE7destroyEv(void *a1)
+void _ZNSt3__110__function6__funcIZNK4mlir18SparseElementsAttr20try_value_begin_implIN4llvm7APFloatEEENS5_9FailureOrINS5_15mapped_iteratorINS5_6detail15SafeIntIteratorIlLb0EEENS_8functionIFT_lEEEDTclclsr3stdE7declvalISF_EEdeclL_ZNS_7declvalB8nn200100ISB_EEDTclsr3stdE9__declvalISD_ELi0EEEvEEEEEEEENS2_6detail17ElementsAttrTraitIS3_E13OverloadTokenISD_EEEUllE_NS_9allocatorISQ_EEFS6_lEE7destroyEv(llvm::APFloatBase *a1)
 {
-  v2 = (a1 + 10);
-  v3 = a1[10];
+  v2 = (a1 + 80);
+  v3 = *(a1 + 10);
   if (llvm::APFloatBase::PPCDoubleDouble(a1) == v3)
   {
     llvm::detail::DoubleAPFloat::~DoubleAPFloat(v2);
-    v4 = a1[1];
+    v4 = *(a1 + 1);
     if (!v4)
     {
       return;
@@ -4660,26 +5592,26 @@ void _ZNSt3__110__function6__funcIZNK4mlir18SparseElementsAttr20try_value_begin_
   else
   {
     llvm::detail::IEEEFloat::~IEEEFloat(v2);
-    v4 = a1[1];
+    v4 = *(a1 + 1);
     if (!v4)
     {
       return;
     }
   }
 
-  a1[2] = v4;
+  *(a1 + 2) = v4;
 
   operator delete(v4);
 }
 
-void _ZNSt3__110__function6__funcIZNK4mlir18SparseElementsAttr20try_value_begin_implIN4llvm7APFloatEEENS5_9FailureOrINS5_15mapped_iteratorINS5_6detail15SafeIntIteratorIlLb0EEENS_8functionIFT_lEEEDTclclsr3stdE7declvalISF_EEdeclL_ZNS_7declvalB8nn200100ISB_EEDTclsr3stdE9__declvalISD_ELi0EEEvEEEEEEEENS2_6detail17ElementsAttrTraitIS3_E13OverloadTokenISD_EEEUllE_NS_9allocatorISQ_EEFS6_lEE18destroy_deallocateEv(void *a1)
+void _ZNSt3__110__function6__funcIZNK4mlir18SparseElementsAttr20try_value_begin_implIN4llvm7APFloatEEENS5_9FailureOrINS5_15mapped_iteratorINS5_6detail15SafeIntIteratorIlLb0EEENS_8functionIFT_lEEEDTclclsr3stdE7declvalISF_EEdeclL_ZNS_7declvalB8nn200100ISB_EEDTclsr3stdE9__declvalISD_ELi0EEEvEEEEEEEENS2_6detail17ElementsAttrTraitIS3_E13OverloadTokenISD_EEEUllE_NS_9allocatorISQ_EEFS6_lEE18destroy_deallocateEv(llvm::APFloatBase *a1)
 {
-  v2 = (a1 + 10);
-  v3 = a1[10];
+  v2 = (a1 + 80);
+  v3 = *(a1 + 10);
   if (llvm::APFloatBase::PPCDoubleDouble(a1) != v3)
   {
     llvm::detail::IEEEFloat::~IEEEFloat(v2);
-    v4 = a1[1];
+    v4 = *(a1 + 1);
     if (!v4)
     {
       goto LABEL_4;
@@ -4689,11 +5621,11 @@ void _ZNSt3__110__function6__funcIZNK4mlir18SparseElementsAttr20try_value_begin_
   }
 
   llvm::detail::DoubleAPFloat::~DoubleAPFloat(v2);
-  v4 = a1[1];
+  v4 = *(a1 + 1);
   if (v4)
   {
 LABEL_3:
-    a1[2] = v4;
+    *(a1 + 2) = v4;
     operator delete(v4);
   }
 
@@ -4823,47 +5755,49 @@ void mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm:
   JUMPOUT(0x259C63180);
 }
 
-unint64_t mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<llvm::APFloat ()(long)>,llvm::APFloat>,llvm::APFloat>::at(uint64_t a1, uint64_t a2)
+void mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<llvm::APFloat ()(long)>,llvm::APFloat>,llvm::APFloat>::at(uint64_t a1, uint64_t a2)
 {
-  v6 = *(a1 + 8) + a2;
+  v5 = *(a1 + 8) + a2;
   v2 = *(a1 + 40);
   if (v2)
   {
-    return (*(*v2 + 48))(v2, &v6);
+    (*(*v2 + 48))(v2, &v5);
   }
 
-  v4 = std::__throw_bad_function_call[abi:nn200100]();
-  return mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<float>(v4, v5);
+  else
+  {
+    v3 = std::__throw_bad_function_call[abi:nn200100]();
+    mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<float>(v3, v4);
+  }
 }
 
-unint64_t mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<float>@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<float>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
   v8 = *MEMORY[0x277D85DE8];
-  result = mlir::SparseElementsAttr::try_value_begin_impl<float>(a1, v7);
-  if (v7[48] == 1)
+  mlir::SparseElementsAttr::try_value_begin_impl<float>(a1, v6);
+  if (v7 == 1)
   {
-    v5 = mlir::detail::ElementsAttrTrait<mlir::DenseResourceElementsAttr>::getNumElements(a1) == 1;
-    mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<float ()(long)>,float> &>(v5, v7, &v6);
+    v4 = mlir::detail::ElementsAttrTrait<mlir::DenseResourceElementsAttr>::getNumElements(a1) == 1;
+    mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<float ()(long)>,float> &>(v4, v6, &v5);
   }
 
   *a2 = 0;
   a2[16] = 0;
-  return result;
 }
 
-unint64_t mlir::SparseElementsAttr::try_value_begin_impl<float>@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void mlir::SparseElementsAttr::try_value_begin_impl<float>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v7[0] = *(*a1 + 32);
-  result = mlir::DenseElementsAttr::tryGetValues<float,void>(v7, v9);
-  if (v10)
+  v10 = *MEMORY[0x277D85DE8];
+  v6[0] = *(*a1 + 32);
+  mlir::DenseElementsAttr::tryGetValues<float,void>(v6, v8);
+  if (v9)
   {
-    v8[0] = *(v9 + 1);
-    *(v8 + 15) = v9[2];
+    v7[0] = *(v8 + 1);
+    *(v7 + 15) = v8[2];
     mlir::SparseElementsAttr::getFlattenedSparseIndices(a1, &__p);
-    if (v6 != __p)
+    if (v5 != __p)
     {
-      if (((v6 - __p) & 0x8000000000000000) == 0)
+      if (((v5 - __p) & 0x8000000000000000) == 0)
       {
         operator new();
       }
@@ -4876,10 +5810,9 @@ unint64_t mlir::SparseElementsAttr::try_value_begin_impl<float>@<X0>(mlir::Spars
 
   *a2 = 0;
   a2[48] = 0;
-  return result;
 }
 
-void mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<float ()(long)>,float> &>(char a1@<W0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+void mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<float ()(long)>,float> &>(char a1@<W0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
 {
   v7 = *MEMORY[0x277D85DE8];
   *a3 = 0;
@@ -4888,10 +5821,10 @@ void mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm
   v6 = 0;
   if (*(a2 + 40) == 1)
   {
-    v3 = *(a2 + 32);
+    v3 = a2[4];
     if (v3)
     {
-      if (v3 == a2 + 8)
+      if (v3 == a2 + 1)
       {
         v5 = v4;
         (*(*v3 + 24))(v3, v4);
@@ -5100,32 +6033,34 @@ void mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm:
   JUMPOUT(0x259C63180);
 }
 
-unint64_t mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<float ()(long)>,float>,float>::at(uint64_t a1, uint64_t a2)
+void mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<float ()(long)>,float>,float>::at(uint64_t a1, uint64_t a2)
 {
-  v6 = *(a1 + 8) + a2;
+  v5 = *(a1 + 8) + a2;
   v2 = *(a1 + 40);
   if (v2)
   {
-    return (*(*v2 + 48))(v2, &v6);
+    (*(*v2 + 48))(v2, &v5);
   }
 
-  v4 = std::__throw_bad_function_call[abi:nn200100]();
-  return mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<double>(v4, v5);
+  else
+  {
+    v3 = std::__throw_bad_function_call[abi:nn200100]();
+    mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<double>(v3, v4);
+  }
 }
 
-unint64_t mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<double>@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<double>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
   v8 = *MEMORY[0x277D85DE8];
-  result = mlir::SparseElementsAttr::try_value_begin_impl<double>(a1, v7);
-  if (v7[48] == 1)
+  mlir::SparseElementsAttr::try_value_begin_impl<double>(a1, v6);
+  if (v7 == 1)
   {
-    v5 = mlir::detail::ElementsAttrTrait<mlir::DenseResourceElementsAttr>::getNumElements(a1) == 1;
-    mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<double ()(long)>,double> &>(v5, v7, &v6);
+    v4 = mlir::detail::ElementsAttrTrait<mlir::DenseResourceElementsAttr>::getNumElements(a1) == 1;
+    mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<double ()(long)>,double> &>(v4, v6, &v5);
   }
 
   *a2 = 0;
   a2[16] = 0;
-  return result;
 }
 
 void mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::getValueImpl<std::complex<llvm::APFloat>,std::complex<float>,std::complex<double>,llvm::StringRef,std::integral_constant<BOOL,false>>(mlir::SparseElementsAttr *a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
@@ -5183,19 +6118,19 @@ LABEL_5:
   mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<float>>(a1, a3);
 }
 
-unint64_t mlir::SparseElementsAttr::try_value_begin_impl<double>@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void mlir::SparseElementsAttr::try_value_begin_impl<double>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v7[0] = *(*a1 + 32);
-  result = mlir::DenseElementsAttr::tryGetValues<double,void>(v7, v9);
-  if (v10)
+  v10 = *MEMORY[0x277D85DE8];
+  v6[0] = *(*a1 + 32);
+  mlir::DenseElementsAttr::tryGetValues<double,void>(v6, v8);
+  if (v9)
   {
-    v8[0] = *(v9 + 1);
-    *(v8 + 15) = v9[2];
+    v7[0] = *(v8 + 1);
+    *(v7 + 15) = v8[2];
     mlir::SparseElementsAttr::getFlattenedSparseIndices(a1, &__p);
-    if (v6 != __p)
+    if (v5 != __p)
     {
-      if (((v6 - __p) & 0x8000000000000000) == 0)
+      if (((v5 - __p) & 0x8000000000000000) == 0)
       {
         operator new();
       }
@@ -5208,10 +6143,9 @@ unint64_t mlir::SparseElementsAttr::try_value_begin_impl<double>@<X0>(mlir::Spar
 
   *a2 = 0;
   a2[48] = 0;
-  return result;
 }
 
-void mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<double ()(long)>,double> &>(char a1@<W0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+void mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<double ()(long)>,double> &>(char a1@<W0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
 {
   v7 = *MEMORY[0x277D85DE8];
   *a3 = 0;
@@ -5220,10 +6154,10 @@ void mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm
   v6 = 0;
   if (*(a2 + 40) == 1)
   {
-    v3 = *(a2 + 32);
+    v3 = a2[4];
     if (v3)
     {
-      if (v3 == a2 + 8)
+      if (v3 == a2 + 1)
       {
         v5 = v4;
         (*(*v3 + 24))(v3, v4);
@@ -5450,9 +6384,9 @@ void mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm:
 
 void mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<llvm::APFloat>>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   mlir::SparseElementsAttr::try_value_begin_impl<std::complex<llvm::APFloat>>(a1, v6);
-  if (v6[48] == 1)
+  if (v7 == 1)
   {
     v4 = mlir::detail::ElementsAttrTrait<mlir::DenseResourceElementsAttr>::getNumElements(a1) == 1;
     mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<llvm::APFloat> ()(long)>,std::complex<llvm::APFloat>> &>(v4, v6, &v5);
@@ -5464,20 +6398,18 @@ void mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult
 
 void mlir::SparseElementsAttr::try_value_begin_impl<std::complex<llvm::APFloat>>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
-  v29 = *MEMORY[0x277D85DE8];
-  mlir::SparseElementsAttr::getZeroValue<std::complex<llvm::APFloat>>(a1, v23);
-  v20[0] = *(*a1 + 32);
-  ComplexFloatValues = mlir::DenseElementsAttr::tryGetComplexFloatValues(v20, v26);
-  if (v28)
+  v27 = *MEMORY[0x277D85DE8];
+  mlir::SparseElementsAttr::getZeroValue<std::complex<llvm::APFloat>>(a1, &v21);
+  v18[0] = *(*a1 + 32);
+  ComplexFloatValues = mlir::DenseElementsAttr::tryGetComplexFloatValues(v24, v18);
+  if (v26)
   {
-    v5 = v26[0];
-    v21 = *&v26[1];
-    v22[0] = *v27;
-    *(v22 + 15) = *&v27[15];
+    v5 = v24[0];
+    v19 = *&v24[1];
+    v20[0] = *v25;
+    *(v20 + 15) = *&v25[15];
     mlir::SparseElementsAttr::getFlattenedSparseIndices(a1, &v10);
-    v13 = 0;
-    v14 = 0;
-    __p = 0;
+    memset(__p, 0, sizeof(__p));
     if (v11 != v10)
     {
       if (((v11 - v10) & 0x8000000000000000) == 0)
@@ -5488,62 +6420,62 @@ void mlir::SparseElementsAttr::try_value_begin_impl<std::complex<llvm::APFloat>>
       std::string::__throw_length_error[abi:nn200100]();
     }
 
-    v15 = v5;
-    v16 = v21;
-    *v17 = v22[0];
-    *&v17[15] = *(v22 + 15);
-    v7 = v24[0].n128_u64[0];
+    v13 = v5;
+    v14 = v19;
+    *v15 = v20[0];
+    *&v15[15] = *(v20 + 15);
+    v7 = v22[0].n128_u64[0];
     v8 = llvm::APFloatBase::PPCDoubleDouble(v6);
     if (v8 == v7)
     {
-      llvm::detail::DoubleAPFloat::DoubleAPFloat(v18, v24);
+      llvm::detail::DoubleAPFloat::DoubleAPFloat(v16, v22);
     }
 
     else
     {
-      llvm::detail::IEEEFloat::IEEEFloat(v18, v24);
+      llvm::detail::IEEEFloat::IEEEFloat(v16, v22);
     }
 
-    if (v8 == v25.n128_u64[0])
+    if (v8 == v23.n128_u64[0])
     {
-      llvm::detail::DoubleAPFloat::DoubleAPFloat(&v19, &v25);
+      llvm::detail::DoubleAPFloat::DoubleAPFloat(&v17, &v23);
     }
 
     else
     {
-      llvm::detail::IEEEFloat::IEEEFloat(&v19, &v25);
+      llvm::detail::IEEEFloat::IEEEFloat(&v17, &v23);
     }
 
-    _ZNSt3__110__function12__value_funcIFNS_7complexIN4llvm7APFloatEEElEEC2B8nn200100IZNK4mlir18SparseElementsAttr20try_value_begin_implIS5_EENS3_9FailureOrINS3_15mapped_iteratorINS3_6detail15SafeIntIteratorIlLb0EEENS_8functionIFT_lEEEDTclclsr3stdE7declvalISK_EEdeclL_ZNS_7declvalB8nn200100ISG_EEDTclsr3stdE9__declvalISI_ELi0EEEvEEEEEEEENS9_6detail17ElementsAttrTraitISA_E13OverloadTokenISI_EEEUllE_NS_9allocatorISV_EEEEOSI_RKT0_(v20);
+    _ZNSt3__110__function12__value_funcIFNS_7complexIN4llvm7APFloatEEElEEC2B8nn200100IZNK4mlir18SparseElementsAttr20try_value_begin_implIS5_EENS3_9FailureOrINS3_15mapped_iteratorINS3_6detail15SafeIntIteratorIlLb0EEENS_8functionIFT_lEEEDTclclsr3stdE7declvalISK_EEdeclL_ZNS_7declvalB8nn200100ISG_EEDTclsr3stdE9__declvalISI_ELi0EEEvEEEEEEEENS9_6detail17ElementsAttrTraitISA_E13OverloadTokenISI_EEEUllE_NS_9allocatorISV_EEEEOSI_RKT0_(v18, __p);
   }
 
   *a2 = 0;
   a2[48] = 0;
   v9 = llvm::APFloatBase::PPCDoubleDouble(ComplexFloatValues);
-  if (v9 == v25.n128_u64[0])
+  if (v9 == v23.n128_u64[0])
   {
-    llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v25);
-    if (v9 != v24[0].n128_u64[0])
+    llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v23);
+    if (v9 != v22[0].n128_u64[0])
     {
       goto LABEL_15;
     }
 
 LABEL_18:
-    llvm::detail::DoubleAPFloat::~DoubleAPFloat(v24);
+    llvm::detail::DoubleAPFloat::~DoubleAPFloat(v22);
     return;
   }
 
-  llvm::detail::IEEEFloat::~IEEEFloat(&v25);
-  if (v9 == v24[0].n128_u64[0])
+  llvm::detail::IEEEFloat::~IEEEFloat(&v23);
+  if (v9 == v22[0].n128_u64[0])
   {
     goto LABEL_18;
   }
 
 LABEL_15:
-  llvm::detail::IEEEFloat::~IEEEFloat(v24);
+  llvm::detail::IEEEFloat::~IEEEFloat(v22);
 }
 
-void mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<llvm::APFloat> ()(long)>,std::complex<llvm::APFloat>> &>(char a1@<W0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+void mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<llvm::APFloat> ()(long)>,std::complex<llvm::APFloat>> &>(char a1@<W0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
 {
   v7 = *MEMORY[0x277D85DE8];
   *a3 = 0;
@@ -5552,10 +6484,10 @@ void mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm
   v6 = 0;
   if (*(a2 + 40) == 1)
   {
-    v3 = *(a2 + 32);
+    v3 = a2[4];
     if (v3)
     {
-      if (v3 == a2 + 8)
+      if (v3 == a2 + 1)
       {
         v5 = v4;
         (*(*v3 + 24))(v3, v4);
@@ -5580,74 +6512,74 @@ void mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm
 
 void mlir::SparseElementsAttr::getZeroValue<std::complex<llvm::APFloat>>(void **a1@<X0>, uint64_t a2@<X8>)
 {
-  v8[3] = *MEMORY[0x277D85DE8];
+  v10[3] = *MEMORY[0x277D85DE8];
   ElementType = mlir::detail::ElementsAttrTrait<mlir::DenseResourceElementsAttr>::getElementType(a1);
   FloatSemantics = mlir::FloatType::getFloatSemantics(&ElementType);
-  v4 = llvm::APFloatBase::PPCDoubleDouble(FloatSemantics);
-  if (v4 == FloatSemantics)
+  v6 = llvm::APFloatBase::PPCDoubleDouble(FloatSemantics);
+  if (v6 == FloatSemantics)
   {
-    llvm::detail::DoubleAPFloat::DoubleAPFloat(v8, FloatSemantics);
+    llvm::detail::DoubleAPFloat::DoubleAPFloat(v10, FloatSemantics);
   }
 
-  llvm::detail::IEEEFloat::IEEEFloat(v8, FloatSemantics);
-  v5 = (a2 + 8);
-  if (v4 != v8[0])
+  llvm::detail::IEEEFloat::IEEEFloat(v10, FloatSemantics, v4, v5);
+  v7 = (a2 + 8);
+  if (v6 != v10[0])
   {
-    llvm::detail::IEEEFloat::IEEEFloat(v5, v8);
-    v6 = (a2 + 40);
-    if (v4 != v8[0])
+    llvm::detail::IEEEFloat::IEEEFloat(v7, v10);
+    v8 = (a2 + 40);
+    if (v6 != v10[0])
     {
       goto LABEL_4;
     }
 
 LABEL_9:
-    llvm::detail::DoubleAPFloat::DoubleAPFloat(v6, v8);
-    if (v4 != v8[0])
+    llvm::detail::DoubleAPFloat::DoubleAPFloat(v8, v10);
+    if (v6 != v10[0])
     {
       goto LABEL_5;
     }
 
 LABEL_10:
-    llvm::detail::DoubleAPFloat::~DoubleAPFloat(v8);
+    llvm::detail::DoubleAPFloat::~DoubleAPFloat(v10);
     return;
   }
 
-  llvm::detail::DoubleAPFloat::DoubleAPFloat(v5, v8);
-  v6 = (a2 + 40);
-  if (v4 == v8[0])
+  llvm::detail::DoubleAPFloat::DoubleAPFloat(v7, v10);
+  v8 = (a2 + 40);
+  if (v6 == v10[0])
   {
     goto LABEL_9;
   }
 
 LABEL_4:
-  llvm::detail::IEEEFloat::IEEEFloat(v6, v8);
-  if (v4 == v8[0])
+  llvm::detail::IEEEFloat::IEEEFloat(v8, v10);
+  if (v6 == v10[0])
   {
     goto LABEL_10;
   }
 
 LABEL_5:
-  llvm::detail::IEEEFloat::~IEEEFloat(v8);
+  llvm::detail::IEEEFloat::~IEEEFloat(v10);
 }
 
-void *_ZNSt3__110__function6__funcIZNK4mlir18SparseElementsAttr20try_value_begin_implINS_7complexIN4llvm7APFloatEEEEENS6_9FailureOrINS6_15mapped_iteratorINS6_6detail15SafeIntIteratorIlLb0EEENS_8functionIFT_lEEEDTclclsr3stdE7declvalISH_EEdeclL_ZNS_7declvalB8nn200100ISD_EEDTclsr3stdE9__declvalISF_ELi0EEEvEEEEEEEENS2_6detail17ElementsAttrTraitIS3_E13OverloadTokenISF_EEEUllE_NS_9allocatorISS_EEFS8_lEED1Ev(void *a1)
+llvm::APFloatBase *_ZNSt3__110__function6__funcIZNK4mlir18SparseElementsAttr20try_value_begin_implINS_7complexIN4llvm7APFloatEEEEENS6_9FailureOrINS6_15mapped_iteratorINS6_6detail15SafeIntIteratorIlLb0EEENS_8functionIFT_lEEEDTclclsr3stdE7declvalISH_EEdeclL_ZNS_7declvalB8nn200100ISD_EEDTclsr3stdE9__declvalISF_ELi0EEEvEEEEEEEENS2_6detail17ElementsAttrTraitIS3_E13OverloadTokenISF_EEEUllE_NS_9allocatorISS_EEFS8_lEED1Ev(llvm::APFloatBase *a1)
 {
   *a1 = &unk_28689C330;
-  v2 = (a1 + 14);
-  v3 = a1[14];
+  v2 = (a1 + 112);
+  v3 = *(a1 + 14);
   v4 = llvm::APFloatBase::PPCDoubleDouble(a1);
   if (v4 != v3)
   {
     llvm::detail::IEEEFloat::~IEEEFloat(v2);
-    v5 = (a1 + 10);
-    if (v4 != a1[10])
+    v5 = (a1 + 80);
+    if (v4 != *(a1 + 10))
     {
       goto LABEL_3;
     }
 
 LABEL_7:
     llvm::detail::DoubleAPFloat::~DoubleAPFloat(v5);
-    v6 = a1[1];
+    v6 = *(a1 + 1);
     if (!v6)
     {
       return a1;
@@ -5657,40 +6589,40 @@ LABEL_7:
   }
 
   llvm::detail::DoubleAPFloat::~DoubleAPFloat(v2);
-  v5 = (a1 + 10);
-  if (v4 == a1[10])
+  v5 = (a1 + 80);
+  if (v4 == *(a1 + 10))
   {
     goto LABEL_7;
   }
 
 LABEL_3:
   llvm::detail::IEEEFloat::~IEEEFloat(v5);
-  v6 = a1[1];
+  v6 = *(a1 + 1);
   if (v6)
   {
 LABEL_4:
-    a1[2] = v6;
+    *(a1 + 2) = v6;
     operator delete(v6);
   }
 
   return a1;
 }
 
-void _ZNSt3__110__function6__funcIZNK4mlir18SparseElementsAttr20try_value_begin_implINS_7complexIN4llvm7APFloatEEEEENS6_9FailureOrINS6_15mapped_iteratorINS6_6detail15SafeIntIteratorIlLb0EEENS_8functionIFT_lEEEDTclclsr3stdE7declvalISH_EEdeclL_ZNS_7declvalB8nn200100ISD_EEDTclsr3stdE9__declvalISF_ELi0EEEvEEEEEEEENS2_6detail17ElementsAttrTraitIS3_E13OverloadTokenISF_EEEUllE_NS_9allocatorISS_EEFS8_lEED0Ev(void *a1)
+void _ZNSt3__110__function6__funcIZNK4mlir18SparseElementsAttr20try_value_begin_implINS_7complexIN4llvm7APFloatEEEEENS6_9FailureOrINS6_15mapped_iteratorINS6_6detail15SafeIntIteratorIlLb0EEENS_8functionIFT_lEEEDTclclsr3stdE7declvalISH_EEdeclL_ZNS_7declvalB8nn200100ISD_EEDTclsr3stdE9__declvalISF_ELi0EEEvEEEEEEEENS2_6detail17ElementsAttrTraitIS3_E13OverloadTokenISF_EEEUllE_NS_9allocatorISS_EEFS8_lEED0Ev(llvm::APFloatBase *a1)
 {
   *a1 = &unk_28689C330;
-  v2 = (a1 + 14);
-  v3 = a1[14];
+  v2 = (a1 + 112);
+  v3 = *(a1 + 14);
   v4 = llvm::APFloatBase::PPCDoubleDouble(a1);
   if (v4 == v3)
   {
     llvm::detail::DoubleAPFloat::~DoubleAPFloat(v2);
-    v5 = (a1 + 10);
-    if (v4 != a1[10])
+    v5 = (a1 + 80);
+    if (v4 != *(a1 + 10))
     {
 LABEL_3:
       llvm::detail::IEEEFloat::~IEEEFloat(v5);
-      v6 = a1[1];
+      v6 = *(a1 + 1);
       if (!v6)
       {
         goto LABEL_5;
@@ -5703,15 +6635,15 @@ LABEL_3:
   else
   {
     llvm::detail::IEEEFloat::~IEEEFloat(v2);
-    v5 = (a1 + 10);
-    if (v4 != a1[10])
+    v5 = (a1 + 80);
+    if (v4 != *(a1 + 10))
     {
       goto LABEL_3;
     }
   }
 
   llvm::detail::DoubleAPFloat::~DoubleAPFloat(v5);
-  v6 = a1[1];
+  v6 = *(a1 + 1);
   if (!v6)
   {
 LABEL_5:
@@ -5720,28 +6652,28 @@ LABEL_5:
   }
 
 LABEL_4:
-  a1[2] = v6;
+  *(a1 + 2) = v6;
   operator delete(v6);
   goto LABEL_5;
 }
 
-void _ZNSt3__110__function6__funcIZNK4mlir18SparseElementsAttr20try_value_begin_implINS_7complexIN4llvm7APFloatEEEEENS6_9FailureOrINS6_15mapped_iteratorINS6_6detail15SafeIntIteratorIlLb0EEENS_8functionIFT_lEEEDTclclsr3stdE7declvalISH_EEdeclL_ZNS_7declvalB8nn200100ISD_EEDTclsr3stdE9__declvalISF_ELi0EEEvEEEEEEEENS2_6detail17ElementsAttrTraitIS3_E13OverloadTokenISF_EEEUllE_NS_9allocatorISS_EEFS8_lEE7destroyEv(void *a1)
+void _ZNSt3__110__function6__funcIZNK4mlir18SparseElementsAttr20try_value_begin_implINS_7complexIN4llvm7APFloatEEEEENS6_9FailureOrINS6_15mapped_iteratorINS6_6detail15SafeIntIteratorIlLb0EEENS_8functionIFT_lEEEDTclclsr3stdE7declvalISH_EEdeclL_ZNS_7declvalB8nn200100ISD_EEDTclsr3stdE9__declvalISF_ELi0EEEvEEEEEEEENS2_6detail17ElementsAttrTraitIS3_E13OverloadTokenISF_EEEUllE_NS_9allocatorISS_EEFS8_lEE7destroyEv(llvm::APFloatBase *a1)
 {
-  v2 = (a1 + 14);
-  v3 = a1[14];
+  v2 = (a1 + 112);
+  v3 = *(a1 + 14);
   v4 = llvm::APFloatBase::PPCDoubleDouble(a1);
   if (v4 != v3)
   {
     llvm::detail::IEEEFloat::~IEEEFloat(v2);
-    v5 = (a1 + 10);
-    if (v4 != a1[10])
+    v5 = (a1 + 80);
+    if (v4 != *(a1 + 10))
     {
       goto LABEL_3;
     }
 
 LABEL_8:
     llvm::detail::DoubleAPFloat::~DoubleAPFloat(v5);
-    v6 = a1[1];
+    v6 = *(a1 + 1);
     if (!v6)
     {
       return;
@@ -5751,40 +6683,40 @@ LABEL_8:
   }
 
   llvm::detail::DoubleAPFloat::~DoubleAPFloat(v2);
-  v5 = (a1 + 10);
-  if (v4 == a1[10])
+  v5 = (a1 + 80);
+  if (v4 == *(a1 + 10))
   {
     goto LABEL_8;
   }
 
 LABEL_3:
   llvm::detail::IEEEFloat::~IEEEFloat(v5);
-  v6 = a1[1];
+  v6 = *(a1 + 1);
   if (!v6)
   {
     return;
   }
 
 LABEL_4:
-  a1[2] = v6;
+  *(a1 + 2) = v6;
 
   operator delete(v6);
 }
 
-void _ZNSt3__110__function6__funcIZNK4mlir18SparseElementsAttr20try_value_begin_implINS_7complexIN4llvm7APFloatEEEEENS6_9FailureOrINS6_15mapped_iteratorINS6_6detail15SafeIntIteratorIlLb0EEENS_8functionIFT_lEEEDTclclsr3stdE7declvalISH_EEdeclL_ZNS_7declvalB8nn200100ISD_EEDTclsr3stdE9__declvalISF_ELi0EEEvEEEEEEEENS2_6detail17ElementsAttrTraitIS3_E13OverloadTokenISF_EEEUllE_NS_9allocatorISS_EEFS8_lEE18destroy_deallocateEv(void *a1)
+void _ZNSt3__110__function6__funcIZNK4mlir18SparseElementsAttr20try_value_begin_implINS_7complexIN4llvm7APFloatEEEEENS6_9FailureOrINS6_15mapped_iteratorINS6_6detail15SafeIntIteratorIlLb0EEENS_8functionIFT_lEEEDTclclsr3stdE7declvalISH_EEdeclL_ZNS_7declvalB8nn200100ISD_EEDTclsr3stdE9__declvalISF_ELi0EEEvEEEEEEEENS2_6detail17ElementsAttrTraitIS3_E13OverloadTokenISF_EEEUllE_NS_9allocatorISS_EEFS8_lEE18destroy_deallocateEv(llvm::APFloatBase *a1)
 {
-  v2 = (a1 + 14);
-  v3 = a1[14];
+  v2 = (a1 + 112);
+  v3 = *(a1 + 14);
   v4 = llvm::APFloatBase::PPCDoubleDouble(a1);
   if (v4 == v3)
   {
     llvm::detail::DoubleAPFloat::~DoubleAPFloat(v2);
-    v5 = (a1 + 10);
-    if (v4 != a1[10])
+    v5 = (a1 + 80);
+    if (v4 != *(a1 + 10))
     {
 LABEL_3:
       llvm::detail::IEEEFloat::~IEEEFloat(v5);
-      v6 = a1[1];
+      v6 = *(a1 + 1);
       if (!v6)
       {
         goto LABEL_5;
@@ -5797,19 +6729,19 @@ LABEL_3:
   else
   {
     llvm::detail::IEEEFloat::~IEEEFloat(v2);
-    v5 = (a1 + 10);
-    if (v4 != a1[10])
+    v5 = (a1 + 80);
+    if (v4 != *(a1 + 10))
     {
       goto LABEL_3;
     }
   }
 
   llvm::detail::DoubleAPFloat::~DoubleAPFloat(v5);
-  v6 = a1[1];
+  v6 = *(a1 + 1);
   if (v6)
   {
 LABEL_4:
-    a1[2] = v6;
+    *(a1 + 2) = v6;
     operator delete(v6);
   }
 
@@ -5842,11 +6774,11 @@ uint64_t _ZNKSt3__110__function6__funcIZNK4mlir18SparseElementsAttr20try_value_b
   return 0;
 }
 
-uint64_t _ZNSt3__110__function12__alloc_funcIZNK4mlir18SparseElementsAttr20try_value_begin_implINS_7complexIN4llvm7APFloatEEEEENS6_9FailureOrINS6_15mapped_iteratorINS6_6detail15SafeIntIteratorIlLb0EEENS_8functionIFT_lEEEDTclclsr3stdE7declvalISH_EEdeclL_ZNS_7declvalB8nn200100ISD_EEDTclsr3stdE9__declvalISF_ELi0EEEvEEEEEEEENS2_6detail17ElementsAttrTraitIS3_E13OverloadTokenISF_EEEUllE_NS_9allocatorISS_EEFS8_lEEC2B8nn200100ERKSS_OSU_(uint64_t a1, uint64_t a2)
+llvm::APFloatBase *_ZNSt3__110__function12__alloc_funcIZNK4mlir18SparseElementsAttr20try_value_begin_implINS_7complexIN4llvm7APFloatEEEEENS6_9FailureOrINS6_15mapped_iteratorINS6_6detail15SafeIntIteratorIlLb0EEENS_8functionIFT_lEEEDTclclsr3stdE7declvalISH_EEdeclL_ZNS_7declvalB8nn200100ISD_EEDTclsr3stdE9__declvalISF_ELi0EEEvEEEEEEEENS2_6detail17ElementsAttrTraitIS3_E13OverloadTokenISF_EEEUllE_NS_9allocatorISS_EEFS8_lEEC2B8nn200100ERKSS_OSU_(llvm::APFloatBase *a1, uint64_t a2)
 {
   *a1 = 0;
-  *(a1 + 8) = 0;
-  *(a1 + 16) = 0;
+  *(a1 + 1) = 0;
+  *(a1 + 2) = 0;
   v4 = *(a2 + 8);
   if (v4 != *a2)
   {
@@ -5860,14 +6792,14 @@ uint64_t _ZNSt3__110__function12__alloc_funcIZNK4mlir18SparseElementsAttr20try_v
 
   v5 = *(a2 + 24);
   v6 = *(a2 + 40);
-  *(a1 + 56) = *(a2 + 56);
+  *(a1 + 7) = *(a2 + 56);
   *(a1 + 40) = v6;
   *(a1 + 24) = v5;
   v7 = *(a2 + 72);
   v8 = llvm::APFloatBase::PPCDoubleDouble(a1);
   if (v8 == v7)
   {
-    llvm::detail::DoubleAPFloat::DoubleAPFloat((a1 + 72), (a2 + 72));
+    llvm::detail::DoubleAPFloat::DoubleAPFloat(a1 + 9, (a2 + 72));
     v9 = (a1 + 104);
     v10 = (a2 + 104);
     if (v8 != *(a2 + 104))
@@ -5893,7 +6825,7 @@ LABEL_6:
   return a1;
 }
 
-void _ZZNK4mlir18SparseElementsAttr20try_value_begin_implINSt3__17complexIN4llvm7APFloatEEEEENS4_9FailureOrINS4_15mapped_iteratorINS4_6detail15SafeIntIteratorIlLb0EEENS2_8functionIFT_lEEEDTclclsr3stdE7declvalISF_EEdeclL_ZNS2_7declvalB8nn200100ISB_EEDTclsr3stdE9__declvalISD_ELi0EEEvEEEEEEEENS_6detail17ElementsAttrTraitIS0_E13OverloadTokenISD_EEENKUllE_clEl(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+void _ZZNK4mlir18SparseElementsAttr20try_value_begin_implINSt3__17complexIN4llvm7APFloatEEEEENS4_9FailureOrINS4_15mapped_iteratorINS4_6detail15SafeIntIteratorIlLb0EEENS2_8functionIFT_lEEEDTclclsr3stdE7declvalISF_EEdeclL_ZNS2_7declvalB8nn200100ISB_EEDTclsr3stdE9__declvalISD_ELi0EEEvEEEEEEEENS_6detail17ElementsAttrTraitIS0_E13OverloadTokenISD_EEENKUllE_clEl(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
 {
   v5 = *a1;
   v6 = (*(a1 + 8) - *a1) >> 3;
@@ -5904,8 +6836,8 @@ LABEL_5:
     v10 = llvm::APFloatBase::PPCDoubleDouble(a1);
     if (v10 == v9)
     {
-      llvm::detail::DoubleAPFloat::DoubleAPFloat((a3 + 8), (a1 + 72));
-      v11 = (a3 + 40);
+      llvm::detail::DoubleAPFloat::DoubleAPFloat(a3 + 1, (a1 + 72));
+      v11 = (a3 + 5);
       v12 = (a1 + 104);
       if (v10 != *(a1 + 104))
       {
@@ -5915,8 +6847,8 @@ LABEL_5:
 
     else
     {
-      llvm::detail::IEEEFloat::IEEEFloat((a3 + 8), (a1 + 72));
-      v11 = (a3 + 40);
+      llvm::detail::IEEEFloat::IEEEFloat((a3 + 1), (a1 + 72));
+      v11 = (a3 + 5);
       v12 = (a1 + 104);
       if (v10 != *(a1 + 104))
       {
@@ -5953,7 +6885,7 @@ LABEL_7:
   v16 = *(a1 + 48);
   v15 = v13 - v7;
   mlir::DenseElementsAttr::ComplexIntElementIterator::operator*(&v14, &v17);
-  mlir::DenseElementsAttr::ComplexFloatElementIterator::mapElement(&v17, &v14, a3);
+  mlir::DenseElementsAttr::ComplexFloatElementIterator::mapElement(a3, &v17, &v14);
   if (v20 >= 0x41 && v19)
   {
     MEMORY[0x259C63150](v19, 0x1000C8000313F17);
@@ -6014,35 +6946,37 @@ void mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm:
   JUMPOUT(0x259C63180);
 }
 
-unint64_t mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<llvm::APFloat> ()(long)>,std::complex<llvm::APFloat>>,std::complex<llvm::APFloat>>::at(uint64_t a1, uint64_t a2)
+void mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<llvm::APFloat> ()(long)>,std::complex<llvm::APFloat>>,std::complex<llvm::APFloat>>::at(uint64_t a1, uint64_t a2)
 {
-  v6 = *(a1 + 8) + a2;
+  v5 = *(a1 + 8) + a2;
   v2 = *(a1 + 40);
   if (v2)
   {
-    return (*(*v2 + 48))(v2, &v6);
+    (*(*v2 + 48))(v2, &v5);
   }
 
-  v4 = std::__throw_bad_function_call[abi:nn200100]();
-  return mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<float>>(v4, v5);
+  else
+  {
+    v3 = std::__throw_bad_function_call[abi:nn200100]();
+    mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<float>>(v3, v4);
+  }
 }
 
-unint64_t mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<float>>@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<float>>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
   v8 = *MEMORY[0x277D85DE8];
-  result = mlir::SparseElementsAttr::try_value_begin_impl<std::complex<float>>(a1, v7);
-  if (v7[48] == 1)
+  mlir::SparseElementsAttr::try_value_begin_impl<std::complex<float>>(a1, v6);
+  if (v7 == 1)
   {
-    v5 = mlir::detail::ElementsAttrTrait<mlir::DenseResourceElementsAttr>::getNumElements(a1) == 1;
-    mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<float> ()(long)>,std::complex<float>> &>(v5, v7, &v6);
+    v4 = mlir::detail::ElementsAttrTrait<mlir::DenseResourceElementsAttr>::getNumElements(a1) == 1;
+    mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<float> ()(long)>,std::complex<float>> &>(v4, v6, &v5);
   }
 
   *a2 = 0;
   a2[16] = 0;
-  return result;
 }
 
-mlir::SparseElementsAttr *mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::getValueImpl<std::complex<double>,llvm::StringRef,std::integral_constant<BOOL,false>>@<X0>(mlir::SparseElementsAttr *result@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+void mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::getValueImpl<std::complex<double>,llvm::StringRef,std::integral_constant<BOOL,false>>(mlir::SparseElementsAttr *result@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
   {
     if (mlir::detail::TypeIDResolver<std::complex<double>,void>::resolveTypeID(void)::id != a2)
@@ -6069,7 +7003,7 @@ LABEL_3:
 LABEL_5:
           *a3 = 0;
           a3[16] = 0;
-          return result;
+          return;
         }
       }
 
@@ -6091,22 +7025,22 @@ LABEL_5:
     }
   }
 
-  return mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<double>>(result, a3);
+  mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<double>>(result, a3);
 }
 
-unint64_t mlir::SparseElementsAttr::try_value_begin_impl<std::complex<float>>@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void mlir::SparseElementsAttr::try_value_begin_impl<std::complex<float>>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v7[0] = *(*a1 + 32);
-  result = mlir::DenseElementsAttr::tryGetValues<std::complex<float>,float,void>(v7, v9);
-  if (v10)
+  v10 = *MEMORY[0x277D85DE8];
+  v6[0] = *(*a1 + 32);
+  mlir::DenseElementsAttr::tryGetValues<std::complex<float>,float,void>(v6, v8);
+  if (v9)
   {
-    v8[0] = *(v9 + 1);
-    *(v8 + 15) = v9[2];
+    v7[0] = *(v8 + 1);
+    *(v7 + 15) = v8[2];
     mlir::SparseElementsAttr::getFlattenedSparseIndices(a1, &__p);
-    if (v6 != __p)
+    if (v5 != __p)
     {
-      if (((v6 - __p) & 0x8000000000000000) == 0)
+      if (((v5 - __p) & 0x8000000000000000) == 0)
       {
         operator new();
       }
@@ -6119,10 +7053,9 @@ unint64_t mlir::SparseElementsAttr::try_value_begin_impl<std::complex<float>>@<X
 
   *a2 = 0;
   a2[48] = 0;
-  return result;
 }
 
-void mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<float> ()(long)>,std::complex<float>> &>(char a1@<W0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+void mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<float> ()(long)>,std::complex<float>> &>(char a1@<W0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
 {
   v7 = *MEMORY[0x277D85DE8];
   *a3 = 0;
@@ -6131,10 +7064,10 @@ void mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm
   v6 = 0;
   if (*(a2 + 40) == 1)
   {
-    v3 = *(a2 + 32);
+    v3 = a2[4];
     if (v3)
     {
-      if (v3 == a2 + 8)
+      if (v3 == a2 + 1)
       {
         v5 = v4;
         (*(*v3 + 24))(v3, v4);
@@ -6343,47 +7276,49 @@ void mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm:
   JUMPOUT(0x259C63180);
 }
 
-unint64_t mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<float> ()(long)>,std::complex<float>>,std::complex<float>>::at(uint64_t a1, uint64_t a2)
+void mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<float> ()(long)>,std::complex<float>>,std::complex<float>>::at(uint64_t a1, uint64_t a2)
 {
-  v6 = *(a1 + 8) + a2;
+  v5 = *(a1 + 8) + a2;
   v2 = *(a1 + 40);
   if (v2)
   {
-    return (*(*v2 + 48))(v2, &v6);
+    (*(*v2 + 48))(v2, &v5);
   }
 
-  v4 = std::__throw_bad_function_call[abi:nn200100]();
-  return mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<double>>(v4, v5);
+  else
+  {
+    v3 = std::__throw_bad_function_call[abi:nn200100]();
+    mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<double>>(v3, v4);
+  }
 }
 
-unint64_t mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<double>>@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<std::complex<double>>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
   v8 = *MEMORY[0x277D85DE8];
-  result = mlir::SparseElementsAttr::try_value_begin_impl<std::complex<double>>(a1, v7);
-  if (v7[48] == 1)
+  mlir::SparseElementsAttr::try_value_begin_impl<std::complex<double>>(a1, v6);
+  if (v7 == 1)
   {
-    v5 = mlir::detail::ElementsAttrTrait<mlir::DenseResourceElementsAttr>::getNumElements(a1) == 1;
-    mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<double> ()(long)>,std::complex<double>> &>(v5, v7, &v6);
+    v4 = mlir::detail::ElementsAttrTrait<mlir::DenseResourceElementsAttr>::getNumElements(a1) == 1;
+    mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<double> ()(long)>,std::complex<double>> &>(v4, v6, &v5);
   }
 
   *a2 = 0;
   a2[16] = 0;
-  return result;
 }
 
-unint64_t mlir::SparseElementsAttr::try_value_begin_impl<std::complex<double>>@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void mlir::SparseElementsAttr::try_value_begin_impl<std::complex<double>>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v7[0] = *(*a1 + 32);
-  result = mlir::DenseElementsAttr::tryGetValues<std::complex<double>,double,void>(v7, v9);
-  if (v10)
+  v10 = *MEMORY[0x277D85DE8];
+  v6[0] = *(*a1 + 32);
+  mlir::DenseElementsAttr::tryGetValues<std::complex<double>,double,void>(v6, v8);
+  if (v9)
   {
-    v8[0] = *(v9 + 1);
-    *(v8 + 15) = v9[2];
+    v7[0] = *(v8 + 1);
+    *(v7 + 15) = v8[2];
     mlir::SparseElementsAttr::getFlattenedSparseIndices(a1, &__p);
-    if (v6 != __p)
+    if (v5 != __p)
     {
-      if (((v6 - __p) & 0x8000000000000000) == 0)
+      if (((v5 - __p) & 0x8000000000000000) == 0)
       {
         operator new();
       }
@@ -6396,10 +7331,9 @@ unint64_t mlir::SparseElementsAttr::try_value_begin_impl<std::complex<double>>@<
 
   *a2 = 0;
   a2[48] = 0;
-  return result;
 }
 
-void mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<double> ()(long)>,std::complex<double>> &>(char a1@<W0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+void mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<std::complex<double> ()(long)>,std::complex<double>> &>(char a1@<W0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
 {
   v7 = *MEMORY[0x277D85DE8];
   *a3 = 0;
@@ -6408,10 +7342,10 @@ void mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm
   v6 = 0;
   if (*(a2 + 40) == 1)
   {
-    v3 = *(a2 + 32);
+    v3 = a2[4];
     if (v3)
     {
-      if (v3 == a2 + 8)
+      if (v3 == a2 + 1)
       {
         v5 = v4;
         (*(*v3 + 24))(v3, v4);
@@ -6636,14 +7570,14 @@ uint64_t mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<l
 
 void mlir::SparseElementsAttr::try_value_begin_impl<llvm::StringRef>(mlir::SparseElementsAttr *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v6 = *(*(*a1 + 32) + 8);
-  Shape = mlir::ShapedType::getShape(&v6);
-  mlir::ShapedType::getNumElements(Shape, v3);
+  v8 = *MEMORY[0x277D85DE8];
+  v7 = *(*(*a1 + 32) + 8);
+  Shape = mlir::ShapedType::getShape(&v7);
+  mlir::ShapedType::getNumElements(Shape, v4);
   mlir::SparseElementsAttr::getFlattenedSparseIndices(a1, &__p);
-  if (v5 != __p)
+  if (v6 != __p)
   {
-    if (((v5 - __p) & 0x8000000000000000) == 0)
+    if (((v6 - __p) & 0x8000000000000000) == 0)
     {
       operator new();
     }
@@ -6654,7 +7588,7 @@ void mlir::SparseElementsAttr::try_value_begin_impl<llvm::StringRef>(mlir::Spars
   operator new();
 }
 
-void mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<llvm::StringRef ()(long)>,llvm::StringRef> &>(char a1@<W0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+void mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<llvm::StringRef ()(long)>,llvm::StringRef> &>(char a1@<W0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
 {
   v7 = *MEMORY[0x277D85DE8];
   *a3 = 0;
@@ -6663,10 +7597,10 @@ void mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llvm
   v6 = 0;
   if (*(a2 + 40) == 1)
   {
-    v3 = *(a2 + 32);
+    v3 = a2[4];
     if (v3)
     {
-      if (v3 == a2 + 8)
+      if (v3 == a2 + 1)
       {
         v5 = v4;
         (*(*v3 + 24))(v3, v4);
@@ -7058,110 +7992,119 @@ BOOL mlir::detail::StorageUserBase<mlir::StridedLayoutAttr,mlir::Attribute,mlir:
   return mlir::detail::TypeIDResolver<mlir::MemRefLayoutAttrInterface::Trait<mlir::TypeID mlir::TypeID::get<mlir::MemRefLayoutAttrInterface::Trait>(void)::Empty>,void>::resolveTypeID(void)::id == a1;
 }
 
-uint64_t mlir::detail::replaceImmediateSubElementsImpl<mlir::StridedLayoutAttr>(uint64_t a1)
+uint64_t _ZN4llvm12function_refIFN4mlir9AttributeES2_NS_8ArrayRefIS2_EENS3_INS1_4TypeEEEEE11callback_fnIZNS1_6detail15StorageUserBaseINS1_17StridedLayoutAttrES2_NSA_24StridedLayoutAttrStorageENSA_16AttributeUniquerEJNS1_25MemRefLayoutAttrInterface5TraitEEE32getReplaceImmediateSubElementsFnEvEUlT_S4_S6_E_EES2_lS2_S4_S6_(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v27[6] = *MEMORY[0x277D85DE8];
-  v14 = a1;
-  v12 = *(a1 + 8);
-  v13 = *(a1 + 16);
-  mlir::AttrTypeSubElementHandler<std::tuple<long long,llvm::ArrayRef<long long>>,void>::replace(&v12, &v24);
-  Context = mlir::Attribute::getContext(&v14);
-  v2 = v24;
-  v20 = v24;
-  v21 = v23;
-  v22 = 0x600000000;
-  v3 = v26;
-  if (v26)
+  *&v8 = a3;
+  *(&v8 + 1) = a4;
+  *&v7 = a5;
+  *(&v7 + 1) = a6;
+  return mlir::detail::replaceImmediateSubElementsImpl<mlir::StridedLayoutAttr>(a2, &v8, &v7);
+}
+
+uint64_t mlir::detail::replaceImmediateSubElementsImpl<mlir::StridedLayoutAttr>(uint64_t a1, __int128 *a2, __int128 *a3)
+{
+  v29[6] = *MEMORY[0x277D85DE8];
+  v16 = a1;
+  v14 = *(a1 + 8);
+  v15 = *(a1 + 16);
+  mlir::AttrTypeSubElementHandler<std::tuple<long long,llvm::ArrayRef<long long>>,void>::replace(&v14, &v26);
+  Context = mlir::Attribute::getContext(&v16);
+  v4 = v26;
+  v22 = v26;
+  v23 = v25;
+  v24 = 0x600000000;
+  v5 = v28;
+  if (v28)
   {
-    if (v26 >= 7)
+    if (v28 >= 7)
     {
       llvm::SmallVectorBase<unsigned int>::grow_pod();
     }
 
-    memcpy(v23, v25, 8 * v26);
-    LODWORD(v22) = v3;
-    v2 = v20;
-    v4 = v21;
+    memcpy(v25, v27, 8 * v28);
+    LODWORD(v24) = v5;
+    v4 = v22;
+    v6 = v23;
   }
 
   else
   {
-    v3 = 0;
-    v4 = v23;
+    v5 = 0;
+    v6 = v25;
   }
 
-  v5 = *v2;
+  v7 = *v4;
   AttributeUniquer = mlir::MLIRContext::getAttributeUniquer(Context);
-  v15[0] = &mlir::detail::TypeIDResolver<mlir::StridedLayoutAttr,void>::id;
-  v15[1] = Context;
-  v19[0] = _ZN4llvm12function_refIFvPN4mlir6detail24StridedLayoutAttrStorageEEE11callback_fnIZNS2_16AttributeUniquer13getWithTypeIDINS1_17StridedLayoutAttrEJxNS_8ArrayRefIxEEEEENSt3__19enable_ifIXntsr3std7is_sameINT_8ImplTypeENS1_16AttributeStorageEEE5valueESF_E4typeEPNS1_11MLIRContextENS1_6TypeIDEDpOT0_EUlPSH_E_EEvlS4_;
-  v19[1] = v15;
-  v18[0] = v5;
-  v18[1] = v4;
-  v18[2] = v3;
-  v7 = llvm::hashing::detail::hash_combine_range_impl<unsigned char const>(v4, &v4[v3]);
-  v8 = __ROR8__(v7 + 16, 16);
-  v9 = 0x9DDFEA08EB382D69 * (v8 ^ ((0x9DDFEA08EB382D69 * (v5 ^ v8 ^ 0xFF51AFD7ED558CCDLL)) >> 47) ^ (0x9DDFEA08EB382D69 * (v5 ^ v8 ^ 0xFF51AFD7ED558CCDLL)));
-  v16[0] = v18;
-  v16[1] = v19;
-  v17 = v18;
-  ParametricStorageTypeImpl = mlir::StorageUniquer::getParametricStorageTypeImpl(AttributeUniquer, &mlir::detail::TypeIDResolver<mlir::StridedLayoutAttr,void>::id, (-348639895 * ((v9 >> 47) ^ v9)) ^ v7, llvm::function_ref<BOOL ()(mlir::StorageUniquer::BaseStorage const*)>::callback_fn<mlir::detail::StridedLayoutAttrStorage * mlir::StorageUniquer::get<mlir::detail::StridedLayoutAttrStorage,long long,llvm::ArrayRef<long long>>(llvm::function_ref<void ()(mlir::detail::StridedLayoutAttrStorage *)>,mlir::TypeID,long long,llvm::ArrayRef<long long> &&)::{lambda(mlir::StorageUniquer::BaseStorage const*)#1}>, &v17, llvm::function_ref<mlir::StorageUniquer::BaseStorage * ()(mlir::StorageUniquer::StorageAllocator &)>::callback_fn<mlir::detail::StridedLayoutAttrStorage * mlir::StorageUniquer::get<mlir::detail::StridedLayoutAttrStorage,long long,llvm::ArrayRef<long long>>(llvm::function_ref<void ()(mlir::detail::StridedLayoutAttrStorage *)>,mlir::TypeID,long long,llvm::ArrayRef<long long> &&)::{lambda(mlir::StorageUniquer::StorageAllocator &)#1}>, v16);
-  if (v21 != v23)
+  v17[0] = &mlir::detail::TypeIDResolver<mlir::StridedLayoutAttr,void>::id;
+  v17[1] = Context;
+  v21[0] = _ZN4llvm12function_refIFvPN4mlir6detail24StridedLayoutAttrStorageEEE11callback_fnIZNS2_16AttributeUniquer13getWithTypeIDINS1_17StridedLayoutAttrEJxNS_8ArrayRefIxEEEEENSt3__19enable_ifIXntsr3std7is_sameINT_8ImplTypeENS1_16AttributeStorageEEE5valueESF_E4typeEPNS1_11MLIRContextENS1_6TypeIDEDpOT0_EUlPSH_E_EEvlS4_;
+  v21[1] = v17;
+  v20[0] = v7;
+  v20[1] = v6;
+  v20[2] = v5;
+  v9 = llvm::hashing::detail::hash_combine_range_impl<unsigned char const>(v6, v6 + 8 * v5);
+  v10 = __ROR8__(v9 + 16, 16);
+  v11 = 0x9DDFEA08EB382D69 * (v10 ^ ((0x9DDFEA08EB382D69 * (v7 ^ v10 ^ 0xFF51AFD7ED558CCDLL)) >> 47) ^ (0x9DDFEA08EB382D69 * (v7 ^ v10 ^ 0xFF51AFD7ED558CCDLL)));
+  v18[0] = v20;
+  v18[1] = v21;
+  v19 = v20;
+  ParametricStorageTypeImpl = mlir::StorageUniquer::getParametricStorageTypeImpl(AttributeUniquer, &mlir::detail::TypeIDResolver<mlir::StridedLayoutAttr,void>::id, (-348639895 * ((v11 >> 47) ^ v11)) ^ v9, llvm::function_ref<BOOL ()(mlir::StorageUniquer::BaseStorage const*)>::callback_fn<mlir::detail::StridedLayoutAttrStorage * mlir::StorageUniquer::get<mlir::detail::StridedLayoutAttrStorage,long long,llvm::ArrayRef<long long>>(llvm::function_ref<void ()(mlir::detail::StridedLayoutAttrStorage *)>,mlir::TypeID,long long,llvm::ArrayRef<long long> &&)::{lambda(mlir::StorageUniquer::BaseStorage const*)#1}>, &v19, llvm::function_ref<mlir::StorageUniquer::BaseStorage * ()(mlir::StorageUniquer::StorageAllocator &)>::callback_fn<mlir::detail::StridedLayoutAttrStorage * mlir::StorageUniquer::get<mlir::detail::StridedLayoutAttrStorage,long long,llvm::ArrayRef<long long>>(llvm::function_ref<void ()(mlir::detail::StridedLayoutAttrStorage *)>,mlir::TypeID,long long,llvm::ArrayRef<long long> &&)::{lambda(mlir::StorageUniquer::StorageAllocator &)#1}>, v18);
+  if (v23 != v25)
   {
-    free(v21);
+    free(v23);
   }
 
-  if (v25 != v27)
+  if (v27 != v29)
   {
-    free(v25);
+    free(v27);
   }
 
   return ParametricStorageTypeImpl;
 }
 
-void mlir::AttrTypeSubElementHandler<std::tuple<long long,llvm::ArrayRef<long long>>,void>::replace(uint64_t a1@<X0>, uint64_t a2@<X8>)
+void mlir::AttrTypeSubElementHandler<std::tuple<long long,llvm::ArrayRef<long long>>,void>::replace(uint64_t a1@<X0>, uint64_t a4@<X8>)
 {
-  v10[6] = *MEMORY[0x277D85DE8];
+  v12[6] = *MEMORY[0x277D85DE8];
   mlir::AttrTypeSubElementHandler<llvm::ArrayRef<long long>,void>::replace(*(a1 + 8), *(a1 + 16), &__src);
-  *(a2 + 8) = a2 + 24;
-  *a2 = a1;
-  *(a2 + 16) = 0x600000000;
-  v4 = __src;
-  if ((a2 + 8) != &__src)
+  *(a4 + 8) = a4 + 24;
+  *a4 = a1;
+  *(a4 + 16) = 0x600000000;
+  v6 = __src;
+  if ((a4 + 8) != &__src)
   {
-    v5 = v8;
-    if (v8)
+    v7 = v10;
+    if (v10)
     {
-      if (__src == v10)
+      if (__src == v12)
       {
-        if (v8 >= 7)
+        if (v10 >= 7)
         {
           llvm::SmallVectorBase<unsigned int>::grow_pod();
         }
 
-        memcpy((a2 + 24), __src, 8 * v8);
-        v4 = __src;
-        *(a2 + 16) = v5;
+        memcpy((a4 + 24), __src, 8 * v10);
+        v6 = __src;
+        *(a4 + 16) = v7;
       }
 
       else
       {
-        *(a2 + 8) = __src;
-        v6 = v9;
-        *(a2 + 16) = v5;
-        *(a2 + 20) = v6;
-        __src = v10;
-        v9 = 0;
-        v4 = v10;
+        *(a4 + 8) = __src;
+        v8 = v11;
+        *(a4 + 16) = v7;
+        *(a4 + 20) = v8;
+        __src = v12;
+        v11 = 0;
+        v6 = v12;
       }
 
-      v8 = 0;
+      v10 = 0;
     }
   }
 
-  if (v4 != v10)
+  if (v6 != v12)
   {
-    free(v4);
+    free(v6);
   }
 }
 
@@ -7341,11 +8284,11 @@ uint64_t _ZN4llvm12function_refIFvN4mlir9AttributeENS0_IFvS2_EEENS0_IFvNS1_4Type
   return result;
 }
 
-uint64_t _ZN4llvm12function_refIFN4mlir9AttributeES2_NS_8ArrayRefIS2_EENS3_INS1_4TypeEEEEE11callback_fnIZNS1_6detail15StorageUserBaseINS1_13SymbolRefAttrES2_NSA_20SymbolRefAttrStorageENSA_16AttributeUniquerEJEE32getReplaceImmediateSubElementsFnEvEUlT_S4_S6_E_EES2_lS2_S4_S6_(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t _ZN4llvm12function_refIFN4mlir9AttributeES2_NS_8ArrayRefIS2_EENS3_INS1_4TypeEEEEE11callback_fnIZNS1_6detail15StorageUserBaseINS1_13SymbolRefAttrES2_NSA_20SymbolRefAttrStorageENSA_16AttributeUniquerEJEE32getReplaceImmediateSubElementsFnEvEUlT_S4_S6_E_EES2_lS2_S4_S6_(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v5[0] = a3;
-  v5[1] = a4;
-  return mlir::detail::replaceImmediateSubElementsImpl<mlir::SymbolRefAttr>(a2, v5);
+  v7[0] = a3;
+  v7[1] = a4;
+  return mlir::detail::replaceImmediateSubElementsImpl<mlir::SymbolRefAttr>(a2, v7);
 }
 
 uint64_t mlir::detail::replaceImmediateSubElementsImpl<mlir::SymbolRefAttr>(uint64_t a1, uint64_t a2)
@@ -7447,43 +8390,43 @@ uint64_t mlir::detail::replaceImmediateSubElementsImpl<mlir::TypeAttr>(uint64_t 
 
 void mlir::Dialect::addAttribute<mlir::DistinctAttr>(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   {
     mlir::Dialect::addAttribute<mlir::DistinctAttr>();
   }
 
   v2 = mlir::detail::TypeIDResolver<mlir::DistinctAttr,void>::resolveTypeID(void)::id;
-  mlir::AbstractAttribute::get<mlir::DistinctAttr>(a1, v11);
-  mlir::Dialect::addAttribute(a1, v2, v11);
-  v3 = v16;
-  if (v16 >= 8)
+  mlir::AbstractAttribute::get<mlir::DistinctAttr>(a1, &v14);
+  mlir::Dialect::addAttribute(a1, v2, &v14);
+  v3 = v19;
+  if (v19 >= 8)
   {
-    if ((v16 & 4) != 0)
+    if ((v19 & 4) != 0)
     {
-      if ((v16 & 2) != 0)
+      if ((v19 & 2) != 0)
       {
-        v4 = v15;
+        v4 = v18;
       }
 
       else
       {
-        v4 = v15[0];
+        v4 = v18[0];
       }
 
-      (*((v16 & 0xFFFFFFFFFFFFFFF8) + 16))(v4);
+      (*((v19 & 0xFFFFFFFFFFFFFFF8) + 16))(v4);
     }
 
     if ((v3 & 2) == 0)
     {
-      llvm::deallocate_buffer(v15[0], v15[1]);
+      llvm::deallocate_buffer(v18[0], v18[1]);
     }
   }
 
-  v5 = v12;
-  if (v13)
+  v5 = v15;
+  if (v16)
   {
-    v6 = 16 * v13;
-    v7 = (v12 + 8);
+    v6 = 16 * v16;
+    v7 = (v15 + 8);
     do
     {
       v8 = *v7;
@@ -7493,23 +8436,24 @@ void mlir::Dialect::addAttribute<mlir::DistinctAttr>(uint64_t a1)
     }
 
     while (v6);
-    v5 = v12;
+    v5 = v15;
   }
 
-  if (v5 != &v14)
+  if (v5 != &v17)
   {
     free(v5);
   }
 
   v9 = *(a1 + 32);
   {
-    v10 = v9;
+    v13 = v9;
     mlir::DistinctAttr::create();
-    v9 = v10;
+    v9 = v13;
   }
 
-  mlir::MLIRContext::getAttributeUniquer(v9);
-  mlir::StorageUniquer::registerParametricStorageTypeImpl();
+  v10 = mlir::detail::TypeIDResolver<mlir::DistinctAttr,void>::resolveTypeID(void)::id;
+  AttributeUniquer = mlir::MLIRContext::getAttributeUniquer(v9);
+  mlir::StorageUniquer::registerParametricStorageTypeImpl(AttributeUniquer, v10, 0, v12);
 }
 
 void mlir::AbstractAttribute::get<mlir::DistinctAttr>(uint64_t a1@<X0>, uint64_t a2@<X8>)
@@ -7592,16 +8536,16 @@ uint64_t _ZN4llvm12function_refIFvN4mlir9AttributeENS0_IFvS2_EEENS0_IFvNS1_4Type
   return mlir::AttrTypeImmediateSubElementWalker::walk(v8, v6);
 }
 
-void *_ZN4llvm12function_refIFN4mlir9AttributeES2_NS_8ArrayRefIS2_EENS3_INS1_4TypeEEEEE11callback_fnIZNS1_6detail15StorageUserBaseINS1_12DistinctAttrES2_NSA_19DistinctAttrStorageENSA_24DistinctAttributeUniquerEJEE32getReplaceImmediateSubElementsFnEvEUlT_S4_S6_E_EES2_lS2_S4_S6_(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
+void *_ZN4llvm12function_refIFN4mlir9AttributeES2_NS_8ArrayRefIS2_EENS3_INS1_4TypeEEEEE11callback_fnIZNS1_6detail15StorageUserBaseINS1_12DistinctAttrES2_NSA_19DistinctAttrStorageENSA_24DistinctAttributeUniquerEJEE32getReplaceImmediateSubElementsFnEvEUlT_S4_S6_E_EES2_lS2_S4_S6_(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t a5, uint64_t a6)
 {
-  v5[0] = a3;
-  v5[1] = a4;
-  return mlir::detail::replaceImmediateSubElementsImpl<mlir::DistinctAttr>(a2, v5);
+  v7[0] = a3;
+  v7[1] = a4;
+  return mlir::detail::replaceImmediateSubElementsImpl<mlir::DistinctAttr>(a2, v7);
 }
 
 void *mlir::detail::replaceImmediateSubElementsImpl<mlir::DistinctAttr>(uint64_t a1, uint64_t **a2)
 {
-  v6 = a1;
+  v7 = a1;
   if (*(a1 + 8))
   {
     v2 = **a2;
@@ -7612,13 +8556,13 @@ void *mlir::detail::replaceImmediateSubElementsImpl<mlir::DistinctAttr>(uint64_t
     v2 = 0;
   }
 
-  Context = mlir::Attribute::getContext(&v6);
+  Context = mlir::Attribute::getContext(&v7);
   Storage = mlir::detail::DistinctAttributeUniquer::allocateStorage(Context, v2);
   {
     mlir::DistinctAttr::create();
   }
 
-  *Storage = mlir::AbstractAttribute::lookup(mlir::detail::TypeIDResolver<mlir::DistinctAttr,void>::resolveTypeID(void)::id, Context);
+  *Storage = mlir::AbstractAttribute::lookup(mlir::detail::TypeIDResolver<mlir::DistinctAttr,void>::resolveTypeID(void)::id, Context, v4);
   return Storage;
 }
 
@@ -8106,7 +9050,7 @@ void *llvm::function_ref<mlir::StorageUniquer::BaseStorage * ()(mlir::StorageUni
 
   a2[10] += 24;
   v10 = ((*a2 + 7) & 0xFFFFFFFFFFFFFFF8);
-  v11 = v10 + 3;
+  v11 = (v10 + 3);
   if (*a2)
   {
     v12 = v11 > a2[1];
@@ -8233,7 +9177,7 @@ void *llvm::function_ref<mlir::StorageUniquer::BaseStorage * ()(mlir::StorageUni
 
   a2[10] += 24;
   v10 = ((*a2 + 7) & 0xFFFFFFFFFFFFFFF8);
-  v11 = v10 + 3;
+  v11 = (v10 + 3);
   if (*a2)
   {
     v12 = v11 > a2[1];
@@ -8296,10 +9240,10 @@ BOOL llvm::function_ref<BOOL ()(mlir::StorageUniquer::BaseStorage const*)>::call
   }
 }
 
-void *llvm::function_ref<mlir::StorageUniquer::BaseStorage * ()(mlir::StorageUniquer::StorageAllocator &)>::callback_fn<mlir::detail::StringAttrStorage * mlir::StorageUniquer::get<mlir::detail::StringAttrStorage,char const(&)[1],mlir::NoneType>(llvm::function_ref<void ()(mlir::detail::StringAttrStorage *)>,mlir::TypeID,char const(&)[1],mlir::NoneType &&)::{lambda(mlir::StorageUniquer::StorageAllocator &)#1}>(uint64_t a1, uint64_t *a2)
+void *llvm::function_ref<mlir::StorageUniquer::BaseStorage * ()(mlir::StorageUniquer::StorageAllocator &)>::callback_fn<mlir::detail::StringAttrStorage * mlir::StorageUniquer::get<mlir::detail::StringAttrStorage,char const(&)[1],mlir::NoneType>(llvm::function_ref<void ()(mlir::detail::StringAttrStorage *)>,mlir::TypeID,char const(&)[1],mlir::NoneType &&)::{lambda(mlir::StorageUniquer::StorageAllocator &)#1}>(void *a1, uint64_t *a2)
 {
   v3 = mlir::detail::StringAttrStorage::construct(a2, *a1);
-  v4 = *(a1 + 8);
+  v4 = a1[1];
   if (*v4)
   {
     (*v4)(*(v4 + 8), v3);
@@ -8774,7 +9718,7 @@ uint64_t mlir::AsmParser::parseOptionalIntegerAndCheck<BOOL,mlir::OptionalParseR
     return v7 | (v12 << 8);
   }
 
-  llvm::APInt::sextOrTrunc(&v27, 8u, &v29);
+  llvm::APInt::sextOrTrunc(&v29, &v27, 8u);
   v8 = v30;
   if (v30 < 0x41)
   {
@@ -8786,7 +9730,7 @@ uint64_t mlir::AsmParser::parseOptionalIntegerAndCheck<BOOL,mlir::OptionalParseR
     if (v28 > 0x40)
     {
 LABEL_16:
-      llvm::APInt::initSlowCase(&v29);
+      llvm::APInt::initSlowCase(&v29, v11, 0);
     }
 
     goto LABEL_10;
@@ -8921,944 +9865,4 @@ LABEL_10:
   }
 
   return v7 | (v12 << 8);
-}
-
-uint64_t llvm::function_ref<llvm::ParseResult ()(void)>::callback_fn<mlir::detail::DenseArrayAttrImpl<signed char>::parseWithoutBraces(mlir::AsmParser &,mlir::Type)::{lambda(void)#1}>(uint64_t *a1)
-{
-  v6 = 0;
-  v2 = mlir::AsmParser::parseInteger<signed char>(*a1, &v6);
-  result = 0;
-  if (v2)
-  {
-    v4 = a1[1];
-    v5 = v4[1];
-    if ((v5 + 1) > v4[2])
-    {
-      llvm::SmallVectorBase<unsigned long long>::grow_pod();
-    }
-
-    *(*v4 + v5) = v6;
-    ++v4[1];
-    return 1;
-  }
-
-  return result;
-}
-
-uint64_t mlir::AsmParser::parseInteger<signed char>(uint64_t a1, _BYTE *a2)
-{
-  v26 = *MEMORY[0x277D85DE8];
-  v4 = (*(*a1 + 40))(a1);
-  v17[0] = a1;
-  v5 = mlir::AsmParser::parseOptionalIntegerAndCheck<signed char,mlir::OptionalParseResult mlir::AsmParser::parseOptionalInteger<signed char>(signed char &)::{lambda(llvm::APInt &)#1}>(a1, a2, v17);
-  if ((v5 & 0x100) == 0)
-  {
-    v15 = "expected integer value";
-    v16 = 259;
-    (*(*a1 + 24))(v17, a1, v4, &v15);
-    v5 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v17);
-    if (v17[0])
-    {
-      mlir::InFlightDiagnostic::report(v17);
-    }
-
-    if (v25 == 1)
-    {
-      if (v24 != &v25)
-      {
-        free(v24);
-      }
-
-      v6 = __p;
-      if (__p)
-      {
-        v7 = v23;
-        v8 = __p;
-        if (v23 != __p)
-        {
-          do
-          {
-            v7 = std::unique_ptr<mlir::Diagnostic>::~unique_ptr[abi:nn200100](v7 - 1);
-          }
-
-          while (v7 != v6);
-          v8 = __p;
-        }
-
-        v23 = v6;
-        operator delete(v8);
-      }
-
-      v9 = v20;
-      if (v20)
-      {
-        v10 = v21;
-        v11 = v20;
-        if (v21 != v20)
-        {
-          do
-          {
-            v13 = *--v10;
-            v12 = v13;
-            *v10 = 0;
-            if (v13)
-            {
-              MEMORY[0x259C63150](v12, 0x1000C8077774924);
-            }
-          }
-
-          while (v10 != v9);
-          v11 = v20;
-        }
-
-        v21 = v9;
-        operator delete(v11);
-      }
-
-      if (v18 != &v19)
-      {
-        free(v18);
-      }
-    }
-  }
-
-  return v5;
-}
-
-uint64_t mlir::AsmParser::parseOptionalIntegerAndCheck<signed char,mlir::OptionalParseResult mlir::AsmParser::parseOptionalInteger<signed char>(signed char &)::{lambda(llvm::APInt &)#1}>(uint64_t a1, _BYTE *a2, uint64_t a3)
-{
-  v39 = *MEMORY[0x277D85DE8];
-  v6 = (*(*a1 + 40))(a1);
-  v28 = 1;
-  v27 = 0;
-  v7 = (*(**a3 + 376))();
-  if ((v7 & (v7 >> 8) & 1) == 0)
-  {
-    v12 = BYTE1(v7);
-    return v7 | (v12 << 8);
-  }
-
-  llvm::APInt::sextOrTrunc(&v27, 8u, &v29);
-  v8 = v30;
-  if (v30 < 0x41)
-  {
-    v9 = v29;
-    *a2 = v29;
-    v10 = v28;
-    v11 = v9;
-    v30 = v28;
-    if (v28 > 0x40)
-    {
-LABEL_15:
-      llvm::APInt::initSlowCase(&v29);
-    }
-
-    goto LABEL_10;
-  }
-
-  v13 = v8 - llvm::APInt::countLeadingZerosSlowCase(&v29);
-  v14 = v29;
-  if (v13 <= 0x40)
-  {
-    *a2 = *v29;
-LABEL_14:
-    MEMORY[0x259C63150]();
-    v10 = v28;
-    v11 = *a2;
-    v30 = v28;
-    if (v28 > 0x40)
-    {
-      goto LABEL_15;
-    }
-
-    goto LABEL_10;
-  }
-
-  *a2 = -1;
-  if (v14)
-  {
-    goto LABEL_14;
-  }
-
-  v10 = v28;
-  v11 = -1;
-  v30 = v28;
-  if (v28 > 0x40)
-  {
-    goto LABEL_15;
-  }
-
-LABEL_10:
-  v15 = 0xFFFFFFFFFFFFFFFFLL >> -v10;
-  if (!v10)
-  {
-    v15 = 0;
-  }
-
-  v29 = (v15 & v11);
-  if (v29 == v27)
-  {
-    LOBYTE(v7) = 1;
-    v12 = 1;
-  }
-
-  else
-  {
-    v25 = "integer value too large";
-    v26 = 259;
-    (*(*a1 + 24))(&v29, a1, v6, &v25);
-    if (v29)
-    {
-      mlir::InFlightDiagnostic::report(&v29);
-    }
-
-    if (v38 == 1)
-    {
-      if (v37 != &v38)
-      {
-        free(v37);
-      }
-
-      v16 = __p;
-      if (__p)
-      {
-        v17 = v36;
-        v18 = __p;
-        if (v36 != __p)
-        {
-          do
-          {
-            v17 = std::unique_ptr<mlir::Diagnostic>::~unique_ptr[abi:nn200100](v17 - 1);
-          }
-
-          while (v17 != v16);
-          v18 = __p;
-        }
-
-        v36 = v16;
-        operator delete(v18);
-      }
-
-      v19 = v33;
-      if (v33)
-      {
-        v20 = v34;
-        v21 = v33;
-        if (v34 != v33)
-        {
-          do
-          {
-            v23 = *--v20;
-            v22 = v23;
-            *v20 = 0;
-            if (v23)
-            {
-              MEMORY[0x259C63150](v22, 0x1000C8077774924);
-            }
-          }
-
-          while (v20 != v19);
-          v21 = v33;
-        }
-
-        v34 = v19;
-        operator delete(v21);
-      }
-
-      if (v31 != &v32)
-      {
-        free(v31);
-      }
-    }
-
-    LOBYTE(v7) = 0;
-    v12 = 1;
-    if (v28 >= 0x41 && v27)
-    {
-      MEMORY[0x259C63150](v27, 0x1000C8000313F17);
-      LOBYTE(v7) = 0;
-    }
-  }
-
-  return v7 | (v12 << 8);
-}
-
-uint64_t llvm::function_ref<llvm::ParseResult ()(void)>::callback_fn<mlir::detail::DenseArrayAttrImpl<short>::parseWithoutBraces(mlir::AsmParser &,mlir::Type)::{lambda(void)#1}>(uint64_t *a1)
-{
-  v6 = 0;
-  v2 = mlir::AsmParser::parseInteger<short>(*a1, &v6);
-  result = 0;
-  if (v2)
-  {
-    v4 = a1[1];
-    v5 = v4[1];
-    if ((v5 + 1) > v4[2])
-    {
-      llvm::SmallVectorBase<unsigned long long>::grow_pod();
-    }
-
-    *(*v4 + 2 * v5) = v6;
-    ++v4[1];
-    return 1;
-  }
-
-  return result;
-}
-
-uint64_t mlir::AsmParser::parseInteger<short>(uint64_t a1, __int16 *a2)
-{
-  v26 = *MEMORY[0x277D85DE8];
-  v4 = (*(*a1 + 40))(a1);
-  v17[0] = a1;
-  v5 = mlir::AsmParser::parseOptionalIntegerAndCheck<short,mlir::OptionalParseResult mlir::AsmParser::parseOptionalInteger<short>(short &)::{lambda(llvm::APInt &)#1}>(a1, a2, v17);
-  if ((v5 & 0x100) == 0)
-  {
-    v15 = "expected integer value";
-    v16 = 259;
-    (*(*a1 + 24))(v17, a1, v4, &v15);
-    v5 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v17);
-    if (v17[0])
-    {
-      mlir::InFlightDiagnostic::report(v17);
-    }
-
-    if (v25 == 1)
-    {
-      if (v24 != &v25)
-      {
-        free(v24);
-      }
-
-      v6 = __p;
-      if (__p)
-      {
-        v7 = v23;
-        v8 = __p;
-        if (v23 != __p)
-        {
-          do
-          {
-            v7 = std::unique_ptr<mlir::Diagnostic>::~unique_ptr[abi:nn200100](v7 - 1);
-          }
-
-          while (v7 != v6);
-          v8 = __p;
-        }
-
-        v23 = v6;
-        operator delete(v8);
-      }
-
-      v9 = v20;
-      if (v20)
-      {
-        v10 = v21;
-        v11 = v20;
-        if (v21 != v20)
-        {
-          do
-          {
-            v13 = *--v10;
-            v12 = v13;
-            *v10 = 0;
-            if (v13)
-            {
-              MEMORY[0x259C63150](v12, 0x1000C8077774924);
-            }
-          }
-
-          while (v10 != v9);
-          v11 = v20;
-        }
-
-        v21 = v9;
-        operator delete(v11);
-      }
-
-      if (v18 != &v19)
-      {
-        free(v18);
-      }
-    }
-  }
-
-  return v5;
-}
-
-uint64_t mlir::AsmParser::parseOptionalIntegerAndCheck<short,mlir::OptionalParseResult mlir::AsmParser::parseOptionalInteger<short>(short &)::{lambda(llvm::APInt &)#1}>(uint64_t a1, __int16 *a2, uint64_t a3)
-{
-  v39 = *MEMORY[0x277D85DE8];
-  v6 = (*(*a1 + 40))(a1);
-  v28 = 1;
-  v27 = 0;
-  v7 = (*(**a3 + 376))();
-  if ((v7 & (v7 >> 8) & 1) == 0)
-  {
-    v12 = BYTE1(v7);
-    return v7 | (v12 << 8);
-  }
-
-  llvm::APInt::sextOrTrunc(&v27, 0x10u, &v29);
-  v8 = v30;
-  if (v30 < 0x41)
-  {
-    v9 = v29;
-    *a2 = v29;
-    v10 = v28;
-    v11 = v9;
-    v30 = v28;
-    if (v28 > 0x40)
-    {
-LABEL_15:
-      llvm::APInt::initSlowCase(&v29);
-    }
-
-    goto LABEL_10;
-  }
-
-  v13 = v8 - llvm::APInt::countLeadingZerosSlowCase(&v29);
-  v14 = v29;
-  if (v13 <= 0x40)
-  {
-    *a2 = *v29;
-LABEL_14:
-    MEMORY[0x259C63150]();
-    v10 = v28;
-    v11 = *a2;
-    v30 = v28;
-    if (v28 > 0x40)
-    {
-      goto LABEL_15;
-    }
-
-    goto LABEL_10;
-  }
-
-  *a2 = -1;
-  if (v14)
-  {
-    goto LABEL_14;
-  }
-
-  v10 = v28;
-  v11 = -1;
-  v30 = v28;
-  if (v28 > 0x40)
-  {
-    goto LABEL_15;
-  }
-
-LABEL_10:
-  v15 = 0xFFFFFFFFFFFFFFFFLL >> -v10;
-  if (!v10)
-  {
-    v15 = 0;
-  }
-
-  v29 = (v15 & v11);
-  if (v29 == v27)
-  {
-    LOBYTE(v7) = 1;
-    v12 = 1;
-  }
-
-  else
-  {
-    v25 = "integer value too large";
-    v26 = 259;
-    (*(*a1 + 24))(&v29, a1, v6, &v25);
-    if (v29)
-    {
-      mlir::InFlightDiagnostic::report(&v29);
-    }
-
-    if (v38 == 1)
-    {
-      if (v37 != &v38)
-      {
-        free(v37);
-      }
-
-      v16 = __p;
-      if (__p)
-      {
-        v17 = v36;
-        v18 = __p;
-        if (v36 != __p)
-        {
-          do
-          {
-            v17 = std::unique_ptr<mlir::Diagnostic>::~unique_ptr[abi:nn200100](v17 - 1);
-          }
-
-          while (v17 != v16);
-          v18 = __p;
-        }
-
-        v36 = v16;
-        operator delete(v18);
-      }
-
-      v19 = v33;
-      if (v33)
-      {
-        v20 = v34;
-        v21 = v33;
-        if (v34 != v33)
-        {
-          do
-          {
-            v23 = *--v20;
-            v22 = v23;
-            *v20 = 0;
-            if (v23)
-            {
-              MEMORY[0x259C63150](v22, 0x1000C8077774924);
-            }
-          }
-
-          while (v20 != v19);
-          v21 = v33;
-        }
-
-        v34 = v19;
-        operator delete(v21);
-      }
-
-      if (v31 != &v32)
-      {
-        free(v31);
-      }
-    }
-
-    LOBYTE(v7) = 0;
-    v12 = 1;
-    if (v28 >= 0x41 && v27)
-    {
-      MEMORY[0x259C63150](v27, 0x1000C8000313F17);
-      LOBYTE(v7) = 0;
-    }
-  }
-
-  return v7 | (v12 << 8);
-}
-
-uint64_t llvm::function_ref<llvm::ParseResult ()(void)>::callback_fn<mlir::detail::DenseArrayAttrImpl<int>::parseWithoutBraces(mlir::AsmParser &,mlir::Type)::{lambda(void)#1}>(uint64_t *a1)
-{
-  v6 = 0;
-  v2 = mlir::AsmParser::parseInteger<int>(*a1, &v6);
-  result = 0;
-  if (v2)
-  {
-    v4 = a1[1];
-    v5 = *(v4 + 8);
-    if (v5 >= *(v4 + 12))
-    {
-      llvm::SmallVectorBase<unsigned int>::grow_pod();
-    }
-
-    *(*v4 + 4 * v5) = v6;
-    ++*(v4 + 8);
-    return 1;
-  }
-
-  return result;
-}
-
-uint64_t llvm::function_ref<llvm::ParseResult ()(void)>::callback_fn<mlir::detail::DenseArrayAttrImpl<long long>::parseWithoutBraces(mlir::AsmParser &,mlir::Type)::{lambda(void)#1}>(uint64_t *a1)
-{
-  v5 = 0;
-  if ((mlir::AsmParser::parseInteger<unsigned long long>(*a1, &v5) & 1) == 0)
-  {
-    return 0;
-  }
-
-  v2 = a1[1];
-  v3 = *(v2 + 8);
-  if (v3 >= *(v2 + 12))
-  {
-    llvm::SmallVectorBase<unsigned int>::grow_pod();
-  }
-
-  *(*v2 + 8 * v3) = v5;
-  ++*(v2 + 8);
-  return 1;
-}
-
-uint64_t llvm::function_ref<llvm::ParseResult ()(void)>::callback_fn<mlir::detail::DenseArrayAttrImpl<float>::parseWithoutBraces(mlir::AsmParser &,mlir::Type)::{lambda(void)#1}>(uint64_t *a1)
-{
-  v2 = *a1;
-  v7 = 0.0;
-  if (((*(*v2 + 360))(v2, &v7) & 1) == 0)
-  {
-    return 0;
-  }
-
-  v4 = a1[1];
-  v5 = *(v4 + 8);
-  if (v5 >= *(v4 + 12))
-  {
-    llvm::SmallVectorBase<unsigned int>::grow_pod();
-  }
-
-  v3 = v7;
-  *(*v4 + 4 * v5) = v3;
-  ++*(v4 + 8);
-  return 1;
-}
-
-uint64_t llvm::function_ref<llvm::ParseResult ()(void)>::callback_fn<mlir::detail::DenseArrayAttrImpl<double>::parseWithoutBraces(mlir::AsmParser &,mlir::Type)::{lambda(void)#1}>(void *a1)
-{
-  v5 = 0;
-  if (((*(**a1 + 360))(*a1, &v5) & 1) == 0)
-  {
-    return 0;
-  }
-
-  v2 = a1[1];
-  v3 = *(v2 + 8);
-  if (v3 >= *(v2 + 12))
-  {
-    llvm::SmallVectorBase<unsigned int>::grow_pod();
-  }
-
-  *(*v2 + 8 * v3) = v5;
-  ++*(v2 + 8);
-  return 1;
-}
-
-void llvm::SmallVectorTemplateBase<std::complex<llvm::APFloat>,false>::moveElementsForGrow(unsigned int *a1, uint64_t a2)
-{
-  v2 = a1[2];
-  if (!v2)
-  {
-    return;
-  }
-
-  v5 = *a1;
-  v6 = llvm::APFloatBase::PPCDoubleDouble(a1);
-  v7 = (a2 + 40);
-  v8 = v2 << 6;
-  v9 = (v5 + 40);
-  do
-  {
-    while (1)
-    {
-      v10 = v7 - 2;
-      v11 = v9 - 2;
-      if (v6 != v9[-2].n128_u64[0])
-      {
-        break;
-      }
-
-      llvm::detail::DoubleAPFloat::DoubleAPFloat(v10, v11);
-      v12 = v7;
-      v13 = v9;
-      if (v6 != v9->n128_u64[0])
-      {
-        goto LABEL_8;
-      }
-
-LABEL_3:
-      llvm::detail::DoubleAPFloat::DoubleAPFloat(v12, v13);
-      v7 += 4;
-      v9 += 4;
-      v8 -= 64;
-      if (!v8)
-      {
-        goto LABEL_9;
-      }
-    }
-
-    llvm::detail::IEEEFloat::IEEEFloat(v10, v11);
-    v12 = v7;
-    v13 = v9;
-    if (v6 == v9->n128_u64[0])
-    {
-      goto LABEL_3;
-    }
-
-LABEL_8:
-    llvm::detail::IEEEFloat::IEEEFloat(v12, v13);
-    v7 += 4;
-    v9 += 4;
-    v8 -= 64;
-  }
-
-  while (v8);
-LABEL_9:
-  v14 = a1[2];
-  if (v14)
-  {
-    v15 = v14 << 6;
-    v16 = (v15 + *a1 - 24);
-    v17 = -v15;
-    while (1)
-    {
-      if (v6 == *v16)
-      {
-        llvm::detail::DoubleAPFloat::~DoubleAPFloat(v16);
-        v18 = (v16 - 32);
-        if (v6 != *(v16 - 4))
-        {
-          goto LABEL_16;
-        }
-
-LABEL_11:
-        llvm::detail::DoubleAPFloat::~DoubleAPFloat(v18);
-        v16 = (v16 - 64);
-        v17 += 64;
-        if (!v17)
-        {
-          return;
-        }
-      }
-
-      else
-      {
-        llvm::detail::IEEEFloat::~IEEEFloat(v16);
-        v18 = (v16 - 32);
-        if (v6 == *(v16 - 4))
-        {
-          goto LABEL_11;
-        }
-
-LABEL_16:
-        llvm::detail::IEEEFloat::~IEEEFloat(v18);
-        v16 = (v16 - 64);
-        v17 += 64;
-        if (!v17)
-        {
-          return;
-        }
-      }
-    }
-  }
-}
-
-uint64_t mlir::detail::DenseIntOrFPElementsAttrStorage::getKey@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, char *a3@<X2>, unint64_t a4@<X3>, int a5@<W4>, uint64_t a6@<X8>)
-{
-  v33 = *MEMORY[0x277D85DE8];
-  *&v27 = result;
-  *(&v27 + 1) = a2;
-  if (!a4)
-  {
-    *a6 = result;
-    *(a6 + 8) = a2;
-    *(a6 + 24) = 0;
-    *(a6 + 32) = 0;
-    *(a6 + 16) = a3;
-    goto LABEL_9;
-  }
-
-  v28[0] = mlir::ShapedType::getElementType(&v27);
-  result = mlir::Type::isInteger(v28, 1);
-  v10 = result;
-  if (!a5)
-  {
-    Shape = mlir::ShapedType::getShape(&v27);
-    NumElements = mlir::ShapedType::getNumElements(Shape, v17);
-    if (v10)
-    {
-      return mlir::detail::DenseIntOrFPElementsAttrStorage::getKeyForBoolData(v27, *(&v27 + 1), a3, a4, NumElements, a6);
-    }
-
-    ElementType = mlir::ShapedType::getElementType(&v27);
-    DenseElementBitWidth = mlir::detail::getDenseElementBitWidth(ElementType);
-    if (DenseElementBitWidth)
-    {
-      v21 = ((DenseElementBitWidth - (DenseElementBitWidth != 0)) >> 3) + 1;
-    }
-
-    else
-    {
-      v21 = (DenseElementBitWidth - (DenseElementBitWidth != 0)) >> 3;
-    }
-
-    if (a4 >= v21)
-    {
-      v22 = v21;
-    }
-
-    else
-    {
-      v22 = a4;
-    }
-
-    result = llvm::hashing::detail::hash_combine_range_impl<unsigned char const>(a3, &a3[v22]);
-    v23 = result;
-    if (v21 == a4)
-    {
-LABEL_23:
-      *a6 = v27;
-      *(a6 + 16) = a3;
-      *(a6 + 24) = v22;
-      *(a6 + 32) = v23;
-      goto LABEL_24;
-    }
-
-    v24 = &a3[v21];
-    v25 = v21;
-    while (1)
-    {
-      result = memcmp(a3, v24, v21);
-      if (result)
-      {
-        break;
-      }
-
-      v25 += v21;
-      v24 += v21;
-      if (v25 == a4)
-      {
-        goto LABEL_23;
-      }
-    }
-
-    v26 = v27;
-    memset(v30, 0, sizeof(v30));
-    memset(v29, 0, sizeof(v29));
-    v31 = 0;
-    v32 = 0xFF51AFD7ED558CCDLL;
-    v28[0] = v23;
-    v28[1] = llvm::hashing::detail::hash_combine_range_impl<unsigned char const>(v24, &a3[a4]);
-    result = llvm::hashing::detail::hash_combine_recursive_helper::combine(v28, 0, v29, v30);
-    *a6 = v26;
-    *(a6 + 16) = a3;
-    *(a6 + 24) = a4;
-    *(a6 + 32) = result;
-LABEL_9:
-    *(a6 + 40) = 0;
-    return result;
-  }
-
-  v11 = v27;
-  if (!result)
-  {
-    result = llvm::hashing::detail::hash_combine_range_impl<unsigned char const>(a3, &a3[a4]);
-    *a6 = v11;
-    *(a6 + 16) = a3;
-    *(a6 + 24) = a4;
-    *(a6 + 32) = result;
-LABEL_24:
-    *(a6 + 40) = 1;
-    return result;
-  }
-
-  if (*a3)
-  {
-    v12 = &mlir::detail::DenseIntOrFPElementsAttrStorage::kSplatTrue;
-  }
-
-  else
-  {
-    v12 = &mlir::detail::DenseIntOrFPElementsAttrStorage::kSplatFalse;
-  }
-
-  v13 = *v12;
-  v14 = HIDWORD(v13);
-  v15 = 0x9DDFEA08EB382D69 * ((8 * v13 - 0xAE502812AA7333) ^ HIDWORD(v13));
-  *a6 = v27;
-  *(a6 + 8) = *(&v11 + 1);
-  *(a6 + 16) = v12;
-  *(a6 + 24) = 1;
-  *(a6 + 32) = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v14 ^ (v15 >> 47) ^ v15)) ^ ((0x9DDFEA08EB382D69 * (v14 ^ (v15 >> 47) ^ v15)) >> 47));
-  *(a6 + 40) = 1;
-  return result;
-}
-
-uint64_t mlir::detail::DenseIntOrFPElementsAttrStorage::getKeyForBoolData@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, char *a3@<X2>, uint64_t a4@<X3>, char a5@<W4>, uint64_t a6@<X8>)
-{
-  v6 = *a3;
-  v7 = &mlir::detail::DenseIntOrFPElementsAttrStorage::kSplatTrue;
-  if ((v6 & 1) == 0)
-  {
-    v7 = &mlir::detail::DenseIntOrFPElementsAttrStorage::kSplatFalse;
-  }
-
-  if (a4 == 1)
-  {
-    LODWORD(v8) = *v7;
-    if (v6 == v8)
-    {
-      v8 = v8;
-LABEL_19:
-      v16 = HIDWORD(v8);
-      v17 = 0x9DDFEA08EB382D69 * ((8 * v8 - 0xAE502812AA7333) ^ HIDWORD(v8));
-      v12 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v16 ^ (v17 >> 47) ^ v17)) ^ ((0x9DDFEA08EB382D69 * (v16 ^ (v17 >> 47) ^ v17)) >> 47));
-      v11 = 1;
-      v13 = 1;
-      goto LABEL_21;
-    }
-  }
-
-  v9 = &a3[a4];
-  if ((a5 & 7) == 0 || (v6 & 1) == 0)
-  {
-    v10 = &a3[a4];
-    if (!a4)
-    {
-LABEL_18:
-      v8 = *v7;
-      goto LABEL_19;
-    }
-
-    goto LABEL_12;
-  }
-
-  v10 = (v9 - 1);
-  if (0xFFu >> (8 - (a5 & 7)) != *(v9 - 1))
-  {
-LABEL_20:
-    v18 = result;
-    v19 = a2;
-    v20 = a6;
-    v23 = llvm::hashing::detail::hash_combine_range_impl<unsigned char const>(a3, &a3[a4]);
-    v7 = a3;
-    v11 = a4;
-    a2 = v19;
-    a6 = v20;
-    v12 = v23;
-    result = v18;
-    v13 = 0;
-    goto LABEL_21;
-  }
-
-  if (a4 != 1)
-  {
-LABEL_12:
-    if (v6)
-    {
-      v14 = -1;
-    }
-
-    else
-    {
-      v14 = 0;
-    }
-
-    v15 = a3;
-    while (*v15 == v14)
-    {
-      if (++v15 == v10)
-      {
-        goto LABEL_18;
-      }
-    }
-
-    goto LABEL_20;
-  }
-
-  v11 = 1;
-  v12 = 0xE58356463FB8AC99;
-  v13 = 1;
-  v7 = &mlir::detail::DenseIntOrFPElementsAttrStorage::kSplatTrue;
-LABEL_21:
-  *a6 = result;
-  *(a6 + 8) = a2;
-  *(a6 + 16) = v7;
-  *(a6 + 24) = v11;
-  *(a6 + 32) = v12;
-  *(a6 + 40) = v13;
-  return result;
 }

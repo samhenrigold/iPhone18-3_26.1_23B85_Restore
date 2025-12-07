@@ -801,7 +801,7 @@ LABEL_9:
 - (void)reportPolicyBlockingReasonsForSpecificTasksToPPS
 {
   allKeys = [(NSMutableDictionary *)self->_taskToBlockingPolicies allKeys];
-  if ([allKeys count])
+  if (objc_msgSend_count(allKeys))
   {
     v15 = 0u;
     v16 = 0u;

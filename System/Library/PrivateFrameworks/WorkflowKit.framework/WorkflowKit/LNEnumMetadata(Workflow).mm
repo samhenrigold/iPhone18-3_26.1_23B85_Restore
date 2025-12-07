@@ -19,14 +19,14 @@
 
 - (objc_class)wf_contentItemClassWithAppBundleIdentifier:()Workflow superclass:
 {
-  v34[3] = *MEMORY[0x1E69E9840];
+  v33[3] = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = NSStringFromClass(a4);
-  v34[0] = v7;
-  v34[1] = v6;
+  v33[0] = v7;
+  v33[1] = v6;
   identifier = [self identifier];
-  v34[2] = identifier;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:3];
+  v33[2] = identifier;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:3];
 
   v10 = [v9 componentsJoinedByString:@"_"];
   v11 = NSClassFromString(v10);
@@ -55,22 +55,22 @@ LABEL_3:
   aBlock[4] = a4;
   v16 = _Block_copy(aBlock);
   selfCopy = self;
-  v31[0] = MEMORY[0x1E69E9820];
-  v31[1] = 3221225472;
-  v31[2] = __82__LNEnumMetadata_Workflow__wf_contentItemClassWithAppBundleIdentifier_superclass___block_invoke_2;
-  v31[3] = &unk_1E837F738;
-  v32 = selfCopy;
+  v30[0] = MEMORY[0x1E69E9820];
+  v30[1] = 3221225472;
+  v30[2] = __82__LNEnumMetadata_Workflow__wf_contentItemClassWithAppBundleIdentifier_superclass___block_invoke_2;
+  v30[3] = &unk_1E837F738;
+  v31 = selfCopy;
   v18 = selfCopy;
-  v19 = _Block_copy(v31);
+  v19 = _Block_copy(v30);
   v16[2](v16, v15, sel_enumMetadata, v19);
 
-  v26 = MEMORY[0x1E69E9820];
-  v27 = 3221225472;
-  v28 = __82__LNEnumMetadata_Workflow__wf_contentItemClassWithAppBundleIdentifier_superclass___block_invoke_3;
-  v29 = &unk_1E837F760;
+  v25 = MEMORY[0x1E69E9820];
+  v26 = 3221225472;
+  v27 = __82__LNEnumMetadata_Workflow__wf_contentItemClassWithAppBundleIdentifier_superclass___block_invoke_3;
+  v28 = &unk_1E837F760;
   v20 = v6;
-  v30 = v20;
-  v21 = _Block_copy(&v26);
+  v29 = v20;
+  v21 = _Block_copy(&v25);
   v16[2](v16, v15, sel_appBundleIdentifier, v21);
 
   v22 = MEMORY[0x1E69AC800];
@@ -82,7 +82,6 @@ LABEL_3:
   v13 = v15;
 
 LABEL_6:
-  v24 = *MEMORY[0x1E69E9840];
 
   return v13;
 }

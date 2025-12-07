@@ -39,33 +39,8 @@ LABEL_22:
   }
 
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()) || (objc_opt_class(), (objc_opt_isKindOfClass()) || (objc_opt_class(), (objc_opt_isKindOfClass()) || (objc_opt_class(), (objc_opt_isKindOfClass()) || (objc_opt_class(), (objc_opt_isKindOfClass()) || (objc_opt_class(), (objc_opt_isKindOfClass()) || (objc_opt_class(), (objc_opt_isKindOfClass()) || (objc_opt_class(), (objc_opt_isKindOfClass()) || (objc_opt_class(), (objc_opt_isKindOfClass()) || (objc_opt_class(), (objc_opt_isKindOfClass()) || (objc_opt_class(), (objc_opt_isKindOfClass()))
   {
-    goto LABEL_21;
-  }
-
-  objc_opt_class();
-  if (objc_opt_isKindOfClass())
-  {
-    goto LABEL_21;
-  }
-
-  objc_opt_class();
-  if (objc_opt_isKindOfClass())
-  {
-    goto LABEL_21;
-  }
-
-  objc_opt_class();
-  if (objc_opt_isKindOfClass())
-  {
-    goto LABEL_21;
-  }
-
-  objc_opt_class();
-  if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()) || (objc_opt_class(), (objc_opt_isKindOfClass()) || (objc_opt_class(), (objc_opt_isKindOfClass()) || (objc_opt_class(), (objc_opt_isKindOfClass()) || (objc_opt_class(), (objc_opt_isKindOfClass()) || (objc_opt_class(), (objc_opt_isKindOfClass()) || (objc_opt_class(), (objc_opt_isKindOfClass()))
-  {
-LABEL_21:
     v6 = AXToggleIntentHandler;
     goto LABEL_22;
   }

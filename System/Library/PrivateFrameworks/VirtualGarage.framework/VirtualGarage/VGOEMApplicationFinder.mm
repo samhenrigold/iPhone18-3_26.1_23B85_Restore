@@ -66,26 +66,26 @@
 
 void __45__VGOEMApplicationFinder_findOEMApplications__block_invoke(uint64_t a1)
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (!WeakRetained)
   {
-    v23 = VGGetVirtualGarageLog();
-    if (!os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v21 = VGGetVirtualGarageLog();
+    if (!os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_44;
     }
 
     *buf = 136315394;
-    v48 = "[VGOEMApplicationFinder findOEMApplications]_block_invoke";
-    v49 = 1024;
-    v50 = 221;
-    v24 = "strongSelf went away in %s line %d";
-    v25 = v23;
-    v26 = OS_LOG_TYPE_ERROR;
-    v27 = 18;
+    v45 = "[VGOEMApplicationFinder findOEMApplications]_block_invoke";
+    v46 = 1024;
+    v47 = 221;
+    v22 = "strongSelf went away in %s line %d";
+    v23 = v21;
+    v24 = OS_LOG_TYPE_ERROR;
+    v25 = 18;
 LABEL_43:
-    _os_log_impl(&dword_270EC1000, v25, v26, v24, buf, v27);
+    _os_log_impl(&dword_270EC1000, v23, v24, v22, buf, v25);
     goto LABEL_44;
   }
 
@@ -108,158 +108,155 @@ LABEL_43:
     _os_signpost_emit_with_name_impl(&dword_270EC1000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v4, "FindOEMApplications", "", buf, 2u);
   }
 
-  v8 = *MEMORY[0x277D0EA90];
-  v9 = *(MEMORY[0x277D0EA90] + 8);
   BOOL = GEOConfigGetBOOL();
-  v11 = VGGetOEMApplicationLog();
-  v12 = os_log_type_enabled(v11, OS_LOG_TYPE_INFO);
+  v9 = VGGetOEMApplicationLog();
+  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_INFO);
   if (!BOOL)
   {
-    v41 = v4 - 1;
-    if (v12)
+    v38 = v4 - 1;
+    if (v10)
     {
       *buf = 0;
-      _os_log_impl(&dword_270EC1000, v11, OS_LOG_TYPE_INFO, "Allowlist is disabled; querying all installed apps", buf, 2u);
+      _os_log_impl(&dword_270EC1000, v9, OS_LOG_TYPE_INFO, "Allowlist is disabled; querying all installed apps", buf, 2u);
     }
 
-    v13 = [MEMORY[0x277CC1E70] enumeratorWithOptions:0];
-    v28 = objc_autoreleasePoolPush();
-    v29 = [v13 nextObject];
-    if (v29)
+    v11 = [MEMORY[0x277CC1E70] enumeratorWithOptions:0];
+    v26 = objc_autoreleasePoolPush();
+    v27 = [v11 nextObject];
+    if (v27)
     {
-      v30 = v29;
-      v16 = 0;
+      v28 = v27;
+      v14 = 0;
       do
       {
-        v31 = VGGetOEMApplicationLog();
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+        v29 = VGGetOEMApplicationLog();
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
         {
-          v32 = [v30 bundleIdentifier];
+          v30 = [v28 bundleIdentifier];
           *buf = 138412290;
-          v48 = v32;
-          _os_log_impl(&dword_270EC1000, v31, OS_LOG_TYPE_INFO, "Processing bundle id %@", buf, 0xCu);
+          v45 = v30;
+          _os_log_impl(&dword_270EC1000, v29, OS_LOG_TYPE_INFO, "Processing bundle id %@", buf, 0xCu);
         }
 
-        v16 |= [WeakRetained _addOEMApplicationForApplicationRecordIfNeeded:v30];
-        objc_autoreleasePoolPop(v28);
-        v28 = objc_autoreleasePoolPush();
-        v33 = [v13 nextObject];
+        v14 |= [WeakRetained _addOEMApplicationForApplicationRecordIfNeeded:v28];
+        objc_autoreleasePoolPop(v26);
+        v26 = objc_autoreleasePoolPush();
+        v31 = [v11 nextObject];
 
-        v30 = v33;
+        v28 = v31;
       }
 
-      while (v33);
+      while (v31);
     }
 
     else
     {
-      LOBYTE(v16) = 0;
+      LOBYTE(v14) = 0;
     }
 
-    objc_autoreleasePoolPop(v28);
+    objc_autoreleasePoolPop(v26);
     goto LABEL_33;
   }
 
-  if (v12)
+  if (v10)
   {
     *buf = 0;
-    _os_log_impl(&dword_270EC1000, v11, OS_LOG_TYPE_INFO, "Allowlist enabled; querying all allowlist apps", buf, 2u);
+    _os_log_impl(&dword_270EC1000, v9, OS_LOG_TYPE_INFO, "Allowlist enabled; querying all allowlist apps", buf, 2u);
   }
 
-  v44 = 0u;
-  v45 = 0u;
+  v41 = 0u;
   v42 = 0u;
-  v43 = 0u;
-  v13 = [WeakRetained allowlist];
-  v14 = [v13 countByEnumeratingWithState:&v42 objects:v46 count:16];
-  if (v14)
+  v39 = 0u;
+  v40 = 0u;
+  v11 = [WeakRetained allowlist];
+  v12 = [v11 countByEnumeratingWithState:&v39 objects:v43 count:16];
+  if (v12)
   {
-    v15 = v14;
-    v40 = v4;
-    v41 = v4 - 1;
-    v16 = 0;
-    v17 = *v43;
+    v13 = v12;
+    v37 = v4;
+    v38 = v4 - 1;
+    v14 = 0;
+    v15 = *v40;
     do
     {
-      for (i = 0; i != v15; ++i)
+      for (i = 0; i != v13; ++i)
       {
-        if (*v43 != v17)
+        if (*v40 != v15)
         {
-          objc_enumerationMutation(v13);
+          objc_enumerationMutation(v11);
         }
 
-        v19 = *(*(&v42 + 1) + 8 * i);
-        v20 = objc_autoreleasePoolPush();
-        v21 = VGGetOEMApplicationLog();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+        v17 = *(*(&v39 + 1) + 8 * i);
+        v18 = objc_autoreleasePoolPush();
+        v19 = VGGetOEMApplicationLog();
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v48 = v19;
-          _os_log_impl(&dword_270EC1000, v21, OS_LOG_TYPE_INFO, "Processing bundle id %@", buf, 0xCu);
+          v45 = v17;
+          _os_log_impl(&dword_270EC1000, v19, OS_LOG_TYPE_INFO, "Processing bundle id %@", buf, 0xCu);
         }
 
-        v22 = [WeakRetained _applicationRecordForBundleIdentifier:v19];
-        v16 |= [WeakRetained _addOEMApplicationForApplicationRecordIfNeeded:v22];
+        v20 = [WeakRetained _applicationRecordForBundleIdentifier:v17];
+        v14 |= [WeakRetained _addOEMApplicationForApplicationRecordIfNeeded:v20];
 
-        objc_autoreleasePoolPop(v20);
+        objc_autoreleasePoolPop(v18);
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v42 objects:v46 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v39 objects:v43 count:16];
     }
 
-    while (v15);
-    v4 = v40;
+    while (v13);
+    v4 = v37;
 LABEL_33:
-    v7 = v41;
+    v7 = v38;
     goto LABEL_34;
   }
 
-  LOBYTE(v16) = 0;
+  LOBYTE(v14) = 0;
 LABEL_34:
 
-  v34 = VGGetOEMApplicationLog();
-  v35 = v34;
-  if (v7 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v34))
+  v32 = VGGetOEMApplicationLog();
+  v33 = v32;
+  if (v7 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v32))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_270EC1000, v35, OS_SIGNPOST_INTERVAL_END, v4, "FindOEMApplications", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_270EC1000, v33, OS_SIGNPOST_INTERVAL_END, v4, "FindOEMApplications", "", buf, 2u);
   }
 
-  v23 = VGGetOEMApplicationLog();
-  v36 = os_log_type_enabled(v23, OS_LOG_TYPE_INFO);
-  if ((v16 & 1) == 0)
+  v21 = VGGetOEMApplicationLog();
+  v34 = os_log_type_enabled(v21, OS_LOG_TYPE_INFO);
+  if ((v14 & 1) == 0)
   {
-    if (!v36)
+    if (!v34)
     {
       goto LABEL_44;
     }
 
     *buf = 0;
-    v24 = "No OEM apps found";
-    v25 = v23;
-    v26 = OS_LOG_TYPE_INFO;
-    v27 = 2;
+    v22 = "No OEM apps found";
+    v23 = v21;
+    v24 = OS_LOG_TYPE_INFO;
+    v25 = 2;
     goto LABEL_43;
   }
 
-  if (v36)
+  if (v34)
   {
     *buf = 0;
-    _os_log_impl(&dword_270EC1000, v23, OS_LOG_TYPE_INFO, "Found OEM apps", buf, 2u);
+    _os_log_impl(&dword_270EC1000, v21, OS_LOG_TYPE_INFO, "Found OEM apps", buf, 2u);
   }
 
-  v23 = [WeakRetained delegate];
-  v37 = [WeakRetained applications];
-  v38 = [v37 allValues];
-  [v23 OEMAppsUpdated:v38];
+  v21 = [WeakRetained delegate];
+  v35 = [WeakRetained applications];
+  v36 = [v35 allValues];
+  [v21 OEMAppsUpdated:v36];
 
 LABEL_44:
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (NSDictionary)allowlist
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   allowlist = self->_allowlist;
   if (allowlist)
   {
@@ -268,30 +265,30 @@ LABEL_44:
 
   selfCopy = self;
   _allowlistPayload = [(VGOEMApplicationFinder *)self _allowlistPayload];
-  v22 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(_allowlistPayload, "count")}];
+  v21 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(_allowlistPayload, "count")}];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v5 = _allowlistPayload;
-  v6 = [v5 countByEnumeratingWithState:&v23 objects:v29 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v22 objects:v28 count:16];
   if (!v6)
   {
     goto LABEL_16;
   }
 
   v7 = v6;
-  v8 = *v24;
+  v8 = *v23;
   do
   {
     for (i = 0; i != v7; ++i)
     {
-      if (*v24 != v8)
+      if (*v23 != v8)
       {
         objc_enumerationMutation(v5);
       }
 
-      v10 = *(*(&v23 + 1) + 8 * i);
+      v10 = *(*(&v22 + 1) + 8 * i);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -307,7 +304,7 @@ LABEL_44:
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            [(NSDictionary *)v22 setObject:v14 forKeyedSubscript:v12];
+            [(NSDictionary *)v21 setObject:v14 forKeyedSubscript:v12];
 
             goto LABEL_14;
           }
@@ -318,22 +315,22 @@ LABEL_44:
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v28 = v10;
+        v27 = v10;
         _os_log_impl(&dword_270EC1000, v12, OS_LOG_TYPE_ERROR, "Encountered a bundle that is malformed: %@", buf, 0xCu);
       }
 
 LABEL_14:
     }
 
-    v7 = [v5 countByEnumeratingWithState:&v23 objects:v29 count:16];
+    v7 = [v5 countByEnumeratingWithState:&v22 objects:v28 count:16];
   }
 
   while (v7);
 LABEL_16:
 
   v15 = selfCopy->_allowlist;
-  selfCopy->_allowlist = v22;
-  v16 = v22;
+  selfCopy->_allowlist = v21;
+  v16 = v21;
 
   v17 = [(NSDictionary *)selfCopy->_allowlist count];
   if (!v17)
@@ -348,7 +345,6 @@ LABEL_16:
 
   allowlist = selfCopy->_allowlist;
 LABEL_21:
-  v19 = *MEMORY[0x277D85DE8];
 
   return allowlist;
 }
@@ -402,34 +398,134 @@ LABEL_21:
 
 - (void)applicationsDidUninstall:(id)uninstall
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   uninstallCopy = uninstall;
   v6 = VGGetVirtualGarageLog();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = NSStringFromSelector(a2);
     *buf = 138412290;
-    v15 = v7;
+    v14 = v7;
     _os_log_impl(&dword_270EC1000, v6, OS_LOG_TYPE_INFO, "%@", buf, 0xCu);
   }
 
   objc_initWeak(buf, self);
   queue = self->_queue;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __51__VGOEMApplicationFinder_applicationsDidUninstall___block_invoke;
-  v11[3] = &unk_279E26F20;
-  objc_copyWeak(&v13, buf);
-  v12 = uninstallCopy;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __51__VGOEMApplicationFinder_applicationsDidUninstall___block_invoke;
+  v10[3] = &unk_279E26F20;
+  objc_copyWeak(&v12, buf);
+  v11 = uninstallCopy;
   v9 = uninstallCopy;
-  dispatch_async(queue, v11);
+  dispatch_async(queue, v10);
 
-  objc_destroyWeak(&v13);
+  objc_destroyWeak(&v12);
   objc_destroyWeak(buf);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __51__VGOEMApplicationFinder_applicationsDidUninstall___block_invoke(uint64_t a1)
+{
+  v23 = *MEMORY[0x277D85DE8];
+  WeakRetained = objc_loadWeakRetained((a1 + 40));
+  if (!WeakRetained)
+  {
+    v3 = VGGetVirtualGarageLog();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136315394;
+      v20 = "[VGOEMApplicationFinder applicationsDidUninstall:]_block_invoke";
+      v21 = 1024;
+      v22 = 300;
+      _os_log_impl(&dword_270EC1000, v3, OS_LOG_TYPE_ERROR, "strongSelf went away in %s line %d", buf, 0x12u);
+    }
+
+    goto LABEL_15;
+  }
+
+  v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v3 = *(a1 + 32);
+  v4 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  if (!v4)
+  {
+LABEL_15:
+
+    goto LABEL_16;
+  }
+
+  v5 = v4;
+  v6 = 0;
+  v7 = *v15;
+  do
+  {
+    for (i = 0; i != v5; ++i)
+    {
+      if (*v15 != v7)
+      {
+        objc_enumerationMutation(v3);
+      }
+
+      v9 = *(*(&v14 + 1) + 8 * i);
+      if (objc_opt_respondsToSelector())
+      {
+        v10 = objc_autoreleasePoolPush();
+        v11 = [v9 bundleIdentifier];
+        v6 |= [WeakRetained _removeOEMApplicationForBundleIdentifier:v11];
+
+        objc_autoreleasePoolPop(v10);
+      }
+    }
+
+    v5 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  }
+
+  while (v5);
+
+  if (v6)
+  {
+    v3 = objc_loadWeakRetained(WeakRetained + 3);
+    v12 = [WeakRetained applications];
+    v13 = [v12 allValues];
+    [v3 OEMAppsUpdated:v13];
+
+    goto LABEL_15;
+  }
+
+LABEL_16:
+}
+
+- (void)applicationsDidInstall:(id)install
+{
+  v15 = *MEMORY[0x277D85DE8];
+  installCopy = install;
+  v6 = VGGetVirtualGarageLog();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  {
+    v7 = NSStringFromSelector(a2);
+    *buf = 138412290;
+    v14 = v7;
+    _os_log_impl(&dword_270EC1000, v6, OS_LOG_TYPE_INFO, "%@", buf, 0xCu);
+  }
+
+  objc_initWeak(buf, self);
+  queue = self->_queue;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __49__VGOEMApplicationFinder_applicationsDidInstall___block_invoke;
+  v10[3] = &unk_279E26F20;
+  objc_copyWeak(&v12, buf);
+  v11 = installCopy;
+  v9 = installCopy;
+  dispatch_async(queue, v10);
+
+  objc_destroyWeak(&v12);
+  objc_destroyWeak(buf);
+}
+
+void __49__VGOEMApplicationFinder_applicationsDidInstall___block_invoke(uint64_t a1)
 {
   v24 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -439,9 +535,9 @@ void __51__VGOEMApplicationFinder_applicationsDidUninstall___block_invoke(uint64
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v21 = "[VGOEMApplicationFinder applicationsDidUninstall:]_block_invoke";
+      v21 = "[VGOEMApplicationFinder applicationsDidInstall:]_block_invoke";
       v22 = 1024;
-      v23 = 300;
+      v23 = 275;
       _os_log_impl(&dword_270EC1000, v3, OS_LOG_TYPE_ERROR, "strongSelf went away in %s line %d", buf, 0x12u);
     }
 
@@ -478,110 +574,6 @@ LABEL_15:
       {
         v10 = objc_autoreleasePoolPush();
         v11 = [v9 bundleIdentifier];
-        v6 |= [WeakRetained _removeOEMApplicationForBundleIdentifier:v11];
-
-        objc_autoreleasePoolPop(v10);
-      }
-    }
-
-    v5 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
-  }
-
-  while (v5);
-
-  if (v6)
-  {
-    v3 = objc_loadWeakRetained(WeakRetained + 3);
-    v12 = [WeakRetained applications];
-    v13 = [v12 allValues];
-    [v3 OEMAppsUpdated:v13];
-
-    goto LABEL_15;
-  }
-
-LABEL_16:
-
-  v14 = *MEMORY[0x277D85DE8];
-}
-
-- (void)applicationsDidInstall:(id)install
-{
-  v16 = *MEMORY[0x277D85DE8];
-  installCopy = install;
-  v6 = VGGetVirtualGarageLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
-  {
-    v7 = NSStringFromSelector(a2);
-    *buf = 138412290;
-    v15 = v7;
-    _os_log_impl(&dword_270EC1000, v6, OS_LOG_TYPE_INFO, "%@", buf, 0xCu);
-  }
-
-  objc_initWeak(buf, self);
-  queue = self->_queue;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __49__VGOEMApplicationFinder_applicationsDidInstall___block_invoke;
-  v11[3] = &unk_279E26F20;
-  objc_copyWeak(&v13, buf);
-  v12 = installCopy;
-  v9 = installCopy;
-  dispatch_async(queue, v11);
-
-  objc_destroyWeak(&v13);
-  objc_destroyWeak(buf);
-  v10 = *MEMORY[0x277D85DE8];
-}
-
-void __49__VGOEMApplicationFinder_applicationsDidInstall___block_invoke(uint64_t a1)
-{
-  v25 = *MEMORY[0x277D85DE8];
-  WeakRetained = objc_loadWeakRetained((a1 + 40));
-  if (!WeakRetained)
-  {
-    v3 = VGGetVirtualGarageLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136315394;
-      v22 = "[VGOEMApplicationFinder applicationsDidInstall:]_block_invoke";
-      v23 = 1024;
-      v24 = 275;
-      _os_log_impl(&dword_270EC1000, v3, OS_LOG_TYPE_ERROR, "strongSelf went away in %s line %d", buf, 0x12u);
-    }
-
-    goto LABEL_15;
-  }
-
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
-  v17 = 0u;
-  v3 = *(a1 + 32);
-  v4 = [v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
-  if (!v4)
-  {
-LABEL_15:
-
-    goto LABEL_16;
-  }
-
-  v5 = v4;
-  v6 = 0;
-  v7 = *v17;
-  do
-  {
-    for (i = 0; i != v5; ++i)
-    {
-      if (*v17 != v7)
-      {
-        objc_enumerationMutation(v3);
-      }
-
-      v9 = *(*(&v16 + 1) + 8 * i);
-      if (objc_opt_respondsToSelector())
-      {
-        v10 = objc_autoreleasePoolPush();
-        v11 = [v9 bundleIdentifier];
         v12 = [WeakRetained _applicationRecordForBundleIdentifier:v11];
         v6 |= [WeakRetained _addOEMApplicationForApplicationRecordIfNeeded:v12];
 
@@ -589,7 +581,7 @@ LABEL_15:
       }
     }
 
-    v5 = [v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v5 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
   }
 
   while (v5);
@@ -605,13 +597,11 @@ LABEL_15:
   }
 
 LABEL_16:
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_removeOEMApplicationForBundleIdentifier:(id)identifier
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   applications = [(VGOEMApplicationFinder *)self applications];
   v6 = [applications objectForKeyedSubscript:identifierCopy];
@@ -621,22 +611,21 @@ LABEL_16:
     v7 = VGGetOEMApplicationLog();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v11 = 138412290;
-      v12 = identifierCopy;
-      _os_log_impl(&dword_270EC1000, v7, OS_LOG_TYPE_INFO, "Removed application: %@", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = identifierCopy;
+      _os_log_impl(&dword_270EC1000, v7, OS_LOG_TYPE_INFO, "Removed application: %@", &v10, 0xCu);
     }
 
     applications2 = [(VGOEMApplicationFinder *)self applications];
     [applications2 setObject:0 forKeyedSubscript:identifierCopy];
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6 != 0;
 }
 
 - (BOOL)_addOEMApplicationForApplicationRecordIfNeeded:(id)needed
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   neededCopy = needed;
   bundleIdentifier = [neededCopy bundleIdentifier];
   if (bundleIdentifier)
@@ -663,9 +652,9 @@ LABEL_16:
         v15 = VGGetOEMApplicationLog();
         if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
         {
-          v27 = 138412290;
-          v28 = bundleIdentifier;
-          _os_log_impl(&dword_270EC1000, v15, OS_LOG_TYPE_INFO, "Added application: %@", &v27, 0xCu);
+          v26 = 138412290;
+          v27 = bundleIdentifier;
+          _os_log_impl(&dword_270EC1000, v15, OS_LOG_TYPE_INFO, "Added application: %@", &v26, 0xCu);
         }
 
         applications2 = [(VGOEMApplicationFinder *)self applications];
@@ -684,25 +673,25 @@ LABEL_16:
         if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
           requiredIntents = self->_requiredIntents;
-          v27 = 138412546;
-          v28 = bundleIdentifier;
-          v29 = 2112;
-          v30 = requiredIntents;
+          v26 = 138412546;
+          v27 = bundleIdentifier;
+          v28 = 2112;
+          v29 = requiredIntents;
           v21 = "allowlisted application '%@' doesn't support our required intents: %@";
           p_super = &v11->super;
           v23 = OS_LOG_TYPE_ERROR;
 LABEL_13:
-          _os_log_impl(&dword_270EC1000, p_super, v23, v21, &v27, 0x16u);
+          _os_log_impl(&dword_270EC1000, p_super, v23, v21, &v26, 0x16u);
         }
       }
 
       else if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
       {
         v24 = self->_requiredIntents;
-        v27 = 138412546;
-        v28 = bundleIdentifier;
-        v29 = 2112;
-        v30 = v24;
+        v26 = 138412546;
+        v27 = bundleIdentifier;
+        v28 = 2112;
+        v29 = v24;
         v21 = "application '%@' doesn't support our required intents: %@";
         p_super = &v11->super;
         v23 = OS_LOG_TYPE_INFO;
@@ -718,59 +707,51 @@ LABEL_14:
   v8 = 0;
 LABEL_15:
 
-  v25 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (id)_applicationRecordForBundleIdentifier:(id)identifier
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
-  if (!identifierCopy)
-  {
-    goto LABEL_8;
-  }
-
-  v5 = *MEMORY[0x277D0EA90];
-  v6 = *(MEMORY[0x277D0EA90] + 8);
-  if (!GEOConfigGetBOOL() || (-[VGOEMApplicationFinder allowlist](self, "allowlist"), v7 = objc_claimAutoreleasedReturnValue(), [v7 objectForKeyedSubscript:identifierCopy], v8 = objc_claimAutoreleasedReturnValue(), v8, v7, v8))
+  if (identifierCopy && (!GEOConfigGetBOOL() || (-[VGOEMApplicationFinder allowlist](self, "allowlist"), v5 = objc_claimAutoreleasedReturnValue(), [v5 objectForKeyedSubscript:identifierCopy], v6 = objc_claimAutoreleasedReturnValue(), v6, v5, v6)))
   {
     applications = [(VGOEMApplicationFinder *)self applications];
-    v10 = [applications objectForKeyedSubscript:identifierCopy];
+    v8 = [applications objectForKeyedSubscript:identifierCopy];
 
-    if (v10)
+    if (v8)
     {
-      v11 = VGGetOEMApplicationLog();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+      v9 = VGGetOEMApplicationLog();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v19 = identifierCopy;
-        _os_log_impl(&dword_270EC1000, v11, OS_LOG_TYPE_DEBUG, "Won't create an LSAppRecord for bundleId: %@ as we already have this app saved.", buf, 0xCu);
+        v16 = identifierCopy;
+        _os_log_impl(&dword_270EC1000, v9, OS_LOG_TYPE_DEBUG, "Won't create an LSAppRecord for bundleId: %@ as we already have this app saved.", buf, 0xCu);
       }
 
-      v12 = 0;
+      v10 = 0;
     }
 
     else
     {
-      v17 = 0;
-      v12 = [objc_alloc(MEMORY[0x277CC1E70]) initWithBundleIdentifier:identifierCopy allowPlaceholder:0 error:&v17];
-      v11 = v17;
-      if (v12)
+      v14 = 0;
+      v10 = [objc_alloc(MEMORY[0x277CC1E70]) initWithBundleIdentifier:identifierCopy allowPlaceholder:0 error:&v14];
+      v9 = v14;
+      if (v10)
       {
-        v13 = v12;
+        v11 = v10;
       }
 
       else
       {
-        v14 = VGGetOEMApplicationLog();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+        v12 = VGGetOEMApplicationLog();
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412546;
-          v19 = identifierCopy;
-          v20 = 2112;
-          v21 = v11;
-          _os_log_impl(&dword_270EC1000, v14, OS_LOG_TYPE_ERROR, "Failed making LSApplicationRecord for '%@': %@. App is not installed", buf, 0x16u);
+          v16 = identifierCopy;
+          v17 = 2112;
+          v18 = v9;
+          _os_log_impl(&dword_270EC1000, v12, OS_LOG_TYPE_ERROR, "Failed making LSApplicationRecord for '%@': %@. App is not installed", buf, 0x16u);
         }
       }
     }
@@ -778,13 +759,10 @@ LABEL_15:
 
   else
   {
-LABEL_8:
-    v12 = 0;
+    v10 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
-  return v12;
+  return v10;
 }
 
 - (void)valueChangedForGEOConfigKey:(id)key
@@ -807,7 +785,7 @@ LABEL_8:
 
 void __54__VGOEMApplicationFinder_valueChangedForGEOConfigKey___block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = WeakRetained;
   if (!WeakRetained)
@@ -816,9 +794,9 @@ void __54__VGOEMApplicationFinder_valueChangedForGEOConfigKey___block_invoke(uin
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v24 = "[VGOEMApplicationFinder valueChangedForGEOConfigKey:]_block_invoke";
-      v25 = 1024;
-      v26 = 137;
+      v23 = "[VGOEMApplicationFinder valueChangedForGEOConfigKey:]_block_invoke";
+      v24 = 1024;
+      v25 = 137;
       _os_log_impl(&dword_270EC1000, v14, OS_LOG_TYPE_ERROR, "strongSelf went away in %s line %d", buf, 0x12u);
     }
 
@@ -828,26 +806,26 @@ void __54__VGOEMApplicationFinder_valueChangedForGEOConfigKey___block_invoke(uin
   if (*(a1 + 40) == 17 && *(a1 + 48) == &VirtualGarageConfig_EVRoutingDisabledApplications_Metadata)
   {
     [WeakRetained setDisabledAppIdentifiers:0];
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     v5 = [v3 applications];
-    v6 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v19;
+      v8 = *v18;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v19 != v8)
+          if (*v18 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v18 + 1) + 8 * i);
+          v10 = *(*(&v17 + 1) + 8 * i);
           v11 = [v3 applications];
           v12 = [v11 objectForKeyedSubscript:v10];
 
@@ -855,7 +833,7 @@ void __54__VGOEMApplicationFinder_valueChangedForGEOConfigKey___block_invoke(uin
           [v12 setEnabled:{objc_msgSend(v13, "containsObject:", v10) ^ 1}];
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v7);
@@ -868,8 +846,6 @@ void __54__VGOEMApplicationFinder_valueChangedForGEOConfigKey___block_invoke(uin
 
 LABEL_17:
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (NSSet)disabledAppIdentifiers

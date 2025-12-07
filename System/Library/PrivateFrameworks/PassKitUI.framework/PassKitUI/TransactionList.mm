@@ -8,11 +8,11 @@
 
 - (void)transactionsChanged:(id)changed
 {
-  sub_1BD0E5E8C(0, &qword_1EBD4AB10);
-  sub_1BE052744();
+  sub_1BD0E5E8C(0, &qword_1EBD4AB10, 0x1E69B8EA8);
+  v4 = sub_1BE052744();
   selfCopy = self;
   sub_1BD568A84();
-
+  v4, v5, v6, v7, v8, v9, v10, v11;
   sub_1BD568E5C();
 }
 

@@ -19,6 +19,7 @@
 - (id)newSwitcherDoseContent;
 - (id)setupComplicationBackgroundColor;
 - (id)switcherTemplateWithFamily:(int64_t)family forDevice:(id)device;
+- (void)updateWithSlowLeq:(float)leq fastLeq:(float)fastLeq enabled:(BOOL)enabled threshold:(unint64_t)threshold slowAttenuation:(float)attenuation fastAttenuation:(float)fastAttenuation andWearingAirpods:(BOOL)airpods;
 @end
 
 @implementation DoseComplicationFormatter
@@ -161,6 +162,147 @@
   }
 
   return v4 & 1;
+}
+
+- (void)updateWithSlowLeq:(float)leq fastLeq:(float)fastLeq enabled:(BOOL)enabled threshold:(unint64_t)threshold slowAttenuation:(float)attenuation fastAttenuation:(float)fastAttenuation andWearingAirpods:(BOOL)airpods
+{
+  enabledCopy = enabled;
+  v16 = [(DoseComplicationFormatter *)self currentDoseContent:enabled];
+  [v16 setIsEnabled:enabledCopy];
+
+  if (enabledCopy)
+  {
+    currentDoseContent = [(DoseComplicationFormatter *)self currentDoseContent];
+    *&v18 = leq - attenuation;
+    [currentDoseContent setSlowLeq:v18];
+
+    currentDoseContent2 = [(DoseComplicationFormatter *)self currentDoseContent];
+    *&v20 = fastLeq - fastAttenuation;
+    [currentDoseContent2 setFastLeq:v20];
+
+    currentDoseContent3 = [(DoseComplicationFormatter *)self currentDoseContent];
+    [currentDoseContent3 fastLeq];
+    v23 = (v22 + -30.0) / 90.0;
+    currentDoseContent4 = [(DoseComplicationFormatter *)self currentDoseContent];
+    *&v25 = v23;
+    [currentDoseContent4 setGaugeFillValue:v25];
+
+    v83 = [NSBundle bundleForClass:objc_opt_class()];
+    v26 = [NSBundle bundleForClass:objc_opt_class()];
+    v27 = [v26 localizedStringForKey:@"LEVEL_SHORT" value:&stru_C3E0 table:0];
+    v28 = [v83 localizedStringForKey:@"LEVEL_SHORT" value:v27 table:@"Noise"];
+    dbFormatter = [(DoseComplicationFormatter *)self dbFormatter];
+    currentDoseContent5 = [(DoseComplicationFormatter *)self currentDoseContent];
+    [currentDoseContent5 slowLeq];
+    v31 = [NSNumber numberWithFloat:?];
+    [dbFormatter stringFromNumber:v31];
+    v32 = v85 = threshold;
+    v33 = [NSString stringWithFormat:v28, v32];
+    currentDoseContent6 = [(DoseComplicationFormatter *)self currentDoseContent];
+    [currentDoseContent6 setLevelContentShort:v33];
+
+    v84 = [NSBundle bundleForClass:objc_opt_class()];
+    v35 = [NSBundle bundleForClass:objc_opt_class()];
+    v36 = [v35 localizedStringForKey:@"LEVEL_LONG" value:&stru_C3E0 table:0];
+    v37 = [v84 localizedStringForKey:@"LEVEL_LONG" value:v36 table:@"Noise"];
+    dbFormatter2 = [(DoseComplicationFormatter *)self dbFormatter];
+    currentDoseContent7 = [(DoseComplicationFormatter *)self currentDoseContent];
+    [currentDoseContent7 slowLeq];
+    v40 = [NSNumber numberWithFloat:?];
+    v41 = [dbFormatter2 stringFromNumber:v40];
+    v42 = +[NSString localizedStringWithFormat:](NSString, "localizedStringWithFormat:", v37, [v41 integerValue]);
+    currentDoseContent8 = [(DoseComplicationFormatter *)self currentDoseContent];
+    [currentDoseContent8 setLevelContentLong:v42];
+
+    if (v85 == &stru_20.flags || v85 == &stru_20.filesize)
+    {
+      v74 = [NSBundle bundleForClass:objc_opt_class()];
+      v75 = [NSBundle bundleForClass:objc_opt_class()];
+      v76 = [v75 localizedStringForKey:@"LOUD_LABEL" value:&stru_C3E0 table:0];
+      v77 = [v74 localizedStringForKey:@"LOUD_LABEL" value:v76 table:@"Noise"];
+      currentDoseContent9 = [(DoseComplicationFormatter *)self currentDoseContent];
+      [currentDoseContent9 setClassifierContent:v77];
+
+      currentDoseContent10 = [(DoseComplicationFormatter *)self currentDoseContent];
+      [currentDoseContent10 setClassificationImageName:@"exclamationmark.triangle.fill"];
+
+      v80 = +[UIColor systemYellowColor];
+      currentDoseContent11 = [(DoseComplicationFormatter *)self currentDoseContent];
+      [currentDoseContent11 setTintColor:v80];
+
+      v52 = +[UIColor systemYellowColor];
+    }
+
+    else
+    {
+      if (v85)
+      {
+        return;
+      }
+
+      v44 = [NSBundle bundleForClass:objc_opt_class()];
+      v45 = [NSBundle bundleForClass:objc_opt_class()];
+      v46 = [v45 localizedStringForKey:@"OK_LABEL" value:&stru_C3E0 table:0];
+      v47 = [v44 localizedStringForKey:@"OK_LABEL" value:v46 table:@"Noise"];
+      currentDoseContent12 = [(DoseComplicationFormatter *)self currentDoseContent];
+      [currentDoseContent12 setClassifierContent:v47];
+
+      currentDoseContent13 = [(DoseComplicationFormatter *)self currentDoseContent];
+      [currentDoseContent13 setClassificationImageName:@"checkmark.circle.fill"];
+
+      v50 = +[UIColor systemGreenColor];
+      currentDoseContent14 = [(DoseComplicationFormatter *)self currentDoseContent];
+      [currentDoseContent14 setTintColor:v50];
+
+      v52 = +[UIColor systemGreenColor];
+    }
+  }
+
+  else
+  {
+    currentDoseContent15 = [(DoseComplicationFormatter *)self currentDoseContent];
+    [currentDoseContent15 setSlowLeq:0.0];
+
+    currentDoseContent16 = [(DoseComplicationFormatter *)self currentDoseContent];
+    [currentDoseContent16 setFastLeq:0.0];
+
+    currentDoseContent17 = [(DoseComplicationFormatter *)self currentDoseContent];
+    [currentDoseContent17 setGaugeFillValue:0.0];
+
+    v56 = [NSBundle bundleForClass:objc_opt_class()];
+    v57 = [NSBundle bundleForClass:objc_opt_class()];
+    v58 = [v57 localizedStringForKey:@"UNIT_LABEL" value:&stru_C3E0 table:0];
+    v59 = [v56 localizedStringForKey:@"UNIT_LABEL" value:v58 table:@"Noise"];
+    currentDoseContent18 = [(DoseComplicationFormatter *)self currentDoseContent];
+    [currentDoseContent18 setLevelContentShort:v59];
+
+    v61 = [NSBundle bundleForClass:objc_opt_class()];
+    v62 = [NSBundle bundleForClass:objc_opt_class()];
+    v63 = [v62 localizedStringForKey:@"SUSPENDED_LABEL" value:&stru_C3E0 table:0];
+    v64 = [v61 localizedStringForKey:@"SUSPENDED_LABEL" value:v63 table:@"Noise"];
+    currentDoseContent19 = [(DoseComplicationFormatter *)self currentDoseContent];
+    [currentDoseContent19 setLevelContentLong:v64];
+
+    v66 = [NSBundle bundleForClass:objc_opt_class()];
+    v67 = [NSBundle bundleForClass:objc_opt_class()];
+    v68 = [v67 localizedStringForKey:@"CLASSIFIER_SUSPENDED" value:&stru_C3E0 table:0];
+    v69 = [v66 localizedStringForKey:@"CLASSIFIER_SUSPENDED" value:v68 table:@"Noise"];
+    currentDoseContent20 = [(DoseComplicationFormatter *)self currentDoseContent];
+    [currentDoseContent20 setClassifierContent:v69];
+
+    currentDoseContent21 = [(DoseComplicationFormatter *)self currentDoseContent];
+    [currentDoseContent21 setClassificationImageName:@"mic.slash.fill"];
+
+    v72 = +[UIColor systemGrayColor];
+    currentDoseContent22 = [(DoseComplicationFormatter *)self currentDoseContent];
+    [currentDoseContent22 setTintColor:v72];
+
+    v52 = +[UIColor systemWhiteColor];
+  }
+
+  v86 = v52;
+  currentDoseContent23 = [(DoseComplicationFormatter *)self currentDoseContent];
+  [currentDoseContent23 setImageTintColor:v86];
 }
 
 - (id)accessibilityLabelForSymbol:(id)symbol

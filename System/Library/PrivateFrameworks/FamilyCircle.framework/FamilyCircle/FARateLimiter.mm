@@ -40,11 +40,10 @@
 - (BOOL)isAllowedWithClientName:(id)name
 {
   static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v4 = *(&self->super.isa + OBJC_IVAR___FARateLimiter_queue);
   selfCopy = self;
   OS_dispatch_queue.sync<A>(execute:)();
 
-  return v7;
+  return v6;
 }
 
 - (void)recordCallWithClientName:(id)name

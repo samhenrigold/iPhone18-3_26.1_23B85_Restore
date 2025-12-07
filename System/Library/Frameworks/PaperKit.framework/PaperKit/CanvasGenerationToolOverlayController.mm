@@ -7,7 +7,7 @@
 
 - (void)imageGenerationControllerShouldShowImageGenerationUIDidChange:(id)change
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   MEMORY[0x1EEE9AC00](v4 - 8);
   v6 = &v12 - v5;
   v7 = type metadata accessor for TaskPriority();

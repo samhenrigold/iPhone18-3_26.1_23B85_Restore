@@ -146,45 +146,46 @@ LABEL_3:
 {
   v4 = [(NSArray *)[(TIMultilingualInputModeTableCell *)self inputModes:pressed] copy];
   v5 = +[TIInputModeAssetStatusManager sharedManager];
-  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v6 = [v4 countByEnumeratingWithState:&v14 objects:v20 count:16];
+  v18 = 0u;
+  v6 = [v4 countByEnumeratingWithState:&v15 objects:v21 count:16];
   if (v6)
   {
-    v8 = v6;
-    v9 = *v15;
-    *&v7 = 138412290;
-    v13 = v7;
+    v9 = v6;
+    v10 = *v16;
+    *&v8 = 138412290;
+    v14 = v8;
     do
     {
-      v10 = 0;
+      v11 = 0;
       do
       {
-        if (*v15 != v9)
+        if (*v16 != v10)
         {
           objc_enumerationMutation(v4);
         }
 
-        v11 = *(*(&v14 + 1) + 8 * v10);
-        v12 = KeyboardSettingsLog();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+        v12 = *(*(&v15 + 1) + 8 * v11);
+        v13 = KeyboardSettingsLog(v6, v7);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
-          *buf = v13;
-          v19 = v11;
-          _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "Download button pressed for %@", buf, 0xCu);
+          *buf = v14;
+          v20 = v12;
+          _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "Download button pressed for %@", buf, 0xCu);
         }
 
-        [v5 startDownloadingAssetsForInputMode:{v11, v13}];
-        v10 = v10 + 1;
+        v6 = [v5 startDownloadingAssetsForInputMode:{v12, v14}];
+        v11 = v11 + 1;
       }
 
-      while (v8 != v10);
-      v8 = [v4 countByEnumeratingWithState:&v14 objects:v20 count:16];
+      while (v9 != v11);
+      v6 = [v4 countByEnumeratingWithState:&v15 objects:v21 count:16];
+      v9 = v6;
     }
 
-    while (v8);
+    while (v6);
   }
 }
 

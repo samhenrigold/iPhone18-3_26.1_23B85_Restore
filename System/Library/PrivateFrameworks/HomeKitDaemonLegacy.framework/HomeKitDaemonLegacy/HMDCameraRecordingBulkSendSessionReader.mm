@@ -6,6 +6,7 @@
 - (void)_readNextDataChunk;
 - (void)_stopWithReason:(void *)reason;
 - (void)start;
+- (void)stopWithReason:(unsigned __int16)reason;
 - (void)timerDidFire:(id)fire;
 @end
 
@@ -20,7 +21,7 @@
 
 - (void)timerDidFire:(id)fire
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   fireCopy = fire;
   if (self)
   {
@@ -43,21 +44,19 @@
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       v12 = HMFGetLogIdentifier();
-      v14 = 138543362;
-      v15 = v12;
-      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_ERROR, "%{public}@Read callback timer fired, closing bulk send session", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = v12;
+      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_ERROR, "%{public}@Read callback timer fired, closing bulk send session", &v13, 0xCu);
     }
 
     objc_autoreleasePoolPop(v9);
     [(HMDCameraRecordingBulkSendSessionReader *)selfCopy _stopWithReason:?];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_stopWithReason:(void *)reason
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (reason)
   {
     Property = objc_getProperty(reason, a2, 32, 1);
@@ -68,11 +67,11 @@
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       v8 = HMFGetLogIdentifier();
-      v13 = 138543618;
-      v14 = v8;
-      v15 = 1024;
-      v16 = a2;
-      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Stopping bulk send session reader with reason: %d", &v13, 0x12u);
+      v12 = 138543618;
+      v13 = v8;
+      v14 = 1024;
+      v15 = a2;
+      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Stopping bulk send session reader with reason: %d", &v12, 0x12u);
     }
 
     objc_autoreleasePoolPop(v5);
@@ -84,14 +83,30 @@
 
     objc_setProperty_atomic(reasonCopy, v11, 0, 40);
   }
+}
 
-  v12 = *MEMORY[0x277D85DE8];
+- (void)stopWithReason:(unsigned __int16)reason
+{
+  if (self)
+  {
+    reasonCopy = reason;
+    Property = objc_getProperty(self, a2, 32, 1);
+    dispatch_assert_queue_V2(Property);
+
+    [(HMDCameraRecordingBulkSendSessionReader *)self _stopWithReason:reasonCopy];
+  }
+
+  else
+  {
+
+    dispatch_assert_queue_V2(0);
+  }
 }
 
 - (void)start
 {
   selfCopy = self;
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (self)
   {
     self = objc_getProperty(self, a2, 32, 1);
@@ -104,9 +119,9 @@
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = HMFGetLogIdentifier();
-    v13 = 138543362;
-    v14 = v6;
-    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Starting bulk send session reader", &v13, 0xCu);
+    v12 = 138543362;
+    v13 = v6;
+    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Starting bulk send session reader", &v12, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -126,7 +141,6 @@
   [Property setDelegateQueue:selfCopy];
 
   [(HMDCameraRecordingBulkSendSessionReader *)v4 _readNextDataChunk];
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_readNextDataChunk
@@ -300,18 +314,18 @@ LABEL_30:
 
       else
       {
-        v55 = objc_autoreleasePoolPush();
-        v56 = *(a1 + 32);
-        v57 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v57, OS_LOG_TYPE_INFO))
+        v56 = objc_autoreleasePoolPush();
+        v57 = *(a1 + 32);
+        v58 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v58, OS_LOG_TYPE_INFO))
         {
-          v58 = HMFGetLogIdentifier();
+          v59 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v64 = v58;
-          _os_log_impl(&dword_2531F8000, v57, OS_LOG_TYPE_INFO, "%{public}@Data processing marked the bulk send session as inactive", buf, 0xCu);
+          v64 = v59;
+          _os_log_impl(&dword_2531F8000, v58, OS_LOG_TYPE_INFO, "%{public}@Data processing marked the bulk send session as inactive", buf, 0xCu);
         }
 
-        objc_autoreleasePoolPop(v55);
+        objc_autoreleasePoolPop(v56);
       }
 
       goto LABEL_35;
@@ -335,8 +349,6 @@ LABEL_30:
   }
 
 LABEL_35:
-
-  v59 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDCameraRecordingBulkSendSessionReader)initWithWorkQueue:(id)queue session:(id)session readCallbackTimer:(id)timer logIdentifier:(id)identifier
@@ -354,7 +366,7 @@ LABEL_35:
     objc_storeStrong(&v15->_workQueue, queue);
     objc_storeStrong(&v16->_session, session);
     objc_storeStrong(&v16->_readCallbackTimer, timer);
-    v17 = [identifierCopy copy];
+    v17 = objc_msgSend_copy(identifierCopy);
     logIdentifier = v16->_logIdentifier;
     v16->_logIdentifier = v17;
   }
@@ -388,12 +400,11 @@ LABEL_35:
 
 uint64_t __54__HMDCameraRecordingBulkSendSessionReader_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v9_126973;
-  logCategory__hmf_once_v9_126973 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v9_126973;
+  logCategory__hmf_once_v9_126973 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

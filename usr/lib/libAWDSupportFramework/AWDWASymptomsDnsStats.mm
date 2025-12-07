@@ -1,8 +1,11 @@
 @interface AWDWASymptomsDnsStats
 - (BOOL)isEqual:(id)equal;
+- (id)configTypeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)suppressedReasonAsString:(int)string;
+- (id)symptomsDnsRecommendationAsString:(int)string;
 - (int)StringAsConfigType:(id)type;
 - (int)StringAsSuppressedReason:(id)reason;
 - (int)StringAsSymptomsDnsRecommendation:(id)recommendation;
@@ -145,6 +148,19 @@
   }
 
   self->_has = (*&self->_has & 0xFFFFFFFD | v3);
+}
+
+- (id)configTypeAsString:(int)string
+{
+  if (string >= 3)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE331B0[string];
+  }
 }
 
 - (int)StringAsConfigType:(id)type
@@ -330,6 +346,19 @@
   self->_has = (*&self->_has & 0xFFF7FFFF | v3);
 }
 
+- (id)symptomsDnsRecommendationAsString:(int)string
+{
+  if (string >= 3)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE331C8[string];
+  }
+}
+
 - (int)StringAsSymptomsDnsRecommendation:(id)recommendation
 {
   if ([recommendation isEqualToString:@"kSymptomsDnsRecoveryTypeNone"])
@@ -376,6 +405,19 @@
   }
 
   self->_has = (*&self->_has & 0xFFFBFFFF | v3);
+}
+
+- (id)suppressedReasonAsString:(int)string
+{
+  if (string >= 0xB)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE331E0[string];
+  }
 }
 
 - (int)StringAsSuppressedReason:(id)reason
@@ -1018,7 +1060,6 @@ LABEL_29:
   has = self->_has;
   if ((*&has & 0x100000) != 0)
   {
-    totalDnsServers = self->_totalDnsServers;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((*&has & 0x400) == 0)
@@ -1038,7 +1079,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  numIpv4DnsServers = self->_numIpv4DnsServers;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x800) == 0)
@@ -1053,7 +1093,6 @@ LABEL_4:
   }
 
 LABEL_32:
-  numIpv6DnsServers = self->_numIpv6DnsServers;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x1000) == 0)
@@ -1068,7 +1107,6 @@ LABEL_5:
   }
 
 LABEL_33:
-  numLocalDnsServers = self->_numLocalDnsServers;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x2000) == 0)
@@ -1083,7 +1121,6 @@ LABEL_6:
   }
 
 LABEL_34:
-  numRemoteDnsServers = self->_numRemoteDnsServers;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 2) == 0)
@@ -1098,7 +1135,6 @@ LABEL_7:
   }
 
 LABEL_35:
-  configType = self->_configType;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x80) == 0)
@@ -1113,7 +1149,6 @@ LABEL_8:
   }
 
 LABEL_36:
-  netscoreAtStudyStart = self->_netscoreAtStudyStart;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x8000) == 0)
@@ -1128,7 +1163,6 @@ LABEL_9:
   }
 
 LABEL_37:
-  stallscoreAtStudyStart = self->_stallscoreAtStudyStart;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 8) == 0)
@@ -1143,7 +1177,6 @@ LABEL_10:
   }
 
 LABEL_38:
-  impactedServersAtStudyStart = self->_impactedServersAtStudyStart;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x200) == 0)
@@ -1158,7 +1191,6 @@ LABEL_11:
   }
 
 LABEL_39:
-  netscoreHealthBeforeDecision = self->_netscoreHealthBeforeDecision;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x20000) == 0)
@@ -1173,7 +1205,6 @@ LABEL_12:
   }
 
 LABEL_40:
-  stallscoreHealthBeforeDecision = self->_stallscoreHealthBeforeDecision;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x20) == 0)
@@ -1188,7 +1219,6 @@ LABEL_13:
   }
 
 LABEL_41:
-  lanHealthBeforeDecision = self->_lanHealthBeforeDecision;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x400000) == 0)
@@ -1203,7 +1233,6 @@ LABEL_14:
   }
 
 LABEL_42:
-  wanHealthBeforeDecision = self->_wanHealthBeforeDecision;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x1000000) == 0)
@@ -1218,7 +1247,6 @@ LABEL_15:
   }
 
 LABEL_43:
-  isCaptiveServerIPResolved = self->_isCaptiveServerIPResolved;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x8000000) == 0)
@@ -1233,7 +1261,6 @@ LABEL_16:
   }
 
 LABEL_44:
-  symptomsDnsscreenStateOn = self->_symptomsDnsscreenStateOn;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x80000) == 0)
@@ -1248,7 +1275,6 @@ LABEL_17:
   }
 
 LABEL_45:
-  symptomsDnsRecommendation = self->_symptomsDnsRecommendation;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x40000) == 0)
@@ -1263,7 +1289,6 @@ LABEL_18:
   }
 
 LABEL_46:
-  suppressedReason = self->_suppressedReason;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x40) == 0)
@@ -1278,7 +1303,6 @@ LABEL_19:
   }
 
 LABEL_47:
-  netscoreAtStudyEnd = self->_netscoreAtStudyEnd;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x4000) == 0)
@@ -1293,7 +1317,6 @@ LABEL_20:
   }
 
 LABEL_48:
-  stallscoreAtStudyEnd = self->_stallscoreAtStudyEnd;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 4) == 0)
@@ -1308,7 +1331,6 @@ LABEL_21:
   }
 
 LABEL_49:
-  impactedServersAtStudyEnd = self->_impactedServersAtStudyEnd;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x100) == 0)
@@ -1323,7 +1345,6 @@ LABEL_22:
   }
 
 LABEL_50:
-  netscoreHealthAfterDecision = self->_netscoreHealthAfterDecision;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x10000) == 0)
@@ -1338,7 +1359,6 @@ LABEL_23:
   }
 
 LABEL_51:
-  stallscoreHealthAfterDecision = self->_stallscoreHealthAfterDecision;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x10) == 0)
@@ -1353,7 +1373,6 @@ LABEL_24:
   }
 
 LABEL_52:
-  lanHealthAfterDecision = self->_lanHealthAfterDecision;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x200000) == 0)
@@ -1368,7 +1387,6 @@ LABEL_25:
   }
 
 LABEL_53:
-  wanHealthAfterDecision = self->_wanHealthAfterDecision;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 1) == 0)
@@ -1383,7 +1401,6 @@ LABEL_26:
   }
 
 LABEL_54:
-  symptomsDnsTimeSincePreviousTriggerMinutes = self->_symptomsDnsTimeSincePreviousTriggerMinutes;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x800000) == 0)
@@ -1395,7 +1412,6 @@ LABEL_27:
     }
 
 LABEL_56:
-    slowWiFiNotificationReceivedDuringStudy = self->_slowWiFiNotificationReceivedDuringStudy;
     PBDataWriterWriteBOOLField();
     if ((*&self->_has & 0x2000000) == 0)
     {
@@ -1406,7 +1422,6 @@ LABEL_56:
   }
 
 LABEL_55:
-  dpsNotificationReceivedDuringStudy = self->_dpsNotificationReceivedDuringStudy;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x4000000) != 0)
@@ -1421,7 +1436,6 @@ LABEL_28:
   }
 
 LABEL_57:
-  isPingEnqueueFailing = self->_isPingEnqueueFailing;
 
   PBDataWriterWriteBOOLField();
 }
@@ -2437,7 +2451,6 @@ LABEL_29:
       goto LABEL_151;
     }
 
-    v8 = *(equal + 105);
     if (self->_isCaptiveServerIPResolved)
     {
       if ((*(equal + 105) & 1) == 0)
@@ -2464,7 +2477,6 @@ LABEL_29:
       goto LABEL_151;
     }
 
-    v9 = *(equal + 108);
     if (self->_symptomsDnsscreenStateOn)
     {
       if ((*(equal + 108) & 1) == 0)
@@ -2621,7 +2633,6 @@ LABEL_29:
       goto LABEL_151;
     }
 
-    v10 = *(equal + 104);
     if (self->_dpsNotificationReceivedDuringStudy)
     {
       if ((*(equal + 104) & 1) == 0)
@@ -2645,7 +2656,6 @@ LABEL_29:
   {
     if ((v7 & 0x4000000) != 0)
     {
-      v11 = *(equal + 107);
       if (self->_slowWiFiNotificationReceivedDuringStudy)
       {
         if ((*(equal + 107) & 1) == 0)

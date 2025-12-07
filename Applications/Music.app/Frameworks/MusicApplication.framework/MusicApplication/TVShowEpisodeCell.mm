@@ -1,5 +1,5 @@
 @interface TVShowEpisodeCell
-+ (unint64_t)visualContentInsets;
++ (void)visualContentInsets;
 - (CGRect)bounds;
 - (CGRect)frame;
 - (UIImageView)accessibilityChevronImageView;
@@ -71,19 +71,19 @@
   return v3;
 }
 
-+ (unint64_t)visualContentInsets
++ (void)visualContentInsets
 {
   sub_43C4F8();
-  v1 = v0;
+  v2 = v1;
   if (qword_DE6BD8 != -1)
   {
     swift_once();
   }
 
-  if (v1 >> 62)
+  if (v2 >> 62)
   {
-    v2 = sub_ABB060();
-    if (!v2)
+    v3 = sub_ABB060();
+    if (!v3)
     {
       goto LABEL_12;
     }
@@ -91,34 +91,36 @@
 
   else
   {
-    v2 = *(&dword_10 + (v1 & 0xFFFFFFFFFFFFFF8));
-    if (!v2)
+    v3 = *(&dword_10 + (v2 & 0xFFFFFFFFFFFFFF8));
+    if (!v3)
     {
 LABEL_12:
+
+      return;
     }
   }
 
-  v3 = __OFSUB__(v2, 1);
-  result = v2 - 1;
-  if (v3)
+  v4 = __OFSUB__(v3, 1);
+  v5 = v3 - 1;
+  if (v4)
   {
     __break(1u);
     goto LABEL_14;
   }
 
-  if ((v1 & 0xC000000000000001) != 0)
+  if ((v2 & 0xC000000000000001) != 0)
   {
 LABEL_14:
-    sub_36003C(result, v1);
+    sub_36003C(v5, v2, v0);
     goto LABEL_10;
   }
 
-  if ((result & 0x8000000000000000) != 0)
+  if ((v5 & 0x8000000000000000) != 0)
   {
     __break(1u);
   }
 
-  else if (result < *(&dword_10 + (v1 & 0xFFFFFFFFFFFFFF8)))
+  else if (v5 < *(&dword_10 + (v2 & 0xFFFFFFFFFFFFFF8)))
   {
 
 LABEL_10:
@@ -128,7 +130,6 @@ LABEL_10:
   }
 
   __break(1u);
-  return result;
 }
 
 @end

@@ -1,3 +1,515 @@
+NSString *__cdecl sub_100E0BD28(id a1, GEOComposedWaypoint *a2, unint64_t a3)
+{
+  v3 = [(GEOComposedWaypoint *)a2 uniqueID];
+  v4 = [v3 UUIDString];
+
+  return v4;
+}
+
+void sub_100E0C934(uint64_t a1)
+{
+  v3 = [*(a1 + 40) selectedVehicle];
+  v2 = [*(a1 + 32) dataSource];
+  [v2 setVehicle:v3];
+}
+
+void sub_100E0D8E0(uint64_t a1, uint64_t a2)
+{
+  v3 = [NSIndexPath indexPathForItem:a2 inSection:0];
+  [*(a1 + 32) addObject:v3];
+}
+
+void sub_100E0E650(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
+{
+  objc_destroyWeak((v14 + 32));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+id sub_100E0E67C(uint64_t a1, uint64_t a2, void *a3)
+{
+  v4 = a3;
+  WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v6 = WeakRetained;
+  if (WeakRetained)
+  {
+    if (sub_10000FA08(WeakRetained) == 5)
+    {
+      v7 = _UISolariumEnabled();
+      v8 = v7 ^ 1;
+      if (v7)
+      {
+        v9 = 2;
+      }
+
+      else
+      {
+        v9 = 0;
+      }
+    }
+
+    else
+    {
+      v8 = 0;
+      v9 = 2;
+    }
+
+    v11 = [[_UICollectionViewListLayoutSectionConfiguration alloc] initWithAppearanceStyle:v9 layoutEnvironment:v4];
+    v12 = _UICollectionViewListLayoutSectionAutomaticDimension;
+    [v11 setEstimatedRowHeight:_UICollectionViewListLayoutSectionAutomaticDimension];
+    [v11 setRowHeight:v12];
+    [v11 setSeparatorStyle:(v8 & 1) == 0];
+    v13 = [v11 _separatorConfiguration];
+    v14 = [v13 copy];
+
+    v15 = [v6 theme];
+    v16 = [v15 dynamicHairlineColor];
+    [v14 _setColor:v16];
+
+    v17 = 0.0;
+    [v14 _setInsets:{0.0, 56.0, 0.0, 0.0}];
+    [v11 _setSeparatorConfiguration:v14];
+    if ((v8 & 1) == 0)
+    {
+      v17 = 16.0;
+    }
+
+    v10 = [[_UICollectionViewListLayoutSection alloc] initWithConfiguration:v11 layoutEnvironment:v4];
+    [v10 setContentInsets:{0.0, v17, 0.0, v17}];
+    v18 = +[RouteStepListSectionBackgroundView decorationViewKind];
+    v19 = [NSCollectionLayoutDecorationItem backgroundDecorationItemWithElementKind:v18];
+
+    [v19 setContentInsets:{0.0, v17, 0.0, v17}];
+    v22 = v19;
+    v20 = [NSArray arrayWithObjects:&v22 count:1];
+    [v10 setDecorationItems:v20];
+  }
+
+  else
+  {
+    v10 = 0;
+  }
+
+  return v10;
+}
+
+void sub_100E0EB8C(uint64_t a1)
+{
+  v2 = [*(a1 + 32) collectionView];
+  v3 = [v2 collectionViewLayout];
+  [v3 invalidateLayout];
+
+  v4 = [*(a1 + 32) collectionView];
+  [v4 layoutIfNeeded];
+}
+
+void sub_100E0F108(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
+{
+  objc_destroyWeak((v14 + 32));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_100E0F12C(uint64_t a1, void *a2)
+{
+  v3 = a2;
+  WeakRetained = objc_loadWeakRetained((a1 + 32));
+  [WeakRetained virtualGarageDidUpdate:v3];
+}
+
+id sub_100E0F500()
+{
+  if (qword_10195F2C8 != -1)
+  {
+    dispatch_once(&qword_10195F2C8, &stru_1016558B8);
+  }
+
+  v1 = qword_10195F2C0;
+
+  return v1;
+}
+
+void sub_100E0F554(id a1)
+{
+  v1 = os_log_create("com.apple.Maps", "CardView");
+  v2 = qword_10195F2C0;
+  qword_10195F2C0 = v1;
+}
+
+id sub_100E107A8()
+{
+  if (qword_10195F2D8 != -1)
+  {
+    dispatch_once(&qword_10195F2D8, &stru_1016558D8);
+  }
+
+  v1 = qword_10195F2D0;
+
+  return v1;
+}
+
+void sub_100E107FC(id a1)
+{
+  v1 = os_log_create("com.apple.Maps", "MapsUserLocationView");
+  v2 = qword_10195F2D0;
+  qword_10195F2D0 = v1;
+}
+
+void sub_100E11EB4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
+{
+  objc_destroyWeak((v14 + 32));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_100E11ED8(uint64_t a1)
+{
+  WeakRetained = objc_loadWeakRetained((a1 + 32));
+  if (WeakRetained)
+  {
+    v2 = WeakRetained;
+    WeakRetained[48] = GEOConfigGetBOOL();
+    WeakRetained = v2;
+  }
+}
+
+id sub_100E12050()
+{
+  if (qword_10195F2F8 != -1)
+  {
+    dispatch_once(&qword_10195F2F8, &stru_101655938);
+  }
+
+  v1 = qword_10195F2F0;
+
+  return v1;
+}
+
+void sub_100E120A4(id a1)
+{
+  v1 = os_log_create("com.apple.Maps", "AnimationSuppression");
+  v2 = qword_10195F2F0;
+  qword_10195F2F0 = v1;
+}
+
+void sub_100E12340(id a1, GCDTimer *a2)
+{
+  if (+[UIView areAnimationsEnabled])
+  {
+    v2 = sub_100E12050();
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    {
+      *v3 = 0;
+      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "Found animations enabled, suppressing", v3, 2u);
+    }
+
+    [UIView setAnimationsEnabled:0];
+  }
+}
+
+void sub_100E12554(uint64_t a1)
+{
+  v1 = objc_alloc_init(*(a1 + 32));
+  v2 = qword_10195F2E0;
+  qword_10195F2E0 = v1;
+}
+
+id sub_100E12F44()
+{
+  if (qword_10195F308 != -1)
+  {
+    dispatch_once(&qword_10195F308, &stru_101655980);
+  }
+
+  v1 = qword_10195F300;
+
+  return v1;
+}
+
+void sub_100E12F98(uint64_t a1, void *a2)
+{
+  v8 = a2;
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    v3 = *(a1 + 32);
+    v4 = v8;
+    v5 = [v4 collectionItem];
+    v6 = [v5 mapItem];
+    v7 = [v3 firstUserGuideContainingMapItem:v6 requiresOrdering:0];
+    [v4 setIsItemInUserCollection:v7 != 0];
+  }
+}
+
+void sub_100E13060(id a1)
+{
+  v1 = os_log_create("com.apple.Maps", "CuratedCollectionProvider");
+  v2 = qword_10195F300;
+  qword_10195F300 = v1;
+}
+
+void sub_100E13218(uint64_t a1, void *a2)
+{
+  v3 = a2;
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    v4 = *(a1 + 32);
+    v5 = v3;
+    dispatch_group_enter(v4);
+    v6 = [v5 libraryOperationsCoordinator];
+
+    v7[0] = _NSConcreteStackBlock;
+    v7[1] = 3221225472;
+    v7[2] = sub_100E13310;
+    v7[3] = &unk_101661B18;
+    v8 = *(a1 + 32);
+    [v6 determineSavedStateWithCompletion:v7];
+  }
+}
+
+void sub_100E13448(uint64_t a1)
+{
+  v2 = [*(a1 + 32) dataSource];
+  v4 = [v2 snapshot];
+
+  [*(*(a1 + 32) + 248) applySnapshot:v4 animatingDifferences:1];
+  v3 = [*(a1 + 32) delegate];
+  [v3 dataSource:*(a1 + 32) didExpandCellAnimated:1];
+}
+
+void sub_100E1520C(uint64_t a1)
+{
+  block[0] = _NSConcreteStackBlock;
+  block[1] = 3221225472;
+  block[2] = sub_100E15284;
+  block[3] = &unk_101661B18;
+  block[4] = *(a1 + 32);
+  dispatch_async(&_dispatch_main_q, block);
+}
+
+id sub_100E15284(uint64_t a1)
+{
+  result = +[_TtC4Maps18LibraryUIUtilities isMyPlacesEnabled];
+  if (result)
+  {
+    v3 = *(a1 + 32);
+
+    return [v3 _updateLibraryStatusForModels];
+  }
+
+  return result;
+}
+
+void sub_100E15444(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location)
+{
+  objc_destroyWeak((v16 + 48));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_100E15468(uint64_t a1)
+{
+  WeakRetained = objc_loadWeakRetained((a1 + 48));
+  [WeakRetained _updateSnapshotWithCollection:*(a1 + 32) resolverInfo:*(a1 + 40)];
+}
+
+void sub_100E16228(uint64_t a1)
+{
+  v2 = [*(a1 + 32) detailButton];
+  [v2 setTitle:*(a1 + 40) forState:0];
+
+  v3 = [*(a1 + 32) detailButton];
+  [v3 setEnabled:*(a1 + 48)];
+}
+
+void sub_100E17674(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location)
+{
+  objc_destroyWeak((v16 + 40));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_100E17698(uint64_t a1)
+{
+  WeakRetained = objc_loadWeakRetained((a1 + 40));
+  if (WeakRetained)
+  {
+    v5 = WeakRetained;
+    [*(a1 + 32) setRoutePlanningAdvisory:WeakRetained[2]];
+    v3 = *(a1 + 32);
+    v4 = [v5 advisoryDetailButton];
+    [v3 setRoutePlanningIncidentsSourceView:v4];
+
+    [*(a1 + 32) presentRoutePlanningViewType:5];
+    WeakRetained = v5;
+  }
+}
+
+BOOL sub_100E186CC(void *a1)
+{
+  v1 = a1;
+  v2 = [v1 advisoryItems];
+  if ([v2 count] == 1)
+  {
+    v3 = [v1 advisoryItems];
+    v4 = [v3 firstObject];
+    v5 = [v4 cardAction];
+    v6 = [v5 type] == 1;
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  return v6;
+}
+
+void sub_100E18E0C(id *a1)
+{
+  WeakRetained = objc_loadWeakRetained(a1 + 5);
+  if (WeakRetained)
+  {
+    v3 = +[MKMapService sharedService];
+    [v3 captureUserAction:250 onTarget:504 forAdvisory:a1[4]];
+
+    if (sub_100E186CC(a1[4]))
+    {
+      v4 = [a1[4] advisoryItems];
+      v5 = [v4 firstObject];
+      v6 = [v5 cardAction];
+      v7 = [v6 location];
+
+      v8 = [GEOMapRegion alloc];
+      [v7 lat];
+      v10 = v9;
+      [v7 lng];
+      v12 = [v8 initWithLatitude:v10 longitude:v11];
+      v13 = objc_loadWeakRetained(WeakRetained + 5);
+      v19[0] = _NSConcreteStackBlock;
+      v19[1] = 3221225472;
+      v19[2] = sub_100E19028;
+      v19[3] = &unk_1016559A8;
+      objc_copyWeak(&v20, a1 + 5);
+      [v13 viewController:0 showOfflineMapRegionSelectorForRegion:v12 name:0 dismissalBlock:v19];
+
+      objc_destroyWeak(&v20);
+    }
+
+    else
+    {
+      v14 = objc_loadWeakRetained(WeakRetained + 5);
+      [v14 setRoutePlanningAdvisory:a1[4]];
+
+      v15 = objc_loadWeakRetained(WeakRetained + 5);
+      v16 = objc_loadWeakRetained(a1 + 6);
+      v17 = [v16 advisoryDetailButton];
+      [v15 setRoutePlanningIncidentsSourceView:v17];
+
+      v18 = objc_loadWeakRetained(WeakRetained + 5);
+      [v18 presentRoutePlanningViewType:5];
+    }
+  }
+}
+
+void sub_100E19028(uint64_t a1, uint64_t a2)
+{
+  WeakRetained = objc_loadWeakRetained((a1 + 32));
+  if (a2 && WeakRetained)
+  {
+    v5 = WeakRetained;
+    v4 = objc_loadWeakRetained(WeakRetained + 5);
+    [v4 viewControllerShowOfflineMaps:0];
+
+    WeakRetained = v5;
+  }
+}
+
+void sub_100E1D3A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t sub_100E1D3C4(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+void sub_100E1E508(id a1)
+{
+  v1 = [[NSUserDefaults alloc] initWithSuiteName:@"com.apple.Maps.commute"];
+  v2 = qword_10195F320;
+  qword_10195F320 = v1;
+}
+
+void sub_100E1EF6C(uint64_t a1, void *a2, void *a3)
+{
+  v5 = a2;
+  v6 = a3;
+  if (v6)
+  {
+    v7 = sub_100005610();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    {
+      v11 = 138412290;
+      v12 = v6;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "PlaceRefinementAction resolveMapItem: %@", &v11, 0xCu);
+    }
+  }
+
+  v8 = [v5 firstObject];
+  if (!v8)
+  {
+    v9 = [[MKPlacemark alloc] initWithCoordinate:0 addressDictionary:{*(a1 + 48), *(a1 + 56)}];
+    v8 = [[MKMapItem alloc] initWithPlacemark:v9];
+  }
+
+  if (*(a1 + 32))
+  {
+    [v8 setName:?];
+  }
+
+  v10 = *(a1 + 40);
+  if (v10)
+  {
+    (*(v10 + 16))(v10, v8);
+  }
+}
+
+void sub_100E1F8FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id location)
+{
+  objc_destroyWeak((v20 + 40));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_100E1F920(uint64_t a1, uint64_t a2, void *a3)
+{
+  v10 = a3;
+  WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v5 = WeakRetained;
+  if (WeakRetained)
+  {
+    v6 = [WeakRetained mapView];
+    [v6 _deselectLabelMarkerAnimated:1];
+
+    v7 = [v10 name];
+    v8 = MKMapItemIdentifierFromGEOTransitLine();
+    [v5 _showTransitLineWithName:v7 identifier:v8 mapRegion:0];
+
+    v9 = *(a1 + 32);
+    if (v9)
+    {
+      (*(v9 + 16))(v9, v10, 0);
+    }
+  }
+}
+
 uint64_t sub_100E1F9F4(uint64_t a1)
 {
   result = *(a1 + 32);
@@ -536,12 +1048,13 @@ void sub_100E32A44(uint64_t a1, void *a2)
   [v12 reloadAnimated:1];
 }
 
-void sub_100E34040(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id location, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_100E34040(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id location, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
-  objc_destroyWeak((v29 + 64));
+  va_start(va, a28);
+  objc_destroyWeak((v28 + 64));
   objc_destroyWeak(&location);
   _Block_object_dispose(&a21, 8);
-  _Block_object_dispose(&a29, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -637,7 +1150,7 @@ void sub_100E34848(uint64_t a1)
         [WeakRetained _moveLookAroundViewToMapItem:v3];
       }
 
-      [WeakRetained setLabelMarkerToRefine:{0, *v15}];
+      [WeakRetained setLabelMarkerToRefine:{0, *v15, *&v15[8]}];
       [WeakRetained setRefineTicket:0];
       goto LABEL_12;
     }
@@ -2238,7 +2751,7 @@ LABEL_79:
   if ((v41 & 1) == 0)
   {
     v67 = [a1[4] navigationDisplay];
-    v68 = [v67 configuration];
+    v68 = objc_msgSend_configuration(v67);
     v69 = [v68 cameraStyle];
 
     if (v69 != 4)
@@ -3472,7 +3985,7 @@ LABEL_95:
 LABEL_96:
 
   v56 = [*(a1 + 32) routeAnnotationsController];
-  v57 = [v56 configuration];
+  v57 = objc_msgSend_configuration(v56);
   v58 = [v57 routes];
   v59 = [(__CFString *)v113 routes];
   v60 = v58;
@@ -3736,6 +4249,13 @@ LABEL_162:
   _Block_object_dispose(v123, 8);
 }
 
+void sub_100E45468(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, ...)
+{
+  va_start(va, a42);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 uint64_t sub_100E454E0(uint64_t result, uint64_t a2)
 {
   *(result + 40) = *(a2 + 40);
@@ -3749,7 +4269,7 @@ id sub_100E454F8(uint64_t a1)
   if (!v2)
   {
     v3 = [*(a1 + 32) routeAnnotationsController];
-    v4 = [v3 configuration];
+    v4 = objc_msgSend_configuration(v3);
     v5 = [v4 mutableCopy];
     v6 = v5;
     if (!v5)
@@ -5681,9 +6201,9 @@ id sub_100E56094()
   return v1;
 }
 
-void sub_100E5615C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100E5615C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5712,9 +6232,9 @@ id sub_100E5617C()
   return v1;
 }
 
-void sub_100E56244(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100E56244(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5730,7 +6250,7 @@ void sub_100E5625C(uint64_t a1)
 
   else
   {
-    abort_report_np();
+    abort_report_np("Unable to find class %s", "RPTTestRunner");
     sub_100E562CC();
   }
 }
@@ -5759,14 +6279,14 @@ void sub_100E562CC()
 
     else
     {
-      v0 = abort_report_np();
+      v0 = abort_report_np("%s", v1[0]);
     }
 
     free(v0);
   }
 }
 
-uint64_t sub_100E563D8()
+uint64_t sub_100E563D8(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_10195F3A8 = result;
@@ -5785,7 +6305,7 @@ MapsAppTestResizeWindow *sub_100E5644C(uint64_t a1)
 
   else
   {
-    v3 = abort_report_np();
+    v3 = abort_report_np("Unable to find class %s", "RPTResizeTestParameters");
     return [(MapsAppTestResizeWindow *)v3 initWithApplication:v4 testName:v5 options:v6, v7];
   }
 
@@ -5948,9 +6468,9 @@ double sub_100E60FB0(uint64_t a1, void *a2)
   }
 }
 
-void sub_100E61B30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_100E61B30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6136,14 +6656,14 @@ LABEL_12:
   return v4;
 }
 
-void sub_100E62F4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, char a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, char a62, uint64_t a63)
+void sub_100E62F4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   _Block_object_dispose(&a56, 8);
   _Block_object_dispose(&a62, 8);
-  _Block_object_dispose(&a68, 8);
-  _Block_object_dispose((v68 - 248), 8);
-  _Block_object_dispose((v68 - 200), 8);
-  _Block_object_dispose((v68 - 152), 8);
+  _Block_object_dispose(&a65, 8);
+  _Block_object_dispose((v65 - 248), 8);
+  _Block_object_dispose((v65 - 200), 8);
+  _Block_object_dispose((v65 - 152), 8);
   _Unwind_Resume(a1);
 }
 
@@ -7475,16 +7995,16 @@ void sub_100E80050(uint64_t a1)
   }
 }
 
-void sub_100E807B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100E807B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_100E80EAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_100E80EAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8301,565 +8821,4 @@ void sub_100E8B13C(uint64_t a1, void *a2)
   v3 = *(a1 + 40);
   v4 = a2;
   [v4 showManeuverSign:v2 maneuverStepIndex:{objc_msgSend(v3, "stepIndex")}];
-}
-
-id sub_100E8B198(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  v4 = [[MKServerFormattedString alloc] initWithGeoServerString:v3 parameters:*(a1 + 32)];
-
-  return v4;
-}
-
-id sub_100E8B200(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  v4 = [[MKServerFormattedString alloc] initWithGeoServerString:v3 parameters:*(a1 + 32)];
-
-  return v4;
-}
-
-MKServerFormattedString *__cdecl sub_100E8B27C(id a1, GEOComposedString *a2, unint64_t a3)
-{
-  v3 = a2;
-  v4 = [[MKServerFormattedString alloc] initWithComposedString:v3];
-
-  return v4;
-}
-
-MKServerFormattedString *__cdecl sub_100E8B2D4(id a1, GEOComposedString *a2, unint64_t a3)
-{
-  v3 = a2;
-  v4 = [[MKServerFormattedString alloc] initWithComposedString:v3];
-
-  return v4;
-}
-
-MKServerFormattedString *__cdecl sub_100E8B32C(id a1, GEOComposedString *a2, unint64_t a3)
-{
-  v3 = a2;
-  v4 = [[MKServerFormattedString alloc] initWithComposedString:v3];
-
-  return v4;
-}
-
-MKServerFormattedString *__cdecl sub_100E8B384(id a1, GEOComposedString *a2, unint64_t a3)
-{
-  v3 = a2;
-  v4 = [[MKServerFormattedString alloc] initWithComposedString:v3];
-
-  return v4;
-}
-
-void sub_100E8BBC4(id a1)
-{
-  v3[0] = @"primaryOrProceedToRouteManeuver";
-  v3[1] = @"secondaryManeuver";
-  v3[2] = @"recalculating";
-  v3[3] = @"announcementStage";
-  v3[4] = @"remainingManeuverTimeAndDistance";
-  v3[5] = @"remainingTotalTimeAndDistance";
-  v3[6] = @"destinationDisplayName";
-  v3[7] = @"showLaneGuidanceInfo";
-  v3[8] = @"hideLaneGuidanceInfo";
-  v3[9] = @"showJunctionViewInfo";
-  v3[10] = @"hideJunctionViewInfo";
-  v3[11] = @"usePersistentDisplay";
-  v3[12] = @"ARSignInfos";
-  v1 = [NSArray arrayWithObjects:v3 count:13];
-  v2 = qword_10195F448;
-  qword_10195F448 = v1;
-}
-
-void sub_100E8C924(uint64_t a1, void *a2, void *a3)
-{
-  v5 = a2;
-  v6 = a3;
-  if (v6)
-  {
-    v7 = sub_100035E6C();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
-    {
-      v28 = 138412290;
-      v29 = v6;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "Error: Identifier refinement ticket failed: %@", &v28, 0xCu);
-    }
-  }
-
-  if (![v5 count])
-  {
-    v8 = [[MKMapItem alloc] _initWithLabelMarker:*(a1 + 32)];
-    v11 = [PlaceCardItem alloc];
-    goto LABEL_9;
-  }
-
-  v8 = [v5 firstObject];
-  v9 = [*(a1 + 32) waypointInfo];
-  v10 = [v9 type];
-
-  v11 = [PlaceCardItem alloc];
-  v12 = v11;
-  if (v10 != 2)
-  {
-LABEL_9:
-    v14 = [(PlaceCardItem *)v11 initWithMapItem:v8];
-    goto LABEL_10;
-  }
-
-  v13 = [*(a1 + 32) waypointInfo];
-  v14 = [(PlaceCardItem *)v12 initWithMapItem:v8 chargeStationWaypointInfo:v13];
-
-LABEL_10:
-  v15 = [*(a1 + 40) containerViewController];
-  v16 = [v15 currentViewController];
-  objc_opt_class();
-  isKindOfClass = objc_opt_isKindOfClass();
-
-  if ((isKindOfClass & 1) == 0 || ([*(a1 + 40) containerViewController], v18 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v18, "currentViewController"), v19 = objc_claimAutoreleasedReturnValue(), v18, objc_msgSend(v19, "placeCardItem"), v20 = objc_claimAutoreleasedReturnValue(), v21 = -[PlaceCardItem isEqual:](v14, "isEqual:", v20), v20, v19, (v21 & 1) == 0))
-  {
-    v22 = sub_100035E6C();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
-    {
-      v23 = [v8 name];
-      v28 = 138412546;
-      v29 = v14;
-      v30 = 2112;
-      v31 = v23;
-      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Pushing place card for %@ (name: %@)", &v28, 0x16u);
-    }
-
-    v24 = [*(a1 + 40) placecardViewController];
-    [v24 resetState];
-    v25 = [*(a1 + 40) navigationTransportType];
-    v26 = 0;
-    if (v25 > 1)
-    {
-      if (v25 != 2)
-      {
-        if (v25 == 5)
-        {
-          IsEnabled_Maps420 = MapsFeature_IsEnabled_Maps420();
-          goto LABEL_25;
-        }
-
-LABEL_26:
-        [v24 setIsAdditionalStop:v26];
-        [v24 setExcludedContent:{objc_msgSend(*(a1 + 40), "excludedContentForMapItem:", v8)}];
-        [v24 setPlaceCardItem:v14 withHistory:0];
-        [*(a1 + 40) presentPlacecardViewController];
-
-        goto LABEL_27;
-      }
-    }
-
-    else
-    {
-      if (v25)
-      {
-        if (v25 == 1)
-        {
-          IsEnabled_Maps420 = MapsFeature_IsEnabled_DrivingMultiWaypointRoutes();
-LABEL_25:
-          v26 = IsEnabled_Maps420;
-          goto LABEL_26;
-        }
-
-        goto LABEL_26;
-      }
-
-      if (MapsFeature_IsEnabled_DrivingMultiWaypointRoutes() & 1) != 0 || (MapsFeature_IsEnabled_Maps420())
-      {
-        v26 = 1;
-        goto LABEL_26;
-      }
-    }
-
-    IsEnabled_Maps420 = MapsFeature_IsEnabled_Maps182();
-    goto LABEL_25;
-  }
-
-LABEL_27:
-}
-
-id sub_100E8E3D4(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v6 = *(a1 + 32);
-  objc_opt_class();
-  isKindOfClass = objc_opt_isKindOfClass();
-  v8 = *(a1 + 48);
-
-  return [v6 trackNavigationStarted:isKindOfClass & 1 purpose:v8 originResolvedType:a2 destinationResolvedType:a3];
-}
-
-void sub_100E8E44C(void *a1, unsigned int a2)
-{
-  v4 = GEOFindOrCreateLog();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
-  {
-    if (a2 >= 5)
-    {
-      v6 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
-      {
-        v9 = 136446978;
-        v10 = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Shared/AuxiliaryTasks/NavigationTrackingTask.m";
-        v11 = 1024;
-        *v12 = 94;
-        *&v12[4] = 2082;
-        *&v12[6] = "NSString *_stringForType(GEOLogMsgEventDirectionsRequestDetails_DirectionsRequestLocation)";
-        *&v12[14] = 2082;
-        *&v12[16] = "YES";
-        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_FAULT, "At %{public}s:%d, %{public}s forbids: %{public}s. An unhandled GEOLogMsgEventDirectionsRequestDetails_DirectionsRequestLocation?", &v9, 0x26u);
-      }
-
-      v5 = @"?";
-    }
-
-    else
-    {
-      v5 = off_101657218[a2];
-    }
-
-    v7 = a1[5];
-    v8 = a1[6];
-    v9 = 138412802;
-    v10 = v5;
-    v11 = 2048;
-    *v12 = v7;
-    *&v12[8] = 2048;
-    *&v12[10] = v8;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEBUG, "Determined %@ for origin <%+.6f,%+.6f>", &v9, 0x20u);
-  }
-
-  *(*(a1[4] + 8) + 24) = a2;
-}
-
-void sub_100E8E5F8(uint64_t a1, void *a2, void *a3)
-{
-  v5 = a2;
-  v6 = a3;
-  v7 = v6;
-  if (!v5 || v6)
-  {
-    v13 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
-    {
-      v18 = 138412290;
-      v19 = v7;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "Error checking coordinate: %@", &v18, 0xCu);
-    }
-
-    (*(*(a1 + 40) + 16))();
-  }
-
-  else
-  {
-    v8 = *(a1 + 40);
-    v9 = v5;
-    v10 = [v9 shortcutsForHome];
-    v11 = [v10 count];
-
-    if (v11)
-    {
-      v12 = 1;
-    }
-
-    else
-    {
-      v14 = [v9 shortcutsForWork];
-      v15 = [v14 count];
-
-      if (v15)
-      {
-        v12 = 2;
-      }
-
-      else
-      {
-        v16 = [v9 shortcutsForAll];
-        v17 = [v16 count];
-
-        if (v17)
-        {
-          v12 = 3;
-        }
-
-        else
-        {
-          v12 = 4;
-        }
-      }
-    }
-
-    (*(v8 + 16))(v8, v12);
-  }
-
-  dispatch_group_leave(*(a1 + 32));
-}
-
-void sub_100E8E7A4(void *a1, unsigned int a2)
-{
-  v4 = GEOFindOrCreateLog();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
-  {
-    if (a2 >= 5)
-    {
-      v6 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
-      {
-        v9 = 136446978;
-        v10 = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Shared/AuxiliaryTasks/NavigationTrackingTask.m";
-        v11 = 1024;
-        *v12 = 94;
-        *&v12[4] = 2082;
-        *&v12[6] = "NSString *_stringForType(GEOLogMsgEventDirectionsRequestDetails_DirectionsRequestLocation)";
-        *&v12[14] = 2082;
-        *&v12[16] = "YES";
-        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_FAULT, "At %{public}s:%d, %{public}s forbids: %{public}s. An unhandled GEOLogMsgEventDirectionsRequestDetails_DirectionsRequestLocation?", &v9, 0x26u);
-      }
-
-      v5 = @"?";
-    }
-
-    else
-    {
-      v5 = off_101657218[a2];
-    }
-
-    v7 = a1[5];
-    v8 = a1[6];
-    v9 = 138412802;
-    v10 = v5;
-    v11 = 2048;
-    *v12 = v7;
-    *&v12[8] = 2048;
-    *&v12[10] = v8;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEBUG, "Determined %@ for destination <%+.6f,%+.6f>", &v9, 0x20u);
-  }
-
-  *(*(a1[4] + 8) + 24) = a2;
-}
-
-uint64_t sub_100E8E950(void *a1)
-{
-  v2 = GEOFindOrCreateLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
-  {
-    v3 = *(*(a1[5] + 8) + 24);
-    if (v3 >= 5)
-    {
-      v5 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
-      {
-        v10 = 136446978;
-        v11 = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Shared/AuxiliaryTasks/NavigationTrackingTask.m";
-        v12 = 1024;
-        *v13 = 94;
-        *&v13[4] = 2082;
-        *&v13[6] = "NSString *_stringForType(GEOLogMsgEventDirectionsRequestDetails_DirectionsRequestLocation)";
-        v14 = 2082;
-        v15 = "YES";
-        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_FAULT, "At %{public}s:%d, %{public}s forbids: %{public}s. An unhandled GEOLogMsgEventDirectionsRequestDetails_DirectionsRequestLocation?", &v10, 0x26u);
-      }
-
-      v4 = @"?";
-    }
-
-    else
-    {
-      v4 = off_101657218[v3];
-    }
-
-    v6 = *(*(a1[6] + 8) + 24);
-    if (v6 >= 5)
-    {
-      v8 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
-      {
-        v10 = 136446978;
-        v11 = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Shared/AuxiliaryTasks/NavigationTrackingTask.m";
-        v12 = 1024;
-        *v13 = 94;
-        *&v13[4] = 2082;
-        *&v13[6] = "NSString *_stringForType(GEOLogMsgEventDirectionsRequestDetails_DirectionsRequestLocation)";
-        v14 = 2082;
-        v15 = "YES";
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_FAULT, "At %{public}s:%d, %{public}s forbids: %{public}s. An unhandled GEOLogMsgEventDirectionsRequestDetails_DirectionsRequestLocation?", &v10, 0x26u);
-      }
-
-      v7 = @"?";
-    }
-
-    else
-    {
-      v7 = off_101657218[v6];
-    }
-
-    v10 = 138412546;
-    v11 = v4;
-    v12 = 2112;
-    *v13 = v7;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEBUG, "Calling back with [%@, %@]", &v10, 0x16u);
-  }
-
-  return (*(a1[4] + 16))();
-}
-
-uint64_t sub_100E8F7E0(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-uint64_t sub_100E8F7F8(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  v8 = v3;
-  if (*(*(*(a1 + 40) + 8) + 40) || ([v3 methodSignatureForSelector:*(a1 + 48)], v4 = objc_claimAutoreleasedReturnValue(), v5 = *(*(a1 + 40) + 8), v6 = *(v5 + 40), *(v5 + 40) = v4, v6, *(*(*(a1 + 40) + 8) + 40)))
-  {
-    if (objc_opt_respondsToSelector())
-    {
-      [*(a1 + 32) addObject:v8];
-    }
-  }
-
-  return _objc_release_x3();
-}
-
-void sub_100E908D0(uint64_t a1)
-{
-  v1 = [*(a1 + 32) cardPresentationController];
-  [v1 updateHeightForCurrentLayout];
-}
-
-void sub_100E90CF0(_Unwind_Exception *a1)
-{
-  objc_destroyWeak((v1 + 32));
-  objc_destroyWeak((v2 - 24));
-  _Unwind_Resume(a1);
-}
-
-void sub_100E90D0C(uint64_t a1)
-{
-  WeakRetained = objc_loadWeakRetained((a1 + 32));
-  if (WeakRetained)
-  {
-    v2 = WeakRetained;
-    [WeakRetained[18] updateButtons];
-    WeakRetained = v2;
-  }
-}
-
-void sub_100E90E7C(_Unwind_Exception *a1)
-{
-  objc_destroyWeak((v1 + 32));
-  objc_destroyWeak((v2 - 24));
-  _Unwind_Resume(a1);
-}
-
-void sub_100E90E98(uint64_t a1)
-{
-  v2 = dispatch_time(0, 1000000000);
-  block[0] = _NSConcreteStackBlock;
-  block[1] = 3221225472;
-  block[2] = sub_100E90F48;
-  block[3] = &unk_101661B98;
-  objc_copyWeak(&v4, (a1 + 32));
-  dispatch_after(v2, &_dispatch_main_q, block);
-  objc_destroyWeak(&v4);
-}
-
-void sub_100E90F48(uint64_t a1)
-{
-  WeakRetained = objc_loadWeakRetained((a1 + 32));
-  if (WeakRetained)
-  {
-    v2 = WeakRetained;
-    [WeakRetained[18] setButtonEnabled:1];
-    WeakRetained = v2;
-  }
-}
-
-void sub_100E9106C(_Unwind_Exception *a1)
-{
-  objc_destroyWeak((v1 + 32));
-  objc_destroyWeak((v2 - 24));
-  _Unwind_Resume(a1);
-}
-
-void sub_100E91088(uint64_t a1)
-{
-  v2 = dispatch_time(0, 1000000000);
-  block[0] = _NSConcreteStackBlock;
-  block[1] = 3221225472;
-  block[2] = sub_100E91138;
-  block[3] = &unk_101661B98;
-  objc_copyWeak(&v4, (a1 + 32));
-  dispatch_after(v2, &_dispatch_main_q, block);
-  objc_destroyWeak(&v4);
-}
-
-void sub_100E91138(uint64_t a1)
-{
-  WeakRetained = objc_loadWeakRetained((a1 + 32));
-  if (WeakRetained)
-  {
-    v2 = WeakRetained;
-    [WeakRetained[18] setButtonEnabled:1];
-    WeakRetained = v2;
-  }
-}
-
-void sub_100E92F48(uint64_t a1)
-{
-  v2 = [*(a1 + 32) carChromeViewController];
-  v3 = [v2 nudgerizer];
-  [v3 setDelegate:0];
-
-  v5 = [*(a1 + 32) chromeViewController];
-  v4 = [v5 mapView];
-  [v4 setScrollEnabled:*(*(a1 + 32) + 16)];
-}
-
-void sub_100E92FE4(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  v2 = *(v1 + 24);
-  *(v1 + 24) = 0;
-}
-
-void sub_100E93084(uint64_t a1)
-{
-  v2 = [*(a1 + 32) chromeViewController];
-  v3 = [v2 acquireMapInsetPropagationSuspensionTokenForReason:@"CarPlay panning context"];
-  v4 = *(a1 + 32);
-  v5 = *(v4 + 24);
-  *(v4 + 24) = v3;
-
-  v6 = [*(a1 + 32) chromeViewController];
-  v7 = [v6 mapView];
-  [*(*(a1 + 32) + 8) setMapView:v7];
-
-  v8 = [*(a1 + 32) chromeViewController];
-  [*(*(a1 + 32) + 8) setChromeViewController:v8];
-
-  v9 = [*(a1 + 32) carChromeViewController];
-  v10 = [v9 nudgerizer];
-  [*(*(a1 + 32) + 8) setNudgerizer:v10];
-
-  v11 = *(*(a1 + 32) + 8);
-  v12 = [v11 nudgerizer];
-  [v12 setDelegate:v11];
-
-  v13 = [*(*(a1 + 32) + 8) mapView];
-  [v13 setUserTrackingMode:0 animated:*(a1 + 40)];
-
-  v14 = [*(a1 + 32) chromeViewController];
-  v15 = [v14 mapView];
-  *(*(a1 + 32) + 16) = [v15 isScrollEnabled];
-
-  v17 = [*(a1 + 32) chromeViewController];
-  v16 = [v17 mapView];
-  [v16 setScrollEnabled:0];
 }

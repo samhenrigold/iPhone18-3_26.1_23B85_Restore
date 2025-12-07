@@ -22,7 +22,7 @@
 {
   coderCopy = coder;
   selfCopy = self;
-  sub_1B1A9D444();
+  sub_1B1A9D444(coderCopy);
 }
 
 - (int64_t)hash
@@ -36,9 +36,9 @@
 + (int)voiceEnumForName:(id)name
 {
   v3 = sub_1B1C2CB58();
-  v4 = static SynthesisVoice.voiceEnum(forName:)(v3);
+  v5 = static SynthesisVoice.voiceEnum(forName:)(v3, v4);
 
-  return v4;
+  return v5;
 }
 
 @end

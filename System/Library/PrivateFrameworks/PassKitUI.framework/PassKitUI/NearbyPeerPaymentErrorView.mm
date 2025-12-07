@@ -8,7 +8,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_1BD97AFA0();
+  sub_1BD97AFA0(selfCopy);
 }
 
 - (_TtC9PassKitUI26NearbyPeerPaymentErrorView)initWithFrame:(CGRect)frame

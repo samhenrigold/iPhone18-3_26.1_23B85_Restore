@@ -37,10 +37,11 @@
 
 - (void)layoutSubviews
 {
-  v31.receiver = self;
-  v31.super_class = CKBlurEffectBalloonView;
-  [(CKImageBalloonView *)&v31 layoutSubviews];
-  if (CKIsRunningInMessagesNotificationExtension() || CKIsRunningInMessagesNotificationViewService())
+  v34.receiver = self;
+  v34.super_class = CKBlurEffectBalloonView;
+  layoutSubviews = [(CKImageBalloonView *)&v34 layoutSubviews];
+  v4 = CKIsRunningInMessagesNotificationExtension(layoutSubviews);
+  if (v4 || CKIsRunningInMessagesNotificationViewService(v4, v5))
   {
     layer = [(CKBlurEffectBalloonView *)self layer];
     [layer setContents:0];
@@ -66,35 +67,35 @@
 
   if (commSafetyBadgeView)
   {
-    v10 = +[CKUIBehavior sharedBehaviors];
-    [v10 verticalBalloonBadgeInset];
-    v12 = v11;
-
     v13 = +[CKUIBehavior sharedBehaviors];
-    [v13 horizontalBalloonBadgeInset];
+    [v13 verticalBalloonBadgeInset];
     v15 = v14;
+
+    v16 = +[CKUIBehavior sharedBehaviors];
+    [v16 horizontalBalloonBadgeInset];
+    v18 = v17;
 
     commSafetyBadgeView2 = [(CKBlurEffectBalloonView *)self commSafetyBadgeView];
     [commSafetyBadgeView2 sizeToFit];
 
     commSafetyBadgeView3 = [(CKBlurEffectBalloonView *)self commSafetyBadgeView];
     [commSafetyBadgeView3 frame];
-    v19 = v18;
-    v21 = v20;
+    v22 = v21;
+    v24 = v23;
 
     [(CKBlurEffectBalloonView *)self frame];
-    v23 = v22 - v19 - v15;
+    v26 = v25 - v22 - v18;
     [(CKBlurEffectBalloonView *)self frame];
-    v25 = v24 - v21 - v12;
+    v28 = v27 - v24 - v15;
     if ([(CKBalloonView *)self orientation]== 1)
     {
-      v26 = +[CKUIBehavior sharedBehaviors];
-      [v26 balloonMaskTailSizeForTailShape:1];
-      v23 = v23 - v27;
+      v29 = +[CKUIBehavior sharedBehaviors];
+      [v29 balloonMaskTailSizeForTailShape:1];
+      v26 = v26 - v30;
     }
 
     commSafetyBadgeView4 = [(CKBlurEffectBalloonView *)self commSafetyBadgeView];
-    [commSafetyBadgeView4 setFrame:{v23, v25, v19, v21}];
+    [commSafetyBadgeView4 setFrame:{v26, v28, v22, v24}];
   }
 
   blurEffectView5 = [(CKBlurEffectBalloonView *)self blurEffectView];

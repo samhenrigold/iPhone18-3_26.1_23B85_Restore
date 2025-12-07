@@ -1037,32 +1037,32 @@ LABEL_9:
   }
 
   dividerType = [style dividerType];
-  if ([dividerType isEqualToString:@"grid-full"])
+  if (objc_msgSend_isEqualToString_(dividerType))
   {
     v32 = 2;
   }
 
-  else if ([dividerType isEqualToString:@"grid-top"])
+  else if (objc_msgSend_isEqualToString_(dividerType))
   {
     v32 = 3;
   }
 
-  else if ([dividerType isEqualToString:@"full"])
+  else if (objc_msgSend_isEqualToString_(dividerType))
   {
     v32 = 4;
   }
 
-  else if ([dividerType isEqualToString:@"grid-vertical"])
+  else if (objc_msgSend_isEqualToString_(dividerType))
   {
     v32 = 6;
   }
 
-  else if ([dividerType isEqualToString:@"none"])
+  else if (objc_msgSend_isEqualToString_(dividerType))
   {
     v32 = 0;
   }
 
-  else if (*p_gridIsEdgeToEdge || ([dividerType isEqualToString:@"edge-to-edge"] & 1) != 0)
+  else if (*p_gridIsEdgeToEdge || (objc_msgSend_isEqualToString_(dividerType) & 1) != 0)
   {
     v32 = 7;
   }
@@ -1835,13 +1835,13 @@ LABEL_24:
   return result;
 }
 
-uint64_t __95__SUUIGridViewElementPageSectionConfiguration__normalizedContentInsetForViewElement_indexPath___block_invoke(uint64_t result, uint64_t a2, uint64_t a3)
+id *__95__SUUIGridViewElementPageSectionConfiguration__normalizedContentInsetForViewElement_indexPath___block_invoke(id *result, id a2, uint64_t a3)
 {
-  if (*(result + 32) != a2)
+  if (result[4] != a2)
   {
     v3 = result;
-    result = [*(result + 40) _cellInsetsForViewElement:a2 indexPath:a3];
-    v6 = *(*(v3 + 48) + 8);
+    result = [result[5] _cellInsetsForViewElement:a2 indexPath:a3];
+    v6 = *(v3[6] + 1);
     v7 = *(v6 + 48);
     if (v7 < v5)
     {
@@ -1849,7 +1849,7 @@ uint64_t __95__SUUIGridViewElementPageSectionConfiguration__normalizedContentIns
     }
 
     *(v6 + 48) = v7;
-    v8 = *(*(v3 + 48) + 8);
+    v8 = *(v3[6] + 1);
     if (*(v8 + 32) >= v4)
     {
       v4 = *(v8 + 32);
@@ -2076,7 +2076,7 @@ LABEL_25:
   return v9;
 }
 
-uint64_t __65__SUUIGridViewElementPageSectionConfiguration__useOrdinalPadding__block_invoke(uint64_t a1, void *a2, _BYTE *a3)
+void *__65__SUUIGridViewElementPageSectionConfiguration__useOrdinalPadding__block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   result = [a2 elementType];
   *(*(*(a1 + 32) + 8) + 24) = result == 80;

@@ -130,7 +130,7 @@
 
   else
   {
-    v18 = _AAUILogSystem();
+    v18 = _AAUILogSystem(0);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       [AAUISignInFlowController _saveAccount:withAllDataclassesEnabledIfPossibleWithCompletion:];
@@ -177,7 +177,7 @@ void __119__AAUISignInFlowControllerDelegate_signInFlowController_saveAccount_wi
 
   else
   {
-    v8 = _AAUILogSystem();
+    v8 = _AAUILogSystem(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [AAUISignInFlowController signInOperationManager:didSaveAccount:error:];
@@ -218,35 +218,35 @@ void __91__AAUISignInFlowControllerDelegate_signInFlowController_enableFindMyWit
   dispatch_async(MEMORY[0x1E69E96A0], v6);
 }
 
-uint64_t __91__AAUISignInFlowControllerDelegate_signInFlowController_enableFindMyWithAction_completion___block_invoke_2(uint64_t a1)
+uint64_t __91__AAUISignInFlowControllerDelegate_signInFlowController_enableFindMyWithAction_completion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v2 = _AAUILogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v10 = *MEMORY[0x1E69E9840];
+  v3 = _AAUILogSystem(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     if (*(a1 + 40))
     {
-      v3 = @"YES";
+      v4 = @"YES";
     }
 
     else
     {
-      v3 = @"NO";
+      v4 = @"NO";
     }
 
-    v7 = 138543362;
-    v8 = v3;
-    _os_log_impl(&dword_1C5355000, v2, OS_LOG_TYPE_DEFAULT, "Enabling FindMy for newly added account, hasWatch: %{public}@.", &v7, 0xCu);
+    v8 = 138543362;
+    v9 = v4;
+    _os_log_impl(&dword_1C5355000, v3, OS_LOG_TYPE_DEFAULT, "Enabling FindMy for newly added account, hasWatch: %{public}@.", &v8, 0xCu);
   }
 
   if (*(a1 + 40) == 1)
   {
-    v4 = [MEMORY[0x1E699C848] sharedInstance];
-    [v4 userNotifiedOfActivationLockForAllPairedDevices];
+    v5 = [MEMORY[0x1E699C848] sharedInstance];
+    [v5 userNotifiedOfActivationLockForAllPairedDevices];
   }
 
-  v5 = +[AAUIDeviceLocatorService sharedInstance];
-  [v5 enableInContext:3];
+  v6 = +[AAUIDeviceLocatorService sharedInstance];
+  [v6 enableInContext:3];
 
   return (*(*(a1 + 32) + 16))();
 }
@@ -313,26 +313,26 @@ void __83__AAUISignInFlowControllerDelegate__hasActivationLockSupportedWatchWith
 
   if (!WeakRetained)
   {
-    v18 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E698B7E0] code:-8005 userInfo:0];
-    (*(completionCopy + 2))(completionCopy, 0, 0, v18);
+    v19 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E698B7E0] code:-8005 userInfo:0];
+    (*(completionCopy + 2))(completionCopy, 0, 0, v19);
 
     goto LABEL_16;
   }
 
   if (self->_pendingTermsCompletion)
   {
-    v10 = _AAUILogSystem();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+    v11 = _AAUILogSystem(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
       [AAUISignInFlowControllerDelegate signInFlowController:presentGenericTermsUIForAccount:completion:];
     }
   }
 
-  v11 = _Block_copy(completionCopy);
+  v12 = _Block_copy(completionCopy);
   pendingTermsCompletion = self->_pendingTermsCompletion;
-  self->_pendingTermsCompletion = v11;
+  self->_pendingTermsCompletion = v12;
 
-  v13 = objc_loadWeakRetained(&self->_presentingViewController);
+  v14 = objc_loadWeakRetained(&self->_presentingViewController);
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
@@ -340,8 +340,8 @@ void __83__AAUISignInFlowControllerDelegate__hasActivationLockSupportedWatchWith
     goto LABEL_11;
   }
 
-  v14 = objc_loadWeakRetained(&self->_presentingViewController);
-  topViewController = [v14 topViewController];
+  v15 = objc_loadWeakRetained(&self->_presentingViewController);
+  topViewController = [v15 topViewController];
 
   if (!topViewController)
   {
@@ -350,29 +350,29 @@ LABEL_11:
     goto LABEL_12;
   }
 
-  v16 = objc_loadWeakRetained(&self->_presentingViewController);
-  topViewController2 = [v16 topViewController];
+  v17 = objc_loadWeakRetained(&self->_presentingViewController);
+  topViewController2 = [v17 topViewController];
 
 LABEL_12:
   requiredTerms = [(AAUISignInFlowControllerDelegate *)self requiredTerms];
-  v20 = [requiredTerms count];
+  v21 = [requiredTerms count];
 
-  v21 = [AAUIGenericTermsRemoteUI alloc];
-  v22 = v21;
+  v22 = [AAUIGenericTermsRemoteUI alloc];
+  v23 = v22;
   accountStore = self->_accountStore;
-  if (v20)
+  if (v21)
   {
     requiredTerms2 = [(AAUISignInFlowControllerDelegate *)self requiredTerms];
-    v25 = [(AAUIGenericTermsRemoteUI *)v22 initWithAccount:accountCopy inStore:accountStore termsEntries:requiredTerms2];
+    v26 = [(AAUIGenericTermsRemoteUI *)v23 initWithAccount:accountCopy inStore:accountStore termsEntries:requiredTerms2];
     genericTermsRemoteUI = self->_genericTermsRemoteUI;
-    self->_genericTermsRemoteUI = v25;
+    self->_genericTermsRemoteUI = v26;
   }
 
   else
   {
-    v27 = [(AAUIGenericTermsRemoteUI *)v21 initWithAccount:accountCopy inStore:self->_accountStore];
+    v28 = [(AAUIGenericTermsRemoteUI *)v22 initWithAccount:accountCopy inStore:self->_accountStore];
     requiredTerms2 = self->_genericTermsRemoteUI;
-    self->_genericTermsRemoteUI = v27;
+    self->_genericTermsRemoteUI = v28;
   }
 
   [(AAUIGenericTermsRemoteUI *)self->_genericTermsRemoteUI setDelegate:self];
@@ -412,7 +412,7 @@ LABEL_16:
 
   else
   {
-    v12 = _AAUILogSystem();
+    v12 = _AAUILogSystem(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
       [AAUISignInFlowControllerDelegate genericTermsRemoteUI:didFinishWithSuccess:serverInfo:];
@@ -424,38 +424,40 @@ LABEL_16:
 {
   accountCopy = account;
   completionCopy = completion;
-  if (![(AAUISignInFlowControllerDelegate *)self wasProgressViewAlreadyPresented])
+  wasProgressViewAlreadyPresented = [(AAUISignInFlowControllerDelegate *)self wasProgressViewAlreadyPresented];
+  if (!wasProgressViewAlreadyPresented)
   {
     aBlock[0] = MEMORY[0x1E69E9820];
     aBlock[1] = 3221225472;
     aBlock[2] = __98__AAUISignInFlowControllerDelegate_signInFlowController_presentProgressViewForAccount_completion___block_invoke;
     aBlock[3] = &unk_1E820CD90;
-    v10 = accountCopy;
-    v29 = v10;
+    v11 = accountCopy;
+    v33 = v11;
     selfCopy = self;
-    v11 = _Block_copy(aBlock);
+    v12 = _Block_copy(aBlock);
     presentingViewController = [(AAUISignInFlowControllerDelegate *)self presentingViewController];
     objc_opt_class();
     presentingViewController2 = [(AAUISignInFlowControllerDelegate *)self presentingViewController];
     if (objc_opt_isKindOfClass())
     {
-      v14 = presentingViewController2;
+      v15 = presentingViewController2;
     }
 
     else
     {
-      v14 = 0;
+      v15 = 0;
     }
 
-    if (v14)
+    if (v15)
     {
-      if ((objc_opt_respondsToSelector() & 1) == 0)
+      v17 = objc_opt_respondsToSelector();
+      if ((v17 & 1) == 0)
       {
-        v19 = v11[2](v11);
-        [v14 pushViewController:v19 animated:0];
+        v22 = v12[2](v12);
+        [v15 pushViewController:v22 animated:0];
 
-        v20 = _AAUILogSystem();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+        v24 = _AAUILogSystem(v23);
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
         {
           [AAUISignInFlowControllerDelegate signInFlowController:presentProgressViewForAccount:completion:];
         }
@@ -468,31 +470,31 @@ LABEL_16:
         goto LABEL_25;
       }
 
-      v15 = _AAUILogSystem();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+      v18 = _AAUILogSystem(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
       {
         [AAUISignInFlowControllerDelegate signInFlowController:presentProgressViewForAccount:completion:];
       }
 
-      v16 = v11[2](v11);
-      v25[0] = MEMORY[0x1E69E9820];
-      v25[1] = 3221225472;
-      v25[2] = __98__AAUISignInFlowControllerDelegate_signInFlowController_presentProgressViewForAccount_completion___block_invoke_89;
-      v25[3] = &unk_1E820B708;
-      v25[4] = self;
-      v26 = v10;
-      v27 = completionCopy;
-      [v14 pushViewController:v16 completion:v25];
+      v19 = v12[2](v12);
+      v29[0] = MEMORY[0x1E69E9820];
+      v29[1] = 3221225472;
+      v29[2] = __98__AAUISignInFlowControllerDelegate_signInFlowController_presentProgressViewForAccount_completion___block_invoke_89;
+      v29[3] = &unk_1E820B708;
+      v29[4] = self;
+      v30 = v11;
+      v31 = completionCopy;
+      [v15 pushViewController:v19 completion:v29];
 
-      v17 = v26;
+      v20 = v30;
     }
 
     else
     {
       if (!presentingViewController)
       {
-        v21 = _AAUILogSystem();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+        v25 = _AAUILogSystem(v16);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
         {
           [AAUISignInFlowControllerDelegate signInFlowController:presentProgressViewForAccount:completion:];
         }
@@ -505,25 +507,25 @@ LABEL_16:
         goto LABEL_25;
       }
 
-      v18 = v11[2](v11);
-      v22[0] = MEMORY[0x1E69E9820];
-      v22[1] = 3221225472;
-      v22[2] = __98__AAUISignInFlowControllerDelegate_signInFlowController_presentProgressViewForAccount_completion___block_invoke_90;
-      v22[3] = &unk_1E820B708;
-      v22[4] = self;
-      v23 = v10;
-      v24 = completionCopy;
-      [presentingViewController presentViewController:v18 animated:1 completion:v22];
+      v21 = v12[2](v12);
+      v26[0] = MEMORY[0x1E69E9820];
+      v26[1] = 3221225472;
+      v26[2] = __98__AAUISignInFlowControllerDelegate_signInFlowController_presentProgressViewForAccount_completion___block_invoke_90;
+      v26[3] = &unk_1E820B708;
+      v26[4] = self;
+      v27 = v11;
+      v28 = completionCopy;
+      [presentingViewController presentViewController:v21 animated:1 completion:v26];
 
-      v17 = v23;
+      v20 = v27;
     }
 
 LABEL_25:
     goto LABEL_26;
   }
 
-  v9 = _AAUILogSystem();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  v10 = _AAUILogSystem(wasProgressViewAlreadyPresented);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     [AAUISignInFlowControllerDelegate signInFlowController:presentProgressViewForAccount:completion:];
   }
@@ -542,7 +544,7 @@ id __98__AAUISignInFlowControllerDelegate_signInFlowController_presentProgressVi
   v2 = [*(a1 + 32) aa_fullName];
   if (!v2)
   {
-    v3 = _AAUILogSystem();
+    v3 = _AAUILogSystem(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __98__AAUISignInFlowControllerDelegate_signInFlowController_presentProgressViewForAccount_completion___block_invoke_cold_1();
@@ -556,10 +558,10 @@ id __98__AAUISignInFlowControllerDelegate_signInFlowController_presentProgressVi
   return v4;
 }
 
-uint64_t __98__AAUISignInFlowControllerDelegate_signInFlowController_presentProgressViewForAccount_completion___block_invoke_89(uint64_t a1)
+uint64_t __98__AAUISignInFlowControllerDelegate_signInFlowController_presentProgressViewForAccount_completion___block_invoke_89(uint64_t a1, uint64_t a2)
 {
-  v2 = _AAUILogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = _AAUILogSystem(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     __98__AAUISignInFlowControllerDelegate_signInFlowController_presentProgressViewForAccount_completion___block_invoke_89_cold_1();
   }
@@ -573,10 +575,10 @@ uint64_t __98__AAUISignInFlowControllerDelegate_signInFlowController_presentProg
   return result;
 }
 
-uint64_t __98__AAUISignInFlowControllerDelegate_signInFlowController_presentProgressViewForAccount_completion___block_invoke_90(uint64_t a1)
+uint64_t __98__AAUISignInFlowControllerDelegate_signInFlowController_presentProgressViewForAccount_completion___block_invoke_90(uint64_t a1, uint64_t a2)
 {
-  v2 = _AAUILogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = _AAUILogSystem(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     __98__AAUISignInFlowControllerDelegate_signInFlowController_presentProgressViewForAccount_completion___block_invoke_90_cold_1();
   }
@@ -595,19 +597,19 @@ uint64_t __98__AAUISignInFlowControllerDelegate_signInFlowController_presentProg
   controllerCopy = controller;
   accountCopy = account;
   completionCopy = completion;
-  v29 = 0;
-  v30 = &v29;
-  v31 = 0x2020000000;
-  v32 = 1;
+  v31 = 0;
+  v32 = &v31;
+  v33 = 0x2020000000;
+  v34 = 1;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __115__AAUISignInFlowControllerDelegate_signInFlowController_presentAccountPrivacyOptinForAccount_userActionCompletion___block_invoke;
   aBlock[3] = &unk_1E820CDB8;
   v11 = accountCopy;
-  v26 = v11;
-  v28 = &v29;
+  v28 = v11;
+  v30 = &v31;
   v12 = completionCopy;
-  v27 = v12;
+  v29 = v12;
   v13 = _Block_copy(aBlock);
   presentingViewController = [(AAUISignInFlowControllerDelegate *)self presentingViewController];
   objc_opt_class();
@@ -624,38 +626,38 @@ uint64_t __98__AAUISignInFlowControllerDelegate_signInFlowController_presentProg
 
   if (v16)
   {
-    if (objc_opt_respondsToSelector())
+    v18 = objc_opt_respondsToSelector();
+    if (v18)
     {
-      v30[3] = 0;
-      v17 = _AAUILogSystem();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+      v32[3] = 0;
+      v19 = _AAUILogSystem(v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
       {
         [AAUISignInFlowControllerDelegate signInFlowController:presentAccountPrivacyOptinForAccount:userActionCompletion:];
       }
 
-      v18 = v13[2](v13);
-      if (v18)
+      v20 = v13[2](v13);
+      if (v20)
       {
-        v23[0] = MEMORY[0x1E69E9820];
-        v23[1] = 3221225472;
-        v23[2] = __115__AAUISignInFlowControllerDelegate_signInFlowController_presentAccountPrivacyOptinForAccount_userActionCompletion___block_invoke_93;
-        v23[3] = &unk_1E820BEB8;
-        v23[4] = self;
-        v24 = v11;
-        [v16 pushViewController:v18 completion:v23];
-        v19 = v24;
+        v25[0] = MEMORY[0x1E69E9820];
+        v25[1] = 3221225472;
+        v25[2] = __115__AAUISignInFlowControllerDelegate_signInFlowController_presentAccountPrivacyOptinForAccount_userActionCompletion___block_invoke_93;
+        v25[3] = &unk_1E820BEB8;
+        v25[4] = self;
+        v26 = v11;
+        [v16 pushViewController:v20 completion:v25];
+        v21 = v26;
 LABEL_13:
       }
     }
 
     else
     {
-      v18 = v13[2](v13);
-      if (v18)
+      v20 = v13[2](v13);
+      if (v20)
       {
-        [v16 pushViewController:v18 animated:0];
-        v20 = _AAUILogSystem();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+        v22 = _AAUILogSystem([v16 pushViewController:v20 animated:0]);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
         {
           [AAUISignInFlowControllerDelegate signInFlowController:presentAccountPrivacyOptinForAccount:userActionCompletion:];
         }
@@ -665,31 +667,31 @@ LABEL_13:
 
   else if (presentingViewController)
   {
-    v18 = v13[2](v13);
-    if (v18)
+    v20 = v13[2](v13);
+    if (v20)
     {
-      v21[0] = MEMORY[0x1E69E9820];
-      v21[1] = 3221225472;
-      v21[2] = __115__AAUISignInFlowControllerDelegate_signInFlowController_presentAccountPrivacyOptinForAccount_userActionCompletion___block_invoke_94;
-      v21[3] = &unk_1E820BEB8;
-      v21[4] = self;
-      v22 = v11;
-      [presentingViewController presentViewController:v18 animated:1 completion:v21];
-      v19 = v22;
+      v23[0] = MEMORY[0x1E69E9820];
+      v23[1] = 3221225472;
+      v23[2] = __115__AAUISignInFlowControllerDelegate_signInFlowController_presentAccountPrivacyOptinForAccount_userActionCompletion___block_invoke_94;
+      v23[3] = &unk_1E820BEB8;
+      v23[4] = self;
+      v24 = v11;
+      [presentingViewController presentViewController:v20 animated:1 completion:v23];
+      v21 = v24;
       goto LABEL_13;
     }
   }
 
   else
   {
-    v18 = _AAUILogSystem();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v20 = _AAUILogSystem(v17);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       [AAUISignInFlowControllerDelegate signInFlowController:presentAccountPrivacyOptinForAccount:userActionCompletion:];
     }
   }
 
-  _Block_object_dispose(&v29, 8);
+  _Block_object_dispose(&v31, 8);
 }
 
 id __115__AAUISignInFlowControllerDelegate_signInFlowController_presentAccountPrivacyOptinForAccount_userActionCompletion___block_invoke(uint64_t a1)
@@ -699,7 +701,7 @@ id __115__AAUISignInFlowControllerDelegate_signInFlowController_presentAccountPr
   v4 = [MEMORY[0x1E698DE70] newAccountPrivacyOptInViewForFlow:*(*(*(v2 + 16) + 8) + 24) altDSID:v3 userActionCompletion:*(v2 + 8)];
   if (!v4)
   {
-    v5 = _AAUILogSystem();
+    v5 = _AAUILogSystem(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       __115__AAUISignInFlowControllerDelegate_signInFlowController_presentAccountPrivacyOptinForAccount_userActionCompletion___block_invoke_cold_1();
@@ -716,19 +718,19 @@ id __115__AAUISignInFlowControllerDelegate_signInFlowController_presentAccountPr
   return v4;
 }
 
-void __115__AAUISignInFlowControllerDelegate_signInFlowController_presentAccountPrivacyOptinForAccount_userActionCompletion___block_invoke_93()
+void __115__AAUISignInFlowControllerDelegate_signInFlowController_presentAccountPrivacyOptinForAccount_userActionCompletion___block_invoke_93(uint64_t a1, uint64_t a2)
 {
-  v0 = _AAUILogSystem();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v2 = _AAUILogSystem(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __115__AAUISignInFlowControllerDelegate_signInFlowController_presentAccountPrivacyOptinForAccount_userActionCompletion___block_invoke_93_cold_1();
   }
 }
 
-void __115__AAUISignInFlowControllerDelegate_signInFlowController_presentAccountPrivacyOptinForAccount_userActionCompletion___block_invoke_94()
+void __115__AAUISignInFlowControllerDelegate_signInFlowController_presentAccountPrivacyOptinForAccount_userActionCompletion___block_invoke_94(uint64_t a1, uint64_t a2)
 {
-  v0 = _AAUILogSystem();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v2 = _AAUILogSystem(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __115__AAUISignInFlowControllerDelegate_signInFlowController_presentAccountPrivacyOptinForAccount_userActionCompletion___block_invoke_94_cold_1();
   }
@@ -745,29 +747,29 @@ void __115__AAUISignInFlowControllerDelegate_signInFlowController_presentAccount
   {
     presentingViewController = [(AAUISignInFlowControllerDelegate *)self presentingViewController];
     objc_opt_class();
-    v14 = presentingViewController;
+    v15 = presentingViewController;
     if (objc_opt_isKindOfClass())
     {
-      v15 = v14;
+      v16 = v15;
     }
 
     else
     {
-      v15 = 0;
+      v16 = 0;
     }
 
-    v17 = [[AAUISignInDataclassActionFlow alloc] initWithNavController:v15 account:accountCopy dataclassActionsStore:storeCopy];
-    [(AAUISignInDataclassActionFlow *)v17 beginFlowWithInvoker:self];
-    v18 = [completionCopy copy];
+    v18 = [[AAUISignInDataclassActionFlow alloc] initWithNavController:v16 account:accountCopy dataclassActionsStore:storeCopy];
+    [(AAUISignInDataclassActionFlow *)v18 beginFlowWithInvoker:self];
+    v19 = [completionCopy copy];
 
     pendingSignInDataclassAction = self->_pendingSignInDataclassAction;
-    self->_pendingSignInDataclassAction = v18;
+    self->_pendingSignInDataclassAction = v19;
   }
 
   else
   {
-    v16 = _AAUILogSystem();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = _AAUILogSystem(v13);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       [AAUISignInFlowControllerDelegate signInFlowController:presentDataclassActionsViewForAccount:withDataclassActionsStore:completion:];
     }
@@ -778,18 +780,19 @@ void __115__AAUISignInFlowControllerDelegate_signInFlowController_presentAccount
 
 - (void)welcomeFlowEndedWithResult:(id)result
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   resultCopy = result;
   v5 = resultCopy;
   if (self->_pendingSignInDataclassAction)
   {
-    if ([resultCopy outcome])
+    outcome = [resultCopy outcome];
+    if (outcome)
     {
-      v6 = _AAUILogSystem();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = _AAUILogSystem(outcome);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v16) = 0;
-        _os_log_impl(&dword_1C5355000, v6, OS_LOG_TYPE_DEFAULT, "AAUISignInFlowControllerDelegate: User cancelled sign in flow.", &v16, 2u);
+        LOWORD(v17) = 0;
+        _os_log_impl(&dword_1C5355000, v7, OS_LOG_TYPE_DEFAULT, "AAUISignInFlowControllerDelegate: User cancelled sign in flow.", &v17, 2u);
       }
 
       pendingSignInDataclassAction = self->_pendingSignInDataclassAction;
@@ -800,17 +803,17 @@ void __115__AAUISignInFlowControllerDelegate_signInFlowController_presentAccount
     else
     {
       info = [v5 info];
-      v9 = [info valueForKey:*MEMORY[0x1E698B7E8]];
-      v10 = v9;
-      if (v9)
+      v10 = [info valueForKey:*MEMORY[0x1E698B7E8]];
+      v11 = v10;
+      if (v10)
       {
-        unsignedIntegerValue = [v9 unsignedIntegerValue];
-        v12 = _AAUILogSystem();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+        unsignedIntegerValue = [v10 unsignedIntegerValue];
+        v13 = _AAUILogSystem(unsignedIntegerValue);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
-          v16 = 134217984;
-          v17 = unsignedIntegerValue;
-          _os_log_impl(&dword_1C5355000, v12, OS_LOG_TYPE_DEFAULT, "AAUISignInFlowControllerDelegate: User selected action is %ld", &v16, 0xCu);
+          v17 = 134217984;
+          v18 = unsignedIntegerValue;
+          _os_log_impl(&dword_1C5355000, v13, OS_LOG_TYPE_DEFAULT, "AAUISignInFlowControllerDelegate: User selected action is %ld", &v17, 0xCu);
         }
 
         (*(self->_pendingSignInDataclassAction + 2))();
@@ -818,16 +821,16 @@ void __115__AAUISignInFlowControllerDelegate_signInFlowController_presentAccount
 
       else
       {
-        v13 = _AAUILogSystem();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+        v14 = _AAUILogSystem(0);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v16) = 0;
-          _os_log_impl(&dword_1C5355000, v13, OS_LOG_TYPE_DEFAULT, "AAUISignInFlowControllerDelegate: SignInFlow missing result info. Unable to determine user action.", &v16, 2u);
+          LOWORD(v17) = 0;
+          _os_log_impl(&dword_1C5355000, v14, OS_LOG_TYPE_DEFAULT, "AAUISignInFlowControllerDelegate: SignInFlow missing result info. Unable to determine user action.", &v17, 2u);
         }
 
-        v14 = self->_pendingSignInDataclassAction;
-        v15 = [MEMORY[0x1E696ABC0] aa_errorWithCode:0];
-        (*(v14 + 2))(v14, 0, 0, v15);
+        v15 = self->_pendingSignInDataclassAction;
+        v16 = [MEMORY[0x1E696ABC0] aa_errorWithCode:0];
+        (*(v15 + 2))(v15, 0, 0, v16);
       }
     }
   }

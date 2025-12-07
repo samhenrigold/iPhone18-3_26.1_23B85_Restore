@@ -31,7 +31,7 @@
 + (id)conditionForFeature:(id)feature relation:(int64_t)relation floatValue:(float)value
 {
   featureCopy = feature;
-  REEnsureFeatureWithType(featureCopy, 2uLL);
+  REEnsureFeatureWithType(featureCopy, 2);
   v7 = RECreateDoubleFeatureValueTaggedPointer();
   v8 = [[_REValueRuleCondition alloc] initWithFeature:featureCopy relation:relation value:v7];
 
@@ -43,7 +43,7 @@
 + (id)conditionForFeature:(id)feature relation:(int64_t)relation integerValue:(int64_t)value
 {
   featureCopy = feature;
-  REEnsureFeatureWithType(featureCopy, 2uLL);
+  REEnsureFeatureWithType(featureCopy, 2);
   v8 = RECreateIntegerFeatureValueTaggedPointer(value);
   v9 = [[_REValueRuleCondition alloc] initWithFeature:featureCopy relation:relation value:v8];
 
@@ -56,7 +56,7 @@
 {
   valueCopy = value;
   featureCopy = feature;
-  REEnsureFeatureWithType(featureCopy, 1uLL);
+  REEnsureFeatureWithType(featureCopy, 1);
   v7 = [REFeatureValue featureValueWithString:valueCopy];
 
   v8 = RECreateFeatureValueTaggedPointer(v7);
@@ -70,7 +70,7 @@
 + (id)conditionForFeature:(id)feature hasIntegerValue:(int64_t)value
 {
   featureCopy = feature;
-  REEnsureFeatureWithType(featureCopy, 1uLL);
+  REEnsureFeatureWithType(featureCopy, 1);
   v6 = RECreateIntegerFeatureValueTaggedPointer(value);
   v7 = [[_REValueRuleCondition alloc] initWithFeature:featureCopy relation:0 value:v6];
 
@@ -116,7 +116,7 @@
 {
   featureCopy = feature;
   interactionCopy = interaction;
-  REEnsureFeatureWithType(featureCopy, 2uLL);
+  REEnsureFeatureWithType(featureCopy, 2);
   v9 = [[_REProbabilityRuleCondition alloc] initWithProbability:interactionCopy relation:relation feature:featureCopy threshold:0.0];
 
   return v9;

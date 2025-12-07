@@ -11,9 +11,9 @@
     [WBSSavedAccountStore(WebsiteNameExtras) websiteNameProvider];
   }
 
-  v1 = websiteNameProvider_websiteNameProvider;
+  v2 = websiteNameProvider_websiteNameProvider;
 
-  return v1;
+  return v2;
 }
 
 @end

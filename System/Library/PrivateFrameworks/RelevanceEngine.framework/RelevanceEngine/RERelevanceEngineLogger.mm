@@ -130,26 +130,24 @@ void __50__RERelevanceEngineLogger_collectLogs_completion___block_invoke_23(uint
 
 void __50__RERelevanceEngineLogger_collectLogs_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v10 = a2;
+  v8 = a2;
   v3 = [MEMORY[0x277CCAB68] string];
-  v4 = *(a1 + 32);
-  v5 = objc_opt_class();
-  v6 = NSStringFromClass(v5);
-  v7 = RELogHeader(v6);
-  [v3 appendString:v7];
+  v4 = objc_opt_class();
+  v5 = NSStringFromClass(v4);
+  v6 = RELogHeader(v5);
+  [v3 appendString:v6];
 
   [v3 appendString:@"\n\n"];
-  v8 = REVerboseDescriptionForExportedObject(*(a1 + 32));
-  [v3 appendString:v8];
+  v7 = REVerboseDescriptionForExportedObject(*(a1 + 32));
+  [v3 appendString:v7];
 
-  if ([v10 length])
+  if ([v8 length])
   {
     [v3 appendString:@"\n"];
-    [v3 appendString:v10];
+    [v3 appendString:v8];
   }
 
   [v3 appendString:@"\n\n"];
-  v9 = *(a1 + 32);
   (*(*(a1 + 40) + 16))();
   (*(*(*(*(a1 + 48) + 8) + 40) + 16))();
 }

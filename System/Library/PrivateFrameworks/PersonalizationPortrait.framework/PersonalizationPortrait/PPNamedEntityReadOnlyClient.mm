@@ -158,17 +158,16 @@ void __78__PPNamedEntityReadOnlyClient_rankedNamedEntitiesWithQuery_error_handle
 
 - (void)_unblockPendingQueries
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   v3 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"connection to %@ was unexpectedly terminated", @"com.apple.proactive.PersonalizationPortrait.NamedEntity.readOnly"];
   v4 = objc_alloc(MEMORY[0x1E696ABC0]);
   v5 = *MEMORY[0x1E696A798];
-  v9 = *MEMORY[0x1E696A588];
-  v10[0] = v3;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = *MEMORY[0x1E696A588];
+  v9[0] = v3;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   v7 = [v4 initWithDomain:v5 code:5 userInfo:v6];
 
   [(PPXPCClientPipelinedBatchQueryManager *)self->_queryManager cancelPendingQueriesWithError:v7];
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (PPNamedEntityReadOnlyClient)init
@@ -228,36 +227,32 @@ void __78__PPNamedEntityReadOnlyClient_rankedNamedEntitiesWithQuery_error_handle
 
 void __35__PPNamedEntityReadOnlyClient_init__block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = pp_xpc_client_log_handle();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138412290;
-    v6 = @"com.apple.proactive.PersonalizationPortrait.NamedEntity.readOnly";
-    _os_log_error_impl(&dword_1A7FD3000, v2, OS_LOG_TYPE_ERROR, "Connection to %@ interrupted.", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = @"com.apple.proactive.PersonalizationPortrait.NamedEntity.readOnly";
+    _os_log_error_impl(&dword_1A7FD3000, v2, OS_LOG_TYPE_ERROR, "Connection to %@ interrupted.", &v4, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained _unblockPendingQueries];
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __35__PPNamedEntityReadOnlyClient_init__block_invoke_85(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = pp_xpc_client_log_handle();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    v5 = 138412290;
-    v6 = @"com.apple.proactive.PersonalizationPortrait.NamedEntity.readOnly";
-    _os_log_impl(&dword_1A7FD3000, v2, OS_LOG_TYPE_INFO, "Connection to %@ invalidated.", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = @"com.apple.proactive.PersonalizationPortrait.NamedEntity.readOnly";
+    _os_log_impl(&dword_1A7FD3000, v2, OS_LOG_TYPE_INFO, "Connection to %@ invalidated.", &v4, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained _unblockPendingQueries];
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 + (id)sharedInstance
@@ -279,13 +274,12 @@ void __35__PPNamedEntityReadOnlyClient_init__block_invoke_85(uint64_t a1)
 
 void __45__PPNamedEntityReadOnlyClient_sharedInstance__block_invoke(uint64_t a1)
 {
-  v2 = objc_autoreleasePoolPush();
-  v3 = *(a1 + 32);
-  v4 = objc_opt_new();
-  v5 = sharedInstance__pasExprOnceResult_6176;
-  sharedInstance__pasExprOnceResult_6176 = v4;
+  v1 = objc_autoreleasePoolPush();
+  v2 = objc_opt_new();
+  v3 = sharedInstance__pasExprOnceResult_6176;
+  sharedInstance__pasExprOnceResult_6176 = v2;
 
-  objc_autoreleasePoolPop(v2);
+  objc_autoreleasePoolPop(v1);
 }
 
 @end

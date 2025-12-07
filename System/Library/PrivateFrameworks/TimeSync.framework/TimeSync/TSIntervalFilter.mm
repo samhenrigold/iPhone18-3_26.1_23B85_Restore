@@ -1,6 +1,7 @@
 @interface TSIntervalFilter
 - (TSIntervalFilter)initWithExpectedInterval:(unint64_t)interval multiIntervalCount:(unsigned int)count filterSize:(unsigned __int8)size;
 - (id).cxx_construct;
+- (unint64_t)_calculateNewTimestamp:(unint64_t)timestamp;
 - (unint64_t)addTimestamp:(unint64_t)timestamp entry:(int64_t *)entry;
 - (unint64_t)filterCountForEntry:(int64_t)validEntry;
 - (unint64_t)multiIntervalTimeForEntry:(int64_t)validEntry;
@@ -41,6 +42,220 @@
   return v9;
 }
 
+- (unint64_t)_calculateNewTimestamp:(unint64_t)timestamp
+{
+  v4 = self->_filterOffset + timestamp;
+  if (self->_filterCount)
+  {
+    filterSize = self->_filterSize;
+    v6 = v4 << self->_filterSize;
+    v7 = v6;
+    if (filterSize <= 0x3F)
+    {
+      v6 = v4 >> -filterSize;
+    }
+
+    else
+    {
+      v7 = 0;
+    }
+
+    if (filterSize == 64)
+    {
+      v7 = 0;
+      v6 = self->_filterOffset + timestamp;
+    }
+
+    if (self->_filterSize)
+    {
+      v4 = v7;
+      v8 = v6;
+    }
+
+    else
+    {
+      v8 = self->_filterSize;
+    }
+
+    v41.lo = v4;
+    v41.hi = v8;
+    IIR(&self->_filteredSnapshot, v41, filterSize);
+    v9 = (__PAIR128__(v8 - self->_filteredSnapshot.hi, v4) - self->_filteredSnapshot.lo);
+    v10 = self->_filterSize;
+    p_filteredOffset = &self->_filteredOffset;
+  }
+
+  else
+  {
+    v12 = self->_filterSize;
+    if (v12 == 64)
+    {
+      v17 = 0;
+      self->_filteredSnapshot.lo = 0;
+      self->_filteredSnapshot.hi = v4;
+      p_filteredSnapshot = &self->_filteredSnapshot;
+    }
+
+    else
+    {
+      expectedInterval = self->_expectedInterval;
+      if (self->_filterSize)
+      {
+        v19 = expectedInterval << v12;
+        v20 = expectedInterval >> -v12;
+        v21 = expectedInterval << v12;
+        if (v12 <= 0x3F)
+        {
+          v19 = v20;
+        }
+
+        else
+        {
+          v21 = 0;
+        }
+
+        v14 = v4 >= v21;
+        v22 = v4 - v21;
+        if (v14)
+        {
+          v23 = 0;
+        }
+
+        else
+        {
+          v23 = -1;
+        }
+
+        v24 = v23 - v19;
+        v25 = v22 << v12;
+        v26 = (v24 << v12) | (v22 >> -v12);
+        v27 = v22 << v12;
+        if (v12 <= 0x3F)
+        {
+          v28 = v27;
+        }
+
+        else
+        {
+          v28 = 0;
+        }
+
+        if (v12 <= 0x3F)
+        {
+          v29 = v26;
+        }
+
+        else
+        {
+          v29 = v25;
+        }
+
+        self->_filteredSnapshot.lo = v28;
+        self->_filteredSnapshot.hi = v29;
+        p_filteredSnapshot = &self->_filteredSnapshot;
+        if (v12 <= 0x3F)
+        {
+          v17 = v4 << v12;
+        }
+
+        else
+        {
+          v17 = 0;
+        }
+
+        if (v12 <= 0x3F)
+        {
+          v4 >>= -v12;
+        }
+
+        else
+        {
+          v4 <<= v12;
+        }
+      }
+
+      else
+      {
+        v14 = v4 >= expectedInterval;
+        v15 = v4 - expectedInterval;
+        if (v14)
+        {
+          v16 = 0;
+        }
+
+        else
+        {
+          v16 = -1;
+        }
+
+        self->_filteredSnapshot.lo = v15;
+        self->_filteredSnapshot.hi = v16;
+        p_filteredSnapshot = &self->_filteredSnapshot;
+        v17 = v4;
+        v4 = 0;
+      }
+    }
+
+    v42.lo = v17;
+    v42.hi = v4;
+    IIR(p_filteredSnapshot, v42, v12);
+    v30 = (__PAIR128__(v4 - self->_filteredSnapshot.hi, v17) - self->_filteredSnapshot.lo);
+    v31 = IOTS_uint64mul(self->_expectedInterval, ~(-1 << self->_filterSize));
+    v10 = self->_filterSize;
+    v33 = self->_filterSize;
+    v34 = v31 << v33;
+    v35 = (v31 >> -v10) | (v32 << v33);
+    v36 = v31 << v33;
+    if (v10 <= 0x3F)
+    {
+      v34 = v35;
+    }
+
+    else
+    {
+      v36 = 0;
+    }
+
+    if (v10 == 64)
+    {
+      v36 = 0;
+      v34 = v31;
+    }
+
+    if (!self->_filterSize)
+    {
+      v36 = v31;
+      v34 = v32;
+    }
+
+    self->_filteredOffset.lo = v36;
+    self->_filteredOffset.hi = v34;
+    p_filteredOffset = &self->_filteredOffset;
+    v9 = v30;
+  }
+
+  IIR(p_filteredOffset, v9, v10);
+  v37 = (*&self->_filteredSnapshot + *&self->_filteredOffset) >> 64;
+  v38 = self->_filterSize;
+  v39 = v37 >> self->_filterSize;
+  if (v38 <= 0x3F)
+  {
+    v39 = (v37 << -v38) | ((self->_filteredSnapshot.lo + self->_filteredOffset.lo) >> v38);
+  }
+
+  if (v38 != 64)
+  {
+    v37 = v39;
+  }
+
+  if (!self->_filterSize)
+  {
+    v37 = self->_filteredSnapshot.lo + self->_filteredOffset.lo;
+  }
+
+  return v37 - self->_filterOffset;
+}
+
 - (unint64_t)addTimestamp:(unint64_t)timestamp entry:(int64_t *)entry
 {
   v8 = 0;
@@ -62,7 +277,7 @@
   return v5;
 }
 
-uint64_t __39__TSIntervalFilter_addTimestamp_entry___block_invoke(void *a1)
+void *__39__TSIntervalFilter_addTimestamp_entry___block_invoke(void *a1)
 {
   v2 = a1[4];
   if (!*(v2 + 24))
@@ -89,7 +304,7 @@ uint64_t __39__TSIntervalFilter_addTimestamp_entry___block_invoke(void *a1)
     v2 = a1[4];
   }
 
-  result = [v2 _calculateNewTimestamp:a1[6]];
+  result = [v2 _calculateNewTimestamp:?];
   *(*(a1[5] + 8) + 24) = result;
   *(*(a1[4] + 32) + 8 * (*(a1[4] + 40))++) = *(*(a1[5] + 8) + 24);
   v9 = a1[4];
@@ -150,18 +365,9 @@ uint64_t __39__TSIntervalFilter_addTimestamp_entry___block_invoke(void *a1)
 
 - (void)resetFilter
 {
-  multiIntervalTime = [(TSIntervalFilter *)self multiIntervalTime];
-  if (multiIntervalTime == -1)
-  {
-    expectedInterval = self->_expectedInterval;
-  }
+  [(TSIntervalFilter *)self multiIntervalTime];
 
-  else
-  {
-    expectedInterval = multiIntervalTime / self->_multiIntervalCount;
-  }
-
-  [(TSIntervalFilter *)self resetFilterWithNewExpectedInterval:expectedInterval];
+  [(TSIntervalFilter *)self resetFilterWithNewExpectedInterval:?];
 }
 
 - (void)resetFilterWithNewExpectedInterval:(unint64_t)interval multiIntervalCount:(unsigned int)count

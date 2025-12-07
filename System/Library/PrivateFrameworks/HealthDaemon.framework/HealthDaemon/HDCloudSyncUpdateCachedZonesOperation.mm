@@ -3,6 +3,7 @@
 - (uint64_t)_updateCKCachedZonesWithServerChangeToken:(void *)token recordZonesIDsToAdd:(void *)add recordZonesIDsToDelete:(void *)delete container:(void *)container database:(void *)database error:;
 - (void)fetchChangesForContainer:(id)container database:(id)database;
 - (void)main;
+- (void)synchronousTaskGroup:(id)group didFinishWithSuccess:(BOOL)success errors:(id)errors;
 @end
 
 @implementation HDCloudSyncUpdateCachedZonesOperation
@@ -26,7 +27,7 @@
 
 - (void)main
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   [(HDSynchronousTaskGroup *)self->_taskGroup beginTask];
   configuration = [(HDCloudSyncOperation *)self configuration];
   repository = [configuration repository];
@@ -42,75 +43,74 @@
     v10 = [allObjects componentsJoinedByString:{@", "}];
     *buf = 138543874;
     selfCopy = self;
-    v26 = 2048;
-    v27 = v9;
-    v28 = 2114;
-    v29 = v10;
+    v25 = 2048;
+    v26 = v9;
+    v27 = 2114;
+    v28 = v10;
     _os_log_impl(&dword_228986000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: Beginning fetches for private database in %ld containers: %{public}@", buf, 0x20u);
   }
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v11 = allObjects;
-  v12 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v20;
+    v14 = *v19;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v20 != v14)
+        if (*v19 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v19 + 1) + 8 * i);
+        v16 = *(*(&v18 + 1) + 8 * i);
         privateCloudDatabase = [v16 privateCloudDatabase];
         [(HDCloudSyncUpdateCachedZonesOperation *)self fetchChangesForContainer:v16 database:privateCloudDatabase];
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v13);
   }
 
   [(HDSynchronousTaskGroup *)self->_taskGroup finishTask];
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchChangesForContainer:(id)container database:(id)database
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   containerCopy = container;
   databaseCopy = database;
-  v50[0] = 0;
-  v50[1] = v50;
-  v50[2] = 0x2810000000;
-  v50[3] = &unk_22929BC4D;
-  v51 = 0;
-  v48[0] = 0;
-  v48[1] = v48;
-  v48[2] = 0x3032000000;
-  v48[3] = __Block_byref_object_copy__2;
-  v48[4] = __Block_byref_object_dispose__2;
-  v49 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v46[0] = 0;
-  v46[1] = v46;
-  v46[2] = 0x3032000000;
-  v46[3] = __Block_byref_object_copy__2;
-  v46[4] = __Block_byref_object_dispose__2;
-  v47 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v49[0] = 0;
+  v49[1] = v49;
+  v49[2] = 0x2810000000;
+  v49[3] = &unk_22929BC4D;
+  v50 = 0;
+  v47[0] = 0;
+  v47[1] = v47;
+  v47[2] = 0x3032000000;
+  v47[3] = __Block_byref_object_copy__2;
+  v47[4] = __Block_byref_object_dispose__2;
+  v48 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v45[0] = 0;
+  v45[1] = v45;
+  v45[2] = 0x3032000000;
+  v45[3] = __Block_byref_object_copy__2;
+  v45[4] = __Block_byref_object_dispose__2;
+  v46 = objc_alloc_init(MEMORY[0x277CBEB18]);
   configuration = [(HDCloudSyncOperation *)self configuration];
   cachedCloudState = [configuration cachedCloudState];
   containerIdentifier = [containerCopy containerIdentifier];
-  v45 = 0;
-  v11 = [cachedCloudState serverChangeTokenForContainerIdentifier:containerIdentifier databaseScope:objc_msgSend(databaseCopy error:{"databaseScope"), &v45}];
-  v12 = v45;
+  v44 = 0;
+  v11 = [cachedCloudState serverChangeTokenForContainerIdentifier:containerIdentifier databaseScope:objc_msgSend(databaseCopy error:{"databaseScope"), &v44}];
+  v12 = v44;
 
   if (v12)
   {
@@ -122,66 +122,66 @@
       databaseScope = [databaseCopy databaseScope];
       *buf = 138544130;
       selfCopy = self;
-      v54 = 2114;
-      v55 = containerIdentifier2;
-      v56 = 2048;
-      v57 = databaseScope;
-      v58 = 2114;
-      v59 = v12;
+      v53 = 2114;
+      v54 = containerIdentifier2;
+      v55 = 2048;
+      v56 = databaseScope;
+      v57 = 2114;
+      v58 = v12;
       _os_log_error_impl(&dword_228986000, v13, OS_LOG_TYPE_ERROR, "%{public}@ Failed to fetch server change token for container %{public}@, database, %ld, %{public}@", buf, 0x2Au);
     }
   }
 
   v14 = [objc_alloc(MEMORY[0x277CBC388]) initWithPreviousServerChangeToken:v11];
   [v14 setFetchAllChanges:1];
-  v44[0] = MEMORY[0x277D85DD0];
-  v44[1] = 3221225472;
-  v44[2] = __75__HDCloudSyncUpdateCachedZonesOperation_fetchChangesForContainer_database___block_invoke;
-  v44[3] = &unk_278613768;
-  v44[4] = v50;
-  v44[5] = v48;
-  [v14 setRecordZoneWithIDChangedBlock:v44];
   v43[0] = MEMORY[0x277D85DD0];
   v43[1] = 3221225472;
-  v43[2] = __75__HDCloudSyncUpdateCachedZonesOperation_fetchChangesForContainer_database___block_invoke_2;
+  v43[2] = __75__HDCloudSyncUpdateCachedZonesOperation_fetchChangesForContainer_database___block_invoke;
   v43[3] = &unk_278613768;
-  v43[4] = v50;
-  v43[5] = v46;
-  [v14 setRecordZoneWithIDWasDeletedBlock:v43];
+  v43[4] = v49;
+  v43[5] = v47;
+  [v14 setRecordZoneWithIDChangedBlock:v43];
   v42[0] = MEMORY[0x277D85DD0];
   v42[1] = 3221225472;
-  v42[2] = __75__HDCloudSyncUpdateCachedZonesOperation_fetchChangesForContainer_database___block_invoke_3;
+  v42[2] = __75__HDCloudSyncUpdateCachedZonesOperation_fetchChangesForContainer_database___block_invoke_2;
   v42[3] = &unk_278613768;
-  v42[4] = v50;
-  v42[5] = v46;
-  [v14 setRecordZoneWithIDWasPurgedBlock:v42];
-  v36[0] = MEMORY[0x277D85DD0];
-  v36[1] = 3221225472;
-  v36[2] = __75__HDCloudSyncUpdateCachedZonesOperation_fetchChangesForContainer_database___block_invoke_4;
-  v36[3] = &unk_278613790;
-  v40 = v48;
-  v41 = v46;
-  v39 = v50;
-  v36[4] = self;
+  v42[4] = v49;
+  v42[5] = v45;
+  [v14 setRecordZoneWithIDWasDeletedBlock:v42];
+  v41[0] = MEMORY[0x277D85DD0];
+  v41[1] = 3221225472;
+  v41[2] = __75__HDCloudSyncUpdateCachedZonesOperation_fetchChangesForContainer_database___block_invoke_3;
+  v41[3] = &unk_278613768;
+  v41[4] = v49;
+  v41[5] = v45;
+  [v14 setRecordZoneWithIDWasPurgedBlock:v41];
+  v35[0] = MEMORY[0x277D85DD0];
+  v35[1] = 3221225472;
+  v35[2] = __75__HDCloudSyncUpdateCachedZonesOperation_fetchChangesForContainer_database___block_invoke_4;
+  v35[3] = &unk_278613790;
+  v39 = v47;
+  v40 = v45;
+  v38 = v49;
+  v35[4] = self;
   v15 = containerCopy;
-  v37 = v15;
+  v36 = v15;
   v16 = databaseCopy;
-  v38 = v16;
-  [v14 setChangeTokenUpdatedBlock:v36];
-  v26 = MEMORY[0x277D85DD0];
-  v27 = 3221225472;
-  v28 = __75__HDCloudSyncUpdateCachedZonesOperation_fetchChangesForContainer_database___block_invoke_299;
-  v29 = &unk_2786137B8;
-  v34 = v48;
-  v35 = v46;
-  v33 = v50;
+  v37 = v16;
+  [v14 setChangeTokenUpdatedBlock:v35];
+  v25 = MEMORY[0x277D85DD0];
+  v26 = 3221225472;
+  v27 = __75__HDCloudSyncUpdateCachedZonesOperation_fetchChangesForContainer_database___block_invoke_299;
+  v28 = &unk_2786137B8;
+  v33 = v47;
+  v34 = v45;
+  v32 = v49;
   selfCopy2 = self;
   v17 = v15;
-  v31 = v17;
+  v30 = v17;
   v18 = v16;
-  v32 = v18;
-  [v14 setFetchDatabaseChangesCompletionBlock:&v26];
-  [(HDSynchronousTaskGroup *)self->_taskGroup beginTask:v26];
+  v31 = v18;
+  [v14 setFetchDatabaseChangesCompletionBlock:&v25];
+  [(HDSynchronousTaskGroup *)self->_taskGroup beginTask:v25];
   configuration2 = [(HDCloudSyncOperation *)self configuration];
   cachedCloudState2 = [configuration2 cachedCloudState];
   [cachedCloudState2 setOperationCountForAnalytics:{objc_msgSend(cachedCloudState2, "operationCountForAnalytics") + 1}];
@@ -191,12 +191,10 @@
   [v14 setGroup:operationGroup];
 
   [v18 hd_addOperation:v14];
-  _Block_object_dispose(v46, 8);
+  _Block_object_dispose(v45, 8);
 
-  _Block_object_dispose(v48, 8);
-  _Block_object_dispose(v50, 8);
-
-  v23 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v47, 8);
+  _Block_object_dispose(v49, 8);
 }
 
 void __75__HDCloudSyncUpdateCachedZonesOperation_fetchChangesForContainer_database___block_invoke(uint64_t a1, void *a2)
@@ -237,17 +235,17 @@ void __75__HDCloudSyncUpdateCachedZonesOperation_fetchChangesForContainer_databa
 
 void __75__HDCloudSyncUpdateCachedZonesOperation_fetchChangesForContainer_database___block_invoke_4(uint64_t a1, void *a2)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v3 = *(*(a1 + 56) + 8);
   v4 = a2;
   os_unfair_lock_lock(v3 + 8);
-  v5 = [*(*(*(a1 + 64) + 8) + 40) copy];
+  v5 = objc_msgSend_copy(*(*(*(a1 + 64) + 8) + 40));
   v6 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v7 = *(*(a1 + 64) + 8);
   v8 = *(v7 + 40);
   *(v7 + 40) = v6;
 
-  v9 = [*(*(*(a1 + 72) + 8) + 40) copy];
+  v9 = objc_msgSend_copy(*(*(*(a1 + 72) + 8) + 40));
   v10 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v11 = *(*(a1 + 72) + 8);
   v12 = *(v11 + 40);
@@ -257,42 +255,40 @@ void __75__HDCloudSyncUpdateCachedZonesOperation_fetchChangesForContainer_databa
   v13 = *(a1 + 32);
   v14 = *(a1 + 40);
   v15 = *(a1 + 48);
-  v25 = 0;
-  v16 = [(HDCloudSyncUpdateCachedZonesOperation *)v13 _updateCKCachedZonesWithServerChangeToken:v4 recordZonesIDsToAdd:v5 recordZonesIDsToDelete:v9 container:v14 database:v15 error:&v25];
+  v24 = 0;
+  v16 = [(HDCloudSyncUpdateCachedZonesOperation *)v13 _updateCKCachedZonesWithServerChangeToken:v4 recordZonesIDsToAdd:v5 recordZonesIDsToDelete:v9 container:v14 database:v15 error:&v24];
 
-  v17 = v25;
+  v17 = v24;
   if ((v16 & 1) == 0)
   {
     _HKInitializeLogging();
     v18 = *MEMORY[0x277CCC328];
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
     {
-      v21 = *(a1 + 32);
-      v20 = *(a1 + 40);
-      v22 = v18;
-      v23 = [v20 containerIdentifier];
+      v20 = *(a1 + 32);
+      v19 = *(a1 + 40);
+      v21 = v18;
+      v22 = [v19 containerIdentifier];
       [*(a1 + 48) databaseScope];
-      v24 = CKDatabaseScopeString();
+      v23 = CKDatabaseScopeString();
       *buf = 138544386;
-      v27 = v21;
-      v28 = 2080;
-      v29 = "[HDCloudSyncUpdateCachedZonesOperation fetchChangesForContainer:database:]_block_invoke_4";
-      v30 = 2114;
-      v31 = v23;
-      v32 = 2114;
-      v33 = v24;
-      v34 = 2114;
-      v35 = v17;
-      _os_log_error_impl(&dword_228986000, v22, OS_LOG_TYPE_ERROR, "%{public}@ %s@: Failed to cache zones for container %{public}@, database %{public}@, %{public}@", buf, 0x34u);
+      v26 = v20;
+      v27 = 2080;
+      v28 = "[HDCloudSyncUpdateCachedZonesOperation fetchChangesForContainer:database:]_block_invoke_4";
+      v29 = 2114;
+      v30 = v22;
+      v31 = 2114;
+      v32 = v23;
+      v33 = 2114;
+      v34 = v17;
+      _os_log_error_impl(&dword_228986000, v21, OS_LOG_TYPE_ERROR, "%{public}@ %s@: Failed to cache zones for container %{public}@, database %{public}@, %{public}@", buf, 0x34u);
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (uint64_t)_updateCKCachedZonesWithServerChangeToken:(void *)token recordZonesIDsToAdd:(void *)add recordZonesIDsToDelete:(void *)delete container:(void *)container database:(void *)database error:
 {
-  v140 = *MEMORY[0x277D85DE8];
+  v139 = *MEMORY[0x277D85DE8];
   v13 = a2;
   tokenCopy = token;
   addCopy = add;
@@ -303,7 +299,7 @@ void __75__HDCloudSyncUpdateCachedZonesOperation_fetchChangesForContainer_databa
   {
     v15 = [tokenCopy count];
     v16 = MEMORY[0x277CCC328];
-    v95 = v13;
+    v94 = v13;
     databaseCopy = database;
     if (v15 || [addCopy count])
     {
@@ -319,108 +315,108 @@ void __75__HDCloudSyncUpdateCachedZonesOperation_fetchChangesForContainer_databa
         containerIdentifier = [deleteCopy containerIdentifier];
         *buf = 138544386;
         selfCopy2 = self;
-        v132 = 2048;
-        v133 = v19;
-        v134 = 2048;
-        v135 = v20;
-        v136 = 2114;
-        v137 = v21;
-        v138 = 2114;
-        v139 = containerIdentifier;
+        v131 = 2048;
+        v132 = v19;
+        v133 = 2048;
+        v134 = v20;
+        v135 = 2114;
+        v136 = v21;
+        v137 = 2114;
+        v138 = containerIdentifier;
         _os_log_impl(&dword_228986000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@: Found %ld modified and %ld deleted zone changes for %{public}@ database in %{public}@", buf, 0x34u);
       }
 
-      v113 = 0u;
-      v114 = 0u;
-      v111 = 0u;
       v112 = 0u;
+      v113 = 0u;
+      v110 = 0u;
+      v111 = 0u;
       obj = tokenCopy;
-      v23 = [obj countByEnumeratingWithState:&v111 objects:v123 count:16];
+      v23 = [obj countByEnumeratingWithState:&v110 objects:v122 count:16];
       v24 = MEMORY[0x277CCC328];
       if (v23)
       {
         v25 = v23;
         v26 = 0;
-        v27 = *v112;
+        v27 = *v111;
         do
         {
           for (i = 0; i != v25; ++i)
           {
-            if (*v112 != v27)
+            if (*v111 != v27)
             {
               objc_enumerationMutation(obj);
             }
 
-            v29 = *(*(&v111 + 1) + 8 * i);
+            v29 = *(*(&v110 + 1) + 8 * i);
             _HKInitializeLogging();
             v30 = *v24;
             if (os_log_type_enabled(*v24, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 134218242;
               selfCopy2 = v26;
-              v132 = 2114;
-              v133 = v29;
+              v131 = 2114;
+              v132 = v29;
               _os_log_impl(&dword_228986000, v30, OS_LOG_TYPE_DEFAULT, "Modified:\t%ld: + %{public}@", buf, 0x16u);
             }
 
             ++v26;
           }
 
-          v25 = [obj countByEnumeratingWithState:&v111 objects:v123 count:16];
+          v25 = [obj countByEnumeratingWithState:&v110 objects:v122 count:16];
         }
 
         while (v25);
       }
 
-      v109 = 0u;
-      v110 = 0u;
-      v107 = 0u;
       v108 = 0u;
+      v109 = 0u;
+      v106 = 0u;
+      v107 = 0u;
       v31 = addCopy;
-      v32 = [v31 countByEnumeratingWithState:&v107 objects:v122 count:16];
+      v32 = [v31 countByEnumeratingWithState:&v106 objects:v121 count:16];
       if (v32)
       {
         v33 = v32;
         v34 = 0;
-        v35 = *v108;
+        v35 = *v107;
         do
         {
           for (j = 0; j != v33; ++j)
           {
-            if (*v108 != v35)
+            if (*v107 != v35)
             {
               objc_enumerationMutation(v31);
             }
 
-            v37 = *(*(&v107 + 1) + 8 * j);
+            v37 = *(*(&v106 + 1) + 8 * j);
             _HKInitializeLogging();
             v38 = *MEMORY[0x277CCC328];
             if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
             {
               *buf = 134218242;
               selfCopy2 = v34;
-              v132 = 2114;
-              v133 = v37;
+              v131 = 2114;
+              v132 = v37;
               _os_log_impl(&dword_228986000, v38, OS_LOG_TYPE_DEFAULT, "Deleted: \t%ld: + %{public}@", buf, 0x16u);
             }
 
             ++v34;
           }
 
-          v33 = [v31 countByEnumeratingWithState:&v107 objects:v122 count:16];
+          v33 = [v31 countByEnumeratingWithState:&v106 objects:v121 count:16];
         }
 
         while (v33);
       }
 
-      v105[0] = MEMORY[0x277D85DD0];
-      v105[1] = 3221225472;
-      v105[2] = __151__HDCloudSyncUpdateCachedZonesOperation__updateCKCachedZonesWithServerChangeToken_recordZonesIDsToAdd_recordZonesIDsToDelete_container_database_error___block_invoke;
-      v105[3] = &unk_2786137E0;
-      v106 = v31;
-      tokenCopy = [obj hk_filter:v105];
+      v104[0] = MEMORY[0x277D85DD0];
+      v104[1] = 3221225472;
+      v104[2] = __151__HDCloudSyncUpdateCachedZonesOperation__updateCKCachedZonesWithServerChangeToken_recordZonesIDsToAdd_recordZonesIDsToDelete_container_database_error___block_invoke;
+      v104[3] = &unk_2786137E0;
+      v105 = v31;
+      tokenCopy = [obj hk_filter:v104];
 
-      v13 = v95;
+      v13 = v94;
     }
 
     configuration = [selfCopy configuration];
@@ -434,41 +430,41 @@ void __75__HDCloudSyncUpdateCachedZonesOperation_fetchChangesForContainer_databa
     containerIdentifier2 = [deleteCopy containerIdentifier];
     obja = [containerCopy databaseScope];
     v44 = tokenCopy;
-    v94 = addCopy;
-    v93 = v13;
+    v93 = addCopy;
+    v92 = v13;
     v45 = containerIdentifier2;
     v46 = v44;
     v47 = v45;
+    v117 = 0u;
     v118 = 0u;
     v119 = 0u;
     v120 = 0u;
-    v121 = 0u;
     tokenCopy = v46;
-    v48 = [tokenCopy countByEnumeratingWithState:&v118 objects:buf count:16];
-    v102 = tokenCopy;
+    v48 = [tokenCopy countByEnumeratingWithState:&v117 objects:buf count:16];
+    v101 = tokenCopy;
     if (v48)
     {
       v49 = v48;
       v50 = 0;
-      v51 = *v119;
+      v51 = *v118;
       while (2)
       {
         v52 = 0;
         v53 = v50;
         do
         {
-          if (*v119 != v51)
+          if (*v118 != v51)
           {
-            objc_enumerationMutation(v102);
+            objc_enumerationMutation(v101);
           }
 
           v54 = v47;
-          v55 = [[HDCloudSyncZoneIdentifier alloc] initForZone:*(*(&v118 + 1) + 8 * v52) container:v47 scope:obja];
+          v55 = [[HDCloudSyncZoneIdentifier alloc] initForZone:*(*(&v117 + 1) + 8 * v52) container:v47 scope:obja];
           configuration3 = [selfCopy configuration];
           cachedCloudState3 = [configuration3 cachedCloudState];
-          v117 = v53;
-          v58 = [cachedCloudState3 addZoneWithIdentifier:v55 error:&v117];
-          v50 = v117;
+          v116 = v53;
+          v58 = [cachedCloudState3 addZoneWithIdentifier:v55 error:&v116];
+          v50 = v116;
 
           if ((v58 & 1) == 0)
           {
@@ -476,17 +472,17 @@ void __75__HDCloudSyncUpdateCachedZonesOperation_fetchChangesForContainer_databa
             v59 = *MEMORY[0x277CCC328];
             if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
             {
-              *v124 = 138543874;
-              v125 = selfCopy;
-              v126 = 2114;
-              v127 = v55;
-              v128 = 2114;
-              v129 = v50;
-              _os_log_error_impl(&dword_228986000, v59, OS_LOG_TYPE_ERROR, "%{public}@ Failed to add cached record zone %{public}@, %{public}@", v124, 0x20u);
+              *v123 = 138543874;
+              v124 = selfCopy;
+              v125 = 2114;
+              v126 = v55;
+              v127 = 2114;
+              v128 = v50;
+              _os_log_error_impl(&dword_228986000, v59, OS_LOG_TYPE_ERROR, "%{public}@ Failed to add cached record zone %{public}@, %{public}@", v123, 0x20u);
             }
 
             v50 = v50;
-            tokenCopy = v102;
+            tokenCopy = v101;
             v47 = v54;
             if (v50)
             {
@@ -502,7 +498,7 @@ void __75__HDCloudSyncUpdateCachedZonesOperation_fetchChangesForContainer_databa
               }
             }
 
-            v124[0] = v50 == 0;
+            v123[0] = v50 == 0;
             goto LABEL_43;
           }
 
@@ -512,8 +508,8 @@ void __75__HDCloudSyncUpdateCachedZonesOperation_fetchChangesForContainer_databa
         }
 
         while (v49 != v52);
-        tokenCopy = v102;
-        v49 = [v102 countByEnumeratingWithState:&v118 objects:buf count:16];
+        tokenCopy = v101;
+        v49 = [v101 countByEnumeratingWithState:&v117 objects:buf count:16];
         if (v49)
         {
           continue;
@@ -528,43 +524,43 @@ void __75__HDCloudSyncUpdateCachedZonesOperation_fetchChangesForContainer_databa
       v50 = 0;
     }
 
-    v124[0] = 1;
+    v123[0] = 1;
 LABEL_43:
 
-    v61 = v124[0];
+    v61 = v123[0];
     if (v61 != 1)
     {
       goto LABEL_65;
     }
 
-    v62 = v94;
-    v91 = v47;
+    v62 = v93;
+    v90 = v47;
     v63 = v47;
+    v117 = 0u;
     v118 = 0u;
     v119 = 0u;
     v120 = 0u;
-    v121 = 0u;
     v64 = v62;
-    v65 = [v64 countByEnumeratingWithState:&v118 objects:buf count:16];
-    v99 = v64;
+    v65 = [v64 countByEnumeratingWithState:&v117 objects:buf count:16];
+    v98 = v64;
     if (v65)
     {
       v66 = v65;
       v67 = 0;
-      v100 = *v119;
+      v99 = *v118;
       while (2)
       {
         v68 = 0;
         v69 = v67;
         do
         {
-          if (*v119 != v100)
+          if (*v118 != v99)
           {
-            objc_enumerationMutation(v99);
+            objc_enumerationMutation(v98);
           }
 
           v70 = v63;
-          v71 = [[HDCloudSyncZoneIdentifier alloc] initForZone:*(*(&v118 + 1) + 8 * v68) container:v63 scope:obja];
+          v71 = [[HDCloudSyncZoneIdentifier alloc] initForZone:*(*(&v117 + 1) + 8 * v68) container:v63 scope:obja];
           v72 = [HDCloudSyncCachedZone alloc];
           configuration4 = [selfCopy configuration];
           repository = [configuration4 repository];
@@ -572,9 +568,9 @@ LABEL_43:
           accessibilityAssertion = [configuration5 accessibilityAssertion];
           v77 = [(HDCloudSyncCachedZone *)v72 initForZoneIdentifier:v71 repository:repository accessibilityAssertion:accessibilityAssertion];
 
-          v117 = v69;
-          LOBYTE(accessibilityAssertion) = [v77 deleteZoneWithError:&v117];
-          v67 = v117;
+          v116 = v69;
+          LOBYTE(accessibilityAssertion) = [v77 deleteZoneWithError:&v116];
+          v67 = v116;
 
           if ((accessibilityAssertion & 1) == 0)
           {
@@ -582,19 +578,19 @@ LABEL_43:
             v78 = *MEMORY[0x277CCC328];
             if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
             {
-              *v124 = 138543874;
-              v125 = selfCopy;
-              v126 = 2114;
-              v127 = v71;
-              v128 = 2114;
-              v129 = v67;
-              _os_log_error_impl(&dword_228986000, v78, OS_LOG_TYPE_ERROR, "%{public}@ Failed to delete cached record zone %{public}@, %{public}@", v124, 0x20u);
+              *v123 = 138543874;
+              v124 = selfCopy;
+              v125 = 2114;
+              v126 = v71;
+              v127 = 2114;
+              v128 = v67;
+              _os_log_error_impl(&dword_228986000, v78, OS_LOG_TYPE_ERROR, "%{public}@ Failed to delete cached record zone %{public}@, %{public}@", v123, 0x20u);
             }
 
             v67 = v67;
-            tokenCopy = v102;
+            tokenCopy = v101;
             v63 = v70;
-            v64 = v99;
+            v64 = v98;
             if (v67)
             {
               if (databaseCopy)
@@ -609,7 +605,7 @@ LABEL_43:
               }
             }
 
-            v124[0] = v67 == 0;
+            v123[0] = v67 == 0;
             goto LABEL_62;
           }
 
@@ -619,8 +615,8 @@ LABEL_43:
         }
 
         while (v66 != v68);
-        v64 = v99;
-        v66 = [v99 countByEnumeratingWithState:&v118 objects:buf count:16];
+        v64 = v98;
+        v66 = [v98 countByEnumeratingWithState:&v117 objects:buf count:16];
         if (v66)
         {
           continue;
@@ -635,56 +631,56 @@ LABEL_43:
       v67 = 0;
     }
 
-    v124[0] = 1;
-    tokenCopy = v102;
+    v123[0] = 1;
+    tokenCopy = v101;
 LABEL_62:
 
-    v80 = v124[0];
-    v47 = v91;
+    v80 = v123[0];
+    v47 = v90;
     if (v80 == 1)
     {
       configuration6 = [selfCopy configuration];
       cachedCloudState4 = [configuration6 cachedCloudState];
-      v116 = 0;
-      v83 = [cachedCloudState4 setServerChangeToken:v93 containerIdentifier:v63 databaseScope:obja error:&v116];
-      v84 = v116;
+      v115 = 0;
+      v83 = [cachedCloudState4 setServerChangeToken:v92 containerIdentifier:v63 databaseScope:obja error:&v115];
+      v84 = v115;
 
       if (v83)
       {
 
 LABEL_75:
-        v115 = 1;
-        v13 = v95;
+        v114 = 1;
+        v13 = v94;
         goto LABEL_68;
       }
 
       _HKInitializeLogging();
-      v87 = *MEMORY[0x277CCC328];
+      v86 = *MEMORY[0x277CCC328];
       if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
       {
         *buf = 138544130;
         selfCopy2 = selfCopy;
-        v132 = 2114;
-        v133 = v63;
-        v134 = 2048;
-        v135 = obja;
-        v136 = 2114;
-        v137 = v84;
-        _os_log_error_impl(&dword_228986000, v87, OS_LOG_TYPE_ERROR, "%{public}@ Failed to update cached server change token for container %{public}@, database, %ld, %{public}@", buf, 0x2Au);
+        v131 = 2114;
+        v132 = v63;
+        v133 = 2048;
+        v134 = obja;
+        v135 = 2114;
+        v136 = v84;
+        _os_log_error_impl(&dword_228986000, v86, OS_LOG_TYPE_ERROR, "%{public}@ Failed to update cached server change token for container %{public}@, database, %ld, %{public}@", buf, 0x2Au);
       }
 
-      v88 = v84;
-      if (!v88)
+      v87 = v84;
+      if (!v87)
       {
 
         goto LABEL_75;
       }
 
-      v89 = v88;
+      v88 = v87;
       if (databaseCopy)
       {
-        v90 = v88;
-        *databaseCopy = v89;
+        v89 = v87;
+        *databaseCopy = v88;
       }
 
       else
@@ -692,39 +688,37 @@ LABEL_75:
         _HKLogDroppedError();
       }
 
-      v13 = v95;
+      v13 = v94;
     }
 
     else
     {
 LABEL_65:
 
-      v13 = v95;
+      v13 = v94;
     }
   }
 
-  v115 = 0;
+  v114 = 0;
 LABEL_68:
 
-  result = v115;
-  v86 = *MEMORY[0x277D85DE8];
-  return result;
+  return v114;
 }
 
 void __75__HDCloudSyncUpdateCachedZonesOperation_fetchChangesForContainer_database___block_invoke_299(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v92 = *MEMORY[0x277D85DE8];
+  v91 = *MEMORY[0x277D85DE8];
   v6 = a4;
   v7 = *(*(a1 + 56) + 8);
   v8 = a2;
   os_unfair_lock_lock(v7 + 8);
-  v9 = [*(*(*(a1 + 64) + 8) + 40) copy];
+  v9 = objc_msgSend_copy(*(*(*(a1 + 64) + 8) + 40));
   v10 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v11 = *(*(a1 + 64) + 8);
   v12 = *(v11 + 40);
   *(v11 + 40) = v10;
 
-  v13 = [*(*(*(a1 + 72) + 8) + 40) copy];
+  v13 = objc_msgSend_copy(*(*(*(a1 + 72) + 8) + 40));
   v14 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v15 = *(*(a1 + 72) + 8);
   v16 = *(v15 + 40);
@@ -734,48 +728,48 @@ void __75__HDCloudSyncUpdateCachedZonesOperation_fetchChangesForContainer_databa
   v17 = *(a1 + 32);
   v18 = *(a1 + 40);
   v19 = *(a1 + 48);
-  v81 = 0;
-  v20 = [(HDCloudSyncUpdateCachedZonesOperation *)v17 _updateCKCachedZonesWithServerChangeToken:v8 recordZonesIDsToAdd:v9 recordZonesIDsToDelete:v13 container:v18 database:v19 error:&v81];
+  v80 = 0;
+  v20 = [(HDCloudSyncUpdateCachedZonesOperation *)v17 _updateCKCachedZonesWithServerChangeToken:v8 recordZonesIDsToAdd:v9 recordZonesIDsToDelete:v13 container:v18 database:v19 error:&v80];
 
-  v21 = v81;
+  v21 = v80;
   v22 = MEMORY[0x277CCC328];
   if (v6)
   {
-    v78 = v20;
+    v77 = v20;
     _HKInitializeLogging();
     v23 = *v22;
     if (os_log_type_enabled(*v22, OS_LOG_TYPE_ERROR))
     {
-      v57 = v13;
-      v58 = *(a1 + 32);
-      v59 = *(a1 + 40);
-      v60 = v23;
-      v61 = [v59 containerIdentifier];
+      v56 = v13;
+      v57 = *(a1 + 32);
+      v58 = *(a1 + 40);
+      v59 = v23;
+      v60 = [v58 containerIdentifier];
       [*(a1 + 48) databaseScope];
       CKDatabaseScopeString();
-      v63 = v62 = v21;
+      v62 = v61 = v21;
       *buf = 138544386;
-      v83 = v58;
-      v84 = 2080;
-      v85 = "[HDCloudSyncUpdateCachedZonesOperation fetchChangesForContainer:database:]_block_invoke";
-      v86 = 2114;
-      v87 = v61;
-      v88 = 2114;
-      v89 = v63;
-      v90 = 2114;
-      v91 = v6;
-      _os_log_error_impl(&dword_228986000, v60, OS_LOG_TYPE_ERROR, "%{public}@ %s@: Failed to fetch database changes for container %{public}@, database %{public}@, %{public}@", buf, 0x34u);
+      v82 = v57;
+      v83 = 2080;
+      v84 = "[HDCloudSyncUpdateCachedZonesOperation fetchChangesForContainer:database:]_block_invoke";
+      v85 = 2114;
+      v86 = v60;
+      v87 = 2114;
+      v88 = v62;
+      v89 = 2114;
+      v90 = v6;
+      _os_log_error_impl(&dword_228986000, v59, OS_LOG_TYPE_ERROR, "%{public}@ %s@: Failed to fetch database changes for container %{public}@, database %{public}@, %{public}@", buf, 0x34u);
 
-      v13 = v57;
-      v21 = v62;
+      v13 = v56;
+      v21 = v61;
     }
 
-    v79 = v13;
+    v78 = v13;
     if ([v6 hk_isErrorInDomain:*MEMORY[0x277CBBF50] code:21])
     {
-      v75 = v6;
-      v76 = v21;
-      v77 = v9;
+      v74 = v6;
+      v75 = v21;
+      v76 = v9;
       os_unfair_lock_lock((*(*(a1 + 56) + 8) + 32));
       [*(*(*(a1 + 64) + 8) + 40) removeAllObjects];
       [*(*(*(a1 + 72) + 8) + 40) removeAllObjects];
@@ -784,9 +778,9 @@ void __75__HDCloudSyncUpdateCachedZonesOperation_fetchChangesForContainer_databa
       v25 = [v24 cachedCloudState];
       v26 = [*(a1 + 40) containerIdentifier];
       v27 = [*(a1 + 48) databaseScope];
-      v80 = 0;
-      v28 = [v25 resetServerChangeTokenForContainerIdentifier:v26 databaseScope:v27 error:&v80];
-      v29 = v80;
+      v79 = 0;
+      v28 = [v25 resetServerChangeTokenForContainerIdentifier:v26 databaseScope:v27 error:&v79];
+      v29 = v79;
 
       if ((v28 & 1) == 0)
       {
@@ -794,21 +788,21 @@ void __75__HDCloudSyncUpdateCachedZonesOperation_fetchChangesForContainer_databa
         v30 = *v22;
         if (os_log_type_enabled(*v22, OS_LOG_TYPE_ERROR))
         {
-          v69 = *(a1 + 32);
-          v70 = *(a1 + 40);
-          v71 = v30;
-          v72 = [v70 containerIdentifier];
+          v68 = *(a1 + 32);
+          v69 = *(a1 + 40);
+          v70 = v30;
+          v71 = [v69 containerIdentifier];
           [*(a1 + 48) databaseScope];
-          v73 = CKDatabaseScopeString();
+          v72 = CKDatabaseScopeString();
           *buf = 138544130;
-          v83 = v69;
-          v84 = 2114;
-          v85 = v72;
-          v86 = 2114;
-          v87 = v73;
-          v88 = 2114;
-          v89 = v29;
-          _os_log_error_impl(&dword_228986000, v71, OS_LOG_TYPE_ERROR, " %{public}@ Failed to delete %{public}@ %{public}@ from cache in response to CKErrorChangeTokenExpired, error %{public}@", buf, 0x2Au);
+          v82 = v68;
+          v83 = 2114;
+          v84 = v71;
+          v85 = 2114;
+          v86 = v72;
+          v87 = 2114;
+          v88 = v29;
+          _os_log_error_impl(&dword_228986000, v70, OS_LOG_TYPE_ERROR, " %{public}@ Failed to delete %{public}@ %{public}@ from cache in response to CKErrorChangeTokenExpired, error %{public}@", buf, 0x2Au);
         }
       }
 
@@ -817,7 +811,7 @@ void __75__HDCloudSyncUpdateCachedZonesOperation_fetchChangesForContainer_databa
       v33 = [v32 profile];
       v34 = [v33 daemon];
       v35 = [v34 analyticsSubmissionCoordinator];
-      v74 = v29;
+      v73 = v29;
       v36 = v22;
       v37 = *(a1 + 32);
       v38 = [*(a1 + 40) containerIdentifier];
@@ -825,12 +819,12 @@ void __75__HDCloudSyncUpdateCachedZonesOperation_fetchChangesForContainer_databa
       v39 = CKDatabaseScopeString();
       v40 = v37;
       v22 = v36;
-      v6 = v75;
-      [v35 cloudCache_reportCacheDiscrepancyForOperation:v40 reason:&stru_283BF39C8 containerIdentifier:v38 databaseScope:v39 error:v75];
+      v6 = v74;
+      [v35 cloudCache_reportCacheDiscrepancyForOperation:v40 reason:&stru_283BF39C8 containerIdentifier:v38 databaseScope:v39 error:v74];
 
-      v21 = v76;
-      v9 = v77;
-      v13 = v79;
+      v21 = v75;
+      v9 = v76;
+      v13 = v78;
     }
 
     v41 = [v6 hd_errorSurfacingFatalCloudKitPartialFailure];
@@ -850,7 +844,7 @@ void __75__HDCloudSyncUpdateCachedZonesOperation_fetchChangesForContainer_databa
       v6 = v44;
       v9 = v43;
       v21 = v42;
-      v13 = v79;
+      v13 = v78;
       if (v50)
       {
         [*(*(a1 + 32) + 104) failTaskWithError:v41];
@@ -859,7 +853,7 @@ void __75__HDCloudSyncUpdateCachedZonesOperation_fetchChangesForContainer_databa
       }
     }
 
-    v20 = v78;
+    v20 = v77;
   }
 
   if (v20)
@@ -871,23 +865,23 @@ void __75__HDCloudSyncUpdateCachedZonesOperation_fetchChangesForContainer_databa
   v51 = *v22;
   if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
   {
-    v65 = *(a1 + 32);
-    v64 = *(a1 + 40);
-    v66 = v51;
-    v67 = [v64 containerIdentifier];
+    v64 = *(a1 + 32);
+    v63 = *(a1 + 40);
+    v65 = v51;
+    v66 = [v63 containerIdentifier];
     [*(a1 + 48) databaseScope];
-    v68 = CKDatabaseScopeString();
+    v67 = CKDatabaseScopeString();
     *buf = 138544386;
-    v83 = v65;
-    v84 = 2080;
-    v85 = "[HDCloudSyncUpdateCachedZonesOperation fetchChangesForContainer:database:]_block_invoke";
-    v86 = 2114;
-    v87 = v67;
-    v88 = 2114;
-    v89 = v68;
-    v90 = 2114;
-    v91 = v21;
-    _os_log_error_impl(&dword_228986000, v66, OS_LOG_TYPE_ERROR, "%{public}@ %s@: Failed to cache zones for container %{public}@, database %{public}@, %{public}@", buf, 0x34u);
+    v82 = v64;
+    v83 = 2080;
+    v84 = "[HDCloudSyncUpdateCachedZonesOperation fetchChangesForContainer:database:]_block_invoke";
+    v85 = 2114;
+    v86 = v66;
+    v87 = 2114;
+    v88 = v67;
+    v89 = 2114;
+    v90 = v21;
+    _os_log_error_impl(&dword_228986000, v65, OS_LOG_TYPE_ERROR, "%{public}@ %s@: Failed to cache zones for container %{public}@, database %{public}@, %{public}@", buf, 0x34u);
   }
 
   v52 = *(a1 + 40);
@@ -907,13 +901,11 @@ LABEL_16:
   }
 
 LABEL_17:
-
-  v56 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __151__HDCloudSyncUpdateCachedZonesOperation__updateCKCachedZonesWithServerChangeToken_recordZonesIDsToAdd_recordZonesIDsToDelete_container_database_error___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) containsObject:v3];
   if (v4)
@@ -922,14 +914,20 @@ uint64_t __151__HDCloudSyncUpdateCachedZonesOperation__updateCKCachedZonesWithSe
     v5 = *MEMORY[0x277CCC328];
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 138543362;
-      v9 = v3;
-      _os_log_impl(&dword_228986000, v5, OS_LOG_TYPE_DEFAULT, "\tZone %{public}@ was both modified and deleted and will be ignored.", &v8, 0xCu);
+      v7 = 138543362;
+      v8 = v3;
+      _os_log_impl(&dword_228986000, v5, OS_LOG_TYPE_DEFAULT, "\tZone %{public}@ was both modified and deleted and will be ignored.", &v7, 0xCu);
     }
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v4 ^ 1u;
+}
+
+- (void)synchronousTaskGroup:(id)group didFinishWithSuccess:(BOOL)success errors:(id)errors
+{
+  successCopy = success;
+  firstObject = [errors firstObject];
+  [(HDCloudSyncOperation *)self finishWithSuccess:successCopy error:firstObject];
 }
 
 @end

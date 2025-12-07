@@ -16,11 +16,11 @@
 
 - (id)initClient:(id)client
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   clientCopy = client;
-  v17.receiver = self;
-  v17.super_class = FBKSSeedPortalAPI;
-  v6 = [(FBKSSeedPortalAPI *)&v17 init];
+  v18.receiver = self;
+  v18.super_class = FBKSSeedPortalAPI;
+  v6 = [(FBKSSeedPortalAPI *)&v18 init];
   if (v6)
   {
     [(FBKSSeedPortalAPI *)v6 setEnvironment:+[FBKSSharedConstants environment]];
@@ -38,27 +38,26 @@
     feedbackURL = v6->_feedbackURL;
     v6->_feedbackURL = v10;
 
-    v12 = FBKSLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = FBKSLog(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = v6->_feedbackURL;
+      v14 = v6->_feedbackURL;
       *buf = 138543362;
-      v19 = *&v13;
-      _os_log_impl(&dword_1B00C4000, v12, OS_LOG_TYPE_DEFAULT, "Feedback URL [%{public}@]", buf, 0xCu);
+      v20 = *&v14;
+      _os_log_impl(&dword_1B00C4000, v13, OS_LOG_TYPE_DEFAULT, "Feedback URL [%{public}@]", buf, 0xCu);
     }
 
-    v14 = FBKSLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v16 = FBKSLog(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v19 = 4.3;
-      _os_log_impl(&dword_1B00C4000, v14, OS_LOG_TYPE_DEFAULT, "SP2 API Version [%.1f]", buf, 0xCu);
+      v20 = 4.3;
+      _os_log_impl(&dword_1B00C4000, v16, OS_LOG_TYPE_DEFAULT, "SP2 API Version [%.1f]", buf, 0xCu);
     }
 
     objc_storeStrong(&v6->_coreHTTPClient, client);
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -111,7 +110,7 @@
 
 - (id)formItemsURLFormTat:(id)tat
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   tatCopy = tat;
   feedbackURL = [(FBKSSeedPortalAPI *)self feedbackURL];
   v6 = feedbackURL;
@@ -130,13 +129,11 @@
   v10 = MEMORY[0x1E696AF60];
   _filterForValue = [(FBKSSeedPortalAPI *)self _filterForValue];
   v12 = [v10 queryItemWithName:@"filter_for" value:_filterForValue];
-  v17[0] = v12;
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
+  v16[0] = v12;
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
   [v9 setQueryItems:v13];
 
   v14 = [v9 URL];
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -187,15 +184,16 @@
   v22 = 0;
   v15 = [MEMORY[0x1E696ACB0] dataWithJSONObject:v14 options:0 error:&v22];
   v16 = v22;
+  v17 = v16;
   if (v16)
   {
-    v17 = FBKSSP2Log();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = FBKSSP2Log(v16);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      [FBKSSeedPortalAPI seedPortalLoginWithDeviceToken:v16 success:v17 error:?];
+      [FBKSSeedPortalAPI seedPortalLoginWithDeviceToken:v17 success:v18 error:?];
     }
 
-    errorCopy[2](errorCopy, v16);
+    errorCopy[2](errorCopy, v17);
   }
 
   else
@@ -212,8 +210,6 @@
 
     errorCopy = v21;
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __66__FBKSSeedPortalAPI_seedPortalLoginWithDeviceToken_success_error___block_invoke(uint64_t a1, void *a2)
@@ -287,7 +283,7 @@ uint64_t __52__FBKSSeedPortalAPI_logOutServerSideWithCompletion___block_invoke(u
 void __52__FBKSSeedPortalAPI_logOutServerSideWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = FBKSSP2Log();
+  v4 = FBKSSP2Log(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __52__FBKSSeedPortalAPI_logOutServerSideWithCompletion___block_invoke_2_cold_1(a1, v3, v4);
@@ -340,10 +336,10 @@ void __60__FBKSSeedPortalAPI_loadFormItemWithFormTat_withCompletion___block_invo
     v5 = *(a1 + 40);
     if (v5)
     {
-      (*(v5 + 16))(v5, 0, v4);
+      v5 = (*(v5 + 16))(v5, 0, v4);
     }
 
-    v6 = FBKSSP2Log();
+    v6 = FBKSSP2Log(v5);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __60__FBKSSeedPortalAPI_loadFormItemWithFormTat_withCompletion___block_invoke_cold_1(v6);
@@ -364,24 +360,21 @@ uint64_t __60__FBKSSeedPortalAPI_loadFormItemWithFormTat_withCompletion___block_
 
 - (void)seedPortalLoginWithDeviceToken:(uint64_t)a1 success:(NSObject *)a2 error:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B00C4000, a2, OS_LOG_TYPE_ERROR, "Encountered an error serializing JSON: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B00C4000, a2, OS_LOG_TYPE_ERROR, "Encountered an error serializing JSON: %@", &v2, 0xCu);
 }
 
 void __52__FBKSSeedPortalAPI_logOutServerSideWithCompletion___block_invoke_2_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = [*(a1 + 32) path];
-  v7 = 138543618;
-  v8 = v5;
-  v9 = 2114;
-  v10 = a2;
-  _os_log_error_impl(&dword_1B00C4000, a3, OS_LOG_TYPE_ERROR, "[%{public}@] Failed with error [%{public}@]", &v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 138543618;
+  v7 = v5;
+  v8 = 2114;
+  v9 = a2;
+  _os_log_error_impl(&dword_1B00C4000, a3, OS_LOG_TYPE_ERROR, "[%{public}@] Failed with error [%{public}@]", &v6, 0x16u);
 }
 
 @end

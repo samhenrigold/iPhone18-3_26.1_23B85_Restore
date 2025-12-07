@@ -59,17 +59,21 @@
 uint64_t __31__CNPair_initWithFirst_second___block_invoke()
 {
   v0 = [CNPair alloc];
-  initWithFirst_second__cn_once_object_1 = [(CNPair *)v0 initNonMemoizedWithFirst:MEMORY[0x1E695E118] second:0];
+  v1 = [(CNPair *)v0 initNonMemoizedWithFirst:MEMORY[0x1E695E118] second:0];
+  v2 = initWithFirst_second__cn_once_object_1;
+  initWithFirst_second__cn_once_object_1 = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 uint64_t __31__CNPair_initWithFirst_second___block_invoke_2()
 {
   v0 = [CNPair alloc];
-  initWithFirst_second__cn_once_object_2 = [(CNPair *)v0 initNonMemoizedWithFirst:MEMORY[0x1E695E110] second:0];
+  v1 = [(CNPair *)v0 initNonMemoizedWithFirst:MEMORY[0x1E695E110] second:0];
+  v2 = initWithFirst_second__cn_once_object_2;
+  initWithFirst_second__cn_once_object_2 = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 - (id)initNonMemoizedWithFirst:(id)first second:(id)second

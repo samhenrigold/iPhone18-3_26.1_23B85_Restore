@@ -44,16 +44,16 @@ void __isRunningInDemoMode_block_invoke()
   objc_autoreleasePoolPop(v0);
 }
 
-id PDCGlobalDeviceSettings()
+id PDCGlobalDeviceSettings(uint64_t a1)
 {
   if (PDCGlobalDeviceSettings_once != -1)
   {
     PDCGlobalDeviceSettings_cold_1();
   }
 
-  v1 = PDCGlobalDeviceSettings_result;
+  v2 = PDCGlobalDeviceSettings_result;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __PDCGlobalDeviceSettings_block_invoke()
@@ -63,16 +63,16 @@ uint64_t __PDCGlobalDeviceSettings_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-void sub_25F702C70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25F702C70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_25F7032DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25F7032DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -101,9 +101,9 @@ id getSBSRemoteAlertPresentationTargetClass()
   return v1;
 }
 
-void sub_25F7033D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25F7033D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -126,43 +126,38 @@ void __getBSMutableSettingsClass_block_invoke(uint64_t a1)
 
 void BaseBoardLibrary()
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v2[0] = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v1[0] = 0;
   if (!BaseBoardLibraryCore_frameworkLibrary)
   {
-    v2[1] = MEMORY[0x277D85DD0];
-    v2[2] = 3221225472;
-    v2[3] = __BaseBoardLibraryCore_block_invoke;
-    v2[4] = &__block_descriptor_40_e5_v8__0l;
-    v2[5] = v2;
-    v3 = xmmword_279AA1E50;
-    v4 = 0;
+    v1[1] = MEMORY[0x277D85DD0];
+    v1[2] = 3221225472;
+    v1[3] = __BaseBoardLibraryCore_block_invoke;
+    v1[4] = &__block_descriptor_40_e5_v8__0l;
+    v1[5] = v1;
+    v2 = xmmword_279AA1E50;
+    v3 = 0;
     BaseBoardLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
-  v0 = v2[0];
+  v0 = v1[0];
   if (!BaseBoardLibraryCore_frameworkLibrary)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
-  if (v2[0])
+  if (v1[0])
   {
 LABEL_7:
     free(v0);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __BaseBoardLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   BaseBoardLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -184,43 +179,38 @@ void __getSBSRemoteAlertDefinitionClass_block_invoke(uint64_t a1)
 
 void SpringBoardServicesLibrary()
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v2[0] = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v1[0] = 0;
   if (!SpringBoardServicesLibraryCore_frameworkLibrary)
   {
-    v2[1] = MEMORY[0x277D85DD0];
-    v2[2] = 3221225472;
-    v2[3] = __SpringBoardServicesLibraryCore_block_invoke;
-    v2[4] = &__block_descriptor_40_e5_v8__0l;
-    v2[5] = v2;
-    v3 = xmmword_279AA1E88;
-    v4 = 0;
+    v1[1] = MEMORY[0x277D85DD0];
+    v1[2] = 3221225472;
+    v1[3] = __SpringBoardServicesLibraryCore_block_invoke;
+    v1[4] = &__block_descriptor_40_e5_v8__0l;
+    v1[5] = v1;
+    v2 = xmmword_279AA1E88;
+    v3 = 0;
     SpringBoardServicesLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
-  v0 = v2[0];
+  v0 = v1[0];
   if (!SpringBoardServicesLibraryCore_frameworkLibrary)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
-  if (v2[0])
+  if (v1[0])
   {
 LABEL_7:
     free(v0);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __SpringBoardServicesLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   SpringBoardServicesLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -331,14 +321,14 @@ Class __getSBSRemoteAlertPresentationTargetPredicateClass_block_invoke(uint64_t 
 
   else
   {
-    v3 = __getSBSRemoteAlertPresentationTargetPredicateClass_block_invoke_cold_1();
+    __getSBSRemoteAlertPresentationTargetPredicateClass_block_invoke_cold_1();
     return +[(PDCPreflightRequestHandle *)v3];
   }
 
   return result;
 }
 
-uint64_t PDC_LOG_CHANNEL_PREFIXPrivacyDisclosureCore()
+uint64_t PDC_LOG_CHANNEL_PREFIXPrivacyDisclosureCore(uint64_t a1, uint64_t a2)
 {
   if (PDC_LOG_CHANNEL_PREFIXPrivacyDisclosureCore_onceToken != -1)
   {
@@ -360,26 +350,27 @@ void __PDCGlobalConsentStoreInstance_block_invoke(uint64_t a1, void *a2)
 id PDCCurrentRegulatoryDisclosureVersionForApplicationIdentity(void *a1)
 {
   v1 = a1;
-  v7 = 0;
-  v2 = [v1 findApplicationRecordWithError:&v7];
-  v3 = v7;
+  v9 = 0;
+  v2 = [v1 findApplicationRecordWithError:&v9];
+  v3 = v9;
+  v5 = v3;
   if (v3)
   {
-    v4 = PDC_LOG_CHANNEL_PREFIXPrivacyDisclosureCore();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = PDC_LOG_CHANNEL_PREFIXPrivacyDisclosureCore(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      PDCCurrentRegulatoryDisclosureVersionForApplicationIdentity_cold_1(v1, v3, v4);
+      PDCCurrentRegulatoryDisclosureVersionForApplicationIdentity_cold_1(v1, v5, v6);
     }
 
-    v5 = 0;
+    v7 = 0;
   }
 
   else
   {
-    v5 = PDCCurrentRegulatoryDisclosureVersionForApplicationRecord(v2);
+    v7 = PDCCurrentRegulatoryDisclosureVersionForApplicationRecord(v2);
   }
 
-  return v5;
+  return v7;
 }
 
 id PDCCurrentRegulatoryDisclosureVersionForApplicationRecord(void *a1)
@@ -459,7 +450,7 @@ uint64_t PDCSetOneTimeImplicitConsentGranted(void *a1, const char *a2)
 
 uint64_t PDCPerformOneTimeImplicitConsentGrant(char a1, void *a2, void *a3, void *a4)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -476,26 +467,26 @@ LABEL_17:
     goto LABEL_18;
   }
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v10 = [v9 allApplications];
-  v11 = [v10 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v25;
+    v13 = *v24;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v25 != v13)
+        if (*v24 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v24 + 1) + 8 * i);
+        v15 = *(*(&v23 + 1) + 8 * i);
         v16 = [v15 regulatoryPrivacyDisclosureVersion];
         v17 = [v15 bundleIdentifier];
         v18 = v17;
@@ -515,7 +506,7 @@ LABEL_17:
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v12);
@@ -525,20 +516,19 @@ LABEL_17:
   v21 = 1;
 LABEL_18:
 
-  v22 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
-id PDCGlobalApplicationEnvironment()
+id PDCGlobalApplicationEnvironment(uint64_t a1)
 {
   if (PDCGlobalApplicationEnvironment_once != -1)
   {
     PDCGlobalApplicationEnvironment_cold_1();
   }
 
-  v1 = PDCGlobalApplicationEnvironment_result;
+  v2 = PDCGlobalApplicationEnvironment_result;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __PDCGlobalApplicationEnvironment_block_invoke()
@@ -565,11 +555,10 @@ id PDCApplicationIdentityToLSApplicationIdentity(void *a1)
 
 void PDCCurrentRegulatoryDisclosureVersionForApplicationIdentity_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_25F701000, log, OS_LOG_TYPE_ERROR, "Attempt to locate app %@ failed: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_25F701000, log, OS_LOG_TYPE_ERROR, "Attempt to locate app %@ failed: %@", &v3, 0x16u);
 }

@@ -10,21 +10,21 @@
 
 - (MTLCommandQueue)commandQueue
 {
-  RenderContext = C3DEngineContextGetRenderContext(self->_context->var3);
+  RenderContext = C3DEngineContextGetRenderContext(self->_context->var3, a2);
 
   return [(SCNMTLRenderContext *)RenderContext commandQueue];
 }
 
 - (MTLCommandBuffer)commandBuffer
 {
-  RenderContext = C3DEngineContextGetRenderContext(self->_context->var3);
+  RenderContext = C3DEngineContextGetRenderContext(self->_context->var3, a2);
 
   return [(SCNMTLRenderContext *)RenderContext currentCommandBuffer];
 }
 
 - (MTLDevice)device
 {
-  RenderContext = C3DEngineContextGetRenderContext(self->_context->var3);
+  RenderContext = C3DEngineContextGetRenderContext(self->_context->var3, a2);
 
   return [(SCNMTLRenderContext *)RenderContext device];
 }

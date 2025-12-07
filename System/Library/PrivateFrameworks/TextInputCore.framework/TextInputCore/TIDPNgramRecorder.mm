@@ -1,6 +1,7 @@
 @interface TIDPNgramRecorder
 + (void)enumerateNgramsFromSession:(id)session n:(unint64_t)n usingBlock:(id)block;
 - (BOOL)report;
+- (TIDPNgramRecorder)initWithTypingSession:(id)session aligned:(id)aligned n:(unint64_t)n shouldDonateNgramSampleRandomly:(BOOL)randomly;
 - (id)_normalizedWordEntryStringForWordEntry:(id)entry;
 - (id)delegate;
 - (id)randomRecordsLimitedByCount:(unint64_t)count;
@@ -36,7 +37,7 @@
 
 - (BOOL)report
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   context = objc_autoreleasePoolPush();
   selfCopy = self;
   if ([(TIDPNgramRecorder *)self shouldDonateNgramSampleRandomly])
@@ -49,58 +50,58 @@
     [(TIDPNgramRecorder *)self records];
   }
   v3 = ;
-  v41 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v3, "count")}];
+  v40 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v3, "count")}];
+  v49 = 0u;
   v50 = 0u;
   v51 = 0u;
   v52 = 0u;
-  v53 = 0u;
   obj = v3;
-  v4 = [obj countByEnumeratingWithState:&v50 objects:v58 count:16];
+  v4 = [obj countByEnumeratingWithState:&v49 objects:v57 count:16];
   if (v4)
   {
     v5 = v4;
     coderVersion = 0;
-    v7 = *v51;
+    v7 = *v50;
     do
     {
       v8 = 0;
       v9 = coderVersion;
       do
       {
-        if (*v51 != v7)
+        if (*v50 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v50 + 1) + 8 * v8);
+        v10 = *(*(&v49 + 1) + 8 * v8);
         v11 = objc_alloc_init(MEMORY[0x277CBEB18]);
+        v45 = 0u;
         v46 = 0u;
         v47 = 0u;
         v48 = 0u;
-        v49 = 0u;
         v12 = v10;
-        v13 = [v12 countByEnumeratingWithState:&v46 objects:v57 count:16];
+        v13 = [v12 countByEnumeratingWithState:&v45 objects:v56 count:16];
         if (v13)
         {
           v14 = v13;
-          v15 = *v47;
+          v15 = *v46;
           do
           {
             for (i = 0; i != v14; ++i)
             {
-              if (*v47 != v15)
+              if (*v46 != v15)
               {
                 objc_enumerationMutation(v12);
               }
 
-              codedWord = [*(*(&v46 + 1) + 8 * i) codedWord];
+              codedWord = [*(*(&v45 + 1) + 8 * i) codedWord];
               if (codedWord)
               {
                 [v11 addObject:codedWord];
               }
             }
 
-            v14 = [v12 countByEnumeratingWithState:&v46 objects:v57 count:16];
+            v14 = [v12 countByEnumeratingWithState:&v45 objects:v56 count:16];
           }
 
           while (v14);
@@ -109,13 +110,13 @@
         firstObject = [v12 firstObject];
         coderVersion = [firstObject coderVersion];
 
-        [v41 addObject:v11];
+        [v40 addObject:v11];
         ++v8;
         v9 = coderVersion;
       }
 
       while (v8 != v5);
-      v5 = [obj countByEnumeratingWithState:&v50 objects:v58 count:16];
+      v5 = [obj countByEnumeratingWithState:&v49 objects:v57 count:16];
     }
 
     while (v5);
@@ -126,32 +127,32 @@
     coderVersion = 0;
   }
 
-  v19 = [v41 copy];
+  v19 = [v40 copy];
   v20 = [v19 count];
   if (v20)
   {
-    v35 = v20;
-    v36 = v19;
-    v44 = 0u;
-    v45 = 0u;
-    v42 = 0u;
+    v34 = v20;
+    v35 = v19;
     v43 = 0u;
+    v44 = 0u;
+    v41 = 0u;
+    v42 = 0u;
     obja = v19;
-    v21 = [obja countByEnumeratingWithState:&v42 objects:v56 count:16];
+    v21 = [obja countByEnumeratingWithState:&v41 objects:v55 count:16];
     if (v21)
     {
       v22 = v21;
-      v23 = *v43;
+      v23 = *v42;
       do
       {
         for (j = 0; j != v22; ++j)
         {
-          if (*v43 != v23)
+          if (*v42 != v23)
           {
             objc_enumerationMutation(obja);
           }
 
-          v25 = *(*(&v42 + 1) + 8 * j);
+          v25 = *(*(&v41 + 1) + 8 * j);
           uUIDString = [coderVersion UUIDString];
           v27 = uUIDString;
           v28 = @"UNKNOWN_VERSION";
@@ -163,26 +164,25 @@
           v29 = v28;
 
           delegate = [(TIDPNgramRecorder *)selfCopy delegate];
-          v54 = @"VersionHash";
-          v55 = v29;
-          v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v55 forKeys:&v54 count:1];
+          v53 = @"VersionHash";
+          v54 = v29;
+          v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v54 forKeys:&v53 count:1];
           [delegate record:v25 metadata:v31];
         }
 
-        v22 = [obja countByEnumeratingWithState:&v42 objects:v56 count:16];
+        v22 = [obja countByEnumeratingWithState:&v41 objects:v55 count:16];
       }
 
       while (v22);
     }
 
-    v20 = v35;
-    v19 = v36;
+    v20 = v34;
+    v19 = v35;
   }
 
   v32 = v20 != 0;
 
   objc_autoreleasePoolPop(context);
-  v33 = *MEMORY[0x277D85DE8];
   return v32;
 }
 
@@ -224,7 +224,7 @@
 
 - (id)records
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   wordCoder = [(TIDPRecorder *)self wordCoder];
 
   if (wordCoder)
@@ -233,14 +233,14 @@
     v5 = objc_opt_class();
     typingSessionAligned = [(TIDPRecorder *)self typingSessionAligned];
     v7 = [(TIDPNgramRecorderCascading *)self n];
-    v13 = MEMORY[0x277D85DD0];
-    v14 = 3221225472;
-    v15 = __28__TIDPNgramRecorder_records__block_invoke;
-    v16 = &unk_278733278;
+    v12 = MEMORY[0x277D85DD0];
+    v13 = 3221225472;
+    v14 = __28__TIDPNgramRecorder_records__block_invoke;
+    v15 = &unk_278733278;
     selfCopy = self;
-    v18 = v4;
+    v17 = v4;
     v8 = v4;
-    [v5 enumerateNgramsFromSession:typingSessionAligned n:v7 usingBlock:&v13];
+    [v5 enumerateNgramsFromSession:typingSessionAligned n:v7 usingBlock:&v12];
 
     v9 = [v8 copy];
   }
@@ -251,46 +251,44 @@
     {
       recordingKeyLocaleSubstring = [(TIDPRecorder *)self recordingKeyLocaleSubstring];
       *buf = 136315394;
-      v20 = "[TIDPNgramRecorder records]";
-      v21 = 2112;
-      v22 = recordingKeyLocaleSubstring;
+      v19 = "[TIDPNgramRecorder records]";
+      v20 = 2112;
+      v21 = recordingKeyLocaleSubstring;
       _os_log_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s  Not recording n-grams for locale '%@' because a valid word coder could not be loaded.", buf, 0x16u);
     }
 
     v9 = MEMORY[0x277CBEBF8];
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 void __28__TIDPNgramRecorder_records__block_invoke(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   obj = v3;
-  v5 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v5 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v20;
+    v8 = *v19;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * i);
+        v10 = *(*(&v18 + 1) + 8 * i);
         if ([v10 isStandaloneString])
         {
           v11 = [v10 wordString];
@@ -310,14 +308,13 @@ void __28__TIDPNgramRecorder_records__block_invoke(uint64_t a1, void *a2)
         [v4 addObject:v16];
       }
 
-      v6 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v6 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v6);
   }
 
   [*(a1 + 40) addObject:v4];
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)delegate
@@ -353,9 +350,24 @@ void __28__TIDPNgramRecorder_records__block_invoke(uint64_t a1, void *a2)
   return v5;
 }
 
+- (TIDPNgramRecorder)initWithTypingSession:(id)session aligned:(id)aligned n:(unint64_t)n shouldDonateNgramSampleRandomly:(BOOL)randomly
+{
+  randomlyCopy = randomly;
+  v10.receiver = self;
+  v10.super_class = TIDPNgramRecorder;
+  v7 = [(TIDPNgramRecorderCascading *)&v10 initWithTypingSession:session aligned:aligned n:n];
+  v8 = v7;
+  if (v7)
+  {
+    [(TIDPNgramRecorder *)v7 setShouldDonateNgramSampleRandomly:randomlyCopy];
+  }
+
+  return v8;
+}
+
 + (void)enumerateNgramsFromSession:(id)session n:(unint64_t)n usingBlock:(id)block
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   blockCopy = block;
   alignedEntries = [sessionCopy alignedEntries];
@@ -368,27 +380,27 @@ void __28__TIDPNgramRecorder_records__block_invoke(uint64_t a1, void *a2)
     v12 = [[TIDPNgramWordEntryPair alloc] initWithWordString:@"<s>"];
     [v11 addObject:v12];
 
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
     v35 = 0u;
-    v32 = sessionCopy;
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
+    v31 = sessionCopy;
     alignedEntries2 = [sessionCopy alignedEntries];
-    v14 = [alignedEntries2 countByEnumeratingWithState:&v34 objects:v38 count:16];
+    v14 = [alignedEntries2 countByEnumeratingWithState:&v33 objects:v37 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v35;
+      v16 = *v34;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v35 != v16)
+          if (*v34 != v16)
           {
             objc_enumerationMutation(alignedEntries2);
           }
 
-          v18 = *(*(&v34 + 1) + 8 * i);
+          v18 = *(*(&v33 + 1) + 8 * i);
           originalWord = [v18 originalWord];
           acceptedString = [originalWord acceptedString];
 
@@ -399,7 +411,7 @@ void __28__TIDPNgramRecorder_records__block_invoke(uint64_t a1, void *a2)
           }
         }
 
-        v15 = [alignedEntries2 countByEnumeratingWithState:&v34 objects:v38 count:16];
+        v15 = [alignedEntries2 countByEnumeratingWithState:&v33 objects:v37 count:16];
       }
 
       while (v15);
@@ -419,14 +431,14 @@ void __28__TIDPNgramRecorder_records__block_invoke(uint64_t a1, void *a2)
       v24 = v23;
     }
 
-    v33 = 0;
+    v32 = 0;
     [v11 count];
     v25 = 0;
     v26 = 0;
     do
     {
       v27 = v26;
-      if (v33)
+      if (v32)
       {
         break;
       }
@@ -447,16 +459,14 @@ void __28__TIDPNgramRecorder_records__block_invoke(uint64_t a1, void *a2)
         }
       }
 
-      blockCopy[2](blockCopy, v26, &v33);
+      blockCopy[2](blockCopy, v26, &v32);
       ++v25;
     }
 
     while (v25 <= [v11 count] - v24);
 
-    sessionCopy = v32;
+    sessionCopy = v31;
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 @end

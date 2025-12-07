@@ -57,7 +57,7 @@
   v18.receiver = self;
   v18.super_class = SBHStackConfigurationApertureView;
   [(SBHStackConfigurationApertureView *)&v18 layoutSubviews];
-  [(SBHStackConfigurationApertureView *)self bounds];
+  objc_msgSend_bounds(self);
   v4 = v3;
   v6 = v5;
   width = self->_iconImageInfo.size.width;

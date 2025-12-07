@@ -30,24 +30,21 @@
 
 - (id)osVersion
 {
-  v7 = *MEMORY[0x277D85DE8];
-  memset(&v6, 0, 512);
-  uname(&v6);
+  v6 = *MEMORY[0x277D85DE8];
+  memset(&v5, 0, 512);
+  uname(&v5);
   processInfo = [MEMORY[0x277CCAC38] processInfo];
   operatingSystemVersionString = [processInfo operatingSystemVersionString];
-
-  v4 = *MEMORY[0x277D85DE8];
 
   return operatingSystemVersionString;
 }
 
 - (id)deviceModel
 {
-  v6 = *MEMORY[0x277D85DE8];
-  memset(&v5, 0, 512);
-  uname(&v5);
-  v2 = [MEMORY[0x277CCACA8] stringWithCString:v5.machine encoding:4];
-  v3 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
+  memset(&v4, 0, 512);
+  uname(&v4);
+  v2 = [MEMORY[0x277CCACA8] stringWithCString:v4.machine encoding:4];
 
   return v2;
 }
@@ -105,13 +102,13 @@
 
 - (id)percentageOfFreeSpaceOnDevice
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, 2uLL, 1);
   lastObject = [v2 lastObject];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v15 = 0;
-  v5 = [defaultManager attributesOfFileSystemForPath:lastObject error:&v15];
-  v6 = v15;
+  v14 = 0;
+  v5 = [defaultManager attributesOfFileSystemForPath:lastObject error:&v14];
+  v6 = v14;
 
   if (v6)
   {
@@ -129,9 +126,9 @@
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v17 = lastObject;
-      v18 = 2112;
-      v19 = v6;
+      v16 = lastObject;
+      v17 = 2112;
+      v18 = v6;
       _os_log_error_impl(&dword_24260A000, v8, OS_LOG_TYPE_ERROR, "Unable to retrieve file system attributes at path %@ error: %@", buf, 0x16u);
     }
 
@@ -151,8 +148,6 @@
       unsignedLongLongValue = [MEMORY[0x277CCABB0] numberWithDouble:unsignedLongLongValue2 * 100.0 / unsignedLongLongValue];
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return unsignedLongLongValue;
 }

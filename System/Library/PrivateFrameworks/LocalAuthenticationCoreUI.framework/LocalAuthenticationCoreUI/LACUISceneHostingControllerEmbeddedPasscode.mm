@@ -89,14 +89,14 @@ void __59__LACUISceneHostingControllerEmbeddedPasscode_startEditing__block_invok
 
 - (void)passcodeVerificationFinished:(id)finished
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   finishedCopy = finished;
   v4 = LACLogUI();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v7 = 136315138;
-    v8 = "[LACUISceneHostingControllerEmbeddedPasscode passcodeVerificationFinished:]";
-    _os_log_impl(&dword_256063000, v4, OS_LOG_TYPE_INFO, "%s", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "[LACUISceneHostingControllerEmbeddedPasscode passcodeVerificationFinished:]";
+    _os_log_impl(&dword_256063000, v4, OS_LOG_TYPE_INFO, "%s", &v6, 0xCu);
   }
 
   if (finishedCopy)
@@ -107,8 +107,6 @@ void __59__LACUISceneHostingControllerEmbeddedPasscode_startEditing__block_invok
       [LACUISceneHostingControllerEmbeddedPasscode passcodeVerificationFinished:];
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleAction:(id)action completion:(id)completion
@@ -145,7 +143,7 @@ void __59__LACUISceneHostingControllerEmbeddedPasscode_startEditing__block_invok
 
 void __71__LACUISceneHostingControllerEmbeddedPasscode_handleAction_completion___block_invoke(void *a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = LACLogUI();
   v5 = v4;
@@ -161,62 +159,35 @@ void __71__LACUISceneHostingControllerEmbeddedPasscode_handleAction_completion__
   {
     v6 = a1[4];
     v7 = a1[5];
-    v9 = 138412546;
-    v10 = v6;
-    v11 = 2112;
-    v12 = v7;
-    _os_log_impl(&dword_256063000, v5, OS_LOG_TYPE_DEFAULT, "%@ handled action: %@", &v9, 0x16u);
+    v8 = 138412546;
+    v9 = v6;
+    v10 = 2112;
+    v11 = v7;
+    _os_log_impl(&dword_256063000, v5, OS_LOG_TYPE_DEFAULT, "%@ handled action: %@", &v8, 0x16u);
   }
 
   (*(a1[6] + 16))();
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-void __57__LACUISceneHostingControllerEmbeddedPasscode_endEditing__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_256063000, v0, v1, "End editing result: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __58__LACUISceneHostingControllerEmbeddedPasscode_setContext___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_256063000, v0, v1, "Set context result: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __59__LACUISceneHostingControllerEmbeddedPasscode_startEditing__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_256063000, v0, v1, "Start editing result: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)passcodeVerificationFinished:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_256063000, v0, OS_LOG_TYPE_ERROR, "Passcode verification failed (%@).", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_256063000, v0, OS_LOG_TYPE_ERROR, "Passcode verification failed (%@).", v1, 0xCu);
 }
 
 void __71__LACUISceneHostingControllerEmbeddedPasscode_handleAction_completion___block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
   v4 = *(a1 + 40);
-  v6 = 138412802;
-  v7 = v3;
-  v8 = 2112;
-  v9 = v4;
-  v10 = 2112;
-  v11 = a2;
-  _os_log_error_impl(&dword_256063000, log, OS_LOG_TYPE_ERROR, "%@ handle action: %@, error:%@", &v6, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138412802;
+  v6 = v3;
+  v7 = 2112;
+  v8 = v4;
+  v9 = 2112;
+  v10 = a2;
+  _os_log_error_impl(&dword_256063000, log, OS_LOG_TYPE_ERROR, "%@ handle action: %@, error:%@", &v5, 0x20u);
 }
 
 @end

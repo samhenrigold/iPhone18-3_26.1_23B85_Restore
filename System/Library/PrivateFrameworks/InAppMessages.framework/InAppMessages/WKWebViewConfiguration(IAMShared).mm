@@ -11,9 +11,9 @@
     +[WKWebViewConfiguration(IAMShared) sharedMessagesConfiguration];
   }
 
-  v1 = sharedMessagesConfiguration_sharedConfiguration;
+  v2 = sharedMessagesConfiguration_sharedConfiguration;
 
-  return v1;
+  return v2;
 }
 
 @end

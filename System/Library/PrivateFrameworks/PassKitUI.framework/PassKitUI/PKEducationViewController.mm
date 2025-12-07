@@ -177,10 +177,10 @@ LABEL_8:
 
 - (void)loadView
 {
-  v61[2] = *MEMORY[0x1E69E9840];
-  v57.receiver = self;
-  v57.super_class = PKEducationViewController;
-  [(PKExplanationViewController *)&v57 loadView];
+  v62[2] = *MEMORY[0x1E69E9840];
+  v58.receiver = self;
+  v58.super_class = PKEducationViewController;
+  [(PKExplanationViewController *)&v58 loadView];
   pkui_userInterfaceIdiomSupportsLargeLayouts = [(UIViewController *)self pkui_userInterfaceIdiomSupportsLargeLayouts];
   if (pkui_userInterfaceIdiomSupportsLargeLayouts)
   {
@@ -214,22 +214,22 @@ LABEL_8:
   v9 = PKLocalizedPaymentString(&cfstr_ApplePayEducat.isa);
   [explanationView setTitleText:v9];
 
-  [explanationView setTitleImage:0];
-  v54 = *MEMORY[0x1E69DB650];
-  v60[0] = *MEMORY[0x1E69DB650];
-  v10 = PKOBKBodyTextColor();
-  v61[0] = v10;
-  v60[1] = *MEMORY[0x1E69DB648];
-  v11 = PKOBKBodyFont();
-  v61[1] = v11;
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v61 forKeys:v60 count:2];
+  v10 = [explanationView setTitleImage:0];
+  v55 = *MEMORY[0x1E69DB650];
+  v61[0] = *MEMORY[0x1E69DB650];
+  v11 = PKOBKBodyTextColor(v10);
+  v62[0] = v11;
+  v61[1] = *MEMORY[0x1E69DB648];
+  v12 = PKOBKBodyFont(v11);
+  v62[1] = v12;
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v62 forKeys:v61 count:2];
 
-  v13 = [objc_alloc(MEMORY[0x1E696AD60]) initWithString:@"APPLE_PAY_EDUCATION"];
-  v14 = v13;
+  v14 = [objc_alloc(MEMORY[0x1E696AD60]) initWithString:@"APPLE_PAY_EDUCATION"];
+  v15 = v14;
   biometricAuthenticationType = self->_biometricAuthenticationType;
   if (biometricAuthenticationType)
   {
-    [v13 appendString:@"_TOUCH_ID"];
+    [v14 appendString:@"_TOUCH_ID"];
     if (!v5)
     {
       goto LABEL_13;
@@ -243,51 +243,51 @@ LABEL_8:
       goto LABEL_13;
     }
 
-    [v13 appendString:@"_FACE_ID"];
+    [v14 appendString:@"_FACE_ID"];
     if (!v5)
     {
       goto LABEL_13;
     }
   }
 
-  [v14 appendString:@"_PAD"];
+  [v15 appendString:@"_PAD"];
 LABEL_13:
-  v16 = objc_alloc(MEMORY[0x1E696AD40]);
-  v17 = PKLocalizedPaymentString(v14);
-  v18 = [v16 initWithString:v17 attributes:v12];
+  v17 = objc_alloc(MEMORY[0x1E696AD40]);
+  v18 = PKLocalizedPaymentString(v15);
+  v19 = [v17 initWithString:v18 attributes:v13];
 
-  v19 = [(NSString *)self->_bodyAddition length];
-  v20 = objc_alloc(MEMORY[0x1E696AAB0]);
-  v21 = v20;
-  if (v19)
+  v20 = [(NSString *)self->_bodyAddition length];
+  v21 = objc_alloc(MEMORY[0x1E696AAB0]);
+  v22 = v21;
+  if (v20)
   {
-    v22 = [v20 initWithString:self->_bodyAddition attributes:v12];
+    v23 = [v21 initWithString:self->_bodyAddition attributes:v13];
   }
 
   else
   {
-    v23 = PKLocalizedPaymentString(&cfstr_ApplePayEducat_1.isa);
-    v22 = [v21 initWithString:v23 attributes:v12];
+    v24 = PKLocalizedPaymentString(&cfstr_ApplePayEducat_1.isa);
+    v23 = [v22 initWithString:v24 attributes:v13];
   }
 
-  v24 = v12;
-  [v18 appendAttributedString:v22];
+  v25 = v13;
+  [v19 appendAttributedString:v23];
 
   if (pkui_userInterfaceIdiomSupportsLargeLayouts)
   {
-    v25 = objc_alloc_init(MEMORY[0x1E69DD250]);
+    v26 = objc_alloc_init(MEMORY[0x1E69DD250]);
     largeLayoutHeroBackground = self->_largeLayoutHeroBackground;
-    self->_largeLayoutHeroBackground = v25;
+    self->_largeLayoutHeroBackground = v26;
 
-    v27 = self->_largeLayoutHeroBackground;
+    v28 = self->_largeLayoutHeroBackground;
     secondarySystemBackgroundColor = [MEMORY[0x1E69DC888] secondarySystemBackgroundColor];
-    [(UIView *)v27 setBackgroundColor:secondarySystemBackgroundColor];
+    [(UIView *)v28 setBackgroundColor:secondarySystemBackgroundColor];
 
-    v29 = objc_alloc(MEMORY[0x1E69DCAE0]);
+    v30 = objc_alloc(MEMORY[0x1E69DCAE0]);
     _heroPadImage = [(PKEducationViewController *)self _heroPadImage];
-    v31 = [v29 initWithImage:_heroPadImage];
+    v32 = [v30 initWithImage:_heroPadImage];
     largeLayoutHeroImageView = self->_largeLayoutHeroImageView;
-    self->_largeLayoutHeroImageView = v31;
+    self->_largeLayoutHeroImageView = v32;
 
     [(UIImageView *)self->_largeLayoutHeroImageView setContentMode:1];
     [(UIView *)self->_largeLayoutHeroBackground addSubview:self->_largeLayoutHeroImageView];
@@ -307,28 +307,28 @@ LABEL_13:
     [(PKExplanationViewController *)self context];
     if ((PKPaymentSetupContextIsSetupAssistant() & 1) == 0)
     {
-      v53 = objc_alloc(MEMORY[0x1E696AAB0]);
-      v34 = PKLocalizedPaymentString(&cfstr_LearnMoreLink.isa);
-      v58[0] = v54;
+      v54 = objc_alloc(MEMORY[0x1E696AAB0]);
+      v35 = PKLocalizedPaymentString(&cfstr_LearnMoreLink.isa);
+      v59[0] = v55;
       linkColor = [MEMORY[0x1E69DC888] linkColor];
-      v59[0] = linkColor;
-      v58[1] = *MEMORY[0x1E69DB670];
+      v60[0] = linkColor;
+      v59[1] = *MEMORY[0x1E69DB670];
       [MEMORY[0x1E695DFF8] URLWithString:@"https://support.apple.com/HT201239"];
-      v36 = v55 = v24;
-      v59[1] = v36;
-      v37 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v59 forKeys:v58 count:2];
-      v52 = [v53 initWithString:v34 attributes:v37];
+      v37 = v56 = v25;
+      v60[1] = v37;
+      v38 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v60 forKeys:v59 count:2];
+      v53 = [v54 initWithString:v35 attributes:v38];
 
-      v24 = v55;
-      v38 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:@" " attributes:v55];
-      [v18 appendAttributedString:v38];
+      v25 = v56;
+      v39 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:@" " attributes:v56];
+      [v19 appendAttributedString:v39];
 
-      [v18 appendAttributedString:v52];
+      [v19 appendAttributedString:v53];
     }
   }
 
-  v39 = [v18 copy];
-  [explanationView setAttributedBodyText:v39];
+  v40 = [v19 copy];
+  [explanationView setAttributedBodyText:v40];
 
   if (!pkui_userInterfaceIdiomSupportsLargeLayouts)
   {
@@ -336,12 +336,12 @@ LABEL_21:
     paymentPass = self->_paymentPass;
     if (paymentPass)
     {
-      v56[0] = MEMORY[0x1E69E9820];
-      v56[1] = 3221225472;
-      v56[2] = __37__PKEducationViewController_loadView__block_invoke;
-      v56[3] = &unk_1E8010970;
-      v56[4] = self;
-      [(PKSecureElementPass *)paymentPass loadContentAsyncWithCompletion:v56];
+      v57[0] = MEMORY[0x1E69E9820];
+      v57[1] = 3221225472;
+      v57[2] = __37__PKEducationViewController_loadView__block_invoke;
+      v57[3] = &unk_1E8010970;
+      v57[4] = self;
+      [(PKSecureElementPass *)paymentPass loadContentAsyncWithCompletion:v57];
     }
 
     else
@@ -350,19 +350,19 @@ LABEL_21:
       pk_shuffledArray = [defaultImages pk_shuffledArray];
       firstObject = [pk_shuffledArray firstObject];
 
-      v44 = self->_educationBodyView;
-      v45 = MEMORY[0x1E69DCAB8];
-      v46 = [firstObject imageWithScale:PKUIScreenScale()];
-      v47 = [v45 imageWithData:v46];
-      [(PKEducationPhone *)v44 setPassImage:v47];
+      v45 = self->_educationBodyView;
+      v46 = MEMORY[0x1E69DCAB8];
+      v47 = [firstObject imageWithScale:PKUIScreenScale()];
+      v48 = [v46 imageWithData:v47];
+      [(PKEducationPhone *)v45 setPassImage:v48];
     }
   }
 
 LABEL_24:
   dockView = [explanationView dockView];
   primaryButton = [dockView primaryButton];
-  v50 = PKLocalizedPaymentString(&cfstr_Continue.isa);
-  [primaryButton setTitle:v50 forState:0];
+  v51 = PKLocalizedPaymentString(&cfstr_Continue.isa);
+  [primaryButton setTitle:v51 forState:0];
 
   footerView = [dockView footerView];
   [footerView setSetUpLaterButton:0];
@@ -402,9 +402,9 @@ void __37__PKEducationViewController_loadView__block_invoke_3(uint64_t a1)
 
 - (void)viewWillLayoutSubviews
 {
-  v9.receiver = self;
-  v9.super_class = PKEducationViewController;
-  [(PKExplanationViewController *)&v9 viewWillLayoutSubviews];
+  v27.receiver = self;
+  v27.super_class = PKEducationViewController;
+  [(PKExplanationViewController *)&v27 viewWillLayoutSubviews];
   if (self->_largeLayoutHeroBackground && self->_largeLayoutHeroImageView)
   {
     traitCollection = [(PKEducationViewController *)self traitCollection];
@@ -416,15 +416,27 @@ void __37__PKEducationViewController_loadView__block_invoke_3(uint64_t a1)
 
     view = [(PKEducationViewController *)self view];
     [view bounds];
-    Width = CGRectGetWidth(v10);
+    Width = CGRectGetWidth(v28);
 
     [(UIImageView *)self->_largeLayoutHeroImageView frame];
     PKSizeAspectFit();
-    [(UIView *)self->_largeLayoutHeroBackground setFrame:*MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), Width, v7];
-    PKContentAlignmentMake();
+    v8 = v7;
+    v10 = *&v9;
+    [(UIView *)self->_largeLayoutHeroBackground setFrame:*MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), Width, v9];
+    v11 = PKContentAlignmentMake();
     largeLayoutHeroImageView = self->_largeLayoutHeroImageView;
     [(UIView *)self->_largeLayoutHeroBackground bounds];
-    PKSizeAlignedInRect();
+    v14 = v13;
+    v16 = v15;
+    v18.n128_u64[0] = v17;
+    v20 = v19;
+    v21.n128_u64[0] = v8;
+    v22.n128_u64[0] = v10;
+    v23.n128_u64[0] = v14;
+    v24.n128_u64[0] = v16;
+    v25.n128_u64[0] = v18.n128_u64[0];
+    v26.n128_u64[0] = v20;
+    PKSizeAlignedInRect(v11, v21, v22, v23, v24, v25, v26, v18);
     [(UIImageView *)largeLayoutHeroImageView setFrame:?];
   }
 }

@@ -44,7 +44,7 @@ flatbuffers::DetachedBuffer *__40__QSSKeywordFinderResponse_flatbuffData__block_
 
 - (Offset<siri::speech::schema_fb::KeywordFinderResponse>)addObjectToBuffer:(void *)buffer
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   speech_id = [(QSSKeywordFinderResponse *)self speech_id];
   v6 = speech_id;
   if (!speech_id)
@@ -65,7 +65,7 @@ flatbuffers::DetachedBuffer *__40__QSSKeywordFinderResponse_flatbuffData__block_
 
   uTF8String2 = [(__CFString *)session_id UTF8String];
   v13 = strlen(uTF8String2);
-  v42 = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String2, v13);
+  v41 = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String2, v13);
 
   language = [(QSSKeywordFinderResponse *)self language];
   v15 = language;
@@ -93,62 +93,62 @@ flatbuffers::DetachedBuffer *__40__QSSKeywordFinderResponse_flatbuffData__block_
   corrected_sausage = [(QSSKeywordFinderResponse *)self corrected_sausage];
   v26 = [corrected_sausage addObjectToBuffer:buffer];
 
-  memset(&v48, 0, sizeof(v48));
+  memset(&v47, 0, sizeof(v47));
   n_best_list = [(QSSKeywordFinderResponse *)self n_best_list];
-  std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::reserve(&v48, [n_best_list count]);
+  std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::reserve(&v47, [n_best_list count]);
 
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
   v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   n_best_list2 = [(QSSKeywordFinderResponse *)self n_best_list];
-  v29 = [n_best_list2 countByEnumeratingWithState:&v44 objects:v49 count:16];
+  v29 = [n_best_list2 countByEnumeratingWithState:&v43 objects:v48 count:16];
   if (v29)
   {
-    v30 = *v45;
+    v30 = *v44;
     do
     {
       for (i = 0; i != v29; ++i)
       {
-        if (*v45 != v30)
+        if (*v44 != v30)
         {
           objc_enumerationMutation(n_best_list2);
         }
 
-        v43 = [*(*(&v44 + 1) + 8 * i) addObjectToBuffer:buffer];
-        std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::push_back[abi:ne200100](&v48, &v43);
+        v42 = [*(*(&v43 + 1) + 8 * i) addObjectToBuffer:buffer];
+        std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::push_back[abi:ne200100](&v47, &v42);
       }
 
-      v29 = [n_best_list2 countByEnumeratingWithState:&v44 objects:v49 count:16];
+      v29 = [n_best_list2 countByEnumeratingWithState:&v43 objects:v48 count:16];
     }
 
     while (v29);
   }
 
-  v41 = v26;
-  begin = v48.__begin_;
-  if (v48.__end_ == v48.__begin_)
+  v40 = v26;
+  begin = v47.__begin_;
+  if (v47.__end_ == v47.__begin_)
   {
     v33 = &flatbuffers::data<flatbuffers::Offset<siri::speech::schema_fb::RecognitionChoice>,std::allocator<flatbuffers::Offset<siri::speech::schema_fb::RecognitionChoice>>>(std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionChoice>> const&)::t;
   }
 
   else
   {
-    v33 = v48.__begin_;
+    v33 = v47.__begin_;
   }
 
-  v34 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>(buffer, v33, v48.__end_ - v48.__begin_);
+  v34 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>(buffer, v33, v47.__end_ - v47.__begin_);
   flatbuffers::FlatBufferBuilder::NotNested(buffer);
   *(buffer + 70) = 1;
   v35 = *(buffer + 8);
   v36 = *(buffer + 12);
   v37 = *(buffer + 10);
   flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 4, String);
-  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 6, v42);
+  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 6, v41);
   flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 8, v18);
   flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(buffer, 10, return_code);
   flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 12, v24);
-  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 14, v41);
+  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 14, v40);
   flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 16, v34);
   v38.var0 = flatbuffers::FlatBufferBuilder::EndTable(buffer, v35 - v36 + v37);
   if (begin)
@@ -156,7 +156,6 @@ flatbuffers::DetachedBuffer *__40__QSSKeywordFinderResponse_flatbuffData__block_
     operator delete(begin);
   }
 
-  v39 = *MEMORY[0x277D85DE8];
   return v38;
 }
 

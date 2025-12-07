@@ -32,13 +32,13 @@
 
 - (NPKExpressModeSettingsCoordinator)initWithExpressPassController:(id)controller workQueue:(id)queue callbackQueue:(id)callbackQueue
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   queueCopy = queue;
   callbackQueueCopy = callbackQueue;
-  v35.receiver = self;
-  v35.super_class = NPKExpressModeSettingsCoordinator;
-  v11 = [(NPKExpressModeSettingsCoordinator *)&v35 init];
+  v34.receiver = self;
+  v34.super_class = NPKExpressModeSettingsCoordinator;
+  v11 = [(NPKExpressModeSettingsCoordinator *)&v34 init];
   v12 = v11;
   if (v11)
   {
@@ -49,33 +49,33 @@
     previousPassStates = v12->_previousPassStates;
     v12->_previousPassStates = dictionary;
 
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
     enabledExpressPasses = [controllerCopy enabledExpressPasses];
     allValues = [enabledExpressPasses allValues];
 
-    v17 = [allValues countByEnumeratingWithState:&v31 objects:v36 count:16];
+    v17 = [allValues countByEnumeratingWithState:&v30 objects:v35 count:16];
     if (v17)
     {
-      v18 = *v32;
+      v18 = *v31;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v32 != v18)
+          if (*v31 != v18)
           {
             objc_enumerationMutation(allValues);
           }
 
-          v20 = *(*(&v31 + 1) + 8 * i);
+          v20 = *(*(&v30 + 1) + 8 * i);
           passUniqueIdentifier = [v20 passUniqueIdentifier];
           v22 = [[NPKExpressState alloc] initWithExpressPassConfiguration:v20];
           [(NSMutableDictionary *)v12->_previousPassStates setObject:v22 forKey:passUniqueIdentifier];
         }
 
-        v17 = [allValues countByEnumeratingWithState:&v31 objects:v36 count:16];
+        v17 = [allValues countByEnumeratingWithState:&v30 objects:v35 count:16];
       }
 
       while (v17);
@@ -88,13 +88,12 @@
     handler[1] = 3221225472;
     handler[2] = __91__NPKExpressModeSettingsCoordinator_initWithExpressPassController_workQueue_callbackQueue___block_invoke;
     handler[3] = &unk_279944F20;
-    objc_copyWeak(&v29, &location);
+    objc_copyWeak(&v28, &location);
     notify_register_dispatch(uTF8String, &v12->_notifyToken, workQueue, handler);
-    objc_destroyWeak(&v29);
+    objc_destroyWeak(&v28);
     objc_destroyWeak(&location);
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -165,28 +164,28 @@ void __91__NPKExpressModeSettingsCoordinator_initWithExpressPassController_workQ
 
 void __68__NPKExpressModeSettingsCoordinator_inSessionExpressEnabledForPass___block_invoke(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v6 = a3;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        if ([*(*(&v12 + 1) + 8 * v10) supportsInSessionExpress])
+        if ([*(*(&v11 + 1) + 8 * v10) supportsInSessionExpress])
         {
           *(*(*(a1 + 32) + 8) + 24) = 1;
           *a4 = 1;
@@ -196,13 +195,11 @@ void __68__NPKExpressModeSettingsCoordinator_inSessionExpressEnabledForPass___bl
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)needUpgradeForPass:(id)pass
@@ -298,41 +295,39 @@ void __57__NPKExpressModeSettingsCoordinator_expressStateForPass___block_invoke(
   v26 = *MEMORY[0x277D85DE8];
   passCopy = pass;
   handlerCopy = handler;
-  v10 = pk_Payment_log();
+  v10 = pk_Payment_log(handlerCopy);
   v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
 
   if (v11)
   {
-    v12 = pk_Payment_log();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = pk_Payment_log(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       uniqueID = [passCopy uniqueID];
       *buf = 138412290;
       v25 = uniqueID;
-      _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Notice: Express mode settings coordinator: Received request to enable express for %@", buf, 0xCu);
+      _os_log_impl(&dword_25B300000, v13, OS_LOG_TYPE_DEFAULT, "Notice: Express mode settings coordinator: Received request to enable express for %@", buf, 0xCu);
     }
   }
 
-  v14 = self->_workQueue;
+  v15 = self->_workQueue;
   objc_initWeak(buf, self);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __81__NPKExpressModeSettingsCoordinator_enableExpressForPass_mode_completionHandler___block_invoke;
   block[3] = &unk_2799498B8;
   objc_copyWeak(v23, buf);
-  v21 = v14;
+  v21 = v15;
   v22 = handlerCopy;
   v23[1] = mode;
   v20 = passCopy;
-  v15 = v14;
-  v16 = passCopy;
-  v17 = handlerCopy;
-  dispatch_async(v15, block);
+  v16 = v15;
+  v17 = passCopy;
+  v18 = handlerCopy;
+  dispatch_async(v16, block);
 
   objc_destroyWeak(v23);
   objc_destroyWeak(buf);
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __81__NPKExpressModeSettingsCoordinator_enableExpressForPass_mode_completionHandler___block_invoke(uint64_t a1)
@@ -403,46 +398,44 @@ void __81__NPKExpressModeSettingsCoordinator_enableExpressForPass_mode_completio
   v26 = *MEMORY[0x277D85DE8];
   passCopy = pass;
   handlerCopy = handler;
-  v10 = pk_Payment_log();
+  v10 = pk_Payment_log(handlerCopy);
   v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
 
   if (v11)
   {
-    v12 = pk_Payment_log();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = pk_Payment_log(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       uniqueID = [passCopy uniqueID];
       *buf = 138412290;
       v25 = uniqueID;
-      _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Notice: Express mode settings coordinator: Received request to disable express for %@", buf, 0xCu);
+      _os_log_impl(&dword_25B300000, v13, OS_LOG_TYPE_DEFAULT, "Notice: Express mode settings coordinator: Received request to disable express for %@", buf, 0xCu);
     }
   }
 
-  v14 = self->_workQueue;
+  v15 = self->_workQueue;
   objc_initWeak(buf, self);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __82__NPKExpressModeSettingsCoordinator_disableExpressForPass_mode_completionHandler___block_invoke;
   block[3] = &unk_2799498B8;
   objc_copyWeak(v23, buf);
-  v21 = v14;
+  v21 = v15;
   v22 = handlerCopy;
   v23[1] = mode;
   v20 = passCopy;
-  v15 = v14;
-  v16 = passCopy;
-  v17 = handlerCopy;
-  dispatch_async(v15, block);
+  v16 = v15;
+  v17 = passCopy;
+  v18 = handlerCopy;
+  dispatch_async(v16, block);
 
   objc_destroyWeak(v23);
   objc_destroyWeak(buf);
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __82__NPKExpressModeSettingsCoordinator_disableExpressForPass_mode_completionHandler___block_invoke(uint64_t a1)
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   v3 = _Block_copy(*(a1 + 48));
   v4 = *(WeakRetained + 8);
@@ -456,8 +449,8 @@ void __82__NPKExpressModeSettingsCoordinator_disableExpressForPass_mode_completi
   aBlock[1] = 3221225472;
   aBlock[2] = __82__NPKExpressModeSettingsCoordinator_disableExpressForPass_mode_completionHandler___block_invoke_2;
   aBlock[3] = &unk_2799454E0;
-  v23 = *(a1 + 40);
-  v24 = WeakRetained;
+  v22 = *(a1 + 40);
+  v23 = WeakRetained;
   v6 = _Block_copy(aBlock);
   v7 = *(WeakRetained + 2);
   v8 = [*(a1 + 32) paymentPass];
@@ -467,33 +460,31 @@ void __82__NPKExpressModeSettingsCoordinator_disableExpressForPass_mode_completi
   {
     v11 = v10;
     v12 = *(WeakRetained + 2);
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __82__NPKExpressModeSettingsCoordinator_disableExpressForPass_mode_completionHandler___block_invoke_4;
-    v20[3] = &unk_279948FF8;
-    v21 = v6;
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __82__NPKExpressModeSettingsCoordinator_disableExpressForPass_mode_completionHandler___block_invoke_4;
+    v19[3] = &unk_279948FF8;
+    v20 = v6;
     v13 = v6;
-    [v12 setExpressModeWithPassConfiguration:v11 credential:0 completion:v20];
+    [v12 setExpressModeWithPassConfiguration:v11 credential:0 completion:v19];
   }
 
   else
   {
     v14 = *(WeakRetained + 2);
     v15 = [*(a1 + 32) uniqueID];
-    v25[0] = v15;
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __82__NPKExpressModeSettingsCoordinator_disableExpressForPass_mode_completionHandler___block_invoke_5;
-    v18[3] = &unk_279948FF8;
-    v19 = v6;
+    v24[0] = v15;
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __82__NPKExpressModeSettingsCoordinator_disableExpressForPass_mode_completionHandler___block_invoke_5;
+    v17[3] = &unk_279948FF8;
+    v18 = v6;
     v11 = v6;
-    [v14 disableExpressModeForPassesWithUniqueIdentifiers:v16 withCompletion:v18];
+    [v14 disableExpressModeForPassesWithUniqueIdentifiers:v16 withCompletion:v17];
 
-    v13 = v19;
+    v13 = v18;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __82__NPKExpressModeSettingsCoordinator_disableExpressForPass_mode_completionHandler___block_invoke_2(uint64_t a1)
@@ -534,17 +525,17 @@ uint64_t __82__NPKExpressModeSettingsCoordinator_disableExpressForPass_mode_comp
 
   else
   {
-    v7 = pk_General_log();
+    v7 = pk_General_log(0);
     v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
 
     v6 = 0;
     if (v8)
     {
-      v9 = pk_General_log();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = pk_General_log(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        *v11 = 0;
-        _os_log_impl(&dword_25B300000, v9, OS_LOG_TYPE_DEFAULT, "Warning: Cannot check _isNFCExpressModeSupportedForPass for nil pass", v11, 2u);
+        *v12 = 0;
+        _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Warning: Cannot check _isNFCExpressModeSupportedForPass for nil pass", v12, 2u);
       }
 
       v6 = 0;
@@ -649,57 +640,55 @@ LABEL_20:
   v27 = *MEMORY[0x277D85DE8];
   passCopy = pass;
   completionCopy = completion;
-  v8 = pk_Payment_log();
+  v8 = pk_Payment_log(completionCopy);
   v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
 
   if (v9)
   {
-    v10 = pk_Payment_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = pk_Payment_log(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       uniqueID = [passCopy uniqueID];
       *buf = 138412290;
       v26 = uniqueID;
-      _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: Express mode settings coordinator: Checking for conflicts when enabling express for %@", buf, 0xCu);
+      _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Notice: Express mode settings coordinator: Checking for conflicts when enabling express for %@", buf, 0xCu);
     }
   }
 
   dispatch_assert_queue_V2(self->_workQueue);
-  v12 = [(PKExpressPassController *)self->_expressPassController existingExpressPassConfigurationForPass:passCopy];
-  if (!v12)
+  v13 = [(PKExpressPassController *)self->_expressPassController existingExpressPassConfigurationForPass:passCopy];
+  if (!v13)
   {
-    v13 = [(PKExpressPassController *)self->_expressPassController expressModeSupportedForPass:passCopy];
-    if (v13)
+    v14 = [(PKExpressPassController *)self->_expressPassController expressModeSupportedForPass:passCopy];
+    if (v14)
     {
-      v12 = [objc_alloc(MEMORY[0x277D37E88]) initWithPassInformation:v13 isNFCExpressEnabled:-[NPKExpressState nfcExpressState](self->_currentState isUWBExpressEnabled:{"nfcExpressState") < 2, -[NPKExpressState uwbExpressState](self->_currentState, "uwbExpressState") < 2}];
+      v13 = [objc_alloc(MEMORY[0x277D37E88]) initWithPassInformation:v14 isNFCExpressEnabled:-[NPKExpressState nfcExpressState](self->_currentState isUWBExpressEnabled:{"nfcExpressState") < 2, -[NPKExpressState uwbExpressState](self->_currentState, "uwbExpressState") < 2}];
     }
 
     else
     {
-      v12 = 0;
+      v13 = 0;
     }
   }
 
-  v14 = self->_callbackQueue;
+  v15 = self->_callbackQueue;
   objc_initWeak(buf, self);
   expressPassController = self->_expressPassController;
   v20[0] = MEMORY[0x277D85DD0];
   v20[1] = 3221225472;
   v20[2] = __91__NPKExpressModeSettingsCoordinator__checkForConflictsInEnablingExpressForPass_completion___block_invoke;
   v20[3] = &unk_2799498E0;
-  v16 = v14;
-  v21 = v16;
+  v17 = v15;
+  v21 = v17;
   objc_copyWeak(&v24, buf);
-  v17 = passCopy;
-  v22 = v17;
-  v18 = completionCopy;
-  v23 = v18;
-  [(PKExpressPassController *)expressPassController conflictingExpressPassesWithPassConfiguration:v12 completion:v20];
+  v18 = passCopy;
+  v22 = v18;
+  v19 = completionCopy;
+  v23 = v19;
+  [(PKExpressPassController *)expressPassController conflictingExpressPassesWithPassConfiguration:v13 completion:v20];
 
   objc_destroyWeak(&v24);
   objc_destroyWeak(buf);
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __91__NPKExpressModeSettingsCoordinator__checkForConflictsInEnablingExpressForPass_completion___block_invoke(uint64_t a1, void *a2)
@@ -761,41 +750,39 @@ uint64_t __91__NPKExpressModeSettingsCoordinator__checkForConflictsInEnablingExp
 {
   v22 = *MEMORY[0x277D85DE8];
   passCopy = pass;
-  v7 = pk_Payment_log();
+  v7 = pk_Payment_log(passCopy);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
 
   if (v8)
   {
-    v9 = pk_Payment_log();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = pk_Payment_log(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       uniqueID = [passCopy uniqueID];
       *buf = 138412290;
       v21 = uniqueID;
-      _os_log_impl(&dword_25B300000, v9, OS_LOG_TYPE_DEFAULT, "Notice: Express mode settings coordinator: Requesting user authentication for %@", buf, 0xCu);
+      _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: Express mode settings coordinator: Requesting user authentication for %@", buf, 0xCu);
     }
   }
 
   dispatch_assert_queue_V2(self->_workQueue);
-  v11 = self->_workQueue;
+  v12 = self->_workQueue;
   objc_initWeak(buf, self);
   delegate = [(NPKExpressModeSettingsCoordinator *)self delegate];
   v16[0] = MEMORY[0x277D85DD0];
   v16[1] = 3221225472;
   v16[2] = __87__NPKExpressModeSettingsCoordinator__requestUserAuthenticationForPass_withExpressMode___block_invoke;
   v16[3] = &unk_279949930;
-  v13 = v11;
-  v17 = v13;
+  v14 = v12;
+  v17 = v14;
   objc_copyWeak(v19, buf);
-  v14 = passCopy;
-  v18 = v14;
+  v15 = passCopy;
+  v18 = v15;
   v19[1] = mode;
-  [delegate expressModeSettingsCoordinator:self requestsAuthorizationToEnableExpressForPass:v14 completion:v16];
+  [delegate expressModeSettingsCoordinator:self requestsAuthorizationToEnableExpressForPass:v15 completion:v16];
 
   objc_destroyWeak(v19);
   objc_destroyWeak(buf);
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __87__NPKExpressModeSettingsCoordinator__requestUserAuthenticationForPass_withExpressMode___block_invoke(uint64_t a1, char a2, char a3, void *a4)
@@ -848,18 +835,18 @@ void __87__NPKExpressModeSettingsCoordinator__requestUserAuthenticationForPass_w
   v17 = *MEMORY[0x277D85DE8];
   credentialCopy = credential;
   passCopy = pass;
-  v10 = pk_Payment_log();
+  v10 = pk_Payment_log(passCopy);
   v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
 
   if (v11)
   {
-    v12 = pk_Payment_log();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = pk_Payment_log(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       uniqueID = [passCopy uniqueID];
       v15 = 138412290;
       v16 = uniqueID;
-      _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Notice: Express mode settings coordinator: Handling successful user authentication for %@", &v15, 0xCu);
+      _os_log_impl(&dword_25B300000, v13, OS_LOG_TYPE_DEFAULT, "Notice: Express mode settings coordinator: Handling successful user authentication for %@", &v15, 0xCu);
     }
   }
 
@@ -876,8 +863,6 @@ void __87__NPKExpressModeSettingsCoordinator__requestUserAuthenticationForPass_w
       [(NPKExpressModeSettingsCoordinator *)self _enableExpressForPass:passCopy mode:mode withCredential:credentialCopy];
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_upgradeExpressModeForPass:(id)pass withCredential:(id)credential
@@ -885,37 +870,36 @@ void __87__NPKExpressModeSettingsCoordinator__requestUserAuthenticationForPass_w
   v21 = *MEMORY[0x277D85DE8];
   passCopy = pass;
   credentialCopy = credential;
-  v8 = pk_Payment_log();
+  v8 = pk_Payment_log(credentialCopy);
   v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
 
   if (v9)
   {
-    v10 = pk_Payment_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = pk_Payment_log(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       uniqueID = [passCopy uniqueID];
       *buf = 138412290;
       v20 = uniqueID;
-      _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: Express mode settings coordinator: Upgrading express for %@", buf, 0xCu);
+      _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Notice: Express mode settings coordinator: Upgrading express for %@", buf, 0xCu);
     }
   }
 
   dispatch_assert_queue_V2(self->_workQueue);
-  v12 = self->_workQueue;
+  v13 = self->_workQueue;
   objc_initWeak(buf, self);
   expressPassController = self->_expressPassController;
   v16[0] = MEMORY[0x277D85DD0];
   v16[1] = 3221225472;
   v16[2] = __79__NPKExpressModeSettingsCoordinator__upgradeExpressModeForPass_withCredential___block_invoke;
   v16[3] = &unk_279949958;
-  v14 = v12;
-  v17 = v14;
+  v15 = v13;
+  v17 = v15;
   objc_copyWeak(&v18, buf);
   [(PKExpressPassController *)expressPassController upgradeExpressModeForPass:passCopy withCredential:credentialCopy resultHandler:v16];
   objc_destroyWeak(&v18);
 
   objc_destroyWeak(buf);
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __79__NPKExpressModeSettingsCoordinator__upgradeExpressModeForPass_withCredential___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -957,57 +941,55 @@ void __79__NPKExpressModeSettingsCoordinator__upgradeExpressModeForPass_withCred
   v32 = *MEMORY[0x277D85DE8];
   passCopy = pass;
   credentialCopy = credential;
-  v10 = pk_Payment_log();
+  v10 = pk_Payment_log(credentialCopy);
   v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
 
   if (v11)
   {
-    v12 = pk_Payment_log();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = pk_Payment_log(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       uniqueID = [passCopy uniqueID];
       *buf = 138412290;
       v31 = uniqueID;
-      _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Notice: Express mode settings coordinator: Enabling express for %@", buf, 0xCu);
+      _os_log_impl(&dword_25B300000, v13, OS_LOG_TYPE_DEFAULT, "Notice: Express mode settings coordinator: Enabling express for %@", buf, 0xCu);
     }
   }
 
   dispatch_assert_queue_V2(self->_workQueue);
   expressPassController = self->_expressPassController;
   paymentPass = [passCopy paymentPass];
-  v16 = [(PKExpressPassController *)expressPassController expressModeSupportedForPass:paymentPass];
+  v17 = [(PKExpressPassController *)expressPassController expressModeSupportedForPass:paymentPass];
 
-  if (v16)
+  if (v17)
   {
-    v17 = [(NPKExpressModeSettingsCoordinator *)self _newExpressStateForMode:mode pass:passCopy enable:1];
-    v18 = [objc_alloc(MEMORY[0x277D37E88]) initWithPassInformation:v16 isNFCExpressEnabled:objc_msgSend(v17 isUWBExpressEnabled:{"nfcExpressState") < 2, objc_msgSend(v17, "uwbExpressState") < 2}];
+    v18 = [(NPKExpressModeSettingsCoordinator *)self _newExpressStateForMode:mode pass:passCopy enable:1];
+    v19 = [objc_alloc(MEMORY[0x277D37E88]) initWithPassInformation:v17 isNFCExpressEnabled:objc_msgSend(v18 isUWBExpressEnabled:{"nfcExpressState") < 2, objc_msgSend(v18, "uwbExpressState") < 2}];
   }
 
   else
   {
-    v18 = 0;
+    v19 = 0;
   }
 
-  v19 = self->_workQueue;
+  v20 = self->_workQueue;
   objc_initWeak(buf, self);
-  v20 = self->_expressPassController;
+  v21 = self->_expressPassController;
   v25[0] = MEMORY[0x277D85DD0];
   v25[1] = 3221225472;
   v25[2] = __79__NPKExpressModeSettingsCoordinator__enableExpressForPass_mode_withCredential___block_invoke;
   v25[3] = &unk_279949980;
-  v21 = v19;
-  v26 = v21;
+  v22 = v20;
+  v26 = v22;
   objc_copyWeak(&v29, buf);
-  v22 = v18;
-  v27 = v22;
-  v23 = passCopy;
-  v28 = v23;
-  [(PKExpressPassController *)v20 setExpressModeWithPassConfiguration:v22 credential:credentialCopy completion:v25];
+  v23 = v19;
+  v27 = v23;
+  v24 = passCopy;
+  v28 = v24;
+  [(PKExpressPassController *)v21 setExpressModeWithPassConfiguration:v23 credential:credentialCopy completion:v25];
 
   objc_destroyWeak(&v29);
   objc_destroyWeak(buf);
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __79__NPKExpressModeSettingsCoordinator__enableExpressForPass_mode_withCredential___block_invoke(uint64_t a1, void *a2)
@@ -1052,25 +1034,23 @@ void __79__NPKExpressModeSettingsCoordinator__enableExpressForPass_mode_withCred
 {
   v12 = *MEMORY[0x277D85DE8];
   passCopy = pass;
-  v5 = pk_Payment_log();
+  v5 = pk_Payment_log(passCopy);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
   if (v6)
   {
-    v7 = pk_Payment_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = pk_Payment_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       uniqueID = [passCopy uniqueID];
       v10 = 138412290;
       v11 = uniqueID;
-      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: Express mode settings coordinator: Operation completed successfully for %@", &v10, 0xCu);
+      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: Express mode settings coordinator: Operation completed successfully for %@", &v10, 0xCu);
     }
   }
 
   dispatch_assert_queue_V2(self->_workQueue);
   [(NPKExpressModeSettingsCoordinator *)self _invokeCompletionHandlerWithSuccess:1];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleFailedUserAuthentication
@@ -1109,22 +1089,22 @@ void __79__NPKExpressModeSettingsCoordinator__enableExpressForPass_mode_withCred
 {
   successCopy = success;
   v23 = *MEMORY[0x277D85DE8];
-  v5 = pk_Payment_log();
+  v5 = pk_Payment_log(self);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
   if (v6)
   {
-    v7 = pk_Payment_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = pk_Payment_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
       v22 = successCopy;
-      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: Express mode operation completed with success: %d", buf, 8u);
+      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: Express mode operation completed with success: %d", buf, 8u);
     }
   }
 
   dispatch_assert_queue_V2(self->_workQueue);
-  v8 = _Block_copy(self->_completionHandler);
+  v9 = _Block_copy(self->_completionHandler);
   completionHandler = self->_completionHandler;
   self->_completionHandler = 0;
 
@@ -1139,16 +1119,14 @@ void __79__NPKExpressModeSettingsCoordinator__enableExpressForPass_mode_withCred
   v16 = 3221225472;
   v17 = __73__NPKExpressModeSettingsCoordinator__invokeCompletionHandlerWithSuccess___block_invoke;
   v18 = &unk_279947638;
-  v13 = v8;
-  v19 = v13;
+  v14 = v9;
+  v19 = v14;
   v20 = successCopy;
   dispatch_async(callbackQueue, &v15);
   if (!self->_expressStateUpdatePending)
   {
     [(NPKExpressModeSettingsCoordinator *)self _handleExpressStateChange:v15];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __73__NPKExpressModeSettingsCoordinator__invokeCompletionHandlerWithSuccess___block_invoke(uint64_t a1)
@@ -1164,7 +1142,7 @@ uint64_t __73__NPKExpressModeSettingsCoordinator__invokeCompletionHandlerWithSuc
 
 - (void)_handleExpressStateChange
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_workQueue);
   v3 = self->_workQueue;
   v4 = self->_callbackQueue;
@@ -1174,11 +1152,11 @@ uint64_t __73__NPKExpressModeSettingsCoordinator__invokeCompletionHandlerWithSuc
   aBlock[1] = 3221225472;
   aBlock[2] = __62__NPKExpressModeSettingsCoordinator__handleExpressStateChange__block_invoke;
   aBlock[3] = &unk_2799499A8;
-  v26 = v3;
-  v37 = v26;
-  objc_copyWeak(&v39, &location);
-  v25 = v4;
-  v38 = v25;
+  v25 = v3;
+  v36 = v25;
+  objc_copyWeak(&v38, &location);
+  v24 = v4;
+  v37 = v24;
   v5 = _Block_copy(aBlock);
   enabledExpressPasses = [(PKExpressPassController *)self->_expressPassController enabledExpressPasses];
   allKeys = [(NSMutableDictionary *)self->_previousPassStates allKeys];
@@ -1196,74 +1174,72 @@ uint64_t __73__NPKExpressModeSettingsCoordinator__invokeCompletionHandlerWithSuc
     v11 = objc_alloc_init(MEMORY[0x277CBEB58]);
   }
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   allKeys3 = [enabledExpressPasses allKeys];
-  v13 = [allKeys3 countByEnumeratingWithState:&v32 objects:v42 count:16];
+  v13 = [allKeys3 countByEnumeratingWithState:&v31 objects:v41 count:16];
   if (v13)
   {
-    v14 = *v33;
+    v14 = *v32;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v33 != v14)
+        if (*v32 != v14)
         {
           objc_enumerationMutation(allKeys3);
         }
 
-        v16 = *(*(&v32 + 1) + 8 * i);
+        v16 = *(*(&v31 + 1) + 8 * i);
         [v11 removeObject:v16];
         v17 = [(NPKExpressModeSettingsCoordinator *)selfCopy _expressStateForPassWithUniqueID:v16 fromControllerState:enabledExpressPasses];
         v5[2](v5, v16, v17);
       }
 
-      v13 = [allKeys3 countByEnumeratingWithState:&v32 objects:v42 count:16];
+      v13 = [allKeys3 countByEnumeratingWithState:&v31 objects:v41 count:16];
     }
 
     while (v13);
   }
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   v18 = v11;
-  v19 = [v18 countByEnumeratingWithState:&v28 objects:v41 count:16];
+  v19 = [v18 countByEnumeratingWithState:&v27 objects:v40 count:16];
   if (v19)
   {
-    v20 = *v29;
+    v20 = *v28;
     do
     {
       for (j = 0; j != v19; ++j)
       {
-        if (*v29 != v20)
+        if (*v28 != v20)
         {
           objc_enumerationMutation(v18);
         }
 
-        v22 = *(*(&v28 + 1) + 8 * j);
+        v22 = *(*(&v27 + 1) + 8 * j);
         v23 = [(NPKExpressModeSettingsCoordinator *)selfCopy _expressStateForPassWithUniqueID:v22 fromControllerState:enabledExpressPasses];
         v5[2](v5, v22, v23);
       }
 
-      v19 = [v18 countByEnumeratingWithState:&v28 objects:v41 count:16];
+      v19 = [v18 countByEnumeratingWithState:&v27 objects:v40 count:16];
     }
 
     while (v19);
   }
 
-  objc_destroyWeak(&v39);
+  objc_destroyWeak(&v38);
   objc_destroyWeak(&location);
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __62__NPKExpressModeSettingsCoordinator__handleExpressStateChange__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   dispatch_assert_queue_V2(*(a1 + 32));
@@ -1271,46 +1247,44 @@ void __62__NPKExpressModeSettingsCoordinator__handleExpressStateChange__block_in
   v8 = WeakRetained;
   if (WeakRetained)
   {
-    if (v5 && v6 && (v9 = WeakRetained[11]) != 0)
+    if (v5 && v6 && (WeakRetained = WeakRetained[11]) != 0)
     {
-      [v9 setObject:v6 forKey:v5];
-      v10 = *(a1 + 40);
+      [WeakRetained setObject:v6 forKey:v5];
+      v9 = *(a1 + 40);
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __62__NPKExpressModeSettingsCoordinator__handleExpressStateChange__block_invoke_2;
       block[3] = &unk_279945290;
-      objc_copyWeak(&v19, (a1 + 48));
-      v17 = v6;
-      v18 = v5;
-      dispatch_async(v10, block);
+      objc_copyWeak(&v18, (a1 + 48));
+      v16 = v6;
+      v17 = v5;
+      dispatch_async(v9, block);
 
-      objc_destroyWeak(&v19);
+      objc_destroyWeak(&v18);
     }
 
     else
     {
-      v11 = pk_Payment_log();
-      v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+      v10 = pk_Payment_log(WeakRetained);
+      v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
 
-      if (v12)
+      if (v11)
       {
-        v13 = pk_Payment_log();
+        v13 = pk_Payment_log(v12);
         if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
           v14 = v8[11];
           *buf = 138412802;
-          v21 = v14;
-          v22 = 2112;
-          v23 = v6;
-          v24 = 2112;
-          v25 = v5;
+          v20 = v14;
+          v21 = 2112;
+          v22 = v6;
+          v23 = 2112;
+          v24 = v5;
           _os_log_impl(&dword_25B300000, v13, OS_LOG_TYPE_DEFAULT, "Warning: Express mode settings coordinator: Unable to update previousPassStates due to nil value; _previousPassStates: %@, newState: %@, uniqueID %@", buf, 0x20u);
         }
       }
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __62__NPKExpressModeSettingsCoordinator__handleExpressStateChange__block_invoke_2(uint64_t a1)

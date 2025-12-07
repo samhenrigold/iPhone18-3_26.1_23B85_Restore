@@ -148,7 +148,7 @@ uint64_t __45__NWURLSessionTaskMetrics_transactionMetrics__block_invoke(uint64_t
     v20 = __nwlog_obj();
     *buf = 136446210;
     v48 = "nw_http_client_create_from_dictionary";
-    v21 = _os_log_send_and_compose_impl();
+    v21 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v20, 16, "%{public}s called with null dictionary", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v45 = 0;
@@ -237,7 +237,7 @@ LABEL_71:
     v25 = __nwlog_obj();
     *buf = 136446210;
     v48 = "nw_http_client_create_from_dictionary";
-    v21 = _os_log_send_and_compose_impl();
+    v21 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v25, 16, "%{public}s called with null (xpc_get_type(dictionary) == (&_xpc_type_dictionary))", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v45 = 0;
@@ -317,14 +317,14 @@ LABEL_71:
     dispatch_once(&nw_protocol_copy_http_client_definition_onceToken, &__block_literal_global_85);
   }
 
-  singleton = _nw_protocol_metadata_create_singleton();
+  singleton = _nw_protocol_metadata_create_singleton(nw_protocol_copy_http_client_definition_definition);
   v9 = singleton;
   if (!singleton)
   {
     v26 = __nwlog_obj();
     *buf = 136446210;
     v48 = "nw_http_client_create_from_dictionary";
-    v27 = _os_log_send_and_compose_impl();
+    v27 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v26, 16, "%{public}s called with null metadata", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v45 = 0;
@@ -419,7 +419,7 @@ LABEL_79:
     v31 = __nwlog_obj();
     *buf = 136446210;
     v48 = "nw_http_client_create_from_dictionary";
-    v27 = _os_log_send_and_compose_impl();
+    v27 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v31, 16, "%{public}s metadata must be http_client", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v45 = 0;
@@ -500,7 +500,7 @@ LABEL_79:
   v43 = &unk_1E6A3A950;
   v13 = v7;
   v44 = v13;
-  handle = _nw_protocol_metadata_get_handle(v11);
+  handle = _nw_protocol_metadata_get_handle();
   if (handle)
   {
     if (v42(&v41, handle))
@@ -560,7 +560,7 @@ LABEL_86:
       v10 = __nwlog_obj();
       *buf = 136446210;
       *&buf[4] = "nw_http_client_copy_dictionary";
-      v11 = _os_log_send_and_compose_impl();
+      v11 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v10, 16, "%{public}s called with null metadata", buf, 12);
 
       type[0] = OS_LOG_TYPE_ERROR;
       LOBYTE(v25[0]) = 0;
@@ -660,7 +660,7 @@ LABEL_86:
       v36 = type;
       v35 = v7;
       v37 = v25;
-      if (_nw_protocol_metadata_get_handle(v35))
+      if (_nw_protocol_metadata_get_handle())
       {
         (*&buf[16])(buf);
       }
@@ -676,7 +676,7 @@ LABEL_86:
     v14 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "nw_http_client_copy_dictionary";
-    v11 = _os_log_send_and_compose_impl();
+    v11 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v14, 16, "%{public}s metadata must be http_client", buf, 12);
 
     type[0] = OS_LOG_TYPE_ERROR;
     LOBYTE(v25[0]) = 0;
@@ -1114,7 +1114,7 @@ LABEL_27:
       *&buf[16] = __nw_http_transaction_metadata_get_attempted_early_data_block_invoke;
       v89 = &unk_1E6A3A858;
       v90 = type;
-      if (_nw_protocol_metadata_get_handle(v55))
+      if (_nw_protocol_metadata_get_handle())
       {
         (*&buf[16])(buf);
       }
@@ -1137,7 +1137,7 @@ LABEL_27:
     v64 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "nw_http_transaction_metadata_get_attempted_early_data";
-    v61 = _os_log_send_and_compose_impl();
+    v61 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v64, 16, "%{public}s metadata must be http_transaction", buf, 12);
 
     type[0] = OS_LOG_TYPE_ERROR;
     LOBYTE(v74[0]) = 0;
@@ -1207,7 +1207,7 @@ LABEL_105:
     v60 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "nw_http_transaction_metadata_get_attempted_early_data";
-    v61 = _os_log_send_and_compose_impl();
+    v61 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v60, 16, "%{public}s called with null metadata", buf, 12);
 
     type[0] = OS_LOG_TYPE_ERROR;
     LOBYTE(v74[0]) = 0;

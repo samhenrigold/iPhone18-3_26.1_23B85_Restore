@@ -100,36 +100,36 @@ void __137___LSStringLocalizer_gatherLocalizedStringsForLSBundleProvider_infoDic
 
 void __137___LSStringLocalizer_gatherLocalizedStringsForLSBundleProvider_infoDictionary_domains_delegatesMightBeMainBundle_legacyLocalizationList___block_invoke_3(id *a1, void *a2, void *a3, void *a4)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v7 = a2;
-  v20 = a3;
+  v19 = a3;
   v8 = a4;
   v9 = [a1[4] objectForKeyedSubscript:v7];
   if (!v9 || (v10 = [a1[5] isEqual:&stru_1EEF65710], v9, (v10 & 1) != 0))
   {
     if ([v8 count])
     {
-      v11 = [v20 mutableCopy];
-      v23 = 0u;
-      v24 = 0u;
-      v21 = 0u;
+      v11 = [v19 mutableCopy];
       v22 = 0u;
+      v23 = 0u;
+      v20 = 0u;
+      v21 = 0u;
       v12 = v8;
-      v13 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v13 = [v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
       if (v13)
       {
-        v14 = *v22;
+        v14 = *v21;
         do
         {
           v15 = 0;
           do
           {
-            if (*v22 != v14)
+            if (*v21 != v14)
             {
               objc_enumerationMutation(v12);
             }
 
-            v16 = *(*(&v21 + 1) + 8 * v15);
+            v16 = *(*(&v20 + 1) + 8 * v15);
             v17 = [a1[6] missingLocalizationPlaceholder];
             [v11 setObject:v17 forKeyedSubscript:v16];
 
@@ -137,7 +137,7 @@ void __137___LSStringLocalizer_gatherLocalizedStringsForLSBundleProvider_infoDic
           }
 
           while (v13 != v15);
-          v13 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
+          v13 = [v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
         }
 
         while (v13);
@@ -149,11 +149,9 @@ void __137___LSStringLocalizer_gatherLocalizedStringsForLSBundleProvider_infoDic
 
     else
     {
-      [a1[4] setObject:v20 forKeyedSubscript:v7];
+      [a1[4] setObject:v19 forKeyedSubscript:v7];
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __129___LSStringLocalizer_gatherLocalizedStringsForCFBundle_infoDictionary_domains_delegatesMightBeMainBundle_legacyLocalizationList___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -227,36 +225,36 @@ void __129___LSStringLocalizer_gatherLocalizedStringsForCFBundle_infoDictionary_
 
 void __129___LSStringLocalizer_gatherLocalizedStringsForCFBundle_infoDictionary_domains_delegatesMightBeMainBundle_legacyLocalizationList___block_invoke_3(id *a1, void *a2, void *a3, void *a4)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v7 = a2;
-  v20 = a3;
+  v19 = a3;
   v8 = a4;
   v9 = [a1[4] objectForKeyedSubscript:v7];
   if (!v9 || (v10 = [a1[5] isEqual:&stru_1EEF65710], v9, (v10 & 1) != 0))
   {
     if ([v8 count])
     {
-      v11 = [v20 mutableCopy];
-      v23 = 0u;
-      v24 = 0u;
-      v21 = 0u;
+      v11 = [v19 mutableCopy];
       v22 = 0u;
+      v23 = 0u;
+      v20 = 0u;
+      v21 = 0u;
       v12 = v8;
-      v13 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v13 = [v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
       if (v13)
       {
-        v14 = *v22;
+        v14 = *v21;
         do
         {
           v15 = 0;
           do
           {
-            if (*v22 != v14)
+            if (*v21 != v14)
             {
               objc_enumerationMutation(v12);
             }
 
-            v16 = *(*(&v21 + 1) + 8 * v15);
+            v16 = *(*(&v20 + 1) + 8 * v15);
             v17 = [a1[6] missingLocalizationPlaceholder];
             [v11 setObject:v17 forKeyedSubscript:v16];
 
@@ -264,7 +262,7 @@ void __129___LSStringLocalizer_gatherLocalizedStringsForCFBundle_infoDictionary_
           }
 
           while (v13 != v15);
-          v13 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
+          v13 = [v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
         }
 
         while (v13);
@@ -276,11 +274,9 @@ void __129___LSStringLocalizer_gatherLocalizedStringsForCFBundle_infoDictionary_
 
     else
     {
-      [a1[4] setObject:v20 forKeyedSubscript:v7];
+      [a1[4] setObject:v19 forKeyedSubscript:v7];
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 @end

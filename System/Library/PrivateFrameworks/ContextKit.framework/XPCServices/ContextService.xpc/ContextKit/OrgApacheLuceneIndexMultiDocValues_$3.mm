@@ -7,7 +7,7 @@
 
 - (id)getWithInt:(int)int
 {
-  v5 = OrgApacheLuceneIndexReaderUtil_subIndexWithInt_withIntArray_(int, self->val$starts_);
+  v5 = OrgApacheLuceneIndexReaderUtil_subIndexWithInt_withIntArray_(*&int, self->val$starts_);
   v6 = self->val$values_;
   if (!v6)
   {

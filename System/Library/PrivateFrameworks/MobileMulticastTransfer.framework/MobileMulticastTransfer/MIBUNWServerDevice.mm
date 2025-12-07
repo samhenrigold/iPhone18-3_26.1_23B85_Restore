@@ -55,7 +55,7 @@ LABEL_4:
 
 - (BOOL)connect
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   [v3 setObject:self->_hostAddress forKey:@"RemoteAddress"];
   [v3 setObject:self->_hostPort forKey:@"RemotePort"];
@@ -83,13 +83,13 @@ LABEL_4:
     {
       hostAddress = self->_hostAddress;
       hostPort = self->_hostPort;
-      v18 = 138543874;
+      v17 = 138543874;
       selfCopy2 = self;
-      v20 = 2114;
-      v21 = hostAddress;
-      v22 = 2114;
-      v23 = hostPort;
-      _os_log_impl(&dword_259B04000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@: connection with host %{public}@:%{public}@ created, will bootstrap connection", &v18, 0x20u);
+      v19 = 2114;
+      v20 = hostAddress;
+      v21 = 2114;
+      v22 = hostPort;
+      _os_log_impl(&dword_259B04000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@: connection with host %{public}@:%{public}@ created, will bootstrap connection", &v17, 0x20u);
     }
 
     [(MIBUNWDevice *)self bootstrap];
@@ -105,21 +105,20 @@ LABEL_4:
     v12 = MIBUConnObj;
     if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_ERROR))
     {
-      v16 = self->_hostAddress;
-      v17 = self->_hostPort;
-      v18 = 138543874;
+      v15 = self->_hostAddress;
+      v16 = self->_hostPort;
+      v17 = 138543874;
       selfCopy2 = self;
-      v20 = 2114;
-      v21 = v16;
-      v22 = 2114;
-      v23 = v17;
-      _os_log_error_impl(&dword_259B04000, v12, OS_LOG_TYPE_ERROR, "%{public}@: not able to create connection with host %{public}@:%{public}@", &v18, 0x20u);
+      v19 = 2114;
+      v20 = v15;
+      v21 = 2114;
+      v22 = v16;
+      _os_log_error_impl(&dword_259B04000, v12, OS_LOG_TYPE_ERROR, "%{public}@: not able to create connection with host %{public}@:%{public}@", &v17, 0x20u);
     }
   }
 
   v13 = self->super._connection != 0;
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -157,7 +156,7 @@ void __29__MIBUNWServerDevice_connect__block_invoke_12()
 
 - (void)checkIn
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   v4 = MGCopyAnswer();
   if (v4)
@@ -173,19 +172,17 @@ void __29__MIBUNWServerDevice_connect__block_invoke_12()
   v5 = MIBUConnObj;
   if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138543618;
+    v8 = 138543618;
     selfCopy = self;
-    v11 = 2114;
-    v12 = v3;
-    _os_log_impl(&dword_259B04000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Sending CheckIn message with payload: %{public}@", &v9, 0x16u);
+    v10 = 2114;
+    v11 = v3;
+    _os_log_impl(&dword_259B04000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Sending CheckIn message with payload: %{public}@", &v8, 0x16u);
   }
 
   v6 = [[MIBUNWMessage alloc] initWithType:1 andPayload:v3];
   [(MIBUNWDevice *)self _sendMessage:v6];
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   [WeakRetained serverDeviceDidCheckIn:self];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __29__MIBUNWServerDevice_checkIn__block_invoke()
@@ -252,15 +249,14 @@ void __29__MIBUNWServerDevice_checkIn__block_invoke()
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  hostAddress = self->_hostAddress;
-  v7 = [v3 stringWithFormat:@"<%@: %@:%@>", v5, hostAddress, self->_hostPort];
+  v6 = [v3 stringWithFormat:@"<%@: %@:%@>", v5, self->_hostAddress, self->_hostPort];
 
-  return v7;
+  return v6;
 }
 
 - (void)_handleIncomingMessage:(id)message
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   dispatch_assert_queue_V2(self->super._queue);
   if (MIBUOnceToken != -1)
@@ -272,11 +268,11 @@ void __29__MIBUNWServerDevice_checkIn__block_invoke()
   if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
   {
     v6 = v5;
-    v12 = 138543618;
+    v11 = 138543618;
     selfCopy2 = self;
-    v14 = 1024;
+    v13 = 1024;
     type = [messageCopy type];
-    _os_log_impl(&dword_259B04000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: Received server message of type: %u", &v12, 0x12u);
+    _os_log_impl(&dword_259B04000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: Received server message of type: %u", &v11, 0x12u);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -310,18 +306,16 @@ LABEL_11:
 LABEL_10:
       v8 = v9;
       type2 = [messageCopy type];
-      v12 = 138543618;
+      v11 = 138543618;
       selfCopy2 = self;
-      v14 = 1024;
+      v13 = 1024;
       type = type2;
-      _os_log_impl(&dword_259B04000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: Ignore unknown client message :%u", &v12, 0x12u);
+      _os_log_impl(&dword_259B04000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: Ignore unknown client message :%u", &v11, 0x12u);
       goto LABEL_11;
     }
   }
 
 LABEL_12:
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __45__MIBUNWServerDevice__handleIncomingMessage___block_invoke()
@@ -358,35 +352,35 @@ void __45__MIBUNWServerDevice__handleIncomingMessage___block_invoke_39()
 
 - (void)_processPendingMessages:(BOOL)messages
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v5 = self->super._messages;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (!v6)
   {
     goto LABEL_21;
   }
 
   v7 = v6;
-  v8 = *v18;
+  v8 = *v17;
   if (messages)
   {
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [(MIBUNWDevice *)self _sendMessage:*(*(&v17 + 1) + 8 * i)];
+        [(MIBUNWDevice *)self _sendMessage:*(*(&v16 + 1) + 8 * i)];
       }
 
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v7);
@@ -397,12 +391,12 @@ void __45__MIBUNWServerDevice__handleIncomingMessage___block_invoke_39()
   {
     for (j = 0; j != v7; ++j)
     {
-      if (*v18 != v8)
+      if (*v17 != v8)
       {
         objc_enumerationMutation(v5);
       }
 
-      v11 = *(*(&v17 + 1) + 8 * j);
+      v11 = *(*(&v16 + 1) + 8 * j);
       if (MIBUOnceToken == -1)
       {
         v12 = MIBUConnObj;
@@ -434,7 +428,7 @@ LABEL_17:
       }
     }
 
-    v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v7)
     {
       continue;
@@ -446,7 +440,6 @@ LABEL_17:
 LABEL_21:
 
   [(NSMutableArray *)self->super._messages removeAllObjects];
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __46__MIBUNWServerDevice__processPendingMessages___block_invoke()
@@ -475,7 +468,7 @@ void __46__MIBUNWServerDevice__processPendingMessages___block_invoke()
 
 - (void)unicastConnectionDidOpen:(id)open
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->super._queue);
   if (MIBUOnceToken != -1)
   {
@@ -485,9 +478,9 @@ void __46__MIBUNWServerDevice__processPendingMessages___block_invoke()
   v4 = MIBUConnObj;
   if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138543362;
+    v7 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_259B04000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: Unicast connection opened.", &v8, 0xCu);
+    _os_log_impl(&dword_259B04000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: Unicast connection opened.", &v7, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -500,7 +493,6 @@ void __46__MIBUNWServerDevice__processPendingMessages___block_invoke()
 
   [(MIBUNWServerDevice *)self checkIn];
   [(MIBUNWServerDevice *)self _processPendingMessages:1];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __47__MIBUNWServerDevice_unicastConnectionDidOpen___block_invoke()
@@ -521,7 +513,7 @@ void __47__MIBUNWServerDevice_unicastConnectionDidOpen___block_invoke()
 
 - (void)unicastConnectionDidClose:(id)close withError:(id)error
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->super._queue);
   if (MIBUOnceToken != -1)
   {
@@ -531,9 +523,9 @@ void __47__MIBUNWServerDevice_unicastConnectionDidOpen___block_invoke()
   v5 = MIBUConnObj;
   if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138543362;
+    v9 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_259B04000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Unicast connection closed.", &v10, 0xCu);
+    _os_log_impl(&dword_259B04000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Unicast connection closed.", &v9, 0xCu);
   }
 
   connection = self->super._connection;
@@ -547,7 +539,6 @@ void __47__MIBUNWServerDevice_unicastConnectionDidOpen___block_invoke()
   }
 
   [(MIBUNWServerDevice *)self _processPendingMessages:0];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __58__MIBUNWServerDevice_unicastConnectionDidClose_withError___block_invoke()

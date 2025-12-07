@@ -1,4 +1,5 @@
 @interface MRLanguageOption
++ (id)automaticLanguageOptionWithType:(unsigned int)type;
 - (BOOL)isAutomaticLanguageOptionWithType:(unsigned int)type;
 - (BOOL)isEqual:(id)equal;
 - (MRLanguageOption)initWithCoder:(id)coder;
@@ -14,6 +15,13 @@
 @end
 
 @implementation MRLanguageOption
+
++ (id)automaticLanguageOptionWithType:(unsigned int)type
+{
+  v3 = [[self alloc] initWithType:*&type languageTag:@"__AUTO__" characteristics:0 displayName:0 identifier:0];
+
+  return v3;
+}
 
 - (MRLanguageOption)initWithType:(unsigned int)type languageTag:(id)tag characteristics:(id)characteristics displayName:(id)name identifier:(id)identifier
 {
@@ -428,20 +436,18 @@ LABEL_13:
   }
 
   languageTag = [(MRLanguageOption *)self languageTag];
-  v12 = [languageTag isEqualToString:@"__AUTO__"];
+  isEqualToString = objc_msgSend_isEqualToString_(languageTag);
 
-  return v12;
+  return isEqualToString;
 }
 
 - (void)initWithCoder:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v5 = 138543362;
-  v6 = objc_opt_class();
-  v3 = v6;
-  _os_log_error_impl(&dword_1A2860000, a2, OS_LOG_TYPE_ERROR, "Unable to decode object, got class %{public}@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
+  v4 = 138543362;
+  v5 = objc_opt_class();
+  v3 = v5;
+  _os_log_error_impl(&dword_1A2860000, a2, OS_LOG_TYPE_ERROR, "Unable to decode object, got class %{public}@", &v4, 0xCu);
 }
 
 @end

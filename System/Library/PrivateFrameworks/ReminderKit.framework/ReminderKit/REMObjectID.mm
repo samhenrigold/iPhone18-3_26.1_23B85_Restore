@@ -299,24 +299,21 @@
 
 + (void)objectIDWithURL:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_DEBUG, "Failed to create REMObjectID {url: %@}", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_DEBUG, "Failed to create REMObjectID {url: %@}", &v2, 0xCu);
 }
 
 - (void)initWithUUID:(NSObject *)a3 entityName:.cold.1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = [a1 UUIDString];
-  v7 = 138412546;
-  v8 = v5;
-  v9 = 2112;
-  v10 = a2;
-  _os_log_fault_impl(&dword_19A0DB000, a3, OS_LOG_TYPE_FAULT, "REMObjectID: nil value passed to non-nil parameter. Something must have gone wrong. {uuid: %@, entityName: %@}", &v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 138412546;
+  v7 = v5;
+  v8 = 2112;
+  v9 = a2;
+  _os_log_fault_impl(&dword_19A0DB000, a3, OS_LOG_TYPE_FAULT, "REMObjectID: nil value passed to non-nil parameter. Something must have gone wrong. {uuid: %@, entityName: %@}", &v6, 0x16u);
 }
 
 @end

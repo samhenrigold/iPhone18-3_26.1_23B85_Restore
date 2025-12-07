@@ -274,9 +274,9 @@ LABEL_14:
 
       if (v13 && v14)
       {
-        v16 = [v13 isEqual:v14];
+        isEqual = objc_msgSend_isEqual_(v13);
 
-        if (v16)
+        if (isEqual)
         {
           goto LABEL_11;
         }

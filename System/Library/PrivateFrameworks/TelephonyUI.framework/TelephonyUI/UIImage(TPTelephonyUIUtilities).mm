@@ -10,29 +10,30 @@
   v7 = a3;
   v8 = a4;
   v9 = a5;
+  v11 = v9;
   if (v8)
   {
     if (v7)
     {
 LABEL_3:
-      v10 = [MEMORY[0x1E69DCAB8] imageNamed:v7 inBundle:v8 compatibleWithTraitCollection:v9];
+      v12 = [MEMORY[0x1E69DCAB8] imageNamed:v7 inBundle:v8 compatibleWithTraitCollection:v11];
       goto LABEL_6;
     }
   }
 
   else
   {
-    v8 = TelephonyUIBundle();
+    v8 = TelephonyUIBundle(v9, v10);
     if (v7)
     {
       goto LABEL_3;
     }
   }
 
-  v10 = 0;
+  v12 = 0;
 LABEL_6:
 
-  return v10;
+  return v12;
 }
 
 + (id)tpImageNamed:()TPTelephonyUIUtilities inBundle:

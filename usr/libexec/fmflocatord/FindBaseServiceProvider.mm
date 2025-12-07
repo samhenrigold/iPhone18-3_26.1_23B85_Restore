@@ -35,6 +35,7 @@
 - (void)handleQueueCheckResponseWithStatus:(int64_t)status andBody:(id)body;
 - (void)registerCommonNotifications;
 - (void)registerDeviceWithCause:(id)cause force:(BOOL)force includeKeys:(unint64_t)keys;
+- (void)sendCurrentLocation:(id)location isFinished:(BOOL)finished forCmd:(id)cmd withReason:(int64_t)reason andAccuracyChange:(double)change;
 - (void)sendQueueCheckRequest:(id)request withReasons:(id)reasons;
 - (void)showAlertFromServerResponse:(id)response;
 - (void)tryToFetchAuthToken;
@@ -106,85 +107,86 @@
 - (void)deinitializeProvider
 {
   selfCopy = self;
-  v30.receiver = self;
-  v30.super_class = FindBaseServiceProvider;
-  [(ServiceProvider *)&v30 deinitializeProvider];
-  v3 = sub_100002830();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+  v32.receiver = self;
+  v32.super_class = FindBaseServiceProvider;
+  deinitializeProvider = [(ServiceProvider *)&v32 deinitializeProvider];
+  v4 = sub_100002830(deinitializeProvider);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     fm_logID = [(FindBaseServiceProvider *)selfCopy fm_logID];
     *buf = 138412290;
-    v32 = fm_logID;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "%@ Deinitializing...", buf, 0xCu);
+    v34 = fm_logID;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "%@ Deinitializing...", buf, 0xCu);
   }
 
+  v30 = 0u;
+  v31 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v26 = 0u;
-  v27 = 0u;
   requests = [(FindBaseServiceProvider *)selfCopy requests];
-  v6 = [requests countByEnumeratingWithState:&v26 objects:v35 count:16];
-  if (v6)
+  cancel = [requests countByEnumeratingWithState:&v28 objects:v37 count:16];
+  if (cancel)
   {
-    v8 = v6;
-    v9 = *v27;
-    *&v7 = 138412546;
-    v25 = v7;
+    v9 = cancel;
+    v10 = *v29;
+    *&v8 = 138412546;
+    v27 = v8;
     do
     {
-      v10 = 0;
+      v11 = 0;
       do
       {
-        if (*v27 != v9)
+        if (*v29 != v10)
         {
           objc_enumerationMutation(requests);
         }
 
-        v11 = *(*(&v26 + 1) + 8 * v10);
-        v12 = sub_100002830();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+        v12 = *(*(&v28 + 1) + 8 * v11);
+        v13 = sub_100002830(cancel);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
         {
           [(FindBaseServiceProvider *)selfCopy fm_logID];
-          v14 = v13 = selfCopy;
-          fm_logID2 = [v11 fm_logID];
-          *buf = v25;
-          v32 = v14;
-          v33 = 2112;
-          v34 = fm_logID2;
-          _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "%@ cancelling request %@", buf, 0x16u);
+          v15 = v14 = selfCopy;
+          fm_logID2 = [v12 fm_logID];
+          *buf = v27;
+          v34 = v15;
+          v35 = 2112;
+          v36 = fm_logID2;
+          _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "%@ cancelling request %@", buf, 0x16u);
 
-          selfCopy = v13;
+          selfCopy = v14;
         }
 
-        [v11 setDelegate:0];
-        [v11 cancel];
-        v10 = v10 + 1;
+        [v12 setDelegate:0];
+        cancel = [v12 cancel];
+        v11 = v11 + 1;
       }
 
-      while (v8 != v10);
-      v8 = [requests countByEnumeratingWithState:&v26 objects:v35 count:16];
+      while (v9 != v11);
+      cancel = [requests countByEnumeratingWithState:&v28 objects:v37 count:16];
+      v9 = cancel;
     }
 
-    while (v8);
+    while (cancel);
   }
 
-  v16 = +[NSMutableArray array];
-  [(FindBaseServiceProvider *)selfCopy setRequests:v16];
+  v17 = +[NSMutableArray array];
+  [(FindBaseServiceProvider *)selfCopy setRequests:v17];
 
   standardLocator = [(FindBaseServiceProvider *)selfCopy standardLocator];
   if (standardLocator)
   {
-    v18 = standardLocator;
+    v19 = standardLocator;
     standardLocator2 = [(FindBaseServiceProvider *)selfCopy standardLocator];
     locatorRunning = [standardLocator2 locatorRunning];
 
     if (locatorRunning)
     {
-      v21 = sub_100002830();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+      v23 = sub_100002830(v22);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_INFO, "Stopping standard locate...", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_INFO, "Stopping standard locate...", buf, 2u);
       }
 
       standardLocator3 = [(FindBaseServiceProvider *)selfCopy standardLocator];
@@ -198,7 +200,7 @@
     }
   }
 
-  [(FindBaseServiceProvider *)selfCopy setStandardLocator:0, v25];
+  [(FindBaseServiceProvider *)selfCopy setStandardLocator:0, v27];
 }
 
 - (id)formattedURLForTemplate:(id)template
@@ -208,7 +210,7 @@
   v6 = [[NSURL alloc] initWithString:v5];
   if (!v6)
   {
-    v7 = sub_100002830();
+    v7 = sub_100002830(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v9 = 138412546;
@@ -389,8 +391,7 @@ LABEL_11:
 
   if (v4)
   {
-    [v3 setObject:&__kCFBooleanTrue forKeyedSubscript:@"smlLS"];
-    v7 = sub_10001BB68();
+    v7 = sub_10001BB68([v3 setObject:&__kCFBooleanTrue forKeyedSubscript:@"smlLS"]);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       sub_100036EC0(v7);
@@ -399,8 +400,7 @@ LABEL_11:
 
   else
   {
-    [v3 setObject:&__kCFBooleanFalse forKeyedSubscript:@"smlLS"];
-    v7 = sub_10001BB68();
+    v7 = sub_10001BB68([v3 setObject:&__kCFBooleanFalse forKeyedSubscript:@"smlLS"]);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *v25 = 0;
@@ -531,7 +531,7 @@ LABEL_11:
   v4 = v3;
   if (v3)
   {
-    [v3 batteryStats];
+    objc_msgSend_batteryStats(v3);
   }
 
   return v2;
@@ -548,7 +548,7 @@ LABEL_11:
   v6 = v5;
   if (v5)
   {
-    [v5 batteryStats];
+    objc_msgSend_batteryStats(v5);
   }
 
   return v2;
@@ -717,118 +717,120 @@ LABEL_11:
     v7 = [[FMRequestRegister alloc] initWithProvider:self andCause:causeCopy];
     registrationInformationDigestIncludingKeys = [(FMRequestRegister *)v7 registrationInformationDigestIncludingKeys];
     _registerDigestPrefKey = [(FindBaseServiceProvider *)self _registerDigestPrefKey];
-    if (qword_100070128 && [qword_100070128 isEqualToData:registrationInformationDigestIncludingKeys])
+    if (qword_100070128 && (v10 = [qword_100070128 isEqualToData:registrationInformationDigestIncludingKeys], v10))
     {
-      v10 = sub_100002830();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = sub_100002830(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         fm_logID = [(FindBaseServiceProvider *)self fm_logID];
         *buf = 138412546;
-        v45 = fm_logID;
-        v46 = 2112;
-        v47 = causeCopy;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%@ Not sending register with cause %@ because there is already another register with the same registration information in-progress", buf, 0x16u);
+        v50 = fm_logID;
+        v51 = 2112;
+        v52 = causeCopy;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%@ Not sending register with cause %@ because there is already another register with the same registration information in-progress", buf, 0x16u);
       }
     }
 
     else
     {
-      v21 = [FMPreferencesUtil dataForKey:_registerDigestPrefKey inDomain:@"com.apple.icloud.fmflocatord.notbackedup"];
-      v10 = v21;
-      if (v21)
+      v23 = [FMPreferencesUtil dataForKey:_registerDigestPrefKey inDomain:@"com.apple.icloud.fmflocatord.notbackedup"];
+      v11 = v23;
+      if (v23)
       {
-        v22 = [v21 isEqualToData:registrationInformationDigestIncludingKeys];
+        v23 = [v23 isEqualToData:registrationInformationDigestIncludingKeys];
+        v24 = v23;
       }
 
       else
       {
-        v22 = 0;
+        v24 = 0;
       }
 
-      v25 = sub_100002830();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+      v27 = sub_100002830(v23);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
       {
         *buf = 67109120;
-        LODWORD(v45) = v22;
-        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_INFO, "Reg-info matching complete. Essentitial info matches - [%i]", buf, 8u);
+        LODWORD(v50) = v24;
+        _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_INFO, "Reg-info matching complete. Essentitial info matches - [%i]", buf, 8u);
       }
 
-      if (v22)
+      if (v24)
       {
-        if (-[FindBaseServiceProvider completedStartupRegister](self, "completedStartupRegister") || (+[FMFLocatorDaemon sharedInstance](FMFLocatorDaemon, "sharedInstance"), v26 = objc_claimAutoreleasedReturnValue(), v27 = [v26 isFirstRunAfterBoot], v26, !v27))
+        if (-[FindBaseServiceProvider completedStartupRegister](self, "completedStartupRegister") || (+[FMFLocatorDaemon sharedInstance](FMFLocatorDaemon, "sharedInstance"), v29 = objc_claimAutoreleasedReturnValue(), v30 = [v29 isFirstRunAfterBoot], v29, !v30))
         {
-          if (-[FindBaseServiceProvider completedStartupRegister](self, "completedStartupRegister") || (+[StartupRegisterManager sharedInstance](StartupRegisterManager, "sharedInstance"), v29 = objc_claimAutoreleasedReturnValue(), v30 = [v29 shouldForceRegisterOnStartup], v29, !v30))
+          completedStartupRegister = [(FindBaseServiceProvider *)self completedStartupRegister];
+          if ((completedStartupRegister & 1) != 0 || (+[StartupRegisterManager sharedInstance](StartupRegisterManager, "sharedInstance"), v34 = objc_claimAutoreleasedReturnValue(), v35 = [v34 shouldForceRegisterOnStartup], v34, !v35))
           {
-            v36 = sub_100002830();
-            if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
+            v41 = sub_100002830(completedStartupRegister);
+            if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
             {
               *buf = 138412290;
-              v45 = causeCopy;
-              _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_INFO, "Reg-info unchanged. Ignoring register %@", buf, 0xCu);
+              v50 = causeCopy;
+              _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_INFO, "Reg-info unchanged. Ignoring register %@", buf, 0xCu);
             }
 
             goto LABEL_41;
           }
 
-          v28 = sub_100002830();
-          if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+          v32 = sub_100002830(completedStartupRegister);
+          if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
           {
-            v31 = +[StartupRegisterManager sharedInstance];
+            v36 = +[StartupRegisterManager sharedInstance];
             *buf = 138412546;
-            v45 = causeCopy;
-            v46 = 2112;
-            v47 = v31;
-            _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_INFO, "Reg-info unchanged but forcing register %@ due to %@", buf, 0x16u);
+            v50 = causeCopy;
+            v51 = 2112;
+            v52 = v36;
+            _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_INFO, "Reg-info unchanged but forcing register %@ due to %@", buf, 0x16u);
           }
         }
 
         else
         {
-          v28 = sub_100002830();
-          if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+          v32 = sub_100002830(v31);
+          if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v45 = causeCopy;
-            _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_INFO, "Reg-info unchanged but forcing register %@", buf, 0xCu);
+            v50 = causeCopy;
+            _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_INFO, "Reg-info unchanged but forcing register %@", buf, 0xCu);
           }
         }
       }
 
-      v32 = sub_100002830();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+      v37 = sub_100002830(v28);
+      if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
       {
         fm_logID2 = [(FindBaseServiceProvider *)self fm_logID];
         *buf = 138412546;
-        v45 = fm_logID2;
-        v46 = 2112;
-        v47 = causeCopy;
-        _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "%@ Sending register with cause %@ because registration information has changed", buf, 0x16u);
+        v50 = fm_logID2;
+        v51 = 2112;
+        v52 = causeCopy;
+        _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "%@ Sending register with cause %@ because registration information has changed", buf, 0x16u);
       }
 
       objc_initWeak(buf, self);
+      v47[0] = _NSConcreteStackBlock;
+      v47[1] = 3221225472;
+      v47[2] = sub_10000F90C;
+      v47[3] = &unk_10005D498;
+      v39 = registrationInformationDigestIncludingKeys;
+      v48 = v39;
+      [(FMRequest *)v7 setWillSendHandler:v47];
       v42[0] = _NSConcreteStackBlock;
       v42[1] = 3221225472;
-      v42[2] = sub_10000F90C;
-      v42[3] = &unk_10005D498;
-      v34 = registrationInformationDigestIncludingKeys;
-      v43 = v34;
-      [(FMRequest *)v7 setWillSendHandler:v42];
-      v37[0] = _NSConcreteStackBlock;
-      v37[1] = 3221225472;
-      v37[2] = sub_10000F91C;
-      v37[3] = &unk_10005D6B8;
-      objc_copyWeak(&v41, buf);
-      v38 = v34;
-      v39 = _registerDigestPrefKey;
+      v42[2] = sub_10000F91C;
+      v42[3] = &unk_10005D6B8;
+      objc_copyWeak(&v46, buf);
+      v43 = v39;
+      v44 = _registerDigestPrefKey;
       selfCopy = self;
-      [(FMRequest *)v7 setCompletionHandler:v37];
+      [(FMRequest *)v7 setCompletionHandler:v42];
       if (![(FindBaseServiceProvider *)self enqueueRequest:v7])
       {
-        v35 = qword_100070128;
+        v40 = qword_100070128;
         qword_100070128 = 0;
       }
 
-      objc_destroyWeak(&v41);
+      objc_destroyWeak(&v46);
       objc_destroyWeak(buf);
     }
 
@@ -837,36 +839,36 @@ LABEL_41:
     goto LABEL_42;
   }
 
-  v12 = essentialServerInfoMissingError;
-  v13 = sub_100002830();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v13 = essentialServerInfoMissingError;
+  v14 = sub_100002830(essentialServerInfoMissingError);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     fm_logID3 = [(FindBaseServiceProvider *)self fm_logID];
-    v15 = [CommonUtil stringForFourCC:v12];
+    v16 = [CommonUtil stringForFourCC:v13];
     *buf = 138412802;
-    v45 = fm_logID3;
-    v46 = 2112;
-    v47 = causeCopy;
-    v48 = 2112;
-    v49 = v15;
-    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "%@: Not sending register with cause %@ to server since some essential server info is missing - '%@'", buf, 0x20u);
+    v50 = fm_logID3;
+    v51 = 2112;
+    v52 = causeCopy;
+    v53 = 2112;
+    v54 = v16;
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%@: Not sending register with cause %@ to server since some essential server info is missing - '%@'", buf, 0x20u);
   }
 
-  v16 = v12 == 1480675411;
-  v17 = +[FMSystemInfo sharedInstance];
-  isInternalBuild = [v17 isInternalBuild];
+  v17 = v13 == 1480675411;
+  v18 = +[FMSystemInfo sharedInstance];
+  isInternalBuild = [v18 isInternalBuild];
 
-  if (v16)
+  if (v17)
   {
     if (isInternalBuild)
     {
-      v19 = sub_100002830();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v21 = sub_100002830(v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
         serviceName = [(FindBaseServiceProvider *)self serviceName];
         *buf = 138412290;
-        v45 = serviceName;
-        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "%@ is not functional as an APS token is not available.", buf, 0xCu);
+        v50 = serviceName;
+        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "%@ is not functional as an APS token is not available.", buf, 0xCu);
       }
     }
   }
@@ -875,13 +877,13 @@ LABEL_41:
   {
     if (isInternalBuild)
     {
-      v23 = sub_100002830();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      v25 = sub_100002830(v20);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
         serviceName2 = [(FindBaseServiceProvider *)self serviceName];
         *buf = 138412290;
-        v45 = serviceName2;
-        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "%@ is not functional as authentication credentials are not available.", buf, 0xCu);
+        v50 = serviceName2;
+        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "%@ is not functional as authentication credentials are not available.", buf, 0xCu);
       }
     }
 
@@ -920,6 +922,56 @@ LABEL_42:
   [(FindBaseServiceProvider *)self _endXPCTransaction];
 }
 
+- (void)sendCurrentLocation:(id)location isFinished:(BOOL)finished forCmd:(id)cmd withReason:(int64_t)reason andAccuracyChange:(double)change
+{
+  finishedCopy = finished;
+  locationCopy = location;
+  cmdCopy = cmd;
+  v14 = sub_100002830(cmdCopy);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+  {
+    sub_100036F04(self, v14);
+  }
+
+  v16 = sub_10001BA58(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+  {
+    serviceName = [(FindBaseServiceProvider *)self serviceName];
+    [locationCopy horizontalAccuracy];
+    v19 = v18;
+    [locationCopy coordinate];
+    v21 = v20;
+    [locationCopy coordinate];
+    *buf = 138413059;
+    v28 = serviceName;
+    v29 = 2049;
+    v30 = v19;
+    v31 = 2049;
+    v32 = v21;
+    v33 = 2049;
+    v34 = v22;
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "%@: Publishing Location with Accuracy: %{private}f Longitude: %{private}f Latitude: %{private}f", buf, 0x2Au);
+  }
+
+  v23 = [[FMRequestCurrentLocation alloc] initWithProvider:self location:locationCopy finalLocation:finishedCopy locateCommand:cmdCopy reason:reason accuracyChange:change];
+  v26[0] = _NSConcreteStackBlock;
+  v26[1] = 3221225472;
+  v26[2] = sub_100010594;
+  v26[3] = &unk_10005D498;
+  v26[4] = self;
+  [(FMRequest *)v23 setCompletionHandler:v26];
+  ct_green_tea_logger_create_static();
+  v24 = getCTGreenTeaOsLogHandle();
+  v25 = v24;
+  if (v24 && os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+  {
+    *buf = 0;
+    _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_INFO, "Transmitting Location.", buf, 2u);
+  }
+
+  [(FindBaseServiceProvider *)self enqueueRequest:v23];
+}
+
 - (void)ackRegisterCommand:(id)command withCompletion:(id)completion
 {
   commandCopy = command;
@@ -941,7 +993,7 @@ LABEL_42:
 
   else
   {
-    v9 = sub_100002830();
+    v9 = sub_100002830(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       serviceName = [(FindBaseServiceProvider *)self serviceName];
@@ -974,7 +1026,7 @@ LABEL_42:
 
   else
   {
-    v14 = sub_100002830();
+    v14 = sub_100002830(0);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       serviceName = [(FindBaseServiceProvider *)self serviceName];
@@ -992,46 +1044,45 @@ LABEL_42:
   if (bodyCopy && [bodyCopy count])
   {
     v8 = [v7 objectForKeyedSubscript:@"cmd"];
-    v9 = sub_100002830();
+    v9 = sub_100002830(v8);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       serviceName = [(FindBaseServiceProvider *)self serviceName];
-      v22 = 138412546;
-      v23 = serviceName;
-      v24 = 2112;
-      v25 = v8;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%@: Command Received: %@", &v22, 0x16u);
+      v23 = 138412546;
+      v24 = serviceName;
+      v25 = 2112;
+      v26 = v8;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%@: Command Received: %@", &v23, 0x16u);
     }
 
     v11 = [(FindBaseServiceProvider *)self copyHandlerForCommand:v8 params:v7];
     v12 = v11;
     if (v11)
     {
-      [v11 executeCommand];
-      v13 = sub_100002830();
+      v13 = sub_100002830([v11 executeCommand]);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         serviceName2 = [(FindBaseServiceProvider *)self serviceName];
-        v22 = 138412546;
-        v23 = serviceName2;
-        v24 = 2112;
-        v25 = v8;
+        v23 = 138412546;
+        v24 = serviceName2;
+        v25 = 2112;
+        v26 = v8;
         v15 = "%@: Successfully finished command %@";
 LABEL_11:
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, v15, &v22, 0x16u);
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, v15, &v23, 0x16u);
       }
     }
 
     else
     {
-      v13 = sub_100002830();
+      v13 = sub_100002830(0);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         serviceName2 = [(FindBaseServiceProvider *)self serviceName];
-        v22 = 138412546;
-        v23 = serviceName2;
-        v24 = 2112;
-        v25 = v8;
+        v23 = 138412546;
+        v24 = serviceName2;
+        v25 = 2112;
+        v26 = v8;
         v15 = "%@: No handler found for command %@";
         goto LABEL_11;
       }
@@ -1042,15 +1093,15 @@ LABEL_11:
 
     if (status == 210 || status == 204)
     {
-      v17 = sub_100002830();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+      v18 = sub_100002830(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
       {
         serviceName3 = [(FindBaseServiceProvider *)self serviceName];
-        v22 = 138412290;
-        v23 = serviceName3;
-        v21 = "%@: No more pending messages on the server...";
+        v23 = 138412290;
+        v24 = serviceName3;
+        v22 = "%@: No more pending messages on the server...";
 LABEL_21:
-        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, v21, &v22, 0xCu);
+        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, v22, &v23, 0xCu);
       }
     }
 
@@ -1063,28 +1114,28 @@ LABEL_23:
         goto LABEL_24;
       }
 
-      v17 = sub_100002830();
-      v18 = os_log_type_enabled(v17, OS_LOG_TYPE_INFO);
+      v18 = sub_100002830(v17);
+      v19 = os_log_type_enabled(v18, OS_LOG_TYPE_INFO);
       if (v12)
       {
-        if (v18)
+        if (v19)
         {
           serviceName4 = [(FindBaseServiceProvider *)self serviceName];
-          v22 = 138412290;
-          v23 = serviceName4;
-          _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "%@: More messages pending - checking now...", &v22, 0xCu);
+          v23 = 138412290;
+          v24 = serviceName4;
+          _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "%@: More messages pending - checking now...", &v23, 0xCu);
         }
 
         [(FindBaseServiceProvider *)self sendQueueCheckRequest:0];
         goto LABEL_23;
       }
 
-      if (v18)
+      if (v19)
       {
         serviceName3 = [(FindBaseServiceProvider *)self serviceName];
-        v22 = 138412290;
-        v23 = serviceName3;
-        v21 = "%@: Not checking for new messages - previous command was not successful or duplicate";
+        v23 = 138412290;
+        v24 = serviceName3;
+        v22 = "%@: Not checking for new messages - previous command was not successful or duplicate";
         goto LABEL_21;
       }
     }
@@ -1099,7 +1150,7 @@ LABEL_24:
 
 - (BOOL)isProviderEnabledForLocations
 {
-  v3 = sub_100002830();
+  v3 = sub_100002830(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     fm_logID = [(FindBaseServiceProvider *)self fm_logID];
@@ -1187,7 +1238,7 @@ LABEL_24:
 
 - (id)copyHandlerForCommand:(id)command params:(id)params
 {
-  v4 = sub_100002830();
+  v4 = sub_100002830(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -1200,15 +1251,15 @@ LABEL_24:
 - (void)showAlertFromServerResponse:(id)response
 {
   responseCopy = response;
-  v4 = sub_100002830();
+  v4 = sub_100002830(responseCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     sub_100036F9C(responseCopy, v4);
   }
 
   v5 = [responseCopy objectForKeyedSubscript:@"title"];
-  v29 = [responseCopy objectForKeyedSubscript:@"text"];
-  v28 = [responseCopy objectForKeyedSubscript:@"okButtonTitle"];
+  v30 = [responseCopy objectForKeyedSubscript:@"text"];
+  v29 = [responseCopy objectForKeyedSubscript:@"okButtonTitle"];
   v6 = [responseCopy objectForKeyedSubscript:@"okButtonURL"];
   v7 = [responseCopy objectForKeyedSubscript:@"okButtonAction"];
   v8 = [responseCopy objectForKeyedSubscript:@"cancelButtonTitle"];
@@ -1223,11 +1274,11 @@ LABEL_24:
     v14 = objc_alloc_init(FMAlert);
     [v14 setCategory:qword_10006FAF8];
     [v14 setMsgTitle:v5];
-    [v14 setMsgText:v29];
+    [v14 setMsgText:v30];
     [v14 setShowMsgInLockScreen:1];
     [v14 setDismissMsgOnUnlock:0];
     [v14 setDismissMsgOnLock:0];
-    [v14 setDefaultButtonTitle:v28];
+    [v14 setDefaultButtonTitle:v29];
     if (v6)
     {
       v15 = v7 == 0;
@@ -1261,29 +1312,29 @@ LABEL_24:
     if (v7)
     {
       v17 = [(FindBaseServiceProvider *)self alertActionInfoForAction:v7 andURL:v6];
-      v35[0] = _NSConcreteStackBlock;
-      v35[1] = 3221225472;
-      v35[2] = sub_100011A54;
-      v35[3] = &unk_10005D6E0;
-      v36 = v7;
-      v37 = v17;
+      v36[0] = _NSConcreteStackBlock;
+      v36[1] = 3221225472;
+      v36[2] = sub_100011A54;
+      v36[3] = &unk_10005D6E0;
+      v37 = v7;
+      v38 = v17;
       v18 = v17;
-      [v14 setDefaultButtonAction:v35];
+      [v14 setDefaultButtonAction:v36];
     }
 
-    v26 = v8;
+    v27 = v8;
     [v14 setAlternateButtonTitle:v8];
     if (v10)
     {
       v19 = [(FindBaseServiceProvider *)self alertActionInfoForAction:v10 andURL:v9];
-      v32[0] = _NSConcreteStackBlock;
-      v32[1] = 3221225472;
-      v32[2] = sub_100011B0C;
-      v32[3] = &unk_10005D6E0;
-      v33 = v10;
-      v34 = v19;
+      v33[0] = _NSConcreteStackBlock;
+      v33[1] = 3221225472;
+      v33[2] = sub_100011B0C;
+      v33[3] = &unk_10005D6E0;
+      v34 = v10;
+      v35 = v19;
       v20 = v19;
-      [v14 setAlternateButtonAction:v32];
+      [v14 setAlternateButtonAction:v33];
     }
 
     defaultButtonTitle = [v14 defaultButtonTitle];
@@ -1297,11 +1348,11 @@ LABEL_24:
 
       if (!alternateButtonTitle)
       {
-        v25 = sub_100002830();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+        v26 = sub_100002830(v22);
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_INFO, "Received a server alert without an button. Not showing it", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_INFO, "Received a server alert without an button. Not showing it", buf, 2u);
         }
 
         goto LABEL_26;
@@ -1310,33 +1361,33 @@ LABEL_24:
 
     if (v13 <= 0.0)
     {
-      v25 = +[FMAlertManager sharedInstance];
-      [v25 activateAlert:v14];
+      v26 = +[FMAlertManager sharedInstance];
+      [v26 activateAlert:v14];
     }
 
     else
     {
-      v23 = sub_100002830();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+      v24 = sub_100002830(v22);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
       {
         *buf = 134217984;
-        v39 = v13;
-        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_INFO, "Showing alert after %.2f seconds...", buf, 0xCu);
+        v40 = v13;
+        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_INFO, "Showing alert after %.2f seconds...", buf, 0xCu);
       }
 
-      v24 = dispatch_time(0, (v13 * 1000000000.0));
+      v25 = dispatch_time(0, (v13 * 1000000000.0));
       block[0] = _NSConcreteStackBlock;
       block[1] = 3221225472;
       block[2] = sub_100011BC4;
       block[3] = &unk_10005D2B0;
-      v31 = v14;
-      dispatch_after(v24, &_dispatch_main_q, block);
-      v25 = v31;
+      v32 = v14;
+      dispatch_after(v25, &_dispatch_main_q, block);
+      v26 = v32;
     }
 
 LABEL_26:
 
-    v8 = v26;
+    v8 = v27;
   }
 }
 
@@ -1410,7 +1461,7 @@ LABEL_11:
 
 - (void)appInstallStateChanged:(id)changed
 {
-  v4 = sub_10001BB68();
+  v4 = sub_10001BB68(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -1424,98 +1475,104 @@ LABEL_11:
 {
   requestCopy = request;
   allowServerRequests = [(FindBaseServiceProvider *)self allowServerRequests];
+  v32 = allowServerRequests;
   if (allowServerRequests)
   {
     selfCopy = self;
     requestModifierLock = [(FindBaseServiceProvider *)self requestModifierLock];
     [requestModifierLock lock];
 
-    v5 = sub_100002830();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_100002830(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       fm_logID = [(FindBaseServiceProvider *)selfCopy fm_logID];
       fm_logID2 = [requestCopy fm_logID];
       *buf = 138412546;
-      v41 = fm_logID;
-      v42 = 2112;
-      v43 = fm_logID2;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%@ Enqueueing request %@", buf, 0x16u);
+      v44 = fm_logID;
+      v45 = 2112;
+      v46 = fm_logID2;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%@ Enqueueing request %@", buf, 0x16u);
     }
 
     [requestCopy setDelegate:selfCopy];
-    v8 = +[NSMutableArray array];
-    v38 = 0u;
+    v10 = +[NSMutableArray array];
+    v41 = 0u;
+    v42 = 0u;
     v39 = 0u;
-    v36 = 0u;
-    v37 = 0u;
+    v40 = 0u;
     requests = [(FindBaseServiceProvider *)selfCopy requests];
-    v10 = [requests countByEnumeratingWithState:&v36 objects:v47 count:16];
-    if (v10)
+    v12 = [requests countByEnumeratingWithState:&v39 objects:v50 count:16];
+    if (v12)
     {
-      v11 = *v37;
+      v13 = *v40;
       do
       {
-        for (i = 0; i != v10; i = i + 1)
+        for (i = 0; i != v12; i = i + 1)
         {
-          if (*v37 != v11)
+          if (*v40 != v13)
           {
             objc_enumerationMutation(requests);
           }
 
-          v13 = *(*(&v36 + 1) + 8 * i);
-          if ([requestCopy canReplace:v13])
+          v15 = *(*(&v39 + 1) + 8 * i);
+          if ([requestCopy canReplace:v15])
           {
-            [v8 addObject:v13];
+            [v10 addObject:v15];
           }
         }
 
-        v10 = [requests countByEnumeratingWithState:&v36 objects:v47 count:16];
+        v12 = [requests countByEnumeratingWithState:&v39 objects:v50 count:16];
       }
 
-      while (v10);
+      while (v12);
     }
 
-    v34 = 0u;
+    v37 = 0u;
+    v38 = 0u;
     v35 = 0u;
-    v32 = 0u;
-    v33 = 0u;
-    v14 = v8;
-    v15 = [v14 countByEnumeratingWithState:&v32 objects:v46 count:16];
-    if (v15)
+    v36 = 0u;
+    v16 = v10;
+    cancel = [v16 countByEnumeratingWithState:&v35 objects:v49 count:16];
+    v18 = cancel;
+    if (cancel)
     {
-      v16 = *v33;
+      v19 = *v36;
       do
       {
-        for (j = 0; j != v15; j = j + 1)
+        v20 = 0;
+        do
         {
-          if (*v33 != v16)
+          if (*v36 != v19)
           {
-            objc_enumerationMutation(v14);
+            objc_enumerationMutation(v16);
           }
 
-          v18 = *(*(&v32 + 1) + 8 * j);
-          v19 = sub_100002830();
-          if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+          v21 = *(*(&v35 + 1) + 8 * v20);
+          v22 = sub_100002830(cancel);
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
           {
             fm_logID3 = [(FindBaseServiceProvider *)selfCopy fm_logID];
-            fm_logID4 = [v18 fm_logID];
+            fm_logID4 = [v21 fm_logID];
             fm_logID5 = [requestCopy fm_logID];
             *buf = 138412802;
-            v41 = fm_logID3;
-            v42 = 2112;
-            v43 = fm_logID4;
-            v44 = 2112;
-            v45 = fm_logID5;
-            _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, "%@ Discarding %@ because a newer request %@ can replace this one", buf, 0x20u);
+            v44 = fm_logID3;
+            v45 = 2112;
+            v46 = fm_logID4;
+            v47 = 2112;
+            v48 = fm_logID5;
+            _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_INFO, "%@ Discarding %@ because a newer request %@ can replace this one", buf, 0x20u);
           }
 
-          [v18 cancel];
+          cancel = [v21 cancel];
+          v20 = v20 + 1;
         }
 
-        v15 = [v14 countByEnumeratingWithState:&v32 objects:v46 count:16];
+        while (v18 != v20);
+        cancel = [v16 countByEnumeratingWithState:&v35 objects:v49 count:16];
+        v18 = cancel;
       }
 
-      while (v15);
+      while (cancel);
     }
 
     requests2 = [(FindBaseServiceProvider *)selfCopy requests];
@@ -1528,20 +1585,20 @@ LABEL_11:
 
   else
   {
-    v25 = sub_100002830();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+    v28 = sub_100002830(allowServerRequests);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
     {
       fm_logID6 = [(FindBaseServiceProvider *)self fm_logID];
       fm_logID7 = [requestCopy fm_logID];
       *buf = 138412546;
-      v41 = fm_logID6;
-      v42 = 2112;
-      v43 = fm_logID7;
-      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_INFO, "%@: Not sending request %@ to server since the provider is not allowing server requests", buf, 0x16u);
+      v44 = fm_logID6;
+      v45 = 2112;
+      v46 = fm_logID7;
+      _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_INFO, "%@: Not sending request %@ to server since the provider is not allowing server requests", buf, 0x16u);
     }
   }
 
-  return allowServerRequests;
+  return v32;
 }
 
 - (void)didReceiveResponseFor:(id)for
@@ -1560,18 +1617,19 @@ LABEL_11:
     [(FindBaseServiceProvider *)self showAlertFromServerResponse:alertFromServerResponse2];
   }
 
-  if (([forCopy willRetry] & 1) == 0)
+  willRetry = [forCopy willRetry];
+  if ((willRetry & 1) == 0)
   {
-    v7 = sub_100002830();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = sub_100002830(willRetry);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       fm_logID = [(FindBaseServiceProvider *)self fm_logID];
       fm_logID2 = [forCopy fm_logID];
-      v13 = 138412546;
-      v14 = fm_logID;
-      v15 = 2112;
-      v16 = fm_logID2;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "%@ Removing request %@ from the queue as it was completed or it exhausted its retries", &v13, 0x16u);
+      v14 = 138412546;
+      v15 = fm_logID;
+      v16 = 2112;
+      v17 = fm_logID2;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "%@ Removing request %@ from the queue as it was completed or it exhausted its retries", &v14, 0x16u);
     }
 
     requestModifierLock = [(FindBaseServiceProvider *)self requestModifierLock];
@@ -1589,7 +1647,7 @@ LABEL_11:
 - (void)didCancelRequest:(id)request
 {
   requestCopy = request;
-  v5 = sub_100002830();
+  v5 = sub_100002830(requestCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     fm_logID = [(FindBaseServiceProvider *)self fm_logID];

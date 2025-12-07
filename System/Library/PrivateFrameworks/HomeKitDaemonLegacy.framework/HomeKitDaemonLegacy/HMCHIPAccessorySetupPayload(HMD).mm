@@ -29,7 +29,7 @@
   deviceTypeID = [self deviceTypeID];
   [v5 setDeviceTypeID:deviceTypeID];
 
-  v11 = [v5 copy];
+  v11 = objc_msgSend_copy(v5);
 
   return v11;
 }
@@ -59,7 +59,7 @@
   deviceTypeID = [v4 deviceTypeID];
 
   [v8 setDeviceTypeID:deviceTypeID];
-  v14 = [v8 copy];
+  v14 = objc_msgSend_copy(v8);
 
   return v14;
 }

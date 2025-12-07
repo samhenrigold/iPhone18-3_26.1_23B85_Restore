@@ -27,10 +27,10 @@
     }
 
     v6->_selectedButtonIndex = xpc_dictionary_get_int64(v5, "0");
-    objc_opt_class();
-    v8 = SSXPCDictionaryCopyCFObjectWithClass(v5, "1");
+    v8 = objc_opt_class();
+    v9 = SSXPCDictionaryCopyCFObjectWithClass(v5, "1", v8);
     self = v6->_textFieldValues;
-    v6->_textFieldValues = v8;
+    v6->_textFieldValues = v9;
   }
 
   else

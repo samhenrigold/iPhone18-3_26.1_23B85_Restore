@@ -1,6 +1,7 @@
 @interface SBDashBoardCameraPageViewControllerInvertColorsAccessibility
 - (void)_accessibilityLoadInvertColors;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation SBDashBoardCameraPageViewControllerInvertColorsAccessibility
@@ -86,6 +87,14 @@
     v22 = [(SBDashBoardCameraPageViewControllerInvertColorsAccessibility *)self safeValueForKey:@"_tintView"];
     [v22 setBackgroundColor:v14];
   }
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = SBDashBoardCameraPageViewControllerInvertColorsAccessibility;
+  [(SBDashBoardCameraPageViewControllerInvertColorsAccessibility *)&v4 viewWillAppear:appear];
+  [(SBDashBoardCameraPageViewControllerInvertColorsAccessibility *)self _accessibilityLoadInvertColors];
 }
 
 - (void)viewDidLoad

@@ -144,7 +144,7 @@ LABEL_11:
     {
       if (property == 243)
       {
-        shadowColor = [managerCopy shadowColor];
+        v10 = objc_msgSend_shadowColor(managerCopy);
       }
 
       else
@@ -154,7 +154,7 @@ LABEL_11:
           goto LABEL_19;
         }
 
-        shadowColor = [managerCopy fillBgColor];
+        v10 = objc_msgSend_fillBgColor(managerCopy);
       }
 
       goto LABEL_18;
@@ -162,7 +162,7 @@ LABEL_11:
 
     if (property == 246)
     {
-      shadowColor = [managerCopy strokeBgColor];
+      v10 = objc_msgSend_strokeBgColor(managerCopy);
       goto LABEL_18;
     }
 
@@ -174,14 +174,14 @@ LABEL_11:
     if ([managerCopy isFilled])
     {
 LABEL_13:
-      shadowColor = [v8 fillFgColor];
+      v10 = objc_msgSend_fillFgColor(v8);
 LABEL_18:
-      v9 = shadowColor;
+      v9 = v10;
       goto LABEL_19;
     }
 
 LABEL_17:
-    shadowColor = [v8 strokeFgColor];
+    v10 = objc_msgSend_strokeFgColor(v8);
     goto LABEL_18;
   }
 

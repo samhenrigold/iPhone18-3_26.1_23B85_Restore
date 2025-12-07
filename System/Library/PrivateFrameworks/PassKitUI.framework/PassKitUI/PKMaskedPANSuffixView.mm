@@ -23,7 +23,7 @@
   height = fits.height;
   width = fits.width;
   selfCopy = self;
-  sub_1BD74136C(width, height);
+  sub_1BD74136C(selfCopy, width, height);
   v7 = v6;
   v9 = v8;
 
@@ -36,12 +36,12 @@
 
 - (void)layoutSubviews
 {
-  v3.receiver = self;
-  v3.super_class = type metadata accessor for MaskedPANSuffixView();
-  v2 = v3.receiver;
-  [(PKMaskedPANSuffixView *)&v3 layoutSubviews];
+  v7.receiver = self;
+  v7.super_class = type metadata accessor for MaskedPANSuffixView();
+  v2 = v7.receiver;
+  [(PKMaskedPANSuffixView *)&v7 layoutSubviews];
   [v2 bounds];
-  sub_1BD741504(0);
+  sub_1BD741504(0, v3, v4, v5, v6);
 }
 
 - (PKMaskedPANSuffixView)initWithFrame:(CGRect)frame
